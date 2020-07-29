@@ -5,8 +5,6 @@ local LuaPackages = Root.Parent
 local Roact = require(LuaPackages.Roact)
 local Cryo = require(LuaPackages.Cryo)
 
-local GetFFlagAdultConfirmationEnabled = require(Root.Flags.GetFFlagAdultConfirmationEnabled)
-
 local AutoSizedTextLabel = Roact.PureComponent:extend("AutoSizedTextLabel")
 
 function AutoSizedTextLabel:render()
@@ -24,7 +22,7 @@ function AutoSizedTextLabel:render()
 	end
 
 	local height = totalTextSize.Y
-	if GetFFlagAdultConfirmationEnabled() and maxHeight and height > maxHeight then
+	if maxHeight and height > maxHeight then
 		height = maxHeight
 	end
 

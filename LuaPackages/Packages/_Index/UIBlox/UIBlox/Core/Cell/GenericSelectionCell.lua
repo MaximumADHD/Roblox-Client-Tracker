@@ -103,6 +103,13 @@ GenericSelectionCell.validateProps = t.strictInterface({
 
 	-- If this cell is disabled
 	isDisabled = t.optional(t.boolean),
+
+	-- optional parameters for RoactGamepad
+	[Roact.Ref] = t.optional(t.table),
+	NextSelectionLeft = t.optional(t.table),
+	NextSelectionRight = t.optional(t.table),
+	NextSelectionUp = t.optional(t.table),
+	NextSelectionDown = t.optional(t.table),
 })
 
 GenericSelectionCell.defaultProps = {
@@ -146,6 +153,11 @@ function GenericSelectionCell:render()
 			onActivated = self.props.onActivated,
 			dividerStyle = dividerStyle,
 			isDisabled = self.props.isDisabled,
+			[Roact.Ref] = self.props[Roact.Ref],
+			NextSelectionUp = self.props.NextSelectionUp,
+			NextSelectionDown = self.props.NextSelectionDown,
+			NextSelectionLeft = self.props.NextSelectionLeft,
+			NextSelectionRight = self.props.NextSelectionRight,
 			renderRightContent = function()
 				return Roact.createElement("Frame", {
 					BackgroundTransparency = 1,

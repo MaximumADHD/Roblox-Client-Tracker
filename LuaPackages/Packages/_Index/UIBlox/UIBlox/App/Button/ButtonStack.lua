@@ -5,6 +5,7 @@ local Packages = UIBlox.Parent
 
 local Roact = require(Packages.Roact)
 local Cryo = require(Packages.Cryo)
+local RoactGamepad = require(Packages.RoactGamepad)
 
 local AlertButton = require(ButtonRoot.AlertButton)
 local PrimaryContextualButton = require(ButtonRoot.PrimaryContextualButton)
@@ -19,6 +20,7 @@ local FitFrameOnAxis = FitFrame.FitFrameOnAxis
 local ButtonType = require(ButtonRoot.Enum.ButtonType)
 
 local validateButtonStack = require(AppRoot.Button.Validator.validateButtonStack)
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 local BUTTON_HEIGHT = 36
 
@@ -31,6 +33,7 @@ ButtonStack.defaultProps = {
 }
 
 function ButtonStack:init()
+	self.buttonRefs = RoactGamepad.createRefCache()
 	self.ref = Roact.createRef()
 
 	self.state = {
@@ -90,14 +93,36 @@ function ButtonStack:render()
 			}
 			local buttonProps = Cryo.Dictionary.join(newProps, button.props)
 
+			local buttonComponent
 			if button.buttonType == ButtonType.PrimaryContextual then
-				table.insert(buttonTable, Roact.createElement(PrimaryContextualButton, buttonProps))
+				buttonComponent = PrimaryContextualButton
 			elseif button.buttonType == ButtonType.PrimarySystem then
-				table.insert(buttonTable, Roact.createElement(PrimarySystemButton, buttonProps))
+				buttonComponent = PrimarySystemButton
 			elseif button.buttonType == ButtonType.Alert then
-				table.insert(buttonTable, Roact.createElement(AlertButton, buttonProps))
+				buttonComponent = AlertButton
 			else
-				table.insert(buttonTable, Roact.createElement(SecondaryButton, buttonProps))
+				buttonComponent = SecondaryButton
+			end
+
+			if UIBloxConfig.enableExperimentalGamepadSupport then
+				local gamepadFrameProps = {
+					Size = buttonSize,
+					BackgroundTransparency = 1,
+					[Roact.Ref] = self.buttonRefs[colIndex],
+					NextSelectionUp = (isButtonStacked and colIndex > 1) and self.buttonRefs[colIndex - 1] or nil,
+					NextSelectionDown = (isButtonStacked and colIndex < #buttons) and self.buttonRefs[colIndex + 1] or nil,
+					NextSelectionLeft = (not isButtonStacked and colIndex > 1) and self.buttonRefs[colIndex - 1] or nil,
+					NextSelectionRight = (not isButtonStacked and colIndex < #buttons) and self.buttonRefs[colIndex + 1] or nil,
+					inputBindings = {
+						[Enum.KeyCode.ButtonA] = button.props.onActivated,
+					},
+				}
+
+				table.insert(buttonTable, Roact.createElement(RoactGamepad.Focusable.Frame, gamepadFrameProps, {
+					Roact.createElement(buttonComponent, buttonProps)
+				}))
+			else
+				table.insert(buttonTable, Roact.createElement(buttonComponent, buttonProps))
 			end
 		end
 

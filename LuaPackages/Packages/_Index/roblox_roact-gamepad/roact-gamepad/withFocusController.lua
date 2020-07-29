@@ -6,9 +6,7 @@ local Roact = require(Packages.Roact)
 
 local FocusContext = require(script.Parent.FocusContext)
 
-local FocusControllerConsumer = Roact.Component:extend("FocusControllerConsumer")
-
-function FocusControllerConsumer(props)
+local function FocusControllerConsumer(props)
 	return Roact.createElement(FocusContext.Consumer, {
 		render = function(parentFocusNode)
 			local focusController = parentFocusNode.focusController
@@ -18,7 +16,7 @@ function FocusControllerConsumer(props)
 	})
 end
 
-function withFocusController(render)
+local function withFocusController(render)
 	return Roact.createElement(FocusControllerConsumer, {
 		render = render
 	})

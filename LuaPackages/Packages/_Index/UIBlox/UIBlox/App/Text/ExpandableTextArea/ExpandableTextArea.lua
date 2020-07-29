@@ -4,6 +4,7 @@ local App = Text.Parent
 local UIBlox = App.Parent
 local Packages = UIBlox.Parent
 local Roact = require(Packages.Roact)
+local RoactGamepad = require(Packages.RoactGamepad)
 local t = require(Packages.t)
 local withStyle = require(UIBlox.Core.Style.withStyle)
 
@@ -12,6 +13,8 @@ local GetTextHeight = require(UIBlox.Core.Text.GetTextHeight)
 local ImageSetComponent = require(UIBlox.Core.ImageSet.ImageSetComponent)
 local Images = require(UIBlox.App.ImageSet.Images)
 local GenericTextLabel = require(UIBlox.Core.Text.GenericTextLabel.GenericTextLabel)
+local ExpandableTextUtils = require(UIBlox.Core.Text.ExpandableText.ExpandableTextUtils)
+
 
 local UIBloxConfig = require(UIBlox.UIBloxConfig)
 local expandableTextAutomaticResizeConfig = UIBloxConfig.expandableTextAutomaticResizeConfig
@@ -55,7 +58,13 @@ local validateProps = t.strictInterface({
 	LayoutOrder = t.optional(t.number),
 	width = expandableTextAutomaticResizeConfig and t.optional(t.UDim) or t.UDim,
 	padding = t.optional(t.Vector2),
-	onClick = t.optional(t.callback)
+	onClick = t.optional(t.callback),
+
+	NextSelectionUp = t.optional(t.table),
+	NextSelectionDown = t.optional(t.table),
+	NextSelectionLeft = t.optional(t.table),
+	NextSelectionRight = t.optional(t.table),
+	[Roact.Ref] = t.optional(t.table),
 })
 
 function ExpandableTextArea:init()
@@ -82,11 +91,19 @@ function ExpandableTextArea:init()
 	self.isMounted = false
 end
 
+function ExpandableTextArea:getRef()
+	if UIBloxConfig.enableExperimentalGamepadSupport then
+		return self.props[Roact.Ref] or self.ref
+	end
+	return self.ref
+end
+
 function ExpandableTextArea:applyFit(y)
-	if not self.ref.current then
+	local ref = self:getRef()
+	if not ref.current then
 		return
 	end
-	local frame = self.ref.current
+	local frame = ref.current
 	local offset = (y + PADDING_TOP + PADDING_BOTTOM)
 	local width = self.props.width
 	if not expandableTextAutomaticResizeConfig or width then
@@ -117,6 +134,7 @@ function ExpandableTextArea:render()
 	local layoutOrder = self.props.LayoutOrder
 	local width = self.props.width
 	local padding = self.props.padding
+	local ref = self:getRef()
 
 	PADDING_TOP = padding and padding.Y or DEFAULT_PADDING_TOP
 	PADDING_BOTTOM = padding and padding.X or DEFAULT_PADDING_BOTTOM
@@ -125,10 +143,16 @@ function ExpandableTextArea:render()
 		local theme = stylePalette.Theme
 		local font = stylePalette.Font
 		local textSize = font.BaseSize * font.Body.RelativeSize
-		local textFont = font.Body.Font
-		local fullTextHeight = GetTextHeight(descriptionText, textFont, textSize, self.state.frameWidth)
+		local fullTextHeight, compactHeight
+		if UIBloxConfig.enableExperimentalGamepadSupport then
+			fullTextHeight, compactHeight = ExpandableTextUtils.getExpandableTextHeights(
+				font, self.state.frameWidth, descriptionText, compactNumberOfLines)
+		else
+			local textFont = font.Body.Font
+			fullTextHeight = GetTextHeight(descriptionText, textFont, textSize, self.state.frameWidth)
+			compactHeight = compactNumberOfLines * textSize + PATCHED_PADDING
+		end
 
-		local compactHeight = compactNumberOfLines * textSize + PATCHED_PADDING
 		local compactSize = UDim2.new(1, 0, 0, compactHeight + PADDING_BOTTOM)
 		local fullSize = UDim2.new(1, 0, 0, fullTextHeight + PADDING_BOTTOM)
 		local canExpand = fullTextHeight > compactHeight
@@ -137,14 +161,17 @@ function ExpandableTextArea:render()
 		local size = isExpanded and fullSize or compactSize
 		local gradientHeight = isExpanded and 0 or GRADIENT_HEIGHT
 
-		return Roact.createElement("Frame", {
+		local isFocusable = UIBloxConfig.enableExperimentalGamepadSupport and canExpand
+		local frameComponent = isFocusable and RoactGamepad.Focusable.Frame or "Frame"
+
+		return Roact.createElement(frameComponent, {
 			BackgroundTransparency = 1,
 			BorderSizePixel = 0,
 			LayoutOrder = layoutOrder,
 			Position = position,
 			Size = (not expandableTextAutomaticResizeConfig or width) and UDim2.new(width.Scale, width.Offset, 0, 0)
 				or UDim2.new(1, 0, 0, 0),
-			[Roact.Ref] = self.ref,
+			[Roact.Ref] = ref,
 			[Roact.Change.AbsoluteSize] = function(rbx)
 				if self.state.frameWidth ~= rbx.AbsoluteSize.X then
 					-- Wrapped in spawn in order to avoid issues if Roact connects changed signal before the Size
@@ -165,6 +192,14 @@ function ExpandableTextArea:render()
 					end
 				end
 			end,
+
+			NextSelectionUp = self.props.NextSelectionUp,
+			NextSelectionDown = self.props.NextSelectionDown,
+			NextSelectionLeft = self.props.NextSelectionLeft,
+			NextSelectionRight = self.props.NextSelectionRight,
+			inputBindings = isFocusable and {
+				[Enum.KeyCode.ButtonA] = self.onClick,
+			} or nil,
 		}, {
 			Layout = Roact.createElement("UIListLayout", {
 				SortOrder = Enum.SortOrder.LayoutOrder,

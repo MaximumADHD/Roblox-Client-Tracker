@@ -13,7 +13,7 @@ local ButtonType = require(AppRoot.Button.Enum.ButtonType)
 local FullPageModal = require(script.Parent.FullPageModal)
 
 return function()
-    describe("lifecycle", function()
+	describe("lifecycle", function()
 		it("should mount and unmount FullPageModal without issue", function()
 			local element = mockStyleComponent({
 				FullPageModalContainer = Roact.createElement(FullPageModal, {
@@ -52,5 +52,5 @@ return function()
 			local instance = Roact.mount(element)
 			Roact.unmount(instance)
 		end)
-    end)
+	end)
 end

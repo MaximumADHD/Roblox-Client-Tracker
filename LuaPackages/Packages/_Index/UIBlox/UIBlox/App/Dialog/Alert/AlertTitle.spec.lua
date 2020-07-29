@@ -12,7 +12,7 @@ local AlertTitle = require(script.Parent.AlertTitle)
 
 
 return function()
-    describe("lifecycle", function()
+	describe("lifecycle", function()
 		it("should mount and unmount informative alerts without issue", function()
 			local element = mockStyleComponent({
 				Item = Roact.createElement(AlertTitle, {
@@ -24,5 +24,5 @@ return function()
 			local instance = Roact.mount(element)
 			Roact.unmount(instance)
 		end)
-    end)
+	end)
 end

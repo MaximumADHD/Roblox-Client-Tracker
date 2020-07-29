@@ -44,6 +44,16 @@ local isGridViewProps = t.intersection(
 		maxHeight = t.numberMin(0),
 		-- The layout order of the grid.
 		LayoutOrder = t.optional(t.integer),
+
+		-- optional parameters for RoactGamepad
+		NextSelectionLeft = t.optional(t.table),
+		NextSelectionRight = t.optional(t.table),
+		NextSelectionUp = t.optional(t.table),
+		NextSelectionDown = t.optional(t.table),
+		[Roact.Ref] = t.optional(t.table),
+
+		-- which selection will initally be selected (if using roact-gamepad)
+		defaultChildIndex = t.optional(t.numberMin(1)),
 	}),
 	validateWindowHeight
 )
@@ -99,6 +109,15 @@ function DefaultMetricsGridView:render()
 		itemPadding = self.props.itemPadding,
 		items = self.props.items,
 		LayoutOrder = self.props.LayoutOrder,
+
+		NextSelectionLeft = self.props.NextSelectionLeft,
+		NextSelectionRight = self.props.NextSelectionRight,
+		NextSelectionUp = self.props.NextSelectionUp,
+		NextSelectionDown = self.props.NextSelectionDown,
+		[Roact.Ref] = self.props[Roact.Ref],
+
+		defaultChildIndex = self.props.defaultChildIndex,
+
 		onWidthChanged = function(newWidth)
 			if self.isMounted then
 				self:setState({

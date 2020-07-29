@@ -14,6 +14,7 @@ return function()
 	local Thunk = require(Root.Thunk)
 
 	local GetFFlagAdultConfirmationEnabled = require(Root.Flags.GetFFlagAdultConfirmationEnabled)
+	local GetFFlagAdultConfirmationEnabledNew = require(Root.Flags.GetFFlagAdultConfirmationEnabledNew)
 
 	local launchRobuxUpsell = require(script.Parent.launchRobuxUpsell)
 
@@ -42,6 +43,31 @@ return function()
 			expect(state.promptState).to.equal(PromptState.UpsellInProgress)
 		end
 	end)
+
+	if GetFFlagAdultConfirmationEnabledNew() then
+		it("should show adult legal text if under 13", function()
+			local store = Rodux.Store.new(Reducer, {
+				accountInfo = {
+					AgeBracket = 1,
+				},
+				promptState = PromptState.PromptPurchase,
+			})
+
+			local thunk = launchRobuxUpsell()
+			local analytics = MockAnalytics.new()
+			local platformInterface = MockPlatformInterface.new()
+
+			Thunk.test(thunk, store, {
+				[Analytics] = analytics.mockService,
+				[PlatformInterface] = platformInterface.mockService,
+			})
+
+			local state = store:getState()
+
+			expect(analytics.spies.signalAdultLegalTextShown.callCount).to.equal(1)
+			expect(state.promptState).to.equal(PromptState.AdultConfirmation)
+		end)
+	end
 
 	if GetFFlagAdultConfirmationEnabled() then
 		it("should show adult legal text if under 13 and part of ab test", function()

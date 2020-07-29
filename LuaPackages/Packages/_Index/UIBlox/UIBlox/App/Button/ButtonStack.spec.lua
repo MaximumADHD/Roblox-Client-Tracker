@@ -21,7 +21,7 @@ local DEFAULT_REQUIRED_PROPS = {
 }
 
 return function()
-    describe("lifecycle", function()
+	describe("lifecycle", function()
 		it("should mount and unmount button stacks without issue", function()
 			local tree = mockStyleComponent(
 				Roact.createElement(ButtonStack, DEFAULT_REQUIRED_PROPS)
@@ -29,5 +29,5 @@ return function()
 			local handle = Roact.mount(tree)
 			Roact.unmount(handle)
 		end)
-    end)
+	end)
 end

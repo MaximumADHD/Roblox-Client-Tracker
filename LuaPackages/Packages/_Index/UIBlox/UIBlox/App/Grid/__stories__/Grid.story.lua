@@ -3,9 +3,13 @@ local AppRoot = GridRoot.Parent
 local UIBloxRoot = AppRoot.Parent
 local Packages = UIBloxRoot.Parent
 local Roact = require(Packages.Roact)
+local UIBloxConfig = require(UIBloxRoot.UIBloxConfig)
+local RoactGamepad = require(Packages.RoactGamepad)
 
 local DefaultMetricsGridView = require(GridRoot.DefaultMetricsGridView)
 local GridMetrics = require(GridRoot.GridMetrics)
+
+local InputManager = require(Packages.StoryComponents.InputManager)
 
 local DemoComponent = Roact.PureComponent:extend("DemoComponent")
 
@@ -16,6 +20,10 @@ function DemoComponent:init()
 		windowSize = Vector2.new(0, 0),
 		metrics = GridMetrics.getSmallMetrics,
 	}
+
+	if UIBloxConfig.enableExperimentalGamepadSupport then
+		self.focusController = RoactGamepad.createFocusController()
+	end
 end
 
 function DemoComponent:updateWindowSize()
@@ -66,10 +74,16 @@ function DemoComponent:render()
 		})
 	end
 
-	return Roact.createElement("Frame", {
+	return Roact.createElement(UIBloxConfig.enableExperimentalGamepadSupport and
+		RoactGamepad.Focusable.Frame or "Frame", {
 		Size = UDim2.new(1, 0, 1, 0),
 		BackgroundTransparency = 1,
+
+		focusController = UIBloxConfig.enableExperimentalGamepadSupport and self.focusController or nil,
 	}, {
+		InputManager = UIBloxConfig.enableExperimentalGamepadSupport and Roact.createElement(InputManager, {
+			focusController = self.focusController,
+		}),
 		MetricsSelector = Roact.createElement("Frame", {
 			Size = UDim2.new(1, 0, 0, 30),
 			BackgroundTransparency = 1,
@@ -101,6 +115,8 @@ function DemoComponent:render()
 				windowHeight = self.state.windowSize.Y,
 				itemPadding = Vector2.new(12, 12),
 				items = items,
+
+				defaultChildIndex = UIBloxConfig.enableExperimentalGamepadSupport and 1 or nil,
 			})
 		})
 	})

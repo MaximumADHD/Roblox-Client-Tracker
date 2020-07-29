@@ -2,6 +2,8 @@ local GridRoot = script.Parent
 local AppRoot = GridRoot.Parent
 local UIBloxRoot = AppRoot.Parent
 local Packages = UIBloxRoot.Parent
+local UIBloxConfig = require(UIBloxRoot.UIBloxConfig)
+local RoactGamepad = require(Packages.RoactGamepad)
 
 local Roact = require(Packages.Roact)
 local t = require(Packages.t)
@@ -31,6 +33,16 @@ local validateProps = t.strictInterface({
 	-- Called when the grid view measures a change in its width. Used in
 	-- DefaultMetricsGridView to resize the grid cells.
 	onWidthChanged = t.optional(t.callback),
+
+	-- optional parameters for RoactGamepad
+	NextSelectionLeft = t.optional(t.table),
+	NextSelectionRight = t.optional(t.table),
+	NextSelectionUp = t.optional(t.table),
+	NextSelectionDown = t.optional(t.table),
+	[Roact.Ref] = t.optional(t.table),
+
+	-- which selection will initally be selected (if using roact-gamepad
+	defaultChildIndex = t.optional(t.numberMin(1)),
 })
 
 local GridView = Roact.PureComponent:extend("GridView")
@@ -47,6 +59,8 @@ function GridView:init()
 		containerWidth = 0,
 		containerYPosition = 0,
 	}
+
+	self.focusableRefs = RoactGamepad.createRefCache()
 end
 
 function GridView:render()
@@ -59,10 +73,12 @@ function GridView:render()
 	local maxHeight = self.props.maxHeight
 	local containerWidth = self.state.containerWidth
 	local containerYOffset = self.state.containerYPosition
+	local defaultChildIndex = self.props.defaultChildIndex
 	local startIndex = 1
 	local endIndex = itemCount
 	local gridChildren = {}
 	local x, y = 0, 0
+	local maxPossibleVisibleItems = itemCount
 
 	local itemsPerRow = math.floor((containerWidth + itemPadding.X) / (itemSize.X + itemPadding.X))
 	local totalRows = math.ceil(itemCount / itemsPerRow)
@@ -71,27 +87,67 @@ function GridView:render()
 	local containerHeight = displayedRows * itemSize.Y + math.max(displayedRows - 1, 0) * itemPadding.Y
 
 	if self.props.windowHeight ~= nil then
-		-- Add one to ensure that when you scroll you don't see items "pop" into existence with windowing.
-		local visibleRows = math.floor((self.props.windowHeight + itemPadding.Y) / (itemSize.Y + itemPadding.Y)) + 1
-		local startingRow = math.floor((containerYOffset + itemPadding.Y) / (itemSize.Y + itemPadding.Y))
-		local endingRow = math.min(displayedRows, startingRow + visibleRows)
+		if UIBloxConfig.enableExperimentalGamepadSupport then
+			--ensure that when you scroll you don't see items "pop" into existence at the bottom
+			local padRows = 2
+			local visibleRows = math.floor((self.props.windowHeight + itemPadding.Y) / (itemSize.Y + itemPadding.Y)) + padRows
+			local startingRow = math.floor((containerYOffset + itemPadding.Y) / (itemSize.Y + itemPadding.Y))
+			local finalPadRows = 1
+			local endingRow = math.min(displayedRows, startingRow + visibleRows) + finalPadRows
 
-		startIndex = math.max(1, startingRow * itemsPerRow + 1)
-		endIndex = math.min(itemCount, endingRow * itemsPerRow + itemsPerRow)
-		y = startingRow * itemSize.Y + startingRow * itemPadding.Y
+			startIndex = math.max(1, startingRow * itemsPerRow + 1)
+			endIndex = math.min(itemCount, endingRow * itemsPerRow)
+			y = startingRow * itemSize.Y + startingRow * itemPadding.Y
+
+			local maxPossibleRowsDisplayed = math.min(maximumRenderableRows, visibleRows) + finalPadRows
+			maxPossibleVisibleItems = math.abs(maxPossibleRowsDisplayed * itemsPerRow)
+		else
+			-- Add one to ensure that when you scroll you don't see items "pop" into existence with windowing.
+			local visibleRows = math.floor((self.props.windowHeight + itemPadding.Y) / (itemSize.Y + itemPadding.Y)) + 1
+			local startingRow = math.floor((containerYOffset + itemPadding.Y) / (itemSize.Y + itemPadding.Y))
+			local endingRow = math.min(displayedRows, startingRow + visibleRows)
+
+			startIndex = math.max(1, startingRow * itemsPerRow + 1)
+			endIndex = math.min(itemCount, endingRow * itemsPerRow + itemsPerRow)
+			y = startingRow * itemSize.Y + startingRow * itemPadding.Y
+		end
 	end
 
-	local visibleItems = math.abs(startIndex - endIndex) + 1
+	-- using maxPossibleVisibleItems means the amount of render keys will not change between renders (assuming
+	-- positioning/size props don't change) this is important to ensure gamepad selection stability
+	local maxRenderKey = UIBloxConfig.enableExperimentalGamepadSupport and
+		maxPossibleVisibleItems or math.abs(startIndex - endIndex) + 1
+
+	local function calculateRenderKey(index)
+		return index % maxRenderKey
+	end
+
+	local function getItemIndexRef(inputRow, inputCol)
+		local isRowAndColInRange = inputRow > 0 and inputCol > 0 and inputCol <= itemsPerRow
+		local index = 1 + (((inputRow-1)*itemsPerRow) + (inputCol-1))
+		local isIndexInRange = index >= startIndex and index <= endIndex
+		return isIndexInRange and isRowAndColInRange and self.focusableRefs[calculateRenderKey(index)] or nil
+	end
 
 	-- If the item height is already greater than the maximum size we shouldn't
 	-- render _anything_
 	if containerHeight < maxHeight then
 		for itemIndex = startIndex, endIndex do
-			local renderKey = itemIndex % visibleItems
-			gridChildren[renderKey] = Roact.createElement("Frame", {
+			local renderKey = calculateRenderKey(itemIndex)
+
+			local currentRow = 1 + (math.floor((itemIndex - 1) / itemsPerRow))
+			local currentCol = 1 + ((itemIndex - 1) % itemsPerRow)
+			gridChildren[renderKey] = Roact.createElement(UIBloxConfig.enableExperimentalGamepadSupport and
+				RoactGamepad.Focusable.Frame or "Frame", {
 				BackgroundTransparency = 1,
 				Position = UDim2.new(0, x, 0, y),
 				Size = UDim2.new(0, itemSize.X, 0, itemSize.Y),
+
+				NextSelectionLeft = getItemIndexRef(currentRow, currentCol-1),
+				NextSelectionRight = getItemIndexRef(currentRow, currentCol+1),
+				NextSelectionUp = getItemIndexRef(currentRow-1, currentCol),
+				NextSelectionDown = getItemIndexRef(currentRow+1, currentCol),
+				[Roact.Ref] = getItemIndexRef(currentRow, currentCol),
 			}, {
 				Content = self.props.renderItem(items[itemIndex], itemIndex)
 			})
@@ -108,7 +164,8 @@ function GridView:render()
 		end
 	end
 
-	return Roact.createElement("Frame", {
+	return Roact.createElement(UIBloxConfig.enableExperimentalGamepadSupport and
+		RoactGamepad.Focusable.Frame or "Frame", {
 		BackgroundTransparency = 1,
 		LayoutOrder = self.props.LayoutOrder,
 		Size = UDim2.new(1, 0, 0, containerHeight),
@@ -135,22 +192,31 @@ function GridView:render()
 			end)
 		end,
 
-		[Roact.Ref] = self.frameRef,
+		NextSelectionLeft = self.props.NextSelectionLeft,
+		NextSelectionRight = self.props.NextSelectionRight,
+		NextSelectionUp = self.props.NextSelectionUp,
+		NextSelectionDown = self.props.NextSelectionDown,
+
+		defaultChild = (UIBloxConfig.enableExperimentalGamepadSupport and defaultChildIndex) and
+			self.focusableRefs[defaultChildIndex] or nil,
+		[Roact.Ref] = UIBloxConfig.enableExperimentalGamepadSupport and self.props[Roact.Ref] or self.frameRef,
 	}, gridChildren)
 end
 
 function GridView:didMount()
 	self.isMounted = true
 
-	if self.frameRef.current and self.frameRef.current.AbsoluteSize.X ~= 0 then
+	local ref = UIBloxConfig.enableExperimentalGamepadSupport and self.props[Roact.Ref] or self.frameRef
+
+	if ref.current and ref.current.AbsoluteSize.X ~= 0 then
 		self:setState({
-			containerWidth = self.frameRef.current.AbsoluteSize.X,
+			containerWidth = ref.current.AbsoluteSize.X,
 		})
 
 		if self.props.onWidthChanged ~= nil then
 			delay(0, function()
-				if self.frameRef.current then
-					self.props.onWidthChanged(self.frameRef.current.AbsoluteSize.X)
+				if ref.current then
+					self.props.onWidthChanged(ref.current.AbsoluteSize.X)
 				end
 			end)
 		end

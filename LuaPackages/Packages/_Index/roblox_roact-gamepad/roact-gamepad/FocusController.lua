@@ -64,13 +64,8 @@ function FocusControllerInternal:setSelection(ref)
 end
 
 function FocusControllerInternal:registerNode(parentNode, refKey, node)
-	local shouldRefocus = false
 	if parentNode ~= nil then
 		debugPrint("[TREE ] Registering child node", refKey)
-
-		if self:isNodeFocused(parentNode) and Cryo.isEmpty(self:getChildren(parentNode)) then
-			shouldRefocus = true
-		end
 
 		local parentEntry = self.focusNodeTree[parentNode] or {}
 		parentEntry[refKey] = node
@@ -81,11 +76,6 @@ function FocusControllerInternal:registerNode(parentNode, refKey, node)
 	end
 
 	self.allNodes[refKey] = node
-
-	if shouldRefocus then
-		debugPrint("[FOCUS] Currently-focused node is no longer a leaf; refocusing", refKey)
-		parentNode:focus()
-	end
 end
 
 function FocusControllerInternal:deregisterNode(parentNode, refKey)
@@ -94,15 +84,50 @@ function FocusControllerInternal:deregisterNode(parentNode, refKey)
 		self.focusNodeTree[parentNode][refKey] = nil
 	end
 
-	local nodeToRemove = self.allNodes[refKey]
 	self.allNodes[refKey] = nil
+end
 
-	if self:isNodeFocused(nodeToRemove) then
-		debugPrint("[FOCUS] Focused node is being removed; refocusing from parent")
-		-- If this node is being removed, move the focus up to the parent
-		if parentNode ~= nil then
-			parentNode:focus()
+function FocusControllerInternal:descendantRemovedRefocus()
+	-- If focusedLeaf is nil, then we've lost focus altogether, which likely
+	-- means that focus belongs to a different focusable tree. Since that's out
+	-- of our control, we can stop here.
+	if self.focusedLeaf == nil then
+		return
+	end
+
+	-- If the currently focused leaf has a nil ref, then its associated host
+	-- component has unmounted and we need to refocus.
+	if self.focusedLeaf.ref:getValue() == nil then
+		debugPrint("[FOCUS] Focused node was removed; refocusing from nearest existing ancestor")
+
+		-- Climb up the focusedLeaf's ancestry until we find a node that still
+		-- exists; if we do find one, focus it
+		local ancestorNode = self.focusedLeaf.parent
+		while ancestorNode ~= nil and self.allNodes[ancestorNode.ref] == nil do
+			ancestorNode = ancestorNode.Parent
 		end
+
+		if ancestorNode ~= nil then
+			ancestorNode:focus()
+		end
+	end
+end
+
+function FocusControllerInternal:descendantAddedRefocus()
+	-- If focusedLeaf is nil, then we've lost focus altogether, which likely
+	-- means that focus belongs to a different focusable tree. Since that's out
+	-- of our control, we can stop here.
+	if self.focusedLeaf == nil then
+		return
+	end
+
+	-- If the current focusedLeaf has children, then descendants must have been
+	-- added to it, and we should re-run its focus logic.
+	if not Cryo.isEmpty(self:getChildren(self.focusedLeaf)) then
+		-- A new descendant was introduced, which means that we need to refocus
+		-- the current leaf
+		debugPrint("[FOCUS] Currently-focused node is no longer a leaf; refocusing", self.focusedLeaf.ref)
+		self.focusedLeaf:focus()
 	end
 end
 
@@ -131,6 +156,24 @@ function FocusControllerInternal:isNodeFocused(node)
 	end
 
 	return false
+end
+
+-- Prints a human-readable version of the node tree.
+function FocusControllerInternal:debugPrintTree()
+	local function recursePrintTree(node, indent)
+		-- Print the current node
+		debugPrint(indent, tostring(node.ref))
+
+		-- Recurse through children
+		local children = self:getChildren(node)
+		for _, childNode in pairs(children) do
+			recursePrintTree(childNode, indent .. "	")
+		end
+	end
+
+	debugPrint("Printing Focus Node Tree:")
+	local rootNode = self.allNodes[self.rootRef]
+	recursePrintTree(rootNode, "")
 end
 
 function FocusControllerInternal:initialize(engineInterface)
@@ -213,6 +256,12 @@ function FocusControllerInternal:captureFocus()
 	end
 end
 
+function FocusControllerInternal:releaseFocus()
+	if self.engineInterface ~= nil then
+		self.engineInterface.setSelection(nil)
+	end
+end
+
 function FocusControllerInternal:teardown()
 	if self.guiServiceConnection ~= nil then
 		self.guiServiceConnection:Disconnect()
@@ -258,6 +307,9 @@ function FocusControllerInternal.createPublicApiWrapper()
 		end,
 		captureFocus = function()
 			focusControllerInternal:captureFocus()
+		end,
+		releaseFocus = function()
+			focusControllerInternal:releaseFocus()
 		end,
 	}
 end

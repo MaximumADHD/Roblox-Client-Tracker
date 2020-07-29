@@ -4,8 +4,6 @@ return function()
 	local LuaPackages = Root.Parent
 	local Roact = require(LuaPackages.Roact)
 
-	local GetFFlagAdultConfirmationEnabled = require(Root.Flags.GetFFlagAdultConfirmationEnabled)
-
 	local AutoSizedTextLabel = require(script.Parent.AutoSizedTextLabel)
 
 	it("should create and destroy without errors", function()
@@ -30,21 +28,19 @@ return function()
 		expect(Roact.mount(element)).to.be.ok()
 	end)
 
-	if GetFFlagAdultConfirmationEnabled() then
-		it("should clamp its height if maxHeight was provided", function()
-			local element = Roact.createElement(AutoSizedTextLabel, {
-				Text = "Really long text that should get to a height larger than 1 line!",
-				TextSize = 10,
-				Font = Enum.Font.SourceSans,
-				width = 100,
-				maxHeight = 2,
-			})
+	it("should clamp its height if maxHeight was provided", function()
+		local element = Roact.createElement(AutoSizedTextLabel, {
+			Text = "Really long text that should get to a height larger than 1 line!",
+			TextSize = 10,
+			Font = Enum.Font.SourceSans,
+			width = 100,
+			maxHeight = 2,
+		})
 
-			local folder = Instance.new("Frame")
-			Roact.mount(element, folder)
-			local textLabel = folder:FindFirstChildWhichIsA("GuiObject")
+		local folder = Instance.new("Frame")
+		Roact.mount(element, folder)
+		local textLabel = folder:FindFirstChildWhichIsA("GuiObject")
 
-			expect(textLabel.Size.Y.Offset).to.equal(2)
-		end)
-	end
+		expect(textLabel.Size.Y.Offset).to.equal(2)
+	end)
 end

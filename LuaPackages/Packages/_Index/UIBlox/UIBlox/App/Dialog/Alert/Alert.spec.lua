@@ -23,17 +23,17 @@ local function mountAlert(props)
 	if props then
 		combinedProps = Cryo.Dictionary.join(DEFAULT_REQUIRED_PROPS, props)
 	end
-    local tree = mockStyleComponent(
+	local tree = mockStyleComponent(
 		Roact.createElement(Alert, combinedProps)
 	)
-    local handle = Roact.mount(tree)
-    return tree, function()
-        Roact.unmount(handle)
-    end
+	local handle = Roact.mount(tree)
+	return tree, function()
+		Roact.unmount(handle)
+	end
 end
 
 return function()
-    describe("lifecycle", function()
+	describe("lifecycle", function()
 		it("should mount and unmount informative alerts without issue", function()
 			local _, cleanup = mountAlert({
 				alertType = AlertType.Informative,
@@ -41,7 +41,7 @@ return function()
 			cleanup()
 		end)
 
-        it("should mount and unmount interactive alerts without issue", function()
+		it("should mount and unmount interactive alerts without issue", function()
 			local _, cleanup = mountAlert({
 				alertType = AlertType.Interactive,
 				buttonStackInfo = {
@@ -56,6 +56,6 @@ return function()
 				},
 			})
 			cleanup()
-        end)
-    end)
+		end)
+	end)
 end

@@ -32,8 +32,8 @@ EducationalModal.validateProps = t.strictInterface({
 	})),
 	cancelText = t.string,
 	confirmText = t.string,
-    titleText = t.string,
-    titleBackgroundImageProps = t.strictInterface({
+	titleText = t.string,
+	titleBackgroundImageProps = t.strictInterface({
 		image = t.string,
 		imageHeight = t.number,
 	}),
@@ -73,6 +73,7 @@ local function ContentItem(props)
 				BackgroundTransparency = 1,
 				Size = UDim2.fromOffset(32, 32),
 				Image = "rbxasset://textures/ui/TopBar/iconBase.png",
+				LayoutOrder = 1,
 			}, {
 				Icon = Roact.createElement(ImageSetLabel, {
 					ZIndex = 1,
@@ -88,6 +89,7 @@ local function ContentItem(props)
 				ImageColor3 = theme.IconDefault.Color,
 				ImageTransparency = theme.IconDefault.Transparency,
 				BackgroundTransparency = 1,
+				LayoutOrder = 1,
 			}),
 			Roact.createElement(GenericTextLabel, {
 				Size = UDim2.new(1, 0, 0, totalTextSize.Y),
@@ -99,6 +101,7 @@ local function ContentItem(props)
 				fontStyle = font.Body,
 				TextXAlignment = Enum.TextXAlignment.Left,
 				TextWrapped = true,
+				LayoutOrder = 2,
 			}),
 		})
 	end)

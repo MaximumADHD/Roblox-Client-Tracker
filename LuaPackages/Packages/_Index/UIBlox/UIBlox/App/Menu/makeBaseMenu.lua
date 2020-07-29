@@ -5,6 +5,7 @@ local App = Menu.Parent
 local UIBlox = App.Parent
 local Packages = UIBlox.Parent
 
+local RoactGamepad = require(Packages.RoactGamepad)
 local Roact = require(Packages.Roact)
 local Cryo = require(Packages.Cryo)
 local t = require(Packages.t)
@@ -12,6 +13,7 @@ local withStyle = require(UIBlox.Core.Style.withStyle)
 local validateButtonProps = require(script.Parent.validateButtonProps)
 
 local Images = require(Packages.UIBlox.App.ImageSet.Images)
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 local MENU_BACKGROUND_ASSET = Images["component_assets/circle_17"]
 
@@ -40,6 +42,12 @@ local function makeBaseMenu(cellComponent, backgroundThemeKey)
 		position = UDim2.new(0, 0, 0, 0),
 	}
 
+	function baseMenuComponent:init()
+		if UIBloxConfig.enableExperimentalGamepadSupport then
+			self.gamepadRefs = RoactGamepad.createRefCache()
+		end
+	end
+
 	function baseMenuComponent:render()
 		local menuHeight = #self.props.buttonProps * ELEMENT_HEIGHT
 		local needsScrollbar = false
@@ -58,7 +66,24 @@ local function makeBaseMenu(cellComponent, backgroundThemeKey)
 				layoutOrder = index,
 			})
 
-			children["cell " .. index] = Roact.createElement(cellComponent, mergedProps)
+			if UIBloxConfig.enableExperimentalGamepadSupport then
+				children["cell " .. index] = Roact.createElement(RoactGamepad.Focusable.Frame, {
+					Size = UDim2.new(self.props.width, UDim.new(0, ELEMENT_HEIGHT)),
+					BackgroundTransparency = 1,
+					LayoutOrder = index,
+
+					[Roact.Ref] = self.gamepadRefs[index],
+					NextSelectionUp = index > 1 and self.gamepadRefs[index - 1] or nil,
+					NextSelectionDown = index < #self.props.buttonProps and self.gamepadRefs[index + 1] or nil,
+					inputBindings = {
+						[Enum.KeyCode.ButtonA] = cellProps.onActivated,
+					},
+				}, {
+					Cell = Roact.createElement(cellComponent, mergedProps)
+				})
+			else
+				children["cell " .. index] = Roact.createElement(cellComponent, mergedProps)
+			end
 		end
 
 		children.layout = Roact.createElement("UIListLayout", {

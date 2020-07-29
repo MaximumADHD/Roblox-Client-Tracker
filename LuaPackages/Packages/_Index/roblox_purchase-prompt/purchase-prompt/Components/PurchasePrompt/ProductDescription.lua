@@ -11,14 +11,11 @@ local LocalizationService = require(Root.Localization.LocalizationService)
 local TextLocalizer = require(script.Parent.Parent.Connection.TextLocalizer)
 local AutoSizedTextLabel = require(script.Parent.AutoSizedTextLabel)
 local Price = require(script.Parent.Price)
-local PriceDeprecated = require(script.Parent.PriceDeprecated)
 
 local withLayoutValues = require(script.Parent.Parent.Connection.withLayoutValues)
 
 local getPlayerPrice = require(Root.Utils.getPlayerPrice)
 local connectToStore = require(Root.connectToStore)
-
-local GetFFlagAdultConfirmationEnabled = require(Root.Flags.GetFFlagAdultConfirmationEnabled)
 
 local PURCHASE_MESSAGE_KEY = "CoreScripts.PurchasePrompt.PurchaseMessage.%s"
 
@@ -72,12 +69,9 @@ local function ProductDescription(props)
 					})
 				end,
 			}),
-			Price = (GetFFlagAdultConfirmationEnabled() and showPrice) and Roact.createElement(Price, {
+			Price = showPrice and Roact.createElement(Price, {
 				layoutOrder = 2,
 				price = price,
-			}) or nil,
-			PriceDeprecated = not GetFFlagAdultConfirmationEnabled() and Roact.createElement(PriceDeprecated, {
-				layoutOrder = 2,
 			}) or nil,
 		})
 	end)

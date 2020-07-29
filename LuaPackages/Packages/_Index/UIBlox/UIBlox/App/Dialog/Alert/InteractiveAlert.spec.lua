@@ -9,10 +9,10 @@ return function()
 
 	local mockStyleComponent = require(UIBlox.Utility.mockStyleComponent)
 
-    local InteractiveAlert = require(AlertRoot.InteractiveAlert)
+	local InteractiveAlert = require(AlertRoot.InteractiveAlert)
 
-    describe("lifecycle", function()
-        it("should mount and unmount without issue", function()
+	describe("lifecycle", function()
+		it("should mount and unmount without issue", function()
 			local element = mockStyleComponent({
 				Item = Roact.createElement(InteractiveAlert, {
 					buttonStackInfo = {
@@ -32,5 +32,5 @@ return function()
 			local instance = Roact.mount(element)
 			Roact.unmount(instance)
 		end)
-    end)
+	end)
 end

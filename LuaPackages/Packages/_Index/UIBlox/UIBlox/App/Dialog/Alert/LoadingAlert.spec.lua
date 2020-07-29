@@ -9,10 +9,10 @@ return function()
 
 	local mockStyleComponent = require(UIBlox.Utility.mockStyleComponent)
 
-    local LoadingAlert = require(AlertRoot.LoadingAlert)
+	local LoadingAlert = require(AlertRoot.LoadingAlert)
 
-    describe("lifecycle", function()
-        it("should mount and unmount without issue", function()
+	describe("lifecycle", function()
+		it("should mount and unmount without issue", function()
 			local element = mockStyleComponent({
 				Item = Roact.createElement(LoadingAlert, {
 					screenSize = Vector2.new(100, 100),
@@ -23,5 +23,5 @@ return function()
 			local instance = Roact.mount(element)
 			Roact.unmount(instance)
 		end)
-    end)
+	end)
 end

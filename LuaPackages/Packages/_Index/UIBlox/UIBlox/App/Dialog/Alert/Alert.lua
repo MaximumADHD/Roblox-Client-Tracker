@@ -74,8 +74,8 @@ end
 
 function Alert:didMount()
 	if self.props.onMounted then
-        self.props.onMounted()
-    end
+		self.props.onMounted()
+	end
 end
 
 function Alert:render()

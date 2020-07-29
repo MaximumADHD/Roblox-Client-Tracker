@@ -7,6 +7,46 @@ return function()
 	local getStatus = require(script.Parent.getStatus)(options)
 	local reducer = installReducer()
 
+	describe("GIVEN an action with no id", function()
+		local initialAction = {
+			type = buildActionName(options),
+			ids = {},
+			keymapper = function() return "key" end,
+			status = "test",
+		}
+
+		it("SHOULD return a new UnorderedMap with the key mapped properly", function()
+			local result = reducer(nil, initialAction)
+
+			expect(result).to.be.ok()
+			expect(result:get("key")).to.equal("test")
+		end)
+
+		describe("GIVEN another action that rewrites the previous key", function()
+			local overwriteAction = {
+				type = buildActionName(options),
+				ids = {},
+				keymapper = function() return "key" end,
+				status = "next-best-thing",
+			}
+
+			it("SHOULD update the key accordingly", function()
+				local result = reducer(reducer(nil, initialAction), overwriteAction)
+
+				expect(result).to.be.ok()
+				expect(result:get("key")).to.equal("next-best-thing")
+			end)
+		end)
+
+		it("SHOULD be retrievable with getStatus", function()
+			local state = {
+				networkStatus = reducer(nil, initialAction),
+			}
+			local result = getStatus(state, "key")
+			expect(result).to.equal("test")
+		end)
+	end)
+
 	describe("GIVEN an action with one id", function()
 		local initialAction = {
 			type = buildActionName(options),

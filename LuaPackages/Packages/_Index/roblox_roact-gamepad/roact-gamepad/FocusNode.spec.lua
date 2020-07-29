@@ -39,7 +39,8 @@ return function()
 			local _, engineInterface = MockEngine.new()
 
 			local focusNode = createRootNode(rootRef)
-			focusNode:initializeRoot(engineInterface)
+			local focusController = focusNode.focusController[InternalApi]
+			focusController:initialize(engineInterface)
 
 			focusNode:focus()
 			expect(engineInterface.getSelection()).to.equal(rootRef:getValue())
@@ -52,7 +53,8 @@ return function()
 			local parentNode = createRootNode(rootRef)
 			local _, childRef = addChildNode(parentNode)
 
-			parentNode:initializeRoot(engineInterface)
+			local focusController = parentNode.focusController[InternalApi]
+			focusController:initialize(engineInterface)
 
 			parentNode:focus()
 			expect(engineInterface.getSelection()).to.equal(childRef:getValue())
@@ -65,7 +67,8 @@ return function()
 			local parentNode = createRootNode(rootRef)
 			local _, childRef = addChildNode(parentNode)
 
-			parentNode:initializeRoot(engineInterface)
+			local focusController = parentNode.focusController[InternalApi]
+			focusController:initialize(engineInterface)
 
 			mockEngine:simulateSelectionChanged(rootRef:getValue())
 			expect(engineInterface.getSelection()).to.equal(childRef:getValue())
@@ -83,7 +86,7 @@ return function()
 			parentNode.defaultChildRef = childRefB
 
 			local focusController = parentNode.focusController[InternalApi]
-			parentNode:initializeRoot(engineInterface)
+			focusController:initialize(engineInterface)
 
 			parentNode:focus()
 			expect(focusController:isNodeFocused(childNodeB)).to.equal(true)
@@ -103,7 +106,7 @@ return function()
 			parentNode.restorePreviousChildFocus = true
 
 			local focusController = parentNode.focusController[InternalApi]
-			parentNode:initializeRoot(engineInterface)
+			focusController:initialize(engineInterface)
 
 			childNodeA:focus()
 			parentNode:focus()
@@ -126,7 +129,7 @@ return function()
 			parentNode.restorePreviousChildFocus = true
 
 			local focusController = parentNode.focusController[InternalApi]
-			parentNode:initializeRoot(engineInterface)
+			focusController:initialize(engineInterface)
 
 			parentNode:focus()
 			expect(focusController:isNodeFocused(childNodeC)).to.equal(true)
@@ -158,7 +161,8 @@ return function()
 			local _, engineInterface = MockEngine.new()
 
 			local parentNode = createRootNode(rootRef)
-			parentNode:initializeRoot(engineInterface)
+			local focusController = parentNode.focusController[InternalApi]
+			focusController:initialize(engineInterface)
 
 			local childNode1, childRef1 = addChildNode(parentNode)
 			childRef1:getValue().LayoutOrder = 1
@@ -168,7 +172,6 @@ return function()
 			childRef3:getValue().LayoutOrder = 3
 
 			parentNode:focus()
-			local focusController = parentNode.focusController[InternalApi]
 			expect(focusController:isNodeFocused(childNode1)).to.equal(true)
 		end)
 
@@ -184,7 +187,8 @@ return function()
 			local _, engineInterface = MockEngine.new()
 
 			local parentNode = createRootNode(rootRef)
-			parentNode:initializeRoot(engineInterface)
+			local focusController = parentNode.focusController[InternalApi]
+			focusController:initialize(engineInterface)
 
 			local childNode1, childRef1 = addChildNode(parentNode)
 			insertAncestor(childRef1:getValue())
@@ -197,7 +201,6 @@ return function()
 			childRef3:getValue().Parent.LayoutOrder = 3
 
 			parentNode:focus()
-			local focusController = parentNode.focusController[InternalApi]
 			expect(focusController:isNodeFocused(childNode1)).to.equal(true)
 		end)
 
@@ -206,7 +209,8 @@ return function()
 			local _, engineInterface = MockEngine.new()
 
 			local parentNode = createRootNode(rootRef)
-			parentNode:initializeRoot(engineInterface)
+			local focusController = parentNode.focusController[InternalApi]
+			focusController:initialize(engineInterface)
 
 			-- Insert an intermediate frame with LayoutOrder = 1; we want to
 			-- make sure not to traverse back up to this and choose the wrong
@@ -223,7 +227,6 @@ return function()
 			childRef3:getValue().LayoutOrder = 4
 
 			parentNode:focus()
-			local focusController = parentNode.focusController[InternalApi]
 			expect(focusController:isNodeFocused(childNode1)).to.equal(true)
 		end)
 
@@ -232,7 +235,8 @@ return function()
 			local _, engineInterface = MockEngine.new()
 
 			local parentNode = createRootNode(rootRef)
-			parentNode:initializeRoot(engineInterface)
+			local focusController = parentNode.focusController[InternalApi]
+			focusController:initialize(engineInterface)
 
 			-- Insert an intermediate frame with LayoutOrder = 1; we want to
 			-- make sure not to traverse back up to this and choose the wrong
@@ -252,7 +256,6 @@ return function()
 				parentNode:focus()
 			end).never.to.throw()
 
-			local focusController = parentNode.focusController[InternalApi]
 			expect(focusController:isNodeFocused(childNode1)).to.equal(true)
 		end)
 	end)

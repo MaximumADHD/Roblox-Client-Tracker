@@ -11,7 +11,7 @@ local mockStyleComponent = require(UIBlox.Utility.mockStyleComponent)
 local ModalTitle = require(script.Parent.ModalTitle)
 
 return function()
-    describe("lifecycle", function()
+	describe("lifecycle", function()
 		it("should mount and unmount ModalTitle without issue", function()
 			local element = mockStyleComponent({
 				ModalTitleContainer = Roact.createElement(ModalTitle, {
@@ -47,5 +47,5 @@ return function()
 				Roact.mount(element)
 			end).to.throw()
 		end)
-    end)
+	end)
 end

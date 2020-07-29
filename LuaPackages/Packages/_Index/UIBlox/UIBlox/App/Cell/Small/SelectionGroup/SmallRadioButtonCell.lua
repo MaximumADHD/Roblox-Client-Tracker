@@ -37,6 +37,13 @@ SmallRadioButtonCell.validateProps = t.strictInterface({
 
 	-- The LayoutOrder.
 	layoutOrder = t.optional(t.number),
+
+	-- optional parameters for RoactGamepad
+	[Roact.Ref] = t.optional(t.table),
+	NextSelectionLeft = t.optional(t.table),
+	NextSelectionRight = t.optional(t.table),
+	NextSelectionUp = t.optional(t.table),
+	NextSelectionDown = t.optional(t.table),
 })
 
 SmallRadioButtonCell.defaultProps = {
@@ -68,6 +75,12 @@ function SmallRadioButtonCell:render()
 			selectedImageSize = SELECTED_IMAGE_SIZE,
 			text = self.props.text,
 			onActivated = self.onSetValue,
+
+			[Roact.Ref] = self.props[Roact.Ref],
+			NextSelectionUp = self.props.NextSelectionUp,
+			NextSelectionDown = self.props.NextSelectionDown,
+			NextSelectionLeft = self.props.NextSelectionLeft,
+			NextSelectionRight = self.props.NextSelectionRight,
 		}),
 	})
 end

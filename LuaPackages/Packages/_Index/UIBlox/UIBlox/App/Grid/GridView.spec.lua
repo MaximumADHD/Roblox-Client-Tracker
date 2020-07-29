@@ -2,8 +2,10 @@ local GridRoot = script.Parent
 local AppRoot = GridRoot.Parent
 local UIBloxRoot = AppRoot.Parent
 local Packages = UIBloxRoot.Parent
+local UIBloxConfig = require(UIBloxRoot.UIBloxConfig)
 
 local Roact = require(Packages.Roact)
+local Cryo = require(Packages.Cryo)
 
 local GridView = require(GridRoot.GridView)
 
@@ -176,6 +178,13 @@ return function()
 			{ relativePosition = Vector2.new(53, 135), content = "8" },
 		}
 
+		if UIBloxConfig.enableExperimentalGamepadSupport then
+			initialSnapshot = Cryo.List.join(initialSnapshot, {
+				{ relativePosition = Vector2.new(0, 180), content = "9" },
+				{ relativePosition = Vector2.new(53, 180), content = "10" },
+			})
+		end
+
 		-- snapshotGridItems(grid)
 		validateSnapshot(grid, initialSnapshot)
 
@@ -197,6 +206,13 @@ return function()
 			{ relativePosition = Vector2.new(0, 360), content = "17" },
 			{ relativePosition = Vector2.new(53, 360), content = "18" },
 		}
+
+		if UIBloxConfig.enableExperimentalGamepadSupport then
+			afterMoveSnapshot = Cryo.List.join(afterMoveSnapshot, {
+				{ relativePosition = Vector2.new(0, 405), content = "19" },
+				{ relativePosition = Vector2.new(53, 405), content = "20" },
+			})
+		end
 
 		wait()
 

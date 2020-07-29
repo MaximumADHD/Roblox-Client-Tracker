@@ -11,6 +11,8 @@ local forwardRef = require(script.Parent.forwardRef)
 local FocusNode = require(script.Parent.FocusNode)
 local getEngineInterface = require(script.Parent.getEngineInterface)
 
+local InternalApi = require(script.Parent.FocusControllerInternalApi)
+
 local nonHostProps = {
 	parentFocusNode = Cryo.None,
 	focusController = Cryo.None,
@@ -71,15 +73,47 @@ local function asFocusable(innerComponent)
 		self.focused = false
 		self.focusNode = FocusNode.new(self.props)
 
-		local isRooted = false
-		-- If this Focusable needs to behave as a root, it is responsible for
-		-- initializing the FocusManager. Once it becomes a descendant of
-		-- `game`, we initialize the FocusManager which determines which sort of
-		-- PlayerGui this focus tree is contained under
-		self.rootAncestryChanged = function(instance)
-			if not isRooted and instance:IsDescendantOf(game) then
-				isRooted = true
-				self.focusNode:initializeRoot(getEngineInterface(instance))
+		if self:isRoot() then
+			local isRooted = false
+			-- If this Focusable needs to behave as a root, it is responsible for
+			-- initializing the FocusManager. Once it becomes a descendant of
+			-- `game`, we initialize the FocusManager which determines which sort of
+			-- PlayerGui this focus tree is contained under
+			self.ancestryChanged = function(instance)
+				if not isRooted and instance:IsDescendantOf(game) then
+					isRooted = true
+					self:getFocusControllerInternal():initialize(getEngineInterface(instance))
+				end
+			end
+
+			-- This function is called separately, since we don't want to falsely
+			-- trigger an existing callback in props when we call
+			-- `ancestryChanged` in didMount
+			self.ancestryChangedListener = function(instance)
+				self.ancestryChanged(instance)
+
+				local existingCallback = self.props[Roact.Event.AncestryChanged]
+				if existingCallback ~= nil then
+					existingCallback(instance)
+				end
+			end
+
+			self.refreshFocusOnDescendantAdded = function(descendant)
+				self:getFocusControllerInternal():descendantAddedRefocus()
+
+				local existingCallback = self.props[Roact.Event.DescendantAdded]
+				if existingCallback ~= nil then
+					existingCallback(descendant)
+				end
+			end
+
+			self.refreshFocusOnDescendantRemoved = function(descendant)
+				self:getFocusControllerInternal():descendantRemovedRefocus()
+
+				local existingCallback = self.props[Roact.Event.DescendantRemoving]
+				if existingCallback ~= nil then
+					existingCallback(descendant)
+				end
 			end
 		end
 	end
@@ -108,11 +142,15 @@ local function asFocusable(innerComponent)
 		end
 	end
 
-	-- For internal use. Determines whether or not this Focusable is supposed to
-	-- be the root of a focusable tree, determined by whether or not it has
-	-- parent or focus props provided
+	-- Determines whether or not this Focusable is supposed to be the root of a
+	-- focusable tree, determined by whether or not it has parent or focus props
+	-- provided
 	function Focusable:isRoot()
 		return self.props.focusController ~= nil and self.props.parentFocusNode == nil
+	end
+
+	function Focusable:getFocusControllerInternal()
+		return self.focusNode.focusController[InternalApi]
 	end
 
 	function Focusable:render()
@@ -126,39 +164,44 @@ local function asFocusable(innerComponent)
 			[Roact.Ref] = ref,
 		}
 
-		local contextNavProps
+		local innerProps
 		if self:isRoot() then
-			local existingAncestryChangedEvent = self.props[Roact.Event.AncestryChanged]
-			contextNavProps = {
-				[Roact.Event.AncestryChanged] = function(instance)
-					self.rootAncestryChanged(instance)
-
-					if existingAncestryChangedEvent ~= nil then
-						existingAncestryChangedEvent(instance)
-					end
-				end
+			local rootNavProps = {
+				[Roact.Event.AncestryChanged] = self.ancestryChangedListener,
+				[Roact.Event.DescendantAdded] = self.refreshFocusOnDescendantAdded,
+				[Roact.Event.DescendantRemoving] = self.refreshFocusOnDescendantRemoved,
 			}
+
+			innerProps = Cryo.Dictionary.join(
+				childDefaultNavProps,
+				self.props,
+				rootNavProps,
+				nonHostProps
+			)
 		else
-			contextNavProps = {
+			local parentNavProps = {
 				NextSelectionLeft = self.props.parentFocusNode.left,
 				NextSelectionRight = self.props.parentFocusNode.right,
 				NextSelectionDown = self.props.parentFocusNode.down,
 				NextSelectionUp = self.props.parentFocusNode.up,
 			}
+
+			innerProps = Cryo.Dictionary.join(
+				childDefaultNavProps,
+				parentNavProps,
+				self.props,
+				nonHostProps
+			)
 		end
 
-		local innerProps = Cryo.Dictionary.join(
-			childDefaultNavProps,
-			contextNavProps,
-			self.props,
-			nonHostProps
-		)
 
+		-- We pass the inner component as a single child (instead of part of a
+		-- table of children) because it causes Roact to reuse the key provided
+		-- to _this_ component when naming the resulting object. This means that
+		-- Focusable avoids disrupting the naming of the Instance hierarchy
 		return Roact.createElement(FocusContext.Provider, {
 			value = self.focusNode,
-		}, {
-			[componentName] = Roact.createElement(innerComponent, innerProps)
-		})
+		}, Roact.createElement(innerComponent, innerProps))
 	end
 
 	function Focusable:didUpdate(prevProps)
@@ -178,7 +221,7 @@ local function asFocusable(innerComponent)
 		if self:isRoot() then
 			-- Ancestry change may not trigger if the UI elements we're mounting
 			-- to were previously mounted to the DataModel already
-			self.rootAncestryChanged(self.props[Roact.Ref]:getValue())
+			self.ancestryChanged(self.props[Roact.Ref]:getValue())
 		end
 	end
 
@@ -186,7 +229,7 @@ local function asFocusable(innerComponent)
 		self.focusNode:detachFromTree()
 
 		if self:isRoot() then
-			self.focusNode:teardownRoot()
+			self:getFocusControllerInternal():teardown()
 		end
 	end
 

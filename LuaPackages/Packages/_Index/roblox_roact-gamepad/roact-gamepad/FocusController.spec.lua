@@ -60,7 +60,7 @@ return function()
 
 			expect(selectionChangeSpy.callCount).to.equal(0)
 
-			focusNode:initializeRoot(engineInterface)
+			focusController:initialize(engineInterface)
 			mockEngine:simulateSelectionChanged(ref:getValue())
 			expect(selectionChangeSpy.callCount).to.equal(1)
 		end)
@@ -73,7 +73,7 @@ return function()
 
 			local _, engineInterface = MockEngine.new()
 			local focusController = focusNode.focusController[InternalApi]
-			focusNode:initializeRoot(engineInterface)
+			focusController:initialize(engineInterface)
 
 			expect(focusController:isNodeFocused(focusNode)).to.equal(false)
 			focusNode:focus()
@@ -87,7 +87,7 @@ return function()
 
 			local _, engineInterface = MockEngine.new()
 			local focusController = parentNode.focusController[InternalApi]
-			parentNode:initializeRoot(engineInterface)
+			focusController:initialize(engineInterface)
 
 			expect(focusController:isNodeFocused(parentNode)).to.equal(false)
 			expect(focusController:isNodeFocused(childNode)).to.equal(false)
@@ -105,7 +105,7 @@ return function()
 
 			local _, engineInterface = MockEngine.new()
 			local focusController = parentNode.focusController[InternalApi]
-			parentNode:initializeRoot(engineInterface)
+			focusController:initialize(engineInterface)
 			childNodeA:focus()
 
 			expect(focusController:isNodeFocused(childNodeA)).to.equal(true)
@@ -125,7 +125,7 @@ return function()
 
 			local mockEngine, engineInterface = MockEngine.new()
 			local focusController = parentNode.focusController[InternalApi]
-			parentNode:initializeRoot(engineInterface)
+			focusController:initialize(engineInterface)
 			childNodeA:focus()
 
 			expect(focusController:isNodeFocused(childNodeA)).to.equal(true)
@@ -137,7 +137,7 @@ return function()
 		end)
 	end)
 
-	describe("Initial focus", function()
+	describe("Tree-level focus management", function()
 		it("should not automatically capture focus", function()
 			local rootRef, _ = Roact.createBinding(Instance.new("Frame"))
 			local parentNode = createRootNode(rootRef)
@@ -151,7 +151,8 @@ return function()
 			local parentNode = createRootNode(rootRef)
 
 			local _, engineInterface = MockEngine.new()
-			parentNode:initializeRoot(engineInterface)
+			local focusController = parentNode.focusController[InternalApi]
+			focusController:initialize(engineInterface)
 
 			parentNode.focusController.captureFocus()
 			local focusControllerInternal = parentNode.focusController[InternalApi]
@@ -168,10 +169,25 @@ return function()
 			-- simulates scenarios in which a component wants to captureFocus on
 			-- didMount, but is not yet parented to the DataModel
 			parentNode.focusController.captureFocus()
-			parentNode:initializeRoot(engineInterface)
-
 			local focusControllerInternal = parentNode.focusController[InternalApi]
+			focusControllerInternal:initialize(engineInterface)
+
 			expect(focusControllerInternal:isNodeFocused(parentNode)).to.equal(true)
+		end)
+
+		it("should set selection to nil when focus is released", function()
+			local rootRef, _ = Roact.createBinding(Instance.new("Frame"))
+			local parentNode = createRootNode(rootRef)
+
+			local _, engineInterface = MockEngine.new()
+			local focusController = parentNode.focusController[InternalApi]
+			focusController:initialize(engineInterface)
+
+			parentNode.focusController.captureFocus()
+			expect(engineInterface.getSelection()).to.equal(rootRef:getValue())
+
+			parentNode.focusController.releaseFocus()
+			expect(engineInterface.getSelection()).to.equal(nil)
 		end)
 	end)
 
@@ -192,7 +208,8 @@ return function()
 			}
 
 			local mockEngine, engineInterface = MockEngine.new()
-			parentNode:initializeRoot(engineInterface)
+			local focusControllerInternal = parentNode.focusController[InternalApi]
+			focusControllerInternal:initialize(engineInterface)
 			expect(callbackSpyA.callCount).to.equal(0)
 			expect(callbackSpyB.callCount).to.equal(0)
 
@@ -226,7 +243,8 @@ return function()
 			}
 
 			local mockEngine, engineInterface = MockEngine.new()
-			parentNode:initializeRoot(engineInterface)
+			local focusControllerInternal = parentNode.focusController[InternalApi]
+			focusControllerInternal:initialize(engineInterface)
 			expect(callbackSpyParent.callCount).to.equal(0)
 			expect(callbackSpyChild.callCount).to.equal(0)
 
@@ -241,90 +259,6 @@ return function()
 			mockEngine:simulateInput(Enum.KeyCode.ButtonX)
 			expect(callbackSpyParent.callCount).to.equal(1)
 			expect(callbackSpyChild.callCount).to.equal(1)
-		end)
-	end)
-
-	describe("Refocusing", function()
-		it("Should redirect focus to the parent when a focused child is detached", function()
-			local rootRef, _ = Roact.createBinding(Instance.new("Frame"))
-			local parentNode = createRootNode(rootRef)
-
-			local childNodeA, _ = addChildNode(parentNode)
-
-			local _, engineInterface = MockEngine.new()
-			parentNode:initializeRoot(engineInterface)
-
-			local focusController = parentNode.focusController[InternalApi]
-
-			-- First, we initialize focus to A
-			childNodeA:focus()
-			expect(focusController:isNodeFocused(childNodeA)).to.equal(true)
-
-			-- When A is removed, focus should move to the parent and be
-			-- redirected to B
-			childNodeA:detachFromTree()
-			expect(focusController:isNodeFocused(parentNode)).to.equal(true)
-		end)
-
-		it("Should trigger parent focus logic when a focused child is detached", function()
-			local rootRef, _ = Roact.createBinding(Instance.new("Frame"))
-			local parentNode = createRootNode(rootRef)
-
-			local childNodeA, _ = addChildNode(parentNode)
-			local childNodeB, _ = addChildNode(parentNode)
-
-			local _, engineInterface = MockEngine.new()
-			parentNode:initializeRoot(engineInterface)
-
-			local focusController = parentNode.focusController[InternalApi]
-
-			-- First, we initialize focus to A
-			childNodeA:focus()
-			expect(focusController:isNodeFocused(childNodeA)).to.equal(true)
-
-			-- When A is removed, focus should move to the parent and be
-			-- redirected to B (its only remaining child)
-			childNodeA:detachFromTree()
-			expect(focusController:isNodeFocused(childNodeB)).to.equal(true)
-		end)
-
-		it("Should trigger parent focus logic when a node has children added to it", function()
-			local rootRef, _ = Roact.createBinding(Instance.new("Frame"))
-			local parentNode = createRootNode(rootRef)
-
-			local _, engineInterface = MockEngine.new()
-			parentNode:initializeRoot(engineInterface)
-
-			local focusController = parentNode.focusController[InternalApi]
-
-			-- First, we initialize focus to the parent node
-			parentNode:focus()
-			expect(focusController:isNodeFocused(parentNode)).to.equal(true)
-
-			-- When A is added to the hierarchy, it should capture focus from
-			-- the parent (which is no longer a leaf of the focus tree)
-			local childNodeA, _ = addChildNode(parentNode)
-			expect(focusController:isNodeFocused(childNodeA)).to.equal(true)
-		end)
-
-
-		it("Should not refocus when adding children to a parent that already has at least one child", function()
-			local rootRef, _ = Roact.createBinding(Instance.new("Frame"))
-			local parentNode = createRootNode(rootRef)
-
-			local childNodeA, _ = addChildNode(parentNode)
-			local _, engineInterface = MockEngine.new()
-			parentNode:initializeRoot(engineInterface)
-
-			local focusController = parentNode.focusController[InternalApi]
-
-			-- First, we initialize focus to the parent node
-			parentNode:focus()
-			expect(focusController:isNodeFocused(parentNode)).to.equal(true)
-
-			-- When A is added to the hierarchy, it should capture focus from
-			-- the parent (which is no longer a leaf of the focus tree)
-			expect(focusController:isNodeFocused(childNodeA)).to.equal(true)
 		end)
 	end)
 end

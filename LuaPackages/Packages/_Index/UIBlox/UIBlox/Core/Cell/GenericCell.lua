@@ -64,6 +64,13 @@ GenericCell.validateProps = t.strictInterface({
 
 	-- Divider style.
 	dividerStyle = t.table,
+
+	-- optional parameters for RoactGamepad
+	[Roact.Ref] = t.optional(t.table),
+	NextSelectionLeft = t.optional(t.table),
+	NextSelectionRight = t.optional(t.table),
+	NextSelectionUp = t.optional(t.table),
+	NextSelectionDown = t.optional(t.table),
 })
 
 GenericCell.defaultProps = {
@@ -87,6 +94,11 @@ function GenericCell:render()
 			BorderSizePixel = 0,
 			AutoButtonColor = false,
 			[Roact.Event.Activated] = (not self.props.isDisabled) and self.props.onActivated,
+			[Roact.Ref] = self.props[Roact.Ref],
+			NextSelectionUp = self.props.NextSelectionUp,
+			NextSelectionDown = self.props.NextSelectionDown,
+			NextSelectionLeft = self.props.NextSelectionLeft,
+			NextSelectionRight = self.props.NextSelectionRight,
 			isDisabled = self.props.isDisabled,
 			onStateChanged = self.props.onStateChanged,
 		}, {

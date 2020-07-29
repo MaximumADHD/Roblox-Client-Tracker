@@ -31,7 +31,7 @@ function FocusNode.new(navProps)
 		ref = navProps[Roact.Ref],
 
 		defaultChildRef = navProps.defaultChild,
-		restorePreviousChildFocus = navProps.restorePreviousChildFocus,
+		restorePreviousChildFocus = restorePreviousChildFocus,
 		inputBindings = navProps.inputBindings or {},
 
 		left = navProps.NextSelectionLeft,
@@ -158,22 +158,11 @@ end
 function FocusNode:detachFromTree()
 	local focusController = self:__getFocusControllerInternal()
 	focusController:deregisterNode(self.parent, self.ref)
-	self.parent = nil
 
 	if self.disconnectSelectionListener ~= nil then
 		self.disconnectSelectionListener()
 		self.disconnectSelectionListener = nil
 	end
-end
-
-function FocusNode:initializeRoot(engineInterface)
-	local focusController = self:__getFocusControllerInternal()
-	focusController:initialize(engineInterface)
-end
-
-function FocusNode:teardownRoot(engineInterface)
-	local focusController = self:__getFocusControllerInternal()
-	focusController:teardown()
 end
 
 return FocusNode
