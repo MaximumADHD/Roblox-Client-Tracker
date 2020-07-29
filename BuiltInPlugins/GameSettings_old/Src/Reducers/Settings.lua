@@ -68,479 +68,239 @@ local function getTableValue(table, tableName, tableKey, valueKey)
 	return nil
 end
 
-if game:GetFastFlag("StudioGameSettingsResetStoreAction2") then
-	-- TODO In the future this should be a constant but we don't have enough testing against this file
-	-- and it's extremely easy for someone to directly modify the store and dirty the default
-	local function getDefaultState()
-		return {
-			Current = {},
-			Changed = {},
-			Errors = {},
-			Warnings = {},
-		}
-	end
+-- TODO In the future this should be a constant but we don't have enough testing against this file
+-- and it's extremely easy for someone to directly modify the store and dirty the default
+local function getDefaultState()
+	return {
+		Current = {},
+		Changed = {},
+		Errors = {},
+		Warnings = {},
+	}
+end
 
-	return Rodux.createReducer(getDefaultState(), {
-		ResetStore = function(state, action)
-			return getDefaultState()
-		end,
+return Rodux.createReducer(getDefaultState(), {
+	ResetStore = function(state, action)
+		return getDefaultState()
+	end,
 
-		AddChange = function(state, action)
-			local newValue = action.value
-			if state.Current[action.setting] == newValue then
+	AddChange = function(state, action)
+		local newValue = action.value
+		if state.Current[action.setting] == newValue then
+			newValue = Cryo.None
+		elseif type(newValue) == "table" then
+			local isEqual = equalityCheckFunctions[action.setting] or isEqualCheck
+			if isEqual(state.Current[action.setting], newValue) then
 				newValue = Cryo.None
-			elseif type(newValue) == "table" then
-				local isEqual = equalityCheckFunctions[action.setting] or isEqualCheck
-				if isEqual(state.Current[action.setting], newValue) then
-					newValue = Cryo.None
-				end
 			end
-
-			return Cryo.Dictionary.join(state, {
-				Changed = Cryo.Dictionary.join(state.Changed, {
-					[action.setting] = newValue,
-				}),
-				Errors = Cryo.Dictionary.join(state.Errors, {
-					[action.setting] = Cryo.None,
-				}),
-			})
-		end,
-
-		AddTableChange = DFFlagDeveloperSubscriptionsEnabled and function(state, action)
-			local newValue = action.value
-
-			local currValue = getTableValue(state.Current, action.tableName, action.tableKey)
-			if currValue == newValue then
-				newValue = Cryo.None
-			elseif type(newValue) == "table" then
-				if isEqualCheck(currValue, newValue) then
-					newValue = Cryo.None
-				end
-			end
-
-			local changed = {
-				[action.tableName] = {
-					[action.tableKey] = newValue
-				}
-			}
-
-			local errors = nil
-			if getTableValue(state.Errors, action.tableName, action.tableKey) ~= nil then
-				errors = {
-					[action.tableName] = {
-						[action.tableKey] = Cryo.None
-					}
-				}
-			end
-
-			return Cryo.Dictionary.join(state, {
-				Changed = DeepMergeTables.Merge(state.Changed, changed) or {},
-				Errors = DeepMergeTables.Merge(state.Errors, errors) or {},
-			})
-		end or nil,
-
-		AddTableKeyChange = DFFlagDeveloperSubscriptionsEnabled and function(state, action)
-			local newValue = action.value
-
-			local currValue = getTableValue(state.Current, action.tableName, action.tableKey, action.valueKey)
-			if currValue == newValue then
-				newValue = Cryo.None
-			elseif type(newValue) == "table" then
-				if isEqualCheck(currValue, newValue) then
-					newValue = Cryo.None
-				end
-			end
-
-			local changed = {
-				[action.tableName] = {
-					[action.tableKey] = {
-						[action.valueKey] = newValue
-					}
-				}
-			}
-
-			local errors = nil
-			if getTableValue(state.Errors, action.tableName, action.tableKey, action.valueKey) ~= nil then
-				errors = {
-					[action.tableName] = {
-						[action.tableKey] = {
-							[action.valueKey] = Cryo.None
-						}
-					}
-				}
-			end
-
-			return Cryo.Dictionary.join(state, {
-				Changed = DeepMergeTables.Merge(state.Changed, changed) or {},
-				Errors = DeepMergeTables.Merge(state.Errors, errors) or {},
-			})
-		end or nil,
-
-		AddErrors = function(state, action)
-			return Cryo.Dictionary.join(state, {
-				Errors = Cryo.Dictionary.join(state.Errors, action.errors)
-			})
-		end,
-
-		DiscardError = function(state, action)
-			return Cryo.Dictionary.join(state, {
-				Errors = Cryo.Dictionary.join(state.Errors, {
-					[action.error] = Cryo.None,
-				}),
-			})
-		end,
-
-		AddTableKeyErrors = DFFlagDeveloperSubscriptionsEnabled and function(state, action)
-			return Cryo.Dictionary.join(state, {
-				Errors = DeepMergeTables.Merge(state.Errors, {
-					[action.tableName] = {
-						[action.tableKey] = {
-							[action.valueKey] = action.errors
-						}
-					}
-				}) or {},
-			})
-		end or nil,
-
-		DiscardChanges = function(state, action)
-			return Cryo.Dictionary.join(state, {
-				Changed = {},
-			})
-		end,
-
-		DiscardErrors = function(state, action)
-			return Cryo.Dictionary.join(state, {
-				Errors = {},
-				Warnings = {},
-			})
-		end,
-
-		DiscardTableErrors = DFFlagDeveloperSubscriptionsEnabled and function(state, action)
-			return Cryo.Dictionary.join(state, {
-				Errors = DeepMergeTables.Merge(state.Errors, {
-					[action.tableName] = {
-						[action.tableKey] = Cryo.None,
-					},
-				}) or {},
-			})
-		end or nil,
-
-		DiscardTableKeyErrors = DFFlagDeveloperSubscriptionsEnabled and function(state, action)
-			return Cryo.Dictionary.join(state, {
-				Errors = DeepMergeTables.Merge(state.Errors, {
-					[action.tableName] = {
-						[action.tableKey] = {
-							[action.valueKey] = Cryo.None,
-						},
-					},
-				}) or {},
-			})
-		end or nil,
-
-		DiscardTableChanges = DFFlagDeveloperSubscriptionsEnabled and function(state, action)
-			local changed = {
-				[action.tableName] = {
-					[action.tableKey] = Cryo.None,
-				},
-			}
-
-			local errors = nil
-			if getTableValue(state.Errors, action.tableName, action.tableKey) ~= nil then
-				errors = {
-					[action.tableName] = {
-						[action.tableKey] = Cryo.None,
-					},
-				}
-			end
-
-			return Cryo.Dictionary.join(state, {
-				Changed = DeepMergeTables.Merge(state.Changed, changed) or {},
-				Errors = DeepMergeTables.Merge(state.Errors, errors) or {},
-			})
-		end or nil,
-
-		DiscardTableKeyChanges = DFFlagDeveloperSubscriptionsEnabled and function(state, action)
-			local changed = {
-				[action.tableName] = {
-					[action.tableKey] = {
-						[action.valueKey] = Cryo.None,
-					},
-				},
-			}
-
-			local errors = nil
-			if getTableValue(state.Errors, action.tableName, action.tableKey, action.valueKey) ~= nil then
-				errors = {
-					[action.tableName] = {
-						[action.tableKey] = {
-							[action.valueKey] = Cryo.None
-						}
-					}
-				}
-			end
-
-			return Cryo.Dictionary.join(state, {
-				Changed = DeepMergeTables.Merge(state.Changed, changed) or {},
-				Errors = DeepMergeTables.Merge(state.Errors, errors) or {},
-			})
-		end or nil,
-
-		SetCurrentSettings = function(state, action)
-			return Cryo.Dictionary.join(state, {
-				Current = action.settings,
-			})
-		end,
-
-		AddWarning = function(state, action)
-			if not Cryo.List.find(state.Warnings, action.key) then
-				return Cryo.Dictionary.join(state, {
-					Warnings = Cryo.List.join(state.Warnings, {action.key})
-				})
-			end
-		end,
-
-		DiscardWarning = function(state, action)
-			return Cryo.Dictionary.join(state, {
-				Warnings = Cryo.List.removeValue(state.Warnings, action.key)
-			})
-		end,
-	})
-else
-	local SetCurrentSettings = require(Plugin.Src.Actions.SetCurrentSettings)
-	local AddChange = require(Plugin.Src.Actions.AddChange)
-	local AddErrors = require(Plugin.Src.Actions.AddErrors)
-	local DiscardChanges = require(Plugin.Src.Actions.DiscardChanges)
-	local DiscardError = require(Plugin.Src.Actions.DiscardError)
-	local DiscardErrors = require(Plugin.Src.Actions.DiscardErrors)
-
-	local AddTableChange = require(Plugin.Src.Actions.AddTableChange)
-	local DiscardTableChanges = require(Plugin.Src.Actions.DiscardTableChanges)
-	local DiscardTableErrors = require(Plugin.Src.Actions.DiscardTableErrors)
-
-	local AddTableKeyChange = require(Plugin.Src.Actions.AddTableKeyChange)
-	local AddTableKeyErrors = require(Plugin.Src.Actions.AddTableKeyErrors)
-	local DiscardTableKeyChanges = require(Plugin.Src.Actions.DiscardTableKeyChanges)
-	local DiscardTableKeyErrors = require(Plugin.Src.Actions.DiscardTableKeyErrors)
-
-	local AddWarning = require(Plugin.Src.Actions.AddWarning)
-	local DiscardWarning = require(Plugin.Src.Actions.DiscardWarning)
-
-	local function Settings(state, action)
-		state = state or {
-			Current = {},
-			Changed = {},
-			Errors = {},
-			Warnings = {},
-		}
-
-		if action.type == AddChange.name then
-			local newValue = action.value
-			if state.Current[action.setting] == newValue then
-				newValue = Cryo.None
-			elseif type(newValue) == "table" then
-				local isEqual = equalityCheckFunctions[action.setting] or isEqualCheck
-				if isEqual(state.Current[action.setting], newValue) then
-					newValue = Cryo.None
-				end
-			end
-
-			return Cryo.Dictionary.join(state, {
-				Changed = Cryo.Dictionary.join(state.Changed, {
-					[action.setting] = newValue,
-				}),
-				Errors = Cryo.Dictionary.join(state.Errors, {
-					[action.setting] = Cryo.None,
-				}),
-			})
-
-		elseif DFFlagDeveloperSubscriptionsEnabled and action.type == AddTableChange.name then
-			local newValue = action.value
-
-			local currValue = getTableValue(state.Current, action.tableName, action.tableKey)
-			if currValue == newValue then
-				newValue = Cryo.None
-			elseif type(newValue) == "table" then
-				if isEqualCheck(currValue, newValue) then
-					newValue = Cryo.None
-				end
-			end
-
-			local changed = {
-				[action.tableName] = {
-					[action.tableKey] = newValue
-				}
-			}
-
-			local errors = nil
-			if getTableValue(state.Errors, action.tableName, action.tableKey) ~= nil then
-				errors = {
-					[action.tableName] = {
-						[action.tableKey] = Cryo.None
-					}
-				}
-			end
-
-			return Cryo.Dictionary.join(state, {
-				Changed = DeepMergeTables.Merge(state.Changed, changed) or {},
-				Errors = DeepMergeTables.Merge(state.Errors, errors) or {},
-			})
-
-		elseif DFFlagDeveloperSubscriptionsEnabled and action.type == AddTableKeyChange.name then
-			local newValue = action.value
-
-			local currValue = getTableValue(state.Current, action.tableName, action.tableKey, action.valueKey)
-			if currValue == newValue then
-				newValue = Cryo.None
-			elseif type(newValue) == "table" then
-				if isEqualCheck(currValue, newValue) then
-					newValue = Cryo.None
-				end
-			end
-
-			local changed = {
-				[action.tableName] = {
-					[action.tableKey] = {
-						[action.valueKey] = newValue
-					}
-				}
-			}
-
-			local errors = nil
-			if getTableValue(state.Errors, action.tableName, action.tableKey, action.valueKey) ~= nil then
-				errors = {
-					[action.tableName] = {
-						[action.tableKey] = {
-							[action.valueKey] = Cryo.None
-						}
-					}
-				}
-			end
-
-			return Cryo.Dictionary.join(state, {
-				Changed = DeepMergeTables.Merge(state.Changed, changed) or {},
-				Errors = DeepMergeTables.Merge(state.Errors, errors) or {},
-			})
-
-		elseif action.type == AddErrors.name then
-			return Cryo.Dictionary.join(state, {
-				Errors = Cryo.Dictionary.join(state.Errors, action.errors)
-			})
-
-		elseif DFFlagDeveloperSubscriptionsEnabled and action.type == AddTableKeyErrors.name then
-			return Cryo.Dictionary.join(state, {
-				Errors = DeepMergeTables.Merge(state.Errors, {
-					[action.tableName] = {
-						[action.tableKey] = {
-							[action.valueKey] = action.errors
-						}
-					}
-				}) or {},
-			})
-
-		elseif action.type == DiscardChanges.name then
-			return Cryo.Dictionary.join(state, {
-				Changed = {},
-			})
-
-		elseif action.type == DiscardError.name then
-				return Cryo.Dictionary.join(state, {
-					Errors = Cryo.Dictionary.join(state.Errors, {
-						[action.error] = Cryo.None,
-					}),
-				})
-
-		elseif action.type == DiscardErrors.name then
-			return Cryo.Dictionary.join(state, {
-				Errors = {},
-				Warnings = {},
-			})
-
-		elseif DFFlagDeveloperSubscriptionsEnabled and action.type == DiscardTableErrors.name then
-			return Cryo.Dictionary.join(state, {
-				Errors = DeepMergeTables.Merge(state.Errors, {
-					[action.tableName] = {
-						[action.tableKey] = Cryo.None,
-					},
-				}) or {},
-			})
-
-		elseif DFFlagDeveloperSubscriptionsEnabled and action.type == DiscardTableKeyErrors.name then
-			return Cryo.Dictionary.join(state, {
-				Errors = DeepMergeTables.Merge(state.Errors, {
-					[action.tableName] = {
-						[action.tableKey] = {
-							[action.valueKey] = Cryo.None,
-						},
-					},
-				}) or {},
-			})
-
-		elseif DFFlagDeveloperSubscriptionsEnabled and action.type == DiscardTableChanges.name then
-			local changed = {
-				[action.tableName] = {
-					[action.tableKey] = Cryo.None,
-				},
-			}
-
-			local errors = nil
-			if getTableValue(state.Errors, action.tableName, action.tableKey) ~= nil then
-				errors = {
-					[action.tableName] = {
-						[action.tableKey] = Cryo.None,
-					},
-				}
-			end
-
-			return Cryo.Dictionary.join(state, {
-				Changed = DeepMergeTables.Merge(state.Changed, changed) or {},
-				Errors = DeepMergeTables.Merge(state.Errors, errors) or {},
-			})
-
-		elseif DFFlagDeveloperSubscriptionsEnabled and action.type == DiscardTableKeyChanges.name then
-			local changed = {
-				[action.tableName] = {
-					[action.tableKey] = {
-						[action.valueKey] = Cryo.None,
-					},
-				},
-			}
-
-			local errors = nil
-			if getTableValue(state.Errors, action.tableName, action.tableKey, action.valueKey) ~= nil then
-				errors = {
-					[action.tableName] = {
-						[action.tableKey] = {
-							[action.valueKey] = Cryo.None
-						}
-					}
-				}
-			end
-
-			return Cryo.Dictionary.join(state, {
-				Changed = DeepMergeTables.Merge(state.Changed, changed) or {},
-				Errors = DeepMergeTables.Merge(state.Errors, errors) or {},
-			})
-
-		elseif action.type == SetCurrentSettings.name then
-			return Cryo.Dictionary.join(state, {
-				Current = action.settings,
-			})
-
-		elseif action.type == AddWarning.name then
-			if not Cryo.List.find(state.Warnings, action.key) then
-				return Cryo.Dictionary.join(state, {
-					Warnings = Cryo.List.join(state.Warnings, {action.key})
-				})
-			end
-
-		elseif action.type == DiscardWarning.name then
-			return Cryo.Dictionary.join(state, {
-				Warnings = Cryo.List.removeValue(state.Warnings, action.key)
-			})
 		end
 
-		return state
-	end
+		return Cryo.Dictionary.join(state, {
+			Changed = Cryo.Dictionary.join(state.Changed, {
+				[action.setting] = newValue,
+			}),
+			Errors = Cryo.Dictionary.join(state.Errors, {
+				[action.setting] = Cryo.None,
+			}),
+		})
+	end,
 
-	return Settings
-end
+	AddTableChange = DFFlagDeveloperSubscriptionsEnabled and function(state, action)
+		local newValue = action.value
+
+		local currValue = getTableValue(state.Current, action.tableName, action.tableKey)
+		if currValue == newValue then
+			newValue = Cryo.None
+		elseif type(newValue) == "table" then
+			if isEqualCheck(currValue, newValue) then
+				newValue = Cryo.None
+			end
+		end
+
+		local changed = {
+			[action.tableName] = {
+				[action.tableKey] = newValue
+			}
+		}
+
+		local errors = nil
+		if getTableValue(state.Errors, action.tableName, action.tableKey) ~= nil then
+			errors = {
+				[action.tableName] = {
+					[action.tableKey] = Cryo.None
+				}
+			}
+		end
+
+		return Cryo.Dictionary.join(state, {
+			Changed = DeepMergeTables.Merge(state.Changed, changed) or {},
+			Errors = DeepMergeTables.Merge(state.Errors, errors) or {},
+		})
+	end or nil,
+
+	AddTableKeyChange = DFFlagDeveloperSubscriptionsEnabled and function(state, action)
+		local newValue = action.value
+
+		local currValue = getTableValue(state.Current, action.tableName, action.tableKey, action.valueKey)
+		if currValue == newValue then
+			newValue = Cryo.None
+		elseif type(newValue) == "table" then
+			if isEqualCheck(currValue, newValue) then
+				newValue = Cryo.None
+			end
+		end
+
+		local changed = {
+			[action.tableName] = {
+				[action.tableKey] = {
+					[action.valueKey] = newValue
+				}
+			}
+		}
+
+		local errors = nil
+		if getTableValue(state.Errors, action.tableName, action.tableKey, action.valueKey) ~= nil then
+			errors = {
+				[action.tableName] = {
+					[action.tableKey] = {
+						[action.valueKey] = Cryo.None
+					}
+				}
+			}
+		end
+
+		return Cryo.Dictionary.join(state, {
+			Changed = DeepMergeTables.Merge(state.Changed, changed) or {},
+			Errors = DeepMergeTables.Merge(state.Errors, errors) or {},
+		})
+	end or nil,
+
+	AddErrors = function(state, action)
+		return Cryo.Dictionary.join(state, {
+			Errors = Cryo.Dictionary.join(state.Errors, action.errors)
+		})
+	end,
+
+	DiscardError = function(state, action)
+		return Cryo.Dictionary.join(state, {
+			Errors = Cryo.Dictionary.join(state.Errors, {
+				[action.error] = Cryo.None,
+			}),
+		})
+	end,
+
+	AddTableKeyErrors = DFFlagDeveloperSubscriptionsEnabled and function(state, action)
+		return Cryo.Dictionary.join(state, {
+			Errors = DeepMergeTables.Merge(state.Errors, {
+				[action.tableName] = {
+					[action.tableKey] = {
+						[action.valueKey] = action.errors
+					}
+				}
+			}) or {},
+		})
+	end or nil,
+
+	DiscardChanges = function(state, action)
+		return Cryo.Dictionary.join(state, {
+			Changed = {},
+		})
+	end,
+
+	DiscardErrors = function(state, action)
+		return Cryo.Dictionary.join(state, {
+			Errors = {},
+			Warnings = {},
+		})
+	end,
+
+	DiscardTableErrors = DFFlagDeveloperSubscriptionsEnabled and function(state, action)
+		return Cryo.Dictionary.join(state, {
+			Errors = DeepMergeTables.Merge(state.Errors, {
+				[action.tableName] = {
+					[action.tableKey] = Cryo.None,
+				},
+			}) or {},
+		})
+	end or nil,
+
+	DiscardTableKeyErrors = DFFlagDeveloperSubscriptionsEnabled and function(state, action)
+		return Cryo.Dictionary.join(state, {
+			Errors = DeepMergeTables.Merge(state.Errors, {
+				[action.tableName] = {
+					[action.tableKey] = {
+						[action.valueKey] = Cryo.None,
+					},
+				},
+			}) or {},
+		})
+	end or nil,
+
+	DiscardTableChanges = DFFlagDeveloperSubscriptionsEnabled and function(state, action)
+		local changed = {
+			[action.tableName] = {
+				[action.tableKey] = Cryo.None,
+			},
+		}
+
+		local errors = nil
+		if getTableValue(state.Errors, action.tableName, action.tableKey) ~= nil then
+			errors = {
+				[action.tableName] = {
+					[action.tableKey] = Cryo.None,
+				},
+			}
+		end
+
+		return Cryo.Dictionary.join(state, {
+			Changed = DeepMergeTables.Merge(state.Changed, changed) or {},
+			Errors = DeepMergeTables.Merge(state.Errors, errors) or {},
+		})
+	end or nil,
+
+	DiscardTableKeyChanges = DFFlagDeveloperSubscriptionsEnabled and function(state, action)
+		local changed = {
+			[action.tableName] = {
+				[action.tableKey] = {
+					[action.valueKey] = Cryo.None,
+				},
+			},
+		}
+
+		local errors = nil
+		if getTableValue(state.Errors, action.tableName, action.tableKey, action.valueKey) ~= nil then
+			errors = {
+				[action.tableName] = {
+					[action.tableKey] = {
+						[action.valueKey] = Cryo.None
+					}
+				}
+			}
+		end
+
+		return Cryo.Dictionary.join(state, {
+			Changed = DeepMergeTables.Merge(state.Changed, changed) or {},
+			Errors = DeepMergeTables.Merge(state.Errors, errors) or {},
+		})
+	end or nil,
+
+	SetCurrentSettings = function(state, action)
+		return Cryo.Dictionary.join(state, {
+			Current = action.settings,
+		})
+	end,
+
+	AddWarning = function(state, action)
+		if not Cryo.List.find(state.Warnings, action.key) then
+			return Cryo.Dictionary.join(state, {
+				Warnings = Cryo.List.join(state.Warnings, {action.key})
+			})
+		end
+	end,
+
+	DiscardWarning = function(state, action)
+		return Cryo.Dictionary.join(state, {
+			Warnings = Cryo.List.removeValue(state.Warnings, action.key)
+		})
+	end,
+})

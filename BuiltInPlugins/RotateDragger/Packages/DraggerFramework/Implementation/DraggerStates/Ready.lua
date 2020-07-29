@@ -1,80 +1,86 @@
-if require(script.Parent.Parent.Parent.Flags.getFFlagDraggerRefactor)() then
-	return require(script.Parent.Ready_Refactor)
-end
-
-local StudioService = game:GetService("StudioService")
-local UserInputService = game:GetService("UserInputService")
-
 local DraggerFramework = script.Parent.Parent.Parent
 local Packages = DraggerFramework.Parent
-local plugin = Packages.Parent.Parent
 
 local Roact = require(Packages.Roact)
 local DraggerStateType = require(DraggerFramework.Implementation.DraggerStateType)
 local AnimatedHoverBox = require(DraggerFramework.Components.AnimatedHoverBox)
 local SelectionHelper = require(DraggerFramework.Utility.SelectionHelper)
-local SelectionWrapper = require(DraggerFramework.Utility.SelectionWrapper)
 local getGeometry = require(DraggerFramework.Utility.getGeometry)
 local getFaceInstance = require(DraggerFramework.Utility.getFaceInstance)
 local HoverTracker = require(DraggerFramework.Implementation.HoverTracker)
 local StandardCursor = require(DraggerFramework.Utility.StandardCursor)
 
-local getFFlagSelectWeldConstraints = require(DraggerFramework.Flags.getFFlagSelectWeldConstraints)
-local getFFlagStudioServiceHoverInstance = require(DraggerFramework.Flags.getFFlagStudioServiceHoverInstance)
-
-local function areConstraintDetailsShown()
-	return StudioService.ShowConstraintDetails
-end
+local getEngineFeatureActiveInstanceHighlight = require(DraggerFramework.Flags.getEngineFeatureActiveInstanceHighlight)
+local getFFlagHoverBoxActiveColor = require(DraggerFramework.Flags.getFFlagHoverBoxActiveColor)
 
 local Ready = {}
 Ready.__index = Ready
 
-function Ready.new()
-	return setmetatable({}, Ready)
+function Ready.new(draggerToolModel)
+	return setmetatable({
+		_draggerToolModel = draggerToolModel
+	}, Ready)
 end
 
-function Ready:enter(draggerTool)
+function Ready:enter()
 	local function onHoverExternallyChanged()
-		draggerTool:_processViewChanged()
+		self._draggerToolModel:_processViewChanged()
 	end
 	self._hoverTracker =
-		HoverTracker.new(draggerTool.props.ToolImplementation, onHoverExternallyChanged)
-	self._hoverTracker:update(draggerTool._derivedWorldState)
+		HoverTracker.new(self._draggerToolModel._toolImplementation, onHoverExternallyChanged)
+	self._hoverTracker:update(self._draggerToolModel._derivedWorldState, self._draggerToolModel._draggerContext)
 end
 
-function Ready:leave(draggerTool)
-	self._hoverTracker:clearHover()
+function Ready:leave()
+	self._hoverTracker:clearHover(self._draggerToolModel._draggerContext)
 end
 
-function Ready:render(draggerTool)
+function Ready:render()
 	local elements = {}
 
 	local hoverSelectable = self._hoverTracker:getHoverSelectable()
 	if hoverSelectable then
-		if getFFlagStudioServiceHoverInstance() then
-			-- Don't show hover boxes for constraints with visible details, they
-			-- have their own special hover highlighting.
-			local isAttachmentOrConstraint =
-				hoverSelectable:IsA("Attachment") or hoverSelectable:IsA("Constraint")
-			if not areConstraintDetailsShown() or not isAttachmentOrConstraint then
+		-- Don't show hover boxes for constraints with visible details, they
+		-- have their own special hover highlighting.
+		local isAttachmentOrConstraint =
+			hoverSelectable:IsA("Attachment") or hoverSelectable:IsA("Constraint")
+		local draggerContext = self._draggerToolModel._draggerContext
+		if not draggerContext:areConstraintDetailsShown() or not isAttachmentOrConstraint then
+			if draggerContext:shouldShowHover() then
+				local animatePeriod
+				if draggerContext:shouldAnimateHover() then
+					animatePeriod = draggerContext:getHoverAnimationSpeedInSeconds()
+				end
+
+				local isActive
+				if getEngineFeatureActiveInstanceHighlight() then
+					if getFFlagHoverBoxActiveColor() then
+						isActive = false
+						if draggerContext:shouldShowActiveInstanceHighlight() then
+							local activeInstance = draggerContext:getSelectionWrapper():getActiveInstance()
+							isActive = hoverSelectable == activeInstance
+						end
+					end
+				end
+
 				elements.HoverBox = Roact.createElement(AnimatedHoverBox, {
-					hoverTarget = hoverSelectable,
+					HoverTarget = hoverSelectable,
+					SelectColor = draggerContext:getSelectionBoxColor(isActive),
+					HoverColor = draggerContext:getHoverBoxColor(isActive),
+					LineThickness = draggerContext:getHoverLineThickness(),
+					AnimatePeriod = animatePeriod,
 				})
 			end
-		else
-			elements.HoverBox = Roact.createElement(AnimatedHoverBox, {
-				hoverTarget = hoverSelectable,
-			})
 		end
 	end
 
 	if hoverSelectable or self._hoverTracker:getHoverHandleId() then
-		draggerTool:setMouseCursor(StandardCursor.getOpenHand())
+		self._draggerToolModel:setMouseCursor(StandardCursor.getOpenHand())
 	else
-		draggerTool:setMouseCursor(StandardCursor.getArrow())
+		self._draggerToolModel:setMouseCursor(StandardCursor.getArrow())
 	end
 
-	local toolImplementation = draggerTool.props.ToolImplementation
+	local toolImplementation = self._draggerToolModel._toolImplementation
 	if toolImplementation and toolImplementation.render then
 		elements.ImplementationUI =
 			toolImplementation:render(self._hoverTracker:getHoverHandleId())
@@ -83,45 +89,58 @@ function Ready:render(draggerTool)
 	return Roact.createFragment(elements)
 end
 
-function Ready:processSelectionChanged(draggerTool)
+function Ready:processSelectionChanged()
 	-- We expect selection changes while in the ready state
 	-- when the developer selects objects in the explorer window.
-	self._hoverTracker:update(draggerTool._derivedWorldState)
+	self._hoverTracker:update(self._draggerToolModel._derivedWorldState, self._draggerToolModel._draggerContext)
 end
 
 --[[
-	Find the clicked part by raycasting with the current mouse location.
+	Find the clicked part or constraint system gizmo by raycasting with the
+	current mouse location and decide what action to take:
 
-	If the clicked part is added to the selection, being (maybe) freeform dragging
-	the selected parts. If no selectable part was clicked, begin drag selecting.
-	When an Attachment is clicked without a selection modifier key pressed,
-	begin (maybe) freeform dragging that Attachment.
-	When a Constraint is clicked... maybe we'll do something.
+	* If the clicked instance is added to or was already in the selection, begin
+	  (maybe) freeform dragging the selected parts.
+	* If no selectable instance was clicked, begin drag selecting.
+	* When an Attachment is clicked without a selection modifier key pressed,
+	  begin (maybe) freeform dragging that Attachment.
+	* When a Constraint is clicked, select it but don't do any form of drag.
 ]]
-function Ready:processMouseDown(draggerTool)
+function Ready:processMouseDown()
+	local draggerContext = self._draggerToolModel._draggerContext
 	local hoverHandleId = self._hoverTracker:getHoverHandleId()
 	if hoverHandleId then
 		local makeDraggedPartsTransparent =
-			not plugin.CollisionEnabled and draggerTool.props.UseCollisionsTransparency
-		draggerTool:transitionToState({}, DraggerStateType.DraggingHandle,
+			not draggerContext:areCollisionsEnabled() and
+			self._draggerToolModel:shouldUseCollisionTransparency()
+		self._draggerToolModel:transitionToState(DraggerStateType.DraggingHandle,
 			makeDraggedPartsTransparent, hoverHandleId)
 	else
 		local clickedInstance, position = self._hoverTracker:getHoverInstance()
-		local oldSelection = SelectionWrapper:Get()
+		local oldSelection = draggerContext:getSelectionWrapper():Get()
+		local shouldUpdateActiveInstance
+		if getEngineFeatureActiveInstanceHighlight() then
+			shouldUpdateActiveInstance = draggerContext:shouldShowActiveInstanceHighlight()
+		end
 		local selectionDidChange, newSelection =
-			SelectionHelper.updateSelection(clickedInstance, oldSelection)
+			SelectionHelper.updateSelection(
+				clickedInstance, oldSelection,
+				draggerContext:shouldExtendSelection(),
+				draggerContext:isAltKeyDown(),
+				shouldUpdateActiveInstance)
 		if selectionDidChange then
-			SelectionWrapper:Set(newSelection)
+			draggerContext:getSelectionWrapper():Set(newSelection)
 
 			-- Process selection changed only gets called automatically when studio
 			-- changes the selection, since we just changed the selection manually
 			-- we need to invoke it here.
-			draggerTool:_processSelectionChanged()
+			self._draggerToolModel:_processSelectionChanged()
 		end
 
 		local selectionContainsClickedPart = false
 		local oldSelectionContainedClickedPart = false
-		local clickedObject = SelectionHelper.getSelectable(clickedInstance)
+		local clickedObject = SelectionHelper.getSelectable(clickedInstance,
+			draggerContext:isAltKeyDown())
 		for _, object in ipairs(newSelection) do
 			if object == clickedObject then
 				selectionContainsClickedPart = true
@@ -137,16 +156,16 @@ function Ready:processMouseDown(draggerTool)
 
 		local didChangeSelection =
 			(oldSelectionContainedClickedPart ~= selectionContainsClickedPart)
-		draggerTool:_analyticsSendClick(clickedInstance, didChangeSelection)
+		self._draggerToolModel:_analyticsSendClick(clickedInstance, didChangeSelection)
 
 		if not clickedInstance then
-			if draggerTool.props.AllowDragSelect then
-				draggerTool:transitionToState({}, DraggerStateType.DragSelecting)
+			if self._draggerToolModel:doesAllowDragSelect() then
+				self._draggerToolModel:transitionToState(DraggerStateType.DragSelecting)
 			end
 		elseif clickedInstance:IsA("Attachment") then
-			if draggerTool.props.AllowFreeformDrag then
-				if areConstraintDetailsShown() then
-					if SelectionHelper.shouldExtendSelection() then
+			if self._draggerToolModel:doesAllowFreeformDrag() then
+				if draggerContext:areConstraintDetailsShown() then
+					if draggerContext:shouldExtendSelection() then
 						-- Nothing to do: The C++ implementation does not allow
 						-- Attachment dragging if they keys to extend the
 						-- selection are pressed.
@@ -154,11 +173,11 @@ function Ready:processMouseDown(draggerTool)
 						if selectionContainsClickedPart then
 							-- Force the selection to only the dragged Attachment
 							if #newSelection > 1 then
-								SelectionWrapper:Set({clickedInstance})
-								draggerTool:_processSelectionChanged()
+								draggerContext:getSelectionWrapper():Set({clickedInstance})
+								self._draggerToolModel:_processSelectionChanged()
 							end
 							self:_beginPendingFreeformSelectionDrag(
-								draggerTool, clickedInstance, position, oldSelectionContainedClickedPart)
+								clickedInstance, position, oldSelectionContainedClickedPart)
 						end
 					end
 				end
@@ -168,7 +187,7 @@ function Ready:processMouseDown(draggerTool)
 			-- clicking on an Attachment. Maybe we want to change that behavior.
 
 		elseif clickedInstance:IsA("Constraint") or clickedInstance:IsA("WeldConstraint")
-			or (getFFlagSelectWeldConstraints() and clickedInstance:IsA("NoCollisionConstraint")) then
+			or clickedInstance:IsA("NoCollisionConstraint") then
 			-- Note: WeldConstraint and NoCollisionConstraint ARE NOT
 			-- Constraints, we do need all the checks.
 
@@ -176,36 +195,38 @@ function Ready:processMouseDown(draggerTool)
 			-- fall-through of starting a box select.
 		else
 			if selectionContainsClickedPart then
-				if draggerTool.props.AllowFreeformDrag then
+				if self._draggerToolModel:doesAllowFreeformDrag() then
 					self:_beginPendingFreeformSelectionDrag(
-						draggerTool, clickedInstance, position, oldSelectionContainedClickedPart)
+						clickedInstance, position, oldSelectionContainedClickedPart)
 				end
 			else
-				if draggerTool.props.AllowDragSelect then
-					draggerTool:transitionToState({}, DraggerStateType.DragSelecting)
+				if self._draggerToolModel:doesAllowDragSelect() then
+					self._draggerToolModel:transitionToState(DraggerStateType.DragSelecting)
 				end
 			end
 		end
 	end
 end
 
-function Ready:processViewChanged(draggerTool)
-	self._hoverTracker:update(draggerTool._derivedWorldState)
+function Ready:processViewChanged()
+	self._hoverTracker:update(self._draggerToolModel._derivedWorldState, self._draggerToolModel._draggerContext)
 end
 
-function Ready:processMouseUp(draggerTool)
+function Ready:processMouseUp()
 	-- Nothing to do. This case can ocurr when the user clicks on a constraint.
 end
 
-function Ready:processKeyDown(draggerTool, keyCode)
+function Ready:processKeyDown(keyCode)
 	-- Nothing to do.
 end
 
 --[[
-	Get the "basis point", the closest clicked vertex on the part,
-	put in the local space of the primaryCFrame of the selection.
+	Get the "basis point" (the closest clicked vertex on the part) and put in
+	the local space of the primaryCFrame of the selection.
+	Also, check if there is any FaceInstance on the clicked face, and if
+	there is, record it for potential FaceInstance selection on mouse up.
 ]]
-function Ready:_beginPendingFreeformSelectionDrag(draggerTool, clickedObject, position, wasObjectInSelection)
+function Ready:_beginPendingFreeformSelectionDrag(clickedObject, position, wasObjectInSelection)
 	local closestVertex
 	local attachmentBeingDragged
 	if clickedObject:IsA("Attachment") then
@@ -223,7 +244,7 @@ function Ready:_beginPendingFreeformSelectionDrag(draggerTool, clickedObject, po
 		end
 	end
 	local forceLocal = true
-	local localMainCFrame = draggerTool._derivedWorldState:getBoundingBox(forceLocal)
+	local localMainCFrame = self._draggerToolModel._derivedWorldState:getBoundingBox(forceLocal)
 	local closestVertexInPrimarySpace = localMainCFrame:PointToObjectSpace(closestVertex)
 	local clickInPrimarySpace = localMainCFrame:PointToObjectSpace(position)
 
@@ -234,8 +255,8 @@ function Ready:_beginPendingFreeformSelectionDrag(draggerTool, clickedObject, po
 		clickedFaceInstance = getFaceInstance(clickedObject, position)
 	end
 
-	draggerTool:transitionToState({}, DraggerStateType.PendingDraggingParts, {
-		mouseLocation = UserInputService:GetMouseLocation(),
+	self._draggerToolModel:transitionToState(DraggerStateType.PendingDraggingParts, {
+		mouseLocation = self._draggerToolModel._draggerContext:getMouseLocation(),
 		basisPoint = closestVertexInPrimarySpace,
 		clickPoint = clickInPrimarySpace,
 		clickedFaceInstance = clickedFaceInstance,

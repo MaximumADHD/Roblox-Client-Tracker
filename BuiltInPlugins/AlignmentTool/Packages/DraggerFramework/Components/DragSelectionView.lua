@@ -11,8 +11,6 @@ local Roact = require(Library.Packages.Roact)
 -- Utilities
 local Colors = require(DraggerFramework.Utility.Colors)
 
-local getFFlagDraggerRefactor = require(DraggerFramework.Flags.getFFlagDraggerRefactor)
-
 local DragSelectionView = Roact.PureComponent:extend("DragSelectionView")
 
 DragSelectionView.defaultProps = {
@@ -22,24 +20,13 @@ DragSelectionView.defaultProps = {
 }
 
 function DragSelectionView:init(initialProps)
-	if getFFlagDraggerRefactor() then
-		assert(initialProps.DragStartLocation, "Missing required property 'DragStartLocation'.")
-		assert(initialProps.DragEndLocation, "Missing required property 'DragEndLocation'.")
-	else
-		assert(initialProps.dragStartLocation, "Missing required property 'dragStartLocation'.")
-		assert(initialProps.dragEndLocation, "Missing required property 'dragEndLocation'.")
-	end
+	assert(initialProps.DragStartLocation, "Missing required property 'DragStartLocation'.")
+	assert(initialProps.DragEndLocation, "Missing required property 'DragEndLocation'.")
 end
 
 function DragSelectionView:render()
-	local min, max
-	if getFFlagDraggerRefactor then
-		min = self.props.DragStartLocation
-		max = self.props.DragEndLocation
-	else
-		min = self.props.dragStartLocation
-		max = self.props.dragEndLocation
-	end
+	local min = self.props.DragStartLocation
+	local max = self.props.DragEndLocation
 	if not min or not max then
 		return nil
 	end

@@ -1,9 +1,3 @@
-if require(script.Parent.Parent.Parent.Flags.getFFlagDraggerRefactor)() then
-	return require(script.Parent.DragSelecting_Refactor)
-end
-
-local UserInputService = game:GetService("UserInputService")
-
 local DraggerFramework = script.Parent.Parent.Parent
 local Packages = DraggerFramework.Parent
 
@@ -16,68 +10,71 @@ local StandardCursor = require(DraggerFramework.Utility.StandardCursor)
 local DragSelecting = {}
 DragSelecting.__index = DragSelecting
 
-function DragSelecting.new(draggerTool)
+function DragSelecting.new(draggerToolModel)
 	local self = setmetatable({
-		_dragSelector = DragSelector.new()
+		_dragSelector = DragSelector.new(),
+		_draggerToolModel = draggerToolModel,
 	}, DragSelecting)
-	self:_init(draggerTool)
+	self:_init()
 	return self
 end
 
-function DragSelecting:enter(draggerTool)
+function DragSelecting:enter()
+	self._mouseStartLocation =
+		self._draggerToolModel._draggerContext:getMouseLocation()
+end
+
+function DragSelecting:leave()
 
 end
 
-function DragSelecting:leave(draggerTool)
-
-end
-
-function DragSelecting:_init(draggerTool)
-	draggerTool._sessionAnalytics.dragSelects = draggerTool._sessionAnalytics.dragSelects + 1
+function DragSelecting:_init()
+	self._draggerToolModel._sessionAnalytics.dragSelects = self._draggerToolModel._sessionAnalytics.dragSelects + 1
 	self._hasMovedMouse = false
 end
 
-function DragSelecting:render(draggerTool)
-	draggerTool:setMouseCursor(StandardCursor.getArrow())
+function DragSelecting:render()
+	self._draggerToolModel:setMouseCursor(StandardCursor.getArrow())
 
 	local startLocation =
 		self._hasMovedMouse and
 		self._dragSelector:getStartLocation() or
-		UserInputService:GetMouseLocation()
+		self._draggerToolModel._draggerContext:getMouseLocation()
 	return Roact.createElement(DragSelectionView, {
-		dragStartLocation = startLocation,
-		dragEndLocation = UserInputService:GetMouseLocation(),
+		DragStartLocation = startLocation,
+		DragEndLocation = self._draggerToolModel._draggerContext:getMouseLocation(),
 	})
 end
 
-function DragSelecting:processSelectionChanged(draggerTool)
+function DragSelecting:processSelectionChanged()
 	-- Don't do anything. We don't want to unnecessarily fight other sources
 	-- over selection changes.
 end
 
-function DragSelecting:processMouseDown(draggerTool)
+function DragSelecting:processMouseDown()
 	error("Mouse should already be down while drag selecting.")
 end
 
-function DragSelecting:processViewChanged(draggerTool)
+function DragSelecting:processViewChanged()
 	if not self._hasMovedMouse then
-		self._dragSelector:beginDrag(UserInputService:GetMouseLocation())
+		self._dragSelector:beginDrag(
+			self._draggerToolModel._draggerContext, self._mouseStartLocation)
 		self._hasMovedMouse = true
 	end
-	self._dragSelector:updateDrag(UserInputService:GetMouseLocation())
+	self._dragSelector:updateDrag(self._draggerToolModel._draggerContext)
 end
 
-function DragSelecting:processMouseUp(draggerTool)
+function DragSelecting:processMouseUp()
 	if self._hasMovedMouse then
-		self._dragSelector:commitDrag(UserInputService:GetMouseLocation())
+		self._dragSelector:commitDrag(self._draggerToolModel._draggerContext)
 		self._hasMovedMouse = false
 	end
-	draggerTool:_updateSelectionInfo()
-	draggerTool:_analyticsSendBoxSelect()
-	draggerTool:transitionToState({}, DraggerStateType.Ready)
+	self._draggerToolModel:_updateSelectionInfo()
+	self._draggerToolModel:_analyticsSendBoxSelect()
+	self._draggerToolModel:transitionToState(DraggerStateType.Ready)
 end
 
-function DragSelecting:processKeyDown(draggerTool, keyCode)
+function DragSelecting:processKeyDown(keyCode)
 	-- Nothing to do
 end
 

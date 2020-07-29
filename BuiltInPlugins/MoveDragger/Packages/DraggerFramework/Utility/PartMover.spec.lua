@@ -5,8 +5,6 @@ local DraggerFramework = script.Parent.Parent
 
 local PartMover = require(DraggerFramework.Utility.PartMover)
 
-local getFFlagDraggerRefactor = require(DraggerFramework.Flags.getFFlagDraggerRefactor)
-
 return function()
 	local function createPart()
 		local part = Instance.new("Part", Workspace)
@@ -127,21 +125,6 @@ return function()
 
 			expect(joint.Parent).to.equal(nil)
 		end)
-
-		if not getFFlagDraggerRefactor() then
-			it("should create temporary movements welds under the main part", function()
-				local parts, originalCFrameMap = createTestParts(5)
-
-				local partMover = PartMover.new()
-				partMover:setDragged(parts, originalCFrameMap)
-				local mainPart = partMover:getIgnorePart()
-				local joints = mainPart:GetJoints()
-				partMover:commit()
-
-				expect(#joints).to.equal(5)
-				expect(#mainPart:GetJoints()).to.equal(0)
-			end)
-		end
 
 		it("should not fail if part has incomplete joint", function()
 			expect(function()

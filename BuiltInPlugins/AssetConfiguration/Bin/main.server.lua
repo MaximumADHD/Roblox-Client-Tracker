@@ -9,15 +9,9 @@ require(PluginRoot.ToolboxFFlags)
 local FFlagEnableOverrideAssetCursorFix = game:GetFastFlag("EnableOverrideAssetCursorFix")
 local FFlagStudioUseNewAnimationImportExportFlow = settings():GetFFlag("StudioUseNewAnimationImportExportFlow")
 local FFlagStudioAssetConfigurationPlugin = game:GetFastFlag("StudioAssetConfigurationPlugin")
-local FFlagStudioUnrestrictPluginGuiService = game:GetFastFlag("StudioUnrestrictPluginGuiService")
 local FFlagDebugAssetConfigurationEnableRoactChecks = game:DefineFastFlag("DebugAssetConfigurationEnableRoactChecks", false)
 
 if not FFlagStudioAssetConfigurationPlugin then
-	return
-end
-
-if not FFlagStudioUnrestrictPluginGuiService then
-	warn("FFlagStudioAssetConfigurationPlugin depends on FFlagStudioUnrestrictPluginGuiService")
 	return
 end
 

@@ -1,16 +1,9 @@
 local RobloxPluginGuiService = game:GetService("RobloxPluginGuiService")
 
-local FFlagStudioUnrestrictPluginGuiService = game:GetFastFlag("StudioUnrestrictPluginGuiService")
-
 local Framework = script.Parent.Parent
 local CrossPluginCommunication = require(Framework.Util.CrossPluginCommunication)
 
 return function()
-
-	if not FFlagStudioUnrestrictPluginGuiService then
-		return
-	end
-
 	local TEST_NAMESPACE = "test"
 
 	-- TODO DEVTOOLS-4397: Move cleanup to afterEach hook after the dependency structure is fixed

@@ -41,9 +41,10 @@ function AssetPreviewWrapper:init()
 
     self.tryInsert = function()
         local props = self.props
+        local analytics = props.Analytics
         local assetData = props.AssetData
 
-        props.dispatchOnAssetDoubleClick(assetData)
+        props.dispatchOnAssetDoubleClick(analytics, assetData)
     end
 
     self.requestFavoriteCounts = function()
@@ -180,6 +181,7 @@ local function mapStateToProps(state, props)
 end
 
 ContextServices.mapToProps(AssetPreviewWrapper, {
+    Analytics = ContextServices.Analytics,
     API = ContextServices.API,
     Focus = ContextServices.Focus,
     Localization = ContextServices.Localization,
@@ -189,8 +191,8 @@ ContextServices.mapToProps(AssetPreviewWrapper, {
 
 local function mapDispatchToProps(dispatch)
 	return {
-        dispatchOnAssetDoubleClick = function(assetData)
-            dispatch(OnAssetDoubleClick(assetData))
+        dispatchOnAssetDoubleClick = function(analytics, assetData)
+            dispatch(OnAssetDoubleClick(analytics, assetData))
         end,
         dispatchOnAssetRightClick = function(apiImpl, assetData, localization, plugin)
             dispatch(OnAssetRightClick(apiImpl, assetData, localization, plugin))

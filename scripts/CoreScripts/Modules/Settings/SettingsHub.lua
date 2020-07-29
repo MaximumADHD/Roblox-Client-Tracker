@@ -37,8 +37,6 @@ local FFlagUseNotificationsLocalization = settings():GetFFlag('UseNotificationsL
 local FFlagXboxPlayNextGame = settings():GetFFlag("XboxPlayNextGame")
 local FFlagXboxOverrideEnablePlayNextGame = settings():GetFFlag("XboxOverrideEnablePlayNextGame")
 
-local FFlagUseRoactPlayerList = settings():GetFFlag("UseRoactPlayerList3")
-
 local FFlagLocalizeVersionLabels = settings():GetFFlag("LocalizeVersionLabels")
 
 local FFlagUpdateSettingsHubGameText = require(RobloxGui.Modules.Flags.FFlagUpdateSettingsHubGameText)
@@ -428,165 +426,193 @@ local function CreateSettingsHub()
 			Visible = false
 		}
 
-		this.VersionContainer = utility:Create("Frame") {
+		local canGetCoreScriptVersion = game:getEngineFeature("CoreScriptVersionEnabled")
+
+		if canGetCoreScriptVersion then
+			this.VersionContainer = utility:Create("ScrollingFrame") {
+				Name = "VersionContainer",
+				Parent = this.Shield,
+
+				CanvasSize = UDim2.new(0, 0, 0, VERSION_BAR_HEIGHT),
+				BackgroundColor3 = SETTINGS_SHIELD_COLOR,
+				BackgroundTransparency = SETTINGS_SHIELD_TRANSPARENCY,
+				Position = UDim2.new(0, 0, 1, 0),
+				Size = UDim2.new(1, 0, 0, VERSION_BAR_HEIGHT),
+				AnchorPoint = Vector2.new(0,1),
+				BorderSizePixel = 0,
+				AutoLocalize = not FFlagDisableAutoTranslateForKeyTranslatedContent,
+				ScrollingDirection = Enum.ScrollingDirection.X,
+				ScrollBarThickness = 0,
+
+				ZIndex = 5,
+
+				Visible = false
+			}
+		else
+			this.VersionContainer = utility:Create("Frame") {
+				Name = "VersionContainer",
+				Parent = this.Shield,
+
+				BackgroundColor3 = SETTINGS_SHIELD_COLOR,
+				BackgroundTransparency = SETTINGS_SHIELD_TRANSPARENCY,
+				Position = UDim2.new(0, 0, 1, 0),
+				Size = UDim2.new(1, 0, 0, VERSION_BAR_HEIGHT),
+				AnchorPoint = Vector2.new(0,1),
+				BorderSizePixel = 0,
+				AutoLocalize = not FFlagDisableAutoTranslateForKeyTranslatedContent,
+
+				ZIndex = 5,
+
+				Visible = false
+			}
+		end
+
+		local _versionContainerLayout = utility:Create("UIListLayout") {
 			Name = "VersionContainer",
-			Parent = this.Shield,
+			Parent = this.VersionContainer,
 
-			BackgroundColor3 = SETTINGS_SHIELD_COLOR,
-			BackgroundTransparency = SETTINGS_SHIELD_TRANSPARENCY,
-			Position = UDim2.new(0, 0, 1, 0),
-			Size = UDim2.new(1, 0, 0, VERSION_BAR_HEIGHT),
-			AnchorPoint = Vector2.new(0,1),
-			BorderSizePixel = 0,
-			AutoLocalize = not FFlagDisableAutoTranslateForKeyTranslatedContent,
-
-			ZIndex = 5,
-
-			Visible = false
+			Padding = UDim.new(0,6),
+			FillDirection = Enum.FillDirection.Horizontal,
+			HorizontalAlignment = Enum.HorizontalAlignment.Center,
+			VerticalAlignment = Enum.VerticalAlignment.Center,
+			SortOrder = Enum.SortOrder.LayoutOrder
 		}
 
-        local _versionContainerLayout = utility:Create("UIListLayout") {
-            Name = "VersionContainer",
-            Parent = this.VersionContainer,
+		local function addSizeToLabel(label)
+			local marginSize = 6
+			local defaultSize = UDim2.new(0.2, -6, 1, 0)
+			label.Size = canGetCoreScriptVersion and UDim2.new(0, label.TextBounds.X + marginSize, 0, VERSION_BAR_HEIGHT) or defaultSize 
+		end
 
-            Padding = UDim.new(0,6),
-            FillDirection = Enum.FillDirection.Horizontal,
-            HorizontalAlignment = Enum.HorizontalAlignment.Center,
-            VerticalAlignment = Enum.VerticalAlignment.Center,
-            SortOrder = Enum.SortOrder.LayoutOrder
-        }
+		this.ServerVersionLabel = utility:Create("TextLabel") {
+			Name = "ServerVersionLabel",
+			Parent = this.VersionContainer,
+			LayoutOrder = 2,
+			BackgroundTransparency = 1,
+			TextColor3 = Color3.new(1,1,1),
+			TextSize = isTenFootInterface and 28 or (utility:IsSmallTouchScreen() and 14 or 20),
+			Text = "Server Version: ...",
+			Font = Enum.Font.SourceSans,
+			TextXAlignment = Enum.TextXAlignment.Center,
+			TextYAlignment = Enum.TextYAlignment.Center,
+			ZIndex = 5
+		}
+		spawn(function()
+			local serverVersionString = "Server Version: "
+			if shouldTryLocalizeVersionLabels then
+				serverVersionString = tryTranslate("InGame.HelpMenu.Label.ServerVersion", "Server Version: ")
+			end
+			this.ServerVersionLabel.Text = serverVersionString..GetServerVersionBlocking()
+			addSizeToLabel(this.ServerVersionLabel)
+			this.ServerVersionLabel.TextScaled = not (canGetCoreScriptVersion or this.ServerVersionLabel.TextFits)
+		end)
 
-        local size = UDim2.new(0.2, -6, 1, 0)
+		local clientVersionString = "Client Version: "
+		if shouldTryLocalizeVersionLabels then
+			clientVersionString = tryTranslate("InGame.HelpMenu.Label.ClientVersion", "Client Version: ")
+		end
+		this.ClientVersionLabel = utility:Create("TextLabel") {
+			Name = "ClientVersionLabel",
+			Parent = this.VersionContainer,
+			LayoutOrder = 1,
+			BackgroundTransparency = 1,
+			TextColor3 = Color3.new(1,1,1),
+			TextSize = isTenFootInterface and 28 or (utility:IsSmallTouchScreen() and 14 or 20),
+			Text = clientVersionString..RunService:GetRobloxVersion(),
+			Font = Enum.Font.SourceSans,
+			TextXAlignment = Enum.TextXAlignment.Center,
+			TextYAlignment = Enum.TextYAlignment.Center,
+			ZIndex = 5
+		}
+		addSizeToLabel(this.ClientVersionLabel)
+		this.ClientVersionLabel.TextScaled = not (canGetCoreScriptVersion or this.ClientVersionLabel.TextFits)
 
-        this.ServerVersionLabel = utility:Create("TextLabel") {
-            Name = "ServerVersionLabel",
-            Parent = this.VersionContainer,
-            LayoutOrder = 2,
-            BackgroundTransparency = 1,
-            TextColor3 = Color3.new(1,1,1),
-            TextSize = isTenFootInterface and 28 or (utility:IsSmallTouchScreen() and 14 or 20),
-            Text = "Server Version: ...",
-            Size = size,
-            Font = Enum.Font.SourceSans,
-            TextXAlignment = Enum.TextXAlignment.Center,
-            TextYAlignment = Enum.TextYAlignment.Center,
-            ZIndex = 5
-        }
-        spawn(function()
-        	local serverVersionString = "Server Version: "
-        	if shouldTryLocalizeVersionLabels then
-        		serverVersionString = tryTranslate("InGame.HelpMenu.Label.ServerVersion", "Server Version: ")
-        	end
-            this.ServerVersionLabel.Text = serverVersionString..GetServerVersionBlocking()
-            this.ServerVersionLabel.TextScaled = not this.ServerVersionLabel.TextFits
-        end)
-
-        local clientVersionString = "Client Version: "
-    	if shouldTryLocalizeVersionLabels then
-    		clientVersionString = tryTranslate("InGame.HelpMenu.Label.ClientVersion", "Client Version: ")
-    	end
-        this.ClientVersionLabel = utility:Create("TextLabel") {
-            Name = "ClientVersionLabel",
-            Parent = this.VersionContainer,
-            LayoutOrder = 1,
-            BackgroundTransparency = 1,
-            TextColor3 = Color3.new(1,1,1),
-            TextSize = isTenFootInterface and 28 or (utility:IsSmallTouchScreen() and 14 or 20),
-            Text = clientVersionString..RunService:GetRobloxVersion(),
-            Size = size,
-            Font = Enum.Font.SourceSans,
-            TextXAlignment = Enum.TextXAlignment.Center,
-            TextYAlignment = Enum.TextYAlignment.Center,
-            ZIndex = 5
-        }
-        this.ClientVersionLabel.TextScaled = not this.ClientVersionLabel.TextFits
-
-        this.PlaceVersionLabel = utility:Create("TextLabel") {
-            Name = "PlaceVersionLabel",
-            Parent = this.VersionContainer,
-            BackgroundTransparency = 1,
-            LayoutOrder = 3,
-            TextColor3 = Color3.new(1, 1, 1),
-            TextSize = isTenFootInterface and 28 or (utility:IsSmallTouchScreen() and 14 or 20),
-            Text = "Place Version: ...",
-            Size = size,
-            Font = Enum.Font.SourceSans,
-            TextXAlignment = Enum.TextXAlignment.Center,
-            TextYAlignment = Enum.TextYAlignment.Center,
-            ZIndex = 5,
-        }
-        local function setPlaceVersionText()
-            local placeVersionString = "Place Version: "
-            if shouldTryLocalizeVersionLabels then
-                placeVersionString = tryTranslate("InGame.HelpMenu.Label.PlaceVersion", "Place Version: ")
-            end
-            this.PlaceVersionLabel.Text = placeVersionString..GetPlaceVersionText()
-            this.PlaceVersionLabel.TextScaled = not this.PlaceVersionLabel.TextFits
-        end
-        game:GetPropertyChangedSignal("PlaceVersion"):Connect(setPlaceVersionText)
-        spawn(setPlaceVersionText)
+		this.PlaceVersionLabel = utility:Create("TextLabel") {
+			Name = "PlaceVersionLabel",
+			Parent = this.VersionContainer,
+			BackgroundTransparency = 1,
+			LayoutOrder = 3,
+			TextColor3 = Color3.new(1, 1, 1),
+			TextSize = isTenFootInterface and 28 or (utility:IsSmallTouchScreen() and 14 or 20),
+			Text = "Place Version: ...",
+			Font = Enum.Font.SourceSans,
+			TextXAlignment = Enum.TextXAlignment.Center,
+			TextYAlignment = Enum.TextYAlignment.Center,
+			ZIndex = 5,
+		}
+		local function setPlaceVersionText()
+			local placeVersionString = "Place Version: "
+			if shouldTryLocalizeVersionLabels then
+				placeVersionString = tryTranslate("InGame.HelpMenu.Label.PlaceVersion", "Place Version: ")
+			end
+			this.PlaceVersionLabel.Text = placeVersionString..GetPlaceVersionText()
+			addSizeToLabel(this.PlaceVersionLabel)
+			this.PlaceVersionLabel.TextScaled = not (canGetCoreScriptVersion or this.PlaceVersionLabel.TextFits)
+		end
+		game:GetPropertyChangedSignal("PlaceVersion"):Connect(setPlaceVersionText)
+		spawn(setPlaceVersionText)
 
 		local shouldShowEnvLabel = not PolicyService:IsSubjectToChinaPolicies()
 
-        if shouldShowEnvLabel then
-	        this.EnvironmentLabel = utility:Create("TextLabel") {
-	            Name = "EnvironmentLabel",
-	            Parent = this.VersionContainer,
-	            AnchorPoint = Vector2.new(0.5,0),
-	            BackgroundTransparency = 1,
-	            TextColor3 = Color3.new(1,1,1),
-	            LayoutOrder = 4,
-	            TextSize = isTenFootInterface and 28 or (utility:IsSmallTouchScreen() and 14 or 20),
-	            Text = baseUrl,
-	            Size = size,
-	            Font = Enum.Font.SourceSans,
-	            TextXAlignment = Enum.TextXAlignment.Center,
-	            TextYAlignment = Enum.TextYAlignment.Center,
-	            ZIndex = 5,
-	            Visible = isTestEnvironment
-	        }
-	        this.EnvironmentLabel.TextScaled = not this.EnvironmentLabel.TextFits
-	    end
+		if shouldShowEnvLabel then
+			this.EnvironmentLabel = utility:Create("TextLabel") {
+				Name = "EnvironmentLabel",
+				Parent = this.VersionContainer,
+				AnchorPoint = Vector2.new(0.5,0),
+				BackgroundTransparency = 1,
+				TextColor3 = Color3.new(1,1,1),
+				LayoutOrder = 4,
+				TextSize = isTenFootInterface and 28 or (utility:IsSmallTouchScreen() and 14 or 20),
+				Text = baseUrl,
+				Font = Enum.Font.SourceSans,
+				TextXAlignment = Enum.TextXAlignment.Center,
+				TextYAlignment = Enum.TextYAlignment.Center,
+				ZIndex = 5,
+				Visible = isTestEnvironment
+			}
+			addSizeToLabel(this.EnvironmentLabel)
+			this.EnvironmentLabel.TextScaled = not (canGetCoreScriptVersion or this.EnvironmentLabel.TextFits)
+		end
 
-        -- This check relies on the fact that Archivable is false on the default playerscripts we
-        -- insert but if a developer has overriden them Archivable will be true. This might be incorrect
-        -- if a developer has code in their game to make things UnArchivable though.
-        local function getOverridesPlayerScripts()
-            local starterPlayerScripts = StarterPlayer:WaitForChild("StarterPlayerScripts")
-            local playerScriptLoader = starterPlayerScripts:FindFirstChild("PlayerScriptsLoader")
-            local playerModule = starterPlayerScripts:FindFirstChild("PlayerModule")
-            if playerModule and playerScriptLoader then
-                if not playerModule.Archivable then
-                    if playerScriptLoader.Archivable then
-                    	if shouldTryLocalizeVersionLabels then
-                    		return tryTranslate("InGame.CommonUI.Label.PossiblyCustom", "Possibly Custom")
-                    	else
-                        	return "Possibly Custom"
-                        end
-                    else
-                    	if shouldTryLocalizeVersionLabels then
-                    		return tryTranslate("InGame.CommonUI.Label.Default", "Default")
-                    	else
-                        	return "Default"
-                        end
-                    end
-                end
-            end
-            local cameraScript = starterPlayerScripts:FindFirstChild("CameraScript")
-            local controlScript = starterPlayerScripts:FindFirstChild("ControlScript")
-            if cameraScript or controlScript then
-            	if shouldTryLocalizeVersionLabels then
-            		return tryTranslate("InGame.CommonUI.Label.CustomOld", "Custom Old")
-            	else
-                	return "Custom Old"
-                end
-            end
-            if shouldTryLocalizeVersionLabels then
-            	return tryTranslate("InGame.CommonUI.Label.Custom", "Custom")
-            else
-            	return "Custom"
-            end
-        end
+		-- This check relies on the fact that Archivable is false on the default playerscripts we
+		-- insert but if a developer has overriden them Archivable will be true. This might be incorrect
+		-- if a developer has code in their game to make things UnArchivable though.
+		local function getOverridesPlayerScripts()
+			local starterPlayerScripts = StarterPlayer:WaitForChild("StarterPlayerScripts")
+			local playerScriptLoader = starterPlayerScripts:FindFirstChild("PlayerScriptsLoader")
+			local playerModule = starterPlayerScripts:FindFirstChild("PlayerModule")
+			if playerModule and playerScriptLoader then
+				if not playerModule.Archivable then
+					if playerScriptLoader.Archivable then
+						if shouldTryLocalizeVersionLabels then
+							return tryTranslate("InGame.CommonUI.Label.PossiblyCustom", "Possibly Custom")
+						else
+							return "Possibly Custom"
+						end
+					else
+						if shouldTryLocalizeVersionLabels then
+							return tryTranslate("InGame.CommonUI.Label.Default", "Default")
+						else
+							return "Default"
+						end
+					end
+				end
+			end
+			local cameraScript = starterPlayerScripts:FindFirstChild("CameraScript")
+			local controlScript = starterPlayerScripts:FindFirstChild("ControlScript")
+			if cameraScript or controlScript then
+				if shouldTryLocalizeVersionLabels then
+					return tryTranslate("InGame.CommonUI.Label.CustomOld", "Custom Old")
+				else
+					return "Custom Old"
+				end
+			end
+			if shouldTryLocalizeVersionLabels then
+				return tryTranslate("InGame.CommonUI.Label.Custom", "Custom")
+			else
+				return "Custom"
+			end
+		end
 
 		this.OverridesPlayerScriptsLabel = utility:Create("TextLabel") {
 			Name = "OverridesPlayerScriptsLabel",
@@ -597,7 +623,6 @@ local function CreateSettingsHub()
 			LayoutOrder = 5,
 			TextSize = isTenFootInterface and 28 or (utility:IsSmallTouchScreen() and 14 or 20),
 			Text = "PlayerScripts: ",
-			Size = size,
 			Font = Enum.Font.SourceSans,
 			TextXAlignment = Enum.TextXAlignment.Center,
 			TextYAlignment = Enum.TextYAlignment.Center,
@@ -610,14 +635,42 @@ local function CreateSettingsHub()
 			if not Players.LocalPlayer then
 				Players:GetPropertyChangedSignal("LocalPlayer"):Wait()
 			end
-		    local playerScriptsString = "PlayerScripts: "
-            if shouldTryLocalizeVersionLabels then
-            	playerScriptsString = tryTranslate("InGame.HelpMenu.Label.PlayerScripts", "PlayerScripts: ")
-            end
-            this.OverridesPlayerScriptsLabel.Text = playerScriptsString ..getOverridesPlayerScripts()
-			this.OverridesPlayerScriptsLabel.TextScaled = not this.OverridesPlayerScriptsLabel.TextFits
+			local playerScriptsString = "PlayerScripts: "
+			if shouldTryLocalizeVersionLabels then
+				playerScriptsString = tryTranslate("InGame.HelpMenu.Label.PlayerScripts", "PlayerScripts: ")
+			end
+			this.OverridesPlayerScriptsLabel.Text = playerScriptsString ..getOverridesPlayerScripts()
 			this.OverridesPlayerScriptsLabel.Visible = isTestEnvironment or playerPermissionsModule.IsPlayerAdminAsync(Players.LocalPlayer)
+			addSizeToLabel(this.OverridesPlayerScriptsLabel)
+			this.OverridesPlayerScriptsLabel.TextScaled = not (canGetCoreScriptVersion or this.OverridesPlayerScriptsLabel.TextFits)
+
 		end)
+
+		if canGetCoreScriptVersion then
+			local coreScriptVersionString = "Client CoreScript Version: "
+			if shouldTryLocalizeVersionLabels then
+				coreScriptVersionString = tryTranslate("InGame.HelpMenu.Label.ClientCoreScriptVersion", "Client CoreScript Version: ")
+			end
+			this.CoreScriptVersionLabel = utility:Create("TextLabel") {
+				Name = "CoreScriptVersionLabel",
+				Parent = this.VersionContainer,
+				LayoutOrder = 6,
+				BackgroundTransparency = 1,
+				TextColor3 = Color3.new(1, 1, 1),
+				TextSize = isTenFootInterface and 28 or (utility:IsSmallTouchScreen() and 14 or 20),
+				Text = coreScriptVersionString..RunService:GetCoreScriptVersion(),
+				Font = Enum.Font.SourceSans,
+				TextXAlignment = Enum.TextXAlignment.Center,
+				TextYAlignment = Enum.TextYAlignment.Center,
+				ZIndex = 5
+			}
+			addSizeToLabel(this.CoreScriptVersionLabel)
+
+			local frame = this.VersionContainer
+			_versionContainerLayout:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(function()
+				frame.CanvasSize = UDim2.new(0,_versionContainerLayout.AbsoluteContentSize.X, 0, VERSION_BAR_HEIGHT)
+			end)
+		end
 
 		this.Modal = utility:Create'TextButton' -- Force unlocks the mouse, really need a way to do this via UIS
 		{
@@ -650,15 +703,15 @@ local function CreateSettingsHub()
 			}
 		end
 
-        this.MenuListLayout = utility:Create'UIListLayout'
-        {
-            Name = "MenuListLayout",
-            FillDirection = Enum.FillDirection.Vertical,
-            VerticalAlignment = Enum.VerticalAlignment.Center,
-            HorizontalAlignment = Enum.HorizontalAlignment.Center,
-            SortOrder = Enum.SortOrder.LayoutOrder,
-            Parent = this.MenuContainer
-        }
+		this.MenuListLayout = utility:Create'UIListLayout'
+		{
+			Name = "MenuListLayout",
+			FillDirection = Enum.FillDirection.Vertical,
+			VerticalAlignment = Enum.VerticalAlignment.Center,
+			HorizontalAlignment = Enum.HorizontalAlignment.Center,
+			SortOrder = Enum.SortOrder.LayoutOrder,
+			Parent = this.MenuContainer
+		}
 		this.MenuAspectRatio = utility:Create'UIAspectRatioConstraint'
 		{
 			Name = 'MenuAspectRatio',
@@ -1369,12 +1422,7 @@ local function CreateSettingsHub()
 			this.TabConnection = nil
 		end
 
-		local playerList = nil
-		if FFlagUseRoactPlayerList then
-			playerList = require(RobloxGui.Modules.PlayerList.PlayerListManager)
-		else
-			playerList = require(RobloxGui.Modules.PlayerlistModule)
-		end
+		local playerList = require(RobloxGui.Modules.PlayerList.PlayerListManager)
 
 		if this.Visible then
 			this.ResizedConnection = RobloxGui.Changed:connect(function(prop)

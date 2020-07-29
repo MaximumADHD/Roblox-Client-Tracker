@@ -2,7 +2,9 @@
 	Controls which Tool is shown in the tool frame
 	Handles all the bindings between the ui and the tool functionality
 ]]
+game:DefineFastFlag("TerrainToolsScrollingFix", false)
 
+local FFlagTerrainToolsScrollingFix = game:GetFastFlag("TerrainToolsScrollingFix")
 local FFlagTerrainToolsFixRegionEditorCleanup = game:GetFastFlag("TerrainToolsFixRegionEditorCleanup")
 
 local Plugin = script.Parent.Parent.Parent
@@ -113,7 +115,11 @@ function ToolRenderer:init(initialProps)
 		local layout = self.layoutRef.current
 
 		if scrollingFrame and layout then
-			scrollingFrame.CanvasSize = UDim2.new(1, 0, 0, layout.AbsoluteContentSize.Y)
+			if FFlagTerrainToolsScrollingFix then
+				scrollingFrame.CanvasSize = UDim2.new(0, 0, 0, layout.AbsoluteContentSize.Y)
+			else
+				scrollingFrame.CanvasSize = UDim2.new(1, 0, 0, layout.AbsoluteContentSize.Y)
+			end
 		end
 	end
 end

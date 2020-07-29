@@ -8,8 +8,6 @@
 local DEBUG_MODE = game:GetService("RunService"):IsStudio() -- use this to run as a guest/use in games that don't have AvatarContextMenu. FOR TESTING ONLY!
 local isAvatarContextMenuEnabled = false
 
-local FFlagUseRoactPlayerList = settings():GetFFlag("UseRoactPlayerList3")
-
 -- CONSTANTS
 local MAX_CONTEXT_MENU_DISTANCE = 100
 
@@ -65,13 +63,7 @@ local ThemeHandler = require(AvatarMenuModules.ThemeHandler)
 local Backpack = require(CoreGuiModules.BackpackScript)
 local EmotesMenuMaster = require(CoreGuiModules.EmotesMenu.EmotesMenuMaster)
 
-local BlockingUtility
-if FFlagUseRoactPlayerList then
-	BlockingUtility = require(CoreGuiModules.BlockingUtility)
-else
-	local PlayerDropDownModule = require(CoreGuiModules:WaitForChild("PlayerDropDown"))
-	BlockingUtility = PlayerDropDownModule:CreateBlockingUtility()
-end
+local BlockingUtility = require(CoreGuiModules.BlockingUtility)
 
 --- VARIABLES
 

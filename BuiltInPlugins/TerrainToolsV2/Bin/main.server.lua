@@ -14,7 +14,6 @@ require(script.Parent.defineLuaFlags)
 local FFlagTerrainToolsConvertPartTool = game:GetFastFlag("TerrainToolsConvertPartTool")
 local FFlagTerrainToolsTerrainBrushNotSingleton = game:GetFastFlag("TerrainToolsTerrainBrushNotSingleton")
 local FFlagTerrainOpenCloseMetrics = game:GetFastFlag("TerrainOpenCloseMetrics")
-local FFlagTerrainEnableErrorReporting = game:GetFastFlag("TerrainEnableErrorReporting")
 
 -- Services
 local AnalyticsService = game:GetService("RbxAnalyticsService")
@@ -49,16 +48,6 @@ local getReportTerrainToolMetrics = require(Plugin.Src.MiddleWare.getReportTerra
 
 -- theme
 local PluginTheme = require(Plugin.Src.Resources.PluginTheme)
-
--- error reporting
-local Framework = require(Plugin.Packages.Framework)
-local ErrorReporter = Framework.ErrorReporter.StudioPluginErrorReporter
-
-if FFlagTerrainEnableErrorReporting then
-	ErrorReporter.new({
-		plugin = plugin,
-	})
-end
 
 -- localization
 local DevelopmentReferenceTable = Plugin.Src.Resources.DevelopmentReferenceTable

@@ -1,6 +1,6 @@
 local FFlagPluginManagementScrollbarDesign = game:DefineFastFlag("PluginManagementScrollbarDesign", false)
 local FFlagPluginManagementPrettifyDesign = game:GetFastFlag("PluginManagementPrettifyDesign2")
-local FFlagPluginManagementRemoveUILibrary = game:GetFastFlag("PluginManagementRemoveUILibrary")
+local FFlagPluginManagementRemoveUILibrary = game:GetFastFlag("PluginManagementRemoveUILibrary2")
 local FFlagPluginManagementFixHorizontalScrollbar = game:DefineFastFlag("PluginManagementFixHorizontalScrollbar", false)
 
 local StudioService = game:GetService("StudioService")

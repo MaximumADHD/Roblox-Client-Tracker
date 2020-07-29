@@ -6,25 +6,14 @@ return function()
 
 	local AnimatedHoverBox = require(DraggerFramework.Components.AnimatedHoverBox)
 
-	local getFFlagDraggerRefactor = require(DraggerFramework.Flags.getFFlagDraggerRefactor)
-
 	local function createTestHoverBox(hoverTarget)
 		hoverTarget = hoverTarget or Instance.new("Part")
-		if getFFlagDraggerRefactor() then
-			return Roact.createElement(AnimatedHoverBox, {
-				HoverTarget = hoverTarget,
-				SelectColor = Color3.new(),
-				HoverColor = Color3.new(),
-				LineThickness = 1,
-			})
-		else
-			return Roact.createElement(AnimatedHoverBox, {
-				hoverTarget = hoverTarget,
-				selectColor = Color3.new(),
-				hoverColor = Color3.new(),
-				lineThickness = 1,
-			})
-		end
+		return Roact.createElement(AnimatedHoverBox, {
+			HoverTarget = hoverTarget,
+			SelectColor = Color3.new(),
+			HoverColor = Color3.new(),
+			LineThickness = 1,
+		})
 	end
 
 	it("should error if HoverTarget not provided", function()

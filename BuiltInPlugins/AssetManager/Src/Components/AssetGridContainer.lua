@@ -42,6 +42,7 @@ local BulkImportService = game:GetService("BulkImportService")
 
 local FFlagStudioAssetManagerCaseInsensitiveFilter = game:DefineFastFlag("StudioAssetManagerCaseInsensitiveFilter", false)
 local FFlagStudioAssetManagerLoadAllAliasesButton = game:DefineFastFlag("StudioAssetManagerLoadAllAliasesButton", false)
+local FFlagStudioAssetManagerShiftMultiSelect = game:GetFastFlag("StudioAssetManagerShiftMultiSelect")
 
 local AssetGridContainer = Roact.Component:extend("AssetGridContainer")
 
@@ -78,7 +79,7 @@ function AssetGridContainer:init()
                 ClassName = "Folder",
                 Screen = screen,
             }
-            props.dispatchOnAssetRightClick(props.API:get(), placesFolder, props.Localization, props.Plugin:get())
+            props.dispatchOnAssetRightClick(props.Analytics, props.API:get(), placesFolder, props.Localization, props.Plugin:get())
         end
     end
 
@@ -124,6 +125,7 @@ function AssetGridContainer:createTiles(apiImpl, localization, theme,
     if currentScreen.Key == Screens.MAIN.Key then
         for _, screen in pairs(Screens) do
             if screen.Key ~= Screens.MAIN.Key then
+                local key = FFlagStudioAssetManagerShiftMultiSelect and screen.LayoutOrder or screen.Key
                 if (screen.Key == Screens.SCRIPTS.Key and hasLinkedScripts) or screen.Key ~= Screens.SCRIPTS.Key then
                     local folderTile = Roact.createElement(Tile, {
                         AssetData = {
@@ -133,7 +135,7 @@ function AssetGridContainer:createTiles(apiImpl, localization, theme,
                         },
 
                         LayoutOrder = screen.LayoutOrder,
-                        StyleModifier = selectedAssets[screen.Key] and StyleModifier.Selected or nil,
+                        StyleModifier = selectedAssets[key] and StyleModifier.Selected or nil,
                         Enabled = enabled,
                     })
                     assetsToDisplay[screen.Key] = folderTile
@@ -314,6 +316,7 @@ function AssetGridContainer:render()
 end
 
 ContextServices.mapToProps(AssetGridContainer,{
+    Analytics = ContextServices.Analytics,
     API = ContextServices.API,
     Localization = ContextServices.Localization,
     Plugin = ContextServices.Plugin,
@@ -341,8 +344,8 @@ local function mapDispatchToProps(dispatch)
         dispatchLoadAllAliases = function(apiImpl, assetType)
             dispatch(LoadAllAliases(apiImpl, assetType))
         end,
-        dispatchOnAssetRightClick = function(apiImpl, assetData, localization, plugin)
-            dispatch(OnAssetRightClick(apiImpl, assetData, localization, plugin))
+        dispatchOnAssetRightClick = function(analytics, apiImpl, assetData, localization, plugin)
+            dispatch(OnAssetRightClick(analytics, apiImpl, assetData, localization, plugin))
         end,
         dispatchOnScreenChange = function(apiImpl, screen)
             dispatch(OnScreenChange(apiImpl, screen))

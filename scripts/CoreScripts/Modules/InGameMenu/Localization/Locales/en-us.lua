@@ -135,4 +135,5 @@ return{
 	["CoreScripts.InGameMenu.EducationalPopup.BodyTextClickHome"] = [[Click the home icon]],
 	["CoreScripts.InGameMenu.EducationalPopup.BodyTextPlayMore"] = [[Play more Roblox]],
 	["CoreScripts.InGameMenu.EducationalPopup.LeaveRoblox"] = [[Leave Roblox]],
+	["CoreScripts.InGameMenu.GameSettings.ClientCoreScriptVersion"] = [[Client CoreScript Version: {CLIENT_CORESCRIPT_VERSION}]],
 }

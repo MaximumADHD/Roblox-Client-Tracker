@@ -28,8 +28,7 @@ local RobloxReplicatedStorage = game:GetService("RobloxReplicatedStorage")
 local RobloxGui = CoreGuiService:WaitForChild("RobloxGui")
 
 local CoreGuiModules = RobloxGui:WaitForChild("Modules")
-local PlayerDropDownModule = require(CoreGuiModules:WaitForChild("PlayerDropDown"))
-local BlockingUtility = PlayerDropDownModule:CreateBlockingUtility()
+local BlockingUtility = require(CoreGuiModules.BlockingUtility)
 
 local LocalPlayer = PlayersService.LocalPlayer
 while not LocalPlayer do

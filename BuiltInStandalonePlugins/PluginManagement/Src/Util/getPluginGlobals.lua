@@ -6,7 +6,7 @@
 
 	NOTE - because this object creates an object with global state, it is inherently untestable.
 ]]
-local FFlagPluginManagementRemoveUILibrary = game:GetFastFlag("PluginManagementRemoveUILibrary")
+local FFlagPluginManagementRemoveUILibrary = game:GetFastFlag("PluginManagementRemoveUILibrary2")
 
 local Plugin = script.Parent.Parent.Parent
 local Framework = Plugin.Packages.Framework

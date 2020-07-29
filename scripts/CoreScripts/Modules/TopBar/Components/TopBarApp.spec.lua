@@ -61,10 +61,10 @@ return function()
 	Sounds.Name = "Sounds"
 	Sounds.Parent = CoreGui.RobloxGui
 
-	local TopBarApp = require(script.Parent.TopBarApp)
-
 	describe("TopBarApp", function()
 		it("should create and destroy without errors", function()
+			local TopBarApp = require(script.Parent.TopBarApp)
+
 			local store = Rodux.Store.new(Reducer, nil, {
 				Rodux.thunkMiddleware,
 			})

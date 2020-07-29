@@ -2,7 +2,7 @@ local FFlagEnableStudioServiceOpenBrowser = game:GetFastFlag("EnableStudioServic
 local FFlagPluginManagementNewLoadingBar = game:DefineFastFlag("PluginManagementNewLoadingBar", false)
 local FFlagShowModeratedPluginInfo = game:DefineFastFlag("ShowModeratedPluginInfo", false)
 local FFlagPluginManagementPrettifyDesign = game:GetFastFlag("PluginManagementPrettifyDesign2")
-local FFlagPluginManagementRemoveUILibrary = game:GetFastFlag("PluginManagementRemoveUILibrary")
+local FFlagPluginManagementRemoveUILibrary = game:GetFastFlag("PluginManagementRemoveUILibrary2")
 
 local StudioService = game:getService("StudioService")
 local ContentProvider = game:getService("ContentProvider")
@@ -475,7 +475,7 @@ function PluginEntry:render()
 			}),
 
 			Dropdown = Roact.createElement(DropdownMenu, {
-				ShouldShow = showMore,
+				Hide = not showMore,
 				Size = UDim2.fromOffset(90, (40 * #self.getMoreItems())), -- TO DO (DEVTOOLS-4448): Render based on maximum string width
 				Items = self.getMoreItems(),
 

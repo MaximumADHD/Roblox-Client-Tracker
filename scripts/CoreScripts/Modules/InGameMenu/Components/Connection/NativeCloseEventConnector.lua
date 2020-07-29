@@ -38,6 +38,11 @@ function NativeCloseEventConnector:init()
 		if self.props.isEducationalPopupEnabled then
 			RbxAnalyticsService:ReportCounter("LeaveGame_NativeClose", 1)
 
+			if self.props.isClosingApp then
+				GuiService:BroadcastNotification("", notificationTypes.NATIVE_EXIT)
+				return
+			end
+
 			local displayCount = getDisplayCount()
 			local maxDisplayCount = self.props.maxDisplayCount
 
@@ -65,7 +70,11 @@ NativeCloseEventConnector = InGameMenuPolicy.connect(function(appPolicy, props)
 	}
 end)(NativeCloseEventConnector)
 
-return RoactRodux.UNSTABLE_connect2(nil, function(dispatch)
+return RoactRodux.UNSTABLE_connect2(function(state, props)
+	return {
+		isClosingApp = state.nativeClosePrompt.closingApp,
+	}
+end, function(dispatch)
 	return {
 		openNativeClosePrompt = function()
 			return dispatch(OpenNativeClosePrompt())

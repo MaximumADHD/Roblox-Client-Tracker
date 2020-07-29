@@ -6,8 +6,6 @@ local Roact = require(Library.Packages.Roact)
 
 local JointMaker = require(DraggerFramework.Utility.JointMaker)
 
-local getFFlagDraggerRefactor = require(DraggerFramework.Flags.getFFlagDraggerRefactor)
-
 return function()
 	local function createTestParts(count)
 		local parts = {}
@@ -51,7 +49,7 @@ return function()
 			local handle = Roact.mount(jointDisplay, container)
 
 			expect(jointDisplay).to.be.ok()
-			expect(#container:GetChildren()).to.equal(getFFlagDraggerRefactor() and 4 or 3)
+			expect(#container:GetChildren()).to.equal(4)
 
 			Roact.unmount(handle)
 		end)

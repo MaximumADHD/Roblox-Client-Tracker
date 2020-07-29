@@ -1,66 +1,55 @@
-if require(script.Parent.Parent.Parent.Flags.getFFlagDraggerRefactor)() then
-	return require(script.Parent.DraggingParts_Refactor)
-end
-
 local Workspace = game:GetService("Workspace")
 local ChangeHistoryService = game:GetService("ChangeHistoryService")
 
 local DraggerFramework = script.Parent.Parent.Parent
-local Packages = DraggerFramework.Parent
-local Library = DraggerFramework.Parent.Parent
 
-local Roact = require(Packages.Roact)
-local DraggerStateType = require(script.Parent.Parent.DraggerStateType)
-local SelectionHelper = require(DraggerFramework.Utility.SelectionHelper)
+local DraggerStateType = require(DraggerFramework.Implementation.DraggerStateType)
 local DragHelper = require(DraggerFramework.Utility.DragHelper)
-local SelectionWrapper = require(DraggerFramework.Utility.SelectionWrapper)
 local PartMover = require(DraggerFramework.Utility.PartMover)
 local AttachmentMover = require(DraggerFramework.Utility.AttachmentMover)
-local setInsertPoint = require(DraggerFramework.Utility.setInsertPoint)
 local StandardCursor = require(DraggerFramework.Utility.StandardCursor)
-local getHandleScale = require(DraggerFramework.Utility.getHandleScale)
+
+local getFFlagSupportNoRotate = require(DraggerFramework.Flags.getFFlagSupportNoRotate)
+local getFFlagFixStaleJointDisplay = require(DraggerFramework.Flags.getFFlagFixStaleJointDisplay)
 
 local DraggingParts = {}
 DraggingParts.__index = DraggingParts
 
-local function areJointsEnabled()
-	return Library.Parent:GetJoinMode() ~= Enum.JointCreationMode.None
-end
-
-function DraggingParts.new(draggerTool, dragStart)
+function DraggingParts.new(draggerToolModel, dragStart)
 	local self = setmetatable({
 		_partMover = PartMover.new(),
 		_attachmentMover = AttachmentMover.new(),
 		_dragStart = dragStart,
+		_draggerToolModel = draggerToolModel,
+		_tiltRotate = CFrame.new(),
 	}, DraggingParts)
-	self:_init(draggerTool)
+	self:_init()
 	return self
 end
 
-function DraggingParts:enter(draggerTool)
-
+function DraggingParts:enter()
+	self:_updateFreeformSelectionDrag()
 end
 
-function DraggingParts:leave(draggerTool)
-
+function DraggingParts:leave()
 end
 
-function DraggingParts:_init(draggerTool)
+function DraggingParts:_init()
 	local t = tick()
-	draggerTool._boundsChangedTracker:uninstall()
-	self:_initIgnoreList(draggerTool._derivedWorldState:getObjectsToTransform())
+	self._draggerToolModel._boundsChangedTracker:uninstall()
+	self:_initIgnoreList(self._draggerToolModel._derivedWorldState:getObjectsToTransform())
 
 	local breakJointsToOutsiders = true
 	local partsToMove, attachmentsToMove =
-		draggerTool._derivedWorldState:getObjectsToTransform()
+		self._draggerToolModel._derivedWorldState:getObjectsToTransform()
 	self._partMover:setDragged(
-		partsToMove, draggerTool._derivedWorldState:getOriginalCFrameMap(), breakJointsToOutsiders,
-		draggerTool._derivedWorldState:getBoundingBox().Position)
+		partsToMove, self._draggerToolModel._derivedWorldState:getOriginalCFrameMap(), breakJointsToOutsiders,
+		self._draggerToolModel._derivedWorldState:getBoundingBox().Position)
 	self._attachmentMover:setDragged(
 		attachmentsToMove)
 
 	local timeToStartDrag = tick() - t
-	draggerTool:_analyticsRecordFreeformDragBegin(timeToStartDrag)
+	self._draggerToolModel:_analyticsRecordFreeformDragBegin(timeToStartDrag)
 end
 
 function DraggingParts:_initIgnoreList(parts)
@@ -72,62 +61,74 @@ function DraggingParts:_initIgnoreList(parts)
 	self._raycastFilter = filter
 end
 
-function DraggingParts:render(draggerTool)
-	draggerTool:setMouseCursor(StandardCursor.getClosedHand())
+function DraggingParts:render()
+	self._draggerToolModel:setMouseCursor(StandardCursor.getClosedHand())
 
-	if areJointsEnabled() and self._jointPairs then
-		local cframe, offset = draggerTool._derivedWorldState:getBoundingBox()
+	if self._draggerToolModel._draggerContext:shouldJoinSurfaces() and self._jointPairs then
+		local cframe, offset = self._draggerToolModel._derivedWorldState:getBoundingBox()
 		local focus = cframe * offset
-		return self._jointPairs:renderJoints(getHandleScale(focus))
+		return self._jointPairs:renderJoints(self._draggerToolModel._draggerContext:getHandleScale(focus))
 	end
 end
 
-function DraggingParts:processSelectionChanged(draggerTool)
+function DraggingParts:processSelectionChanged()
 	-- If something unexpectedly changes the selection out from underneath us,
 	-- bail out of the drag.
-	self:_endFreeformSelectionDrag(draggerTool)
+	self:_endFreeformSelectionDrag()
 end
 
-function DraggingParts:processMouseDown(draggerTool)
+function DraggingParts:processMouseDown()
 	error("Mouse should already be down while dragging parts.")
 end
 
-function DraggingParts:processViewChanged(draggerTool)
-	self:_updateFreeformSelectionDrag(draggerTool, draggerTool.state.tiltRotate)
+function DraggingParts:processViewChanged()
+	self:_updateFreeformSelectionDrag()
 end
 
-function DraggingParts:processMouseUp(draggerTool)
-	self:_endFreeformSelectionDrag(draggerTool)
+function DraggingParts:processMouseUp()
+	self:_endFreeformSelectionDrag()
 end
 
-function DraggingParts:processKeyDown(draggerTool, keyCode)
+function DraggingParts:processKeyDown(keyCode)
 	if keyCode == Enum.KeyCode.R then
-		draggerTool._sessionAnalytics.dragRotates = draggerTool._sessionAnalytics.dragRotates + 1
-		draggerTool._dragAnalytics.dragRotates = draggerTool._dragAnalytics.dragRotates + 1
-		self:_tiltRotateFreeformSelectionDrag(draggerTool, Vector3.new(0, 1, 0))
+		self._draggerToolModel._sessionAnalytics.dragRotates = self._draggerToolModel._sessionAnalytics.dragRotates + 1
+		self._draggerToolModel._dragAnalytics.dragRotates = self._draggerToolModel._dragAnalytics.dragRotates + 1
+		self:_tiltRotateFreeformSelectionDrag(Vector3.new(0, 1, 0))
 	elseif keyCode == Enum.KeyCode.T then
-		draggerTool._sessionAnalytics.dragTilts = draggerTool._sessionAnalytics.dragTilts + 1
-		draggerTool._dragAnalytics.dragTilts = draggerTool._dragAnalytics.dragTilts + 1
-		self:_tiltRotateFreeformSelectionDrag(draggerTool, Vector3.new(1, 0, 0))
+		self._draggerToolModel._sessionAnalytics.dragTilts = self._draggerToolModel._sessionAnalytics.dragTilts + 1
+		self._draggerToolModel._dragAnalytics.dragTilts = self._draggerToolModel._dragAnalytics.dragTilts + 1
+		self:_tiltRotateFreeformSelectionDrag(Vector3.new(1, 0, 0))
 	end
 end
 
-function DraggingParts:_tiltRotateFreeformSelectionDrag(draggerTool, axis)
-	local mainCFrame = draggerTool._derivedWorldState:getBoundingBox()
+function DraggingParts:_tiltRotateFreeformSelectionDrag(axis)
+	local mainCFrame = self._draggerToolModel._derivedWorldState:getBoundingBox()
 	local lastTargetMatrix
 	if self._lastDragTarget then
 		lastTargetMatrix = self._lastDragTarget.targetMatrix
 	end
-	local newTiltRotate = DragHelper.updateTiltRotate(
-		self._raycastFilter, mainCFrame, lastTargetMatrix,
-		draggerTool.state.tiltRotate, axis)
-	self:_updateFreeformSelectionDrag(draggerTool, newTiltRotate)
-	draggerTool:setState({
-		tiltRotate = newTiltRotate,
-	})
+
+	if getFFlagSupportNoRotate() then
+		self._tiltRotate = DragHelper.updateTiltRotate(
+			self._draggerToolModel._draggerContext:getCameraCFrame(),
+			self._draggerToolModel._draggerContext:getMouseRay(),
+			self._raycastFilter, mainCFrame, lastTargetMatrix,
+			self._tiltRotate, axis, self._draggerToolModel:shouldAlignDraggedObjects())
+	else
+		self._tiltRotate = DragHelper.updateTiltRotate(
+			self._draggerToolModel._draggerContext:getCameraCFrame(),
+			self._draggerToolModel._draggerContext:getMouseRay(),
+			self._raycastFilter, mainCFrame, lastTargetMatrix,
+			self._tiltRotate, axis)
+	end
+
+	self:_updateFreeformSelectionDrag()
+	if getFFlagFixStaleJointDisplay() then
+		self._draggerToolModel:_scheduleRender()
+	end
 end
 
-function DraggingParts:_updateFreeformSelectionDrag(draggerTool, tiltRotate)
+function DraggingParts:_updateFreeformSelectionDrag()
 	local lastTargetMatrix = nil
 	if self._lastDragTarget then
 		lastTargetMatrix = self._lastDragTarget.targetMatrix
@@ -135,18 +136,36 @@ function DraggingParts:_updateFreeformSelectionDrag(draggerTool, tiltRotate)
 
 	local forceLocal = true
 	local localBoundingBoxCFrame, localBoundingBoxOffset, localBoundingBoxSize =
-		draggerTool._derivedWorldState:getBoundingBox(forceLocal)
-	local dragTarget = DragHelper.getDragTarget(
-		self._dragStart.clickPoint,
-		self._raycastFilter,
-		localBoundingBoxCFrame,
-		self._dragStart.basisPoint,
-		localBoundingBoxSize,
-		localBoundingBoxOffset,
-		tiltRotate or CFrame.new(),
-		lastTargetMatrix)
+		self._draggerToolModel._derivedWorldState:getBoundingBox(forceLocal)
+	local dragTarget
+	if getFFlagSupportNoRotate() then
+		dragTarget = DragHelper.getDragTarget(
+			self._draggerToolModel._draggerContext:getMouseRay(),
+			self._draggerToolModel._draggerContext:getGridSize(),
+			self._dragStart.clickPoint,
+			self._raycastFilter,
+			localBoundingBoxCFrame,
+			self._dragStart.basisPoint,
+			localBoundingBoxSize,
+			localBoundingBoxOffset,
+			self._tiltRotate,
+			lastTargetMatrix,
+			self._draggerToolModel:shouldAlignDraggedObjects())
+	else
+		dragTarget = DragHelper.getDragTarget(
+			self._draggerToolModel._draggerContext:getMouseRay(),
+			self._draggerToolModel._draggerContext:getGridSize(),
+			self._dragStart.clickPoint,
+			self._raycastFilter,
+			localBoundingBoxCFrame,
+			self._dragStart.basisPoint,
+			localBoundingBoxSize,
+			localBoundingBoxOffset,
+			self._tiltRotate,
+			lastTargetMatrix)
+	end
 
-	draggerTool:_analyticsRecordFreeformDragUpdate(dragTarget)
+	self._draggerToolModel:_analyticsRecordFreeformDragUpdate(dragTarget)
 
 	if dragTarget then
 		self._lastDragTarget = dragTarget
@@ -155,7 +174,7 @@ function DraggingParts:_updateFreeformSelectionDrag(draggerTool, tiltRotate)
 		local globalTransform = newCFrame * originalCFrame:Inverse()
 		self._partMover:transformTo(globalTransform)
 		self._attachmentMover:transformTo(globalTransform)
-		if areJointsEnabled() then
+		if self._draggerToolModel._draggerContext:shouldJoinSurfaces() then
 			self._jointPairs = self._partMover:computeJointPairs(globalTransform)
 		end
 	end
@@ -165,12 +184,12 @@ end
 	Refresh selection info to reflect the new CFrames of the dragged parts
 	and return to the Ready state.
 ]]
-function DraggingParts:_endFreeformSelectionDrag(draggerTool)
+function DraggingParts:_endFreeformSelectionDrag()
 	local attachment = self._dragStart.attachmentBeingDragged
 	if attachment then
 		-- Single attachment being dragged case -- In that case we need to
 		-- potentially reparent the attachment to the part it was dragged onto.
-		local mouseRay = SelectionHelper.getMouseRay()
+		local mouseRay = self._draggerToolModel._draggerContext:getMouseRay()
 		local worldHit = Workspace:FindPartOnRay(mouseRay)
 		if worldHit then
 			local worldCFrame = attachment.WorldCFrame
@@ -185,25 +204,23 @@ function DraggingParts:_endFreeformSelectionDrag(draggerTool)
 		end
 	end
 
-	if areJointsEnabled() and self._jointPairs then
+	if self._draggerToolModel._draggerContext:shouldJoinSurfaces() and self._jointPairs then
 		self._jointPairs:createJoints()
 	end
 	self._jointPairs = nil
 	self._partMover:commit()
 	self._attachmentMover:commit()
-	draggerTool._boundsChangedTracker:install()
+	self._draggerToolModel._boundsChangedTracker:install()
 
-	draggerTool:_updateSelectionInfo()
+	self._draggerToolModel:_updateSelectionInfo()
 
-	draggerTool:transitionToState({
-		tiltRotate = Roact.None,
-	}, DraggerStateType.Ready)
+	self._draggerToolModel:transitionToState(DraggerStateType.Ready)
 
 	ChangeHistoryService:SetWaypoint("End freeform drag")
-	draggerTool:_analyticsSendFreeformDragged()
+	self._draggerToolModel:_analyticsSendFreeformDragged()
 
-	local cframe, offset = draggerTool._derivedWorldState:getBoundingBox()
-	setInsertPoint(cframe * offset)
+	local cframe, offset = self._draggerToolModel._derivedWorldState:getBoundingBox()
+	self._draggerToolModel._draggerContext:setInsertPoint(cframe * offset)
 end
 
 return DraggingParts

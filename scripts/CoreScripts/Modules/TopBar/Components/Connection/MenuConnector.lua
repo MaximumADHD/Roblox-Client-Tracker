@@ -107,7 +107,7 @@ local function mapDispatchToProps(dispatch)
 
 		setRespawnBehaviour = isNewGamepadMenuEnabled() and function(isEnabled, customCallback)
 			return dispatch(SetRespawnBehaviour(isEnabled, customCallback))
-		end,
+		end or nil,
 	}
 end
 

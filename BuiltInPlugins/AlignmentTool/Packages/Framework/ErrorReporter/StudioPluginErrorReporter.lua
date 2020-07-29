@@ -7,7 +7,8 @@
 	Ex)
 	-- observe all errors
 	local reporter = StudioPluginErrorReporter.new({
-		plugin = plugin,
+		expectedSecurityLevel = 6,
+		expectedPrefix = "builtin"
 	})
 
 	-- manually report an error
@@ -35,7 +36,8 @@ local STUDIO_DEVELOPMENT_VERSION = "0.0.0.1"
 local STUDIO_PLUGIN_ERRORS_DIAG_COLLECTOR = "StudioPluginErrors"
 
 local IStudioPluginErrorReporterArgs = t.strictInterface({
-	plugin = t.any,
+	expectedSecurityLevel = t.integer,
+	expectedPrefix = t.string,
 
 	networking = t.optional(t.interface({
 		request = t.callback,
@@ -56,12 +58,17 @@ local IStudioPluginErrorReporterArgs = t.strictInterface({
 	}))
 })
 
+local function createCollectorName(pluginName)
+	return string.format("%s.%s", STUDIO_PLUGIN_ERRORS_DIAG_COLLECTOR, pluginName)
+end
+
 local StudioPluginErrorReporter = {}
 StudioPluginErrorReporter.__index = StudioPluginErrorReporter
 
 function StudioPluginErrorReporter.new(args)
 	assert(IStudioPluginErrorReporterArgs(args), "Expected the correct args")
-	local pluginName = args.plugin.Name
+	local expectedSecurityLevel = args.expectedSecurityLevel
+	local expectedPrefix = args.expectedPrefix
 
 	-- optional overrides for minimal security tests
 	local networking = args.networking or Networking.new({ isInternal = true })
@@ -78,13 +85,11 @@ function StudioPluginErrorReporter.new(args)
 	local self = setmetatable({}, StudioPluginErrorReporter)
 	
 	self.errorSignal = errorSignal
-	self.diagCollectorName = string.format("%s.%s", STUDIO_PLUGIN_ERRORS_DIAG_COLLECTOR, pluginName)
 	self.analyticsService = analyticsService
 	self.staticAttributes = {
 		StudioVersion = studioVersion,
 		UserAgent = userAgent,
 		BaseUrl = baseUrl,
-		PluginName = pluginName,
 
 		-- TODO DEVTOOLS-4152: add additional attributes based plugin context
 		--PluginKind (built-in, standalone, user)
@@ -102,29 +107,46 @@ function StudioPluginErrorReporter.new(args)
 
 	local isProductionStudio = studioVersion ~= STUDIO_DEVELOPMENT_VERSION
 	if isProductionStudio then
-		self.errorToken = self.errorSignal:Connect(function(errorMessage, errorStack, _, details)
-			-- disregard all errors not from this plugin
-			if string.find(errorStack, pluginName) ~= nil then
-				-- report detailed information about the error
-				self.reporter:reportErrorDeferred(errorMessage, errorStack, details)
-
-				-- keep track of the total errors
-				self.analyticsService:ReportCounter(self.diagCollectorName, 1)
+		self.errorToken = self.errorSignal:Connect(function(errorMessage, errorStack, _, details, threadSecurity)
+			-- disregard all errors not from the expected security level
+			if threadSecurity ~= expectedSecurityLevel then
+				return
 			end
-		end)
 
-		self.unloadingToken = args.plugin.Unloading:Connect(function()
-			self:stop()
+			-- disregard any plugins that don't match the expected error stack
+			local index = string.find(errorStack, expectedPrefix)
+			if index ~= 1 then
+				return
+			end
+
+			local expectedPluginPattern = string.format("^(%s_%%a+%%.rbxm)", expectedPrefix) -- ex) ^builtin_%a+%.rbxm
+			local pluginName = string.match(errorStack, expectedPluginPattern)
+			if pluginName == nil then
+				return
+			end
+
+			-- report detailed information about the error
+			self.reporter:updateSharedAttributes({
+				PluginName = pluginName,
+			})
+			self.reporter:reportErrorDeferred(errorMessage, errorStack, details)
+
+			-- keep track of the total errors
+			self.analyticsService:ReportCounter(createCollectorName(pluginName), 1)
 		end)
 	end
 
 	return self
 end
 
-function StudioPluginErrorReporter:report(errorMessage)
+function StudioPluginErrorReporter:report(pluginName, errorMessage)
+	assert(type(pluginName) == "string", "Expected pluginName to be a string")
 	assert(type(errorMessage) == "string", "Expected errorMessage to be a string")
+	self.reporter:updateSharedAttributes({
+		PluginName = pluginName,
+	})
 	self.reporter:reportErrorDeferred(errorMessage, debug.traceback())
-	self.analyticsService:ReportCounter(self.diagCollectorName, 1)
+	self.analyticsService:ReportCounter(createCollectorName(pluginName), 1)
 end
 
 function StudioPluginErrorReporter:stop()
@@ -133,11 +155,6 @@ function StudioPluginErrorReporter:stop()
 	if self.errorToken ~= nil then
 		self.errorToken:Disconnect()
 		self.errorToken = nil
-	end
-
-	if self.unloadingToken ~= nil then
-		self.unloadingToken:Disconnect()
-		self.unloadingToken = nil
 	end
 end
 

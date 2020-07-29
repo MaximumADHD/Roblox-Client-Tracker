@@ -123,4 +123,11 @@ return{
 	["CoreScripts.InGameMenu.GameSettings.CameraModeCameraToggle"] = [[AttivaVisuale]],
 	["CoreScripts.InGameMenu.Record.StartRecording"] = [[Registra video]],
 	["CoreScripts.InGameMenu.Record.Duration"] = [[Registrazione in corso - {DURATION}]],
+	["CoreScripts.InGameMenu.Prompt.LeaveGameTitle"] = [[Vuoi uscire dal gioco?]],
+	["CoreScripts.InGameMenu.Prompt.LeaveGameBodyText"] = [[Se esci dal gioco, perderai i progressi non salvati.]],
+	["CoreScripts.InGameMenu.Prompt.BackToHome"] = [[Torna alla Home]],
+	["CoreScripts.InGameMenu.Prompt.ResumeGame"] = [[Riprendi il gioco]],
+	["CoreScripts.InGameMenu.Prompt.LeaveGame"] = [[Esci dal gioco]],
+	["CoreScripts.InGameMenu.GameSettings.VREnabled"] = [[Modalità VR]],
+	["CoreScripts.InGameMenu.GameSettings.RestartPending"] = [[Riavvio necessario]],
 }

@@ -19,12 +19,14 @@ local SetEditingAssets = require(Plugin.Src.Actions.SetEditingAssets)
 local OnAssetDoubleClick = require(Plugin.Src.Thunks.OnAssetDoubleClick)
 local OnAssetRightClick = require(Plugin.Src.Thunks.OnAssetRightClick)
 local OnAssetSingleClick = require(Plugin.Src.Thunks.OnAssetSingleClick)
+local DEPRECATED_OnAssetSingleClick = require(Plugin.Src.Thunks.DEPRECATED_OnAssetSingleClick)
 
 local AssetManagerService = game:GetService("AssetManagerService")
 local ContentProvider = game:GetService("ContentProvider")
 
 local FFlagStudioAssetManagerSetEmptyName = game:DefineFastFlag("StudioAssetManagerSetEmptyName", false)
 local FFlagBatchThumbnailAddNewThumbnailTypes = game:GetFastFlag("BatchThumbnailAddNewThumbnailTypes")
+local FFlagStudioAssetManagerShiftMultiSelect = game:DefineFastFlag("StudioAssetManagerShiftMultiSelect", false)
 
 local Tile = Roact.PureComponent:extend("Tile")
 
@@ -83,10 +85,14 @@ function Tile:init()
         end
         local assetData = props.AssetData
         if clickCount == 0 then
-            if obj:IsModifierKeyDown(Enum.ModifierKey.Ctrl) then
-                props.dispatchOnAssetSingleClick(true, assetData)
+            if FFlagStudioAssetManagerShiftMultiSelect then
+                props.dispatchOnAssetSingleClick(obj, assetData)
             else
-                props.dispatchOnAssetSingleClick(false, assetData)
+                if obj:IsModifierKeyDown(Enum.ModifierKey.Ctrl) then
+                    props.DEPRECATED_dispatchOnAssetSingleClick(true, assetData)
+                else
+                    props.DEPRECATED_dispatchOnAssetSingleClick(false, assetData)
+                end
             end
         elseif clickCount == 1 then
             props.dispatchOnAssetDoubleClick(props.Analytics, assetData)
@@ -102,13 +108,25 @@ function Tile:init()
         end
         local assetData = props.AssetData
         local isFolder = assetData.ClassName == "Folder"
-        if isFolder then
-            if not props.SelectedAssets[assetData.Screen.Key] then
-                props.dispatchOnAssetSingleClick(false, assetData)
+        if FFlagStudioAssetManagerShiftMultiSelect then
+            if isFolder then
+                if not props.SelectedAssets[assetData.Screen.LayoutOrder] then
+                    props.dispatchOnAssetSingleClick(nil, assetData)
+                end
+            else
+                if not props.SelectedAssets[assetData.key] then
+                    props.dispatchOnAssetSingleClick(nil, assetData)
+                end
             end
         else
-            if not props.SelectedAssets[assetData.key] then
-                props.dispatchOnAssetSingleClick(false, assetData)
+            if isFolder then
+                if not props.SelectedAssets[assetData.Screen.Key] then
+                    props.DEPRECATED_dispatchOnAssetSingleClick(false, assetData)
+                end
+            else
+                if not props.SelectedAssets[assetData.key] then
+                    props.DEPRECATED_dispatchOnAssetSingleClick(false, assetData)
+                end
             end
         end
         props.dispatchOnAssetRightClick(props.Analytics, props.API:get(), assetData, props.Localization, props.Plugin:get())
@@ -421,8 +439,11 @@ local function mapDispatchToProps(dispatch)
         dispatchOnAssetRightClick = function(analytics, apiImpl, assetData, localization, plugin)
             dispatch(OnAssetRightClick(analytics, apiImpl, assetData, localization, plugin))
         end,
-        dispatchOnAssetSingleClick = function(isCtrlKeyDown, assetData)
-            dispatch(OnAssetSingleClick(isCtrlKeyDown, assetData))
+        dispatchOnAssetSingleClick = function(obj, assetData)
+            dispatch(OnAssetSingleClick(obj, assetData))
+        end,
+        DEPRECATED_dispatchOnAssetSingleClick = function(isCtrlKeyDown, assetData)
+            dispatch(DEPRECATED_OnAssetSingleClick(isCtrlKeyDown, assetData))
         end,
         dispatchSetEditingAssets = function(editingAssets)
             dispatch(SetEditingAssets(editingAssets))

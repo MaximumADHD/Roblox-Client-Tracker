@@ -1,6 +1,3 @@
--- New Blocking Utility, should only be used with FFlagUseRoactPlayerList
--- Otherwise use the old blocking utility in PlayerDropDown
-
 local HttpRbxApiService = game:GetService("HttpRbxApiService")
 local HttpService = game:GetService("HttpService")
 local PlayersService = game:GetService("Players")

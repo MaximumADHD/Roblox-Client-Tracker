@@ -17,6 +17,7 @@ return Rodux.createReducer({
 	searchTerm = "",
 	-- Contains list of selected keyed by id
 	selectedAssets = {},
+	selectionIndex = 0,
 	universeName = "",
 	-- only show the scripts folder if the place has linked scripts because linked scripts are deprecated.
 	hasLinkedScripts = false,
@@ -54,6 +55,12 @@ return Rodux.createReducer({
 	SetSelectedAssets = function(state, action)
 		return Cryo.Dictionary.join(state, {
 			selectedAssets = action.selectedAssets,
+		})
+	end,
+
+	SetSelectionIndex = function(state, action)
+		return Cryo.Dictionary.join(state, {
+			selectionIndex = action.selectionIndex,
 		})
 	end,
 

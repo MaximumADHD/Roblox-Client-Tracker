@@ -1,6 +1,8 @@
 --[[
 	Displays panels associated with The Replace tool
 ]]
+game:DefineFastFlag("TerrainToolsReplaceSourceMaterialAirLock", false)
+local FFlagTerrainToolsReplaceSourceMaterialAirLock = game:GetFastFlag("TerrainToolsReplaceSourceMaterialAirLock")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -69,6 +71,13 @@ function Replace:init()
 		if material == Enum.Material.Water and self.props.ignoreWater == true then
 			self.props.dispatchSetIgnoreWater(false)
 		end
+
+		--Checks to make sure you have plane lock + air, w/o plane lock the terrain zooms towards the camera
+		if FFlagTerrainToolsReplaceSourceMaterialAirLock then
+			if material == Enum.Material.Air and self.props.planeLock == false then
+				self.props.dispatchSetPlaneLock(true)
+			end
+		end
 		self.props.dispatchSetSourceMaterial(material)
 	end
 
@@ -80,6 +89,17 @@ function Replace:init()
 			end
 		else
 			self.props.dispatchSetIgnoreWater(mode)
+		end
+	end
+
+	--Make sure the user does no leave planelock while having air as the source material
+	self.setPlaneLock = function(mode)
+		if self.props.Source == Enum.Material.Air then
+			if self.props.planeLock then
+				self.props.dispatchSetPlaneLock(true)
+			end
+		else
+			self.props.dispatchSetPlaneLock(mode)
 		end
 	end
 
@@ -191,7 +211,8 @@ function Replace:render()
 					dispatchChangeHeight = self.props.dispatchChangeHeight,
 					dispatchSetIgnoreWater = self.setIgnoreWater,
 					dispatchChangePivot = self.props.dispatchChangePivot,
-					dispatchSetPlaneLock = self.props.dispatchSetPlaneLock,
+					dispatchSetPlaneLock = FFlagTerrainToolsReplaceSourceMaterialAirLock and self.setPlaneLock
+					or self.props.dispatchSetPlaneLock,
 					dispatchSetSnapToGrid = self.props.dispatchSetSnapToGrid,
 					dispatchSetSourceMaterial = self.props.dispatchSetSourceMaterial,
 					dispatchSetTargetMaterial = self.props.dispatchSetTargetMaterial,

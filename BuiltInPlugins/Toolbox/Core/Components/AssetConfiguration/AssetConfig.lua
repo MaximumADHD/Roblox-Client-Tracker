@@ -13,6 +13,7 @@ local FFlagShowAssetConfigReasons2 = game:GetFastFlag("ShowAssetConfigReasons2")
 local FFlagEnableNonWhitelistedToggle = game:GetFastFlag("EnableNonWhitelistedToggle")
 local FFlagAssetConfigUseItemConfig = game:GetFastFlag("AssetConfigUseItemConfig")
 local FFlagAssetConfigBlockUntilReadyToEdit = game:DefineFastFlag("AssetConfigBlockUntilReadyToEdit", false)
+local FFlagAssetConfigEnforceNonEmptyDescription = game:DefineFastFlag("AssetConfigEnforceNonEmptyDescription", false)
 
 local StudioService = game:GetService("StudioService")
 
@@ -617,6 +618,9 @@ local function checkCanSave(changeTable, name, description, price, minPrice, max
 		local changed = changeTable and next(changeTable) ~= nil
 		local nameDataIsOk = (#name <= AssetConfigConstants.NAME_CHARACTER_LIMIT) and (tostring(name) ~= "")
 		local descriptionDataIsOk = #description <= AssetConfigConstants.DESCRIPTION_CHARACTER_LIMIT
+		if FFlagAssetConfigEnforceNonEmptyDescription then
+			descriptionDataIsOk = descriptionDataIsOk and (tostring(description) ~= "")
+		end
 		local priceDataIsOk = validatePrice(price, minPrice, maxPrice, assetStatus)
 
 		if not FFlagCanPublishDefaultAsset then

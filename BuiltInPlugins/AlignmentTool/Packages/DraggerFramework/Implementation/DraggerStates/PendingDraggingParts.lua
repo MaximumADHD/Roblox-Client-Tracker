@@ -1,73 +1,72 @@
-if require(script.Parent.Parent.Parent.Flags.getFFlagDraggerRefactor)() then
-	return require(script.Parent.PendingDraggingParts_Refactor)
-end
-
-local UserInputService = game:GetService("UserInputService")
-
 local DraggerFramework = script.Parent.Parent.Parent
 local DraggerStateType = require(DraggerFramework.Implementation.DraggerStateType)
-local SelectionWrapper = require(DraggerFramework.Utility.SelectionWrapper)
 local StandardCursor = require(DraggerFramework.Utility.StandardCursor)
+
+local getFFlagDraggerAnalyticsCleanup = require(DraggerFramework.Flags.getFFlagDraggerAnalyticsCleanup)
 
 local FREEFORM_DRAG_THRESHOLD = 4
 
 local PendingDraggingParts = {}
 PendingDraggingParts.__index = PendingDraggingParts
 
-function PendingDraggingParts.new(draggerTool, dragStart)
+function PendingDraggingParts.new(draggerToolModel, dragStart)
 	return setmetatable({
 		_dragStart = dragStart,
+		_draggerToolModel = draggerToolModel
 	}, PendingDraggingParts)
 end
 
-function PendingDraggingParts:enter(draggerTool)
+function PendingDraggingParts:enter()
 
 end
 
-function PendingDraggingParts:leave(draggerTool)
+function PendingDraggingParts:leave()
 
 end
 
-function PendingDraggingParts:render(draggerTool)
-	draggerTool:setMouseCursor(StandardCursor.getClosedHand())
+function PendingDraggingParts:render()
+	self._draggerToolModel:setMouseCursor(StandardCursor.getClosedHand())
 end
 
-function PendingDraggingParts:processSelectionChanged(draggerTool)
+function PendingDraggingParts:processSelectionChanged()
 	-- Don't clear the state back to Ready in this case. In Run mode the
 	-- selection should change while we're sitting in Pending state, and
 	-- that's okay, because we already recorded how to drag the selection
 	-- relative to the mouse on down.
 end
 
-function PendingDraggingParts:processMouseDown(draggerTool)
+function PendingDraggingParts:processMouseDown()
 	error("Mouse should already be down while pending part drag.")
 end
 
-function PendingDraggingParts:processViewChanged(draggerTool)
-	local location = UserInputService:GetMouseLocation()
+function PendingDraggingParts:processViewChanged()
+	local location = self._draggerToolModel._draggerContext:getMouseLocation()
 	local screenMovement = location - self._dragStart.mouseLocation
 
 	if screenMovement.Magnitude > FREEFORM_DRAG_THRESHOLD then
-		draggerTool:transitionToState({
-			tiltRotate = CFrame.new()
-		}, DraggerStateType.DraggingParts, self._dragStart)
+		self._draggerToolModel:transitionToState(DraggerStateType.DraggingParts, self._dragStart)
 	end
 end
 
-function PendingDraggingParts:processMouseUp(draggerTool)
+function PendingDraggingParts:processMouseUp()
 	-- Special case for selecting FaceInstances (Decals / Textures).
 	-- Only select a FaceInstance if we mousedown, and then mouseup on
 	-- the same part, but without moving enough to start a drag.
 	if self._dragStart.clickedFaceInstance then
-		SelectionWrapper:Set({self._dragStart.clickedFaceInstance})
-		draggerTool:_processSelectionChanged()
-		draggerTool:_analyticsSendFaceInstanceSelected()
+		local selectionWrapper = self._draggerToolModel._draggerContext:getSelectionWrapper()
+		selectionWrapper:Set({self._dragStart.clickedFaceInstance})
+		self._draggerToolModel:_processSelectionChanged()
+		if getFFlagDraggerAnalyticsCleanup() then
+			self._draggerToolModel:_analyticsSendFaceInstanceSelected(self._dragStart.clickedFaceInstance.ClassName)
+		else
+			self._draggerToolModel:_analyticsSendFaceInstanceSelected()
+		end
 	end
 
-	draggerTool:transitionToState({}, DraggerStateType.Ready)
+	self._draggerToolModel:transitionToState(DraggerStateType.Ready)
 end
 
-function PendingDraggingParts:processKeyDown(draggerTool, keyCode)
+function PendingDraggingParts:processKeyDown(keyCode)
 	-- Nothing to do.
 end
 

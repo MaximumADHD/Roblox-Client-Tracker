@@ -12,7 +12,7 @@ local FlagsList = Flags.new({
 local FFlagEnableStudioServiceOpenBrowser = game:GetFastFlag("EnableStudioServiceOpenBrowser")
 local FFlagPluginManagementAllowLotsOfPlugins2 = settings():GetFFlag("PluginManagementAllowLotsOfPlugins2")
 local FFlagFixFindPluginsMessage = game:DefineFastFlag("FixFindPluginsMessage", false)
-local FFlagPluginManagementRemoveUILibrary = game:GetFastFlag("PluginManagementRemoveUILibrary")
+local FFlagPluginManagementRemoveUILibrary = game:GetFastFlag("PluginManagementRemoveUILibrary2")
 
 
 local StudioService = game:GetService("StudioService")
@@ -43,9 +43,6 @@ if FFlagPluginManagementRemoveUILibrary then
 else
 	LoadingIndicator = UILibrary.Component.LoadingIndicator
 end
-
-
-
 
 local ManagementMainView = Roact.Component:extend("ManagementMainView")
 

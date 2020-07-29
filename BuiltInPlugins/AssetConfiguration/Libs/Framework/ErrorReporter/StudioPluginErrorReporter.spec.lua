@@ -7,27 +7,19 @@ return function()
 	local Signal = require(Framework.Util.Signal)
 	local StudioPluginErrorReporter = require(script.Parent.StudioPluginErrorReporter)
 
-	local DEVELOPMENT_STUDIO_VERSION = "0.0.0.1"
 	local DUMMY_STUDIO_VERSION = "1.2.3.4"
 
-	it("should construct properly with only a plugin object", function()
+	it("should construct properly with only the minimum set of arguments", function()
 		local reporter = StudioPluginErrorReporter.new({
-			plugin = mockPlugin.new(),
-
-			-- this is normally optional and ignored, but it's important that event listeners are
-			-- not connected in tests
-			services = {
-				RunService = {
-					GetRobloxVersion = function()
-						return DEVELOPMENT_STUDIO_VERSION
-					end,
-				},
-			},
+			expectedPrefix = "builtin",
+			expectedSecurityLevel = 6,
 		})
+		reporter:stop()
 		expect(reporter).to.be.ok()
 	end)
 
 	it("should configure its attributes from the appropriate services", function()
+		local testingSecurityLevel = 6
 		local testPlugin = mockPlugin.new()
 		testPlugin.Name = "builtin_Test.rbxm"
 
@@ -60,7 +52,9 @@ return function()
 		end
 
 		local reporter = StudioPluginErrorReporter.new({
-			plugin = testPlugin,
+			expectedPrefix = "builtin",
+			expectedSecurityLevel = testingSecurityLevel,
+
 			networking = Networking.mock({
 				onRequest = function(requestOptions)
 					verifyUpload(HttpService:JSONDecode(requestOptions.Body))
@@ -96,15 +90,12 @@ return function()
 		})
 
 		-- fire a test error
-		errSignal:Fire(testError.msg, testError.stack, testError.src, testError.details)
+		errSignal:Fire(testError.msg, testError.stack, testError.src, testError.details, testingSecurityLevel)
 
 		-- verify that the error looks right
-		reporter.reporter:reportAllErrors()
+		reporter:stop()
 		expect(numCalls).to.equal(1)
 		expect(analyticsCalls).to.equal(1)
-
-		-- clean up
-		reporter:stop()
 	end)
 
 	it("should allow you to manually report a one-off error", function()
@@ -112,8 +103,8 @@ return function()
 		local analyticsCalls = 0
 
 		local reporter = StudioPluginErrorReporter.new({
-			plugin = mockPlugin.new(),
-
+			expectedPrefix = "builtin",
+			expectedSecurityLevel = 6,
 			networking = Networking.mock({
 				onRequest = function(requestOptions)
 					numCalls = numCalls + 1
@@ -142,14 +133,14 @@ return function()
 			},
 		})
 		
-		reporter:report("This is an error")
+		reporter:report("This is an error", "builtin_test.rbxm")
 		reporter:stop()
 
 		expect(numCalls).to.equal(1)
 		expect(analyticsCalls).to.equal(1)
 	end)
 
-	it("should disregard errors thrown in other plugins", function()
+	it("should disregard errors thrown in other plugin contexts", function()
 		local numCalls = 0
 		local analyticsCalls = 0
 		local networkingImpl = Networking.mock({
@@ -184,23 +175,25 @@ return function()
 		pluginB.Name = "builtin_TestB.rbxm"
 
 		local reporterA = StudioPluginErrorReporter.new({
-			plugin = pluginA,
+			expectedPrefix = "builtin",
+			expectedSecurityLevel = 6, -- builtin
 			services = mockServices,
 			networking = networkingImpl,
 			errorSignal = errorSignal,
 		})
 		local reporterB = StudioPluginErrorReporter.new({
-			plugin = pluginB,
+			expectedPrefix = "sabuiltin",
+			expectedSecurityLevel = 6, -- builtin
 			services = mockServices,
 			networking = networkingImpl,
 			errorSignal = errorSignal,
 		})
 		
 		local errMsg = "This is an error"
-		local errStack = pluginA.Name .. " - Blah.Foo Line 15 - " .. errMsg
+		local errStack = pluginA.Name .. ".Blah.Foo Line 15 - " .. errMsg
 		local errSource = ""
 		local errDetails = ""
-		errorSignal:Fire(errMsg, errStack, errSource, errDetails)
+		errorSignal:Fire(errMsg, errStack, "", "", 6)
 		reporterA:stop()
 		reporterB:stop()
 		expect(numCalls).to.equal(1)

@@ -9,15 +9,7 @@
 ]]
 
 local DraggerFramework = script.Parent.Parent
-local SelectionWrapper = require(DraggerFramework.Utility.SelectionWrapper)
 local SelectionHelper = require(DraggerFramework.Utility.SelectionHelper)
-
-local getFFlagDraggerRefactor = require(DraggerFramework.Flags.getFFlagDraggerRefactor)
-
--- Ensure that the global state is no longer used
-if getFFlagDraggerRefactor() then
-	SelectionWrapper = nil
-end
 
 local DerivedWorldState = {}
 DerivedWorldState.__index = DerivedWorldState
@@ -27,12 +19,7 @@ function DerivedWorldState.new()
 end
 
 function DerivedWorldState:updateSelectionInfo(selection, isSimulating, useLocalSpace)
-	local selectionInfo
-	if getFFlagDraggerRefactor() then
-		selectionInfo = SelectionHelper.computeSelectionInfo(selection, isSimulating, useLocalSpace)
-	else
-		selectionInfo = SelectionHelper.computeSelectionInfo(SelectionWrapper:Get())
-	end
+	local selectionInfo = SelectionHelper.computeSelectionInfo(selection, isSimulating, useLocalSpace)
 	self._boundingBoxOffset = selectionInfo.boundingBoxOffset
 	self._boundingBoxSize = selectionInfo.boundingBoxSize
 	self._localBoundingBoxOffset = selectionInfo.localBoundingBoxOffset

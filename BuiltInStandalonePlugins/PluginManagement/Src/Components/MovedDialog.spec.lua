@@ -1,5 +1,5 @@
 return function()
-	local FFlagPluginManagementRemoveUILibrary = game:GetFastFlag("PluginManagementRemoveUILibrary")
+	local FFlagPluginManagementRemoveUILibrary = game:GetFastFlag("PluginManagementRemoveUILibrary2")
 
 	local Plugin = script.Parent.Parent.Parent
 	local Roact = require(Plugin.Packages.Roact)

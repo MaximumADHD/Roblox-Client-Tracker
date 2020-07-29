@@ -24,12 +24,12 @@ local AlignmentMode = require(Plugin.Src.Utility.AlignmentMode)
 
 local ButtonDefinitions = {
 	[1] = {
-		Image = "rbxasset://textures/AlignTool/Center.png",
-		Mode = AlignmentMode.Center,
-	},
-	[2] = {
 		Image = "rbxasset://textures/AlignTool/Min.png",
 		Mode = AlignmentMode.Min,
+	},
+	[2] = {
+		Image = "rbxasset://textures/AlignTool/Center.png",
+		Mode = AlignmentMode.Center,
 	},
 	[3] = {
 		Image = "rbxasset://textures/AlignTool/Max.png",

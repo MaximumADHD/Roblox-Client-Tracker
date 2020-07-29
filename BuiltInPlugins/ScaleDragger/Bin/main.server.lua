@@ -10,10 +10,7 @@ local Roact = require(Plugin.Packages.Roact)
 -- Dragger component
 local DraggerContext_PluginImpl = require(DraggerFramework.Implementation.DraggerContext_PluginImpl)
 local DraggerToolComponent = require(DraggerFramework.DraggerTools.DraggerToolComponent)
-local DraggerTool = require(DraggerFramework.DraggerTool)
 local ScaleToolImpl = require(Plugin.Src.ScaleToolImpl)
-
-local getFFlagDraggerRefactor = require(DraggerFramework.Flags.getFFlagDraggerRefactor)
 
 local PLUGIN_NAME = "ScaleDragger"
 local DRAGGER_TOOL_NAME = "Scale"
@@ -34,29 +31,17 @@ local function openPlugin()
 
 	toolButton:SetActive(true)
 
-	if getFFlagDraggerRefactor() then
-		local draggerContext = DraggerContext_PluginImpl.new(plugin, game, settings())
-		pluginHandle = Roact.mount(Roact.createElement(DraggerToolComponent, {
-			AnalyticsName = "Scale",
-			Mouse = plugin:GetMouse(),
-			AllowDragSelect = true,
-			AllowFreeformDrag = true,
-			ShowSelectionBoundingBox = true,
-			ShowSelectionDot = false,
-			DraggerContext = draggerContext,
-			ToolImplementation = ScaleToolImpl.new(draggerContext),
-		}))
-	else
-		pluginHandle = Roact.mount(Roact.createElement(DraggerTool, {
-			AnalyticsName = "Scale",
-			Mouse = plugin:GetMouse(),
-			AllowDragSelect = true,
-			AllowFreeformDrag = true,
-			ShowSelectionBoundingBox = true,
-			ShowSelectionDot = false,
-			ToolImplementation = ScaleToolImpl.new(),
-		}))
-	end
+	local draggerContext = DraggerContext_PluginImpl.new(plugin, game, settings())
+	pluginHandle = Roact.mount(Roact.createElement(DraggerToolComponent, {
+		AnalyticsName = "Scale",
+		Mouse = plugin:GetMouse(),
+		AllowDragSelect = true,
+		AllowFreeformDrag = true,
+		ShowSelectionBoundingBox = true,
+		ShowSelectionDot = false,
+		DraggerContext = draggerContext,
+		ToolImplementation = ScaleToolImpl.new(draggerContext),
+	}))
 end
 
 local function closePlugin()

@@ -1,18 +1,12 @@
-if require(script.Parent.Parent.Parent.Flags.getFFlagDraggerRefactor)() then
-	return require(script.Parent.DraggingFaceInstance_Refactor)
-end
-
 --[[
-	When hovered over a Part, DraggingFaceInstance will parents the instance onto the part
-	and set the instances "Face" property to the related Surface.
+	When dragging over a Part, DraggingFaceInstance parents the instance onto
+	the part and sets the instance's "Face" property to the closest Surface.
 ]]
 local DraggerFramework = script.Parent.Parent.Parent
 
 local DraggerStateType = require(DraggerFramework.Implementation.DraggerStateType)
-
-local Utility = DraggerFramework.Utility
-local DragHelper = require(Utility.DragHelper)
-local StandardCursor = require(Utility.StandardCursor)
+local DragHelper = require(DraggerFramework.Utility.DragHelper)
+local StandardCursor = require(DraggerFramework.Utility.StandardCursor)
 
 local SURFACE_TO_FACE = {
 	["TopSurface"] = "Top",
@@ -26,34 +20,40 @@ local SURFACE_TO_FACE = {
 local DraggingFaceInstance = {}
 DraggingFaceInstance.__index = DraggingFaceInstance
 
-function DraggingFaceInstance.new(draggerTool, dragStart)
-	local self = setmetatable({}, DraggingFaceInstance)
+function DraggingFaceInstance.new(draggerToolModel, connectionToBreak)
+	local self = setmetatable({
+		_draggerToolModel = draggerToolModel,
+		_connectionToBreak = connectionToBreak,
+	}, DraggingFaceInstance)
 	return self
 end
 
-function DraggingFaceInstance:enter(draggerTool)
+function DraggingFaceInstance:enter()
 end
 
-function DraggingFaceInstance:leave(draggerTool)
+function DraggingFaceInstance:leave()
+	if self._connectionToBreak then
+		self._connectionToBreak:Disconnect()
+	end
 end
 
-function DraggingFaceInstance:render(draggerTool)
-	draggerTool.props.Mouse.Icon = StandardCursor.getClosedHand()
+function DraggingFaceInstance:render()
+	self._draggerToolModel:setMouseCursor(StandardCursor.getClosedHand())
 end
 
-function DraggingFaceInstance:processSelectionChanged(draggerTool)
-    self:_endDrag(draggerTool)
+function DraggingFaceInstance:processSelectionChanged()
+	self:_endDrag()
 end
 
-function DraggingFaceInstance:processMouseDown(draggerTool)
+function DraggingFaceInstance:processMouseDown()
 end
 
-function DraggingFaceInstance:processViewChanged(draggerTool)
+function DraggingFaceInstance:processViewChanged()
 	local part, surface = DragHelper.getPartAndSurface({})
-	local configurableFaces = draggerTool._derivedWorldState._instancesWithConfigurableFace
+	local configurableFaces = self._draggerToolModel._derivedWorldState._instancesWithConfigurableFace
 
 	if configurableFaces then
-		for _,instance in pairs(configurableFaces) do
+		for _, instance in pairs(configurableFaces) do
 			if part then
 				instance.Parent = part
 			end
@@ -64,15 +64,15 @@ function DraggingFaceInstance:processViewChanged(draggerTool)
 	end
 end
 
-function DraggingFaceInstance:processMouseUp(draggerTool)
-	self:_endDrag(draggerTool)
+function DraggingFaceInstance:processMouseUp()
+	self:_endDrag()
 end
 
-function DraggingFaceInstance:processKeyDown(draggerTool, keyCode)
+function DraggingFaceInstance:processKeyDown(keyCode)
 end
 
-function DraggingFaceInstance:_endDrag(draggerTool)
-	draggerTool:transitionToState({}, DraggerStateType.Ready)
+function DraggingFaceInstance:_endDrag()
+	self._draggerToolModel:transitionToState({}, DraggerStateType.Ready)
 end
 
 return DraggingFaceInstance

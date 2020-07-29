@@ -1,5 +1,5 @@
 return function()
-	local FFlagPluginManagementRemoveUILibrary = game:GetFastFlag("PluginManagementRemoveUILibrary")
+	local FFlagPluginManagementRemoveUILibrary = game:GetFastFlag("PluginManagementRemoveUILibrary2")
 	if FFlagPluginManagementRemoveUILibrary then
 		return
 	end

@@ -1,4 +1,4 @@
-local FFlagPluginManagementRemoveUILibrary = game:GetFastFlag("PluginManagementRemoveUILibrary")
+local FFlagPluginManagementRemoveUILibrary = game:GetFastFlag("PluginManagementRemoveUILibrary2")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local TextService = game:GetService("TextService")

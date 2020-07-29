@@ -20,7 +20,7 @@ end
 local CoreGuiModules = RobloxGui:WaitForChild("Modules")
 local PromptCreator = require(CoreGuiModules:WaitForChild("PromptCreator"))
 local SocialUtil = require(CoreGuiModules:WaitForChild("SocialUtil"))
-local PlayerDropDownModule = require(CoreGuiModules:WaitForChild("PlayerDropDown"))
+local FriendingUtility = require(CoreGuiModules:WaitForChild("FriendingUtility"))
 
 local FFlagFriendPlayerPromptUseFormatByKey = settings():GetFFlag('FriendPlayerPromptUseFormatByKey')
 
@@ -73,11 +73,11 @@ function SendFriendRequest(playerToFriend)
 end
 
 function AtFriendLimit(player)
-	local friendCount = PlayerDropDownModule:GetFriendCountAsync(player)
+	local friendCount = FriendingUtility:GetFriendCountAsync(player.UserId)
 	if friendCount == nil then
 		return false
 	end
-	if friendCount >= PlayerDropDownModule:MaxFriendCount() then
+	if friendCount >= FriendingUtility:MaxFriendCount() then
 		return true
 	end
 	return false

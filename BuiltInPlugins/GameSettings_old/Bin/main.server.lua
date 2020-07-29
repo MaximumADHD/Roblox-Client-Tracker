@@ -55,8 +55,6 @@ local LoadAllSettings = require(Plugin.Src.Thunks.LoadAllSettings)
 local isEmpty = require(Plugin.Src.Util.isEmpty)
 local Analytics = require(Plugin.Src.Util.Analytics)
 
-local FFlagStudioStandaloneGameMetadata = game:GetFastFlag("StudioStandaloneGameMetadata")
-
 local gameSettingsHandle
 local pluginGui
 local openedTimestamp
@@ -309,24 +307,10 @@ local function openGameSettings(gameId, dataModel)
 		}),
 	})
 
-	if game:GetFastFlag("StudioGameSettingsResetStoreAction2") then
-		settingsStore:dispatch(ResetStore())
-	else
-		settingsStore:dispatch(SetCurrentSettings({}))
-		if FFlagStudioAddMonetizationToGameSettings then
-			settingsStore:dispatch(SetEditDevProductId(nil))
-		end
-		if FFlagGameSettingsPlaceSettings then
-			settingsStore:dispatch(SetEditPlaceId(0))
-		end
-		settingsStore:dispatch(DiscardChanges())
-		settingsStore:dispatch(DiscardErrors())
-	end
+	settingsStore:dispatch(ResetStore())
 
-	if FFlagStudioStandaloneGameMetadata then
-		settingsStore:dispatch(SetGameId(gameId))
-		settingsStore:dispatch(SetGame(dataModel))
-	end
+	settingsStore:dispatch(SetGameId(gameId))
+	settingsStore:dispatch(SetGame(dataModel))
 
 	settingsStore:dispatch(LoadAllSettings(settingsImpl))
 
@@ -355,11 +339,7 @@ local function main()
 		settingsButton.ClickableWhenViewportHidden = true
 		settingsButton.Enabled = true
 		settingsButton.Click:connect(function()
-			if FFlagStudioStandaloneGameMetadata then
-				openGameSettings(game.GameId, game)
-			else
-				openGameSettings()
-			end
+			openGameSettings(game.GameId, game)
 		end)
 		settingsStore.changed:connect(function(state)
 			if state.Status ~= lastObservedStatus then

@@ -1,4 +1,4 @@
-local FFlagPluginManagementRemoveUILibrary = game:GetFastFlag("PluginManagementRemoveUILibrary")
+local FFlagPluginManagementRemoveUILibrary = game:GetFastFlag("PluginManagementRemoveUILibrary2")
 -- remove with FFlagPluginManagementRemoveUILibrary
 if FFlagPluginManagementRemoveUILibrary then
 	return function()

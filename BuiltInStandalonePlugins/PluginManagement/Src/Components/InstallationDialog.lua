@@ -14,7 +14,7 @@ local PROMPT_BUTTON_PADDING = 2
 local PROMPT_BUTTON_SIZE = Vector2.new(120, 32)
 local TEXT_SIZE = 16
 
-local FFlagPluginManagementRemoveUILibrary = game:GetFastFlag("PluginManagementRemoveUILibrary")
+local FFlagPluginManagementRemoveUILibrary = game:GetFastFlag("PluginManagementRemoveUILibrary2")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)

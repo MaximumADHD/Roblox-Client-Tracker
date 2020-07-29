@@ -11,7 +11,6 @@ local PlayersService = game:GetService("Players")
 local Settings = UserSettings()
 local GameSettings = Settings.GameSettings
 
-local TopbarConstants = require(CoreGuiService.RobloxGui.Modules.TopbarConstants)
 local StyleWidgets = require(CoreGuiService.RobloxGui.Modules.StyleWidgets)
 
 local RobloxTranslator = require(CoreGuiService.RobloxGui.Modules.RobloxTranslator)
@@ -41,8 +40,8 @@ StatsUtils.GraphBarYellowColor = Color3.new(209/255.0, 211/255.0, 33/255.0)
 StatsUtils.GraphBarRedColor = Color3.new(211/255.0, 88/255.0, 33/255.0)
 StatsUtils.GraphAverageLineColor = Color3.new(208/255.0, 1/255.0, 27/255.0)
 StatsUtils.GraphAverageLineBorderColor = Color3.new(1, 1, 1)
-StatsUtils.NormalColor = TopbarConstants.TOPBAR_BACKGROUND_COLOR
-StatsUtils.Transparency = TopbarConstants.TOPBAR_TRANSLUCENT_TRANSPARENCY;
+StatsUtils.NormalColor = Color3.fromRGB(31, 31, 31)
+StatsUtils.Transparency = 0.5
 
 -- Font Sizes
 StatsUtils.MiniPanelTitleFontSize = Enum.FontSize.Size12

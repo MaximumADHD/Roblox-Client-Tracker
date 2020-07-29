@@ -130,4 +130,10 @@ return{
 	["CoreScripts.InGameMenu.Prompt.LeaveGame"] = [[]],
 	["CoreScripts.InGameMenu.GameSettings.VREnabled"] = [[]],
 	["CoreScripts.InGameMenu.GameSettings.RestartPending"] = [[]],
+	["CoreScripts.InGameMenu.EducationalPopup.Title"] = [[]],
+	["CoreScripts.InGameMenu.EducationalPopup.BodyTextOpenSystemMenu"] = [[]],
+	["CoreScripts.InGameMenu.EducationalPopup.BodyTextClickHome"] = [[]],
+	["CoreScripts.InGameMenu.EducationalPopup.BodyTextPlayMore"] = [[]],
+	["CoreScripts.InGameMenu.EducationalPopup.LeaveRoblox"] = [[]],
+	["CoreScripts.InGameMenu.GameSettings.ClientCoreScriptVersion"] = [[]],
 }

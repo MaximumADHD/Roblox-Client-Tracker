@@ -24,8 +24,6 @@ local TextService = game:GetService('TextService')
 local VRService = game:GetService('VRService')
 --[[ END OF SERVICES ]]
 
-local FFlagUseRoactPlayerList = settings():GetFFlag("UseRoactPlayerList3")
-
 --[[ MODULES ]]
 local isNewInGameMenuEnabled = require(GuiRoot.Modules.isNewInGameMenuEnabled)
 local tenFootInterface = require(GuiRoot.Modules.TenFootInterface)
@@ -744,22 +742,12 @@ local function createGamepadMenuGui()
 				MenuModule:SetVisibility(true, nil, MenuModule.Instance.PlayersPage, true, InGameMenuConstants.AnalyticsMenuOpenTypes.PlayersTriggered)
 			end
 		else
-			if FFlagUseRoactPlayerList then
-				local PlayerListMaster = require(GuiRoot.Modules.PlayerList.PlayerListManager)
-				if not PlayerListMaster:GetVisibility() then
-					toggleCoreGuiRadial(true)
-					PlayerListMaster:SetVisibility(true)
-				else
-					toggleCoreGuiRadial()
-				end
+			local PlayerListMaster = require(GuiRoot.Modules.PlayerList.PlayerListManager)
+			if not PlayerListMaster:GetVisibility() then
+				toggleCoreGuiRadial(true)
+				PlayerListMaster:SetVisibility(true)
 			else
-				local PlayerListModule = require(GuiRoot.Modules.PlayerlistModule)
-				if PlayerListModule and not PlayerListModule:IsOpen() then
-					toggleCoreGuiRadial(true)
-					PlayerListModule:ToggleVisibility()
-				else
-					toggleCoreGuiRadial()
-				end
+				toggleCoreGuiRadial()
 			end
 		end
 	end

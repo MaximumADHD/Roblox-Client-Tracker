@@ -16,8 +16,6 @@ local Images = UIBlox.App.ImageSet.Images
 
 local PlayerList = script.Parent.Parent
 
-local FFlagUseCanManageForDeveloperIconClient2 = game:GetFastFlag("UseCanManageForDeveloperIconClient2")
-
 local SPECIAL_PLAYER_ICONS = {
 	Admin = Images["icons/status/player/admin"],
 	Intern = Images["icons/status/player/intern"],
@@ -60,14 +58,8 @@ local function getGameCreator(store, player)
 		return
 	end
 
-	if FFlagUseCanManageForDeveloperIconClient2 then
-		if PlayerPermissionsModule.CanPlayerManagePlaceAsync(player) then
-			dispatchIfPlayerExists(store, player, SetPlayerIsCreator(player, true))
-		end
-	else
-		if PlayerPermissionsModule.IsPlayerPlaceOwnerAsync(player) then
-			dispatchIfPlayerExists(store, player, SetPlayerIsCreator(player, true))
-		end
+	if PlayerPermissionsModule.CanPlayerManagePlaceAsync(player) then
+		dispatchIfPlayerExists(store, player, SetPlayerIsCreator(player, true))
 	end
 end
 

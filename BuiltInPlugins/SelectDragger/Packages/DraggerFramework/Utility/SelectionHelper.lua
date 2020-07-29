@@ -3,68 +3,18 @@
 ]]
 
 -- Services
-local UserInputService = game:GetService("UserInputService")
 local Workspace = game:GetService("Workspace")
-local StudioService = game:GetService("StudioService")
-local RunService = game:GetService("RunService")
 
 local DraggerFramework = script.Parent.Parent
 local shouldDragAsFace = require(DraggerFramework.Utility.shouldDragAsFace)
 
 local getEngineFeatureActiveInstanceHighlight = require(DraggerFramework.Flags.getEngineFeatureActiveInstanceHighlight)
-local getFFlagDraggerRefactor = require(DraggerFramework.Flags.getFFlagDraggerRefactor)
-local getFFlagAnchorAttachments = require(DraggerFramework.Flags.getFFlagAnchorAttachments)
-local getFFlagSelectWeldConstraints = require(DraggerFramework.Flags.getFFlagSelectWeldConstraints)
 local getFFlagDragFaceInstances = require(DraggerFramework.Flags.getFFlagDragFaceInstances)
-
--- Ensure we aren't still using globals
-if getFFlagDraggerRefactor() then
-	StudioService = nil
-	RunService = nil
-	UserInputService = nil
-end
+local getFFlagFixLocalFreeformDrag = require(DraggerFramework.Flags.getFFlagFixLocalFreeformDrag)
 
 local RAYCAST_DIRECTION_SCALE = 10000
 
 local SelectionHelper = {}
-
-local isAltKeyDown
-local isCtrlKeyDown
-local isShiftKeyDown
-if getFFlagDraggerRefactor() then
-	function isAltKeyDown()
-		error("Should not be called")
-	end
-	function isShiftKeyDown()
-		error("Should not be called")
-	end
-	function isCtrlKeyDown()
-		error("Should not be called")
-	end
-else
-	function isAltKeyDown()
-		return UserInputService:IsKeyDown(Enum.KeyCode.LeftAlt) or UserInputService:IsKeyDown(Enum.KeyCode.RightAlt)
-	end
-
-	function isCtrlKeyDown()
-		return UserInputService:IsKeyDown(Enum.KeyCode.LeftControl) or UserInputService:IsKeyDown(Enum.KeyCode.RightControl)
-	end
-
-	function isShiftKeyDown()
-		return UserInputService:IsKeyDown(Enum.KeyCode.LeftShift) or UserInputService:IsKeyDown(Enum.KeyCode.RightShift)
-	end
-end
-
-
-if getFFlagDraggerRefactor() then
-	function SelectionHelper.shouldExtendSelection()
-		error("Should not be called")
-	end
-else
-	function SelectionHelper.shouldExtendSelection()
-		return isCtrlKeyDown() or isShiftKeyDown()
-	end
-end
 
 local function computeBoundingBox(basisCFrame, allParts, allAttachments)
 	local inverseBasis = basisCFrame:Inverse()
@@ -151,9 +101,16 @@ local function computeTwoBoundingBoxes(basisCFrame1, allParts, allAttachments)
 				t00, t01, t02,
 				t10, t11, t12,
 				t20, t21, t22 = localCFrame1:components()
-			local hw1 = 0.5 * (math.abs(sx * t00) + math.abs(sy * t10) + math.abs(sz * t20))
-			local hh1 = 0.5 * (math.abs(sx * t01) + math.abs(sy * t11) + math.abs(sz * t21))
-			local hd1 = 0.5 * (math.abs(sx * t02) + math.abs(sy * t12) + math.abs(sz * t22))
+			local hw1, hh1, hd1
+			if getFFlagFixLocalFreeformDrag() then
+				hw1 = 0.5 * (math.abs(sx * t00) + math.abs(sy * t01) + math.abs(sz * t02))
+				hh1 = 0.5 * (math.abs(sx * t10) + math.abs(sy * t11) + math.abs(sz * t12))
+				hd1 = 0.5 * (math.abs(sx * t20) + math.abs(sy * t21) + math.abs(sz * t22))
+			else
+				hw1 = 0.5 * (math.abs(sx * t00) + math.abs(sy * t10) + math.abs(sz * t20))
+				hh1 = 0.5 * (math.abs(sx * t01) + math.abs(sy * t11) + math.abs(sz * t21))
+				hd1 = 0.5 * (math.abs(sx * t02) + math.abs(sy * t12) + math.abs(sz * t22))
+			end
 			local x1, y1, z1 = localCFrame1.X, localCFrame1.Y, localCFrame1.Z
 			xmin1 = math.min(xmin1, x1 - hw1)
 			xmax1 = math.max(xmax1, x1 + hw1)
@@ -227,11 +184,6 @@ local function computeTwoBoundingBoxes(basisCFrame1, allParts, allAttachments)
 end
 
 function SelectionHelper.computeSelectionInfo(selectedObjects, isSimulating, useLocalSpace)
-	if getFFlagDraggerRefactor() then
-		assert(isSimulating ~= nil)
-		assert(useLocalSpace ~= nil)
-	end
-
 	-- Gather all of the actual parts and mark the first one as the primary part.
 	local allParts = table.create(64)
 	local allPartSet = {}
@@ -295,9 +247,6 @@ function SelectionHelper.computeSelectionInfo(selectedObjects, isSimulating, use
 	local chosenBasisCFrame
 	local chosenBoundingBoxOffset, chosenBoundingBoxSize
 
-	if not getFFlagDraggerRefactor() then
-		useLocalSpace = StudioService.UseLocalSpace
-	end
 	if useLocalSpace then
 		localBoundingBoxOffset, localBoundingBoxSize =
 			computeBoundingBox(localBasisCFrame, allParts, allAttachments)
@@ -333,9 +282,6 @@ function SelectionHelper.computeSelectionInfo(selectedObjects, isSimulating, use
 	-- moving parts. If there are, we will need to update the selection info
 	-- every frame because those parts may have moved.
 	local selectionHasPhysics = false
-	if not getFFlagDraggerRefactor() then
-		isSimulating = RunService:IsRunning()
-	end
 	if isSimulating then
 		for _, part in ipairs(allParts) do
 			if not part:IsGrounded() then
@@ -343,14 +289,12 @@ function SelectionHelper.computeSelectionInfo(selectedObjects, isSimulating, use
 				break
 			end
 		end
-		if getFFlagAnchorAttachments() then
-			if not selectionHasPhysics then
-				for _, attachment in ipairs(allAttachments) do
-					local parentPart = attachment.Parent
-					if parentPart and not parentPart:IsGrounded() then
-						selectionHasPhysics = true
-						break
-					end
+		if not selectionHasPhysics then
+			for _, attachment in ipairs(allAttachments) do
+				local parentPart = attachment.Parent
+				if parentPart and not parentPart:IsGrounded() then
+					selectionHasPhysics = true
+					break
 				end
 			end
 		end
@@ -415,9 +359,6 @@ end
 	object instead of taking the least nested object like normal.
 ]]
 function SelectionHelper.getSelectable(instance, getMostNested)
-	if not getFFlagDraggerRefactor() then
-		getMostNested = isAltKeyDown()
-	end
 	return SelectionHelper.getSelectableWithCache(instance, {}, getMostNested)
 end
 
@@ -427,29 +368,16 @@ end
 	to that function.
 ]]
 function SelectionHelper.getSelectableWithCache(instance, cache, isAltKeyDown)
-	if getFFlagSelectWeldConstraints() then
-		-- First, the easy nil and attachment cases.
-		if not instance then
-			return nil
-		elseif instance:IsA("Attachment") or instance:IsA("Constraint") or
-			instance:IsA("WeldConstraint") or instance:IsA("NoCollisionConstraint") then
-			-- Note, this attachment case has to come before the fast-flat-model
-			-- optimization, otherwise selecting an attachment might result in the
-			-- parent part of the attachment being selected instead for cases with
-			-- parts nested under other parts.
-			return instance
-		end
-	else
-		-- First, the easy nil and attachment cases.
-		if not instance then
-			return nil
-		elseif instance:IsA("Attachment") or instance:IsA("Constraint") then
-			-- Note, this attachment case has to come before the fast-flat-model
-			-- optimization, otherwise selecting an attachment might result in the
-			-- parent part of the attachment being selected instead for cases with
-			-- parts nested under other parts.
-			return instance
-		end
+	-- First, the easy nil and attachment cases.
+	if not instance then
+		return nil
+	elseif instance:IsA("Attachment") or instance:IsA("Constraint") or
+		instance:IsA("WeldConstraint") or instance:IsA("NoCollisionConstraint") then
+		-- Note, this attachment case has to come before the fast-flat-model
+		-- optimization, otherwise selecting an attachment might result in the
+		-- parent part of the attachment being selected instead for cases with
+		-- parts nested under other parts.
+		return instance
 	end
 
 	-- Fast-flat-model optimization. Most places have a large number of parts
@@ -501,23 +429,11 @@ function SelectionHelper.getSelectableWithCache(instance, cache, isAltKeyDown)
 end
 
 -- Returns: Did the selection change, The new selection
-function SelectionHelper.updateSelection(instance, oldSelection, shouldExtendSelection, shouldDrillSelection, shouldUpdateActiveInstance)
-	local doExtendSelection
-	local selectableInstance
-	local doUpdateActiveInstance
-	if getFFlagDraggerRefactor() then
-		doExtendSelection = shouldExtendSelection
-		selectableInstance = SelectionHelper.getSelectable(instance, shouldDrillSelection)
-		doUpdateActiveInstance = shouldUpdateActiveInstance
-	else
-		doExtendSelection = SelectionHelper.shouldExtendSelection()
-		selectableInstance = SelectionHelper.getSelectable(instance)
-		if getEngineFeatureActiveInstanceHighlight() then
-			doUpdateActiveInstance = StudioService.ShowActiveInstanceHighlight
-		else
-			doUpdateActiveInstance = false
-		end
-	end
+function SelectionHelper.updateSelection(instance, oldSelection,
+	shouldExtendSelection, getMostNested, shouldUpdateActiveInstance)
+	local doExtendSelection = shouldExtendSelection
+	local selectableInstance = SelectionHelper.getSelectable(instance, getMostNested)
+	local doUpdateActiveInstance = shouldUpdateActiveInstance
 
 	if not selectableInstance then
 		if doExtendSelection then
@@ -592,13 +508,7 @@ end
 -- TODO: combine with SelectionHelper.updateSelection, or at least break out
 -- the common bits into a local function.
 function SelectionHelper.updateSelectionWithMultipleParts(instances, oldSelection,
-	shouldXorSelection, shouldDrillSelection)
-	local doXorSelection
-	if getFFlagDraggerRefactor() then
-		doXorSelection = shouldXorSelection
-	else
-		doXorSelection = SelectionHelper.shouldExtendSelection()
-	end
+	shouldXorSelection, getMostNested)
 
 	local selectableInstances = {}
 
@@ -609,12 +519,7 @@ function SelectionHelper.updateSelectionWithMultipleParts(instances, oldSelectio
 	-- The result is, we need to filter out the duplicate selectables.
 	local alreadyFlaggedForAddSet = {}
 	for _, instance in ipairs(instances) do
-		local selectablePart
-		if getFFlagDraggerRefactor() then
-			selectablePart = SelectionHelper.getSelectable(instance, shouldDrillSelection)
-		else
-			selectablePart = SelectionHelper.getSelectable(instance)
-		end
+		local selectablePart = SelectionHelper.getSelectable(instance, getMostNested)
 		if selectablePart ~= nil and not alreadyFlaggedForAddSet[selectablePart] then
 			table.insert(selectableInstances, selectablePart)
 			alreadyFlaggedForAddSet[selectablePart] = true
@@ -622,11 +527,11 @@ function SelectionHelper.updateSelectionWithMultipleParts(instances, oldSelectio
 	end
 
 	if #selectableInstances == 0 then
-		return doXorSelection and oldSelection or {}
+		return shouldXorSelection and oldSelection or {}
 	end
 
 	local newSelection
-	if doXorSelection then
+	if shouldXorSelection then
 		newSelection = {}
 		-- Add or remove from the selection when ctrl or shift is held.
 		local alreadySelectedInstances = {}
@@ -649,47 +554,6 @@ function SelectionHelper.updateSelectionWithMultipleParts(instances, oldSelectio
 		newSelection = selectableInstances
 	end
 	return newSelection
-end
-
-if not getFFlagDraggerRefactor() then
-	function SelectionHelper.getMouseRay()
-		local location = UserInputService:GetMouseLocation()
-		local unitRay = Workspace.CurrentCamera:ViewportPointToRay(location.X, location.Y)
-		return Ray.new(unitRay.Origin, unitRay.Direction * RAYCAST_DIRECTION_SCALE)
-	end
-
-	function SelectionHelper.getMouseTarget(selectedObjects)
-		local mouseRay = SelectionHelper.getMouseRay()
-		local hitObject, hitPosition = Workspace:FindPartOnRay(mouseRay)
-
-		-- Selection favoring: If there is a selected object and a non-selected
-		-- object almost exactly coincident underneath the mouse, then we should
-		-- favor the selected one, even if due to floating point error the non
-		-- selected one comes out slightly closer.
-		-- Without this case, if you duplicate objects and try to drag them, you
-		-- may end up dragging only one of the objects because you clicked on the
-		-- old non-selected copy, as opposed to the selected one you meant to.
-		if hitObject then
-			local hitSelectedObject, hitSelectedPosition
-				= Workspace:FindPartOnRayWithWhitelist(mouseRay, selectedObjects)
-			if hitSelectedObject and hitSelectedPosition:FuzzyEq(hitPosition) then
-				hitObject = hitSelectedObject
-				hitPosition = hitSelectedPosition
-			end
-		end
-
-		local hitDistance = (mouseRay.Origin - hitPosition).Magnitude
-
-		local hitResult = StudioService:GizmoRaycast(
-			mouseRay.Origin, mouseRay.Direction, RaycastParams.new())
-		if hitResult and
-			(StudioService.DrawConstraintsOnTop or (hitResult.Distance < hitDistance)) then
-			hitPosition = hitResult.Position
-			hitDistance = hitResult.Distance
-			hitObject = hitResult.Instance
-		end
-		return hitObject, hitDistance, hitPosition
-	end
 end
 
 return SelectionHelper

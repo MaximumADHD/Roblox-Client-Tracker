@@ -6,6 +6,7 @@ game:DefineFastFlag("UGCValidateProperties", false)
 game:DefineFastFlag("UGCAllowThumbnailConfiguration", false)
 game:DefineFastFlag("UGCUseNewAssetTypeInfoSchema", false)
 game:DefineFastFlag("UGCFixModerationCheck", false)
+game:DefineFastFlag("UGCExtraBannedNames", false)
 
 local root = script
 

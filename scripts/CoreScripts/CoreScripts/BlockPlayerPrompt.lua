@@ -16,22 +16,12 @@ while LocalPlayer == nil do
 	LocalPlayer = PlayersService.LocalPlayer
 end
 
-local FFlagUseRoactPlayerList = settings():GetFFlag("UseRoactPlayerList3")
-
 local CoreGuiModules = RobloxGui:WaitForChild("Modules")
 local PromptCreator = require(CoreGuiModules:WaitForChild("PromptCreator"))
 local SocialUtil = require(CoreGuiModules:WaitForChild("SocialUtil"))
-local BlockingUtility
-if FFlagUseRoactPlayerList then
-	BlockingUtility = require(CoreGuiModules.BlockingUtility)
-	-- fetch and store player block list
-	BlockingUtility:InitBlockListAsync()
-else
-	local PlayerDropDownModule = require(CoreGuiModules:WaitForChild("PlayerDropDown"))
-	-- fetch and store player block list
-	PlayerDropDownModule:InitBlockListAsync()
-	BlockingUtility = PlayerDropDownModule:CreateBlockingUtility()
-end
+local BlockingUtility = require(CoreGuiModules.BlockingUtility)
+-- fetch and store player block list
+BlockingUtility:InitBlockListAsync()
 
 local LegacyThumbnailUrls = require(CoreGuiModules.Common.LegacyThumbnailUrls)
 

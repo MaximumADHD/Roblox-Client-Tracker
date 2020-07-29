@@ -50,6 +50,5 @@ game:DefineFastFlag("StudioToolboxFixNewEndpointFilters", false)
 
 game:DefineFastFlag("ToolboxUseDevFrameworkPromise", false)
 game:DefineFastFlag("DebugToolboxEnableRoactChecks", false)
-game:DefineFastFlag("ToolboxEnableErrorReporting", false)
 
 return nil

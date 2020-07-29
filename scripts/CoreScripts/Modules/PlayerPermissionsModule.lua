@@ -8,8 +8,6 @@ local PlayerGroupInfoMapChanged = Instance.new("BindableEvent")
 local PlayerCanManageInfoMap = {}
 local PlayerCanManageInfoMapChanged = Instance.new("BindableEvent")
 
-local FFlagUseCanManageForDeveloperIconClient2 = game:DefineFastFlag("UseCanManageForDeveloperIconClient2", false)
-
 spawn(function()
 	local RobloxReplicatedStorage = game:GetService("RobloxReplicatedStorage")
 	local RemoveEvent_NewPlayerGroupDetails = RobloxReplicatedStorage:WaitForChild("NewPlayerGroupDetails")
@@ -22,19 +20,17 @@ spawn(function()
 	end)
 end)
 
-if FFlagUseCanManageForDeveloperIconClient2 then
-	coroutine.wrap(function()
-		local RobloxReplicatedStorage = game:GetService("RobloxReplicatedStorage")
-		local RemoveEvent_NewPlayerCanManageDetails = RobloxReplicatedStorage:WaitForChild("NewPlayerCanManageDetails")
-		RemoveEvent_NewPlayerCanManageDetails.OnClientEvent:Connect(function(userIdStr, canManage)
-			local player = PlayersService:GetPlayerByUserId(tonumber(userIdStr))
-			if player then
-				PlayerCanManageInfoMap[player] = canManage
-				PlayerCanManageInfoMapChanged:Fire()
-			end
-		end)
-	end)()
-end
+coroutine.wrap(function()
+	local RobloxReplicatedStorage = game:GetService("RobloxReplicatedStorage")
+	local RemoveEvent_NewPlayerCanManageDetails = RobloxReplicatedStorage:WaitForChild("NewPlayerCanManageDetails")
+	RemoveEvent_NewPlayerCanManageDetails.OnClientEvent:Connect(function(userIdStr, canManage)
+		local player = PlayersService:GetPlayerByUserId(tonumber(userIdStr))
+		if player then
+			PlayerCanManageInfoMap[player] = canManage
+			PlayerCanManageInfoMapChanged:Fire()
+		end
+	end)
+end)()
 
 PlayersService.PlayerRemoving:Connect(function(player)
 	PlayerGroupInfoMap[player] = nil
@@ -95,8 +91,6 @@ PlayerPermissionsModule.IsPlayerInternAsync = NewInGroupFunctionFactory("Intern"
 PlayerPermissionsModule.IsPlayerStarAsync = NewInGroupFunctionFactory("Star")
 PlayerPermissionsModule.IsPlayerLocalizationExpertAsync = NewIsLocalizationExpertFunctionFactory()
 PlayerPermissionsModule.IsPlayerPlaceOwnerAsync = IsPlaceOwnerFunctionFactory()
-if FFlagUseCanManageForDeveloperIconClient2 then
-	PlayerPermissionsModule.CanPlayerManagePlaceAsync = CanPlayerManagePlace
-end
+PlayerPermissionsModule.CanPlayerManagePlaceAsync = CanPlayerManagePlace
 
 return PlayerPermissionsModule

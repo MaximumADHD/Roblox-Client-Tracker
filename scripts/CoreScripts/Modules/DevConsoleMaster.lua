@@ -1,9 +1,6 @@
 local CoreGui = game:GetService("CoreGui")
 local StarterGui = game:GetService("StarterGui")
 local UserInputService = game:GetService("UserInputService")
-local GuiService = game:GetService('GuiService')
-local HttpRbxApiService = game:GetService('HttpRbxApiService')
-local HttpService = game:GetService('HttpService')
 local RunService = game:GetService('RunService')
 local CorePackages = game:GetService("CorePackages")
 local Players = game:GetService("Players")
@@ -48,7 +45,6 @@ local DFFlagEnableRemoteProfilingForDevConsole = settings():GetFFlag("EnableRemo
 local FFlagRespectDisplayOrderForOnTopOfCoreBlur = settings():GetFFlag("RespectDisplayOrderForOnTopOfCoreBlur")
 local FFlagDevConsoleAnalyticsIncludeOwner = settings():GetFFlag("DevConsoleAnalyticsIncludeOwner")
 
-local FFlagUseCanManageForDeveloperIconClient2 = game:GetFastFlag("UseCanManageForDeveloperIconClient2")
 local FFlagAdminServerLogs = settings():GetFFlag("AdminServerLogs")
 
 local DEV_TAB_LIST = {
@@ -139,26 +135,8 @@ local function isDeveloper()
 		return true
 	end
 
-	if FFlagUseCanManageForDeveloperIconClient2 then
-		if PlayerPermissionsModule.CanPlayerManagePlaceAsync(Players.LocalPlayer) then
-			return true
-		end
-	else
-		local canManageSuccess, canManageResult = pcall(function()
-			local url = string.format("/users/%d/canmanage/%d", game:GetService("Players").LocalPlayer.UserId, game.PlaceId)
-			return HttpRbxApiService:GetAsync(url, Enum.ThrottlingPriority.Default, Enum.HttpRequestType.Default, true)
-		end)
-		if canManageSuccess and type(canManageResult) == "string" then
-			-- API returns: {"Success":BOOLEAN,"CanManage":BOOLEAN}
-			-- Convert from JSON to a table
-			-- pcall in case of invalid JSON
-			local success, result = pcall(function()
-				return HttpService:JSONDecode(canManageResult)
-			end)
-			if success and result.CanManage == true then
-				return true
-			end
-		end
+	if PlayerPermissionsModule.CanPlayerManagePlaceAsync(Players.LocalPlayer) then
+		return true
 	end
 	return false
 end
@@ -182,7 +160,6 @@ function DevConsoleMaster:SetupDevConsole()
 	-- to use Platform to distinguish between the different form factors
 	local platformEnum = UserInputService:GetPlatform()
 	local formFactor = platformConversion[platformEnum]
-	local screenSizePixel = GuiService:GetScreenResolution()
 
 	local isDev = isDeveloper()
 	local developerConsoleView = isDev
@@ -208,7 +185,7 @@ function DevConsoleMaster:SetupDevConsole()
 	end
 
 	-- create store
-	local middleWare = {}
+	local middleWare
 	if FFlagDevConsoleAnalyticsIncludeOwner then
 		middleWare = { DevConsoleAnalytics(isDev) }
 	else

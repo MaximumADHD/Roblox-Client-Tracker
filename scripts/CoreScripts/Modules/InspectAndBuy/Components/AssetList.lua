@@ -5,8 +5,6 @@ local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
 local AssetCard = require(InspectAndBuyFolder.Components.AssetCard)
 
-local FFlagFixInspectAndBuyGamepad = game:DefineFastFlag("FixInspectAndBuyGamepad", false)
-
 local AssetList = Roact.PureComponent:extend("AssetList")
 
 local CARD_PADDING = 10
@@ -92,11 +90,7 @@ function AssetList:didUpdate(prevProps)
 
 	if self.mounted and self.props.gamepadEnabled and not self.props.detailsInformation.viewingDetails
 		and self.props.visible then
-		if FFlagFixInspectAndBuyGamepad then
-			GuiService.SelectedCoreObject = self.gridFrameRef.current:FindFirstChildWhichIsA("GuiObject")
-		else
-			GuiService.SelectedCoreObject = self.gridFrameRef.current:GetChildren()[1]
-		end
+		GuiService.SelectedCoreObject = self.gridFrameRef.current:FindFirstChildWhichIsA("GuiObject")
 	end
 end
 

@@ -6,8 +6,6 @@ local getGeometry = require(DraggerFramework.Utility.getGeometry)
 local JointPairs = require(DraggerFramework.Utility.JointPairs)
 local JointUtil = require(DraggerFramework.Utility.JointUtil)
 
-local getFFlagDraggerRefactor = require(DraggerFramework.Flags.getFFlagDraggerRefactor)
-
 local JointMaker = {}
 JointMaker.__index = JointMaker
 
@@ -34,8 +32,6 @@ function JointMaker:pickUpParts(parts)
 	self._partSet = partSet
 	self._parts = parts
 	self._rootPartSet = {} -- Intentionally empty, only needed for IK moves
-
-	local fflagDraggerRefactor = getFFlagDraggerRefactor()
 
 	local weldConstraintsToReenableSet = {}
 	local jointsToDestroy = {}
@@ -77,7 +73,7 @@ function JointMaker:pickUpParts(parts)
 				joint.Enabled = false
 				alreadyConnectedToSets[part][other] = true
 				weldConstraintsToReenableSet[joint] = true
-			elseif fflagDraggerRefactor and joint:IsA("NoCollisionConstraint") then
+			elseif joint:IsA("NoCollisionConstraint") then
 				local other = JointUtil.getNoCollisionConstraintCounterpart(joint, part)
 				alreadyConnectedToSets[part][other] = true
 			end
@@ -158,14 +154,8 @@ function JointMaker:computeJointPairs()
 			return self:_getGeometry(part)
 		end)
 
-	if getFFlagDraggerRefactor() then
-		if self._isSimulating then
-			self._geometryCache = {}
-		end
-	else
-		if RunService:IsRunning() then
-			self._geometryCache = {}
-		end
+	if self._isSimulating then
+		self._geometryCache = {}
 	end
 
 	return jointPairs

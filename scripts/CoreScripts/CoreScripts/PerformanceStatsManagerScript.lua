@@ -18,7 +18,6 @@ local StatsAggregatorManagerClass = require(CoreGuiService.RobloxGui.Modules.Sta
 local StatsButtonClass = require(CoreGuiService.RobloxGui.Modules.Stats.StatsButton)
 local StatsUtils = require(CoreGuiService.RobloxGui.Modules.Stats.StatsUtils)
 local StatsViewerClass = require(CoreGuiService.RobloxGui.Modules.Stats.StatsViewer)
-local TopbarConstants = require(CoreGuiService.RobloxGui.Modules.TopbarConstants)
 
 --[[ Script Variables ]]--
 local masterFrame = Instance.new("Frame")

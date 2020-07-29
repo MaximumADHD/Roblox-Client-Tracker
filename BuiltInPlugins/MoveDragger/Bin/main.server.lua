@@ -10,10 +10,7 @@ local Roact = require(Plugin.Packages.Roact)
 -- Dragger component
 local DraggerContext_PluginImpl = require(DraggerFramework.Implementation.DraggerContext_PluginImpl)
 local DraggerToolComponent = require(DraggerFramework.DraggerTools.DraggerToolComponent)
-local DraggerTool = require(DraggerFramework.DraggerTool)
 local MoveToolImpl = require(Plugin.Src.MoveToolImpl)
-
-local getFFlagDraggerRefactor = require(DraggerFramework.Flags.getFFlagDraggerRefactor)
 
 local PLUGIN_NAME = "MoveDragger"
 local DRAGGER_TOOL_NAME = "Move"
@@ -34,27 +31,16 @@ local function openPlugin()
 
 	toolButton:SetActive(true)
 
-	if getFFlagDraggerRefactor() then
-		local draggerContext = DraggerContext_PluginImpl.new(plugin, game, settings())
-		pluginHandle = Roact.mount(Roact.createElement(DraggerToolComponent, {
-			AnalyticsName = "Move",
-			Mouse = plugin:GetMouse(),
-			AllowDragSelect = true,
-			AllowFreeformDrag = true,
-			ShowSelectionDot = false,
-			DraggerContext = draggerContext,
-			ToolImplementation = MoveToolImpl.new(draggerContext),
-		}))
-	else
-		pluginHandle = Roact.mount(Roact.createElement(DraggerTool, {
-			AnalyticsName = "Move",
-			Mouse = plugin:GetMouse(),
-			AllowDragSelect = true,
-			AllowFreeformDrag = true,
-			ShowSelectionDot = false,
-			ToolImplementation = MoveToolImpl.new(),
-		}))
-	end
+	local draggerContext = DraggerContext_PluginImpl.new(plugin, game, settings())
+	pluginHandle = Roact.mount(Roact.createElement(DraggerToolComponent, {
+		AnalyticsName = "Move",
+		Mouse = plugin:GetMouse(),
+		AllowDragSelect = true,
+		AllowFreeformDrag = true,
+		ShowSelectionDot = false,
+		DraggerContext = draggerContext,
+		ToolImplementation = MoveToolImpl.new(draggerContext),
+	}))
 end
 
 local function closePlugin()

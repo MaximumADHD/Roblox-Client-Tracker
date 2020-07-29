@@ -13,7 +13,7 @@
 		callback OnFinish - provide this callback to signal that loading has finished
 ]]
 -- DELETE THIS FILE ALONG WITH FFlagPluginManagementRemoveUILibrary
-local FFlagPluginManagementRemoveUILibrary = game:GetFastFlag("PluginManagementRemoveUILibrary")
+local FFlagPluginManagementRemoveUILibrary = game:GetFastFlag("PluginManagementRemoveUILibrary2")
 if FFlagPluginManagementRemoveUILibrary then
 	assert("This file should be deleted!")
 end

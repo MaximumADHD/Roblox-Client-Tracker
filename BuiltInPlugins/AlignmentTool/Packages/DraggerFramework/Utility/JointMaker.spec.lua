@@ -3,8 +3,6 @@ local Workspace = game:GetService("Workspace")
 local DraggerFramework = script.Parent.Parent
 local JointMaker = require(DraggerFramework.Utility.JointMaker)
 
-local getFFlagDraggerRefactor = require(DraggerFramework.Flags.getFFlagDraggerRefactor)
-
 return function()
 	local function createTestParts(count)
 		local parts = {}
@@ -202,10 +200,8 @@ return function()
 			parts[2].Position = parts[1].Position + offset
 			jointMaker:fixupConstraintLengths()
 
-			if getFFlagDraggerRefactor() and constraint:IsA("SpringConstraint") then
+			if constraint:IsA("SpringConstraint") then
 				expect(constraint.FreeLength).to.equal(originalLength * SCALE)
-			else
-				expect(constraint.Length).to.equal(originalLength * SCALE)
 			end
 		end
 	end)

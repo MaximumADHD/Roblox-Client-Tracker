@@ -6,20 +6,11 @@ return function()
 
 	local DragSelectionView = require(DraggerFramework.Components.DragSelectionView)
 
-	local getFFlagDraggerRefactor = require(DraggerFramework.Flags.getFFlagDraggerRefactor)
-
 	local function createTestDragSelectionView()
-		if getFFlagDraggerRefactor() then
-			return Roact.createElement(DragSelectionView, {
-				DragStartLocation = Vector2.new(0, 0),
-				DragEndLocation = Vector2.new(100, 100),
-			})
-		else
-			return Roact.createElement(DragSelectionView, {
-				dragStartLocation = Vector2.new(0, 0),
-				dragEndLocation = Vector2.new(100, 100),
-			})
-		end
+		return Roact.createElement(DragSelectionView, {
+			DragStartLocation = Vector2.new(0, 0),
+			DragEndLocation = Vector2.new(100, 100),
+		})
 	end
 
 	it("should create and destroy without errors", function()

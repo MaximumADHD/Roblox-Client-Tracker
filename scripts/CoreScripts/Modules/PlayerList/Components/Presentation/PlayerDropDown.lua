@@ -40,16 +40,13 @@ local BlockPlayer = require(PlayerList.Thunks.BlockPlayer)
 local UnblockPlayer = require(PlayerList.Thunks.UnblockPlayer)
 local RequestFriendship = require(PlayerList.Thunks.RequestFriendship)
 
-local FFlagPlayerListFixContextMenuFlashing
-	= require(RobloxGui.Modules.Flags.FFlagPlayerListFixContextMenuFlashing)
-
 local PlayerDropDown = Roact.PureComponent:extend("PlayerDropDown")
 
 PlayerDropDown.validateProps = t.strictInterface({
 	positionY = t.number,
 	minPositionBoundY = t.number,
 	maxPositionBoundY = t.number,
-	contentsVisible = FFlagPlayerListFixContextMenuFlashing and t.boolean or nil,
+	contentsVisible = t.boolean,
 
 	selectedPlayer = t.optional(t.instanceIsA("Player")),
 	isVisible = t.boolean,
@@ -284,15 +281,9 @@ function PlayerDropDown:getDropDownPosition()
 end
 
 function PlayerDropDown:didMount()
-	if FFlagPlayerListFixContextMenuFlashing then
-		local targetPosition = self:getDropDownPosition()
-		self.motor:start()
-		self.motor:setGoal(Otter.spring(targetPosition, self.motorOptions))
-	else
-		local targetPosition = self.props.isVisible and 0 or 1
-		self.motor:start()
-		self.motor:setGoal(Otter.spring(targetPosition, self.motorOptions))
-	end
+	local targetPosition = self:getDropDownPosition()
+	self.motor:start()
+	self.motor:setGoal(Otter.spring(targetPosition, self.motorOptions))
 end
 
 function PlayerDropDown:willUpdate(nextProps, nextState)
@@ -302,23 +293,13 @@ function PlayerDropDown:willUpdate(nextProps, nextState)
 end
 
 function PlayerDropDown:didUpdate(previousProps, previousState)
-	if FFlagPlayerListFixContextMenuFlashing then
-		if previousProps.selectedPlayer ~= self.props.selectedPlayer then
-			self.motor:setGoal(Otter.instant(1))
-			self.motor:step(0)
-		end
-
-		local targetPosition = self:getDropDownPosition()
-		self.motor:setGoal(Otter.spring(targetPosition, self.motorOptions))
-	else
-		if previousProps.selectedPlayer ~= self.props.selectedPlayer then
-			self.motor:setGoal(Otter.instant(1))
-			self.motor:step(0)
-		end
-
-		local targetPosition = self.props.isVisible and 0 or 1
-		self.motor:setGoal(Otter.spring(targetPosition, self.motorOptions))
+	if previousProps.selectedPlayer ~= self.props.selectedPlayer then
+		self.motor:setGoal(Otter.instant(1))
+		self.motor:step(0)
 	end
+
+	local targetPosition = self:getDropDownPosition()
+	self.motor:setGoal(Otter.spring(targetPosition, self.motorOptions))
 end
 
 function PlayerDropDown:willUnmount()

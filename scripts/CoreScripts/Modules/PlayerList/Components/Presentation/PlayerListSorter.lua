@@ -63,10 +63,17 @@ local function buildSortedTeams(teamScores, primaryStat, teams, showNeutralTeam)
 	for i, team in ipairs(teams) do
 		if usedTeamColors[team.TeamColor.Number] == nil then
 			usedTeamColors[team.TeamColor.Number] = true
-			sortedTeams[#sortedTeams + 1] = {
-				team = team,
-				originalPos = i,
-			}
+			if game:GetEngineFeature("TeamChildOrderProperty") then
+				sortedTeams[#sortedTeams + 1] = {
+					team = team,
+					originalPos = team.ChildOrder,
+				}
+			else
+				sortedTeams[#sortedTeams + 1] = {
+					team = team,
+					originalPos = i,
+				}
+			end
 		end
 	end
 	if showNeutralTeam then

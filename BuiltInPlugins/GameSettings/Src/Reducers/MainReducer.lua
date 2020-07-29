@@ -20,7 +20,6 @@ local AutoTranslationMetaData = require(Plugin.Pages.LocalizationPage.Reducers.A
 local MorpherEditorRoot = require(Plugin.Pages.AvatarPage.Reducers.MorpherEditorRoot)
 
 local FFlagStudioLocalizationInGameSettingsEnabled = game:GetFastFlag("StudioLocalizationInGameSettingsEnabled")
-local FFlagStudioStandaloneGameMetadata = game:GetFastFlag("StudioStandaloneGameMetadata")
 
 return Rodux.combineReducers({
 	Settings = Settings,
@@ -31,7 +30,7 @@ return Rodux.combineReducers({
 	AutoTranslationMetaData = FFlagStudioLocalizationInGameSettingsEnabled and AutoTranslationMetaData or nil,
 	PageLoadState = PageLoadState,
 	PageSaveState = PageSaveState,
-	Metadata = FFlagStudioStandaloneGameMetadata and GameMetadata or nil,
+	Metadata = GameMetadata,
     GameOwnerMetadata = GameOwnerMetadata,
 	EditAsset = (game:GetFastFlag("GameSettingsPlaceSettings") or game:GetFastFlag("StudioAddMonetizationToGameSettings")) and EditAsset or nil,
 })

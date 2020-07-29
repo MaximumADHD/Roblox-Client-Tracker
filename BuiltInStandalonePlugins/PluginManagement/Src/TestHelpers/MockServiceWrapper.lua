@@ -1,7 +1,7 @@
 --[[
 	A customizable wrapper for tests that supplies all the required providers for component testing
 ]]
-local FFlagPluginManagementRemoveUILibrary = game:GetFastFlag("PluginManagementRemoveUILibrary")
+local FFlagPluginManagementRemoveUILibrary = game:GetFastFlag("PluginManagementRemoveUILibrary2")
 -- remove with FFlagPluginManagementRemoveUILibrary
 if FFlagPluginManagementRemoveUILibrary then
 	assert("You shouldn't be using this anymore!")

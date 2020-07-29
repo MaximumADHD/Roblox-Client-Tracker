@@ -32,7 +32,6 @@ local Analytics = require(Plugin.Src.Util.Analytics)
 local StudioService = game:GetService("StudioService")
 local TextService = game:GetService("TextService")
 
-local FFlagStudioStandaloneGameMetadata = game:GetFastFlag("StudioStandaloneGameMetadata")
 local FFlagGameSettingsOnlyInPublishedGames = game:DefineFastFlag("GameSettingsOnlyInPublishedGames", false)
 
 local MainView = Roact.PureComponent:extend("MainView")
@@ -70,7 +69,7 @@ function MainView:render()
 	local theme = props.Theme:get("Plugin")
 	local localization = props.Localization
 
-	local isPublishedGame = not FFlagStudioStandaloneGameMetadata or props.GameId ~= 0
+	local isPublishedGame = props.GameId ~= 0
 	local pageLoadStates = props.PageLoadStates
 
 	local children = {}
@@ -193,15 +192,13 @@ ContextServices.mapToProps(MainView,{
 	Theme = ContextServices.Theme
 })
 
-if FFlagStudioStandaloneGameMetadata then
-	MainView = RoactRodux.connect(
-		function(state, props)
-			return {
-				GameId = state.Metadata.gameId,
-				PageLoadStates = state.PageLoadState,
-			}
-		end
-	)(MainView)
-end
+MainView = RoactRodux.connect(
+	function(state, props)
+		return {
+			GameId = state.Metadata.gameId,
+			PageLoadStates = state.PageLoadState,
+		}
+	end
+)(MainView)
 
 return MainView

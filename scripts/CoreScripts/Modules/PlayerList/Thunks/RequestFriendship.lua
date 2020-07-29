@@ -1,6 +1,4 @@
 local CoreGui = game:GetService("CoreGui")
-local HttpRbxApiService = game:GetService("HttpRbxApiService")
-local HttpService = game:GetService("HttpService")
 local RbxAnalyticsService = game:GetService("RbxAnalyticsService")
 local Players = game:GetService("Players")
 
@@ -8,49 +6,16 @@ local LocalPlayer = Players.LocalPlayer
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
+local FriendingUtility = require(RobloxGui.Modules.FriendingUtility)
 local SendNotification = RobloxGui:WaitForChild("SendNotificationInfo")
 
-local BaseUrl = game:GetService("ContentProvider").BaseUrl:lower()
-BaseUrl = string.gsub(BaseUrl, "http:", "https:")
-local FriendCountUrl = string.gsub(BaseUrl, "www", "friends") .. "v1/users/{userId}/friends/count"
-
 local MAX_FRIEND_COUNT = 200
-
-local function getFriendCountAsync(userId)
-	local friendCount = nil
-
-	local wasSuccess, result = pcall(function()
-		if userId == nil then
-			userId = LocalPlayer.UserId
-		end
-		local url = string.gsub(FriendCountUrl,"{userId}",userId)
-		return HttpRbxApiService:GetAsyncFullUrl(url)
-	end)
-	if not wasSuccess then
-		warn(FriendCountUrl,"failed because", result)
-		return nil
-	end
-
-	wasSuccess, result = pcall(function()
-		return HttpService:JSONDecode(result)
-	end)
-	if not wasSuccess then
-		warn(FriendCountUrl,"JSONDecode failed because", result)
-		return nil
-	end
-
-	if result["count"] then
-		friendCount = result["count"]
-	end
-
-	return friendCount
-end
 
 local function RequestFriendship(player, isAcceptRequest)
 	return function()
 		coroutine.wrap(function()
-			local theirFriendCount = getFriendCountAsync(player.UserId)
-			local myFriendCount = getFriendCountAsync()
+			local theirFriendCount = FriendingUtility:GetFriendCountAsync(player.UserId)
+			local myFriendCount = FriendingUtility:GetFriendCountAsync(LocalPlayer.UserId)
 
 			if not myFriendCount or not theirFriendCount then
 				return

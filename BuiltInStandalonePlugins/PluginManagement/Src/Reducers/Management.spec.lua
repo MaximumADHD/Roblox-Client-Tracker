@@ -6,6 +6,7 @@ local RemovePluginData = require(Plugin.Src.Actions.RemovePluginData)
 local SetPluginEnabledState = require(Plugin.Src.Actions.SetPluginEnabledState)
 local SetPluginUpdateStatus = require(Plugin.Src.Actions.SetPluginUpdateStatus)
 local SetPluginInfo = require(Plugin.Src.Actions.SetPluginInfo)
+local SetLoadedPluginData = require(Plugin.Src.Actions.SetLoadedPluginData)
 
 local Flags = require(Plugin.Packages.Framework.Util.Flags)
 local FlagsList = Flags.new({
@@ -62,6 +63,92 @@ return function()
 			end)
 		end)
 	end
+
+	describe("SetLoadedPluginData", function()
+		it("should set data about plugins", function()
+			local state = Management(nil, SetLoadedPluginData({
+				[123] = {
+					enabled = false,
+					installedVersion = 5295560901,
+					description = "some long string describing the plugin.",
+					updated = "2019-12-06T01:20:17Z",
+					assetId = 1000001,
+					isModerated = false,
+					creator = {
+						Id = 98765,
+						CreatorTargetId = 98765,
+						Name = "John Doe",
+						CreatorType = "User",
+					},
+					latestVersion = 5295560901,
+					name = "Test plugin 1"
+				}
+			}))
+			expect(state.plugins).to.be.ok()
+			expect(state.plugins[123]).to.be.ok()
+			expect(state.plugins[123].enabled).to.equal(false)
+			expect(state.plugins[123].installedVersion).to.equal(5295560901)
+			expect(state.plugins[123].description).to.equal("some long string describing the plugin.")
+			expect(state.plugins[123].updated).to.equal("2019-12-06T01:20:17Z")
+			expect(state.plugins[123].assetId).to.equal(1000001)
+			expect(state.plugins[123].isModerated).to.equal(false)
+			expect(state.plugins[123].creator.Id).to.equal(98765)
+			expect(state.plugins[123].creator.CreatorTargetId).to.equal(98765)
+			expect(state.plugins[123].creator.Name).to.equal("John Doe")
+			expect(state.plugins[123].creator.CreatorType).to.equal("User")
+			expect(state.plugins[123].latestVersion).to.equal(5295560901)
+			expect(state.plugins[123].name).to.equal("Test plugin 1")
+		end)
+
+		it("should allow an empty set", function()
+			local state = Management(nil, SetLoadedPluginData({}))
+			expect(state.plugins).to.be.ok()
+			expect(type(state.plugins)).to.equal("table")
+			expect(next(state.plugins)).to.equal(nil)
+		end)
+
+		it("should append data to an existing set", function()
+			local state = Management({
+				plugins = {
+					[123] = {
+						enabled = false,
+						installedVersion = 5295560901,
+						description = "some long string describing the plugin.",
+						updated = "2019-12-06T01:20:17Z",
+						assetId = 1000001,
+						isModerated = false,
+						creator = {
+							Id = 98765,
+							CreatorTargetId = 98765,
+							Name = "John Doe",
+							CreatorType = "User",
+						},
+						latestVersion = 5295560901,
+						name = "Test plugin 1"
+					},
+				},
+			}, SetLoadedPluginData({
+				[456] = {
+					enabled = true,
+					installedVersion = 987654321,
+					description = "some other long string describing the plugin.",
+					updated = "2019-12-06T01:20:17Z",
+					assetId = 1000002,
+					isModerated = true,
+					creator = {
+						Id = 12345,
+						CreatorTargetId = 12345,
+						Name = "Jane Doe",
+						CreatorType = "User",
+					},
+					latestVersion = 987654321,
+					name = "Test plugin 1"
+				}
+			}))
+			expect(state.plugins[123]).to.be.ok()
+			expect(state.plugins[456]).to.be.ok()
+		end)
+	end)
 
 	describe("SetPluginInfo action", function()
 		it("should set the plugin info", function()
@@ -130,4 +217,6 @@ return function()
 			expect(state.plugins[0].status).never.to.be.ok()
 		end)
 	end)
+
+
 end

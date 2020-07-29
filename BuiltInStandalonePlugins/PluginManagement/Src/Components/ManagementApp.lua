@@ -33,7 +33,7 @@ local FlagsList = Flags.new({
 	},
 })
 local FFlagPluginManagementFixWhiteScreen = game:DefineFastFlag("PluginManagementFixWhiteScreen", false)
-local FFlagPluginManagementRemoveUILibrary = game:GetFastFlag("PluginManagementRemoveUILibrary")
+local FFlagPluginManagementRemoveUILibrary = game:GetFastFlag("PluginManagementRemoveUILibrary2")
 
 local ManagementApp = Roact.PureComponent:extend("ManagementApp")
 

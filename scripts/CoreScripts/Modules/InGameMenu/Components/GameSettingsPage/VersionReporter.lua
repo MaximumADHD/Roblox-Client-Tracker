@@ -28,6 +28,8 @@ local ExternalEventConnection = require(InGameMenu.Utility.ExternalEventConnecti
 
 local withLocalization = require(InGameMenu.Localization.withLocalization)
 
+local canGetCoreScriptVersion = game:getEngineFeature("CoreScriptVersionEnabled")
+
 local VersionReporter = Roact.PureComponent:extend("VersionReporter")
 VersionReporter.validateProps = t.strictInterface({
 	LayoutOrder = t.integer,
@@ -79,6 +81,7 @@ function VersionReporter:init()
 		placeVersion = game.PlaceVersion,
 		serverVersion = nil,
 		playerScriptStatus = initalPlayerscriptStatus,
+		coreScriptVersion = canGetCoreScriptVersion and RunService:GetCoreScriptVersion() or nil,
 	})
 end
 
@@ -103,6 +106,10 @@ function VersionReporter:render()
 			PLACE_VERSION = self.state.placeVersion,
 			LATEST_PLACE_VERSION = self.state.latestPlaceVersion,
 		},
+		coreScriptVersion = canGetCoreScriptVersion and {
+			"CoreScripts.InGameMenu.GameSettings.ClientCoreScriptVersion",
+			CLIENT_CORESCRIPT_VERSION = self.state.coreScriptVersion,
+		} or nil
 	})(function(localized)
 		return Roact.createElement("Frame", {
 			BackgroundTransparency = 1,
@@ -160,6 +167,17 @@ function VersionReporter:render()
 				fontKey = "Footer",
 				Text = ("Base URL: %s"):format(self.state.baseUrl),
 				LayoutOrder = 6,
+				Size = UDim2.new(1, -24, 0, 14),
+			}),
+			Divider2 = canGetCoreScriptVersion and Roact.createElement(Divider, {
+				Size = UDim2.new(1, 0, 0, 1),
+				LayoutOrder = 7,
+			}),
+			CoreScriptVersion = canGetCoreScriptVersion and Roact.createElement(ThemedTextLabel, {
+				themeKey = "TextDefault",
+				fontKey = "Footer",
+				Text = localized.coreScriptVersion,
+				LayoutOrder = 8,
 				Size = UDim2.new(1, -24, 0, 14),
 			}),
 			VersionWatcher = Roact.createElement(ExternalEventConnection, {

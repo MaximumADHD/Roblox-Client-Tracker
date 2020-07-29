@@ -5,8 +5,6 @@
 game:DefineFastFlag("AvatarSizeFixForReorganizeHeaders", false)
 game:DefineFastFlag("StudioLocalizationInGameSettingsEnabled", false)
 game:DefineFastFlag("StudioConvertGameSettingsToDevFramework", false)
-game:DefineFastFlag("StudioGameSettingsResetStoreAction2", false)
-game:DefineFastFlag("StudioStandaloneGameMetadata", false)
 game:DefineFastFlag("FixRadioButtonSeAndTableHeadertForTesting", false)
 game:DefineFastFlag("SupportFreePrivateServers", false)
 game:DefineFastFlag("VIPServersRebrandToPrivateServers", false)

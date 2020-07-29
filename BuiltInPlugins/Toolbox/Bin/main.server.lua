@@ -8,12 +8,10 @@ local FFlagEnableOverrideAssetCursorFix = game:GetFastFlag("EnableOverrideAssetC
 local FFlagAssetManagerLuaPlugin = game:GetFastFlag("AssetManagerLuaPlugin")
 local FFlagStudioUseNewAnimationImportExportFlow = settings():GetFFlag("StudioUseNewAnimationImportExportFlow")
 local FFlagStudioAssetConfigurationPlugin = game:GetFastFlag("StudioAssetConfigurationPlugin")
-local FFlagStudioUnrestrictPluginGuiService = game:GetFastFlag("StudioUnrestrictPluginGuiService")
 local FFlagToolboxUseDevFrameworkPromise = game:GetFastFlag("ToolboxUseDevFrameworkPromise")
 local FFlagDevFrameworkUnhandledPromiseRejections = game:GetFastFlag("DevFrameworkUnhandledPromiseRejections")
 local FFlagToolboxDisableForLuobu = game:GetFastFlag("ToolboxDisableForLuobu")
 local FFlagDebugToolboxEnableRoactChecks = game:GetFastFlag("DebugToolboxEnableRoactChecks")
-local FFlagToolboxEnableErrorReporting = game:GetFastFlag("ToolboxEnableErrorReporting")
 
 local Plugin = script.Parent.Parent
 local Libs = Plugin.Libs
@@ -69,7 +67,6 @@ local SettingsContext = require(Plugin.Core.ContextServices.Settings)
 local Framework = require(Libs.Framework)
 local ContextServices = Framework.ContextServices
 local CrossPluginCommunication = Framework.Util.CrossPluginCommunication
-local ErrorReporter = Framework.ErrorReporter.StudioPluginErrorReporter
 
 local TranslationStringsTable = Plugin.LocalizationSource.ToolboxTranslationReferenceTable
 local makeTheme = require(Util.makeTheme)
@@ -89,12 +86,6 @@ local localization2 = ContextServices.Localization.new({
 
 if FFlagToolboxDisableForLuobu and Url:baseURLHasChineseHost() then
 	return
-end
-
-if FFlagToolboxEnableErrorReporting then
-	ErrorReporter.new({
-		plugin = plugin,
-	})
 end
 
 local function createTheme()
@@ -296,13 +287,8 @@ end
 --				default to nil
 local function createAssetConfig(assetId, flowType, instances, assetTypeEnum)
 	if FFlagStudioAssetConfigurationPlugin then
-
-		if FFlagStudioUnrestrictPluginGuiService then
-			invokeAssetConfigPlugin(assetId, flowType, instances, assetTypeEnum)
-			return
-		else
-			warn("FFlagStudioAssetConfigurationPlugin depends on FFlagStudioUnrestrictPluginGuiService")
-		end
+		invokeAssetConfigPlugin(assetId, flowType, instances, assetTypeEnum)
+		return
 	end
 
 	DEPRECATED_createMonolithicAssetConfig(assetId, flowType, instances, assetTypeEnum)

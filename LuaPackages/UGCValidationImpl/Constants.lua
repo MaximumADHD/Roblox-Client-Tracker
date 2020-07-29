@@ -66,6 +66,20 @@ Constants.EXTRA_BANNED_NAMES = {
 	"Humanoid",
 }
 
+if game:GetFastFlag("UGCExtraBannedNames") then
+	local extraBannedNames = {
+		"Body Colors",
+		"Shirt Graphic",
+		"Shirt",
+		"Pants",
+		"Health",
+		"Animate",
+	}
+	for _, name in ipairs(extraBannedNames) do
+		table.insert(Constants.EXTRA_BANNED_NAMES, name)
+	end
+end
+
 Constants.BANNED_NAMES = convertArrayToTable(Cryo.Dictionary.join(
 	Constants.R6_BODY_PARTS,
 	Constants.R15_BODY_PARTS,

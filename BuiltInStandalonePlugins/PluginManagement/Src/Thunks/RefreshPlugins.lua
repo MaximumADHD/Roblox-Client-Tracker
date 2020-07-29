@@ -4,6 +4,7 @@ local HttpService = game:GetService("HttpService")
 local GetPluginInfoRequest = require(Plugin.Src.Thunks.GetPluginInfoRequest)
 local MultiGetPluginInfoRequest = require(Plugin.Src.Thunks.MultiGetPluginInfoRequest)
 local SetPluginInfo = require(Plugin.Src.Actions.SetPluginInfo)
+local SetLoadedPluginData = require(Plugin.Src.Actions.SetLoadedPluginData)
 local ClearAllPluginData = require(Plugin.Src.Actions.ClearAllPluginData)
 
 local FFlagPluginManagementAllowLotsOfPlugins2 = settings():GetFFlag("PluginManagementAllowLotsOfPlugins2")
@@ -57,6 +58,8 @@ return function(apiImpl, marketplaceService)
 			end
 			if #assetIds > 0 then
 				store:dispatch(MultiGetPluginInfoRequest(apiImpl, marketplaceService, assetIds, plugins))
+			else
+				store:dispatch(SetLoadedPluginData({}))
 			end
 		else
 			if #assetIds > 0 then

@@ -23,8 +23,7 @@ local TenFootInterface = require(RobloxGui.Modules.TenFootInterface)
 local BackpackModule = require(RobloxGui.Modules.BackpackScript)
 local EmotesModule = require(RobloxGui.Modules.EmotesMenu.EmotesMenuMaster)
 local ChatModule = require(RobloxGui.Modules.ChatSelector)
-
-local FFlagUseRoactPlayerList = settings():GetFFlag("UseRoactPlayerList3")
+local PlayerListMaster = require(RobloxGui.Modules.PlayerList.PlayerListManager)
 
 local isNewInGameMenuEnabled = require(RobloxGui.Modules.isNewInGameMenuEnabled)
 local InGameMenuConstants = require(RobloxGui.Modules.InGameMenu.Resources.Constants)
@@ -70,7 +69,6 @@ GamepadMenu.validateProps = t.strictInterface({
 	backpackEnabled = t.boolean,
 
 	respawnEnabled = t.boolean,
-	respawnCharacter = t.callback,
 
 	leaderboardOpen = t.boolean,
 	backpackOpen = t.boolean,
@@ -229,7 +227,8 @@ function GamepadMenu.openSettingsMenu()
 		InGameMenu.openGameSettingsPage()
 	else
 		local MenuModule = require(RobloxGui.Modules.Settings.SettingsHub)
-		MenuModule:SetVisibility(true, nil, MenuModule.Instance.GameSettingsPage, true, InGameMenuConstants.AnalyticsMenuOpenTypes.SettingsTriggered)
+		MenuModule:SetVisibility(true, nil, MenuModule.Instance.GameSettingsPage, true,
+			InGameMenuConstants.AnalyticsMenuOpenTypes.SettingsTriggered)
 	end
 end
 
@@ -238,14 +237,7 @@ function GamepadMenu.toggleChatVisible()
 end
 
 function GamepadMenu.toggleLeaderboard()
-	if FFlagUseRoactPlayerList then
-		--TODO: Move to top of script when removing FFlagUseRoactPlayerList
-		local PlayerListMaster = require(RobloxGui.Modules.PlayerList.PlayerListManager)
-		PlayerListMaster:SetVisibility(not PlayerListMaster:GetSetVisible())
-	else
-		local PlayerlistModule = require(RobloxGui.Modules.PlayerlistModule)
-		PlayerlistModule.ToggleVisibility()
-	end
+	PlayerListMaster:SetVisibility(not PlayerListMaster:GetSetVisible())
 end
 
 function GamepadMenu.toggleEmotesMenu()
@@ -262,12 +254,14 @@ end
 
 function GamepadMenu.leaveGame()
 	local MenuModule = require(RobloxGui.Modules.Settings.SettingsHub)
-	MenuModule:SetVisibility(true, false, MenuModule.Instance.LeaveGamePage, true, InGameMenuConstants.AnalyticsMenuOpenTypes.GamepadLeaveGame)
+	MenuModule:SetVisibility(true, false, MenuModule.Instance.LeaveGamePage, true,
+		InGameMenuConstants.AnalyticsMenuOpenTypes.GamepadLeaveGame)
 end
 
 function GamepadMenu.respawnCharacter()
 	local MenuModule = require(RobloxGui.Modules.Settings.SettingsHub)
-	MenuModule:SetVisibility(true, false, MenuModule.Instance.ResetCharacterPage, true, InGameMenuConstants.AnalyticsMenuOpenTypes.GamepadResetCharacter)
+	MenuModule:SetVisibility(true, false, MenuModule.Instance.ResetCharacterPage, true,
+		InGameMenuConstants.AnalyticsMenuOpenTypes.GamepadResetCharacter)
 end
 
 function GamepadMenu.getMenuActionsFromProps(props)
