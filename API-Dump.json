@@ -34677,6 +34677,23 @@
         {
             "Members": [
                 {
+                    "Category": "Appearance",
+                    "MemberType": "Property",
+                    "Name": "LevelOfDetail",
+                    "Security": {
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Enum",
+                        "Name": "ModelLevelOfDetail"
+                    }
+                },
+                {
                     "Category": "Data",
                     "MemberType": "Property",
                     "Name": "PrimaryPart",
@@ -35045,7 +35062,10 @@
                         "Category": "Group",
                         "Name": "Tuple"
                     },
-                    "Security": "None"
+                    "Security": "None",
+                    "Tags": [
+                        "Deprecated"
+                    ]
                 },
                 {
                     "MemberType": "Function",
@@ -35086,7 +35106,10 @@
                         "Category": "Group",
                         "Name": "Tuple"
                     },
-                    "Security": "None"
+                    "Security": "None",
+                    "Tags": [
+                        "Deprecated"
+                    ]
                 },
                 {
                     "MemberType": "Function",
@@ -35119,7 +35142,10 @@
                         "Category": "Group",
                         "Name": "Tuple"
                     },
-                    "Security": "None"
+                    "Security": "None",
+                    "Tags": [
+                        "Deprecated"
+                    ]
                 },
                 {
                     "MemberType": "Function",
@@ -35602,26 +35628,6 @@
                     "ValueType": {
                         "Category": "Enum",
                         "Name": "PhysicsSimulationRate"
-                    }
-                },
-                {
-                    "Category": "Behavior",
-                    "MemberType": "Property",
-                    "Name": "SkinnedMeshEnabled",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "Tags": [
-                        "NotScriptable"
-                    ],
-                    "ValueType": {
-                        "Category": "Enum",
-                        "Name": "SkinnedMeshAllowType"
                     }
                 },
                 {
@@ -45104,6 +45110,13 @@
                                 "Category": "Primitive",
                                 "Name": "string"
                             }
+                        },
+                        {
+                            "Name": "securityLevel",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int"
+                            }
                         }
                     ],
                     "Security": "RobloxScriptSecurity"
@@ -51144,6 +51157,23 @@
                     }
                 },
                 {
+                    "Category": "Output",
+                    "MemberType": "Property",
+                    "Name": "Maximum Table Depth",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "int"
+                    }
+                },
+                {
                     "Category": "Script Editor Colors",
                     "MemberType": "Property",
                     "Name": "Number Color",
@@ -53292,6 +53322,26 @@
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "ChildOrder",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "Hidden"
+                    ],
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "int"
                     }
                 },
                 {
@@ -65378,6 +65428,23 @@
         {
             "Items": [
                 {
+                    "Name": "Automatic",
+                    "Value": 0
+                },
+                {
+                    "Name": "StreamingMesh",
+                    "Value": 1
+                },
+                {
+                    "Name": "Disabled",
+                    "Value": 2
+                }
+            ],
+            "Name": "ModelLevelOfDetail"
+        },
+        {
+            "Items": [
+                {
                     "Name": "Alt",
                     "Value": 2
                 },
@@ -66494,23 +66561,6 @@
         {
             "Items": [
                 {
-                    "Name": "Default",
-                    "Value": 0
-                },
-                {
-                    "Name": "Disabled",
-                    "Value": 2
-                },
-                {
-                    "Name": "Enabled",
-                    "Value": 1
-                }
-            ],
-            "Name": "SkinnedMeshAllowType"
-        },
-        {
-            "Items": [
-                {
                     "Name": "LayoutOrder",
                     "Value": 2
                 },
@@ -67317,8 +67367,12 @@
                     "Value": 2
                 },
                 {
-                    "Name": "TeleportToPartyAsync",
+                    "Name": "TeleportPartyAsync",
                     "Value": 3
+                },
+                {
+                    "Name": "TeleportUnknown",
+                    "Value": 4
                 }
             ],
             "Name": "TeleportMethod"

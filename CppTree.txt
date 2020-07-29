@@ -191,6 +191,8 @@ RBX
 		LightGrid
 		LightGridCPU
 		LightObject
+		ModelCluster
+		ModelLodEntity
 		ObjectExporter
 		ObjectExporterObj
 		ParticleEmitter
@@ -206,6 +208,8 @@ RBX
 		RenderView
 		Resource
 		SceneUpdater
+		SceneUpdater_DEPRECATED
+		SceneUpdater_NEW
 		Shader
 		ShaderD3D11
 		ShaderD3D9
@@ -531,6 +535,7 @@ RBX
 		CmdFoldAll
 		CmdFoldToggle
 		CmdGotoPosition
+		CmdIndentSelection
 		CmdInsertText
 		CmdMoveLinesDown
 		CmdMoveLinesUp
@@ -538,6 +543,8 @@ RBX
 		CmdRepeat
 		CmdSelect
 		CmdUnfoldAll
+		CmdUnindentSelection
+		ColorPreviewWidget
 		GotoLineDialog
 		QtLanguageClient
 		ScriptEditorCmdBase
@@ -1066,6 +1073,7 @@ RBX
 	MessagingServiceAnalysisJob
 	MockMarketplaceApiClient
 	ModelInstance
+	ModelMeshJob
 	ModelTool
 	Motor
 	Motor6D

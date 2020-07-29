@@ -2,6 +2,7 @@ Key,Context,Source,en-us
 Studio.App.AddEmulationDeviceDialog.AddNewDevice,,Add New Device,Add New Device
 Studio.App.AddEmulationDeviceDialog.BottomSafeZoneOffset,,Bottom,Bottom
 Studio.App.AddEmulationDeviceDialog.DeviceForm,,Device Form,Device Form
+Studio.App.AddEmulationDeviceDialog.DeviceMemoryMB,,Simulated Memory (MB),Simulated Memory (MB)
 Studio.App.AddEmulationDeviceDialog.DeviceName,,Device Name,Device Name
 Studio.App.AddEmulationDeviceDialog.GuiInsets,,GuiInsets,GuiInsets
 Studio.App.AddEmulationDeviceDialog.KeyboardAnimationDuration,,Keyboard Animation Duration (s),Keyboard Animation Duration (s)
@@ -86,6 +87,8 @@ Studio.App.BetaFeatures.InsertObjectStreamliningTitle,,Insert Object Streamlinin
 Studio.App.BetaFeatures.LearnMoreTooltip,,Learn More,Learn More
 Studio.App.BetaFeatures.LuaDraggersDescription,,Migrates the Select/Move/Rotate/Scale tools to a Lua BuiltInPlugin implementation and makes some minor improvements to their functionality.,Migrates the Select/Move/Rotate/Scale tools to a Lua BuiltInPlugin implementation and makes some minor improvements to their functionality.
 Studio.App.BetaFeatures.LuaDraggersTitle,,Lua Draggers Beta,Lua Draggers Beta
+Studio.App.BetaFeatures.ModelMeshComputerBetaDescription,,Automatically generate Impostor meshes to be rendered outside of streaming radius. Use LevelOfDetail property on Model to enable it.,Automatically generate Impostor meshes to be rendered outside of streaming radius. Use LevelOfDetail property on Model to enable it.
+Studio.App.BetaFeatures.ModelMeshComputerBetaTitle,,Automatic Impostors for Models,Automatic Impostors for Models
 Studio.App.BetaFeatures.NewScriptFoldStateDescription,,Enables new improved behavior for code folding in the Script Editor.,Enables new improved behavior for code folding in the Script Editor.
 Studio.App.BetaFeatures.NewScriptFoldStateTitle,,Script Editor Folds Behavior Beta,Script Editor Folds Behavior Beta
 Studio.App.BetaFeatures.PackagePermissionsDescription,,"Add any group, user, or role as a user or editor for your packages through the Package Management action in Game Explorer","Add any group, user, or role as a user or editor for your packages through the Package Management action in Game Explorer"
@@ -103,6 +106,8 @@ Studio.App.BetaFeatures.SaveToCloudV2Title,,New Games in the Cloud,New Games in 
 Studio.App.BetaFeatures.SelectFeaturesToActivate,,Select beta features to activate,Select beta features to activate
 Studio.App.BetaFeatures.SetInstanceDefaultsWindowDescription,,Set a Part or Script to be the default for future inserted instances of a Part or Script.,Set a Part or Script to be the default for future inserted instances of a Part or Script.
 Studio.App.BetaFeatures.SetInstanceDefaultsWindowTitle,,Set Instance as Default,Set Instance as Default
+Studio.App.BetaFeatures.SkinnedMeshDescription,,"Enables import, display and animation of skinned meshes.","Enables import, display and animation of skinned meshes."
+Studio.App.BetaFeatures.SkinnedMeshTitle,,Skinned Meshes,Skinned Meshes
 Studio.App.BetaFeatures.SomethingChangedPrompt,,Would you like to restart Studio now?,Would you like to restart Studio now?
 Studio.App.BetaFeatures.SupportPluginDebuggingDescription,,Set `Plugin Debugging Enabled` to true and you can debug local plugins under the PluginDebugService in Explorer,Set `Plugin Debugging Enabled` to true and you can debug local plugins under the PluginDebugService in Explorer
 Studio.App.BetaFeatures.SupportPluginDebuggingTitle,,Plugin Debugging,Plugin Debugging
@@ -178,6 +183,8 @@ Studio.App.CallStack.What,Call Stack widgets,What,What
 Studio.App.CallStackWidget.CurrentScript,,Current Script: ,Current Script: 
 Studio.App.Callout.GotIt,Button that a user clicks to dismiss a Teaching Callout. Teaching Callouts are used to showcase new Studio features to users.,Got it!,Got it!
 Studio.App.Callout.LearnMore,"Within a Teaching Callout, this text is a link that takes a user to a learning resource for a new feature. Teaching Callouts are used to showcase new Studio features to users.",Learn more,Learn more
+Studio.App.CalloutController.AssetManagerCalloutDescription,Description that appears in the Teaching Callout pointing out the new Asset Manager feature.,"Replacing the Game Explorer, the Asset Manager is a new menu in Studio that enables developers to more effectively manage game assets!","Replacing the Game Explorer, the Asset Manager is a new menu in Studio that enables developers to more effectively manage game assets!"
+Studio.App.CalloutController.AssetManagerCalloutTitle,Name of the new Asset Manager built-in plugin that displays as a title for a Teaching Callout that points to the button for the plugin.,Asset Manager,Asset Manager
 Studio.App.Category.Advanced,,Advanced,Advanced
 Studio.App.Category.Appearance,,Appearance,Appearance
 Studio.App.Category.Audio,,Audio,Audio
@@ -1040,6 +1047,7 @@ Studio.App.Property.LocalAssetsFolder,,Local Assets Folder,Local Assets Folder
 Studio.App.Property.LuaDebuggerEnabled,,Lua Debugger Enabled,Lua Debugger Enabled
 Studio.App.Property.MatchingWordBackgroundColor,,Matching Word Background Color,Matching Word Background Color
 Studio.App.Property.MaximumOutputLines,,Maximum Output Lines,Maximum Output Lines
+Studio.App.Property.MaximumTableDepth,,Maximum Table Depth,Maximum Table Depth
 Studio.App.Property.MeshCacheSize,,Mesh Cache Size,Mesh Cache Size
 Studio.App.Property.NetworkOwnerRate,,Network Owner Rate,Network Owner Rate
 Studio.App.Property.NumberColor,,Number Color,Number Color
@@ -1408,6 +1416,8 @@ Studio.App.RBXMainWindow.GridSize4Studs,,Grid Size - 4 Studs,Grid Size - 4 Studs
 Studio.App.RBXMainWindow.Group,,Group,Group
 Studio.App.RBXMainWindow.GroupPartsOrModels,,Group parts or models,Group parts or models
 Studio.App.RBXMainWindow.HingeOnSurface,,Hinge on Surface,Hinge on Surface
+Studio.App.RBXMainWindow.IndentSelection,,Indent,Indent
+Studio.App.RBXMainWindow.IndentSelectionToolTip,,Indent selected line(s),Indent selected line(s)
 Studio.App.RBXMainWindow.IndentsOnSurface,,Indents on Surface,Indents on Surface
 Studio.App.RBXMainWindow.InsertBasicObjects,,Insert Basic Objects,Insert Basic Objects
 Studio.App.RBXMainWindow.InsertBreakpoint,,Insert Breakpoint,Insert Breakpoint
@@ -1632,6 +1642,8 @@ Studio.App.RBXMainWindow.UndoChangesToSelectedPackages,,Undo Changes to Selected
 Studio.App.RBXMainWindow.UndoTheLastAction,,Undo the last action,Undo the last action
 Studio.App.RBXMainWindow.Ungroup,,Ungroup,Ungroup
 Studio.App.RBXMainWindow.UngroupModelsOrParts,,Ungroup models or parts,Ungroup models or parts
+Studio.App.RBXMainWindow.UnindentSelection,,Unindent,Unindent
+Studio.App.RBXMainWindow.UnindentSelectionToolTip,,Unindent selected line(s),Unindent selected line(s)
 Studio.App.RBXMainWindow.Union,,Union,Union
 Studio.App.RBXMainWindow.UnionSelection,,Union Selection,Union Selection
 Studio.App.RBXMainWindow.UniversalsForSurface,,Universals for Surface,Universals for Surface
@@ -1868,7 +1880,9 @@ Studio.App.RobloxOutputRibbonDropdown.PlaySolo,,NonNetworked,NonNetworked
 Studio.App.RobloxOutputRibbonDropdown.RobloxPlugin,,Roblox Plugin,Roblox Plugin
 Studio.App.RobloxOutputRibbonDropdown.SelectMessageOnly,,Select Messages Only,Select Messages Only
 Studio.App.RobloxOutputRibbonDropdown.Server,,Server,Server
+Studio.App.RobloxOutputRibbonDropdown.ShowContext,,Show Context,Show Context
 Studio.App.RobloxOutputRibbonDropdown.ShowMemoryAddressForExpandableTables,,Show memory address for expandable tables,Show memory address for expandable tables
+Studio.App.RobloxOutputRibbonDropdown.ShowSource,,Show Source,Show Source
 Studio.App.RobloxOutputRibbonDropdown.ShowTablesExpandedByDefault,,Show tables expanded by default,Show tables expanded by default
 Studio.App.RobloxOutputRibbonDropdown.ShowTimestamp,,Show Timestamp,Show Timestamp
 Studio.App.RobloxOutputRibbonDropdown.Studio,,Studio,Studio
@@ -2240,6 +2254,11 @@ Studio.App.RobloxViewStudio.UseLocalSpace,,Use Local Space,Use Local Space
 Studio.App.RobloxViewStudio.UseWorldSpace,,Use World Space,Use World Space
 Studio.App.SandboxLocalCache.DialogTitle,,Drafts Local Cache,Drafts Local Cache
 Studio.App.SandboxLocalCache.MetaDataCorruptedMessage,,"Can't restore drafts information, metadata corrupted","Can't restore drafts information, metadata corrupted"
+Studio.App.SandboxLocalCache.MetaDataFilesCorruptedMessage,,"Can't restore some of the drafts information
+
+Metadata files corrupted:","Can't restore some of the drafts information
+
+Metadata files corrupted:"
 Studio.App.SandboxLocalCache.SourcesMissingCorruptedMessage,,"Unable to restore some of the drafts.
 
 Files are missing or corrupted:","Unable to restore some of the drafts.

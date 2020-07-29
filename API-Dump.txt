@@ -1952,6 +1952,7 @@ Class VehicleSeat : BasePart
 	Property float VehicleSeat.TurnSpeed
 	Function void VehicleSeat:Sit(Instance humanoid)
 Class Model : PVInstance
+	Property Enum<ModelLevelOfDetail> Model.LevelOfDetail {PluginSecurity}
 	Property Class<BasePart> Model.PrimaryPart
 	Function void Model:BreakJoints()
 	Function Tuple Model:GetBoundingBox()
@@ -1970,9 +1971,9 @@ Class Status : Model [NotCreatable] [Deprecated]
 Class WorldRoot : Model [NotCreatable]
 	Function bool WorldRoot:ArePartsTouchingOthers(Objects partList, float overlapIgnored = 0.000199999995)
 	Function void WorldRoot:BulkMoveTo(Objects partList, Array cframeList, Enum<BulkMoveMode> eventMode = "FireAllEvents")
-	Function Tuple WorldRoot:FindPartOnRay(Ray ray, Instance ignoreDescendantsInstance = nil, bool terrainCellsAreCubes = false, bool ignoreWater = false)
-	Function Tuple WorldRoot:FindPartOnRayWithIgnoreList(Ray ray, Objects ignoreDescendantsTable, bool terrainCellsAreCubes = false, bool ignoreWater = false)
-	Function Tuple WorldRoot:FindPartOnRayWithWhitelist(Ray ray, Objects whitelistDescendantsTable, bool ignoreWater = false)
+	Function Tuple WorldRoot:FindPartOnRay(Ray ray, Instance ignoreDescendantsInstance = nil, bool terrainCellsAreCubes = false, bool ignoreWater = false) [Deprecated]
+	Function Tuple WorldRoot:FindPartOnRayWithIgnoreList(Ray ray, Objects ignoreDescendantsTable, bool terrainCellsAreCubes = false, bool ignoreWater = false) [Deprecated]
+	Function Tuple WorldRoot:FindPartOnRayWithWhitelist(Ray ray, Objects whitelistDescendantsTable, bool ignoreWater = false) [Deprecated]
 	Function Objects WorldRoot:FindPartsInRegion3(Region3 region, Instance ignoreDescendantsInstance = nil, int maxParts = 20)
 	Function Objects WorldRoot:FindPartsInRegion3WithIgnoreList(Region3 region, Objects ignoreDescendantsTable, int maxParts = 20)
 	Function Objects WorldRoot:FindPartsInRegion3WithWhiteList(Region3 region, Objects whitelistDescendantsTable, int maxParts = 20)
@@ -1987,7 +1988,6 @@ Class Workspace : WorldRoot [NotCreatable] [Service]
 	Property bool Workspace.FilteringEnabled {✏️PluginSecurity}
 	Property float Workspace.Gravity
 	Property Enum<PhysicsSimulationRate> Workspace.PhysicsSimulationRate  [Hidden] [NotReplicated]
-	Property Enum<SkinnedMeshAllowType> Workspace.SkinnedMeshEnabled  [NotScriptable]
 	Property bool Workspace.StreamingEnabled {✏️PluginSecurity}
 	Property int Workspace.StreamingMinRadius  [NotScriptable]
 	Property Enum<StreamingPauseMode> Workspace.StreamingPauseMode  [NotScriptable]
@@ -2512,7 +2512,7 @@ Class ScriptContext : Instance [NotCreatable] [Service] [NotReplicated]
 	Function Array ScriptContext:GetCoverageStats() {RobloxScriptSecurity}
 	Function void ScriptContext:SetTimeout(double seconds) {PluginSecurity}
 	Event ScriptContext.Error(string message, string stackTrace, Instance script)
-	Event ScriptContext.ErrorDetailed(string message, string stackTrace, Instance script, string details) {RobloxScriptSecurity}
+	Event ScriptContext.ErrorDetailed(string message, string stackTrace, Instance script, string details, int securityLevel) {RobloxScriptSecurity}
 Class ScriptDebugger : Instance [NotCreatable]
 	Property int ScriptDebugger.CurrentLine  [ReadOnly] [NotReplicated]
 	Property bool ScriptDebugger.IsDebugging  [ReadOnly] [NotReplicated]
@@ -2859,6 +2859,7 @@ Class Studio : Instance [NotCreatable] [Service] [NotReplicated]
 	Property int Studio.ScriptTimeoutLength
 	Property bool Studio.Clear Output On Start
 	Property int Studio.Maximum Output Lines
+	Property int Studio.Maximum Table Depth
 	Property QFont Studio.Output Font
 	Property Enum<OutputLayoutMode> Studio.Output Layout Mode
 	Property float Studio.Line Thickness
@@ -2983,6 +2984,7 @@ Class TaskScheduler : Instance [NotCreatable] [Service]
 Class Team : Instance
 	Property bool Team.AutoAssignable
 	Property bool Team.AutoColorCharacters [<📁> LoadOnly] [NotReplicated] [Deprecated]
+	Property int Team.ChildOrder {RobloxScriptSecurity} [Hidden]
 	Property int Team.Score [<📁> LoadOnly] [NotReplicated] [Deprecated]
 	Property BrickColor Team.TeamColor
 	Function Objects Team:GetPlayers()
@@ -4433,6 +4435,10 @@ Enum MessageType
 	EnumItem MessageType.MessageInfo : 1
 	EnumItem MessageType.MessageWarning : 2
 	EnumItem MessageType.MessageError : 3
+Enum ModelLevelOfDetail
+	EnumItem ModelLevelOfDetail.Automatic : 0
+	EnumItem ModelLevelOfDetail.StreamingMesh : 1
+	EnumItem ModelLevelOfDetail.Disabled : 2
 Enum ModifierKey
 	EnumItem ModifierKey.Shift : 0
 	EnumItem ModifierKey.Ctrl : 1
@@ -4697,10 +4703,6 @@ Enum SizeConstraint
 	EnumItem SizeConstraint.RelativeXY : 0
 	EnumItem SizeConstraint.RelativeXX : 1
 	EnumItem SizeConstraint.RelativeYY : 2
-Enum SkinnedMeshAllowType
-	EnumItem SkinnedMeshAllowType.Default : 0
-	EnumItem SkinnedMeshAllowType.Enabled : 1
-	EnumItem SkinnedMeshAllowType.Disabled : 2
 Enum SortOrder
 	EnumItem SortOrder.Name : 0
 	EnumItem SortOrder.Custom : 1 [Deprecated]
@@ -4895,7 +4897,8 @@ Enum TeleportMethod
 	EnumItem TeleportMethod.TeleportToSpawnByName : 0
 	EnumItem TeleportMethod.TeleportToPlaceInstance : 1
 	EnumItem TeleportMethod.TeleportToPrivateServer : 2
-	EnumItem TeleportMethod.TeleportToPartyAsync : 3
+	EnumItem TeleportMethod.TeleportPartyAsync : 3
+	EnumItem TeleportMethod.TeleportUnknown : 4
 Enum TeleportResult
 	EnumItem TeleportResult.Success : 0
 	EnumItem TeleportResult.Failure : 1

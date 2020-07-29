@@ -2320,6 +2320,9 @@
       <bool name="IgnoreWater">
         Should a raycast ignore Terrain water
       </bool>
+      <string name="CollisionGroup">
+        Parts set to not collide with this group will be ignored by the raycast
+      </string>
     </Properties>
   </ItemStruct>
   <ItemStruct name="RaycastResult">

@@ -17,23 +17,24 @@ dependencies = [
     "AvatarExperienceDeps AvatarExperienceDeps 5a31b418 git+https://github.com/roblox/avatar-experience-deps#master",
     "Cryo roblox/cryo 1.0.0 url+https://github.com/roblox/cryo",
     "InGameMenuDependencies InGameMenuDependencies cf249987 git+https://github.rbx.com/roblox/in-game-menu-dependencies#master",
-    "LuaChatDeps LuaChatDeps 81a07f1c git+https://github.rbx.com/roblox/lua-chat-deps#master",
-    "LuaDiscussionsDeps LuaDiscussionsDeps a2981789 git+https://github.rbx.com/roblox/lua-discussions-deps#master",
+    "LuaChatDeps LuaChatDeps f46a5410 git+https://github.rbx.com/roblox/lua-chat-deps#master",
+    "LuaDiscussionsDeps LuaDiscussionsDeps dfba285e git+https://github.rbx.com/roblox/lua-discussions-deps#master",
     "LuaSocialLibrariesDeps LuaSocialLibrariesDeps 6d421330 git+https://github.rbx.com/roblox/lua-social-libraries-deps#master",
     "Lumberyak roblox/lumberyak 47552268 git+https://github.rbx.com/roblox/lumberyak#master",
     "Otter roblox/otter 0.1.1 url+https://github.com/roblox/otter",
     "PolicyProvider roblox/policy-provider fe7d3d84 git+https://github.rbx.com/roblox/lua-roact-policy-provider#master",
     "PremiumUpsellDeps PremiumUpsellDeps c51030b7 git+https://github.com/roblox/premium-upsell-deps#master",
     "Promise lua-promise bbb9e162 git+https://github.rbx.com/roblox/lua-promise#master",
-    "PurchasePrompt roblox/purchase-prompt 9135e007 git+https://github.com/roblox/purchasepromptscript-roact#master",
+    "PurchasePrompt roblox/purchase-prompt 4e952101 git+https://github.com/roblox/purchasepromptscript-roact#master",
     "Result roblox/lua-result c6817c84 git+https://github.rbx.com/roblox/lua-result#master",
+    "Rhodium roblox/rhodium 0.2.4 url+https://github.com/roblox/rhodium",
     "Roact roblox/roact 1.3.0 url+https://github.com/roblox/roact",
-    "RoactGamepad roblox/roact-gamepad 0.3.0 url+https://github.com/roblox/roact-gamepad",
+    "RoactGamepad roblox/roact-gamepad 0.3.1 url+https://github.com/roblox/roact-gamepad",
     "RoactNavigation roblox/roact-navigation 0.2.7 url+https://github.com/roblox/roact-navigation",
     "RoactRodux roblox/roact-rodux 0.2.2 url+https://github.com/roblox/roact-rodux",
     "Rodux roblox/rodux 1.0.0 url+https://github.com/roblox/rodux",
     "TestEZ roblox/testez 0.3.1 url+https://github.com/roblox/testez",
-    "UIBlox UIBlox d0e4827f git+https://github.com/roblox/uiblox#master",
+    "UIBlox UIBlox 606e9227 git+https://github.com/roblox/uiblox#master",
     "enumerate roblox/enumerate 1.0.0 url+https://github.com/roblox/enumerate",
     "t roblox/t 1.2.5 url+https://github.com/roblox/t",
     "tutils tutils 0be577db git+https://github.rbx.com/roblox/tutils#master",
@@ -51,30 +52,30 @@ dependencies = [
     "Roact roblox/roact 1.3.0 url+https://github.com/roblox/roact",
     "RoactRodux roblox/roact-rodux 0.2.2 url+https://github.com/roblox/roact-rodux",
     "Rodux roblox/rodux 1.0.0 url+https://github.com/roblox/rodux",
-    "UIBlox <patched> UIBlox d0e4827f git+https://github.com/roblox/uiblox#master",
+    "UIBlox <patched> UIBlox 606e9227 git+https://github.com/roblox/uiblox#master",
     "t roblox/t 1.2.5 url+https://github.com/roblox/t",
 ]
 
 [[package]]
 name = "LuaChatDeps"
-version = "0.1.1"
-commit = "81a07f1cc6c9ba12a874b9196e32d4a36bbd550b"
+version = "0.1.2"
+commit = "f46a5410d705b1b55436787564a20b1be8b4855b"
 source = "git+https://github.rbx.com/roblox/lua-chat-deps#master"
 dependencies = [
-    "RoduxNetworking rodux-networking ce7f5079 git+https://github.rbx.com/roblox/rodux-networking#v1.0.0",
-    "UIBlox UIBlox d0e4827f git+https://github.com/roblox/uiblox#master",
+    "RoduxNetworking rodux-networking ea19cfe3 git+https://github.rbx.com/roblox/rodux-networking#v1.0.1",
+    "UIBlox UIBlox 606e9227 git+https://github.com/roblox/uiblox#master",
 ]
 
 [[package]]
 name = "LuaDiscussionsDeps"
-version = "0.1.1"
-commit = "a29817899ef4a057bea413891b081a2b9d2f1192"
+version = "0.1.2"
+commit = "dfba285e3dd4e0fe5059b93d52880666e2924612"
 source = "git+https://github.rbx.com/roblox/lua-discussions-deps#master"
 dependencies = [
     "InfiniteScroll roblox/infinite-scroller 0.3.4 url+https://github.com/roblox/infinite-scroller",
     "RoactFitComponents roblox/roact-fit-components 1.2.5 url+https://github.com/roblox/roact-fit-components",
     "RoactNavigation roact-navigation 0.1.1-linter-fix url+https://github.com/roblox/roact-navigation",
-    "RoduxNetworking rodux-networking ce7f5079 git+https://github.rbx.com/roblox/rodux-networking#v1.0.0",
+    "RoduxNetworking rodux-networking ea19cfe3 git+https://github.rbx.com/roblox/rodux-networking#v1.0.1",
 ]
 
 [[package]]
@@ -98,7 +99,7 @@ dependencies = ["RoactFitComponents roblox/roact-fit-components 1.2.5 url+https:
 [[package]]
 name = "UIBlox"
 version = "0.1.1"
-commit = "d0e4827fc239227033f44da606b9e78b33f86a31"
+commit = "606e922729f5f754124109a708ef9f850bff1dcf"
 source = "git+https://github.com/roblox/uiblox#master"
 dependencies = [
     "Cryo roblox/cryo 1.0.0 url+https://github.com/roblox/cryo",
@@ -106,7 +107,7 @@ dependencies = [
     "InfiniteScroller roblox/infinite-scroller 0.5.1 url+https://github.com/roblox/infinite-scroller",
     "Otter roblox/otter 0.1.1 url+https://github.com/roblox/otter",
     "Roact roblox/roact 1.3.0 url+https://github.com/roblox/roact",
-    "RoactGamepad roblox/roact-gamepad 0.3.0 url+https://github.com/roblox/roact-gamepad",
+    "RoactGamepad roblox/roact-gamepad 0.3.1 url+https://github.com/roblox/roact-gamepad",
     "enumerate roblox/enumerate 1.0.0 url+https://github.com/roblox/enumerate",
     "t roblox/t 1.2.5 url+https://github.com/roblox/t",
 ]
@@ -233,7 +234,7 @@ dependencies = [
 [[package]]
 name = "roblox/purchase-prompt"
 version = "0.1.6"
-commit = "9135e007755ce77fc6f77c61bdab8c4465509fb1"
+commit = "4e9521014fa4bae5fc9ac8b3f85a687bc79a8c35"
 source = "git+https://github.com/roblox/purchasepromptscript-roact#master"
 dependencies = [
     "Cryo roblox/cryo 1.0.0 url+https://github.com/roblox/cryo",
@@ -242,9 +243,15 @@ dependencies = [
     "Roact roblox/roact 1.3.0 url+https://github.com/roblox/roact",
     "RoactRodux roblox/roact-rodux 0.2.2 url+https://github.com/roblox/roact-rodux",
     "Rodux roblox/rodux 1.0.0 url+https://github.com/roblox/rodux",
-    "UIBlox <patched> UIBlox d0e4827f git+https://github.com/roblox/uiblox#master",
+    "UIBlox <patched> UIBlox 606e9227 git+https://github.com/roblox/uiblox#master",
     "t roblox/t 1.2.5 url+https://github.com/roblox/t",
 ]
+
+[[package]]
+name = "roblox/rhodium"
+version = "0.2.4"
+commit = "95c79bea6396adc47d4fa651eb4c1dc15a216c69"
+source = "url+https://github.com/roblox/rhodium"
 
 [[package]]
 name = "roblox/roact"
@@ -264,8 +271,8 @@ dependencies = [
 
 [[package]]
 name = "roblox/roact-gamepad"
-version = "0.3.0"
-commit = "becbeed4ada32a4fedf1a0aabbc3e86d0ba43085"
+version = "0.3.1"
+commit = "acc7566512b94f3b95dc8078085b1da6d6728356"
 source = "url+https://github.com/roblox/roact-gamepad"
 dependencies = [
     "Cryo roblox/cryo 1.0.0 url+https://github.com/roblox/cryo",
@@ -322,8 +329,8 @@ source = "url+https://github.com/roblox/testez"
 [[package]]
 name = "rodux-networking"
 version = "1.0.0"
-commit = "ce7f50796a33dea8d835139706bde3359e54638b"
-source = "git+https://github.rbx.com/roblox/rodux-networking#v1.0.0"
+commit = "ea19cfe3c71e5747fa3ab4235beed4fc21d63e4d"
+source = "git+https://github.rbx.com/roblox/rodux-networking#v1.0.1"
 dependencies = [
     "Cryo roblox/cryo 1.0.0 url+https://github.com/roblox/cryo",
     "Freeze freeze ef89f9d0 git+https://github.rbx.com/roblox/freeze#master",

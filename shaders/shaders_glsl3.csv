@@ -57,6 +57,8 @@ DefaultInstancedReflectionVSShadowed,Vertex
 DefaultInstancedSurfaceHQVS,Vertex
 DefaultInstancedSurfaceHQVSShadowed,Vertex
 DefaultInstancedVS,Vertex
+DefaultModelLodFS,Fragment
+DefaultModelLodVS,Vertex
 DefaultNeonFS,Fragment
 DefaultNeonHQFS,Fragment
 DefaultNeonHQFSShadowed,Fragment
@@ -200,6 +202,8 @@ ImageProcessLQNeonBlurBloomFS,Fragment
 ImageProcessLQNeonBlurBloomLinearFS,Fragment
 ImageProcessLQNeonBlurFS,Fragment
 ImageProcessLQNeonFS,Fragment
+ImGuiFS,Fragment
+ImGuiVS,Vertex
 LightGridPointSplatFS,Fragment
 LightGridPointSplatVS,Vertex
 LinearizeDepthAAFS,Fragment

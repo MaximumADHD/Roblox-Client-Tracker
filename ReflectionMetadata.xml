@@ -4864,6 +4864,12 @@
             <string name="summary">A Part that serves as a reference for the Model's CFrame. Used in conjunction with GetModelPrimaryPartCFrame and SetModelPrimaryPartCFrame. Use this to rotate/translate all Parts relative to the PrimaryPart.</string>
           </Properties>
         </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">LevelOfDetail</string>
+            <string name="summary">Automatically generate impostor meshes to be rendered outside of streaming radius.</string>
+          </Properties>
+        </Item>
       </Item>
     </Item>
 
@@ -5698,13 +5704,15 @@
         <Item class="ReflectionMetadataMember">
           <Properties>
             <string name="Name">FindPartOnRay</string>
-            <string name="summary">Return type is (BasePart, Vector3) if the ray hits.  If it misses it will return (nil, PointAtEndOfRay)</string>
+            <string name="summary">Deprecated. Use WorldRoot:Raycast() instead</string>
+            <bool name="Deprecated">true</bool>
           </Properties>
         </Item>
         <Item class="ReflectionMetadataMember">
           <Properties>
             <string name="Name">FindPartOnRayWithIgnoreList</string>
-            <string name="summary">Return type is (BasePart, Vector3) if the ray hits.  If it misses it will return (nil, PointAtEndOfRay)</string>
+            <string name="summary">Deprecated. Use WorldRoot:Raycast() instead</string>
+            <bool name="Deprecated">true</bool>
           </Properties>
         </Item>
       </Item>

@@ -62,10 +62,13 @@ DefaultInstancedHQVSShadowed,Vertex
 DefaultInstancedHQVSShadowedFSM,Vertex
 DefaultInstancedReflectionVS,Vertex
 DefaultInstancedReflectionVSShadowed,Vertex
+DefaultInstancedReflectionVSShadowedFSM,Vertex
 DefaultInstancedSurfaceHQVS,Vertex
 DefaultInstancedSurfaceHQVSShadowed,Vertex
 DefaultInstancedSurfaceHQVSShadowedFSM,Vertex
 DefaultInstancedVS,Vertex
+DefaultModelLodFS,Fragment
+DefaultModelLodVS,Vertex
 DefaultNeonFS,Fragment
 DefaultNeonHQFS,Fragment
 DefaultNeonHQFSShadowed,Fragment
@@ -234,6 +237,8 @@ ImageProcessLQNeonBlurBloomFS,Fragment
 ImageProcessLQNeonBlurBloomLinearFS,Fragment
 ImageProcessLQNeonBlurFS,Fragment
 ImageProcessLQNeonFS,Fragment
+ImGuiFS,Fragment
+ImGuiVS,Vertex
 LightGridCullCS,Compute
 LightGridPointSplatFS,Fragment
 LightGridPointSplatVS,Vertex

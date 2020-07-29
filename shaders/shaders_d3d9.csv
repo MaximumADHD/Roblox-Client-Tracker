@@ -94,6 +94,8 @@ ImageProcessLQNeonBlurBloomFS,Fragment
 ImageProcessLQNeonBlurBloomLinearFS,Fragment
 ImageProcessLQNeonBlurFS,Fragment
 ImageProcessLQNeonFS,Fragment
+ImGuiFS,Fragment
+ImGuiVS,Vertex
 LightGridPointSplatFS,Fragment
 LightGridPointSplatVS,Vertex
 LinearizeDepthFS,Fragment
