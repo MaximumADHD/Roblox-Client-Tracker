@@ -125,7 +125,6 @@ ABTestVariation
 ABTestVerboseInit
 AbuseReport
 AbuseReporter
-AbVkAKdfW11RU44gsA4ytIhs60JKDj5mccsGNFu2EbVx2ijxwkS
 AC01E30AF65B11E3AFC2CE47415C029D
 AC01E30BF65B11E3AFC2CE47415C029D
 AC01E30CF65B11E3AFC2CE47415C029D
@@ -429,6 +428,7 @@ AHPEAU_iobuf
 AHPEAX1PEAPEAX
 AHW4DataStoreRequestType
 AHW4UserInputType
+AKlkqxbRRpMUJzOStzs9sSzBhEt1
 Algorithms
 AliasRequestResult
 ALIGN_TYPE
@@ -4667,7 +4667,7 @@ BytesReceivedAndIgnoredPerSec
 BytesReceivedPerSec
 BytesRecvAndIgnored
 BytesWritten
-ByVersion_0.442.0.409197
+ByVersion_0.442.1.409372
 ByVersionForPlatform_
 C_specific_handler
 CA_NPEAVQObject
@@ -4999,6 +4999,7 @@ CertRequired
 CertResData
 CertResTBE
 CertSequence
+CEVWRn08uSlmuClALUt
 CF44BCFD011E7A825A924D6937B0F
 CF44CCFD011E7A825A924D6937B0F
 CF583B11E29A3DBD856014A660
@@ -8130,6 +8131,7 @@ Distribution_
 DistributionPoint
 DistributionPoints
 DistToShowBufferCountSqr
+DkBk8cUPCBh3ZRXl1rnznKxQXsUEI0O6NUb
 DKECCAK1600_ASM
 DlcVersion
 DListenerAttributes
@@ -9429,6 +9431,7 @@ FbxVectorTemplate3
 FC7F11740720681192B0FA7C02778D61
 FC822localPart
 FCA877B34569
+FCBrlWDT1Et0iI206UM8QJE0iK
 FCCAAED11E38B9D871882A8E559
 FCCBB6FB0BF11E395B6E5DB6211F344
 FCCBB70B0BF11E395B6E5DB6211F344
@@ -9915,6 +9918,7 @@ FoundItems
 FoundThread
 FpFramebuffer
 FpsVariance
+FQM0rhAcQ6W
 Fractional
 Frame_.LogEnd[nLog]
 Frame_.LogStart[nLog]
@@ -11020,9 +11024,11 @@ GfxClusters
 GfxClustersFull
 GfxPartInvalidationBudgetMs
 GfxPartInvalidationLimitToTime2
+GgbIElto8K
 GGGGGGGGGG
 GGGGGGGGGGGGGGGGGGGGGGGGGG
 GGGGGGGGGGGGGGGGGGGGGGGGGGGGG
+GHIBaBS7ObLgl6UHlV
 GIM_ShapeRetriever
 GImpactCollisionAlgorithm
 GImpactCompound
@@ -11032,7 +11038,6 @@ GizmoRaycast
 GL_ARB_texture_storage
 GL_EXT_texture_border_clamp
 GL_EXT_texture_compression_s3tc
-GLAgdhzHO4FdqjWyf8N2feUe6pORfz6vBKlobr9UdVpqjtb0yZmp9P0CAwEAAQ
 Glass[0]VS
 GlassTintFS
 GlobalAdvancedSettings
@@ -11279,6 +11284,7 @@ GunCursor.png
 GunWaitCursor.png
 GvEphfEUiHHoD6hYFI4xWGpAnIHcklKQCxrf46kAhDGeZnqIgeGszlGdWafunGE8
 GVKUTS[BXIWH\KbHi
+GwGejtNaQJGnRFKW325
 GXGfGkGpGuG
 GxI9Gpu2E2
 GyroscopeEnabled
@@ -11517,6 +11523,7 @@ HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\DellBackupandRecovery
 HKEY_PERFORMANCE_DATA
 HKEY_PERFORMANCE_NLSTEXT
 HKEY_PERFORMANCE_TEXT
+HLa82CnFfVUYOO6zDX4Lu01GToOis8yXNqL
 HMACGostR3411
 HomePageLoaded
 HopperPanel.png
@@ -11828,7 +11835,6 @@ HwngSmldAskhBcraMaweNegsOgnaTFontSizePadding
 HwngSmldAskhBcraMegsOgnaTaweNmnoGuhsNoyoSbnaZrgoDgnoGghoRakaMfdeMogoSdgoSmylEdnaNpnmHohcWsrhCkaiDstiKizeY
 HWYGOTH.ttf
 HybridEvent
-HybTa3HRJH
 HyIyPyVy]y^yey
 Iacutesmall
 IAutocompleter
@@ -12662,9 +12668,8 @@ JointStepMaxParallelTasks
 JointStepParallelBatchSize
 JointTime_TextureCooldown
 JointToolHelpDialogVerb
-Jp5zOxrOim9C7BO52cgFBVMX2twpQEesCdX92umE70NglC7Ze5x3hMzlKJxa
 JPEBUSG_INDEX_TRIANGLE
-JQYeGVworEdGyHOPC2dxBMihmE
+JRhawcciGHiuoxV
 JSON.parse
 JSON.stringify
 JSON_Parser
@@ -12761,8 +12766,8 @@ KnownPrefixIndex
 KodchiangUPC
 KPEAVICHull
 KPEIBX_K_KPEIAU_iobuf
+Kr1Bw7fvDI8SFpuHxTHTwa
 KSocialService
-KStngetFhCZe
 KVScriptContext
 KYULPhCBFoD3mw5mygYqAeFlHdSL2k3MnDG
 LabelArray
@@ -12849,6 +12854,7 @@ LDLProgramOpsReportingMinOpCount
 LDLProgramOpsReportingRate
 LDLStasisCacheMaxAge
 LDLStasisCachePurgeRate
+LDrhcYxDtyijVlJIMnhL1cYh4u4
 LeafBodies
 LeafLeftArmRoll1
 LeafLeftArmRoll1Mode
@@ -14115,7 +14121,7 @@ MigrateTriangleMeshData3
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAsI9zRp2OSccqdFx2
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAupANB3EbN9hFHHUj0eA
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAzjPRQo9jc
-MIICCgKCAgEAvR6kCi2daWImcpMxs9JITiNMrWjc6I20vGO
+MIICCgKCAgEAqun3HyWVe
 Millisecond
 MillisecondsBeforeHandlingReconnect
 MimeDataFromSelection
@@ -14155,6 +14161,7 @@ Miscellaneous
 Mismatched
 MissingCoreScript
 MissingDumpFile
+MjvMsSIK9QvEBGZCvGydDx8llcDtCJflttJ
 MMW4IkDragCollisionsMode
 MMW4PartMaterial
 MMW4UserInputState
@@ -14460,6 +14467,7 @@ MusicalInstruments
 MutexLifetime
 MW4PartMaterial
 MyModelsAction
+NA3eK68qh4uFXrGaWG8sJVOu
 NAEAVHttpResponse
 NAEBUPlaceLauncherRequestInfo
 NAEBVFbxTime
@@ -14841,6 +14849,7 @@ NumRegions
 NumRegionsToGC
 NumRigidJointsNotInWorld
 NumTickets
+NV8f7DMLyYvSz2iqthjqpnQt
 NVAuthenticationHelper
 Nvb5JjRCUQ
 NVLuaWebService
@@ -17112,7 +17121,6 @@ PVInstance
 PVK_header
 PxnhPiraCmahCilaKcpeLicyLidyLkclOgnjRruaSdnuSiiaVtsvAumaBpygEimrAilhPitrPavaJihtKusiLietMbraShkrOrmaSanaLtvaTktaBharBdnaMmkaCcreMoreMdrlPdrhSaroSrkaTssaBbhgAlpuDablEnarGjohKdniSaniLjhaMinaMdneMidoMoorMtabNbraNmrePgnmHmlaPcuaPplhPddiShriTaraWmohAwulHrtaHtluMgn
 PyJlf7IHZQpFHohBe
-PzrTkcWx6IyRnD
 QAbstractAnimation
 QAbstractButton
 QAbstractConcatenable
@@ -17647,7 +17655,6 @@ QJsonValue
 QJsonValueRef
 QKeySequence
 QLayoutItem
-QLCNvpE7YpHtRCpzGxgtfTtwWqSYZ4zHGU
 QLinearGradient
 QListWidget
 QListWidgetItem
@@ -17935,6 +17942,7 @@ QWheelEvent
 QWidgetAction
 QWidgetPluginGui
 QWidgetWindow
+Qy7MJJbVr0DQFuXVvnp0MrQpqtm3U
 RadialBlurFS
 RagdollBallSocketConstraint
 RagdollDefaultTimerTenthSecond
@@ -18190,6 +18198,7 @@ RCCUpdateBroadphaseDtAverage
 RCCUpdateBroadphaseDtAverage_Datacenter_
 RccUse64BitAppearanceId
 RcpReferenceTime
+RDpP0KTlgzPOGz5UZ037JzEukUTqlQowXFesq9P
 ReachActorChest
 ReachActorChestRotation
 ReachActorHead
@@ -18297,6 +18306,7 @@ RecursiveParser
 RecvFromLoop
 Redirection
 RedirectLocalAssetId
+ReDLmiFbggoN4xKxDXh0avvHVvGGgfAmwneE91ebhwnYg8cr8fC5A9ZxOsQarU0P
 RedoAvailable
 RedPermyriad
 RedPlastic
@@ -19117,7 +19127,6 @@ RigidBodyLazyUpdating
 RigidityEnabled
 RiseVelocity
 Rj0isQcnqX
-RkNEWV7BuYWA
 Roact.createElement
 ROBLOSECURITY
 Roblox.Hybrid
@@ -19325,7 +19334,6 @@ RSA_verify_ASN1_OCTET_STRING
 RSA_verify_PKCS1_PSS_mgf1
 RSAPrivateKey
 RSAPublicKey
-RsO7bTS0uDVS3NaeYZe75KKxlhzwbyRr
 RTDynamicCast
 RtlCaptureContext
 RtlLookupFunctionEntry
@@ -20249,7 +20257,6 @@ ShiftKeyAffectsTextSelection2
 Shirt.rbxm
 ShirtGraphic
 ShirtTemplate
-SHJLrCzflR7mYZXc5vZfGzA28o5DDR1AqFdKkqlKof2rI7FvLknMJxpLKcgJIum
 SHLevelCount
 SHLWAPI.dll
 SHMaxNumberOfBinsPowerOf2
@@ -23911,6 +23918,7 @@ TextWrapped
 TextXAlignment
 TextXmlParser
 TextYAlignment
+TfqMM7QG2OaoY9I1FQzpIXA0QA
 TGenericSlotWrapper
 TGenericSlotWrapper.
 ThatCausedFocusLoss
@@ -24566,7 +24574,6 @@ TouchTransmitter
 ToUniversalTime
 TownAndCity
 ToWorldSpace
-TOzmlsIECQARa7iR58ZYDRBuWFrrLM7w
 TraceMessage
 Track2Data
 TrackAudioDriversPerSystem
@@ -24772,7 +24779,6 @@ TypeOutboundSubtotal
 Typesetter
 TypeToImport
 Typewriter
-TZwHfcX91xelZOn8n46biFsO8Zdbu
 U_ContinuationTaskHandleBase
 U_ExceptionHolder
 U_Key_dn.png
@@ -25014,6 +25020,7 @@ UITransformedLitVS
 UITransformedVS
 UIViewportFrameCollectFrames
 UIViewportFrameWorkspace
+Ujcr3VPjOh2K6w8
 ULinkedScriptLoadData
 ULoadedImage
 ULuaCallbacks
@@ -26504,7 +26511,6 @@ VR_OVERRIDE
 VRakPeerCrypto
 VRakPeerInterface
 Vrange_error
-VRaZf8HpvPGdu7NBJ1
 VRbxAnalyticsService
 VRbxWorkspace
 VRCCPackageListener
@@ -26896,7 +26902,6 @@ WaypointIdx
 WCharArray
 Wcircumflex
 WDU_Mbstatet
-WeAIZnawEKoMIQoQBrL17dN551hHtAzIpIq0NCkYC
 WeakFunctionRef
 WeakThreadRef
 WeaponsAction
@@ -27179,7 +27184,6 @@ WSASocketW
 WSAstartup
 WSAStartup
 WSAStringToAddressW
-WSr650tI6T2rCJ8n
 WTHelperGetProvSignerFromChain
 WTHelperProvDataFromStateData
 WWWWWWWWWW
@@ -27267,6 +27271,7 @@ XPEAVRobloxScriptDiffDoc
 XQColorDialog
 Xregex_error
 XResolution
+XRGoUfNBUchWZLFSXTVPMd1gowcCAwEAAQ
 Xtime_get_ticks
 XUnegotiation_response
 XUNetworkResult
@@ -27418,6 +27423,7 @@ Zcaronsmall
 Zdotaccent
 ZgnhKhWhci
 ZhniZzzzZbarAnmrAgneBlryCaveDroeGkerGrjuGuruGgnaHinaHrbeHariHadnKanaKooaLntaLmylMayrOlmaTuleTiahTtbiTopoBiarBsnaCrehCihtErmhKgnoMrmyMmagOrnuRhniScrySaahTiiiYtrsDhtoGlatIdhuBonaHglgTbgaTtrpCbmiLbniLamsOwahSelaTragUiguBtpoCgalGrahKulaToepXolySgnfTilaBxusXookNga
+ZIbghVRd71kulb
 ZIndexBehavior
 ZLcJhLcGhM
 ZNjlXiODrHUcaGRYt
@@ -27432,6 +27438,5 @@ ZPEAVRBXMessageBox
 ZRZZZbZt[.[
 ZVspecial_equipped_signal
 ZVTouchedSignal
-ZWevApR1wETtVOGZdEUiEg0i88e3zBraXFsXI
 ZZZZZZZZZZZZZZZ
 ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
