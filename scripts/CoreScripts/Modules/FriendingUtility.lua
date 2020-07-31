@@ -1,5 +1,13 @@
 local HttpService = game:GetService("HttpService")
 local HttpRbxApiService = game:GetService("HttpRbxApiService")
+local StarterGui = game:GetService("StarterGui")
+local Players = game:GetService("Players")
+
+local LocalPlayer = Players.LocalPlayer
+while not LocalPlayer do
+	Players:GetPropertyChangedSignal("LocalPlayer"):Wait()
+	LocalPlayer = Players.LocalPlayer
+end
 
 local FriendingUtility = {}
 FriendingUtility.__index = FriendingUtility
@@ -34,5 +42,19 @@ end
 function FriendingUtility:MaxFriendCount()
 	return MAX_FRIEND_COUNT
 end
+
+local PlayerFriendedEvent = Instance.new("BindableEvent")
+local PlayerUnFriendedEvent = Instance.new("BindableEvent")
+
+LocalPlayer.FriendStatusChanged:connect(function(player, friendStatus)
+	if friendStatus == Enum.FriendStatus.Friend then
+		PlayerFriendedEvent:Fire(player)
+	elseif friendStatus == Enum.FriendStatus.NotFriend then
+		PlayerUnFriendedEvent:Fire(player)
+	end
+end)
+
+StarterGui:RegisterGetCore("PlayerFriendedEvent", function() return PlayerFriendedEvent end)
+StarterGui:RegisterGetCore("PlayerUnfriendedEvent", function() return PlayerUnFriendedEvent end)
 
 return FriendingUtility
