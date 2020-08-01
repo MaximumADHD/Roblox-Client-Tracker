@@ -428,7 +428,6 @@ AHPEAU_iobuf
 AHPEAX1PEAPEAX
 AHW4DataStoreRequestType
 AHW4UserInputType
-AKlkqxbRRpMUJzOStzs9sSzBhEt1
 Algorithms
 AliasRequestResult
 ALIGN_TYPE
@@ -803,6 +802,7 @@ AppVersion
 APSToggleClientServerFTUE
 AQJsonArray
 AQJsonObject
+Ar91RTjybN16sR3uiP91CpbJxN0bGxVQABB
 ArcadeStick
 ArcHandles
 Archivable
@@ -1215,6 +1215,7 @@ AuthenticationError
 AuthenticationHelper
 AuthenticationRequired
 Authenticator
+Authenticode
 AuthGOST01
 AuthGOST12
 AuthoredHipHeight
@@ -3985,6 +3986,7 @@ AW4ZIndexBehavior
 AwardBadge
 AwardPoints
 AwareCompare
+AWfAmffCTX2nhC6w3sx1Ft28ctRlHpHoNRx3
 AX_J0W4FriendService_FriendEventType
 AX_J0W4FriendService_FriendStatus
 AX_JW4FriendService_FriendEventType
@@ -4471,8 +4473,10 @@ BoxContainer
 BoxHandleAdornment
 BoxMappedMeshLODFix_v2
 BoxSelectCommand
+BozJjDsWCBJtqN
 BPEAUIUnknown
 BPuVfD9B`uOfD9BpuH
+Bq0Rxx6NZ9yqweFCnUSFV6
 BQByteArray
 BQJsonValueRef
 BQPersistentModelIndex
@@ -4667,7 +4671,7 @@ BytesReceivedAndIgnoredPerSec
 BytesReceivedPerSec
 BytesRecvAndIgnored
 BytesWritten
-ByVersion_0.442.1.409372
+ByVersion_0.442.3.409454
 ByVersionForPlatform_
 C_specific_handler
 CA_NPEAVQObject
@@ -4999,7 +5003,6 @@ CertRequired
 CertResData
 CertResTBE
 CertSequence
-CEVWRn08uSlmuClALUt
 CF44BCFD011E7A825A924D6937B0F
 CF44CCFD011E7A825A924D6937B0F
 CF583B11E29A3DBD856014A660
@@ -6397,7 +6400,6 @@ Corporation\Roblox
 Corporation\Roblox\FilteredExceptionCrash
 Corporation0
 Corporation1
-Corporation100.
 Corporation1402
 CorrodedMetal
 CorrodedMetal.png
@@ -8131,11 +8133,11 @@ Distribution_
 DistributionPoint
 DistributionPoints
 DistToShowBufferCountSqr
-DkBk8cUPCBh3ZRXl1rnznKxQXsUEI0O6NUb
 DKECCAK1600_ASM
 DlcVersion
 DListenerAttributes
 DMinMaxDistance
+DnnBmlQrevM77fqnuj5KyOT81RqtLgKo3S3nJ5k9Ie1
 DnsResolve
 DNSResponseMS
 DocActivation
@@ -9431,7 +9433,6 @@ FbxVectorTemplate3
 FC7F11740720681192B0FA7C02778D61
 FC822localPart
 FCA877B34569
-FCBrlWDT1Et0iI206UM8QJE0iK
 FCCAAED11E38B9D871882A8E559
 FCCBB6FB0BF11E395B6E5DB6211F344
 FCCBB70B0BF11E395B6E5DB6211F344
@@ -9918,7 +9919,6 @@ FoundItems
 FoundThread
 FpFramebuffer
 FpsVariance
-FQM0rhAcQ6W
 Fractional
 Frame_.LogEnd[nLog]
 Frame_.LogStart[nLog]
@@ -11024,11 +11024,9 @@ GfxClusters
 GfxClustersFull
 GfxPartInvalidationBudgetMs
 GfxPartInvalidationLimitToTime2
-GgbIElto8K
 GGGGGGGGGG
 GGGGGGGGGGGGGGGGGGGGGGGGGG
 GGGGGGGGGGGGGGGGGGGGGGGGGGGGG
-GHIBaBS7ObLgl6UHlV
 GIM_ShapeRetriever
 GImpactCollisionAlgorithm
 GImpactCompound
@@ -11059,6 +11057,9 @@ GlobalMemoryStatusEx
 GlobalSettings
 GlobalSettings_13.xml
 GlobalShadows
+GlobalSign
+GlobalSign0
+GlobalSign1
 GlobalThrottleFirstBackoffMilliseconds
 GlobalThrottleMaxBackoffMilliseconds
 GlobalThrottleThreshold
@@ -11282,9 +11283,10 @@ GuiTrackInsertionOrder
 GuiVertices
 GunCursor.png
 GunWaitCursor.png
+GuqgXTiHjQ91
 GvEphfEUiHHoD6hYFI4xWGpAnIHcklKQCxrf46kAhDGeZnqIgeGszlGdWafunGE8
 GVKUTS[BXIWH\KbHi
-GwGejtNaQJGnRFKW325
+GVkX7I9fVBjZ6i
 GXGfGkGpGuG
 GxI9Gpu2E2
 GyroscopeEnabled
@@ -11523,7 +11525,6 @@ HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\DellBackupandRecovery
 HKEY_PERFORMANCE_DATA
 HKEY_PERFORMANCE_NLSTEXT
 HKEY_PERFORMANCE_TEXT
-HLa82CnFfVUYOO6zDX4Lu01GToOis8yXNqL
 HMACGostR3411
 HomePageLoaded
 HopperPanel.png
@@ -12589,6 +12590,7 @@ IVRSystem_017
 IVRTrackedCamera_003
 IWebBrowser2
 IWorldStage
+IwWmlb8bN0Aqx1lHiMEJLOFKGxbqooCryizHEbF9EsKNHRdn8g
 IXMLHTTPRequest2
 J_Key_dn.png
 J_NW4CurrencyType
@@ -12669,7 +12671,7 @@ JointStepParallelBatchSize
 JointTime_TextureCooldown
 JointToolHelpDialogVerb
 JPEBUSG_INDEX_TRIANGLE
-JRhawcciGHiuoxV
+JQZslJM4c163
 JSON.parse
 JSON.stringify
 JSON_Parser
@@ -12766,7 +12768,6 @@ KnownPrefixIndex
 KodchiangUPC
 KPEAVICHull
 KPEIBX_K_KPEIAU_iobuf
-Kr1Bw7fvDI8SFpuHxTHTwa
 KSocialService
 KVScriptContext
 KYULPhCBFoD3mw5mygYqAeFlHdSL2k3MnDG
@@ -12854,7 +12855,6 @@ LDLProgramOpsReportingMinOpCount
 LDLProgramOpsReportingRate
 LDLStasisCacheMaxAge
 LDLStasisCachePurgeRate
-LDrhcYxDtyijVlJIMnhL1cYh4u4
 LeafBodies
 LeafLeftArmRoll1
 LeafLeftArmRoll1Mode
@@ -13648,6 +13648,7 @@ MaxWaitTimeBeforeForcePacketProcessMS
 MayBeLinkedSourceModified
 MdiControls
 MDIManagerHost
+Mdx3m4oRwNYzozEnO24J1R
 MEAA_JPEA_W_J
 MEAA_JPEAD_J
 MEAA_JPEB_W_J
@@ -14121,7 +14122,7 @@ MigrateTriangleMeshData3
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAsI9zRp2OSccqdFx2
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAupANB3EbN9hFHHUj0eA
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAzjPRQo9jc
-MIICCgKCAgEAqun3HyWVe
+MIICCgKCAgEA2IbXqHtK
 Millisecond
 MillisecondsBeforeHandlingReconnect
 MimeDataFromSelection
@@ -14161,7 +14162,6 @@ Miscellaneous
 Mismatched
 MissingCoreScript
 MissingDumpFile
-MjvMsSIK9QvEBGZCvGydDx8llcDtCJflttJ
 MMW4IkDragCollisionsMode
 MMW4PartMaterial
 MMW4UserInputState
@@ -14467,7 +14467,6 @@ MusicalInstruments
 MutexLifetime
 MW4PartMaterial
 MyModelsAction
-NA3eK68qh4uFXrGaWG8sJVOu
 NAEAVHttpResponse
 NAEBUPlaceLauncherRequestInfo
 NAEBVFbxTime
@@ -14577,7 +14576,7 @@ NETSCAPE_SPKI
 NETSCAPE_SPKI_b64_decode
 NETSCAPE_SPKI_b64_encode
 NETSCAPE2.0
-Network1B0
+Network100.
 NetworkAccessManager
 NetworkAudit
 NetworkAuditEn2
@@ -14849,7 +14848,6 @@ NumRegions
 NumRegionsToGC
 NumRigidJointsNotInWorld
 NumTickets
-NV8f7DMLyYvSz2iqthjqpnQt
 NVAuthenticationHelper
 Nvb5JjRCUQ
 NVLuaWebService
@@ -14946,6 +14944,7 @@ OCSPResponse
 OCSPSigning
 OCTETSTRING
 Odieresissmall
+OejBsIFCcmjh68OCse82cNs7kWxLItGWDJubbqnP2GItut8x
 OfA9HPuHfA9H`uAfA9Hpu
 OfAdmissions
 OfApproval
@@ -14996,6 +14995,7 @@ OLEAUT32.dll
 OleInitialize
 OleLockRunning
 OleUninitialize
+On7WWeQcvghD8IIkzC1baQwlwiIrJa0niUaNiYqZ1r2
 OnAllScriptErrorsAction
 OnBadgeAwarded
 OnboardingsCompleted
@@ -15152,7 +15152,6 @@ OrderFunction
 OrderFunctionMenu
 OrFirstTier
 Organization
-Organization1
 OrganizationDomain
 OrganizationName
 Organizations
@@ -15286,6 +15285,7 @@ OverrideStarterScript
 OverrideToMyBranch
 OverwriteMode
 OverwritePublish
+Ow83r9ozjXynNA548l
 OwnProperty
 Ozs8xYCf2Q05p4gHyX
 PA^A]A\_^]
@@ -17654,6 +17654,7 @@ QJsonObject
 QJsonValue
 QJsonValueRef
 QKeySequence
+QKp28zHaxygAuFo8UhsDuuJDbfQFiU
 QLayoutItem
 QLinearGradient
 QListWidget
@@ -17942,7 +17943,6 @@ QWheelEvent
 QWidgetAction
 QWidgetPluginGui
 QWidgetWindow
-Qy7MJJbVr0DQFuXVvnp0MrQpqtm3U
 RadialBlurFS
 RagdollBallSocketConstraint
 RagdollDefaultTimerTenthSecond
@@ -18198,7 +18198,6 @@ RCCUpdateBroadphaseDtAverage
 RCCUpdateBroadphaseDtAverage_Datacenter_
 RccUse64BitAppearanceId
 RcpReferenceTime
-RDpP0KTlgzPOGz5UZ037JzEukUTqlQowXFesq9P
 ReachActorChest
 ReachActorChestRotation
 ReachActorHead
@@ -18306,7 +18305,6 @@ RecursiveParser
 RecvFromLoop
 Redirection
 RedirectLocalAssetId
-ReDLmiFbggoN4xKxDXh0avvHVvGGgfAmwneE91ebhwnYg8cr8fC5A9ZxOsQarU0P
 RedoAvailable
 RedPermyriad
 RedPlastic
@@ -22839,6 +22837,7 @@ StudioBulkImportUploadTrustLimitHIt
 StudioBulkImportUploadWarning
 StudioCallLoadAndRunPluginDirectly
 StudioCameraFocusPartCheckForChange
+StudioCanActuallyJoinAgain
 StudioCanJoinAgain
 StudioCharacterLoadTime
 StudioChat
@@ -23522,6 +23521,7 @@ SystemOutputView
 SystemPopup
 SystemTimeToFileTime
 SystemUtil
+SZCXd3opINQkPo
 TabBarModel
 TabBarModel.append
 TabBarTabLabel
@@ -23918,7 +23918,6 @@ TextWrapped
 TextXAlignment
 TextXmlParser
 TextYAlignment
-TfqMM7QG2OaoY9I1FQzpIXA0QA
 TGenericSlotWrapper
 TGenericSlotWrapper.
 ThatCausedFocusLoss
@@ -23934,6 +23933,7 @@ ThirdPartyPurchaseFinished
 ThirdPartyUserService
 ThisDevice
 Thornsmall
+THQjbaFiT0qcEnH4sUn56
 Thrd_detach
 Thrd_hardware_concurrency
 Thrd_sleep
@@ -25020,7 +25020,6 @@ UITransformedLitVS
 UITransformedVS
 UIViewportFrameCollectFrames
 UIViewportFrameWorkspace
-Ujcr3VPjOh2K6w8
 ULinkedScriptLoadData
 ULoadedImage
 ULuaCallbacks
@@ -25111,6 +25110,7 @@ UnifyClass
 UnifyFreeTable
 UnifyTables
 Unimplemented
+UnIMW1tVjTTXvOkmJXdRajC8CovQvid0xFzMamQLrjyVbAsEQw30CAwEAAQ
 Uninitialized
 UninstallFailure
 UninstallPlugin
@@ -26821,6 +26821,7 @@ VWorldRoot
 Vwspp_callback_client
 VWSUATAUAVAW
 VWXYZ[\]^_`a
+VXHqV5lYCaB0N3O4AOsOw8XwVkUXNvd1WKugSaXBSVLLb3z6WGJ
 VXmlElement
 VYieldFunctions
 VYieldFunctionStateObject
@@ -27271,7 +27272,6 @@ XPEAVRobloxScriptDiffDoc
 XQColorDialog
 Xregex_error
 XResolution
-XRGoUfNBUchWZLFSXTVPMd1gowcCAwEAAQ
 Xtime_get_ticks
 XUnegotiation_response
 XUNetworkResult
@@ -27423,7 +27423,6 @@ Zcaronsmall
 Zdotaccent
 ZgnhKhWhci
 ZhniZzzzZbarAnmrAgneBlryCaveDroeGkerGrjuGuruGgnaHinaHrbeHariHadnKanaKooaLntaLmylMayrOlmaTuleTiahTtbiTopoBiarBsnaCrehCihtErmhKgnoMrmyMmagOrnuRhniScrySaahTiiiYtrsDhtoGlatIdhuBonaHglgTbgaTtrpCbmiLbniLamsOwahSelaTragUiguBtpoCgalGrahKulaToepXolySgnfTilaBxusXookNga
-ZIbghVRd71kulb
 ZIndexBehavior
 ZLcJhLcGhM
 ZNjlXiODrHUcaGRYt
