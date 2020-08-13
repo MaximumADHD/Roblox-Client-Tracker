@@ -5,6 +5,7 @@ return function()
 	local FocusNode = require(script.Parent.FocusNode)
 	local FocusController = require(script.Parent.FocusController)
 	local InternalApi = require(script.Parent.FocusControllerInternalApi)
+	local Input = require(script.Parent.Input)
 
 	local MockEngine = require(script.Parent.Test.MockEngine)
 	local createSpy = require(script.Parent.Test.createSpy)
@@ -199,12 +200,12 @@ return function()
 			local childNodeA, _ = addChildNode(parentNode)
 			local callbackSpyA = createSpy()
 			childNodeA.inputBindings = {
-				[Enum.KeyCode.ButtonX] = callbackSpyA.value
+				action = Input.onBegin(Enum.KeyCode.ButtonX, callbackSpyA.value),
 			}
 			local childNodeB, _ = addChildNode(parentNode)
 			local callbackSpyB = createSpy()
 			childNodeB.inputBindings = {
-				[Enum.KeyCode.ButtonX] = callbackSpyB.value
+				action = Input.onBegin(Enum.KeyCode.ButtonX, callbackSpyB.value),
 			}
 
 			local mockEngine, engineInterface = MockEngine.new()
@@ -214,12 +215,20 @@ return function()
 			expect(callbackSpyB.callCount).to.equal(0)
 
 			childNodeA:focus()
-			mockEngine:simulateInput(Enum.KeyCode.ButtonX)
+			mockEngine:simulateInput({
+				UserInputType = Enum.UserInputType.Gamepad1,
+				UserInputState = Enum.UserInputState.Begin,
+				KeyCode = Enum.KeyCode.ButtonX,
+			})
 			expect(callbackSpyA.callCount).to.equal(1)
 			expect(callbackSpyB.callCount).to.equal(0)
 
 			childNodeB:focus()
-			mockEngine:simulateInput(Enum.KeyCode.ButtonX)
+			mockEngine:simulateInput({
+				UserInputType = Enum.UserInputType.Gamepad1,
+				UserInputState = Enum.UserInputState.Begin,
+				KeyCode = Enum.KeyCode.ButtonX,
+			})
 			expect(callbackSpyA.callCount).to.equal(1)
 			expect(callbackSpyB.callCount).to.equal(1)
 		end)
@@ -229,7 +238,7 @@ return function()
 			local parentNode = createRootNode(rootRef)
 			local callbackSpyParent = createSpy()
 			parentNode.inputBindings = {
-				[Enum.KeyCode.ButtonX] = callbackSpyParent.value
+				action = Input.onBegin(Enum.KeyCode.ButtonX, callbackSpyParent.value),
 			}
 
 			-- ChildA does not override the parent's binding
@@ -239,7 +248,7 @@ return function()
 			local childNodeB, _ = addChildNode(parentNode)
 			local callbackSpyChild = createSpy()
 			childNodeB.inputBindings = {
-				[Enum.KeyCode.ButtonX] = callbackSpyChild.value
+				action = Input.onBegin(Enum.KeyCode.ButtonX, callbackSpyChild.value),
 			}
 
 			local mockEngine, engineInterface = MockEngine.new()
@@ -250,13 +259,21 @@ return function()
 
 			-- When A is focused, we should use the parent's input binding
 			childNodeA:focus()
-			mockEngine:simulateInput(Enum.KeyCode.ButtonX)
+			mockEngine:simulateInput({
+				UserInputType = Enum.UserInputType.Gamepad1,
+				UserInputState = Enum.UserInputState.Begin,
+				KeyCode = Enum.KeyCode.ButtonX,
+			})
 			expect(callbackSpyParent.callCount).to.equal(1)
 			expect(callbackSpyChild.callCount).to.equal(0)
 
 			-- When B is focused, we should use child B's input binding
 			childNodeB:focus()
-			mockEngine:simulateInput(Enum.KeyCode.ButtonX)
+			mockEngine:simulateInput({
+				UserInputType = Enum.UserInputType.Gamepad1,
+				UserInputState = Enum.UserInputState.Begin,
+				KeyCode = Enum.KeyCode.ButtonX,
+			})
 			expect(callbackSpyParent.callCount).to.equal(1)
 			expect(callbackSpyChild.callCount).to.equal(1)
 		end)

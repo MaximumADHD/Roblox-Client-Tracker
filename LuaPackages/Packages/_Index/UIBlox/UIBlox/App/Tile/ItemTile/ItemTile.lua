@@ -62,6 +62,13 @@ local itemTileInterface = t.strictInterface({
 
 	-- Enum specifying the style for the status component
 	statusStyle = t.optional(enumerateValidator(ItemTileEnums.StatusStyle)),
+
+	-- optional parameters for RoactGamepad
+	NextSelectionLeft = t.optional(t.table),
+	NextSelectionRight = t.optional(t.table),
+	NextSelectionUp = t.optional(t.table),
+	NextSelectionDown = t.optional(t.table),
+	[Roact.Ref] = t.optional(t.table),
 })
 
 local function tileBannerUseValidator(props)
@@ -142,6 +149,12 @@ function ItemTile:render()
 		thumbnailOverlayComponents = hasOverlayComponents and overlayComponents or nil,
 		titleIcon = isPremium and Images["icons/status/premium_small"] or nil,
 		titleTextLineCount = titleTextLineCount,
+
+		NextSelectionLeft = self.props.NextSelectionLeft,
+		NextSelectionRight = self.props.NextSelectionRight,
+		NextSelectionUp = self.props.NextSelectionUp,
+		NextSelectionDown = self.props.NextSelectionDown,
+		[Roact.Ref] = self.props[Roact.Ref],
 	})
 end
 

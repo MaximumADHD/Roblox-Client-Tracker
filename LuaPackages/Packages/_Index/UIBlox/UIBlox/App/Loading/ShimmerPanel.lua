@@ -15,11 +15,14 @@ local validateProps = t.strictInterface({
 	Position = t.optional(t.UDim2),
 	Size = t.UDim2,
 
+	-- The corner radius of the image's rounded corners. Defaults to UDim(0, 0) for corners with no rounding.
+	cornerRadius = t.optional(t.UDim),
+
 	-- The loading image that will move across the panel
 	Image = t.optional(t.string),
 
-	-- The aspect ratio (width / height) of the moving image
-	imageAspectRatio = t.optional(t.number),
+	-- The pixel dimensions of the moving image
+	imageDimensions = t.optional(t.Vector2),
 
 	-- The scale of the moving image
 	imageScale = t.optional(t.number),
@@ -31,8 +34,9 @@ local validateProps = t.strictInterface({
 local ShimmerPanel = Roact.PureComponent:extend("ShimmerPanel")
 
 ShimmerPanel.defaultProps = {
+	cornerRadius = UDim.new(0, 0),
 	Image = "rbxasset://textures/ui/LuaApp/graphic/shimmer.png",
-	imageAspectRatio = 219 / 250,
+	imageDimensions = Vector2.new(219, 250),
 	imageScale = 2.5,
 	shimmerSpeed = 4,
 }
@@ -43,36 +47,38 @@ function ShimmerPanel:render()
 	local anchorPoint = self.props.AnchorPoint
 	local layoutOrder = self.props.LayoutOrder
 	local position = self.props.Position
+	local cornerRadius = self.props.cornerRadius
 	local shimmerImage = self.props.Image
-	local shimmerImageRatio = self.props.imageAspectRatio
-	local shimmerScale = self.props.imageScale
+	local shimmerImageDimensions = self.props.imageDimensions
+	local imageScale = self.props.imageScale
 	local shimmerSpeed = self.props.shimmerSpeed
 	local size = self.props.Size
 
-	local imageSize = UDim2.new(shimmerImageRatio * shimmerScale, 0, shimmerScale, 0)
+	local imageRectSize = shimmerImageDimensions / imageScale
 
 	local repeatTime = 0
 	if shimmerSpeed ~= 0 then
-		repeatTime = (shimmerScale + 1) / shimmerSpeed
+		repeatTime = (imageScale + 1) / shimmerSpeed
 	end
 
 	return withStyle(function(stylePalette)
 		local theme = stylePalette.Theme
 
 		return Roact.createElement(TextureScroller, {
-			AnchorPoint = anchorPoint,
-			LayoutOrder = layoutOrder,
-			BackgroundColor3 = theme.PlaceHolder.Color,
-			BackgroundTransparency = theme.PlaceHolder.Transparency,
-			Image = shimmerImage,
-			imageSize = imageSize,
-			ImageTransparency = 0,
+			anchorPoint = anchorPoint,
+			layoutOrder = layoutOrder,
+			backgroundColor3 = theme.PlaceHolder.Color,
+			backgroundTransparency = theme.PlaceHolder.Transparency,
+			cornerRadius = cornerRadius,
+			image = shimmerImage,
+			imageRectSize = imageRectSize,
 			imageAnchorPoint = Vector2.new(0, 0.5),
-			imagePositionStart = UDim2.new(-shimmerScale, 0, 0.5, 0),
-			imagePositionEnd = UDim2.new(1, 0, 0.5, 0),
+			imageTransparency = 0,
+			imageRectOffsetStart = Vector2.new(shimmerImageDimensions.X, shimmerImageDimensions.Y / 2),
+			imageRectOffsetEnd = Vector2.new(-imageRectSize.X, shimmerImageDimensions.Y / 2),
 			imageScrollCycleTime = repeatTime,
-			Position = position,
-			Size = size,
+			position = position,
+			size = size,
 		})
 	end)
 end

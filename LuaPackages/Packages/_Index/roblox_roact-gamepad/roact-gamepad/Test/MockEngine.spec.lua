@@ -36,7 +36,9 @@ return function()
 
 			-- Simulate a downward input, and confirm that the expected
 			-- selection change occurs and selection is now on the lower element
-			mockEngine:simulateInput(Enum.KeyCode.DPadDown)
+			mockEngine:simulateInput({
+				KeyCode = Enum.KeyCode.DPadDown
+			})
 			expect(inputBeganSpy.callCount).to.equal(1)
 			expect(selectionChangedSpy.callCount).to.equal(1)
 			expect(engineInterface.getSelection()).to.equal(lower)
@@ -44,14 +46,16 @@ return function()
 			-- Simulate a downward input, and confirm that the expected
 			-- selection change occurs and selection returns to the upper
 			-- element
-			mockEngine:simulateInput(Enum.KeyCode.DPadUp)
+			mockEngine:simulateInput({
+				KeyCode = Enum.KeyCode.DPadUp
+			})
 			expect(inputBeganSpy.callCount).to.equal(2)
 			expect(selectionChangedSpy.callCount).to.equal(2)
 			expect(engineInterface.getSelection()).to.equal(upper)
 		end)
 
 		-- FIXME
-		itSKIP("should automatically simulate selection change when simulating keyboard directional inputs", function()
+		it("should automatically simulate selection change when simulating keyboard directional inputs", function()
 			local mockEngine, engineInterface = MockEngine.new()
 
 			-- Create two UI elements that are vertical neighbors
@@ -71,7 +75,9 @@ return function()
 
 			-- Simulate a downward input, and confirm that the expected
 			-- selection change occurs and selection is now on the lower element
-			mockEngine:simulateInput(Enum.KeyCode.Down)
+			mockEngine:simulateInput({
+				KeyCode = Enum.KeyCode.Down
+			})
 			expect(inputBeganSpy.callCount).to.equal(1)
 			expect(selectionChangedSpy.callCount).to.equal(1)
 			expect(engineInterface.getSelection()).to.equal(lower)
@@ -79,7 +85,9 @@ return function()
 			-- Simulate a downward input, and confirm that the expected
 			-- selection change occurs and selection returns to the upper
 			-- element
-			mockEngine:simulateInput(Enum.KeyCode.Up)
+			mockEngine:simulateInput({
+				KeyCode = Enum.KeyCode.Up
+			})
 			expect(inputBeganSpy.callCount).to.equal(2)
 			expect(selectionChangedSpy.callCount).to.equal(2)
 			expect(engineInterface.getSelection()).to.equal(upper)

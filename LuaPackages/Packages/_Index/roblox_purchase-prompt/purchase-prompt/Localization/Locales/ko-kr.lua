@@ -148,4 +148,6 @@ return{
 	["CoreScripts.PurchasePrompt.PurchaseDetails.BalanceFutureV2"] = [[본 거래 후 예상 잔액은 {BALANCE_FUTURE} Robux입니다.]],
 	["CoreScripts.PurchasePrompt.PurchaseFailed.NotEnoughRobuxNoUpsell"] = [[아이템 구매에 충분한 Robux를 보유하고 있지 않습니다.]],
 	["CoreScripts.PurchasePrompt.Button.PremiumOnly"] = [[Premium 전용]],
+	["CoreScripts.PurchasePrompt.PurchaseFailed.PremiumOnly"] = [[이 아이템을 구매하려면 Roblox Premium 회원이어야 해요.]],
+	["CoreScripts.PurchasePrompt.PurchaseDetails.AgeLegalText"] = [[Roblox에서는 성인만 구매가 가능합니다. 본인은 18세 이상임에 동의합니다. 본인은 이 계정의 소유자이거나 소유자의 부모 또는 법적 보호자입니다. 본인은 이 구매를 승인하고 이용 약관에 동의합니다.]],
 }

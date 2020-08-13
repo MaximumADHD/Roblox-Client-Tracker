@@ -79,6 +79,7 @@ local function initializeLibrary()
 			AlertButton = require(script.App.Button.AlertButton),
 			ButtonStack = require(script.App.Button.ButtonStack),
 			TextButton = require(script.App.Button.TextButton),
+			IconButton = require(script.App.Button.IconButton),
 		}),
 
 		Cell = strict({
@@ -157,8 +158,10 @@ local function initializeLibrary()
 			}),
 			Enum = strict({
 				AlertType = require(script.App.Dialog.Alert.Enum.AlertType),
+				TooltipOrientation = require(script.App.Dialog.Tooltip.Enum.TooltipOrientation),
 			}),
 			Toast = require(script.App.Dialog.Toast.SlideFromTopToast),
+			Tooltip = require(script.App.Dialog.Tooltip.Tooltip),
 		}),
 
 		Constant = strict({

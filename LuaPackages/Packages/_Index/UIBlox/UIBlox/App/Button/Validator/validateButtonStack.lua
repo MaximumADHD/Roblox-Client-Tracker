@@ -5,6 +5,7 @@ local UIBlox = AppRoot.Parent
 local Packages = UIBlox.Parent
 
 local t = require(Packages.t)
+local Roact = require(Packages.Roact)
 
 local enumerateValidator = require(UIBlox.Utility.enumerateValidator)
 local validateButtonProps = require(ButtonRoot.validateButtonProps)
@@ -35,4 +36,11 @@ return t.strictInterface({
 	-- The overflow calculation will be if the length of the button text is over
 	-- the button size - (2 * minHorizontalButtonPadding).
 	minHorizontalButtonPadding = t.optional(t.numberMin(0)),
+
+	-- optional parameters for RoactGamepad
+	NextSelectionLeft = t.optional(t.table),
+	NextSelectionRight = t.optional(t.table),
+	NextSelectionUp = t.optional(t.table),
+	NextSelectionDown = t.optional(t.table),
+	[Roact.Ref] = t.optional(t.table),
 })

@@ -15,15 +15,16 @@ local InternalApi = require(script.Parent.FocusControllerInternalApi)
 
 local nonHostProps = {
 	parentFocusNode = Cryo.None,
+	parentNeighbors = Cryo.None,
 	focusController = Cryo.None,
 
 	onFocusGained = Cryo.None,
 	onFocusLost = Cryo.None,
 	onFocusChanged = Cryo.None,
+	inputBindings = Cryo.None,
 
 	restorePreviousChildFocus = Cryo.None,
 	defaultChild = Cryo.None,
-	inputBindings = Cryo.None,
 }
 
 local function checkFocusManager(props)
@@ -50,7 +51,6 @@ local focusableValidateProps = t.intersection(t.interface({
 
 local focusableDefaultProps = {
 	restorePreviousChildFocus = false,
-
 	inputBindings = {},
 }
 
@@ -71,7 +71,23 @@ local function asFocusable(innerComponent)
 
 	function Focusable:init()
 		self.focused = false
-		self.focusNode = FocusNode.new(self.props)
+		self.navContext = {
+			focusNode = FocusNode.new(self.props),
+			neighbors = {
+				NextSelectionLeft = self.props.NextSelectionLeft,
+				NextSelectionRight = self.props.NextSelectionRight,
+				NextSelectionUp = self.props.NextSelectionUp,
+				NextSelectionDown = self.props.NextSelectionDown,
+			}
+		}
+
+		self.updateFocusedState = function(newFocusedState)
+			if not self.focused and newFocusedState then
+				self:gainFocus()
+			elseif self.focused and not newFocusedState then
+				self:loseFocus()
+			end
+		end
 
 		if self:isRoot() then
 			local isRooted = false
@@ -118,6 +134,44 @@ local function asFocusable(innerComponent)
 		end
 	end
 
+	function Focusable:willUpdate(nextProps)
+		-- Here, we need to carefully update the navigation context according to
+		-- the incoming props. There are three different categories of prop
+		-- changes we have to deal with.
+
+		-- 1. Apply the changes from the navigation props themselves. These only
+		--    affect navigation behavior for this node's ref and do not need to
+		--    cascade to other parts of the tree
+		self.navContext.focusNode:updateNavProps(nextProps)
+
+		-- 2. If neighbors changed, we need to cascade this change through
+		--    context, so we make sure the value that we pass to context has a
+		--    _new_ identity
+		if
+			nextProps.NextSelectionLeft ~= self.navContext.neighbors.NextSelectionLeft
+			or nextProps.NextSelectionRight ~= self.navContext.neighbors.NextSelectionRight
+			or nextProps.NextSelectionDown ~= self.navContext.neighbors.NextSelectionDown
+			or nextProps.NextSelectionUp ~= self.navContext.neighbors.NextSelectionUp
+		then
+			self.navContext = {
+				focusNode = self.navContext.focusNode,
+				neighbors = {
+					NextSelectionLeft = nextProps.NextSelectionLeft,
+					NextSelectionRight = nextProps.NextSelectionRight,
+					NextSelectionUp = nextProps.NextSelectionUp,
+					NextSelectionDown = nextProps.NextSelectionDown,
+				}
+			}
+		end
+
+		-- 3. Finally, if the ref changed, then for now we simply get angry and
+		--    throw an error; we'll likely have to manage this another way
+		--    anyways!
+		if self.navContext.focusNode.ref ~= nextProps[Roact.Ref] then
+			error("Cannot change the ref passed to a Focusable component", 0)
+		end
+	end
+
 	function Focusable:gainFocus()
 		self.focused = true
 
@@ -150,7 +204,7 @@ local function asFocusable(innerComponent)
 	end
 
 	function Focusable:getFocusControllerInternal()
-		return self.focusNode.focusController[InternalApi]
+		return self.navContext.focusNode.focusController[InternalApi]
 	end
 
 	function Focusable:render()
@@ -179,44 +233,25 @@ local function asFocusable(innerComponent)
 				nonHostProps
 			)
 		else
-			local parentNavProps = {
-				NextSelectionLeft = self.props.parentFocusNode.left,
-				NextSelectionRight = self.props.parentFocusNode.right,
-				NextSelectionDown = self.props.parentFocusNode.down,
-				NextSelectionUp = self.props.parentFocusNode.up,
-			}
-
 			innerProps = Cryo.Dictionary.join(
 				childDefaultNavProps,
-				parentNavProps,
+				self.props.parentNeighbors or {},
 				self.props,
 				nonHostProps
 			)
 		end
-
 
 		-- We pass the inner component as a single child (instead of part of a
 		-- table of children) because it causes Roact to reuse the key provided
 		-- to _this_ component when naming the resulting object. This means that
 		-- Focusable avoids disrupting the naming of the Instance hierarchy
 		return Roact.createElement(FocusContext.Provider, {
-			value = self.focusNode,
+			value = self.navContext,
 		}, Roact.createElement(innerComponent, innerProps))
 	end
 
-	function Focusable:didUpdate(prevProps)
-		-- TODO: are there prop changes that we need to respond to by updating
-		-- our focusNode?
-	end
-
 	function Focusable:didMount()
-		self.focusNode:attachToTree(self.props.parentFocusNode, function(newFocusedState)
-			if not self.focused and newFocusedState then
-				self:gainFocus()
-			elseif self.focused and not newFocusedState then
-				self:loseFocus()
-			end
-		end)
+		self.navContext.focusNode:attachToTree(self.props.parentFocusNode, self.updateFocusedState)
 
 		if self:isRoot() then
 			-- Ancestry change may not trigger if the UI elements we're mounting
@@ -226,7 +261,7 @@ local function asFocusable(innerComponent)
 	end
 
 	function Focusable:willUnmount()
-		self.focusNode:detachFromTree()
+		self.navContext.focusNode:detachFromTree()
 
 		if self:isRoot() then
 			self:getFocusControllerInternal():teardown()
@@ -235,8 +270,8 @@ local function asFocusable(innerComponent)
 
 	return forwardRef(function(props, ref)
 		return Roact.createElement(FocusContext.Consumer, {
-			render = function(parentFocusNode)
-				if parentFocusNode == nil and props.focusController == nil then
+			render = function(navContext)
+				if navContext == nil and props.focusController == nil then
 					-- If this component can't be the root, and there's no
 					-- parent, behave like the underlying component and ignore
 					-- all focus logic
@@ -245,7 +280,8 @@ local function asFocusable(innerComponent)
 				end
 
 				local propsWithNav = Cryo.Dictionary.join(props, {
-					parentFocusNode = parentFocusNode,
+					parentFocusNode = navContext and navContext.focusNode or nil,
+					parentNeighbors = navContext and navContext.neighbors or nil,
 					[Roact.Ref] = ref,
 				})
 

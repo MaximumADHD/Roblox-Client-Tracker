@@ -6,40 +6,54 @@ local Roact = require(Packages.Roact)
 local t = require(Packages.t)
 
 local Images = require(App.ImageSet.Images)
-local getIconSizeUDim2 = require(App.ImageSet.getIconSizeUDim2)
 local IconSize = require(App.ImageSet.Enum.IconSize)
 local getPageMargin = require(App.Container.getPageMargin)
 local withStyle = require(UIBlox.Core.Style.withStyle)
 
-local IconButton = require(UIBlox.Core.Button.IconButton)
+local IconButton = require(UIBlox.App.Button.IconButton)
 local GenericTextLabel = require(UIBlox.Core.Text.GenericTextLabel.GenericTextLabel)
+local GetTextSize = require(UIBlox.Core.Text.GetTextSize)
 
 local ThreeSectionBar = require(UIBlox.Core.Bar.ThreeSectionBar)
 local HeaderBar = Roact.PureComponent:extend("HeaderBar")
+HeaderBar.renderLeft = {
+	backButton = function(onActivated)
+		return function(_)
+			return Roact.createElement(IconButton, {
+				size = UDim2.fromOffset(0, 0),
+				iconSize = IconSize.Medium,
+				icon = Images["icons/navigation/pushBack"],
+				onActivated = onActivated,
+			})
+		end
+	end,
+}
 
 HeaderBar.validateProps = t.strictInterface({
 	-- The title of the screen
 	title = t.string,
 
 	-- The function that is called when the back button is clicked
-	onBack = t.callback,
+	onBack = t.optional(t.callback),
 
 	-- How tall the bar is
 	barHeight = t.optional(t.number),
 
 	-- A function that returns a Roact Component, used for customizing buttons on the right side of the bar
 	renderRight = t.optional(t.callback),
+	renderLeft = t.optional(t.callback),
 })
 
 -- default values are taken from Abstract
 HeaderBar.defaultProps = {
-	barHeight = 32,
+	barHeight = 48,
 	renderRight = function()
 		return nil
 	end,
+	renderLeft = function()
+		return nil
+	end
 }
-
-local BACK_BUTTON_IMAGE = 'icons/navigation/pushBack'
 
 function HeaderBar:init()
 	self.state = {
@@ -52,15 +66,6 @@ function HeaderBar:init()
 			margin = margin
 		})
 	end
-
-	self.renderLeft = function()
-		return Roact.createElement(IconButton, {
-			size = getIconSizeUDim2(IconSize.Medium),
-			icon = Images[BACK_BUTTON_IMAGE],
-			onActivated = self.props.onBack,
-			LayoutOrder = 2,
-		})
-	end
 end
 
 function HeaderBar:render()
@@ -68,8 +73,19 @@ function HeaderBar:render()
 		local theme = style.Theme
 		local font = style.Font
 
+		local centerTextFontStyle = font.Header1
+		local centerTextSize = centerTextFontStyle.RelativeSize * font.BaseSize
+
+		local estimatedCenterWidth = GetTextSize(
+			self.props.title,
+			centerTextSize,
+			centerTextFontStyle.Font,
+			Vector2.new(1000, 1000)
+		).X
+
 		return Roact.createElement("Frame", {
-			Size = UDim2.new(1, 0, 1, 0),
+			BackgroundTransparency = 1,
+			Size = UDim2.new(1, 0, 0, self.props.barHeight),
 			[Roact.Change.AbsoluteSize] = self.onResize,
 		}, {
 			ThreeSectionBar = Roact.createElement(ThreeSectionBar, {
@@ -78,16 +94,18 @@ function HeaderBar:render()
 
 				barHeight = self.props.barHeight,
 				marginLeft = self.state.margin,
-				renderLeft = self.renderLeft,
+				renderLeft = self.props.renderLeft,
 				renderCenter = function()
 					return Roact.createElement(GenericTextLabel, {
-						Size = UDim2.new(1, 0, 1, 0),
+						Size = UDim2.new(1, 0, 0, centerTextSize),
 						Text = self.props.title,
 						TextTruncate = Enum.TextTruncate.AtEnd,
-						fontStyle = font.Header1,
+						TextWrapped = false,
+						fontStyle = centerTextFontStyle,
 						colorStyle = theme.TextEmphasis,
 					})
 				end,
+				estimatedCenterWidth = estimatedCenterWidth,
 				marginRight = self.state.margin,
 				contentPaddingRight = UDim.new(0, 12),
 				renderRight = self.props.renderRight,

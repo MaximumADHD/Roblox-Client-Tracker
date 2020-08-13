@@ -22,6 +22,8 @@ local RIGHT_ICON = Images["icons/actions/cycleRight"]
 local MOTOR_OPTIONS = {
 	frequency = 2,
 	dampingRatio = 0.9,
+	restingPositionLimit = 0.5,
+	restingVelocityLimit = 0.1,
 }
 
 local HorizontalCarousel = Roact.PureComponent:extend("HorizontalCarousel")

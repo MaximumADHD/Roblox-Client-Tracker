@@ -8,8 +8,8 @@ local FocusContext = require(script.Parent.FocusContext)
 
 local function FocusControllerConsumer(props)
 	return Roact.createElement(FocusContext.Consumer, {
-		render = function(parentFocusNode)
-			local focusController = parentFocusNode.focusController
+		render = function(navContext)
+			local focusController = navContext.focusNode.focusController
 
 			return props.render(focusController)
 		end,

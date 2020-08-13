@@ -21,26 +21,14 @@ function FocusNode.new(navProps)
 		error("Cannot create node without focus manager")
 	end
 
-	local restorePreviousChildFocus = false
-	if navProps.restorePreviousChildFocus ~= nil then
-		restorePreviousChildFocus = navProps.restorePreviousChildFocus
-	end
-
 	local self = setmetatable({
 		focusController = focusController,
 		ref = navProps[Roact.Ref],
 
-		defaultChildRef = navProps.defaultChild,
-		restorePreviousChildFocus = restorePreviousChildFocus,
-		inputBindings = navProps.inputBindings or {},
-
-		left = navProps.NextSelectionLeft,
-		right = navProps.NextSelectionRight,
-		up = navProps.NextSelectionUp,
-		down = navProps.NextSelectionDown,
-
 		lastFocused = nil,
 	}, FocusNode)
+
+	self:updateNavProps(navProps)
 
 	return self
 end
@@ -99,9 +87,22 @@ function FocusNode:__findDefaultChildNode()
 	end
 end
 
-function FocusNode:getInputBinding(key)
-	if self.inputBindings ~= nil then
-		return self.inputBindings[key]
+function FocusNode:updateNavProps(navProps)
+	local restorePreviousChildFocus = false
+	if navProps.restorePreviousChildFocus ~= nil then
+		restorePreviousChildFocus = navProps.restorePreviousChildFocus
+	end
+
+	self.defaultChildRef = navProps.defaultChild
+	self.restorePreviousChildFocus = restorePreviousChildFocus
+	self.inputBindings = navProps.inputBindings or {}
+end
+
+function FocusNode:getInputBinding(inputState, keyCode)
+	for _, binding in pairs(self.inputBindings) do
+		if binding.state == inputState and binding.keyCode == keyCode then
+			return binding.action
+		end
 	end
 
 	return nil

@@ -14,8 +14,8 @@ local sin = math.sin
 local cos = math.cos
 local sqrt = math.sqrt
 
-local RESTING_VELOCITY_LIMIT = 1e-3
-local RESTING_POSITION_LIMIT = 1e-2
+local DEFAULT_RESTING_VELOCITY_LIMIT = 1e-3
+local DEFAULT_RESTING_POSITION_LIMIT = 1e-2
 
 local function step(self, state, dt)
 	-- Advance the spring simulation by dt seconds.
@@ -31,6 +31,8 @@ local function step(self, state, dt)
 	local d = self.__dampingRatio
 	local f = self.__frequency * 2 * pi -- Rad/s
 	local g = self.__goalPosition
+	local velLimit = self.__restingVelocityLimit
+	local posLimit = self.__restingPositionLimit
 
 	local p0 = state.value
 	local v0 = state.velocity or 0
@@ -100,7 +102,7 @@ local function step(self, state, dt)
 	local positionOffset = abs(p1 - self.__goalPosition)
 	local velocityOffset = abs(v1)
 
-	local complete = velocityOffset < RESTING_VELOCITY_LIMIT and positionOffset < RESTING_POSITION_LIMIT
+	local complete = velocityOffset < velLimit and positionOffset < posLimit
 
 	if complete then
 		p1 = self.__goalPosition
@@ -120,6 +122,8 @@ local function spring(goalPosition, inputOptions)
 	local options = {
 		dampingRatio = 1,
 		frequency = 1,
+		restingVelocityLimit = DEFAULT_RESTING_VELOCITY_LIMIT,
+		restingPositionLimit = DEFAULT_RESTING_POSITION_LIMIT,
 	}
 
 	if inputOptions ~= nil then
@@ -129,15 +133,22 @@ local function spring(goalPosition, inputOptions)
 
 	local dampingRatio = options.dampingRatio
 	local frequency = options.frequency
+	local restingVelocityLimit = options.restingVelocityLimit
+	local restingPositionLimit = options.restingPositionLimit
 
 	assert(typeof(dampingRatio) == "number")
 	assert(typeof(frequency) == "number")
+	assert(typeof(restingVelocityLimit) == "number")
+	assert(typeof(restingPositionLimit) == "number")
 
-	assert(dampingRatio * frequency >= 0, "Expected dampingRatio * frequency >= 0")
+	assert(restingVelocityLimit >= 0, "Expected restingVelocityLimit >= 0")
+	assert(restingPositionLimit >= 0, "Expected restingPositionLimit >= 0")
 
 	local self = {
 		__dampingRatio = dampingRatio,
 		__frequency = frequency, -- Hz
+		__restingVelocityLimit = restingVelocityLimit,
+		__restingPositionLimit = restingPositionLimit,
 		__goalPosition = goalPosition,
 		step = step,
 	}

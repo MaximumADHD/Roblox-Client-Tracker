@@ -4,6 +4,9 @@ local App = TileRoot.Parent
 local UIBlox = App.Parent
 local Packages = UIBlox.Parent
 
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
+local RoactGamepad = require(Packages.RoactGamepad)
+
 local Roact = require(Packages.Roact)
 local t = require(Packages.t)
 local withStyle = require(UIBlox.Core.Style.withStyle)
@@ -51,6 +54,13 @@ local tileInterface = t.strictInterface({
 
 	-- Optional Roact elements that are overlayed over the thumbnail component
 	thumbnailOverlayComponents = t.optional(t.table),
+
+	-- optional parameters for RoactGamepad
+	NextSelectionLeft = t.optional(t.table),
+	NextSelectionRight = t.optional(t.table),
+	NextSelectionUp = t.optional(t.table),
+	NextSelectionDown = t.optional(t.table),
+	[Roact.Ref] = t.optional(t.table),
 })
 
 local function tileBannerUseValidator(props)
@@ -114,7 +124,8 @@ function Tile:render()
 		local hasFooter = footer ~= nil or bannerText ~= nil
 
 		-- TODO: use generic/state button from UIBlox
-		return Roact.createElement("TextButton", {
+		return Roact.createElement(UIBloxConfig.enableExperimentalGamepadSupport and
+			RoactGamepad.Focusable.TextButton or "TextButton", {
 			Text = "",
 			Size = UDim2.new(1, 0, 1, 0),
 			BackgroundTransparency = 1,

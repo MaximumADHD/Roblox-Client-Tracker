@@ -76,7 +76,7 @@ local function makeBaseMenu(cellComponent, backgroundThemeKey)
 					NextSelectionUp = index > 1 and self.gamepadRefs[index - 1] or nil,
 					NextSelectionDown = index < #self.props.buttonProps and self.gamepadRefs[index + 1] or nil,
 					inputBindings = {
-						[Enum.KeyCode.ButtonA] = cellProps.onActivated,
+						Activated = RoactGamepad.Input.onBegin(Enum.KeyCode.ButtonA, cellProps.onActivated),
 					},
 				}, {
 					Cell = Roact.createElement(cellComponent, mergedProps)

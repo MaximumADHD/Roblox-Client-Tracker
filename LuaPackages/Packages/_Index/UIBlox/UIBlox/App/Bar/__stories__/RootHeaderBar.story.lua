@@ -13,7 +13,7 @@ local getIconSizeUDim2 = require(App.ImageSet.getIconSizeUDim2)
 local IconSize = require(App.ImageSet.Enum.IconSize)
 local Images = require(App.ImageSet.Images)
 local RootHeaderBar = require(Bar.RootHeaderBar)
-local IconButton = require(UIBlox.Core.Button.IconButton)
+local IconButton = require(UIBlox.App.Button.IconButton)
 
 return function(target)
 	local handle = Roact.mount(Roact.createElement(StoryView, {}, {
@@ -32,7 +32,7 @@ return function(target)
 								onActivated = function()
 									print "Opening Search!"
 								end,
-								LayoutOrder = 1,
+								layoutOrder = 1,
 							}),
 							premium = Roact.createElement(IconButton, {
 								size = getIconSizeUDim2(IconSize.Small),
@@ -40,7 +40,7 @@ return function(target)
 								onActivated = function()
 									print "Oooh Shiny!"
 								end,
-								LayoutOrder = 2,
+								layoutOrder = 2,
 							}),
 							alert = Roact.createElement(IconButton, {
 								size = getIconSizeUDim2(IconSize.Small),
@@ -48,7 +48,7 @@ return function(target)
 								onActivated = function()
 									print "Alert!"
 								end,
-								LayoutOrder = 3,
+								layoutOrder = 3,
 							}),
 						})
 					end,

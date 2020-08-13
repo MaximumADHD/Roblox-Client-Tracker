@@ -113,7 +113,7 @@ return{
 	["CoreScripts.PurchasePrompt.PurchaseFailed.InvalidFunds"] = [[アカウントのRobuxが不足しているため購入を完了できませんでした。アカウントは課金されていません。]],
 	["CoreScripts.PurchasePrompt.PurchaseFailed.BuildersClubUpsellFailure"] = [[このアイテムを買うにはサブスクリプションが必要なため、購入を完了できませんでした。アカウントは課金されていません。]],
 	["CoreScripts.PurchasePrompt.PurchaseFailed.NotEnoughRobuxXbox"] = [[このアイテムを買うにはお手持ちのRobuxでは足りません。ゲームを終了して、Robux画面で追加購入してください。]],
-	["CoreScripts.PurchasePrompt.PurchaseFailed.NotEnoughRobux"] = [[このアイテムは、あなたの購入可能なRobuxでは購入できません。www.roblox.comでRobuxを追加購入してください。]],
+	["CoreScripts.PurchasePrompt.PurchaseFailed.NotEnoughRobux"] = [[このアイテムは、お手持ちのRobuxでは購入できません。www.roblox.comでRobuxを追加購入してください。]],
 	["CoreScripts.PurchasePrompt.PurchaseFailed.PurchaseDisabled"] = [[ゲーム内購入が一時的に無効になっているため、購入できませんでした。アカウントは課金されていません。後でもう一度お試し下さい。]],
 	["CoreScripts.PurchasePrompt.PurchaseFailed.UnknownFailureNoItemName"] = [[問題が発生したため、購入を完了できませんでした。アカウントは課金されていません。後でもう一度お試し下さい。]],
 	["CoreScripts.PurchasePrompt.PurchaseFailed.UnknownFailure"] = [[問題が発生したため、{ITEM_NAME} の購入を完了できませんでした。アカウントは課金されていません。後でもう一度お試し下さい。]],
@@ -148,4 +148,6 @@ return{
 	["CoreScripts.PurchasePrompt.PurchaseDetails.BalanceFutureV2"] = [[取引後の残高は{BALANCE_FUTURE} Robuxになります]],
 	["CoreScripts.PurchasePrompt.PurchaseFailed.NotEnoughRobuxNoUpsell"] = [[このアイテムの費用は利用できるRobuxの額を超えています。 ]],
 	["CoreScripts.PurchasePrompt.Button.PremiumOnly"] = [[Premium限定]],
+	["CoreScripts.PurchasePrompt.PurchaseFailed.PremiumOnly"] = [[このアイテムを購入するには、Roblox Premiumが必要です。]],
+	["CoreScripts.PurchasePrompt.PurchaseDetails.AgeLegalText"] = [[Robloxでは、大人のみが購入を許可されています。私は、年齢が少なくとも18歳であることに同意します。私は、このアカウントの所有者であるか、所有者の法的な保護者です。私はこの購入を許可し、利用規約に同意します。]],
 }

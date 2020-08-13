@@ -132,41 +132,49 @@ function StackViewLayout:render()
 		end
 
 		-- Wrapper frame holds default/custom card background and the card content.
-		-- We MUST change from TextButton to Frame here when absorbInput=false because
-		-- of legacy behavior on desktop  for GuiObject.Active=false blocking mouse clicks
-		-- from falling through. (Active=false DOES work on mobile, but not desktop).
-		local sceneWrapperComponent = "Frame"
-		local sceneWrapperProps = {
-			Size = UDim2.new(1, 0, 1, 0),
-			BackgroundTransparency = 1,
-			BorderSizePixel = 0,
-			ClipsDescendants = true,
-			ZIndex = scene.index,
-			Visible = not cardObscured,
-		}
-
+		-- It MUST be a Frame when absorbInput=false because of legacy behavior on desktop
+		-- for GuiObject.Active=false blocking mouse clicks from falling through.
+		-- (Active=false DOES work on mobile, but not desktop).
+		-- When absorbInput=true, we add a TextButton behind the frame that will catch
+		-- mouse clicks
+		local absorbInputElement = nil
 		if not cardObscured and absorbInput then
-			sceneWrapperComponent = "TextButton"
-			sceneWrapperProps = Cryo.Dictionary.join(sceneWrapperProps, {
-				AutoButtonColor = false,
-				Text = " ",
+			absorbInputElement = Roact.createElement("TextButton", {
 				Active = true,
+				AutoButtonColor = false,
+				BackgroundTransparency = 1,
+				BorderSizePixel = 0,
+				ClipsDescendants = true,
+				Size = UDim2.new(1, 0, 1, 0),
+				Text = " ",
+				ZIndex = 2 * scene.index - 1,
 			})
 		end
 
-		return Roact.createElement(sceneWrapperComponent, sceneWrapperProps, {
-			StationaryContent = stationaryContent,
-			DynamicContent = Roact.createElement("Frame", {
+		return Roact.createFragment({
+			AbsorbInput = absorbInputElement,
+			-- use scene index for key, it makes testing with Rhodium easier
+			[tostring(scene.index)] = Roact.createElement("Frame", {
 				Size = UDim2.new(1, 0, 1, 0),
 				BackgroundTransparency = 1,
-				ClipsDescendants = true,
 				BorderSizePixel = 0,
-				ZIndex = 2,
+				ClipsDescendants = true,
+				ZIndex = 2 * scene.index,
+				Visible = not cardObscured,
 			}, {
-				-- Cards need to have unique keys so that instances of the same components are not
-				-- reused for different scenes. (Could lead to unanticipated lifecycle problems).
-				["card_" .. scene.key] = self:_renderCard(scene, screenOptions),
-			})
+				StationaryContent = stationaryContent,
+				DynamicContent = Roact.createElement("Frame", {
+					Size = UDim2.new(1, 0, 1, 0),
+					BackgroundTransparency = 1,
+					ClipsDescendants = true,
+					BorderSizePixel = 0,
+					ZIndex = 2,
+				}, {
+					-- Cards need to have unique keys so that instances of the same components are not
+					-- reused for different scenes. (Could lead to unanticipated lifecycle problems).
+					["card_" .. scene.key] = self:_renderCard(scene, screenOptions),
+				})
+			}),
 		})
 	end)
 

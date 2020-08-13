@@ -1379,6 +1379,57 @@ return function()
 
 			expect(completedState.isTransitioning).to.equal(false)
 		end)
+
+		it("should mark root and child states as transitioning, then separately clear them on CompleteTransition", function()
+			local childRouter = StackRouter({
+				routes = {
+					BarA = function() end,
+					BarB = function() end,
+				},
+				initialRouteName = "BarA",
+			})
+			local router = StackRouter({
+				routes = {
+					Foo = function() end,
+					Bar = {
+						screen = {
+							render = function() end,
+							router = childRouter,
+						},
+					},
+				},
+				initialRouteName = "Foo",
+			})
+
+			local initialState = {
+				key = "root",
+				routes = {
+					[1] = {
+						routeName = "Foo",
+						key = "Foo",
+					},
+				},
+				index = 1,
+			}
+
+			local transitioningState = router.getStateForAction(NavigationActions.navigate({ routeName = "BarB" }), initialState)
+			expect(transitioningState).to.be.ok()
+			expect(transitioningState.isTransitioning).to.equal(true)
+			expect(transitioningState.routes[2].isTransitioning).to.equal(true)
+			expect(transitioningState.routes[2].routes[2].routeName).to.equal("BarB")
+
+			local childOnlyCompletedState = router.getStateForAction(NavigationActions.completeTransition({
+				toChildKey = transitioningState.routes[2].routes[2].key,
+			}), transitioningState)
+			expect(childOnlyCompletedState.isTransitioning).to.equal(true) -- *** parent needs its own completeTransition call ***
+			expect(childOnlyCompletedState.routes[2].isTransitioning).to.equal(false)
+
+			local completedState = router.getStateForAction(NavigationActions.completeTransition({
+				toChildKey = transitioningState.routes[2].key,
+			}), childOnlyCompletedState)
+			expect(completedState.isTransitioning).to.equal(false)
+			expect(completedState.routes[2].isTransitioning).to.equal(false)
+		end)
 	end)
 end
 

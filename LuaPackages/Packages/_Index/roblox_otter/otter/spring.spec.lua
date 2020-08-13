@@ -7,6 +7,8 @@ return function()
 		local s = spring(1, {
 			dampingRatio = 0.1,
 			frequency = 10,
+			restingVelocityLimit = 0.1,
+			restingPositionLimit = 0.01,
 		})
 
 		expect(s).to.be.a("table")
@@ -23,6 +25,8 @@ return function()
 		local s = spring(1, {
 			dampingRatio = 0.1,
 			frequency = 10,
+			restingVelocityLimit = 0.1,
+			restingPositionLimit = 0.01,
 		})
 
 		local state = s:step({

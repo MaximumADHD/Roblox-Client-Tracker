@@ -198,7 +198,7 @@ function ExpandableTextArea:render()
 			NextSelectionLeft = self.props.NextSelectionLeft,
 			NextSelectionRight = self.props.NextSelectionRight,
 			inputBindings = isFocusable and {
-				[Enum.KeyCode.ButtonA] = self.onClick,
+				Activated = RoactGamepad.Input.onBegin(Enum.KeyCode.ButtonA, self.onClick),
 			} or nil,
 		}, {
 			Layout = Roact.createElement("UIListLayout", {

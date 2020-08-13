@@ -5,17 +5,75 @@ local Packages = UIBlox.Parent
 
 local t = require(Packages.t)
 local Roact = require(Packages.Roact)
+local enumerate = require(Packages.enumerate)
 
 local Interactable = require(Core.Control.Interactable)
 
 local ControlState = require(Core.Control.Enum.ControlState)
 local getContentStyle = require(Core.Button.getContentStyle)
 local GetTextSize = require(Core.Text.GetTextSize)
+local enumerateValidator = require(UIBlox.Utility.enumerateValidator)
 
 local withStyle = require(Core.Style.withStyle)
 local GenericTextLabel = require(Core.Text.GenericTextLabel.GenericTextLabel)
+local HoverButtonBackground = require(Core.Button.HoverButtonBackground)
+
+local VERTICAL_PADDING = 8
+local HORIZONTAL_PADDING = 11
 
 local TextButton = Roact.PureComponent:extend("TextButton")
+TextButton.debugProps = enumerate("debugProps", {
+	"getTextSize",
+	"controlState",
+})
+
+TextButton.validateProps = t.strictInterface({
+	-- The state change callback for the button
+	onStateChanged = t.optional(t.callback),
+
+	-- Is the button visually disabled
+	isDisabled = t.optional(t.boolean),
+
+	fontStyle = t.optional(t.string),
+	colorStyleDefault = t.optional(t.string),
+	colorStyleHover = t.optional(t.string),
+
+	--A Boolean value that determines whether user events are ignored and sink input
+	userInteractionEnabled = t.optional(t.boolean),
+
+	-- The activated callback for the button
+	onActivated = t.optional(t.callback),
+
+	anchorPoint = t.optional(t.Vector2),
+	layoutOrder = t.optional(t.number),
+	position= t.optional(t.UDim2),
+	size = t.optional(t.UDim2),
+	text = t.optional(t.string),
+
+	-- A callback that replaces getTextSize implementation
+	[TextButton.debugProps.getTextSize] = t.optional(t.callback),
+
+	-- Override the default controlState
+	[TextButton.debugProps.controlState] = t.optional(enumerateValidator(ControlState)),
+})
+
+TextButton.defaultProps = {
+	anchorPoint = Vector2.new(0, 0),
+	layoutOrder = 0,
+	position = UDim2.new(0, 0, 0, 0),
+	size = UDim2.fromScale(0, 0),
+	text = "",
+
+	fontStyle = "Header2",
+	colorStyleDefault = "SystemPrimaryDefault",
+	colorStyleHover = "SystemPrimaryDefault",
+
+	isDisabled = false,
+	userInteractionEnabled = true,
+
+	[TextButton.debugProps.getTextSize] = GetTextSize,
+	[TextButton.debugProps.controlState] = nil,
+}
 
 function TextButton:init()
 	self:setState({
@@ -32,68 +90,21 @@ function TextButton:init()
 	end
 end
 
-TextButton.validateProps = t.strictInterface({
-	-- The state change callback for the button
-	onStateChanged = t.optional(t.callback),
-
-	-- A string that determines how the font will be styled
-	fontStyle = t.optional(t.string),
-
-	-- A string that determines visual styling in default state
-	defaultStyle = t.optional(t.string),
-
-	-- A string that determines visual styling in hover state
-	hoverStyle = t.optional(t.string),
-
-	-- Is the button visually disabled
-	isDisabled = t.optional(t.boolean),
-
-	--A Boolean value that determines whether user events are ignored and sink input
-	userInteractionEnabled = t.optional(t.boolean),
-
-	-- The activated callback for the button
-	onActivated = t.optional(t.callback),
-
-	anchorPoint = t.optional(t.Vector2),
-	layoutOrder = t.optional(t.number),
-	position= t.optional(t.UDim2),
-	size = t.optional(t.UDim2),
-	text = t.optional(t.string),
-
-	-- For testing purposes, a callback that replaces getTextSize implementation
-	getTextSize = t.optional(t.callback),
-})
-
-TextButton.defaultProps = {
-	anchorPoint = Vector2.new(0, 0),
-	layoutOrder = 0,
-	position = UDim2.new(0, 0, 0, 0),
-	size = UDim2.fromScale(0, 0),
-	text = "",
-
-	fontStyle = "Body",
-	defaultStyle = "SystemPrimaryDefault",
-	hoverStyle = "SystemPrimaryOnHover",
-	isDisabled = false,
-	userInteractionEnabled = true,
-
-	getTextSize = GetTextSize,
-}
-
 function TextButton:render()
 	return withStyle(function(style)
-		local currentState = self.state.controlState
+		local currentState = self.props[TextButton.debugProps.controlState] or self.state.controlState
 
 		local textStateColorMap = {
-			[ControlState.Default] = self.props.defaultStyle,
-			[ControlState.Hover] = self.props.hoverStyle,
+			[ControlState.Default] = self.props.colorStyleDefault,
+			[ControlState.Hover] = self.props.colorStyleHover,
 		}
 
 		local textStyle = getContentStyle(textStateColorMap, currentState, style)
 		local fontStyle = style.Font[self.props.fontStyle]
 
 		local fontSize = fontStyle.RelativeSize * style.Font.BaseSize
-		local textWidth = self.props.getTextSize(self.props.text, fontSize, fontStyle.Font, Vector2.new(10000, 0)).X
+		local getTextSize = self.props[TextButton.debugProps.getTextSize]
+		local textWidth = getTextSize(self.props.text, fontSize, fontStyle.Font, Vector2.new(10000, 0)).X
 
 		return Roact.createElement(Interactable, {
 			AnchorPoint = self.props.anchorPoint,
@@ -110,14 +121,17 @@ function TextButton:render()
 			[Roact.Event.Activated] = self.props.onActivated,
 		}, {
 			sizeConstraint = Roact.createElement("UISizeConstraint", {
-				MinSize = Vector2.new(textWidth, fontSize),
+				MinSize = Vector2.new(textWidth + VERTICAL_PADDING*2, fontSize + HORIZONTAL_PADDING*2),
 			}),
-			TextLabel = Roact.createElement(GenericTextLabel, {
+			textLabel = Roact.createElement(GenericTextLabel, {
+				AnchorPoint = Vector2.new(0.5, 0.5),
+				Position = UDim2.fromScale(0.5, 0.5),
 				BackgroundTransparency = 1,
 				Text = self.props.text,
 				fontStyle = fontStyle,
 				colorStyle = textStyle,
-			})
+			}),
+			background = currentState == ControlState.Hover and Roact.createElement(HoverButtonBackground)
 		})
 	end)
 end

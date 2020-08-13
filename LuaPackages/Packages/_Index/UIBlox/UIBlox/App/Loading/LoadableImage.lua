@@ -37,17 +37,19 @@ local validateProps = t.strictInterface({
 	BackgroundColor3 = t.optional(t.Color3),
 	-- The background transparency of the final image. Defaults to placeholder transparency.
 	BackgroundTransparency = t.optional(t.number),
+	-- The corner radius of the image, shimmer, and failed image's rounded corners.
+	cornerRadius = t.optional(t.UDim),
 	-- The final image
 	Image = t.optional(t.string),
-	-- The transparency of the loading image
+	-- The transparency of the final and loading image
 	ImageTransparency = t.optional(t.number),
 	-- The layout order of the final and loading image
 	LayoutOrder = t.optional(t.integer),
 	-- The loading image which shows if useShimmerAnimationWhileLoading is false
 	loadingImage = t.optional(t.string),
-	-- The max size of the final and loading image
+	-- The max size of all images shown
 	MaxSize = t.optional(t.Vector2),
-	-- The min size of the final and loading image
+	-- The min size of all images shown
 	MinSize = t.optional(t.Vector2),
 	-- The function to call when loading is complete
 	onLoaded = t.optional(t.callback),
@@ -69,6 +71,7 @@ local LoadableImage = Roact.PureComponent:extend("LoadableImage")
 
 LoadableImage.defaultProps = {
 	BackgroundTransparency = 0,
+	cornerRadius = UDim.new(0, 0),
 	MaxSize = Vector2.new(inf, inf),
 	MinSize = Vector2.new(0, 0),
 	useShimmerAnimationWhileLoading = false,
@@ -100,6 +103,7 @@ function LoadableImage:render()
 	local position = self.props.Position
 	local backgroundColor3 = self.props.BackgroundColor3
 	local backgroundTransparency = self.props.BackgroundTransparency
+	local cornerRadius = self.props.cornerRadius
 	local scaleType = self.props.ScaleType
 	local zIndex = self.props.ZIndex
 	local image = self.props.Image
@@ -147,8 +151,15 @@ function LoadableImage:render()
 					ImageTransparency = theme.UIDefault.Transparency,
 					Position = UDim2.new(0.5, 0, 0.5, 0),
 					Size = UDim2.new(0, failedImageSize.X, 0, failedImageSize.Y),
+				}, {
+					UICorner = cornerRadius ~= UDim.new(0, 0) and Roact.createElement("UICorner", {
+						CornerRadius = cornerRadius,
+					}) or nil,
 				}),
 				UISizeConstraint = sizeConstraint,
+				UICorner = cornerRadius ~= UDim.new(0, 0) and Roact.createElement("UICorner", {
+					CornerRadius = cornerRadius,
+				}) or nil,
 			})
 		elseif not loadingComplete and useShimmerAnimationWhileLoading then
 			return Roact.createElement("Frame", {
@@ -163,8 +174,12 @@ function LoadableImage:render()
 			}, {
 				Shimmer = Roact.createElement(ShimmerPanel, {
 					Size = UDim2.new(1, 0, 1, 0),
+					cornerRadius = cornerRadius,
 				}),
 				UISizeConstraint = sizeConstraint,
+				UICorner = Roact.createElement("UICorner", {
+					CornerRadius = cornerRadius,
+				}) or nil,
 			})
 		else
 			return Roact.createElement(ImageSetComponent.Label, {
@@ -181,6 +196,9 @@ function LoadableImage:render()
 				ZIndex = zIndex,
 			}, {
 				UISizeConstraint = sizeConstraint,
+				UICorner = cornerRadius ~= UDim.new(0, 0) and Roact.createElement("UICorner", {
+					CornerRadius = cornerRadius,
+				}) or nil,
 			})
 		end
 	end)

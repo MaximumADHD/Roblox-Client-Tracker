@@ -34,7 +34,6 @@ ButtonStack.defaultProps = {
 
 function ButtonStack:init()
 	self.buttonRefs = RoactGamepad.createRefCache()
-	self.ref = Roact.createRef()
 
 	self.state = {
 		frameWidth = 0
@@ -114,7 +113,7 @@ function ButtonStack:render()
 					NextSelectionLeft = (not isButtonStacked and colIndex > 1) and self.buttonRefs[colIndex - 1] or nil,
 					NextSelectionRight = (not isButtonStacked and colIndex < #buttons) and self.buttonRefs[colIndex + 1] or nil,
 					inputBindings = {
-						[Enum.KeyCode.ButtonA] = button.props.onActivated,
+						Activated = RoactGamepad.Input.onBegin(Enum.KeyCode.ButtonA, button.props.onActivated),
 					},
 				}
 
@@ -126,15 +125,21 @@ function ButtonStack:render()
 			end
 		end
 
-		return Roact.createElement(FitFrameOnAxis, {
+		return Roact.createElement(UIBloxConfig.enableExperimentalGamepadSupport and
+			RoactGamepad.Focusable[FitFrameOnAxis] or FitFrameOnAxis, {
 			BackgroundTransparency = 1,
 			contentPadding = UDim.new(0, paddingBetween),
 			FillDirection = fillDirection,
 			HorizontalAlignment = Enum.HorizontalAlignment.Center,
 			LayoutOrder = 3,
 			minimumSize = UDim2.new(1, 0, 0, self.props.buttonHeight),
-			[Roact.Ref] = self.ref,
+			[Roact.Ref] = self.props[Roact.Ref],
 			[Roact.Change.AbsoluteSize] = self.updateFrameSize,
+
+			NextSelectionLeft = self.props.NextSelectionLeft,
+			NextSelectionRight = self.props.NextSelectionRight,
+			NextSelectionUp = self.props.NextSelectionUp,
+			NextSelectionDown = self.props.NextSelectionDown,
 		},
 			buttonTable
 		)

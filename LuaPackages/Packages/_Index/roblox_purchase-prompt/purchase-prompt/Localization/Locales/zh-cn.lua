@@ -147,4 +147,7 @@ return{
 	["CoreScripts.PurchasePrompt.ConfirmPurchase.BuyRobuxV2"] = [[购买 Robux]],
 	["CoreScripts.PurchasePrompt.PurchaseDetails.BalanceFutureV2"] = [[此次交易后，你的余额将为 {BALANCE_FUTURE} Robux]],
 	["CoreScripts.PurchasePrompt.PurchaseFailed.NotEnoughRobuxNoUpsell"] = [[你的 Robux 不足，无法购买此物品。 ]],
+	["CoreScripts.PurchasePrompt.Button.PremiumOnly"] = [[Premium 会员限定]],
+	["CoreScripts.PurchasePrompt.PurchaseFailed.PremiumOnly"] = [[该物品仅限 Roblox Premium 会员才能购买。]],
+	["CoreScripts.PurchasePrompt.PurchaseDetails.AgeLegalText"] = [[只有成年用户才能在 Roblox 上进行购买。购买者声明本人已满 18 岁，且为当前账户的所有者、所有者父母或所有者的法定监护人。购买者将对此购买进行授权，并同意 Roblox 使用条款。]],
 }

@@ -34,6 +34,10 @@ local validateProps = t.strictInterface({
 	screenSize = t.Vector2,
 	title = t.string,
 	titleIcon = t.optional(t.union(t.table, t.string)),
+
+	--Gamepad props
+	defaultChildRef = t.optional(t.table),
+	isMiddleContentFocusable = t.optional(t.boolean),
 })
 
 function InteractiveAlert:render()
@@ -52,6 +56,7 @@ function InteractiveAlert:render()
 		minWidth = MIN_WIDTH,
 		buttonStackInfo = self.props.buttonStackInfo,
 		middleContent = self.props.middleContent,
+		isMiddleContentFocusable = self.props.isMiddleContentFocusable,
 		onMounted = self.props.onMounted,
 		paddingBetween = PADDING_BETWEEN,
 		position = self.props.position,
@@ -61,6 +66,8 @@ function InteractiveAlert:render()
 		titleIconSize = enableAlertTitleIconConfig and TITLE_ICON_SIZE or nil,
 		titlePadding = TITLE_PADDING,
 		titlePaddingWithIcon = TITLE_MARGIN_WITH_ICON,
+
+		defaultChildRef = self.props.defaultChildRef,
 	})
 end
 

@@ -9,6 +9,18 @@ local debugPrint = require(script.Parent.debugPrint)
 
 local InternalApi = require(script.Parent.FocusControllerInternalApi)
 
+local INPUT_TYPES = {
+	[Enum.UserInputType.Keyboard] = true,
+	[Enum.UserInputType.Gamepad1] = true,
+	[Enum.UserInputType.Gamepad2] = true,
+	[Enum.UserInputType.Gamepad3] = true,
+	[Enum.UserInputType.Gamepad4] = true,
+	[Enum.UserInputType.Gamepad5] = true,
+	[Enum.UserInputType.Gamepad6] = true,
+	[Enum.UserInputType.Gamepad7] = true,
+	[Enum.UserInputType.Gamepad8] = true,
+}
+
 local FocusControllerInternal = {}
 FocusControllerInternal.__index = FocusControllerInternal
 
@@ -158,6 +170,37 @@ function FocusControllerInternal:isNodeFocused(node)
 	return false
 end
 
+function FocusControllerInternal:createInputListener(inputState)
+	return function(inputObject)
+		-- If the state doesn't match up with the one we're listening for,
+		-- don't even bother; I'm not sure if this happens with
+		-- UserInputService, but it does happen with ContextActionService
+		-- and it's easier to be safe
+		if inputObject.UserInputState ~= inputState then
+			return
+		end
+
+		if INPUT_TYPES[inputObject.UserInputType] then
+			debugPrint("[EVENT] Input received:",
+				inputObject.KeyCode,
+				"-",
+				inputObject.UserInputState
+			)
+
+			local focusChainNode = self.focusedLeaf
+			while focusChainNode ~= nil do
+				local boundCallback = focusChainNode:getInputBinding(inputState, inputObject.KeyCode)
+				if boundCallback ~= nil then
+					boundCallback()
+					break
+				end
+
+				focusChainNode = focusChainNode.parent
+			end
+		end
+	end
+end
+
 -- Prints a human-readable version of the node tree.
 function FocusControllerInternal:debugPrintTree()
 	local function recursePrintTree(node, indent)
@@ -180,7 +223,7 @@ function FocusControllerInternal:initialize(engineInterface)
 	-- If the engineInterface is already set, then this FocusController was
 	-- probably also assigned to another tree
 	if self.engineInterface ~= nil then
-		error("FocusController cannot be initialized more than once; make sure you are not passing it to more than one component")
+		error("FocusController cannot be initialized more than once; make sure you are not passing it to multiple components")
 	end
 
 	self.engineInterface = engineInterface
@@ -202,8 +245,9 @@ function FocusControllerInternal:initialize(engineInterface)
 			return
 		end
 
-		-- If selection is occurring within this FocusControllerInternal's hierarchy, we
-		-- find the currently focused leaf and trigger our internal signal
+		-- If selection is occurring within this FocusControllerInternal's
+		-- hierarchy, we find the currently focused leaf and trigger our
+		-- internal signal
 		if rootRefValue == selectedInstance or selectedInstance:IsDescendantOf(rootRefValue) then
 			debugPrint(
 				"[EVENT] Selection changed to",
@@ -225,23 +269,12 @@ function FocusControllerInternal:initialize(engineInterface)
 		end
 	end)
 
-	self.userInputServiceConnection = engineInterface.subscribeToInputBegan(function(inputObject)
-		if inputObject.UserInputType == Enum.UserInputType.Gamepad1
-			and inputObject.UserInputState == Enum.UserInputState.Begin
-		then
-			debugPrint("[EVENT] Input received: " .. tostring(inputObject.KeyCode))
-			local focusChainNode = self.focusedLeaf
-			while focusChainNode ~= nil do
-				local boundCallback = focusChainNode:getInputBinding(inputObject.KeyCode)
-				if boundCallback ~= nil then
-					boundCallback()
-					break
-				end
-
-				focusChainNode = focusChainNode.parent
-			end
-		end
-	end)
+	self.inputBeganConnection = engineInterface.subscribeToInputBegan(
+		self:createInputListener(Enum.UserInputState.Begin)
+	)
+	self.inputEndedConnection = engineInterface.subscribeToInputEnded(
+		self:createInputListener(Enum.UserInputState.End)
+	)
 
 	if self.captureFocusOnInitialize then
 		self:captureFocus()
@@ -267,8 +300,12 @@ function FocusControllerInternal:teardown()
 		self.guiServiceConnection:Disconnect()
 	end
 
-	if self.userInputServiceConnection ~= nil then
-		self.userInputServiceConnection:Disconnect()
+	if self.inputBeganConnection ~= nil then
+		self.inputBeganConnection:Disconnect()
+	end
+
+	if self.inputEndedConnection ~= nil then
+		self.inputEndedConnection:Disconnect()
 	end
 
 	-- Make sure this controller is restored to its uninitialized state

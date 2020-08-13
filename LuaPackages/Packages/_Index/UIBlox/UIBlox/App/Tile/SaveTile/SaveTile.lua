@@ -25,6 +25,13 @@ local validateProps = t.strictInterface({
 
 	-- The item thumbnail's size
 	thumbnailSize = t.optional(t.UDim2),
+
+	-- optional parameters for RoactGamepad
+	NextSelectionLeft = t.optional(t.table),
+	NextSelectionRight = t.optional(t.table),
+	NextSelectionUp = t.optional(t.table),
+	NextSelectionDown = t.optional(t.table),
+	[Roact.Ref] = t.optional(t.table),
 })
 
 SaveTile.defaultProps = {
@@ -47,6 +54,12 @@ function SaveTile:render()
 		onActivated = onActivated,
 		thumbnail = thumbnail,
 		thumbnailSize = thumbnailSize,
+
+		NextSelectionLeft = self.props.NextSelectionLeft,
+		NextSelectionRight = self.props.NextSelectionRight,
+		NextSelectionUp = self.props.NextSelectionUp,
+		NextSelectionDown = self.props.NextSelectionDown,
+		[Roact.Ref] = self.props[Roact.Ref],
 	})
 end
 

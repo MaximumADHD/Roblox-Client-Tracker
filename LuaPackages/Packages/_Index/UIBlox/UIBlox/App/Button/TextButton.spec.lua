@@ -21,8 +21,8 @@ return function()
 				text = text,
 				onActivated = noOpt,
 				fontStyle = "Body",
-				defaultStyle = "UIDefault",
-				hoverStyle = "UIDefault",
+				colorStyleDefault = "UIDefault",
+				colorStyleHover = "UIDefault",
 			}),
 		})
 
@@ -93,13 +93,13 @@ return function()
 		it("SHOULD resize to text when not given size property", function()
 			local folder1, cleanup1 = runTest({
 				text = string.rep("!", 1),
-				getTextSize = function()
+				[TextButton.debugProps.getTextSize] = function()
 					return Vector2.new(1, 1)
 				end,
 			})
 			local folder2, cleanup2 = runTest({
 				text = string.rep("!", 10),
-				getTextSize = function()
+				[TextButton.debugProps.getTextSize] = function()
 					return Vector2.new(10, 1)
 				end,
 			})
@@ -200,6 +200,77 @@ return function()
 			testSize(UDim2.new(0.5, 10, 1, 20))
 			testSize(UDim2.fromScale(1, 1))
 			testSize(UDim2.fromOffset(100, 000))
+		end)
+	end)
+
+	describe("debugProps.controlState", function()
+		local BUTTON_NAME = "test:" .. tostring(math.random(0, 999))
+		local runTest = function(props)
+			local folder = Instance.new("Folder")
+			local element = mockStyleComponent({
+				[BUTTON_NAME] = Roact.createElement(TextButton, props),
+			})
+
+			local instance = Roact.mount(element, folder)
+
+			return folder, function()
+				Roact.unmount(instance)
+				folder:Destroy()
+			end
+		end
+
+		local function isShowingBackground(folder)
+			return folder:FindFirstChild("background", true) ~= nil
+		end
+
+		local function isTextTransparent(folder)
+			local textLabel = folder:FindFirstChild("textLabel", true)
+			assert(textLabel, "textLabel never mounted")
+			return textLabel.TextTransparency > 0
+		end
+
+		it("SHOULD render ControlState.Default with no issues", function()
+			local folder, cleanup = runTest({
+				[TextButton.debugProps.controlState] = ControlState.Default,
+			})
+
+			expect(isShowingBackground(folder)).to.equal(false)
+			expect(isTextTransparent(folder)).to.equal(false)
+
+			cleanup()
+		end)
+
+		it("SHOULD render ControlState.Hover with no issues", function()
+			local folder, cleanup = runTest({
+				[TextButton.debugProps.controlState] = ControlState.Hover,
+			})
+
+			expect(isShowingBackground(folder)).to.equal(true)
+			expect(isTextTransparent(folder)).to.equal(false)
+
+			cleanup()
+		end)
+
+		it("SHOULD render ControlState.Pressed with no issues", function()
+			local folder, cleanup = runTest({
+				[TextButton.debugProps.controlState] = ControlState.Pressed,
+			})
+
+			expect(isShowingBackground(folder)).to.equal(false)
+			expect(isTextTransparent(folder)).to.equal(true)
+
+			cleanup()
+		end)
+
+		it("SHOULD render ControlState.Disabled with no issues", function()
+			local folder, cleanup = runTest({
+				[TextButton.debugProps.controlState] = ControlState.Disabled,
+			})
+
+			expect(isShowingBackground(folder)).to.equal(false)
+			expect(isTextTransparent(folder)).to.equal(true)
+
+			cleanup()
 		end)
 	end)
 end

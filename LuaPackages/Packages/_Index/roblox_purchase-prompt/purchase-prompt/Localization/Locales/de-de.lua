@@ -147,4 +147,7 @@ return{
 	["CoreScripts.PurchasePrompt.ConfirmPurchase.BuyRobuxV2"] = [[Robux kaufen]],
 	["CoreScripts.PurchasePrompt.PurchaseDetails.BalanceFutureV2"] = [[Dein Kontostand nach dieser Transaktion beträgt {BALANCE_FUTURE} Robux]],
 	["CoreScripts.PurchasePrompt.PurchaseFailed.NotEnoughRobuxNoUpsell"] = [[Dieser Gegenstand kostet mehr Robux, als dir zur Verfügung stehen. ]],
+	["CoreScripts.PurchasePrompt.Button.PremiumOnly"] = [[Nur Premium]],
+	["CoreScripts.PurchasePrompt.PurchaseFailed.PremiumOnly"] = [[Du musst Roblox Premium abonniert haben, um diesen Gegenstand zu kaufen.]],
+	["CoreScripts.PurchasePrompt.PurchaseDetails.AgeLegalText"] = [[Nur Erwachsene dürfen Käufe auf Roblox tätigen. Ich bestätige, dass ich mindestens 18 Jahre alt bin. Ich bin entweder der Besitzer dieses Kontos oder ein Elternteil oder Erziehungsberechtigter des Besitzers. Ich erlaube diesen Kauf und stimme den Nutzungsbedingungen zu.]],
 }

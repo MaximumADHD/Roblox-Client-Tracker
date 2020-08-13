@@ -25,6 +25,10 @@ function CoreInterface.subscribeToInputBegan(callback)
 	return UserInputService.InputBegan:Connect(callback)
 end
 
+function CoreInterface.subscribeToInputEnded(callback)
+	return UserInputService.InputEnded:Connect(callback)
+end
+
 --[[
 	The PlayerGuiInterface will be used for focus trees mounted anywhere under a
 	`PlayerGui` instance
@@ -43,10 +47,11 @@ function PlayerGuiInterface.subscribeToSelectionChanged(callback)
 	return GuiService:GetPropertyChangedSignal("SelectedObject"):Connect(callback)
 end
 
--- This function isn't distinct from the core counterpart, but it's still very
--- useful to mock. For the PlayerGuiInterface, we simply reuse the same function
--- as the CoreInterface
+-- These functions aren't distinct from their core counterparts, but are still
+-- very useful to mock. For the PlayerGuiInterface, we simply reuse the same
+-- function as the CoreInterface
 PlayerGuiInterface.subscribeToInputBegan = CoreInterface.subscribeToInputBegan
+PlayerGuiInterface.subscribeToInputEnded = CoreInterface.subscribeToInputEnded
 
 return function(instance)
 	if instance:IsDescendantOf(CoreGui) then
