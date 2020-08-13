@@ -268,7 +268,9 @@ Studio.Toolbox.AssetConfigPreview.Format,Acceptable files: {formatString},Max: {
  ,Sound Length,사운드 길이,声音长度,Studio.Toolbox.General.SearchTagLength,length:
  ,length:,길이:,长度：,Studio.Toolbox.AssetConfigUpload.IDCopied,ID Copied!
  ,ID Copied!,ID 복사 완료!,ID 已复制！,Studio.Toolbox.AssetConfigAnimation.FilterID,Filter ID
- ,Filter ID,필터 ID,过滤 ID,Studio.Toolbox.General.PremiumBenefits,Add Premium benefits
+ ,Filter ID,필터 ID,过滤 ID,Studio.Toolbox.AssetConfigAnimation.AnimationID,Animation ID
+ , , , ,Studio.Toolbox.AssetConfigAnimation.InvalidAnimationID,Invalid Animation ID
+ , , , ,Studio.Toolbox.General.PremiumBenefits,Add Premium benefits
  ,Add Premium benefits,Premium 혜택 추가,添加 Premium 特权,Studio.Toolbox.General.CategoryMyVideos,My Videos
  ,My Videos,내 비디오,我的视频,Studio.Toolbox.General.CategoryVideos,Videos
  ,Videos,비디오,视频,Studio.Toolbox.AssetUploadResult.Success,Successfully submitted!

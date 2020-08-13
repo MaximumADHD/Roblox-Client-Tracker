@@ -19,3 +19,4 @@ Studio.ConvertToPackage.Action.Cancel, , ,Cancel
 Studio.ConvertToPackage.Action.Close, , ,Close
 Studio.ConvertToPackage.Action.Discard, , ,Discard
 Studio.ConvertToPackage.Action.Submit, , ,Submit
+Studio.ConvertToPackage.Action.Converting, , ,Converting

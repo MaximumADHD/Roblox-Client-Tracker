@@ -102,37 +102,41 @@ Item {
             return;
         }
 
-		// if games is archived then show only restore option
-		if (model.isArchived) {
-			contextDropdownListModel.append({"text": qsTr("Studio.App.ContextMenuDropdown.Restore"), "action": "restore_game"});
-			return;
-		}
+        // if games is archived then show only restore option
+        if (model.isArchived) {
+            contextDropdownListModel.append({"text": qsTr("Studio.App.ContextMenuDropdown.Restore"), "action": "restore_game"});
+            return;
+        }
 
         var canConfigure = model.canConfigure;
         var isLocalFile = model.isLocalFile;
         var gameHasRootPlace = (model.publishedRootPlaceId > 0);
 
-		var isPublic = false;
-		var isDraft = false;
-		if(loginManager.getFFlagStudioSaveToCloudV3())
-		{
-			isPublic = (model.privacyState === "Public");
-			isDraft = (model.privacyState === "Draft");
-		}
-		else
-		{
-			isPublic = model.DEPRECATED_isActive;
-		}
+        var isPublic = false;
+        var isDraft = false;
+        if(loginManager.getFFlagStudioSaveToCloudV3())
+        {
+            isPublic = (model.privacyState === "Public");
+            isDraft = (model.privacyState === "Draft");
+        }
+        else
+        {
+            isPublic = model.DEPRECATED_isActive;
+        }
         var name = model.name;
         var canShare = false;
-		if(loginManager.getFFlagStudioSaveToCloudV3())
-		{
-			canShare = gameHasRootPlace && !isDraft;
-		}
-		else
-		{
-			canShare = (gameHasRootPlace || isLocalFile);
-		}
+        if(loginManager.getFFlagStudioSaveToCloudV3())
+        {
+            canShare = gameHasRootPlace && !isDraft;
+        }
+        else if(loginManager.getFFlagStudioRemoveShareOptionFromLocalFiles())
+        {
+            canShare = gameHasRootPlace;
+        }
+        else
+        {
+            canShare = (gameHasRootPlace || isLocalFile);
+        }
         var teamCreateEnabled = model.isTeamCreateEnabled;
 
         if (canShare) {
@@ -155,13 +159,13 @@ Item {
         }
 
         if (canConfigure && gameHasRootPlace) {
-			if(loginManager.getFFlagStudioSaveToCloudV3()){
-				if(!isDraft){
-					contextDropdownListModel.append({"text": qsTr(isPublic ? "Studio.App.ContextMenuDropdown.MakePrivate" : "Studio.App.ContextMenuDropdown.MakePublic"), "action": "toggle_active"});
-				}
-			} else {
-			    contextDropdownListModel.append({"text": qsTr(isPublic ? "Studio.App.ContextMenuDropdown.MakePrivate" : "Studio.App.ContextMenuDropdown.MakePublic"), "action": "toggle_active"});
-			}
+            if(loginManager.getFFlagStudioSaveToCloudV3()){
+                if(!isDraft){
+                    contextDropdownListModel.append({"text": qsTr(isPublic ? "Studio.App.ContextMenuDropdown.MakePrivate" : "Studio.App.ContextMenuDropdown.MakePublic"), "action": "toggle_active"});
+                }
+            } else {
+                contextDropdownListModel.append({"text": qsTr(isPublic ? "Studio.App.ContextMenuDropdown.MakePrivate" : "Studio.App.ContextMenuDropdown.MakePublic"), "action": "toggle_active"});
+            }
             contextDropdownListModel.append({"text": qsTr("Studio.App.ContextMenuDropdown.Archive"), "action": "archive_game"});
         }
 
@@ -287,14 +291,14 @@ Item {
             id: contextDropdownRectangleOuter
             anchors.fill: parent
             radius: 3
-			color: userPreferences.theme.style("Menu background")
+            color: userPreferences.theme.style("Menu background")
 
             Rectangle {
                 id: contextDropdownRectangleInner
                 anchors.fill: parent
                 anchors.topMargin: container.marginSize
                 anchors.bottomMargin: container.marginSize
-				color: userPreferences.theme.style("Menu background")
+                color: userPreferences.theme.style("Menu background")
 
                 ListView {
                     id: contextDropdownListView
@@ -347,7 +351,7 @@ Item {
                             anchors.top: parent.top
                             anchors.bottom: parent.bottom
                             color: userPreferences.theme.style("CommonStyle currentItemMarker")
-							visible: true
+                            visible: true
                         }
                     }
                 }

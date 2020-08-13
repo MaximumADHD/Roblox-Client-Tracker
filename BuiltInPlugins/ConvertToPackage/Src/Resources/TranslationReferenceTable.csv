@@ -19,3 +19,4 @@ Studio.ConvertToPackage.Action.Cancel,Cancel, ,취소,取消
 Studio.ConvertToPackage.Action.Close,Close, ,닫기,关闭
 Studio.ConvertToPackage.Action.Discard,Discard, ,제거,丢弃
 Studio.ConvertToPackage.Action.Submit,Submit, ,제출,提交
+Studio.ConvertToPackage.Action.Converting,Converting, ,변환 중,转换中

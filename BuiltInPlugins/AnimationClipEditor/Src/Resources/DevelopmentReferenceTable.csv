@@ -105,6 +105,7 @@ Studio.AnimationClipEditor.RigErrors.CircularRig, , ,This rig contains a cycle b
 Studio.AnimationClipEditor.RigErrors.NoAnimationController, , ,This rig does not have an animation controller or humanoid. Please create one.
 Studio.AnimationClipEditor.EditorErrors.OpenedWhileRunning, , ,Animation Editor cannot be used while game is running!
 Studio.AnimationClipEditor.Toast.ClippedWarning, , ,Warning: An animation cannot exceed 30 seconds in length. Excess keyframes have been removed.
+Studio.AnimationClipEditor.Toast.InvalidAnimation, , ,Animation was not imported. You do not have ownership of animation with the selected ID.
 Studio.AnimationClipEditor.Toast.MaxFramerateWarning, , ,"Warning: This animation exceeds the maximum 120 fps frame rate. Some keys are not aligned to frames, they will snap to frames when you edit them."
 Studio.AnimationClipEditor.Toast.QuantizeWarning, , ,"Warning: Some keys of your animation are not aligned to frames, they will snap to frames when you edit them."
 Studio.AnimationClipEditor.Toast.AlignNow, , ,Align all keys now

@@ -500,6 +500,36 @@
       </parameters>
       <description>Splits a string into parts based on the defined separator character(s), returning a table of ordered results. The default separator is comma (,).</description>
     </Function>
+    <Function name="pack" static="true">
+      <returns>
+        <string></string>
+      </returns>
+      <parameters>
+        <string name="fmt"></string>
+        <value name="..."></value>
+      </parameters>
+      <description>Returns a binary string containing the values packed (that is, serialized in binary form) according to the format string fmt.</description>
+    </Function>
+    <Function name="packsize" static="true">
+      <returns>
+        <number></number>
+      </returns>
+      <parameters>
+        <string name="fmt"></string>
+      </parameters>
+      <description>Returns the size of a string resulting from string.pack with the given format. The format string cannot have the variable-length options 's' or 'z'.</description>
+    </Function>
+    <Function name="unpack" static="true">
+      <returns>
+        <value name="..."></value>
+      </returns>
+      <parameters>
+        <string name="fmt"></string>
+        <string name="s"></string>
+        <number name="pos" optional="true"></number>
+      </parameters>
+      <description>Returns the values packed in string s (see string.pack) according to the format string fmt. An optional pos marks where to start reading in s (default is 1). After the read values, this function also returns the index of the first unread byte in s.</description>
+    </Function>
   </LuaLibrary>
   
   <LuaLibrary name="table">
@@ -847,6 +877,12 @@
         <number></number>
       </returns>
       <description>Returns the number of seconds since the epoch (1 January 1970, 00:00:00)</description>
+    </Function>
+    <Function name="clock" static="true">
+      <returns>
+        <number></number>
+      </returns>
+      <description>Returns the amount of CPU time used by Lua in seconds. This value has high precision, about 1 microsecond, and is intended for use in benchmarking.</description>
     </Function>
     <Function name="difftime" static="true">
       <returns>

@@ -531,6 +531,7 @@ RBX
 	ScriptEditor
 	{
 		CmdConfig
+		CmdDeleteToStartOfLine
 		CmdDocumentFormatting
 		CmdFoldAll
 		CmdFoldToggle
@@ -539,15 +540,20 @@ RBX
 		CmdInsertText
 		CmdMoveLinesDown
 		CmdMoveLinesUp
+		CmdNewlineAbove
+		CmdNewlineBelow
 		CmdRangeFormatting
 		CmdRepeat
 		CmdSelect
+		CmdToggleComment
 		CmdUnfoldAll
 		CmdUnindentSelection
-		ColorPreviewWidget
 		GotoLineDialog
+		HighlightProvider
 		QtLanguageClient
 		ScriptEditorCmdBase
+		ScriptHighlightCache
+		ScriptHighlighter
 		ScriptingCmdBase
 		ScriptingCommands
 		ScriptingManager
@@ -1018,7 +1024,6 @@ RBX
 	LatchedSignalBase
 	LayoutDefault
 	LayoutGrid
-	LayoutInline
 	LayoutList
 	LayoutNode
 	LayoutPage
@@ -1216,6 +1221,7 @@ RBX
 	Service
 	ServiceInstance
 	ServiceProvider
+	SessionizedEventIngest
 	SessionManager
 	SessionNode
 	SessionService
@@ -1246,6 +1252,7 @@ RBX
 	SocialService
 	SolidModelContentProvider
 	SoundJobStudio
+	SoundOutput
 	SpanningEdge
 	SpanningNode
 	SpanningTree
@@ -1258,6 +1265,7 @@ RBX
 	SpotLight
 	StandalonePluginScripts
 	StandardEventIngest
+	StandardEventIngest_DEPRECATED
 	StandardPages
 	StarterCharacterScripts
 	StarterGear
@@ -1327,7 +1335,6 @@ RBX
 	UIGradient
 	UIGridLayout
 	UIGridStyleLayout
-	UIInlineLayout
 	UILayout
 	UIListLayout
 	UIPadding

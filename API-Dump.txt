@@ -1729,7 +1729,6 @@ Class NetworkPeer : Instance [NotCreatable] [NotBrowsable]
 Class NetworkClient : NetworkPeer [NotCreatable] [Service] [NotReplicated]
 	Event NetworkClient.ConnectionAccepted(string peer, Instance replicator)
 	Event NetworkClient.ConnectionFailed(string peer, int code, string reason)
-	Event NetworkClient.ConnectionRejected(string peer)
 Class NetworkServer : NetworkPeer [NotCreatable] [Service] [NotReplicated]
 Class NetworkReplicator : Instance [NotCreatable] [NotReplicated]
 	Function Instance NetworkReplicator:GetPlayer()
@@ -1992,7 +1991,6 @@ Class Workspace : WorldRoot [NotCreatable] [Service]
 	Property int Workspace.StreamingMinRadius  [NotScriptable]
 	Property Enum<StreamingPauseMode> Workspace.StreamingPauseMode  [NotScriptable]
 	Property int Workspace.StreamingTargetRadius  [NotScriptable]
-	Property bool Workspace.TemporaryLegacyPhysicsSolverOverride  [NotReplicated] [NotScriptable]
 	Property Instance Workspace.Terrain  [ReadOnly] [NotReplicated]
 	Property Class<Camera> Workspace.CurrentCamera  [NotReplicated]
 	Property double Workspace.DistributedGameTime  [NotReplicated]
@@ -2233,8 +2231,8 @@ Class Players : Instance [NotCreatable] [Service]
 	Property int Players.PreferredPlayersInternal {LocalUserSecurity}
 	Property float Players.RespawnTime
 	Function void Players:Chat(string message) {PluginSecurity}
-	Function Instance Players:CreateHumanoidModelFromDescription(Instance description, Enum<HumanoidRigType> rigType) {RobloxScriptSecurity} [Yields]
-	Function Instance Players:CreateHumanoidModelFromUserId(int64 userId) {RobloxScriptSecurity} [Yields]
+	Function Instance Players:CreateHumanoidModelFromDescription(Instance description, Enum<HumanoidRigType> rigType) [Yields]
+	Function Instance Players:CreateHumanoidModelFromUserId(int64 userId) [Yields]
 	Function Instance Players:CreateLocalPlayer() {LocalUserSecurity}
 	Function Instance Players:GetCharacterAppearanceAsync(int64 userId) [Yields]
 	Function Dictionary Players:GetCharacterAppearanceInfoAsync(int64 userId) [Yields]
@@ -2837,7 +2835,6 @@ Class Studio : Instance [NotCreatable] [Service] [NotReplicated]
 	Property float Studio.Camera Shift Speed
 	Property float Studio.Camera Speed
 	Property bool Studio.Camera Zoom to Mouse Position
-	Property int Studio.Device Pairing Code
 	Property QDir Studio.DefaultScriptFileDir
 	Property QDir Studio.LocalAssetsFolder {✏️RobloxScriptSecurity}
 	Property bool Studio.OverrideCoreScripts {✏️RobloxScriptSecurity}
@@ -2866,10 +2863,10 @@ Class Studio : Instance [NotCreatable] [Service] [NotReplicated]
 	Property Color3 Studio.Select/Hover Color
 	Property bool Studio.Auto Closing Brackets
 	Property bool Studio.Auto Closing Quotes
-	Property bool Studio.Auto Indent
 	Property Enum<AutoIndentRule> Studio.Auto Indent Rule
 	Property bool Studio.Enable Autocomplete
 	Property QFont Studio.Font
+	Property bool Studio.Format On Paste
 	Property bool Studio.Format On Type
 	Property bool Studio.Highlight Current Line
 	Property bool Studio.Indent Using Spaces
@@ -2882,6 +2879,8 @@ Class Studio : Instance [NotCreatable] [Service] [NotReplicated]
 	Property Color3 Studio.Built-in Function Color
 	Property Color3 Studio.Comment Color
 	Property Color3 Studio.Current Line Highlight Color
+	Property Color3 Studio.Debugger Current Line Color
+	Property Color3 Studio.Debugger Error Line Color
 	Property Color3 Studio.Error Color
 	Property Color3 Studio.Find Selection Background Color
 	Property Color3 Studio.Keyword Color
@@ -2960,6 +2959,7 @@ Class StudioService : Instance [NotCreatable] [Service] [NotReplicated]
 	Event StudioService.OnConvertToPackageResult(bool isSuccessful, string errorMessage) {RobloxScriptSecurity}
 	Event StudioService.OnImportFromRoblox() {RobloxScriptSecurity}
 	Event StudioService.OnOpenConvertToPackagePlugin(Objects instances, string name) {RobloxScriptSecurity}
+	Event StudioService.OnOpenGameSettings(string pageIdentifier) {RobloxScriptSecurity}
 	Event StudioService.OnOpenManagePackagePlugin(int64 userId, int64 assetId) {RobloxScriptSecurity}
 	Event StudioService.OnPluginInstalledFromToolbox() {RobloxScriptSecurity}
 	Event StudioService.OnPluginInstalledFromWeb(string pluginId) {RobloxScriptSecurity}
@@ -3137,9 +3137,6 @@ Class UIGridLayout : UIGridStyleLayout
 	Property Enum<StartCorner> UIGridLayout.StartCorner
 	Property Vector2 UIGridLayout.AbsoluteCellCount  [ReadOnly] [NotReplicated]
 	Property Vector2 UIGridLayout.AbsoluteCellSize  [ReadOnly] [NotReplicated]
-Class UIInlineLayout : UIGridStyleLayout
-	Property UDim2 UIInlineLayout.InlinePadding
-	Property Enum<InlineAlignment> UIInlineLayout.InlineAlignment
 Class UIListLayout : UIGridStyleLayout
 	Property UDim UIListLayout.Padding
 Class UIPageLayout : UIGridStyleLayout
@@ -4066,10 +4063,6 @@ Enum InitialDockState
 	EnumItem InitialDockState.Left : 2
 	EnumItem InitialDockState.Right : 3
 	EnumItem InitialDockState.Float : 4
-Enum InlineAlignment
-	EnumItem InlineAlignment.Bottom : 0
-	EnumItem InlineAlignment.Center : 1
-	EnumItem InlineAlignment.Top : 2
 Enum InputType
 	EnumItem InputType.NoInput : 0
 	EnumItem InputType.Constant : 12

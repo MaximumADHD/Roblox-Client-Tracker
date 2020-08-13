@@ -117,8 +117,6 @@ Studio.App.BetaFeatures.TexturePacksDescription,,Unlocks PBR texture properties 
 Studio.App.BetaFeatures.TexturePacksTitle,,Advanced SurfaceAppearance Textures,Advanced SurfaceAppearance Textures
 Studio.App.BetaFeatures.TryCoolFeatures,,Try out cool new Studio features! Your feedback is invaluable to us as we move forward towards building a powerful imagination platform.,Try out cool new Studio features! Your feedback is invaluable to us as we move forward towards building a powerful imagination platform.
 Studio.App.BetaFeatures.TryCoolFeaturesWithWarning,,Try out cool new Studio features before they are released to everyone! Please be aware that Beta features could be unstable. Your feedback is invaluable to us as we move towards building the imagination platform.,Try out cool new Studio features before they are released to everyone! Please be aware that Beta features could be unstable. Your feedback is invaluable to us as we move towards building the imagination platform.
-Studio.App.BetaFeatures.UICornerDescription,,A UIComponent that modifies the shape of corners of parent GuiObject.,A UIComponent that modifies the shape of corners of parent GuiObject.
-Studio.App.BetaFeatures.UICornerTitle,,UICorner Beta,UICorner Beta
 Studio.App.BetaFeatures.WhatsNewWindowDescription,,Open up a scrolling window that shows all of the recent updates to Roblox Studio,Open up a scrolling window that shows all of the recent updates to Roblox Studio
 Studio.App.BetaFeatures.WhatsNewWindowTitle,,New Updates Window,New Updates Window
 Studio.App.BreakpointConditionEditDialog.BreakpointCondition,,Breakpoint Condition,Breakpoint Condition
@@ -197,7 +195,6 @@ Studio.App.Category.Camera,,Camera,Camera
 Studio.App.Category.Configuration,,Configuration,Configuration
 Studio.App.Category.Data,,Data,Data
 Studio.App.Category.Debug,,Debug,Debug
-Studio.App.Category.DeviceDeployment,,Device Deployment,Device Deployment
 Studio.App.Category.Diagnostics,,Diagnostics,Diagnostics
 Studio.App.Category.Directories,,Directories,Directories
 Studio.App.Category.Display,,Display,Display
@@ -868,6 +865,8 @@ been invited to edit","Games that you have
 been invited to edit"
 Studio.App.MyGamesPage.GroupGames,,Group Games,Group Games
 Studio.App.MyGamesPage.SharedWithMe,,Shared With Me,Shared With Me
+Studio.App.MyWatchTreeWidget.DeleteAll,,Delete All,Delete All
+Studio.App.MyWatchTreeWidget.DeleteWatch,,Delete Watch,Delete Watch
 Studio.App.OSVersionWarning.MacOS109,,Beginning in November 2019 we will be discontinuing support for MacOS 10.9. Please upgrade to MacOS 10.10+ to continue to use Roblox Studio.,Beginning in November 2019 we will be discontinuing support for MacOS 10.9. Please upgrade to MacOS 10.10+ to continue to use Roblox Studio.
 Studio.App.OnPublishDialog.BasicSettings,,Basic Settings,Basic Settings
 Studio.App.OnPublishDialog.Description,,Description:,Description:
@@ -1004,10 +1003,11 @@ Studio.App.Property.DataGCRate,,Data GC Rate,Data GC Rate
 Studio.App.Property.DataModel,,Data Model,Data Model
 Studio.App.Property.DataMtuAdjust,,Data Mtu Adjust,Data Mtu Adjust
 Studio.App.Property.DataSendRate,,Data Send Rate,Data Send Rate
+Studio.App.Property.DebuggerCurrentLineColor,The color of the current line we are stopped on in the debugger.,Debugger Current Line Color,Debugger Current Line Color
+Studio.App.Property.DebuggerErrorLineColor,The color of the line we have stopped on in the debugger because it produced an error.,Debugger Error Line Color,Debugger Error Line Color
 Studio.App.Property.DefaultScriptFileDir,,Default Script File Dir,Default Script File Dir
 Studio.App.Property.DefaultWaitTime,,Default Wait Time,Default Wait Time
 Studio.App.Property.DeprecatedObjectsShown,,Deprecated Objects Shown,Deprecated Objects Shown
-Studio.App.Property.DevicePairingCode,,Device Pairing Code,Device Pairing Code
 Studio.App.Property.DisableAccuratePlaySolo,,Disable Accurate Play Solo,Disable Accurate Play Solo
 Studio.App.Property.DisableCSGv2,,Disable CSGv2,Disable CSGv2
 Studio.App.Property.DragMultiplePartsAsSinglePart,,Drag Multiple Parts As Single Part,Drag Multiple Parts As Single Part
@@ -1021,6 +1021,7 @@ Studio.App.Property.ErrorReporting,,Error Reporting,Error Reporting
 Studio.App.Property.ExportMergeByMaterial,,Export Merge By Material,Export Merge By Material
 Studio.App.Property.FindSelectionBackgroundColor,,Find Selection Background Color,Find Selection Background Color
 Studio.App.Property.Font,,Font,Font
+Studio.App.Property.FormatOnPaste,,Format On Paste,Format On Paste
 Studio.App.Property.FormatOnType,,Format On Type,Format On Type
 Studio.App.Property.FrameRateManager,,Frame Rate Manager,Frame Rate Manager
 Studio.App.Property.GfxCard,,Gfx Card,Gfx Card
@@ -1049,6 +1050,7 @@ Studio.App.Property.MatchingWordBackgroundColor,,Matching Word Background Color,
 Studio.App.Property.MaximumOutputLines,,Maximum Output Lines,Maximum Output Lines
 Studio.App.Property.MaximumTableDepth,,Maximum Table Depth,Maximum Table Depth
 Studio.App.Property.MeshCacheSize,,Mesh Cache Size,Mesh Cache Size
+Studio.App.Property.MeshPartDetailLevel,,Mesh Detail Level,Mesh Detail Level
 Studio.App.Property.NetworkOwnerRate,,Network Owner Rate,Network Owner Rate
 Studio.App.Property.NumberColor,,Number Color,Number Color
 Studio.App.Property.OnlyPlayAudioFromWindowInFocus,,Only Play Audio from Window in Focus,Only Play Audio from Window in Focus
@@ -1265,6 +1267,7 @@ Studio.App.PropertyTooltip.AutoClosingQuotes,,Automatically insert a closing quo
 Studio.App.PropertyTooltip.AutoIndentRule,,Off: No automatic indentation. Relative: Auto-indent relative to the current line. Absolute: Auto-indent globally.,Off: No automatic indentation. Relative: Auto-indent relative to the current line. Absolute: Auto-indent globally.
 Studio.App.PropertyTooltip.EnableAutocomplete,,Enable code suggestions to show up while typing.,Enable code suggestions to show up while typing.
 Studio.App.PropertyTooltip.Font,,"Change the text font family, typeface, and size.","Change the text font family, typeface, and size."
+Studio.App.PropertyTooltip.FormatOnPaste,,Automatically format the code after pasting.,Automatically format the code after pasting.
 Studio.App.PropertyTooltip.FormatOnType,,Automatically format the code after typing.,Automatically format the code after typing.
 Studio.App.PropertyTooltip.IndentUsingSpaces,,Prefer indent with spaces over tabs. This will affect Auto Indent and pressing Tab behavior.,Prefer indent with spaces over tabs. This will affect Auto Indent and pressing Tab behavior.
 Studio.App.PropertyTooltip.Rulers,,Vertical lines drawn at the specified column numbers. These can be used as a guide to code length limits.,Vertical lines drawn at the specified column numbers. These can be used as a guide to code length limits.
@@ -1296,6 +1299,10 @@ Studio.App.RBXMainWindow.15StudGrid,,1/5 Stud Grid,1/5 Stud Grid
 Studio.App.RBXMainWindow.3DGrid,,3D Grid,3D Grid
 Studio.App.RBXMainWindow.AboutRobloxStudio,,About Roblox Studio,About Roblox Studio
 Studio.App.RBXMainWindow.ActiveInstancesInOutputWindow,,Displays Roblox Studio Active Instances in Output Window,Displays Roblox Studio Active Instances in Output Window
+Studio.App.RBXMainWindow.AddNewlineAbove,,Insert Newline Above,Insert Newline Above
+Studio.App.RBXMainWindow.AddNewlineAboveToolTip,,Insert a newline above the current line,Insert a newline above the current line
+Studio.App.RBXMainWindow.AddNewlineBelow,,Insert Newline Below,Insert Newline Below
+Studio.App.RBXMainWindow.AddNewlineBelowToolTip,,Insert a newline below the current line,Insert a newline below the current line
 Studio.App.RBXMainWindow.AddRemoveAndModifyTerrain,,"Add, remove, and modify terrain","Add, remove, and modify terrain"
 Studio.App.RBXMainWindow.AddUIElements,,Add UI elements,Add UI elements
 Studio.App.RBXMainWindow.AddWatch,,Add Watch,Add Watch
@@ -1347,6 +1354,8 @@ Studio.App.RBXMainWindow.CutSelectionToClipboard,,Cut the selection and put it o
 Studio.App.RBXMainWindow.Debugger,,Debugger,Debugger
 Studio.App.RBXMainWindow.DeleteBreakpoint,,Delete Breakpoint,Delete Breakpoint
 Studio.App.RBXMainWindow.DeleteContextDependentBreakpoint,,Delete Contextual Breakpoint,Delete Contextual Breakpoint
+Studio.App.RBXMainWindow.DeleteToStartOfLine,,Delete to start of line,Delete to start of line
+Studio.App.RBXMainWindow.DeleteToStartOfLineToolTip,,Delete to the start of the current line,Delete to the start of the current line
 Studio.App.RBXMainWindow.DiffNext,,Diff Next,Diff Next
 Studio.App.RBXMainWindow.DiffPrevious,,Diff Previous,Diff Previous
 Studio.App.RBXMainWindow.DisableBreakpoint,,Disable Breakpoint,Disable Breakpoint
@@ -1356,6 +1365,9 @@ Studio.App.RBXMainWindow.DownloadACopyElps,,Download a Copy...,Download a Copy..
 Studio.App.RBXMainWindow.DownloadActiveDocument,,Download a copy of the active document,Download a copy of the active document
 Studio.App.RBXMainWindow.Drafts,,Drafts,Drafts
 Studio.App.RBXMainWindow.Drag,,Drag,Drag
+Studio.App.RBXMainWindow.DraggerModeGeometric,,Geometric,Geometric
+Studio.App.RBXMainWindow.DraggerModeLabel,,Mode:,Mode:
+Studio.App.RBXMainWindow.DraggerModePhysical,,Physical,Physical
 Studio.App.RBXMainWindow.Dropper,,Dropper,Dropper
 Studio.App.RBXMainWindow.Dummy,,dummy,dummy
 Studio.App.RBXMainWindow.Duplicate,,Duplicate,Duplicate
@@ -1397,6 +1409,7 @@ Studio.App.RBXMainWindow.FormatWholeDocument,,Format whole document,Format whole
 Studio.App.RBXMainWindow.FullScreen,,Full Screen,Full Screen
 Studio.App.RBXMainWindow.Game,,Game,Game
 Studio.App.RBXMainWindow.GameExplorer,,Game Explorer,Game Explorer
+Studio.App.RBXMainWindow.GameSettings,,Game Settings...,Game Settings...
 Studio.App.RBXMainWindow.GetLatestForSelectedPackages,,Get Latest For Selected Packages,Get Latest For Selected Packages
 Studio.App.RBXMainWindow.GetLatestPackage,,Get Latest Package,Get Latest Package
 Studio.App.RBXMainWindow.GlueSurface,,Glue Surface,Glue Surface
@@ -1545,8 +1558,10 @@ Studio.App.RBXMainWindow.RotateTool,,Rotate Tool,Rotate Tool
 Studio.App.RBXMainWindow.Run,,Run,Run
 Studio.App.RBXMainWindow.SaveActiveDocumentToRoblox,,Save Active Document to Roblox,Save Active Document to Roblox
 Studio.App.RBXMainWindow.SaveActiveDocumentToRobloxAs,,Save Active Document to Roblox As,Save Active Document to Roblox As
+Studio.App.RBXMainWindow.SaveAndReloadAllPlugins,,Save and Reload All Plugins in Debugger,Save and Reload All Plugins in Debugger
+Studio.App.RBXMainWindow.SaveAndReloadAllPluginsTooltip,,Save all plugins in debugger back to disk. Stop execution of those plugins. Reload them from disk.,Save all plugins in debugger back to disk. Stop execution of those plugins. Reload them from disk.
 Studio.App.RBXMainWindow.SaveAndReloadPlugin,,Save and Reload Plugin,Save and Reload Plugin
-Studio.App.RBXMainWindow.SaveAndReloadPluginTooltip,,Save Plugin back to disk. Stop plugin exection. Reload from disk.,Save Plugin back to disk. Stop plugin exection. Reload from disk.
+Studio.App.RBXMainWindow.SaveAndReloadPluginTooltip,,Save plugin back to disk. Stop plugin execution. Reload from disk.,Save plugin back to disk. Stop plugin execution. Reload from disk.
 Studio.App.RBXMainWindow.SaveAsCSVElps,,Save as CSV...,Save as CSV...
 Studio.App.RBXMainWindow.SaveAsElps,,Save As...,Save As...
 Studio.App.RBXMainWindow.SaveAsLocalPluginElps,,Save as Local Plugin...,Save as Local Plugin...
@@ -1602,6 +1617,7 @@ Studio.App.RBXMainWindow.StepOut,,Step Out,Step Out
 Studio.App.RBXMainWindow.StepOver,,Step Over,Step Over
 Studio.App.RBXMainWindow.StopsAndReloadsTheDocument,,Stops and reloads the document,Stops and reloads the document
 Studio.App.RBXMainWindow.StoreScriptCloud,,Store this script in the cloud so that you can easily re-use it,Store this script in the cloud so that you can easily re-use it
+Studio.App.RBXMainWindow.StudioSettingsElps,,Studio Settings...,Studio Settings...
 Studio.App.RBXMainWindow.SummaryStats,,Summary Stats,Summary Stats
 Studio.App.RBXMainWindow.SwapAttachments,,Swap Attachments,Swap Attachments
 Studio.App.RBXMainWindow.SwitchBothAttachments,,Swap both attachments on the constraint,Swap both attachments on the constraint
@@ -1946,6 +1962,8 @@ Studio.App.RobloxRibbonMainWindow.Block,,Block,Block
 Studio.App.RobloxRibbonMainWindow.Brick,,Brick,Brick
 Studio.App.RobloxRibbonMainWindow.CheckCollisionsDragging,,Check for collisions when dragging,Check for collisions when dragging
 Studio.App.RobloxRibbonMainWindow.Cleanup,,Cleanup,Cleanup
+Studio.App.RobloxRibbonMainWindow.ClearPivot,,Clear Pivot,Clear Pivot
+Studio.App.RobloxRibbonMainWindow.ClearPivotTooltip,,Clear the pivot for the selected object,Clear the pivot for the selected object
 Studio.App.RobloxRibbonMainWindow.ClickOnPartsToLockUnlock,,Click on parts to lock/unlock,Click on parts to lock/unlock
 Studio.App.RobloxRibbonMainWindow.ClientsAndServers,,Clients and Servers,Clients and Servers
 Studio.App.RobloxRibbonMainWindow.Clipboard,,Clipboard,Clipboard
@@ -1996,6 +2014,8 @@ Studio.App.RobloxRibbonMainWindow.DisplayGridMaterialOnParts,,Display grid mater
 Studio.App.RobloxRibbonMainWindow.DrawConstraintsAttWeldsTop,,"Draw constraints, attachments and welds on top","Draw constraints, attachments and welds on top"
 Studio.App.RobloxRibbonMainWindow.DrawOnTop,,Draw On Top,Draw On Top
 Studio.App.RobloxRibbonMainWindow.EditCollisionGroups,,Edit collision groups,Edit collision groups
+Studio.App.RobloxRibbonMainWindow.EditPivot,,Edit Pivot,Edit Pivot
+Studio.App.RobloxRibbonMainWindow.EditPivotTooltip,,Edit the point around which the selected object rotates and translates,Edit the point around which the selected object rotates and translates
 Studio.App.RobloxRibbonMainWindow.Effects,,Effects,Effects
 Studio.App.RobloxRibbonMainWindow.Emulation,,Emulation,Emulation
 Studio.App.RobloxRibbonMainWindow.Emulator,,Emulator,Emulator
@@ -2013,6 +2033,7 @@ Studio.App.RobloxRibbonMainWindow.FusePartsTogether,,Fuse parts together to make
 Studio.App.RobloxRibbonMainWindow.Fwd,,Fwd,Fwd
 Studio.App.RobloxRibbonMainWindow.GameSettings,,Game Settings,Game Settings
 Studio.App.RobloxRibbonMainWindow.Gameplay,,Gameplay,Gameplay
+Studio.App.RobloxRibbonMainWindow.GeometryTab,,Geometry,Geometry
 Studio.App.RobloxRibbonMainWindow.Glue,,Glue,Glue
 Studio.App.RobloxRibbonMainWindow.GoToNextChange,,Go to next change,Go to next change
 Studio.App.RobloxRibbonMainWindow.GoToPreviousChange,,Go to previous change,Go to previous change
@@ -2068,6 +2089,7 @@ Studio.App.RobloxRibbonMainWindow.Part,,Part,Part
 Studio.App.RobloxRibbonMainWindow.Parts,,Parts,Parts
 Studio.App.RobloxRibbonMainWindow.PasteItemInClipboard,,Paste item in clipboard,Paste item in clipboard
 Studio.App.RobloxRibbonMainWindow.Physics,,Physics,Physics
+Studio.App.RobloxRibbonMainWindow.PivotGroup,,Pivot,Pivot
 Studio.App.RobloxRibbonMainWindow.PlaceConstraintAttachment,,Place a constraint or an attachment,Place a constraint or an attachment
 Studio.App.RobloxRibbonMainWindow.PlacePart,,Place part,Place part
 Studio.App.RobloxRibbonMainWindow.PlacePartWorkspace,,Place a part into the workspace,Place a part into the workspace
@@ -2102,6 +2124,16 @@ Studio.App.RobloxRibbonMainWindow.SelectColorAndApplyToParts,,Select color and a
 Studio.App.RobloxRibbonMainWindow.SelectMaterialAndApply,,Select material and apply to parts,Select material and apply to parts
 Studio.App.RobloxRibbonMainWindow.SelectTextElps,,Select text...,Select text...
 Studio.App.RobloxRibbonMainWindow.Service,,Service,Service
+Studio.App.RobloxRibbonMainWindow.SetPivotMenu,,Set pivot to...,Set pivot to...
+Studio.App.RobloxRibbonMainWindow.SetPivotMenuTooltip,,Set the pivot in a specific way,Set the pivot in a specific way
+Studio.App.RobloxRibbonMainWindow.SetPivotToGeometry,,Set to Geometry...,Set to Geometry...
+Studio.App.RobloxRibbonMainWindow.SetPivotToGeometryTooltip,,"Snap the pivot to a face, edge, or vertex","Snap the pivot to a face, edge, or vertex"
+Studio.App.RobloxRibbonMainWindow.SetPivotToModel,,Center on Model,Center on Model
+Studio.App.RobloxRibbonMainWindow.SetPivotToModelTooltip,,Center the pivot on the selected model,Center the pivot on the selected model
+Studio.App.RobloxRibbonMainWindow.SetPivotToPart,,Center on Part...,Center on Part...
+Studio.App.RobloxRibbonMainWindow.SetPivotToPartTooltip,,Center the pivot on the clicked part,Center the pivot on the clicked part
+Studio.App.RobloxRibbonMainWindow.SetPivotToSurface,,Set to Surface...,Set to Surface...
+Studio.App.RobloxRibbonMainWindow.SetPivotToSurfaceTooltip,,Set the pivot to exactly the clicked point,Set the pivot to exactly the clicked point
 Studio.App.RobloxRibbonMainWindow.Settings,,Settings,Settings
 Studio.App.RobloxRibbonMainWindow.Show,,Show,Show
 Studio.App.RobloxRibbonMainWindow.ShowConstraintDetails,,Show constraint details,Show constraint details
@@ -2238,6 +2270,7 @@ Studio.App.RobloxTeamCreateWidget.TurnOffTeamCreate,,Turn OFF Team Create,Turn O
 Studio.App.RobloxTextOutputWidget.ClearOutput,,Clear Output,Clear Output
 Studio.App.RobloxTextOutputWidget.Context,,Context,Context
 Studio.App.RobloxTextOutputWidget.Copy,,Copy,Copy
+Studio.App.RobloxTextOutputWidget.LuaTableIndicator1,,table: %1,table: %1
 Studio.App.RobloxTextOutputWidget.MaxTableDepthReached,,Max table depth reached,Max table depth reached
 Studio.App.RobloxTextOutputWidget.Message,,Message,Message
 Studio.App.RobloxTextOutputWidget.OpenLink,,Open link,Open link
@@ -2365,6 +2398,7 @@ Studio.App.StudioFlagEditor.ExportAsJson,,Export as JSON,Export as JSON
 Studio.App.StudioFlagEditor.ExportSuccess,,Export Success,Export Success
 Studio.App.StudioFlagEditor.ExportSuccess1,,Success! Overrides exported to %1.,Success! Overrides exported to %1.
 Studio.App.StudioFlagEditor.ExportsAllOverrides,,Exports all current overrides to a portable ClientAppSettings.json file.,Exports all current overrides to a portable ClientAppSettings.json file.
+Studio.App.StudioFlagEditor.FileIOError,,Unable to save. Try running RobloxStudio with admin permission.,Unable to save. Try running RobloxStudio with admin permission.
 Studio.App.StudioFlagEditor.FlagEditor,,Flag Editor,Flag Editor
 Studio.App.StudioFlagEditor.FlagsApplied,,Flag Overrides Applied,Flag Overrides Applied
 Studio.App.StudioFlagEditor.FlagsHaveBeenApplied,,"Flag overrides changes have been applied dynamically, studio behavior may be unstable until the next restart.","Flag overrides changes have been applied dynamically, studio behavior may be unstable until the next restart."
@@ -2399,6 +2433,7 @@ Studio.App.TeamCreate.ConfirmDisable,,Are you sure you want to turn Team Create 
 Studio.App.TeamCreate.ConfirmLossyDisable,,"Turning off team create may result in loss of work.
 Are you sure ?","Turning off team create may result in loss of work.
 Are you sure ?"
+Studio.App.TeamCreate.ConnectionResult1,,Connection Result: %1,Connection Result: %1
 Studio.App.TeamCreate.EditYourPlaceWithFriends,,"Edit your place with friends, see the updates instantly.","Edit your place with friends, see the updates instantly."
 Studio.App.TeamCreate.EnableTeamCreateEditPlaceTogether,,"Enable Team Create: edit your place together, see updates instantly.","Enable Team Create: edit your place together, see updates instantly."
 Studio.App.TeamCreate.FailedToTurnOnTeamCreate,,Failed to turn on Team Create.,Failed to turn on Team Create.
@@ -2409,6 +2444,7 @@ Studio.App.TeamCreate.LoadingGame,,Loading game,Loading game
 Studio.App.TeamCreate.LogInToEnableTeamCreateOptions,,Log in to enable Team Create options for your place.,Log in to enable Team Create options for your place.
 Studio.App.TeamCreate.MembersOfYourGroupCanWorkTogether,,"Members of your group can work together, see updates instantly. Contact your admin to enable Team Create.","Members of your group can work together, see updates instantly. Contact your admin to enable Team Create."
 Studio.App.TeamCreate.PermissionsMovedMessage1,,"We've moved permissions management to <a href=""%1"">Home &gt; Game Settings &gt; Permissions.</a>","We've moved permissions management to <a href=""%1"">Home &gt; Game Settings &gt; Permissions.</a>"
+Studio.App.TeamCreate.PlaceLauncherRequestStatus1,,Request Status Code: %1,Request Status Code: %1
 Studio.App.TeamCreate.PublishAndEnableteamCreateToBuildTogether,,Publish and enable Team Create to build this place together with your friends.,Publish and enable Team Create to build this place together with your friends.
 Studio.App.TeamCreate.PublishingCurrentPlace,,Publishing current place...,Publishing current place...
 Studio.App.TeamCreate.RemovingThisUserWillPrevent,,Removing this user will prevent them from accessing this Team Create game. Are you sure you want to do this?,Removing this user will prevent them from accessing this Team Create game. Are you sure you want to do this?
@@ -2511,8 +2547,8 @@ Studio.App.VersionHistoryDialog.VersionComparedWithFmt2,,Version %1 compared wit
 Studio.App.VersionHistoryDialog.ViewButtonText,,View,View
 Studio.App.VideoControl.RecordingStarted,,Video recording started,Video recording started
 Studio.App.VideoControl.RecordingStopped,,Video recording stopped,Video recording stopped
-Studio.App.WatchTreeWidget.DeleteAll,,Delete All,Delete All
-Studio.App.WatchTreeWidget.DeleteWatch,,Delete Watch,Delete Watch
+Studio.App.WatchWidget.CopyEntry,Copy Entry in the WatchWidget copies via context menu only the variable info from the column selected and row currently highlighted,Copy Entry,Copy Entry
+Studio.App.WatchWidget.CopyRow,Copy Row in the WatchWidget copies all the variable info via context menu,Copy Row,Copy Row
 Studio.App.WatchWidget.Expression,,Expression,Expression
 Studio.App.WatchWidget.Global,,Global,Global
 Studio.App.WatchWidget.Local,,Local,Local
