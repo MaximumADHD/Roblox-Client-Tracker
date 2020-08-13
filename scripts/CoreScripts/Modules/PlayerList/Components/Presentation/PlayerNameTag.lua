@@ -1,6 +1,8 @@
 local CorePackages = game:GetService("CorePackages")
+local CoreGui = game:GetService("CoreGui")
 
 local Roact = require(CorePackages.Roact)
+local RoactRodux = require(CorePackages.RoactRodux)
 local t = require(CorePackages.Packages.t)
 
 local Components = script.Parent.Parent
@@ -11,6 +13,10 @@ local WithLayoutValues = LayoutValues.WithLayoutValues
 local PlayerList = Components.Parent
 
 local isDisplayNameEnabled = require(PlayerList.isDisplayNameEnabled)
+
+local RobloxGui = CoreGui:WaitForChild("RobloxGui")
+local FFlagPlayerListFormattingUpdates = require(RobloxGui.Modules.Flags.FFlagPlayerListFormattingUpdates)
+local FFlagLeaderboardDontWaitOnChinaPolicy = require(PlayerList.Flags.FFlagLeaderboardDontWaitOnChinaPolicy)
 
 local PlayerNameTag = Roact.PureComponent:extend("PlayerNameTag")
 
@@ -30,6 +36,8 @@ PlayerNameTag.validateProps = t.strictInterface({
 		Size = t.number,
 		Font = t.enum(Enum.Font),
 	}),
+
+	subjectToChinaPolicies = FFlagLeaderboardDontWaitOnChinaPolicy and t.boolean or nil,
 })
 
 function PlayerNameTag:render()
@@ -41,6 +49,7 @@ function PlayerNameTag:render()
 
 		local playerNameFont = self.props.textFont.Font
 		local textSize = self.props.textFont.Size
+		local minTextSize = self.props.textFont.MinSize
 
 		local playerNameChildren = {}
 		local platformName = self.props.player.PlatformName
@@ -106,15 +115,19 @@ function PlayerNameTag:render()
 			})
 		else
 			local playerName
-			if isDisplayNameEnabled() then
+			if isDisplayNameEnabled(self.props.subjectToChinaPolicies) then
 				playerName = self.props.player.DisplayName
 			else
 				playerName = self.props.player.Name
 			end
 
 			playerNameChildren["PlayerName"] = Roact.createElement("TextLabel", {
-				Position = UDim2.new(0, 0, 0, 0),
-				Size = UDim2.new(1, 0, 1, 0),
+				Position = FFlagPlayerListFormattingUpdates 
+					and UDim2.new(0, 0, 0.28, 0)
+					or UDim2.new(0, 0, 0, 0),
+				Size = FFlagPlayerListFormattingUpdates
+					and UDim2.new(1, 0, 0.44, 0)
+					or UDim2.new(1, 0, 1, 0),
 				TextXAlignment = Enum.TextXAlignment.Left,
 				Font = playerNameFont,
 				TextSize = textSize,
@@ -125,6 +138,12 @@ function PlayerNameTag:render()
 				BackgroundTransparency = 1,
 				Text = playerName,
 				TextTruncate = Enum.TextTruncate.AtEnd,
+				TextScaled = FFlagPlayerListFormattingUpdates or nil,
+			}, {
+				SizeConstraint = FFlagPlayerListFormattingUpdates and Roact.createElement("UITextSizeConstraint", {
+					MaxTextSize = textSize,
+					MinTextSize = minTextSize,
+				}) or nil
 			})
 		end
 
@@ -134,6 +153,16 @@ function PlayerNameTag:render()
 			BackgroundTransparency = 1,
 		}, playerNameChildren)
 	end)
+end
+
+if FFlagLeaderboardDontWaitOnChinaPolicy then
+	local function mapStateToProps(state)
+		return {
+			subjectToChinaPolicies = state.displayOptions.subjectToChinaPolicies,
+		}
+	end
+
+	return RoactRodux.UNSTABLE_connect2(mapStateToProps, nil)(PlayerNameTag)
 end
 
 return PlayerNameTag

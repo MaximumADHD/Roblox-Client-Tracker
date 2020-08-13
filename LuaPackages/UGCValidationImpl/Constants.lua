@@ -96,132 +96,94 @@ Constants.ASSET_STATUS = {
 -- Measurements are doubled to account full size
 -- boundsOffset is used when measurements are non-symmetrical
 -- i.e. WaistAccessory is 3 behind, 2.5 front
-if game:GetFastFlag("UGCUseNewAssetTypeInfoSchema") then
-	Constants.ASSET_TYPE_INFO = {}
+Constants.ASSET_TYPE_INFO = {}
 
-	Constants.ASSET_TYPE_INFO[Enum.AssetType.Hat] = {
-		attachmentNames = { "HatAttachment" },
-		bounds = {
-			HatAttachment = {
-				size = Vector3.new(3, 4, 3),
-			},
+Constants.ASSET_TYPE_INFO[Enum.AssetType.Hat] = {
+	attachmentNames = { "HatAttachment" },
+	bounds = {
+		HatAttachment = {
+			size = Vector3.new(3, 4, 3),
 		},
-	}
+	},
+}
 
-	Constants.ASSET_TYPE_INFO[Enum.AssetType.HairAccessory] = {
-		attachmentNames = { "HairAttachment" },
-		bounds = {
-			HairAttachment = {
-				size = Vector3.new(3, 5, 3.5),
-				offset = Vector3.new(0, -0.5, 0.25),
-			},
+Constants.ASSET_TYPE_INFO[Enum.AssetType.HairAccessory] = {
+	attachmentNames = { "HairAttachment" },
+	bounds = {
+		HairAttachment = {
+			size = Vector3.new(3, 5, 3.5),
+			offset = Vector3.new(0, -0.5, 0.25),
 		},
-	}
+	},
+}
 
-	local FACE_BOUNDS = { size = Vector3.new(3, 2, 2) }
-	Constants.ASSET_TYPE_INFO[Enum.AssetType.FaceAccessory] = {
-		attachmentNames = { "FaceFrontAttachment", "FaceCenterAttachment" },
-		bounds = {
-			FaceFrontAttachment = FACE_BOUNDS,
-			FaceCenterAttachment = FACE_BOUNDS,
-		},
-	}
+local FACE_BOUNDS = { size = Vector3.new(3, 2, 2) }
+Constants.ASSET_TYPE_INFO[Enum.AssetType.FaceAccessory] = {
+	attachmentNames = { "FaceFrontAttachment", "FaceCenterAttachment" },
+	bounds = {
+		FaceFrontAttachment = FACE_BOUNDS,
+		FaceCenterAttachment = FACE_BOUNDS,
+	},
+}
 
-	Constants.ASSET_TYPE_INFO[Enum.AssetType.NeckAccessory] = {
-		attachmentNames = { "NeckAttachment" },
-		bounds = {
-			NeckAttachment = { size = Vector3.new(3, 3, 2) },
-		},
-	}
+Constants.ASSET_TYPE_INFO[Enum.AssetType.NeckAccessory] = {
+	attachmentNames = { "NeckAttachment" },
+	bounds = {
+		NeckAttachment = { size = Vector3.new(3, 3, 2) },
+	},
+}
 
-	local SHOULDER_BOUNDS = { size = Vector3.new(3, 3, 3) }
-	Constants.ASSET_TYPE_INFO[Enum.AssetType.ShoulderAccessory] = {
-		attachmentNames = {
-			"NeckAttachment",
-			"LeftCollarAttachment",
-			"RightCollarAttachment",
-			"LeftShoulderAttachment",
-			"RightShoulderAttachment",
-		},
-		bounds = {
-			NeckAttachment = { size = Vector3.new(7, 3, 3) },
-			LeftCollarAttachment = SHOULDER_BOUNDS,
-			RightCollarAttachment = SHOULDER_BOUNDS,
-			LeftShoulderAttachment = SHOULDER_BOUNDS,
-			RightShoulderAttachment = SHOULDER_BOUNDS,
-		},
-	}
+local SHOULDER_BOUNDS = { size = Vector3.new(3, 3, 3) }
+Constants.ASSET_TYPE_INFO[Enum.AssetType.ShoulderAccessory] = {
+	attachmentNames = {
+		"NeckAttachment",
+		"LeftCollarAttachment",
+		"RightCollarAttachment",
+		"LeftShoulderAttachment",
+		"RightShoulderAttachment",
+	},
+	bounds = {
+		NeckAttachment = { size = Vector3.new(7, 3, 3) },
+		LeftCollarAttachment = SHOULDER_BOUNDS,
+		RightCollarAttachment = SHOULDER_BOUNDS,
+		LeftShoulderAttachment = SHOULDER_BOUNDS,
+		RightShoulderAttachment = SHOULDER_BOUNDS,
+	},
+}
 
-	Constants.ASSET_TYPE_INFO[Enum.AssetType.FrontAccessory] = {
-		attachmentNames = { "BodyFrontAttachment" },
-		bounds = {
-			BodyFrontAttachment = { size = Vector3.new(3, 3, 3) },
-		},
-	}
+Constants.ASSET_TYPE_INFO[Enum.AssetType.FrontAccessory] = {
+	attachmentNames = { "BodyFrontAttachment" },
+	bounds = {
+		BodyFrontAttachment = { size = Vector3.new(3, 3, 3) },
+	},
+}
 
-	Constants.ASSET_TYPE_INFO[Enum.AssetType.BackAccessory] = {
-		attachmentNames = { "BodyBackAttachment" },
-		bounds = {
-			BodyBackAttachment = {
-				size = Vector3.new(10, 7, 4.5),
-				offset = Vector3.new(0, 0, 0.75),
-			},
+Constants.ASSET_TYPE_INFO[Enum.AssetType.BackAccessory] = {
+	attachmentNames = { "BodyBackAttachment" },
+	bounds = {
+		BodyBackAttachment = {
+			size = Vector3.new(10, 7, 4.5),
+			offset = Vector3.new(0, 0, 0.75),
 		},
-	}
+	},
+}
 
-	local WAIST_BOUNDS = {
-		size = Vector3.new(4, 3.5, 7),
-		offset = Vector3.new(0, -0.25, 0),
+local WAIST_BOUNDS = {
+	size = Vector3.new(4, 3.5, 7),
+	offset = Vector3.new(0, -0.25, 0),
+}
+Constants.ASSET_TYPE_INFO[Enum.AssetType.WaistAccessory] = {
+	attachmentNames = {
+		"WaistBackAttachment",
+		"WaistFrontAttachment",
+		"WaistCenterAttachment",
+	},
+	bounds = {
+		WaistBackAttachment = WAIST_BOUNDS,
+		WaistFrontAttachment = WAIST_BOUNDS,
+		WaistCenterAttachment = WAIST_BOUNDS,
 	}
-	Constants.ASSET_TYPE_INFO[Enum.AssetType.WaistAccessory] = {
-		attachmentNames = {
-			"WaistBackAttachment",
-			"WaistFrontAttachment",
-			"WaistCenterAttachment",
-		},
-		bounds = {
-			WaistBackAttachment = WAIST_BOUNDS,
-			WaistFrontAttachment = WAIST_BOUNDS,
-			WaistCenterAttachment = WAIST_BOUNDS,
-		}
-	}
-else
-	Constants.ASSET_TYPE_INFO = {
-		[Enum.AssetType.Hat] = {
-			attachmentNames = { "HatAttachment" },
-			boundsSize = Vector3.new(3, 4, 3),
-		},
-		[Enum.AssetType.HairAccessory] = {
-			attachmentNames = { "HairAttachment" },
-			boundsSize = Vector3.new(3, 5, 3.5),
-		},
-		[Enum.AssetType.FaceAccessory] = {
-			attachmentNames = { "FaceFrontAttachment" },
-			boundsSize = Vector3.new(3, 2, 2),
-		},
-		[Enum.AssetType.NeckAccessory] = {
-			attachmentNames = { "NeckAttachment" },
-			boundsSize = Vector3.new(3, 3, 2),
-		},
-		[Enum.AssetType.ShoulderAccessory] = {
-			attachmentNames = { "NeckAttachment", "LeftCollarAttachment", "RightCollarAttachment" },
-			boundsSize = Vector3.new(7, 3, 3),
-		},
-		[Enum.AssetType.FrontAccessory] = {
-			attachmentNames = { "BodyFrontAttachment" },
-			boundsSize = Vector3.new(3, 3, 3),
-		},
-		[Enum.AssetType.BackAccessory] = {
-			attachmentNames = { "BodyBackAttachment" },
-			boundsSize = Vector3.new(10, 7, 4),
-		},
-		[Enum.AssetType.WaistAccessory] = {
-			attachmentNames = { "WaistBackAttachment" },
-			boundsSize = Vector3.new(4, 2, 5.5),
-			boundsOffset = Vector3.new(0, 0, 0.25),
-		},
-	}
-end
+}
 
 Constants.PROPERTIES = {
 	Instance = {

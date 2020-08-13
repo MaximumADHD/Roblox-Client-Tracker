@@ -2,8 +2,6 @@
 	Displays panels associated with the import tool
 ]]
 
-local FFlagTerrainToolsImportImproveColorMapToggle = game:GetFastFlag("TerrainToolsImportImproveColorMapToggle")
-
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Cryo = require(Plugin.Packages.Cryo)
@@ -146,26 +144,14 @@ function Import:render()
 	local importInProgress = self.state.isImporting
 	local importProgress = self.state.importProgress
 
-	local importIsActive
+	local importIsActive = not importInProgress
+		and self.state.validatedMapSettings
+		and self.state.validatedHeightMap
+		-- Either don't care about color map being validated cause we're not using it
+		-- Or we are using it and it has to be valid
+		and (not useColorMap or self.state.validatedColorMap)
 
-	if FFlagTerrainToolsImportImproveColorMapToggle then
-		importIsActive =
-			    not importInProgress
-			and self.state.validatedMapSettings
-			and self.state.validatedHeightMap
-			-- Either don't care about color map being validated cause we're not using it
-			-- Or we are using it and it has to be valid
-			and (not useColorMap or self.state.validatedColorMap)
-	else
-		importIsActive = (not importInProgress)
-			and self.state.validatedHeightMap
-			and self.state.validatedMapSettings
-	end
-
-	local hideColorMapAssetSelector
-	if FFlagTerrainToolsImportImproveColorMapToggle then
-		hideColorMapAssetSelector = not useColorMap
-	end
+	local hideColorMapAssetSelector = not useColorMap
 
 	return withTheme(function(theme)
 		return withLocalization(function(localization)

@@ -6,7 +6,6 @@ end
 local OverrideLocaleId = settings():GetFVariable("StudioForceLocale")
 
 local FFlagAssetManagerLuaPlugin = settings():GetFFlag("AssetManagerLuaPlugin")
-local FFlagAssetManagerLocalizationUpdate = game:DefineFastFlag("AssetManagerLocalizationUpdate", false)
 local FFlagAssetManagerAddAnalytics = game:DefineFastFlag("AssetManagerAddAnalytics", false)
 
 if not FFlagAssetManagerLuaPlugin then
@@ -59,15 +58,6 @@ local localization = ContextServices.Localization.new({
 	pluginName = PLUGIN_NAME,
 	stringResourceTable = TranslationDevelopmentTable,
 	translationResourceTable = TranslationReferenceTable,
-	overrideLocaleChangedSignal = (not FFlagAssetManagerLocalizationUpdate)
-		and StudioService:GetPropertyChangedSignal("StudioLocaleId") or nil,
-	getLocale = (not FFlagAssetManagerLocalizationUpdate) and function()
-		if #OverrideLocaleId > 0 then
-			return OverrideLocaleId
-		else
-			return StudioService["StudioLocaleId"]
-		end
-	end or nil,
 })
 
 -- Widget Gui Elements

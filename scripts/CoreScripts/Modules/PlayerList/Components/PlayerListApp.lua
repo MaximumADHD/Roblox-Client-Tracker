@@ -26,6 +26,9 @@ local WithLayoutValues = LayoutValues.WithLayoutValues
 local FFlagDisableAutoTranslateForKeyTranslatedContent = require(
 	RobloxGui.Modules.Flags.FFlagDisableAutoTranslateForKeyTranslatedContent)
 
+local PlayerList = script.Parent.Parent
+local FFlagFixLeaderboardWaitingOnScreenSize = require(PlayerList.Flags.FFlagFixLeaderboardWaitingOnScreenSize)
+
 local MOTOR_OPTIONS = {
     dampingRatio = 1,
     frequency = 7,
@@ -92,7 +95,12 @@ function PlayerListApp:render()
 			containerPosition = containerPosition + UDim2.new(0, 0, 0, StatsUtils.ButtonHeight)
 		end
 
-		local leaderstatsCount = math.min(#self.props.gameStats, layoutValues.MaxLeaderstats)
+		local maxLeaderstats = layoutValues.MaxLeaderstats
+		if FFlagFixLeaderboardWaitingOnScreenSize and self.props.displayOptions.isSmallTouchDevice then
+			maxLeaderstats = layoutValues.MaxLeaderstatsSmallScreen
+		end
+
+		local leaderstatsCount = math.min(#self.props.gameStats, maxLeaderstats)
 		if leaderstatsCount > 0 then
 			local statOffsetX = layoutValues.StatEntrySizeX + layoutValues.EntryPadding
 			containerSize = containerSize + UDim2.new(0, statOffsetX * leaderstatsCount, 0, 0)

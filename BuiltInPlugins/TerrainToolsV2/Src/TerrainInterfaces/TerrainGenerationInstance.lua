@@ -4,7 +4,11 @@ local Plugin = script.Parent.Parent.Parent
 
 local Framework = Plugin.Packages.Framework
 local Cryo = require(Plugin.Packages.Cryo)
+local Roact = require(Plugin.Packages.Roact)
 local UILibrary = not FFlagTerrainToolsUseDevFramework and require(Plugin.Packages.UILibrary) or nil
+
+local ContextItem = FFlagTerrainToolsUseDevFramework and require(Framework.ContextServices.ContextItem) or nil
+local Provider = FFlagTerrainToolsUseDevFramework and require(Framework.ContextServices.Provider) or nil
 
 local FrameworkUtil = FFlagTerrainToolsUseDevFramework and require(Framework.Util) or nil
 local Signal = FFlagTerrainToolsUseDevFramework and FrameworkUtil.Signal or UILibrary.Util.Signal
@@ -15,8 +19,13 @@ local makeTerrainGenerator = require(script.Parent.makeTerrainGenerator)
 
 local DEBUG_LOG_WORK_TIME = false
 
-local TerrainGeneration = {}
-TerrainGeneration.__index = TerrainGeneration
+local TerrainGeneration
+if FFlagTerrainToolsUseDevFramework then
+	TerrainGeneration = ContextItem:extend("TerrainGeneration")
+else
+	TerrainGeneration = {}
+	TerrainGeneration.__index = TerrainGeneration
+end
 
 function TerrainGeneration.new(options)
 	assert(options and type(options) == "table", "TerrainGeneration requires an options table")
@@ -24,6 +33,7 @@ function TerrainGeneration.new(options)
 	local self = setmetatable({
 		_terrain = options.terrain,
 		_localization = options.localization,
+		_analytics = options.analytics,
 
 		_generateSettings = {
 			position = Vector3.new(0, 0, 0),
@@ -85,6 +95,14 @@ function TerrainGeneration.new(options)
 	end
 
 	return self
+end
+
+if FFlagTerrainToolsUseDevFramework then
+	function TerrainGeneration:createProvider(root)
+		return Roact.createElement(Provider, {
+			ContextItem = self,
+		}, {root})
+	end
 end
 
 function TerrainGeneration:subscribeToStartStopGeneratingChanged(...)
@@ -169,7 +187,7 @@ function TerrainGeneration:startGeneration()
 		biomeSize = self._generateSettings.biomeSize,
 		haveCaves = self._generateSettings.haveCaves,
 		seed = seed,
-	})
+	}, self._analytics)
 
 	-- Start listening to what the generator is doing
 	self._generatorProgressConnection = self._generator.progressSignal:Connect(self._onGeneratorProgressUpdate)

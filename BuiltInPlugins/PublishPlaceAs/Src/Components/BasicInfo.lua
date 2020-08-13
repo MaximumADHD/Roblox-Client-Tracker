@@ -151,7 +151,7 @@ local function displayContents(props, localization)
 		}, {
 			Selector = Theming.withTheme(function(theme)
 				return Roact.createElement(StyledDropDown, {
-					Size = UDim2.new(0, 330, 0, 38),
+					Size = UDim2.new(0, theme.DROPDOWN_WIDTH, 0, theme.DROPDOWN_HEIGHT),
 					Position = UDim2.new(0, 0, 0, 0),
 					ItemHeight = 38,
 					ButtonText = creatorItem.Text,

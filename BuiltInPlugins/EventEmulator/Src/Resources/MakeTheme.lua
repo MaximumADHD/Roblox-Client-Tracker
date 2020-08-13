@@ -12,9 +12,6 @@ local Theme = ContextServices.Theme
 local StudioUI = require(Plugin.Packages.Framework.StudioUI)
 local StudioFrameworkStyles = StudioUI.StudioFrameworkStyles
 
-local UI = require(Plugin.Packages.Framework.UI)
-local Decoration = UI.Decoration
-
 local Util = require(Plugin.Packages.Framework.Util)
 local StyleTable = Util.StyleTable
 local Style = Util.Style
@@ -64,8 +61,9 @@ local function makeTheme()
 			HorizontalPadding = 50,
 			NavHeight = 50,
 			ConfirmationButtonWidth = 50,
-			HistoryButtonMajor = 120,
-			InputPaneLength = 200,
+			HistoryButtonMajor = 100,
+			InputPaneLength = 300,
+			HistoryPaneLength = 300,
 			DropdownWidth = 180,
 			TextBoxWidth = 180,
 		}
@@ -121,6 +119,13 @@ local function makeTheme()
 					HorizontalAlignment = Enum.HorizontalAlignment.Center,
 					Padding = UDim.new(0, sizes.HorizontalPadding),
 				},
+				HistoryItem = {
+					SortOrder = Enum.SortOrder.LayoutOrder,
+					FillDirection = Enum.FillDirection.Horizontal,
+					VerticalAlignment = Enum.VerticalAlignment.Center,
+					HorizontalAlignment = Enum.HorizontalAlignment.Center,
+					Padding = UDim.new(0, sizes.SmallPadding),
+				}
 			},
 		}
 	end)

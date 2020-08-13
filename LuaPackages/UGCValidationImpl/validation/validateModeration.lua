@@ -62,20 +62,11 @@ local function validateModeration(isAsync, instance)
 	end
 
 	for _, details in pairs(response) do
-		if game:GetFastFlag("UGCFixModerationCheck") then
-			if details.status == Constants.ASSET_STATUS.UNKNOWN
-			or details.status == Constants.ASSET_STATUS.REVIEW_PENDING
-			or details.status == Constants.ASSET_STATUS.MODERATED
-			then
-				table.insert(moderatedIds, details.assetId)
-			end
-		else
-			if details.status == Constants.ASSET_STATUS.Unknown
-			or details.status == Constants.ASSET_STATUS.ReviewPending
-			or details.status == Constants.ASSET_STATUS.Moderated
-			then
-				table.insert(moderatedIds, details.assetId)
-			end
+		if details.status == Constants.ASSET_STATUS.UNKNOWN
+		or details.status == Constants.ASSET_STATUS.REVIEW_PENDING
+		or details.status == Constants.ASSET_STATUS.MODERATED
+		then
+			table.insert(moderatedIds, details.assetId)
 		end
 	end
 

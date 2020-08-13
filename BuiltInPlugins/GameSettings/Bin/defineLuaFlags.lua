@@ -9,5 +9,7 @@ game:DefineFastFlag("SupportFreePrivateServers", false)
 game:DefineFastFlag("VIPServersRebrandToPrivateServers", false)
 game:DefineFastFlag("EnableDevProductsInGameSettings", false)
 game:DefineFastFlag("FixVIPServerShutdownWarningText", false)
+game:DefineFastFlag("LocalizationPageInGameSettingsV2", false)
+game:DefineFastFlag("StudioShowIndividualPermissionsForGroupGames", false)
 
 return nil

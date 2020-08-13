@@ -2,6 +2,8 @@
 	BrushSettings.lua
 ]]
 
+local FFlagTerrainToolsReplaceSrcTogglesOff = game:GetFastFlag("TerrainToolsReplaceSrcTogglesOff")
+
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
 local Roact = require(Plugin.Packages.Roact)
@@ -37,6 +39,8 @@ function BrushSettings:render()
 		local showSnapToGrid = self.props.snapToGrid ~= nil
 		local showIgnoreWater = self.props.ignoreWater ~= nil
 		local showPlaneLockToggle = self.props.planeLock ~= nil
+		local disablePlaneLockToggle = FFlagTerrainToolsReplaceSrcTogglesOff and self.props.disablePlaneLock
+		local disableIgnoreWaterToggle = FFlagTerrainToolsReplaceSrcTogglesOff and self.props.disableIgnoreWater
 		local showFixedPlaneToggle = self.props.fixedPlane ~= nil
 
 		local showFlattenModes = self.props.flattenMode ~= nil
@@ -101,6 +105,7 @@ function BrushSettings:render()
 				Text = localization:getText("BrushSettings", "PlaneLock"),
 				IsOn = self.props.planeLock,
 				SetIsOn = self.props.setPlaneLock,
+				Disabled = disablePlaneLockToggle,
 			}),
 
 			FixedPlaneToggle = showFixedPlaneToggle and Roact.createElement(LabeledToggle, {
@@ -131,6 +136,7 @@ function BrushSettings:render()
 				Text = localization:getText("BrushSettings", "IgnoreWater"),
 				IsOn = self.props.ignoreWater,
 				SetIsOn = self.props.setIgnoreWater,
+				Disabled = disableIgnoreWaterToggle,
 			}),
 		})
 	end)

@@ -14,7 +14,9 @@ local Constants = require(Plugin.Src.Resources.Constants)
 local screenMap = {
 	[Constants.SCREENS.CREATE_NEW_GAME] = require(Plugin.Src.Components.ScreenCreateNewGame),
 	[Constants.SCREENS.CHOOSE_GAME]	= require(Plugin.Src.Components.ScreenChooseGame),
+	[Constants.SCREENS.CHOOSE_GAME_WITH_SCROLL] = require(Plugin.Src.Components.ScreenChooseGameWithScrolling),
 	[Constants.SCREENS.CHOOSE_PLACE] = require(Plugin.Src.Components.ScreenChoosePlace),
+	[Constants.SCREENS.CHOOSE_PLACE_WITH_SCROLL] = require(Plugin.Src.Components.ScreenChoosePlaceWithScrolling),
 	[Constants.SCREENS.PUBLISH_SUCCESSFUL] = require(Plugin.Src.Components.ScreenPublishSuccessful),
 	[Constants.SCREENS.PUBLISH_FAIL] = require(Plugin.Src.Components.ScreenPublishFail),
 }

@@ -18,6 +18,9 @@
 	OnDoubleClicked(clickedId)
 		Callback that is invoked whenever an item is double clicked
 
+	OnSelectionChanged(selectedIds)
+		Callback that is invoked whenever selection changes
+
 	RenderItem(id, buttonTheme, hovered)
 		Callback to create an element for a single item. The element returned by the callback is parented to
 		buttons created by the AbstractItemView used to detect clicks for selection / context menus
@@ -117,6 +120,12 @@ function AbstractItemView:init()
 			self.props.OnDoubleClicked(id)
 		end
 	end
+	
+	self.selectionChanged = function(selectedIds)
+		if self.props.OnSelectionChanged  and game:GetFastFlag("DraftWidgetResponsiveCommitButton") then
+			self.props.OnSelectionChanged(selectedIds)
+		end
+	end
 
 	-- Sets the selection to the given item, and updates the selection anchors
 	self.setSelection = function(id)
@@ -125,6 +134,7 @@ function AbstractItemView:init()
 			selectionAnchorTop = id,
 			selectionAnchorBottom = id,
 		})
+		self.selectionChanged(self.state.selection)
 	end
 
 	-- Toggles whether the clicked item is selected, and updates the selection anchors
@@ -263,10 +273,17 @@ function AbstractItemView:render()
 
 	-- Once a draft is removed from the drafts list, we need to remove it from the selection
 	-- or it will alread be selected if it is ever readded as a draft
+
+	local selectionHasChanged = false
 	for id,_ in pairs(self.state.selection) do
 		if not existingIds[id] then
 			self.state.selection[id] = nil
+			selectionHasChanged = true
 		end
+	end
+
+	if selectionHasChanged then
+		self.selectionChanged(self.state.selection)
 	end
 
 	return withLocalization(function(localization)

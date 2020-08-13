@@ -16,6 +16,7 @@ local getBoundingBoxScale = require(DraggerFramework.Utility.getBoundingBoxScale
 local MoveHandleView = require(Plugin.Src.MoveHandleView)
 
 local getFFlagSmoothAttachmentMovement = require(DraggerFramework.Flags.getFFlagSmoothAttachmentMovement)
+local getFFlagScaleDraggerPartBias = require(DraggerFramework.Flags.getFFlagScaleDraggerPartBias)
 
 local ALWAYS_ON_TOP = true
 
@@ -83,7 +84,13 @@ function MoveToolImpl:update(draggerToolState, derivedWorldState)
 	self:_updateHandles()
 end
 
-function MoveToolImpl:hitTest(mouseRay, handleScale)
+if getFFlagScaleDraggerPartBias() then
+	function MoveToolImpl:shouldBiasTowardsObjects()
+		return false
+	end
+end
+
+function MoveToolImpl:hitTest(mouseRay, ignoreExtraThreshold)
 	local closestHandleId, closestHandleDistance = nil, math.huge
 	for handleId, handleProps in pairs(self._handles) do
 		local distance = MoveHandleView.hitTest(handleProps, mouseRay)

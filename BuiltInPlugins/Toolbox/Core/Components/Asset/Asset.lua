@@ -37,6 +37,7 @@ local ContextHelper = require(Util.ContextHelper)
 local ContextGetter = require(Util.ContextGetter)
 local DebugFlags = require(Util.DebugFlags)
 local getTimeString = require(Util.getTimeString)
+local PageInfoHelper = require(Util.PageInfoHelper)
 
 local withTheme = ContextHelper.withTheme
 local withLocalization = ContextHelper.withLocalization
@@ -423,7 +424,7 @@ local function mapStateToProps(state, props)
 		categoryIndex = (not FFlagUseCategoryNameInToolbox) and (categoryIndex),
 		categoryName = categoryName,
 		searchTerm = searchTerm,
-		currentTab = (not FFlagUseCategoryNameInToolbox) and (pageInfo.currentTab or Category.MARKETPLACE_KEY),
+		currentTab = PageInfoHelper.getCurrentTab(pageInfo),
 		ownsAsset = ownsAsset,
 		canManage = canManage,
 		isLoading = (sound.currentSoundId == assetId) and sound.isLoading or false,

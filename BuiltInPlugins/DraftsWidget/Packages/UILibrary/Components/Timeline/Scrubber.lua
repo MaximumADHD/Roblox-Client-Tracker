@@ -1,3 +1,4 @@
+-- TODO: Delete file when FFlagRemoveUILibraryTimeline is retired
 --[[
 	Generic implementation of a Scrubber for a Timeline
 

@@ -90,6 +90,8 @@ local Framework = require(Libs.Framework)
 local LoadingIndicator = Framework.UI.LoadingIndicator
 local Container = Framework.UI.Container
 
+local FFlagSupportAnimImportByID = game:GetFastFlag("SupportAnimImportByID")
+
 local AssetConfig = Roact.PureComponent:extend("AssetConfig")
 
 local FOOTER_HEIGHT = 62
@@ -140,7 +142,7 @@ function AssetConfig:init(props)
 	self.descriptionString = nil
 	self.init = false
 
-	self.tryPublish = function()
+	self.tryPublish = function(directImportId)
 		local function tryPublishGeneral()
 			local function getExtension(allowedAssetTypesForUpload, assetTypeEnum)
 				local uploadDataForAssetType = allowedAssetTypesForUpload and assetTypeEnum and allowedAssetTypesForUpload[assetTypeEnum.Name]
@@ -155,7 +157,11 @@ function AssetConfig:init(props)
 
 			if FFlagStudioUseNewAnimationImportExportFlow and AssetConfigConstants.FLOW_TYPE.DOWNLOAD_FLOW == props.screenFlowType then
 				-- download flow should only be for animations currently
-				StudioService:AnimationIdSelected(state.overrideAssetId)
+				if FFlagSupportAnimImportByID then
+					StudioService:AnimationIdSelected(directImportId ~= "" and directImportId or state.overrideAssetId)
+				else
+					StudioService:AnimationIdSelected(state.overrideAssetId)
+				end
 				props.onClose()
 			elseif AssetConfigConstants.FLOW_TYPE.EDIT_FLOW == props.screenFlowType then
 				if AssetConfigUtil.isCatalogAsset(props.assetTypeEnum) then
@@ -916,6 +922,8 @@ function AssetConfig:render()
 					Footer = Roact.createElement(AssetConfigFooter, {
 						Size = UDim2.new(1, 0, 0, FOOTER_HEIGHT),
 						CanSave = canSave,
+
+						AssetId = state.overrideAssetId,
 
 						TryCancel = self.tryCancelWithYield,
 						TryPublish = self.tryPublish,

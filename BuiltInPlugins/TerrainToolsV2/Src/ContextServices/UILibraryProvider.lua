@@ -1,3 +1,6 @@
+assert(not game:GetFastFlag("TerrainToolsUseDevFramework"),
+	"TerrainTools UILibraryProvider.lua should not be used when FFlagTerrainToolsUseDevFramework is on")
+
 local Plugin = script.Parent.Parent.Parent
 
 local Roact = require(Plugin.Packages.Roact)

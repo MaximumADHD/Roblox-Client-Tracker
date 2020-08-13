@@ -15,6 +15,10 @@
 	the stats to change the order in which they are sorted. We currently do not support updating these
 	after they have been added to the stat value.
 ]]
+
+local REPLICATED_ATTRIBUTE_NAME = "LeaderstatsOrder"
+
+local RobloxReplicatedStorage = game:GetService("RobloxReplicatedStorage")
 local CorePackages = game:GetService("CorePackages")
 local Players = game:GetService("Players")
 
@@ -30,8 +34,11 @@ local AddGameStat = require(PlayerList.Actions.AddGameStat)
 local RemoveGameStat = require(PlayerList.Actions.RemoveGameStat)
 local SetPlayerLeaderstat = require(PlayerList.Actions.SetPlayerLeaderstat)
 local SetGameStatText = require(PlayerList.Actions.SetGameStatText)
+local SetGameStatAddId = require(PlayerList.Actions.SetGameStatAddId)
 
 local LeaderstatsConnector = Roact.PureComponent:extend("LeaderstatsConnector")
+
+local FFlagLeaderstatsWithASideOfClient = require(PlayerList.Flags.FFlagLeaderstatsWithASideOfClient)
 
 local function isValidStat(obj)
 	return obj:IsA("StringValue") or obj:IsA("IntValue") or obj:IsA("BoolValue") or obj:IsA("NumberValue") or
@@ -50,6 +57,58 @@ local function getScoreValue(statObject)
 	else
 		return statObject.Value
 	end
+end
+
+local serverAddOrder
+local serverOrderUpdated
+
+if FFlagLeaderstatsWithASideOfClient then
+
+	serverOrderUpdated = Instance.new("BindableEvent")
+
+	-- Attributes
+	serverAddOrder = RobloxReplicatedStorage:GetAttribute(REPLICATED_ATTRIBUTE_NAME) or {}
+	RobloxReplicatedStorage:GetAttributeChangedSignal(REPLICATED_ATTRIBUTE_NAME):Connect(function ()
+		serverAddOrder = RobloxReplicatedStorage:GetAttribute(REPLICATED_ATTRIBUTE_NAME) or {}
+		serverOrderUpdated:Fire(serverAddOrder)
+	end)
+
+	-- StringValue Fallback
+	do
+
+		local HttpService = game:GetService("HttpService")
+
+		local function decodeJSON(jsonString)
+			return HttpService:JSONDecode(jsonString)
+		end
+		
+		local function decodeAddOrder(encodedValue)
+			local success, result = pcall(decodeJSON, encodedValue)
+			return success and result or {}
+		end
+
+		local addedListener
+
+		local function childAdded(instance)
+			if instance.Name ~= REPLICATED_ATTRIBUTE_NAME then
+				return
+			end
+			addedListener:Disconnect()
+			serverAddOrder = decodeAddOrder(instance.Value)
+			instance.Changed:Connect(function (newValue)
+				serverAddOrder = decodeAddOrder(newValue)
+				serverOrderUpdated:Fire(serverAddOrder)
+			end)
+		end
+
+		addedListener = RobloxReplicatedStorage.ChildAdded:Connect(childAdded)
+
+		for _, instance in ipairs(RobloxReplicatedStorage:GetChildren()) do
+			childAdded(instance)
+		end
+
+	end
+
 end
 
 function LeaderstatsConnector:init()
@@ -97,7 +156,6 @@ function LeaderstatsConnector:addGameStat(statObject)
 	if priorityVal and (priorityVal:IsA("IntValue") or priorityVal:IsA("NumberValue")) then
 		priority = priorityVal.Value
 	end
-
 	self.props.addGameStat(statObject.Name, isPrimary, priority)
 end
 
@@ -109,6 +167,19 @@ function LeaderstatsConnector:onStatAdded(player, statObject)
 		end
 	end)
 	table.insert(self.playerConnections[player], statChangedConn)
+
+	if FFlagLeaderstatsWithASideOfClient and player == Players.LocalPlayer then
+		local statNameChangedConn = statObject:GetPropertyChangedSignal("Name"):Connect(function()
+			self.props.setGameStatText(statObject.Name, FormatStatString(getScoreValue(statObject)))
+		end)
+		table.insert(self.playerConnections[player], statNameChangedConn)
+
+		local serverAddOrderChanged = serverOrderUpdated.Event:Connect(function(serverAddOrder)
+			local name = statObject.Name
+			self.props.setGameStatAddId(name, serverAddOrder[name])
+		end)
+		table.insert(self.playerConnections[player], serverAddOrderChanged)
+	end
 
 	local childAddedConn = statObject.ChildAdded:Connect(function()
 		self:addGameStat(statObject)
@@ -123,7 +194,11 @@ function LeaderstatsConnector:onStatAdded(player, statObject)
 	self:addGameStat(statObject)
 	self.props.setPlayerLeaderstat(player, statObject.Name, getScoreValue(statObject))
 	if player == Players.LocalPlayer then
-		self.props.setGameStatText(statObject.Name, FormatStatString(getScoreValue(statObject)))
+		local name = statObject.Name
+		if FFlagLeaderstatsWithASideOfClient then
+			self.props.setGameStatAddId(name, serverAddOrder[name])
+		end
+		self.props.setGameStatText(name, FormatStatString(getScoreValue(statObject)))
 	end
 end
 
@@ -266,6 +341,10 @@ local function mapDispatchToProps(dispatch)
 		setGameStatText = function(name, text)
 			return dispatch(SetGameStatText(name, text))
 		end,
+
+		setGameStatAddId = FFlagLeaderstatsWithASideOfClient and function(name, addId)
+			return dispatch(SetGameStatAddId(name, addId))
+		end or nil,
 	}
 end
 

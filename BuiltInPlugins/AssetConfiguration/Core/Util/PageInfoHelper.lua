@@ -5,10 +5,21 @@ local deepEqual = require(Plugin.Libs.Framework.Util.deepEqual)
 local DebugFlags = require(Plugin.Core.Util.DebugFlags)
 local AssetConfigConstants = require(Plugin.Core.Util.AssetConfigConstants)
 local Category = require(Plugin.Core.Types.Category)
+local Constants = require(Plugin.Core.Util.Constants)
 
 local FFlagUseCategoryNameInToolbox = game:GetFastFlag("UseCategoryNameInToolbox")
+local FFlagToolboxDisableMarketplaceAndRecentsForLuobu = game:GetFastFlag("ToolboxDisableMarketplaceAndRecentsForLuobu")
 
 local PageInfoHelper = {}
+
+function PageInfoHelper.getCurrentTab(pageInfo)
+	local currentTab
+	if not FFlagUseCategoryNameInToolbox then
+		local currentTabDefault = FFlagToolboxDisableMarketplaceAndRecentsForLuobu and Constants.DEFAULT_TAB or Category.MARKETPLACE_KEY
+		currentTab = pageInfo.currentTab or currentTabDefault
+	end
+	return currentTab
+end
 
 if FFlagUseCategoryNameInToolbox then
 

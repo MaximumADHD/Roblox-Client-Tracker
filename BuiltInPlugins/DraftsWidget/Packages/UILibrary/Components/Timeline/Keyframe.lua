@@ -1,3 +1,4 @@
+-- TODO: Delete file when FFlagRemoveUILibraryTimeline is retired
 --[[
 	A single keyframe which can be displayed on a media timeline.
 

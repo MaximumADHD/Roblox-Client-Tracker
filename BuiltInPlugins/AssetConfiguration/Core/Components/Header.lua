@@ -366,7 +366,7 @@ function Header:addTabRefreshCallback()
 			else
 				categoryKey = self.props.categoryIndex
 			end
- 
+
 			local settings = self.props.Settings:get("Plugin")
 			self.props.selectCategory(getNetwork(self), settings, categoryKey)
 		end)
@@ -401,7 +401,7 @@ local function mapStateToProps(state, props)
 
 	return {
 		categories = pageInfo.categories or {},
-		currentTab = (not FFlagUseCategoryNameInToolbox) and (pageInfo.currentTab or Category.MARKETPLACE_KEY),
+		currentTab = PageInfoHelper.getCurrentTab(pageInfo),
 		categoryIndex = (not FFlagUseCategoryNameInToolbox) and (pageInfo.categoryIndex or 0),
 		categoryName = FFlagUseCategoryNameInToolbox and (pageInfo.categoryName or Category.DEFAULT.name) or nil,
 		searchTerm = pageInfo.searchTerm or "",

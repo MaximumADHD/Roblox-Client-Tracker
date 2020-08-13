@@ -16,6 +16,9 @@
 	OnDoubleClicked(clickedId)
 		Callback that is invoked whenever an item is double clicked
 
+	OnSelectionChanged(selectedIds)
+		Callback that is invoked whenever selection changes
+
 	RenderItem(id, buttonTheme, hovered)
 		Callback to create an element for a single item. Not directly used by ListItemView. See AbstractItemView
 
@@ -61,6 +64,7 @@ function ListItemView:render()
 	local renderItem = self.props.RenderItem
 	local makeMenuActions = self.props.MakeMenuActions
 	local onDoubleClicked = self.props.OnDoubleClicked
+	local onSelectionChanged = self.props.OnSelectionChanged	
 	local buttonStyle = self.props.ButtonStyle
 	local getCurrentSelection = self.props.GetCurrentSelection
 
@@ -72,6 +76,7 @@ function ListItemView:render()
 
 		GetCurrentSelection = getCurrentSelection,
 		OnDoubleClicked = onDoubleClicked,
+		OnSelectionChanged = onSelectionChanged,
 		MakeMenuActions = makeMenuActions,
 		ButtonStyle = buttonStyle,
 		Items = items,

@@ -31,6 +31,7 @@
 local DevFrameworkRoot = script.Parent
 local Url = require(script.Url)
 local Networking = require(DevFrameworkRoot.Http).Networking
+local StudioService = game:GetService("StudioService")
 
 -- helper functions
 -- dir : (Instance) a Folder to dig through
@@ -106,6 +107,10 @@ function RobloxAPI.new(props)
 	setmetatable(robloxApi, RobloxAPI)
 
 	return robloxApi
+end
+
+function RobloxAPI:baseURLHasChineseHost()
+	return StudioService:BaseURLHasChineseHost()
 end
 
 return RobloxAPI

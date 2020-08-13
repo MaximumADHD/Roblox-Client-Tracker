@@ -2,12 +2,15 @@ local CorePackages = game:GetService("CorePackages")
 
 local Cryo = require(CorePackages.Cryo)
 
-local Actions = script.Parent.Parent.Actions
+local PlayerList = script.Parent.Parent
+local Actions = PlayerList.Actions
 local AddGameStat = require(Actions.AddGameStat)
 local RemoveGameStat = require(Actions.RemoveGameStat)
 local SetGameStatText = require(Actions.SetGameStatText)
+local SetGameStatAddId = require(Actions.SetGameStatAddId)
 
-local PlayerList = Actions.Parent
+local FFlagLeaderstatsWithASideOfClient = require(PlayerList.Flags.FFlagLeaderstatsWithASideOfClient)
+
 local FormatStatString = require(PlayerList.FormatStatString)
 
 local function gameStatsComp(a, b)
@@ -15,6 +18,12 @@ local function gameStatsComp(a, b)
 		return a.isPrimary
 	end
 	if a.priority == b.priority then
+		if FFlagLeaderstatsWithASideOfClient then
+			local aServerAddId, bServerAddId = a.serverAddId, b.serverAddId
+			if aServerAddId and bServerAddId then
+				return aServerAddId < bServerAddId
+			end
+		end
 		return a.addId < b.addId
 	end
 	return a.priority > b.priority
@@ -27,12 +36,16 @@ local function GameStats(state, action)
 
 	if action.type == AddGameStat.name then
 		local oldAddId = nil
+		local oldServerAddId = nil
 		local oldText = FormatStatString(nil)
 		local newState = {}
 		for _, stat in ipairs(state) do
 			if stat.name == action.statName then
 				oldAddId = stat.addId
 				oldText = stat.text
+				if FFlagLeaderstatsWithASideOfClient then
+					oldServerAddId = stat.serverAddId
+				end
 			else
 				table.insert(newState, stat)
 			end
@@ -45,6 +58,7 @@ local function GameStats(state, action)
 				addId = oldAddId or gameStatAddIdCounter,
 				isPrimary = action.isPrimary,
 				priority = action.priority,
+				serverAddId = oldServerAddId
 			}
 		})
 		table.sort(newState, gameStatsComp)
@@ -58,6 +72,13 @@ local function GameStats(state, action)
 			return (stat.name == action.statName and
 					Cryo.Dictionary.join(stat, {text = action.text}) or stat)
 		end)
+	elseif FFlagLeaderstatsWithASideOfClient and action.type == SetGameStatAddId.name then
+		local newState = Cryo.List.map(state, function(stat)
+			return (stat.name == action.statName and
+					Cryo.Dictionary.join(stat, {serverAddId = action.serverAddId}) or stat)
+		end)
+		table.sort(newState, gameStatsComp)
+		return newState
 	end
 
 	return state

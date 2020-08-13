@@ -18,11 +18,19 @@ local SetToolboxManageableGroups = require(Actions.SetToolboxManageableGroups)
 local UpdatePageInfo = require(Actions.UpdatePageInfo)
 local SetCurrentPage = require(Actions.SetCurrentPage)
 
-local defaultSorts = Sort.SORT_OPTIONS
-local defaultCategories = Category.MARKETPLACE
+local RobloxAPI = require(Libs.Framework).RobloxAPI
 
 local FFlagToolboxShowGroupCreations = game:GetFastFlag("ToolboxShowGroupCreations")
 local FFlagUseCategoryNameInToolbox = game:GetFastFlag("UseCategoryNameInToolbox")
+local FFlagToolboxDisableMarketplaceAndRecentsForLuobu = game:GetFastFlag("ToolboxDisableMarketplaceAndRecentsForLuobu")
+
+local defaultSorts = Sort.SORT_OPTIONS
+local defaultCategories
+if FFlagToolboxDisableMarketplaceAndRecentsForLuobu and RobloxAPI:baseURLHasChineseHost() then
+	defaultCategories = Category.INVENTORY_WITH_GROUPS
+else
+	defaultCategories = Category.MARKETPLACE
+end
 
 local function warnIfUpdatePageInfoChangesInvalid(state, changes)
 	if changes.categories then
@@ -80,7 +88,7 @@ end
 return Rodux.createReducer({
 	audioSearchInfo = nil,
 	categories = defaultCategories,
-	categoryIndex = (not FFlagUseCategoryNameInToolbox) and (1),
+	categoryIndex = (not FFlagUseCategoryNameInToolbox) and (1) or nil,
 	categoryName = Category.DEFAULT.name,
 
 	searchTerm = "",
@@ -210,7 +218,6 @@ return Rodux.createReducer({
 			end
 
 			if FFlagUseCategoryNameInToolbox then
-
 				if newState.categoryName == "" then
 					newState.categoryName = newState.categories[1].name
 				end

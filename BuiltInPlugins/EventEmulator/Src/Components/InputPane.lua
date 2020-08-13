@@ -1,6 +1,5 @@
 --[[
-	An empty example component, which appears in the main plugin.
-	Renders a blank background of the default background color.
+	Handles user input
 ]]
 
 local Plugin = script.Parent.Parent.Parent
@@ -13,14 +12,15 @@ local Container = UI.Container
 local Decoration = UI.Decoration
 
 local Components = Plugin.Src.Components
+local NameBox = require(Components.NameBox)
 local Dropdown = require(Components.Dropdown)
 local RBXEventView = require(Components.Views.RBXEventView)
 local ThemeView = require(Components.Views.ThemeView)
 local MemStorageEventView = require(Components.Views.MemStorageEventView)
 
-
 local Constants = require(Plugin.Src.Util.Constants)
 local VIEW_ID = Constants.VIEW_ID
+local ORDER = Constants.INPUT_PANE_LAYOUT
 
 local InputPane = Roact.PureComponent:extend("InputPane")
 
@@ -28,7 +28,7 @@ function InputPane:init()
 	self.getView = function ()
 		local props = self.props
 		local activeView = props.ActiveView
-		
+
 		local view = "Frame" -- uses default to avoid runtime error
 		if activeView == VIEW_ID.RBXEvent then
 			view = RBXEventView
@@ -46,8 +46,6 @@ end
 
 function InputPane:render()
 	local props = self.props
-	local activeView = props.ActiveView
-
 	local theme = props.Theme
 	local sizes = theme:get("Sizes")
 	local layout = theme:get("Layout")
@@ -55,9 +53,11 @@ function InputPane:render()
 	return Roact.createElement(Container, {
 		Size = UDim2.new(1, 0, 0, sizes.InputPaneLength),
 		Background = Decoration.Box,
+		LayoutOrder = ORDER.InputPane
 	}, {
 		Layout = Roact.createElement("UIListLayout", layout.Vertical),
 		Dropdown = Roact.createElement(Dropdown),
+		Name = Roact.createElement(NameBox),
 		View = self.getView(),
 	})
 end

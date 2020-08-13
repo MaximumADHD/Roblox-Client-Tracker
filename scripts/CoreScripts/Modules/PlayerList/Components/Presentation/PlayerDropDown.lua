@@ -40,6 +40,8 @@ local BlockPlayer = require(PlayerList.Thunks.BlockPlayer)
 local UnblockPlayer = require(PlayerList.Thunks.UnblockPlayer)
 local RequestFriendship = require(PlayerList.Thunks.RequestFriendship)
 
+local FFlagLeaderboardDontWaitOnChinaPolicy = require(PlayerList.Flags.FFlagLeaderboardDontWaitOnChinaPolicy)
+
 local PlayerDropDown = Roact.PureComponent:extend("PlayerDropDown")
 
 PlayerDropDown.validateProps = t.strictInterface({
@@ -58,6 +60,7 @@ PlayerDropDown.validateProps = t.strictInterface({
 	})),
 	inspectMenuEnabled = t.boolean,
 	isTenFootInterface = t.boolean,
+	subjectToChinaPolicies = FFlagLeaderboardDontWaitOnChinaPolicy and t.boolean or nil,
 
 	closeDropDown = t.callback,
 	blockPlayer = t.callback,
@@ -224,7 +227,12 @@ function PlayerDropDown:render()
 				end
 			end
 
-			local showPlayerBlocking = not PolicyService:IsSubjectToChinaPolicies()
+			local showPlayerBlocking
+			if FFlagLeaderboardDontWaitOnChinaPolicy then
+				showPlayerBlocking = not self.props.subjectToChinaPolicies
+			else
+				showPlayerBlocking = not PolicyService:IsSubjectToChinaPolicies()
+			end
 
 			if showPlayerBlocking then
 				dropDownButtons["BlockButton"] = self:createBlockButton(playerRelationship)
@@ -314,6 +322,7 @@ local function mapStateToProps(state)
 		playerRelationship = selectedPlayer and state.playerRelationship[selectedPlayer.UserId],
 		inspectMenuEnabled = state.displayOptions.inspectMenuEnabled,
 		isTenFootInterface = state.displayOptions.isTenFootInterface,
+		subjectToChinaPolicies = FFlagLeaderboardDontWaitOnChinaPolicy and state.displayOptions.subjectToChinaPolicies or nil,
 	}
 end
 

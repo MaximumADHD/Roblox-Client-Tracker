@@ -1,3 +1,6 @@
+assert(not game:GetFastFlag("TerrainToolsUseDevFramework"),
+	"TerrainTools ServiceWrapper.lua should not be used when FFlagTerrainToolsUseDevFramework is on")
+
 --[[
 	A centralized place for providers, and an entry point for the Roact trees of plugins
 ]]
@@ -13,7 +16,6 @@ local Localizing = UILibrary.Localizing
 local TerrainInterface = require(Plugin.Src.ContextServices.TerrainInterface)
 
 local FFlagTerrainToolsConvertPartTool = game:GetFastFlag("TerrainToolsConvertPartTool")
-local FFlagTerrainToolsTerrainBrushNotSingleton = game:GetFastFlag("TerrainToolsTerrainBrushNotSingleton")
 
 -- props.localization : (UILibary.Localization) an object for fetching translated strings
 -- props.plugin : (plugin instance) the instance of plugin defined in main.server.lua
@@ -35,9 +37,6 @@ function ServiceWrapper:init()
 	assert(self.props.theme ~= nil, "Expected a PluginTheme object")
 
 	assert(self.props.terrain ~= nil, "Expected a Terrain instance")
-	if not FFlagTerrainToolsTerrainBrushNotSingleton then
-		assert(self.props.terrainBrush ~= nil, "Expected a TerrainBrush object")
-	end
 	assert(self.props.pluginActivationController ~= nil, "Expected a PluginActivationController object")
 	assert(self.props.terrainImporter ~= nil, "Expected a TerrainImporter object")
 	assert(self.props.terrainGeneration ~= nil, "Expected a TerrainGeneration object")
@@ -59,8 +58,6 @@ function ServiceWrapper:render()
 	local theme = self.props.theme
 	local terrain = self.props.terrain
 	local pluginActivationController = self.props.pluginActivationController
-	-- TODO: Remove terrainBrush when removing FFlagTerrainToolsTerrainBrushNotSingleton
-	local terrainBrush = self.props.terrainBrush
 	local terrainImporter = self.props.terrainImporter
 	local terrainGeneration = self.props.terrainGeneration
 	local seaLevel = self.props.seaLevel
@@ -78,7 +75,6 @@ function ServiceWrapper:render()
 	root = addProvider(TerrainInterface.Provider, {
 		terrain = terrain,
 		pluginActivationController = pluginActivationController,
-		terrainBrush = terrainBrush,
 		terrainImporter = terrainImporter,
 		terrainGeneration = terrainGeneration,
 		seaLevel = seaLevel,

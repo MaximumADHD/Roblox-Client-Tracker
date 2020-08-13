@@ -19,6 +19,30 @@ local RemoveUserCollaborator = require(Page.Thunks.RemoveUserCollaborator)
 
 local UserCollaboratorItem = Roact.PureComponent:extend("UserCollaboratorItem")
 
+local permShortName = {
+	[PermissionsConstants.OwnerKey] = "Owner",
+	[PermissionsConstants.PlayKey] = "Play",
+	[PermissionsConstants.EditKey] = "Edit",
+	[PermissionsConstants.NoAccessKey] = "NoAccess",
+	[PermissionsConstants.AdminKey] = "Admin"
+}
+
+function UserCollaboratorItem:getPermissionForKey(key)
+	local props = self.props
+	local localization = props.Localization
+
+	if not permShortName[key] then
+		-- unrecognized permission
+		return { Key = key, Display = tostring(key), Description = "Error: This permission is not recognized." }
+	end 
+
+	return {
+		Key = key,
+		Display = localization:getText("AccessPermissions", permShortName[key] .. "Label"),
+		Description = localization:getText("AccessPermissions", permShortName[key] .. "Description"),
+	}
+end
+
 function UserCollaboratorItem:getAvailablePermissions()
 	local props = self.props
 
@@ -28,32 +52,51 @@ function UserCollaboratorItem:getAvailablePermissions()
 
 	local localization = props.Localization
 
-	if isOwner then
-		return {
-			{
-				Key = PermissionsConstants.OwnerKey,
-				Display = localization:getText("AccessPermissions", "OwnerLabel"),
-				Description = localization:getText("AccessPermissions", "OwnerDescription"),
-			},
-		}
-	else
-		local permissions = {
-			{
-				Key = PermissionsConstants.PlayKey,
-				Display = localization:getText("AccessPermissions", "PlayLabel"),
-				Description = localization:getText("AccessPermissions", "PlayDescription"),
-			},
-		}
+	if game:GetFastFlag("StudioShowIndividualPermissionsForGroupGames") then
+		local editable = props.Editable
 
-		if ownerType == Enum.CreatorType.User and isOwnerFriend then
-			table.insert(permissions, {
-				Key = PermissionsConstants.EditKey,
-				Display = localization:getText("AccessPermissions", "EditLabel"),
-				Description = localization:getText("AccessPermissions", "EditDescription"),
-			})
+		if isOwner then
+			return {self:getPermissionForKey(PermissionsConstants.OwnerKey),}
+		elseif not editable then
+			-- if not editable, just show current permission
+			return {self:getPermissionForKey(self:getCurrentPermission()),}
+		else
+			local permissions = {self:getPermissionForKey(PermissionsConstants.PlayKey)}
+
+			if (ownerType == Enum.CreatorType.User and isOwnerFriend) then
+				table.insert(permissions, self:getPermissionForKey(PermissionsConstants.EditKey))
+			end
+
+			return permissions
 		end
-
-		return permissions
+	else
+		if isOwner then
+			return {
+				{
+					Key = PermissionsConstants.OwnerKey,
+					Display = localization:getText("AccessPermissions", "OwnerLabel"),
+					Description = localization:getText("AccessPermissions", "OwnerDescription"),
+				},
+			}
+		else
+			local permissions = {
+				{
+					Key = PermissionsConstants.PlayKey,
+					Display = localization:getText("AccessPermissions", "PlayLabel"),
+					Description = localization:getText("AccessPermissions", "PlayDescription"),
+				},
+			}
+	
+			if ownerType == Enum.CreatorType.User and isOwnerFriend then
+				table.insert(permissions, {
+					Key = PermissionsConstants.EditKey,
+					Display = localization:getText("AccessPermissions", "EditLabel"),
+					Description = localization:getText("AccessPermissions", "EditDescription"),
+				})
+			end
+	
+			return permissions
+		end
 	end
 end
 

@@ -133,7 +133,7 @@ function StatsAnnotatedGraphClass:_render()
   self._graph:Render()
   
   self._topLabel.Text = string.format("%.2f", self._axisMax)
-  self._bottomLabel.Text = string.format("%.2f", 0,.0)
+  self._bottomLabel.Text = string.format("%.2f", 0.0)
 end
 
 function StatsAnnotatedGraphClass:_calculateAxisMax()

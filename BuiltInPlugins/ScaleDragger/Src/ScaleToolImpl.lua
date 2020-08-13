@@ -18,7 +18,11 @@ local getBoundingBoxScale = require(DraggerFramework.Utility.getBoundingBoxScale
 
 local StandaloneSelectionBox = require(DraggerFramework.Components.StandaloneSelectionBox)
 
+local getFFlagDraggerResizeLimit = require(DraggerFramework.Flags.getFFlagDraggerResizeLimit)
+
 local ScaleHandleView = require(Plugin.Src.ScaleHandleView)
+
+local getFFlagScaleDraggerPartBias = require(DraggerFramework.Flags.getFFlagScaleDraggerPartBias)
 
 local ScaleToolImpl = {}
 ScaleToolImpl.__index = ScaleToolImpl
@@ -125,7 +129,13 @@ function ScaleToolImpl:update(draggerToolState, derivedWorldState)
 	self:_updateHandles()
 end
 
-function ScaleToolImpl:hitTest(mouseRay, handleScale)
+if getFFlagScaleDraggerPartBias() then
+	function ScaleToolImpl:shouldBiasTowardsObjects()
+		return true
+	end
+end
+
+function ScaleToolImpl:hitTest(mouseRay, ignoreExtraThreshold)
 	local closestHandleId, closestHandleDistance = nil, math.huge
 	for handleId, handleProps in pairs(self._handles) do
 		local distance = ScaleHandleView.hitTest(handleProps, mouseRay)
@@ -136,6 +146,8 @@ function ScaleToolImpl:hitTest(mouseRay, handleScale)
 	end
 	if closestHandleId then
 		return closestHandleId, 0
+	elseif getFFlagScaleDraggerPartBias() and ignoreExtraThreshold then
+		return nil, 0
 	else
 		-- Second attempt to find a handle, now using closest distance to the ray
 		-- rather than closest hit distance to the camera.
@@ -348,17 +360,46 @@ end
 --[[
 	Find the smallest extents size that assures that all parts are larger
 	than the minimum allowed part size.
+
+	Resizing Cases:
+	Suppose you have a part 5.5 studs long and a grid snap of 2
+	 * You should be able to resize it down to 1.5 (5.5 % 2)
+	Suppose you have a part 4 studs long and a grid snap of 2
+	 * You should be able to resize it down to 2
+	 * You should NOT be able to resize it down to 0 or MIN_PART_SIZE
+	   It should stop resizing at 2.
+	Suppose you have a part 2.02 studs long and grid snap of 2
+	 * You should NOT be able to resize it down to 0.02 (<MIN_PART_SIZE)
+
+	The modulo covers resizing down to smaller than the initial size in
+	gridSize increments.
+	The ==0 -> use gridSize covers not trying to resize down to zero from an
+	even multiple of gridSize.
+	The hardMinSize:Max covers the resizing down to less than MIN_PART_SIZE
+	but still greater than zero edge case.
 ]]
 function ScaleToolImpl:_calculateMinimumSize(normalId)
 	local MIN_PART_SIZE = 0.05
 	if #self._partsToResize == 1 then
 		local gridSizeValue = self._draggerContext:getGridSize()
-		local gridSize = Vector3.new(gridSizeValue, gridSizeValue, gridSizeValue)
-		local hardMinSize =
-			Vector3.new(MIN_PART_SIZE, MIN_PART_SIZE, MIN_PART_SIZE)
 		local partSize = self._partsToResize[1].Size
-		local desiredMinSize = gridSize:Min(partSize)
-		self._minimumSize = desiredMinSize:Max(hardMinSize)
+		if getFFlagDraggerResizeLimit() then
+			local xmod = partSize.X % gridSizeValue
+			local ymod = partSize.Y % gridSizeValue
+			local zmod = partSize.Z % gridSizeValue
+			local modSize = Vector3.new(
+				xmod > 0 and xmod or gridSizeValue,
+				ymod > 0 and ymod or gridSizeValue,
+				zmod > 0 and zmod or gridSizeValue)
+
+			local hardMinSize = Vector3.new(MIN_PART_SIZE, MIN_PART_SIZE, MIN_PART_SIZE)
+			self._minimumSize = hardMinSize:Max(modSize)
+		else
+			local hardMinSize = Vector3.new(MIN_PART_SIZE, MIN_PART_SIZE, MIN_PART_SIZE)
+			local gridSize = Vector3.new(gridSizeValue, gridSizeValue, gridSizeValue)
+			local desiredMinSize = gridSize:Min(partSize)
+			self._minimumSize = desiredMinSize:Max(hardMinSize)
+		end
 	else
 		local smallest = math.huge
 		for _, part in ipairs(self._partsToResize) do

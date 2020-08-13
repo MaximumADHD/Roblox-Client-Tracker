@@ -202,7 +202,14 @@ function Permissions:render()
 		local theme = props.Theme:get("Plugin")
 
 		local canUserEditPermissions = self:isLoggedInUserGameOwner()
-		local canUserAddCollaborators = self:isLoggedInUserGameOwner() and self:isTeamCreate() and not self:isGroupGame()
+		-- here "Edit" refers to adding new collaborators, or changing the permission of collaborators
+		local canUserEditCollaborators = self:isLoggedInUserGameOwner() and self:isTeamCreate() and not self:isGroupGame()
+		local canUserSeeCollaborators = canUserEditCollaborators
+		if game:GetFastFlag("StudioShowIndividualPermissionsForGroupGames") then
+			-- group games show existing individual collaboraters; they can be removed but not edited
+			local canUserRemoveCollaborators = self:isLoggedInUserGameOwner() and self:isTeamCreate()
+			canUserSeeCollaborators = canUserEditCollaborators or canUserRemoveCollaborators
+		end
 
 		local playabilityButtons = {
 			{
@@ -263,7 +270,7 @@ function Permissions:render()
 				Size = UDim2.new(1, 0, 0, 1),
 			}),
 
-			TeamCreateWarning = (not canUserAddCollaborators) and (not self:isGroupGame()) and
+			TeamCreateWarning = (not canUserEditCollaborators) and (not self:isGroupGame()) and
 			Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Subtitle, {
 				Text = localization:getText("AccessPermissions", "TeamCreateWarning"),
 				TextXAlignment = Enum.TextXAlignment.Left,
@@ -273,14 +280,15 @@ function Permissions:render()
 				LayoutOrder = 50,
 			})),
 
-			SearchbarWidget = canUserAddCollaborators and Roact.createElement(SearchbarWidget, {
+			SearchbarWidget = canUserEditCollaborators and Roact.createElement(SearchbarWidget, {
 				LayoutOrder = 50,
 				Writable = true,
 			}),
 
-			CollaboratorListWidget = canUserAddCollaborators and Roact.createElement(CollaboratorsWidget, {
+			CollaboratorListWidget = canUserSeeCollaborators and Roact.createElement(CollaboratorsWidget, {
 				LayoutOrder = 60,
 				Writable = true,
+				Editable = canUserEditCollaborators
 			}),
 		}
 	end

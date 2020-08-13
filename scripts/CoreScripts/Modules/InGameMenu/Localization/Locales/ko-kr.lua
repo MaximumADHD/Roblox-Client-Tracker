@@ -130,10 +130,11 @@ return{
 	["CoreScripts.InGameMenu.Prompt.LeaveGame"] = [[게임 종료]],
 	["CoreScripts.InGameMenu.GameSettings.VREnabled"] = [[VR 모드]],
 	["CoreScripts.InGameMenu.GameSettings.RestartPending"] = [[다시 시작 대기 중]],
-	["CoreScripts.InGameMenu.EducationalPopup.Title"] = [[더 다양한 게임 둘러보기!]],
+	["CoreScripts.InGameMenu.EducationalPopup.Title"] = [[더욱 다양한 게임을 둘러보세요!]],
 	["CoreScripts.InGameMenu.EducationalPopup.BodyTextOpenSystemMenu"] = [[시스템 메뉴를 여세요]],
 	["CoreScripts.InGameMenu.EducationalPopup.BodyTextClickHome"] = [[홈 아이콘을 클릭하세요]],
 	["CoreScripts.InGameMenu.EducationalPopup.BodyTextPlayMore"] = [[더욱 다양한 Roblox 게임을 플레이하세요]],
 	["CoreScripts.InGameMenu.EducationalPopup.LeaveRoblox"] = [[Roblox 종료]],
 	["CoreScripts.InGameMenu.GameSettings.ClientCoreScriptVersion"] = [[클라이언트 CoreScript 버전: {CLIENT_CORESCRIPT_VERSION}]],
+	["CoreScripts.InGameMenu.EducationalPopup.MenuIconTooltip"] = [[더 다양한 게임을 찾고 있나요?]],
 }

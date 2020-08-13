@@ -7,8 +7,6 @@ local MockTerrain = require(TestHelpers.MockTerrain)
 local TerrainEnums = require(Plugin.Src.Util.TerrainEnums)
 local ToolId = TerrainEnums.ToolId
 
-local FFlagTerrainToolsTerrainBrushNotSingleton = game:GetFastFlag("TerrainToolsTerrainBrushNotSingleton")
-
 local TerrainBrush = require(script.Parent.TerrainBrushInstance)
 
 return function()
@@ -47,23 +45,21 @@ return function()
 		end).to.throw()
 	end)
 
-	if FFlagTerrainToolsTerrainBrushNotSingleton then
-		it("should require an initial tool", function()
-			expect(function()
-				TerrainBrush.new({
-					terrain = terrain,
-					mouse = mockMouse,
-					tool = nil,
-				})
-			end).to.throw()
+	it("should require an initial tool", function()
+		expect(function()
+			TerrainBrush.new({
+				terrain = terrain,
+				mouse = mockMouse,
+				tool = nil,
+			})
+		end).to.throw()
 
-			expect(function()
-				TerrainBrush.new({
-					terrain = terrain,
-					mouse = mockMouse,
-					tool = ToolId.None,
-				})
-			end).to.throw()
-		end)
-	end
+		expect(function()
+			TerrainBrush.new({
+				terrain = terrain,
+				mouse = mockMouse,
+				tool = ToolId.None,
+			})
+		end).to.throw()
+	end)
 end

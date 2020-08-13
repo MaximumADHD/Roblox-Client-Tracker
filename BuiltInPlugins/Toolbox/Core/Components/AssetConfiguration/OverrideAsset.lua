@@ -47,6 +47,7 @@ local GetAssetConfigManageableGroupsRequest = require(Requests.GetAssetConfigMan
 
 local UpdateAssetConfigStore = require(Plugin.Core.Actions.UpdateAssetConfigStore)
 
+local FFlagSupportAnimImportByID = game:GetFastFlag("SupportAnimImportByID")
 local FFlagStudioUseNewAnimationImportExportFlow = settings():GetFFlag("StudioUseNewAnimationImportExportFlow")
 local FFlagEnableOverrideAssetCursorFix = game:GetFastFlag("EnableOverrideAssetCursorFix")
 local FFlagAssetConifgOverrideAssetScrollingFrame = game:GetFastFlag("AssetConifgOverrideAssetScrollingFrame")
@@ -212,7 +213,7 @@ function OverrideAsset:render()
 						LayoutOrder = 1,
 					}),
 
-					AnimationIdFilter = Roact.createElement("Frame", {
+					AnimationIdFilter = (not FFlagSupportAnimImportByID or not isDownloadFlow) and Roact.createElement("Frame", {
 						Size = UDim2.new(1, -DROPDOWN_WIDTH, 0, FILTER_HEIGHT),
 						BackgroundTransparency = 1,
 						BorderSizePixel = 0,
@@ -229,6 +230,7 @@ function OverrideAsset:render()
 							Height = FILTER_HEIGHT - TITLE_HEIGHT - TOOL_TIP_HEIGHT,
 							WidthOffset = -AssetConfigConstants.TITLE_GUTTER_WIDTH,
 							SetText = self.onFilterIDChanged,
+							ShowToolTip = false,
 						})
 					}),
 				}),

@@ -31,6 +31,7 @@ local Images = require(Util.Images)
 local ContextGetter = require(Util.ContextGetter)
 local ContextHelper = require(Util.ContextHelper)
 local Urls = require(Util.Urls)
+local PageInfoHelper = require(Util.PageInfoHelper)
 
 local Types = Plugin.Core.Types
 local Category = require(Types.Category)
@@ -201,7 +202,7 @@ local function mapStateToProps(state, props)
 
 	return {
 		backgroundIndex = hoveredBackgroundIndex ~= 0 and hoveredBackgroundIndex or selectedBackgroundIndex,
-		currentTab = (not FFlagUseCategoryNameInToolbox) and (pageInfo.currentTab or Category.MARKETPLACE_KEY),
+		currentTab = PageInfoHelper.getCurrentTab(pageInfo),
 		categoryName = (FFlagUseCategoryNameInToolbox and categoryName or nil),
 		elapsedTime = sound.elapsedTime or 0,
 		totalTime = sound.totalTime or 0,

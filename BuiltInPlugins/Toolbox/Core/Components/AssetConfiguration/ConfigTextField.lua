@@ -64,7 +64,7 @@ function ConfigTextField:render()
 			local TextContent = props.TextContent or ""
 			local currentContent = state.currentContent or TextContent
 
-			if game:GetFastFlag("CMSTabErrorIcon") and self.props.ErrorCallback then
+			if self.props.ErrorCallback then
 				if #currentContent > self.props.MaxCount then
 					if not self.hasError then
 						self.hasError = true

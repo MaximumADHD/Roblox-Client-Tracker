@@ -35,6 +35,7 @@ local SetPublishInfo = require(Plugin.Src.Actions.SetPublishInfo)
 local LoadGroups = require(Plugin.Src.Thunks.LoadGroups)
 
 local FFlagStudioPublishMediatorFailedConnection = game:GetFastFlag("StudioPublishMediatorFailedConnection2")
+local FFlagUXImprovementAddScrollToGamesPage= game:GetFastFlag("UXImprovementAddScrollToGamesPage")
 
 local MENU_ENTRIES = {
 	"BasicInfo",
@@ -132,7 +133,7 @@ function ScreenCreateNewGame:render(props)
 						end,
 					},
 					OnClose = onClose,
-					NextScreen = Constants.SCREENS.CHOOSE_GAME,
+					NextScreen = FFlagUXImprovementAddScrollToGamesPage and Constants.SCREENS.CHOOSE_GAME_WITH_SCROLL or Constants.SCREENS.CHOOSE_GAME,
 					NextScreenText = "UpdateExistingGame"
 				}),
 			})

@@ -7,6 +7,7 @@ local Plugin = script.Parent.Parent.Parent
 local Rodux = require(Plugin.Rodux)
 local Cryo = require(Plugin.Cryo)
 local GetFFlagEnforceMaxAnimLength = require(Plugin.LuaFlags.GetFFlagEnforceMaxAnimLength)
+local GetFFlagAddImportFailureToast = require(Plugin.LuaFlags.GetFFlagAddImportFailureToast)
 
 local initialState = {
 	QuantizeWarning = false,
@@ -16,6 +17,10 @@ local initialState = {
 
 if GetFFlagEnforceMaxAnimLength() then
 	initialState["ClippedWarning"] = false
+end
+
+if GetFFlagAddImportFailureToast() then
+	initialState["InvalidAnimation"] = false
 end
 
 return Rodux.createReducer(initialState, {

@@ -10,7 +10,6 @@ Props:
 
 local FFlagTerrainToolsConvertPartTool = game:GetFastFlag("TerrainToolsConvertPartTool")
 local FFlagTerrainToolsReplaceTool = game:GetFastFlag("TerrainToolsReplaceTool")
-local FFlagTerrainToolsTerrainBrushNotSingleton = game:GetFastFlag("TerrainToolsTerrainBrushNotSingleton")
 
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
@@ -21,8 +20,6 @@ local UILibrary = require(Plugin.Packages.UILibrary)
 
 local withLocalization = UILibrary.Localizing.withLocalization
 local withTheme = require(Plugin.Src.ContextServices.Theming).withTheme
-
-local TerrainInterface = require(Plugin.Src.ContextServices.TerrainInterface)
 
 local TextService = game:GetService("TextService")
 
@@ -166,11 +163,6 @@ do
 end
 
 function MaterialSelector:init(props)
-	if not FFlagTerrainToolsTerrainBrushNotSingleton then
-		self.terrainBrush = TerrainInterface.getTerrainBrush(self)
-		assert(self.terrainBrush, "MaterialSettings requires a TerrainBrush from context")
-	end
-
 	self.state = {
 		hoverMaterial = nil
 	}
@@ -189,19 +181,6 @@ function MaterialSelector:init(props)
 
 	self.selectMaterial = function(material)
 		self.props.setMaterial(material)
-	end
-
-	if not FFlagTerrainToolsTerrainBrushNotSingleton then
-		self.materialSelectedConnection = self.terrainBrush:subscribeToMaterialSelectRequested(self.selectMaterial)
-	end
-end
-
-function MaterialSelector:willUnmount()
-	if not FFlagTerrainToolsTerrainBrushNotSingleton then
-		if self.materialSelectedConnection then
-			self.materialSelectedConnection:Disconnect()
-			self.materialSelectedConnection = nil
-		end
 	end
 end
 

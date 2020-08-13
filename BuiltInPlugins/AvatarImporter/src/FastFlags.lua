@@ -16,16 +16,8 @@ local function isFlagOn(theFlag)
 	return FastFlags.FlagExists[theFlag] and FastFlags.FlagValue[theFlag]
 end
 
-function FastFlags:isEnableAvatarImporterOn()
-	return isFlagOn("StudioEnableAvatarImporter")
-end
-
 function FastFlags:isBundleConfigurationEnabled()
 	return isFlagOn("DebugAvatarImporterBundleConfiguration")
-end
-
-function FastFlags:isRoactEnabled()
-	return isFlagOn("AvatarImporterRoact")
 end
 
 return FastFlags

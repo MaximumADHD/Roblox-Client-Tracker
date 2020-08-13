@@ -54,9 +54,12 @@ local GetRobuxBalance = require(Requests.GetRobuxBalance)
 local ContextServices = require(Libs.Framework.ContextServices)
 local Settings = require(Plugin.Core.ContextServices.Settings)
 
+local RobloxAPI = require(Libs.Framework).RobloxAPI
+
 local FFlagStudioToolboxPluginPurchaseFlow = game:GetFastFlag("StudioToolboxPluginPurchaseFlow")
 local FFlagStudioToolboxPersistBackgroundColor = game:DefineFastFlag("StudioToolboxPersistsBackgroundColor", false)
 local FFlagUseCategoryNameInToolbox = game:GetFastFlag("UseCategoryNameInToolbox")
+local FFlagToolboxDisableMarketplaceAndRecentsForLuobu = game:GetFastFlag("ToolboxDisableMarketplaceAndRecentsForLuobu")
 
 local Toolbox = Roact.PureComponent:extend("Toolbox")
 
@@ -68,7 +71,10 @@ function Toolbox:handleInitialSettings()
 	local settings = self.props.Settings:get("Plugin")
 	local initialSettings = settings:loadInitialSettings()
 
-	local initialTab = (not FFlagUseCategoryNameInToolbox) and Category.MARKETPLACE_KEY
+	local initialTab
+	if not FFlagUseCategoryNameInToolbox then
+		initialTab = FFlagToolboxDisableMarketplaceAndRecentsForLuobu and Constants.DEFAULT_TAB or Category.MARKETPLACE_KEY
+	end
 	-- TODO remove initialSelectedCategoryIndex when FFlagUseCategoryNameInToolbox is retired
 	local initialSelectedCategoryIndex
 	local initialSelectedSortIndex
@@ -86,16 +92,18 @@ function Toolbox:handleInitialSettings()
 	if FFlagUseCategoryNameInToolbox then
 		pageInfoCategories = Category.getTabForCategoryName(initialSettings.categoryName)
 	else
-		pageInfoCategories = Category.MARKETPLACE
+		if FFlagToolboxDisableMarketplaceAndRecentsForLuobu and RobloxAPI:baseURLHasChineseHost() then
+			pageInfoCategories = Category.INVENTORY_WITH_GROUPS
+		else
+			pageInfoCategories = Category.MARKETPLACE
+		end
 	end
 
-	if FFlagUseCategoryNameInToolbox then
-
-		local shouldGetGroups = pageInfoCategories == Category.INVENTORY or pageInfoCategories == Category.CREATIONS
+	if FFlagUseCategoryNameInToolbox or FFlagToolboxDisableMarketplaceAndRecentsForLuobu then
+		local shouldGetGroups = pageInfoCategories == Category.INVENTORY_WITH_GROUPS or pageInfoCategories == Category.INVENTORY or pageInfoCategories == Category.CREATIONS
 		if shouldGetGroups then
 			self.props.getToolboxManageableGroups(networkInterface)
 		end
-
 	end
 
 	-- Set the initial page info for the toolbox
@@ -324,7 +332,7 @@ local function mapStateToProps(state, props)
 		categories = pageInfo.categories or {},
 		categoryIndex = (not FFlagUseCategoryNameInToolbox) and (pageInfo.categoryIndex or 0),
 		categoryName = FFlagUseCategoryNameInToolbox and (pageInfo.categoryName or Category.DEFAULT.name) or nil,
-		currentTab = (not FFlagUseCategoryNameInToolbox) and (pageInfo.currentTab or Category.MARKETPLACE_KEY),
+		currentTab = PageInfoHelper.getCurrentTab(pageInfo),
 		sorts = pageInfo.sorts or {},
 		roles = state.roles or {}
 	}

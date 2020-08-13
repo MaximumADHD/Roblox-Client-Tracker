@@ -1,3 +1,5 @@
+local FFlagTerrainToolsUseDevFramework = game:GetFastFlag("TerrainToolsUseDevFramework")
+
 local Plugin = script.Parent.Parent.Parent
 
 local Constants = require(Plugin.Src.Util.Constants)
@@ -80,7 +82,7 @@ local function findBiomeTransitionValue(biome, weight, value, averageValue)
 	end
 end
 
-local function create(generateSettings)
+local function create(generateSettings, analytics)
 	assert(generateSettings and type(generateSettings) == "table",
 		"createGeneratorState requires a generate settings table")
 
@@ -593,14 +595,20 @@ local function create(generateSettings)
 	state.processVoxel = processVoxel
 
 	local numVoxels = tostring(voxelSize.X * voxelSize.Y * voxelSize.Z)
-	AnalyticsService:SendEventDeferred("studio", "Terrain", "GenerateTerrain", {
-		userId = StudioService:GetUserId(),
-		numVoxels = numVoxels,
-		biomeSize = biomeSize,
-		seed = seed,
-		studioSId = AnalyticsService:GetSessionId(),
-		placeId = game.PlaceId,
-	})
+	if FFlagTerrainToolsUseDevFramework then
+		if analytics then
+			analytics:report("generateTerrain", numVoxels, biomeSize, seed)
+		end
+	else
+		AnalyticsService:SendEventDeferred("studio", "Terrain", "GenerateTerrain", {
+			userId = StudioService:GetUserId(),
+			numVoxels = numVoxels,
+			biomeSize = biomeSize,
+			seed = seed,
+			studioSId = AnalyticsService:GetSessionId(),
+			placeId = game.PlaceId,
+		})
+	end
 
 	return state
 end

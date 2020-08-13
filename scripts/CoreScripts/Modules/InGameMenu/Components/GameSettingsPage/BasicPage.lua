@@ -3,6 +3,7 @@ local UserGameSettings = UserSettings():GetService("UserGameSettings")
 local GuiService = game:GetService("GuiService")
 local CorePackages = game:GetService("CorePackages")
 local VRService = game:GetService("VRService")
+local RobloxGui = game:GetService("CoreGui"):WaitForChild("RobloxGui")
 
 local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 local Roact = InGameMenuDependencies.Roact
@@ -42,6 +43,8 @@ local Constants = require(InGameMenu.Resources.Constants)
 local ImageSetLabel = UIBlox.Core.ImageSet.Label
 
 local FFlagInGameMenuVRToggle = game:DefineFastFlag("InGameMenuVRToggle", false)
+
+local GetFFlagFullscreenAnalytics = require(RobloxGui.Modules.Flags.GetFFlagFullscreenAnalytics)
 
 local VRAvailableChanged = VRService:GetPropertyChangedSignal("VREnabled")
 local VREnabledChanged = UserGameSettings:GetPropertyChangedSignal("VREnabled")
@@ -209,6 +212,12 @@ function BasicPage:render()
 					self:setState({
 						fullScreenEnabled = newFullscreenStatus,
 					})
+
+					if GetFFlagFullscreenAnalytics() then
+						SendAnalytics(Constants.AnalyticsInGameMenuName, Constants.AnalyticsFullscreenModeName, {
+							enabled = newFullscreenStatus,
+						})
+					end
 				end,
 			}),
 			CameraYInvertedListener = Roact.createElement(ExternalEventConnection, {

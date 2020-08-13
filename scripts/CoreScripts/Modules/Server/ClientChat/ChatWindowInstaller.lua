@@ -5,6 +5,8 @@ local installDirectory = game:GetService("Chat")
 local PlayersService = game:GetService("Players")
 local StarterPlayerScripts = game:GetService("StarterPlayer"):WaitForChild("StarterPlayerScripts")
 
+game:DefineFastFlag("UserFixBubbleChatText", false)
+
 local function LoadLocalScript(location, name, parent)
 	local originalModule = location:WaitForChild(name)
 	local script = Instance.new("LocalScript")

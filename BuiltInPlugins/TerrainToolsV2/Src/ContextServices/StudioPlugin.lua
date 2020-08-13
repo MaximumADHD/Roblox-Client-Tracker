@@ -1,3 +1,6 @@
+assert(not game:GetFastFlag("TerrainToolsUseDevFramework"),
+	"TerrainTools StudioPlugin.lua should not be used when FFlagTerrainToolsUseDevFramework is on")
+
 --[[
 	The 'plugin' keyword is only exposed to the main.server.lua script context, so
 	the PluginProvider allows the plugin to be accessed at any level.

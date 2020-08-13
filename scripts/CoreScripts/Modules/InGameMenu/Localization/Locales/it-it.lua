@@ -130,4 +130,9 @@ return{
 	["CoreScripts.InGameMenu.Prompt.LeaveGame"] = [[Esci dal gioco]],
 	["CoreScripts.InGameMenu.GameSettings.VREnabled"] = [[Modalità VR]],
 	["CoreScripts.InGameMenu.GameSettings.RestartPending"] = [[Riavvio necessario]],
+	["CoreScripts.InGameMenu.EducationalPopup.BodyTextOpenSystemMenu"] = [[Apri il menu di sistema]],
+	["CoreScripts.InGameMenu.EducationalPopup.BodyTextClickHome"] = [[Fai clic sull'icona Home]],
+	["CoreScripts.InGameMenu.EducationalPopup.BodyTextPlayMore"] = [[Gioca di più a Roblox]],
+	["CoreScripts.InGameMenu.EducationalPopup.LeaveRoblox"] = [[Abbandona Roblox]],
+	["CoreScripts.InGameMenu.GameSettings.ClientCoreScriptVersion"] = [[Versione CoreScript del client: {CLIENT_CORESCRIPT_VERSION}]],
 }

@@ -72,8 +72,9 @@ function AssetPreviewWrapper:init()
     self.tryCreateContextMenu = function()
         local props = self.props
         local assetData = props.AssetData
+        local analytics = props.Analytics
 
-        props.dispatchOnAssetRightClick(props.API:get(), assetData, props.Localization, props.Plugin:get())
+        props.dispatchOnAssetRightClick(analytics, props.API:get(), assetData, props.Localization, props.Plugin:get())
     end
 
     self.ClickDetectorRef = Roact.createRef()
@@ -194,8 +195,8 @@ local function mapDispatchToProps(dispatch)
         dispatchOnAssetDoubleClick = function(analytics, assetData)
             dispatch(OnAssetDoubleClick(analytics, assetData))
         end,
-        dispatchOnAssetRightClick = function(apiImpl, assetData, localization, plugin)
-            dispatch(OnAssetRightClick(apiImpl, assetData, localization, plugin))
+        dispatchOnAssetRightClick = function(analytics, apiImpl, assetData, localization, plugin)
+            dispatch(OnAssetRightClick(analytics, apiImpl, assetData, localization, plugin))
         end,
         dispatchGetAssetFavorited = function(apiImpl, assetId, userId)
 			dispatch(GetAssetFavorited(apiImpl, assetId, userId))

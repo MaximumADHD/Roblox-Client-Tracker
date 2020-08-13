@@ -568,6 +568,25 @@ function NetworkInterface:postOverrideAsset(assetid, type, instanceData)
 end
 
 -- TODO DEVTOOLS-4290: Only used in AssetConfiguration
+function NetworkInterface:validateAnimation(assetid)
+	local targetUrl = Urls.constructValidateAnimationUrl(assetid)
+	local requestInfo = {
+		Url = targetUrl,
+		Method = "GET",
+		CachePolicy = Enum.HttpCachePolicy.None,
+		Headers = {
+			["Content-Type"] = "application/json",
+		},
+	}
+
+	printUrl('validateAnimation', "GET", targetUrl)
+	return self._networkImp:requestInternal(requestInfo)
+	:catch(function(err)
+		return Promise.reject(err)
+	end)
+end
+
+-- TODO DEVTOOLS-4290: Only used in AssetConfiguration
 function NetworkInterface:postUploadAnimation(assetid, name, description, groupId, instanceData)
 	local targetUrl = Urls.constructPostUploadAnimationUrl("Animation", name, description, groupId)
 

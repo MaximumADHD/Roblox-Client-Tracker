@@ -98,9 +98,9 @@ function LabeledElementPair:render()
 				Text = text,
 				TextColor3 = textColor,
 				TextXAlignment = Enum.TextXAlignment.Left,
-				TextYAlignment = Enum.TextYAlignment.Bottom,
+				TextYAlignment = Enum.TextYAlignment.Center,
 				Size = UDim2.new(0, Constants.FIRST_COLUMN_WIDTH, 0, 15),
-				Position = UDim2.new(0, Constants.SIDE_PADDING, 0, 2),
+				Position = UDim2.new(0, Constants.SIDE_PADDING, 0, 7),
 				BackgroundTransparency = 1,
 			}),
 

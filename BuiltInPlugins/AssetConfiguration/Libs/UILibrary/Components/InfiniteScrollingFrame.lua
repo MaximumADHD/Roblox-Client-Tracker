@@ -30,10 +30,14 @@ local DEFAULT_CANVAS_HEIGHT = 900
 
 local DEFAULT_REQUEST_DISTANCE = 0
 
+local FFlagUILibraryInfiniteScrollingFrameRender = game:DefineFastFlag("UILibraryInfiniteScrollingFrameRender", false)
+
 function InfiniteScrollingFrame:init(props)
 	self.state = {
 		isRequestingNextPage = false,
 	}
+
+	self.isRequestingNextPage = false
 
 	self.scrollingFrameRef = Roact.createRef()
 
@@ -52,9 +56,13 @@ function InfiniteScrollingFrame:init(props)
 		local dist = canvasHeight - bottom
 
 		if dist <= requestDistance and not self.state.isRequestingNextPage then
-			self:setState({
-				isRequestingNextPage = true,
-			})
+			if FFlagUILibraryInfiniteScrollingFrameRender then
+				self.isRequestingNextPage = true
+			else
+				self:setState({
+					isRequestingNextPage = true,
+				})
+			end
 			self.requestNextPage()
 		end
 	end
@@ -77,9 +85,13 @@ function InfiniteScrollingFrame:didUpdate(previousProps, previousState)
 	if previousState.isRequestingNextPage then
 		for k,v in pairs(self.props[Roact.Children]) do
 			if v ~= previousProps[Roact.Children][k] then
-				self:setState({
-					isRequestingNextPage = false,
-				})
+				if FFlagUILibraryInfiniteScrollingFrameRender then
+					self.isRequestingNextPage = false
+				else
+					self:setState({
+						isRequestingNextPage = false,
+					})
+				end
 				self.checkCanvasAndRequest(self)
 			end
 		end

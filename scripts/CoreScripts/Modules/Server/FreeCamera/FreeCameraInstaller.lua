@@ -14,8 +14,6 @@ local HttpService = game:GetService("HttpService")
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
 
-local FFlagFreecamInTestServers = settings():GetFFlag("FreecamInTestServers")
-
 local function Install()
 	local function WaitForChildOfClass(parent, class)
 		local child = parent:FindFirstChildOfClass(class)
@@ -43,20 +41,11 @@ local function Install()
 	end
 
 	local function ShouldAddFreeCam(player)
-		if FFlagFreecamInTestServers then
-			if RunService:IsStudio() then
-				return true
-			end
-			if player.UserId <= 0 then
-				return false
-			end
-		else
-			if player.UserId <= 0 then
-				return false
-			end
-			if RunService:IsStudio() then
-				return true
-			end
+		if RunService:IsStudio() then
+			return true
+		end
+		if player.UserId <= 0 then
+			return false
 		end
 
 		local success, result = pcall(function()

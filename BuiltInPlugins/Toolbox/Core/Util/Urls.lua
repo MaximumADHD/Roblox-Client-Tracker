@@ -57,6 +57,7 @@ local GET_ASSET_GROUP = Url.DEVELOP_URL .. "/v1/groups/%s"
 
 local POST_UPLOAD_ANIMATION_BASE = Url.BASE_URL .. "ide/publish/uploadnewanimation?"
 local POST_OVERWRITE_ANIMATION_BASE = Url.BASE_URL .. "ide/publish/uploadexistinganimation?"
+local VALIDATE_ANIMATION_BASE = Url.BASE_URL .. "/studio/animations/validateId?"
 
 local PATCH_ASSET_BASE = Url.DEVELOP_URL .. "v1/assets/%s?"
 local POST_UPLOAD_ASSET_BASE = Url.DATA_URL .. "Data/Upload.ashx?"
@@ -370,6 +371,12 @@ function Urls.constructPostUploadAnimationUrl(type, name, description, groupId)
 		allowComments = "True",
 		isGamesAsset = "False",
 		groupId = groupId or ""
+	})
+end
+
+function Urls.constructValidateAnimationUrl(assetid)
+	return VALIDATE_ANIMATION_BASE .. Url.makeQueryString({
+		animationId = assetid,
 	})
 end
 

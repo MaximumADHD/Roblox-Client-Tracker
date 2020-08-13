@@ -24,6 +24,13 @@ local success, UserShouldLocalizeGameChatBubble = pcall(function()
 end)
 local UserShouldLocalizeGameChatBubble = success and UserShouldLocalizeGameChatBubble
 
+local UserFixBubbleChatText do
+	local success, value = pcall(function()
+		return UserSettings():IsUserFeatureEnabled("UserFixBubbleChatText")
+	end)
+	UserFixBubbleChatText = success and value
+end
+
 local function getMessageLength(message)
 	return utf8.len(utf8.nfcnormalize(message))
 end
@@ -35,6 +42,7 @@ local CHAT_BUBBLE_FONT_SIZE_INT = 24 -- if you change CHAT_BUBBLE_FONT_SIZE plea
 local CHAT_BUBBLE_LINE_HEIGHT = CHAT_BUBBLE_FONT_SIZE_INT + 10
 local CHAT_BUBBLE_TAIL_HEIGHT = 14
 local CHAT_BUBBLE_WIDTH_PADDING = 30
+local CHAT_BUBBLE_PADDING = 12
 local CHAT_BUBBLE_FADE_SPEED = 1.5
 
 local BILLBOARD_MAX_WIDTH = 400
@@ -67,7 +75,7 @@ BubbleChatScreenGui.Parent = PlayerGui
 --[[ FUNCTIONS ]]
 
 local function lerpLength(msg, min, max)
-	return min + (max-min) * math.min(getMessageLength(msg)/75.0, 1.0)
+	return min + (max - min) * math.min(getMessageLength(msg) / 75.0, 1.0)
 end
 
 local function createFifo()
@@ -162,9 +170,9 @@ local function createChatLine(message, bubbleColor, isLocalPlayer)
 
 	function this:ComputeBubbleLifetime(msg, isSelf)
 		if isSelf then
-			return lerpLength(msg,8,15)
+			return lerpLength(msg, 8, 15)
 		else
-			return lerpLength(msg,12,20)
+			return lerpLength(msg, 12, 20)
 		end
 	end
 
@@ -205,7 +213,7 @@ function createChatBubbleMain(filePrefix, sliceRect)
 	chatBubbleMain.BackgroundTransparency = 1
 	chatBubbleMain.BorderSizePixel = 0
 	chatBubbleMain.Size = UDim2.new(1.0, 0, 1.0, 0)
-	chatBubbleMain.Position = UDim2.new(0,0,0,0)
+	chatBubbleMain.Position = UDim2.new(0, 0, 0, 0)
 
 	return chatBubbleMain
 end
@@ -242,7 +250,7 @@ function createScaledChatBubbleWithTail(filePrefix, frameScaleSize, position, sl
 	frame.Size = UDim2.new(frameScaleSize, 0, frameScaleSize, 0)
 	frame.Parent = chatBubbleMain
 
-	local chatBubbleTail = createChatBubbleTail(position, UDim2.new(1,0,0.5,0))
+	local chatBubbleTail = createChatBubbleTail(position, UDim2.new(1, 0, 0.5, 0))
 	chatBubbleTail.Parent = frame
 
 	return chatBubbleMain
@@ -300,14 +308,14 @@ end
 local function createBillboardInstance(adornee)
 	local billboardGui = Instance.new("BillboardGui")
 	billboardGui.Adornee = adornee
-	billboardGui.Size = UDim2.new(0,BILLBOARD_MAX_WIDTH,0,BILLBOARD_MAX_HEIGHT)
+	billboardGui.Size = UDim2.new(0, BILLBOARD_MAX_WIDTH, 0, BILLBOARD_MAX_HEIGHT)
 	billboardGui.StudsOffset = Vector3.new(0, 1.5, 2)
 	billboardGui.Parent = BubbleChatScreenGui
 
 	local billboardFrame = Instance.new("Frame")
 	billboardFrame.Name = "BillboardFrame"
-	billboardFrame.Size = UDim2.new(1,0,1,0)
-	billboardFrame.Position = UDim2.new(0,0,-0.5,0)
+	billboardFrame.Size = UDim2.new(1, 0, 1, 0)
+	billboardFrame.Position = UDim2.new(0, 0, -0.5, 0)
 	billboardFrame.BackgroundTransparency = 1
 	billboardFrame.Parent = billboardGui
 
@@ -372,7 +380,7 @@ end
 
 function this:SetBillboardLODDistant(billboardGui)
 	local isLocalPlayer = isPartOfLocalPlayer(billboardGui.Adornee)
-	billboardGui.Size = UDim2.new(4,0,3,0)
+	billboardGui.Size = UDim2.new(4, 0, 3, 0)
 	billboardGui.StudsOffset = Vector3.new(0, 3, isLocalPlayer and 2 or 0.1)
 	billboardGui.Enabled = true
 	local billChildren = billboardGui.BillboardFrame:GetChildren()
@@ -417,8 +425,14 @@ function this:CreateBubbleText(message, shouldAutoLocalize)
 	local bubbleText = Instance.new("TextLabel")
 	bubbleText.Name = "BubbleText"
 	bubbleText.BackgroundTransparency = 1
-	bubbleText.Position = UDim2.new(0,CHAT_BUBBLE_WIDTH_PADDING/2,0,0)
-	bubbleText.Size = UDim2.new(1,-CHAT_BUBBLE_WIDTH_PADDING,1,0)
+
+	if UserFixBubbleChatText then
+		bubbleText.Size = UDim2.fromScale(1, 1)
+	else
+		bubbleText.Position = UDim2.new(0, CHAT_BUBBLE_WIDTH_PADDING / 2, 0, 0)
+		bubbleText.Size = UDim2.new(1, -CHAT_BUBBLE_WIDTH_PADDING, 1, 0)
+	end
+
 	bubbleText.Font = CHAT_BUBBLE_FONT
 	bubbleText.ClipsDescendants = true
 	bubbleText.TextWrapped = true
@@ -427,6 +441,15 @@ function this:CreateBubbleText(message, shouldAutoLocalize)
 	bubbleText.Visible = false
 	bubbleText.AutoLocalize = shouldAutoLocalize
 
+	if UserFixBubbleChatText then
+		local padding = Instance.new("UIPadding")
+		padding.PaddingTop = UDim.new(0, CHAT_BUBBLE_PADDING)
+		padding.PaddingRight = UDim.new(0, CHAT_BUBBLE_PADDING)
+		padding.PaddingBottom = UDim.new(0, CHAT_BUBBLE_PADDING)
+		padding.PaddingLeft = UDim.new(0, CHAT_BUBBLE_PADDING)
+		padding.Parent = bubbleText
+	end
+
 	return bubbleText
 end
 
@@ -434,7 +457,7 @@ function this:CreateSmallTalkBubble(chatBubbleType)
 	local smallTalkBubble = this.ScalingChatBubbleWithTail[chatBubbleType]:Clone()
 	smallTalkBubble.Name = "SmallTalkBubble"
 	smallTalkBubble.AnchorPoint = Vector2.new(0, 0.5)
-	smallTalkBubble.Position = UDim2.new(0,0,0.5,0)
+	smallTalkBubble.Position = UDim2.new(0, 0, 0.5, 0)
 	smallTalkBubble.Visible = false
 	local text = this:CreateBubbleText("...")
 	text.TextScaled = true
@@ -465,7 +488,7 @@ function this:UpdateChatLinesForOrigin(origin, currentBubbleYPos)
 		end
 
 		local udimValue = UDim2.new( bubble.Position.X.Scale, bubble.Position.X.Offset,
-									1, currentBubbleYPos - bubble.Size.Y.Offset - CHAT_BUBBLE_TAIL_HEIGHT )
+									1, currentBubbleYPos - bubble.Size.Y.Offset - CHAT_BUBBLE_TAIL_HEIGHT)
 		bubble:TweenPosition(udimValue, Enum.EasingDirection.Out, Enum.EasingStyle.Bounce, 0.1, true)
 		currentBubbleYPos = currentBubbleYPos - bubble.Size.Y.Offset - CHAT_BUBBLE_TAIL_HEIGHT
 	end
@@ -530,23 +553,50 @@ function this:CreateChatLineRender(instance, line, onlyCharacter, fifo, shouldAu
 		local currentTextBounds = TextService:GetTextSize(
 				bubbleText.Text, CHAT_BUBBLE_FONT_SIZE_INT, CHAT_BUBBLE_FONT,
 				Vector2.new(BILLBOARD_MAX_WIDTH, BILLBOARD_MAX_HEIGHT))
-		local bubbleWidthScale = math.max((currentTextBounds.X + CHAT_BUBBLE_WIDTH_PADDING)/BILLBOARD_MAX_WIDTH, 0.1)
-		local numOflines = (currentTextBounds.Y/CHAT_BUBBLE_FONT_SIZE_INT)
+		local numOflines = (currentTextBounds.Y / CHAT_BUBBLE_FONT_SIZE_INT)
 
-		-- prep chat bubble for tween
-		chatBubbleRender.Size = UDim2.new(0,0,0,0)
-		chatBubbleRender.Position = UDim2.new(0.5,0,1,0)
+		if UserFixBubbleChatText then
+			-- Need to use math.ceil to round up on retina displays
+			local width = math.ceil(currentTextBounds.X + CHAT_BUBBLE_PADDING * 2)
+			local height = numOflines * CHAT_BUBBLE_LINE_HEIGHT
 
-		local newChatBubbleOffsetSizeY = numOflines * CHAT_BUBBLE_LINE_HEIGHT
+			-- prep chat bubble for tween
+			chatBubbleRender.Size = UDim2.fromOffset(0, 0)
+			chatBubbleRender.Position = UDim2.fromScale(0.5, 1)
 
-		chatBubbleRender:TweenSizeAndPosition(UDim2.new(bubbleWidthScale, 0, 0, newChatBubbleOffsetSizeY),
-											 	UDim2.new( (1-bubbleWidthScale)/2, 0, 1, -newChatBubbleOffsetSizeY),
-											 	Enum.EasingDirection.Out, Enum.EasingStyle.Elastic, 0.1, true,
-											 	function() bubbleText.Visible = true end)
+			chatBubbleRender:TweenSizeAndPosition(
+				UDim2.fromOffset(width, height),
+				UDim2.new(0.5, -width / 2, 1, -height),
+				Enum.EasingDirection.Out,
+				Enum.EasingStyle.Elastic,
+				0.1,
+				true,
+				function()
+					bubbleText.Visible = true
+				end
+			)
 
-		-- todo: remove when over max bubbles
-		this:SetBillboardGuiLOD(billboardGui, line.Origin)
-		this:UpdateChatLinesForOrigin(line.Origin, -newChatBubbleOffsetSizeY)
+			-- todo: remove when over max bubbles
+			this:SetBillboardGuiLOD(billboardGui, line.Origin)
+			this:UpdateChatLinesForOrigin(line.Origin, -height)
+		else
+			local bubbleWidthScale = math.max((currentTextBounds.X + CHAT_BUBBLE_WIDTH_PADDING) / BILLBOARD_MAX_WIDTH, 0.1)
+
+			-- prep chat bubble for tween
+			chatBubbleRender.Size = UDim2.new(0, 0, 0, 0)
+			chatBubbleRender.Position = UDim2.new(0.5, 0, 1, 0)
+
+			local newChatBubbleOffsetSizeY = numOflines * CHAT_BUBBLE_LINE_HEIGHT
+
+			chatBubbleRender:TweenSizeAndPosition(UDim2.new(bubbleWidthScale, 0, 0, newChatBubbleOffsetSizeY),
+													UDim2.new( (1 - bubbleWidthScale) / 2, 0, 1, -newChatBubbleOffsetSizeY),
+													Enum.EasingDirection.Out, Enum.EasingStyle.Elastic, 0.1, true,
+													function() bubbleText.Visible = true end)
+
+			-- todo: remove when over max bubbles
+			this:SetBillboardGuiLOD(billboardGui, line.Origin)
+			this:UpdateChatLinesForOrigin(line.Origin, -newChatBubbleOffsetSizeY)
+		end
 
 		delay(line.BubbleDieDelay, function()
 			this:DestroyBubble(fifo, chatBubbleRender)

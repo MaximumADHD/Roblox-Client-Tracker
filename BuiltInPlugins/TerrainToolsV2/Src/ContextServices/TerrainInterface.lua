@@ -1,3 +1,6 @@
+assert(not game:GetFastFlag("TerrainToolsUseDevFramework"),
+	"TerrainTools TerrainInterface.lua should not be used when FFlagTerrainToolsUseDevFramework is on")
+
 local Plugin = script.Parent.Parent.Parent
 
 local Roact = require(Plugin.Packages.Roact)
@@ -6,14 +9,12 @@ local Symbol = require(Plugin.Src.Util.Symbol)
 local PluginActivationControllerKey = Symbol.named("PluginActivationController")
 
 local TerrainKey = Symbol.named("Terrain")
-local TerrainBrushKey = Symbol.named("TerrainBrush")
 local ReplaceKey = Symbol.named("ReplaceKey")
 local TerrainImporterKey = Symbol.named("TerrainImporter")
 local TerrainGenerationKey = Symbol.named("TerrainGeneration")
 local PartConverterKey = Symbol.named("PartConverter")
 
 local FFlagTerrainToolsConvertPartTool = game:GetFastFlag("TerrainToolsConvertPartTool")
-local FFlagTerrainToolsTerrainBrushNotSingleton = game:GetFastFlag("TerrainToolsTerrainBrushNotSingleton")
 
 local TerrainInterfaceProvider = Roact.PureComponent:extend("TerrainInterfaceProvider")
 
@@ -25,12 +26,6 @@ function TerrainInterfaceProvider:init()
 	local pluginActivationController = self.props.pluginActivationController
 	assert(pluginActivationController, "TerrainInterfaceProvider expects a PluginActivationController")
 	self._context[PluginActivationControllerKey] = pluginActivationController
-
-	if not FFlagTerrainToolsTerrainBrushNotSingleton then
-		local terrainBrush = self.props.terrainBrush
-		assert(terrainBrush, "TerrainInterfaceProvider expects a TerrainBrush")
-		self._context[TerrainBrushKey] = terrainBrush
-	end
 
 	local terrainImporter = self.props.terrainImporter
 	assert(terrainImporter, "TerrainInterfaceProvider expects a TerrainImporter")
@@ -63,13 +58,6 @@ local function getPluginActivationController(component)
 	return component._context[PluginActivationControllerKey]
 end
 
-local function getTerrainBrush(component)
-	if FFlagTerrainToolsTerrainBrushNotSingleton then
-		warn("TerrainInterface.getTerrainBrush() should not be used when FFlagTerrainToolsTerrainBrushNotSingleton is true")
-	end
-	return component._context[TerrainBrushKey]
-end
-
 local function getSeaLevel(component)
 	return component._context[ReplaceKey]
 end
@@ -94,7 +82,6 @@ return {
 	Provider = TerrainInterfaceProvider,
 	getTerrain = getTerrain,
 	getPluginActivationController = getPluginActivationController,
-	getTerrainBrush = getTerrainBrush,
 	getSeaLevel = getSeaLevel,
 	getReplace = getReplace,
 	getTerrainImporter = getTerrainImporter,

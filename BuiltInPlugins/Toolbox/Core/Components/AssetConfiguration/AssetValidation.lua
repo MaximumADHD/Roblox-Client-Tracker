@@ -10,33 +10,21 @@
 		onClose callback, called when the user presses the "cancel" button
 ]]
 
-game:DefineFastFlag("CMSUseSharedUGCValidation", false)
-
-local ContentProvider = game:GetService("ContentProvider")
+local CorePackages = game:GetService("CorePackages")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Libs = Plugin.Libs
-local Cryo = require(Libs.Cryo)
 local Roact = require(Libs.Roact)
 local RoactRodux = require(Libs.RoactRodux)
 
 local Util = Plugin.Core.Util
 local Constants = require(Util.Constants)
-local ContextGetter = require(Util.ContextGetter)
 local ContextHelper = require(Util.ContextHelper)
-local convertArrayToTable = require(Util.convertArrayToTable)
 local AssetConfigConstants = require(Util.AssetConfigConstants)
-local validateWithSchema = require(Util.validateWithSchema)
 local AssetConfigUtil = require(Util.AssetConfigUtil)
 
-local UGCValidation
-if game:GetFastFlag("CMSUseSharedUGCValidation") then
-	local CorePackages = game:GetService("CorePackages")
-	UGCValidation = require(CorePackages.UGCValidation)
-end
-
-local getNetwork = ContextGetter.getNetwork
+local UGCValidation = require(CorePackages.UGCValidation)
 
 local withTheme = ContextHelper.withTheme
 
@@ -77,108 +65,6 @@ local LOADING_TEXT = "Validating"
 local LOADING_TIME = 0.5
 local LOADING_PERCENT = 0.92
 
-local MAX_HAT_TRIANGLES = 4000
-
-local MATERIAL_WHITELIST = convertArrayToTable({
-	Enum.Material.Plastic,
-})
-
-local BANNED_CLASS_NAMES = {
-	"Script",
-	"LocalScript",
-	"ModuleScript",
-	"ParticleEmitter",
-	"Fire",
-	"Smoke",
-	"Sparkles",
-}
-
-local R6_BODY_PARTS = {
-	"Torso",
-	"Left Leg",
-	"Right Leg",
-	"Left Arm",
-	"Right Arm",
-}
-
-local R15_BODY_PARTS = {
-	"UpperTorso",
-	"LowerTorso",
-
-	"LeftUpperLeg",
-	"LeftLowerLeg",
-	"LeftFoot",
-
-	"RightUpperLeg",
-	"RightLowerLeg",
-	"RightFoot",
-
-	"LeftUpperArm",
-	"LeftLowerArm",
-	"LeftHand",
-
-	"RightUpperArm",
-	"RightLowerArm",
-	"RightHand",
-}
-
-local EXTRA_BANNED_NAMES = {
-	"Head",
-	"HumanoidRootPart",
-	"Humanoid",
-}
-
-local BANNED_NAMES = convertArrayToTable(Cryo.List.join(R6_BODY_PARTS, R15_BODY_PARTS, EXTRA_BANNED_NAMES))
-
-local function createAccessorySchema(attachmentNames)
-	return {
-		ClassName = "Accessory",
-		_children = {
-			{
-				Name = "Handle",
-				ClassName = "Part",
-				_children = {
-					{
-						Name = attachmentNames,
-						ClassName = "Attachment",
-					},
-					{
-						ClassName = "SpecialMesh",
-					},
-					{
-						ClassName = "Vector3Value",
-						Name = "OriginalSize",
-						_optional = true,
-					},
-					{
-						ClassName = "StringValue",
-						Name = "AvatarPartScaleType",
-						_optional = true,
-					},
-					{
-						ClassName = "TouchTransmitter",
-						_optional = true,
-					},
-				}
-			},
-		},
-	}
-end
-
-local SCHEMA_MAP = {}
-SCHEMA_MAP[Enum.AssetType.Hat] = createAccessorySchema({ "HatAttachment" })
-SCHEMA_MAP[Enum.AssetType.HairAccessory] = createAccessorySchema({ "HairAttachment" })
-SCHEMA_MAP[Enum.AssetType.FaceAccessory] = createAccessorySchema({ "FaceFrontAttachment" })
-SCHEMA_MAP[Enum.AssetType.NeckAccessory] = createAccessorySchema({ "NeckAttachment" })
-SCHEMA_MAP[Enum.AssetType.ShoulderAccessory] = createAccessorySchema({
-	"NeckAttachment",
-	"LeftCollarAttachment",
-	"RightCollarAttachment",
-})
-SCHEMA_MAP[Enum.AssetType.FrontAccessory] = createAccessorySchema({ "BodyFrontAttachment" })
-SCHEMA_MAP[Enum.AssetType.BackAccessory] = createAccessorySchema({ "BodyBackAttachment" })
-SCHEMA_MAP[Enum.AssetType.WaistAccessory] = createAccessorySchema({ "WaistBackAttachment" })
-
 local AssetValidation = Roact.PureComponent:extend("AssetValidation")
 
 function AssetValidation:init(props)
@@ -192,241 +78,21 @@ function AssetValidation:init(props)
 		(FFlagStudioUseNewAnimationImportExportFlow and self.props.assetTypeEnum == Enum.AssetType.Animation) then
 		self.props.nextScreen()
 	else
-		if game:GetFastFlag("CMSUseSharedUGCValidation") then
-			UGCValidation.validateAsync(self.props.instances, self.props.assetTypeEnum, function(success, reasons)
-				if success then
-					self:setState({ onFinish = self.props.nextScreen })
-				else
-					self:setState({
-						onFinish = function()
-							self:setState({
-								isLoading = false,
-								reasons = reasons
-							})
-						end
-					})
-				end
-			end)
-		else
-			self:validateAsync()
-		end
-	end
-end
-
-function AssetValidation:fail(reasons)
-	self:setState({
-		failed = true,
-		onFinish = function()
-			self:setState({
-				isLoading = false,
-				reasons = reasons
-			})
-		end
-	})
-
-	-- force end of validation
-	coroutine.resume(self.validateThread)
-	coroutine.yield()
-end
-
-function AssetValidation:validateInstanceTree(instance)
-	local schema = SCHEMA_MAP[self.props.assetTypeEnum]
-	if not schema then
-		self:fail({ "Could not validate" })
-	end
-
-	-- validate using hat schema
-	local validationResult = validateWithSchema(schema, instance)
-	if validationResult.success == false then
-		self:fail({ validationResult.message })
-	end
-
-	-- fallback case for if validateWithSchema breaks
-	local invalidDescendantsReasons = {}
-	if BANNED_NAMES[instance.Name] then
-		local reason = string.format("%s has an invalid name", instance:GetFullName())
-		invalidDescendantsReasons[#invalidDescendantsReasons + 1] = reason
-	end
-	for _, descendant in pairs(instance:GetDescendants()) do
-		for _, className in pairs(BANNED_CLASS_NAMES) do
-			if descendant:IsA(className) then
-				local reason = string.format(
-					"%s is of type %s which is not allowed",
-					descendant:GetFullName(),
-					className
-				)
-				invalidDescendantsReasons[#invalidDescendantsReasons + 1] = reason
-			end
-		end
-		if BANNED_NAMES[descendant.Name] then
-			local reason = string.format("%s has an invalid name", descendant:GetFullName())
-			invalidDescendantsReasons[#invalidDescendantsReasons + 1] = reason
-		end
-	end
-	if #invalidDescendantsReasons > 0 then
-		self:fail(invalidDescendantsReasons)
-	end
-end
-
-function AssetValidation:validateMaterials(instance)
-	local materialFailures = {}
-	for _, descendant in pairs(instance:GetDescendants()) do
-		if descendant:IsA("BasePart") and not MATERIAL_WHITELIST[descendant.Material] then
-			materialFailures[#materialFailures + 1] = descendant:GetFullName()
-		end
-	end
-	if #materialFailures > 0 then
-		local reasons = {}
-		local acceptedMaterialNames = {}
-		for material in pairs(MATERIAL_WHITELIST) do
-			acceptedMaterialNames[#acceptedMaterialNames + 1] = material.Name
-		end
-		reasons[#reasons + 1] = "Invalid materials for"
-		for _, name in pairs(materialFailures) do
-			reasons[#reasons + 1] = name
-		end
-		reasons[#reasons + 1] = "Accepted materials are " .. table.concat(acceptedMaterialNames, ", ")
-		self:fail(reasons)
-	end
-end
-
-function AssetValidation:validateMeshTriangles(instance)
-	-- check mesh triangles
-	-- this is guaranteed to exist thanks to validateWithSchema
-	local mesh = instance.Handle:FindFirstChildOfClass("SpecialMesh")
-	if not mesh then
-		self:fail({ "Could not find mesh" })
-	end
-
-	if mesh.MeshId == "" then
-		self:fail({ "Mesh must contain valid MeshId" })
-	end
-
-	if mesh.TextureId == "" then
-		self:fail({ "Mesh must contain valid TextureId" })
-	end
-
-	local success, triangles = pcall(function()
-		return ContentProvider:CalculateNumTrianglesInMesh(mesh.MeshId)
-	end)
-	if not success then
-		self:fail({ "Failed to load mesh data" })
-	elseif triangles > MAX_HAT_TRIANGLES then
-		self:fail({
-			"Mesh exceeded triangle limit!",
-			string.format(
-				"Mesh has %d triangles, but the limit is %d",
-				triangles,
-				MAX_HAT_TRIANGLES
-			)
-		})
-	end
-end
-
-function AssetValidation:validateModeration(instance)
-	local contentIdMap = {}
-	local contentIds = {}
-
-	local function parseContentId(instance, fieldName)
-		local contentId = instance[fieldName]
-
-		-- map to ending digits
-		-- rbxassetid://1234 -> 1234
-		-- http://www.roblox.com/asset/?id=1234 -> 1234
-		local id = tonumber(string.match(contentId, "%d+$"))
-		if id == nil then
-			self:fail({
-				"Could not parse ContentId",
-				contentId,
-			})
-		end
-		contentIdMap[id] = {
-			fieldName = fieldName,
-			instance = instance,
-		}
-		table.insert(contentIds, id)
-	end
-
-	local function parseDescendantContentIds(instance)
-		for _, descendant in pairs(instance:GetDescendants()) do
-			if descendant:IsA("SpecialMesh") then
-				parseContentId(descendant, "MeshId")
-				parseContentId(descendant, "TextureId")
-			end
-		end
-	end
-
-	parseDescendantContentIds(instance)
-
-	local moderatedIds = {}
-
-	local result = getNetwork(self):getAssetCreationDetails(contentIds):await()
-
-	if #result.responseBody ~= #contentIds then
-		self:fail({ "Could not fetch details for assets" })
-	end
-
-	for _, details in pairs(result.responseBody) do
-		if details.status == AssetConfigConstants.ASSET_STATUS.Unknown
-		or details.status == AssetConfigConstants.ASSET_STATUS.ReviewPending
-		or details.status == AssetConfigConstants.ASSET_STATUS.Moderated
-		then
-			table.insert(moderatedIds, details.assetId)
-		end
-	end
-
-	if #moderatedIds > 0 then
-		local moderationMessages = {}
-		for idx, id in pairs(moderatedIds) do
-			local mapped = contentIdMap[id]
-			if mapped then
-				moderationMessages[idx] = string.format(
-					"%s.%s ( %s )",
-					mapped.instance:GetFullName(),
-					mapped.fieldName,
-					id
-				)
+		UGCValidation.validateAsync(self.props.instances, self.props.assetTypeEnum, function(success, reasons)
+			if success then
+				self:setState({ onFinish = self.props.nextScreen })
 			else
-				moderationMessages[idx] = id
+				self:setState({
+					onFinish = function()
+						self:setState({
+							isLoading = false,
+							reasons = reasons
+						})
+					end
+				})
 			end
-		end
-		self:fail({
-			"The following asset IDs have not passed moderation:",
-			unpack(moderationMessages),
-		})
-	end
-end
-
-function AssetValidation:validateAsync()
-	spawn(function()
-		self.validateThread = coroutine.running()
-
-		spawn(function()
-			-- validate that only one instance was selected
-			if #self.props.instances == 0 then
-				self:fail({ "No instances selected" })
-				return
-			elseif #self.props.instances > 1 then
-				self:fail({ "More than one instance selected" })
-				return
-			end
-
-			local instance = self.props.instances[1]
-
-			self:validateInstanceTree(instance)
-			self:validateMaterials(instance)
-			self:validateMeshTriangles(instance)
-			self:validateModeration(instance)
-
-			coroutine.resume(self.validateThread)
 		end)
-
-		coroutine.yield()
-
-		if not self.state.failed then
-			self:setState({ onFinish = self.props.nextScreen })
-		end
-	end)
+	end
 end
 
 function AssetValidation:render()

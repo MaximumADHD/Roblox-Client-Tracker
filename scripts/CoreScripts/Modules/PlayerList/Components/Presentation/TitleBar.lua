@@ -2,6 +2,7 @@ local CorePackages = game:GetService("CorePackages")
 local CoreGui = game:GetService("CoreGui")
 
 local Roact = require(CorePackages.Roact)
+local RoactRodux = require(CorePackages.RoactRodux)
 local t = require(CorePackages.Packages.t)
 local UIBlox = require(CorePackages.UIBlox)
 
@@ -15,6 +16,9 @@ local WithLayoutValues = LayoutValues.WithLayoutValues
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local GameTranslator = require(RobloxGui.Modules.GameTranslator)
 local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
+
+local PlayerList = Components.Parent
+local FFlagFixLeaderboardWaitingOnScreenSize = require(PlayerList.Flags.FFlagFixLeaderboardWaitingOnScreenSize)
 
 local TitleBar = Roact.PureComponent:extend("TitleBar")
 
@@ -64,8 +68,14 @@ function TitleBar:render()
 				})
 			})
 
+
+			local maxLeaderstats = layoutValues.MaxLeaderstats
+			if FFlagFixLeaderboardWaitingOnScreenSize and self.props.isSmallTouchDevice then
+				maxLeaderstats = layoutValues.MaxLeaderstatsSmallScreen
+			end
+
 			for i, gameStat in ipairs(self.props.gameStats) do
-				if i > layoutValues.MaxLeaderstats then
+				if i > maxLeaderstats then
 					break
 				end
 				local statName = GameTranslator:TranslateGameText(CoreGui, gameStat.name)
@@ -110,6 +120,16 @@ function TitleBar:render()
 			})
 		end)
 	end)
+end
+
+if FFlagFixLeaderboardWaitingOnScreenSize then
+	local function mapStateToProps(state)
+		return {
+			isSmallTouchDevice = state.displayOptions.isSmallTouchDevice,
+		}
+	end
+
+	return RoactRodux.UNSTABLE_connect2(mapStateToProps, nil)(TitleBar)
 end
 
 return TitleBar

@@ -16,6 +16,7 @@ local SetInspectMenuEnabled = require(Actions.SetInspectMenuEnabled)
 local SetIsUsingGamepad = require(Actions.SetIsUsingGamepad)
 local SetHasPermissionToVoiceChat = require(Actions.SetHasPermissionToVoiceChat)
 local SetMinimized = require(Actions.SetMinimized)
+local SetSubjectToChinaPolicies = require(Actions.SetSubjectToChinaPolicies)
 
 local initialDisplayOptions = {
 	isMinimized = false,
@@ -30,6 +31,7 @@ local initialDisplayOptions = {
 	isUsingGamepad = false,
 	hasPermissionToVoiceChat = false,
 	tempHideKeys = {},
+	subjectToChinaPolicies = true,
 }
 
 local function updateIsVisible(state)
@@ -112,6 +114,12 @@ local DisplayOptions = Rodux.createReducer(initialDisplayOptions, {
 	[SetMinimized.name] = function(state, action)
 		return Cryo.Dictionary.join(state, {
 			isMinimized = action.isMinimized,
+		})
+	end,
+
+	[SetSubjectToChinaPolicies.name] = function(state, action)
+		return Cryo.Dictionary.join(state, {
+			subjectToChinaPolicies = action.subjectToChinaPolicies,
 		})
 	end,
 })

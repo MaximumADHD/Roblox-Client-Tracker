@@ -1,10 +1,11 @@
+game:DefineFastFlag("TerrainToolsBrushUseIsKeyDown", false)
+game:DefineFastFlag("TerrainToolsRaycastUpdate", false)
+
 local FFlagTerrainToolsUseDevFramework = game:GetFastFlag("TerrainToolsUseDevFramework")
 local FFlagTerrainToolsReplaceTool = game:GetFastFlag("TerrainToolsReplaceTool")
-
-game:DefineFastFlag("TerrainToolsBrushUseIsKeyDown", false)
-
 local FFlagTerrainToolsBrushUseIsKeyDown = game:GetFastFlag("TerrainToolsBrushUseIsKeyDown")
-local FFlagTerrainToolsTerrainBrushNotSingleton = game:GetFastFlag("TerrainToolsTerrainBrushNotSingleton")
+
+local FFlagTerrainToolsRaycastUpdate = game:GetFastFlag("TerrainToolsRaycastUpdate")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -103,9 +104,10 @@ function TerrainBrush.new(options)
 	local self = setmetatable({
 		_terrain = options.terrain,
 		_mouse = options.mouse,
+		_analytics = options.analytics,
 
 		_operationSettings = {
-			currentTool = ToolId.None,
+			currentTool = options.tool,
 			brushShape = BrushShape.Sphere,
 
 			cursorSize = Constants.INITIAL_BRUSH_SIZE,
@@ -161,11 +163,12 @@ function TerrainBrush.new(options)
 	assert(self._terrain, "TerrainBrush needs a terrain instance")
 	assert(self._mouse, "TerrainBrush needs a mouse instance")
 
-	if FFlagTerrainToolsTerrainBrushNotSingleton then
-		-- TODO: When removing FFlagTerrainToolsTerrainBrushNotSingleton, move this to the structure definition above
-		self._operationSettings.currentTool = options.tool
-		assert(self._operationSettings.currentTool ~= nil and self._operationSettings.currentTool ~= ToolId.None,
-			"TerrainBrush needs a tool passed to constructor")
+	assert(self._operationSettings.currentTool ~= nil and self._operationSettings.currentTool ~= ToolId.None,
+		"TerrainBrush needs a tool passed to constructor")
+
+	if FFlagTerrainToolsRaycastUpdate then
+		self._raycastParams = RaycastParams.new()
+		self._raycastParams.FilterType = Enum.RaycastFilterType.Blacklist
 	end
 
 	return self
@@ -196,37 +199,12 @@ function TerrainBrush:subscribeToMaterialSelectRequested(...)
 end
 
 function TerrainBrush:updateSettings(newSettings)
-	if FFlagTerrainToolsTerrainBrushNotSingleton then
-		assert(newSettings.currentTool == nil, "Unable to change terrain brush tool")
-		newSettings.currentTool = nil
-	end
+	assert(newSettings.currentTool == nil, "Unable to change terrain brush tool")
+	newSettings.currentTool = nil
 	local settings = Cryo.Dictionary.join(self._operationSettings, newSettings)
 	settings = applyOverrideToSettings(settings)
 	self._operationSettings = settings
 	self:_updateCursor()
-end
-
-function TerrainBrush:startWithTool(newTool)
-	if FFlagTerrainToolsTerrainBrushNotSingleton then
-		warn("TerrainBrush:startWithTool() should not be used when FFlagTerrainToolsTerrainBrushNotSingleton is true")
-	end
-
-	self:updateSettings({
-		currentTool = newTool,
-	})
-
-	if newTool == ToolId.None then
-		self:stop()
-		return
-	end
-
-	if self._isRunning then
-		return
-	end
-	self._isRunning = true
-
-	self:_connectInput()
-	self:_run()
 end
 
 function TerrainBrush:start()
@@ -441,9 +419,28 @@ function TerrainBrush:_run()
 		end
 
 		local unitRay = self._mouse.UnitRay.Direction
-		local mouseRay = Ray.new(cameraPos, unitRay * 10000)
-		local rayHit, mainPoint, _, hitMaterial = Workspace:FindPartOnRayWithIgnoreList(mouseRay, ignoreList,
-			false, ignoreWater)
+		local rayHit, mainPoint, _, hitMaterial
+
+		if FFlagTerrainToolsRaycastUpdate then
+			self._raycastParams.FilterDescendantsInstances = ignoreList
+			self._raycastParams.IgnoreWater = ignoreWater
+
+			local raycastResult = Workspace:Raycast(cameraPos, unitRay * 10000, self._raycastParams)
+
+			if raycastResult then
+				rayHit = raycastResult.Instance
+				mainPoint = raycastResult.Position
+				hitMaterial = raycastResult.Material
+			else
+				--raycast returns nil if it does not encounter anything, this will esentially cap the ray and prevent breaking
+				rayHit, hitMaterial = nil, nil
+				mainPoint = cameraPos + unitRay * 10000
+			end
+		else
+			local mouseRay = Ray.new(cameraPos, unitRay * 10000)
+			rayHit, mainPoint, _, hitMaterial = Workspace:FindPartOnRayWithIgnoreList(mouseRay, ignoreList,
+				false, ignoreWater)
+		end
 
 		if currentTool == ToolId.Add then
 			mainPoint = mainPoint - unitRay * 0.05
@@ -518,12 +515,18 @@ function TerrainBrush:_run()
 				self._mouseClick = false
 
 				if reportClick then
-					AnalyticsService:SendEventDeferred("studio", "Terrain", "UseTerrainTool", {
-						userId = StudioService:GetUserId(),
-						toolName = currentTool,
-						studioSId = AnalyticsService:GetSessionId(),
-						placeId = game.PlaceId,
-					})
+					if FFlagTerrainToolsUseDevFramework then
+						if self._analytics then
+							self._analytics:report("useBrushTool", currentTool)
+						end
+					else
+						AnalyticsService:SendEventDeferred("studio", "Terrain", "UseTerrainTool", {
+							userId = StudioService:GetUserId(),
+							toolName = currentTool,
+							studioSId = AnalyticsService:GetSessionId(),
+							placeId = game.PlaceId,
+						})
+					end
 					reportClick = false
 				end
 

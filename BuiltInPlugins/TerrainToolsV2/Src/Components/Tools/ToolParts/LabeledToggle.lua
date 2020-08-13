@@ -1,3 +1,5 @@
+local FFlagTerrainToolsReplaceSrcTogglesOff = game:GetFastFlag("TerrainToolsReplaceSrcTogglesOff")
+
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 
@@ -11,6 +13,7 @@ local function LabeledToggle(props)
 
 	local isOn = props.IsOn
 	local setIsOn = props.SetIsOn
+	local disabled = FFlagTerrainToolsReplaceSrcTogglesOff and props.Disabled or nil
 
 	return Roact.createElement(LabeledElementPair, {
 		Size = UDim2.new(1, 0, 0, 18),
@@ -20,6 +23,7 @@ local function LabeledToggle(props)
 		ToggleButton = Roact.createElement(ToggleButton, {
 			IsOn = isOn,
 			SetIsOn = setIsOn,
+			Disabled = disabled,
 		}),
 	})
 end

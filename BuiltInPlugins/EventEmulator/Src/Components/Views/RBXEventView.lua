@@ -22,10 +22,12 @@ local Cryo = require(Plugin.Packages.Cryo)
 local Actions = Plugin.Src.Actions
 local SetRBXParameters = require(Actions.SetRBXParameters)
 local ClearRBXParameters = require(Actions.ClearRBXParameters)
+local AddHistoryItem = require(Actions.AddHistoryItem)
 
 local Constants = require(Plugin.Src.Util.Constants)
 local INPUT_PANE_LAYOUT = Constants.INPUT_PANE_LAYOUT
 local ORDERING = Constants.RBXEVENT_ORDER
+local VIEW_ID = Constants.VIEW_ID.RBXEvent
 
 local Components = Plugin.Src.Components
 local ButtonArray = require(Components.ButtonArray)
@@ -43,10 +45,6 @@ function RBXEventView:init()
 		ValidJson = true,
 	}
 
-	self.onClearClicked = function()
-		self.props.ClearRBXParameters()
-	end
-
 	self.IsCurrentJSONValid = function ()
 		local decoded
 		local ok = pcall(function()
@@ -60,6 +58,14 @@ function RBXEventView:init()
 		end
 	end
 
+	self.onClearClicked = function()
+		self.props.ClearRBXParameters()
+	end
+
+	self.onSaveClicked = function ()
+		self.props.AddHistoryItem(self.props.CurrentEventName, self.props.Parameters)
+	end
+
 	self.onSendClicked = function()
 		self:setState({
 			ValidJson = self.IsCurrentJSONValid()
@@ -67,7 +73,6 @@ function RBXEventView:init()
 
 		-- Don't prevent the request because maybe you want to see it fail
 		RBXEventRequest(self.props.Parameters)
-
 	end
 
 	self.focusLost = function(field, textbox)
@@ -133,6 +138,7 @@ return RoactRodux.connect(
 	function(state, props)
 		return {
 			Parameters = state.Status.Parameters,
+			CurrentEventName = state.Status.CurrentEventName,
 		}
 	end,
 	function(dispatch)
@@ -143,6 +149,9 @@ return RoactRodux.connect(
 			ClearRBXParameters = function ()
 				dispatch(ClearRBXParameters())
 			end,
+			AddHistoryItem = function (eventName, data)
+				dispatch(AddHistoryItem(VIEW_ID, eventName, data))
+			end
 		}
 	end
 )(RBXEventView)

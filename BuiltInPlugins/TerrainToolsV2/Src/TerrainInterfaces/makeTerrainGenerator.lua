@@ -115,7 +115,7 @@ dict generateSettings =
 	bool haveCaves
 	number/string seed
 ]]
-return function(terrain, generateSettings)
+return function(terrain, generateSettings, analytics)
 	assert(terrain, "makeTerrainGenerator requires a terrain instance")
 	assert(generateSettings and type(generateSettings) == "table",
 		"makeTerrainGenerator requires a generate settings table")
@@ -609,16 +609,22 @@ return function(terrain, generateSettings)
 
 		local biomeBlendPercent = 0.25
 		local biomeBlendPercentInverse = 1 - biomeBlendPercent
-    
+
 		local numVoxels = tostring(voxelSize.X * voxelSize.Y * voxelSize.Z)
-		AnalyticsService:SendEventDeferred("studio", "Terrain", "GenerateTerrain", {
-			userId = StudioService:GetUserId(),
-			numVoxels = numVoxels,
-			biomeSize = biomeSize,
-			seed = seed,
-			studioSId = AnalyticsService:GetSessionId(),
-			placeId = game.PlaceId,
-		})
+		if FFlagTerrainToolsUseDevFramework then
+			if analytics then
+				analytics:report("generateTerrain", numVoxels, biomeSize, seed)
+			end
+		else
+			AnalyticsService:SendEventDeferred("studio", "Terrain", "GenerateTerrain", {
+				userId = StudioService:GetUserId(),
+				numVoxels = numVoxels,
+				biomeSize = biomeSize,
+				seed = seed,
+				studioSId = AnalyticsService:GetSessionId(),
+				placeId = game.PlaceId,
+			})
+		end
 
 		local biomePoints = table.create(9)
 		-- 3*3 because vx = {-1, 0, 1}; vz = {-1, 0, 1}

@@ -130,10 +130,11 @@ return{
 	["CoreScripts.InGameMenu.Prompt.LeaveGame"] = [[ゲームを終了]],
 	["CoreScripts.InGameMenu.GameSettings.VREnabled"] = [[VRモード]],
 	["CoreScripts.InGameMenu.GameSettings.RestartPending"] = [[保留中を再開]],
-	["CoreScripts.InGameMenu.EducationalPopup.Title"] = [[さらにゲームが盛り沢山！]],
+	["CoreScripts.InGameMenu.EducationalPopup.Title"] = [[ゲームをもっと探索！]],
 	["CoreScripts.InGameMenu.EducationalPopup.BodyTextOpenSystemMenu"] = [[システムメニューを開く]],
 	["CoreScripts.InGameMenu.EducationalPopup.BodyTextClickHome"] = [[ホームアイコンをクリック]],
 	["CoreScripts.InGameMenu.EducationalPopup.BodyTextPlayMore"] = [[もっとRobloxをプレイ]],
 	["CoreScripts.InGameMenu.EducationalPopup.LeaveRoblox"] = [[Robloxを終了]],
 	["CoreScripts.InGameMenu.GameSettings.ClientCoreScriptVersion"] = [[クライアントCoreScriptバージョン: {CLIENT_CORESCRIPT_VERSION}]],
+	["CoreScripts.InGameMenu.EducationalPopup.MenuIconTooltip"] = [[もっとゲームを探しますか？]],
 }

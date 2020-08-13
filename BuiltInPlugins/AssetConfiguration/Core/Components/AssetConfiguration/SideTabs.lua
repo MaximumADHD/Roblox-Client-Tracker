@@ -152,7 +152,7 @@ function SideTabs:createSideButtons(items, currentTab, ItemHeight, theme, locali
 				})
 			}),
 
-			Error = game:GetFastFlag("CMSTabErrorIcon") and self.props.tabHasErrors(item.name) and Roact.createElement("ImageButton", {
+			Error = self.props.tabHasErrors(item.name) and Roact.createElement("ImageButton", {
 				BackgroundTransparency = 1,
 				Size = UDim2.new(0, ERROR_ICON_SIZE, 0, ERROR_ICON_SIZE),
 				Position = UDim2.new(1, -ERROR_ICON_SIZE, 0.5, -ERROR_ICON_SIZE/2),

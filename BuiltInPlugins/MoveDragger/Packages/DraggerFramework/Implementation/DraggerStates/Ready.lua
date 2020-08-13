@@ -12,6 +12,7 @@ local StandardCursor = require(DraggerFramework.Utility.StandardCursor)
 
 local getEngineFeatureActiveInstanceHighlight = require(DraggerFramework.Flags.getEngineFeatureActiveInstanceHighlight)
 local getFFlagHoverBoxActiveColor = require(DraggerFramework.Flags.getFFlagHoverBoxActiveColor)
+local getFFlagUpdateHoverOnMouseDown = require(DraggerFramework.Flags.getFFlagUpdateHoverOnMouseDown)
 
 local Ready = {}
 Ready.__index = Ready
@@ -108,6 +109,12 @@ end
 ]]
 function Ready:processMouseDown()
 	local draggerContext = self._draggerToolModel._draggerContext
+	if getFFlagUpdateHoverOnMouseDown() then
+		-- We have to do an update here for the edge case where the 3D view just
+		-- became selected thanks to the mouse down event, so we haven't received
+		-- a view change event yet.
+		self._hoverTracker:update(self._draggerToolModel._derivedWorldState, draggerContext)
+	end
 	local hoverHandleId = self._hoverTracker:getHoverHandleId()
 	if hoverHandleId then
 		local makeDraggedPartsTransparent =

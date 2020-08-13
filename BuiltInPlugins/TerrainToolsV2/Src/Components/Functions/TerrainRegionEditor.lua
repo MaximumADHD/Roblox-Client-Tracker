@@ -1,6 +1,3 @@
-local FFlagTerrainToolsFixMergeEmpty = game:GetFastFlag("TerrainToolsFixMergeEmpty")
-local FFlagTerrainToolsFixRegionEditorCleanup = game:GetFastFlag("TerrainToolsFixRegionEditorCleanup")
-
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local TerrainEnums = require(Plugin.Src.Util.TerrainEnums)
@@ -66,10 +63,6 @@ local floor = math.floor		--Scaling linear resize
 local ceil = math.ceil
 
 local screenGui
-if not FFlagTerrainToolsFixRegionEditorCleanup then
-	screenGui = Instance.new("ScreenGui")
-	screenGui.Parent = coreGui
-end
 
 local function getOrCreateScreenGui()
 	if not screenGui or not screenGui.Parent then
@@ -293,91 +286,54 @@ function FirstTimeSetup()
 						local ytm = {}
 						local yto = {}
 						for z=1, tempSizeZ do
-							if FFlagTerrainToolsFixMergeEmpty then
-								local oldMaterial = behindMaterials[x][y][z]
-								local oldOccupancy = behindOccupancies[x][y][z]
+							local oldMaterial = behindMaterials[x][y][z]
+							local oldOccupancy = behindOccupancies[x][y][z]
 
-								if not kMergeEmpty or oldMaterial == materialAir or oldOccupancy == 0 then
-									local scalez = (z - 1) / (tempSizeZ - 1) * loopz	--consider adding 1 here and removing +1's elsewhere
-									if scalez ~= scalez then		--undefined check
-										scalez = 0
-									end
-									local startz = floor(scalez) + 1
-									local endz = startz + 1
-									local interpScalez = scalez - startz + 1
-									if startz > loopz then
-										endz = startz
-									end
-
-									local exaggerationX = tempSizeX / (loopx+1)
-									local exaggerationY = tempSizeY/  (loopy+1)
-									local exaggerationZ = tempSizeZ / (loopz+1)
-
-									local interpz1 = exaggeratedLinInterp(
-										lockedOccupancies[startx][starty][startz],
-										lockedOccupancies[startx][starty][endz],
-										interpScalez, exaggerationZ)
-									local interpz2 = exaggeratedLinInterp(
-										lockedOccupancies[startx][endy][startz],
-										lockedOccupancies[startx][endy][endz],
-										interpScalez, exaggerationZ)
-									local interpz3 = exaggeratedLinInterp(
-										lockedOccupancies[endx][starty][startz],
-										lockedOccupancies[endx][starty][endz],
-										interpScalez, exaggerationZ)
-									local interpz4 = exaggeratedLinInterp(
-										lockedOccupancies[endx][endy][startz],
-										lockedOccupancies[endx][endy][endz],
-										interpScalez, exaggerationZ)
-
-									local interpy1 = exaggeratedLinInterp(interpz1, interpz2, interpScaley, exaggerationY)
-									local interpy2 = exaggeratedLinInterp(interpz3, interpz4, interpScaley, exaggerationY)
-
-									local interpx1 = exaggeratedLinInterp(interpy1, interpy2, interpScalex, exaggerationX)
-
-									local newMaterial = lockedMaterials[round(scalex) + 1][round(scaley) + 1][round(scalez) + 1]
-
-									ytm[z] = newMaterial
-									yto[z] = interpx1
-								else
-									ytm[z] = oldMaterial
-									yto[z] = oldOccupancy
-								end
-
-							else
-								local scalez = (z-1)/(tempSizeZ-1)*loopz	--consider adding 1 here and removing +1's elsewhere
+							if not kMergeEmpty or oldMaterial == materialAir or oldOccupancy == 0 then
+								local scalez = (z - 1) / (tempSizeZ - 1) * loopz	--consider adding 1 here and removing +1's elsewhere
 								if scalez ~= scalez then		--undefined check
 									scalez = 0
 								end
-								local startz = floor(scalez)+1
-								local endz = startz+1
-								local interpScalez = scalez-startz+1
+								local startz = floor(scalez) + 1
+								local endz = startz + 1
+								local interpScalez = scalez - startz + 1
 								if startz > loopz then
 									endz = startz
 								end
 
-								local interpz1 = exaggeratedLinInterp(lockedOccupancies[startx][starty][startz],lockedOccupancies[startx][starty][endz],interpScalez, tempSizeZ/(loopz+1))
-								local interpz2 = exaggeratedLinInterp(lockedOccupancies[startx][endy][startz],lockedOccupancies[startx][endy][endz],interpScalez, tempSizeZ/(loopz+1))
-								local interpz3 = exaggeratedLinInterp(lockedOccupancies[endx][starty][startz],lockedOccupancies[endx][starty][endz],interpScalez, tempSizeZ/(loopz+1))
-								local interpz4 = exaggeratedLinInterp(lockedOccupancies[endx][endy][startz],lockedOccupancies[endx][endy][endz],interpScalez, tempSizeZ/(loopz+1))
+								local exaggerationX = tempSizeX / (loopx+1)
+								local exaggerationY = tempSizeY/  (loopy+1)
+								local exaggerationZ = tempSizeZ / (loopz+1)
 
-								local interpy1 = exaggeratedLinInterp(interpz1,interpz2,interpScaley, tempSizeY/(loopy+1))
-								local interpy2 = exaggeratedLinInterp(interpz3,interpz4,interpScaley, tempSizeY/(loopy+1))
+								local interpz1 = exaggeratedLinInterp(
+									lockedOccupancies[startx][starty][startz],
+									lockedOccupancies[startx][starty][endz],
+									interpScalez, exaggerationZ)
+								local interpz2 = exaggeratedLinInterp(
+									lockedOccupancies[startx][endy][startz],
+									lockedOccupancies[startx][endy][endz],
+									interpScalez, exaggerationZ)
+								local interpz3 = exaggeratedLinInterp(
+									lockedOccupancies[endx][starty][startz],
+									lockedOccupancies[endx][starty][endz],
+									interpScalez, exaggerationZ)
+								local interpz4 = exaggeratedLinInterp(
+									lockedOccupancies[endx][endy][startz],
+									lockedOccupancies[endx][endy][endz],
+									interpScalez, exaggerationZ)
 
-								local interpx1 = exaggeratedLinInterp(interpy1,interpy2,interpScalex, tempSizeX/(loopx+1))
+								local interpy1 = exaggeratedLinInterp(interpz1, interpz2, interpScaley, exaggerationY)
+								local interpy2 = exaggeratedLinInterp(interpz3, interpz4, interpScaley, exaggerationY)
 
-								local newMaterial = lockedMaterials[round(scalex)+1][round(scaley)+1][round(scalez)+1]
+								local interpx1 = exaggeratedLinInterp(interpy1, interpy2, interpScalex, exaggerationX)
 
-								if kFillMaterial and newMaterial == materialAir then
-									ytm[z]=behindMaterials[x][y][z]
-									yto[z]=behindOccupancies[x][y][z]
-								elseif fillWater and newMaterial == materialWater and behindMaterials[x][y][z] ~= materialAir then
-									ytm[z]=behindMaterials[x][y][z]
-									yto[z]=behindOccupancies[x][y][z]
-								else
-									ytm[z]=newMaterial
-									yto[z]=interpx1
-								end
+								local newMaterial = lockedMaterials[round(scalex) + 1][round(scaley) + 1][round(scalez) + 1]
+
+								ytm[z] = newMaterial
+								yto[z] = interpx1
+							else
+								ytm[z] = oldMaterial
+								yto[z] = oldOccupancy
 							end
 						end
 						xtm[y] = ytm
@@ -411,74 +367,39 @@ function FirstTimeSetup()
 
 				local behindMaterials, behindOccupancies = behindThis.materials, behindThis.occupancies
 
-				if FFlagTerrainToolsFixMergeEmpty then
-					-- If merge empty is not on, then just overwrite the existing terrain
-					-- When it is on, then only fill the empty voxels in the existing terrain
-					if not kMergeEmpty then
-						terrain:WriteVoxels(region, resolution, lockedMaterials, lockedOccupancies)
-					else
-						local newMat = {}
-						local newOcc = {}
-
-						for x, xv in ipairs(lockedMaterials) do
-							local xtm = {}
-							local xto = {}
-							for y, yv in ipairs(xv) do
-								local ytm = {}
-								local yto = {}
-								for z, _ in ipairs(yv) do
-									local oldMaterial = behindMaterials[x][y][z]
-									local oldOccupancy = behindOccupancies[x][y][z]
-
-									if oldMaterial == materialAir or oldOccupancy == 0 then
-										ytm[z] = lockedMaterials[x][y][z]
-										yto[z] = lockedOccupancies[x][y][z]
-									else
-										ytm[z] = oldMaterial
-										yto[z] = oldOccupancy
-									end
-								end
-								xtm[y] = ytm
-								xto[y] = yto
-							end
-							newMat[x] = xtm
-							newOcc[x] = xto
-						end
-						terrain:WriteVoxels(region, resolution, newMat, newOcc)
-					end
+				-- If merge empty is not on, then just overwrite the existing terrain
+				-- When it is on, then only fill the empty voxels in the existing terrain
+				if not kMergeEmpty then
+					terrain:WriteVoxels(region, resolution, lockedMaterials, lockedOccupancies)
 				else
-					if not (kFillMaterial or fillWater) then
-						terrain:WriteVoxels(region, resolution, lockedMaterials, lockedOccupancies)
-					else
-						local newMat = {}
-						local newOcc = {}
+					local newMat = {}
+					local newOcc = {}
 
-						for x,xv in ipairs(lockedMaterials) do
-							local xtm = {}
-							local xto = {}
-							for y,yv in ipairs(xv) do
-								local ytm = {}
-								local yto = {}
-								for z,zv in ipairs(yv) do
-									if kFillMaterial and zv == materialAir then
-										ytm[z]=behindMaterials[x][y][z]
-										yto[z]=behindOccupancies[x][y][z]
-									elseif fillWater and zv == materialWater and behindMaterials[x][y][z] ~= materialAir then
-										ytm[z]=behindMaterials[x][y][z]
-										yto[z]=behindOccupancies[x][y][z]
-									else
-										ytm[z]=lockedMaterials[x][y][z]
-										yto[z]=lockedOccupancies[x][y][z]
-									end
+					for x, xv in ipairs(lockedMaterials) do
+						local xtm = {}
+						local xto = {}
+						for y, yv in ipairs(xv) do
+							local ytm = {}
+							local yto = {}
+							for z, _ in ipairs(yv) do
+								local oldMaterial = behindMaterials[x][y][z]
+								local oldOccupancy = behindOccupancies[x][y][z]
+
+								if oldMaterial == materialAir or oldOccupancy == 0 then
+									ytm[z] = lockedMaterials[x][y][z]
+									yto[z] = lockedOccupancies[x][y][z]
+								else
+									ytm[z] = oldMaterial
+									yto[z] = oldOccupancy
 								end
-								xtm[y] = ytm
-								xto[y] = yto
 							end
-							newMat[x] = xtm
-							newOcc[x] = xto
+							xtm[y] = ytm
+							xto[y] = yto
 						end
-						terrain:WriteVoxels(region, resolution, newMat, newOcc)
+						newMat[x] = xtm
+						newOcc[x] = xto
 					end
+					terrain:WriteVoxels(region, resolution, newMat, newOcc)
 				end
 			end
 		end
@@ -547,53 +468,28 @@ function FirstTimeSetup()
 					local ytm = {}
 					local yto = {}
 					for z=1, temporarySizeZ do
-						if FFlagTerrainToolsFixMergeEmpty then
-							local oldMaterial = behindThis.materials[x][y][z]
-							local oldOccupancy = behindThis.occupancies[x][y][z]
+						local oldMaterial = behindThis.materials[x][y][z]
+						local oldOccupancy = behindThis.occupancies[x][y][z]
 
-							if not kMergeEmpty or oldMaterial == materialAir or oldOccupancy == 0 then
-								local targetx = x
-								local targety = y
-								local targetz = z
-								if axis == "Y" then	-- Prioritize y because I know this is the primary rotation axis
-									targetx, targetz = rotate(temporarySizeX, x, temporarySizeZ, z, dragAngle)
-								elseif axis == "X" then
-									targetz, targety = rotate(temporarySizeZ, z, temporarySizeY, y, dragAngle)
-								elseif axis == "Z" then
-									targety, targetx = rotate(temporarySizeY, y, temporarySizeX, x, dragAngle)
-								end
-								local newMaterial = lockedMaterials[targetx][targety][targetz]
-
-								ytm[z] = newMaterial
-								yto[z] = lockedOccupancies[targetx][targety][targetz]
-
-							else
-								ytm[z] = oldMaterial
-								yto[z] = oldOccupancy
-							end
-						else
+						if not kMergeEmpty or oldMaterial == materialAir or oldOccupancy == 0 then
 							local targetx = x
 							local targety = y
 							local targetz = z
-							if axis == 'Y' then	--prioritize y because I know this is the primary rotation axis
+							if axis == "Y" then	-- Prioritize y because I know this is the primary rotation axis
 								targetx, targetz = rotate(temporarySizeX, x, temporarySizeZ, z, dragAngle)
-							elseif axis == 'X' then
+							elseif axis == "X" then
 								targetz, targety = rotate(temporarySizeZ, z, temporarySizeY, y, dragAngle)
-							elseif axis == 'Z' then
+							elseif axis == "Z" then
 								targety, targetx = rotate(temporarySizeY, y, temporarySizeX, x, dragAngle)
 							end
 							local newMaterial = lockedMaterials[targetx][targety][targetz]
 
-							if kFillMaterial and newMaterial == materialAir then
-								ytm[z]=behindThis.materials[x][y][z]
-								yto[z]=behindThis.occupancies[x][y][z]
-							elseif fillWater and newMaterial == materialWater and behindThis.materials[x][y][z] ~= materialAir then
-								ytm[z]=behindThis.materials[x][y][z]
-								yto[z]=behindThis.occupancies[x][y][z]
-							else
-								ytm[z]=newMaterial
-								yto[z]=lockedOccupancies[targetx][targety][targetz]
-							end
+							ytm[z] = newMaterial
+							yto[z] = lockedOccupancies[targetx][targety][targetz]
+
+						else
+							ytm[z] = oldMaterial
+							yto[z] = oldOccupancy
 						end
 					end
 					xtm[y] = ytm
@@ -619,7 +515,7 @@ function FirstTimeSetup()
 		effectPart.BottomSurface = 'Smooth'
 		effectPart.Anchored = true
 		effectPart.CanCollide = false
-		effectPart.Parent = FFlagTerrainToolsFixRegionEditorCleanup and getOrCreateScreenGui() or screenGui
+		effectPart.Parent = getOrCreateScreenGui()
 
 		local selectionEffectObject = Instance.new('SelectionBox')
 		selectionEffectObject.Name = 'SelectionObject'
@@ -761,7 +657,7 @@ function createSelectionPart()
 		selectionPart.BottomSurface = 'Smooth'
 		selectionPart.Anchored = true
 		selectionPart.CanCollide = false
-		selectionPart.Parent = FFlagTerrainToolsFixRegionEditorCleanup and getOrCreateScreenGui() or screenGui
+		selectionPart.Parent = getOrCreateScreenGui()
 	end
 	if not selectionObject then
 		selectionObject = Instance.new('SelectionBox')
@@ -827,11 +723,9 @@ function clearSelection()
 		selectionPart = nil
 	end
 
-	if FFlagTerrainToolsFixRegionEditorCleanup then
-		if screenGui then
-			screenGui:Destroy()
-			screenGui = nil
-		end
+	if screenGui then
+		screenGui:Destroy()
+		screenGui = nil
 	end
 end
 
@@ -925,11 +819,7 @@ function TerrainRegionEditor.Init (toolName, theMouse)
 	FirstTimeSetup()
 	on = true
 
-	if FFlagTerrainToolsFixRegionEditorCleanup then
-		getOrCreateScreenGui()
-	else
-		screenGui.Parent = coreGui
-	end
+	getOrCreateScreenGui()
 
 	createSelectionPart()
 
@@ -943,11 +833,9 @@ function TerrainRegionEditor.ChangeProperties(vals)
 	kFillMaterial = vals.material and vals.material
 	kMergeEmpty = vals.mergeEmpty and vals.mergeEmpty
 
-	if FFlagTerrainToolsFixMergeEmpty then
-		if (tool == ToolId.Move or tool == ToolId.Resize)
-			and mode == "Edit" and selectionStart ~= nil then
-			updateDragOperation()
-		end
+	if (tool == ToolId.Move or tool == ToolId.Resize)
+		and mode == "Edit" and selectionStart ~= nil then
+		updateDragOperation()
 	end
 end
 
@@ -1005,11 +893,8 @@ function TerrainRegionEditor.Close()
 	on = false
 	kCurrentTool = nil
 	mouse = nil
-
-	if FFlagTerrainToolsFixMergeEmpty then
-		tool = nil
-		mode = "Select"
-	end
+	tool = nil
+	mode = "Select"
 end
 
 return TerrainRegionEditor

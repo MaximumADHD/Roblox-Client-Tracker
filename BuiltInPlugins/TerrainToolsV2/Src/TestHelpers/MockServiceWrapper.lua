@@ -1,3 +1,6 @@
+assert(not game:GetFastFlag("TerrainToolsUseDevFramework"),
+	"TerrainTools MockServiceWrapper.lua should not be used when FFlagTerrainToolsUseDevFramework is on")
+
 --[[
 	A customizable wrapper for tests that supplies all the required providers for component testing
 ]]
@@ -13,7 +16,6 @@ local ServiceWrapper = require(Plugin.Src.Components.ServiceWrapper)
 local PluginTheme = require(Plugin.Src.Resources.PluginTheme)
 local MainReducer = require(Plugin.Src.Reducers.MainReducer)
 local PluginActivationController = require(Plugin.Src.Util.PluginActivationController)
-local TerrainBrush = require(Plugin.Src.TerrainInterfaces.TerrainBrushInstance)
 local TerrainGeneration = require(Plugin.Src.TerrainInterfaces.TerrainGenerationInstance)
 local TerrainImporter = require(Plugin.Src.TerrainInterfaces.TerrainImporterInstance)
 local TerrainSeaLevel = require(Plugin.Src.TerrainInterfaces.TerrainSeaLevel)
@@ -21,18 +23,11 @@ local PartConverter = require(Plugin.Src.TerrainInterfaces.PartConverter)
 
 local TestHelpers = Plugin.Src.TestHelpers
 local MockPlugin = require(TestHelpers.MockPlugin)
-local MockMouse = require(TestHelpers.MockMouse)
 local MockTerrain = require(TestHelpers.MockTerrain)
-
-local TerrainEnums = require(Plugin.Src.Util.TerrainEnums)
-local ToolId = TerrainEnums.ToolId
 
 local MockServiceWrapper = Roact.Component:extend("MockSkeletonEditorServiceWrapper")
 
 local terrain = MockTerrain.new()
-local mouse = MockMouse.new()
-
-local FFlagTerrainToolsTerrainBrushNotSingleton = game:GetFastFlag("TerrainToolsTerrainBrushNotSingleton")
 
 -- props.localization : (optional, UILibrary.Localization)
 -- props.plugin : (optional, plugin)
@@ -60,18 +55,6 @@ function MockServiceWrapper:render()
 	local pluginActivationController = self.props.pluginActivationController
 	if not pluginActivationController then
 		pluginActivationController = PluginActivationController.new(pluginInstance)
-	end
-
-	local terrainBrush
-	if not FFlagTerrainToolsTerrainBrushNotSingleton then
-		terrainBrush = self.props.terrainBrush
-		if not terrainBrush then
-			terrainBrush = TerrainBrush.new({
-				terrain = terrain,
-				mouse = mouse,
-				tool = ToolId.Add,
-			})
-		end
 	end
 
 	local terrainGeneration = self.props.terrainGeneration
@@ -110,8 +93,6 @@ function MockServiceWrapper:render()
 		theme = theme,
 		terrain = terrain,
 		pluginActivationController = pluginActivationController,
-		-- TODO: Remove terrainBrush when removing FFlagTerrainToolsTerrainBrushNotSingleton
-		terrainBrush = terrainBrush,
 		terrainGeneration = terrainGeneration,
 		terrainImporter = terrainImporter,
 		seaLevel = seaLevel,

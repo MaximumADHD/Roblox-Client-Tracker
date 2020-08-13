@@ -8,7 +8,11 @@ local FFlagTerrainToolsUseDevFramework = game:GetFastFlag("TerrainToolsUseDevFra
 local Plugin = script.Parent.Parent.Parent
 
 local Framework = Plugin.Packages.Framework
+local Roact = require(Plugin.Packages.Roact)
 local UILibrary = not FFlagTerrainToolsUseDevFramework and require(Plugin.Packages.UILibrary) or nil
+
+local ContextItem = FFlagTerrainToolsUseDevFramework and require(Framework.ContextServices.ContextItem) or nil
+local Provider = FFlagTerrainToolsUseDevFramework and require(Framework.ContextServices.Provider) or nil
 
 local FrameworkUtil = FFlagTerrainToolsUseDevFramework and require(Framework.Util) or nil
 local Signal = FFlagTerrainToolsUseDevFramework and FrameworkUtil.Signal or UILibrary.Util.Signal
@@ -17,8 +21,13 @@ local Constants = require(Plugin.Src.Util.Constants)
 local TerrainEnums = require(Plugin.Src.Util.TerrainEnums)
 local ToolId = TerrainEnums.ToolId
 
-local PluginActivationController = {}
-PluginActivationController.__index = PluginActivationController
+local PluginActivationController
+if FFlagTerrainToolsUseDevFramework then
+	PluginActivationController = ContextItem:extend("PluginActivationController")
+else
+	PluginActivationController = {}
+	PluginActivationController.__index = PluginActivationController
+end
 
 function PluginActivationController.new(plugin)
 	local self = setmetatable({
@@ -42,6 +51,14 @@ function PluginActivationController.new(plugin)
 	end
 
 	return self
+end
+
+if FFlagTerrainToolsUseDevFramework then
+	function PluginActivationController:createProvider(root)
+		return Roact.createElement(Provider, {
+			ContextItem = self,
+		}, {root})
+	end
 end
 
 -- Temporarily deactivates the current tool, and saves it as our selected tool

@@ -2,10 +2,6 @@
 	Displays panels associated with the Smooth tool
 ]]
 
-game:DefineFastFlag("TerrainToolsSmoothToolIgnoreWater", false)
-
-local FFlagTerrainToolsSmoothToolIgnoreWater = game:GetFastFlag("TerrainToolsSmoothToolIgnoreWater")
-
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local RoactRodux = require(Plugin.Packages.RoactRodux)
@@ -29,11 +25,6 @@ local TerrainEnums = require(Plugin.Src.Util.TerrainEnums)
 local REDUCER_KEY = "SmoothTool"
 
 local function mapStateToProps(state, props)
-	local ignoreWater
-	if FFlagTerrainToolsSmoothToolIgnoreWater then
-		ignoreWater = state[REDUCER_KEY].ignoreWater
-	end
-
 	return {
 		toolName = TerrainEnums.ToolId.Smooth,
 
@@ -41,7 +32,7 @@ local function mapStateToProps(state, props)
 		baseSizeHeightLocked = state[REDUCER_KEY].baseSizeHeightLocked,
 		brushShape = state[REDUCER_KEY].brushShape,
 		height = state[REDUCER_KEY].height,
-		ignoreWater = ignoreWater,
+		ignoreWater = state[REDUCER_KEY].ignoreWater,
 		pivot = state[REDUCER_KEY].pivot,
 		planeLock = state[REDUCER_KEY].planeLock,
 		snapToGrid = state[REDUCER_KEY].snapToGrid,
@@ -73,9 +64,9 @@ local function mapDispatchToProps(dispatch)
 		dispatchSetBaseSizeHeightLocked = function (locked)
 			dispatchToSmooth(SetBaseSizeHeightLocked(locked))
 		end,
-		dispatchSetIgnoreWater = FFlagTerrainToolsSmoothToolIgnoreWater and function (ignoreWater)
+		dispatchSetIgnoreWater = function (ignoreWater)
 			dispatchToSmooth(SetIgnoreWater(ignoreWater))
-		end or nil,
+		end,
 		dispatchSetPlaneLock = function (planeLock)
 			dispatchToSmooth(SetPlaneLock(planeLock))
 		end,

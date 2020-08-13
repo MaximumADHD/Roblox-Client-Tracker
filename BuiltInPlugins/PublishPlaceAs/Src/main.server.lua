@@ -4,8 +4,11 @@ end
 
 -- Fast flags
 local FFlagStudioLuaPublishFlowLocalizeUntitledGameText = game:DefineFastFlag("StudioLuaPublishFlowLocalizeUntitledGameText", false)
+local FFlagStudioAddingScrollingToScreenChoosePlace = game:DefineFastFlag("StudioAddingScrollingToScreenChoosePlace", false)
 local FFlagLuaPublishFlowFixCreateButtonInChinese = game:DefineFastFlag("LuaPublishFlowFixCreateButtonInChinese", false)
 local FFlagLuaPublishFlowFixPluginHandleWarning = game:DefineFastFlag("LuaPublishFlowFixPluginHandleWarning", false)
+local FFlagUXImprovementsPublishSuccessScreenPublishAs = game:DefineFastFlag("UXImprovementsPublishSuccessScreenPublishAs", false)
+local FFlagUXImprovementAddScrollToGamesPage = game:DefineFastFlag("UXImprovementAddScrollToGamesPage", false)
 local FFlagStudioPublishLuaWorkflow = game:GetFastFlag("StudioPublishLuaWorkflow")
 
 -- libraries

@@ -51,6 +51,8 @@ local HorizontalContentFit = createFitToContent("Frame", "UIListLayout", {
 })
 
 local FFlagLuaPublishFlowFixCreateButtonInChinese = game:GetFastFlag("LuaPublishFlowFixCreateButtonInChinese")
+local FFlagUXImprovementsPublishSuccessScreenPublishAs = game:GetFastFlag("UXImprovementsPublishSuccessScreenPublishAs")
+local FFlagUXImprovementAddScrollToGamesPage = game:GetFastFlag("UXImprovementAddScrollToGamesPage")
 
 local ScreenChoosePlace = Roact.PureComponent:extend("ScreenChoosePlace")
 
@@ -106,15 +108,15 @@ function ScreenChoosePlace:init()
 end
 
 function ScreenChoosePlace:didMount()
-		self.finishedConnection = StudioService.GamePublishFinished:connect(function(success)
-			if self.state.selectedPlace.placeId == 0 then
-				if success then
-					self.props.OpenPublishSuccessfulPage(self.state.selectedPlace, self.props.ParentGame)
-				else
-					self.props.OpenPublishFailPage(self.state.selectedPlace, self.props.ParentGame)
-				end
+	self.finishedConnection = StudioService.GamePublishFinished:connect(function(success)
+		if FFlagUXImprovementsPublishSuccessScreenPublishAs or self.state.selectedPlace.placeId == 0 then
+			if success then
+				self.props.OpenPublishSuccessfulPage(self.state.selectedPlace, self.props.ParentGame)
+			else
+				self.props.OpenPublishFailPage(self.state.selectedPlace, self.props.ParentGame)
 			end
-		end)
+		end
+	end)
 end
 
 function ScreenChoosePlace:willUnmount()
@@ -348,7 +350,7 @@ function ScreenChoosePlace:render()
 							-- groupId is unused
 							StudioService:publishAs(parentGame.universeId, self.state.selectedPlace.placeId, 0)
 							dispatchSetIsPublishing(true)
-							if self.state.selectedPlace.placeId ~= 0 then
+							if not FFlagUXImprovementsPublishSuccessScreenPublishAs and self.state.selectedPlace.placeId ~= 0 then
 								onClose()
 							end
 						end,
@@ -382,10 +384,18 @@ local function useDispatchForProps(dispatch)
 		end,
 		OpenChooseGamePage = function()
 			dispatch(SetPlaceInfo({ places = {} }))
-			dispatch(SetScreen(Constants.SCREENS.CHOOSE_GAME))
+			if FFlagUXImprovementAddScrollToGamesPage then
+				dispatch(SetScreen(Constants.SCREENS.CHOOSE_GAME_WITH_SCROLL))
+			else
+				dispatch(SetScreen(Constants.SCREENS.CHOOSE_GAME))
+			end
 		end,
 		OpenPublishSuccessfulPage = function(place, game)
-			dispatch(SetPublishInfo({ id = place.placeId, name = place.name, parentGameName = game.name, }))
+			if FFlagUXImprovementsPublishSuccessScreenPublishAs then
+				dispatch(SetPublishInfo({ id = game.universeId, name = place.name, parentGameName = game.name, }))
+			else
+				dispatch(SetPublishInfo({ id = place.placeId, name = place.name, parentGameName = game.name, }))
+			end
 			dispatch(SetScreen(Constants.SCREENS.PUBLISH_SUCCESSFUL))
 		end,
 		OpenPublishFailPage = function(place, game)

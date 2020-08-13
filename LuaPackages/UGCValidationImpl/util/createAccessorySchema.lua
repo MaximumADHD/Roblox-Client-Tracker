@@ -3,7 +3,7 @@ local function createAccessorySchema(attachmentName)
 	return {
 		ClassName = "Accessory",
 		_children = {
-			game:GetFastFlag("UGCAllowThumbnailConfiguration") and {
+			{
 				Name = "ThumbnailConfiguration",
 				ClassName = "Configuration",
 				_optional = true,
@@ -17,7 +17,7 @@ local function createAccessorySchema(attachmentName)
 						ClassName = "CFrameValue",
 					},
 				},
-			} or nil,
+			},
 			{
 				Name = "Handle",
 				ClassName = "Part",

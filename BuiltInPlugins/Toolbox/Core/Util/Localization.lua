@@ -584,6 +584,8 @@ function Localization:_recalculateContent()
 			Override = {
 				Title = self:_safeLocalize("Studio.Toolbox.AssetConfigFooter.OverrideTitle"),
 				FilterID = self:_safeLocalize("Studio.Toolbox.AssetConfigAnimation.FilterID"),
+				AnimationID = self:_safeLocalize("Studio.Toolbox.AssetConfigAnimation.AnimationID"),
+				InvalidAnimationID = self:_safeLocalize("Studio.Toolbox.AssetConfigAnimation.InvalidAnimationID"),
 			},
 
 			Import = {

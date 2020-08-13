@@ -1,10 +1,22 @@
-local Plugin = script.parent.parent.parent
+local FFlagTerrainToolsUseDevFramework = game:GetFastFlag("TerrainToolsUseDevFramework")
 
-local UILibrary = require(Plugin.Packages.UILibrary)
-local StudioTheme = UILibrary.Studio.Theme
-local StudioStyle = UILibrary.Studio.Style
-local deepJoin = require(Plugin.Src.Util.deepJoin)
+local Plugin = script.Parent.Parent.Parent
+
 local Cryo = require(Plugin.Packages.Cryo)
+
+local StudioTheme
+local StudioStyle
+if FFlagTerrainToolsUseDevFramework then
+	local UILibraryCompat = Plugin.Src.UILibraryCompat
+	StudioTheme = require(UILibraryCompat.StudioTheme)
+	StudioStyle = require(UILibraryCompat.StudioStyle)
+else
+	local UILibrary = require(Plugin.Packages.UILibrary)
+	StudioTheme = UILibrary.Studio.Theme
+	StudioStyle = UILibrary.Studio.Style
+end
+
+local deepJoin = require(Plugin.Src.Util.deepJoin)
 
 local Theme = {}
 
@@ -60,12 +72,18 @@ function Theme.createValues(getColor, c, m)
 	local roundedElementSlice = Rect.new(3, 3, 13, 13)
 
 	local toggleTheme = defineTheme({
-		toggleOnImage = "rbxasset://textures/TerrainTools/import_toggleOn.png",
-		toggleOffImage = "rbxasset://textures/TerrainTools/import_toggleOff.png",
+		toggleOnImage = "rbxasset://textures/RoactStudioWidgets/toggle_on_light.png",
+		toggleOffImage = "rbxasset://textures/RoactStudioWidgets/toggle_off_light.png",
+
+		toggleLockModeOnImage = "rbxasset://textures/RoactStudioWidgets/toggle_on_disable_light.png",
+		toggleLockModeOffImage = "rbxasset://textures/RoactStudioWidgets/toggle_disable_light.png",
 	}, {
 		Dark = {
-			toggleOnImage = "rbxasset://textures/TerrainTools/import_toggleOn_dark.png",
-			toggleOffImage = "rbxasset://textures/TerrainTools/import_toggleOff_dark.png",
+			toggleOnImage = "rbxasset://textures/RoactStudioWidgets/toggle_on_dark.png",
+			toggleOffImage = "rbxasset://textures/RoactStudioWidgets/toggle_off_dark.png",
+
+			toggleLockModeOnImage = "rbxasset://textures/RoactStudioWidgets/toggle_on_disable_dark.png",
+			toggleLockModeOffImage = "rbxasset://textures/RoactStudioWidgets/toggle_disable_dark.png",
 		}
 	})
 

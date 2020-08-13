@@ -2,8 +2,8 @@
 	Displays panels associated with the BaseBrush tool
 ]]
 
-local FFlagTerrainToolsTerrainBrushNotSingleton = game:GetFastFlag("TerrainToolsTerrainBrushNotSingleton")
 local FFlagTerrainToolsReplaceTool = game:GetFastFlag("TerrainToolsReplaceTool")
+local FFlagTerrainToolsReplaceSrcTogglesOff = game:GetFastFlag("TerrainToolsReplaceSrcTogglesOff")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -30,16 +30,11 @@ function BaseBrush:init()
 	self.pluginActivationController = TerrainInterface.getPluginActivationController(self)
 	assert(self.pluginActivationController, "BaseBrush requires a PluginActivationController from context")
 
-	if FFlagTerrainToolsTerrainBrushNotSingleton then
-		self.terrainBrush = TerrainBrush.new({
-			terrain = TerrainInterface.getTerrain(self),
-			mouse = StudioPlugin.getPlugin(self):GetMouse(),
-			tool = self.props.toolName,
-		})
-	else
-		self.terrainBrush = TerrainInterface.getTerrainBrush(self)
-		assert(self.terrainBrush, "BaseBrush requires a TerrainBrush from context")
-	end
+	self.terrainBrush = TerrainBrush.new({
+		terrain = TerrainInterface.getTerrain(self),
+		mouse = StudioPlugin.getPlugin(self):GetMouse(),
+		tool = self.props.toolName,
+	})
 
 	-- Ordered array of connections to signals
 	-- Disconnected in willUnmount() in reverse order of connection
@@ -119,12 +114,6 @@ function BaseBrush:init()
 			snapToGrid = self.props.snapToGrid
 		end
 
-		-- TODO: Remove currentTool when removing FFlagTerrainToolsTerrainBrushNotSingleton
-		local currentTool
-		if not FFlagTerrainToolsTerrainBrushNotSingleton then
-			currentTool = self.props.toolName
-		end
-
 		if self.props.dispatchSetFixedPlane then
 			fixedPlane = self.props.fixedPlane
 		end
@@ -133,7 +122,6 @@ function BaseBrush:init()
 		end
 
 		self.terrainBrush:updateSettings({
-			currentTool = currentTool,
 			autoMaterial = autoMaterial,
 			brushShape = self.props.brushShape or BrushShape.Sphere,
 			cursorHeight = self.props.height or Constants.INITIAL_BRUSH_SIZE,
@@ -153,27 +141,10 @@ function BaseBrush:init()
 		})
 	end
 
-	if FFlagTerrainToolsTerrainBrushNotSingleton then
-		self.startBrush = function()
-			spawn(function()
-				if self.terrainBrush ~= nil then
-					self.terrainBrush:start()
-				end
-			end)
-		end
-	else
-		-- Starts the terrain brush with the base brush's tool only if
-		-- active tool in plugin activation co
-		-- Starts the terrain brush with the base brush's tool only if
-		-- active tool in plugin activation controller is base brush's tool
-		self.safeStartWithTool = function()
-			-- :getActiveTool() returns ToolId.None if no tool is selected, so this works in that case too
-			if self.pluginActivationController:getActiveTool() == self.props.toolName then
-				coroutine.wrap(function()
-					self.terrainBrush:startWithTool(self.props.toolName)
-				end)()
-			end
-		end
+	self.startBrush = function()
+		spawn(function()
+			self.terrainBrush:start()
+		end)
 	end
 
 	table.insert(self.connections, self.pluginActivationController:subscribeToToolDeactivated(function(toolId)
@@ -183,15 +154,11 @@ function BaseBrush:init()
 		end
 	end))
 
-	if FFlagTerrainToolsTerrainBrushNotSingleton then
-		table.insert(self.connections, self.pluginActivationController:subscribeToToolActivated(function(toolId)
-			if toolId == self.props.toolName then
-				self.startBrush()
-			end
-		end))
-	else
-		table.insert(self.connections, self.pluginActivationController:subscribeToToolActivated(self.safeStartWithTool))
-	end
+	table.insert(self.connections, self.pluginActivationController:subscribeToToolActivated(function(toolId)
+		if toolId == self.props.toolName then
+			self.startBrush()
+		end
+	end))
 
 	table.insert(self.connections, self.terrainBrush:subscribeToRequestBrushSizeChanged(function(baseSize, height)
 		if self.props.dispatchChangeBaseSize then
@@ -221,47 +188,35 @@ function BaseBrush:init()
 		end
 	end))
 
-	if FFlagTerrainToolsTerrainBrushNotSingleton then
-		table.insert(self.connections, self.terrainBrush:subscribeToMaterialSelectRequested(function(material, shiftdown)
-			if FFlagTerrainToolsReplaceTool then
-				if not shiftdown then
-					if self.props.dispatchSetMaterial then
-						self.props.dispatchSetMaterial(material)
-					end
-					if self.props.dispatchSetSourceMaterial then
-						self.props.dispatchSetSourceMaterial(material)
-					end
-				else
-					if self.props.dispatchSetTargetMaterial then
-						self.props.dispatchSetTargetMaterial(material)
-					end
-				end
-			else
+	table.insert(self.connections, self.terrainBrush:subscribeToMaterialSelectRequested(function(material, shiftdown)
+		if FFlagTerrainToolsReplaceTool then
+			if not shiftdown then
 				if self.props.dispatchSetMaterial then
 					self.props.dispatchSetMaterial(material)
 				end
+				if self.props.dispatchSetSourceMaterial then
+					self.props.dispatchSetSourceMaterial(material)
+				end
+			else
+				if self.props.dispatchSetTargetMaterial then
+					self.props.dispatchSetTargetMaterial(material)
+				end
 			end
-		end))
-	end
+		else
+			if self.props.dispatchSetMaterial then
+				self.props.dispatchSetMaterial(material)
+			end
+		end
+	end))
 end
 
 function BaseBrush:didUpdate(previousProps, previousState)
-	if not FFlagTerrainToolsTerrainBrushNotSingleton then
-		if previousProps.toolName ~= self.props.toolName then
-			self.safeStartWithTool()
-		end
-	end
 	self.updateBrushProperties()
 end
 
 function BaseBrush:didMount()
-	if FFlagTerrainToolsTerrainBrushNotSingleton then
-		self.updateBrushProperties()
-		self.startBrush()
-	else
-		self.safeStartWithTool()
-		self.updateBrushProperties()
-	end
+	self.updateBrushProperties()
+	self.startBrush()
 end
 
 function BaseBrush:willUnmount()
@@ -274,19 +229,9 @@ function BaseBrush:willUnmount()
 		self.connections = nil
 	end
 
-	if FFlagTerrainToolsTerrainBrushNotSingleton then
-		if self.terrainBrush then
-			self.terrainBrush:destroy()
-			self.terrainBrush = nil
-		end
-	else
-		-- If the base brush is unmounting, but my tool is still active
-		-- Stop the terrain brush anyway
-		-- This case happens when BaseBrush unmounts before ToolSelectionListener:didUpdate()
-		-- Or when Roact.unmount() was used on the whole tree because the plugin window is closing
-		if self.pluginActivationController:getActiveTool() == self.props.toolName then
-			self.terrainBrush:stop()
-		end
+	if self.terrainBrush then
+		self.terrainBrush:destroy()
+		self.terrainBrush = nil
 	end
 end
 
@@ -305,6 +250,8 @@ function BaseBrush:render()
 	local material = self.props.material
 	local pivot = self.props.pivot
 	local planeLock = self.props.planeLock
+	local disablePlaneLock = FFlagTerrainToolsReplaceSrcTogglesOff and self.props.disablePlaneLock
+	local disableIgnoreWater = FFlagTerrainToolsReplaceSrcTogglesOff and self.props.disableIgnoreWater
 	local planePositionY = self.props.planePositionY
 	local snapToGrid = self.props.snapToGrid
 	local strength = self.props.strength
@@ -326,6 +273,8 @@ function BaseBrush:render()
 			ignoreWater = ignoreWater,
 			pivot = pivot,
 			planeLock = planeLock,
+			disablePlaneLock = disablePlaneLock,
+			disableIgnoreWater = disableIgnoreWater,
 			planePositionY = planePositionY,
 			snapToGrid = snapToGrid,
 			strength = strength,

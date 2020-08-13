@@ -33,6 +33,10 @@ function CollaboratorsWidget:render()
 	local layoutOrder = props.LayoutOrder
 	local writable = props.Writable
 
+	-- "Editable" means the permission can be changed to a different permission
+	-- Collaborators that are writeable can be removed even if not editable
+	local editable = props.Editable
+
 	local theme = props.Theme:get("Plugin")
 	local localization = props.Localization
 
@@ -48,7 +52,7 @@ function CollaboratorsWidget:render()
 		userChildren["User"..userId] = Roact.createElement(UserCollaboratorItem, {
 			LayoutOrder = i*2,
 			Writable = writable,
-
+			Editable = editable,
 			Id = userId,
 		})
 	end

@@ -92,6 +92,10 @@ function ContextItem:createProvider()
 	error(message, 0)
 end
 
+function ContextItem:__tostring()
+	return tostring(self.__name)
+end
+
 --[[
 	Creates a simple ContextItem that wraps the object passed to its constructor.
 	Provides :get() method to get the wrapped object in components that need it.

@@ -11,6 +11,7 @@ local platformId = 0
 
 local FFlagStudioToolboxEnablePlaceIDInAnalytics = settings():GetFFlag("StudioToolboxEnablePlaceIDInAnalytics")
 local FFlagStudioToolboxInsertAssetCategoryAnalytics = settings():GetFFlag("StudioToolboxInsertAssetCategoryAnalytics")
+local FFlagToolboxFixAnalyticsBugs = game:GetFastFlag("ToolboxFixAnalyticsBugs")
 
 -- TODO CLIDEVSRVS-1689: StudioSession + StudioID
 local function getStudioSessionId()
@@ -103,7 +104,10 @@ function Analytics.onCategorySelected(oldCategory, newCategory)
 end
 
 function Analytics.onAssetInserted(assetId, searchTerm, assetIndex, currentCategory)
-	AnalyticsSenders.sendEventImmediately("studio", "click", "toolboxInsert", {
+	local context = FFlagToolboxFixAnalyticsBugs and "Marketplace" or "click"
+	local eventName = FFlagToolboxFixAnalyticsBugs and "ClickInsert" or "toolboxInsert"
+
+	AnalyticsSenders.sendEventImmediately("studio", context, eventName, {
 		assetId = assetId,
 		searchText = searchTerm,
 		assetIndex = assetIndex,
@@ -111,11 +115,15 @@ function Analytics.onAssetInserted(assetId, searchTerm, assetIndex, currentCateg
 		studioSid = getStudioSessionId(),
 		clientId = getClientId(),
 		placeId = FFlagStudioToolboxEnablePlaceIDInAnalytics and getPlaceId() or nil,
+		userId = FFlagToolboxFixAnalyticsBugs and getUserId() or nil,
 	})
 end
 
 function Analytics.onAssetDragInserted(assetId, searchTerm, assetIndex, currentCategory)
-	AnalyticsSenders.sendEventImmediately("studio", "drag", "toolboxInsert", {
+	local context = FFlagToolboxFixAnalyticsBugs and "Marketplace" or "drag"
+	local eventName = FFlagToolboxFixAnalyticsBugs and "DragInsert" or "toolboxInsert"
+
+	AnalyticsSenders.sendEventImmediately("studio", context, eventName, {
 		assetId = assetId,
 		searchText = searchTerm,
 		assetIndex = assetIndex,
@@ -123,6 +131,7 @@ function Analytics.onAssetDragInserted(assetId, searchTerm, assetIndex, currentC
 		studioSid = getStudioSessionId(),
 		clientId = getClientId(),
 		placeId = FFlagStudioToolboxEnablePlaceIDInAnalytics and getPlaceId() or nil,
+		userId = FFlagToolboxFixAnalyticsBugs and getUserId() or nil,
 	})
 end
 
@@ -214,7 +223,7 @@ function Analytics.onAssetPreviewEnded(assetId, time)
 		assetId = assetId,
 		time = time,
 		clientId = getClientId(),
-		userId= getUserId(),
+		userId = getUserId(),
 		platformId = getPlatformId(),
 	})
 end

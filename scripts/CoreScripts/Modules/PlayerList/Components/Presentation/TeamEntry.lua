@@ -2,6 +2,7 @@ local CorePackages = game:GetService("CorePackages")
 local CoreGui = game:GetService("CoreGui")
 
 local Roact = require(CorePackages.Roact)
+local RoactRodux = require(CorePackages.RoactRodux)
 local UIBlox = require(CorePackages.UIBlox)
 
 local withStyle = UIBlox.Style.withStyle
@@ -17,6 +18,9 @@ local WithLayoutValues = LayoutValues.WithLayoutValues
 local EntryFrame = require(script.Parent.EntryFrame)
 local StatEntry = require(script.Parent.StatEntry)
 local CellExtender = require(script.Parent.CellExtender)
+
+local PlayerList = Components.Parent
+local FFlagFixLeaderboardWaitingOnScreenSize = require(PlayerList.Flags.FFlagFixLeaderboardWaitingOnScreenSize)
 
 local TeamEntry = Roact.PureComponent:extend("TeamEntry")
 
@@ -125,8 +129,13 @@ function TeamEntry:render()
 				})
 			})
 
+			local maxLeaderstats = layoutValues.MaxLeaderstats
+			if FFlagFixLeaderboardWaitingOnScreenSize and self.props.isSmallTouchDevice then
+				maxLeaderstats = layoutValues.MaxLeaderstatsSmallScreen
+			end
+
 			for i, gameStat in ipairs(self.props.gameStats) do
-				if i > layoutValues.MaxLeaderstats then
+				if i > maxLeaderstats then
 					break
 				end
 				teamEntryChildren["gameStat_" ..gameStat.name] = Roact.createElement(StatEntry, {
@@ -156,6 +165,16 @@ function TeamEntry:render()
 			return Roact.createFragment(teamEntryChildren)
 		end)
 	end)
+end
+
+if FFlagFixLeaderboardWaitingOnScreenSize then
+	local function mapStateToProps(state)
+		return {
+			isSmallTouchDevice = state.displayOptions.isSmallTouchDevice,
+		}
+	end
+
+	return RoactRodux.UNSTABLE_connect2(mapStateToProps, nil)(TeamEntry)
 end
 
 return TeamEntry

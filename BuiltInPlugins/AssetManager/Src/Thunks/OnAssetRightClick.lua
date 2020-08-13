@@ -2,6 +2,7 @@ local Plugin = script.Parent.Parent.Parent
 
 local SetAssets = require(Plugin.Src.Actions.SetAssets)
 local SetEditingAssets = require(Plugin.Src.Actions.SetEditingAssets)
+local SetScreen = require(Plugin.Src.Actions.SetScreen)
 local SetSelectedAssets = require(Plugin.Src.Actions.SetSelectedAssets)
 
 local GetAssets = require(Plugin.Src.Thunks.GetAssets)
@@ -18,6 +19,7 @@ local StudioService = game:GetService("StudioService")
 local FFlagAssetManagerAddPlaceVersionHistoryToContextMenu = game:DefineFastFlag("AssetManagerAddPlaceVerisonHistoryToContextMenu", false)
 local FFlagFixAssetManagerInsertWithLocation = game:DefineFastFlag("FixAssetManagerInsertWithLocation", false)
 local FFlagAssetManagerFixAssetRemoval = game:DefineFastFlag("AssetManagerFixAssetRemoval", false)
+local FFlagAssetManagerAddNewPlaceBehavior = game:DefineFastFlag("AssetManagerAddNewPlaceBehavior", false)
 local FFlagOnlyAllowInsertPackageInEdit = game:DefineFastFlag("OnlyAllowInsertPackageInEdit", false)
 
 local FFlagAssetManagerAddAnalytics = game:GetFastFlag("AssetManagerAddAnalytics")
@@ -78,13 +80,21 @@ local function createFolderContextMenu(analytics, apiImpl, assetData, contextMen
         end)
     elseif assetData.Screen.Key == Screens.PLACES.Key then
         contextMenu:AddNewAction("AddPlace", localization:getText("ContextMenu", "AddNewPlace")).Triggered:connect(function()
-            AssetManagerService:AddNewPlace()
+            local placeId, errorMessage = AssetManagerService:AddNewPlace()
+            if FFlagAssetManagerAddNewPlaceBehavior and errorMessage then
+                error(errorMessage)
+                return
+            end
             store:dispatch(SetAssets({
                 assets = {},
             }))
             local state = store:getState()
             if state.Screen.currentScreen.Key == Screens.PLACES.Key then
                 store:dispatch(GetAssets(apiImpl, Screens.PLACES.AssetType))
+            else
+                if FFlagAssetManagerAddNewPlaceBehavior then
+                    store:dispatch(SetScreen(Screens.PLACES))
+                end
             end
             if FFlagAssetManagerAddAnalytics then
                 analytics:report("clickContextMenuItem")

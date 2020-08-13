@@ -27,6 +27,8 @@
 	PATCH request, then you can use coroutine.wrap to run multiple PATCHES that yield afterwards in the same frame
 ]]
 
+local FFlagFixUploadingImagesInGameSettings = game:DefineFastFlag("FixUploadingImagesInGameSettings", false)
+
 local Plugin = script.Parent.Parent.Parent
 local Cryo = require(Plugin.Cryo)
 
@@ -147,9 +149,27 @@ end
 
 function NetworkingImpl:__requestWithoutCoalesce(options)
 	-- Automatically convert JSON bodies to strings (required by HttpRbxApiService) and set appropriate Content-Type
-	if typeof(options.Body) == "table" then
+
+	if options.Body ~= nil then
+		local body
+		if FFlagFixUploadingImagesInGameSettings then
+			local shouldJsonEncode = true
+			local headers = options.Headers
+
+			if typeof(headers) == "table" then
+				local contentType = headers["Content-Type"]
+				if contentType and string.find(contentType, "multipart/form") then
+					shouldJsonEncode = false
+				end
+			end
+
+			body = shouldJsonEncode and HttpService:JSONEncode(options.Body) or options.Body
+		else
+			body = HttpService:JSONEncode(options.Body)
+		end
+
 		options = Cryo.Dictionary.join(options, {
-			Body = HttpService:JSONEncode(options.Body),
+			Body = body,
 			Headers = Cryo.Dictionary.join({
 				["Content-Type"] = "application/json",
 			}, options.Headers or {})

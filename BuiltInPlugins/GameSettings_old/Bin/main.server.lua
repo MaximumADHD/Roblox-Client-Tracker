@@ -15,6 +15,7 @@ local FFlagGameSettingsPlaceSettings = game:GetFastFlag("GameSettingsPlaceSettin
 local FFlagStudioConvertGameSettingsToDevFramework = game:GetFastFlag("StudioConvertGameSettingsToDevFramework")
 local FFlagStudioAddMonetizationToGameSettings = game:GetFastFlag("StudioAddMonetizationToGameSettings")
 local FFlagQ220PermissionsSettings = game:GetFastFlag("Q220PermissionsSettings")
+local FFlagStudioOpenGameSettingsEvent = game:GetFastFlag("StudioOpenGameSettingsEvent")
 
 --Turn this on when debugging the store and actions
 local LOG_STORE_STATE_AND_EVENTS = false
@@ -348,6 +349,14 @@ local function main()
 				lastObservedStatus = state.Status
 			end
 		end)
+
+		if FFlagStudioOpenGameSettingsEvent then
+			-- hook into event for opening game settings
+			StudioService.OnOpenGameSettings:Connect(function()
+				openGameSettings(game.GameId, game)
+			end)
+		end
+
 	else
 		settingsButton.Enabled = false
 	end

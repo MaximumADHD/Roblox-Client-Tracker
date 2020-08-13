@@ -6,11 +6,14 @@ local Category = require(Plugin.Core.Types.Category)
 local Constants = require(Plugin.Core.Util.Constants)
 local Sort = require(Plugin.Core.Types.Sort)
 
+local RobloxAPI = require(Plugin.Libs.Framework).RobloxAPI
+
 local Settings = {}
 Settings.__index = Settings
 
 local FFlagEnableDefaultSortFix = game:GetFastFlag("EnableDefaultSortFix2")
 local FFlagUseCategoryNameInToolbox = game:GetFastFlag("UseCategoryNameInToolbox")
+local FFlagToolboxDisableMarketplaceAndRecentsForLuobu = game:GetFastFlag("ToolboxDisableMarketplaceAndRecentsForLuobu")
 
 -- Built in plugins share the same namespace for settings, so mark this as from the toolbox
 local SETTING_PREFIX = "Toolbox_"
@@ -76,7 +79,13 @@ end
 
 if not FFlagUseCategoryNameInToolbox then
 	function Settings:getSelectTab()
-		return self:_setSetting(SELECTED_TAB_KEY, Category.MARKETPLACE_KEY)
+		local currentTabDefault
+		if FFlagToolboxDisableMarketplaceAndRecentsForLuobu and RobloxAPI:baseURLHasChineseHost() then
+			currentTabDefault = Constants.DEFAULT_TAB
+		else
+			currentTabDefault = Category.MARKETPLACE_KEY
+		end
+		return self:_setSetting(SELECTED_TAB_KEY, currentTabDefault)
 	end
 
 	function Settings:setSelectTab(currentTab)
@@ -143,17 +152,22 @@ function Settings:loadInitialSettings()
 	end
 
 	local initSettings = {}
-
 	initSettings.backgroundIndex = self:getSelectedBackgroundIndex()
 	initSettings.tab = (not FFlagUseCategoryNameInToolbox) and self:getSelectTab()
 	if FFlagUseCategoryNameInToolbox then
-		initSettings.categoryName = self:getSelectedCategoryName()
+		if FFlagToolboxDisableMarketplaceAndRecentsForLuobu and RobloxAPI:baseURLHasChineseHost() then
+			-- We don't allow Marketplace or Recents for Luobu. We can't risk the loaded setting defaulting to Marketplace.
+			initSettings.categoryName = Category.DEFAULT.name
+		else
+			initSettings.categoryName = self:getSelectedCategoryName()
+		end
 	else
 		initSettings.categoryIndex = self:getSelectedCategoryIndex()
 		if Category.categoryIsGroupAsset(Constants.DEFAULT_TAB, initSettings.categoryIndex) then
 			initSettings.categoryIndex = 1
 		end
 	end
+
 	initSettings.searchTerm = self:getSelectedSearchTerm()
 	initSettings.sortIndex = self:getSelectedSortIndex()
 
@@ -164,7 +178,13 @@ function Settings:loadInitialSettings()
 			initSettings.categoryName = Category.DEFAULT.name
 			initSettings.sortIndex = Sort.getDefaultSortForCategory(initSettings.categoryName)
 		else
-			local currentTab = FFlagEnableDefaultSortFix and Category.MARKETPLACE_KEY or nil
+			local currentTabDefault
+			if FFlagToolboxDisableMarketplaceAndRecentsForLuobu then
+				currentTabDefault = Constants.DEFAULT_TAB
+			else
+				currentTabDefault = Category.MARKETPLACE_KEY
+			end
+			local currentTab = FFlagEnableDefaultSortFix and currentTabDefault or nil
 			initSettings.sortIndex = Sort.getDefaultSortForCategory(currentTab, initSettings.categoryName)
 		end
 	end

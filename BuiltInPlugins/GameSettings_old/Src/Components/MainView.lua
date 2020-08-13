@@ -33,7 +33,6 @@ local StudioService = game:GetService("StudioService")
 local TextService = game:GetService("TextService")
 
 local FFlagStudioConvertGameSettingsToDevFramework = game:GetFastFlag("StudioConvertGameSettingsToDevFramework")
-local FFlagGameSettingsOnlyInPublishedGames = game:DefineFastFlag("GameSettingsOnlyInPublishedGames", false)
 
 local MainView = Roact.PureComponent:extend("MainView")
 
@@ -110,7 +109,7 @@ function MainView:render()
 	return Roact.createElement("Frame", {
 		Size = UDim2.new(1, 0, 1, 0),
 		BackgroundColor3 = theme.backgroundColor,
-	}, (FFlagGameSettingsOnlyInPublishedGames and not isPublishedGame) and {
+	}, (not isPublishedGame) and {
 		UseText = Roact.createElement(FitTextLabel, Cryo.Dictionary.join(theme.fontStyle.Normal, {
             Position = UDim2.new(0.5, 0, 0, theme.mainView.publishText.offset),
 			AnchorPoint = Vector2.new(0.5, 0.5),

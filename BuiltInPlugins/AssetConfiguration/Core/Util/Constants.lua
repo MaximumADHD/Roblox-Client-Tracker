@@ -6,15 +6,22 @@ local Category = require(Plugin.Core.Types.Category)
 local TextService = game:GetService("TextService")
 local StudioService  = game:GetService("StudioService")
 
+local RobloxAPI = require(Plugin.Libs.Framework).RobloxAPI
+
 local FFlagUseRBXThumbInToolbox = game:GetFastFlag("UseRBXThumbInToolbox")
 local FFlagSmallerToolboxMinWidth = game:DefineFastFlag("SmallerToolboxMinWidth", false)
 local FFlagUseCategoryNameInToolbox = game:GetFastFlag("UseCategoryNameInToolbox")
 local FFlagToolboxUseNewPluginEndpoint = settings():GetFFlag("ToolboxUseNewPluginEndpoint")
+local FFlagToolboxDisableMarketplaceAndRecentsForLuobu = game:GetFastFlag("ToolboxDisableMarketplaceAndRecentsForLuobu")
 
 local Constants = {}
 
 if not FFlagUseCategoryNameInToolbox then
-    Constants.DEFAULT_TAB = Category.MARKETPLACE_KEY
+	if FFlagToolboxDisableMarketplaceAndRecentsForLuobu and RobloxAPI:baseURLHasChineseHost() then
+		Constants.DEFAULT_TAB = Category.INVENTORY_KEY
+	else
+		Constants.DEFAULT_TAB = Category.MARKETPLACE_KEY
+	end
 end
 
 Constants.TOOLTIP_LINE_HEIGHT = 1.3

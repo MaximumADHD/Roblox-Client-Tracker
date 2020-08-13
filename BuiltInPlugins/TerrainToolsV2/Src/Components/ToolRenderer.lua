@@ -5,7 +5,6 @@
 game:DefineFastFlag("TerrainToolsScrollingFix", false)
 
 local FFlagTerrainToolsScrollingFix = game:GetFastFlag("TerrainToolsScrollingFix")
-local FFlagTerrainToolsFixRegionEditorCleanup = game:GetFastFlag("TerrainToolsFixRegionEditorCleanup")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -124,12 +123,10 @@ function ToolRenderer:init(initialProps)
 	end
 end
 
-if FFlagTerrainToolsFixRegionEditorCleanup then
-	function ToolRenderer:willUnmount()
-		local currentToolScript = toolToScript[self.props.currentTool]
-		if currentToolScript == TerrainRegionEditor then
-			TerrainRegionEditor.Close()
-		end
+function ToolRenderer:willUnmount()
+	local currentToolScript = toolToScript[self.props.currentTool]
+	if currentToolScript == TerrainRegionEditor then
+		TerrainRegionEditor.Close()
 	end
 end
 

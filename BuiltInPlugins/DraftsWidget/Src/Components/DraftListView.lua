@@ -2,6 +2,7 @@
     Displays a list of scripts you have checked out. Drafts are loaded from the
     Rodux store
 --]]
+game:DefineFastFlag("DraftWidgetResponsiveCommitButton", false)
 
 local RunService = game:GetService("RunService")
 
@@ -37,6 +38,8 @@ function DraftListView:init()
     local draftsService = getDraftsService(self)
     self:setState({
         draftsPendingDiscard = nil,
+        -- may be inaccurate if there are no drafts remaining
+        draftsHasActiveSelection = false,
     })
 
     self.GetCurrentSelection = Instance.new("BindableFunction")
@@ -93,14 +96,32 @@ function DraftListView:init()
 
     self.getIndicatorEnabled = function(draft)
         local draftState = self.props.Drafts[draft]
-
         return draftState[DraftState.Committed] == CommitState.Committed
             or draftState[DraftState.Deleted]
             or draftState[DraftState.Outdated]
     end
 
+    self.getCommitButtonEnabled =  function()
+        local drafts = self.props.Drafts
+        local hasDrafts = next(drafts) ~= nil
+        return RunService:IsEdit() and self.state.draftsHasActiveSelection and hasDrafts
+    end
+
     self.onDoubleClicked = function(draft)
         self.openScripts({draft})
+    end
+
+    -- Note: Does not get invoked when there are no drafts left since ListItemView will not get rendered
+    self.onSelectionChanged = function(selection)
+        if selection and next(selection) == nil then
+            self:setState({
+                draftsHasActiveSelection = false
+            })
+        else
+            self:setState({
+                draftsHasActiveSelection = true
+            })
+        end
     end
 
     self.makeMenuActions = function(localization, selectedDrafts)
@@ -109,7 +130,7 @@ function DraftListView:init()
 
         local openActionEnabled = true
         local diffActionEnabled = true
-        local updateActionEnabled = game:GetFastFlag("StudioMultiMergeSupport") or #selectedDrafts == 1
+        local updateActionEnabled = true
         local commitActionEnabled = true
         local restoreActionEnabled = true
         local revertActionEnabled = true
@@ -206,6 +227,11 @@ function DraftListView:render()
     local showDiscardDialog = pendingDiscards ~= nil
     local noDrafts = next(drafts) == nil
 
+    local commitButtonEnabled = true
+    if game:GetFastFlag("DraftWidgetResponsiveCommitButton") then
+        commitButtonEnabled = self.getCommitButtonEnabled()
+    end
+
     local draftStatusSidebarEnabled = false
     local sortedDraftList = {}
     for draft,_ in pairs(drafts) do
@@ -248,7 +274,7 @@ function DraftListView:render()
                         VerticalAlignment = Enum.VerticalAlignment.Center,
                     }),
                     CommitButton = Roact.createElement(RoundTextButton, {
-                        Active = true,
+                        Active = commitButtonEnabled,
                         Size = UDim2.new(0, GetTextSize(commitButtonText).X+PADDING*2, 1, 0),
                         Style = theme.defaultButton,
                         Name = commitButtonText,
@@ -269,6 +295,7 @@ function DraftListView:render()
 
                         GetCurrentSelection = self.GetCurrentSelection,
                         OnDoubleClicked = self.onDoubleClicked,
+                        OnSelectionChanged = self.onSelectionChanged,
                         MakeMenuActions = self.makeMenuActions,
 
                         RenderItem = function(draft, buttonTheme, hovered)

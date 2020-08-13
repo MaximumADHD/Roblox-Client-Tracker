@@ -96,10 +96,6 @@ local function matchesAny(str, excludes)
 	return false
 end
 
-local function dirname(path)
-	return path:sub(0, path:find("/[^/]*$"))
-end
-
 function Reporter.generateReport(path, excludes)
 	local report = LcovReporter.generate(Reporter.processCoverageStats(), function(file)
 		local isExcluded = file.script.Name:match(".spec$")
@@ -115,24 +111,11 @@ function Reporter.generateReport(path, excludes)
 		return
 	end
 
-	local success, message = pcall(function()
-		game:GetService("TestService"):writeToFileIfContentIsDifferent(path, report)
+	local success, message = pcall(function() -- New API
+		local fs = game:GetService("FileSystemService")
+		fs:WriteFile(path, report)
 	end)
 
-	if not success then
-		success, message = pcall(function() -- Deprecated API
-			local fs = game:GetService("FileSystemService")
-			fs:MakeParentPath(path)
-			fs:writeToFileIfContentIsDifferent(path, report)
-		end)
-	end
-	if not success then
-		success, message = pcall(function() -- New API
-			local fs = game:GetService("FileSystemService")
-			fs:CreateDirectories(dirname(path))
-			fs:WriteFile(path, report)
-		end)
-	end
 	if not success then
 		warn("Failed to save code coverage report at path: " .. path .. "\nError: " .. message)
 	end

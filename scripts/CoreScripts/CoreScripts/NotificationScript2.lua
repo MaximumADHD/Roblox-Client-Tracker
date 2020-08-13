@@ -51,7 +51,7 @@ end
 
 local LocalPlayer
 while not Players.LocalPlayer do
-	wait()
+	Players:GetPropertyChangedSignal("LocalPlayer"):Wait()
 end
 LocalPlayer = Players.LocalPlayer
 local RbxGui = script.Parent
@@ -99,6 +99,18 @@ local friendRequestNotificationFIntSuccess, friendRequestNotificationFIntValue =
 if friendRequestNotificationFIntSuccess and friendRequestNotificationFIntValue ~= nil then
 	FRIEND_REQUEST_NOTIFICATION_THROTTLE = friendRequestNotificationFIntValue
 end
+
+StarterGui:RegisterSetCore(
+	"PointsNotificationsActive",
+	function(value) if type(value) == "boolean" then pointsNotificationsActive = value end end
+)
+StarterGui:RegisterSetCore(
+	"BadgesNotificationsActive",
+	function(value) if type(value) == "boolean" then badgesNotificationsActive = value end end
+)
+
+StarterGui:RegisterGetCore("PointsNotificationsActive", function() return pointsNotificationsActive end)
+StarterGui:RegisterGetCore("BadgesNotificationsActive", function() return badgesNotificationsActive end)
 
 local FFlagLocalizeVideoRecordAndScreenshotText = game:DefineFastFlag("LocalizeVideoRecordAndScreenshotText", false)
 
@@ -217,7 +229,6 @@ local function getFriendImage(playerId)
     -- It will just return an invalid thumbnail if a valid one can not be generated in time.
     return SocialUtil.GetPlayerImage(playerId, Enum.ThumbnailSize.Size48x48, Enum.ThumbnailType.HeadShot, --[[timeOut = ]] MAX_GET_FRIEND_IMAGE_YIELD_TIME)
 end
-
 
 local function createNotification(title, text, image)
 	local notificationFrame = DefaultNotification:Clone()
@@ -504,6 +515,37 @@ local function onSendNotificationInfo(notificationInfo)
 	insertNotification(notification)
 end
 BindableEvent_SendNotificationInfo.Event:connect(onSendNotificationInfo)
+
+local function createDeveloperNotification(notificationTable)
+	if type(notificationTable) == "table" then
+		if type(notificationTable.Title) == "string" and type(notificationTable.Text) == "string" then
+			local iconImage = (type(notificationTable.Icon) == "string" and notificationTable.Icon or "")
+			local duration = (type(notificationTable.Duration) == "number" and notificationTable.Duration or DEFAULT_NOTIFICATION_DURATION)
+			local bindable = (typeof(notificationTable.Callback) == "Instance" and notificationTable.Callback:IsA("BindableFunction") and notificationTable.Callback or nil)
+			local button1Text = (type(notificationTable.Button1) == "string" and notificationTable.Button1 or "")
+			local button2Text = (type(notificationTable.Button2) == "string" and notificationTable.Button2 or "")
+
+			-- AutoLocalize allows developers to disable automatic localization if they have pre-localized it. Defaults true.
+			local autoLocalize = notificationTable.AutoLocalize == nil or notificationTable.AutoLocalize == true
+			local title = notificationTable.Title
+			local text = notificationTable.Text
+
+			sendNotificationInfo {
+				GroupName = "Developer",
+				Title = title,
+				Text = text,
+				Image = iconImage,
+				Duration = duration,
+				Callback = bindable,
+				Button1Text = button1Text,
+				Button2Text = button2Text,
+				AutoLocalize = autoLocalize,
+			}
+		end
+	end
+end
+
+StarterGui:RegisterSetCore("SendNotification", createDeveloperNotification)
 
 -- New follower notification
 spawn(function()
@@ -864,44 +906,6 @@ local function onClientLuaDialogRequested(msg, accept, decline)
 	return true
 end
 MarketplaceService.ClientLuaDialogRequested:connect(onClientLuaDialogRequested)
-
-local function createDeveloperNotification(notificationTable)
-	if type(notificationTable) == "table" then
-		if type(notificationTable.Title) == "string" and type(notificationTable.Text) == "string" then
-			local iconImage = (type(notificationTable.Icon) == "string" and notificationTable.Icon or "")
-			local duration = (type(notificationTable.Duration) == "number" and notificationTable.Duration or DEFAULT_NOTIFICATION_DURATION)
-			local bindable = (typeof(notificationTable.Callback) == "Instance" and notificationTable.Callback:IsA("BindableFunction") and notificationTable.Callback or nil)
-			local button1Text = (type(notificationTable.Button1) == "string" and notificationTable.Button1 or "")
-			local button2Text = (type(notificationTable.Button2) == "string" and notificationTable.Button2 or "")
-
-			-- AutoLocalize allows developers to disable automatic localization if they have pre-localized it. Defaults true.
-			local autoLocalize = notificationTable.AutoLocalize == nil or notificationTable.AutoLocalize == true
-			local title = notificationTable.Title
-			local text = notificationTable.Text
-
-			sendNotificationInfo {
-				GroupName = "Developer",
-				Title = title,
-				Text = text,
-				Image = iconImage,
-				Duration = duration,
-				Callback = bindable,
-				Button1Text = button1Text,
-				Button2Text = button2Text,
-				AutoLocalize = autoLocalize,
-			}
-		end
-	end
-end
-
-StarterGui:RegisterSetCore("PointsNotificationsActive", function(value) if type(value) == "boolean" then pointsNotificationsActive = value end end)
-StarterGui:RegisterSetCore("BadgesNotificationsActive", function(value) if type(value) == "boolean" then badgesNotificationsActive = value end end)
-
-StarterGui:RegisterGetCore("PointsNotificationsActive", function() return pointsNotificationsActive end)
-StarterGui:RegisterGetCore("BadgesNotificationsActive", function() return badgesNotificationsActive end)
-
-StarterGui:RegisterSetCore("SendNotification", createDeveloperNotification)
-
 
 if not isTenFootInterface and not isNewGamepadMenuEnabled() then
 	local gamepadMenu = RobloxGui:WaitForChild("CoreScripts/GamepadMenu")

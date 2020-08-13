@@ -13,14 +13,14 @@ local function valueToString(propValue)
 		return "not defined"
 	elseif valueType == "Vector3" then
 		return string.format(
-			"%s, %s, %s",
+			"%d, %d, %d",
 			round(propValue.X, 2),
 			round(propValue.Y, 2),
 			round(propValue.Z, 2)
 		)
 	elseif valueType == "Color3" then
 		return string.format(
-			"%s, %s, %s",
+			"%d, %d, %d",
 			math.floor(propValue.r * 255),
 			math.floor(propValue.g * 255),
 			math.floor(propValue.b * 255)

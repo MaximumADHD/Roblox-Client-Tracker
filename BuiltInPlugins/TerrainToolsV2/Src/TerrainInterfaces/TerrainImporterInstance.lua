@@ -4,7 +4,11 @@ local Plugin = script.Parent.Parent.Parent
 
 local Framework = Plugin.Packages.Framework
 local Cryo = require(Plugin.Packages.Cryo)
+local Roact = require(Plugin.Packages.Roact)
 local UILibrary = not FFlagTerrainToolsUseDevFramework and require(Plugin.Packages.UILibrary) or nil
+
+local ContextItem = FFlagTerrainToolsUseDevFramework and require(Framework.ContextServices.ContextItem) or nil
+local Provider = FFlagTerrainToolsUseDevFramework and require(Framework.ContextServices.Provider) or nil
 
 local FrameworkUtil = FFlagTerrainToolsUseDevFramework and require(Framework.Util) or nil
 local Signal = FFlagTerrainToolsUseDevFramework and FrameworkUtil.Signal or UILibrary.Util.Signal
@@ -28,17 +32,21 @@ local function validateImportSettingsOrWarn(importSettings, localization)
 	return true
 end
 
-local TerrainImporter = {}
-TerrainImporter.__index = TerrainImporter
+local TerrainImporter
+if FFlagTerrainToolsUseDevFramework then
+	TerrainImporter = ContextItem:extend("TerrainImporter")
+else
+	TerrainImporter = {}
+	TerrainImporter.__index = TerrainImporter
+end
 
 function TerrainImporter.new(options)
 	assert(options and type(options) == "table", "TerrainImporter requires an options table")
 
 	local self = setmetatable({
 		_terrain = options.terrain,
-
-		-- For error messages
 		_localization = options.localization,
+		_analytics = options.analytics,
 
 		_importSettings = {
 			position = Vector3.new(0, 0, 0),
@@ -68,6 +76,14 @@ function TerrainImporter.new(options)
 	self._terrainProgressUpdateConnection = self._terrain.TerrainProgressUpdate:Connect(self._updateImportProgress)
 
 	return self
+end
+
+if FFlagTerrainToolsUseDevFramework then
+	function TerrainImporter:createProvider(root)
+		return Roact.createElement(Provider, {
+			ContextItem = self,
+		}, {root})
+	end
 end
 
 function TerrainImporter:subscribeToImportingStateChanged(...)
@@ -139,13 +155,20 @@ function TerrainImporter:startImport()
 	-- But the spawn() allows us to show the progress dialog before the preprocessing starts
 	-- So then the user at least gets some feedback that the operation has started other than studio freezing
 	spawn(function()
-		AnalyticsService:SendEventDeferred("studio", "Terrain", "ImportTerrain", {
-			userId = StudioService:GetUserId(),
-			regionDims = ("%d,%d,%d)"):format(region.Size.x, region.Size.y, region.Size.z),
-			useColorMap = useColorMap,
-			studioSId = AnalyticsService:GetSessionId(),
-			placeId = game.PlaceId,
-		})
+		if FFlagTerrainToolsUseDevFramework then
+			if self._analytics then
+				self._analytics:report("importTerrain", region, heightUrl, colorUrl)
+			end
+		else
+			AnalyticsService:SendEventDeferred("studio", "Terrain", "ImportTerrain", {
+				userId = StudioService:GetUserId(),
+				regionDims = ("%d,%d,%d)"):format(region.Size.x, region.Size.y, region.Size.z),
+				studioSId = AnalyticsService:GetSessionId(),
+				placeId = game.PlaceId,
+				colorMapUrl = colorUrl,
+				heightMapUrl = heightUrl
+			})
+		end
 
 		local status, err = pcall(function()
 			self._terrain:ImportHeightMap(heightUrl, colorUrl, region)

@@ -1,3 +1,6 @@
+assert(not game:GetFastFlag("TerrainToolsUseDevFramework"),
+	"TerrainTools Symbol.lua should not be used when FFlagTerrainToolsUseDevFramework is on")
+
 --[[
 	A 'Symbol' is an opaque marker type.
 

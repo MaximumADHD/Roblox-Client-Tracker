@@ -18,5 +18,5 @@ if DebugFlags.RunningUnderCLI() or DebugFlags.RunTests() then
 end
 
 if DebugFlags.RunningUnderCLI() then
-	game:GetService("ProcessService"):Exit(0)
+	game:GetService("ProcessService"):ExitAsync(0)
 end

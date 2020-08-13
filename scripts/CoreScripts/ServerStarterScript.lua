@@ -18,6 +18,12 @@ local ScriptContext = game:GetService('ScriptContext')
 --[[ Add Server CoreScript ]]--
 ScriptContext:AddCoreScriptLocal("ServerCoreScripts/ServerSocialScript", script.Parent)
 
+-- Leaderstat server child-order tracker
+local FFlagAnOrderOfLeaderstats = game:DefineFastFlag("AnOrderOfLeaderstats", false)
+if FFlagAnOrderOfLeaderstats then
+	ScriptContext:AddCoreScriptLocal("ServerCoreScripts/ServerLeaderstats", script.Parent)
+end
+
 -- Default Alternate Death Ragdoll (China only for now)
 local FFlagSupportDeathType = game:DefineFastFlag("SupportDeathTypeServer", false)
 if FFlagSupportDeathType then

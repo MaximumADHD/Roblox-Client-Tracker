@@ -11,6 +11,7 @@ local AppFont = require(CorePackages.AppTempCommon.LuaApp.Style.Fonts.Gotham)
 
 local TenFootInterface = require(RobloxGui.Modules.TenFootInterface)
 local SettingsUtil = require(RobloxGui.Modules.Settings.Utility)
+local PolicyService = require(RobloxGui.Modules.Common.PolicyService)
 
 local Roact = require(CorePackages.Roact)
 local Rodux = require(CorePackages.Rodux)
@@ -19,9 +20,11 @@ local UIBlox = require(CorePackages.UIBlox)
 
 local PlayerList = script.Parent
 
+local FFlagFixLeaderboardWaitingOnScreenSize = require(PlayerList.Flags.FFlagFixLeaderboardWaitingOnScreenSize)
+local FFlagLeaderboardDontWaitOnChinaPolicy = require(PlayerList.Flags.FFlagLeaderboardDontWaitOnChinaPolicy)
+
 local PlayerListApp = require(PlayerList.Components.PlayerListApp)
 local Reducer = require(PlayerList.Reducers.Reducer)
-
 local GlobalConfig = require(PlayerList.GlobalConfig)
 local CreateLayoutValues = require(PlayerList.CreateLayoutValues)
 local Connection = PlayerList.Components.Connection
@@ -37,6 +40,7 @@ local SetSmallTouchDevice = require(PlayerList.Actions.SetSmallTouchDevice)
 local SetIsUsingGamepad = require(PlayerList.Actions.SetIsUsingGamepad)
 local SetHasPermissionToVoiceChat = require(PlayerList.Actions.SetHasPermissionToVoiceChat)
 local SetMinimized = require(PlayerList.Actions.SetMinimized)
+local SetSubjectToChinaPolicies = require(PlayerList.Actions.SetSubjectToChinaPolicies)
 
 if not Players.LocalPlayer then
 	Players:GetPropertyChangedSignal("LocalPlayer"):Wait()
@@ -76,7 +80,13 @@ function PlayerListMaster.new()
 		self.store:dispatch(SetPlayerListEnabled(false))
 	end
 
-	self.store:dispatch(SetSmallTouchDevice(isSmallTouchScreen()))
+	if FFlagFixLeaderboardWaitingOnScreenSize then
+		coroutine.wrap(function()
+			self.store:dispatch(SetSmallTouchDevice(isSmallTouchScreen()))
+		end)()
+	else
+		self.store:dispatch(SetSmallTouchDevice(isSmallTouchScreen()))
+	end
 	self.store:dispatch(SetTenFootInterface(TenFootInterface:IsEnabled()))
 	if TenFootInterface:IsEnabled() then
 		coroutine.wrap(function()
@@ -88,6 +98,12 @@ function PlayerListMaster.new()
 					self.store:dispatch(SetHasPermissionToVoiceChat(true))
 				end
 			end)
+		end)()
+	end
+
+	if FFlagLeaderboardDontWaitOnChinaPolicy then
+		coroutine.wrap(function()
+			self.store:dispatch(SetSubjectToChinaPolicies(PolicyService:IsSubjectToChinaPolicies()))
 		end)()
 	end
 
@@ -108,7 +124,7 @@ function PlayerListMaster.new()
 		LayoutValuesProvider = Roact.createElement(LayoutValuesProvider, {
 			layoutValues = CreateLayoutValues(
 				TenFootInterface:IsEnabled(),
-				isSmallTouchScreen()
+				(not FFlagFixLeaderboardWaitingOnScreenSize) and isSmallTouchScreen() or nil
 			)
 		}, {
 			ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {

@@ -96,6 +96,21 @@ local function createValues(getColor, c, m)
 		pageText = {
 			font = Enum.Font.SourceSansLight
 		},
+
+		--Constants used for UI
+		DROPDOWN_WIDTH = 330,
+		DROPDOWN_HEIGHT = 38,
+
+		SCREEN_CHOOSE_GAME = {
+			ARROW_SIZE = 12,
+			PAGE_PADDING = 115,
+			ICON_SIZE = 150,
+			TILE_FOOTER_SIZE = 35,
+			FRAME_BUTTON_SIZE = 32,
+			CELL_PADDING_X = 30,
+			CELL_PADDING_Y = 40
+		},
+
 		isDarkerTheme = isDark,
 	})
 

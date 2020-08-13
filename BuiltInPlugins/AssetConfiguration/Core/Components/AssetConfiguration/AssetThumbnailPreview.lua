@@ -15,7 +15,6 @@
 
 ]]
 
-local FFlagEnableThumbnailConfigurationExists, FFlagEnableThumbnailConfigurationValue = pcall(function() return settings():GetFFlag("EnableThumbnailConfiguration") end)
 local FFlagStudioAssetConfigStopSoundsPlaying = game:DefineFastFlag("StudioAssetConfigStopSoundsPlaying", false)
 
 local PREVIEW_TITLE_PADDING = 12
@@ -105,40 +104,25 @@ function AssetThumbnailPreview:didMount()
 			stopSoundsPlaying(model)
 		end
 
-		if FFlagEnableThumbnailConfigurationExists and FFlagEnableThumbnailConfigurationValue then
-			local instance = game:GetFastFlag("CMSFixAssetPreviewForThumbnailConfig")
-				and #self.props.instances == 1
-				and self.props.instances[1]
-				or model
-			local thumbnailConfiguration = instance:FindFirstChild("ThumbnailConfiguration")
-			if thumbnailConfiguration and thumbnailConfiguration:IsA("Configuration") then
-				local thumbnailCameraTarget = thumbnailConfiguration:FindFirstChild("ThumbnailCameraTarget")
-				local thumbnailCameraValue = thumbnailConfiguration:FindFirstChild("ThumbnailCameraValue")
-				if thumbnailCameraTarget
-					and thumbnailCameraTarget:IsA("ObjectValue")
-					and thumbnailCameraValue
-					and thumbnailCameraValue:IsA("CFrameValue") then
-					local target = thumbnailCameraTarget.Value
-					if target and target:IsA("BasePart") then
-						camera.CFrame = target.CFrame:toWorldSpace(thumbnailCameraValue.Value)
-					end
+		local instance = game:GetFastFlag("CMSFixAssetPreviewForThumbnailConfig")
+			and #self.props.instances == 1
+			and self.props.instances[1]
+			or model
+		local thumbnailConfiguration = instance:FindFirstChild("ThumbnailConfiguration")
+		if thumbnailConfiguration and thumbnailConfiguration:IsA("Configuration") then
+			local thumbnailCameraTarget = thumbnailConfiguration:FindFirstChild("ThumbnailCameraTarget")
+			local thumbnailCameraValue = thumbnailConfiguration:FindFirstChild("ThumbnailCameraValue")
+			if thumbnailCameraTarget
+				and thumbnailCameraTarget:IsA("ObjectValue")
+				and thumbnailCameraValue
+				and thumbnailCameraValue:IsA("CFrameValue") then
+				local target = thumbnailCameraTarget.Value
+				if target and target:IsA("BasePart") then
+					camera.CFrame = target.CFrame:toWorldSpace(thumbnailCameraValue.Value)
 				end
-			else
-				setDefaultCameraView(camera, model)
 			end
 		else
-			local modelCF = model:GetModelCFrame()
-			camera:SetImageServerView(modelCF)
-
-			local radius = model:GetExtentsSize().magnitude/2
-			local halfFov = math.rad(camera.FieldOfView)/2
-			local depth = radius/math.tan(halfFov)
-
-			-- 1. remove translation
-			-- 2. move to model position
-			-- 3. push camera back by depth in the original angle given by SetImageServerView
-			-- SetImageServerView ensures that camera.CFrame.p and modelCF.p will always be different values
-			camera.CFrame = (camera.CFrame - camera.CFrame.p) + modelCF.p + ((camera.CFrame.p - modelCF.p).unit * depth)
+			setDefaultCameraView(camera, model)
 		end
 	end
 end

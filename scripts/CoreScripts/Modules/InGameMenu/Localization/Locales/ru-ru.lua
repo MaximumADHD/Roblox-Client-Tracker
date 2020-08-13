@@ -135,4 +135,5 @@ return{
 	["CoreScripts.InGameMenu.EducationalPopup.BodyTextClickHome"] = [[Нажмите на иконку «На главную»]],
 	["CoreScripts.InGameMenu.EducationalPopup.BodyTextPlayMore"] = [[Сыграть в другие игры Roblox]],
 	["CoreScripts.InGameMenu.EducationalPopup.LeaveRoblox"] = [[Выйти из Roblox]],
+	["CoreScripts.InGameMenu.GameSettings.ClientCoreScriptVersion"] = [[Клиентская версия CoreScript: {CLIENT_CORESCRIPT_VERSION}]],
 }

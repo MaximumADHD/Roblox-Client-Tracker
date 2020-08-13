@@ -2,7 +2,9 @@
 	Displays panels associated with The Replace tool
 ]]
 game:DefineFastFlag("TerrainToolsReplaceSourceMaterialAirLock", false)
+
 local FFlagTerrainToolsReplaceSourceMaterialAirLock = game:GetFastFlag("TerrainToolsReplaceSourceMaterialAirLock")
+local FFlagTerrainToolsReplaceSrcTogglesOff = game:GetFastFlag("TerrainToolsReplaceSrcTogglesOff")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -216,6 +218,8 @@ function Replace:render()
 					dispatchSetSnapToGrid = self.props.dispatchSetSnapToGrid,
 					dispatchSetSourceMaterial = self.props.dispatchSetSourceMaterial,
 					dispatchSetTargetMaterial = self.props.dispatchSetTargetMaterial,
+					disablePlaneLock = FFlagTerrainToolsReplaceSrcTogglesOff and self.props.Source == Enum.Material.Air,
+					disableIgnoreWater = FFlagTerrainToolsReplaceSrcTogglesOff and self.props.Source == Enum.Material.Water,
 				}),
 
 				MapSettingsWithPreview = self.props.Mode == ReplaceMode.Box and Roact.createElement(MapSettingsWithPreview, {

@@ -25,6 +25,7 @@ local FFlagStudioFixUndoAfterInsertByDrag = game:GetFastFlag("StudioFixUndoAfter
 local FFlagToolboxForceSelectDragger = game:GetFastFlag("ToolboxForceSelectDragger")
 local FFlagDragFaceInstances = game:GetFastFlag("DragFaceInstances")
 local EFLuaDraggers = game:GetEngineFeature("LuaDraggers")
+local FFlagFixGroupPackagesCategoryInToolbox = game:GetFastFlag("FixGroupPackagesCategoryInToolbox")
 
 local INSERT_MAX_SEARCH_DEPTH = 2048
 local INSERT_MAX_DISTANCE_AWAY = 64
@@ -263,7 +264,8 @@ local function dispatchInsertAsset(options, insertToolPromise)
 	if FFlagUseCategoryNameInToolbox then
 		isPackage = Category.categoryIsPackage(options.categoryName)
 	else
-		isPackage = Category.categoryIsPackage(options.categoryIndex, Category.MARKETPLACE_KEY)
+		local categoryKey = FFlagFixGroupPackagesCategoryInToolbox and Category.INVENTORY_KEY or Category.MARKETPLACE_KEY
+		isPackage = Category.categoryIsPackage(options.categoryIndex, categoryKey)
 	end
 
 	if isPackage then

@@ -11,11 +11,14 @@ require(script.Parent.defineLuaFlags)
 -- Fast flags
 local FFlagGameSettingsPreventClosingDialogWhileSaveInProgress = game:DefineFastFlag("GameSettingsPreventClosingDialogWhileSaveInProgress", false)
 local FFlagGameSettingsPlaceSettings = game:GetFastFlag("GameSettingsPlaceSettings")
+local FFlagStudioOpenGameSettingsEvent = game:GetFastFlag("StudioOpenGameSettingsEvent")
+local FFlagLocalizationPageInGameSettingsV2 = game:GetFastFlag("LocalizationPageInGameSettingsV2")
 
 --Turn this on when debugging the store and actions
 local LOG_STORE_STATE_AND_EVENTS = false
 
 local RunService = game:GetService("RunService")
+local StudioService = game:GetService("StudioService")
 
 local Plugin = script.Parent.Parent
 local Roact = require(Plugin.Roact)
@@ -43,6 +46,7 @@ local PlacesController = require(Plugin.Pages.PlacesPage.Controllers.PlacesContr
 local SecurityController = require(Plugin.Pages.SecurityPage.Controllers.SecurityController)
 local SocialController = require(Plugin.Pages.PermissionsPage.Controllers.SocialController)
 local UniverseAvatarController = require(Plugin.Pages.AvatarPage.Controllers.UniverseAvatarController)
+local LocalizationPageController = require(Plugin.Pages.LocalizationPage.Controllers.LocalizationPageController)
 
 local CurrentStatus = require(Plugin.Src.Util.CurrentStatus)
 
@@ -76,6 +80,7 @@ local universePermissionsController = FFlagQ220PermissionsSettings and SecurityC
 local socialController = SocialController.new(networking:get())
 local universeAvatarController = UniverseAvatarController.new(networking:get())
 local placesController = FFlagGameSettingsPlaceSettings and PlacesController.new(networking:get()) or nil
+local localizationPageController = FFlagLocalizationPageInGameSettingsV2 and LocalizationPageController.new(networking:get()) or nil
 
 thunkContextItems.networking = networking:get()
 thunkContextItems.worldRootPhysicsController = worldRootPhysics:get()
@@ -89,6 +94,7 @@ thunkContextItems.universePermissionsController = universePermissionsController
 thunkContextItems.socialController = socialController
 thunkContextItems.universeAvatarController = universeAvatarController
 thunkContextItems.placesController = placesController
+thunkContextItems.localizationPageController = localizationPageController
 
 local thunkWithArgsMiddleware = FrameworkUtil.ThunkWithArgsMiddleware(thunkContextItems)
 local middlewares = {thunkWithArgsMiddleware}
@@ -249,7 +255,7 @@ local function makePluginGui()
 end
 
 --Initializes and populates the Game Settings popup window
-local function openGameSettings(gameId, dataModel)
+local function openGameSettings(gameId, dataModel, firstSelectedId)
 	if settingsStore then
 		local state = settingsStore:getState()
 		local currentStatus = state.Status
@@ -270,6 +276,7 @@ local function openGameSettings(gameId, dataModel)
 	}, {
 		mainView = Roact.createElement(MainView, {
 			OnClose = closeGameSettings,
+			FirstSelectedId = firstSelectedId
 		}),
 	})
 
@@ -313,6 +320,14 @@ local function main()
 				lastObservedStatus = state.Status
 			end
 		end)
+
+		if FFlagStudioOpenGameSettingsEvent then
+			-- hook into event for opening game settings
+			StudioService.OnOpenGameSettings:Connect(function(pageIdentifier)
+				openGameSettings(game.GameId, game, pageIdentifier)
+			end)
+		end
+
 	else
 		settingsButton.Enabled = false
 	end

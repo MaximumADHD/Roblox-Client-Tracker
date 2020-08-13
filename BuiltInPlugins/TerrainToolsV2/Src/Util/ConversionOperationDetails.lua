@@ -271,7 +271,7 @@ local ConvertShapesToBiomes = {
 			data.generateSettings.cframe = currInstanceData[2] 	-- cframe contains position and oritentation
 			data.generateSettings.size = currInstanceData[3]	-- vector3 size
 
-			data.generator = TerrainGenerator.create(data.generateSettings)
+			data.generator = TerrainGenerator.create(data.generateSettings, data.analytics)
 		end
 
 		local mat, occ = TerrainGenerator.nextSlice(data.generator, data.terrain)

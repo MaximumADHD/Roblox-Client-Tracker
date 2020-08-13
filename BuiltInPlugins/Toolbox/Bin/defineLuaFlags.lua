@@ -11,9 +11,7 @@ game:DefineFastFlag("FixAssetConfigIcon", false)
 
 -- when removing this flag, remove all references to isCatalogItemCreator
 game:DefineFastFlag("EnableNonWhitelistedToggle", false)
-game:DefineFastFlag("CMSTabErrorIcon", false)
 game:DefineFastFlag("EnablePurchaseV2", false)
-game:DefineFastFlag("CMSConsolidateAssetTypeInfo", false)
 game:DefineFastFlag("EnableDefaultSortFix2", false)
 game:DefineFastFlag("EnableOverrideAssetCursorFix", false)
 game:DefineFastFlag("EnableOverrideAssetGroupCreationApi", false)
@@ -29,7 +27,6 @@ game:DefineFastFlag("RemoveAudioEndorsedIcon", false)
 
 game:DefineFastFlag("EnableToolboxImpressionAnalytics", false)
 
-game:DefineFastFlag("AssetConfigDarkerScrollBar", false)
 game:DefineFastFlag("AssetConfigUseItemConfig", false)
 game:DefineFastFlag("EnableToolboxVideos", false)
 
@@ -49,6 +46,9 @@ game:DefineFastFlag("StudioFixGroupCreatorInfo", false)
 game:DefineFastFlag("StudioToolboxFixNewEndpointFilters", false)
 
 game:DefineFastFlag("ToolboxUseDevFrameworkPromise", false)
+game:DefineFastFlag("ToolboxFixAnalyticsBugs", false)
 game:DefineFastFlag("DebugToolboxEnableRoactChecks", false)
+
+game:DefineFastFlag("ToolboxDisableMarketplaceAndRecentsForLuobu", false)
 
 return nil

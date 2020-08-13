@@ -3,7 +3,8 @@ local Workspace = game:GetService("Workspace")
 
 local DraggerFramework = script.Parent.Parent
 local SelectionHelper = require(DraggerFramework.Utility.SelectionHelper)
-local SelectionWrapper = require(DraggerFramework.Utility.SelectionWrapper)
+
+local getFFlagScaleDraggerPartBias = require(DraggerFramework.Flags.getFFlagScaleDraggerPartBias)
 
 local HoverTracker = {}
 HoverTracker.__index = HoverTracker
@@ -28,14 +29,30 @@ function HoverTracker:update(derivedWorldState, draggerContext)
 	self._hoverHandleId = nil
 	self._hoverDistance = distanceToHover
 
-	-- Possibly hover a handle instead if we have a handle closer that the part
-	local mouseRay = draggerContext:getMouseRay()
-	local hoverHandleId, hoverHandleDistance = self:_getHitHandle(mouseRay)
-	if hoverHandleId then
-		if not self._hoverSelectable or hoverHandleDistance < distanceToHover then
-			self._hoverHandleId = hoverHandleId
-			self._hoverDistance = hoverHandleDistance
-			self._hoverPosition = nil
+	if getFFlagScaleDraggerPartBias() then
+		-- Possibly hover a handle instead if we have a handle closer than the part
+		-- and the hit wasn't ignored by bias towards hovering parts.
+		local mouseRay = draggerContext:getMouseRay()
+		local hoverHandleId, hoverHandleDistance = self:_getHitHandle(mouseRay, false)
+		if hoverHandleId then
+			if not self._hoverSelectable or
+				((hoverHandleDistance < distanceToHover) and
+					not self:_isIgnoredHandleHit(mouseRay, derivedWorldState, hit)) then
+				self._hoverHandleId = hoverHandleId
+				self._hoverDistance = hoverHandleDistance
+				self._hoverPosition = nil
+			end
+		end
+	else
+		-- Possibly hover a handle instead if we have a handle closer that the part
+		local mouseRay = draggerContext:getMouseRay()
+		local hoverHandleId, hoverHandleDistance = self:_getHitHandle(mouseRay)
+		if hoverHandleId then
+			if not self._hoverSelectable or hoverHandleDistance < distanceToHover then
+				self._hoverHandleId = hoverHandleId
+				self._hoverDistance = hoverHandleDistance
+				self._hoverPosition = nil
+			end
 		end
 	end
 
@@ -117,9 +134,36 @@ function HoverTracker:getHoverSelectable()
 	return self._hoverSelectable
 end
 
-function HoverTracker:_getHitHandle(mouseRay)
+--[[
+	Ignored handle hits: When the ToolImplementation's shouldBiasTowardsObject
+	function returns true, then this function will decide whether to ignore
+	handle clicks where the user clicked outside of the handle's visual, but
+	still within the handle's invisible hitbox.
+]]
+function HoverTracker:_isIgnoredHandleHit(mouseRay, derivedWorldState, hitPart)
+	assert(getFFlagScaleDraggerPartBias())
+	if not self._toolImplementation:shouldBiasTowardsObjects() then
+		-- Only potentially ignores if we're based towards parts
+		return false
+	end
+
+	if not hitPart or not derivedWorldState:isPartInSelection(hitPart) then
+		-- Only bias towards parts when clicking on something in the selection
+		return false
+	end
+
+	-- Ignore the hit if when ignoring the extra threshold we don't hit the
+	-- handle anymore.
+	local ignoreExtraThreshold = true
+	return self:_getHitHandle(mouseRay, ignoreExtraThreshold) == nil
+end
+
+function HoverTracker:_getHitHandle(mouseRay, ignoreExtraThreshold)
+	if getFFlagScaleDraggerPartBias() then
+		assert(ignoreExtraThreshold ~= nil)
+	end
 	if self._toolImplementation and self._toolImplementation.hitTest then
-		return self._toolImplementation:hitTest(mouseRay)
+		return self._toolImplementation:hitTest(mouseRay, ignoreExtraThreshold)
 	else
 		return nil
 	end

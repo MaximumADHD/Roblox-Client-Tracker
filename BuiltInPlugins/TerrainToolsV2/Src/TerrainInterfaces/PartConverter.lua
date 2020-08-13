@@ -4,7 +4,11 @@ local Plugin = script.Parent.Parent.Parent
 
 local Framework = Plugin.Packages.Framework
 local Cryo = require(Plugin.Packages.Cryo)
+local Roact = require(Plugin.Packages.Roact)
 local UILibrary = not FFlagTerrainToolsUseDevFramework and require(Plugin.Packages.UILibrary) or nil
+
+local ContextItem = FFlagTerrainToolsUseDevFramework and require(Framework.ContextServices.ContextItem) or nil
+local Provider = FFlagTerrainToolsUseDevFramework and require(Framework.ContextServices.Provider) or nil
 
 local FrameworkUtil = FFlagTerrainToolsUseDevFramework and require(Framework.Util) or nil
 local Signal = FFlagTerrainToolsUseDevFramework and FrameworkUtil.Signal or UILibrary.Util.Signal
@@ -14,8 +18,13 @@ local LongOperation = require(Plugin.Src.Util.LongOperation)
 local LongOperationQueue = require(Plugin.Src.Util.LongOperationQueue)
 local PartConverterVisuals = require(Plugin.Src.Util.PartConverterVisuals)
 
-local PartConverter = {}
-PartConverter.__index = PartConverter
+local PartConverter
+if FFlagTerrainToolsUseDevFramework then
+	PartConverter = ContextItem:extend("PartConverter")
+else
+	PartConverter = {}
+	PartConverter.__index = PartConverter
+end
 
 PartConverter.NOT_RUNNING_CONVERT_STATE = "NotRunning"
 
@@ -25,6 +34,8 @@ function PartConverter.new(options)
 	local self = setmetatable({
 		_terrain = options.terrain,
 		_localization = options.localization,
+		_analytics = options.analytics,
+
 		_operationQueue = LongOperationQueue.new({
 			timeBetweenOperations = 0.1,
 		}),
@@ -65,6 +76,13 @@ function PartConverter.new(options)
 	return self
 end
 
+if FFlagTerrainToolsUseDevFramework then
+	function PartConverter:createProvider(root)
+		return Roact.createElement(Provider, {
+			ContextItem = self,
+		}, {root})
+	end
+end
 -- selectionModel can be nil, meaning we should clear our reference
 function PartConverter:setSelectionModel(selectionModel)
 	self._selectionModel = selectionModel
@@ -135,6 +153,7 @@ function PartConverter:convertInstancesToBiome(instances, generateSettings)
 		:start({
 			terrain = self._terrain,
 			localization = self._localization,
+			analytics = self._analytics,
 
 			targetInstances = self._visuals:getTargetInstancesRef(),
 			originalVisualsPerInstance = self._visuals:getOriginalVisualsPerInstanceRef(),

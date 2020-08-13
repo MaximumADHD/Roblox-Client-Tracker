@@ -19,6 +19,9 @@ local ChatLocalization = nil
 pcall(function() ChatLocalization = require(Chat.ClientChatModules.ChatLocalization) end)
 ChatLocalization = ChatLocalization or {}
 
+local MAX_MESSAGE_LENGTH = ChatSettings.MaximumMessageLength
+local MAX_BYTES_PER_CODEPOINT = 6
+
 local FFlagUserChatAddServerSideChecks do
 	local success, result = pcall(function()
 		return UserSettings():IsUserFeatureEnabled("UserChatAddServerSideChecks")
@@ -47,6 +50,22 @@ if (not EventFolder) then
 	EventFolder.Name = EventFolderName
 	EventFolder.Archivable = false
 	EventFolder.Parent = EventFolderParent
+end
+
+local function validateMessageLength(msg)
+    if msg:len() > MAX_MESSAGE_LENGTH*MAX_BYTES_PER_CODEPOINT then
+        return false
+    end
+
+    if utf8.len(msg) == nil then
+        return false
+    end
+
+    if utf8.len(utf8.nfcnormalize(msg)) > MAX_MESSAGE_LENGTH then
+        return false
+    end
+
+    return true
 end
 
 --// No-opt connect Server>Client RemoteEvents to ensure they cannot be called
@@ -145,7 +164,10 @@ end
 EventFolder.SayMessageRequest.OnServerEvent:connect(function(playerObj, message, channel)
 	if type(message) ~= "string" then
 		return
+	elseif not validateMessageLength(message) then
+		return
 	end
+
 	if type(channel) ~= "string" then
 		return
 	end

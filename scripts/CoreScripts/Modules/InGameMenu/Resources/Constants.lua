@@ -38,6 +38,7 @@ return {
 	AnalyticsInGameMenuName = "ingame_menu",
 	AnalyticsRespawnCharacterName = "respawn_character",
 	AnalyticsSettingsChangeName = "change_ingame_settings",
+	AnalyticsFullscreenModeName = "FullscreenMode",
 	AnalyticsMenuActionName = "ingame_menu_action",
 	AnalyticsMenuOpenName = "menu_open",
 	AnalyticsMenuOpenTypes = {

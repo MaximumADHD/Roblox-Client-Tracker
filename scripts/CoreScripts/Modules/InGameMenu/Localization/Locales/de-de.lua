@@ -130,10 +130,11 @@ return{
 	["CoreScripts.InGameMenu.Prompt.LeaveGame"] = [[Spiel verlassen]],
 	["CoreScripts.InGameMenu.GameSettings.VREnabled"] = [[VR-Modus]],
 	["CoreScripts.InGameMenu.GameSettings.RestartPending"] = [[Neustart ausstehend]],
-	["CoreScripts.InGameMenu.EducationalPopup.Title"] = [[Erkunde mehr Spiel!]],
+	["CoreScripts.InGameMenu.EducationalPopup.Title"] = [[Entdecke mehr Spiele!]],
 	["CoreScripts.InGameMenu.EducationalPopup.BodyTextOpenSystemMenu"] = [[Öffne das Systemmenü]],
 	["CoreScripts.InGameMenu.EducationalPopup.BodyTextClickHome"] = [[Klicke auf das Hauptmenü-Symbol]],
 	["CoreScripts.InGameMenu.EducationalPopup.BodyTextPlayMore"] = [[Spiele mehr auf Roblox]],
 	["CoreScripts.InGameMenu.EducationalPopup.LeaveRoblox"] = [[Roblox verlassen]],
 	["CoreScripts.InGameMenu.GameSettings.ClientCoreScriptVersion"] = [[Client-CoreScript-Version: {CLIENT_CORESCRIPT_VERSION}]],
+	["CoreScripts.InGameMenu.EducationalPopup.MenuIconTooltip"] = [[Suchst du mehr Spiele?]],
 }

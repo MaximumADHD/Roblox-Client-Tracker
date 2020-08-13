@@ -9,7 +9,6 @@
 local FFlagFixAssetConfigIcon = game:GetFastFlag("FixAssetConfigIcon")
 local FFlagShowAssetConfigReasons2 = game:GetFastFlag("ShowAssetConfigReasons2")
 local FFlagAddCopyIDToResultPage = game:DefineFastFlag("AddCopyIDToResultPage", false)
-local FFlagUGCRemoveLearnMoreText = game:DefineFastFlag("UGCRemoveLearnMoreText", false)
 local FFlagRemoveAssetUploadUrlSuffix = game:DefineFastFlag("RemoveAssetUploadUrlSuffix", false)
 local FFlagFixAssetUploadName = game:GetFastFlag("FixAssetUploadName")
 
@@ -228,9 +227,7 @@ function AssetUploadResult:render()
 					ModerationMessage = showModeration and Roact.createElement("TextLabel", {
 						BackgroundTransparency = 1,
 						Font = Constants.FONT,
-						Text = FFlagUGCRemoveLearnMoreText
-							and "Asset has been added to moderation queue."
-							or  "Asset has been added to moderation queue. Learn more",
+						Text = "Asset has been added to moderation queue.",
 						TextColor3 = theme.uploadResult.text,
 						TextSize = Constants.FONT_SIZE_MEDIUM,
 						Size = UDim2.new(1, 0, 0, SUCCESS_HEIGHT),

@@ -13,6 +13,8 @@ local FAKE_NEUTRAL_TEAM = require(PlayerList.GetFakeNeutralTeam)
 
 local isDisplayNameEnabled = require(PlayerList.isDisplayNameEnabled)
 
+local FFlagLeaderboardDontWaitOnChinaPolicy = require(PlayerList.Flags.FFlagLeaderboardDontWaitOnChinaPolicy)
+
 local PlayerListSorter = Roact.PureComponent:extend("PlayerListSorter")
 
 local function playerInTeam(player, team)
@@ -95,12 +97,14 @@ local function buildSortedTeams(teamScores, primaryStat, teams, showNeutralTeam)
 	return sortedTeams
 end
 
-local function buildSortedPlayers(primaryStat, players, playerStats)
+local function buildSortedPlayers(primaryStat, players, playerStats, subjectToChinaPolicies)
 	local sortedPlayers = {unpack(players)}
+
+	local displayNameEnabled = isDisplayNameEnabled(subjectToChinaPolicies)
 
 	table.sort(sortedPlayers, function(playerA, playerB)
 		if not primaryStat then
-			if isDisplayNameEnabled() then
+			if displayNameEnabled then
 				return playerA.DisplayName:upper() < playerB.DisplayName:upper()
 			else
 				return playerA.Name:upper() < playerB.Name:upper()
@@ -110,7 +114,7 @@ local function buildSortedPlayers(primaryStat, players, playerStats)
 		local statA = playerStats[playerA.UserId][primaryStat]
 		local statB = playerStats[playerB.UserId][primaryStat]
 		if statA == statB then
-			if isDisplayNameEnabled() then
+			if displayNameEnabled then
 				return playerA.DisplayName:upper() < playerB.DisplayName:upper()
 			else
 				return playerA.Name:upper() < playerB.Name:upper()
@@ -148,11 +152,15 @@ PlayerListSorter.validateProps = t.strictInterface({
 		isPrimary = t.boolean,
 		priority = t.number,
 	})),
+
+	subjectToChinaPolicies = FFlagLeaderboardDontWaitOnChinaPolicy and t.boolean or nil,
 })
 
 function PlayerListSorter:render()
 	local primaryStat = self.props.gameStats[1] and self.props.gameStats[1].name or nil
-	local sortedPlayers = buildSortedPlayers(primaryStat, self.props.players, self.props.playerStats)
+	local sortedPlayers = buildSortedPlayers(
+		primaryStat, self.props.players, self.props.playerStats, self.props.subjectToChinaPolicies)
+
 	if not Cryo.isEmpty(self.props.teams) then
 		local teamScores = buildTeamScores(
 			self.props.gameStats, self.props.teams, self.props.players, self.props.playerStats
@@ -204,6 +212,8 @@ local function mapStateToProps(state)
 
 		playerStats = state.playerStats,
 		playerTeam = state.playerTeam,
+
+		subjectToChinaPolicies = FFlagLeaderboardDontWaitOnChinaPolicy and state.displayOptions.subjectToChinaPolicies or nil,
 	}
 end
 

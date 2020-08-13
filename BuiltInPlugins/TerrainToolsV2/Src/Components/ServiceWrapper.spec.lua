@@ -1,5 +1,7 @@
+-- TODO: Remove this file when removing FFlagTerrainToolsUseDevFramework
 -- This test fails under CLI, and will be removed with the dev framework migration
-if require(script.Parent.Parent.Parent.Src.Util.DebugFlags).RunningUnderCLI() then
+if game:GetFastFlag("TerrainToolsUseDevFramework")
+	or require(script.Parent.Parent.Parent.Src.Util.DebugFlags).RunningUnderCLI() then
 	return function()
 	end
 end
@@ -16,7 +18,6 @@ local Localization = UILibrary.Studio.Localization
 local PluginTheme = require(Plugin.Src.Resources.PluginTheme)
 local MainReducer = require(Plugin.Src.Reducers.MainReducer)
 local PluginActivationController = require(Plugin.Src.Util.PluginActivationController)
-local TerrainBrush = require(Plugin.Src.TerrainInterfaces.TerrainBrushInstance)
 local TerrainGeneration = require(Plugin.Src.TerrainInterfaces.TerrainGenerationInstance)
 local TerrainImporter = require(Plugin.Src.TerrainInterfaces.TerrainImporterInstance)
 local TerrainSeaLevel = require(Plugin.Src.TerrainInterfaces.TerrainSeaLevel)
@@ -24,18 +25,11 @@ local PartConverter = require(Plugin.Src.TerrainInterfaces.PartConverter)
 
 local TestHelpers = Plugin.Src.TestHelpers
 local MockPlugin = require(TestHelpers.MockPlugin)
-local MockMouse = require(TestHelpers.MockMouse)
 local MockTerrain = require(TestHelpers.MockTerrain)
-
-local TerrainEnums = require(Plugin.Src.Util.TerrainEnums)
-local ToolId = TerrainEnums.ToolId
-
-local FFlagTerrainToolsTerrainBrushNotSingleton = game:GetFastFlag("TerrainToolsTerrainBrushNotSingleton")
 
 return function()
 	it("should construct and destroy without errors", function()
 		local terrain = MockTerrain.new()
-		local mouse = MockMouse.new()
 
 		local localization = Localization.mock()
 		local pluginInstance = MockPlugin.new()
@@ -43,14 +37,6 @@ return function()
 		local theme = PluginTheme.mock()
 
 		local pluginActivationController = PluginActivationController.new(pluginInstance)
-		local terrainBrush
-		if not FFlagTerrainToolsTerrainBrushNotSingleton then
-			terrainBrush = TerrainBrush.new({
-				terrain = terrain,
-				mouse = mouse,
-				tool = ToolId.Add,
-			})
-		end
 		local terrainGeneration = TerrainGeneration.new({
 			terrain = terrain,
 		})
@@ -72,8 +58,6 @@ return function()
 			theme = theme,
 			terrain = terrain,
 			pluginActivationController = pluginActivationController,
-			-- TODO: Remove terrainBrush when removing FFlagTerrainToolsTerrainBrushNotSingleton
-			terrainBrush = terrainBrush,
 			terrainGeneration = terrainGeneration,
 			terrainImporter = terrainImporter,
 			seaLevel = seaLevel,

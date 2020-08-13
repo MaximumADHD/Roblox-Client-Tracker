@@ -136,4 +136,5 @@ return{
 	["CoreScripts.InGameMenu.EducationalPopup.BodyTextPlayMore"] = [[繼續玩 Roblox]],
 	["CoreScripts.InGameMenu.EducationalPopup.LeaveRoblox"] = [[離開 Roblox]],
 	["CoreScripts.InGameMenu.GameSettings.ClientCoreScriptVersion"] = [[客戶端 CoreScript 版本：{CLIENT_CORESCRIPT_VERSION}]],
+	["CoreScripts.InGameMenu.EducationalPopup.MenuIconTooltip"] = [[在找更多遊戲嗎？]],
 }

@@ -52,6 +52,7 @@ local HorizontalContentFit = createFitToContent("Frame", "UIListLayout", {
 local groupsLoaded = false
 
 local FFlagLuaPublishFlowFixCreateButtonInChinese = game:GetFastFlag("LuaPublishFlowFixCreateButtonInChinese")
+local FFlagStudioAddingScrollingToScreenChoosePlace = game:GetFastFlag("StudioAddingScrollingToScreenChoosePlace")
 local FFlagBatchThumbnailAddNewThumbnailTypes = game:GetFastFlag("BatchThumbnailAddNewThumbnailTypes")
 
 local ScreenChooseGame = Roact.PureComponent:extend("ScreenChooseGame")
@@ -367,7 +368,11 @@ local function useDispatchForProps(dispatch)
 		end,
 		OpenChoosePlacePage = function(parentGame)
 			dispatch(LoadExistingPlaces(parentGame))
-			dispatch(SetScreen(Constants.SCREENS.CHOOSE_PLACE))
+			if FFlagStudioAddingScrollingToScreenChoosePlace then
+				dispatch(SetScreen(Constants.SCREENS.CHOOSE_PLACE_WITH_SCROLL))
+			else
+				dispatch(SetScreen(Constants.SCREENS.CHOOSE_PLACE))
+			end
 		end,
 	}
 end

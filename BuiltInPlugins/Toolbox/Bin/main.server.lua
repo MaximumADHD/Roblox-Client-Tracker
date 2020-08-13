@@ -76,17 +76,18 @@ local MemStorageService = game:GetService("MemStorageService")
 local RobloxPluginGuiService = game:GetService("RobloxPluginGuiService")
 local StudioService = game:GetService("StudioService")
 
-local Url = require(Libs.Framework.RobloxAPI.Url)
+if FFlagToolboxDisableForLuobu then
+	local RobloxAPI = require(Libs.Framework).RobloxAPI
+	if RobloxAPI:baseURLHasChineseHost() then
+		return
+	end
+end
 
 local localization2 = ContextServices.Localization.new({
 	stringResourceTable = TranslationStringsTable,
 	translationResourceTable = TranslationStringsTable,
 	pluginName = "Toolbox",
 })
-
-if FFlagToolboxDisableForLuobu and Url:baseURLHasChineseHost() then
-	return
-end
 
 local function createTheme()
 	return ToolboxTheme.new({
