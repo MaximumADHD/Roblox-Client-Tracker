@@ -11,6 +11,7 @@ local StandardCursor = require(DraggerFramework.Utility.StandardCursor)
 
 local getFFlagSupportNoRotate = require(DraggerFramework.Flags.getFFlagSupportNoRotate)
 local getFFlagFixStaleJointDisplay = require(DraggerFramework.Flags.getFFlagFixStaleJointDisplay)
+local getFFlagFixGlobalRotateAgain = require(DraggerFramework.Flags.getFFlagFixGlobalRotateAgain)
 
 local DraggingParts = {}
 DraggingParts.__index = DraggingParts
@@ -102,7 +103,13 @@ function DraggingParts:processKeyDown(keyCode)
 end
 
 function DraggingParts:_tiltRotateFreeformSelectionDrag(axis)
-	local mainCFrame = self._draggerToolModel._derivedWorldState:getBoundingBox()
+	local mainCFrame
+	if getFFlagFixGlobalRotateAgain() then
+		local forceLocal = true
+		mainCFrame = self._draggerToolModel._derivedWorldState:getBoundingBox(forceLocal)
+	else
+		mainCFrame = self._draggerToolModel._derivedWorldState:getBoundingBox()
+	end
 	local lastTargetMatrix
 	if self._lastDragTarget then
 		lastTargetMatrix = self._lastDragTarget.targetMatrix

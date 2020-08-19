@@ -14,14 +14,29 @@ local noGetThemeError = [[
 UILibraryProvider expects Theme to have a 'getUILibraryTheme' instance function.]]
 
 local Framework = script.Parent.Parent
--- We assume plugins will completely move away from the UILibrary
--- to the Framework in the future, so we don't want to depend on it.
-if not Framework.Parent:FindFirstChild("UILibrary") then
-	return nil
+local Util = require(Framework.Util)
+local FlagsList = Util.Flags.new({
+	FFlagStudioDevFrameworkPackage = {"StudioDevFrameworkPackage"},
+	FFlagRefactorDevFrameworkContextItems = {"RefactorDevFrameworkContextItems"},
+})
+
+local isUsedAsPackage = require(Framework.Util.isUsedAsPackage)
+
+local shouldGetUILibraryFromParent = not FlagsList:get("FFlagStudioDevFrameworkPackage") or
+	(FlagsList:get("FFlagStudioDevFrameworkPackage") and not isUsedAsPackage())
+
+local UILibraryFromParent
+if shouldGetUILibraryFromParent then
+	-- We assume plugins will completely move away from the UILibrary
+	-- to the Framework in the future, so we don't want to depend on it.
+	if not Framework.Parent:FindFirstChild("UILibrary") then
+		return nil
+	end
+
+	UILibraryFromParent = require(Framework.Parent.UILibrary)
 end
 
 local Roact = require(Framework.Parent.Roact)
-local UILibrary = require(Framework.Parent.UILibrary)
 local ContextItem = require(Framework.ContextServices.ContextItem)
 local mapToProps = require(Framework.ContextServices.mapToProps)
 local Theme = require(Framework.ContextServices.Theme)
@@ -35,13 +50,14 @@ function UILibraryProvider:render()
 	local plugin = props.Plugin
 	local theme = props.Theme
 	local focus = props.Focus
+	local UILibrary = props.UILibrary
 
 	assert(theme.getUILibraryTheme, noGetThemeError)
 
 	return Roact.createElement(UILibrary.Wrapper, {
 		theme = theme:getUILibraryTheme(),
 		plugin = plugin:get(),
-		focusGui = focus:getTarget(),
+		focusGui = FlagsList:get("FFlagRefactorDevFrameworkContextItems") and focus:get() or focus:getTarget(),
 	}, {
 		Roact.oneChild(self.props[Roact.Children])
 	})
@@ -55,15 +71,28 @@ mapToProps(UILibraryProvider, {
 
 local UILibraryWrapper = ContextItem:extend("UILibraryWrapper")
 
-function UILibraryWrapper.new()
-	local self = {}
+function UILibraryWrapper.new(uiLibraryProp)
+	local UILibrary
+
+	if not FlagsList:get("FFlagStudioDevFrameworkPackage") or shouldGetUILibraryFromParent then
+		UILibrary = UILibraryFromParent
+	else
+		UILibrary = uiLibraryProp
+		assert(UILibrary, "UILibraryWrapper must be passed a reference to UILibrary")
+	end
+
+	local self = {
+		UILibrary = UILibrary
+	}
 	setmetatable(self, UILibraryWrapper)
 
 	return self
 end
 
 function UILibraryWrapper:createProvider(root)
-	return Roact.createElement(UILibraryProvider, {}, {root})
+	return Roact.createElement(UILibraryProvider, {
+		UILibrary = self.UILibrary
+	}, {root})
 end
 
 return UILibraryWrapper

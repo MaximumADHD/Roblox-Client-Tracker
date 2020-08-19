@@ -89,7 +89,7 @@ function DocParser:parse()
 	local closing = source:find("]]")
 	self:__assert(closing, noCommentsError)
 
-	local opening = source:find("--")
+	local opening = source:find("^%-%-")
 	self:__assert(opening == 1, noCommentsError)
 
 	-- "--[[\n" totals 5 characters, + 1 to start at comment start
@@ -155,6 +155,7 @@ function DocParser.toInterface(docs)
 
 	local propsTable = {
 		[Roact.Children] = t.optional(t.table),
+		[Roact.Ref] = t.optional(FrameworkTypes.RoactRef)
 	}
 	local styleTable = {}
 
@@ -219,8 +220,14 @@ function DocParser.__addCheckForProp(addTable, prop, isOptional)
 	local existingProp = addTable[propName]
 	local newProp
 	local isEnum = string.find(propType, "Enum")
+	local isArray = string.find(propType, "array[", nil, true)
 	if isEnum then
 		newProp = t.enum(Enum[propType:sub(isEnum + 5)])
+	elseif isArray then
+		local elementType = t[propType:sub(isArray + 6, propType:len() - 1)]
+		if elementType then
+			newProp = t.array(elementType)
+		end
 	else
 		newProp = FrameworkTypes[propType] or t[propType]
 	end

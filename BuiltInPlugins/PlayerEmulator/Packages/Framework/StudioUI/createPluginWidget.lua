@@ -34,6 +34,18 @@ local function createPluginWidget(componentName, createWidgetFunc)
 		if widget:IsA("PluginGui") then
 			widget:BindToClose(onClose)
 
+			if self.props.OnWidgetFocused then
+				self.windowFocusedConnection = widget.WindowFocused:Connect(function()
+					self.props.OnWidgetFocused(self.widget)
+				end)
+			end
+
+			if self.props.OnWidgetFocusReleased then
+				self.windowFocusReleasedConnection = widget.WindowFocusReleased:Connect(function()
+					self.props.OnWidgetFocusReleased(self.widget)
+				end)
+			end
+
 			if FFlagFixDevFrameworkDockWidgetRestore then
 				-- plugin:CreateDockWidgetPluginGui() blocks until after restore logic has ran
 				-- By the time Lua thread resumes, HostWidgetWasRestored has been set and is safe to use
@@ -93,6 +105,16 @@ local function createPluginWidget(componentName, createWidgetFunc)
 	end
 
 	function PluginWidget:willUnmount()
+		if self.windowFocusReleasedConnection then
+			self.windowFocusReleasedConnection:Disconnect()
+			self.windowFocusReleasedConnection = nil
+		end
+
+		if self.windowFocusedConnection then
+			self.windowFocusedConnection:Disconnect()
+			self.windowFocusedConnection = nil
+		end
+
 		if self.widget then
 			self.widget:Destroy()
 		end

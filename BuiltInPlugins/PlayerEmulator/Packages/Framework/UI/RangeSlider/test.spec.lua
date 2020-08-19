@@ -1,12 +1,21 @@
 return function()
 	local Framework = script.Parent.Parent.Parent
+	local Util = require(Framework.Util)
+	local FlagsList = Util.Flags.new({
+		FFlagStudioDevFrameworkPackage = {"StudioDevFrameworkPackage"},
+	})
 	local Roact = require(Framework.Parent.Roact)
 	local RangeSlider = require(script.Parent)
 	local TestHelpers = require(Framework.TestHelpers)
 	local provideMockContext = TestHelpers.provideMockContext
-	local ContextServices = require(Framework.ContextServices)
-	local Util = require(Framework.Util)
-	local Cryo = Util.Cryo
+	local Cryo
+	local isUsedAsPackage = require(Framework.Util.isUsedAsPackage)
+	if FlagsList:get("FFlagStudioDevFrameworkPackage") and isUsedAsPackage() then
+		Cryo = require(Framework.Parent.Cryo)
+	else
+		local Util = require(Framework.Util)
+		Cryo = Util.Cryo
+	end
 
 	local DEFAULT_PROPS = {
 		AnchorPoint = Vector2.new(0.5, 0.5),
@@ -63,7 +72,7 @@ return function()
 		Roact.unmount(instance)
 	end)
 
-	it("should set the lower knob to the correct default value", function()
+	it("should set the upper knob to the correct default value", function()
 		local folder = Instance.new("Folder")
 		local upperValue = 3
 		local max = 4
@@ -79,5 +88,16 @@ return function()
 		expect(button.UpperKnob).to.be.ok()
 		expect(button.UpperKnob.Position.X.Scale).to.equal(upperValue/max)
 		Roact.unmount(instance)
+	end)
+
+	it("should throw if range is < 0", function()
+		local element = createTestRangeSlider({
+			Min = 0,
+			Max = -1,
+		})
+
+		expect(function()
+			Roact.mount(element)
+		end).to.throw()
 	end)
 end

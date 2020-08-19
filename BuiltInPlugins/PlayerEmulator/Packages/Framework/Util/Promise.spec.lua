@@ -1,5 +1,9 @@
 return function()
+	local Framework = script.Parent.Parent
+
 	local Promise = require(script.Parent.Promise)
+
+	local FFlagDevFrameworkUnhandledPromiseRejections = game:GetFastFlag("DevFrameworkUnhandledPromiseRejections")
 
 	describe("Promise.new", function()
 		it("should instantiate with a callback", function()
@@ -51,6 +55,9 @@ return function()
 			expect(promise).to.be.ok()
 			expect(callCount).to.equal(1)
 			expect(promise._status).to.equal(Promise.Status.Rejected)
+
+			-- Avoid unhandled rejection
+			promise:catch(function() end)
 		end)
 
 		it("should reject on error in callback", function()
@@ -65,6 +72,9 @@ return function()
 			expect(callCount).to.equal(1)
 			expect(promise._status).to.equal(Promise.Status.Rejected)
 			expect(promise._value[1]:find("hahah")).to.be.ok()
+
+			-- Avoid unhandled rejection
+			promise:catch(function() end)
 		end)
 	end)
 
@@ -85,6 +95,9 @@ return function()
 			expect(promise).to.be.ok()
 			expect(promise._status).to.equal(Promise.Status.Rejected)
 			expect(promise._value[1]).to.equal(7)
+
+			-- Avoid unhandled rejection
+			promise:catch(function() end)
 		end)
 	end)
 
@@ -95,6 +108,9 @@ return function()
 			expect(promise).to.be.ok()
 			expect(promise._status).to.equal(Promise.Status.Rejected)
 			expect(promise._value[1]).to.equal(6)
+
+			-- Avoid unhandled rejection
+			promise:catch(function() end)
 		end)
 
 		it("should pass a promise as-is as an error", function()
@@ -107,6 +123,9 @@ return function()
 			expect(promise).to.be.ok()
 			expect(promise._status).to.equal(Promise.Status.Rejected)
 			expect(promise._value[1]).to.equal(innerPromise)
+
+			-- Avoid unhandled rejection
+			promise:catch(function() end)
 		end)
 	end)
 
@@ -257,6 +276,179 @@ return function()
 			expect(chained).never.to.equal(promise)
 			expect(chained._status).to.equal(Promise.Status.Resolved)
 			expect(#chained._value).to.equal(0)
+		end)
+	end)
+
+	-- If you see test failures in here it is probably because other tests in unrelated suites are creating unhandled
+	-- rejections due to their not awaiting promises correctly.
+	-- Try disabling this suite with describeSKIP to see these unhandled rejections revealed by the default
+	-- onUnhandledRejection callback.
+	describe("unhandled rejections", function()
+
+		if not FFlagDevFrameworkUnhandledPromiseRejections then
+			return
+		end
+
+		local calls
+		local originalOnUnhandledRejection
+
+		local function setup()
+			calls = {}
+			local handler = function(message)
+				table.insert(calls, message)
+			end
+			originalOnUnhandledRejection = Promise.onUnhandledRejection
+			Promise.onUnhandledRejection = handler
+		end
+
+		local function teardown()
+			Promise.onUnhandledRejection = originalOnUnhandledRejection
+		end
+
+		local waitUntilNextTick = function()
+			Promise.new(function(fulfil)
+				spawn(fulfil)
+			end):await()
+		end
+
+		-- TODO DEVTOOLS-4397: When TestEZ is updated, use beforeAll/afterAll to setup and teardown the change to onUnhandledRejection
+
+		describe("should not call onUnhandledRejection", function()
+			it("if await is called", function()
+				setup()
+
+				expect(function()
+					Promise.new(function(fulfil, reject)
+						reject("it did not work")
+					end):await()
+
+				end).to.throw()
+
+				waitUntilNextTick()
+
+				expect(#calls).to.equal(0)
+				teardown()
+			end)
+
+			it("if andThen is called with an error handler", function()
+				setup()
+
+				local caught = false
+				Promise.new(function(fulfil, reject)
+					reject("it did not work")
+				end):andThen(function()
+					-- NOOP success handler
+				end, function()
+					caught = true
+				end)
+
+				waitUntilNextTick()
+
+				expect(caught).to.equal(true)
+				expect(#calls).to.equal(0)
+
+				teardown()
+			end)
+
+			it("if an error handler is added after rejection but before the next tick", function()
+				setup()
+
+				local promise = Promise.new(function(fulfil, reject)
+					reject("it did not work")
+				end)
+
+				expect(promise._unhandledRejection).to.equal(true)
+
+				local caught = false
+				promise:catch(function(err)
+					expect(err:find("it did not work")).to.be.ok()
+					caught = true
+				end)
+
+				waitUntilNextTick()
+
+				expect(#calls).to.equal(0)
+				teardown()
+			end)
+
+			it("should not throw if an unhandled rejection occurs with no rejection handler defined", function()
+				Promise.new(function(fulfil, reject)
+					reject("it did not work")
+				end)
+
+				waitUntilNextTick()
+
+				teardown()
+			end)
+		end)
+
+		describe("should call onUnhandledRejection", function()
+			it("if promise rejects", function()
+				setup()
+
+				Promise.new(function(fulfil, reject)
+					reject("it did not work")
+				end)
+
+				waitUntilNextTick()
+
+				expect(#calls).to.equal(1)
+				expect(calls[1]:find("it did not work")).to.be.ok()
+
+				teardown()
+			end)
+
+			it("if fulfil handler rejects", function()
+				setup()
+
+				Promise.new(function(fulfil)
+					fulfil("it worked")
+				end):andThen(function(result)
+					error("Error from fulfil")
+				end)
+
+				waitUntilNextTick()
+
+				expect(#calls).to.equal(1)
+				expect(calls[1]:find("Error from fulfil")).to.be.ok()
+
+				teardown()
+			end)
+
+			it("if andThen is called but no error handler is registered", function()
+				setup()
+
+				Promise.new(function(fulfil, reject)
+					reject("it did not work")
+				end):andThen(function()
+					-- NOOP success handler
+				end)
+
+				waitUntilNextTick()
+
+				expect(#calls).to.equal(1)
+				expect(calls[1]:find("it did not work")).to.be.ok()
+
+				teardown()
+			end)
+
+
+			it("should not throw if onUnhandledRejection throws", function()
+				setup()
+				Promise.onUnhandledRejection = function()
+					error("My error")
+				end
+
+				Promise.new(function(fulfil, reject)
+					reject("it did not work")
+				end):andThen(function()
+					-- NOOP success handler
+				end)
+
+				waitUntilNextTick()
+
+				teardown()
+			end)
 		end)
 	end)
 end

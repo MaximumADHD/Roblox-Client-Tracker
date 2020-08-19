@@ -325,6 +325,7 @@ function SelectionHelper.computeSelectionInfo(selectedObjects, isSimulating, use
 		-- Parts and Attachments are the arrays of parts and attachments that
 		-- need to be updated when transforming the selection.
 		parts = allParts,
+		partSet = allPartSet,
 		attachments = interestingAttachments,
 
 		-- All the attachments, including ones under parts in the list of parts

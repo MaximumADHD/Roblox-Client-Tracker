@@ -247,6 +247,30 @@ return function()
 			})).to.equal(false)
 		end)
 
+		it("should work for array values", function()
+			local docs = {
+				Required = {
+					{
+						Name = "Items",
+						Type = "array[string]",
+					},
+				},
+				Optional = {},
+				Style = {},
+			}
+
+			local interface = DocParser.toInterface(docs)
+			expect(interface).to.be.ok()
+
+			expect(interface({
+				Items = {"str"}
+			})).to.equal(true)
+
+			expect(interface({
+				Items = {["somestringKey"] = "str"},
+			})).to.equal(false)
+		end)
+
 		it("should create a union if multiple props under the same name exist", function()
 			local docs = {
 				Required = {

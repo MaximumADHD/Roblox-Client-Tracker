@@ -1,6 +1,11 @@
 return function()
 	local Networking = require(script.Parent.Networking)
-	
+	local HttpService = game:GetService("HttpService")
+
+	local FFlagStudioFixFrameworkJsonParsing = game:GetFastFlag("StudioFixFrameworkJsonParsing")
+	local FFlagStudioFixFrameworkClientErrorRetries = game:GetFastFlag("StudioFixFrameworkClientErrorRetries")
+	local FFlagStudioFixFrameworkNonIdempotentRetries = game:GetFastFlag("StudioFixFrameworkNonIdempotentRetries")
+
 	describe("new()", function()
 		it("should construct with no params", function()
 			local n = Networking.new()
@@ -50,13 +55,13 @@ return function()
 
 			n:get("https://www.test.com/fakeApi"):andThen(function(testResponse)
 				responseCallCount = responseCallCount + 1
-				
-				expect(responseTimeMs > 0).to.equal(true)
-				expect(responseCode).to.equal(200)
-				expect(responseBody).to.equal("hello world")
-				expect(requestOptions.Url).to.equal("https://www.test.com/fakeApi")
-				expect(requestOptions.Method).to.equal("GET")
-			end)
+
+				expect(testResponse.responseTimeMs > 0).to.equal(true)
+				expect(testResponse.responseCode).to.equal(200)
+				expect(testResponse.responseBody).to.equal("hello world")
+				expect(testResponse.requestOptions.Url).to.equal("https://www.test.com/fakeApi")
+				expect(testResponse.requestOptions.Method).to.equal("GET")
+			end):await()
 
 			expect(callCount).to.equal(1)
 			expect(responseCallCount).to.equal(1)
@@ -127,7 +132,13 @@ return function()
 			local n = Networking.mock({
 				onRequest = function(requestOptions)
 					return {
-						Body = "{ \"message\":{ \"a\":{ \"b\":\"foo\" } } }",
+						Body = HttpService:JSONEncode({
+							message = {
+								a = {
+									b = "foo",
+								},
+							},
+						}),
 						Success = true,
 						StatusMessage = "OK",
 						StatusCode = 200,
@@ -146,6 +157,94 @@ return function()
 
 			expect(didError).to.equal(false)
 		end)
+
+		if FFlagStudioFixFrameworkJsonParsing then
+			it("should return a rejected Promise if the body fails to parse", function()
+				local n = Networking.mock({
+					onRequest = function(requestOptions)
+						return {
+							Body = "I'm not valid JSON",
+							Success = true,
+							StatusMessage = "OK",
+							StatusCode = 200,
+						}
+					end,
+				})
+
+				local didResolve = false
+				local didError = false
+				local httpPromise = n:get("https://www.test.com")
+				n:parseJson(httpPromise):andThen(function(json)
+					didResolve = true
+				end, function(err)
+					expect(string.find(err, "Can't parse JSON")).to.never.equal(nil)
+					didError = true
+				end)
+
+				expect(didResolve).to.equal(false)
+				expect(didError).to.equal(true)
+			end)
+
+			it("should return a rejected Promise if the request failed", function()
+				local n = Networking.mock({
+					onRequest = function(requestOptions)
+						return {
+							Body = "I'm not valid JSON",
+							Success = false,
+							StatusMessage = "Forbidden",
+							StatusCode = 401,
+						}
+					end,
+				})
+
+				local didError = false
+				local didResolve = false
+				local foundExpectedErrMsg = false
+
+				local httpPromise = n:get("https://www.test.com")
+				n:parseJson(httpPromise):andThen(function(json)
+					didResolve = true
+				end, function(err)
+					foundExpectedErrMsg = string.find(tostring(err), "Can't parse JSON") == nil
+					didError = true
+				end)
+
+				expect(didResolve).to.equal(false)
+				expect(didError).to.equal(true)
+				expect(foundExpectedErrMsg).to.equal(true)
+			end)
+
+			it("should return a rejected Promise with a parsed body if the body is parsable", function()
+				local n = Networking.mock({
+					onRequest = function(requestOptions)
+						return {
+							Body = HttpService:JSONEncode({ errors = {
+								message = "You gotta log in my dude."
+							} }),
+							Success = false,
+							StatusMessage = "Forbidden",
+							StatusCode = 401,
+						}
+					end,
+				})
+
+				local didError = false
+				local didResolve = false
+				local foundExpectedBody = false
+
+				local httpPromise = n:get("https://www.test.com")
+				n:parseJson(httpPromise):andThen(function(json)
+					didResolve = true
+				end, function(err)
+					foundExpectedBody = err.responseBody.errors.message == "You gotta log in my dude."
+					didError = true
+				end)
+
+				expect(didResolve).to.equal(false)
+				expect(didError).to.equal(true)
+				expect(foundExpectedBody).to.equal(true)
+			end)
+		end
 	end)
 
 
@@ -203,7 +302,7 @@ return function()
 			expect(callCount).to.equal(4) -- 1 original + 3 retries
 		end)
 
-		it("should on retry only as many times as it needs to succeed", function()
+		it("should retry only as many times as it needs to succeed", function()
 			local callCount = 0
 
 			local n = Networking.mock({
@@ -240,6 +339,91 @@ return function()
 			expect(didError).to.equal(false)
 			expect(callCount).to.equal(2) -- 1 original + 1 retries
 		end)
+
+		if FFlagStudioFixFrameworkClientErrorRetries then
+			it("should not retry on 4xx errors", function()
+				local callCount = 0
+
+				local n = Networking.mock({
+					onRequest = function(requestOptions)
+						callCount = callCount + 1
+						return {
+							Body = "{ \"message\":\"foo\" }",
+							Success = false,
+							StatusMessage = "Bad Request",
+							StatusCode = 400,
+						}
+					end,
+				})
+
+				local didError = false
+				local httpPromise = n:get("https://www.example.com")
+				n:handleRetry(httpPromise, 3, true):catch(function()
+					didError = true
+				end)
+
+				expect(didError).to.equal(true)
+				expect(callCount).to.equal(1)
+			end)
+		end
+
+		if FFlagStudioFixFrameworkNonIdempotentRetries then
+			it("should not retry POST requests", function()
+				local callCount = 0
+
+				local n = Networking.mock({
+					onRequest = function(requestOptions)
+						callCount = callCount + 1
+
+						return {
+							Body = "bad",
+							Success = false,
+							StatusMessage = "Server Error",
+							StatusCode = 500,
+						}
+					end,
+				})
+
+				local didError = false
+				local httpPromise = n:post("https://www.test.com")
+				n:handleRetry(httpPromise, 3, true):andThen(function(response)
+					expect(response.responseBody).to.equal("foo")
+				end, function()
+					didError = true
+				end)
+
+				expect(didError).to.equal(true)
+				expect(callCount).to.equal(1)
+			end)
+
+			it("should not retry PATCH requests", function()
+				local callCount = 0
+
+				local n = Networking.mock({
+					onRequest = function(requestOptions)
+						callCount = callCount + 1
+
+						return {
+							Body = "bad",
+							Success = false,
+							StatusMessage = "Server Error",
+							StatusCode = 500,
+						}
+					end,
+				})
+
+				local didError = false
+				local httpPromise = n:patch("https://www.test.com")
+				n:handleRetry(httpPromise, 3, true):andThen(function(response)
+					expect(response.responseBody).to.equal("foo")
+				end, function()
+					didError = true
+				end)
+
+				expect(didError).to.equal(true)
+				expect(callCount).to.equal(1)
+			end)
+		end
 	end)
 
 
@@ -341,15 +525,15 @@ return function()
 			}
 			function fakeHttpService.RequestAsync()
 				asyncCallCount = asyncCallCount + 1
+				return fakeResponse
+			end
+			function fakeHttpService.RequestInternal()
+				internalCallCount = internalCallCount + 1
 				return {
 					Start = function()
 						return fakeResponse
 					end
 				}
-			end
-			function fakeHttpService.RequestInternal()
-				internalCallCount = internalCallCount + 1
-				return fakeResponse
 			end
 
 			local n = Networking.new({
@@ -379,15 +563,16 @@ return function()
 			}
 			function fakeHttpService.RequestAsync()
 				asyncCallCount = asyncCallCount + 1
+				return fakeResponse
+				
+			end
+			function fakeHttpService.RequestInternal()
+				internalCallCount = internalCallCount + 1
 				return {
 					Start = function()
 						return fakeResponse
 					end
 				}
-			end
-			function fakeHttpService.RequestInternal()
-				internalCallCount = internalCallCount + 1
-				return fakeResponse
 			end
 
 			local n = Networking.new({

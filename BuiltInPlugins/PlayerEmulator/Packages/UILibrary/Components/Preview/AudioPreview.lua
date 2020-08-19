@@ -4,20 +4,31 @@
 	The progress bar will keep moving if the sound is playing.
 
 	Necessary properties:
-	number SoundId, used for play and pause the sound
-	bool ShowTreeView, used to adjust time label component for audio control based on if we are
-		showing tree view button or not.
+		number SoundId, used for play and pause the sound
+		bool ShowTreeView, used to adjust time label component for audio control based on if we are
+			showing tree view button or not.
 
 	Optional properties:
-	UDim2 position, default to UDim2(0, 0, 0, 0)
-	UDim2 size, default to UDim2(1, 0, 1, 0)
-	number layoutOrder, used by the layouter to change the position of the component
-	callBack ReportPlay, analytics events.
-	callback ReportPause,
+		UDim2 position, default to UDim2(0, 0, 0, 0)
+		UDim2 size, default to UDim2(1, 0, 1, 0)
+		number layoutOrder, used by the layouter to change the position of the component
+		callBack ReportPlay, analytics events.
+		callback ReportPause,
+
+	Props automatically received from wrapMedia():
+		number _CurrentTime: The time in seconds that the media's TimePosition should currently be.
+		boolean _IsPlaying: Whether or not the Sound or VideoFrame should be currently playing.
+		callback _MediaPlayingUpdateSignal: Called when the media's Changed event is fired. Sets the isPlaying state.
+		callback _OnMediaEnded: Called when the media's Ended event is fired. Resets the currentTime & stops playing.
+		callback _Pause: Called when clicking the pause button.
+		callback _Play: Called when clicking the play button.
+		callBack _SetCurrentTime: Called if the currentTime has been changed, such as when moving a progressbar slider.
 ]]
 local FFlagHideOneChildTreeviewButton = game:GetFastFlag("HideOneChildTreeviewButton")
+local FFlagEnableToolboxVideos = game:GetFastFlag("EnableToolboxVideos")
 
 local RunService = game:GetService("RunService")
+local wrapMedia = require(script.Parent.wrapMedia)
 
 local Library = script.Parent.Parent.Parent
 local Roact = require(Library.Parent.Roact)
@@ -37,22 +48,30 @@ if FFlagHideOneChildTreeviewButton then
 	AUDIO_CONTROL_WIDTH_OFFSET_NO_TREE = 10
 end
 
-local AudioControl = require(Library.Components.Preview.AudioControl)
+local AudioControl = FFlagEnableToolboxVideos and nil or require(Library.Components.Preview.AudioControl)
+local MediaControl = require(Library.Components.Preview.MediaControl)
 
 local AudioPreview = Roact.PureComponent:extend("AudioPreview")
 
+AudioPreview.defaultProps = {
+	size = UDim2.new(1, 0, 1, 0),
+}
+
 function AudioPreview:init(props)
-	self.soundRef = Roact.createRef()
 	local plugin = getPlugin(self)
+	self.soundRef = Roact.createRef()
 
 	self.state = {
-		timeLength = 0,    -- Update each time we set the assetId.
-		isPlaying = false,
+		timeLength = 0,
+		isPlaying = FFlagEnableToolboxVideos and nil or false,
 		isLoaded = false,
-		currentTime = 0,
+		currentTime = FFlagEnableToolboxVideos and nil or 0,
 	}
 
 	self.playSound = function(assetId)
+		if FFlagEnableToolboxVideos then
+			return
+		end
 		local soundObj = self.soundRef.current
 		if soundObj then
 			soundObj.SoundId = self.props.SoundId
@@ -69,6 +88,9 @@ function AudioPreview:init(props)
 	end
 
 	self.resumeSound = function(assetId)
+		if FFlagEnableToolboxVideos then
+			return
+		end
 		local soundObj = self.soundRef.current
 		if soundObj then
 			soundObj.SoundId = self.props.SoundId
@@ -86,6 +108,9 @@ function AudioPreview:init(props)
 	end
 
 	self.pauseSound = function(assetId)
+		if FFlagEnableToolboxVideos then
+			return
+		end
 		local soundObj = self.soundRef.current
 		if soundObj then
 			plugin:PauseSound(soundObj)
@@ -101,6 +126,9 @@ function AudioPreview:init(props)
 	end
 
 	self.onSoundEnded = function(soundId)
+		if FFlagEnableToolboxVideos then
+			return
+		end
 		self:setState({
 			isPlaying = false,
 			timeLength = 0,
@@ -108,19 +136,39 @@ function AudioPreview:init(props)
 		})
 	end
 
+	self.dispatchMediaPlayingUpdate = function(updateType)
+		local soundObj = self.soundRef.current
+		if not soundObj or not self.isMounted then
+			return
+		end
+		if updateType == "PLAY" then
+			soundObj.SoundId = self.props.SoundId
+			plugin:ResumeSound(soundObj)
+			if self.props.reportPlay then
+				self.props.ReportPlay()
+			end
+		elseif updateType == "PAUSE" then
+			plugin:PauseSound(soundObj)
+			if self.props.ReportPause then
+				self.props.ReportPause()
+			end
+		end
+	end
+
 	self.onSoundChange = function(rbx, property)
 		local soundObj = self.soundRef.current
-		local isLoaded = soundObj and soundObj.IsLoaded
 		if not self.isMounted then
 			return
 		end
+		local isLoaded = soundObj and soundObj.IsLoaded
 		if property == "TimeLength" then
-			local timeLength = soundObj.TimeLength
 			self:setState({
-				timeLength = timeLength, -- unit: seconds
 				isLoaded = isLoaded,
+				timeLength = soundObj.TimeLength,
 			})
-
+			if FFlagEnableToolboxVideos then
+				self.props._SetTimeLength(soundObj.TimeLength)
+			end
 		elseif isLoaded ~= self.state.isLoaded then
 			self:setState({
 				isLoaded = isLoaded,
@@ -138,33 +186,45 @@ end
 
 function AudioPreview:didMount()
 	self.isMounted = true
-	local soundObj = self.soundRef.current
-	if soundObj then
-		soundObj.SoundId = self.props.SoundId
+	if FFlagEnableToolboxVideos then
+		self.mediaPlayingUpdateConnection = self.props._MediaPlayingUpdateSignal:connect(self.dispatchMediaPlayingUpdate)
+	else
+		local soundObj = self.soundRef.current
+		if soundObj then
+			soundObj.SoundId = self.props.SoundId
+		end
+
+		self.runServiceConnection = RunService.RenderStepped:Connect(function(step)
+			if (not self.state.isPlaying) then
+				return
+			end
+			local state = self.state
+			local newTime = self.state.currentTime + step
+
+			if newTime >= state.timeLength then
+				newTime = state.timeLength
+			end
+
+			if self.isMounted then
+				self:setState({
+					currentTime = newTime
+				})
+			end
+		end)
 	end
-
-	self.runServiceConnection = RunService.RenderStepped:Connect(function(step)
-		if (not self.state.isPlaying) then
-			return
-		end
-		local state = self.state
-		local newTime = self.state.currentTime + step
-
-		if newTime >= state.timeLength then
-			newTime = state.timeLength
-		end
-		if self.isMounted then
-			self:setState({
-				currentTime = newTime
-			})
-		end
-	end)
 end
 
 function AudioPreview:willUnmount()
 	self.isMounted = false
-	if self.runServiceConnection then
-		self.runServiceConnection:Disconnect()
+	if FFlagEnableToolboxVideos then
+		if self.mediaPlayingUpdateConnection then
+			self.mediaPlayingUpdateConnection:disconnect()
+			self.mediaPlayingUpdateConnection = nil
+		end
+	else
+		if self.runServiceConnection then
+			self.runServiceConnection:Disconnect()
+		end
 	end
 end
 
@@ -173,31 +233,36 @@ function AudioPreview:render()
 		local props = self.props
 		local state = self.state
 		local position = props.position
-		local size = props.size or UDim2.new(1, 0, 1, 0)
+		local size = props.size
 		local audioPreviewTheme = theme.assetPreview.audioPreview
 
 		local layoutOrder = props.layoutOrder
+		local soundId = props.SoundId
+
+		local currentTime = FFlagEnableToolboxVideos and props._CurrentTime or state.currentTime 
+		local pause = props._Pause
+		local play = props._Play
+		local onMediaEnded = props._OnMediaEnded
+
 		local progress
 		if state.timeLength ~= nil and state.timeLength ~= 0 then
-			progress = state.currentTime / state.timeLength
+			progress = currentTime / state.timeLength
 		else
 			progress = 0
 		end
+
 		local showTreeView = props.ShowTreeView
 		local audioControlOffset = showTreeView and AUDIO_CONTROL_WIDTH_OFFSET_WITH_TREE or AUDIO_CONTROL_WIDTH_OFFSET_NO_TREE
 		local timeLength = self.getAudioLength() or 0
 		local isLoaded = state.isLoaded
-		local isPlaying = state.isPlaying
+		local isPlaying = FFlagEnableToolboxVideos and props._IsPlaying or state.isPlaying
 
 		return Roact.createElement("Frame", {
-			Position = position,
-			Size = size,
-
 			BackgroundTransparency = 1,
 			BackgroundColor3 = audioPreviewTheme.backgroundColor,
-			BorderSizePixel = 0,
-
 			LayoutOrder = layoutOrder,
+			Position = position,
+			Size = size,
 		},{
 			UIListLayout = Roact.createElement("UIListLayout", {
 				FillDirection = Enum.FillDirection.Vertical,
@@ -207,18 +272,9 @@ function AudioPreview:render()
 				Padding = UDim.new(0, 10),
 			}),
 
-			UIPadding = Roact.createElement("UIPadding", {
-				PaddingBottom = UDim.new(0, 0),
-				PaddingLeft = UDim.new(0, 0),
-				PaddingRight = UDim.new(0, 0),
-				PaddingTop = UDim.new(0, 0),
-			}),
-
 			AudioPlayerFrame = Roact.createElement("Frame", {
 				Size = UDim2.new(1, 0, 1, -PROGRESS_BAR_HEIGHT- AUDIO_CONTROL_HEIGHT),
 				BackgroundTransparency = 1,
-				BorderSizePixel = 0,
-
 				LayoutOrder = 1,
 			}, {
 				AudioPlayerImage = Roact.createElement("ImageLabel", {
@@ -252,10 +308,20 @@ function AudioPreview:render()
 				})
 			}),
 
-			AudioControlBase = Roact.createElement("Frame", {
+			MediaControl = FFlagEnableToolboxVideos and Roact.createElement(MediaControl, {
+				LayoutOrder = 3,
+				IsPlaying = isPlaying,
+				IsLoaded = isLoaded,
+				OnPause = pause,
+				OnPlay = play,
+				ShowTreeView = showTreeView,
+				TimeLength = timeLength,
+				TimePassed = currentTime,
+			}),
+
+			AudioControlBase = (not FFlagEnableToolboxVideos) and Roact.createElement("Frame", {
 				Size = UDim2.new(1, 0, 0, AUDIO_CONTROL_HEIGHT),
 				BackgroundTransparency = 1,
-				BorderSizePixel = 0,
 				LayoutOrder = 3,
 			}, {
 				AudioControl = Roact.createElement(AudioControl, {
@@ -274,12 +340,17 @@ function AudioPreview:render()
 
 			SoundObj = Roact.createElement("Sound", {
 				Looped = false,
+				SoundId = FFlagEnableToolboxVideos and soundId or nil,
 				[Roact.Ref] = self.soundRef,
-				[Roact.Event.Ended] = self.onSoundEnded,
 				[Roact.Event.Changed] = self.onSoundChange,
+				[Roact.Event.Ended] = FFlagEnableToolboxVideos and onMediaEnded or self.onSoundEnded,
 			})
 		})
 	end)
 end
 
-return AudioPreview
+if FFlagEnableToolboxVideos then
+	return wrapMedia(AudioPreview)
+else
+	return AudioPreview
+end

@@ -1,6 +1,7 @@
 local FFlagFixGetAssetTypeErrorHandling = game:DefineFastFlag("FixGetAssetTypeErrorHandling", false)
 local FFlagStudioUILibFixAssetTypeMap = game:DefineFastFlag("StudioUILibFixAssetTypeMap", false)
 local FFlagStudioFixMeshPartPreview = game:DefineFastFlag("StudioFixMeshPartPreview", false)
+local FFlagEnableToolboxVideos = game:GetFastFlag("EnableToolboxVideos")
 
 local AssetType = {}
 
@@ -12,6 +13,7 @@ AssetType.TYPES = {
 	PluginType = 5,
 	OtherType = 6,
 	LoadingType = 7,
+	VideoType = 8,
 }
 
 -- For check if we show preview button or not.
@@ -24,6 +26,7 @@ AssetType.AssetTypesPreviewEnabled = {
 	[Enum.AssetType.Audio.Value] = true,
 	[Enum.AssetType.Lua.Value] = true,
 	[Enum.AssetType.Plugin.Value] = true,
+	[Enum.AssetType.Video.Value] = FFlagEnableToolboxVideos or nil,
 }
 
 local classTypeMap = {
@@ -39,6 +42,7 @@ local classTypeMap = {
 	Sky = AssetType.TYPES.ImageType,
 
 	Sound = AssetType.TYPES.SoundType,
+	VideoFrame = AssetType.TYPES.VideoType,
 
 	BaseScript = AssetType.TYPES.ScriptType,
 }
@@ -68,7 +72,6 @@ function AssetType:getAssetType(assetInstance)
 	if notInstance then
 		return self.TYPES.LoadingType
 	end
-
 	local className = assetInstance.className
 	local type = classTypeMap[className]
 
@@ -109,6 +112,10 @@ end
 
 function AssetType:isLoading(currentType)
 	return currentType == self.TYPES.LoadingType
+end
+
+function AssetType:isVideo(currentType)
+	return currentType == self.TYPES.VideoType
 end
 
 function AssetType:isPreviewAvailable(typeId)

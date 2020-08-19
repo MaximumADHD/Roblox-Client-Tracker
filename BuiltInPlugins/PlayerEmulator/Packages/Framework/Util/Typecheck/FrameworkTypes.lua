@@ -7,6 +7,11 @@ local Framework = script.Parent.Parent.Parent
 local StyleModifier = require(Framework.Util.StyleModifier)
 local t = require(script.Parent.t)
 local FrameworkTypes = {}
+local Flags = require(Framework.Util.Flags)
+local FlagsList = Flags.new({
+	FFlagDevFrameworkEnumUtility = "DevFrameworkEnumUtility",
+	FFlagRefactorDevFrameworkContextItems = {"RefactorDevFrameworkContextItems"},
+})
 
 function FrameworkTypes.Component(value)
 	local errMsg = "Component expected, got %s."
@@ -50,10 +55,15 @@ end
 
 function FrameworkTypes.Focus(value)
 	local errMsg = "Focus expected, got %s."
-	if not t.table(value) or not t.callback(value.getTarget) then
+	local getFunction = FlagsList:get("FFlagRefactorDevFrameworkContextItems") and value.get or value.getTarget
+	if not t.table(value) or not t.callback(getFunction) then
 		return false, errMsg:format(type(value))
 	end
 	return true
+end
+
+function FrameworkTypes.RoactRef(value)
+	return t.table(value) and tostring(value):find("RoactRef")
 end
 
 function FrameworkTypes.Symbol(value)
@@ -70,11 +80,19 @@ end
 
 function FrameworkTypes.StyleModifier(value)
 	local errMsg = "StyleModifier expected, got %s."
-	for _, v in pairs(StyleModifier) do
-		if value == v then
+
+	if FlagsList:get("FFlagDevFrameworkEnumUtility")  then
+		if StyleModifier.isEnumValue(value) then
 			return true
 		end
+	else
+		for _, v in pairs(StyleModifier) do
+			if value == v then
+				return true
+			end
+		end
 	end
+
 	return false, errMsg:format(type(value))
 end
 

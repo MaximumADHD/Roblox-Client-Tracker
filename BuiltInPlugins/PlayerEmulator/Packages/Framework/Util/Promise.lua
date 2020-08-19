@@ -40,6 +40,9 @@
 		end)
 
 ]]
+
+local FFlagDevFrameworkUnhandledPromiseRejections = game:DefineFastFlag("DevFrameworkUnhandledPromiseRejections", false)
+
 local PROMISE_DEBUG = false
 
 -- If promise debugging is on, use a version of pcall that warns on failure.
@@ -89,6 +92,16 @@ Promise.Status = {
 	Rejected = "Rejected",
 }
 
+if FFlagDevFrameworkUnhandledPromiseRejections then
+	--[[
+		This can be overridden to change the global callback for unhandled rejections.
+
+		By default it is disabled (set to nil) so that consumers can choose how to log
+		unhandled rejections, and not pollute the output (e.g. with "warn").
+	]]
+	Promise.onUnhandledRejection = nil
+end
+
 --[[
 	Constructs a new Promise with the given initializing callback.
 
@@ -131,6 +144,11 @@ function Promise.new(callback)
 		_queuedResolve = {},
 		_queuedReject = {},
 	}
+
+	if FFlagDevFrameworkUnhandledPromiseRejections then
+		-- If an error occurs with no handlers, this will be set to true.
+		promise._unhandledRejection = false
+	end
 
 	setmetatable(promise, Promise)
 
@@ -241,6 +259,10 @@ end
 	The given callbacks are invoked depending on that result.
 ]]
 function Promise:andThen(successHandler, failureHandler)
+	if FFlagDevFrameworkUnhandledPromiseRejections then
+		self._unhandledRejection = false
+	end
+
 	-- Create a new promise to follow this part of the chain
 	return Promise.new(function(resolve, reject)
 		-- Our default callbacks just pass values onto the next promise.
@@ -283,6 +305,10 @@ end
 	This matches the execution model of normal Roblox functions.
 ]]
 function Promise:await()
+	if FFlagDevFrameworkUnhandledPromiseRejections then
+		self._unhandledRejection = false
+	end
+
 	if self._status == Promise.Status.Started then
 		local result
 		local bindable = Instance.new("BindableEvent")
@@ -358,6 +384,34 @@ function Promise:_reject(...)
 		-- We assume that these callbacks will not throw errors.
 		for _, callback in ipairs(self._queuedReject) do
 			callback(...)
+		end
+	else
+		if FFlagDevFrameworkUnhandledPromiseRejections then
+			self._unhandledRejection = true
+			local err = tostring((...))
+
+			-- At this point, no error handler is available.
+			-- An error handler might still be attached if the error occurred
+			-- synchronously. We'll wait one tick, and if there are still no
+			-- handlers, call the global onUnhandledRejection handler.
+			spawn(function()
+				-- The error was handled while we were waiting
+				if not self._unhandledRejection then
+					return
+				end
+
+				local message = ("Unhandled promise rejection:\n\n%s\n\n%s"):format(
+					err,
+					self._source
+				)
+
+				-- Ignore failures in logging the rejection
+				pcall(function()
+					if Promise.onUnhandledRejection then
+						Promise.onUnhandledRejection(message)
+					end
+				end)
+			end)
 		end
 	end
 end

@@ -24,7 +24,6 @@
 ]]
 
 local StudioUILibraryRoundTextBoxNoTooltip = settings():GetFFlag("StudioUILibraryRoundTextBoxNoTooltip")
-local FFlagPublishPlaceSupportUnicodeTextLength = game:GetFastFlag("PublishPlaceSupportUnicodeTextLength")
 
 local DEFAULT_HEIGHT = 42
 local PADDING = UDim.new(0, 10)
@@ -69,13 +68,16 @@ function RoundTextBox:render()
 		local active = self.props.Active
 		local focused = self.state.Focused
 		local multiline = self.props.Multiline
-		local textLength = FFlagPublishPlaceSupportUnicodeTextLength and utf8.len(self.props.Text) or string.len(self.props.Text)
+		local textLength = utf8.len(self.props.Text)
+		local pastMaxLength = self.props.MaxLength and textLength > self.props.MaxLength
 		local errorState = self.props.ErrorMessage
-			or textLength > self.props.MaxLength
+			or pastMaxLength
 
 		if StudioUILibraryRoundTextBoxNoTooltip then
 			errorState = errorState or self.props.ErrorBorder
 		end
+
+		local size = self.props.Size or UDim2.new(1, self.props.WidthOffset or 0, 0, self.props.Height or DEFAULT_HEIGHT)
 
 		local backgroundProps = {
 			-- Necessary to make the rounded background
@@ -87,7 +89,7 @@ function RoundTextBox:render()
 			SliceCenter = theme.roundFrame.slice,
 
 			Position = UDim2.new(0, 0, 0, 0),
-			Size = UDim2.new(1, self.props.WidthOffset or 0, 0, self.props.Height or DEFAULT_HEIGHT),
+			Size = size,
 
 			LayoutOrder = self.props.LayoutOrder or 1,
 		}
