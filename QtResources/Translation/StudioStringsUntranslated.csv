@@ -382,6 +382,7 @@ Studio.App.FBXMeshImporter.MeshHasNoVertices,Error message that displays if a us
 Studio.App.FBXMeshImporter.MeshHasTooManyTriangles2,"Error message that displays if a user tries to import a 3D mesh that has too many faces (aka triangles). First argument is the max limit of triangles, second argument is the amount of triangles that were in the uploaded mesh.",Your mesh has too many triangles! Limit is %1. Your mesh has %2.,Your mesh has too many triangles! Limit is %1. Your mesh has %2.
 Studio.App.FBXMeshImporter.MultipleMeshes,"Warning message that appears if a user tries to import a 3D mesh file that contains multiple meshes. Studio reacts to this by joining the meshes together, but this could mess up the textures of the mesh.","Multiple meshes detected! The meshes were joined together, and textures may now be incorrect.","Multiple meshes detected! The meshes were joined together, and textures may now be incorrect."
 Studio.App.FBXMeshImporter.MultipleTextures,"Warning message that appears if a user tries to import a 3D mesh that contains multiple textures. Studio only allows one of these textures, but this may result in the texture not looking correct.",Multiple textures detected! We only allow one texture per MeshPart which may now result in the mesh texture not looking correct.,Multiple textures detected! We only allow one texture per MeshPart which may now result in the mesh texture not looking correct.
+Studio.App.FBXMeshImporter.UnexpectedFileType,Error message that appears if the user tries to import a 3D FBX mesh that is not properly formatted.,Your file does not seem to contain a FBX mesh! Make sure the file extension is correct.,Your file does not seem to contain a FBX mesh! Make sure the file extension is correct.
 Studio.App.FBXRigBuilder.CantFindDataModel,,Failed to import animations for rig: Unable to find DataModel,Failed to import animations for rig: Unable to find DataModel
 Studio.App.FBXRigBuilder.CantFindWorkspace,,Unable to find Workspace,Unable to find Workspace
 Studio.App.FBXRigBuilder.CantFindWorkspaceLong,,Failed to import animations for rig: Unable to find Workspace,Failed to import animations for rig: Unable to find Workspace
@@ -585,6 +586,10 @@ Details: ""%1"""
 Studio.App.IdeDoc.Start,Roblox IDE Doc (Starting servers),Start,Start
 Studio.App.IdeDoc.StartServer,Roblox IDE Doc,Start Server,Start Server
 Studio.App.IdeDoc.StartServerAndPlayers,Roblox IDE Doc,Start Server and Players,Start Server and Players
+Studio.App.IdeDoc.StatusInitializing,Roblox IDE Doc,Initializing...,Initializing...
+Studio.App.IdeDoc.StatusLoading,Roblox IDE Doc,Loading test...,Loading test...
+Studio.App.IdeDoc.StatusSaving,Roblox IDE Doc,Saving world...,Saving world...
+Studio.App.IdeDoc.StatusSettingUp,Roblox IDE Doc,Setting up...,Setting up...
 Studio.App.IdeDoc.SuccessfullyDownloadedCopyTo1,Roblox IDE Doc,Successfully downloaded a copy to '%1',Successfully downloaded a copy to '%1'
 Studio.App.IdeDoc.TeamCreateSessionCancelledByUser,Roblox IDE Doc,Team Create session was cancelled by user,Team Create session was cancelled by user
 Studio.App.IdeDoc.TeamTest,Roblox IDE Doc,Team Test,Team Test
@@ -682,6 +687,7 @@ Studio.App.Login.TooManyLogins,,Too many logins were attempted from this network
 Studio.App.Login.UnableToLogin,,Unable to log in,Unable to log in
 Studio.App.Login.UnableToLogout,,Unable to log out. Please save modified places in other Studio instances and then proceed with log out.,Unable to log out. Please save modified places in other Studio instances and then proceed with log out.
 Studio.App.LoginManager.CaptchaClosed,,Login requires Captcha. Please try again.,Login requires Captcha. Please try again.
+Studio.App.LoginManager.CaptchaClosed,,Captcha response not recognized. Please try again.,Captcha response not recognized. Please try again.
 Studio.App.LoginManager.CaptchaError,,Error displaying captcha,Error displaying captcha
 Studio.App.LoginManager.ClosingDownAllOpenPlacesElps,,Closing down all open places...,Closing down all open places...
 Studio.App.LoginManager.GetUserAgreementsFailure,,Failed to get user agreements. Please try to login again or contact support if problem persists.,Failed to get user agreements. Please try to login again or contact support if problem persists.
@@ -867,6 +873,7 @@ Studio.App.MyGamesPage.GroupGames,,Group Games,Group Games
 Studio.App.MyGamesPage.SharedWithMe,,Shared With Me,Shared With Me
 Studio.App.MyWatchTreeWidget.DeleteAll,,Delete All,Delete All
 Studio.App.MyWatchTreeWidget.DeleteWatch,,Delete Watch,Delete Watch
+Studio.App.OSVersionWarning.MacOS1010,,Beginning in October 2020 we will be discontinuing support for MacOS 10.10. Please upgrade to MacOS 10.11+ to continue to use Roblox Studio.,Beginning in October 2020 we will be discontinuing support for MacOS 10.10. Please upgrade to MacOS 10.11+ to continue to use Roblox Studio.
 Studio.App.OSVersionWarning.MacOS109,,Beginning in November 2019 we will be discontinuing support for MacOS 10.9. Please upgrade to MacOS 10.10+ to continue to use Roblox Studio.,Beginning in November 2019 we will be discontinuing support for MacOS 10.9. Please upgrade to MacOS 10.10+ to continue to use Roblox Studio.
 Studio.App.OnPublishDialog.BasicSettings,,Basic Settings,Basic Settings
 Studio.App.OnPublishDialog.Description,,Description:,Description:
@@ -1883,12 +1890,14 @@ Studio.App.RobloxOutputRibbonDropdown.All,,All,All
 Studio.App.RobloxOutputRibbonDropdown.AllContexts,,All Contexts,All Contexts
 Studio.App.RobloxOutputRibbonDropdown.AllMessages,,All Messages,All Messages
 Studio.App.RobloxOutputRibbonDropdown.Client,,Client,Client
+Studio.App.RobloxOutputRibbonDropdown.Context,,Context,Context
 Studio.App.RobloxOutputRibbonDropdown.CoreScript,,CoreScript,CoreScript
 Studio.App.RobloxOutputRibbonDropdown.Edit,,Edit,Edit
 Studio.App.RobloxOutputRibbonDropdown.Error,,Error,Error
 Studio.App.RobloxOutputRibbonDropdown.Information,,Information,Information
 Studio.App.RobloxOutputRibbonDropdown.Log,,Log,Log
 Studio.App.RobloxOutputRibbonDropdown.LogMode,,Log Mode,Log Mode
+Studio.App.RobloxOutputRibbonDropdown.MessageTypes,,Message Types,Message Types
 Studio.App.RobloxOutputRibbonDropdown.None,,None,None
 Studio.App.RobloxOutputRibbonDropdown.NumberContexts1,,%1 Contexts,%1 Contexts
 Studio.App.RobloxOutputRibbonDropdown.NumberMessages1,,%1 Messages,%1 Messages

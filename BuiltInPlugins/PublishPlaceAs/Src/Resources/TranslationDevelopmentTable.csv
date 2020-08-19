@@ -58,3 +58,5 @@ Studio.PublishPlaceAs.PublishSuccess.Success, ,Successfully published!
 Studio.PublishPlaceAs.PublishSuccess.FindInGame,Substituted with game name to tell user where their place has been published to,You may find this place in {1}
 Studio.PublishPlaceAs.PublishFail.Fail, ,Publish failed
 Studio.PublishPlaceAs.PublishFail.FailConfiguration, ,Could not publish configuration settings.
+Studio.PublishPlaceAs.PrivacyType.Public, ,Public
+Studio.PublishPlaceAs.PrivacyType.Private, ,Private

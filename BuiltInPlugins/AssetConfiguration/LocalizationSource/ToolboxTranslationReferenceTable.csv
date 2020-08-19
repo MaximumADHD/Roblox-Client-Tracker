@@ -196,7 +196,7 @@ Studio.Toolbox.General.InstallFailure,Failure,Failure,실패,失败
 Studio.Toolbox.AssetConfigFooter.NewAsset,Save as a new asset...,Save as a new asset...,새로운 애셋으로 저장...,另存为新资源...
 Studio.Toolbox.AssetConfigFooter.Override,Overwrite an existing asset...,Overwrite an existing asset...,기존 애셋 덮어쓰기...,覆盖现有资源...
 Studio.Toolbox.AssetConfigFooter.OverrideTitle,Choose an existing model to overwrite.,Choose an existing model to overwrite.,덮어쓸 기존 모델을 선택하세요.,选择要覆盖的现有模型。
-Studio.Toolbox.AssetConfigFooter.ImportTitle,Choose an asset to import., , , 
+Studio.Toolbox.AssetConfigFooter.ImportTitle,Choose an asset to import.,Choose an asset to import., , 
 Studio.Toolbox.AssetConfigCopy.Terms,"By switching on, you are granting every other user of Roblox the right to use (in various ways) the content you are now sharing. If you do not want to grant this right, please do not check this box. For more information about sharing content, please review the Roblox Terms of Use.","By switching on, you are granting every other user of Roblox the right to use (in various ways) the content you are now sharing. If you do not want to grant this right, please do not check this box. For more information about sharing content, please review the Roblox Terms of Use.",활성화하면 Roblox의 다른 모든 사용자들에게 현재 공유하고 있는 컨텐츠를 다양한 방식으로 사용할 수 있는 권한을 부여합니다. 이러한 권한을 부여하지 않으려면 이 확인란을 선택하지 마세요. 컨텐츠 공유에 대한 자세한 정보는 Roblox 이용 약관을 참조하시기 바랍니다.,切换至开位置，即表示你授予 Roblox 的所有其他用户 (以各种方式) 使用你现在分享的内容的权限。如果你不想授予此权限，请勿勾选此框。有关分享内容的详细信息，请检阅 Roblox 使用条款。
 Studio.Toolbox.AssetConfigCopy.AccountSetting,"In order to share content in Marketplace, you must add & verify an email address to your account. This can be done in Account Settings.","In order to share content in Marketplace, you must add & verify an email address to your account. This can be done in Account Settings.",장터에서 콘텐츠를 공유하려면 계정에 이메일 주소를 추가하고 확인해야 합니다. 이 작업은 계정 설정에서 수행할 수 있습니다.,为了在市集中分享内容，你必须向你的帐户添加电子邮件地址并进行验证。可在“帐户设置”中完成此操作。
 Studio.Toolbox.AssetConfigPreview.Preview,Preview,Preview,미리 보기,预览
@@ -269,8 +269,8 @@ Sound Length,Sound Length,사운드 길이,声音长度,Studio.Toolbox.General.S
 length:,length:,길이:,长度：,Studio.Toolbox.AssetConfigUpload.IDCopied
 ID Copied!,ID Copied!,ID 복사 완료!,ID 已复制！,Studio.Toolbox.AssetConfigAnimation.FilterID
 Filter ID,Filter ID,필터 ID,过滤 ID,Studio.Toolbox.AssetConfigAnimation.AnimationID
-Animation ID, , , ,Studio.Toolbox.AssetConfigAnimation.InvalidAnimationID
-Invalid Animation ID, , , ,Studio.Toolbox.General.PremiumBenefits
+Animation ID,Animation ID, , ,Studio.Toolbox.AssetConfigAnimation.InvalidAnimationID
+Invalid Animation ID,Invalid Animation ID, , ,Studio.Toolbox.General.PremiumBenefits
 Add Premium benefits,Add Premium benefits,Premium 혜택 추가,添加 Premium 特权,Studio.Toolbox.General.CategoryMyVideos
 My Videos,My Videos,내 비디오,我的视频,Studio.Toolbox.General.CategoryVideos
 Videos,Videos,비디오,视频,Studio.Toolbox.AssetUploadResult.Success

@@ -38,10 +38,10 @@ Rectangle {
         loginPage.state = kDefaultState;
     }
 
-    function performLogin() {
+    function performLogin(payload) {
         clearErrorMessages();
         loginPage.state = "STATE_LOGGING_IN"
-        loginManager.onLoginClicked(usernameField.text, passwordField.text);
+        loginManager.onLoginClicked(usernameField.text, passwordField.text, payload);
     }
 
     Image {
@@ -623,7 +623,7 @@ Rectangle {
             loginManager.promptForCaptcha(usernameField.text);
         }
 		onCaptchaSucceeded: {
-			performLogin();
+			performLogin(payload);
 		}
 		onCaptchaError: {
 			passwordField.errorText = errorMessage;

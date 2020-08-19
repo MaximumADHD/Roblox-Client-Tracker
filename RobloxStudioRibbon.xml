@@ -312,9 +312,12 @@
         <addaction name="collisionGroupsEditorAction" type="plugin" style="textundericon" text="Studio.App.RobloxRibbonMainWindow.CollisionGroups" tooltip="Studio.App.RobloxRibbonMainWindow.EditCollisionGroups"/>
         <addaction name="executeScriptAction" style="textundericon" text="Studio.App.RobloxRibbonMainWindow.RunScript" icon=":/RibbonBar/images/RibbonIcons/Test/Run-Script.png" tooltip="Studio.App.RobloxRibbonMainWindow.ExecuteLuaCodeFromAFile" width="32" height="32" />
         <ActionGroup name="insertBasicObject" style="textbesideicon" ischeckable="false">
-          <addaction name="ScriptLargeAction" text="Script" value="Script" tooltip="Studio.App.RobloxRibbonMainWindow.InsertAScript" icon=":/RibbonBar/images/RibbonIcons/Insert/Script.png" width="32" height="32" />
-          <addaction name="LocalScriptLargeAction" text="LocalScript" value="LocalScript" tooltip="Studio.App.RobloxRibbonMainWindow.InsertALocalScript" icon=":/RibbonBar/images/RibbonIcons/Insert/LocalScript.png" width="32" height="32" />
-          <addaction name="ModuleScriptLargeAction" text="ModuleScript" value="ModuleScript" tooltip="Studio.App.RobloxRibbonMainWindow.InsertAModuleScript" icon=":/RibbonBar/images/RibbonIcons/Insert/ModuleScript.png" width="32" height="32" />
+          <addaction fflag="StudioAddingIconsToLocalAndServerScripts" name="ScriptLargeAction" text="Script" value="Script" tooltip="Studio.App.RobloxRibbonMainWindow.InsertAScript" icon=":/images/server_script.png" width="32" height="32" />
+          <addaction fflag="StudioAddingIconsToLocalAndServerScripts" name="LocalScriptLargeAction" text="LocalScript" value="LocalScript" tooltip="Studio.App.RobloxRibbonMainWindow.InsertALocalScript" icon=":/images/local_script.png" width="32" height="32" />
+          <addaction fflag="StudioAddingIconsToLocalAndServerScripts" name="ModuleScriptLargeAction" text="ModuleScript" value="ModuleScript" tooltip="Studio.App.RobloxRibbonMainWindow.InsertAModuleScript" icon=":/images/module_script.png" width="32" height="32" />
+          <addaction fflag="!StudioAddingIconsToLocalAndServerScripts" name="ScriptLargeAction" text="Script" value="Script" tooltip="Studio.App.RobloxRibbonMainWindow.InsertAScript" icon=":/RibbonBar/images/RibbonIcons/Insert/Script.png" width="32" height="32" />
+          <addaction fflag="!StudioAddingIconsToLocalAndServerScripts" name="LocalScriptLargeAction" text="LocalScript" value="LocalScript" tooltip="Studio.App.RobloxRibbonMainWindow.InsertALocalScript" icon=":/RibbonBar/images/RibbonIcons/Insert/LocalScript.png" width="32" height="32" />
+          <addaction fflag="!StudioAddingIconsToLocalAndServerScripts" name="ModuleScriptLargeAction" text="ModuleScript" value="ModuleScript" tooltip="Studio.App.RobloxRibbonMainWindow.InsertAModuleScript" icon=":/RibbonBar/images/RibbonIcons/Insert/ModuleScript.png" width="32" height="32" />
         </ActionGroup>
       </Group>
     </TabPage>
@@ -512,10 +515,10 @@
         </MenuButton>
         <!--<addaction name="deleteSelectedAction" text="Studio.Common.Action.Delete" style="textundericon" icon=":/RibbonBar/images/RibbonIcons/Home/Delete.png" width="32" height="32" />-->
       </Group>
-      <Group name="Format" fflag="StudioLSP_V2_preAlpha" text="Studio.App.RBXMainWindow.Format">
+      <Group name="Format" fflag="StudioLSP_V2_alpha" text="Studio.App.RBXMainWindow.Format">
         <MenuButton name="formatSelectionActionMenu" text="Studio.App.RBXMainWindow.FormatSelection" tooltip="Studio.App.RBXMainWindow.FormatDocumentElps" style="textundericon" icon=":/RibbonBar/images/RibbonIcons/Home/FormatSelection.png" width="32" height="32" >
-          <addaction text="Studio.App.RBXMainWindow.FormatSelection" name="formatSelectionAction" style="textundericon"  icon=":/RibbonBar/images/RibbonIcons/Home/FormatSelection.png" width="16" height="16" />
-          <addaction text="Studio.App.RBXMainWindow.FormatDocument" name="formatDocumentAction" style="textundericon" icon=":/RibbonBar/images/RibbonIcons/Home/FormatDocument.png" width="16" height="16" />
+          <addaction text="Studio.App.RBXMainWindow.FormatSelection" name="formatSelectionAction" style="textundericon" width="16" height="16" />
+          <addaction text="Studio.App.RBXMainWindow.FormatDocument" name="formatDocumentAction" style="textundericon" width="16" height="16" />
         </MenuButton>
       </Group>
       <Group name="Test" text="Studio.App.RobloxRibbonMainWindow.Test">

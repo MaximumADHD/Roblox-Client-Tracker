@@ -58,3 +58,5 @@ Studio.PublishPlaceAs.PublishFail.FailConfiguration,Could not publish configurat
 Studio.PublishPlaceAs.GroupDropdown.Me,Me,나,我
 Studio.PublishPlaceAs.PageTitle.Creator,Creator,크리에이터,创建者
 Studio.PublishPlaceAs.General.UntitledGame,Untitled Game,제목 없는 게임,未命名游戏
+Studio.PublishPlaceAs.PrivacyType.Public,Public,공개,公开
+Studio.PublishPlaceAs.PrivacyType.Private,Private,비공개,私人

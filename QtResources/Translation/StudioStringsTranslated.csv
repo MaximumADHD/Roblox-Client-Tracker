@@ -106,7 +106,7 @@ Studio.App.GameExplorer.InsertAsLocalScript,,,Insert as LocalScript,Insert as Lo
 Studio.App.GameExplorer.InsertAsModuleScript,,,Insert as ModuleScript,Insert as ModuleScript,ModuleScript로 삽입,Вставить как ModuleScript,插入为 ModuleScript
 Studio.App.GameExplorer.InsertAsScript,,,InsertAsScript,InsertAsScript,스크립트로 삽입,InsertAsScript,InsertAsScript
 Studio.App.GameExplorer.InsertWithLocation,,,Insert with location,Insert with location,위치 포함 삽입,Вставка с указанием местоположения,带位置插入
-Studio.App.GameExplorer.MarkAsStartPlace,,,Mark as Start Place,Mark as Start Place,시작 장소로 표시,Отметить как стартовое место,标记为开始场景
+Studio.App.GameExplorer.MarkAsStartPlace,,,Mark as Start Place,Mark as Start Place,시작 플레이스로 표시,Отметить как стартовое место,标记为开始场景
 Studio.App.GameExplorer.MassUpdateCurrentPlacePackages,,,Update this Package in Current Place,Update this Package in Current Place,현재 플레이스에 이 패키지 업데이트,Обновить пакет в текущем месте,在当前场景更新此包
 Studio.App.GameExplorer.ProductSettings,,,Product Settings...,Product Settings...,제품 설정...,Параметры продукта...,产品设置...
 Studio.App.GameExplorer.PublishLinkedSource,,,Publish this LinkedSource,Publish this LinkedSource,이 LinkedSource 게시,Опубликовать этот LinkedSource,发布此LinkedSource
@@ -327,7 +327,7 @@ Studio.App.MainWindow.SaveToFileAsPrompt,,,Save to File As...,Save to File As...
 Studio.App.MainWindow.TeamCreateReconnectFailedUnableToFetchSettingsData,,,Team Create reconnect failed. Unable to fetch game settings data.,Team Create reconnect failed. Unable to fetch game settings data.,팀 만들기에 다시 연결하지 못했습니다. 게임 설정 데이터를 가져올 수 없습니다.,Ошибка повторного соединения с сеансом совместной разработки. Невозможно получить данные настроек игры.,重新连接至组队创作失败。无法提取游戏设置数据。
 Studio.App.MainWindow.UnableToConnect,,,Unable to Connect,Unable to Connect,연결할 수 없음,Невозможно установить соединение,无法连接
 Studio.App.MainWindow.UnableToFetchUniversePermissions1,,,Unable to fetch universe permissions: %1,Unable to fetch universe permissions: %1,%1 유니버스 권한을 가져올 수 없음,Невозможно получить разрешения для мира: %1,无法提取通用许可: %1
-Studio.App.MainWindow.UnableToOpenGameOrPlaceRestartApplication,,,"Unable to open the game or place. Please restart your application and try again. If you continue to encounter this error, please contact customer service.","Unable to open the game or place. Please restart your application and try again. If you continue to encounter this error, please contact customer service.",게임 또는 플레이스를 열지 못했습니다. 응용 프로그램을 다시 시작하고 다시 시도하세요. 계속 이 오류가 발생하면 고객 서비스팀에 문의하세요.,"Невозможно открыть игру или место. Пожалуйста, перезапустите приложение и повторите попытку. Если ошибка повторяется, свяжитесь со службой поддержки.",无法打开游戏或场景。请重新启动你的应用程序后重试。如果错误持续出现，请联系客户服务部门。
+Studio.App.MainWindow.UnableToOpenGameOrPlaceRestartApplication,,,"Unable to open the game or place. Please restart your application and try again. If you continue to encounter this error, please contact customer service.","Unable to open the game or place. Please restart your application and try again. If you continue to encounter this error, please contact customer service.",게임 또는 플레이스를 열지 못했습니다. 응용 프로그램을 재시작하고 다시 시도하세요. 오류가 계속 발생하면 지원 센터에 문의하세요.,"Невозможно открыть игру или место. Пожалуйста, перезапустите приложение и повторите попытку. Если ошибка повторяется, свяжитесь со службой поддержки.",无法打开游戏或场景。请重新启动你的应用程序后重试。如果错误持续出现，请联系客户服务部门。
 Studio.App.MainWindow.UploadingImageQuitAnyway,,,Roblox is uploading an image. Quit anyway?,Roblox is uploading an image. Quit anyway?,Roblox가 이미지를 업로드하고 있습니다. 그래도 종료할까요?,Идет загрузка изображения в Roblox. Все равно выйти?,Roblox 正在上传图片。仍要离开吗?
 Studio.App.MainWindow.UploadingVideoQuitAnyway,,,Roblox is uploading a video. Quit anyway?,Roblox is uploading a video. Quit anyway?,Roblox가 비디오를 업로드하고 있습니다. 그래도 종료할까요?,Идет загрузка видео в Roblox. Все равно выйти?,Roblox 正在上传视频。仍要离开吗?
 Studio.App.MainWindow.Version1,,,Version %1,Version %1,버전 %1,Версия %1,版本 %1
@@ -347,7 +347,7 @@ Studio.App.Materials.Pebble,,,Pebble,Pebble,자갈무늬,Галька,卵石
 Studio.App.Materials.Plastic,,,Plastic,Plastic,플라스틱,Пластик,塑料
 Studio.App.Materials.Sand,,,Sand,Sand,모래,Песок,沙
 Studio.App.Materials.Slate,,,Slate,Slate,슬레이트,Сланец,石板
-Studio.App.Materials.SmoothPlastic,,,Smooth Plastic,Smooth Plastic,부드러운 플라스틱,Гладкий пластик,平滑塑料
+Studio.App.Materials.SmoothPlastic,,,Smooth Plastic,Smooth Plastic,매끈한 플라스틱,Гладкий пластик,平滑塑料
 Studio.App.Materials.Wood,,,Wood,Wood,나무,Дерево,木头
 Studio.App.MeshPartLODNotification.Dismiss,,,Do not show again,Do not show again,다시 보여주지 않음,Больше не показывать,不要再显示
 Studio.App.MeshPartLODNotification.Message,,,RenderFidelity was set to Automatic or Performance. This may require the asset to go through moderation and create a new assetId.,RenderFidelity was set to Automatic or Performance. This may require the asset to go through moderation and create a new assetId.,RenderFidelity가 자동 또는 고성능으로 설정되어 있습니다. 이로 인해 애셋을 검열해 새 assetId를 만들어야 할 수 있습니다.,Значение RenderFidelity установлено как Automatic. Это может потребовать модерации ресурса и присвоения нового assetId.,RenderFidelity（渲染保真度）已设为自动或高性能设置。此资源因此可能需要进一步审核，并创建新的 assetID。
@@ -1475,14 +1475,14 @@ Studio.App.Debugger.PausedForDebugging,,,Rendering is paused for debugging...,Re
 Studio.App.LoginRequest.InternalServerError,,,Our servers are having problems right now. Please try again later.,Our servers are having problems right now. Please try again later.,서버에 문제가 발생했습니다. 나중에 다시 시도하세요.,В данный момент у нас возникли проблемы с серверами. Попробуйте еще раз.,目前我们的服务器出现了一点问题，请稍后重试。
 Studio.App.LoginRequest.NetworkConnection,,,Could not connect to the server. Please check your internet connection and try again later.,Could not connect to the server. Please check your internet connection and try again later.,서버에 연결할 수 없습니다. 인터넷 연결을 확인하고 나중에 다시 시도하세요.,"Не удалось подключиться к серверу, проверьте подключение к Интернету и повторите попытку.",无法连接服务器。请检查你的网络连接后重试。
 Studio.App.LoginRequest.ParseError,,,Could not read response from server. Please try again later.,Could not read response from server. Please try again later.,서버에서 응답을 받지 못했습니다. 나중에 다시 시도하세요.,"Не удалось считать ответ с сервера. Пожалуйста, повторите попытку позже.",无法获得服务器响应，请稍后重试。
-Studio.App.PackageMassUpdate.ChangeHistoryWayPoint,,,Update packages in current place to latest,Update packages in current place to latest,현재 장소의 패키지를 최신 버전으로 업데이트하세요,Обновление пакетов обновлений в текущем месте до последней версии,更新当前场景的包至最新版本
+Studio.App.PackageMassUpdate.ChangeHistoryWayPoint,,,Update packages in current place to latest,Update packages in current place to latest,현재 플레이스의 패키지를 최신 버전으로 업데이트하세요,Обновление пакетов обновлений в текущем месте до последней версии,更新当前场景的包至最新版本
 Studio.App.PackageMassUpdate.ErrorCannotOpenTCPlaceDueToCancellation,,,Failed to open the team create place due to cancellation,Failed to open the team create place due to cancellation,취소되었기 때문에 팀 만들기 플레이스를 열지 못했어요,Не удалось открыть место совместной разработки из-за отмены,操作取消，打开组队创作场景失败
 Studio.App.PackageMassUpdate.ErrorCannotOpenTCPlaceDueToTimeout,,,Failed to open the team create place due to timeout,Failed to open the team create place due to timeout,시간이 초과되었기 때문에 팀 만들기 플레이스를 열지 못했어요,Не удалось открыть место совместной разработки: превышено время ожидания,操作超时，打开组队创作场景失败
-Studio.App.PackageMassUpdate.ErrorCannotSavePlace,,,Error: Cannot save place to Roblox,Error: Cannot save place to Roblox,오류: 장소를 Roblox에 저장할 수 없어요,Ошибка: не удалось сохранить место в Roblox,错误: 无法将场景保存至 Roblox
-Studio.App.PackageMassUpdate.ErrorCannotSavePlaceDueToException,,,"Error: Cannot save place to Roblox, due to: ","Error: Cannot save place to Roblox, due to: ",오류: 장소를 Roblox에 저장할 수 없어요. 이유: ,Ошибка: не удалось сохранить место в Roblox из-за:,错误: 无法将场景保存至 Roblox，原因: 
-Studio.App.PackageMassUpdate.ErrorCannotSavePlaceDueToTCDisconnection,,,Error: Cannot save place to Roblox due to team create disconnection,Error: Cannot save place to Roblox due to team create disconnection,오류: 팀 만들기 연결이 해제되어 장소를 Roblox에 저장할 수 없어요,Ошибка: не удалось сохранить место в Roblox из-за отключения сеанса совместной разработки,错误: 组队创作连接中断，无法将场景保存至 Roblox
+Studio.App.PackageMassUpdate.ErrorCannotSavePlace,,,Error: Cannot save place to Roblox,Error: Cannot save place to Roblox,오류: 플레이스를 Roblox에 저장할 수 없어요,Ошибка: не удалось сохранить место в Roblox,错误: 无法将场景保存至 Roblox
+Studio.App.PackageMassUpdate.ErrorCannotSavePlaceDueToException,,,"Error: Cannot save place to Roblox, due to: ","Error: Cannot save place to Roblox, due to: ",오류: 플레이스를 Roblox에 저장할 수 없어요. 이유: ,Ошибка: не удалось сохранить место в Roblox из-за:,错误: 无法将场景保存至 Roblox，原因: 
+Studio.App.PackageMassUpdate.ErrorCannotSavePlaceDueToTCDisconnection,,,Error: Cannot save place to Roblox due to team create disconnection,Error: Cannot save place to Roblox due to team create disconnection,오류: 팀 만들기 연결이 해제되어 플레이스를 Roblox에 저장할 수 없어요,Ошибка: не удалось сохранить место в Roblox из-за отключения сеанса совместной разработки,错误: 组队创作连接中断，无法将场景保存至 Roblox
 Studio.App.PackageMassUpdate.ErrorNoDataModel,,,Error: No datamodel,Error: No datamodel,오류: 데이터 모델이 없어요,Ошибка: отсутствует модель данных,错误: 无数据模型
-Studio.App.PackageMassUpdate.ErrorUnpublishedPackge,,,Error: Cannot save place to Roblox while there are packages with unpublished changes,Error: Cannot save place to Roblox while there are packages with unpublished changes,오류: 변경 사항이 게시되지 않은 패키지가 있으면 장소를 Roblox에 저장할 수 없어요,"Ошибка: место не может быть сохранено в Roblox, пока есть пакеты с неопубликованными изменениями",错误: 套装有未发布的更改，无法将场景保存至 Roblox
+Studio.App.PackageMassUpdate.ErrorUnpublishedPackge,,,Error: Cannot save place to Roblox while there are packages with unpublished changes,Error: Cannot save place to Roblox while there are packages with unpublished changes,오류: 변경 사항이 게시되지 않은 패키지가 있어 플레이스를 Roblox에 저장할 수 없습니다,"Ошибка: место не может быть сохранено в Roblox, пока есть пакеты с неопубликованными изменениями",错误: 套装有未发布的更改，无法将场景保存至 Roblox
 Studio.App.PackageMassUpdate.ErrorUpdatePackageFailsWithException,,,Error: Update package fails with exception,Error: Update package fails with exception,오류: 예외가 발생하면 패키지를 업데이트할 수 없어요,Ошибка обновления пакета с исключением,错误: 遇到例外情况，无法更新包
 Studio.App.PackageMassUpdate.InitializationFailed,,,Could not initialize Mass Update Window for this Package.,Could not initialize Mass Update Window for this Package.,이 패키지의 대량 업데이트 창을 초기화할 수 없어요.,Не удалось инициализировать окно массового обновления для данного пакета.,无法为此包初始化大规模更新窗口
 Studio.App.Property.AutoSaveEnabled,,,Auto-Save Enabled,Auto-Save Enabled,자동 저장 활성화됨,Автосохранение включено,启用自动保存
@@ -1490,7 +1490,7 @@ Studio.App.Property.AutoSaveIntervalMinutes,,,Auto-Save Interval (Minutes),Auto-
 Studio.App.Property.AutoSavePath,,,Auto-Save Path,Auto-Save Path,자동 저장 경로,Автосохранение пути,自动保存路径
 Studio.App.RobloxSettingsDialog.ResetSettingsText,,,Resetting settings will not take effect until you restart Roblox,Resetting settings will not take effect until you restart Roblox,설정 재설정은 Roblox를 다시 시작할 때까지 적용되지 않아요,Сброс настроек вступит в силу после перезапуска Roblox.,某些设置更改需要重新启动 Roblox 才能生效
 Studio.App.RobloxSettingsDialog.ResetSettingsTitle,,,Reset Settings,Reset Settings,설정 재설정,Сброс настроек,重置设置
-Studio.App.BetaFeatures.MassUpdateDescription,,,Adds an option to mass update a package across places when a newer package is available,Adds an option to mass update a package across places when a newer package is available,새로운 패키지가 이용 가능할 때 모든 장소에 대량 업데이트하는 옵션을 추가합니다,"Добавляет возможность массового обновления пакета везде, где доступна новая версия.",新增一个在有新包时在所有场景进行批量更新的选项
+Studio.App.BetaFeatures.MassUpdateDescription,,,Adds an option to mass update a package across places when a newer package is available,Adds an option to mass update a package across places when a newer package is available,새로운 패키지가 이용 가능할 때 여러 플레이스에 대규모로 업데이트하는 옵션을 추가합니다,"Добавляет возможность массового обновления пакета везде, где доступна новая версия.",新增一个在有新包时在所有场景进行批量更新的选项
 Studio.App.BetaFeatures.MassUpdateTitle,,,Mass Update on Packages,Mass Update on Packages,패키지 대량 업데이트,Массовое обновление пакетов,批量更新包
 Studio.App.BetaFeatures.SaveToCloudV2Description,,,Create new games in the cloud automatically.,Create new games in the cloud automatically.,클라우드에서 자동으로 새 게임 만들기.,Создать новые игры в облаке автоматически.,在云端自动创建新游戏
 Studio.App.BetaFeatures.SaveToCloudV2Title,,,New Games in the Cloud,New Games in the Cloud,클라우드의 새로운 게임,Новые игры в облаке,云端上的新游戏
@@ -1527,7 +1527,7 @@ Studio.App.AutoSaveDialog.NotShutProperly,,,This means that Roblox Studio was no
 Studio.App.AutoSaveDialog.OpenEnd,,,"Once an auto-recovered file is loaded, it will not be deleted until the file is re-saved with a different file name.","Once an auto-recovered file is loaded, it will not be deleted until the file is re-saved with a different file name.","자동 복구 파일을 불러오고 나면, 파일을 다른 이름으로 다시 저장하기 전까지는 삭제되지 않습니다.","После загрузки восстановленного файла он не будет удален до тех пор, пока не будет повторно сохранен с другим именем.",一旦自动恢复文件加载，它将不会自动被删除，直到文件以另一个名称重新保存。
 Studio.App.AutoSaveDialog.OpenRobloxFile,,,Open Roblox File,Open Roblox File,Roblox 파일 열기,Открыть файл Roblox,打开 Roblox 文件
 Studio.App.AutoSaveDialog.OpenStart1,,,<font size=%1><b><i>Open</i></b></font> will open the file. You can choose which file to load if there is more than one file.,<font size=%1><b><i>Open</i></b></font> will open the file. You can choose which file to load if there is more than one file.,<font size=%1><b><i>열기</i></b></font>를 누르면 파일이 열립니다. 파일이 여러 개일 경우 어떤 파일을 불러올지 선택할 수 있습니다.,"<font size=%1><b><i>Открыть</i></b></font> открытие файла. Если файлов несколько, выберите тот, который вам необходим.",<font size=%1><b><i>打开</i></b></font> 将打开文件。如果文件不止一个，那么你可以选择要加载的文件。
-Studio.App.AutoSaveDialog.RobloxPlaceFiles,,,Roblox Places Files (*.rbxl),Roblox Places Files (*.rbxl),Roblox 장소 파일 (*.rbxl),Файлы мест Roblox (*.rbxl),Roblox 场景文件 (*.rbxl)
+Studio.App.AutoSaveDialog.RobloxPlaceFiles,,,Roblox Places Files (*.rbxl),Roblox Places Files (*.rbxl),Roblox 플레이스 파일 (*.rbxl),Файлы мест Roblox (*.rbxl),Roblox 场景文件 (*.rbxl)
 Studio.App.AutoSaveDialog.Title,,,Auto-Recovery,Auto-Recovery,자동 복구,Автовосстановление,自动恢复
 Studio.App.AutoSaveDialog.WantToLoad,,,Do you want to load the auto-recovered file?,Do you want to load the auto-recovered file?,자동 복구 파일을 불러올까요?,Загрузить восстановленный файл?,你想要加载自动恢复文件吗?
 Studio.App.BetaFeatures.AccessPermissionsDescription,,,"Add any group, user, or role as a collaborator or tester for your game through Game Settings","Add any group, user, or role as a collaborator or tester for your game through Game Settings","게임 설정에서 그룹이나 사용자, 역할을 공동 작업자 혹은 테스터로 추가하세요.","В настройках игры добавьте любую группу, пользователя или роль для компаньона или тестировщика вашей игры.",在游戏设置中，将任意群组、用户或角色添加为你游戏的合作者或测试员。
@@ -1568,7 +1568,7 @@ Studio.App.CloudEditController.JoinTeamTestServer,,,Join Team Test Server,Join T
 Studio.App.CloudEditController.ShutdownServer,,,Shutdown Server,Shutdown Server,서버 종료,Отключить сервер,关闭服务器
 Studio.App.CloudEditController.StartServerAndPlayers,,,Start Server and Players,Start Server and Players,서버 및 플레이어 시작,Запустить сервер и активировать игроков,启动服务器和玩家
 Studio.App.DataModelPackageManager.DonTNotifyMeAgain,,,Don't notify me again,Don't notify me again,더 이상 알리지 마세요,Больше не уведомлять,不要再提示我
-Studio.App.DataModelPackageManager.InsufficientPermissions,,,Unable to retrieve Packages status because of insufficient permissions. You may be unable to publish this place,Unable to retrieve Packages status because of insufficient permissions. You may be unable to publish this place,불충분한 권한으로 인해 패키지 현황을 불러올 수 없습니다. 이 장소를 게시하지 못할 수 있습니다.,"Статус пакетов не может быть получен, так как нет соответствующих разрешений. Возможно, вы не сможете опубликовать это место.",由于权限缺失，无法获取包的状态。你可能无法发布此场景
+Studio.App.DataModelPackageManager.InsufficientPermissions,,,Unable to retrieve Packages status because of insufficient permissions. You may be unable to publish this place,Unable to retrieve Packages status because of insufficient permissions. You may be unable to publish this place,권한이 없어 패키지 상태를 검색할 수 없습니다. 이 플레이스를 게시하지 못할 수 있습니다.,"Статус пакетов не может быть получен, так как нет соответствующих разрешений. Возможно, вы не сможете опубликовать это место.",由于权限缺失，无法获取包的状态。你可能无法发布此场景
 Studio.App.DataModelPackageManager.PrimaryPartRemoved,,,PrimaryPart removed. You won't be able to publish this Package until you set the PrimaryPart again.,PrimaryPart removed. You won't be able to publish this Package until you set the PrimaryPart again.,PrimaryPart가 삭제되었습니다. PrimaryPart를 다시 설정하기 전까지는 이 패키지를 게시할 수 없습니다.,"Исходная деталь удалена. Вы не сможете опубликовать этот пакет, пока не установите исходную деталь снова.",PrimaryPart 已移除。在你重新设置 PrimaryPart 前，你将无法发布此套装。
 Studio.App.DataModelPackageManager.UnexpectedPlacementNewVersions,,,Changing the PrimaryPart may result in unexpected placement when you get new versions. Make sure the new PrimaryPart is where you want your Package to update from.,Changing the PrimaryPart may result in unexpected placement when you get new versions. Make sure the new PrimaryPart is where you want your Package to update from.,PrimaryPart를 변경하면 새로운 버전에서 예상에 없던 배치가 일어날 수 있습니다. 새 PrimaryPart가 패키지 업데이트를 받고 싶은 위치에 있는지 확인하세요.,"Изменение исходной детали может привести к ее непредсказуемому перемещению при появлении новых версий. Убедитесь, что новая исходная деталь находится там, где вы хотите обновить пакет.",获得新版本时，更改 PrimaryPart 可能会导致意外放置。确保新的 PrimaryPart 是你希望更新套装的位置。
 Studio.App.DebuggerClientManager.Disable,,,Disable,Disable,비활성화,Отключить,禁用
@@ -1622,7 +1622,7 @@ Studio.App.Login.LoginThroughBrowser,,,Log in through browser,Log in through bro
 Studio.App.Login.StudioVersion1,,,Roblox Studio Version %1,Roblox Studio Version %1,Roblox Studio 버전 %1,Roblox Studio версия %1,Roblox Studio 版本 %1
 Studio.App.Login.TooManyLogins,,,Too many logins were attempted from this network. You must log in through a web browser.,Too many logins were attempted from this network. You must log in through a web browser.,이 네트워크에서 너무 잦은 로그인이 시도되었습니다. 웹브라우저에서 로그인해야 합니다.,Слишком много попыток входа в систему из этой сети. Войдите через браузер.,此网络下的登录次数尝试过多。你必须通过网络浏览器登录。
 Studio.App.Login.UnableToLogin,,,Unable to log in,Unable to log in,로그인할 수 없습니다,Не удалось войти в систему,无法登录
-Studio.App.Login.UnableToLogout,,,Unable to log out. Please save modified places in other Studio instances and then proceed with log out.,Unable to log out. Please save modified places in other Studio instances and then proceed with log out.,로그아웃할 수 없습니다. 수정한 장소를 다른 Studio 인스턴스에 저장한 후 로그아웃하세요.,"Не удалось выйти из системы. Пожалуйста, сохраните измененные места в других экземплярах Studio и выйдите из системы.",无法登出。请在 Studio 其他实例中保存更改后的场景，然后再继续登出。
+Studio.App.Login.UnableToLogout,,,Unable to log out. Please save modified places in other Studio instances and then proceed with log out.,Unable to log out. Please save modified places in other Studio instances and then proceed with log out.,로그아웃할 수 없습니다. 수정한 플레이스를 다른 Studio 인스턴스에 저장한 후 로그아웃하세요.,"Не удалось выйти из системы. Пожалуйста, сохраните измененные места в других экземплярах Studio и выйдите из системы.",无法登出。请在 Studio 其他实例中保存更改后的场景，然后再继续登出。
 Studio.App.MainWindow.StudsSuffix,,, studs, studs, 스터드,стойки, 格
 Studio.App.MainWindow.ThirdpartyNotices,,,Third Party Notices,Third Party Notices,타사 고지,Уведомления третьих лиц,第三方通知
 Studio.App.MainWindow.ThirdpartyUses2,,,Uses '%1' from '%2',Uses '%1' from '%2','%2'에서 '%1' 사용,"Использует ""%1"" из ""%2""",使用“%2”的“%1”
@@ -1657,12 +1657,12 @@ Studio.App.OnPublishDialog.Genre,,,Genre:,Genre:,장르:,Жанр:,类型:
 Studio.App.OnPublishDialog.Name,,,Name:,Name:,이름:,Имя:,名称:
 Studio.App.OnPublishDialog.Privacy,,,Privacy:,Privacy:,개인정보 보호:,Конфиденциальность:,隐私政策:
 Studio.App.OnPublishDialog.Title,,,Publish,Publish,게시,Опубликовать,发布
-Studio.App.PackageUtilities.ErrorMessageForModifiedPackageInDM,,,Error: Cannot save place to Roblox while there are packages with unpublished changes.,Error: Cannot save place to Roblox while there are packages with unpublished changes.,오류: 변경 사항이 게시되지 않은 패키지가 있으면 장소를 Roblox에 저장할 수 없어요.,"Ошибка: место не может быть сохранено в Roblox, пока есть пакеты с неопубликованными изменениями.",错误：套装有未发布的更改，无法将场景保存至 Roblox。
+Studio.App.PackageUtilities.ErrorMessageForModifiedPackageInDM,,,Error: Cannot save place to Roblox while there are packages with unpublished changes.,Error: Cannot save place to Roblox while there are packages with unpublished changes.,오류: 변경 사항이 게시되지 않은 패키지가 있어 플레이스를 Roblox에 저장할 수 없습니다.,"Ошибка: место не может быть сохранено в Roblox, пока есть пакеты с неопубликованными изменениями.",错误：套装有未发布的更改，无法将场景保存至 Roblox。
 Studio.App.PackageUtilities.SelectInExplorer,,,Select in Explorer,Select in Explorer,탐색기에서 선택,Выберите в проводнике,在管理器中选择
-Studio.App.PlaceResourceController.AddingPlace,,,Adding Place...,Adding Place...,장소 추가 중...,Добавление места...,正在添加场景...
-Studio.App.PlaceResourceController.CantRemoveStartPlace,,,You cannot remove the start place from a game.,You cannot remove the start place from a game.,게임의 시작 장소는 제거할 수 없어요.,Вы не можете удалить стартовое место из игры.,无法从游戏中移除开始场景。
-Studio.App.PlaceResourceController.ErrorWhileAddingPlace,,,Error while adding place. See Output window for details.,Error while adding place. See Output window for details.,장소 추가 중 오류 발생. 자세한 내용은 출력 창에서 확인하세요.,Ошибка при добавлении места. Более подробно см. в окне вывода.,添加场景时发生错误。
-Studio.App.PlaceResourceController.ThisFunctionalityHasBeenDisabled,,,This functionality has been disabled. You can update your start place by doing File > Publish to Roblox As... and selecting the start place.,This functionality has been disabled. You can update your start place by doing File > Publish to Roblox As... and selecting the start place.,"이 기능은 비활성화되어 있습니다. 시작 장소를 업데이트하려면, '파일 > 다음으로 Roblox에 게시...'로 가서 시작 장소를 선택하세요.","Эта функция была отключена. Чтобы обновить стартовое место, перейдите в Файл > Опубликовать в Roblox как... и выберите стартовое место.",此功能已被禁用。要更新开始场景，你可以前往文件> 发布至 Roblox 为...，然后选择开始场景。
+Studio.App.PlaceResourceController.AddingPlace,,,Adding Place...,Adding Place...,플레이스 추가 중...,Добавление места...,正在添加场景...
+Studio.App.PlaceResourceController.CantRemoveStartPlace,,,You cannot remove the start place from a game.,You cannot remove the start place from a game.,시작 플레이스는 게임에서 삭제할 수 없습니다.,Вы не можете удалить стартовое место из игры.,无法从游戏中移除开始场景。
+Studio.App.PlaceResourceController.ErrorWhileAddingPlace,,,Error while adding place. See Output window for details.,Error while adding place. See Output window for details.,플레이스 추가 중 오류 발생. 자세한 내용은 출력 창에서 확인하세요.,Ошибка при добавлении места. Более подробно см. в окне вывода.,添加场景时发生错误。
+Studio.App.PlaceResourceController.ThisFunctionalityHasBeenDisabled,,,This functionality has been disabled. You can update your start place by doing File > Publish to Roblox As... and selecting the start place.,This functionality has been disabled. You can update your start place by doing File > Publish to Roblox As... and selecting the start place.,"이 기능은 비활성화되어 있습니다. 시작 플레이스를 업데이트하려면, '파일 > 다음으로 Roblox에 게시...'로 가서 시작 플레이스를 선택하세요.","Эта функция была отключена. Чтобы обновить стартовое место, перейдите в Файл > Опубликовать в Roblox как... и выберите стартовое место.",此功能已被禁用。要更新开始场景，你可以前往文件> 发布至 Roblox 为...，然后选择开始场景。
 Studio.App.PlayModifiedScriptController.AlwaysSave,,,Always Save,Always Save,항상 저장,Всегда сохранять,永远保存
 Studio.App.PlayModifiedScriptController.KeepTheseChanges,,,You've made script changes while playing.  Would you like to keep these changes?,You've made script changes while playing.  Would you like to keep these changes?,플레이 중 스크립트를 변경하셨습니다. 이 변경 사항을 유지할까요?,Вы внесли изменения в скрипт во время игры. Оставить эти изменения?,在游戏时你已更改脚本。想要保存这些更改吗？
 Studio.App.PluginLoader.RefreshingPluginElps,,,Refreshing plugin...,Refreshing plugin...,플러그인 새로고침 중...,Обновляется плагин...,正在刷新插件...
@@ -1766,7 +1766,7 @@ Studio.App.RobloxStudioVerbs.PackageLinkCut,,,Cannot cut selection(s) with Packa
 Studio.App.RobloxStudioVerbs.PackageLinkDuplicate,,,Cannot duplicate selection(s) with PackageLink included!,Cannot duplicate selection(s) with PackageLink included!,PackageLink가 포함된 선택 항목은 복제할 수 없습니다!,Невозможно дублировать выбор(ы) вместе с PackageLink!,无法重复包含 PackageLink 的选项！
 Studio.App.RobloxStudioVerbs.Redo1,,,Redo %s,Redo %s,%s 다시 실행,Вернуть %s,重做 %s
 Studio.App.RobloxStudioVerbs.Undo1,,,Undo %s,Undo %s,%s 실행 취소,Отменить %s,复原 %s
-Studio.App.RobloxTeamCreateWidget.TeamCreateDisabled,,,Team Create in this game is disabled. Please enable Team Create to add editors to your place.,Team Create in this game is disabled. Please enable Team Create to add editors to your place.,이 게임에서는 팀 만들기가 비활성화되어 있습니다. 장소에 편집기를 추가하려면 팀 만들기를 활성화하세요.,"В этой игре отключена совместная разработка. Для добавления редакторов вашего места, пожалуйста, включите режим совместной разработки.",此游戏当前已停用组队创作。若要在你的空间添加编辑者，请启用组队创作。
+Studio.App.RobloxTeamCreateWidget.TeamCreateDisabled,,,Team Create in this game is disabled. Please enable Team Create to add editors to your place.,Team Create in this game is disabled. Please enable Team Create to add editors to your place.,이 게임에서는 팀 만들기가 비활성화되어 있습니다. 플레이스에 편집자를 추가하려면 팀 만들기를 활성화하세요.,"В этой игре отключена совместная разработка. Для добавления редакторов вашего места, пожалуйста, включите режим совместной разработки.",此游戏当前已停用组队创作。若要在你的空间添加编辑者，请启用组队创作。
 Studio.App.RobloxTextOutputWidget.OpenLink,,,Open link,Open link,링크 열기,Открыть ссылку,打开链接
 Studio.App.RobloxTutorials.CopyText,,,Build amazing games with Roblox Studio. No experience necessary!,Build amazing games with Roblox Studio. No experience necessary!,Roblox Studio에서 멋진 게임을 만드세요. 초보도 가능하답니다!,Создавайте удивительные игры с помощью Roblox Studio. Опыт не требуется!,用 Roblox Studio 创作精彩游戏，没有经验也可以加入！
 Studio.App.RobloxTutorials.LearnNow,,,Learn now,Learn now,지금 배우기,Узнать сейчас,现在学习
@@ -1787,9 +1787,9 @@ Studio.App.ShareModalController.CheckOutMyGame,,,Check out my game!,Check out my
 Studio.App.ShareModalController.CheckOutThisGame,,,Check out this game!,Check out this game!,이 게임을 한번 해 보세요!,Оцените эту игру!,来看看这个游戏吧！
 Studio.App.SplineEditor.Envelope,,,Envelope,Envelope,봉투,Конверт,信封
 Studio.App.SplineEditor.Time,,,Time,Time,시간,Время,时间
-Studio.App.StudioDataModelLoadUtil.ErrorCannotOpenTCPlaceDueToCancellation,,,Failed to open the team create place due to cancellation,Failed to open the team create place due to cancellation,취소되었기 때문에 팀 만들기 장소를 열지 못했어요,Не удалось открыть место совместной разработки из-за отмены,操作取消，无法打开组队创作场景
-Studio.App.StudioDataModelLoadUtil.ErrorCannotOpenTCPlaceDueToTimeout,,,Failed to open the team create place due to timeout,Failed to open the team create place due to timeout,시간이 초과되었기 때문에 팀 만들기 장소를 열지 못했어요,Не удалось открыть место совместной разработки: превышено время ожидания,操作超时，无法打开组队创作场景
-Studio.App.StudioDataModelLoadUtil.ErrorCannotOpenTCPlaceGeneral,,,"Failed to open the team create place, please try again","Failed to open the team create place, please try again",팀 만들기 장소를 열지 못했어요. 다시 시도하세요,"Не удалось открыть место совместной разработки , попробуйте еще раз",无法打开组队创作场景，请重试
+Studio.App.StudioDataModelLoadUtil.ErrorCannotOpenTCPlaceDueToCancellation,,,Failed to open the team create place due to cancellation,Failed to open the team create place due to cancellation,작업이 취소되어 팀 만들기 플레이스를 열지 못했습니다,Не удалось открыть место совместной разработки из-за отмены,操作取消，无法打开组队创作场景
+Studio.App.StudioDataModelLoadUtil.ErrorCannotOpenTCPlaceDueToTimeout,,,Failed to open the team create place due to timeout,Failed to open the team create place due to timeout,시간이 초과되어 팀 만들기 플레이스를 열지 못했습니다,Не удалось открыть место совместной разработки: превышено время ожидания,操作超时，无法打开组队创作场景
+Studio.App.StudioDataModelLoadUtil.ErrorCannotOpenTCPlaceGeneral,,,"Failed to open the team create place, please try again","Failed to open the team create place, please try again",팀 만들기 플레이스를 열지 못했습니다. 다시 시도하세요,"Не удалось открыть место совместной разработки , попробуйте еще раз",无法打开组队创作场景，请重试
 Studio.App.StudioFlagEditor.CantExportOverrides,,,"Error: Could not export overrides.
 There was an error opening the json file for writing. Check Studio logs for more details.","Error: Could not export overrides.
 There was an error opening the json file for writing. Check Studio logs for more details.","오류: 내보내기할 수 없습니다.
@@ -1826,7 +1826,7 @@ Studio.App.StudioPluginHost.UnableToWritePluginMetadata,,,Unable to write plugin
 Studio.App.StudioSerializerHelper.ErrorSavingFile2,,,Error saving file '%1' - %2,Error saving file '%1' - %2,'%1' 파일 저장에 오류가 발생함 - %2,Ошибка при сохранении файла '%1' - %2,保存文件 “%1” - %2 时出错
 Studio.App.StudioUtilities.LogInRequired,,,Log in required,Log in required,로그인이 필요합니다,Требуется авторизация,需要登录
 Studio.App.StudioUtilities.YouMustLogInToPerformThisAction,,,You must log in to perform this action!,You must log in to perform this action!,이 작업을 수행하려면 반드시 로그인을 해야 합니다!,Для выполнения этого действия необходимо войти в систему!,你必须登录才能执行此动作！
-Studio.App.TeamCreateConnectionDialog.YouHaveLostConnectionToTheServer,,,You have lost connection to the server. Trying to reconnect...<br><br>Recent copy of the place has been saved. <a href='openautosave://file'>Click here</a> to open the saved place.,You have lost connection to the server. Trying to reconnect...<br><br>Recent copy of the place has been saved. <a href='openautosave://file'>Click here</a> to open the saved place.,서버와의 연결이 끊어져 다시 연결을 시도 중입니다...<br><br>장소의 최근 사본이 저장되었습니다.<a href='openautosave://file'>여기를 클릭</a>하면 저장된 장소를 열 수 있습니다.,Потеряно соединение с сервером. Попытка повторного подключения... <br><br>Сохранена недавняя копия этого места. <a href='openautosave://file'>Щелкните здесь</a> для открытия сохраненного места.,你已失去与服务器的连接。正在尝试重新连接...<br><br>已保存最近版本的场景。<a href='openautosave://file'>点按这里</a>打开已保存的场景。
+Studio.App.TeamCreateConnectionDialog.YouHaveLostConnectionToTheServer,,,You have lost connection to the server. Trying to reconnect...<br><br>Recent copy of the place has been saved. <a href='openautosave://file'>Click here</a> to open the saved place.,You have lost connection to the server. Trying to reconnect...<br><br>Recent copy of the place has been saved. <a href='openautosave://file'>Click here</a> to open the saved place.,서버와의 연결이 끊어져 다시 연결을 시도 중입니다...<br><br>플레이스의 최신 복사본이 저장되었습니다. 저장된 플레이스를 열려면 <a href='openautosave://file'>여기를 클릭</a>하세요.,Потеряно соединение с сервером. Попытка повторного подключения... <br><br>Сохранена недавняя копия этого места. <a href='openautosave://file'>Щелкните здесь</a> для открытия сохраненного места.,你已失去与服务器的连接。正在尝试重新连接...<br><br>已保存最近版本的场景。<a href='openautosave://file'>点按这里</a>打开已保存的场景。
 Studio.App.TeamCreate.ConfirmDisable,,,Are you sure you want to turn Team Create off?,Are you sure you want to turn Team Create off?,팀 만들기를 비활성화할까요?,Отключить совместную разработку?,确定要关闭组队创作？
 Studio.App.TeamCreate.ConfirmLossyDisable,,,"Turning off team create may result in loss of work.
 Are you sure ?","Turning off team create may result in loss of work.
@@ -1845,9 +1845,9 @@ Studio.App.TeamCreate.SaveOnDisableLog,,,Sent message to save game before Team C
 Studio.App.TeamCreate.UnpublishedChangesWarning,,,Other users are currently editing scripts. Turning off team create will lose these unpublished changes. Continue anyway?,Other users are currently editing scripts. Turning off team create will lose these unpublished changes. Continue anyway?,현재 다른 사용자들이 스크립트를 수정하고 있습니다. 팀 만들기를 비활성화하면 아직 게시하지 않은 변경 사항들이 유실됩니다. 진행할까요?,Другие пользователи в настоящее время редактируют скрипты. Отключение совместной разработки приведет к потере неопубликованных изменений. Продолжить?,其他用户正在编辑脚本。关闭组队创作会导致未发布的更改丢失。确定仍要继续？
 Studio.App.UIEditorWidget.ZoomInButton,,,+,+,+,+,+
 Studio.App.UIEditorWidget.ZoomOutButton,,,-,-,+,-,-
-Studio.App.UniverseController.CanAddToGame,,,This place does not belong to a game. You can add it to a game by going to a game's configuration page on the website.,This place does not belong to a game. You can add it to a game by going to a game's configuration page on the website.,이 장소는 게임에 속해 있지 않습니다. 사이트에 있는 게임 구성 페이지로가면 게임에 추가할 수 있습니다.,"Это место не является частью игры. Его можно добавить в игру, зайдя на страницу конфигурации игры на сайте.",此场景不在任何游戏中。你可以在网站内的游戏配置页面将它添加至游戏。
+Studio.App.UniverseController.CanAddToGame,,,This place does not belong to a game. You can add it to a game by going to a game's configuration page on the website.,This place does not belong to a game. You can add it to a game by going to a game's configuration page on the website.,이 플레이스는 어떤 게임에도 없습니다. 웹사이트의 게임 구성 페이지에서 게임에 추가할 수 있습니다.,"Это место не является частью игры. Его можно добавить в игру, зайдя на страницу конфигурации игры на сайте.",此场景不在任何游戏中。你可以在网站内的游戏配置页面将它添加至游戏。
 Studio.App.UniverseController.FailedToLoadGameSettings,,,"Failed to load game settings, some Studio features have been disabled.","Failed to load game settings, some Studio features have been disabled.",게임 설정을 불러오지 못했습니다. 일부 Studio 기능이 비활성화되었습니다.,"Не удалось загрузить настройки игры, некоторые функции Studio отключены.",无法加载游戏设置，部分 Studio 功能已被禁用。
-Studio.App.UniverseController.ThisPlaceDoesNotBelongToAGame,,,This place does not belong to a game.,This place does not belong to a game.,이 장소는 게임에 속해 있지 않습니다.,Это место не является частью игры.,此场景不在任何游戏中。
+Studio.App.UniverseController.ThisPlaceDoesNotBelongToAGame,,,This place does not belong to a game.,This place does not belong to a game.,이 플레이스는 어떤 게임에도 없습니다.,Это место не является частью игры.,此场景不在任何游戏中。
 Studio.App.UploadImageRequest.UploadingQuickly1,,,Uploading too quickly. Try again in %1 minute(s),Uploading too quickly. Try again in %1 minute(s),업로드 시도가 너무 잦습니다. %1분 후 다시 시도하세요.,Вы загружаете слишком быстро. Повторите попытку через %1 мин.,上传次数过于频繁，请 %1 分钟后重试
 Studio.App.UploadImageRequest.UploadingQuicklyHour1,,,Uploading too quickly. Try again in %1 hour(s),Uploading too quickly. Try again in %1 hour(s),업로드 시도가 너무 잦습니다. %1시간 후 다시 시도하세요.,Вы загружаете слишком быстро. Повторите попытку через %1 ч.,上传次数过于频繁，请 %1 小时后重试
 Studio.App.UploadImageRequest.UploadingTooQuickly,,,Uploading too quickly,Uploading too quickly,업로드 시도가 너무 잦습니다,Загрузка происходит слишком быстро,上传次数过于频繁
@@ -1869,8 +1869,8 @@ Studio.App.VersionControl.CloseScript,,,Close,Close,닫기,Закрыть,关闭
 Studio.App.VersionControl.CommitEditsToServer,,,Commit edits to server,Commit edits to server,서버에 수정 사항 커밋,Сохранить изменения на сервере,将编辑提交至服务器
 Studio.App.VersionControl.CompareWithServer,,,Compare with server,Compare with server,서버와 비교,Сравнить с сервером,与服务器比较
 Studio.App.VersionControl.DiscardSandboxEdits,,,Discard sandbox edits,Discard sandbox edits,샌드박스 편집 삭제,Отменить изменения в песочнице,舍弃沙盒编辑
-Studio.App.MyWatchTreeWidget.DeleteAll,,,Delete All,Delete All,모두 삭제,Удалить все,全部删除
-Studio.App.MyWatchTreeWidget.DeleteWatch,,,Delete Watch,Delete Watch,감시 삭제,Удалить контрольные значения,删除监视
+Studio.App.WatchTreeWidget.DeleteAll,,,Delete All,Delete All,모두 삭제,Удалить все,全部删除
+Studio.App.WatchTreeWidget.DeleteWatch,,,Delete Watch,Delete Watch,감시 삭제,Удалить контрольные значения,删除监视
 Studio.App.WhatsNewWindow.GetAllUpdates,,,Get All Updates,Get All Updates,업데이트 모두 받기,Получить все обновления,获取所有更新
 Studio.App.WhatsNewWindow.HttpFailure,,,Unable to retrieve Whats New Updates from the DevForums page,Unable to retrieve Whats New Updates from the DevForums page,DevForums 페이지에서 최신 업데이트를 가져올 수 없습니다,Невозможно получить информацию о новых обновлениях со страницы DevForums,无法从 Devforums 页面获取最近更新
 Studio.App.BetaFeatures.AnimationEditorDescription,,,Enables the new Beta version of the Animation Editor.,Enables the new Beta version of the Animation Editor.,에니메이터 편집기의 베타 버전을 활성화합니다.,Включает новую бета-версию редактора анимации.,启用动画编辑器的全新 Beta 测试版。
@@ -1896,9 +1896,9 @@ Studio.App.DraftsServiceHost.ConfirmScriptDeleteMine1,,,"Are you sure you want t
 
 You have uncommitted edits on this script","Are you sure you want to delete %1 from the place?
 
-You have uncommitted edits on this script","장소에서 %1을(를) 삭제할까요?
+You have uncommitted edits on this script","플레이스에서 %1을(를) 삭제할까요?
 
-귀하가 이 스크립트에 대한 편집을 커밋 취소했습니다.","Удалить объект %1 из этого места?
+이 스크립트에 커밋되지 않은 편집 내용이 있습니다.","Удалить объект %1 из этого места?
 
 У вас есть несохраненные правки в этом скрипте.","是否确定从该场景删除 %1?
 
@@ -1907,9 +1907,9 @@ Studio.App.DraftsServiceHost.ConfirmScriptDeleteMultiple1,,,"Are you sure you wa
 
 You and/or other people have uncommitted edits on %1 of these scripts","Are you sure you want to delete these %1 scripts from the place?
 
-You and/or other people have uncommitted edits on %1 of these scripts","장소에서 %1 스크립트를 삭제할까요?
+You and/or other people have uncommitted edits on %1 of these scripts","플레이스에서 %1 스크립트를 삭제할까요?
 
-귀하와 다른 사람들이 이 스크립트의 %1에 대한 편집을 커밋 취소했습니다.","Удалить скрипты (%1) из этого места?
+이 스크립트의 %1에 귀하 또는 다른 사람이 커밋하지 않은 편집 내용이 있습니다.","Удалить скрипты (%1) из этого места?
 
 У вас и/или у других пользователей есть несохраненные правки в этих скриптах (%1).","是否确定要从该场景删除这些 %1 脚本?
 
@@ -1918,9 +1918,9 @@ Studio.App.DraftsServiceHost.ConfirmScriptDeleteOthers1,,,"Are you sure you want
 
 Other people have uncommitted edits on this script","Are you sure you want to delete %1 from the place?
 
-Other people have uncommitted edits on this script","장소에서 %1을(를) 삭제할까요?
+Other people have uncommitted edits on this script","플레이스에서 %1을(를) 삭제할까요?
 
-다른 사람들이 이 스크립트에 대한 편집을 커밋 취소했습니다.","Удалить объект %1 из этого места?
+이 스크립트에 커밋되지 않은 다른 사람의 편집 내용이 있습니다","Удалить объект %1 из этого места?
 
 У других пользователей есть несохраненные правки в этом скрипте.","是否确定要从该场景删除 %1?
 
@@ -2010,7 +2010,7 @@ Studio.App.MainWindow.DbarFatalBugNotice1,,,Dell Backup and Recovery verion %1 i
 Studio.App.MainWindow.UnableToCreateAutoSaveFile1,,,"Could not create an auto-recovery file. Please ensure that you have sufficient permissions to the path ""%1"".","Could not create an auto-recovery file. Please ensure that you have sufficient permissions to the path ""%1"".","자동 복구 파일을 만들 수 없습니다. ""%1"" 경로에 대한 충분한 권한이 있는지 확인하세요.","Невозможно создать файл автовосстановления. Убедитесь, что у вас достаточно прав на путь ""%1"".",无法创建自动恢复文件。请确保你对路径 “%1” 具有足够的权限。
 Studio.App.MainWindow.UnableToLockFileForOpen1,,,"""%1"" is currently in use or is read-only. Would you like to open the file read-only?","""%1"" is currently in use or is read-only. Would you like to open the file read-only?","""%1""이(가) 현재 사용 중이거나 읽기 전용입니다. 이 파일을 읽기 전용으로 여시겠습니까?","Файл ""%1"" в данный момент используется, либо может быть открыт только для чтения. Хотите открыть файл только для чтения?",“%1” 当前正在使用或为只读。要以只读方式打开文件吗?
 Studio.App.MainWindow.UnableToOpenDeletedFile1,,,"Could not open the file ""%1"" because it no longer exists.","Could not open the file ""%1"" because it no longer exists.","""%1"" 파일이 더 이상 존재하지 않으므로 열 수 없습니다.","Не удалось открыть файл '%1', так как он больше не существует.",无法打开文件“%1”，因为该文件已不存在。
-Studio.App.MainWindow.UnableToOpenPlace2,,,"Could not open the place ""%1"" with exception: ""%2"".","Could not open the place ""%1"" with exception: ""%2"".","""%2"" 예외가 발생하여 ""%1"" 장소를 열 수 없습니다.","Не удалось открыть место ""%1"". Получено исключение: ""%2"".","无法打开场景 “%1”，出现例外: ""%2""。"
+Studio.App.MainWindow.UnableToOpenPlace2,,,"Could not open the place ""%1"" with exception: ""%2"".","Could not open the place ""%1"" with exception: ""%2"".","""%2"" 예외가 발생하여 ""%1"" 플레이스를 열 수 없습니다.","Не удалось открыть место ""%1"". Получено исключение: ""%2"".","无法打开场景 “%1”，出现例外: ""%2""。"
 Studio.App.MainWindow.UploadingPlaceQuitPublish,,,Unable to close Studio because we are currently publishing.,Unable to close Studio because we are currently publishing.,현재 게시하는 중이므로 Studio를 닫을 수 없습니다.,"Невозможно закрыть Studio, так как идет процесс публикации.",由于我们当前正在发布，因此无法关闭 Studio。
 Studio.App.MainWindow.UploadingPlaceQuitSave,,,Unable to close Studio because we are currently saving.,Unable to close Studio because we are currently saving.,현재 저장하는 중이므로 Studio를 닫을 수 없습니다.,"Невозможно закрыть Studio, так как идет процесс сохранения.",由于我们正在保存，因此无法关闭 Studio。
 Studio.App.Merge.ConflictInstruction,,,Which code do you want to keep for this conflict?,Which code do you want to keep for this conflict?,이 충돌과 관련하여 어떤 코드를 유지 하시겠습니까?,Какой код выбрать в данном конфликте?,要为该冲突保留哪些代码呢?
@@ -2031,13 +2031,13 @@ Studio.App.Merge.ProtipDiscovery,,,"Use the ""Other"" option to edit the resolut
 Studio.App.Merge.ReadyToSave,,,Ready to save,Ready to save,저장 준비 완료,Готов к сохранению,准备保存
 Studio.App.Merge.Save,,,Save,Save,저장,Сохранить,保存
 Studio.App.OSVersionWarning.MacOS109,,,Beginning in November 2019 we will be discontinuing support for MacOS 10.9. Please upgrade to MacOS 10.10+ to continue to use Roblox Studio.,Beginning in November 2019 we will be discontinuing support for MacOS 10.9. Please upgrade to MacOS 10.10+ to continue to use Roblox Studio.,2019년 11월부터 MacOS 10.9에 대한 지원이 중단됩니다. Roblox Studio를 계속 사용하려면 MacOS 10.10 이상으로 업그레이드하세요.,"Начиная с ноября 2019 года мы прекращаем поддержку MacOS версии 10.9. Чтобы продолжить использование Roblox Studio, перейдите на MacOS версии 10.10 или выше.",从 2019 年 11 月开始，我们将停止对 MacOS 10.9 的支持。请升级到 MacOS 10.10+ 以继续使用 Roblox Studio。
-Studio.App.OpenIDEDocErr.CancelledByUser,,,User cancels place open.,User cancels place open.,사용자가 장소 열기를 취소합니다.,Пользователь отменяет открытие места.,用户取消场景开放。
+Studio.App.OpenIDEDocErr.CancelledByUser,,,User cancels place open.,User cancels place open.,사용자가 플레이스 열기를 취소합니다.,Пользователь отменяет открытие места.,用户取消场景开放。
 Studio.App.OpenIDEDocErr.CloudEditConnectCancelledByUser,,,User cancelled cloud edit connection.,User cancelled cloud edit connection.,사용자가 클라우드 편집 연결을 취소했습니다.,Пользователь отменил соединение с облаком.,用户已取消云编辑连接。
-Studio.App.OpenIDEDocErr.HTTPCallFailed,,,"User unable to open the place. Please check that you are connected to the internet and try again. If you continue to encounter this error, please contact customer service.","User unable to open the place. Please check that you are connected to the internet and try again. If you continue to encounter this error, please contact customer service.",사용자가 장소를 열 수 없습니다. 인터넷에 연결되었는지 확인하고 다시 시도하세요. 이 오류가 계속 발생하면 고객 서비스팀에 문의하시기 바랍니다.,"Невозможно открыть место. Убедитесь, что вы подключены к Интернету, и повторите попытку. Если ошибка повторяется, пожалуйста, свяжитесь со службой поддержки.",用户无法打开该场景。请检查你是否已连接到互联网，然后重试。如果持续遇到此错误，请联系客户服务。
-Studio.App.OpenIDEDocErr.Others,,,"Unable to open the place. Please restart your application and try again. If you continue to encounter this error, please contact customer service.","Unable to open the place. Please restart your application and try again. If you continue to encounter this error, please contact customer service.",장소를 열 수 없습니다. 응용 프로그램을 재시작하고 다시 시도하세요. 이 오류가 계속 발생하면 고객 서비스팀에 문의하세요.,"Невозможно открыть место. Перезапустите приложение и попробуйте снова. Если ошибка сохраняется, пожалуйста, обратитесь в службу поддержки пользователей.",无法打开场景。请重新启动你的应用程序，然后重试。如果持续遇到此错误，请联系客户服务。
+Studio.App.OpenIDEDocErr.HTTPCallFailed,,,"User unable to open the place. Please check that you are connected to the internet and try again. If you continue to encounter this error, please contact customer service.","User unable to open the place. Please check that you are connected to the internet and try again. If you continue to encounter this error, please contact customer service.",사용자가 플레이스를 열 수 없습니다. 인터넷에 연결되었는지 확인하고 다시 시도하세요. 오류가 계속 발생하면 지원 센터에 문의하세요.,"Невозможно открыть место. Убедитесь, что вы подключены к Интернету, и повторите попытку. Если ошибка повторяется, пожалуйста, свяжитесь со службой поддержки.",用户无法打开该场景。请检查你是否已连接到互联网，然后重试。如果持续遇到此错误，请联系客户服务。
+Studio.App.OpenIDEDocErr.Others,,,"Unable to open the place. Please restart your application and try again. If you continue to encounter this error, please contact customer service.","Unable to open the place. Please restart your application and try again. If you continue to encounter this error, please contact customer service.",플레이스를 열 수 없습니다. 응용 프로그램을 재시작하고 다시 시도하세요. 오류가 계속 발생하면 지원 센터에 문의하세요.,"Невозможно открыть место. Перезапустите приложение и попробуйте снова. Если ошибка сохраняется, пожалуйста, обратитесь в службу поддержки пользователей.",无法打开场景。请重新启动你的应用程序，然后重试。如果持续遇到此错误，请联系客户服务。
 Studio.App.PackageResourceController.ManagePackage,,,Manage Package,Manage Package,패키지 관리,Управление пакетом,管理软件包
-Studio.App.PackageUtilities.ModifiedPackagesInDMError,,,Error: Cannot publish place to Roblox while there are packages with unpublished changes.,Error: Cannot publish place to Roblox while there are packages with unpublished changes.,오류: 변경 사항이 게시되지 않은 패키지가 있으면 장소를 Roblox에 게시할 수 없어요.,"Ошибка: место не может быть опубликовано в Roblox, пока есть пакеты с неопубликованными изменениями.",错误：由于某些包存在未发布的更改，无法将场景发布至 Roblox。
-Studio.App.PackageUtilities.PendingPackagesInDMError,,,Unable to publish this place as there may be modified packages. Please try again later.,Unable to publish this place as there may be modified packages. Please try again later.,수정된 패키지가 있을 수 있으므로 이 장소를 게시할 수 없습니다. 나중에 다시 시도하세요.,Невозможно опубликовать место: возможно наличие измененных пакетов. Повторите попытку позже.,由于可能已修改套装，因此无法发布此场景。请稍后再试。
+Studio.App.PackageUtilities.ModifiedPackagesInDMError,,,Error: Cannot publish place to Roblox while there are packages with unpublished changes.,Error: Cannot publish place to Roblox while there are packages with unpublished changes.,오류: 변경 사항이 게시되지 않은 패키지가 있어 플레이스를 Roblox에 게시할 수 없습니다.,"Ошибка: место не может быть опубликовано в Roblox, пока есть пакеты с неопубликованными изменениями.",错误：由于某些包存在未发布的更改，无法将场景发布至 Roblox。
+Studio.App.PackageUtilities.PendingPackagesInDMError,,,Unable to publish this place as there may be modified packages. Please try again later.,Unable to publish this place as there may be modified packages. Please try again later.,수정된 패키지가 있을 수 있으므로 이 플레이스를 게시할 수 없습니다. 나중에 다시 시도하세요.,Невозможно опубликовать место: возможно наличие измененных пакетов. Повторите попытку позже.,由于可能已修改套装，因此无法发布此场景。请稍后再试。
 Studio.App.PluginLoader.CloudLoadFailedFmt1,,,Failed to load installed plugins from cloud: %1,Failed to load installed plugins from cloud: %1,설치된 플러그인을 클라우드에서 불러오지 못했습니다. %1,Не удалось загрузить установленные плагины из облака: %1,无法从云加载已安装的插件: %1
 Studio.App.PluginLoader.CloudWriteFailedFmt1,,,Failed to write installed plugins to cloud: %1,Failed to write installed plugins to cloud: %1,설치된 플러그인을 클라우드에 쓰지 못했습니다. %1,Не удалось записать установленные плагины в облако: %1,无法将已安装的插件写入云: %1
 Studio.App.PluginLoader.DownloadFailedFmt1,,,Failed to download plugin: %1,Failed to download plugin: %1,플러그인을 다운로드하지 못했습니다. %1,Не удалось загрузить плагин: %1,无法下载插件: %1
@@ -2321,7 +2321,7 @@ Studio.App.RobloxTaskScheduler.HeaderLabelActivity,,,Activity,Activity,활동,А
 Studio.App.RobloxTaskScheduler.HeaderLabelName,,,Name,Name,이름,Имя,名称
 Studio.App.RobloxTaskScheduler.HeaderLabelRate,,,Rate,Rate,등급,Рейтинг,评级
 Studio.App.RobloxTaskScheduler.HeaderLabelTime,,,Time,Time,시간,Время,时间
-Studio.App.RobloxTeamCreateWidget.GroupOwnedPlace,,,Group owned place,Group owned place,그룹 소유 장소,Место - собственность группы,群组共有场景
+Studio.App.RobloxTeamCreateWidget.GroupOwnedPlace,,,Group owned place,Group owned place,그룹 소유 플레이스,Место - собственность группы,群组共有场景
 Studio.App.ScriptTextEditor.FilterText,,,  Type to filter functions. Tab or Enter to go to selected function,  Type to filter functions. Tab or Enter to go to selected function,  기능을 필터링하려면 입력하세요. 선택한 기능으로 이동하려면 탭하거나 Enter 키를 누르세요.,"  Начните печатать для поиска фильтра. Нажмите Tab или Enter, чтобы перейти к выбранной функции",  输入以过滤函数。按 Tab 或 Enter 键前往选择的函数。
 Studio.App.ScriptsInBatchDialog.ScriptSectionHeader,,,Script,Script,스크립트,Скрипт,脚本
 Studio.App.ScriptsInBatchDialog.Title,,,Scripts In Batch,Scripts In Batch,배치 스크립트,Скрипты в пакете,批量脚本
@@ -2339,8 +2339,8 @@ Studio.App.VersionHistoryDialog.EditAllButtonText,,,Open all scripts from batch,
 Studio.App.VersionHistoryDialog.EditThisButtonText,,,Open script,Open script,스크립트 열기,Редактировать этот скрипт,打开脚本
 Studio.App.VersionHistoryDialog.NoScriptHistoryWarning,,,This script does not have version history yet,This script does not have version history yet,이 스크립트에는 아직 버전 기록이 없습니다,Для скрипта нет сохраненной истории,此脚本尚未拥有任何版本历史记录
 Studio.App.VersionHistoryDialog.OpenDialog,,,View Script History,View Script History,스크립트 내역 보기,Просмотреть историю скрипта,查看脚本历史记录
-Studio.App.VersionHistoryDialog.PlaceVersionColumnTitle,,,Place Version,Place Version,장소 버전,Версия места,场景版本
-Studio.App.VersionHistoryDialog.PlaceVersionLabel1,,,Place V%1,Place V%1,장소 V%1,Место V%1,场景 V %1
+Studio.App.VersionHistoryDialog.PlaceVersionColumnTitle,,,Place Version,Place Version,플레이스 버전,Версия места,场景版本
+Studio.App.VersionHistoryDialog.PlaceVersionLabel1,,,Place V%1,Place V%1,플레이스 V%1,Место V%1,场景 V %1
 Studio.App.VersionHistoryDialog.ShowBatchContentsLink,,,Show,Show,표시,Показать,显示
 Studio.App.VersionHistoryDialog.Title1,,,%1 - Version History,%1 - Version History,%1 - 버전 내역,%1 - история версии,%1 - 版本历史记录
 Studio.App.VersionHistoryDialog.VersionColumnTitle,,,Version,Version,버전,Версия,版本
@@ -2814,65 +2814,6 @@ Studio.App.TeamCreate.SyncTerrainProgressTitle,,,<b>Terrain Sync Progress</b>,<b
 Studio.App.TeamCreate.SyncingGenericWarning,,,Quitting Roblox Studio will cause you to lose data that is currently syncing.,Quitting Roblox Studio will cause you to lose data that is currently syncing.,Roblox Studio를 종료하면 현재 동기화 중인 데이터가 손실됩니다.,,如果现在退出 Roblox Studio，将会失去目前正在进行同步的所有数据。
 Studio.App.TeamCreate.SyncingTerrainWarning,,,Quitting Roblox Studio will cause you to lose data that is currently syncing and might corrupt your Terrain.,Quitting Roblox Studio will cause you to lose data that is currently syncing and might corrupt your Terrain.,Roblox Studio를 종료하면 현재 동기화 중인 데이터가 손실되고 지형이 손상될 수 있습니다.,,如果现在退出 Roblox Studio，将会失去目前正在进行同步的所有数据，且可能对 Terrain（地形）数据造成损坏。
 Studio.App.UniverseController.FailedToLoadGameAssets,,,"Failed to load game assets, some Studio features have been disabled.","Failed to load game assets, some Studio features have been disabled.",게임 애셋을 불러오지 못했습니다. 일부 Studio 기능이 비활성화되었습니다.,,游戏资源加载失败。部分 Studio 功能已被禁用。
-Studio.App.RobloxOutputRibbonDropdown.ShowContext,,,Show Context,Show Context,,,
-Studio.App.RobloxOutputRibbonDropdown.ShowSource,,,Show Source,Show Source,,,
-Studio.Common.Action.Apply,,,Apply,Apply,적용,Применить,应用
-Studio.Common.Action.Back,,,Back,Back,뒤로,Назад,返回
-Studio.Common.Action.Cancel,,,Cancel,Cancel,취소,Отмена,取消
-Studio.Common.Action.Clear,,,Clear,Clear,지우기,Очистить,清除
-Studio.Common.Action.Close,,,Close,Close,닫기,Закрыть,关闭
-Studio.Common.Action.Copy,,,Copy,Copy,복사,Копировать,复制
-Studio.Common.Action.Create,,,Create,Create,만들기,Создать,创建
-Studio.Common.Action.Cut,,,Cut,Cut,잘라내기,Вырезать,剪切
-Studio.Common.Action.Delete,,,Delete,Delete,삭제,Удалить,删除
-Studio.Common.Action.Edit,,,Edit,Edit,편집,Изменить,编辑
-Studio.Common.Action.Exit,,,Exit,Exit,나가기,Выход,退出
-Studio.Common.Action.File,,,File,File,파일,Файл,文件
-Studio.Common.Action.Find,,,Find,Find,찾기,Найти,查找
-Studio.Common.Action.Help,,,Help,Help,도움말,Справка,帮助
-Studio.Common.Action.Home,,,Home,Home,홈,Главная,首页
-Studio.Common.Action.Ignore,,,Ignore,Ignore,무시,Пропустить,忽略
-Studio.Common.Action.Insert,,,Insert,Insert,삽입,Вставить,插入
-Studio.Common.Action.New,,,New,New,새로 만들기,Создать,新增
-Studio.Common.Action.Next,,,Next,Next,다음,Далее,下一个
-Studio.Common.Action.No,,,No,No,아니요,Нет,否
-Studio.Common.Action.OK,,,OK,OK,확인,ОК,确认
-Studio.Common.Action.Okay,,,Okay,Okay,확인,ОК,好的
-Studio.Common.Action.Open,,,Open,Open,열기,Открыть,打开
-Studio.Common.Action.Paste,,,Paste,Paste,붙여넣기,Вставить,粘贴
-Studio.Common.Action.Pause,,,Pause,Pause,일시 중지,Пауза,暂停
-Studio.Common.Action.Play,,,Play,Play,플레이,Воспроизвести,播放
-Studio.Common.Action.Previous,,,Previous,Previous,이전,Предыдущий,上一个
-Studio.Common.Action.Reload,,,Reload,Reload,다시 불러오기,Перезагрузить,重新加载
-Studio.Common.Action.Remove,,,Remove,Remove,제거,Удалить,删除
-Studio.Common.Action.Rename,,,Rename,Rename,이름 변경,Переименовать,重命名
-Studio.Common.Action.Replace,,,Replace,Replace,바꾸기,Заменить,替换
-Studio.Common.Action.Resize,,,Resize,Resize,크기 조정,Изменить размер,缩放
-Studio.Common.Action.Retry,,,Retry,Retry,다시 시도,Повтор,重试
-Studio.Common.Action.Save,,,Save,Save,저장,Сохранить,保存
-Studio.Common.Action.Select,,,Select,Select,선택,Выбрать,选择
-Studio.Common.Action.Share,,,Share,Share,공유,Поделиться,分享
-Studio.Common.Action.Stop,,,Stop,Stop,중지,Остановить,停止
-Studio.Common.Action.Yes,,,Yes,Yes,예,Да,是
-Studio.Common.Action.Continue,,,Continue,Continue,계속,Продолжить,继续
-Studio.Common.Action.Redo,,,Redo,Redo,다시 실행,Вернуть,恢复
-Studio.Common.Action.Undo,,,Undo,Undo,실행 취소,Отменить,撤消
-Studio.Common.Action.Update,,,Update,Update,업데이트,Обновить,更新
-Studio.Common.Action.Reset,,,Reset,Reset,재설정,Сброс,重置
-Studio.Common.Action.Fill,,,Fill,Fill,채우기,Заполнить,填充
-Studio.Common.Action.Goto,,,Goto,Goto,이동,Перейти,前往
-Studio.Common.Action.Move,,,Move,Move,이동,Переместить,移动
-Studio.Common.Action.Rotate,,,Rotate,Rotate,회전,Вращать,旋转
-Studio.Common.Action.Error,,,Error,Error,오류,Ошибка,错误
-Studio.Common.Action.Height,,,Height,Height,높이,Высота,高度
-Studio.Common.Action.LabelWithColon1,,,%1:,%1:,%1:,%1:,%1
-Studio.Common.Action.Name,,,Name,Name,이름,Имя,名称
-Studio.Common.Action.Search,,,Search,Search,검색,Поиск,搜索
-Studio.Common.Action.Value,,,Value,Value,값,Значение,值
-Studio.Common.Action.Warning,,,Warning,Warning,경고,Предупреждение,警告
-Studio.Common.Action.Width,,,Width,Width,넓이,Ширина,宽度
-Studio.Common.Action.Submit,,,Submit,Submit,제출,Завершить,提交
-Studio.Common.Action.Install,,,Install,Install,설치,Установить,安装
-Studio.Common.Action.Installed,,,Installed,Installed,설치됨,Установлено,已安装
-Studio.Common.Action.Loading,,,Loading...,Loading...,불러오는 중...,Загрузка...,正在加载...
-Studio.Common.Action.Resume,,,Resume,Resume,재개,,继续
+Studio.App.RobloxOutputRibbonDropdown.ShowContext,,,Show Context,Show Context,콘텍스트 표시,,显示语境
+Studio.App.RobloxOutputRibbonDropdown.ShowSource,,,Show Source,Show Source,소스 표시,,显示来源
+Studio.App.FBXMeshImporter.UnexpectedFileType,,,Your file does not seem to contain a FBX mesh! Make sure the file extension is correct.,Your file does not seem to contain a FBX mesh! Make sure the file extension is correct.,파일에 FBX 메시가 포함되어 있지 않은 것 같습니다. 파일 확장자가 올바른지 확인하세요.,,文件似乎并不包含 FBX 网格！请确认文件扩展名无误。
