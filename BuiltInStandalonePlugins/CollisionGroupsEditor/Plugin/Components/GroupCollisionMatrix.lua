@@ -39,7 +39,6 @@ function GroupCollisionMatrix:render()
 		Size = UDim2.new(1, -GroupRow.CalculateWidth() + scrollBarThickness, 1, scrollBarThickness),
 		CanvasSize = UDim2.new(0, HeaderRow.CalculateRowWidth(groupCount) - 1, 0, GroupLabelColumn.CalculateColumnHeight(groupCount) - 1),
 		LayoutOrder = 2,
-		BorderSizePixel = 1,
 		ScrollBarThickness = scrollBarThickness,
 		BorderSizePixel = 0,
 		BackgroundColor3 = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.MainBackground),

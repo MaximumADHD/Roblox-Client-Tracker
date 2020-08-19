@@ -13,7 +13,6 @@ local SelectionWrapper = require(DraggerFramework.Utility.SelectionWrapper)
 local MockAnalytics = require(DraggerFramework.Utility.MockAnalytics)
 
 local getEngineFeatureActiveInstanceHighlight = require(DraggerFramework.Flags.getEngineFeatureActiveInstanceHighlight)
-local getFFlagSupportNoRotate = require(DraggerFramework.Flags.getFFlagSupportNoRotate)
 
 local DraggerContext = {}
 DraggerContext.__index = DraggerContext
@@ -271,7 +270,6 @@ function DraggerContext:shouldShowActiveInstanceHighlight()
 end
 
 function DraggerContext:shouldAlignDraggedObjects()
-	assert(getFFlagSupportNoRotate())
 	return true
 end
 

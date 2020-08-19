@@ -24,8 +24,6 @@
 		description: "TooLong"
 		devices: "NoDevices"
 ]]
-local FFlagAddMissingConsoleAgreementTextInGameSettings = game:DefineFastFlag("AddMissingConsoleAgreementTextInGameSettings", false)
-
 local StudioService = game:GetService("StudioService")
 
 local LOCALIZATION_ID = "BasicInfo"
@@ -582,7 +580,7 @@ function BasicInfo:render()
 								localization:getText("General", "ContentDialogItem2"),
 								localization:getText("General", "ContentDialogItem3"),
 								localization:getText("General", "ContentDialogItem4"),
-								FFlagAddMissingConsoleAgreementTextInGameSettings and localization:getText("General", "ContentDialogItem5") or nil,
+								localization:getText("General", "ContentDialogItem5"),
 							},
 							Buttons = {
 								localization:getText("General", "ReplyDisagree"),

@@ -18,11 +18,17 @@ local FFlagToolboxUseInfinteScroller = game:DefineFastFlag("ToolboxUseInfiniteSc
 local FFlagEnableOverrideAssetCursorFix = game:GetFastFlag("EnableOverrideAssetCursorFix")
 local FFlagStudioUseNewAnimationImportExportFlow = settings():GetFFlag("StudioUseNewAnimationImportExportFlow")
 
+-- FFlagAssetConfigOverrideAssetTooltip depends on FFlagToolboxTabTooltips for the Roact upgrade
+local FFlagToolboxTabTooltips = game:GetFastFlag("ToolboxTabTooltips")
+local FFlagAssetConfigOverrideAssetTooltip = game:DefineFastFlag("AssetConfigOverrideAssetTooltip", false)
+
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Libs = Plugin.Libs
 local Roact = require(Libs.Roact)
 local RoactRodux = require(Libs.RoactRodux)
+local Framework = require(Libs.Framework)
+local Tooltip = Framework.UI.Tooltip
 
 local Requests = Plugin.Core.Networking.Requests
 local MakeChangeRequest = require(Requests.MakeChangeRequest)
@@ -199,7 +205,12 @@ function OverrideAssetView:createAssets(resultsArray, theme)
 
 					Image = Images.SELECTED_CHECK,
 					ImageColor3 = Colors.BLUE_PRIMARY
-				})
+				}),
+
+				-- The tooltip needs to be attached to the icon and text separately to layout correctly
+				Tooltip = FFlagToolboxTabTooltips and FFlagAssetConfigOverrideAssetTooltip and Roact.createElement(Tooltip, {
+					Text = asset.Asset.Name,
+				}) or nil,
 			}),
 
 			Title = Roact.createElement("TextLabel", {
@@ -215,7 +226,12 @@ function OverrideAssetView:createAssets(resultsArray, theme)
 				BackgroundTransparency = 1,
 
 				LayoutOrder = 2,
-			})
+			}, {
+				-- The tooltip needs to be attached to the icon and text separately to layout correctly
+				Tooltip = FFlagToolboxTabTooltips and FFlagAssetConfigOverrideAssetTooltip and Roact.createElement(Tooltip, {
+					Text = asset.Asset.Name,
+				}) or nil,
+			}),
 		})
 	end
 

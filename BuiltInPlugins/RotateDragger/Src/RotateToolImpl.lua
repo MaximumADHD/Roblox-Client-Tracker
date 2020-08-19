@@ -22,7 +22,6 @@ local roundRotation = require(DraggerFramework.Utility.roundRotation)
 local RotateHandleView = require(Plugin.Src.RotateHandleView)
 
 local getFFlagRoundRotation = require(DraggerFramework.Flags.getFFlagRoundRotation)
-local getFFlagRotationTicks = require(DraggerFramework.Flags.getFFlagRotationTicks)
 local getFFlagFixIKRotateCFrameError = require(DraggerFramework.Flags.getFFlagFixIKRotateCFrameError)
 local getFFlagScaleDraggerPartBias = require(DraggerFramework.Flags.getFFlagScaleDraggerPartBias)
 
@@ -109,17 +108,14 @@ local function rotationAngleFromRay(cframe, unitRay)
 		local direction = (mouseWorld - cframe.Position).Unit
 		local rx = cframe.LookVector:Dot(direction)
 		local ry = cframe.UpVector:Dot(direction)
-		if getFFlagRotationTicks() then
-			-- Remap into [0, 2pi] for better snapping behavior with not
-			-- evenly divisible snapping angles.
-			local theta = math.atan2(ry, rx)
-			if theta < 0 then
-				return 2 * math.pi + theta
-			else
-				return theta
-			end
+
+		-- Remap into [0, 2pi] for better snapping behavior with not
+		-- evenly divisible snapping angles.
+		local theta = math.atan2(ry, rx)
+		if theta < 0 then
+			return 2 * math.pi + theta
 		else
-			return math.atan2(ry, rx)
+			return theta
 		end
 	end
 	return nil
@@ -128,21 +124,17 @@ end
 local function snapToRotateIncrementIfNeeded(angle, rotateIncrement)
 	if rotateIncrement > 0 then
 		local angleIncrement = math.rad(rotateIncrement)
-		if getFFlagRotationTicks() then
-			local snappedAngle = math.floor(angle / angleIncrement + 0.5) * angleIncrement
-			local deltaFromCompleteRotation = math.abs(angle - math.pi * 2)
-			local deltaFromSnapPoint = math.abs(angle - snappedAngle)
-			if deltaFromCompleteRotation < deltaFromSnapPoint then
-				-- For rotate increments which don't evenly divide the
-				-- circle, there won't be a snap point at 360 degrees, so
-				-- this if statement manually adds a special case for that
-				-- additional snap point.
-				return 0
-			else
-				return snappedAngle
-			end
+		local snappedAngle = math.floor(angle / angleIncrement + 0.5) * angleIncrement
+		local deltaFromCompleteRotation = math.abs(angle - math.pi * 2)
+		local deltaFromSnapPoint = math.abs(angle - snappedAngle)
+		if deltaFromCompleteRotation < deltaFromSnapPoint then
+			-- For rotate increments which don't evenly divide the
+			-- circle, there won't be a snap point at 360 degrees, so
+			-- this if statement manually adds a special case for that
+			-- additional snap point.
+			return 0
 		else
-			return math.floor(angle / angleIncrement) * angleIncrement
+			return snappedAngle
 		end
 	else
 		return angle
@@ -196,47 +188,26 @@ function RotateToolImpl:hitTest(mouseRay, ignoreExtraThreshold)
 end
 
 function RotateToolImpl:render(hoveredHandleId)
-	-- The scale tool's handles show on top when hovered, but that behavior
-	-- doesn't feel as good for the move / rotate tools, so disable it.
-	local forceHoveredHandlesOnTop = false
-	if Workspace:FindFirstChild("RotateHandleHoveredOnTop") then
-		forceHoveredHandlesOnTop = Workspace.MoveHandleHoveredOnTop.Value
-	end
-
 	local children = {}
 
+	local increment = self._draggerContext:getRotateIncrement()
 	local tickAngle
-	if getFFlagRotationTicks() then
-		local increment = self._draggerContext:getRotateIncrement()
-		if increment >= MIN_ROTATE_INCREMENT then
-			tickAngle = math.rad(increment)
-		end
+	if increment >= MIN_ROTATE_INCREMENT then
+		tickAngle = math.rad(increment)
 	end
 
 	if self._draggingHandleId and self._handles[self._draggingHandleId] then
 		local handleProps = self._handles[self._draggingHandleId]
-		if getFFlagRotationTicks() then
-			children[self._draggingHandleId] = Roact.createElement(RotateHandleView, {
-				HandleCFrame = handleProps.HandleCFrame,
-				Color = handleProps.Color,
-				StartAngle = self._startAngle - self._draggingLastGoodDelta,
-				EndAngle = self._startAngle,
-				Scale = self._scale,
-				Hovered = false,
-				RadiusOffset = handleProps.RadiusOffset,
-				TickAngle = tickAngle,
-			})
-		else
-			children[self._draggingHandleId] = Roact.createElement(RotateHandleView, {
-				HandleCFrame = handleProps.HandleCFrame,
-				Color = handleProps.Color,
-				StartAngle = self._startAngle - self._draggingLastGoodDelta,
-				EndAngle = self._startAngle,
-				Scale = self._scale,
-				Hovered = false,
-				RadiusOffset = handleProps.RadiusOffset,
-			})
-		end
+		children[self._draggingHandleId] = Roact.createElement(RotateHandleView, {
+			HandleCFrame = handleProps.HandleCFrame,
+			Color = handleProps.Color,
+			StartAngle = self._startAngle - self._draggingLastGoodDelta,
+			EndAngle = self._startAngle,
+			Scale = self._scale,
+			Hovered = false,
+			RadiusOffset = handleProps.RadiusOffset,
+			TickAngle = tickAngle,
+		})
 
 		-- Show the other handles, but thinner
 		for handleId, otherHandleProps in pairs(self._handles) do
@@ -258,37 +229,22 @@ function RotateToolImpl:render(hoveredHandleId)
 		end
 	else
 		for handleId, handleProps in pairs(self._handles) do
-			if getFFlagRotationTicks() then
-				local color = handleProps.Color
-				local hovered = (handleId == hoveredHandleId)
-				local tickAngleToUse
-				if hovered then
-					tickAngleToUse = tickAngle
-				else
-					color = Colors.makeDimmed(color)
-				end
-				children[handleId] = Roact.createElement(RotateHandleView, {
-					HandleCFrame = handleProps.HandleCFrame,
-					Color = color,
-					Scale = self._scale,
-					Hovered = hovered,
-					RadiusOffset = handleProps.RadiusOffset,
-					TickAngle = tickAngleToUse,
-				})
+			local color = handleProps.Color
+			local hovered = (handleId == hoveredHandleId)
+			local tickAngleToUse
+			if hovered then
+				tickAngleToUse = tickAngle
 			else
-				local color = handleProps.Color
-				local hovered = (handleId == hoveredHandleId)
-				if not hovered then
-					color = Colors.makeDimmed(color)
-				end
-				children[handleId] = Roact.createElement(RotateHandleView, {
-					HandleCFrame = handleProps.HandleCFrame,
-					Color = color,
-					Scale = self._scale,
-					Hovered = hovered,
-					RadiusOffset = handleProps.RadiusOffset,
-				})
+				color = Colors.makeDimmed(color)
 			end
+			children[handleId] = Roact.createElement(RotateHandleView, {
+				HandleCFrame = handleProps.HandleCFrame,
+				Color = color,
+				Scale = self._scale,
+				Hovered = hovered,
+				RadiusOffset = handleProps.RadiusOffset,
+				TickAngle = tickAngleToUse,
+			})
 		end
 	end
 

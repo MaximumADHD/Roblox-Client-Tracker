@@ -12,7 +12,7 @@ local PagedRequestCursor = require(Util.PagedRequestCursor)
 local Constants = require(Util.Constants)
 local CreatorInfoHelper = require(Util.CreatorInfoHelper)
 
-local FFlagStudioFixGroupCreatorInfo = game:GetFastFlag("StudioFixGroupCreatorInfo")
+local FFlagStudioFixGroupCreatorInfo3 = game:GetFastFlag("StudioFixGroupCreatorInfo3")
 local FFlagStudioToolboxFixNewEndpointFilters = game:GetFastFlag("StudioToolboxFixNewEndpointFilters")
 
 return function(networkInterface, category, audioSearchInfo, pageInfo, settings, nextPageCursor)
@@ -26,7 +26,7 @@ return function(networkInterface, category, audioSearchInfo, pageInfo, settings,
 		local assetStore = store:getState().assets
 		local currentCursor = assetStore.currentCursor
 
-		if FFlagStudioFixGroupCreatorInfo then
+		if FFlagStudioFixGroupCreatorInfo3 then
 			if creator and (not CreatorInfoHelper.isCached(store, creatorTargetId, creator.Type)) then
 				store:dispatch(GetCreatorName(networkInterface, creatorTargetId, creator.Type))
 			end

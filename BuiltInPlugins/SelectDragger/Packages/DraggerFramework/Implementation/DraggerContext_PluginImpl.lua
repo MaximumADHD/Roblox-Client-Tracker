@@ -12,7 +12,6 @@ local Analytics = require(DraggerFramework.Utility.Analytics)
 local setInsertPoint = require(DraggerFramework.Utility.setInsertPoint)
 
 local getEngineFeatureActiveInstanceHighlight = require(DraggerFramework.Flags.getEngineFeatureActiveInstanceHighlight)
-local getFFlagSupportNoRotate = require(DraggerFramework.Flags.getFFlagSupportNoRotate)
 
 local DraggerContext = {}
 DraggerContext.__index = DraggerContext
@@ -206,7 +205,6 @@ function DraggerContext:shouldShowActiveInstanceHighlight()
 end
 
 function DraggerContext:shouldAlignDraggedObjects()
-	assert(getFFlagSupportNoRotate())
 	return self._studioService.AlignDraggedObjects
 end
 

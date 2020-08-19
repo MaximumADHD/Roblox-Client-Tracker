@@ -6,6 +6,8 @@
 
 local Plugin = script.Parent.Parent.Parent
 
+local FFlagToolboxWaitForPluginOwnedStatus = game:GetFastFlag("ToolboxWaitForPluginOwnedStatus")
+
 local FFlagToolboxUseDevFrameworkPromise = game:GetFastFlag("ToolboxUseDevFrameworkPromise")
 local Promise
 if FFlagToolboxUseDevFrameworkPromise then
@@ -99,10 +101,12 @@ function NetworkingMock:getManageableGroups()
 	return Promise.resolve(fakeGroups)
 end
 
-function NetworkingMock:getOwnsAsset(assetId, myUserId)
-	return Promise.resolve({
-		responseBody = "true"
-	})
+if not FFlagToolboxWaitForPluginOwnedStatus then
+	function NetworkingMock:getOwnsAsset(assetId, myUserId)
+		return Promise.resolve({
+			responseBody = "true"
+		})
+	end
 end
 
 function NetworkingMock:getCanManageAsset(assetId, myUserId)

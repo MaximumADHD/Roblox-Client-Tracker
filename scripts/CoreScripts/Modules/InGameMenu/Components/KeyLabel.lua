@@ -153,7 +153,6 @@ local function KeyLabel(props)
 		local width, content, alignment = getLabelWidthAndContent(
 			props.input,
 			style,
-			props.borderThemeKey,
 			props.textThemeKey
 		)
 

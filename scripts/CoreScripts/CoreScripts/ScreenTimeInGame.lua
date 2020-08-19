@@ -156,7 +156,7 @@ local function onScreenSizeChanged()
 end
 
 RobloxGui:GetPropertyChangedSignal("AbsoluteSize"):connect(onScreenSizeChanged)
-onScreenSizeChanged(screenWidth)
+onScreenSizeChanged()
 
 
 

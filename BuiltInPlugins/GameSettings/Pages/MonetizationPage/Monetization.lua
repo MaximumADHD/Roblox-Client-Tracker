@@ -50,6 +50,7 @@ local DEV_PRODUCTS_MIN_PRICE = 1
 local FFlagSupportFreePrivateServers = game:GetFastFlag("SupportFreePrivateServers")
 local FFlagEnableDevProductsInGameSettings = game:GetFastFlag("EnableDevProductsInGameSettings")
 local FFlagFixVIPServerShutdownWarningText = game:GetFastFlag("FixVIPServerShutdownWarningText")
+local FFlagStudioFixGameManagementIndexNil = game:getFastFlag("StudioFixGameManagementIndexNil")
 
 local priceErrors = {
     BelowMin = "ErrorPriceBelowMin",
@@ -558,7 +559,12 @@ local function displayEditDevProductsPage(props)
     devProducts = Cryo.Dictionary.join(devProducts, editedDevProducts)
 
     local allDevProducts = Cryo.Dictionary.join(unsavedDevProducts, devProducts)
-    local currentDevProduct = allDevProducts[productId]
+    local currentDevProduct
+    if FFlagStudioFixGameManagementIndexNil then
+        currentDevProduct = allDevProducts[productId] or {}
+    else
+        currentDevProduct = allDevProducts[productId]
+    end
 
     if not initialName then initialName = currentDevProduct.name end
 

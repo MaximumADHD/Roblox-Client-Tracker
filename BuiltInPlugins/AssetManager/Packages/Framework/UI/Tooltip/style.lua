@@ -10,13 +10,15 @@ local DropShadow = require(UIFolderData.DropShadow.style)
 return function(theme, getColor)
 	local common = Common(theme, getColor)
 	local dropShadow = DropShadow(theme, getColor)
-	
+
 	local Default = Style.extend(common.MainText, {
 		Padding = 5,
 		MaxWidth = 200,
 		ShowDelay = 0.3,
 		Offset = Vector2.new(10, 5),
-		DropShadow = dropShadow.Default
+		DropShadow = Style.extend(dropShadow.Default, {
+			Radius = 3,
+		}),
 	})
 
 	return {

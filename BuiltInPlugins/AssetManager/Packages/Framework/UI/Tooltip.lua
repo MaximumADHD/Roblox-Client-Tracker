@@ -42,7 +42,7 @@ Tooltip.defaultProps = {
 	Priority = 0
 }
 
-function Tooltip:init(props)	
+function Tooltip:init(props)
 	self.state = {
 		showTooltip = false,
 	}
@@ -110,7 +110,6 @@ function Tooltip:render()
 	local padding = style.Padding
 	local dropShadowPadding = style.DropShadow and style.DropShadow.Radius or 0
 	local offset = style.Offset
-	local showDelay = style.ShowDelay
 	local maxWidth = style.MaxWidth
 
 	local text = props.Text
@@ -137,8 +136,6 @@ function Tooltip:render()
 
 		local textBound = TextService:GetTextSize(text,
 			style.TextSize, style.Font, Vector2.new(maxAvailableWidth, math.huge))
-
-		local shadowPadding = style.DropShadow and style.DropShadow.Padding or 0
 
 		-- GetTextSize calculates a float value and then rounds it down before returning
 		local tooltipTargetWidth = textBound.X + paddingSize + 1
@@ -173,9 +170,9 @@ function Tooltip:render()
 						Label = Roact.createElement(TextLabel, {
 							Size = UDim2.new(1, 0, 1, 0),
 							Text = text,
-							TextWrapped = true
+							TextWrapped = true,
 						})
-					}),	
+					}),
 				})
 			})
 		})

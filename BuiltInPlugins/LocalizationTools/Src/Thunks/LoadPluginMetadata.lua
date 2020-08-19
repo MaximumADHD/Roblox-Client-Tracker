@@ -9,6 +9,8 @@ local LoadAllLocales = require(Plugin.Src.Actions.LoadAllLocales)
 local LoadManageTranslationPermission = require(Plugin.Src.Actions.LoadManageTranslationPermission)
 local SetCloudTableId = require(Plugin.Src.Actions.SetCloudTableId)
 
+local FFlagLocalizationToolsFixHttpFailureBacktrace = game:GetFastFlag("LocalizationToolsFixHttpFailureBacktrace")
+
 local ACCEPTED_ROLES = {
 	owner = true,
 	translator = true,
@@ -17,16 +19,29 @@ local ACCEPTED_ROLES = {
 local function getAllLanguageCodes(api, localization)
 	return function(store)
 		local request = api.Locale.V1.locales()
-		local responseTable = request:makeRequest():await()
-		if responseTable and responseTable.responseCode == Http.StatusCodes.OK then
-			local allLanguageCodes = {}
-			for _, localeInfo in ipairs(responseTable.responseBody.data) do
-				allLanguageCodes[localeInfo.locale.language.languageCode] = true
-			end
-			store:dispatch(LoadAllLocales(allLanguageCodes))
+		if FFlagLocalizationToolsFixHttpFailureBacktrace then
+			request:makeRequest():andThen(
+				function(response)
+					local allLanguageCodes = {}
+					for _, localeInfo in ipairs(response.responseBody.data) do
+						allLanguageCodes[localeInfo.locale.language.languageCode] = true
+					end
+					store:dispatch(LoadAllLocales(allLanguageCodes))
+				end,
+				function()
+					warn(localization:getText("PluginMetadata", "GetAllLocalesFailed"))
+				end)
 		else
-			warn(localization:getText("PluginMetadata", "GetAllLocalesFailed"))
-			return
+			local responseTable = request:makeRequest():await()
+			if responseTable and responseTable.responseCode == Http.StatusCodes.OK then
+				local allLanguageCodes = {}
+				for _, localeInfo in ipairs(responseTable.responseBody.data) do
+					allLanguageCodes[localeInfo.locale.language.languageCode] = true
+				end
+				store:dispatch(LoadAllLocales(allLanguageCodes))
+			else
+				warn(localization:getText("PluginMetadata", "GetAllLocalesFailed"))
+			end
 		end
 	end
 end
@@ -34,16 +49,31 @@ end
 local function getManageTranslationPermission(api, localization)
 	return function(store)
 		local request = api.TranslationRoles.V1.GameLocalizationRoles.Games.CurrentUser.roles(game.GameId)
-		local responseTable = request:makeRequest():await()
-		if responseTable and responseTable.responseCode == Http.StatusCodes.OK then
-			for _, role in ipairs(responseTable.responseBody.data) do
-				if ACCEPTED_ROLES[role] then
-					store:dispatch(LoadManageTranslationPermission(true))
-					return
-				end
-			end
+		if FFlagLocalizationToolsFixHttpFailureBacktrace then
+			request:makeRequest():andThen(
+				function(response)
+					for _, role in ipairs(response.responseBody.data) do
+						if ACCEPTED_ROLES[role] then
+							store:dispatch(LoadManageTranslationPermission(true))
+							return
+						end
+					end
+				end,
+				function()
+					warn(localization:getText("PluginMetadata", "GetPermissionFailedMessage"))
+				end)
 		else
-			warn(localization:getText("PluginMetadata", "GetPermissionFailedMessage"))
+			local responseTable = request:makeRequest():await()
+			if responseTable and responseTable.responseCode == Http.StatusCodes.OK then
+				for _, role in ipairs(responseTable.responseBody.data) do
+					if ACCEPTED_ROLES[role] then
+						store:dispatch(LoadManageTranslationPermission(true))
+						return
+					end
+				end
+			else
+				warn(localization:getText("PluginMetadata", "GetPermissionFailedMessage"))
+			end
 		end
 		store:dispatch(LoadManageTranslationPermission(false))
 	end
@@ -52,11 +82,25 @@ end
 local function getOrCreateCloudTable(api, localization)
 	return function(store)
 		local request = api.GameInternationalization.V1.AutoLocalization.games(game.GameId)
-		local responseTable = request:makeRequest():await()
-		if responseTable and responseTable.responseCode == Http.StatusCodes.OK then
-			store:dispatch(SetCloudTableId(responseTable.responseBody.autoLocalizationTableId))
+		if FFlagLocalizationToolsFixHttpFailureBacktrace then
+			request:makeRequest():andThen(
+				function(response)
+					if response and response.responseCode == Http.StatusCodes.OK then
+						store:dispatch(SetCloudTableId(response.responseBody.autoLocalizationTableId))
+					else
+						warn(localization:getText("PluginMetadata", "GetOrCreateCloudTableFailedMessage"))
+					end
+				end,
+				function()
+					warn(localization:getText("PluginMetadata", "GetOrCreateCloudTableFailedMessage"))
+				end)
 		else
-			warn(localization:getText("PluginMetadata", "GetOrCreateCloudTableFailedMessage"))
+			local responseTable = request:makeRequest():await()
+			if responseTable and responseTable.responseCode == Http.StatusCodes.OK then
+				store:dispatch(SetCloudTableId(responseTable.responseBody.autoLocalizationTableId))
+			else
+				warn(localization:getText("PluginMetadata", "GetOrCreateCloudTableFailedMessage"))
+			end
 		end
 	end
 end

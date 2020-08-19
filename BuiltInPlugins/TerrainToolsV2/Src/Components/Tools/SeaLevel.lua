@@ -2,6 +2,8 @@
 	Displays panels associated with the SeaLevel tool
 ]]
 
+local FFlagTerrainToolsUseMapSettingsWithPreview = game:GetFastFlag("TerrainToolsUseMapSettingsWithPreview")
+
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Cryo = require(Plugin.Packages.Cryo)
@@ -21,6 +23,7 @@ local ChangeSize = require(Actions.ChangeSize)
 local ToolParts = script.Parent.ToolParts
 local ButtonGroup = require(ToolParts.ButtonGroup)
 local MapSettings = require(ToolParts.MapSettings)
+local MapSettingsWithPreview = require(ToolParts.MapSettingsWithPreview)
 local ProgressFrame = require(script.Parent.Parent.ProgressFrame)
 
 local TerrainEnums = require(Plugin.Src.Util.TerrainEnums)
@@ -37,11 +40,16 @@ local REDUCER_KEY = "SeaLevelTool"
 local SeaLevel = Roact.PureComponent:extend(script.Name)
 
 function SeaLevel:init()
-	local plugin = StudioPlugin.getPlugin(self)
-	local mouse = plugin:GetMouse()
+	if not FFlagTerrainToolsUseMapSettingsWithPreview then
+		local plugin = StudioPlugin.getPlugin(self)
+		local mouse = plugin:GetMouse()
 
-	self.preview = LargeVoxelRegionPreview.new(mouse, TerrainInterface.getTerrain(self))
-	self.pluginActivationController = TerrainInterface.getPluginActivationController(self)
+		self.preview = LargeVoxelRegionPreview.new(mouse, TerrainInterface.getTerrain(self))
+		self.pluginActivationController = TerrainInterface.getPluginActivationController(self)
+
+		assert(self.pluginActivationController, "SeaLevel requires a PluginActivationController from context")
+	end
+
 	self.seaLevel = TerrainInterface.getSeaLevel(self)
 
 	self.state = {
@@ -49,26 +57,23 @@ function SeaLevel:init()
 		progress = self.seaLevel:getProgress(),
 	}
 
-	assert(self.pluginActivationController, "SeaLevel requires a PluginActivationController from context")
 	assert(self.seaLevel, "SeaLevel requires Sealevel function from context")
 
-	self.toggleButton = function(containter)
-		self.props.dispatchSetMergeEmpty(not self.props.mergeEmpty)
-	end
-
-	self.onPositionChanged = function(_, axis, text, isValid)
-		if isValid then
-			self.props.dispatchChangePosition(Cryo.Dictionary.join(self.props.Position, {
-				[axis] = text,
-			}))
+	if not FFlagTerrainToolsUseMapSettingsWithPreview then
+		self.onPositionChanged = function(_, axis, text, isValid)
+			if isValid then
+				self.props.dispatchChangePosition(Cryo.Dictionary.join(self.props.Position, {
+					[axis] = text,
+				}))
+			end
 		end
-	end
 
-	self.onSizeChanged = function(_, axis, text, isValid)
-		if isValid then
-			self.props.dispatchChangeSize(Cryo.Dictionary.join(self.props.Size, {
-				[axis] = text,
-			}))
+		self.onSizeChanged = function(_, axis, text, isValid)
+			if isValid then
+				self.props.dispatchChangeSize(Cryo.Dictionary.join(self.props.Size, {
+					[axis] = text,
+				}))
+			end
 		end
 	end
 
@@ -84,42 +89,50 @@ function SeaLevel:init()
 		self.seaLevel:replaceMaterial(position, size, Enum.Material.Water, Enum.Material.Air)
 	end
 
-	self.updatePreview = function()
-		local position = Vector3.new(self.props.Position.X,self.props.Position.Y,self.props.Position.Z)
-		local size = Vector3.new(self.props.Size.X,self.props.Size.Y,self.props.Size.Z)
-		self.preview:setSizeAndPosition(size, position)
+	if not FFlagTerrainToolsUseMapSettingsWithPreview then
+		self.updatePreview = function()
+			local position = Vector3.new(self.props.Position.X,self.props.Position.Y,self.props.Position.Z)
+			local size = Vector3.new(self.props.Size.X,self.props.Size.Y,self.props.Size.Z)
+			self.preview:setSizeAndPosition(size, position)
+		end
 	end
 
 	self.cancel = function()
 		self.seaLevel:cancel()
 	end
 
-	-- When my tool becomes active, we want to run the terrain brush
-	self.onToolActivatedConnection = self.pluginActivationController:subscribeToToolActivated(function()
-		-- :getActiveTool() returns ToolId.None if no tool is selected, so this works in that case too
-		if self.pluginActivationController:getActiveTool() == ToolId.SeaLevel then
-			self:updatePreview()
-			self.preview:updateVisibility(true)
-		end
-	end)
+	if not FFlagTerrainToolsUseMapSettingsWithPreview then
+		-- When my tool becomes active, we want to run the terrain brush
+		self.onToolActivatedConnection = self.pluginActivationController:subscribeToToolActivated(function()
+			-- :getActiveTool() returns ToolId.None if no tool is selected, so this works in that case too
+			if self.pluginActivationController:getActiveTool() == ToolId.SeaLevel then
+				self:updatePreview()
+				self.preview:updateVisibility(true)
+			end
+		end)
 
-	self.onToolDeactivatedConnection = self.pluginActivationController:subscribeToToolDeactivated(function(toolId)
-		if toolId == ToolId.SeaLevel then
-			self.preview:updateVisibility(false)
-		end
-	end)
+		self.onToolDeactivatedConnection = self.pluginActivationController:subscribeToToolDeactivated(function(toolId)
+			if toolId == ToolId.SeaLevel then
+				self.preview:updateVisibility(false)
+			end
+		end)
+	end
 end
 
-function SeaLevel:didUpdate()
-	self:updatePreview()
+if not FFlagTerrainToolsUseMapSettingsWithPreview then
+	function SeaLevel:didUpdate()
+		self:updatePreview()
+	end
 end
 
 function SeaLevel:didMount()
-	self._onSizeChangeConnect = self.preview:getOnSizeChanged():Connect(function(size, position)
-		-- move values from preview to rodux
-		self.props.dispatchChangePosition({X = position.x, Y = position.y, Z = position.z})
-		self.props.dispatchChangeSize({X = size.x, Y = size.y, Z = size.z})
-	end)
+	if not FFlagTerrainToolsUseMapSettingsWithPreview then
+		self._onSizeChangeConnect = self.preview:getOnSizeChanged():Connect(function(size, position)
+			-- move values from preview to rodux
+			self.props.dispatchChangePosition({X = position.x, Y = position.y, Z = position.z})
+			self.props.dispatchChangeSize({X = size.x, Y = size.y, Z = size.z})
+		end)
+	end
 
 	self.onProgressChanged = self.seaLevel:subscribeToProgressChange(function(progress)
 		self:setState({
@@ -133,23 +146,27 @@ function SeaLevel:didMount()
 		})
 	end)
 
-	self:updatePreview()
+	if not FFlagTerrainToolsUseMapSettingsWithPreview then
+		self:updatePreview()
+	end
 end
 
 function SeaLevel:willUnmount()
-	if self._onSizeChangeConnect then
-		self._onSizeChangeConnect:Disconnect()
-		self._onSizeChangeConnect = nil
-	end
+	if not FFlagTerrainToolsUseMapSettingsWithPreview then
+		if self._onSizeChangeConnect then
+			self._onSizeChangeConnect:Disconnect()
+			self._onSizeChangeConnect = nil
+		end
 
-	if self.onToolActivatedConnection then
-		self.onToolActivatedConnection:Disconnect()
-		self.onToolActivatedConnection = nil
-	end
+		if self.onToolActivatedConnection then
+			self.onToolActivatedConnection:Disconnect()
+			self.onToolActivatedConnection = nil
+		end
 
-	if self.onToolDeactivatedConnection then
-		self.onToolDeactivatedConnection:Disconnect()
-		self.onToolDeactivatedConnection = nil
+		if self.onToolDeactivatedConnection then
+			self.onToolDeactivatedConnection:Disconnect()
+			self.onToolDeactivatedConnection = nil
+		end
 	end
 
 	if self.onProgressChanged then
@@ -162,8 +179,10 @@ function SeaLevel:willUnmount()
 		self.onStateChanged = nil
 	end
 
-	self.preview:destroy()
-	self.preview = nil
+	if not FFlagTerrainToolsUseMapSettingsWithPreview then
+		self.preview:destroy()
+		self.preview = nil
+	end
 end
 
 function SeaLevel:render()
@@ -176,7 +195,18 @@ function SeaLevel:render()
 		local isReplacing = self.state.isReplacing
 
 		return Roact.createFragment({
-			MapSettings = Roact.createElement(MapSettings, {
+			MapSettingsWithPreview = FFlagTerrainToolsUseMapSettingsWithPreview and Roact.createElement(MapSettingsWithPreview, {
+				toolName = self.props.toolName,
+				LayoutOrder = 1,
+
+				Position = position,
+				Size = size,
+
+				OnPositionChanged = self.props.dispatchChangePosition,
+				OnSizeChanged = self.props.dispatchChangeSize,
+			}),
+
+			MapSettings = not FFlagTerrainToolsUseMapSettingsWithPreview and Roact.createElement(MapSettings, {
 				LayoutOrder = 1,
 
 				Position = position,

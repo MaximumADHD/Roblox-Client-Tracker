@@ -12,6 +12,8 @@ local StopPreviewSound = require(Plugin.Core.Actions.StopPreviewSound)
 
 local Analytics = require(Plugin.Core.Util.Analytics.Analytics)
 
+local FFlagStudioFixGroupCreatorInfo3 = game:GetFastFlag("StudioFixGroupCreatorInfo3")
+
 local function searchUsers(networkInterface, searchTerm, store)
 	return networkInterface:getUsers(searchTerm, 1):andThen(function(result)
 		local data = result.responseBody
@@ -22,6 +24,7 @@ local function searchUsers(networkInterface, searchTerm, store)
 				return {
 					Name = info.Name,
 					Id = info.UserId,
+					Type = FFlagStudioFixGroupCreatorInfo3 and Enum.CreatorType.User.Value or nil,
 				}
 			end
 		end
@@ -29,6 +32,7 @@ local function searchUsers(networkInterface, searchTerm, store)
 		return {
 			Name = searchTerm,
 			Id = -1,
+			Type = FFlagStudioFixGroupCreatorInfo3 and Enum.CreatorType.User.Value or nil,
 		}
 	end)
 end

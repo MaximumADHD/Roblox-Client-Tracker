@@ -1,6 +1,14 @@
 --[[
 	Creates a map settings panel.
 
+Props
+	LayoutOrder
+	Position
+	Size
+	HeightMapValidation
+	OnPositionChanged
+	OnSizeChanged
+	SetMapSettingsValid
 ]]
 
 local Plugin = script.Parent.Parent.Parent.Parent.Parent

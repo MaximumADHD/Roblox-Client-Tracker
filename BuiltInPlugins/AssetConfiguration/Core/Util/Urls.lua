@@ -1,5 +1,7 @@
 local Plugin = script.Parent.Parent.Parent
 
+local FFlagToolboxWaitForPluginOwnedStatus = game:GetFastFlag("ToolboxWaitForPluginOwnedStatus")
+
 local Url = require(Plugin.Libs.Http.Url)
 
 local wrapStrictTable = require(Plugin.Core.Util.wrapStrictTable)
@@ -8,6 +10,7 @@ local FFlagUseRBXThumbInToolbox = game:GetFastFlag("UseRBXThumbInToolbox")
 local FFlagEnablePurchaseV2 = game:GetFastFlag("EnablePurchaseV2")
 local FFlagStudioToolboxFixNewEndpointFilters = game:GetFastFlag("StudioToolboxFixNewEndpointFilters")
 local FFlagDragFaceInstances = game:GetFastFlag("DragFaceInstances")
+local FFlagStudioFixGroupCreatorInfo3 = game:GetFastFlag("StudioFixGroupCreatorInfo3")
 
 local Urls = {}
 
@@ -69,7 +72,10 @@ local GET_GROUP_ROLE_INFO = Url.GROUP_URL .. "v1/groups/%s/roles"
 local GET_USER_FRIENDS_URL = Url.FRIENDS_URL .. "v1/users/%d/friends"
 local ROBUX_PURCHASE_URL = Url.BASE_URL .. "upgrades/robux"
 local ROBUX_BALANCE_URL = Url.ECONOMY_URL .. "v1/users/%d/currency"
+
+-- Remove when ToolboxWaitForPluginOwnedStatus is retired
 local OWNS_ASSET_URL = Url.API_URL .. "ownership/hasasset?assetId=%d&userId=%d"
+
 local CAN_MANAGE_ASSET_URL = Url.API_URL .. "users/%d/canmanage/%d"
 local ASSET_PURCHASE_URL = Url.ECONOMY_URL .. "v1/purchases/products/%d"
 local ASSET_PURCHASE_URLV2 = Url.ECONOMY_URL .. "/v2/user-products/%d/purchase"
@@ -171,9 +177,10 @@ function Urls.constructGetCreatorInfoUrl(creatorId, creatorType)
 	end
 end
 
--- TODO: Delete when FFlagStudioFixGroupCreatorInfo is retired
-function Urls.constructGetCreatorNameUrl(creatorId, creatorType)
-	return GET_USER:format(creatorId)
+if not FFlagStudioFixGroupCreatorInfo3 then
+	function Urls.constructGetCreatorNameUrl(creatorId, creatorType)
+		return GET_USER:format(creatorId)
+	end
 end
 
 function Urls.constructGetMetaDataUrl()
@@ -441,8 +448,10 @@ function Urls.constructPackageHighestPermissionUrl(assetIds)
 	return GET_PACKAGE_HIGHEST_PERMISSION_LIST:format(assetIdStringList)
 end
 
-function Urls.constructOwnsAssetUrl(assetId, userId)
-	return OWNS_ASSET_URL:format(assetId, userId)
+if not FFlagToolboxWaitForPluginOwnedStatus then
+	function Urls.constructOwnsAssetUrl(assetId, userId)
+		return OWNS_ASSET_URL:format(assetId, userId)
+	end
 end
 
 function Urls.constructCanManageAssetUrl(assetId, userId)

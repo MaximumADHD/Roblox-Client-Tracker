@@ -81,6 +81,7 @@ local nameErrors = {
 }
 
 local FFlagFixRadioButtonSeAndTableHeadertForTesting = game:getFastFlag("FixRadioButtonSeAndTableHeadertForTesting")
+local FFlagStudioFixGameManagementIndexNil = game:getFastFlag("StudioFixGameManagementIndexNil")
 
 local function loadSettings(store, contextItems)
 	local state = store:getState()
@@ -102,38 +103,64 @@ local function saveSettings(store, contextItems)
 	local state = store:getState()
 	local placesController = contextItems.placesController
 	local placeId = state.EditAsset.editPlaceId
+	local places = state.Settings.Changed.places or {}
 
 	return {
 		function()
-			local changed = state.Settings.Changed.places[placeId]
+			local changed
+			if FFlagStudioFixGameManagementIndexNil then
+				changed = places[placeId]
+			else
+				changed = state.Settings.Changed.places[placeId]
+			end
 
 			if changed ~= nil and changed.name then
 				placesController:setName(placeId, changed.name)
 			end
 		end,
 		function()
-			local changed = state.Settings.Changed.places[placeId]
+			local changed
+			if FFlagStudioFixGameManagementIndexNil then
+				changed = places[placeId]
+			else
+				changed = state.Settings.Changed.places[placeId]
+			end
 
 			if changed ~= nil and changed.maxPlayerCount then
 				placesController:setMaxPlayerCount(placeId, changed.maxPlayerCount)
 			end
 		end,
 		function()
-			local changed = state.Settings.Changed.places[placeId]
+			local changed
+			if FFlagStudioFixGameManagementIndexNil then
+				changed = places[placeId]
+			else
+				changed = state.Settings.Changed.places[placeId]
+			end
 
 			if changed ~= nil and changed.allowCopying then
 				placesController:setAllowCopying(placeId, changed.allowCopying)
 			end
 		end,
 		function()
-			local changed = state.Settings.Changed.places[placeId]
+			local changed
+			if FFlagStudioFixGameManagementIndexNil then
+				changed = places[placeId]
+			else
+				changed = state.Settings.Changed.places[placeId]
+			end
 
 			if changed ~= nil and changed.socialSlotType then
 				placesController:setSocialSlotType(placeId, changed.socialSlotType)
 			end
 		end,
 		function()
-			local changed = state.Settings.Changed.places[placeId]
+			local changed
+			if FFlagStudioFixGameManagementIndexNil then
+				changed = places[placeId]
+			else
+				changed = state.Settings.Changed.places[placeId]
+			end
 
 			if changed ~= nil and changed.customSocialSlotsCount then
 				placesController:setCustomSocialSlotsCount(placeId, changed.customSocialSlotsCount)
@@ -159,8 +186,8 @@ end
 --Implements dispatch functions for when the user changes values
 local function dispatchChanges(setValue, dispatch)
 	local dispatchFuncs = {
-		dispatchReloadPlaces = function()
-			dispatch(ReloadPlaces())
+		dispatchReloadPlaces = function(forceReload)
+			dispatch(ReloadPlaces(forceReload))
 		end,
 
 		dispatchSetEditPlaceId = function(placeId)
@@ -319,7 +346,7 @@ local function displayPlaceListPage(props, localization)
 				-- method already handles printing error message
 				local success, _ = pcall(function() AssetManagerService:AddNewPlace() end)
 				if success then
-					dispatchReloadPlaces()
+					dispatchReloadPlaces(FFlagStudioFixGameManagementIndexNil and true or nil)
 				end
 			end,
 		}, {
@@ -364,25 +391,32 @@ local function displayEditPlacePage(props, localization)
 
 	local viewButtonSize = UDim2.new(0, viewButtonButtonWidth, 0, viewButtonTextExtents.Y + viewButtonPaddingY)
 
-	local places = props.Places
+	local places
 	local editPlaceId = props.EditPlaceId
-
-	local placeName = places[editPlaceId].name
+	local placeToEdit
+	if FFlagStudioFixGameManagementIndexNil then
+		places = props.Places or {}
+		placeToEdit = places[editPlaceId] or {}
+	else
+		places = props.Places
+		placeToEdit = places[editPlaceId]
+	end
+	local placeName = placeToEdit.name
 	local placeNameError
 	if props.PlaceNameError and nameErrors[props.PlaceNameError] then
 		placeNameError = localization:getText("General", nameErrors[props.PlaceNameError])
 	end
 
-	local maxPlayerCount = places[editPlaceId].maxPlayerCount
+	local maxPlayerCount = placeToEdit.maxPlayerCount
 	local placePlayerCountError
 	if props.PlacePlayerCountError then
 		placePlayerCountError = localization:getText("Places", "NumberError", {minRange = MIN_PLAYER_COUNT, maxRange = MAX_PLAYER_COUNT, })
 	end
 
-	local allowCopying = places[editPlaceId].allowCopying
+	local allowCopying = placeToEdit.allowCopying
 
-	local serverFill = places[editPlaceId].socialSlotType
-	local customSocialSlotsCount = places[editPlaceId].customSocialSlotsCount
+	local serverFill = placeToEdit.socialSlotType
+	local customSocialSlotsCount = placeToEdit.customSocialSlotsCount
 	local placeCustomSocialSlotCountError
 	if props.PlaceCustomSocialSlotCountError then
 		placeCustomSocialSlotCountError = localization:getText("Places", "NumberError", {minRange = MIN_SOCIAL_SLOT_COUNT, maxRange = MAX_SOCIAL_SLOT_COUNT, })

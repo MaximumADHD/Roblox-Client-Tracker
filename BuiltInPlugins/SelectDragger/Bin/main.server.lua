@@ -13,8 +13,6 @@ local Roact = require(Plugin.Packages.Roact)
 local DraggerContext_PluginImpl = require(DraggerFramework.Implementation.DraggerContext_PluginImpl)
 local DraggerToolComponent = require(DraggerFramework.DraggerTools.DraggerToolComponent)
 
-local getFFlagDraggerAnalyticsCleanup = require(DraggerFramework.Flags.getFFlagDraggerAnalyticsCleanup)
-
 local PLUGIN_NAME = "SelectDragger"
 local DRAGGER_TOOL_NAME = "Select"
 local TOOLBAR_NAME = "Home"
@@ -38,10 +36,6 @@ local function openPlugin(wasAutoSelected)
 	if pluginHandle then
 		warn("Plugin handle already exists")
 		return
-	end
-
-	if getFFlagDraggerAnalyticsCleanup() then
-		assert(wasAutoSelected ~= nil)
 	end
 
 	pluginEnabled = true
@@ -99,11 +93,7 @@ local function main()
 			ignoreNextToolbarClick = true
 			closePlugin()
 		else
-			if getFFlagDraggerAnalyticsCleanup() then
-				openPlugin(false)
-			else
-				openPlugin()
-			end
+			openPlugin(false)
 		end
 	end)
 end
@@ -115,9 +105,5 @@ main()
 -- * In Run mode, IsRunMode() is true
 -- Those are the two conditions in which the tool should be selected by default
 if not RunService:IsRunning() or RunService:IsRunMode() then
-	if getFFlagDraggerAnalyticsCleanup() then
-		openPlugin(true)
-	else
-		openPlugin()
-	end
+	openPlugin(true)
 end

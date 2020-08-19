@@ -138,12 +138,6 @@ function MainViewProfiler:render()
 				SortOrder = Enum.SortOrder.LayoutOrder,
 			}),
 
-			HorizontalLine = Roact.createElement("Frame", {
-				Size = UDim2.new(1,0,0,PADDING),
-				BackgroundTransparency = 1,
-				LayoutOrder = 1
-			}),
-
 			MicroProfilerRow = Roact.createElement("Frame", {
 				Size = UDim2.new(1, 0, 0, ROW_HEIGHT * 3),
 				BackgroundTransparency = 1,

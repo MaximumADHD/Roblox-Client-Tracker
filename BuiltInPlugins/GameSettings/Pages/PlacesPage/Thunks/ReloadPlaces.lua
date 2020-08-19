@@ -9,7 +9,7 @@ local Promise = require(Plugin.Framework).Util.Promise
 
 local SetCurrentSettings = require(Plugin.Src.Actions.SetCurrentSettings)
 
-return function()
+return function(forceReload)
     return function(store, contextItems)
         local state = store:getState()
         local gameId = state.Metadata.gameId
@@ -17,7 +17,7 @@ return function()
         local placesCursor = state.Settings.Current.placesPageCursor
         local placesController = contextItems.placesController
 
-        if placesCursor == "" then
+        if placesCursor == "" and not forceReload then
             return
         end
 

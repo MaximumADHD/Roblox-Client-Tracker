@@ -1,3 +1,5 @@
+local FFlagTerrainToolsUseMapSettingsWithPreview = game:GetFastFlag("TerrainToolsUseMapSettingsWithPreview")
+
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Cryo = require(Plugin.Packages.Cryo)
@@ -16,6 +18,7 @@ local BiomeSettingsFragment = require(ToolParts.BiomeSettingsFragment)
 local ButtonGroup = require(ToolParts.ButtonGroup)
 local GenerateProgressFrame = require(Plugin.Src.Components.GenerateProgressFrame)
 local MapSettings = require(ToolParts.MapSettings)
+local MapSettingsWithPreview = require(ToolParts.MapSettingsWithPreview)
 local OtherGenerateSettings = require(ToolParts.OtherGenerateSettings)
 local Panel = require(ToolParts.Panel)
 
@@ -55,27 +58,29 @@ function Generate:init()
 		self.props.dispatchSetBiomeSelection(biome, value)
 	end
 
-	local function makeOnVectorAxisChanged(getCurrentValue, setNewValue)
-		return function(vector, axis, text, isValid)
-			if not isValid then
-				self.warnings[vector .. axis] = true
-				return
+	if not FFlagTerrainToolsUseMapSettingsWithPreview then
+		local function makeOnVectorAxisChanged(getCurrentValue, setNewValue)
+			return function(vector, axis, text, isValid)
+				if not isValid then
+					self.warnings[vector .. axis] = true
+					return
+				end
+				self.warnings[vector .. axis] = false
+
+				setNewValue(Cryo.Dictionary.join(getCurrentValue(), {
+					[axis] = text,
+				}))
 			end
-			self.warnings[vector .. axis] = false
-
-			setNewValue(Cryo.Dictionary.join(getCurrentValue(), {
-				[axis] = text,
-			}))
 		end
+
+		self.onPositionChanged = makeOnVectorAxisChanged(function()
+			return self.props.position
+		end, self.props.dispatchChangePosition)
+
+		self.onSizeChanged = makeOnVectorAxisChanged(function()
+			return self.props.size
+		end, self.props.dispatchChangeSize)
 	end
-
-	self.onPositionChanged = makeOnVectorAxisChanged(function()
-		return self.props.position
-	end, self.props.dispatchChangePosition)
-
-	self.onSizeChanged = makeOnVectorAxisChanged(function()
-		return self.props.size
-	end, self.props.dispatchChangeSize)
 
 	self.onBiomeSizeChanged = function(text)
 		local biomeSize = tonumber(text)
@@ -156,6 +161,10 @@ function Generate:init()
 	self.onGenerationCancelRequested = function()
 		self.terrainGeneration:cancelGeneration()
 	end
+
+	self.setWarnings = function(warnings)
+		self.warnings = warnings
+	end
 end
 
 function Generate:didUpdate()
@@ -200,7 +209,20 @@ function Generate:render()
 
 	return withLocalization(function(localization)
 		return Roact.createFragment({
-			MapSettings = Roact.createElement(MapSettings, {
+			MapSettingsWithPreview = FFlagTerrainToolsUseMapSettingsWithPreview and Roact.createElement(MapSettingsWithPreview, {
+				toolName = self.props.toolName,
+				LayoutOrder = 1,
+
+				Position = position,
+				Size = size,
+
+				OnPositionChanged = self.props.dispatchChangePosition,
+				OnSizeChanged = self.props.dispatchChangeSize,
+				SetMapSettingsValid = self.setMapSettingsValidated,
+				SetWarnings = self.setWarnings,
+			}),
+
+			MapSettings = not FFlagTerrainToolsUseMapSettingsWithPreview and Roact.createElement(MapSettings, {
 				LayoutOrder = 1,
 
 				Position = position,

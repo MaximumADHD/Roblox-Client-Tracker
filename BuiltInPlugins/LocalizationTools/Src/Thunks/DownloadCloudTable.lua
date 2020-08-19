@@ -11,6 +11,8 @@ local SetIsBusy = require(Plugin.Src.Actions.SetIsBusy)
 local SetMessage = require(Plugin.Src.Actions.SetMessage)
 local isEmpty = require(Plugin.Src.Util.isEmpty)
 
+local FFlagLocalizationToolsFixHttpFailureBacktrace = game:GetFastFlag("LocalizationToolsFixHttpFailureBacktrace")
+
 local function makeDispatchErrorMessageFunc(store, localization)
 	return function()
 		store:dispatch(SetIsBusy(false))
@@ -50,17 +52,38 @@ local function download(api, localization, tableId)
 
 	while cursor do
 		local request = api.LocalizationTables.V1.LocalizationTable.Tables.entries(tableId, cursor, game.GameId)
-		local responseTable = request:makeRequest():await()
-		if responseTable and responseTable.responseCode == Http.StatusCodes.OK then
-			local success = updateWebEntries(responseTable.responseBody.data, webEntries)
-			if not success then
+		if FFlagLocalizationToolsFixHttpFailureBacktrace then
+			request:makeRequest():andThen(
+				function(response)
+					if response and response.responseCode == Http.StatusCodes.OK then
+						local success = updateWebEntries(response.responseBody.data, webEntries)
+						if not success then
+							warn(localization:getText("DownloadTable", "GetCloudTableFailed"))
+							return
+						end
+						cursor = response.responseBody.nextPageCursor
+					else
+						warn(localization:getText("DownloadTable", "GetCloudTableFailed"))
+						return
+					end
+				end,
+				function()
+					warn(localization:getText("DownloadTable", "GetCloudTableFailed"))
+					return
+				end):await()
+		else
+			local responseTable = request:makeRequest():await()
+			if responseTable and responseTable.responseCode == Http.StatusCodes.OK then
+				local success = updateWebEntries(responseTable.responseBody.data, webEntries)
+				if not success then
+					warn(localization:getText("DownloadTable", "GetCloudTableFailed"))
+					return
+				end
+				cursor = responseTable.responseBody.nextPageCursor
+			else
 				warn(localization:getText("DownloadTable", "GetCloudTableFailed"))
 				return
 			end
-			cursor = responseTable.responseBody.nextPageCursor
-		else
-			warn(localization:getText("DownloadTable", "GetCloudTableFailed"))
-			return
 		end
 	end
 

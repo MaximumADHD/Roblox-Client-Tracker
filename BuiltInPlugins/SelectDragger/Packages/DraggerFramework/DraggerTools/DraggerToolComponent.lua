@@ -14,7 +14,6 @@ local Roact = require(Library.Packages.Roact)
 
 -- Flags
 local getFFlagDragFaceInstances = require(DraggerFramework.Flags.getFFlagDragFaceInstances)
-local getFFlagDraggerEarlyUnmount = require(DraggerFramework.Flags.getFFlagDraggerEarlyUnmount)
 
 -- Utilities
 local DraggerToolModel = require(DraggerFramework.Implementation.DraggerToolModel)
@@ -117,15 +116,9 @@ function DraggerToolComponent:didMount()
 end
 
 function DraggerToolComponent:willUnmount()
-	if getFFlagDraggerEarlyUnmount() then
-		self._isMounted = false
-	end
+	self._isMounted = false
 
 	self._draggerToolModel:_processDeselected()
-
-	if not getFFlagDraggerEarlyUnmount() then
-		self._isMounted = false
-	end
 
 	self._mouseDownConnection:Disconnect()
 	self._mouseDownConnection = nil

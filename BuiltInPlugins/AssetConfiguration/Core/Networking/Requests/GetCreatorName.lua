@@ -7,10 +7,10 @@ local SetCachedCreatorInfo = require(Actions.SetCachedCreatorInfo)
 local Util = Plugin.Core.Util
 local CreatorInfoHelper = require(Util.CreatorInfoHelper)
 
-local FFlagStudioFixGroupCreatorInfo = game:GetFastFlag("StudioFixGroupCreatorInfo")
+local FFlagStudioFixGroupCreatorInfo3 = game:GetFastFlag("StudioFixGroupCreatorInfo3")
 
 return function(networkInterface, creatorTargetId, creatorType)
-	if FFlagStudioFixGroupCreatorInfo then
+	if FFlagStudioFixGroupCreatorInfo3 then
 		return function(store)
 			return networkInterface:getCreatorInfo(creatorTargetId, creatorType):andThen(
 				function(result)

@@ -10,9 +10,6 @@ local Math = require(DraggerFramework.Utility.Math)
 local BoundsChangedTracker = require(DraggerFramework.Utility.BoundsChangedTracker)
 local DerivedWorldState = require(DraggerFramework.Implementation.DerivedWorldState)
 
-local getFFlagDraggerAnalyticsCleanup = require(DraggerFramework.Flags.getFFlagDraggerAnalyticsCleanup)
-local getFFlagSupportNoRotate = require(DraggerFramework.Flags.getFFlagSupportNoRotate)
-
 local DraggerToolModel = {}
 DraggerToolModel.__index = DraggerToolModel
 
@@ -28,25 +25,14 @@ local DraggerState = {
 	[DraggerStateType.DragSelecting] = require(DraggerStates.DragSelecting),
 }
 
-local DEFAULT_MODEL_PROPS
-if getFFlagDraggerAnalyticsCleanup() then
-	DEFAULT_MODEL_PROPS = {
-		AnalyticsName = "Unknown",
-		AllowDragSelect = true,
-		AllowFreeformDrag = true,
-		ShowSelectionDot = false,
-		UseCollisionsTransparency = true,
-		WasAutoSelected = false,
-	}
-else
-	DEFAULT_MODEL_PROPS = {
-		AnalyticsName = "Unknown",
-		AllowDragSelect = true,
-		AllowFreeformDrag = true,
-		ShowSelectionDot = false,
-		UseCollisionsTransparency = true,
-	}
-end
+local DEFAULT_MODEL_PROPS = {
+	AnalyticsName = "Unknown",
+	AllowDragSelect = true,
+	AllowFreeformDrag = true,
+	ShowSelectionDot = false,
+	UseCollisionsTransparency = true,
+	WasAutoSelected = false,
+}
 
 function DraggerToolModel.new(modelProps, toolImplementation, draggerContext,
 		requestRenderCallback, markViewDirtyCallback, markSelectionDirtyCallback)
@@ -159,7 +145,6 @@ function DraggerToolModel:shouldUseCollisionTransparency()
 end
 
 function DraggerToolModel:shouldAlignDraggedObjects()
-	assert(getFFlagSupportNoRotate())
 	return self._draggerContext:shouldAlignDraggedObjects()
 end
 
@@ -325,39 +310,23 @@ end
 
 function DraggerToolModel:_analyticsSessionBegin()
 	self._selectedAtTime = tick()
-	if getFFlagDraggerAnalyticsCleanup() then
-		self._sessionAnalytics = {
-			freeformDrags = 0,
-			handleDrags = 0,
-			clickSelects = 0,
-			dragSelects = 0,
-			dragTilts = 0,
-			dragRotates = 0,
-			toolName = self._modelProps.AnalyticsName,
-			wasAutoSelected = self._modelProps.WasAutoSelected,
-		}
-		self._draggerContext:getAnalytics():sendEvent("toolSelected", {
-			toolName = self._modelProps.AnalyticsName,
-			wasAutoSelected = self._modelProps.WasAutoSelected,
-		})
-		if self._modelProps.WasAutoSelected then
-			self._draggerContext:getAnalytics():reportCounter("studioLuaDefaultDraggerSelected")
-		else
-			self._draggerContext:getAnalytics():reportCounter("studioLua" .. self._modelProps.AnalyticsName .. "DraggerSelected")
-		end
+	self._sessionAnalytics = {
+		freeformDrags = 0,
+		handleDrags = 0,
+		clickSelects = 0,
+		dragSelects = 0,
+		dragTilts = 0,
+		dragRotates = 0,
+		toolName = self._modelProps.AnalyticsName,
+		wasAutoSelected = self._modelProps.WasAutoSelected,
+	}
+	self._draggerContext:getAnalytics():sendEvent("toolSelected", {
+		toolName = self._modelProps.AnalyticsName,
+		wasAutoSelected = self._modelProps.WasAutoSelected,
+	})
+	if self._modelProps.WasAutoSelected then
+		self._draggerContext:getAnalytics():reportCounter("studioLuaDefaultDraggerSelected")
 	else
-		self._sessionAnalytics = {
-			freeformDrags = 0,
-			handleDrags = 0,
-			clickSelects = 0,
-			dragSelects = 0,
-			dragTilts = 0,
-			dragRotates = 0,
-			toolName = self._modelProps.AnalyticsName,
-		}
-		self._draggerContext:getAnalytics():sendEvent("toolSelected", {
-			toolName = self._modelProps.AnalyticsName,
-		})
 		self._draggerContext:getAnalytics():reportCounter("studioLua" .. self._modelProps.AnalyticsName .. "DraggerSelected")
 	end
 end
@@ -369,30 +338,18 @@ function DraggerToolModel:_analyticsSendSession()
 end
 
 function DraggerToolModel:_analyticsSendClick(clickedInstance, didAlterSelection)
-	if getFFlagDraggerAnalyticsCleanup() then
-		self._draggerContext:getAnalytics():sendEvent("clickedObject", {
-			toolName = self._modelProps.AnalyticsName,
-			wasAutoSelected = self._modelProps.WasAutoSelected,
-			altPressed = self._draggerContext:isAltKeyDown(),
-			ctrlPressed = self._draggerContext:isCtrlKeyDown(),
-			shiftPressed = self._draggerContext:isShiftKeyDown(),
-			clickedAttachment = clickedInstance and clickedInstance:IsA("Attachment"),
-			clickedConstraint = clickedInstance and clickedInstance:IsA("Constraint"),
-			clickedWeldConstraint = clickedInstance and clickedInstance:IsA("WeldConstraint"),
-			clickedNoCollisionConstraint = clickedInstance and clickedInstance:IsA("NoCollisionConstraint"),
-			didAlterSelection = didAlterSelection,
-		})
-	else
-		self._draggerContext:getAnalytics():sendEvent("clickedObject", {
-			altPressed = self._draggerContext:isAltKeyDown(),
-			ctrlPressed = self._draggerContext:isCtrlKeyDown(),
-			shiftPressed = self._draggerContext:isShiftKeyDown(),
-			clickedAttachment = clickedInstance and clickedInstance:IsA("Attachment"),
-			clickedConstraint = clickedInstance and
-				(clickedInstance:IsA("Constraint") or clickedInstance:IsA("WeldConstraint")),
-			didAlterSelection = didAlterSelection,
-		})
-	end
+	self._draggerContext:getAnalytics():sendEvent("clickedObject", {
+		toolName = self._modelProps.AnalyticsName,
+		wasAutoSelected = self._modelProps.WasAutoSelected,
+		altPressed = self._draggerContext:isAltKeyDown(),
+		ctrlPressed = self._draggerContext:isCtrlKeyDown(),
+		shiftPressed = self._draggerContext:isShiftKeyDown(),
+		clickedAttachment = clickedInstance and clickedInstance:IsA("Attachment"),
+		clickedConstraint = clickedInstance and clickedInstance:IsA("Constraint"),
+		clickedWeldConstraint = clickedInstance and clickedInstance:IsA("WeldConstraint"),
+		clickedNoCollisionConstraint = clickedInstance and clickedInstance:IsA("NoCollisionConstraint"),
+		didAlterSelection = didAlterSelection,
+	})
 	if didAlterSelection then
 		self._sessionAnalytics.clickSelects = self._sessionAnalytics.clickSelects + 1
 	end
@@ -400,23 +357,14 @@ end
 
 function DraggerToolModel:_analyticsRecordFreeformDragBegin(timeToStartDrag)
 	self._sessionAnalytics.freeformDrags = self._sessionAnalytics.freeformDrags + 1
-	if getFFlagDraggerAnalyticsCleanup() then
-		local parts, attachments = self._derivedWorldState:getObjectsToTransform()
-		self._dragAnalytics = {
-			dragTilts = 0,
-			dragRotates = 0,
-			partCount = #parts,
-			attachmentCount = #attachments,
-			timeToStartDrag = timeToStartDrag,
-		}
-	else
-		self._dragAnalytics = {
-			dragTilts = 0,
-			dragRotates = 0,
-			partCount = #self._derivedWorldState:getObjectsToTransform(),
-			timeToStartDrag = timeToStartDrag,
-		}
-	end
+	local parts, attachments = self._derivedWorldState:getObjectsToTransform()
+	self._dragAnalytics = {
+		dragTilts = 0,
+		dragRotates = 0,
+		partCount = #parts,
+		attachmentCount = #attachments,
+		timeToStartDrag = timeToStartDrag,
+	}
 	self._dragStartLocation = nil
 	self._draggerContext:getAnalytics():reportStats("studioLuaDraggerDragTime", timeToStartDrag)
 end
@@ -441,68 +389,42 @@ end
 function DraggerToolModel:_analyticsSendFreeformDragged()
 	self._dragAnalytics.gridSize = self._draggerContext:getGridSize()
 	self._dragAnalytics.toolName = self._modelProps.AnalyticsName
-	if getFFlagDraggerAnalyticsCleanup() then
-		self._dragAnalytics.wasAutoSelected = self._modelProps.WasAutoSelected
-	end
+	self._dragAnalytics.wasAutoSelected = self._modelProps.WasAutoSelected
 	self._dragAnalytics.joinSurfaces = self._draggerContext:shouldJoinSurfaces()
 	self._dragAnalytics.useConstraints = self._draggerContext:areConstraintsEnabled()
 	self._draggerContext:getAnalytics():sendEvent("freeformDragged", self._dragAnalytics)
 end
 
 function DraggerToolModel:_analyticsSendHandleDragged()
-	if getFFlagDraggerAnalyticsCleanup() then
-		self._draggerContext:getAnalytics():sendEvent("handleDragged", {
-			toolName = self._modelProps.AnalyticsName,
-			wasAutoSelected = false, -- For consistency with other events
-			gridSize = self._draggerContext:getGridSize(),
-			rotateIncrement = self._draggerContext:getRotateIncrement(),
-			useLocalSpace = self._draggerContext:shouldUseLocalSpace(),
-			joinSurfaces = self._draggerContext:shouldJoinSurfaces(),
-			useConstraints = self._draggerContext:areConstraintsEnabled(),
-			haveCollisions = self._draggerContext:areCollisionsEnabled(),
-		})
-	else
-		self._draggerContext:getAnalytics():sendEvent("handleDragged", {
-			toolName = self._modelProps.AnalyticsName,
-			useLocalSpace = self._draggerContext:shouldUseLocalSpace(),
-			joinSurfaces = self._draggerContext:shouldJoinSurfaces(),
-			useConstraints = self._draggerContext:areConstraintsEnabled(),
-			haveCollisions = self._draggerContext:areCollisionsEnabled(),
-		})
-	end
+	self._draggerContext:getAnalytics():sendEvent("handleDragged", {
+		toolName = self._modelProps.AnalyticsName,
+		wasAutoSelected = false, -- For consistency with other events
+		gridSize = self._draggerContext:getGridSize(),
+		rotateIncrement = self._draggerContext:getRotateIncrement(),
+		useLocalSpace = self._draggerContext:shouldUseLocalSpace(),
+		joinSurfaces = self._draggerContext:shouldJoinSurfaces(),
+		useConstraints = self._draggerContext:areConstraintsEnabled(),
+		haveCollisions = self._draggerContext:areCollisionsEnabled(),
+	})
 end
 
 function DraggerToolModel:_analyticsSendBoxSelect()
-	if getFFlagDraggerAnalyticsCleanup() then
-		self._draggerContext:getAnalytics():sendEvent("boxSelected", {
-			toolName = self._modelProps.AnalyticsName,
-			wasAutoSelected = self._modelProps.WasAutoSelected,
-			objectCount = #self._draggerContext:getSelectionWrapper():Get(),
-			altPressed = self._draggerContext:isAltKeyDown(),
-			ctrlPressed = self._draggerContext:isCtrlKeyDown(),
-			shiftPressed = self._draggerContext:isShiftKeyDown(),
-		})
-	else
-		self._draggerContext:getAnalytics():sendEvent("boxSelected", {
-			toolName = self._modelProps.AnalyticsName,
-			objectCount = #self._draggerContext:getSelectionWrapper():Get(),
-		})
-	end
+	self._draggerContext:getAnalytics():sendEvent("boxSelected", {
+		toolName = self._modelProps.AnalyticsName,
+		wasAutoSelected = self._modelProps.WasAutoSelected,
+		objectCount = #self._draggerContext:getSelectionWrapper():Get(),
+		altPressed = self._draggerContext:isAltKeyDown(),
+		ctrlPressed = self._draggerContext:isCtrlKeyDown(),
+		shiftPressed = self._draggerContext:isShiftKeyDown(),
+	})
 end
 
 function DraggerToolModel:_analyticsSendFaceInstanceSelected(className)
-	if getFFlagDraggerAnalyticsCleanup() then
-		assert(className ~= nil)
-		self._draggerContext:getAnalytics():sendEvent("faceInstanceSelected", {
-			toolName = self._modelProps.AnalyticsName,
-			wasAutoSelected = self._modelProps.WasAutoSelected,
-			className = className,
-		})
-	else
-		self._draggerContext:getAnalytics():sendEvent("faceInstanceSelected", {
-			toolName = self._modelProps.AnalyticsName,
-		})
-	end
+	self._draggerContext:getAnalytics():sendEvent("faceInstanceSelected", {
+		toolName = self._modelProps.AnalyticsName,
+		wasAutoSelected = self._modelProps.WasAutoSelected,
+		className = className,
+	})
 end
 
 return DraggerToolModel

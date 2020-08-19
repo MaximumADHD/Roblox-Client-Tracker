@@ -26,6 +26,7 @@ local RoactRodux = require(Libs.RoactRodux)
 
 local UILibrary = require(Libs.UILibrary)
 local AssetPreview = UILibrary.Component.AssetPreview
+local AssetType = UILibrary.Util.AssetType
 
 local Util = Plugin.Core.Util
 local Constants = require(Util.Constants)
@@ -76,10 +77,8 @@ local FFlagStudioHideSuccessDialogWhenFree = game:GetFastFlag("StudioHideSuccess
 local FFlagStudioFixAssetPreviewTreeView = settings():GetFFlag("StudioFixAssetPreviewTreeView")
 local FFlagStudioFixAssetPreviewCloseButton = settings():GetFFlag("StudioFixAssetPreviewCloseButton")
 local FFlagToolboxFixAnalyticsBugs = game:GetFastFlag("ToolboxFixAnalyticsBugs")
+local FFlagToolboxWaitForPluginOwnedStatus = game:GetFastFlag("ToolboxWaitForPluginOwnedStatus")
 
-local FFlagToolboxUseNewAssetType = game:GetFastFlag("ToolboxUseNewAssetType")
-
-local AssetType = FFlagToolboxUseNewAssetType and UILibrary.Util.AssetType or require(Plugin.Core.Types.AssetType)
 
 local PADDING = FFlagStudioFixAssetPreviewCloseButton and 32 or 20
 local INSTALLATION_ANIMATION_TIME = 1.0 --seconds
@@ -147,6 +146,18 @@ function AssetPreviewWrapper:createPurchaseFlow(localizedContent)
 
 	local installDisabled = (isPluginAsset and (isPluginLoading or isPluginUpToDate)) or
 		(FFlagFixUseDevelopFetchPluginVersionId2 and isPluginAsset and assetVersionId == nil)
+
+	if FFlagToolboxWaitForPluginOwnedStatus then
+		-- This function needs to be rewritten and unit tested.
+		-- STM-55 was a report of the purchase flow breaking, which was caused
+		-- by this function allowing install when asset ownership data was not yet loaded.
+		-- There was no retrying of the network request to get ownership, so install would
+		-- be enabled but not work if ownership data was not loaded.
+
+		-- TODO DEVTOOLS-4896: When this is rewritten, also make the loading status correct for this state
+		-- (if it's still a reachable state)
+		installDisabled = installDisabled or (isPluginAsset and owned == nil)
+	end
 
 	local tryInsert
 	if not FFlagStudioToolboxPluginPurchaseFlow then

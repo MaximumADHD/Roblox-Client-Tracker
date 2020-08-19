@@ -55,7 +55,6 @@ local VIPServers = Roact.PureComponent:extend("VIPServers")
 local FFlagSupportFreePrivateServers = game:GetFastFlag("SupportFreePrivateServers")
 local FFlagVIPServersRebrandToPrivateServers = game:GetFastFlag("VIPServersRebrandToPrivateServers")
 local FFlagFixVIPServerShutdownWarningText = game:GetFastFlag("FixVIPServerShutdownWarningText")
-local FFlagUpdateOverVIPServersText = game:DefineFastFlag("UpdateOverVIPServersText", false)
 
 function VIPServers:init()
     self.lastNonFreePrice = 10
@@ -103,25 +102,20 @@ function VIPServers:render()
     local subscriptionsText
     local totalVIPServersText
     -- We're checking if subscription count is less than 0 here because the BE returns a negative value to indicate that the text about "over X" should be used.
-    if FFlagUpdateOverVIPServersText then
-        if FFlagVIPServersRebrandToPrivateServers then
-            if subsCount < 0 then
-                subscriptionsText = localization:getText("Monetization", "OverPrivateServerSubscriptions", { numOfSubscriptions = subsCount * -1 })
-            else
-                subscriptionsText = localization:getText("Monetization", "PrivateServerSubscriptions", { numOfSubscriptions = subsCount })
-            end
-            totalVIPServersText = localization:getText("Monetization", "PrivateServersActive", { totalVipServers = serversCount })
+    if FFlagVIPServersRebrandToPrivateServers then
+        if subsCount < 0 then
+            subscriptionsText = localization:getText("Monetization", "OverPrivateServerSubscriptions", { numOfSubscriptions = subsCount * -1 })
         else
-            if subsCount < 0 then
-                subscriptionsText = localization:getText("Monetization", "OverVIPServerSubscriptions", { numOfSubscriptions = subsCount * -1 })
-            else
-                subscriptionsText = localization:getText("Monetization", "VIPServerSubscriptions", { numOfSubscriptions = subsCount })
-            end
-            totalVIPServersText = localization:getText("Monetization", "VIPServersActive", { totalVipServers = serversCount })
+            subscriptionsText = localization:getText("Monetization", "PrivateServerSubscriptions", { numOfSubscriptions = subsCount })
         end
+        totalVIPServersText = localization:getText("Monetization", "PrivateServersActive", { totalVipServers = serversCount })
     else
-        subscriptionsText = localization:getText("Monetization", "Subscriptions", { numOfSubscriptions = subsCount })
-        totalVIPServersText = localization:getText("Monetization", "TotalVIPServers", { totalVipServers = serversCount })
+        if subsCount < 0 then
+            subscriptionsText = localization:getText("Monetization", "OverVIPServerSubscriptions", { numOfSubscriptions = subsCount * -1 })
+        else
+            subscriptionsText = localization:getText("Monetization", "VIPServerSubscriptions", { numOfSubscriptions = subsCount })
+        end
+        totalVIPServersText = localization:getText("Monetization", "VIPServersActive", { totalVipServers = serversCount })
     end
 
     local transparency = enabled and theme.robuxFeeBase.transparency.enabled or theme.robuxFeeBase.transparency.disabled

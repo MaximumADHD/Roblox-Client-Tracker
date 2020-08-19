@@ -2,6 +2,8 @@
 	Displays panels associated with the import tool
 ]]
 
+local FFlagTerrainToolsUseMapSettingsWithPreview = game:GetFastFlag("TerrainToolsUseMapSettingsWithPreview")
+
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Cryo = require(Plugin.Packages.Cryo)
@@ -18,6 +20,7 @@ local ButtonGroup = require(ToolParts.ButtonGroup)
 local ImportProgressFrame = require(Plugin.Src.Components.ImportProgressFrame)
 local LabeledElementPair = require(ToolParts.LabeledElementPair)
 local MapSettings = require(ToolParts.MapSettings)
+local MapSettingsWithPreview = require(ToolParts.MapSettingsWithPreview)
 local Panel = require(ToolParts.Panel)
 
 local Actions = Plugin.Src.Actions
@@ -48,19 +51,21 @@ function Import:init()
 		importProgress = self.terrainImporter:getImportProgress(),
 	}
 
-	self.onPositionChanged = function(_, axis, text, isValid)
-		if isValid then
-			self.props.dispatchChangePosition(Cryo.Dictionary.join(self.props.Position, {
-				[axis] = text,
-			}))
+	if not FFlagTerrainToolsUseMapSettingsWithPreview then
+		self.onPositionChanged = function(_, axis, text, isValid)
+			if isValid then
+				self.props.dispatchChangePosition(Cryo.Dictionary.join(self.props.Position, {
+					[axis] = text,
+				}))
+			end
 		end
-	end
 
-	self.onSizeChanged = function(_, axis, text, isValid)
-		if isValid then
-			self.props.dispatchChangeSize(Cryo.Dictionary.join(self.props.Size, {
-				[axis] = text,
-			}))
+		self.onSizeChanged = function(_, axis, text, isValid)
+			if isValid then
+				self.props.dispatchChangeSize(Cryo.Dictionary.join(self.props.Size, {
+					[axis] = text,
+				}))
+			end
 		end
 	end
 
@@ -159,7 +164,22 @@ function Import:render()
 			local toggleOff = theme.toggleTheme.toggleOffImage
 
 			return Roact.createFragment({
-				MapSettings = Roact.createElement(MapSettings, {
+				MapSettingsWithPreview = FFlagTerrainToolsUseMapSettingsWithPreview
+					and Roact.createElement(MapSettingsWithPreview, {
+					toolName = self.props.toolName,
+					LayoutOrder = 1,
+
+					Position = position,
+					Size = size,
+					PreviewOffset = Vector3.new(0, 0.5, 0),
+
+					OnPositionChanged = self.props.dispatchChangePosition,
+					OnSizeChanged = self.props.dispatchChangeSize,
+					SetMapSettingsValid = self.mapSettingsValidated,
+					HeightMapValidation = self.heightMapValidated,
+				}),
+
+				MapSettings = not FFlagTerrainToolsUseMapSettingsWithPreview and Roact.createElement(MapSettings, {
 					LayoutOrder = 1,
 
 					Position = position,

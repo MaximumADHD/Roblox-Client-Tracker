@@ -24,6 +24,26 @@ function CreatorInfoHelper.isValidCreatorType(creatorType)
 	return false
 end
 
+function CreatorInfoHelper.backendToClient(backendCreatorType)
+	if backendCreatorType == 1 then
+		return Enum.CreatorType.User.Value
+	elseif backendCreatorType == 2 then
+		return Enum.CreatorType.Group.Value
+	else
+		error("Unknown backendCreatorType received " .. tostring(backendCreatorType))
+	end
+end
+
+function CreatorInfoHelper.clientToBackend(creatorType)
+	if creatorType == Enum.CreatorType.User.Value then
+		return 1
+	elseif creatorType == Enum.CreatorType.Group.Value then
+		return 2
+	else
+		error("Unknown creatorType received " .. tostring(creatorType))
+	end
+end
+
 function CreatorInfoHelper.getNameFromResult(result, creatorType)
 	assert(CreatorInfoHelper.isValidCreatorType(creatorType))
 

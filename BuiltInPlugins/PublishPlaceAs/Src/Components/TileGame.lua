@@ -10,6 +10,8 @@ local ContentProvider = game:GetService("ContentProvider")
 
 local FFlagBatchThumbnailAddNewThumbnailTypes = game:GetFastFlag("BatchThumbnailAddNewThumbnailTypes")
 
+local FFlagStudioLocalizePrivacyTypesInPublishPlaceAs = game:DefineFastFlag("StudioLocalizePrivacyTypesInPublishPlaceAs", false)
+
 local ICON_SIZE = 150
 local TILE_FOOTER_SIZE = 35
 local NAME_SIZE = 70
@@ -96,7 +98,8 @@ function TileGame:render()
 				}),
 
 				State = Roact.createElement("TextLabel", {
-					Text = state,
+					-- use localization keys PrivacyType.Public or PrivacyType.Private
+					Text = FFlagStudioLocalizePrivacyTypesInPublishPlaceAs and localizing:getText("PrivacyType", state) or state,
 					Position = UDim2.new(0, 0, 1, 0),
 					Size = UDim2.new(1, 0, 0, TILE_FOOTER_SIZE),
 

@@ -2,7 +2,7 @@ local FFlagStudioUseDevelopAPIForPackages = settings():GetFFlag("StudioUseDevelo
 local FFlagUseCategoryNameInToolbox = game:GetFastFlag("UseCategoryNameInToolbox")
 local FFlagEnableToolboxVideos = game:GetFastFlag("EnableToolboxVideos")
 local FFlagStudioFixComparePageInfo2 = game:GetFastFlag("StudioFixComparePageInfo2")
-local FFlagStudioFixGroupCreatorInfo = game:GetFastFlag("StudioFixGroupCreatorInfo")
+local FFlagStudioFixGroupCreatorInfo3 = game:GetFastFlag("StudioFixGroupCreatorInfo3")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -48,8 +48,9 @@ end
 
 local function extractCreatorInfo(responseBodyResults)
 	if responseBodyResults and #responseBodyResults > 0 then
-		if FFlagStudioFixGroupCreatorInfo then
-			return responseBodyResults[1].Creator.Id, responseBodyResults[1].Creator.Name, responseBodyResults[1].Creator.Type
+		if FFlagStudioFixGroupCreatorInfo3 then
+			local firstResult = responseBodyResults[1]
+			return firstResult.Creator.Id, firstResult.Creator.Name, CreatorInfoHelper.backendToClient(firstResult.Creator.Type)
 		else
 			return responseBodyResults[1].Creator.Id, responseBodyResults[1].Creator.Name
 		end
@@ -154,7 +155,7 @@ return function(networkInterface, pageInfoOnStart)
 								local isCreatorInfoFetchRequired = false
 								local newCreatorId = creationDetailsTable[1].creatorTargetId
 
-								if FFlagStudioFixGroupCreatorInfo then
+								if FFlagStudioFixGroupCreatorInfo3 then
 									local newCreatorType = CreatorInfoHelper.getCreatorTypeValueFromName(creationDetailsTable[1].creatorType)
 									isCreatorInfoFetchRequired = not CreatorInfoHelper.isCached(store, newCreatorId, newCreatorType)
 

@@ -9,6 +9,8 @@ Props
 	SetWarnings :       ((bool) -> void) | nil
 ]]
 
+local FFlagTerrainToolsUseMapSettingsWithPreview = game:GetFastFlag("TerrainToolsUseMapSettingsWithPreview")
+
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
 local Cryo = require(Plugin.Packages.Cryo)
@@ -67,24 +69,33 @@ end
 
 function MapSettingsWithPreview:updatePreview()
 	assert(self.preview, "MapSettingsWithPreview preview is nil")
+
 	local position = Vector3.new(self.props.Position.X, self.props.Position.Y, self.props.Position.Z)
 	local size = Vector3.new(self.props.Size.X, self.props.Size.Y, self.props.Size.Z)
-	if self.props.PreviewOffset then
+
+	if FFlagTerrainToolsUseMapSettingsWithPreview and self.props.PreviewOffset then
 		position = position + size * self.props.PreviewOffset
 	end
+
 	self.preview:setSizeAndPosition(size, position)
 end
 
 function MapSettingsWithPreview:didMount()
 	local plugin = StudioPlugin.getPlugin(self)
 	local mouse = plugin:GetMouse()
+
 	assert(not self.preview, "MapSettingsWithPreview preview already exists")
 	self.preview = LargeVoxelRegionPreview.new(mouse, TerrainInterface.getTerrain(self))
 	self:updatePreview()
 	self.preview:updateVisibility(true)
 
 	self.onPreviewSizeChangeConnect = self.preview:getOnSizeChanged():Connect(function(size, position)
-		self.props.OnPositionChanged({X = position.x, Y = position.y, Z = position.z})
+		local adjustedPos = position
+		if FFlagTerrainToolsUseMapSettingsWithPreview and self.props.PreviewOffset then
+			adjustedPos = adjustedPos - size * self.props.PreviewOffset
+		end
+
+		self.props.OnPositionChanged({X = adjustedPos.x, Y = adjustedPos.y, Z = adjustedPos.z})
 		self.props.OnSizeChanged({X = size.x, Y = size.y, Z = size.z})
 	end)
 

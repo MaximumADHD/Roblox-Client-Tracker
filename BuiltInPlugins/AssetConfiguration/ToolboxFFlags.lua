@@ -33,16 +33,13 @@ game:DefineFastFlag("EnableToolboxVideos", false)
 game:DefineFastFlag("CMSPremiumBenefitsLink2", false)
 game:DefineFastFlag("CMSFixAssetPreviewForThumbnailConfig", false)
 
-game:DefineFastFlag("ToolboxUseNewAssetType", false)
-
 game:DefineFastFlag("ToolboxShowGroupCreations", false)
-game:DefineFastFlag("StudioToolboxSearchOverflowFix", false)
 game:DefineFastFlag("ToolboxFixOneSecondAudioMaxDuration", false)
 game:DefineFastFlag("ToolboxForceSelectDragger", false)
 
 game:DefineFastFlag("StudioFixComparePageInfo2", false)
 
-game:DefineFastFlag("StudioFixGroupCreatorInfo", false)
+game:DefineFastFlag("StudioFixGroupCreatorInfo3", false)
 game:DefineFastFlag("StudioToolboxFixNewEndpointFilters", false)
 
 game:DefineFastFlag("ToolboxUseDevFrameworkPromise", false)
@@ -50,5 +47,7 @@ game:DefineFastFlag("ToolboxFixAnalyticsBugs", false)
 game:DefineFastFlag("DebugToolboxEnableRoactChecks", false)
 
 game:DefineFastFlag("ToolboxDisableMarketplaceAndRecentsForLuobu", false)
+
+game:DefineFastFlag("ToolboxWaitForPluginOwnedStatus", false)
 
 return nil

@@ -27,6 +27,9 @@ local ContentProvider = game:GetService("ContentProvider")
 local FFlagStudioAssetManagerSetEmptyName = game:DefineFastFlag("StudioAssetManagerSetEmptyName", false)
 local FFlagBatchThumbnailAddNewThumbnailTypes = game:GetFastFlag("BatchThumbnailAddNewThumbnailTypes")
 local FFlagStudioAssetManagerShiftMultiSelect = game:DefineFastFlag("StudioAssetManagerShiftMultiSelect", false)
+local FFlagAssetManagerOpenContextMenu = game:GetFastFlag("AssetManagerOpenContextMenu")
+local FFlagStudioAssetManagerAddMiddleElision = game:DefineFastFlag("StudioAssetManagerAddMiddleElision", false)
+
 
 local Tile = Roact.PureComponent:extend("Tile")
 
@@ -55,7 +58,9 @@ function Tile:init()
     self.onMouseEnter = function()
         local props = self.props
         if self.state.StyleModifier == nil then
-            props.Mouse:__pushCursor("PointingHand")
+            if not FFlagAssetManagerOpenContextMenu then
+                props.Mouse:__pushCursor("PointingHand")
+            end
             self:setState({
                 StyleModifier = StyleModifier.Hover,
             })
@@ -68,7 +73,9 @@ function Tile:init()
     self.onMouseLeave = function()
         local props = self.props
         if self.state.StyleModifier == StyleModifier.Hover then
-            props.Mouse:__popCursor()
+            if not FFlagAssetManagerOpenContextMenu then
+                props.Mouse:__popCursor()
+            end
             self:setState({
                 StyleModifier = Roact.None,
             })
@@ -98,7 +105,9 @@ function Tile:init()
             props.dispatchOnAssetDoubleClick(props.Analytics, assetData)
         end
 
-        props.Mouse:__popCursor()
+        if not FFlagAssetManagerOpenContextMenu then
+            props.Mouse:__popCursor()
+        end
     end
 
     self.onMouseButton2Click = function(rbx, x, y)
@@ -281,6 +290,14 @@ function Tile:render()
     local editTextSize = GetTextSize(editText, textSize, textFont, Vector2.new(tileStyle.Size.X.Offset, math.huge))
 
     local name = assetData.name
+    local displayName = assetData.name
+    local nameSize = GetTextSize(assetData.name, textSize, textFont,
+        Vector2.new(textFrameSize.X.Offset, math.huge))
+    if nameSize.Y > textFrameSize.Y.Offset then
+        -- using hardcoded values for now since tile size is constant
+        displayName = string.sub(assetData.name, 1, 12) .. "..." ..
+            string.sub(assetData.name, string.len(assetData.name) - 5)
+    end
 
     local isFolder = assetData.ClassName == "Folder"
     local isPlace = assetData.assetType == Enum.AssetType.Place
@@ -372,7 +389,7 @@ function Tile:render()
             Size = textFrameSize,
             Position = textFramePos,
 
-            Text = name,
+            Text = FFlagStudioAssetManagerAddMiddleElision and displayName or name,
             TextColor3 = textColor,
             Font = textFont,
             TextSize = textSize,

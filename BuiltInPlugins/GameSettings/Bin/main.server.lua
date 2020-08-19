@@ -1,7 +1,5 @@
 local FFlagQ220PermissionsSettings = settings():GetFFlag("Q220PermissionsSettings")
 
-if not game:GetFastFlag("GameSettingsNetworkRefactor") then return end
-
 if not plugin then
 	return
 end
@@ -9,7 +7,6 @@ end
 require(script.Parent.defineLuaFlags)
 
 -- Fast flags
-local FFlagGameSettingsPreventClosingDialogWhileSaveInProgress = game:DefineFastFlag("GameSettingsPreventClosingDialogWhileSaveInProgress", false)
 local FFlagGameSettingsPlaceSettings = game:GetFastFlag("GameSettingsPlaceSettings")
 local FFlagStudioOpenGameSettingsEvent = game:GetFastFlag("StudioOpenGameSettingsEvent")
 local FFlagLocalizationPageInGameSettingsV2 = game:GetFastFlag("LocalizationPageInGameSettingsV2")
@@ -184,10 +181,8 @@ local function closeGameSettings(userPressedSave)
 	local state = settingsStore:getState()
 	local currentStatus = state.Status
 
-	if FFlagGameSettingsPreventClosingDialogWhileSaveInProgress then
-		if currentStatus == CurrentStatus.Working and not userPressedSave then
-			return
-		end
+	if currentStatus == CurrentStatus.Working and not userPressedSave then
+		return
 	end
 
 	if currentStatus ~= CurrentStatus.Closed then

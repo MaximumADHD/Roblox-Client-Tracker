@@ -9,8 +9,6 @@ local PartMover = require(DraggerFramework.Utility.PartMover)
 local AttachmentMover = require(DraggerFramework.Utility.AttachmentMover)
 local StandardCursor = require(DraggerFramework.Utility.StandardCursor)
 
-local getFFlagSupportNoRotate = require(DraggerFramework.Flags.getFFlagSupportNoRotate)
-local getFFlagFixStaleJointDisplay = require(DraggerFramework.Flags.getFFlagFixStaleJointDisplay)
 local getFFlagFixGlobalRotateAgain = require(DraggerFramework.Flags.getFFlagFixGlobalRotateAgain)
 
 local DraggingParts = {}
@@ -115,24 +113,14 @@ function DraggingParts:_tiltRotateFreeformSelectionDrag(axis)
 		lastTargetMatrix = self._lastDragTarget.targetMatrix
 	end
 
-	if getFFlagSupportNoRotate() then
-		self._tiltRotate = DragHelper.updateTiltRotate(
-			self._draggerToolModel._draggerContext:getCameraCFrame(),
-			self._draggerToolModel._draggerContext:getMouseRay(),
-			self._raycastFilter, mainCFrame, lastTargetMatrix,
-			self._tiltRotate, axis, self._draggerToolModel:shouldAlignDraggedObjects())
-	else
-		self._tiltRotate = DragHelper.updateTiltRotate(
-			self._draggerToolModel._draggerContext:getCameraCFrame(),
-			self._draggerToolModel._draggerContext:getMouseRay(),
-			self._raycastFilter, mainCFrame, lastTargetMatrix,
-			self._tiltRotate, axis)
-	end
+	self._tiltRotate = DragHelper.updateTiltRotate(
+		self._draggerToolModel._draggerContext:getCameraCFrame(),
+		self._draggerToolModel._draggerContext:getMouseRay(),
+		self._raycastFilter, mainCFrame, lastTargetMatrix,
+		self._tiltRotate, axis, self._draggerToolModel:shouldAlignDraggedObjects())
 
 	self:_updateFreeformSelectionDrag()
-	if getFFlagFixStaleJointDisplay() then
-		self._draggerToolModel:_scheduleRender()
-	end
+	self._draggerToolModel:_scheduleRender()
 end
 
 function DraggingParts:_updateFreeformSelectionDrag()
@@ -144,33 +132,18 @@ function DraggingParts:_updateFreeformSelectionDrag()
 	local forceLocal = true
 	local localBoundingBoxCFrame, localBoundingBoxOffset, localBoundingBoxSize =
 		self._draggerToolModel._derivedWorldState:getBoundingBox(forceLocal)
-	local dragTarget
-	if getFFlagSupportNoRotate() then
-		dragTarget = DragHelper.getDragTarget(
-			self._draggerToolModel._draggerContext:getMouseRay(),
-			self._draggerToolModel._draggerContext:getGridSize(),
-			self._dragStart.clickPoint,
-			self._raycastFilter,
-			localBoundingBoxCFrame,
-			self._dragStart.basisPoint,
-			localBoundingBoxSize,
-			localBoundingBoxOffset,
-			self._tiltRotate,
-			lastTargetMatrix,
-			self._draggerToolModel:shouldAlignDraggedObjects())
-	else
-		dragTarget = DragHelper.getDragTarget(
-			self._draggerToolModel._draggerContext:getMouseRay(),
-			self._draggerToolModel._draggerContext:getGridSize(),
-			self._dragStart.clickPoint,
-			self._raycastFilter,
-			localBoundingBoxCFrame,
-			self._dragStart.basisPoint,
-			localBoundingBoxSize,
-			localBoundingBoxOffset,
-			self._tiltRotate,
-			lastTargetMatrix)
-	end
+	local dragTarget = DragHelper.getDragTarget(
+		self._draggerToolModel._draggerContext:getMouseRay(),
+		self._draggerToolModel._draggerContext:getGridSize(),
+		self._dragStart.clickPoint,
+		self._raycastFilter,
+		localBoundingBoxCFrame,
+		self._dragStart.basisPoint,
+		localBoundingBoxSize,
+		localBoundingBoxOffset,
+		self._tiltRotate,
+		lastTargetMatrix,
+		self._draggerToolModel:shouldAlignDraggedObjects())
 
 	self._draggerToolModel:_analyticsRecordFreeformDragUpdate(dragTarget)
 

@@ -16,7 +16,6 @@
 ]]
 
 local FFlagUseCategoryNameInToolbox = game:GetFastFlag("UseCategoryNameInToolbox")
-local FFlagToolboxUseNewAssetType = game:GetFastFlag("ToolboxUseNewAssetType")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -35,7 +34,7 @@ local PageInfoHelper = require(Util.PageInfoHelper)
 
 local Types = Plugin.Core.Types
 local Category = require(Types.Category)
-local AssetType = FFlagToolboxUseNewAssetType and UILibrary.Util.AssetType or require(Types.AssetType)
+local AssetType = UILibrary.Util.AssetType
 
 local getModal = ContextGetter.getModal
 local withModal = ContextHelper.withModal

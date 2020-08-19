@@ -10,7 +10,6 @@
 			function Tags.onDelete(table tag) = A callback when the user wants to delete a tag.
 		function OnClearTags = A callback when the user wants to clear all tags.
 ]]
-local FFlagStudioToolboxSearchOverflowFix = game:GetFastFlag("StudioToolboxSearchOverflowFix")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -79,16 +78,8 @@ function SearchTags:createPrompt(searchTerm, theme, localizedContent)
 		})
 	else
 		local prompt = localizedContent.SearchResults.SearchResultsKeyword
-		local promptWidth
-		local searchTermSize
-
-		if FFlagStudioToolboxSearchOverflowFix then
-			promptWidth = Constants.getTextSize(prompt, nil, Constants.FONT_BOLD).X
-			searchTermSize = UDim2.new(1, -promptWidth, 0, ITEM_HEIGHT)
-		else
-			promptWidth = Constants.getTextSize(prompt).X
-			searchTermSize = UDim2.new(1, 0, 0, ITEM_HEIGHT)
-		end
+		local promptWidth = Constants.getTextSize(prompt, nil, Constants.FONT_BOLD).X
+		local searchTermSize = UDim2.new(1, -promptWidth, 0, ITEM_HEIGHT)
 
 		return Roact.createElement("Frame", {
 			Size = UDim2.new(1, 0, 0, ITEM_HEIGHT),
@@ -118,7 +109,7 @@ function SearchTags:createPrompt(searchTerm, theme, localizedContent)
 				TextSize = Constants.FONT_SIZE_MEDIUM,
 				TextColor3 = theme.searchTag.textColor,
 				Size = searchTermSize,
-				TextTruncate = FFlagStudioToolboxSearchOverflowFix and Enum.TextTruncate.AtEnd or nil,
+				TextTruncate = Enum.TextTruncate.AtEnd,
 				BackgroundTransparency = 1,
 			}),
 		})

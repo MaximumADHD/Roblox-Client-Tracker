@@ -69,7 +69,6 @@ function ListDialog:render()
             Buttons = buttons,
             Resizable = false,
             Size = Vector2.new(500, 320),
-            Resizable = false,
             BorderPadding = BORDER_PADDING,
             ButtonPadding = BUTTON_PADDING,
             ButtonHeight = BUTTON_HEIGHT,

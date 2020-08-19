@@ -11,5 +11,6 @@ game:DefineFastFlag("EnableDevProductsInGameSettings", false)
 game:DefineFastFlag("FixVIPServerShutdownWarningText", false)
 game:DefineFastFlag("LocalizationPageInGameSettingsV2", false)
 game:DefineFastFlag("StudioShowIndividualPermissionsForGroupGames", false)
+game:DefineFastFlag("StudioFixGameManagementIndexNil", false)
 
 return nil

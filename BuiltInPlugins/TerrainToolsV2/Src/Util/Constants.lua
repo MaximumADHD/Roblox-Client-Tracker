@@ -1,3 +1,5 @@
+local FFlagTerrainToolsUseMapSettingsWithPreview = game:GetFastFlag("TerrainToolsUseMapSettingsWithPreview")
+
 local Plugin = script.Parent.Parent.Parent
 
 local TerrainEnums = require(Plugin.Src.Util.TerrainEnums)
@@ -66,8 +68,9 @@ Constants.ToolActivatesPlugin = {
 	[ToolId.Flatten] = true,
 	[ToolId.Paint] = true,
 	[ToolId.SeaLevel] = true,
+	[ToolId.Generate] = FFlagTerrainToolsUseMapSettingsWithPreview,
+	[ToolId.Import] = FFlagTerrainToolsUseMapSettingsWithPreview,
 	[ToolId.Replace] = true,
-
 }
 
 Constants.BiomeToLocalizationKey = {

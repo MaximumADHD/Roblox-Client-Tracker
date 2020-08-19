@@ -2,8 +2,6 @@ local DraggerFramework = script.Parent.Parent.Parent
 local DraggerStateType = require(DraggerFramework.Implementation.DraggerStateType)
 local StandardCursor = require(DraggerFramework.Utility.StandardCursor)
 
-local getFFlagDraggerAnalyticsCleanup = require(DraggerFramework.Flags.getFFlagDraggerAnalyticsCleanup)
-
 local FREEFORM_DRAG_THRESHOLD = 4
 
 local PendingDraggingParts = {}
@@ -56,11 +54,7 @@ function PendingDraggingParts:processMouseUp()
 		local selectionWrapper = self._draggerToolModel._draggerContext:getSelectionWrapper()
 		selectionWrapper:Set({self._dragStart.clickedFaceInstance})
 		self._draggerToolModel:_processSelectionChanged()
-		if getFFlagDraggerAnalyticsCleanup() then
-			self._draggerToolModel:_analyticsSendFaceInstanceSelected(self._dragStart.clickedFaceInstance.ClassName)
-		else
-			self._draggerToolModel:_analyticsSendFaceInstanceSelected()
-		end
+		self._draggerToolModel:_analyticsSendFaceInstanceSelected(self._dragStart.clickedFaceInstance.ClassName)
 	end
 
 	self._draggerToolModel:transitionToState(DraggerStateType.Ready)

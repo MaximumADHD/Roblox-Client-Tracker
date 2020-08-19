@@ -13,9 +13,12 @@ return function()
 			Id = 12345,
 			IsEndorsed = false,
 			Name = "Hello, world!",
+			TypeId = Enum.AssetType.Model.Value,
 		},
 		Creator = {
 			Name = "Foo",
+			Type = Enum.CreatorType.User.Value,
+			Id = 123,
 		},
 		Voting = {
 			UpVotes = 150,

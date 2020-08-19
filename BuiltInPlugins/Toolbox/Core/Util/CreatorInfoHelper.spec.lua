@@ -18,6 +18,22 @@ return function()
 		end)
 	end)
 
+	it("clientToBackend", function()
+		expect(CreatorInfoHelper.clientToBackend(Enum.CreatorType.User.Value)).to.equal(1)
+		expect(CreatorInfoHelper.clientToBackend(Enum.CreatorType.Group.Value)).to.equal(2)
+		expect(function()
+			CreatorInfoHelper.clientToBackend(2)
+		end).to.throw()
+	end)
+
+	it("backendToClient", function()
+		expect(CreatorInfoHelper.backendToClient(1)).to.equal(Enum.CreatorType.User.Value)
+		expect(CreatorInfoHelper.backendToClient(2)).to.equal(Enum.CreatorType.Group.Value)
+		expect(function()
+			CreatorInfoHelper.backendToClient(3)
+		end).to.throw()
+	end)
+
 	describe("isValidCreatorType", function()
 
 		it("returns true", function()

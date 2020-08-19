@@ -21,6 +21,7 @@ local FFlagFixAssetManagerInsertWithLocation = game:DefineFastFlag("FixAssetMana
 local FFlagAssetManagerFixAssetRemoval = game:DefineFastFlag("AssetManagerFixAssetRemoval", false)
 local FFlagAssetManagerAddNewPlaceBehavior = game:DefineFastFlag("AssetManagerAddNewPlaceBehavior", false)
 local FFlagOnlyAllowInsertPackageInEdit = game:DefineFastFlag("OnlyAllowInsertPackageInEdit", false)
+local FFlagAssetManagerOpenContextMenu = game:GetFastFlag("AssetManagerOpenContextMenu")
 
 local FFlagAssetManagerAddAnalytics = game:GetFastFlag("AssetManagerAddAnalytics")
 
@@ -64,6 +65,14 @@ local function removeAssets(apiImpl, assetData, assets, selectedAssets, store)
 end
 
 local function createFolderContextMenu(analytics, apiImpl, assetData, contextMenu, localization, store)
+    if FFlagAssetManagerOpenContextMenu then
+        contextMenu:AddNewAction("OpenFolder", localization:getText("ContextMenu", "OpenFolder")).Triggered:connect(function()
+            store:dispatch(SetScreen(assetData.Screen))
+            if FFlagAssetManagerAddAnalytics then
+                analytics:report("clickContextMenuItem")
+            end
+        end)
+    end
     if assetData.Screen.Key == Screens.IMAGES.Key then
         contextMenu:AddNewAction("AddImages", localization:getText("ContextMenu", "AddImages")).Triggered:connect(function()
             store:dispatch(LaunchBulkImport(Enum.AssetType.Image.Value))

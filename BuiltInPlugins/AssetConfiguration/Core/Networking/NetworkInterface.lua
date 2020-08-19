@@ -7,8 +7,9 @@
 local FFlagToolboxShowGroupCreations = game:GetFastFlag("ToolboxShowGroupCreations")
 local FFlagEnableOverrideAssetGroupCreationApi = game:GetFastFlag("EnableOverrideAssetGroupCreationApi")
 local FFlagUseCategoryNameInToolbox = game:GetFastFlag("UseCategoryNameInToolbox")
-local FFlagStudioFixGroupCreatorInfo = game:GetFastFlag("StudioFixGroupCreatorInfo")
+local FFlagStudioFixGroupCreatorInfo3 = game:GetFastFlag("StudioFixGroupCreatorInfo3")
 local FFlagStudioFixComparePageInfo2 = game:GetFastFlag("StudioFixComparePageInfo2")
+local FFlagToolboxWaitForPluginOwnedStatus = game:GetFastFlag("ToolboxWaitForPluginOwnedStatus")
 
 local Plugin = script.Parent.Parent.Parent
 local Networking = require(Plugin.Libs.Http.Networking)
@@ -256,7 +257,7 @@ function NetworkInterface:getAssetCreationDetails(assetIds)
 	end)
 end
 
-if FFlagStudioFixGroupCreatorInfo then
+if FFlagStudioFixGroupCreatorInfo3 then
 	function NetworkInterface:getCreatorInfo(creatorId, creatorType)
 		local targetUrl = Urls.constructGetCreatorInfoUrl(creatorId, creatorType)
 
@@ -687,11 +688,13 @@ function NetworkInterface:getRobuxBalance(userId)
 	return self._networkImp:httpGetJson(targetUrl)
 end
 
-function NetworkInterface:getOwnsAsset(assetId, userId)
-	local targetUrl = Urls.constructOwnsAssetUrl(assetId, userId)
+if not FFlagToolboxWaitForPluginOwnedStatus then
+	function NetworkInterface:getOwnsAsset(assetId, userId)
+		local targetUrl = Urls.constructOwnsAssetUrl(assetId, userId)
 
-	printUrl("getOwnsAsset", "GET", targetUrl)
-	return self._networkImp:httpGet(targetUrl)
+		printUrl("getOwnsAsset", "GET", targetUrl)
+		return self._networkImp:httpGet(targetUrl)
+	end
 end
 
 function NetworkInterface:getCanManageAsset(assetId, userId)

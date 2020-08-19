@@ -5,6 +5,7 @@
 game:DefineFastFlag("TerrainOpenCloseMetrics", false)
 game:DefineFastFlag("TerrainToolsUseDevFramework", false)
 game:DefineFastFlag("TerrainToolsReplaceTool", false)
+game:DefineFastFlag("TerrainToolsUseMapSettingsWithPreview", false)
 game:DefineFastFlag("TerrainEnableErrorReporting", false)
 game:DefineFastFlag("TerrainToolsReplaceSrcTogglesOff", false)
 

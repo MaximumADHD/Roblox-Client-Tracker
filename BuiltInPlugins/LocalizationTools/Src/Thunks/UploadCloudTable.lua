@@ -19,6 +19,7 @@ local PatchInfo = require(Plugin.Src.Util.PatchInfo)
 local isEmpty = require(Plugin.Src.Util.isEmpty)
 
 local FFlagRequestAssetGenerationAfterSuccess = game:GetFastFlag("RequestAssetGenerationAfterSuccess")
+local FFlagLocalizationToolsFixHttpFailureBacktrace = game:GetFastFlag("LocalizationToolsFixHttpFailureBacktrace")
 
 local function makeDispatchErrorMessageFunc(store, localization)
 	return function()
@@ -29,13 +30,29 @@ end
 
 local function getGameSupportedLanguages(request)
 	local languageSet = {}
-	local responseTable = request:makeRequest():await()
-	if responseTable and responseTable.responseCode == Http.StatusCodes.OK then
-		for _, languageInfo in ipairs(responseTable.responseBody.data) do
-			languageSet[languageInfo.languageCode] = true
-		end
+	if FFlagLocalizationToolsFixHttpFailureBacktrace then
+		request:makeRequest():andThen(
+			function(response)
+				if response and response.responseCode == Http.StatusCodes.OK then
+					for _, languageInfo in ipairs(response.responseBody.data) do
+						languageSet[languageInfo.languageCode] = true
+					end
+				else
+					return
+				end
+			end,
+			function()
+				return
+			end):await()
 	else
-		return
+		local responseTable = request:makeRequest():await()
+		if responseTable and responseTable.responseCode == Http.StatusCodes.OK then
+			for _, languageInfo in ipairs(responseTable.responseBody.data) do
+				languageSet[languageInfo.languageCode] = true
+			end
+		else
+			return
+		end
 	end
 
 	return languageSet
@@ -52,11 +69,27 @@ local function patchSupportedLanguages(api, gameId, languagesList)
 	end
 	local body = HttpService:JSONEncode(requestBody)
 	local request = api.GameInternationalization.V1.SupportedLanguages.Games.patch(gameId, body)
-	local responseTable = request:makeRequest():await()
-	if responseTable.responseCode == Http.StatusCodes.OK then
-		return true
+	if FFlagLocalizationToolsFixHttpFailureBacktrace then
+		local success
+		request:makeRequest():andThen(
+			function(response)
+				if response.responseCode == Http.StatusCodes.OK then
+					success = true
+				else
+					success = false
+				end
+			end,
+			function()
+				success = false
+			end):await()
+		return success
 	else
-		return false
+		local responseTable = request:makeRequest():await()
+		if responseTable.responseCode == Http.StatusCodes.OK then
+			return true
+		else
+			return false
+		end
 	end
 end
 

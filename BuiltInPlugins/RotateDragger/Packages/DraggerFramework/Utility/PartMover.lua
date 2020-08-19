@@ -11,8 +11,6 @@ local JointPairs = require(DraggerFramework.Utility.JointPairs)
 local JointUtil = require(DraggerFramework.Utility.JointUtil)
 local SelectionWrapper = require(DraggerFramework.Utility.SelectionWrapper)
 
-local getFFlagNoMoveToPile = require(DraggerFramework.Flags.getFFlagNoMoveToPile)
-
 local DEFAULT_COLLISION_THRESHOLD = 0.001
 
 -- Get all the instances the user has directly selected (actually part of the
@@ -412,26 +410,6 @@ function PartMover:commit()
 		part.Anchored = false
 	end
 	self._toUnanchor = {}
-
-	if not getFFlagNoMoveToPile() then
-		if self._lastTransform and self._bulkMoveParts then
-			-- ChangeHistoryService "bump": Since we move the parts via the
-			-- WorldRoot::BulkMoveTo API with mode = FireCFrameChanged the
-			-- ChangeHistoryService won't see those moves. Do a final move with
-			-- mode = FireCFrameChanged which the ChangeHistoryService will
-			-- record. Note: We have to move the parts back to 0,0,0 first,
-			-- since if their CFrames don't change, we won't get any even
-			-- if we do call with mode = FireCFrameChanged.
-			Workspace:BulkMoveTo(self._bulkMoveParts,
-				table.create(#self._bulkMoveParts, CFrame.new()),
-				Enum.BulkMoveMode.FireCFrameChanged)
-			Workspace:BulkMoveTo(self._moveWithCFrameChangeParts,
-				table.create(#self._moveWithCFrameChangeParts, CFrame.new()),
-				Enum.BulkMoveMode.FireCFrameChanged)
-			self:_transformToImpl(self._lastTransform, Enum.BulkMoveMode.FireCFrameChanged)
-			self._lastTransform = nil
-		end
-	end
 
 	if self._bulkMoveParts then
 		self._moveWithCFrameChangeParts = nil

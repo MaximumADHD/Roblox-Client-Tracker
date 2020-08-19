@@ -14,14 +14,12 @@ local Math = require(DraggerFramework.Utility.Math)
 
 local RotateHandleView = Roact.PureComponent:extend("RotateHandleView")
 
-local getFFlagRotationTicks = require(DraggerFramework.Flags.getFFlagRotationTicks)
-
 local HANDLE_SEGMENTS = 32
 local HANDLE_RADIUS = 4.5
 local HANDLE_THICKNESS = 0.15
 local ANGLE_DISPLAY_THICKNESS = 0.08
 local HANDLE_HITTEST_THICKNESS = HANDLE_THICKNESS * 4
-local HANDLE_THIN_BY_FRAC = getFFlagRotationTicks() and 0.0 or 0.34
+local HANDLE_THIN_BY_FRAC = 0.0
 local HANDLE_THICK_BY_FRAC = 1.5
 local HANDLE_DIM_TRANSPARENCY = 0.45
 local HANDLE_TICK_WIDTH = 0.05
@@ -100,53 +98,51 @@ function RotateHandleView:render()
 		})
 	end
 
-	if getFFlagRotationTicks() then
-		if self.props.TickAngle then
-			local angleStep = self.props.TickAngle
-			local count = math.ceil(math.pi * 2 / angleStep)
-			local smallTickWidth = HANDLE_TICK_WIDTH * self.props.Scale
-			local smallTickLength = HANDLE_TICK_RADIUS_FRAC * radius
+	if self.props.TickAngle then
+		local angleStep = self.props.TickAngle
+		local count = math.ceil(math.pi * 2 / angleStep)
+		local smallTickWidth = HANDLE_TICK_WIDTH * self.props.Scale
+		local smallTickLength = HANDLE_TICK_RADIUS_FRAC * radius
 
-			-- Information for the primary ticks placed at 90 degree intervals
-			-- relative to the angle the rotate started at.
-			local primaryTickWidth = HANDLE_TICK_WIDE_WIDTH * self.props.Scale
-			local primaryTickLength = HANDLE_TICK_RADIUS_LONG_FRAC * radius
-			local placementAngleMod = 0
-			local primaryTickAngleMod = 0
-			local hasPrimaryTicks = false
-			if self.props.StartAngle then
-				placementAngleMod = self.props.EndAngle - self.props.StartAngle
-				primaryTickAngleMod = self.props.StartAngle
-				hasPrimaryTicks = true
-			end
+		-- Information for the primary ticks placed at 90 degree intervals
+		-- relative to the angle the rotate started at.
+		local primaryTickWidth = HANDLE_TICK_WIDE_WIDTH * self.props.Scale
+		local primaryTickLength = HANDLE_TICK_RADIUS_LONG_FRAC * radius
+		local placementAngleMod = 0
+		local primaryTickAngleMod = 0
+		local hasPrimaryTicks = false
+		if self.props.StartAngle then
+			placementAngleMod = self.props.EndAngle - self.props.StartAngle
+			primaryTickAngleMod = self.props.StartAngle
+			hasPrimaryTicks = true
+		end
 
-			for i = 1, count do
-				local angle = math.pi + (i - 1) * angleStep - placementAngleMod
-				local isPrimaryTick = hasPrimaryTicks and isMultipleOf90Degrees(angle - primaryTickAngleMod)
-				local tickLength = isPrimaryTick and primaryTickLength or smallTickLength
-				local tickWidth = isPrimaryTick and primaryTickWidth or smallTickWidth
-				local cframe =
-					self.props.HandleCFrame *
-					CFrame.Angles(angle, 0, 0) *
-					CFrame.new(0, 0, radius - 0.5 * smallTickLength)
-				children["Tick" .. tostring(i)] = Roact.createElement("BoxHandleAdornment", {
-					Adornee = Workspace.Terrain,
-					AlwaysOnTop = false,
-					CFrame = cframe,
-					Color3 = self.props.Color,
-					Size = Vector3.new(tickWidth, tickWidth, tickLength),
-					ZIndex = 0,
-				})
-				children["OnTopTick" .. tostring(i)] = Roact.createElement("BoxHandleAdornment", {
-					Adornee = Workspace.Terrain,
-					AlwaysOnTop = true,
-					Transparency = HANDLE_DIM_TRANSPARENCY,
-					CFrame = cframe,
-					Color3 = self.props.Color,
-					Size = Vector3.new(tickWidth, tickWidth, tickLength),
-					ZIndex = 0,
-				})
-			end
+		for i = 1, count do
+			local angle = math.pi + (i - 1) * angleStep - placementAngleMod
+			local isPrimaryTick = hasPrimaryTicks and isMultipleOf90Degrees(angle - primaryTickAngleMod)
+			local tickLength = isPrimaryTick and primaryTickLength or smallTickLength
+			local tickWidth = isPrimaryTick and primaryTickWidth or smallTickWidth
+			local cframe =
+				self.props.HandleCFrame *
+				CFrame.Angles(angle, 0, 0) *
+				CFrame.new(0, 0, radius - 0.5 * smallTickLength)
+			children["Tick" .. tostring(i)] = Roact.createElement("BoxHandleAdornment", {
+				Adornee = Workspace.Terrain,
+				AlwaysOnTop = false,
+				CFrame = cframe,
+				Color3 = self.props.Color,
+				Size = Vector3.new(tickWidth, tickWidth, tickLength),
+				ZIndex = 0,
+			})
+			children["OnTopTick" .. tostring(i)] = Roact.createElement("BoxHandleAdornment", {
+				Adornee = Workspace.Terrain,
+				AlwaysOnTop = true,
+				Transparency = HANDLE_DIM_TRANSPARENCY,
+				CFrame = cframe,
+				Color3 = self.props.Color,
+				Size = Vector3.new(tickWidth, tickWidth, tickLength),
+				ZIndex = 0,
+			})
 		end
 	end
 
@@ -166,22 +162,12 @@ function RotateHandleView:render()
 	end
 
 	-- Draw radii for contral angle start and end.
-	if getFFlagRotationTicks() then
-		local angleDisplayThickness = ANGLE_DISPLAY_THICKNESS * self.props.Scale
-		if self.props.StartAngle ~= nil then
-			children.StartAngleElement = createRadiusElement(self.props.StartAngle, angleDisplayThickness)
-		end
-		if self.props.EndAngle ~= nil then
-			children.EndAngleElement = createRadiusElement(self.props.EndAngle, angleDisplayThickness)
-		end
-	else
-		local thinThickness = HANDLE_THICKNESS * self.props.Scale
-		if self.props.StartAngle ~= nil then
-			children.StartAngleElement = createRadiusElement(self.props.StartAngle, thinThickness)
-		end
-		if self.props.EndAngle ~= nil then
-			children.EndAngleElement = createRadiusElement(self.props.EndAngle, thinThickness)
-		end
+	local angleDisplayThickness = ANGLE_DISPLAY_THICKNESS * self.props.Scale
+	if self.props.StartAngle ~= nil then
+		children.StartAngleElement = createRadiusElement(self.props.StartAngle, angleDisplayThickness)
+	end
+	if self.props.EndAngle ~= nil then
+		children.EndAngleElement = createRadiusElement(self.props.EndAngle, angleDisplayThickness)
 	end
 
 	return Roact.createFragment(children)

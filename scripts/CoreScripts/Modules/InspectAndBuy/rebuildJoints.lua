@@ -67,7 +67,7 @@ local function buildJointTree(character)
 			return childList, jointList
 		end
 
-		local childList, jointList = findPairedJoints(dataItem)
+		local childList, jointList = findPairedJoints()
 		for idx, childPart in ipairs(childList) do
 			local childDataItem = {
 				Part = childPart,

@@ -126,7 +126,7 @@ Chat.Chatted:Connect(function(partOrModel, message)
 		timestamp = os.time()
 	}
 
-	-- If we're dealing with a character that has no Player associated with it,
+	-- If we're dealing with a characterthat has no Player associated with it,
 	-- supply the adornee to use for the BillboardGui.
 	-- TODO: Set the adornee regardless: https://jira.rbx.com/browse/SOCIALAPP-138
 	if not player then

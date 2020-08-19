@@ -7,7 +7,6 @@
 
 local DraggerFramework = script.Parent.Parent
 
-local getFFlagUpdateHandleRoot = require(DraggerFramework.Flags.getFFlagUpdateHandleRoot)
 local getFFlagTrackIndividualParts = require(DraggerFramework.Flags.getFFlagTrackIndividualParts)
 
 local MAX_PARTS_TO_TRACK_BOUNDS_FOR = 1024
@@ -121,34 +120,24 @@ function BoundsChangedTracker:setParts(parts)
 		local entry = self._partToEntry[part]
 		self._partToEntry[part] = nil
 		if not entry then
-			if getFFlagUpdateHandleRoot() then
-				if getFFlagTrackIndividualParts() then
-					local rootPart = part:GetRootPart()
-					local rootCFrameChangedSignal
-					if rootPart and rootPart ~= part then
-						rootCFrameChangedSignal = rootPart:GetPropertyChangedSignal("CFrame")
-					end
-
-					entry = {
-						CFrameChangedSignal = part:GetPropertyChangedSignal("CFrame"),
-						RootCFrameChangedSignal = rootCFrameChangedSignal,
-						SizeChangedSignal = part:GetPropertyChangedSignal("Size"),
-						Trampoline = function()
-							self._handler(part)
-						end,
-					}
-				else
-					entry = {
-						CFrameChangedSignal = (part:GetRootPart() or part):GetPropertyChangedSignal("CFrame"),
-						SizeChangedSignal = part:GetPropertyChangedSignal("Size"),
-						Trampoline = function()
-							self._handler(part)
-						end,
-					}
+			if getFFlagTrackIndividualParts() then
+				local rootPart = part:GetRootPart()
+				local rootCFrameChangedSignal
+				if rootPart and rootPart ~= part then
+					rootCFrameChangedSignal = rootPart:GetPropertyChangedSignal("CFrame")
 				end
-			else
+
 				entry = {
 					CFrameChangedSignal = part:GetPropertyChangedSignal("CFrame"),
+					RootCFrameChangedSignal = rootCFrameChangedSignal,
+					SizeChangedSignal = part:GetPropertyChangedSignal("Size"),
+					Trampoline = function()
+						self._handler(part)
+					end,
+				}
+			else
+				entry = {
+					CFrameChangedSignal = (part:GetRootPart() or part):GetPropertyChangedSignal("CFrame"),
 					SizeChangedSignal = part:GetPropertyChangedSignal("Size"),
 					Trampoline = function()
 						self._handler(part)

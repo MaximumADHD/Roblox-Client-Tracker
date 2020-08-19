@@ -10,7 +10,6 @@ local shouldDragAsFace = require(DraggerFramework.Utility.shouldDragAsFace)
 
 local getEngineFeatureActiveInstanceHighlight = require(DraggerFramework.Flags.getEngineFeatureActiveInstanceHighlight)
 local getFFlagDragFaceInstances = require(DraggerFramework.Flags.getFFlagDragFaceInstances)
-local getFFlagFixLocalFreeformDrag = require(DraggerFramework.Flags.getFFlagFixLocalFreeformDrag)
 
 local RAYCAST_DIRECTION_SCALE = 10000
 
@@ -101,16 +100,9 @@ local function computeTwoBoundingBoxes(basisCFrame1, allParts, allAttachments)
 				t00, t01, t02,
 				t10, t11, t12,
 				t20, t21, t22 = localCFrame1:components()
-			local hw1, hh1, hd1
-			if getFFlagFixLocalFreeformDrag() then
-				hw1 = 0.5 * (math.abs(sx * t00) + math.abs(sy * t01) + math.abs(sz * t02))
-				hh1 = 0.5 * (math.abs(sx * t10) + math.abs(sy * t11) + math.abs(sz * t12))
-				hd1 = 0.5 * (math.abs(sx * t20) + math.abs(sy * t21) + math.abs(sz * t22))
-			else
-				hw1 = 0.5 * (math.abs(sx * t00) + math.abs(sy * t10) + math.abs(sz * t20))
-				hh1 = 0.5 * (math.abs(sx * t01) + math.abs(sy * t11) + math.abs(sz * t21))
-				hd1 = 0.5 * (math.abs(sx * t02) + math.abs(sy * t12) + math.abs(sz * t22))
-			end
+			local hw1 = 0.5 * (math.abs(sx * t00) + math.abs(sy * t01) + math.abs(sz * t02))
+			local hh1 = 0.5 * (math.abs(sx * t10) + math.abs(sy * t11) + math.abs(sz * t12))
+			local hd1 = 0.5 * (math.abs(sx * t20) + math.abs(sy * t21) + math.abs(sz * t22))
 			local x1, y1, z1 = localCFrame1.X, localCFrame1.Y, localCFrame1.Z
 			xmin1 = math.min(xmin1, x1 - hw1)
 			xmax1 = math.max(xmax1, x1 + hw1)

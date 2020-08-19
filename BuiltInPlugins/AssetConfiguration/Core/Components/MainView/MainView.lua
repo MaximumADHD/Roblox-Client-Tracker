@@ -27,8 +27,6 @@
 
 local FFlagFixToolboxEmptyRender = game:DefineFastFlag("FixToolboxEmptyRender", false)
 local FFlagUseCategoryNameInToolbox = game:GetFastFlag("UseCategoryNameInToolbox")
-local FFlagStudioShowNoPluginResultsDetailFix = game:DefineFastFlag("StudioShowNoPluginResultsDetailFix", false)
-local FFlagStudioToolboxFixWidthCalculation = game:DefineFastFlag("StudioToolboxFixWidthCalculation", false)
 
 local GuiService = game:GetService("GuiService")
 
@@ -236,13 +234,7 @@ function MainView:render()
 
 		local lowerIndexToRender = state.lowerIndexToRender or 0
 
-		local containerWidth
-		if FFlagStudioToolboxFixWidthCalculation then
-			containerWidth = maxWidth - (2 * Constants.MAIN_VIEW_PADDING) - Constants.SCROLLBAR_PADDING
-		else
-			containerWidth = maxWidth - (2 * Constants.MAIN_VIEW_PADDING)
-				- Constants.SCROLLBAR_BACKGROUND_THICKNESS - Constants.SCROLLBAR_PADDING
-		end
+		local containerWidth = maxWidth - (2 * Constants.MAIN_VIEW_PADDING) - Constants.SCROLLBAR_PADDING
 
 		local showPrices
 		if FFlagUseCategoryNameInToolbox then
@@ -278,21 +270,19 @@ function MainView:render()
 
 		local noResultsDetailProps = nil
 
-		if FFlagStudioShowNoPluginResultsDetailFix then
-			local isPlugin
-			if FFlagUseCategoryNameInToolbox then
-				isPlugin = Category.categoryIsPlugin(props.categoryName)
-			else
-				isPlugin = Category.categoryIsPlugin(props.currentTab, categoryIndex)
-			end
-			if showInfoBanner and isPlugin then
-				noResultsDetailProps = {
-					onLinkClicked = function()
-						GuiService:OpenBrowserWindow(Constants.PLUGIN_LIBRARY_URL)
-					end,
-					content = localizedContent.NoPluginsFound
-				}
-			end
+		local isPlugin
+		if FFlagUseCategoryNameInToolbox then
+			isPlugin = Category.categoryIsPlugin(props.categoryName)
+		else
+			isPlugin = Category.categoryIsPlugin(props.currentTab, categoryIndex)
+		end
+		if showInfoBanner and isPlugin then
+			noResultsDetailProps = {
+				onLinkClicked = function()
+					GuiService:OpenBrowserWindow(Constants.PLUGIN_LIBRARY_URL)
+				end,
+				content = localizedContent.NoPluginsFound
+			}
 		end
 
 		-- Need to shift the position of AssetGridContainer depending on how many rows we've cut off the start
