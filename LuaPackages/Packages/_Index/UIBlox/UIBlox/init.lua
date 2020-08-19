@@ -95,6 +95,12 @@ local function initializeLibrary()
 		}),
 
 		Loading = strict({
+			Enum = strict({
+				RetrievalStatus = require(script.App.Loading.Enum.RetrievalStatus),
+				LoadingState = require(script.App.Loading.Enum.LoadingState),
+				RenderOnFailedStyle = require(script.App.Loading.Enum.RenderOnFailedStyle),
+				ReloadingStyle = require(script.App.Loading.Enum.ReloadingStyle),
+			}),
 			LoadableImage = require(script.App.Loading.LoadableImage),
 			ShimmerPanel = require(script.App.Loading.ShimmerPanel),
 			LoadingSpinner = require(script.App.Loading.LoadingSpinner),
@@ -113,6 +119,7 @@ local function initializeLibrary()
 			}),
 			VerticalScrollView = require(script.App.Container.VerticalScrollView),
 			getPageMargin = require(script.App.Container.getPageMargin),
+			LoadingStateContainer = require(script.App.Container.LoadingStateContainer),
 		}),
 
 		Slider = strict({
