@@ -1,41 +1,41 @@
-Key,Source,Context,ko,zh-cn
-Studio.AssetManager.Main.Title,Asset Manager, ,애셋 관리자,资源管理器
-Studio.AssetManager.Main.ToolbarButton,Asset Manager, ,애셋 관리자,资源管理器
-Studio.AssetManager.Main.Tooltip,"Add, remove, and modify assets", ,"애셋 추가, 제거, 수정",添加、移除和修改资源
-Studio.AssetManager.Meta.PluginName,AssetManager, ,AssetManager,AssetManager
-Studio.AssetManager.Meta.ToolbarName,Asset Manager, ,애셋 관리자,资源管理器
-Studio.AssetManager.BulkImport.BulkImportRunning,You can import other files after the current import is finished., ,현재 가져오기가 완료된 후 다른 파일을 가져올 수 있습니다.,请在当前导入完成后开始其它文件的导入。
-Studio.AssetManager.BulkImport.BulkImportShowLink,Check current status, ,현재 상태 확인,检查当前状态
-Studio.AssetManager.SearchBar.PlaceholderText,Filter, ,필터,筛选
-Studio.AssetManager.NavBar.GamePlaceholderName,Game, ,게임,游戏
-Studio.AssetManager.NavBar.ID,ID: {gameId:int}, ,ID: {gameId:int},ID：{gameId:int}
-Studio.AssetManager.Folders.IMAGES,Images, ,이미지,图片
-Studio.AssetManager.Folders.MESHES,Meshes, ,메시,网格
-Studio.AssetManager.Folders.PACKAGES,Packages, ,패키지,包
-Studio.AssetManager.Folders.PLACES,Places, ,플레이스,场景
-Studio.AssetManager.Folders.SCRIPTS,Scripts, ,스크립트,脚本
-Studio.AssetManager.AssetGrid.NoResults,No {assetType} Found, ,{assetType}을(를) 찾을 수 없음,未找到 {assetType}
-Studio.AssetManager.ContextMenu.AddImages,Add Images, ,이미지 추가,添加图片
-Studio.AssetManager.ContextMenu.AddMeshes,Add Meshes, ,메시 추가,添加网格
-Studio.AssetManager.ContextMenu.AddNewPlace,Add New Place, ,새 플레이스 추가,添加新场景
-Studio.AssetManager.ContextMenu.NewPlaceAdded,New Place Added, ,새 플레이스가 추가됨,新场景已添加
-Studio.AssetManager.ContextMenu.EditAsset,Edit Asset, ,애셋 편집,编辑资源
-Studio.AssetManager.ContextMenu.Rename,Rename, ,이름 변경,重命名
-Studio.AssetManager.ContextMenu.RenameAlias,Rename Alias, ,닉네임 변경,重命名别名
-Studio.AssetManager.ContextMenu.CopyIdToClipboard,Copy ID to Clipboard, ,ID를 클립보드에 복사,将 ID 复制到剪贴板
-Studio.AssetManager.ContextMenu.CopyTextureIdToClipboard,Copy Texture ID to Clipboard, ,텍스처 ID를 클립보드에 복사,将纹理 ID 复制到剪贴板
-Studio.AssetManager.ContextMenu.Insert,Insert, ,삽입,插入
-Studio.AssetManager.ContextMenu.InsertWithLocation,Insert With Location, ,위치 포함 삽입,带位置插入
-Studio.AssetManager.ContextMenu.InsertAsScript,Insert As Script, ,스크립트로 삽입,插入为脚本
-Studio.AssetManager.ContextMenu.InsertAsLocalScript,Insert As Local Script, ,로컬 스크립트로 삽입,插入为本地脚本
-Studio.AssetManager.ContextMenu.InsertAsModuleScript,Insert As Module Script, ,모듈 스크립트로 삽입,插入为模块脚本
-Studio.AssetManager.ContextMenu.RemoveFromGame,Remove From Game, ,게임에서 제거,从游戏中删除
-Studio.AssetManager.ContextMenu.UpdateAll,Update All, ,모두 업데이트,全部更新
-Studio.AssetManager.ContextMenu.ViewOnWebsite,View On Website, ,웹사이트에서 보기,在网站上查看
-Studio.AssetManager.ContextMenu.PackageDetails,Package Details, ,패키지 세부 사항,包详情
-Studio.AssetManager.ContextMenu.PublishLinkedSource,Publish this LinkedSource, ,이 LinkedSource 게시,发布此 LinkedSource
-Studio.AssetManager.ContextMenu.RevertToLastPublishedVersion,Revert To Last Published Version, ,마지막 게시 버전으로 되돌리기,还原至上次发布版本
-Studio.AssetManager.ContextMenu.RefreshScript,Refresh Script, ,스크립트 새로고침,刷新脚本
-Studio.AssetManager.AssetPreview.Insert,Insert, ,삽입,插入
-Studio.AssetManager.MainView.PublishText,You need to publish the game to start using Asset Manager., ,애셋 관리자를 사용하려면 게임을 게시해야 합니다.,发布游戏后即可使用资源管理器。
-Studio.AssetManager.MainView.ButtonText,Publish, ,게시,发布
+Key,Source,ko,zh-cn
+Studio.AssetManager.Main.Title,Asset Manager,애셋 관리자,资源管理器
+Studio.AssetManager.Main.ToolbarButton,Asset Manager,애셋 관리자,资源管理器
+Studio.AssetManager.Main.Tooltip,"Add, remove, and modify assets","애셋 추가, 제거, 수정",添加、移除和修改资源
+Studio.AssetManager.Meta.PluginName,AssetManager,AssetManager,AssetManager
+Studio.AssetManager.Meta.ToolbarName,Asset Manager,애셋 관리자,资源管理器
+Studio.AssetManager.BulkImport.BulkImportRunning,You can import other files after the current import is finished.,현재 가져오기가 완료된 후 다른 파일을 가져올 수 있습니다.,请在当前导入完成后开始其它文件的导入。
+Studio.AssetManager.BulkImport.BulkImportShowLink,Check current status,현재 상태 확인,检查当前状态
+Studio.AssetManager.SearchBar.PlaceholderText,Filter,필터,筛选
+Studio.AssetManager.NavBar.GamePlaceholderName,Game,게임,游戏
+Studio.AssetManager.NavBar.ID,ID: {gameId:int},ID: {gameId:int},ID：{gameId:int}
+Studio.AssetManager.Folders.IMAGES,Images,이미지,图片
+Studio.AssetManager.Folders.MESHES,Meshes,메시,网格
+Studio.AssetManager.Folders.PACKAGES,Packages,패키지,包
+Studio.AssetManager.Folders.PLACES,Places,플레이스,场景
+Studio.AssetManager.Folders.SCRIPTS,Scripts,스크립트,脚本
+Studio.AssetManager.AssetGrid.NoResults,No {assetType} Found,{assetType}을(를) 찾을 수 없음,未找到 {assetType}
+Studio.AssetManager.ContextMenu.AddImages,Add Images,이미지 추가,添加图片
+Studio.AssetManager.ContextMenu.AddMeshes,Add Meshes,메시 추가,添加网格
+Studio.AssetManager.ContextMenu.AddNewPlace,Add New Place,새 플레이스 추가,添加新场景
+Studio.AssetManager.ContextMenu.NewPlaceAdded,New Place Added,새 플레이스가 추가됨,新场景已添加
+Studio.AssetManager.ContextMenu.EditAsset,Edit Asset,애셋 편집,编辑资源
+Studio.AssetManager.ContextMenu.Rename,Rename,이름 변경,重命名
+Studio.AssetManager.ContextMenu.RenameAlias,Rename Alias,닉네임 변경,重命名别名
+Studio.AssetManager.ContextMenu.CopyIdToClipboard,Copy ID to Clipboard,ID를 클립보드에 복사,将 ID 复制到剪贴板
+Studio.AssetManager.ContextMenu.CopyTextureIdToClipboard,Copy Texture ID to Clipboard,텍스처 ID를 클립보드에 복사,将纹理 ID 复制到剪贴板
+Studio.AssetManager.ContextMenu.Insert,Insert,삽입,插入
+Studio.AssetManager.ContextMenu.InsertWithLocation,Insert With Location,위치 포함 삽입,带位置插入
+Studio.AssetManager.ContextMenu.InsertAsScript,Insert As Script,스크립트로 삽입,插入为脚本
+Studio.AssetManager.ContextMenu.InsertAsLocalScript,Insert As Local Script,로컬 스크립트로 삽입,插入为本地脚本
+Studio.AssetManager.ContextMenu.InsertAsModuleScript,Insert As Module Script,모듈 스크립트로 삽입,插入为模块脚本
+Studio.AssetManager.ContextMenu.RemoveFromGame,Remove From Game,게임에서 제거,从游戏中删除
+Studio.AssetManager.ContextMenu.UpdateAll,Update All,모두 업데이트,全部更新
+Studio.AssetManager.ContextMenu.ViewOnWebsite,View On Website,웹사이트에서 보기,在网站上查看
+Studio.AssetManager.ContextMenu.PackageDetails,Package Details,패키지 세부 사항,包详情
+Studio.AssetManager.ContextMenu.PublishLinkedSource,Publish this LinkedSource,이 LinkedSource 게시,发布此 LinkedSource
+Studio.AssetManager.ContextMenu.RevertToLastPublishedVersion,Revert To Last Published Version,마지막 게시 버전으로 되돌리기,还原至上次发布版本
+Studio.AssetManager.ContextMenu.RefreshScript,Refresh Script,스크립트 새로고침,刷新脚本
+Studio.AssetManager.AssetPreview.Insert,Insert,삽입,插入
+Studio.AssetManager.MainView.PublishText,You need to publish the game to start using Asset Manager.,애셋 관리자를 사용하려면 게임을 게시해야 합니다.,发布游戏后即可使用资源管理器。
+Studio.AssetManager.MainView.ButtonText,Publish,게시,发布

@@ -1,22 +1,22 @@
-Key,Source,Context,en-us
-Studio.ConvertToPackage.Meta.PluginName, , ,Convert To Package
-Studio.ConvertToPackage.General.Submit, , ,Submit
-Studio.ConvertToPackage.General.Comments, , ,Allow Comments
-Studio.ConvertToPackage.General.Ownership, , ,Ownership
-Studio.ConvertToPackage.General.Description, , ,Description
-Studio.ConvertToPackage.General.Title, , ,Title
-Studio.ConvertToPackage.General.Me, , ,Me
-Studio.ConvertToPackage.General.InstanceFail, , ,Convert to Package failed due to invalid objects
-Studio.ConvertToPackage.General.Error, , ,Error
-Studio.ConvertToPackage.General.ChooseOne, , ,Choose One
-Studio.ConvertToPackage.General.OK, , ,OK
-Studio.ConvertToPackage.General.DiscardMessage, , ,Would you like to discard all changes?
-Studio.ConvertToPackage.General.GetAssetFailed, , ,There was a problem fetching asset data.
-Studio.ConvertToPackage.General.SuccessfullyConverted, , ,Successfully Converted!
-Studio.ConvertToPackage.General.YouMayFindPackagesInToolbox, , ,You may find your packages in Toolbox.
-Studio.ConvertToPackage.General.ConvertToPackageFailed, , ,Convert to package failed
-Studio.ConvertToPackage.Action.Cancel, , ,Cancel
-Studio.ConvertToPackage.Action.Close, , ,Close
-Studio.ConvertToPackage.Action.Discard, , ,Discard
-Studio.ConvertToPackage.Action.Submit, , ,Submit
-Studio.ConvertToPackage.Action.Converting, , ,Converting
+Key,en-us
+Studio.ConvertToPackage.Meta.PluginName,Convert To Package
+Studio.ConvertToPackage.General.Submit,Submit
+Studio.ConvertToPackage.General.Comments,Allow Comments
+Studio.ConvertToPackage.General.Ownership,Ownership
+Studio.ConvertToPackage.General.Description,Description
+Studio.ConvertToPackage.General.Title,Title
+Studio.ConvertToPackage.General.Me,Me
+Studio.ConvertToPackage.General.InstanceFail,Convert to Package failed due to invalid objects
+Studio.ConvertToPackage.General.Error,Error
+Studio.ConvertToPackage.General.ChooseOne,Choose One
+Studio.ConvertToPackage.General.OK,OK
+Studio.ConvertToPackage.General.DiscardMessage,Would you like to discard all changes?
+Studio.ConvertToPackage.General.GetAssetFailed,There was a problem fetching asset data.
+Studio.ConvertToPackage.General.SuccessfullyConverted,Successfully Converted!
+Studio.ConvertToPackage.General.YouMayFindPackagesInToolbox,You may find your packages in Toolbox.
+Studio.ConvertToPackage.General.ConvertToPackageFailed,Convert to package failed
+Studio.ConvertToPackage.Action.Cancel,Cancel
+Studio.ConvertToPackage.Action.Close,Close
+Studio.ConvertToPackage.Action.Discard,Discard
+Studio.ConvertToPackage.Action.Submit,Submit
+Studio.ConvertToPackage.Action.Converting,Converting

@@ -1,40 +1,40 @@
-Key,Source,Context,en-us
-Studio.PluginInstallation.Details.HttpRequests, , ,HTTP Requests
-Studio.PluginInstallation.Details.HttpRequestInfo, , ,"By allowing HTTP requests, 3rd party developers are able to gather information on your machine. These might be harmless (such as crash logs) or malicious (such as gathering information on your game's scripts). Disabling HTTP requests might result in a non-working plugin."
-Studio.PluginInstallation.Meta.PluginWindowName, , ,Plugin Installation
-Studio.PluginInstallation.Main.InstallingPlugin, , ,Installing plugin : {1}
-Studio.PluginInstallation.Main.ErrorNoId, , ,Error : No plugin to install
-Studio.PluginInstallation.Dialog.Ok, , ,OK
-Studio.PluginInstallation.DialogTitle.InstallPlugin, , ,Installing plugin
-Studio.PluginInstallation.Progress.Completed, , ,Installation Complete!
-Studio.PluginInstallation.Progress.CompletedMessage, , ,{1} successfully installed.
-Studio.PluginInstallation.Progress.HttpError, , ,HTTP Error. Could not fetch information about this plugin. Try again later. {1}
-Studio.PluginInstallation.Progress.NotOwned, , ,You do not own this plugin. {1}
-Studio.PluginInstallation.Progress.Unavailable, , ,Could not fetch information about this plugin. Try again later. {1}
-Studio.PluginInstallation.Progress.NotInstalled, , ,Plugin Installation Failed. Please try again. {1}
-Studio.PluginInstallation.Progress.AlreadyInstalled, , ,This plugin is already installed. {1}
-Studio.PluginInstallation.Manage.WindowTitle, , ,Plugin Management
-Studio.PluginInstallation.Toolbar.ToolbarTitle, , ,Tools
-Studio.PluginInstallation.Toolbar.ManageButtonTitle, , ,Manage Plugins
-Studio.PluginInstallation.Toolbar.ManageButtonDescription, , ,Manage plugins installed from roblox.com
-Studio.PluginInstallation.Main.Title, , ,Plugins
-Studio.PluginInstallation.Main.UpdateAllButton, , ,Update all
-Studio.PluginInstallation.Main.NoPluginsMessage, , ,You haven’t installed any plugins yet.
-Studio.PluginInstallation.Main.FindPluginsMessage_Old, , ,Find plugins now
-Studio.PluginInstallation.Main.FindPluginsMessage, , ,"To find more plugins, open Toolbox > Marketplace > Plugins."
-Studio.PluginInstallation.Loading.Title, , ,Updating Plugins
-Studio.PluginInstallation.Loading.UpdatingMessage, , ,Updating plugins...
-Studio.PluginInstallation.Entry.UpdateButton, , ,Update
-Studio.PluginInstallation.Entry.LastUpdatedDate,{date}, ,Updated: {date:shortdate}
-Studio.PluginInstallation.Entry.UpdateError, , ,Error. Try updating again.
-Studio.PluginInstallation.Entry.UpdateSuccess, , ,Update complete!
-Studio.PluginInstallation.Entry.ModeratedWarning, , ,This plugin includes malicious content and can’t be run anymore.
-Studio.PluginInstallation.EntrySeeMore.DetailsButton, , ,Details
-Studio.PluginInstallation.EntrySeeMore.RemoveButton, , ,Uninstall
-Studio.PluginInstallation.Header.PendingUpdates, , ,Pending updates
-Studio.PluginInstallation.Header.UpToDate, , ,Up to date
-Studio.PluginInstallation.Moved.Title, , ,Roblox Studio
-Studio.PluginInstallation.Moved.MovedMessage, , ,We've moved.
-Studio.PluginInstallation.Moved.NewLocationMessage, , ,Get plugins from Marketplace under Toolbox.
-Studio.PluginInstallation.Moved.GotIt, , ,Got it
-Studio.PluginInstallation.PluginEntry.HttpRequest, , ,HTTP Requests
+Key,Source,en-us
+Studio.PluginInstallation.Details.HttpRequests, ,HTTP Requests
+Studio.PluginInstallation.Details.HttpRequestInfo, ,"By allowing HTTP requests, 3rd party developers are able to gather information on your machine. These might be harmless (such as crash logs) or malicious (such as gathering information on your game's scripts). Disabling HTTP requests might result in a non-working plugin."
+Studio.PluginInstallation.Meta.PluginWindowName, ,Plugin Installation
+Studio.PluginInstallation.Main.InstallingPlugin, ,Installing plugin : {1}
+Studio.PluginInstallation.Main.ErrorNoId, ,Error : No plugin to install
+Studio.PluginInstallation.Dialog.Ok, ,OK
+Studio.PluginInstallation.DialogTitle.InstallPlugin, ,Installing plugin
+Studio.PluginInstallation.Progress.Completed, ,Installation Complete!
+Studio.PluginInstallation.Progress.CompletedMessage, ,{1} successfully installed.
+Studio.PluginInstallation.Progress.HttpError, ,HTTP Error. Could not fetch information about this plugin. Try again later. {1}
+Studio.PluginInstallation.Progress.NotOwned, ,You do not own this plugin. {1}
+Studio.PluginInstallation.Progress.Unavailable, ,Could not fetch information about this plugin. Try again later. {1}
+Studio.PluginInstallation.Progress.NotInstalled, ,Plugin Installation Failed. Please try again. {1}
+Studio.PluginInstallation.Progress.AlreadyInstalled, ,This plugin is already installed. {1}
+Studio.PluginInstallation.Manage.WindowTitle, ,Plugin Management
+Studio.PluginInstallation.Toolbar.ToolbarTitle, ,Tools
+Studio.PluginInstallation.Toolbar.ManageButtonTitle, ,Manage Plugins
+Studio.PluginInstallation.Toolbar.ManageButtonDescription, ,Manage plugins installed from roblox.com
+Studio.PluginInstallation.Main.Title, ,Plugins
+Studio.PluginInstallation.Main.UpdateAllButton, ,Update all
+Studio.PluginInstallation.Main.NoPluginsMessage, ,You haven’t installed any plugins yet.
+Studio.PluginInstallation.Main.FindPluginsMessage_Old, ,Find plugins now
+Studio.PluginInstallation.Main.FindPluginsMessage, ,"To find more plugins, open Toolbox > Marketplace > Plugins."
+Studio.PluginInstallation.Loading.Title, ,Updating Plugins
+Studio.PluginInstallation.Loading.UpdatingMessage, ,Updating plugins...
+Studio.PluginInstallation.Entry.UpdateButton, ,Update
+Studio.PluginInstallation.Entry.LastUpdatedDate,{date},Updated: {date:shortdate}
+Studio.PluginInstallation.Entry.UpdateError, ,Error. Try updating again.
+Studio.PluginInstallation.Entry.UpdateSuccess, ,Update complete!
+Studio.PluginInstallation.Entry.ModeratedWarning, ,This plugin includes malicious content and can’t be run anymore.
+Studio.PluginInstallation.EntrySeeMore.DetailsButton, ,Details
+Studio.PluginInstallation.EntrySeeMore.RemoveButton, ,Uninstall
+Studio.PluginInstallation.Header.PendingUpdates, ,Pending updates
+Studio.PluginInstallation.Header.UpToDate, ,Up to date
+Studio.PluginInstallation.Moved.Title, ,Roblox Studio
+Studio.PluginInstallation.Moved.MovedMessage, ,We've moved.
+Studio.PluginInstallation.Moved.NewLocationMessage, ,Get plugins from Marketplace under Toolbox.
+Studio.PluginInstallation.Moved.GotIt, ,Got it
+Studio.PluginInstallation.PluginEntry.HttpRequest, ,HTTP Requests

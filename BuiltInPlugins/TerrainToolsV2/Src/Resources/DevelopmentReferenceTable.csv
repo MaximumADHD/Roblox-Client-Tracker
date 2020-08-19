@@ -1,215 +1,215 @@
-Key,Source,Context,en-us
-Studio.TerrainToolsV2.Action.Apply, , ,Apply
-Studio.TerrainToolsV2.Action.Back, , ,Back
-Studio.TerrainToolsV2.Action.Cancel, , ,Cancel
-Studio.TerrainToolsV2.Action.Clear, , ,Clear
-Studio.TerrainToolsV2.Action.Close, , ,Close
-Studio.TerrainToolsV2.Action.Continue, , ,Continue
-Studio.TerrainToolsV2.Action.Create, , ,Create
-Studio.TerrainToolsV2.Action.Cut, , ,Cut
-Studio.TerrainToolsV2.Action.Edit, , ,Edit
-Studio.TerrainToolsV2.Action.Exit, , ,Exit
-Studio.TerrainToolsV2.Action.File, , ,File
-Studio.TerrainToolsV2.Action.Find, , ,Find
-Studio.TerrainToolsV2.Action.Goto, , ,Goto
-Studio.TerrainToolsV2.Action.Help, , ,Help
-Studio.TerrainToolsV2.Action.Home, , ,Home
-Studio.TerrainToolsV2.Action.Ignore, , ,Ignore
-Studio.TerrainToolsV2.Action.Insert, , ,Insert
-Studio.TerrainToolsV2.Action.New, , ,New
-Studio.TerrainToolsV2.Action.Next, , ,Next
-Studio.TerrainToolsV2.Action.No, , ,No
-Studio.TerrainToolsV2.Action.OK, , ,OK
-Studio.TerrainToolsV2.Action.Okay, , ,Okay
-Studio.TerrainToolsV2.Action.Open, , ,Open
-Studio.TerrainToolsV2.Action.Pause, , ,Pause
-Studio.TerrainToolsV2.Action.Play, , ,Play
-Studio.TerrainToolsV2.Action.Previous, , ,Previous
-Studio.TerrainToolsV2.Action.Redo, , ,Redo
-Studio.TerrainToolsV2.Action.Reload, , ,Reload
-Studio.TerrainToolsV2.Action.Remove, , ,Remove
-Studio.TerrainToolsV2.Action.Rename, , ,Rename
-Studio.TerrainToolsV2.Action.Replace, , ,Replace
-Studio.TerrainToolsV2.Action.Reset, , ,Reset
-Studio.TerrainToolsV2.Action.Retry, , ,Retry
-Studio.TerrainToolsV2.Action.Save, , ,Save
-Studio.TerrainToolsV2.Action.Share, , ,Share
-Studio.TerrainToolsV2.Action.Stop, , ,Stop
-Studio.TerrainToolsV2.Action.Undo, , ,Undo
-Studio.TerrainToolsV2.Action.Update, , ,Update
-Studio.TerrainToolsV2.Action.Yes, , ,Yes
-Studio.TerrainToolsV2.AssetIdSelector.PlaceHolderText, , ,Select game asset image
-Studio.TerrainToolsV2.BrushSettings.Advanced, , ,Advanced
-Studio.TerrainToolsV2.BrushSettings.Auto, , ,Auto
-Studio.TerrainToolsV2.BrushSettings.BaseSize, , ,Base Size
-Studio.TerrainToolsV2.BrushSettings.BottomPivot, , ,Bot
-Studio.TerrainToolsV2.BrushSettings.BrushSettings, , ,Brush Settings
-Studio.TerrainToolsV2.BrushSettings.CenterPivot, , ,Cen
-Studio.TerrainToolsV2.BrushSettings.FixedPlane, , ,Fixed Plane
-Studio.TerrainToolsV2.BrushSettings.FlattenMode, , ,Flatten Mode
-Studio.TerrainToolsV2.BrushSettings.Height, , ,Height
-Studio.TerrainToolsV2.BrushSettings.IgnoreWater, , ,Ignore Water
-Studio.TerrainToolsV2.BrushSettings.Material, , ,Material
-Studio.TerrainToolsV2.BrushSettings.PivotPosition, , ,Pivot Position
-Studio.TerrainToolsV2.BrushSettings.PlaneLock, , ,Plane Lock
-Studio.TerrainToolsV2.BrushSettings.PlanePosition, , ,Plane Position
-Studio.TerrainToolsV2.BrushSettings.Shape, , ,Shape
-Studio.TerrainToolsV2.BrushSettings.Size, , ,Size
-Studio.TerrainToolsV2.BrushSettings.SnapToGrid, , ,Snap to Grid
-Studio.TerrainToolsV2.BrushSettings.Strength, , ,Strength
-Studio.TerrainToolsV2.BrushSettings.TopPivot, , ,Top
-Studio.TerrainToolsV2.ClearTool.ConfirmationMessage, , ,Do you want to clear all terrain?
-Studio.TerrainToolsV2.ClearTool.ConfirmationTitle, , ,Clear Terrain
-Studio.TerrainToolsV2.Confirmation.No, , ,No
-Studio.TerrainToolsV2.Confirmation.Yes, , ,Yes
-Studio.TerrainToolsV2.ConvertMode.Biome, , ,Biome
-Studio.TerrainToolsV2.ConvertMode.ConvertMode, , ,Fill
-Studio.TerrainToolsV2.ConvertMode.Material, , ,Material
-Studio.TerrainToolsV2.ConvertPart.Convert, , ,Convert
-Studio.TerrainToolsV2.ConvertPart.ConvertFailed, , ,Convert failed for instance {1}
-Studio.TerrainToolsV2.ConvertPart.ConvertShapesToBiome, , ,Converting parts to Biome
-Studio.TerrainToolsV2.ConvertPart.ConvertShapesToMaterial, , ,Converting parts
-Studio.TerrainToolsV2.ConvertPart.ConvertFinished, , ,Convert finished: {1} seconds for {2:int} instance(s)
-Studio.TerrainToolsV2.ConvertPart.GetTargetShapes, , ,Calculating shapes
-Studio.TerrainToolsV2.ConvertPart.HasOtherInstance, , ,"Only Parts can be converted, other objects will be skipped"
-Studio.TerrainToolsV2.ConvertPart.HasProtected, , ,Only Parts or Models containing Parts can be converted
-Studio.TerrainToolsV2.ConvertPart.HasTooSmall, , ,Parts with size dimensions below 4 studs may produce incorrect results
-Studio.TerrainToolsV2.ConvertPart.SelectionHelp, , ,Select Parts or Models containing Parts to convert to terrain
-Studio.TerrainToolsV2.ConvertPart.UpdateInstanceVisuals, , ,Hiding parts
-Studio.TerrainToolsV2.EditSettings.EditSettings, , ,Edit Settings
-Studio.TerrainToolsV2.EditSettings.MergeEmpty, , ,Merge Empty
-Studio.TerrainToolsV2.Example.ErrorAnUnexpectedThing, , ,"An unexpected thing happened, try again"
-Studio.TerrainToolsV2.Generate.BaseLevel, , ,Base Level
-Studio.TerrainToolsV2.Generate.BiomeArctic, , ,Arctic
-Studio.TerrainToolsV2.Generate.BiomeCanyons, , ,Canyons
-Studio.TerrainToolsV2.Generate.BiomeDunes, , ,Dunes
-Studio.TerrainToolsV2.Generate.BiomeHills, , ,Hills
-Studio.TerrainToolsV2.Generate.BiomeLavascape, , ,Lavascape
-Studio.TerrainToolsV2.Generate.BiomeMarsh, , ,Marsh
-Studio.TerrainToolsV2.Generate.BiomeMountains, , ,Mountains
-Studio.TerrainToolsV2.Generate.BiomePlains, , ,Plains
-Studio.TerrainToolsV2.Generate.Biomes, , ,Biomes
-Studio.TerrainToolsV2.Generate.BiomeSize, , ,Biome Size
-Studio.TerrainToolsV2.Generate.BiomesSettings, , ,Biomes Settings
-Studio.TerrainToolsV2.Generate.BiomeWater, , ,Water
-Studio.TerrainToolsV2.Generate.ButtonGenerate, , ,Generate
-Studio.TerrainToolsV2.Generate.Caves, , ,Caves
-Studio.TerrainToolsV2.Generate.GenerationFinished, , ,Generation finished: {1} seconds
-Studio.TerrainToolsV2.Generate.MapSize, , ,Map Size
-Studio.TerrainToolsV2.Generate.OtherSettings, , ,Other Settings
-Studio.TerrainToolsV2.Generate.Seed, , ,Seed
-Studio.TerrainToolsV2.Generate.StartGeneration, , ,Generating with size ({1}) at position ({2}) using seed {3} and biomes: {4}
-Studio.TerrainToolsV2.Main.Title, , ,Terrain Editor
-Studio.TerrainToolsV2.Main.ToolbarButton, , ,Editor
-Studio.TerrainToolsV2.Main.Tooltip,"Add, remove, and modify terrain", ,"Add, remove, and modify terrain"
-Studio.TerrainToolsV2.MainButtons.AddTooltip, , ,Click and hold to add terrain.
-Studio.TerrainToolsV2.MainButtons.ClearTooltip, , ,Clear all Terrain.
-Studio.TerrainToolsV2.MainButtons.ErodeTooltip, , ,Click and hold to erode and remove terrain.
-Studio.TerrainToolsV2.MainButtons.GenerateTooltip, , ,Generate landscapes of terrain.
-Studio.TerrainToolsV2.MainButtons.GrowTooltip, , ,Click and hold to grow and expand terrain.
-Studio.TerrainToolsV2.MainButtons.Import, , ,Import
-Studio.TerrainToolsV2.MainButtons.ImportTooltip, , ,Import a HeightMap and ColorMap.
-Studio.TerrainToolsV2.MainButtons.PaintTooltip, , ,Paint the material of the terrain.
-Studio.TerrainToolsV2.MainButtons.RegionsTooltip, , ,Manipulate regions of smooth terrain.
-Studio.TerrainToolsV2.MainButtons.SmoothTooltip, , ,Brush to smooth out rough or jagged terrain.
-Studio.TerrainToolsV2.MainButtons.SubtractTooltip, , ,Click and hold to remove terrain.
-Studio.TerrainToolsV2.MapSettings.HeightMap, , ,Height Map
-Studio.TerrainToolsV2.MapSettings.MapSettings, , ,Map Settings
-Studio.TerrainToolsV2.MapSettings.Position, , ,Position
-Studio.TerrainToolsV2.MapSettings.Size, , ,Size
-Studio.TerrainToolsV2.Materials.Air, , ,Air
-Studio.TerrainToolsV2.Materials.Asphalt, , ,Asphalt
-Studio.TerrainToolsV2.Materials.Basalt, , ,Basalt
-Studio.TerrainToolsV2.Materials.Brick, , ,Brick
-Studio.TerrainToolsV2.Materials.Cobblestone, , ,Cobblestone
-Studio.TerrainToolsV2.Materials.Concrete, , ,Concrete
-Studio.TerrainToolsV2.Materials.CrackedLava, , ,Cracked Lava
-Studio.TerrainToolsV2.Materials.Glacier, , ,Glacier
-Studio.TerrainToolsV2.Materials.Grass, , ,Grass
-Studio.TerrainToolsV2.Materials.Ground, , ,Ground
-Studio.TerrainToolsV2.Materials.Ice, , ,Ice
-Studio.TerrainToolsV2.Materials.LeafyGrass, , ,Leafy Grass
-Studio.TerrainToolsV2.Materials.Limestone, , ,Limestone
-Studio.TerrainToolsV2.Materials.Mud, , ,Mud
-Studio.TerrainToolsV2.Materials.Pavement, , ,Pavement
-Studio.TerrainToolsV2.Materials.Rock, , ,Rock
-Studio.TerrainToolsV2.Materials.Salt, , ,Salt
-Studio.TerrainToolsV2.Materials.Sand, , ,Sand
-Studio.TerrainToolsV2.Materials.Sandstone, , ,Sandstone
-Studio.TerrainToolsV2.Materials.Slate, , ,Slate
-Studio.TerrainToolsV2.Materials.Snow, , ,Snow
-Studio.TerrainToolsV2.Materials.Water, , ,Water
-Studio.TerrainToolsV2.Materials.WoodPlanks, , ,Wood Planks
-Studio.TerrainToolsV2.MaterialSettings.AutoMaterial, , ,Auto Material
-Studio.TerrainToolsV2.MaterialSettings.ChooseBiome, , ,Choose Biomes to apply
-Studio.TerrainToolsV2.MaterialSettings.ChooseMaterial, , ,Choose a material to apply
-Studio.TerrainToolsV2.MaterialSettings.MaterialSettings, , ,Material Settings
-Studio.TerrainToolsV2.MaterialSettings.UseColorMap, , ,Use ColorMap
-Studio.TerrainToolsV2.Meta.PluginButtonEditorTooltip, , ,"Add, remove, and modify terrain"
-Studio.TerrainToolsV2.Meta.PluginDescription, , ,"Add, remove, and modify terrain"
-Studio.TerrainToolsV2.Meta.PluginName, , ,TerrainToolsV2
-Studio.TerrainToolsV2.Meta.ToolbarName, , ,Terrain
-Studio.TerrainToolsV2.PartToBiome.PartToBiome, , ,Part to Biome
-Studio.TerrainToolsV2.PartToTerrain.PartToTerrain, , ,Part to Terrain
-Studio.TerrainToolsV2.Regions.EditTools, , ,Edit Tools
-Studio.TerrainToolsV2.Regions.FillSelection, , ,Fill Selection
-Studio.TerrainToolsV2.Regions.Tools, , ,Tools
-Studio.TerrainToolsV2.SeaLevel.Create, , ,Create
-Studio.TerrainToolsV2.SeaLevel.End,{1:int}, ,Replace Complete: {1:int} seconds.
-Studio.TerrainToolsV2.SeaLevel.Evaporate, , ,Evaporate
-Studio.TerrainToolsV2.SeaLevel.Start, , ,Starting Replace Method
-Studio.TerrainToolsV2.ReplaceMode.Box, , ,Box
-Studio.TerrainToolsV2.ReplaceMode.Brush, , ,Brush
-Studio.TerrainToolsV2.Replace.ReplaceMaterial, , ,Replace Material
-Studio.TerrainToolsV2.Replace.MaterialSettings, , ,Material Settings
-Studio.TerrainToolsV2.Replace.Replace, , ,Replace
-Studio.TerrainToolsV2.Replace.SourceMaterial, , ,Source material
-Studio.TerrainToolsV2.Replace.TargetMaterial, , ,Target material
-Studio.TerrainToolsV2.Tab.Build, , ,Build
-Studio.TerrainToolsV2.Tab.Create, , ,Create
-Studio.TerrainToolsV2.Tab.Edit, , ,Edit
-Studio.TerrainToolsV2.Tab.Paint, , ,Paint
-Studio.TerrainToolsV2.Tab.Region, , ,Region
-Studio.TerrainToolsV2.Tab.Sculpt, , ,Sculpt
-Studio.TerrainToolsV2.ToolName.Add, , ,Add
-Studio.TerrainToolsV2.ToolName.Clear, , ,Clear
-Studio.TerrainToolsV2.ToolName.ConvertPart, , ,Convert
-Studio.TerrainToolsV2.ToolName.Copy, , ,Copy
-Studio.TerrainToolsV2.ToolName.Delete, , ,Delete
-Studio.TerrainToolsV2.ToolName.Erode, , ,Erode
-Studio.TerrainToolsV2.ToolName.Fill, , ,Fill
-Studio.TerrainToolsV2.ToolName.Flatten, , ,Flatten
-Studio.TerrainToolsV2.ToolName.Generate, , ,Generate
-Studio.TerrainToolsV2.ToolName.Grow, , ,Grow
-Studio.TerrainToolsV2.ToolName.Import, , ,Import
-Studio.TerrainToolsV2.ToolName.Move, , ,Move
-Studio.TerrainToolsV2.ToolName.Paint, , ,Paint
-Studio.TerrainToolsV2.ToolName.Paste, , ,Paste
-Studio.TerrainToolsV2.ToolName.Regions, , ,Regions
-Studio.TerrainToolsV2.ToolName.Resize, , ,Resize
-Studio.TerrainToolsV2.ToolName.Rotate, , ,Rotate
-Studio.TerrainToolsV2.ToolName.SeaLevel, , ,Sea Level
-Studio.TerrainToolsV2.ToolName.Replace, , ,Replace
-Studio.TerrainToolsV2.ToolName.Select, , ,Select
-Studio.TerrainToolsV2.ToolName.Smooth, , ,Smooth
-Studio.TerrainToolsV2.ToolName.Subtract, , ,Subtract
-Studio.TerrainToolsV2.Warning.AlreadyGeneratingTerrain, , ,Already Generating Terrain.
-Studio.TerrainToolsV2.Warning.AwaitingModeration, , ,Awaiting asset moderation.
-Studio.TerrainToolsV2.Warning.ImportError, , ,Error in importing terrain: {1}
-Studio.TerrainToolsV2.Warning.InvalidHeightMap, , ,Valid HeightMap required to begin importing Terrain.
-Studio.TerrainToolsV2.Warning.InvalidNumber, , ,Input not a valid Number.
-Studio.TerrainToolsV2.Warning.InvalidPosition, , ,Position has invalid input.
-Studio.TerrainToolsV2.Warning.InvalidSize, , ,Size has invalid input.
-Studio.TerrainToolsV2.Warning.MaximumSize,{1:int}, ,Size cannot be greater than {1:int}.
-Studio.TerrainToolsV2.Warning.MinimumSize,{1:int}, ,Size cannot be less than {1:int}.
-Studio.TerrainToolsV2.Warning.MissingTerrain, , ,Terrain instance could not be found.
-Studio.TerrainToolsV2.Warning.Moderated, , ,Asset has been moderated.
-Studio.TerrainToolsV2.Warning.PublishedRequired, , ,Game must be published before importing terrain.
-Studio.TerrainToolsV2.Warning.RegionSizeUndefined, , ,Size of region must be defined.
-Studio.TerrainToolsV2.Warning.RegionTooLarge, , ,Region size is too large.
-Studio.TerrainToolsV2.Warning.RegionTooSmall, , ,Region size is too small.
-Studio.TerrainToolsV2.Warning.RequireEditModeForImport, , ,Terrain importer only works in edit mode.
-Studio.TerrainToolsV2.Warning.RequirePublishedForImport, , ,Game must be published before importing terrain.
-Studio.TerrainToolsV2.Warning.UnknownAssetStatusError, , ,Unable to verify asset.
-Studio.TerrainToolsV2.Warning.UnknownShape, , ,Instance shape is unknown
-Studio.TerrainToolsV2.Warning.ValidHeightMapImport, , ,Valid HeightMap required to begin importing Terrain.
+Key,Source,en-us
+Studio.TerrainToolsV2.Action.Apply, ,Apply
+Studio.TerrainToolsV2.Action.Back, ,Back
+Studio.TerrainToolsV2.Action.Cancel, ,Cancel
+Studio.TerrainToolsV2.Action.Clear, ,Clear
+Studio.TerrainToolsV2.Action.Close, ,Close
+Studio.TerrainToolsV2.Action.Continue, ,Continue
+Studio.TerrainToolsV2.Action.Create, ,Create
+Studio.TerrainToolsV2.Action.Cut, ,Cut
+Studio.TerrainToolsV2.Action.Edit, ,Edit
+Studio.TerrainToolsV2.Action.Exit, ,Exit
+Studio.TerrainToolsV2.Action.File, ,File
+Studio.TerrainToolsV2.Action.Find, ,Find
+Studio.TerrainToolsV2.Action.Goto, ,Goto
+Studio.TerrainToolsV2.Action.Help, ,Help
+Studio.TerrainToolsV2.Action.Home, ,Home
+Studio.TerrainToolsV2.Action.Ignore, ,Ignore
+Studio.TerrainToolsV2.Action.Insert, ,Insert
+Studio.TerrainToolsV2.Action.New, ,New
+Studio.TerrainToolsV2.Action.Next, ,Next
+Studio.TerrainToolsV2.Action.No, ,No
+Studio.TerrainToolsV2.Action.OK, ,OK
+Studio.TerrainToolsV2.Action.Okay, ,Okay
+Studio.TerrainToolsV2.Action.Open, ,Open
+Studio.TerrainToolsV2.Action.Pause, ,Pause
+Studio.TerrainToolsV2.Action.Play, ,Play
+Studio.TerrainToolsV2.Action.Previous, ,Previous
+Studio.TerrainToolsV2.Action.Redo, ,Redo
+Studio.TerrainToolsV2.Action.Reload, ,Reload
+Studio.TerrainToolsV2.Action.Remove, ,Remove
+Studio.TerrainToolsV2.Action.Rename, ,Rename
+Studio.TerrainToolsV2.Action.Replace, ,Replace
+Studio.TerrainToolsV2.Action.Reset, ,Reset
+Studio.TerrainToolsV2.Action.Retry, ,Retry
+Studio.TerrainToolsV2.Action.Save, ,Save
+Studio.TerrainToolsV2.Action.Share, ,Share
+Studio.TerrainToolsV2.Action.Stop, ,Stop
+Studio.TerrainToolsV2.Action.Undo, ,Undo
+Studio.TerrainToolsV2.Action.Update, ,Update
+Studio.TerrainToolsV2.Action.Yes, ,Yes
+Studio.TerrainToolsV2.AssetIdSelector.PlaceHolderText, ,Select game asset image
+Studio.TerrainToolsV2.BrushSettings.Advanced, ,Advanced
+Studio.TerrainToolsV2.BrushSettings.Auto, ,Auto
+Studio.TerrainToolsV2.BrushSettings.BaseSize, ,Base Size
+Studio.TerrainToolsV2.BrushSettings.BottomPivot, ,Bot
+Studio.TerrainToolsV2.BrushSettings.BrushSettings, ,Brush Settings
+Studio.TerrainToolsV2.BrushSettings.CenterPivot, ,Cen
+Studio.TerrainToolsV2.BrushSettings.FixedPlane, ,Fixed Plane
+Studio.TerrainToolsV2.BrushSettings.FlattenMode, ,Flatten Mode
+Studio.TerrainToolsV2.BrushSettings.Height, ,Height
+Studio.TerrainToolsV2.BrushSettings.IgnoreWater, ,Ignore Water
+Studio.TerrainToolsV2.BrushSettings.Material, ,Material
+Studio.TerrainToolsV2.BrushSettings.PivotPosition, ,Pivot Position
+Studio.TerrainToolsV2.BrushSettings.PlaneLock, ,Plane Lock
+Studio.TerrainToolsV2.BrushSettings.PlanePosition, ,Plane Position
+Studio.TerrainToolsV2.BrushSettings.Shape, ,Shape
+Studio.TerrainToolsV2.BrushSettings.Size, ,Size
+Studio.TerrainToolsV2.BrushSettings.SnapToGrid, ,Snap to Grid
+Studio.TerrainToolsV2.BrushSettings.Strength, ,Strength
+Studio.TerrainToolsV2.BrushSettings.TopPivot, ,Top
+Studio.TerrainToolsV2.ClearTool.ConfirmationMessage, ,Do you want to clear all terrain?
+Studio.TerrainToolsV2.ClearTool.ConfirmationTitle, ,Clear Terrain
+Studio.TerrainToolsV2.Confirmation.No, ,No
+Studio.TerrainToolsV2.Confirmation.Yes, ,Yes
+Studio.TerrainToolsV2.ConvertMode.Biome, ,Biome
+Studio.TerrainToolsV2.ConvertMode.ConvertMode, ,Fill
+Studio.TerrainToolsV2.ConvertMode.Material, ,Material
+Studio.TerrainToolsV2.ConvertPart.Convert, ,Convert
+Studio.TerrainToolsV2.ConvertPart.ConvertFailed, ,Convert failed for instance {1}
+Studio.TerrainToolsV2.ConvertPart.ConvertShapesToBiome, ,Converting parts to Biome
+Studio.TerrainToolsV2.ConvertPart.ConvertShapesToMaterial, ,Converting parts
+Studio.TerrainToolsV2.ConvertPart.ConvertFinished, ,Convert finished: {1} seconds for {2:int} instance(s)
+Studio.TerrainToolsV2.ConvertPart.GetTargetShapes, ,Calculating shapes
+Studio.TerrainToolsV2.ConvertPart.HasOtherInstance, ,"Only Parts can be converted, other objects will be skipped"
+Studio.TerrainToolsV2.ConvertPart.HasProtected, ,Only Parts or Models containing Parts can be converted
+Studio.TerrainToolsV2.ConvertPart.HasTooSmall, ,Parts with size dimensions below 4 studs may produce incorrect results
+Studio.TerrainToolsV2.ConvertPart.SelectionHelp, ,Select Parts or Models containing Parts to convert to terrain
+Studio.TerrainToolsV2.ConvertPart.UpdateInstanceVisuals, ,Hiding parts
+Studio.TerrainToolsV2.EditSettings.EditSettings, ,Edit Settings
+Studio.TerrainToolsV2.EditSettings.MergeEmpty, ,Merge Empty
+Studio.TerrainToolsV2.Example.ErrorAnUnexpectedThing, ,"An unexpected thing happened, try again"
+Studio.TerrainToolsV2.Generate.BaseLevel, ,Base Level
+Studio.TerrainToolsV2.Generate.BiomeArctic, ,Arctic
+Studio.TerrainToolsV2.Generate.BiomeCanyons, ,Canyons
+Studio.TerrainToolsV2.Generate.BiomeDunes, ,Dunes
+Studio.TerrainToolsV2.Generate.BiomeHills, ,Hills
+Studio.TerrainToolsV2.Generate.BiomeLavascape, ,Lavascape
+Studio.TerrainToolsV2.Generate.BiomeMarsh, ,Marsh
+Studio.TerrainToolsV2.Generate.BiomeMountains, ,Mountains
+Studio.TerrainToolsV2.Generate.BiomePlains, ,Plains
+Studio.TerrainToolsV2.Generate.Biomes, ,Biomes
+Studio.TerrainToolsV2.Generate.BiomeSize, ,Biome Size
+Studio.TerrainToolsV2.Generate.BiomesSettings, ,Biomes Settings
+Studio.TerrainToolsV2.Generate.BiomeWater, ,Water
+Studio.TerrainToolsV2.Generate.ButtonGenerate, ,Generate
+Studio.TerrainToolsV2.Generate.Caves, ,Caves
+Studio.TerrainToolsV2.Generate.GenerationFinished, ,Generation finished: {1} seconds
+Studio.TerrainToolsV2.Generate.MapSize, ,Map Size
+Studio.TerrainToolsV2.Generate.OtherSettings, ,Other Settings
+Studio.TerrainToolsV2.Generate.Seed, ,Seed
+Studio.TerrainToolsV2.Generate.StartGeneration, ,Generating with size ({1}) at position ({2}) using seed {3} and biomes: {4}
+Studio.TerrainToolsV2.Main.Title, ,Terrain Editor
+Studio.TerrainToolsV2.Main.ToolbarButton, ,Editor
+Studio.TerrainToolsV2.Main.Tooltip,"Add, remove, and modify terrain","Add, remove, and modify terrain"
+Studio.TerrainToolsV2.MainButtons.AddTooltip, ,Click and hold to add terrain.
+Studio.TerrainToolsV2.MainButtons.ClearTooltip, ,Clear all Terrain.
+Studio.TerrainToolsV2.MainButtons.ErodeTooltip, ,Click and hold to erode and remove terrain.
+Studio.TerrainToolsV2.MainButtons.GenerateTooltip, ,Generate landscapes of terrain.
+Studio.TerrainToolsV2.MainButtons.GrowTooltip, ,Click and hold to grow and expand terrain.
+Studio.TerrainToolsV2.MainButtons.Import, ,Import
+Studio.TerrainToolsV2.MainButtons.ImportTooltip, ,Import a HeightMap and ColorMap.
+Studio.TerrainToolsV2.MainButtons.PaintTooltip, ,Paint the material of the terrain.
+Studio.TerrainToolsV2.MainButtons.RegionsTooltip, ,Manipulate regions of smooth terrain.
+Studio.TerrainToolsV2.MainButtons.SmoothTooltip, ,Brush to smooth out rough or jagged terrain.
+Studio.TerrainToolsV2.MainButtons.SubtractTooltip, ,Click and hold to remove terrain.
+Studio.TerrainToolsV2.MapSettings.HeightMap, ,Height Map
+Studio.TerrainToolsV2.MapSettings.MapSettings, ,Map Settings
+Studio.TerrainToolsV2.MapSettings.Position, ,Position
+Studio.TerrainToolsV2.MapSettings.Size, ,Size
+Studio.TerrainToolsV2.Materials.Air, ,Air
+Studio.TerrainToolsV2.Materials.Asphalt, ,Asphalt
+Studio.TerrainToolsV2.Materials.Basalt, ,Basalt
+Studio.TerrainToolsV2.Materials.Brick, ,Brick
+Studio.TerrainToolsV2.Materials.Cobblestone, ,Cobblestone
+Studio.TerrainToolsV2.Materials.Concrete, ,Concrete
+Studio.TerrainToolsV2.Materials.CrackedLava, ,Cracked Lava
+Studio.TerrainToolsV2.Materials.Glacier, ,Glacier
+Studio.TerrainToolsV2.Materials.Grass, ,Grass
+Studio.TerrainToolsV2.Materials.Ground, ,Ground
+Studio.TerrainToolsV2.Materials.Ice, ,Ice
+Studio.TerrainToolsV2.Materials.LeafyGrass, ,Leafy Grass
+Studio.TerrainToolsV2.Materials.Limestone, ,Limestone
+Studio.TerrainToolsV2.Materials.Mud, ,Mud
+Studio.TerrainToolsV2.Materials.Pavement, ,Pavement
+Studio.TerrainToolsV2.Materials.Rock, ,Rock
+Studio.TerrainToolsV2.Materials.Salt, ,Salt
+Studio.TerrainToolsV2.Materials.Sand, ,Sand
+Studio.TerrainToolsV2.Materials.Sandstone, ,Sandstone
+Studio.TerrainToolsV2.Materials.Slate, ,Slate
+Studio.TerrainToolsV2.Materials.Snow, ,Snow
+Studio.TerrainToolsV2.Materials.Water, ,Water
+Studio.TerrainToolsV2.Materials.WoodPlanks, ,Wood Planks
+Studio.TerrainToolsV2.MaterialSettings.AutoMaterial, ,Auto Material
+Studio.TerrainToolsV2.MaterialSettings.ChooseBiome, ,Choose Biomes to apply
+Studio.TerrainToolsV2.MaterialSettings.ChooseMaterial, ,Choose a material to apply
+Studio.TerrainToolsV2.MaterialSettings.MaterialSettings, ,Material Settings
+Studio.TerrainToolsV2.MaterialSettings.UseColorMap, ,Use ColorMap
+Studio.TerrainToolsV2.Meta.PluginButtonEditorTooltip, ,"Add, remove, and modify terrain"
+Studio.TerrainToolsV2.Meta.PluginDescription, ,"Add, remove, and modify terrain"
+Studio.TerrainToolsV2.Meta.PluginName, ,TerrainToolsV2
+Studio.TerrainToolsV2.Meta.ToolbarName, ,Terrain
+Studio.TerrainToolsV2.PartToBiome.PartToBiome, ,Part to Biome
+Studio.TerrainToolsV2.PartToTerrain.PartToTerrain, ,Part to Terrain
+Studio.TerrainToolsV2.Regions.EditTools, ,Edit Tools
+Studio.TerrainToolsV2.Regions.FillSelection, ,Fill Selection
+Studio.TerrainToolsV2.Regions.Tools, ,Tools
+Studio.TerrainToolsV2.SeaLevel.Create, ,Create
+Studio.TerrainToolsV2.SeaLevel.End,{1:int},Replace Complete: {1:int} seconds.
+Studio.TerrainToolsV2.SeaLevel.Evaporate, ,Evaporate
+Studio.TerrainToolsV2.SeaLevel.Start, ,Starting Replace Method
+Studio.TerrainToolsV2.ReplaceMode.Box, ,Box
+Studio.TerrainToolsV2.ReplaceMode.Brush, ,Brush
+Studio.TerrainToolsV2.Replace.ReplaceMaterial, ,Replace Material
+Studio.TerrainToolsV2.Replace.MaterialSettings, ,Material Settings
+Studio.TerrainToolsV2.Replace.Replace, ,Replace
+Studio.TerrainToolsV2.Replace.SourceMaterial, ,Source material
+Studio.TerrainToolsV2.Replace.TargetMaterial, ,Target material
+Studio.TerrainToolsV2.Tab.Build, ,Build
+Studio.TerrainToolsV2.Tab.Create, ,Create
+Studio.TerrainToolsV2.Tab.Edit, ,Edit
+Studio.TerrainToolsV2.Tab.Paint, ,Paint
+Studio.TerrainToolsV2.Tab.Region, ,Region
+Studio.TerrainToolsV2.Tab.Sculpt, ,Sculpt
+Studio.TerrainToolsV2.ToolName.Add, ,Add
+Studio.TerrainToolsV2.ToolName.Clear, ,Clear
+Studio.TerrainToolsV2.ToolName.ConvertPart, ,Convert
+Studio.TerrainToolsV2.ToolName.Copy, ,Copy
+Studio.TerrainToolsV2.ToolName.Delete, ,Delete
+Studio.TerrainToolsV2.ToolName.Erode, ,Erode
+Studio.TerrainToolsV2.ToolName.Fill, ,Fill
+Studio.TerrainToolsV2.ToolName.Flatten, ,Flatten
+Studio.TerrainToolsV2.ToolName.Generate, ,Generate
+Studio.TerrainToolsV2.ToolName.Grow, ,Grow
+Studio.TerrainToolsV2.ToolName.Import, ,Import
+Studio.TerrainToolsV2.ToolName.Move, ,Move
+Studio.TerrainToolsV2.ToolName.Paint, ,Paint
+Studio.TerrainToolsV2.ToolName.Paste, ,Paste
+Studio.TerrainToolsV2.ToolName.Regions, ,Regions
+Studio.TerrainToolsV2.ToolName.Resize, ,Resize
+Studio.TerrainToolsV2.ToolName.Rotate, ,Rotate
+Studio.TerrainToolsV2.ToolName.SeaLevel, ,Sea Level
+Studio.TerrainToolsV2.ToolName.Replace, ,Replace
+Studio.TerrainToolsV2.ToolName.Select, ,Select
+Studio.TerrainToolsV2.ToolName.Smooth, ,Smooth
+Studio.TerrainToolsV2.ToolName.Subtract, ,Subtract
+Studio.TerrainToolsV2.Warning.AlreadyGeneratingTerrain, ,Already Generating Terrain.
+Studio.TerrainToolsV2.Warning.AwaitingModeration, ,Awaiting asset moderation.
+Studio.TerrainToolsV2.Warning.ImportError, ,Error in importing terrain: {1}
+Studio.TerrainToolsV2.Warning.InvalidHeightMap, ,Valid HeightMap required to begin importing Terrain.
+Studio.TerrainToolsV2.Warning.InvalidNumber, ,Input not a valid Number.
+Studio.TerrainToolsV2.Warning.InvalidPosition, ,Position has invalid input.
+Studio.TerrainToolsV2.Warning.InvalidSize, ,Size has invalid input.
+Studio.TerrainToolsV2.Warning.MaximumSize,{1:int},Size cannot be greater than {1:int}.
+Studio.TerrainToolsV2.Warning.MinimumSize,{1:int},Size cannot be less than {1:int}.
+Studio.TerrainToolsV2.Warning.MissingTerrain, ,Terrain instance could not be found.
+Studio.TerrainToolsV2.Warning.Moderated, ,Asset has been moderated.
+Studio.TerrainToolsV2.Warning.PublishedRequired, ,Game must be published before importing terrain.
+Studio.TerrainToolsV2.Warning.RegionSizeUndefined, ,Size of region must be defined.
+Studio.TerrainToolsV2.Warning.RegionTooLarge, ,Region size is too large.
+Studio.TerrainToolsV2.Warning.RegionTooSmall, ,Region size is too small.
+Studio.TerrainToolsV2.Warning.RequireEditModeForImport, ,Terrain importer only works in edit mode.
+Studio.TerrainToolsV2.Warning.RequirePublishedForImport, ,Game must be published before importing terrain.
+Studio.TerrainToolsV2.Warning.UnknownAssetStatusError, ,Unable to verify asset.
+Studio.TerrainToolsV2.Warning.UnknownShape, ,Instance shape is unknown
+Studio.TerrainToolsV2.Warning.ValidHeightMapImport, ,Valid HeightMap required to begin importing Terrain.

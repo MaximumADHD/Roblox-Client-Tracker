@@ -1,60 +1,60 @@
-Key,Source,Context,ko,zh-cn
-Studio.LocalizationTools.Plugin.RibbonBarButton,Tools, ,도구,工具
-Studio.LocalizationTools.Plugin.WindowTitle,Localization Tools, ,로컬리제이션 도구,本地化工具
-Studio.LocalizationTools.Plugin.ToolbarLabel,Localization, ,로컬리제이션,本地化
-Studio.LocalizationTools.Plugin.ToolTipMessage,Hide/show the Localization Tools View, ,로컬리제이션 도구 보기 숨기기/표시,隐藏/显示本地化工具视图
-Studio.LocalizationTools.EmbeddedTableSection.TextCaptureStartText,Start untranslated text capture, ,번역되지 않은 텍스트 캡처 시작,开始抓取未翻译的文本
-Studio.LocalizationTools.EmbeddedTableSection.TextCaptureStopText,Stop untranslated text capture, ,번역되지 않은 텍스트 캡처 중지,停止抓取未翻译的文本
-Studio.LocalizationTools.EmbeddedTableSection.SectionLabel,Embedded Localization Table, ,임베디드 로컬리제이션 테이블,嵌入本地化表格
-Studio.LocalizationTools.EmbeddedTableSection.TextCaptureButton,Text Capture, ,텍스트 캡처,文本抓取
-Studio.LocalizationTools.EmbeddedTableSection.ExportButton,Export, ,내보내기,导出
-Studio.LocalizationTools.EmbeddedTableSection.ImportButton,Import, ,가져오기,导入
-Studio.LocalizationTools.EmbeddedTableSection.ExportTextLabel,Export LocalizationTables under LocalizationService to CSV files, ,LocalizationService 아래의 LocalizationTables를 CSV 파일로 내보내기,在 LocalizationService 下导出 LocalizationTables 至 CSV 文件
-Studio.LocalizationTools.EmbeddedTableSection.ImportTextLabel,Import CSV files to LocalizationTables under LocalizationService, ,CSV 파일을 LocalizationService 아래의 LocalizationTables로 가져오기,在 LocalizationService 下导入 LocalizationTables 至 CSV 文件
-Studio.LocalizationTools.CloudTableSection.CloudTablePageLinkText,Click here to configure your cloud localization table, ,클라우드 로컬리제이션 테이블을 구성하려면 여기를 클릭하세요.,点按这里来配置你的云本地化表格
-Studio.LocalizationTools.CloudTableSection.DownloadButton,Download, ,다운로드,下载
-Studio.LocalizationTools.CloudTableSection.DownloadTableLabel,Download table as CSV, ,테이블을 CSV로 다운로드,下载表格并保存至 CSV 格式
-Studio.LocalizationTools.CloudTableSection.UpdateButton,Update, ,업데이트,更新
-Studio.LocalizationTools.CloudTableSection.UpdateTableLabel,Update with new content from CSV, ,CSV에서 새 콘텐츠로 업데이트,更新 CSV 中的新内容
-Studio.LocalizationTools.CloudTableSection.AdvancedButton,Advanced, ,고급,高级
-Studio.LocalizationTools.CloudTableSection.ReplaceButton,Replace, ,바꾸기,替换
-Studio.LocalizationTools.CloudTableSection.ReplaceTableLabel,Replace entire cloud table with CSV, ,전체 클라우드 테이블을 CSV로 바꾸기,将整个云表格替换为 CSV
-Studio.LocalizationTools.CloudTableSection.PublishPlaceMessage,Publish this place to upload a table, ,이 장소를 게시하여 테이블 업로드,发布此场景来上传表格
-Studio.LocalizationTools.CloudTableSection.SectionLabel,Cloud Localization Table, ,클라우드 로컬리제이션 테이블,云本地化表格
-Studio.LocalizationTools.UploadDialogContent.PatchEmptyMessage,Patch empty. Upload anyway?, ,패치가 비어 있습니다. 업로드할까요?,空补丁，仍要上传？
-Studio.LocalizationTools.UploadDialogContent.UploadPatchMessage,Upload patch?, ,패치를 업로드할까요?,上传补丁？
-Studio.LocalizationTools.UploadDialogContent.AddEntriesPreText,Add entries:, ,항목 추가:,添加条目：
-Studio.LocalizationTools.UploadDialogContent.AddTranslationsPretext,Add translations:, ,번역 추가:,添加翻译：
-Studio.LocalizationTools.UploadDialogContent.ChangeTranslationsPretext,Change translations:, ,번역 변경:,更改翻译：
-Studio.LocalizationTools.UploadDialogContent.DeleteEntriesPretext,Delete entries:, ,항목 삭제:,删除条目：
-Studio.LocalizationTools.UploadDialogContent.DeleteTranslationsPretext,Delete translations:, ,번역 삭제:,删除翻译：
-Studio.LocalizationTools.UploadDialogContent.AddLanguagesPretext,Add languages:, ,언어 추가:,添加语言：
-Studio.LocalizationTools.UploadDialogContent.PatchTotalRowsLabel,Total rows:, ,전체 행:,总条数：
-Studio.LocalizationTools.UploadDialogContent.PatchTotalTranslationsLabel,Total translations:, ,전체 번역:,总翻译数：
-Studio.LocalizationTools.UploadDialogContent.PatchLanguagesLabel,Languages:, ,언어:,语言：
-Studio.LocalizationTools.UploadDialogContent.PatchInvalidLanguagesLabel,Invalid columns:, ,잘못된 열:,无效的列：
-Studio.LocalizationTools.UploadDialogContent.CancelButton,Cancel, ,취소,取消
-Studio.LocalizationTools.UploadDialogContent.ConfirmButton,Confirm, ,확인,确认
-Studio.LocalizationTools.UploadDialogContent.PatchContainsLabel,This patch contains: , ,이 패치는 다음을 포함합니다. ,此补丁包括：
-Studio.LocalizationTools.UploadDialogContent.PatchWillLabel,This patch will:, ,이 패치는 다음 항목을 확인합니다.,此补丁将：
-Studio.LocalizationTools.UploadDialogContent.ConfirmUploadDialogTitle,Comfirm Upload, ,업로드 확인,确认上传
-Studio.LocalizationTools.MessageFrame.DownloadFailedMessage,Download cloud table failed, ,클라우드 테이블 다운로드 실패,下载云表格失败
-Studio.LocalizationTools.MessageFrame.SelectCSVFileMessage,Select CSV file..., ,CSV 파일 선택...,选择 CSV 文件...
-Studio.LocalizationTools.MessageFrame.UploadFailedMessage,Upload cloud table failed, ,클라우드 테이블 업로드 실패,上传云表格失败
-Studio.LocalizationTools.MessageFrame.UploadCompletedMessage,Upload cloud table complete, ,클라우드 테이블 업로드 완료,上传云表格完成
-Studio.LocalizationTools.MessageFrame.BusyMessage,busy, ,사용 중,系统繁忙
-Studio.LocalizationTools.MessageFrame.OpenCSVFileMessage,Open CSV file..., ,CSV 파일 열기...,打开 CSV 文件...
-Studio.LocalizationTools.MessageFrame.ComputingPatchMessage,Computing patch..., ,패치를 컴퓨팅하는 중...,正在计算补丁...
-Studio.LocalizationTools.MessageFrame.UploadCanceledMessage,Upload canceled, ,업로드 취소됨,上传已取消
-Studio.LocalizationTools.MessageFrame.ConfirmUploadMessage,Confirm upload..., ,업로드 확인...,确定上传...
-Studio.LocalizationTools.MessageFrame.UploadingPatchMessage,Uploading patch..., ,패치를 업로드하는 중...,正在上传补丁...
-Studio.LocalizationTools.MessageFrame.TableWrittenToFileMessage,Table written to file, ,파일에 기록된 테이블,表格已写入文件
-Studio.LocalizationTools.DownloadTable.GetCloudTableFailed,Localization Tools failed to request cloud table., ,로컬리제이션 도구가 클라우드 테이블을 요청하지 못했습니다.,本地化工具请求云表格失败。
-Studio.LocalizationTools.DownloadTable.SetEntriesFailed,Internal error., ,내부 오류입니다.,内部错误。
-Studio.LocalizationTools.UploadTable.GetSupportedLanguagesFailedMessage,Localization Tools failed to request supported langauges., ,로컬리제이션 도구가 지원 언어를 요청하지 못했습니다.,本地化工具请求支持语言失败。
-Studio.LocalizationTools.UploadTable.PatchSupportedLangugesFailed,Localization Tools failed to add supported langauges., ,로컬리제이션 도구가 지원 언어를 추가하지 못했습니다.,本地化工具添加支持语言失败。
-Studio.LocalizationTools.UploadTable.PatchCloudTableFailed,Localization Tools failed to upload cloud table., ,로컬리제이션 도구가 클라우드 테이블을 업로드하지 못했습니다.,本地化工具上传云表格失败。
-Studio.LocalizationTools.MessageFrame.DownloadingTableMessage,Downloading table..., ,테이블을 다운로드하는 중...,正在下载表格...
-Studio.LocalizationTools.PluginMetadata.GetOrCreateCloudTableFailedMessage,Localization Tools failed to get cloud table info., ,로컬리제이션 도구가 클라우드 테이블 정보를 가져오지 못했습니다.,本地化工具请求云表格信息失败。
-Studio.LocalizationTools.PluginMetadata.GetPermissionFailedMessage,Localization Tools failed to get permission info., ,로컬리제이션 도구가 권한 정보를 가져오지 못했습니다.,本地化工具获取权限信息失败。
-Studio.LocalizationTools.PluginMetadata.GetAllLocalesFailed,Localization Tools failed to get all languages info., ,로컬리제이션 도구가 모든 언어 정보를 가져오지 못했습니다.,本地化工具获取全部语言信息失败。
+Key,Source,ko,zh-cn
+Studio.LocalizationTools.Plugin.RibbonBarButton,Tools,도구,工具
+Studio.LocalizationTools.Plugin.WindowTitle,Localization Tools,로컬리제이션 도구,本地化工具
+Studio.LocalizationTools.Plugin.ToolbarLabel,Localization,로컬리제이션,本地化
+Studio.LocalizationTools.Plugin.ToolTipMessage,Hide/show the Localization Tools View,로컬리제이션 도구 보기 숨기기/표시,隐藏/显示本地化工具视图
+Studio.LocalizationTools.EmbeddedTableSection.TextCaptureStartText,Start untranslated text capture,번역되지 않은 텍스트 캡처 시작,开始抓取未翻译的文本
+Studio.LocalizationTools.EmbeddedTableSection.TextCaptureStopText,Stop untranslated text capture,번역되지 않은 텍스트 캡처 중지,停止抓取未翻译的文本
+Studio.LocalizationTools.EmbeddedTableSection.SectionLabel,Embedded Localization Table,임베디드 로컬리제이션 테이블,嵌入本地化表格
+Studio.LocalizationTools.EmbeddedTableSection.TextCaptureButton,Text Capture,텍스트 캡처,文本抓取
+Studio.LocalizationTools.EmbeddedTableSection.ExportButton,Export,내보내기,导出
+Studio.LocalizationTools.EmbeddedTableSection.ImportButton,Import,가져오기,导入
+Studio.LocalizationTools.EmbeddedTableSection.ExportTextLabel,Export LocalizationTables under LocalizationService to CSV files,LocalizationService 아래의 LocalizationTables를 CSV 파일로 내보내기,在 LocalizationService 下导出 LocalizationTables 至 CSV 文件
+Studio.LocalizationTools.EmbeddedTableSection.ImportTextLabel,Import CSV files to LocalizationTables under LocalizationService,CSV 파일을 LocalizationService 아래의 LocalizationTables로 가져오기,在 LocalizationService 下导入 LocalizationTables 至 CSV 文件
+Studio.LocalizationTools.CloudTableSection.CloudTablePageLinkText,Click here to configure your cloud localization table,클라우드 로컬리제이션 테이블을 구성하려면 여기를 클릭하세요.,点按这里来配置你的云本地化表格
+Studio.LocalizationTools.CloudTableSection.DownloadButton,Download,다운로드,下载
+Studio.LocalizationTools.CloudTableSection.DownloadTableLabel,Download table as CSV,테이블을 CSV로 다운로드,下载表格并保存至 CSV 格式
+Studio.LocalizationTools.CloudTableSection.UpdateButton,Update,업데이트,更新
+Studio.LocalizationTools.CloudTableSection.UpdateTableLabel,Update with new content from CSV,CSV에서 새 콘텐츠로 업데이트,更新 CSV 中的新内容
+Studio.LocalizationTools.CloudTableSection.AdvancedButton,Advanced,고급,高级
+Studio.LocalizationTools.CloudTableSection.ReplaceButton,Replace,바꾸기,替换
+Studio.LocalizationTools.CloudTableSection.ReplaceTableLabel,Replace entire cloud table with CSV,전체 클라우드 테이블을 CSV로 바꾸기,将整个云表格替换为 CSV
+Studio.LocalizationTools.CloudTableSection.PublishPlaceMessage,Publish this place to upload a table,이 장소를 게시하여 테이블 업로드,发布此场景来上传表格
+Studio.LocalizationTools.CloudTableSection.SectionLabel,Cloud Localization Table,클라우드 로컬리제이션 테이블,云本地化表格
+Studio.LocalizationTools.UploadDialogContent.PatchEmptyMessage,Patch empty. Upload anyway?,패치가 비어 있습니다. 업로드할까요?,空补丁，仍要上传？
+Studio.LocalizationTools.UploadDialogContent.UploadPatchMessage,Upload patch?,패치를 업로드할까요?,上传补丁？
+Studio.LocalizationTools.UploadDialogContent.AddEntriesPreText,Add entries:,항목 추가:,添加条目：
+Studio.LocalizationTools.UploadDialogContent.AddTranslationsPretext,Add translations:,번역 추가:,添加翻译：
+Studio.LocalizationTools.UploadDialogContent.ChangeTranslationsPretext,Change translations:,번역 변경:,更改翻译：
+Studio.LocalizationTools.UploadDialogContent.DeleteEntriesPretext,Delete entries:,항목 삭제:,删除条目：
+Studio.LocalizationTools.UploadDialogContent.DeleteTranslationsPretext,Delete translations:,번역 삭제:,删除翻译：
+Studio.LocalizationTools.UploadDialogContent.AddLanguagesPretext,Add languages:,언어 추가:,添加语言：
+Studio.LocalizationTools.UploadDialogContent.PatchTotalRowsLabel,Total rows:,전체 행:,总条数：
+Studio.LocalizationTools.UploadDialogContent.PatchTotalTranslationsLabel,Total translations:,전체 번역:,总翻译数：
+Studio.LocalizationTools.UploadDialogContent.PatchLanguagesLabel,Languages:,언어:,语言：
+Studio.LocalizationTools.UploadDialogContent.PatchInvalidLanguagesLabel,Invalid columns:,잘못된 열:,无效的列：
+Studio.LocalizationTools.UploadDialogContent.CancelButton,Cancel,취소,取消
+Studio.LocalizationTools.UploadDialogContent.ConfirmButton,Confirm,확인,确认
+Studio.LocalizationTools.UploadDialogContent.PatchContainsLabel,This patch contains: ,이 패치는 다음을 포함합니다. ,此补丁包括：
+Studio.LocalizationTools.UploadDialogContent.PatchWillLabel,This patch will:,이 패치는 다음 항목을 확인합니다.,此补丁将：
+Studio.LocalizationTools.UploadDialogContent.ConfirmUploadDialogTitle,Comfirm Upload,업로드 확인,确认上传
+Studio.LocalizationTools.MessageFrame.DownloadFailedMessage,Download cloud table failed,클라우드 테이블 다운로드 실패,下载云表格失败
+Studio.LocalizationTools.MessageFrame.SelectCSVFileMessage,Select CSV file...,CSV 파일 선택...,选择 CSV 文件...
+Studio.LocalizationTools.MessageFrame.UploadFailedMessage,Upload cloud table failed,클라우드 테이블 업로드 실패,上传云表格失败
+Studio.LocalizationTools.MessageFrame.UploadCompletedMessage,Upload cloud table complete,클라우드 테이블 업로드 완료,上传云表格完成
+Studio.LocalizationTools.MessageFrame.BusyMessage,busy,사용 중,系统繁忙
+Studio.LocalizationTools.MessageFrame.OpenCSVFileMessage,Open CSV file...,CSV 파일 열기...,打开 CSV 文件...
+Studio.LocalizationTools.MessageFrame.ComputingPatchMessage,Computing patch...,패치를 컴퓨팅하는 중...,正在计算补丁...
+Studio.LocalizationTools.MessageFrame.UploadCanceledMessage,Upload canceled,업로드 취소됨,上传已取消
+Studio.LocalizationTools.MessageFrame.ConfirmUploadMessage,Confirm upload...,업로드 확인...,确定上传...
+Studio.LocalizationTools.MessageFrame.UploadingPatchMessage,Uploading patch...,패치를 업로드하는 중...,正在上传补丁...
+Studio.LocalizationTools.MessageFrame.TableWrittenToFileMessage,Table written to file,파일에 기록된 테이블,表格已写入文件
+Studio.LocalizationTools.DownloadTable.GetCloudTableFailed,Localization Tools failed to request cloud table.,로컬리제이션 도구가 클라우드 테이블을 요청하지 못했습니다.,本地化工具请求云表格失败。
+Studio.LocalizationTools.DownloadTable.SetEntriesFailed,Internal error.,내부 오류입니다.,内部错误。
+Studio.LocalizationTools.UploadTable.GetSupportedLanguagesFailedMessage,Localization Tools failed to request supported langauges.,로컬리제이션 도구가 지원 언어를 요청하지 못했습니다.,本地化工具请求支持语言失败。
+Studio.LocalizationTools.UploadTable.PatchSupportedLangugesFailed,Localization Tools failed to add supported langauges.,로컬리제이션 도구가 지원 언어를 추가하지 못했습니다.,本地化工具添加支持语言失败。
+Studio.LocalizationTools.UploadTable.PatchCloudTableFailed,Localization Tools failed to upload cloud table.,로컬리제이션 도구가 클라우드 테이블을 업로드하지 못했습니다.,本地化工具上传云表格失败。
+Studio.LocalizationTools.MessageFrame.DownloadingTableMessage,Downloading table...,테이블을 다운로드하는 중...,正在下载表格...
+Studio.LocalizationTools.PluginMetadata.GetOrCreateCloudTableFailedMessage,Localization Tools failed to get cloud table info.,로컬리제이션 도구가 클라우드 테이블 정보를 가져오지 못했습니다.,本地化工具请求云表格信息失败。
+Studio.LocalizationTools.PluginMetadata.GetPermissionFailedMessage,Localization Tools failed to get permission info.,로컬리제이션 도구가 권한 정보를 가져오지 못했습니다.,本地化工具获取权限信息失败。
+Studio.LocalizationTools.PluginMetadata.GetAllLocalesFailed,Localization Tools failed to get all languages info.,로컬리제이션 도구가 모든 언어 정보를 가져오지 못했습니다.,本地化工具获取全部语言信息失败。

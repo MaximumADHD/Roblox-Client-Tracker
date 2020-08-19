@@ -1,25 +1,25 @@
-Key,Source,Context,en-us
-Studio.Drafts.Meta.PluginButtonTooltip, , ,View Drafts
-Studio.Drafts.Meta.PluginDescription, , ,I'm a hover message
-Studio.Drafts.Meta.PluginName, , ,Drafts
-Studio.Drafts.Example.ErrorAnUnexpectedThing, , ,"An unexpected thing happened, try again"
-Studio.Drafts.Main.NoDrafts, , ,(Empty)
-Studio.Drafts.ContextMenu.OpenScript, , ,Open Draft
-Studio.Drafts.ContextMenu.ShowDiff, , ,Compare with server
-Studio.Drafts.ContextMenu.Commit, , ,Commit
-Studio.Drafts.ContextMenu.Update, , ,Merge from server
-Studio.Drafts.ContextMenu.Restore, , ,Restore Script
-Studio.Drafts.ContextMenu.Revert, , ,Discard Draft
-Studio.Drafts.Dialog.Yes, , ,Yes
-Studio.Drafts.Dialog.No, , ,No
-Studio.Drafts.DiscardDialog.ConfirmQuestion, , ,Are you sure you want to discard your uncommited edits to the following scripts?
-Studio.Drafts.DiscardDialog.Title, , ,Discard Edits to Scripts
-Studio.Drafts.Tooltip.DraftOutdated, , ,Newer version on server
-Studio.Drafts.Tooltip.ScriptDeleted, , ,The original script has been deleted from the server
-Studio.Drafts.Tooltip.DraftCommitted, , ,Draft successfully committed
-Studio.Drafts.StatusText.Saved, , ,Saved
-Studio.Drafts.StatusText.Saving, , ,Saving...
-Studio.Drafts.StatusText.Uncommitted, , ,Uncommitted
-Studio.Drafts.StatusText.Committing, , ,Committing...
-Studio.Drafts.DraftItem.CommittedLabel, , ,{1} committed
-Studio.Drafts.Toolbar.CommitButton, , ,Commit
+Key,en-us
+Studio.Drafts.Meta.PluginButtonTooltip,View Drafts
+Studio.Drafts.Meta.PluginDescription,I'm a hover message
+Studio.Drafts.Meta.PluginName,Drafts
+Studio.Drafts.Example.ErrorAnUnexpectedThing,"An unexpected thing happened, try again"
+Studio.Drafts.Main.NoDrafts,(Empty)
+Studio.Drafts.ContextMenu.OpenScript,Open Draft
+Studio.Drafts.ContextMenu.ShowDiff,Compare with server
+Studio.Drafts.ContextMenu.Commit,Commit
+Studio.Drafts.ContextMenu.Update,Merge from server
+Studio.Drafts.ContextMenu.Restore,Restore Script
+Studio.Drafts.ContextMenu.Revert,Discard Draft
+Studio.Drafts.Dialog.Yes,Yes
+Studio.Drafts.Dialog.No,No
+Studio.Drafts.DiscardDialog.ConfirmQuestion,Are you sure you want to discard your uncommited edits to the following scripts?
+Studio.Drafts.DiscardDialog.Title,Discard Edits to Scripts
+Studio.Drafts.Tooltip.DraftOutdated,Newer version on server
+Studio.Drafts.Tooltip.ScriptDeleted,The original script has been deleted from the server
+Studio.Drafts.Tooltip.DraftCommitted,Draft successfully committed
+Studio.Drafts.StatusText.Saved,Saved
+Studio.Drafts.StatusText.Saving,Saving...
+Studio.Drafts.StatusText.Uncommitted,Uncommitted
+Studio.Drafts.StatusText.Committing,Committing...
+Studio.Drafts.DraftItem.CommittedLabel,{1} committed
+Studio.Drafts.Toolbar.CommitButton,Commit

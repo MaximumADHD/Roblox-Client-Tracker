@@ -1,22 +1,22 @@
-Key,Source,Context,ko,zh-cn
-Studio.ConvertToPackage.Meta.PluginName,Convert To Package, ,패키지로 전환,转换为包
-Studio.ConvertToPackage.General.Submit,Submit, ,제출,提交
-Studio.ConvertToPackage.General.Comments,Allow Comments, ,코멘트 허용,允许评论
-Studio.ConvertToPackage.General.Ownership,Ownership, ,소유권,所有权
-Studio.ConvertToPackage.General.Description,Description, ,설명,描述
-Studio.ConvertToPackage.General.Title,Title, ,제목,标题
-Studio.ConvertToPackage.General.Me,Me, ,나,我
-Studio.ConvertToPackage.General.InstanceFail,Convert to Package failed due to invalid objects, ,개체가 유효하지 않아 패키지로 전환하지 못했습니다,由于对象无效，打包转换失败
-Studio.ConvertToPackage.General.Error,Error, ,오류,错误
-Studio.ConvertToPackage.General.ChooseOne,Choose One, ,하나 선택,选择一个
-Studio.ConvertToPackage.General.OK,OK, ,확인,确认
-Studio.ConvertToPackage.General.DiscardMessage,Would you like to discard all changes?, ,모든 변경 사항을 제거할까요?,确定放弃所有更改吗?
-Studio.ConvertToPackage.General.GetAssetFailed,There was a problem fetching asset data., ,애셋 데이터를 가져오는 중에 문제가 발생했습니다.,获取资源数据时出现问题。
-Studio.ConvertToPackage.General.SuccessfullyConverted,Successfully Converted!, ,전환 성공!,转换成功!
-Studio.ConvertToPackage.General.YouMayFindPackagesInToolbox,You may find your packages in Toolbox., ,패키지는 도구 상자에서 찾을 수 있습니다.,你可以在工具箱中找到所有包。
-Studio.ConvertToPackage.General.ConvertToPackageFailed,Convert to package failed, ,패키지 전환 실패,打包转换失败
-Studio.ConvertToPackage.Action.Cancel,Cancel, ,취소,取消
-Studio.ConvertToPackage.Action.Close,Close, ,닫기,关闭
-Studio.ConvertToPackage.Action.Discard,Discard, ,제거,丢弃
-Studio.ConvertToPackage.Action.Submit,Submit, ,제출,提交
-Studio.ConvertToPackage.Action.Converting,Converting, ,변환 중,转换中
+Key,Source,ko,zh-cn
+Studio.ConvertToPackage.Meta.PluginName,Convert To Package,패키지로 전환,转换为包
+Studio.ConvertToPackage.General.Submit,Submit,제출,提交
+Studio.ConvertToPackage.General.Comments,Allow Comments,코멘트 허용,允许评论
+Studio.ConvertToPackage.General.Ownership,Ownership,소유권,所有权
+Studio.ConvertToPackage.General.Description,Description,설명,描述
+Studio.ConvertToPackage.General.Title,Title,제목,标题
+Studio.ConvertToPackage.General.Me,Me,나,我
+Studio.ConvertToPackage.General.InstanceFail,Convert to Package failed due to invalid objects,개체가 유효하지 않아 패키지로 전환하지 못했습니다,由于对象无效，打包转换失败
+Studio.ConvertToPackage.General.Error,Error,오류,错误
+Studio.ConvertToPackage.General.ChooseOne,Choose One,하나 선택,选择一个
+Studio.ConvertToPackage.General.OK,OK,확인,确认
+Studio.ConvertToPackage.General.DiscardMessage,Would you like to discard all changes?,모든 변경 사항을 제거할까요?,确定放弃所有更改吗?
+Studio.ConvertToPackage.General.GetAssetFailed,There was a problem fetching asset data.,애셋 데이터를 가져오는 중에 문제가 발생했습니다.,获取资源数据时出现问题。
+Studio.ConvertToPackage.General.SuccessfullyConverted,Successfully Converted!,전환 성공!,转换成功!
+Studio.ConvertToPackage.General.YouMayFindPackagesInToolbox,You may find your packages in Toolbox.,패키지는 도구 상자에서 찾을 수 있습니다.,你可以在工具箱中找到所有包。
+Studio.ConvertToPackage.General.ConvertToPackageFailed,Convert to package failed,패키지 전환 실패,打包转换失败
+Studio.ConvertToPackage.Action.Cancel,Cancel,취소,取消
+Studio.ConvertToPackage.Action.Close,Close,닫기,关闭
+Studio.ConvertToPackage.Action.Discard,Discard,제거,丢弃
+Studio.ConvertToPackage.Action.Submit,Submit,제출,提交
+Studio.ConvertToPackage.Action.Converting,Converting,변환 중,转换中

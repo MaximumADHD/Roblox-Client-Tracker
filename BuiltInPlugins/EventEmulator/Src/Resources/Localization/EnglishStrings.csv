@@ -1,5 +1,5 @@
-Key,Source,Context,en-us
-Studio.EventEmulator.Plugin.Name, , ,EventEmulator
-Studio.EventEmulator.Plugin.Toolbar, , ,Event Emulator
-Studio.EventEmulator.Plugin.Button, , ,Toggle
-Studio.EventEmulator.Plugin.Description, , ,Toggles the EventEmulator plugin window.
+Key,en-us
+Studio.EventEmulator.Plugin.Name,EventEmulator
+Studio.EventEmulator.Plugin.Toolbar,Event Emulator
+Studio.EventEmulator.Plugin.Button,Toggle
+Studio.EventEmulator.Plugin.Description,Toggles the EventEmulator plugin window.

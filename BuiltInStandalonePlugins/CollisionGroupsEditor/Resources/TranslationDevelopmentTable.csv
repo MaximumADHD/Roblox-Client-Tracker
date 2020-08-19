@@ -1,11 +1,11 @@
-Key,Source,Context,en-us
-Studio.CGE.Modal.ConfirmDeletion, , ,Are you sure you want to delete the group "{1}?"
-Studio.CGE.Common.Yes, , ,Yes
-Studio.CGE.Common.No, , ,No
-Studio.CGE.Groups.DefaultGroupName, , ,Default
-Studio.CGE.Headers.GroupName, , ,Group Name
-Studio.CGE.Actions.AddGroup, , ,Add Group
-Studio.CGE.Tooltip.Rename, , ,Rename this group.
-Studio.CGE.Tooltip.Delete, , ,Delete this group.
-Studio.CGE.Tooltip.Add, , ,Add the selected parts to this group.
-Studio.CGE.Main.Title, , ,Collision Groups Editor
+Key,en-us
+Studio.CGE.Modal.ConfirmDeletion,Are you sure you want to delete the group "{1}?"
+Studio.CGE.Common.Yes,Yes
+Studio.CGE.Common.No,No
+Studio.CGE.Groups.DefaultGroupName,Default
+Studio.CGE.Headers.GroupName,Group Name
+Studio.CGE.Actions.AddGroup,Add Group
+Studio.CGE.Tooltip.Rename,Rename this group.
+Studio.CGE.Tooltip.Delete,Delete this group.
+Studio.CGE.Tooltip.Add,Add the selected parts to this group.
+Studio.CGE.Main.Title,Collision Groups Editor

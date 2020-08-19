@@ -1,17 +1,17 @@
-Key,Source,Context
-Studio.AlignmentTool.Plugin.Toolbar,Alignment, 
-Studio.AlignmentTool.Plugin.Button,Align Tool, 
-Studio.AlignmentTool.Plugin.Description,Align selected objects., 
-Studio.AlignmentTool.Plugin.WindowTitle,Align Tool, 
-Studio.AlignmentTool.MainView.AlignButton,Align, 
-Studio.AlignmentTool.ModeSection.Min,Min, 
-Studio.AlignmentTool.ModeSection.Center,Center, 
-Studio.AlignmentTool.ModeSection.Max,Max, 
-Studio.AlignmentTool.AxesSection.Title,Align In, 
-Studio.AlignmentTool.AxesSection.WorldX,World X, 
-Studio.AlignmentTool.AxesSection.WorldY,World Y, 
-Studio.AlignmentTool.AxesSection.WorldZ,World Z, 
-Studio.AlignmentTool.RelativeToSection.Title,Relative To, 
-Studio.AlignmentTool.RelativeToSection.Selection,Selection Bounds, 
-Studio.AlignmentTool.RelativeToSection.Active,Active Object, 
-Studio.AlignmentTool.RelativeToSection.ActiveObjectTooltip,Align objects relative to the last object in the selection. Click on a selected object to switch the active object., 
+Key,Source
+Studio.AlignmentTool.Plugin.Toolbar,Alignment
+Studio.AlignmentTool.Plugin.Button,Align Tool
+Studio.AlignmentTool.Plugin.Description,Align selected objects.
+Studio.AlignmentTool.Plugin.WindowTitle,Align Tool
+Studio.AlignmentTool.MainView.AlignButton,Align
+Studio.AlignmentTool.ModeSection.Min,Min
+Studio.AlignmentTool.ModeSection.Center,Center
+Studio.AlignmentTool.ModeSection.Max,Max
+Studio.AlignmentTool.AxesSection.Title,Align In
+Studio.AlignmentTool.AxesSection.WorldX,World X
+Studio.AlignmentTool.AxesSection.WorldY,World Y
+Studio.AlignmentTool.AxesSection.WorldZ,World Z
+Studio.AlignmentTool.RelativeToSection.Title,Relative To
+Studio.AlignmentTool.RelativeToSection.Selection,Selection Bounds
+Studio.AlignmentTool.RelativeToSection.Active,Active Object
+Studio.AlignmentTool.RelativeToSection.ActiveObjectTooltip,Align objects relative to the last object in the selection. Click on a selected object to switch the active object.

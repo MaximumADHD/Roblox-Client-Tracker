@@ -1,7 +1,7 @@
-Key,Source,Context,en-us
-Studio.PlayerEmulator.Meta.PluginTitle, , ,Player Emulator
-Studio.PlayerEmulator.MainSwitchSection.LabelText, , ,Enable Test Profile
-Studio.PlayerEmulator.LanguageSection.LabelText, , ,Locale
-Studio.PlayerEmulator.LanguageSection.CustomLanguageDisplayText, , ,(Custom)
-Studio.PlayerEmulator.LanguageSection.InstructionText, , ,Cloud table will fetch translations for %s (%s)
-Studio.PlayerEmulator.CountryRegionSection.LabelText, , ,Region
+Key,en-us
+Studio.PlayerEmulator.Meta.PluginTitle,Player Emulator
+Studio.PlayerEmulator.MainSwitchSection.LabelText,Enable Test Profile
+Studio.PlayerEmulator.LanguageSection.LabelText,Locale
+Studio.PlayerEmulator.LanguageSection.CustomLanguageDisplayText,(Custom)
+Studio.PlayerEmulator.LanguageSection.InstructionText,Cloud table will fetch translations for %s (%s)
+Studio.PlayerEmulator.CountryRegionSection.LabelText,Region

@@ -1,25 +1,25 @@
-Key,Source,Context,ko,zh-cn
-Studio.Drafts.Meta.PluginButtonTooltip,View Drafts, ,초안 보기,查看草稿
-Studio.Drafts.Meta.PluginDescription,I'm a hover message, ,호버 메시지입니다,我是悬浮信息
-Studio.Drafts.Meta.PluginName,Drafts, ,초안,草稿
-Studio.Drafts.Example.ErrorAnUnexpectedThing,"An unexpected thing happened, try again", ,예기치 못한 문제가 발생했습니다. 다시 시도하세요.,发生意外，请重试
-Studio.Drafts.Main.NoDrafts,(Empty), ,(비어 있음),（空）
-Studio.Drafts.ContextMenu.OpenScript,Open Draft, ,초안 열기,打开草稿
-Studio.Drafts.ContextMenu.ShowDiff,Compare with server, ,서버와 비교,与服务器比较
-Studio.Drafts.ContextMenu.Commit,Commit, ,커밋,提交
-Studio.Drafts.ContextMenu.Update,Merge from server, ,서버에서 병합,从服务器合并
-Studio.Drafts.ContextMenu.Restore,Restore Script, ,스크립트 복원,还原脚本
-Studio.Drafts.ContextMenu.Revert,Discard Draft, ,초안 제거,放弃草稿
-Studio.Drafts.Dialog.Yes,Yes, ,예,是
-Studio.Drafts.Dialog.No,No, ,아니요,否
-Studio.Drafts.DiscardDialog.ConfirmQuestion,Are you sure you want to discard your uncommited edits to the following scripts?, ,다음 스크립트에 대한 커밋되지 않은 편집 내용을 제거할까요?,确定放弃对以下脚本的未提交编辑?
-Studio.Drafts.DiscardDialog.Title,Discard Edits to Scripts, ,스크립트에 대한 편집 내용 제거,放弃对脚本的编辑
-Studio.Drafts.Tooltip.DraftOutdated,Newer version on server, ,서버의 최신 버전,服务器上发现更新版本
-Studio.Drafts.Tooltip.ScriptDeleted,The original script has been deleted from the server, ,원본 스크립트가 서버에서 삭제되었습니다.,原始脚本已从服务器中删除
-Studio.Drafts.Tooltip.DraftCommitted,Draft successfully committed, ,초안 제출 성공,草稿已成功提交
-Studio.Drafts.StatusText.Saved,Saved, ,저장됨,已保存
-Studio.Drafts.StatusText.Saving,Saving..., ,저장 중...,正在保存…
-Studio.Drafts.StatusText.Committing,Committing..., ,커밋 중...,正在提交…
-Studio.Drafts.DraftItem.CommittedLabel,{1} committed, ,{1} 커밋됨,{1} 已提交
-Studio.Drafts.StatusText.Uncommitted,Uncommitted, ,커밋되지 않음,未提交
-Studio.Drafts.Toolbar.CommitButton,Commit, ,커밋,提交
+Key,Source,ko,zh-cn
+Studio.Drafts.Meta.PluginButtonTooltip,View Drafts,초안 보기,查看草稿
+Studio.Drafts.Meta.PluginDescription,I'm a hover message,호버 메시지입니다,我是悬浮信息
+Studio.Drafts.Meta.PluginName,Drafts,초안,草稿
+Studio.Drafts.Example.ErrorAnUnexpectedThing,"An unexpected thing happened, try again",예기치 못한 문제가 발생했습니다. 다시 시도하세요.,发生意外，请重试
+Studio.Drafts.Main.NoDrafts,(Empty),(비어 있음),（空）
+Studio.Drafts.ContextMenu.OpenScript,Open Draft,초안 열기,打开草稿
+Studio.Drafts.ContextMenu.ShowDiff,Compare with server,서버와 비교,与服务器比较
+Studio.Drafts.ContextMenu.Commit,Commit,커밋,提交
+Studio.Drafts.ContextMenu.Update,Merge from server,서버에서 병합,从服务器合并
+Studio.Drafts.ContextMenu.Restore,Restore Script,스크립트 복원,还原脚本
+Studio.Drafts.ContextMenu.Revert,Discard Draft,초안 제거,放弃草稿
+Studio.Drafts.Dialog.Yes,Yes,예,是
+Studio.Drafts.Dialog.No,No,아니요,否
+Studio.Drafts.DiscardDialog.ConfirmQuestion,Are you sure you want to discard your uncommited edits to the following scripts?,다음 스크립트에 대한 커밋되지 않은 편집 내용을 제거할까요?,确定放弃对以下脚本的未提交编辑?
+Studio.Drafts.DiscardDialog.Title,Discard Edits to Scripts,스크립트에 대한 편집 내용 제거,放弃对脚本的编辑
+Studio.Drafts.Tooltip.DraftOutdated,Newer version on server,서버의 최신 버전,服务器上发现更新版本
+Studio.Drafts.Tooltip.ScriptDeleted,The original script has been deleted from the server,원본 스크립트가 서버에서 삭제되었습니다.,原始脚本已从服务器中删除
+Studio.Drafts.Tooltip.DraftCommitted,Draft successfully committed,초안 제출 성공,草稿已成功提交
+Studio.Drafts.StatusText.Saved,Saved,저장됨,已保存
+Studio.Drafts.StatusText.Saving,Saving...,저장 중...,正在保存…
+Studio.Drafts.StatusText.Committing,Committing...,커밋 중...,正在提交…
+Studio.Drafts.DraftItem.CommittedLabel,{1} committed,{1} 커밋됨,{1} 已提交
+Studio.Drafts.StatusText.Uncommitted,Uncommitted,커밋되지 않음,未提交
+Studio.Drafts.Toolbar.CommitButton,Commit,커밋,提交

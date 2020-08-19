@@ -1,11 +1,11 @@
-Key,Source,Context,ko,zh-cn
-Studio.CGE.Modal.ConfirmDeletion,Are you sure you want to delete the group "{1}?", ,"{1}" 그룹을 삭제할까요?,确定要删除群组 "{1}?"
-Studio.CGE.Common.Yes,Yes, ,예,是
-Studio.CGE.Common.No,No, ,아니요,否
-Studio.CGE.Groups.DefaultGroupName,Default, ,기본값,默认
-Studio.CGE.Headers.GroupName,Group Name, ,그룹 이름,群组名称
-Studio.CGE.Actions.AddGroup,Add Group, ,그룹 추가,添加群组
-Studio.CGE.Tooltip.Rename,Rename this group., ,이 그룹의 이름을 변경합니다.,重命名此群组。
-Studio.CGE.Tooltip.Delete,Delete this group., ,이 그룹을 삭제합니다.,删除此群组。
-Studio.CGE.Tooltip.Add,Add the selected parts to this group., ,선택한 파트를 이 그룹에 추가합니다.,将选定的部件添加到此群组。
-Studio.CGE.Main.Title,Collision Groups Editor, ,충돌 그룹 편집기,碰撞组编辑器
+Key,Source,ko,zh-cn
+Studio.CGE.Modal.ConfirmDeletion,Are you sure you want to delete the group "{1}?","{1}" 그룹을 삭제할까요?,确定要删除群组 "{1}?"
+Studio.CGE.Common.Yes,Yes,예,是
+Studio.CGE.Common.No,No,아니요,否
+Studio.CGE.Groups.DefaultGroupName,Default,기본값,默认
+Studio.CGE.Headers.GroupName,Group Name,그룹 이름,群组名称
+Studio.CGE.Actions.AddGroup,Add Group,그룹 추가,添加群组
+Studio.CGE.Tooltip.Rename,Rename this group.,이 그룹의 이름을 변경합니다.,重命名此群组。
+Studio.CGE.Tooltip.Delete,Delete this group.,이 그룹을 삭제합니다.,删除此群组。
+Studio.CGE.Tooltip.Add,Add the selected parts to this group.,선택한 파트를 이 그룹에 추가합니다.,将选定的部件添加到此群组。
+Studio.CGE.Main.Title,Collision Groups Editor,충돌 그룹 편집기,碰撞组编辑器

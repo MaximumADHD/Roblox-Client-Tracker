@@ -1,7 +1,7 @@
-Key,Source,Context,ko,zh-cn
-Studio.PlayerEmulator.Meta.PluginTitle,Player Emulator, ,플레이어 에뮬레이터,玩家模拟器
-Studio.PlayerEmulator.MainSwitchSection.LabelText,Enable Test Profile, ,테스트 프로필 활성화,启用测试配置文件
-Studio.PlayerEmulator.LanguageSection.LabelText,Locale, ,로캘,区域设置
-Studio.PlayerEmulator.LanguageSection.CustomLanguageDisplayText,(Custom), ,(사용자 정의),（自定义）
-Studio.PlayerEmulator.LanguageSection.InstructionText,Cloud table will fetch translations for %s (%s), ,클라우드 테이블이 %s(%s)에 대한 번역을 가져옵니다,云表格将提取 %s （%s） 的翻译文档
-Studio.PlayerEmulator.CountryRegionSection.LabelText,Region, ,지역,地区
+Key,Source,ko,zh-cn
+Studio.PlayerEmulator.Meta.PluginTitle,Player Emulator,플레이어 에뮬레이터,玩家模拟器
+Studio.PlayerEmulator.MainSwitchSection.LabelText,Enable Test Profile,테스트 프로필 활성화,启用测试配置文件
+Studio.PlayerEmulator.LanguageSection.LabelText,Locale,로캘,区域设置
+Studio.PlayerEmulator.LanguageSection.CustomLanguageDisplayText,(Custom),(사용자 정의),（自定义）
+Studio.PlayerEmulator.LanguageSection.InstructionText,Cloud table will fetch translations for %s (%s),클라우드 테이블이 %s(%s)에 대한 번역을 가져옵니다,云表格将提取 %s （%s） 的翻译文档
+Studio.PlayerEmulator.CountryRegionSection.LabelText,Region,지역,地区

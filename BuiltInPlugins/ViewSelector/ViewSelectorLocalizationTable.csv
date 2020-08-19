@@ -1,13 +1,13 @@
-Key,Source,Context,en-us,zh-cn
-00n, , ,rbxasset://textures/ViewSelector/front.png,rbxasset://textures/ViewSelector/front_zh_cn.png
-00p, , ,rbxasset://textures/ViewSelector/back.png,rbxasset://textures/ViewSelector/back_zh_cn.png
-0n0, , ,rbxasset://textures/ViewSelector/bottom.png,rbxasset://textures/ViewSelector/bottom_zh_cn.png
-0p0, , ,rbxasset://textures/ViewSelector/top.png,rbxasset://textures/ViewSelector/top_zh_cn.png
-n00, , ,rbxasset://textures/ViewSelector/left.png,rbxasset://textures/ViewSelector/left_zh_cn.png
-p00, , ,rbxasset://textures/ViewSelector/right.png,rbxasset://textures/ViewSelector/right_zh_cn.png
-00n_hover, , ,rbxasset://textures/ViewSelector/front_hover.png,rbxasset://textures/ViewSelector/front_hover_zh_cn.png
-00p_hover, , ,rbxasset://textures/ViewSelector/back_hover.png,rbxasset://textures/ViewSelector/back_hover_zh_cn.png
-0n0_hover, , ,rbxasset://textures/ViewSelector/bottom_hover.png,rbxasset://textures/ViewSelector/bottom_hover_zh_cn.png
-0p0_hover, , ,rbxasset://textures/ViewSelector/top_hover.png,rbxasset://textures/ViewSelector/top_hover_zh_cn.png
-n00_hover, , ,rbxasset://textures/ViewSelector/left_hover.png,rbxasset://textures/ViewSelector/left_hover_zh_cn.png
-p00_hover, , ,rbxasset://textures/ViewSelector/right_hover.png,rbxasset://textures/ViewSelector/right_hover_zh_cn.png
+Key,en-us,zh-cn
+00n,rbxasset://textures/ViewSelector/front.png,rbxasset://textures/ViewSelector/front_zh_cn.png
+00p,rbxasset://textures/ViewSelector/back.png,rbxasset://textures/ViewSelector/back_zh_cn.png
+0n0,rbxasset://textures/ViewSelector/bottom.png,rbxasset://textures/ViewSelector/bottom_zh_cn.png
+0p0,rbxasset://textures/ViewSelector/top.png,rbxasset://textures/ViewSelector/top_zh_cn.png
+n00,rbxasset://textures/ViewSelector/left.png,rbxasset://textures/ViewSelector/left_zh_cn.png
+p00,rbxasset://textures/ViewSelector/right.png,rbxasset://textures/ViewSelector/right_zh_cn.png
+00n_hover,rbxasset://textures/ViewSelector/front_hover.png,rbxasset://textures/ViewSelector/front_hover_zh_cn.png
+00p_hover,rbxasset://textures/ViewSelector/back_hover.png,rbxasset://textures/ViewSelector/back_hover_zh_cn.png
+0n0_hover,rbxasset://textures/ViewSelector/bottom_hover.png,rbxasset://textures/ViewSelector/bottom_hover_zh_cn.png
+0p0_hover,rbxasset://textures/ViewSelector/top_hover.png,rbxasset://textures/ViewSelector/top_hover_zh_cn.png
+n00_hover,rbxasset://textures/ViewSelector/left_hover.png,rbxasset://textures/ViewSelector/left_hover_zh_cn.png
+p00_hover,rbxasset://textures/ViewSelector/right_hover.png,rbxasset://textures/ViewSelector/right_hover_zh_cn.png

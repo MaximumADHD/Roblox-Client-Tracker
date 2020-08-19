@@ -1,122 +1,122 @@
-Key,Source,Context,en-us
-Studio.AnimationClipEditor.Plugin.Name, , ,Animation Editor
-Studio.AnimationClipEditor.Plugin.Toolbar, , ,Animations
-Studio.AnimationClipEditor.Plugin.Button, , ,Animation Editor
-Studio.AnimationClipEditor.Plugin.Description, , ,"Create, preview, and publish Animation clips"
-Studio.AnimationClipEditor.ContextMenu.AddKeyframeHere, , ,Add Keyframe Here
-Studio.AnimationClipEditor.ContextMenu.AddResetKeyframe, , ,Add Reset Keyframe Here
-Studio.AnimationClipEditor.ContextMenu.AddKeyframe, , ,Add Keyframe
-Studio.AnimationClipEditor.ContextMenu.CutSelected, , ,Cut Selected
-Studio.AnimationClipEditor.ContextMenu.CopySelected, , ,Copy Selected
-Studio.AnimationClipEditor.ContextMenu.PasteKeyframes, , ,Paste Keyframes
-Studio.AnimationClipEditor.ContextMenu.DeleteSelected, , ,Delete Selected
-Studio.AnimationClipEditor.ContextMenu.ResetSelected, , ,Reset Selected
-Studio.AnimationClipEditor.ContextMenu.CutEvents, , ,Cut Selected
-Studio.AnimationClipEditor.ContextMenu.AddEvent, , ,Add Animation Event Here
-Studio.AnimationClipEditor.ContextMenu.EditEvents, , ,Edit Animation Event
-Studio.AnimationClipEditor.ContextMenu.CopyEvents, , ,Copy Selected
-Studio.AnimationClipEditor.ContextMenu.PasteEvents, , ,Paste Events
-Studio.AnimationClipEditor.ContextMenu.DeleteEvents, , ,Delete Selected
-Studio.AnimationClipEditor.ContextMenu.DeleteTrack, , ,Delete Track
-Studio.AnimationClipEditor.ContextMenu.Undo, , ,Undo
-Studio.AnimationClipEditor.ContextMenu.Redo, , ,Redo
-Studio.AnimationClipEditor.ContextMenu.SelectAll, , ,Select All
-Studio.AnimationClipEditor.ContextMenu.DeselectAll, , ,Deselect All
-Studio.AnimationClipEditor.ContextMenu.TogglePlay, , ,Toggle Play
-Studio.AnimationClipEditor.ContextMenu.EditEventName, , ,Edit Event Name
-Studio.AnimationClipEditor.ContextMenu.DeleteAllSameEvents, , ,Delete All Same Events
-Studio.AnimationClipEditor.ContextMenu.RenameKeyframe, , ,Rename Key Keyframe
-Studio.AnimationClipEditor.ContextMenu.ChangeDuration, , ,Change Duration
-Studio.AnimationClipEditor.ContextMenu.EasingStyle, , ,Easing Style
-Studio.AnimationClipEditor.ContextMenu.EasingDirection, , ,Easing Direction
-Studio.AnimationClipEditor.IKMenu.DisableIK, , ,Disable IK
-Studio.AnimationClipEditor.IKMenu.EnableIK, , ,Enable IK
-Studio.AnimationClipEditor.IKMenu.IKMode, , ,IK Mode
-Studio.AnimationClipEditor.IKMenu.BodyPart, , ,Body Part
-Studio.AnimationClipEditor.IKMenu.FullBody, , ,Full Body
-Studio.AnimationClipEditor.IKMenu.ShowTreeview, , ,Show Treeview
-Studio.AnimationClipEditor.IKMenu.Prompt, , ,Enable IK to start animating with IK constraints
-Studio.AnimationClipEditor.DropdownMenu.CreateNewClip, , ,Create New Clip
-Studio.AnimationClipEditor.Title.AnimationEvents, , ,Animation Events
-Studio.AnimationClipEditor.Title.EditEvents, , ,Edit Animation Events
-Studio.AnimationClipEditor.Title.EventName, , ,Event Name
-Studio.AnimationClipEditor.Title.Parameter, , ,Parameter
-Studio.AnimationClipEditor.Title.AddEvent, , ,Add Event
-Studio.AnimationClipEditor.Title.Error, , ,Error
-Studio.AnimationClipEditor.Title.CreateNew, , ,Create New Animation
-Studio.AnimationClipEditor.Title.SaveAsNew, , ,Save As New Animation
-Studio.AnimationClipEditor.Title.ConfirmSave, , ,Do you want to save this animation file?
-Studio.AnimationClipEditor.Title.SelectARig, , ,Select a rig to animate
-Studio.AnimationClipEditor.Title.CreateToStart, , ,Create an animation to start
-Studio.AnimationClipEditor.Title.ClickToContinue, , ,Click here to continue using the Animation Editor
-Studio.AnimationClipEditor.Title.NoAnimationExists,{1}, ,"No animation exists for {1}, please create one to start animating"
-Studio.AnimationClipEditor.Title.ChangeDuration, , ,Change Duration
-Studio.AnimationClipEditor.Title.NewDuration, , ,New Duration
-Studio.AnimationClipEditor.Title.CurrentDuration,{1:int}, ,Current duration is {1:int} frames
-Studio.AnimationClipEditor.Title.ManageIK, , ,Manage IK
-Studio.AnimationClipEditor.Title.IK, , ,IK
-Studio.AnimationClipEditor.Title.CustomFPS, , ,Custom Frame Rate [FPS]
-Studio.AnimationClipEditor.Title.MinFPS, , ,Minimum frame rate is 1 fps
-Studio.AnimationClipEditor.Title.MaxFPS, , ,Maximum frame rate is 120 fps
-Studio.AnimationClipEditor.Settings.SnapToKeys, , ,Snap To Keys
-Studio.AnimationClipEditor.Settings.ShowEvents, , ,Show Animation Events
-Studio.AnimationClipEditor.Settings.TimelineUnit, , ,Timeline Unit
-Studio.AnimationClipEditor.Settings.Seconds, , ,Seconds:Frames
-Studio.AnimationClipEditor.Settings.Frames, , ,Frames
-Studio.AnimationClipEditor.Settings.FrameRate, , ,Frame Rate
-Studio.AnimationClipEditor.Settings.CustomFPS, , ,Custom
-Studio.AnimationClipEditor.Dialog.Cancel, , ,Cancel
-Studio.AnimationClipEditor.Dialog.Save, , ,Save
-Studio.AnimationClipEditor.Dialog.Yes, , ,Yes
-Studio.AnimationClipEditor.Dialog.Confirm, , ,Confirm
-Studio.AnimationClipEditor.Dialog.No, , ,No
-Studio.AnimationClipEditor.Dialog.Create, , ,Create
-Studio.AnimationClipEditor.Dialog.Ok, , ,OK
-Studio.AnimationClipEditor.Dialog.DeleteAllPrompt,{1}, ,Do you want to delete all "{1}" from this animation?
-Studio.AnimationClipEditor.Dialog.RenameAllPrompt,{1}{2}, ,Do you want to change all "{1}" to "{2}"?
-Studio.AnimationClipEditor.Dialog.ErrorsHeader, , ,Rig Error(s) Detected
-Studio.AnimationClipEditor.Dialog.EditorErrorsHeader, , ,Editor Error Detected
-Studio.AnimationClipEditor.Dialog.AnimationName, , ,Animation Name
-Studio.AnimationClipEditor.Dialog.SaveLocation, , ,Animation will be saved to Rig > AnimSaves in Explorer
-Studio.AnimationClipEditor.Dialog.Delete, , ,Delete
-Studio.AnimationClipEditor.Dialog.ChangeThis, , ,Change This
-Studio.AnimationClipEditor.Dialog.ChangeAll, , ,Change All
-Studio.AnimationClipEditor.Settings.QuantizeKeyframes, , ,Quantize Keyframes
-Studio.AnimationClipEditor.Menu.Load, , ,Load
-Studio.AnimationClipEditor.Menu.Save, , ,Save
-Studio.AnimationClipEditor.Menu.SaveAs, , ,Save As
-Studio.AnimationClipEditor.Menu.Import, , ,Import
-Studio.AnimationClipEditor.Menu.FromRoblox, , ,From Roblox
-Studio.AnimationClipEditor.Menu.FromFBX, , ,From FBX Animation
-Studio.AnimationClipEditor.Menu.Export, , ,Export
-Studio.AnimationClipEditor.Menu.CreateNew, , ,Create New
-Studio.AnimationClipEditor.Menu.New, , ,New...
-Studio.AnimationClipEditor.Menu.Overwrite,{1}, ,Do you want to overwrite existing animation "{1}"?
-Studio.AnimationClipEditor.Menu.RenamePrompt, , ,New Animation Name:
-Studio.AnimationClipEditor.Menu.RenameKeyframePrompt, , ,New Keyframe Name
-Studio.AnimationClipEditor.Menu.SetPriority, , ,Set Animation Priority
-Studio.AnimationClipEditor.Menu.AddAllTracks, , ,Add All
-Studio.AnimationClipEditor.RigErrors.NoMotors, , ,A model needs to have its parts joined together by Motor6Ds to properly animate.
-Studio.AnimationClipEditor.RigErrors.PartsAnchored, , ,"All of the parts on this model are anchored, making it non-animatable. Please un-anchor the parts on this model."
-Studio.AnimationClipEditor.RigErrors.MissingPart0,{1}, ,The following Motor6Ds do not have a Part0 set: {1}
-Studio.AnimationClipEditor.RigErrors.MissingPart1,{1}, ,The following Motor6Ds do not have a Part1 set: {1}
-Studio.AnimationClipEditor.RigErrors.MultipleParents,{1}, ,The following parts are affected by multiple Motor6Ds: {1}
-Studio.AnimationClipEditor.RigErrors.CircularRig, , ,This rig contains a cycle between the connections of certain parts.
-Studio.AnimationClipEditor.RigErrors.NoAnimationController, , ,This rig does not have an animation controller or humanoid. Please create one.
-Studio.AnimationClipEditor.EditorErrors.OpenedWhileRunning, , ,Animation Editor cannot be used while game is running!
-Studio.AnimationClipEditor.Toast.ClippedWarning, , ,Warning: An animation cannot exceed 30 seconds in length. Excess keyframes have been removed.
-Studio.AnimationClipEditor.Toast.InvalidAnimation, , ,Animation was not imported. You do not have ownership of animation with the selected ID.
-Studio.AnimationClipEditor.Toast.MaxFramerateWarning, , ,"Warning: This animation exceeds the maximum 120 fps frame rate. Some keys are not aligned to frames, they will snap to frames when you edit them."
-Studio.AnimationClipEditor.Toast.QuantizeWarning, , ,"Warning: Some keys of your animation are not aligned to frames, they will snap to frames when you edit them."
-Studio.AnimationClipEditor.Toast.AlignNow, , ,Align all keys now
-Studio.AnimationClipEditor.Toast.IgnoreWarning, , ,Ignore warning
-Studio.AnimationClipEditor.Toast.Saved,{1}, ,Saved animation {1}
-Studio.AnimationClipEditor.Toast.Loaded,{1}, ,Loaded animation {1}
-Studio.AnimationClipEditor.RigErrors.NameCollision, , ,This rig contains multiple parts which share the same name. Please give unique names to all parts.
-Studio.AnimationClipEditor.Tooltip.CurrentFrameBox, , ,Change scrubber time
-Studio.AnimationClipEditor.Tooltip.EndFrameBox, , ,Change timeline length
-Studio.AnimationClipEditor.Tooltip.ToggleLooping, , ,Toggle looping animation
-Studio.AnimationClipEditor.Tooltip.Play, , ,Preview the animation [Space]
-Studio.AnimationClipEditor.Tooltip.SkipForward, , ,Move scrubber to next key
-Studio.AnimationClipEditor.Tooltip.SkipBackward, , ,Move scrubber to previous key
-Studio.AnimationClipEditor.Tooltip.AddTrackButton, , ,Add a new animation track
+Key,Source,en-us
+Studio.AnimationClipEditor.Plugin.Name, ,Animation Editor
+Studio.AnimationClipEditor.Plugin.Toolbar, ,Animations
+Studio.AnimationClipEditor.Plugin.Button, ,Animation Editor
+Studio.AnimationClipEditor.Plugin.Description, ,"Create, preview, and publish Animation clips"
+Studio.AnimationClipEditor.ContextMenu.AddKeyframeHere, ,Add Keyframe Here
+Studio.AnimationClipEditor.ContextMenu.AddResetKeyframe, ,Add Reset Keyframe Here
+Studio.AnimationClipEditor.ContextMenu.AddKeyframe, ,Add Keyframe
+Studio.AnimationClipEditor.ContextMenu.CutSelected, ,Cut Selected
+Studio.AnimationClipEditor.ContextMenu.CopySelected, ,Copy Selected
+Studio.AnimationClipEditor.ContextMenu.PasteKeyframes, ,Paste Keyframes
+Studio.AnimationClipEditor.ContextMenu.DeleteSelected, ,Delete Selected
+Studio.AnimationClipEditor.ContextMenu.ResetSelected, ,Reset Selected
+Studio.AnimationClipEditor.ContextMenu.CutEvents, ,Cut Selected
+Studio.AnimationClipEditor.ContextMenu.AddEvent, ,Add Animation Event Here
+Studio.AnimationClipEditor.ContextMenu.EditEvents, ,Edit Animation Event
+Studio.AnimationClipEditor.ContextMenu.CopyEvents, ,Copy Selected
+Studio.AnimationClipEditor.ContextMenu.PasteEvents, ,Paste Events
+Studio.AnimationClipEditor.ContextMenu.DeleteEvents, ,Delete Selected
+Studio.AnimationClipEditor.ContextMenu.DeleteTrack, ,Delete Track
+Studio.AnimationClipEditor.ContextMenu.Undo, ,Undo
+Studio.AnimationClipEditor.ContextMenu.Redo, ,Redo
+Studio.AnimationClipEditor.ContextMenu.SelectAll, ,Select All
+Studio.AnimationClipEditor.ContextMenu.DeselectAll, ,Deselect All
+Studio.AnimationClipEditor.ContextMenu.TogglePlay, ,Toggle Play
+Studio.AnimationClipEditor.ContextMenu.EditEventName, ,Edit Event Name
+Studio.AnimationClipEditor.ContextMenu.DeleteAllSameEvents, ,Delete All Same Events
+Studio.AnimationClipEditor.ContextMenu.RenameKeyframe, ,Rename Key Keyframe
+Studio.AnimationClipEditor.ContextMenu.ChangeDuration, ,Change Duration
+Studio.AnimationClipEditor.ContextMenu.EasingStyle, ,Easing Style
+Studio.AnimationClipEditor.ContextMenu.EasingDirection, ,Easing Direction
+Studio.AnimationClipEditor.IKMenu.DisableIK, ,Disable IK
+Studio.AnimationClipEditor.IKMenu.EnableIK, ,Enable IK
+Studio.AnimationClipEditor.IKMenu.IKMode, ,IK Mode
+Studio.AnimationClipEditor.IKMenu.BodyPart, ,Body Part
+Studio.AnimationClipEditor.IKMenu.FullBody, ,Full Body
+Studio.AnimationClipEditor.IKMenu.ShowTreeview, ,Show Treeview
+Studio.AnimationClipEditor.IKMenu.Prompt, ,Enable IK to start animating with IK constraints
+Studio.AnimationClipEditor.DropdownMenu.CreateNewClip, ,Create New Clip
+Studio.AnimationClipEditor.Title.AnimationEvents, ,Animation Events
+Studio.AnimationClipEditor.Title.EditEvents, ,Edit Animation Events
+Studio.AnimationClipEditor.Title.EventName, ,Event Name
+Studio.AnimationClipEditor.Title.Parameter, ,Parameter
+Studio.AnimationClipEditor.Title.AddEvent, ,Add Event
+Studio.AnimationClipEditor.Title.Error, ,Error
+Studio.AnimationClipEditor.Title.CreateNew, ,Create New Animation
+Studio.AnimationClipEditor.Title.SaveAsNew, ,Save As New Animation
+Studio.AnimationClipEditor.Title.ConfirmSave, ,Do you want to save this animation file?
+Studio.AnimationClipEditor.Title.SelectARig, ,Select a rig to animate
+Studio.AnimationClipEditor.Title.CreateToStart, ,Create an animation to start
+Studio.AnimationClipEditor.Title.ClickToContinue, ,Click here to continue using the Animation Editor
+Studio.AnimationClipEditor.Title.NoAnimationExists,{1},"No animation exists for {1}, please create one to start animating"
+Studio.AnimationClipEditor.Title.ChangeDuration, ,Change Duration
+Studio.AnimationClipEditor.Title.NewDuration, ,New Duration
+Studio.AnimationClipEditor.Title.CurrentDuration,{1:int},Current duration is {1:int} frames
+Studio.AnimationClipEditor.Title.ManageIK, ,Manage IK
+Studio.AnimationClipEditor.Title.IK, ,IK
+Studio.AnimationClipEditor.Title.CustomFPS, ,Custom Frame Rate [FPS]
+Studio.AnimationClipEditor.Title.MinFPS, ,Minimum frame rate is 1 fps
+Studio.AnimationClipEditor.Title.MaxFPS, ,Maximum frame rate is 120 fps
+Studio.AnimationClipEditor.Settings.SnapToKeys, ,Snap To Keys
+Studio.AnimationClipEditor.Settings.ShowEvents, ,Show Animation Events
+Studio.AnimationClipEditor.Settings.TimelineUnit, ,Timeline Unit
+Studio.AnimationClipEditor.Settings.Seconds, ,Seconds:Frames
+Studio.AnimationClipEditor.Settings.Frames, ,Frames
+Studio.AnimationClipEditor.Settings.FrameRate, ,Frame Rate
+Studio.AnimationClipEditor.Settings.CustomFPS, ,Custom
+Studio.AnimationClipEditor.Dialog.Cancel, ,Cancel
+Studio.AnimationClipEditor.Dialog.Save, ,Save
+Studio.AnimationClipEditor.Dialog.Yes, ,Yes
+Studio.AnimationClipEditor.Dialog.Confirm, ,Confirm
+Studio.AnimationClipEditor.Dialog.No, ,No
+Studio.AnimationClipEditor.Dialog.Create, ,Create
+Studio.AnimationClipEditor.Dialog.Ok, ,OK
+Studio.AnimationClipEditor.Dialog.DeleteAllPrompt,{1},Do you want to delete all "{1}" from this animation?
+Studio.AnimationClipEditor.Dialog.RenameAllPrompt,{1}{2},Do you want to change all "{1}" to "{2}"?
+Studio.AnimationClipEditor.Dialog.ErrorsHeader, ,Rig Error(s) Detected
+Studio.AnimationClipEditor.Dialog.EditorErrorsHeader, ,Editor Error Detected
+Studio.AnimationClipEditor.Dialog.AnimationName, ,Animation Name
+Studio.AnimationClipEditor.Dialog.SaveLocation, ,Animation will be saved to Rig > AnimSaves in Explorer
+Studio.AnimationClipEditor.Dialog.Delete, ,Delete
+Studio.AnimationClipEditor.Dialog.ChangeThis, ,Change This
+Studio.AnimationClipEditor.Dialog.ChangeAll, ,Change All
+Studio.AnimationClipEditor.Settings.QuantizeKeyframes, ,Quantize Keyframes
+Studio.AnimationClipEditor.Menu.Load, ,Load
+Studio.AnimationClipEditor.Menu.Save, ,Save
+Studio.AnimationClipEditor.Menu.SaveAs, ,Save As
+Studio.AnimationClipEditor.Menu.Import, ,Import
+Studio.AnimationClipEditor.Menu.FromRoblox, ,From Roblox
+Studio.AnimationClipEditor.Menu.FromFBX, ,From FBX Animation
+Studio.AnimationClipEditor.Menu.Export, ,Export
+Studio.AnimationClipEditor.Menu.CreateNew, ,Create New
+Studio.AnimationClipEditor.Menu.New, ,New...
+Studio.AnimationClipEditor.Menu.Overwrite,{1},Do you want to overwrite existing animation "{1}"?
+Studio.AnimationClipEditor.Menu.RenamePrompt, ,New Animation Name:
+Studio.AnimationClipEditor.Menu.RenameKeyframePrompt, ,New Keyframe Name
+Studio.AnimationClipEditor.Menu.SetPriority, ,Set Animation Priority
+Studio.AnimationClipEditor.Menu.AddAllTracks, ,Add All
+Studio.AnimationClipEditor.RigErrors.NoMotors, ,A model needs to have its parts joined together by Motor6Ds to properly animate.
+Studio.AnimationClipEditor.RigErrors.PartsAnchored, ,"All of the parts on this model are anchored, making it non-animatable. Please un-anchor the parts on this model."
+Studio.AnimationClipEditor.RigErrors.MissingPart0,{1},The following Motor6Ds do not have a Part0 set: {1}
+Studio.AnimationClipEditor.RigErrors.MissingPart1,{1},The following Motor6Ds do not have a Part1 set: {1}
+Studio.AnimationClipEditor.RigErrors.MultipleParents,{1},The following parts are affected by multiple Motor6Ds: {1}
+Studio.AnimationClipEditor.RigErrors.CircularRig, ,This rig contains a cycle between the connections of certain parts.
+Studio.AnimationClipEditor.RigErrors.NoAnimationController, ,This rig does not have an animation controller or humanoid. Please create one.
+Studio.AnimationClipEditor.EditorErrors.OpenedWhileRunning, ,Animation Editor cannot be used while game is running!
+Studio.AnimationClipEditor.Toast.ClippedWarning, ,Warning: An animation cannot exceed 30 seconds in length. Excess keyframes have been removed.
+Studio.AnimationClipEditor.Toast.InvalidAnimation, ,Animation was not imported. You do not have ownership of animation with the selected ID.
+Studio.AnimationClipEditor.Toast.MaxFramerateWarning, ,"Warning: This animation exceeds the maximum 120 fps frame rate. Some keys are not aligned to frames, they will snap to frames when you edit them."
+Studio.AnimationClipEditor.Toast.QuantizeWarning, ,"Warning: Some keys of your animation are not aligned to frames, they will snap to frames when you edit them."
+Studio.AnimationClipEditor.Toast.AlignNow, ,Align all keys now
+Studio.AnimationClipEditor.Toast.IgnoreWarning, ,Ignore warning
+Studio.AnimationClipEditor.Toast.Saved,{1},Saved animation {1}
+Studio.AnimationClipEditor.Toast.Loaded,{1},Loaded animation {1}
+Studio.AnimationClipEditor.RigErrors.NameCollision, ,This rig contains multiple parts which share the same name. Please give unique names to all parts.
+Studio.AnimationClipEditor.Tooltip.CurrentFrameBox, ,Change scrubber time
+Studio.AnimationClipEditor.Tooltip.EndFrameBox, ,Change timeline length
+Studio.AnimationClipEditor.Tooltip.ToggleLooping, ,Toggle looping animation
+Studio.AnimationClipEditor.Tooltip.Play, ,Preview the animation [Space]
+Studio.AnimationClipEditor.Tooltip.SkipForward, ,Move scrubber to next key
+Studio.AnimationClipEditor.Tooltip.SkipBackward, ,Move scrubber to previous key
+Studio.AnimationClipEditor.Tooltip.AddTrackButton, ,Add a new animation track
