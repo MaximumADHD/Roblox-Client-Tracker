@@ -6,8 +6,6 @@ local Roact = require(Root.Roact)
 local Cryo = require(Root.Cryo)
 local Scroller = require(InfiniteScroller).Scroller
 
-local Thing = require(script.Parent.ResizingThing)
-
 local Box = function(props)
 	return Roact.createElement("TextLabel", {
 		Size = UDim2.new(1, 0, 0, 40),

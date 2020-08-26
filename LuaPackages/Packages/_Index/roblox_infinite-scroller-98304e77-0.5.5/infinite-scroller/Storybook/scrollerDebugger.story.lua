@@ -9,10 +9,15 @@ local TextService = game:GetService("TextService")
 local debugScroller = Roact.PureComponent:extend("debugScroller")
 
 local COLORS = {
+	DEFAULT = Color3.fromRGB(188, 188, 188),
 	WHITE = Color3.fromRGB(244, 244, 244),
 	BLACK = Color3.fromRGB(0, 0, 0),
+	TRUE = Color3.fromRGB(188, 222, 188),
+	FALSE = Color3.fromRGB(222, 188, 188),
+
 	FOCUS_INDEX = Color3.fromRGB(0, 255, 0),
 	ANCHOR_LOCATION = Color3.fromRGB(0, 127, 255),
+	DRAG_BUFFER = Color3.fromRGB(222, 0, 222),
 	CANVAS = Color3.fromRGB(244, 188, 66),
 	LEAD_INDEX = Color3.fromRGB(0, 255, 0),
 	TRAIL_INDEX = Color3.fromRGB(255, 0, 0),
@@ -20,9 +25,14 @@ local COLORS = {
 	PADDING = Color3.fromRGB(145, 88, 222),
 }
 
-local LABEL_LAYOUT = 0
+
+local LAYOUT_ORDER_INDEX = 0
+function getNextLayout()
+	LAYOUT_ORDER_INDEX = LAYOUT_ORDER_INDEX + 1
+	return LAYOUT_ORDER_INDEX
+end
+
 function makeLabel(text, value, color)
-	LABEL_LAYOUT = LABEL_LAYOUT + 1
 	return Roact.createElement("TextLabel", {
 		Size = UDim2.new(1, 0, 0, 20),
 		Text = string.format("%s: %s", text, tostring(value)),
@@ -30,8 +40,29 @@ function makeLabel(text, value, color)
 		TextXAlignment = Enum.TextXAlignment.Left,
 		BorderSizePixel = 0,
 		BackgroundTransparency = 1,
-		LayoutOrder = LABEL_LAYOUT,
+		LayoutOrder = getNextLayout(),
 	})
+end
+
+function makeButton(text, func, color)
+	local color = color or COLORS.DEFAULT
+	return Roact.createElement("TextButton", {
+		Size = UDim2.fromOffset(110, 30),
+		BackgroundColor3 = color,
+		TextWrapped = true,
+		Text = text,
+		[Roact.Event.Activated] = func,
+		LayoutOrder = getNextLayout(),
+	})
+end
+
+function debugScroller:makeToggleButton(value)
+	function doToggle()
+		self:setState({
+			[value] = not self.state[value]
+		})
+	end
+	return makeButton(value, doToggle, self.state[value] and COLORS.TRUE or COLORS.FALSE)
 end
 
 function makeLabelLine(text, position, color, pointsRight)
@@ -40,7 +71,7 @@ function makeLabelLine(text, position, color, pointsRight)
 
 	local textSize = TextService:GetTextSize(text, 8, Enum.Font.Legacy, Vector2.new())
 	return Roact.createElement("Frame", {
-		Size = UDim2.fromOffset(textSize.X + LINE_WIDTH),
+		Size = UDim2.fromOffset(textSize.X + LINE_WIDTH, textSize.Y),
 		Position = position,
 		AnchorPoint = pointsRight and Vector2.new(1, 0.5) or Vector2.new(0, 0.5),
 		BackgroundTransparency = 1,
@@ -53,7 +84,7 @@ function makeLabelLine(text, position, color, pointsRight)
 			}),
 			labelLine = Roact.createElement("Frame", {
 				Position = position,
-				Size = UDim2.new(0, LINE_WIDTH, 0, 1),
+				Size = UDim2.fromOffset(LINE_WIDTH, 1),
 				BorderSizePixel = 0,
 				BackgroundColor3 = color,
 				LayoutOrder = 2,
@@ -71,18 +102,21 @@ function makeLabelLine(text, position, color, pointsRight)
 end
 
 debugScroller.defaultProps = {
-	anchorLocation = UDim.new(0.5, 0),
+	anchorLocation = UDim.new(1, 0),
 	mountingBuffer = 50,
-	focusIndex = 1,
+	dragBuffer = 0,
+	focusIndex = 3,
 
 	numItems = 10,
 }
 
 function debugScroller:init()
-	self.state = {
+	self.initialState = {
 		items = {},
 		-- Scroller props. These can be changed by debugger buttons
 		focusLock = 1,
+		orientation = Scroller.Orientation.Down,
+		clipsDescendants = false,
 
 		-- Scroller internals. Don't change these manually, meant for DISPLAY ONLY
 		canvasPosition = 0,
@@ -95,9 +129,16 @@ function debugScroller:init()
 		anchorIndex = -1,
 	}
 
+	self.mutableState = {
+		loadPreviousEnabled = false,
+		loadNextEnabled = false,
+	}
+
 	for i = 1,self.props.numItems do
-		table.insert(self.state.items, {id = i})
+		table.insert(self.initialState.items, {id = i})
 	end
+
+	self.state = Cryo.Dictionary.join(self.initialState, self.mutableState)
 
 	-- horsecat storybooks have a Y-offset that we need to address before using absolutePosition
 	self.initialY, self.updateInitialY = Roact.createBinding(0)
@@ -117,7 +158,7 @@ function debugScroller:render()
 			SortOrder = Enum.SortOrder.LayoutOrder,
 			FillDirection = Enum.FillDirection.Horizontal,
 		}),
-		valuesFrame = Roact.createElement("Frame", {
+		visibilityFrame = Roact.createElement("Frame", {
 			LayoutOrder = 1,
 			Size = UDim2.new(0, 200, 1, 0),
 			BackgroundTransparency = 1,
@@ -132,22 +173,33 @@ function debugScroller:render()
 			canvasPositionLabel = makeLabel("canvasPosition", self.state.canvasPosition, COLORS.CANVAS),
 			canvasSizeLabel = makeLabel("canvasSize", self.state.canvasSize, COLORS.CANVAS),
 			paddingSizeLabel = makeLabel("size of padding Frame", self.state.paddingSize, COLORS.PADDING),
+
+			whiteSpace = Roact.createElement("Frame", { Size = UDim2.fromOffset(0, 20), BackgroundTransparency = 1, LayoutOrder = getNextLayout()}),
+
+			disableLoadPrevious = self:makeToggleButton("loadPreviousEnabled"),
+			disableLoadNext = self:makeToggleButton("loadNextEnabled"),
+			clipsDescendants = self:makeToggleButton("clipsDescendants"),
 		}),
+
 		scrollerFrame = Roact.createElement("Frame", {
 			LayoutOrder = 2,
-			Size = UDim2.new(0, 120, 1, 0),
+			Size = UDim2.new(0, 140, 1, 0),
 			BackgroundTransparency = 1,
 		}, {
 			scroller = Roact.createElement(Scroller, {
-				ClipsDescendants = false,
-				Position = UDim2.new(0, 20, 0, 300),
+				--ElasticBehavior = Enum.ElasticBehavior.Never,
+				ClipsDescendants = self.state.clipsDescendants,
+				Position = UDim2.fromOffset(0, 200),
 				BackgroundColor3 = Color3.fromRGB(111, 111, 111),
 				Size = UDim2.new(0, 100, 0, 100),
+
+				orientation = self.state.orientation,
 				padding = UDim.new(),
 				itemList = self.state.items,
 				focusIndex = self.props.focusIndex,
 				focusLock = self.state.focusLock,
 				anchorLocation = self.props.anchorLocation,
+				dragBuffer = self.props.dragBuffer,
 				mountingBuffer = self.props.mountingBuffer,
 				estimatedItemSize = 10,
 				[Roact.Ref] = self.ref,
@@ -189,7 +241,26 @@ function debugScroller:render()
 					})
 				end,
 
+				loadPrevious = function()
+					if not self.state.loadPreviousEnabled then
+						return
+					end
+					local newItems = {}
+					local n = self.state.items[1].id
+					for i = n-10, n-1 do
+						table.insert(newItems, {
+							id = i,
+						})
+					end
+					self:setState({
+						items = Cryo.List.join(newItems, self.state.items)
+					})
+				end,
+
 				loadNext = function()
+					if not self.state.loadNextEnabled then
+						return
+					end
 					local newItems = {}
 					local n = self.state.items[#self.state.items].id
 					for i = n+1, n+10 do
@@ -215,12 +286,21 @@ function debugScroller:render()
 					padding_rbx.BackgroundTransparency = 0
 					padding_rbx.BackgroundColor3 = COLORS.PADDING
 
+					local anchorLinePositionY = rbx.AbsolutePosition.Y - self.props.anchorLocation.Offset
+					if self.state.orientation == Scroller.Orientation.Down then
+						anchorLinePositionY = anchorLinePositionY + (1 - self.props.anchorLocation.Scale) * rbx.AbsoluteSize.Y
+					elseif self.state.orientation == Scroller.Orientation.Up then
+						anchorLinePositionY = anchorLinePositionY + self.props.anchorLocation.Scale * rbx.AbsoluteSize.Y
+					else
+						anchorLinePositionY = 0
+					end
+
 					self:setState({
 						canvasPosition = rbx.CanvasPosition.Y,
 						canvasSize = rbx.CanvasSize.Y.Offset,
 						paddingSize = padding_rbx.Size.Y.Offset,
 
-						anchorLinePositionY = rbx.AbsolutePosition.Y + self.props.anchorLocation.Scale * rbx.AbsoluteSize.Y,
+						anchorLinePositionY = anchorLinePositionY,
 						paddingPosition = padding_rbx.AbsolutePosition.Y,
 					})
 				end,
@@ -237,6 +317,16 @@ function debugScroller:render()
 				COLORS.ANCHOR_LOCATION,
 				true),
 
+			dragBuffer1 = self.ref.current and self.props.dragBuffer ~= 0 and makeLabelLine("dragBuffer ",
+				UDim2.fromOffset(20, self.props.dragBuffer + self.ref.current.AbsolutePosition.Y - self.initialY:getValue()),
+				COLORS.DRAG_BUFFER,
+				true),
+
+			dragBuffer2 = self.ref.current and self.props.dragBuffer ~= 0 and makeLabelLine("dragBuffer ",
+				UDim2.fromOffset(20, self.ref.current.AbsoluteSize.Y - self.props.dragBuffer + self.ref.current.AbsolutePosition.Y - self.initialY:getValue()),
+				COLORS.DRAG_BUFFER,
+				true),
+
 			mountingBuffer = self.ref.current and makeLabelLine("mountingBuffer ",
 				UDim2.fromOffset(20, -self.props.mountingBuffer + self.ref.current.AbsolutePosition.Y - self.initialY:getValue()),
 				COLORS.WHITE,
@@ -250,7 +340,7 @@ function debugScroller:render()
 				ZIndex = -10,
 			})
 		}),
-		buttonsFrame = Roact.createElement("Frame", {
+		operationsFrame = Roact.createElement("Frame", {
 			LayoutOrder = 3,
 			Size = UDim2.new(0, 100, 1, 0),
 			BackgroundTransparency = 1,
@@ -258,27 +348,123 @@ function debugScroller:render()
 			layout = Roact.createElement("UIListLayout", {
 				SortOrder = Enum.SortOrder.LayoutOrder,
 			}),
-			shuffle = Roact.createElement("TextButton", {
-				Size = UDim2.new(0, 100, 0, 50),
-				AnchorPoint = Vector2.new(1, 0),
-				Text = "Shuffle",
-				[Roact.Event.Activated] = function()
-					local nextItems = {}
-					for k, v in pairs(self.state.items) do
-						table.insert(nextItems, v)
-					end
-					local a = table.remove(nextItems)
-					table.insert(nextItems, 1, a)
-					for k, v in pairs(nextItems) do
-						print(k, v.id)
-					end
+			reset = makeButton("Reset ItemList", function()
+				local newState = Cryo.Dictionary.join(self.initialState, {
+					focusLock = self.state.focusLock + 1,
+					loadNext = self.state.loadNext,
+					loadPrev = self.state.loadPrev,
+					clipsDescendants = self.state.clipsDescendants,
+				})
+				self:setState(newState)
+			end),
 
-					self:setState({
-						focusLock = self.state.focusLock + 1,
-						items = nextItems,
-					})
-				end,
-			}),
+			-- Reversing the Orientation currently does not call resize, does not update the anchorLocation
+			-- reverse = makeButton("Reverse Orientation", function()
+			-- 	local newOrientation
+			-- 	if self.state.orientation == Scroller.Orientation.Down then
+			-- 		newOrientation = Scroller.Orientation.Up
+			-- 	else
+			-- 		newOrientation = Scroller.Orientation.Down
+			-- 	end
+			-- 	self:setState({
+			-- 		orientation = newOrientation,
+			-- 		focusLock = self.state.focusLock + 1,
+			-- 	})
+			-- end),
+
+			rotateForward = makeButton("Rotate Forward", function()
+				local nextItems = {}
+				local numItems = #self.state.items
+				local a = self.state.items[numItems]
+				table.insert(nextItems, a)
+				for i = 1, numItems-1 do
+					table.insert(nextItems, self.state.items[i])
+				end
+
+				self:setState({
+					focusLock = self.state.focusLock + 1,
+					items = nextItems,
+				})
+			end),
+
+			rotateBack = makeButton("Rotate Backward", function()
+				local nextItems = {}
+				local a = self.state.items[1]
+				for i = 2, #self.state.items do
+					table.insert(nextItems, self.state.items[i])
+				end
+				table.insert(nextItems, a)
+
+				self:setState({
+					focusLock = self.state.focusLock + 1,
+					items = nextItems,
+				})
+			end),
+
+			insertFront = makeButton("Insert Front", function()
+				local nextItems = {}
+				table.insert(nextItems, {id = self.state.items[1].id-1 })
+				for k, v in pairs(self.state.items) do
+					table.insert(nextItems, v)
+				end
+
+				self:setState({
+					focusLock = self.state.focusLock + 1,
+					items = nextItems,
+				})
+			end),
+
+			insertBack = makeButton("Insert Back", function()
+				local nextItems = {}
+				for k, v in pairs(self.state.items) do
+					table.insert(nextItems, v)
+				end
+				table.insert(nextItems, {id = self.state.items[#self.state.items].id+1 })
+
+				self:setState({
+					focusLock = self.state.focusLock + 1,
+					items = nextItems,
+				})
+			end),
+
+			removeFront = makeButton("Remove Front", function()
+				local nextItems = {}
+				local numItems = #self.state.items
+				for i = 2, numItems do
+					table.insert(nextItems, self.state.items[i])
+				end
+
+				self:setState({
+					focusLock = self.state.focusLock + 1,
+					items = nextItems,
+				})
+			end),
+
+			removeBack = makeButton("Remove Back", function()
+				local nextItems = {}
+				local numItems = #self.state.items
+				for i = 1, numItems-1 do
+					table.insert(nextItems, self.state.items[i])
+				end
+
+				self:setState({
+					focusLock = self.state.focusLock + 1,
+					items = nextItems,
+				})
+			end),
+
+			reverseList = makeButton("Reverse List", function()
+				local nextItems = {}
+				local numItems = #self.state.items
+				for i = 1, numItems do
+					nextItems[i] = self.state.items[numItems - i + 1]
+				end
+
+				self:setState({
+					focusLock = self.state.focusLock + 1,
+					items = nextItems,
+				})
+			end)
 		})
 	})
 end

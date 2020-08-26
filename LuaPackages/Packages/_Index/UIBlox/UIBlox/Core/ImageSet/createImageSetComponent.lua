@@ -25,6 +25,10 @@ return function(innerComponent, resolutionScale)
 			for imageKey, imageValue in pairs(imageSetProps) do
 				if not fullProps[imageKey] then
 					fullProps[imageKey] = imageValue
+				elseif imageKey == "ImageRectOffset" then
+					fullProps[imageKey] = imageValue + fullProps[imageKey] * resolutionScale
+				elseif imageKey == "ImageRectSize" then
+					fullProps[imageKey] = fullProps[imageKey] * resolutionScale
 				end
 			end
 		end

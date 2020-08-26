@@ -89,8 +89,8 @@ function HeaderBar:render()
 			[Roact.Change.AbsoluteSize] = self.onResize,
 		}, {
 			ThreeSectionBar = Roact.createElement(ThreeSectionBar, {
-				BackgroundTransparency = theme.BackgroundUIContrast.Transparency,
-				BackgroundColor3 = theme.BackgroundUIContrast.Color,
+				BackgroundTransparency = theme.BackgroundDefault.Transparency,
+				BackgroundColor3 = theme.BackgroundDefault.Color,
 
 				barHeight = self.props.barHeight,
 				marginLeft = self.state.margin,

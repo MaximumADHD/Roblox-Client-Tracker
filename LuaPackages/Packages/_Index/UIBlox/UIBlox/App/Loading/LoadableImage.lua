@@ -43,6 +43,10 @@ local validateProps = t.strictInterface({
 	Image = t.optional(t.string),
 	-- The transparency of the final and loading image
 	ImageTransparency = t.optional(t.number),
+	-- The image rect offset of the final and loading image
+	ImageRectOffset = t.optional(t.union(t.Vector2, t.table)),
+	-- The image rect size of the final and loading image
+	ImageRectSize = t.optional(t.union(t.Vector2, t.table)),
 	-- The layout order of the final and loading image
 	LayoutOrder = t.optional(t.integer),
 	-- The loading image which shows if useShimmerAnimationWhileLoading is false
@@ -108,6 +112,8 @@ function LoadableImage:render()
 	local zIndex = self.props.ZIndex
 	local image = self.props.Image
 	local imageTransparency = self.props.ImageTransparency
+	local imageRectOffset = self.props.ImageRectOffset
+	local imageRectSize = self.props.ImageRectSize
 	local maxSize = self.props.MaxSize
 	local minSize = self.props.MinSize
 	local loadingImage = self.props.loadingImage
@@ -189,6 +195,8 @@ function LoadableImage:render()
 				BorderSizePixel = 0,
 				Image = loadingComplete and image or loadingImage,
 				ImageTransparency = imageTransparency,
+				ImageRectOffset = imageRectOffset,
+				ImageRectSize = imageRectSize,
 				LayoutOrder = layoutOrder,
 				Position = position,
 				ScaleType = scaleType,

@@ -62,9 +62,12 @@ local function makeAppSlider(trackFillThemeKey, isTwoKnobs)
 		end)
 
 		self.knobColorLower = joinedBindings:map(function(values)
+			if values.disabled then
+				return Colors.Pumice
+			end
 			-- The knob, when unpressed, is white on all themes.
 			local unpressedColor = Color3.new(1, 1, 1)
-			--If the slider is a SystemSlider, it should be pumice on pressed
+			-- If the slider is a SystemSlider, it should be pumice on pressed
 			local pressedColor = Colors.Pumice
 			if trackFillThemeKey ~= "SystemPrimaryDefault" then
 				pressedColor = values.style.Theme[trackFillThemeKey].Color
@@ -74,9 +77,12 @@ local function makeAppSlider(trackFillThemeKey, isTwoKnobs)
 		end)
 
 		self.knobColorUpper = joinedBindings:map(function(values)
+			if values.disabled then
+				return Colors.Pumice
+			end
 			-- The knob, when unpressed, is white on all themes.
 			local unpressedColor = Color3.new(1, 1, 1)
-			--If the slider is a SystemSlider, it should be pumice on pressed
+			-- If the slider is a SystemSlider, it should be pumice on pressed
 			local pressedColor = Colors.Pumice
 			if trackFillThemeKey ~= "SystemPrimaryDefault" then
 				pressedColor = values.style.Theme[trackFillThemeKey].Color

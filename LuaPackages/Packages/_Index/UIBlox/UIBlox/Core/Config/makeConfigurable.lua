@@ -1,5 +1,13 @@
 local Config = require(script.Parent.Config)
 
+local function trimTrailingNewline(str)
+	if str:sub(-1, -1) == "\n" then
+		return str:sub(1, -2)
+	end
+
+	return str
+end
+
 return function(initializeLibrary, name, defaultConfig)
 	if typeof(name) ~= "string" then
 		error("Bad argument #2 - expected a string for the name of the library")
@@ -25,8 +33,11 @@ return function(initializeLibrary, name, defaultConfig)
 			Library[key] = value
 		end
 
+		local firstInitTraceback = trimTrailingNewline(debug.traceback())
 		Library.init = function()
-			warn(string.format("%s has already been configured", name))
+			local currentInitTraceback = trimTrailingNewline(debug.traceback())
+			warn(string.format("%s has already been configured\nFirst init traceback:\n%s\nCurrent init traceback:\n%s",
+				name, firstInitTraceback, currentInitTraceback))
 		end
 
 		return setmetatable(Library, {

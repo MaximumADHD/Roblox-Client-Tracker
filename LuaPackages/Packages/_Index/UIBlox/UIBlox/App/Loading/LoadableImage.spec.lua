@@ -51,6 +51,8 @@ return function()
 					BackgroundColor3 = Color3.new(255, 0, 0),
 					BackgroundTransparency = 0.5,
 					Image = testImage,
+					ImageRectOffset = Vector2.new(0, 0),
+					ImageRectSize = Vector2.new(50, 50),
 					LayoutOrder = 1,
 					loadingImage = defaultLoadImage,
 					MaxSize = Vector2.new(10, 10),

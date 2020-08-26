@@ -56,4 +56,25 @@ return function()
 		expect(container.ImageSetComponentTest.SliceCenter.Max.Y).to.equal(34)
 		Roact.unmount(instance)
 	end)
+
+	it("should create and destroy button with scaled image rect offset and size", function()
+		local image = Images["component_assets/circle_17_stroke_1"]
+		local scale = 2
+		local element = Roact.createElement(createImageSetComponent("ImageButton", scale), {
+			Size = UDim2.new(0, 8, 0, 8),
+			Image = image,
+			ImageRectOffset = Vector2.new(2, 2),
+			ImageRectSize = Vector2.new(15, 15),
+			BackgroundTransparency = 1,
+			BorderSizePixel = 0,
+		})
+
+		local container = Instance.new("Folder")
+		local instance = Roact.mount(element, container, "ImageSetComponentTest")
+		expect(container.ImageSetComponentTest.ImageRectOffset.X).to.equal(image.ImageRectOffset.X + 2 * scale)
+		expect(container.ImageSetComponentTest.ImageRectOffset.Y).to.equal(image.ImageRectOffset.Y + 2 * scale)
+		expect(container.ImageSetComponentTest.ImageRectSize.X).to.equal(15 * scale)
+		expect(container.ImageSetComponentTest.ImageRectSize.Y).to.equal(15 * scale)
+		Roact.unmount(instance)
+	end)
 end

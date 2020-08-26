@@ -200,6 +200,9 @@ local function initializeLibrary()
 			OverlayContextualMenu = require(script.App.Menu.OverlayContextualMenu),
 
 			MenuDirection = require(script.App.Menu.MenuDirection),
+
+			DropdownMenu = require(script.App.Menu.DropdownMenu),
+
 		}),
 	})
 

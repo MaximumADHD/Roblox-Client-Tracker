@@ -26,4 +26,7 @@ return {
 	--enableExperimentalGamepadSupport: Enables support of gamepad navigation via the roact-gamepad
 	-- library. This is currently experimental and not yet ready for release.
 	enableExperimentalGamepadSupport = false,
+
+	--useNewUICornerRoundedCorners: Uses the new roblox CornerUI Instance instead of mask-based UI corners
+	useNewUICornerRoundedCorners = false,
 }

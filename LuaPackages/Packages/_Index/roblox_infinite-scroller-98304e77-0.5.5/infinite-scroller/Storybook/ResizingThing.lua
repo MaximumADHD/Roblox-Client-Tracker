@@ -19,6 +19,7 @@ function Thing.getDerivedStateFromProps(nextProps, lastState)
 			token = nextProps.token,
 		}
 	end
+	return nil
 end
 
 function Thing:render()
