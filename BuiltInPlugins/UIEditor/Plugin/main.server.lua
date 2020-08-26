@@ -36,6 +36,7 @@ local StarterGuiService 	= game:GetService("StarterGui")
 local RunService			= game:GetService("RunService")
 
 -- Flags
+local FFlagFixStarterGuiErrors = game:DefineFastFlag("FixStarterGuiErrors", false)
 
 -- Variables
 local childAddedEvent = nil
@@ -383,8 +384,13 @@ function On()
 	
 	plugin:Activate(true)
     toolbarButton:SetActive(true)
+	
+	if FFlagFixStarterGuiErrors then
+		childAddedEvent = StarterGuiService.DescendantAdded:connect(onDescendantAddedToStarterGui)
+	else
+		childAddedEvent = game.StarterGui.DescendantAdded:connect(onDescendantAddedToStarterGui)
+	end
 
-	childAddedEvent = game.StarterGui.DescendantAdded:connect(onDescendantAddedToStarterGui)
 	pluginOffInputBeganEvent:disconnect()
 
 	inputBeganEvent = UserInputService.InputBegan:connect(onInputBegan)	
@@ -421,7 +427,11 @@ function On()
 end
 
 if toolbarButton then
-	game.StarterGui.ProcessUserInput = true
+	if FFlagFixStarterGuiErrors then
+		StarterGuiService.ProcessUserInput = true
+	else
+		game.StarterGui.ProcessUserInput = true
+	end
 	
     toolbarButton.Click:connect(function()
         if on then
@@ -438,10 +448,19 @@ if toolbarButton then
 
 		local ancestor = guiObject.Parent
 		while ancestor ~= nil do
-			if ancestor == game.StarterGui then
-				return true
-			elseif not ancestor:isA("GuiBase2d") and not ancestor:isA("Folder") then
-				return false
+
+			if FFlagFixStarterGuiErrors then
+				if ancestor == StarterGuiService then
+					return true
+				elseif not ancestor:isA("GuiBase2d") and not ancestor:isA("Folder") then
+					return false
+				end
+			else
+				if ancestor == game.StarterGui then
+					return true
+				elseif not ancestor:isA("GuiBase2d") and not ancestor:isA("Folder") then
+					return false
+				end
 			end
 			
 			ancestor = ancestor.Parent 

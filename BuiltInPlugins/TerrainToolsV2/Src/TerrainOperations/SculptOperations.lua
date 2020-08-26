@@ -1,7 +1,5 @@
-game:DefineFastFlag("TerrainToolsSmoothToolFixIgnoreWater", false)
 game:DefineFastFlag("TerrainToolsSmoothToolFixErode", false)
 
-local FFlagTerrainToolsSmoothToolFixIgnoreWater = game:GetFastFlag("TerrainToolsSmoothToolFixIgnoreWater")
 local FFlagTerrainToolsSmoothToolFixErode = game:GetFastFlag("TerrainToolsSmoothToolFixErode")
 
 local OperationHelper = require(script.Parent.OperationHelper)
@@ -182,11 +180,9 @@ local function smooth(options)
 					local occupancy = readOccupancies[checkX][checkY][checkZ]
 					local distanceScale = 1 - (math.sqrt(xo * xo + yo * yo + zo * zo) / (filterSize * 2))
 
-					if FFlagTerrainToolsSmoothToolFixIgnoreWater then
-						local neighborMaterial = readMaterials[checkX][checkY][checkZ]
-						if ignoreWater and neighborMaterial == materialWater then
-							 occupancy = 0
-						end
+					local neighborMaterial = readMaterials[checkX][checkY][checkZ]
+					if ignoreWater and neighborMaterial == materialWater then
+						occupancy = 0
 					end
 
 					if occupancy >= 1 then
@@ -233,11 +229,7 @@ local function smooth(options)
 				cellMaterial)
 
 		elseif targetOccupancy <= 0 then
-			--Cell is currently set to material air, Flag will set cell to be set to a fill type of air
-			writeMaterials[voxelX][voxelY][voxelZ] = materialAir
-			if FFlagTerrainToolsSmoothToolFixIgnoreWater then
-				writeMaterials[voxelX][voxelY][voxelZ] = airFillerMaterial
-			end
+			writeMaterials[voxelX][voxelY][voxelZ] = airFillerMaterial
 		end
 		-- Else oldOccupancy > 0 and targetOccupancy > 0, leave its material unchanged
 

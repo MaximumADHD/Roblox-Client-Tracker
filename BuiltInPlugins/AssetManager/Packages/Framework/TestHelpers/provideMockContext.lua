@@ -27,7 +27,7 @@
 local DevFrameworkRoot = script.Parent.Parent
 local ContextServices = require(DevFrameworkRoot.ContextServices)
 local StudioFrameworkStyles = require(DevFrameworkRoot.StudioUI).StudioFrameworkStyles
-local mockPlugin = require(DevFrameworkRoot.TestHelpers.Services.mockPlugin)
+local MockPlugin = require(DevFrameworkRoot.TestHelpers.Instances.MockPlugin)
 local Rodux = require(DevFrameworkRoot.Parent.Rodux)
 
 
@@ -42,6 +42,10 @@ return function(contextItemsList, children)
 	assert(type(children) == "table", "Expected children to be a table.")
 	assert(type(next(children)) == "string", "Expected children to be a map of components.")
 
+	-- Multiple items use the plugin in some way
+	-- Create 1 mock plugin and use it in each
+	local mockPlugin = MockPlugin.new()
+
 	-- create a list of default mocks
 	local contextItems = {}
 
@@ -55,9 +59,7 @@ return function(contextItemsList, children)
 	table.insert(contextItems, localization)
 
 	-- Mouse
-	local mouse = ContextServices.Mouse.new({
-		Icon = "rbxasset://SystemCursors/Arrow",
-	})
+	local mouse = ContextServices.Mouse.new(mockPlugin:GetMouse())
 	table.insert(contextItems, mouse)
 
 	-- Navigation
@@ -69,11 +71,11 @@ return function(contextItemsList, children)
 	table.insert(contextItems, analytics)
 
 	-- Plugin
-	local plugin = ContextServices.Plugin.new(mockPlugin.new())
+	local plugin = ContextServices.Plugin.new(mockPlugin)
 	table.insert(contextItems, plugin)
 
 	-- PluginActions
-	local pluginActions = ContextServices.PluginActions.new(mockPlugin.new(), {})
+	local pluginActions = ContextServices.PluginActions.new(mockPlugin, {})
 	table.insert(contextItems, pluginActions)
 
 	-- Store
@@ -89,7 +91,7 @@ return function(contextItemsList, children)
 		}
 	end, function()
 		return {
-			Name = Enum.UITheme.Light.Name,
+			Name = "Light",
 
 			GetColor = function(_, _)
 				return Color3.new()

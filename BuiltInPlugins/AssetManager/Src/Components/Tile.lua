@@ -24,7 +24,6 @@ local DEPRECATED_OnAssetSingleClick = require(Plugin.Src.Thunks.DEPRECATED_OnAss
 local AssetManagerService = game:GetService("AssetManagerService")
 local ContentProvider = game:GetService("ContentProvider")
 
-local FFlagStudioAssetManagerSetEmptyName = game:DefineFastFlag("StudioAssetManagerSetEmptyName", false)
 local FFlagBatchThumbnailAddNewThumbnailTypes = game:GetFastFlag("BatchThumbnailAddNewThumbnailTypes")
 local FFlagStudioAssetManagerShiftMultiSelect = game:DefineFastFlag("StudioAssetManagerShiftMultiSelect", false)
 local FFlagAssetManagerOpenContextMenu = game:GetFastFlag("AssetManagerOpenContextMenu")
@@ -158,27 +157,7 @@ function Tile:init()
         local props = self.props
         local assetData = props.AssetData
         local newName = self.state.editText
-        if FFlagStudioAssetManagerSetEmptyName then
-            if utf8.len(newName) ~= 0 and utf8.len(stripText(newName)) ~= 0 then
-                if assetData.assetType == Enum.AssetType.Place then
-                    AssetManagerService:RenamePlace(assetData.id, newName)
-                elseif assetData.assetType == Enum.AssetType.Image
-                or assetData.assetType == Enum.AssetType.MeshPart
-                or assetData.assetType == Enum.AssetType.Image then
-                    local prefix
-                    -- Setting asset type to same value as Enum.AssetType since it cannot be passed into function
-                    if assetData.assetType == Enum.AssetType.Image then
-                        prefix = "Images/"
-                    elseif assetData.assetType == Enum.AssetType.MeshPart then
-                        prefix = "Meshes/"
-                    elseif assetData.assetType == Enum.AssetType.Lua then
-                        prefix = "Scripts/"
-                    end
-                    AssetManagerService:RenameAlias(assetData.assetType.Value, assetData.id, prefix .. assetData.name, prefix .. newName)
-                end
-                props.AssetData.name = newName
-            end
-        else
+        if utf8.len(newName) ~= 0 and utf8.len(stripText(newName)) ~= 0 then
             if assetData.assetType == Enum.AssetType.Place then
                 AssetManagerService:RenamePlace(assetData.id, newName)
             elseif assetData.assetType == Enum.AssetType.Image

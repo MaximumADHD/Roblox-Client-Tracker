@@ -54,7 +54,6 @@ local VIPServers = Roact.PureComponent:extend("VIPServers")
 
 local FFlagSupportFreePrivateServers = game:GetFastFlag("SupportFreePrivateServers")
 local FFlagVIPServersRebrandToPrivateServers = game:GetFastFlag("VIPServersRebrandToPrivateServers")
-local FFlagFixVIPServerShutdownWarningText = game:GetFastFlag("FixVIPServerShutdownWarningText")
 
 function VIPServers:init()
     self.lastNonFreePrice = 10
@@ -132,14 +131,8 @@ function VIPServers:render()
         end
 
         toggleSubText = localization:getText("Monetization", "PrivateServersHint")
-        if FFlagFixVIPServerShutdownWarningText then
-            if willShutdown then
-                toggleSubText = localization:getText("Monetization", "PrivateServersShutdownWarning")
-            end
-        else
-            if hasPriceChanged then
-                toggleSubText = localization:getText("Monetization", "PrivateServersPriceChangeWarning")
-            end
+        if willShutdown then
+            toggleSubText = localization:getText("Monetization", "PrivateServersShutdownWarning")
         end
     else
         if enabled and priceError then
@@ -149,14 +142,8 @@ function VIPServers:render()
         end
 
         toggleSubText = localization:getText("Monetization", "DEPRECATED_VIPServersHint")
-        if FFlagFixVIPServerShutdownWarningText then
-            if willShutdown then
-                toggleSubText = localization:getText("Monetization", "VIPServersShutdownWarning")
-            end
-        else
-            if hasPriceChanged then
-                toggleSubText = localization:getText("Monetization", "VIPServersPriceChangeWarning")
-            end
+        if willShutdown then
+            toggleSubText = localization:getText("Monetization", "VIPServersShutdownWarning")
         end
     end
 
@@ -167,12 +154,7 @@ function VIPServers:render()
     local maxPriceConfigHeight = subText and theme.robuxFeeBase.height.withSubText or theme.robuxFeeBase.height.withoutSubText
 
     local showToggleSubText = not selected or (not selected and hasPriceChanged)
-    local toggleSubTextTheme
-    if FFlagFixVIPServerShutdownWarningText then
-        toggleSubTextTheme = (not selected and (hasPriceChanged or willShutdown)) and theme.fontStyle.SmallError or theme.fontStyle.Subtext
-    else
-        toggleSubTextTheme = (not selected and hasPriceChanged) and theme.fontStyle.SmallError or theme.fontStyle.Subtext
-    end
+    local toggleSubTextTheme = (not selected and (hasPriceChanged or willShutdown)) and theme.fontStyle.SmallError or theme.fontStyle.Subtext
 
     local buttons = {
         {

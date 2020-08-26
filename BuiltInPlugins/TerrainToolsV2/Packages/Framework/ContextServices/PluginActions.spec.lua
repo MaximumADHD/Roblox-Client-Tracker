@@ -18,12 +18,12 @@ return function()
 	local Roact = require(Framework.Parent.Roact)
 	local provide = require(Framework.ContextServices.provide)
 	local mapToProps = require(Framework.ContextServices.mapToProps)
-	local mockPlugin = require(Framework.TestHelpers.Services.mockPlugin)
+	local MockPlugin = require(Framework.TestHelpers.Instances.MockPlugin)
 
 	local PluginActions = require(script.Parent.PluginActions)
 
 	it("should be providable as a ContextItem and call CreatePluginAction", function()
-		local plugin = mockPlugin.new()
+		local plugin = MockPlugin.new()
 
 		local spy, wrapped = Spy.new(function(self, id)
 

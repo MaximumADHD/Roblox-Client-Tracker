@@ -1408,6 +1408,7 @@ local function CreateSettingsHub()
 	function setVisibilityInternal(visible, noAnimation, customStartPage, switchedFromGamepadInput, analyticsContext)
 		this.OpenStateChangedCount = this.OpenStateChangedCount + 1
 
+		local visibilityChanged = visible ~= this.Visible
 		this.Visible = visible
 
 		if this.ResizedConnection then
@@ -1534,7 +1535,7 @@ local function CreateSettingsHub()
 		end
 
 		if FFlagCollectAnalyticsForSystemMenu then
-			if this.Visible ~= visible then
+			if visibilityChanged then
 				if visible then
 					AnalyticsService:SetRBXEventStream(Constants.AnalyticsTargetName, Constants.AnalyticsMenuOpenName, Constants.AnalyticsMenuActionName, {
 						source = GetFFlagInstrumentMenuOpenMethods() and analyticsContext or nil,

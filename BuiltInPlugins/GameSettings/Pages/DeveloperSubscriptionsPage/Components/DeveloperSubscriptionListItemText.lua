@@ -13,24 +13,31 @@
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
 local Cryo = require(Plugin.Cryo)
-local withTheme = require(Plugin.Src.Consumers.withTheme)
+local ContextServices = require(Plugin.Framework.ContextServices)
 
-return function(props)
-	local size = props.Size
-	local text = props.Text
-	local layoutOrder = props.LayoutOrder
-	local alignment = props.Alignment
+local DeveloperSubscriptionListItemText = Roact.Component:extend("DeveloperSubscriptionListItemText")
 
-	return withTheme(function(theme)
-		return Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Normal, {
-			Size = size,
-			Text = text,
-			LayoutOrder = layoutOrder,
+function DeveloperSubscriptionListItemText:render()
+	local size = self.props.Size
+	local text = self.props.Text
+	local layoutOrder = self.props.LayoutOrder
+	local alignment = self.props.Alignment
+	local theme = self.props.Theme:get("Plugin")
 
-			TextXAlignment = alignment,
+	return Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Normal, {
+		Size = size,
+		Text = text,
+		LayoutOrder = layoutOrder,
 
-			BackgroundTransparency = 1,
-			BorderSizePixel = 0,
-		}))
-	end)
+		TextXAlignment = alignment,
+
+		BackgroundTransparency = 1,
+		BorderSizePixel = 0,
+	}))
 end
+
+ContextServices.mapToProps(DeveloperSubscriptionListItemText,{
+	Theme = ContextServices.Theme,
+})
+
+return DeveloperSubscriptionListItemText

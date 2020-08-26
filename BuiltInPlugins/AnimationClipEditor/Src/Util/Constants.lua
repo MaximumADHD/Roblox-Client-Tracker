@@ -1,3 +1,5 @@
+local Plugin = script.Parent.Parent.Parent
+local GetFFlagExtendAnimationLimit = require(Plugin.LuaFlags.GetFFlagExtendAnimationLimit)
 local FFlagStudioUseAnimationEditorAnalytics2 = game:DefineFastFlag("StudioUseAnimationEditorAnalytics2", false)
 
 local Constants = {
@@ -14,7 +16,8 @@ local Constants = {
 	MIN_FRAMERATE = 1,
 	MAX_FRAMERATE = 120,
 
-	MAX_TIME = 30,
+	MAX_TIME = GetFFlagExtendAnimationLimit() and 1800 or 30,
+	MAX_DISPLAYED_TIME = 30,
 	MIN_TIMELINE_RANGE = 30,
 
 	MAIN_FLOATING_SIZE = Vector2.new(640, 200),
@@ -134,6 +137,7 @@ local Constants = {
 
 	EDITOR_ERRORS = {
 		OpenedWhileRunning = "OpenedWhileRunning",
+		BigAnimation = "BigAnimation"
 	},
 
 	EDITOR_ERRORS_HEADER_KEY = "EditorErrorsHeader",

@@ -17,6 +17,7 @@ end
 local IconButton = require(script.Parent.IconButton)
 
 local GetFFlagInGameMenuOpenOnHover = require(RobloxGui.Modules.Flags.GetFFlagInGameMenuOpenOnHover)
+local GetFFlagInGameMenuIconTooltip = require(RobloxGui.Modules.Flags.GetFFlagInGameMenuIconTooltip)
 
 local MenuIcon = Roact.PureComponent:extend("MenuIcon")
 
@@ -39,6 +40,9 @@ function MenuIcon:init()
 	self.menuIconOnHover = function()
 		if isNewInGameMenuEnabled() then
 			InGameMenu.openInGameMenu()
+			if GetFFlagInGameMenuIconTooltip() then
+				InGameMenu.setMenuIconTooltipOpen(false)
+			end
 		end
 	end
 end

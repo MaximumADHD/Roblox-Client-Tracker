@@ -135,6 +135,11 @@ function ScreenChoosePlaceWithScrolling:render()
 				or localization:getText("FooterButton", "Overwrite")
 			end
 
+			-- TODO: (smallick) 2020/07/27
+			-- Replace this with layoutRef
+			-- Manually calculating CanvasHeight for now
+			local canvasSize = math.ceil(#components * 80)
+
 			return Roact.createElement("Frame", {
 						Size = UDim2.new(1, 0, 1, 0),
 						BackgroundColor3 = theme.backgroundColor,
@@ -175,8 +180,9 @@ function ScreenChoosePlaceWithScrolling:render()
 							Position = UDim2.new(0, 0, 0, 100),
 		
 							BackgroundTransparency = 1,
-							LayoutRef = self.layoutRef,
-							CanvasHeight = 200,
+							-- TODO: replace manual calculation with self.layoutRef
+							-- LayoutRef = self.layoutRef,
+							CanvasHeight = canvasSize,
 							NextPageRequestDistance = 100,
 							NextPageFunc = function()
 								if nextPageCursor then

@@ -32,6 +32,7 @@ local OpenReportDialog = require(script.Actions.OpenReportDialog)
 local SetInspectMenuEnabled = require(script.Actions.SetInspectMenuEnabled)
 local SetCurrentPage = require(script.Actions.SetCurrentPage)
 local SetScreenSize = require(script.Actions.SetScreenSize)
+local SetMenuIconTooltipOpen = require(script.Actions.SetMenuIconTooltipOpen)
 local OpenMenu = require(script.Thunks.OpenMenu)
 local InGameMenuPolicy = require(script.InGameMenuPolicy)
 
@@ -224,5 +225,9 @@ return {
 
 	getRespawnBehaviourChangedEvent = function()
 		return RespawnBehaviourChangedEvent
+	end,
+
+	setMenuIconTooltipOpen = function(open)
+		menuStore:dispatch(SetMenuIconTooltipOpen(open))
 	end,
 }

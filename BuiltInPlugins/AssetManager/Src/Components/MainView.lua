@@ -8,8 +8,6 @@
 
     Optional Properties:
 ]]
-local FFlagAssetManagerFixDisappearingTreeView = game:DefineFastFlag("AssetManagerFixDisappearingTreeView", false)
-
 local Plugin = script.Parent.Parent.Parent
 
 local Roact = require(Plugin.Packages.Roact)
@@ -42,8 +40,6 @@ local StudioService = game:GetService("StudioService")
 
 local MainView = Roact.PureComponent:extend("MainView")
 
--- Remove with FFlagAssetManagerFixDisappearingTreeView
-local defaultFoldersLoaded = false
 local universeNameSet = false
 local initialHasLinkedScriptValue = false
 
@@ -141,34 +137,17 @@ function MainView:didUpdate()
     local localization = props.Localization
     local hasLinkedScripts = props.HasLinkedScripts
 
-    if FFlagAssetManagerFixDisappearingTreeView then
-        if not initialHasLinkedScriptValue ~= hasLinkedScripts then
-            for _, screen in pairs(Screens) do
-                if screen.Key ~= Screens.MAIN.Key then
-                    -- Only show the scripts folder if this universe has linked scripts because they're deprecated.
-                    if (screen.Key == Screens.SCRIPTS.Key and hasLinkedScripts) or screen.Key ~= Screens.SCRIPTS.Key then
-                        createDefaultFileOverlayFolders(screen, self.state.fileExplorerData, localization)
-                    end
+    if not initialHasLinkedScriptValue ~= hasLinkedScripts then
+        for _, screen in pairs(Screens) do
+            if screen.Key ~= Screens.MAIN.Key then
+                -- Only show the scripts folder if this universe has linked scripts because they're deprecated.
+                if (screen.Key == Screens.SCRIPTS.Key and hasLinkedScripts) or screen.Key ~= Screens.SCRIPTS.Key then
+                    createDefaultFileOverlayFolders(screen, self.state.fileExplorerData, localization)
                 end
-            end
-            if hasLinkedScripts then
-                initialHasLinkedScriptValue = hasLinkedScripts
             end
         end
-    else
-        if not defaultFoldersLoaded or initialHasLinkedScriptValue ~= hasLinkedScripts then
-            for _, screen in pairs(Screens) do
-                if screen.Key ~= Screens.MAIN.Key then
-                    -- Only show the scripts folder if this universe has linked scripts because they're deprecated.
-                    if (screen.Key == Screens.SCRIPTS.Key and hasLinkedScripts) or screen.Key ~= Screens.SCRIPTS.Key then
-                        createDefaultFileOverlayFolders(screen, self.state.fileExplorerData, localization)
-                    end
-                end
-            end
-            if hasLinkedScripts then
-                initialHasLinkedScriptValue = hasLinkedScripts
-            end
-            defaultFoldersLoaded = true
+        if hasLinkedScripts then
+            initialHasLinkedScriptValue = hasLinkedScripts
         end
     end
 end
@@ -183,16 +162,9 @@ function MainView:render()
 
     local layoutIndex = LayoutOrderIterator.new()
 
-    if FFlagAssetManagerFixDisappearingTreeView then
-        self.state.fileExplorerData.Name = universeName
-        if universeName ~= "" and not universeNameSet then
-            universeNameSet = true
-        end
-    else
-        if universeName ~= "" and not universeNameSet then
-            self.state.fileExplorerData.Name = universeName
-            universeNameSet = true
-        end
+    self.state.fileExplorerData.Name = universeName
+    if universeName ~= "" and not universeNameSet then
+        universeNameSet = true
     end
 
     local isPublishedGame = game.GameId ~= 0

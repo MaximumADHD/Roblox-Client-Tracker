@@ -25,9 +25,14 @@ local AddMessage = require(RobloxGui.Modules.InGameChat.BubbleChat.Actions.AddMe
 local SetMessageText = require(RobloxGui.Modules.InGameChat.BubbleChat.Actions.SetMessageText)
 local AddMessageFromEvent = require(RobloxGui.Modules.InGameChat.BubbleChat.Actions.AddMessageFromEvent)
 local getPlayerFromPart = require(RobloxGui.Modules.InGameChat.BubbleChat.Helpers.getPlayerFromPart)
+local validateMessage = require(RobloxGui.Modules.InGameChat.BubbleChat.Helpers.validateMessage)
+local Constants = require(RobloxGui.Modules.InGameChat.BubbleChat.Constants)
 local Types = require(RobloxGui.Modules.InGameChat.BubbleChat.Types)
 
-local MALFORNED_DATA_WARNING = "Malformed message data sent to chat event %q. If you have modified the chat system, " ..
+local MALFORMED_TEXT_WARNING = "Message text %q sent to chat event %q is not a valid UTF-8 characters sequence"
+local WRONG_LENGTH_WARNING = "Message text %q is too long for chat event %q (expected a message of length %i, got %i)"
+
+local MALFORMED_DATA_WARNING = "Malformed message data sent to chat event %q. If you have modified the chat system, " ..
 	"check what you are firing to this event"
 
 local chatStore = Rodux.Store.new(chatReducer)
@@ -37,11 +42,25 @@ local root = Roact.createElement(App, {
 })
 local handle = Roact.mount(root, CoreGui, "BubbleChat")
 
+local function validateMessageWithWarning(eventName, message)
+	local ok, length = validateMessage(message)
+
+	if not ok then
+		if length then
+			warn(WRONG_LENGTH_WARNING:format(message, eventName, Constants.MAX_MESSAGE_LENGTH, length))
+		else
+			warn(MALFORMED_TEXT_WARNING:format(message, eventName))
+		end
+	end
+
+	return ok
+end
+
 local function validateMessageData(eventName, messageData)
 	local ok, message = Types.IMessageData(messageData)
 
 	if not ok then
-		warn(MALFORNED_DATA_WARNING:format(eventName))
+		warn(MALFORMED_DATA_WARNING:format(eventName))
 		warn(message)
 	end
 
@@ -61,21 +80,22 @@ coroutine.resume(coroutine.create(function()
 	local chatEvents = ReplicatedStorage:WaitForChild("DefaultChatSystemChatEvents", math.huge)
 
 	chatEvents:WaitForChild("OnNewMessage", math.huge).OnClientEvent:Connect(function(messageData)
-		local ok = validateMessageData("OnNewMessage", messageData)
-
-		if not ok then
+		if not validateMessageData("OnNewMessage", messageData) then
 			return
 		end
 
 		if messageData.FromSpeaker == Players.LocalPlayer.Name then
+			if not validateMessageWithWarning("OnNewMessage", messageData.Message) then
+				return
+			end
+
 			chatStore:dispatch(AddMessageFromEvent(messageData))
 		end
 	end)
 
 	chatEvents:WaitForChild("OnMessageDoneFiltering", math.huge).OnClientEvent:Connect(function(messageData)
-		local ok = validateMessageData("OnMessageDoneFiltering", messageData)
-
-		if not ok then
+		if not validateMessageData("OnMessageDoneFiltering", messageData)
+		or not validateMessageWithWarning("OnMessageDoneFiltering", messageData.Message) then
 			return
 		end
 

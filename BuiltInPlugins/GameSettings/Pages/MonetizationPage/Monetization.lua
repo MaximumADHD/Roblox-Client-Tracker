@@ -49,8 +49,8 @@ local DEV_PRODUCTS_MIN_PRICE = 1
 
 local FFlagSupportFreePrivateServers = game:GetFastFlag("SupportFreePrivateServers")
 local FFlagEnableDevProductsInGameSettings = game:GetFastFlag("EnableDevProductsInGameSettings")
-local FFlagFixVIPServerShutdownWarningText = game:GetFastFlag("FixVIPServerShutdownWarningText")
 local FFlagStudioFixGameManagementIndexNil = game:getFastFlag("StudioFixGameManagementIndexNil")
+local FFlagStudioFixMissingMonetizationHeader = game:DefineFastFlag("StudioFixMissingMonetizationHeader", false)
 
 local priceErrors = {
     BelowMin = "ErrorPriceBelowMin",
@@ -189,14 +189,8 @@ local function loadValuesToProps(getValue, state)
     local vipServersShutdown = state.Settings.Changed.vipServersIsEnabled == false
     -- Changed for the sake of warning about canceling subscriptions should only be 
     if state.Settings.Current.vipServersIsEnabled then
-        if FFlagFixVIPServerShutdownWarningText then
-            if state.Settings.Changed.vipServersPrice ~= nil then
-                changed = true
-            end
-        else
-            if state.Settings.Changed.vipServersPrice ~= nil or state.Settings.Changed.vipServersIsEnabled == false then
-                changed = true
-            end
+        if state.Settings.Changed.vipServersPrice ~= nil then
+            changed = true
         end
     end
 
@@ -216,7 +210,7 @@ local function loadValuesToProps(getValue, state)
 			activeServersCount = getValue("vipServersActiveServersCount"),
             activeSubscriptionsCount = getValue("vipServersActiveSubscriptionsCount"),
             changed = changed,
-            willShutdown = FFlagFixVIPServerShutdownWarningText and vipServersShutdown or nil,
+            willShutdown = vipServersShutdown,
         },
 
         UnsavedDevProducts = getValue("unsavedDevProducts"),
@@ -781,11 +775,18 @@ function Monetization:render()
     local editDevProductId = props.EditDevProductId
 
     local createChildren
+    local showHeader = editDevProductId == 0
     if editDevProductId == nil then
+        if FFlagStudioFixMissingMonetizationHeader then
+            showHeader = true
+        end
         createChildren = function()
             return displayMonetizationPage(props)
         end
     elseif type(editDevProductId) == "number" then
+        if FFlagStudioFixMissingMonetizationHeader then
+            showHeader = false
+        end
         createChildren = function()
             return displayEditDevProductsPage(props)
         end
@@ -797,7 +798,7 @@ function Monetization:render()
 		Title = localization:getText("General", "Category"..LOCALIZATION_ID),
 		PageId = script.Name,
         CreateChildren = createChildren,
-        ShowHeader = editDevProductId == 0,
+        ShowHeader = showHeader,
 	})
 end
 

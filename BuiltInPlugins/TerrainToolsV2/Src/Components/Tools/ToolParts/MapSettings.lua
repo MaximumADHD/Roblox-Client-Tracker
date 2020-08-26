@@ -1,3 +1,6 @@
+assert(not game:GetFastFlag("TerrainToolsUseMapSettingsWithPreview2"),
+	"TerrainTools MapSettings.lua should not be used when FFlagTerrainToolsUseMapSettingsWithPreview2 is on")
+
 --[[
 	Creates a map settings panel.
 

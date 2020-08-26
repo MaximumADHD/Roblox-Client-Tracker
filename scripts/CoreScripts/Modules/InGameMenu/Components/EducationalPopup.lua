@@ -13,14 +13,16 @@ local InGameMenu = script.Parent.Parent
 local withLocalization = require(InGameMenu.Localization.withLocalization)
 local Constants = require(InGameMenu.Resources.Constants)
 local CloseNativeClosePrompt = require(InGameMenu.Actions.CloseNativeClosePrompt)
+local SetMenuIconTooltipOpen = require(InGameMenu.Actions.SetMenuIconTooltipOpen)
 local OpenMenu = require(InGameMenu.Thunks.OpenMenu)
+
 local EducationalPopupDialog = require(script.Parent.EducationalPopupDialog)
 
 local SendAnalytics = require(InGameMenu.Utility.SendAnalytics)
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
-local GetFFlagEducationalPopupOnNativeClose = require(RobloxGui.Modules.Flags.GetFFlagEducationalPopupOnNativeClose)
 local GetFFlagInstrumentMenuOpenMethods = require(RobloxGui.Modules.Flags.GetFFlagInstrumentMenuOpenMethods)
+local GetFFlagInGameMenuIconTooltip = require(RobloxGui.Modules.Flags.GetFFlagInGameMenuIconTooltip)
 
 local NotificationType = GuiService:GetNotificationTypeList()
 
@@ -96,7 +98,7 @@ end
 
 return RoactRodux.UNSTABLE_connect2(function(state, props)
 	return {
-		isClosingApp = GetFFlagEducationalPopupOnNativeClose() and state.nativeClosePrompt.closingApp or false,
+		isClosingApp = state.nativeClosePrompt.closingApp,
 		screenSize = state.screenSize,
 	}
 end, function(dispatch)
@@ -109,7 +111,9 @@ end, function(dispatch)
 		onConfirm = function()
 			dispatch(CloseNativeClosePrompt())
 
-			if GetFFlagInstrumentMenuOpenMethods() then
+			if GetFFlagInGameMenuIconTooltip() then
+				dispatch(SetMenuIconTooltipOpen(true))
+			elseif GetFFlagInstrumentMenuOpenMethods() then
 				dispatch(OpenMenu(Constants.AnalyticsMenuOpenTypes.EducationalMenuTriggered))
 			else
 				dispatch(OpenMenu)

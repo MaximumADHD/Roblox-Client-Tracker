@@ -11,7 +11,6 @@ local Constants = require(script.Parent.Parent.Parent.Constants)
 local HEADER_NAMES = Constants.MemoryFormatting.ChartHeaderNames
 
 local MAX_DATASET_COUNT = tonumber(settings():GetFVariable("NewDevConsoleMaxGraphCount"))
-local FFlagEnableGranularMemoryTabStats = settings():GetFFlag("EnableGranularMemoryTabStats")
 
 local CLIENT_POLLING_INTERVAL = 3 -- seconds
 local BYTE_IN_MB = 1048576
@@ -213,30 +212,28 @@ function ClientMemoryData:updateCachedData(categoryName, retrieveDataCallback)
 end
 
 function ClientMemoryData:getAdditionalMemoryFunc(name)
-	if FFlagEnableGranularMemoryTabStats then
-		local fetchFunc = nil
-		if name == "Sounds" then
-			fetchFunc = fetchSoundMemoryData
+	local fetchFunc = nil
+	if name == "Sounds" then
+		fetchFunc = fetchSoundMemoryData
 
-		elseif name == "GraphicsTexture" then
-			fetchFunc = fetchGraphicsTextureMemoryData
+	elseif name == "GraphicsTexture" then
+		fetchFunc = fetchGraphicsTextureMemoryData
 
-		elseif name == "GraphicsTextureCharacter" then
-			fetchFunc = fetchGraphicsTextureCharacterMemoryData
+	elseif name == "GraphicsTextureCharacter" then
+		fetchFunc = fetchGraphicsTextureCharacterMemoryData
 
-		elseif name == "GraphicsMeshParts" then
-			fetchFunc = fetchGraphicsMeshPartsMemoryData
-		elseif name == "csgDictionary" then
-			-- this case requires more work to properly reflect the desired changes
-		elseif name == "Animation" then
-			fetchFunc = fetchFuncAnimation
-		end
+	elseif name == "GraphicsMeshParts" then
+		fetchFunc = fetchGraphicsMeshPartsMemoryData
+	elseif name == "csgDictionary" then
+		-- this case requires more work to properly reflect the desired changes
+	elseif name == "Animation" then
+		fetchFunc = fetchFuncAnimation
+	end
 
-		if fetchFunc then
-			return function()
-				self:updateCachedData(name, fetchFunc)
-				return self._granularMemTable[name]
-			end
+	if fetchFunc then
+		return function()
+			self:updateCachedData(name, fetchFunc)
+			return self._granularMemTable[name]
 		end
 	end
 

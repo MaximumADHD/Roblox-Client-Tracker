@@ -15,26 +15,31 @@
 			button gets pressed
 ]]
 
-local Page = script.Parent.Parent
 local Plugin = script.Parent.Parent.Parent.Parent
+local Page = script.Parent.Parent
 local Roact = require(Plugin.Roact)
-local withTheme = require(Plugin.Src.Consumers.withTheme)
-local withLocalization = require(Plugin.Src.Consumers.withLocalization)
 local DEPRECATED_Constants = require(Plugin.Src.Util.DEPRECATED_Constants)
 local numberWithCommas = require(Page.Util.numberWithCommas)
 
 local DeveloperSubscriptionListItemText = require(script.Parent.DeveloperSubscriptionListItemText)
 
-local function render(props, theme, localized)
-	local height = props.Height
-	local layoutOrder = props.LayoutOrder
+local ContextServices = require(Plugin.Framework.ContextServices)
 
-	local name = props.Name
-	local subscribers = props.Subscribers
-	local active = props.Active
-	local id = props.Id
+local DeveloperSubscriptionListItem = Roact.Component:extend("DeveloperSubscriptionListItem")
 
-	local onEditButtonActivated = props.OnEditButtonActivated
+function DeveloperSubscriptionListItem:render()
+	local height = self.props.Height
+	local layoutOrder = self.props.LayoutOrder
+
+	local name = self.props.Name
+	local subscribers = self.props.Subscribers
+	local active = self.props.Active
+	local id = self.props.Id
+
+	local onEditButtonActivated = self.props.OnEditButtonActivated
+
+	local theme = self.props.Theme:get("Plugin")
+	local localization = self.props.Localization
 
 	return Roact.createElement("ImageLabel", {
 		Size = UDim2.new(1, 0, 0, height),
@@ -56,7 +61,7 @@ local function render(props, theme, localized)
 				PaddingLeft = UDim.new(0, 4),
 				PaddingRight = UDim.new(0, 24),
 			}),
-			
+
 			Layout = Roact.createElement("UIListLayout", {
 				SortOrder = Enum.SortOrder.LayoutOrder,
 				FillDirection = Enum.FillDirection.Horizontal,
@@ -69,7 +74,7 @@ local function render(props, theme, localized)
 			}, {
 				Text = Roact.createElement(DeveloperSubscriptionListItemText, {
 					Size = UDim2.new(1, 0, 1, 0),
-					Text = (id > 0) and id or localized.DevSubs.Unsaved,
+					Text = (id > 0) and id or localization:getText("General", "DevSubsUnsaved"),
 					LayoutOrder = 2,
 					Alignment = Enum.TextXAlignment.Left,
 				}),
@@ -91,7 +96,7 @@ local function render(props, theme, localized)
 
 			ActiveText = Roact.createElement(DeveloperSubscriptionListItemText, {
 				Size = UDim2.new(0.1, 0, 1, 0),
-				Text = active and localized.DevSubs.IsActive or localized.DevSubs.IsNotActive,
+				Text = active and localization:getText("General", "DevSubsIsActive") or localization:getText("General", "DevSubsIsNotActive"),
 				LayoutOrder = 4,
 				Alignment = Enum.TextXAlignment.Center,
 			}),
@@ -119,7 +124,7 @@ local function render(props, theme, localized)
 				})
 			})
 		}),
-		ErrorIcon = props.HasError and Roact.createElement("ImageButton", {
+		ErrorIcon = self.props.HasError and Roact.createElement("ImageButton", {
 			BackgroundTransparency = 1,
 			Image = DEPRECATED_Constants.ERROR_IMAGE,
 			Size = UDim2.new(0, 16, 0, 16),
@@ -129,10 +134,9 @@ local function render(props, theme, localized)
 	})
 end
 
-return function(props)
-	return withTheme(function(theme)
-		return withLocalization(function(localized)
-			return render(props, theme, localized)
-		end)
-	end)
-end
+ContextServices.mapToProps(DeveloperSubscriptionListItem,{
+	Theme = ContextServices.Theme,
+	Localization = ContextServices.Localization,
+})
+
+return DeveloperSubscriptionListItem

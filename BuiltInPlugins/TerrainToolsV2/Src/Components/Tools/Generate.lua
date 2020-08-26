@@ -1,4 +1,4 @@
-local FFlagTerrainToolsUseMapSettingsWithPreview = game:GetFastFlag("TerrainToolsUseMapSettingsWithPreview")
+local FFlagTerrainToolsUseMapSettingsWithPreview = game:GetFastFlag("TerrainToolsUseMapSettingsWithPreview2")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -17,7 +17,7 @@ local ToolParts = script.Parent.ToolParts
 local BiomeSettingsFragment = require(ToolParts.BiomeSettingsFragment)
 local ButtonGroup = require(ToolParts.ButtonGroup)
 local GenerateProgressFrame = require(Plugin.Src.Components.GenerateProgressFrame)
-local MapSettings = require(ToolParts.MapSettings)
+local MapSettings = not FFlagTerrainToolsUseMapSettingsWithPreview and require(ToolParts.MapSettings) or nil
 local MapSettingsWithPreview = require(ToolParts.MapSettingsWithPreview)
 local OtherGenerateSettings = require(ToolParts.OtherGenerateSettings)
 local Panel = require(ToolParts.Panel)

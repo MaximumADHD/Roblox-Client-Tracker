@@ -379,7 +379,7 @@ end
 function BasicInfo:init()
 	self.addIcons = function()
 		local props = self.props
-		local icon = FileUtils.PromptForGameIcon(self, props.Localization, props.Dialog.showDialog)
+		local icon = FileUtils.PromptForGameIcon(self, props.Localization)
 
 		if icon then
 			self.props.GameIconChanged(icon)

@@ -21,20 +21,17 @@ local UILibrary = require(Plugin.UILibrary)
 
 local UploadableIconWidget = require(Plugin.Src.Components.UploadableIcon.UploadableIconWidget)
 
-local showDialog = require(Plugin.Src.Consumers.showDialog)
 local WarningDialog = require(Plugin.Src.Components.Dialog.WarningDialog)
+local Dialog = require(Plugin.Src.ContextServices.Dialog)
 
-local DeveloperSubscriptionsFolder = Plugin.Src.Components.DeveloperSubscriptions
-local DeveloperSubscriptionListItemText = require(DeveloperSubscriptionsFolder.DeveloperSubscriptionListItemText)
+local DeveloperSubscriptionListItemText = require(script.Parent.DeveloperSubscriptionListItemText)
 local Header = require(Plugin.Src.Components.Header)
-local HeaderWithButton = require(Plugin.Src.Components.HeaderWithButton)
+local HeaderWithButton = require(script.Parent.HeaderWithButton)
 local BackButton = require(Plugin.Src.Components.BackButton)
 
-local withLocalization = require(Plugin.Src.Consumers.withLocalization)
-local withTheme = require(Plugin.Src.Consumers.withTheme)
-local getLocalizedContent = require(Plugin.Src.Consumers.getLocalizedContent)
-
 local RoundTextBox = require(Plugin.RoactStudioWidgets.RoundTextBox)
+
+local ContextServices = require(Plugin.Framework.ContextServices)
 
 local TitledFrame = UILibrary.Component.TitledFrame
 
@@ -98,7 +95,7 @@ function DeveloperSubscriptionDetails:init()
 			self.CheckNameDesc()
 		end
 	end
-	
+
 	function self.onPriceChanged(price)
 		self.onKeyChanged("Price", price)
 	end
@@ -112,7 +109,8 @@ function DeveloperSubscriptionDetails:init()
 	end
 
 	function self.setImage()
-		local image = FileUtils.PromptForGameIcon(self)
+		local localization = self.props.Localization
+		local image = FileUtils.PromptForGameIcon(self, localization)
 
 		if image then
 			self.onImageChanged(image)
@@ -122,35 +120,38 @@ function DeveloperSubscriptionDetails:init()
 	function self.onDiscontinueClicked()
 		if self.props.DeveloperSubscription.IsNew then
 			self.props.OnDevSubDiscontinued(self.props.DeveloperSubscription)
-            self.onBackButtonActivated()
-        else
-            local localized = getLocalizedContent(self)
-    
-            local dialogProps = {
-                Title = localized.DevSubs.DiscontinueTitle,
-                Header = localized.DevSubs.DiscontinueHeader,
-                Description = localized.DevSubs.DiscontinueDescription,
-                Buttons = {
-                    localized.DevSubs.DiscontinueCancel,
-                    localized.DevSubs.DiscontinueConfirm,
-                }
-            }
-            local didDiscontinue = showDialog(self, WarningDialog, dialogProps):await()
-    
-            if didDiscontinue then
+			self.onBackButtonActivated()
+		else
+			local localization = self.props.Localization
+			local dialog = self.props.Dialog
+
+			local dialogProps = {
+				Title = localization:getText("General", "DevSubsDiscontinueTitle"),
+				Header = localization:getText("General", "DevSubsDiscontinueHeader"),
+				Description = localization:getText("General", "DevSubsDiscontinueDescription"),
+				Buttons = {
+					localization:getText("General", "ButtonCancel"),
+					localization:getText("General", "DevSubsDiscontinueConfirm"),
+				}
+			}
+			local didDiscontinue = dialog.showDialog(WarningDialog, dialogProps):await()
+
+			if didDiscontinue then
 				self.props.OnDevSubDiscontinued(self.props.DeveloperSubscription)
 			end
-        end
+		end
 	end
 end
 
-function DeveloperSubscriptionDetails:renderConsolidated(theme, localized)
+function DeveloperSubscriptionDetails:render()
 	local developerSubscription = self.props.DeveloperSubscription
 	local moderatedDevSub = self.props.ModeratedDevSub
 	local devSubErrors = self.props.DevSubErrors
+	local theme = self.props.Theme:get("Plugin")
+	local localization = self.props.Localization
 
 	local canEdit = developerSubscription.IsNew or developerSubscription.Active
-	
+
 	local nameError = nil
 	local descError = nil
 	local priceError = nil
@@ -158,13 +159,13 @@ function DeveloperSubscriptionDetails:renderConsolidated(theme, localized)
 	if canEdit then
 		if devSubErrors.Name then
 			if devSubErrors.Name.Empty then
-				nameError = localized.Errors.ErrorNameEmpty
+				nameError = localization:getText("General", "ErrorNameEmpty")
 			elseif devSubErrors.Name.Moderated and moderatedDevSub then
-				nameError = localized.Errors.ErrorDevSubFiltered({
+				nameError = localization:getText("General", "ErrorDevSubFiltered", {
 					filteredText = moderatedDevSub.filteredName,
 				})
 				if moderatedDevSub.filteredDescription then
-					descError = localized.Errors.ErrorDevSubFiltered({
+					descError = localization:getText("General", "ErrorDevSubFiltered", {
 						filteredText = moderatedDevSub.filteredDescription,
 					})
 				end
@@ -173,16 +174,16 @@ function DeveloperSubscriptionDetails:renderConsolidated(theme, localized)
 
 		if developerSubscription.IsNew and devSubErrors.Price then
 			if devSubErrors.Price.NotANumber then
-				priceError = localized.Errors.ErrorDevSubInvalidPrice
+				priceError = localization:getText("General", "ErrorDevSubInvalidPrice")
 			elseif FVariableMaxRobuxPrice and devSubErrors.Price.AboveMaxRobuxAmount then
-				priceError = localized.Errors.ErrorDevSubMaxPrice({
+				priceError = localization:getText("General", "ErrorDevSubMaxPrice", {
 					maxRobuxAmount = FVariableMaxRobuxPrice,
 				})
 			end
 		end
 
 		if devSubErrors.Image then
-			imageError = localized.Errors.ErrorImageRequired
+			imageError = localization:getText("General", "ErrorImageRequired")
 		end
 	end
 
@@ -195,20 +196,20 @@ function DeveloperSubscriptionDetails:renderConsolidated(theme, localized)
 		}),
 
 		Header = canEdit and Roact.createElement(HeaderWithButton, {
-			Title = developerSubscription.IsNew and localized.DevSubs.NewHeader or localized.DevSubs.EditHeader,
+			Title = developerSubscription.IsNew and localization:getText("General", "DevSubsNewHeader") or localization:getText("General", "DevSubsEditHeader"),
 			LayoutOrder = 0,
 
 			Active = true,
-			ButtonText = developerSubscription.IsNew and localized.DevSubs.DeleteAction or localized.DevSubs.DiscontinueAction,
+			ButtonText = developerSubscription.IsNew and localization:getText("General", "DevSubsDeleteAction") or localization:getText("General", "DevSubsDiscontinueAction"),
 			OnClicked = self.onDiscontinueClicked,
 			Style = theme.cancelButton,
 		}) or Roact.createElement(Header, {
-			Title = localized.DevSubs.DiscontinuedHeader,
+			Title = localization:getText("General", "DevSubsDiscontinuedHeader"),
 			LayoutOrder = 0,
 		}),
 
 		NameFrame = Roact.createElement(TitledFrame, {
-			Title = localized.DevSubs.Name,
+			Title = localization:getText("General", "DevSubsName"),
 			LayoutOrder = 1,
 			MaxHeight = 64,
 			TextSize = theme.fontStyle.Normal.TextSize,
@@ -227,7 +228,7 @@ function DeveloperSubscriptionDetails:renderConsolidated(theme, localized)
 		}),
 
 		DescriptionFrame = Roact.createElement(TitledFrame, {
-			Title = localized.DevSubs.Description,
+			Title = localization:getText("General", "DevSubsDescription"),
 			LayoutOrder = 2,
 			MaxHeight = 160,
 			TextSize = theme.fontStyle.Normal.TextSize,
@@ -247,7 +248,7 @@ function DeveloperSubscriptionDetails:renderConsolidated(theme, localized)
 		}),
 
 		Image = canEdit and Roact.createElement(UploadableIconWidget, {
-			Title = localized.DevSubs.Image,
+			Title = localization:getText("General", "DevSubsImage"),
 			Enabled = true,
 			Icon = developerSubscription.Image,
 			LayoutOrder = 3,
@@ -256,7 +257,7 @@ function DeveloperSubscriptionDetails:renderConsolidated(theme, localized)
 
 			AddIcon = self.setImage,
 		}) or Roact.createElement(TitledFrame, {
-			Title = localized.DevSubs.Image,
+			Title = localization:getText("General", "DevSubsImage"),
 			MaxHeight = 150,
 			LayoutOrder = 3,
 			TextSize = theme.fontStyle.Normal.TextSize,
@@ -268,7 +269,7 @@ function DeveloperSubscriptionDetails:renderConsolidated(theme, localized)
 		}),
 
 		PriceFrame = Roact.createElement(TitledFrame, {
-			Title = localized.DevSubs.Price,
+			Title = localization:getText("General", "DevSubsPrice"),
 			LayoutOrder = 4,
 			MaxHeight = DEPRECATED_Constants.ROUND_TEXT_BOX_DEFAULT_HEIGHT,
 			TextSize = theme.fontStyle.Normal.TextSize,
@@ -303,7 +304,7 @@ function DeveloperSubscriptionDetails:renderConsolidated(theme, localized)
 		}),
 
 		DurationFrame = Roact.createElement(TitledFrame, {
-			Title = localized.DevSubs.Duration,
+			Title = localization:getText("General", "DevSubsDuration"),
 			LayoutOrder = 5,
 			MaxHeight = 42,
 			TextSize = theme.fontStyle.Normal.TextSize,
@@ -317,12 +318,10 @@ function DeveloperSubscriptionDetails:renderConsolidated(theme, localized)
 	})
 end
 
-function DeveloperSubscriptionDetails:render()
-	return withTheme(function(theme)
-		return withLocalization(function(localized)
-			return self:renderConsolidated(theme, localized)
-		end)
-	end)
-end
+ContextServices.mapToProps(DeveloperSubscriptionDetails,{
+	Theme = ContextServices.Theme,
+	Localization = ContextServices.Localization,
+	Dialog = Dialog,
+})
 
 return DeveloperSubscriptionDetails

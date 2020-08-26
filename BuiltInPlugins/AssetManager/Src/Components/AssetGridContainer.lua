@@ -40,8 +40,6 @@ local OnScreenChange = require(Plugin.Src.Thunks.OnScreenChange)
 
 local BulkImportService = game:GetService("BulkImportService")
 
-local FFlagStudioAssetManagerCaseInsensitiveFilter = game:DefineFastFlag("StudioAssetManagerCaseInsensitiveFilter", false)
-local FFlagStudioAssetManagerLoadAllAliasesButton = game:DefineFastFlag("StudioAssetManagerLoadAllAliasesButton", false)
 local FFlagStudioAssetManagerShiftMultiSelect = game:GetFastFlag("StudioAssetManagerShiftMultiSelect")
 
 local AssetGridContainer = Roact.Component:extend("AssetGridContainer")
@@ -145,32 +143,17 @@ function AssetGridContainer:createTiles(apiImpl, localization, theme,
     else
         for _, asset in pairs(assets) do
             -- pass in true for plain to disable magic characters like (, ), %...
-            if FFlagStudioAssetManagerCaseInsensitiveFilter then
-                if string.find(string.lower(asset.name), string.lower(searchTerm), 1, true) then
-                    asset.key = asset.layoutOrder
-                    local assetTile = Roact.createElement(Tile, {
-                        AssetData = asset,
-                        LayoutOrder = asset.layoutOrder,
-                        StyleModifier = selectedAssets[asset.layoutOrder] and StyleModifier.Selected or nil,
-                        Enabled = enabled,
-                        OnOpenAssetPreview = self.onOpenAssetPreview,
-                    })
-                    assetsToDisplay[asset.layoutOrder] = assetTile
-                    numberAssets = numberAssets + 1
-                end
-            else
-                if string.find(asset.name, searchTerm, 1, true) then
-                    asset.key = asset.layoutOrder
-                    local assetTile = Roact.createElement(Tile, {
-                        AssetData = asset,
-                        LayoutOrder = asset.layoutOrder,
-                        StyleModifier = selectedAssets[asset.layoutOrder] and StyleModifier.Selected or nil,
-                        Enabled = enabled,
-                        OnOpenAssetPreview = self.onOpenAssetPreview,
-                    })
-                    assetsToDisplay[asset.layoutOrder] = assetTile
-                    numberAssets = numberAssets + 1
-                end
+            if string.find(string.lower(asset.name), string.lower(searchTerm), 1, true) then
+                asset.key = asset.layoutOrder
+                local assetTile = Roact.createElement(Tile, {
+                    AssetData = asset,
+                    LayoutOrder = asset.layoutOrder,
+                    StyleModifier = selectedAssets[asset.layoutOrder] and StyleModifier.Selected or nil,
+                    Enabled = enabled,
+                    OnOpenAssetPreview = self.onOpenAssetPreview,
+                })
+                assetsToDisplay[asset.layoutOrder] = assetTile
+                numberAssets = numberAssets + 1
             end
         end
     end
@@ -237,7 +220,7 @@ function AssetGridContainer:render()
         end
     end
 
-    local hasMorePages = FFlagStudioAssetManagerLoadAllAliasesButton and nextPageNumber ~= nil
+    local hasMorePages = nextPageNumber ~= nil
 
     local assetTypeText = localization:getText("Folders", currentScreen.Key)
     local noResultsText = localization:getText("AssetGrid", "NoResults", {assetType = assetTypeText})

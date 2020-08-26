@@ -53,7 +53,7 @@ function metatable:Dump()
 		if (type(tweenObject) == "table") then
 			addStr = addStr .. "{{" .. tweenObject:Dump() .. "}}"
 		elseif (type(tweenObject) == "userdata") then
-			addStr = addStr .. tweenObject.Name .. "/" .. (tweenObject.Parent and tweenObject.Parent.Name or nil)
+			addStr = addStr .. tweenObject.Name .. "/" .. tweenObject:GetFullName()
 		end
 
 		for propertyName, baseValue in pairs(objectProperties) do

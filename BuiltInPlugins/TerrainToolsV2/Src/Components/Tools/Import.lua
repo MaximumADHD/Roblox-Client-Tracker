@@ -2,7 +2,7 @@
 	Displays panels associated with the import tool
 ]]
 
-local FFlagTerrainToolsUseMapSettingsWithPreview = game:GetFastFlag("TerrainToolsUseMapSettingsWithPreview")
+local FFlagTerrainToolsUseMapSettingsWithPreview = game:GetFastFlag("TerrainToolsUseMapSettingsWithPreview2")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -19,8 +19,9 @@ local AssetIdSelector = require(ToolParts.AssetIdSelector)
 local ButtonGroup = require(ToolParts.ButtonGroup)
 local ImportProgressFrame = require(Plugin.Src.Components.ImportProgressFrame)
 local LabeledElementPair = require(ToolParts.LabeledElementPair)
-local MapSettings = require(ToolParts.MapSettings)
+local MapSettings = not FFlagTerrainToolsUseMapSettingsWithPreview and require(ToolParts.MapSettings) or nil
 local MapSettingsWithPreview = require(ToolParts.MapSettingsWithPreview)
+local MapSettingsWithPreviewFragment = require(ToolParts.MapSettingsWithPreviewFragment)
 local Panel = require(ToolParts.Panel)
 
 local Actions = Plugin.Src.Actions
@@ -163,23 +164,35 @@ function Import:render()
 			local toggleOn = theme.toggleTheme.toggleOnImage
 			local toggleOff = theme.toggleTheme.toggleOffImage
 
-			return Roact.createFragment({
-				MapSettingsWithPreview = FFlagTerrainToolsUseMapSettingsWithPreview
-					and Roact.createElement(MapSettingsWithPreview, {
-					toolName = self.props.toolName,
+			local mapSettingsComponent
+			if FFlagTerrainToolsUseMapSettingsWithPreview then
+				mapSettingsComponent = Roact.createElement(Panel, {
 					LayoutOrder = 1,
+					Title = localization:getText("MapSettings", "MapSettings"),
+					Padding = UDim.new(0, 12),
+				}, {
+					HeightmapSelector = Roact.createElement(AssetIdSelector, {
+						LayoutOrder = 2,
+						Size = UDim2.new(1, 0, 0, 60),
+						Label = localization:getText("MapSettings", "HeightMap"),
+						OnAssetIdValidated = self.heightMapValidated,
+					}),
 
-					Position = position,
-					Size = size,
-					PreviewOffset = Vector3.new(0, 0.5, 0),
+					MapSettingsWithPreview = Roact.createElement(MapSettingsWithPreviewFragment, {
+						toolName = self.props.toolName,
+						InitialLayoutOrder = 2,
 
-					OnPositionChanged = self.props.dispatchChangePosition,
-					OnSizeChanged = self.props.dispatchChangeSize,
-					SetMapSettingsValid = self.mapSettingsValidated,
-					HeightMapValidation = self.heightMapValidated,
-				}),
+						Position = position,
+						Size = size,
+						PreviewOffset = Vector3.new(0, 0.5, 0),
 
-				MapSettings = not FFlagTerrainToolsUseMapSettingsWithPreview and Roact.createElement(MapSettings, {
+						OnPositionChanged = self.props.dispatchChangePosition,
+						OnSizeChanged = self.props.dispatchChangeSize,
+						SetMapSettingsValid = self.mapSettingsValidated,
+					}),
+				})
+			else
+				mapSettingsComponent = Roact.createElement(MapSettings, {
 					LayoutOrder = 1,
 
 					Position = position,
@@ -189,7 +202,11 @@ function Import:render()
 					OnSizeChanged = self.onSizeChanged,
 					SetMapSettingsValid = self.mapSettingsValidated,
 					HeightMapValidation = self.heightMapValidated,
-				}),
+				})
+			end
+
+			return Roact.createFragment({
+				MapSettings = mapSettingsComponent,
 
 				MaterialSettings = Roact.createElement(Panel, {
 					Title = localization:getText("MaterialSettings", "MaterialSettings"),

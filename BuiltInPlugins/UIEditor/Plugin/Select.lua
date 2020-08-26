@@ -7,6 +7,8 @@ local Analytics		= require(script.Parent.Analytics)
 
 local UserInputService = game:GetService("UserInputService")
 
+local FFlagFixStarterGuiErrors = game:DefineFastFlag("FixStarterGuiErrors", false)
+
 local paintOrder = {} --array of paintOrder
 local paintOrderMap = {} --map of child to position in order
 
@@ -100,7 +102,13 @@ local function guessScreenGui(sg)
 end
 
 local function refreshPaintOrder()
-	local starterGui = game.StarterGui
+	local starterGui = nil
+	if FFlagFixStarterGuiErrors then
+		starterGui = game:GetService("StarterGui")
+	else
+		starterGui = game.StarterGui
+	end
+	
 	local children = starterGui:GetChildren()
 	
 	paintOrder = {}

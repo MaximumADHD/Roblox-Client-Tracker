@@ -1,21 +1,73 @@
 local Page = script.Parent
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
+local RoactRodux = require(Plugin.RoactRodux)
 local DeepMergeTables = require(Plugin.Src.Util.DeepMergeTables)
 
 local AddTableChange = require(Plugin.Src.Actions.AddTableChange)
+local AddChange = require(Plugin.Src.Actions.AddChange)
 local AddTableKeyChange = require(Plugin.Src.Actions.AddTableKeyChange)
 local AddTableKeyErrors = require(Plugin.Src.Actions.AddTableKeyErrors)
 local DiscardTableChanges = require(Plugin.Src.Actions.DiscardTableChanges)
 local DiscardTableKeyErrors = require(Plugin.Src.Actions.DiscardTableKeyErrors)
 
-local createSettingsPage = require(Plugin.Src.Components.SettingsPages.DEPRECATED_createSettingsPage)
+local ContextServices = require(Plugin.Framework.ContextServices)
 
-local DeveloperSubscriptionsFolder = Plugin.Src.Components.DeveloperSubscriptions
-local DeveloperSubscriptionWidget = require(DeveloperSubscriptionsFolder.DeveloperSubscriptionWidget)
+local SettingsPage = require(Plugin.Src.Components.SettingsPages.SettingsPage)
+
+local DeveloperSubscriptionWidget = require(Page.Components.DeveloperSubscriptionWidget)
 local DevSubModeration = require(Page.Thunks.DevSubModeration)
 
 local FVariableMaxRobuxPrice = game:GetFastInt("DeveloperSubscriptionsMaxRobuxPrice")
+
+local DeveloperSubscriptions = Roact.PureComponent:extend(script.Name)
+
+local LOCALIZATION_ID = "DeveloperSubscriptions"
+
+local function loadSettings(store, contextItems)
+	local state = store:getState()
+	local gameId = state.Metadata.gameId
+	local devSubsController = contextItems.developerSubscriptionsController
+
+	return {
+		function(loadedSettings)
+			local openDevSubs = devSubsController:getDevSubs(gameId, true)
+			local closedDevSubs = devSubsController:getDevSubs(gameId, false)
+			local allDevSubs = DeepMergeTables.Merge(openDevSubs, closedDevSubs) or {}
+
+			loadedSettings["DeveloperSubscriptions"] = allDevSubs
+		end,
+	}
+end
+
+local function saveSettings(store, contextItems)
+	local state = store:getState()
+	local gameId = state.Metadata.gameId
+	local devSubsController = contextItems.developerSubscriptionsController
+
+	local saveFunctions = {}
+	local currDevSubs = state.Settings.Current.DeveloperSubscriptions
+	local changedDevSubs = state.Settings.Changed.DeveloperSubscriptions or {}
+	for key, devSub in pairs(changedDevSubs) do
+		if devSub.IsNew then
+			table.insert(saveFunctions, function()
+				devSubsController:createDevSub(gameId, devSub)
+			end)
+		else
+			if devSub.Active == false then
+				table.insert(saveFunctions, function()
+					devSubsController:discontinueDevSub(currDevSubs[key])
+				end)
+			else
+				table.insert(saveFunctions, function()
+					devSubsController:changeDevSub(currDevSubs[key], devSub)
+				end)
+			end
+		end
+	end
+
+	return saveFunctions
+end
 
 --Loads settings values into props by key
 local function loadValuesToProps(getValue, state)
@@ -33,7 +85,7 @@ local function loadValuesToProps(getValue, state)
 		DevSubsErrors = errors.DeveloperSubscriptions or {},
 	}
 end
- 
+
 local function checkChangedDevSubKey(dispatch, devSubKey, valueKey, value)
 	if valueKey == "Name" and (value == "" or value == nil) then
 		dispatch(AddTableKeyErrors("DeveloperSubscriptions", devSubKey, valueKey, {Empty = "Name can't be empty"}))
@@ -84,12 +136,11 @@ local function dispatchChanges(setValue, dispatch)
 end
 
 --Uses props to display current settings values
-local function displayContents(page, localized)
-	local props = page.props
+local function displayContents(props)
 	local developerSubscriptions = props.DeveloperSubscriptions or {}
 	local moderatedDevSubs = props.ModeratedDevSubs or {}
 	local devSubsErrors = props.DevSubsErrors or {}
-	
+
 	return {
 		Roact.createElement(DeveloperSubscriptionWidget, {
 			DeveloperSubscriptions = developerSubscriptions,
@@ -104,17 +155,51 @@ local function displayContents(page, localized)
 	}
 end
 
-local SettingsPage = createSettingsPage("Developer Subscriptions", loadValuesToProps, dispatchChanges)
+function DeveloperSubscriptions:render()
+	local props = self.props
+	local localization = props.Localization
 
-local function DeveloperSubscriptions(props)
+	local createChildren = function()
+		return displayContents(props)
+	end
+
 	return Roact.createElement(SettingsPage, {
-		ContentHeightChanged = props.ContentHeightChanged,
-		SetScrollbarEnabled = props.SetScrollbarEnabled,
-		LayoutOrder = props.LayoutOrder,
-		Content = displayContents,
-
-		AddLayout = true,
+		SettingsLoadJobs = loadSettings,
+		SettingsSaveJobs = saveSettings,
+		Title = localization:getText("General", "Category"..LOCALIZATION_ID),
+		PageId = script.Name,
+		CreateChildren = createChildren,
 	})
 end
+
+ContextServices.mapToProps(DeveloperSubscriptions, {
+	Localization = ContextServices.Localization,
+	Theme = ContextServices.Theme,
+})
+
+local settingFromState = require(Plugin.Src.Networking.settingFromState)
+DeveloperSubscriptions = RoactRodux.connect(
+	function(state, props)
+		if not state then return end
+
+		local getValue = function(propName)
+			return settingFromState(state.Settings, propName)
+		end
+
+		return loadValuesToProps(getValue, state)
+	end,
+
+	function(dispatch)
+		local setValue = function(propName)
+			return function(value)
+				dispatch(AddChange(propName, value))
+			end
+		end
+
+		return dispatchChanges(setValue, dispatch)
+	end
+)(DeveloperSubscriptions)
+
+DeveloperSubscriptions.LocalizationId = LOCALIZATION_ID
 
 return DeveloperSubscriptions

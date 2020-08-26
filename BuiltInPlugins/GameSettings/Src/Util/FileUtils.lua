@@ -79,8 +79,8 @@ local function createFormDataBody(configDataJsonBlob, nameWithoutExtension, exte
 	return result
 end
 
-function FileUtils.PromptForGameIcon(page, localization, showDialog)
-	assert(localization and showDialog)
+function FileUtils.PromptForGameIcon(page, localization)
+	assert(localization)
 	local icon = StudioService:PromptImportFile(DEPRECATED_Constants.IMAGE_TYPES)
 
 	if icon then

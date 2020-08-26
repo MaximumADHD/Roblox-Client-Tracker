@@ -2,8 +2,6 @@ local LocalizationService = game:GetService("LocalizationService")
 local CoreGui = game:GetService('CoreGui')
 local Players = game:GetService("Players")
 
-local CJVNotFallbackToEnglishForCoreGuiEnabled = settings():GetFFlag("CJVNotFallbackToEnglishForCoreGuiEnabled")
-
 local FALLBACK_ENGLISH_TRANSLATOR = CoreGui.CoreScriptLocalization:GetTranslator("en-us")
 
 -- Waiting for the player ensures that the RobloxLocaleId has been set.
@@ -41,7 +39,7 @@ local function formatByKeyWithFallback(key, args, translator)
 
     if success then
         return result
-    elseif CJVNotFallbackToEnglishForCoreGuiEnabled and translator.LocaleId == "zh-cjv" then
+    elseif translator.LocaleId == "zh-cjv" then
         return ""
     else
         return FALLBACK_ENGLISH_TRANSLATOR:FormatByKey(key, args)

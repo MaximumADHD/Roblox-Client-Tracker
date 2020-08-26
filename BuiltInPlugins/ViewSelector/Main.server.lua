@@ -5,7 +5,6 @@ local ContentProvider = game:GetService("ContentProvider")
 local UserInputService = game:GetService("UserInputService")
 local InsertService = game:GetService("InsertService")
 local StudioService = game:GetService("StudioService")
-local FFlagViewSelectorLightUpdate = game:DefineFastFlag("ViewSelectorLightUpdate", false)
 
 local DRAG_DELTA = 5
 local HALF_CUBE = 0.48
@@ -82,11 +81,7 @@ local function init()
 	for i = 1, #children do
 		local child = children[i]
 		if child.ClassName == "Part" or child.ClassName == "MeshPart" then
-			if FFlagViewSelectorLightUpdate then
-				child.CFrame = model.CFrame:ToObjectSpace(child.CFrame) -- Move back to origin
-			else
-				initialCFrames[child.Name] = model.CFrame:ToObjectSpace(child.CFrame)
-			end
+			child.CFrame = model.CFrame:ToObjectSpace(child.CFrame) -- Move back to origin
 		elseif child.ClassName == "Decal" then
 			local keyNormal = child.Name
 			local keyHover = child.Name .. "_hover"
@@ -102,9 +97,7 @@ local function init()
 		end
 	end
 
-	if FFlagViewSelectorLightUpdate then
-		model.CFrame = CFrame.new() -- Move back to origin
-	end
+	model.CFrame = CFrame.new() -- Move back to origin
 
 	local dirToName = {"n", "0", "p"}
 	for x = -1, 1 do
@@ -170,9 +163,6 @@ local function enableHighlight(obj)
 		obj.Texture = textureList.Hover[obj.Name]
 	else
 		obj.Transparency = 0.3
-		if not FFlagViewSelectorLightUpdate then
-			obj.CFrame = model.CFrame:ToWorldSpace(initialCFrames[obj.Name])
-		end
 	end
 end
 
@@ -224,11 +214,7 @@ local function onMouseMove(x, y)
 	local ray = viewportCamera:ViewportPointToRay(guix / viewportSize, guiy / viewportSize, 0)
 	local direction = cameraCFrame:VectorToWorldSpace(ray.Direction)
 	local origin = cameraCFrame:PointToWorldSpace(ray.Origin)
-	local point = getIntersectionPoint(origin, direction)
-
-	if FFlagViewSelectorLightUpdate then
-		point = getIntersectionPoint(ray.Origin, ray.Direction)
-	end
+	local point = getIntersectionPoint(ray.Origin, ray.Direction)
 
 	if point then
 		local name = getNameFromIntersectionPoint(point)
@@ -395,40 +381,13 @@ local function afterCamera(delta)
 		end
 	end
 
-	if FFlagViewSelectorLightUpdate then
-		local cf = currentCamera.CFrame
-		viewportCamera.CFrame = CFrame.fromMatrix(-cf.LookVector * CAMERA_DISTANCE, cf.RightVector, cf.UpVector, -cf.LookVector)
-		if viewportCamera.CFrame ~= cameraCFrame then
-			cameraCFrame = viewportCamera.CFrame
-			viewport.LightDirection = (cameraCFrame - cameraCFrame.Position):ToWorldSpace(CFrame.new(-1, -1, -1)).Position
-			updateXYZLabelPosition()
-			updateArrowButtons()
-		end
-		return
-	end
-	--[[
-		An ideal solution is to rotate the camera and light around the model
-		But currently ViewportFrame only supports fixed lighting
-		So we have to leave the camera untouched, and move everything else
-		to light different faces while rotating.
-		It shoule be changed when ViewportFrame custom lighting is live
-	]]
 	local cf = currentCamera.CFrame
-	local current = CFrame.fromMatrix(-cf.LookVector * CAMERA_DISTANCE, cf.RightVector, cf.UpVector, -cf.LookVector)
-	if current == cameraCFrame then
-		return
-	end
-	cameraCFrame = current
-	inverseCameraCFrame = cameraCFrame:Inverse()
-	model.CFrame = inverseCameraCFrame
-	updateXYZLabelPosition()
-	updateArrowButtons()
-
-	model.x.CFrame = model.CFrame:ToWorldSpace(initialCFrames["x"])
-	model.y.CFrame = model.CFrame:ToWorldSpace(initialCFrames["y"])
-	model.z.CFrame = model.CFrame:ToWorldSpace(initialCFrames["z"])
-	if lastHighLight and lastHighLight.ClassName ~= "Decal" then
-		lastHighLight.CFrame = model.CFrame:ToWorldSpace(initialCFrames[lastHighLight.Name])
+	viewportCamera.CFrame = CFrame.fromMatrix(-cf.LookVector * CAMERA_DISTANCE, cf.RightVector, cf.UpVector, -cf.LookVector)
+	if viewportCamera.CFrame ~= cameraCFrame then
+		cameraCFrame = viewportCamera.CFrame
+		viewport.LightDirection = (cameraCFrame - cameraCFrame.Position):ToWorldSpace(CFrame.new(-1, -1, -1)).Position
+		updateXYZLabelPosition()
+		updateArrowButtons()
 	end
 end
 

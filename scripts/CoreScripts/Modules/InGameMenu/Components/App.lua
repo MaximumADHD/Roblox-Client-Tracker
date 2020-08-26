@@ -20,9 +20,11 @@ local ReportSentDialog = require(script.Parent.ReportPage.ReportSentDialog)
 local ControlLayoutSetter = require(script.Parent.ControlsPage.ControlLayoutSetter)
 local Connection = require(script.Parent.Connection)
 local EducationalPopup = require(script.Parent.EducationalPopup)
+local MenuIconTooltip = require(script.Parent.MenuIconTooltip)
 
 local GetFFlagEducationalPopupOnNativeClose = require(RobloxGui.Modules.Flags.GetFFlagEducationalPopupOnNativeClose)
 local FFlagLuaMenuPerfImprovements = require(script.Parent.Parent.Flags.FFlagLuaMenuPerfImprovements)
+local GetFFlagInGameMenuIconTooltip = require(RobloxGui.Modules.Flags.GetFFlagInGameMenuIconTooltip)
 
 local function App(props)
 	if FFlagLuaMenuPerfImprovements then
@@ -37,6 +39,7 @@ local function App(props)
 				ReportSentDialog = Roact.createElement(ReportSentDialog),
 				ControlLayoutSetter = Roact.createElement(ControlLayoutSetter),
 				EducationalPopup = GetFFlagEducationalPopupOnNativeClose() and Roact.createElement(EducationalPopup) or nil,
+				MenuIconTooltip = GetFFlagInGameMenuIconTooltip() and Roact.createElement(MenuIconTooltip) or nil,
 			}) or nil,
 			Connection = Roact.createElement(Connection),
 		})
@@ -52,6 +55,7 @@ local function App(props)
 			ControlLayoutSetter = Roact.createElement(ControlLayoutSetter),
 			Connection = Roact.createElement(Connection),
 			EducationalPopup = GetFFlagEducationalPopupOnNativeClose() and Roact.createElement(EducationalPopup) or nil,
+			MenuIconTooltip = GetFFlagInGameMenuIconTooltip() and Roact.createElement(MenuIconTooltip) or nil,
 		})
 	end
 end

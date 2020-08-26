@@ -8,6 +8,7 @@ require(script.Parent.defineLuaFlags)
 
 -- Fast flags
 local FFlagGameSettingsPlaceSettings = game:GetFastFlag("GameSettingsPlaceSettings")
+local FFlagDeveloperSubscriptionsEnabled = game:GetFastFlag("DeveloperSubscriptionsEnabled")
 local FFlagStudioOpenGameSettingsEvent = game:GetFastFlag("StudioOpenGameSettingsEvent")
 local FFlagLocalizationPageInGameSettingsV2 = game:GetFastFlag("LocalizationPageInGameSettingsV2")
 
@@ -43,6 +44,7 @@ local PlacesController = require(Plugin.Pages.PlacesPage.Controllers.PlacesContr
 local SecurityController = require(Plugin.Pages.SecurityPage.Controllers.SecurityController)
 local SocialController = require(Plugin.Pages.PermissionsPage.Controllers.SocialController)
 local UniverseAvatarController = require(Plugin.Pages.AvatarPage.Controllers.UniverseAvatarController)
+local DeveloperSubscriptionsController = require(Plugin.Pages.DeveloperSubscriptionsPage.Controllers.DeveloperSubscriptionsController)
 local LocalizationPageController = require(Plugin.Pages.LocalizationPage.Controllers.LocalizationPageController)
 
 local CurrentStatus = require(Plugin.Src.Util.CurrentStatus)
@@ -77,6 +79,7 @@ local universePermissionsController = FFlagQ220PermissionsSettings and SecurityC
 local socialController = SocialController.new(networking:get())
 local universeAvatarController = UniverseAvatarController.new(networking:get())
 local placesController = FFlagGameSettingsPlaceSettings and PlacesController.new(networking:get()) or nil
+local developerSubscriptionsController = FFlagDeveloperSubscriptionsEnabled and DeveloperSubscriptionsController.new(networking:get()) or nil
 local localizationPageController = FFlagLocalizationPageInGameSettingsV2 and LocalizationPageController.new(networking:get()) or nil
 
 thunkContextItems.networking = networking:get()
@@ -91,6 +94,7 @@ thunkContextItems.universePermissionsController = universePermissionsController
 thunkContextItems.socialController = socialController
 thunkContextItems.universeAvatarController = universeAvatarController
 thunkContextItems.placesController = placesController
+thunkContextItems.developerSubscriptionsController = developerSubscriptionsController
 thunkContextItems.localizationPageController = localizationPageController
 
 local thunkWithArgsMiddleware = FrameworkUtil.ThunkWithArgsMiddleware(thunkContextItems)

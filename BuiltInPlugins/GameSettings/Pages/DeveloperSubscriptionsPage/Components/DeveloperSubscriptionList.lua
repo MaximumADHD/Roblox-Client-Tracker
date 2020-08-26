@@ -10,14 +10,14 @@
 ]]
 
 local Plugin = script.Parent.Parent.Parent.Parent
-local withTheme = require(Plugin.Src.Consumers.withTheme)
-local withLocalization = require(Plugin.Src.Consumers.withLocalization)
 local Roact = require(Plugin.Roact)
 local UILibrary = require(Plugin.UILibrary)
 
 local DeveloperSubscriptionListItem = require(script.Parent.DeveloperSubscriptionListItem)
 local DeveloperSubscriptionListHeaderText = require(script.Parent.DeveloperSubscriptionListHeaderText)
-local HeaderWithButton = require(Plugin.Src.Components.HeaderWithButton)
+local HeaderWithButton = require(script.Parent.HeaderWithButton)
+
+local ContextServices = require(Plugin.Framework.ContextServices)
 
 local createFitToContent = UILibrary.Component.createFitToContent
 local FitToContent = createFitToContent("Frame", "UIListLayout", {
@@ -25,20 +25,24 @@ local FitToContent = createFitToContent("Frame", "UIListLayout", {
 	Padding = UDim.new(0, 10),
 })
 
-local function render(props, localized, theme)
-	local developerSubscriptions = props.DeveloperSubscriptions
-	local onDeveloperSubscriptionEdited = props.OnDeveloperSubscriptionEdited
-	local onDeveloperSubscriptionCreated = props.OnDeveloperSubscriptionCreated
-	local listItemHeight = props.ListItemHeight or 32
+local DeveloperSubscriptionList = Roact.Component:extend("DeveloperSubscriptionList")
+
+function DeveloperSubscriptionList:render()
+	local developerSubscriptions = self.props.DeveloperSubscriptions
+	local onDeveloperSubscriptionEdited = self.props.OnDeveloperSubscriptionEdited
+	local onDeveloperSubscriptionCreated = self.props.OnDeveloperSubscriptionCreated
+	local listItemHeight = self.props.ListItemHeight or 32
+	local theme = self.props.Theme:get("Plugin")
+	local localization = self.props.Localization
 
 	-- start up a table of the elements, put in the header
 	local elements = {
 		Header = Roact.createElement(HeaderWithButton, {
-			Title = localized.DevSubs.ListHeader,
+			Title = localization:getText("General", "DevSubsListHeader"),
 			LayoutOrder = 0,
 
 			Active = true,
-			ButtonText = localized.DevSubs.CreateAction,
+			ButtonText = localization:getText("General", "DevSubsCreateAction"),
 			OnClicked = onDeveloperSubscriptionCreated,
 			Style = theme.cancelButton,
 		}),
@@ -60,28 +64,28 @@ local function render(props, localized, theme)
 
 			IdText = Roact.createElement(DeveloperSubscriptionListHeaderText, {
 				Size = UDim2.new(0.16, 0, 1, 0),
-				Text = localized.DevSubs.Id,
+				Text = localization:getText("General", "DevSubsId"),
 				LayoutOrder = 1,
 				Alignment = Enum.TextXAlignment.Left,
 			}),
 
 			NameText = Roact.createElement(DeveloperSubscriptionListHeaderText, {
 				Size = UDim2.new(0.44, 0, 1, 0),
-				Text = localized.DevSubs.Name,
+				Text = localization:getText("General", "DevSubsName"),
 				LayoutOrder = 2,
 				Alignment = Enum.TextXAlignment.Center,
 			}),
 
 			SubscribersText = Roact.createElement(DeveloperSubscriptionListHeaderText, {
 				Size = UDim2.new(0.2, 0, 1, 0),
-				Text = localized.DevSubs.Subscribers,
+				Text = localization:getText("General", "DevSubsSubscribers"),
 				LayoutOrder = 3,
 				Alignment = Enum.TextXAlignment.Center,
 			}),
 
 			ActiveText = Roact.createElement(DeveloperSubscriptionListHeaderText, {
 				Size = UDim2.new(0.1, 0, 1, 0),
-				Text = localized.DevSubs.Active,
+				Text = localization:getText("General", "DevSubsActive"),
 				LayoutOrder = 4,
 				Alignment = Enum.TextXAlignment.Center,
 			}),
@@ -121,7 +125,7 @@ local function render(props, localized, theme)
 			LayoutOrder = index + 1,
 			OnEditButtonActivated = onEditButtonActivated,
 			Height = listItemHeight,
-			HasError = props.DevSubsErrors[devSub.Key] ~= nil
+			HasError = self.props.DevSubsErrors[devSub.Key] ~= nil
 		})
 
 		index = index + 1
@@ -139,10 +143,9 @@ local function render(props, localized, theme)
 	}, elements)
 end
 
-return function(props)
-	return withLocalization(function(localized)
-		return withTheme(function(theme)
-			return render(props, localized, theme)
-		end)
-	end)
-end
+ContextServices.mapToProps(DeveloperSubscriptionList,{
+	Theme = ContextServices.Theme,
+	Localization = ContextServices.Localization,
+})
+
+return DeveloperSubscriptionList

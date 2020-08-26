@@ -18,7 +18,6 @@ local StudioService = game:GetService("StudioService")
 
 local FFlagAssetManagerAddPlaceVersionHistoryToContextMenu = game:DefineFastFlag("AssetManagerAddPlaceVerisonHistoryToContextMenu", false)
 local FFlagFixAssetManagerInsertWithLocation = game:DefineFastFlag("FixAssetManagerInsertWithLocation", false)
-local FFlagAssetManagerFixAssetRemoval = game:DefineFastFlag("AssetManagerFixAssetRemoval", false)
 local FFlagAssetManagerAddNewPlaceBehavior = game:DefineFastFlag("AssetManagerAddNewPlaceBehavior", false)
 local FFlagOnlyAllowInsertPackageInEdit = game:DefineFastFlag("OnlyAllowInsertPackageInEdit", false)
 local FFlagAssetManagerOpenContextMenu = game:GetFastFlag("AssetManagerOpenContextMenu")
@@ -28,32 +27,16 @@ local FFlagAssetManagerAddAnalytics = game:GetFastFlag("AssetManagerAddAnalytics
 local EVENT_ID_OPENASSETCONFIG = "OpenAssetConfiguration"
 
 local function removeAssets(apiImpl, assetData, assets, selectedAssets, store)
-    if FFlagAssetManagerFixAssetRemoval then
-        for _, asset in pairs(assets) do
-            if selectedAssets[asset.key] then
-                if asset.assetType == Enum.AssetType.Place then
-                    AssetManagerService:RemovePlace(asset.id)
-                elseif asset.assetType == Enum.AssetType.Image then
-                    AssetManagerService:DeleteAlias("Images/".. asset.name)
-                elseif asset.assetType == Enum.AssetType.MeshPart then
-                    AssetManagerService:DeleteAlias("Meshes/".. asset.name)
-                elseif asset.assetType == Enum.AssetType.Lua then
-                    AssetManagerService:DeleteAlias("Scripts/".. asset.name)
-                end
-            end
-        end
-    else
-        for i, asset in ipairs(assets) do
-            if selectedAssets[i] then
-                if asset.assetType == Enum.AssetType.Place then
-                    AssetManagerService:RemovePlace(asset.id)
-                elseif asset.assetType == Enum.AssetType.Image then
-                    AssetManagerService:DeleteAlias("Images/".. asset.name)
-                elseif asset.assetType == Enum.AssetType.MeshPart then
-                    AssetManagerService:DeleteAlias("Meshes/".. asset.name)
-                elseif asset.assetType == Enum.AssetType.Lua then
-                    AssetManagerService:DeleteAlias("Scripts/".. asset.name)
-                end
+    for _, asset in pairs(assets) do
+        if selectedAssets[asset.key] then
+            if asset.assetType == Enum.AssetType.Place then
+                AssetManagerService:RemovePlace(asset.id)
+            elseif asset.assetType == Enum.AssetType.Image then
+                AssetManagerService:DeleteAlias("Images/".. asset.name)
+            elseif asset.assetType == Enum.AssetType.MeshPart then
+                AssetManagerService:DeleteAlias("Meshes/".. asset.name)
+            elseif asset.assetType == Enum.AssetType.Lua then
+                AssetManagerService:DeleteAlias("Scripts/".. asset.name)
             end
         end
     end

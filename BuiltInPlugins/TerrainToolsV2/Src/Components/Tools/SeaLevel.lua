@@ -2,7 +2,7 @@
 	Displays panels associated with the SeaLevel tool
 ]]
 
-local FFlagTerrainToolsUseMapSettingsWithPreview = game:GetFastFlag("TerrainToolsUseMapSettingsWithPreview")
+local FFlagTerrainToolsUseMapSettingsWithPreview = game:GetFastFlag("TerrainToolsUseMapSettingsWithPreview2")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -22,7 +22,7 @@ local ChangeSize = require(Actions.ChangeSize)
 
 local ToolParts = script.Parent.ToolParts
 local ButtonGroup = require(ToolParts.ButtonGroup)
-local MapSettings = require(ToolParts.MapSettings)
+local MapSettings = not FFlagTerrainToolsUseMapSettingsWithPreview and require(ToolParts.MapSettings) or nil
 local MapSettingsWithPreview = require(ToolParts.MapSettingsWithPreview)
 local ProgressFrame = require(script.Parent.Parent.ProgressFrame)
 

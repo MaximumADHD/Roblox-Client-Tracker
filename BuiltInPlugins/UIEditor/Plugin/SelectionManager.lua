@@ -11,6 +11,8 @@ local Utility = require(script.Parent.Utility)
 -- Services
 local SelectionService = game:GetService("Selection")
 
+local FFlagFixStarterGuiErrors = game:DefineFastFlag("FixStarterGuiErrors", false)
+
 --filtered selection
 --when selection changes register to changed event on new items
 
@@ -113,11 +115,20 @@ local function areAllAncestorsGuiBase2dToStarterGui(guiObject)
 	local purebredGui = false
 	local ancestor = guiObject.Parent
 	while ancestor ~= nil do
-		if ancestor == game.StarterGui then
-			purebredGui = true
-			break
-		elseif not ancestor:isA("GuiBase2d") and not ancestor:isA("Folder") then
-			break
+		if FFlagFixStarterGuiErrors then
+			if ancestor == game:GetService("StarterGui") then
+				purebredGui = true
+				break
+			elseif not ancestor:isA("GuiBase2d") and not ancestor:isA("Folder") then
+				break
+			end
+		else
+			if ancestor == game.StarterGui then
+				purebredGui = true
+				break
+			elseif not ancestor:isA("GuiBase2d") and not ancestor:isA("Folder") then
+				break
+			end
 		end
 		
 		ancestor = ancestor.Parent 

@@ -12,6 +12,7 @@ return strict({
 	Cryo = require(script.Cryo),
 	CrossPluginCommunication = require(script.CrossPluginCommunication),
 	deepEqual = require(script.deepEqual),
+	deepJoin = require(script.deepJoin),
 
 	-- TODO DEVTOOLS-4459: Remove this export
 	FitFrame = require(script.FitFrame),

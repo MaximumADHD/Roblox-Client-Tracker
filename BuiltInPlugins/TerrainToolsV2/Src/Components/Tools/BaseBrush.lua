@@ -2,7 +2,6 @@
 	Displays panels associated with the BaseBrush tool
 ]]
 
-local FFlagTerrainToolsReplaceTool = game:GetFastFlag("TerrainToolsReplaceTool")
 local FFlagTerrainToolsReplaceSrcTogglesOff = game:GetFastFlag("TerrainToolsReplaceSrcTogglesOff")
 
 local Plugin = script.Parent.Parent.Parent.Parent
@@ -189,22 +188,16 @@ function BaseBrush:init()
 	end))
 
 	table.insert(self.connections, self.terrainBrush:subscribeToMaterialSelectRequested(function(material, shiftdown)
-		if FFlagTerrainToolsReplaceTool then
-			if not shiftdown then
-				if self.props.dispatchSetMaterial then
-					self.props.dispatchSetMaterial(material)
-				end
-				if self.props.dispatchSetSourceMaterial then
-					self.props.dispatchSetSourceMaterial(material)
-				end
-			else
-				if self.props.dispatchSetTargetMaterial then
-					self.props.dispatchSetTargetMaterial(material)
-				end
-			end
-		else
+		if not shiftdown then
 			if self.props.dispatchSetMaterial then
 				self.props.dispatchSetMaterial(material)
+			end
+			if self.props.dispatchSetSourceMaterial then
+				self.props.dispatchSetSourceMaterial(material)
+			end
+		else
+			if self.props.dispatchSetTargetMaterial then
+				self.props.dispatchSetTargetMaterial(material)
 			end
 		end
 	end))

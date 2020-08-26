@@ -7,6 +7,7 @@ local Cryo = InGameMenuDependencies.Cryo
 local InGameMenu = script.Parent.Parent
 local OpenNativeClosePrompt = require(InGameMenu.Actions.OpenNativeClosePrompt)
 local CloseNativeClosePrompt = require(InGameMenu.Actions.CloseNativeClosePrompt)
+local SetMenuIconTooltipOpen = require(InGameMenu.Actions.SetMenuIconTooltipOpen)
 
 return Rodux.createReducer({
 	closingApp = false,
@@ -19,6 +20,11 @@ return Rodux.createReducer({
 	[CloseNativeClosePrompt.name] = function(state, action)
 		return Cryo.Dictionary.join(state, {
 			closingApp = false,
+		})
+	end,
+	[SetMenuIconTooltipOpen.name] = function(state, action)
+		return Cryo.Dictionary.join(state, {
+			menuIconTooltipOpen = action.menuIconTooltipOpen
 		})
 	end,
 })

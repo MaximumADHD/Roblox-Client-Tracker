@@ -30,6 +30,7 @@ local TrackListBorder = require(Plugin.Src.Components.TrackList.TrackListBorder)
 local AnimationEventsTrack = require(Plugin.Src.Components.TrackList.AnimationEventsTrack)
 local TrackScrollbar = require(Plugin.Src.Components.TrackList.TrackScrollbar)
 local StartScreen = require(Plugin.Src.Components.StartScreen)
+local BigAnimationScreen = require(Plugin.Src.Components.BigAnimationScreen)
 local FloorGrid = require(Plugin.Src.Components.FloorGrid)
 local ChangeFPSPrompt = require(Plugin.Src.Components.ChangeFPSPrompt)
 
@@ -58,6 +59,7 @@ local AnimationControlPanel = require(Plugin.Src.Components.AnimationControlPane
 local TrackColors = require(Plugin.Src.Components.TrackList.TrackColors)
 
 local UseCustomFPS = require(Plugin.LuaFlags.GetFFlagAnimEditorUseCustomFPS)
+local GetFFlagExtendAnimationLimit = require(Plugin.LuaFlags.GetFFlagExtendAnimationLimit)
 
 local EditorController = Roact.PureComponent:extend("EditorController")
 
@@ -238,6 +240,13 @@ function EditorController:render()
 	end
 
 	local showEditor = animationData ~= nil
+	local bigAnimation = false
+	if animationData and GetFFlagExtendAnimationLimit() then
+		local length = animationData.Metadata.EndFrame / animationData.Metadata.FrameRate
+		if length >= Constants.MAX_DISPLAYED_TIME then
+			bigAnimation = true
+		end
+	end
 	showEvents = showEvents and showEditor
 
 	local rootName
@@ -357,7 +366,7 @@ function EditorController:render()
 			OnDragMoved = self.updateTrackListWidth,
 		}),
 
-		TrackEditor = showEditor and Roact.createElement(TrackEditor, {
+		TrackEditor = showEditor and not bigAnimation and Roact.createElement(TrackEditor, {
 			ZIndex = zIndex,
 			TopTrackIndex = topTrackIndex,
 			Tracks = tracks,
@@ -376,7 +385,7 @@ function EditorController:render()
 			OnScroll = self.onScroll,
 		}),
 
-		SettingsAndVerticalScrollBar = showEditor and Roact.createElement("Frame", {
+		SettingsAndVerticalScrollBar = showEditor and not bigAnimation and Roact.createElement("Frame", {
 			BackgroundTransparency = 1,
 			Size = UDim2.new(0, Constants.SCROLL_BAR_SIZE, 1, 0),
 			LayoutOrder = 3,
@@ -393,6 +402,11 @@ function EditorController:render()
 				SetTopTrackIndex = self.setTopTrackIndex,
 				OnScroll = self.onScroll,
 			}),
+		}),
+
+		BigAnimationScreen = bigAnimation and Roact.createElement(BigAnimationScreen, {
+			Size = UDim2.new(1, -trackListWidth, 1, 0),
+			LayoutOrder = 2,
 		}),
 
 		StartScreen = not showEditor and Roact.createElement(StartScreen, {

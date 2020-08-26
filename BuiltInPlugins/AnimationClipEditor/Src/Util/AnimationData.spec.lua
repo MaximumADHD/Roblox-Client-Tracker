@@ -1,6 +1,7 @@
 return function()
 	local Plugin = script.Parent.Parent.Parent
 	local GetFFlagEnforceMaxAnimLength = require(Plugin.LuaFlags.GetFFlagEnforceMaxAnimLength)
+	local GetFFlagExtendAnimationLimit = require(Plugin.LuaFlags.GetFFlagExtendAnimationLimit)
 
 	local AnimationData = require(script.Parent.AnimationData)
 
@@ -734,7 +735,7 @@ return function()
 		end)
 	end)
 
-	if GetFFlagEnforceMaxAnimLength() then
+	if GetFFlagEnforceMaxAnimLength() and not GetFFlagExtendAnimationLimit() then
 		describe("removeExtraKeyframes", function()
 			it("should remove keyframes from animations that exceed 30 seconds in length", function()
 				local excessAnimationData = {

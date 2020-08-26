@@ -1,24 +1,19 @@
 local Page = script.Parent.Parent
 local Plugin = script.Parent.Parent.Parent.Parent
 
-local ModerateDevSub = require(Plugin.Src.Networking.Requests.DevSubs.Moderation).Get
 local ModerationAction = require(Page.Actions.DevSubModeration)
 local AddTableKeyErrors = require(Plugin.Src.Actions.AddTableKeyErrors)
 
 return function(devSub)
-	return function(store)
+	return function(store, contextItems)
 		local devSubKey = devSub.Key
+		local devSubsController = contextItems.developerSubscriptionsController
 		store:dispatch(ModerationAction(devSubKey, true, nil ,nil))
 
-		ModerateDevSub(devSub):andThen(function(data)
-			store:dispatch(ModerationAction(devSubKey, data.isAcceptable, data.filteredName, data.filteredDescription))
-			if not data.isAcceptable then
-				store:dispatch(AddTableKeyErrors("DeveloperSubscriptions", devSubKey, "Name", {Moderated = "Name has been moderated"}))
-			end
-		end)
-		:catch(function(err)
-			-- If the action fails (http failure?), let them pass and only do final checks on saving the settings
-			store:dispatch(ModerationAction(devSubKey, true, nil, nil))
-		end)
+		local isAcceptable, filteredName, filteredDescription = devSubsController:getFilteredDevSub(devSub)
+		store:dispatch(ModerationAction(devSubKey, isAcceptable, filteredName, filteredDescription))
+		if not isAcceptable then
+			store:dispatch(AddTableKeyErrors("DeveloperSubscriptions", devSubKey, "Name", {Moderated = "Name has been moderated"}))
+		end
 	end
 end

@@ -2,7 +2,6 @@ game:DefineFastFlag("TerrainToolsBrushUseIsKeyDown", false)
 game:DefineFastFlag("TerrainToolsRaycastUpdate", false)
 
 local FFlagTerrainToolsUseDevFramework = game:GetFastFlag("TerrainToolsUseDevFramework")
-local FFlagTerrainToolsReplaceTool = game:GetFastFlag("TerrainToolsReplaceTool")
 local FFlagTerrainToolsBrushUseIsKeyDown = game:GetFastFlag("TerrainToolsBrushUseIsKeyDown")
 
 local FFlagTerrainToolsRaycastUpdate = game:GetFastFlag("TerrainToolsRaycastUpdate")
@@ -538,11 +537,7 @@ function TerrainBrush:_run()
 				end
 				if altDown then
 					if rayHit and rayHit:IsA("Terrain") then
-						if FFlagTerrainToolsReplaceTool then
-							self._materialSelectRequested:Fire(hitMaterial, isShiftKeyDown())
-						else
-							self._materialSelectRequested:Fire(hitMaterial)
-						end
+						self._materialSelectRequested:Fire(hitMaterial, isShiftKeyDown())
 					end
 				else
 					local difference = mainPoint - lastMainPoint
