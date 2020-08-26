@@ -27,17 +27,6 @@ Item {
         container.visible = false;
     }
 
-    // FIXME(rmendelsohn)
-    // 2019/11/13
-    // Remove with StudioInsertObjectStreamliningv0_Consolidated
-    function deprecated_show(text, x, y) {
-        hide(); // Resets the state
-        container.x = x;
-        container.y = y;
-        toolTipText.text = text;
-        toolTipTimer.start();
-    }
-
     function show(text, x, y, yOffset, windowHeight, windowWidth) {
         hide(); // Resets the state
         container.x = x;

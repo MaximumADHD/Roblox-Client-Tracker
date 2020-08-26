@@ -89,6 +89,7 @@ Studio.App.BetaFeatures.LuaDraggersDescription,,Migrates the Select/Move/Rotate/
 Studio.App.BetaFeatures.LuaDraggersTitle,,Lua Draggers Beta,Lua Draggers Beta
 Studio.App.BetaFeatures.ModelMeshComputerBetaDescription,,Automatically generate Impostor meshes to be rendered outside of streaming radius. Use LevelOfDetail property on Model to enable it.,Automatically generate Impostor meshes to be rendered outside of streaming radius. Use LevelOfDetail property on Model to enable it.
 Studio.App.BetaFeatures.ModelMeshComputerBetaTitle,,Automatic Impostors for Models,Automatic Impostors for Models
+Studio.App.BetaFeatures.NewFeaturesForChannelUserWarning1,,"New beta features are available now and reflected in this dialog. You must restart Studio for them to become available. <a href=""%1"">Restart Now</a>","New beta features are available now and reflected in this dialog. You must restart Studio for them to become available. <a href=""%1"">Restart Now</a>"
 Studio.App.BetaFeatures.NewScriptFoldStateDescription,,Enables new improved behavior for code folding in the Script Editor.,Enables new improved behavior for code folding in the Script Editor.
 Studio.App.BetaFeatures.NewScriptFoldStateTitle,,Script Editor Folds Behavior Beta,Script Editor Folds Behavior Beta
 Studio.App.BetaFeatures.PackagePermissionsDescription,,"Add any group, user, or role as a user or editor for your packages through the Package Management action in Game Explorer","Add any group, user, or role as a user or editor for your packages through the Package Management action in Game Explorer"
@@ -501,6 +502,7 @@ Studio.App.IDEGameSettingsLinkDefinition.OpenGameSettings,,Open Game Settings,Op
 Studio.App.IdeDoc.AllRobloxFilesFileFilter,"Roblox IDE Doc. NOTE TO LOCALIZERS: Do not translate the parentheses (), whatever is inside the parentheses, or any other special characters, use ASCII instead.",All Roblox Files(*rbxl *rbxlx *%1);; Roblox Place Files(*.rbxl);; Roblox XML Place Files(*.rbxlx);; Roblox Project File(*.%1),All Roblox Files(*rbxl *rbxlx *%1);; Roblox Place Files(*.rbxl);; Roblox XML Place Files(*.rbxlx);; Roblox Project File(*.%1)
 Studio.App.IdeDoc.AllRobloxPlaceFilesFileFilter,"Roblox IDE Doc. NOTE TO LOCALIZERS: Do not translate the parentheses (), whatever is inside the parentheses, or any other special characters, use ASCII instead.",All Roblox Place Files(*rbxl *rbxlx);; Roblox Place Files(*.rbxl);; Roblox XML Place Files(*.rbxlx),All Roblox Place Files(*rbxl *rbxlx);; Roblox Place Files(*.rbxl);; Roblox XML Place Files(*.rbxlx)
 Studio.App.IdeDoc.AnimationFilesFBX,Roblox IDE Doc,Animation Files (*fbx),Animation Files (*fbx)
+Studio.App.IdeDoc.AreYouSureYouWantToExit1,Message prompt for when user exits a Team Create place,Are you sure you want to exit '%1'?,Are you sure you want to exit '%1'?
 Studio.App.IdeDoc.AudioDisabledGoToServerAudioBehaviorToChange,Roblox IDE Doc,Audio has been disabled. Please go to File->Settings->Studio and then Server Audio Behavior to change this.,Audio has been disabled. Please go to File->Settings->Studio and then Server Audio Behavior to change this.
 Studio.App.IdeDoc.AutoRecoveryFileCreated1,Roblox IDE Doc,%1 auto-recovery file was created,%1 auto-recovery file was created
 Studio.App.IdeDoc.AutoSaving,Roblox IDE Doc,Auto-Saving,Auto-Saving
@@ -1004,6 +1006,7 @@ Studio.App.Property.ChatHistory,,Chat History,Chat History
 Studio.App.Property.ChatScrollLength,,Chat Scroll Length,Chat Scroll Length
 Studio.App.Property.ClearOutputOnStart,,Clear Output On Start,Clear Output On Start
 Studio.App.Property.ClientPhysicsSendRate,,Client Physics Send Rate,Client Physics Send Rate
+Studio.App.Property.CommandBarLocalState,,Command bar operates on local state at breakpoint,Command bar operates on local state at breakpoint
 Studio.App.Property.CommentColor,,Comment Color,Comment Color
 Studio.App.Property.CurrentLineHighlightColor,The highlight color of the line we are currently editing in ScriptTextEditor,Current Line Highlight Color,Current Line Highlight Color
 Studio.App.Property.DataGCRate,,Data GC Rate,Data GC Rate
@@ -1280,7 +1283,7 @@ Studio.App.PropertyTooltip.IndentUsingSpaces,,Prefer indent with spaces over tab
 Studio.App.PropertyTooltip.Rulers,,Vertical lines drawn at the specified column numbers. These can be used as a guide to code length limits.,Vertical lines drawn at the specified column numbers. These can be used as a guide to code length limits.
 Studio.App.PropertyTooltip.ShowWhitespace,,Visibly display spaces and tabs.,Visibly display spaces and tabs.
 Studio.App.PropertyTooltip.SkipClosingBracketsAndQuotes,,Skip over a closing bracket/quote instead of inserting another.,Skip over a closing bracket/quote instead of inserting another.
-Studio.App.PropertyTooltip.TabWidth,,"The width of a tab, measured in number of spaces.","The width of a tab, measured in number of spaces."
+Studio.App.PropertyTooltip.TabWidth,,"The width of a tab, measured in number of spaces. Value can only be between 1 and 8.","The width of a tab, measured in number of spaces. Value can only be between 1 and 8."
 Studio.App.PropertyTooltip.TextWrapping,,Wrap the line of text below when the line character limit has been reached.,Wrap the line of text below when the line character limit has been reached.
 Studio.App.QDebuggerClient.Breakpoint,,Breakpoint,Breakpoint
 Studio.App.QDebuggerClient.BreakpointLocationFmt2,,"Location: %1, line %2","Location: %1, line %2"

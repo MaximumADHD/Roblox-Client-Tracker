@@ -305,8 +305,7 @@
         </ActionGroup>
       </Group>
       <Group name="Advanced" text="Studio.App.RobloxRibbonMainWindow.Advanced">
-        <addaction fflag="!StudioInsertObjectStreamliningv0_Consolidated" name="actionInsertAdvancedObject" iscommonslot="true" text="Studio.App.RobloxRibbonMainWindow.AdvancedObjects" tooltip="Studio.App.RobloxRibbonMainWindow.InsertScriptsAndOtherAdvance" ischeckable="true" icon=":/RibbonBar/images/RibbonIcons/Insert/Advanced-Objects.png" style="textundericon" width="32" height="32"/>
-        <addaction fflag="StudioInsertObjectStreamliningv0_Consolidated" name="actionInsertAdvancedObject" iscommonslot="true" text="Studio.App.RBXMainWindow.InsertObject" tooltip="Studio.App.RobloxRibbonMainWindow.InsertObjectToolTip" ischeckable="true" icon=":/RibbonBar/images/RibbonIcons/Insert/Advanced-Objects.png" style="textundericon" width="32" height="32"/>
+        <addaction name="actionInsertAdvancedObject" iscommonslot="true" text="Studio.App.RBXMainWindow.InsertObject" tooltip="Studio.App.RobloxRibbonMainWindow.InsertObjectToolTip" ischeckable="true" icon=":/RibbonBar/images/RibbonIcons/Insert/Advanced-Objects.png" style="textundericon" width="32" height="32"/>
         <addaction name="insertModelAction" style="textundericon" text="Studio.App.RobloxRibbonMainWindow.Model" tooltip="Studio.App.RobloxRibbonMainWindow.InsertAModelFromLocalFiles" icon=":/RibbonBar/images/RibbonIcons/Insert/Import-Model.png" width="32" height="32"/>
         <addaction name="insertServiceAction" style="textundericon" text="Studio.App.RobloxRibbonMainWindow.Service" tooltip="Studio.App.RobloxRibbonMainWindow.InsertFromServiceSelection" icon=":/RibbonBar/images/RibbonIcons/Insert/Service.png" width="32" height="32"/>
         <addaction name="collisionGroupsEditorAction" type="plugin" style="textundericon" text="Studio.App.RobloxRibbonMainWindow.CollisionGroups" tooltip="Studio.App.RobloxRibbonMainWindow.EditCollisionGroups"/>
@@ -515,7 +514,7 @@
         </MenuButton>
         <!--<addaction name="deleteSelectedAction" text="Studio.Common.Action.Delete" style="textundericon" icon=":/RibbonBar/images/RibbonIcons/Home/Delete.png" width="32" height="32" />-->
       </Group>
-      <Group name="Format" fflag="StudioLSP_V2_alpha" text="Studio.App.RBXMainWindow.Format">
+      <Group name="Format" fflag="StudioLSP_V2" text="Studio.App.RBXMainWindow.Format">
         <MenuButton name="formatSelectionActionMenu" text="Studio.App.RBXMainWindow.FormatSelection" tooltip="Studio.App.RBXMainWindow.FormatDocumentElps" style="textundericon" icon=":/RibbonBar/images/RibbonIcons/Home/FormatSelection.png" width="32" height="32" >
           <addaction text="Studio.App.RBXMainWindow.FormatSelection" name="formatSelectionAction" style="textundericon" width="16" height="16" />
           <addaction text="Studio.App.RBXMainWindow.FormatDocument" name="formatDocumentAction" style="textundericon" width="16" height="16" />

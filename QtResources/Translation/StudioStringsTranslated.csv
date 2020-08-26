@@ -1612,7 +1612,7 @@ This will shutdown all running servers.","이 게임을 비공개로 설정할�
 Studio.App.GamesPageController.Restored,,,Restored,Restored,복원함,Восстановленные,已还原
 Studio.App.IDEGameSettingsLinkDefinition.GameSettingsNotAvailable,,,Game Settings not available,Game Settings not available,게임 설정을 사용할 수 없습니다,Настройки игры недоступны,无法使用游戏设置
 Studio.App.IDEGameSettingsLinkDefinition.OpenGameSettings,,,Open Game Settings,Open Game Settings,게임 설정 열기,Открыть настройки игры,打开游戏设置
-Studio.App.LoginManager.CaptchaClosed,,,Login requires Captcha. Please try again.,Login requires Captcha. Please try again.,로그인에는 캡차가 필요합니다. 나중에 다시 시도하세요.,Для входа требуется пройти Captcha. Попробуйте еще раз.,登陆需要验证码，请重试。
+Studio.App.LoginManager.CaptchaClosed,,,Captcha response not recognized. Please try again.,Captcha response not recognized. Please try again.,로그인에는 캡차가 필요합니다. 나중에 다시 시도하세요.,Для входа требуется пройти Captcha. Попробуйте еще раз.,登陆需要验证码，请重试。
 Studio.App.LoginManager.CaptchaError,,,Error displaying captcha,Error displaying captcha,캡차를 표시하는 데 오류가 발생함,Ошибка отображения Captcha,显示验证码时出错
 Studio.App.Login.EnterPassword,,,Please enter your password.,Please enter your password.,비밀번호를 입력하세요.,"Пожалуйста, введите свой пароль.",请输入你的密码。
 Studio.App.Login.EnterUsername,,,Please enter your username.,Please enter your username.,사용자 이름을 입력하세요.,"Пожалуйста, введите свое имя пользователя.",请输入你的用户名。
@@ -2350,7 +2350,7 @@ Studio.App.VideoControl.RecordingStopped,,,Video recording stopped,Video recordi
 Studio.App.ManageEmulationDeviceDialog.CloneDevice,,,Clone Device,Clone Device,기기 복제,,复制设备
 Studio.App.RBXMainWindow.ResumesExection,,,Resumes execution after pausing,Resumes execution after pausing,일시 정지 후 실행 재개,,暂停后继续执行
 Studio.App.RBXMainWindow.SaveAndReloadPlugin,,,Save and Reload Plugin,Save and Reload Plugin,플러그인 저장 및 다시 불러오기,,保存并重新加载插件
-Studio.App.RBXMainWindow.SaveAndReloadPluginTooltip,,,Save Plugin back to disk. Stop plugin execution. Reload from disk.,Save Plugin back to disk. Stop plugin execution. Reload from disk.,플러그인을 디스크에 다시 저장하세요. 플러그인 실행을 중지하세요. 디스크에서 다시 불러오세요.,,将插件保存回硬盘。停止插件执行。重新从硬盘载入。
+Studio.App.RBXMainWindow.SaveAndReloadPluginTooltip,,,Save plugin back to disk. Stop plugin execution. Reload from disk.,Save plugin back to disk. Stop plugin execution. Reload from disk.,플러그인을 디스크에 다시 저장하세요. 플러그인 실행을 중지하세요. 디스크에서 다시 불러오세요.,,将插件保存回硬盘。停止插件执行。重新从硬盘载入。
 Studio.App.RobloxRibbonMainWindow.ViewAssetManager,,,View Asset Manager,View Asset Manager,애셋 관리자 보기,,查看资源管理器
 Studio.App.RobloxStudioVerbs.DirtyPublishWarning1,,,There are uncommitted script changes that will not be published with the place. Do you want to publish anyway? <a href=%1>Learn more</a>,There are uncommitted script changes that will not be published with the place. Do you want to publish anyway? <a href=%1>Learn more</a>,"커밋되지 않은 스크립트 변경 사항이 있으며, 플레이스와 함께 게시할 수 없습니다. 그래도 게시할까요? <a href=%1>더 알아보기</a>",,存在未提交的脚本更改，将不会随场景共同发布。确定继续发布吗？<a href=%1>了解更多</a>
 Studio.App.RobloxStudioVerbs.PublishConfirm,,,Publish,Publish,게시,,发布
@@ -2758,7 +2758,7 @@ Studio.App.PropertyTooltip.Font,,,"Change the text font family, typeface, and si
 Studio.App.PropertyTooltip.FormatOnType,,,Automatically format the code after typing.,Automatically format the code after typing.,코드를 입력하고 나면 자동으로 서식을 지정합니다.,,在输入代码后对其进行自动格式化。
 Studio.App.PropertyTooltip.IndentUsingSpaces,,,Prefer indent with spaces over tabs. This will affect Auto Indent and pressing Tab behavior.,Prefer indent with spaces over tabs. This will affect Auto Indent and pressing Tab behavior.,탭 키보다는 스페이스바를 이용한 들여쓰기를 선호합니다. 이 속성은 자동 들여쓰기 및 탭 키 동작에 영향을 줍니다.,,在空格与 Tab 缩进中更倾向空格键缩进。此属性将会影响自动缩进及按下 Tab 键后的行为表示。
 Studio.App.PropertyTooltip.SkipClosingBracketsAndQuotes,,,Skip over a closing bracket/quote instead of inserting another.,Skip over a closing bracket/quote instead of inserting another.,닫는 괄호나 따옴표를 생략하고 삽입하지 않습니다.,,跳过右括号或右引号，不对其进行插入。
-Studio.App.PropertyTooltip.TabWidth,,,"The width of a tab, measured in number of spaces.","The width of a tab, measured in number of spaces.",공백 수로 측정된 탭 들여쓰기의 너비입니다.,,Tab 键的缩进宽度，以空格数量为单位。
+Studio.App.PropertyTooltip.TabWidth,,,"The width of a tab, measured in number of spaces. Value can only be between 1 and 8.","The width of a tab, measured in number of spaces. Value can only be between 1 and 8.",공백 수로 측정된 탭 들여쓰기의 너비입니다.,,Tab 键的缩进宽度，以空格数量为单位。
 Studio.App.PropertyTooltip.TextWrapping,,,Wrap the line of text below when the line character limit has been reached.,Wrap the line of text below when the line character limit has been reached.,"각 줄의 최대 문자 수에 도달할 경우, 줄바꿈해 아랫줄에 텍스트를 입력합니다.",,到达每行最大字数后，将超出的文本放入下一行中显示。
 Studio.App.Property.ActiveColor,,,Active Color,Active Color,활성 색상,,激活颜色
 Studio.App.Property.ActiveHoverOverColor,,,Active Hover Over Color,Active Hover Over Color,활성 커서 올리기 색,,悬停激活颜色
@@ -2817,3 +2817,124 @@ Studio.App.UniverseController.FailedToLoadGameAssets,,,"Failed to load game asse
 Studio.App.RobloxOutputRibbonDropdown.ShowContext,,,Show Context,Show Context,콘텍스트 표시,,显示语境
 Studio.App.RobloxOutputRibbonDropdown.ShowSource,,,Show Source,Show Source,소스 표시,,显示来源
 Studio.App.FBXMeshImporter.UnexpectedFileType,,,Your file does not seem to contain a FBX mesh! Make sure the file extension is correct.,Your file does not seem to contain a FBX mesh! Make sure the file extension is correct.,파일에 FBX 메시가 포함되어 있지 않은 것 같습니다. 파일 확장자가 올바른지 확인하세요.,,文件似乎并不包含 FBX 网格！请确认文件扩展名无误。
+Studio.App.Studio.App.OSVersionWarning.MacOS1010,,,Beginning in October 2020 we will be discontinuing support for MacOS 10.10. Please upgrade to MacOS 10.11+ to continue to use Roblox Studio.,Beginning in October 2020 we will be discontinuing support for MacOS 10.10. Please upgrade to MacOS 10.11+ to continue to use Roblox Studio.,2020년 10월부터 MacOS 10.10에 대한 지원이 중단됩니다. Roblox Studio를 계속 사용하려면 MacOS 10.11 이상으로 업그레이드하세요.,,从 2020 年 10 月开始，我们将停止对 MacOS 10.10 的支持。请升级到 MacOS 10.11+ 以继续使用 Roblox Studio。
+Studio.App.WatchWidget.CopyEntry,,,Copy Entry,Copy Entry,,,
+Studio.App.WatchWidget.CopyRow,,,Copy Row,Copy Row,,,
+Studio.App.RobloxOutputRibbonDropdown.MessageTypes,,,Message Types,Message Types,,,
+Studio.App.RobloxRibbonMainWindow.ClearPivot,,,Clear Pivot,Clear Pivot,,,
+Studio.App.RobloxRibbonMainWindow.ClearPivotTooltip,,,Clear the pivot for the selected object,Clear the pivot for the selected object,,,
+Studio.App.RobloxRibbonMainWindow.EditPivot,,,Edit Pivot,Edit Pivot,,,
+Studio.App.RobloxRibbonMainWindow.EditPivotTooltip,,,Edit the point around which the selected object rotates and translates,Edit the point around which the selected object rotates and translates,,,
+Studio.App.RobloxRibbonMainWindow.GeometryTab,,,Geometry,Geometry,,,
+Studio.App.RobloxRibbonMainWindow.PivotGroup,,,Pivot,Pivot,,,
+Studio.App.RobloxRibbonMainWindow.SetPivotMenu,,,Set pivot to...,Set pivot to...,,,
+Studio.App.RobloxRibbonMainWindow.SetPivotMenuTooltip,,,Set the pivot in a specific way,Set the pivot in a specific way,,,
+Studio.App.RobloxRibbonMainWindow.SetPivotToGeometry,,,Set to Geometry...,Set to Geometry...,,,
+Studio.App.RobloxRibbonMainWindow.SetPivotToGeometryTooltip,,,"Snap the pivot to a face, edge, or vertex","Snap the pivot to a face, edge, or vertex",,,
+Studio.App.RobloxRibbonMainWindow.SetPivotToModel,,,Center on Model,Center on Model,,,
+Studio.App.RobloxRibbonMainWindow.SetPivotToModelTooltip,,,Center the pivot on the selected model,Center the pivot on the selected model,,,
+Studio.App.RobloxRibbonMainWindow.SetPivotToPart,,,Center on Part...,Center on Part...,,,
+Studio.App.RobloxRibbonMainWindow.SetPivotToPartTooltip,,,Center the pivot on the clicked part,Center the pivot on the clicked part,,,
+Studio.App.RobloxRibbonMainWindow.SetPivotToSurface,,,Set to Surface...,Set to Surface...,,,
+Studio.App.RobloxRibbonMainWindow.SetPivotToSurfaceTooltip,,,Set the pivot to exactly the clicked point,Set the pivot to exactly the clicked point,,,
+Studio.App.RobloxTextOutputWidget.LuaTableIndicator1,,,table: %1,table: %1,,,
+Studio.App.StudioFlagEditor.FileIOError,,,Unable to save. Try running RobloxStudio with admin permission.,Unable to save. Try running RobloxStudio with admin permission.,,,
+Studio.App.TeamCreate.ConnectionResult1,,,Connection Result: %1,Connection Result: %1,,,
+Studio.App.TeamCreate.PlaceLauncherRequestStatus1,,,Request Status Code: %1,Request Status Code: %1,,,
+Studio.App.PropertyTooltip.FormatOnPaste,,,Automatically format the code after pasting.,Automatically format the code after pasting.,,,
+Studio.App.Property.CommandBarLocalState,,,Command bar operates on local state at breakpoint,Command bar operates on local state at breakpoint,,,
+Studio.App.Property.DebuggerCurrentLineColor,,,Debugger Current Line Color,Debugger Current Line Color,,,
+Studio.App.Property.DebuggerErrorLineColor,,,Debugger Error Line Color,Debugger Error Line Color,,,
+Studio.App.Property.FormatOnPaste,,,Format On Paste,Format On Paste,,,
+Studio.App.Property.MeshPartDetailLevel,,,Mesh Detail Level,Mesh Detail Level,,,
+Studio.App.RBXMainWindow.AddNewlineAbove,,,Insert Newline Above,Insert Newline Above,,,
+Studio.App.RBXMainWindow.AddNewlineAboveToolTip,,,Insert a newline above the current line,Insert a newline above the current line,,,
+Studio.App.RBXMainWindow.AddNewlineBelow,,,Insert Newline Below,Insert Newline Below,,,
+Studio.App.RBXMainWindow.AddNewlineBelowToolTip,,,Insert a newline below the current line,Insert a newline below the current line,,,
+Studio.App.RBXMainWindow.DeleteToStartOfLine,,,Delete to start of line,Delete to start of line,,,
+Studio.App.RBXMainWindow.DeleteToStartOfLineToolTip,,,Delete to the start of the current line,Delete to the start of the current line,,,
+Studio.App.RBXMainWindow.DraggerModeGeometric,,,Geometric,Geometric,,,
+Studio.App.RBXMainWindow.DraggerModeLabel,,,Mode:,Mode:,,,
+Studio.App.RBXMainWindow.DraggerModePhysical,,,Physical,Physical,,,
+Studio.App.RBXMainWindow.GameSettings,,,Game Settings...,Game Settings...,,,
+Studio.App.RBXMainWindow.IndentSelection,,,Indent,Indent,,,
+Studio.App.RBXMainWindow.IndentSelectionToolTip,,,Indent selected line(s),Indent selected line(s),,,
+Studio.App.RBXMainWindow.SaveAndReloadAllPlugins,,,Save and Reload All Plugins in Debugger,Save and Reload All Plugins in Debugger,,,
+Studio.App.RBXMainWindow.SaveAndReloadAllPluginsTooltip,,,Save all plugins in debugger back to disk. Stop execution of those plugins. Reload them from disk.,Save all plugins in debugger back to disk. Stop execution of those plugins. Reload them from disk.,,,
+Studio.App.RBXMainWindow.StudioSettingsElps,,,Studio Settings...,Studio Settings...,,,
+Studio.App.RBXMainWindow.UnindentSelection,,,Unindent,Unindent,,,
+Studio.App.RBXMainWindow.UnindentSelectionToolTip,,,Unindent selected line(s),Unindent selected line(s),,,
+Studio.App.AddEmulationDeviceDialog.DeviceMemoryMB,,,Simulated Memory (MB),Simulated Memory (MB),,,
+Studio.App.BetaFeatures.NewFeaturesForChannelUserWarning1,,,"New beta features are available now and reflected in this dialog. You must restart Studio for them to become available. <a href=""%1"">Restart Now</a>","New beta features are available now and reflected in this dialog. You must restart Studio for them to become available. <a href=""%1"">Restart Now</a>",,,
+Studio.App.BetaFeatures.SkinnedMeshDescription,,,"Enables import, display and animation of skinned meshes.","Enables import, display and animation of skinned meshes.",,,
+Studio.App.BetaFeatures.SkinnedMeshTitle,,,Skinned Meshes,Skinned Meshes,,,
+Studio.App.CalloutController.AssetManagerCalloutDescription,,,"Replacing the Game Explorer, the Asset Manager is a new menu in Studio that enables developers to more effectively manage game assets!","Replacing the Game Explorer, the Asset Manager is a new menu in Studio that enables developers to more effectively manage game assets!",,,
+Studio.App.CalloutController.AssetManagerCalloutTitle,,,Asset Manager,Asset Manager,,,
+Studio.App.IdeDoc.AreYouSureYouWantToExit1,,,Are you sure you want to exit '%1'?,Are you sure you want to exit '%1'?,,,
+Studio.App.IdeDoc.StatusInitializing,,,Initializing...,Initializing...,,,
+Studio.App.IdeDoc.StatusLoading,,,Loading test...,Loading test...,,,
+Studio.App.IdeDoc.StatusSaving,,,Saving world...,Saving world...,,,
+Studio.App.IdeDoc.StatusSettingUp,,,Setting up...,Setting up...,,,
+Studio.App.MyWatchTreeWidget.DeleteAll,,,Delete All,Delete All,,,
+Studio.App.MyWatchTreeWidget.DeleteWatch,,,Delete Watch,Delete Watch,,,
+Studio.App.OSVersionWarning.MacOS1010,,,Beginning in October 2020 we will be discontinuing support for MacOS 10.10. Please upgrade to MacOS 10.11+ to continue to use Roblox Studio.,Beginning in October 2020 we will be discontinuing support for MacOS 10.10. Please upgrade to MacOS 10.11+ to continue to use Roblox Studio.,,,
+Studio.Common.Action.Apply,,,Apply,Apply,적용,Применить,应用
+Studio.Common.Action.Back,,,Back,Back,뒤로,Назад,返回
+Studio.Common.Action.Cancel,,,Cancel,Cancel,취소,Отмена,取消
+Studio.Common.Action.Clear,,,Clear,Clear,지우기,Очистить,清除
+Studio.Common.Action.Close,,,Close,Close,닫기,Закрыть,关闭
+Studio.Common.Action.Copy,,,Copy,Copy,복사,Копировать,复制
+Studio.Common.Action.Create,,,Create,Create,만들기,Создать,创建
+Studio.Common.Action.Cut,,,Cut,Cut,잘라내기,Вырезать,剪切
+Studio.Common.Action.Delete,,,Delete,Delete,삭제,Удалить,删除
+Studio.Common.Action.Edit,,,Edit,Edit,편집,Изменить,编辑
+Studio.Common.Action.Exit,,,Exit,Exit,나가기,Выход,退出
+Studio.Common.Action.File,,,File,File,파일,Файл,文件
+Studio.Common.Action.Find,,,Find,Find,찾기,Найти,查找
+Studio.Common.Action.Help,,,Help,Help,도움말,Справка,帮助
+Studio.Common.Action.Home,,,Home,Home,홈,Главная,首页
+Studio.Common.Action.Ignore,,,Ignore,Ignore,무시,Пропустить,忽略
+Studio.Common.Action.Insert,,,Insert,Insert,삽입,Вставить,插入
+Studio.Common.Action.New,,,New,New,새로 만들기,Создать,新增
+Studio.Common.Action.Next,,,Next,Next,다음,Далее,下一个
+Studio.Common.Action.No,,,No,No,아니요,Нет,否
+Studio.Common.Action.OK,,,OK,OK,확인,ОК,确认
+Studio.Common.Action.Okay,,,Okay,Okay,확인,ОК,好的
+Studio.Common.Action.Open,,,Open,Open,열기,Открыть,打开
+Studio.Common.Action.Paste,,,Paste,Paste,붙여넣기,Вставить,粘贴
+Studio.Common.Action.Pause,,,Pause,Pause,일시 중지,Пауза,暂停
+Studio.Common.Action.Play,,,Play,Play,플레이,Воспроизвести,播放
+Studio.Common.Action.Previous,,,Previous,Previous,이전,Предыдущий,上一个
+Studio.Common.Action.Reload,,,Reload,Reload,다시 불러오기,Перезагрузить,重新加载
+Studio.Common.Action.Remove,,,Remove,Remove,제거,Удалить,删除
+Studio.Common.Action.Rename,,,Rename,Rename,이름 변경,Переименовать,重命名
+Studio.Common.Action.Replace,,,Replace,Replace,바꾸기,Заменить,替换
+Studio.Common.Action.Resize,,,Resize,Resize,크기 조정,Изменить размер,缩放
+Studio.Common.Action.Retry,,,Retry,Retry,다시 시도,Повтор,重试
+Studio.Common.Action.Save,,,Save,Save,저장,Сохранить,保存
+Studio.Common.Action.Select,,,Select,Select,선택,Выбрать,选择
+Studio.Common.Action.Share,,,Share,Share,공유,Поделиться,分享
+Studio.Common.Action.Stop,,,Stop,Stop,중지,Остановить,停止
+Studio.Common.Action.Yes,,,Yes,Yes,예,Да,是
+Studio.Common.Action.Continue,,,Continue,Continue,계속,Продолжить,继续
+Studio.Common.Action.Redo,,,Redo,Redo,다시 실행,Вернуть,恢复
+Studio.Common.Action.Undo,,,Undo,Undo,실행 취소,Отменить,撤消
+Studio.Common.Action.Update,,,Update,Update,업데이트,Обновить,更新
+Studio.Common.Action.Reset,,,Reset,Reset,재설정,Сброс,重置
+Studio.Common.Action.Fill,,,Fill,Fill,채우기,Заполнить,填充
+Studio.Common.Action.Goto,,,Goto,Goto,이동,Перейти,前往
+Studio.Common.Action.Move,,,Move,Move,이동,Переместить,移动
+Studio.Common.Action.Rotate,,,Rotate,Rotate,회전,Вращать,旋转
+Studio.Common.Action.Error,,,Error,Error,오류,Ошибка,错误
+Studio.Common.Action.Height,,,Height,Height,높이,Высота,高度
+Studio.Common.Action.LabelWithColon1,,,%1:,%1:,%1:,%1:,%1
+Studio.Common.Action.Name,,,Name,Name,이름,Имя,名称
+Studio.Common.Action.Search,,,Search,Search,검색,Поиск,搜索
+Studio.Common.Action.Value,,,Value,Value,값,Значение,值
+Studio.Common.Action.Warning,,,Warning,Warning,경고,Предупреждение,警告
+Studio.Common.Action.Width,,,Width,Width,넓이,Ширина,宽度
+Studio.Common.Action.Submit,,,Submit,Submit,제출,Завершить,提交
+Studio.Common.Action.Install,,,Install,Install,설치,Установить,安装
+Studio.Common.Action.Installed,,,Installed,Installed,설치됨,Установлено,已安装
+Studio.Common.Action.Loading,,,Loading...,Loading...,불러오는 중...,Загрузка...,正在加载...
+Studio.Common.Action.Resume,,,Resume,Resume,재개,,继续

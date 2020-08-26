@@ -133,6 +133,22 @@ RBX
 			ChunkRenderEntity
 			ChunkRenderNode
 		}
+		TextureD3D11
+		{
+			DownloadBuffer
+		}
+		TextureD3D9
+		{
+			DownloadBuffer
+		}
+		TextureGL
+		{
+			DownloadBuffer
+		}
+		TextureVulkan
+		{
+			DownloadBuffer
+		}
 		AdornRender
 		BeamNode
 		Buffer
@@ -224,11 +240,8 @@ RBX
 		Texture
 		TextureAtlas
 		TextureCompositor
-		TextureD3D11
-		TextureD3D9
-		TextureGL
+		TextureDownloadBuffer
 		TextureProxy
-		TextureVulkan
 		TrailNode
 		VertexBufferD3D9
 		VertexLayout
@@ -429,6 +442,7 @@ RBX
 		NetworkPhysicsMegaJob
 		NetworkPhysicsParallelReceiveJob
 		NetworkSendDataMegaJob
+		NetworkSenderScheduleJob
 		NetworkStream
 		NewInstanceItem
 		PacketReceiveJob
@@ -440,8 +454,13 @@ RBX
 		ResolveNewInstanceAtomicTreeItem
 		RomarkPhaseTrackingJob
 		Server
+		SharedChangeAttributeItem
+		SharedChangePropertyItem
+		SharedDeleteInstanceItem
 		SharedEventInvocationItem
+		SharedNewInstanceItem
 		SharedQueueItem
+		SharedReferencePropertyChangedItem
 		StreamingInterface
 	}
 	PART

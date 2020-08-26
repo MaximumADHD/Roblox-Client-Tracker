@@ -1567,19 +1567,14 @@ Class LocalizationService : Instance [NotCreatable] [Service] [NotReplicated]
 	Event LocalizationService.AutoTranslateWillRun() {RobloxScriptSecurity}
 Class LocalizationTable : Instance
 	Property Instance LocalizationTable.Root  [Hidden] [NotReplicated] [Deprecated]
-	Property string LocalizationTable.DevelopmentLanguage [<📁> LoadOnly] [Hidden] [NotReplicated] [Deprecated]
 	Property string LocalizationTable.SourceLocaleId
-	Function string LocalizationTable:GetContents() [Deprecated]
 	Function Array LocalizationTable:GetEntries()
 	Function string LocalizationTable:GetString(string targetLocaleId, string key) [Deprecated]
 	Function Instance LocalizationTable:GetTranslator(string localeId)
 	Function void LocalizationTable:RemoveEntry(string key, string source, string context)
 	Function void LocalizationTable:RemoveEntryValue(string key, string source, string context, string localeId)
-	Function void LocalizationTable:RemoveKey(string key) [Deprecated]
 	Function void LocalizationTable:RemoveTargetLocale(string localeId)
-	Function void LocalizationTable:SetContents(string contents) [Deprecated]
 	Function void LocalizationTable:SetEntries(Variant entries)
-	Function void LocalizationTable:SetEntry(string key, string targetLocaleId, string text) [Deprecated]
 	Function void LocalizationTable:SetEntryContext(string key, string source, string context, string newContext)
 	Function void LocalizationTable:SetEntryExample(string key, string source, string context, string example)
 	Function void LocalizationTable:SetEntryKey(string key, string source, string context, string newKey)
@@ -2850,6 +2845,7 @@ Class Studio : Instance [NotCreatable] [Service] [NotReplicated]
 	Property int Studio.Render Throttle Percentage
 	Property Instance Studio.Theme
 	Property Enum<UITheme> Studio.UI Theme [<💾> SaveOnly] [Hidden] [ReadOnly] [NotReplicated] [Deprecated]
+	Property bool Studio.CommandBarLocalState
 	Property bool Studio.LuaDebuggerEnabled
 	Property bool Studio.LuaDebuggerEnabledAtStartup  [Hidden] [ReadOnly] [NotReplicated]
 	Property bool Studio.PluginDebuggingEnabled

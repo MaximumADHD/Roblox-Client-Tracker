@@ -7,10 +7,10 @@ import "."
 
 Rectangle {
     id: rootWindow
-	width: insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv0_Consolidated() ? undefined : 400; 
-	height: insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv0_Consolidated() ? undefined : 600;
+	width: undefined; 
+	height: undefined;
     color: "transparent"
-    anchors.fill: insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv0_Consolidated() ? parent : undefined;
+    anchors.fill: parent;
 
     readonly property int defaultCurrentIndex: -1 // See Qt documentation
     property bool showBelow: false
@@ -114,9 +114,7 @@ Rectangle {
     }
 
     function insertObject() {
-		if(insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv0_Consolidated()) {
-			classToolTip.hide();
-		}
+		classToolTip.hide();
         var currentView = getCurrentView();
         // Don't try to insert an object if the user hasn't selected any
         if (currentView.currentIndex < 0 || currentView.currentIndex > currentView.count) {
@@ -130,7 +128,7 @@ Rectangle {
 			clearWindowState()
 		}
         else if(!insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_Consolidated()) {
-            if (!insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv0_Consolidated() || isWindow){
+            if (isWindow){
 			    searchBoxText.text = "";
 			    currentView.currentIndex = defaultCurrentIndex;
 		    }
@@ -140,9 +138,9 @@ Rectangle {
 	// The dialog rectangle was added so we can add a drop shadow to it.
 	Rectangle {
 	    id: dialog
-		width: insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv0_Consolidated() ? undefined : 240; 
-		height: insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv0_Consolidated() ? undefined : 456;
-		anchors.fill: insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv0_Consolidated() ? parent : undefined;
+		width: undefined; 
+		height: undefined;
+		anchors.fill: parent;
         anchors.margins: (insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_Consolidated() && isWindow) ? 2 : 0
 	    color: insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_Consolidated() ? 
                         userPreferences.theme.style("InsertObjectWindow mainBackground") :
@@ -165,9 +163,9 @@ Rectangle {
 			id: searchBox
 			anchors.left: parent.left
 			anchors.right: parent.right
-			anchors.top: insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv0_Consolidated() ? dialog.top : undefined;
-            anchors.margins: insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv0_Consolidated() ? 6 : 0
-			height:insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv0_Consolidated() ? 28 : 36
+			anchors.top: dialog.top
+            anchors.margins: 6
+			height: 28
 			color: insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_Consolidated() ? 
                         "transparent" :
                         userPreferences.theme.style("CommonStyle mainBackground")
@@ -224,21 +222,19 @@ Rectangle {
 		    	}
 
 				onActiveFocusChanged: {
-					if(insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv0_Consolidated()){
-						if (activeFocus){
-							selectAll();
-							rootWindow.isTextFocused = true;
-						}
-						else{
-							rootWindow.isTextFocused = false;
-						}
+					if (activeFocus){
+						selectAll();
+						rootWindow.isTextFocused = true;
+					}
+					else{
+						rootWindow.isTextFocused = false;
 					}
 				}
 
 		    	// Is called when the user types something in the search box.
 		    	onTextChanged: {
 		    		rootWindow.filterTextChanged(text);
-					if (!insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_Consolidated() && insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv0_Consolidated()){
+					if (!insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_Consolidated()){
 						if (!text){
 							_DEPRECATED_listView.section.delegate = _DEPRECATED_categoryDelegate;
 						}
@@ -315,7 +311,7 @@ Rectangle {
                 	if(insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_Consolidated()) {
 					    clearWindowState()
 					}
-					else if(insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv0_Consolidated()) {
+					else {
 						classToolTip.hide();
 					}
                     Qt.quit();
@@ -352,7 +348,7 @@ Rectangle {
                             currentView.currentIndex = Math.min(currentView.count-1, currentView.currentIndex+itemsPerPage);
                             event.accepted = true;
                         }
-					    else if (insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv0_Consolidated() && event.key == Qt.Key_Tab) {
+					    else if (event.key == Qt.Key_Tab) {
                             event.accepted = true;
                         }
                     }
@@ -384,35 +380,21 @@ Rectangle {
     				onEntered:	{
                         var currentView = getCurrentView();
                         currentView.currentIndex = mIndex
-						if(insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv0_Consolidated()){
-							mouseHighlightedIndex = mIndex
-						}
+						mouseHighlightedIndex = mIndex
 						if (mDescription != "") {
 							var pos = mouseArea.mapToItem(dialog, mouseArea.x, mouseArea.y);
-                            if(insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv0_Consolidated()) {
-                                classToolTip.show(mDescription ? mDescription : "", pos.x, pos.y, nameDelegateArea.height+1, dialog.height, dialog.width);
-                            }
-							else {
-                                classToolTip.deprecated_show(mDescription ? mDescription : "", pos.x, pos.y + 29);
-                            }
+                            classToolTip.show(mDescription ? mDescription : "", pos.x, pos.y, nameDelegateArea.height+1, dialog.height, dialog.width);
 						}
 					} 
 					onPositionChanged: {
 						if (mDescription != "") {
 							// Tooltip show method hides any displayed tooltip to reset the state
 							var pos = mouseArea.mapToItem(dialog, mouseArea.x, mouseArea.y);
-                            if(insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv0_Consolidated()) {
-                                classToolTip.show(mDescription ? mDescription : "", pos.x, pos.y, nameDelegateArea.height+1, dialog.height, dialog.width);
-                            }
-                            else {
-                                classToolTip.deprecated_show(mDescription ? mDescription : "", pos.x, pos.y + 29);
-                            }			
+                            classToolTip.show(mDescription ? mDescription : "", pos.x, pos.y, nameDelegateArea.height+1, dialog.height, dialog.width);		
 						}
 					}
 					onExited: { 
-						if(insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv0_Consolidated()){
-							mouseHighlightedIndex = -1
-						}
+						mouseHighlightedIndex = -1
 						classToolTip.hide();
 					}
     				onClicked: {
@@ -465,14 +447,9 @@ Rectangle {
                         objectName: "qmlInsertObjectText" + mName
     				    font.pixelSize: 14
     				    color:{
-					        if(insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv0_Consolidated()){
-					            mIsUnpreferred ?  
-							        userPreferences.theme.style("CommonStyle dimmedText") : 
-							        userPreferences.theme.style("CommonStyle mainText")
-					        }
-					        else{
-					            userPreferences.theme.style("CommonStyle mainText")
-					        }
+                            mIsUnpreferred ?  
+							    userPreferences.theme.style("CommonStyle dimmedText") : 
+							    userPreferences.theme.style("CommonStyle mainText")
 					    }
     				    // Work around rare race condition where name is undefined
     				    text: mName ? mName : ""
@@ -606,38 +583,26 @@ Rectangle {
 			id: _DEPRECATED_selectedCheckBox
             text: qsTr("Studio.App.InsertObjectWidget.SelectInsertedObject")
 
-			checked: insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv0_Consolidated() ? selectAfterInsert : true
+			checked: selectAfterInsert
 			onClicked: rootWindow.selectAfterInsertChecked(checked)
 			anchors.left: parent.left
 			anchors.top: insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_Consolidated() ? _DEPRECATED_showRecommendedOnlyCheckBox.bottom : searchBox.bottom
 			anchors.leftMargin: 6
 	        visible: {
-			    if(insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv0_Consolidated()){
-                    if(insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_Consolidated) {
-                        return true
-                    }
-                    else {
-                        return !isWindow;
-                    }
-				}
-				else
-				{
-				    return false;
-				}
+                if(insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_Consolidated) {
+                    return true
+                }
+                else {
+                    return !isWindow;
+                }
 			}			
 			height: {
-				if(insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv0_Consolidated){
-                    if(insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_Consolidated) {
-                        return 30
-                    }
-                    else {
-                        return isWindow ? 0 : 30
-                    }
-				}
-				else
-				{
-				    return 0;
-				}		
+                if(insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_Consolidated) {
+                    return 30
+                }
+                else {
+                    return isWindow ? 0 : 30
+                }	
 			}
 		}
 
@@ -692,35 +657,23 @@ Rectangle {
 			        id: selectedCheckBox
                     text: qsTr("Studio.App.InsertObjectWidget.SelectInsertedObject")
 
-			        checked: insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv0_Consolidated() ? selectAfterInsert : true
+			        checked: selectAfterInsert
 			        onClicked: rootWindow.selectAfterInsertChecked(checked)
 	                visible: {
-			            if(insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv0_Consolidated()){
-                            if(insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_Consolidated) {
-                                return true
-                            }
-                            else {
-                                return !isWindow;
-                            }
-				        }
-				        else
-				        {
-				            return false;
-				        }
+                        if(insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_Consolidated) {
+                            return true
+                        }
+                        else {
+                            return !isWindow;
+                        }
 			        }			
 			        height: {
-				        if(insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv0_Consolidated()){
-                            if(insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_Consolidated) {
-                                return 30
-                            }
-                            else {
-                                return isWindow ? 0 : 30
-                            }
-				        }
-				        else
-				        {
-				            return 0;
-				        }		
+                        if(insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_Consolidated) {
+                            return 30
+                        }
+                        else {
+                            return isWindow ? 0 : 30
+                        }	
 			        }
 		        }
             }
@@ -729,7 +682,7 @@ Rectangle {
         Rectangle
         {
             id: scrollViewContainer
-        	anchors.top: insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv0_Consolidated() && !insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_Consolidated() 
+        	anchors.top: !insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_Consolidated() 
                 ? _DEPRECATED_selectedCheckBox.bottom
                 : searchBox.bottom  
             anchors.topMargin: 5
@@ -742,17 +695,10 @@ Rectangle {
 
             Text {
                 anchors.fill: parent
-			    text:{
-                    if(insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv0_Consolidated()){
-                        searchBoxText.text.length == 0 ? qsTr("Studio.App.InsertObjectWidget.EmptyFrequentlyUsedList") : qsTr("Studio.App.InsertObjectWidget.NoResultsFound")
-                    }
-                    else{
-                        qsTr("Studio.App.InsertObjectWidget.EmptyFrequentlyUsedList")
-                    }
-                }
+			    text: searchBoxText.text.length == 0 ? qsTr("Studio.App.InsertObjectWidget.EmptyFrequentlyUsedList") : qsTr("Studio.App.InsertObjectWidget.NoResultsFound")
                 wrapMode: Text.WordWrap
 			    color: userPreferences.theme.style("CommonStyle dimmedText")
-                visible: insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv0_Consolidated() && getCurrentView().count == 0 && isWindow
+                visible: getCurrentView().count == 0 && isWindow
             }
 
 
@@ -778,12 +724,7 @@ Rectangle {
                                     property string mDescription: typeof(description) !== "undefined" ? description : ""
                                     property bool mIsPlaceholder: typeof(isPlaceholder) !== "undefined" ? isPlaceholder : false
                                     property bool mIsUnpreferred: {
-                                        if(insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv0_Consolidated()) {
-                                            typeof(isUnpreferred) !== "undefined" ? isUnpreferred : false
-                                        }
-                                        else {
-                                            return false;
-                                        }
+                                        typeof(isUnpreferred) !== "undefined" ? isUnpreferred : false
                                     }
 
                                     anchors.left: parent ? parent.left : undefined
@@ -845,14 +786,7 @@ Rectangle {
                                     property string mCategory: typeof(category) !== "undefined" ? category : ""
                                     property string mDescription: typeof(description) !== "undefined" ? description : ""
                                     property bool mIsPlaceholder: typeof(isPlaceholder) !== "undefined" ? isPlaceholder : false
-                                    property bool mIsUnpreferred: {
-                                        if(insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv0_Consolidated()) {
-                                            typeof(isUnpreferred) !== "undefined" ? isUnpreferred : false
-                                        }
-                                        else {
-                                            return false;
-                                        }
-                                    }
+                                    property bool mIsUnpreferred: typeof(isUnpreferred) !== "undefined" ? isUnpreferred : false
 
                                     anchors.left: parent ? parent.left : undefined
                                     anchors.right: parent ? parent.right : undefined
@@ -913,14 +847,7 @@ Rectangle {
                                     property string mCategory: typeof(category) !== "undefined" ? category : ""
                                     property string mDescription: typeof(description) !== "undefined" ? description : ""
                                     property bool mIsPlaceholder: typeof(isPlaceholder) !== "undefined" ? isPlaceholder : false
-                                    property bool mIsUnpreferred: {
-                                        if(insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv0_Consolidated()) {
-                                            typeof(isUnpreferred) !== "undefined" ? isUnpreferred : false
-                                        }
-                                        else {
-                                            return false;
-                                        }
-                                    }
+                                    property bool mIsUnpreferred:  typeof(isUnpreferred) !== "undefined" ? isUnpreferred : false
 
                                     height: 25
                                     width: 185
@@ -969,40 +896,4 @@ Rectangle {
 	ClassToolTip {
 		id: classToolTip
 	}
-
-	states: [
-		State {
-			name: "" // Default state
-			when: {
-				!insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv0_Consolidated() 
-				&& rootWindow.showBelow 
-			}
-			AnchorChanges {
-				target: searchBox
-				anchors.top: dialog.top
-			}
-			AnchorChanges {
-				target: scrollViewContainer
-				anchors.top: searchBox.bottom
-				anchors.bottom: dialog.bottom
-			}
-		},
-		State {
-			name: "STATE_SHOW_ABOVE"
-			when: {
-				!insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv0_Consolidated() 
-				&& !rootWindow.showBelow 
-			}
-			AnchorChanges {
-				target: searchBox
-				anchors.top: insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv0_Consolidated() ? undefined : scrollViewContainer.bottom;
-				anchors.bottom: dialog.bottom
-			}
-			AnchorChanges {
-				target: scrollViewContainer
-				anchors.top: dialog.top
-				anchors.bottom: searchBox.top
-			}
-		}
-	]
 }
