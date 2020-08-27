@@ -1034,7 +1034,6 @@ AttributeSyntax
 AttributeType
 AttributeType27
 AtUserChoice
-AtwyeoUQJIdT8sKhVPt7sbQDHe3bJQ
 AU_ATL_MODULE70
 AU_Collvec
 AU_ContinuationTaskHandleBase
@@ -4443,6 +4442,7 @@ BN_rand_range
 BN_RECP_CTX_new
 BN_STACK_push
 BN_to_felem
+BoCXgUXCYCUTxnXbJtHcmNy7DT5TSZG
 BodyAngularVelocity
 BodyBack_Att
 BodyBackAttachment
@@ -4700,7 +4700,7 @@ BytesReceivedAndIgnoredPerSec
 BytesReceivedPerSec
 BytesRecvAndIgnored
 BytesWritten
-ByVersion_0.445.0.410316
+ByVersion_0.445.1.410643
 ByVersionForPlatform_
 C_specific_handler
 CA_NPEAVQObject
@@ -5053,6 +5053,7 @@ CFrame.new
 CFrameDecal
 CFrameOnly
 CFrameValue
+Ch80bfWXyHSmQHO4MFvS8F7pGrTIQrCXKIuRAg
 ChainCAFile
 ChainCAPath
 Chalkboard
@@ -5901,6 +5902,7 @@ CoCreateInstance
 CODECAPI_AVDecMmcssClass
 CodeForActivation
 CoFreeUnusedLibraries
+CofUa6Xvf1UYDw
 CoGetClassObject
 CoInitialize
 CoInitializeEx
@@ -6849,7 +6851,6 @@ CSwitchTime.length
 CSwitchTime[i]
 CT_POLICY_EVAL_CTX_new
 CtctStageCtcts
-CTetV6RGS5Vm
 CTLOG_new_from_base64
 CTLOG_STORE_load_file
 CTLOG_STORE_new
@@ -7932,6 +7933,7 @@ DeveloperTag
 DeveloperTouchCameraMovementMode
 DeveloperTouchMovementMode
 Development
+DevelopmentLanguage
 DevEnableMouseLock
 DevEnableMouseLockOption
 DevFrameworkEnumUtility
@@ -7982,9 +7984,9 @@ DF3F709311E28987EB530EBA4742
 DF40709311E28987EB530EBA4742
 DF41709311E28987EB530EBA4742
 DF42709311E28987EB530EBA4742
+Df6FUj0CGt4IarThKEyiR6w3ozQUo
 DFbxAMatrix
 DFbxMatrix
-DFEra1gCPkGM3mTIVpKK4JqFDewnwyxesD5pbUi5M
 DfNfXfbftf
 DGHASH_ASM
 DgNg`ghgpgxg
@@ -9313,6 +9315,7 @@ ExecutionLevel
 ExistingDirectory
 ExitAction
 ExitProcess
+EXovlUpnd1ywEe
 EXPAND_ONLY
 ExpandedStateToggle
 ExpandedValue
@@ -9875,7 +9878,6 @@ FMODPlaybackDSP
 FMODReportDeviceInfo
 FMODSoundChannels
 FMODStudio
-FO5ZMkAboiT8HUjjOzVHL7ajWefWLrW17B1fLKnPsw
 FocusChange
 FocusChanged
 FocusDistance
@@ -10168,6 +10170,7 @@ FutureIsBrightPhase2GLES3
 FutureIsBrightPhase3
 FutureIsBrightPhase3iOS
 FutureIsBrightPhase3Vulkan
+FX2wVgUf9mk5hLJnS8
 FXCompositing
 FXCompositingFS
 FXCompositingLinearFS
@@ -10495,6 +10498,7 @@ GetConnectedGamepads
 GetConnectedParts
 GetConsoleMode
 GetContentMemoryData
+GetContents
 GetContextGPUIDAMD
 GetControllerVibrationState
 GetControlPointIndices
@@ -11055,7 +11059,6 @@ GetWindowLongPtrA
 GetWindowTextA
 GetWindowTextLengthA
 GetWindowThreadProcessId
-GEu1GgvTKEXrCgeBV0f7XQjXtDvwtpDcCAwEAAQ
 GF2m_montgomery_point_multiply
 GF2m_simple_field_inv
 GF2m_simple_group_check_discriminant
@@ -11149,7 +11152,7 @@ GLSL.std.450
 Glsles3Mediump1
 GlslesMediump1
 GlueCursor
-GOiTfKjMPRDT4uX6gNMxZ0JQ2xVb
+GmSAi9SOeC082IIDl
 GoldenHashes
 GoodbyeChoiceActive
 GoodbyeChoiceActiveProperty
@@ -11651,7 +11654,6 @@ HQFSShadowedFSM
 HQVSShadowed
 HQVSShadowedFSM
 HtmlEscaped
-HtSB4uiChfGgXP7jL4iest7QL6VyLhW
 Http_Failed
 HTTPAccumulatedBytes
 HttpAdditionalBandwidthMetrics
@@ -11912,7 +11914,6 @@ HybridEvent
 HyIyPyVy]y^yey
 Iacutesmall
 IAutocompleter
-Ib7j9P0cINlkqzfhH1dhLbq5B5CDc
 IBusyStateModel
 ICCProfile
 ICharacterSubject
@@ -12673,7 +12674,6 @@ Javascript
 JavaScript
 JavaScriptCallback
 Jba5qWkYU5nARYZm1gQVP
-JbzMZ8nyryLRMBBk0smiN28thFL2eHNXl64
 Jcircumflex
 JDJNJXJbJlJvJ
 JHJRJ\JfJpJxJ
@@ -12747,6 +12747,7 @@ JointStepParallelBatchSize
 JointTime_TextureCooldown
 JointToolHelpDialogVerb
 JPEBUSG_INDEX_TRIANGLE
+JrdXWm4k0tI0kHbzhL
 JSON.parse
 JSON.stringify
 JSON_Parser
@@ -13175,6 +13176,7 @@ LiveThreadRef
 LivingRoom
 LLEo6Soxvx2
 LLLLLLLLLLLLLLLL]]]]]]]]]]]]]]]]]]]]
+LN7hhwtSgk12pSJ8NPjH6H5CIfb5wIpLsod2ZXOfPANoosrcCtmv8
 LOAD_CERT_CTRL
 Load_Package
 LoadAnimation
@@ -14206,7 +14208,7 @@ MigrateTriangleMeshData3
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAsI9zRp2OSccqdFx2
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAupANB3EbN9hFHHUj0eA
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAzjPRQo9jc
-MIICCgKCAgEAx2HZTn3xQnRFg2Y6aIu1QcD295cgvQV
+MIICCgKCAgEAzhZYXxbCvYgbGdVmPyUgFNgqHXkOY
 Millisecond
 MillisecondsBeforeHandlingReconnect
 MimeDataFromSelection
@@ -14645,7 +14647,6 @@ NCONF_get_string
 NCONF_load
 NCONF_load_bio
 NCONF_load_fp
-NDgvCL4LozQtQDs
 NdnuScpeLkclOiiaVruaSilaKgnjRicyLiraCidyLmahCanaLtvaTtsvApygErmaSusiLumaBavaJietMimrAbraSitrPilhPhkrOihtKktaBharBdnaMmkaCcreMoreMdrlPdrhSaroSrkaTzzzZssaBbhgAlpuDablEnarGjohKdniSaniLjhaMinaMdneMidoMoorMtabNbraNmrePgnmHmlaPcuaPplhPddiShriTaraWmohAwulHrtaHtluMgn
 NE9F0uHE9F4uBE9F8u
 NearIntensity
@@ -14808,6 +14809,7 @@ NextTabPage
 NfXf`fhfzf
 NHVVariant
 NinjaMask.mesh
+NL2ymfuzBcjFAieOkk8j5XLiFL8eITUWCTGr2Pccpa
 NNNNNNNNNNNNNNNNNNNNNN
 NNNNNNNSSSSSSSSSSSSSSSSSSSSSS
 NNW4SizeMode
@@ -15384,7 +15386,6 @@ OverrideStarterScript
 OverrideToMyBranch
 OverwriteMode
 OverwritePublish
-OWbb7jp6DknaiRsGfNy5kwP
 OwnProperty
 Ozs8xYCf2Q05p4gHyX
 PA^A]A\_^]
@@ -15636,6 +15637,7 @@ PCertReqData
 PCertResTBS
 PCStudioApp
 PCStudioAppCJV
+PDm4b7spkd1zDYNI8GxzBo3OEzjIJWsTfDqrJEBZzR2s
 PE_MAX_NB_SUBFR
 PEA_NAEBV2
 PEA_NPEAVQDialog
@@ -16755,7 +16757,6 @@ PlaySoloVerb
 PlayStockSound
 PLC_PITCH_LAG_MAX
 PLC_PITCH_LAG_MIN
-PLGYbNVLBn
 Plugin.rbxm
 PluginAction
 PluginByFilePath
@@ -17241,6 +17242,7 @@ QAbstractTableModel
 QActionEvent
 QActionGroup
 QActionTriggered
+QakFesqDCAPcgvKjQrGGEO
 QAnimationGroup
 QApplication
 QArrayData
@@ -17905,7 +17907,6 @@ QtGraphicalEffects
 QThreadPool
 QThreadStorage
 QThreadStorage\
-QtjkzDBhfJmM8F
 QtLanguageClient
 QtMessage_Critical
 QtMessage_Fatal
@@ -18027,7 +18028,6 @@ QValidator
 QVariantAnimation
 QVBoxLayout
 QVersionNumber
-QVFvkH3aR9qbzGuXhxBQDzzsMOaDg9lnmAkPo6
 QWebElement
 QWebHitTestResult
 QWebSettings
@@ -19475,7 +19475,6 @@ RVideoInternal
 RVideoMemLogging
 RVideoTrace
 RxRlReport
-RxZd5sre3Qk8tkSB8Su3GzBi8S5FDdkugAUiz5K8701XEZPtoPwUGZdSMUYeAO
 S_Key_dn.png
 SA_KPEAPEBV123
 SA_KPEAPEBVfacet
@@ -20130,6 +20129,7 @@ SetChatStyle
 SetClickToWalkEnabled
 SetClipboardData
 SetConsoleMode
+SetContents
 SetContextSwitch
 SetControllerVibration
 SetCoreGuiEnabled
@@ -23621,6 +23621,7 @@ SXNET_add_id_INTEGER
 SXNET_add_id_ulong
 SXNET_get_id_asc
 SXNET_get_id_ulong
+SXTs4PoGZcLUhaJpVspq1p6kZlhDqM3
 SymantecPKI
 SymbolicLinkForPlace
 SymbolValue
@@ -24053,6 +24054,7 @@ TextXmlParser
 TextYAlignment
 TGenericSlotWrapper
 TGenericSlotWrapper.
+TgN4SvnO1fbB9Q5Co4kUzx
 ThatCausedFocusLoss
 ThawteTimestampingCA.crl0
 ThemeAtAppStart
@@ -24304,7 +24306,6 @@ TipTimer.stop
 TitleBarProgress
 TitlebarText
 TitleBarVisible
-TIxh3txk5W4KkSDyyU0zwlwYuD6q4QbsiFAEtKOMdI
 TJNLerU][Wr
 TLS_AES_128_CCM_8_SHA256
 TLS_AES_128_CCM_SHA256
@@ -24892,7 +24893,6 @@ TwoStepVerificationRequestAuth
 TwoStepVerificationRequired
 TwoStepVerificationStartingOver
 TwoStepVerificationWidgetShown
-TxO9uos27W
 TxtArray.length
 TxtArray[j]
 TXtComment
@@ -25067,6 +25067,7 @@ UGlobalResult
 Ugravesmall
 UGroupRolesResult
 UGuiClusterRT
+UHTlplW4iIoRxyo5DPevoxbBOwkhDP
 UHttpApiRequest
 UHttpRequest
 UHttpResponseProxy
@@ -27099,7 +27100,6 @@ WeldConstraintRelativeCFrame2
 WeldConstraintTool
 WeldCursor
 WeldsAction
-Wezm5rLI75B1VyUOvQYOd
 WGL_3DFX_multisample
 WGL_3DL_stereo_control
 WGL_AMD_gpu_association
@@ -27280,6 +27280,7 @@ WithSHA224
 WithSHA256
 WithSHA384
 WithSHA512
+WklhdSxl4dlECAwEAAQ
 WM_ATLGETCONTROL
 WM_ATLGETHOST
 WMCreateProfileManager
@@ -27529,6 +27530,7 @@ XW4websocket_close_status
 XW4WebSocketEventType
 XwhvcEikuIaqb7nHhEJ
 XXXXXXXXXXXXXXXXuuuuuuuuuuuuuuuuppppppppppppppppppppppp
+XYEO6yNT9vvc5hRIJMWGXP
 XZP8CoreGuiService
 XZP8CRenderSettingsItem
 XZP8GuiObject
@@ -27575,10 +27577,11 @@ YffYZefYDNNDCOO
 YieldEvent
 YieldFuncDesc
 YieldFunction
-YPDZ2mUylCwilx5zVvxx
 YQByteArray
 YResolution
+YSbA05o5MBP2mpWrFhymRDSNP4kLYzAp
 YwBBvY55YvBBwY5
+YYeVZypArhqdQeBUwD5nsDnZdBSw
 YYYYYYYYYYYYYYYYYYYYYYYYY
 Z_KPEIBX_K_KPEIAU1
 Zcaronsmall
@@ -27589,7 +27592,6 @@ ZIndexBehavior
 ZLcJhLcGhM
 ZNjlXiODrHUcaGRYt
 ZntaLkerGlryCnmrArbeHbarAcrySaahTaveDgneBuruGrjuGayrOlmaTuleTadnKmylMhniSiahTooaLtbiTrmyMroeGgnaHihtErehCsnaCmagOrnuRrmhKgnoMariHanaKopoBinaHiiiYlatIhtoGtrsDhniZglgTonaHdhuBbgaTbmiLelaTbniLragUwahSamsOtrpCiarBiguBtpoCulaTgalGgnfTolySoepXrahKilaBxusXxnhPgahPoo
-ZO7T8S3Gmj8F3iPMhGt
 ZoomActive
 ZoomOutDistance
 ZoomToExtents
