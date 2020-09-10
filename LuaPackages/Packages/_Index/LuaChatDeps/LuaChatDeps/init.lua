@@ -10,4 +10,5 @@ return {
 	InfiniteScroll = UIBlox.Core.InfiniteScroller,
 	RoduxNetworking = require(LuaChatDeps.RoduxNetworking),
 	UIBlox = UIBlox,
+	AssetCard = require(LuaChatDeps.AssetCard),
 }
