@@ -156,6 +156,11 @@ Class Bone : Attachment
 	Property CFrame Bone.Transform [<📁> LoadOnly] [NotReplicated]
 	Property CFrame Bone.TransformedCFrame  [ReadOnly] [NotReplicated]
 	Property CFrame Bone.TransformedWorldCFrame  [ReadOnly] [NotReplicated]
+Class AvatarEditorService : Instance [NotCreatable] [Service] [NotReplicated]
+	Function Dictionary AvatarEditorService:GetAvatarRules() [Yields]
+	Function Dictionary AvatarEditorService:GetItemDetails(int64 itemId, Enum<ItemType> itemType) [Yields]
+	Function Array AvatarEditorService:GetRecommendedAssets(Enum<AvatarAssetType> assetType, int64 contextAssetId = 0) [Yields]
+	Function Array AvatarEditorService:GetRecommendedBundles(int64 bundleId) [Yields]
 Class Backpack : Instance
 Class BackpackItem : Instance [NotCreatable]
 	Property Content BackpackItem.TextureId
@@ -541,9 +546,14 @@ Class ContentProvider : Instance [NotCreatable] [Service] [NotReplicated]
 	Function int ContentProvider:CalculateNumTrianglesInMesh(string meshId) {RobloxScriptSecurity} [Yields]
 	Function int ContentProvider:CalculateNumTrianglesInMeshSync(string meshId) {RobloxScriptSecurity}
 	Function Array ContentProvider:GetFailedRequests() {RobloxScriptSecurity}
+	Function Array ContentProvider:ListEncryptedAssets()
 	Function void ContentProvider:Preload(Content contentId) [Deprecated]
 	Function void ContentProvider:PreloadAsync(Array contentIdList, Function callbackFunction = nil) [Yields]
+	Function void ContentProvider:RegisterDefaultEncryptionKey(string encryptionKey)
+	Function void ContentProvider:RegisterEncryptedAsset(Content assetId, string encryptionKey)
 	Function void ContentProvider:SetBaseUrl(string url) {LocalUserSecurity}
+	Function void ContentProvider:UnregisterDefaultEncryptionKey()
+	Function void ContentProvider:UnregisterEncryptedAsset(Content assetId)
 Class ContextActionService : Instance [NotCreatable] [Service]
 	Function void ContextActionService:BindAction(string actionName, Function functionToBind, bool createTouchButton, Tuple inputTypes)
 	Function void ContextActionService:BindActionAtPriority(string actionName, Function functionToBind, bool createTouchButton, int priorityLevel, Tuple inputTypes)
@@ -2932,6 +2942,7 @@ Class StudioService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void StudioService:EmitPlacePublishedSignal() {RobloxScriptSecurity}
 	Function Dictionary StudioService:GetClassIcon(string className) {PluginSecurity}
 	Function Dictionary StudioService:GetResourceByCategory(string category) {RobloxScriptSecurity}
+	Function string StudioService:GetStartupAssetId() {RobloxScriptSecurity}
 	Function string StudioService:GetStartupPluginId() {RobloxScriptSecurity}
 	Function string StudioService:GetTermsOfUseUrl() {RobloxScriptSecurity}
 	Function int64 StudioService:GetUserId() {PluginSecurity}
@@ -3502,6 +3513,34 @@ Enum AutoIndentRule
 	EnumItem AutoIndentRule.Off : 0
 	EnumItem AutoIndentRule.Absolute : 1
 	EnumItem AutoIndentRule.Relative : 2
+Enum AvatarAssetType
+	EnumItem AvatarAssetType.TShirt : 2
+	EnumItem AvatarAssetType.Hat : 8
+	EnumItem AvatarAssetType.Shirt : 11
+	EnumItem AvatarAssetType.Pants : 12
+	EnumItem AvatarAssetType.Head : 17
+	EnumItem AvatarAssetType.Face : 18
+	EnumItem AvatarAssetType.Gear : 19
+	EnumItem AvatarAssetType.Torso : 27
+	EnumItem AvatarAssetType.RightArm : 28
+	EnumItem AvatarAssetType.LeftArm : 29
+	EnumItem AvatarAssetType.LeftLeg : 30
+	EnumItem AvatarAssetType.RightLeg : 31
+	EnumItem AvatarAssetType.HairAccessory : 41
+	EnumItem AvatarAssetType.FaceAccessory : 42
+	EnumItem AvatarAssetType.NeckAccessory : 43
+	EnumItem AvatarAssetType.ShoulderAccessory : 44
+	EnumItem AvatarAssetType.FrontAccessory : 45
+	EnumItem AvatarAssetType.BackAccessory : 46
+	EnumItem AvatarAssetType.WaistAccessory : 47
+	EnumItem AvatarAssetType.ClimbAnimation : 48
+	EnumItem AvatarAssetType.FallAnimation : 50
+	EnumItem AvatarAssetType.IdleAnimation : 51
+	EnumItem AvatarAssetType.JumpAnimation : 52
+	EnumItem AvatarAssetType.RunAnimation : 53
+	EnumItem AvatarAssetType.SwimAnimation : 54
+	EnumItem AvatarAssetType.WalkAnimation : 55
+	EnumItem AvatarAssetType.EmoteAnimation : 61
 Enum AvatarContextMenuOption
 	EnumItem AvatarContextMenuOption.Friend : 0
 	EnumItem AvatarContextMenuOption.Chat : 1
@@ -4010,8 +4049,8 @@ Enum HttpRequestType
 	EnumItem HttpRequestType.Players : 7
 	EnumItem HttpRequestType.Chat : 15
 	EnumItem HttpRequestType.Avatar : 16
-	EnumItem HttpRequestType.Analytics : 22
-	EnumItem HttpRequestType.Localization : 24
+	EnumItem HttpRequestType.Analytics : 23
+	EnumItem HttpRequestType.Localization : 25
 Enum HumanoidCollisionType
 	EnumItem HumanoidCollisionType.OuterBox : 0
 	EnumItem HumanoidCollisionType.InnerBox : 1
@@ -4068,6 +4107,9 @@ Enum InputType
 	EnumItem InputType.NoInput : 0
 	EnumItem InputType.Constant : 12
 	EnumItem InputType.Sin : 13
+Enum ItemType
+	EnumItem ItemType.Asset : 0
+	EnumItem ItemType.Bundle : 1
 Enum JointCreationMode
 	EnumItem JointCreationMode.All : 0
 	EnumItem JointCreationMode.Surface : 1

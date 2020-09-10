@@ -1,0 +1,81 @@
+{
+    "months": [
+        "janvier",
+        "février",
+        "mars",
+        "avril",
+        "mai",
+        "juin",
+        "juillet",
+        "août",
+        "septembre",
+        "octobre",
+        "novembre",
+        "décembre"
+    ],
+    "monthsShort": [
+        "janv.",
+        "févr.",
+        "mars",
+        "avr.",
+        "mai",
+        "juin",
+        "juil.",
+        "août",
+        "sept.",
+        "oct.",
+        "nov.",
+        "déc."
+    ],
+    "weekdays": [
+        "dimanche",
+        "lundi",
+        "mardi",
+        "mercredi",
+        "jeudi",
+        "vendredi",
+        "samedi"
+    ],
+    "weekdaysShort": [
+        "dim.",
+        "lun.",
+        "mar.",
+        "mer.",
+        "jeu.",
+        "ven.",
+        "sam."
+    ],
+    "weekdaysMin": [
+        "di",
+        "lu",
+        "ma",
+        "me",
+        "je",
+        "ve",
+        "sa"
+    ],
+    "longDateFormat": {
+        "LT": "HH:mm",
+        "LTS": "HH:mm:ss",
+        "L": "YYYY-MM-DD",
+        "LL": "D MMMM YYYY",
+        "LLL": "D MMMM YYYY HH:mm",
+        "LLLL": "dddd D MMMM YYYY HH:mm",
+        "l": "YYYY-M-D",
+        "ll": "D MMM YYYY",
+        "lll": "D MMM YYYY HH:mm",
+        "llll": "ddd D MMM YYYY HH:mm"
+    },
+    "meridiem": [
+        {
+            "startFrom": 0,
+            "lowerCase": "am",
+            "upperCase": "AM"
+        },
+        {
+            "startFrom": 1200,
+            "lowerCase": "pm",
+            "upperCase": "PM"
+        }
+    ]
+}

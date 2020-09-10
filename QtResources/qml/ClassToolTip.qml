@@ -45,16 +45,16 @@ Item {
         id: toolTipRectangle
         property int padding: 3
         anchors.centerIn: parent
-        color: insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_Consolidated() ? userPreferences.theme.style("CommonStyle tooltip") : RobloxStyle.colorYellowToolTip
-        border.width: insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_Consolidated() ? 1 : 0
-        border.color: insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_Consolidated() ? userPreferences.theme.style("CommonStyle tooltipBorder") : "transparent"
+        color: userPreferences.theme.style("CommonStyle tooltip")
+        border.width: 1
+        border.color: userPreferences.theme.style("CommonStyle tooltipBorder")
         height: toolTipText.paintedHeight + 2*padding
         width:  Math.min(container.maxWidth, textMetrics.width + 2*padding+1)
         PlainText {
             id: toolTipText
             anchors.fill: parent
             anchors.margins: toolTipRectangle.padding
-            color: insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_Consolidated() ? userPreferences.theme.style("CommonStyle tooltipText") : RobloxStyle.colorGray1
+            color: userPreferences.theme.style("CommonStyle tooltipText")
             text: "The text property was not set."
             font.pixelSize: 12
             font.family: RobloxStyle.fontSourceSansPro

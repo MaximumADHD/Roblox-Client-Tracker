@@ -501,7 +501,7 @@
 	        <addaction name="goToLineAction" icon=":/16x16/images/Studio 2.0 icons/16x16/goToLine.png" />
           <addaction fflag="StudioQuickOpen5" name="quickOpenAction" icon=":/16x16/images/Studio 2.0 icons/16x16/find.png" />
           <addaction name="quickOpenActionsAction" icon=":/16x16/images/Studio 2.0 icons/16x16/find.png" />
-          <addaction fflag="AddFilterScriptFunctionsToRibbon" name="filterScriptFunctionsAction" icon=":/16x16/images/Studio 2.0 icons/16x16/find.png" />
+          <addaction name="filterScriptFunctionsAction" icon=":/16x16/images/Studio 2.0 icons/16x16/find.png" />
         </MenuButton>
         <addaction fflag="!StudioReplaceAll" name="replaceAction" text="Studio.Common.Action.Replace" style="textundericon" tooltip="Studio.App.RobloxRibbonMainWindow.FindTextAndReplaceWithElps" icon=":/RibbonBar/images/RibbonIcons/Home/Replace.png" width="32" height="32" />
         <MenuButton fflag="StudioReplaceAll" name="actionReplaceMenu" style ="textundericon" text="Studio.Common.Action.Replace" icon=":/RibbonBar/images/RibbonIcons/Home/Replace.png" tooltip="Studio.App.RobloxRibbonMainWindow.FindTextAndReplaceWithElps" width="32" height="32">

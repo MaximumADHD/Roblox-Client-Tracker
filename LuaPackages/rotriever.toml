@@ -20,7 +20,7 @@ UIBlox = { git = "https://github.com/Roblox/uiblox", rev = "master" }
 Otter = "github.com/roblox/otter@0.1"
 t = "github.com/roblox/t@1.0"
 enumerate = "github.com/roblox/enumerate@1.0.0"
-PolicyProvider = { git = "https://github.rbx.com/Roblox/lua-roact-policy-provider" }
+PolicyProvider = { git = "https://github.com/Roblox/lua-roact-policy-provider", rev = "master" }
 Lumberyak = { git = "https://github.rbx.com/Roblox/lumberyak" }
 StringUtilities = "github.com/Roblox/string-utilities@1.0.0"
 UrlBuilder = "github.com/Roblox/url-builder@1.0.0"

@@ -89,7 +89,7 @@ Studio.App.BetaFeatures.LuaDraggersDescription,,Migrates the Select/Move/Rotate/
 Studio.App.BetaFeatures.LuaDraggersTitle,,Lua Draggers Beta,Lua Draggers Beta
 Studio.App.BetaFeatures.ModelMeshComputerBetaDescription,,Automatically generate Impostor meshes to be rendered outside of streaming radius. Use LevelOfDetail property on Model to enable it.,Automatically generate Impostor meshes to be rendered outside of streaming radius. Use LevelOfDetail property on Model to enable it.
 Studio.App.BetaFeatures.ModelMeshComputerBetaTitle,,Automatic Impostors for Models,Automatic Impostors for Models
-Studio.App.BetaFeatures.NewFeaturesForChannelUserWarning1,,"New beta features are available now and reflected in this dialog. You must restart Studio for them to become available. <a href=""%1"">Restart Now</a>","New beta features are available now and reflected in this dialog. You must restart Studio for them to become available. <a href=""%1"">Restart Now</a>"
+Studio.App.BetaFeatures.NewFeaturesForChannelUserWarning1,,"New beta features have been automatically enabled above as you are enrolled in Beta Channel. You must restart Studio for them to be activated. <a href=""%1"">Restart Now</a>","New beta features have been automatically enabled above as you are enrolled in Beta Channel. You must restart Studio for them to be activated. <a href=""%1"">Restart Now</a>"
 Studio.App.BetaFeatures.NewScriptFoldStateDescription,,Enables new improved behavior for code folding in the Script Editor.,Enables new improved behavior for code folding in the Script Editor.
 Studio.App.BetaFeatures.NewScriptFoldStateTitle,,Script Editor Folds Behavior Beta,Script Editor Folds Behavior Beta
 Studio.App.BetaFeatures.PackagePermissionsDescription,,"Add any group, user, or role as a user or editor for your packages through the Package Management action in Game Explorer","Add any group, user, or role as a user or editor for your packages through the Package Management action in Game Explorer"
@@ -1259,11 +1259,11 @@ Studio.App.PropertyItems.NotAValidLocation1,,"""%1"" is not a valid content loca
 Please enter an asset ID or a correctly formatted asset url.","""%1"" is not a valid content location.
 Please enter an asset ID or a correctly formatted asset url."
 Studio.App.PropertyItems.OverriddenBy,"Text which displays under a property in the Properties widget if the property is being overridden by another Instance. 'Overridden', in this case, means that the property's value will always be set by the other Instance regardless of what the user sets the property's value to in the Properties widget (e.g. a UIGridLayout always overriding a UI element's Size and Position properties).",Overridden by,Overridden by
+Studio.App.PropertyItems.PackageGoToRevisionConfirmation1,,Are you sure you want to change this Package to Version %1?,Are you sure you want to change this Package to Version %1?
 Studio.App.PropertyItems.PackageVersionFailedMessage,,Unable to perform this action.,Unable to perform this action.
 Studio.App.PropertyItems.PropertyInfluenceToolTip3,"Tooltip that displays if a certain Instance's property is being influenced by another Instance(s). Parameter 1 is the name of the Instance whose property is being altered, parameter 2 is the name of the property being altered, and parameter 3 is the name(s) of the Instance(s) that is/are altering the property. 'Influenced', in this case, means that the property's value will only be set by the other Instance(s) under certain circumstances (i.e. a UISizeConstraint clamping a UI element's size down if it exceeds a certain maximum).",%1's %2 is influenced by %4,%1's %2 is influenced by %4
 Studio.App.PropertyItems.PropertyOverrideToolTip3,"Tooltip that displays if a certain Instance's property is being overridden by another Instance(s). Parameter 1 is the name of the Instance whose property is being altered, parameter 2 is the name of the property being altered, and parameter 3 is the name(s) of the Instance(s) that is/are altering the property. 'Overridden', in this case, means that the property's value will always be set by the other instance(s) regardless of what the user sets the property's value to in the Properties widget.",%1's %2 is overridden by %4,%1's %2 is overridden by %4
 Studio.App.PropertyItems.ResizeTheMesh,,The mesh you are importing is very large. Would you like to resize the mesh?,The mesh you are importing is very large. Would you like to resize the mesh?
-Studio.App.PropertyItems.RevertPackageConfirmation,,Are you sure you want to revert this package to version %1 ?,Are you sure you want to revert this package to version %1 ?
 Studio.App.PropertyItems.ThereWasAnIssueImportingMesh,Message that displays if a mesh importation was successful but there was a warning,There was an issue when importing the mesh,There was an issue when importing the mesh
 Studio.App.PropertyItems.ThereWereIssuesImportingMesh,Message that displays if a mesh importation was successful but there were multiple warnings,There were issues when importing the mesh,There were issues when importing the mesh
 Studio.App.PropertyItems.ThisPropertyHasBeenOverridden,"Tooltip that displays if a certain Instance's property is being overridden by another Instance(s), but when Studio is unaware of what the other Instance(s) is/are.",This property has been overridden,This property has been overridden
@@ -1540,6 +1540,8 @@ Studio.App.RBXMainWindow.QuickFindScript,,Type to quickly open another script,Ty
 Studio.App.RBXMainWindow.QuickFindScriptUseCtrlP,,"This Dialog is deprecated, please use Quick Open (Ctrl+P) instead","This Dialog is deprecated, please use Quick Open (Ctrl+P) instead"
 Studio.App.RBXMainWindow.QuitApplication,,Quit the application; prompts to save documents,Quit the application; prompts to save documents
 Studio.App.RBXMainWindow.RedoThePreviouslyUndo,,Redo the previously undone action,Redo the previously undone action
+Studio.App.RBXMainWindow.ReloadPlugin,,Reload Plugin,Reload Plugin
+Studio.App.RBXMainWindow.ReloadPluginTooltip,,Stop plugin execution. Reload from disk. Note this will lose any changes you may have made to the Plugin under Plugin Debug Service,Stop plugin execution. Reload from disk. Note this will lose any changes you may have made to the Plugin under Plugin Debug Service
 Studio.App.RBXMainWindow.ReloadScript,,Reload Script,Reload Script
 Studio.App.RBXMainWindow.Rename,,Rename,Rename
 Studio.App.RBXMainWindow.RenamesSelectedObject,,Renames selected object,Renames selected object
@@ -2282,6 +2284,7 @@ Studio.App.RobloxTeamCreateWidget.TurnOffTeamCreate,,Turn OFF Team Create,Turn O
 Studio.App.RobloxTextOutputWidget.ClearOutput,,Clear Output,Clear Output
 Studio.App.RobloxTextOutputWidget.Context,,Context,Context
 Studio.App.RobloxTextOutputWidget.Copy,,Copy,Copy
+Studio.App.RobloxTextOutputWidget.Filter,,Filter...,Filter...
 Studio.App.RobloxTextOutputWidget.LuaTableIndicator1,,table: %1,table: %1
 Studio.App.RobloxTextOutputWidget.MaxTableDepthReached,,Max table depth reached,Max table depth reached
 Studio.App.RobloxTextOutputWidget.Message,,Message,Message
@@ -2398,6 +2401,8 @@ Studio.App.StudioDataModelLoadUtil.ErrorCannotOpenTCPlaceDueToConflictLuobu,,Luo
 Studio.App.StudioDataModelLoadUtil.ErrorCannotOpenTCPlaceDueToTimeout,,Failed to open the team create place due to timeout,Failed to open the team create place due to timeout
 Studio.App.StudioDataModelLoadUtil.ErrorCannotOpenTCPlaceGeneral,,"Failed to open the team create place, please try again","Failed to open the team create place, please try again"
 Studio.App.StudioDataModelLoadUtil.ErrorCannotOpenTCPlaceWithErrorCode1,"NOTE TO LOCALIZERS: Do not translate the parentheses (), whatever is inside the parentheses, or any other special characters, use ASCII instead.","Failed to open the team create place, please try again. (Error Code: %1)","Failed to open the team create place, please try again. (Error Code: %1)"
+Studio.App.StudioFlagEditor.AddButton,Button displayed in the Overrides tab of the Flag Editor (File -> Advanced -> Open Flag Editor). Button is used to add a new entry to the list of flag overrides by opening a new dialog.,Add,Add
+Studio.App.StudioFlagEditor.AddOverrideTitle,Title of Add Override dialog that appears after clicking add button in the Overrides tab of the Flag Editor (File -> Advanced -> Open Flag Editor).,Add Override,Add Override
 Studio.App.StudioFlagEditor.AppliesOverridesImmediately,,Saves and immediately applies overrides to running studio instance (unsafe).,Saves and immediately applies overrides to running studio instance (unsafe).
 Studio.App.StudioFlagEditor.CantExportOverrides,,"Error: Could not export overrides.
 There was an error opening the json file for writing. Check Studio logs for more details.","Error: Could not export overrides.
@@ -2415,8 +2420,13 @@ Studio.App.StudioFlagEditor.FlagEditor,,Flag Editor,Flag Editor
 Studio.App.StudioFlagEditor.FlagsApplied,,Flag Overrides Applied,Flag Overrides Applied
 Studio.App.StudioFlagEditor.FlagsHaveBeenApplied,,"Flag overrides changes have been applied dynamically, studio behavior may be unstable until the next restart.","Flag overrides changes have been applied dynamically, studio behavior may be unstable until the next restart."
 Studio.App.StudioFlagEditor.JsonFile,"NOTE TO LOCALIZERS: Do not translate the parentheses (), whatever is inside the parentheses, or any other special characters, use ASCII instead.",JSON file (*.json),JSON file (*.json)
+Studio.App.StudioFlagEditor.NameField,The name of a flag in the Flag Editor (File -> Advanced -> Open Flag Editor).,Name,Name
 Studio.App.StudioFlagEditor.NoLocalOverrides,,No local overrides were found on load. All values shown match the server values.,No local overrides were found on load. All values shown match the server values.
+Studio.App.StudioFlagEditor.RemoveAllButton,Button displayed in the Overrides tab of the Flag Editor (File -> Advanced -> Open Flag Editor). Button is used to remove all entries from the list of flag overrides.,Remove All,Remove All
+Studio.App.StudioFlagEditor.RemoveButton,Button displayed in the Overrides tab of the Flag Editor (File -> Advanced -> Open Flag Editor). Button is used to remove the currently selected entry in the list of flag overrides.,Remove,Remove
 Studio.App.StudioFlagEditor.SaveChangesCurrentBuild,,Save changes to the current Studio build.,Save changes to the current Studio build.
+Studio.App.StudioFlagEditor.TypeField,"The type of a flag (FFlag, FLog, DFString, etc.) in the Flag Editor (File -> Advanced -> Open Flag Editor).",Type,Type
+Studio.App.StudioFlagEditor.ValueField,The value of a flag in the Flag Editor (File -> Advanced -> Open Flag Editor).,Value,Value
 Studio.App.StudioFlagEditor.ValuesHighlightedRed,,Values highlighted red were overridden locally on load and may differ from the server values.,Values highlighted red were overridden locally on load and may differ from the server values.
 Studio.App.StudioPluginHost.BadFileFormat,,Unable to open plugin file (bad file format): ,Unable to open plugin file (bad file format): 
 Studio.App.StudioPluginHost.CantAddNewPlugin,,Warning: unable to add new plugin to metadata file.,Warning: unable to add new plugin to metadata file.
@@ -2472,7 +2482,7 @@ Studio.App.TeamCreate.SyncProgressTitle,,<b>Data Sync Progress</b>,<b>Data Sync 
 Studio.App.TeamCreate.SyncTerrainProgressTitle,,<b>Terrain Sync Progress</b>,<b>Terrain Sync Progress</b>
 Studio.App.TeamCreate.SyncingGenericWarning,,Quitting Roblox Studio will cause you to lose data that is currently syncing.,Quitting Roblox Studio will cause you to lose data that is currently syncing.
 Studio.App.TeamCreate.SyncingTerrainWarning,,Quitting Roblox Studio will cause you to lose data that is currently syncing and might corrupt your Terrain.,Quitting Roblox Studio will cause you to lose data that is currently syncing and might corrupt your Terrain.
-Studio.App.TeamCreate.TurnOn,,Turn ON,Turn ON
+Studio.App.TeamCreate.TurnOn,,Turn On,Turn On
 Studio.App.TeamCreate.UnpublishedChangesWarning,,Other users are currently editing scripts. Turning off team create will lose these unpublished changes. Continue anyway?,Other users are currently editing scripts. Turning off team create will lose these unpublished changes. Continue anyway?
 Studio.App.TeamCreateConnectionDialog.YouHaveLostConnectionToTheServer,,You have lost connection to the server. Trying to reconnect...<br><br>Recent copy of the place has been saved. <a href='openautosave://file'>Click here</a> to open the saved place.,You have lost connection to the server. Trying to reconnect...<br><br>Recent copy of the place has been saved. <a href='openautosave://file'>Click here</a> to open the saved place.
 Studio.App.TemplatePage.Gameplay,,Gameplay,Gameplay

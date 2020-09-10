@@ -1,0 +1,95 @@
+﻿{
+    "months": [
+        "январь",
+        "февраль",
+        "март",
+        "апрель",
+        "май",
+        "июнь",
+        "июль",
+        "август",
+        "сентябрь",
+        "октябрь",
+        "ноябрь",
+        "декабрь"
+    ],
+    "monthsShort": [
+        "янв.",
+        "февр.",
+        "март",
+        "апр.",
+        "май",
+        "июнь",
+        "июль",
+        "авг.",
+        "сент.",
+        "окт.",
+        "нояб.",
+        "дек."
+    ],
+    "weekdays": [
+        "воскресенье",
+        "понедельник",
+        "вторник",
+        "среда",
+        "четверг",
+        "пятница",
+        "суббота"
+    ],
+    "weekdaysShort": [
+        "вс",
+        "пн",
+        "вт",
+        "ср",
+        "чт",
+        "пт",
+        "сб"
+    ],
+    "weekdaysMin": [
+        "вс",
+        "пн",
+        "вт",
+        "ср",
+        "чт",
+        "пт",
+        "сб"
+    ],
+    "longDateFormat": {
+        "LT": "H:mm",
+        "LTS": "H:mm:ss",
+        "L": "DD.MM.YYYY",
+        "LL": "D MMMM YYYY г.",
+        "LLL": "D MMMM YYYY г., H:mm",
+        "LLLL": "dddd, D MMMM YYYY г., H:mm",
+        "l": "D.M.YYYY",
+        "ll": "D MMM YYYY г.",
+        "lll": "D MMM YYYY г., H:mm",
+        "llll": "ddd, D MMM YYYY г., H:mm"
+    },
+    "meridiem": [
+        {
+            "startFrom": 0,
+            "lowerCase": "ночи",
+            "upperCase": "ночи"
+        },
+        {
+            "startFrom": 400,
+            "lowerCase": "утра",
+            "upperCase": "утра"
+        },
+        {
+            "startFrom": 1200,
+            "lowerCase": "дня",
+            "upperCase": "дня"
+        },
+        {
+            "startFrom": 1700,
+            "lowerCase": "вечера",
+            "upperCase": "вечера"
+        }
+    ],
+    "week": {
+        "dow": 1,
+        "doy": 4
+    }
+}

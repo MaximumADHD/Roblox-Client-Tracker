@@ -1,0 +1,105 @@
+﻿{
+    "months": [
+        "一月",
+        "二月",
+        "三月",
+        "四月",
+        "五月",
+        "六月",
+        "七月",
+        "八月",
+        "九月",
+        "十月",
+        "十一月",
+        "十二月"
+    ],
+    "monthsShort": [
+        "1月",
+        "2月",
+        "3月",
+        "4月",
+        "5月",
+        "6月",
+        "7月",
+        "8月",
+        "9月",
+        "10月",
+        "11月",
+        "12月"
+    ],
+    "weekdays": [
+        "星期日",
+        "星期一",
+        "星期二",
+        "星期三",
+        "星期四",
+        "星期五",
+        "星期六"
+    ],
+    "weekdaysShort": [
+        "週日",
+        "週一",
+        "週二",
+        "週三",
+        "週四",
+        "週五",
+        "週六"
+    ],
+    "weekdaysMin": [
+        "日",
+        "一",
+        "二",
+        "三",
+        "四",
+        "五",
+        "六"
+    ],
+    "longDateFormat": {
+        "LT": "HH:mm",
+        "LTS": "HH:mm:ss",
+        "L": "YYYY/MM/DD",
+        "LL": "YYYY年M月D日",
+        "LLL": "YYYY年M月D日 HH:mm",
+        "LLLL": "YYYY年M月D日dddd HH:mm",
+        "l": "YYYY/M/D",
+        "ll": "YYYY年M月D日",
+        "lll": "YYYY年M月D日 HH:mm",
+        "llll": "YYYY年M月D日dddd HH:mm"
+    },
+    "meridiem": [
+        {
+            "startFrom": 0,
+            "lowerCase": "凌晨",
+            "upperCase": "凌晨"
+        },
+        {
+            "startFrom": 600,
+            "lowerCase": "早上",
+            "upperCase": "早上"
+        },
+        {
+            "startFrom": 900,
+            "lowerCase": "上午",
+            "upperCase": "上午"
+        },
+        {
+            "startFrom": 1130,
+            "lowerCase": "中午",
+            "upperCase": "中午"
+        },
+        {
+            "startFrom": 1230,
+            "lowerCase": "下午",
+            "upperCase": "下午"
+        },
+        {
+            "startFrom": 1800,
+            "lowerCase": "晚上",
+            "upperCase": "晚上"
+        }
+    ],
+    "week": {
+        "dow": 1,
+        "doy": 4
+    }
+}

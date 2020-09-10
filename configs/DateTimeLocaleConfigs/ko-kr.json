@@ -1,0 +1,81 @@
+﻿{
+    "months": [
+        "1월",
+        "2월",
+        "3월",
+        "4월",
+        "5월",
+        "6월",
+        "7월",
+        "8월",
+        "9월",
+        "10월",
+        "11월",
+        "12월"
+    ],
+    "monthsShort": [
+        "1월",
+        "2월",
+        "3월",
+        "4월",
+        "5월",
+        "6월",
+        "7월",
+        "8월",
+        "9월",
+        "10월",
+        "11월",
+        "12월"
+    ],
+    "weekdays": [
+        "일요일",
+        "월요일",
+        "화요일",
+        "수요일",
+        "목요일",
+        "금요일",
+        "토요일"
+    ],
+    "weekdaysShort": [
+        "일",
+        "월",
+        "화",
+        "수",
+        "목",
+        "금",
+        "토"
+    ],
+    "weekdaysMin": [
+        "일",
+        "월",
+        "화",
+        "수",
+        "목",
+        "금",
+        "토"
+    ],
+    "longDateFormat": {
+        "LT": "A h:mm",
+        "LTS": "A h:mm:ss",
+        "L": "YYYY.MM.DD.",
+        "LL": "YYYY년 MMMM D일",
+        "LLL": "YYYY년 MMMM D일 A h:mm",
+        "LLLL": "YYYY년 MMMM D일 dddd A h:mm",
+        "l": "YYYY.MM.DD.",
+        "ll": "YYYY년 MMMM D일",
+        "lll": "YYYY년 MMMM D일 A h:mm",
+        "llll": "YYYY년 MMMM D일 dddd A h:mm"
+    },
+    "meridiem": [
+        {
+            "startFrom": 0,
+            "lowerCase": "오전",
+            "upperCase": "오전"
+        },
+        {
+            "startFrom": 1200,
+            "lowerCase": "오후",
+            "upperCase": "오후"
+        }
+    ]
+}

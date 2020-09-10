@@ -549,6 +549,10 @@ RBX
 	}
 	ScriptEditor
 	{
+		HighlightFormats
+		{
+			NullHighlightFormatProvider
+		}
 		CmdConfig
 		CmdDeleteToStartOfLine
 		CmdDocumentFormatting
@@ -568,7 +572,9 @@ RBX
 		CmdUnfoldAll
 		CmdUnindentSelection
 		GotoLineDialog
+		HighlightFormatProvider
 		HighlightProvider
+		LSPClientSettings
 		QtLanguageClient
 		ScriptEditorCmdBase
 		ScriptHighlightCache
@@ -577,6 +583,7 @@ RBX
 		ScriptingCmdInput
 		ScriptingCommands
 		ScriptingManager
+		Settings
 	}
 	Scripting
 	{
@@ -733,6 +740,7 @@ RBX
 	AttachmentDraggerTool
 	AttachmentTool
 	AutoJointSurfacePair
+	AvatarEditorService
 	Backpack
 	BackpackItem
 	BadgeService

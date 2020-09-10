@@ -16,13 +16,13 @@ version = "0.1.0"
 dependencies = [
     "AvatarExperienceDeps AvatarExperienceDeps 5a31b418 git+https://github.com/roblox/avatar-experience-deps#master",
     "Cryo roblox/cryo 1.0.0 url+https://github.com/roblox/cryo",
-    "InGameMenuDependencies InGameMenuDependencies cf249987 git+https://github.rbx.com/roblox/in-game-menu-dependencies#master",
-    "LuaChatDeps LuaChatDeps f46a5410 git+https://github.rbx.com/roblox/lua-chat-deps#master",
+    "InGameMenuDependencies InGameMenuDependencies aecc56c1 git+https://github.rbx.com/roblox/in-game-menu-dependencies#master",
+    "LuaChatDeps LuaChatDeps 0ff49acc git+https://github.rbx.com/roblox/lua-chat-deps#master",
     "LuaDiscussionsDeps LuaDiscussionsDeps dfba285e git+https://github.rbx.com/roblox/lua-discussions-deps#master",
     "LuaSocialLibrariesDeps LuaSocialLibrariesDeps 6d421330 git+https://github.rbx.com/roblox/lua-social-libraries-deps#master",
     "Lumberyak roblox/lumberyak 47552268 git+https://github.rbx.com/roblox/lumberyak#master",
     "Otter roblox/otter 0.1.2 url+https://github.com/roblox/otter",
-    "PolicyProvider roblox/policy-provider fe7d3d84 git+https://github.rbx.com/roblox/lua-roact-policy-provider#master",
+    "PolicyProvider roblox/lua-roact-policy-provider 1d595dae git+https://github.com/roblox/lua-roact-policy-provider#master",
     "PremiumUpsellDeps PremiumUpsellDeps c51030b7 git+https://github.com/roblox/premium-upsell-deps#master",
     "Promise lua-promise bbb9e162 git+https://github.rbx.com/roblox/lua-promise#master",
     "PurchasePrompt roblox/purchase-prompt 7bd4a456 git+https://github.com/roblox/purchasepromptscript-roact#master",
@@ -45,12 +45,12 @@ dependencies = [
 [[package]]
 name = "InGameMenuDependencies"
 version = "0.1.0"
-commit = "cf24998773d06ab3256e5c63dc8be922b2468905"
+commit = "aecc56c1fa6348886a1073785dbb196b655a0a90"
 source = "git+https://github.rbx.com/roblox/in-game-menu-dependencies#master"
 dependencies = [
     "Cryo roblox/cryo 1.0.0 url+https://github.com/roblox/cryo",
     "Otter roblox/otter 0.1.2 url+https://github.com/roblox/otter",
-    "PolicyProvider roblox/policy-provider fe7d3d84 git+https://github.rbx.com/roblox/lua-roact-policy-provider#master",
+    "PolicyProvider roblox/lua-roact-policy-provider 1d595dae git+https://github.com/roblox/lua-roact-policy-provider#master",
     "Roact roblox/roact 1.3.0 url+https://github.com/roblox/roact",
     "RoactRodux roblox/roact-rodux 0.2.2 url+https://github.com/roblox/roact-rodux",
     "Rodux roblox/rodux 1.0.0 url+https://github.com/roblox/rodux",
@@ -60,10 +60,11 @@ dependencies = [
 
 [[package]]
 name = "LuaChatDeps"
-version = "0.1.2"
-commit = "f46a5410d705b1b55436787564a20b1be8b4855b"
+version = "0.1.3"
+commit = "0ff49acc4c839b593c05b85700a0df3740ed7589"
 source = "git+https://github.rbx.com/roblox/lua-chat-deps#master"
 dependencies = [
+    "AssetCard asset-card c7b683fb git+https://github.com/roblox/asset-card#v1.0.2",
     "RoduxNetworking rodux-networking ea19cfe3 git+https://github.rbx.com/roblox/rodux-networking#v1.0.1",
     "UIBlox UIBlox c6dda82b git+https://github.com/roblox/uiblox#master",
 ]
@@ -111,6 +112,18 @@ dependencies = [
     "Roact roblox/roact 1.3.0 url+https://github.com/roblox/roact",
     "RoactGamepad roblox/roact-gamepad 0.4.0 url+https://github.com/roblox/roact-gamepad",
     "enumerate roblox/enumerate 1.0.0 url+https://github.com/roblox/enumerate",
+    "t roblox/t 1.2.5 url+https://github.com/roblox/t",
+]
+
+[[package]]
+name = "asset-card"
+version = "1.0.1"
+commit = "c7b683fb0c31888433127311ce45b691b9cf6086"
+source = "git+https://github.com/roblox/asset-card#v1.0.2"
+dependencies = [
+    "Roact roblox/roact 1.3.0 url+https://github.com/roblox/roact",
+    "Rodux roblox/rodux 1.0.0 url+https://github.com/roblox/rodux",
+    "UIBlox UIBlox c6dda82b git+https://github.com/roblox/uiblox#master",
     "t roblox/t 1.2.5 url+https://github.com/roblox/t",
 ]
 
@@ -200,6 +213,21 @@ commit = "c6817c8455aa1f5922d83dd44c8bedbc7726e51d"
 source = "git+https://github.rbx.com/roblox/lua-result#master"
 
 [[package]]
+name = "roblox/lua-roact-policy-provider"
+version = "0.1.0"
+commit = "1d595dae48c654c54a76f07a2ddb95bfad53dc43"
+source = "git+https://github.com/roblox/lua-roact-policy-provider#master"
+dependencies = [
+    "Cryo roblox/cryo 1.0.0 url+https://github.com/roblox/cryo",
+    "Lumberyak roblox/lumberyak 47552268 git+https://github.rbx.com/roblox/lumberyak#master",
+    "Mock jtaylor/mock d2c4005c git+https://github.rbx.com/roblox/mock#master",
+    "Promise lua-promise bbb9e162 git+https://github.rbx.com/roblox/lua-promise#master",
+    "Roact roblox/roact 1.3.0 url+https://github.com/roblox/roact",
+    "Symbol roblox/lua-symbol 139fdfe6 git+https://github.rbx.com/roblox/lua-symbol#master",
+    "tutils tutils 0be577db git+https://github.rbx.com/roblox/tutils#master",
+]
+
+[[package]]
 name = "roblox/lua-symbol"
 version = "0.1.0"
 commit = "139fdfe6e4d4eca690887d3beb80e1514af501bf"
@@ -217,21 +245,6 @@ name = "roblox/otter"
 version = "0.1.2"
 commit = "572480526578e1bbd583959e959f0d10118c05a5"
 source = "url+https://github.com/roblox/otter"
-
-[[package]]
-name = "roblox/policy-provider"
-version = "0.1.0"
-commit = "fe7d3d84f9a82d2b49700f2e3b6bb28a9c4e8993"
-source = "git+https://github.rbx.com/roblox/lua-roact-policy-provider#master"
-dependencies = [
-    "Cryo roblox/cryo 1.0.0 url+https://github.com/roblox/cryo",
-    "Lumberyak roblox/lumberyak 47552268 git+https://github.rbx.com/roblox/lumberyak#master",
-    "Mock jtaylor/mock d2c4005c git+https://github.rbx.com/roblox/mock#master",
-    "Promise lua-promise bbb9e162 git+https://github.rbx.com/roblox/lua-promise#master",
-    "Roact roblox/roact 1.3.0 url+https://github.com/roblox/roact",
-    "Symbol roblox/lua-symbol 139fdfe6 git+https://github.rbx.com/roblox/lua-symbol#master",
-    "tutils tutils 0be577db git+https://github.rbx.com/roblox/tutils#master",
-]
 
 [[package]]
 name = "roblox/purchase-prompt"
