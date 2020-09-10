@@ -22,16 +22,16 @@ return function(UrlBuilder)
 			parents = UrlBuilder.fromString("corp:parents"),
 			terms = function(params)
 				if isQQ() and params.useGameQQUrls then
-					return UrlBuilder.fromString("https://game.qq.com/contract.shtml")
+					return UrlBuilder.fromString("https://game.qq.com/contract.shtml")()
 				else
-					return UrlBuilder.fromString("www:info/terms")
+					return UrlBuilder.fromString("www:info/terms")()
 				end
 			end,
 			privacy = function(params)
 				if isQQ() and params.useGameQQUrls then
-					return UrlBuilder.fromString("https://game.qq.com/privacy_guide.shtml")
+					return UrlBuilder.fromString("https://game.qq.com/privacy_guide.shtml")()
 				else
-					return UrlBuilder.fromString("www:info/privacy")
+					return UrlBuilder.fromString("www:info/privacy")()
 				end
 			end,
 		},

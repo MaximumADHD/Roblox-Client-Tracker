@@ -51,6 +51,10 @@ local function initializeLibrary()
 	})
 
 	UIBlox.App = strict({
+		Context = strict({
+			ContentProvider = require(script.App.Context.ContentProvider)
+		}),
+
 		ImageSet = strict({
 			Images = require(script.App.ImageSet.Images),
 			getIconSize = require(script.App.ImageSet.getIconSize),

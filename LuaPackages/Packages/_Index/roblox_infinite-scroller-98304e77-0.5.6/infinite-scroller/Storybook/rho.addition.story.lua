@@ -56,8 +56,10 @@ function Story:render()
 				end,
 			},
 			self.props,
-			{ addToFront = Cryo.None },
-			{ numberOfItems = Cryo.None }
+			{
+				addToFront = Cryo.None,
+				numberOfItems = Cryo.None,
+			}
 		)),
 		addition = Roact.createElement("TextButton", {
 			Size = UDim2.new(0, 100, 0, 50),

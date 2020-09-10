@@ -149,5 +149,5 @@ return{
 	["CoreScripts.PurchasePrompt.PurchaseFailed.NotEnoughRobuxNoUpsell"] = [[このアイテムの費用は利用できるRobuxの額を超えています。 ]],
 	["CoreScripts.PurchasePrompt.Button.PremiumOnly"] = [[Premium限定]],
 	["CoreScripts.PurchasePrompt.PurchaseFailed.PremiumOnly"] = [[このアイテムを購入するには、Roblox Premiumが必要です。]],
-	["CoreScripts.PurchasePrompt.PurchaseDetails.AgeLegalText"] = [[Robloxでは、大人のみが購入を許可されています。私は、年齢が少なくとも18歳であることに同意します。私は、このアカウントの所有者であるか、所有者の法的な保護者です。私はこの購入を許可し、利用規約に同意します。]],
+	["CoreScripts.PurchasePrompt.PurchaseDetails.AgeLegalText"] = [[この購入には、実際のお金の交換が関わります。私の年齢が少なくとも18歳であり、アカウント所有者の親か法的保護者であることを認めます。この購入を許可し、利用規約に同意します。]],
 }

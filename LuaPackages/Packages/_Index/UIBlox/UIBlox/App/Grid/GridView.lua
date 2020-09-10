@@ -199,6 +199,7 @@ function GridView:render()
 
 		defaultChild = (UIBloxConfig.enableExperimentalGamepadSupport and defaultChildIndex) and
 			self.focusableRefs[defaultChildIndex] or nil,
+		restorePreviousChildFocus = UIBloxConfig.enableExperimentalGamepadSupport or nil,
 		[Roact.Ref] = UIBloxConfig.enableExperimentalGamepadSupport and self.props[Roact.Ref] or self.frameRef,
 	}, gridChildren)
 end

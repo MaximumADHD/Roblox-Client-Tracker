@@ -3,7 +3,6 @@ local Players = game:GetService("Players")
 
 local ErrorOccurred = require(Root.Actions.ErrorOccurred)
 local RequestBundlePurchase = require(Root.Actions.RequestBundlePurchase)
-local RequestAssetPurchase = require(Root.Actions.RequestAssetPurchase)
 local PurchaseError = require(Root.Enums.PurchaseError)
 local getBundleDetails = require(Root.Network.getBundleDetails)
 local getProductPurchasableDetails = require(Root.Network.getProductPurchasableDetails)
@@ -15,8 +14,6 @@ local Promise = require(Root.Promise)
 local Thunk = require(Root.Thunk)
 
 local resolveBundlePromptState = require(script.Parent.resolveBundlePromptState)
-
-local FFlagPerformPurchaseNewBundleInfoTypeEnabled = settings():GetFFlag("PerformPurchaseNewBundleInfoTypeEnabled")
 
 local requiredServices = {
 	Network,
@@ -32,11 +29,7 @@ local function initiateBundlePurchase(bundleId)
 			return nil
 		end
 
-		if FFlagPerformPurchaseNewBundleInfoTypeEnabled then
-			store:dispatch(RequestBundlePurchase(bundleId))
-		else
-			store:dispatch(RequestAssetPurchase(bundleId, false, true))
-		end
+		store:dispatch(RequestBundlePurchase(bundleId))
 
 		local isStudio = externalSettings.isStudio()
 

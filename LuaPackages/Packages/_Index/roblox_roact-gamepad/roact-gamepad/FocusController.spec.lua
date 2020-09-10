@@ -136,6 +136,55 @@ return function()
 			expect(focusController:isNodeFocused(childNodeA)).to.equal(false)
 			expect(focusController:isNodeFocused(childNodeB)).to.equal(true)
 		end)
+
+		it("should only track selection changes inside its hierarchy", function()
+			local rootRef, _ = Roact.createBinding(Instance.new("Frame"))
+			local parentNode = createRootNode(rootRef)
+
+			local childNodeA, _ = addChildNode(parentNode)
+			local childNodeB, _ = addChildNode(parentNode)
+
+			local mockEngine, engineInterface = MockEngine.new()
+			local focusController = parentNode.focusController[InternalApi]
+			focusController:initialize(engineInterface)
+
+			local selectionChangedSpy = createSpy()
+			focusController:subscribeToSelectionChange(selectionChangedSpy.value)
+
+			childNodeA:focus()
+			expect(focusController:isNodeFocused(childNodeA)).to.equal(true)
+			expect(selectionChangedSpy.callCount).to.equal(1)
+
+			-- Moving selection within the hierarchy should trigger fire events
+			childNodeB:focus()
+			expect(selectionChangedSpy.callCount).to.equal(2)
+
+			-- When selection changes from _inside_ this hierarchy to nil,
+			-- notify accordingly
+			mockEngine:simulateSelectionChanged(nil)
+			expect(selectionChangedSpy.callCount).to.equal(3)
+
+			-- Moving back into the hierarchy should once again trigger events
+			childNodeA:focus()
+			expect(selectionChangedSpy.callCount).to.equal(4)
+
+			-- When selection changes from inside the hierarchy to outside the
+			-- hierarchy, events should fire
+			local unconnectedFrame = Instance.new("Frame")
+			mockEngine:simulateSelectionChanged(unconnectedFrame)
+			expect(selectionChangedSpy.callCount).to.equal(5)
+
+			-- When selection changes between elements outside the hierarchy,
+			-- no events should be triggered
+			local unconnectedFrame2 = Instance.new("Frame")
+			mockEngine:simulateSelectionChanged(unconnectedFrame2)
+			expect(selectionChangedSpy.callCount).to.equal(5)
+
+			-- When selection changes from an element outside the hierarchy to
+			-- nil, no events should be triggered
+			mockEngine:simulateSelectionChanged(nil)
+			expect(selectionChangedSpy.callCount).to.equal(5)
+		end)
 	end)
 
 	describe("Tree-level focus management", function()
@@ -200,12 +249,12 @@ return function()
 			local childNodeA, _ = addChildNode(parentNode)
 			local callbackSpyA = createSpy()
 			childNodeA.inputBindings = {
-				action = Input.onBegin(Enum.KeyCode.ButtonX, callbackSpyA.value),
+				action = Input.PublicInterface.onBegin(Enum.KeyCode.ButtonX, callbackSpyA.value),
 			}
 			local childNodeB, _ = addChildNode(parentNode)
 			local callbackSpyB = createSpy()
 			childNodeB.inputBindings = {
-				action = Input.onBegin(Enum.KeyCode.ButtonX, callbackSpyB.value),
+				action = Input.PublicInterface.onBegin(Enum.KeyCode.ButtonX, callbackSpyB.value),
 			}
 
 			local mockEngine, engineInterface = MockEngine.new()
@@ -238,7 +287,7 @@ return function()
 			local parentNode = createRootNode(rootRef)
 			local callbackSpyParent = createSpy()
 			parentNode.inputBindings = {
-				action = Input.onBegin(Enum.KeyCode.ButtonX, callbackSpyParent.value),
+				action = Input.PublicInterface.onBegin(Enum.KeyCode.ButtonX, callbackSpyParent.value),
 			}
 
 			-- ChildA does not override the parent's binding
@@ -248,7 +297,7 @@ return function()
 			local childNodeB, _ = addChildNode(parentNode)
 			local callbackSpyChild = createSpy()
 			childNodeB.inputBindings = {
-				action = Input.onBegin(Enum.KeyCode.ButtonX, callbackSpyChild.value),
+				action = Input.PublicInterface.onBegin(Enum.KeyCode.ButtonX, callbackSpyChild.value),
 			}
 
 			local mockEngine, engineInterface = MockEngine.new()
@@ -276,6 +325,128 @@ return function()
 			})
 			expect(callbackSpyParent.callCount).to.equal(1)
 			expect(callbackSpyChild.callCount).to.equal(1)
+		end)
+
+		it("should override onStep bindings the same as begin and end", function()
+			local rootRef, _ = Roact.createBinding(Instance.new("Frame"))
+			local parentNode = createRootNode(rootRef)
+			local callbackSpyParent = createSpy()
+			parentNode.inputBindings = {
+				action = Input.PublicInterface.onStep(Enum.KeyCode.ButtonX, callbackSpyParent.value),
+			}
+
+			-- ChildA does not override the parent's binding
+			local childNodeA, _ = addChildNode(parentNode)
+
+			-- ChildB has a binding to the same button, which overrides the parent
+			local childNodeB, _ = addChildNode(parentNode)
+			local callbackSpyChild = createSpy()
+			childNodeB.inputBindings = {
+				action = Input.PublicInterface.onStep(Enum.KeyCode.ButtonX, callbackSpyChild.value),
+			}
+
+			local mockEngine, engineInterface = MockEngine.new()
+			local focusControllerInternal = parentNode.focusController[InternalApi]
+			focusControllerInternal:initialize(engineInterface)
+			expect(callbackSpyParent.callCount).to.equal(0)
+			expect(callbackSpyChild.callCount).to.equal(0)
+
+			-- When A is focused, we should use the parent's input binding
+			childNodeA:focus()
+			mockEngine:renderStep(0.03)
+			expect(callbackSpyParent.callCount).to.equal(1)
+			expect(callbackSpyChild.callCount).to.equal(0)
+
+			-- When B is focused, both it and the parent's binding run
+			childNodeB:focus()
+			mockEngine:renderStep(0.03)
+			expect(callbackSpyParent.callCount).to.equal(1)
+			expect(callbackSpyChild.callCount).to.equal(1)
+		end)
+
+		it("should override onMoveStep bindings wholesale, since they don't differ by keycode", function()
+			local rootRef, _ = Roact.createBinding(Instance.new("Frame"))
+			local parentNode = createRootNode(rootRef)
+			local callbackSpyParent = createSpy()
+			parentNode.inputBindings = {
+				action = Input.PublicInterface.onMoveStep(callbackSpyParent.value),
+			}
+
+			-- ChildA does not override the parent's binding
+			local childNodeA, _ = addChildNode(parentNode)
+
+			-- ChildB has a binding to the same button, which overrides the parent
+			local childNodeB, _ = addChildNode(parentNode)
+			local callbackSpyChild = createSpy()
+			childNodeB.inputBindings = {
+				action = Input.PublicInterface.onMoveStep(callbackSpyChild.value),
+			}
+
+			local mockEngine, engineInterface = MockEngine.new()
+			local focusControllerInternal = parentNode.focusController[InternalApi]
+			focusControllerInternal:initialize(engineInterface)
+			expect(callbackSpyParent.callCount).to.equal(0)
+			expect(callbackSpyChild.callCount).to.equal(0)
+
+			-- When A is focused, we should use the parent's input binding
+			childNodeA:focus()
+			mockEngine:renderStep(0.03)
+			expect(callbackSpyParent.callCount).to.equal(1)
+			expect(callbackSpyChild.callCount).to.equal(0)
+
+			-- When B is focused, its binding is run instead
+			childNodeB:focus()
+			mockEngine:renderStep(0.03)
+			expect(callbackSpyParent.callCount).to.equal(1)
+			expect(callbackSpyChild.callCount).to.equal(1)
+		end)
+
+		it("should update input bindings when focus changes", function()
+			local rootRef, _ = Roact.createBinding(Instance.new("Frame"))
+			local parentNode = createRootNode(rootRef)
+
+			local boundInputsChangedSpy = createSpy()
+			local disconnect = parentNode.focusController.subscribeToBoundInputsChanged(boundInputsChangedSpy.value)
+
+			local childNodeA, _ = addChildNode(parentNode)
+			childNodeA.inputBindings = {
+				action = Input.PublicInterface.onBegin(Enum.KeyCode.ButtonX, function() end, {
+					key = "actionX"
+				}),
+			}
+			local childNodeB, _ = addChildNode(parentNode)
+			childNodeB.inputBindings = {
+				action1 = Input.PublicInterface.onBegin(Enum.KeyCode.ButtonY, function() end, {
+					key = "actionY"
+				}),
+				action2 = Input.PublicInterface.onBegin(Enum.KeyCode.ButtonA, function() end),
+			}
+
+			local _, engineInterface = MockEngine.new()
+			local focusControllerInternal = parentNode.focusController[InternalApi]
+			focusControllerInternal:initialize(engineInterface)
+
+			expect(boundInputsChangedSpy.callCount).to.equal(0)
+			childNodeA:focus()
+			expect(boundInputsChangedSpy.callCount).to.equal(1)
+
+			local boundInputs = parentNode.focusController.getBoundInputs()
+			expect(boundInputs[Enum.KeyCode.ButtonY]).to.equal(nil)
+			expect(boundInputs[Enum.KeyCode.ButtonA]).to.equal(nil)
+			expect(boundInputs[Enum.KeyCode.ButtonX].key).to.equal("actionX")
+
+			childNodeB:focus()
+			expect(boundInputsChangedSpy.callCount).to.equal(2)
+
+			boundInputs = parentNode.focusController.getBoundInputs()
+			expect(boundInputs[Enum.KeyCode.ButtonY].key).to.equal("actionY")
+			expect(boundInputs[Enum.KeyCode.ButtonX]).to.equal(nil)
+			-- expect a binding without a meta table field to return an empty table rather than nil
+			expect(#boundInputs[Enum.KeyCode.ButtonA]).to.equal(0)
+
+			disconnect()
+			childNodeA:focus()
+			expect(boundInputsChangedSpy.callCount).to.equal(2)
 		end)
 	end)
 end

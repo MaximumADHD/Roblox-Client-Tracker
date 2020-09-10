@@ -139,6 +139,36 @@ return function()
 
 			Roact.unmount(tree)
 		end)
+
+		it("triggers callbacks when focus is released", function()
+			local testContainer = createTestContainer()
+			local FocusableFrame = asFocusable("Frame")
+
+			local focusLostSpy = createSpy()
+			local focusChangedSpy = createSpy()
+
+			local childRefA = Roact.createRef()
+			local tree = Roact.mount(Roact.createElement(testContainer.FocusProvider, {}, {
+				FocusChildA = Roact.createElement(FocusableFrame, {
+					[Roact.Ref] = childRefA,
+
+					onFocusLost = focusLostSpy.value,
+					onFocusChanged = focusChangedSpy.value,
+				}),
+			}), testContainer.rootRef:getValue())
+
+			testContainer.focusController:moveFocusTo(childRefA)
+			expect(focusChangedSpy.callCount).to.equal(1)
+			focusChangedSpy:assertCalledWith(true)
+
+			testContainer.focusController:releaseFocus()
+
+			expect(focusLostSpy.callCount).to.equal(1)
+			expect(focusChangedSpy.callCount).to.equal(2)
+			focusChangedSpy:assertCalledWith(false)
+
+			Roact.unmount(tree)
+		end)
 	end)
 
 	describe("Root vs non-root Focusable", function()
@@ -175,6 +205,68 @@ return function()
 
 			expect(focusController[InternalApi].engineInterface).to.equal(nil)
 		end)
+
+		it("should inherit parent neighbors through multiple layers", function()
+			local FocusableFrame = asFocusable("Frame")
+			local focusController = FocusController.createPublicApiWrapper()
+			local function getNode(ref)
+				return focusController[InternalApi].allNodes[ref]
+			end
+
+			local refs = createRefCache()
+
+			local tree = Roact.mount(Roact.createElement(FocusableFrame, {
+				focusController = focusController,
+				[Roact.Ref] = refs.root,
+			}, {
+				TopSelectionTarget = Roact.createElement(FocusableFrame, {
+					NextSelectionDown = refs.bottomFocusable,
+					[Roact.Ref] = refs.topFocusable,
+				}),
+				BottomSelectionTarget = Roact.createElement(FocusableFrame, {
+					[Roact.Ref] = refs.bottomFocusable,
+					NextSelectionUp = refs.topFocusable,
+				}, {
+					IntermediateChild = Roact.createElement(FocusableFrame, {}, {
+						-- This focusable child should be able to inherit
+						-- neighbors from its grandparent
+						LeafChild = Roact.createElement(FocusableFrame, {
+							[Roact.Ref] = refs.bottomLeaf,
+						})
+					}),
+				}),
+			}), nil)
+
+			local focusControllerInternal = focusController[InternalApi]
+			local mockEngine, engineInterface = MockEngine.new()
+			focusControllerInternal:initialize(engineInterface)
+
+			-- Initialize gamepad focus to the top element
+			local topNode = getNode(refs.topFocusable)
+			topNode:focus()
+			expect(focusControllerInternal:isNodeFocused(topNode)).to.equal(true)
+
+			-- Move focus down; this should work without neighbor propagation
+			mockEngine:simulateInput({
+				UserInputType = Enum.UserInputType.Gamepad1,
+				UserInputState = Enum.UserInputState.Begin,
+				KeyCode = Enum.KeyCode.DPadDown,
+			})
+
+			local bottomLeafNode = getNode(refs.bottomLeaf)
+			expect(focusControllerInternal:isNodeFocused(bottomLeafNode)).to.equal(true)
+
+			-- Move focus up; this only works if grandparents' neighbors get
+			-- passed down correctly
+			mockEngine:simulateInput({
+				UserInputType = Enum.UserInputType.Gamepad1,
+				UserInputState = Enum.UserInputState.Begin,
+				KeyCode = Enum.KeyCode.DPadUp,
+			})
+			expect(focusControllerInternal:isNodeFocused(topNode)).to.equal(true)
+
+			Roact.unmount(tree)
+		end)
 	end)
 
 	-- These tests rely on the fact that a FocusController passed to a Focusable
@@ -182,7 +274,7 @@ return function()
 	-- under a PlayerGui. We leverage this technicality to initialize it
 	-- ourselves with the mock engine interface.
 	describe("Refresh focus logic", function()
-		it("Should redirect focus to the parent when a focused child is detached", function()
+		it("should redirect focus to the parent when a focused child is detached", function()
 			local FocusableFrame = asFocusable("Frame")
 			local focusController = FocusController.createPublicApiWrapper()
 			local function getNode(ref)
@@ -219,7 +311,7 @@ return function()
 			Roact.unmount(tree)
 		end)
 
-		it("Should trigger parent focus logic when a focused child is detached", function()
+		it("should trigger parent focus logic when a focused child is detached", function()
 			local FocusableFrame = asFocusable("Frame")
 			local focusController = FocusController.createPublicApiWrapper()
 			local function getNode(ref)
@@ -261,7 +353,7 @@ return function()
 			Roact.unmount(tree)
 		end)
 
-		it("Should trigger parent focus logic when a node has children added to it", function()
+		it("should trigger parent focus logic when a node has children added to it", function()
 			local FocusableFrame = asFocusable("Frame")
 			local focusController = FocusController.createPublicApiWrapper()
 			local function getNode(ref)
@@ -298,7 +390,7 @@ return function()
 			Roact.unmount(tree)
 		end)
 
-		it("Should not refocus when adding children to a parent that already has at least one child", function()
+		it("should not refocus when adding children to a parent that already has at least one child", function()
 			local FocusableFrame = asFocusable("Frame")
 			local focusController = FocusController.createPublicApiWrapper()
 			local function getNode(ref)
@@ -336,6 +428,104 @@ return function()
 			expect(focusControllerInternal:isNodeFocused(childNodeA)).to.equal(true)
 
 			Roact.unmount(tree)
+		end)
+
+		it("should clean up input event subscriptions when the Focusable they're bound to is detached", function()
+			local FocusableFrame = asFocusable("Frame")
+			local focusController = FocusController.createPublicApiWrapper()
+
+			local beginCallbackSpy, moveStepCallbackSpy = createSpy(), createSpy()
+			local tree = Roact.mount(Roact.createElement(FocusableFrame, {
+				focusController = focusController,
+			}, {
+				FocusChildA = Roact.createElement(FocusableFrame, {
+					inputBindings = {
+						Input.PublicInterface.onBegin(Enum.KeyCode.ButtonX, beginCallbackSpy.value),
+						Input.PublicInterface.onMoveStep(moveStepCallbackSpy.value),
+					}
+				}),
+			}), nil)
+
+			local focusControllerInternal = focusController[InternalApi]
+			local mockEngine, engineInterface = MockEngine.new()
+			focusControllerInternal:initialize(engineInterface)
+
+			focusController.captureFocus()
+
+			expect(beginCallbackSpy.callCount).to.equal(0)
+			expect(moveStepCallbackSpy.callCount).to.equal(0)
+
+			mockEngine:simulateInput({
+				UserInputType = Enum.UserInputType.Gamepad1,
+				UserInputState = Enum.UserInputState.Begin,
+				KeyCode = Enum.KeyCode.ButtonX,
+			})
+			mockEngine:renderStep()
+			expect(beginCallbackSpy.callCount).to.equal(1)
+			expect(moveStepCallbackSpy.callCount).to.equal(1)
+
+			-- Remove the child from the tree, which will also nil its parents
+			-- and trigger any auto-refocusing logic
+			local tree = Roact.update(tree, Roact.createElement(FocusableFrame, {
+				focusController = focusController,
+			}, {
+				-- Child was removed
+			}), nil)
+
+			mockEngine:simulateInput({
+				UserInputType = Enum.UserInputType.Gamepad1,
+				UserInputState = Enum.UserInputState.Begin,
+				KeyCode = Enum.KeyCode.ButtonX,
+			})
+			mockEngine:renderStep()
+			expect(beginCallbackSpy.callCount).to.equal(1)
+			expect(moveStepCallbackSpy.callCount).to.equal(1)
+
+			Roact.unmount(tree)
+		end)
+
+		it("should clean up input event subscriptions when the whole tree is cleaned up", function()
+			local FocusableFrame = asFocusable("Frame")
+			local focusController = FocusController.createPublicApiWrapper()
+
+			local beginCallbackSpy, moveStepCallbackSpy = createSpy(), createSpy()
+			local tree = Roact.mount(Roact.createElement(FocusableFrame, {
+				focusController = focusController,
+				inputBindings = {
+					Input.PublicInterface.onBegin(Enum.KeyCode.ButtonX, beginCallbackSpy.value),
+					Input.PublicInterface.onMoveStep(moveStepCallbackSpy.value),
+				}
+			}), nil)
+
+			local focusControllerInternal = focusController[InternalApi]
+			local mockEngine, engineInterface = MockEngine.new()
+			focusControllerInternal:initialize(engineInterface)
+
+			focusController.captureFocus()
+			expect(beginCallbackSpy.callCount).to.equal(0)
+			expect(moveStepCallbackSpy.callCount).to.equal(0)
+
+			mockEngine:simulateInput({
+				UserInputType = Enum.UserInputType.Gamepad1,
+				UserInputState = Enum.UserInputState.Begin,
+				KeyCode = Enum.KeyCode.ButtonX,
+			})
+			mockEngine:renderStep()
+			expect(beginCallbackSpy.callCount).to.equal(1)
+			expect(moveStepCallbackSpy.callCount).to.equal(1)
+
+			-- Remove the child from the tree, which will also nil its parents
+			-- and trigger any auto-refocusing logic
+			Roact.unmount(tree)
+
+			mockEngine:simulateInput({
+				UserInputType = Enum.UserInputType.Gamepad1,
+				UserInputState = Enum.UserInputState.Begin,
+				KeyCode = Enum.KeyCode.ButtonX,
+			})
+			mockEngine:renderStep()
+			expect(beginCallbackSpy.callCount).to.equal(1)
+			expect(moveStepCallbackSpy.callCount).to.equal(1)
 		end)
 	end)
 
@@ -386,7 +576,7 @@ return function()
 			local tree = Roact.mount(Roact.createElement(FocusableFrame, {
 				focusController = focusController,
 				inputBindings = {
-					onXButton = Input.onBegin(Enum.KeyCode.ButtonX, xBindingSpy.value),
+					onXButton = Input.PublicInterface.onBegin(Enum.KeyCode.ButtonX, xBindingSpy.value),
 				}
 			}), nil)
 
@@ -409,7 +599,7 @@ return function()
 			tree = Roact.update(tree, Roact.createElement(FocusableFrame, {
 				focusController = focusController,
 				inputBindings = {
-					onYButton = Input.onBegin(Enum.KeyCode.ButtonY, yBindingSpy.value),
+					onYButton = Input.PublicInterface.onBegin(Enum.KeyCode.ButtonY, yBindingSpy.value),
 				}
 			}))
 
@@ -523,6 +713,87 @@ return function()
 				KeyCode = Enum.KeyCode.DPadUp,
 			})
 			expect(focusControllerInternal:isNodeFocused(childNodeA)).to.equal(true)
+
+			Roact.unmount(tree)
+		end)
+
+		it("should propagate updates to inherited grandparent neighbor relationships", function()
+			local FocusableFrame = asFocusable("Frame")
+			local focusController = FocusController.createPublicApiWrapper()
+			local function getNode(ref)
+				return focusController[InternalApi].allNodes[ref]
+			end
+
+			local refs = createRefCache()
+
+			local tree = Roact.mount(Roact.createElement(FocusableFrame, {
+				focusController = focusController,
+			}, {
+				TopSelectionTarget = Roact.createElement(FocusableFrame, {
+					NextSelectionDown = refs.bottomFocusable,
+					[Roact.Ref] = refs.topFocusable,
+				}),
+				BottomSelectionTarget = Roact.createElement(FocusableFrame, {
+					[Roact.Ref] = refs.bottomFocusable,
+				}, {
+					IntermediateChild = Roact.createElement(FocusableFrame, {}, {
+						LeafChild = Roact.createElement(FocusableFrame, {
+							[Roact.Ref] = refs.bottomLeaf,
+						})
+					}),
+				}),
+			}), nil)
+
+			local focusControllerInternal = focusController[InternalApi]
+			local mockEngine, engineInterface = MockEngine.new()
+			focusControllerInternal:initialize(engineInterface)
+
+			local bottomLeafNode = getNode(refs.bottomLeaf)
+			bottomLeafNode:focus()
+			expect(focusControllerInternal:isNodeFocused(bottomLeafNode)).to.equal(true)
+
+			-- This upward input will not work on this tree, since there's no
+			-- upward neighbor defined just yet
+			mockEngine:simulateInput({
+				UserInputType = Enum.UserInputType.Gamepad1,
+				UserInputState = Enum.UserInputState.Begin,
+				KeyCode = Enum.KeyCode.DPadUp,
+			})
+			expect(focusControllerInternal:isNodeFocused(bottomLeafNode)).to.equal(true)
+
+			-- Update the tree to introduce an upward neighbor
+			tree = Roact.update(tree, Roact.createElement(FocusableFrame, {
+				focusController = focusController,
+			}, {
+				TopSelectionTarget = Roact.createElement(FocusableFrame, {
+					NextSelectionDown = refs.bottomFocusable,
+					[Roact.Ref] = refs.topFocusable,
+				}),
+				BottomSelectionTarget = Roact.createElement(FocusableFrame, {
+					NextSelectionUp = refs.topFocusable,
+					[Roact.Ref] = refs.bottomFocusable,
+				}, {
+					IntermediateChild = Roact.createElement(FocusableFrame, {}, {
+						-- This focusable child should be able to inherit
+						-- neighbors from its grandparent
+						LeafChild = Roact.createElement(FocusableFrame, {
+							[Roact.Ref] = refs.bottomLeaf,
+						})
+					}),
+				}),
+			}))
+
+			-- Make sure we're still on B like before
+			expect(focusControllerInternal:isNodeFocused(bottomLeafNode)).to.equal(true)
+
+			-- This time, moving up should work as expected
+			mockEngine:simulateInput({
+				UserInputType = Enum.UserInputType.Gamepad1,
+				UserInputState = Enum.UserInputState.Begin,
+				KeyCode = Enum.KeyCode.DPadUp,
+			})
+			local topNode = getNode(refs.topFocusable)
+			expect(focusControllerInternal:isNodeFocused(topNode)).to.equal(true)
 
 			Roact.unmount(tree)
 		end)

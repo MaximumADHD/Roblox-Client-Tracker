@@ -3,6 +3,7 @@ local Root = InfiniteScroller.Parent
 local Roact = require(Root.Roact)
 local Cryo = require(Root.Cryo)
 local Scroller = require(InfiniteScroller).Scroller
+local ComplexThing = require(script.Parent.ComplexThing)
 
 local TextService = game:GetService("TextService")
 
@@ -25,6 +26,7 @@ local COLORS = {
 	PADDING = Color3.fromRGB(145, 88, 222),
 }
 
+local COMPLEX_THING_SIZE = 128
 
 local LAYOUT_ORDER_INDEX = 0
 function getNextLayout()
@@ -45,7 +47,7 @@ function makeLabel(text, value, color)
 end
 
 function makeButton(text, func, color)
-	local color = color or COLORS.DEFAULT
+	color = color or COLORS.DEFAULT
 	return Roact.createElement("TextButton", {
 		Size = UDim2.fromOffset(110, 30),
 		BackgroundColor3 = color,
@@ -57,7 +59,7 @@ function makeButton(text, func, color)
 end
 
 function debugScroller:makeToggleButton(value)
-	function doToggle()
+	local function doToggle()
 		self:setState({
 			[value] = not self.state[value]
 		})
@@ -103,11 +105,12 @@ end
 
 debugScroller.defaultProps = {
 	anchorLocation = UDim.new(1, 0),
-	mountingBuffer = 50,
+	mountingBuffer = 150,
 	dragBuffer = 0,
-	focusIndex = 3,
+	focusIndex = 1,
 
-	numItems = 10,
+	Size = UDim2.new(1, -20, 0, 100),
+	numItems = 20,
 }
 
 function debugScroller:init()
@@ -115,8 +118,9 @@ function debugScroller:init()
 		items = {},
 		-- Scroller props. These can be changed by debugger buttons
 		focusLock = 1,
-		orientation = Scroller.Orientation.Down,
+		orientation = Scroller.Orientation.Up,
 		clipsDescendants = false,
+		nestedLayer = 1,
 
 		-- Scroller internals. Don't change these manually, meant for DISPLAY ONLY
 		canvasPosition = 0,
@@ -183,15 +187,15 @@ function debugScroller:render()
 
 		scrollerFrame = Roact.createElement("Frame", {
 			LayoutOrder = 2,
-			Size = UDim2.new(0, 140, 1, 0),
+			Size = UDim2.new(0, 160, 0, 300),
 			BackgroundTransparency = 1,
 		}, {
 			scroller = Roact.createElement(Scroller, {
-				--ElasticBehavior = Enum.ElasticBehavior.Never,
+				ElasticBehavior = Enum.ElasticBehavior.Always,
 				ClipsDescendants = self.state.clipsDescendants,
 				Position = UDim2.fromOffset(0, 200),
 				BackgroundColor3 = Color3.fromRGB(111, 111, 111),
-				Size = UDim2.new(0, 100, 0, 100),
+				Size = self.props.Size,
 
 				orientation = self.state.orientation,
 				padding = UDim.new(),
@@ -201,44 +205,52 @@ function debugScroller:render()
 				anchorLocation = self.props.anchorLocation,
 				dragBuffer = self.props.dragBuffer,
 				mountingBuffer = self.props.mountingBuffer,
-				estimatedItemSize = 10,
+				estimatedItemSize = self.state.nestedLayer ~= 1 and COMPLEX_THING_SIZE or 20,
 				[Roact.Ref] = self.ref,
 				identifier = function(item)
 					return item.id
 				end,
+				--recyclingDisabledFor={"ComplexThing"},
 				renderItem = function(item, _)
-					local r = 88+88*math.sin(math.rad(8*item.id+90))
-					local g = 88+44*math.sin(math.rad(8*item.id+0))
-					local b = 88+88*math.sin(math.rad(8*item.id+180))
+					if self.state.nestedLayer ~= 1 then
+						return Roact.createElement(ComplexThing, {
+							Size = UDim2.fromOffset(COMPLEX_THING_SIZE, COMPLEX_THING_SIZE),
+							nestedLayer = self.state.nestedLayer,
+						})
+					else
+						local r = 88+88*math.sin(math.rad(8*item.id+90))
+						local g = 88+44*math.sin(math.rad(8*item.id+0))
+						local b = 88+88*math.sin(math.rad(8*item.id+180))
 
-					local leadIndexId = self.state.items[self.state.leadIndex] and self.state.items[self.state.leadIndex].id
-					local trailIndexId = self.state.items[self.state.trailIndex] and self.state.items[self.state.trailIndex].id
-					local anchorIndexId = self.state.items[self.state.anchorIndex] and self.state.items[self.state.anchorIndex].id
+						local leadIndexId = self.state.items[self.state.leadIndex] and self.state.items[self.state.leadIndex].id
+						local trailIndexId = self.state.items[self.state.trailIndex] and self.state.items[self.state.trailIndex].id
+						local anchorIndexId = self.state.items[self.state.anchorIndex] and self.state.items[self.state.anchorIndex].id
 
-					return Roact.createElement("Frame", {
-						Size = UDim2.new(0, 20, 0, 20),
-						BackgroundColor3 = Color3.fromRGB(r, g, b),
-					}, {
-						["INDEX" .. tostring(item.id)] = Roact.createElement("TextLabel", {
-							Size = UDim2.new(1, 0, 1, 0),
-							Text = item.id,
-							TextColor3 = Color3.new(1, 1, 1),
-							BackgroundTransparency = 1,
+						return Roact.createElement("Frame", {
+							Size = UDim2.new(0, 20, 0, 20),
+							BackgroundColor3 = Color3.fromRGB(r, g, b),
 						}, {
-							item.id == leadIndexId and makeLabelLine("leadIndex ",
-								UDim2.fromScale(1, 0),
-								COLORS.LEAD_INDEX,
-								false),
-							item.id == trailIndexId and makeLabelLine("trailIndex ",
-								UDim2.fromScale(1, 0),
-								COLORS.TRAIL_INDEX,
-								false),
-							item.id == anchorIndexId and makeLabelLine("anchorIndex ",
-								UDim2.new(),
-								COLORS.ANCHOR_INDEX,
-								true)
-						}),
-					})
+							["INDEX" .. tostring(item.id)] = Roact.createElement("TextLabel", {
+								Size = UDim2.new(1, 0, 1, 0),
+								Text = item.id,
+								TextColor3 = Color3.new(1, 1, 1),
+								BackgroundTransparency = 1,
+							}, {
+								item.id == leadIndexId and makeLabelLine("leadIndex ",
+									UDim2.fromScale(1, 0),
+									COLORS.LEAD_INDEX,
+									false),
+								item.id == trailIndexId and makeLabelLine("trailIndex ",
+									UDim2.fromScale(1, 0),
+									COLORS.TRAIL_INDEX,
+									false),
+								item.id == anchorIndexId and makeLabelLine("anchorIndex ",
+									UDim2.new(),
+									COLORS.ANCHOR_INDEX,
+									true)
+							}),
+						})
+					end
 				end,
 
 				loadPrevious = function()
@@ -282,9 +294,6 @@ function debugScroller:render()
 
 					-- this feels dirty, but allows us to visualize the padding frame
 					local padding_rbx = rbx:FindFirstChild("padding")
-					padding_rbx.Size = UDim2.new(padding_rbx.Size.X.Scale, 30, padding_rbx.Size.Y.Scale, padding_rbx.Size.Y.Offset)
-					padding_rbx.BackgroundTransparency = 0
-					padding_rbx.BackgroundColor3 = COLORS.PADDING
 
 					local anchorLinePositionY = rbx.AbsolutePosition.Y - self.props.anchorLocation.Offset
 					if self.state.orientation == Scroller.Orientation.Down then
@@ -327,10 +336,15 @@ function debugScroller:render()
 				COLORS.DRAG_BUFFER,
 				true),
 
-			mountingBuffer = self.ref.current and makeLabelLine("mountingBuffer ",
+			mountingBuffer1 = self.ref.current and makeLabelLine("mountingBuffer ",
 				UDim2.fromOffset(20, -self.props.mountingBuffer + self.ref.current.AbsolutePosition.Y - self.initialY:getValue()),
 				COLORS.WHITE,
 				true),
+
+			mountingBuffer2 = self.ref.current and makeLabelLine("mountingBuffer ",
+			UDim2.fromOffset(20, self.ref.current.AbsoluteSize.Y + self.props.mountingBuffer + self.ref.current.AbsolutePosition.Y - self.initialY:getValue()),
+			COLORS.WHITE,
+			true),
 
 			canvasEstimate = self.ref.current and Roact.createElement("Frame", {
 				Size = UDim2.fromOffset(40, self.state.canvasSize),
@@ -338,7 +352,15 @@ function debugScroller:render()
 				BackgroundColor3 = COLORS.CANVAS,
 				BorderSizePixel = 0,
 				ZIndex = -10,
-			})
+			}),
+
+			paddingEstimate = self.ref.current and Roact.createElement("Frame", {
+				Size = UDim2.fromOffset(30, self.state.paddingSize),
+				Position = UDim2.fromOffset(0, self.state.paddingPosition - self.initialY:getValue()),
+				BackgroundColor3 = COLORS.PADDING,
+				BorderSizePixel = 0,
+				ZIndex = -9,
+			}),
 		}),
 		operationsFrame = Roact.createElement("Frame", {
 			LayoutOrder = 3,
@@ -453,6 +475,7 @@ function debugScroller:render()
 				})
 			end),
 
+
 			reverseList = makeButton("Reverse List", function()
 				local nextItems = {}
 				local numItems = #self.state.items
@@ -464,7 +487,25 @@ function debugScroller:render()
 					focusLock = self.state.focusLock + 1,
 					items = nextItems,
 				})
-			end)
+			end),
+
+			scrollUpOnce = makeButton("Scroll Up 1px", function()
+				if self.ref.current then
+					self.ref.current.CanvasPosition = self.ref.current.CanvasPosition - Vector2.new(0, 1)
+				end
+			end),
+
+			scrollDownOnce = makeButton("Scroll Down 1px", function()
+				if self.ref.current then
+					self.ref.current.CanvasPosition = self.ref.current.CanvasPosition + Vector2.new(0, 1)
+				end
+			end),
+
+			toggleComplexity = makeButton("Toggle Complexity", function()
+				self:setState({
+					nestedLayer = self.state.nestedLayer%5 + 1
+				})
+			end),
 		})
 	})
 end

@@ -7,7 +7,7 @@ local UIBlox = require(LuaChatDeps.UIBlox)
 UIBlox.init(UIBloxConfig)
 
 return {
-	InfiniteScroll = UIBlox.Core.InfiniteScroller,
+	InfiniteScroll = require(LuaChatDeps.InfiniteScroller),
 	RoduxNetworking = require(LuaChatDeps.RoduxNetworking),
 	UIBlox = UIBlox,
 	AssetCard = require(LuaChatDeps.AssetCard),

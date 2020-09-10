@@ -39,14 +39,19 @@ HeaderBar.validateProps = t.strictInterface({
 	-- How tall the bar is
 	barHeight = t.optional(t.number),
 
+	-- How much spacing between elements to allow on the right side of the bar
+	contentPaddingRight = t.optional(t.UDim),
+
 	-- A function that returns a Roact Component, used for customizing buttons on the right side of the bar
 	renderRight = t.optional(t.callback),
 	renderLeft = t.optional(t.callback),
+
 })
 
 -- default values are taken from Abstract
 HeaderBar.defaultProps = {
 	barHeight = 48,
+	contentPaddingRight = UDim.new(0, 12),
 	renderRight = function()
 		return nil
 	end,
@@ -97,6 +102,7 @@ function HeaderBar:render()
 				renderLeft = self.props.renderLeft,
 				renderCenter = function()
 					return Roact.createElement(GenericTextLabel, {
+						ClipsDescendants = true,
 						Size = UDim2.new(1, 0, 0, centerTextSize),
 						Text = self.props.title,
 						TextTruncate = Enum.TextTruncate.AtEnd,
@@ -107,7 +113,7 @@ function HeaderBar:render()
 				end,
 				estimatedCenterWidth = estimatedCenterWidth,
 				marginRight = self.state.margin,
-				contentPaddingRight = UDim.new(0, 12),
+				contentPaddingRight = self.props.contentPaddingRight,
 				renderRight = self.props.renderRight,
 			})
 		})

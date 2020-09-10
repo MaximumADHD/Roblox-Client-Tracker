@@ -27,10 +27,14 @@ function Bar:render()
 end
 
 local Story = Roact.PureComponent:extend("Rhodium Story - frame resize test")
+Story.defaultProps = {
+	resizeAmount = 20,
+	initialHeight = 50,
+}
 
 function Story:init()
 	self.state = {
-		size = Vector2.new(50, 50),
+		size = Vector2.new(50, self.props.initialHeight),
 	}
 end
 
@@ -61,7 +65,11 @@ function Story:render()
 					})
 				end,
 			},
-			self.props
+			self.props,
+			{
+				resizeAmount = Cryo.None,
+				initialHeight = Cryo.None,
+			}
 		)),
 		moveUp = Roact.createElement("TextButton", {
 			Size = UDim2.new(0, 50, 0, 50),
@@ -70,7 +78,7 @@ function Story:render()
 			Text = "^",
 			[Roact.Event.Activated] = function()
 				self:setState({
-					size = self.state.size + Vector2.new(0, -20)
+					size = self.state.size + Vector2.new(0, -self.props.resizeAmount)
 				})
 			end,
 		}),
@@ -81,7 +89,7 @@ function Story:render()
 			Text = "v",
 			[Roact.Event.Activated] = function()
 				self:setState({
-					size = self.state.size + Vector2.new(0, 20)
+					size = self.state.size + Vector2.new(0, self.props.resizeAmount)
 				})
 			end,
 		}),
@@ -92,7 +100,7 @@ function Story:render()
 			Text = "<",
 			[Roact.Event.Activated] = function()
 				self:setState({
-					size = self.state.size + Vector2.new(-20, 0)
+					size = self.state.size + Vector2.new(-self.props.resizeAmount, 0)
 				})
 			end,
 		}),
@@ -103,7 +111,7 @@ function Story:render()
 			Text = ">",
 			[Roact.Event.Activated] = function()
 				self:setState({
-					size = self.state.size + Vector2.new(20, 0)
+					size = self.state.size + Vector2.new(self.props.resizeAmount, 0)
 				})
 			end,
 		}),

@@ -149,5 +149,5 @@ return{
 	["CoreScripts.PurchasePrompt.PurchaseFailed.NotEnoughRobuxNoUpsell"] = [[您的 Robux 不足，無法購買此道具。]],
 	["CoreScripts.PurchasePrompt.Button.PremiumOnly"] = [[Premium 限定]],
 	["CoreScripts.PurchasePrompt.PurchaseFailed.PremiumOnly"] = [[若要購買此道具，請訂閱 Roblox Premium。]],
-	["CoreScripts.PurchasePrompt.PurchaseDetails.AgeLegalText"] = [[只有成人可以在 Roblox 上進行購買。我同意我已滿 18 歲，並是帳號主人或帳號主人的家長或法定監護人。我批准此項購買，並同意使用條款。]],
+	["CoreScripts.PurchasePrompt.PurchaseDetails.AgeLegalText"] = [[此購買將會涉及到真實金錢交易。我同意我滿 18 歲，並是帳號主人的家長或法定監護人。我批准此筆購買並同意服務條款。]],
 }

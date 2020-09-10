@@ -1,5 +1,5 @@
-game:DefineFastFlag("AdultConfirmationEnabledV3", false)
+game:DefineFastFlag("AdultConfirmationEnabledV4", false)
 
 return function()
-	return game:GetFastFlag("AdultConfirmationEnabledV3")
+	return game:GetFastFlag("AdultConfirmationEnabledV4")
 end

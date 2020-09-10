@@ -149,5 +149,5 @@ return{
 	["CoreScripts.PurchasePrompt.PurchaseFailed.NotEnoughRobuxNoUpsell"] = [[No tienes suficientes Robux para comprar este objeto. ]],
 	["CoreScripts.PurchasePrompt.Button.PremiumOnly"] = [[Solo Premium]],
 	["CoreScripts.PurchasePrompt.PurchaseFailed.PremiumOnly"] = [[Necesitas Roblox Premium para comprar este objeto.]],
-	["CoreScripts.PurchasePrompt.PurchaseDetails.AgeLegalText"] = [[Solo los adultos pueden realizar compras en Roblox. Acepto que soy mayor de 18 años y dueño de la cuenta, o soy el progenitor o tutor del dueño. Autorizo esta compra y acepto los Términos de uso.]],
+	["CoreScripts.PurchasePrompt.PurchaseDetails.AgeLegalText"] = [[Esta compra implica el intercambio de moneda real. Certifico que soy mayor de 18 años y que soy el progenitor o tutor del propietario de la cuenta. Autorizo esta compra y acepto los Términos de servicio.]],
 }

@@ -96,16 +96,11 @@ function FocusNode:updateNavProps(navProps)
 	self.defaultChildRef = navProps.defaultChild
 	self.restorePreviousChildFocus = restorePreviousChildFocus
 	self.inputBindings = navProps.inputBindings or {}
-end
 
-function FocusNode:getInputBinding(inputState, keyCode)
-	for _, binding in pairs(self.inputBindings) do
-		if binding.state == inputState and binding.keyCode == keyCode then
-			return binding.action
-		end
+	local focusController = self:__getFocusControllerInternal()
+	if focusController:isNodeFocused(self) then
+		focusController:updateInputBindings()
 	end
-
-	return nil
 end
 
 function FocusNode:focus()

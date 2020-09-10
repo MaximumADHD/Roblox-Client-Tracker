@@ -8,7 +8,7 @@ local Story = Roact.PureComponent:extend("Story")
 
 function Story:init()
 	local startingItems = {}
-	for i = 1, 50 do
+	for i = 1, self.props.startingItems or 50 do
 		table.insert(startingItems, i)
 	end
 	self:setState({
@@ -18,18 +18,16 @@ function Story:init()
 		itemSize = 30,
 	})
 
-	self.focus = 1
+	self.focus = self.props.startingFocus or 1
 end
 
 function Story:render()
-	print("animatedScrollerResize.story")
-	print(self.state)
 	return Roact.createFragment({
-		Roact.createElement("Frame", {
+		output = Roact.createElement("Frame", {
 			Size = UDim2.new(0, self.state.width, 0, self.state.itemSize + 30),
 			BackgroundTransparency = 1,
 		},{
-			Roact.createElement(Scroller, Cryo.Dictionary.join({
+			scroller = Roact.createElement(Scroller, Cryo.Dictionary.join({
 				BackgroundColor3 = Color3.fromRGB(255, 0, 0),
 				Size = UDim2.new(1, 0, 1, 0),
 				orientation = Scroller.Orientation.Right,
@@ -60,9 +58,12 @@ function Story:render()
 					self.focus = data.anchorIndex
 					self.animationActive = data.animationActive
 				end,
-			}, self.props)),
+			}, self.props, {
+				startingItems = Cryo.None,
+				startingFocus = Cryo.None,
+			})),
 		}),
-		Roact.createElement("TextButton", {
+		scrollLeft = Roact.createElement("TextButton", {
 			Size = UDim2.new(0, 30, 0, 30),
 			Position = UDim2.new(0, 0, 0, 100),
 			Text = "<",
@@ -74,9 +75,9 @@ function Story:render()
 				self:setState({lock = self.state.lock + 1})
 			end,
 		}),
-		Roact.createElement("TextButton", {
+		scrollRight = Roact.createElement("TextButton", {
 			Size = UDim2.new(0, 30, 0, 30),
-			Position = UDim2.new(0, 230, 0, 100),
+			Position = UDim2.new(0, 270, 0, 100),
 			Text = ">",
 			[Roact.Event.Activated] = function()
 				if self.animationActive then
@@ -86,7 +87,7 @@ function Story:render()
 				self:setState({lock = self.state.lock + 1})
 			end,
 		}),
-		Roact.createElement("TextButton", {
+		decreaseWidth = Roact.createElement("TextButton", {
 			Size = UDim2.new(0, 60, 0, 30),
 			Position = UDim2.new(0, 90, 0, 100),
 			Text = "Width -",
@@ -100,7 +101,7 @@ function Story:render()
 				})
 			end,
 		}),
-		Roact.createElement("TextButton", {
+		increaseWidth = Roact.createElement("TextButton", {
 			Size = UDim2.new(0, 60, 0, 30),
 			Position = UDim2.new(0, 150, 0, 100),
 			Text = "Width +",
@@ -110,6 +111,40 @@ function Story:render()
 				end
 				self:setState({
 					width = self.state.width + 10,
+				})
+			end,
+		}),
+		removeItem = Roact.createElement("TextButton", {
+			Size = UDim2.new(0, 60, 0, 30),
+			Position = UDim2.new(0, 30, 0, 100),
+			Text = "Item -",
+			[Roact.Event.Activated] = function()
+				if self.animationActive then
+					return
+				end
+				local items = self.state.items
+				local lock = nil
+				if self.focus >= #items then
+					self.focus = #items - 1
+					lock = self.state.lock + 1
+				end
+				self:setState({
+					items = Cryo.List.removeIndex(items, #items),
+					lock = lock,
+				})
+			end,
+		}),
+		addItem = Roact.createElement("TextButton", {
+			Size = UDim2.new(0, 60, 0, 30),
+			Position = UDim2.new(0, 210, 0, 100),
+			Text = "Item +",
+			[Roact.Event.Activated] = function()
+				if self.animationActive then
+					return
+				end
+				local items = self.state.items
+				self:setState({
+					items = Cryo.List.join(items, {#items + 1}),
 				})
 			end,
 		}),

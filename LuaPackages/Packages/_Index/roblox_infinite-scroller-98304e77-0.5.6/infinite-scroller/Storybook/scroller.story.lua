@@ -4,6 +4,7 @@ local Roact = require(Root.Roact)
 local Cryo = require(Root.Cryo)
 local Scroller = require(InfiniteScroller).Scroller
 
+-- Note: if you set this to ComplexThing, you may crash
 local Thing = require(script.Parent.ResizingThing)
 
 local Story = Roact.PureComponent:extend("Story")

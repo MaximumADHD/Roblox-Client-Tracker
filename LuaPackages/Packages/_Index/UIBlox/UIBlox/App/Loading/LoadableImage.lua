@@ -1,5 +1,3 @@
-local ContentProvider = game:GetService("ContentProvider")
-
 local Loading = script.Parent
 local App = Loading.Parent
 local UIBlox = App.Parent
@@ -7,11 +5,15 @@ local Packages = UIBlox.Parent
 
 local Roact = require(Packages.Roact)
 local t = require(Packages.t)
+local Cryo = require(Packages.Cryo)
+
 local ShimmerPanel = require(Loading.ShimmerPanel)
 local withStyle = require(UIBlox.Core.Style.withStyle)
 
 local Images = require(UIBlox.App.ImageSet.Images)
 local ImageSetComponent = require(UIBlox.Core.ImageSet.ImageSetComponent)
+
+local ContentProviderContext = require(UIBlox.App.Context.ContentProvider)
 
 local LOAD_FAILED_RETRY_COUNT = 3
 local RETRY_TIME_MULTIPLIER = 1.5
@@ -69,6 +71,8 @@ local validateProps = t.strictInterface({
 	showFailedStateWhenLoadingFailed = t.optional(t.boolean),
 	-- The ZIndex of the loading and final images
 	ZIndex = t.optional(t.integer),
+
+	contentProvider = t.union(t.instanceOf("ContentProvider"), t.table),
 })
 
 local LoadableImage = Roact.PureComponent:extend("LoadableImage")
@@ -262,7 +266,7 @@ function LoadableImage:_loadImage()
 			loadingFailed = false
 			decal.Texture = image
 
-			ContentProvider:PreloadAsync({decal}, function(contentId, assetFetchStatus)
+			self.props.contentProvider:PreloadAsync({decal}, function(contentId, assetFetchStatus)
 				if contentId == image and assetFetchStatus == Enum.AssetFetchStatus.Failure then
 					loadingFailed = true
 				end
@@ -294,10 +298,6 @@ function LoadableImage:_loadImage()
 	end)()
 end
 
-function LoadableImage._mockPreloadDone(image)
-	loadedImagesByUri[image] = true
-end
-
 function LoadableImage.isLoaded(image)
 	if image == Roact.None or image == nil then
 		return false
@@ -306,4 +306,14 @@ function LoadableImage.isLoaded(image)
 	end
 end
 
-return LoadableImage
+return function(props)
+	return Roact.createElement(ContentProviderContext.Consumer, {
+		render = function(contentProvider)
+			local propsWithContentProvider = Cryo.Dictionary.join(props, {
+				contentProvider = contentProvider,
+			})
+
+			return Roact.createElement(LoadableImage, propsWithContentProvider)
+		end,
+	})
+end

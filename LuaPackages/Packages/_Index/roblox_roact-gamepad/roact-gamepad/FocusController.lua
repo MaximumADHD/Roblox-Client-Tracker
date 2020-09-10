@@ -4,22 +4,11 @@
 local Packages = script.Parent.Parent
 local Cryo = require(Packages.Cryo)
 
+local Input = require(script.Parent.Input)
 local createSignal = require(script.Parent.createSignal)
 local debugPrint = require(script.Parent.debugPrint)
 
 local InternalApi = require(script.Parent.FocusControllerInternalApi)
-
-local INPUT_TYPES = {
-	[Enum.UserInputType.Keyboard] = true,
-	[Enum.UserInputType.Gamepad1] = true,
-	[Enum.UserInputType.Gamepad2] = true,
-	[Enum.UserInputType.Gamepad3] = true,
-	[Enum.UserInputType.Gamepad4] = true,
-	[Enum.UserInputType.Gamepad5] = true,
-	[Enum.UserInputType.Gamepad6] = true,
-	[Enum.UserInputType.Gamepad7] = true,
-	[Enum.UserInputType.Gamepad8] = true,
-}
 
 local FocusControllerInternal = {}
 FocusControllerInternal.__index = FocusControllerInternal
@@ -27,6 +16,7 @@ FocusControllerInternal.__index = FocusControllerInternal
 function FocusControllerInternal.new()
 	local self = setmetatable({
 		selectionChangedSignal = createSignal(),
+		boundInputsChangedSignal = createSignal(),
 
 		focusNodeTree = {},
 		allNodes = {},
@@ -34,6 +24,8 @@ function FocusControllerInternal.new()
 		rootRef = nil,
 		engineInterface = nil,
 		captureFocusOnInitialize = false,
+		inputDisconnectors = {},
+		boundInputs = {},
 		focusedLeaf = nil,
 	}, FocusControllerInternal)
 
@@ -170,37 +162,6 @@ function FocusControllerInternal:isNodeFocused(node)
 	return false
 end
 
-function FocusControllerInternal:createInputListener(inputState)
-	return function(inputObject)
-		-- If the state doesn't match up with the one we're listening for,
-		-- don't even bother; I'm not sure if this happens with
-		-- UserInputService, but it does happen with ContextActionService
-		-- and it's easier to be safe
-		if inputObject.UserInputState ~= inputState then
-			return
-		end
-
-		if INPUT_TYPES[inputObject.UserInputType] then
-			debugPrint("[EVENT] Input received:",
-				inputObject.KeyCode,
-				"-",
-				inputObject.UserInputState
-			)
-
-			local focusChainNode = self.focusedLeaf
-			while focusChainNode ~= nil do
-				local boundCallback = focusChainNode:getInputBinding(inputState, inputObject.KeyCode)
-				if boundCallback ~= nil then
-					boundCallback()
-					break
-				end
-
-				focusChainNode = focusChainNode.parent
-			end
-		end
-	end
-end
-
 -- Prints a human-readable version of the node tree.
 function FocusControllerInternal:debugPrintTree()
 	local function recursePrintTree(node, indent)
@@ -219,6 +180,40 @@ function FocusControllerInternal:debugPrintTree()
 	recursePrintTree(rootNode, "")
 end
 
+function FocusControllerInternal:updateInputBindings()
+	local newBindings = {}
+
+	local focusChainNode = self.focusedLeaf
+	while focusChainNode ~= nil do
+		for _, binding in pairs(focusChainNode.inputBindings) do
+			local key = Input.getUniqueKey(binding)
+			local existing = newBindings[key]
+			if existing == nil then
+				debugPrint("[INPUT] Bind input", key)
+				newBindings[key] = binding
+			end
+		end
+
+		focusChainNode = focusChainNode.parent
+	end
+
+	-- It's pretty straightforward to simply disconnect and reconnect all event
+	-- connections whenever this function is called; we wouldn't typically be
+	-- able to rely on binding identity equality anyways
+	for _, disconnector in pairs(self.inputDisconnectors) do
+		disconnector()
+	end
+
+	self.inputDisconnectors = {}
+	self.boundInputs = {}
+	for key, binding in pairs(newBindings) do
+		self.inputDisconnectors[key] = Input.connectToEvent(binding, self.engineInterface)
+		if binding.keyCode then
+			self.boundInputs[binding.keyCode] = binding.meta or {}
+		end
+	end
+end
+
 function FocusControllerInternal:initialize(engineInterface)
 	-- If the engineInterface is already set, then this FocusController was
 	-- probably also assigned to another tree
@@ -228,53 +223,59 @@ function FocusControllerInternal:initialize(engineInterface)
 
 	self.engineInterface = engineInterface
 
-	-- Create a connection to the GuiService property relevant
-	-- to the navigation tree we want to connect
+	-- Create a connection to the GuiService property relevant to the navigation
+	-- tree we want to connect
 	self.guiServiceConnection = engineInterface.subscribeToSelectionChanged(function()
+		-- This FocusController is not attached to an Instance hierarchy yet, so
+		-- we shouldn't try to manage selection
 		if self.rootRef == nil then
 			return
 		end
 
+		-- Track whether or not the previous focus was inside this hierarchy
+		local wasPreviouslyFocused = self.focusedLeaf ~= nil
+
+		-- Nil out our focusedLeaf (we'll recalculate it if necessary) and get
+		-- the current selection
 		self.focusedLeaf = nil
 		local selectedInstance = engineInterface.getSelection()
 		local rootRefValue = self.rootRef:getValue()
 
-		-- If selection was lost altogether, we'll have to rely on our other
-		-- redirect logic to respond appropriately
-		if selectedInstance == nil then
-			return
-		end
-
 		-- If selection is occurring within this FocusControllerInternal's
-		-- hierarchy, we find the currently focused leaf and trigger our
-		-- internal signal
-		if rootRefValue == selectedInstance or selectedInstance:IsDescendantOf(rootRefValue) then
-			debugPrint(
-				"[EVENT] Selection changed to",
-				selectedInstance,
-				"in focus hierarchy beginning at",
-				rootRefValue
-			)
+		-- hierarchy, we need to recompute the currently focused leaf
+		if selectedInstance ~= nil then
+			if rootRefValue == selectedInstance or selectedInstance:IsDescendantOf(rootRefValue) then
+				debugPrint(
+					"[EVENT] Selection changed to",
+					selectedInstance,
+					"in focus hierarchy beginning at",
+					rootRefValue
+				)
 
-			-- Find the currently-focused node within our hierarchy and set
-			-- self.focusedLeaf accordingly.
-			for ref, node in pairs(self.allNodes) do
-				if selectedInstance == ref:getValue() then
-					self.focusedLeaf = node
-					break
+				-- Find the currently-focused node within our hierarchy and set
+				-- self.focusedLeaf accordingly.
+				for ref, node in pairs(self.allNodes) do
+					if selectedInstance == ref:getValue() then
+						self.focusedLeaf = node
+						break
+					end
 				end
 			end
+		end
 
+		-- We should fire our selectionChanged signal in the event that any of
+		-- the following occur:
+		-- 1. Selection moved within the hierarchy
+		-- 2. Selection moved from outside the hierarchy to an element inside it
+		-- 3. Selection moved from inside the hierarchy to an element outside it
+		if self.focusedLeaf ~= nil or wasPreviouslyFocused then
 			self.selectionChangedSignal:fire()
+
+			-- Update input connections here
+			self:updateInputBindings()
+			self.boundInputsChangedSignal:fire(self.boundInputs)
 		end
 	end)
-
-	self.inputBeganConnection = engineInterface.subscribeToInputBegan(
-		self:createInputListener(Enum.UserInputState.Begin)
-	)
-	self.inputEndedConnection = engineInterface.subscribeToInputEnded(
-		self:createInputListener(Enum.UserInputState.End)
-	)
 
 	if self.captureFocusOnInitialize then
 		self:captureFocus()
@@ -300,12 +301,10 @@ function FocusControllerInternal:teardown()
 		self.guiServiceConnection:Disconnect()
 	end
 
-	if self.inputBeganConnection ~= nil then
-		self.inputBeganConnection:Disconnect()
-	end
-
-	if self.inputEndedConnection ~= nil then
-		self.inputEndedConnection:Disconnect()
+	-- Disconnect all bound inputs. These can be left dangling when a whole tree
+	-- is unmounted at once
+	for _, disconnect in pairs(self.inputDisconnectors) do
+		disconnect()
 	end
 
 	-- Make sure this controller is restored to its uninitialized state
@@ -347,6 +346,12 @@ function FocusControllerInternal.createPublicApiWrapper()
 		end,
 		releaseFocus = function()
 			focusControllerInternal:releaseFocus()
+		end,
+		getBoundInputs = function()
+			return focusControllerInternal.boundInputs
+		end,
+		subscribeToBoundInputsChanged = function(callback)
+			return focusControllerInternal.boundInputsChangedSignal:subscribe(callback)
 		end,
 	}
 end

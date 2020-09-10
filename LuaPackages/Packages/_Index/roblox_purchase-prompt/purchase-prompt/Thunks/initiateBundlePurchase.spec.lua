@@ -15,8 +15,6 @@ return function()
 
 	local initiateBundlePurchase = require(script.Parent.initiateBundlePurchase)
 
-	local FFlagPerformPurchaseNewBundleInfoTypeEnabled = settings():GetFFlag("PerformPurchaseNewBundleInfoTypeEnabled")
-
 	it("should run without errors", function()
 		local store = Rodux.Store.new(Reducer)
 
@@ -30,11 +28,7 @@ return function()
 		local state = store:getState()
 
 		expect(state.promptRequest.id).to.equal(15)
-		if FFlagPerformPurchaseNewBundleInfoTypeEnabled then
-			expect(state.promptRequest.requestType).to.equal(RequestType.Bundle)
-		else
-			expect(state.promptRequest.requestType).to.equal(RequestType.Asset)
-		end
+		expect(state.promptRequest.requestType).to.equal(RequestType.Bundle)
 	end)
 
 	it("should abort when a purchase is already in progress", function()

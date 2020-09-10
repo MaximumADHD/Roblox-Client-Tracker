@@ -71,13 +71,15 @@ local function asFocusable(innerComponent)
 
 	function Focusable:init()
 		self.focused = false
+
+		local parentNeighbors = self.props.parentNeighbors or {}
 		self.navContext = {
 			focusNode = FocusNode.new(self.props),
 			neighbors = {
-				NextSelectionLeft = self.props.NextSelectionLeft,
-				NextSelectionRight = self.props.NextSelectionRight,
-				NextSelectionUp = self.props.NextSelectionUp,
-				NextSelectionDown = self.props.NextSelectionDown,
+				NextSelectionLeft = self.props.NextSelectionLeft or parentNeighbors.NextSelectionLeft,
+				NextSelectionRight = self.props.NextSelectionRight or parentNeighbors.NextSelectionRight,
+				NextSelectionUp = self.props.NextSelectionUp or parentNeighbors.NextSelectionUp,
+				NextSelectionDown = self.props.NextSelectionDown or parentNeighbors.NextSelectionDown,
 			}
 		}
 
@@ -152,14 +154,16 @@ local function asFocusable(innerComponent)
 			or nextProps.NextSelectionRight ~= self.navContext.neighbors.NextSelectionRight
 			or nextProps.NextSelectionDown ~= self.navContext.neighbors.NextSelectionDown
 			or nextProps.NextSelectionUp ~= self.navContext.neighbors.NextSelectionUp
+			or nextProps.parentNeighbors ~= self.props.parentNeighbors
 		then
+			local parentNeighbors = nextProps.parentNeighbors or {}
 			self.navContext = {
 				focusNode = self.navContext.focusNode,
 				neighbors = {
-					NextSelectionLeft = nextProps.NextSelectionLeft,
-					NextSelectionRight = nextProps.NextSelectionRight,
-					NextSelectionUp = nextProps.NextSelectionUp,
-					NextSelectionDown = nextProps.NextSelectionDown,
+					NextSelectionLeft = nextProps.NextSelectionLeft or parentNeighbors.NextSelectionLeft,
+					NextSelectionRight = nextProps.NextSelectionRight or parentNeighbors.NextSelectionRight,
+					NextSelectionUp = nextProps.NextSelectionUp or parentNeighbors.NextSelectionUp,
+					NextSelectionDown = nextProps.NextSelectionDown or parentNeighbors.NextSelectionDown,
 				}
 			}
 		end

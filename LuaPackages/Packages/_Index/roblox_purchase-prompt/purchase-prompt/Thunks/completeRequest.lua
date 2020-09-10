@@ -7,8 +7,6 @@ local RequestType = require(Root.Enums.RequestType)
 local PurchaseError = require(Root.Enums.PurchaseError)
 local Thunk = require(Root.Thunk)
 
-local FFlagPerformPurchaseNewBundleInfoTypeEnabled = settings():GetFFlag("PerformPurchaseNewBundleInfoTypeEnabled")
-
 local function completeRequest()
 	return Thunk.new(script.Name, {}, function(store, services)
 		local state = store:getState()
@@ -23,7 +21,7 @@ local function completeRequest()
 			MarketplaceService:SignalPromptProductPurchaseFinished(playerId, id, didPurchase)
 		elseif requestType == RequestType.GamePass then
 			MarketplaceService:SignalPromptGamePassPurchaseFinished(Players.LocalPlayer, id, didPurchase)
-		elseif FFlagPerformPurchaseNewBundleInfoTypeEnabled and requestType == RequestType.Bundle then
+		elseif requestType == RequestType.Bundle then
 			MarketplaceService:SignalPromptBundlePurchaseFinished(Players.LocalPlayer, id, didPurchase)
 		elseif requestType == RequestType.Asset then
 			MarketplaceService:SignalPromptPurchaseFinished(Players.LocalPlayer, id, didPurchase)

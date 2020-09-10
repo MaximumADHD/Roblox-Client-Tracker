@@ -102,6 +102,7 @@ function LargePill:render()
 		return Roact.createElement("Frame", {
 			Size = size,
 			BackgroundTransparency = 1,
+			LayoutOrder = self.props.layoutOrder,
 		}, {
 			Button = Roact.createElement(GenericButton, {
 				Size = size,
@@ -114,7 +115,6 @@ function LargePill:render()
 				buttonStateColorMap = buttonColors,
 				contentStateColorMap = contentColors,
 				onStateChanged = self.onStateChanged,
-				LayoutOrder = self.props.layoutOrder,
 				NextSelectionLeft = self.props.NextSelectionLeft,
 				NextSelectionRight = self.props.NextSelectionRight,
 				NextSelectionUp = self.props.NextSelectionUp,
