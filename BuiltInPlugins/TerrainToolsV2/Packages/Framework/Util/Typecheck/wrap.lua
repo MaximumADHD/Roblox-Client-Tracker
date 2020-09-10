@@ -21,7 +21,10 @@
 	Typecheck uses interfaces from Osyris's "t" library.
 	For more info, see: https://github.com/osyrisrblx/t
 ]]
-
+local Util = script.Parent.Parent
+local FlagsList = require(Util.Flags).new({
+	FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
+})
 local DocParser = require(script.Parent.DocParser)
 
 local propsTraceback = [[%s
@@ -52,7 +55,12 @@ local function validate(component, propsInterface, styleInterface)
 				local success, errorMessage = propsInterface(self.props)
 				if success then
 					if styleInterface then
-						local style = self.props.Theme:getStyle("Framework", self)
+						local style
+						if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+							style = self.props.Stylizer
+						else
+							style = self.props.Theme:getStyle("Framework", self)
+						end
 						success, errorMessage = styleInterface(style)
 						if not success then
 							errorMessage = styleTraceback:format(errorMessage, tostring(component))

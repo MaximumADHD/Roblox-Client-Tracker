@@ -1,10 +1,9 @@
 --[[
 	A simple, solid color Decoration.
 
-	Required Props:
-		Theme Theme: A Theme ContextItem, which is provided via mapToProps.
-
 	Optional Props:
+		Theme Theme: A Theme ContextItem, which is provided via mapToProps.
+		Stylizer Stylizer: A Stylizer ContextItem, which is provided via mapToProps.
 		Style Style: The style with which to render this component.
 		StyleModifier StyleModifier: The StyleModifier index into Style.
 
@@ -14,11 +13,15 @@
 		Color3 BorderColor: The color of the border.
 		number BorderSize: the size of the border.
 ]]
-
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
 local ContextServices = require(Framework.ContextServices)
-local Typecheck = require(Framework.Util).Typecheck
+local Util = require(Framework.Util)
+local Typecheck = Util.Typecheck
+
+local FlagsList = Util.Flags.new({
+	FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
+})
 
 local Box = Roact.PureComponent:extend("Box")
 Typecheck.wrap(Box, script)
@@ -26,7 +29,12 @@ Typecheck.wrap(Box, script)
 function Box:render()
 	local props = self.props
 	local theme = props.Theme
-	local style = theme:getStyle("Framework", self)
+	local style
+	if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+		style = props.Stylizer
+	else
+		style = theme:getStyle("Framework", self)
+	end
 
 	local color = style.Color
 	local transparency = style.Transparency
@@ -43,7 +51,8 @@ function Box:render()
 end
 
 ContextServices.mapToProps(Box, {
-	Theme = ContextServices.Theme,
+	Stylizer = FlagsList:get("FFlagRefactorDevFrameworkTheme") and ContextServices.Stylizer or nil,
+	Theme = (not FlagsList:get("FFlagRefactorDevFrameworkTheme")) and ContextServices.Theme or nil,
 })
 
 return Box

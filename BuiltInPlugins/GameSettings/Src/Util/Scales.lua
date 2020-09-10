@@ -2,8 +2,6 @@
 	functionality to compare two sets of scales
 ]]
 
-local Plugin = script.Parent.Parent.Parent
-
 local Scales = {}
 
 local countDictionaryKeys = nil

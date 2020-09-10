@@ -1,7 +1,7 @@
 --[[
 	Public interface for ContextServices
 ]]
-
+local Framework = script.Parent
 local Src = script
 
 local strict = require(Src.Parent.Util.strict)
@@ -21,6 +21,7 @@ local Plugin = require(Src.Plugin)
 local PluginActions = require(Src.PluginActions)
 local Provider = require(Src.Provider)
 local Store = require(Src.Store)
+local Stylizer = require(Framework.Style.Stylizer)
 local Theme = require(Src.Theme)
 local UILibraryWrapper = require(Src.UILibraryWrapper)
 
@@ -43,6 +44,7 @@ local ContextServices = strict({
 	Plugin = Plugin,
 	PluginActions = PluginActions,
 	Provider = Provider,
+	Stylizer = Stylizer,
 	Store = Store,
 	Theme = Theme,
 	UILibraryWrapper = UILibraryWrapper,

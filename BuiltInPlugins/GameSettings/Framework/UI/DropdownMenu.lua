@@ -8,14 +8,15 @@
 		boolean Hide: Whether the menu is hidden
 		table Items: An array of each item that should appear in the dropdown.
 		callback OnItemActivated: A callback for when the user selects a dropdown entry.
-		Theme Theme: a Theme object supplied by mapToProps()
 		Focus Focus: a Focus object supplied by mapToProps()
 
 	Optional Props:
+		Theme Theme: a Theme object supplied by mapToProps()
 		string PlaceholderText: A placeholder to display if there is no item selected.
 		callback OnRenderItem: A function used to render a dropdown menu item.
 		callback OnFocusLost: A function called when the focus on the menu is lost.
 		number SelectedIndex: The currently selected item index.
+		Stylizer Stylizer: A Stylizer ContextItem, which is provided via mapToProps.
 		Style Style: The style with which to render this component.
 
 	Style Values:
@@ -25,13 +26,14 @@
 		number Width: The width of the menu area.
 		number MaxHeight: The maximum height of the menu area.
 ]]
-
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
 local ContextServices = require(Framework.ContextServices)
+
 local Util = require(Framework.Util)
 local prioritize = Util.prioritize
 local Typecheck = Util.Typecheck
+
 local UI = Framework.UI
 local Container = require(UI.Container)
 local CaptureFocus = require(UI.CaptureFocus)
@@ -39,6 +41,10 @@ local ScrollingFrame = require(UI.ScrollingFrame)
 local Button = require(UI.Button)
 local RoundBox = require(UI.RoundBox)
 local TextLabel = require(UI.TextLabel)
+
+local FlagsList = Util.Flags.new({
+	FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
+})
 
 local DropdownMenu = Roact.PureComponent:extend("DropdownMenu")
 Typecheck.wrap(DropdownMenu, script)
@@ -86,7 +92,12 @@ function DropdownMenu:init()
 		-- calculate the size and position of the dropdown
 		local height = state.menuContentSize.Y
 
-		local style = props.Theme:getStyle("Framework", self)
+		local style
+		if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+			style = props.Stylizer
+		else
+			style = props.Theme:getStyle("Framework", self)
+		end
 		local maxHeight = style.MaxHeight
 
 		local sourcePosition = state.absolutePosition
@@ -168,10 +179,14 @@ local function defaultOnRenderItem(item, index, activated)
 end
 
 function DropdownMenu:renderMenu()
-
 	local state = self.state
 	local props = self.props
-	local style = props.Theme:getStyle("Framework", self)
+	local style
+	if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+		style = props.Stylizer
+	else
+		style = props.Theme:getStyle("Framework", self)
+	end
 
 	local items = props.Items
 	local onRenderItem = prioritize(props.OnRenderItem, defaultOnRenderItem)
@@ -257,7 +272,8 @@ end
 
 ContextServices.mapToProps(DropdownMenu, {
 	Focus = ContextServices.Focus,
-	Theme = ContextServices.Theme,
+	Stylizer = FlagsList:get("FFlagRefactorDevFrameworkTheme") and ContextServices.Stylizer or nil,
+	Theme = (not FlagsList:get("FFlagRefactorDevFrameworkTheme")) and ContextServices.Theme or nil,
 })
 
 return DropdownMenu

@@ -1,10 +1,14 @@
 return function()
+	local FFlagToolboxNewAssetAnalytics = game:GetFastFlag("ToolboxNewAssetAnalytics")
+	local FFlagStudioGetSharedPackagesInToolbox = game:GetFastFlag("StudioGetSharedPackagesInToolbox")
+
 	local Plugin = script.Parent.Parent.Parent
 
 	local ClearAssets = require(Plugin.Core.Actions.ClearAssets)
 	local GetAssets = require(Plugin.Core.Actions.GetAssets)
 	local SetLoading = require(Plugin.Core.Actions.SetLoading)
 	local SetCanManageAsset = require(Plugin.Core.Actions.SetCanManageAsset)
+	local AssetAnalytics = require(Plugin.Core.Util.Analytics.AssetAnalytics)
 
 	local Assets = require(Plugin.Core.Reducers.Assets)
 
@@ -52,7 +56,7 @@ return function()
 			-- Neither networkInterfaceMock:resolveAssets nor generateFakeAssetsFromIds are yielding,
 			-- so we do not need to await this Promise.
 			networkInterfaceMock:resolveAssets(generateFakeAssetsFromIds({1, 2, 3}), 5):andThen(function(results)
-				state = Assets(state, GetAssets(results.responseBody))
+				state = Assets(state, GetAssets(results.responseBody.Results, results.responseBody.TotalResults))
 
 				expect(tableLength(state.idToAssetMap)).to.equal(3)
 				expect(tableLength(state.idsToRender)).to.equal(3)
@@ -71,7 +75,7 @@ return function()
 		end)
 	end)
 
-	describeSKIP("GetAssets action", function()
+	describe("GetAssets action", function()
 		it("should append assets", function()
 			local state = Assets(nil, {})
 			expect(tableLength(state.idToAssetMap)).to.equal(0)
@@ -91,7 +95,7 @@ return function()
 			local totalLength = firstAssetsLength + secondAssetsLength
 
 			networkInterfaceMock:resolveAssets(firstAssets, totalAssets):andThen(function(results)
-				state = Assets(state, GetAssets(results.responseBody))
+				state = Assets(state, GetAssets(results.responseBody.Results, results.responseBody.TotalResults))
 			end)
 
 			expect(tableLength(state.idToAssetMap)).to.equal(firstAssetsLength)
@@ -101,7 +105,7 @@ return function()
 			expect(state.hasReachedBottom).to.equal(false)
 
 			networkInterfaceMock:resolveAssets(secondAssets, totalAssets):andThen(function(results)
-				state = Assets(state, GetAssets(results.responseBody))
+				state = Assets(state, GetAssets(results.responseBody.Results, results.responseBody.TotalResults))
 			end)
 
 			expect(tableLength(state.idToAssetMap)).to.equal(totalLength)
@@ -117,20 +121,20 @@ return function()
 
 			-- Send a big number
 			networkInterfaceMock:resolveAssets({}, 100):andThen(function(results)
-				state = Assets(state, GetAssets(results.responseBody))
+				state = Assets(state, GetAssets(results.responseBody.Results, results.responseBody.TotalResults))
 			end)
 			expect(state.totalAssets).to.equal(100)
 
 			-- Then send a small number
 			networkInterfaceMock:resolveAssets({}, 50):andThen(function(results)
-				state = Assets(state, GetAssets(results.responseBody))
+				state = Assets(state, GetAssets(results.responseBody.Results, results.responseBody.TotalResults))
 			end)
 			-- Should still be the larger number
 			expect(state.totalAssets).to.equal(100)
 
 			-- Then send an even bigger number
 			networkInterfaceMock:resolveAssets({}, 600):andThen(function(results)
-				state = Assets(state, GetAssets(results.responseBody))
+				state = Assets(state, GetAssets(results.responseBody.Results, results.responseBody.TotalResults))
 			end)
 			-- Should now be the larger number
 			expect(state.totalAssets).to.equal(600)
@@ -140,24 +144,87 @@ return function()
 			local state = Assets(nil, {})
 			expect(state.hasReachedBottom).to.equal(false)
 
-			networkInterfaceMock:resolveAssets(generateFakeAssetsFromIds({1, 2, 3}), 5):andThen(function(results)
-				state = Assets(state, GetAssets(results.responseBody))
+			local totalResults = 5
+
+			networkInterfaceMock:resolveAssets(generateFakeAssetsFromIds({1, 2, 3}), totalResults):andThen(function(results)
+				state = Assets(state, GetAssets(results.responseBody.Results, results.responseBody.TotalResults))
 			end)
 
 			expect(tableLength(state.idsToRender)).to.equal(3)
-			expect(state.totalAssets).to.equal(5)
+			expect(state.totalAssets).to.equal(totalResults)
 			expect(state.assetsReceived).to.equal(3)
 			expect(state.hasReachedBottom).to.equal(false)
 
-			networkInterfaceMock:resolveAssets(generateFakeAssetsFromIds({4, 5}), 5):andThen(function(results)
-				state = Assets(state, GetAssets(results.responseBody))
+			networkInterfaceMock:resolveAssets(generateFakeAssetsFromIds({4, 5}), totalResults):andThen(function(results)
+				state = Assets(state, GetAssets(results.responseBody.Results, results.responseBody.TotalResults))
 			end)
 
-			expect(tableLength(state.idsToRender)).to.equal(5)
-			expect(state.totalAssets).to.equal(5)
-			expect(state.assetsReceived).to.equal(5)
+			if FFlagStudioGetSharedPackagesInToolbox then
+				state = Assets(state, GetAssets({}, totalResults))
+			end
+
+			expect(tableLength(state.idsToRender)).to.equal(totalResults)
+			expect(state.totalAssets).to.equal(totalResults)
+			expect(state.assetsReceived).to.equal(totalResults)
 			expect(state.hasReachedBottom).to.equal(true)
 		end)
+
+		if FFlagToolboxNewAssetAnalytics then
+			it("should add position and pagePosition to assets with Context", function()
+				local state = Assets(nil, {})
+				local stubPageInfo = {
+					currentTab = "Inventory",
+					searchTerm = "abc",
+					targetPage = 1,
+					searchId = "4581e024-c0f4-4d22-a107-18282b426833",
+					categoryIndex = 1,
+					categoryName = "MyModels",
+					categories = {
+						{
+							category = "MyModelsExceptPackage",
+							name = "MyModels",
+							ownershipType = 1,
+							assetType = 0,
+						},
+					},
+					sortIndex = 1,
+					sorts = {
+						{
+							sort = "Relevance",
+							name = "Relevance",
+						},
+					},
+				}
+
+				networkInterfaceMock:resolveAssets(generateFakeAssetsFromIds({1, 2}, 3)):andThen(function(results)
+					local assetsList = results.responseBody.Results
+
+					AssetAnalytics.addContextToAssetResults(assetsList, stubPageInfo)
+
+					state = Assets(state, GetAssets(assetsList))
+				end)
+
+				expect(state.idToAssetMap[1].Context).to.be.ok()
+				expect(state.idToAssetMap[1].Context.position).to.equal(1)
+				expect(state.idToAssetMap[1].Context.pagePosition).to.equal(1)
+
+				expect(state.idToAssetMap[2].Context).to.be.ok()
+				expect(state.idToAssetMap[2].Context.position).to.equal(2)
+				expect(state.idToAssetMap[2].Context.pagePosition).to.equal(2)
+
+				networkInterfaceMock:resolveAssets(generateFakeAssetsFromIds({3}, 3)):andThen(function(results)
+					local assetsList = results.responseBody.Results
+
+					stubPageInfo.targetPage = 2
+					AssetAnalytics.addContextToAssetResults(assetsList, stubPageInfo)
+					state = Assets(state, GetAssets(assetsList))
+				end)
+
+				expect(state.idToAssetMap[3].Context).to.be.ok()
+				expect(state.idToAssetMap[3].Context.position).to.equal(3)
+				expect(state.idToAssetMap[3].Context.pagePosition).to.equal(1)
+			end)
+		end
 	end)
 
 	describe("PostVote action", function()

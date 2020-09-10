@@ -81,7 +81,6 @@ function ExpandableList:render()
 				BackgroundTransparency = 1,
 				LayoutOrder = props.LayoutOrder or 0,
 				AnchorPoint = props.AnchorPoint or Vector2.new(0,0),
-				BackgroundTransparency = 1,
 				BorderSizePixel = 0,
 				Position = props.Position,
 			}, {

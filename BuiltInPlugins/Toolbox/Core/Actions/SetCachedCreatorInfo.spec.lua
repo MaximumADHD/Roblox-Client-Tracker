@@ -1,6 +1,12 @@
 return function()
 
+	local FFlagStudioFixGroupCreatorInfo3 = game:GetFastFlag("StudioFixGroupCreatorInfo3")
+
 	local SetCachedCreatorInfo = require(script.Parent.SetCachedCreatorInfo)
+
+	if not FFlagStudioFixGroupCreatorInfo3 then
+		return
+	end
 
 	describe("accepts a table that", function()
 		it("is empty", function()

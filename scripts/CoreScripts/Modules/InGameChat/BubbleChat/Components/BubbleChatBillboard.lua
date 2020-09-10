@@ -147,19 +147,7 @@ function BubbleChatBillboard:getAdornee()
 	local lastMessage = self.props.messages[lastMessageId]
 	assert(Types.IMessage(lastMessage))
 
-	-- Need to pcall since GetPlayerByUserId will error if there's no Player
-	-- instance associated with userId. Since we need to support NPCs, a Player
-	-- not existing is a common scenario.
-	-- TODO Just use message.adornee https://jira.rbx.com/browse/SOCIALAPP-138
-	local success, player = pcall(function()
-		return Players:GetPlayerByUserId(tonumber(self.props.userId))
-	end)
-
-	if success then
-		return player.Character
-	else
-		return lastMessage.adornee
-	end
+	return lastMessage.adornee
 end
 
 function BubbleChatBillboard:getAdorneePart()
@@ -179,7 +167,6 @@ function BubbleChatBillboard:render()
 	local adornee = self.state.adornee
 	local adorneePart = self:getAdorneePart()
 
-	-- adorneePart can be nil if this is a player bubble and the character has been deleted
 	if not adorneePart then
 		return
 	end

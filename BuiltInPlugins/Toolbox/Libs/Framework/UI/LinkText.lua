@@ -4,9 +4,10 @@
 
 	Required Props:
 		callback OnClick: A callback for when the user clicks this link.
-		Theme Theme: A Theme ContextItem, which is provided via mapToProps.
 
 	Optional Props:
+		Theme Theme: A Theme ContextItem, which is provided via mapToProps.
+		Stylizer Stylizer: A Stylizer ContextItem, which is provided via mapToProps.
 		string Text: The text to display in this link.
 		Style Style: The style with which to render this component.
 		StyleModifier StyleModifier: The StyleModifier index into Style.
@@ -30,9 +31,13 @@ local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
 local ContextServices = require(Framework.ContextServices)
 local HoverArea = require(Framework.UI.HoverArea)
+
 local Util = require(Framework.Util)
 local StyleModifier = Util.StyleModifier
 local Typecheck = Util.Typecheck
+local FlagsList = Util.Flags.new({
+	FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
+})
 
 local Button = require(Framework.UI.Button)
 
@@ -73,7 +78,12 @@ function LinkText:render()
 	local state = self.state
 	local theme = props.Theme
 	local styleModifier = state.StyleModifier
-	local style = theme:getStyle("Framework", self)
+	local style
+	if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+		style = props.Stylizer
+	else
+		style = theme:getStyle("Framework", self)
+	end
 
 	local size = props.Size
 
@@ -166,7 +176,8 @@ function LinkText:render()
 end
 
 ContextServices.mapToProps(LinkText, {
-	Theme = ContextServices.Theme,
+	Stylizer = FlagsList:get("FFlagRefactorDevFrameworkTheme") and ContextServices.Stylizer or nil,
+	Theme = (not FlagsList:get("FFlagRefactorDevFrameworkTheme")) and ContextServices.Theme or nil,
 })
 
 return LinkText

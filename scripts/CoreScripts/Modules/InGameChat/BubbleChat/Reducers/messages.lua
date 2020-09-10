@@ -23,6 +23,9 @@ local messages = Rodux.createReducer({
 
 	[SetMessageText.name] = function(state, action)
 		local message = state[action.messageId]
+		if not message then
+			return state
+		end
 
 		return Cryo.Dictionary.join(state, {
 			[action.messageId] = Cryo.Dictionary.join(message, {

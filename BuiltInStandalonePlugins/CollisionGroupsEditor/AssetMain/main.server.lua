@@ -13,7 +13,6 @@
 
 local PhysicsService = game:GetService("PhysicsService")
 local ChangeHistoryService = game:GetService("ChangeHistoryService")
-local HttpService = game:GetService("HttpService")
 
 local getSelectedParts = require(script.Parent.Parent.Plugin.getSelectedParts)
 local getPartsInGroup = require(script.Parent.Parent.Plugin.getPartsInGroup)

@@ -1,4 +1,4 @@
-local FFlagEnableDefaultSortFix = game:GetFastFlag("EnableDefaultSortFix2")
+local FFlagEnableDefaultSortFix2 = game:GetFastFlag("EnableDefaultSortFix2")
 local FFlagUseCategoryNameInToolbox = game:GetFastFlag("UseCategoryNameInToolbox")
 
 local Plugin = script.Parent.Parent.Parent
@@ -51,7 +51,7 @@ function Sort.getDefaultSortForGroups(pageInfo)
 		return Sort.getDefaultSortForCategory(pageInfo.categoryName)
 	else
 		return Sort.getDefaultSortForCategory(
-			FFlagEnableDefaultSortFix and pageInfo.currentTab or nil,
+			FFlagEnableDefaultSortFix2 and pageInfo.currentTab or nil,
 			pageInfo.categoryIndex
 		)
 	end

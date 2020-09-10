@@ -5,13 +5,24 @@ local UI = require(Framework.UI)
 local StudioUI = require(Framework.StudioUI)
 local Button = UI.Button
 local StyledDialog = StudioUI.StyledDialog
+local StudioTheme = require(Framework.Style.Themes.StudioTheme)
+
+local Util = require(Framework.Util)
+local FlagsList = Util.Flags.new({
+	FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
+})
 
 local Example = Roact.PureComponent:extend("StyledDialogExample")
 
 function Example:render()
 	-- push the same context items into the example
 	local plugin = self.props.Plugin
-	local theme = self.props.Theme
+	local theme
+	if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+		theme = StudioTheme.new()
+	else
+		theme = self.props.Theme
+	end
 
 	return Roact.createElement(Button, {
 		Style = "Round",
@@ -49,7 +60,8 @@ function Example:render()
 end
 ContextServices.mapToProps(Example, {
 	Plugin = ContextServices.Plugin,
-	Theme = ContextServices.Theme,
+	Stylizer = FlagsList:get("FFlagRefactorDevFrameworkTheme") and ContextServices.Stylizer or nil,
+	Theme = (not FlagsList:get("FFlagRefactorDevFrameworkTheme")) and ContextServices.Theme or nil,
 })
 
 return Example

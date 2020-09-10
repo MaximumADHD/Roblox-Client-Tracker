@@ -7,7 +7,7 @@ local Cryo = require(Plugin.Libs.Cryo)
 local UpdatePageInfoAndSendRequest = require(Plugin.Core.Networking.Requests.UpdatePageInfoAndSendRequest)
 local StopAllSounds = require(Plugin.Core.Actions.StopAllSounds)
 
-local FFlagEnableDefaultSortFix = game:GetFastFlag("EnableDefaultSortFix2")
+local FFlagEnableDefaultSortFix2 = game:GetFastFlag("EnableDefaultSortFix2")
 local FFlagUseCategoryNameInToolbox = game:GetFastFlag("UseCategoryNameInToolbox")
 
 -- TODO rename categoryKey to categoryName when FFlagUseCategoryNameInToolbox is retired
@@ -20,7 +20,7 @@ return function(networkInterface, settings, categoryKey)
 			sortIndex = Sort.getDefaultSortForCategory(categoryKey)
 		else
 			local currentTab = store:getState().pageInfo.currentTab
-			sortIndex = Sort.getDefaultSortForCategory(FFlagEnableDefaultSortFix and currentTab or nil, categoryKey)
+			sortIndex = Sort.getDefaultSortForCategory(FFlagEnableDefaultSortFix2 and currentTab or nil, categoryKey)
 		end
 		store:dispatch(
 			UpdatePageInfoAndSendRequest(

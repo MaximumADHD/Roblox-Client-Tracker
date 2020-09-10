@@ -37,6 +37,14 @@ function FrameworkTypes.Theme(value)
 	return true
 end
 
+function FrameworkTypes.Stylizer(value)
+	local errMsg = "Stylizer expected, got %s."
+	if not t.table(value) or not t.callback(value.getConsumerItem) then
+		return false, errMsg:format(type(value))
+	end
+	return true
+end
+
 function FrameworkTypes.Plugin(value)
 	local errMsg = "Plugin expected, got %s."
 	if not t.table(value) or not t.callback(value.get) then

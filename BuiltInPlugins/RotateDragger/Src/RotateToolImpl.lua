@@ -3,7 +3,6 @@
 ]]
 
 local ChangeHistoryService = game:GetService("ChangeHistoryService")
-local Workspace = game:GetService("Workspace")
 
 -- Libraries
 local Plugin = script.Parent.Parent

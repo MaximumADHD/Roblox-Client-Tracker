@@ -513,7 +513,14 @@ function AssetConfig:didUpdate(previousProps, previousState)
 		local assetConfigData = self.props.assetConfigData
 		if next(assetConfigData) and (not self.init) then
 			self:setState({
-				assetId = AssetConfigUtil.isMarketplaceAsset(self.props.assetTypeEnum) and assetConfigData.Id or assetConfigData.assetId, -- assetId is named differently in the data returned by different end-points
+				-- assetId is named differently in the data returned by different end-points
+				assetId = AssetConfigUtil.isMarketplaceAsset(self.props.assetTypeEnum)
+					and assetConfigData.Id
+					or (
+						game:GetFastFlag("AssetConfigFixAssetIdTypo")
+							and assetConfigData.AssetId
+							or assetConfigData.assetId
+					),
 
 				name = assetConfigData.Name,
 				description = assetConfigData.Description,

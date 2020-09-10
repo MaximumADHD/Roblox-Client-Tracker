@@ -4,7 +4,6 @@ local TextService = game:GetService("TextService")
 local Otter = require(CorePackages.Packages.Otter)
 local Roact = require(CorePackages.Packages.Roact)
 local t = require(CorePackages.Packages.t)
-local ChatSettings = require(script.Parent.Parent.ChatSettings)
 local Constants = require(script.Parent.Parent.Constants)
 local Types = require(script.Parent.Parent.Types)
 local Themes = require(script.Parent.Parent.Themes)
@@ -19,11 +18,10 @@ local ChatBubble = Roact.Component:extend("ChatBubble")
 ChatBubble.validateProps = t.strictInterface({
 	message = Types.IMessage,
 
+	fadingOut = t.optional(t.boolean),
 	onFadeOut = t.optional(t.callback),
-	timeout = t.optional(t.number),
 	maxWidth = t.optional(t.number),
 	LayoutOrder = t.optional(t.number),
-	isRecent = t.optional(t.boolean),
 	isMostRecent = t.optional(t.boolean),
 	theme = t.optional(t.string),
 	TextSize = t.optional(t.number),
@@ -32,15 +30,13 @@ ChatBubble.validateProps = t.strictInterface({
 
 ChatBubble.defaultProps = {
 	theme = "Light",
-	timeout = ChatSettings.BubbleDuration,
 	TextSize = 16,
 	Font = Enum.Font.Gotham,
 	maxWidth = 300,
-	isRecent = true,
 	isMostRecent = true,
 }
 
-function ChatBubble:init(initialProps)
+function ChatBubble:init()
 	self.width, self.updateWidth = Roact.createBinding(0)
 	self.widthMotor = Otter.createSingleMotor(0)
 	self.widthMotor:onStep(self.updateWidth)
@@ -138,7 +134,7 @@ function ChatBubble:fadeOut()
 
 		self.transparencyMotor:onComplete(function()
 			if self.props.onFadeOut then
-				self.props.onFadeOut()
+				self.props.onFadeOut(self.props.message.id)
 			end
 		end)
 
@@ -147,7 +143,7 @@ function ChatBubble:fadeOut()
 end
 
 function ChatBubble:didUpdate()
-	if not self.props.isRecent then
+	if self.props.fadingOut then
 		self:fadeOut()
 	end
 end
@@ -155,18 +151,7 @@ end
 function ChatBubble:didMount()
 	self.isMounted = true
 
-	local difftime = os.time() - self.props.message.timestamp
-	local timeout = self.props.timeout - difftime
 	local bounds = self:getTextBounds()
-
-	-- Check to see if lifetime of chat bubble expired
-	if timeout <= 0 then
-		if self.props.onFadeOut then
-			self.props.onFadeOut()
-		end
-
-		return
-	end
 
 	if self.props.isMostRecent then
 		-- Chat bubble spawned for the first time
@@ -179,14 +164,6 @@ function ChatBubble:didMount()
 	end
 
 	self.transparencyMotor:setGoal(Otter.spring(Constants.BUBBLE_BASE_TRANSPARENCY, SPRING_CONFIG))
-
-	coroutine.wrap(function()
-		wait(timeout)
-
-		if self.isMounted then
-			self:fadeOut()
-		end
-	end)()
 end
 
 function ChatBubble:willUnmount()

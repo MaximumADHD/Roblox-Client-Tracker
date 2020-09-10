@@ -27,7 +27,7 @@ function FastFlags.new(featuresMap, overrides)
 
 	local flags = Flags.new(featuresMap)
 	for featureName, isOn in pairs(overrides) do
-		flags:setLocalOverride(featuresName, isOn)
+		flags:setLocalOverride(featureName, isOn)
 	end
 
 	local self = {

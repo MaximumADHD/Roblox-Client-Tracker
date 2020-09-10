@@ -1,3 +1,6 @@
+--!nolint UnknownGlobal
+--^ DEVTOOLS-4930
+
 --[[
 	A button with rounded corners. Colors are based on Theme.
 

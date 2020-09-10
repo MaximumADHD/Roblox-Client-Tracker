@@ -1,9 +1,6 @@
 --[[
 	A simple border to separate elements.
 
-	Required Props:
-		Theme Theme: A Theme ContextItem, which is provided via mapToProps.
-
 	Optional Props:
 		Enum.DominantAxis DominantAxis: Specifies whether the separator fills the
 			space horizontally or vertically. Width will make the separator
@@ -12,7 +9,9 @@
 		number LayoutOrder: The layout order of this component in a UILayout.
 		UDim2 Position: The position of the center of the separator.
 		Style Style: The style with which to render this component.
+		Stylizer Stylizer: A Stylizer ContextItem, which is provided via mapToProps.
 		StyleModifier StyleModifier: The StyleModifier index into Style.
+		Theme Theme: A Theme ContextItem, which is provided via mapToProps.
 		number ZIndex: The render index of this component.
 
 	Style Values:
@@ -20,12 +19,16 @@
 		number StretchMargin: The padding in pixels to subtract from either side of the separator's dominant axis.
 		number Weight: The thickness of the separator line.
 ]]
-
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
 local ContextServices = require(Framework.ContextServices)
 local t = require(Framework.Util.Typecheck.t)
-local Typecheck = require(Framework.Util).Typecheck
+
+local Util = require(Framework.Util)
+local Typecheck = Util.Typecheck
+local FlagsList = Util.Flags.new({
+	FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
+})
 
 local Separator = Roact.PureComponent:extend("Separator")
 Typecheck.wrap(Separator, script)
@@ -39,7 +42,13 @@ function Separator:render()
 	local dominantAxis = props.DominantAxis or Enum.DominantAxis.Width
 
 	local theme = props.Theme
-	local style = theme:getStyle("Framework", self)
+
+	local style
+	if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+		style = props.Stylizer
+	else
+		style = theme:getStyle("Framework", self)
+	end
 
 	local color = style.Color
 	local stretchMargin = style.StretchMargin
@@ -67,7 +76,8 @@ function Separator:render()
 end
 
 ContextServices.mapToProps(Separator, {
-	Theme = ContextServices.Theme,
+	Stylizer = FlagsList:get("FFlagRefactorDevFrameworkTheme") and ContextServices.Stylizer or nil,
+	Theme = (not FlagsList:get("FFlagRefactorDevFrameworkTheme")) and ContextServices.Theme or nil,
 })
 
 return Separator

@@ -63,6 +63,7 @@ function Url.new(baseUrl)
 		BASE_URL = _baseUrl,  -- https://www.roblox.com/
 
 		API_URL = string.format("https://api.%s", _baseDomain),
+		APIS_URL = string.format("https://apis.%s", _baseDomain),
 		ASSET_GAME_URL = string.format("https://assetgame.%s", _baseDomain),
 		AUTH_URL = string.format("https://auth.%s", _baseDomain),
 		CATALOG_URL = string.format("https://catalog.%s", _baseDomain),

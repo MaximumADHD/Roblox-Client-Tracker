@@ -49,7 +49,7 @@ function DraggingFaceInstance:processMouseDown()
 end
 
 function DraggingFaceInstance:processViewChanged()
-	local part, surface = DragHelper.getPartAndSurface({})
+	local part, surface = DragHelper.getPartAndSurface(self._draggerToolModel._draggerContext:getMouseRay())
 	local configurableFaces = self._draggerToolModel._derivedWorldState._instancesWithConfigurableFace
 
 	if configurableFaces then
@@ -72,7 +72,7 @@ function DraggingFaceInstance:processKeyDown(keyCode)
 end
 
 function DraggingFaceInstance:_endDrag()
-	self._draggerToolModel:transitionToState({}, DraggerStateType.Ready)
+	self._draggerToolModel:transitionToState(DraggerStateType.Ready)
 end
 
 return DraggingFaceInstance

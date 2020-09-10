@@ -18,7 +18,6 @@ game:DefineFastFlag("EnableOverrideAssetGroupCreationApi", false)
 game:DefineFastFlag("FixAssetUploadName", false)
 game:DefineFastFlag("EnableSearchedWithoutInsertionAnalytic", false)
 game:DefineFastFlag("UseCategoryNameInToolbox", false)
-game:DefineFastFlag("ToolboxTabTooltips", false)
 -- Need to explicitly return something from a module
 -- Else you get an error "Module code did not return exactly one value"
 
@@ -49,5 +48,11 @@ game:DefineFastFlag("DebugToolboxEnableRoactChecks", false)
 game:DefineFastFlag("ToolboxDisableMarketplaceAndRecentsForLuobu", false)
 
 game:DefineFastFlag("ToolboxWaitForPluginOwnedStatus", false)
+
+game:DefineFastFlag("ToolboxInsertEventContextFixes", false)
+
+game:DefineFastFlag("ToolboxNewAssetAnalytics", false)
+
+game:DefineFastFlag("AssetConfigFixAssetIdTypo", false)
 
 return nil

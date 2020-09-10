@@ -7,13 +7,16 @@
 		UDim2 Size: size of the searchBar
 		number LayoutOrder = 0 : optional layout order for UI layouts
 		number TextSearchDelay : optional delay when text changes before requesting search, in ms
-		string DefaultText = default text to show in the empty search bar.
+		string DefaultText : default text to show in the empty search bar.
 		bool Enabled : searchbar is enabled or not
+		bool Rounded : searchbar has rounded corners
+		bool EnableFocus : if the searchbar borders becomes dark when it is selected
 
 		callback OnSearchRequested(string searchTerm) : callback for when the user presses the enter key
 			or clicks the search button or types if search is live
 ]]
 local FFlagAssetManagerLuaCleanup1 = settings():GetFFlag("AssetManagerLuaCleanup1")
+local FFlagUXImprovementAddSearchBar = settings():GetFFlag("UXImprovementAddSearchBar")
 
 local Library = script.Parent.Parent
 local Roact = require(Library.Parent.Roact)
@@ -27,6 +30,8 @@ local TextService = game:GetService("TextService")
 local TEXT_SEARCH_DELAY = 500
 
 local SearchBar = Roact.PureComponent:extend("SearchBar")
+
+local RoundFrame = require(Library.Components.RoundFrame)
 
 local function stripSearchTerm(searchTerm)
 	return searchTerm and searchTerm:gsub("\n", " ") or ""
@@ -147,8 +152,11 @@ function SearchBar:render()
 		local layoutOrder = props.LayoutOrder or 0
 		local defaultText = props.DefaultText
 		local enabled = props.Enabled
+		local focusDisabled = props.FocusDisabled
 
 		local onSearchRequested = props.OnSearchRequested
+
+		local rounded = props.Rounded
 
 		assert(size ~= nil, "Searchbar requires a size.")
 		assert(onSearchRequested ~= nil and type(onSearchRequested) == "function",
@@ -156,7 +164,7 @@ function SearchBar:render()
 
 		local text = state.text
 
-		local isFocused = state.isFocused
+		local isFocused = (FFlagUXImprovementAddSearchBar and not focusDisabled and state.isFocused) or (not FFlagUXImprovementAddSearchBar and state.isFocused)
 		local isContainerHovered = state.isContainerHovered
 		local isClearButtonHovered = state.isClearButtonHovered
 
@@ -345,6 +353,88 @@ function SearchBar:render()
 
 				ClearButton = showClearButton and Roact.createElement("ImageButton", {
 					Size = UDim2.new(0, buttonSize, 0, buttonSize),
+					LayoutOrder = layoutIndex:getNextOrder(),
+
+					BackgroundTransparency = 1,
+
+					[Roact.Event.MouseEnter] = self.onClearButtonHovered,
+					[Roact.Event.MouseLeave] = self.onClearButtonHoverEnded,
+					[Roact.Event.MouseButton1Down] = self.onClearButtonClicked,
+				}, {
+					ClearImage = Roact.createElement("ImageLabel", {
+						AnchorPoint = Vector2.new(0.5, 0.5),
+						Position = UDim2.new(0.5, 0, 0.5, 0),
+						Size = UDim2.new(0, searchBarTheme.buttons.iconSize,
+							0, searchBarTheme.buttons.iconSize),
+						BackgroundTransparency = 1,
+						Image = clearButtonImage,
+						ImageColor3 = searchBarTheme.buttons.clear.color,
+					}),
+				}),
+			})
+		end
+
+		if FFlagUXImprovementAddSearchBar and FFlagAssetManagerLuaCleanup1 then
+			Contents = Roact.createElement(rounded and RoundFrame or "Frame", {
+				Size = size,
+				BackgroundColor3 = searchBarTheme.backgroundColor,
+				BorderColor3 = borderColor,
+				BorderSizePixel = 1,
+				LayoutOrder = layoutOrder,
+
+				[Roact.Event.MouseEnter] = self.onContainerHovered,
+				[Roact.Event.MouseLeave] = self.onContainerHoverEnded,
+			},  {
+				SearchBarLayout = Roact.createElement("UIListLayout", {
+					SortOrder = Enum.SortOrder.LayoutOrder,
+					Padding = UDim.new(0, 0),
+					FillDirection = Enum.FillDirection.Horizontal,
+				}),
+
+				SearchImageFrame = Roact.createElement("Frame", {
+					BackgroundTransparency = 1,
+					Size = UDim2.new(0, buttonSize, 1, 0),
+					LayoutOrder = layoutIndex:getNextOrder(),
+				} , {
+					SearchImage = Roact.createElement("ImageLabel", {
+						AnchorPoint = Vector2.new(0.5, 0.5),
+						Position = UDim2.new(0.5, 0, 0.5, 0),
+						Size = UDim2.new(0, searchBarTheme.buttons.iconSize,
+							0, searchBarTheme.buttons.iconSize),
+						BackgroundTransparency = 1,
+						Image = searchBarTheme.images.search.image,
+						ImageColor3 = searchBarTheme.buttons.search.color,
+					}),
+				}),
+
+				TextBox = Roact.createElement("TextBox", {
+					Size = UDim2.new(1, textBoxOffset, 1, 0),
+					LayoutOrder = layoutIndex:getNextOrder(),
+
+					BackgroundTransparency = 1,
+					ClipsDescendants = true,
+
+					ClearTextOnFocus = false,
+					Font = searchBarTheme.font,
+					TextSize = searchBarTheme.textSize,
+					TextXAlignment = Enum.TextXAlignment.Left,
+					TextColor3 = searchBarTheme.text.color,
+					Text = text,
+					TextEditable = enabled,
+
+					PlaceholderText = defaultText,
+					PlaceholderColor3 = searchBarTheme.text.placeholder.color,
+
+					-- Get a reference to the text box so that clicking on the container can call :CaptureFocus()
+					[Roact.Ref] = self.textBoxRef,
+
+					[Roact.Change.Text] = self.onTextChanged,
+					[Roact.Event.Focused] = self.onTextBoxFocused,
+					[Roact.Event.FocusLost] = self.onTextBoxFocusLost,
+				}),
+
+				ClearButton = showClearButton and Roact.createElement("ImageButton", {
+					Size = UDim2.new(0, buttonSize, 1, 0),
 					LayoutOrder = layoutIndex:getNextOrder(),
 
 					BackgroundTransparency = 1,

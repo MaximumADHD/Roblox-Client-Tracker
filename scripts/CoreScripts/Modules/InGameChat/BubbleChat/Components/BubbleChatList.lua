@@ -4,7 +4,6 @@ local Cryo = require(CorePackages.Packages.Cryo)
 local Roact = require(CorePackages.Packages.Roact)
 local RoactRodux = require(CorePackages.Packages.RoactRodux)
 local t = require(CorePackages.Packages.t)
-local RemoveMessage = require(script.Parent.Parent.Actions.RemoveMessage)
 local ChatBubble = require(script.Parent.ChatBubble)
 local Types = require(script.Parent.Parent.Types)
 
@@ -17,7 +16,6 @@ BubbleChatList.validateProps = t.strictInterface({
 
 	-- RoactRodux
 	chatSettings = t.table,
-	removeMessage = t.callback,
 	messages = t.map(t.string, Types.IMessage),
 	messageIds = t.array(t.string),
 })
@@ -25,6 +23,44 @@ BubbleChatList.validateProps = t.strictInterface({
 BubbleChatList.defaultProps = {
 	theme = "Light", -- themes are currently not fully supported
 }
+
+function BubbleChatList.getDerivedStateFromProps(nextProps, lastState)
+	local bubbles = {}
+
+	if lastState.bubbles then
+		for _, bubble in ipairs(lastState.bubbles) do
+			-- A message being in lastState but not nextProps means it's been removed from the store
+			-- => keep it in the state and fade it out!
+			if not nextProps.messageIds[bubble.message.id] then
+				table.insert(bubbles, {
+					message = bubble.message,
+					fadingOut = true
+				})
+			end
+		end
+	end
+
+	for _, messageId in ipairs(nextProps.messageIds) do
+		table.insert(bubbles, {
+			message = nextProps.messages[messageId],
+			fadingOut = false
+		})
+	end
+
+	return {
+		bubbles = bubbles
+	}
+end
+
+function BubbleChatList:init()
+	self.onBubbleFadeOut = function(messageId)
+		self:setState({
+			bubbles = Cryo.List.filter(self.state.bubbles, function(otherBubble)
+				return otherBubble.message.id ~= messageId
+			end)
+		})
+	end
+end
 
 function BubbleChatList:render()
 	local children = {}
@@ -42,23 +78,14 @@ function BubbleChatList:render()
 		PaddingBottom = UDim.new(0, 8),
 	})
 
-	for index, messageId in ipairs(self.props.messageIds) do
-		local message = self.props.messages[messageId]
-
-		-- Determines if this message is one of the last few that we want to
-		-- render. Any message that is not recent will fade out and be removed.
-		local isRecent = index > #self.props.messageIds - self.props.chatSettings.MaxBubbles
-
-		children["Bubble" .. message.id] = Roact.createElement(ChatBubble, {
+	for index, bubble in ipairs(self.state.bubbles) do
+		children["Bubble" .. bubble.message.id] = Roact.createElement(ChatBubble, {
 			LayoutOrder = index,
-			message = message,
-			isRecent = isRecent,
-			isMostRecent = index == #self.props.messageIds,
+			message = bubble.message,
+			isMostRecent = index == #self.state.bubbles,
 			theme = self.props.theme,
-			timeout = self.props.chatSettings.BubbleDuration,
-			onFadeOut = function()
-				self.props.removeMessage(message)
-			end
+			fadingOut = bubble.fadingOut,
+			onFadeOut = self.onBubbleFadeOut
 		})
 	end
 
@@ -77,12 +104,4 @@ local function mapStateToProps(state, props)
 	}
 end
 
-local function mapDispatchToProps(dispatch)
-	return {
-		removeMessage = function(message)
-			dispatch(RemoveMessage(message))
-		end
-	}
-end
-
-return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(BubbleChatList)
+return RoactRodux.connect(mapStateToProps)(BubbleChatList)

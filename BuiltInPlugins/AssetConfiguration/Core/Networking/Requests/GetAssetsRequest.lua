@@ -3,6 +3,7 @@ local FFlagUseCategoryNameInToolbox = game:GetFastFlag("UseCategoryNameInToolbox
 local FFlagEnableToolboxVideos = game:GetFastFlag("EnableToolboxVideos")
 local FFlagStudioFixComparePageInfo2 = game:GetFastFlag("StudioFixComparePageInfo2")
 local FFlagStudioFixGroupCreatorInfo3 = game:GetFastFlag("StudioFixGroupCreatorInfo3")
+local FFlagToolboxNewAssetAnalytics = game:GetFastFlag("ToolboxNewAssetAnalytics")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -20,6 +21,7 @@ local CreatorInfoHelper = require(Util.CreatorInfoHelper)
 local PageInfoHelper = require(Util.PageInfoHelper)
 local PagedRequestCursor = require(Util.PagedRequestCursor)
 local DebugFlags = require(Util.DebugFlags)
+local AssetAnalytics = require(Util.Analytics.AssetAnalytics)
 
 local AssetInfo = require(Plugin.Core.Models.AssetInfo)
 
@@ -63,7 +65,13 @@ end
 
 local function dispatchGetAssets(store, pageInfo, creationDetailsTable, creatorName, nextCursor, creatorType)
 	local assetType = PageInfoHelper.getEngineAssetTypeForPageInfoCategory(pageInfo)
-	store:dispatch(GetAssets(convertCreationsDetailsToResultsFormat(creationDetailsTable, assetType, creatorName, creatorType), nil, nextCursor))
+	local assetResults = convertCreationsDetailsToResultsFormat(creationDetailsTable, assetType, creatorName, creatorType)
+
+	if FFlagToolboxNewAssetAnalytics then
+		AssetAnalytics.addContextToAssetResults(assetResults, pageInfo)
+	end
+
+	store:dispatch(GetAssets(assetResults, nil, nextCursor))
 	store:dispatch(SetCurrentPage(0))
 	store:dispatch(SetLoading(false))
 end
@@ -124,7 +132,13 @@ return function(networkInterface, pageInfoOnStart)
 			if isResponseFresh then
 				if data then
 					dispatchCreatorInfo(store, extractCreatorInfo(data.Results))
-					store:dispatch(GetAssets(data.Results or {}, data.TotalResults))
+					local assetResults = data.Results or {}
+
+					if FFlagToolboxNewAssetAnalytics then
+						AssetAnalytics.addContextToAssetResults(assetResults, pageInfoOnStart)
+					end
+
+					store:dispatch(GetAssets(assetResults, data.TotalResults))
 					-- If success get asset, update currentPage.
 					store:dispatch(SetCurrentPage(pageInfoOnStart.targetPage))
 				end

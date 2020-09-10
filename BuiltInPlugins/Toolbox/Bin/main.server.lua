@@ -1,3 +1,6 @@
+--!nolint ImportUnused
+--^ DEVTOOLS-4491
+
 if not plugin then
 	return
 end
@@ -12,14 +15,10 @@ local FFlagToolboxUseDevFrameworkPromise = game:GetFastFlag("ToolboxUseDevFramew
 local FFlagDevFrameworkUnhandledPromiseRejections = game:GetFastFlag("DevFrameworkUnhandledPromiseRejections")
 local FFlagToolboxDisableForLuobu = game:GetFastFlag("ToolboxDisableForLuobu")
 local FFlagDebugToolboxEnableRoactChecks = game:GetFastFlag("DebugToolboxEnableRoactChecks")
+local FFlagToolboxNewAssetAnalytics = game:GetFastFlag("ToolboxNewAssetAnalytics")
 
 local Plugin = script.Parent.Parent
 local Libs = Plugin.Libs
-local FFlagToolboxTabTooltips = game:GetFastFlag("ToolboxTabTooltips")
-if FFlagToolboxTabTooltips then
-	Libs:FindFirstChild("Roact"):Destroy()
-	Libs.RoactNext.Name = "Roact"
-end
 local Roact = require(Libs.Roact)
 
 if FFlagDebugToolboxEnableRoactChecks then
@@ -34,6 +33,7 @@ local Rodux = require(Libs.Rodux)
 
 local Util = Plugin.Core.Util
 local Analytics = require(Util.Analytics.Analytics)
+local AssetAnalyticsContextItem = require(Util.Analytics.AssetAnalyticsContextItem)
 local DebugFlags = require(Util.DebugFlags)
 local Settings = require(Util.Settings)
 local ToolboxTheme = require(Util.ToolboxTheme)
@@ -300,6 +300,12 @@ local function main()
 		Rodux.thunkMiddleware
 	})
 
+	local assetAnalyticsContextItem
+
+	if FFlagToolboxNewAssetAnalytics then
+		assetAnalyticsContextItem = AssetAnalyticsContextItem.new()
+	end
+
 	local settings = Settings.new(plugin)
 	local theme = createTheme()
 	local networkInterface = NetworkInterface.new()
@@ -343,6 +349,7 @@ local function main()
 		theme = theme,
 		store = toolboxStore,
 		settings = settings,
+		assetAnalytics = assetAnalyticsContextItem,
 	}, {
 		toolboxComponent
 	})

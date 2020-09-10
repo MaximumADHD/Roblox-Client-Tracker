@@ -2,7 +2,6 @@
 	TreeView<Item extends any> - Displays a hierarchical data set.
 
 	Required Props:
-		Theme Theme: The theme supplied from mapToProps()
 		UDim2 Size: The size of the component
 		table RootItems: The root items displayed in the tree view.
 		callback GetChildren: This should return a list of children for a given item - GetChildren(item: Item) => Item[]
@@ -10,7 +9,9 @@
 		table Expansion: Which items should be expanded - Set<Item>
 
 	Optional Props:
+		Theme Theme: The theme supplied from mapToProps()
 		Style Style: a style table supplied from props and theme:getStyle()
+		Stylizer Stylizer: A Stylizer ContextItem, which is provided via mapToProps.
 		callback SortChildren: A comparator function to sort two items in the tree - SortChildren(left: Item, right: Item) => boolean
 		callback GetItemKey: Return a unique key for an item - GetItemKey(item: Item) => string
 
@@ -36,6 +37,11 @@ local Typecheck = require(Framework.Util).Typecheck
 
 local UI = Framework.UI
 local Container = require(UI.Container)
+local Util = require(Framework.Util)
+
+local FlagsList = Util.Flags.new({
+	FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
+})
 
 local TreeView = Roact.PureComponent:extend("TreeView")
 local ScrollingFrame = require(Framework.UI.ScrollingFrame)
@@ -100,7 +106,12 @@ function TreeView:render()
 	local state = self.state
 	local rows = state.rows
 	local theme = props.Theme
-	local style = theme:getStyle("Framework", self)
+	local style
+	if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+		style = props.Stylizer
+	else
+		style = theme:getStyle("Framework", self)
+	end
 
 	local children = {}
 	for index, row in ipairs(rows) do
@@ -126,7 +137,8 @@ function TreeView:render()
 end
 
 ContextServices.mapToProps(TreeView, {
-	Theme = ContextServices.Theme,
+	Stylizer = FlagsList:get("FFlagRefactorDevFrameworkTheme") and ContextServices.Stylizer or nil,
+	Theme = (not FlagsList:get("FFlagRefactorDevFrameworkTheme")) and ContextServices.Theme or nil,
 })
 
 return TreeView

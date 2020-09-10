@@ -11,7 +11,7 @@ local RobloxAPI = require(Plugin.Libs.Framework).RobloxAPI
 local Settings = {}
 Settings.__index = Settings
 
-local FFlagEnableDefaultSortFix = game:GetFastFlag("EnableDefaultSortFix2")
+local FFlagEnableDefaultSortFix2 = game:GetFastFlag("EnableDefaultSortFix2")
 local FFlagUseCategoryNameInToolbox = game:GetFastFlag("UseCategoryNameInToolbox")
 local FFlagToolboxDisableMarketplaceAndRecentsForLuobu = game:GetFastFlag("ToolboxDisableMarketplaceAndRecentsForLuobu")
 
@@ -184,7 +184,7 @@ function Settings:loadInitialSettings()
 			else
 				currentTabDefault = Category.MARKETPLACE_KEY
 			end
-			local currentTab = FFlagEnableDefaultSortFix and currentTabDefault or nil
+			local currentTab = FFlagEnableDefaultSortFix2 and currentTabDefault or nil
 			initSettings.sortIndex = Sort.getDefaultSortForCategory(currentTab, initSettings.categoryName)
 		end
 	end
@@ -195,7 +195,7 @@ function Settings:loadInitialSettings()
 		end
 	else
 		if not Sort.canSort(initSettings.searchTerm, initSettings.categoryIndex) then
-			local currentTab = FFlagEnableDefaultSortFix and Category.MARKETPLACE_KEY or nil
+			local currentTab = FFlagEnableDefaultSortFix2 and Category.MARKETPLACE_KEY or nil
 			initSettings.sortIndex = Sort.getDefaultSortForCategory(currentTab, initSettings.categoryIndex)
 		end
 	end

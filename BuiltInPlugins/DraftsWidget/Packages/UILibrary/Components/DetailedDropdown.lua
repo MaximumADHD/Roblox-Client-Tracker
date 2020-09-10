@@ -35,6 +35,7 @@
 		int ScrollBarThickness = The horizontal width of the scrollbar.
 ]]
 local FFlagStudioFixUILibDropdownStyle = game:GetFastFlag("StudioFixUILibDropdownStyle")
+local FFlagStudioFixUILibDropdownText = game:GetFastFlag("StudioFixUILibDropdownText")
 
 -- Defaults
 local TEXT_PADDING = 10
@@ -264,13 +265,14 @@ function DetailedDropdown:render()
 			}),
 
 			TextLabel = Roact.createElement("TextLabel", {
-				Size = UDim2.new(1, 0, 1, 0),
+				Size = UDim2.new(1, FFlagStudioFixUILibDropdownText and -iconSize or 0, 1, 0),
 				BackgroundTransparency = 1,
 				Font = dropdownTheme.font,
 				TextColor3 = enabled and buttonTheme.displayText or buttonTheme.disabledText,
 				TextSize = displayTextSize,
 				Text = buttonText,
 				TextXAlignment = Enum.TextXAlignment.Left,
+				TextTruncate = FFlagStudioFixUILibDropdownText and Enum.TextTruncate.AtEnd or nil,
 			}, {
 				Padding = Roact.createElement("UIPadding", {
 					PaddingLeft = UDim.new(0, textPadding),

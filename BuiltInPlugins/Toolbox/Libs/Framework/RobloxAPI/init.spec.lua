@@ -19,7 +19,7 @@ return function()
 			expect(api).to.be.ok()
 
 
-			local Url = Url.new("https://www.roblox.com")
+			local url = Url.new("https://www.roblox.com")
 			api = RobloxAPI.new({
 				baseUrl = url,
 			})

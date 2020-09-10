@@ -1,3 +1,5 @@
+local StudioService = game:GetService("StudioService")
+
 local Plugin = script.Parent.Parent.Parent
 
 local Libs = Plugin.Libs
@@ -21,6 +23,7 @@ local ToolboxPlugin = Roact.PureComponent:extend("ToolboxPlugin")
 local Analytics = require(Util.Analytics.Analytics)
 
 local FFlagEnableToolboxImpressionAnalytics = game:GetFastFlag("EnableToolboxImpressionAnalytics")
+local FFlagBootstrapperTryAsset = game:GetFastFlag("BootstrapperTryAsset")
 
 function ToolboxPlugin:init(props)
 	self.theme = makeTheme()
@@ -81,6 +84,13 @@ function ToolboxPlugin:init(props)
 end
 
 function ToolboxPlugin:didMount()
+	if FFlagBootstrapperTryAsset then
+		-- Ensure that the Toolbox shows if starting Studio with an asset ID
+		if StudioService:getStartupAssetId() then
+			self.dockWidget.Enabled = true
+		end
+	end
+
 	self.onDockWidgetEnabledChanged(self.dockWidget)
 
 	-- Now we have the dock widget, trigger a rerender

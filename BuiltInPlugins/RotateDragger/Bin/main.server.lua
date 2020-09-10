@@ -37,6 +37,7 @@ local function openPlugin()
 		Mouse = plugin:GetMouse(),
 		AllowDragSelect = true,
 		AllowFreeformDrag = true,
+		ShowLocalSpaceIndicator = true,
 		ShowSelectionDot = false,
 		DraggerContext = draggerContext,
 		ToolImplementation = RotateToolImpl.new(draggerContext),

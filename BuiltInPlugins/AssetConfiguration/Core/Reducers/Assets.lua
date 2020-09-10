@@ -1,4 +1,5 @@
 local FFlagStudioGetSharedPackagesInToolbox = game:GetFastFlag("StudioGetSharedPackagesInToolbox")
+local FFlagToolboxNewAssetAnalytics = game:GetFastFlag("ToolboxNewAssetAnalytics")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -38,9 +39,17 @@ local function handleAssetsAddedToState(state, assets, totalAssets, newCursor)
 
 	for _, asset in ipairs(assets) do
 		local id = asset.Asset.Id
+		local index = #newIdsToRender + 1
+
+		if FFlagToolboxNewAssetAnalytics then
+			if asset.Context then
+				asset.Context.pagePosition = index
+				asset.Context.position = (state.assetsReceived or 0) + index
+			end
+		end
 
 		newIdToAssetMap[id] = Cryo.Dictionary.join(asset, removeVoting)
-		newIdsToRender[#newIdsToRender + 1] = id
+		newIdsToRender[index] = id
 	end
 
 	-- Use math.max because sometimes the endpoint returns TotalAssets = 0 even if there results

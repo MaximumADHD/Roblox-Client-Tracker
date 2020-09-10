@@ -19,15 +19,21 @@ return function(plugin)
 	local pluginItem = Plugin.new(plugin)
 
 	local Util = require(Framework.Util)
-	local StyleTable = Util.StyleTable
-	local Style = Util.Style
-	local StyleModifier = Util.StyleModifier
+	local FlagsList = Util.Flags.new({
+		FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
+	})
+	local StudioTheme = require(Framework.Style.Themes.StudioTheme)
 
-	local theme = Theme.new(function(theme, getColor)
-		return {
-			Framework = StudioFrameworkStyles.new(theme, getColor)
-		}
-	end)
+	local theme
+	if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+		theme = StudioTheme.new()
+	else
+		theme = Theme.new(function(theme, getColor)
+			return {
+				Framework = StudioFrameworkStyles.new(theme, getColor)
+			}
+		end)
+	end
 
 	local ExampleButton = Roact.PureComponent:extend("ExampleButton")
 
@@ -84,7 +90,7 @@ return function(plugin)
 						Disabled = true,
 						Selected = false,
 						LayoutOrder = 0,
-						OnClick = self.onToggle,
+						OnClick = self.onToggle1,
 						Size = UDim2.fromOffset(40, 24),
 					}),
 					ToggleButton = Roact.createElement(ToggleButton, {

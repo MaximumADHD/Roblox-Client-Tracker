@@ -3,7 +3,6 @@ local FFlagToolboxShowGroupCreations = game:DefineFastFlag("ToolboxShowGroupCrea
 local FFlagFixToolboxPluginScaling = game:DefineFastFlag("FixToolboxPluginScaling", false)
 local FFlagUseCategoryNameInToolbox = game:GetFastFlag("UseCategoryNameInToolbox")
 local FFlagUseCategoryNameInToolboxFix1 = game:DefineFastFlag("UseCategoryNameInToolboxFix1", false)
-local FFlagEnableDefaultSortFix2 = game:GetFastFlag("EnableDefaultSortFix2")
 local FFlagEnableToolboxVideos = game:GetFastFlag("EnableToolboxVideos")
 local FFlagToolboxUseNewPluginEndpoint = settings():GetFFlag("ToolboxUseNewPluginEndpoint")
 local FFlagFixGroupPackagesCategoryInToolbox = game:DefineFastFlag("FixGroupPackagesCategoryInToolbox", false)
@@ -435,15 +434,9 @@ else
 	end
 
 	function Category.categoryIsPackage(index, currentTab)
-		if FFlagEnableDefaultSortFix2 then
-			local categoryCheck = currentTab == Category.INVENTORY_KEY
-			local assetTypeCheck = checkBounds(index) and Category.INVENTORY_WITH_GROUPS[index].assetType == Category.AssetType.PACKAGE
-			return categoryCheck and assetTypeCheck
-		else
-			local categoryKey = FFlagFixGroupPackagesCategoryInToolbox and Category.INVENTORY_KEY or Category.MARKETPLACE_KEY
-			return checkBounds(index) and currentTab == categoryKey and
-				Category.INVENTORY_WITH_GROUPS[index].assetType == Category.AssetType.PACKAGE
-		end
+		local categoryKey = FFlagFixGroupPackagesCategoryInToolbox and Category.INVENTORY_KEY or Category.MARKETPLACE_KEY
+		return checkBounds(index) and currentTab == categoryKey and
+			Category.INVENTORY_WITH_GROUPS[index].assetType == Category.AssetType.PACKAGE
 	end
 
 	function Category.categoryIsFreeAsset(index)

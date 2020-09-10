@@ -39,7 +39,7 @@ return function(networkInterface, tabName, newCategories,  settings, options)
 		else
 			shouldGetGroups = tabName == Category.INVENTORY_KEY
 		end
-		
+
 		if shouldGetGroups then
 			store:dispatch(GetToolboxManageableGroupsRequest(networkInterface))
 		end

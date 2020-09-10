@@ -6,6 +6,8 @@ local FileUtils = require(Plugin.Src.Util.FileUtils)
 local Promise = Util.Promise
 local Symbol = Util.Symbol
 
+local FFlagStudioAllowNullDescriptions = game:DefineFastFlag("StudioAllowNullDescriptions", false)
+
 local GameInfoController = {}
 GameInfoController.__index = GameInfoController
 
@@ -105,7 +107,7 @@ end
 
 function GameInfoController:getDescription(gameId)
 	local response = self:configurationV2GET(gameId):await()
-	return response.responseBody.description
+	return FFlagStudioAllowNullDescriptions and (response.responseBody.description or "") or response.responseBody.description
 end
 
 function GameInfoController:setDescription(gameId, description)

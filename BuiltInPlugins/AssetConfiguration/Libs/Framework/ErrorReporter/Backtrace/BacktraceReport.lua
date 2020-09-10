@@ -1,3 +1,6 @@
+--!nolint UnknownGlobal
+--^ STM-146
+
 --[[
 	This module creates a crash object that can be sent to Backtrace.
 	For information about what are the acceptable fields, see document:

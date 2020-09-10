@@ -99,16 +99,7 @@ function Toolbox:handleInitialSettings()
 		end
 	end
 
-	if FFlagUseCategoryNameInToolbox or FFlagToolboxDisableMarketplaceAndRecentsForLuobu then
-		local shouldGetGroups = pageInfoCategories == Category.INVENTORY_WITH_GROUPS or pageInfoCategories == Category.INVENTORY or pageInfoCategories == Category.CREATIONS
-		if shouldGetGroups then
-			self.props.getToolboxManageableGroups(networkInterface)
-		end
-	end
-
-	-- Set the initial page info for the toolbox
-	-- This will trigger a web request to load the first round of assets
-	self.props.updatePageInfo(networkInterface, settings, {
+	local newPageInfo = {
 		currentTab = (not FFlagUseCategoryNameInToolbox) and (initialTab),
 		categories = pageInfoCategories,
 		categoryIndex = (not FFlagUseCategoryNameInToolbox) and (initialSelectedCategoryIndex),
@@ -116,11 +107,26 @@ function Toolbox:handleInitialSettings()
 		searchTerm = initialSearchTerm,
 		sorts = Sort.SORT_OPTIONS,
 		sortIndex = initialSelectedSortIndex,
-		groupIndex = 0,
+		groupIndex = FFlagUseCategoryNameInToolbox and 1 or 0,
 		targetPage = 1,
 		selectedBackgroundIndex = initialSelectedBackgroundIndex,
 		requestReason = RequestReason.InitLoad,
-	})
+	}
+
+	if FFlagUseCategoryNameInToolbox or FFlagToolboxDisableMarketplaceAndRecentsForLuobu then
+		local shouldGetGroups = pageInfoCategories == Category.INVENTORY_WITH_GROUPS or pageInfoCategories == Category.INVENTORY or pageInfoCategories == Category.CREATIONS
+		if shouldGetGroups then
+			if FFlagUseCategoryNameInToolbox then
+				self.props.getToolboxManageableGroups(networkInterface, settings, newPageInfo)
+			else
+				self.props.getToolboxManageableGroups(networkInterface)
+			end
+		end
+	end
+
+	-- Set the initial page info for the toolbox
+	-- This will trigger a web request to load the first round of assets
+	self.props.updatePageInfo(networkInterface, settings, newPageInfo)
 end
 
 function Toolbox:init(props)
@@ -356,8 +362,8 @@ local function mapDispatchToProps(dispatch)
 			dispatch(GetRobuxBalance(networkInterface))
 		end,
 
-		getToolboxManageableGroups = function(networkInterface)
-			dispatch(GetToolboxManageableGroupsRequest(networkInterface))
+		getToolboxManageableGroups = function(networkInterface, settings, newPageInfo)
+			dispatch(GetToolboxManageableGroupsRequest(networkInterface, settings, newPageInfo))
 		end
 	}
 end

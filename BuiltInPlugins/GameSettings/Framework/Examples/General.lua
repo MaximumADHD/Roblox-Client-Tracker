@@ -29,23 +29,44 @@ local Plugin = ContextServices.Plugin
 local UIFolderData = require(Framework.UI.UIFolderData)
 local StudioUIFolderData = require(Framework.StudioUI.StudioUIFolderData)
 
-local exampleData = {
-	{
-		name = "theme",
-		label = "Theme",
-		folderPrefix = "examples",
-	},
-	{
-		name = "localization",
-		label = "Localization",
-		folderPrefix = "examples",
-	},
-	{
-		name = "stylevalue",
-		label = "StyleValue",
-		folderPrefix = "examples",
-	},
-}
+local Util = require(Framework.Util)
+local FlagsList = Util.Flags.new({
+	FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
+})
+
+local exampleData
+if (FlagsList:get("FFlagRefactorDevFrameworkTheme")) then
+	exampleData = {
+		{
+			name = "stylizer",
+			label = "Stylizer (Theme2)",
+			folderPrefix = "examples",
+		},
+		{
+			name = "localization",
+			label = "Localization",
+			folderPrefix = "examples",
+		},
+	}
+else
+	exampleData = {
+		{
+			name = "theme",
+			label = "Theme",
+			folderPrefix = "examples",
+		},
+		{
+			name = "localization",
+			label = "Localization",
+			folderPrefix = "examples",
+		},
+		{
+			name = "stylevalue",
+			label = "StyleValue",
+			folderPrefix = "examples",
+		},
+	}
+end
 
 local overrideUiExampleName = {
 	["Container"] = "Container and Decoration",

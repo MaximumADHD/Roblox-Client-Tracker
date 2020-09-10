@@ -146,6 +146,10 @@ function DraggerContext:viewportPointToRay(mouseLocation)
 	return self._workspace.CurrentCamera:ViewportPointToRay(mouseLocation.X, mouseLocation.Y)
 end
 
+function DraggerContext:worldToViewportPoint(worldPoint)
+	return self._workspace.CurrentCamera:WorldToViewportPoint(worldPoint)
+end
+
 function DraggerContext:setMouseIcon(icon)
 	self._mouse.Icon = icon
 end

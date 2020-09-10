@@ -8,7 +8,9 @@ local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
 local FFlagDisableAutoTranslateForKeyTranslatedContent
-    = require(RobloxGui.Modules.Flags.FFlagDisableAutoTranslateForKeyTranslatedContent)
+	= require(RobloxGui.Modules.Flags.FFlagDisableAutoTranslateForKeyTranslatedContent)
+
+local FFlagEmotesMenuFixSelectedObject = game:DefineFastFlag("EmotesMenuFixSelectedObject", false)
 
 local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
@@ -29,6 +31,11 @@ local ErrorMessage = require(Components.ErrorMessage)
 local Constants = require(EmotesModules.Constants)
 
 local EmotesMenu = Roact.PureComponent:extend("EmotesMenu")
+
+function EmotesMenu:init()
+	self.savedSelectedCoreObject = nil
+	self.savedSelectedObject = nil
+end
 
 function EmotesMenu:bindActions()
     local function toggleMenuFunc(actionName, inputState, inputObj)
@@ -53,6 +60,22 @@ end
 
 function EmotesMenu:unbindActions()
     ContextActionService:UnbindAction(Constants.ToggleMenuAction)
+end
+
+function EmotesMenu:saveSelectedObject()
+	self.savedSelectedCoreObject = GuiService.SelectedCoreObject
+	GuiService.SelectedCoreObject = nil
+	self.savedSelectedObject = GuiService.SelectedObject
+	GuiService.SelectedObject = nil
+end
+
+function EmotesMenu:resetSelectedObject()
+	if GuiService.SelectedCoreObject == nil then
+		GuiService.SelectedCoreObject = self.savedSelectedCoreObject
+	end
+	if GuiService.SelectedObject == nil then
+		GuiService.SelectedObject = self.savedSelectedObject
+	end
 end
 
 function EmotesMenu:viewPortSizeChanged()
@@ -139,6 +162,18 @@ function EmotesMenu:willUnmount()
     self.inputOutsideMenuConn = nil
 
     self:unbindActions()
+end
+
+if FFlagEmotesMenuFixSelectedObject then
+	function EmotesMenu:didUpdate(prevProps, prevState)
+		if self.props.displayOptions.menuVisible ~= prevProps.displayOptions.menuVisible then
+			if self.props.displayOptions.menuVisible then
+				self:saveSelectedObject()
+			else
+				self:resetSelectedObject()
+			end
+		end
+	end
 end
 
 function EmotesMenu:render()

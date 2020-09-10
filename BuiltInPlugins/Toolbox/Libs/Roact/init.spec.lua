@@ -7,11 +7,13 @@ return function()
 			createFragment = "function",
 			createRef = "function",
 			createBinding = "function",
+			joinBindings = "function",
 			mount = "function",
 			unmount = "function",
 			update = "function",
 			oneChild = "function",
 			setGlobalConfig = "function",
+			createContext = "function",
 
 			-- These functions are deprecated and throw warnings!
 			reify = "function",

@@ -12,8 +12,6 @@ local CoreGui = game:GetService("CoreGui")
 local CorePackages = game:GetService("CorePackages")
 local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
-local RunService = game:GetService("RunService")
-local StarterGui = game:GetService("StarterGui")
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui", math.huge)
 
@@ -21,9 +19,9 @@ local Roact = require(CorePackages.Packages.Roact)
 local Rodux = require(CorePackages.Packages.Rodux)
 local App = require(RobloxGui.Modules.InGameChat.BubbleChat.Components.App)
 local chatReducer = require(RobloxGui.Modules.InGameChat.BubbleChat.Reducers.chatReducer)
-local AddMessage = require(RobloxGui.Modules.InGameChat.BubbleChat.Actions.AddMessage)
 local SetMessageText = require(RobloxGui.Modules.InGameChat.BubbleChat.Actions.SetMessageText)
 local AddMessageFromEvent = require(RobloxGui.Modules.InGameChat.BubbleChat.Actions.AddMessageFromEvent)
+local AddMessageWithTimeout = require(RobloxGui.Modules.InGameChat.BubbleChat.Actions.AddMessageWithTimeout)
 local getPlayerFromPart = require(RobloxGui.Modules.InGameChat.BubbleChat.Helpers.getPlayerFromPart)
 local validateMessage = require(RobloxGui.Modules.InGameChat.BubbleChat.Helpers.validateMessage)
 local Constants = require(RobloxGui.Modules.InGameChat.BubbleChat.Constants)
@@ -35,7 +33,9 @@ local WRONG_LENGTH_WARNING = "Message text %q is too long for chat event %q (exp
 local MALFORMED_DATA_WARNING = "Malformed message data sent to chat event %q. If you have modified the chat system, " ..
 	"check what you are firing to this event"
 
-local chatStore = Rodux.Store.new(chatReducer)
+local chatStore = Rodux.Store.new(chatReducer, nil, {
+	Rodux.thunkMiddleware,
+})
 
 local root = Roact.createElement(App, {
 	store = chatStore
@@ -143,15 +143,9 @@ Chat.Chatted:Connect(function(partOrModel, message)
 		userId = userId,
 		name = partOrModel.Name,
 		text = message,
-		timestamp = os.time()
+		timestamp = os.time(),
+		adornee = partOrModel
 	}
 
-	-- If we're dealing with a characterthat has no Player associated with it,
-	-- supply the adornee to use for the BillboardGui.
-	-- TODO: Set the adornee regardless: https://jira.rbx.com/browse/SOCIALAPP-138
-	if not player then
-		message.adornee = partOrModel
-	end
-
-	chatStore:dispatch(AddMessage(message))
+	chatStore:dispatch(AddMessageWithTimeout(message))
 end)

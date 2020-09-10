@@ -2,13 +2,12 @@
 	A rectangular drop shadow that appears at the edges of an element.
 	The children of the DropShadow appear within padding equal to the value of Radius.
 
-	Required Props:
-		Theme Theme: A Theme ContextItem, which is provided via mapToProps.
-
 	Optional Props:
 		Style Style: The style with which to render this component.
 		StyleModifier StyleModifier: The StyleModifier index into Style.
 		number ZIndex: The render index of the shadow - should be behind the element it shadows.
+		Stylizer Stylizer: A Stylizer ContextItem, which is provided via mapToProps.
+		Theme Theme: A Theme ContextItem, which is provided via mapToProps.
 
 	Style Values:
 		Color3 Color: The color of the shadow.
@@ -19,12 +18,16 @@
 		number Radius: The radius of the shadow, in pixels.
 		number Transparency: The transparency of the shadow (ranges from 0 to 1).
 ]]
-
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
 local ContextServices = require(Framework.ContextServices)
+local Util = require(Framework.Util)
 local t = require(Framework.Util.Typecheck.t)
-local Typecheck = require(Framework.Util).Typecheck
+local Typecheck = Util.Typecheck
+
+local FlagsList = Util.Flags.new({
+	FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
+})
 
 local DropShadow = Roact.PureComponent:extend("DropShadow")
 Typecheck.wrap(DropShadow, script)
@@ -34,7 +37,12 @@ function DropShadow:render()
 	local zIndex = props.ZIndex
 
 	local theme = props.Theme
-	local style = theme:getStyle("Framework", self)
+	local style
+	if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+		style = props.Stylizer
+	else
+		style = theme:getStyle("Framework", self)
+	end
 	local color = style.Color
 
 	local offset = style.Offset or Vector2.new()
@@ -80,7 +88,8 @@ function DropShadow:render()
 end
 
 ContextServices.mapToProps(DropShadow, {
-	Theme = ContextServices.Theme,
+	Stylizer = FlagsList:get("FFlagRefactorDevFrameworkTheme") and ContextServices.Stylizer or nil,
+	Theme = (not FlagsList:get("FFlagRefactorDevFrameworkTheme")) and ContextServices.Theme or nil,
 })
 
 return DropShadow

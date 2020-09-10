@@ -8,13 +8,25 @@ return function()
 	local FrameworkStyles = require(Framework.UI.FrameworkStyles)
 	local LinkText = require(script.Parent)
 
+	local StudioTheme = require(Framework.Style.Themes.StudioTheme)
+
+	local Util = require(Framework.Util)
+	local FlagsList = Util.Flags.new({
+		FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
+	})
+
 	local function createTestLinkText(props)
 		local mouse = Mouse.new({})
-		local theme = Theme.new(function()
-			return {
-				Framework = FrameworkStyles.new(),
-			}
-		end)
+		local theme
+		if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+			theme = StudioTheme.new()
+		else
+			theme = Theme.new(function()
+				return {
+					Framework = FrameworkStyles.new(),
+				}
+			end)
+		end
 		return provide({theme, mouse}, {
 			LinkText = Roact.createElement(LinkText, props),
 		})

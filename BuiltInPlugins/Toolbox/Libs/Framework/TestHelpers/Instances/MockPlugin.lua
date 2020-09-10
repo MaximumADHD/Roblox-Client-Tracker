@@ -126,8 +126,8 @@ function MockPlugin:CreateDockWidgetPluginGui(_, ...)
 	return gui
 end
 
-function MockPlugin:CreateQWidgetPluginGui(_, ...)
-	return self:CreateDockWidgetPluginGui(_, ...)
+function MockPlugin:CreateQWidgetPluginGui(title, ...)
+	return self:CreateDockWidgetPluginGui(title, ...)
 end
 
 return MockPlugin

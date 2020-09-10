@@ -1,3 +1,6 @@
+--!nolint UnknownGlobal
+--^ STM-146
+
 return function()
 	local HttpService = game:GetService("HttpService")
 

@@ -3,7 +3,10 @@
 
 	Required Props:
 		UDim2 Size: The size of the component.
+
+	Optional Props:
 		Theme Theme: The Theme ContextItem from mapToProps.
+		Stylizer Stylizer: A Stylizer ContextItem, which is provided via mapToProps.
 
 	Style Values:
 		Color3 Color: The color of the component.
@@ -14,6 +17,11 @@ return function()
 	local Roact = require(Framework.Parent.Roact)
 	local ContextServices = require(Framework.ContextServices)
 	local wrap = require(Framework.Util.Typecheck.wrap)
+	local StudioTheme = require(Framework.Style.Themes.StudioTheme)
+	local ui = require(Framework.Style.ComponentSymbols)
+	local FlagsList = require(Framework.Util.Flags).new({
+		FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
+	})
 
 	local WrapTestComponent = Roact.PureComponent:extend("WrapTestComponent")
 	wrap(WrapTestComponent, script)
@@ -21,7 +29,12 @@ return function()
 	function WrapTestComponent:render()
 		local props = self.props
 		local size = props.Size
-		local style = props.Theme:getStyle("Framework", self)
+		local style
+		if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+			style = props.Stylizer
+		else
+			style = props.Theme:getStyle("Framework", self)
+		end
 		local color = style.Color
 
 		return Roact.createElement("Frame", {
@@ -31,19 +44,29 @@ return function()
 	end
 
 	ContextServices.mapToProps(WrapTestComponent, {
-		Theme = ContextServices.Theme,
+		Stylizer = FlagsList:get("FFlagRefactorDevFrameworkTheme") and ContextServices.Stylizer or nil,
+		Theme = (not FlagsList:get("FFlagRefactorDevFrameworkTheme")) and ContextServices.Theme or nil,
 	})
 
 	local function createWrapTestComponent(props, styleTable)
-		local theme = ContextServices.Theme.new(function()
-			return {
-				Framework = {
-					WrapTestComponent = {
-						Default = styleTable,
+		local theme
+		if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+			theme = StudioTheme.mock()
+			ui:add("WrapTestComponent")
+			theme:extend({
+				[ui.WrapTestComponent] = styleTable,
+			})
+		else
+			theme = ContextServices.Theme.new(function()
+				return {
+					Framework = {
+						WrapTestComponent = {
+							Default = styleTable,
+						},
 					},
-				},
-			}
-		end)
+				}
+			end)
+		end
 
 		return ContextServices.provide({theme}, {
 			Test = Roact.createElement(WrapTestComponent, props),

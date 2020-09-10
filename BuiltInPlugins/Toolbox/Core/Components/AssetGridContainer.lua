@@ -14,12 +14,17 @@
 		callback tryOpenAssetConfig, invoke assetConfig page with an assetId.
 ]]
 
+local StudioService = game:GetService("StudioService")
+
 local FFlagToolboxFixDuplicateAssetInsertions = game:DefineFastFlag("ToolboxFixDuplicateAssetInsertions", false)
 local FFlagEnableSearchedWithoutInsertionAnalytic = game:GetFastFlag("EnableSearchedWithoutInsertionAnalytic")
 local FFlagUseCategoryNameInToolbox = game:GetFastFlag("UseCategoryNameInToolbox")
-local FFlagEnableDefaultSortFix2 = game:GetFastFlag("EnableDefaultSortFix2")
+local FFlagBootstrapperTryAsset = game:GetFastFlag("BootstrapperTryAsset")
 local FFlagFixGroupPackagesCategoryInToolbox = game:GetFastFlag("FixGroupPackagesCategoryInToolbox")
 local FFlagToolboxFixAnalyticsBugs = game:GetFastFlag("ToolboxFixAnalyticsBugs")
+local FFlagToolboxInsertEventContextFixes = game:GetFastFlag("ToolboxInsertEventContextFixes")
+local FFlagEnableDefaultSortFix2 = game:GetFastFlag("EnableDefaultSortFix2")
+local FFlagToolboxNewAssetAnalytics = game:GetFastFlag("ToolboxNewAssetAnalytics")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -31,6 +36,7 @@ local Constants = require(Plugin.Core.Util.Constants)
 local ContextGetter = require(Plugin.Core.Util.ContextGetter)
 local ContextHelper = require(Plugin.Core.Util.ContextHelper)
 local Images = require(Plugin.Core.Util.Images)
+local AssetAnalyticsContextItem = require(Plugin.Core.Util.Analytics.AssetAnalyticsContextItem)
 
 local Util = Plugin.Core.Util
 local InsertToolPromise = require(Util.InsertToolPromise)
@@ -50,6 +56,7 @@ local MessageBox = require(Plugin.Core.Components.MessageBox.MessageBox)
 
 local PermissionsConstants = require(Plugin.Core.Components.AssetConfiguration.Permissions.PermissionsConstants)
 
+local GetAssets = require(Plugin.Core.Actions.GetAssets)
 local PlayPreviewSound = require(Plugin.Core.Actions.PlayPreviewSound)
 local PausePreviewSound = require(Plugin.Core.Actions.PausePreviewSound)
 local ResumePreviewSound = require(Plugin.Core.Actions.ResumePreviewSound)
@@ -130,8 +137,14 @@ function AssetGridContainer:init(props)
 		if self.props.isPlaying then
 			self.props.pauseASound()
 		end
+
 		if FFlagToolboxFixAnalyticsBugs then
+			-- TODO STM-146: Remove this once we are happy with the new MarketplaceAssetPreview event
 			Analytics.onAssetPreviewSelected(assetData.Asset.Id)
+		end
+
+		if FFlagToolboxNewAssetAnalytics then
+			self.props.AssetAnalytics:get():logPreview(assetData)
 		end
 	end
 
@@ -282,6 +295,24 @@ function AssetGridContainer:init(props)
 		local assetIndex = currentProps.assetIndex
 		local categories = (not FFlagUseCategoryNameInToolbox) and (currentProps.categories)
 
+		local currentCategoryName
+		if FFlagToolboxInsertEventContextFixes then
+			if FFlagUseCategoryNameInToolbox then
+				currentCategoryName = categoryName
+			else
+				currentCategoryName = PageInfoHelper.getCategory(categories, categoryIndex)
+			end
+		else
+			currentCategoryName = (not FFlagUseCategoryNameInToolbox) and (PageInfoHelper.getCategory(categories, categoryIndex))
+		end
+
+		local currentTab
+		if FFlagEnableDefaultSortFix2 then
+			currentTab = currentProps.currentTab
+		else
+			currentTab = props.currentTab
+		end
+
 		local plugin = self.props.Plugin:get()
 		InsertAsset.tryInsert({
 				plugin = plugin,
@@ -290,15 +321,99 @@ function AssetGridContainer:init(props)
 				assetTypeId = assetTypeId,
 				onSuccess = self.onAssetInsertionSuccesful,
 				categoryIndex = (not FFlagUseCategoryNameInToolbox) and categoryIndex,
-				currentCategoryName = (not FFlagUseCategoryNameInToolbox) and (PageInfoHelper.getCategory(categories, categoryIndex)),
+				currentCategoryName = currentCategoryName,
 				categoryName = categoryName,
 				searchTerm = searchTerm,
 				assetIndex = assetIndex,
-				currentTab = (not FFlagUseCategoryNameInToolbox) and (props.currentTab),
+				currentTab = (not FFlagUseCategoryNameInToolbox) and currentTab,
 			},
 			self.insertToolPromise,
 			assetWasDragged
 		)
+	end
+end
+
+function AssetGridContainer:didMount()
+	if FFlagBootstrapperTryAsset then
+		local assetIdStr = StudioService:getStartupAssetId()
+		local assetId = tonumber(assetIdStr)
+
+		if assetId then
+			local ok, result = pcall(function()
+				local props = self.props
+				local localization = props.Localization
+				local api = props.API:get()
+
+				-- There is no API to get individual Toolbox item details in the same format as that which
+				-- we use for fetching the whole page of Toolbox assets, so we map the fields from this API
+				-- to the expected format from the whole-page batch API (IDE/Toolbox/Items)
+				api.ToolboxService.V1.Items.details({
+					items = {
+						{
+							id = assetId,
+							itemType = "Asset",
+						}
+					}
+				}):makeRequest():andThen(function(response)
+					local responseItem = response.responseBody.data[1]
+
+					if not responseItem then
+						-- TODO STM-135: Replace these warnings with Lumberyak logs
+						warn("Could not find asset information in response for", assetIdStr)
+
+						Analytics.onTryAssetFailure(assetId)
+						return
+					end
+
+					local localeId = localization.getLocale()
+					local created = DateTime.fromIsoDate(responseItem.asset.createdUtc)
+					local updated = DateTime.fromIsoDate(responseItem.asset.updatedUtc)
+
+					local assetData = {
+						Asset = {
+							Id = responseItem.asset.id,
+							TypeId = responseItem.asset.typeId,
+							AssetGenres = responseItem.asset.assetGenres,
+							Name = responseItem.asset.name,
+							Description = responseItem.asset.description,
+							-- TODO DEVTOOLS-3378: Format as a "friendly" duration string
+							Created = created:FormatLocalTime("LLL", localeId),
+							CreatedRaw = created.UnixTimestamp,
+							-- TODO DEVTOOLS-3378: Format as a "friendly" duration string
+							Updated = updated:FormatLocalTime("LLL", localeId),
+							UpdatedRaw = updated.UnixTimestamp,
+						},
+						Creator = {
+							Name = responseItem.creator.name,
+							Id = responseItem.creator.id,
+							TypeId = responseItem.creator.type,
+						},
+					}
+
+					-- Add the asset data to the store, so that we can open AssetPreview
+					self.props.dispatchGetAssets({
+						assetData,
+					})
+
+					self.openAssetPreview(assetData)
+
+					self.tryInsert(assetData, false)
+
+					Analytics.onTryAsset(assetId)
+				end, function(err)
+					-- TODO STM-135: Replace these warnings with Lumberyak logs
+					warn("Could not load asset information for", assetIdStr, err)
+
+					Analytics.onTryAssetFailure(assetId)
+				end)
+			end)
+
+			if not ok then
+				-- TODO STM-135: Replace these warnings with Lumberyak logs
+				warn("Failed to try asset", assetIdStr, tostring(result))
+				Analytics.onTryAssetFailure(assetId)
+			end
+		end
 	end
 end
 
@@ -346,11 +461,7 @@ function AssetGridContainer:render()
 				isPackages = Category.categoryIsPackage(props.categoryName)
 			else
 				local categoryIndex = props.categoryIndex
-				if FFlagEnableDefaultSortFix2 then
-					isPackages = Category.categoryIsPackage(categoryIndex, currentTab)
-				else
-					isPackages = Category.categoryIsPackage(categoryIndex, FFlagFixGroupPackagesCategoryInToolbox and currentTab or categoryIsPackage)
-				end
+				isPackages = Category.categoryIsPackage(categoryIndex, FFlagFixGroupPackagesCategoryInToolbox and currentTab or categoryIsPackage)
 			end
 
 			local hoveredAssetId = modalStatus:canHoverAsset() and state.hoveredAssetId or 0
@@ -488,7 +599,10 @@ function AssetGridContainer:render()
 end
 
 ContextServices.mapToProps(AssetGridContainer, {
+	API = ContextServices.API,
+	Localization = ContextServices.Localization,
 	Plugin = ContextServices.Plugin,
+	AssetAnalytics = FFlagToolboxNewAssetAnalytics and AssetAnalyticsContextItem or nil,
 })
 
 local function mapStateToProps(state, props)
@@ -513,6 +627,10 @@ end
 
 local function mapDispatchToProps(dispatch)
 	return {
+		dispatchGetAssets = function(assets)
+			dispatch(GetAssets(assets))
+		end,
+
 		playASound = function(currentSoundId)
 			dispatch(PlayPreviewSound(currentSoundId))
 		end,

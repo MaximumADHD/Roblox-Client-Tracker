@@ -7,8 +7,7 @@ require(script.Parent.defineLuaFlags)
 
 local Plugin = script.Parent.Parent
 
-if not settings():GetFFlag("StudioVersionControlAlpha") and
-   not settings():GetFFlag("StudioForceDraftsUsageOnRCCSetting") then
+if not settings():GetFFlag("StudioForceDraftsUsageOnRCCSetting") then
    return
 end
 

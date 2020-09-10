@@ -10,15 +10,7 @@ Types.IMessage = t.strictInterface({
 	text = t.string,
 	userId = t.string,
 	timestamp = t.number,
-
-	-- Optionally the adornee of the BillboardGui can be specified. This is used
-	-- in conjunction with the Chat() method so we can easily associate an NPC
-	-- with a message.
-	--
-	-- It's trivial to get a Player's Character from the userId included in the
-	-- message, so we only use this when we need to specifically supply the
-	-- character to use.
-	adornee = t.optional(t.union(t.instanceIsA("BasePart"), t.instanceOf("Model"))),
+	adornee = t.union(t.instanceIsA("BasePart"), t.instanceOf("Model")),
 })
 
 -- This is the data we expect from developer-land. When a message is sent, the

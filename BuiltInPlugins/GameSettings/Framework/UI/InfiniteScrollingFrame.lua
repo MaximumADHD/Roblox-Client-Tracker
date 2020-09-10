@@ -3,13 +3,14 @@
 	A thin wrapper around the infinite-scroller library with DeveloperFramework theming and naming conventions.
 
 	Required Props:
-		Theme Theme: the theme supplied from mapToProps()
 		array[any] Items: The items to scroll through.
 		callback RenderItem: Callback to render each item that should be visible.
 			The items should have LayoutOrder set.
 
 	Optional Props:
+		Theme Theme: the theme supplied from mapToProps()
 		Style Style: a style table supplied from props and theme:getStyle()
+		Stylizer Stylizer: A Stylizer ContextItem, which is provided via mapToProps.
 		UDim2 Position: The position of the scrolling frame.
 		UDim2 Size: The size of the scrolling frame.
 		integer LayoutOrder: The order this component will display in a UILayout.
@@ -35,11 +36,11 @@
 		integer ScrollBarThickness: The horizontal width of the scrollbar.
 		boolean ScrollingEnabled: Whether scrolling in this frame will change the CanvasPosition.
 ]]
-
 local Framework = script.Parent.Parent
 local Util = require(Framework.Util)
 local FlagsList = Util.Flags.new({
 	FFlagStudioDevFrameworkPackage = {"StudioDevFrameworkPackage"},
+	FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
 })
 
 local Roact = require(Framework.Parent.Roact)
@@ -95,9 +96,17 @@ function InfiniteScrollingFrame:init()
 	self.getInfiniteScrollingFrameProps = function(props, style)
 		-- After filtering out parent's props and DeveloperFramework-specific props (such as Style and Theme),
 		-- what is left are infinite-scroller props
+		local updatedProps
+		if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+			updatedProps = Cryo.Dictionary.join(props, {
+				Stylizer = Cryo.None
+			})
+		else
+			updatedProps = props
+		end
 		return Cryo.Dictionary.join(
 			style,
-			props,
+			updatedProps,
 			self.propFilters.containerProps,
 			self.propFilters.wrapperProps,
 			{
@@ -128,7 +137,13 @@ end
 function InfiniteScrollingFrame:render()
 	local props = self.props
 	local theme = props.Theme
-	local style = theme:getStyle("Framework", self)
+
+	local style
+	if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+		style = props.Stylizer
+	else
+		style = theme:getStyle("Framework", self)
+	end
 
 	local position = props.Position
 	local size = props.Size
@@ -147,7 +162,8 @@ function InfiniteScrollingFrame:render()
 end
 
 ContextServices.mapToProps(InfiniteScrollingFrame, {
-	Theme = ContextServices.Theme,
+	Stylizer = FlagsList:get("FFlagRefactorDevFrameworkTheme") and ContextServices.Stylizer or nil,
+	Theme = (not FlagsList:get("FFlagRefactorDevFrameworkTheme")) and ContextServices.Theme or nil,
 })
 
 return InfiniteScrollingFrame

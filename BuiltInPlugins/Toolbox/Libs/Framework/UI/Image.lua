@@ -1,12 +1,11 @@
 --[[
 	A Decoration image.
 
-	Required Props:
-		Theme Theme: A Theme ContextItem, which is provided via mapToProps.
-
 	Optional Props:
+		Theme Theme: A Theme ContextItem, which is provided via mapToProps.
 		Style Style: The style with which to render this component.
 		StyleModifier StyleModifier: The StyleModifier index into Style.
+		Stylizer Stylizer: A Stylizer ContextItem, which is provided via mapToProps.
 
 	Style Values:
 		Vector2 AnchorPoint: The anchor point of the image.
@@ -26,6 +25,11 @@ local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
 local ContextServices = require(Framework.ContextServices)
 local Typecheck = require(Framework.Util).Typecheck
+local Util = require(Framework.Util)
+
+local FlagsList = Util.Flags.new({
+	FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
+})
 
 local Image = Roact.PureComponent:extend("Image")
 Typecheck.wrap(Image, script)
@@ -33,7 +37,12 @@ Typecheck.wrap(Image, script)
 function Image:render()
 	local props = self.props
 	local theme = props.Theme
-	local style = theme:getStyle("Framework", self)
+	local style
+	if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+		style = props.Stylizer
+	else
+		style = theme:getStyle("Framework", self)
+	end
 
 	local color = style.Color
 	local transparency = style.Transparency
@@ -65,7 +74,8 @@ function Image:render()
 end
 
 ContextServices.mapToProps(Image, {
-	Theme = ContextServices.Theme,
+	Stylizer = FlagsList:get("FFlagRefactorDevFrameworkTheme") and ContextServices.Stylizer or nil,
+	Theme = (not FlagsList:get("FFlagRefactorDevFrameworkTheme")) and ContextServices.Theme or nil,
 })
 
 return Image

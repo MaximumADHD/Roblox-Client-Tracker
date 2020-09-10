@@ -71,8 +71,6 @@ local withTheme = Theming.withTheme
 
 local AssetType = require(Library.Utils.AssetType)
 
-local FFlagStudioFixAssetPreviewTreeView = settings():GetFFlag("StudioFixAssetPreviewTreeView")
-local FFlagStudioFixAssetPreviewCloseButton = settings():GetFFlag("StudioFixAssetPreviewCloseButton")
 local FFlagAssetPreviewGenreNotType = game:DefineFastFlag("AssetPreviewGenreNotType", false)
 
 local AssetPreview = Roact.PureComponent:extend("AssetPreview")
@@ -279,7 +277,7 @@ function AssetPreview:render()
 
 		local layoutIndex = LayoutOrderIterator.new()
 
-		local closeImageSize = FFlagStudioFixAssetPreviewCloseButton and UDim2.new(0, 28, 0, 28) or UDim2.new(0, 20, 0, 20)
+		local closeImageSize = UDim2.new(0, 28, 0, 28)
 
 		return Roact.createElement("ImageButton", {
 			Position = position,
@@ -384,7 +382,7 @@ function AssetPreview:render()
 					Width = assetPreviewTheme.padding * 2,
 
 					CurrentPreview = currentPreview,
-					PreviewModel = FFlagStudioFixAssetPreviewTreeView and previewModel or currentPreview,
+					PreviewModel = previewModel,
 					AssetPreviewType = assetPreviewType,
 					AssetId = assetId,
 					PutTreeviewOnBottom = putTreeviewOnBottom,

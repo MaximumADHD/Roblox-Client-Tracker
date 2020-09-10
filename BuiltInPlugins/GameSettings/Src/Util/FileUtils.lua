@@ -1,3 +1,6 @@
+--!nolint ImplicitReturn
+--^ DEVTOOLS-4493
+
 --[[
 	Utility functions and constants used for prompting local files from the user.
 ]]

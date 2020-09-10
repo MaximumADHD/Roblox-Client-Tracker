@@ -2,8 +2,6 @@ return function(plugin)
 	local Framework = script.Parent.Parent.Parent
 	local Roact = require(Framework.Parent.Roact)
 	local ContextServices = require(Framework.ContextServices)
-	local Plugin = ContextServices.Plugin
-	local Theme = ContextServices.Theme
 
 	local StudioUI = require(Framework.StudioUI)
 	local Dialog = StudioUI.Dialog
@@ -16,13 +14,26 @@ return function(plugin)
 
 	local TestHelpers = require(Framework.TestHelpers)
 
+	local Util = require(Framework.Util)
+	local FlagsList = Util.Flags.new({
+		FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
+	})
+
+	local FrameworkStyle = Framework.Style
+	local StudioTheme = require(FrameworkStyle.Themes.StudioTheme)
+
 	local pluginItem = ContextServices.Plugin.new(plugin)
-	local theme = ContextServices.Theme.new(function(theme, getColor)
-		return {
-			Framework = StudioFrameworkStyles.new(theme, getColor),
-		}
-	end)
-	
+	local theme
+	if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+		theme = StudioTheme.new()
+	else
+		theme = ContextServices.Theme.new(function(theme, getColor)
+			return {
+				Framework = StudioFrameworkStyles.new(theme, getColor),
+			}
+		end)
+	end
+
 	local function renderInPopup(isEnabled, onCloseFunc, children)
 		-- This example was too many layers deep.
 		-- This logic might be reusable across multiple examples
@@ -83,7 +94,7 @@ return function(plugin)
 
 			DefaultButton = Roact.createElement(Button, {
 				Size = UDim2.new(1, 0, 0, 30),
-				LayoutIndex = 1,
+				LayoutOrder = 1,
 				Style = "Round",
 				Text = "Open Default Dialog",
 				OnClick = function()
@@ -116,10 +127,9 @@ return function(plugin)
 				}),
 			}),
 
-
 			AlertButton = Roact.createElement(Button, {
 				Size = UDim2.new(1, 0, 0, 30),
-				LayoutIndex = 2,
+				LayoutOrder = 2,
 				Style = "Round",
 				Text = "Open Alert Dialog",
 				OnClick = function()
@@ -152,11 +162,10 @@ return function(plugin)
 					}),
 				}),
 			}),
-		
 
 			AcceptCancelButton = Roact.createElement(Button, {
 				Size = UDim2.new(1, 0, 0, 30),
-				LayoutIndex = 3,
+				LayoutOrder = 3,
 				Style = "Round",
 				Text = "Open AcceptCancel Dialog",
 				OnClick = function()

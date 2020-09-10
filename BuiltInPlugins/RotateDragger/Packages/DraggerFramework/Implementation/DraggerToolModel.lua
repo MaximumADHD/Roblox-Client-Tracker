@@ -10,6 +10,8 @@ local Math = require(DraggerFramework.Utility.Math)
 local BoundsChangedTracker = require(DraggerFramework.Utility.BoundsChangedTracker)
 local DerivedWorldState = require(DraggerFramework.Implementation.DerivedWorldState)
 
+local getFFlagLocalSpaceWidget = require(DraggerFramework.Flags.getFFlagLocalSpaceWidget)
+
 local DraggerToolModel = {}
 DraggerToolModel.__index = DraggerToolModel
 
@@ -29,6 +31,7 @@ local DEFAULT_MODEL_PROPS = {
 	AnalyticsName = "Unknown",
 	AllowDragSelect = true,
 	AllowFreeformDrag = true,
+	ShowLocalSpaceIndicator = false,
 	ShowSelectionDot = false,
 	UseCollisionsTransparency = true,
 	WasAutoSelected = false,
@@ -134,6 +137,12 @@ end
 
 function DraggerToolModel:doesAllowFreeformDrag()
 	return self._modelProps.AllowFreeformDrag
+end
+
+if getFFlagLocalSpaceWidget() then
+	function DraggerToolModel:shouldShowLocalSpaceIndicator()
+		return self._modelProps.ShowLocalSpaceIndicator
+	end
 end
 
 function DraggerToolModel:shouldShowSelectionDot()

@@ -9,16 +9,22 @@
 	UILibraryWrapper expects to be provided
 	after a Theme, Plugin, and Focus ContextItem.
 ]]
-
-local noGetThemeError = [[
-UILibraryProvider expects Theme to have a 'getUILibraryTheme' instance function.]]
-
 local Framework = script.Parent.Parent
 local Util = require(Framework.Util)
 local FlagsList = Util.Flags.new({
 	FFlagStudioDevFrameworkPackage = {"StudioDevFrameworkPackage"},
 	FFlagRefactorDevFrameworkContextItems = {"RefactorDevFrameworkContextItems"},
+	FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
 })
+
+local noGetThemeError
+if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+	noGetThemeError = [[
+	UILibraryProvider expects Stylizer to have a 'getUILibraryTheme' instance function.]]
+else
+	noGetThemeError = [[
+	UILibraryProvider expects Theme to have a 'getUILibraryTheme' instance function.]]
+end
 
 local isUsedAsPackage = require(Framework.Util.isUsedAsPackage)
 
@@ -39,6 +45,7 @@ end
 local Roact = require(Framework.Parent.Roact)
 local ContextItem = require(Framework.ContextServices.ContextItem)
 local mapToProps = require(Framework.ContextServices.mapToProps)
+local Stylizer = require(Framework.Style.Stylizer)
 local Theme = require(Framework.ContextServices.Theme)
 local Plugin = require(Framework.ContextServices.Plugin)
 local Focus = require(Framework.ContextServices.Focus)
@@ -48,7 +55,12 @@ local UILibraryProvider = Roact.PureComponent:extend("UILibraryProvider")
 function UILibraryProvider:render()
 	local props = self.props
 	local plugin = props.Plugin
-	local theme = props.Theme
+	local theme
+	if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+		theme = props.Stylizer
+	else
+		theme = props.Theme
+	end
 	local focus = props.Focus
 	local UILibrary = props.UILibrary
 
@@ -64,7 +76,8 @@ function UILibraryProvider:render()
 end
 
 mapToProps(UILibraryProvider, {
-	Theme = Theme,
+	Stylizer = FlagsList:get("FFlagRefactorDevFrameworkTheme") and Stylizer or nil,
+	Theme = (not FlagsList:get("FFlagRefactorDevFrameworkTheme")) and Theme or nil,
 	Plugin = Plugin,
 	Focus = Focus,
 })

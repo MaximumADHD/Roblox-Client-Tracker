@@ -1,6 +1,16 @@
 return function()
 	local StudioFrameworkStyles = require(script.Parent.StudioFrameworkStyles)
 
+	local Framework = script.Parent.Parent
+	local Util = require(Framework.Util)
+	local FlagsList = Util.Flags.new({
+		FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
+	})
+
+	if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+		return
+	end
+
 	describe("new", function()
 		it("should expect a studio theme", function()
 			expect(function()

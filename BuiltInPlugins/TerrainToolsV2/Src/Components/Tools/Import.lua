@@ -1,3 +1,6 @@
+--!nolint ImportUnused
+--^ DEVTOOLS-4491
+
 --[[
 	Displays panels associated with the import tool
 ]]

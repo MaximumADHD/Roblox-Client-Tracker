@@ -4,7 +4,6 @@
 ]]
 
 local CorePackages = game:GetService("CorePackages")
-local Players = game:GetService("Players")
 
 local Roact = require(CorePackages.Packages.Roact)
 local RoactRodux = require(CorePackages.Packages.RoactRodux)

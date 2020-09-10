@@ -110,6 +110,7 @@ function RobloxAPI.new(props)
 		Develop = initDirectoryWithArgs(script.Develop, networkingImpl, baseUrl),
 		TranslationRoles = initDirectoryWithArgs(script.TranslationRoles, networkingImpl, baseUrl),
 		WWW = initDirectoryWithArgs(script.WWW, networkingImpl, baseUrl),
+		ToolboxService = initDirectoryWithArgs(script.ToolboxService, networkingImpl, baseUrl),
 		-- add more endpoint domains here
 	}
 	setmetatable(robloxApi, RobloxAPI)

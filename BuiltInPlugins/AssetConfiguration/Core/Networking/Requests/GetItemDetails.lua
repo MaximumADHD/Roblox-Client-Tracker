@@ -1,10 +1,14 @@
+local FFlagToolboxNewAssetAnalytics = game:GetFastFlag("ToolboxNewAssetAnalytics")
+
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Actions = Plugin.Core.Actions
 local NetworkError = require(Actions.NetworkError)
 local SetLoading = require(Actions.SetLoading)
-local SetAssets = require(Actions.GetAssets) -- intentional naming mismatch. TODO: rename GetAssets.lua
+local GetAssets = require(Actions.GetAssets)
 local SetCurrentPage = require(Actions.SetCurrentPage)
+
+local AssetAnalytics = require(Plugin.Core.Util.Analytics.AssetAnalytics)
 
 local AssetInfo = require(Plugin.Core.Models.AssetInfo)
 
@@ -23,7 +27,11 @@ return function(networkInterface, items, totalResults, audioSearchInfo, targetPa
                     table.insert(assetsList, formattedAsset)
                 end
 
-                store:dispatch(SetAssets(assetsList, totalResults, cursor))
+                if FFlagToolboxNewAssetAnalytics then
+                    AssetAnalytics.addContextToAssetResults(assetsList, pageInfo)
+                end
+
+                store:dispatch(GetAssets(assetsList, totalResults, cursor))
                 store:dispatch(SetCurrentPage(targetPage))
                 store:dispatch(SetLoading(false))
             end,

@@ -8,7 +8,6 @@
 		number UpperRangeValue: Current value for the upper range knob
 		callback OnValuesChanged: The callback is called whenever the min or max value changes - OnValuesChanged(minValue: number, maxValue: number)
 		Mouse Mouse: A Mouse ContextItem, which is provided via mapToProps.
-		Theme Theme: A Theme ContextItem, which is provided via mapToProps.
 
 	Optional Props:
 		Vector2 AnchorPoint: The anchorPoint of the component
@@ -22,8 +21,9 @@
 		StyleModifier StyleModifier: The StyleModifier index into Style.
 		number SnapIncrement: Incremental points that the slider's knob will snap to. A "0" snap increment means no snapping.
 		number VerticalDragTolerance: A vertical pixel height for allowing a mouse button press to drag knobs on outside the component's size.
+		Theme Theme: A Theme ContextItem, which is provided via mapToProps.
+		Stylizer Stylizer: A Stylizer ContextItem, which is provided via mapToProps.
 ]]
-
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
 local ContextServices = require(Framework.ContextServices)
@@ -31,6 +31,9 @@ local ContextServices = require(Framework.ContextServices)
 local Util = require(Framework.Util)
 local Typecheck = Util.Typecheck
 local StyleModifier = Util.StyleModifier
+local FlagsList = Util.Flags.new({
+	FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
+})
 
 local UI = Framework.UI
 local Container = require(UI.Container)
@@ -159,7 +162,12 @@ end
 
 function RangeSlider:render()
 	local theme = self.props.Theme
-	local style = theme:getStyle("Framework", self)
+	local style
+	if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+		style = self.props.Stylizer
+	else
+		style = theme:getStyle("Framework", self)
+	end
 
 	local anchorPoint = self.props.AnchorPoint
 	local isDisabled = self.props.Disabled
@@ -252,7 +260,8 @@ end
 
 ContextServices.mapToProps(RangeSlider, {
 	Mouse = ContextServices.Mouse,
-	Theme = ContextServices.Theme,
+	Stylizer = FlagsList:get("FFlagRefactorDevFrameworkTheme") and ContextServices.Stylizer or nil,
+	Theme = (not FlagsList:get("FFlagRefactorDevFrameworkTheme")) and ContextServices.Theme or nil,
 })
 
 return RangeSlider

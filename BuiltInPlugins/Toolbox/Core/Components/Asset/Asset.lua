@@ -23,6 +23,7 @@
 local FFlagFixAssetTextTruncation = game:DefineFastFlag("FixAssetTextTruncation", false)
 local FFlagRemoveAudioEndorsedIcon = game:GetFastFlag("RemoveAudioEndorsedIcon")
 local FFlagUseCategoryNameInToolbox = game:GetFastFlag("UseCategoryNameInToolbox")
+local FFlagToolboxNewAssetAnalytics = game:GetFastFlag("ToolboxNewAssetAnalytics")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -38,6 +39,7 @@ local ContextGetter = require(Util.ContextGetter)
 local DebugFlags = require(Util.DebugFlags)
 local getTimeString = require(Util.getTimeString)
 local PageInfoHelper = require(Util.PageInfoHelper)
+local AssetAnalyticsContextItem = require(Util.Analytics.AssetAnalyticsContextItem)
 
 local withTheme = ContextHelper.withTheme
 local withLocalization = ContextHelper.withLocalization
@@ -54,6 +56,9 @@ local Voting = require(AssetFolder.Voting.Voting)
 
 local GetOwnsAssetRequest = require(Plugin.Core.Networking.Requests.GetOwnsAssetRequest)
 local GetCanManageAssetRequest = require(Plugin.Core.Networking.Requests.GetCanManageAssetRequest)
+
+local Framework = require(Libs.Framework)
+local ContextServices = Framework.ContextServices
 
 local Category = require(Plugin.Core.Types.Category)
 
@@ -133,6 +138,10 @@ function Asset:didMount()
 	self.props.getOwnsAsset(getNetwork(self), assetId)
 
 	self.props.getCanManageAsset(getNetwork(self), assetId)
+
+	if FFlagToolboxNewAssetAnalytics then
+		self.props.AssetAnalytics:get():logImpression(assetData)
+	end
 end
 
 function Asset:render()
@@ -394,6 +403,12 @@ function Asset:render()
 			})
 		end)
 	end)
+end
+
+if FFlagToolboxNewAssetAnalytics then
+	ContextServices.mapToProps(Asset, {
+		AssetAnalytics = AssetAnalyticsContextItem,
+	})
 end
 
 local function mapStateToProps(state, props)

@@ -4,12 +4,13 @@
 
 	Required Props:
 		string Title: The title to the left of the content
-		Theme Theme: A Theme ContextItem, which is provided via mapToProps.
 
 	Optional Props:
 		number TitleWidth: The pixel pize of the padding between the title and content
 		Enum.FillDirection FillDirection: The direction in which the content is filled.
 		number LayoutOrder: The layoutOrder of this component.
+		Stylizer Stylizer: A Stylizer ContextItem, which is provided via mapToProps.
+		Theme Theme: A Theme ContextItem, which is provided via mapToProps.
 		number ZIndex: The render index of this component.
 ]]
 local Framework = script.Parent.Parent
@@ -18,6 +19,9 @@ local ContextServices = require(Framework.ContextServices)
 
 local Util = require(Framework.Util)
 local Typecheck = Util.Typecheck
+local FlagsList = Util.Flags.new({
+	FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
+})
 
 local FitFrame = require(Framework.Util.FitFrame)
 local FitFrameVertical = FitFrame.FitFrameVertical
@@ -34,7 +38,12 @@ TitledFrame.defaultProps = {
 function TitledFrame:render()
 	local props = self.props
 	local theme = props.Theme
-	local style = theme:getStyle("Framework", self)
+	local style
+	if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+		style = props.Stylizer
+	else
+		style = theme:getStyle("Framework", self)
+	end
 
 	local font = style.Font
 	local padding = style.Padding
@@ -82,7 +91,8 @@ function TitledFrame:render()
 end
 
 ContextServices.mapToProps(TitledFrame, {
-	Theme = ContextServices.Theme,
+	Stylizer = FlagsList:get("FFlagRefactorDevFrameworkTheme") and ContextServices.Stylizer or nil,
+	Theme = (not FlagsList:get("FFlagRefactorDevFrameworkTheme")) and ContextServices.Theme or nil,
 })
 
 return TitledFrame

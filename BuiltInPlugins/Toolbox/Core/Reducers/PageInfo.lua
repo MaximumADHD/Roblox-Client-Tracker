@@ -1,3 +1,5 @@
+local HttpService = game:GetService("HttpService")
+
 local Plugin = script.Parent.Parent.Parent
 
 local Libs = Plugin.Libs
@@ -23,6 +25,7 @@ local RobloxAPI = require(Libs.Framework).RobloxAPI
 local FFlagToolboxShowGroupCreations = game:GetFastFlag("ToolboxShowGroupCreations")
 local FFlagUseCategoryNameInToolbox = game:GetFastFlag("UseCategoryNameInToolbox")
 local FFlagToolboxDisableMarketplaceAndRecentsForLuobu = game:GetFastFlag("ToolboxDisableMarketplaceAndRecentsForLuobu")
+local FFlagToolboxNewAssetAnalytics = game:GetFastFlag("ToolboxNewAssetAnalytics")
 
 local defaultSorts = Sort.SORT_OPTIONS
 local defaultCategories
@@ -124,6 +127,13 @@ return Rodux.createReducer({
 		end
 
 		local newState = Cryo.Dictionary.join(state, action.changes)
+
+		if FFlagToolboxNewAssetAnalytics then
+			if not RequestReason.IsUpdate(newState.requestReason) then
+				-- If we are just changing page, don't generate a new searchId
+				newState.searchId = HttpService:GenerateGUID(false)
+			end
+		end
 
 		-- Update the plugin settings. Reducers should be pure functions
 		-- but this guarantees that the plugin settings use the most up-

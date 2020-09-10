@@ -13,7 +13,7 @@
 		function onClose = A callback for when the user clicks outside of the
 			preview to close it.
 ]]
-local FFlagEnableDefaultSortFix = game:GetFastFlag("EnableDefaultSortFix2")
+local FFlagEnableDefaultSortFix2 = game:GetFastFlag("EnableDefaultSortFix2")
 local FFlagUseCategoryNameInToolbox = game:GetFastFlag("UseCategoryNameInToolbox")
 
 local StudioService = game:GetService("StudioService")
@@ -74,13 +74,12 @@ local FixModelPreviewSelection = settings():GetFFlag("FixModelPreviewSelection")
 local FFlagFixUseDevelopFetchPluginVersionId2 = game:DefineFastFlag("FixUseDevelopFetchPluginVersionId2", false)
 local FFlagStudioToolboxPluginPurchaseFlow = game:GetFastFlag("StudioToolboxPluginPurchaseFlow")
 local FFlagStudioHideSuccessDialogWhenFree = game:GetFastFlag("StudioHideSuccessDialogWhenFree")
-local FFlagStudioFixAssetPreviewTreeView = settings():GetFFlag("StudioFixAssetPreviewTreeView")
-local FFlagStudioFixAssetPreviewCloseButton = settings():GetFFlag("StudioFixAssetPreviewCloseButton")
 local FFlagToolboxFixAnalyticsBugs = game:GetFastFlag("ToolboxFixAnalyticsBugs")
 local FFlagToolboxWaitForPluginOwnedStatus = game:GetFastFlag("ToolboxWaitForPluginOwnedStatus")
+local FFlagToolboxInsertEventContextFixes = game:GetFastFlag("ToolboxInsertEventContextFixes")
 
 
-local PADDING = FFlagStudioFixAssetPreviewCloseButton and 32 or 20
+local PADDING = 32
 local INSTALLATION_ANIMATION_TIME = 1.0 --seconds
 
 function AssetPreviewWrapper:createPurchaseFlow(localizedContent)
@@ -381,14 +380,24 @@ function AssetPreviewWrapper:init(props)
 			end
 		end
 
+		local currentCategoryName = nil
+		if FFlagToolboxInsertEventContextFixes then
+			if FFlagUseCategoryNameInToolbox then
+				currentCategoryName = categoryName
+			else
+				currentCategoryName = PageInfoHelper.getCategory(self.props.categories, categoryIndex)
+			end
+		end
+
 		local success = InsertAsset.tryInsert({
 			assetId = assetId,
 			assetVersionId = assetVersionId,
 			assetName = assetName,
 			assetTypeId = assetTypeId,
 			currentTab = (not FFlagUseCategoryNameInToolbox) and (self.props.currentTab),
-			categoryIndex = (not FFlagUseCategoryNameInToolbox) and (FFlagEnableDefaultSortFix and categoryIndex or nil),
+			categoryIndex = (not FFlagUseCategoryNameInToolbox) and (FFlagEnableDefaultSortFix2 and categoryIndex or nil),
 			categoryName = FFlagUseCategoryNameInToolbox and categoryName or nil,
+			currentCategoryName = currentCategoryName,
 		})
 		if success then
 			self:setState({
@@ -547,9 +556,7 @@ function AssetPreviewWrapper:render()
 					ZIndex = 2,
 				}
 
-				if FFlagStudioFixAssetPreviewTreeView then
-					assetPreviewProps.PreviewModel = previewModel
-				end
+				assetPreviewProps.PreviewModel = previewModel
 
 				return modalTarget and Roact.createElement(Roact.Portal, {
 					target = modalTarget
@@ -603,8 +610,20 @@ local function mapStateToProps(state, props)
 
 	local voting = state.voting or {}
 
+	local categories = nil
+	local categoryIndex
+	if FFlagToolboxInsertEventContextFixes then
+		if not FFlagUseCategoryNameInToolbox then
+			categories = pageInfo.categories or {}
+			categoryIndex = pageInfo.categoryIndex or 1
+		end
+	else
+		categoryIndex = (not FFlagUseCategoryNameInToolbox) and (FFlagEnableDefaultSortFix2 and (pageInfo.categoryIndex or 1) or nil)
+	end
+
 	local stateToProps = {
-		categoryIndex =  (not FFlagUseCategoryNameInToolbox) and (FFlagEnableDefaultSortFix and (pageInfo.categoryIndex or 1) or nil),
+		categories = categories,
+		categoryIndex = categoryIndex,
 		categoryName = FFlagUseCategoryNameInToolbox and (pageInfo.categoryName or Category.DEFAULT.name) or nil,
 		previewModel = previewModel or nil,
 		currentTab = PageInfoHelper.getCurrentTab(pageInfo),

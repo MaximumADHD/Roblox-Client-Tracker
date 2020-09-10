@@ -29,7 +29,11 @@ local ContextServices = require(DevFrameworkRoot.ContextServices)
 local StudioFrameworkStyles = require(DevFrameworkRoot.StudioUI).StudioFrameworkStyles
 local MockPlugin = require(DevFrameworkRoot.TestHelpers.Instances.MockPlugin)
 local Rodux = require(DevFrameworkRoot.Parent.Rodux)
-
+local StudioTheme = require(DevFrameworkRoot.Style.Themes.StudioTheme)
+local Util = require(DevFrameworkRoot.Util)
+local FlagsList = Util.Flags.new({
+	FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
+})
 
 -- contextItemsList : (table, optional) a list of ContextItems to include in the stack. Will override any duplicates.
 -- children : (table, required) a map of children like you would pass into Roact.createElement's children
@@ -85,19 +89,24 @@ return function(contextItemsList, children)
 	table.insert(contextItems, store)
 
 	-- Theme
-	local theme = ContextServices.Theme.mock(function(theme, getColor)
-		return {
-			Framework = StudioFrameworkStyles.new(theme, getColor),
-		}
-	end, function()
-		return {
-			Name = "Light",
+	local theme
+	if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+		theme = StudioTheme.new()
+	else
+		theme = ContextServices.Theme.mock(function(theme, getColor)
+			return {
+				Framework = StudioFrameworkStyles.new(theme, getColor),
+			}
+		end, function()
+			return {
+				Name = "Light",
 
-			GetColor = function(_, _)
-				return Color3.new()
-			end,
-		}
-	end)
+				GetColor = function(_, _)
+					return Color3.new()
+				end,
+			}
+		end)
+	end
 	table.insert(contextItems, theme)
 
 
