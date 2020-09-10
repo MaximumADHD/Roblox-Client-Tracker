@@ -16,7 +16,6 @@
 local FFlagAssetConifgOverrideAssetScrollingFrame = game:DefineFastFlag("AssetConifgOverrideAssetScrollingFrame", false)
 local FFlagToolboxUseInfinteScroller = game:DefineFastFlag("ToolboxUseInfiniteScroller", false)
 local FFlagEnableOverrideAssetCursorFix = game:GetFastFlag("EnableOverrideAssetCursorFix")
-local FFlagStudioUseNewAnimationImportExportFlow = settings():GetFFlag("StudioUseNewAnimationImportExportFlow")
 local FFlagAssetConfigOverrideAssetTooltip = game:DefineFastFlag("AssetConfigOverrideAssetTooltip", false)
 
 local Plugin = script.Parent.Parent.Parent.Parent
@@ -153,9 +152,7 @@ function OverrideAssetView:createAssets(resultsArray, theme)
 		local selected = selectedAssetId == assetId
 
 		local inFilter = true
-		if FFlagStudioUseNewAnimationImportExportFlow then
-			inFilter = filterID == "" or tostring(assetId):find(filterID)
-		end
+		inFilter = filterID == "" or tostring(assetId):find(filterID)
 
 		itemList[assetId] = inFilter and Roact.createElement("TextButton", {
 			Size = AssetConfigConstants.OverrideAssetItemSize,

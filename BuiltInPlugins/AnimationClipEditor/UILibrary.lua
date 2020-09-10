@@ -4,7 +4,7 @@
 
 local FFlagEnableToolboxVideos = game:GetFastFlag("EnableToolboxVideos")
 
-local Src = script
+local Src = script._internal
 local Components = Src.Components
 local Utils = Src.Utils
 
@@ -163,15 +163,5 @@ local UILibrary = createStrictTable({
 
 	createTheme = require(Src.createTheme),
 })
-
-local virtualFolder = Instance.new("Folder")
-virtualFolder.Name = "UILibraryInternals-Do-Not-Access-Directly"
--- The number of parents to the plugin cannot change since UILibrary components reach out of UILibrary
--- to get the plugin's copy of Roact
-virtualFolder.Parent = script.Parent
-
-for _,v in pairs(script:GetChildren()) do
-	v.Parent = virtualFolder
-end
 
 return UILibrary

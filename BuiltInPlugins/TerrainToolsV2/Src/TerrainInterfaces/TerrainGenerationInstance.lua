@@ -2,15 +2,15 @@ local FFlagTerrainToolsUseDevFramework = game:GetFastFlag("TerrainToolsUseDevFra
 
 local Plugin = script.Parent.Parent.Parent
 
-local Framework = Plugin.Packages.Framework
+local Framework = require(Plugin.Packages.Framework)
 local Cryo = require(Plugin.Packages.Cryo)
 local Roact = require(Plugin.Packages.Roact)
 local UILibrary = not FFlagTerrainToolsUseDevFramework and require(Plugin.Packages.UILibrary) or nil
 
-local ContextItem = FFlagTerrainToolsUseDevFramework and require(Framework.ContextServices.ContextItem) or nil
-local Provider = FFlagTerrainToolsUseDevFramework and require(Framework.ContextServices.Provider) or nil
+local ContextItem = FFlagTerrainToolsUseDevFramework and Framework.ContextServices.ContextItem or nil
+local Provider = FFlagTerrainToolsUseDevFramework and Framework.ContextServices.Provider or nil
 
-local FrameworkUtil = FFlagTerrainToolsUseDevFramework and require(Framework.Util) or nil
+local FrameworkUtil = FFlagTerrainToolsUseDevFramework and Framework.Util or nil
 local Signal = FFlagTerrainToolsUseDevFramework and FrameworkUtil.Signal or UILibrary.Util.Signal
 
 local Constants = require(Plugin.Src.Util.Constants)
@@ -56,25 +56,35 @@ function TerrainGeneration.new(options)
 		_generatorProgressConnection = nil,
 		_generatorPausedConnection = nil,
 		_generatorFinishedConnection = nil,
-
-		-- Signals that external sources connect to (e.g. Roact UI)
-		_generatingStateChangedSignal = Signal.new(),
-		_generatingProgressUpdateSignal = Signal.new(),
-		_generatingPausedSignal = Signal.new(),
-		_generatingFinishedSignal = Signal.new(),
 	}, TerrainGeneration)
 
 	assert(self._terrain, "TerrainGeneration.new() requires a terrain instance")
 
+	if FFlagTerrainToolsUseDevFramework then
+		self._updateSignal = Signal.new()
+	else
+		self._generatingStateChangedSignal = Signal.new()
+		self._generatingProgressUpdateSignal = Signal.new()
+		self._generatingPausedSignal = Signal.new()
+	end
+
 	-- These functions are connected to the signals from the generator
 	self._onGeneratorProgressUpdate = function(progress)
-		-- Pass the progress on to our subscribers
-		self._generatingProgressUpdateSignal:Fire(progress)
+		if FFlagTerrainToolsUseDevFramework then
+			self._updateSignal:Fire()
+		else
+			-- Pass the progress on to our subscribers
+			self._generatingProgressUpdateSignal:Fire(progress)
+		end
 	end
 
 	self._onGeneratorPaused = function(paused)
-		-- Pass the paused update on to our subscribers
-		self._generatingPausedSignal:Fire(paused)
+		if FFlagTerrainToolsUseDevFramework then
+			self._updateSignal:Fire()
+		else
+			-- Pass the paused update on to our subscribers
+			self._generatingPausedSignal:Fire(paused)
+		end
 	end
 
 	self._onGeneratorFinished = function()
@@ -88,8 +98,6 @@ function TerrainGeneration.new(options)
 			print(("Yielded for %.2f seconds; Did work for %.2f"):format(yieldTime, workTime))
 		end
 
-		-- Update our subscribers first
-		self._generatingFinishedSignal:Fire()
 		-- Before killing our generator
 		self:_stopAndClearGenerator()
 	end
@@ -101,24 +109,24 @@ if FFlagTerrainToolsUseDevFramework then
 	function TerrainGeneration:createProvider(root)
 		return Roact.createElement(Provider, {
 			ContextItem = self,
+			UpdateSignal = self._updateSignal,
 		}, {root})
 	end
 end
 
 function TerrainGeneration:subscribeToStartStopGeneratingChanged(...)
+	assert(not FFlagTerrainToolsUseDevFramework, "TerrainGeneration:subscribeToStartStopGeneratingChanged() is deprecated")
 	return self._generatingStateChangedSignal:Connect(...)
 end
 
 function TerrainGeneration:subscribeToProgressUpdate(...)
+	assert(not FFlagTerrainToolsUseDevFramework, "TerrainGeneration:subscribeToProgressUpdate() is deprecated")
 	return self._generatingProgressUpdateSignal:Connect(...)
 end
 
 function TerrainGeneration:subscribeToPaused(...)
+	assert(not FFlagTerrainToolsUseDevFramework, "TerrainGeneration:subscribeToPaused() is deprecated")
 	return self._generatingPausedSignal:Connect(...)
-end
-
-function TerrainGeneration:subscribeToFinished(...)
-	return self._generatingFinishedSignal:Connect(...)
 end
 
 function TerrainGeneration:isGenerating()
@@ -224,7 +232,12 @@ end
 function TerrainGeneration:_setGenerating(generating)
 	if generating ~= self._generating then
 		self._generating = generating
-		self._generatingStateChangedSignal:Fire(generating)
+
+		if FFlagTerrainToolsUseDevFramework then
+			self._updateSignal:Fire()
+		else
+			self._generatingStateChangedSignal:Fire(generating)
+		end
 	end
 end
 

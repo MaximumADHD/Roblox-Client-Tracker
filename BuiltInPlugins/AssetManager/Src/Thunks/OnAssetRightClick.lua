@@ -16,6 +16,8 @@ local MemStorageService = game:GetService("MemStorageService")
 local RunService = game:GetService("RunService")
 local StudioService = game:GetService("StudioService")
 
+local FFlagStudioPlaceVersionHistoryCorrectPlace = game:GetFastFlag("StudioPlaceVersionHistoryShowCorrectPlace")
+
 local FFlagAssetManagerAddPlaceVersionHistoryToContextMenu = game:DefineFastFlag("AssetManagerAddPlaceVerisonHistoryToContextMenu", false)
 local FFlagFixAssetManagerInsertWithLocation = game:DefineFastFlag("FixAssetManagerInsertWithLocation", false)
 local FFlagAssetManagerAddNewPlaceBehavior = game:DefineFastFlag("AssetManagerAddNewPlaceBehavior", false)
@@ -128,7 +130,11 @@ local function createPlaceContextMenu(analytics, apiImpl, assetData, contextMenu
 
     if FFlagAssetManagerAddPlaceVersionHistoryToContextMenu then
         contextMenu:AddNewAction("ViewPlaceHistory", localization:getText("ContextMenu", "ViewPlaceHistory")).Triggered:connect(function()
-            StudioService:ShowPlaceVersionHistoryDialog()
+            if FFlagStudioPlaceVersionHistoryCorrectPlace then
+                StudioService:ShowPlaceVersionHistoryDialog(assetData.id)
+            else
+                StudioService:DEPRECATED_ShowPlaceVersionHistoryDialog()
+            end
             if FFlagAssetManagerAddAnalytics then
                 analytics:report("clickContextMenuItem")
             end

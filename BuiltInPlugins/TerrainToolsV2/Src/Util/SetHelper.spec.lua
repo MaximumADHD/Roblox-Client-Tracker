@@ -1,9 +1,10 @@
 local Plugin = script.Parent.Parent.Parent
-local TestHelpers = Plugin.Src.TestHelpers
+
+local Framework = require(Plugin.Packages.Framework)
+
+local setEquals = Framework.TestHelpers.setEquals
 
 local SetHelper = require(script.Parent.SetHelper)
-
-local setEquals = require(TestHelpers.setEquals)
 
 return function()
 	describe("arrayToSet", function()

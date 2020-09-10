@@ -38,7 +38,6 @@ function DraftListView:init()
     local draftsService = getDraftsService(self)
     self:setState({
         draftsPendingDiscard = nil,
-        -- may be inaccurate if there are no drafts remaining
         draftsHasActiveSelection = false,
     })
 
@@ -102,16 +101,13 @@ function DraftListView:init()
     end
 
     self.getCommitButtonEnabled =  function()
-        local drafts = self.props.Drafts
-        local hasDrafts = next(drafts) ~= nil
-        return RunService:IsEdit() and self.state.draftsHasActiveSelection and hasDrafts
+        return RunService:IsEdit() and self.state.draftsHasActiveSelection
     end
 
     self.onDoubleClicked = function(draft)
         self.openScripts({draft})
     end
 
-    -- Note: Does not get invoked when there are no drafts left since ListItemView will not get rendered
     self.onSelectionChanged = function(selection)
         if selection and next(selection) == nil then
             self:setState({
@@ -288,7 +284,7 @@ function DraftListView:render()
                     Size = UDim2.new(1, 0, 1, -TOOLBAR_HEIGHT),
                     LayoutOrder = 1,
                 }, {
-                    ListItemView = (not noDrafts) and Roact.createElement(ListItemView, {
+                    ListItemView = (game:GetFastFlag("DraftWidgetResponsiveCommitButton") or (not noDrafts)) and Roact.createElement(ListItemView, {
                         ButtonStyle = "tableItemButton",
                         Items = sortedDraftList,
                         ItemHeight = ITEM_HEIGHT,

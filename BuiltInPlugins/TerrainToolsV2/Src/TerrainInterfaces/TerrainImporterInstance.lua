@@ -2,15 +2,15 @@ local FFlagTerrainToolsUseDevFramework = game:GetFastFlag("TerrainToolsUseDevFra
 
 local Plugin = script.Parent.Parent.Parent
 
-local Framework = Plugin.Packages.Framework
+local Framework = require(Plugin.Packages.Framework)
 local Cryo = require(Plugin.Packages.Cryo)
 local Roact = require(Plugin.Packages.Roact)
 local UILibrary = not FFlagTerrainToolsUseDevFramework and require(Plugin.Packages.UILibrary) or nil
 
-local ContextItem = FFlagTerrainToolsUseDevFramework and require(Framework.ContextServices.ContextItem) or nil
-local Provider = FFlagTerrainToolsUseDevFramework and require(Framework.ContextServices.Provider) or nil
+local ContextItem = FFlagTerrainToolsUseDevFramework and Framework.ContextServices.ContextItem or nil
+local Provider = FFlagTerrainToolsUseDevFramework and Framework.ContextServices.Provider or nil
 
-local FrameworkUtil = FFlagTerrainToolsUseDevFramework and require(Framework.Util) or nil
+local FrameworkUtil = FFlagTerrainToolsUseDevFramework and Framework.Util or nil
 local Signal = FFlagTerrainToolsUseDevFramework and FrameworkUtil.Signal or UILibrary.Util.Signal
 
 local Constants = require(Plugin.Src.Util.Constants)
@@ -59,15 +59,24 @@ function TerrainImporter.new(options)
 		_importing = false,
 		_importProgress = 0,
 
-		_importingStateChanged = Signal.new(),
-		_importProgressChanged = Signal.new(),
 	}, TerrainImporter)
 
 	assert(self._terrain, "TerrainImporter.new() requires a terrain instance")
 
+	if FFlagTerrainToolsUseDevFramework then
+		self._updateSignal = Signal.new()
+	else
+		self._importingStateChanged = Signal.new()
+		self._importProgressChanged = Signal.new()
+	end
+
 	self._updateImportProgress = function(completionPercent)
 		self._importProgress = completionPercent
-		self._importProgressChanged:Fire(completionPercent)
+		if FFlagTerrainToolsUseDevFramework then
+			self._updateSignal:Fire()
+		else
+			self._importProgressChanged:Fire(completionPercent)
+		end
 		if completionPercent >= 1 then
 			self:_setImporting(false)
 		end
@@ -82,15 +91,18 @@ if FFlagTerrainToolsUseDevFramework then
 	function TerrainImporter:createProvider(root)
 		return Roact.createElement(Provider, {
 			ContextItem = self,
+			UpdateSignal = self._updateSignal,
 		}, {root})
 	end
 end
 
 function TerrainImporter:subscribeToImportingStateChanged(...)
+	assert(not FFlagTerrainToolsUseDevFramework, "TerrainGeneration:subscribeToImportingStateChanged() is deprecated")
 	return self._importingStateChanged:Connect(...)
 end
 
 function TerrainImporter:subscribeToImportProgressChanged(...)
+	assert(not FFlagTerrainToolsUseDevFramework, "TerrainGeneration:subscribeToImportProgressChanged() is deprecated")
 	return self._importProgressChanged:Connect(...)
 end
 
@@ -118,7 +130,11 @@ end
 function TerrainImporter:_setImporting(importing)
 	if importing ~= self._importing then
 		self._importing = importing
-		self._importingStateChanged:Fire(importing)
+		if FFlagTerrainToolsUseDevFramework then
+			self._updateSignal:Fire()
+		else
+			self._importingStateChanged:Fire(importing)
+		end
 	end
 end
 

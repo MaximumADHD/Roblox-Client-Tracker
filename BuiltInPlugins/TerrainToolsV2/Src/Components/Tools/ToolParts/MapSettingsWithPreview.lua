@@ -2,21 +2,27 @@
 	Wraps MapSettingsWithPreviewFragment inside a Panel called Map Settings
 ]]
 
+local FFlagTerrainToolsUseDevFramework = game:GetFastFlag("TerrainToolsUseDevFramework")
 local FFlagTerrainToolsUseMapSettingsWithPreview = game:GetFastFlag("TerrainToolsUseMapSettingsWithPreview2")
 
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
+local Framework = require(Plugin.Packages.Framework)
 local Cryo = require(Plugin.Packages.Cryo)
 local Roact = require(Plugin.Packages.Roact)
 local UILibrary = require(Plugin.Packages.UILibrary)
 
-local withLocalization = UILibrary.Localizing.withLocalization
+local ContextServices = FFlagTerrainToolsUseDevFramework and Framework.ContextServices or nil
+local ContextItems = FFlagTerrainToolsUseDevFramework and require(Plugin.Src.ContextItems) or nil
 
-local StudioPlugin = require(Plugin.Src.ContextServices.StudioPlugin)
+local withLocalization = not FFlagTerrainToolsUseDevFramework and UILibrary.Localizing.withLocalization or nil
+
+local StudioPlugin = not FFlagTerrainToolsUseDevFramework and require(Plugin.Src.ContextServices.StudioPlugin) or nil
+
+local TerrainInterface = not FFlagTerrainToolsUseDevFramework and require(Plugin.Src.ContextServices.TerrainInterface)
+	or nil
 
 local LargeVoxelRegionPreview = require(Plugin.Src.TerrainWorldUI.LargeVoxelRegionPreview)
-
-local TerrainInterface = require(Plugin.Src.ContextServices.TerrainInterface)
 
 local ToolParts = script.Parent
 local MapSettings = not FFlagTerrainToolsUseMapSettingsWithPreview and require(ToolParts.MapSettings) or nil
@@ -26,27 +32,41 @@ local Panel = require(ToolParts.Panel)
 local MapSettingsWithPreview = Roact.PureComponent:extend(script.Name)
 
 if FFlagTerrainToolsUseMapSettingsWithPreview then
+	function MapSettingsWithPreview:_render(localization)
+		local layoutOrder = self.props.LayoutOrder
+		local isSubsection = self.props.isSubsection
+
+		local fragmentProps = Cryo.Dictionary.join(self.props, {
+			LayoutOrder = Cryo.None,
+			isSubsection = Cryo.None,
+
+			InitialLayoutOrder = 1,
+		})
+
+		return Roact.createElement(Panel, {
+			LayoutOrder = layoutOrder,
+			isSubsection = isSubsection,
+			Title = localization:getText("MapSettings", "MapSettings"),
+			Padding = UDim.new(0, 12),
+		}, {
+			MapSettingsWithPreviewFragment = Roact.createElement(MapSettingsWithPreviewFragment, fragmentProps),
+		})
+	end
+
 	function MapSettingsWithPreview:render()
-		return withLocalization(function(localization)
-			local layoutOrder = self.props.LayoutOrder
-			local isSubsection = self.props.isSubsection
+		if FFlagTerrainToolsUseDevFramework then
+			return self:_render(self.props.Localization:get())
+		else
+			return withLocalization(function(localization)
+				return self:_render(localization)
+			end)
+		end
+	end
 
-			local fragmentProps = Cryo.Dictionary.join(self.props, {
-				LayoutOrder = Cryo.None,
-				isSubsection = Cryo.None,
-
-				InitialLayoutOrder = 1,
-			})
-
-			return Roact.createElement(Panel, {
-				LayoutOrder = layoutOrder,
-				isSubsection = isSubsection,
-				Title = localization:getText("MapSettings", "MapSettings"),
-				Padding = UDim.new(0, 12),
-			}, {
-				MapSettingsWithPreviewFragment = Roact.createElement(MapSettingsWithPreviewFragment, fragmentProps),
-			})
-		end)
+	if FFlagTerrainToolsUseDevFramework then
+		ContextServices.mapToProps(MapSettingsWithPreview, {
+			Localization = ContextItems.UILibraryLocalization,
+		})
 	end
 else
 	function MapSettingsWithPreview:init()

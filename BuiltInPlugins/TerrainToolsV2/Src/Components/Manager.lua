@@ -3,24 +3,29 @@
 	composed of 3 frames: tabs, tools, and then tool components.
 ]]
 
+local FFlagTerrainToolsUseDevFramework = game:GetFastFlag("TerrainToolsUseDevFramework")
+
 local Plugin = script.Parent.Parent.Parent
 
+local Framework = require(Plugin.Packages.Framework)
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 
-local TerrainEnums = require(Plugin.Src.Util.TerrainEnums)
-local TabId = TerrainEnums.TabId
+local ContextServices = FFlagTerrainToolsUseDevFramework and Framework.ContextServices or nil
+local ContextItems = FFlagTerrainToolsUseDevFramework and require(Plugin.Src.ContextItems) or nil
 
-local Theme = require(Plugin.Src.ContextServices.Theming)
-local withTheme = Theme.withTheme
+local withTheme = not FFlagTerrainToolsUseDevFramework and require(Plugin.Src.ContextServices.Theming).withTheme or nil
+
+local Actions = Plugin.Src.Actions
+local ChangeTab = require(Actions.ChangeTab)
 
 local Components = Plugin.Src.Components
 local Tab = require(Components.Tab)
 local ToolManager = require(Components.ToolManager)
 local ToolRenderer = require(Components.ToolRenderer)
 
-local Actions = Plugin.Src.Actions
-local ChangeTab = require(Actions.ChangeTab)
+local TerrainEnums = require(Plugin.Src.Util.TerrainEnums)
+local TabId = TerrainEnums.TabId
 
 local PADDING = 14
 
@@ -74,49 +79,63 @@ local function createTabs(props)
 	return Roact.createFragment(fragment)
 end
 
-function Manager:render()
+function Manager:_render(theme)
 	local currentTab = self.props.currentTab
 
-	return withTheme(function(theme)
-		return Roact.createElement("Frame", {
-			Size = UDim2.new(1, 0, 1, 0),
-			BackgroundColor3 = theme.backgroundColor,
+	return Roact.createElement("Frame", {
+		Size = UDim2.new(1, 0, 1, 0),
+		BackgroundColor3 = theme.backgroundColor,
+	}, {
+		UILayout = Roact.createElement("UIListLayout", {
+			Padding = UDim.new(0, PADDING),
+			SortOrder = Enum.SortOrder.LayoutOrder
+		}),
+
+		Upper = Roact.createElement("Frame", {
+			Size = UDim2.new(1, 0, 0, self.state.upperContentYSize),
+			BackgroundTransparency = 1,
+			[Roact.Ref] = self.upperFrame,
 		}, {
 			UILayout = Roact.createElement("UIListLayout", {
 				Padding = UDim.new(0, PADDING),
-				SortOrder = Enum.SortOrder.LayoutOrder
+				SortOrder = Enum.SortOrder.LayoutOrder,
+
+				[Roact.Change.AbsoluteContentSize] = self.updateRenderToolContentSize,
 			}),
 
-			Upper = Roact.createElement("Frame", {
-				Size = UDim2.new(1, 0, 0, self.state.upperContentYSize),
+			Tabs = Roact.createElement("Frame", {
+				Size = UDim2.new(1, 0, 0, 29),
 				BackgroundTransparency = 1,
-				[Roact.Ref] = self.upperFrame,
-			}, {
-				UILayout = Roact.createElement("UIListLayout", {
-					Padding = UDim.new(0, PADDING),
-					SortOrder = Enum.SortOrder.LayoutOrder,
+				LayoutOrder = 1,
+			}, createTabs(self.props)),
 
-					[Roact.Change.AbsoluteContentSize] = self.updateRenderToolContentSize,
-				}),
-
-				Tabs = Roact.createElement("Frame", {
-					Size = UDim2.new(1, 0, 0, 29),
-					BackgroundTransparency = 1,
-					LayoutOrder = 1,
-				}, createTabs(self.props)),
-
-				ToolBar = Roact.createElement(ToolManager, {
-					CurrentTab = currentTab,
-					LayoutOrder = 2,
-				}),
+			ToolBar = Roact.createElement(ToolManager, {
+				CurrentTab = currentTab,
+				LayoutOrder = 2,
 			}),
+		}),
 
-			ToolPanel = Roact.createElement(ToolRenderer, {
-				UpperContentYSize = self.state.upperContentYSize + PADDING,
-				LayoutOrder = 3,
-			}),
-		})
-	end)
+		ToolPanel = Roact.createElement(ToolRenderer, {
+			UpperContentYSize = self.state.upperContentYSize + PADDING,
+			LayoutOrder = 3,
+		}),
+	})
+end
+
+function Manager:render()
+	if FFlagTerrainToolsUseDevFramework then
+		return self:_render(self.props.Theme:get())
+	else
+		return withTheme(function(theme)
+			return self:_render(theme)
+		end)
+	end
+end
+
+if FFlagTerrainToolsUseDevFramework then
+	ContextServices.mapToProps(Manager, {
+		Theme = ContextItems.UILibraryTheme,
+	})
 end
 
 local function mapStateToProps(state, props)

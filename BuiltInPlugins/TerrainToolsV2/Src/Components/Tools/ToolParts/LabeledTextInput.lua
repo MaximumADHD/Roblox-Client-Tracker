@@ -57,12 +57,17 @@
 	})
 --]]
 
+local FFlagTerrainToolsUseDevFramework = game:GetFastFlag("TerrainToolsUseDevFramework")
+
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
+local Framework = require(Plugin.Packages.Framework)
 local Roact = require(Plugin.Packages.Roact)
 
-local Theme = require(Plugin.Src.ContextServices.Theming)
-local withTheme = Theme.withTheme
+local ContextServices = FFlagTerrainToolsUseDevFramework and Framework.ContextServices or nil
+local ContextItems = FFlagTerrainToolsUseDevFramework and require(Plugin.Src.ContextItems) or nil
+
+local withTheme = not FFlagTerrainToolsUseDevFramework and require(Plugin.Src.ContextServices.Theming).withTheme or nil
 
 local TextService = game:GetService("TextService")
 
@@ -208,7 +213,7 @@ function LabeledTextInput:init()
 	end
 end
 
-function LabeledTextInput:render()
+function LabeledTextInput:_render(theme)
 	local position = self.props.Position
 	local width = self.props.Width or UDim.new(1, 0)
 
@@ -235,98 +240,112 @@ function LabeledTextInput:render()
 	local size, borderColor
 	local borderSize = UDim2.new(1, 0, 0, BORDERFRAME_HEIGHT)
 
-	return withTheme(function(theme)
-		if not hasWarningMessage then
-			size = UDim2.new(width.Scale, width.Offset, 0, BORDERFRAME_HEIGHT)
-			if self.state.focused then
-				borderColor = theme.hoveredItemColor
-			else
-				borderColor = theme.borderColor
-			end
+	if not hasWarningMessage then
+		size = UDim2.new(width.Scale, width.Offset, 0, BORDERFRAME_HEIGHT)
+		if self.state.focused then
+			borderColor = theme.hoveredItemColor
 		else
-			size = UDim2.new(width.Scale, width.Offset, 0, 2 * BORDERFRAME_HEIGHT)
-			borderColor = theme.errorColor
+			borderColor = theme.borderColor
 		end
+	else
+		size = UDim2.new(width.Scale, width.Offset, 0, 2 * BORDERFRAME_HEIGHT)
+		borderColor = theme.errorColor
+	end
 
-		return Roact.createElement("Frame", {
-			Position = position,
-			Size = size,
+	return Roact.createElement("Frame", {
+		Position = position,
+		Size = size,
 
-			LayoutOrder = layoutOrder,
+		LayoutOrder = layoutOrder,
+		BackgroundTransparency = 1,
+	}, {
+		-- this image label is the rounded colored border
+		TextBox = Roact.createElement("ImageLabel", {
+			Size = borderSize,
+
+			Image = ROUNDED_BACKGROUND_IMAGE,
+			ImageTransparency = 0,
+			ImageColor3 = borderColor,
+			ScaleType = Enum.ScaleType.Slice,
+			SliceCenter = ROUNDED_FRAME_SLICE,
+
 			BackgroundTransparency = 1,
+			[Roact.Ref] = self.textInputBorderRef,
 		}, {
-			-- this image label is the rounded colored border
-			TextBox = Roact.createElement("ImageLabel", {
-				Size = borderSize,
+			Label = labelWidth > 0 and Roact.createElement("TextLabel", {
+				Position = UDim2.new(0, 1, 0, 1),
+				Size = UDim2.new(0, labelWidth, 0, TEXTBOX_HEIGHT),
+				BackgroundColor3 = theme.shadowColor,
 
-				Image = ROUNDED_BACKGROUND_IMAGE,
-				ImageTransparency = 0,
-				ImageColor3 = borderColor,
-				ScaleType = Enum.ScaleType.Slice,
-				SliceCenter = ROUNDED_FRAME_SLICE,
+				BorderSizePixel = 0,
+				Text = label,
+				Font = FONT,
+				TextSize = FONT_SIZE,
+				TextColor3 = theme.textColor,
+				TextXAlignment = Enum.TextXAlignment.Center,
+			}),
 
-				BackgroundTransparency = 1,
-				[Roact.Ref] = self.textInputBorderRef,
+			TextBoxFrame = Roact.createElement("Frame", {
+				Position = UDim2.new(0, (labelWidth > 0 and (labelWidth + 1) or BORDER_PADDING), 0, 1),
+				Size = UDim2.new(1, -labelWidth - (2 * BORDER_PADDING), 0, TEXTBOX_HEIGHT),
+				ClipsDescendants = true,
+				BorderSizePixel = 0,
+				BackgroundColor3 = theme.roundTextButtonTheme.textBoxColor,
+
+				[Roact.Ref] = self.textClipperFrameRef,
 			}, {
-				Label = labelWidth > 0 and Roact.createElement("TextLabel", {
-					Position = UDim2.new(0, 1, 0, 1),
-					Size = UDim2.new(0, labelWidth, 0, TEXTBOX_HEIGHT),
-					BackgroundColor3 = theme.shadowColor,
+				TextBox = Roact.createElement("TextBox", {
+					Size = UDim2.new(1, -PADDING, 1, 0),
+					Position = UDim2.new(0, PADDING, 0, 0),
+					BackgroundTransparency = 1,
 
-					BorderSizePixel = 0,
-					Text = label,
+					Text = text,
 					Font = FONT,
 					TextSize = FONT_SIZE,
 					TextColor3 = theme.textColor,
-					TextXAlignment = Enum.TextXAlignment.Center,
-				}),
+					TextXAlignment = Enum.TextXAlignment.Left,
+					ClearTextOnFocus = clearTextOnFocus,
+					PlaceholderText = placeholderText,
+					TextEditable = not editingDisabled,
 
-				TextBoxFrame = Roact.createElement("Frame", {
-					Position = UDim2.new(0, (labelWidth > 0 and (labelWidth + 1) or BORDER_PADDING), 0, 1),
-					Size = UDim2.new(1, -labelWidth - (2 * BORDER_PADDING), 0, TEXTBOX_HEIGHT),
-					ClipsDescendants = true,
-					BorderSizePixel = 0,
-					BackgroundColor3 = theme.roundTextButtonTheme.textBoxColor,
-
-					[Roact.Ref] = self.textClipperFrameRef,
-				}, {
-					TextBox = Roact.createElement("TextBox", {
-						Size = UDim2.new(1, -PADDING, 1, 0),
-						Position = UDim2.new(0, PADDING, 0, 0),
-						BackgroundTransparency = 1,
-
-						Text = text,
-						Font = FONT,
-						TextSize = FONT_SIZE,
-						TextColor3 = theme.textColor,
-						TextXAlignment = Enum.TextXAlignment.Left,
-						ClearTextOnFocus = clearTextOnFocus,
-						PlaceholderText = placeholderText,
-						TextEditable = not editingDisabled,
-
-						[Roact.Ref] = self.textBoxRef,
-						[Roact.Change.Text] = self.textBoxCheckFunc,
-						[Roact.Change.CursorPosition] = self.updateTextBoxOffset,
-						[Roact.Event.Focused] = self.onFocus,
-						[Roact.Event.FocusLost] = self.onFocusLost,
-					}),
+					[Roact.Ref] = self.textBoxRef,
+					[Roact.Change.Text] = self.textBoxCheckFunc,
+					[Roact.Change.CursorPosition] = self.updateTextBoxOffset,
+					[Roact.Event.Focused] = self.onFocus,
+					[Roact.Event.FocusLost] = self.onFocusLost,
 				}),
 			}),
+		}),
 
-			Warning = hasWarningMessage and Roact.createElement("TextLabel", {
-				Size = UDim2.new(1, 0, 0, TEXTBOX_HEIGHT),
-				Position = UDim2.new(0, 0, 0, TEXTBOX_HEIGHT),
+		Warning = hasWarningMessage and Roact.createElement("TextLabel", {
+			Size = UDim2.new(1, 0, 0, TEXTBOX_HEIGHT),
+			Position = UDim2.new(0, 0, 0, TEXTBOX_HEIGHT),
 
-				Text = warningMessage,
-				Font = FONT,
-				TextSize = FONT_SIZE,
-				TextColor3 = theme.errorColor,
-				TextXAlignment = Enum.TextXAlignment.Left,
+			Text = warningMessage,
+			Font = FONT,
+			TextSize = FONT_SIZE,
+			TextColor3 = theme.errorColor,
+			TextXAlignment = Enum.TextXAlignment.Left,
 
-				BackgroundTransparency = 1,
-			})
+			BackgroundTransparency = 1,
 		})
-	end)
+	})
+end
+
+function LabeledTextInput:render()
+	if FFlagTerrainToolsUseDevFramework then
+		return self:_render(self.props.Theme:get())
+	else
+		return withTheme(function(theme)
+			return self:_render(theme)
+		end)
+	end
+end
+
+if FFlagTerrainToolsUseDevFramework then
+	ContextServices.mapToProps(LabeledTextInput, {
+		Theme = ContextItems.UILibraryTheme,
+	})
 end
 
 return LabeledTextInput

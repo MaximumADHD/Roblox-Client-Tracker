@@ -6,10 +6,10 @@ game:DefineFastFlag("FixMockStudioTheme", false)
 
 local Plugin = script.Parent.Parent.Parent
 
-local Framework = Plugin.Packages.Framework
+local Framework = require(Plugin.Packages.Framework)
 
 local join = require(script.Parent.join)
-local Signal = require(Framework.Util).Signal
+local Signal = Framework.Util.Signal
 
 local StudioTheme = {}
 StudioTheme.__index = StudioTheme

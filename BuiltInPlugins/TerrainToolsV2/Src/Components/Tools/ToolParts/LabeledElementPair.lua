@@ -11,12 +11,17 @@
 		FillDirection - UIListLayout fill direction
 ]]
 
+local FFlagTerrainToolsUseDevFramework = game:GetFastFlag("TerrainToolsUseDevFramework")
+
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
+local Framework = require(Plugin.Packages.Framework)
 local Roact = require(Plugin.Packages.Roact)
 
-local Theme = require(Plugin.Src.ContextServices.Theming)
-local withTheme = Theme.withTheme
+local ContextServices = FFlagTerrainToolsUseDevFramework and Framework.ContextServices or nil
+local ContextItems = FFlagTerrainToolsUseDevFramework and require(Plugin.Src.ContextItems) or nil
+
+local withTheme = not FFlagTerrainToolsUseDevFramework and require(Plugin.Src.ContextServices.Theming).withTheme or nil
 
 local Constants = require(Plugin.Src.Util.Constants)
 
@@ -38,10 +43,9 @@ function LabeledElementPair:init()
 				0, layout.AbsoluteContentSize.Y)
 		end
 	end
-
 end
 
-function LabeledElementPair:render()
+function LabeledElementPair:_render(theme)
 	local padding = self.props.Padding or UDim.new(0, 0)
 	local text = self.props.Text or ""
 	local size = self.props.Size
@@ -64,35 +68,49 @@ function LabeledElementPair:render()
 		})
 	end
 
-	return withTheme(function(theme)
-		return Roact.createElement("Frame", {
+	return Roact.createElement("Frame", {
+		BackgroundTransparency = 1,
+		Size = size,
+		Visible = visible,
+		LayoutOrder = layoutOrder,
+
+		[Roact.Ref] = self.mainFrameRef,
+	}, {
+		Label = Roact.createElement("TextLabel", {
+			Text = text,
+			TextColor3 = theme.textColor,
+			TextXAlignment = Enum.TextXAlignment.Left,
+			TextYAlignment = Enum.TextYAlignment.Bottom,
+			Size = UDim2.new(0, Constants.FIRST_COLUMN_WIDTH, 0, 15),
+			Position = UDim2.new(0, Constants.SIDE_PADDING, 0, 2),
 			BackgroundTransparency = 1,
-			Size = size,
-			Visible = visible,
-			LayoutOrder = layoutOrder,
+		}),
 
-			[Roact.Ref] = self.mainFrameRef,
-		}, {
-			Label = Roact.createElement("TextLabel", {
-				Text = text,
-				TextColor3 = theme.textColor,
-				TextXAlignment = Enum.TextXAlignment.Left,
-				TextYAlignment = Enum.TextYAlignment.Bottom,
-				Size = UDim2.new(0, Constants.FIRST_COLUMN_WIDTH, 0, 15),
-				Position = UDim2.new(0, Constants.SIDE_PADDING, 0, 2),
-				BackgroundTransparency = 1,
-			}),
+		-- Right Side
+		Content = Roact.createElement("Frame", {
+			Position = UDim2.new(0, Constants.SECOND_COLUMN_START, 0, 0),
+			Size = UDim2.new(1, -Constants.SECOND_COLUMN_START, 1, 0),
+			BackgroundTransparency = 1,
 
-			-- Right Side
-			Content = Roact.createElement("Frame", {
-				Position = UDim2.new(0, Constants.SECOND_COLUMN_START, 0, 0),
-				Size = UDim2.new(1, -Constants.SECOND_COLUMN_START, 1, 0),
-				BackgroundTransparency = 1,
+			[Roact.Ref] = self.contentFrameRef,
+		}, children),
+	})
+end
 
-				[Roact.Ref] = self.contentFrameRef,
-			}, children),
-		})
-	end)
+function LabeledElementPair:render()
+	if FFlagTerrainToolsUseDevFramework then
+		return self:_render(self.props.Theme:get())
+	else
+		return withTheme(function(theme)
+			return self:_render(theme)
+		end)
+	end
+end
+
+if FFlagTerrainToolsUseDevFramework then
+	ContextServices.mapToProps(LabeledElementPair, {
+		Theme = ContextItems.UILibraryTheme,
+	})
 end
 
 return LabeledElementPair

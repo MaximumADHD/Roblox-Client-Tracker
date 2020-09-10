@@ -1,11 +1,18 @@
 --[[
 	Wrapper for checkbox object
 ]]
-local Plugin = script.Parent.Parent.Parent.Parent.Parent
-local Roact = require(Plugin.Packages.Roact)
-local UILibrary = require(Plugin.Packages.UILibrary)
 
-local CheckBox = UILibrary.Component.CheckBox
+local FFlagTerrainToolsUseDevFramework = game:GetFastFlag("TerrainToolsUseDevFramework")
+
+local Plugin = script.Parent.Parent.Parent.Parent.Parent
+
+local Roact = require(Plugin.Packages.Roact)
+local UILibrary = not FFlagTerrainToolsUseDevFramework and require(Plugin.Packages.UILibrary) or nil
+
+local UILibraryCompat = Plugin.Src.UILibraryCompat
+local CheckBox = FFlagTerrainToolsUseDevFramework
+	and require(UILibraryCompat.CheckBox)
+	or UILibrary.Component.CheckBox
 
 local TTCheckBox = Roact.PureComponent:extend(script.Name)
 
@@ -27,7 +34,7 @@ function TTCheckBox:render()
 		Selected = selected,
 		Enabled = true,
 		Height = 16,
-		TextSize = 12,
+		TextSize = FFlagTerrainToolsUseDevFramework and 8 or 12,
 		OnActivated = self.onActivated,
 		TitlePadding = 16,
 		LayoutOrder = layoutOrder,

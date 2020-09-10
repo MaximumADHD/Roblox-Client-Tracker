@@ -1,10 +1,11 @@
 local Plugin = script.Parent.Parent.Parent
 
+local Framework = require(Plugin.Packages.Framework)
+
 local DebugFlags = require(Plugin.Src.Util.DebugFlags)
 
-local TestHelpers = Plugin.Src.TestHelpers
-local MockTerrain = require(TestHelpers.MockTerrain)
-local setEquals = require(TestHelpers.setEquals)
+local MockTerrain = require(Plugin.Src.TestHelpers.MockTerrain)
+local setEquals = Framework.TestHelpers.setEquals
 
 local TerrainEnums = require(script.Parent.TerrainEnums)
 local Shape = TerrainEnums.Shape

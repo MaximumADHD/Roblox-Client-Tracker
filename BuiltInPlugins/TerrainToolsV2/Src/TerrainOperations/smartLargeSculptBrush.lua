@@ -1,3 +1,5 @@
+local FFlagTerrainToolsFixLargeSmoothAirFillerMaterial = game:GetFastFlag("TerrainToolsFixLargeSmoothAirFillerMaterial")
+
 local Plugin = script.Parent.Parent.Parent
 
 local Constants = require(Plugin.Src.Util.Constants)
@@ -167,6 +169,11 @@ return function(opSet, minBounds, maxBounds, readMaterials, readOccupancies, wri
 				end
 			end
 
+			if FFlagTerrainToolsFixLargeSmoothAirFillerMaterial then
+				airFillerMaterial = waterHeight >= voxelY and airFillerMaterial or materialAir
+				sculptSettings.airFillerMaterial = airFillerMaterial
+			end
+
 			-- If the voxel we're looking at can erode
 			if attemptToErodeVoxel and (myOccupancy > 0 and not treatCurrentVoxelAsEmptyFromWater) then
 				local cellOccupancy = myOccupancy
@@ -182,7 +189,9 @@ return function(opSet, minBounds, maxBounds, readMaterials, readOccupancies, wri
 					cellOccupancy = 0
 				end
 
-				airFillerMaterial = waterHeight >= voxelY and airFillerMaterial or materialAir
+				if not FFlagTerrainToolsFixLargeSmoothAirFillerMaterial then
+					airFillerMaterial = waterHeight >= voxelY and airFillerMaterial or materialAir
+				end
 
 				sculptSettings.x = voxelX
 				sculptSettings.y = voxelY
@@ -191,7 +200,9 @@ return function(opSet, minBounds, maxBounds, readMaterials, readOccupancies, wri
 				sculptSettings.magnitudePercent = magnitudePercent
 				sculptSettings.cellOccupancy = cellOccupancy
 				sculptSettings.cellMaterial = cellMaterial
-				sculptSettings.airFillerMaterial = airFillerMaterial
+				if not FFlagTerrainToolsFixLargeSmoothAirFillerMaterial then
+					sculptSettings.airFillerMaterial = airFillerMaterial
+				end
 
 				SculptOperations.erode(sculptSettings)
 			end

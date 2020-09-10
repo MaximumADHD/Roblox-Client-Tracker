@@ -1,7 +1,8 @@
 local Plugin = script.Parent.Parent.Parent
-local TestHelpers = Plugin.Src.TestHelpers
 
-local MockMouse = require(TestHelpers.MockMouse)
+local Framework = require(Plugin.Packages.Framework)
+
+local MockMouse = Framework.TestHelpers.Instances.MockMouse
 
 local LargeVoxelRegionPreview = require(script.Parent.LargeVoxelRegionPreview)
 

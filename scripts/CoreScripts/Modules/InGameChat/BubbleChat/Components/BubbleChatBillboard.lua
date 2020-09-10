@@ -80,6 +80,14 @@ function BubbleChatBillboard:willUnmount()
 		self.heartbeatConn:Disconnect()
 		self.heartbeatConn = nil
 	end
+	if self.humanoidDiedConn then
+		self.humanoidDiedConn:Disconnect()
+		self.humanoidDiedConn = nil
+	end
+	if self.humanoidSeatedConn then
+		self.humanoidSeatedConn:Disconnect()
+		self.humanoidSeatedConn = nil
+	end
 end
 
 -- Wait for the first of the passed signals to fire
@@ -114,16 +122,46 @@ function BubbleChatBillboard:onCharacterAdded(player, character)
 		return
 	end
 
+	-- Make sure that the humanoid is parented, stop execution if the character has respawned again in the meantime
+	local humanoid = character:FindFirstChildOfClass("Humanoid")
+	while character:IsDescendantOf(game) and not humanoid do
+		waitForFirst(character.ChildAdded, character.AncestryChanged, player.CharacterAdded)
+		humanoid = character:FindFirstChildOfClass("Humanoid")
+	end
+
+	if player.Character ~= character or not character:IsDescendantOf(game) then
+		return
+	end
+
 	-- Make sure that the root part is parented, stop execution if the character has respawned again in the meantime
 	local rootPart = character:FindFirstChild("HumanoidRootPart")
 	while character:IsDescendantOf(game) and not rootPart do
 		waitForFirst(character.ChildAdded, character.AncestryChanged, player.CharacterAdded)
 		rootPart = character:FindFirstChild("HumanoidRootPart")
 	end
+
 	if rootPart and character:IsDescendantOf(game) and player.Character == character then
 		self:setState({
-			adornee = character
+			adornee = (humanoid.Health == 0 or humanoid.Sit) and character:FindFirstChild("Head") or character
 		})
+
+		if self.humanoidDiedConn then
+			self.humanoidDiedConn:Disconnect()
+		end
+		self.humanoidDiedConn = humanoid.Died:Connect(function()
+			self:setState({
+				adornee = character:FindFirstChild("Head") or character
+			})
+		end)
+
+		if self.humanoidSeatedConn then
+			self.humanoidSeatedConn:Disconnect()
+		end
+		self.humanoidSeatedConn = humanoid.Seated:Connect(function(active)
+			self:setState({
+				adornee = active and character:FindFirstChild("Head") or character
+			})
+		end)
 	end
 end
 

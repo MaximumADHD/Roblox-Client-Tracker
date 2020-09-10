@@ -7,14 +7,14 @@ local FFlagTerrainToolsUseDevFramework = game:GetFastFlag("TerrainToolsUseDevFra
 
 local Plugin = script.Parent.Parent.Parent
 
-local Framework = Plugin.Packages.Framework
+local Framework = require(Plugin.Packages.Framework)
 local Roact = require(Plugin.Packages.Roact)
 local UILibrary = not FFlagTerrainToolsUseDevFramework and require(Plugin.Packages.UILibrary) or nil
 
-local ContextItem = FFlagTerrainToolsUseDevFramework and require(Framework.ContextServices.ContextItem) or nil
-local Provider = FFlagTerrainToolsUseDevFramework and require(Framework.ContextServices.Provider) or nil
+local ContextItem = FFlagTerrainToolsUseDevFramework and Framework.ContextServices.ContextItem or nil
+local Provider = FFlagTerrainToolsUseDevFramework and Framework.ContextServices.Provider or nil
 
-local FrameworkUtil = FFlagTerrainToolsUseDevFramework and require(Framework.Util) or nil
+local FrameworkUtil = FFlagTerrainToolsUseDevFramework and Framework.Util or nil
 local Signal = FFlagTerrainToolsUseDevFramework and FrameworkUtil.Signal or UILibrary.Util.Signal
 
 local Constants = require(Plugin.Src.Util.Constants)

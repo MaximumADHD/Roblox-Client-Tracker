@@ -16,13 +16,13 @@ if not game:GetFastFlag("TerrainToolsUseDevFramework") then
 end
 
 -- Libraries
-local Framework = Plugin.Packages.Framework
+local Framework = require(Plugin.Packages.Framework)
 local Roact = require(Plugin.Packages.Roact)
 local Rodux = require(Plugin.Packages.Rodux)
 local UILibraryCompat = Plugin.Src.UILibraryCompat
 
 -- Context
-local ContextServices = require(Framework.ContextServices)
+local ContextServices = Framework.ContextServices
 local Analytics = ContextServices.Analytics
 local Mouse = ContextServices.Mouse
 local Store = ContextServices.Store
@@ -33,7 +33,6 @@ local createAnalyticsHandlers = require(Plugin.Src.Util.createAnalyticsHandlers)
 
 -- Rodux Store
 local MainReducer = require(Plugin.Src.Reducers.MainReducer)
-local ReportActionAnalytics = require(Plugin.Src.Middlewares.ReportActionAnalytics)
 
 -- Theme
 local PluginTheme = require(Plugin.Src.Resources.PluginTheme)
@@ -60,22 +59,17 @@ local function createTerrainContextItems()
 	local pluginItem = ContextServices.Plugin.new(plugin)
 	local mouse = Mouse.new(plugin:getMouse())
 
-	local analytics = Analytics.new(createAnalyticsHandlers)
-	local actionToAnalyticsMapping = {
-		ChangeTab = "changeTab",
-		ChangeTool = "changeTool",
-	}
-
-	local store = Store.new(Rodux.Store.new(MainReducer, nil, {
-		ReportActionAnalytics(analytics, actionToAnalyticsMapping),
-	}))
+	local store = Store.new(Rodux.Store.new(MainReducer, nil, {}))
 
 	local theme = ContextItems.UILibraryTheme.new(PluginTheme.new())
-	local localization = ContextItems.UILibraryLocalization.new(Localization.new({
+	local localization = Localization.new({
 		pluginName = PLUGIN_NAME,
 		stringResourceTable = DevelopmentReferenceTable,
 		translationResourceTable = TranslationReferenceTable,
-	}))
+	})
+	local localizationItem = ContextItems.UILibraryLocalization.new(localization)
+
+	local analytics = Analytics.new(createAnalyticsHandlers)
 
 	local terrainInstance = require(Plugin.Src.Util.getTerrain)()
 	local terrainItem = ContextItems.Terrain.new(terrainInstance)
@@ -112,7 +106,7 @@ local function createTerrainContextItems()
 		mouse = mouse,
 		store = store,
 		theme = theme,
-		localization = localization,
+		localization = localizationItem,
 		analytics = analytics,
 		terrain = terrainItem,
 		pluginActivationController = pluginActivationController,

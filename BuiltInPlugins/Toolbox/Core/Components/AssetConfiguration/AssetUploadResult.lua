@@ -9,8 +9,6 @@
 local FFlagFixAssetConfigIcon = game:GetFastFlag("FixAssetConfigIcon")
 local FFlagShowAssetConfigReasons2 = game:GetFastFlag("ShowAssetConfigReasons2")
 local FFlagAddCopyIDToResultPage = game:DefineFastFlag("AddCopyIDToResultPage", false)
-local FFlagRemoveAssetUploadUrlSuffix = game:DefineFastFlag("RemoveAssetUploadUrlSuffix", false)
-local FFlagFixAssetUploadName = game:GetFastFlag("FixAssetUploadName")
 
 local ContentProvider = game:GetService("ContentProvider")
 local GuiService = game:GetService("GuiService")
@@ -80,22 +78,14 @@ local function getResultUrl(flowType, assetId, assetTypeEnum, assetName)
 			url = ContentProvider.BaseUrl .. "catalog/" .. assetId
 		else
 			local baseUrl = ContentProvider.BaseUrl
-			if FFlagRemoveAssetUploadUrlSuffix then
-				url = string.format("%slibrary/%s/", baseUrl, HttpService:urlEncode(assetId))
-			else
-				url = string.format("%slibrary/%s/%s", baseUrl, HttpService:urlEncode(assetId), "NewAsset")
-			end
+			url = string.format("%slibrary/%s/", baseUrl, HttpService:urlEncode(assetId))
 		end
 	else -- Default to edit flow
 		if AssetConfigUtil.isCatalogAsset(assetTypeEnum) then
 			url = ContentProvider.BaseUrl .. "catalog/" .. assetId
 		else
 			local baseUrl = ContentProvider.BaseUrl
-			if FFlagRemoveAssetUploadUrlSuffix then
-				url = string.format("%slibrary/%s/", baseUrl, HttpService:urlEncode(assetId))
-			else
-				url = string.format("%slibrary/%s/%s", baseUrl, HttpService:urlEncode(assetId), assetName)
-			end
+			url = string.format("%slibrary/%s/", baseUrl, HttpService:urlEncode(assetId))
 		end
 	end
 	return url
@@ -154,7 +144,7 @@ function AssetUploadResult:render()
 			Size = props.Size,
 		}, {
 			ModelPreview = showViewport and Roact.createElement(AssetThumbnailPreview, {
-				title = FFlagFixAssetUploadName and props.assetName or nil,
+				title = props.assetName or nil,
 				titleHeight = PREVIEW_TITLE_HEIGHT,
 				titlePadding = PREVIEW_TITLE_PADDING,
 				Position = UDim2.new(0.5, -PREVIEW_SIZE/2, 0, PREVIEW_PADDING),

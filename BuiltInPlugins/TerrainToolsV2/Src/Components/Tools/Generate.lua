@@ -1,15 +1,21 @@
+local FFlagTerrainToolsUseDevFramework = game:GetFastFlag("TerrainToolsUseDevFramework")
 local FFlagTerrainToolsUseMapSettingsWithPreview = game:GetFastFlag("TerrainToolsUseMapSettingsWithPreview2")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
+local Framework = require(Plugin.Packages.Framework)
 local Cryo = require(Plugin.Packages.Cryo)
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
-local UILibrary = require(Plugin.Packages.UILibrary)
+local UILibrary = not FFlagTerrainToolsUseDevFramework and require(Plugin.Packages.UILibrary) or nil
 
-local withLocalization = UILibrary.Localizing.withLocalization
+local ContextServices = FFlagTerrainToolsUseDevFramework and Framework.ContextServices or nil
+local ContextItems = FFlagTerrainToolsUseDevFramework and require(Plugin.Src.ContextItems) or nil
 
-local TerrainInterface = require(Plugin.Src.ContextServices.TerrainInterface)
+local withLocalization = not FFlagTerrainToolsUseDevFramework and UILibrary.Localizing.withLocalization or nil
+
+local TerrainInterface = not FFlagTerrainToolsUseDevFramework and require(Plugin.Src.ContextServices.TerrainInterface)
+	or nil
 
 local TerrainEnums = require(Plugin.Src.Util.TerrainEnums)
 
@@ -38,18 +44,24 @@ local Generate = Roact.PureComponent:extend(script.Name)
 function Generate:init()
 	self.warnings = {}
 
-	self.terrainGeneration = TerrainInterface.getTerrainGeneration(self)
-	assert(self.terrainGeneration, "Generate component requires a TerrainGeneration from context")
+	if FFlagTerrainToolsUseDevFramework then
+		self.state = {
+			mapSettingsValid = true,
+		}
+	else
+		self.terrainGeneration = TerrainInterface.getTerrainGeneration(self)
+		assert(self.terrainGeneration, "Generate component requires a TerrainGeneration from context")
 
-	self.state = {
-		mapSettingsValid = true,
+		self.state = {
+			mapSettingsValid = true,
 
-		-- If we open the generate tool and there's generation in progress
-		-- Then we want to initialize with that state
-		isGenerating = self.terrainGeneration:isGenerating(),
-		generateProgress = self.terrainGeneration:getProgress(),
-		generatePaused = self.terrainGeneration:isPaused(),
-	}
+			-- If we open the generate tool and there's generation in progress
+			-- Then we want to initialize with that state
+			isGenerating = self.terrainGeneration:isGenerating(),
+			generateProgress = self.terrainGeneration:getProgress(),
+			generatePaused = self.terrainGeneration:isPaused(),
+		}
+	end
 
 	self.selectBiome = function(biome)
 		local biomes = self.props.biomeSelection
@@ -93,7 +105,8 @@ function Generate:init()
 		-- Because TerrainGeneration copies the settings into makeTerrainGenerator()
 		-- It's safe to update the settings even during a generation
 		-- They won't affect the current generation, just the next one
-		self.terrainGeneration:updateSettings({
+		local terrainGeneration = FFlagTerrainToolsUseDevFramework and self.props.TerrainGeneration or self.terrainGeneration
+		terrainGeneration:updateSettings({
 			position = self.props.position,
 			size = self.props.size,
 
@@ -124,42 +137,47 @@ function Generate:init()
 		end
 
 		self.updateGenerateProps()
-		self.terrainGeneration:startGeneration()
+		local terrainGeneration = FFlagTerrainToolsUseDevFramework and self.props.TerrainGeneration or self.terrainGeneration
+		terrainGeneration:startGeneration()
 	end
 
-	self.onGenerateStartStopConnection = self.terrainGeneration:subscribeToStartStopGeneratingChanged(function(generating)
-		if not generating then
-			-- If we've stopped generating then also reset the UI
-			self:setState({
-				isGenerating = generating,
-				generateProgress = 0,
-				generatePaused = false,
-			})
-		else
-			self:setState({
-				isGenerating = generating,
-			})
-		end
-	end)
+	if not FFlagTerrainToolsUseDevFramework then
+		self.onGenerateStartStopConnection = self.terrainGeneration:subscribeToStartStopGeneratingChanged(function(generating)
+			if not generating then
+				-- If we've stopped generating then also reset the UI
+				self:setState({
+					isGenerating = generating,
+					generateProgress = 0,
+					generatePaused = false,
+				})
+			else
+				self:setState({
+					isGenerating = generating,
+				})
+			end
+		end)
 
-	self.onProgressChangedConnection = self.terrainGeneration:subscribeToProgressUpdate(function(progress)
-		self:setState({
-			generateProgress = progress,
-		})
-	end)
+		self.onProgressChangedConnection = self.terrainGeneration:subscribeToProgressUpdate(function(progress)
+			self:setState({
+				generateProgress = progress,
+			})
+		end)
 
-	self.onPausedChangedConnection = self.terrainGeneration:subscribeToPaused(function(isPaused)
-		self:setState({
-			generatePaused = isPaused,
-		})
-	end)
+		self.onPausedChangedConnection = self.terrainGeneration:subscribeToPaused(function(isPaused)
+			self:setState({
+				generatePaused = isPaused,
+			})
+		end)
+	end
 
 	self.onGenerationPauseRequested = function()
-		self.terrainGeneration:togglePauseGeneration()
+		local terrainGeneration = FFlagTerrainToolsUseDevFramework and self.props.TerrainGeneration or self.terrainGeneration
+		terrainGeneration:togglePauseGeneration()
 	end
 
 	self.onGenerationCancelRequested = function()
-		self.terrainGeneration:cancelGeneration()
+		local terrainGeneration = FFlagTerrainToolsUseDevFramework and self.props.TerrainGeneration or self.terrainGeneration
+		terrainGeneration:cancelGeneration()
 	end
 
 	self.setWarnings = function(warnings)
@@ -175,24 +193,26 @@ function Generate:didMount()
 	self.updateGenerateProps()
 end
 
-function Generate:willUnmount()
-	if self.onGenerateStartStopConnection then
-		self.onGenerateStartStopConnection:Disconnect()
-		self.onGenerateStartStopConnection = nil
-	end
+if not FFlagTerrainToolsUseDevFramework then
+	function Generate:willUnmount()
+		if self.onGenerateStartStopConnection then
+			self.onGenerateStartStopConnection:Disconnect()
+			self.onGenerateStartStopConnection = nil
+		end
 
-	if self.onProgressChangedConnection then
-		self.onProgressChangedConnection:Disconnect()
-		self.onProgressChangedConnection = nil
-	end
+		if self.onProgressChangedConnection then
+			self.onProgressChangedConnection:Disconnect()
+			self.onProgressChangedConnection = nil
+		end
 
-	if self.onPausedChangedConnection then
-		self.onPausedChangedConnection:Disconnect()
-		self.onPausedChangedConnection = nil
+		if self.onPausedChangedConnection then
+			self.onPausedChangedConnection:Disconnect()
+			self.onPausedChangedConnection = nil
+		end
 	end
 end
 
-function Generate:render()
+function Generate:_render(localization)
 	local position = self.props.position
 	local size = self.props.size
 	local biomeSelection = self.props.biomeSelection
@@ -201,79 +221,102 @@ function Generate:render()
 	local seed = self.props.seed
 	local selectBiome = self.selectBiome
 
-	local generateInProgress = self.state.isGenerating
-	local generateProgress = self.state.generateProgress
-	local generatePaused = self.state.generatePaused
+	local generateInProgress
+	local generateProgress
+	local generatePaused
+	if FFlagTerrainToolsUseDevFramework then
+		generateInProgress = self.props.TerrainGeneration:isGenerating()
+		generateProgress = generateInProgress and self.props.TerrainGeneration:getProgress() or 0
+		generatePaused = generateInProgress and self.props.TerrainGeneration:isPaused() or false
+	else
+		generateInProgress = self.state.isGenerating
+		generateProgress = self.state.generateProgress
+		generatePaused = self.state.generatePaused
+	end
 
 	local generateIsActive = self.state.mapSettingsValid and not generateInProgress
 
-	return withLocalization(function(localization)
-		return Roact.createFragment({
-			MapSettingsWithPreview = FFlagTerrainToolsUseMapSettingsWithPreview and Roact.createElement(MapSettingsWithPreview, {
-				toolName = self.props.toolName,
+	return Roact.createFragment({
+		MapSettingsWithPreview = FFlagTerrainToolsUseMapSettingsWithPreview and Roact.createElement(MapSettingsWithPreview, {
+			toolName = self.props.toolName,
+			LayoutOrder = 1,
+
+			Position = position,
+			Size = size,
+
+			OnPositionChanged = self.props.dispatchChangePosition,
+			OnSizeChanged = self.props.dispatchChangeSize,
+			SetMapSettingsValid = self.setMapSettingsValidated,
+			SetWarnings = self.setWarnings,
+		}),
+
+		MapSettings = not FFlagTerrainToolsUseMapSettingsWithPreview and Roact.createElement(MapSettings, {
+			LayoutOrder = 1,
+			Position = position,
+			Size = size,
+
+			OnPositionChanged = self.onPositionChanged,
+			OnSizeChanged = self.onSizeChanged,
+			SetMapSettingsValid = self.setMapSettingsValidated,
+		}),
+
+		MaterialSettings = Roact.createElement(Panel, {
+			Title = localization:getText("MaterialSettings", "MaterialSettings"),
+			LayoutOrder = 2,
+		}, {
+			BiomeSettingsFragment = Roact.createElement(BiomeSettingsFragment, {
 				LayoutOrder = 1,
-
-				Position = position,
-				Size = size,
-
-				OnPositionChanged = self.props.dispatchChangePosition,
-				OnSizeChanged = self.props.dispatchChangeSize,
-				SetMapSettingsValid = self.setMapSettingsValidated,
-				SetWarnings = self.setWarnings,
+				biomeSelection = biomeSelection,
+				selectBiome = selectBiome,
+				biomeSize = biomeSize,
+				setBiomeSize = self.props.dispatchSetBiomeSize,
+				haveCaves = haveCaves,
+				setHaveCaves = self.props.dispatchSetHaveCaves,
 			}),
+		}),
 
-			MapSettings = not FFlagTerrainToolsUseMapSettingsWithPreview and Roact.createElement(MapSettings, {
-				LayoutOrder = 1,
+		OtherSettings = Roact.createElement(OtherGenerateSettings, {
+			LayoutOrder = 3,
+			seed = seed,
+			setSeed = self.props.dispatchSetSeed,
+		}),
 
-				Position = position,
-				Size = size,
+		GenerateButtonFrame = Roact.createElement(ButtonGroup, {
+			LayoutOrder = 4,
+			Buttons = {
+				{
+					Key = "Generate",
+					Name = localization:getText("Generate", "ButtonGenerate"),
+					Active = generateIsActive,
+					OnClicked = self.tryGenerate,
+				}
+			},
+		}),
 
-				OnPositionChanged = self.onPositionChanged,
-				OnSizeChanged = self.onSizeChanged,
-				SetMapSettingsValid = self.setMapSettingsValidated,
-			}),
+		GenerateProgressFrame = generateInProgress and Roact.createElement(GenerateProgressFrame, {
+			GenerateProgress = generateProgress,
+			IsPaused = generatePaused,
+			OnPauseRequested = self.onGenerationPauseRequested,
+			OnCancelRequested = self.onGenerationCancelRequested,
+		}),
+	})
+end
 
-			MaterialSettings = Roact.createElement(Panel, {
-				Title = localization:getText("MaterialSettings", "MaterialSettings"),
-				LayoutOrder = 2,
-			}, {
-				BiomeSettingsFragment = Roact.createElement(BiomeSettingsFragment, {
-					LayoutOrder = 1,
-					biomeSelection = biomeSelection,
-					selectBiome = selectBiome,
-					biomeSize = biomeSize,
-					setBiomeSize = self.props.dispatchSetBiomeSize,
-					haveCaves = haveCaves,
-					setHaveCaves = self.props.dispatchSetHaveCaves,
-				}),
-			}),
+function Generate:render()
+	if FFlagTerrainToolsUseDevFramework then
+		return self:_render(self.props.Localization:get())
+	else
+		return withLocalization(function(localization)
+			return self:_render(localization)
+		end)
+	end
+end
 
-			OtherSettings = Roact.createElement(OtherGenerateSettings, {
-				LayoutOrder = 3,
-				seed = seed,
-				setSeed = self.props.dispatchSetSeed,
-			}),
-
-			GenerateButtonFrame = Roact.createElement(ButtonGroup, {
-				LayoutOrder = 4,
-				Buttons = {
-					{
-						Key = "Generate",
-						Name = localization:getText("Generate", "ButtonGenerate"),
-						Active = generateIsActive,
-						OnClicked = self.tryGenerate,
-					}
-				},
-			}),
-
-			GenerateProgressFrame = generateInProgress and Roact.createElement(GenerateProgressFrame, {
-				GenerateProgress = generateProgress,
-				IsPaused = generatePaused,
-				OnPauseRequested = self.onGenerationPauseRequested,
-				OnCancelRequested = self.onGenerationCancelRequested,
-			}),
-		})
-	end)
+if FFlagTerrainToolsUseDevFramework then
+	ContextServices.mapToProps(Generate, {
+		Localization = ContextItems.UILibraryLocalization,
+		TerrainGeneration = ContextItems.TerrainGeneration,
+	})
 end
 
 local function mapStateToProps(state, props)

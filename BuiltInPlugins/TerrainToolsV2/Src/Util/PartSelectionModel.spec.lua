@@ -1,9 +1,11 @@
 local Plugin = script.Parent.Parent.Parent
 
-local TestHelpers = Plugin.Src.TestHelpers
-local makeSettableValue = require(TestHelpers.makeSettableValue)
-local MockSelectionService = require(TestHelpers.MockSelectionService)
-local setEquals = require(TestHelpers.setEquals)
+local Framework = require(Plugin.Packages.Framework)
+
+local TestHelpers = Framework.TestHelpers
+local makeSettableValue = TestHelpers.makeSettableValue
+local MockSelectionService = TestHelpers.Instances.MockSelectionService
+local setEquals = TestHelpers.setEquals
 
 local PartConverterUtil = require(Plugin.Src.Util.PartConverterUtil)
 

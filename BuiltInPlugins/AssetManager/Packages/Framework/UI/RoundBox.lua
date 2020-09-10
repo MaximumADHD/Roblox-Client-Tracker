@@ -28,8 +28,6 @@ local FlagsList = Util.Flags.new({
 	FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
 })
 
-local FFlagRoundBoxZIndexProp = game:DefineFastFlag("RoundBoxZIndexProp", false)
-
 local RoundBox = Roact.PureComponent:extend("RoundBox")
 Typecheck.wrap(RoundBox, script)
 
@@ -61,7 +59,7 @@ function RoundBox:render()
 		Image = backgroundImage,
 		ScaleType = Enum.ScaleType.Slice,
 		SliceCenter = sliceCenter,
-		ZIndex = FFlagRoundBoxZIndexProp and zIndex or nil
+		ZIndex = zIndex
 	}, {
 		Border = Roact.createElement("ImageLabel", {
 			Size = UDim2.new(1, 0, 1, 0),

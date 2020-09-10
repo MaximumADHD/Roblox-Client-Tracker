@@ -18,8 +18,6 @@
 
 local FFlagToolboxShowGroupCreations = game:GetFastFlag("ToolboxShowGroupCreations")
 local FFlagToolboxHideSearchForMyPlugins = game:DefineFastFlag("ToolboxHideSearchForMyPlugins", false)
-local FFlagToolboxHideSearchForRecent = game:DefineFastFlag("ToolboxHideSearchForRecent", false)
-local FFlagEnableSearchedWithoutInsertionAnalytic = game:GetFastFlag("EnableSearchedWithoutInsertionAnalytic")
 local FFlagUseCategoryNameInToolbox = game:GetFastFlag("UseCategoryNameInToolbox")
 
 local Plugin = script.Parent.Parent.Parent
@@ -124,21 +122,17 @@ function Header:init()
 			creatorId
 		)
 
-		if FFlagEnableSearchedWithoutInsertionAnalytic then
-
-			-- Set up a delayed callback to check if an asset was inserted
-			self.mostRecentSearchRequestTime = tick()
-			local mySearchRequestTime = self.mostRecentSearchRequestTime
-			local StudioSearchWithoutInsertionTimeSeconds = globalSettings():GetFVariable("StudioSearchWithoutInsertionTimeSeconds")
-			delay(StudioSearchWithoutInsertionTimeSeconds, function()
-				-- Only use the callback for the most recent search
-				if (mySearchRequestTime == self.mostRecentSearchRequestTime) then
-					-- Check if an asset has been inserted recently
-					self:checkRecentAssetInsertion()
-				end
-			end)
-
-		end
+		-- Set up a delayed callback to check if an asset was inserted
+		self.mostRecentSearchRequestTime = tick()
+		local mySearchRequestTime = self.mostRecentSearchRequestTime
+		local StudioSearchWithoutInsertionTimeSeconds = globalSettings():GetFVariable("StudioSearchWithoutInsertionTimeSeconds")
+		delay(StudioSearchWithoutInsertionTimeSeconds, function()
+			-- Only use the callback for the most recent search
+			if (mySearchRequestTime == self.mostRecentSearchRequestTime) then
+				-- Check if an asset has been inserted recently
+				self:checkRecentAssetInsertion()
+			end
+		end)
 
 		self.props.requestSearch(networkInterface, settings, searchTerm)
 	end
@@ -239,17 +233,15 @@ function Header:render()
 				showSearchBar = not isGroupCategory and not isCreationsTab
 			end
 
-			if FFlagToolboxHideSearchForRecent then
-				local isRecentsTab
-				if FFlagUseCategoryNameInToolbox then
-					isRecentsTab = Category.getTabForCategoryName(categoryName) == Category.RECENT
-				else
-					isRecentsTab = currentTab == Category.RECENT_KEY
-				end
-				if isRecentsTab then
-					showSearchBar = false
-					fullWidthDropdown = true
-				end
+			local isRecentsTab
+			if FFlagUseCategoryNameInToolbox then
+				isRecentsTab = Category.getTabForCategoryName(categoryName) == Category.RECENT
+			else
+				isRecentsTab = currentTab == Category.RECENT_KEY
+			end
+			if isRecentsTab then
+				showSearchBar = false
+				fullWidthDropdown = true
 			end
 
 			return Roact.createElement("ImageButton", {

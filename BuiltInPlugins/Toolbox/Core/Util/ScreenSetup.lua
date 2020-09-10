@@ -6,7 +6,6 @@ local AssetConfigUtil = require(Util.AssetConfigUtil)
 
 local ScreenSetup = {}
 
-local FFlagStudioUseNewAnimationImportExportFlow = settings():GetFFlag("StudioUseNewAnimationImportExportFlow")
 local FFlagSupportUploadGroupAnimations = game:DefineFastFlag("StudioSupportUploadGroupAnimations", false)
 
 ScreenSetup.keys = convertArrayToTable({
@@ -64,30 +63,28 @@ local params = {
 	}
 }
 
-if FFlagStudioUseNewAnimationImportExportFlow then
-	params[AssetConfigConstants.FLOW_TYPE.DOWNLOAD_FLOW] = {
-		[AssetCategory.Marketplace] = {
-			[keys.SHOW_COMMENT] = false,
-			[keys.SHOW_COPY] = false,
-			[keys.SHOW_GENRE] = false,
-			[keys.SHOW_OVERRIDE_BUTTON] = false,
-			[keys.SHOW_OWNERSHIP] = false,
-			[keys.SHOW_PRICE] = false,
-			[keys.SHOW_SALE] = false,
-			[keys.SHOW_VERSIONS_TAB] = false,
-		},
-		[AssetCategory.Catalog] = {
-			[keys.SHOW_COMMENT] = false,
-			[keys.SHOW_COPY] = false,
-			[keys.SHOW_GENRE] = false,
-			[keys.SHOW_OVERRIDE_BUTTON] = false,
-			[keys.SHOW_OWNERSHIP] = false,
-			[keys.SHOW_PRICE] = false,
-			[keys.SHOW_SALE] = false,
-			[keys.SHOW_VERSIONS_TAB] = false,
-		},
-	}
-end
+params[AssetConfigConstants.FLOW_TYPE.DOWNLOAD_FLOW] = {
+	[AssetCategory.Marketplace] = {
+		[keys.SHOW_COMMENT] = false,
+		[keys.SHOW_COPY] = false,
+		[keys.SHOW_GENRE] = false,
+		[keys.SHOW_OVERRIDE_BUTTON] = false,
+		[keys.SHOW_OWNERSHIP] = false,
+		[keys.SHOW_PRICE] = false,
+		[keys.SHOW_SALE] = false,
+		[keys.SHOW_VERSIONS_TAB] = false,
+	},
+	[AssetCategory.Catalog] = {
+		[keys.SHOW_COMMENT] = false,
+		[keys.SHOW_COPY] = false,
+		[keys.SHOW_GENRE] = false,
+		[keys.SHOW_OVERRIDE_BUTTON] = false,
+		[keys.SHOW_OWNERSHIP] = false,
+		[keys.SHOW_PRICE] = false,
+		[keys.SHOW_SALE] = false,
+		[keys.SHOW_VERSIONS_TAB] = false,
+	},
+}
 
 -- Some assets need to override the default setting for publishing and editing asset. In this case, plugin need to
 -- override those.
@@ -123,21 +120,19 @@ local assetTypeOverride = {
 	},
 }
 
-if FFlagStudioUseNewAnimationImportExportFlow then
-	assetTypeOverride[Enum.AssetType.Animation] = {
-		[AssetConfigConstants.FLOW_TYPE.UPLOAD_FLOW] = {
-			[keys.SHOW_OVERRIDE_BUTTON] = true,
-			[keys.SHOW_COMMENT] = false,
-			[keys.SHOW_COPY] = false,
-			[keys.SHOW_GENRE] = false,
-			[keys.SHOW_OWNERSHIP] = FFlagSupportUploadGroupAnimations,
-			[keys.SHOW_PRICE] = false,
-			[keys.SHOW_SALE] = false,
-			[keys.SHOW_VERSIONS_TAB] = false,
-			[keys.SHOW_SALES_TAB] = false,
-		},
-	}
-end
+assetTypeOverride[Enum.AssetType.Animation] = {
+	[AssetConfigConstants.FLOW_TYPE.UPLOAD_FLOW] = {
+		[keys.SHOW_OVERRIDE_BUTTON] = true,
+		[keys.SHOW_COMMENT] = false,
+		[keys.SHOW_COPY] = false,
+		[keys.SHOW_GENRE] = false,
+		[keys.SHOW_OWNERSHIP] = FFlagSupportUploadGroupAnimations,
+		[keys.SHOW_PRICE] = false,
+		[keys.SHOW_SALE] = false,
+		[keys.SHOW_VERSIONS_TAB] = false,
+		[keys.SHOW_SALES_TAB] = false,
+	},
+}
 
 function ScreenSetup.queryParam(flowType, assetTypeEnum, paramKey)
 	local assetCategoryType = AssetConfigUtil.isCatalogAsset(assetTypeEnum) and AssetCategory.Catalog or AssetCategory.Marketplace

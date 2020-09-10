@@ -35,6 +35,7 @@ local ContextGetter = require(Util.ContextGetter)
 local InsertAsset = require(Util.InsertAsset)
 local Analytics = require(Util.Analytics.Analytics)
 local PageInfoHelper = require(Util.PageInfoHelper)
+local AssetAnalyticsContextItem = require(Util.Analytics.AssetAnalyticsContextItem)
 
 local getUserId = require(Util.getUserId)
 local getNetwork = ContextGetter.getNetwork
@@ -77,6 +78,8 @@ local FFlagStudioHideSuccessDialogWhenFree = game:GetFastFlag("StudioHideSuccess
 local FFlagToolboxFixAnalyticsBugs = game:GetFastFlag("ToolboxFixAnalyticsBugs")
 local FFlagToolboxWaitForPluginOwnedStatus = game:GetFastFlag("ToolboxWaitForPluginOwnedStatus")
 local FFlagToolboxInsertEventContextFixes = game:GetFastFlag("ToolboxInsertEventContextFixes")
+local FFlagToolboxNewAssetAnalytics = game:GetFastFlag("ToolboxNewAssetAnalytics")
+local FFlagToolboxNewInsertAnalytics = game:GetFastFlag("ToolboxNewInsertAnalytics")
 
 
 local PADDING = 32
@@ -287,7 +290,13 @@ function AssetPreviewWrapper:init(props)
 
 	self.tryInsert = function()
 		local assetData = props.assetData
-		return self.props.tryInsert(assetData, false) --Asset was not dragged
+
+		if FFlagToolboxNewAssetAnalytics and FFlagToolboxNewInsertAnalytics then
+			local assetWasDragged = false
+			return self.props.tryInsert(assetData, assetWasDragged, "PreviewClickInsertButton")
+		else
+			return self.props.tryInsert(assetData, false) --Asset was not dragged
+		end
 	end
 
 	self.takePlugin = function(assetId)
@@ -398,6 +407,9 @@ function AssetPreviewWrapper:init(props)
 			categoryIndex = (not FFlagUseCategoryNameInToolbox) and (FFlagEnableDefaultSortFix2 and categoryIndex or nil),
 			categoryName = FFlagUseCategoryNameInToolbox and categoryName or nil,
 			currentCategoryName = currentCategoryName,
+			onSuccess = FFlagToolboxNewAssetAnalytics and FFlagToolboxNewInsertAnalytics and function()
+				self.props.AssetAnalytics:get():logInsert(assetData, "PreviewClickInsertButton")
+			end or nil,
 		})
 		if success then
 			self:setState({
@@ -701,6 +713,7 @@ end
 
 ContextServices.mapToProps(AssetPreviewWrapper, {
 	Settings = Settings,
+	AssetAnalytics = FFlagToolboxNewAssetAnalytics and FFlagToolboxNewInsertAnalytics and AssetAnalyticsContextItem or nil,
 })
 
 return RoactRodux.UNSTABLE_connect2(mapStateToProps, mapDispatchToProps)(AssetPreviewWrapper)

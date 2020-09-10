@@ -51,6 +51,11 @@ type TSenders = {
 local AssetAnalytics = {}
 AssetAnalytics.__index = AssetAnalytics
 
+AssetAnalytics.InsertRemainsCheckDelays = {30, 600}
+
+local EVENT_TARGET = "studio"
+local EVENT_CONTEXT = "Marketplace"
+
 --[[
     Handles tracking analytics for the lifecycle of assets inserted from Toolbox.
 ]]
@@ -76,6 +81,10 @@ function AssetAnalytics.mock()
         end,
     }
     return AssetAnalytics.new(stubSenders)
+end
+
+function AssetAnalytics.schedule(delayS: number, callback: () -> any)
+    delay(delayS, callback)
 end
 
 function AssetAnalytics.addContextToAssetResults(assetResults: Array<Object<any>>, pageInfo: PageInfo)
@@ -152,7 +161,7 @@ function AssetAnalytics:logImpression(assetData: AssetData)
     local search = self._searches[searchId]
 
     if not search.impressions[assetId] then
-        self.senders.sendEventDeferred("studio", "toolbox", "MarketplaceAssetImpression", AssetAnalytics.getTrackingAttributes(assetData))
+        self.senders.sendEventDeferred(EVENT_TARGET, EVENT_CONTEXT, "MarketplaceAssetImpression", AssetAnalytics.getTrackingAttributes(assetData))
         
         search.impressions[assetId] = true
     end
@@ -166,7 +175,42 @@ function AssetAnalytics:logPreview(assetData: AssetData)
         return
     end
 
-    self.senders.sendEventDeferred("studio", "toolbox", "MarketplaceAssetPreview", AssetAnalytics.getTrackingAttributes(assetData)) 
+    self.senders.sendEventDeferred(EVENT_TARGET, EVENT_CONTEXT, "MarketplaceAssetPreview", AssetAnalytics.getTrackingAttributes(assetData)) 
+end
+
+function AssetAnalytics:logInsert(assetData: AssetData, insertionMethod: string, insertedInstance: Instance? | Array<Instance>?)
+    if not AssetAnalytics.isAssetTrackable(assetData) then
+        return
+    end
+
+    local insertionAttributes = Cryo.Dictionary.join({
+        method = insertionMethod,
+    }, AssetAnalytics.getTrackingAttributes(assetData))
+
+    self.senders.sendEventDeferred(EVENT_TARGET, EVENT_CONTEXT, "MarketplaceInsert", insertionAttributes)
+
+    if insertedInstance == nil then
+        -- We have no way of tracking whether the inserted instance remains or is deleted if it is not supplied
+        -- This is the case for plugin insertions
+        return
+    end
+
+    for _, delay in ipairs(AssetAnalytics.InsertRemainsCheckDelays) do
+        AssetAnalytics.schedule(delay, function()
+            if type(insertedInstance) == "table" then
+                -- Some assets insert multiple root level instances, in which case insertedInstance may be an array
+                -- In this case, we only consider the first instance.
+                self:logRemainsOrDeleted(delay, insertionAttributes, insertedInstance[1])
+            else
+                self:logRemainsOrDeleted(delay, insertionAttributes, insertedInstance)
+            end
+        end)
+    end
+end
+
+function AssetAnalytics:logRemainsOrDeleted(delay: number, insertionAttributes: Object<any>, insertedInstance: Instance)
+    local eventNameStem = (insertedInstance and insertedInstance.Parent) and "MarketplaceInsertRemains" or "MarketplaceInsertDeleted"
+    self.senders.sendEventDeferred(EVENT_TARGET, EVENT_CONTEXT, eventNameStem .. tostring(delay), insertionAttributes)
 end
 
 return AssetAnalytics

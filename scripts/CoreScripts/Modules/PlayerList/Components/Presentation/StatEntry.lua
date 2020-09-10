@@ -110,7 +110,7 @@ function StatEntry:render()
 					Position = UDim2.new(0, 0, 0, 0),
 					BackgroundTransparency = 1,
 					Font = layoutValues.StatNameFont,
-					TextSize = self.props.textStyle.Size,
+					TextSize = textSize,
 					TextColor3 = self.props.textStyle.Color,
 					TextTransparency = self.props.textStyle.Transparency,
 					TextStrokeColor3 = self.props.textStyle.StrokeColor,

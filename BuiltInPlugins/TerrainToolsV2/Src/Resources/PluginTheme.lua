@@ -2,6 +2,7 @@ local FFlagTerrainToolsUseDevFramework = game:GetFastFlag("TerrainToolsUseDevFra
 
 local Plugin = script.Parent.Parent.Parent
 
+local Framework = require(Plugin.Packages.Framework)
 local Cryo = require(Plugin.Packages.Cryo)
 
 local StudioTheme
@@ -16,7 +17,9 @@ else
 	StudioStyle = UILibrary.Studio.Style
 end
 
-local deepJoin = require(Plugin.Src.Util.deepJoin)
+local deepJoin = Framework.Util.deepJoin
+
+local DebugFlags = require(Plugin.Src.Util.DebugFlags)
 
 local Theme = {}
 
@@ -49,11 +52,22 @@ local ColorSheet = {
 	propertyLockIconBorderHover_dark = Color3.fromRGB(227, 227, 227),
 }
 
+local function getStudioTheme()
+	-- settings doesn't exist in CLI so have to mock a theme
+	if DebugFlags.RunningUnderCLI() then
+		return {
+			Name = "Light",
+		}
+	end
+
+	return settings().Studio.Theme
+end
+
 -- getColor : function<Color3>(color enum)
 -- c = Enum.StudioStyleGuideColor
 -- m = Enum.StudioStyleGuideModifier
 function Theme.createValues(getColor, c, m)
-	local theme = settings().Studio.Theme
+	local theme = getStudioTheme()
 
 	local function defineTheme(defaults, overrides)
 		local override = overrides and overrides[theme.Name]
@@ -63,9 +77,9 @@ function Theme.createValues(getColor, c, m)
 			return defaults
 		end
 	end
+
 	-- define the color palette for the UILibrary, override where necessary
 	local UILibraryStylePalette = StudioStyle.new(getColor, c, m)
-	--UILibraryStylePalette.backgroundColor = Color3.new(1, 1, 1)
 
 	local roundedBorderImage = "rbxasset://textures/StudioToolbox/RoundedBorder.png"
 	local roundedBackgroundImage = "rbxasset://textures/StudioToolbox/RoundedBackground.png"
@@ -219,52 +233,150 @@ function Theme.createValues(getColor, c, m)
 		otherTabOffset = UDim2.new(0, 0, 0, 0),
 	})
 
-	-- define all the colors used in the plugin
-	local pluginTheme = deepJoin(UILibraryStylePalette, {
-		icons = {
-			ToolbarIconEditor = "rbxasset://textures/TerrainTools/icon_terrain_big.png",
-		},
-		labels = {
-			TitleBarText = getColor(c.TitlebarText, m.Default),
-			TitleBarBackground = getColor(c.Titlebar, m.Default),
-		},
-		tabTheme = tabTheme,
-		toggleTheme = toggleTheme,
-		toolRenderTheme = toolRenderTheme,
-		brushSettingsTheme = brushSettingsTheme,
-		panelTheme = panelTheme,
-		errorColor = Color3.fromRGB(216, 104, 104),
-		warningColor = Color3.fromRGB(255, 128, 0),
-		selectionBorderColor = Color3.fromRGB(0, 162, 255),
-		roundTextButtonTheme = roundTextButtonTheme,
-		roundToggleTextButtonTheme = roundToggleTextButtonTheme,
-		singleSelectButtonGroupTheme = singleSelectButtonGroupTheme,
-		propertyLockTheme = propertyLockTheme,
-		textSize = 14,
-		padding = 4,
-		font = Enum.Font.SourceSans,
-	},{
-		Dark = {
-			borderColor = Color3.fromRGB(26, 26, 26),
-		}
-	})
+	if FFlagTerrainToolsUseDevFramework then
+		-- In the first part of the move to dev framework, we've had to port some components from UI library
+		-- Those components used colours etc. defined inside UI library, so we port them here too
 
-	-- define any custom changes to UILibrary elements, use UILibrary's createTheme path syntax
-	local UILibraryOverrides = {
-		checkBox = {
+		-- These values come from previous overrides defined in the terrain tools
+		local checkBox = defineTheme({
 			backgroundColor = Color3.fromRGB(182, 182, 182),
-			backgroundImage = nil,
-			selectedImage = nil,
-			font = Enum.Font.Arial,
 			titleColor = getColor(c.MainText, m.Default),
-		}
-	}
 
-	return {
-		PluginTheme = pluginTheme,
-		UILibraryStylePalette = UILibraryStylePalette,
-		UILibraryOverrides = UILibraryOverrides,
-	}
+			-- Previously this used Arial
+			-- The whole plugin should use SourceSans
+			-- But currently uses Legacy
+			-- For now, keep this consistent and fix later with the rest of the plugin
+			font = Enum.Font.Legacy,
+			textSize = 8,
+
+			backgroundImage = "rbxasset://textures/GameSettings/UncheckedBox.png",
+			selectedImage = "rbxasset://textures/GameSettings/CheckedBoxLight.png",
+		})
+
+		-- Rest of the values come from UILibrary createTheme.lua and StudioStyle.lua
+		local roundFrame = defineTheme({
+			slice = Rect.new(3, 3, 13, 13),
+			backgroundImage = "rbxasset://textures/StudioToolbox/RoundedBackground.png",
+			borderImage = "rbxasset://textures/StudioToolbox/RoundedBorder.png",
+		})
+
+		local textButton = defineTheme({
+			font = Enum.Font.SourceSans,
+		})
+
+		local button = {
+			Default = {
+				font = UILibraryStylePalette.font,
+				isRound = true,
+
+				backgroundColor = UILibraryStylePalette.itemColor,
+				textColor = UILibraryStylePalette.textColor,
+				borderColor = UILibraryStylePalette.borderColor,
+
+				hovered = {
+					backgroundColor = UILibraryStylePalette.hoveredItemColor,
+					textColor = UILibraryStylePalette.hoveredTextColor,
+					borderColor = UILibraryStylePalette.borderColor,
+				},
+			},
+
+			Primary = {
+				font = UILibraryStylePalette.font,
+				isRound = true,
+
+				backgroundColor = UILibraryStylePalette.primaryItemColor,
+				textColor = UILibraryStylePalette.primaryTextColor,
+				borderColor = UILibraryStylePalette.primaryBorderColor,
+
+				hovered = {
+					backgroundColor = UILibraryStylePalette.primaryHoveredItemColor,
+					textColor = UILibraryStylePalette.primaryHoveredTextColor,
+					borderColor = UILibraryStylePalette.primaryHoveredBorderColor,
+				},
+			},
+		}
+
+
+		local pluginTheme = deepJoin(UILibraryStylePalette, {
+			textSize = 14,
+			padding = 4,
+			font = Enum.Font.SourceSans,
+
+			errorColor = Color3.fromRGB(216, 104, 104),
+			warningColor = Color3.fromRGB(255, 128, 0),
+			selectionBorderColor = Color3.fromRGB(0, 162, 255),
+
+			tabTheme = tabTheme,
+			toggleTheme = toggleTheme,
+			toolRenderTheme = toolRenderTheme,
+			brushSettingsTheme = brushSettingsTheme,
+			panelTheme = panelTheme,
+			roundTextButtonTheme = roundTextButtonTheme,
+			roundToggleTextButtonTheme = roundToggleTextButtonTheme,
+			singleSelectButtonGroupTheme = singleSelectButtonGroupTheme,
+			propertyLockTheme = propertyLockTheme,
+
+			-- Extras for ui library compatibility
+			checkBox = checkBox,
+			roundFrame = roundFrame,
+			textButton = textButton,
+			button = button,
+		}, {
+			Dark = {
+				borderColor = Color3.fromRGB(26, 26, 26),
+			}
+		})
+
+		return pluginTheme
+	else
+
+		-- define all the colors used in the plugin
+		local pluginTheme = deepJoin(UILibraryStylePalette, {
+			icons = {
+				ToolbarIconEditor = "rbxasset://textures/TerrainTools/icon_terrain_big.png",
+			},
+			labels = {
+				TitleBarText = getColor(c.TitlebarText, m.Default),
+				TitleBarBackground = getColor(c.Titlebar, m.Default),
+			},
+			tabTheme = tabTheme,
+			toggleTheme = toggleTheme,
+			toolRenderTheme = toolRenderTheme,
+			brushSettingsTheme = brushSettingsTheme,
+			panelTheme = panelTheme,
+			errorColor = Color3.fromRGB(216, 104, 104),
+			warningColor = Color3.fromRGB(255, 128, 0),
+			selectionBorderColor = Color3.fromRGB(0, 162, 255),
+			roundTextButtonTheme = roundTextButtonTheme,
+			roundToggleTextButtonTheme = roundToggleTextButtonTheme,
+			singleSelectButtonGroupTheme = singleSelectButtonGroupTheme,
+			propertyLockTheme = propertyLockTheme,
+			textSize = 14,
+			padding = 4,
+			font = Enum.Font.SourceSans,
+		}, {
+			Dark = {
+				borderColor = Color3.fromRGB(26, 26, 26),
+			}
+		})
+
+		-- define any custom changes to UILibrary elements, use UILibrary's createTheme path syntax
+		local UILibraryOverrides = {
+			checkBox = {
+				backgroundColor = Color3.fromRGB(182, 182, 182),
+				backgroundImage = nil,
+				selectedImage = nil,
+				font = Enum.Font.Arial,
+				titleColor = getColor(c.MainText, m.Default),
+			}
+		}
+
+		return {
+			PluginTheme = pluginTheme,
+			UILibraryStylePalette = UILibraryStylePalette,
+			UILibraryOverrides = UILibraryOverrides,
+		}
+	end
 end
 
 function Theme.new()

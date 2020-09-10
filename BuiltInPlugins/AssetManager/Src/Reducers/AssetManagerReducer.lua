@@ -14,6 +14,7 @@ return Rodux.createReducer({
 	-- Contains list of assets that are currently editing keyed by id
 	editingAssets = {},
 	isFetchingAssets = false,
+	recentAssets = {},
 	searchTerm = "",
 	-- Contains list of selected keyed by id
 	selectedAssets = {},
@@ -43,6 +44,12 @@ return Rodux.createReducer({
 	SetIsFetchingAssets = function(state, action)
         return Cryo.Dictionary.join(state, {
 			isFetchingAssets = action.isFetchingAssets,
+		})
+	end,
+
+	SetRecentAssets = function(state, action)
+		return Cryo.Dictionary.join(state, {
+			recentAssets = action.recentAssets,
 		})
 	end,
 

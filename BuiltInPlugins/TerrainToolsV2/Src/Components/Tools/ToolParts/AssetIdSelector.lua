@@ -2,17 +2,20 @@
 	used to select images for file import in the terrain editor
 ]]
 
+local FFlagTerrainToolsUseDevFramework = game:GetFastFlag("TerrainToolsUseDevFramework")
+
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
+local Framework = require(Plugin.Packages.Framework)
 local Roact = require(Plugin.Packages.Roact)
-local UILibrary = require(Plugin.Packages.UILibrary)
+local UILibrary = not FFlagTerrainToolsUseDevFramework and require(Plugin.Packages.UILibrary) or nil
 
-local Localizing = UILibrary.Localizing
-local getLocalization = Localizing.getLocalization
-local withLocalization = Localizing.withLocalization
+local ContextServices = FFlagTerrainToolsUseDevFramework and Framework.ContextServices or nil
+local ContextItems = FFlagTerrainToolsUseDevFramework and require(Plugin.Src.ContextItems) or nil
 
-local Theming = require(Plugin.Src.ContextServices.Theming)
-local withTheme = Theming.withTheme
+local getUILibraryLocalization = not FFlagTerrainToolsUseDevFramework and UILibrary.Localizing.getLocalization or nil
+local withLocalization = not FFlagTerrainToolsUseDevFramework and UILibrary.Localizing.withLocalization or nil
+local withTheme = not FFlagTerrainToolsUseDevFramework and require(Plugin.Src.ContextServices.Theming).withTheme or nil
 
 local ToolParts = script.Parent
 local LabeledElementPair = require(ToolParts.LabeledElementPair)
@@ -176,6 +179,14 @@ function AssetIdSelector:init()
 		assetStatus = nil,
 	}
 
+	self.getLocalization = function()
+		if FFlagTerrainToolsUseDevFramework then
+			return self.props.Localization:get()
+		else
+			return getUILibraryLocalization(self)
+		end
+	end
+
 	self.updateGameImages = function()
 		self.gameImages = StudioService:GetResourceByCategory("Image")
 	end
@@ -214,12 +225,12 @@ function AssetIdSelector:init()
 		end
 
 		if not isPlacePublished() then
-			warn(getLocalization(self):getText("Warning", "RequirePublishedForImport"))
+			warn(self.getLocalization():getText("Warning", "RequirePublishedForImport"))
 			return
 		end
 
 		if not RunService:IsEdit() then
-			warn(getLocalization(self):getText("Warning", "RequireEditModeForImport"))
+			warn(self.getLocalization():getText("Warning", "RequireEditModeForImport"))
 			return
 		end
 
@@ -277,104 +288,119 @@ function AssetIdSelector:didMount()
 	end
 end
 
-function AssetIdSelector:render()
-	return withLocalization(function(localization)
-		return withTheme(function(theme)
-			local size = self.props.Size
-			local label = self.props.Label
-			local layoutOrder = self.props.LayoutOrder
+function AssetIdSelector:_render(theme, localization)
+	local size = self.props.Size
+	local label = self.props.Label
+	local layoutOrder = self.props.LayoutOrder
 
-			local isVisible = not self.props.Disabled
+	local isVisible = not self.props.Disabled
 
-			local showImageSelection = self.state.showImageSelection
-			local showImagePreview = not showImageSelection and self.state.assetId
+	local showImageSelection = self.state.showImageSelection
+	local showImagePreview = not showImageSelection and self.state.assetId
 
-			local text = self.state.assetId and string.format(ASSET_URL_TEXT, self.state.assetId)
+	local text = self.state.assetId and string.format(ASSET_URL_TEXT, self.state.assetId)
 
-			local warningMessageToDisplay
-			local assetStatus = self.state.assetStatus
-			if assetStatus and assetStatus ~= AssetStatus.Fetching and assetStatus ~= AssetStatus.Valid then
-				warningMessageToDisplay = localization:getText("Warning", assetStatus)
-			end
+	local warningMessageToDisplay
+	local assetStatus = self.state.assetStatus
+	if assetStatus and assetStatus ~= AssetStatus.Fetching and assetStatus ~= AssetStatus.Valid then
+		warningMessageToDisplay = localization:getText("Warning", assetStatus)
+	end
 
-			local imageAssets = {}
-			local assetCount = 0
-			if showImageSelection then
-				imageAssets.UIListLayout = Roact.createElement("UIListLayout", {
-					SortOrder = Enum.SortOrder.LayoutOrder,
-				})
+	local imageAssets = {}
+	local assetCount = 0
+	if showImageSelection then
+		imageAssets.UIListLayout = Roact.createElement("UIListLayout", {
+			SortOrder = Enum.SortOrder.LayoutOrder,
+		})
 
-				for id, assetName in pairs(self.gameImages) do
-					assetCount = assetCount + 1
-					imageAssets[assetCount] = Roact.createElement(ImageAsset, {
-						AssetId = id,
-						AssetName = assetName,
-						OnSelected = self.onAssetSelected,
-					})
-				end
-			end
-
-			return Roact.createElement("Frame",{
-				Size = size,
-				BackgroundTransparency = 1,
-				LayoutOrder = layoutOrder,
-				[Roact.Ref] = self.mainFrameRef,
-				Visible = isVisible,
-			}, {
-				UIListLayout = Roact.createElement("UIListLayout", {
-					SortOrder = Enum.SortOrder.LayoutOrder,
-					Padding = UDim.new(0, 4),
-					[Roact.Ref] = self.layoutRef,
-					[Roact.Change.AbsoluteContentSize] = self.onContentSizeChanged,
-				}),
-
-				TextInput = Roact.createElement(LabeledElementPair, {
-					Size = UDim2.new(1, 0, 0, 22),
-					Text = label,
-					LayoutOrder = 1,
-					SizeToContent = true,
-				}, {
-					Input = Roact.createElement(LabeledTextInput, {
-						Width = UDim.new(0, 136),
-						Text = text,
-						PlaceholderText = localization:getText("AssetIdSelector", "PlaceHolderText"),
-						WarningOverride = warningMessageToDisplay,
-						EditingDisabled = true,
-						OnFocused = self.onFocused,
-					})
-				}),
-
-				ImageSelection = showImageSelection and assetCount > 0 and Roact.createElement(LabeledElementPair, {
-					Size = UDim2.new(1, 0, 0, 150),
-					Text = "",
-					LayoutOrder = 1,
-				}, {
-					ScrollingFrame = Roact.createElement("ScrollingFrame", {
-						Size = UDim2.new(1, 0, 1, 0),
-						CanvasSize = UDim2.new(1, 0, 0, assetCount * PREVIEW_HEIGHT),
-						TopImage = theme.toolRenderTheme.scrollTopImage,
-						MidImage = theme.toolRenderTheme.scrollMidImage,
-						BottomImage = theme.toolRenderTheme.scrollBotImage,
-						LayoutOrder = 2,
-
-						[Roact.Event.MouseEnter] = self.onMouseEnter,
-						[Roact.Event.MouseLeave] = self.onMouseLeave,
-					}, imageAssets),
-				}),
-
-				ImagePreview = showImagePreview and Roact.createElement(LabeledElementPair, {
-					Size = UDim2.new(1, 0, 0, PREVIEW_HEIGHT),
-					Text = "",
-					LayoutOrder = 3,
-				},{
-					Image = Roact.createElement("ImageLabel", {
-						Size = PREVIEW_SIZE,
-						Image = text,
-					})
-				}),
+		for id, assetName in pairs(self.gameImages) do
+			assetCount = assetCount + 1
+			imageAssets[assetCount] = Roact.createElement(ImageAsset, {
+				AssetId = id,
+				AssetName = assetName,
+				OnSelected = self.onAssetSelected,
 			})
+		end
+	end
+
+	return Roact.createElement("Frame",{
+		Size = size,
+		BackgroundTransparency = 1,
+		LayoutOrder = layoutOrder,
+		[Roact.Ref] = self.mainFrameRef,
+		Visible = isVisible,
+	}, {
+		UIListLayout = Roact.createElement("UIListLayout", {
+			SortOrder = Enum.SortOrder.LayoutOrder,
+			Padding = UDim.new(0, 4),
+			[Roact.Ref] = self.layoutRef,
+			[Roact.Change.AbsoluteContentSize] = self.onContentSizeChanged,
+		}),
+
+		TextInput = Roact.createElement(LabeledElementPair, {
+			Size = UDim2.new(1, 0, 0, 22),
+			Text = label,
+			LayoutOrder = 1,
+			SizeToContent = true,
+		}, {
+			Input = Roact.createElement(LabeledTextInput, {
+				Width = UDim.new(0, 136),
+				Text = text,
+				PlaceholderText = localization:getText("AssetIdSelector", "PlaceHolderText"),
+				WarningOverride = warningMessageToDisplay,
+				EditingDisabled = true,
+				OnFocused = self.onFocused,
+			})
+		}),
+
+		ImageSelection = showImageSelection and assetCount > 0 and Roact.createElement(LabeledElementPair, {
+			Size = UDim2.new(1, 0, 0, 150),
+			Text = "",
+			LayoutOrder = 1,
+		}, {
+			ScrollingFrame = Roact.createElement("ScrollingFrame", {
+				Size = UDim2.new(1, 0, 1, 0),
+				CanvasSize = UDim2.new(1, 0, 0, assetCount * PREVIEW_HEIGHT),
+				TopImage = theme.toolRenderTheme.scrollTopImage,
+				MidImage = theme.toolRenderTheme.scrollMidImage,
+				BottomImage = theme.toolRenderTheme.scrollBotImage,
+				LayoutOrder = 2,
+
+				[Roact.Event.MouseEnter] = self.onMouseEnter,
+				[Roact.Event.MouseLeave] = self.onMouseLeave,
+			}, imageAssets),
+		}),
+
+		ImagePreview = showImagePreview and Roact.createElement(LabeledElementPair, {
+			Size = UDim2.new(1, 0, 0, PREVIEW_HEIGHT),
+			Text = "",
+			LayoutOrder = 3,
+		},{
+			Image = Roact.createElement("ImageLabel", {
+				Size = PREVIEW_SIZE,
+				Image = text,
+			})
+		}),
+	})
+end
+
+function AssetIdSelector:render()
+	if FFlagTerrainToolsUseDevFramework then
+		return self:_render(self.props.Theme:get(), self.props.Localization:get())
+	else
+		return withLocalization(function(localization)
+			return withTheme(function(theme)
+				return self:_render(theme, localization)
+			end)
 		end)
-	end)
+	end
+end
+
+if FFlagTerrainToolsUseDevFramework then
+	ContextServices.mapToProps(AssetIdSelector, {
+		Theme = ContextItems.UILibraryTheme,
+		Localization = ContextItems.UILibraryLocalization,
+	})
 end
 
 return AssetIdSelector

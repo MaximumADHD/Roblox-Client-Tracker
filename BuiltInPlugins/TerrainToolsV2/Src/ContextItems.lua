@@ -1,8 +1,8 @@
 local Plugin = script.Parent.Parent
 
-local Framework = Plugin.Packages.Framework
+local Framework = require(Plugin.Packages.Framework)
 
-local ContextItem = require(Framework.ContextServices.ContextItem)
+local ContextItem = Framework.ContextServices.ContextItem
 
 local TerrainInterfaces = script.Parent.TerrainInterfaces
 
@@ -11,15 +11,21 @@ return {
 	-- we need to wrap them in Dev Framework context items
 	UILibraryTheme = ContextItem:createSimple("UILibraryTheme", {
 		getValues = function(theme)
-			return theme.values.PluginTheme
+			return theme.values
 		end,
 		getChangedSignal = function(theme)
 			return theme.valuesChanged
+		end,
+		destroy = function(theme)
+			theme:destroy()
 		end,
 	}),
 	UILibraryLocalization = ContextItem:createSimple("UILibraryLocalization", {
 		getChangedSignal = function(localization)
 			return localization.localeChanged
+		end,
+		destroy = function(localization)
+			localization:destroy()
 		end,
 	}),
 

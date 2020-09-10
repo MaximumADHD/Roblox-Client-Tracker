@@ -30,10 +30,10 @@ local FFlagTerrainToolsUseDevFramework = game:GetFastFlag("TerrainToolsUseDevFra
 
 local Plugin = script.Parent.Parent.Parent
 
-local Framework = Plugin.Packages.Framework
+local Framework = require(Plugin.Packages.Framework)
 local UILibrary = not FFlagTerrainToolsUseDevFramework and require(Plugin.Packages.UILibrary) or nil
 
-local FrameworkUtil = FFlagTerrainToolsUseDevFramework and require(Framework.Util) or nil
+local FrameworkUtil = FFlagTerrainToolsUseDevFramework and Framework.Util or nil
 local Signal = FFlagTerrainToolsUseDevFramework and FrameworkUtil.Signal or UILibrary.Util.Signal
 
 local PartConverterUtil = require(Plugin.Src.Util.PartConverterUtil)

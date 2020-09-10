@@ -2,13 +2,12 @@
 	Controls which ToolButtons show for each tab and sizes its frame appropriately
 ]]
 
+local FFlagTerrainToolsConvertPartTool = game:GetFastFlag("TerrainToolsConvertPartTool")
+
 local Plugin = script.Parent.Parent.Parent
+
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
-local UILibrary = require(Plugin.Packages.UILibrary)
-
-local Localizing = UILibrary.Localizing
-local withLocalization = Localizing.withLocalization
 
 local TerrainEnums = require(Plugin.Src.Util.TerrainEnums)
 local TabId = TerrainEnums.TabId
@@ -19,8 +18,6 @@ local ToolButton = require(Components.ToolButton)
 
 local Actions = Plugin.Src.Actions
 local ChangeTool = require(Actions.ChangeTool)
-
-local FFlagTerrainToolsConvertPartTool = game:GetFastFlag("TerrainToolsConvertPartTool")
 
 local ToolManager = Roact.PureComponent:extend(script.Name)
 
@@ -59,54 +56,52 @@ function ToolManager:init()
 end
 
 function ToolManager:render()
-	return withLocalization(function(localization)
-		local currentTab = self.props.CurrentTab or TabId.Create
-		local currentTool = self.props.currentTool
-		local layoutOrder = self.props.LayoutOrder
+	local currentTab = self.props.CurrentTab or TabId.Create
+	local currentTool = self.props.currentTool
+	local layoutOrder = self.props.LayoutOrder
 
-		local tools = {}
+	local tools = {}
 
-		for i, toolId in ipairs(tabLookup[currentTab]) do
-			tools[toolId] = Roact.createElement(ToolButton, {
-				ToolId = toolId,
-				LayoutOrder = i,
-				OnClick = self.props.dispatchChangeTool,
-				IsCurrentTool = currentTool == toolId,
-			})
-		end
+	for i, toolId in ipairs(tabLookup[currentTab]) do
+		tools[toolId] = Roact.createElement(ToolButton, {
+			ToolId = toolId,
+			LayoutOrder = i,
+			OnClick = self.props.dispatchChangeTool,
+			IsCurrentTool = currentTool == toolId,
+		})
+	end
 
-		table.insert(tools,
-			Roact.createElement("UIGridLayout", {
-				SortOrder = Enum.SortOrder.LayoutOrder,
-				CellSize = UDim2.new(0, 55, 0, 55),
+	table.insert(tools,
+		Roact.createElement("UIGridLayout", {
+			SortOrder = Enum.SortOrder.LayoutOrder,
+			CellSize = UDim2.new(0, 55, 0, 55),
 
-				[Roact.Ref] = self.layoutRef,
-				[Roact.Change.AbsoluteContentSize] = self.onContentSizeChanged,
-			})
-		)
+			[Roact.Ref] = self.layoutRef,
+			[Roact.Change.AbsoluteContentSize] = self.onContentSizeChanged,
+		})
+	)
 
-		table.insert(tools,
-			Roact.createElement("UIPadding", {
-				PaddingLeft = UDim.new(0, 4),
-			})
-		)
+	table.insert(tools,
+		Roact.createElement("UIPadding", {
+			PaddingLeft = UDim.new(0, 4),
+		})
+	)
 
-		return Roact.createElement("Frame", {
-			Size = UDim2.new(1, 0, 0, 55),
-			BackgroundTransparency = 1,
-			LayoutOrder = layoutOrder,
-			[Roact.Ref] = self.mainFrameRef,
-		}, tools)
-	end)
+	return Roact.createElement("Frame", {
+		Size = UDim2.new(1, 0, 0, 55),
+		BackgroundTransparency = 1,
+		LayoutOrder = layoutOrder,
+		[Roact.Ref] = self.mainFrameRef,
+	}, tools)
 end
 
-local function MapStateToProps (state, props)
+local function mapStateToProps(state, props)
 	return {
 		currentTool = state.Tools.currentTool,
 	}
 end
 
-local function MapDispatchToProps (dispatch)
+local function mapDispatchToProps(dispatch)
 	return {
 		dispatchChangeTool = function (toolName)
 			dispatch(ChangeTool(toolName))
@@ -114,4 +109,4 @@ local function MapDispatchToProps (dispatch)
 	}
 end
 
-return RoactRodux.connect(MapStateToProps, MapDispatchToProps)(ToolManager)
+return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(ToolManager)

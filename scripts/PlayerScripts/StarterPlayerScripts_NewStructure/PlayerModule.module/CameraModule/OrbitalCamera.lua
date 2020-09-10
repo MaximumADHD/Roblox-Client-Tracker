@@ -3,6 +3,13 @@
 	2018 Camera Update - AllYourBlox
 --]]
 
+local FFlagUserCameraInputRefactor do
+	local success, result = pcall(function()
+		return UserSettings():IsUserFeatureEnabled("UserCameraInputRefactor")
+	end)
+	FFlagUserCameraInputRefactor = success and result
+end
+
 -- Local private variables and constants
 local UNIT_Z = Vector3.new(0,0,1)
 local X1_Y0_Z1 = Vector3.new(1,0,1)	--Note: not a unit vector, used for projecting onto XZ plane
@@ -31,6 +38,7 @@ externalProperties["CCWAzimuthTravel"] = 90	-- How many degrees the camera is al
 externalProperties["UseAzimuthLimits"] = false -- Full rotation around Y axis available by default
 
 local Util = require(script.Parent:WaitForChild("CameraUtils"))
+local CameraInput = require(script.Parent:WaitForChild("CameraInput"))
 
 --[[ Services ]]--
 local PlayersService = game:GetService('Players')
@@ -97,7 +105,6 @@ function OrbitalCamera:LoadOrCreateNumberValueParameter(name, valueType, updateF
 		valueObj.Parent = script
 		valueObj.Value = self.externalProperties[name]
 	else
-		print("externalProperties table has no entry for ",name)
 		return
 	end
 
@@ -198,7 +205,6 @@ function OrbitalCamera:GetCameraToSubjectDistance()
 end
 
 function OrbitalCamera:SetCameraToSubjectDistance(desiredSubjectDistance)
-	print("OrbitalCamera SetCameraToSubjectDistance ",desiredSubjectDistance)
 	local player = PlayersService.LocalPlayer
 	if player then
 		self.currentSubjectDistance = math.clamp(desiredSubjectDistance, self.minDistance, self.maxDistance)
@@ -221,7 +227,10 @@ function OrbitalCamera:CalculateNewLookVector(suppliedLookVector, xyRotateVector
 	return newLookVector
 end
 
+-- Remove on FFlagUserCameraInputRefactor
 function OrbitalCamera:GetGamepadPan(name, state, input)
+	assert(not FFlagUserCameraInputRefactor)
+
 	if input.UserInputType == self.activeGamepad and input.KeyCode == Enum.KeyCode.Thumbstick2 then
 		if self.r3ButtonDown or self.l3ButtonDown then
 		-- R3 or L3 Thumbstick is depressed, right stick controls dolly in/out
@@ -250,7 +259,10 @@ function OrbitalCamera:GetGamepadPan(name, state, input)
 	return Enum.ContextActionResult.Pass
 end
 
+-- Remove on FFlagUserCameraInputRefactor
 function OrbitalCamera:DoGamepadZoom(name, state, input)
+	assert(not FFlagUserCameraInputRefactor)
+
 	if input.UserInputType == self.activeGamepad and (input.KeyCode == Enum.KeyCode.ButtonR3 or input.KeyCode == Enum.KeyCode.ButtonL3) then
 		if (state == Enum.UserInputState.Begin) then
 			self.r3ButtonDown = input.KeyCode == Enum.KeyCode.ButtonR3
@@ -270,19 +282,26 @@ function OrbitalCamera:DoGamepadZoom(name, state, input)
 	return Enum.ContextActionResult.Pass
 end
 
+-- Remove on FFlagUserCameraInputRefactor
 function OrbitalCamera:BindGamepadInputActions()
+	assert(not FFlagUserCameraInputRefactor)
+
 	self:BindAction("OrbitalCamGamepadPan", function(name, state, input) return self:GetGamepadPan(name, state, input) end,
 		false, Enum.KeyCode.Thumbstick2)
 	self:BindAction("OrbitalCamGamepadZoom", function(name, state, input) return self:DoGamepadZoom(name, state, input) end,
 		false, Enum.KeyCode.ButtonR3, Enum.KeyCode.ButtonL3)
 end
 
-
 -- [[ Update ]]--
 function OrbitalCamera:Update(dt)
 	local now = tick()
 	local timeDelta = (now - self.lastUpdate)
-	local userPanningTheCamera = (self.UserPanningTheCamera == true)
+	local userPanningTheCamera
+	if FFlagUserCameraInputRefactor then
+		userPanningTheCamera = CameraInput.getRotation() ~= Vector2.new()
+	else
+		userPanningTheCamera = self.userPanningTheCamera == true
+	end
 	local camera = 	workspace.CurrentCamera
 	local newCameraCFrame = camera.CFrame
 	local newCameraFocus = camera.Focus
@@ -295,11 +314,11 @@ function OrbitalCamera:Update(dt)
 		self.lastCameraTransform = nil
 	end
 
-	if self.lastUpdate then
+	if self.lastUpdate and not FFlagUserCameraInputRefactor then
 		local gamepadRotation = self:UpdateGamepad()
 
 		if self:ShouldUseVRRotation() then
-			self.RotateInput = self.RotateInput + self:GetVRRotationInput()
+			self.rotateInput = self.rotateInput + self:GetVRRotationInput()
 		else
 			-- Cap out the delta to 0.1 so we don't get some crazy things when we re-resume from
 			local delta = math.min(0.1, timeDelta)
@@ -340,6 +359,13 @@ function OrbitalCamera:Update(dt)
 		local VREnabled = VRService.VREnabled
 		newCameraFocus = VREnabled and self:GetVRFocus(subjectPosition, timeDelta) or CFrame.new(subjectPosition)
 
+		local flaggedRotateInput
+		if FFlagUserCameraInputRefactor then
+			flaggedRotateInput = CameraInput.getRotation()
+		else
+			flaggedRotateInput = self.rotateInput
+		end
+
 		local cameraFocusP = newCameraFocus.p
 		if VREnabled and not self:IsInFirstPerson() then
 			local cameraHeight = self:GetCameraHeight()
@@ -347,25 +373,27 @@ function OrbitalCamera:Update(dt)
 			local distToSubject = vecToSubject.magnitude
 
 			-- Only move the camera if it exceeded a maximum distance to the subject in VR
-			if distToSubject > self.currentSubjectDistance or self.rotateInput.x ~= 0 then
+			if distToSubject > self.currentSubjectDistance or flaggedRotateInput.x ~= 0 then
 				local desiredDist = math.min(distToSubject, self.currentSubjectDistance)
 
 				-- Note that CalculateNewLookVector is overridden from BaseCamera
-				vecToSubject = self:CalculateNewLookVector(vecToSubject.unit * X1_Y0_Z1, Vector2.new(self.rotateInput.x, 0)) * desiredDist
+				vecToSubject = self:CalculateNewLookVector(vecToSubject.unit * X1_Y0_Z1, Vector2.new(flaggedRotateInput.x, 0)) * desiredDist
 
 				local newPos = cameraFocusP - vecToSubject
 				local desiredLookDir = camera.CFrame.lookVector
-				if self.rotateInput.x ~= 0 then
+				if flaggedRotateInput.x ~= 0 then
 					desiredLookDir = vecToSubject
 				end
 				local lookAt = Vector3.new(newPos.x + desiredLookDir.x, newPos.y, newPos.z + desiredLookDir.z)
-				self.RotateInput = ZERO_VECTOR2
+				if not FFlagUserCameraInputRefactor then
+					self.rotateInput = ZERO_VECTOR2
+				end
 
 				newCameraCFrame = CFrame.new(newPos, lookAt) + Vector3.new(0, cameraHeight, 0)
 			end
 		else
-			-- self.RotateInput is a Vector2 of mouse movement deltas since last update
-			self.curAzimuthRad = self.curAzimuthRad - self.rotateInput.x
+			-- self.rotateInput is a Vector2 of mouse movement deltas since last update
+			self.curAzimuthRad = self.curAzimuthRad - flaggedRotateInput.x
 
 			if self.useAzimuthLimits then
 				self.curAzimuthRad = math.clamp(self.curAzimuthRad, self.minAzimuthAbsoluteRad, self.maxAzimuthAbsoluteRad)
@@ -373,14 +401,16 @@ function OrbitalCamera:Update(dt)
 				self.curAzimuthRad = (self.curAzimuthRad ~= 0) and (math.sign(self.curAzimuthRad) * (math.abs(self.curAzimuthRad) % TAU)) or 0
 			end
 
-			self.curElevationRad = math.clamp(self.curElevationRad + self.rotateInput.y, self.minElevationRad, self.maxElevationRad)
+			self.curElevationRad = math.clamp(self.curElevationRad + flaggedRotateInput.y, self.minElevationRad, self.maxElevationRad)
 
 			local cameraPosVector = self.currentSubjectDistance * ( CFrame.fromEulerAnglesYXZ( -self.curElevationRad, self.curAzimuthRad, 0 ) * UNIT_Z )
 			local camPos = subjectPosition + cameraPosVector
 
 			newCameraCFrame = CFrame.new(camPos, subjectPosition)
-
-			self.rotateInput = ZERO_VECTOR2
+			
+			if not FFlagUserCameraInputRefactor then
+				self.rotateInput = ZERO_VECTOR2
+			end
 		end
 
 		self.lastCameraTransform = newCameraCFrame

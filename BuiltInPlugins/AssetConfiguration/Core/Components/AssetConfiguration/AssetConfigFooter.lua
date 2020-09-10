@@ -50,7 +50,6 @@ local AssetConfigFooter = Roact.PureComponent:extend("AssetConfigFooter")
 
 local FFlagSupportAnimImportByID = game:DefineFastFlag("SupportAnimImportByID", false)
 local FFlagEnableOverrideAssetCursorFix = game:GetFastFlag("EnableOverrideAssetCursorFix")
-local FFlagStudioUseNewAnimationImportExportFlow = settings():GetFFlag("StudioUseNewAnimationImportExportFlow")
 
 local BUTTON_HEIGHT = 32
 local BUTTON_WIDTH = 120
@@ -120,7 +119,7 @@ function AssetConfigFooter:render()
 				end
 			end
 
-			local useNewAnimFlow = FFlagSupportAnimImportByID and FFlagStudioUseNewAnimationImportExportFlow and assetTypeEnum == Enum.AssetType.Animation and ConfigTypes:isOverride(currentTab)
+			local useNewAnimFlow = FFlagSupportAnimImportByID and assetTypeEnum == Enum.AssetType.Animation and ConfigTypes:isOverride(currentTab)
 			local isDownloadFlow = useNewAnimFlow and AssetConfigConstants.FLOW_TYPE.DOWNLOAD_FLOW == props.screenFlowType
 
 			local publishActive = canSave

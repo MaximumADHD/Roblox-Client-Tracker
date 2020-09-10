@@ -29,6 +29,11 @@ local MOTOR_OPTIONS = {
     frequency = 4,
 }
 
+local RENDER_OUTSIDE_WINDOW_ELEMENTS = 3
+
+local FFlagExtendPlayerScrollListWindowingForGamepadSelection = game:DefineFastFlag(
+	"ExtendPlayerScrollListWindowingForGamepadSelection", false)
+
 local PlayerListDisplay = Roact.PureComponent:extend("PlayerListDisplay")
 
 PlayerListDisplay.validateProps = t.strictInterface({
@@ -119,11 +124,21 @@ function PlayerListDisplay:init()
 end
 
 function PlayerListDisplay:inVerticalScrollWindow(position, size)
-	if position + size < self.state.lastCanvasPosition.Y then
+	local lowerBound = position + size
+	if FFlagExtendPlayerScrollListWindowingForGamepadSelection then
+		lowerBound = lowerBound + (size * RENDER_OUTSIDE_WINDOW_ELEMENTS)
+	end
+
+	if lowerBound < self.state.lastCanvasPosition.Y then
 		return false
 	end
 
-	if position > self.state.lastCanvasPosition.Y + self.state.containerSizeY then
+	local upperBound = position
+	if FFlagExtendPlayerScrollListWindowingForGamepadSelection then
+		upperBound = upperBound - (size * RENDER_OUTSIDE_WINDOW_ELEMENTS)
+	end
+
+	if upperBound > self.state.lastCanvasPosition.Y + self.state.containerSizeY then
 		return false
 	end
 

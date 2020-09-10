@@ -1,13 +1,14 @@
 local Plugin = script.Parent.Parent.Parent
-local TestHelpers = Plugin.Src.TestHelpers
-local Packages = Plugin.Packages
+
+local Framework = require(Plugin.Packages.Framework)
+local Rodux = require(Plugin.Packages.Rodux)
+
+local testImmutability = Framework.TestHelpers.testImmutability
+
+local ConvertPartTool = require(script.Parent.ConvertPartTool)
 
 local TerrainEnums = require(Plugin.Src.Util.TerrainEnums)
 local ConvertMode = TerrainEnums.ConvertMode
-
-local ConvertPartTool = require(script.Parent.ConvertPartTool)
-local testImmutability = require(TestHelpers.testImmutability)
-local Rodux = require(Packages.Rodux)
 
 local Actions = Plugin.Src.Actions
 local SetConvertMode = require(Actions.SetConvertMode)

@@ -6,7 +6,6 @@ local getUserId = require(Util.getUserId)
 local Urls = require(Util.Urls)
 
 local DFIntFileMaxSizeBytes = tonumber(settings():GetFVariable("FileMaxSizeBytes"))
-local FFlagStudioUseNewAnimationImportExportFlow = settings():GetFFlag("StudioUseNewAnimationImportExportFlow")
 
 local FFlagRemoveNilInstances = game:GetFastFlag("RemoveNilInstances")
 
@@ -124,7 +123,7 @@ end
 function AssetConfigUtil.getFlowStartScreen(flowType)
 	if flowType == AssetConfigConstants.FLOW_TYPE.UPLOAD_FLOW then
 		return AssetConfigConstants.SCREENS.ASSET_TYPE_SELECTION
-	elseif flowType == AssetConfigConstants.FLOW_TYPE.EDIT_FLOW or (FFlagStudioUseNewAnimationImportExportFlow and flowType == AssetConfigConstants.FLOW_TYPE.DOWNLOAD_FLOW) then
+	elseif flowType == AssetConfigConstants.FLOW_TYPE.EDIT_FLOW or flowType == AssetConfigConstants.FLOW_TYPE.DOWNLOAD_FLOW then
 		return AssetConfigConstants.SCREENS.CONFIGURE_ASSET
 	end
 end

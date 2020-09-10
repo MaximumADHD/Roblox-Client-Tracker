@@ -14,13 +14,19 @@
 		See LabeledTextInput for more
 ]]
 
-local Plugin = script.Parent.Parent.Parent.Parent.Parent
-local Roact = require(Plugin.Packages.Roact)
-local Cryo = require(Plugin.Packages.Cryo)
-local UILibrary = require(Plugin.Packages.UILibrary)
+local FFlagTerrainToolsUseDevFramework = game:GetFastFlag("TerrainToolsUseDevFramework")
 
-local Localizing = UILibrary.Localizing
-local getLocalization = Localizing.getLocalization
+local Plugin = script.Parent.Parent.Parent.Parent.Parent
+
+local Framework = require(Plugin.Packages.Framework)
+local Cryo = require(Plugin.Packages.Cryo)
+local Roact = require(Plugin.Packages.Roact)
+local UILibrary = not FFlagTerrainToolsUseDevFramework and require(Plugin.Packages.UILibrary) or nil
+
+local ContextServices = FFlagTerrainToolsUseDevFramework and Framework.ContextServices or nil
+local ContextItems = FFlagTerrainToolsUseDevFramework and require(Plugin.Src.ContextItems) or nil
+
+local getUILibraryLocalization = not FFlagTerrainToolsUseDevFramework and UILibrary.Localizing.getLocalization or nil
 
 local ToolParts = script.Parent
 local LabeledTextInput = require(ToolParts.LabeledTextInput)
@@ -58,6 +64,14 @@ function NumberTextInput:init(props)
 		return newText
 	end
 
+	self.getLocalization = function()
+		if FFlagTerrainToolsUseDevFramework then
+			return self.props.Localization:get()
+		else
+			return getUILibraryLocalization(self)
+		end
+	end
+
 	self.isTextValid = function(text)
 		local number = tonumber(text)
 
@@ -67,16 +81,16 @@ function NumberTextInput:init(props)
 		if number then
 			if self.props.Min and number < self.props.Min then
 				isValid = false
-				warningMessage = getLocalization(self):getText("Warning", "MinimumSize", self.props.Min)
+				warningMessage = self.getLocalization():getText("Warning", "MinimumSize", self.props.Min)
 			elseif self.props.Max and number > self.props.Max then
 				isValid = false
-				warningMessage = getLocalization(self):getText("Warning", "MaximumSize", self.props.Max)
+				warningMessage = self.getLocalization():getText("Warning", "MaximumSize", self.props.Max)
 			else
 				isValid = true
 			end
 		else
 			isValid = false
-			warningMessage = getLocalization(self):getText("Warning", "InvalidNumber")
+			warningMessage = self.getLocalization():getText("Warning", "InvalidNumber")
 		end
 
 		if isValid then
@@ -121,6 +135,12 @@ function NumberTextInput:render()
 	})
 
 	return Roact.createElement(LabeledTextInput, newProps)
+end
+
+if FFlagTerrainToolsUseDevFramework then
+	ContextServices.mapToProps(NumberTextInput, {
+		Localization = ContextItems.UILibraryLocalization,
+	})
 end
 
 return NumberTextInput

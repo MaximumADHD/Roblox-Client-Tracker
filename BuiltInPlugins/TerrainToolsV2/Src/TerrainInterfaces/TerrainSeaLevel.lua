@@ -2,14 +2,14 @@ local FFlagTerrainToolsUseDevFramework = game:GetFastFlag("TerrainToolsUseDevFra
 
 local Plugin = script.Parent.Parent.Parent
 
-local Framework = Plugin.Packages.Framework
+local Framework = require(Plugin.Packages.Framework)
 local Roact = require(Plugin.Packages.Roact)
 local UILibrary = not FFlagTerrainToolsUseDevFramework and require(Plugin.Packages.UILibrary) or nil
 
-local ContextItem = FFlagTerrainToolsUseDevFramework and require(Framework.ContextServices.ContextItem) or nil
-local Provider = FFlagTerrainToolsUseDevFramework and require(Framework.ContextServices.Provider) or nil
+local ContextItem = FFlagTerrainToolsUseDevFramework and Framework.ContextServices.ContextItem or nil
+local Provider = FFlagTerrainToolsUseDevFramework and Framework.ContextServices.Provider or nil
 
-local FrameworkUtil = FFlagTerrainToolsUseDevFramework and require(Framework.Util) or nil
+local FrameworkUtil = FFlagTerrainToolsUseDevFramework and Framework.Util or nil
 local Signal = FFlagTerrainToolsUseDevFramework and FrameworkUtil.Signal or UILibrary.Util.Signal
 
 local Constants = require(Plugin.Src.Util.Constants)
@@ -35,17 +35,25 @@ function TerrainSeaLevel.new(options)
 
 		_replacing = false,
 		_replacingProgress = 0,
-
-		_progressChanged = Signal.new(),
-		_stateChange = Signal.new(),
 	}, TerrainSeaLevel)
 
 	assert(self._terrain, "TerrainSeaLevel.new() requires a terrain instance")
 
+	if FFlagTerrainToolsUseDevFramework then
+		self._updateSignal = Signal.new()
+	else
+		self._progressChanged = Signal.new()
+		self._stateChange = Signal.new()
+	end
+
 	self._setReplacing = function(state)
 		if state ~= self._replacing then
 			self._replacing = state
-			self._stateChange:Fire(state)
+			if FFlagTerrainToolsUseDevFramework then
+				self._updateSignal:Fire()
+			else
+				self._stateChange:Fire(state)
+			end
 		end
 
 		if state == false then
@@ -55,7 +63,11 @@ function TerrainSeaLevel.new(options)
 
 	self._updateReplaceProgress = function(completionPercent)
 		self._replaceProgress = completionPercent
-		self._progressChanged:Fire(completionPercent)
+		if FFlagTerrainToolsUseDevFramework then
+			self._updateSignal:Fire()
+		else
+			self._progressChanged:Fire(completionPercent)
+		end
 		if completionPercent >= 1 then
 			self._setReplacing(false)
 		end
@@ -68,6 +80,7 @@ if FFlagTerrainToolsUseDevFramework then
 	function TerrainSeaLevel:createProvider(root)
 		return Roact.createElement(Provider, {
 			ContextItem = self,
+			UpdateSignal = self._updateSignal,
 		}, {root})
 	end
 end

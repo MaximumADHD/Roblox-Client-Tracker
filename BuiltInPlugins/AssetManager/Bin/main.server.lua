@@ -7,6 +7,7 @@ local OverrideLocaleId = settings():GetFVariable("StudioForceLocale")
 
 local FFlagAssetManagerLuaPlugin = settings():GetFFlag("AssetManagerLuaPlugin")
 local FFlagAssetManagerAddAnalytics = game:DefineFastFlag("AssetManagerAddAnalytics", false)
+local FFlagStudioAssetManagerAddRecentlyImportedView = game:GetFastFlag("StudioAssetManagerAddRecentlyImportedView")
 
 if not FFlagAssetManagerLuaPlugin then
 	return
@@ -19,6 +20,7 @@ local StudioService = game:GetService("StudioService")
 local Plugin = script.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local Rodux = require(Plugin.Packages.Rodux)
+local Cryo = require(Plugin.Packages.Cryo)
 
 -- context services
 local ContextServices = require(Plugin.Packages.Framework.ContextServices)
@@ -44,6 +46,7 @@ local TranslationReferenceTable = Plugin.Src.Resources.TranslationReferenceTable
 local MainView = require(Plugin.Src.Components.MainView)
 
 local SetBulkImporterRunning = require(Plugin.Src.Actions.SetBulkImporterRunning)
+local SetRecentAssets = require(Plugin.Src.Actions.SetRecentAssets)
 
 local PLUGIN_NAME = "AssetManager"
 local TOOLBAR_NAME = "assetManagerToolbar"
@@ -111,6 +114,19 @@ local function connectBulkImporterSignals()
 	BulkImportService.BulkImportFinished:connect(function(state)
 		store:dispatch(SetBulkImporterRunning(false))
 	end)
+	if FFlagStudioAssetManagerAddRecentlyImportedView then
+		BulkImportService.AssetImported:connect(function(assetType, name, id)
+			local state = store:getState()
+			local recentAssets = Cryo.List.join(state.AssetManagerReducer.recentAssets, {
+				{
+					assetType = assetType,
+					name = name,
+					id = id,
+				},
+			})
+			store:dispatch(SetRecentAssets(recentAssets))
+		end)
+	end
 end
 
 --Binds a toolbar button

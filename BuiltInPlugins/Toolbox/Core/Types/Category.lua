@@ -2,7 +2,6 @@ local FFlagOnlyWhitelistedPluginsInStudio = settings():GetFFlag("OnlyWhitelisted
 local FFlagToolboxShowGroupCreations = game:DefineFastFlag("ToolboxShowGroupCreations", false)
 local FFlagFixToolboxPluginScaling = game:DefineFastFlag("FixToolboxPluginScaling", false)
 local FFlagUseCategoryNameInToolbox = game:GetFastFlag("UseCategoryNameInToolbox")
-local FFlagUseCategoryNameInToolboxFix1 = game:DefineFastFlag("UseCategoryNameInToolboxFix1", false)
 local FFlagEnableToolboxVideos = game:GetFastFlag("EnableToolboxVideos")
 local FFlagToolboxUseNewPluginEndpoint = settings():GetFFlag("ToolboxUseNewPluginEndpoint")
 local FFlagFixGroupPackagesCategoryInToolbox = game:DefineFastFlag("FixGroupPackagesCategoryInToolbox", false)
@@ -274,20 +273,16 @@ Category.INVENTORY_KEY = "Inventory"
 Category.RECENT_KEY = "Recent"
 Category.CREATIONS_KEY = "Creations"
 
-if FFlagUseCategoryNameInToolboxFix1 then
-
-	table.insert(Category.INVENTORY, Category.MY_PLUGINS)
-	if FFlagOnlyWhitelistedPluginsInStudio then
-		table.insert(Category.MARKETPLACE, Category.WHITELISTED_PLUGINS)
-	else
-		table.insert(Category.MARKETPLACE, Category.FREE_PLUGINS)
-	end
-	local insertIndex = Cryo.List.find(Category.INVENTORY_WITH_GROUPS, Category.MY_PACKAGES) + 1
-	table.insert(Category.INVENTORY_WITH_GROUPS, insertIndex, Category.MY_PLUGINS)
-	local insertIndex2 = Cryo.List.find(Category.INVENTORY_WITH_GROUPS, Category.GROUP_AUDIO) + 1
-	table.insert(Category.INVENTORY_WITH_GROUPS, insertIndex2, Category.GROUP_PLUGINS)
-
+table.insert(Category.INVENTORY, Category.MY_PLUGINS)
+if FFlagOnlyWhitelistedPluginsInStudio then
+	table.insert(Category.MARKETPLACE, Category.WHITELISTED_PLUGINS)
+else
+	table.insert(Category.MARKETPLACE, Category.FREE_PLUGINS)
 end
+local insertIndex = Cryo.List.find(Category.INVENTORY_WITH_GROUPS, Category.MY_PACKAGES) + 1
+table.insert(Category.INVENTORY_WITH_GROUPS, insertIndex, Category.MY_PLUGINS)
+local insertIndex2 = Cryo.List.find(Category.INVENTORY_WITH_GROUPS, Category.GROUP_AUDIO) + 1
+table.insert(Category.INVENTORY_WITH_GROUPS, insertIndex2, Category.GROUP_PLUGINS)
 
 if FFlagUseCategoryNameInToolbox then
 	local tabForCategoryName = {}
@@ -365,21 +360,6 @@ if FFlagUseCategoryNameInToolbox then
 		end
 		return 1
 	end
-end
-
-if not FFlagUseCategoryNameInToolboxFix1 then
-
-	table.insert(Category.INVENTORY, Category.MY_PLUGINS)
-	if FFlagOnlyWhitelistedPluginsInStudio then
-		table.insert(Category.MARKETPLACE, Category.WHITELISTED_PLUGINS)
-	else
-		table.insert(Category.MARKETPLACE, Category.FREE_PLUGINS)
-	end
-	local insertIndex = Cryo.List.find(Category.INVENTORY_WITH_GROUPS, Category.MY_PACKAGES) + 1
-	table.insert(Category.INVENTORY_WITH_GROUPS, insertIndex, Category.MY_PLUGINS)
-	local insertIndex2 = Cryo.List.find(Category.INVENTORY_WITH_GROUPS, Category.GROUP_AUDIO) + 1
-	table.insert(Category.INVENTORY_WITH_GROUPS, insertIndex2, Category.GROUP_PLUGINS)
-
 end
 
 if FFlagUseCategoryNameInToolbox then

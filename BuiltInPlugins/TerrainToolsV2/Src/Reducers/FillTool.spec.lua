@@ -1,10 +1,11 @@
 local Plugin = script.Parent.Parent.Parent
-local TestHelpers = Plugin.Src.TestHelpers
-local Packages = Plugin.Packages
+
+local Framework = require(Plugin.Packages.Framework)
+local Rodux = require(Plugin.Packages.Rodux)
+
+local testImmutability = Framework.TestHelpers.testImmutability
 
 local FillTool = require(script.Parent.FillTool)
-local testImmutability = require(TestHelpers.testImmutability)
-local Rodux = require(Packages.Rodux)
 
 local Actions = Plugin.Src.Actions
 local SetMergeEmpty = require(Actions.SetMergeEmpty)

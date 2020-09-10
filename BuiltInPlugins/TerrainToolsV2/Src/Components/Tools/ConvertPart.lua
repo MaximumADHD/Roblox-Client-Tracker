@@ -1,12 +1,17 @@
+local FFlagTerrainToolsUseDevFramework = game:GetFastFlag("TerrainToolsUseDevFramework")
+
 local Plugin = script.Parent.Parent.Parent.Parent
 
+local Framework = require(Plugin.Packages.Framework)
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
-local UILibrary = require(Plugin.Packages.UILibrary)
+local UILibrary = not FFlagTerrainToolsUseDevFramework and require(Plugin.Packages.UILibrary) or nil
 
-local withLocalization = UILibrary.Localizing.withLocalization
+local ContextServices = FFlagTerrainToolsUseDevFramework and Framework.ContextServices or nil
+local ContextItems = FFlagTerrainToolsUseDevFramework and require(Plugin.Src.ContextItems) or nil
+local StudioPlugin = not FFlagTerrainToolsUseDevFramework and require(Plugin.Src.ContextServices.StudioPlugin) or nil
 
-local StudioPlugin = require(Plugin.Src.ContextServices.StudioPlugin)
+local withLocalization = not FFlagTerrainToolsUseDevFramework and UILibrary.Localizing.withLocalization or nil
 
 local ToolParts = Plugin.Src.Components.Tools.ToolParts
 local BiomeSettingsFragment = require(ToolParts.BiomeSettingsFragment)
@@ -24,7 +29,9 @@ local TerrainEnums = require(Plugin.Src.Util.TerrainEnums)
 local ConvertMode = TerrainEnums.ConvertMode
 local ConvertPartWarning = TerrainEnums.ConvertPartWarning
 
-local TerrainInterface = require(Plugin.Src.ContextServices.TerrainInterface)
+local TerrainInterface = not FFlagTerrainToolsUseDevFramework and require(Plugin.Src.ContextServices.TerrainInterface)
+	or nil
+
 local PartConverter = require(Plugin.Src.TerrainInterfaces.PartConverter)
 local PartConverterUtil = require(Plugin.Src.Util.PartConverterUtil)
 local PartSelectionModel = require(Plugin.Src.Util.PartSelectionModel)
@@ -62,7 +69,6 @@ local WARNING_ORDER = {
 local ConvertPart = Roact.PureComponent:extend(script.Name)
 
 function ConvertPart:init()
-	self.partConverter = TerrainInterface.getPartConverter(self)
 	self.partSelectionModel = PartSelectionModel.new({
 		getSelection = function()
 			return SelectionService:Get()
@@ -73,15 +79,23 @@ function ConvertPart:init()
 
 	self.connections = {}
 
-	self.state = {
-		hasValidInstances = self.partSelectionModel:hasValidInstances(),
-		warnings = self.partSelectionModel:getWarnings(),
+	if FFlagTerrainToolsUseDevFramework then
+		self.state = {
+			hasValidInstances = self.partSelectionModel:hasValidInstances(),
+			warnings = self.partSelectionModel:getWarnings(),
+		}
+	else
+		self.partConverter = TerrainInterface.getPartConverter(self)
+		self.state = {
+			hasValidInstances = self.partSelectionModel:hasValidInstances(),
+			warnings = self.partSelectionModel:getWarnings(),
 
-		progress = self.partConverter:getProgress(),
-		isRunning = self.partConverter:isRunning(),
-		isPaused = self.partConverter:isPaused(),
-		convertState = self.partConverter:getConvertState(),
-	}
+			progress = self.partConverter:getProgress(),
+			isRunning = self.partConverter:isRunning(),
+			isPaused = self.partConverter:isPaused(),
+			convertState = self.partConverter:getConvertState(),
+		}
+	end
 
 	self.selectBiome = function(biome)
 		local biomes = self.props.biomeSelection
@@ -112,7 +126,8 @@ function ConvertPart:init()
 	end
 
 	self.onConvertBiomeClicked = function()
-		self.partConverter:convertInstancesToBiome(
+		local partConverter = FFlagTerrainToolsUseDevFramework and self.props.PartConverter or self.partConverter
+		partConverter:convertInstancesToBiome(
 			self.partSelectionModel:getValidInstancesSet(),
 			{
 				biomeSelection = self.props.biomeSelection,
@@ -125,7 +140,8 @@ function ConvertPart:init()
 	end
 
 	self.onConvertMaterialClicked = function()
-		self.partConverter:convertInstancesToMaterial(
+		local partConverter = FFlagTerrainToolsUseDevFramework and self.props.PartConverter or self.partConverter
+		partConverter:convertInstancesToMaterial(
 			self.partSelectionModel:getValidInstancesSet(),
 			self.props.convertMaterial
 		)
@@ -140,11 +156,13 @@ function ConvertPart:init()
 	end
 
 	self.onPauseClicked = function()
-		self.partConverter:togglePause()
+		local partConverter = FFlagTerrainToolsUseDevFramework and self.props.PartConverter or self.partConverter
+		partConverter:togglePause()
 	end
 
 	self.onCancelClicked = function()
-		self.partConverter:cancel()
+		local partConverter = FFlagTerrainToolsUseDevFramework and self.props.PartConverter or self.partConverter
+		partConverter:cancel()
 	end
 
 	self.onSelectionChanged = function()
@@ -162,7 +180,7 @@ function ConvertPart:init()
 					if self.midPlanePreview then
 						self.midPlanePreview:updatePlaneScaling(min,max)
 					else
-						local plugin = StudioPlugin.getPlugin(self)
+						local plugin = FFlagTerrainToolsUseDevFramework and self.props.Plugin or StudioPlugin.getPlugin(self)
 						self.midPlanePreview = MidPlanePreview.new(plugin, Workspace, min, max)
 						local mid = (min + max) * 0.5
 						self.setPlanePositionY(mid.y)
@@ -181,38 +199,42 @@ function ConvertPart:init()
 end
 
 function ConvertPart:didMount()
-	self.connections.convertStateChangedConnection = self.partConverter:subscribeToConvertStateChanged(
-		function(convertState)
-		self:setState({
-			convertState = convertState,
-		})
-	end)
+	local partConverter = FFlagTerrainToolsUseDevFramework and self.props.PartConverter or self.partConverter
 
-	self.connections.runningChangedConnection = self.partConverter:subscribeToRunningChanged(function(running)
-		if not running then
+	if not FFlagTerrainToolsUseDevFramework then
+		self.connections.convertStateChangedConnection = partConverter:subscribeToConvertStateChanged(
+			function(convertState)
 			self:setState({
-				isRunning = running,
-				progress = 0,
-				isPaused = false,
+				convertState = convertState,
 			})
-		else
+		end)
+
+		self.connections.runningChangedConnection = partConverter:subscribeToRunningChanged(function(running)
+			if not running then
+				self:setState({
+					isRunning = running,
+					progress = 0,
+					isPaused = false,
+				})
+			else
+				self:setState({
+					isRunning = running,
+				})
+			end
+		end)
+
+		self.connections.progressChangedConnection = partConverter:subscribeToProgressChanged(function(progress)
 			self:setState({
-				isRunning = running,
+				progress = progress,
 			})
-		end
-	end)
+		end)
 
-	self.connections.progressChangedConnection = self.partConverter:subscribeToProgressChanged(function(progress)
-		self:setState({
-			progress = progress,
-		})
-	end)
-
-	self.connections.pausedChangedConnection = self.partConverter:subscribeToPausedChanged(function(paused)
-		self:setState({
-			isPaused = paused,
-		})
-	end)
+		self.connections.pausedChangedConnection = partConverter:subscribeToPausedChanged(function(paused)
+			self:setState({
+				isPaused = paused,
+			})
+		end)
+	end
 
 	self.connections.selectionStateChangedConnection = self.partSelectionModel:subscribeToSelectionStateChanged(function()
 		self:onSelectionChanged()
@@ -223,7 +245,7 @@ function ConvertPart:didMount()
 		})
 	end)
 
-	self.partConverter:setSelectionModel(self.partSelectionModel)
+	partConverter:setSelectionModel(self.partSelectionModel)
 	self.onSelectionChanged()
 end
 
@@ -232,7 +254,8 @@ function ConvertPart:didUpdate()
 end
 
 function ConvertPart:willUnmount()
-	self.partConverter:setSelectionModel(nil)
+	local partConverter = FFlagTerrainToolsUseDevFramework and self.props.PartConverter or self.partConverter
+	partConverter:setSelectionModel(nil)
 
 	for _, connection in pairs(self.connections) do
 		connection:Disconnect()
@@ -249,156 +272,188 @@ function ConvertPart:willUnmount()
 	end
 end
 
-function ConvertPart:render()
-	return withLocalization(function(localization)
-		local isRunning = self.state.isRunning
-		local convertMode = self.props.convertMode
+function ConvertPart:_render(localization)
+	local progress
+	local isRunning
+	local isPaused
+	local convertState
 
-		local infoLabelText = ""
-		local infoLabelType = InfoLabel.Info
-		local showInfoLabel = false
-		local convertButtonActive = false
+	if FFlagTerrainToolsUseDevFramework then
+		isRunning = self.props.PartConverter:isRunning()
+		progress = isRunning and self.props.PartConverter:getProgress() or 0
+		isPaused = isRunning and self.props.PartConverter:isPaused() or false
+		convertState = self.props.PartConverter:getConvertState()
+	else
+		progress = self.state.progress
+		isRunning = self.state.isRunning
+		isPaused = self.state.isPaused
+		convertState = self.state.convertState
+	end
 
-		if isRunning then
-			showInfoLabel = false
+	local convertMode = self.props.convertMode
 
-		else
-			local hasValid = self.state.hasValidInstances
-			local warnings = self.state.warnings
-			local hasWarnings = not not next(warnings)
+	local infoLabelText = ""
+	local infoLabelType = InfoLabel.Info
+	local showInfoLabel = false
+	local convertButtonActive = false
 
-			if hasWarnings then
-				local orderedWarningsToShow = {}
-				for _, warning in ipairs(WARNING_ORDER) do
-					if warnings[warning] then
-						table.insert(orderedWarningsToShow, localization:getText("ConvertPart", warning))
-					end
-				end
-				infoLabelText = table.concat(orderedWarningsToShow, "\n")
-				showInfoLabel = true
+	if isRunning then
+		showInfoLabel = false
 
-				if hasValid then
-					infoLabelType = InfoLabel.Warning
-					convertButtonActive = true
-				else
-					infoLabelType = InfoLabel.Error
-					convertButtonActive = false
-				end
+	else
+		local hasValid = self.state.hasValidInstances
+		local warnings = self.state.warnings
+		local hasWarnings = not not next(warnings)
 
-			else
-				if hasValid then
-					convertButtonActive = true
-				else
-					infoLabelText = localization:getText("ConvertPart", "SelectionHelp")
-					showInfoLabel = true
-					convertButtonActive = false
+		if hasWarnings then
+			local orderedWarningsToShow = {}
+			for _, warning in ipairs(WARNING_ORDER) do
+				if warnings[warning] then
+					table.insert(orderedWarningsToShow, localization:getText("ConvertPart", warning))
 				end
 			end
+			infoLabelText = table.concat(orderedWarningsToShow, "\n")
+			showInfoLabel = true
+
+			if hasValid then
+				infoLabelType = InfoLabel.Warning
+				convertButtonActive = true
+			else
+				infoLabelType = InfoLabel.Error
+				convertButtonActive = false
+			end
+
+		else
+			if hasValid then
+				convertButtonActive = true
+			else
+				infoLabelText = localization:getText("ConvertPart", "SelectionHelp")
+				showInfoLabel = true
+				convertButtonActive = false
+			end
 		end
+	end
 
-		local showHeightPicker = self.midPlanePreview ~= nil
-		local planePositionY = self.props.planePositionY
-		local heightPicker = self.props.heightPicker
+	local showHeightPicker = self.midPlanePreview ~= nil
+	local planePositionY = self.props.planePositionY
+	local heightPicker = self.props.heightPicker
 
-		local biomeSelection = self.props.biomeSelection
-		local biomeSize = self.props.biomeSize
-		local haveCaves = self.props.haveCaves
-		local seed = self.props.seed
+	local biomeSelection = self.props.biomeSelection
+	local biomeSize = self.props.biomeSize
+	local haveCaves = self.props.haveCaves
+	local seed = self.props.seed
 
-		local localizedConvertState = ""
-		if self.state.convertState ~= PartConverter.NOT_RUNNING_CONVERT_STATE then
-			localizedConvertState = localization:getText("ConvertPart", self.state.convertState)
-		end
+	local localizedConvertState = ""
+	if convertState ~= PartConverter.NOT_RUNNING_CONVERT_STATE then
+		localizedConvertState = localization:getText("ConvertPart", convertState)
+	end
 
-		-- remove if we want to enable biome convert
-		if not self.props.enableBiome then
-			convertMode = ConvertMode.Material
-		end
+	-- remove if we want to enable biome convert
+	if not self.props.enableBiome then
+		convertMode = ConvertMode.Material
+	end
 
-		return Roact.createFragment({
-			MapSettings = Roact.createElement(Panel, {
-				Title = localization:getText("MaterialSettings", "MaterialSettings"),
+	return Roact.createFragment({
+		MapSettings = Roact.createElement(Panel, {
+			Title = localization:getText("MaterialSettings", "MaterialSettings"),
+			LayoutOrder = 1,
+		}, {
+			ConvertModeSelector = self.props.enableBiome and Roact.createElement(LabeledElementPair, {
+				Size = UDim2.new(1, 0, 0, 22),
+				Text = localization:getText("ConvertMode", "ConvertMode"),
 				LayoutOrder = 1,
 			}, {
-				ConvertModeSelector = self.props.enableBiome and Roact.createElement(LabeledElementPair, {
-					Size = UDim2.new(1, 0, 0, 22),
-					Text = localization:getText("ConvertMode", "ConvertMode"),
-					LayoutOrder = 1,
-				}, {
-					Roact.createElement(SingleSelectButtonGroup, {
-						Size = UDim2.new(0, 141, 0, 22),
-						Selected = convertMode,
-						Select = self.props.dispatchSetConvertMode,
+				Roact.createElement(SingleSelectButtonGroup, {
+					Size = UDim2.new(0, 141, 0, 22),
+					Selected = convertMode,
+					Select = self.props.dispatchSetConvertMode,
 
-						Options = {
-							{
-								Text = localization:getText("ConvertMode", "Biome"),
-								Data = ConvertMode.Biome,
-							}, {
-								Text = localization:getText("ConvertMode", "Material"),
-								Data = ConvertMode.Material,
-							},
-						}
-					}),
-				}),
-
-				BiomeSettingsFragment = convertMode == ConvertMode.Biome and Roact.createElement(BiomeSettingsFragment, {
-					LayoutOrder = 2,
-					biomeSelection = biomeSelection,
-					selectBiome = self.selectBiome,
-					biomeSize = biomeSize,
-					setBiomeSize = self.props.dispatchSetBiomeSize,
-					showHeightPicker = showHeightPicker,
-					planePositionY = planePositionY,
-					setPlanePositionY = self.setPlanePositionY,
-					heightPicker = heightPicker,
-					setHeightPicker = self.setHeightPicker,
-					haveCaves = haveCaves,
-					setHaveCaves = self.props.dispatchSetHaveCaves,
-				}),
-
-				MaterialSettingsFragment = convertMode == ConvertMode.Material and Roact.createElement(MaterialSettingsFragment, {
-					LayoutOrder = 2,
-					AllowAir = true,
-					material = self.props.convertMaterial,
-					setMaterial = self.props.dispatchSetConvertMaterial,
+					Options = {
+						{
+							Text = localization:getText("ConvertMode", "Biome"),
+							Data = ConvertMode.Biome,
+						}, {
+							Text = localization:getText("ConvertMode", "Material"),
+							Data = ConvertMode.Material,
+						},
+					}
 				}),
 			}),
 
-			OtherGenerateSettings = convertMode == ConvertMode.Biome and Roact.createElement(OtherGenerateSettings, {
+			BiomeSettingsFragment = convertMode == ConvertMode.Biome and Roact.createElement(BiomeSettingsFragment, {
 				LayoutOrder = 2,
-				seed = seed,
-				setSeed = self.props.dispatchSetSeed,
+				biomeSelection = biomeSelection,
+				selectBiome = self.selectBiome,
+				biomeSize = biomeSize,
+				setBiomeSize = self.props.dispatchSetBiomeSize,
+				showHeightPicker = showHeightPicker,
+				planePositionY = planePositionY,
+				setPlanePositionY = self.setPlanePositionY,
+				heightPicker = heightPicker,
+				setHeightPicker = self.setHeightPicker,
+				haveCaves = haveCaves,
+				setHaveCaves = self.props.dispatchSetHaveCaves,
 			}),
 
-			Label = showInfoLabel and Roact.createElement(InfoLabel, {
-				LayoutOrder = 3,
-				Text = infoLabelText,
-				Type = infoLabelType,
+			MaterialSettingsFragment = convertMode == ConvertMode.Material and Roact.createElement(MaterialSettingsFragment, {
+				LayoutOrder = 2,
+				AllowAir = true,
+				material = self.props.convertMaterial,
+				setMaterial = self.props.dispatchSetConvertMaterial,
 			}),
+		}),
 
-			ButtonGroup = Roact.createElement(ButtonGroup, {
-				LayoutOrder = 4,
-				Buttons = {
-					{
-						Key = "Convert",
-						Name = localization:getText("ConvertPart", "Convert"),
-						Active = convertButtonActive,
-						OnClicked = self.onConvertClicked,
-					},
-				}
-			}),
+		OtherGenerateSettings = convertMode == ConvertMode.Biome and Roact.createElement(OtherGenerateSettings, {
+			LayoutOrder = 2,
+			seed = seed,
+			setSeed = self.props.dispatchSetSeed,
+		}),
 
-			ConvertProgressFrame = isRunning and Roact.createElement(ConvertProgressFrame, {
-				Progress = self.state.progress,
-				IsPaused = self.state.isPaused,
+		Label = showInfoLabel and Roact.createElement(InfoLabel, {
+			LayoutOrder = 3,
+			Text = infoLabelText,
+			Type = infoLabelType,
+		}),
 
-				Title = localizedConvertState,
-				OnPauseRequested = self.onPauseClicked,
-				OnCancelRequested = self.onCancelClicked,
-			}),
-		})
-	end)
+		ButtonGroup = Roact.createElement(ButtonGroup, {
+			LayoutOrder = 4,
+			Buttons = {
+				{
+					Key = "Convert",
+					Name = localization:getText("ConvertPart", "Convert"),
+					Active = convertButtonActive,
+					OnClicked = self.onConvertClicked,
+				},
+			}
+		}),
+
+		ConvertProgressFrame = isRunning and Roact.createElement(ConvertProgressFrame, {
+			Progress = progress,
+			IsPaused = isPaused,
+
+			Title = localizedConvertState,
+			OnPauseRequested = self.onPauseClicked,
+			OnCancelRequested = self.onCancelClicked,
+		}),
+	})
+end
+
+function ConvertPart:render()
+	if FFlagTerrainToolsUseDevFramework then
+		return self:_render(self.props.Localization:get())
+	else
+		return withLocalization(function(localization)
+			return self:_render(localization)
+		end)
+	end
+end
+
+if FFlagTerrainToolsUseDevFramework then
+	ContextServices.mapToProps(ConvertPart, {
+		Plugin = ContextServices.Plugin,
+		Localization = ContextItems.UILibraryLocalization,
+		PartConverter = ContextItems.PartConverter,
+	})
 end
 
 local function mapStateToProps(state, props)

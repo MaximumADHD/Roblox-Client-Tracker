@@ -1,6 +1,7 @@
 game:DefineFastFlag("TerrainToolsTerrainCylinderOnSizeOne", false)
 
 local FFlagTerrainToolsTerrainCylinderOnSizeOne = game:GetFastFlag("TerrainToolsTerrainCylinderOnSizeOne")
+local FFlagTerrainToolsFixLargeSmoothAirFillerMaterial = game:GetFastFlag("TerrainToolsFixLargeSmoothAirFillerMaterial")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -141,8 +142,14 @@ local function performOperation(terrain, opSet)
 	local airFillerMaterial = materialAir
 	local waterHeight = 0
 
-	if ignoreWater and (tool == ToolId.Erode or tool == ToolId.Subtract) then
-		waterHeight, airFillerMaterial = OperationHelper.getWaterHeightAndAirFillerMaterial(readMaterials)
+	if FFlagTerrainToolsFixLargeSmoothAirFillerMaterial then
+		if ignoreWater then
+			waterHeight, airFillerMaterial = OperationHelper.getWaterHeightAndAirFillerMaterial(readMaterials)
+		end
+	else
+		if ignoreWater and (tool == ToolId.Erode or tool == ToolId.Subtract) then
+			waterHeight, airFillerMaterial = OperationHelper.getWaterHeightAndAirFillerMaterial(readMaterials)
+		end
 	end
 
 	local sizeX = table.getn(readOccupancies)

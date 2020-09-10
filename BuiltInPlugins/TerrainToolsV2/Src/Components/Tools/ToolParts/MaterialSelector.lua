@@ -8,13 +8,19 @@ Props:
 	AllowAir : boolean = false - Whether to show Air in the materials grid
 ]]
 
+local FFlagTerrainToolsUseDevFramework = game:GetFastFlag("TerrainToolsUseDevFramework")
+
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
+local Framework = require(Plugin.Packages.Framework)
 local Roact = require(Plugin.Packages.Roact)
-local UILibrary = require(Plugin.Packages.UILibrary)
+local UILibrary = not FFlagTerrainToolsUseDevFramework and require(Plugin.Packages.UILibrary) or nil
 
-local withLocalization = UILibrary.Localizing.withLocalization
-local withTheme = require(Plugin.Src.ContextServices.Theming).withTheme
+local ContextServices = FFlagTerrainToolsUseDevFramework and Framework.ContextServices or nil
+local ContextItems = FFlagTerrainToolsUseDevFramework and require(Plugin.Src.ContextItems) or nil
+
+local withLocalization = not FFlagTerrainToolsUseDevFramework and UILibrary.Localizing.withLocalization or nil
+local withTheme = not FFlagTerrainToolsUseDevFramework and require(Plugin.Src.ContextServices.Theming).withTheme or nil
 
 local TextService = game:GetService("TextService")
 
@@ -72,27 +78,41 @@ do
 		end
 	end
 
+	function MaterialTooltip:_render(theme)
+		local materialName = self.props.MaterialName
+		local tooltipSize = TextService:GetTextSize(materialName, theme.textSize, 0, Vector2.new())
+
+		return Roact.createElement("TextLabel", {
+			BackgroundTransparency = 0,
+			BackgroundColor3 = theme.backgroundColor,
+			Size = UDim2.new(0, tooltipSize.x + theme.padding * 2, 0, theme.textSize * 1.5),
+			AnchorPoint = Vector2.new(0.5, 0),
+			Position = UDim2.new(0.5, 0, 0, -theme.textSize),
+
+			Text = materialName,
+			TextSize = theme.textSize,
+			TextColor3 = theme.textColor,
+			Font = theme.textFont,
+			ZIndex = 5,
+
+			[Roact.Ref] = self.ref,
+		})
+	end
+
 	function MaterialTooltip:render()
-		return withTheme(function(theme)
-			local materialName = self.props.MaterialName
-			local tooltipSize = TextService:GetTextSize(materialName, theme.textSize, 0, Vector2.new())
+		if FFlagTerrainToolsUseDevFramework then
+			return self:_render(self.props.Theme:get())
+		else
+			return withTheme(function(theme)
+				return self:_render(theme)
+			end)
+		end
+	end
 
-			return Roact.createElement("TextLabel", {
-				BackgroundTransparency = 0,
-				BackgroundColor3 = theme.backgroundColor,
-				Size = UDim2.new(0, tooltipSize.x + theme.padding * 2, 0, theme.textSize * 1.5),
-				AnchorPoint = Vector2.new(0.5, 0),
-				Position = UDim2.new(0.5, 0, 0, -theme.textSize),
-
-				Text = materialName,
-				TextSize = theme.textSize,
-				TextColor3 = theme.textColor,
-				Font = theme.textFont,
-				ZIndex = 5,
-
-				[Roact.Ref] = self.ref,
-			})
-		end)
+	if FFlagTerrainToolsUseDevFramework then
+		ContextServices.mapToProps(MaterialTooltip, {
+			Theme = ContextItems.UILibraryTheme,
+		})
 	end
 
 	function MaterialButton:init(props)
@@ -109,40 +129,55 @@ do
 		end
 	end
 
+	function MaterialButton:_render(theme, localization)
+		local props = self.props
+		local layoutOrder = props.LayoutOrder
+		local material = props.Material
+
+		local isSelected = props.IsSelected
+		local isHovered = props.IsHovered
+
+		local image = MaterialDetails[material].image
+
+		local materialName
+		if isHovered then
+			materialName = localization:getText("Materials", material.Name)
+		end
+
+		return Roact.createElement("ImageButton", {
+			LayoutOrder = layoutOrder,
+			Image = TexturePath .. image,
+			BackgroundColor3 = theme.backgroundColor,
+			BorderSizePixel = isSelected and 2 or 0,
+			BorderColor3 = isSelected and theme.selectionBorderColor or theme.borderColor,
+
+			[Roact.Event.MouseEnter] = self.onMouseEnter,
+			[Roact.Event.MouseLeave] = self.onMouseLeave,
+			[Roact.Event.Activated] = self.selectMaterial,
+		}, {
+			Tooltip = isHovered and Roact.createElement(MaterialTooltip, {
+				MaterialName = materialName,
+			}),
+		})
+	end
+
 	function MaterialButton:render()
-		return withLocalization(function(localization)
-			return withTheme(function(theme)
-				local props = self.props
-				local layoutOrder = props.LayoutOrder
-				local material = props.Material
-
-				local isSelected = props.IsSelected
-				local isHovered = props.IsHovered
-
-				local image = MaterialDetails[material].image
-
-				local materialName
-				if isHovered then
-					materialName = localization:getText("Materials", material.Name)
-				end
-
-				return Roact.createElement("ImageButton", {
-					LayoutOrder = layoutOrder,
-					Image = TexturePath .. image,
-					BackgroundColor3 = theme.backgroundColor,
-					BorderSizePixel = isSelected and 2 or 0,
-					BorderColor3 = isSelected and theme.selectionBorderColor or theme.borderColor,
-
-					[Roact.Event.MouseEnter] = self.onMouseEnter,
-					[Roact.Event.MouseLeave] = self.onMouseLeave,
-					[Roact.Event.Activated] = self.selectMaterial,
-				}, {
-					Tooltip = isHovered and Roact.createElement(MaterialTooltip, {
-						MaterialName = materialName,
-					}),
-				})
+		if FFlagTerrainToolsUseDevFramework then
+			return self:_render(self.props.Theme:get(), self.props.Localization:get())
+		else
+			return withLocalization(function(localization)
+				return withTheme(function(theme)
+					return self:_render(theme, localization)
+				end)
 			end)
-		end)
+		end
+	end
+
+	if FFlagTerrainToolsUseDevFramework then
+		ContextServices.mapToProps(MaterialButton, {
+			Theme = ContextItems.UILibraryTheme,
+			Localization = ContextItems.UILibraryLocalization,
+		})
 	end
 end
 
@@ -168,75 +203,91 @@ function MaterialSelector:init(props)
 	end
 end
 
+function MaterialSelector:_render(theme, localization)
+	local layoutOrder = self.props.LayoutOrder or 1
+	local material = self.props.material
+
+	local allowAir = self.props.AllowAir
+
+	local materialsTable = {
+		UIGridLayout = Roact.createElement("UIGridLayout", {
+			CellSize = UDim2.new(0, 32, 0, 32),
+			CellPadding = UDim2.new(0, 9, 0, 9),
+			HorizontalAlignment = Enum.HorizontalAlignment.Center,
+			SortOrder = Enum.SortOrder.LayoutOrder,
+		}),
+
+		LayoutPadding = Roact.createElement("UIPadding", {
+			PaddingTop = UDim.new(0, 9),
+			PaddingBottom = UDim.new(0, 9),
+			PaddingLeft = UDim.new(0, 9),
+			PaddingRight = UDim.new(0, 9),
+		}),
+	}
+
+	local function createMaterialButton(index, materialEnum)
+		materialsTable[materialEnum.Name] = Roact.createElement(MaterialButton, {
+			LayoutOrder = index,
+			Material = materialEnum,
+			IsHovered = materialEnum == self.state.hoverMaterial,
+			IsSelected = material == materialEnum,
+
+			OnMouseEnter = self.onMouseEnterMaterial,
+			OnMouseLeave = self.onMouseLeaveMaterial,
+			SelectMaterial = self.selectMaterial,
+		})
+	end
+
+	for index, materialEnum in ipairs(materialsOrder) do
+		createMaterialButton(index, materialEnum)
+	end
+
+	if allowAir then
+		createMaterialButton(#materialsOrder + 1, Enum.Material.Air)
+	end
+
+	return Roact.createElement("Frame", {
+		LayoutOrder = layoutOrder,
+		Size = UDim2.new(0, 230, 0, 235),
+		Position = UDim2.new(0, 20, 0, 0),
+		BackgroundTransparency = 1,
+	}, {
+		Label = Roact.createElement("TextLabel", {
+			Text =  self.props.Label or localization:getText("MaterialSettings", "ChooseMaterial"),
+			TextColor3 = theme.textColor,
+			Size = UDim2.new(1, 0, 0, 16),
+			TextXAlignment = Enum.TextXAlignment.Left,
+			Position = UDim2.new(0, 20, 0, 0),
+			BackgroundTransparency = 1,
+		}),
+
+		Container = Roact.createElement("Frame", {
+			BackgroundColor3 = theme.backgroundColor,
+			Size = UDim2.new(0, 230, 0, 214),
+			Position = UDim2.new(0, 20, 0, 20),
+			BorderColor3 = theme.borderColor,
+		}, materialsTable)
+	})
+end
+
 function MaterialSelector:render()
-	return withLocalization(function(localization)
-		return withTheme(function(theme)
-			local layoutOrder = self.props.LayoutOrder or 1
-			local material = self.props.material
+	if FFlagTerrainToolsUseDevFramework then
+		return self:_render(self.props.Theme:get(), self.props.Localization:get())
 
-			local allowAir = self.props.AllowAir
-
-			local materialsTable = {
-				UIGridLayout = Roact.createElement("UIGridLayout", {
-					CellSize = UDim2.new(0, 32, 0, 32),
-					CellPadding = UDim2.new(0, 9, 0, 9),
-					HorizontalAlignment = Enum.HorizontalAlignment.Center,
-					SortOrder = Enum.SortOrder.LayoutOrder,
-				}),
-
-				LayoutPadding = Roact.createElement("UIPadding", {
-					PaddingTop = UDim.new(0, 9),
-					PaddingBottom = UDim.new(0, 9),
-					PaddingLeft = UDim.new(0, 9),
-					PaddingRight = UDim.new(0, 9),
-				}),
-			}
-
-			local function createMaterialButton(index, materialEnum)
-				materialsTable[materialEnum.Name] = Roact.createElement(MaterialButton, {
-					LayoutOrder = index,
-					Material = materialEnum,
-					IsHovered = materialEnum == self.state.hoverMaterial,
-					IsSelected = material == materialEnum,
-
-					OnMouseEnter = self.onMouseEnterMaterial,
-					OnMouseLeave = self.onMouseLeaveMaterial,
-					SelectMaterial = self.selectMaterial,
-				})
-			end
-
-			for index, materialEnum in ipairs(materialsOrder) do
-				createMaterialButton(index, materialEnum)
-			end
-
-			if allowAir then
-				createMaterialButton(#materialsOrder + 1, Enum.Material.Air)
-			end
-
-			return Roact.createElement("Frame", {
-				LayoutOrder = layoutOrder,
-				Size = UDim2.new(0, 230, 0, 235),
-				Position = UDim2.new(0, 20, 0, 0),
-				BackgroundTransparency = 1,
-			}, {
-				Label = Roact.createElement("TextLabel", {
-					Text =  self.props.Label or localization:getText("MaterialSettings", "ChooseMaterial"),
-					TextColor3 = theme.textColor,
-					Size = UDim2.new(1, 0, 0, 16),
-					TextXAlignment = Enum.TextXAlignment.Left,
-					Position = UDim2.new(0, 20, 0, 0),
-					BackgroundTransparency = 1,
-				}),
-
-				Container = Roact.createElement("Frame", {
-					BackgroundColor3 = theme.backgroundColor,
-					Size = UDim2.new(0, 230, 0, 214),
-					Position = UDim2.new(0, 20, 0, 20),
-					BorderColor3 = theme.borderColor,
-				}, materialsTable)
-			})
+	else
+		return withLocalization(function(localization)
+			return withTheme(function(theme)
+				return self:_render(theme, localization)
+			end)
 		end)
-	end)
+	end
+end
+
+if FFlagTerrainToolsUseDevFramework then
+	ContextServices.mapToProps(MaterialSelector, {
+		Theme = ContextItems.UILibraryTheme,
+		Localization = ContextItems.UILibraryLocalization,
+	})
 end
 
 return MaterialSelector

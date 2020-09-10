@@ -1,18 +1,19 @@
 local Plugin = script.Parent.Parent.Parent
-local TestHelpers = Plugin.Src.TestHelpers
-local Packages = Plugin.Packages
+
+local Framework = require(Plugin.Packages.Framework)
+local Rodux = require(Plugin.Packages.Rodux)
+
+local testImmutability = Framework.TestHelpers.testImmutability
 
 local Tools = require(script.Parent.Tools)
-local testImmutability = require(TestHelpers.testImmutability)
-local Rodux = require(Packages.Rodux)
-
-local Actions = Plugin.Src.Actions
-local ChangeTab = require(Actions.ChangeTab)
-local ChangeTool = require(Actions.ChangeTool)
 
 local TerrainEnums = require(Plugin.Src.Util.TerrainEnums)
 local TabId = TerrainEnums.TabId
 local ToolId = TerrainEnums.ToolId
+
+local Actions = Plugin.Src.Actions
+local ChangeTab = require(Actions.ChangeTab)
+local ChangeTool = require(Actions.ChangeTool)
 
 return function()
 	it("should return its expected default state", function()

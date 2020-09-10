@@ -2,9 +2,6 @@ local Plugin = script.Parent.Parent.Parent.Parent.Parent.Parent
 
 local Roact = require(Plugin.Packages.Roact)
 
-local Theme = require(Plugin.Src.ContextServices.Theming)
-local withTheme = Theme.withTheme
-
 local ToolParts = script.Parent.Parent
 local LabeledElementPair = require(ToolParts.LabeledElementPair)
 local NumberTextInput = require(ToolParts.NumberTextInput)
@@ -43,48 +40,46 @@ function HeightSelectionToggle:init(props)
 end
 
 function HeightSelectionToggle:render()
-	return withTheme(function(theme)
-		local props = self.props
-		local label = props.Label
-		local layoutOrder = props.LayoutOrder
-		local planePositionY = props.planePositionY
-		local heightPicker = props.heightPicker
-		local setHeightPicker = props.setHeightPicker
+	local props = self.props
+	local label = props.Label
+	local layoutOrder = props.LayoutOrder
+	local planePositionY = props.planePositionY
+	local heightPicker = props.heightPicker
+	local setHeightPicker = props.setHeightPicker
 
-		return Roact.createElement(LabeledElementPair, {
-			LayoutOrder = layoutOrder,
-			Size = UDim2.new(1, 0, 0, 22),
-			Text = label,
-			Padding = UDim.new(0, 4),
-			SizeToContent = true,
-			ContentDirection = Enum.FillDirection.Horizontal,
+	return Roact.createElement(LabeledElementPair, {
+		LayoutOrder = layoutOrder,
+		Size = UDim2.new(1, 0, 0, 22),
+		Text = label,
+		Padding = UDim.new(0, 4),
+		SizeToContent = true,
+		ContentDirection = Enum.FillDirection.Horizontal,
+	}, {
+		Input = Roact.createElement(NumberTextInput, {
+			LayoutOrder = 1,
+			Width = UDim.new(0, 116),
+			Key = "Y",
+			Label = "Y",
+			Value = planePositionY,
+			Precision = 3,
+			OnFocused = self.onFocused,
+			OnFocusLost = self.onFocusLost,
+			OnValueChanged = self.onValueChanged,
+		}),
+
+		-- Wrap the HeightPicker so that we can control its Y position instead of the UIListLayout
+		HeightPickerContainer = Roact.createElement("Frame", {
+			LayoutOrder = 2,
+			BackgroundTransparency = 1,
+			Size = UDim2.new(0, 18, 0, 18 + 3),
 		}, {
-			Input = Roact.createElement(NumberTextInput, {
-				LayoutOrder = 1,
-				Width = UDim.new(0, 116),
-				Key = "Y",
-				Label = "Y",
-				Value = planePositionY,
-				Precision = 3,
-				OnFocused = self.onFocused,
-				OnFocusLost = self.onFocusLost,
-				OnValueChanged = self.onValueChanged,
+			HeightPicker = Roact.createElement(PickerButton, {
+				Position = UDim2.new(0, 0, 0, 3),
+				IsOn = heightPicker,
+				SetIsOn = setHeightPicker,
 			}),
-
-			-- Wrap the HeightPicker so that we can control its Y position instead of the UIListLayout
-			HeightPickerContainer = Roact.createElement("Frame", {
-				LayoutOrder = 2,
-				BackgroundTransparency = 1,
-				Size = UDim2.new(0, 18, 0, 18 + 3),
-			}, {
-				HeightPicker = Roact.createElement(PickerButton, {
-					Position = UDim2.new(0, 0, 0, 3),
-					IsOn = heightPicker,
-					SetIsOn = setHeightPicker,
-				}),
-			}),
-		})
-	end)
+		}),
+	})
 end
 
 return HeightSelectionToggle

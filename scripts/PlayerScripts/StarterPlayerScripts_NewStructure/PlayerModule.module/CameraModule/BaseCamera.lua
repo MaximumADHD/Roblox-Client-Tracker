@@ -75,6 +75,13 @@ local FFlagUserFixGamepadCameraTracking do
 	FFlagUserFixGamepadCameraTracking = success and result
 end
 
+local FFlagUserCameraInputRefactor do
+	local success, result = pcall(function()
+		return UserSettings():IsUserFeatureEnabled("UserCameraInputRefactor")
+	end)
+	FFlagUserCameraInputRefactor = success and result
+end
+
 local Util = require(script.Parent:WaitForChild("CameraUtils"))
 local ZoomController = require(script.Parent:WaitForChild("ZoomController"))
 local CameraToggleStateController = require(script.Parent:WaitForChild("CameraToggleStateController"))
@@ -106,8 +113,8 @@ function BaseCamera.new()
 	self.cameraMovementMode = nil
 
 	self.lastCameraTransform = nil
-	self.rotateInput = ZERO_VECTOR2
-	self.userPanningCamera = false
+	self.rotateInput = ZERO_VECTOR2 -- Remove on FFlagUserCameraInputRefactor
+	self.userPanningCamera = false -- Remove on FFlagUserCameraInputRefactor
 	self.lastUserPanCamera = tick()
 
 	self.humanoidRootPart = nil
@@ -135,24 +142,24 @@ function BaseCamera.new()
 	self.enabled = false
 
 	-- Input Event Connections
+	-- Remove the following block on FFlagUserCameraInputRefactor
 	self.inputBeganConn = nil
 	self.inputChangedConn = nil
 	self.inputEndedConn = nil
-
 	self.startPos = nil
 	self.lastPos = nil
 	self.panBeginLook = nil
-
 	self.panEnabled = true
 	self.keyPanEnabled = true
 	self.distanceChangeEnabled = true
+	-- End FFlagUserCameraInputRefactor removal block
 
 	self.PlayerGui = nil
 
 	self.cameraChangedConn = nil
 	self.viewportSizeChangedConn = nil
 
-	self.boundContextActions = {}
+	self.boundContextActions = {} -- Remove on FFlagUserCameraInputRefactor
 
 	-- VR Support
 	self.shouldUseVRRotation = false
@@ -166,7 +173,10 @@ function BaseCamera.new()
 	self.cameraFrozen = false
 	self.subjectStateChangedConn = nil
 
+	self.gamepadZoomPressConnection = nil
+
 	-- Gamepad support
+	-- Remove the following block on FFlagUserCameraInputRefactor
 	self.activeGamepad = nil
 	self.gamepadPanningCamera = false
 	self.lastThumbstickRotate = nil
@@ -183,8 +193,10 @@ function BaseCamera.new()
 	self.L3ButtonDown = false
 	self.dpadLeftDown = false
 	self.dpadRightDown = false
+	-- End FFlagUserCameraInputRefactor removal block
 
 	-- Touch input support
+	-- Remove the following block on FFlagUserCameraInputRefactor
 	self.isDynamicThumbstickEnabled = false
 	self.fingerTouches = {}
 	self.dynamicTouchInput = nil
@@ -195,11 +207,11 @@ function BaseCamera.new()
 	self.pinchBeginZoom = nil
 	self.userPanningTheCamera = false
 	self.touchActivateConn = nil
+	-- End FFlagUserCameraInputRefactor removal block
 
 	-- Mouse locked formerly known as shift lock mode
 	self.mouseLockOffset = ZERO_VECTOR3
 
-	-- [[ NOTICE ]] --
 	-- Initialization things used to always execute at game load time, but now these camera modules are instantiated
 	-- when needed, so the code here may run well after the start of the game
 
@@ -461,7 +473,7 @@ function BaseCamera:OnGameSettingsTouchMovementModeChanged()
 end
 
 function BaseCamera:OnDevTouchMovementModeChanged()
-	if player.DevTouchMovementMode.Name == "DynamicThumbstick" then
+	if player.DevTouchMovementMode == Enum.DevTouchMovementMode.DynamicThumbstick then
 		self:OnDynamicThumbstickEnabled()
 	else
 		self:OnGameSettingsTouchMovementModeChanged()
@@ -484,12 +496,32 @@ function BaseCamera:InputTranslationToCameraAngleChange(translationVector, sensi
 	return translationVector * sensitivity
 end
 
+function BaseCamera:GamepadZoomPress()
+	local dist = self:GetCameraToSubjectDistance()
+
+	if dist > (GAMEPAD_ZOOM_STEP_2 + GAMEPAD_ZOOM_STEP_3)/2 then
+		self:SetCameraToSubjectDistance(GAMEPAD_ZOOM_STEP_2)
+	elseif dist > (GAMEPAD_ZOOM_STEP_1 + GAMEPAD_ZOOM_STEP_2)/2 then
+		self:SetCameraToSubjectDistance(GAMEPAD_ZOOM_STEP_1)
+	else
+		self:SetCameraToSubjectDistance(GAMEPAD_ZOOM_STEP_3)
+	end
+end
+
 function BaseCamera:Enable(enable)
 	if self.enabled ~= enable then
 		self.enabled = enable
 		if self.enabled then
-			self:ConnectInputEvents()
-			self:BindContextActions()
+			if FFlagUserCameraInputRefactor then
+				CameraInput.setInputEnabled(true)
+
+				self.gamepadZoomPressConnection = CameraInput.gamepadZoomPress:Connect(function()
+					self:GamepadZoomPress()
+				end)
+			else
+				self:ConnectInputEvents()
+				self:BindContextActions()
+			end
 
 			if player.CameraMode == Enum.CameraMode.LockFirstPerson then
 				self.currentSubjectDistance = 0.5
@@ -498,8 +530,17 @@ function BaseCamera:Enable(enable)
 				end
 			end
 		else
-			self:DisconnectInputEvents()
-			self:UnbindContextActions()
+			if FFlagUserCameraInputRefactor then
+				CameraInput.setInputEnabled(false)
+
+				if self.gamepadZoomPressConnection then
+					self.gamepadZoomPressConnection:Disconnect()
+					self.gamepadZoomPressConnection = nil
+				end
+			else
+				self:DisconnectInputEvents()
+				self:UnbindContextActions()
+			end
 			-- Clean up additional event listeners and reset a bunch of properties
 			self:Cleanup()
 		end
@@ -510,6 +551,7 @@ function BaseCamera:GetEnabled()
 	return self.enabled
 end
 
+-- Remove on FFlagUserCameraInputRefactor
 function BaseCamera:OnInputBegan(input, processed)
 	if input.UserInputType == Enum.UserInputType.Touch then
 		self:OnTouchBegan(input, processed)
@@ -520,6 +562,7 @@ function BaseCamera:OnInputBegan(input, processed)
 	end
 end
 
+-- Remove on FFlagUserCameraInputRefactor
 function BaseCamera:OnInputChanged(input, processed)
 	if input.UserInputType == Enum.UserInputType.Touch then
 		self:OnTouchChanged(input, processed)
@@ -528,6 +571,7 @@ function BaseCamera:OnInputChanged(input, processed)
 	end
 end
 
+-- Remove on FFlagUserCameraInputRefactor
 function BaseCamera:OnInputEnded(input, processed)
 	if input.UserInputType == Enum.UserInputType.Touch then
 		self:OnTouchEnded(input, processed)
@@ -538,7 +582,10 @@ function BaseCamera:OnInputEnded(input, processed)
 	end
 end
 
+-- Remove on FFlagUserCameraInputRefactor
 function BaseCamera:OnPointerAction(wheel, pan, pinch, processed)
+	assert(not FFlagUserCameraInputRefactor)
+	
 	if processed then
 		return
 	end
@@ -573,6 +620,8 @@ function BaseCamera:OnPointerAction(wheel, pan, pinch, processed)
 end
 
 function BaseCamera:ConnectInputEvents()
+	assert(not FFlagUserCameraInputRefactor)
+	
 	self.pointerActionConn = UserInputService.PointerAction:Connect(function(wheel, pan, pinch, processed)
 		self:OnPointerAction(wheel, pan, pinch, processed)
 	end)
@@ -611,12 +660,18 @@ function BaseCamera:ConnectInputEvents()
 	end
 end
 
+-- Remove on FFlagUserCameraInputRefactor
 function BaseCamera:BindContextActions()
+	assert(not FFlagUserCameraInputRefactor)
+
 	self:BindGamepadInputActions()
 	self:BindKeyboardInputActions()
 end
 
+-- Remove on FFlagUserCameraInputRefactor
 function BaseCamera:AssignActivateGamepad()
+	assert(not FFlagUserCameraInputRefactor)
+
 	local connectedGamepads = UserInputService:GetConnectedGamepads()
 	if #connectedGamepads > 0 then
 		for i = 1, #connectedGamepads do
@@ -633,7 +688,10 @@ function BaseCamera:AssignActivateGamepad()
 	end
 end
 
+-- Remove on FFlagUserCameraInputRefactor
 function BaseCamera:DisconnectInputEvents()
+	assert(not FFlagUserCameraInputRefactor)
+
 	if self.inputBeganConn then
 		self.inputBeganConn:Disconnect()
 		self.inputBeganConn = nil
@@ -648,7 +706,10 @@ function BaseCamera:DisconnectInputEvents()
 	end
 end
 
+-- Remove on FFlagUserCameraInputRefactor
 function BaseCamera:UnbindContextActions()
+	assert(not FFlagUserCameraInputRefactor)
+
 	for i = 1, #self.boundContextActions do
 		ContextActionService:UnbindAction(self.boundContextActions[i])
 	end
@@ -723,8 +784,11 @@ function BaseCamera:Cleanup()
 	end
 end
 
+-- Remove on FFlagUserCameraInputRefactor
 -- This is called when settings menu is opened
 function BaseCamera:ResetInputStates()
+	assert(not FFlagUserCameraInputRefactor)
+
 	self.isRightMouseDown = false
 	self.isMiddleMouseDown = false
 	self:OnMousePanButtonReleased() -- this function doesn't seem to actually need parameters
@@ -747,7 +811,10 @@ function BaseCamera:ResetInputStates()
 	end
 end
 
+-- Remove on FFlagUserCameraInputRefactor
 function BaseCamera:GetGamepadPan(name, state, input)
+	assert(not FFlagUserCameraInputRefactor)
+
 	if input.UserInputType == self.activeGamepad and input.KeyCode == Enum.KeyCode.Thumbstick2 then
 --		if self.L3ButtonDown then
 --			-- L3 Thumbstick is depressed, right stick controls dolly in/out
@@ -776,7 +843,10 @@ function BaseCamera:GetGamepadPan(name, state, input)
 	return Enum.ContextActionResult.Pass
 end
 
+-- Remove on FFlagUserCameraInputRefactor
 function BaseCamera:DoKeyboardPanTurn(name, state, input)
+	assert(not FFlagUserCameraInputRefactor)
+
 	if not self.hasGameLoaded and VRService.VREnabled then
 		return Enum.ContextActionResult.Pass
 	end
@@ -798,16 +868,10 @@ function BaseCamera:DoKeyboardPanTurn(name, state, input)
 	return Enum.ContextActionResult.Pass
 end
 
-function BaseCamera:DoPanRotateCamera(rotateAngle)
-	local angle = Util.RotateVectorByAngleAndRound(self:GetCameraLookVector() * Vector3.new(1,0,1), rotateAngle, math.pi*0.25)
-	if angle ~= 0 then
-		self.rotateInput = self.rotateInput + Vector2.new(angle, 0)
-		self.lastUserPanCamera = tick()
-		self.lastCameraTransform = nil
-	end
-end
-
+-- Remove on FFlagUserCameraInputRefactor
 function BaseCamera:DoGamepadZoom(name, state, input)
+	assert(not FFlagUserCameraInputRefactor)
+
 	if input.UserInputType == self.activeGamepad then
 		if input.KeyCode == Enum.KeyCode.ButtonR3 then
 			if state == Enum.UserInputState.Begin then
@@ -849,7 +913,10 @@ function BaseCamera:DoGamepadZoom(name, state, input)
 --	end
 end
 
+-- Remove on FFlagUserCameraInputRefactor
 function BaseCamera:DoKeyboardZoom(name, state, input)
+	assert(not FFlagUserCameraInputRefactor)
+
 	if not self.hasGameLoaded and VRService.VREnabled then
 		return Enum.ContextActionResult.Pass
 	end
@@ -869,27 +936,39 @@ function BaseCamera:DoKeyboardZoom(name, state, input)
 	return Enum.ContextActionResult.Pass
 end
 
+-- Remove on FFlagUserCameraInputRefactor
 function BaseCamera:BindAction(actionName, actionFunc, createTouchButton, ...)
+	assert(not FFlagUserCameraInputRefactor)
+
 	table.insert(self.boundContextActions, actionName)
 	ContextActionService:BindActionAtPriority(actionName, actionFunc, createTouchButton,
 		CAMERA_ACTION_PRIORITY, ...)
 end
 
+-- Remove on FFlagUserCameraInputRefactor
 function BaseCamera:BindGamepadInputActions()
+	assert(not FFlagUserCameraInputRefactor)
+	
 	self:BindAction("BaseCameraGamepadPan", function(name, state, input) return self:GetGamepadPan(name, state, input) end,
 		false, Enum.KeyCode.Thumbstick2)
 	self:BindAction("BaseCameraGamepadZoom", function(name, state, input) return self:DoGamepadZoom(name, state, input) end,
 		false, Enum.KeyCode.DPadLeft, Enum.KeyCode.DPadRight, Enum.KeyCode.ButtonR3)
 end
 
+-- Remove on FFlagUserCameraInputRefactor
 function BaseCamera:BindKeyboardInputActions()
+	assert(not FFlagUserCameraInputRefactor)
+	
 	self:BindAction("BaseCameraKeyboardPanArrowKeys", function(name, state, input) return self:DoKeyboardPanTurn(name, state, input) end,
 		false, Enum.KeyCode.Left, Enum.KeyCode.Right)
 	self:BindAction("BaseCameraKeyboardZoom", function(name, state, input) return self:DoKeyboardZoom(name, state, input) end,
 		false, Enum.KeyCode.I, Enum.KeyCode.O)
 end
 
+-- Remove on FFlagUserCameraInputRefactor
 local function isInDynamicThumbstickArea(input)
+	assert(not FFlagUserCameraInputRefactor)
+	
 	local playerGui = player:FindFirstChildOfClass("PlayerGui")
 	local touchGui = playerGui and playerGui:FindFirstChild("TouchGui")
 	local touchFrame = touchGui and touchGui:FindFirstChild("TouchControlFrame")
@@ -937,7 +1016,10 @@ function BaseCamera:AdjustTouchSensitivity(delta, sensitivity)
 	)
 end
 
+-- Remove on FFlagUserCameraInputRefactor
 function BaseCamera:OnTouchBegan(input, processed)
+	assert(not FFlagUserCameraInputRefactor)
+	
 	local canUseDynamicTouch = self.isDynamicThumbstickEnabled and not processed
 	if canUseDynamicTouch then
 		if self.dynamicTouchInput == nil and isInDynamicThumbstickArea(input) then
@@ -953,7 +1035,10 @@ function BaseCamera:OnTouchBegan(input, processed)
 	end
 end
 
+-- Remove on FFlagUserCameraInputRefactor
 function BaseCamera:OnTouchChanged(input, processed)
+	assert(not FFlagUserCameraInputRefactor)
+	
 	if self.fingerTouches[input] == nil then
 		if self.isDynamicThumbstickEnabled then
 			return
@@ -1014,7 +1099,10 @@ function BaseCamera:OnTouchChanged(input, processed)
 	end
 end
 
+-- Remove on FFlagUserCameraInputRefactor
 function BaseCamera:OnTouchEnded(input, processed)
+	assert(not FFlagUserCameraInputRefactor)
+	
 	if input == self.dynamicTouchInput then
 		self.dynamicTouchInput = nil
 		return
@@ -1040,31 +1128,46 @@ function BaseCamera:OnTouchEnded(input, processed)
 	self.inputStartTimes[input] = nil
 end
 
+-- Remove on FFlagUserCameraInputRefactor
 function BaseCamera:OnMouse2Down(input, processed)
+	assert(not FFlagUserCameraInputRefactor)
+	
 	if processed then return end
 
 	self.isRightMouseDown = true
 	self:OnMousePanButtonPressed(input, processed)
 end
 
+-- Remove on FFlagUserCameraInputRefactor
 function BaseCamera:OnMouse2Up(input, processed)
+	assert(not FFlagUserCameraInputRefactor)
+	
 	self.isRightMouseDown = false
 	self:OnMousePanButtonReleased(input, processed)
 end
 
+-- Remove on FFlagUserCameraInputRefactor
 function BaseCamera:OnMouse3Down(input, processed)
+	assert(not FFlagUserCameraInputRefactor)
+	
 	if processed then return end
 
 	self.isMiddleMouseDown = true
 	self:OnMousePanButtonPressed(input, processed)
 end
 
+-- Remove on FFlagUserCameraInputRefactor
 function BaseCamera:OnMouse3Up(input, processed)
+	assert(not FFlagUserCameraInputRefactor)
+	
 	self.isMiddleMouseDown = false
 	self:OnMousePanButtonReleased(input, processed)
 end
 
+-- Remove on FFlagUserCameraInputRefactor
 function BaseCamera:OnMouseMoved(input, processed)
+	assert(not FFlagUserCameraInputRefactor)
+	
 	if not self.hasGameLoaded and VRService.VREnabled then
 		return
 	end
@@ -1086,7 +1189,10 @@ function BaseCamera:OnMouseMoved(input, processed)
 	end
 end
 
+-- Remove on FFlagUserCameraInputRefactor
 function BaseCamera:OnMousePanButtonPressed(input, processed)
+	assert(not FFlagUserCameraInputRefactor)
+
 	if processed then return end
 	if not FFlagUserCameraToggle then
 		self:UpdateMouseBehavior()
@@ -1097,7 +1203,10 @@ function BaseCamera:OnMousePanButtonPressed(input, processed)
 	self.userPanningTheCamera = true
 end
 
+-- Remove on FFlagUserCameraInputRefactor
 function BaseCamera:OnMousePanButtonReleased(input, processed)
+	assert(not FFlagUserCameraInputRefactor)
+
 	if not FFlagUserCameraToggle then
 		self:UpdateMouseBehavior()
 	end
@@ -1243,9 +1352,37 @@ function BaseCamera:GetCameraLookVector()
 	return game.Workspace.CurrentCamera and game.Workspace.CurrentCamera.CFrame.lookVector or UNIT_Z
 end
 
+function BaseCamera:CalculateNewLookCFrameFromArg(suppliedLookVector, rotateInput)
+	local currLookVector = suppliedLookVector or self:GetCameraLookVector()
+	local currPitchAngle = math.asin(currLookVector.y)
+	local yTheta = math.clamp(rotateInput.y, -MAX_Y + currPitchAngle, -MIN_Y + currPitchAngle)
+	local constrainedRotateInput = Vector2.new(rotateInput.x, yTheta)
+	local startCFrame = CFrame.new(ZERO_VECTOR3, currLookVector)
+	local newLookCFrame = CFrame.Angles(0, -constrainedRotateInput.x, 0) * startCFrame * CFrame.Angles(-constrainedRotateInput.y,0,0)
+	return newLookCFrame
+end
+
+function BaseCamera:CalculateNewLookVectorFromArg(suppliedLookVector, rotateInput)
+	local newLookCFrame = self:CalculateNewLookCFrameFromArg(suppliedLookVector, rotateInput)
+	return newLookCFrame.lookVector
+end
+
+function BaseCamera:CalculateNewLookVectorVRFromArg(rotateInput)
+	local subjectPosition = self:GetSubjectPosition()
+	local vecToSubject = (subjectPosition - game.Workspace.CurrentCamera.CFrame.p)
+	local currLookVector = (vecToSubject * X1_Y0_Z1).unit
+	local vrRotateInput = Vector2.new(rotateInput.x, 0)
+	local startCFrame = CFrame.new(ZERO_VECTOR3, currLookVector)
+	local yawRotatedVector = (CFrame.Angles(0, -vrRotateInput.x, 0) * startCFrame * CFrame.Angles(-vrRotateInput.y,0,0)).lookVector
+	return (yawRotatedVector * X1_Y0_Z1).unit
+end
+
+-- Remove on FFlagUserCameraInputRefactor
 -- Replacements for RootCamera:RotateCamera() which did not actually rotate the camera
 -- suppliedLookVector is not normally passed in, it's used only by Watch camera
 function BaseCamera:CalculateNewLookCFrame(suppliedLookVector)
+	assert(not FFlagUserCameraInputRefactor)
+
 	local currLookVector = suppliedLookVector or self:GetCameraLookVector()
 	local currPitchAngle = math.asin(currLookVector.y)
 	local yTheta = math.clamp(self.rotateInput.y, -MAX_Y + currPitchAngle, -MIN_Y + currPitchAngle)
@@ -1254,12 +1391,19 @@ function BaseCamera:CalculateNewLookCFrame(suppliedLookVector)
 	local newLookCFrame = CFrame.Angles(0, -constrainedRotateInput.x, 0) * startCFrame * CFrame.Angles(-constrainedRotateInput.y,0,0)
 	return newLookCFrame
 end
+
+-- Remove on FFlagUserCameraInputRefactor
 function BaseCamera:CalculateNewLookVector(suppliedLookVector)
+	assert(not FFlagUserCameraInputRefactor)
+
 	local newLookCFrame = self:CalculateNewLookCFrame(suppliedLookVector)
 	return newLookCFrame.lookVector
 end
 
+-- Remove on FFlagUserCameraInputRefactor
 function BaseCamera:CalculateNewLookVectorVR()
+	assert(not FFlagUserCameraInputRefactor)
+
 	local subjectPosition = self:GetSubjectPosition()
 	local vecToSubject = (subjectPosition - game.Workspace.CurrentCamera.CFrame.p)
 	local currLookVector = (vecToSubject * X1_Y0_Z1).unit

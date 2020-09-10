@@ -2,15 +2,21 @@
 	Displays panels associated with The Replace tool
 ]]
 
+local FFlagTerrainToolsUseDevFramework = game:GetFastFlag("TerrainToolsUseDevFramework")
+
 local FFlagTerrainToolsReplaceSrcTogglesOff = game:GetFastFlag("TerrainToolsReplaceSrcTogglesOff")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
+local Framework = require(Plugin.Packages.Framework)
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
-local UILibrary = require(Plugin.Packages.UILibrary)
+local UILibrary = not FFlagTerrainToolsUseDevFramework and require(Plugin.Packages.UILibrary) or nil
 
-local withLocalization = UILibrary.Localizing.withLocalization
+local ContextServices = FFlagTerrainToolsUseDevFramework and Framework.ContextServices or nil
+local ContextItems = FFlagTerrainToolsUseDevFramework and require(Plugin.Src.ContextItems) or nil
+
+local withLocalization = not FFlagTerrainToolsUseDevFramework and UILibrary.Localizing.withLocalization or nil
 
 local Actions = Plugin.Src.Actions
 local ApplyToolAction = require(Actions.ApplyToolAction)
@@ -41,7 +47,8 @@ local BaseBrush = require(Plugin.Src.Components.Tools.BaseBrush)
 local TerrainEnums = require(Plugin.Src.Util.TerrainEnums)
 local ReplaceMode = TerrainEnums.ReplaceMode
 
-local TerrainInterface = require(Plugin.Src.ContextServices.TerrainInterface)
+local TerrainInterface = not FFlagTerrainToolsUseDevFramework and require(Plugin.Src.ContextServices.TerrainInterface)
+	or nil
 
 local CoreGui = game:GetService("CoreGui")
 
@@ -50,21 +57,25 @@ local REDUCER_KEY = "ReplaceTool"
 local Replace = Roact.PureComponent:extend(script.Name)
 
 function Replace:init()
-	self.pluginActivationController = TerrainInterface.getPluginActivationController(self)
-	self.replace = TerrainInterface.getReplace(self)
+	if not FFlagTerrainToolsUseDevFramework then
+		self.pluginActivationController = TerrainInterface.getPluginActivationController(self)
+		self.replace = TerrainInterface.getReplace(self)
 
-	self.state = {
-		isReplacing = self.replace:isReplacing(),
-		progress = self.replace:getProgress(),
-	}
+		self.state = {
+			isReplacing = self.replace:isReplacing(),
+			progress = self.replace:getProgress(),
+		}
 
-	assert(self.pluginActivationController, "Replace requires a PluginActivationController from context")
-	assert(self.replace, "Replace requires Replace function from context")
+		assert(self.pluginActivationController, "Replace requires a PluginActivationController from context")
+		assert(self.replace, "Replace requires Replace function from context")
+	end
 
 	self.tryGenerateReplace = function()
 		local position = Vector3.new(self.props.Position.X,self.props.Position.Y,self.props.Position.Z)
 		local size = Vector3.new(self.props.Size.X,self.props.Size.Y,self.props.Size.Z)
-		self.replace:replaceMaterial(position, size, self.props.Source, self.props.Target)
+
+		local replace = FFlagTerrainToolsUseDevFramework and self.props.Replace or self.replace
+		replace:replaceMaterial(position, size, self.props.Source, self.props.Target)
 	end
 
 	self.setSourceMaterial = function(material)
@@ -101,49 +112,53 @@ function Replace:init()
 		end
 	end
 
-	self.onBoxModeClicked = function()
-		self.props.dispatchSetReplaceMode(ReplaceMode.Box)
-	end
-
-	self.onBrushModeClicked = function()
-		self.props.dispatchSetReplaceMode(ReplaceMode.Brush)
-	end
-
 	self.cancel = function()
-		self.replace:cancel()
+		local replace = FFlagTerrainToolsUseDevFramework and self.props.Replace or self.replace
+		replace:cancel()
 	end
 end
 
-function Replace:didMount()
-	self.onProgressChanged = self.replace:subscribeToProgressChange(function(progress)
-		self:setState({
-			progress = progress
-		})
-	end)
+if not FFlagTerrainToolsUseDevFramework then
+	function Replace:didMount()
+		self.onProgressChanged = self.replace:subscribeToProgressChange(function(progress)
+			self:setState({
+				progress = progress
+			})
+		end)
 
-	self.onStateChanged = self.replace:subscribeToStateChange(function(state)
-		self:setState({
-			isReplacing = state
-		})
-	end)
-end
-
-function Replace:willUnmount()
-	if self.onProgressChanged then
-		self.onProgressChanged:Disconnect()
-		self.onProgressChanged = nil
+		self.onStateChanged = self.replace:subscribeToStateChange(function(state)
+			self:setState({
+				isReplacing = state
+			})
+		end)
 	end
 
-	if self.onStateChanged then
-		self.onStateChanged:Disconnect()
-		self.onStateChanged = nil
+	function Replace:willUnmount()
+		if self.onProgressChanged then
+			self.onProgressChanged:Disconnect()
+			self.onProgressChanged = nil
+		end
+
+		if self.onStateChanged then
+			self.onStateChanged:Disconnect()
+			self.onStateChanged = nil
+		end
 	end
 end
 
-function Replace:render()
+function Replace:_render(localization)
 	local position = self.props.Position
 	local size = self.props.Size
-	local progress = self.state.progress
+
+	local isReplacing
+	local progress
+	if FFlagTerrainToolsUseDevFramework then
+		isReplacing = self.props.Replace:isReplacing()
+		progress = isReplacing and self.props.Replace:getProgress() or 0
+	else
+		isReplacing = self.state.isReplacing
+		progress = self.state.progress
+	end
 
 	local baseSize = self.props.baseSize
 	local baseSizeHeightLocked = self.props.baseSizeHeightLocked
@@ -157,129 +172,144 @@ function Replace:render()
 	local source = self.props.Source
 	local target = self.props.Target
 
-	return withLocalization(function(localization)
-		-- same as if the replace is currently active
-		local isReplacing = self.state.isReplacing
+	return Roact.createFragment({
+		ReplaceTool = Roact.createElement(Panel, {
+			Title = localization:getText("Replace", "ReplaceMaterial"),
+			LayoutOrder = 1,
+		}, {
+			ModeButtonsWithBoxToggled = Roact.createElement(ToggleButtonGroup, {
+				Selected = self.props.Mode,
 
-		return Roact.createFragment({
-			ReplaceTool = Roact.createElement(Panel, {
-				Title = localization:getText("Replace", "ReplaceMaterial"),
-				LayoutOrder = 1,
-			}, {
-				ModeButtonsWithBoxToggled = Roact.createElement(ToggleButtonGroup, {
-					Selected = self.props.Mode,
-
-					Buttons = {
-						{
-							Key = ReplaceMode.Box,
-							Name = localization:getText("ReplaceMode", "Box"),
-							Active = not isReplacing,
-							OnClicked = self.props.dispatchSetReplaceMode,
-						},
-						{
-							Key = ReplaceMode.Brush,
-							Name = localization:getText("ReplaceMode", "Brush"),
-							Active = not isReplacing,
-							OnClicked = self.props.dispatchSetReplaceMode,
-						},
+				Buttons = {
+					{
+						Key = ReplaceMode.Box,
+						Name = localization:getText("ReplaceMode", "Box"),
+						Active = not isReplacing,
+						OnClicked = self.props.dispatchSetReplaceMode,
 					},
-				}),
-
-				Brush = self.props.Mode == ReplaceMode.Brush and Roact.createElement(BaseBrush, {
-					LayoutOrder = 2,
-					isSubsection = true,
-
-					toolName = self.props.toolName,
-
-					baseSize = baseSize,
-					baseSizeHeightLocked = baseSizeHeightLocked,
-					brushShape = brushShape,
-					height = height,
-					ignoreWater = ignoreWater,
-					pivot = pivot,
-					planeLock = planeLock,
-					snapToGrid = snapToGrid,
-					strength = strength,
-					source = source,
-					target = target,
-
-					dispatchChangeBaseSize = self.props.dispatchChangeBaseSize,
-					dispatchSetBaseSizeHeightLocked = self.props.dispatchSetBaseSizeHeightLocked,
-					dispatchChooseBrushShape = self.props.dispatchChooseBrushShape,
-					dispatchChangeHeight = self.props.dispatchChangeHeight,
-					dispatchSetIgnoreWater = self.setIgnoreWater,
-					dispatchChangePivot = self.props.dispatchChangePivot,
-					dispatchSetPlaneLock = self.setPlaneLock,
-					dispatchSetSnapToGrid = self.props.dispatchSetSnapToGrid,
-					dispatchSetSourceMaterial = self.props.dispatchSetSourceMaterial,
-					dispatchSetTargetMaterial = self.props.dispatchSetTargetMaterial,
-					disablePlaneLock = FFlagTerrainToolsReplaceSrcTogglesOff and self.props.Source == Enum.Material.Air,
-					disableIgnoreWater = FFlagTerrainToolsReplaceSrcTogglesOff and self.props.Source == Enum.Material.Water,
-				}),
-
-				MapSettingsWithPreview = self.props.Mode == ReplaceMode.Box and Roact.createElement(MapSettingsWithPreview, {
-					LayoutOrder = 3,
-					isSubsection = true,
-
-					toolName = self.props.toolName,
-
-					Position = position,
-					Size = size,
-
-					OnPositionChanged = self.props.dispatchChangePosition,
-					OnSizeChanged = self.props.dispatchChangeSize,
-				}),
-
-				MaterialPanel = Roact.createElement(Panel, {
-					Title = localization:getText("Replace", "MaterialSettings"),
-					LayoutOrder = 4,
-					isSubsection = true,
-				}, {
-					SourceMaterialSelector = Roact.createElement(MaterialSelector, {
-						LayoutOrder = 1,
-
-						AllowAir = true,
-						Label = localization:getText("Replace", "SourceMaterial"),
-						material = self.props.Source,
-						setMaterial = self.setSourceMaterial,
-					}),
-					TargetMaterialSelector = Roact.createElement(MaterialSelector, {
-						LayoutOrder = 2,
-
-						AllowAir = true,
-						Label = localization:getText("Replace", "TargetMaterial"),
-						material = self.props.Target,
-						setMaterial = self.props.dispatchSetTargetMaterial,
-					})
-				}),
-
-				ReplaceButtons = self.props.Mode == ReplaceMode.Box and Roact.createElement(ButtonGroup, {
-					LayoutOrder = 5,
-					Buttons = {
-						{
-							Key = "Replace",
-							Name = localization:getText("Replace", "Replace"),
-							Active = not isReplacing,
-							OnClicked = self.tryGenerateReplace
-						},
-					}
-				}),
-
-				ProgressBar = isReplacing and Roact.createElement(Roact.Portal, {
-					target = CoreGui,
-				}, {
-					ReplaceProgressScreenGui = Roact.createElement("ScreenGui", {}, {
-						Roact.createElement(ProgressFrame, {
-							AnchorPoint = Vector2.new(0.5, 0),
-							Position = UDim2.new(0.5, 0, 0, 0),
-							Progress = progress,
-							OnCancelButtonClicked = self.cancel,
-						})
-					})
-				}),
+					{
+						Key = ReplaceMode.Brush,
+						Name = localization:getText("ReplaceMode", "Brush"),
+						Active = not isReplacing,
+						OnClicked = self.props.dispatchSetReplaceMode,
+					},
+				},
 			}),
-		})
-	end)
+
+			Brush = self.props.Mode == ReplaceMode.Brush and Roact.createElement(BaseBrush, {
+				LayoutOrder = 2,
+				isSubsection = true,
+
+				toolName = self.props.toolName,
+
+				baseSize = baseSize,
+				baseSizeHeightLocked = baseSizeHeightLocked,
+				brushShape = brushShape,
+				height = height,
+				ignoreWater = ignoreWater,
+				pivot = pivot,
+				planeLock = planeLock,
+				snapToGrid = snapToGrid,
+				strength = strength,
+				source = source,
+				target = target,
+
+				dispatchChangeBaseSize = self.props.dispatchChangeBaseSize,
+				dispatchSetBaseSizeHeightLocked = self.props.dispatchSetBaseSizeHeightLocked,
+				dispatchChooseBrushShape = self.props.dispatchChooseBrushShape,
+				dispatchChangeHeight = self.props.dispatchChangeHeight,
+				dispatchSetIgnoreWater = self.setIgnoreWater,
+				dispatchChangePivot = self.props.dispatchChangePivot,
+				dispatchSetPlaneLock = self.setPlaneLock,
+				dispatchSetSnapToGrid = self.props.dispatchSetSnapToGrid,
+				dispatchSetSourceMaterial = self.props.dispatchSetSourceMaterial,
+				dispatchSetTargetMaterial = self.props.dispatchSetTargetMaterial,
+				disablePlaneLock = FFlagTerrainToolsReplaceSrcTogglesOff and self.props.Source == Enum.Material.Air,
+				disableIgnoreWater = FFlagTerrainToolsReplaceSrcTogglesOff and self.props.Source == Enum.Material.Water,
+			}),
+
+			MapSettingsWithPreview = self.props.Mode == ReplaceMode.Box and Roact.createElement(MapSettingsWithPreview, {
+				LayoutOrder = 3,
+				isSubsection = true,
+
+				toolName = self.props.toolName,
+
+				Position = position,
+				Size = size,
+
+				OnPositionChanged = self.props.dispatchChangePosition,
+				OnSizeChanged = self.props.dispatchChangeSize,
+			}),
+
+			MaterialPanel = Roact.createElement(Panel, {
+				Title = localization:getText("Replace", "MaterialSettings"),
+				LayoutOrder = 4,
+				isSubsection = true,
+			}, {
+				SourceMaterialSelector = Roact.createElement(MaterialSelector, {
+					LayoutOrder = 1,
+
+					AllowAir = true,
+					Label = localization:getText("Replace", "SourceMaterial"),
+					material = self.props.Source,
+					setMaterial = self.setSourceMaterial,
+				}),
+				TargetMaterialSelector = Roact.createElement(MaterialSelector, {
+					LayoutOrder = 2,
+
+					AllowAir = true,
+					Label = localization:getText("Replace", "TargetMaterial"),
+					material = self.props.Target,
+					setMaterial = self.props.dispatchSetTargetMaterial,
+				})
+			}),
+
+			ReplaceButtons = self.props.Mode == ReplaceMode.Box and Roact.createElement(ButtonGroup, {
+				LayoutOrder = 5,
+				Buttons = {
+					{
+						Key = "Replace",
+						Name = localization:getText("Replace", "Replace"),
+						Active = not isReplacing,
+						OnClicked = self.tryGenerateReplace
+					},
+				}
+			}),
+
+			ProgressBar = isReplacing and Roact.createElement(Roact.Portal, {
+				target = CoreGui,
+			}, {
+				ReplaceProgressScreenGui = Roact.createElement("ScreenGui", {}, {
+					Roact.createElement(ProgressFrame, {
+						AnchorPoint = Vector2.new(0.5, 0),
+						Position = UDim2.new(0.5, 0, 0, 0),
+						Progress = progress,
+						OnCancelButtonClicked = self.cancel,
+					})
+				})
+			}),
+		}),
+	})
+end
+
+function Replace:render()
+	if FFlagTerrainToolsUseDevFramework then
+		return self:_render(self.props.Localization:get())
+	else
+		return withLocalization(function(localization)
+			return self:_render(localization)
+		end)
+	end
+end
+
+if FFlagTerrainToolsUseDevFramework then
+	ContextServices.mapToProps(Replace, {
+		Localization = ContextItems.UILibraryLocalization,
+		PluginActivationController = ContextItems.PluginActivationController,
+		-- Replace tool reuses SeaLevel object
+		-- TODO: Rename SeaLevel object to TerrainReplacer?
+		Replace = ContextItems.SeaLevel,
+	})
 end
 
 local function mapStateToProps(state, props)

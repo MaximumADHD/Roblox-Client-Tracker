@@ -48,7 +48,6 @@ local GetAssetConfigManageableGroupsRequest = require(Requests.GetAssetConfigMan
 local UpdateAssetConfigStore = require(Plugin.Core.Actions.UpdateAssetConfigStore)
 
 local FFlagSupportAnimImportByID = game:GetFastFlag("SupportAnimImportByID")
-local FFlagStudioUseNewAnimationImportExportFlow = settings():GetFFlag("StudioUseNewAnimationImportExportFlow")
 local FFlagEnableOverrideAssetCursorFix = game:GetFastFlag("EnableOverrideAssetCursorFix")
 local FFlagAssetConifgOverrideAssetScrollingFrame = game:GetFastFlag("AssetConifgOverrideAssetScrollingFrame")
 
@@ -146,7 +145,7 @@ function OverrideAsset:render()
 
 			self.dropdownContent = AssetConfigUtil.getOwnerDropDownContent(props.manageableGroups, localizedContent)
 
-			local useNewAnimFlow = FFlagStudioUseNewAnimationImportExportFlow and assetTypeEnum == Enum.AssetType.Animation
+			local useNewAnimFlow = assetTypeEnum == Enum.AssetType.Animation
 			local isDownloadFlow = FFlagAssetConifgOverrideAssetScrollingFrame and useNewAnimFlow and AssetConfigConstants.FLOW_TYPE.DOWNLOAD_FLOW == props.screenFlowType
 
 			return Roact.createElement("Frame", {

@@ -7,7 +7,6 @@
 ]]
 
 local FFlagFixAssetConfigIcon = game:GetFastFlag("FixAssetConfigIcon")
-local FFlagFixAssetUploadName = game:GetFastFlag("FixAssetUploadName")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -78,7 +77,7 @@ function AssetUpload:render()
 			Size = props.Size,
 		}, {
 			ModelPreview = showViewport and Roact.createElement(AssetThumbnailPreview, {
-				title = FFlagFixAssetUploadName and props.assetName or nil,
+				title = props.assetName,
 				titleHeight = PREVIEW_TITLE_HEIGHT,
 				titlePadding = PREVIEW_TITLE_PADDING,
 				Position = UDim2.new(0.5, -PREVIEW_SIZE/2, 0, PREVIEW_PADDING),

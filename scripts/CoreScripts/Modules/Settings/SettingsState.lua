@@ -7,14 +7,10 @@ local Store = Rodux.Store
 
 local SettingsState = {}
 
-function SettingsState:Init()
-	self.store = Store.new(SettingsReducer, nil, {Rodux.thunkMiddleware})
-end
-
 function SettingsState:Destruct()
 	self.store:destruct()
 end
 
-SettingsState:Init()
+SettingsState.store = Store.new(SettingsReducer, nil, {Rodux.thunkMiddleware})
 
 return SettingsState

@@ -1,8 +1,8 @@
 local Plugin = script.Parent.Parent.Parent
-local Packages = Plugin.Packages
+
+local Rodux = require(Plugin.Packages.Rodux)
 
 local MainReducer = require(script.Parent.MainReducer)
-local Rodux = require(Packages.Rodux)
 
 local FFlagTerrainToolsConvertPartTool = game:GetFastFlag("TerrainToolsConvertPartTool")
 

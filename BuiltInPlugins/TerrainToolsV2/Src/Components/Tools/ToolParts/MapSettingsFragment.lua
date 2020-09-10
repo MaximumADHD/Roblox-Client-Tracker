@@ -1,3 +1,5 @@
+local FFlagTerrainToolsUseDevFramework = game:GetFastFlag("TerrainToolsUseDevFramework")
+
 --[[
 	Fragment containing a Position and Size input field.
 
@@ -13,10 +15,14 @@ Props:
 
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
+local Framework = require(Plugin.Packages.Framework)
 local Roact = require(Plugin.Packages.Roact)
-local UILibrary = require(Plugin.Packages.UILibrary)
+local UILibrary = not FFlagTerrainToolsUseDevFramework and require(Plugin.Packages.UILibrary) or nil
 
-local withLocalization = UILibrary.Localizing.withLocalization
+local ContextServices = FFlagTerrainToolsUseDevFramework and Framework.ContextServices or nil
+local ContextItems = FFlagTerrainToolsUseDevFramework and require(Plugin.Src.ContextItems) or nil
+
+local withLocalization = not FFlagTerrainToolsUseDevFramework and UILibrary.Localizing.withLocalization or nil
 
 local ToolParts = script.Parent
 local VectorTextInput = require(ToolParts.VectorTextInput)
@@ -84,42 +90,56 @@ function MapSettingsFragment:init(props)
 	end
 end
 
+function MapSettingsFragment:_render(localization)
+	local pos = self.props.Position
+	local size = self.props.Size
+	local initialLayoutOrder = self.props.InitialLayoutOrder or 1
+
+	local showPositionSelector = pos ~= nil
+	local showSizeSelector = size ~= nil
+
+	local positionLayoutOrder = initialLayoutOrder
+	local sizeLayoutOrder = initialLayoutOrder + (showPositionSelector and 1 or 0)
+
+	return Roact.createFragment({
+		PositionInput = showPositionSelector and Roact.createElement(VectorTextInput, {
+			LayoutOrder = positionLayoutOrder,
+			Text = localization:getText("MapSettings", "Position"),
+			Key = "Position",
+			Vector = pos,
+			Precisions = {X = 0, Y = 0, Z = 0},
+			OnFocusLost = self.onVectorFocusLost,
+			OnValueChanged = self.onVectorValueChanged,
+		}),
+
+		SizeInput = showSizeSelector and Roact.createElement(VectorTextInput, {
+			LayoutOrder = sizeLayoutOrder,
+			Text = localization:getText("MapSettings", "Size"),
+			Key = "Size",
+			Vector = size,
+			MinValues = {X = MIN_SIZE, Y = MIN_SIZE, Z = MIN_SIZE},
+			MaxValues = {X = MAX_SIZE, Y = MAX_SIZE, Z = MAX_SIZE},
+			Precisions = {X = 0, Y = 0, Z = 0},
+			OnFocusLost = self.onVectorFocusLost,
+			OnValueChanged = self.onVectorValueChanged,
+		}),
+	})
+end
+
 function MapSettingsFragment:render()
-	return withLocalization(function(localization)
-		local pos = self.props.Position
-		local size = self.props.Size
-		local initialLayoutOrder = self.props.InitialLayoutOrder or 1
+	if FFlagTerrainToolsUseDevFramework then
+		return self:_render(self.props.Localization:get())
+	else
+		return withLocalization(function(localization)
+			return self:_render(localization)
+		end)
+	end
+end
 
-		local showPositionSelector = pos ~= nil
-		local showSizeSelector = size ~= nil
-
-		local positionLayoutOrder = initialLayoutOrder
-		local sizeLayoutOrder = initialLayoutOrder + (showPositionSelector and 1 or 0)
-
-		return Roact.createFragment({
-			PositionInput = showPositionSelector and Roact.createElement(VectorTextInput, {
-				LayoutOrder = positionLayoutOrder,
-				Text = localization:getText("MapSettings", "Position"),
-				Key = "Position",
-				Vector = pos,
-				Precisions = {X = 0, Y = 0, Z = 0},
-				OnFocusLost = self.onVectorFocusLost,
-				OnValueChanged = self.onVectorValueChanged,
-			}),
-
-			SizeInput = showSizeSelector and Roact.createElement(VectorTextInput, {
-				LayoutOrder = sizeLayoutOrder,
-				Text = localization:getText("MapSettings", "Size"),
-				Key = "Size",
-				Vector = size,
-				MinValues = {X = MIN_SIZE, Y = MIN_SIZE, Z = MIN_SIZE},
-				MaxValues = {X = MAX_SIZE, Y = MAX_SIZE, Z = MAX_SIZE},
-				Precisions = {X = 0, Y = 0, Z = 0},
-				OnFocusLost = self.onVectorFocusLost,
-				OnValueChanged = self.onVectorValueChanged,
-			}),
-		})
-	end)
+if FFlagTerrainToolsUseDevFramework then
+	ContextServices.mapToProps(MapSettingsFragment, {
+		Localization = ContextItems.UILibraryLocalization,
+	})
 end
 
 return MapSettingsFragment

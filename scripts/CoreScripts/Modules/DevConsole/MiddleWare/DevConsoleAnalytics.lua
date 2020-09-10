@@ -113,10 +113,11 @@ function ReportTabChange(store, action, isDeveloper)
 	end
 end
 
+local export: any
 
 if FFlagDevConsoleAnalyticsIncludeOwner then
 	-- wrap this middleware in a functional constructor to pass initalization information
-	return function(isDeveloper)
+	export = function(isDeveloper)
 		return function(nextDispatch, store)
 			return function(action)
 				ReportTabChange(store, action, isDeveloper)
@@ -129,7 +130,7 @@ if FFlagDevConsoleAnalyticsIncludeOwner then
 		end
 	end
 else
-	return function(nextDispatch, store)
+	export = function(nextDispatch, store)
 		return function(action)
 				ReportTabChange(store, action)
 			if FFlagReportDevConsoleOpenClose then
@@ -139,3 +140,5 @@ else
 		end
 	end
 end
+
+return export

@@ -9,12 +9,13 @@
 -- Local private variables and constants
 local ZERO_VECTOR2 = Vector2.new(0,0)
 
-local tweenAcceleration = math.rad(220)		--Radians/Second^2
-local tweenSpeed = math.rad(0)				--Radians/Second
-local tweenMaxSpeed = math.rad(250)			--Radians/Second
-local TIME_BEFORE_AUTO_ROTATE = 2.0 		--Seconds, used when auto-aligning camera with vehicles
+local tweenAcceleration = math.rad(220) -- Radians/Second^2
+local tweenSpeed = math.rad(0)          -- Radians/Second
+local tweenMaxSpeed = math.rad(250)     -- Radians/Second
+local TIME_BEFORE_AUTO_ROTATE = 2       -- Seconds, used when auto-aligning camera with vehicles
 
 local INITIAL_CAMERA_ANGLE = CFrame.fromOrientation(math.rad(-15), 0, 0)
+local ZOOM_SENSITIVITY_CURVATURE = 0.5
 
 local FFlagUserCameraToggle do
 	local success, result = pcall(function()
@@ -23,8 +24,15 @@ local FFlagUserCameraToggle do
 	FFlagUserCameraToggle = success and result
 end
 
+local FFlagUserCameraInputRefactor do
+	local success, result = pcall(function()
+		return UserSettings():IsUserFeatureEnabled("UserCameraInputRefactor")
+	end)
+	FFlagUserCameraInputRefactor = success and result
+end
+
 --[[ Services ]]--
-local PlayersService = game:GetService('Players')
+local PlayersService = game:GetService("Players")
 local VRService = game:GetService("VRService")
 
 local CameraInput = require(script.Parent:WaitForChild("CameraInput"))
@@ -95,15 +103,42 @@ function ClassicCamera:Update()
 	local player = PlayersService.LocalPlayer
 	local humanoid = self:GetHumanoid()
 	local cameraSubject = camera.CameraSubject
-	local isInVehicle = cameraSubject and cameraSubject:IsA('VehicleSeat')
-	local isOnASkateboard = cameraSubject and cameraSubject:IsA('SkateboardPlatform')
+	local isInVehicle = cameraSubject and cameraSubject:IsA("VehicleSeat")
+	local isOnASkateboard = cameraSubject and cameraSubject:IsA("SkateboardPlatform")
 	local isClimbing = humanoid and humanoid:GetState() == Enum.HumanoidStateType.Climbing
 
 	if self.lastUpdate == nil or timeDelta > 1 then
 		self.lastCameraTransform = nil
 	end
+	
+	local rotateInput
+	if FFlagUserCameraInputRefactor then
+		rotateInput = CameraInput.getRotation()
+	else
+		rotateInput = self.rotateInput
+	end
 
-	if self.lastUpdate then
+	if FFlagUserCameraInputRefactor then
+		local zoom = self.currentSubjectDistance	
+		local zoomDelta = CameraInput.getZoomDelta()	
+		
+		if math.abs(zoomDelta) > 0 then
+			local newZoom
+			if self.inFirstPerson and zoomDelta < 0 then
+				newZoom = 0.5
+			else
+				if zoomDelta > 0 then
+					newZoom = zoom + zoomDelta*(1 + zoom*ZOOM_SENSITIVITY_CURVATURE)
+				else
+					newZoom = (zoom + zoomDelta) / (1 - zoomDelta*ZOOM_SENSITIVITY_CURVATURE)
+				end
+			end
+
+			self:SetCameraToSubjectDistance(newZoom)
+		end
+	end
+
+	if self.lastUpdate and not FFlagUserCameraInputRefactor then
 		local gamepadRotation = self:UpdateGamepad()
 
 		if self:ShouldUseVRRotation() then
@@ -131,9 +166,16 @@ function ClassicCamera:Update()
 	local cameraHeight = self:GetCameraHeight()
 
 	-- Reset tween speed if user is panning
-	if self.userPanningTheCamera then
-		tweenSpeed = 0
-		self.lastUserPanCamera = tick()
+	if FFlagUserCameraInputRefactor then
+		if CameraInput.getRotation() ~= Vector2.new() then
+			tweenSpeed = 0
+			self.lastUserPanCamera = tick()
+		end
+	else
+		if self.userPanningTheCamera then
+			tweenSpeed = 0
+			self.lastUserPanCamera = tick()
+		end
 	end
 
 	local userRecentlyPannedCamera = now - self.lastUserPanCamera < TIME_BEFORE_AUTO_ROTATE
@@ -147,7 +189,12 @@ function ClassicCamera:Update()
 
 		if self:GetIsMouseLocked() and not self:IsInFirstPerson() then
 			-- We need to use the right vector of the camera after rotation, not before
-			local newLookCFrame = self:CalculateNewLookCFrame(overrideCameraLookVector)
+			local newLookCFrame
+			if FFlagUserCameraInputRefactor then 
+				newLookCFrame = self:CalculateNewLookCFrameFromArg(overrideCameraLookVector, rotateInput)
+			else
+				newLookCFrame = self:CalculateNewLookCFrame(overrideCameraLookVector)
+			end
 
 			local offset = self:GetMouseLockOffset()
 			local cameraRelativeOffset = offset.X * newLookCFrame.rightVector + offset.Y * newLookCFrame.upVector + offset.Z * newLookCFrame.lookVector
@@ -157,22 +204,33 @@ function ClassicCamera:Update()
 				subjectPosition = subjectPosition + cameraRelativeOffset
 			end
 		else
-			if not self.userPanningTheCamera and self.lastCameraTransform then
+			local userPanningTheCamera
+			if FFlagUserCameraInputRefactor then
+				userPanningTheCamera = CameraInput.getRotation() ~= Vector2.new()
+			else
+				userPanningTheCamera = self.userPanningTheCamera == true
+			end
+
+			if not userPanningTheCamera and self.lastCameraTransform then
 
 				local isInFirstPerson = self:IsInFirstPerson()
 
 				if (isInVehicle or isOnASkateboard or (self.isFollowCamera and isClimbing)) and self.lastUpdate and humanoid and humanoid.Torso then
 					if isInFirstPerson then
-						if self.lastSubjectCFrame and (isInVehicle or isOnASkateboard) and cameraSubject:IsA('BasePart') then
+						if self.lastSubjectCFrame and (isInVehicle or isOnASkateboard) and cameraSubject:IsA("BasePart") then
 							local y = -Util.GetAngleBetweenXZVectors(self.lastSubjectCFrame.lookVector, cameraSubject.CFrame.lookVector)
 							if Util.IsFinite(y) then
-								self.rotateInput = self.rotateInput + Vector2.new(y, 0)
+								if FFlagUserCameraInputRefactor then
+									rotateInput = rotateInput + Vector2.new(y, 0)
+								else
+									self.rotateInput = self.rotateInput + Vector2.new(y, 0)
+								end
 							end
 							tweenSpeed = 0
 						end
 					elseif not userRecentlyPannedCamera then
 						local forwardVector = humanoid.Torso.CFrame.lookVector
-						if isOnASkateboard then
+						if isOnASkateboard and not FFlagUserCameraInputRefactor then
 							forwardVector = cameraSubject.CFrame.lookVector
 						end
 
@@ -185,7 +243,11 @@ function ClassicCamera:Update()
 
 						local y = Util.GetAngleBetweenXZVectors(forwardVector, self:GetCameraLookVector())
 						if Util.IsFinite(y) and math.abs(y) > 0.0001 then
-							self.rotateInput = self.rotateInput + Vector2.new(y * percent, 0)
+							if FFlagUserCameraInputRefactor then
+								rotateInput = rotateInput + Vector2.new(y * percent, 0)
+							else
+								self.rotateInput = self.rotateInput + Vector2.new(y * percent, 0)
+							end
 						end
 					end
 
@@ -203,7 +265,7 @@ function ClassicCamera:Update()
 
 					-- Check for NaNs
 					if Util.IsFinite(y) and math.abs(y) > 0.0001 and math.abs(y) > thetaCutoff * timeDelta then
-						self.rotateInput = self.rotateInput + Vector2.new(y, 0)
+						rotateInput = rotateInput + Vector2.new(y, 0)
 					end
 				end
 			end
@@ -223,28 +285,51 @@ function ClassicCamera:Update()
 				local vecToSubject = (subjectPosition - camera.CFrame.p)
 				local distToSubject = vecToSubject.magnitude
 
+				local flaggedRotateInput
+				if FFlagUserCameraInputRefactor then
+					flaggedRotateInput = rotateInput
+				else
+					flaggedRotateInput = self.rotateInput
+				end
+
 				-- Only move the camera if it exceeded a maximum distance to the subject in VR
-				if distToSubject > zoom or self.rotateInput.x ~= 0 then
+				if distToSubject > zoom or flaggedRotateInput.x ~= 0 then
 					local desiredDist = math.min(distToSubject, zoom)
-					vecToSubject = self:CalculateNewLookVectorVR() * desiredDist
+					if FFlagUserCameraInputRefactor then
+						vecToSubject = self:CalculateNewLookFromArg(nil, rotateInput) * desiredDist
+					else
+						vecToSubject = self:CalculateNewLook() * desiredDist
+					end
 					local newPos = cameraFocusP - vecToSubject
 					local desiredLookDir = camera.CFrame.lookVector
-					if self.rotateInput.x ~= 0 then
+					if flaggedRotateInput.x ~= 0 then
 						desiredLookDir = vecToSubject
 					end
 					local lookAt = Vector3.new(newPos.x + desiredLookDir.x, newPos.y, newPos.z + desiredLookDir.z)
-					self.rotateInput = ZERO_VECTOR2
+					if not FFlagUserCameraInputRefactor then
+						self.rotateInput = ZERO_VECTOR2
+					end
 
 					newCameraCFrame = CFrame.new(newPos, lookAt) + Vector3.new(0, cameraHeight, 0)
 				end
 			else
-				local newLookVector = self:CalculateNewLookVector(overrideCameraLookVector)
-				self.rotateInput = ZERO_VECTOR2
+				local newLookVector
+				if FFlagUserCameraInputRefactor then
+					newLookVector = self:CalculateNewLookVectorFromArg(overrideCameraLookVector, rotateInput)
+				else
+					newLookVector = self:CalculateNewLookVector(overrideCameraLookVector)
+					self.rotateInput = ZERO_VECTOR2
+				end
 				newCameraCFrame = CFrame.new(cameraFocusP - (zoom * newLookVector), cameraFocusP)
 			end
 		else -- is FollowCamera
-			local newLookVector = self:CalculateNewLookVector(overrideCameraLookVector)
-			self.rotateInput = ZERO_VECTOR2
+			local newLookVector
+			if FFlagUserCameraInputRefactor then
+				newLookVector = self:CalculateNewLookVectorFromArg(overrideCameraLookVector, rotateInput)
+			else
+				newLookVector = self:CalculateNewLookVector(overrideCameraLookVector)
+				self.rotateInput = ZERO_VECTOR2
+			end
 
 			if VRService.VREnabled then
 				newCameraFocus = self:GetVRFocus(subjectPosition, timeDelta)
@@ -262,11 +347,15 @@ function ClassicCamera:Update()
 
 		self.lastCameraTransform = newCameraCFrame
 		self.lastCameraFocus = newCameraFocus
-		if (isInVehicle or isOnASkateboard) and cameraSubject:IsA('BasePart') then
+		if (isInVehicle or isOnASkateboard) and cameraSubject:IsA("BasePart") then
 			self.lastSubjectCFrame = cameraSubject.CFrame
 		else
 			self.lastSubjectCFrame = nil
 		end
+	end
+	
+	if FFlagUserCameraInputRefactor then	
+		CameraInput.resetInputForFrameEnd()
 	end
 
 	self.lastUpdate = now

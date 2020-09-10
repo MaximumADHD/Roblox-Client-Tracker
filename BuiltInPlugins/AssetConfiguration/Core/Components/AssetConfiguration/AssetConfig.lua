@@ -6,7 +6,6 @@
 	assetId, numeber, will be used to request assetData on didMount.
 ]]
 
-local FFlagStudioUseNewAnimationImportExportFlow = settings():GetFFlag("StudioUseNewAnimationImportExportFlow")
 local FFlagAssetConfigOverrideFromAnyScreen = game:DefineFastFlag("AssetConfigOverrideFromAnyScreen", false)
 local FFlagCanPublishDefaultAsset = game:DefineFastFlag("CanPublishDefaultAsset", false)
 local FFlagShowAssetConfigReasons2 = game:GetFastFlag("ShowAssetConfigReasons2")
@@ -155,7 +154,7 @@ function AssetConfig:init(props)
 			local props = self.props
 			local state = self.state
 
-			if FFlagStudioUseNewAnimationImportExportFlow and AssetConfigConstants.FLOW_TYPE.DOWNLOAD_FLOW == props.screenFlowType then
+			if AssetConfigConstants.FLOW_TYPE.DOWNLOAD_FLOW == props.screenFlowType then
 				-- download flow should only be for animations currently
 				if FFlagSupportAnimImportByID then
 					StudioService:AnimationIdSelected(directImportId ~= "" and directImportId or state.overrideAssetId)
@@ -203,7 +202,7 @@ function AssetConfig:init(props)
 					})
 				end
 			elseif AssetConfigConstants.FLOW_TYPE.UPLOAD_FLOW == props.screenFlowType then
-				if FFlagStudioUseNewAnimationImportExportFlow and props.assetTypeEnum == Enum.AssetType.Animation then
+				if props.assetTypeEnum == Enum.AssetType.Animation then
 					if ConfigTypes:isOverride(props.currentTab) then
 						props.overrideAnimationAsset(
 							getNetwork(self),
@@ -1069,14 +1068,12 @@ local function mapDispatchToProps(dispatch)
 		end,
 	}
 
-	if FFlagStudioUseNewAnimationImportExportFlow then
-		dispatchToProps["uploadAnimationAsset"] = function(requestInfo)
-			dispatch(PostUploadAnimationRequest(requestInfo))
-		end
+	dispatchToProps["uploadAnimationAsset"] = function(requestInfo)
+		dispatch(PostUploadAnimationRequest(requestInfo))
+	end
 
-		dispatchToProps["overrideAnimationAsset"] = function(networkInterface, assetid, instance)
-			dispatch(PostOverrideAnimationRequest(networkInterface, assetid, instance))
-		end
+	dispatchToProps["overrideAnimationAsset"] = function(networkInterface, assetid, instance)
+		dispatch(PostOverrideAnimationRequest(networkInterface, assetid, instance))
 	end
 
 	return dispatchToProps

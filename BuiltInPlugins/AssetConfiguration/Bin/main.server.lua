@@ -7,7 +7,6 @@ local PluginRoot = script.Parent.Parent
 -- Fast flags
 require(PluginRoot.ToolboxFFlags)
 local FFlagEnableOverrideAssetCursorFix = game:GetFastFlag("EnableOverrideAssetCursorFix")
-local FFlagStudioUseNewAnimationImportExportFlow = settings():GetFFlag("StudioUseNewAnimationImportExportFlow")
 local FFlagStudioAssetConfigurationPlugin = game:GetFastFlag("StudioAssetConfigurationPlugin")
 local FFlagDebugAssetConfigurationEnableRoactChecks = game:DefineFastFlag("DebugAssetConfigurationEnableRoactChecks", false)
 
@@ -116,10 +115,8 @@ local function createAssetConfig(assetId, flowType, instances, assetTypeEnum, to
 	local startScreen = AssetConfigUtil.getFlowStartScreen(flowType)
 
 	local defaultTab = ConfigTypes:getDefualtTab()
-	if FFlagStudioUseNewAnimationImportExportFlow then
-		if flowType == AssetConfigConstants.FLOW_TYPE.DOWNLOAD_FLOW then
-			defaultTab = ConfigTypes:getOverrideTab()
-		end
+	if flowType == AssetConfigConstants.FLOW_TYPE.DOWNLOAD_FLOW then
+		defaultTab = ConfigTypes:getOverrideTab()
 	end
 
 
@@ -158,10 +155,8 @@ local function createAssetConfig(assetId, flowType, instances, assetTypeEnum, to
 			fireTabRefreshEvent()
 			Roact.unmount(assetConfigHandle)
 			assetConfigHandle = nil
-			if FFlagStudioUseNewAnimationImportExportFlow then
-				-- this should no-opt if user already selected an animation id in download flow
-				StudioService:AnimationIdSelected(0)
-			end
+			-- this should no-opt if user already selected an animation id in download flow
+			StudioService:AnimationIdSelected(0)
 		end
 	end
 

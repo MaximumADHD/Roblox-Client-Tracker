@@ -1,8 +1,9 @@
 local Plugin = script.Parent.Parent.Parent
-local TestHelpers = Plugin.Src.TestHelpers
 
-local MockMouse = require(TestHelpers.MockMouse)
-local MockTerrain = require(TestHelpers.MockTerrain)
+local Framework = require(Plugin.Packages.Framework)
+
+local MockMouse = Framework.TestHelpers.Instances.MockMouse
+local MockTerrain = require(Plugin.Src.TestHelpers.MockTerrain)
 
 local TerrainEnums = require(Plugin.Src.Util.TerrainEnums)
 local ToolId = TerrainEnums.ToolId

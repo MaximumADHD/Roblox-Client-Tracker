@@ -92,6 +92,13 @@ function ContextItem:createProvider()
 	error(message, 0)
 end
 
+--[[
+	Cleans up the context item (e.g. disconnecting from events).
+	Optional override
+]]
+function ContextItem:destroy()
+end
+
 function ContextItem:__tostring()
 	return tostring(self.__name)
 end
@@ -110,7 +117,8 @@ end
 			callback getChangedSignal: any => Signal optional
 				Should return a signal for this context item to connect to. When that signal fires, this context item updates.
 				If not provided, then the context item will be static
-			calllabck verifyNewItem: A callback fired when the simple ContextItem is being created for verification purposes.
+			callback verifyNewItem: A callback fired when the simple ContextItem is being created for verification purposes.
+			callback destroy: Optional function to destroy the wrapped object
 ]]
 function ContextItem:createSimple(name, options)
 	assert(name, "ContextItem:createSimple expects a name parameter")
@@ -144,6 +152,11 @@ function ContextItem:createSimple(name, options)
 			self._connection:Disconnect()
 			self._connection = nil
 		end
+
+		if options.destroy then
+			options.destroy(self._obj)
+		end
+		self._obj = nil
 	end
 
 	function SimpleContextItem:get()

@@ -1,15 +1,16 @@
 local Plugin = script.Parent.Parent.Parent
-local TestHelpers = Plugin.Src.TestHelpers
-local Packages = Plugin.Packages
+
+local Framework = require(Plugin.Packages.Framework)
+local Rodux = require(Plugin.Packages.Rodux)
+
+local testImmutability = Framework.TestHelpers.testImmutability
+
+local ErodeTool = require(script.Parent.ErodeTool)
 
 local Constants = require(Plugin.Src.Util.Constants)
 local TerrainEnums = require(Plugin.Src.Util.TerrainEnums)
 local BrushShape = TerrainEnums.BrushShape
 local PivotType = TerrainEnums.PivotType
-
-local ErodeTool = require(script.Parent.ErodeTool)
-local testImmutability = require(TestHelpers.testImmutability)
-local Rodux = require(Packages.Rodux)
 
 local Actions = Plugin.Src.Actions
 local ChooseBrushShape = require(Actions.ChooseBrushShape)

@@ -81,6 +81,7 @@ local nameErrors = {
 }
 
 local FFlagFixRadioButtonSeAndTableHeadertForTesting = game:getFastFlag("FixRadioButtonSeAndTableHeadertForTesting")
+local FFlagStudioPlaceVersionHistoryCorrectPlace = game:GetFastFlag("StudioPlaceVersionHistoryShowCorrectPlace")
 local FFlagStudioFixGameManagementIndexNil = game:getFastFlag("StudioFixGameManagementIndexNil")
 
 local function loadSettings(store, contextItems)
@@ -365,7 +366,11 @@ local function displayPlaceListPage(props, localization)
 				if key == "EditKey" then
 					props.dispatchSetEditPlaceId(id)
 				elseif key == "VerisonHistoryKey" then
-					StudioService:ShowPlaceVersionHistoryDialog()
+					if FFlagStudioPlaceVersionHistoryCorrectPlace then
+						StudioService:ShowPlaceVersionHistoryDialog(id)
+					else
+						StudioService:DEPRECATED_ShowPlaceVersionHistoryDialog()
+					end
 				end
 			end,
 			NextPageFunc = function()
@@ -584,7 +589,11 @@ local function displayEditPlacePage(props, localization)
 				Size = viewButtonSize,
 				LayoutOrder = layoutIndex:getNextOrder(),
 				OnClick = function()
-					StudioService:ShowPlaceVersionHistoryDialog()
+					if FFlagStudioPlaceVersionHistoryCorrectPlace then
+						StudioService:ShowPlaceVersionHistoryDialog(editPlaceId)
+					else
+						StudioService:DEPRECATED_ShowPlaceVersionHistoryDialog()
+					end
 				end,
 			}, {
 				Roact.createElement(HoverArea, {Cursor = "PointingHand"}),

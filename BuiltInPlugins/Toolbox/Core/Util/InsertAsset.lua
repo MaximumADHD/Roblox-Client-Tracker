@@ -28,6 +28,7 @@ local EFLuaDraggers = game:GetEngineFeature("LuaDraggers")
 local FFlagFixGroupPackagesCategoryInToolbox = game:GetFastFlag("FixGroupPackagesCategoryInToolbox")
 local FFlagToolboxInsertEventContextFixes = game:GetFastFlag("ToolboxInsertEventContextFixes")
 local FFlagEnableDefaultSortFix2 = game:GetFastFlag("EnableDefaultSortFix2")
+local FFlagToolboxNewInsertAnalytics = game:GetFastFlag("ToolboxNewInsertAnalytics")
 
 local INSERT_MAX_SEARCH_DEPTH = 2048
 local INSERT_MAX_DISTANCE_AWAY = 64
@@ -366,6 +367,10 @@ function InsertAsset.doInsertAsset(options, insertToolPromise)
 	if assetTypeId == Enum.AssetType.Plugin.Value then
 		ChangeHistoryService:SetWaypoint(("After attempt to install plugin %d"):format(assetId))
 		sendInsertionAnalytics(options, false)
+
+		if FFlagToolboxNewInsertAnalytics and options.onSuccess then
+			options.onSuccess(assetId)
+		end
 	elseif asset then
 		ChangeHistoryService:SetWaypoint(("After insert asset %d"):format(assetId))
 		sendInsertionAnalytics(options, false)
@@ -383,7 +388,13 @@ function InsertAsset.doInsertAsset(options, insertToolPromise)
 			AssetInsertionTracker.trackInsert(assetId, asset)
 		end
 
-		options.onSuccess(assetId)
+		if FFlagToolboxNewInsertAnalytics then
+			if options.onSuccess then
+				options.onSuccess(assetId, asset)
+			end
+		else
+			options.onSuccess(assetId)
+		end
 	else
 		warn(("Toolbox failed to insert asset %d %s: %s"):format(assetId, assetName, errorMessage or ""))
 	end

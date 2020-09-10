@@ -10,10 +10,6 @@ AssetConfigConstants.ACCOUNT_SETTING_URL = "https://www.roblox.com/my/account#!/
 
 AssetConfigConstants.NAME_CHARACTER_LIMIT = 50
 AssetConfigConstants.DESCRIPTION_CHARACTER_LIMIT = 1000
--- There is a cap for fetching asset, that's 100.
--- TODO: Fix me with this ticket DEVTOOLS-2904
--- DEPRECATED: in DEVTOOLS-3441 - remove after FFlag EnableOverrideAssetGroupCreationApi has deployed
-AssetConfigConstants.GetOverrideAssetNumbersPerPage = 100
 
 AssetConfigConstants.TITLE_GUTTER_WIDTH = 180
 

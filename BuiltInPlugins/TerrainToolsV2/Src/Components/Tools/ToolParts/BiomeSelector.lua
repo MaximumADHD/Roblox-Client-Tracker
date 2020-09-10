@@ -1,6 +1,12 @@
+local FFlagTerrainToolsUseDevFramework = game:GetFastFlag("TerrainToolsUseDevFramework")
+
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
 local Roact = require(Plugin.Packages.Roact)
+
+local Framework = require(Plugin.Packages.Framework)
+local ContextServices = Framework.ContextServices
+local ContextItems = require(Plugin.Src.ContextItems)
 
 local TTCheckBox = require(script.Parent.TTCheckBox)
 
@@ -20,9 +26,7 @@ local BiomeOrder = {
 	Biome.Arctic,
 }
 
-return function (props)
-	local theme = props.theme
-	local localization = props.localization
+local function BiomeSelector_render(props, theme, localization)
 	local selectBiome = props.selectBiome
 	local biomeSelection = props.biomeSelection
 	local layoutOrder = props.LayoutOrder
@@ -73,4 +77,29 @@ return function (props)
 			BorderColor3 = theme.borderColor,
 		}, content),
 	})
+end
+
+if FFlagTerrainToolsUseDevFramework then
+	local BiomeSelector = Roact.PureComponent:extend("BiomeSelector")
+
+	function BiomeSelector:render()
+		local theme = self.props.Theme:get()
+		local localization = self.props.Localization:get()
+
+		return BiomeSelector_render(self.props, theme, localization)
+	end
+
+	ContextServices.mapToProps(BiomeSelector, {
+		Theme = ContextItems.UILibraryTheme,
+		Localization = ContextItems.UILibraryLocalization,
+	})
+
+	return BiomeSelector
+else
+	return function (props)
+		local theme = props.theme
+		local localization = props.localization
+
+		return BiomeSelector_render(props, theme, localization)
+	end
 end

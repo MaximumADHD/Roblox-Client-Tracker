@@ -1,11 +1,13 @@
 local Plugin = script.Parent.Parent.Parent
-local TestHelpers = Plugin.Src.TestHelpers
+
+local Framework = require(Plugin.Packages.Framework)
+
+local makeSettableValue = Framework.TestHelpers.makeSettableValue
 
 local PartConverterVisuals = require(script.Parent.PartConverterVisuals)
 
 local PartSelectionModel = require(script.Parent.PartSelectionModel)
 local PartConverterUtil = require(script.Parent.PartConverterUtil)
-local makeSettableValue = require(TestHelpers.makeSettableValue)
 
 return function()
 	local function createPartSelectionModel()

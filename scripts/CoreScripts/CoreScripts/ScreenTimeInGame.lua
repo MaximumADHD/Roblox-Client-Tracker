@@ -14,26 +14,11 @@ local function leaveGame()
 	game:Shutdown()
 end
 
-local screenTimeState = {
+local ScreenTimeState = {
 	Warning = 1,
-	Lockout = 2
+	Lockout = 2,
+	OpenWebView = 3,
 }
-
-local function parseResponse(responseTable)
-	local state = screenTimeState.Warning
-	local instructions = responseTable.instructions
-	for _, instruction in ipairs(instructions) do
-		if instruction.type == screenTimeState.Lockout then
-			--if there is a lockout, we will stop getting other state and then leaveGame
-			state = screenTimeState.Lockout
-			break
-		end
-	end
-	return {
-		State = state,
-		Messages = responseTable.instructions,
-	}
-end
 
 local function markRead(messageToDisplay)
 	-- The ScreenTime V2 markRead endpoint, https://apis.roblox.qq.com/timed-entertainment-allowance/v1/reportExecute
@@ -65,8 +50,8 @@ local messageQueue = {
 	resolvedMessage = {},
 	displayMessageCallback = nil,
 
-	update = function(self, newMessageList)
-		for _, instruction in pairs(newMessageList) do
+	update = function(self, instructions)
+		for _, instruction in pairs(instructions) do
 			local pendingMessage = {
 				id = instruction.serialId,
 				instructionName = instruction.instructionName,
@@ -162,15 +147,30 @@ onScreenSizeChanged()
 
 local screenTimeUpdatedConnection
 local function screenTimeStatesUpdated(responseTable)
-	local response = parseResponse(responseTable)
-	if response.State == screenTimeState.Lockout then
+	local lockout = false
+	local instructions = {}
+	for _, instruction in ipairs(responseTable.instructions) do
+		if instruction.type == ScreenTimeState.Warning then
+			table.insert(instructions, instruction)
+		elseif instruction.type == ScreenTimeState.Lockout then
+			-- If there is a lockout, we will stop getting other state and then leaveGame
+			lockout = true
+			break
+		elseif instruction.type == ScreenTimeState.OpenWebView then
+			-- Don’t process it in games according to the requirement.
+			-- Doc: https://luobu.atlassian.net/l/c/BJ0vnXZi
+			-- It will be processed by other codes when user is not in any game.
+		end
+	end
+
+	if lockout then
 		-- immediately quit when locked out
 		if screenTimeUpdatedConnection then
 			screenTimeUpdatedConnection:Disconnect()
 		end
 		leaveGame()
-	elseif response.State == screenTimeState.Warning then
-		messageQueue:update(response.Messages)
+	else
+		messageQueue:update(instructions)
 	end
 end
 

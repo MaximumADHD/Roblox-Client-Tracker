@@ -8,7 +8,7 @@ local LineGraph = require(Components.LineGraph)
 
 local Constants = require(script.Parent.Parent.Parent.Constants)
 local LINE_WIDTH = Constants.GeneralFormatting.LineWidth
-local LINE_COLOR = Constants.GeneralFormatting.LINE_COLOR
+local LINE_COLOR = Constants.GeneralFormatting.LineColor
 local VALUE_CELL_WIDTH = Constants.MemoryFormatting.ValueCellWidth
 local CELL_PADDING = Constants.MemoryFormatting.CellPadding
 local VALUE_PADDING = Constants.MemoryFormatting.ValuePadding

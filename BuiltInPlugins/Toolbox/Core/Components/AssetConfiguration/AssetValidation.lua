@@ -36,8 +36,6 @@ local LoadingBar = require(Components.AssetConfiguration.LoadingBar)
 local AssetThumbnailPreview = require(Components.AssetConfiguration.AssetThumbnailPreview)
 local NavButton = require(Components.NavButton)
 
-local FFlagStudioUseNewAnimationImportExportFlow = settings():GetFFlag("StudioUseNewAnimationImportExportFlow")
-
 local TITLE_WIDTH = 400
 local TITLE_HEIGHT = 36
 
@@ -75,7 +73,7 @@ function AssetValidation:init(props)
 
 	if AssetConfigUtil.isMarketplaceAsset(self.props.assetTypeEnum) or
 		self.props.assetTypeEnum == Enum.AssetType.Model or
-		(FFlagStudioUseNewAnimationImportExportFlow and self.props.assetTypeEnum == Enum.AssetType.Animation) then
+		self.props.assetTypeEnum == Enum.AssetType.Animation then
 		self.props.nextScreen()
 	else
 		UGCValidation.validateAsync(self.props.instances, self.props.assetTypeEnum, function(success, reasons)

@@ -10,8 +10,8 @@ local StudioService = game:GetService("StudioService")
 
 -- libraries
 local Plugin = script.Parent.Parent.Parent
-local Framework = Plugin.Packages.Framework
-local Signal = require(Framework.Util).Signal
+local Framework = require(Plugin.Packages.Framework)
+local Signal = Framework.Util.Signal
 
 -- constants
 local FALLBACK_LOCALE = "en-us"

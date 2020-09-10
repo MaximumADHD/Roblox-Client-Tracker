@@ -1,11 +1,14 @@
 local Plugin = script.Parent.Parent.Parent
-local TestHelpers = Plugin.Src.TestHelpers
-local Packages = Plugin.Packages
+
+local Framework = require(Plugin.Packages.Framework)
+local Rodux = require(Plugin.Packages.Rodux)
+
+local testImmutability = Framework.TestHelpers.testImmutability
 
 local RegionTool = require(script.Parent.RegionTool)
-local testImmutability = require(TestHelpers.testImmutability)
-local Rodux = require(Packages.Rodux)
-local SetMergeEmpty = require(Plugin.Src.Actions.SetMergeEmpty)
+
+local Actions = Plugin.Src.Actions
+local SetMergeEmpty = require(Actions.SetMergeEmpty)
 
 return function()
 	it("should return its expected default state", function()

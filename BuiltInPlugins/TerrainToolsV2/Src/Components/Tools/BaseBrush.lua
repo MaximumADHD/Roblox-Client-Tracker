@@ -2,14 +2,21 @@
 	Displays panels associated with the BaseBrush tool
 ]]
 
+local FFlagTerrainToolsUseDevFramework = game:GetFastFlag("TerrainToolsUseDevFramework")
 local FFlagTerrainToolsReplaceSrcTogglesOff = game:GetFastFlag("TerrainToolsReplaceSrcTogglesOff")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
+local Framework = require(Plugin.Packages.Framework)
 local Roact = require(Plugin.Packages.Roact)
 
-local StudioPlugin = require(Plugin.Src.ContextServices.StudioPlugin)
-local TerrainInterface = require(Plugin.Src.ContextServices.TerrainInterface)
+local ContextServices = FFlagTerrainToolsUseDevFramework and Framework.ContextServices or nil
+local ContextItems = FFlagTerrainToolsUseDevFramework and require(Plugin.Src.ContextItems) or nil
+
+local StudioPlugin = not FFlagTerrainToolsUseDevFramework and require(Plugin.Src.ContextServices.StudioPlugin) or nil
+local TerrainInterface = not FFlagTerrainToolsUseDevFramework and require(Plugin.Src.ContextServices.TerrainInterface)
+	or nil
+
 local TerrainBrush = require(Plugin.Src.TerrainInterfaces.TerrainBrushInstance)
 
 local ToolParts = Plugin.Src.Components.Tools.ToolParts
@@ -26,14 +33,16 @@ local BaseBrush = Roact.PureComponent:extend(script.Name)
 function BaseBrush:init()
 	assert(TerrainEnums.ToolId[self.props.toolName], "Cannot use BaseBrush if brush type is not known")
 
-	self.pluginActivationController = TerrainInterface.getPluginActivationController(self)
-	assert(self.pluginActivationController, "BaseBrush requires a PluginActivationController from context")
+	if not FFlagTerrainToolsUseDevFramework then
+		self.pluginActivationController = TerrainInterface.getPluginActivationController(self)
+		assert(self.pluginActivationController, "BaseBrush requires a PluginActivationController from context")
 
-	self.terrainBrush = TerrainBrush.new({
-		terrain = TerrainInterface.getTerrain(self),
-		mouse = StudioPlugin.getPlugin(self):GetMouse(),
-		tool = self.props.toolName,
-	})
+		self.terrainBrush = TerrainBrush.new({
+			terrain = TerrainInterface.getTerrain(self),
+			mouse = StudioPlugin.getPlugin(self):GetMouse(),
+			tool = self.props.toolName,
+		})
+	end
 
 	-- Ordered array of connections to signals
 	-- Disconnected in willUnmount() in reverse order of connection
@@ -146,14 +155,24 @@ function BaseBrush:init()
 		end)
 	end
 
-	table.insert(self.connections, self.pluginActivationController:subscribeToToolDeactivated(function(toolId)
+	if not FFlagTerrainToolsUseDevFramework then
+		self:_connectEvents()
+	end
+end
+
+function BaseBrush:_connectEvents()
+	local pluginActivationController = FFlagTerrainToolsUseDevFramework
+		and self.props.PluginActivationController
+		or self.pluginActivationController
+
+	table.insert(self.connections, pluginActivationController:subscribeToToolDeactivated(function(toolId)
 		-- Stop the terrain brush if the tool that was deselected is my tool
 		if toolId == self.props.toolName then
 			self.terrainBrush:stop()
 		end
 	end))
 
-	table.insert(self.connections, self.pluginActivationController:subscribeToToolActivated(function(toolId)
+	table.insert(self.connections, pluginActivationController:subscribeToToolActivated(function(toolId)
 		if toolId == self.props.toolName then
 			self.startBrush()
 		end
@@ -208,6 +227,17 @@ function BaseBrush:didUpdate(previousProps, previousState)
 end
 
 function BaseBrush:didMount()
+	if FFlagTerrainToolsUseDevFramework then
+		self.terrainBrush = TerrainBrush.new({
+			terrain = self.props.Terrain:get(),
+			mouse = self.props.Mouse:get(),
+			analytics = self.props.Analytics,
+			tool = self.props.toolName,
+		})
+
+		self:_connectEvents()
+	end
+
 	self.updateBrushProperties()
 	self.startBrush()
 end
@@ -296,6 +326,15 @@ function BaseBrush:render()
 			setAutoMaterial = self.props.dispatchSetAutoMaterial,
 			setMaterial = self.props.dispatchSetMaterial,
 		}),
+	})
+end
+
+if FFlagTerrainToolsUseDevFramework then
+	ContextServices.mapToProps(BaseBrush, {
+		Mouse = ContextServices.Mouse,
+		Analytics = ContextServices.Analytics,
+		Terrain = ContextItems.Terrain,
+		PluginActivationController = ContextItems.PluginActivationController,
 	})
 end
 

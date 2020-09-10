@@ -97,7 +97,7 @@ function StatsViewerClass:SetStatType(statType)
     self._textPanel = nil
   end
   
-  self._textPanel = StatsTextPanelClass.new(statType, true)
+  self._textPanel = StatsTextPanelClass.new(statType)
   self._textPanel:PlaceInParent(self._frameImageLabel,
     TextPanelSize, 
     TextPanelPosition)

@@ -40,8 +40,6 @@ local FlagsList = Util.Flags.new({
 local TextLabel = Roact.PureComponent:extend("TextLabel")
 Typecheck.wrap(TextLabel, script)
 
-local FFlagTextLabelProps = game:DefineFastFlag("TextLabelProps", false)
-
 function TextLabel:render()
 	local layoutOrder = self.props.LayoutOrder
 	local size = self.props.Size
@@ -76,10 +74,10 @@ function TextLabel:render()
 		TextColor3 = textColor,
 		TextSize = textSize,
 		TextTransparency = transparency,
-		TextWrapped = FFlagTextLabelProps and textWrapped or nil,
+		TextWrapped = textWrapped,
 		TextXAlignment = textXAlignment,
 		TextYAlignment = textYAlignment,
-		ZIndex = FFlagTextLabelProps and zIndex or nil,
+		ZIndex = zIndex,
 	}, self.props[Roact.Children])
 end
 

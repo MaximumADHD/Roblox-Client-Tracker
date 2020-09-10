@@ -2,6 +2,9 @@ local Plugin = script.Parent.Parent.Parent
 
 local Cryo = require(Plugin.Packages.Cryo)
 
+local DebugFlags = require(Plugin.Src.Util.DebugFlags)
+
+local HttpService = game:GetService("HttpService")
 local StudioService = game:GetService("StudioService")
 
 return function(analyticsService)
@@ -15,23 +18,33 @@ return function(analyticsService)
 			userId = StudioService:GetUserId(),
 		}, additionalArgs)
 
+		if DebugFlags.LogAnalytics() then
+			print(("Terrain SendEvent eventName=%s args=%s"):format(
+				tostring(eventName), HttpService:JSONEncode(args)))
+		end
+
 		analyticsService:SendEventDeferred("studio", "Terrain", eventName, args)
 	end
 
 	local function reportCounter(counterName, count)
-		analyticsService:ReportCounter(counterName, count or 1)
+		count = count or 1
+		if DebugFlags.LogAnalytics() then
+			print(("Terrain ReportCounter counterName=%s count=%s"):format(
+				tostring(counterName), tostring(count)))
+		end
+		analyticsService:ReportCounter(counterName, count)
 	end
 
 	return {
-		changeTool = function(action)
+		changeTool = function(_, tool)
 			sendEvent("ToolSelected", {
-				name = action.currentTool,
+				name = tool,
 			})
 		end,
 
-		changeTab = function(action)
+		changeTab = function(_, tab)
 			sendEvent("TabSelected", {
-				name = action.tabName,
+				name = tab,
 			})
 		end,
 
@@ -50,7 +63,7 @@ return function(analyticsService)
 			sendEvent("CloseWidget")
 		end,
 
-		generateTerrain = function(numVoxels, biomeSize, seed)
+		generateTerrain = function(_, numVoxels, biomeSize, seed)
 			sendEvent("GenerateTerrain", {
 				numVoxels = numVoxels,
 				biomesize = biomeSize,
@@ -58,13 +71,13 @@ return function(analyticsService)
 			})
 		end,
 
-		useBrushTool = function(toolName)
+		useBrushTool = function(_, toolName)
 			sendEvent("UseTerrainTool", {
 				toolName = toolName,
 			})
 		end,
 
-		importTerrain = function(region, heightmap, colormap)
+		importTerrain = function(_, region, heightmap, colormap)
 			sendEvent("ImportTerrain", {
 				regionDims = ("%d,%d,%d)"):format(region.Size.x, region.Size.y, region.Size.z),
 				colorMapUrl = heightmap,
