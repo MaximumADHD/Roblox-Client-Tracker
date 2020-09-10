@@ -549,10 +549,6 @@ RBX
 	}
 	ScriptEditor
 	{
-		HighlightFormats
-		{
-			NullHighlightFormatProvider
-		}
 		CmdConfig
 		CmdDeleteToStartOfLine
 		CmdDocumentFormatting
@@ -924,6 +920,7 @@ RBX
 	GameTool
 	GcJob
 	GenericNumberHandler
+	GenericTelemetryEnabledJob
 	Geometry
 	GeometryService
 	GfxBinding
@@ -1378,6 +1375,7 @@ RBX
 	UnlockedPartByLocalCharacter
 	UnSavedScripts
 	UnsecuredStudioGame
+	UnvalidatedAssetService
 	UserInputBase
 	UserInputService
 	UsernameHandler

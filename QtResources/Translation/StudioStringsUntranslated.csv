@@ -516,6 +516,7 @@ Studio.App.IdeDoc.ConnectingtoServer,Roblox IDE Doc,Connecting to server...,Conn
 Studio.App.IdeDoc.ConstraintObjectsWillNotWorkPhysicsSolverOverrideTrue,Roblox IDE Doc,Constraint objects will not function correctly because Workspace.TemporaryLegacyPhysicsSolverOverride is true,Constraint objects will not function correctly because Workspace.TemporaryLegacyPhysicsSolverOverride is true
 Studio.App.IdeDoc.CouldNotLoadPlaceDueToPermissionError,Roblox IDE Doc,"<b>Sorry, we could not load this place due to a permission error</b>","<b>Sorry, we could not load this place due to a permission error</b>"
 Studio.App.IdeDoc.CouldNotTeleportToPlaceCannotEdit1,Roblox IDE Doc,Could not teleport to place %1 from studio. You can only teleport from studio to places you can edit.,Could not teleport to place %1 from studio. You can only teleport from studio to places you can edit.
+Studio.App.IdeDoc.DeprecateCSGv1,,You are using the legacy CSG modeling system that will soon be removed from Roblox Studio. We have changed your Studio Setting to use the latest version. <a href=%1>Learn More</a>,You are using the legacy CSG modeling system that will soon be removed from Roblox Studio. We have changed your Studio Setting to use the latest version. <a href=%1>Learn More</a>
 Studio.App.IdeDoc.Discard,Roblox IDE Doc,Discard,Discard
 Studio.App.IdeDoc.DisconnectedFromTeamTestServer,Roblox IDE Doc,You have been disconnected from the team test server.,You have been disconnected from the team test server.
 Studio.App.IdeDoc.DoNotBreakWhilePlaceFileOpen,Roblox IDE Doc,Do not break again while this place file is open,Do not break again while this place file is open
@@ -875,7 +876,8 @@ Studio.App.MyGamesPage.GroupGames,,Group Games,Group Games
 Studio.App.MyGamesPage.SharedWithMe,,Shared With Me,Shared With Me
 Studio.App.MyWatchTreeWidget.DeleteAll,,Delete All,Delete All
 Studio.App.MyWatchTreeWidget.DeleteWatch,,Delete Watch,Delete Watch
-Studio.App.OSVersionWarning.MacOS1010,,Beginning in October 2020 we will be discontinuing support for MacOS 10.10. Please upgrade to MacOS 10.11+ to continue to use Roblox Studio.,Beginning in October 2020 we will be discontinuing support for MacOS 10.10. Please upgrade to MacOS 10.11+ to continue to use Roblox Studio.
+Studio.App.OSVersionWarning.LearnMore,Appears on a popup that warns users they are using an OS version that will soon no longer be supported. Links to a page with more information.,Learn More,Learn More
+Studio.App.OSVersionWarning.MacOS1010,,Beginning in November 2020 we will be discontinuing support for MacOS 10.10. Please upgrade to MacOS 10.11+ to continue to use Roblox Studio.,Beginning in November 2020 we will be discontinuing support for MacOS 10.10. Please upgrade to MacOS 10.11+ to continue to use Roblox Studio.
 Studio.App.OSVersionWarning.MacOS109,,Beginning in November 2019 we will be discontinuing support for MacOS 10.9. Please upgrade to MacOS 10.10+ to continue to use Roblox Studio.,Beginning in November 2019 we will be discontinuing support for MacOS 10.9. Please upgrade to MacOS 10.10+ to continue to use Roblox Studio.
 Studio.App.OnPublishDialog.BasicSettings,,Basic Settings,Basic Settings
 Studio.App.OnPublishDialog.Description,,Description:,Description:
@@ -1019,12 +1021,14 @@ Studio.App.Property.DefaultScriptFileDir,,Default Script File Dir,Default Script
 Studio.App.Property.DefaultWaitTime,,Default Wait Time,Default Wait Time
 Studio.App.Property.DeprecatedObjectsShown,,Deprecated Objects Shown,Deprecated Objects Shown
 Studio.App.Property.DisableAccuratePlaySolo,,Disable Accurate Play Solo,Disable Accurate Play Solo
-Studio.App.Property.DisableCSGv2,,Disable CSGv2,Disable CSGv2
+Studio.App.Property.DisableCSGv2,,Enable Legacy CSG,Enable Legacy CSG
 Studio.App.Property.DragMultiplePartsAsSinglePart,,Drag Multiple Parts As Single Part,Drag Multiple Parts As Single Part
 Studio.App.Property.EagerBulkExecution,,Eager Bulk Execution,Eager Bulk Execution
 Studio.App.Property.EditQualityLevel,,Edit Quality Level,Edit Quality Level
 Studio.App.Property.EnableAutocomplete,,Enable Autocomplete,Enable Autocomplete
 Studio.App.Property.EnableCoreScriptDebugger,,Enable CoreScript Debugger,Enable CoreScript Debugger
+Studio.App.Property.EnableHttpSandboxing,,Enable Http Sandboxing,Enable Http Sandboxing
+Studio.App.Property.EnableInternalBetaFeatures,,Enable Internal Beta Features,Enable Internal Beta Features
 Studio.App.Property.EnableInternalFeatures,,Enable Internal Features,Enable Internal Features
 Studio.App.Property.ErrorColor,,Error Color,Error Color
 Studio.App.Property.ErrorReporting,,Error Reporting,Error Reporting
@@ -1628,7 +1632,6 @@ Studio.App.RBXMainWindow.StepInto,,Step Into,Step Into
 Studio.App.RBXMainWindow.StepOut,,Step Out,Step Out
 Studio.App.RBXMainWindow.StepOver,,Step Over,Step Over
 Studio.App.RBXMainWindow.StopsAndReloadsTheDocument,,Stops and reloads the document,Stops and reloads the document
-Studio.App.RBXMainWindow.StoreScriptCloud,,Store this script in the cloud so that you can easily re-use it,Store this script in the cloud so that you can easily re-use it
 Studio.App.RBXMainWindow.StudioSettingsElps,,Studio Settings...,Studio Settings...
 Studio.App.RBXMainWindow.SummaryStats,,Summary Stats,Summary Stats
 Studio.App.RBXMainWindow.SwapAttachments,,Swap Attachments,Swap Attachments
@@ -2653,6 +2656,7 @@ Studio.Internal.RobloxMainWindow.UnableToSave,,Unable To Save,Unable To Save
 Studio.Internal.RobloxMainWindow.UnsavedScripts,,Unsaved Scripts,Unsaved Scripts
 Studio.Internal.RobloxRibbonMainWindow.DocHistoryBackwards,,Step backwards through tab history,Step backwards through tab history
 Studio.Internal.RobloxRibbonMainWindow.DocHistoryForwards,,Step forwards through tab history,Step forwards through tab history
+Studio.Internal.RobloxRibbonMainWindow.InternalBetaFeatures,,Roblox Internal – Beta,Roblox Internal – Beta
 Studio.Internal.RobloxRibbonMainWindow.InternalFeatures,,Roblox Internal,Roblox Internal
 Studio.Internal.RobloxRibbonMainWindow.InternalFeaturesAreEnabled,,Internal Features are enabled,Internal Features are enabled
 Studio.Internal.RobloxRibbonMainWindow.InternalFeaturesMessageBoxContent,,"Your account is associated with an @roblox.com email address or has Soothsayer permissions. You also have internal-only features turned on.

@@ -315,6 +315,7 @@ Class BrowserService : Instance [NotCreatable] [Service] [NotReplicated]
 Class BulkImportService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void BulkImportService:LaunchBulkImport(int assetTypeToImport) {RobloxScriptSecurity}
 	Function void BulkImportService:ShowBulkImportView() {RobloxScriptSecurity}
+	Event BulkImportService.AssetImported(Enum<AssetType> assetType, string name, int id) {RobloxScriptSecurity}
 	Event BulkImportService.BulkImportFinished(int state) {RobloxScriptSecurity}
 	Event BulkImportService.BulkImportStarted() {RobloxScriptSecurity}
 Class CacheableContentProvider : Instance [NotCreatable] [Service] [NotReplicated]
@@ -1177,6 +1178,7 @@ Class GuiService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property bool GuiService.IsModalDialog  [ReadOnly] [NotReplicated] [Deprecated]
 	Property bool GuiService.IsWindows  [ReadOnly] [NotReplicated] [Deprecated]
 	Property bool GuiService.MenuIsOpen [<💾> SaveOnly] [ReadOnly] [NotReplicated]
+	Property bool GuiService.RenderHumanoidBillboards {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property Class<GuiObject> GuiService.SelectedCoreObject {RobloxScriptSecurity} [<📁> LoadOnly] [NotReplicated]
 	Property Class<GuiObject> GuiService.SelectedObject
 	Function void GuiService:AddCenterDialog(Instance dialog, Enum<CenterDialogType> centerDialogType, Function showFunction, Function hideFunction) {RobloxScriptSecurity}
@@ -2108,6 +2110,7 @@ Class PhysicsSettings : Instance [NotCreatable] [Settings]
 	Property bool PhysicsSettings.AreUnalignedPartsShown
 	Property bool PhysicsSettings.AreWorldCoordsShown
 	Property bool PhysicsSettings.DisableCSGv2
+	Property bool PhysicsSettings.ForceCSGv2  [Hidden] [NotReplicated]
 	Property bool PhysicsSettings.IsReceiveAgeShown
 	Property bool PhysicsSettings.IsTreeShown
 	Property bool PhysicsSettings.ShowDecompositionGeometry
@@ -2826,7 +2829,9 @@ Class Studio : Instance [NotCreatable] [Service] [NotReplicated]
 	Property bool Studio.Disable Accurate Play Solo
 	Property bool Studio.Drag Multiple Parts As Single Part
 	Property bool Studio.Enable CoreScript Debugger
+	Property bool Studio.Enable Http Sandboxing
 	Property bool Studio.Enable Intellisense [<📁> LoadOnly] [NotReplicated] [Deprecated]
+	Property bool Studio.Enable Internal Beta Features
 	Property bool Studio.Enable Internal Features
 	Property bool Studio.Respect Studio shortcuts when game has focus
 	Property bool Studio.Search Content For Core Scripts
@@ -2939,6 +2944,7 @@ Class StudioService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function bool StudioService:BaseURLHasChineseHost() {RobloxScriptSecurity}
 	Function void StudioService:ConvertToPackageUpload(string uploadUrl) {RobloxScriptSecurity}
 	Function void StudioService:CopyToClipboard(string stringToCopy) {RobloxScriptSecurity}
+	Function void StudioService:DEPRECATED_ShowPlaceVersionHistoryDialog() {RobloxScriptSecurity}
 	Function void StudioService:EmitPlacePublishedSignal() {RobloxScriptSecurity}
 	Function Dictionary StudioService:GetClassIcon(string className) {PluginSecurity}
 	Function Dictionary StudioService:GetResourceByCategory(string category) {RobloxScriptSecurity}
@@ -2961,7 +2967,7 @@ Class StudioService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void StudioService:SetDocumentDisplayName(string newName) {RobloxScriptSecurity}
 	Function void StudioService:SetPluginEnabled(int64 assetId, bool state) {RobloxScriptSecurity}
 	Function void StudioService:SetUniverseDisplayName(string newName) {RobloxScriptSecurity}
-	Function void StudioService:ShowPlaceVersionHistoryDialog() {RobloxScriptSecurity}
+	Function void StudioService:ShowPlaceVersionHistoryDialog(int64 placeId) {RobloxScriptSecurity}
 	Function void StudioService:ShowPublishToRoblox() {RobloxScriptSecurity}
 	Function void StudioService:TryInstallPlugin(int64 assetId, int64 assetVersionId) {RobloxScriptSecurity} [Yields]
 	Function void StudioService:UninstallPlugin(int64 assetId) {RobloxScriptSecurity}
@@ -3181,6 +3187,10 @@ Class UIPadding : UIComponent
 	Property UDim UIPadding.PaddingTop
 Class UIScale : UIComponent
 	Property float UIScale.Scale
+Class UnvalidatedAssetService : Instance [NotCreatable] [Service]
+	Function void UnvalidatedAssetService:AppendTempAsset(int64 id, Vector3 lookAt, Vector3 camPos, string usage) {RobloxScriptSecurity}
+	Function bool UnvalidatedAssetService:AppendVantagePoint(int64 id, Vector3 lookAt, Vector3 camPos) {RobloxScriptSecurity}
+	Function bool UnvalidatedAssetService:RenameTempAsset(int64 tempId, int64 assetId) {RobloxScriptSecurity}
 Class UserGameSettings : Instance [NotCreatable] [UserSettings]
 	Property Enum<SavedQualitySetting> UserGameSettings.SavedQualityLevel
 	Property Enum<CustomCameraMode> UserGameSettings.CameraMode {RobloxScriptSecurity}

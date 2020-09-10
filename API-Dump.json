@@ -5713,6 +5713,34 @@
                 },
                 {
                     "MemberType": "Event",
+                    "Name": "AssetImported",
+                    "Parameters": [
+                        {
+                            "Name": "assetType",
+                            "Type": {
+                                "Category": "Enum",
+                                "Name": "AssetType"
+                            }
+                        },
+                        {
+                            "Name": "name",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Name": "id",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int"
+                            }
+                        }
+                    ],
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Event",
                     "Name": "BulkImportFinished",
                     "Parameters": [
                         {
@@ -20333,6 +20361,27 @@
                     },
                     "Tags": [
                         "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "RenderHumanoidBillboards",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "Hidden",
                         "NotReplicated"
                     ],
                     "ValueType": {
@@ -37735,6 +37784,27 @@
                 {
                     "Category": "Display",
                     "MemberType": "Property",
+                    "Name": "ForceCSGv2",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "Hidden",
+                        "NotReplicated"
+                    ],
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Display",
+                    "MemberType": "Property",
                     "Name": "IsReceiveAgeShown",
                     "Security": {
                         "Read": "None",
@@ -51013,6 +51083,23 @@
                 {
                     "Category": "Advanced",
                     "MemberType": "Property",
+                    "Name": "Enable Http Sandboxing",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Advanced",
+                    "MemberType": "Property",
                     "Name": "Enable Intellisense",
                     "Security": {
                         "Read": "None",
@@ -51026,6 +51113,23 @@
                         "NotReplicated",
                         "Deprecated"
                     ],
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Advanced",
+                    "MemberType": "Property",
+                    "Name": "Enable Internal Beta Features",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "bool"
@@ -52538,6 +52642,17 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "DEPRECATED_ShowPlaceVersionHistoryDialog",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "EmitPlacePublishedSignal",
                     "Parameters": [
                     ],
@@ -52865,6 +52980,13 @@
                     "MemberType": "Function",
                     "Name": "ShowPlaceVersionHistoryDialog",
                     "Parameters": [
+                        {
+                            "Name": "placeId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int64"
+                            }
+                        }
                     ],
                     "ReturnType": {
                         "Category": "Primitive",
@@ -56830,6 +56952,113 @@
             "MemoryCategory": "Instances",
             "Name": "UIScale",
             "Superclass": "UIComponent"
+        },
+        {
+            "Members": [
+                {
+                    "MemberType": "Function",
+                    "Name": "AppendTempAsset",
+                    "Parameters": [
+                        {
+                            "Name": "id",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int64"
+                            }
+                        },
+                        {
+                            "Name": "lookAt",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "Vector3"
+                            }
+                        },
+                        {
+                            "Name": "camPos",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "Vector3"
+                            }
+                        },
+                        {
+                            "Name": "usage",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "AppendVantagePoint",
+                    "Parameters": [
+                        {
+                            "Name": "id",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int64"
+                            }
+                        },
+                        {
+                            "Name": "lookAt",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "Vector3"
+                            }
+                        },
+                        {
+                            "Name": "camPos",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "Vector3"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    },
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "RenameTempAsset",
+                    "Parameters": [
+                        {
+                            "Name": "tempId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int64"
+                            }
+                        },
+                        {
+                            "Name": "assetId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int64"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    },
+                    "Security": "RobloxScriptSecurity"
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "UnvalidatedAssetService",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotCreatable",
+                "Service"
+            ]
         },
         {
             "Members": [

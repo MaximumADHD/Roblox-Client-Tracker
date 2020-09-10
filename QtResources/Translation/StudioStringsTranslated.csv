@@ -410,13 +410,10 @@ Studio.App.RBXMainWindow.CommentSelection,,,Comment Selection,Comment Selection,
 Studio.App.RBXMainWindow.ConditionElps,,,Condition...,Condition...,조건...,Условие...,条件...
 Studio.App.RBXMainWindow.ConnectorsOnSurface,,,Connectors on Surface,Connectors on Surface,표면의 커넥터,Коннекторы на поверхности,表面连接件
 Studio.App.RBXMainWindow.ConstraintCheck,,,Constraint Check,Constraint Check,제약 확인,Проверка ограничений,约束检查
-Studio.App.RBXMainWindow.ContextHelp,,,Context Help,Context Help,콘텍스트 도움말,Контекстная справка,语境帮助
 Studio.App.RBXMainWindow.ConvertToPackageElps,,,Convert to Package...,Convert to Package...,패키지로 전환...,Преобразовать в пакет....,转换为包...
 Studio.App.RBXMainWindow.CopyTheSelectionAndPutItOn,,,Copy the selection and put it on the Clipboard,Copy the selection and put it on the Clipboard,선택 항목을 클립보드로 복사,Скопировать выделенное и поместить в буфер обмена,复制选中内容并置入剪贴板
 Studio.App.RBXMainWindow.CreateANewDocument,,,Create a new document,Create a new document,새 문서 만들기,Создать новый документ,创建一个新文档
 Studio.App.RBXMainWindow.CreateLocalPluginFromScriptElps,,,Create a local plugin from this script...,Create a local plugin from this script...,이 스크립트에서 로컬 플러그인 만들기...,Создать локальный плагин из этого скрипта...,从此脚本创建一个本地插件...
-Studio.App.RBXMainWindow.CreateNewLinkedSourceElps,,,Create new LinkedSource...,Create new LinkedSource...,새 LinkedSource 만들기...,Создать новый LinkedSource...,创建新 LinkedSource...
-Studio.App.RBXMainWindow.CreatePluginFromScript,,,Create a local plugin from this script,Create a local plugin from this script,이 스크립트에서 로컬 플러그인 만들기,Создать локальный плагин из этого скрипта,从此脚本创建一个本地插件
 Studio.App.RBXMainWindow.CustomizeElps,,,Customize...,Customize...,사용자 정의...,Настройка...,自定义...
 Studio.App.RBXMainWindow.CustomizeQuickAccess,,,Customize Quick Access,Customize Quick Access,빠른 액세스 사용자 정의,Настройка быстрого доступа,自定义快速访问
 Studio.App.RBXMainWindow.CustomizeShortcutsElps,,,Customize Shortcuts...,Customize Shortcuts...,바로가기 사용자 정의...,Настройка сочетаний клавиш...,自定义快捷键...
@@ -639,7 +636,6 @@ Studio.App.RBXMainWindow.StepInto,,,Step Into,Step Into,한 단계씩 실행,Ш�
 Studio.App.RBXMainWindow.StepOut,,,Step Out,Step Out,단계 출력,Шаг с выходом,单步跳出
 Studio.App.RBXMainWindow.StepOver,,,Step Over,Step Over,단위 실행,Шаг с обходом,单步跳过
 Studio.App.RBXMainWindow.StopsAndReloadsTheDocument,,,Stops and reloads the document,Stops and reloads the document,중지 후 문서 다시 불러오기,Останавливается и перезагружает документ,停止并重新加载文档
-Studio.App.RBXMainWindow.StoreScriptCloud,,,Store this script in the cloud so that you can easily re-use it,Store this script in the cloud so that you can easily re-use it,손쉽게 다시 사용할 수 있도록 클라우드에 이 스크립트 저장,Храните этот скрипт в облаке - это облегчит повторное использование,将此脚本保存至云端，让你可以轻松地重复利用它
 Studio.App.RBXMainWindow.SummaryStats,,,Summary Stats,Summary Stats,상태 요약,Краткая статистика,摘要统计
 Studio.App.RBXMainWindow.SwapAttachments,,,Swap Attachments,Swap Attachments,첨부 스왑,Поменять местами оснастку,交换附件
 Studio.App.RBXMainWindow.SwitchBothAttachments,,,Swap both attachments on the constraint,Swap both attachments on the constraint,제약의 첨부 모두 스왑,Меняет местами обе оснастки на ограничении,交换约束上的两个附件
@@ -684,7 +680,6 @@ Studio.App.RBXMainWindow.UniversalsForSurface,,,Universals for Surface,Universal
 Studio.App.RBXMainWindow.UnlockAll,,,Unlock All,Unlock All,모두 잠금 해제,Разблокировать все,全部解锁
 Studio.App.RBXMainWindow.UploadLogFiles,,,Upload Log Files,Upload Log Files,로그 파일 업로드,Загрузить файлы журнала,上传日志文件
 Studio.App.RBXMainWindow.VideoRecord,,,Video Record,Video Record,비디오 녹화,Видеозапись,视频录像
-Studio.App.RBXMainWindow.ViewContextSensitiveHelp,,,View Context-sensitive Help,View Context-sensitive Help,상황에 맞는 도움말 보기,Просмотр контекстно-зависимой справки,查看语境相关帮助
 Studio.App.RBXMainWindow.ViewFindResults,,,View Find Results,View Find Results,결과 찾기 보기,Просмотр результатов поиска,查看查找结果
 Studio.App.RBXMainWindow.ViewGameExplorerElps,,,View Game Explorer...,View Game Explorer...,게임 탐색기 보기...,Просмотр проводника игр...,查看游戏管理器
 Studio.App.RBXMainWindow.ViewObjectExplorer,,,View Object Explorer,View Object Explorer,개체 탐색기 보기,Просмотр проводника объектов,查看对象管理器
@@ -946,7 +941,6 @@ Studio.App.RobloxRibbonMainWindow.Universal,,,Universal,Universal,유니버설,�
 Studio.App.RobloxRibbonMainWindow.UpdateSettingsCurrentGame,,,Update settings related to current game,Update settings related to current game,현재 게임과 관련된 설정 업데이트,Обновить настройки текущей игры,更新当前游戏的相关设置
 Studio.App.RobloxRibbonMainWindow.VectorForce,,,Vector Force,Vector Force,벡터량,Вектор силы,矢量力
 Studio.App.RobloxRibbonMainWindow.View,,,View,View,보기,Просмотр,查看
-Studio.App.RobloxRibbonMainWindow.ViewContextSensitiveHelp,,,View context-sensitive help,View context-sensitive help,상황에 맞는 도움말 보기,Просмотр контекстно-зависимой справки,查看语境相关帮助
 Studio.App.RobloxRibbonMainWindow.ViewCurrentCallStack,,,View current call stack,View current call stack,현재 호출 스택 보기,Просмотр стека текущих вызовов,查看当前调用堆栈
 Studio.App.RobloxRibbonMainWindow.ViewCurrentlyWatchedVariables,,,View currently watched variables,View currently watched variables,현재 감시되는 변수 보기,Просмотр текущих переменных,查看当前监视的变量
 Studio.App.RobloxRibbonMainWindow.ViewDiagnosticInfo,,,View diagnostic information of your game,View diagnostic information of your game,게임의 진단 정보 보기,Просмотр диагностической информации о вашей игре,查看游戏的诊断信息
@@ -1318,7 +1312,6 @@ Studio.App.Property.DefaultWaitTime,,,Default Wait Time,Default Wait Time,기본
 Studio.App.Property.DeprecatedObjectsShown,,,Deprecated Objects Shown,Deprecated Objects Shown,사용되지 않는 개체 표시,Показаны устаревшие объекты,显示弃用对象
 Studio.App.Property.DevicePairingCode,,,Device Pairing Code,Device Pairing Code,기기 페어링 코드,Код связывания с устройством,设备配对码
 Studio.App.Property.DisableAccuratePlaySolo,,,Disable Accurate Play Solo,Disable Accurate Play Solo,정확한 싱글 플레이 비활성화,Отключить точный одиночный режим,禁用Accurate Play Solo
-Studio.App.Property.DisableCSGv2,,,Disable CSGv2,Disable CSGv2,CSGv2 비활성화,Отключить CSGv2,禁用 CSGv2
 Studio.App.Property.DragMultiplePartsAsSinglePart,,,Drag Multiple Parts As Single Part,Drag Multiple Parts As Single Part,파트 여러 개를 단일 파트로 끌기,Перетаскивать несколько элементов как один,同时拖动多个部件
 Studio.App.Property.EagerBulkExecution,,,Eager Bulk Execution,Eager Bulk Execution,즉시 일괄 실행,Массовое выполнение,预先批处理执行
 Studio.App.Property.EditQualityLevel,,,Edit Quality Level,Edit Quality Level,품질 수준 편집,Изменить уровень качества,编辑品质等级
@@ -2878,6 +2871,7 @@ Studio.App.IdeDoc.StatusSettingUp,,,Setting up...,Setting up...,,,
 Studio.App.MyWatchTreeWidget.DeleteAll,,,Delete All,Delete All,,,
 Studio.App.MyWatchTreeWidget.DeleteWatch,,,Delete Watch,Delete Watch,,,
 Studio.App.OSVersionWarning.MacOS1010,,,Beginning in October 2020 we will be discontinuing support for MacOS 10.10. Please upgrade to MacOS 10.11+ to continue to use Roblox Studio.,Beginning in October 2020 we will be discontinuing support for MacOS 10.10. Please upgrade to MacOS 10.11+ to continue to use Roblox Studio.,,,
+Studio.App.OSVersionWarning.LearnMoreTooltip,,,Learn More,Learn More,더 알아보기,Подробнее,了解更多
 Studio.Common.Action.Apply,,,Apply,Apply,적용,Применить,应用
 Studio.Common.Action.Back,,,Back,Back,뒤로,Назад,返回
 Studio.Common.Action.Cancel,,,Cancel,Cancel,취소,Отмена,取消

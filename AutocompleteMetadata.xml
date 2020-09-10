@@ -1403,6 +1403,27 @@
         </parameters>
         <description>Creates a CFrame from a translation and two columns of a rotation matrix. The third column is calculated as [vx:Cross(vy).unit]</description>
     </Function>
+    <Function name="lookAt" static="true">
+        <returns>
+            <CFrame></CFrame>
+        </returns>
+        <parameters>
+            <Vector3 name="at"></Vector3>
+            <Vector3 name="target"></Vector3>
+        </parameters>
+        <description>Creates a CFrame at a given position looking at a given target position, with an up direction of +Y.</description>
+    </Function>
+    <Function name="lookAt" static="true">
+        <returns>
+            <CFrame></CFrame>
+        </returns>
+        <parameters>
+            <Vector3 name="at"></Vector3>
+            <Vector3 name="target"></Vector3>
+            <Vector3 name="up"></Vector3>
+        </parameters>
+        <description>Creates a CFrame at a given position looking at a given target position, with a specific programmer provided up direction.</description>
+    </Function>
     <Properties>
       <number name="Position">The 3D position of the CFrame</number>
       <number name="X">The x-coordinate of the position</number>
