@@ -1,12 +1,6 @@
 local Plugin = script.Parent.Parent.Parent.Parent
 
-local FFlagToolboxUseDevFrameworkPromise = game:GetFastFlag("ToolboxUseDevFrameworkPromise")
-local Promise
-if FFlagToolboxUseDevFrameworkPromise then
-	Promise = require(Plugin.Libs.Framework.Util.Promise)
-else
-	Promise = require(Plugin.Libs.Http.Promise)
-end
+local Promise = require(Plugin.Libs.Framework.Util.Promise)
 
 local NetworkError = require(Plugin.Core.Actions.NetworkError)
 local SetAllowedAssetTypes =  require(Plugin.Core.Actions.SetAllowedAssetTypes)

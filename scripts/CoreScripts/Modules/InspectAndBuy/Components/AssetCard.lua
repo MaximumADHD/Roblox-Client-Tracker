@@ -7,6 +7,8 @@ local SetDetailsInformation = require(InspectAndBuyFolder.Actions.SetDetailsInfo
 local Url = require(CorePackages.AppTempCommon.LuaApp.Http.Url)
 local getSelectionImageObjectRegular = require(InspectAndBuyFolder.getSelectionImageObjectRegular)
 
+local GetFFlagUseThumbnailUrl = require(game:GetService("CoreGui").RobloxGui.Modules.Common.Flags.GetFFlagUseThumbnailUrl)
+
 local AssetCard = Roact.Component:extend("AssetCard")
 
 function AssetCard:init()
@@ -38,7 +40,7 @@ function AssetCard:render()
 			BackgroundColor3 = Colors.Graphite,
 			Selectable = false,
 			AutoButtonColor = false,
-			Image = Url.BASE_URL_SECURE .."/asset-thumbnail/image?assetId=" ..assetInfo.assetId
+			Image = GetFFlagUseThumbnailUrl() and "rbxthumb://type=Asset&id=" .. assetInfo.assetId .. "&w=150&h=150" or Url.BASE_URL_SECURE .."/asset-thumbnail/image?assetId=" ..assetInfo.assetId
 				.."&width=150&height=150&format=png",
 			[Roact.Event.Activated] = function()
 				openDetails(assetInfo.assetId)

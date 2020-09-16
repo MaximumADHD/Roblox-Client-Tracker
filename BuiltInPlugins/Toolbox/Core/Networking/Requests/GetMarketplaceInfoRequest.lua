@@ -12,13 +12,7 @@ local UpdateAssetConfigData = require(Actions.UpdateAssetConfigData)
 local NetworkError = require(Actions.NetworkError)
 local ConfigTypes = require(Plugin.Core.Types.ConfigTypes)
 
-local FFlagToolboxUseDevFrameworkPromise = game:GetFastFlag("ToolboxUseDevFrameworkPromise")
-local Promise
-if FFlagToolboxUseDevFrameworkPromise then
-	Promise = require(Plugin.Libs.Framework.Util.Promise)
-else
-	Promise = require(Plugin.Libs.Http.Promise)
-end
+local Promise = require(Plugin.Libs.Framework.Util.Promise)
 
 local firstToUpper = require(Plugin.Core.Util.firstToUpper)
 

@@ -13,7 +13,7 @@
 --- CONSTANTS
 
 local STOP_MOVEMENT_ACTION_NAME = "AvatarContextMenuStopInput"
-local MAX_THUMBNAIL_WAIT_TIME = 2
+-- todo: remove with GetFFlagUseThumbnailUrl
 local MAX_THUMBNAIL_RETRIES = 4
 
 --- SERVICES
@@ -36,35 +36,42 @@ while not LocalPlayer do
 	LocalPlayer = PlayersService.LocalPlayer
 end
 
+-- FLAGS
+local GetFFlagUseThumbnailUrl = require(CoreGuiModules.Common.Flags.GetFFlagUseThumbnailUrl)
+
 local ContextMenuUtil = {}
 ContextMenuUtil.__index = ContextMenuUtil
 
 -- PUBLIC METHODS
 
 function ContextMenuUtil:GetHeadshotForPlayer(player)
-	if self.HeadShotUrlCache[player] ~= nil and self.HeadShotUrlCache[player] ~= "" then
-		return self.HeadShotUrlCache[player]
-	end
-	if self.HeadShotUrlCache[player] == nil then
-		-- Mark that we are getting a headshot for this player.
-		self.HeadShotUrlCache[player] = ""
-	end
-
-	local startTime = tick()
-	local headshotUrl, isFinal = PlayersService:GetUserThumbnailAsync(player.UserId, Enum.ThumbnailType.HeadShot, Enum.ThumbnailSize.Size180x180)
-
-	if not isFinal then
-		for i = 0, MAX_THUMBNAIL_RETRIES do
-			headshotUrl, isFinal = PlayersService:GetUserThumbnailAsync(player.UserId, Enum.ThumbnailType.HeadShot, Enum.ThumbnailSize.Size180x180)
-			if isFinal then
-				break
-			end
-			wait(i ^ 2)
+	if GetFFlagUseThumbnailUrl() then
+		return "rbxthumb://type=AvatarHeadShot&id=" .. player.UserId .. "&w=150&h=150"
+	else
+		if self.HeadShotUrlCache[player] ~= nil and self.HeadShotUrlCache[player] ~= "" then
+			return self.HeadShotUrlCache[player]
 		end
-	end
-	self.HeadShotUrlCache[player] = headshotUrl
+		if self.HeadShotUrlCache[player] == nil then
+			-- Mark that we are getting a headshot for this player.
+			self.HeadShotUrlCache[player] = ""
+		end
 
-	return headshotUrl
+		local startTime = tick()
+		local headshotUrl, isFinal = PlayersService:GetUserThumbnailAsync(player.UserId, Enum.ThumbnailType.HeadShot, Enum.ThumbnailSize.Size180x180)
+
+		if not isFinal then
+			for i = 0, MAX_THUMBNAIL_RETRIES do
+				headshotUrl, isFinal = PlayersService:GetUserThumbnailAsync(player.UserId, Enum.ThumbnailType.HeadShot, Enum.ThumbnailSize.Size180x180)
+				if isFinal then
+					break
+				end
+				wait(i ^ 2)
+			end
+		end
+		self.HeadShotUrlCache[player] = headshotUrl
+
+		return headshotUrl
+	end
 end
 
 function ContextMenuUtil:HasOrGettingHeadShot(player)
@@ -295,6 +302,7 @@ end
 function ContextMenuUtil.new()
 	local obj = setmetatable({}, ContextMenuUtil)
 
+	-- todo: remove with GetFFlagUseThumbnailUrl
 	obj.HeadShotUrlCache = {}
 
 	return obj

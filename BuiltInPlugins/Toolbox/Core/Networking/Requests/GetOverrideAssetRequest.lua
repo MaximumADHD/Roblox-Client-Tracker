@@ -13,7 +13,6 @@ local SetCurrentPage = require(Actions.SetCurrentPage)
 local SetOverrideCursor = require(Actions.SetOverrideCursor)
 
 local FFlagEnableOverrideAssetCursorFix = game:GetFastFlag("EnableOverrideAssetCursorFix")
-local FFlagFixOverrideAssetGroupPlugins = game:DefineFastFlag("FixOverrideAssetGroupPlugins", false)
 
 local function filterAssetByCreatorId(resultsArray, creatorId)
 	local results = {}
@@ -135,9 +134,7 @@ return function(networkInterface, assetTypeEnum, creatorType, creatorId, targetP
 		local groupId = nil
 		if creatorType == "Group" then
 			groupId = creatorId
-			if FFlagFixOverrideAssetGroupPlugins then
-				category = assetTypeEnum == Enum.AssetType.Plugin and "Plugin" or category
-			end
+			category = assetTypeEnum == Enum.AssetType.Plugin and "Plugin" or category
 			category = assetTypeEnum == Enum.AssetType.Animation and "Animation" or category
 		else
 			if assetTypeEnum == Enum.AssetType.Plugin then

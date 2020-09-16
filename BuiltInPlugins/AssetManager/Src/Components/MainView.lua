@@ -29,6 +29,7 @@ local AssetGridContainer = require(Plugin.Src.Components.AssetGridContainer)
 local AssetPreviewWrapper = require(Plugin.Src.Components.AssetPreviewWrapper)
 local ExplorerOverlay = require(Plugin.Src.Components.ExplorerOverlay)
 local NavBar = require(Plugin.Src.Components.NavBar)
+local RecentlyImportedView = require(Plugin.Src.Components.RecentlyImportedView)
 local TopBar = require(Plugin.Src.Components.TopBar)
 
 local Screens = require(Plugin.Src.Util.Screens)
@@ -39,6 +40,8 @@ local GetUniverseConfiguration = require(Plugin.Src.Thunks.GetUniverseConfigurat
 local StudioService = game:GetService("StudioService")
 
 local MainView = Roact.PureComponent:extend("MainView")
+
+local FFlagStudioAssetManagerAddRecentlyImportedView = game:GetFastFlag("StudioAssetManagerAddRecentlyImportedView")
 
 local universeNameSet = false
 local initialHasLinkedScriptValue = false
@@ -174,6 +177,13 @@ function MainView:render()
     local buttonText = localization:getText("MainView", "ButtonText")
     local buttonTextExtents = GetTextSize(buttonText, theme.FontSizeLarge, theme.Font)
 
+    local recentViewToggled = props.RecentViewToggled
+    local recentAssets = props.RecentAssets
+    local hasRecentAssets = #recentAssets > 0
+
+    local assetGridViewOffset = theme.TopBar.Height + theme.NavBar.Height + (hasRecentAssets and theme.RecentView.Bar.Height or 0)
+    local recentViewOffset = theme.TopBar.Height + theme.NavBar.Height
+
     return Roact.createElement("Frame", {
         Size = UDim2.new(1, 0, 1, 0),
         Position = UDim2.new(0, 0, 0, 0),
@@ -239,11 +249,31 @@ function MainView:render()
             LayoutOrder = layoutIndex:getNextOrder(),
         }),
 
-        AssetGridView = isPublishedGame and Roact.createElement(AssetGridContainer, {
+        AssetGridView = not FFlagStudioAssetManagerAddRecentlyImportedView and isPublishedGame and Roact.createElement(AssetGridContainer, {
             Size = UDim2.new(1, 0, 1, -theme.TopBar.Button.Size - theme.NavBar.Height),
             LayoutOrder = layoutIndex:getNextOrder(),
 
             OnOpenAssetPreview = self.openAssetPreview,
+            Enabled = not self.state.showOverlay,
+        }),
+
+        RecentsAssetGridView = FFlagStudioAssetManagerAddRecentlyImportedView and
+        isPublishedGame and
+        not recentViewToggled and
+        Roact.createElement(AssetGridContainer, {
+            Size = UDim2.new(1, 0, 1, -assetGridViewOffset),
+            LayoutOrder = layoutIndex:getNextOrder(),
+
+            OnOpenAssetPreview = self.openAssetPreview,
+            Enabled = not self.state.showOverlay,
+        }),
+
+        RecentlyImportedView = FFlagStudioAssetManagerAddRecentlyImportedView and
+        hasRecentAssets and
+        Roact.createElement(RecentlyImportedView, {
+            Size = UDim2.new(1, 0, recentViewToggled and 1 or 0, recentViewToggled and -recentViewOffset or theme.RecentView.Bar.Height),
+            LayoutOrder = layoutIndex:getNextOrder(),
+
             Enabled = not self.state.showOverlay,
         }),
     })
@@ -262,6 +292,8 @@ local function mapStateToProps(state, props)
         AssetsTable = assetManagerReducer.assetsTable,
         UniverseName = assetManagerReducer.universeName,
         HasLinkedScripts = assetManagerReducer.hasLinkedScripts,
+        RecentAssets = assetManagerReducer.recentAssets,
+        RecentViewToggled = assetManagerReducer.recentViewToggled,
     }
 end
 

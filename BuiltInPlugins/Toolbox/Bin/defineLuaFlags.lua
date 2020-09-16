@@ -39,7 +39,6 @@ game:DefineFastFlag("StudioFixComparePageInfo2", false)
 game:DefineFastFlag("StudioFixGroupCreatorInfo3", false)
 game:DefineFastFlag("StudioToolboxFixNewEndpointFilters", false)
 
-game:DefineFastFlag("ToolboxUseDevFrameworkPromise", false)
 game:DefineFastFlag("ToolboxFixAnalyticsBugs", false)
 game:DefineFastFlag("DebugToolboxEnableRoactChecks", false)
 

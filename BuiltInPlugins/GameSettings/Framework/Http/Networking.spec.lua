@@ -3,7 +3,6 @@ return function()
 	local HttpService = game:GetService("HttpService")
 
 	local FFlagStudioFixFrameworkJsonParsing = game:GetFastFlag("StudioFixFrameworkJsonParsing")
-	local FFlagStudioFixFrameworkClientErrorRetries = game:GetFastFlag("StudioFixFrameworkClientErrorRetries")
 	local FFlagStudioFixFrameworkNonIdempotentRetries = game:GetFastFlag("StudioFixFrameworkNonIdempotentRetries")
 
 	describe("new()", function()
@@ -43,7 +42,7 @@ return function()
 				onRequest = function(requestOptions)
 					callCount = callCount + 1
 					expect(requestOptions.Url).to.equal("https://www.test.com/fakeApi")
-					
+
 					return {
 						Body = "hello world",
 						Success = true,
@@ -340,32 +339,30 @@ return function()
 			expect(callCount).to.equal(2) -- 1 original + 1 retries
 		end)
 
-		if FFlagStudioFixFrameworkClientErrorRetries then
-			it("should not retry on 4xx errors", function()
-				local callCount = 0
+		it("should not retry on 4xx errors", function()
+			local callCount = 0
 
-				local n = Networking.mock({
-					onRequest = function(requestOptions)
-						callCount = callCount + 1
-						return {
-							Body = "{ \"message\":\"foo\" }",
-							Success = false,
-							StatusMessage = "Bad Request",
-							StatusCode = 400,
-						}
-					end,
-				})
+			local n = Networking.mock({
+				onRequest = function(requestOptions)
+					callCount = callCount + 1
+					return {
+						Body = "{ \"message\":\"foo\" }",
+						Success = false,
+						StatusMessage = "Bad Request",
+						StatusCode = 400,
+					}
+				end,
+			})
 
-				local didError = false
-				local httpPromise = n:get("https://www.example.com")
-				n:handleRetry(httpPromise, 3, true):catch(function()
-					didError = true
-				end)
-
-				expect(didError).to.equal(true)
-				expect(callCount).to.equal(1)
+			local didError = false
+			local httpPromise = n:get("https://www.example.com")
+			n:handleRetry(httpPromise, 3, true):catch(function()
+				didError = true
 			end)
-		end
+
+			expect(didError).to.equal(true)
+			expect(callCount).to.equal(1)
+		end)
 
 		if FFlagStudioFixFrameworkNonIdempotentRetries then
 			it("should not retry POST requests", function()

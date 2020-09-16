@@ -23,9 +23,9 @@ local Rodux = require(Plugin.Packages.Rodux)
 local Cryo = require(Plugin.Packages.Cryo)
 
 -- context services
-local ContextServices = require(Plugin.Packages.Framework.ContextServices)
+local ContextServices = require(Plugin.Packages.Framework).ContextServices
 local ServiceWrapper = require(Plugin.Src.Components.ServiceWrapper)
-local UILibraryWrapper = require(Plugin.Packages.Framework.ContextServices.UILibraryWrapper)
+local UILibraryWrapper = ContextServices.UILibraryWrapper
 
 -- data
 local MainReducer = require(Plugin.Src.Reducers.MainReducer)
@@ -117,10 +117,18 @@ local function connectBulkImporterSignals()
 	if FFlagStudioAssetManagerAddRecentlyImportedView then
 		BulkImportService.AssetImported:connect(function(assetType, name, id)
 			local state = store:getState()
+			local strippedName
+			if assetType == Enum.AssetType.Image and string.find(name, "Images/") then
+				strippedName = string.gsub(name, "Images/", "")
+			elseif assetType == Enum.AssetType.MeshPart and string.find(name, "Meshes/") then
+				strippedName = string.gsub(name, "Meshes/", "")
+			elseif assetType == Enum.AssetType.Lua and string.find(name, "Scripts/") then
+				strippedName = string.gsub(name, "Scripts/", "")
+			end
 			local recentAssets = Cryo.List.join(state.AssetManagerReducer.recentAssets, {
 				{
 					assetType = assetType,
-					name = name,
+					name = strippedName,
 					id = id,
 				},
 			})

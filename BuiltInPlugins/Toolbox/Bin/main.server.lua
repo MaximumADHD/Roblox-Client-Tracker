@@ -10,8 +10,6 @@ require(script.Parent.defineLuaFlags)
 local FFlagEnableOverrideAssetCursorFix = game:GetFastFlag("EnableOverrideAssetCursorFix")
 local FFlagAssetManagerLuaPlugin = game:GetFastFlag("AssetManagerLuaPlugin")
 local FFlagStudioAssetConfigurationPlugin = game:GetFastFlag("StudioAssetConfigurationPlugin")
-local FFlagToolboxUseDevFrameworkPromise = game:GetFastFlag("ToolboxUseDevFrameworkPromise")
-local FFlagDevFrameworkUnhandledPromiseRejections = game:GetFastFlag("DevFrameworkUnhandledPromiseRejections")
 local FFlagToolboxDisableForLuobu = game:GetFastFlag("ToolboxDisableForLuobu")
 local FFlagDebugToolboxEnableRoactChecks = game:GetFastFlag("DebugToolboxEnableRoactChecks")
 local FFlagToolboxNewAssetAnalytics = game:GetFastFlag("ToolboxNewAssetAnalytics")
@@ -41,7 +39,7 @@ local AssetConfigTheme = require(Util.AssetConfigTheme)
 local AssetConfigConstants = require(Util.AssetConfigConstants)
 local AssetConfigUtil = require(Util.AssetConfigUtil)
 
-if FFlagToolboxUseDevFrameworkPromise and FFlagDevFrameworkUnhandledPromiseRejections and DebugFlags.shouldDebugWarnings() then
+if DebugFlags.shouldDebugWarnings() then
 	local Promise = require(Libs.Framework.Util.Promise)
 	Promise.onUnhandledRejection = warn
 end

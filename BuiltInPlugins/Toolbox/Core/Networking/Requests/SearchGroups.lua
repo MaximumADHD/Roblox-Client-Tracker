@@ -6,13 +6,7 @@ local FFlagStudioAllowPkgPermsForOtherUsrsAndGrps = game:GetFastFlag("StudioAllo
 local HttpService = game:GetService("HttpService")
 
 local Plugin = script.Parent.Parent.Parent.Parent
-local FFlagToolboxUseDevFrameworkPromise = game:GetFastFlag("ToolboxUseDevFrameworkPromise")
-local Promise
-if FFlagToolboxUseDevFrameworkPromise then
-	Promise = require(Plugin.Libs.Framework.Util.Promise)
-else
-	Promise = require(Plugin.Libs.Http.Promise)
-end
+local Promise = require(Plugin.Libs.Framework.Util.Promise)
 
 local PermissionsConstants = require(Plugin.Core.Components.AssetConfiguration.Permissions.PermissionsConstants)
 

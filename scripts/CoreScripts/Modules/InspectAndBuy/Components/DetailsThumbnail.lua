@@ -5,6 +5,8 @@ local RoactRodux = require(CorePackages.RoactRodux)
 local Url = require(CorePackages.AppTempCommon.LuaApp.Http.Url)
 local UtilityFunctions = require(InspectAndBuyFolder.UtilityFunctions)
 
+local GetFFlagUseThumbnailUrl = require(game:GetService("CoreGui").RobloxGui.Modules.Common.Flags.GetFFlagUseThumbnailUrl)
+
 local DetailsThumbnail = Roact.PureComponent:extend("DetailsThumbnail")
 
 local function isPartOfBundle(assetInfo)
@@ -21,12 +23,12 @@ function DetailsThumbnail:getUrl()
 	if partOfBundle then
 		local bundleId = UtilityFunctions.getBundleId(assetInfo)
 		if bundles[bundleId] then
-			url = Url.BASE_URL_SECURE .."outfit-thumbnail/image?userOutfitId=" ..bundles[bundleId].costumeId
+			url = GetFFlagUseThumbnailUrl() and "rbxthumb://type=Outfit&id=" .. bundles[bundleId].costumeId .. "&w=420&h=420" or Url.BASE_URL_SECURE .."outfit-thumbnail/image?userOutfitId=" ..bundles[bundleId].costumeId
 				.."&width=420&height=420&format=png"
 		end
 	else
 		local assetId = detailsInformation.assetId
-		url = Url.BASE_URL_SECURE .."asset-thumbnail/image?assetId=" ..assetId .."&width=420&height=420&format=png"
+		url = GetFFlagUseThumbnailUrl() and "rbxthumb://type=Asset&id=" .. assetId .. "&w=420&h=420" or Url.BASE_URL_SECURE .."asset-thumbnail/image?assetId=" ..assetId .."&width=420&height=420&format=png"
 	end
 
 	return url

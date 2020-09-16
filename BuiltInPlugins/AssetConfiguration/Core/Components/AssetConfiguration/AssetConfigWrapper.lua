@@ -14,7 +14,6 @@
 	plugin = A plugin object to be used by a PluginProvider.
 ]]
 local FFlagStudioAssetConfigurationPlugin = game:GetFastFlag("StudioAssetConfigurationPlugin")
-local FFlagStudioAssetConfigResizable = game:DefineFastFlag("StudioAssetConfigResizable", false)
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -92,8 +91,8 @@ function AssetConfigWrapper:render()
 		Name = "AssetConfig",
 		Title = "Asset Configuration",
 
-		Resizable = FFlagStudioAssetConfigResizable and true or nil,
-		MinSize = FFlagStudioAssetConfigResizable and Vector2.new(ASSET_CONFIG_MIN_WIDTH, ASSET_CONFIG_MIN_HEIGHT) or nil,
+		Resizable = true,
+		MinSize = Vector2.new(ASSET_CONFIG_MIN_WIDTH, ASSET_CONFIG_MIN_HEIGHT),
 		Size = Vector2.new(ASSET_CONFIG_WIDTH, ASSET_CONFIG_HEIGHT),
 		ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
 		Modal = true,

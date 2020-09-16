@@ -308,7 +308,11 @@ function AssetPreviewWrapper:init(props)
 		self.props.searchWithOptions(networkInterface, settings, {
 			Creator = creatorName,
 		})
-		self.props.onClose()
+		local assetData
+		if FFlagToolboxFixAnalyticsBugs then
+			assetData = self.props.assetData
+		end
+		self.props.onClose(assetData)
 	end
 
 	-- For Voting in Asset Preview

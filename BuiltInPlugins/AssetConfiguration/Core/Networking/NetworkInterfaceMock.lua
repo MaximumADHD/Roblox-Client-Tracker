@@ -8,13 +8,7 @@ local Plugin = script.Parent.Parent.Parent
 
 local FFlagToolboxWaitForPluginOwnedStatus = game:GetFastFlag("ToolboxWaitForPluginOwnedStatus")
 
-local FFlagToolboxUseDevFrameworkPromise = game:GetFastFlag("ToolboxUseDevFrameworkPromise")
-local Promise
-if FFlagToolboxUseDevFrameworkPromise then
-	Promise = require(Plugin.Libs.Framework.Util.Promise)
-else
-	Promise = require(Plugin.Libs.Http.Promise)
-end
+local Promise = require(Plugin.Libs.Framework.Util.Promise)
 
 -- public api
 local NetworkingMock = {}

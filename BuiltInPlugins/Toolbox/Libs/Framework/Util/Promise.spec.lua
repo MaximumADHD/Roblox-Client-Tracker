@@ -3,8 +3,6 @@ return function()
 
 	local Promise = require(script.Parent.Promise)
 
-	local FFlagDevFrameworkUnhandledPromiseRejections = game:GetFastFlag("DevFrameworkUnhandledPromiseRejections")
-
 	describe("Promise.new", function()
 		it("should instantiate with a callback", function()
 			local promise = Promise.new(function() end)
@@ -284,10 +282,6 @@ return function()
 	-- Try disabling this suite with describeSKIP to see these unhandled rejections revealed by the default
 	-- onUnhandledRejection callback.
 	describe("unhandled rejections", function()
-
-		if not FFlagDevFrameworkUnhandledPromiseRejections then
-			return
-		end
 
 		local calls
 		local originalOnUnhandledRejection

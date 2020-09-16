@@ -23,6 +23,8 @@ local BlockingUtility = require(CoreGuiModules.BlockingUtility)
 -- fetch and store player block list
 BlockingUtility:InitBlockListAsync()
 
+local GetFFlagUseThumbnailUrl = require(RobloxGui.Modules.Common.Flags.GetFFlagUseThumbnailUrl)
+
 local LegacyThumbnailUrls = require(CoreGuiModules.Common.LegacyThumbnailUrls)
 
 local THUMBNAIL_SIZE = 200
@@ -56,6 +58,11 @@ function DoPromptBlockPlayer(playerToBlock)
 
 	local thumbnailUrl = BUST_THUMBNAIL_URL:format(BUST_THUMBNAIL_SIZE, BUST_THUMBNAIL_SIZE, playerToBlock.UserId)
 	local thumbnailUrlConsole = THUMBNAIL_URL:format(THUMBNAIL_SIZE, THUMBNAIL_SIZE, playerToBlock.UserId)
+	if GetFFlagUseThumbnailUrl() then
+		-- we use createFetchImageFunction which sets the image in the prompt, these are useless
+		thumbnailUrl = ""
+		thumbnailUrlConsole = ""
+	end
 
 	local function promptCompletedCallback(clickedConfirm)
 		if clickedConfirm then
@@ -117,6 +124,11 @@ function DoPromptUnblockPlayer(playerToUnblock)
 
 	local thumbnailUrl = BUST_THUMBNAIL_URL:format(BUST_THUMBNAIL_SIZE, BUST_THUMBNAIL_SIZE, playerToUnblock.UserId)
 	local thumbnailUrlConsole = THUMBNAIL_URL:format(THUMBNAIL_SIZE, THUMBNAIL_SIZE, playerToUnblock.UserId)
+	if GetFFlagUseThumbnailUrl() then
+		-- we use createFetchImageFunction which sets the image in the prompt, these are useless
+		thumbnailUrl = ""
+		thumbnailUrlConsole = ""
+	end
 
 	local function promptCompletedCallback(clickedConfirm)
 		if clickedConfirm then

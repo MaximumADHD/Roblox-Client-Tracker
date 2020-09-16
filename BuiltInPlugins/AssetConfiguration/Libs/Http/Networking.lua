@@ -3,14 +3,8 @@
 
 	Provides a re-usable implementation for network requests and other utilities
 ]]--
-local FFlagToolboxUseDevFrameworkPromise = game:GetFastFlag("ToolboxUseDevFrameworkPromise")
-local Promise
-if FFlagToolboxUseDevFrameworkPromise then
-	local Plugin = script.Parent.Parent.Parent
-	Promise = require(Plugin.Libs.Framework.Util.Promise)
-else
-	Promise = require(script.Parent.Promise)
-end
+local Plugin = script.Parent.Parent.Parent
+local Promise = require(Plugin.Libs.Framework.Util.Promise)
 local HttpResponse = require(script.Parent.HttpResponse)
 local StatusCodes = require(script.Parent.StatusCodes)
 

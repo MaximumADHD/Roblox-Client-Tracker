@@ -10,6 +10,7 @@ local Players = game:GetService("Players")
 local CoreGui = game:GetService("CoreGui")
 
 --[[ Constants ]]--
+--todo: remove map when GetFFlagUseThumbnailUrl is removed
 local THUMBNAIL_SIZE_MAP = {
 	[Enum.ThumbnailSize.Size48x48]   =  48,
 	[Enum.ThumbnailSize.Size180x180] = 180,
@@ -20,9 +21,14 @@ local THUMBNAIL_SIZE_MAP = {
 	[Enum.ThumbnailSize.Size352x352] = 352
 }
 
+
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local CoreGuiModules = RobloxGui:WaitForChild("Modules")
 
+--[[ Flags ]]--
+local GetFFlagUseThumbnailUrl = require(CoreGuiModules.Common.Flags.GetFFlagUseThumbnailUrl)
+
+--todo: remove these when GetFFlagUseThumbnailUrl is removed
 local LegacyThumbnailUrls = require(CoreGuiModules.Common.LegacyThumbnailUrls)
 
 local THUMBNAIL_FALLBACK_URLS = {
@@ -30,11 +36,14 @@ local THUMBNAIL_FALLBACK_URLS = {
 	[Enum.ThumbnailType.AvatarBust] = LegacyThumbnailUrls.Bust,
 	[Enum.ThumbnailType.AvatarThumbnail] = LegacyThumbnailUrls.Thumbnail,
 }
+-- end remove block
 
-local GET_PLAYER_IMAGE_DEFAULT_TIMEOUT = 5
 local DEFAULT_THUMBNAIL_SIZE = Enum.ThumbnailSize.Size100x100
 local DEFAULT_THUMBNAIL_TYPE = Enum.ThumbnailType.AvatarThumbnail
+--todo: remove these when GetFFlagUseThumbnailUrl is removed
+local GET_PLAYER_IMAGE_DEFAULT_TIMEOUT = 5
 local GET_USER_THUMBNAIL_ASYNC_RETRY_TIME = 1
+-- end remove block
 
 local gutartSuccess,gutart = pcall(function()
 	return tonumber(settings():GetFVariable("GetUserThumbnailAsyncRetryTime"))
@@ -53,6 +62,7 @@ end
 
 --[[ Functions ]]--
 
+--todo: remove this function when GetFFlagUseThumbnailUrl is removed
 -- The thumbanil isn't guaranteed to be generated, this will just create the url using string.format and immediately return it.
 function SocialUtil.GetFallbackPlayerImageUrl(userId, thumbnailSize, thumbnailType)
 	local sizeNumber = THUMBNAIL_SIZE_MAP[thumbnailSize]
@@ -83,40 +93,72 @@ function SocialUtil.GetPlayerImage(userId, thumbnailSize, thumbnailType, timeOut
 	if not thumbnailType then thumbnailType = DEFAULT_THUMBNAIL_TYPE end
 	if not timeOut then timeOut = GET_PLAYER_IMAGE_DEFAULT_TIMEOUT end
 
-	local finished = false
-	local finishedBindable = Instance.new("BindableEvent") -- fired with one parameter: imageUrl
-
-	delay(timeOut, function()
-		if not finished then
-			finished = true
-			finishedBindable:Fire(SocialUtil.GetFallbackPlayerImageUrl(userId, thumbnailSize, thumbnailType))
+	if GetFFlagUseThumbnailUrl() then
+		local size = 0
+		--Valid sizes for type AvatarHeadShot are 150x150, 48x48, 60x60
+		if thumbnailType == Enum.ThumbnailType.HeadShot or thumbnailType == Enum.ThumbnailType.AvatarBust then
+			if thumbnailSize == Enum.ThumbnailSize.Size48x48 then
+				size = 48
+			elseif thumbnailSize == Enum.ThumbnailSize.Size60x60 then
+				size = 60
+			else
+				size = 150
+			end
+			return "rbxthumb://type=AvatarHeadShot&id=" .. userId .."&w=" .. size .. "&h=" .. size
+		--Valid sizes for type Avatar are 100x100, 352x352, 720x720
+		elseif thumbnailType == Enum.ThumbnailType.AvatarThumbnail then
+			if thumbnailSize == Enum.ThumbnailSize.Size48x48 or
+				thumbnailSize == Enum.ThumbnailSize.Size60x60 or
+				thumbnailSize == Enum.ThumbnailSize.Size100x100 then
+					size = 100
+			elseif thumbnailSize == Enum.ThumbnailSize.Size150x150 or
+				thumbnailSize == Enum.ThumbnailSize.Size180x180 or
+				thumbnailSize == Enum.ThumbnailSize.Size352x352 then
+					size = 352
+			elseif thumbnailSize == Enum.ThumbnailSize.Size420x420 then
+					size = 720
+			end
+			return "rbxthumb://type=Avatar&id=" .. userId .."&w=" .. size .. "&h=" .. size
 		end
-	end)
 
-	spawn(function()
-		while true do
-			if finished then
-				break
-			end
+		return "ThumbnailErrorForSocialUtil.GetPlayerImage"
+	else
 
-			local thumbnailUrl, isFinal = Players:GetUserThumbnailAsync(userId, thumbnailType, thumbnailSize)
+		local finished = false
+		local finishedBindable = Instance.new("BindableEvent") -- fired with one parameter: imageUrl
 
-			if finished then
-				break
-			end
-
-			if isFinal then
+		delay(timeOut, function()
+			if not finished then
 				finished = true
-				finishedBindable:Fire(thumbnailUrl)
-				break
+				finishedBindable:Fire(SocialUtil.GetFallbackPlayerImageUrl(userId, thumbnailSize, thumbnailType))
 			end
+		end)
 
-			wait(GET_USER_THUMBNAIL_ASYNC_RETRY_TIME)
-		end
-	end)
+		spawn(function()
+			while true do
+				if finished then
+					break
+				end
 
-	local imageUrl = finishedBindable.Event:Wait()
-	return imageUrl
+				local thumbnailUrl, isFinal = Players:GetUserThumbnailAsync(userId, thumbnailType, thumbnailSize)
+
+				if finished then
+					break
+				end
+
+				if isFinal then
+					finished = true
+					finishedBindable:Fire(thumbnailUrl)
+					break
+				end
+
+				wait(GET_USER_THUMBNAIL_ASYNC_RETRY_TIME)
+			end
+		end)
+
+		local imageUrl = finishedBindable.Event:Wait()
+		return imageUrl
+	end
 end
 
 return SocialUtil

@@ -1,3 +1,4 @@
+local ABTestService = game:GetService("ABTestService")
 local StudioService = game:GetService("StudioService")
 
 local Plugin = script.Parent.Parent.Parent
@@ -18,12 +19,29 @@ local makeTheme = require(Util.makeTheme)
 local ContextServices = require(Libs.Framework.ContextServices)
 local UILibraryWrapper = ContextServices.UILibraryWrapper
 
-local ToolboxPlugin = Roact.PureComponent:extend("ToolboxPlugin")
-
 local Analytics = require(Util.Analytics.Analytics)
 
 local FFlagEnableToolboxImpressionAnalytics = game:GetFastFlag("EnableToolboxImpressionAnalytics")
 local FFlagBootstrapperTryAsset = game:GetFastFlag("BootstrapperTryAsset")
+local FFlagToolboxShowHideABTest = game:GetFastFlag("ToolboxShowHideABTest")
+
+local AB_TEST_GROUP_CONTROL = "Control"
+
+-- ShowHideToolbox : AB Test where Toolbox shows on startup for users not in the Control group
+-- Control : Toolbox appears on startup
+-- All Variations : Toolbox hidden on startup
+local ShowHideABTestName = "AllUsers.RobloxStudio.ShowHideToolbox"
+
+local function shouldSeeTestBehavior(abTestName)
+	-- helper function for showing a behavior so long as the result is not "Control"
+	-- further specificity can be used if the exact variation is required
+	local variation = ABTestService:GetVariant(abTestName)
+	local shouldShowBehavior = variation ~= AB_TEST_GROUP_CONTROL
+	return shouldShowBehavior, variation
+end
+
+
+local ToolboxPlugin = Roact.PureComponent:extend("ToolboxPlugin")
 
 function ToolboxPlugin:init(props)
 	self.theme = makeTheme()
@@ -86,7 +104,8 @@ end
 function ToolboxPlugin:didMount()
 	if FFlagBootstrapperTryAsset then
 		-- Ensure that the Toolbox shows if starting Studio with an asset ID
-		if StudioService:getStartupAssetId() then
+		local startupAsset = StudioService:getStartupAssetId()
+		if startupAsset and #startupAsset > 0 then
 			self.dockWidget.Enabled = true
 		end
 	end
@@ -126,7 +145,16 @@ function ToolboxPlugin:render()
 
 	-- Setting this value to false lets the DockWidget properly reflect
 	-- the state when it comes up.
-	local InitialEnabled = false
+	local initialEnabled = false
+
+	if FFlagToolboxShowHideABTest then
+		local isToolboxHidden = shouldSeeTestBehavior(ShowHideABTestName)
+		if isToolboxHidden then
+			initialEnabled = false
+		else
+			initialEnabled = true
+		end
+	end
 
 	local title = self.props.Localization:getText("General", "ToolboxToolbarName")
 
@@ -138,7 +166,7 @@ function ToolboxPlugin:render()
 		ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
 
 		InitialDockState = Enum.InitialDockState.Left,
-		InitialEnabled = InitialEnabled,
+		InitialEnabled = initialEnabled,
 		InitialEnabledShouldOverrideRestore = false,
 		FloatingXSize = 0,
 		FloatingYSize = 0,

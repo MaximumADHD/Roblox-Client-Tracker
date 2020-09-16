@@ -38,6 +38,7 @@ local function createStyles(theme, getColor)
 	})
 	local rightArrowProps = arrowSpritesheet[2]
 	local leftArrowProps = arrowSpritesheet[4]
+	local upArrowProps = arrowSpritesheet[1]
 	local downArrowProps = arrowSpritesheet[3]
 
 	local button = StyleTable.new("Button", function()
@@ -107,12 +108,52 @@ local function createStyles(theme, getColor)
 			}),
 		})
 
+		local RecentlyImportedViewButton = Style.new({
+			Background = Decoration.Box,
+			BackgroundStyle = {
+				Color = theme:GetColor(c.Titlebar),
+			},
+			Foreground = Decoration.Image,
+			ForegroundStyle = {
+				Color = theme:GetColor(c.MainText),
+			},
+			[StyleModifier.Hover] = {
+				BackgroundStyle = {
+					Color = theme:GetColor(c.Button, m.Hover),
+				},
+			},
+
+			[StyleModifier.Disabled] = {
+				ForegroundStyle = {
+					Color = theme:GetColor(c.MainText, m.Disabled),
+				},
+			},
+		})
+
+		local UpButton = Style.extend(RecentlyImportedViewButton, {
+			ForegroundStyle = Style.extend(RecentlyImportedViewButton.ForegroundStyle, Cryo.Dictionary.join(upArrowProps, {
+				Size = UDim2.new(0, 10, 0, 10),
+				AnchorPoint = Vector2.new(0.5, 0.5),
+				Position = UDim2.new(0.5, 0, 0.5, 0),
+			}))
+		})
+
+		local DownButton = Style.extend(RecentlyImportedViewButton, {
+			ForegroundStyle = Style.extend(RecentlyImportedViewButton.ForegroundStyle, Cryo.Dictionary.join(downArrowProps, {
+				Size = UDim2.new(0, 10, 0, 10),
+				AnchorPoint = Vector2.new(0.5, 0.5),
+				Position = UDim2.new(0.5, 0, 0.5, 0),
+			}))
+		})
+
 		return {
 			OverlayButton = OverlayButton,
 			PreviousButton = PreviousButton,
 			NextButton = NextButton,
 			BulkImporterButton = BulkImporterButton,
 			TreeItemButton = TreeItemButton,
+			UpButton = UpButton,
+			DownButton = DownButton,
 		}
 	end)
 
@@ -240,6 +281,66 @@ local function createStyles(theme, getColor)
 		}
 	end)
 
+	local listItem = StyleTable.new("ListItem", function()
+		local Default = Style.new({
+			Size = UDim2.new(1, 0, 0, 32),
+			BackgroundTransparency = 1,
+			BorderSizePixel = 0,
+			Padding = UDim.new(0, 4),
+
+			Image = {
+				FrameSize = UDim2.new(0, 32, 0, 32),
+				ImageSize = UDim2.new(0, 16, 0, 16),
+				ImagePosition = UDim2.new(0.5, 0, 0.5, 0),
+				ImageAnchorPosition = Vector2.new(0.5, 0.5),
+				BackgroundColor = theme:GetColor(c.ScrollBarBackground),
+				RBXThumbSize = 150,
+				Folder = "rbxasset://textures/StudioSharedUI/folder.png",
+			},
+
+			Text = {
+				Color = theme:GetColor(c.MainText),
+				Size = FONT_SIZE_MEDIUM,
+				TextTruncate = Enum.TextTruncate.AtEnd,
+
+				XAlignment = Enum.TextXAlignment.Left,
+				YAlignment = Enum.TextYAlignment.Center,
+
+				BackgroundTransparency = 1,
+
+				Frame = {
+					Size = UDim2.new(1, -32, 0, 32),
+				},
+			},
+
+			EditText = {
+				TextWrapped = true,
+				ClearTextOnFocus = false,
+
+				XAlignment = Enum.TextXAlignment.Center,
+
+				Frame = {
+					BackgroundColor = theme:GetColor(c.InputFieldBackground),
+					BorderColor = theme:GetColor(c.Button, m.Selected),
+				},
+			},
+
+			[StyleModifier.Hover] = {
+				BackgroundTransparency = 0,
+				BackgroundColor = theme:getColor(c.CheckedFieldBackground, m.Hover),
+			},
+
+			[StyleModifier.Selected] = {
+				BackgroundTransparency = 0,
+				BackgroundColor = theme:getColor(c.Item, m.Selected),
+			}
+		})
+
+		return {
+			Default = Default,
+		}
+	end)
+
 	return {
 		Plugin = Style.extend({
 			BackgroundColor = theme:GetColor(c.MainBackground),
@@ -316,7 +417,7 @@ local function createStyles(theme, getColor)
 			},
 
 			TopBar = {
-				Height = 53,
+				Height = 24,
 
 				Button = {
 					Size = 24,
@@ -328,6 +429,19 @@ local function createStyles(theme, getColor)
 					TextSize = FONT_SIZE_SMALL,
 					Width = 210,
 					Padding = 5,
+				}
+			},
+
+			RecentView = {
+				ItemPadding = UDim.new(0, 6),
+				Bar = {
+					BackgroundColor = theme:GetColor(c.Titlebar),
+					Height = 38,
+					Padding = 10,
+
+					Button = {
+						Size = 24,
+					},
 				}
 			},
 
@@ -347,6 +461,7 @@ local function createStyles(theme, getColor)
 			},
 		}, {
 			Tile = tile,
+			ListItem = listItem,
 		}),
 
 		Framework = Style.extend(studioStyles, {

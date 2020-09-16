@@ -10,6 +10,8 @@ local Interactable = UIBlox.Core.Control.Interactable
 local ControlState = UIBlox.Core.Control.Enum.ControlState
 local Images = UIBlox.App.ImageSet.Images
 
+local FFlagFixTopBarButtonHover = game:DefineFastFlag("FixTopBarButtonHover", false)
+
 local IconButton = Roact.PureComponent:extend("IconButton")
 
 local BACKGROUND_SIZE = 32
@@ -81,8 +83,8 @@ function IconButton:render()
 				Image = OVERLAY_ASSET,
 				ScaleType = Enum.ScaleType.Slice,
 				SliceCenter =  Rect.new(8, 8, 8, 8),
-				ImageRectSize = OVERLAY_ASSET.ImageRectSize,
-				ImageRectOffset = OVERLAY_ASSET.ImageRectOffset,
+				ImageRectSize = (not FFlagFixTopBarButtonHover) and OVERLAY_ASSET.ImageRectSize or nil,
+				ImageRectOffset = (not FFlagFixTopBarButtonHover) and OVERLAY_ASSET.ImageRectOffset or nil,
 
 				ImageColor3 = overlayTheme.Color,
 				ImageTransparency = overlayTheme.Transparency,

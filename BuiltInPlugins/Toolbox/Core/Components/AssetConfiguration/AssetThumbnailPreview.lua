@@ -15,8 +15,6 @@
 
 ]]
 
-local FFlagStudioAssetConfigStopSoundsPlaying = game:DefineFastFlag("StudioAssetConfigStopSoundsPlaying", false)
-
 local PREVIEW_TITLE_PADDING = 12
 local PREVIEW_TITLE_HEIGHT = 24
 
@@ -100,9 +98,7 @@ function AssetThumbnailPreview:didMount()
 			end
 		end
 
-		if FFlagStudioAssetConfigStopSoundsPlaying then
-			stopSoundsPlaying(model)
-		end
+		stopSoundsPlaying(model)
 
 		local instance = game:GetFastFlag("CMSFixAssetPreviewForThumbnailConfig")
 			and #self.props.instances == 1

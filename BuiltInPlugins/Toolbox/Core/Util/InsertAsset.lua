@@ -26,6 +26,7 @@ local FFlagToolboxForceSelectDragger = game:GetFastFlag("ToolboxForceSelectDragg
 local FFlagDragFaceInstances = game:GetFastFlag("DragFaceInstances")
 local EFLuaDraggers = game:GetEngineFeature("LuaDraggers")
 local FFlagFixGroupPackagesCategoryInToolbox = game:GetFastFlag("FixGroupPackagesCategoryInToolbox")
+local FFlagMarketplaceSourceAssetIds = game:GetFastFlag("MarketplaceSourceAssetIds")
 local FFlagToolboxInsertEventContextFixes = game:GetFastFlag("ToolboxInsertEventContextFixes")
 local FFlagEnableDefaultSortFix2 = game:GetFastFlag("EnableDefaultSortFix2")
 local FFlagToolboxNewInsertAnalytics = game:GetFastFlag("ToolboxNewInsertAnalytics")
@@ -63,6 +64,9 @@ local function insertAudio(assetId, assetName)
 	end
 
 	local soundObj = Instance.new("Sound")
+	if FFlagMarketplaceSourceAssetIds then
+		soundObj.SourceAssetId = assetId
+	end
 	soundObj.SoundId = url
 	soundObj.Name = assetName
 	soundObj.Parent = (Selection:Get() or {})[1] or Workspace
@@ -85,6 +89,12 @@ local function insertAsset(assetId, assetName, insertToolPromise)
 			assetInstance = game:InsertObjectsAndJoinIfLegacyAsync(url)
 		else
 			assetInstance = game:GetObjectsAsync(url)
+
+			if FFlagMarketplaceSourceAssetIds then
+				for _, o in ipairs(assetInstance) do
+					o.SourceAssetId = assetId
+				end
+			end
 		end
 	end)
 
@@ -174,6 +184,10 @@ local function insertDecal(plugin, assetId, assetName)
 		local decal = tbl[1]
 		decal.Name = assetName
 
+		if FFlagMarketplaceSourceAssetIds then
+			decal.SourceAssetId = tbl[1]
+		end
+
 		if FFlagToolboxFixDecalInsert then
 			decal.Parent = Workspace
 			Selection:Set({decal})
@@ -206,6 +220,9 @@ local function insertPackage(assetId)
 	end)
 
 	if success and instanceTable and instanceTable[1] then
+		if FFlagMarketplaceSourceAssetIds then
+			instanceTable[1].SourceAssetId = assetId
+		end
 		instanceTable[1].Parent = (Selection:Get() or {})[1] or Workspace
 		Selection:set(instanceTable)
 		return instanceTable[1]
@@ -221,6 +238,9 @@ local function insertVideo(assetId, assetName)
 	end
 
 	local videoObj = Instance.new("VideoFrame")
+	if FFlagMarketplaceSourceAssetIds then
+		videoObj.SourceAssetId = assetId
+	end
 	videoObj.Video = url
 	videoObj.Name = assetName
 	videoObj.Parent = (Selection:Get() or {})[1] or Workspace
