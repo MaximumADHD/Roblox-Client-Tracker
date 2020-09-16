@@ -7,6 +7,7 @@ local t = require(Packages.t)
 local Cryo = require(Packages.Cryo)
 local Roact = require(Packages.Roact)
 local FitFrame = require(Packages.FitFrame)
+local bindingValidator = require(Core.Utility.bindingValidator)
 
 local PADDING_BETWEEN_SIDE_AND_CENTER = 8
 
@@ -14,7 +15,7 @@ local ThreeSectionBar = Roact.PureComponent:extend("ThreeSectionBar")
 ThreeSectionBar.validateProps = t.strictInterface({
 	BackgroundColor3 = t.Color3,
 
-	BackgroundTransparency = t.optional(t.number),
+	BackgroundTransparency = t.optional(t.union(t.number, bindingValidator(t.number))),
 	barHeight = t.optional(t.number),
 	contentPaddingLeft = t.optional(t.UDim),
 	contentPaddingRight = t.optional(t.UDim),

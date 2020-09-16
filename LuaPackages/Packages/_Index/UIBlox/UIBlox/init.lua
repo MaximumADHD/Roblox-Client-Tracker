@@ -71,6 +71,7 @@ local function initializeLibrary()
 		Bar = strict({
 			HeaderBar = require(script.App.Bar.HeaderBar),
 			RootHeaderBar = require(script.App.Bar.RootHeaderBar),
+			FullscreenTitleBar = require(script.App.Bar.FullscreenTitleBar),
 		}),
 
 		Button = strict({

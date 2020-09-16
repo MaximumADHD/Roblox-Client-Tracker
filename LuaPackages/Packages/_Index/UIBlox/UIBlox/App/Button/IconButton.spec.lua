@@ -94,6 +94,18 @@ return function()
 				end
 			end)
 
+			it("SHOULD override ImageLabel.ImageTransparency with iconTransparency from RoactBinding value", function()
+				for transparency = 0, 1, 0.1 do
+					local folder, cleanup = runTest({
+						iconTransparency = Roact.createBinding(transparency),
+					})
+
+					expect(getIconTransparency(folder)).to.be.near(transparency, 0.001)
+
+					cleanup()
+				end
+			end)
+
 			it("SHOULD override root guiObject.AbsoluteSize with size", function()
 				local testSizes = {
 					UDim2.fromScale(0.5, 0.5),
