@@ -18,7 +18,7 @@ varying vec3 VARYING4;
 void main()
 {
     vec4 v0 = POSITION * vec4(0.00390625);
-    vec3 v1 = NORMAL.xyz * 2.0;
+    vec3 v1 = (NORMAL.xyz * 2.0) - vec3(1.0);
     vec2 v2 = v0.xz + (vec2(0.5) * (2.0 * CB2[1].z));
     vec2 v3 = floor(v2);
     vec2 v4 = fract(v2);
@@ -43,26 +43,25 @@ void main()
     vec4 v22 = vec4(v19.x, v20, v19.z, 1.0);
     vec3 v23 = CB0[7].xyz - v21;
     float v24 = length(v23);
-    vec3 v25 = (v1 - vec3(1.0)) * sign(dot(CB0[11].xyz, vec3(1.0) - v1));
-    vec3 v26 = -CB0[11].xyz;
-    float v27 = dot(v25, v26);
-    float v28 = exp2((-clamp(NORMAL.w, 0.0, 1.0)) * CB2[1].x);
-    vec3 v29 = v23 / vec3(v24);
-    vec3 v30 = normalize(v26 + v29);
-    float v31 = 1.0 - clamp(((v24 - CB2[1].y) + 40.0) * 0.02500000037252902984619140625, 0.0, 1.0);
-    vec4 v32 = vec4(0.0);
-    v32.x = (v27 * 0.5) + 0.5;
+    vec3 v25 = -CB0[11].xyz;
+    float v26 = abs(dot(v1, v25));
+    float v27 = exp2((-clamp(NORMAL.w, 0.0, 1.0)) * CB2[1].x);
+    vec3 v28 = v23 / vec3(v24);
+    vec3 v29 = normalize(v25 + v28);
+    float v30 = 1.0 - clamp(((v24 - CB2[1].y) + 40.0) * 0.02500000037252902984619140625, 0.0, 1.0);
+    vec4 v31 = vec4(0.0);
+    v31.x = (v26 * 0.5) + 0.5;
+    vec4 v32 = v31;
+    v32.y = abs(dot(v29, v1));
     vec4 v33 = v32;
-    v33.y = dot(v30, v25);
+    v33.z = (dot(v28, CB0[11].xyz) * v30) * v27;
     vec4 v34 = v33;
-    v34.z = (dot(v29, CB0[11].xyz) * v31) * v28;
-    vec4 v35 = v34;
-    v35.w = (pow(clamp(v30.y, 0.0, 1.0), 8.0) * v31) * v28;
+    v34.w = (pow(clamp(v29.y, 0.0, 1.0), 8.0) * v30) * v27;
     gl_Position = v22 * mat4(CB0[0], CB0[1], CB0[2], CB0[3]);
     VARYING0 = vec4(((v21 + vec3(0.0, 6.0, 0.0)).yxz * CB0[16].xyz) + CB0[17].xyz, clamp(exp2((CB0[13].z * v24) + CB0[13].x) - CB0[13].w, 0.0, 1.0));
     VARYING1 = vec3(dot(CB0[20], v22), dot(CB0[21], v22), dot(CB0[22], v22));
-    VARYING2 = (CB0[10].xyz * clamp((v27 + 0.89999997615814208984375) * 0.52631580829620361328125, 0.0, 1.0)) * v28;
-    VARYING3 = v35;
+    VARYING2 = (CB0[10].xyz * clamp((v26 + 0.89999997615814208984375) * 0.52631580829620361328125, 0.0, 1.0)) * v27;
+    VARYING3 = v34;
     VARYING4 = v23;
 }
 

@@ -117,6 +117,27 @@
                     }
                 },
                 {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "SourceAssetId",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "Hidden",
+                        "NotReplicated"
+                    ],
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "int64"
+                    }
+                },
+                {
                     "Category": "Behavior",
                     "MemberType": "Property",
                     "Name": "archivable",
@@ -1735,6 +1756,18 @@
             "MemoryCategory": "Instances",
             "Name": "Animator",
             "Superclass": "Instance"
+        },
+        {
+            "Members": [
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "AssetCounterService",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotCreatable",
+                "Service",
+                "NotReplicated"
+            ]
         },
         {
             "Members": [
@@ -13629,40 +13662,6 @@
                 {
                     "Category": "Online",
                     "MemberType": "Property",
-                    "Name": "BubbleChatLifetime",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "float"
-                    }
-                },
-                {
-                    "Category": "Online",
-                    "MemberType": "Property",
-                    "Name": "BubbleChatMaxBubbles",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "int"
-                    }
-                },
-                {
-                    "Category": "Online",
-                    "MemberType": "Property",
                     "Name": "ChatHistory",
                     "Security": {
                         "Read": "None",
@@ -13672,103 +13671,6 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "int"
-                    }
-                },
-                {
-                    "Category": "Online",
-                    "MemberType": "Property",
-                    "Name": "ChatScrollLength",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "int"
-                    }
-                },
-                {
-                    "Category": "Sound",
-                    "MemberType": "Property",
-                    "Name": "CollisionSoundEnabled",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": false
-                    },
-                    "Tags": [
-                        "NotReplicated",
-                        "Deprecated"
-                    ],
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "bool"
-                    }
-                },
-                {
-                    "Category": "Sound",
-                    "MemberType": "Property",
-                    "Name": "CollisionSoundVolume",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": false
-                    },
-                    "Tags": [
-                        "NotReplicated",
-                        "Deprecated"
-                    ],
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "float"
-                    }
-                },
-                {
-                    "Category": "Input",
-                    "MemberType": "Property",
-                    "Name": "HardwareMouse",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "bool"
-                    }
-                },
-                {
-                    "Category": "Sound",
-                    "MemberType": "Property",
-                    "Name": "MaxCollisionSounds",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": false
-                    },
-                    "Tags": [
-                        "NotReplicated",
-                        "Deprecated"
-                    ],
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "int"
@@ -13806,23 +13708,6 @@
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "int"
-                    }
-                },
-                {
-                    "Category": "Sound",
-                    "MemberType": "Property",
-                    "Name": "SoftwareSound",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "bool"
                     }
                 },
                 {
@@ -20361,27 +20246,6 @@
                     },
                     "Tags": [
                         "ReadOnly",
-                        "NotReplicated"
-                    ],
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "bool"
-                    }
-                },
-                {
-                    "Category": "Data",
-                    "MemberType": "Property",
-                    "Name": "RenderHumanoidBillboards",
-                    "Security": {
-                        "Read": "RobloxScriptSecurity",
-                        "Write": "RobloxScriptSecurity"
-                    },
-                    "Serialization": {
-                        "CanLoad": false,
-                        "CanSave": false
-                    },
-                    "Tags": [
-                        "Hidden",
                         "NotReplicated"
                     ],
                     "ValueType": {
@@ -35829,6 +35693,23 @@
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "float"
+                    }
+                },
+                {
+                    "Category": "Behavior",
+                    "MemberType": "Property",
+                    "Name": "InterpolationThrottling",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "PluginSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Enum",
+                        "Name": "InterpolationThrottlingMode"
                     }
                 },
                 {
@@ -51855,7 +51736,7 @@
                     }
                 },
                 {
-                    "Category": "Advanced",
+                    "Category": "Explorer",
                     "MemberType": "Property",
                     "Name": "Show CorePackages",
                     "Security": {
@@ -51889,7 +51770,7 @@
                     }
                 },
                 {
-                    "Category": "Advanced",
+                    "Category": "Explorer",
                     "MemberType": "Property",
                     "Name": "Show FileSyncService",
                     "Security": {
@@ -64404,6 +64285,23 @@
         {
             "Items": [
                 {
+                    "Name": "Default",
+                    "Value": 0
+                },
+                {
+                    "Name": "Disabled",
+                    "Value": 1
+                },
+                {
+                    "Name": "Enabled",
+                    "Value": 2
+                }
+            ],
+            "Name": "InterpolationThrottlingMode"
+        },
+        {
+            "Items": [
+                {
                     "Name": "Asset",
                     "Value": 0
                 },
@@ -68002,6 +67900,14 @@
                 {
                     "Name": "Password",
                     "Value": 5
+                },
+                {
+                    "Name": "PasswordShown",
+                    "Value": 6
+                },
+                {
+                    "Name": "Username",
+                    "Value": 7
                 }
             ],
             "Name": "TextInputType"
@@ -68335,23 +68241,6 @@
                 }
             ],
             "Name": "UiMessageType"
-        },
-        {
-            "Items": [
-                {
-                    "Name": "Never",
-                    "Value": 0
-                },
-                {
-                    "Name": "Ask",
-                    "Value": 1
-                },
-                {
-                    "Name": "Always",
-                    "Value": 2
-                }
-            ],
-            "Name": "UploadSetting"
         },
         {
             "Items": [

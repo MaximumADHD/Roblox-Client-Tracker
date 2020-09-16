@@ -17,7 +17,7 @@ out vec4 VARYING3;
 void main()
 {
     vec4 v0 = POSITION * vec4(0.00390625);
-    vec3 v1 = NORMAL.xyz * 2.0;
+    vec3 v1 = (NORMAL.xyz * 2.0) - vec3(1.0);
     vec2 v2 = v0.xz + (vec2(0.5) * (2.0 * CB2[1].z));
     vec2 v3 = floor(v2);
     vec2 v4 = fract(v2);
@@ -41,25 +41,24 @@ void main()
     v21.y = v20;
     vec3 v22 = CB0[7].xyz - v21;
     float v23 = length(v22);
-    vec3 v24 = (v1 - vec3(1.0)) * sign(dot(CB0[11].xyz, vec3(1.0) - v1));
-    vec3 v25 = -CB0[11].xyz;
-    float v26 = dot(v24, v25);
-    float v27 = exp2((-clamp(NORMAL.w, 0.0, 1.0)) * CB2[1].x);
-    vec3 v28 = v22 / vec3(v23);
-    vec3 v29 = normalize(v25 + v28);
-    float v30 = 1.0 - clamp(((v23 - CB2[1].y) + 40.0) * 0.02500000037252902984619140625, 0.0, 1.0);
-    vec4 v31 = vec4(0.0);
-    v31.x = (v26 * 0.5) + 0.5;
+    vec3 v24 = -CB0[11].xyz;
+    float v25 = abs(dot(v1, v24));
+    float v26 = exp2((-clamp(NORMAL.w, 0.0, 1.0)) * CB2[1].x);
+    vec3 v27 = v22 / vec3(v23);
+    vec3 v28 = normalize(v24 + v27);
+    float v29 = 1.0 - clamp(((v23 - CB2[1].y) + 40.0) * 0.02500000037252902984619140625, 0.0, 1.0);
+    vec4 v30 = vec4(0.0);
+    v30.x = (v25 * 0.5) + 0.5;
+    vec4 v31 = v30;
+    v31.y = abs(dot(v28, v1));
     vec4 v32 = v31;
-    v32.y = dot(v29, v24);
+    v32.z = (dot(v27, CB0[11].xyz) * v29) * v26;
     vec4 v33 = v32;
-    v33.z = (dot(v28, CB0[11].xyz) * v30) * v27;
-    vec4 v34 = v33;
-    v34.w = (pow(clamp(v29.y, 0.0, 1.0), 8.0) * v30) * v27;
+    v33.w = (pow(clamp(v28.y, 0.0, 1.0), 8.0) * v29) * v26;
     gl_Position = vec4(v19.x, v20, v19.z, 1.0) * mat4(CB0[0], CB0[1], CB0[2], CB0[3]);
     VARYING0 = vec4(((v21 + vec3(0.0, 6.0, 0.0)).yxz * CB0[16].xyz) + CB0[17].xyz, clamp(exp2((CB0[13].z * v23) + CB0[13].x) - CB0[13].w, 0.0, 1.0));
     VARYING1 = v21;
-    VARYING2 = (CB0[10].xyz * clamp((v26 + 0.89999997615814208984375) * 0.52631580829620361328125, 0.0, 1.0)) * v27;
-    VARYING3 = v34;
+    VARYING2 = (CB0[10].xyz * clamp((v25 + 0.89999997615814208984375) * 0.52631580829620361328125, 0.0, 1.0)) * v26;
+    VARYING3 = v33;
 }
 

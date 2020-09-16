@@ -231,6 +231,7 @@ Studio.App.CloudEditController.JoinTeamTestServer,,Join Team Test Server,Join Te
 Studio.App.CloudEditController.ShutdownServer,,Shutdown Server,Shutdown Server
 Studio.App.CloudEditController.StartServerAndPlayers,,Start Server and Players,Start Server and Players
 Studio.App.CloudEditUserData.FailToRestoreCameraPosition,,Failed to restore camera position: %s,Failed to restore camera position: %s
+Studio.App.ColorPreviewWidget.InvalidArgumentsTooltip,,Invalid arguments to Color3 constructor,Invalid arguments to Color3 constructor
 Studio.App.CommandLine.InvalidArgument2,,Launch Task %1 requires valid %2,Launch Task %1 requires valid %2
 Studio.App.CommitScriptsDialog.CommitButtonText,,Commit,Commit
 Studio.App.CommitScriptsDialog.CommitMessagePlaceHolderText,,Add a comment to describe what changed,Add a comment to describe what changed
@@ -763,6 +764,8 @@ Studio.App.MainWindow.OpenExistingLocalFile,Main Window,Open an existing local f
 Studio.App.MainWindow.OpenFromFilePrompt,Main Window,Open from File...,Open from File...
 Studio.App.MainWindow.OpenFromRobloxPrompt,Main Window,Open from Roblox...,Open from Roblox...
 Studio.App.MainWindow.OpenLocalCopy,Main Window,Open Local Copy,Open Local Copy
+Studio.App.MainWindow.OpenPlaceFailureIncidentId1,Incident ID field displayed in error message dialog,Incident ID: %1,Incident ID: %1
+Studio.App.MainWindow.OpenPlaceFailureReportToForum1,Devforum link field displayed in error message dialog ,"If you continue to encounter this error, please report it on the <a href='%1'>Developer Forum</a>","If you continue to encounter this error, please report it on the <a href='%1'>Developer Forum</a>"
 Studio.App.MainWindow.OpenRecentGameRoblox,Main Window,Open a recent Game from Roblox,Open a recent Game from Roblox
 Studio.App.MainWindow.OpenRobloxFile,Main Window,Open Roblox File,Open Roblox File
 Studio.App.MainWindow.PluginManagement,Main Window,Plugin Management,Plugin Management
@@ -997,22 +1000,19 @@ Studio.App.Property.AutoSaveIntervalMinutes,,Auto-Save Interval (Minutes),Auto-S
 Studio.App.Property.AutoSavePath,,Auto-Save Path,Auto-Save Path
 Studio.App.Property.BackgroundColor,,Background Color,Background Color
 Studio.App.Property.BasicObjectsDisplayMode,,Basic Objects Display Mode,Basic Objects Display Mode
-Studio.App.Property.BubbleChatLifetime,,Bubble Chat Lifetime,Bubble Chat Lifetime
-Studio.App.Property.BubbleChatMaxBubbles,,Bubble Chat Max Bubbles,Bubble Chat Max Bubbles
 Studio.App.Property.BuiltInFunctionColor,,Built-in Function Color,Built-in Function Color
 Studio.App.Property.CameraMouseWheelSpeed,,Camera Mouse Wheel Speed,Camera Mouse Wheel Speed
 Studio.App.Property.CameraShiftSpeed,,Camera Shift Speed,Camera Shift Speed
 Studio.App.Property.CameraSpeed,,Camera Speed,Camera Speed
 Studio.App.Property.CameraZoomToMousePosition,,Camera Zoom to Mouse Position,Camera Zoom to Mouse Position
 Studio.App.Property.ChatHistory,,Chat History,Chat History
-Studio.App.Property.ChatScrollLength,,Chat Scroll Length,Chat Scroll Length
 Studio.App.Property.ClearOutputOnStart,,Clear Output On Start,Clear Output On Start
 Studio.App.Property.ClientPhysicsSendRate,,Client Physics Send Rate,Client Physics Send Rate
 Studio.App.Property.CommandBarLocalState,,Command bar operates on local state at breakpoint,Command bar operates on local state at breakpoint
 Studio.App.Property.CommentColor,,Comment Color,Comment Color
 Studio.App.Property.CurrentLineHighlightColor,The highlight color of the line we are currently editing in ScriptTextEditor,Current Line Highlight Color,Current Line Highlight Color
 Studio.App.Property.DataGCRate,,Data GC Rate,Data GC Rate
-Studio.App.Property.DataModel,,Data Model,Data Model
+Studio.App.Property.DataModel,,Data Model Count,Data Model Count
 Studio.App.Property.DataMtuAdjust,,Data Mtu Adjust,Data Mtu Adjust
 Studio.App.Property.DataSendRate,,Data Send Rate,Data Send Rate
 Studio.App.Property.DebuggerCurrentLineColor,The color of the current line we are stopped on in the debugger.,Debugger Current Line Color,Debugger Current Line Color
@@ -1040,7 +1040,6 @@ Studio.App.Property.FormatOnType,,Format On Type,Format On Type
 Studio.App.Property.FrameRateManager,,Frame Rate Manager,Frame Rate Manager
 Studio.App.Property.GfxCard,,Gfx Card,Gfx Card
 Studio.App.Property.GraphicsMode,,Graphics Mode,Graphics Mode
-Studio.App.Property.HardwareMouse,,Hardware Mouse,Hardware Mouse
 Studio.App.Property.HighlightCurrentLine,Should we highlight the line we are currently editing in ScriptTextEditor,Highlight Current Line,Highlight Current Line
 Studio.App.Property.HoverAnimateSpeed,,Hover Animate Speed,Hover Animate Speed
 Studio.App.Property.HoverOverColor,,Hover Over Color,Hover Over Color
@@ -1059,7 +1058,7 @@ Studio.App.Property.KeywordColor,,Keyword Color,Keyword Color
 Studio.App.Property.Language,,Language,Language
 Studio.App.Property.LineThickness,,Line Thickness,Line Thickness
 Studio.App.Property.LocalAssetsFolder,,Local Assets Folder,Local Assets Folder
-Studio.App.Property.LuaDebuggerEnabled,,Lua Debugger Enabled,Lua Debugger Enabled
+Studio.App.Property.LuaDebuggerEnabled,,Debugger Enabled,Debugger Enabled
 Studio.App.Property.MatchingWordBackgroundColor,,Matching Word Background Color,Matching Word Background Color
 Studio.App.Property.MaximumOutputLines,,Maximum Output Lines,Maximum Output Lines
 Studio.App.Property.MaximumTableDepth,,Maximum Table Depth,Maximum Table Depth
@@ -1136,7 +1135,6 @@ Studio.App.Property.ShowQTWarningsInOutput,,Show QT warnings in output,Show QT w
 Studio.App.Property.ShowRobloxPluginGUIServiceInExplorer,,Show Roblox Plugin GUI Service in Explorer,Show Roblox Plugin GUI Service in Explorer
 Studio.App.Property.ShowWhitespace,,Show Whitespace,Show Whitespace
 Studio.App.Property.SkipClosingBracketsAndQuotes,,Skip Closing Brackets and Quotes,Skip Closing Brackets and Quotes
-Studio.App.Property.SoftwareSound,,Software Sound,Software Sound
 Studio.App.Property.StringColor,,String Color,String Color
 Studio.App.Property.SystemProductName,,System Product Name,System Product Name
 Studio.App.Property.TabWidth,,Tab Width,Tab Width
@@ -2342,6 +2340,42 @@ Studio.App.Settings.FolderSelectionDialogTitle,,Select folder to save Roblox doc
 Studio.App.Settings.SelectFolderMessageBoxText,,"Need a location to store local files.
 Do you want to pick a file path now?","Need a location to store local files.
 Do you want to pick a file path now?"
+Studio.App.SettingsCategory.DiagnosticsBenchmarking,,Benchmarking,Benchmarking
+Studio.App.SettingsCategory.DiagnosticsErrors,,Errors,Errors
+Studio.App.SettingsCategory.DiagnosticsPerformance,,Performance,Performance
+Studio.App.SettingsCategory.DiagnosticsProfile,,Profile,Profile
+Studio.App.SettingsCategory.GameOptionsInternal,,Internal,Internal
+Studio.App.SettingsCategory.GameOptionsOnline,,Online,Online
+Studio.App.SettingsCategory.GameOptionsVideo,,Video,Video
+Studio.App.SettingsCategory.LuaDiagnostics,,Diagnostics,Diagnostics
+Studio.App.SettingsCategory.LuaSettings,,Online,Online
+Studio.App.SettingsCategory.NetworkAppearance,,Appearance,Appearance
+Studio.App.SettingsCategory.NetworkDiagnostics,,Diagnostics,Diagnostics
+Studio.App.SettingsCategory.NetworkProxy,,Proxy,Proxy
+Studio.App.SettingsCategory.PhysicsDisplay,,Display,Display
+Studio.App.SettingsCategory.PhysicsPerformance,,Performance,Performance
+Studio.App.SettingsCategory.RenderingCache,,Cache,Cache
+Studio.App.SettingsCategory.RenderingDebug,,Debug,Debug
+Studio.App.SettingsCategory.RenderingGeneral,,General,General
+Studio.App.SettingsCategory.RenderingPerformance,,Performance,Performance
+Studio.App.SettingsCategory.StudioAdvanced,,Advanced,Advanced
+Studio.App.SettingsCategory.StudioAudio,,Audio,Audio
+Studio.App.SettingsCategory.StudioAutoRecovery,,AutoRecovery,AutoRecovery
+Studio.App.SettingsCategory.StudioBrowsing,,Browsing,Browsing
+Studio.App.SettingsCategory.StudioCamera,,Camera,Camera
+Studio.App.SettingsCategory.StudioDebugger,,Debugger,Debugger
+Studio.App.SettingsCategory.StudioDirectories,,Directories,Directories
+Studio.App.SettingsCategory.StudioExplorer,,Explorer,Explorer
+Studio.App.SettingsCategory.StudioGeneral,,General,General
+Studio.App.SettingsCategory.StudioOutput,,Output,Output
+Studio.App.SettingsCategory.StudioPrimaryPart,,PrimaryPart,PrimaryPart
+Studio.App.SettingsCategory.StudioScriptEditor,,ScriptEditor,ScriptEditor
+Studio.App.SettingsCategory.StudioScriptEditorColors,,ScriptEditorColors,ScriptEditorColors
+Studio.App.SettingsCategory.StudioTools,,Tools,Tools
+Studio.App.SettingsCategory.StudioUndo,,Undo,Undo
+Studio.App.SettingsCategory.StudioVisualization,,Visualization,Visualization
+Studio.App.SettingsCategory.TaskSchedulerConfiguration,,Configuration,Configuration
+Studio.App.SettingsCategory.TaskSchedulerDiagnostics,,Diagnostics,Diagnostics
 Studio.App.SettingsHeader.Diagnostics,,Diagnostics,Diagnostics
 Studio.App.SettingsHeader.GameOptions,,Game Options,Game Options
 Studio.App.SettingsHeader.Lua,,Lua,Lua
@@ -2466,6 +2500,7 @@ Studio.App.TeamCreate.Form,,Form,Form
 Studio.App.TeamCreate.HearbeatDetectFail,,Studio detected Heartbeat failure.,Studio detected Heartbeat failure.
 Studio.App.TeamCreate.InviteAFriend,,Invite a friend,Invite a friend
 Studio.App.TeamCreate.LoadingGame,,Loading game,Loading game
+Studio.App.TeamCreate.LoadingGameWithAttemptCount1,Load game with display of the attempt count,Loading game (attempt #%1),Loading game (attempt #%1)
 Studio.App.TeamCreate.LogInToEnableTeamCreateOptions,,Log in to enable Team Create options for your place.,Log in to enable Team Create options for your place.
 Studio.App.TeamCreate.MembersOfYourGroupCanWorkTogether,,"Members of your group can work together, see updates instantly. Contact your admin to enable Team Create.","Members of your group can work together, see updates instantly. Contact your admin to enable Team Create."
 Studio.App.TeamCreate.PermissionsMovedMessage1,,"We've moved permissions management to <a href=""%1"">Home &gt; Game Settings &gt; Permissions.</a>","We've moved permissions management to <a href=""%1"">Home &gt; Game Settings &gt; Permissions.</a>"

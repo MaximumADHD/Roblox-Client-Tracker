@@ -5,6 +5,7 @@ Class Instance : <<<ROOT>>> [NotCreatable] [NotBrowsable]
 	Property string Instance.Name
 	Property Instance Instance.Parent [<📁> LoadOnly] [NotReplicated]
 	Property bool Instance.RobloxLocked {PluginSecurity}
+	Property int64 Instance.SourceAssetId {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Function void Instance:ClearAllChildren()
 	Function Instance Instance:Clone()
 	Function void Instance:Destroy()
@@ -93,6 +94,7 @@ Class Animator : Instance
 	Function Instance Animator:LoadAnimation(Instance animation)
 	Function void Animator:StepAnimations(float deltaTime) {PluginSecurity}
 	Event Animator.AnimationPlayed(Instance animationTrack)
+Class AssetCounterService : Instance [NotCreatable] [Service] [NotReplicated]
 Class AssetManagerService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function int64 AssetManagerService:AddNewPlace() {RobloxScriptSecurity} [Yields]
 	Function void AssetManagerService:DeleteAlias(string aliasName) {RobloxScriptSecurity} [Yields]
@@ -777,17 +779,9 @@ Class GamePassService : Instance [NotCreatable] [Service] [Deprecated]
 	Function bool GamePassService:PlayerHasPass(Instance player, int64 gamePassId) [Yields] [Deprecated]
 Class GameSettings : Instance [NotCreatable] [Settings] [NotBrowsable]
 	Property string GameSettings.AdditionalCoreIncludeDirs {✏️RobloxScriptSecurity}
-	Property bool GameSettings.HardwareMouse
-	Property float GameSettings.BubbleChatLifetime
-	Property int GameSettings.BubbleChatMaxBubbles
 	Property int GameSettings.ChatHistory
-	Property int GameSettings.ChatScrollLength
 	Property int GameSettings.ReportAbuseChatHistory
 	Property string GameSettings.OverrideStarterScript {✏️RobloxScriptSecurity}
-	Property bool GameSettings.CollisionSoundEnabled [<📁> LoadOnly] [NotReplicated] [Deprecated]
-	Property float GameSettings.CollisionSoundVolume [<📁> LoadOnly] [NotReplicated] [Deprecated]
-	Property int GameSettings.MaxCollisionSounds [<📁> LoadOnly] [NotReplicated] [Deprecated]
-	Property bool GameSettings.SoftwareSound
 	Property bool GameSettings.VideoCaptureEnabled
 	Property Enum<VideoQualitySettings> GameSettings.VideoQuality
 	Property bool GameSettings.VideoRecording {RobloxScriptSecurity} {✏️RobloxSecurity} [<📁> LoadOnly] [NotReplicated]
@@ -1178,7 +1172,6 @@ Class GuiService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property bool GuiService.IsModalDialog  [ReadOnly] [NotReplicated] [Deprecated]
 	Property bool GuiService.IsWindows  [ReadOnly] [NotReplicated] [Deprecated]
 	Property bool GuiService.MenuIsOpen [<💾> SaveOnly] [ReadOnly] [NotReplicated]
-	Property bool GuiService.RenderHumanoidBillboards {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property Class<GuiObject> GuiService.SelectedCoreObject {RobloxScriptSecurity} [<📁> LoadOnly] [NotReplicated]
 	Property Class<GuiObject> GuiService.SelectedObject
 	Function void GuiService:AddCenterDialog(Instance dialog, Enum<CenterDialogType> centerDialogType, Function showFunction, Function hideFunction) {RobloxScriptSecurity}
@@ -1998,6 +1991,7 @@ Class Workspace : WorldRoot [NotCreatable] [Service]
 	Property float Workspace.FallenPartsDestroyHeight {✏️PluginSecurity}
 	Property bool Workspace.FilteringEnabled {✏️PluginSecurity}
 	Property float Workspace.Gravity
+	Property Enum<InterpolationThrottlingMode> Workspace.InterpolationThrottling {✏️PluginSecurity}
 	Property Enum<PhysicsSimulationRate> Workspace.PhysicsSimulationRate  [Hidden] [NotReplicated]
 	Property bool Workspace.StreamingEnabled {✏️PluginSecurity}
 	Property int Workspace.StreamingMinRadius  [NotScriptable]
@@ -2835,9 +2829,7 @@ Class Studio : Instance [NotCreatable] [Service] [NotReplicated]
 	Property bool Studio.Enable Internal Features
 	Property bool Studio.Respect Studio shortcuts when game has focus
 	Property bool Studio.Search Content For Core Scripts
-	Property bool Studio.Show CorePackages
 	Property bool Studio.Show Diagnostics Bar
-	Property bool Studio.Show FileSyncService
 	Property bool Studio.Show QT warnings in output
 	Property bool Studio.Only Play Audio from Window in Focus
 	Property Enum<ServerAudioBehavior> Studio.Server Audio Behavior
@@ -2856,6 +2848,8 @@ Class Studio : Instance [NotCreatable] [Service] [NotReplicated]
 	Property QDir Studio.OverrideCoreScriptsDir {✏️RobloxScriptSecurity}
 	Property QDir Studio.PluginsDir
 	Property bool Studio.Show Core GUI in Explorer while Playing
+	Property bool Studio.Show CorePackages
+	Property bool Studio.Show FileSyncService
 	Property bool Studio.Show Hidden Objects in Explorer
 	Property bool Studio.Show Plugin GUI Service in Explorer
 	Property bool Studio.Show plus button on hover in Explorer
@@ -4117,6 +4111,10 @@ Enum InputType
 	EnumItem InputType.NoInput : 0
 	EnumItem InputType.Constant : 12
 	EnumItem InputType.Sin : 13
+Enum InterpolationThrottlingMode
+	EnumItem InterpolationThrottlingMode.Default : 0
+	EnumItem InterpolationThrottlingMode.Disabled : 1
+	EnumItem InterpolationThrottlingMode.Enabled : 2
 Enum ItemType
 	EnumItem ItemType.Asset : 0
 	EnumItem ItemType.Bundle : 1
@@ -4974,6 +4972,8 @@ Enum TextInputType
 	EnumItem TextInputType.Email : 3
 	EnumItem TextInputType.Phone : 4
 	EnumItem TextInputType.Password : 5
+	EnumItem TextInputType.PasswordShown : 6
+	EnumItem TextInputType.Username : 7
 Enum TextTruncate
 	EnumItem TextTruncate.None : 0
 	EnumItem TextTruncate.AtEnd : 1
@@ -5051,10 +5051,6 @@ Enum UITheme [Deprecated]
 Enum UiMessageType
 	EnumItem UiMessageType.UiMessageError : 0
 	EnumItem UiMessageType.UiMessageInfo : 1
-Enum UploadSetting
-	EnumItem UploadSetting.Never : 0
-	EnumItem UploadSetting.Ask : 1
-	EnumItem UploadSetting.Always : 2
 Enum UserCFrame
 	EnumItem UserCFrame.Head : 0
 	EnumItem UserCFrame.LeftHand : 1
