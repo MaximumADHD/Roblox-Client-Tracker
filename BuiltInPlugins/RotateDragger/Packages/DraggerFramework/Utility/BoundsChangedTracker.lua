@@ -8,6 +8,7 @@
 local DraggerFramework = script.Parent.Parent
 
 local getFFlagTrackIndividualParts = require(DraggerFramework.Flags.getFFlagTrackIndividualParts)
+local getFFlagDraggerSplit = require(DraggerFramework.Flags.getFFlagDraggerSplit)
 
 local MAX_PARTS_TO_TRACK_BOUNDS_FOR = 1024
 
@@ -15,6 +16,7 @@ local BoundsChangedTracker = {}
 BoundsChangedTracker.__index = BoundsChangedTracker
 
 function BoundsChangedTracker.new(handler)
+	assert(not getFFlagDraggerSplit()) -- Moved into Schema
 	return setmetatable({
 		_handler = handler,
 		_installed = false,

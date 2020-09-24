@@ -5,28 +5,58 @@
 
 local DraggerFramework = script.Parent.Parent
 
+local getFFlagDraggerSplit = require(DraggerFramework.Flags.getFFlagDraggerSplit)
+local getFFlagRevertCtrlScale = require(DraggerFramework.Flags.getFFlagRevertCtrlScale)
+
 local DraggerToolModel = require(DraggerFramework.Implementation.DraggerToolModel)
 
 local DraggerToolFixture = {}
 DraggerToolFixture.__index = DraggerToolFixture
 
-function DraggerToolFixture.new(props, draggerContext, toolImplementation)
-	local self = setmetatable({
-		_draggerContext = draggerContext,
-		_viewBoundsDirty = true,
-		_selectionBoundsDirty = true,
-	}, DraggerToolFixture)
+if getFFlagDraggerSplit() then
+	function DraggerToolFixture.new(draggerContext, draggerSchema, draggerSettings)
+		draggerSettings = draggerSettings or {}
 
-	self._draggerToolModel =
-		DraggerToolModel.new(
-			props,
-			toolImplementation,
-			draggerContext,
-			function() end,
-			function() self._viewBoundsDirty = true end,
-			function() self._selectionBoundsDirty = true end)
+		local self = setmetatable({
+			_draggerContext = draggerContext,
+			_viewBoundsDirty = true,
+			_selectionBoundsDirty = true,
+		}, DraggerToolFixture)
 
-	return self
+		self._draggerToolModel =
+			DraggerToolModel.new(
+				draggerContext,
+				draggerSchema,
+				draggerSettings,
+				function() end,
+				function() self._viewBoundsDirty = true end,
+				function() self._selectionBoundsDirty = true end)
+
+		return self
+	end
+else
+	function DraggerToolFixture.new(props, draggerContext, toolImplementation)
+		local self = setmetatable({
+			_draggerContext = draggerContext,
+			_viewBoundsDirty = true,
+			_selectionBoundsDirty = true,
+		}, DraggerToolFixture)
+
+		self._draggerToolModel =
+			DraggerToolModel.new(
+				props,
+				toolImplementation,
+				draggerContext,
+				function() end,
+				function() self._viewBoundsDirty = true end,
+				function() self._selectionBoundsDirty = true end)
+
+		return self
+	end
+end
+
+function DraggerToolFixture:getModel()
+	return self._draggerToolModel
 end
 
 function DraggerToolFixture:_update()
@@ -73,6 +103,10 @@ function DraggerToolFixture:keyPress(key)
 	assert(self._selected, "must call select before keyPress")
 	self._draggerToolModel:_processKeyDown(key)
 	self:_update()
+	if getFFlagRevertCtrlScale() then
+		self._draggerToolModel:_processKeyUp(key)
+		self:_update()
+	end
 end
 
 function DraggerToolFixture:deselect()

@@ -12,6 +12,8 @@ return strict({
 	Cryo = require(script.Cryo),
 	CrossPluginCommunication = require(script.CrossPluginCommunication),
 	deepEqual = require(script.deepEqual),
+	deepJoin = require(script.deepJoin),
+	deepCopy = require(script.deepCopy),
 
 	-- TODO DEVTOOLS-4459: Remove this export
 	FitFrame = require(script.FitFrame),
@@ -25,6 +27,7 @@ return strict({
 	Symbol = require(script.Symbol),
 	ThunkWithArgsMiddleware = require(script.ThunkWithArgsMiddleware),
 	strict = strict,
+	tableCache = require(script.tableCache),
 
 	-- Style and Theming Utilities
 	Palette = require(script.Palette),

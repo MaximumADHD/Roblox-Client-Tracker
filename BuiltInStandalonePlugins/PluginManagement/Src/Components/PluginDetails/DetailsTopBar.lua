@@ -10,6 +10,8 @@ local Navigation = require(Plugin.Src.ContextServices.Navigation)
 
 local FitFrameVertical = FitFrame.FitFrameVertical
 
+local FlagsList = require(Plugin.Src.Util.FlagsList)
+
 local CONTENT_PADDING = 18
 local BACK_ICON_SIZE = 32
 local BACK_ICON = "rbxasset://textures/PluginManagement/back.png"
@@ -32,7 +34,12 @@ function DetailsTopBar:render()
     local layoutOrder = self.props.LayoutOrder
     local name = self.props.name
 
-	local theme = self.props.Theme:get("Plugin")
+    local theme
+	if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+		theme = self.props.Stylizer
+    else
+        theme = self.props.Theme:get("Plugin")
+    end
     local api = self.props.API:get()
 
 	local thumbnailUrl = api.Images.AssetThumbnailUrl(assetId)
@@ -93,7 +100,8 @@ end
 
 ContextServices.mapToProps(DetailsTopBar, {
     Navigation = Navigation,
-    Theme = ContextServices.Theme,
+	Stylizer = FlagsList:get("FFlagRefactorDevFrameworkTheme") and ContextServices.Stylizer or nil,
+	Theme = (not FlagsList:get("FFlagRefactorDevFrameworkTheme")) and ContextServices.Theme or nil,
     API = PluginAPI2,
 })
 

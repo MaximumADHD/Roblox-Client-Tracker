@@ -204,6 +204,11 @@ function PlayerListSorter:render()
 end
 
 local function mapStateToProps(state)
+	local subjectToChinaPolicies = nil
+	if FFlagLeaderboardDontWaitOnChinaPolicy then
+		subjectToChinaPolicies = state.displayOptions.subjectToChinaPolicies
+	end
+
 	return {
 		gameStats = state.gameStats,
 
@@ -213,7 +218,7 @@ local function mapStateToProps(state)
 		playerStats = state.playerStats,
 		playerTeam = state.playerTeam,
 
-		subjectToChinaPolicies = FFlagLeaderboardDontWaitOnChinaPolicy and state.displayOptions.subjectToChinaPolicies or nil,
+		subjectToChinaPolicies = subjectToChinaPolicies,
 	}
 end
 

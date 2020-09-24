@@ -373,11 +373,16 @@ function PlayerEntry:render()
 end
 
 local function mapStateToProps(state)
+	local smallTouchDevice = nil
+	if FFlagFixLeaderboardWaitingOnScreenSize then
+		smallTouchDevice = state.displayOptions.isSmallTouchDevice
+	end
+
 	return {
 		selectedPlayer = state.playerDropDown.selectedPlayer,
 		dropDownOpen = state.playerDropDown.isVisible,
 
-		isSmallTouchDevice = FFlagFixLeaderboardWaitingOnScreenSize and state.displayOptions.isSmallTouchDevice or nil,
+		isSmallTouchDevice = smallTouchDevice,
 	}
 end
 

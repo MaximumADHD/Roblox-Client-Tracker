@@ -52,5 +52,6 @@ game:DefineFastFlag("ToolboxNewAssetAnalytics", false)
 game:DefineFastFlag("ToolboxNewInsertAnalytics", false)
 
 game:DefineFastFlag("AssetConfigFixAssetIdTypo", false)
+game:DefineFastFlag("AssetConfigFixBadIdVerifyState", false)
 
 return nil

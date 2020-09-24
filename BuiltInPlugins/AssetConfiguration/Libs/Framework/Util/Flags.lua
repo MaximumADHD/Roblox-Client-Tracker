@@ -94,7 +94,7 @@ function Flags.new(featuresMap, config)
 	assert(type(config.shouldFetchLiveValues) == "boolean", "shouldFetchLiveValues expected to be a boolean")
 	assert(type(config.defaultValueIfMissing) == "boolean", "Default values for flags must be a boolean")
 	assert(type(featuresMap) == "table", "Flags.new expects a table mapping keys to flag names.")
-	local isMap = type(next(featuresMap)) == "nil" or type(next(featuresMap)) == "string"
+	local isMap = type((next(featuresMap))) == "nil" or type((next(featuresMap))) == "string"
 	assert(isMap, "Flags.new expects a map of string keys.")
 
 	local self = {

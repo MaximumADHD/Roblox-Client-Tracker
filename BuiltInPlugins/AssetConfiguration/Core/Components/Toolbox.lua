@@ -29,6 +29,7 @@ local ContextGetter = require(Util.ContextGetter)
 local PageInfoHelper = require(Util.PageInfoHelper)
 local getTabs = require(Util.getTabs)
 local Analytics = require(Util.Analytics.Analytics)
+local FlagsList = require(Util.FlagsList)
 
 local Types = Plugin.Core.Types
 local Sort = require(Types.Sort)
@@ -269,7 +270,12 @@ function Toolbox:render()
 	local tryOpenAssetConfig = props.tryOpenAssetConfig
 	local pluginGui = props.pluginGui
 
-	local toolboxTheme = props.Theme:get("Plugin")
+	local toolboxTheme
+	if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+		toolboxTheme = self.props.Stylizer
+	else
+		toolboxTheme = self.props.Theme:get("Plugin")
+	end
 	local localizedContent = props.Localization
 
 	local onAbsoluteSizeChange = self.onAbsoluteSizeChange
@@ -325,7 +331,8 @@ function Toolbox:render()
 end
 
 ContextServices.mapToProps(Toolbox, {
-	Theme = ContextServices.Theme,
+	Stylizer = FlagsList:get("FFlagRefactorDevFrameworkTheme") and ContextServices.Stylizer or nil,
+	Theme = (not FlagsList:get("FFlagRefactorDevFrameworkTheme")) and ContextServices.Theme or nil,
 	Localization = ContextServices.Localization,
 	Settings = Settings,
 })

@@ -26,7 +26,7 @@ end
 
 local FFlagUserCameraInputRefactor do
 	local success, result = pcall(function()
-		return UserSettings():IsUserFeatureEnabled("UserCameraInputRefactor")
+		return UserSettings():IsUserFeatureEnabled("UserCameraInputRefactor2")
 	end)
 	FFlagUserCameraInputRefactor = success and result
 end
@@ -352,10 +352,6 @@ function ClassicCamera:Update()
 		else
 			self.lastSubjectCFrame = nil
 		end
-	end
-	
-	if FFlagUserCameraInputRefactor then	
-		CameraInput.resetInputForFrameEnd()
 	end
 
 	self.lastUpdate = now

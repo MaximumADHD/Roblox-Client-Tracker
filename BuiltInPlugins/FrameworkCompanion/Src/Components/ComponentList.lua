@@ -7,7 +7,13 @@
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
-local ContextServices = require(Plugin.Packages.Framework).ContextServices
+
+local Framework = require(Plugin.Packages.Framework)
+local ContextServices = Framework.ContextServices
+local Util = Framework.Util
+local FlagsList = Util.Flags.new({
+	FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
+})
 
 local UI = require(Plugin.Packages.Framework).UI
 local Container = UI.Container
@@ -18,6 +24,7 @@ local HoverArea = UI.HoverArea
 local GetComponents = require(Plugin.Src.Thunks.GetComponents)
 local RunTests = require(Plugin.Src.Thunks.RunTests)
 local SetCurrentItem = require(Plugin.Src.Actions.SetCurrentItem)
+
 
 local ComponentList = Roact.PureComponent:extend("ComponentList")
 
@@ -52,8 +59,16 @@ end
 
 function ComponentList:renderHeader(header, index)
 	local props = self.props
-	local text = props.Theme:get("Text")
-	local sizes = props.Theme:get("Sizes")
+	local text
+	local sizes
+	local style = props.Stylizer
+	if FlagsList:get("FFlagRefactorDevFrameworkTheme") and style then
+		text = style.Text
+		sizes = style.Sizes
+	else
+		text = props.Theme:get("Text")
+		sizes = props.Theme:get("Sizes")
+	end
 
 	return Roact.createElement("TextLabel", {
 		Size = UDim2.new(1, 0, 0, sizes.ButtonHeight),
@@ -74,14 +89,23 @@ end
 function ComponentList:renderEntry(name, index)
 	local props = self.props
 	local currentItem = props.CurrentItem
-	local text = props.Theme:get("Text")
-	local sizes = props.Theme:get("Sizes")
+	local text
+	local sizes
+	local style = props.Stylizer
+	if FlagsList:get("FFlagRefactorDevFrameworkTheme") and style then
+		text = style.Text
+		sizes = style.Sizes
+	else
+		text = props.Theme:get("Text")
+		sizes = props.Theme:get("Sizes")
+	end
 
 	local isCurrent = name == currentItem
 
 	return Roact.createElement(Button, {
 		Size = UDim2.new(1, 0, 0, sizes.ButtonHeight),
 		Style = isCurrent and "RoundPrimary" or "Round",
+
 		LayoutOrder = index,
 		OnClick = function()
 			props.Plugin:get():SetSetting("lastStory", name)
@@ -145,8 +169,16 @@ end
 
 function ComponentList:render()
 	local props = self.props
-	local scrollbar = props.Theme:get("Scrollbar")
-	local sizes = props.Theme:get("Sizes")
+	local scrollbar
+	local sizes
+	local style = props.Stylizer
+	if FlagsList:get("FFlagRefactorDevFrameworkTheme") and style then
+		scrollbar = style.Scrollbar
+		sizes = style.Sizes
+	else
+		scrollbar = props.Theme:get("Scrollbar")
+		sizes = props.Theme:get("Sizes")
+	end
 
 	local children = {
 		__Padding = Roact.createElement("UIPadding", {
@@ -194,7 +226,8 @@ function ComponentList:render()
 end
 
 ContextServices.mapToProps(ComponentList, {
-	Theme = ContextServices.Theme,
+	Stylizer = FlagsList:get("FFlagRefactorDevFrameworkTheme") and ContextServices.Stylizer or nil,
+	Theme = (not FlagsList:get("FFlagRefactorDevFrameworkTheme")) and ContextServices.Theme or nil,
 	PluginActions = ContextServices.PluginActions,
 	Plugin = ContextServices.Plugin,
 })

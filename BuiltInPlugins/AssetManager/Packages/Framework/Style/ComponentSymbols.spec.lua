@@ -16,7 +16,7 @@ return function()
 
 		it("should coerce to the given name", function()
 			local symbol = ComponentSymbols:add("foo")
-			expect(tostring(symbol):find("foo")).to.be.ok()
+			expect((tostring(symbol):find("foo"))).to.be.ok()
 		end)
 
 		it("should not have duplicate entries", function()

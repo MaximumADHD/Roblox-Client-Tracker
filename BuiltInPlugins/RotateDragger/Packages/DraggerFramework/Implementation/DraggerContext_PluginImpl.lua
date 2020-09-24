@@ -7,11 +7,12 @@
 
 local DraggerFramework = script.Parent.Parent
 
-local SelectionWrapper = require(DraggerFramework.Utility.SelectionWrapper)
+local SelectionWrapper_DEPRECATED = require(DraggerFramework.Utility.SelectionWrapper_DEPRECATED)
 local Analytics = require(DraggerFramework.Utility.Analytics)
 local setInsertPoint = require(DraggerFramework.Utility.setInsertPoint)
 
 local getEngineFeatureActiveInstanceHighlight = require(DraggerFramework.Flags.getEngineFeatureActiveInstanceHighlight)
+local getFFlagDraggerSplit = require(DraggerFramework.Flags.getFFlagDraggerSplit)
 
 local DraggerContext = {}
 DraggerContext.__index = DraggerContext
@@ -19,7 +20,7 @@ DraggerContext.__index = DraggerContext
 local RAYCAST_DIRECTION_SCALE = 10000
 local HANDLE_SCALE_FACTOR = 0.05
 
-function DraggerContext.new(plugin, editDataModel, userSettings)
+function DraggerContext.new(plugin, editDataModel, userSettings, selection)
 	return setmetatable({
 		_editDataModel = editDataModel,
 		_plugin = plugin,
@@ -29,7 +30,9 @@ function DraggerContext.new(plugin, editDataModel, userSettings)
 		_studioSettings = userSettings.Studio,
 		_workspace = editDataModel:GetService("Workspace"),
 		_userInputService = editDataModel:GetService("UserInputService"),
+		_changeHistoryService = editDataModel:GetService("ChangeHistoryService"),
 		_mouse = plugin:GetMouse(),
+		_selection = selection,
 	}, DraggerContext)
 end
 
@@ -154,8 +157,14 @@ function DraggerContext:setMouseIcon(icon)
 	self._mouse.Icon = icon
 end
 
-function DraggerContext:getSelectionWrapper()
-	return SelectionWrapper
+if getFFlagDraggerSplit() then
+	function DraggerContext:getSelection()
+		return self._selection
+	end
+else
+	function DraggerContext:getSelectionWrapper()
+		return SelectionWrapper_DEPRECATED
+	end
 end
 
 -- Are non-anchored parts in the world currently being physically simulated?
@@ -210,6 +219,12 @@ end
 
 function DraggerContext:shouldAlignDraggedObjects()
 	return self._studioService.AlignDraggedObjects
+end
+
+function DraggerContext:addUndoWaypoint(waypointIdentifier, waypointText)
+	-- Nothing to do with waypoint text currently, but we will need to do
+	-- something with localizing undo waypoints eventually.
+	self._changeHistoryService:SetWaypoint(waypointIdentifier)
 end
 
 return DraggerContext

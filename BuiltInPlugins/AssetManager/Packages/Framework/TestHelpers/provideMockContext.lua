@@ -40,11 +40,11 @@ local FlagsList = Util.Flags.new({
 return function(contextItemsList, children)
 	if contextItemsList then
 		assert(type(contextItemsList) == "table", "Expected contextItemsList to be a table.")
-		assert(type(next(contextItemsList)) == "number" or type(next(contextItemsList)) == "nil",
+		assert(type((next(contextItemsList))) == "number" or type((next(contextItemsList))) == "nil",
 			"Expected contextItemsList to be an array.")
 	end
 	assert(type(children) == "table", "Expected children to be a table.")
-	assert(type(next(children)) == "string", "Expected children to be a map of components.")
+	assert(type((next(children))) == "string", "Expected children to be a map of components.")
 
 	-- Multiple items use the plugin in some way
 	-- Create 1 mock plugin and use it in each

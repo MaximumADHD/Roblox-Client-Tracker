@@ -9,7 +9,7 @@ function MockMouse.new()
 		Icon = "rbxasset://SystemCursors/Arrow",
 
 		Origin = CFrame.new(),
-		UnitRay = Ray.new(),
+		UnitRay = Ray.new(Vector3.new(), Vector3.new()),
 		Target = nil,
 
 		WheelForward = Signal.new(),

@@ -159,6 +159,7 @@ function AbstractItemView:init()
 			selectionAnchorTop = anchorTop,
 			selectionAnchorBottom = anchorBottom
 		})
+		self.selectionChanged(self.state.selection)
 	end
 
 	-- Grow/shrink the selection to the clicked item. This selection is not anchored
@@ -191,6 +192,7 @@ function AbstractItemView:init()
 		self:setState({
 			selection = newSelection
 		})
+		self.selectionChanged(self.state.selection)
 	end
 
 	self.makeMenuActions = function(localization)

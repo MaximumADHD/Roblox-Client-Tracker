@@ -66,7 +66,6 @@ local ContextServices = Framework.ContextServices
 local CrossPluginCommunication = Framework.Util.CrossPluginCommunication
 
 local TranslationStringsTable = Plugin.LocalizationSource.ToolboxTranslationReferenceTable
-local makeTheme = require(Util.makeTheme)
 
 local HttpService = game:GetService("HttpService")
 local MemStorageService = game:GetService("MemStorageService")

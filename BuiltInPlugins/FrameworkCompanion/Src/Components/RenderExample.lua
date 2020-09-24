@@ -8,13 +8,17 @@
 	Optional Props:
 		number LayoutOrder: The sort order of this component.
 ]]
-
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
-local ContextServices = require(Plugin.Packages.Framework).ContextServices
 local Render = require(Plugin.Packages.Framework).Examples.Render
 
-local UI = require(Plugin.Packages.Framework).UI
+local Framework = require(Plugin.Packages.Framework)
+local ContextServices = Framework.ContextServices
+local Util = Framework.Util
+local FlagsList = Util.Flags.new({
+	FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
+})
+local UI = Framework.UI
 local Container = UI.Container
 local Decoration = UI.Decoration
 
@@ -60,8 +64,13 @@ function RenderExample:render()
 	local ExampleComponent = state.ExampleComponent
 
 	local layoutOrder = props.LayoutOrder
-	local sizes = props.Theme:get("Sizes")
-
+	local sizes
+	local style = props.Stylizer
+	if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+		sizes = style.Sizes
+	else
+		sizes = props.Theme:get("Sizes")
+	end
 	if not ExampleComponent then
 		return nil
 	end
@@ -92,7 +101,8 @@ function RenderExample:render()
 end
 
 ContextServices.mapToProps(RenderExample, {
-	Theme = ContextServices.Theme,
+	Stylizer = FlagsList:get("FFlagRefactorDevFrameworkTheme") and ContextServices.Stylizer or nil,
+	Theme = (not FlagsList:get("FFlagRefactorDevFrameworkTheme")) and ContextServices.Theme or nil,
 })
 
 return RenderExample

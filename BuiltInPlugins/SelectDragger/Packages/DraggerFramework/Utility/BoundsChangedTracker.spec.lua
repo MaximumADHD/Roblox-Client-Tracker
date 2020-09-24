@@ -1,7 +1,14 @@
 local DraggerFramework = script.Parent.Parent
 local BoundsChangedTracker = require(DraggerFramework.Utility.BoundsChangedTracker)
 
+local getFFlagDraggerSplit = require(DraggerFramework.Flags.getFFlagDraggerSplit)
+
 return function()
+	-- Moved to Schema
+	if getFFlagDraggerSplit() then
+		return
+	end
+
 	it("should error if installed more than once", function()
 		expect(function()
 			local tracker = BoundsChangedTracker.new()

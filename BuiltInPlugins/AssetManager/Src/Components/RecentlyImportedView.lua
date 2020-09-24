@@ -27,6 +27,7 @@ local LayoutOrderIterator = UILibrary.Util.LayoutOrderIterator
 local ListItem = require(Plugin.Src.Components.ListItem)
 
 local SetRecentViewToggled = require(Plugin.Src.Actions.SetRecentViewToggled)
+local SetSelectedAssets = require(Plugin.Src.Actions.SetSelectedAssets)
 
 local FFlagAssetManagerAddAnalytics = game:GetFastFlag("AssetManagerAddAnalytics")
 
@@ -42,6 +43,7 @@ function RecentlyImportedView:createListItems(theme, recentAssets, selectedAsset
             LayoutOrder = index,
             StyleModifier = selectedAssets[index] and StyleModifier.Selected or nil,
             Enabled = enabled,
+            RecentListItem = true,
         })
         assetsToDisplay[index] = assetItem
     end
@@ -64,6 +66,8 @@ function RecentlyImportedView:render()
 
     local recentViewToggled = props.RecentViewToggled
     local dispatchSetRecentViewToggled = props.dispatchSetRecentViewToggled
+
+    local dispatchSetSelectedAssets = props.dispatchSetSelectedAssets
 
     local recentAssets = props.RecentAssets
     local selectedAssets = props.SelectedAssets
@@ -126,6 +130,7 @@ function RecentlyImportedView:render()
                 OnClick = function()
                     if enabled then
                         dispatchSetRecentViewToggled(not recentViewToggled)
+                        dispatchSetSelectedAssets({})
                     end
                 end,
             }, {
@@ -142,6 +147,10 @@ function RecentlyImportedView:render()
             LayoutOrder = layoutIndex:getNextOrder(),
 
             BackgroundTransparency = 1,
+
+            AutoSizeLayoutOptions = {
+                SortOrder = Enum.SortOrder.LayoutOrder,
+            },
         }, contents),
     })
 end
@@ -166,6 +175,9 @@ local function mapDispatchToProps(dispatch)
 	return {
         dispatchSetRecentViewToggled = function(toggled)
             dispatch(SetRecentViewToggled(toggled))
+        end,
+        dispatchSetSelectedAssets = function(assets)
+            dispatch(SetSelectedAssets(assets))
         end,
 	}
 end

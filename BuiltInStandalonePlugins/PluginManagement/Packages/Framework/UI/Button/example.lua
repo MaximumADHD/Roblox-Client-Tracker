@@ -17,58 +17,99 @@ return function(plugin)
 	local HoverArea = UI.HoverArea
 
 	local Util = require(Framework.Util)
+	local Cryo = Util.Cryo
 	local StyleTable = Util.StyleTable
 	local Style = Util.Style
 	local StyleModifier = Util.StyleModifier
+	local FlagsList = Util.Flags.new({
+		FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
+	})
+
+	local FrameworkStyle = Framework.Style
+	local ui = require(FrameworkStyle).ComponentSymbols
+	local StudioTheme = require(FrameworkStyle.Themes.StudioTheme)
+	local BaseTheme = require(FrameworkStyle.Themes.BaseTheme)
+	local StyleKey = require(FrameworkStyle.StyleKey)
 
 	local pluginItem = Plugin.new(plugin)
 	local mouse = Mouse.new(plugin:GetMouse())
 
-	local theme = Theme.new(function(theme, getColor)
-		local studioStyles = StudioFrameworkStyles.new(theme, getColor)
-
-		local button = StyleTable.new("Button", function()
-			-- Defining a new button style that uses images
-			local Close = Style.new({
-				Foreground = Decoration.Image,
-				ForegroundStyle = {
-					Image = "rbxasset://textures/ui/CloseButton.png",
-				},
-				[StyleModifier.Hover] = {
+	local theme
+	if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+		theme = StudioTheme.new()
+		theme:extend({
+			[ui.Button] = Cryo.Dictionary.join(BaseTheme[ui.Button], {
+				["&Close"] = {
+					Foreground = Decoration.Image,
 					ForegroundStyle = {
-						Image = "rbxasset://textures/ui/CloseButton_dn.png",
+						Image = "rbxasset://textures/ui/CloseButton.png",
+					},
+					[StyleModifier.Hover] = {
+						ForegroundStyle = {
+							Image = "rbxasset://textures/ui/CloseButton_dn.png",
+						},
 					},
 				},
-			})
+			}),
+
+			[ui.Image] = Cryo.Dictionary.join(BaseTheme[ui.Image], {
+				["&Settings"] = {
+					Image = "rbxasset://textures/AnimationEditor/btn_manage.png",
+					Color = StyleKey.MainText,
+				},
+
+				["&SettingsPrimary"] = {
+					Color = StyleKey.DialogMainButtonText,
+				},
+			}),
+		})
+	else
+		theme = Theme.new(function(theme, getColor)
+			local studioStyles = StudioFrameworkStyles.new(theme, getColor)
+
+			local button = StyleTable.new("Button", function()
+				-- Defining a new button style that uses images
+				local Close = Style.new({
+					Foreground = Decoration.Image,
+					ForegroundStyle = {
+						Image = "rbxasset://textures/ui/CloseButton.png",
+					},
+					[StyleModifier.Hover] = {
+						ForegroundStyle = {
+							Image = "rbxasset://textures/ui/CloseButton_dn.png",
+						},
+					},
+				})
+
+				return {
+					Close = Close,
+				}
+			end)
+
+			local image = StyleTable.new("Image", function()
+				local Settings = Style.extend(studioStyles.Image.Default, {
+					Image = "rbxasset://textures/AnimationEditor/btn_manage.png",
+					Color = theme:GetColor("MainText"),
+				})
+
+				local SettingsPrimary = Style.extend(Settings, {
+					Color = theme:GetColor("DialogMainButtonText"),
+				})
+
+				return {
+					Settings = Settings,
+					SettingsPrimary = SettingsPrimary,
+				}
+			end)
 
 			return {
-				Close = Close,
+				Framework = StyleTable.extend(studioStyles, {
+					Button = button,
+					Image = image,
+				})
 			}
 		end)
-
-		local image = StyleTable.new("Image", function()
-			local Settings = Style.extend(studioStyles.Image.Default, {
-				Image = "rbxasset://textures/AnimationEditor/btn_manage.png",
-				Color = theme:GetColor("MainText"),
-			})
-
-			local SettingsPrimary = Style.extend(Settings, {
-				Color = theme:GetColor("DialogMainButtonText"),
-			})
-
-			return {
-				Settings = Settings,
-				SettingsPrimary = SettingsPrimary,
-			}
-		end)
-
-		return {
-			Framework = StyleTable.extend(studioStyles, {
-				Button = button,
-				Image = image,
-			})
-		}
-	end)
+	end
 
 	-- Mount and display a dialog
 	local ExampleButtons = Roact.PureComponent:extend("ExampleButtons")

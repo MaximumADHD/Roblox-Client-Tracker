@@ -2,7 +2,7 @@ return function()
 	local HttpService = game:GetService("HttpService")
 
 	local Framework = script.Parent.Parent
-	local mockPlugin = require(Framework.TestHelpers.Services.mockPlugin)
+	local MockPlugin = require(Framework.TestHelpers.Instances.MockPlugin)
 	local Networking = require(Framework.Http.Networking)
 	local Signal = require(Framework.Util.Signal)
 	local StudioPluginErrorReporter = require(script.Parent.StudioPluginErrorReporter)
@@ -20,7 +20,7 @@ return function()
 
 	it("should configure its attributes from the appropriate services", function()
 		local testingSecurityLevel = 6
-		local testPlugin = mockPlugin.new()
+		local testPlugin = MockPlugin.new()
 		testPlugin.Name = "builtin_Test.rbxm"
 
 		local testError = {
@@ -132,7 +132,7 @@ return function()
 				},
 			},
 		})
-		
+
 		reporter:report("This is an error", "builtin_test.rbxm")
 		reporter:stop()
 
@@ -168,10 +168,10 @@ return function()
 		}
 		local errorSignal = Signal.new()
 
-		local pluginA = mockPlugin.new()
+		local pluginA = MockPlugin.new()
 		pluginA.Name = "builtin_TestA.rbxm"
 
-		local pluginB = mockPlugin.new()
+		local pluginB = MockPlugin.new()
 		pluginB.Name = "builtin_TestB.rbxm"
 
 		local reporterA = StudioPluginErrorReporter.new({
@@ -188,11 +188,9 @@ return function()
 			networking = networkingImpl,
 			errorSignal = errorSignal,
 		})
-		
+
 		local errMsg = "This is an error"
 		local errStack = pluginA.Name .. ".Blah.Foo Line 15 - " .. errMsg
-		local errSource = ""
-		local errDetails = ""
 		errorSignal:Fire(errMsg, errStack, "", "", 6)
 		reporterA:stop()
 		reporterB:stop()

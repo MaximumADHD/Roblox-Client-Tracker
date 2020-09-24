@@ -7,6 +7,8 @@ local ContextServices = require(Plugin.Packages.Framework.ContextServices)
 local FitFrameHorizontal = FitFrame.FitFrameHorizontal
 local FitTextLabel = FitFrame.FitTextLabel
 
+local FlagsList = require(Plugin.Src.Util.FlagsList)
+
 local IconWithText = Roact.PureComponent:extend("IconWithText")
 
 IconWithText.defaultProps = {
@@ -17,7 +19,12 @@ IconWithText.defaultProps = {
 }
 
 function IconWithText:render()
-    local theme = self.props.Theme:get("Plugin")
+    local theme
+	if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+		theme = self.props.Stylizer
+    else
+        theme = self.props.Theme:get("Plugin")
+    end
 
     local image = self.props.Image
     local imageSize = self.props.imageSize
@@ -65,7 +72,8 @@ function IconWithText:render()
 end
 
 ContextServices.mapToProps(IconWithText, {
-	Theme = ContextServices.Theme,
+	Stylizer = FlagsList:get("FFlagRefactorDevFrameworkTheme") and ContextServices.Stylizer or nil,
+	Theme = (not FlagsList:get("FFlagRefactorDevFrameworkTheme")) and ContextServices.Theme or nil,
 })
 
 return IconWithText

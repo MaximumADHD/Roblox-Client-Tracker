@@ -18,41 +18,36 @@ return function()
 		})
 	end
 
-	local FFlagRemoveUILibraryTimeline = game:GetFastFlag("RemoveUILibraryTimeline")
-	if FFlagRemoveUILibraryTimeline then
+	it("should create and destroy without errors", function()
+		local element = createTestScrubber(true)
+		local instance = Roact.mount(element)
+		Roact.unmount(instance)
+	end)
 
-		it("should create and destroy without errors", function()
-			local element = createTestScrubber(true)
-			local instance = Roact.mount(element)
+
+	describe("should render correctly", function()
+		it("should render with head correctly", function()
+			local container = Instance.new("Folder")
+			local instance = Roact.mount(createTestScrubber(true), container)
+			local frame = container:FindFirstChildOfClass("Frame")
+
+			expect(frame).to.be.ok()
+			expect(frame["1"]).to.be.ok()
+			expect(frame["2"]).to.be.ok()
+
 			Roact.unmount(instance)
 		end)
 
+		it("should render without head correctly", function()
+			local container = Instance.new("Folder")
+			local instance = Roact.mount(createTestScrubber(false), container)
+			local frame = container:FindFirstChildOfClass("Frame")
 
-		describe("should render correctly", function()
-			it("should render with head correctly", function()
-				local container = Instance.new("Folder")
-				local instance = Roact.mount(createTestScrubber(true), container)
-				local frame = container:FindFirstChildOfClass("Frame")
+			expect(frame).to.be.ok()
+			expect(#frame:GetChildren()).to.be.equal(1)
+			expect(frame["1"]).to.be.ok()
 
-				expect(frame).to.be.ok()
-				expect(frame["1"]).to.be.ok()
-				expect(frame["2"]).to.be.ok()
-
-				Roact.unmount(instance)
-			end)
-
-			it("should render without head correctly", function()
-				local container = Instance.new("Folder")
-				local instance = Roact.mount(createTestScrubber(false), container)
-				local frame = container:FindFirstChildOfClass("Frame")
-
-				expect(frame).to.be.ok()
-				expect(#frame:GetChildren()).to.be.equal(1)
-				expect(frame["1"]).to.be.ok()
-
-				Roact.unmount(instance)
-			end)
+			Roact.unmount(instance)
 		end)
-	
-	end
+	end)
 end

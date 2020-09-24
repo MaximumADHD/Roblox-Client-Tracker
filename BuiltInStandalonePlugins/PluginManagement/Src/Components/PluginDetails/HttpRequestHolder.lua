@@ -23,6 +23,7 @@ local Constants = require(Plugin.Src.Util.Constants)
 local ToggleButton = UI.ToggleButton
 
 local truncateMiddleText = require(Plugin.Src.Util.truncateMiddleText)
+local FlagsList = require(Plugin.Src.Util.FlagsList)
 
 local HttpRequestHolder = Roact.Component:extend("HttpRequestHolder")
 
@@ -154,7 +155,12 @@ function HttpRequestHolder:render()
 	local httpPermissions = self.props.httpPermissions
 	local layoutOrder = self.props.LayoutOrder
 
-	local theme = self.props.Theme:get("Plugin")
+    local theme
+	if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+		theme = self.props.Stylizer
+    else
+        theme = self.props.Theme:get("Plugin")
+    end
 
 	local checkboxItems = {}
 	for index, permission in pairs(httpPermissions) do
@@ -191,7 +197,8 @@ end
 ContextServices.mapToProps(HttpRequestHolder, {
 	API = PluginAPI2,
 	Localization = ContextServices.Localization,
-	Theme = ContextServices.Theme,
+	Stylizer = FlagsList:get("FFlagRefactorDevFrameworkTheme") and ContextServices.Stylizer or nil,
+	Theme = (not FlagsList:get("FFlagRefactorDevFrameworkTheme")) and ContextServices.Theme or nil,
 })
 
 local function mapDispatchToProps(dispatch)

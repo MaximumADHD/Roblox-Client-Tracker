@@ -25,6 +25,8 @@ local Roact = require(Plugin.Packages.Roact)
 local ContextServices = require(Plugin.Packages.Framework.ContextServices)
 local RoundFrame = require(Plugin.Packages.UILibrary).Component.RoundFrame
 
+local FlagsList = require(Plugin.Src.Util.FlagsList)
+
 local LoadingBar = Roact.Component:extend("LoadingBar")
 
 function LoadingBar:init(props)
@@ -76,7 +78,12 @@ end
 function LoadingBar:render()
 	local props = self.props
 	local state = self.state
-	local theme = props.Theme:get("Plugin")
+    local theme
+	if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+		theme = self.props.Stylizer
+    else
+        theme = self.props.Theme:get("Plugin")
+	end
 
 	local progress = math.min(math.max(state.progress, 0), 1)
 
@@ -101,7 +108,8 @@ function LoadingBar:render()
 end
 
 ContextServices.mapToProps(LoadingBar, {
-	Theme = ContextServices.Theme,
+	Stylizer = FlagsList:get("FFlagRefactorDevFrameworkTheme") and ContextServices.Stylizer or nil,
+	Theme = (not FlagsList:get("FFlagRefactorDevFrameworkTheme")) and ContextServices.Theme or nil,
 })
 
 return LoadingBar

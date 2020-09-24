@@ -31,6 +31,13 @@ local UserFixBubbleChatText do
 	UserFixBubbleChatText = success and value
 end
 
+local UserRoactBubbleChatBeta do
+	local success, value = pcall(function()
+		return UserSettings():IsUserFeatureEnabled("UserRoactBubbleChatBeta")
+	end)
+	UserRoactBubbleChatBeta = success and value
+end
+
 local function getMessageLength(message)
 	return utf8.len(utf8.nfcnormalize(message))
 end
@@ -645,6 +652,9 @@ function this:OnGameChatMessage(origin, message, color)
 end
 
 function this:BubbleChatEnabled()
+	if UserRoactBubbleChatBeta then
+		return false
+	end
 	local clientChatModules = ChatService:FindFirstChild("ClientChatModules")
 	if clientChatModules then
 		local chatSettings = clientChatModules:FindFirstChild("ChatSettings")

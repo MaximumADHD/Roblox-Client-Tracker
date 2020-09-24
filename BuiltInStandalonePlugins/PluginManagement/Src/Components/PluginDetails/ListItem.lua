@@ -8,6 +8,8 @@ local ContextServices = require(Plugin.Packages.Framework.ContextServices)
 local FitFrameVertical = FitFrame.FitFrameVertical
 local FitTextLabel = FitFrame.FitTextLabel
 
+local FlagsList = require(Plugin.Src.Util.FlagsList)
+
 local CONTENT_PADDING = 20
 
 local ListItem = Roact.Component:extend("ListItem")
@@ -24,7 +26,12 @@ function ListItem:render()
     local title = self.props.title
     local titleWidth = self.props.titleWidth
 
-    local theme = self.props.Theme:get("Plugin")
+    local theme
+	if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+		theme = self.props.Stylizer
+    else
+        theme = self.props.Theme:get("Plugin")
+    end
 
 	return Roact.createElement(FitFrameVertical, {
         BackgroundTransparency = 1,
@@ -55,7 +62,8 @@ function ListItem:render()
 end
 
 ContextServices.mapToProps(ListItem, {
-	Theme = ContextServices.Theme,
+	Stylizer = FlagsList:get("FFlagRefactorDevFrameworkTheme") and ContextServices.Stylizer or nil,
+	Theme = (not FlagsList:get("FFlagRefactorDevFrameworkTheme")) and ContextServices.Theme or nil,
 })
 
 return ListItem

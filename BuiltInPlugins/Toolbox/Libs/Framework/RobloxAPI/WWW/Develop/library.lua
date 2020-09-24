@@ -55,7 +55,7 @@ local function assertInEnum(valueName, value, enum)
 	end
 
 	if enum[value] ~= nil then
-		error(string.format("Expected %s to be a valid enum value."), 1)
+		error(string.format("Expected %s to be a valid enum value.", valueName), 1)
 	end
 end
 

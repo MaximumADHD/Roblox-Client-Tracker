@@ -52,7 +52,7 @@ return function()
 		return parts, originalCFrameMap, weld
 	end
 
-	afterEach(function()
+	beforeEach(function()
 		for _, child in pairs(Workspace:GetChildren()) do
 			if not child:IsA("Terrain") then
 				child:Destroy()
@@ -76,7 +76,7 @@ return function()
 			parts[2].Anchored = false
 
 			local partMover = PartMover.new()
-			partMover:setDragged(parts, originalCFrameMap)
+			partMover:setDragged(parts, originalCFrameMap, false, Vector3.new(), {})
 			expect(parts[1].Anchored).to.equal(true)
 			expect(parts[2].Anchored).to.equal(false)
 			partMover:commit()
@@ -89,7 +89,7 @@ return function()
 			local parts, originalCFrameMap, weld = createTestWeldConstraint()
 
 			local partMover = PartMover.new()
-			partMover:setDragged({parts[1]}, originalCFrameMap)
+			partMover:setDragged({parts[1]}, originalCFrameMap, false, Vector3.new(), {})
 			local welded = weld.Enabled
 			partMover:commit()
 
@@ -100,7 +100,7 @@ return function()
 			local parts, originalCFrameMap, weld = createTestWeldConstraint()
 
 			local partMover = PartMover.new()
-			partMover:setDragged(parts, originalCFrameMap)
+			partMover:setDragged(parts, originalCFrameMap, false, Vector3.new(), {})
 			partMover:commit()
 
 			expect(weld.Enabled).to.equal(true)
@@ -110,7 +110,7 @@ return function()
 			local parts, originalCFrameMap, joint = createTestJoint()
 
 			local partMover = PartMover.new()
-			partMover:setDragged(parts, originalCFrameMap, true)
+			partMover:setDragged(parts, originalCFrameMap, true, Vector3.new(), {})
 			partMover:commit()
 
 			expect(joint.Parent).to.be.ok()
@@ -120,7 +120,7 @@ return function()
 			local parts, originalCFrameMap, joint = createTestJoint()
 
 			local partMover = PartMover.new()
-			partMover:setDragged({parts[1]}, originalCFrameMap, true)
+			partMover:setDragged({parts[1]}, originalCFrameMap, true, Vector3.new(), {})
 			partMover:commit()
 
 			expect(joint.Parent).to.equal(nil)
@@ -132,7 +132,7 @@ return function()
 				joint.Part1 = nil
 
 				local partMover = PartMover.new()
-				partMover:setDragged(parts, originalCFrameMap, true)
+				partMover:setDragged(parts, originalCFrameMap, true, Vector3.new(), {})
 				partMover:commit()
 			end).never.to.throw()
 		end)
@@ -146,7 +146,7 @@ return function()
 				parts[3].Parent = viewportFrame
 
 				local partMover = PartMover.new()
-				partMover:setDragged(parts, originalCFrameMap)
+				partMover:setDragged(parts, originalCFrameMap, false, Vector3.new(), {})
 				partMover:commit()
 			end).never.to.throw()
 		end)
@@ -158,7 +158,7 @@ return function()
 			parts[2].Anchored = false
 
 			local partMover = PartMover.new()
-			partMover:setDragged(parts, originalCFrameMap)
+			partMover:setDragged(parts, originalCFrameMap, false, Vector3.new(), {})
 			partMover:commit()
 
 			expect(parts[1].Anchored).to.equal(true)
@@ -169,7 +169,7 @@ return function()
 			local parts, originalCFrameMap, weld = createTestWeldConstraint()
 
 			local partMover = PartMover.new()
-			partMover:setDragged({parts[1]}, originalCFrameMap)
+			partMover:setDragged({parts[1]}, originalCFrameMap, false, Vector3.new(), {})
 			partMover:commit()
 
 			expect(weld.Enabled).to.equal(true)
@@ -188,7 +188,7 @@ return function()
 			local parts, originalCFrameMap = createTestParts(2)
 
 			local partMover = PartMover.new()
-			partMover:setDragged(parts, originalCFrameMap)
+			partMover:setDragged(parts, originalCFrameMap, false, Vector3.new(), {})
 			local transform = CFrame.new(10, 0, 0)
 			partMover:transformTo(transform)
 			partMover:commit()
@@ -214,7 +214,7 @@ return function()
 			local parts, originalCFrameMap = createTestParts(2)
 
 			local partMover = PartMover.new()
-			partMover:setDragged({parts[1]}, originalCFrameMap)
+			partMover:setDragged({parts[1]}, originalCFrameMap, false, Vector3.new(), {})
 			local transform = CFrame.new(1, 0, 0)
 			local jointPairs = partMover:computeJointPairs(transform)
 			partMover:commit()
@@ -236,7 +236,7 @@ return function()
 			parts[1].CFrame = CFrame.new(0.2, 0.2, 0.2)
 
 			local partMover = PartMover.new()
-			partMover:setDragged(parts, originalCFrameMap)
+			partMover:setDragged({parts[1]}, originalCFrameMap, false, Vector3.new(), {})
 			local result = partMover:isIntersectingOthers()
 			partMover:commit()
 
@@ -248,7 +248,7 @@ return function()
 			parts[1].CFrame = CFrame.new(10000, 0, 0)
 
 			local partMover = PartMover.new()
-			partMover:setDragged({parts[1]}, originalCFrameMap)
+			partMover:setDragged({parts[1]}, originalCFrameMap, false, Vector3.new(), {})
 			local result = partMover:isIntersectingOthers()
 			partMover:commit()
 

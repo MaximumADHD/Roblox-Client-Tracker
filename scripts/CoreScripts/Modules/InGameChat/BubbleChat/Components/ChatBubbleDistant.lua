@@ -56,7 +56,7 @@ function ChatBubbleDistant:render()
 		Carat = Roact.createElement("ImageLabel", {
 			AnchorPoint = Vector2.new(0.5, 0),
 			BackgroundTransparency = 1,
-			Position = UDim2.fromScale(0.5, 1),
+			Position = UDim2.new(0.5, 0, 1, -1), --UICorner generates a 1 pixel gap (UISYS-625), this fixes it by moving the carrot up by 1 pixel
 			Size = UDim2.fromOffset(12, 8),
 			Image = "rbxasset://textures/ui/InGameChat/Caret.png",
 			ImageTransparency = self.transparency,
@@ -97,7 +97,7 @@ function ChatBubbleDistant:render()
 end
 
 function ChatBubbleDistant:didMount()
-	self.transparencyMotor:setGoal(Otter.spring(0.5, SPRING_CONFIG))
+	self.transparencyMotor:setGoal(Otter.spring(Constants.BUBBLE_BASE_TRANSPARENCY, SPRING_CONFIG))
 	self.widthMotor:setGoal(Otter.spring(self.props.width, SPRING_CONFIG))
 end
 

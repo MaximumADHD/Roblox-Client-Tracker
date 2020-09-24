@@ -14,6 +14,7 @@ local FFlagPluginManagementAllowLotsOfPlugins2 = settings():GetFFlag("PluginMana
 local FFlagFixFindPluginsMessage = game:DefineFastFlag("FixFindPluginsMessage", false)
 local FFlagPluginManagementRemoveUILibrary = game:GetFastFlag("PluginManagementRemoveUILibrary2")
 
+local FlagsListFile = require(Plugin.Src.Util.FlagsList)
 
 local StudioService = game:GetService("StudioService")
 local GuiService = game:GetService("GuiService")
@@ -137,7 +138,12 @@ function ManagementMainView:render()
 	local showingMovedDialog = state.showingMovedDialog
 
 	local localization = props.Localization
-	local theme = props.Theme:get("Plugin")
+	local theme
+	if FlagsListFile:get("FFlagRefactorDevFrameworkTheme") then
+		theme = self.props.Stylizer
+	else
+		theme = self.props.Theme:get("Plugin")
+	end
 
 	local anyUpdateNeeded = self.anyUpdateNeeded()
 	local updateDisabled = not anyUpdateNeeded or updating
@@ -328,7 +334,8 @@ end
 ContextServices.mapToProps(ManagementMainView, {
 	Plugin = FFlagPluginManagementAllowLotsOfPlugins2 and ContextServices.Plugin or nil,
 	Localization = ContextServices.Localization,
-	Theme = ContextServices.Theme,
+	Stylizer = FlagsListFile:get("FFlagRefactorDevFrameworkTheme") and ContextServices.Stylizer or nil,
+	Theme = (not FlagsListFile:get("FFlagRefactorDevFrameworkTheme")) and ContextServices.Theme or nil,
 	API = PluginAPI2,
 })
 

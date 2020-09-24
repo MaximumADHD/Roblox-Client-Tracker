@@ -13,6 +13,8 @@ local ContextServices = require(Plugin.Packages.Framework.ContextServices)
 
 local FitFrameVertical = FitFrame.FitFrameVertical
 
+local FlagsList = require(Plugin.Src.Util.FlagsList)
+
 local PluginDetailsView = Roact.Component:extend("PluginDetailsView")
 
 local PADDING = 40
@@ -48,7 +50,12 @@ function PluginDetailsView:render()
 	local httpPermissions = self.props.httpPermissions
 	local pluginData = self.props.pluginData
 
-	local theme = self.props.Theme:get("Plugin")
+    local theme
+	if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+		theme = self.props.Stylizer
+    else
+        theme = self.props.Theme:get("Plugin")
+    end
 
 	local topAreaHeight = (CONTENT_PADDING * 2) + Constants.DETAILS_THUMBNAIL_SIZE
 
@@ -149,7 +156,8 @@ end
 
 ContextServices.mapToProps(PluginDetailsView, {
 	Localization = ContextServices.Localization,
-	Theme = ContextServices.Theme,
+	Stylizer = FlagsList:get("FFlagRefactorDevFrameworkTheme") and ContextServices.Stylizer or nil,
+	Theme = (not FlagsList:get("FFlagRefactorDevFrameworkTheme")) and ContextServices.Theme or nil,
 })
 
 local function mapStateToProps(state, props)

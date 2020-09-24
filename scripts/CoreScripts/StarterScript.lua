@@ -101,6 +101,13 @@ ScriptContext:AddCoreScriptLocal("CoreScripts/NotificationScript2", RobloxGui)
 initify(CoreGuiModules.TopBar)
 coroutine.wrap(safeRequire)(CoreGuiModules.TopBar)
 
+if game:GetEngineFeature("LuobuModerationStatus") then
+	coroutine.wrap(function()
+		initify(CoreGuiModules.Watermark)
+		safeRequire(CoreGuiModules.Watermark)
+	end)()
+end
+
 -- MainBotChatScript (the Lua part of Dialogs)
 ScriptContext:AddCoreScriptLocal("CoreScripts/MainBotChatScript2", RobloxGui)
 
@@ -124,7 +131,14 @@ end
 coroutine.wrap(safeRequire)(RobloxGui.Modules.ChatSelector)
 coroutine.wrap(safeRequire)(RobloxGui.Modules.PlayerList.PlayerListManager)
 
-if GetFFlagRoactBubbleChat() then
+local UserRoactBubbleChatBeta do
+	local success, value = pcall(function()
+		return UserSettings():IsUserFeatureEnabled("UserRoactBubbleChatBeta")
+	end)
+	UserRoactBubbleChatBeta = success and value
+end
+
+if GetFFlagRoactBubbleChat() or UserRoactBubbleChatBeta then
 	ScriptContext:AddCoreScriptLocal("CoreScripts/InGameChat", RobloxGui)
 end
 

@@ -1,3 +1,5 @@
+local FFlagLocalizationPageNullSourceLanguageFixEnabled = game:DefineFastFlag("LocalizationPageNullSourceLanguageFixEnabled", false)
+
 local Plugin = script.Parent.Parent.Parent.Parent
 local Promise = require(Plugin.Framework).Util.Promise
 
@@ -146,6 +148,10 @@ function LocalizationPageController:getAutoTranslationFeatureStatus(gameId)
 end
 
 function LocalizationPageController:getAutoTranslationTargetLanguages(sourceLanguage)
+	if FFlagLocalizationPageNullSourceLanguageFixEnabled and not sourceLanguage then
+		return {}
+	end
+
 	local response = self:gameinternationalizationAutomaticTranslationLanguagesTargetLanguagesGET(sourceLanguage):await()
 
 	local targetLanguages = {}

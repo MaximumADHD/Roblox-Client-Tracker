@@ -74,21 +74,41 @@ function SearchBar:init()
 		if self.props.Enabled then
 			local text = stripSearchTerm(rbx.Text)
 			local textBox = self.textBoxRef.current
-			if self.state.text ~= text then
-				self:setState({
-					text = text,
-				})
+			if FFlagUXImprovementAddSearchBar then
+				if self.state.text ~= text and textBox ~= nil then
+					self:setState({
+						text = text,
+					})
 
-				local textSearchDelay = self.props.TextSearchDelay or TEXT_SEARCH_DELAY
-				delay(textSearchDelay / 1000, function()
-					self.requestSearch()
-				end)
+					local textSearchDelay = self.props.TextSearchDelay or TEXT_SEARCH_DELAY
+					delay(textSearchDelay / 1000, function()
+						self.requestSearch()
+					end)
 
-				local textBound = TextService:GetTextSize(text, textBox.TextSize, textBox.Font, Vector2.new(math.huge, math.huge))
-				if textBound.x > textBox.AbsoluteSize.x then
-					textBox.TextXAlignment = Enum.TextXAlignment.Right
-				else
-					textBox.TextXAlignment = Enum.TextXAlignment.Left
+					local textBound = TextService:GetTextSize(text, textBox.TextSize, textBox.Font, Vector2.new(math.huge, math.huge))
+					if textBound.x > textBox.AbsoluteSize.x then
+						textBox.TextXAlignment = Enum.TextXAlignment.Right
+					else
+						textBox.TextXAlignment = Enum.TextXAlignment.Left
+					end
+				end
+			else
+				if self.state.text ~= text then
+					self:setState({
+						text = text,
+					})
+
+					local textSearchDelay = self.props.TextSearchDelay or TEXT_SEARCH_DELAY
+					delay(textSearchDelay / 1000, function()
+						self.requestSearch()
+					end)
+
+					local textBound = TextService:GetTextSize(text, textBox.TextSize, textBox.Font, Vector2.new(math.huge, math.huge))
+					if textBound.x > textBox.AbsoluteSize.x then
+						textBox.TextXAlignment = Enum.TextXAlignment.Right
+					else
+						textBox.TextXAlignment = Enum.TextXAlignment.Left
+					end
 				end
 			end
 		end

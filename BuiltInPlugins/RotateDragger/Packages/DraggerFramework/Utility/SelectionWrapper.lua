@@ -1,65 +1,76 @@
+-- Note: post getFFlagDraggerSplit This serves an entirely different purpose
+-- than what the old SelectionWrapper did.
 
-local Selection = game:GetService("Selection")
+--[[
+	A wrapper around a Selection object (anything with the same API the Roblox
+	SelectionService has), which disambiguates selection changed events which
+	were caused by something else setting the selection, vs selection changed
+	events which were caused by calling :Set on the Selection object.
+
+	Also caches the selection between changes, so that repeated calls to
+	the get method do not need to check what the underlying selection is.
+]]
 
 local DraggerFramework = script.Parent.Parent
 local Signal = require(DraggerFramework.Utility.Signal)
-local isProtectedInstance = require(DraggerFramework.Utility.isProtectedInstance)
 
 local getEngineFeatureActiveInstanceHighlight = require(DraggerFramework.Flags.getEngineFeatureActiveInstanceHighlight)
 
 local SelectionWrapper = {}
+SelectionWrapper.__index = SelectionWrapper
 
-local function getSanitizedSelection()
-	local unsafeSelection = Selection:Get()
-	local safeSelection = {}
-	for _, unsafeInstance in ipairs(unsafeSelection) do
-		if not isProtectedInstance(unsafeInstance) then
-			table.insert(safeSelection, unsafeInstance)
-		end
+local WRAPPER_COUNT = 0
+
+function SelectionWrapper.new(selectionObject)
+	local self = setmetatable({
+		_selectionObject = selectionObject,
+		_selection = selectionObject:Get(),
+		_isSettingSelection = false,
+		_destroyed = false,
+	}, SelectionWrapper)
+
+	self.onSelectionExternallyChanged = Signal.new()
+	self._selectionChangedConnection =
+		selectionObject.SelectionChanged:Connect(function()
+			self:_handleSelectionChanged()
+		end)
+
+	WRAPPER_COUNT = WRAPPER_COUNT + 1
+	if WRAPPER_COUNT > 1 then
+		warn("More than one SelectionWrapper created at once, this is probably a mistake!")
 	end
-	return safeSelection
+
+	return self
 end
 
-SelectionWrapper._selection = getSanitizedSelection()
-SelectionWrapper._currentlySettingSeFlection = false
-SelectionWrapper._initialized = false
+function SelectionWrapper:get()
+	return self._selection
+end
 
-SelectionWrapper.SelectionChangedByStudio = Signal.new()
-
-function SelectionWrapper:init()
-	self._selectionChangedConnection = Selection.SelectionChanged:Connect(function()
-		SelectionWrapper._selection = getSanitizedSelection()
-		if not SelectionWrapper._currentlySettingSelection then
-			SelectionWrapper.SelectionChangedByStudio:Fire()
-		end
-	end)
-	self._selection = getSanitizedSelection()
-	self._initialized = true
+function SelectionWrapper:set(selection, hint)
+	self._selection = selection
+	self._isSettingSelection = true
+	self._selectionObject:Set(selection, hint)
+	self._isSettingSelection = false
 end
 
 function SelectionWrapper:destroy()
-	self._selectionChangedConnection:disconnect()
-	self._selectionChangedConnection = nil
-	self._initialized = false
+	assert(not self._destroyed)
+	self._selectionChangedConnection:Disconnect()
+	WRAPPER_COUNT = WRAPPER_COUNT - 1
+	self._destroyed = true
 end
 
-function SelectionWrapper:Set(objects)
-	self._currentlySettingSelection = true
-	Selection:Set(objects)
-	self._currentlySettingSelection = false
-end
-
-function SelectionWrapper:Get()
-	if self._initialized then
-		return self._selection
-	else
-		return getSanitizedSelection()
+function SelectionWrapper:_handleSelectionChanged()
+	if not self._isSettingSelection then
+		self._selection = self._selectionObject:Get()
+		self.onSelectionExternallyChanged:Fire()
 	end
 end
 
-function SelectionWrapper:getActiveInstance()
+function SelectionWrapper:getActiveSelectable()
 	assert(getEngineFeatureActiveInstanceHighlight())
-	return Selection.ActiveInstance
+	return self._selection[#self._selection]
 end
 
 return SelectionWrapper

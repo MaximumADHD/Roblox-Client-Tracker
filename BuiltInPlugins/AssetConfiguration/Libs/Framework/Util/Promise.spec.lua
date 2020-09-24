@@ -1,6 +1,4 @@
 return function()
-	local Framework = script.Parent.Parent
-
 	local Promise = require(script.Parent.Promise)
 
 	describe("Promise.new", function()
@@ -353,10 +351,8 @@ return function()
 
 				expect(promise._unhandledRejection).to.equal(true)
 
-				local caught = false
 				promise:catch(function(err)
 					expect(err:find("it did not work")).to.be.ok()
-					caught = true
 				end)
 
 				waitUntilNextTick()

@@ -1,6 +1,3 @@
---!nolint UnknownGlobal
---^ STM-146
-
 --[[
 	This module creates a crash object that can be sent to Backtrace.
 	For information about what are the acceptable fields, see document:
@@ -32,9 +29,14 @@ BacktraceReport.__index = BacktraceReport
 
 function BacktraceReport.new()
 	-- Return a basic report that has all the required fields
+
+	-- os.date can return nil if given an invalid input; this input is always valid
+	-- so it is safe to force it to be `any`.
+	local date: any = os.date("!*t")
+
 	local self = {
 		uuid = HttpService:GenerateGUID(false):lower(),
-		timestamp = os.time(os.date("!*t")),
+		timestamp = os.time(date),
 		lang = "lua",
 		langVersion = "Roblox" .. _VERSION,
 		agent = "backtrace-Lua",
@@ -73,7 +75,7 @@ function BacktraceReport:addAttributes(newAttributes)
 end
 
 function BacktraceReport:addAnnotations(newAnnotations)
-	assert(self.IAnnotations(newAnnotions), "Expected newAnnotions to be a table")
+	assert(self.IAnnotations(newAnnotations), "Expected newAnnotations to be a table")
 	self.annotations = Cryo.Dictionary.join(self.annotations or {}, newAnnotations)
 end
 

@@ -7,7 +7,10 @@ setmetatable(StateType, {
 })
 
 StateType.Ready = "Ready"
-StateType.PendingDraggingParts = "PendingDraggingParts" -- Clicked a part, but haven't started dragging
+-- Clicked a part, but haven't started dragging:
+StateType.PendingDraggingParts = "PendingDraggingParts"
+-- No-op clicked the selection, when releasing the mouse, try to select next:
+StateType.PendingSelectNext = "PendingSelectNext"
 StateType.DraggingHandle = "DraggingHandle"
 StateType.DraggingParts = "DraggingParts"
 StateType.DragSelecting = "DragSelecting"

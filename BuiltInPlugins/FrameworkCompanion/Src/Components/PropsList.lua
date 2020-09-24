@@ -15,9 +15,14 @@ local TextService = game:GetService("TextService")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
-local ContextServices = require(Plugin.Packages.Framework).ContextServices
 
-local UI = require(Plugin.Packages.Framework).UI
+local Framework = require(Plugin.Packages.Framework)
+local ContextServices = Framework.ContextServices
+local Util = Framework.Util
+local FlagsList = Util.Flags.new({
+	FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
+})
+local UI = Framework.UI
 local Container = UI.Container
 local Decoration = UI.Decoration
 
@@ -40,8 +45,16 @@ end
 function PropsList:renderProp(name, type, comment, index)
 	local props = self.props
 	local state = self.state
-	local text = props.Theme:get("Text")
-	local sizes = props.Theme:get("Sizes")
+	local text
+	local sizes
+	local style = props.Stylizer
+	if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+		sizes = style.Sizes
+		text = style.Text
+	else
+		sizes = props.Theme:get("Sizes")
+		text = props.Theme:get("Text")
+	end
 	local extents = state.extents
 
 	local typeSize = TextService:GetTextSize(type, text.Type.Size,
@@ -94,7 +107,13 @@ end
 function PropsList:render()
 	local props = self.props
 	local state = self.state
-	local sizes = props.Theme:get("Sizes")
+	local sizes
+	local style = props.Stylizer
+	if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+		sizes = style.Sizes
+	else
+		sizes = props.Theme:get("Sizes")
+	end
 	local extents = state.extents
 	local Props = props.Props
 	local layoutOrder = props.LayoutOrder
@@ -130,7 +149,8 @@ function PropsList:render()
 end
 
 ContextServices.mapToProps(PropsList, {
-	Theme = ContextServices.Theme,
+	Stylizer = FlagsList:get("FFlagRefactorDevFrameworkTheme") and ContextServices.Stylizer or nil,
+	Theme = (not FlagsList:get("FFlagRefactorDevFrameworkTheme")) and ContextServices.Theme or nil,
 })
 
 return PropsList

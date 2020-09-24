@@ -8,7 +8,6 @@ return function()
 	local Util = Framework.Util
 	local Cryo = require(Util.Cryo)
 	local deepEqual = require(Util.deepEqual)
-	local tutils = require(Util.Typecheck.tutils)
 	local Networking = require(Framework.Http).Networking
 
 	local mockErrorMessage = "index nil"
@@ -413,15 +412,10 @@ return function()
 	describe("updateSharedAnnotations()", function()
 		local requestsSent
 		local reporter
-		local requestBody
 		beforeEach(function()
 			requestsSent = 0
 			reporter = BacktraceReporter.new({
 				networking = createMockNetworking(function(requestObj)
-					local success, result = pcall(HttpService.JSONDecode, HttpService, requestObj.Body)
-					if success then
-						requestBody = result
-					end
 					requestsSent = requestsSent + 1
 					return requestBodySuccess
 				end),
@@ -433,7 +427,6 @@ return function()
 			reporter:stop()
 			reporter = nil
 			requestsSent = 0
-			requestBody = nil
 		end)
 
 		it("should add the same annotations to all error reports", function()
@@ -522,10 +515,8 @@ return function()
 
 		it("should throw if new annotations are ill-formatted", function()
 			local requestsSent = 0
-			local requestBody = nil
 			local reporter = BacktraceReporter.new({
 				networking = createMockNetworking(function(requestObj)
-					requestBody = HttpService:JSONDecode(requestObj.Body)
 					requestsSent = requestsSent + 1
 					return requestBodySuccess
 				end),
@@ -556,10 +547,7 @@ return function()
 			requestsSent = 0
 			reporter = BacktraceReporter.new({
 				networking = createMockNetworking(function(requestObj)
-					local success, result = pcall(HttpService.JSONDecode, HttpService, requestObj.Body)
-					if success then
-						requestBody = result
-					end
+					requestBody = requestObj.Body
 					requestsSent = requestsSent + 1
 					return requestBodySuccess
 				end),
@@ -580,14 +568,16 @@ return function()
 		end)
 
 		it("should send logs if provided generateLogMethod and error report is successful", function()
+			local logText = "test log text"
+
 			generateLogFunc = function()
-				return "test log text"
+				return logText
 			end
 
 			reporter:reportErrorImmediately(mockErrorMessage, mockErrorStack)
 
 			expect(requestsSent).to.equal(2) -- one for error, one for log
-			expect(requestBody[2]).to.equal(logText)
+			expect(requestBody).to.equal(logText)
 		end)
 
 		it("should not send log if generateLogMethod did not return a string", function()
@@ -602,14 +592,15 @@ return function()
 
 		it("should not send more than 1 log in logIntervalInSeconds provided", function()
 			logInterval = 2
+			local logText = "test log text"
 			generateLogFunc = function()
-				return "test log text"
+				return logText
 			end
 			
 			reporter:reportErrorImmediately(mockErrorMessage, mockErrorStack)
 
 			expect(requestsSent).to.equal(2) -- one for error, one for log
-			expect(requestBody[2]).to.equal(logText)
+			expect(requestBody).to.equal(logText)
 
 			reporter:reportErrorImmediately(mockErrorMessage, mockErrorStack)
 			expect(requestsSent).to.equal(3) -- only one more, the error report

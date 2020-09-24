@@ -27,7 +27,7 @@ return function()
 		return jointPairs
 	end
 
-	afterEach(function()
+	beforeEach(function()
 		for _, child in pairs(Workspace:GetChildren()) do
 			if not child:IsA("Terrain") then
 				child:Destroy()

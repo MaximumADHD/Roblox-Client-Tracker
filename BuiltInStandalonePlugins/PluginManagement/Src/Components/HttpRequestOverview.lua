@@ -12,6 +12,8 @@ local IconWithText = require(Plugin.Src.Components.IconWithText)
 
 local FitTextLabel = FitFrame.FitTextLabel
 
+local FlagsList = require(Plugin.Src.Util.FlagsList)
+
 local HttpRequestOverview = Roact.PureComponent:extend("HttpRequestOverview")
 
 local ALLOWED_ICON = "rbxasset://textures/PluginManagement/allowed.png"
@@ -40,7 +42,12 @@ function HttpRequestOverview:render()
     local layoutOrder = self.props.LayoutOrder
 	local localization = self.props.Localization
 
-    local theme = self.props.Theme:get("Plugin")
+    local theme
+	if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+		theme = self.props.Stylizer
+    else
+        theme = self.props.Theme:get("Plugin")
+    end
 
 	return Roact.createElement("TextButton", {
         BackgroundTransparency = 1,
@@ -118,7 +125,8 @@ end
 ContextServices.mapToProps(HttpRequestOverview, {
 	Navigation = Navigation,
 	Localization = ContextServices.Localization,
-	Theme = ContextServices.Theme,
+	Stylizer = FlagsList:get("FFlagRefactorDevFrameworkTheme") and ContextServices.Stylizer or nil,
+	Theme = (not FlagsList:get("FFlagRefactorDevFrameworkTheme")) and ContextServices.Theme or nil,
 	API = PluginAPI2,
 })
 

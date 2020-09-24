@@ -34,6 +34,7 @@ PlayerNameTag.validateProps = t.strictInterface({
 	}),
 	textFont = t.strictInterface({
 		Size = t.number,
+		MinSize = t.number,
 		Font = t.enum(Enum.Font),
 	}),
 
@@ -122,7 +123,7 @@ function PlayerNameTag:render()
 			end
 
 			playerNameChildren["PlayerName"] = Roact.createElement("TextLabel", {
-				Position = FFlagPlayerListFormattingUpdates 
+				Position = FFlagPlayerListFormattingUpdates
 					and UDim2.new(0, 0, 0.28, 0)
 					or UDim2.new(0, 0, 0, 0),
 				Size = FFlagPlayerListFormattingUpdates

@@ -189,7 +189,7 @@ local function insertDecal(plugin, assetId, assetName)
 		end
 
 		if FFlagToolboxFixDecalInsert then
-			decal.Parent = Workspace
+			decal.Parent = (Selection:Get() or {})[1] or Workspace
 			Selection:Set({decal})
 		else
 			local dragSuccess = pcall(function()

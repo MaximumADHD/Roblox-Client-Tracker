@@ -33,15 +33,11 @@ local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
 local UILibrary = require(Plugin.UILibrary)
 
-local FFlagRemoveUILibraryTimeline = game:GetFastFlag("RemoveUILibraryTimeline")
-
 local BaseTrack = require(Plugin.Src.Components.BaseTrack)
 
 local Constants = require(Plugin.Src.Util.Constants)
 local TrackUtils = require(Plugin.Src.Util.TrackUtils)
-local Keyframe = FFlagRemoveUILibraryTimeline
-	and require(Plugin.Src.Components.Timeline.Keyframe)
-	or UILibrary.Component.Keyframe
+local Keyframe = require(Plugin.Src.Components.Timeline.Keyframe)
 local KeyframeCluster = require(Plugin.Src.Components.KeyframeCluster)
 local Tooltip = require(Plugin.Src.Components.Tooltip)
 

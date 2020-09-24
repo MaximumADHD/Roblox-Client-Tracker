@@ -1,7 +1,6 @@
 return function()
 	local ContentProvider = game:GetService("ContentProvider")
 	local RobloxAPI = script.Parent
-	local FrameworkRoot = RobloxAPI.Parent
 	local Url = require(RobloxAPI.Url)
 
 	it("has not changed the base url for debugging", function()
@@ -97,27 +96,27 @@ return function()
 			expect(function() Url.composeUrl(nil, validPath, validArgs) end).to.throw()
 			expect(function() Url.composeUrl(123, validPath, validArgs) end).to.throw()
 			expect(function() Url.composeUrl({}, validPath, validArgs) end).to.throw()
-			expect(function() Url.composeUrl(newproxy(), validPath, validArgs) end).to.throw()
+			expect(function() Url.composeUrl(newproxy(true), validPath, validArgs) end).to.throw()
 			expect(function() Url.composeUrl(true, validPath, validArgs) end).to.throw()
 
 			-- path
 			expect(function() Url.composeUrl(validBase, nil, validArgs) end).to.throw()
 			expect(function() Url.composeUrl(validBase, 123, validArgs) end).to.throw()
 			expect(function() Url.composeUrl(validBase, {}, validArgs) end).to.throw()
-			expect(function() Url.composeUrl(validBase, newproxy(), validArgs) end).to.throw()
+			expect(function() Url.composeUrl(validBase, newproxy(true), validArgs) end).to.throw()
 			expect(function() Url.composeUrl(validBase, true, validArgs) end).to.throw()
 
 			-- args
 			expect(function() Url.composeUrl(validBase, validPath, 123) end).to.throw()
 			expect(function() Url.composeUrl(validBase, validPath, "123") end).to.throw()
-			expect(function() Url.composeUrl(validBase, validPath, newproxy()) end).to.throw()
+			expect(function() Url.composeUrl(validBase, validPath, newproxy(true)) end).to.throw()
 			expect(function() Url.composeUrl(validBase, validPath, true) end).to.throw()
 		end)
 
 		it("should throw errors for invalid argument datatypes", function()
 			-- userdata
 			expect(function()
-				Url.composeUrl("https://www.test.com/", "a/b/c", { d = newproxy() })
+				Url.composeUrl("https://www.test.com/", "a/b/c", { d = newproxy(true) })
 			end).to.throw()
 
 			-- maps

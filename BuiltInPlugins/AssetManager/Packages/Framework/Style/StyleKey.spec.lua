@@ -5,7 +5,7 @@ return function()
 		it("should coerce to the given name", function()
 			local symbol = StyleKey:add("foo")
 
-			expect(tostring(symbol):find("foo")).to.be.ok()
+			expect((tostring(symbol):find("foo"))).to.be.ok()
 		end)
 
 		it("should create a new entry when there is no current entry found", function()

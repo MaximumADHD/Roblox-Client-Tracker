@@ -5,7 +5,7 @@ return function()
 	describe("add", function()
 		it("should coerce to the given name", function()
 			local symbol = tableCache(TABLE_CACHE_NAME):add("foo")
-			expect(tostring(symbol):find("foo")).to.be.ok()
+			expect((tostring(symbol):find("foo"))).to.be.ok()
 		end)
 
 		it("should have table entires", function()

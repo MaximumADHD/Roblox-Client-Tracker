@@ -20,6 +20,7 @@ local SetEditingAssets = require(Plugin.Src.Actions.SetEditingAssets)
 local OnAssetDoubleClick = require(Plugin.Src.Thunks.OnAssetDoubleClick)
 local OnAssetRightClick = require(Plugin.Src.Thunks.OnAssetRightClick)
 local OnAssetSingleClick = require(Plugin.Src.Thunks.OnAssetSingleClick)
+local OnRecentAssetRightClick = require(Plugin.Src.Thunks.OnRecentAssetRightClick)
 
 local AssetManagerService = game:GetService("AssetManagerService")
 
@@ -60,11 +61,39 @@ function ListItem:init()
     end
 
     self.onMouseActivated = function(rbx, obj, clickCount)
-
+        local props = self.props
+        if not props.Enabled then
+            return
+        end
+        local assetData = props.AssetData
+        if clickCount == 0 then
+            props.dispatchOnAssetSingleClick(obj, assetData)
+        elseif clickCount == 1 then
+            props.dispatchOnAssetDoubleClick(props.Analytics, assetData)
+        end
     end
 
     self.onMouseButton2Click = function(rbx, x, y)
-
+        local props = self.props
+        if not props.Enabled then
+            return
+        end
+        local assetData = props.AssetData
+        local isFolder = assetData.ClassName == "Folder"
+        if isFolder then
+            if not props.SelectedAssets[assetData.Screen.LayoutOrder] then
+                props.dispatchOnAssetSingleClick(nil, assetData)
+            end
+        else
+            if not props.SelectedAssets[assetData.key] then
+                props.dispatchOnAssetSingleClick(nil, assetData)
+            end
+        end
+        if props.RecentListItem then
+            props.dispatchOnRecentAssetRightClick(props)
+        else
+            props.dispatchOnAssetRightClick(props.Analytics, props.API:get(), assetData, props.Localization, props.Plugin:get())
+        end
     end
 
     self.onTextChanged = function(rbx)
@@ -302,6 +331,9 @@ local function mapDispatchToProps(dispatch)
         end,
         dispatchOnAssetSingleClick = function(obj, assetData)
             dispatch(OnAssetSingleClick(obj, assetData))
+        end,
+        dispatchOnRecentAssetRightClick = function(props)
+            dispatch(OnRecentAssetRightClick(props))
         end,
         dispatchSetEditingAssets = function(editingAssets)
             dispatch(SetEditingAssets(editingAssets))

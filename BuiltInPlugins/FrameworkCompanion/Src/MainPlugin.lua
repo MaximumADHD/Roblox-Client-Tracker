@@ -1,8 +1,10 @@
+--!nolint LocalUnused
+--^ DEVTOOLS-4490
+
 --[[
 	The main plugin for the DevFramework Companion.
 	Consists of the PluginWidget, Toolbar, Button, and Roact tree.
 ]]
-
 local Plugin = script.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local Rodux = require(Plugin.Packages.Rodux)
@@ -10,7 +12,14 @@ local Rodux = require(Plugin.Packages.Rodux)
 local MainReducer = require(Plugin.Src.Reducers.MainReducer)
 
 local ContextServices = require(Plugin.Packages.Framework).ContextServices
-local StudioUI = require(Plugin.Packages.Framework).StudioUI
+
+local Framework = require(Plugin.Packages.Framework)
+local Util = Framework.Util
+local FlagsList = Util.Flags.new({
+	FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
+})
+
+local StudioUI = Framework.StudioUI
 local DockWidget = StudioUI.DockWidget
 local PluginToolbar = StudioUI.PluginToolbar
 local PluginButton = StudioUI.PluginButton

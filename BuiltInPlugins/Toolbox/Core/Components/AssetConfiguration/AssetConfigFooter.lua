@@ -28,6 +28,8 @@ local Constants = require(Util.Constants)
 local ScreenSetup = require(Util.ScreenSetup)
 local AssetConfigConstants = require(Util.AssetConfigConstants)
 
+local FrameworkUtil = require(Libs.Framework.Util)
+
 local ContextGetter = require(Util.ContextGetter)
 local getNetwork = ContextGetter.getNetwork
 
@@ -50,6 +52,7 @@ local AssetConfigFooter = Roact.PureComponent:extend("AssetConfigFooter")
 
 local FFlagSupportAnimImportByID = game:DefineFastFlag("SupportAnimImportByID", false)
 local FFlagEnableOverrideAssetCursorFix = game:GetFastFlag("EnableOverrideAssetCursorFix")
+local FFlagAssetConfigFixBadIdVerifyState = game:GetFastFlag("AssetConfigFixBadIdVerifyState")
 
 local BUTTON_HEIGHT = 32
 local BUTTON_WIDTH = 120
@@ -60,6 +63,10 @@ local MAX_COUNT = 32
 local PADDING = 24
 
 function AssetConfigFooter:init(props)
+	if FFlagAssetConfigFixBadIdVerifyState then
+		self.hideInvalidAnimationID = true
+	end
+
 	self.onFlowButtonActivated = function()
 		props.toggleOverride(self.props.currentTab)
 	end
@@ -79,6 +86,33 @@ function AssetConfigFooter:init(props)
 			animationId = id,
 		})
 	end
+end
+
+function AssetConfigFooter:shouldUpdate(nextProps, nextState)
+	if nextState ~= self.state then
+		return true
+	end
+
+	if FFlagAssetConfigFixBadIdVerifyState then
+		-- Invalid animation ID visibility updates on prop change only, since state change happens too early for validation to finish
+		local oldHideInvalidAnimationID = self.hideInvalidAnimationID
+		if nextState.animationId == "" then
+			self.hideInvalidAnimationID = true
+		else
+			self.hideInvalidAnimationID = nextProps.validateAnimationSucceeded or tostring(nextProps.AssetId) == nextState.animationId
+		end
+
+		-- In case the prop doesn't change (ie. invalid -> invalid) but we still need to update since empty field shouldn't show invalid
+		if oldHideInvalidAnimationID ~= self.hideInvalidAnimationID then
+			return true
+		end
+	end
+
+	if FrameworkUtil.deepEqual(nextProps, self.props) then
+		return false
+	end
+
+	return true
 end
 
 function AssetConfigFooter:render()
@@ -102,6 +136,11 @@ function AssetConfigFooter:render()
 			local validateAnimationSucceeded = false
 			if FFlagSupportAnimImportByID then
 				validateAnimationSucceeded = props.validateAnimationSucceeded
+			end
+
+			local hideInvalidAnimationID = validateAnimationSucceeded or state.animationId == ""
+			if FFlagAssetConfigFixBadIdVerifyState then
+				hideInvalidAnimationID = self.hideInvalidAnimationID
 			end
 
 			local showOverride = ScreenSetup.queryParam(screenFlowType, assetTypeEnum, ScreenSetup.keys.SHOW_OVERRIDE_BUTTON)
@@ -179,7 +218,7 @@ function AssetConfigFooter:render()
 					})
 				}),
 
-				InvalidAnimationLabel = isDownloadFlow and not validateAnimationSucceeded and state.animationId ~= "" and Roact.createElement("TextLabel", {
+				InvalidAnimationLabel = isDownloadFlow and not hideInvalidAnimationID and Roact.createElement("TextLabel", {
 					BackgroundTransparency = 1,
 					Font = Constants.FONT,
 					Text =  localizedContent.AssetConfig.Override.InvalidAnimationID,

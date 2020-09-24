@@ -9,8 +9,10 @@
 ]]
 
 game:DefineFastFlag("FixDevFrameworkDockWidgetRestore", false)
+game:DefineFastFlag("DevFrameworkPluginWidgetEnabledEvent", false)
 
 local FFlagFixDevFrameworkDockWidgetRestore = game:GetFastFlag("FixDevFrameworkDockWidgetRestore")
+local FFlagDevFrameworkPluginWidgetEnabledEvent = game:GetFastFlag("DevFrameworkPluginWidgetEnabledEvent")
 
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
@@ -65,6 +67,16 @@ local function createPluginWidget(componentName, createWidgetFunc)
 			end
 		end
 
+		if FFlagDevFrameworkPluginWidgetEnabledEvent then
+			-- Connect to enabled changing *after* restore
+			-- Otherwise users of this will get 2 enabled changes: one from the onRestore, and the same from Roact.Change.Enabled
+			self.widgetEnabledChangedConnection = widget:GetPropertyChangedSignal("Enabled"):Connect(function()
+				if self.props[Roact.Change.Enabled] then
+					self.props[Roact.Change.Enabled](self.widget)
+				end
+			end)
+		end
+
 		self.focus = Focus.new(widget)
 		self.widget = widget
 	end
@@ -105,6 +117,11 @@ local function createPluginWidget(componentName, createWidgetFunc)
 	end
 
 	function PluginWidget:willUnmount()
+		if self.widgetEnabledChangedConnection then
+			self.widgetEnabledChangedConnection:Disconnect()
+			self.widgetEnabledChangedConnection = nil
+		end
+
 		if self.windowFocusReleasedConnection then
 			self.windowFocusReleasedConnection:Disconnect()
 			self.windowFocusReleasedConnection = nil
@@ -117,6 +134,7 @@ local function createPluginWidget(componentName, createWidgetFunc)
 
 		if self.widget then
 			self.widget:Destroy()
+			self.widget = nil
 		end
 	end
 

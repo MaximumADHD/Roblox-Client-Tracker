@@ -9,19 +9,32 @@ local DraggerFramework = script.Parent.Parent
 local getGeometry = require(DraggerFramework.Utility.getGeometry)
 local JointPairs = require(DraggerFramework.Utility.JointPairs)
 local JointUtil = require(DraggerFramework.Utility.JointUtil)
-local SelectionWrapper = require(DraggerFramework.Utility.SelectionWrapper)
+local SelectionWrapper_DEPRECATED = require(DraggerFramework.Utility.SelectionWrapper_DEPRECATED)
+
+local getFFlagDraggerSplit = require(DraggerFramework.Flags.getFFlagDraggerSplit)
 
 local DEFAULT_COLLISION_THRESHOLD = 0.001
 
 -- Get all the instances the user has directly selected (actually part of the
 -- selection)
-local function getSelectedInstanceSet()
-	local selection = SelectionWrapper:Get()
-	local selectedInstanceSet = {}
-	for _, instance in pairs(selection) do
-		selectedInstanceSet[instance] = true
+local getSelectedInstanceSet
+if getFFlagDraggerSplit() then
+	function getSelectedInstanceSet(selection)
+		local selectedInstanceSet = {}
+		for _, instance in pairs(selection) do
+			selectedInstanceSet[instance] = true
+		end
+		return selectedInstanceSet
 	end
-	return selectedInstanceSet
+else
+	function getSelectedInstanceSet()
+		local selection = SelectionWrapper_DEPRECATED:Get()
+		local selectedInstanceSet = {}
+		for _, instance in pairs(selection) do
+			selectedInstanceSet[instance] = true
+		end
+		return selectedInstanceSet
+	end
 end
 
 local PartMover = {}
@@ -31,6 +44,7 @@ PartMover.__index = PartMover
 	Default value for IK dragging translation and rotation stiffness.
 ]]
 local DRAG_CONSTRAINT_STIFFNESS = 0.85
+local DRAG_CONSTRAINT_LESS_STIFFNESS = 0.40
 
 function PartMover.new()
 	local self = setmetatable({
@@ -50,7 +64,10 @@ function PartMover:getIgnorePart()
 	return self._mainPart
 end
 
-function PartMover:setDragged(parts, originalCFrameMap, breakJoints, customCenter)
+function PartMover:setDragged(parts, originalCFrameMap, breakJoints, customCenter, selection)
+	if getFFlagDraggerSplit() then
+		assert(selection ~= nil)
+	end
 	-- Separate out the Workspace parts which will be passed to
 	-- Workspace::ArePartsTouchingOthers for collision testing
 	local workspaceParts = table.create(16)
@@ -76,7 +93,7 @@ function PartMover:setDragged(parts, originalCFrameMap, breakJoints, customCente
 	-- modifications to joints which prepareJoints did. Same thing with
 	-- setupBulkMove (it cares about assemblies)
 	self:_setupGeometryTracking(self._workspaceParts)
-	self:_setupBulkMove(parts, getSelectedInstanceSet())
+	self:_setupBulkMove(parts, getSelectedInstanceSet(selection))
 
 	self._parts = parts
 	self._hasMovementWelds = false
@@ -363,12 +380,12 @@ end
 
 function PartMover:moveToWithIk(transform, collisionsMode)
 	local translateStiffness = DRAG_CONSTRAINT_STIFFNESS
-	local rotateStiffness = 0
+	local rotateStiffness = getFFlagDraggerSplit() and DRAG_CONSTRAINT_LESS_STIFFNESS or 0
 	return self:transformToWithIk(transform, translateStiffness, rotateStiffness, collisionsMode)
 end
 
 function PartMover:rotateToWithIk(transform, collisionsMode)
-	local translateStiffness = 0
+	local translateStiffness = getFFlagDraggerSplit() and DRAG_CONSTRAINT_LESS_STIFFNESS or 0
 	local rotateStiffness = DRAG_CONSTRAINT_STIFFNESS
 	return self:transformToWithIk(transform, translateStiffness, rotateStiffness, collisionsMode)
 end

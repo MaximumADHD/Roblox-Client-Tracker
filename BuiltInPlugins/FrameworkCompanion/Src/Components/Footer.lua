@@ -7,9 +7,15 @@
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
-local ContextServices = require(Plugin.Packages.Framework).ContextServices
 
-local UI = require(Plugin.Packages.Framework).UI
+local Framework = require(Plugin.Packages.Framework)
+local ContextServices = Framework.ContextServices
+local Util = Framework.Util
+local FlagsList = Util.Flags.new({
+	FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
+})
+
+local UI = Framework.UI
 local Button = UI.Button
 local Container = UI.Container
 local Decoration = UI.Decoration
@@ -39,7 +45,14 @@ function Footer:init()
 end
 
 function Footer:renderButton(index, text, callback)
-	local sizes = self.props.Theme:get("Sizes")
+	local props = self.props
+	local sizes
+	local style = props.Stylizer
+	if FlagsList:get("FFlagRefactorDevFrameworkTheme") and style then
+		sizes = style.Sizes
+	else
+		sizes = props.Theme:get("Sizes")
+	end
 
 	return Roact.createElement(Button, {
 		Size = UDim2.fromOffset(sizes.ButtonWidth, sizes.ButtonHeight),
@@ -57,7 +70,13 @@ end
 function Footer:render()
 	local props = self.props
 	local state = self.state
-	local sizes = props.Theme:get("Sizes")
+	local sizes
+	if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+		local style = props.Stylizer
+		sizes = style and style.Sizes
+	else
+		sizes = props.Theme:get("Sizes")
+	end
 	local plugin = props.Plugin:get()
 
 	local runTests = props.RunTests
@@ -89,7 +108,8 @@ function Footer:render()
 end
 
 ContextServices.mapToProps(Footer, {
-	Theme = ContextServices.Theme,
+	Stylizer = FlagsList:get("FFlagRefactorDevFrameworkTheme") and ContextServices.Stylizer or nil,
+	Theme = (not FlagsList:get("FFlagRefactorDevFrameworkTheme")) and ContextServices.Theme or nil,
 	Plugin = ContextServices.Plugin,
 })
 

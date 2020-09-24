@@ -324,6 +324,8 @@ function Promise:await()
 	elseif self._status == Promise.Status.Rejected then
 		error(tostring(self._value[1]), 2)
 	end
+
+	return
 end
 
 function Promise:_resolve(...)

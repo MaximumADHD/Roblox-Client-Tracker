@@ -30,6 +30,7 @@ local Images = require(Util.Images)
 local ContextGetter = require(Util.ContextGetter)
 local ContextHelper = require(Util.ContextHelper)
 local Urls = require(Util.Urls)
+local FlagsList = require(Util.FlagsList)
 local PageInfoHelper = require(Util.PageInfoHelper)
 
 local Types = Plugin.Core.Types
@@ -187,7 +188,8 @@ function AssetIcon:render()
 end
 
 ContextServices.mapToProps(AssetIcon, {
-	Theme = ContextServices.Theme,
+	Stylizer = FlagsList:get("FFlagRefactorDevFrameworkTheme") and ContextServices.Stylizer or nil,
+	Theme = (not FlagsList:get("FFlagRefactorDevFrameworkTheme")) and ContextServices.Theme or nil,
 })
 
 local function mapStateToProps(state, props)

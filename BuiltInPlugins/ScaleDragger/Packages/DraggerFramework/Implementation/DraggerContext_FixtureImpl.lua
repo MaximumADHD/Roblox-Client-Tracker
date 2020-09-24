@@ -6,14 +6,15 @@
 ]]
 
 local StudioService = game:GetService("StudioService")
+local ChangeHistoryService = game:GetService("ChangeHistoryService")
 
 local DraggerFramework = script.Parent.Parent
 
-local SelectionWrapper = require(DraggerFramework.Utility.SelectionWrapper)
+local SelectionWrapper_DEPRECATED = require(DraggerFramework.Utility.SelectionWrapper_DEPRECATED)
 local MockAnalytics = require(DraggerFramework.Utility.MockAnalytics)
 
 local getEngineFeatureActiveInstanceHighlight = require(DraggerFramework.Flags.getEngineFeatureActiveInstanceHighlight)
-local getFFlagSupportNoRotate = require(DraggerFramework.Flags.getFFlagSupportNoRotate)
+local getFFlagDraggerSplit = require(DraggerFramework.Flags.getFFlagDraggerSplit)
 
 local DraggerContext = {}
 DraggerContext.__index = DraggerContext
@@ -22,7 +23,12 @@ local RAYCAST_DIRECTION_SCALE = 10000
 
 local VIEWPORT_SIZE = 1000
 
-function DraggerContext.new(guiTarget)
+local MAX_UNDO_WAYPOINTS = 20
+
+function DraggerContext.new(guiTarget, selection)
+	if getFFlagDraggerSplit() then
+		assert(selection ~= nil)
+	end
 	return setmetatable({
 		_guiTarget = guiTarget,
 		_useLocalSpace = false,
@@ -39,6 +45,8 @@ function DraggerContext.new(guiTarget)
 		_isSimulating = false,
 		_gridSize = 1,
 		_rotateIncrement = math.rad(30),
+		_selection = selection,
+		_undoWaypoints = {},
 	}, DraggerContext)
 end
 
@@ -150,7 +158,7 @@ function DraggerContext:setCamera(cframe, size)
 end
 
 function DraggerContext:getHandleScale(focusPoint)
-	return 0.05
+	return 1.0
 end
 
 function DraggerContext:getMouseUnitRay()
@@ -177,6 +185,17 @@ function DraggerContext:viewportPointToRay(screenPoint)
 	return Ray.new(at, self._cameraCFrame.LookVector)
 end
 
+function DraggerContext:worldToViewportPoint(worldPoint)
+	local point = self._cameraCFrame:Inverse() * worldPoint
+	local x = (point.X / self._cameraSize + 0.5) * VIEWPORT_SIZE
+	local y = (point.Y / self._cameraSize + 0.5) * VIEWPORT_SIZE
+	local onScreen =
+		(x >= 0 and x <= VIEWPORT_SIZE) and
+		(y >= 0 and y <= VIEWPORT_SIZE) and
+		point.Z < 0
+	return Vector2.new(x, y), onScreen
+end
+
 function DraggerContext:getViewportSize()
 	return Vector2.new(VIEWPORT_SIZE, VIEWPORT_SIZE)
 end
@@ -193,8 +212,14 @@ function DraggerContext:expectMouseIcon(icon)
 	end
 end
 
-function DraggerContext:getSelectionWrapper()
-	return SelectionWrapper
+if getFFlagDraggerSplit() then
+	function DraggerContext:getSelection()
+		return self._selection
+	end
+else
+	function DraggerContext:getSelectionWrapper()
+		return SelectionWrapper_DEPRECATED
+	end
 end
 
 -- Are non-anchored parts in the world currently being physically simulated?
@@ -238,7 +263,7 @@ function DraggerContext:getRotateIncrement()
 end
 
 function DraggerContext:setGridSize(value)
-	self._gridSize = value
+	self._gridSize = math.max(value, 0.001)
 end
 
 function DraggerContext:setRotateIncrement(value)
@@ -271,8 +296,33 @@ function DraggerContext:shouldShowActiveInstanceHighlight()
 end
 
 function DraggerContext:shouldAlignDraggedObjects()
-	assert(getFFlagSupportNoRotate())
 	return true
+end
+
+function DraggerContext:addUndoWaypoint(waypointIdentifier, waypointText)
+	if ChangeHistoryService then
+		ChangeHistoryService:SetWaypoint(waypointIdentifier)
+	end
+	table.insert(self._undoWaypoints, waypointIdentifier)
+	while #self._undoWaypoints > MAX_UNDO_WAYPOINTS do
+		table.remove(self._undoWaypoints, 1)
+	end
+end
+
+function DraggerContext:expectMostRecentUndoWaypoint(waypointIdentifier)
+	local mostRecent = self._undoWaypoints[#self._undoWaypoints]
+	if mostRecent ~= waypointIdentifier then
+		error("Wrong last undo waypoint,\n    Expected: " .. waypointIdentifier ..
+			"\n    Got: " .. (mostRecent or "<none>"))
+	end
+end
+
+function DraggerContext:expectAndUndo(waypointIdentifier)
+	self:expectMostRecentUndoWaypoint(waypointIdentifier)
+	self._undoWaypoints[#self._undoWaypoints] = nil
+	if ChangeHistoryService then
+		ChangeHistoryService:Undo()
+	end
 end
 
 return DraggerContext

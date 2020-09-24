@@ -29,6 +29,13 @@ local FFlagUserRemoveTheCameraApi do
 	FFlagUserRemoveTheCameraApi = success and result
 end
 
+local FFlagUserCameraInputRefactor do
+	local success, result = pcall(function()
+		return UserSettings():IsUserFeatureEnabled("UserCameraInputRefactor2")
+	end)
+	FFlagUserCameraInputRefactor = success and result
+end
+
 -- NOTICE: Player property names do not all match their StarterPlayer equivalents,
 -- with the differences noted in the comments on the right
 local PLAYER_CAMERA_PROPERTIES =
@@ -64,8 +71,9 @@ local RunService = game:GetService("RunService")
 local UserInputService = game:GetService("UserInputService")
 local UserGameSettings = UserSettings():GetService("UserGameSettings")
 
--- Camera math utility library
+-- Static camera utils
 local CameraUtils = require(script:WaitForChild("CameraUtils"))
+local CameraInput = require(script:WaitForChild("CameraInput"))
 
 -- Load Roblox Camera Controller Modules
 local ClassicCamera = require(script:WaitForChild("ClassicCamera"))
@@ -484,6 +492,10 @@ function CameraModule:Update(dt)
 		-- Update to character local transparency as needed based on camera-to-subject distance
 		if self.activeTransparencyController then
 			self.activeTransparencyController:Update()
+		end
+
+		if FFlagUserCameraInputRefactor and CameraInput.getInputEnabled() then
+			CameraInput.resetInputForFrameEnd()
 		end
 	end
 end

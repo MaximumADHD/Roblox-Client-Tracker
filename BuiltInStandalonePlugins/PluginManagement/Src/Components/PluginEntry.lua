@@ -23,6 +23,8 @@ local FlagsList = Flags.new({
 	FFlagPluginManagementFixRemovePlugins = { "PluginManagementFixRemovePlugins" },
 })
 
+local FlagsListFile = require(Plugin.Src.Util.FlagsList)
+
 local Constants = require(Plugin.Src.Util.Constants)
 local UILibrary = require(Plugin.Packages.UILibrary) -- remove with FFlagPluginManagementRemoveUILibrary
 local UpdateStatus = require(Plugin.Src.Util.UpdateStatus)
@@ -36,6 +38,8 @@ local Button = UILibrary.Component.Button -- remove with FFlagPluginManagementRe
 local FrameworkButton = UI.Button
 local FrameworkLabel = UI.Decoration.TextLabel
 local DropdownMenu = UI.DropdownMenu
+local ToggleButton = UI.ToggleButton
+
 local RemovePluginData = require(Plugin.Src.Actions.RemovePluginData)
 local MoreDropdown = require(Plugin.Src.Components.MoreDropdown) -- remove with FFlagPluginManagementRemoveUILibrary
 local HttpRequestOverview = require(Plugin.Src.Components.HttpRequestOverview)
@@ -151,6 +155,18 @@ function PluginEntry:init()
 			params = { assetId = self.props.data.assetId },
 		})
 	end
+
+	self.onToggleClick = function()
+		local data = self.props.data
+		local isModerated = FFlagShowModeratedPluginInfo and data.isModerated
+		local enabled = not isModerated and data.enabled
+
+		if enabled then
+			self.onPluginDisabled()
+		elseif not isModerated then
+			self.onPluginEnabled()
+		end
+	end
 end
 
 function PluginEntry.getDerivedStateFromProps(nextProps, _)
@@ -178,7 +194,12 @@ function PluginEntry:render()
 	local showMore = state.showMore
 
 	local localization = props.Localization
-	local theme = props.Theme:get("Plugin")
+	local theme
+	if FlagsListFile:get("FFlagRefactorDevFrameworkTheme") then
+		theme = props.Stylizer
+    else
+        theme = props.Theme:get("Plugin")
+    end
 	local api = props.API:get()
 
 	local layoutOrder = props.LayoutOrder
@@ -403,8 +424,16 @@ function PluginEntry:render()
 			Text = localization:getText("Entry", "UpdateSuccess"),
 		}),
 
-		-- TODO: Refactor this into DevFramework's ToggleButton
-		EnableButton = not enabled and Roact.createElement("ImageButton", {
+		ToggleButton = FlagsListFile:get("FFlagRefactorDevFrameworkTheme") and Roact.createElement(ToggleButton, {
+			Disabled = false,
+			Selected = enabled,
+			OnClick = self.onToggleClick,
+			Size = UDim2.new(0, Constants.PLUGIN_ENABLE_WIDTH, 0, 24),
+			Position = UDim2.new(1,Constants.PLUGIN_HORIZONTAL_PADDING*-2 - Constants.PLUGIN_ENABLE_WIDTH
+				- Constants.PLUGIN_CONTEXT_WIDTH,.5,0),
+		}),
+
+		EnableButton = (not FlagsListFile:get("FFlagRefactorDevFrameworkTheme")) and not enabled and Roact.createElement("ImageButton", {
 			AnchorPoint = Vector2.new(0, 0.5),
 			Size = UDim2.new(0, Constants.PLUGIN_ENABLE_WIDTH, 0, 24),
 			Position = UDim2.new(1,Constants.PLUGIN_HORIZONTAL_PADDING*-2 - Constants.PLUGIN_ENABLE_WIDTH
@@ -414,7 +443,7 @@ function PluginEntry:render()
 			[Roact.Event.Activated] = isModerated and function() end or self.onPluginEnabled,
 		}),
 
-		DisableButton = enabled and Roact.createElement("ImageButton", {
+		DisableButton = (not FlagsListFile:get("FFlagRefactorDevFrameworkTheme")) and enabled and Roact.createElement("ImageButton", {
 			AnchorPoint = Vector2.new(0, 0.5),
 			Size = UDim2.new(0, Constants.PLUGIN_ENABLE_WIDTH, 0, 24),
 			Position = UDim2.new(1,Constants.PLUGIN_HORIZONTAL_PADDING*-2 - Constants.PLUGIN_ENABLE_WIDTH
@@ -508,13 +537,15 @@ if FlagsList:get("FFlagEnablePluginPermissionsPage") then
 	ContextServices.mapToProps(PluginEntry, {
 		Navigation = Navigation,
 		Localization = ContextServices.Localization,
-		Theme = ContextServices.Theme,
+		Stylizer = FlagsListFile:get("FFlagRefactorDevFrameworkTheme") and ContextServices.Stylizer or nil,
+		Theme = (not FlagsListFile:get("FFlagRefactorDevFrameworkTheme")) and ContextServices.Theme or nil,
 		API = PluginAPI2,
 	})
 else
 	ContextServices.mapToProps(PluginEntry, {
 		Localization = ContextServices.Localization,
-		Theme = ContextServices.Theme,
+		Stylizer = FlagsListFile:get("FFlagRefactorDevFrameworkTheme") and ContextServices.Stylizer or nil,
+		Theme = (not FlagsListFile:get("FFlagRefactorDevFrameworkTheme")) and ContextServices.Theme or nil,
 		API = PluginAPI2,
 	})
 end

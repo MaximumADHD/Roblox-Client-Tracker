@@ -14,12 +14,21 @@ local TextService = game:GetService("TextService")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
-local ContextServices = require(Plugin.Packages.Framework).ContextServices
+
+local Framework = require(Plugin.Packages.Framework)
+local ContextServices = Framework.ContextServices
+local Util = Framework.Util
+local FlagsList = Util.Flags.new({
+	FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
+})
 
 local UI = require(Plugin.Packages.Framework).UI
 local Container = UI.Container
 
 local PanelEntry = require(Plugin.Src.Components.PanelEntry)
+local FrameworkStyle = require(Plugin.Packages.Framework).Style
+local getRawComponentStyle = FrameworkStyle.getRawComponentStyle
+
 
 local StylesList = Roact.PureComponent:extend("StylesList")
 
@@ -42,16 +51,35 @@ function StylesList:render()
 	local props = self.props
 	local state = self.state
 	local extents = state.extents
-	local text = props.Theme:get("Text")
+	local text
+	local style = props.Stylizer
+	if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+		text = style.Text
+	else
+		text = props.Theme:get("Text")
+	end
 	local styles = props.Styles
 	local header = props.Header
 	local layoutOrder = props.LayoutOrder
 
 	local stylesList = {}
-	if styles then
-		for name, _ in pairs(styles) do
-			if name ~= "Default" and not (name:find("__")) then
-				table.insert(stylesList, name)
+	if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+		local componentName = props.ComponentName
+		local componentStyle = getRawComponentStyle(componentName)
+		if componentStyle then
+			for name,_ in pairs(componentStyle) do
+				if typeof(name) == "string" and name:sub(1, 1) == "&" then
+					local nameWithoutAmpersand = name:sub(2)
+					table.insert(stylesList, nameWithoutAmpersand)
+				end
+			end
+		end
+	else
+		if styles then
+			for name, _ in pairs(styles) do
+				if name ~= "Default" and not (name:find("__")) then
+					table.insert(stylesList, name)
+				end
 			end
 		end
 	end
@@ -89,7 +117,8 @@ function StylesList:render()
 end
 
 ContextServices.mapToProps(StylesList, {
-	Theme = ContextServices.Theme,
+	Stylizer = FlagsList:get("FFlagRefactorDevFrameworkTheme") and ContextServices.Stylizer or nil,
+	Theme = (not FlagsList:get("FFlagRefactorDevFrameworkTheme")) and ContextServices.Theme or nil,
 })
 
 return StylesList

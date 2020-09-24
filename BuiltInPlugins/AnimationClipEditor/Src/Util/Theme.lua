@@ -1,8 +1,6 @@
 local Plugin = script.Parent.Parent.Parent
 local UILibrary = require(Plugin.UILibrary)
 
-local FFlagRemoveUILibraryTimeline = game:GetFastFlag("RemoveUILibraryTimeline")
-
 local StudioTheme = UILibrary.Studio.Theme
 local StudioStyle = UILibrary.Studio.Style
 local Cryo = require(Plugin.Cryo)
@@ -254,7 +252,7 @@ function Theme.createValuesInternal(theme, getColor, c, m)
 		gridTheme = gridTheme,
 		ikTheme = ikTheme,
 
-		keyframe = FFlagRemoveUILibraryTimeline and {
+		keyframe = {
 			Default = {
 				backgroundColor = getColor(c.DialogButtonText, m.Disabled),
 				borderColor = getColor(c.DimmedText),
@@ -360,12 +358,12 @@ function Theme.createValuesInternal(theme, getColor, c, m)
 					borderColor = getColor(c.DialogMainButton),
 				},
 			},
-		} or nil,
+		},
 
-		scrubber = FFlagRemoveUILibraryTimeline and {
+		scrubber = {
 			backgroundColor = getColor(c.DialogMainButton),
 			image = "rbxasset://textures/AnimationEditor/img_scrubberhead.png",
-		} or nil,
+		},
 
 	}
 
@@ -446,7 +444,7 @@ function Theme.createValuesInternal(theme, getColor, c, m)
 			textSize = 15,
 		},
 
-		keyframe = not FFlagRemoveUILibraryTimeline and {
+		keyframe = {
 			Default = {
 				backgroundColor = getColor(c.DialogButtonText, m.Disabled),
 				borderColor = getColor(c.DimmedText),
@@ -552,12 +550,12 @@ function Theme.createValuesInternal(theme, getColor, c, m)
 					borderColor = getColor(c.DialogMainButton),
 				},
 			},
-		} or nil,
+		},
 
-		scrubber = not FFlagRemoveUILibraryTimeline and {
+		scrubber = {
 			backgroundColor = getColor(c.DialogMainButton),
 			image = "rbxasset://textures/AnimationEditor/img_scrubberhead.png",
-		} or nil,
+		},
 
 		tooltip = {
 			font = Enum.Font.SourceSans,

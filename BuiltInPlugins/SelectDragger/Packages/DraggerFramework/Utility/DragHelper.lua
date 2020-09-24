@@ -139,8 +139,8 @@ function DragHelper.getClosestFace(part, mouseWorld)
 	return closestFace, geom
 end
 
-function DragHelper.getPartAndSurface(mouseRay, selection)
-	local part, mouseWorld = Workspace:FindPartOnRayWithIgnoreList(mouseRay, selection)
+function DragHelper.getPartAndSurface(mouseRay)
+	local part, mouseWorld = Workspace:FindPartOnRay(mouseRay)
 	local closestFace, _
 	if part then
 		closestFace, _ = DragHelper.getClosestFace(part, mouseWorld)

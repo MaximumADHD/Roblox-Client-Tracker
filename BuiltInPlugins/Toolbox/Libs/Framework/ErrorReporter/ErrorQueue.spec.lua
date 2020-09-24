@@ -3,7 +3,6 @@ return function()
 
 	local Framework = script.Parent.Parent
 	local deepEqual = require(Framework.Util.deepEqual)
-	local tutils = require(Framework.Util.Typecheck.tutils)
 
 	local errorsToAdd = {
 		[1] = {

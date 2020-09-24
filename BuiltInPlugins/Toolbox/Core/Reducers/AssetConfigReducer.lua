@@ -206,10 +206,12 @@ return Rodux.createReducer({
 
 	[NetworkError.name] = function(state, action)
 		if FFlagShowAssetConfigReasons2 then
+			local networkTable = {}
+			if action.networkErrorAction then
+				networkTable[action.networkErrorAction] = action
+			end
 			return deepJoin(state, {
-				networkTable = {
-					[action.networkErrorAction] = action,
-				}
+				networkTable = networkTable
 			})
 		else
 			return Cryo.Dictionary.join(state, {

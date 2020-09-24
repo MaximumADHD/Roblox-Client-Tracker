@@ -7,6 +7,7 @@ local SetPluginInfo = require(Plugin.Src.Actions.SetPluginInfo)
 local SetLoadedPluginData = require(Plugin.Src.Actions.SetLoadedPluginData)
 local ClearAllPluginData = require(Plugin.Src.Actions.ClearAllPluginData)
 
+local FFlagPluginManagementSkipInvalidAssetIds = game:GetFastFlag("PluginManagementSkipInvalidAssetIds")
 local FFlagPluginManagementAllowLotsOfPlugins2 = settings():GetFFlag("PluginManagementAllowLotsOfPlugins2")
 local FFlagEnablePluginPermissionsPage = settings():GetFFlag("EnablePluginPermissionsPage2")
 
@@ -48,8 +49,15 @@ return function(apiImpl, marketplaceService)
 		local plugins = extractPluginsFromJsonString(StudioService.InstalledPluginData)
 		local assetIds = {}
 		for index, data in pairs(plugins) do
-			plugins[index].assetId = tonumber(data.assetId)
-			assetIds[#assetIds+1] = data.assetId
+			local assetIdValue = tonumber(data.assetId)
+
+			if FFlagPluginManagementSkipInvalidAssetIds and assetIdValue == nil then
+				warn("assetId is nil for installedPlugin on refresh", data.assetId)
+				plugins[index] = nil
+			else
+				plugins[index].assetId = assetIdValue
+				assetIds[#assetIds+1] = data.assetId
+			end
 		end
 
 		if FFlagPluginManagementAllowLotsOfPlugins2 then

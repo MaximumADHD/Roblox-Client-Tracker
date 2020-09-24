@@ -31,6 +31,7 @@ local Util = require(Framework.Util)
 local FlagsList = Util.Flags.new({
 	FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
 	FFlagStudioDevFrameworkPackage = {"StudioDevFrameworkPackage"},
+	FFlagFixContentNotFullyShownAfterResize = {"FixContentNotFullyShownAfterResize"},
 })
 local Cryo
 local isUsedAsPackage = require(Framework.Util.isUsedAsPackage)
@@ -50,6 +51,18 @@ local Typecheck = Util.Typecheck
 local ScrollingFrame = Roact.PureComponent:extend("ScrollingFrame")
 Typecheck.wrap(ScrollingFrame, script)
 
+local function getStyle(self)
+	local props = self.props
+	local theme = props.Theme
+	local style
+	if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+		style = props.Stylizer
+	else
+		style = theme:getStyle("Framework", self)
+	end
+	return style
+end
+
 function ScrollingFrame:init()
 	self.scrollingRef = Roact.createRef()
 	self.layoutRef = Roact.createRef()
@@ -63,7 +76,23 @@ function ScrollingFrame:init()
 	self.updateCanvasSize = function(rbx)
 		if self.scrollingRef.current and self.layoutRef.current then
 			local contentSize = self.layoutRef.current.AbsoluteContentSize
-			self.scrollingRef.current.CanvasSize = UDim2.new(0, contentSize.X, 0, contentSize.Y)
+			local contentSizeX = contentSize.X
+			local contentSizeY = contentSize.Y
+			if FlagsList:get("FFlagFixContentNotFullyShownAfterResize") then
+				local props = self.props
+				local style = getStyle(self)
+				local scrollingFrameProps = self.getScrollingFrameProps(props, style)
+				-- for vertical scroll, canvas size on x axis should not update when content size changes
+				-- for horizon one, y axis should not change
+				-- for both scrolling, canvas size can be fully controlled by content
+				if scrollingFrameProps.ScrollingDirection == Enum.ScrollingDirection.Y then
+					contentSizeX = 0
+				elseif scrollingFrameProps.ScrollingDirection == Enum.ScrollingDirection.X then
+					contentSizeY = 0
+				end
+			end
+
+			self.scrollingRef.current.CanvasSize = UDim2.new(0, contentSizeX, 0, contentSizeY)
 		end
 	end
 
@@ -99,6 +128,7 @@ function ScrollingFrame:init()
 				Size = UDim2.new(1, 0, 1, 0),
 				[Roact.Children] = Cryo.None,
 				[Roact.Change.CanvasPosition] = self.onScroll,
+				[Roact.Change.AbsoluteSize] = FlagsList:get("FFlagFixContentNotFullyShownAfterResize") and self.updateCanvasSize or nil,
 				[Roact.Ref] = self.scrollingRef,
 			})
 	end
@@ -110,13 +140,7 @@ end
 
 function ScrollingFrame:render()
 	local props = self.props
-	local theme = props.Theme
-	local style
-	if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
-		style = props.Stylizer
-	else
-		style = theme:getStyle("Framework", self)
-	end
+	local style = getStyle(self)
 
 	local position = props.Position
 	local size = props.Size

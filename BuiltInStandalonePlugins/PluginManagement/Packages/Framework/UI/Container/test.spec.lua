@@ -8,12 +8,24 @@ return function()
 	local Container = require(script.Parent)
 	local Box = require(Framework.UI.Box)
 
+	local StudioTheme = require(Framework.Style.Themes.StudioTheme)
+
+	local Util = require(Framework.Util)
+	local FlagsList = Util.Flags.new({
+		FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
+	})
+
 	local function createTestContainer(props, children)
-		local theme = Theme.new(function()
-			return {
-				Framework = FrameworkStyles.new(),
-			}
-		end)
+		local theme
+		if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+			theme = StudioTheme.new()
+		else
+			theme = Theme.new(function()
+				return {
+					Framework = FrameworkStyles.new(),
+				}
+			end)
+		end
 		return provide({theme}, {
 			Container = Roact.createElement(Container, props, children),
 		})

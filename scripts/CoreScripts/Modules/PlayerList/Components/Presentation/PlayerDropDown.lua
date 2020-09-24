@@ -316,13 +316,19 @@ end
 
 local function mapStateToProps(state)
 	local selectedPlayer = state.playerDropDown.selectedPlayer
+
+	local subjectToChinaPolicies = nil
+	if FFlagLeaderboardDontWaitOnChinaPolicy then
+		subjectToChinaPolicies = state.displayOptions.subjectToChinaPolicies
+	end
+
 	return {
 		selectedPlayer = selectedPlayer,
 		isVisible = state.playerDropDown.isVisible,
 		playerRelationship = selectedPlayer and state.playerRelationship[selectedPlayer.UserId],
 		inspectMenuEnabled = state.displayOptions.inspectMenuEnabled,
 		isTenFootInterface = state.displayOptions.isTenFootInterface,
-		subjectToChinaPolicies = FFlagLeaderboardDontWaitOnChinaPolicy and state.displayOptions.subjectToChinaPolicies or nil,
+		subjectToChinaPolicies = subjectToChinaPolicies,
 	}
 end
 

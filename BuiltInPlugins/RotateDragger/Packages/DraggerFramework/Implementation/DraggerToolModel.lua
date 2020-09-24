@@ -8,9 +8,13 @@ local Roact = require(Library.Packages.Roact)
 local SelectionDot = require(DraggerFramework.Components.SelectionDot)
 local Math = require(DraggerFramework.Utility.Math)
 local BoundsChangedTracker = require(DraggerFramework.Utility.BoundsChangedTracker)
+local SelectionWrapper = require(DraggerFramework.Utility.SelectionWrapper)
 local DerivedWorldState = require(DraggerFramework.Implementation.DerivedWorldState)
+local SelectionHelper = require(DraggerFramework.Utility.SelectionHelper)
 
+local getFFlagDraggerSplit = require(DraggerFramework.Flags.getFFlagDraggerSplit)
 local getFFlagLocalSpaceWidget = require(DraggerFramework.Flags.getFFlagLocalSpaceWidget)
+local getFFlagRevertCtrlScale = require(DraggerFramework.Flags.getFFlagRevertCtrlScale)
 
 local DraggerToolModel = {}
 DraggerToolModel.__index = DraggerToolModel
@@ -22,40 +26,105 @@ local DraggerState = {
 	[DraggerStateType.Ready] = require(DraggerStates.Ready),
 	[DraggerStateType.DraggingFaceInstance] = require(DraggerStates.DraggingFaceInstance),
 	[DraggerStateType.PendingDraggingParts] = require(DraggerStates.PendingDraggingParts),
+	[DraggerStateType.PendingSelectNext] = getFFlagDraggerSplit() and require(DraggerStates.PendingSelectNext),
 	[DraggerStateType.DraggingHandle] = require(DraggerStates.DraggingHandle),
 	[DraggerStateType.DraggingParts] = require(DraggerStates.DraggingParts),
 	[DraggerStateType.DragSelecting] = require(DraggerStates.DragSelecting),
 }
 
-local DEFAULT_MODEL_PROPS = {
-	AnalyticsName = "Unknown",
-	AllowDragSelect = true,
-	AllowFreeformDrag = true,
-	ShowLocalSpaceIndicator = false,
-	ShowSelectionDot = false,
-	UseCollisionsTransparency = true,
-	WasAutoSelected = false,
-}
+-- We can't respect the OS setting, no way to tell whether a click in the 3d
+-- viewport is a double click :(
+local DOUBLE_CLICK_TIME = 0.5
 
-function DraggerToolModel.new(modelProps, toolImplementation, draggerContext,
-		requestRenderCallback, markViewDirtyCallback, markSelectionDirtyCallback)
-	local modelPropsOrDefault = {}
-	for prop, default in pairs(DEFAULT_MODEL_PROPS) do
-		if modelProps[prop] ~= nil then
-			modelPropsOrDefault[prop] = modelProps[prop]
-		else
-			modelPropsOrDefault[prop] = default
+local DEFAULT_DRAGGER_SETTINGS
+local REQUIRED_DRAGGER_SETTINGS
+if getFFlagDraggerSplit() then
+	-- Note: ShowSelectionDot remove because we don't use it anymore
+	-- Note: UseCollisionsTransparency is part of the Schema now
+	DEFAULT_DRAGGER_SETTINGS = {
+		AllowDragSelect = true,
+		AllowFreeformDrag = true,
+		ShowLocalSpaceIndicator = false,
+		WasAutoSelected = false,
+		HandlesList = {},
+	}
+	REQUIRED_DRAGGER_SETTINGS = {
+		AnalyticsName = true,
+	}
+else
+	DEFAULT_DRAGGER_SETTINGS = {
+		AnalyticsName = "Unknown",
+		AllowDragSelect = true,
+		AllowFreeformDrag = true,
+		ShowLocalSpaceIndicator = false,
+		ShowSelectionDot = false,
+		UseCollisionsTransparency = true,
+		WasAutoSelected = false,
+	}
+end
+
+if getFFlagDraggerSplit() then
+	function DraggerToolModel.new(draggerContext, draggerSchema, draggerSettings,
+			requestRenderCallback, markViewDirtyCallback, markSelectionDirtyCallback)
+		-- Check validity of passed set of props
+		for prop, _ in pairs(draggerSettings) do
+			if DEFAULT_DRAGGER_SETTINGS[prop] == nil and REQUIRED_DRAGGER_SETTINGS[prop] == nil then
+				error("Unexpected DraggerToolModel prop `" .. prop .. "`")
+			end
 		end
-	end
+		-- Build props for this dragger
+		local draggerSettingsOrDefault = {}
 
-	return setmetatable({
-		_toolImplementation = toolImplementation,
-		_draggerContext = draggerContext,
-		_modelProps = modelPropsOrDefault,
-		_requestRenderCallback = requestRenderCallback,
-		_markViewDirtyCallback = markViewDirtyCallback,
-		_markSelectionDirtyCallback = markSelectionDirtyCallback,
-	}, DraggerToolModel)
+		for requiredProp, _ in pairs(REQUIRED_DRAGGER_SETTINGS) do
+			local settingValue = draggerSettings[requiredProp]
+			if settingValue == nil then
+				error("Required prop `" .. requiredProp .. "` missing from DraggerToolModel props")
+			else
+				draggerSettingsOrDefault[requiredProp] = settingValue
+			end
+		end
+		for prop, default in pairs(DEFAULT_DRAGGER_SETTINGS) do
+			if draggerSettings[prop] ~= nil then
+				draggerSettingsOrDefault[prop] = draggerSettings[prop]
+			else
+				draggerSettingsOrDefault[prop] = default
+			end
+		end
+
+		return setmetatable({
+			_lastMouseClickTime = 0,
+			_lastMouseClickLocation = Vector2.new(-1, -1),
+			_handlesList = draggerSettingsOrDefault.HandlesList,
+			_draggerContext = draggerContext,
+			_draggerSchema = draggerSchema,
+			_modelProps = draggerSettingsOrDefault,
+			_requestRenderCallback = requestRenderCallback,
+			_markViewDirtyCallback = markViewDirtyCallback,
+			_markSelectionDirtyCallback = markSelectionDirtyCallback,
+			_selectionWrapper = nil,
+		}, DraggerToolModel)
+	end
+else
+	function DraggerToolModel.new(modelProps, toolImplementation, draggerContext,
+			requestRenderCallback, markViewDirtyCallback, markSelectionDirtyCallback)
+		local modelPropsOrDefault = {}
+		for prop, default in pairs(DEFAULT_DRAGGER_SETTINGS) do
+			if modelProps[prop] ~= nil then
+				modelPropsOrDefault[prop] = modelProps[prop]
+			else
+				modelPropsOrDefault[prop] = default
+			end
+		end
+
+		return setmetatable({
+			_toolImplementation = toolImplementation,
+			_draggerContext = draggerContext,
+			_modelProps = modelPropsOrDefault,
+			_requestRenderCallback = requestRenderCallback,
+			_markViewDirtyCallback = markViewDirtyCallback,
+			_markSelectionDirtyCallback = markSelectionDirtyCallback,
+		}, DraggerToolModel)
+	end
 end
 
 --[[
@@ -80,6 +149,7 @@ end
 	new state object which will be constructed and transitioned to.
 ]]
 function DraggerToolModel:transitionToState(draggerStateType, ...)
+	assert(DraggerState[draggerStateType], "Missing state type: "..tostring(draggerStateType))
 	self._stateObject:leave()
 	self._mainState = draggerStateType
 	self._stateObject = DraggerState[draggerStateType].new(self, ...)
@@ -88,22 +158,29 @@ function DraggerToolModel:transitionToState(draggerStateType, ...)
 end
 
 function DraggerToolModel:render()
-	local selection = self._draggerContext:getSelectionWrapper():Get()
+	local selection
+	if getFFlagDraggerSplit() then
+		selection = self._selectionWrapper:get()
+	else
+		selection = self._draggerContext:getSelectionWrapper():Get()
+	end
 
 	local coreGuiContent = {}
 
 	-- State specific rendering code
 	coreGuiContent.StateSpecificUI = self._stateObject:render()
 
-	-- All states: Render selection dot.
-	local showSelectionDot = self:shouldShowSelectionDot() and #selection > 0
-	if showSelectionDot then
-		local boundingBox = Math.regionFromParts(selection)
-		coreGuiContent.SelectionDot = Roact.createElement(SelectionDot, {
-			BackgroundColor3 = self._modelProps.SelectionDotColor,
-			Position = boundingBox.CFrame.Position,
-			Size = self._modelProps.SelectionDotSize,
-		})
+	if not getFFlagDraggerSplit() then
+		-- All states: Render selection dot.
+		local showSelectionDot = self:shouldShowSelectionDot() and #selection > 0
+		if showSelectionDot then
+			local boundingBox = Math.regionFromParts(selection)
+			coreGuiContent.SelectionDot = Roact.createElement(SelectionDot, {
+				BackgroundColor3 = self._modelProps.SelectionDotColor,
+				Position = boundingBox.CFrame.Position,
+				Size = self._modelProps.SelectionDotSize,
+			})
+		end
 	end
 
 	return Roact.createElement(Roact.Portal, {
@@ -124,11 +201,40 @@ function DraggerToolModel:update()
 			self._mainState == DraggerStateType.DraggingHandle or
 			self._mainState == DraggerStateType.DraggingParts
 		if not isDragging then
-			if self._derivedWorldState:doesSelectionHavePhysics() then
-				self._markSelectionDirtyCallback()
+			if getFFlagDraggerSplit() then
+				if self._selectionInfo:isDynamic() then
+					self._markSelectionDirtyCallback()
+				end
+			else
+				if self._derivedWorldState:doesSelectionHavePhysics() then
+					self._markSelectionDirtyCallback()
+				end
 			end
 		end
 	end
+end
+
+if getFFlagDraggerSplit() then
+	function DraggerToolModel:getSelectionWrapper()
+		return self._selectionWrapper
+	end
+end
+
+function DraggerToolModel:getAnalyticsName()
+	return self._modelProps.AnalyticsName
+end
+
+-- Note: This needs to be exposed now because the Schema analytics care about it
+function DraggerToolModel:wasAutoSelected()
+	return self._modelProps.WasAutoSelected
+end
+
+function DraggerToolModel:getSchema()
+	return self._draggerSchema
+end
+
+function DraggerToolModel:getHandlesList()
+	return self._handlesList
 end
 
 function DraggerToolModel:doesAllowDragSelect()
@@ -157,6 +263,25 @@ function DraggerToolModel:shouldAlignDraggedObjects()
 	return self._draggerContext:shouldAlignDraggedObjects()
 end
 
+function DraggerToolModel:selectNextSelectables(dragInfo, isDoubleClick)
+	assert(getFFlagDraggerSplit())
+	local oldSelection = self._selectionWrapper:get()
+	local nextSelectables = self._draggerSchema.getNextSelectables(
+		self._draggerContext,
+		oldSelection,
+		dragInfo,
+		isDoubleClick)
+	if nextSelectables then
+		local shouldXorSelection = false
+		local shouldExtendSelection = self._draggerContext:shouldExtendSelection()
+		local newSelection =
+			SelectionHelper.updateSelectionWithMultipleSelectables(
+				nextSelectables, oldSelection, shouldXorSelection, shouldExtendSelection)
+		self._selectionWrapper:set(newSelection)
+	end
+	self:_updateSelectionInfo()
+end
+
 function DraggerToolModel:_processSelected()
 	self._mainState = DraggerStateType.Ready
 	self._stateObject = DraggerState[DraggerStateType.Ready].new(self)
@@ -164,7 +289,11 @@ function DraggerToolModel:_processSelected()
 	self._mouseCursor = ""
 	self._draggerContext:setMouseIcon("")
 
-	self._derivedWorldState = DerivedWorldState.new()
+	if not getFFlagDraggerSplit() then
+		-- Will now be set to an immutable selectionInfo on each
+		-- _updateSelectionInfo call rather than updated in place.
+		self._derivedWorldState = DerivedWorldState.new()
+	end
 
 	-- We defer handling part bounds changes to the render step, as the
 	-- changes that are happening to the selection may be happening to many
@@ -172,16 +301,33 @@ function DraggerToolModel:_processSelected()
 	-- N^2 behavior if the whole selection is being updated (N part bounds
 	-- changes x each bounds change requires looking at all N parts in
 	-- the selection to calculate the new bounds)
-	self._boundsChangedTracker = BoundsChangedTracker.new(function(part)
-		self._markSelectionDirtyCallback()
-	end)
+	if getFFlagDraggerSplit() then
+		self._boundsChangedTracker =
+			self._draggerSchema.BoundsChangedTracker.new(
+				self._draggerContext,
+				function(item)
+					self._markSelectionDirtyCallback()
+				end)
+	else
+		self._boundsChangedTracker = BoundsChangedTracker.new(function(part)
+			self._markSelectionDirtyCallback()
+		end)
+	end
 	self._boundsChangedTracker:install()
 
-	local selectionWrapper = self._draggerContext:getSelectionWrapper()
-	selectionWrapper:init()
-	self._selectionChangedConnection = selectionWrapper.SelectionChangedByStudio:Connect(function()
-		self:_processSelectionChanged()
-	end)
+	if getFFlagDraggerSplit() then
+		self._selectionWrapper = SelectionWrapper.new(self._draggerContext:getSelection())
+		self._selectionChangedConnection =
+		self._selectionWrapper.onSelectionExternallyChanged:Connect(function()
+			self:_processSelectionChanged()
+		end)
+	else
+		local selectionWrapper = self._draggerContext:getSelectionWrapper()
+		selectionWrapper:init()
+		self._selectionChangedConnection = selectionWrapper.SelectionChangedByStudio:Connect(function()
+			self:_processSelectionChanged()
+		end)
+	end
 
 	self:_updateSelectionInfo()
 
@@ -195,7 +341,16 @@ function DraggerToolModel:_processDeselected()
 		self:_processMouseUp()
 	end
 
-	self._draggerContext:getSelectionWrapper():destroy()
+	if getFFlagDraggerSplit() then
+		-- Need to explicitly leave the last state now for correct behavior
+		self._stateObject:leave()
+		self._stateObject = nil
+
+		self._selectionWrapper:destroy()
+		self._selectionWrapper = nil
+	else
+		self._draggerContext:getSelectionWrapper():destroy()
+	end
 	self._boundsChangedTracker:uninstall()
 
 	self._selectionChangedConnection:Disconnect()
@@ -213,6 +368,11 @@ function DraggerToolModel:_processKeyDown(keyCode)
 	self._stateObject:processKeyDown(keyCode)
 end
 
+function DraggerToolModel:_processKeyUp(keyCode)
+	assert(getFFlagRevertCtrlScale())
+	self._stateObject:processKeyUp(keyCode)
+end
+
 function DraggerToolModel:_processMouseDown()
 	if self._isMouseDown then
 		-- Not ideal code. There are just too many situations where the engine
@@ -221,8 +381,21 @@ function DraggerToolModel:_processMouseDown()
 		-- get a mouse down without having gotten the preceeding mouse up.
 		self:_processMouseUp()
 	end
+	local isDoubleClick
+	if getFFlagDraggerSplit() then
+		local thisClickLocation = self._draggerContext:getMouseLocation()
+		if (os.clock() - self._lastMouseClickTime) < DOUBLE_CLICK_TIME and
+			thisClickLocation == self._lastMouseClickLocation then
+			isDoubleClick = true
+			self._lastMouseClickTime = 0 -- Suppress double-double clicks
+		else
+			isDoubleClick = false
+			self._lastMouseClickTime = os.clock()
+		end
+		self._lastMouseClickLocation = thisClickLocation
+	end
 	self._isMouseDown = true
-	self._stateObject:processMouseDown()
+	self._stateObject:processMouseDown(isDoubleClick)
 end
 
 function DraggerToolModel:_processMouseUp()
@@ -260,13 +433,19 @@ function DraggerToolModel:_processPartBoundsChanged(part)
 end
 
 function DraggerToolModel:_updateSelectionInfo()
-	self._derivedWorldState:updateSelectionInfo(
-		self._draggerContext:getSelectionWrapper():Get(),
-		self._draggerContext:isSimulating(),
-		self._draggerContext:shouldUseLocalSpace())
-	local allAttachments = self._derivedWorldState:getAllSelectedAttachments()
-	self._boundsChangedTracker:setAttachments(allAttachments)
-	self._boundsChangedTracker:setParts(self._derivedWorldState:getObjectsToTransform())
+	if getFFlagDraggerSplit() then
+		self._selectionInfo = self._draggerSchema.SelectionInfo.new(
+			self._draggerContext, self._selectionWrapper:get())
+		self._boundsChangedTracker:setSelection(self._selectionInfo)
+	else
+		self._derivedWorldState:updateSelectionInfo(
+			self._draggerContext:getSelectionWrapper():Get(),
+			self._draggerContext:isSimulating(),
+			self._draggerContext:shouldUseLocalSpace())
+		local allAttachments = self._derivedWorldState:getAllSelectedAttachments()
+		self._boundsChangedTracker:setAttachments(allAttachments)
+		self._boundsChangedTracker:setParts(self._derivedWorldState:getObjectsToTransform())
+	end
 
 	self:_scheduleRender()
 end
@@ -302,7 +481,11 @@ function DraggerToolModel:_processToolboxInitiatedFaceDrag(instances)
 			videoFrameContainer:Destroy()
 		end)
 
-		self._draggerContext:getSelectionWrapper():Set({ videoFrameContainer })
+		if getFFlagDraggerSplit() then
+			self._selectionWrapper:set({ videoFrameContainer })
+		else
+			self._draggerContext:getSelectionWrapper():Set({ videoFrameContainer })
+		end
 		self:_updateSelectionInfo()
 	end
 
@@ -310,8 +493,16 @@ function DraggerToolModel:_processToolboxInitiatedFaceDrag(instances)
 end
 
 function DraggerToolModel:_scheduleRender()
-	if self._toolImplementation and self._toolImplementation.update then
-		self._toolImplementation:update(self, self._derivedWorldState)
+	if getFFlagDraggerSplit() then
+		for _, handle in pairs(self._handlesList) do
+			if handle.update then
+				handle:update(self, self._selectionInfo)
+			end
+		end
+	else
+		if self._toolImplementation and self._toolImplementation.update then
+			self._toolImplementation:update(self, self._derivedWorldState)
+		end
 	end
 
 	self._requestRenderCallback()
@@ -366,42 +557,50 @@ end
 
 function DraggerToolModel:_analyticsRecordFreeformDragBegin(timeToStartDrag)
 	self._sessionAnalytics.freeformDrags = self._sessionAnalytics.freeformDrags + 1
-	local parts, attachments = self._derivedWorldState:getObjectsToTransform()
-	self._dragAnalytics = {
-		dragTilts = 0,
-		dragRotates = 0,
-		partCount = #parts,
-		attachmentCount = #attachments,
-		timeToStartDrag = timeToStartDrag,
-	}
-	self._dragStartLocation = nil
-	self._draggerContext:getAnalytics():reportStats("studioLuaDraggerDragTime", timeToStartDrag)
-end
-
-function DraggerToolModel:_analyticsRecordFreeformDragUpdate(dragTarget)
-	if dragTarget then
-		self._dragAnalytics.dragTargetType = dragTarget.dragTargetType
-		if self._dragStartLocation then
-			self._dragAnalytics.dragDistance =
-				(dragTarget.mainCFrame.Position - self._dragStartLocation).Magnitude
-		else
-			self._dragAnalytics.dragDistance = 0
-			self._dragStartLocation = dragTarget.mainCFrame.Position
-		end
-		self._dragAnalytics.distanceToCamera =
-			(self._draggerContext:getCameraCFrame().Position - dragTarget.mainCFrame.Position).Magnitude
+	if getFFlagDraggerSplit() then
+		local dragStartTimeName =
+			"studioLuaDragger" .. self._modelProps.AnalyticsName .. "DragTime"
+		self._draggerContext:getAnalytics():reportStats(dragStartTimeName, timeToStartDrag)
 	else
-		self._dragAnalytics.dragTargetType = "Failed"
+		local parts, attachments = self._derivedWorldState:getObjectsToTransform()
+		self._dragAnalytics = {
+			dragTilts = 0,
+			dragRotates = 0,
+			partCount = #parts,
+			attachmentCount = #attachments,
+			timeToStartDrag = timeToStartDrag,
+		}
+		self._dragStartLocation = nil
+		self._draggerContext:getAnalytics():reportStats("studioLuaDraggerDragTime", timeToStartDrag)
 	end
 end
 
-function DraggerToolModel:_analyticsSendFreeformDragged()
-	self._dragAnalytics.gridSize = self._draggerContext:getGridSize()
-	self._dragAnalytics.toolName = self._modelProps.AnalyticsName
-	self._dragAnalytics.wasAutoSelected = self._modelProps.WasAutoSelected
-	self._dragAnalytics.joinSurfaces = self._draggerContext:shouldJoinSurfaces()
-	self._dragAnalytics.useConstraints = self._draggerContext:areConstraintsEnabled()
-	self._draggerContext:getAnalytics():sendEvent("freeformDragged", self._dragAnalytics)
+if not getFFlagDraggerSplit() then
+	function DraggerToolModel:_analyticsRecordFreeformDragUpdate(dragTarget)
+		if dragTarget then
+			self._dragAnalytics.dragTargetType = dragTarget.dragTargetType
+			if self._dragStartLocation then
+				self._dragAnalytics.dragDistance =
+					(dragTarget.mainCFrame.Position - self._dragStartLocation).Magnitude
+			else
+				self._dragAnalytics.dragDistance = 0
+				self._dragStartLocation = dragTarget.mainCFrame.Position
+			end
+			self._dragAnalytics.distanceToCamera =
+				(self._draggerContext:getCameraCFrame().Position - dragTarget.mainCFrame.Position).Magnitude
+		else
+			self._dragAnalytics.dragTargetType = "Failed"
+		end
+	end
+
+	function DraggerToolModel:_analyticsSendFreeformDragged()
+		self._dragAnalytics.gridSize = self._draggerContext:getGridSize()
+		self._dragAnalytics.toolName = self._modelProps.AnalyticsName
+		self._dragAnalytics.wasAutoSelected = self._modelProps.WasAutoSelected
+		self._dragAnalytics.joinSurfaces = self._draggerContext:shouldJoinSurfaces()
+		self._dragAnalytics.useConstraints = self._draggerContext:areConstraintsEnabled()
+		self._draggerContext:getAnalytics():sendEvent("freeformDragged", self._dragAnalytics)
+	end
 end
 
 function DraggerToolModel:_analyticsSendHandleDragged()
@@ -418,14 +617,25 @@ function DraggerToolModel:_analyticsSendHandleDragged()
 end
 
 function DraggerToolModel:_analyticsSendBoxSelect()
-	self._draggerContext:getAnalytics():sendEvent("boxSelected", {
-		toolName = self._modelProps.AnalyticsName,
-		wasAutoSelected = self._modelProps.WasAutoSelected,
-		objectCount = #self._draggerContext:getSelectionWrapper():Get(),
-		altPressed = self._draggerContext:isAltKeyDown(),
-		ctrlPressed = self._draggerContext:isCtrlKeyDown(),
-		shiftPressed = self._draggerContext:isShiftKeyDown(),
-	})
+	if getFFlagDraggerSplit() then
+		self._draggerContext:getAnalytics():sendEvent("boxSelected", {
+			toolName = self._modelProps.AnalyticsName,
+			wasAutoSelected = self._modelProps.WasAutoSelected,
+			objectCount = #self._selectionWrapper:get(), -- This line changed
+			altPressed = self._draggerContext:isAltKeyDown(),
+			ctrlPressed = self._draggerContext:isCtrlKeyDown(),
+			shiftPressed = self._draggerContext:isShiftKeyDown(),
+		})
+	else
+		self._draggerContext:getAnalytics():sendEvent("boxSelected", {
+			toolName = self._modelProps.AnalyticsName,
+			wasAutoSelected = self._modelProps.WasAutoSelected,
+			objectCount = #self._draggerContext:getSelectionWrapper():Get(),
+			altPressed = self._draggerContext:isAltKeyDown(),
+			ctrlPressed = self._draggerContext:isCtrlKeyDown(),
+			shiftPressed = self._draggerContext:isShiftKeyDown(),
+		})
+	end
 end
 
 function DraggerToolModel:_analyticsSendFaceInstanceSelected(className)

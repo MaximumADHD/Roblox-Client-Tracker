@@ -1,3 +1,6 @@
+--!nolint ImplicitReturn
+--^ DEVTOOLS-4493
+
 --[[
 	The main entry point for the Plugin Management window
 ]]
@@ -9,7 +12,6 @@ local NavigationContainer = require(Plugin.Src.Components.Navigation.NavigationC
 
 local ContextServices = require(Plugin.Packages.Framework.ContextServices)
 local UILibraryWrapper = require(Plugin.Packages.Framework.ContextServices.UILibraryWrapper) -- remove with FFlagPluginManagementRemoveUILibrary
-local makeTheme = require(Plugin.Src.Resources.makeTheme)
 local PluginAPI2 = require(Plugin.Src.ContextServices.PluginAPI2)
 
 local StudioUI = require(Plugin.Packages.Framework.StudioUI)
@@ -35,6 +37,15 @@ local FlagsList = Flags.new({
 local FFlagPluginManagementFixWhiteScreen = game:DefineFastFlag("PluginManagementFixWhiteScreen", false)
 local FFlagPluginManagementRemoveUILibrary = game:GetFastFlag("PluginManagementRemoveUILibrary2")
 
+local makeTheme
+
+local FlagsListFile = require(Plugin.Src.Util.FlagsList)
+if FlagsListFile:get("FFlagRefactorDevFrameworkTheme") then
+	makeTheme = require(Plugin.Src.Resources.makeTheme2)
+else
+	makeTheme = require(Plugin.Src.Resources.makeTheme)
+end
+
 local ManagementApp = Roact.PureComponent:extend("ManagementApp")
 
 function ManagementApp:init()
@@ -51,7 +62,12 @@ function ManagementApp:init()
 		pluginName = "PluginInstallation",
 	})
 
-	self.theme = makeTheme()
+	self.theme = nil
+	if FlagsListFile:get("FFlagRefactorDevFrameworkTheme") then
+		self.theme = makeTheme
+	else
+		self.theme = makeTheme()
+	end
 
 	self.toggleState = function()
 		self:setState({

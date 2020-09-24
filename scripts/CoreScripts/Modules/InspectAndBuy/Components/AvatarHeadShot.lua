@@ -21,9 +21,12 @@ local HEAD_SHOT_URL = LegacyThumbnailUrls.Headshot
 function AvatarHeadShot:render()
 	local playerId = self.props.playerId
 
-	local headshotUrl = HEAD_SHOT_URL:format(HEADSHOT_THUMBNAIL_SIZE, HEADSHOT_THUMBNAIL_SIZE, playerId)
-	if GetFFlagUseThumbnailUrl() then
-		headshotUrl = HEAD_SHOT_URL:format(playerId, HEADSHOT_THUMBNAIL_SIZE, HEADSHOT_THUMBNAIL_SIZE)
+	local headshotUrl = nil
+	if playerId and playerId ~= "" then
+		headshotUrl = HEAD_SHOT_URL:format(HEADSHOT_THUMBNAIL_SIZE, HEADSHOT_THUMBNAIL_SIZE, playerId)
+		if GetFFlagUseThumbnailUrl() then
+			headshotUrl = HEAD_SHOT_URL:format(playerId, HEADSHOT_THUMBNAIL_SIZE, HEADSHOT_THUMBNAIL_SIZE)
+		end
 	end
 
 	return Roact.createElement("ImageLabel", {

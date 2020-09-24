@@ -6,7 +6,6 @@ local Framework = script.Parent.Parent.Parent.Parent
 local ContextServices = require(Framework.ContextServices)
 local Roact = require(Framework.Parent.Roact)
 local Stylizer = require(Framework.Style).Stylizer
-local Button = require(script.Parent.Button)
 local Box = require(script.Parent.Box)
 
 -- In the component

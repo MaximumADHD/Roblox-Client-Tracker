@@ -3,13 +3,18 @@
 	Displays the docs for the currently selected component.
 	No required props, all props are injected from mapToProps or RoactRodux:connect.
 ]]
-
 local TextService = game:GetService("TextService")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
-local ContextServices = require(Plugin.Packages.Framework).ContextServices
+
+local Framework = require(Plugin.Packages.Framework)
+local ContextServices = Framework.ContextServices
+local Util = Framework.Util
+local FlagsList = Util.Flags.new({
+	FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
+})
 
 local UI = require(Plugin.Packages.Framework).UI
 local Container = UI.Container
@@ -42,7 +47,13 @@ function InfoPanel:init()
 end
 
 function InfoPanel:renderButton(index, text, callback)
-	local sizes = self.props.Theme:get("Sizes")
+	local sizes
+	local style = self.props.Stylizer
+	if FlagsList:get("FFlagRefactorDevFrameworkTheme") and style then
+		sizes = style.Sizes
+	else
+		sizes = self.props.Theme:get("Sizes")
+	end
 
 	return Roact.createElement(Button, {
 		Size = UDim2.new(1, 0, 0, sizes.ButtonHeight),
@@ -60,9 +71,19 @@ end
 function InfoPanel:render()
 	local props = self.props
 	local state = self.state
-	local scrollbar = props.Theme:get("Scrollbar")
-	local text = props.Theme:get("Text")
-	local sizes = props.Theme:get("Sizes")
+	local scrollbar
+	local text
+	local sizes
+	local style = props.Stylizer
+	if FlagsList:get("FFlagRefactorDevFrameworkTheme") and style then
+		text = style.Text
+		sizes = style.Sizes
+		scrollbar = style.Scrollbar
+	else
+		text = props.Theme:get("Text")
+		sizes = props.Theme:get("Sizes")
+		scrollbar = props.Theme:get("Scrollbar")
+	end
 	local plugin = props.Plugin:get()
 
 	local order = 0
@@ -190,7 +211,8 @@ function InfoPanel:render()
 			Styles = next(docs.Style) and Roact.createElement(StylesList, {
 				Header = "Styles",
 				LayoutOrder = nextOrder(),
-				Styles = props.Theme:get("Framework")[name]
+				Styles = (not FlagsList:get("FFlagRefactorDevFrameworkTheme")) and props.Theme:get("Framework")[name] or nil,
+				ComponentName = FlagsList:get("FFlagRefactorDevFrameworkTheme") and name or nil,
 			}),
 
 			StyleValues = next(docs.Style) and Roact.createElement(PropsList, {
@@ -204,7 +226,8 @@ function InfoPanel:render()
 end
 
 ContextServices.mapToProps(InfoPanel, {
-	Theme = ContextServices.Theme,
+	Stylizer = FlagsList:get("FFlagRefactorDevFrameworkTheme") and ContextServices.Stylizer or nil,
+	Theme = (not FlagsList:get("FFlagRefactorDevFrameworkTheme")) and ContextServices.Theme or nil,
 	Plugin = ContextServices.Plugin,
 })
 

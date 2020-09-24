@@ -1,3 +1,4 @@
+
 if not game:GetEngineFeature("LuaDraggers") then
 	return
 end
@@ -9,13 +10,20 @@ local Plugin = script.Parent.Parent
 local DraggerFramework = Plugin.Packages.DraggerFramework
 local Roact = require(Plugin.Packages.Roact)
 
+local DraggerSchemaCore = Plugin.Packages.DraggerSchemaCore
+local DraggerSchema = require(DraggerSchemaCore.DraggerSchema)
+
 -- Dragger component
 local DraggerContext_PluginImpl = require(DraggerFramework.Implementation.DraggerContext_PluginImpl)
 local DraggerToolComponent = require(DraggerFramework.DraggerTools.DraggerToolComponent)
 
+local getFFlagDraggerSplit = require(DraggerFramework.Flags.getFFlagDraggerSplit)
+
 local PLUGIN_NAME = "SelectDragger"
 local DRAGGER_TOOL_NAME = "Select"
 local TOOLBAR_NAME = "Home"
+
+local draggerContext
 
 local pluginEnabled = false
 local pluginHandle = nil
@@ -43,15 +51,30 @@ local function openPlugin(wasAutoSelected)
 
 	toolButton:SetActive(true)
 
-	pluginHandle = Roact.mount(Roact.createElement(DraggerToolComponent, {
-		AnalyticsName = "Select",
-		Mouse = plugin:GetMouse(),
-		AllowDragSelect = true,
-		AllowFreeformDrag = true,
-		ShowSelectionDot = false,
-		DraggerContext = DraggerContext_PluginImpl.new(plugin, game, settings()),
-		WasAutoSelected = wasAutoSelected,
-	}))
+	if getFFlagDraggerSplit() then
+		pluginHandle = Roact.mount(Roact.createElement(DraggerToolComponent, {
+			Mouse = plugin:GetMouse(),
+
+			DraggerContext = draggerContext,
+			DraggerSchema = DraggerSchema,
+			DraggerSettings = {
+				AnalyticsName = "Select",
+				AllowDragSelect = true,
+				AllowFreeformDrag = true,
+			},
+			WasAutoSelected = wasAutoSelected,
+		}))
+	else
+		pluginHandle = Roact.mount(Roact.createElement(DraggerToolComponent, {
+			AnalyticsName = "Select",
+			Mouse = plugin:GetMouse(),
+			AllowDragSelect = true,
+			AllowFreeformDrag = true,
+			ShowSelectionDot = false,
+			DraggerContext = DraggerContext_PluginImpl.new(plugin, game, settings()),
+			WasAutoSelected = wasAutoSelected,
+		}))
+	end
 end
 
 local function closePlugin()
@@ -72,6 +95,11 @@ local function main()
 		"",
 		"Select"
 	)
+
+	if getFFlagDraggerSplit() then
+		draggerContext = DraggerContext_PluginImpl.new(
+			plugin, game, settings(), DraggerSchema.Selection.new())
+	end
 
 	plugin.Deactivation:connect(function()
 		if pluginEnabled then

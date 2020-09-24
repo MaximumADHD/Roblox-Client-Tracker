@@ -14,9 +14,14 @@ local TextService = game:GetService("TextService")
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local Cryo = require(Plugin.Packages.Cryo)
-local ContextServices = require(Plugin.Packages.Framework).ContextServices
 
-local UI = require(Plugin.Packages.Framework).UI
+local Framework = require(Plugin.Packages.Framework)
+local ContextServices = Framework.ContextServices
+local Util = Framework.Util
+local FlagsList = Util.Flags.new({
+	FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
+})
+local UI = Framework.UI
 local Container = UI.Container
 local Decoration = UI.Decoration
 
@@ -37,8 +42,16 @@ end
 function PanelEntry:render()
 	local props = self.props
 	local state = self.state
-	local text = props.Theme:get("Text")
-	local sizes = props.Theme:get("Sizes")
+	local text
+	local sizes
+	local style = props.Stylizer
+	if FlagsList:get("FFlagRefactorDevFrameworkTheme") and style then
+		text = style.Text
+		sizes = style.Sizes
+	else
+		text = props.Theme:get("Text")
+		sizes = props.Theme:get("Sizes")
+	end
 	local header = props.Header
 	local description = props.Description
 	local layoutOrder = props.LayoutOrder
@@ -94,7 +107,8 @@ function PanelEntry:render()
 end
 
 ContextServices.mapToProps(PanelEntry, {
-	Theme = ContextServices.Theme,
+	Stylizer = FlagsList:get("FFlagRefactorDevFrameworkTheme") and ContextServices.Stylizer or nil,
+	Theme = (not FlagsList:get("FFlagRefactorDevFrameworkTheme")) and ContextServices.Theme or nil,
 })
 
 return PanelEntry

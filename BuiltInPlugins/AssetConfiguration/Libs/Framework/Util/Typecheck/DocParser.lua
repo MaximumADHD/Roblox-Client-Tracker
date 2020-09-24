@@ -106,6 +106,7 @@ function DocParser:parseComments(comments)
 		Required = {},
 		Optional = {},
 		Style = {},
+		Summary = nil,
 	}
 
 	local parseMode = ParseMode.Summary

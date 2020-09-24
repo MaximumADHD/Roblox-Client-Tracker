@@ -17,7 +17,6 @@ local Http = require(Plugin.Packages.Http)
 local MainReducer = require(Plugin.Src.Reducers.MainReducer)
 local ContextServices = require(Plugin.Packages.Framework.ContextServices)
 local UILibraryWrapper = require(Plugin.Packages.Framework.ContextServices.UILibraryWrapper) -- remove with FFlagPluginManagementRemoveUILibrary
-local makeTheme = require(Plugin.Src.Resources.makeTheme)
 local PluginAPI2 = require(Plugin.Src.ContextServices.PluginAPI2)
 local Navigation = require(Plugin.Src.ContextServices.Navigation)
 
@@ -29,6 +28,13 @@ local FlagsList = Flags.new({
 	},
 	FFlagPluginManagementRemoveUILibrary = "PluginManagementRemoveUILibrary2",
 })
+
+local makeTheme
+if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+	makeTheme = require(Plugin.Src.Resources.makeTheme2)
+else
+	makeTheme = require(Plugin.Src.Resources.makeTheme)
+end
 local MockManagement = Roact.PureComponent:extend("MockManagement")
 
 local function mockFocus()
@@ -70,7 +76,7 @@ function MockManagement:render()
 		PluginAPI2.new(self.api),
 		ContextServices.Localization.mock(),
 		ContextServices.Mouse.new(self.plugin:GetMouse()),
-		makeTheme(),
+		(FlagsList:get("FFlagRefactorDevFrameworkTheme") and makeTheme) or makeTheme(),
 		ContextServices.Focus.new(self.target),
 		ContextServices.Store.new(self.store),
 	}

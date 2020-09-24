@@ -20,20 +20,41 @@ end
 return function()
 	local DraggerFramework = script.Parent.Parent
 
+	local Packages = DraggerFramework.Parent
+	local DraggerSchemaCore = Packages.DraggerSchemaCore
+	local DraggerSchema = require(DraggerSchemaCore.DraggerSchema)
+
+	local getFFlagDraggerSplit = require(DraggerFramework.Flags.getFFlagDraggerSplit)
+	if not getFFlagDraggerSplit() then
+		-- Not going to bother handling both branches of the split in the test
+		return
+	end
+
 	local DraggerToolFixture = require(DraggerFramework.DraggerTools.DraggerToolFixture)
 	local DraggerContext_FixtureImpl = require(DraggerFramework.Implementation.DraggerContext_FixtureImpl)
 
-	afterEach(function()
+	local selectionObject = DraggerSchema.Selection.new()
+
+	beforeEach(function()
 		for _, child in pairs(workspace:GetChildren()) do
 			if not child:IsA("Terrain") then
 				child:Destroy()
 			end
 		end
+		selectionObject:Set({})
 	end)
 
+	local function setup(guiTarget)
+		local context = DraggerContext_FixtureImpl.new(
+			guiTarget, selectionObject)
+		local fixture = DraggerToolFixture.new(context, DraggerSchema, {
+			AnalyticsName = "TestFixture",
+		})
+		return context, fixture
+	end
+
 	it("should be created", function()
-		local context = DraggerContext_FixtureImpl.new()
-		local fixture = DraggerToolFixture.new({}, context)
+		local context, fixture = setup()
 
 		expect(fixture).to.be.ok()
 	end)
@@ -49,15 +70,13 @@ return function()
 
 	describe("Basic behavior", function()
 		it("should not error with no target", function()
-			local context = DraggerContext_FixtureImpl.new()
-			local fixture = DraggerToolFixture.new({}, context)
+			local context, fixture = setup()
 
 			expect(function() trivialSelectAndDrag(fixture) end).never.to.throw()
 		end)
 
 		it("can select a part", function()
-			local context = DraggerContext_FixtureImpl.new()
-			local fixture = DraggerToolFixture.new({}, context)
+			local context, fixture = setup()
 
 			setupXYDrag(context)
 
@@ -71,15 +90,14 @@ return function()
 			fixture:mouseUp()
 			fixture:deselect()
 
-			local selection = context:getSelectionWrapper():Get()
+			local selection = selectionObject:Get()
 			expect(#selection).to.equal(1)
 			expect(selection[1]).to.equal(part)
 		end)
 
 		-- Note: Both Ctrl+Click and Shift+Click can extend the selection
 		local function testCtrlOrShiftSelect(ctrl, shift)
-			local context = DraggerContext_FixtureImpl.new()
-			local fixture = DraggerToolFixture.new({}, context)
+			local context, fixture = setup()
 
 			setupXYDrag(context)
 
@@ -101,7 +119,7 @@ return function()
 			fixture:mouseUp()
 			fixture:deselect()
 
-			local selection = context:getSelectionWrapper():Get()
+			local selection = selectionObject:Get()
 			expect(#selection).to.equal(2)
 		end
 
@@ -120,8 +138,7 @@ return function()
 
 	describe("Basic Part Dragging", function()
 		it("should drag a part", function()
-			local context = DraggerContext_FixtureImpl.new()
-			local fixture = DraggerToolFixture.new({}, context)
+			local context, fixture = setup()
 
 			local background = setupXYDrag(context)
 			local originalBackgroundPosition = background.Position
@@ -146,8 +163,7 @@ return function()
 		end)
 
 		it("should drag a model", function()
-			local context = DraggerContext_FixtureImpl.new()
-			local fixture = DraggerToolFixture.new({}, context)
+			local context, fixture = setup()
 
 			local background = setupXYDrag(context)
 			local originalBackgroundPosition = background.Position
@@ -171,8 +187,7 @@ return function()
 		end)
 
 		it("should not effect anchored", function()
-			local context = DraggerContext_FixtureImpl.new()
-			local fixture = DraggerToolFixture.new({}, context)
+			local context, fixture = setup()
 
 			setupXYDrag(context)
 
@@ -205,8 +220,7 @@ return function()
 		end)
 
 		it("should not snap if grid snap is off", function()
-			local context = DraggerContext_FixtureImpl.new()
-			local fixture = DraggerToolFixture.new({}, context)
+			local context, fixture = setup()
 
 			context:setGridSize(0.001)
 
@@ -228,8 +242,7 @@ return function()
 
 	describe("Joint Behavior", function()
 		it("should make not make joints when Joints are disabled", function()
-			local context = DraggerContext_FixtureImpl.new()
-			local fixture = DraggerToolFixture.new({}, context)
+			local context, fixture = setup()
 
 			context:setJoinSurfaces(false)
 
@@ -244,8 +257,7 @@ return function()
 		end)
 
 		it("should make joints when joints are enabled", function()
-			local context = DraggerContext_FixtureImpl.new()
-			local fixture = DraggerToolFixture.new({}, context)
+			local context, fixture = setup()
 
 			context:setJoinSurfaces(true)
 
@@ -263,8 +275,7 @@ return function()
 		it("should not make a joint to something with which it is already joined", function()
 			-- E.g.: If we drag it onto something it is already joined to via a
 			-- rope constraint.
-			local context = DraggerContext_FixtureImpl.new()
-			local fixture = DraggerToolFixture.new({}, context)
+			local context, fixture = setup()
 
 			context:setJoinSurfaces(true)
 
@@ -294,8 +305,7 @@ return function()
 		end)
 
 		it("should not make joints for a sphere", function()
-			local context = DraggerContext_FixtureImpl.new()
-			local fixture = DraggerToolFixture.new({}, context)
+			local context, fixture = setup()
 
 			context:setJoinSurfaces(true)
 
@@ -311,8 +321,7 @@ return function()
 		end)
 
 		local function testSurfaceJointType(surfaceType, jointClass)
-			local context = DraggerContext_FixtureImpl.new()
-			local fixture = DraggerToolFixture.new({}, context)
+			local context, fixture = setup()
 
 			context:setJoinSurfaces(true)
 
@@ -345,8 +354,7 @@ return function()
 
 	describe("Box Select", function()
 		it("should not box select a locked part", function()
-			local context = DraggerContext_FixtureImpl.new()
-			local fixture = DraggerToolFixture.new({}, context)
+			local context, fixture = setup()
 
 			setupXYDrag(context)
 
@@ -357,12 +365,11 @@ return function()
 			fixture:mouseUp()
 			fixture:deselect()
 
-			expect(#context:getSelectionWrapper():Get()).to.equal(0)
+			expect(#selectionObject:Get()).to.equal(0)
 		end)
 
 		it("should should box select an in-bounds part", function()
-			local context = DraggerContext_FixtureImpl.new()
-			local fixture = DraggerToolFixture.new({}, context)
+			local context, fixture = setup()
 
 			setupXYDrag(context)
 
@@ -377,14 +384,13 @@ return function()
 			fixture:mouseUp()
 			fixture:deselect()
 
-			local selection = context:getSelectionWrapper():Get()
+			local selection = selectionObject:Get()
 			expect(#selection).to.equal(1)
 			expect(selection[1]).to.equal(part)
 		end)
 
 		it("should should not box select an out-of-bounds part", function()
-			local context = DraggerContext_FixtureImpl.new()
-			local fixture = DraggerToolFixture.new({}, context)
+			local context, fixture = setup()
 
 			local part = Instance.new("Part", workspace)
 			part.Size = Vector3.new(2, 2, 2)
@@ -397,13 +403,12 @@ return function()
 			fixture:mouseUp()
 			fixture:deselect()
 
-			local selection = context:getSelectionWrapper():Get()
+			local selection = selectionObject:Get()
 			expect(#selection).to.equal(0)
 		end)
 
 		it("should box select an in-bounds model", function()
-			local context = DraggerContext_FixtureImpl.new()
-			local fixture = DraggerToolFixture.new({}, context)
+			local context, fixture = setup()
 
 			local part1 = Instance.new("Part", workspace)
 			part1.Size = Vector3.new(2, 2, 2)
@@ -420,7 +425,7 @@ return function()
 			fixture:mouseMove(0.6, 0.6)
 			fixture:mouseUp()
 
-			local selection = context:getSelectionWrapper():Get()
+			local selection = selectionObject:Get()
 			expect(#selection).to.equal(0)
 
 			local model = Instance.new("Model", workspace)
@@ -435,14 +440,13 @@ return function()
 			fixture:mouseUp()
 			fixture:deselect()
 
-			local selection = context:getSelectionWrapper():Get()
-			expect(#selection).to.equal(1)
-			expect(selection[1]).to.equal(model)
+			local selection2 = selectionObject:Get()
+			expect(#selection2).to.equal(1)
+			expect(selection2[1]).to.equal(model)
 		end)
 
 		it("should box select parts in a model with Alt+box select", function()
-			local context = DraggerContext_FixtureImpl.new()
-			local fixture = DraggerToolFixture.new({}, context)
+			local context, fixture = setup()
 
 			context:setCtrlAltShift(false, true, false)
 
@@ -465,15 +469,14 @@ return function()
 			fixture:mouseUp()
 			fixture:deselect()
 
-			local selection = context:getSelectionWrapper():Get()
+			local selection = selectionObject:Get()
 			expect(#selection).to.equal(2)
 			expect(selection[1]).to.never.equal(model)
 			expect(selection[2]).to.never.equal(model)
 		end)
 
 		it("should xor the selection with Shift+box select", function()
-			local context = DraggerContext_FixtureImpl.new()
-			local fixture = DraggerToolFixture.new({}, context)
+			local context, fixture = setup()
 
 			setupXYDrag(context)
 
@@ -492,7 +495,7 @@ return function()
 			fixture:mouseDown()
 			fixture:mouseUp()
 
-			local selection = context:getSelectionWrapper():Get()
+			local selection = selectionObject:Get()
 			expect(#selection).to.equal(1)
 			expect(selection[1]).to.equal(part1)
 
@@ -504,16 +507,15 @@ return function()
 			fixture:mouseUp()
 			fixture:deselect()
 
-			local selection = context:getSelectionWrapper():Get()
-			expect(#selection).to.equal(1)
-			expect(selection[1]).to.equal(part2)
+			local selection2 = selectionObject:Get()
+			expect(#selection2).to.equal(1)
+			expect(selection2[1]).to.equal(part2)
 		end)
 	end)
 
 	describe("Tilt Rotate", function()
 		it("should Tilt towards the camera when you press T", function()
-			local context = DraggerContext_FixtureImpl.new()
-			local fixture = DraggerToolFixture.new({}, context)
+			local context, fixture = setup()
 
 			setupXYDrag(context)
 
@@ -533,8 +535,7 @@ return function()
 		end)
 
 		it("should Rotate around the normal you press R", function()
-			local context = DraggerContext_FixtureImpl.new()
-			local fixture = DraggerToolFixture.new({}, context)
+			local context, fixture = setup()
 
 			setupXYDrag(context)
 

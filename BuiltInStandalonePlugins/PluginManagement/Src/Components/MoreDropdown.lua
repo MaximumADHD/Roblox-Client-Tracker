@@ -18,6 +18,8 @@ local ContextServices = require(Plugin.Packages.Framework.ContextServices)
 
 local DropdownMenu = UILibrary.Component.DropdownMenu
 
+local FlagsList = require(Plugin.Src.Util.FlagsList)
+
 local MoreDropdown = Roact.Component:extend("MoreDropdown")
 
 function MoreDropdown:init()
@@ -51,7 +53,12 @@ function MoreDropdown:init()
 	end
 
 	self.createLabel = function(key, displayText)
-		local theme = self.props.Theme:get("Plugin")
+		local theme
+		if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+			theme = self.props.Stylizer
+		else
+			theme = self.props.Theme:get("Plugin")
+		end
 
 		return Roact.createElement("TextLabel", {
 			Size = UDim2.new(1, 0, 1, 0),
@@ -82,7 +89,12 @@ function MoreDropdown:render()
 	local items = props.Items
 	local buttonExtents = state.buttonExtents
 	local hoveredKey = state.hoveredKey
-	local theme = self.props.Theme:get("Plugin")
+	local theme
+	if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+		theme = self.props.Stylizer
+	else
+		theme = self.props.Theme:get("Plugin")
+	end
 
 	return Roact.createElement("Frame", {
 		Size = UDim2.new(1, 0, 1, 0),
@@ -117,7 +129,8 @@ function MoreDropdown:render()
 end
 
 ContextServices.mapToProps(MoreDropdown, {
-	Theme = ContextServices.Theme,
+	Stylizer = FlagsList:get("FFlagRefactorDevFrameworkTheme") and ContextServices.Stylizer or nil,
+	Theme = (not FlagsList:get("FFlagRefactorDevFrameworkTheme")) and ContextServices.Theme or nil,
 })
 
 return MoreDropdown

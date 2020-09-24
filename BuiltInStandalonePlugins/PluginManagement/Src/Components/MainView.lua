@@ -9,6 +9,8 @@ local Theming = require(Plugin.Src.ContextServices.Theming) -- Remove with FFlag
 local Localizing = require(Plugin.Packages.UILibrary).Localizing -- Remove with FFlagPluginManagementRemoveUILibrary
 local PluginInstalledStatus = require(Plugin.Src.Constants.PluginInstalledStatus)
 
+local FlagsList = require(Plugin.Src.Util.FlagsList)
+
 local MainView = Roact.Component:extend("MainView")
 
 -- remove with FFlagPluginManagementRemoveUILibrary
@@ -157,11 +159,19 @@ function MainView:render()
 		local localization
 		local theme
 		if FFlagPluginManagementRemoveUILibrary then
-			theme = self.props.Theme:get("Plugin")
+			if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+				theme = self.props.Stylizer
+			else
+				theme = self.props.Theme:get("Plugin")
+			end
 			localization = self.props.Localization
 		else
 			localization = contextProps.localization
-			theme = contextProps.theme
+			if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+				theme = self.props.Stylizer
+			else
+				theme = contextProps.theme
+			end
 		end
 
 		local contents
@@ -184,7 +194,8 @@ end
 if FFlagPluginManagementRemoveUILibrary then
 	ContextServices.mapToProps(MainView, {
 		Localization = ContextServices.Localization,
-		Theme = ContextServices.Theme,
+		Stylizer = FlagsList:get("FFlagRefactorDevFrameworkTheme") and ContextServices.Stylizer or nil,
+		Theme = (not FlagsList:get("FFlagRefactorDevFrameworkTheme")) and ContextServices.Theme or nil,
 	})
 end
 

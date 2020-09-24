@@ -176,7 +176,7 @@ return function()
 				n:parseJson(httpPromise):andThen(function(json)
 					didResolve = true
 				end, function(err)
-					expect(string.find(err, "Can't parse JSON")).to.never.equal(nil)
+					expect((string.find(err, "Can't parse JSON"))).to.never.equal(nil)
 					didError = true
 				end)
 

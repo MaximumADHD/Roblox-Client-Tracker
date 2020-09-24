@@ -19,6 +19,8 @@ else
 end
 local ContextServices = require(Plugin.Packages.Framework.ContextServices)
 
+local FlagsList = require(Plugin.Src.Util.FlagsList)
+
 local PluginHolder = Roact.Component:extend("PluginHolder")
 
 local function sortPlugins(plugins)
@@ -70,7 +72,12 @@ function PluginHolder:render()
 	local state = self.state
 
 	local localization = props.Localization
-	local theme = props.Theme:get("Plugin")
+	local theme
+	if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+		theme = props.Stylizer
+    else
+        theme = props.Theme:get("Plugin")
+	end
 
 	local contentHeight = state.contentHeight
 	local plugin = props.plugin
@@ -206,7 +213,8 @@ end
 
 ContextServices.mapToProps(PluginHolder, {
 	Localization = ContextServices.Localization,
-	Theme = ContextServices.Theme,
+	Stylizer = FlagsList:get("FFlagRefactorDevFrameworkTheme") and ContextServices.Stylizer or nil,
+	Theme = (not FlagsList:get("FFlagRefactorDevFrameworkTheme")) and ContextServices.Theme or nil,
 })
 
 return PluginHolder

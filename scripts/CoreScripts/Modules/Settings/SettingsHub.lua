@@ -70,7 +70,7 @@ pcall(function() PlatformService = game:GetService('PlatformService') end)
 --[[ REMOTES ]]
 local GetServerVersionRemote = nil
 spawn(function()
-	GetServerVersionRemote = RobloxReplicatedStorage:WaitForChild("GetServerVersion")
+	GetServerVersionRemote = RobloxReplicatedStorage:WaitForChild("GetServerVersion", math.huge)
 end)
 
 --[[ VARIABLES ]]
