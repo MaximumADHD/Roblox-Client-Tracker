@@ -1088,6 +1088,8 @@ RBX
 	LineHandleAdornment
 	Link
 	LocalizationService
+	LocalizationServiceStatReporter
+	LocalizationServiceStatReporterBase
 	LocalizationTable
 	LocalScript
 	LocalStorage
@@ -1211,6 +1213,8 @@ RBX
 	PointLight
 	PointsService
 	PolicyService
+	PolicyServiceAnalyticsStatReporter
+	PolicyServiceStatReporter
 	Poly
 	Pose
 	PostEffect

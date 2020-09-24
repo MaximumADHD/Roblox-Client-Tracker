@@ -41,7 +41,12 @@ Rectangle {
     function performLogin(payload) {
         clearErrorMessages();
         loginPage.state = "STATE_LOGGING_IN"
-        loginManager.onLoginClicked(usernameField.text, passwordField.text, payload);
+        if (loginManager.getFFlagStudioLoginInAssertFailureFixEnabled() && (payload == null)) {
+            loginManager.onLoginClicked(usernameField.text, passwordField.text);
+        } 
+        else {
+            loginManager.onLoginClicked(usernameField.text, passwordField.text, payload);
+        }
     }
 
     Image {
@@ -272,6 +277,24 @@ Rectangle {
             objectName: "privacyPolicy"
         }
 
+        TextWithLink {
+            id: externalLoginLink
+            visible: loginManager.showExternalLoginLink()
+            anchors.top: passwordSeparatorLine.bottom
+            anchors.left: parent.left
+            anchors.right: parent.right
+            anchors.topMargin: 12
+            text: " <a style='text-decoration: none; color:" + (userPreferences.theme.style("CommonStyle linkText"))
+                       + "' href=' '>" + qsTr("Studio.App.StartPageLogin.WeChatQQLogin") + "</a>"
+            color: RobloxStyle.colorGray2
+            font.pixelSize: 14
+            horizontalAlignment: Text.AlignHCenter
+            onLinkActivated: {
+                loginManager.onExternalLoginClicked()
+            }
+            objectName: "externalLoginLink"
+        }
+
         PlainText {
             id: versionText
             anchors.top: privacyPolicyLink.bottom
@@ -292,7 +315,7 @@ Rectangle {
     state: "STATE_INITIAL_AUTHENTICATION"
     states: [
         State {
-            name: "" // The default state
+            name: kDefaultState // The default state
             StateChangeScript {
                 name: "forceFocus"
                 script: usernameField.forceActiveFocus()
@@ -687,6 +710,9 @@ Rectangle {
             if (loginManager.isExternalLoginEnabled()) {
                 loginPage.state = "STATE_LOGGING_IN_USING_EXTERNAL_DIALOG"
             }
+        }
+        onOpenRobloxLogin: {
+            loginPage.state = kDefaultState;
         }
     }
 }

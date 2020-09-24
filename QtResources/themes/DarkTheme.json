@@ -1,5 +1,43 @@
 {
     "Name": "Dark",
+    "Presets": {
+        "RobloxDefault": {
+            "Default": "#CCCCCC",
+            "Operator": "#CCCCCC",
+            "Number": "#FFC600",
+            "String": "#ADF195",
+            "Comment": "#666666",
+            "Keyword": "#F86D7C",
+            "Builtin": "#84D6F7"
+        },
+        "Extra1": {
+            "Default": "#CCCCCC",
+            "Operator": "#CCCCCC",
+            "Number": "#B5CEA8",
+            "String": "#CE9178",
+            "Comment": "#6A9955",
+            "Keyword": "#C586C0",
+            "Builtin": "#569CD6"
+        },
+        "Extra2": {
+            "Default": "#CCCCCC",
+            "Operator": "#F92472",
+            "Number": "#AE81FF",
+            "String": "#E6DB74",
+            "Comment": "#75715E",
+            "Keyword": "#F92472",
+            "Builtin": "#CCCCCC"
+        },
+        "Custom": {
+            "Default": "#CCCCCC",
+            "Operator": "#CCCCCC",
+            "Number": "#FFC600",
+            "String": "#ADF195",
+            "Comment": "#666666",
+            "Keyword": "#F86D7C",
+            "Builtin": "#84D6F7"
+        }
+    },
     "Colors": [{
             "MainBackground": {
                 "Default": "#2E2E2E"

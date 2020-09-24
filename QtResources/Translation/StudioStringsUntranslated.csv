@@ -65,6 +65,8 @@ Studio.App.BetaFeatures.AutoEnrollmentToggle,,Enroll in Beta Channel,Enroll in B
 Studio.App.BetaFeatures.AutoEnrollmentToggleTooltip,,New Beta Features Will Automatically Be Activated,New Beta Features Will Automatically Be Activated
 Studio.App.BetaFeatures.AutoUpdateDescription,,Adds an option to automatically update a package when a newer package is available,Adds an option to automatically update a package when a newer package is available
 Studio.App.BetaFeatures.AutoUpdateTitle,,Auto Update on Packages,Auto Update on Packages
+Studio.App.BetaFeatures.AutomaticSizeDescription,,UI object property that automatically sizes objects based on their child content.,UI object property that automatically sizes objects based on their child content.
+Studio.App.BetaFeatures.AutomaticSizeTitle,,Automatic Size Beta,Automatic Size Beta
 Studio.App.BetaFeatures.AvatarLoadingBetaDescription,,Improves the ordering of events fired when avatars are loaded to be more consistent and easier for developers to use,Improves the ordering of events fired when avatars are loaded to be more consistent and easier for developers to use
 Studio.App.BetaFeatures.AvatarLoadingBetaTitle,,New Avatar Loading Signal Ordering,New Avatar Loading Signal Ordering
 Studio.App.BetaFeatures.BetaFeatures,title for Beta Features feature,Beta Features,Beta Features
@@ -681,6 +683,16 @@ Studio.App.LocalizationPlugin.CouldntOpenFile1,,Couldn't open file %1,Couldn't o
 Studio.App.LocalizationPlugin.ErrorReading1Csv2,,Error reading %1.csv: %2,Error reading %1.csv: %2
 Studio.App.LocalizationPlugin.ErrorWritingToFile1,,Error writing to file %1,Error writing to file %1
 Studio.App.LocalizationPlugin.NoFileSelected,,No file selected,No file selected
+Studio.App.LockedScriptsVersionHistory.ApplyEditsRejectedTitle,,Script Apply Edits Failure,Script Apply Edits Failure
+Studio.App.LockedScriptsVersionHistory.CommitRejected,,"Some of the scripts cannot be saved.
+Please check their status.","Some of the scripts cannot be saved.
+Please check their status."
+Studio.App.LockedScriptsVersionHistory.CommitRejectedInProgress,,"Server rejected apply edits.
+Someone else is saving changes.","Server rejected apply edits.
+Someone else is saving changes."
+Studio.App.LockedScriptsVersionHistory.CommitRejectedInternalError,,"Server rejected apply edits due to internal error.
+Please try again later","Server rejected apply edits due to internal error.
+Please try again later"
 Studio.App.Login.EnterPassword,,Please enter your password.,Please enter your password.
 Studio.App.Login.EnterUsername,,Please enter your username.,Please enter your username.
 Studio.App.Login.EnterUsernameAndPassword,,Please enter your username and password.,Please enter your username and password.
@@ -962,6 +974,12 @@ Studio.App.PluginPermissionsDialog.Allow,,Allow,Allow
 Studio.App.PluginPermissionsDialog.Deny,,Deny,Deny
 Studio.App.PluginPermissionsDialog.HttpDomainPermission,,Allow plugin %1 to access %2?,Allow plugin %1 to access %2?
 Studio.App.PluginPermissionsDialog.Warning,,You can always revoke this permission from Plugins > Plugin Management.,You can always revoke this permission from Plugins > Plugin Management.
+Studio.App.Properites.AttributeCantStartWithRBX,,Can't start with 'RBX'.,Can't start with 'RBX'.
+Studio.App.Properties.AddAttribute,Title/text for Add Attribute button/dialog,Add Attribute,Add Attribute
+Studio.App.Properties.AttributeAlreadyExists,,Attribute already exists.,Attribute already exists.
+Studio.App.Properties.AttributeName,,Name,Name
+Studio.App.Properties.AttributeType,,Type,Type
+Studio.App.Properties.NoAttributeAdded,,No Attribute has been added yet,No Attribute has been added yet
 Studio.App.Properties.TitleFmt1,title of properties widget,Properties - %1,Properties - %1
 Studio.App.Property.ActiveColor,,Active Color,Active Color
 Studio.App.Property.ActiveHoverOverColor,,Active Hover Over Color,Active Hover Over Color
@@ -1041,6 +1059,7 @@ Studio.App.Property.FrameRateManager,,Frame Rate Manager,Frame Rate Manager
 Studio.App.Property.GfxCard,,Gfx Card,Gfx Card
 Studio.App.Property.GraphicsMode,,Graphics Mode,Graphics Mode
 Studio.App.Property.HighlightCurrentLine,Should we highlight the line we are currently editing in ScriptTextEditor,Highlight Current Line,Highlight Current Line
+Studio.App.Property.HighlightOccurances,Should we highlight other occurances of the word we have the cursor inside in ScriptTextEditor,Highlight Current Word,Highlight Current Word
 Studio.App.Property.HoverAnimateSpeed,,Hover Animate Speed,Hover Animate Speed
 Studio.App.Property.HoverOverColor,,Hover Over Color,Hover Over Color
 Studio.App.Property.HttpProxyEnabled,,Proxy Enabled,Proxy Enabled
@@ -1112,6 +1131,7 @@ Studio.App.Property.RuntimeUndoBehavior,,Runtime Undo Behavior,Runtime Undo Beha
 Studio.App.Property.SIMD,,SIMD,SIMD
 Studio.App.Property.SchedulerDutyCycle,,Scheduler Duty Cycle,Scheduler Duty Cycle
 Studio.App.Property.SchedulerRate,,Scheduler Rate,Scheduler Rate
+Studio.App.Property.ScriptEditorColorPreset,The set of colors used in syntax highlighting in script editor,Script Editor Color Preset,Script Editor Color Preset
 Studio.App.Property.ScriptTimeoutLength,,Script Timeout Length,Script Timeout Length
 Studio.App.Property.SearchContentForCoreScripts,,Search Content For Core Scripts,Search Content For Core Scripts
 Studio.App.Property.SelectColor,,Select Color,Select Color
@@ -1162,6 +1182,7 @@ Studio.App.PropertyEnum.Auto,,Auto,Auto
 Studio.App.PropertyEnum.Automatic,,Automatic,Automatic
 Studio.App.PropertyEnum.Benchmark,,Benchmark,Benchmark
 Studio.App.PropertyEnum.Client,,Client,Client
+Studio.App.PropertyEnum.Custom,A fully custom Script Editor Syntax Highlighting Preset,Custom,Custom
 Studio.App.PropertyEnum.DefaultAuto,,Default Auto,Default Auto
 Studio.App.PropertyEnum.Direct3D11,,Direct3D11,Direct3D11
 Studio.App.PropertyEnum.Direct3D9,,Direct3D9,Direct3D9
@@ -1170,6 +1191,8 @@ Studio.App.PropertyEnum.DistanceBased,,DistanceBased,DistanceBased
 Studio.App.PropertyEnum.DontReport,,Don't Report,Don't Report
 Studio.App.PropertyEnum.Enabled,,Enabled,Enabled
 Studio.App.PropertyEnum.English,DO NOT TRANSLATE THIS.  No matter the system language we want to offer language choice in that language.,English,English
+Studio.App.PropertyEnum.Extra1,An additional Script Editor Syntax Highlighting Text Color Preset,Extra 1,Extra 1
+Studio.App.PropertyEnum.Extra2,A second additional Script Editor Syntax Highlighting Text Color Preset,Extra 2,Extra 2
 Studio.App.PropertyEnum.Fast,,Fast,Fast
 Studio.App.PropertyEnum.French,DO NOT TRANSLATE THIS.  No matter the system language we want to offer language choice in that language.,français,français
 Studio.App.PropertyEnum.Game,,Game,Game
@@ -1217,6 +1240,7 @@ Studio.App.PropertyEnum.Prompt,,Prompt,Prompt
 Studio.App.PropertyEnum.Relative,,Relative,Relative
 Studio.App.PropertyEnum.Report,,Report,Report
 Studio.App.PropertyEnum.Roblox,,Roblox,Roblox
+Studio.App.PropertyEnum.RobloxDefault,The default Script Editor Syntax Highlighting Text Color Preset,Default,Default
 Studio.App.PropertyEnum.RobloxGame,,Roblox Game,Roblox Game
 Studio.App.PropertyEnum.RobloxScript,,Roblox Script,Roblox Script
 Studio.App.PropertyEnum.Russian,DO NOT TRANSLATE THIS.  No matter the system language we want to offer language choice in that language.,русский,русский
@@ -1412,6 +1436,8 @@ Studio.App.RBXMainWindow.FindPrevious,,Find Previous,Find Previous
 Studio.App.RBXMainWindow.FindPreviousItem,,Find previous item,Find previous item
 Studio.App.RBXMainWindow.FindResults,,Find Results,Find Results
 Studio.App.RBXMainWindow.FindResultsWindow,,Find results window,Find results window
+Studio.App.RBXMainWindow.FocusOnCommandBar,,Focus on Command Bar,Focus on Command Bar
+Studio.App.RBXMainWindow.FocusOnCommandBarTooltip,,Set keyboard focus to Command Bar,Set keyboard focus to Command Bar
 Studio.App.RBXMainWindow.Format,,Format,Format
 Studio.App.RBXMainWindow.FormatDocument,,Format Document,Format Document
 Studio.App.RBXMainWindow.FormatDocumentElps,,Format Document...,Format Document...
@@ -1579,6 +1605,8 @@ Studio.App.RBXMainWindow.SaveAndReloadPluginTooltip,,Save plugin back to disk. S
 Studio.App.RBXMainWindow.SaveAsCSVElps,,Save as CSV...,Save as CSV...
 Studio.App.RBXMainWindow.SaveAsElps,,Save As...,Save As...
 Studio.App.RBXMainWindow.SaveAsLocalPluginElps,,Save as Local Plugin...,Save as Local Plugin...
+Studio.App.RBXMainWindow.SaveBuildAndReloadPlugins,,Build plugin from source and Reload in the Debugger,Build plugin from source and Reload in the Debugger
+Studio.App.RBXMainWindow.SaveBuildAndReloadPluginsTooltip,,Stop execution of the plugin. Save modified scripts with FileSyncService. Build rbxm from plugin project and reload it.,Stop execution of the plugin. Save modified scripts with FileSyncService. Build rbxm from plugin project and reload it.
 Studio.App.RBXMainWindow.SaveDocToRoblox,,Save the Active Document to Roblox Website,Save the Active Document to Roblox Website
 Studio.App.RBXMainWindow.SaveDocWithNewName,,Save the active document with a new name,Save the active document with a new name
 Studio.App.RBXMainWindow.SaveLocalizationTable,,Save the selected LocalizationTable to a CSV file,Save the selected LocalizationTable to a CSV file
@@ -2246,11 +2274,13 @@ Studio.App.RobloxStudioVerbs.LinkedSource,,"Unable to create LinkedSource, see o
 Studio.App.RobloxStudioVerbs.LoadCSVExt,"NOTE TO LOCALIZERS: Do not translate the parentheses (), whatever is inside the parentheses, or any other special characters, use ASCII instead.",LocalizationTable CSV (*.csv),LocalizationTable CSV (*.csv)
 Studio.App.RobloxStudioVerbs.LoadCSVFile,,Open LocalizationTable CSV,Open LocalizationTable CSV
 Studio.App.RobloxStudioVerbs.NegationFailed,,Negation failed,Negation failed
+Studio.App.RobloxStudioVerbs.NotAllScriptsAreSaved,,Some Scripts (indicated with a * on the Script name) were not synced successfully. Please contact #ride,Some Scripts (indicated with a * on the Script name) were not synced successfully. Please contact #ride
 Studio.App.RobloxStudioVerbs.PackageLinkCopy,,Cannot copy selection(s) with PackageLink included!,Cannot copy selection(s) with PackageLink included!
 Studio.App.RobloxStudioVerbs.PackageLinkCut,,Cannot cut selection(s) with PackageLink included!,Cannot cut selection(s) with PackageLink included!
 Studio.App.RobloxStudioVerbs.PackageLinkDuplicate,,Cannot duplicate selection(s) with PackageLink included!,Cannot duplicate selection(s) with PackageLink included!
 Studio.App.RobloxStudioVerbs.PlaySolo,,Play Solo,Play Solo
 Studio.App.RobloxStudioVerbs.PlaySoloSaveFailure,,Play solo - save failure,Play solo - save failure
+Studio.App.RobloxStudioVerbs.PluginNotAssociatedWithProject,,This Plugin is not associated with an external project - this functionality cannot be used. Please contact #ride,This Plugin is not associated with an external project - this functionality cannot be used. Please contact #ride
 Studio.App.RobloxStudioVerbs.PublishConfirm,,Publish,Publish
 Studio.App.RobloxStudioVerbs.PublishConfirmTitle,,Uncommitted changes,Uncommitted changes
 Studio.App.RobloxStudioVerbs.Publishing,,Publishing,Publishing
@@ -2271,6 +2301,7 @@ Studio.App.RobloxStudioVerbs.StartServer,,Start server,Start server
 Studio.App.RobloxStudioVerbs.StartServerSaveFailure,,Start server - save failure,Start server - save failure
 Studio.App.RobloxStudioVerbs.StartingPlayers,,Starting players,Starting players
 Studio.App.RobloxStudioVerbs.SyncInstanceToFs,,Sync Instance,Sync Instance
+Studio.App.RobloxStudioVerbs.UnableToBuildPluginProject,,Studio is unable to build and load this Plugin. Please contact #ride,Studio is unable to build and load this Plugin. Please contact #ride
 Studio.App.RobloxStudioVerbs.Undo1,,Undo %s,Undo %s
 Studio.App.RobloxStudioVerbs.UnionFailed,,Union failed,Union failed
 Studio.App.RobloxTaskScheduler.HeaderLabelActivity,In task scheduler,Activity,Activity
@@ -2432,6 +2463,7 @@ Studio.App.StartPageLogin.TwoStepVerificationEmailInstruction,,Enter the code we
 Studio.App.StartPageLogin.TwoStepVerificationSmsInstruction,,Enter the code we just sent to you via sms,Enter the code we just sent to you via sms
 Studio.App.StartPageLogin.TwoStepVerificationTitle,,2-Step Verification,2-Step Verification
 Studio.App.StartPageLogin.Username,,Username,Username
+Studio.App.StartPageLogin.WeChatQQLogin,,WeChat / QQ Login,WeChat / QQ Login
 Studio.App.StudioDataModelLoadUtil.ErrorCannotOpenTCPlaceDueToCancellation,,Failed to open the team create place due to cancellation,Failed to open the team create place due to cancellation
 Studio.App.StudioDataModelLoadUtil.ErrorCannotOpenTCPlaceDueToConflictGlobal,,Global Studio does not support joining a TeamCreate session with a Luobu Studio developer. Please download Luobu Studio to use TeamCreate together: www.robloxdev.cn,Global Studio does not support joining a TeamCreate session with a Luobu Studio developer. Please download Luobu Studio to use TeamCreate together: www.robloxdev.cn
 Studio.App.StudioDataModelLoadUtil.ErrorCannotOpenTCPlaceDueToConflictLuobu,,Luobu Studio does not support joining a TeamCreate session with a global Studio developer. Please ask your teammates to download Loubu Studio to use TeamCreate together: www.robloxdev.cn,Luobu Studio does not support joining a TeamCreate session with a global Studio developer. Please ask your teammates to download Loubu Studio to use TeamCreate together: www.robloxdev.cn
@@ -2573,6 +2605,7 @@ Studio.App.UploadTextureRequest.CouldNotReadTexture1FromTheDisk,,"Could not read
 Studio.App.UserPlaceCreatorsListWidget.Offline,User is offline,Offline,Offline
 Studio.App.UserPlaceCreatorsListWidget.PlaceOwner,User is owner of place,Place Owner,Place Owner
 Studio.App.UserPlaceCreatorsListWidget.PlaceOwnerOffline,User is owner of place and is offline,Place Owner (Offline),Place Owner (Offline)
+Studio.App.VersionHistoryController.AutoCommitMessage,,Auto generated commit,Auto generated commit
 Studio.App.VersionHistoryController.ReadOnlyScriptDocMessageFmt4,,This version is read-only. <a href='%1://%2_%3_%4'>Click here to edit.</a>,This version is read-only. <a href='%1://%2_%3_%4'>Click here to edit.</a>
 Studio.App.VersionHistoryController.ScriptEditErrorMessage,,Unable to edit script. Please try again.,Unable to edit script. Please try again.
 Studio.App.VersionHistoryDialog.BatchColumnTitle,,Scripts in Batch,Scripts in Batch
@@ -2676,7 +2709,8 @@ Studio.Internal.ExternalLoginDialog.FatalErrorMessage,,Failed to login. Please r
 Studio.Internal.ExternalLoginDialog.GenericErrorMessage,,Failed to login. Please try again or contact support if problem persists.,Failed to login. Please try again or contact support if problem persists.
 Studio.Internal.ExternalLoginDialog.MessageOnDialogClose,,Are you sure you want to close this window? This will close Roblox Studio.,Are you sure you want to close this window? This will close Roblox Studio.
 Studio.Internal.ExternalLoginDialog.NoNetworkMessage,,Please check that you are connected to the internet and try again. Please contact support if the problem persists.,Please check that you are connected to the internet and try again. Please contact support if the problem persists.
-Studio.Internal.ExternalLoginDialog.ReloadLoginPage,,Refresh login,Refresh login
+Studio.Internal.ExternalLoginDialog.ReloadLoginPage,,Refresh,Refresh
+Studio.Internal.ExternalLoginDialog.RobloxLogin,,Roblox login,Roblox login
 Studio.Internal.ExternalLoginDialog.WindowTitle,,Log In,Log In
 Studio.Internal.RobloxMainWindow.ChooseAPlaceInGameExplorer1,,"Choose an instance as parent in game explorer to save %1 
 ","Choose an instance as parent in game explorer to save %1 

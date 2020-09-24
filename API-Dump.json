@@ -5766,7 +5766,7 @@
                             "Name": "id",
                             "Type": {
                                 "Category": "Primitive",
-                                "Name": "int"
+                                "Name": "int64"
                             }
                         }
                     ],
@@ -14315,6 +14315,23 @@
                 {
                     "Category": "Data",
                     "MemberType": "Property",
+                    "Name": "AutomaticSize",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Enum",
+                        "Name": "AutomaticSize"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
                     "Name": "BackgroundColor",
                     "Security": {
                         "Read": "None",
@@ -16704,6 +16721,23 @@
                     "ValueType": {
                         "Category": "DataType",
                         "Name": "Vector2"
+                    }
+                },
+                {
+                    "Category": "Scrolling",
+                    "MemberType": "Property",
+                    "Name": "AutomaticCanvasSize",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Enum",
+                        "Name": "AutomaticSize"
                     }
                 },
                 {
@@ -35715,6 +35749,26 @@
                 {
                     "Category": "Behavior",
                     "MemberType": "Property",
+                    "Name": "MeshPartHeads",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "NotScriptable"
+                    ],
+                    "ValueType": {
+                        "Category": "Enum",
+                        "Name": "MeshPartHeads"
+                    }
+                },
+                {
+                    "Category": "Behavior",
+                    "MemberType": "Property",
                     "Name": "PhysicsSimulationRate",
                     "Security": {
                         "Read": "None",
@@ -41488,6 +41542,14 @@
                                 "Category": "Class",
                                 "Name": "Instance"
                             }
+                        },
+                        {
+                            "Default": "0",
+                            "Name": "normalizedTimePosition",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "double"
+                            }
                         }
                     ],
                     "ReturnType": {
@@ -42699,6 +42761,46 @@
         },
         {
             "Members": [
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "IsLuobuServer",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "Hidden"
+                    ],
+                    "ValueType": {
+                        "Category": "Enum",
+                        "Name": "TriStateBoolean"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "LuobuWhitelisted",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "Hidden"
+                    ],
+                    "ValueType": {
+                        "Category": "Enum",
+                        "Name": "TriStateBoolean"
+                    }
+                },
                 {
                     "MemberType": "Function",
                     "Name": "GetPolicyInfoForPlayerAsync",
@@ -45690,12 +45792,48 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "Add",
+                    "Parameters": [
+                        {
+                            "Name": "instancesToAdd",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "Objects"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "PluginSecurity"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "Get",
                     "Parameters": [
                     ],
                     "ReturnType": {
                         "Category": "DataType",
                         "Name": "Objects"
+                    },
+                    "Security": "PluginSecurity"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "Remove",
+                    "Parameters": [
+                        {
+                            "Name": "instancesToRemove",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "Objects"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
                     },
                     "Security": "PluginSecurity"
                 },
@@ -51136,6 +51274,23 @@
                     }
                 },
                 {
+                    "Category": "Script Editor",
+                    "MemberType": "Property",
+                    "Name": "Highlight Occurances",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
                     "Category": "Tools",
                     "MemberType": "Property",
                     "Name": "Hover Animate Speed",
@@ -51597,6 +51752,23 @@
                     "ValueType": {
                         "Category": "Enum",
                         "Name": "RuntimeUndoBehavior"
+                    }
+                },
+                {
+                    "Category": "Script Editor Colors",
+                    "MemberType": "Property",
+                    "Name": "Script Editor Color Preset",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Enum",
+                        "Name": "StudioScriptEditorColorPresets"
                     }
                 },
                 {
@@ -61781,6 +61953,27 @@
         {
             "Items": [
                 {
+                    "Name": "None",
+                    "Value": 0
+                },
+                {
+                    "Name": "X",
+                    "Value": 1
+                },
+                {
+                    "Name": "Y",
+                    "Value": 2
+                },
+                {
+                    "Name": "XY",
+                    "Value": 3
+                }
+            ],
+            "Name": "AutomaticSize"
+        },
+        {
+            "Items": [
+                {
                     "Name": "TShirt",
                     "Value": 2
                 },
@@ -63443,6 +63636,181 @@
                 {
                     "Name": "GothamBlack",
                     "Value": 20
+                },
+                {
+                    "Name": "AmaticSC",
+                    "Tags": [
+                        "Deprecated"
+                    ],
+                    "Value": 21
+                },
+                {
+                    "Name": "Bangers",
+                    "Tags": [
+                        "Deprecated"
+                    ],
+                    "Value": 22
+                },
+                {
+                    "Name": "Creepster",
+                    "Tags": [
+                        "Deprecated"
+                    ],
+                    "Value": 23
+                },
+                {
+                    "Name": "DenkOne",
+                    "Tags": [
+                        "Deprecated"
+                    ],
+                    "Value": 24
+                },
+                {
+                    "Name": "Fondamento",
+                    "Tags": [
+                        "Deprecated"
+                    ],
+                    "Value": 25
+                },
+                {
+                    "Name": "FredokaOne",
+                    "Tags": [
+                        "Deprecated"
+                    ],
+                    "Value": 26
+                },
+                {
+                    "Name": "GrenzeGotisch",
+                    "Tags": [
+                        "Deprecated"
+                    ],
+                    "Value": 27
+                },
+                {
+                    "Name": "IndieFlower",
+                    "Tags": [
+                        "Deprecated"
+                    ],
+                    "Value": 28
+                },
+                {
+                    "Name": "JosefinSans",
+                    "Tags": [
+                        "Deprecated"
+                    ],
+                    "Value": 29
+                },
+                {
+                    "Name": "Jura",
+                    "Tags": [
+                        "Deprecated"
+                    ],
+                    "Value": 30
+                },
+                {
+                    "Name": "Kalam",
+                    "Tags": [
+                        "Deprecated"
+                    ],
+                    "Value": 31
+                },
+                {
+                    "Name": "LuckiestGuy",
+                    "Tags": [
+                        "Deprecated"
+                    ],
+                    "Value": 32
+                },
+                {
+                    "Name": "Merriweather",
+                    "Tags": [
+                        "Deprecated"
+                    ],
+                    "Value": 33
+                },
+                {
+                    "Name": "Michroma",
+                    "Tags": [
+                        "Deprecated"
+                    ],
+                    "Value": 34
+                },
+                {
+                    "Name": "Nunito",
+                    "Tags": [
+                        "Deprecated"
+                    ],
+                    "Value": 35
+                },
+                {
+                    "Name": "Oswald",
+                    "Tags": [
+                        "Deprecated"
+                    ],
+                    "Value": 36
+                },
+                {
+                    "Name": "PatrickHand",
+                    "Tags": [
+                        "Deprecated"
+                    ],
+                    "Value": 37
+                },
+                {
+                    "Name": "PermanentMarker",
+                    "Tags": [
+                        "Deprecated"
+                    ],
+                    "Value": 38
+                },
+                {
+                    "Name": "Roboto",
+                    "Tags": [
+                        "Deprecated"
+                    ],
+                    "Value": 39
+                },
+                {
+                    "Name": "RobotoCondensed",
+                    "Tags": [
+                        "Deprecated"
+                    ],
+                    "Value": 40
+                },
+                {
+                    "Name": "RobotoMono",
+                    "Tags": [
+                        "Deprecated"
+                    ],
+                    "Value": 41
+                },
+                {
+                    "Name": "Sarpanch",
+                    "Tags": [
+                        "Deprecated"
+                    ],
+                    "Value": 42
+                },
+                {
+                    "Name": "SpecialElite",
+                    "Tags": [
+                        "Deprecated"
+                    ],
+                    "Value": 43
+                },
+                {
+                    "Name": "TitilliumWeb",
+                    "Tags": [
+                        "Deprecated"
+                    ],
+                    "Value": 44
+                },
+                {
+                    "Name": "Ubuntu",
+                    "Tags": [
+                        "Deprecated"
+                    ],
+                    "Value": 45
                 }
             ],
             "Name": "Font"
@@ -65745,6 +66113,23 @@
         {
             "Items": [
                 {
+                    "Name": "Default",
+                    "Value": 0
+                },
+                {
+                    "Name": "Disabled",
+                    "Value": 1
+                },
+                {
+                    "Name": "Enabled",
+                    "Value": 2
+                }
+            ],
+            "Name": "MeshPartHeads"
+        },
+        {
+            "Items": [
+                {
                     "Name": "Head",
                     "Value": 0
                 },
@@ -67170,6 +67555,60 @@
         {
             "Items": [
                 {
+                    "Name": "Default",
+                    "Value": 0
+                },
+                {
+                    "Name": "Operator",
+                    "Value": 1
+                },
+                {
+                    "Name": "Number",
+                    "Value": 2
+                },
+                {
+                    "Name": "String",
+                    "Value": 3
+                },
+                {
+                    "Name": "Comment",
+                    "Value": 4
+                },
+                {
+                    "Name": "Keyword",
+                    "Value": 5
+                },
+                {
+                    "Name": "Builtin",
+                    "Value": 6
+                }
+            ],
+            "Name": "StudioScriptEditorColorCategories"
+        },
+        {
+            "Items": [
+                {
+                    "Name": "RobloxDefault",
+                    "Value": 0
+                },
+                {
+                    "Name": "Extra1",
+                    "Value": 1
+                },
+                {
+                    "Name": "Extra2",
+                    "Value": 2
+                },
+                {
+                    "Name": "Custom",
+                    "Value": 3
+                }
+            ],
+            "Name": "StudioScriptEditorColorPresets"
+        },
+        {
+            "Items": [
+                {
                     "Name": "MainBackground",
                     "Value": 0
                 },
@@ -68196,6 +68635,23 @@
                 }
             ],
             "Name": "TouchMovementMode"
+        },
+        {
+            "Items": [
+                {
+                    "Name": "Unknown",
+                    "Value": 0
+                },
+                {
+                    "Name": "True",
+                    "Value": 1
+                },
+                {
+                    "Name": "False",
+                    "Value": 2
+                }
+            ],
+            "Name": "TriStateBoolean"
         },
         {
             "Items": [

@@ -69,6 +69,7 @@ DefaultHQVS_Level10,Vertex
 DefaultHQVS_Level14,Vertex
 DefaultModelLodFS,Fragment
 DefaultModelLodVS,Vertex
+DefaultModelLodVSNew,Vertex
 DefaultNeonFS,Fragment
 DefaultNeonHQFS_Level0,Fragment
 DefaultNeonHQFS_Level8,Fragment

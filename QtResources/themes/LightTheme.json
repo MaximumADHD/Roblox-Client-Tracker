@@ -1,5 +1,43 @@
 {
     "Name": "Light",
+    "Presets": {
+        "RobloxDefault": {
+            "Default": "#000000",
+            "Operator": "#7F7F00",
+            "Number": "#007F7F",
+            "String": "#7F007F",
+            "Comment": "#007F09",
+            "Keyword": "#00007F",
+            "Builtin": "#00007F"
+        },
+        "Extra1": {
+            "Default": "#000000",
+            "Operator": "#7F7F00",
+            "Number": "#098658",
+            "String": "#A31515",
+            "Comment": "#008000",
+            "Keyword": "#AF00DB",
+            "Builtin": "#0000FF"
+        },
+        "Extra2": {
+            "Default": "#000000",
+            "Operator": "#F97B58",
+            "Number": "#F9AE58",
+            "String": "#99C794",
+            "Comment": "#A6ACB9",
+            "Keyword": "#C695C6",
+            "Builtin": "#000000"
+        },
+        "Custom": {
+            "Default": "#000000",
+            "Operator": "#7F7F00",
+            "Number": "#007F7F",
+            "String": "#7F007F",
+            "Comment": "#007F09",
+            "Keyword": "#00007F",
+            "Builtin": "#00007F"
+        }
+    },
     "Colors": [{
             "MainBackground": {
                 "Default": "#FFFFFF"

@@ -317,7 +317,7 @@ Class BrowserService : Instance [NotCreatable] [Service] [NotReplicated]
 Class BulkImportService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void BulkImportService:LaunchBulkImport(int assetTypeToImport) {RobloxScriptSecurity}
 	Function void BulkImportService:ShowBulkImportView() {RobloxScriptSecurity}
-	Event BulkImportService.AssetImported(Enum<AssetType> assetType, string name, int id) {RobloxScriptSecurity}
+	Event BulkImportService.AssetImported(Enum<AssetType> assetType, string name, int64 id) {RobloxScriptSecurity}
 	Event BulkImportService.BulkImportFinished(int state) {RobloxScriptSecurity}
 	Event BulkImportService.BulkImportStarted() {RobloxScriptSecurity}
 Class CacheableContentProvider : Instance [NotCreatable] [Service] [NotReplicated]
@@ -821,6 +821,7 @@ Class GuiObject : GuiBase2d [NotCreatable] [NotBrowsable]
 	Property Class<GuiObject> GuiObject.NextSelectionUp
 	Property bool GuiObject.Active
 	Property Vector2 GuiObject.AnchorPoint
+	Property Enum<AutomaticSize> GuiObject.AutomaticSize
 	Property BrickColor GuiObject.BackgroundColor [<📁> LoadOnly] [Hidden] [NotReplicated] [Deprecated]
 	Property Color3 GuiObject.BackgroundColor3
 	Property float GuiObject.BackgroundTransparency
@@ -943,6 +944,7 @@ Class TextLabel : GuiLabel
 	Function void TextLabel:SetTextFromInput(string text) {RobloxScriptSecurity}
 Class ScrollingFrame : GuiObject
 	Property Vector2 ScrollingFrame.AbsoluteWindowSize [<💾> SaveOnly] [ReadOnly] [NotReplicated]
+	Property Enum<AutomaticSize> ScrollingFrame.AutomaticCanvasSize
 	Property Content ScrollingFrame.BottomImage
 	Property Vector2 ScrollingFrame.CanvasPosition
 	Property UDim2 ScrollingFrame.CanvasSize
@@ -1992,6 +1994,7 @@ Class Workspace : WorldRoot [NotCreatable] [Service]
 	Property bool Workspace.FilteringEnabled {✏️PluginSecurity}
 	Property float Workspace.Gravity
 	Property Enum<InterpolationThrottlingMode> Workspace.InterpolationThrottling {✏️PluginSecurity}
+	Property Enum<MeshPartHeads> Workspace.MeshPartHeads  [NotScriptable]
 	Property Enum<PhysicsSimulationRate> Workspace.PhysicsSimulationRate  [Hidden] [NotReplicated]
 	Property bool Workspace.StreamingEnabled {✏️PluginSecurity}
 	Property int Workspace.StreamingMinRadius  [NotScriptable]
@@ -2299,7 +2302,7 @@ Class Plugin : Instance [NotCreatable]
 	Function void Plugin:OpenScript(Instance script, int lineNumber = 1) {PluginSecurity}
 	Function void Plugin:OpenWikiPage(string url) {PluginSecurity}
 	Function void Plugin:PauseSound(Instance soundChannel) {RobloxScriptSecurity}
-	Function void Plugin:PlaySound(Instance soundChannel) {RobloxScriptSecurity}
+	Function void Plugin:PlaySound(Instance soundChannel, double normalizedTimePosition = 0) {RobloxScriptSecurity}
 	Function int64 Plugin:PromptForExistingAssetId(string assetType) {PluginSecurity} [Yields]
 	Function bool Plugin:PromptSaveSelection(string suggestedFileName = "") {PluginSecurity} [Yields]
 	Function void Plugin:ResumeSound(Instance soundChannel) {RobloxScriptSecurity}
@@ -2362,6 +2365,8 @@ Class PointsService : Instance [NotCreatable] [Service] [Deprecated]
 	Function int PointsService:GetPointBalance(int64 userId) [Yields] [Deprecated]
 	Event PointsService.PointsAwarded(int64 userId, int pointsAwarded, int userBalanceInGame, int userTotalBalance) [Deprecated]
 Class PolicyService : Instance [NotCreatable] [Service] [NotReplicated]
+	Property Enum<TriStateBoolean> PolicyService.IsLuobuServer {RobloxScriptSecurity} [Hidden]
+	Property Enum<TriStateBoolean> PolicyService.LuobuWhitelisted {RobloxScriptSecurity} [Hidden]
 	Function Dictionary PolicyService:GetPolicyInfoForPlayerAsync(Instance player) [Yields]
 Class Pose : Instance
 	Property CFrame Pose.CFrame
@@ -2544,7 +2549,9 @@ Class ScriptDebugger : Instance [NotCreatable]
 Class ScriptService : Instance [NotCreatable] [Service]
 Class Selection : Instance [NotCreatable] [Service]
 	Property Instance Selection.ActiveInstance {RobloxScriptSecurity} [ReadOnly] [NotReplicated]
+	Function void Selection:Add(Objects instancesToAdd) {PluginSecurity}
 	Function Objects Selection:Get() {PluginSecurity}
+	Function void Selection:Remove(Objects instancesToRemove) {PluginSecurity}
 	Function void Selection:Set(Objects selection) {PluginSecurity}
 	Event Selection.SelectionChanged()
 Class ServerScriptService : Instance [NotCreatable] [Service] [NotReplicated]
@@ -2879,6 +2886,7 @@ Class Studio : Instance [NotCreatable] [Service] [NotReplicated]
 	Property bool Studio.Format On Paste
 	Property bool Studio.Format On Type
 	Property bool Studio.Highlight Current Line
+	Property bool Studio.Highlight Occurances
 	Property bool Studio.Indent Using Spaces
 	Property string Studio.Rulers
 	Property bool Studio.Show Whitespace
@@ -2898,6 +2906,7 @@ Class Studio : Instance [NotCreatable] [Service] [NotReplicated]
 	Property Color3 Studio.Number Color
 	Property Color3 Studio.Operator Color
 	Property Color3 Studio.Preprocessor Color
+	Property Enum<StudioScriptEditorColorPresets> Studio.Script Editor Color Preset
 	Property Color3 Studio.Selection Background Color
 	Property Color3 Studio.Selection Color
 	Property Color3 Studio.String Color
@@ -3517,6 +3526,11 @@ Enum AutoIndentRule
 	EnumItem AutoIndentRule.Off : 0
 	EnumItem AutoIndentRule.Absolute : 1
 	EnumItem AutoIndentRule.Relative : 2
+Enum AutomaticSize
+	EnumItem AutomaticSize.None : 0
+	EnumItem AutomaticSize.X : 1
+	EnumItem AutomaticSize.Y : 2
+	EnumItem AutomaticSize.XY : 3
 Enum AvatarAssetType
 	EnumItem AvatarAssetType.TShirt : 2
 	EnumItem AvatarAssetType.Hat : 8
@@ -3920,6 +3934,31 @@ Enum Font
 	EnumItem Font.GothamSemibold : 18
 	EnumItem Font.GothamBold : 19
 	EnumItem Font.GothamBlack : 20
+	EnumItem Font.AmaticSC : 21 [Deprecated]
+	EnumItem Font.Bangers : 22 [Deprecated]
+	EnumItem Font.Creepster : 23 [Deprecated]
+	EnumItem Font.DenkOne : 24 [Deprecated]
+	EnumItem Font.Fondamento : 25 [Deprecated]
+	EnumItem Font.FredokaOne : 26 [Deprecated]
+	EnumItem Font.GrenzeGotisch : 27 [Deprecated]
+	EnumItem Font.IndieFlower : 28 [Deprecated]
+	EnumItem Font.JosefinSans : 29 [Deprecated]
+	EnumItem Font.Jura : 30 [Deprecated]
+	EnumItem Font.Kalam : 31 [Deprecated]
+	EnumItem Font.LuckiestGuy : 32 [Deprecated]
+	EnumItem Font.Merriweather : 33 [Deprecated]
+	EnumItem Font.Michroma : 34 [Deprecated]
+	EnumItem Font.Nunito : 35 [Deprecated]
+	EnumItem Font.Oswald : 36 [Deprecated]
+	EnumItem Font.PatrickHand : 37 [Deprecated]
+	EnumItem Font.PermanentMarker : 38 [Deprecated]
+	EnumItem Font.Roboto : 39 [Deprecated]
+	EnumItem Font.RobotoCondensed : 40 [Deprecated]
+	EnumItem Font.RobotoMono : 41 [Deprecated]
+	EnumItem Font.Sarpanch : 42 [Deprecated]
+	EnumItem Font.SpecialElite : 43 [Deprecated]
+	EnumItem Font.TitilliumWeb : 44 [Deprecated]
+	EnumItem Font.Ubuntu : 45 [Deprecated]
 Enum FontSize
 	EnumItem FontSize.Size8 : 0
 	EnumItem FontSize.Size9 : 1
@@ -4461,6 +4500,10 @@ Enum MeshPartDetailLevel
 	EnumItem MeshPartDetailLevel.Level02 : 2
 	EnumItem MeshPartDetailLevel.Level03 : 3
 	EnumItem MeshPartDetailLevel.Level04 : 4
+Enum MeshPartHeads
+	EnumItem MeshPartHeads.Default : 0
+	EnumItem MeshPartHeads.Disabled : 1
+	EnumItem MeshPartHeads.Enabled : 2
 Enum MeshType
 	EnumItem MeshType.Head : 0
 	EnumItem MeshType.Torso : 1
@@ -4793,6 +4836,19 @@ Enum StudioDataModelType
 	EnumItem StudioDataModelType.RobloxPlugin : 4
 	EnumItem StudioDataModelType.UserPlugin : 5
 	EnumItem StudioDataModelType.None : 6
+Enum StudioScriptEditorColorCategories
+	EnumItem StudioScriptEditorColorCategories.Default : 0
+	EnumItem StudioScriptEditorColorCategories.Operator : 1
+	EnumItem StudioScriptEditorColorCategories.Number : 2
+	EnumItem StudioScriptEditorColorCategories.String : 3
+	EnumItem StudioScriptEditorColorCategories.Comment : 4
+	EnumItem StudioScriptEditorColorCategories.Keyword : 5
+	EnumItem StudioScriptEditorColorCategories.Builtin : 6
+Enum StudioScriptEditorColorPresets
+	EnumItem StudioScriptEditorColorPresets.RobloxDefault : 0
+	EnumItem StudioScriptEditorColorPresets.Extra1 : 1
+	EnumItem StudioScriptEditorColorPresets.Extra2 : 2
+	EnumItem StudioScriptEditorColorPresets.Custom : 3
 Enum StudioStyleGuideColor
 	EnumItem StudioStyleGuideColor.MainBackground : 0
 	EnumItem StudioStyleGuideColor.Titlebar : 1
@@ -5042,6 +5098,10 @@ Enum TouchMovementMode
 	EnumItem TouchMovementMode.Thumbpad : 3
 	EnumItem TouchMovementMode.ClickToMove : 4
 	EnumItem TouchMovementMode.DynamicThumbstick : 5
+Enum TriStateBoolean
+	EnumItem TriStateBoolean.Unknown : 0
+	EnumItem TriStateBoolean.True : 1
+	EnumItem TriStateBoolean.False : 2
 Enum TweenStatus
 	EnumItem TweenStatus.Canceled : 0
 	EnumItem TweenStatus.Completed : 1
