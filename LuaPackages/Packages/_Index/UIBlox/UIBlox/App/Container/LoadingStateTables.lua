@@ -12,47 +12,51 @@ local INITIAL_LOADING_STATE = LoadingStateEnum.Loading
 local LoadingStateTables = {}
 
 -- This state table allows reloading after it has loaded
-LoadingStateTables[ReloadingStyle.AllowReload] = StateTable.new('AllowReload', INITIAL_LOADING_STATE, {}, {
-	[LoadingStateEnum.Loading] = {
-		[RetrievalStatus.NotStarted] = {},
-		[RetrievalStatus.Fetching] = {},
-		[RetrievalStatus.Done] = { nextState = LoadingStateEnum.Loaded },
-		[RetrievalStatus.Failed] = { nextState = LoadingStateEnum.Failed },
-	},
-	[LoadingStateEnum.Loaded] = {
-		[RetrievalStatus.NotStarted] = {},
-		[RetrievalStatus.Fetching] = { nextState = LoadingStateEnum.Loading },
-		[RetrievalStatus.Done] = {},
-		[RetrievalStatus.Failed] = { nextState = LoadingStateEnum.Failed },
-	},
-	[LoadingStateEnum.Failed] = {
-		[RetrievalStatus.NotStarted] = {},
-		[RetrievalStatus.Fetching] = { nextState = LoadingStateEnum.Loading },
-		[RetrievalStatus.Done] = { nextState = LoadingStateEnum.Loaded },
-		[RetrievalStatus.Failed] = {},
-	},
-})
+LoadingStateTables[ReloadingStyle.AllowReload] = function()
+	return StateTable.new('AllowReload', INITIAL_LOADING_STATE, {}, {
+		[LoadingStateEnum.Loading] = {
+			[RetrievalStatus.NotStarted] = {},
+			[RetrievalStatus.Fetching] = {},
+			[RetrievalStatus.Done] = { nextState = LoadingStateEnum.Loaded },
+			[RetrievalStatus.Failed] = { nextState = LoadingStateEnum.Failed },
+		},
+		[LoadingStateEnum.Loaded] = {
+			[RetrievalStatus.NotStarted] = {},
+			[RetrievalStatus.Fetching] = { nextState = LoadingStateEnum.Loading },
+			[RetrievalStatus.Done] = {},
+			[RetrievalStatus.Failed] = { nextState = LoadingStateEnum.Failed },
+		},
+		[LoadingStateEnum.Failed] = {
+			[RetrievalStatus.NotStarted] = {},
+			[RetrievalStatus.Fetching] = { nextState = LoadingStateEnum.Loading },
+			[RetrievalStatus.Done] = { nextState = LoadingStateEnum.Loaded },
+			[RetrievalStatus.Failed] = {},
+		},
+	})
+end
 
 -- This state table locks reloading after it has loaded.
-LoadingStateTables[ReloadingStyle.LockReload] = StateTable.new('LockReload', INITIAL_LOADING_STATE, {}, {
-	[LoadingStateEnum.Loading] = {
-		[RetrievalStatus.NotStarted] = {},
-		[RetrievalStatus.Fetching] = {},
-		[RetrievalStatus.Done] = { nextState = LoadingStateEnum.Loaded },
-		[RetrievalStatus.Failed] = { nextState = LoadingStateEnum.Failed },
-	},
-	[LoadingStateEnum.Loaded] = {
-		[RetrievalStatus.NotStarted] = {},
-		[RetrievalStatus.Fetching] = { nextState = LoadingStateEnum.Failed },
-		[RetrievalStatus.Done] = {},
-		[RetrievalStatus.Failed] = { nextState = LoadingStateEnum.Failed },
-	},
-	[LoadingStateEnum.Failed] = {
-		[RetrievalStatus.NotStarted] = {},
-		[RetrievalStatus.Fetching] = { nextState = LoadingStateEnum.Loading },
-		[RetrievalStatus.Done] = { nextState = LoadingStateEnum.Loaded },
-		[RetrievalStatus.Failed] = {},
-	},
-})
+LoadingStateTables[ReloadingStyle.LockReload] = function()
+	return StateTable.new('LockReload', INITIAL_LOADING_STATE, {}, {
+		[LoadingStateEnum.Loading] = {
+			[RetrievalStatus.NotStarted] = {},
+			[RetrievalStatus.Fetching] = {},
+			[RetrievalStatus.Done] = { nextState = LoadingStateEnum.Loaded },
+			[RetrievalStatus.Failed] = { nextState = LoadingStateEnum.Failed },
+		},
+		[LoadingStateEnum.Loaded] = {
+			[RetrievalStatus.NotStarted] = {},
+			[RetrievalStatus.Fetching] = { nextState = LoadingStateEnum.Failed },
+			[RetrievalStatus.Done] = {},
+			[RetrievalStatus.Failed] = { nextState = LoadingStateEnum.Failed },
+		},
+		[LoadingStateEnum.Failed] = {
+			[RetrievalStatus.NotStarted] = {},
+			[RetrievalStatus.Fetching] = { nextState = LoadingStateEnum.Loading },
+			[RetrievalStatus.Done] = { nextState = LoadingStateEnum.Loaded },
+			[RetrievalStatus.Failed] = {},
+		},
+	})
+end
 
 return LoadingStateTables

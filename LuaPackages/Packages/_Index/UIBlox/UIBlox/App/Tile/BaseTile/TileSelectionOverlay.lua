@@ -8,22 +8,28 @@ local Roact = require(Packages.Roact)
 local t = require(Packages.t)
 local withStyle = require(UIBlox.Core.Style.withStyle)
 
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
+
 local Images = require(UIBlox.App.ImageSet.Images)
 local ImageSetComponent = require(UIBlox.Core.ImageSet.ImageSetComponent)
 
-local SelectionOverlay = Roact.PureComponent:extend("SelectionOverlay")
+local TileSelectionOverlay = Roact.PureComponent:extend("TileSelectionOverlay")
 
 local PADDING_RIGHT = 6
 local PADDING_TOP = 6
 
-local validateProps = t.strictInterface({
+TileSelectionOverlay.validateProps = t.strictInterface({
 	ZIndex = t.optional(t.integer),
+	cornerRadius = t.optional(t.UDim),
 })
 
-function SelectionOverlay:render()
-	assert(validateProps(self.props))
+TileSelectionOverlay.defaultProps = {
+	cornerRadius = UDim.new(0, 0),
+}
 
+function TileSelectionOverlay:render()
 	local zIndex = self.props.ZIndex
+	local cornerRadius = self.props.cornerRadius
 
 	local selectionIcon = Images["icons/actions/selectOn"]
 	local imageSize = selectionIcon.ImageRectSize / Images.ImagesResolutionScale
@@ -45,8 +51,12 @@ function SelectionOverlay:render()
 				Position = UDim2.new(1, -PADDING_RIGHT, 0, PADDING_TOP),
 				Size = UDim2.new(0, imageSize.X, 0, imageSize.Y),
 			}),
+			UICorner = UIBloxConfig.useNewUICornerRoundedCorners and cornerRadius ~= UDim.new(0, 0)
+				and Roact.createElement("UICorner", {
+					CornerRadius = cornerRadius,
+				}) or nil,
 		})
 	end)
 end
 
-return SelectionOverlay
+return TileSelectionOverlay

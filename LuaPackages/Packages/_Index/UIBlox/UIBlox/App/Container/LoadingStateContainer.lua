@@ -55,7 +55,7 @@ function LoadingStateContainer:init()
 
 	self:setState({
 		loadingState = INITIAL_LOADING_STATE,
-		currentReloadingStyle = LoadingStateTables[INITIAL_RELOADING_STYLE],
+		currentReloadingStyle = LoadingStateTables[INITIAL_RELOADING_STYLE](),
 	})
 
 	self.statePages = {
@@ -87,7 +87,7 @@ function LoadingStateContainer.getDerivedStateFromProps(nextProps, lastState)
 	if lastState.currentReloadingStyle ~= nil and lastState.currentReloadingStyle ~= nextProps.reloadingStyle then
 		return {
 			--reloadingStyle = nextProps.reloadingStyle,
-			currentReloadingStyle = LoadingStateTables[nextProps.reloadingStyle]
+			currentReloadingStyle = LoadingStateTables[nextProps.reloadingStyle]()
 		}
 	end
 end
