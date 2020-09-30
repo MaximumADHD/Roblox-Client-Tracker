@@ -51,6 +51,8 @@ local isGridViewProps = t.intersection(
 		NextSelectionUp = t.optional(t.table),
 		NextSelectionDown = t.optional(t.table),
 		[Roact.Ref] = t.optional(t.table),
+		restorePreviousChildFocus = t.optional(t.boolean),
+		onFocusGained = t.optional(t.callback),
 
 		-- which selection will initally be selected (if using roact-gamepad)
 		defaultChildIndex = t.optional(t.numberMin(1)),
@@ -116,7 +118,10 @@ function DefaultMetricsGridView:render()
 		NextSelectionDown = self.props.NextSelectionDown,
 		[Roact.Ref] = self.props[Roact.Ref],
 
+		-- Optional gamepad props
 		defaultChildIndex = self.props.defaultChildIndex,
+		restorePreviousChildFocus = self.props.restorePreviousChildFocus,
+		onFocusGained = self.props.onFocusGained,
 
 		onWidthChanged = function(newWidth)
 			if self.isMounted then

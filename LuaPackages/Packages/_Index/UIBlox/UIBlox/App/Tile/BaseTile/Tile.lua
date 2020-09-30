@@ -11,6 +11,9 @@ local Roact = require(Packages.Roact)
 local t = require(Packages.t)
 local withStyle = require(UIBlox.Core.Style.withStyle)
 
+local CursorKind = require(App.SelectionImage.CursorKind)
+local withSelectionCursorProvider = require(App.SelectionImage.withSelectionCursorProvider)
+
 local TileName = require(BaseTile.TileName)
 local TileThumbnail = require(BaseTile.TileThumbnail)
 local TileBanner = require(BaseTile.TileBanner)
@@ -112,63 +115,76 @@ function Tile:render()
 	local thumbnailOverlayComponents = self.props.thumbnailOverlayComponents
 
 	return withStyle(function(stylePalette)
-		local font = stylePalette.Font
+		return withSelectionCursorProvider(function(getSelectionCursor)
+			local font = stylePalette.Font
 
-		local tileHeight = self.state.tileHeight
-		local tileWidth = self.state.tileWidth
+			local tileHeight = self.state.tileHeight
+			local tileWidth = self.state.tileWidth
 
-		local maxTitleTextHeight = math.ceil(font.BaseSize * font.Header2.RelativeSize * titleTextLineCount)
-		local footerHeight = tileHeight - tileWidth - innerPadding - maxTitleTextHeight - innerPadding
-		footerHeight = math.max(0, footerHeight)
+			local maxTitleTextHeight = math.ceil(font.BaseSize * font.Header2.RelativeSize * titleTextLineCount)
+			local footerHeight = tileHeight - tileWidth - innerPadding - maxTitleTextHeight - innerPadding
+			footerHeight = math.max(0, footerHeight)
 
-		local hasFooter = footer ~= nil or bannerText ~= nil
+			local hasFooter = footer ~= nil or bannerText ~= nil
 
-		-- TODO: use generic/state button from UIBlox
-		return Roact.createElement(UIBloxConfig.enableExperimentalGamepadSupport and
-			RoactGamepad.Focusable.TextButton or "TextButton", {
-			Text = "",
-			Size = UDim2.new(1, 0, 1, 0),
-			BackgroundTransparency = 1,
-			[Roact.Event.Activated] = onActivated,
-			[Roact.Change.AbsoluteSize] = self.onAbsoluteSizeChange,
-		}, {
-			UIListLayout = Roact.createElement("UIListLayout", {
-				FillDirection = Enum.FillDirection.Vertical,
-				SortOrder = Enum.SortOrder.LayoutOrder,
-				Padding = UDim.new(0, innerPadding),
-			}),
-			Thumbnail = Roact.createElement("Frame", {
+			-- TODO: use generic/state button from UIBlox
+			return Roact.createElement("TextButton", {
+				Text = "",
 				Size = UDim2.new(1, 0, 1, 0),
-				SizeConstraint = Enum.SizeConstraint.RelativeXX,
 				BackgroundTransparency = 1,
-				LayoutOrder = 1,
+				Selectable = false,
+				[Roact.Event.Activated] = onActivated,
+				[Roact.Change.AbsoluteSize] = self.onAbsoluteSizeChange,
 			}, {
-				Image = Roact.createElement(TileThumbnail, {
-					Image = thumbnail,
-					hasRoundedCorners = hasRoundedCorners,
-					isSelected = isSelected,
-					overlayComponents = thumbnailOverlayComponents,
-					imageSize = thumbnailSize,
+				UIListLayout = Roact.createElement("UIListLayout", {
+					FillDirection = Enum.FillDirection.Vertical,
+					SortOrder = Enum.SortOrder.LayoutOrder,
+					Padding = UDim.new(0, innerPadding),
 				}),
-			}),
-			Name = (titleTextLineCount > 0 and tileWidth > 0) and Roact.createElement(TileName, {
-				titleIcon = titleIcon,
-				name = name,
-				maxHeight = maxTitleTextHeight,
-				maxWidth = tileWidth,
-				LayoutOrder = 2,
-			}),
-			FooterContainer = hasFooter and Roact.createElement("Frame", {
-				Size = UDim2.new(1, 0, 0, footerHeight),
-				BackgroundTransparency = 1,
-				LayoutOrder = 3,
-			}, {
-				Banner = bannerText and Roact.createElement(TileBanner, {
-					bannerText = bannerText,
+				Thumbnail = Roact.createElement(UIBloxConfig.enableExperimentalGamepadSupport
+						and RoactGamepad.Focusable.Frame or "Frame", {
+					Size = UDim2.new(1, 0, 1, 0),
+					SizeConstraint = Enum.SizeConstraint.RelativeXX,
+					BackgroundTransparency = 1,
+					LayoutOrder = 1,
+
+					NextSelectionLeft = self.props.NextSelectionLeft,
+					NextSelectionRight = self.props.NextSelectionRight,
+					NextSelectionUp = self.props.NextSelectionUp,
+					NextSelectionDown = self.props.NextSelectionDown,
+					[Roact.Ref] = self.props[Roact.Ref],
+					SelectionImageObject = getSelectionCursor(CursorKind.RoundedRectNoInset),
+					inputBindings = UIBloxConfig.enableExperimentalGamepadSupport and {
+						Activate = RoactGamepad.Input.onBegin(Enum.KeyCode.ButtonA, onActivated)
+					} or nil,
+				}, {
+					Image = Roact.createElement(TileThumbnail, {
+						Image = thumbnail,
+						hasRoundedCorners = hasRoundedCorners,
+						isSelected = isSelected,
+						overlayComponents = thumbnailOverlayComponents,
+						imageSize = thumbnailSize,
+					}),
 				}),
-				Footer = not bannerText and footer,
-			}),
-		})
+				Name = (titleTextLineCount > 0 and tileWidth > 0) and Roact.createElement(TileName, {
+					titleIcon = titleIcon,
+					name = name,
+					maxHeight = maxTitleTextHeight,
+					maxWidth = tileWidth,
+					LayoutOrder = 2,
+				}),
+				FooterContainer = hasFooter and Roact.createElement("Frame", {
+					Size = UDim2.new(1, 0, 0, footerHeight),
+					BackgroundTransparency = 1,
+					LayoutOrder = 3,
+				}, {
+					Banner = bannerText and Roact.createElement(TileBanner, {
+						bannerText = bannerText,
+					}),
+					Footer = not bannerText and footer,
+				}),
+			})
+		end)
 	end)
 end
 

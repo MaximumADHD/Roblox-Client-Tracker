@@ -40,6 +40,8 @@ local validateProps = t.strictInterface({
 	NextSelectionUp = t.optional(t.table),
 	NextSelectionDown = t.optional(t.table),
 	[Roact.Ref] = t.optional(t.table),
+	restorePreviousChildFocus = t.optional(t.boolean),
+	onFocusGained = t.optional(t.callback),
 
 	-- which selection will initally be selected (if using roact-gamepad
 	defaultChildIndex = t.optional(t.numberMin(1)),
@@ -49,6 +51,7 @@ local GridView = Roact.PureComponent:extend("GridView")
 
 GridView.defaultProps = {
 	maxHeight = math.huge,
+	restorePreviousChildFocus = true,
 }
 
 function GridView:init()
@@ -148,6 +151,8 @@ function GridView:render()
 				NextSelectionUp = getItemIndexRef(currentRow-1, currentCol),
 				NextSelectionDown = getItemIndexRef(currentRow+1, currentCol),
 				[Roact.Ref] = getItemIndexRef(currentRow, currentCol),
+				-- Optional Gamepad prop callback which is called when a grid member is focused on
+				onFocusGained = UIBloxConfig.enableExperimentalGamepadSupport and self.props.onFocusGained or nil,
 			}, {
 				Content = self.props.renderItem(items[itemIndex], itemIndex)
 			})
@@ -197,10 +202,14 @@ function GridView:render()
 		NextSelectionUp = self.props.NextSelectionUp,
 		NextSelectionDown = self.props.NextSelectionDown,
 
+		[Roact.Ref] = UIBloxConfig.enableExperimentalGamepadSupport and self.props[Roact.Ref] or self.frameRef,
+		-- Optional Gamepad prop for which grid member to focus on by default
 		defaultChild = (UIBloxConfig.enableExperimentalGamepadSupport and defaultChildIndex) and
 			self.focusableRefs[defaultChildIndex] or nil,
-		restorePreviousChildFocus = UIBloxConfig.enableExperimentalGamepadSupport or nil,
-		[Roact.Ref] = UIBloxConfig.enableExperimentalGamepadSupport and self.props[Roact.Ref] or self.frameRef,
+		-- Optional Gamepad prop for whether the previous focused on grid member should be refocused
+		-- when returning focus to the grid
+		restorePreviousChildFocus = UIBloxConfig.enableExperimentalGamepadSupport and
+			self.props.restorePreviousChildFocus or nil,
 	}, gridChildren)
 end
 

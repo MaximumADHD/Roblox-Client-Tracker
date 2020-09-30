@@ -45,6 +45,7 @@ local validateProps = t.strictInterface({
 	middleContent = t.optional(t.callback),
 	middleContentPaddingBetweenBodyText = t.optional(t.number),
 	onMounted = t.optional(t.callback),
+	onAbsoluteSizeChanged = t.optional(t.callback),
 	paddingBetween = t.optional(t.number),
 	position = t.optional(t.UDim2),
 	screenSize = t.Vector2,
@@ -148,6 +149,7 @@ function Alert:render()
 			Selectable = false,
 
 			[Roact.Ref] = self.props.defaultChildRef,
+			[Roact.Change.AbsoluteSize] = self.props.onAbsoluteSizeChanged,
 			defaultChild = UIBloxConfig.enableExperimentalGamepadSupport and self.buttonStackRef or nil,
 		}, {
 			AlertContents = Roact.createElement(FitFrameOnAxis, {

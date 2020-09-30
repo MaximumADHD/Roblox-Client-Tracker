@@ -35,6 +35,7 @@ local function makeBaseMenu(cellComponent, backgroundThemeKey)
 		-- The position can either be passed as a UDim2 or a Roact binding.
 		position = t.optional(t.union(t.UDim2, t.table)),
 		anchorPoint = t.optional(t.Vector2),
+		layoutOrder = t.optional(t.number),
 	})
 
 	baseMenuComponent.defaultProps = {
@@ -105,6 +106,7 @@ local function makeBaseMenu(cellComponent, backgroundThemeKey)
 			return Roact.createElement("Frame", {
 				AnchorPoint = self.props.anchorPoint,
 				BackgroundTransparency = 1,
+				LayoutOrder = self.props.layoutOrder,
 				Size = UDim2.new(self.props.width.Scale, self.props.width.Offset, 0, menuHeight),
 				Position = self.props.position,
 			}, {

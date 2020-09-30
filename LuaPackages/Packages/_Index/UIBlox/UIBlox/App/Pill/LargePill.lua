@@ -7,6 +7,8 @@ local Roact = require(Packages.Roact)
 local t = require(Packages.t)
 
 local Images = require(App.ImageSet.Images)
+local CursorKind = require(App.SelectionImage.CursorKind)
+local withSelectionCursorProvider = require(App.SelectionImage.withSelectionCursorProvider)
 local ImageSetComponent = require(UIBlox.Core.ImageSet.ImageSetComponent)
 local ControlState = require(UIBlox.Core.Control.Enum.ControlState)
 local GenericButton = require(UIBlox.Core.Button.GenericButton)
@@ -93,61 +95,64 @@ function LargePill:render()
 	local contentColors = isSelected and SELECTED_CONTENT_STATE_COLOR or CONTENT_STATE_COLOR
 
 	return withStyle(function(style)
-		local theme = style.Theme
-		local currentState = self.state.controlState
-		local textStyle = getContentStyle(contentColors, currentState, style)
-		local size = UDim2.new(self.props.width, UDim.new(0, HEIGHT))
-		local sliceCenter = Rect.new(24, 24, 25, 25)
+		return withSelectionCursorProvider(function(getSelectionCursor)
+			local theme = style.Theme
+			local currentState = self.state.controlState
+			local textStyle = getContentStyle(contentColors, currentState, style)
+			local size = UDim2.new(self.props.width, UDim.new(0, HEIGHT))
+			local sliceCenter = Rect.new(24, 24, 25, 25)
 
-		return Roact.createElement("Frame", {
-			Size = size,
-			BackgroundTransparency = 1,
-			LayoutOrder = self.props.layoutOrder,
-		}, {
-			Button = Roact.createElement(GenericButton, {
+			return Roact.createElement("Frame", {
 				Size = size,
-				SliceCenter = sliceCenter,
-				isLoading = self.props.isLoading,
-				isDisabled = self.props.isDisabled,
-				text = self.props.text,
-				onActivated = self.props.onActivated,
-				buttonImage = image,
-				buttonStateColorMap = buttonColors,
-				contentStateColorMap = contentColors,
-				onStateChanged = self.onStateChanged,
-				NextSelectionLeft = self.props.NextSelectionLeft,
-				NextSelectionRight = self.props.NextSelectionRight,
-				NextSelectionUp = self.props.NextSelectionUp,
-				NextSelectionDown = self.props.NextSelectionDown,
-				[Roact.Ref] = self.props[Roact.Ref],
-			}, {
-				UIListLayout = Roact.createElement("UIListLayout", {
-					FillDirection = Enum.FillDirection.Horizontal,
-					VerticalAlignment = Enum.VerticalAlignment.Center,
-					HorizontalAlignment = Enum.HorizontalAlignment.Center,
-					SortOrder = Enum.SortOrder.LayoutOrder,
-					Padding = UDim.new(0, PADDING),
-				}),
-				Text = Roact.createElement(GenericTextLabel, {
-					Size = UDim2.new(1, -2 * PADDING, 1, 0),
-					BackgroundTransparency = 1,
-					Text = self.props.text,
-					fontStyle = style.Font.Header2,
-					colorStyle = textStyle,
-					LayoutOrder = 2,
-					TextTruncate = Enum.TextTruncate.AtEnd,
-				}),
-			}),
-			Mask = self.props.isLoading and Roact.createElement(ImageSetComponent.Label, {
 				BackgroundTransparency = 1,
-				Image = Images["component_assets/circle_49_mask"],
-				ImageColor3 = self.props.backgroundColor or theme.BackgroundDefault.Color,
-				ScaleType = Enum.ScaleType.Slice,
-				SliceCenter = sliceCenter,
-				Size = size,
-				ZIndex = 3,
-			}),
-		})
+				LayoutOrder = self.props.layoutOrder,
+			}, {
+				Button = Roact.createElement(GenericButton, {
+					Size = size,
+					SliceCenter = sliceCenter,
+					SelectionImageObject = getSelectionCursor(CursorKind.LargePill),
+					isLoading = self.props.isLoading,
+					isDisabled = self.props.isDisabled,
+					text = self.props.text,
+					onActivated = self.props.onActivated,
+					buttonImage = image,
+					buttonStateColorMap = buttonColors,
+					contentStateColorMap = contentColors,
+					onStateChanged = self.onStateChanged,
+					NextSelectionLeft = self.props.NextSelectionLeft,
+					NextSelectionRight = self.props.NextSelectionRight,
+					NextSelectionUp = self.props.NextSelectionUp,
+					NextSelectionDown = self.props.NextSelectionDown,
+					[Roact.Ref] = self.props[Roact.Ref],
+				}, {
+					UIListLayout = Roact.createElement("UIListLayout", {
+						FillDirection = Enum.FillDirection.Horizontal,
+						VerticalAlignment = Enum.VerticalAlignment.Center,
+						HorizontalAlignment = Enum.HorizontalAlignment.Center,
+						SortOrder = Enum.SortOrder.LayoutOrder,
+						Padding = UDim.new(0, PADDING),
+					}),
+					Text = Roact.createElement(GenericTextLabel, {
+						Size = UDim2.new(1, -2 * PADDING, 1, 0),
+						BackgroundTransparency = 1,
+						Text = self.props.text,
+						fontStyle = style.Font.Header2,
+						colorStyle = textStyle,
+						LayoutOrder = 2,
+						TextTruncate = Enum.TextTruncate.AtEnd,
+					}),
+				}),
+				Mask = self.props.isLoading and Roact.createElement(ImageSetComponent.Label, {
+					BackgroundTransparency = 1,
+					Image = Images["component_assets/circle_49_mask"],
+					ImageColor3 = self.props.backgroundColor or theme.BackgroundDefault.Color,
+					ScaleType = Enum.ScaleType.Slice,
+					SliceCenter = sliceCenter,
+					Size = size,
+					ZIndex = 3,
+				}),
+			})
+		end)
 	end)
 end
 

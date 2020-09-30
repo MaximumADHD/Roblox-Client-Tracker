@@ -15,6 +15,8 @@ local Images = require(UIBlox.App.ImageSet.Images)
 local GenericTextLabel = require(UIBlox.Core.Text.GenericTextLabel.GenericTextLabel)
 local ExpandableTextUtils = require(UIBlox.Core.Text.ExpandableText.ExpandableTextUtils)
 
+local CursorKind = require(App.SelectionImage.CursorKind)
+local withSelectionCursorProvider = require(App.SelectionImage.withSelectionCursorProvider)
 
 local UIBloxConfig = require(UIBlox.UIBloxConfig)
 local expandableTextAutomaticResizeConfig = UIBloxConfig.expandableTextAutomaticResizeConfig
@@ -140,155 +142,158 @@ function ExpandableTextArea:render()
 	PADDING_BOTTOM = padding and padding.X or DEFAULT_PADDING_BOTTOM
 
 	return withStyle(function(stylePalette)
-		local theme = stylePalette.Theme
-		local font = stylePalette.Font
-		local textSize = font.BaseSize * font.Body.RelativeSize
-		local fullTextHeight, compactHeight
-		if UIBloxConfig.enableExperimentalGamepadSupport then
-			fullTextHeight, compactHeight = ExpandableTextUtils.getExpandableTextHeights(
-				font, self.state.frameWidth, descriptionText, compactNumberOfLines)
-		else
-			local textFont = font.Body.Font
-			fullTextHeight = GetTextHeight(descriptionText, textFont, textSize, self.state.frameWidth)
-			compactHeight = compactNumberOfLines * textSize + PATCHED_PADDING
-		end
+		return withSelectionCursorProvider(function(getSelectionCursor)
+			local theme = stylePalette.Theme
+			local font = stylePalette.Font
+			local textSize = font.BaseSize * font.Body.RelativeSize
+			local fullTextHeight, compactHeight
+			if UIBloxConfig.enableExperimentalGamepadSupport then
+				fullTextHeight, compactHeight = ExpandableTextUtils.getExpandableTextHeights(
+					font, self.state.frameWidth, descriptionText, compactNumberOfLines)
+			else
+				local textFont = font.Body.Font
+				fullTextHeight = GetTextHeight(descriptionText, textFont, textSize, self.state.frameWidth)
+				compactHeight = compactNumberOfLines * textSize + PATCHED_PADDING
+			end
 
-		local compactSize = UDim2.new(1, 0, 0, compactHeight + PADDING_BOTTOM)
-		local fullSize = UDim2.new(1, 0, 0, fullTextHeight + PADDING_BOTTOM)
-		local canExpand = fullTextHeight > compactHeight
-		local isExpanded = not canExpand or self.state.isExpanded
+			local compactSize = UDim2.new(1, 0, 0, compactHeight + PADDING_BOTTOM)
+			local fullSize = UDim2.new(1, 0, 0, fullTextHeight + PADDING_BOTTOM)
+			local canExpand = fullTextHeight > compactHeight
+			local isExpanded = not canExpand or self.state.isExpanded
 
-		local size = isExpanded and fullSize or compactSize
-		local gradientHeight = isExpanded and 0 or GRADIENT_HEIGHT
+			local size = isExpanded and fullSize or compactSize
+			local gradientHeight = isExpanded and 0 or GRADIENT_HEIGHT
 
-		local isFocusable = UIBloxConfig.enableExperimentalGamepadSupport and canExpand
-		local frameComponent = isFocusable and RoactGamepad.Focusable.Frame or "Frame"
+			local isFocusable = UIBloxConfig.enableExperimentalGamepadSupport and canExpand
+			local frameComponent = isFocusable and RoactGamepad.Focusable.Frame or "Frame"
 
-		return Roact.createElement(frameComponent, {
-			BackgroundTransparency = 1,
-			BorderSizePixel = 0,
-			LayoutOrder = layoutOrder,
-			Position = position,
-			Size = (not expandableTextAutomaticResizeConfig or width) and UDim2.new(width.Scale, width.Offset, 0, 0)
+			return Roact.createElement(frameComponent, {
+				BackgroundTransparency = 1,
+				BorderSizePixel = 0,
+				LayoutOrder = layoutOrder,
+				Position = position,
+				Size = (not expandableTextAutomaticResizeConfig or width) and UDim2.new(width.Scale, width.Offset, 0, 0)
 				or UDim2.new(1, 0, 0, 0),
-			[Roact.Ref] = ref,
-			[Roact.Change.AbsoluteSize] = function(rbx)
-				if self.state.frameWidth ~= rbx.AbsoluteSize.X then
-					-- Wrapped in spawn in order to avoid issues if Roact connects changed signal before the Size
-					-- prop is set in older versions of Roact (older than 1.0) In 1.0, this is fixed by deferring event
-					-- handlers and setState calls until after the current update]]
-					if expandableTextAutomaticResizeConfig then
-						self:setState({
-							frameWidth = rbx.AbsoluteSize.X,
-						})
-					else
-						spawn(function()
-							if self.isMounted then
-								self:setState({
-									frameWidth = rbx.AbsoluteSize.X,
-								})
-							end
-						end)
+				SelectionImageObject = getSelectionCursor(CursorKind.RoundedRect),
+				[Roact.Ref] = ref,
+				[Roact.Change.AbsoluteSize] = function(rbx)
+					if self.state.frameWidth ~= rbx.AbsoluteSize.X then
+						-- Wrapped in spawn in order to avoid issues if Roact connects changed signal before the Size
+						-- prop is set in older versions of Roact (older than 1.0) In 1.0, this is fixed by deferring event
+						-- handlers and setState calls until after the current update]]
+						if expandableTextAutomaticResizeConfig then
+							self:setState({
+								frameWidth = rbx.AbsoluteSize.X,
+							})
+						else
+							spawn(function()
+								if self.isMounted then
+									self:setState({
+										frameWidth = rbx.AbsoluteSize.X,
+									})
+								end
+							end)
+						end
 					end
-				end
-			end,
-
-			NextSelectionUp = self.props.NextSelectionUp,
-			NextSelectionDown = self.props.NextSelectionDown,
-			NextSelectionLeft = self.props.NextSelectionLeft,
-			NextSelectionRight = self.props.NextSelectionRight,
-			inputBindings = isFocusable and {
-				Activated = RoactGamepad.Input.onBegin(Enum.KeyCode.ButtonA, self.onClick),
-			} or nil,
-		}, {
-			Layout = Roact.createElement("UIListLayout", {
-				SortOrder = Enum.SortOrder.LayoutOrder,
-				FillDirection = Enum.FillDirection.Vertical,
-				Padding = UDim.new(0, SPACING_Y),
-				[Roact.Change.AbsoluteContentSize] = function(rbx)
-					self:applyFit(rbx.AbsoluteContentSize.y)
 				end,
 
-				[Roact.Ref] = self.layoutRef,
-			}),
-			UIPadding = Roact.createElement("UIPadding", {
-				PaddingTop = UDim.new(0, PADDING_TOP),
-			}),
-			ExpandableContainer = Roact.createElement(SpringAnimatedItem.AnimatedFrame, {
-				animatedValues = {
-					height = size.Y.Offset,
-				},
-				mapValuesToProps = function(values)
-					return {
-						Size = UDim2.new(1, 0, size.Y.Scale, values.height),
-					}
-				end,
-				regularProps = {
-					BackgroundTransparency = 1,
-					BorderSizePixel = 0,
-					ClipsDescendants = true,
-					Size = size,
-					LayoutOrder = 0,
-				},
-				springOptions = ANIMATION_SPRING_SETTINGS,
+				NextSelectionUp = self.props.NextSelectionUp,
+				NextSelectionDown = self.props.NextSelectionDown,
+				NextSelectionLeft = self.props.NextSelectionLeft,
+				NextSelectionRight = self.props.NextSelectionRight,
+				inputBindings = isFocusable and {
+					Activated = RoactGamepad.Input.onBegin(Enum.KeyCode.ButtonA, self.onClick),
+				} or nil,
 			}, {
-				DescriptionText = Roact.createElement(GenericTextLabel, {
-					colorStyle = theme.TextDefault,
-					fontStyle = font.Body,
-					Size = fullSize,
-					Text = descriptionText,
-					TextSize = textSize,
-					TextXAlignment = Enum.TextXAlignment.Left,
-					TextWrapped = true,
-					BackgroundTransparency = 1,
+				Layout = Roact.createElement("UIListLayout", {
+					SortOrder = Enum.SortOrder.LayoutOrder,
+					FillDirection = Enum.FillDirection.Vertical,
+					Padding = UDim.new(0, SPACING_Y),
+					[Roact.Change.AbsoluteContentSize] = function(rbx)
+						self:applyFit(rbx.AbsoluteContentSize.y)
+					end,
+
+					[Roact.Ref] = self.layoutRef,
 				}),
-				Gradient = canExpand and Roact.createElement(SpringImageComponent, {
+				UIPadding = Roact.createElement("UIPadding", {
+					PaddingTop = UDim.new(0, PADDING_TOP),
+				}),
+				ExpandableContainer = Roact.createElement(SpringAnimatedItem.AnimatedFrame, {
 					animatedValues = {
-						height = gradientHeight,
+						height = size.Y.Offset,
 					},
 					mapValuesToProps = function(values)
 						return {
-							Size = UDim2.new(1, 0, 0, values.height),
+							Size = UDim2.new(1, 0, size.Y.Scale, values.height),
 						}
 					end,
 					regularProps = {
-						Size = UDim2.new(1, 0, 0, GRADIENT_HEIGHT),
-						Position = UDim2.new(0, 0, 1, 0),
-						AnchorPoint = Vector2.new(0, 1),
-						BackgroundTransparency = 1,
-						Image = GRADIENT_IMAGE,
-						ImageColor3 = theme.BackgroundDefault.Color,
-					},
-					springOptions = GRADIENT_ANIMATION_SPRING_SETTINGS,
-				})
-			}),
-			ButtonContainer = canExpand and Roact.createElement("Frame", {
-				BackgroundTransparency = 1,
-				BorderSizePixel = 0,
-				Size = UDim2.new(1, 0, 0, 10),
-				LayoutOrder = 1,
-			}, {
-				PressableButton = Roact.createElement("TextButton", {
-					Position = UDim2.new(0, 0, 0, -24),
-					BackgroundTransparency = 1,
-					BorderSizePixel = 0,
-					Size = PRESSABLE_AREA_SIZE,
-					Text = "",
-					[Roact.Event.Activated] = self.onClick,
-				}, {
-					DownArrow = Roact.createElement(ImageSetComponent.Label, {
-						AnchorPoint = Vector2.new(0.5, 0),
 						BackgroundTransparency = 1,
 						BorderSizePixel = 0,
-						Position = UDim2.new(0.5, 0, 0, 0),
-						Image = (size == fullSize) and DOWN_ARROW_IMAGE_COLLAPSE or DOWN_ARROW_IMAGE_EXPAND,
-						ImageColor3 = theme.IconEmphasis.Color,
-						ImageTransparency = theme.IconEmphasis.Transparency,
-						Size = DOWN_ARROW_SIZE,
+						ClipsDescendants = true,
+						Size = size,
+						LayoutOrder = 0,
+					},
+					springOptions = ANIMATION_SPRING_SETTINGS,
+				}, {
+					DescriptionText = Roact.createElement(GenericTextLabel, {
+						colorStyle = theme.TextDefault,
+						fontStyle = font.Body,
+						Size = fullSize,
+						Text = descriptionText,
+						TextSize = textSize,
+						TextXAlignment = Enum.TextXAlignment.Left,
+						TextWrapped = true,
+						BackgroundTransparency = 1,
 					}),
+					Gradient = canExpand and Roact.createElement(SpringImageComponent, {
+						animatedValues = {
+							height = gradientHeight,
+						},
+						mapValuesToProps = function(values)
+							return {
+								Size = UDim2.new(1, 0, 0, values.height),
+							}
+						end,
+						regularProps = {
+							Size = UDim2.new(1, 0, 0, GRADIENT_HEIGHT),
+							Position = UDim2.new(0, 0, 1, 0),
+							AnchorPoint = Vector2.new(0, 1),
+							BackgroundTransparency = 1,
+							Image = GRADIENT_IMAGE,
+							ImageColor3 = theme.BackgroundDefault.Color,
+						},
+						springOptions = GRADIENT_ANIMATION_SPRING_SETTINGS,
+					})
 				}),
+				ButtonContainer = canExpand and Roact.createElement("Frame", {
+					BackgroundTransparency = 1,
+					BorderSizePixel = 0,
+					Size = UDim2.new(1, 0, 0, 10),
+					LayoutOrder = 1,
+				}, {
+					PressableButton = Roact.createElement("TextButton", {
+						Position = UDim2.new(0, 0, 0, -24),
+						BackgroundTransparency = 1,
+						BorderSizePixel = 0,
+						Size = PRESSABLE_AREA_SIZE,
+						Text = "",
+						[Roact.Event.Activated] = self.onClick,
+					}, {
+						DownArrow = Roact.createElement(ImageSetComponent.Label, {
+							AnchorPoint = Vector2.new(0.5, 0),
+							BackgroundTransparency = 1,
+							BorderSizePixel = 0,
+							Position = UDim2.new(0.5, 0, 0, 0),
+							Image = (size == fullSize) and DOWN_ARROW_IMAGE_COLLAPSE or DOWN_ARROW_IMAGE_EXPAND,
+							ImageColor3 = theme.IconEmphasis.Color,
+							ImageTransparency = theme.IconEmphasis.Transparency,
+							Size = DOWN_ARROW_SIZE,
+						}),
+					}),
+				})
 			})
-		})
+		end)
 	end)
 end
 
