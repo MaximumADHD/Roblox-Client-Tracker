@@ -5926,7 +5926,24 @@
                     }
                 },
                 {
-                    "Category": "Data",
+                    "Category": "Camera",
+                    "MemberType": "Property",
+                    "Name": "DiagonalFieldOfView",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    }
+                },
+                {
+                    "Category": "Camera",
                     "MemberType": "Property",
                     "Name": "FieldOfView",
                     "Security": {
@@ -5940,6 +5957,23 @@
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "float"
+                    }
+                },
+                {
+                    "Category": "Camera",
+                    "MemberType": "Property",
+                    "Name": "FieldOfViewMode",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Enum",
+                        "Name": "FieldOfViewMode"
                     }
                 },
                 {
@@ -5980,6 +6014,23 @@
                     "Category": "Data",
                     "MemberType": "Property",
                     "Name": "HeadScale",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    }
+                },
+                {
+                    "Category": "Camera",
+                    "MemberType": "Property",
+                    "Name": "MaxAxisFieldOfView",
                     "Security": {
                         "Read": "None",
                         "Write": "None"
@@ -13660,23 +13711,6 @@
                     }
                 },
                 {
-                    "Category": "Online",
-                    "MemberType": "Property",
-                    "Name": "ChatHistory",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "int"
-                    }
-                },
-                {
                     "Category": "Script",
                     "MemberType": "Property",
                     "Name": "OverrideStarterScript",
@@ -13694,23 +13728,6 @@
                     }
                 },
                 {
-                    "Category": "Online",
-                    "MemberType": "Property",
-                    "Name": "ReportAbuseChatHistory",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "int"
-                    }
-                },
-                {
                     "Category": "Video",
                     "MemberType": "Property",
                     "Name": "VideoCaptureEnabled",
@@ -13725,23 +13742,6 @@
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "bool"
-                    }
-                },
-                {
-                    "Category": "Video",
-                    "MemberType": "Property",
-                    "Name": "VideoQuality",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "ValueType": {
-                        "Category": "Enum",
-                        "Name": "VideoQualitySettings"
                     }
                 },
                 {
@@ -28035,57 +28035,6 @@
         },
         {
             "Members": [
-                {
-                    "Category": "Diagnostics",
-                    "MemberType": "Property",
-                    "Name": "AreScriptStartsReported",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "bool"
-                    }
-                },
-                {
-                    "Category": "Settings",
-                    "MemberType": "Property",
-                    "Name": "DefaultWaitTime",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "double"
-                    }
-                },
-                {
-                    "Category": "Settings",
-                    "MemberType": "Property",
-                    "Name": "WaitingThreadsBudget",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "float"
-                    }
-                }
             ],
             "MemoryCategory": "Instances",
             "Name": "LuaSettings",
@@ -30755,7 +30704,7 @@
                 {
                     "Category": "Diagnostics",
                     "MemberType": "Property",
-                    "Name": "IncommingReplicationLag",
+                    "Name": "IncomingReplicationLag",
                     "Security": {
                         "Read": "None",
                         "Write": "None"
@@ -30767,23 +30716,6 @@
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "double"
-                    }
-                },
-                {
-                    "Category": "Diagnostics",
-                    "MemberType": "Property",
-                    "Name": "PrintFilters",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "bool"
                     }
                 },
                 {
@@ -30824,23 +30756,6 @@
                     "Category": "Diagnostics",
                     "MemberType": "Property",
                     "Name": "PrintStreamInstanceQuota",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "bool"
-                    }
-                },
-                {
-                    "Category": "Diagnostics",
-                    "MemberType": "Property",
-                    "Name": "PrintTouches",
                     "Security": {
                         "Read": "None",
                         "Write": "None"
@@ -34317,6 +34232,26 @@
         },
         {
             "Members": [
+                {
+                    "Category": "Appearance",
+                    "MemberType": "Property",
+                    "Name": "DoubleSided",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "PluginSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "NotScriptable"
+                    ],
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
                 {
                     "Category": "Appearance",
                     "MemberType": "Property",
@@ -45589,6 +45524,13 @@
                             "Type": {
                                 "Category": "Group",
                                 "Name": "Variant"
+                            }
+                        },
+                        {
+                            "Name": "stackFrame",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int"
                             }
                         }
                     ],
@@ -63528,6 +63470,23 @@
         {
             "Items": [
                 {
+                    "Name": "Vertical",
+                    "Value": 0
+                },
+                {
+                    "Name": "Diagonal",
+                    "Value": 1
+                },
+                {
+                    "Name": "MaxAxis",
+                    "Value": 2
+                }
+            ],
+            "Name": "FieldOfViewMode"
+        },
+        {
+            "Items": [
+                {
                     "Name": "Horizontal",
                     "Value": 0
                 },
@@ -68917,23 +68876,6 @@
                 }
             ],
             "Name": "VibrationMotor"
-        },
-        {
-            "Items": [
-                {
-                    "Name": "LowResolution",
-                    "Value": 0
-                },
-                {
-                    "Name": "MediumResolution",
-                    "Value": 1
-                },
-                {
-                    "Name": "HighResolution",
-                    "Value": 2
-                }
-            ],
-            "Name": "VideoQualitySettings"
         },
         {
             "Items": [

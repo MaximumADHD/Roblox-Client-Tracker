@@ -22,7 +22,6 @@ Rectangle {
     // notifier is not set
     property var keyEventNotifier: null
     property var scrollWheelCount: 3
-    property var fflagStudioInsertObjectStreamliningv2_FeedbackImprovements: false
 	property var leftBorderVisible: true
 	property var scrollBarHandleColor: userPreferences.theme.style("Scrollbar handle")
     anchors.top: window.top
@@ -55,7 +54,7 @@ Rectangle {
         property real rawY: parent.flickable.visibleArea.yPosition * parent.window.height
         property real maxY: (1.0-parent.flickable.visibleArea.heightRatio) * parent.window.height
         property var isDraggingScrollBar: false
-        y: fflagStudioInsertObjectStreamliningv2_FeedbackImprovements ? padding : Math.min(Math.max(padding, rawY), maxY-padding)
+        y: padding
         width: 8
         height: parent.flickable.visibleArea.heightRatio * parent.window.height
         radius: 4
@@ -67,36 +66,25 @@ Rectangle {
 
             onPressed: {
                 lastY = mouseY;
-                if(fflagStudioInsertObjectStreamliningv2_FeedbackImprovements) {
-                    parent.isDraggingScrollBar = true;
-                    parent.y =  flickable.visibleArea.yPosition * (flickable.height - (scrollBarHandle.padding * 2)) + scrollBarHandle.padding
-                }
+                parent.isDraggingScrollBar = true;
+                parent.y =  flickable.visibleArea.yPosition * (flickable.height - (scrollBarHandle.padding * 2)) + scrollBarHandle.padding
             }
             onReleased: {
-                if(fflagStudioInsertObjectStreamliningv2_FeedbackImprovements) {
-                    parent.isDraggingScrollBar = false;
-                }
+                parent.isDraggingScrollBar = false;
             }
             // The onMouseYChanged event is only triggered when dragging if hoverEnabled is false.
             onMouseYChanged: {
-                if(fflagStudioInsertObjectStreamliningv2_FeedbackImprovements) {
-                    var mouseMoved =  mouseY - lastY
-                    var scrollRatio = mouseMoved / (parent.parent.window.height + parent.padding * 2)
-                    parent.y += mouseMoved
-                    if(parent.y > parent.maxY) {
-                        parent.y = parent.maxY
-                    }
-                    else if (parent.y < parent.padding) {
-                        parent.y = parent.padding
-                    }
-                    scrollBar.flickable.contentY += scrollRatio * parent.parent.flickable.contentHeight
-                    scrollBar.flickable.returnToBounds();
+                var mouseMoved =  mouseY - lastY
+                var scrollRatio = mouseMoved / (parent.parent.window.height + parent.padding * 2)
+                parent.y += mouseMoved
+                if(parent.y > parent.maxY) {
+                    parent.y = parent.maxY
                 }
-                else {
-                    scrollBar.flickable.contentY += mouseY-lastY;
-                    scrollBar.flickable.returnToBounds();
+                else if (parent.y < parent.padding) {
+                    parent.y = parent.padding
                 }
-
+                scrollBar.flickable.contentY += scrollRatio * parent.parent.flickable.contentHeight
+                scrollBar.flickable.returnToBounds();
             }
         }
     }
@@ -104,7 +92,7 @@ Rectangle {
         target: scrollBarHandle
         property: "y"
         value: flickable.visibleArea.yPosition * (flickable.height - (scrollBarHandle.padding * 2)) + scrollBarHandle.padding
-        when: !scrollBarHandle.isDraggingScrollBar && fflagStudioInsertObjectStreamliningv2_FeedbackImprovements
+        when: !scrollBarHandle.isDraggingScrollBar
     }
 
 
@@ -138,24 +126,14 @@ Rectangle {
         onScrollUp: {
             if (scrollBar.visible) {
                 // scroll view one cell (row) up
-                if(fflagStudioInsertObjectStreamliningv2_FeedbackImprovements) {
-                    scrollBar.flickable.contentY -= (scrollWheelCount * scrollBar.flickable.cellHeight);
-                }
-                else {
-                    scrollBar.flickable.contentY -= scrollBar.flickable.cellHeight;
-                }
+                scrollBar.flickable.contentY -= (scrollWheelCount * scrollBar.flickable.cellHeight);
                 scrollBar.flickable.returnToBounds();
             }
         }
         onScrollDown: {
             if (scrollBar.visible) {
                 // scroll view one cell (row) down
-                if(fflagStudioInsertObjectStreamliningv2_FeedbackImprovements) {
-                    scrollBar.flickable.contentY += (scrollWheelCount * scrollBar.flickable.cellHeight);
-                }
-                else {
-                    scrollBar.flickable.contentY += scrollBar.flickable.cellHeight;
-                }
+                scrollBar.flickable.contentY += (scrollWheelCount * scrollBar.flickable.cellHeight);
                 scrollBar.flickable.returnToBounds();
             }
         }

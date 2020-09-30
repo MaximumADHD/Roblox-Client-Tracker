@@ -5113,8 +5113,26 @@
         </Item>
         <Item class="ReflectionMetadataMember">
           <Properties>
+            <string name="Name">FieldOfViewMode</string>
+            <string name="summary">Determines how the field of view responds to changes of screen size and aspect ratio.</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
             <string name="Name">FieldOfView</string>
-            <string name="summary">The current angle, or width, of what the camera can see.  Current acceptable values are from 20 degrees to 80.</string>
+            <string name="summary">Describes the view angle along the vertical viewport axis.</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">DiagonalFieldOfView</string>
+            <string name="summary">Describes the view angle along the diagonal viewport axis.</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">MaxAxisFieldOfView</string>
+            <string name="summary">Describes the view angle along the maximum-length viewport axis.</string>
           </Properties>
         </Item>
         <Item class="ReflectionMetadataMember">

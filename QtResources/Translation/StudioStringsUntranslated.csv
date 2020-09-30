@@ -74,6 +74,8 @@ Studio.App.BetaFeatures.BreakpointPropagationDescription,,Breakpoints now work a
 Studio.App.BetaFeatures.BreakpointPropagationTitle,,Breakpoint Replication Beta,Breakpoint Replication Beta
 Studio.App.BetaFeatures.CSGv2SmoothingDescription,,Use the SmoothAngle property on CSG part to define threshold angle and smooth normals.,Use the SmoothAngle property on CSG part to define threshold angle and smooth normals.
 Studio.App.BetaFeatures.CSGv2SmoothingTitle,,Normal smoothing Beta,Normal smoothing Beta
+Studio.App.BetaFeatures.ClarifiedIKDraggersDescription,,Enables a new clarified UI for IK/Constraint/Physical draggers and adds a new behavior to the select dragger when in Physical mode,Enables a new clarified UI for IK/Constraint/Physical draggers and adds a new behavior to the select dragger when in Physical mode
+Studio.App.BetaFeatures.ClarifiedIKDraggersTitle,,New Physical Draggers,New Physical Draggers
 Studio.App.BetaFeatures.CloudLoadFailedFmt1,error fetching BF from cloud,Failed to load beta features from cloud: %1,Failed to load beta features from cloud: %1
 Studio.App.BetaFeatures.CloudReloadPrompt,reload because BFs loaded from cloud,Beta features enabled for this account differ from those saved locally. Updated Beta features will not be available until you restart Studio.,Beta features enabled for this account differ from those saved locally. Updated Beta features will not be available until you restart Studio.
 Studio.App.BetaFeatures.ConvertToTerrainDescription,,Enables the Convert TerrainTool which can convert Parts into Terrain materials and biomes.,Enables the Convert TerrainTool which can convert Parts into Terrain materials and biomes.
@@ -186,6 +188,8 @@ Studio.App.Callout.GotIt,Button that a user clicks to dismiss a Teaching Callout
 Studio.App.Callout.LearnMore,"Within a Teaching Callout, this text is a link that takes a user to a learning resource for a new feature. Teaching Callouts are used to showcase new Studio features to users.",Learn more,Learn more
 Studio.App.CalloutController.AssetManagerCalloutDescription,Description that appears in the Teaching Callout pointing out the new Asset Manager feature.,"Replacing the Game Explorer, the Asset Manager is a new menu in Studio that enables developers to more effectively manage game assets!","Replacing the Game Explorer, the Asset Manager is a new menu in Studio that enables developers to more effectively manage game assets!"
 Studio.App.CalloutController.AssetManagerCalloutTitle,Name of the new Asset Manager built-in plugin that displays as a title for a Teaching Callout that points to the button for the plugin.,Asset Manager,Asset Manager
+Studio.App.CalloutController.DraggerModeCalloutDescription,,Leverages the physics engine and constraints solver to simulate real-world behavior when moving objects. It adjusts some settings to work properly.,Leverages the physics engine and constraints solver to simulate real-world behavior when moving objects. It adjusts some settings to work properly.
+Studio.App.CalloutController.DraggerModeCalloutTitle,,Drag Mode,Drag Mode
 Studio.App.Category.Advanced,,Advanced,Advanced
 Studio.App.Category.Appearance,,Appearance,Appearance
 Studio.App.Category.Audio,,Audio,Audio
@@ -410,6 +414,7 @@ Studio.App.FileType.Meshes,,Meshes,Meshes
 Studio.App.FileType.ObjModelFiles,,Object Model Files,Object Model Files
 Studio.App.FileType.RobloxAllModelFiles,,All Roblox Model Files,All Roblox Model Files
 Studio.App.FileType.RobloxAllPlaceFiles,,All Roblox Place Files,All Roblox Place Files
+Studio.App.FileType.RobloxInternalProjectFiles,,Roblox Internal Project Files,Roblox Internal Project Files
 Studio.App.FileType.RobloxLuaScriptFiles,,Roblox Lua Scripts,Roblox Lua Scripts
 Studio.App.FileType.RobloxModelFiles,,Roblox Model Files,Roblox Model Files
 Studio.App.FileType.RobloxPlaceFiles,,Roblox Place Files,Roblox Place Files
@@ -703,8 +708,8 @@ Studio.App.Login.TooManyLogins,,Too many logins were attempted from this network
 Studio.App.Login.UnableToLogin,,Unable to log in,Unable to log in
 Studio.App.Login.UnableToLogout,,Unable to log out. Please save modified places in other Studio instances and then proceed with log out.,Unable to log out. Please save modified places in other Studio instances and then proceed with log out.
 Studio.App.LoginManager.CaptchaClosed,,Login requires Captcha. Please try again.,Login requires Captcha. Please try again.
-Studio.App.LoginManager.CaptchaClosed,,Captcha response not recognized. Please try again.,Captcha response not recognized. Please try again.
 Studio.App.LoginManager.CaptchaError,,Error displaying captcha,Error displaying captcha
+Studio.App.LoginManager.CaptchaInvalid,,Captcha response not recognized. Please try again.,Captcha response not recognized. Please try again.
 Studio.App.LoginManager.ClosingDownAllOpenPlacesElps,,Closing down all open places...,Closing down all open places...
 Studio.App.LoginManager.GetUserAgreementsFailure,,Failed to get user agreements. Please try to login again or contact support if problem persists.,Failed to get user agreements. Please try to login again or contact support if problem persists.
 Studio.App.LoginManager.LocaleFetchError1,,Failed to fetch account locale: %1,Failed to fetch account locale: %1
@@ -973,6 +978,8 @@ Studio.App.PluginLoader.RefreshingPluginsElps,,Refreshing plugins...,Refreshing 
 Studio.App.PluginPermissionsDialog.Allow,,Allow,Allow
 Studio.App.PluginPermissionsDialog.Deny,,Deny,Deny
 Studio.App.PluginPermissionsDialog.HttpDomainPermission,,Allow plugin %1 to access %2?,Allow plugin %1 to access %2?
+Studio.App.PluginPermissionsDialog.ScriptInjectionPermission,,Do you want to allow Plugin %1 to manage scripts in your game?,Do you want to allow Plugin %1 to manage scripts in your game?
+Studio.App.PluginPermissionsDialog.ScriptInjectionWarning,,"Plugin %1 is attempting to insert or modify scripts in your game. Click Allow to permit all future attempts, or Deny to block. You can edit these settings in Plugin Management.","Plugin %1 is attempting to insert or modify scripts in your game. Click Allow to permit all future attempts, or Deny to block. You can edit these settings in Plugin Management."
 Studio.App.PluginPermissionsDialog.Warning,,You can always revoke this permission from Plugins > Plugin Management.,You can always revoke this permission from Plugins > Plugin Management.
 Studio.App.Properites.AttributeCantStartWithRBX,,Can't start with 'RBX'.,Can't start with 'RBX'.
 Studio.App.Properties.AddAttribute,Title/text for Add Attribute button/dialog,Add Attribute,Add Attribute
@@ -1000,7 +1007,6 @@ Studio.App.Property.AreOwnersShown,,Are Owners Shown,Are Owners Shown
 Studio.App.Property.ArePartCoordsShown,,Are Part Coords Shown,Are Part Coords Shown
 Studio.App.Property.ArePhysicsRejectionsReported,,Are Physics Rejections Reported,Are Physics Rejections Reported
 Studio.App.Property.AreRegionsShown,,Are Regions Shown,Are Regions Shown
-Studio.App.Property.AreScriptStartsReported,,Are Script Starts Reported,Are Script Starts Reported
 Studio.App.Property.AreTerrainReplicationRegionsShown,,Are Terrain Replication Regions Shown,Are Terrain Replication Regions Shown
 Studio.App.Property.AreUnalignedPartsShown,,Are Unaligned Parts Shown,Are Unaligned Parts Shown
 Studio.App.Property.AreWorldCoordsShown,,Are World Coords Shown,Are World Coords Shown
@@ -1023,7 +1029,6 @@ Studio.App.Property.CameraMouseWheelSpeed,,Camera Mouse Wheel Speed,Camera Mouse
 Studio.App.Property.CameraShiftSpeed,,Camera Shift Speed,Camera Shift Speed
 Studio.App.Property.CameraSpeed,,Camera Speed,Camera Speed
 Studio.App.Property.CameraZoomToMousePosition,,Camera Zoom to Mouse Position,Camera Zoom to Mouse Position
-Studio.App.Property.ChatHistory,,Chat History,Chat History
 Studio.App.Property.ClearOutputOnStart,,Clear Output On Start,Clear Output On Start
 Studio.App.Property.ClientPhysicsSendRate,,Client Physics Send Rate,Client Physics Send Rate
 Studio.App.Property.CommandBarLocalState,,Command bar operates on local state at breakpoint,Command bar operates on local state at breakpoint
@@ -1036,7 +1041,6 @@ Studio.App.Property.DataSendRate,,Data Send Rate,Data Send Rate
 Studio.App.Property.DebuggerCurrentLineColor,The color of the current line we are stopped on in the debugger.,Debugger Current Line Color,Debugger Current Line Color
 Studio.App.Property.DebuggerErrorLineColor,The color of the line we have stopped on in the debugger because it produced an error.,Debugger Error Line Color,Debugger Error Line Color
 Studio.App.Property.DefaultScriptFileDir,,Default Script File Dir,Default Script File Dir
-Studio.App.Property.DefaultWaitTime,,Default Wait Time,Default Wait Time
 Studio.App.Property.DeprecatedObjectsShown,,Deprecated Objects Shown,Deprecated Objects Shown
 Studio.App.Property.DisableAccuratePlaySolo,,Disable Accurate Play Solo,Disable Accurate Play Solo
 Studio.App.Property.DisableCSGv2,,Enable Legacy CSG,Enable Legacy CSG
@@ -1064,7 +1068,7 @@ Studio.App.Property.HoverAnimateSpeed,,Hover Animate Speed,Hover Animate Speed
 Studio.App.Property.HoverOverColor,,Hover Over Color,Hover Over Color
 Studio.App.Property.HttpProxyEnabled,,Proxy Enabled,Proxy Enabled
 Studio.App.Property.HttpProxyURL,,Proxy URL,Proxy URL
-Studio.App.Property.IncommingReplicationLag,,Incomming Replication Lag,Incomming Replication Lag
+Studio.App.Property.IncomingReplicationLag,,Incoming Replication Lag,Incoming Replication Lag
 Studio.App.Property.IndentUsingSpaces,,Indent Using Spaces,Indent Using Spaces
 Studio.App.Property.InstanceCount,,Instance Count,Instance Count
 Studio.App.Property.IsFmodProfilingEnabled,,Is Fmod Profiling Enabled,Is Fmod Profiling Enabled
@@ -1107,21 +1111,18 @@ Studio.App.Property.PreferredClientPort,,Preferred Client Port,Preferred Client 
 Studio.App.Property.PreprocessorColor,,Preprocessor Color,Preprocessor Color
 Studio.App.Property.PrintBits,,Print Bits,Print Bits
 Studio.App.Property.PrintEvents,,Print Events,Print Events
-Studio.App.Property.PrintFilters,,Print Filters,Print Filters
 Studio.App.Property.PrintInstances,,Print Instances,Print Instances
 Studio.App.Property.PrintJoinSizeBreakdown,,Print Join Size Breakdown,Print Join Size Breakdown
 Studio.App.Property.PrintPhysicsErrors,,Print PhysicsErrors,Print PhysicsErrors
 Studio.App.Property.PrintProperties,,Print Properties,Print Properties
 Studio.App.Property.PrintSplitMessage,,Print Split Message,Print Split Message
 Studio.App.Property.PrintStreamInstanceQuota,,Print Stream Instance Quota,Print Stream Instance Quota
-Studio.App.Property.PrintTouches,,Print Touches,Print Touches
 Studio.App.Property.QualityLevel,,Quality Level,Quality Level
 Studio.App.Property.ReceiveRate,,Receive Rate,Receive Rate
 Studio.App.Property.ReloadAssets,,ReloadAssets,ReloadAssets
 Studio.App.Property.RenderCSGTrianglesDebug,,Render CSG Triangles Debug,Render CSG Triangles Debug
 Studio.App.Property.RenderStreamedRegions,,Render Streamed Regions,Render Streamed Regions
 Studio.App.Property.RenderThrottlePercentage,,Render Throttle Percentage,Render Throttle Percentage
-Studio.App.Property.ReportAbuseChatHistory,,Report Abuse Chat History,Report Abuse Chat History
 Studio.App.Property.ReportSoundWarnings,,Report Sound Warnings,Report Sound Warnings
 Studio.App.Property.RespectStudioShortcutsWhenGameHasFocus,,Respect Studio shortcuts when game has focus,Respect Studio shortcuts when game has focus
 Studio.App.Property.RobloxProductName,,Roblox Product Name,Roblox Product Name
@@ -1169,12 +1170,10 @@ Studio.App.Property.TouchSendRate,,Touch Send Rate,Touch Send Rate
 Studio.App.Property.TrackDataTypes,,Track Data Types,Track Data Types
 Studio.App.Property.TrackPhysicsDetails,,Track Physics Details,Track Physics Details
 Studio.App.Property.UsePhysicsPacketCache,,Use Physics Packet Cache,Use Physics Packet Cache
-Studio.App.Property.VideoCaptureEnabled,,Video Capture Enabled,Video Capture Enabled
 Studio.App.Property.VideoMemory,,Video Memory,Video Memory
-Studio.App.Property.VideoQuality,,Video Quality,Video Quality
-Studio.App.Property.WaitingThreadsBudget,,Waiting Threads Budget,Waiting Threads Budget
 Studio.App.Property.WarningColor,,Warning Color,Warning Color
 Studio.App.Property.WhitespaceColor,,Whitespace Color,Whitespace Color
+Studio.App.Property.WireframeRendering,,Wireframe Rendering,Wireframe Rendering
 Studio.App.PropertyEnum.Absolute,,Absolute,Absolute
 Studio.App.PropertyEnum.Aggregate,,Aggregate,Aggregate
 Studio.App.PropertyEnum.Always,,Always,Always
@@ -1725,6 +1724,7 @@ Studio.App.RBXMainWindow.ViewTaskSchedulerElps,,View Task Scheduler...,View Task
 Studio.App.RBXMainWindow.ViewTeamCreateWindow,,View Team Create Window,View Team Create Window
 Studio.App.RBXMainWindow.ViewTutorials,,View tutorials,View tutorials
 Studio.App.RBXMainWindow.WeldSurface,,Weld Surface,Weld Surface
+Studio.App.RBXMainWindow.WireframeRendering,,Wireframe Rendering,Wireframe Rendering
 Studio.App.RBXMainWindow.ZoomIn,,Zoom In,Zoom In
 Studio.App.RBXMainWindow.ZoomOut,,Zoom Out,Zoom Out
 Studio.App.RBXMainWindow.ZoomTo,,Zoom to,Zoom to
@@ -2062,6 +2062,7 @@ Studio.App.RobloxRibbonMainWindow.EditPivotTooltip,,Edit the point around which 
 Studio.App.RobloxRibbonMainWindow.Effects,,Effects,Effects
 Studio.App.RobloxRibbonMainWindow.Emulation,,Emulation,Emulation
 Studio.App.RobloxRibbonMainWindow.Emulator,,Emulator,Emulator
+Studio.App.RobloxRibbonMainWindow.EnableWireframeRendering,,Enable Wireframe Rendering,Enable Wireframe Rendering
 Studio.App.RobloxRibbonMainWindow.ExecuteLuaCodeFromAFile,,Execute Lua code from a file,Execute Lua code from a file
 Studio.App.RobloxRibbonMainWindow.ExitGame,,Exit Game,Exit Game
 Studio.App.RobloxRibbonMainWindow.ExitTeamTest,,Exit Team Test,Exit Team Test
@@ -2348,6 +2349,30 @@ Studio.App.ScriptAnalysisWidget.DisplayOnlyCurrentScript,,Display only current s
 Studio.App.ScriptAnalysisWidget.NumErrorsTextFmt2,,%1 of %2 Errors,%1 of %2 Errors
 Studio.App.ScriptAnalysisWidget.NumWarningsTextFmt2,,%1 of %2 Warnings,%1 of %2 Warnings
 Studio.App.ScriptComboBox.RunACommand,,Run a command,Run a command
+Studio.App.ScriptEditorCmdBase.DELETETOSTARTOFLINE,,Delete to start of line,Delete to start of line
+Studio.App.ScriptEditorCmdBase.DELETETOSTARTOFLINEToolTip,,Delete to the start of the current line,Delete to the start of the current line
+Studio.App.ScriptEditorCmdBase.FOLDALL,,Collapse All Folds,Collapse All Folds
+Studio.App.ScriptEditorCmdBase.FOLDALLToolTip,,Collapse All Folds,Collapse All Folds
+Studio.App.ScriptEditorCmdBase.FORMATALL,,Format Document...,Format Document...
+Studio.App.ScriptEditorCmdBase.FORMATALLToolTip,,Format whole document,Format whole document
+Studio.App.ScriptEditorCmdBase.FORMATSEL,,Format Selection,Format Selection
+Studio.App.ScriptEditorCmdBase.FORMATSELToolTip,,Format selected range of document,Format selected range of document
+Studio.App.ScriptEditorCmdBase.INDENT,,Indent,Indent
+Studio.App.ScriptEditorCmdBase.INDENTToolTip,,Indent selected line(s),Indent selected line(s)
+Studio.App.ScriptEditorCmdBase.MOVELINESDOWN,,Move Lines Down,Move Lines Down
+Studio.App.ScriptEditorCmdBase.MOVELINESDOWNToolTip,,Move selected line(s) downwards,Move selected line(s) downwards
+Studio.App.ScriptEditorCmdBase.MOVELINESUP,,Move Lines Up,Move Lines Up
+Studio.App.ScriptEditorCmdBase.MOVELINESUPToolTip,,Move selected line(s) upwards,Move selected line(s) upwards
+Studio.App.ScriptEditorCmdBase.NEWLINEABOVE,,Insert Newline Above,Insert Newline Above
+Studio.App.ScriptEditorCmdBase.NEWLINEABOVEToolTip,,Insert a newline above the current line,Insert a newline above the current line
+Studio.App.ScriptEditorCmdBase.NEWLINEBELOW,,Insert Newline Below,Insert Newline Below
+Studio.App.ScriptEditorCmdBase.NEWLINEBELOWToolTip,,Insert a newline below the current line,Insert a newline below the current line
+Studio.App.ScriptEditorCmdBase.TOGGLECOMMENT,,Toggle Comment,Toggle Comment
+Studio.App.ScriptEditorCmdBase.TOGGLECOMMENTToolTip,,Toggle selection commenting,Toggle selection commenting
+Studio.App.ScriptEditorCmdBase.UNFOLDALL,,Expands all folds,Expands all folds
+Studio.App.ScriptEditorCmdBase.UNFOLDALLToolTip,,Expands all folds,Expands all folds
+Studio.App.ScriptEditorCmdBase.UNINDENT,,Unindent,Unindent
+Studio.App.ScriptEditorCmdBase.UNINDENTToolTip,,Unindent selected line(s),Unindent selected line(s)
 Studio.App.ScriptRecoveryWidget.ErrorRecovering,,Errors occurred while automatically recovering scripts.,Errors occurred while automatically recovering scripts.
 Studio.App.ScriptRecoveryWidget.ErrorRemovedFromWorksapce,,Unable to perform diff because this script has been removed from Workspace.,Unable to perform diff because this script has been removed from Workspace.
 Studio.App.ScriptRecoveryWidget.ErrorWriting,,Issue with writing script autosave,Issue with writing script autosave
@@ -2376,10 +2401,6 @@ Studio.App.SettingsCategory.DiagnosticsErrors,,Errors,Errors
 Studio.App.SettingsCategory.DiagnosticsPerformance,,Performance,Performance
 Studio.App.SettingsCategory.DiagnosticsProfile,,Profile,Profile
 Studio.App.SettingsCategory.GameOptionsInternal,,Internal,Internal
-Studio.App.SettingsCategory.GameOptionsOnline,,Online,Online
-Studio.App.SettingsCategory.GameOptionsVideo,,Video,Video
-Studio.App.SettingsCategory.LuaDiagnostics,,Diagnostics,Diagnostics
-Studio.App.SettingsCategory.LuaSettings,,Online,Online
 Studio.App.SettingsCategory.NetworkAppearance,,Appearance,Appearance
 Studio.App.SettingsCategory.NetworkDiagnostics,,Diagnostics,Diagnostics
 Studio.App.SettingsCategory.NetworkProxy,,Proxy,Proxy
@@ -2409,7 +2430,6 @@ Studio.App.SettingsCategory.TaskSchedulerConfiguration,,Configuration,Configurat
 Studio.App.SettingsCategory.TaskSchedulerDiagnostics,,Diagnostics,Diagnostics
 Studio.App.SettingsHeader.Diagnostics,,Diagnostics,Diagnostics
 Studio.App.SettingsHeader.GameOptions,,Game Options,Game Options
-Studio.App.SettingsHeader.Lua,,Lua,Lua
 Studio.App.SettingsHeader.Network,,Network,Network
 Studio.App.SettingsHeader.Physics,,Physics,Physics
 Studio.App.SettingsHeader.Rendering,,Rendering,Rendering
@@ -2607,6 +2627,7 @@ Studio.App.UserPlaceCreatorsListWidget.PlaceOwner,User is owner of place,Place O
 Studio.App.UserPlaceCreatorsListWidget.PlaceOwnerOffline,User is owner of place and is offline,Place Owner (Offline),Place Owner (Offline)
 Studio.App.VersionHistoryController.AutoCommitMessage,,Auto generated commit,Auto generated commit
 Studio.App.VersionHistoryController.ReadOnlyScriptDocMessageFmt4,,This version is read-only. <a href='%1://%2_%3_%4'>Click here to edit.</a>,This version is read-only. <a href='%1://%2_%3_%4'>Click here to edit.</a>
+Studio.App.VersionHistoryController.ReadOnlyScriptDocMessageNoEdit,,This version is read-only.,This version is read-only.
 Studio.App.VersionHistoryController.ScriptEditErrorMessage,,Unable to edit script. Please try again.,Unable to edit script. Please try again.
 Studio.App.VersionHistoryDialog.BatchColumnTitle,,Scripts in Batch,Scripts in Batch
 Studio.App.VersionHistoryDialog.CommentColumnTitle,,Comment,Comment

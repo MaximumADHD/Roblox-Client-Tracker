@@ -327,9 +327,12 @@ Class SolidModelContentProvider : CacheableContentProvider [NotCreatable] [Servi
 Class Camera : Instance [NotReplicated]
 	Property Instance Camera.CameraSubject
 	Property Enum<CameraType> Camera.CameraType
+	Property float Camera.DiagonalFieldOfView
+	Property float Camera.FieldOfView
+	Property Enum<FieldOfViewMode> Camera.FieldOfViewMode
+	Property float Camera.MaxAxisFieldOfView
 	Property CFrame Camera.CFrame
 	Property CFrame Camera.CoordinateFrame [<📁> LoadOnly] [Hidden] [NotReplicated] [Deprecated]
-	Property float Camera.FieldOfView
 	Property CFrame Camera.Focus
 	Property bool Camera.HeadLocked
 	Property float Camera.HeadScale
@@ -779,11 +782,8 @@ Class GamePassService : Instance [NotCreatable] [Service] [Deprecated]
 	Function bool GamePassService:PlayerHasPass(Instance player, int64 gamePassId) [Yields] [Deprecated]
 Class GameSettings : Instance [NotCreatable] [Settings] [NotBrowsable]
 	Property string GameSettings.AdditionalCoreIncludeDirs {✏️RobloxScriptSecurity}
-	Property int GameSettings.ChatHistory
-	Property int GameSettings.ReportAbuseChatHistory
 	Property string GameSettings.OverrideStarterScript {✏️RobloxScriptSecurity}
 	Property bool GameSettings.VideoCaptureEnabled
-	Property Enum<VideoQualitySettings> GameSettings.VideoQuality
 	Property bool GameSettings.VideoRecording {RobloxScriptSecurity} {✏️RobloxSecurity} [<📁> LoadOnly] [NotReplicated]
 	Event GameSettings.VideoRecordingChangeRequest(bool recording) {RobloxScriptSecurity}
 Class GamepadService : Instance [NotCreatable] [Service]
@@ -1611,9 +1611,6 @@ Class LoginService : Instance [NotCreatable] [Service]
 	Event LoginService.LoginFailed(string loginError) {RobloxSecurity}
 	Event LoginService.LoginSucceeded(string username) {RobloxSecurity}
 Class LuaSettings : Instance [NotCreatable] [Settings]
-	Property bool LuaSettings.AreScriptStartsReported
-	Property double LuaSettings.DefaultWaitTime
-	Property float LuaSettings.WaitingThreadsBudget
 Class LuaSourceContainer : Instance [NotCreatable] [NotBrowsable]
 	Property Instance LuaSourceContainer.CurrentEditor  [NotScriptable]
 	Property bool LuaSourceContainer.IsDifferentFromFileSystem {RobloxSecurity} [NotReplicated] [NotScriptable]
@@ -1750,12 +1747,10 @@ Class NetworkSettings : Instance [NotCreatable] [Service] [NotBrowsable]
 	Property bool NetworkSettings.ShowActiveAnimationAsset
 	Property int NetworkSettings.ExtraMemoryUsed {PluginSecurity} [Hidden] [NotReplicated]
 	Property float NetworkSettings.FreeMemoryMBytes {PluginSecurity} [Hidden] [ReadOnly] [NotReplicated]
-	Property double NetworkSettings.IncommingReplicationLag
-	Property bool NetworkSettings.PrintFilters
+	Property double NetworkSettings.IncomingReplicationLag
 	Property bool NetworkSettings.PrintJoinSizeBreakdown
 	Property bool NetworkSettings.PrintPhysicsErrors
 	Property bool NetworkSettings.PrintStreamInstanceQuota
-	Property bool NetworkSettings.PrintTouches
 	Property bool NetworkSettings.TrackDataTypes
 	Property bool NetworkSettings.TrackPhysicsDetails
 	Property bool NetworkSettings.HttpProxyEnabled {✏️RobloxScriptSecurity}
@@ -1928,6 +1923,7 @@ Class Terrain : BasePart [NotCreatable]
 Class TriangleMeshPart : BasePart [NotCreatable]
 	Property Enum<CollisionFidelity> TriangleMeshPart.CollisionFidelity {✏️PluginSecurity} [<📁> LoadOnly] [NotReplicated]
 Class MeshPart : TriangleMeshPart
+	Property bool MeshPart.DoubleSided {✏️PluginSecurity} [NotScriptable]
 	Property bool MeshPart.HasJointOffset {✏️NotAccessibleSecurity} [Hidden]
 	Property bool MeshPart.HasSkinnedMesh {✏️NotAccessibleSecurity} [Hidden]
 	Property Content MeshPart.MeshID  [NotScriptable] [Deprecated]
@@ -2537,7 +2533,7 @@ Class ScriptDebugger : Instance [NotCreatable]
 	Function Variant ScriptDebugger:GetWatchValue(Instance watch)
 	Function Objects ScriptDebugger:GetWatches()
 	Function Instance ScriptDebugger:SetBreakpoint(int line, bool isContextDependentBreakpoint)
-	Function void ScriptDebugger:SetGlobal(string name, Variant value)
+	Function void ScriptDebugger:SetGlobal(string name, Variant value, int stackFrame)
 	Function void ScriptDebugger:SetLocal(string name, Variant value, int stackFrame = 0)
 	Function void ScriptDebugger:SetUpvalue(string name, Variant value, int stackFrame = 0)
 	Event ScriptDebugger.BreakpointAdded(Instance breakpoint)
@@ -3906,6 +3902,10 @@ Enum EnviromentalPhysicsThrottle
 Enum ExplosionType
 	EnumItem ExplosionType.NoCraters : 0
 	EnumItem ExplosionType.Craters : 1
+Enum FieldOfViewMode
+	EnumItem FieldOfViewMode.Vertical : 0
+	EnumItem FieldOfViewMode.Diagonal : 1
+	EnumItem FieldOfViewMode.MaxAxis : 2
 Enum FillDirection
 	EnumItem FillDirection.Horizontal : 0
 	EnumItem FillDirection.Vertical : 1
@@ -5164,10 +5164,6 @@ Enum VibrationMotor
 	EnumItem VibrationMotor.RightTrigger : 3
 	EnumItem VibrationMotor.LeftHand : 4
 	EnumItem VibrationMotor.RightHand : 5
-Enum VideoQualitySettings
-	EnumItem VideoQualitySettings.LowResolution : 0
-	EnumItem VideoQualitySettings.MediumResolution : 1
-	EnumItem VideoQualitySettings.HighResolution : 2
 Enum VirtualInputMode
 	EnumItem VirtualInputMode.None : 0
 	EnumItem VirtualInputMode.Recording : 1

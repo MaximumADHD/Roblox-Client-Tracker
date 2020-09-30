@@ -11,16 +11,16 @@ Studio.App.AutoSaveDialog.DeleteAllAutoSaves1,,,Do you want to delete all auto-s
 Studio.App.AutoSave.AutoSaveRecovery,,,Auto-Save Recovery,Auto-Save Recovery,자동 저장 복구,Восстановление автоматически сохраненных файлов,自动保存恢复
 Studio.App.AutocompleteMenu.MoreChildrenItemTextFmt1,,,%1 more children...,%1 more children...,추가 하위 아이템 %1개...,Еще 1% детей...,还有 %1 个子集...
 Studio.App.AutocompleteTooltip.FunctionNumberLabelTextFmt2,,,%1 of %2,%1 of %2,%1/%2,%1 из %2,%1/%2
-Studio.App.BetaFeatures.BetaFeatures,,,Beta Features,Beta Features,베타 기능,Бета-функционал,Beta 测试功能
-Studio.App.BetaFeatures.CloudLoadFailedFmt1,,,Failed to load beta features from cloud: %1,Failed to load beta features from cloud: %1,클라우드에서 베타 기능을 불러오지 못했어요. %1,Не удалось загрузить бета-функционал из облака: %1,从云端加载 Beta 测试功能失败: %1
-Studio.App.BetaFeatures.CloudReloadPrompt,,,Beta features enabled for this account differ from those saved locally. Updated Beta features will not be available until you restart Studio.,Beta features enabled for this account differ from those saved locally. Updated Beta features will not be available until you restart Studio.,이 계정에 대해 활성화되어 있는 베타 기능이 로컬에 저장되어 있는 베타 기능과 달라요. 업데이트된 베타 기능은 Studio를 다시 시작할 때까지 사용할 수 없어요.,"В профиле пользователя включен бета-функционал, отличный от того, что сохранен локально. Перезапустите студию, чтобы получить доступ к обновленному набору бета-функций.",此帐户启用的 Beta 测试功能与保存在本地的有所不同。你必须重新启动 Studio 才能使用上传的 Beta 测试功能。
-Studio.App.BetaFeatures.CouldBeUnstable,,,Note: Beta features could be unstable resulting in data loss or game corruption,Note: Beta features could be unstable resulting in data loss or game corruption,참고: 베타 기능은 불안정해 데이터 유실 또는 게임 손상을 초래할 수 있어요,Примечание: бета-функционал может работать нестабильно. Использование бета-функционала может привести к потере данных или повреждению установленной копии игры.,注意: Beta 测试功能的不稳定可能会造成数据丢失或游戏损毁
+Studio.App.BetaFeatures.BetaFeatures,,,Beta Features,Beta Features,베타 기능,Бета-функционал,Beta 测试版功能
+Studio.App.BetaFeatures.CloudLoadFailedFmt1,,,Failed to load beta features from cloud: %1,Failed to load beta features from cloud: %1,클라우드에서 베타 기능을 불러오지 못했어요. %1,Не удалось загрузить бета-функционал из облака: %1,从云端加载 Beta 测试版功能失败: %1
+Studio.App.BetaFeatures.CloudReloadPrompt,,,Beta features enabled for this account differ from those saved locally. Updated Beta features will not be available until you restart Studio.,Beta features enabled for this account differ from those saved locally. Updated Beta features will not be available until you restart Studio.,이 계정에 대해 활성화되어 있는 베타 기능이 로컬에 저장되어 있는 베타 기능과 달라요. 업데이트된 베타 기능은 Studio를 다시 시작할 때까지 사용할 수 없어요.,"В профиле пользователя включен бета-функционал, отличный от того, что сохранен локально. Перезапустите студию, чтобы получить доступ к обновленному набору бета-функций.",此帐户启用的 Beta 测试版功能与保存在本地的有所不同。你必须重新启动 Studio 才能使用上传的 Beta 测试版功能。
+Studio.App.BetaFeatures.CouldBeUnstable,,,Note: Beta features could be unstable resulting in data loss or game corruption,Note: Beta features could be unstable resulting in data loss or game corruption,참고: 베타 기능은 불안정해 데이터 유실 또는 게임 손상을 초래할 수 있어요,Примечание: бета-функционал может работать нестабильно. Использование бета-функционала может привести к потере данных или повреждению установленной копии игры.,注意: Beta 测试版功能的不稳定可能会造成数据丢失或游戏损毁
 Studio.App.BetaFeatures.Details,,,Details,Details,세부 사항,Подробнее,详情
 Studio.App.BetaFeatures.LearnMoreTooltip,,,Learn More,Learn More,더 알아보기,Подробнее,了解更多
 Studio.App.BetaFeatures.Name,,,Name,Name,이름,Имя,名称
 Studio.App.BetaFeatures.RestartStudioTitle,,,Restart Studio,Restart Studio,Studio 다시 시작,Перезапустить студию,重新启动 Studio
 Studio.App.BetaFeatures.RestartWarning,,,Beta features will not be activated until you restart Studio,Beta features will not be activated until you restart Studio,베타 기능은 Studio를 다시 시작할 때까지 활성화되지 않아요,Бета-функционал не будет доступен до перезапуска студии,Beta 测试功能在你重新启动 Studio 后方可激活。
-Studio.App.BetaFeatures.SelectFeaturesToActivate,,,Select beta features to activate,Select beta features to activate,활성화할 베타 기능 선택,"Выберите бета-функционал, который надо активировать",选择要激活的 Beta 测试功能
+Studio.App.BetaFeatures.SelectFeaturesToActivate,,,Select beta features to activate,Select beta features to activate,활성화할 베타 기능 선택,"Выберите бета-функционал, который надо активировать",选择要激活的 Beta 测试版功能
 Studio.App.BetaFeatures.SomethingChangedPrompt,,,Would you like to restart Studio now?,Would you like to restart Studio now?,지금 Studio를 다시 시작할까요?,Перезапустить студию прямо сейчас?,你要立即重新启动 Studio 吗?
 Studio.App.BetaFeatures.TryCoolFeatures,,,Try out cool new Studio features! Your feedback is invaluable to us as we move forward towards building a powerful imagination platform.,Try out cool new Studio features! Your feedback is invaluable to us as we move forward towards building a powerful imagination platform.,새롭고 멋진 Studio 기능을 시험해 보세요! 상상력을 펼칠 수 있는 강력한 플랫폼을 계속 만들어 가려면 여러분의 귀중한 피드백이 필요해요.,"Воспользуйтесь новыми возможностями студии! Ваш отзыв очень важен для нас, ведь наша цель - создание мощной творческой платформы.",试试 Studio 超酷的新功能吧! 你的反馈对我们非常重要，因为这能帮助我们打造出一个实现想象力的强大平台。
 Studio.App.Breakpoints.DeleteAllBreakpoints,,,Delete All Breakpoints,Delete All Breakpoints,모든 중단점 삭제,Удалить все точки останова,删除所有断点
@@ -35,7 +35,7 @@ Studio.App.BulkImport.Import,,,Import,Import,가져오기,Импорт,导入
 Studio.App.BulkImport.ProgressFmt2,,,Imported %1 of %2 files,Imported %1 of %2 files,%1/%2 파일 가져옴,Импорт файлов: %1 из %2,已导入 %1 个文件 (总共 %2 个
 Studio.App.CalibrateDeviceScalingDialog.CalibrateDeviceScaling,,,Calibrate Device Scaling,Calibrate Device Scaling,기기 크기 보정,Калибровка масштабирования устройства,校准设备缩放
 Studio.App.CalibrateDeviceScalingDialog.DecreaseImageSize,,,Decrease image size,Decrease image size,이미지 크기 축소,Уменьшить размер изображения,缩小图片尺寸
-Studio.App.CalibrateDeviceScalingDialog.EstimateScreenSize,,,"To accurately scale to physical size, we need to get an estimate of your screen size.","To accurately scale to physical size, we need to get an estimate of your screen size.",실제 크기에 정확하게 맞추기 위해서는 화면 크기 추정치에 대한 정보가 필요해요.,"Чтобы точно масштабировать до физического размера, нам нужно получить оценку размера экрана.",为了提供准确的物理尺寸，我们需要获知你的显示器的大致尺寸。
+Studio.App.CalibrateDeviceScalingDialog.EstimateScreenSize,,,"To accurately scale to physical size, we need to get an estimate of your screen size.","To accurately scale to physical size, we need to get an estimate of your screen size.",실제 크기에 정확하게 맞추기 위해서는 화면 크기 추정치에 대한 정보가 필요합니다.,"Чтобы точно масштабировать до физического размера, нам нужно получить оценку размера экрана.",为了提供准确的物理尺寸，我们需要获知你的显示器的大致尺寸。
 Studio.App.CalibrateDeviceScalingDialog.IncreaseImageSize,,,Increase image size,Increase image size,이미지 크기 확대,Увеличить размер изображения,扩大图片尺寸
 Studio.App.CallStackWidget.CurrentScript,,,Current Script: ,Current Script: ,현재 스크립트: ,Текущий скрипт:,当前脚本: 
 Studio.App.CallStack.CallStack,,,Call Stack,Call Stack,스택 호출,Стек вызовов,调用堆栈
@@ -325,7 +325,7 @@ Studio.App.MainWindow.SaveChangesTo1,,,Save changes to %1?,Save changes to %1?,%
 Studio.App.MainWindow.SaveToFile,,,Save to File,Save to File,파일에 저장,Сохранить в файл,保存到文件...
 Studio.App.MainWindow.SaveToFileAsPrompt,,,Save to File As...,Save to File As...,다른 이름으로 저장...,Сохранить в файл как....,文件另存为...
 Studio.App.MainWindow.TeamCreateReconnectFailedUnableToFetchSettingsData,,,Team Create reconnect failed. Unable to fetch game settings data.,Team Create reconnect failed. Unable to fetch game settings data.,팀 만들기에 다시 연결하지 못했습니다. 게임 설정 데이터를 가져올 수 없습니다.,Ошибка повторного соединения с сеансом совместной разработки. Невозможно получить данные настроек игры.,重新连接至组队创作失败。无法提取游戏设置数据。
-Studio.App.MainWindow.UnableToConnect,,,Unable to Connect,Unable to Connect,연결할 수 없음,Невозможно установить соединение,无法连接
+Studio.App.MainWindow.UnableToConnect,,,Unable to Connect,Unable to Connect,연결할 수 없습니다,Невозможно установить соединение,无法连接
 Studio.App.MainWindow.UnableToFetchUniversePermissions1,,,Unable to fetch universe permissions: %1,Unable to fetch universe permissions: %1,%1 유니버스 권한을 가져올 수 없음,Невозможно получить разрешения для мира: %1,无法提取通用许可: %1
 Studio.App.MainWindow.UnableToOpenGameOrPlaceRestartApplication,,,"Unable to open the game or place. Please restart your application and try again. If you continue to encounter this error, please contact customer service.","Unable to open the game or place. Please restart your application and try again. If you continue to encounter this error, please contact customer service.",게임 또는 플레이스를 열지 못했습니다. 응용 프로그램을 재시작하고 다시 시도하세요. 오류가 계속 발생하면 지원 센터에 문의하세요.,"Невозможно открыть игру или место. Пожалуйста, перезапустите приложение и повторите попытку. Если ошибка повторяется, свяжитесь со службой поддержки.",无法打开游戏或场景。请重新启动你的应用程序后重试。如果错误持续出现，请联系客户服务部门。
 Studio.App.MainWindow.UploadingImageQuitAnyway,,,Roblox is uploading an image. Quit anyway?,Roblox is uploading an image. Quit anyway?,Roblox가 이미지를 업로드하고 있습니다. 그래도 종료할까요?,Идет загрузка изображения в Roblox. Все равно выйти?,Roblox 正在上传图片。仍要离开吗?
@@ -350,7 +350,7 @@ Studio.App.Materials.Slate,,,Slate,Slate,슬레이트,Сланец,石板
 Studio.App.Materials.SmoothPlastic,,,Smooth Plastic,Smooth Plastic,매끈한 플라스틱,Гладкий пластик,平滑塑料
 Studio.App.Materials.Wood,,,Wood,Wood,나무,Дерево,木头
 Studio.App.MeshPartLODNotification.Dismiss,,,Do not show again,Do not show again,다시 보여주지 않음,Больше не показывать,不要再显示
-Studio.App.MeshPartLODNotification.Message,,,RenderFidelity was set to Automatic or Performance. This may require the asset to go through moderation and create a new assetId.,RenderFidelity was set to Automatic or Performance. This may require the asset to go through moderation and create a new assetId.,RenderFidelity가 자동 또는 고성능으로 설정되어 있습니다. 이로 인해 애셋을 검열해 새 assetId를 만들어야 할 수 있습니다.,Значение RenderFidelity установлено как Automatic. Это может потребовать модерации ресурса и присвоения нового assetId.,RenderFidelity（渲染保真度）已设为自动或高性能设置。此资源因此可能需要进一步审核，并创建新的 assetID。
+Studio.App.MeshPartLODNotification.Message,,,RenderFidelity was set to Automatic or Performance. This may require the asset to go through moderation and create a new assetId.,RenderFidelity was set to Automatic or Performance. This may require the asset to go through moderation and create a new assetId.,RenderFidelity가 자동 또는 고성능으로 설정되었습니다. 이로 인해 애셋이 검열을 거치고 새 assetId를 만들어야 할 수 있습니다.,Значение RenderFidelity установлено как Automatic. Это может потребовать модерации ресурса и присвоения нового assetId.,RenderFidelity（渲染保真度）已设为自动或高性能设置。此资源因此可能需要进一步审核，并创建新的 assetID。
 Studio.App.MeshPartLOD.Info1,,,Finished simplifying %1 mesh parts,Finished simplifying %1 mesh parts,%1개 메시 파트 단순화 완료,Завершено упрощение %1 деталей сетки,已完成简化 %1 个网格部件
 Studio.App.MeshPartLOD.Warning1,,,Mesh Publish failure for asset id %1,Mesh Publish failure for asset id %1,애셋 ID %1에 대한 메시 게시 실패,Ошибка при публикации сетки для ID ресурса %1,资产 ID %1 网格发布失败
 Studio.App.MeshSplitterDialog.Checked12,,,Checked (%1/%2),Checked (%1/%2),확인됨(%1/%2),Проверено (%1/%2),已检查 (%1/%2)
@@ -372,7 +372,7 @@ Studio.App.Properties.TitleFmt1,,,Properties - %1,Properties - %1,속성 - %1,С
 Studio.App.QDebuggerClient.BreakpointLocationFmt2,,,"Location: %1, line %2","Location: %1, line %2","위치: %1, 라인 %2","Расположение: %1, строка %2",位置: %1，第 %2 行
 Studio.App.QDebuggerClient.ConditionText,,,Condition,Condition,조건,Условие,条件
 Studio.App.QDebuggerClient.InvalidBreakpointMessage,,,The breakpoint will not currently be hit.,The breakpoint will not currently be hit.,중단점이 현재 맞지 않습니다.,Точка останова не будет достигнута.,当前无法运行至断点。
-Studio.App.QDebuggerClient.InvalidText,,,Invalid,Invalid,잘못됨,Недействительно,无效
+Studio.App.QDebuggerClient.InvalidText,,,Invalid,Invalid,유효하지 않음,Недействительно,无效
 Studio.App.RBXMainWindow.15StudGrid,,,1/5 Stud Grid,1/5 Stud Grid,1/5 스터드 그리드,1/5 Сетка стоек,1/5 格栅格
 Studio.App.RBXMainWindow.3DGrid,,,3D Grid,3D Grid,3D 그리드,3D-сетка,3D 栅格
 Studio.App.RBXMainWindow.AboutRobloxStudio,,,About Roblox Studio,About Roblox Studio,Roblox Studio 정보,О программе Roblox Studio,关于 Roblox Studio
@@ -408,12 +408,15 @@ Studio.App.RBXMainWindow.CommandBar,,,Command Bar,Command Bar,명령 모음,Ко
 Studio.App.RBXMainWindow.CommentOutSelectedText,,,Comment out selected text,Comment out selected text,선택 텍스트에 코멘트,Закомментировать выделенный текст,注释掉被选中的文本
 Studio.App.RBXMainWindow.CommentSelection,,,Comment Selection,Comment Selection,선택 항목 코멘트,Закомментировать выделенное,注释选中内容
 Studio.App.RBXMainWindow.ConditionElps,,,Condition...,Condition...,조건...,Условие...,条件...
-Studio.App.RBXMainWindow.ConnectorsOnSurface,,,Connectors on Surface,Connectors on Surface,표면의 커넥터,Коннекторы на поверхности,表面连接件
+Studio.App.RBXMainWindow.ConnectorsOnSurface,,,Connectors on Surface,Connectors on Surface,표면 커넥터,Коннекторы на поверхности,表面连接件
 Studio.App.RBXMainWindow.ConstraintCheck,,,Constraint Check,Constraint Check,제약 확인,Проверка ограничений,约束检查
+Studio.App.RBXMainWindow.ContextHelp,,,Context Help,Context Help,콘텍스트 도움말,Контекстная справка,语境帮助
 Studio.App.RBXMainWindow.ConvertToPackageElps,,,Convert to Package...,Convert to Package...,패키지로 전환...,Преобразовать в пакет....,转换为包...
 Studio.App.RBXMainWindow.CopyTheSelectionAndPutItOn,,,Copy the selection and put it on the Clipboard,Copy the selection and put it on the Clipboard,선택 항목을 클립보드로 복사,Скопировать выделенное и поместить в буфер обмена,复制选中内容并置入剪贴板
 Studio.App.RBXMainWindow.CreateANewDocument,,,Create a new document,Create a new document,새 문서 만들기,Создать новый документ,创建一个新文档
 Studio.App.RBXMainWindow.CreateLocalPluginFromScriptElps,,,Create a local plugin from this script...,Create a local plugin from this script...,이 스크립트에서 로컬 플러그인 만들기...,Создать локальный плагин из этого скрипта...,从此脚本创建一个本地插件...
+Studio.App.RBXMainWindow.CreateNewLinkedSourceElps,,,Create new LinkedSource...,Create new LinkedSource...,새 LinkedSource 만들기...,Создать новый LinkedSource...,创建新 LinkedSource...
+Studio.App.RBXMainWindow.CreatePluginFromScript,,,Create a local plugin from this script,Create a local plugin from this script,이 스크립트에서 로컬 플러그인 만들기,Создать локальный плагин из этого скрипта,从此脚本创建一个本地插件
 Studio.App.RBXMainWindow.CustomizeElps,,,Customize...,Customize...,사용자 정의...,Настройка...,自定义...
 Studio.App.RBXMainWindow.CustomizeQuickAccess,,,Customize Quick Access,Customize Quick Access,빠른 액세스 사용자 정의,Настройка быстрого доступа,自定义快速访问
 Studio.App.RBXMainWindow.CustomizeShortcutsElps,,,Customize Shortcuts...,Customize Shortcuts...,바로가기 사용자 정의...,Настройка сочетаний клавиш...,自定义快捷键...
@@ -479,8 +482,8 @@ Studio.App.RBXMainWindow.GridSize2Studs,,,Grid Size - 2 studs,Grid Size - 2 stud
 Studio.App.RBXMainWindow.GridSize4Studs,,,Grid Size - 4 Studs,Grid Size - 4 Studs,그리드 크기 - 4 스터드,Размер сетки - 4 стоек,栅格尺寸 - 4 格
 Studio.App.RBXMainWindow.Group,,,Group,Group,그룹,Группировка,组合
 Studio.App.RBXMainWindow.GroupPartsOrModels,,,Group parts or models,Group parts or models,파트 또는 모델 그룹,Группировка деталей или моделей,组合部件或模型
-Studio.App.RBXMainWindow.HingeOnSurface,,,Hinge on Surface,Hinge on Surface,표면의 힌지,Петля на поверхности,表面铰链
-Studio.App.RBXMainWindow.IndentsOnSurface,,,Indents on Surface,Indents on Surface,표면의 인덴트,Углубление на поверхности,表面凹痕
+Studio.App.RBXMainWindow.HingeOnSurface,,,Hinge on Surface,Hinge on Surface,표면 힌지,Петля на поверхности,表面铰链
+Studio.App.RBXMainWindow.IndentsOnSurface,,,Indents on Surface,Indents on Surface,표면 들여쓰기,Углубление на поверхности,表面凹痕
 Studio.App.RBXMainWindow.InsertBasicObjects,,,Insert Basic Objects,Insert Basic Objects,기본 개체 삽입,Вставить базовые объекты,插入基本对象
 Studio.App.RBXMainWindow.InsertBreakpoint,,,Insert Breakpoint,Insert Breakpoint,중단점 삽입,Вставить точку останова,插入断点
 Studio.App.RBXMainWindow.InsertClipboardContents,,,Insert Clipboard contents,Insert Clipboard contents,클립보드 내용 삽입,Вставить содержимое буфера обмена,插入剪贴板内容
@@ -506,7 +509,7 @@ Studio.App.RBXMainWindow.ManageEmulatedDevices,,,Manage emulated devices,Manage 
 Studio.App.RBXMainWindow.ManagePlugins,,,Manage Plugins,Manage Plugins,플러그인 관리,Управление плагинами,管理插件
 Studio.App.RBXMainWindow.MassUpdateAllPackages,,,Mass Update All Packages in Current Place,Mass Update All Packages in Current Place,현재 플레이스에 모든 패키지 대량 업데이트,Массовое обновление всех пакетов в открытом месте,批量更新当前场景的所有包
 Studio.App.RBXMainWindow.ModelElps,,,Model...,Model...,모델...,Модель...,模型...
-Studio.App.RBXMainWindow.MotorOnSurface,,,Motor on Surface,Motor on Surface,표면의 모터,Двигатель на поверхности,表面转子
+Studio.App.RBXMainWindow.MotorOnSurface,,,Motor on Surface,Motor on Surface,표면 모터,Двигатель на поверхности,表面转子
 Studio.App.RBXMainWindow.MoveDown,,,Move Down,Move Down,아래로 이동,Переместить вниз,下移
 Studio.App.RBXMainWindow.MoveEdit,,,Move - Edit,Move - Edit,이동 - 편집,Перемещение - Редактирование,移动 - 编辑
 Studio.App.RBXMainWindow.MoveObjectsDown,,,Move objects down,Move objects down,개체를 아래로 이동,Переместить объекты вниз,下移对象
@@ -636,6 +639,7 @@ Studio.App.RBXMainWindow.StepInto,,,Step Into,Step Into,한 단계씩 실행,Ш�
 Studio.App.RBXMainWindow.StepOut,,,Step Out,Step Out,단계 출력,Шаг с выходом,单步跳出
 Studio.App.RBXMainWindow.StepOver,,,Step Over,Step Over,단위 실행,Шаг с обходом,单步跳过
 Studio.App.RBXMainWindow.StopsAndReloadsTheDocument,,,Stops and reloads the document,Stops and reloads the document,중지 후 문서 다시 불러오기,Останавливается и перезагружает документ,停止并重新加载文档
+Studio.App.RBXMainWindow.StoreScriptCloud,,,Store this script in the cloud so that you can easily re-use it,Store this script in the cloud so that you can easily re-use it,손쉽게 다시 사용할 수 있도록 클라우드에 이 스크립트 저장,Храните этот скрипт в облаке - это облегчит повторное использование,将此脚本保存至云端，让你可以轻松地重复利用它
 Studio.App.RBXMainWindow.SummaryStats,,,Summary Stats,Summary Stats,상태 요약,Краткая статистика,摘要统计
 Studio.App.RBXMainWindow.SwapAttachments,,,Swap Attachments,Swap Attachments,첨부 스왑,Поменять местами оснастку,交换附件
 Studio.App.RBXMainWindow.SwitchBothAttachments,,,Swap both attachments on the constraint,Swap both attachments on the constraint,제약의 첨부 모두 스왑,Меняет местами обе оснастки на ограничении,交换约束上的两个附件
@@ -652,7 +656,7 @@ Studio.App.RBXMainWindow.TiltDown,,,Tilt Down,Tilt Down,아래로 기울기,На
 Studio.App.RBXMainWindow.TiltObjects,,,Tilt objects,Tilt objects,개체 기울기,Наклонить объекты,倾斜对象
 Studio.App.RBXMainWindow.TiltUp,,,Tilt Up,Tilt Up,위로 기울기,Наклонить вверх,向上倾斜
 Studio.App.RBXMainWindow.ToggleAllBreakpoints,,,Toggle All Breakpoints,Toggle All Breakpoints,모든 중단점 토글,Переключить все точки останова,切换所有断点
-Studio.App.RBXMainWindow.ToggleClientServer,,,Click to toggle between client and server mode,Click to toggle between client and server mode,클릭해 클라이언트와 서버 모드 토글,"Щелкните, чтобы переключить между режимом клиента и сервера",单击切换客户端和服务器模式
+Studio.App.RBXMainWindow.ToggleClientServer,,,Click to toggle between client and server mode,Click to toggle between client and server mode,클릭해 클라이언트와 서버 모드 토글,"Щелкните, чтобы переключить между режимом клиента и сервера",点击切换客户端和服务器模式
 Studio.App.RBXMainWindow.ToggleCollisionCheck,,,Enables or Disables Collision Check,Enables or Disables Collision Check,충돌 확인 활성화 또는 비활성화,Включает или отключает проверку столкновений,启用或禁用碰撞检查
 Studio.App.RBXMainWindow.ToggleCommentSelection,,,Toggle Comment,Toggle Comment,코멘트 토글,Переключение комментариев,切换注释
 Studio.App.RBXMainWindow.ToggleConstraintCheck,,,Enables or Disables Constraint Check,Enables or Disables Constraint Check,제약 확인 활성화 또는 비활성화,Включает или отключает проверку ограничений,启用或禁用约束检查
@@ -680,6 +684,7 @@ Studio.App.RBXMainWindow.UniversalsForSurface,,,Universals for Surface,Universal
 Studio.App.RBXMainWindow.UnlockAll,,,Unlock All,Unlock All,모두 잠금 해제,Разблокировать все,全部解锁
 Studio.App.RBXMainWindow.UploadLogFiles,,,Upload Log Files,Upload Log Files,로그 파일 업로드,Загрузить файлы журнала,上传日志文件
 Studio.App.RBXMainWindow.VideoRecord,,,Video Record,Video Record,비디오 녹화,Видеозапись,视频录像
+Studio.App.RBXMainWindow.ViewContextSensitiveHelp,,,View Context-sensitive Help,View Context-sensitive Help,상황에 맞는 도움말 보기,Просмотр контекстно-зависимой справки,查看语境相关帮助
 Studio.App.RBXMainWindow.ViewFindResults,,,View Find Results,View Find Results,결과 찾기 보기,Просмотр результатов поиска,查看查找结果
 Studio.App.RBXMainWindow.ViewGameExplorerElps,,,View Game Explorer...,View Game Explorer...,게임 탐색기 보기...,Просмотр проводника игр...,查看游戏管理器
 Studio.App.RBXMainWindow.ViewObjectExplorer,,,View Object Explorer,View Object Explorer,개체 탐색기 보기,Просмотр проводника объектов,查看对象管理器
@@ -728,7 +733,7 @@ Studio.App.RobloxRibbonMainWindow.AGUIObjectContainingText,,,A GUI object contai
 Studio.App.RobloxRibbonMainWindow.ATextEntryBox,,,A text entry box,A text entry box,텍스트 입력 상자,Поле ввода текста,一个文本输入框
 Studio.App.RobloxRibbonMainWindow.Actions,,,Actions,Actions,작업,Действия,操作
 Studio.App.RobloxRibbonMainWindow.ActionsAsTools,,,Actions as Tools,Actions as Tools,도구로 작업,Назначение инструментов,工具类操作
-Studio.App.RobloxRibbonMainWindow.AddASpawnPoint,,,Click here to add a spawn point into your game,Click here to add a spawn point into your game,여기를 클릭해 게임에 스폰 지점 추가,"Щелкните здесь, чтобы добавить место появления персонажа",单击此处为你的游戏添加一个重生点
+Studio.App.RobloxRibbonMainWindow.AddASpawnPoint,,,Click here to add a spawn point into your game,Click here to add a spawn point into your game,여기를 클릭해 게임에 스폰 지점 추가,"Щелкните здесь, чтобы добавить место появления персонажа",点击此处为你的游戏添加一个重生点
 Studio.App.RobloxRibbonMainWindow.AddWeld,,,Weld,Weld,용접,Добавить шов,接合
 Studio.App.RobloxRibbonMainWindow.Advanced,,,Advanced,Advanced,고급,Расширенные настройки,高级
 Studio.App.RobloxRibbonMainWindow.AdvancedObjects,,,Advanced Objects,Advanced Objects,고급 개체,Дополнительные объекты,高级对象
@@ -750,7 +755,7 @@ Studio.App.RobloxRibbonMainWindow.Brick,,,Brick,Brick,벽돌,Кирпич,砖块
 Studio.App.RobloxRibbonMainWindow.CheckCollisionsDragging,,,Check for collisions when dragging,Check for collisions when dragging,끌 때 충돌 확인,Проверьте на столкновения при перетаскивании,在拖动时检查碰撞
 Studio.App.RobloxRibbonMainWindow.ChooseHowPartsJoin,,,Choose how parts are joined together,Choose how parts are joined together,파트 연결 방식 선택,Выберите способ соединения деталей друг с другом,选择部件如何结合到一起
 Studio.App.RobloxRibbonMainWindow.Cleanup,,,Cleanup,Cleanup,정리,Очистка,清理
-Studio.App.RobloxRibbonMainWindow.ClickOnPartsToLockUnlock,,,Click on parts to lock/unlock,Click on parts to lock/unlock,파트를 클릭해 잠금/잠금 해제,"Нажмите на детали, чтобы заблокировать / разблокировать",点按部件以锁定/解锁
+Studio.App.RobloxRibbonMainWindow.ClickOnPartsToLockUnlock,,,Click on parts to lock/unlock,Click on parts to lock/unlock,파트를 클릭해 잠금/잠금 해제,"Нажмите на детали, чтобы заблокировать / разблокировать",点击部件以锁定/解锁
 Studio.App.RobloxRibbonMainWindow.ClientsAndServers,,,Clients and Servers,Clients and Servers,클라이언트와 서버,Клиенты и серверы,客户端和服务器
 Studio.App.RobloxRibbonMainWindow.Clipboard,,,Clipboard,Clipboard,클립보드,Буфер обмена,剪贴板
 Studio.App.RobloxRibbonMainWindow.Cobblestone,,,Cobblestone,Cobblestone,자갈,Брусчатка,鹅卵石
@@ -901,7 +906,7 @@ Studio.App.RobloxRibbonMainWindow.ShowDetails,,,Show Details,Show Details,세부
 Studio.App.RobloxRibbonMainWindow.ShowGrid,,,Show Grid,Show Grid,그리드 표시,Показать сетку,显示栅格
 Studio.App.RobloxRibbonMainWindow.ShowTabNamesRibbon,,,Show only the tab names on the Ribbon,Show only the tab names on the Ribbon,리본에 탭 이름만 표시,Показывать на ленте только названия вкладок,在功能区上只显示标签名称
 Studio.App.RobloxRibbonMainWindow.ShowWelds,,,Show Welds,Show Welds,용접 표시,Показать стыковки,显示接合
-Studio.App.RobloxRibbonMainWindow.ShowWorldSpaceAxis,,,Show world-space aligned coordinate axis,Show world-space aligned coordinate axis,세계-공간 정렬 좌표 축 표시,Показать ось координат с выравниванием world-space,显示与世界空间对齐的坐标轴
+Studio.App.RobloxRibbonMainWindow.ShowWorldSpaceAxis,,,Show world-space aligned coordinate axis,Show world-space aligned coordinate axis,월드-공간 정렬 좌표 축 표시,Показать ось координат с выравниванием world-space,显示与世界空间对齐的坐标轴
 Studio.App.RobloxRibbonMainWindow.Simulation,,,Simulation,Simulation,시뮬레이션,Моделирование,模拟
 Studio.App.RobloxRibbonMainWindow.Smooth,,,Smooth,Smooth,다듬기,Сгладить,平滑
 Studio.App.RobloxRibbonMainWindow.SmoothNoOutline,,,"Smooth, No Outline","Smooth, No Outline","다듬기, 윤곽 없음","Гладкий, без контуров",平滑无描边
@@ -927,7 +932,7 @@ Studio.App.RobloxRibbonMainWindow.TheRotateGrid,,,The grid that rotate tools wil
 Studio.App.RobloxRibbonMainWindow.TheSnapGrid,,,The grid move and resize tools will snap to,The grid move and resize tools will snap to,이동 및 크기 조정 도구가 맞출 그리드,Инструменты для перемещения и изменения размера сетки будут привязаны к:,移动和缩放工具所对齐的栅格
 Studio.App.RobloxRibbonMainWindow.ToggleCommentSelectedLines,,,Toggle the commented status of the selected lines,Toggle the commented status of the selected lines,선택 줄의 코멘트 상태 토글,Переключение комментирования выбранных строк,切换选中行的注释状态
 Studio.App.RobloxRibbonMainWindow.ToggleGameAudioSounds,,,Toggle Game Audio Sounds,Toggle Game Audio Sounds,게임 오디오 사운드 토글,Переключение звука игры,打开/关闭游戏音频声音
-Studio.App.RobloxRibbonMainWindow.ToggleSelectionAnchor,,,Anchor/Unanchor the selected parts,Anchor/Unanchor the selected parts,선택한 파트 앵커/앵커 해제,Включить/отключить закрепление выбранных деталей,点按部件以锚固/取消锚固
+Studio.App.RobloxRibbonMainWindow.ToggleSelectionAnchor,,,Anchor/Unanchor the selected parts,Anchor/Unanchor the selected parts,선택한 파트 앵커/앵커 해제,Включить/отключить закрепление выбранных деталей,点击部件以锚固/取消锚固
 Studio.App.RobloxRibbonMainWindow.TogglesGridSnap,,,Toggles move and resize tools snapping to grid,Toggles move and resize tools snapping to grid,이동 및 크기 조정 도구를 그리드에 맞추기 토글,Переключение инструментов перемещения и изменения размера с привязкой к сетке,切换是否将移动和缩放工具对齐至栅格
 Studio.App.RobloxRibbonMainWindow.TogglesMaterialActionAsTool,,,Toggles material action as tool,Toggles material action as tool,도구로 재질 작업 토글,Переключение материала для работы,切换工具类材质操作
 Studio.App.RobloxRibbonMainWindow.TogglesRotateSnap,,,Toggles rotate tools snapping to grid,Toggles rotate tools snapping to grid,회전 도구를 그리드에 맞추기 토글,Переключение инструментов вращения с привязкой к сетке,切换是否将旋转工具对齐至栅格
@@ -941,6 +946,7 @@ Studio.App.RobloxRibbonMainWindow.Universal,,,Universal,Universal,유니버설,�
 Studio.App.RobloxRibbonMainWindow.UpdateSettingsCurrentGame,,,Update settings related to current game,Update settings related to current game,현재 게임과 관련된 설정 업데이트,Обновить настройки текущей игры,更新当前游戏的相关设置
 Studio.App.RobloxRibbonMainWindow.VectorForce,,,Vector Force,Vector Force,벡터량,Вектор силы,矢量力
 Studio.App.RobloxRibbonMainWindow.View,,,View,View,보기,Просмотр,查看
+Studio.App.RobloxRibbonMainWindow.ViewContextSensitiveHelp,,,View context-sensitive help,View context-sensitive help,상황에 맞는 도움말 보기,Просмотр контекстно-зависимой справки,查看语境相关帮助
 Studio.App.RobloxRibbonMainWindow.ViewCurrentCallStack,,,View current call stack,View current call stack,현재 호출 스택 보기,Просмотр стека текущих вызовов,查看当前调用堆栈
 Studio.App.RobloxRibbonMainWindow.ViewCurrentlyWatchedVariables,,,View currently watched variables,View currently watched variables,현재 감시되는 변수 보기,Просмотр текущих переменных,查看当前监视的变量
 Studio.App.RobloxRibbonMainWindow.ViewDiagnosticInfo,,,View diagnostic information of your game,View diagnostic information of your game,게임의 진단 정보 보기,Просмотр диагностической информации о вашей игре,查看游戏的诊断信息
@@ -993,7 +999,7 @@ Studio.App.Shapes.Cylinder,,,Cylinder,Cylinder,원통,Цилиндр,圆柱
 Studio.App.Shapes.Sphere,,,Sphere,Sphere,구형,Сфера,球体
 Studio.App.ShareModalController.Offline,,,Offline,Offline,오프라인,Не в сети,离线
 Studio.App.ShareModalController.Online,,,Online,Online,온라인,В сети,在线
-Studio.App.ShareModalInfoBox.MakeGamePublicToShare,,,Make your game public to share it,Make your game public to share it,게임을 공개해 공유하기,"Чтобы поделиться игрой, сделайте ее общедоступной",公开并分享游戏
+Studio.App.ShareModalInfoBox.MakeGamePublicToShare,,,Make your game public to share it,Make your game public to share it,게임을 공개하고 공유하기,"Чтобы поделиться игрой, сделайте ее общедоступной",公开并分享游戏
 Studio.App.ShareModal.By1,,,By %1,By %1,%1,Автор: %1,作者: %1
 Studio.App.ShareModal.CopyLink,,,Copy Link,Copy Link,링크 복사,Скопировать ссылку,复制链接
 Studio.App.ShareModal.Failed,,,Failed,Failed,실패함,Ошибка,失败
@@ -1042,7 +1048,7 @@ Studio.App.TeamCreate.PublishAndEnableteamCreateToBuildTogether,,,Publish and en
 Studio.App.TeamCreate.PublishingCurrentPlace,,,Publishing current place...,Publishing current place...,현재 플레이스 게시 중...,Публикация текущего места....,正在发布当前场景...
 Studio.App.TeamCreate.RemovingThisUserWillPrevent,,,Removing this user will prevent them from accessing this Team Create game. Are you sure you want to do this?,Removing this user will prevent them from accessing this Team Create game. Are you sure you want to do this?,이 사용자를 제거하면 해당 사용자가 팀 만들기 게임에 접근할 수 없습니다. 이대로 진행할까요?,После удаления этого пользователя у него не будет доступа к совместной разработке. Продолжить?,删除此用户会阻止他们访问这个组队创作游戏。确定要这么做吗?
 Studio.App.TeamCreate.SavingLatestUpdatesAndEnablingTeamCreate,,,Saving latest updates and enabling Team Create...,Saving latest updates and enabling Team Create...,최신 업데이트 저장 및 팀 만들기 활성화 중...,Сохранение последних обновлений и включение совместной разработки...,正在保存最新更新并启用组队创作...
-Studio.App.TeamCreate.TurnOn,,,Turn ON,Turn ON,켜기,Включить,开启
+Studio.App.TeamCreate.TurnOn,,,Turn On,Turn On,켜기,Включить,开启
 Studio.App.TemplatePage.Gameplay,,,Gameplay,Gameplay,게임플레이,Геймплей,游戏性
 Studio.App.TemplatePage.Theme,,,Theme,Theme,테마,Тема,主题
 Studio.App.TemplatesPage.AllTemplates,,,All Templates,All Templates,모든 템플릿,Все шаблоны,所有模板
@@ -1073,7 +1079,7 @@ Studio.App.Category.Appearance,,,Appearance,Appearance,모양,Внешний в�
 Studio.App.Category.Audio,,,Audio,Audio,오디오,Звук,音频
 Studio.App.Category.AutoRecovery,,,Auto-Recovery,Auto-Recovery,자동 복구,Автовосстановление,自动恢复
 Studio.App.Category.Benchmarking,,,Benchmarking,Benchmarking,벤치마킹,Сравнительный анализ,基准测试
-Studio.App.Category.Browsing,,,Browsing,Browsing,브라우징,Просмотр,浏览
+Studio.App.Category.Browsing,,,Browsing,Browsing,둘러보기,Просмотр,浏览
 Studio.App.Category.Cache,,,Cache,Cache,캐시,Кэш,缓存
 Studio.App.Category.Camera,,,Camera,Camera,카메라,Камера,镜头
 Studio.App.Category.Configuration,,,Configuration,Configuration,구성,Конфигурация,配置
@@ -1285,7 +1291,7 @@ Studio.App.Property.AreUnalignedPartsShown,,,Are Unaligned Parts Shown,Are Unali
 Studio.App.Property.AreWorldCoordsShown,,,Are World Coords Shown,Are World Coords Shown,월드 좌표 표시됨,Показаны ли world-координаты,显示世界坐标
 Studio.App.Property.AttachDebuggerTo,,,Attach Debugger To,Attach Debugger To,디버거를 다음에 첨부,Прикрепить отладчик к,连接调试器至
 Studio.App.Property.AutoFRMLevel,,,Auto FRM Level,Auto FRM Level,자동 FRM 레벨,Автоматический уровень FRM,自动 FRM 等级
-Studio.App.Property.AutoIndent,,,Auto Indent,Auto Indent,자동 인덴트,Автоматический отступ,自动缩进
+Studio.App.Property.AutoIndent,,,Auto Indent,Auto Indent,자동 들여쓰기,Автоматический отступ,自动缩进
 Studio.App.Property.AutoRecoveryEnabled,,,Auto-Recovery Enabled,Auto-Recovery Enabled,자동 복구 활성화됨,Автовосстановление включено,启用自动恢复
 Studio.App.Property.AutoRecoveryIntervalMinutes,,,Auto-Recovery Interval (Minutes),Auto-Recovery Interval (Minutes),자동 복구 간격 (분),Интервал автовосстановления (минуты),自动恢复时间间隔 (分钟)
 Studio.App.Property.AutoRecoveryPath,,,Auto-Recovery Path,Auto-Recovery Path,자동 복구 경로,Путь для автовосстановления,自动恢复路径
@@ -1304,7 +1310,7 @@ Studio.App.Property.ClearOutputOnStart,,,Clear Output On Start,Clear Output On S
 Studio.App.Property.ClientPhysicsSendRate,,,Client Physics Send Rate,Client Physics Send Rate,클라이언트 물리 전송 속도,Частота отправки данных физики клиента,客户端物理发送速率
 Studio.App.Property.CommentColor,,,Comment Color,Comment Color,코멘트 색,Цвет комментария,注释颜色
 Studio.App.Property.DataGCRate,,,Data GC Rate,Data GC Rate,데이터 GC 속도,Скорость передачи данных GC,数据垃圾回收速率
-Studio.App.Property.DataModel,,,Data Model,Data Model,데이터 모델,Модель данных,数据模型
+Studio.App.Property.DataModel,,,Data Model Count,Data Model Count,데이터 모델 개수,Модель данных,数据模型计数
 Studio.App.Property.DataMtuAdjust,,,Data Mtu Adjust,Data Mtu Adjust,데이터 Mtu 조정,Изменение размера MTU ,数据Mtu调整
 Studio.App.Property.DataSendRate,,,Data Send Rate,Data Send Rate,데이터 전송 속도,Скорость отправки данных,数据发送速率
 Studio.App.Property.DefaultScriptFileDir,,,Default Script File Dir,Default Script File Dir,기본 스크립트 파일 디렉터리,Каталог файла скрипта по умолчанию,默认脚本文件目录
@@ -1312,6 +1318,7 @@ Studio.App.Property.DefaultWaitTime,,,Default Wait Time,Default Wait Time,기본
 Studio.App.Property.DeprecatedObjectsShown,,,Deprecated Objects Shown,Deprecated Objects Shown,사용되지 않는 개체 표시,Показаны устаревшие объекты,显示弃用对象
 Studio.App.Property.DevicePairingCode,,,Device Pairing Code,Device Pairing Code,기기 페어링 코드,Код связывания с устройством,设备配对码
 Studio.App.Property.DisableAccuratePlaySolo,,,Disable Accurate Play Solo,Disable Accurate Play Solo,정확한 싱글 플레이 비활성화,Отключить точный одиночный режим,禁用Accurate Play Solo
+Studio.App.Property.DisableCSGv2,,,Enable Legacy CSG,Enable Legacy CSG,레거시 CSG 활성화,Отключить CSGv2,启用旧版 CSG
 Studio.App.Property.DragMultiplePartsAsSinglePart,,,Drag Multiple Parts As Single Part,Drag Multiple Parts As Single Part,파트 여러 개를 단일 파트로 끌기,Перетаскивать несколько элементов как один,同时拖动多个部件
 Studio.App.Property.EagerBulkExecution,,,Eager Bulk Execution,Eager Bulk Execution,즉시 일괄 실행,Массовое выполнение,预先批处理执行
 Studio.App.Property.EditQualityLevel,,,Edit Quality Level,Edit Quality Level,품질 수준 편집,Изменить уровень качества,编辑品质等级
@@ -1342,7 +1349,7 @@ Studio.App.Property.JobCount,,,Job Count,Job Count,작업 개수,Количес�
 Studio.App.Property.KeywordColor,,,Keyword Color,Keyword Color,키워드 색,Цвет ключевого слова,关键词颜色
 Studio.App.Property.Language,,,Language,Language,언어,Язык,语言
 Studio.App.Property.LineThickness,,,Line Thickness,Line Thickness,선 두께,Толщина линии,线条粗细
-Studio.App.Property.LuaDebuggerEnabled,,,Lua Debugger Enabled,Lua Debugger Enabled,Lua 디버거 활성화됨,Отладчик Lua включен,启用 Lua 调试器
+Studio.App.Property.LuaDebuggerEnabled,,,Debugger Enabled,Debugger Enabled,디버거 활성화됨,Отладчик Lua включен,已启用调试器
 Studio.App.Property.LuaRamLimit,,,Lua Ram Limit,Lua Ram Limit,Lua Ram 제한,Ограничение Lua Ram,Lua内存限制
 Studio.App.Property.MatchingWordBackgroundColor,,,Matching Word Background Color,Matching Word Background Color,단어 배경색 일치,Цвет фона найденного слова,匹配单词背景颜色
 Studio.App.Property.MaximumOutputLines,,,Maximum Output Lines,Maximum Output Lines,최대 출력 줄,Максимальное количество строк вывода,最大输出行数
@@ -1605,7 +1612,7 @@ This will shutdown all running servers.","이 게임을 비공개로 설정할�
 Studio.App.GamesPageController.Restored,,,Restored,Restored,복원함,Восстановленные,已还原
 Studio.App.IDEGameSettingsLinkDefinition.GameSettingsNotAvailable,,,Game Settings not available,Game Settings not available,게임 설정을 사용할 수 없습니다,Настройки игры недоступны,无法使用游戏设置
 Studio.App.IDEGameSettingsLinkDefinition.OpenGameSettings,,,Open Game Settings,Open Game Settings,게임 설정 열기,Открыть настройки игры,打开游戏设置
-Studio.App.LoginManager.CaptchaClosed,,,Captcha response not recognized. Please try again.,Captcha response not recognized. Please try again.,로그인에는 캡차가 필요합니다. 나중에 다시 시도하세요.,Для входа требуется пройти Captcha. Попробуйте еще раз.,登陆需要验证码，请重试。
+Studio.App.LoginManager.CaptchaClosed,,,Captcha response not recognized. Please try again.,Captcha response not recognized. Please try again.,캡차 응답을 인식할 수 없습니다. 다시 시도하세요.,Для входа требуется пройти Captcha. Попробуйте еще раз.,验证码识别未通过。请再试一次。
 Studio.App.LoginManager.CaptchaError,,,Error displaying captcha,Error displaying captcha,캡차를 표시하는 데 오류가 발생함,Ошибка отображения Captcha,显示验证码时出错
 Studio.App.Login.EnterPassword,,,Please enter your password.,Please enter your password.,비밀번호를 입력하세요.,"Пожалуйста, введите свой пароль.",请输入你的密码。
 Studio.App.Login.EnterUsername,,,Please enter your username.,Please enter your username.,사용자 이름을 입력하세요.,"Пожалуйста, введите свое имя пользователя.",请输入你的用户名。
@@ -1778,7 +1785,7 @@ Studio.App.ScriptResourceController.ConfirmPublishChanges,,,Are you sure you wan
 Studio.App.ScriptResourceController.ConfirmWillDestroyChanges,,,This will destroy all local changes you have made. Are you sure?,This will destroy all local changes you have made. Are you sure?,모든 로컬 변경 사항이 소멸됩니다. 진행할까요?,Все ваши локальные изменения будут потеряны! Продолжить?,这将毁掉你在本地作出的所有更改。确定吗？
 Studio.App.ShareModalController.CheckOutMyGame,,,Check out my game!,Check out my game!,내 게임을 확인해 보세요!,Оцените мою игру!,来看看我的游戏吧！
 Studio.App.ShareModalController.CheckOutThisGame,,,Check out this game!,Check out this game!,이 게임을 한번 해 보세요!,Оцените эту игру!,来看看这个游戏吧！
-Studio.App.SplineEditor.Envelope,,,Envelope,Envelope,봉투,Конверт,信封
+Studio.App.SplineEditor.Envelope,,,Envelope,Envelope,봉투,Конверт,包络
 Studio.App.SplineEditor.Time,,,Time,Time,시간,Время,时间
 Studio.App.StudioDataModelLoadUtil.ErrorCannotOpenTCPlaceDueToCancellation,,,Failed to open the team create place due to cancellation,Failed to open the team create place due to cancellation,작업이 취소되어 팀 만들기 플레이스를 열지 못했습니다,Не удалось открыть место совместной разработки из-за отмены,操作取消，无法打开组队创作场景
 Studio.App.StudioDataModelLoadUtil.ErrorCannotOpenTCPlaceDueToTimeout,,,Failed to open the team create place due to timeout,Failed to open the team create place due to timeout,시간이 초과되어 팀 만들기 플레이스를 열지 못했습니다,Не удалось открыть место совместной разработки: превышено время ожидания,操作超时，无法打开组队创作场景
@@ -1819,7 +1826,7 @@ Studio.App.StudioPluginHost.UnableToWritePluginMetadata,,,Unable to write plugin
 Studio.App.StudioSerializerHelper.ErrorSavingFile2,,,Error saving file '%1' - %2,Error saving file '%1' - %2,'%1' 파일 저장에 오류가 발생함 - %2,Ошибка при сохранении файла '%1' - %2,保存文件 “%1” - %2 时出错
 Studio.App.StudioUtilities.LogInRequired,,,Log in required,Log in required,로그인이 필요합니다,Требуется авторизация,需要登录
 Studio.App.StudioUtilities.YouMustLogInToPerformThisAction,,,You must log in to perform this action!,You must log in to perform this action!,이 작업을 수행하려면 반드시 로그인을 해야 합니다!,Для выполнения этого действия необходимо войти в систему!,你必须登录才能执行此动作！
-Studio.App.TeamCreateConnectionDialog.YouHaveLostConnectionToTheServer,,,You have lost connection to the server. Trying to reconnect...<br><br>Recent copy of the place has been saved. <a href='openautosave://file'>Click here</a> to open the saved place.,You have lost connection to the server. Trying to reconnect...<br><br>Recent copy of the place has been saved. <a href='openautosave://file'>Click here</a> to open the saved place.,서버와의 연결이 끊어져 다시 연결을 시도 중입니다...<br><br>플레이스의 최신 복사본이 저장되었습니다. 저장된 플레이스를 열려면 <a href='openautosave://file'>여기를 클릭</a>하세요.,Потеряно соединение с сервером. Попытка повторного подключения... <br><br>Сохранена недавняя копия этого места. <a href='openautosave://file'>Щелкните здесь</a> для открытия сохраненного места.,你已失去与服务器的连接。正在尝试重新连接...<br><br>已保存最近版本的场景。<a href='openautosave://file'>点按这里</a>打开已保存的场景。
+Studio.App.TeamCreateConnectionDialog.YouHaveLostConnectionToTheServer,,,You have lost connection to the server. Trying to reconnect...<br><br>Recent copy of the place has been saved. <a href='openautosave://file'>Click here</a> to open the saved place.,You have lost connection to the server. Trying to reconnect...<br><br>Recent copy of the place has been saved. <a href='openautosave://file'>Click here</a> to open the saved place.,서버와의 연결이 끊어져 다시 연결을 시도 중입니다...<br><br>플레이스의 최신 복사본이 저장되었습니다. 저장된 플레이스를 열려면 <a href='openautosave://file'>여기를 클릭</a>하세요.,Потеряно соединение с сервером. Попытка повторного подключения... <br><br>Сохранена недавняя копия этого места. <a href='openautosave://file'>Щелкните здесь</a> для открытия сохраненного места.,你已失去与服务器的连接。正在尝试重新连接...<br><br>已保存最近版本的场景。<a href='openautosave://file'>点击这里</a>打开已保存的场景。
 Studio.App.TeamCreate.ConfirmDisable,,,Are you sure you want to turn Team Create off?,Are you sure you want to turn Team Create off?,팀 만들기를 비활성화할까요?,Отключить совместную разработку?,确定要关闭组队创作？
 Studio.App.TeamCreate.ConfirmLossyDisable,,,"Turning off team create may result in loss of work.
 Are you sure ?","Turning off team create may result in loss of work.
@@ -1846,7 +1853,7 @@ Studio.App.UploadImageRequest.UploadingQuicklyHour1,,,Uploading too quickly. Try
 Studio.App.UploadImageRequest.UploadingTooQuickly,,,Uploading too quickly,Uploading too quickly,업로드 시도가 너무 잦습니다,Загрузка происходит слишком быстро,上传次数过于频繁
 Studio.App.UploadMeshRequest.AnimationDataInMeshIsUnsupported,,,Animation data in mesh is unsupported,Animation data in mesh is unsupported,메시의 애니메이션 데이터가 지원되지 않습니다,Данные анимации в сетке не поддерживаются,不支持 mesh 中的动画数据
 Studio.App.UploadMeshRequest.ContainsMoreThan1Triangles,,,Contains more than %1 triangles,Contains more than %1 triangles,%1개 이상의 삼각형을 포함하고 있습니다,Содержит более %1 треугольников,包含超过 %1 个三角形
-Studio.App.UploadMeshRequest.CouldNotFindTexture1PleaseVerify,,,"Could not find texture %1. Please verify that the texture is located at that location, or in the same folder as the fbx/obj file","Could not find texture %1. Please verify that the texture is located at that location, or in the same folder as the fbx/obj file","텍스처 %1을(를) 찾을 수 없습니다. 텍스처가 해당 위치에 있는지 확인하거나, fbx/obj 파일과 같은 폴더에 있는지 확인하세요.","Не удалось найти текстуру %1. Убедитесь, что текстура находится в том же месте или в той же папке, что и файл fbx/obj",无法找到纹理 %1，请验证纹理是否处于相应位置，或者在同一文件夹中以 fbx 或 obj 文件形式存在。
+Studio.App.UploadMeshRequest.CouldNotFindTexture1PleaseVerify,,,"Could not find texture %1. Please verify that the texture is located at that location, or in the same folder as the fbx/obj file","Could not find texture %1. Please verify that the texture is located at that location, or in the same folder as the fbx/obj file","텍스처 %1을(를) 찾을 수 없습니다. 텍스처가 해당 위치에 있는지, 또는 동일한 폴더에 fbx 또는 obj 파일로 존재하는지 확인하세요","Не удалось найти текстуру %1. Убедитесь, что текстура находится в том же месте или в той же папке, что и файл fbx/obj",无法找到纹理 %1，请验证纹理是否处于相应位置，或者在同一文件夹中以 fbx 或 obj 文件形式存在。
 Studio.App.UploadMeshRequest.MeshContainedRiggingData,,,Mesh contained rigging data,Mesh contained rigging data,메시에 리그 데이터가 포함되어 있습니다,Сетка содержала данные скелетной анимации,网格包含骨架数据
 Studio.App.UploadMeshRequest.MeshContainsMultipleMeshes,,,Mesh contained multiple meshes that were merged,Mesh contained multiple meshes that were merged,병합된 여러 메시가 메시에 포함됨,"Сетка содержала несколько сеток, которые были объединены",网格包含被合并的多个网格
 Studio.App.UploadMeshRequest.MeshContainsMultipleTextures,,,Mesh contained multiple textures so mesh texture may be incorrect,Mesh contained multiple textures so mesh texture may be incorrect,메시에 여러 텍스처가 포함되어 있어서 메시 텍스처가 정확하지 않을 수도 있습니다,"Сетка содержала несколько текстур, поэтому текстура сетки может быть неправильной",网格包含多个纹理，因此网格纹理可能不正确
@@ -1863,7 +1870,7 @@ Studio.App.VersionControl.CommitEditsToServer,,,Commit edits to server,Commit ed
 Studio.App.VersionControl.CompareWithServer,,,Compare with server,Compare with server,서버와 비교,Сравнить с сервером,与服务器比较
 Studio.App.VersionControl.DiscardSandboxEdits,,,Discard sandbox edits,Discard sandbox edits,샌드박스 편집 삭제,Отменить изменения в песочнице,舍弃沙盒编辑
 Studio.App.WatchTreeWidget.DeleteAll,,,Delete All,Delete All,모두 삭제,Удалить все,全部删除
-Studio.App.WatchTreeWidget.DeleteWatch,,,Delete Watch,Delete Watch,감시 삭제,Удалить контрольные значения,删除监视
+Studio.App.WatchTreeWidget.DeleteWatch,,,Delete Watch,Delete Watch,조사식 삭제,Удалить контрольные значения,删除监视
 Studio.App.WhatsNewWindow.GetAllUpdates,,,Get All Updates,Get All Updates,업데이트 모두 받기,Получить все обновления,获取所有更新
 Studio.App.WhatsNewWindow.HttpFailure,,,Unable to retrieve Whats New Updates from the DevForums page,Unable to retrieve Whats New Updates from the DevForums page,DevForums 페이지에서 최신 업데이트를 가져올 수 없습니다,Невозможно получить информацию о новых обновлениях со страницы DevForums,无法从 Devforums 页面获取最近更新
 Studio.App.BetaFeatures.AnimationEditorDescription,,,Enables the new Beta version of the Animation Editor.,Enables the new Beta version of the Animation Editor.,에니메이터 편집기의 베타 버전을 활성화합니다.,Включает новую бета-версию редактора анимации.,启用动画编辑器的全新 Beta 测试版。
@@ -2073,7 +2080,7 @@ Studio.App.WhatsNewWindow.PopupDescription,,,Click this button to see what's new
 Studio.App.WhatsNewWindow.PopupGotIt,,,Got it,Got it,확인,Ясно,明白了
 Studio.App.WhatsNewWindow.PopupTitle,,,What's New?,What's New?,새로운 소식,Что нового?,新增功能
 Studio.App.WhatsNewWindow.SeeAllUpdates,,,See All,See All,모두 보기,Смотреть все,查看全部
-Studio.App.BetaFeatures.TerrainEditorDescription,,,Enables the new Beta version of the Terrain Editor.,Enables the new Beta version of the Terrain Editor.,지형 편집기의 새로운 베타 버전을 활성화합니다.,Запускает новую бета-версию Редактора рельефа.,启用地形编辑器的 Beta 测试版本
+Studio.App.BetaFeatures.TerrainEditorDescription,,,Enables the new Beta version of the Terrain Editor.,Enables the new Beta version of the Terrain Editor.,지형 편집기의 새로운 베타 버전을 활성화합니다.,Запускает новую бета-версию Редактора рельефа.,启用地形编辑器的 Beta 测试版版本
 Studio.App.BetaFeatures.TerrainEditorTitle,,,Terrain Editor Beta,Terrain Editor Beta,지형 편집기 베타,Редактор рельефа: Beta,地形编辑器 Beta 测试版
 Studio.App.InsertObjectWidget.FavoritesCategory,,,Frequently Used,Frequently Used,자주 사용됨,Часто используемые,常用
 Studio.App.MainWindow.UnableToLockFileForOpen,,,This file is currently in use by another Studio instance or is read-only. You will need to pick a different name in order to save changes.,This file is currently in use by another Studio instance or is read-only. You will need to pick a different name in order to save changes.,이 파일은 현재 다른 Studio 인스턴스에서 사용 중이거나 읽기 전용입니다. 변경 사항을 저장하려면 다른 이름을 선택해야 합니다.,"Этот файл используется другим экземпляром Studio или доступен только для чтения. Выберите другое имя, чтобы сохранить изменения.",此文件当前正由其他 Studio 实例使用或处于只读状态。需要选取其他名称才能保存更改。
@@ -2090,7 +2097,7 @@ Studio.App.RobloxTextOutputWidget.SelectAll,,,Select All,Select All,모두 선�
 Studio.App.StudioPluginHost.CantLoadInvalidPlugin,,,Error: Plugin at %1 could not be verified and security settings prevent it from loading.,Error: Plugin at %1 could not be verified and security settings prevent it from loading.,오류: %1의 플러그인을 확인할 수 없으며 보안 설정으로 인해 로드되지 않습니다.,"Ошибка: не удалось проверить плагин в облаке %1, настройки безопасности не позволяют его загрузить.",错误: 无法验证位于 %1 的插件，且安全设置阻止其加载。
 Studio.App.StudioPluginHost.CantValidatePlugin,,,Warning: Plugin at %1 could not be verified.,Warning: Plugin at %1 could not be verified.,경고: %1의 플러그인을 확인할 수 없습니다.,Предупреждение: не удалось проверить плагин в облаке %1.,警告: 无法验证位于 %1 的插件。
 Studio.App.LoginManager.ToSIAgree,,,I Agree,I Agree,동의합니다,Принять,我同意
-Studio.App.LoginManager.ToSMessage3,,,"By clicking ""%1"", you are agreeing to the <a href='%2'>Terms of Use</a> and <a href='%3'>Privacy Policy</a>.","By clicking ""%1"", you are agreeing to the <a href='%2'>Terms of Use</a> and <a href='%3'>Privacy Policy</a>.","""%1""을(를) 클릭하면 <a href='%2'>이용약관</a> 및 <a href='%3'>개인정보 처리방침</a>에 동의하는 것입니다.","Щелкнув ""%1"", вы принимаете <a href='%2'>Условия использования</a> и соглашаетесь с <a href='%3'>Политикой конфиденциальности</a>.",点按“%1”，即表示你同意<a href='%2'>使用条款</a>和<a href='%3'>隐私政策</a>。
+Studio.App.LoginManager.ToSMessage3,,,"By clicking ""%1"", you are agreeing to the <a href='%2'>Terms of Use</a> and <a href='%3'>Privacy Policy</a>.","By clicking ""%1"", you are agreeing to the <a href='%2'>Terms of Use</a> and <a href='%3'>Privacy Policy</a>.","""%1""을(를) 클릭하면 <a href='%2'>이용약관</a> 및 <a href='%3'>개인정보 처리방침</a>에 동의하는 것입니다.","Щелкнув ""%1"", вы принимаете <a href='%2'>Условия использования</a> и соглашаетесь с <a href='%3'>Политикой конфиденциальности</a>.",点击“%1”，即表示你同意<a href='%2'>使用条款</a>和<a href='%3'>隐私政策</a>。
 Studio.App.LoginManager.ToSTitle,,,Roblox Terms of Service,Roblox Terms of Service,Roblox 서비스 약관,Условия использования Roblox,Roblox 服务条款
 Studio.App.CloudEditUserData.FailToRestoreCameraPosition,,,Failed to restore camera position: %s,Failed to restore camera position: %s,카메라 위치를 복원하지 못했습니다. %s,Не удалось восстановить положение камеры: %s,无法还原镜头位置: %s
 Studio.App.IdeDoc.CloudTestFailed,,,Request to connect to team test failed.,Request to connect to team test failed.,팀 테스트 연결 요청이 실패했습니다.,Не удалось присоединиться к совместному тестированию.,连接至团队测试的请求失败。
@@ -2127,8 +2134,8 @@ Studio.App.RBXMainWindow.TogglePlayerEmulator,,,Toggle Player Emulator,Toggle Pl
 Studio.App.RobloxRibbonMainWindow.DeviceEmulator,,,Device,Device,기기,Устройство,设备
 Studio.App.RobloxRibbonMainWindow.PlayerEmulator,,,Player,Player,플레이어,Игрок,玩家
 Studio.App.RobloxStudioVerbs.RevealInExplorer,,,Reveal In Explorer/Finder,Reveal In Explorer/Finder,탐색기/Finder에 표시,Открыть в проводнике/поисковике,在管理器/查找器中显示
-Studio.App.StartPageLogin.TwoStepVerificationEmailInstruction,,,Enter the code we just sent to you via email,Enter the code we just sent to you via email,이메일로 방금 전송한 코드를 입력하세요.,"Введите код, отправленный вам по email",请输入我们刚通过电子邮件发送给你的验证码
-Studio.App.StartPageLogin.TwoStepVerificationSmsInstruction,,,Enter the code we just sent to you via sms,Enter the code we just sent to you via sms,SMS로 방금 전송한 코드를 입력하세요.,"Введите код, отправленный вам по sms",输入我们刚通过短信发送给你的验证码
+Studio.App.StartPageLogin.TwoStepVerificationEmailInstruction,,,Enter the code we just sent to you via email,Enter the code we just sent to you via email,이메일로 방금 전송한 코드를 입력하세요.,"Введите код, отправленный вам по email",请输入刚刚通过电子邮件发送给你的验证码
+Studio.App.StartPageLogin.TwoStepVerificationSmsInstruction,,,Enter the code we just sent to you via sms,Enter the code we just sent to you via sms,SMS로 방금 전송한 코드를 입력하세요.,"Введите код, отправленный вам по sms",输入刚刚通过短信发送给你的验证码
 Studio.App.StartPageLogin.TwoStepVerificationTitle,,,2-Step Verification,2-Step Verification,2단계 인증,Двухэтапная проверка,两步验证
 Studio.App.BetaFeatures.InsertObjectStreamliningDescription,,,Enables a new unified workflow for inserting objects.,Enables a new unified workflow for inserting objects.,개체 삽입을 위한 새로운 통합 워크플로를 활성화합니다.,Включает новый унифицированный рабочий процесс для вставки объектов.,启用新的用于插入对象的统一工作流程。
 Studio.App.BetaFeatures.InsertObjectStreamliningTitle,,,Insert Object Streamlining,Insert Object Streamlining,개체 삽입 간소화,Вставить обтекаемую форму объекта,插入对象精简化
@@ -2303,7 +2310,7 @@ Studio.App.RobloxScriptDiffDoc.DiffResult,,,Diff Result,Diff Result,다른 결�
 Studio.App.RobloxScriptReview.HeaderLabelActivity,,,Activity,Activity,활동,Активность,活跃状态
 Studio.App.RobloxScriptReview.HeaderLabelCount,,,Count,Count,개수,Кол-во,计数
 Studio.App.RobloxScriptReview.HeaderLabelName,,,Name,Name,이름,Имя,名称
-Studio.App.RobloxScriptReview.HeaderLabelRate,,,Rate,Rate,등급,Рейтинг,评级
+Studio.App.RobloxScriptReview.HeaderLabelRate,,,Rate,Rate,등급,Рейтинг,速率
 Studio.App.RobloxStudioVerbs.Publishing,,,Publishing,Publishing,게시,Публикация,发布
 Studio.App.RobloxStudioVerbs.RemoteDebug,,,Remote Debug,Remote Debug,원격 디버그,Удаленная отладка,远程调试
 Studio.App.RobloxStudioVerbs.RemoteDebugSaveFailure,,,Remote Debug - save failure,Remote Debug - save failure,원격 디버그 - 저장 실패,Удаленная отладка: ошибка сохранения,远程调试 - 保存失败
@@ -2312,7 +2319,7 @@ Studio.App.RobloxStudioVerbs.ScreenshotSaved,,,Screenshot saved! Click here to o
 Studio.App.RobloxStudioVerbs.StartingPlayers,,,Starting players,Starting players,플레이어 시작,Запуск игроков,初始玩家
 Studio.App.RobloxTaskScheduler.HeaderLabelActivity,,,Activity,Activity,활동,Активность,活跃状态
 Studio.App.RobloxTaskScheduler.HeaderLabelName,,,Name,Name,이름,Имя,名称
-Studio.App.RobloxTaskScheduler.HeaderLabelRate,,,Rate,Rate,등급,Рейтинг,评级
+Studio.App.RobloxTaskScheduler.HeaderLabelRate,,,Rate,Rate,등급,Рейтинг,速率
 Studio.App.RobloxTaskScheduler.HeaderLabelTime,,,Time,Time,시간,Время,时间
 Studio.App.RobloxTeamCreateWidget.GroupOwnedPlace,,,Group owned place,Group owned place,그룹 소유 플레이스,Место - собственность группы,群组共有场景
 Studio.App.ScriptTextEditor.FilterText,,,  Type to filter functions. Tab or Enter to go to selected function,  Type to filter functions. Tab or Enter to go to selected function,  기능을 필터링하려면 입력하세요. 선택한 기능으로 이동하려면 탭하거나 Enter 키를 누르세요.,"  Начните печатать для поиска фильтра. Нажмите Tab или Enter, чтобы перейти к выбранной функции",  输入以过滤函数。按 Tab 或 Enter 键前往选择的函数。
@@ -2323,19 +2330,19 @@ Studio.App.ShareModal.SearchPlaceholderText,,,Search for friends,Search for frie
 Studio.App.Tooltip.GoToSource,,,Go to source,Go to source,소스로 이동,Перейти к исходнику,前往源
 Studio.App.VersionHistoryDialog.BatchColumnTitle,,,Scripts in Batch,Scripts in Batch,배치 스크립트,Скрипты в пакете,批量脚本
 Studio.App.VersionHistoryDialog.CommentColumnTitle,,,Comment,Comment,코멘트,Комментарий,注释
-Studio.App.VersionHistoryDialog.CommittedColumnTitle,,,Committed,Committed,커밋됨,Зафиксировано,已提交
+Studio.App.VersionHistoryDialog.CommittedColumnTitle,,,Committed,Committed,커밋 일시,Зафиксировано,已提交
 Studio.App.VersionHistoryDialog.CommitterColumnTitle,,,Changed By,Changed By,변경 주체,Автор изменений:,更改者：
 Studio.App.VersionHistoryDialog.CompareButtonText,,,Compare selected versions,Compare selected versions,선택된 버전 비교,Сравнить выбранные версии,比较已选中版本
 Studio.App.VersionHistoryDialog.CompareWithPreviousButtonText,,,Compare with previous version,Compare with previous version,이전 버전과 비교,Сравнить с предыдущей версией,与前一版本进行比较
 Studio.App.VersionHistoryDialog.CurrentVersionLabel1,,,%1 (Current),%1 (Current),%1(현재),%1 (текущая),%1 （当前）
-Studio.App.VersionHistoryDialog.EditAllButtonText,,,Open all scripts from batch,Open all scripts from batch,배치에서 모든 스크립트 열기,Редактировать все скрипты в пакете,打开批量中的所有脚本
+Studio.App.VersionHistoryDialog.EditAllButtonText,,,Open all scripts from batch,Open all scripts from batch,배치의 모든 스크립트 열기,Редактировать все скрипты в пакете,打开批量中的所有脚本
 Studio.App.VersionHistoryDialog.EditThisButtonText,,,Open script,Open script,스크립트 열기,Редактировать этот скрипт,打开脚本
 Studio.App.VersionHistoryDialog.NoScriptHistoryWarning,,,This script does not have version history yet,This script does not have version history yet,이 스크립트에는 아직 버전 기록이 없습니다,Для скрипта нет сохраненной истории,此脚本尚未拥有任何版本历史记录
-Studio.App.VersionHistoryDialog.OpenDialog,,,View Script History,View Script History,스크립트 내역 보기,Просмотреть историю скрипта,查看脚本历史记录
+Studio.App.VersionHistoryDialog.OpenDialog,,,View Script History,View Script History,스크립트 기록 보기,Просмотреть историю скрипта,查看脚本历史记录
 Studio.App.VersionHistoryDialog.PlaceVersionColumnTitle,,,Place Version,Place Version,플레이스 버전,Версия места,场景版本
 Studio.App.VersionHistoryDialog.PlaceVersionLabel1,,,Place V%1,Place V%1,플레이스 V%1,Место V%1,场景 V %1
 Studio.App.VersionHistoryDialog.ShowBatchContentsLink,,,Show,Show,표시,Показать,显示
-Studio.App.VersionHistoryDialog.Title1,,,%1 - Version History,%1 - Version History,%1 - 버전 내역,%1 - история версии,%1 - 版本历史记录
+Studio.App.VersionHistoryDialog.Title1,,,%1 - Version History,%1 - Version History,%1 - 버전 기록,%1 - история версии,%1 - 版本历史记录
 Studio.App.VersionHistoryDialog.VersionColumnTitle,,,Version,Version,버전,Версия,版本
 Studio.App.VersionHistoryDialog.ViewButtonText,,,View,View,보기,Просмотр,查看
 Studio.App.VideoControl.RecordingStarted,,,Video recording started,Video recording started,비디오 녹화 시작됨,Начата запись видео,已开始视频录制
@@ -2343,21 +2350,21 @@ Studio.App.VideoControl.RecordingStopped,,,Video recording stopped,Video recordi
 Studio.App.ManageEmulationDeviceDialog.CloneDevice,,,Clone Device,Clone Device,기기 복제,,复制设备
 Studio.App.RBXMainWindow.ResumesExection,,,Resumes execution after pausing,Resumes execution after pausing,일시 정지 후 실행 재개,,暂停后继续执行
 Studio.App.RBXMainWindow.SaveAndReloadPlugin,,,Save and Reload Plugin,Save and Reload Plugin,플러그인 저장 및 다시 불러오기,,保存并重新加载插件
-Studio.App.RBXMainWindow.SaveAndReloadPluginTooltip,,,Save plugin back to disk. Stop plugin execution. Reload from disk.,Save plugin back to disk. Stop plugin execution. Reload from disk.,플러그인을 디스크에 다시 저장하세요. 플러그인 실행을 중지하세요. 디스크에서 다시 불러오세요.,,将插件保存回硬盘。停止插件执行。重新从硬盘载入。
+Studio.App.RBXMainWindow.SaveAndReloadPluginTooltip,,,Save plugin back to disk. Stop plugin execution. Reload from disk.,Save plugin back to disk. Stop plugin execution. Reload from disk.,플러그인을 디스크에 다시 저장합니다. 플러그인 실행을 중지합니다. 디스크에서 다시 불러옵니다.,,将插件保存回硬盘。停止插件执行。重新从硬盘载入。
 Studio.App.RobloxRibbonMainWindow.ViewAssetManager,,,View Asset Manager,View Asset Manager,애셋 관리자 보기,,查看资源管理器
-Studio.App.RobloxStudioVerbs.DirtyPublishWarning1,,,There are uncommitted script changes that will not be published with the place. Do you want to publish anyway? <a href=%1>Learn more</a>,There are uncommitted script changes that will not be published with the place. Do you want to publish anyway? <a href=%1>Learn more</a>,"커밋되지 않은 스크립트 변경 사항이 있으며, 플레이스와 함께 게시할 수 없습니다. 그래도 게시할까요? <a href=%1>더 알아보기</a>",,存在未提交的脚本更改，将不会随场景共同发布。确定继续发布吗？<a href=%1>了解更多</a>
+Studio.App.RobloxStudioVerbs.DirtyPublishWarning1,,,There are uncommitted script changes that will not be published with the place. Do you want to publish anyway? <a href=%1>Learn more</a>,There are uncommitted script changes that will not be published with the place. Do you want to publish anyway? <a href=%1>Learn more</a>,"플레이스와 함께 게시되지 않는, 커밋되지 않은 스크립트 변경 사항이 있습니다. 그래도 게시할까요? <a href=%1>더 알아보기</a>",,存在未提交的脚本更改，将不会随场景共同发布。确定继续发布吗？<a href=%1>了解更多</a>
 Studio.App.RobloxStudioVerbs.PublishConfirm,,,Publish,Publish,게시,,发布
 Studio.App.RobloxStudioVerbs.PublishConfirmTitle,,,Uncommitted changes,Uncommitted changes,커밋되지 않은 변경 사항,,未发布的更改
-Studio.App.RobloxStudioVerbs.QuickOpenActions,,,Quick Open Actions,Quick Open Actions,빠른 작업 열기,,快捷打开动作
+Studio.App.RobloxStudioVerbs.QuickOpenActions,,,Quick Open Actions,Quick Open Actions,빠른 열기 동작,,快捷打开动作
 Studio.App.SandboxLocalCache.DialogTitle,,,Drafts Local Cache,Drafts Local Cache,로컬 캐시 초안,,草稿本地缓存
-Studio.App.SandboxLocalCache.MetaDataCorruptedMessage,,,"Can't restore drafts information, metadata corrupted","Can't restore drafts information, metadata corrupted","초안 정보를 복원할 수 없으며, 메타데이터가 손상되었습니다.",,无法恢复草稿信息，元数据已损坏
+Studio.App.SandboxLocalCache.MetaDataCorruptedMessage,,,"Can't restore drafts information, metadata corrupted","Can't restore drafts information, metadata corrupted",초안 정보를 복원할 수 없습니다. 메타데이터가 손상되었습니다.,,无法恢复草稿信息，元数据已损坏
 Studio.App.SandboxLocalCache.SourcesMissingCorruptedMessage,,,"Unable to restore some of the drafts.
 
 Files are missing or corrupted:","Unable to restore some of the drafts.
 
 Files are missing or corrupted:","일부 초안을 복원할 수 없습니다.
 
-다음 파일이 없거나 손상되었습니다:",,"无法恢复部分草稿。
+파일이 없거나 손상되었습니다:",,"无法恢复部分草稿。
 
 文件缺失或已损坏："
 Studio.App.ScriptsInBatchDialog.FailedToLoadDataErrorMessage,,,Failed to load data. Please close this dialog and try again.,Failed to load data. Please close this dialog and try again.,데이터를 불러오지 못했습니다. 이 대화문을 닫고 다시 시도하세요.,,载入数据失败。请关闭本对话框并重试。
@@ -2398,26 +2405,26 @@ Studio.App.AssetManagerService.AssetIdInvalid,,,AssetId is invalid,AssetId is in
 Studio.App.AssetManagerService.DataModelInvalid,,,DataModel is invalid,DataModel is invalid,유효하지 않은 DataModel입니다,,DataModel 无效
 Studio.App.AssetManagerService.InsertInstanceExceptionArg1,,,Exception while inserting instance into datamodel: %1,Exception while inserting instance into datamodel: %1,Datamodel에 인스턴스를 삽입하는 동안 예외가 발생함: %1,,将实例插入至 datamodel 时出现异常：%1
 Studio.App.AssetManagerService.InvalidArgumentExceptionArg1,,,Exception while converting string to id: %1,Exception while converting string to id: %1,문자열을 ID로 변환하는 동안 예외가 발생함: %1,,将字符串转换为 id 时出现异常：%1
-Studio.App.AssetManagerService.MessageFieldNotFound,,,"'success' is false, 'message' field not found","'success' is false, 'message' field not found",'Success'가 거짓입니다. 'Message' 필드를 찾을 수 없습니다,,'success' 为 false，未找到 'message' 字段
+Studio.App.AssetManagerService.MessageFieldNotFound,,,"'success' is false, 'message' field not found","'success' is false, 'message' field not found",'success'가 거짓입니다. 'message' 필드를 찾을 수 없습니다,,'success' 为 false，未找到 'message' 字段
 Studio.App.AssetManagerService.NoModificationsForPublish,,,No modifications available for Publish,No modifications available for Publish,게시에 적용할 수 있는 수정 사항이 없습니다,,无可供发布的修改
 Studio.App.AssetManagerService.PackageIdInvalid,,,PackageId is invalid,PackageId is invalid,유효하지 않은 PackageId입니다,,PackageId 无效
 Studio.App.AssetManagerService.PackageInsertErrorArg1,,,Error while inserting package: %1,Error while inserting package: %1,패키지 삽입 중 오류가 발생함: %1,,插入包时出错：%1
 Studio.App.AssetManagerService.PlaceIdInvalid,,,PlaceId is invalid,PlaceId is invalid,유효하지 않은 PlaceId입니다,,PlaceId 无效
 Studio.App.AssetManagerService.ResponseInvalid,,,Http response is invalid,Http response is invalid,유효하지 않은 Http 응답입니다,,Http 响应无效
-Studio.App.AssetManagerService.ReturnedIdMalformed,,,Id returned for mesh part is malformed,Id returned for mesh part is malformed,메시 파트에 대해 반환된 ID가 잘못되었습니다,,返回的网格部件 Id 格式错误
-Studio.App.BetaFeatures.AssetManagerDescription,,,"Manage your assets in a brand new widget, with new features. This replaces the Game Explorer.","Manage your assets in a brand new widget, with new features. This replaces the Game Explorer.",새로운 위젯의 새로운 기능으로 애셋을 관리하세요. 이는 게임 탐색기를 대체합니다.,,使用带有新功能的全新控件管理你的资源。将会替换游戏管理器。
+Studio.App.AssetManagerService.ReturnedIdMalformed,,,Id returned for mesh part is malformed,Id returned for mesh part is malformed,반환된 메시 파트 ID가 잘못되었습니다,,返回的网格部件 Id 格式错误
+Studio.App.BetaFeatures.AssetManagerDescription,,,"Manage your assets in a brand new widget, with new features. This replaces the Game Explorer.","Manage your assets in a brand new widget, with new features. This replaces the Game Explorer.",새로운 위젯의 신기능으로 애셋을 관리하세요. 게임 탐색기를 대체하는 기능입니다.,,使用带有新功能的全新控件管理你的资源。将会替换游戏管理器。
 Studio.App.BetaFeatures.AssetManageritle,,,Asset Manager,Asset Manager,애셋 관리자,,资源管理器
-Studio.App.BetaFeatures.ConvertToTerrainDescription,,,Enables the Convert TerrainTool which can convert Parts into Terrain materials and biomes.,Enables the Convert TerrainTool which can convert Parts into Terrain materials and biomes.,파트를 지형 재질 및 생물군으로 전환할 수 있는 TerrainTool 전환을 활성화합니다.,,启用转换 TerrainTool，可将部件转换为地形材质和生态
+Studio.App.BetaFeatures.ConvertToTerrainDescription,,,Enables the Convert TerrainTool which can convert Parts into Terrain materials and biomes.,Enables the Convert TerrainTool which can convert Parts into Terrain materials and biomes.,파트를 지형 재질 및 생물군으로 변환할 수 있는 TerrainTool 전환을 활성화합니다.,,启用转换 TerrainTool，可将部件转换为地形材质和生态
 Studio.App.BetaFeatures.ConvertToTerrainTitle,,,TerrainTools: ConvertTool Beta,TerrainTools: ConvertTool Beta,TerrainTools: ConvertTool 베타,,TerrainTools：ConvertTool Beta 测试版
-Studio.App.BetaFeatures.LuaDraggersDescription,,,Migrates the Select/Move/Rotate/Scale tools to a Lua BuiltInPlugin implementation and makes some minor improvements to their functionality.,Migrates the Select/Move/Rotate/Scale tools to a Lua BuiltInPlugin implementation and makes some minor improvements to their functionality.,선택/이동/회전/스케일 도구를 Lua BuiltInPlugin 구현으로 마이그레이션하고 기능을 다소 개선합니다.,,以 Lua BuiltInPlugin 方式实现将选择/移动/旋转/比例工具，并略微改善其功能。
-Studio.App.BetaFeatures.LuaDraggersTitle,,,Lua Draggers Beta,Lua Draggers Beta,Lua 드래거 베타,,Lua 拖拽工具 Beta 测试版
-Studio.App.BetaFeatures.Motor6DTransformFixDescription,,,Fixes Motor6D.Transform to always position parts as if Part0 as the parent part so it will not rotate backwards if Part1 becomes the root internally.,Fixes Motor6D.Transform to always position parts as if Part0 as the parent part so it will not rotate backwards if Part1 becomes the root internally.,"Motor6D.Transform을 수정하여 항상 Part0가 부모 파트인 것처럼 파트를 배치하므로, Part1이 내부적으로 루트가 되면 뒤로 회전하지 않습니다.",,使 Motor6D.Transform 在设置部件位置时固定以 Part0 为父部件，以便避免在 Part1 成为内部根时向后旋转。
+Studio.App.BetaFeatures.LuaDraggersDescription,,,Migrates the Select/Move/Rotate/Scale tools to a Lua BuiltInPlugin implementation and makes some minor improvements to their functionality.,Migrates the Select/Move/Rotate/Scale tools to a Lua BuiltInPlugin implementation and makes some minor improvements to their functionality.,선택/이동/회전/크기 조정 도구를 Lua BuiltInPlugin 구현으로 마이그레이션하고 기능을 다소 개선합니다.,,以 Lua BuiltInPlugin 方式实现将选择/移动/旋转/比例工具，并略微改善其功能。
+Studio.App.BetaFeatures.LuaDraggersTitle,,,Lua Draggers Beta,Lua Draggers Beta,Lua 드래그 툴 베타,,Lua 拖拽工具 Beta 测试版
+Studio.App.BetaFeatures.Motor6DTransformFixDescription,,,Fixes Motor6D.Transform to always position parts as if Part0 as the parent part so it will not rotate backwards if Part1 becomes the root internally.,Fixes Motor6D.Transform to always position parts as if Part0 as the parent part so it will not rotate backwards if Part1 becomes the root internally.,"Part1이 내부적으로 루트가 될 때 뒤로 회전하지 않도록, 파트 배치 시 Motor6D.Transform을 수정하여 항상 Part0가 부모 파트가 되도록 합니다.",,使 Motor6D.Transform 在设置部件位置时固定以 Part0 为父部件，以便避免在 Part1 成为内部根时向后旋转。
 Studio.App.BetaFeatures.Motor6DTransformFixTitle,,,Motor6D.Transform Consistency Beta,Motor6D.Transform Consistency Beta,Motor6D.Transform 일관성 베타,,Motor6D.Transform 流畅性改进 Beta 测试版
-Studio.App.BetaFeatures.PhysicsNewConvexDecompositionDescription,,,"Enable the new CollisionFidelity, which uses a method called HACD to generate collision geometry with precise surfaces.","Enable the new CollisionFidelity, which uses a method called HACD to generate collision geometry with precise surfaces.",HACD라는 메서드를 사용하여 정확한 표면을 가진 충돌 기하 도형을 생성하는 새 CollisionFidelity를 활성화합니다.,,启用新的 CollisionFidelity，使用名为 HACD 的方法生成表面更为精确的碰撞几何。
-Studio.App.BetaFeatures.PhysicsNewConvexDecompositionTitle,,,Enable CollisionFidelity.PreciseConvexDecomposition.,Enable CollisionFidelity.PreciseConvexDecomposition.,CollisionFidelity.PreciseConvexDecomposition. 활성화,,启用 CollisionFidelity.PreciseConvexDecomposition.
+Studio.App.BetaFeatures.PhysicsNewConvexDecompositionDescription,,,"Enable the new CollisionFidelity, which uses a method called HACD to generate collision geometry with precise surfaces.","Enable the new CollisionFidelity, which uses a method called HACD to generate collision geometry with precise surfaces.",새로운 CollisionFidelity를 활성화하고 HACD라는 메서드를 사용하여 더 정확한 표면의 충돌 지오메트리를 생성합니다.,,启用新的 CollisionFidelity，使用名为 HACD 的方法生成表面更为精确的碰撞几何。
+Studio.App.BetaFeatures.PhysicsNewConvexDecompositionTitle,,,Enable CollisionFidelity.PreciseConvexDecomposition.,Enable CollisionFidelity.PreciseConvexDecomposition.,CollisionFidelity.PreciseConvexDecomposition 활성화,,启用 CollisionFidelity.PreciseConvexDecomposition.
 Studio.App.BulkImportService.UniverseNotValid,,,Universe is not valid,Universe is not valid,유효하지 않은 유니버스입니다,,宇宙无效
 Studio.App.BulkImportService.UniverseResourcesNotLoaded,,,Universe resources are not loaded yet,Universe resources are not loaded yet,유니버스 리소스를 아직 불러오지 않았습니다,,宇宙资源尚未加载
-Studio.App.DirtyPublishWarningDialog.FailedToGetOpenDrafts1,,,Failed to load draft list: %1,Failed to load draft list: %1,초안 목록 불러오기 실패: %1,,加载草稿列表失败：%1
+Studio.App.DirtyPublishWarningDialog.FailedToGetOpenDrafts1,,,Failed to load draft list: %1,Failed to load draft list: %1,초안 목록을 불러오지 못했습니다: %1,,加载草稿列表失败：%1
 Studio.App.DirtyPublishWarningDialog.LearnMoreLink,,,Learn More,Learn More,더 알아보기,,了解更多
 Studio.App.DirtyPublishWarningDialog.PublishButton,,,Publish,Publish,게시,,发布
 Studio.App.DirtyPublishWarningDialog.ScriptNameColumn,,,Script Name,Script Name,스크립트 이름,,脚本名称
@@ -2426,7 +2433,7 @@ Studio.App.DirtyPublishWarningDialog.Title,,,Uncommitted Scripts,Uncommitted Scr
 Studio.App.DirtyPublishWarningDialog.UncommittedStatus,,,Uncommitted,Uncommitted,커밋되지 않음,,未提交
 Studio.App.DirtyPublishWarningDialog.WarningText,,,The following scripts are uncommitted and will not be published with the place. The Drafts widget can be used to commit them. Do you want publish without these script changes?,The following scripts are uncommitted and will not be published with the place. The Drafts widget can be used to commit them. Do you want publish without these script changes?,다음 스크립트는 커밋되지 않으며 해당 플레이스와 함께 게시되지 않습니다. 커밋하려면 초안 위젯을 사용할 수 있습니다. 이러한 스크립트 변경 사항 없이 게시할까요?,,下列脚本尚未提交，且不会与场景共同发布。可使用草稿控件提交脚本。确认不提交更改并进行发布吗？
 Studio.App.DraftsServiceHost.CommitRejectedTitle,,,Script Commit Failure,Script Commit Failure,스크립트 커밋 실패,,脚本提交失败
-Studio.App.DraftsServiceHost.UncommittedDraftsWarning1,,,Script changes are local and are not published until committed. <a href=%1>Learn More</a>,Script changes are local and are not published until committed. <a href=%1>Learn More</a>,스크립트 변경 사항은 로컬이며 커밋될 때까지 게시되지 않습니다. <a href=%1>더 알아보기</a>,,对脚本进行了本地修改，在提交之前不会被发布。 <a href=%1>了解更多</a>
+Studio.App.DraftsServiceHost.UncommittedDraftsWarning1,,,Script changes are local and are not published until committed. <a href=%1>Learn More</a>,Script changes are local and are not published until committed. <a href=%1>Learn More</a>,스크립트 변경 사항은 로컬이며 커밋 전에는 게시되지 않습니다. <a href=%1>더 알아보기</a>,,对脚本进行了本地修改，在提交之前不会被发布。 <a href=%1>了解更多</a>
 Studio.App.IdeDoc.AllRobloxFilesFileFilter,,,All Roblox Files(*rbxl *rbxlx *%1);; Roblox Place Files(*.rbxl);; Roblox XML Place Files(*.rbxlx);; Roblox Project File(*.%1),All Roblox Files(*rbxl *rbxlx *%1);; Roblox Place Files(*.rbxl);; Roblox XML Place Files(*.rbxlx);; Roblox Project File(*.%1),모든 Roblox 파일(*rbxl *rbxlx *%1);; Roblox 플레이스 파일 (*.rbxl);; Roblox XML 플레이스 파일 (*.rbxlx);; Roblox 프로젝트 파일 (*.%1),,所有 Roblox 文件 (*rbxl *rbxlx *%1);; Roblox 场景文件 (*.rbxl);; Roblox XML 场景文件 (*.rbxlx);; Roblox 计划文件 (*.%1)
 Studio.App.IdeDoc.RobloxPlaceSaveFileFilter,,,Roblox Place Files(*.rbxl);; Roblox XML Place Files(*.rbxlx),Roblox Place Files(*.rbxl);; Roblox XML Place Files(*.rbxlx),Roblox 플레이스 파일(*.rbxl);; Roblox XML 플레이스 파일(*.rbxlx),,Roblox 场景文件 (*.rbxl);; Roblox XML 场景文件 (*.rbxlx)
 Studio.App.LocalPlacePublishRequestMediator.PublishInProgress,,,A Place Publish / Save is already in progress,A Place Publish / Save is already in progress,플레이스 게시 또는 저장이 이미 진행 중입니다,,场景发布 / 保存正在进行中
@@ -2441,7 +2448,7 @@ Studio.App.VersionHistoryDialog.FailedToEditBatchErrorMessage,,,Failed to edit s
 Studio.App.VersionHistoryDialog.FailedToEditScriptErrorMessage,,,Failed to edit selected script version. Please try again.,Failed to edit selected script version. Please try again.,선택한 스크립트 버전을 편집하지 못했습니다. 다시 시도하세요.,,无法编辑选中的脚本版本。请再次尝试。
 Studio.App.VersionHistoryDialog.FailedToOpenScriptErrorMessage,,,Failed to open selected script version. Please try again.,Failed to open selected script version. Please try again.,선택한 스크립트 버전을 열지 못했습니다. 다시 시도하세요.,,无法打开选中的脚本版本。请再次尝试。
 Studio.App.Property.ShowWhitespace,,,Show Whitespace,Show Whitespace,공백 표시,,显示空格
-Studio.App.Property.WhitespaceColor,,,Whitespace Color,Whitespace Color,공백 색상,,空格颜色
+Studio.App.Property.WhitespaceColor,,,Whitespace Color,Whitespace Color,공백 색상,,空白符颜色
 Studio.App.RBXMainWindow.ResumesExecution,,,Resumes execution after pausing,Resumes execution after pausing,일시 정지 후 실행 재개,,暂停后继续执行
 Studio.App.DebuggerClientManager.RobloxLuaDebuggerCaughtError,,,"The Roblox Lua Debugger caught an error and will now take you to the exception in the script.
 
@@ -2592,8 +2599,8 @@ Studio.App.PropertyEnum.Relative,,,Relative,Relative,상대,,相对
 Studio.App.Property.AutoIndentRule,,,Auto Indent Rule,Auto Indent Rule,자동 들여쓰기 규칙,,自动缩进规则
 Studio.App.BetaFeatures.CSGv2SmoothingTitle,,,Normal smoothing Beta,Normal smoothing Beta,일반 다듬기 베타,,自动平滑化 Beta 测试版
 Studio.App.AssetManagerService.AliasNameInvalid,,,Alias name is invalid,Alias name is invalid,유효하지 않은 닉네임입니다,,别名名称无效
-Studio.App.BetaFeatures.CSGv2SmoothingDescription,,,Use the SmoothAngle property on CSG part to define threshold angle and smooth normals.,Use the SmoothAngle property on CSG part to define threshold angle and smooth normals.,CSG 파트의 SmoothAngle 속성을 사용하여 임계각을 정의하고 법선을 다듬습니다.,,使用 CSG 部件的 SmoothAngle 属性定义阈值角度并平滑法线。
-Studio.App.BetaFeatures.SupportPluginDebuggingDescription,,,Set `Plugin Debugging Enabled` to true and you can debug local plugins under the PluginDebugService in Explorer,Set `Plugin Debugging Enabled` to true and you can debug local plugins under the PluginDebugService in Explorer,'Plugin Debugging Enabled'를 True로 설정하면 탐색기의 PluginDebugService에서 로컬 플러그인을 디버그할 수 있습니다,,将 `Plugin Debugging Enabled （插件调试已启用）`设为 true 后，可以在管理器的 PluginDebugService 中调试本地插件
+Studio.App.BetaFeatures.CSGv2SmoothingDescription,,,Use the SmoothAngle property on CSG part to define threshold angle and smooth normals.,Use the SmoothAngle property on CSG part to define threshold angle and smooth normals.,CSG 파트의 SmoothAngle 속성을 사용하여 임계각과 부드러운 법선을 정의합니다.,,使用 CSG 部件的 SmoothAngle 属性定义阈值角度并平滑法线。
+Studio.App.BetaFeatures.SupportPluginDebuggingDescription,,,Set `Plugin Debugging Enabled` to true and you can debug local plugins under the PluginDebugService in Explorer,Set `Plugin Debugging Enabled` to true and you can debug local plugins under the PluginDebugService in Explorer,'Plugin Debugging Enabled'를 True로 설정한 후 탐색기의 PluginDebugService에서 로컬 플러그인을 디버그할 수 있습니다,,将 `Plugin Debugging Enabled （插件调试已启用）`设为 true 后，可以在管理器的 PluginDebugService 中调试本地插件
 Studio.App.BetaFeatures.SupportPluginDebuggingTitle,,,Plugin Debugging,Plugin Debugging,플러그인 디버깅,,插件调试
 Studio.App.InsertObjectCategory.3DInterfaces,,,3D Interfaces,3D Interfaces,3D 인터페이스,,3D界面
 Studio.App.InsertObjectCategory.Adornments,,,Adornments,Adornments,도구 영역,,装饰
@@ -2605,7 +2612,7 @@ Studio.App.InsertObjectCategory.Environment,,,Environment,Environment,환경,,�
 Studio.App.InsertObjectCategory.FavoritesCategory,,,Frequently Used,Frequently Used,자주 사용됨,,常用
 Studio.App.InsertObjectCategory.GUI,,,GUI,GUI,GUI,,GUI
 Studio.App.InsertObjectCategory.Interaction,,,Interaction,Interaction,상호 작용,,交互
-Studio.App.InsertObjectCategory.LegacyBodyMovers,,,Legacy Body Movers,Legacy Body Movers,이전 Body Mover,,旧版 Body Mover （物体移动力）
+Studio.App.InsertObjectCategory.LegacyBodyMovers,,,Legacy Body Movers,Legacy Body Movers,레거시 Body Mover,,旧版 Body Mover （物体移动力）
 Studio.App.InsertObjectCategory.Lights,,,Lights,Lights,빛,,光
 Studio.App.InsertObjectCategory.Localization,,,Localization,Localization,로컬리제이션,,本地化
 Studio.App.InsertObjectCategory.Meshes,,,Meshes,Meshes,메시,,网格
@@ -2619,15 +2626,15 @@ Studio.App.LoginManager.PrivacyPolicy,,,Privacy Policy,Privacy Policy,개인정�
 Studio.App.LoginManager.TermsOfService,,,Terms Of Use,Terms Of Use,이용 약관,,使用条款
 Studio.App.LoginManager.ToSMessage1,,,"<span>By clicking ""%1"", you are agreeing to </span>","<span>By clicking ""%1"", you are agreeing to </span>",<span>'%1'을(를) 클릭하면 다음에 동의하게 됩니다 </span>,,"<span>单击""%1""后，即代表你同意</span>"
 Studio.App.PlaceVersionHistoryDialog.Empty,,,No Place Versions found,No Place Versions found,플레이스 버전을 찾을 수 없습니다,,未发现场景版本
-Studio.App.PlaceVersionHistoryDialog.PublishedColumnTitle,,,Published,Published,게시됨,,已发布
-Studio.App.PlaceVersionHistoryDialog.Tip,,,Select a place version to download and open it,Select a place version to download and open it,다운로드할 장소 버전을 선택하고 여세요,,选择场景版本进行下载并打开
+Studio.App.PlaceVersionHistoryDialog.PublishedColumnTitle,,,Published,Published,게시 여부,,已发布
+Studio.App.PlaceVersionHistoryDialog.Tip,,,Select a place version to download and open it,Select a place version to download and open it,다운로드하고 열 플레이스 버전을 선택합니다,,选择场景版本进行下载并打开
 Studio.App.PlaceVersionHistoryDialog.ViewHistory,,,View History,View History,기록 보기,,查看历史记录
 Studio.App.Property.FormatOnType,,,Format On Type,Format On Type,입력 후 자동 서식,,输入后自动格式化
 Studio.App.Property.Rulers,,,"Rulers (1, 2, ...)","Rulers (1, 2, ...)","눈금자 (1, 2, ...)",,标尺（1，2，...）
 Studio.App.RBXMainWindow.CloseInstanceDefaultEditorTooltip,,,Close the window.,Close the window.,창을 닫습니다.,,关闭窗口。
 Studio.App.RBXMainWindow.InstanceDefaultsEditor,,,Instance Defaults Editor,Instance Defaults Editor,인스턴스 기본값 편집기,,实例默认编辑器
-Studio.App.RBXMainWindow.ResetAllInstanceDefaults,,,Rest all instance defaults,Rest all instance defaults,모든 인스턴스 기본값 초기화,,重置所有实例默认属性
-Studio.App.RBXMainWindow.ResetAllInstanceDefaultsTooltip,,,Rest all instance defaults,Rest all instance defaults,모든 인스턴스 기본값 초기화,,重置所有实例默认属性
+Studio.App.RBXMainWindow.ResetAllInstanceDefaults,,,Rest all instance defaults,Rest all instance defaults,모든 인스턴스 기본값 재설정,,重置所有实例默认属性
+Studio.App.RBXMainWindow.ResetAllInstanceDefaultsTooltip,,,Rest all instance defaults,Rest all instance defaults,모든 인스턴스 기본값 재설정,,重置所有实例默认属性
 Studio.App.RBXMainWindow.SetAsInstanceDefault,,,Set as Instance Default...,Set as Instance Default...,인스턴스 기본값으로 설정...,,设置为实例默认属性...
 Studio.App.RBXMainWindow.SetSelectionAsInstanceDefault,,,Set the selection as the default for future created instances,Set the selection as the default for future created instances,이 선택 항목을 앞으로 새로 생성하는 인스턴트의 기본값으로 설정,,将选中内容设为今后新建实例的默认
 Studio.App.RobloxOutputRibbonDropdown.All,,,All,All,모두,,全部
@@ -2660,21 +2667,21 @@ Studio.App.LoginManager.UserAgreementsAcceptanceCancel,,,Are you sure you want t
 Studio.App.LoginManager.UserAgreementsAcceptanceFailure,,,Failed to accept user agreements. Please try to login again or contact support if problem persists.,Failed to accept user agreements. Please try to login again or contact support if problem persists.,사용자 계약을 수락하지 못했습니다. 다시 로그인하세요. 문제가 지속되면 지원 센터에 문의하세요.,,接受用户协议失败，请重新尝试登录。如果问题持续发生，请联系客服部门。
 Studio.App.MainWindow.PrivacyPolicyLink1,,,<p><a href='%1'>Privacy Policy</a></p>,<p><a href='%1'>Privacy Policy</a></p>,<p><a href='%1'>개인정보 처리방침</a></p>,,<p><a href='%1'>隐私政策</a></p>
 Studio.App.PlaceVersionHistoryDialog.HelpLink,,,More information,More information,자세한 정보,,更多信息
-Studio.App.PlaceVersionHistory.BetaFeatureDescription,,,Enable developers to revert versions in Roblox Studio and provide downloadable history of all versions of a place.,Enable developers to revert versions in Roblox Studio and provide downloadable history of all versions of a place.,개발자가 Roblox Studio에서 버전을 되돌리고 모든 플레이스 버전의 다운로드 가능한 내역을 제공할 수 있습니다.,,允许开发者在 Roblox Studio 中还原场景版本，并提供所有版本的可下载历史记录。
-Studio.App.PlaceVersionHistory.BetaFeatureTitle,,,Place Version History in Studio,Place Version History in Studio,Studio에서의 플레이스 버전 내역,,Studio 中的场景版本历史
+Studio.App.PlaceVersionHistory.BetaFeatureDescription,,,Enable developers to revert versions in Roblox Studio and provide downloadable history of all versions of a place.,Enable developers to revert versions in Roblox Studio and provide downloadable history of all versions of a place.,개발자가 Roblox Studio에서 플레이스 버전을 되돌리고 모든 버전의 다운로드 가능한 기록을 제공할 수 있습니다.,,允许开发者在 Roblox Studio 中还原场景版本，并提供所有版本的可下载历史记录。
+Studio.App.PlaceVersionHistory.BetaFeatureTitle,,,Place Version History in Studio,Place Version History in Studio,Studio의 플레이스 버전 기록,,Studio 中的场景版本历史
 Studio.App.Property.EnableInternalFeatures,,,Enable Internal Features,Enable Internal Features,내부 기능 활성화,,启用内部功能
-Studio.App.Property.ShowCorePackages,,,Show CorePackages,Show CorePackages,CorePackages 보기,,显示 CorePackages
-Studio.App.Property.ShowFileSyncService,,,Show FileSyncService,Show FileSyncService,FileSyncService 보기,,显示 FileSyncService
+Studio.App.Property.ShowCorePackages,,,Show CorePackages,Show CorePackages,CorePackages 표시,,显示 CorePackages
+Studio.App.Property.ShowFileSyncService,,,Show FileSyncService,Show FileSyncService,FileSyncService 표시,,显示 FileSyncService
 Studio.App.RobloxOutputRibbonDropdown.AllMessages,,,All Messages,All Messages,모든 메시지,,所有消息
 Studio.App.RobloxOutputRibbonDropdown.Context,,,Context,Context,콘텍스트,,语境
 Studio.App.RobloxOutputRibbonDropdown.ShowMemoryAddressForExpandableTables,,,Show memory address for expandable tables,Show memory address for expandable tables,확장 가능한 테이블의 메모리 주소 표시,,显示可扩展表格的内存地址
-Studio.App.RobloxTextOutputWidget.TableOutputBetaFeatureDescription,,,"Output gets an upgrade — expressive UI, filter/search, and copy/paste becomes easier.","Output gets an upgrade — expressive UI, filter/search, and copy/paste becomes easier.","출력이 업그레이드됩니다. 표현적 UI, 필터 및 검색, 복사 및 붙여 넣기가 더 쉬워집니다.",,对输出控件进行升级——我们将设计更富有表现力的 UI，而且会对筛选/搜寻功能及复制/粘贴功能进行简化。
-Studio.App.RobloxTextOutputWidget.TableOutputBetaFeatureTitle,,,Expressive Output Window,Expressive Output Window,표현적 출력 창,,富有表现力的输出窗口
+Studio.App.RobloxTextOutputWidget.TableOutputBetaFeatureDescription,,,"Output gets an upgrade — expressive UI, filter/search, and copy/paste becomes easier.","Output gets an upgrade — expressive UI, filter/search, and copy/paste becomes easier.","출력이 업그레이드됩니다. 다양한 표현력의 UI가 가능하며, 필터 및 검색, 복사 및 붙여 넣기가 더 쉬워집니다.",,对输出控件进行升级——我们将设计更富有表现力的 UI，而且会对筛选/搜寻功能及复制/粘贴功能进行简化。
+Studio.App.RobloxTextOutputWidget.TableOutputBetaFeatureTitle,,,Expressive Output Window,Expressive Output Window,다양한 표현력의 출력 창,,富有表现力的输出窗口
 Studio.App.StartPageLogin.PrivacyPolicy,,,Privacy Policy,Privacy Policy,개인정보 처리방침,,隐私政策
-Studio.App.VersionHistoryDialog.ComparedVersionsIdentical3,,,Versions %1 and %2 of the script '%3' are identical,Versions %1 and %2 of the script '%3' are identical,스크립트 '%3'의 버전 %1와(과) %2이(가) 동일합니다,,脚本 '%3' 的版本 %1 和 %2 为同一版本
+Studio.App.VersionHistoryDialog.ComparedVersionsIdentical3,,,Versions %1 and %2 of the script '%3' are identical,Versions %1 and %2 of the script '%3' are identical,스크립트 '%3'의 버전 %1은(는) %2와(과) 동일합니다,,脚本 '%3' 的版本 %1 和 %2 为同一版本
 Studio.App.VersionHistoryDialog.OpenScriptsLabel,,,Select script version(s) to open or compare,Select script version(s) to open or compare,열거나 비교할 스크립트 버전을 선택하세요,,选择需要打开或进行比较的脚本版本
 Studio.App.PropertyTooltip.Rulers,,,Vertical lines drawn at the specified column numbers. These can be used as a guide to code length limits.,Vertical lines drawn at the specified column numbers. These can be used as a guide to code length limits.,지정된 열 번호에 그려진 수직선. 코드 길이 제한에 대한 가이드로 사용할 수 있습니다.,,在给定列数绘制的垂直线条，可以用来作为代码长度限制的指示。
-Studio.App.PropertyTooltip.ShowWhitespace,,,Visibly display spaces and tabs.,Visibly display spaces and tabs.,공백과 탭을 눈에 띄게 표시합니다.,,将空格与 Tab 缩进进行可视化显示。
+Studio.App.PropertyTooltip.ShowWhitespace,,,Visibly display spaces and tabs.,Visibly display spaces and tabs.,공백과 탭을 눈에 띄게 표시합니다.,,将空白符与 Tab 缩进进行可视化显示。
 Studio.App.BetaFeatures.AutoEnrollmentToggle,,,Enroll in Beta Channel,Enroll in Beta Channel,베타 채널에 등록,,报名 Beta 测试版频道
 Studio.App.BetaFeatures.AutoEnrollmentToggleTooltip,,,New Beta Features Will Automatically Be Activated,New Beta Features Will Automatically Be Activated,새로운 베타 기능이 자동으로 활성화됩니다,,全新 Beta 测试版功能将自动激活
 Studio.App.BetaFeatures.BreakpointPropagationDescription,,,Breakpoints now work across DataModels.  Users no longer need to worry about what instance of a script they have open when using breakpoints.,Breakpoints now work across DataModels.  Users no longer need to worry about what instance of a script they have open when using breakpoints.,이제 중단점을 여러 DataModel에 동시에 적용할 수 있습니다. 사용자는 중단점을 사용할 때 열려 있는 다른 스크립트 인스턴스를 염두에 두지 않아도 됩니다.,,断点将可以同时适用多个 DataModel。在使用断点时，用户将无需为目前处于哪个脚本实例而分心。
@@ -2691,14 +2698,14 @@ Studio.App.BetaFeatures.UICornerDescription,,,A UIComponent that modifies the sh
 Studio.App.BetaFeatures.UICornerTitle,,,UICorner Beta,UICorner Beta,UICorner 베타,,UICorner Beta 测试版
 Studio.App.Callout.GotIt,,,Got it!,Got it!,확인!,,我明白了！
 Studio.App.Callout.LearnMore,,,Learn more,Learn more,더 알아보기,,了解更多
-Studio.App.FBXMeshImporter.ContainsRiggingData,,,Animation data detected! Studio does not support animation data. You may experience issues if the mesh is dependent on the initial position of the animation data.,Animation data detected! Studio does not support animation data. You may experience issues if the mesh is dependent on the initial position of the animation data.,애니메이션 데이터가 감지되었습니다! Studio는 애니메이션 데이터를 지원하지 않습니다. 메시가 애니메이션 데이터의 최초 위치에 의존하는 경우 문제가 발생할 수 있습니다.,,发现动画数据！Studio 暂不支持在网格中使用动画数据。如果该网格依赖于动画数据的起始位置，则可能会出现运行问题。
+Studio.App.FBXMeshImporter.ContainsRiggingData,,,Animation data detected! Studio does not support animation data. You may experience issues if the mesh is dependent on the initial position of the animation data.,Animation data detected! Studio does not support animation data. You may experience issues if the mesh is dependent on the initial position of the animation data.,애니메이션 데이터가 감지되었습니다! Studio는 현재 애니메이션 데이터를 지원하지 않습니다. 메시가 애니메이션 데이터의 처음 위치에 의존하는 경우 문제가 발생할 수 있습니다.,,发现动画数据！Studio 暂不支持在网格中使用动画数据。如果该网格依赖于动画数据的起始位置，则可能会出现运行问题。
 Studio.App.FBXMeshImporter.MeshHasNoVertices,,,Your mesh has no vertices! Please check the validity of your mesh and try again.,Your mesh has no vertices! Please check the validity of your mesh and try again.,메시에 정점이 없습니다! 메시가 유효한지 확인한 후 다시 시도하세요.,,该网格中不存在任何顶点！请检查网格是否有效后再次尝试。
-Studio.App.FBXMeshImporter.MeshHasTooManyTriangles2,,,Your mesh has too many triangles! Limit is %1. Your mesh has %2.,Your mesh has too many triangles! Limit is %1. Your mesh has %2.,"메시에 삼각형이 너무 많습니다! 최대한도는 %1개이며, 현재 메시에 %2개가 있습니다.",,该网格拥有三角形过多！Roblox 支持最多 %1 个三角形，该网格拥有 %2 个。
+Studio.App.FBXMeshImporter.MeshHasTooManyTriangles2,,,Your mesh has too many triangles! Limit is %1. Your mesh has %2.,Your mesh has too many triangles! Limit is %1. Your mesh has %2.,"메시에 삼각형이 너무 많습니다! 최대한도는 %1개이며, 메시에는 %2개가 있습니다.",,该网格拥有三角形过多！Roblox 支持最多 %1 个三角形，该网格拥有 %2 个。
 Studio.App.FBXMeshImporter.MultipleMeshes,,,"Multiple meshes detected! The meshes were joined together, and textures may now be incorrect.","Multiple meshes detected! The meshes were joined together, and textures may now be incorrect.",여러 개의 메시가 감지되었습니다! 메시가 서로 병합되었기 때문에 텍스처가 올바르게 보이지 않을 수 있습니다.,,发现多个网格！由于网格在导入时已进行合并处理，可能会导致纹理显示不正确。
 Studio.App.FBXMeshImporter.MultipleTextures,,,Multiple textures detected! We only allow one texture per MeshPart which may now result in the mesh texture not looking correct.,Multiple textures detected! We only allow one texture per MeshPart which may now result in the mesh texture not looking correct.,"여러 개의 메시가 감지되었습니다! 각 MeshPart에는 하나의 텍스처만 있어야 하므로, 이로 인해 메시 텍스처가 올바르게 보이지 않을 수 있습니다.",,发现多个网格！Studio 中每个 MeshPart 只能拥有一个纹理，此操作可能会导致纹理显示不正确。
 Studio.App.FBXRigBuilder.FileIsEmpty,,,The selected file is empty!,The selected file is empty!,선택한 파일이 비어 있습니다!,,选中文件为空！
-Studio.App.FBXRigBuilder.RigHasTooManyTriangles2,,,Your rig has too many triangles! Limit is %1. Your rig has %2.,Your rig has too many triangles! Limit is %1. Your rig has %2.,"리그에 삼각형이 너무 많습니다! 최대한도는 %1개이며, 현재 리그에 %2개가 있습니다.",,该人形模型拥有三角形过多！Roblox 支持人形模型中最多含有 %1 个三角形，该模型拥有 %2 个。
-Studio.App.FBXRigBuilder.RigMeshHasTooManyTriangles3,,,%1 has too many triangles! Limit is %2. Your mesh has %3.,%1 has too many triangles! Limit is %2. Your mesh has %3.,"%1에 삼각형이 너무 많습니다! 최대한도는 %2개이며, 현재 메시에 %3개가 있습니다.",,%1 拥有三角形过多！Roblox 支持最多 %2 个三角形，该网格拥有 %3 个。
+Studio.App.FBXRigBuilder.RigHasTooManyTriangles2,,,Your rig has too many triangles! Limit is %1. Your rig has %2.,Your rig has too many triangles! Limit is %1. Your rig has %2.,"리그에 삼각형이 너무 많습니다! 최대한도는 %1개이며, 리그에는 %2개가 있습니다.",,该人形模型拥有三角形过多！Roblox 支持人形模型中最多含有 %1 个三角形，该模型拥有 %2 个。
+Studio.App.FBXRigBuilder.RigMeshHasTooManyTriangles3,,,%1 has too many triangles! Limit is %2. Your mesh has %3.,%1 has too many triangles! Limit is %2. Your mesh has %3.,"%1에 삼각형이 너무 많습니다! 최대한도는 %2개이며, 메시에는 %3개가 있습니다.",,%1 拥有三角形过多！Roblox 支持最多 %2 个三角形，该网格拥有 %3 个。
 Studio.App.FileType.AllFiles,,,All Files,All Files,모든 파일,,所有文件
 Studio.App.FileType.AnimationFiles,,,Animation Files,Animation Files,애니메이션 파일,,动画文件
 Studio.App.FileType.Images,,,Images,Images,이미지,,图像
@@ -2723,7 +2730,7 @@ Studio.App.PropertyEnum.DistanceBased,,,DistanceBased,DistanceBased,DistanceBase
 Studio.App.PropertyItems.BrickColorPropertyCannotBeEdited,,,BrickColor property cannot be edited. Please make sure debugger is not paused.,BrickColor property cannot be edited. Please make sure debugger is not paused.,BrickColor 속성은 편집할 수 없습니다. 디버거가 일시 중지되지 않았는지 확인하세요.,,无法编辑 BrickColor 属性。请确保错误排查工具未被暂停。
 Studio.App.PropertyItems.ClickToExpand,,,[Click to expand],[Click to expand],[확장하려면 클릭],,[单击进行扩展]
 Studio.App.PropertyItems.Color,,,Color,Color,색,,颜色
-Studio.App.PropertyItems.CouldNotFindTexture1,,,"Could not find texture %1. Please verify that the texture is located at that location, or in the same folder as the FBX/OBJ file","Could not find texture %1. Please verify that the texture is located at that location, or in the same folder as the FBX/OBJ file",텍스처 %1을(를) 찾을 수 없습니다. 텍스처가 해당 위치에 있거나 동일한 폴더에 FBX 또는 OBJ 파일로 존재하는지 확인하세요,,无法找到纹理 %1，请验证纹理是否处于相应位置，或者在同一文件夹中以 FBX 或 OBJ 文件形式存在
+Studio.App.PropertyItems.CouldNotFindTexture1,,,"Could not find texture %1. Please verify that the texture is located at that location, or in the same folder as the FBX/OBJ file","Could not find texture %1. Please verify that the texture is located at that location, or in the same folder as the FBX/OBJ file","텍스처 %1을(를) 찾을 수 없습니다. 텍스처가 해당 위치에 있는지, 또는 동일한 폴더에 FBX 또는 OBJ 파일로 존재하는지 확인하세요",,无法找到纹理 %1，请验证纹理是否处于相应位置，或者在同一文件夹中以 FBX 或 OBJ 文件形式存在
 Studio.App.PropertyItems.DoubleClickToGoTo1,,,Double-click here to go to %1,Double-click here to go to %1,%1(으)로 이동하려면 여기를 두 번 클릭하세요,,双击此处，前往 %1
 Studio.App.PropertyItems.InappropriateName,,,Inappropriate name,Inappropriate name,부적절한 이름,,部件拥有不当名称
 Studio.App.PropertyItems.InfluencedBy,,,Influenced by,Influenced by,다음 인스턴스의 영향을 받음:,,受此实例影响：
@@ -2746,12 +2753,12 @@ Studio.App.PropertyItems.YouMustLogInToCreateMeshes,,,You must log in to create 
 Studio.App.PropertyTooltip.AutoClosingBrackets,,,Automatically insert a closing bracket following an opening bracket.,Automatically insert a closing bracket following an opening bracket.,여는 괄호 뒤에 닫는 괄호를 자동으로 삽입합니다.,,自动在键入的左括号后插入右括号。
 Studio.App.PropertyTooltip.AutoClosingQuotes,,,Automatically insert a closing quotation following an opening quotation.,Automatically insert a closing quotation following an opening quotation.,여는 따옴표 뒤에 닫는 따옴표를 자동으로 삽입합니다.,,自动在键入的左引号后插入右引号。
 Studio.App.PropertyTooltip.AutoIndentRule,,,Off: No automatic indentation. Relative: Auto-indent relative to the current line. Absolute: Auto-indent globally.,Off: No automatic indentation. Relative: Auto-indent relative to the current line. Absolute: Auto-indent globally.,끄기: 자동 들여쓰기를 하지 않습니다. 상대: 현재 코드 줄을 기준으로 자동 들여쓰기합니다. 절대: 전체적으로 자동 들여쓰기를 수행합니다.,,关闭：不会进行自动缩进。相对：相对于当前代码行进行自动缩进。绝对：进行全局自动缩进。
-Studio.App.PropertyTooltip.EnableAutocomplete,,,Enable code suggestions to show up while typing.,Enable code suggestions to show up while typing.,내용을 입력하는 동안 코드 제안이 나타나도록 설정합니다.,,在输入内容时显示代码匹配建议。
+Studio.App.PropertyTooltip.EnableAutocomplete,,,Enable code suggestions to show up while typing.,Enable code suggestions to show up while typing.,입력하는 동안 코드 제안이 나타나도록 활성화합니다.,,在输入内容时显示代码匹配建议。
 Studio.App.PropertyTooltip.Font,,,"Change the text font family, typeface, and size.","Change the text font family, typeface, and size.","글꼴 패밀리, 서체 및 크기를 변경합니다.",,更改字体的家族、字形和尺寸。
 Studio.App.PropertyTooltip.FormatOnType,,,Automatically format the code after typing.,Automatically format the code after typing.,코드를 입력하고 나면 자동으로 서식을 지정합니다.,,在输入代码后对其进行自动格式化。
-Studio.App.PropertyTooltip.IndentUsingSpaces,,,Prefer indent with spaces over tabs. This will affect Auto Indent and pressing Tab behavior.,Prefer indent with spaces over tabs. This will affect Auto Indent and pressing Tab behavior.,탭 키보다는 스페이스바를 이용한 들여쓰기를 선호합니다. 이 속성은 자동 들여쓰기 및 탭 키 동작에 영향을 줍니다.,,在空格与 Tab 缩进中更倾向空格键缩进。此属性将会影响自动缩进及按下 Tab 键后的行为表示。
-Studio.App.PropertyTooltip.SkipClosingBracketsAndQuotes,,,Skip over a closing bracket/quote instead of inserting another.,Skip over a closing bracket/quote instead of inserting another.,닫는 괄호나 따옴표를 생략하고 삽입하지 않습니다.,,跳过右括号或右引号，不对其进行插入。
-Studio.App.PropertyTooltip.TabWidth,,,"The width of a tab, measured in number of spaces. Value can only be between 1 and 8.","The width of a tab, measured in number of spaces. Value can only be between 1 and 8.",공백 수로 측정된 탭 들여쓰기의 너비입니다.,,Tab 键的缩进宽度，以空格数量为单位。
+Studio.App.PropertyTooltip.IndentUsingSpaces,,,Prefer indent with spaces over tabs. This will affect Auto Indent and pressing Tab behavior.,Prefer indent with spaces over tabs. This will affect Auto Indent and pressing Tab behavior.,Tab 키보다는 스페이스바를 이용한 들여쓰기를 선호합니다. 이 속성은 자동 들여쓰기 및 Tab 키 누르기 동작에 영향을 줍니다.,,在空格与 Tab 缩进中更倾向空格键缩进。此属性将会影响自动缩进及按下 Tab 键后的行为表示。
+Studio.App.PropertyTooltip.SkipClosingBracketsAndQuotes,,,Skip over a closing bracket/quote instead of inserting another.,Skip over a closing bracket/quote instead of inserting another.,닫는 괄호나 따옴표는 삽입하지 않고 건너뜁니다.,,跳过右括号或右引号，不对其进行插入。
+Studio.App.PropertyTooltip.TabWidth,,,"The width of a tab, measured in number of spaces. Value can only be between 1 and 8.","The width of a tab, measured in number of spaces. Value can only be between 1 and 8.",공백 수로 측정한 탭의 너비입니다. 값은 1에서 8 사이여야 합니다.,,一个选项卡的宽度，以空格数量为单位。值必须介于 1 至 8 之间。
 Studio.App.PropertyTooltip.TextWrapping,,,Wrap the line of text below when the line character limit has been reached.,Wrap the line of text below when the line character limit has been reached.,"각 줄의 최대 문자 수에 도달할 경우, 줄바꿈해 아랫줄에 텍스트를 입력합니다.",,到达每行最大字数后，将超出的文本放入下一行中显示。
 Studio.App.Property.ActiveColor,,,Active Color,Active Color,활성 색상,,激活颜色
 Studio.App.Property.ActiveHoverOverColor,,,Active Hover Over Color,Active Hover Over Color,활성 커서 올리기 색,,悬停激活颜色
@@ -2761,16 +2768,16 @@ Studio.App.Property.IndentUsingSpaces,,,Indent Using Spaces,Indent Using Spaces,
 Studio.App.Property.MaximumTableDepth,,,Maximum Table Depth,Maximum Table Depth,최대 표 깊이,,最大表格深度
 Studio.App.Property.SearchContentForCoreScripts,,,Search Content For Core Scripts,Search Content For Core Scripts,코어 스크립트 콘텐츠 검색,,搜索核心脚本内容
 Studio.App.QuickOpenDialog.SearchScriptContent,,,Search Script Content,Search Script Content,스크립트 콘텐츠 검색,,搜索脚本内容
-Studio.App.RBXMainWindow.CantSaveEmptyPlugin,,,The plugin you are trying to save would have no contents.  You cannot save an empty plugin.,The plugin you are trying to save would have no contents.  You cannot save an empty plugin.,저장하려는 플러그인에 콘텐츠가 없습니다. 빈 플러그인을 저장할 수 없습니다.,,即将进行保存的插件内无任何内容。无法保存空白插件。
+Studio.App.RBXMainWindow.CantSaveEmptyPlugin,,,The plugin you are trying to save would have no contents.  You cannot save an empty plugin.,The plugin you are trying to save would have no contents.  You cannot save an empty plugin.,저장하려는 플러그인 콘텐츠가 없습니다. 빈 플러그인을 저장할 수 없습니다.,,即将进行保存的插件内无任何内容。无法保存空白插件。
 Studio.App.RBXMainWindow.CantSaveEmptyPluginTitle,,,Cannot Save Empty Plugin,Cannot Save Empty Plugin,빈 플러그인을 저장할 수 없습니다,,无法保存空白插件
-Studio.App.RBXMainWindow.DeleteContextDependentBreakpoint,,,Delete Contextual Breakpoint,Delete Contextual Breakpoint,맥락 중단점 삭제,,删除语境断点
-Studio.App.RBXMainWindow.Format,,,Format,Format,포맷,,格式化
-Studio.App.RBXMainWindow.FormatDocument,,,Format Document,Format Document,,,格式化文档
-Studio.App.RBXMainWindow.FormatDocumentElps,,,Format Document...,Format Document...,,,格式化文档...
-Studio.App.RBXMainWindow.FormatSelectedRangeOfDocument,,,Format selected range of document,Format selected range of document,,,对选中范围内文档进行格式化
-Studio.App.RBXMainWindow.FormatSelection,,,Format Selection,Format Selection,,,格式化选中内容
-Studio.App.RBXMainWindow.FormatWholeDocument,,,Format whole document,Format whole document,,,全文档格式化
-Studio.App.RBXMainWindow.InsertContextDependentBreakpoint,,,Insert Contextual Breakpoint,Insert Contextual Breakpoint,맥락 중단점 삽입,,插入语境断点
+Studio.App.RBXMainWindow.DeleteContextDependentBreakpoint,,,Delete Contextual Breakpoint,Delete Contextual Breakpoint,상황별 중단점 삭제,,删除语境断点
+Studio.App.RBXMainWindow.Format,,,Format,Format,서식 지정,,格式化
+Studio.App.RBXMainWindow.FormatDocument,,,Format Document,Format Document,문서 서식 지정,,格式化文档
+Studio.App.RBXMainWindow.FormatDocumentElps,,,Format Document...,Format Document...,문서 서식 지정...,,格式化文档...
+Studio.App.RBXMainWindow.FormatSelectedRangeOfDocument,,,Format selected range of document,Format selected range of document,선택한 범위 문서 서식 지정,,对选中范围内文档进行格式化
+Studio.App.RBXMainWindow.FormatSelection,,,Format Selection,Format Selection,선택 항목 서식 지정,,格式化选中内容
+Studio.App.RBXMainWindow.FormatWholeDocument,,,Format whole document,Format whole document,전체 문서 서식 지정,,全文档格式化
+Studio.App.RBXMainWindow.InsertContextDependentBreakpoint,,,Insert Contextual Breakpoint,Insert Contextual Breakpoint,상황별 중단점 삽입,,插入语境断点
 Studio.App.RBXMainWindow.MoveLinesDown,,,Move Lines Down,Move Lines Down,줄을 아래로 이동,,下移行列
 Studio.App.RBXMainWindow.MoveLinesDownToolTip,,,Move selected line(s) downwards,Move selected line(s) downwards,선택한 줄을 아래쪽으로 이동,,下移选中行列
 Studio.App.RBXMainWindow.MoveLinesUp,,,Move Lines Up,Move Lines Up,줄을 위로 이동,,上移行列
@@ -2779,7 +2786,7 @@ Studio.App.RBXMainWindow.SaveNormalizedPackageToXML,,,Save Normalized Package[In
 Studio.App.RBXMainWindow.ShowScriptInExplorer,,,Show in Explorer,Show in Explorer,탐색기에서 보기,,在管理器中显示
 Studio.App.RBXMainWindow.ShowScriptInExplorerTooltip,,,Select this script in the explorer,Select this script in the explorer,탐색기에서 이 스크립트를 선택합니다,,在管理器中选中该脚本
 Studio.App.RBXMainWindow.ToggleAlignDraggedObjectsText,,,Align Dragged Objects,Align Dragged Objects,드래그한 개체 정렬,,对齐拖拽对象
-Studio.App.RBXMainWindow.ToggleAlignDraggedObjectsTooltip,,,Do dragged objects rotate to align with the target surface,Do dragged objects rotate to align with the target surface,드래그한 개체가 대상 표면에 맞춰 회전하는지 여부,,拖拽对象是否会进行旋转，以保证其与目标表面对齐
+Studio.App.RBXMainWindow.ToggleAlignDraggedObjectsTooltip,,,Do dragged objects rotate to align with the target surface,Do dragged objects rotate to align with the target surface,드래그한 개체가 대상 표면과 정렬되도록 회전하는지 여부,,拖拽对象是否会进行旋转，以保证其与目标表面对齐
 Studio.App.RobloxOutputRibbonDropdown.AllContexts,,,All Contexts,All Contexts,모든 콘텍스트,,所有语境
 Studio.App.RobloxOutputRibbonDropdown.CoreScript,,,CoreScript,CoreScript,CoreScript,,CoreScript
 Studio.App.RobloxOutputRibbonDropdown.LogMode,,,Log Mode,Log Mode,로그 모드,,记录模式
@@ -2811,67 +2818,198 @@ Studio.App.RobloxOutputRibbonDropdown.ShowContext,,,Show Context,Show Context,�
 Studio.App.RobloxOutputRibbonDropdown.ShowSource,,,Show Source,Show Source,소스 표시,,显示来源
 Studio.App.FBXMeshImporter.UnexpectedFileType,,,Your file does not seem to contain a FBX mesh! Make sure the file extension is correct.,Your file does not seem to contain a FBX mesh! Make sure the file extension is correct.,파일에 FBX 메시가 포함되어 있지 않은 것 같습니다. 파일 확장자가 올바른지 확인하세요.,,文件似乎并不包含 FBX 网格！请确认文件扩展名无误。
 Studio.App.Studio.App.OSVersionWarning.MacOS1010,,,Beginning in October 2020 we will be discontinuing support for MacOS 10.10. Please upgrade to MacOS 10.11+ to continue to use Roblox Studio.,Beginning in October 2020 we will be discontinuing support for MacOS 10.10. Please upgrade to MacOS 10.11+ to continue to use Roblox Studio.,2020년 10월부터 MacOS 10.10에 대한 지원이 중단됩니다. Roblox Studio를 계속 사용하려면 MacOS 10.11 이상으로 업그레이드하세요.,,从 2020 年 10 月开始，我们将停止对 MacOS 10.10 的支持。请升级到 MacOS 10.11+ 以继续使用 Roblox Studio。
-Studio.App.WatchWidget.CopyEntry,,,Copy Entry,Copy Entry,,,
-Studio.App.WatchWidget.CopyRow,,,Copy Row,Copy Row,,,
-Studio.App.RobloxOutputRibbonDropdown.MessageTypes,,,Message Types,Message Types,,,
-Studio.App.RobloxRibbonMainWindow.ClearPivot,,,Clear Pivot,Clear Pivot,,,
-Studio.App.RobloxRibbonMainWindow.ClearPivotTooltip,,,Clear the pivot for the selected object,Clear the pivot for the selected object,,,
-Studio.App.RobloxRibbonMainWindow.EditPivot,,,Edit Pivot,Edit Pivot,,,
-Studio.App.RobloxRibbonMainWindow.EditPivotTooltip,,,Edit the point around which the selected object rotates and translates,Edit the point around which the selected object rotates and translates,,,
-Studio.App.RobloxRibbonMainWindow.GeometryTab,,,Geometry,Geometry,,,
-Studio.App.RobloxRibbonMainWindow.PivotGroup,,,Pivot,Pivot,,,
-Studio.App.RobloxRibbonMainWindow.SetPivotMenu,,,Set pivot to...,Set pivot to...,,,
-Studio.App.RobloxRibbonMainWindow.SetPivotMenuTooltip,,,Set the pivot in a specific way,Set the pivot in a specific way,,,
-Studio.App.RobloxRibbonMainWindow.SetPivotToGeometry,,,Set to Geometry...,Set to Geometry...,,,
-Studio.App.RobloxRibbonMainWindow.SetPivotToGeometryTooltip,,,"Snap the pivot to a face, edge, or vertex","Snap the pivot to a face, edge, or vertex",,,
-Studio.App.RobloxRibbonMainWindow.SetPivotToModel,,,Center on Model,Center on Model,,,
-Studio.App.RobloxRibbonMainWindow.SetPivotToModelTooltip,,,Center the pivot on the selected model,Center the pivot on the selected model,,,
-Studio.App.RobloxRibbonMainWindow.SetPivotToPart,,,Center on Part...,Center on Part...,,,
-Studio.App.RobloxRibbonMainWindow.SetPivotToPartTooltip,,,Center the pivot on the clicked part,Center the pivot on the clicked part,,,
-Studio.App.RobloxRibbonMainWindow.SetPivotToSurface,,,Set to Surface...,Set to Surface...,,,
-Studio.App.RobloxRibbonMainWindow.SetPivotToSurfaceTooltip,,,Set the pivot to exactly the clicked point,Set the pivot to exactly the clicked point,,,
-Studio.App.RobloxTextOutputWidget.LuaTableIndicator1,,,table: %1,table: %1,,,
-Studio.App.StudioFlagEditor.FileIOError,,,Unable to save. Try running RobloxStudio with admin permission.,Unable to save. Try running RobloxStudio with admin permission.,,,
-Studio.App.TeamCreate.ConnectionResult1,,,Connection Result: %1,Connection Result: %1,,,
-Studio.App.TeamCreate.PlaceLauncherRequestStatus1,,,Request Status Code: %1,Request Status Code: %1,,,
-Studio.App.PropertyTooltip.FormatOnPaste,,,Automatically format the code after pasting.,Automatically format the code after pasting.,,,
-Studio.App.Property.CommandBarLocalState,,,Command bar operates on local state at breakpoint,Command bar operates on local state at breakpoint,,,
-Studio.App.Property.DebuggerCurrentLineColor,,,Debugger Current Line Color,Debugger Current Line Color,,,
-Studio.App.Property.DebuggerErrorLineColor,,,Debugger Error Line Color,Debugger Error Line Color,,,
-Studio.App.Property.FormatOnPaste,,,Format On Paste,Format On Paste,,,
-Studio.App.Property.MeshPartDetailLevel,,,Mesh Detail Level,Mesh Detail Level,,,
-Studio.App.RBXMainWindow.AddNewlineAbove,,,Insert Newline Above,Insert Newline Above,,,
-Studio.App.RBXMainWindow.AddNewlineAboveToolTip,,,Insert a newline above the current line,Insert a newline above the current line,,,
-Studio.App.RBXMainWindow.AddNewlineBelow,,,Insert Newline Below,Insert Newline Below,,,
-Studio.App.RBXMainWindow.AddNewlineBelowToolTip,,,Insert a newline below the current line,Insert a newline below the current line,,,
-Studio.App.RBXMainWindow.DeleteToStartOfLine,,,Delete to start of line,Delete to start of line,,,
-Studio.App.RBXMainWindow.DeleteToStartOfLineToolTip,,,Delete to the start of the current line,Delete to the start of the current line,,,
-Studio.App.RBXMainWindow.DraggerModeGeometric,,,Geometric,Geometric,,,
-Studio.App.RBXMainWindow.DraggerModeLabel,,,Mode:,Mode:,,,
-Studio.App.RBXMainWindow.DraggerModePhysical,,,Physical,Physical,,,
-Studio.App.RBXMainWindow.GameSettings,,,Game Settings...,Game Settings...,,,
-Studio.App.RBXMainWindow.IndentSelection,,,Indent,Indent,,,
-Studio.App.RBXMainWindow.IndentSelectionToolTip,,,Indent selected line(s),Indent selected line(s),,,
-Studio.App.RBXMainWindow.SaveAndReloadAllPlugins,,,Save and Reload All Plugins in Debugger,Save and Reload All Plugins in Debugger,,,
-Studio.App.RBXMainWindow.SaveAndReloadAllPluginsTooltip,,,Save all plugins in debugger back to disk. Stop execution of those plugins. Reload them from disk.,Save all plugins in debugger back to disk. Stop execution of those plugins. Reload them from disk.,,,
-Studio.App.RBXMainWindow.StudioSettingsElps,,,Studio Settings...,Studio Settings...,,,
-Studio.App.RBXMainWindow.UnindentSelection,,,Unindent,Unindent,,,
-Studio.App.RBXMainWindow.UnindentSelectionToolTip,,,Unindent selected line(s),Unindent selected line(s),,,
-Studio.App.AddEmulationDeviceDialog.DeviceMemoryMB,,,Simulated Memory (MB),Simulated Memory (MB),,,
-Studio.App.BetaFeatures.NewFeaturesForChannelUserWarning1,,,"New beta features are available now and reflected in this dialog. You must restart Studio for them to become available. <a href=""%1"">Restart Now</a>","New beta features are available now and reflected in this dialog. You must restart Studio for them to become available. <a href=""%1"">Restart Now</a>",,,
-Studio.App.BetaFeatures.SkinnedMeshDescription,,,"Enables import, display and animation of skinned meshes.","Enables import, display and animation of skinned meshes.",,,
-Studio.App.BetaFeatures.SkinnedMeshTitle,,,Skinned Meshes,Skinned Meshes,,,
-Studio.App.CalloutController.AssetManagerCalloutDescription,,,"Replacing the Game Explorer, the Asset Manager is a new menu in Studio that enables developers to more effectively manage game assets!","Replacing the Game Explorer, the Asset Manager is a new menu in Studio that enables developers to more effectively manage game assets!",,,
-Studio.App.CalloutController.AssetManagerCalloutTitle,,,Asset Manager,Asset Manager,,,
-Studio.App.IdeDoc.AreYouSureYouWantToExit1,,,Are you sure you want to exit '%1'?,Are you sure you want to exit '%1'?,,,
-Studio.App.IdeDoc.StatusInitializing,,,Initializing...,Initializing...,,,
-Studio.App.IdeDoc.StatusLoading,,,Loading test...,Loading test...,,,
-Studio.App.IdeDoc.StatusSaving,,,Saving world...,Saving world...,,,
-Studio.App.IdeDoc.StatusSettingUp,,,Setting up...,Setting up...,,,
-Studio.App.MyWatchTreeWidget.DeleteAll,,,Delete All,Delete All,,,
-Studio.App.MyWatchTreeWidget.DeleteWatch,,,Delete Watch,Delete Watch,,,
-Studio.App.OSVersionWarning.MacOS1010,,,Beginning in October 2020 we will be discontinuing support for MacOS 10.10. Please upgrade to MacOS 10.11+ to continue to use Roblox Studio.,Beginning in October 2020 we will be discontinuing support for MacOS 10.10. Please upgrade to MacOS 10.11+ to continue to use Roblox Studio.,,,
-Studio.App.OSVersionWarning.LearnMoreTooltip,,,Learn More,Learn More,더 알아보기,Подробнее,了解更多
+Studio.App.WatchWidget.CopyEntry,,,Copy Entry,Copy Entry,항목 복사,,复制条目
+Studio.App.WatchWidget.CopyRow,,,Copy Row,Copy Row,행 복사,,复制行
+Studio.App.RobloxOutputRibbonDropdown.MessageTypes,,,Message Types,Message Types,메시지 유형,,消息类型
+Studio.App.RobloxRibbonMainWindow.ClearPivot,,,Clear Pivot,Clear Pivot,피벗 지우기,,清除枢轴
+Studio.App.RobloxRibbonMainWindow.ClearPivotTooltip,,,Clear the pivot for the selected object,Clear the pivot for the selected object,선택한 개체의 피벗을 지웁니다,,清除选择的对象的枢轴
+Studio.App.RobloxRibbonMainWindow.EditPivot,,,Edit Pivot,Edit Pivot,피벗 편집,,编辑枢轴
+Studio.App.RobloxRibbonMainWindow.EditPivotTooltip,,,Edit the point around which the selected object rotates and translates,Edit the point around which the selected object rotates and translates,선택한 개체가 회전하고 변환되는 지점을 편집합니다,,编辑选择的对象旋转与平移的枢轴点
+Studio.App.RobloxRibbonMainWindow.GeometryTab,,,Geometry,Geometry,지오메트리,,几何
+Studio.App.RobloxRibbonMainWindow.PivotGroup,,,Pivot,Pivot,피벗,,枢轴
+Studio.App.RobloxRibbonMainWindow.SetPivotMenu,,,Set pivot to...,Set pivot to...,다음에 피벗을 설정...,,设置枢轴为…
+Studio.App.RobloxRibbonMainWindow.SetPivotMenuTooltip,,,Set the pivot in a specific way,Set the pivot in a specific way,특정 방식으로 피벗을 설정합니다,,以特定的方式设置枢轴
+Studio.App.RobloxRibbonMainWindow.SetPivotToGeometry,,,Set to Geometry...,Set to Geometry...,지오메트리로 설정...,,设置至几何…
+Studio.App.RobloxRibbonMainWindow.SetPivotToGeometryTooltip,,,"Snap the pivot to a face, edge, or vertex","Snap the pivot to a face, edge, or vertex","면, 가장자리 또는 정점에 피벗을 맞춥니다",,将枢轴对齐至表面、边缘或顶点
+Studio.App.RobloxRibbonMainWindow.SetPivotToModel,,,Center on Model,Center on Model,모델의 중심,,居中至模型
+Studio.App.RobloxRibbonMainWindow.SetPivotToModelTooltip,,,Center the pivot on the selected model,Center the pivot on the selected model,선택한 모델의 중심에 피벗을 배치합니다,,将枢轴在选择的模型上居中
+Studio.App.RobloxRibbonMainWindow.SetPivotToPart,,,Center on Part...,Center on Part...,파트의 중심으로...,,居中至部件…
+Studio.App.RobloxRibbonMainWindow.SetPivotToPartTooltip,,,Center the pivot on the clicked part,Center the pivot on the clicked part,클릭한 파트의 중심에 피벗을 배치합니다,,将枢轴在点击的部件上居中
+Studio.App.RobloxRibbonMainWindow.SetPivotToSurface,,,Set to Surface...,Set to Surface...,표면으로 설정...,,设置至表面…
+Studio.App.RobloxRibbonMainWindow.SetPivotToSurfaceTooltip,,,Set the pivot to exactly the clicked point,Set the pivot to exactly the clicked point,클릭한 지점에 정확히 피벗을 설정합니다,,将枢轴精确设置在点击的位置上
+Studio.App.RobloxTextOutputWidget.LuaTableIndicator1,,,table: %1,table: %1,테이블: %1,,表：%1
+Studio.App.StudioFlagEditor.FileIOError,,,Unable to save. Try running RobloxStudio with admin permission.,Unable to save. Try running RobloxStudio with admin permission.,저장할 수 없습니다. 관리자 권한으로 Roblox Studio를 실행해 보세요.,,无法保存。请尝试用管理员权限运行 RobloxStudio。
+Studio.App.TeamCreate.ConnectionResult1,,,Connection Result: %1,Connection Result: %1,연결 결과: %1,,连接结果：%1
+Studio.App.TeamCreate.PlaceLauncherRequestStatus1,,,Request Status Code: %1,Request Status Code: %1,요청 상태 코드: %1,,请求状态代码：%1
+Studio.App.PropertyTooltip.FormatOnPaste,,,Automatically format the code after pasting.,Automatically format the code after pasting.,코드를 붙여넣고 나면 자동으로 서식을 지정합니다.,,在粘贴代码后对其进行自动格式化。
+Studio.App.Property.CommandBarLocalState,,,Command bar operates on local state at breakpoint,Command bar operates on local state at breakpoint,명령 모음은 중단점에서 로컬 상태를 작동합니다,,命令栏在断点操作本地状态
+Studio.App.Property.DebuggerCurrentLineColor,,,Debugger Current Line Color,Debugger Current Line Color,디버거 현재 줄 색상,,调试器当前行颜色
+Studio.App.Property.DebuggerErrorLineColor,,,Debugger Error Line Color,Debugger Error Line Color,디버거 오류 줄 색상,,调试器错误行颜色
+Studio.App.Property.FormatOnPaste,,,Format On Paste,Format On Paste,붙여넣기 시 서식 지정,,粘贴后自动格式化
+Studio.App.Property.MeshPartDetailLevel,,,Mesh Detail Level,Mesh Detail Level,메시 세부 수준,,网格细节等级
+Studio.App.RBXMainWindow.AddNewlineAbove,,,Insert Newline Above,Insert Newline Above,위에 줄 바꿈 삽입,,向上插入新行
+Studio.App.RBXMainWindow.AddNewlineAboveToolTip,,,Insert a newline above the current line,Insert a newline above the current line,현재 줄 위에 줄 바꿈을 삽입합니다,,在当前行上方插入新行
+Studio.App.RBXMainWindow.AddNewlineBelow,,,Insert Newline Below,Insert Newline Below,아래에 줄 바꿈 삽입,,向下插入新行
+Studio.App.RBXMainWindow.AddNewlineBelowToolTip,,,Insert a newline below the current line,Insert a newline below the current line,현재 줄 아래에 줄 바꿈을 삽입합니다,,在当前行下方插入新行
+Studio.App.RBXMainWindow.DeleteToStartOfLine,,,Delete to start of line,Delete to start of line,줄의 시작 부분까지 삭제,,删除至行首
+Studio.App.RBXMainWindow.DeleteToStartOfLineToolTip,,,Delete to the start of the current line,Delete to the start of the current line,현재 줄의 시작 부분까지 삭제합니다,,删除至当前行的行首
+Studio.App.RBXMainWindow.DraggerModeGeometric,,,Geometric,Geometric,지오메트릭,,几何
+Studio.App.RBXMainWindow.DraggerModeLabel,,,Mode:,Mode:,모드:,,模式：
+Studio.App.RBXMainWindow.DraggerModePhysical,,,Physical,Physical,물리,,物理
+Studio.App.RBXMainWindow.GameSettings,,,Game Settings...,Game Settings...,게임 설정...,,游戏设置...
+Studio.App.RBXMainWindow.IndentSelection,,,Indent,Indent,들여쓰기,,缩进
+Studio.App.RBXMainWindow.IndentSelectionToolTip,,,Indent selected line(s),Indent selected line(s),선택한 줄 들여쓰기,,所选行缩进
+Studio.App.RBXMainWindow.SaveAndReloadAllPlugins,,,Save and Reload All Plugins in Debugger,Save and Reload All Plugins in Debugger,디버거의 모든 플러그인 저장 및 다시 불러오기,,在调试器中保存并重新加载所有插件
+Studio.App.RBXMainWindow.SaveAndReloadAllPluginsTooltip,,,Save all plugins in debugger back to disk. Stop execution of those plugins. Reload them from disk.,Save all plugins in debugger back to disk. Stop execution of those plugins. Reload them from disk.,디버거의 모든 플러그인을 디스크에 다시 저장합니다. 해당 플러그인의 실행을 중지합니다. 디스크에서 다시 불러옵니다.,,将调试器中的所有的插件保存回磁盘。停止这些插件的执行。从磁盘重新加载。
+Studio.App.RBXMainWindow.StudioSettingsElps,,,Studio Settings...,Studio Settings...,Studio 설정...,,Studio 设置……
+Studio.App.RBXMainWindow.UnindentSelection,,,Unindent,Unindent,내어쓰기,,取消缩进
+Studio.App.RBXMainWindow.UnindentSelectionToolTip,,,Unindent selected line(s),Unindent selected line(s),선택한 줄 내어쓰기,,所选行取消缩进
+Studio.App.AddEmulationDeviceDialog.DeviceMemoryMB,,,Simulated Memory (MB),Simulated Memory (MB),시뮬레이션된 메모리(MB),,模拟内存（MB）
+Studio.App.BetaFeatures.NewFeaturesForChannelUserWarning1,,,"New beta features have been automatically enabled above as you are enrolled in Beta Channel. You must restart Studio for them to be activated. <a href=""%1"">Restart Now</a>","New beta features have been automatically enabled above as you are enrolled in Beta Channel. You must restart Studio for them to be activated. <a href=""%1"">Restart Now</a>","베타 채널에 등록되었기 때문에 위의 새로운 베타 기능이 자동으로 활성화되었습니다. 기능을 사용하려면 Studio를 다시 시작해야 합니다. <a href=""%1"">지금 다시 시작</a>",,"当您加入测试频道时，新的测试功能已经被自动启用。需要重新启动 Studio 才能激活它们。<a href=""%1"">立即重启</a>"
+Studio.App.BetaFeatures.SkinnedMeshDescription,,,"Enables import, display and animation of skinned meshes.","Enables import, display and animation of skinned meshes.","스키닝된 메시의 가져오기, 표시 및 애니메이션을 활성화합니다.",,启用皮肤网格的导入、显示和动画。
+Studio.App.BetaFeatures.SkinnedMeshTitle,,,Skinned Meshes,Skinned Meshes,스키닝된 메시,,皮肤网格
+Studio.App.CalloutController.AssetManagerCalloutDescription,,,"Replacing the Game Explorer, the Asset Manager is a new menu in Studio that enables developers to more effectively manage game assets!","Replacing the Game Explorer, the Asset Manager is a new menu in Studio that enables developers to more effectively manage game assets!",애셋 관리자는 게임 탐색기를 대체하는 새로운 메뉴입니다. 이제 애셋 관리자를 통해 게임 애셋을 보다 효과적으로 관리할 수 있습니다.,,资源管理器取代了游戏管理器，它是 Studio 中的一个新界面，可以让开发者更有效地管理游戏资源！
+Studio.App.CalloutController.AssetManagerCalloutTitle,,,Asset Manager,Asset Manager,애셋 관리자,,资源管理器
+Studio.App.IdeDoc.AreYouSureYouWantToExit1,,,Are you sure you want to exit '%1'?,Are you sure you want to exit '%1'?,'%1'을(를) 정말 종료할까요?,,您确定要退出 '%1'？
+Studio.App.IdeDoc.StatusInitializing,,,Initializing...,Initializing...,초기화 중...,,正在初始化……
+Studio.App.IdeDoc.StatusLoading,,,Loading test...,Loading test...,테스트 불러오기 중...,,负载测试……
+Studio.App.IdeDoc.StatusSaving,,,Saving world...,Saving world...,월드 저장 중...,,正在保存世界……
+Studio.App.IdeDoc.StatusSettingUp,,,Setting up...,Setting up...,설정 중...,,设置……
+Studio.App.MyWatchTreeWidget.DeleteAll,,,Delete All,Delete All,모두 삭제,,全部删除
+Studio.App.MyWatchTreeWidget.DeleteWatch,,,Delete Watch,Delete Watch,조사식 삭제,,删除监视
+Studio.App.OSVersionWarning.MacOS1010,,,Beginning in November 2020 we will be discontinuing support for MacOS 10.10. Please upgrade to MacOS 10.11+ to continue to use Roblox Studio.,Beginning in November 2020 we will be discontinuing support for MacOS 10.10. Please upgrade to MacOS 10.11+ to continue to use Roblox Studio.,2020년 11월부터 MacOS 10.10에 대한 지원이 중단됩니다. Roblox Studio를 계속 사용하려면 MacOS 10.11 이상으로 업그레이드하세요.,,从 2020 年 11 月开始，我们将停止对 MacOS 10.10 的支持。请升级到 MacOS 10.11+ 以继续使用 Roblox Studio。
+Studio.App.OSVersionWarning.LearnMore,,,Learn More,Learn More,더 알아보기,,了解更多
+Studio.App.PropertyItems.PackageGoToRevisionConfirmation1,,,Are you sure you want to change this Package to Version %1?,Are you sure you want to change this Package to Version %1?,이 패키지를 정말 버전 %1(으)로 변경할까요?,,您确定要将该包回退至 %1 版本吗？
+Studio.App.Property.EnableHttpSandboxing,,,Enable Http Sandboxing,Enable Http Sandboxing,Http 샌드박싱 활성화,,启用 Http 沙盒
+Studio.App.Property.EnableInternalBetaFeatures,,,Enable Internal Beta Features,Enable Internal Beta Features,내부 베타 기능 활성화,,启用内部测试功能
+Studio.App.RBXMainWindow.ReloadPlugin,,,Reload Plugin,Reload Plugin,플러그인 다시 불러오기,,重新载入插件
+Studio.App.RBXMainWindow.ReloadPluginTooltip,,,Stop plugin execution. Reload from disk. Note this will lose any changes you may have made to the Plugin under Plugin Debug Service,Stop plugin execution. Reload from disk. Note this will lose any changes you may have made to the Plugin under Plugin Debug Service,플러그인 실행을 중지합니다. 디스크에서 다시 불러옵니다. 플러그인 디버그 서비스에서 플러그인에 대한 변경 사항을 잃게 됩니다.,,停止执行插件。从磁盘重新加载。注意，此操作将丢失您在插件调试服务下对插件所做的任何更改
+Studio.App.RobloxTextOutputWidget.Filter,,,Filter...,Filter...,필터...,,筛选……
+Studio.App.StudioFlagEditor.AddButton,,,Add,Add,추가,,添加
+Studio.App.StudioFlagEditor.AddOverrideTitle,,,Add Override,Add Override,재정의 추가,,添加覆盖
+Studio.App.StudioFlagEditor.NameField,,,Name,Name,이름,,名称
+Studio.App.StudioFlagEditor.RemoveAllButton,,,Remove All,Remove All,모두 제거,,全部移除
+Studio.App.StudioFlagEditor.RemoveButton,,,Remove,Remove,제거,,移除
+Studio.App.StudioFlagEditor.TypeField,,,Type,Type,유형,,类型
+Studio.App.StudioFlagEditor.ValueField,,,Value,Value,값,,值
+Studio.App.ColorPreviewWidget.InvalidArgumentsTooltip,,,Invalid arguments to Color3 constructor,Invalid arguments to Color3 constructor,Color3 생성자에 대한 유효하지 않은 인수,,Color3 构造函数的参数无效
+Studio.App.IdeDoc.DeprecateCSGv1,,,You are using the legacy CSG modeling system that will soon be removed from Roblox Studio. We have changed your Studio Setting to use the latest version. <a href=%1>Learn More</a>,You are using the legacy CSG modeling system that will soon be removed from Roblox Studio. We have changed your Studio Setting to use the latest version. <a href=%1>Learn More</a>,회원님은 Roblox Studio에서 곧 제거될 레거시 CSG 모델링 시스템을 사용 중입니다. 최신 버전을 사용하실 수 있도록 Studio 설정을 변경해 드렸습니다. <a href=%1>더 알아보기</a>,,您目前所使用的是即将从 Roblox Studio 中移除的遗留 CSG 建模系统。我们已经将您的 Studio 设置更改为使用最新版本。<a href=%1>了解更多</a>
+Studio.App.MainWindow.OpenPlaceFailureIncidentId1,,,Incident ID: %1,Incident ID: %1,인시던트 ID: %1,,事件 ID: %1
+Studio.App.MainWindow.OpenPlaceFailureReportToForum1,,,"If you continue to encounter this error, please report it on the <a href='%1'>Developer Forum</a>","If you continue to encounter this error, please report it on the <a href='%1'>Developer Forum</a>",이 오류가 계속 발생한다면 <a href='%1'>개발자 포럼</a>에 신고해 주세요.,,如果您持续遇到这个错误，请上 <a href='%1'>Developer Forum</a>进行汇报
+Studio.App.SettingsCategory.DiagnosticsBenchmarking,,,Benchmarking,Benchmarking,벤치마킹,,基准测试
+Studio.App.SettingsCategory.DiagnosticsErrors,,,Errors,Errors,오류,,错误
+Studio.App.SettingsCategory.DiagnosticsPerformance,,,Performance,Performance,성능,,性能
+Studio.App.SettingsCategory.DiagnosticsProfile,,,Profile,Profile,프로필,,个人资料
+Studio.App.SettingsCategory.GameOptionsInput,,,Input,Input,입력,,输入
+Studio.App.SettingsCategory.GameOptionsInternal,,,Internal,Internal,내부,,内部
+Studio.App.SettingsCategory.GameOptionsOnline,,,Online,Online,온라인,,在线
+Studio.App.SettingsCategory.GameOptionsSound,,,Sound,Sound,사운드,,音效
+Studio.App.SettingsCategory.GameOptionsVideo,,,Video,Video,비디오,,视频
+Studio.App.SettingsCategory.LuaDiagnostics,,,Diagnostics,Diagnostics,진단,,诊断
+Studio.App.SettingsCategory.LuaSettings,,,Online,Online,온라인,,在线
+Studio.App.SettingsCategory.NetworkAppearance,,,Appearance,Appearance,모양,,外观
+Studio.App.SettingsCategory.NetworkDiagnostics,,,Diagnostics,Diagnostics,진단,,诊断
+Studio.App.SettingsCategory.NetworkProxy,,,Proxy,Proxy,프록시,,代理
+Studio.App.SettingsCategory.PhysicsDisplay,,,Display,Display,표시,,显示
+Studio.App.SettingsCategory.PhysicsPerformance,,,Performance,Performance,성능,,性能
+Studio.App.SettingsCategory.RenderingCache,,,Cache,Cache,캐시,,缓存
+Studio.App.SettingsCategory.RenderingDebug,,,Debug,Debug,디버그,,调试
+Studio.App.SettingsCategory.RenderingGeneral,,,General,General,일반,,通用
+Studio.App.SettingsCategory.RenderingPerformance,,,Performance,Performance,성능,,性能
+Studio.App.SettingsCategory.StudioAdvanced,,,Advanced,Advanced,고급,,高级
+Studio.App.SettingsCategory.StudioAudio,,,Audio,Audio,오디오,,音频
+Studio.App.SettingsCategory.StudioAutoRecovery,,,AutoRecovery,AutoRecovery,AutoRecovery,,AutoRecovery
+Studio.App.SettingsCategory.StudioBrowsing,,,Browsing,Browsing,둘러보기,,浏览
+Studio.App.SettingsCategory.StudioCamera,,,Camera,Camera,카메라,,镜头
+Studio.App.SettingsCategory.StudioDebugger,,,Debugger,Debugger,디버거,,调试器
+Studio.App.SettingsCategory.StudioDirectories,,,Directories,Directories,디렉터리,,目录
+Studio.App.SettingsCategory.StudioExplorer,,,Explorer,Explorer,탐색기,,管理器
+Studio.App.SettingsCategory.StudioGeneral,,,General,General,일반,,通用
+Studio.App.SettingsCategory.StudioOutput,,,Output,Output,출력,,输出
+Studio.App.SettingsCategory.StudioPrimaryPart,,,PrimaryPart,PrimaryPart,PrimaryPart,,PrimaryPart
+Studio.App.SettingsCategory.StudioScriptEditor,,,ScriptEditor,ScriptEditor,ScriptEditor,,ScriptEditor
+Studio.App.SettingsCategory.StudioScriptEditorColors,,,ScriptEditorColors,ScriptEditorColors,ScriptEditorColors,,ScriptEditorColors
+Studio.App.SettingsCategory.StudioTools,,,Tools,Tools,도구,,工具
+Studio.App.SettingsCategory.StudioUndo,,,Undo,Undo,실행 취소,,撤消
+Studio.App.SettingsCategory.StudioVisualization,,,Visualization,Visualization,시각화,,可视化
+Studio.App.SettingsCategory.TaskSchedulerConfiguration,,,Configuration,Configuration,구성,,配置
+Studio.App.SettingsCategory.TaskSchedulerDiagnostics,,,Diagnostics,Diagnostics,진단,,诊断
+Studio.App.TeamCreate.LoadingGameWithAttemptCount1,,,Loading game (attempt #%1),Loading game (attempt #%1),게임을 불러오는 중 (%1회 시도),,正在加载游戏（尝试 #%1）
+Studio.App.BetaFeatures.AutomaticSizeDescription,,,UI object property that automatically sizes objects based on their child content.,UI object property that automatically sizes objects based on their child content.,자식 콘텐츠에 기반해 개체의 크기를 자동으로 조정하는 UI 개체 속성입니다.,,根据其子内容自动调整对象尺寸的 UI 对象属性。
+Studio.App.BetaFeatures.AutomaticSizeTitle,,,Automatic Size Beta,Automatic Size Beta,자동 크기 조정 베타,,自动调整尺寸（测试）
+Studio.App.BetaFeatures.ClarifiedIKDraggersDescription,,,Enables a new clarified UI for IK/Constraint/Physical draggers and adds a new behavior to the select dragger when in Physical mode,Enables a new clarified UI for IK/Constraint/Physical draggers and adds a new behavior to the select dragger when in Physical mode,IK/제약/물리적 드래거를 위한 새로이 결정된 UI를 활성화하고 물리 모드 시 선택 드래거에 새 동작을 추가합니다.,,为 IK/约束/物理拖拽工具启用更明确的新 UI，并在物理模式为所选的拖拽工具添加一个新的行为
+Studio.App.BetaFeatures.ClarifiedIKDraggersTitle,,,New Physical Draggers,New Physical Draggers,새로운 물리적 드래거,,新物理拖拽工具
+Studio.App.LockedScriptsVersionHistory.ApplyEditsRejectedTitle,,,Script Apply Edits Failure,Script Apply Edits Failure,스크립트 적용 편집 실패,,脚本应用编辑失败
+Studio.App.LockedScriptsVersionHistory.CommitRejected,,,"Some of the scripts cannot be saved.
+Please check their status.","Some of the scripts cannot be saved.
+Please check their status.","일부 스크립트를 저장할 수 없습니다.
+스크립트의 상태를 확인하세요.",,"部分脚本无法保存。
+请先检查其状态。"
+Studio.App.LockedScriptsVersionHistory.CommitRejectedInProgress,,,"Server rejected apply edits.
+Someone else is saving changes.","Server rejected apply edits.
+Someone else is saving changes.","서버에서 적용 편집을 거부했습니다.
+다른 사람이 변경 사항을 저장하는 중입니다.",,"服务器拒绝编辑。
+另有他人正在保存更改。"
+Studio.App.LockedScriptsVersionHistory.CommitRejectedInternalError,,,"Server rejected apply edits due to internal error.
+Please try again later","Server rejected apply edits due to internal error.
+Please try again later","내부 오류로 인해 서버에서 적용 편집을 거부했습니다.
+나중에 다시 시도하세요.",,"服务器因内部错误拒绝应用编辑。
+请稍后再试"
+Studio.App.Properties.AddAttribute,,,Add Attribute,Add Attribute,특성 추가,,添加特征
+Studio.App.Properties.AttributeAlreadyExists,,,Attribute already exists.,Attribute already exists.,특성이 이미 존재합니다.,,特征已存在。
+Studio.App.Properites.AttributeCantStartWithRBX,,,Can't start with 'RBX'.,Can't start with 'RBX'.,'RBX'로 시작할 수 없습니다.,,无法以 'RBX' 开头。
+Studio.App.Properties.AttributeName,,,Name,Name,이름,,名称
+Studio.App.Properties.AttributeType,,,Type,Type,유형,,类型
+Studio.App.Properties.NoAttributeAdded,,,No Attribute has been added yet,No Attribute has been added yet,아직 추가된 특성이 없습니다,,尚未添加特征
+Studio.App.PropertyEnum.Custom,,,Custom,Custom,사용자 정의,,自定义
+Studio.App.PropertyEnum.Extra1,,,Extra 1,Extra 1,추가 1,,额外 1
+Studio.App.PropertyEnum.Extra2,,,Extra 2,Extra 2,추가 2,,额外 2
+Studio.App.PropertyEnum.RobloxDefault,,,Default,Default,기본값,,默认
+Studio.App.Property.HighlightOccurances,,,Highlight Current Word,Highlight Current Word,현재 단어 강조,,高亮显示当前词
+Studio.App.Property.IncomingReplicationLag,,,Incoming Replication Lag,Incoming Replication Lag,수신 복제 지연 시간,,接收重复延迟
+Studio.App.Property.ScriptEditorColorPreset,,,Script Editor Color Preset,Script Editor Color Preset,스크립트 편집기 색 기본 설정,,脚本编辑器颜色预设
+Studio.App.RBXMainWindow.FocusOnCommandBar,,,Focus on Command Bar,Focus on Command Bar,명령 모음에 포커스 지정,,聚焦命令栏
+Studio.App.RBXMainWindow.FocusOnCommandBarTooltip,,,Set keyboard focus to Command Bar,Set keyboard focus to Command Bar,키보드 포커스를 명령 모음에 설정,,设置键盘聚焦至命令栏
+Studio.App.RBXMainWindow.SaveBuildAndReloadPlugins,,,Build plugin from source and Reload in the Debugger,Build plugin from source and Reload in the Debugger,소스에서 플러그인을 빌드하고 디버거에서 다시 불러오기,,从源构建插件并在调试器中重新加载
+Studio.App.RBXMainWindow.SaveBuildAndReloadPluginsTooltip,,,Stop execution of the plugin. Save modified scripts with FileSyncService. Build rbxm from plugin project and reload it.,Stop execution of the plugin. Save modified scripts with FileSyncService. Build rbxm from plugin project and reload it.,플러그인 실행을 중지합니다. FileSyncService로 수정된 스크립트를 저장합니다. 플러그인 프로젝트에서 rbxm을 빌드하고 다시 불러옵니다.,,停止执行插件。用 FileSyncService 保存修改后的脚本。从插件项目构建 rbxm 并重新加载它。
+Studio.App.RobloxStudioVerbs.NotAllScriptsAreSaved,,,Some Scripts (indicated with a * on the Script name) were not synced successfully. Please contact #ride,Some Scripts (indicated with a * on the Script name) were not synced successfully. Please contact #ride,일부 스크립트(이름에 *가 표시된 스크립트)가 성공적으로 동기화되지 않았습니다. #ride에 문의하세요,,部分脚本（在脚本名称中以 * 标识）未能成功同步。请联系 #ride
+Studio.App.RobloxStudioVerbs.PluginNotAssociatedWithProject,,,This Plugin is not associated with an external project - this functionality cannot be used. Please contact #ride,This Plugin is not associated with an external project - this functionality cannot be used. Please contact #ride,이 플러그인은 외부 프로젝트와 연결되어 있지 않습니다. 따라서 이 기능은 사용할 수 없습니다. #ride에 문의하세요.,,此插件未关联外部项目，无法使用此功能。请联系 #ride
+Studio.App.RobloxStudioVerbs.UnableToBuildPluginProject,,,Studio is unable to build and load this Plugin. Please contact #ride,Studio is unable to build and load this Plugin. Please contact #ride,Studio에서 이 플러그인을 빌드하고 불러올 수 없습니다. #ride에 문의하세요.,,Studio 无法构建并加载此插件。请联系 #ride
+Studio.App.StartPageLogin.WeChatQQLogin,,,WeChat / QQ Login,WeChat / QQ Login,WeChat 또는 QQ 로그인,,微信 / QQ 登入
+Studio.App.VersionHistoryController.AutoCommitMessage,,,Auto generated commit,Auto generated commit,자동 생성된 커밋,,自动生成的提交
+Studio.App.VersionHistoryController.ReadOnlyScriptDocMessageNoEdit,,,This version is read-only.,This version is read-only.,이 버전은 읽기 전용입니다.,,此版本为只读。
+Studio.App.CalloutController.DraggerModeCalloutDescription,,,Leverages the physics engine and constraints solver to simulate real-world behavior when moving objects. It adjusts some settings to work properly.,Leverages the physics engine and constraints solver to simulate real-world behavior when moving objects. It adjusts some settings to work properly.,개체 이동 시 물리 엔진과 제약 해결기를 활용하여 실제 동작을 시뮬레이션합니다. 제대로 작동하도록 일부 설정을 조정합니다.,,在移动对象时影响物理引擎和约束解决器来模拟现实世界中的行为。它会调整一些设置以便正确运作。
+Studio.App.CalloutController.DraggerModeCalloutTitle,,,Drag Mode,Drag Mode,드래그 모드,,拖拽模式
+Studio.App.FileType.RobloxInternalProjectFiles,,,Roblox Internal Project Files,Roblox Internal Project Files,Roblox 내부 프로젝트 파일,,Roblox 内部项目文件
+Studio.App.PluginPermissionsDialog.ScriptInjectionPermission,,,Do you want to allow Plugin %1 to manage scripts in your game?,Do you want to allow Plugin %1 to manage scripts in your game?,플러그인 %1이(가) 게임의 스크립트를 관리하도록 허용할까요?,,您是否希望允许插件 %1 管理您游戏中的脚本？
+Studio.App.PluginPermissionsDialog.ScriptInjectionWarning,,,"Plugin %1 is attempting to insert or modify scripts in your game. Click Allow to permit all future attempts, or Deny to block. You can edit these settings in Plugin Management.","Plugin %1 is attempting to insert or modify scripts in your game. Click Allow to permit all future attempts, or Deny to block. You can edit these settings in Plugin Management.",플러그인 %1이(가) 게임에 스크립트를 삽입하거나 수정하려고 합니다. 향후 모든 시도를 허용하려면 '허용'을 클릭하고 차단하려면 '거부'를 클릭합니다. '플러그인 관리'에서 이러한 설정을 편집할 수 있습니다.,,插件 %1 试图在您的游戏中插入或修改脚本。点击 Allow（允许）来准许今后的所有尝试，或点击 Deny（拒绝）来禁止。您可以在 Plugin Management（插件管理）中编辑这些设置。
+Studio.App.Property.WireframeRendering,,,Wireframe Rendering,Wireframe Rendering,와이어프레임 렌더링,,线框渲染
+Studio.App.RBXMainWindow.WireframeRendering,,,Wireframe Rendering,Wireframe Rendering,와이어프레임 렌더링,,线框渲染
+Studio.App.RobloxRibbonMainWindow.EnableWireframeRendering,,,Enable Wireframe Rendering,Enable Wireframe Rendering,와이어프레임 렌더링 활성화,,启用线框渲染
+Studio.App.ScriptEditorCmdBase.DELETETOSTARTOFLINE,,,Delete to start of line,Delete to start of line,줄의 시작 부분까지 삭제,,删除至行首
+Studio.App.ScriptEditorCmdBase.DELETETOSTARTOFLINEToolTip,,,Delete to the start of the current line,Delete to the start of the current line,현재 줄의 시작 부분까지 삭제합니다,,删除至当前行的行首
+Studio.App.ScriptEditorCmdBase.FOLDALL,,,Collapse All Folds,Collapse All Folds,모든 접기 축소,,收起所有折叠
+Studio.App.ScriptEditorCmdBase.FOLDALLToolTip,,,Collapse All Folds,Collapse All Folds,모든 접기 축소,,收起所有折叠
+Studio.App.ScriptEditorCmdBase.FORMATALL,,,Format Document...,Format Document...,문서 서식 지정...,,格式化文档...
+Studio.App.ScriptEditorCmdBase.FORMATALLToolTip,,,Format whole document,Format whole document,전체 문서 서식 지정,,全文档格式化
+Studio.App.ScriptEditorCmdBase.FORMATSEL,,,Format Selection,Format Selection,선택 항목 서식 지정,,格式化选中内容
+Studio.App.ScriptEditorCmdBase.FORMATSELToolTip,,,Format selected range of document,Format selected range of document,선택한 범위 문서 서식 지정,,对选中范围内文档进行格式化
+Studio.App.ScriptEditorCmdBase.INDENT,,,Indent,Indent,들여쓰기,,缩进
+Studio.App.ScriptEditorCmdBase.INDENTToolTip,,,Indent selected line(s),Indent selected line(s),선택한 줄 들여쓰기,,所选行缩进
+Studio.App.ScriptEditorCmdBase.MOVELINESDOWN,,,Move Lines Down,Move Lines Down,줄을 아래로 이동,,下移行列
+Studio.App.ScriptEditorCmdBase.MOVELINESDOWNToolTip,,,Move selected line(s) downwards,Move selected line(s) downwards,선택한 줄을 아래쪽으로 이동,,下移选中行列
+Studio.App.ScriptEditorCmdBase.MOVELINESUP,,,Move Lines Up,Move Lines Up,줄을 위로 이동,,上移行列
+Studio.App.ScriptEditorCmdBase.MOVELINESUPToolTip,,,Move selected line(s) upwards,Move selected line(s) upwards,선택한 줄을 위쪽으로 이동,,上移选中行列
+Studio.App.ScriptEditorCmdBase.NEWLINEABOVE,,,Insert Newline Above,Insert Newline Above,위에 줄 바꿈 삽입,,向上插入新行
+Studio.App.ScriptEditorCmdBase.NEWLINEABOVEToolTip,,,Insert a newline above the current line,Insert a newline above the current line,현재 줄 위에 줄 바꿈을 삽입합니다,,在当前行上方插入新行
+Studio.App.ScriptEditorCmdBase.NEWLINEBELOW,,,Insert Newline Below,Insert Newline Below,아래에 줄 바꿈 삽입,,向下插入新行
+Studio.App.ScriptEditorCmdBase.NEWLINEBELOWToolTip,,,Insert a newline below the current line,Insert a newline below the current line,현재 줄 아래에 줄 바꿈을 삽입합니다,,在当前行下方插入新行
+Studio.App.ScriptEditorCmdBase.TOGGLECOMMENT,,,Toggle Comment,Toggle Comment,코멘트 토글,,切换注释
+Studio.App.ScriptEditorCmdBase.TOGGLECOMMENTToolTip,,,Toggle selection commenting,Toggle selection commenting,선택 항목 코멘트 달기 토글,,切换选中注释
+Studio.App.ScriptEditorCmdBase.UNFOLDALL,,,Expands all folds,Expands all folds,모든 접기 확장,,扩展所有折叠
+Studio.App.ScriptEditorCmdBase.UNFOLDALLToolTip,,,Expands all folds,Expands all folds,모든 접기 확장,,扩展所有折叠
+Studio.App.ScriptEditorCmdBase.UNINDENT,,,Unindent,Unindent,내어쓰기,,取消缩进
+Studio.App.ScriptEditorCmdBase.UNINDENTToolTip,,,Unindent selected line(s),Unindent selected line(s),선택한 줄 내어쓰기,,所选行取消缩进
 Studio.Common.Action.Apply,,,Apply,Apply,적용,Применить,应用
 Studio.Common.Action.Back,,,Back,Back,뒤로,Назад,返回
 Studio.Common.Action.Cancel,,,Cancel,Cancel,취소,Отмена,取消
@@ -2932,3 +3070,47 @@ Studio.Common.Action.Install,,,Install,Install,설치,Установить,安�
 Studio.Common.Action.Installed,,,Installed,Installed,설치됨,Установлено,已安装
 Studio.Common.Action.Loading,,,Loading...,Loading...,불러오는 중...,Загрузка...,正在加载...
 Studio.Common.Action.Resume,,,Resume,Resume,재개,,继续
+Studio.Internal.ExternalLoginDialog.FatalErrorMessage,,,Failed to login. Please restart Studio or contact support if the problem persists.,Failed to login. Please restart Studio or contact support if the problem persists.,로그인 실패. 문제가 지속되면 Studio를 다시 시작하거나 지원 센터에 문의하세요.,,登入失败。如果问题仍然存在，请重启 Studio 或联系技术支持。
+Studio.Internal.ExternalLoginDialog.GenericErrorMessage,,,Failed to login. Please try again or contact support if problem persists.,Failed to login. Please try again or contact support if problem persists.,로그인 실패. 문제가 지속되면 다시 시도하거나 지원 센터에 문의하세요.,,登入失败。如果问题仍然存在，请重试或联系技术支持。
+Studio.Internal.ExternalLoginDialog.MessageOnDialogClose,,,Are you sure you want to close this window? This will close Roblox Studio.,Are you sure you want to close this window? This will close Roblox Studio.,이 창을 정말 닫을까요? 창을 닫으면 Roblox Studio가 닫힙니다.,,您确定要关闭此窗口吗？这将关闭 Roblox Studio。
+Studio.Internal.ExternalLoginDialog.NoNetworkMessage,,,Please check that you are connected to the internet and try again. Please contact support if the problem persists.,Please check that you are connected to the internet and try again. Please contact support if the problem persists.,인터넷에 연결되어 있는지 확인하고 다시 시도하세요. 문제가 지속되면 지원 센터에 문의하세요.,,请检查您是否已连接至网络并重试。如果问题仍然存在，请联系技术支持。
+Studio.Internal.ExternalLoginDialog.ReloadLoginPage,,,Refresh,Refresh,새로고침,,刷新
+Studio.Internal.ExternalLoginDialog.WindowTitle,,,Log In,Log In,로그인,,登入
+Studio.Internal.RobloxMainWindow.ChooseAPlaceInGameExplorer1,,,"Choose an instance as parent in game explorer to save %1 
+","Choose an instance as parent in game explorer to save %1 
+",%1을(를) 저장하려면 게임 탐색기에서 인스턴스를 부모로 선택하세요,,"请在游戏管理器中选择一个实例作为父项来保存 %1 
+"
+Studio.Internal.RobloxRibbonMainWindow.DocHistoryBackwards,,,Step backwards through tab history,Step backwards through tab history,탭 기록 뒤로,,后退选项卡历史记录
+Studio.Internal.RobloxRibbonMainWindow.DocHistoryForwards,,,Step forwards through tab history,Step forwards through tab history,탭 기록 앞으로,,前进选项卡历史记录
+Studio.Internal.RobloxRibbonMainWindow.InternalFeaturesMessageBoxContent,,,"Your account is associated with an @roblox.com email address or has Soothsayer permissions. You also have internal-only features turned on.
+Do you want to disable Internal Features? This will make your Studio experience identical to developers.
+You can go to Settings > Studio > Advanced to re-enable Internal Features.","Your account is associated with an @roblox.com email address or has Soothsayer permissions. You also have internal-only features turned on.
+Do you want to disable Internal Features? This will make your Studio experience identical to developers.
+You can go to Settings > Studio > Advanced to re-enable Internal Features.","계정이 @roblox.com 이메일 주소와 연결되어 있거나 Soothsayer 권한이 있습니다. 내부 전용 기능도 켜져 있습니다.
+내부 기능을 비활성화할까요? 비활성화하면 Studio 환경이 개발자와 동일하게 설정됩니다.
+내부 기능을 재활성화하려면 설정 > Studio > 고급으로 이동하세요.",,"您的账号关联一个 @roblox.com 电子邮箱地址，或有预言者权限。您的内部专用功能也已启用。
+您是否希望关闭内部功能？这将使您的 Studio 体验与开发者一致。
+您可以前往 Settings（设置） > Studio > Advanced（高级）来重新启用内部功能。"
+Studio.Internal.RobloxRibbonMainWindow.InternalFeaturesRestart,,,Restart Roblox Studio,Restart Roblox Studio,Roblox Studio 다시 시작,,重启 Roblox Studio
+Studio.Internal.RobloxRibbonMainWindow.InternalFeaturesRestartDetails,,,Roblox Studio need to restart to disable Internal Features,Roblox Studio need to restart to disable Internal Features,내부 기능을 비활성화하려면 Roblox Studio를 다시 시작해야 합니다,,禁用 Roblox Studio 内部功能需要重启
+Studio.Internal.RobloxMainWindow.NewScriptTab,,,New Script Tab,New Script Tab,새 스크립트 탭,,新脚本选项卡
+Studio.Internal.RobloxMainWindow.OnlySaveToEditDM,,,Can only save in Edit Mode,Can only save in Edit Mode,저장은 편집 모드에서만 가능합니다,,只能在编辑模式中保存
+Studio.Internal.RobloxMainWindow.SaveCurrentScriptTab,,,Save Current Script Tab,Save Current Script Tab,현재 스크립트 탭 저장,,保存当前脚本选项卡
+Studio.Internal.RobloxMainWindow.SaveScript,,,Save Script,Save Script,스크립트 저장,,保存脚本
+Studio.Internal.RobloxMainWindow.SaveScript1,,,Save Script %1 ?,Save Script %1 ?,%1 스크립트를 저장할까요?,,保存脚本 %1？
+Studio.Internal.RobloxMainWindow.SelectOneInstance,,,Please select only one instance,Please select only one instance,인스턴스를 하나만 선택하세요,,请仅选择一个实例
+Studio.Internal.RobloxMainWindow.UnableToSave,,,Unable To Save,Unable To Save,저장할 수 없습니다,,无法保存
+Studio.Internal.RobloxMainWindow.UnsavedScripts,,,Unsaved Scripts,Unsaved Scripts,저장되지 않은 스크립트,,未保存的脚本
+Studio.Internal.RobloxRibbonMainWindow.InternalBetaFeatures,,,Roblox Internal – Beta,Roblox Internal – Beta,Roblox 내부 기능 - 베타,,Roblox 内部功能 – 测试版
+Studio.Internal.RobloxRibbonMainWindow.InternalFeatures,,,Roblox Internal,Roblox Internal,Roblox 내부 기능,,Roblox 内部功能
+Studio.Internal.RobloxRibbonMainWindow.InternalFeaturesAreEnabled,,,Internal Features are enabled,Internal Features are enabled,내부 기능이 활성화되었습니다,,内部功能已启用
+Studio.Internal.StudioProjectConfig.UnexpectedFieldWarning2,,,"The Project File has unexpected fields, they will be ignored. 
+%1 
+%2","The Project File has unexpected fields, they will be ignored. 
+%1 
+%2","프로젝트 파일에 예기치 못한 필드가 있으며, 이는 무시됩니다. 
+%1 
+%2",,"项目文件存在预期之外的字段，它们将被忽略。
+%1 
+%2"
+Studio.Internal.ExternalLoginDialog.RobloxLogin,,,Roblox login,Roblox login,Roblox 로그인,,Roblox 登入

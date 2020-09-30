@@ -335,7 +335,6 @@ RBX
 	}
 	LSP
 	{
-		DocumentManager
 		IHostAppServices
 		ILanguageClient
 		ILanguageServer
@@ -351,7 +350,6 @@ RBX
 		LuauScriptHighlighter
 		LuauScriptLexMap
 		LuauScriptTextProvider
-		LuauSyncTextProvider
 	}
 	Lua
 	{
@@ -590,9 +588,11 @@ RBX
 		CmdUnfoldAll
 		CmdUnindentSelection
 		ColorPreviewWidget
+		DebuggerClientView
 		GotoLineDialog
 		HighlightFormatProvider
 		HighlightProvider
+		IHostAppServices
 		LSPClientSettings
 		QtLanguageClient
 		ScriptEditorCmdBase
@@ -602,6 +602,7 @@ RBX
 		ScriptingCmdInput
 		ScriptingCommands
 		ScriptingManager
+		ScriptSideWidget
 		Settings
 	}
 	Scripting
@@ -816,6 +817,7 @@ RBX
 	CanNotSelectCommand
 	CapturedMouseCommand
 	ChangeHistoryService
+	ChangeHistoryStatsItem
 	CharacterAppearance
 	CharacterMesh
 	ChatService

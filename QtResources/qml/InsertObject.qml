@@ -347,18 +347,16 @@ Rectangle {
 
 					onWheel: {
 						// When scrolling, sets highlighted object to moused over class TODO: still lags and fix cursor
-						wheel.accepted = insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_FeedbackImprovements() ? true : false;
+						wheel.accepted = true;
 						mouseArea.exited();
                         var currentView = getCurrentView();
                         currentView.currentIndex = -1
                         
-                        if(insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_FeedbackImprovements()) {
-                            if (wheel.angleDelta.y > 0) {
-                                rootWindow.scrollUp();
-                            }
-                            else {
-                                rootWindow.scrollDown();
-                            }
+                        if (wheel.angleDelta.y > 0) {
+                            rootWindow.scrollUp();
+                        }
+                        else {
+                            rootWindow.scrollDown();
                         }
 					}
     			}
@@ -415,7 +413,7 @@ Rectangle {
                 MouseArea {
                     objectName: "qmlInsertObjectMouseAreaCategory" + mCategory
 					id: categoryMouseArea
-                    visible: insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_FeedbackImprovements()
+                    visible: true
     				hoverEnabled: true
 					cursorShape: Qt.ArrowCursor
     				anchors.fill: parent
@@ -502,8 +500,8 @@ Rectangle {
                 ListView {
 		    	    id: listView
                     clip: true
-                    boundsBehavior: insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_FeedbackImprovements() ? Flickable.StopAtBounds : Flickable.DragAndOvershootBounds
-                    interactive: insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_FeedbackImprovements() ? false : true
+                    boundsBehavior: Flickable.StopAtBounds
+                    interactive: false
 		    	    anchors.fill: parent
                     anchors.rightMargin: 20
 		    	    model: insertObjectListModel
@@ -526,8 +524,8 @@ Rectangle {
                                 }
                             }
                     highlightFollowsCurrentItem: true
-				    highlightMoveDuration: insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_FeedbackImprovements() ? 0 : 50
-				    highlightMoveVelocity: insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_FeedbackImprovements() ? -1 : 1000
+				    highlightMoveDuration: 0
+				    highlightMoveVelocity: -1
 				    highlight: Rectangle {
 					    id: highlightBar
 		    		    color: userPreferences.theme.style("Menu itemHover")
@@ -546,9 +544,8 @@ Rectangle {
 			        id: listVerticalScrollBar
 			        window: listViewContainer
 			        flickable: listView
-                    keyEventNotifier: insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_FeedbackImprovements() ? rootWindow : null
-                    scrollWheelCount: insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_FeedbackImprovements() ? scrollWheelLines : 1
-                    fflagStudioInsertObjectStreamliningv2_FeedbackImprovements: insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_FeedbackImprovements()
+                    keyEventNotifier: rootWindow
+                    scrollWheelCount: scrollWheelLines
                 }
 
             }
@@ -564,8 +561,8 @@ Rectangle {
                     anchors.topMargin: 5
                     anchors.bottomMargin: 20
 					clip: true
-                    boundsBehavior: insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_FeedbackImprovements() ? Flickable.StopAtBounds : Flickable.DragAndOvershootBounds
-                    interactive: insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_FeedbackImprovements() ? false : true
+                    boundsBehavior: Flickable.StopAtBounds
+                    interactive: false
                     cellWidth: 185; cellHeight: 25
                     flow: GridView.TopToBottom
 		    	    model: insertObjectListModel
@@ -605,8 +602,7 @@ Rectangle {
 			        id: gridHorizontalScrollBar
 			        window: gridViewContainer
 			        flickable: gridView
-                    keyEventNotifier: insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_FeedbackImprovements() ? rootWindow : null
-                    fflagStudioInsertObjectStreamliningv2_FeedbackImprovements: insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_FeedbackImprovements()
+                    keyEventNotifier: rootWindow
                 }
 
 		    }

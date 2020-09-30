@@ -21,7 +21,6 @@ Rectangle {
     // Initialized keyEventNotifier to null so the connections are ignored when
     // notifier is not set
     property var keyEventNotifier: null
-    property var fflagStudioInsertObjectStreamliningv2_FeedbackImprovements: false
 	property var topBorderVisible: true
 	property var scrollBarHandleColor: userPreferences.theme.style("Scrollbar handle")
     anchors.bottom: window.bottom
@@ -54,7 +53,7 @@ Rectangle {
         property real rawX: parent.flickable.visibleArea.XPosition * parent.window.width
         property real maxX: (1.0-parent.flickable.visibleArea.widthRatio) * parent.window.width
         property var isDraggingScrollBar: false
-        x: fflagStudioInsertObjectStreamliningv2_FeedbackImprovements ? padding : flickable.visibleArea.xPosition * flickable.width
+        x: padding
         width: parent.flickable.visibleArea.widthRatio * parent.window.width
         height: 8
         radius: 4
@@ -66,36 +65,25 @@ Rectangle {
 
             onPressed: {
                 lastX = mouseX;
-                if(fflagStudioInsertObjectStreamliningv2_FeedbackImprovements) {
-                    parent.isDraggingScrollBar = true;
-                    parent.x =  flickable.visibleArea.xPosition * (flickable.width - (scrollBarHandle.padding * 2)) + scrollBarHandle.padding
-                }
+                parent.isDraggingScrollBar = true;
+                parent.x =  flickable.visibleArea.xPosition * (flickable.width - (scrollBarHandle.padding * 2)) + scrollBarHandle.padding
             }
             onReleased: {
-                if(fflagStudioInsertObjectStreamliningv2_FeedbackImprovements) {
-                    parent.isDraggingScrollBar = false;
-                }
+                parent.isDraggingScrollBar = false;
             }
             // The onMouseXChanged event is only triggered when dragging if hoverEnabled is false.
             onMouseXChanged: {
-                if(fflagStudioInsertObjectStreamliningv2_FeedbackImprovements) {
-                    var mouseMoved =  mouseX - lastX
-                    var scrollRatio = mouseMoved / (parent.parent.window.width + parent.padding * 2)
-                    parent.x += mouseMoved
-                    if(parent.x > parent.maxX) {
-                        parent.x = parent.maxX
-                    }
-                    else if (parent.x < parent.padding) {
-                        parent.x = parent.padding
-                    }
-                    scrollBar.flickable.contentX += scrollRatio * parent.parent.flickable.contentWidth
-                    scrollBar.flickable.returnToBounds();
+                var mouseMoved =  mouseX - lastX
+                var scrollRatio = mouseMoved / (parent.parent.window.width + parent.padding * 2)
+                parent.x += mouseMoved
+                if(parent.x > parent.maxX) {
+                    parent.x = parent.maxX
                 }
-                else {
-                    scrollBar.flickable.contentX += mouseX-lastX;
-                    scrollBar.flickable.returnToBounds();
+                else if (parent.x < parent.padding) {
+                    parent.x = parent.padding
                 }
-
+                scrollBar.flickable.contentX += scrollRatio * parent.parent.flickable.contentWidth
+                scrollBar.flickable.returnToBounds();
             }
         }
     }
@@ -104,7 +92,7 @@ Rectangle {
         target: scrollBarHandle
         property: "x"
         value: flickable.visibleArea.xPosition * (flickable.width - (scrollBarHandle.padding * 2)) + scrollBarHandle.padding
-        when: !scrollBarHandle.isDraggingScrollBar && fflagStudioInsertObjectStreamliningv2_FeedbackImprovements
+        when: !scrollBarHandle.isDraggingScrollBar
     }
 
     // Listen to signals from keyEventNotifier to scroll page
