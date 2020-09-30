@@ -15,14 +15,26 @@ return function(plugin)
 	local StudioUI = require(Framework.StudioUI)
 	local StudioFrameworkStyles = StudioUI.StudioFrameworkStyles
 
+	local StudioTheme = require(Framework.Style.Themes.StudioTheme)
+
+	local Util = require(Framework.Util)
+	local FlagsList = Util.Flags.new({
+		FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
+	})
+
 	local pluginItem = Plugin.new(plugin)
 
 	local mouse = Mouse.new(plugin:GetMouse())
-	local theme = Theme.new(function(theme, getColor)
-		return {
-			Framework = StudioFrameworkStyles.new(theme, getColor)
-		}
-	end)
+	local theme
+	if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+		theme = StudioTheme.new()
+	else
+		theme = Theme.new(function(theme, getColor)
+			return {
+				Framework = StudioFrameworkStyles.new(theme, getColor)
+			}
+		end)
+	end
 
 	-- Mount and display a dialog
 	local ExampleContainer = Roact.PureComponent:extend("ExampleContainer")

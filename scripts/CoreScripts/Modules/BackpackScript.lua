@@ -91,7 +91,6 @@ local Utility = require(RobloxGui.Modules.Settings.Utility)
 local GameTranslator = require(RobloxGui.Modules.GameTranslator)
 
 local FFlagTapAwayToCloseBackpack = game:DefineFastFlag("TapAwayToCloseBackpack", false)
-local FFlagCoreScriptsNoHotKeysWhenMenuOpen = require(RobloxGui.Modules.Flags.FFlagCoreScriptsNoHotKeysWhenMenuOpen)
 
 local FFlagFixEmotesHotkeysEquipTools = game:DefineFastFlag("FixEmotesHotKeysEquipTools", false)
 
@@ -1801,16 +1800,13 @@ do -- Make the Inventory expand/collapse arrow (unless TopBar)
 		BackpackScript.IsOpen = InventoryFrame.Visible
 		BackpackScript.StateChanged:Fire(InventoryFrame.Visible)
 	end
-	if FFlagCoreScriptsNoHotKeysWhenMenuOpen then
-		HotkeyFns[ARROW_HOTKEY] = function()
-			if GuiService.MenuIsOpen then
-				return
-			end
 
-			openClose()
+	HotkeyFns[ARROW_HOTKEY] = function()
+		if GuiService.MenuIsOpen then
+			return
 		end
-	else
-		HotkeyFns[ARROW_HOTKEY] = openClose
+
+		openClose()
 	end
 	BackpackScript.OpenClose = openClose -- Exposed
 end
@@ -1882,13 +1878,11 @@ local backpackType, healthType = Enum.CoreGuiType.Backpack, Enum.CoreGuiType.Hea
 OnCoreGuiChanged(backpackType, StarterGui:GetCoreGuiEnabled(backpackType))
 OnCoreGuiChanged(healthType, StarterGui:GetCoreGuiEnabled(healthType))
 
-if FFlagCoreScriptsNoHotKeysWhenMenuOpen then
-	GuiService.MenuOpened:Connect(function()
-		if BackpackScript.IsOpen then
-			BackpackScript.OpenClose()
-		end
-	end)
-end
+GuiService.MenuOpened:Connect(function()
+	if BackpackScript.IsOpen then
+		BackpackScript.OpenClose()
+	end
+end)
 
 
 local BackpackStateChangedInVRConn, VRModuleOpenedConn, VRModuleClosedConn = nil, nil, nil

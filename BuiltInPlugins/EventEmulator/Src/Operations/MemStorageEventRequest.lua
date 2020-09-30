@@ -1,3 +1,6 @@
+--!nolint ImplicitReturn
+--^ DEVTOOLS-4493
+
 -- TODO: RIDE: listing all current keys
 -- sworzala 5/29/2020
 

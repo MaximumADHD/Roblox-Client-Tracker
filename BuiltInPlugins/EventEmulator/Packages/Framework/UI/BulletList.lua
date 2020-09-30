@@ -2,16 +2,16 @@
 	An array of strings and/or elements displayed as a bulleted list.
 
 	Required Props:
-		Theme Theme: A Theme ContextItem, which is provided via mapToProps.
 		array[any] Items: The item to display after each bullet point. Should be an array of strings and/or elements.
 			Strings will be measured to determine the item size. Elements must specify their own size.
 
 	Optional Props:
+		Theme Theme: A Theme ContextItem, which is provided via mapToProps.
 		number LayoutOrder: Order in which the element is placed.
-		Style Style: The style with which to render this component.
 		StyleModifier StyleModifier: The StyleModifier index into Style.
 		boolean TextWrapped: Sets text wrapped.
 		boolean TextTruncate: Sets text truncated.
+		Stylizer Stylizer: A Stylizer ContextItem, which is provided via mapToProps.
 
 	Style Values:
 		Enum.Font Font: The font used to render the text.
@@ -22,15 +22,19 @@
 		Color3 TextColor: The color of the text.
 		number TextSize: The size of the text.
 ]]
-
 local TextService = game:GetService("TextService")
 
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
 local Cryo = require(Framework.Parent.Cryo)
 local ContextServices = require(Framework.ContextServices)
+local Util = require(Framework.Util)
 local t = require(Framework.Util.Typecheck.t)
-local Typecheck = require(Framework.Util).Typecheck
+local Typecheck = Util.Typecheck
+
+local FlagsList = Util.Flags.new({
+	FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
+})
 
 local BulletList = Roact.PureComponent:extend("BulletList")
 Typecheck.wrap(BulletList, script)
@@ -48,7 +52,13 @@ function BulletList:init()
 
 		local items = props.Items
 		local theme = props.Theme
-		local style = theme:getStyle("Framework", self)
+		local style
+		if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+			style = props.Stylizer
+		else
+			style = theme:getStyle("Framework", self)
+		end
+
 		local textSize = style.TextSize
 		local font = style.Font
 		local padding = style.Padding
@@ -98,8 +108,12 @@ function BulletList:didUpdate()
 end
 
 function BulletList:calculateItemOffset()
-	local theme = self.props.Theme
-	local style = theme:getStyle("Framework", self)
+	local style
+	if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+		style = self.props.Stylizer
+	else
+		style = self.props.Theme:getStyle("Framework", self)
+	end
 	local itemOffset = style.ItemOffset
 	local markerSize = style.MarkerSize
 
@@ -115,7 +129,12 @@ function BulletList:render()
 	local textTruncate = props.TextTruncate
 
 	local theme = props.Theme
-	local style = theme:getStyle("Framework", self)
+	local style
+	if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+		style = props.Stylizer
+	else
+		style = theme:getStyle("Framework", self)
+	end
 	local font = style.Font
 	local markerImage = style.MarkerImage
 	local markerSize = style.MarkerSize
@@ -209,7 +228,8 @@ function BulletList:render()
 end
 
 ContextServices.mapToProps(BulletList, {
-	Theme = ContextServices.Theme,
+	Stylizer = FlagsList:get("FFlagRefactorDevFrameworkTheme") and ContextServices.Stylizer or nil,
+	Theme = (not FlagsList:get("FFlagRefactorDevFrameworkTheme")) and ContextServices.Theme or nil,
 })
 
 return BulletList

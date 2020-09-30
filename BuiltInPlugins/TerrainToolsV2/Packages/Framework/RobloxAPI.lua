@@ -40,7 +40,7 @@ local FFlagDevFrameworkStrictAPITables = game:DefineFastFlag("DevFrameworkStrict
 -- helper functions
 -- dir : (Instance) a Folder to dig through
 -- ... : (Variant) any number of arguments to initialize the children with
-local function initDirectoryWithArgs(dir, ...)
+local function initDirectoryWithArgs(dir, networkingImpl, baseUrl)
 	--[[
 		When pointed at an Instance, will recurse through the children to initialize
 		all of the required elements with the arguments supplied to this function.
@@ -51,11 +51,11 @@ local function initDirectoryWithArgs(dir, ...)
 	local childrenMap = {}
 	for _, child in ipairs(dir:GetChildren()) do
 		if child.ClassName == "Folder" then
-			childrenMap[child.Name] = initDirectoryWithArgs(child, ...)
+			childrenMap[child.Name] = initDirectoryWithArgs(child, networkingImpl, baseUrl)
 
 		elseif child.ClassName == "ModuleScript" then
 			local targetFunction = require(child)
-			childrenMap[child.Name] = targetFunction(...)
+			childrenMap[child.Name] = targetFunction(networkingImpl, baseUrl)
 
 		else
 			warn(string.format("Unexpected object found when constructing children table : %s", child:GetFullName()))

@@ -4,13 +4,10 @@ return function()
 	local PluginToolbar = require(script.Parent)
 	local ContextServices = require(Framework.ContextServices)
 
-	local function mockPlugin()
-		local plugin = {
-			CreateToolbar = function()
-			end,
-		}
+	local MockPlugin = require(Framework.TestHelpers.Instances.MockPlugin)
 
-		return ContextServices.Plugin.new(plugin)
+	local function mockPlugin()
+		return ContextServices.Plugin.new(MockPlugin.new())
 	end
 
 	it("should create and destroy without errors", function()

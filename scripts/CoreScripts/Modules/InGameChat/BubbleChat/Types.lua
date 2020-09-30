@@ -26,4 +26,17 @@ Types.IMessageData = t.interface({
 	Message = t.optional(t.string),
 })
 
+-- Type for the settings object. Keep backward compatibility in mind when modifying
+-- this: any change might break calls to Chat:SetBubbleChatSettings (see type
+-- assertion in InGameChat.lua)
+Types.IChatSettings = t.strictInterface({
+	BubbleDuration = t.optional(t.number),
+	MaxBubbles = t.optional(t.number),
+
+	BackgroundColor3 = t.optional(t.Color3),
+
+	MinimizeDistance = t.optional(t.number),
+	MaxDistance = t.optional(t.number),
+})
+
 return Types

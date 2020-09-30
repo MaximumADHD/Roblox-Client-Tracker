@@ -16,6 +16,7 @@ local Workspace = game:GetService("Workspace")
 local StudioService = game:GetService("StudioService")
 local Lighting = game:GetService("Lighting")
 
+local FFlagToolboxConsolidateInsertRemainsEvents = game:GetFastFlag("ToolboxConsolidateInsertRemainsEvents")
 local FFlagEnableToolboxInsertWithJoin2 = settings():GetFFlag("EnableToolboxInsertWithJoin2")
 local FFlagStudioToolboxInsertAssetCategoryAnalytics = settings():GetFFlag("StudioToolboxInsertAssetCategoryAnalytics")
 local FFlagToolboxFixDecalInsert = settings():GetFFlag("ToolboxFixDecalInsert")
@@ -403,9 +404,13 @@ function InsertAsset.doInsertAsset(options, insertToolPromise)
 				categoryName = options.currentCategoryName
 			end
 
-			AssetInsertionTracker.trackInsert(assetId, asset, categoryName)
+			if not FFlagToolboxConsolidateInsertRemainsEvents then
+				AssetInsertionTracker.trackInsert(assetId, asset, categoryName)
+			end
 		else
-			AssetInsertionTracker.trackInsert(assetId, asset)
+			if not FFlagToolboxConsolidateInsertRemainsEvents then
+				AssetInsertionTracker.trackInsert(assetId, asset)
+			end
 		end
 
 		if FFlagToolboxNewInsertAnalytics then

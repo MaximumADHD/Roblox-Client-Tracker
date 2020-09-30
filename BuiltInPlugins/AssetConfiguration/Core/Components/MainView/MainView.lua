@@ -27,6 +27,7 @@
 
 local FFlagFixToolboxEmptyRender = game:DefineFastFlag("FixToolboxEmptyRender", false)
 local FFlagUseCategoryNameInToolbox = game:GetFastFlag("UseCategoryNameInToolbox")
+local FFlagToolboxShowRobloxCreatedAssetsForLuobu = game:GetFastFlag("ToolboxShowRobloxCreatedAssetsForLuobu")
 
 local GuiService = game:GetService("GuiService")
 
@@ -36,6 +37,7 @@ local Libs = Plugin.Libs
 local Roact = require(Libs.Roact)
 local RoactRodux = require(Libs.RoactRodux)
 local Cryo = require(Libs.Cryo)
+local RobloxAPI = require(Libs.Framework).RobloxAPI
 
 local Constants = require(Plugin.Core.Util.Constants)
 local ContextGetter = require(Plugin.Core.Util.ContextGetter)
@@ -162,7 +164,7 @@ function MainView:calculateRenderBounds()
 	else
 		showPrices = Category.shouldShowPrices(props.currentTab, props.categoryIndex)
 	end
-	local lowerBound, upperBound = Layouter.calculateRenderBoundsForScrollingFrame(self.scrollingFrameRef.current, 
+	local lowerBound, upperBound = Layouter.calculateRenderBoundsForScrollingFrame(self.scrollingFrameRef.current,
 		self.containerWidth, self.headerHeight, showPrices)
 
 	-- If either bound has changed then recalculate the assets
@@ -252,6 +254,11 @@ function MainView:render()
 		local creatorName = props.creator and props.creator.Name
 		local searchTerm = props.searchTerm
 		local showTags = (creatorName ~= nil) or (#searchTerm > 0) or (props.audioSearchInfo ~= nil)
+
+		local showCreatorSearch = true
+		if FFlagToolboxShowRobloxCreatedAssetsForLuobu and RobloxAPI:baseURLHasChineseHost() then
+			showCreatorSearch = false
+		end
 
 		local headerHeight, headerToBodyPadding = Layouter.calculateMainViewHeaderHeight(showTags,
 			suggestionIntro, suggestions, containerWidth, props.creator)
@@ -357,6 +364,7 @@ function MainView:render()
 				updateSearch = self.updateSearch,
 				onClose = self.onSearchOptionsClosed,
 				showAudioSearch = isCategoryAudio,
+				showCreatorSearch = showCreatorSearch,
 			}),
 
 			InfoBanner = showInfoBanner and Roact.createElement(InfoBanner, {

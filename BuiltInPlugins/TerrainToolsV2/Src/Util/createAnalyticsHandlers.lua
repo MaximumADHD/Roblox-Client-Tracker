@@ -80,8 +80,8 @@ return function(analyticsService)
 		importTerrain = function(_, region, heightmap, colormap)
 			sendEvent("ImportTerrain", {
 				regionDims = ("%d,%d,%d)"):format(region.Size.x, region.Size.y, region.Size.z),
-				colorMapUrl = heightmap,
-				heightMapUrl = colormap
+				heightMapUrl = heightmap,
+				colorMapUrl = colormap,
 			})
 		end,
 	}

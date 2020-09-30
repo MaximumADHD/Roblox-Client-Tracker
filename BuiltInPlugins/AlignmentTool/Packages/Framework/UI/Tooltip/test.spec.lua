@@ -11,18 +11,28 @@ return function()
 	local provide = ContextServices.provide
 
 	local Tooltip = require(script.Parent)
-	local Box = require(Framework.UI.Box)
+	local StudioTheme = require(Framework.Style.Themes.StudioTheme)
+
+	local Util = require(Framework.Util)
+	local FlagsList = Util.Flags.new({
+		FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
+	})
 
 	local DEFAULT_PROPS = {}
 	local function createTooltip(props)
 		local mouse = Mouse.new({})
-		local target = container or Instance.new("ScreenGui")
+		local target = Instance.new("ScreenGui")
 		local focus = Focus.new(target)
-		local theme = Theme.new(function()
-			return {
-				Framework = FrameworkStyles.new(),
-			}
-		end)
+		local theme
+		if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+			theme = StudioTheme.new()
+		else
+			theme = Theme.new(function()
+				return {
+					Framework = FrameworkStyles.new(),
+				}
+			end)
+		end
 		return provide({theme, mouse, focus}, {
 			Tooltip = Roact.createElement(Tooltip, props or DEFAULT_PROPS),
 		})

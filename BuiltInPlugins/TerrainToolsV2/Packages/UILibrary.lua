@@ -24,8 +24,6 @@ local Favorites = require(Components.Preview.Favorites)
 local ImagePreview = require(Components.Preview.ImagePreview)
 local AudioPreview = require(Components.Preview.AudioPreview)
 local AudioControl = FFlagEnableToolboxVideos and nil or require(Components.Preview.AudioControl)
--- TODO FFlagRemoveUILibraryTimeline remove import
-local Keyframe = require(Components.Timeline.Keyframe)
 local InfiniteScrollingFrame = require(Components.InfiniteScrollingFrame)
 local LoadingBar = require(Components.LoadingBar)
 local LoadingIndicator = require(Components.LoadingIndicator)
@@ -35,8 +33,6 @@ local RadioButtons = require(Components.RadioButtons)
 local RoundFrame = require(Components.RoundFrame)
 local RoundTextBox = require(Components.RoundTextBox)
 local RoundTextButton = require(Components.RoundTextButton)
--- TODO FFlagRemoveUILibraryTimeline remove import
-local Scrubber = require(Components.Timeline.Scrubber)
 local SearchBar = require(Components.SearchBar)
 local Separator = require(Components.Separator)
 local StyledDialog = require(Components.StyledDialog)
@@ -69,9 +65,6 @@ local Signal = require(Utils.Signal)
 
 local Dialog = require(Components.PluginWidget.Dialog)
 
-game:DefineFastFlag("RemoveUILibraryTimeline", false)
-local FFlagRemoveUILibraryTimeline = game:GetFastFlag("RemoveUILibraryTimeline")
-
 local function createStrictTable(t)
 	return setmetatable(t, {
 		__index = function(_, index)
@@ -100,7 +93,6 @@ local UILibrary = createStrictTable({
 		AudioPreview = AudioPreview,
 		AudioControl = AudioControl,
 		InfiniteScrollingFrame = InfiniteScrollingFrame,
-		Keyframe = (not FFlagRemoveUILibraryTimeline) and Keyframe or nil,
 		LoadingBar = LoadingBar,
 		LoadingIndicator = LoadingIndicator,
 		ModelPreview = ModelPreview,
@@ -109,7 +101,6 @@ local UILibrary = createStrictTable({
 		RoundFrame = RoundFrame,
 		RoundTextBox = RoundTextBox,
 		RoundTextButton = RoundTextButton,
-		Scrubber = (not FFlagRemoveUILibraryTimeline) and Scrubber or nil,
 		SearchBar = SearchBar,
 		Separator = Separator,
 		StyledDialog = StyledDialog,

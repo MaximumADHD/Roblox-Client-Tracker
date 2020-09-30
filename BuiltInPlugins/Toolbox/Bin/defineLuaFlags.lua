@@ -43,6 +43,10 @@ game:DefineFastFlag("ToolboxFixAnalyticsBugs", false)
 game:DefineFastFlag("DebugToolboxEnableRoactChecks", false)
 
 game:DefineFastFlag("ToolboxDisableMarketplaceAndRecentsForLuobu", false)
+game:DefineFastFlag("ToolboxShowRobloxCreatedAssetsForLuobu", false)
+
+game:DefineFastInt("LuobuToolboxMaxAudioLength", 5)
+game:DefineFastString("LuobuMarketplaceDisabledCategories", "PaidPlugins;FreePlugins;Plugins")
 
 game:DefineFastFlag("ToolboxWaitForPluginOwnedStatus", false)
 
@@ -53,5 +57,7 @@ game:DefineFastFlag("ToolboxNewInsertAnalytics", false)
 
 game:DefineFastFlag("AssetConfigFixAssetIdTypo", false)
 game:DefineFastFlag("AssetConfigFixBadIdVerifyState", false)
+
+game:DefineFastFlag("ToolboxConsolidateInsertRemainsEvents", false)
 
 return nil

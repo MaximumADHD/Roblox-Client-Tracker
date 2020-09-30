@@ -25,10 +25,7 @@ if FFlagAnOrderOfLeaderstats then
 end
 
 -- Default Alternate Death Ragdoll (China only for now)
-local FFlagSupportDeathType = game:DefineFastFlag("SupportDeathTypeServer", false)
-if FFlagSupportDeathType then
-	ScriptContext:AddCoreScriptLocal("ServerCoreScripts/PlayerRagdollRigCreator", script.Parent)
-end
+ScriptContext:AddCoreScriptLocal("ServerCoreScripts/PlayerRagdollRigCreator", script.Parent)
 
 -- FFlag for admin freecam (for easy disabling in case of security breach)
 game:DefineFastFlag("DebugFreeCameraForAdmins", true)

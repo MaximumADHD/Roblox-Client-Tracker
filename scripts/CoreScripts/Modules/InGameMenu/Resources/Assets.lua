@@ -1,6 +1,4 @@
 local CorePackages = game:GetService("CorePackages")
-local CoreGui = game:GetService("CoreGui")
-local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
 local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 local UIBlox = InGameMenuDependencies.UIBlox
@@ -8,8 +6,6 @@ local UIBlox = InGameMenuDependencies.UIBlox
 local Images = require(script.Parent.Images)
 
 local UIBloxImages = UIBlox.App.ImageSet.Images
-
-local FFlagFixInGameMenuMissingAssets = require(RobloxGui.Modules.InGameMenu.Flags.FFlagFixInGameMenuMissingAssets)
 
 return {
 	Images = {
@@ -59,33 +55,15 @@ return {
 		MoreActions = Images["LuaApp/icons/GameDetails/more"],
 		ViewAvatar = Images["InGameMenu/Icons/ViewAvatar"],
 
-		RoundedRect = FFlagFixInGameMenuMissingAssets and {
+		RoundedRect = {
 			ScaleType = Enum.ScaleType.Slice,
 			SliceCenter = Rect.new(8, 8, 9, 9),
 			Image = UIBloxImages["component_assets/circle_17"],
-		} or {
-			ScaleType = Enum.ScaleType.Slice,
-			SliceCenter = Rect.new(8, 8, 24, 24),
-			Image = Images["InGameMenu/9Slice/RoundedRect8px"],
 		},
-		BottomRoundedRect = (not FFlagFixInGameMenuMissingAssets) and {
-			ScaleType = Enum.ScaleType.Slice,
-			SliceCenter = Rect.new(8, 8, 24, 16),
-			Image = Images["InGameMenu/9Slice/BottomRoundedRect8px"],
-		} or nil,
-		TopRoundedRect = (not FFlagFixInGameMenuMissingAssets) and {
-			ScaleType = Enum.ScaleType.Slice,
-			SliceCenter = Rect.new(8, 8, 24, 16),
-			Image = Images["InGameMenu/9Slice/TopRoundedRect8px"],
-		} or nil,
-		RoundedRectBorder = FFlagFixInGameMenuMissingAssets and {
+		RoundedRectBorder = {
 			ScaleType = Enum.ScaleType.Slice,
 			SliceCenter = Rect.new(8, 8, 9, 9),
 			Image = UIBloxImages["component_assets/circle_17_stroke_1"]
-		} or {
-			ScaleType = Enum.ScaleType.Slice,
-			SliceCenter = Rect.new(8, 8, 24, 24),
-			Image = Images["InGameMenu/9Slice/RoundedRectBorder8px"],
 		},
 
 		WhiteSquare = {
@@ -93,8 +71,7 @@ return {
 			SliceCenter = Rect.new(0, 0, 0, 0),
 			Image = "rbxasset://textures/ui/InGameMenu/WhiteSquare.png",
 		},
-		Circle = FFlagFixInGameMenuMissingAssets and UIBloxImages["component_assets/circle_29"]
-			or Images["InGameMenu/Graphic/Circle"],
+		Circle = UIBloxImages["component_assets/circle_29"],
 		CircleCutout = "rbxasset://textures/ui/InGameMenu/CircleCutout.png",
 
 		QuarterCircle = "rbxasset://textures/ui/InGameMenu/QuarterCircle.png",

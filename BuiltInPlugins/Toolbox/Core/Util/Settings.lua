@@ -14,6 +14,7 @@ Settings.__index = Settings
 local FFlagEnableDefaultSortFix2 = game:GetFastFlag("EnableDefaultSortFix2")
 local FFlagUseCategoryNameInToolbox = game:GetFastFlag("UseCategoryNameInToolbox")
 local FFlagToolboxDisableMarketplaceAndRecentsForLuobu = game:GetFastFlag("ToolboxDisableMarketplaceAndRecentsForLuobu")
+local FFlagToolboxShowRobloxCreatedAssetsForLuobu = game:GetFastFlag("ToolboxShowRobloxCreatedAssetsForLuobu")
 
 -- Built in plugins share the same namespace for settings, so mark this as from the toolbox
 local SETTING_PREFIX = "Toolbox_"
@@ -166,6 +167,17 @@ function Settings:loadInitialSettings()
 		if Category.categoryIsGroupAsset(Constants.DEFAULT_TAB, initSettings.categoryIndex) then
 			initSettings.categoryIndex = 1
 		end
+	end
+
+	if FFlagToolboxShowRobloxCreatedAssetsForLuobu and RobloxAPI:baseURLHasChineseHost() then
+		-- Override default settings to only show Roblox created assets for Luobu
+		initSettings.tab = Category.MARKETPLACE_KEY
+		if FFlagUseCategoryNameInToolbox then
+			initSettings.categoryName = Category.DEFAULT.name
+		else
+			initSettings.categoryIndex = 1
+		end
+		initSettings.creator = Category.CREATOR_ROBLOX
 	end
 
 	initSettings.searchTerm = self:getSelectedSearchTerm()

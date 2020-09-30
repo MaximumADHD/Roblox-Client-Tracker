@@ -46,8 +46,6 @@ local FFlagCollectAnalyticsForSystemMenu = settings():GetFFlag("CollectAnalytics
 
 local isNewGamepadMenuEnabled = require(RobloxGui.Modules.Flags.isNewGamepadMenuEnabled)
 
-local FFlagFixGamepadOldMenuOpening = game:DefineFastFlag("FixGamepadOldMenuOpening", false)
-
 local isNewInGameMenuEnabled = require(RobloxGui.Modules.isNewInGameMenuEnabled)
 
 --[[ SERVICES ]]
@@ -481,7 +479,7 @@ local function CreateSettingsHub()
 		local function addSizeToLabel(label)
 			local marginSize = 6
 			local defaultSize = UDim2.new(0.2, -6, 1, 0)
-			label.Size = canGetCoreScriptVersion and UDim2.new(0, label.TextBounds.X + marginSize, 0, VERSION_BAR_HEIGHT) or defaultSize 
+			label.Size = canGetCoreScriptVersion and UDim2.new(0, label.TextBounds.X + marginSize, 0, VERSION_BAR_HEIGHT) or defaultSize
 		end
 
 		this.ServerVersionLabel = utility:Create("TextLabel") {
@@ -1676,7 +1674,7 @@ local function CreateSettingsHub()
 	OnVREnabled("VREnabled")
 
 
-	if not FFlagFixGamepadOldMenuOpening or not isNewInGameMenuEnabled() then
+	if not isNewInGameMenuEnabled() then
 		--If the new in game menu is enabled the settings hub is just used for the gamepad leave game prompt
 		--as a special case until gamepad support for the new menu is complete.
 		local closeMenuFunc = function(name, inputState, input)

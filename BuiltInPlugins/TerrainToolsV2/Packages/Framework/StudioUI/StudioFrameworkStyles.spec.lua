@@ -40,7 +40,7 @@ return function()
 
 			for _, entry in pairs(styles) do
 				expect(entry.Default).to.be.ok()
-				expect(next(entry.Default)).to.be.ok()
+				expect((next(entry.Default))).to.be.ok()
 			end
 		end)
 	end)

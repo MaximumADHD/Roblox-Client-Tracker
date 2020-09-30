@@ -1,3 +1,9 @@
+local FFlagToolboxConsolidateInsertRemainsEvents = game:GetFastFlag("ToolboxConsolidateInsertRemainsEvents")
+
+if FFlagToolboxConsolidateInsertRemainsEvents then
+	return {}
+end
+
 local Plugin = script.Parent.Parent.Parent
 
 local Analytics = require(Plugin.Core.Util.Analytics.Analytics)

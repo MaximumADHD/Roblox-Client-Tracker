@@ -61,6 +61,7 @@ local FFlagStudioToolboxPluginPurchaseFlow = game:GetFastFlag("StudioToolboxPlug
 local FFlagStudioToolboxPersistBackgroundColor = game:DefineFastFlag("StudioToolboxPersistsBackgroundColor", false)
 local FFlagUseCategoryNameInToolbox = game:GetFastFlag("UseCategoryNameInToolbox")
 local FFlagToolboxDisableMarketplaceAndRecentsForLuobu = game:GetFastFlag("ToolboxDisableMarketplaceAndRecentsForLuobu")
+local FFlagToolboxShowRobloxCreatedAssetsForLuobu = game:GetFastFlag("ToolboxShowRobloxCreatedAssetsForLuobu")
 
 local Toolbox = Roact.PureComponent:extend("Toolbox")
 
@@ -105,6 +106,7 @@ function Toolbox:handleInitialSettings()
 		categories = pageInfoCategories,
 		categoryIndex = (not FFlagUseCategoryNameInToolbox) and (initialSelectedCategoryIndex),
 		categoryName = initialSettings.categoryName,
+		creator = initialSettings.creator,
 		searchTerm = initialSearchTerm,
 		sorts = Sort.SORT_OPTIONS,
 		sortIndex = initialSelectedSortIndex,
@@ -194,6 +196,16 @@ function Toolbox:init(props)
 		return newCategories[1].name
 	end
 
+	local function getCreatorOverrideIfNeeded(tabName)
+		if FFlagToolboxShowRobloxCreatedAssetsForLuobu and RobloxAPI:baseURLHasChineseHost() then
+			if tabName == Category.MARKETPLACE_KEY then
+				return Category.CREATOR_ROBLOX
+			end
+		end
+
+		return nil
+	end
+
 	self.changeMarketplaceTab = function(tabName)
 		-- TODO remove newCategoryIndex when FFlagUseCategoryNameInToolbox is retired
 		local newCategoryIndex = 1
@@ -202,6 +214,7 @@ function Toolbox:init(props)
 		local options = {
 			categoryIndex = (not FFlagUseCategoryNameInToolbox) and (determineCategoryIndexOnTabChange(tabName, newCategories) or newCategoryIndex),
 			categoryName = determineCategoryNameOnTabChange(tabName, newCategories),
+			creator = getCreatorOverrideIfNeeded(tabName),
 			searchTerm = "",
 			sortIndex = 1,
 			groupIndex = 0,

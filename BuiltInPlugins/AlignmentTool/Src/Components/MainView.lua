@@ -7,9 +7,17 @@
 
 local Plugin = script.Parent.Parent.Parent
 
+local getFFlagDraggerSplit = require(Plugin.Src.Flags.getFFlagDraggerSplit)
+
 local DraggerFramework = Plugin.Packages.DraggerFramework
-local BoundsChangedTracker = require(DraggerFramework.Utility.BoundsChangedTracker)
-local SelectionWrapper = require(DraggerFramework.Utility.SelectionWrapper)
+local DraggerSchemaCore = Plugin.Packages.DraggerSchemaCore
+local BoundsChangedTracker
+if getFFlagDraggerSplit() then
+	BoundsChangedTracker = require(DraggerSchemaCore.BoundsChangedTracker)
+else
+	BoundsChangedTracker = require(DraggerFramework.Utility.BoundsChangedTracker)
+end
+local Selection = require(DraggerSchemaCore.Selection)
 
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
@@ -38,6 +46,8 @@ local getAlignableObjects = require(Plugin.Src.Utility.getAlignableObjects)
 local getBoundingBoxes = require(Plugin.Src.Utility.getBoundingBoxes)
 local getDebugSettingValue = require(Plugin.Src.Utility.getDebugSettingValue)
 
+local SelectionWrapper = Selection.new()
+
 local MainView = Roact.PureComponent:extend("MainView")
 
 local function shouldShowDebugView()
@@ -45,9 +55,18 @@ local function shouldShowDebugView()
 end
 
 function MainView:init()
-	self._boundsChangedTracker = BoundsChangedTracker.new(function()
-		self.props.updateAlignEnabled()
-	end)
+	if getFFlagDraggerSplit() then
+		-- BoundsChangedTrackers take a context, but the Core schema does not use it
+		-- so we can safely leave it nil here.
+		local context = nil
+		self._boundsChangedTracker = BoundsChangedTracker.new(context, function()
+			self.props.updateAlignEnabled()
+		end)
+	else
+		self._boundsChangedTracker = BoundsChangedTracker.new(function()
+			self.props.updateAlignEnabled()
+		end)
+	end
 
 	self:_updateSelectionInfo()
 end
@@ -152,10 +171,9 @@ function MainView:_updateSelectionInfo()
 end
 
 function MainView:didMount()
-	SelectionWrapper:init()
 	self._boundsChangedTracker:install()
 
-	self._selectionChangedConnection = SelectionWrapper.SelectionChangedByStudio:Connect(function()
+	self._selectionChangedConnection = SelectionWrapper.SelectionChanged:Connect(function()
 		self:_updateSelectionInfo()
 	end)
 end
@@ -164,7 +182,6 @@ function MainView:willUnmount()
 	self._selectionChangedConnection:Disconnect()
 	self._selectionChangedConnection = nil
 
-	SelectionWrapper:destroy()
 	self._boundsChangedTracker:uninstall()
 end
 

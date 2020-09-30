@@ -1,7 +1,6 @@
 local RunService = game:GetService("RunService")
 
 local Framework = script.Parent.Parent
-local Cryo = require(Framework.packages.Cryo) -- replace when properly supporting packages
 local t = require(Framework.Util.Typecheck.t)
 
 local DEFAULT_QUEUE_TIME_LIMIT_SECONDS = 30

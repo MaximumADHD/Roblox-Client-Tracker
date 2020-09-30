@@ -3,6 +3,8 @@ local FFlagUseCategoryNameInToolbox = game:GetFastFlag("UseCategoryNameInToolbox
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
+local RobloxAPI = require(Plugin.Libs.Framework).RobloxAPI
+
 local RequestReason = require(Plugin.Core.Types.RequestReason)
 local GetAssetsRequest = require(Plugin.Core.Networking.Requests.GetAssetsRequest)
 local GetToolboxItems = require(Plugin.Core.Networking.Requests.GetToolboxItems)
@@ -12,6 +14,8 @@ local ClearAssets = require(Plugin.Core.Actions.ClearAssets)
 local UpdatePageInfo = require(Plugin.Core.Actions.UpdatePageInfo)
 
 local Constants = require(Plugin.Core.Util.Constants)
+
+local FFlagToolboxShowRobloxCreatedAssetsForLuobu = game:GetFastFlag("ToolboxShowRobloxCreatedAssetsForLuobu")
 
 return function(networkInterface, settings, newPageInfo)
 	return function(store)
@@ -35,10 +39,22 @@ return function(networkInterface, settings, newPageInfo)
 			end
 		end
 
+		if FFlagToolboxShowRobloxCreatedAssetsForLuobu and RobloxAPI:baseURLHasChineseHost() then
+			-- For Luobu we limit the length of Audio assets available in the marketplace for moderation reasons
+			if audioSearchInfo == nil then
+				audioSearchInfo = {
+					minDuration = 0,
+					maxDuration = Constants.MAX_AUDIO_SEARCH_DURATION,
+				}
+			end
+		end
+
 		if (not FFlagToolboxUseNewPluginEndpoint) and audioSearchInfo then
-			store:dispatch(GetToolboxItems(networkInterface, Constants.AUDIO_SERACH_CATEGORY_NAME, audioSearchInfo, pageInfo, settings))
+			store:dispatch(GetToolboxItems(networkInterface, Constants.AUDIO_SERACH_CATEGORY_NAME,
+				audioSearchInfo, pageInfo, settings))
 		elseif FFlagToolboxUseNewPluginEndpoint and Category.API_NAMES[categoryName] then
-			store:dispatch(GetToolboxItems(networkInterface, Category.API_NAMES[categoryName], audioSearchInfo, pageInfo, settings))
+			store:dispatch(GetToolboxItems(networkInterface, Category.API_NAMES[categoryName],
+				audioSearchInfo, pageInfo, settings))
 		else
 			store:dispatch(GetAssetsRequest(networkInterface, pageInfo))
 		end

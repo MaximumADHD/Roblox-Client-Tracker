@@ -12,6 +12,7 @@ local DraggerFramework = script.Parent.Parent
 local SelectionHelper = require(DraggerFramework.Utility.SelectionHelper)
 
 local getFFlagScaleDraggerPartBias = require(DraggerFramework.Flags.getFFlagScaleDraggerPartBias)
+local getFFlagDraggerSplit = require(DraggerFramework.Flags.getFFlagDraggerSplit)
 
 local DerivedWorldState = {}
 DerivedWorldState.__index = DerivedWorldState
@@ -84,10 +85,15 @@ function DerivedWorldState:doesSelectionHavePhysics()
 end
 
 --[[
-	Returns: Whether the given part is part of the selection
+	Returns: Whether the given item is part of the selection
 ]]
-function DerivedWorldState:isPartInSelection(part)
-	return self._partSet[part] ~= nil
+if getFFlagDraggerSplit() then
+	function DerivedWorldState:isItemInSelection(item)
+		return self._partSet[item] ~= nil
+	end
+else
+	function DerivedWorldState:isPartInSelection(part)
+		return self._partSet[part] ~= nil
+	end
 end
-
 return DerivedWorldState

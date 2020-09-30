@@ -2,7 +2,6 @@ return function()
 	local Framework = script.Parent.Parent.Parent
 	local Roact = require(Framework.Parent.Roact)
 	local StyledDialog = require(script.Parent)
-	local ContextServices = require(Framework.ContextServices)
 	local TestHelpers = require(Framework.TestHelpers)
 
 	it("should create and destroy without errors", function()

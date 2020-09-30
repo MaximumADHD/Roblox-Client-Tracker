@@ -1,4 +1,5 @@
 local CorePackages = game:GetService("CorePackages")
+local GuiService = game:GetService("GuiService")
 local HttpRbxApiService = game:GetService("HttpRbxApiService")
 local AppTempCommon = CorePackages.AppTempCommon
 
@@ -11,6 +12,7 @@ local RoactRodux = require(CorePackages.RoactRodux)
 
 local ShareGame = RobloxGui.Modules.Settings.Pages.ShareGame
 
+local isSelectionGroupEnabled = require(ShareGame.isSelectionGroupEnabled)
 local Constants = require(ShareGame.Constants)
 local ConversationEntry = require(ShareGame.Components.ConversationEntry)
 local FriendsErrorPage = require(ShareGame.Components.FriendsErrorPage)
@@ -59,6 +61,12 @@ local function searchFilterPredicate(query, other)
 		return true
 	end
 	return string.find(string.lower(other), query:lower(), 1, true) ~= nil
+end
+
+function ConversationList:init()
+	if isSelectionGroupEnabled() then
+		self.scrollingRef = Roact.createRef()
+	end
 end
 
 function ConversationList:render()
@@ -154,6 +162,11 @@ function ConversationList:render()
 		end
 	end
 
+	local isSelectable = nil
+	if isSelectionGroupEnabled() then
+		isSelectable = false
+	end
+
 	return Roact.createElement("ScrollingFrame", {
 		BackgroundTransparency = 1,
 		LayoutOrder = layoutOrder,
@@ -161,8 +174,31 @@ function ConversationList:render()
 		CanvasSize = UDim2.new(0, 0, 0, numEntries * (entryHeight + entryPadding)),
 		ScrollBarThickness = 0,
 		ZIndex = zIndex,
+		Selectable = isSelectable,
+		[Roact.Ref] = isSelectionGroupEnabled() and self.scrollingRef or nil,
 	}, children)
 end
+
+local function handleBinding(self)
+	if isSelectionGroupEnabled() then
+		local conversationList = self.scrollingRef:getValue()
+		if conversationList then
+			if GuiService.SelectedCoreObject == nil then
+				GuiService:AddSelectionParent("invitePrompt", conversationList)
+				for _, object in ipairs(conversationList:GetChildren()) do
+					if object:IsA("GuiObject") and object.LayoutOrder == 1 then
+						GuiService.SelectedCoreObject = object
+						break
+					end
+				end
+			end
+		end
+
+	end
+end
+
+ConversationList.didUpdate = handleBinding
+ConversationList.didMount = handleBinding
 
 local selectFriends = memoize(function(users)
 	local friends = {}

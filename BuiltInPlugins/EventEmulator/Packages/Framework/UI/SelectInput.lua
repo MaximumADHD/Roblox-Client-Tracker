@@ -4,13 +4,15 @@
 	Required Props:
 		table Items: An array of each item that should appear in the dropdown.
 		callback OnItemActivated: A callback for when the user selects a dropdown entry.
-		Theme Theme: a Theme object supplied by mapToProps()
 		Focus Focus: a Focus object supplied by mapToProps()
 
 	Optional Props:
 		string PlaceholderText: A placeholder to display if there is no item selected.
 		callback OnRenderItem: A function used to render a dropdown menu item.
 		number SelectedIndex: The currently selected item index.
+		Style Style: The style with which to render this component.
+		Stylizer Stylizer: A Stylizer ContextItem, which is provided via mapToProps.
+		Theme Theme: a Theme object supplied by mapToProps()
 
 	Style Values:
 		Style BackgroundStyle: The style with which to render the background.
@@ -35,6 +37,10 @@ local StyleModifier = Util.StyleModifier
 
 local SelectInput = Roact.PureComponent:extend("SelectInput")
 Typecheck.wrap(SelectInput, script)
+
+local FlagsList = Util.Flags.new({
+	FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
+})
 
 local BORDER_SIZE = 1
 
@@ -73,7 +79,13 @@ end
 function SelectInput:render()
 	local props = self.props
 	local state = self.state
-	local style = props.Theme:getStyle("Framework", self)
+
+	local style
+	if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+		style = props.Stylizer
+	else
+		style = props.Theme:getStyle("Framework", self)
+	end
 	local items = props.Items
 
 	local isOpen = state.isOpen
@@ -126,7 +138,8 @@ end
 
 ContextServices.mapToProps(SelectInput, {
 	Focus = ContextServices.Focus,
-	Theme = ContextServices.Theme,
+	Stylizer = FlagsList:get("FFlagRefactorDevFrameworkTheme") and ContextServices.Stylizer or nil,
+	Theme = (not FlagsList:get("FFlagRefactorDevFrameworkTheme")) and ContextServices.Theme or nil,
 })
 
 return SelectInput

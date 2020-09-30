@@ -9,6 +9,7 @@ local DebugFlags = require(Plugin.Core.Util.DebugFlags)
 local getUserId = require(Plugin.Core.Util.getUserId)
 local platformId = 0
 
+local FFlagToolboxConsolidateInsertRemainsEvents = game:GetFastFlag("ToolboxConsolidateInsertRemainsEvents")
 local FFlagStudioToolboxEnablePlaceIDInAnalytics = settings():GetFFlag("StudioToolboxEnablePlaceIDInAnalytics")
 local FFlagStudioToolboxInsertAssetCategoryAnalytics = settings():GetFFlag("StudioToolboxInsertAssetCategoryAnalytics")
 local FFlagToolboxFixAnalyticsBugs = game:GetFastFlag("ToolboxFixAnalyticsBugs")
@@ -164,23 +165,25 @@ function Analytics.onAssetDragInserted(assetId, searchTerm, assetIndex, currentC
 	})
 end
 
-function Analytics.onAssetInsertRemains(time, contentId, currentCategory)
-	if FFlagStudioToolboxInsertAssetCategoryAnalytics then
-		AnalyticsSenders.trackEventWithArgs("Studio", ("InsertRemains%d"):format(time), contentId, {
-			currentCategory = currentCategory,
-		})
-	else
-		AnalyticsSenders.trackEvent("Studio", ("InsertRemains%d"):format(time), contentId)
+if not FFlagToolboxConsolidateInsertRemainsEvents then
+	function Analytics.onAssetInsertRemains(time, contentId, currentCategory)
+		if FFlagStudioToolboxInsertAssetCategoryAnalytics then
+			AnalyticsSenders.trackEventWithArgs("Studio", ("InsertRemains%d"):format(time), contentId, {
+				currentCategory = currentCategory,
+			})
+		else
+			AnalyticsSenders.trackEvent("Studio", ("InsertRemains%d"):format(time), contentId)
+		end
 	end
-end
 
-function Analytics.onAssetInsertDeleted(time, contentId, currentCategory)
-	if FFlagStudioToolboxInsertAssetCategoryAnalytics then
-		AnalyticsSenders.trackEventWithArgs("Studio", ("InsertDeleted%d"):format(time), contentId, {
-			currentCategory = currentCategory,
-		})
-	else
-		AnalyticsSenders.trackEvent("Studio", ("InsertDeleted%d"):format(time), contentId)
+	function Analytics.onAssetInsertDeleted(time, contentId, currentCategory)
+		if FFlagStudioToolboxInsertAssetCategoryAnalytics then
+			AnalyticsSenders.trackEventWithArgs("Studio", ("InsertDeleted%d"):format(time), contentId, {
+				currentCategory = currentCategory,
+			})
+		else
+			AnalyticsSenders.trackEvent("Studio", ("InsertDeleted%d"):format(time), contentId)
+		end
 	end
 end
 

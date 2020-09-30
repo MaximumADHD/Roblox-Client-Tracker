@@ -3,8 +3,7 @@
 	Mounts and unmounts the Roact tree.
 ]]
 
-local FFlagDebugEnableEventEmulator = game:DefineFastFlag("DebugEnableEventEmulator", false)
-if not (game:GetService("StudioService"):HasInternalPermission() and FFlagDebugEnableEventEmulator) then
+if not (game:GetService("StudioService"):HasInternalPermission()) then
 	return
 end
 

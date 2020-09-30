@@ -5,6 +5,8 @@ return function()
 
     local FFlagToolboxNewAssetAnalytics = game:GetFastFlag("ToolboxNewAssetAnalytics")
     local FFlagToolboxNewInsertAnalytics = game:GetFastFlag("ToolboxNewInsertAnalytics")
+    local FFlagToolboxConsolidateInsertRemainsEvents = game:GetFastFlag("ToolboxConsolidateInsertRemainsEvents")
+    local FFlagUseCategoryNameInToolbox = game:GetFastFlag("UseCategoryNameInToolbox")
 
     if not FFlagToolboxNewAssetAnalytics then
         return
@@ -14,7 +16,7 @@ return function()
 
     local function getStubPageInfo()
         return {
-            currentTab = "Inventory",
+            currentTab = not FFlagUseCategoryNameInToolbox and "Inventory" or nil,
             searchTerm = "abc",
             targetPage = 1,
             searchId = "4581e024-c0f4-4d22-a107-18282b426833",
@@ -59,12 +61,18 @@ return function()
         local stubPageInfo = getStubPageInfo()
         local context = AssetAnalytics.pageInfoToContext(stubPageInfo)
 
-        expect(context.category).to.equal("MyModelsExceptPackage")
+        if FFlagToolboxConsolidateInsertRemainsEvents then
+            expect(context.category).to.equal("Studio")
+            expect(context.currentCategory).to.equal("MyModelsExceptPackage")
+        else
+            expect(context.category).to.equal("MyModelsExceptPackage")
+        end
+        expect(context.searchId).to.equal(stubPageInfo.searchId)
+
         expect(context.toolboxTab).to.equal("Inventory")
         expect(context.sort).to.equal("Relevance")
         expect(context.searchKeyword).to.equal("abc")
         expect(context.page).to.equal(1)
-        expect(context.searchId).to.equal(stubPageInfo.searchId)
     end)
 
     it("addContextToAssetResults", function()
@@ -106,9 +114,15 @@ return function()
         expect(sendEventDeferredCalls[1][1]).to.equal("studio")
         expect(sendEventDeferredCalls[1][2]).to.equal("Marketplace")
         expect(sendEventDeferredCalls[1][3]).to.equal("MarketplaceAssetImpression")
-        expect(sendEventDeferredCalls[1][4].assetId).to.equal(tostring(assets[1].Asset.Id))
+        if FFlagToolboxConsolidateInsertRemainsEvents then
+            expect(sendEventDeferredCalls[1][4].assetID).to.equal(tostring(assets[1].Asset.Id))
+            expect(sendEventDeferredCalls[1][4].category).to.equal("Studio")
+            expect(sendEventDeferredCalls[1][4].currentCategory).to.equal("MyModelsExceptPackage")
+        else
+            expect(sendEventDeferredCalls[1][4].assetId).to.equal(tostring(assets[1].Asset.Id))
+            expect(sendEventDeferredCalls[1][4].category).to.equal("MyModelsExceptPackage")
+        end
         expect(sendEventDeferredCalls[1][4].page).to.equal("1")
-        expect(sendEventDeferredCalls[1][4].category).to.equal("MyModelsExceptPackage")
         expect(sendEventDeferredCalls[1][4].assetType).to.equal("Model")
 
         -- Does not log an impression twice for the same search
@@ -141,9 +155,15 @@ return function()
         expect(sendEventDeferredCalls[1][1]).to.equal("studio")
         expect(sendEventDeferredCalls[1][2]).to.equal("Marketplace")
         expect(sendEventDeferredCalls[1][3]).to.equal("MarketplaceAssetPreview")
-        expect(sendEventDeferredCalls[1][4].assetId).to.equal(tostring(assets[1].Asset.Id))
+        if FFlagToolboxConsolidateInsertRemainsEvents then
+            expect(sendEventDeferredCalls[1][4].assetID).to.equal(tostring(assets[1].Asset.Id))
+            expect(sendEventDeferredCalls[1][4].currentCategory).to.equal("MyModelsExceptPackage")
+            expect(sendEventDeferredCalls[1][4].category).to.equal("Studio")
+        else
+            expect(sendEventDeferredCalls[1][4].assetId).to.equal(tostring(assets[1].Asset.Id))
+            expect(sendEventDeferredCalls[1][4].category).to.equal("MyModelsExceptPackage")
+        end
         expect(sendEventDeferredCalls[1][4].page).to.equal("1")
-        expect(sendEventDeferredCalls[1][4].category).to.equal("MyModelsExceptPackage")
         expect(sendEventDeferredCalls[1][4].assetType).to.equal("Model")
     end)
 
@@ -243,7 +263,11 @@ return function()
                 expect(sendEventDeferredCalls[1][1]).to.equal("studio")
                 expect(sendEventDeferredCalls[1][2]).to.equal("Marketplace")
                 expect(sendEventDeferredCalls[1][3]).to.equal("MarketplaceInsert")
-                expect(sendEventDeferredCalls[1][4].assetId).to.equal(tostring(asset.Asset.Id))
+                if FFlagToolboxConsolidateInsertRemainsEvents then
+                    expect(sendEventDeferredCalls[1][4].assetID).to.equal(tostring(asset.Asset.Id))
+                else
+                    expect(sendEventDeferredCalls[1][4].assetId).to.equal(tostring(asset.Asset.Id))
+                end
                 expect(sendEventDeferredCalls[1][4].method).to.equal(insertionMethod)
 
                 expect(#scheduleCalls).to.equal(#delays)
@@ -256,14 +280,25 @@ return function()
 
                 expect(sendEventDeferredCalls[2][1]).to.equal("studio")
                 expect(sendEventDeferredCalls[2][2]).to.equal("Marketplace")
-                expect(sendEventDeferredCalls[2][3]).to.equal("MarketplaceInsertRemains" .. tostring(delays[1]))
-                expect(sendEventDeferredCalls[2][4].assetId).to.equal(tostring(asset.Asset.Id))
+
+                if FFlagToolboxConsolidateInsertRemainsEvents then
+                    expect(sendEventDeferredCalls[2][3]).to.equal("InsertRemains" .. tostring(delays[1]))
+                    expect(sendEventDeferredCalls[2][4].assetID).to.equal(tostring(asset.Asset.Id))
+                else
+                    expect(sendEventDeferredCalls[2][3]).to.equal("MarketplaceInsertRemains" .. tostring(delays[1]))
+                    expect(sendEventDeferredCalls[2][4].assetId).to.equal(tostring(asset.Asset.Id))
+                end
                 expect(sendEventDeferredCalls[2][4].method).to.equal(insertionMethod)
 
                 expect(sendEventDeferredCalls[3][1]).to.equal("studio")
                 expect(sendEventDeferredCalls[3][2]).to.equal("Marketplace")
-                expect(sendEventDeferredCalls[3][3]).to.equal("MarketplaceInsertRemains" .. tostring(delays[2]))
-                expect(sendEventDeferredCalls[3][4].assetId).to.equal(tostring(asset.Asset.Id))
+                if FFlagToolboxConsolidateInsertRemainsEvents then
+                    expect(sendEventDeferredCalls[3][3]).to.equal("InsertRemains" .. tostring(delays[2]))
+                    expect(sendEventDeferredCalls[3][4].assetID).to.equal(tostring(asset.Asset.Id))
+                else
+                    expect(sendEventDeferredCalls[3][3]).to.equal("MarketplaceInsertRemains" .. tostring(delays[2]))
+                    expect(sendEventDeferredCalls[3][4].assetId).to.equal(tostring(asset.Asset.Id))
+                end
                 expect(sendEventDeferredCalls[3][4].method).to.equal(insertionMethod)
             end)
 
@@ -274,7 +309,11 @@ return function()
                 expect(sendEventDeferredCalls[1][1]).to.equal("studio")
                 expect(sendEventDeferredCalls[1][2]).to.equal("Marketplace")
                 expect(sendEventDeferredCalls[1][3]).to.equal("MarketplaceInsert")
-                expect(sendEventDeferredCalls[1][4].assetId).to.equal(tostring(asset.Asset.Id))
+                if FFlagToolboxConsolidateInsertRemainsEvents then
+                    expect(sendEventDeferredCalls[1][4].assetID).to.equal(tostring(asset.Asset.Id))
+                else
+                    expect(sendEventDeferredCalls[1][4].assetId).to.equal(tostring(asset.Asset.Id))
+                end
                 expect(sendEventDeferredCalls[1][4].method).to.equal(insertionMethod)
 
                 expect(#scheduleCalls).to.equal(#delays)
@@ -286,8 +325,13 @@ return function()
                 expect(#sendEventDeferredCalls).to.equal(2)
                 expect(sendEventDeferredCalls[2][1]).to.equal("studio")
                 expect(sendEventDeferredCalls[2][2]).to.equal("Marketplace")
-                expect(sendEventDeferredCalls[2][3]).to.equal("MarketplaceInsertRemains" .. tostring(delays[1]))
-                expect(sendEventDeferredCalls[2][4].assetId).to.equal(tostring(asset.Asset.Id))
+                if FFlagToolboxConsolidateInsertRemainsEvents then
+                    expect(sendEventDeferredCalls[2][3]).to.equal("InsertRemains" .. tostring(delays[1]))
+                    expect(sendEventDeferredCalls[2][4].assetID).to.equal(tostring(asset.Asset.Id))                    
+                else
+                    expect(sendEventDeferredCalls[2][3]).to.equal("MarketplaceInsertRemains" .. tostring(delays[1]))
+                    expect(sendEventDeferredCalls[2][4].assetId).to.equal(tostring(asset.Asset.Id))
+                end
                 expect(sendEventDeferredCalls[2][4].method).to.equal(insertionMethod)
 
                 -- Destroy the instance and run to the next scheduled track, which should be a deleted event
@@ -296,8 +340,13 @@ return function()
                 expect(#sendEventDeferredCalls).to.equal(3)
                 expect(sendEventDeferredCalls[3][1]).to.equal("studio")
                 expect(sendEventDeferredCalls[3][2]).to.equal("Marketplace")
-                expect(sendEventDeferredCalls[3][3]).to.equal("MarketplaceInsertDeleted" .. tostring(delays[2]))
-                expect(sendEventDeferredCalls[3][4].assetId).to.equal(tostring(asset.Asset.Id))
+                if FFlagToolboxConsolidateInsertRemainsEvents then
+                    expect(sendEventDeferredCalls[3][3]).to.equal("InsertDeleted" .. tostring(delays[2]))
+                    expect(sendEventDeferredCalls[3][4].assetID).to.equal(tostring(asset.Asset.Id))                    
+                else
+                    expect(sendEventDeferredCalls[3][3]).to.equal("MarketplaceInsertDeleted" .. tostring(delays[2]))
+                    expect(sendEventDeferredCalls[3][4].assetId).to.equal(tostring(asset.Asset.Id))
+                end
                 expect(sendEventDeferredCalls[3][4].method).to.equal(insertionMethod)
             end)
 

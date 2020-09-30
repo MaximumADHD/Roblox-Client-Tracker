@@ -22,7 +22,7 @@ BubbleChatBillboard.validateProps = t.strictInterface({
 	userId = t.string,
 
 	-- RoactRodux
-	chatSettings = t.table,
+	chatSettings = Types.IChatSettings,
 	messages = t.map(t.string, Types.IMessage),
 	messageIds = t.array(t.string)
 })

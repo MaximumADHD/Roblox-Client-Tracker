@@ -34,7 +34,6 @@ local GameIconHeader = require(script.Parent.GameIconHeader)
 local FFlagRecordRecording = require(InGameMenu.Flags.FFlagRecordRecording)
 local FFlagTakeAScreenshotOfThis = game:DefineFastFlag("TakeAScreenshotOfThis", false)
 local FFlagShowContextMenuWhenButtonsArePresent = game:DefineFastFlag("ShowContextMenuWhenButtonsArePresent", false)
-local FFlagInGameMenuUseContextualMenu = game:DefineFastFlag("InGameMenuUseContextualMenu", false)
 local GetFFlagUseNewLeaveGamePrompt = require(InGameMenu.Flags.GetFFlagUseNewLeaveGamePrompt)
 
 local Images = UIBlox.App.ImageSet.Images
@@ -68,11 +67,9 @@ local function renderButtonModels(self, style, localized)
 				icon = Images["icons/controls/screenshot"],
 				text = localized.screenCapture,
 				onActivated = function()
-					if FFlagInGameMenuUseContextualMenu then
-						self:setState({
-							modalOpen = false,
-						})
-					end
+					self:setState({
+						modalOpen = false,
+					})
 					self.props.closeMenu()
 					for _ = 1, 2 do -- wait for top-bar to update
 						RunService.RenderStepped:Wait()
@@ -90,32 +87,20 @@ local function renderButtonModels(self, style, localized)
 				local d = os.date("*t", self.state.recordingDuration)
 				local formattedTime = ("%d:%02d"):format(d.min, d.sec)
 				recordingText = localized.recording:gsub("{DURATION}", formattedTime)
-
-				if FFlagInGameMenuUseContextualMenu then
-					colorOverride = style.Theme.Alert.Color
-				end
+				colorOverride = style.Theme.Alert.Color
 			end
 			table.insert(buttons, {
 				icon = Images["icons/controls/screenrecord"],
 				text = recordingText,
 				onActivated = function()
 					CoreGui:ToggleRecording()
-					if FFlagInGameMenuUseContextualMenu then
-						self:setState({
-							modalOpen = false,
-						})
-					end
+					self:setState({
+						modalOpen = false,
+					})
 				end,
-				keyCodeLabel = FFlagInGameMenuUseContextualMenu and Enum.KeyCode.F12 or nil,
+				keyCodeLabel = Enum.KeyCode.F12,
 				iconColorOverride = colorOverride,
 				textColorOverride = colorOverride,
-				renderRightElement = (not FFlagInGameMenuUseContextualMenu) and function()
-					return Roact.createElement(KeyLabel, {
-						input = Enum.KeyCode.F12,
-						AnchorPoint = Vector2.new(0.5, 0.5),
-						Position = UDim2.new(0.5, 0, 0.5, 0),
-					})
-				end or nil,
 			})
 		end
 
@@ -126,21 +111,14 @@ local function renderButtonModels(self, style, localized)
 		table.insert(buttons, {
 			icon = Assets.Images.RespawnIcon,
 			text = localized.respawnCharacter,
-			onActivated = FFlagInGameMenuUseContextualMenu and function()
+			onActivated = function()
 				self:setState({
 					modalOpen = false,
 				})
 
 				self.props.startRespawning()
-			end or self.props.startRespawning,
-			keyCodeLabel = FFlagInGameMenuUseContextualMenu and Enum.KeyCode.R or nil,
-			renderRightElement = (not FFlagInGameMenuUseContextualMenu) and function()
-				return Roact.createElement(KeyLabel, {
-					input = Enum.KeyCode.R,
-					AnchorPoint = Vector2.new(0.5, 0.5),
-					Position = UDim2.new(0.5, 0, 0.5, 0),
-				})
-			end or nil,
+			end,
+			keyCodeLabel = Enum.KeyCode.R,
 		})
 	end
 
@@ -154,7 +132,7 @@ MainPage.validateProps = t.strictInterface({
 	startRespawning = t.callback,
 	closeMenu = t.callback,
 	recording = t.boolean,
-	screenSize = FFlagInGameMenuUseContextualMenu and t.Vector2 or nil,
+	screenSize = t.Vector2,
 })
 
 function MainPage:init()
@@ -206,19 +184,8 @@ function MainPage:render()
 				PageNavigation = Roact.createElement(PageNavigation, {
 					Position = UDim2.new(0, 0, 0, 148),
 				}),
-				ModalBottomSheet = (not FFlagInGameMenuUseContextualMenu and self.state.modalOpen)
-					and Roact.createElement(UIBlox.ModalBottomSheet, {
-					bottomGap = 84,
-					screenWidth = MAIN_PAGE_WIDTH,
-					onDismiss = function()
-						self:setState({
-							modalOpen = false,
-						})
-					end,
-					buttonModels = buttonModels
-				}),
 
-				ContextualMenu = FFlagInGameMenuUseContextualMenu and Roact.createElement(ContextualMenu, {
+				ContextualMenu = Roact.createElement(ContextualMenu, {
 					buttonProps = buttonModels,
 
 					open = self.state.modalOpen,
@@ -313,7 +280,7 @@ return RoactRodux.UNSTABLE_connect2(function(state, props)
 		open = state.isMenuOpen,
 		respawnButtonVisible = state.respawn.enabled,
 		recording = state.recording,
-		screenSize = FFlagInGameMenuUseContextualMenu and state.screenSize or nil,
+		screenSize = state.screenSize,
 	}
 end, function(dispatch)
 	return {

@@ -6,6 +6,7 @@ local FFlagEnableToolboxVideos = game:GetFastFlag("EnableToolboxVideos")
 local FFlagToolboxUseNewPluginEndpoint = settings():GetFFlag("ToolboxUseNewPluginEndpoint")
 local FFlagFixGroupPackagesCategoryInToolbox = game:DefineFastFlag("FixGroupPackagesCategoryInToolbox", false)
 local FFlagToolboxDisableMarketplaceAndRecentsForLuobu = game:GetFastFlag("ToolboxDisableMarketplaceAndRecentsForLuobu")
+local FFlagToolboxShowRobloxCreatedAssetsForLuobu = game:GetFastFlag("ToolboxShowRobloxCreatedAssetsForLuobu")
 
 local Plugin = script.Parent.Parent.Parent
 local DebugFlags = require(Plugin.Core.Util.DebugFlags)
@@ -13,6 +14,8 @@ local AssetConfigUtil = require(Plugin.Core.Util.AssetConfigUtil)
 local Cryo = require(Plugin.Libs.Cryo)
 
 local RobloxAPI = require(Plugin.Libs.Framework).RobloxAPI
+
+local FStringLuobuMarketplaceDisabledCategories = game:GetFastString("LuobuMarketplaceDisabledCategories")
 
 local Category = {}
 
@@ -216,6 +219,10 @@ else
 	Category.DEFAULT = Category.FREE_MODELS
 end
 
+Category.CREATOR_ROBLOX = {
+	Id = 1,
+}
+
 -- NOTE: When FFlagEnableToolboxVideos is enabled, remember to move the keys directy into the tables for cleaner code!
 if FFlagEnableToolboxVideos then
 	local insertIndex = Cryo.List.find(Category.INVENTORY_WITH_GROUPS, Category.MY_PACKAGES) + 1
@@ -274,15 +281,36 @@ Category.RECENT_KEY = "Recent"
 Category.CREATIONS_KEY = "Creations"
 
 table.insert(Category.INVENTORY, Category.MY_PLUGINS)
-if FFlagOnlyWhitelistedPluginsInStudio then
-	table.insert(Category.MARKETPLACE, Category.WHITELISTED_PLUGINS)
-else
-	table.insert(Category.MARKETPLACE, Category.FREE_PLUGINS)
+if not FFlagToolboxShowRobloxCreatedAssetsForLuobu then
+	if FFlagOnlyWhitelistedPluginsInStudio then
+		table.insert(Category.MARKETPLACE, Category.WHITELISTED_PLUGINS)
+	else
+		table.insert(Category.MARKETPLACE, Category.FREE_PLUGINS)
+	end
 end
+
 local insertIndex = Cryo.List.find(Category.INVENTORY_WITH_GROUPS, Category.MY_PACKAGES) + 1
 table.insert(Category.INVENTORY_WITH_GROUPS, insertIndex, Category.MY_PLUGINS)
 local insertIndex2 = Cryo.List.find(Category.INVENTORY_WITH_GROUPS, Category.GROUP_AUDIO) + 1
 table.insert(Category.INVENTORY_WITH_GROUPS, insertIndex2, Category.GROUP_PLUGINS)
+
+if FFlagToolboxShowRobloxCreatedAssetsForLuobu then
+	local disabledCategories = string.split(FStringLuobuMarketplaceDisabledCategories, ";")
+
+	for _, categoryName in pairs(disabledCategories) do
+		local categoryIndex = nil
+
+		for i, category in pairs(Category.MARKETPLACE) do
+			if category.name == categoryName then
+				categoryIndex = i
+			end
+		end
+
+		if categoryIndex then
+			table.remove(Category.MARKETPLACE, categoryIndex)
+		end
+	end
+end
 
 if FFlagUseCategoryNameInToolbox then
 	local tabForCategoryName = {}
@@ -305,6 +333,17 @@ if FFlagUseCategoryNameInToolbox then
 			Category.CREATIONS,
 		}
 		tabKeys = {
+			Category.INVENTORY_KEY,
+			Category.CREATIONS_KEY,
+		}
+	elseif FFlagToolboxShowRobloxCreatedAssetsForLuobu and RobloxAPI:baseURLHasChineseHost() then
+		tabs = {
+			Category.MARKETPLACE,
+			Category.INVENTORY_WITH_GROUPS,
+			Category.CREATIONS,
+		}
+		tabKeys = {
+			Category.MARKETPLACE_KEY,
 			Category.INVENTORY_KEY,
 			Category.CREATIONS_KEY,
 		}

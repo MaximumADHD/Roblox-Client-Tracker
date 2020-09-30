@@ -63,6 +63,7 @@ function Url.new(baseUrl)
 		BASE_URL = _baseUrl,  -- https://www.roblox.com/
 
 		API_URL = string.format("https://api.%s", _baseDomain),
+		APIS_URL = string.format("https://apis.%s", _baseDomain),
 		ASSET_GAME_URL = string.format("https://assetgame.%s", _baseDomain),
 		AUTH_URL = string.format("https://auth.%s", _baseDomain),
 		CATALOG_URL = string.format("https://catalog.%s", _baseDomain),
@@ -94,7 +95,7 @@ function Url.composeUrl(base, path, args)
 	assert(type(path) == "string", "Expected 'path' to be a string.")
 	if args then
 		assert(type(args) == "table", "Expected 'args' to be a map.")
-		assert(type(next(args)) == "string", "Expected 'args' to be map, not an array.")
+		assert(type((next(args))) == "string", "Expected 'args' to be map, not an array.")
 	end
 
 	-- append a slash to the end if the base doesn't have one

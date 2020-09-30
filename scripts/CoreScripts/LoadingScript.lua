@@ -22,6 +22,8 @@ local PolicyService = require(RobloxGui.Modules.Common:WaitForChild("PolicyServi
 local FFlagLoadTheLoadingScreenFasterSuccess, FFlagLoadTheLoadingScreenFasterValue = pcall(function() return settings():GetFFlag("LoadTheLoadingScreenFaster") end)
 local FFlagLoadTheLoadingScreenFaster = FFlagLoadTheLoadingScreenFasterSuccess and FFlagLoadTheLoadingScreenFasterValue
 local FFlagLoadTheLoadingScreenEvenFaster = game:DefineFastFlag("LoadTheLoadingScreenEvenFaster", false)
+local FFlagLoadingScreenDontBlockOnPolicyService = game:DefineFastFlag("LoadingScreenDontBlockOnPolicyService", false)
+local FFlagBackButtonWhileLoadingGoesBackToApp = game:DefineFastFlag("BackButtonWhileLoadingGoesBackToApp", false)
 
 local FFlagShowConnectionErrorCode = settings():GetFFlag("ShowConnectionErrorCode")
 local FFlagConnectionScriptEnabled = settings():GetFFlag("ConnectionScriptEnabled")
@@ -51,6 +53,7 @@ local spinnerImageId = "rbxasset://textures/loading/robloxTilt.png"
 local GameAssetInfo -- loaded by InfoProvider:LoadAssets()
 local currScreenGui
 local renderSteppedConnection
+local backButtonConnection
 local destroyingBackground, destroyedLoadingGui = false, false
 local isTenFootInterface = GuiService:IsTenFootInterface()
 
@@ -623,8 +626,15 @@ local function spinnerEasingFunc(a, b, t)
 	end
 end
 
-coroutine.wrap(function()
-	local showAntiAddictionNoticeStringEn = PolicyService:IsSubjectToChinaPolicies()
+if FFlagLoadingScreenDontBlockOnPolicyService then
+	local showAntiAddictionNoticeStringEn = false
+	-- PolicyService requires LocalPlayer to exist, which doesn't happen until
+	-- after we connect to the server. If the server is full, this can take a
+	-- very long time (like several minutes) to return a value. As a result, we
+	-- call it asynchronously and default to false.
+	coroutine.wrap(function()
+		showAntiAddictionNoticeStringEn = PolicyService:IsSubjectToChinaPolicies()
+	end)()
 
 	renderSteppedConnection = RunService.RenderStepped:connect(function(dt)
 		if not currScreenGui then return end
@@ -674,7 +684,60 @@ coroutine.wrap(function()
 			end
 		end
 	end)
-end)()
+else
+	coroutine.wrap(function()
+		local showAntiAddictionNoticeStringEn = PolicyService:IsSubjectToChinaPolicies()
+
+		renderSteppedConnection = RunService.RenderStepped:connect(function(dt)
+			if not currScreenGui then return end
+			if not currScreenGui:FindFirstChild("BlackFrame") then return end
+
+			local infoFrame = currScreenGui.BlackFrame:FindFirstChild('InfoFrame')
+			if infoFrame then
+				-- set place name
+				if placeLabel and placeLabel.Text == "" then
+					placeLabel.Text = InfoProvider:GetGameName()
+				end
+
+				-- set creator name
+				if creatorLabel and creatorLabel.Text == "" then
+					if showAntiAddictionNoticeStringEn then
+						creatorLabel.Text = antiAddictionNoticeStringEn
+					else
+						local creatorName = InfoProvider:GetCreatorName()
+						if creatorName ~= "" then
+							if isTenFootInterface then
+								creatorLabel.Text = creatorName
+								creatorLabel.Size = UDim2.new(0, creatorLabel.TextBounds.X, 1, 0)
+							else
+								creatorLabel.Text = "By ".. creatorName
+							end
+						end
+					end
+				end
+			end
+
+			local currentTime = tick()
+			local fadeAmount = dt * fadeCycleTime
+
+			local spinnerImage = currScreenGui.BlackFrame.GraphicsFrame.LoadingImage
+			local timeInCycle = currentTime % turnCycleTime
+			local cycleAlpha = spinnerEasingFunc(0, 1, timeInCycle / turnCycleTime)
+			spinnerImage.Rotation = cycleAlpha * 360
+
+
+			if not isTenFootInterface then
+				if currentTime - startTime > 5 and currScreenGui.BlackFrame.CloseButton.ImageTransparency > 0 then
+					currScreenGui.BlackFrame.CloseButton.ImageTransparency = currScreenGui.BlackFrame.CloseButton.ImageTransparency - fadeAmount
+
+					if currScreenGui.BlackFrame.CloseButton.ImageTransparency <= 0 then
+						currScreenGui.BlackFrame.CloseButton.Active = true
+					end
+				end
+			end
+		end)
+	end)()
+end
 
 -- use the old error frame when on XBox
 if not FFlagConnectionScriptEnabled or isTenFootInterface then
@@ -726,6 +789,14 @@ if not FFlagConnectionScriptEnabled or isTenFootInterface then
 		else
 			currScreenGui.ErrorFrame.Visible = false
 		end
+	end)
+end
+
+if FFlagBackButtonWhileLoadingGoesBackToApp then
+	backButtonConnection = GuiService.ShowLeaveConfirmation:Connect(function()
+		-- When OS back button is pressed during loading screen, exit
+		-- immediately. Behaves the same as the close button.
+		game:Shutdown()
 	end)
 end
 
@@ -820,6 +891,11 @@ local function fadeAndDestroyBlackFrame(blackFrame)
 		if loadingImageInputBeganConn then
 			loadingImageInputBeganConn:disconnect()
 		end
+
+		if backButtonConnection then
+			backButtonConnection:Disconnect()
+		end
+
         if connectionHealthShown then
 			if UserInputService.TouchEnabled == true and UserInputService.MouseEnabled == false then
 				connectionHealthCon = game:GetService("UserInputService").InputBegan:connect(function()

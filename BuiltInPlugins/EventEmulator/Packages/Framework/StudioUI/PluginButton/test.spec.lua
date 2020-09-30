@@ -3,23 +3,10 @@ return function()
 	local Roact = require(Framework.Parent.Roact)
 	local PluginButton = require(script.Parent)
 
-	local function mockToolbar()
-		local toolbar = {
-			CreateButton = function()
-				return {
-					Click = {
-						Connect = function()
-						end,
-					},
-					SetActive = function()
-					end,
-					Destroy = function()
-					end,
-				}
-			end,
-		}
+	local MockPluginToolbar = require(Framework.TestHelpers.Instances.MockPluginToolbar)
 
-		return toolbar
+	local function mockToolbar()
+		return MockPluginToolbar.new(nil, "")
 	end
 
 	it("should create and destroy without errors", function()

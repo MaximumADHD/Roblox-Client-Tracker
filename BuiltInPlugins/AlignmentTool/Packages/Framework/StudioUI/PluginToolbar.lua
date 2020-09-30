@@ -42,6 +42,8 @@ function PluginToolbar:render()
 	if children then
 		return Roact.createFragment(children)
 	end
+
+	return nil
 end
 
 function PluginToolbar:willUnmount()

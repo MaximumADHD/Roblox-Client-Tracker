@@ -95,7 +95,7 @@ function Url.composeUrl(base, path, args)
 	assert(type(path) == "string", "Expected 'path' to be a string.")
 	if args then
 		assert(type(args) == "table", "Expected 'args' to be a map.")
-		assert(type(next(args)) == "string", "Expected 'args' to be map, not an array.")
+		assert(type((next(args))) == "string", "Expected 'args' to be map, not an array.")
 	end
 
 	-- append a slash to the end if the base doesn't have one

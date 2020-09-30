@@ -11,7 +11,7 @@ return function(state, action)
 	return {
 		categories = defaultCategories,
 		category = defaultCategories[1].category,
-		categoryName = defaultCategories[1].categoryName,
+		categoryName = defaultCategories[1].name,
 
 		searchTerm = "",
 

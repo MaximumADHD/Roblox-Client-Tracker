@@ -9,21 +9,33 @@ local DraggerFramework = script.Parent.Parent
 local getGeometry = require(DraggerFramework.Utility.getGeometry)
 local JointPairs = require(DraggerFramework.Utility.JointPairs)
 local JointUtil = require(DraggerFramework.Utility.JointUtil)
-local SelectionWrapper = require(DraggerFramework.Utility.SelectionWrapper)
+local SelectionWrapper_DEPRECATED = require(DraggerFramework.Utility.SelectionWrapper_DEPRECATED)
 
-local getFFlagNoMoveToPile = require(DraggerFramework.Flags.getFFlagNoMoveToPile)
+local getFFlagDraggerSplit = require(DraggerFramework.Flags.getFFlagDraggerSplit)
+local getFFlagEnablePhysicalFreeFormDragger = require(DraggerFramework.Flags.getFFlagEnablePhysicalFreeFormDragger)
 
 local DEFAULT_COLLISION_THRESHOLD = 0.001
 
 -- Get all the instances the user has directly selected (actually part of the
 -- selection)
-local function getSelectedInstanceSet()
-	local selection = SelectionWrapper:Get()
-	local selectedInstanceSet = {}
-	for _, instance in pairs(selection) do
-		selectedInstanceSet[instance] = true
+local getSelectedInstanceSet
+if getFFlagDraggerSplit() then
+	function getSelectedInstanceSet(selection)
+		local selectedInstanceSet = {}
+		for _, instance in pairs(selection) do
+			selectedInstanceSet[instance] = true
+		end
+		return selectedInstanceSet
 	end
-	return selectedInstanceSet
+else
+	function getSelectedInstanceSet()
+		local selection = SelectionWrapper_DEPRECATED:Get()
+		local selectedInstanceSet = {}
+		for _, instance in pairs(selection) do
+			selectedInstanceSet[instance] = true
+		end
+		return selectedInstanceSet
+	end
 end
 
 local PartMover = {}
@@ -33,6 +45,7 @@ PartMover.__index = PartMover
 	Default value for IK dragging translation and rotation stiffness.
 ]]
 local DRAG_CONSTRAINT_STIFFNESS = 0.85
+local DRAG_CONSTRAINT_LESS_STIFFNESS = 0.40
 
 function PartMover.new()
 	local self = setmetatable({
@@ -52,7 +65,10 @@ function PartMover:getIgnorePart()
 	return self._mainPart
 end
 
-function PartMover:setDragged(parts, originalCFrameMap, breakJoints, customCenter)
+function PartMover:setDragged(parts, originalCFrameMap, breakJoints, customCenter, selection)
+	if getFFlagDraggerSplit() then
+		assert(selection ~= nil)
+	end
 	-- Separate out the Workspace parts which will be passed to
 	-- Workspace::ArePartsTouchingOthers for collision testing
 	local workspaceParts = table.create(16)
@@ -78,7 +94,7 @@ function PartMover:setDragged(parts, originalCFrameMap, breakJoints, customCente
 	-- modifications to joints which prepareJoints did. Same thing with
 	-- setupBulkMove (it cares about assemblies)
 	self:_setupGeometryTracking(self._workspaceParts)
-	self:_setupBulkMove(parts, getSelectedInstanceSet())
+	self:_setupBulkMove(parts, getSelectedInstanceSet(selection))
 
 	self._parts = parts
 	self._hasMovementWelds = false
@@ -252,12 +268,24 @@ function PartMover:_prepareJoints(parts, breakJoints)
 				local other = JointUtil.getWeldConstraintCounterpart(joint, part)
 				self._alreadyConnectedToSets[part][other] = true
 
-				-- Weld constraints to non-dragged parts need to be disabled,
-				-- and then re-enabled after the move. Note: To show up in
-				-- GetJoints, this weld must have been enabled.
-				if not self._partSet[other] then
-					joint.Enabled = false
-					self._reenableWeldConstraints[joint] = true
+				if getFFlagEnablePhysicalFreeFormDragger() then
+					if breakJoints then
+						-- Weld constraints to non-dragged parts need to be disabled,
+						-- and then re-enabled after the move. Note: To show up in
+						-- GetJoints, this weld must have been enabled.
+						if not self._partSet[other] then
+							joint.Enabled = false
+							self._reenableWeldConstraints[joint] = true
+						end
+					end
+				else
+					-- Weld constraints to non-dragged parts need to be disabled,
+					-- and then re-enabled after the move. Note: To show up in
+					-- GetJoints, this weld must have been enabled.
+					if not self._partSet[other] then
+						joint.Enabled = false
+						self._reenableWeldConstraints[joint] = true
+					end
 				end
 			elseif joint:IsA("NoCollisionConstraint") then
 				local other = JointUtil.getNoCollisionConstraintCounterpart(joint, part)
@@ -365,12 +393,12 @@ end
 
 function PartMover:moveToWithIk(transform, collisionsMode)
 	local translateStiffness = DRAG_CONSTRAINT_STIFFNESS
-	local rotateStiffness = 0
+	local rotateStiffness = getFFlagDraggerSplit() and DRAG_CONSTRAINT_LESS_STIFFNESS or 0
 	return self:transformToWithIk(transform, translateStiffness, rotateStiffness, collisionsMode)
 end
 
 function PartMover:rotateToWithIk(transform, collisionsMode)
-	local translateStiffness = 0
+	local translateStiffness = getFFlagDraggerSplit() and DRAG_CONSTRAINT_LESS_STIFFNESS or 0
 	local rotateStiffness = DRAG_CONSTRAINT_STIFFNESS
 	return self:transformToWithIk(transform, translateStiffness, rotateStiffness, collisionsMode)
 end
@@ -412,26 +440,6 @@ function PartMover:commit()
 		part.Anchored = false
 	end
 	self._toUnanchor = {}
-
-	if not getFFlagNoMoveToPile() then
-		if self._lastTransform and self._bulkMoveParts then
-			-- ChangeHistoryService "bump": Since we move the parts via the
-			-- WorldRoot::BulkMoveTo API with mode = FireCFrameChanged the
-			-- ChangeHistoryService won't see those moves. Do a final move with
-			-- mode = FireCFrameChanged which the ChangeHistoryService will
-			-- record. Note: We have to move the parts back to 0,0,0 first,
-			-- since if their CFrames don't change, we won't get any even
-			-- if we do call with mode = FireCFrameChanged.
-			Workspace:BulkMoveTo(self._bulkMoveParts,
-				table.create(#self._bulkMoveParts, CFrame.new()),
-				Enum.BulkMoveMode.FireCFrameChanged)
-			Workspace:BulkMoveTo(self._moveWithCFrameChangeParts,
-				table.create(#self._moveWithCFrameChangeParts, CFrame.new()),
-				Enum.BulkMoveMode.FireCFrameChanged)
-			self:_transformToImpl(self._lastTransform, Enum.BulkMoveMode.FireCFrameChanged)
-			self._lastTransform = nil
-		end
-	end
 
 	if self._bulkMoveParts then
 		self._moveWithCFrameChangeParts = nil

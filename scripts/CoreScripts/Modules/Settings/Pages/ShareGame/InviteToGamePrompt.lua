@@ -1,6 +1,8 @@
 
 local CoreGui = game:GetService("CoreGui")
 local CorePackages = game:GetService("CorePackages")
+local ContextActionService = game:GetService("ContextActionService")
+local GuiService = game:GetService("GuiService")
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
@@ -13,6 +15,9 @@ local SettingsHubDirectory = Modules.Settings
 local ShareGameDirectory = SettingsHubDirectory.Pages.ShareGame
 local FullModalShareGameComponent = require(ShareGameDirectory.Components.FullModalShareGameComponent)
 local AppReducer = require(ShareGameDirectory.AppReducer)
+local isSelectionGroupEnabled = require(ShareGameDirectory.isSelectionGroupEnabled)
+
+local HIDE_INVITE_CONTEXT_BIND = "hideInvitePrompt"
 
 local InviteToGamePrompt = {}
 InviteToGamePrompt.__index = InviteToGamePrompt
@@ -63,13 +68,21 @@ function InviteToGamePrompt:show()
 	self.isActive = true
 
 	if not self.instance then
-		self.instance = Roact.mount(self:_createTree(true), self.mountTarget)
+		self.instance = Roact.mount(self:_createTree(true), self.mountTarget, isSelectionGroupEnabled() and "invitePrompt" or nil)
 	else
 		self.instance = Roact.update(self.instance, self:_createTree(true))
 	end
 
 	if self.analytics then
 		self.analytics:inputShareGameEntryPoint()
+	end
+
+	if isSelectionGroupEnabled() then
+		ContextActionService:BindCoreAction(HIDE_INVITE_CONTEXT_BIND, function(_, userInputState, inputObject)
+			if userInputState == Enum.UserInputState.Begin then
+				self:hide()
+			end
+		end, false, Enum.KeyCode.ButtonB, Enum.KeyCode.Backspace)
 	end
 end
 
@@ -82,6 +95,12 @@ function InviteToGamePrompt:hide(sentToUserIds)
 	self.instance = Roact.update(self.instance, self:_createTree(false))
 	if self.socialService and self.localPlayer then
 		self.socialService:InvokeGameInvitePromptClosed(self.localPlayer, {})
+	end
+
+	if isSelectionGroupEnabled() then
+		ContextActionService:UnbindCoreAction(HIDE_INVITE_CONTEXT_BIND)
+		GuiService.SelectedCoreObject = nil
+		GuiService:RemoveSelectionGroup("invitePrompt")
 	end
 end
 

@@ -11,14 +11,21 @@ local UpdatePageInfoAndSendRequest = require(Plugin.Core.Networking.Requests.Upd
 
 local Category = require(Plugin.Core.Types.Category)
 
+local FFlagToolboxShowRobloxCreatedAssetsForLuobu = game:GetFastFlag("ToolboxShowRobloxCreatedAssetsForLuobu")
+
 return function(networkInterface, tabName, newCategories,  settings, options)
 	return function(store)
 
 		local categories = Category.getCategories(tabName, store:getState().roles)
 
+		local creator = Cryo.None
+		if FFlagToolboxShowRobloxCreatedAssetsForLuobu then
+			creator = options.creator or Cryo.None
+		end
+
 		store:dispatch(UpdatePageInfoAndSendRequest(networkInterface, settings, {
 			audioSearchInfo = Cryo.None,
-			creator = Cryo.None,
+			creator = creator,
 			currentTab = tabName,
 			categories = categories,
 			requestReason = RequestReason.ChangeTabs,

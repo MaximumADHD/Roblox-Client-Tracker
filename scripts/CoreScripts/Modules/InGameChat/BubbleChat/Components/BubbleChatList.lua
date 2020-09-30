@@ -15,7 +15,7 @@ BubbleChatList.validateProps = t.strictInterface({
 	theme = t.optional(t.string),
 
 	-- RoactRodux
-	chatSettings = t.table,
+	chatSettings = Types.IChatSettings,
 	messages = t.map(t.string, Types.IMessage),
 	messageIds = t.array(t.string),
 })

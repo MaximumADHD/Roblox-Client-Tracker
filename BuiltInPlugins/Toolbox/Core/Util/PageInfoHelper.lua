@@ -14,7 +14,9 @@ local PageInfoHelper = {}
 
 function PageInfoHelper.getCurrentTab(pageInfo)
 	local currentTab
-	if not FFlagUseCategoryNameInToolbox then
+	if FFlagUseCategoryNameInToolbox then
+		currentTab = Category.getTabKeyForCategoryName(pageInfo.categoryName)
+	else
 		local currentTabDefault = FFlagToolboxDisableMarketplaceAndRecentsForLuobu and Constants.DEFAULT_TAB or Category.MARKETPLACE_KEY
 		currentTab = pageInfo.currentTab or currentTabDefault
 	end

@@ -54,7 +54,7 @@ return function()
 			mouse:__pushCursor("PointingHand")
 			mouse:__pushCursor("PointingHand", 2)
 			mouse:__resetCursor()
-			expect(next(mouse.cursors)).never.to.be.ok()
+			expect((next(mouse.cursors))).never.to.be.ok()
 		end)
 
 		it("should be a stack", function()

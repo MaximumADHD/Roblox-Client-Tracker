@@ -298,7 +298,7 @@ function ClassicCamera:Update()
 					if FFlagUserCameraInputRefactor then
 						vecToSubject = self:CalculateNewLookFromArg(nil, rotateInput) * desiredDist
 					else
-						vecToSubject = self:CalculateNewLook() * desiredDist
+						vecToSubject = self:CalculateNewLookVector() * desiredDist
 					end
 					local newPos = cameraFocusP - vecToSubject
 					local desiredLookDir = camera.CFrame.lookVector

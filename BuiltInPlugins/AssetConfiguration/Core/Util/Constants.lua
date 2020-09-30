@@ -13,6 +13,9 @@ local FFlagSmallerToolboxMinWidth = game:DefineFastFlag("SmallerToolboxMinWidth"
 local FFlagUseCategoryNameInToolbox = game:GetFastFlag("UseCategoryNameInToolbox")
 local FFlagToolboxUseNewPluginEndpoint = settings():GetFFlag("ToolboxUseNewPluginEndpoint")
 local FFlagToolboxDisableMarketplaceAndRecentsForLuobu = game:GetFastFlag("ToolboxDisableMarketplaceAndRecentsForLuobu")
+local FFlagToolboxShowRobloxCreatedAssetsForLuobu = game:GetFastFlag("ToolboxShowRobloxCreatedAssetsForLuobu")
+
+local FIntLuobuToolboxMaxAudioLength = game:GetFastInt("LuobuToolboxMaxAudioLength")
 
 local Constants = {}
 
@@ -264,6 +267,11 @@ Constants.Dialog = {
 
 Constants.MIN_AUDIO_SEARCH_DURATION = 0
 Constants.MAX_AUDIO_SEARCH_DURATION = 420
+
+if FFlagToolboxShowRobloxCreatedAssetsForLuobu and RobloxAPI:baseURLHasChineseHost() then
+	Constants.MAX_AUDIO_SEARCH_DURATION = FIntLuobuToolboxMaxAudioLength
+end
+
 Constants.TOOLBOX_ITEM_SEARCH_LIMIT = 30
 if (not FFlagToolboxUseNewPluginEndpoint) then
 	Constants.AUDIO_SERACH_CATEGORY_NAME = "audio"

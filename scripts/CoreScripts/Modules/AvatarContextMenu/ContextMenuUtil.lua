@@ -145,7 +145,7 @@ end
 
 local CanChatWithMap = {}
 coroutine.wrap(function()
-	local RemoteEvent_CanChatWith = RobloxReplicatedStorage:WaitForChild("CanChatWith")
+	local RemoteEvent_CanChatWith = RobloxReplicatedStorage:WaitForChild("CanChatWith", math.huge)
 	RemoteEvent_CanChatWith.OnClientEvent:Connect(function(userId, canChat)
 		CanChatWithMap[userId] = canChat
 	end)

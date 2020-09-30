@@ -9,8 +9,10 @@ local CorePackages = game:GetService("CorePackages")
 
 local Otter = require(CorePackages.Packages.Otter)
 local Roact = require(CorePackages.Packages.Roact)
+local RoactRodux = require(CorePackages.Packages.RoactRodux)
 local t = require(CorePackages.Packages.t)
 local Constants = require(script.Parent.Parent.Constants)
+local Types = require(script.Parent.Parent.Types)
 
 local ChatBubbleDistant = Roact.Component:extend("ChatBubbleDistannt")
 
@@ -22,6 +24,8 @@ local SPRING_CONFIG = {
 ChatBubbleDistant.validateProps = t.strictInterface({
 	width = t.optional(t.number),
 	height = t.optional(t.number),
+
+	chatSettings = Types.IChatSettings,
 })
 
 ChatBubbleDistant.defaultProps = {
@@ -59,11 +63,12 @@ function ChatBubbleDistant:render()
 			Position = UDim2.new(0.5, 0, 1, -1), --UICorner generates a 1 pixel gap (UISYS-625), this fixes it by moving the carrot up by 1 pixel
 			Size = UDim2.fromOffset(12, 8),
 			Image = "rbxasset://textures/ui/InGameChat/Caret.png",
+			ImageColor3 = self.props.chatSettings.BackgroundColor3,
 			ImageTransparency = self.transparency,
 		}),
 		RoundedFrame = 	Roact.createElement("Frame", {
 			Size = self.frameSize,
-			BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+			BackgroundColor3 = self.props.chatSettings.BackgroundColor3,
 			BackgroundTransparency = self.transparency,
 			AnchorPoint = Vector2.new(0.5, 0),
 			Position = UDim2.new(0.5, 0, 0, 0),
@@ -106,4 +111,11 @@ function ChatBubbleDistant:willUnmount()
 	self.widthMotor:destroy()
 end
 
-return ChatBubbleDistant
+local function mapStateToProps(state)
+	return {
+		chatSettings = state.chatSettings,
+	}
+end
+
+return RoactRodux.connect(mapStateToProps)(ChatBubbleDistant)
+

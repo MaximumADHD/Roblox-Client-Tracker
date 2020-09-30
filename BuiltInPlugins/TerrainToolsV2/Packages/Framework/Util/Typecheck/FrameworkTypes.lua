@@ -9,7 +9,6 @@ local t = require(script.Parent.t)
 local FrameworkTypes = {}
 local Flags = require(Framework.Util.Flags)
 local FlagsList = Flags.new({
-	FFlagDevFrameworkEnumUtility = "DevFrameworkEnumUtility",
 	FFlagRefactorDevFrameworkContextItems = {"RefactorDevFrameworkContextItems"},
 })
 
@@ -89,16 +88,8 @@ end
 function FrameworkTypes.StyleModifier(value)
 	local errMsg = "StyleModifier expected, got %s."
 
-	if FlagsList:get("FFlagDevFrameworkEnumUtility")  then
-		if StyleModifier.isEnumValue(value) then
-			return true
-		end
-	else
-		for _, v in pairs(StyleModifier) do
-			if value == v then
-				return true
-			end
-		end
+	if StyleModifier.isEnumValue(value) then
+		return true
 	end
 
 	return false, errMsg:format(type(value))

@@ -4,21 +4,24 @@
 
 	Required Props:
 		table Buttons: A list of buttons to display. Example: { Key = "", Text = "", Disabled = false }.
-		Theme Theme: A Theme ContextItem, which is provided via mapToProps.
 
 	Optional Props:
 		string SelectedKey: The initially selected key.
 		number LayoutOrder: The layout order of the frame.
 		Enum.FillDirection FillDirection: The direction in which buttons are filled.
 		callback OnClick: paramters(string key). Fires when the button is activated and returns back the Key.
+		Theme Theme: A Theme ContextItem, which is provided via mapToProps.
+		Stylizer Stylizer: A Stylizer ContextItem, which is provided via mapToProps.
 ]]
-
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
 local ContextServices = require(Framework.ContextServices)
 
 local Util = require(Framework.Util)
 local Typecheck = Util.Typecheck
+local FlagsList = Util.Flags.new({
+	FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
+})
 
 local RadioButton = require(Framework.UI.RadioButton)
 
@@ -57,7 +60,12 @@ function RadioButtonList:render()
 	local layoutOrder = self.props.LayoutOrder
 	local theme = self.props.Theme
 
-	local style = theme:getStyle("Framework", self)
+	local style
+	if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+		style = self.props.Stylizer
+	else
+		style = theme:getStyle("Framework", self)
+	end
 
 	local children = {}
 
@@ -82,7 +90,8 @@ function RadioButtonList:render()
 end
 
 ContextServices.mapToProps(RadioButtonList, {
-	Theme = ContextServices.Theme,
+	Stylizer = FlagsList:get("FFlagRefactorDevFrameworkTheme") and ContextServices.Stylizer or nil,
+	Theme = (not FlagsList:get("FFlagRefactorDevFrameworkTheme")) and ContextServices.Theme or nil,
 })
 
 return RadioButtonList

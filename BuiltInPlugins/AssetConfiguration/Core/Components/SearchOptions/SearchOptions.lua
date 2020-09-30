@@ -38,6 +38,10 @@ local SearchOptionsFooter = require(Plugin.Core.Components.SearchOptions.SearchO
 
 local SearchOptions = Roact.PureComponent:extend("SearchOptions")
 
+SearchOptions.defaultProps = {
+	showCreatorSearch = true,
+}
+
 local FitToContent = createFitToContent("ImageButton", "UIListLayout", {
 	FillDirection = Enum.FillDirection.Vertical,
 	Padding = UDim.new(0, 10),
@@ -161,6 +165,7 @@ function SearchOptions:render()
 				local audioSearchTitle = self.props.Localization:getText("General", "SearchOptionAudioLength")
 
 				local showAudioSearch = self.props.showAudioSearch
+				local showCreatorSearch = self.props.showCreatorSearch
 
 				local sorts = {
 					{Key = "Relevance", Text = localizedContent.Sort.Relevance},
@@ -191,7 +196,7 @@ function SearchOptions:render()
 							[Roact.Event.MouseEnter] = self.mouseEnter,
 							[Roact.Event.MouseLeave] = self.mouseLeave,
 						}, {
-							Creator = Roact.createElement(SearchOptionsEntry, {
+							Creator = showCreatorSearch and Roact.createElement(SearchOptionsEntry, {
 								LayoutOrder = self:nextLayout(),
 								Header = localizedContent.SearchOptions.Creator,
 								ZIndex = 2,
@@ -205,7 +210,7 @@ function SearchOptions:render()
 								}),
 							}),
 
-							Separator1 = self:createSeparator(optionsTheme.separator),
+							Separator1 = showCreatorSearch and self:createSeparator(optionsTheme.separator),
 
 							AudioSearchHeader = showAudioSearch and Roact.createElement(SearchOptionsEntry, {
 								LayoutOrder = self:nextLayout(),

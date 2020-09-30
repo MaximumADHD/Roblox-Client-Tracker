@@ -3,6 +3,7 @@ local CorePackages = game:GetService("CorePackages")
 local Roact = require(CorePackages.Roact)
 
 local FFlagLuaInviteModalEnabled = settings():GetFFlag("LuaInviteModalEnabledV384")
+local isSelectionGroupEnabled = require(script:FindFirstAncestor("ShareGame").isSelectionGroupEnabled)
 
 local BUTTON_IMAGE = "rbxasset://textures/ui/Settings/MenuBarAssets/MenuButton.png"
 local BUTTON_IMAGE_ACTIVE = "rbxasset://textures/ui/Settings/MenuBarAssets/MenuButtonSelected.png"
@@ -50,9 +51,15 @@ function RectangleButton:render()
 		PaddingBottom = UDim.new(0, DROPSHADOW_SIZE.Bottom),
 	})
 
+	local isSelectable = nil
+	if isSelectionGroupEnabled() then
+		isSelectable = false
+	end
+
 	return Roact.createElement("ImageButton", {
 		BackgroundTransparency = 1,
 		Image = "",
+		Selectable = isSelectable,
 		Size = size,
 		Position = position,
 		AnchorPoint = anchorPoint,

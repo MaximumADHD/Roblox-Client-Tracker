@@ -10,7 +10,7 @@ local PlayerCanManageInfoMapChanged = Instance.new("BindableEvent")
 
 spawn(function()
 	local RobloxReplicatedStorage = game:GetService("RobloxReplicatedStorage")
-	local RemoveEvent_NewPlayerGroupDetails = RobloxReplicatedStorage:WaitForChild("NewPlayerGroupDetails")
+	local RemoveEvent_NewPlayerGroupDetails = RobloxReplicatedStorage:WaitForChild("NewPlayerGroupDetails", math.huge)
 	RemoveEvent_NewPlayerGroupDetails.OnClientEvent:Connect(function(userIdStr, groupDetails)
 		local player = PlayersService:GetPlayerByUserId(tonumber(userIdStr))
 		if player then
@@ -22,7 +22,7 @@ end)
 
 coroutine.wrap(function()
 	local RobloxReplicatedStorage = game:GetService("RobloxReplicatedStorage")
-	local RemoveEvent_NewPlayerCanManageDetails = RobloxReplicatedStorage:WaitForChild("NewPlayerCanManageDetails")
+	local RemoveEvent_NewPlayerCanManageDetails = RobloxReplicatedStorage:WaitForChild("NewPlayerCanManageDetails", math.huge)
 	RemoveEvent_NewPlayerCanManageDetails.OnClientEvent:Connect(function(userIdStr, canManage)
 		local player = PlayersService:GetPlayerByUserId(tonumber(userIdStr))
 		if player then

@@ -1,5 +1,6 @@
 local Plugin = script.Parent.Parent.Parent
 
+local Cryo = require(Plugin.Packages.Cryo)
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 
@@ -31,6 +32,21 @@ local function stripText(text)
     newText = string.gsub(newText, "\n", "")
     newText = string.gsub(newText, "\t", "")
     return newText
+end
+
+local function getClassIcon(assetType)
+	local StudioService  = game:GetService("StudioService")
+	if assetType == Enum.AssetType.Place then
+        return StudioService:GetClassIcon("Place")
+    elseif assetType == Enum.AssetType.Package then
+        return StudioService:GetClassIcon("Model")
+    elseif assetType == Enum.AssetType.Image then
+        return StudioService:GetClassIcon("Decal")
+    elseif assetType == Enum.AssetType.MeshPart then
+        return StudioService:GetClassIcon("MeshPart")
+    elseif assetType == Enum.AssetType.Lua then
+        return StudioService:GetClassIcon("LinkedScript")
+    end
 end
 
 function ListItem:init()
@@ -177,7 +193,13 @@ function ListItem:render()
     local borderSizePixel = listItemStyle.BorderSizePixel
     local padding = listItemStyle.Padding
 
-    local image = listItemStyle.Image.Folder
+    local imageInfo = {}
+    local isFolder = assetData.ClassName == "Folder"
+    if isFolder then
+        imageInfo.Image = listItemStyle.Image.Folder
+    else
+        imageInfo = getClassIcon(assetData.assetType)
+    end
 
     local imageFrameSize = listItemStyle.Image.FrameSize
     local imageSize = listItemStyle.Image.ImageSize
@@ -247,14 +269,13 @@ function ListItem:render()
                 BackgroundColor3 = imageBGColor,
                 BorderSizePixel = 0,
             },{
-                Image = Roact.createElement("ImageLabel", {
+                Image = Roact.createElement("ImageLabel", Cryo.Dictionary.join(imageInfo, {
                     Size = imageSize,
-                    Image = image,
                     Position = imagePos,
                     AnchorPoint = imageAnchorPos,
 
                     BackgroundTransparency = 1,
-                })
+                }))
             }),
 
             Name = not isEditingAsset and Roact.createElement("TextLabel", {
@@ -286,7 +307,6 @@ function ListItem:render()
                 TextSize = textSize,
 
                 TextXAlignment = editTextXAlignment,
-                TextTruncate = textTruncate,
                 TextWrapped = editTextWrapped,
                 ClearTextOnFocus = editTextClearOnFocus,
 

@@ -46,11 +46,6 @@ local UIBlox = require(CorePackages.UIBlox)
 local uiBloxConfig = require(CoreGuiModules.UIBloxInGameConfig)
 UIBlox.init(uiBloxConfig)
 
-local RoactRodux = require(CorePackages.RoactRodux)
-local FFlagCoreScriptsUseRoactRoduxNewConnectionOrder = require(
-	RobloxGui.Modules.Flags.FFlagCoreScriptsUseRoactRoduxNewConnectionOrder)
-RoactRodux.TEMP_CONFIG.newConnectionOrder = FFlagCoreScriptsUseRoactRoduxNewConnectionOrder
-
 local localPlayer = Players.LocalPlayer
 while not localPlayer do
 	Players:GetPropertyChangedSignal("LocalPlayer"):Wait()
@@ -122,10 +117,7 @@ end)()
 ScriptContext:AddCoreScriptLocal("CoreScripts/PerformanceStatsManagerScript", RobloxGui)
 
 -- Default Alternate Death Ragdoll (China only for now)
-local FFlagSupportDeathType = game:DefineFastFlag("SupportDeathTypeClient", false)
-if FFlagSupportDeathType then
-	ScriptContext:AddCoreScriptLocal("CoreScripts/PlayerRagdoll", RobloxGui)
-end
+ScriptContext:AddCoreScriptLocal("CoreScripts/PlayerRagdoll", RobloxGui)
 
 -- Chat script
 coroutine.wrap(safeRequire)(RobloxGui.Modules.ChatSelector)
@@ -138,7 +130,7 @@ local UserRoactBubbleChatBeta do
 	UserRoactBubbleChatBeta = success and value
 end
 
-if GetFFlagRoactBubbleChat() or UserRoactBubbleChatBeta then
+if game:GetEngineFeature("EnableBubbleChatFromChatService") or UserRoactBubbleChatBeta then
 	ScriptContext:AddCoreScriptLocal("CoreScripts/InGameChat", RobloxGui)
 end
 
