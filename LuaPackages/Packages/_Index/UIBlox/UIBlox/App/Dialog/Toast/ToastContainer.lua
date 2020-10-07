@@ -3,7 +3,6 @@ local DialogRoot = ToastRoot.Parent
 local AppRoot = DialogRoot.Parent
 local UIBloxRoot = AppRoot.Parent
 local Packages = UIBloxRoot.Parent
-local UIBloxConfig = require(UIBloxRoot.UIBloxConfig)
 
 local Roact = require(Packages.Roact)
 local t = require(Packages.t)
@@ -22,8 +21,6 @@ local MIN_HEIGHT = 60
 
 local MAX_BOUND = 10000
 
-local fixToastResizeConfig = UIBloxConfig.fixToastResizeConfig
-
 local function getTextHeight(text, font, fontSize, widthCap)
 	local bounds = Vector2.new(widthCap, MAX_BOUND)
 	local textSize = GetTextSize(text, fontSize, font, bounds)
@@ -39,6 +36,7 @@ local validateProps = t.strictInterface({
 	-- Optional image to be displayed in the toast.
 	iconImage = t.optional(t.union(t.table, t.string)),
 	iconSize = t.optional(t.Vector2),
+	iconChildren = t.optional(t.table),
 	layoutOrder = t.optional(t.integer),
 	onActivated = t.optional(t.callback),
 	onTouchSwipe = t.optional(t.callback),
@@ -95,7 +93,7 @@ function ToastContainer:init()
 		if inputObject.UserInputState == Enum.UserInputState.Begin and
 			(inputObject.UserInputType == Enum.UserInputType.Touch or
 			inputObject.UserInputType == Enum.UserInputType.MouseButton1) then
-			if not self.state.pressed and (fixToastResizeConfig or self.isMounted) then
+			if not self.state.pressed then
 				self:setState({
 					pressed = true,
 				})
@@ -104,7 +102,7 @@ function ToastContainer:init()
 	end
 
 	self.onButtonInputEnded = function()
-		if self.state.pressed and (fixToastResizeConfig or self.isMounted) then
+		if self.state.pressed then
 			self:setState({
 				pressed = false,
 			})
@@ -152,12 +150,7 @@ function ToastContainer:render()
 
 	return withStyle(function(stylePalette)
 		local subtitleHeight, titleHeight = self.getTextHeights(stylePalette)
-		local textFrameHeight
-		if fixToastResizeConfig then
-			textFrameHeight = titleHeight + subtitleHeight
-		else
-			textFrameHeight = self.state.titleHeight + self.state.subtitleHeight
-		end
+		local textFrameHeight = titleHeight + subtitleHeight
 
 		local size = self.props.size
 		if self.props.fitHeight then
@@ -178,40 +171,10 @@ function ToastContainer:render()
 			Size = size,
 			Text = "",
 			[Roact.Change.AbsoluteSize] = function(rbx)
-				if fixToastResizeConfig and self.state.containerWidth ~= rbx.AbsoluteSize.X then
+				if self.state.containerWidth ~= rbx.AbsoluteSize.X then
 					self:setState({
 						containerWidth = rbx.AbsoluteSize.X
 					})
-				elseif not fixToastResizeConfig and self.state.containerWidth ~= rbx.AbsoluteSize.X then
-					local containerWidth = rbx.AbsoluteSize.X
-					local textFrameWidth = containerWidth - padding*2
-					if iconImage then
-						textFrameWidth = textFrameWidth - iconSize.X - padding
-					end
-
-					local titleFont = titleStyle.Font
-					local titleSize = titleStyle.RelativeSize * font.BaseSize
-					local newTitleHeight = math.max(0, getTextHeight(toastTitle, titleFont, titleSize, textFrameWidth))
-					local newSubtitleHeight = 0
-
-					if toastSubtitle then
-						local subtitleFont = subtitleStyle.Font
-						local subtitleSize = subtitleStyle.RelativeSize * font.BaseSize
-						newSubtitleHeight = math.max(0, getTextHeight(toastSubtitle, subtitleFont, subtitleSize, textFrameWidth))
-					end
-
-					-- Wrapped in spawn in order to avoid issues if Roact connects changed signal before the Size
-					-- prop is set in older versions of Roact (older than 1.0) In 1.0, this is fixed by deferring event
-					-- handlers and setState calls until after the current update]]
-					spawn(function()
-						if self.isMounted then
-							self:setState({
-								containerWidth = containerWidth,
-								subtitleHeight = newSubtitleHeight,
-								titleHeight = newTitleHeight,
-							})
-						end
-					end)
 				end
 			end,
 			[Roact.Event.Activated] = self.props.onActivated,
@@ -227,21 +190,21 @@ function ToastContainer:render()
 					Image = iconImage,
 					Size = UDim2.new(0, iconSize.X, 0, iconSize.Y),
 				} or nil,
+				iconChildren = self.props.iconChildren,
 				padding = padding,
 				pressed = self.props.onActivated and self.state.pressed or nil,
 				pressedScale = self.props.pressedScale,
 				subtitleTextProps = toastSubtitle and {
 					colorStyle = theme.TextEmphasis,
 					fontStyle = subtitleStyle,
-					Size = fixToastResizeConfig and UDim2.new(1, 0, 0, subtitleHeight)
-						or UDim2.new(1, 0, 0, self.state.subtitleHeight),
+					Size = UDim2.new(1, 0, 0, subtitleHeight),
 					Text = toastSubtitle,
 				} or nil,
 				textFrameSize = UDim2.new(1, iconImage and -iconSize.X - padding or 0, 0, textFrameHeight),
 				titleTextProps = {
 					colorStyle = theme.TextEmphasis,
 					fontStyle = titleStyle,
-					Size = fixToastResizeConfig and UDim2.new(1, 0, 0, titleHeight) or UDim2.new(1, 0, 0, self.state.titleHeight),
+					Size = UDim2.new(1, 0, 0, titleHeight),
 					Text = toastTitle,
 				},
 			}),
@@ -250,19 +213,9 @@ function ToastContainer:render()
 end
 
 function ToastContainer:didMount()
-	if fixToastResizeConfig then
-		self:setState({
-			containerWidth = self.containerRef.current and self.containerRef.current.AbsoluteSize.X or 0
-		})
-	else
-		self.isMounted = true
-	end
-end
-
-function ToastContainer:willUnmount()
-	if not fixToastResizeConfig then
-		self.isMounted = false
-	end
+	self:setState({
+		containerWidth = self.containerRef.current and self.containerRef.current.AbsoluteSize.X or 0
+	})
 end
 
 return ToastContainer

@@ -157,6 +157,11 @@ local theme = {
 		Color = Colors.Flint,
 		Transparency = 0,
 	},
+
+	SelectionCursor = {
+		Color = Colors.White,
+		Transparency = 0,
+	},
 }
 
 return theme

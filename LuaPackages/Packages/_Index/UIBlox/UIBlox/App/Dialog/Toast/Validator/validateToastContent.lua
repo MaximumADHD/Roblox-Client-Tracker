@@ -12,6 +12,7 @@ return t.strictInterface({
 	-- Optional image to be displayed in the toast.
 	iconImage = t.optional(t.union(t.table, t.string)),
 	iconSize = t.optional(t.Vector2),
+	iconChildren = t.optional(t.table),
 	onActivated = t.optional(t.callback),
 	onAppeared = t.optional(t.callback),
 	onDismissed = t.optional(t.callback),

@@ -1,12 +1,4 @@
 return {
-	-- fixToastResizeConfig: fixes bug where Toasts
-	-- will not resize when text changes.
-	fixToastResizeConfig = false,
-
-	-- expandableTextAutomaticResizeConfig: refactor of ExpandableTextArea to
-	-- automatically resize to fit its container. Also removes width prop.
-	expandableTextAutomaticResizeConfig = false,
-
 	-- enableAlertTitleIconConfig: turning this on allows the Alert component to take
 	-- in an optional titleIcon prop, which displays an icon above the Alert's title.
 	enableAlertTitleIconConfig = false,

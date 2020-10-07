@@ -10,6 +10,7 @@ local function initializeLibrary()
 	UIBlox.Core = strict({
 		Animation = strict({
 			SpringAnimatedItem = require(script.Utility.SpringAnimatedItem),
+			withAnimation = require(script.Core.Animation.withAnimation),
 		}),
 
 		Bar = strict({
@@ -26,9 +27,11 @@ local function initializeLibrary()
 
 		Control = strict({
 			Enum = strict({
-				ControlState = require(script.Core.Control.Enum.ControlState)
+				ControlState = require(script.Core.Control.Enum.ControlState),
+				SelectionMode = require(script.Core.Control.Enum.SelectionMode),
 			}),
 			Interactable = require(script.Core.Control.Interactable),
+			InteractableList = require(script.Core.Control.InteractableList),
 		}),
 
 		Style = strict({
@@ -85,6 +88,7 @@ local function initializeLibrary()
 			ButtonStack = require(script.App.Button.ButtonStack),
 			TextButton = require(script.App.Button.TextButton),
 			IconButton = require(script.App.Button.IconButton),
+			ActionBar = require(script.App.Button.ActionBar)
 		}),
 
 		Cell = strict({
@@ -210,11 +214,18 @@ local function initializeLibrary()
 
 		}),
 
+		Navigation = strict({
+			Enum = strict({
+				Placement = require(script.App.Navigation.Enum.Placement),
+			}),
+			SystemBar = require(script.App.Navigation.SystemBar),
+		}),
+
 		SelectionImage = strict({
 			SelectionCursorProvider = require(script.App.SelectionImage.SelectionCursorProvider),
 			CursorKind = require(script.App.SelectionImage.CursorKind),
 			withSelectionCursorProvider = require(script.App.SelectionImage.withSelectionCursorProvider),
-		})
+		}),
 	})
 
 	-- DEPRECATED SECTION

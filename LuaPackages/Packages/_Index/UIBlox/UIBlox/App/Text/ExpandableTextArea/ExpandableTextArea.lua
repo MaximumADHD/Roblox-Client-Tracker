@@ -19,7 +19,6 @@ local CursorKind = require(App.SelectionImage.CursorKind)
 local withSelectionCursorProvider = require(App.SelectionImage.withSelectionCursorProvider)
 
 local UIBloxConfig = require(UIBlox.UIBloxConfig)
-local expandableTextAutomaticResizeConfig = UIBloxConfig.expandableTextAutomaticResizeConfig
 
 local DEFAULT_PADDING_TOP = 30
 local PADDING_TOP = DEFAULT_PADDING_TOP
@@ -58,7 +57,7 @@ local validateProps = t.strictInterface({
 	Position = t.optional(t.UDim2),
 	compactNumberOfLines = t.optional(t.number),
 	LayoutOrder = t.optional(t.number),
-	width = expandableTextAutomaticResizeConfig and t.optional(t.UDim) or t.UDim,
+	width = t.optional(t.UDim),
 	padding = t.optional(t.Vector2),
 	onClick = t.optional(t.callback),
 
@@ -88,9 +87,6 @@ function ExpandableTextArea:init()
 
 	self.ref = Roact.createRef()
 	self.layoutRef = Roact.createRef()
-
-	-- Remove isMounted once expandableTextAutomaticResizeConfig is removed
-	self.isMounted = false
 end
 
 function ExpandableTextArea:getRef()
@@ -108,7 +104,7 @@ function ExpandableTextArea:applyFit(y)
 	local frame = ref.current
 	local offset = (y + PADDING_TOP + PADDING_BOTTOM)
 	local width = self.props.width
-	if not expandableTextAutomaticResizeConfig or width then
+	if width then
 		frame.Size = UDim2.new(width.Scale, width.Offset, 0, offset)
 	else
 		frame.Size = UDim2.new(1, 0, 0, offset)
@@ -172,7 +168,7 @@ function ExpandableTextArea:render()
 				BorderSizePixel = 0,
 				LayoutOrder = layoutOrder,
 				Position = position,
-				Size = (not expandableTextAutomaticResizeConfig or width) and UDim2.new(width.Scale, width.Offset, 0, 0)
+				Size = width and UDim2.new(width.Scale, width.Offset, 0, 0)
 				or UDim2.new(1, 0, 0, 0),
 				SelectionImageObject = getSelectionCursor(CursorKind.RoundedRect),
 				[Roact.Ref] = ref,
@@ -181,19 +177,9 @@ function ExpandableTextArea:render()
 						-- Wrapped in spawn in order to avoid issues if Roact connects changed signal before the Size
 						-- prop is set in older versions of Roact (older than 1.0) In 1.0, this is fixed by deferring event
 						-- handlers and setState calls until after the current update]]
-						if expandableTextAutomaticResizeConfig then
-							self:setState({
-								frameWidth = rbx.AbsoluteSize.X,
-							})
-						else
-							spawn(function()
-								if self.isMounted then
-									self:setState({
-										frameWidth = rbx.AbsoluteSize.X,
-									})
-								end
-							end)
-						end
+						self:setState({
+							frameWidth = rbx.AbsoluteSize.X,
+						})
 					end
 				end,
 

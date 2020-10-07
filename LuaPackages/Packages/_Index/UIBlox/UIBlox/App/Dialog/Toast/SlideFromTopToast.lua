@@ -40,6 +40,7 @@ local function toastContentEqual(toastContent1, toastContent2)
 	if toastContent1.iconColorStyle ~= toastContent2.iconColorStyle
 		or toastContent1.iconImage ~= toastContent2.iconImage
 		or toastContent1.iconSize ~= toastContent2.iconSize
+		or toastContent1.iconChildren ~= toastContent2.iconChildren
 		or toastContent1.onActivated ~= toastContent2.onActivated
 		or toastContent1.onDismissed ~= toastContent2.onDismissed
 		or toastContent1.swipeUpDismiss ~= toastContent2.swipeUpDismiss
@@ -189,6 +190,7 @@ function SlideFromTopToast:render()
 			iconColorStyle = self.currentToastContent.iconColorStyle,
 			iconImage = self.currentToastContent.iconImage,
 			iconSize = self.currentToastContent.iconSize,
+			iconChildren = self.currentToastContent.iconChildren,
 			onActivated = onActivated and self.onActivated,
 			onTouchSwipe = swipeUpDismiss and self.onTouchSwipe,
 			renderToast = onActivated and self.renderInteractiveToast or self.renderInformativeToast,

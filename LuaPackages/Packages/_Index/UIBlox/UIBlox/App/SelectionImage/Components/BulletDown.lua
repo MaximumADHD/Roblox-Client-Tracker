@@ -7,7 +7,8 @@ local withStyle = require(UIBloxRoot.Core.Style.withStyle)
 local ImageSetComponent = require(UIBloxRoot.Core.ImageSet.ImageSetComponent)
 local Images = require(UIBloxRoot.App.ImageSet.Images)
 
-local ASSET_NAME = "component_assets/circle_52_stroke_3"
+local INSET_ADJUSTMENT = 2
+local ASSET_NAME = "component_assets/bulletDown_17_stroke_3"
 
 return function(props)
 	return withStyle(function(style)
@@ -15,9 +16,10 @@ return function(props)
 			Image = Images[ASSET_NAME],
 			ImageColor3 = style.Theme.SelectionCursor.Color,
 			BackgroundTransparency = 1,
-			Size = UDim2.new(1, 0, 1, 0),
+			Size = UDim2.new(1, INSET_ADJUSTMENT * 2, 1, INSET_ADJUSTMENT * 2),
+			Position = UDim2.fromOffset(-INSET_ADJUSTMENT, -INSET_ADJUSTMENT),
 			ScaleType = Enum.ScaleType.Slice,
-			SliceCenter = Rect.new(26, 26, 27, 27),
+			SliceCenter = Rect.new(8, 8, 9, 9),
 
 			[Roact.Ref] = props[Roact.Ref],
 		})

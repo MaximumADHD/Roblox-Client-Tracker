@@ -39,6 +39,7 @@ local testTheme = {
 	Alert = color,
 	Badge = color,
 	BadgeContent = color,
+	SelectionCursor = color,
 }
 
 local font = {

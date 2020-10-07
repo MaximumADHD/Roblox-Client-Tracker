@@ -16,6 +16,10 @@ return function(UrlBuilder)
 		develop = UrlBuilder.fromString("www:develop/landing"),
 		blog = UrlBuilder.fromString("blog:"),
 		help = UrlBuilder.fromString(isQQ() and "corp:faq" or "www:help"),
+		email = {
+			getSetEmail = UrlBuilder.fromString("accountSettings:v1/email"),
+			sendVerificationEmail = UrlBuilder.fromString("accountSettings:v1/email/verify")
+		},
 		about = {
 			us = UrlBuilder.fromString("corp:"),
 			careers = UrlBuilder.fromString(isQQ() and "corp:careers.html" or "corp:careers"),

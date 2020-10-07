@@ -18,6 +18,7 @@ local InformativeToast = Roact.PureComponent:extend("InformativeToast")
 local validateProps = t.strictInterface({
 	anchorPoint = t.optional(t.Vector2),
 	iconProps = t.optional(validateToastIcon),
+	iconChildren = t.optional(t.table),
 	layoutOrder = t.optional(t.integer),
 	padding = t.optional(t.numberMin(0)),
 	position = t.optional(t.UDim2),
@@ -52,6 +53,7 @@ function InformativeToast:render()
 		}, {
 			ToastFrame = Roact.createElement(ToastFrame, {
 				iconProps = self.props.iconProps,
+				iconChildren = self.props.iconChildren,
 				padding = self.props.padding,
 				subtitleTextProps = self.props.subtitleTextProps,
 				textFrameSize = self.props.textFrameSize,

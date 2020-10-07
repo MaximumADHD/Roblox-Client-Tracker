@@ -101,4 +101,25 @@ return function()
 		local instance = Roact.mount(element)
 		Roact.unmount(instance)
 	end)
+
+	it("should create and destroy without errors with composed image", function()
+		local element = createInformativeToast({
+			iconProps = {
+				Image = Images["icons/status/warning"],
+				Size = UDim2.new(0, ICON_SIZE, 0, ICON_SIZE),
+			},
+			iconChildren = {
+				Child = Roact.createElement("TextLabel"),
+			},
+			titleTextProps = {
+				colorStyle = TestStyle.Theme.TextEmphasis,
+				fontStyle = TestStyle.Font.Header2,
+				Size = UDim2.new(1, -ICON_SIZE, 1, 0),
+				Text = testText,
+			},
+		})
+
+		local instance = Roact.mount(element)
+		Roact.unmount(instance)
+	end)
 end

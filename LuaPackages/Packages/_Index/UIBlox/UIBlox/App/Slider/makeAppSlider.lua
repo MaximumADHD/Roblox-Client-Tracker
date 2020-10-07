@@ -170,6 +170,11 @@ local function makeAppSlider(trackFillThemeKey, isTwoKnobs)
 			knobShadowImage = Images["component_assets/dropshadow_28"],
 			knobShadowTransparencyLower = self.knobShadowTransparencyLower,
 			knobShadowTransparencyUpper = self.knobShadowTransparencyUpper,
+
+			[Roact.Ref] = props[Roact.Ref],
+			NextSelectionUp = props.NextSelectionUp,
+			NextSelectionDown = props.NextSelectionDown,
+			focusController = props.focusController,
 		}
 
 		if isTwoKnobs then

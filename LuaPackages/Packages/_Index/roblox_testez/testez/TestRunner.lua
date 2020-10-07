@@ -134,9 +134,8 @@ function TestRunner.runPlanNode(session, planNode, lifecycleHooks)
 
 	if not halt then
 		for _, childPlanNode in ipairs(planNode.children) do
-			session:pushNode(childPlanNode)
-
 			if childPlanNode.type == TestEnum.NodeType.It then
+				session:pushNode(childPlanNode)
 				if session:shouldSkip() then
 					session:setSkipped()
 				else
@@ -148,7 +147,9 @@ function TestRunner.runPlanNode(session, planNode, lifecycleHooks)
 						session:setError(errorMessage)
 					end
 				end
+				session:popNode()
 			elseif childPlanNode.type == TestEnum.NodeType.Describe then
+				session:pushNode(childPlanNode)
 				TestRunner.runPlanNode(session, childPlanNode, lifecycleHooks)
 
 				-- Did we have an error trying build a test plan?
@@ -158,9 +159,8 @@ function TestRunner.runPlanNode(session, planNode, lifecycleHooks)
 				else
 					session:setStatusFromChildren()
 				end
+				session:popNode()
 			end
-
-			session:popNode()
 		end
 	end
 

@@ -11,9 +11,19 @@ local Packages = UIBloxRoot.Parent
 
 local Roact = require(Packages.Roact)
 local t = require(Packages.t)
+local Gamepad = require(Packages.RoactGamepad)
 local ImageSetComponent = require(CoreRoot.ImageSet.ImageSetComponent)
 
 local lerp = require(UIBloxRoot.Utility.lerp)
+local UIBloxConfig = require(UIBloxRoot.UIBloxConfig)
+local CursorKind = require(UIBloxRoot.App.SelectionImage.CursorKind)
+local withSelectionCursorProvider = require(UIBloxRoot.App.SelectionImage.withSelectionCursorProvider)
+
+local DPAD_INITIAL_MOVE_INTERVAL = 0.5
+local STICK_INITIAL_MOVE_INTERVAL = 0.2
+local STICK_MOVE_DEADZONE = 0.2
+local DPAD_SPEED = 8 -- In increments per second
+local STICK_SPEED = 12 -- In increments per second
 
 local GenericSlider = Roact.PureComponent:extend("GenericSlider")
 
@@ -64,6 +74,11 @@ GenericSlider.validateProps = t.strictInterface({
 	position = t.optional(t.UDim2),
 	anchorPoint = t.optional(t.Vector2),
 	layoutOrder = t.optional(t.integer),
+
+	[Roact.Ref] = t.optional(t.table),
+	NextSelectionUp = t.optional(t.table),
+	NextSelectionDown = t.optional(t.table),
+	focusController = t.optional(t.table),
 })
 
 GenericSlider.defaultProps = {
@@ -72,12 +87,151 @@ GenericSlider.defaultProps = {
 }
 
 function GenericSlider:init()
-	self.rootRef = Roact.createRef()
+	self.rootRef = self.props[Roact.Ref] or Roact.createRef()
+	self.lowerKnobRef = Roact.createRef()
+	self.upperKnobRef = Roact.createRef()
+	self.moveDirection = 0
+
 	self.lowerKnobDrag = false
 	self.upperKnobDrag = false
+	self.totalMoveTime = 0
+	self.isFirstMove = true
+	self.unhandledTime = 0
+
+	self.state = {
+		lowerKnobIsSelected = false,
+		upperKnobIsSelected = false,
+	}
+end
+
+function GenericSlider:onMoveStep(inputObjects, delta)
+	if not (self.state.lowerKnobIsSelected or self.state.upperKnobIsSelected) then
+		return
+	end
+
+	local stickInput = inputObjects[Enum.KeyCode.Thumbstick1].Position
+	local usingStick = stickInput.Magnitude > STICK_MOVE_DEADZONE
+	local increments = 0
+	local initialMoveInterval, moveDirection, speed
+	self.totalMoveTime = self.totalMoveTime + delta
+
+	if usingStick then
+		moveDirection = stickInput.x > 0 and 1 or -1
+		initialMoveInterval = STICK_INITIAL_MOVE_INTERVAL
+		speed = STICK_SPEED
+	else
+		local leftMovement = inputObjects[Enum.KeyCode.DPadLeft].UserInputState == Enum.UserInputState.Begin and -1 or 0
+		local rightMovement = inputObjects[Enum.KeyCode.DPadRight].UserInputState == Enum.UserInputState.Begin and 1 or 0
+		moveDirection = leftMovement + rightMovement
+		initialMoveInterval = DPAD_INITIAL_MOVE_INTERVAL
+		speed = DPAD_SPEED
+	end
+
+	if moveDirection ~= 0 then
+		-- Process input for the first button press
+		if self.isFirstMove then
+			self.isFirstMove = false
+			self.totalMoveTime = 0
+			self.unhandledTime = 0
+			increments = 1
+		-- Process input if enough time has passed.
+		elseif self.totalMoveTime > initialMoveInterval then
+			-- How much of delta time that was in the first interval
+			local initialIntervalOverlap = math.max(initialMoveInterval - self.totalMoveTime - delta, 0)
+			local timeToHandle = delta - initialIntervalOverlap + self.unhandledTime
+			increments = math.floor(speed * timeToHandle)
+
+			self.unhandledTime = timeToHandle - increments / speed
+		else
+			-- Period between first move and subsequent moves
+			increments = 0
+			self.unhandledTime = 0
+		end
+	else
+		self.totalMoveTime = 0
+		self.isFirstMove = true
+	end
+
+	if increments > 0 then
+		self:processGamepadInput(moveDirection, increments)
+	end
+end
+
+function GenericSlider:processGamepadInput(polarity, increments)
+	if self:hasTwoKnobs() then
+		self:processTwoKnobGamepadInput(polarity, increments)
+	else
+		self:processOneKnobGamepadInput(polarity, increments)
+	end
+end
+
+function GenericSlider:processTwoKnobGamepadInput(polarity, increments)
+	local stepInterval = self.props.stepInterval * polarity
+	local lowerValue = self.props.lowerValue
+	local upperValue = self.props.upperValue
+
+	--[[
+		If the knobs are overlapping, the gamepad may select either knob.
+		Set the one that should be selected by the direction of the input.
+	]]
+	if lowerValue == upperValue and not self.state.processingGamepad then
+		if self.state.lowerKnobIsSelected and polarity == 1 and lowerValue ~= self.props.max then
+			self:setState({
+				lowerKnobIsSelected = false,
+				upperKnobIsSelected = true,
+				processingGamepad = true,
+			})
+			self.props.focusController.moveFocusTo(self.upperKnobRef)
+		elseif self.state.upperKnobIsSelected and polarity == -1 and upperValue ~= self.props.min then
+			self:setState({
+				lowerKnobIsSelected = true,
+				upperKnobIsSelected = false,
+				processingGamepad = true,
+			})
+			self.props.focusController.moveFocusTo(self.lowerKnobRef)
+		end
+	elseif not self.state.processingGamepad then
+		self:setState({
+			processingGamepad = true,
+		})
+	end
+
+	if self.state.lowerKnobIsSelected then
+		local steppedValue = math.max(math.min(lowerValue + (stepInterval * increments), self.props.max), self.props.min)
+		if steppedValue <= upperValue then
+			lowerValue = steppedValue
+		else
+			lowerValue = upperValue
+		end
+	elseif self.state.upperKnobIsSelected then
+		local steppedValue = math.max(math.min(upperValue + (stepInterval * increments), self.props.max), self.props.min)
+		if steppedValue >= lowerValue then
+			upperValue = steppedValue
+		else
+			upperValue = lowerValue
+		end
+	end
+
+	if upperValue ~= self.props.upperValue or lowerValue ~= self.props.lowerValue then
+		self.props.onValueChanged(lowerValue, upperValue)
+	end
+end
+
+function GenericSlider:processOneKnobGamepadInput(polarity, increments)
+	local stepInterval = self.props.stepInterval * polarity
+	local lowerValue = self.props.lowerValue
+
+	if self.state.lowerKnobIsSelected then
+		lowerValue = math.max(math.min(lowerValue + (stepInterval * increments), self.props.max), self.props.min)
+	end
+
+	if lowerValue ~= self.props.lowerValue then
+		self.props.onValueChanged(lowerValue)
+	end
 end
 
 function GenericSlider:render()
+	local knobIsSelected = self.state.lowerKnobIsSelected or self.state.upperKnobIsSelected
 	local isTwoKnobs = self:hasTwoKnobs()
 	local fillPercentLower = (self.props.lowerValue - self.props.min) / (self.props.max - self.props.min)
 	local fillPercentUpper = isTwoKnobs and (self.props.upperValue - self.props.min) / (self.props.max - self.props.min)
@@ -89,99 +243,171 @@ function GenericSlider:render()
 	local knobPositionUpper = isTwoKnobs and UDim2.new(fillPercentUpper, positionOffsetUpper, 0.5, 0) or nil
 	local fillSize = isTwoKnobs and UDim2.fromScale(fillPercentUpper - fillPercentLower, 1)
 		or UDim2.fromScale(fillPercentLower, 1)
+	local selectedKnob = self.state.lowerKnobIsSelected or self.state.upperKnobIsSelected
 
-	return Roact.createElement(ImageSetComponent.Button, {
-		BackgroundTransparency = 1,
-		AnchorPoint = self.props.anchorPoint,
-		Size = UDim2.new(self.props.width.Scale, self.props.width.Offset, 0, SLIDER_HEIGHT),
-		LayoutOrder = self.props.layoutOrder,
-		Position = self.props.position,
-		[Roact.Event.InputBegan] = function(rbx, inputObject)
-			if self.props.isDisabled then
-				return
-			end
+	local imageSetComponent =  UIBloxConfig.enableExperimentalGamepadSupport and
+		Gamepad.Focusable[ImageSetComponent.Button] or ImageSetComponent.Button
 
-			self:onInputBegan(inputObject, false)
-		end,
-		[Roact.Ref] = self.rootRef,
-	}, {
-		Track = Roact.createElement(ImageSetComponent.Label, {
-			AnchorPoint = Vector2.new(0.5, 0.5),
+	return withSelectionCursorProvider(function(getSelectionCursor)
+		return Roact.createElement(imageSetComponent, {
 			BackgroundTransparency = 1,
-			ImageColor3 = self.props.trackColor,
-			ImageTransparency = self.props.trackTransparency,
-			Image = self.props.trackImage,
-			Size = UDim2.new(1, 0, 0, 4),
-			Position = UDim2.fromScale(0.5, 0.5),
-			ScaleType = Enum.ScaleType.Slice,
-			SliceCenter = self.props.trackSliceCenter,
+			AnchorPoint = self.props.anchorPoint,
+			Size = UDim2.new(self.props.width.Scale, self.props.width.Offset, 0, SLIDER_HEIGHT),
+			LayoutOrder = self.props.layoutOrder,
+			Position = self.props.position,
+			[Roact.Event.InputBegan] = function(rbx, inputObject)
+				if self.props.isDisabled then
+					return
+				end
+
+				self:onInputBegan(inputObject, false)
+			end,
+			[Roact.Ref] = self.rootRef,
+
+			NextSelectionUp = (not selectedKnob) and self.props.NextSelectionUp or self.rootRef,
+			NextSelectionDown = (not selectedKnob) and self.props.NextSelectionDown or self.rootRef,
+			defaultChild = UIBloxConfig.enableExperimentalGamepadSupport and
+				(self.props.upperValue ~= self.props.min and self.lowerKnobRef or self.upperKnobRef) or nil,
+			onFocusLost = UIBloxConfig.enableExperimentalGamepadSupport and function()
+				if self.state.lowerKnobIsSelected or self.state.upperKnobIsSelected then
+					self:setState({
+						lowerKnobIsSelected = false,
+						upperKnobIsSelected = false,
+					})
+				end
+			end or nil,
 		}, {
-			TrackFill = Roact.createElement(ImageSetComponent.Label, {
+			Track = Roact.createElement(ImageSetComponent.Label, {
+				AnchorPoint = Vector2.new(0.5, 0.5),
 				BackgroundTransparency = 1,
-				ImageColor3 = self.props.trackFillColor,
-				ImageTransparency = self.props.trackFillTransparency,
-				Image = self.props.trackFillImage,
-				Size = fillSize,
-				Position = isTwoKnobs and UDim2.new(fillPercentLower, 0, 0, 0) or UDim2.new(0, 0, 0, 0),
+				ImageColor3 = self.props.trackColor,
+				ImageTransparency = self.props.trackTransparency,
+				Image = self.props.trackImage,
+				Size = UDim2.new(1, 0, 0, 4),
+				Position = UDim2.fromScale(0.5, 0.5),
 				ScaleType = Enum.ScaleType.Slice,
-				SliceCenter = self.props.trackFillSliceCenter,
-			})
-		}),
-		LowerKnob = Roact.createElement(ImageSetComponent.Button, {
-			AnchorPoint = Vector2.new(0.5, 0.5),
-			BackgroundTransparency = 1,
-			ImageColor3 = self.props.knobColorLower,
-			ImageTransparency = self.props.knobTransparency,
-			Image = self.props.knobImage,
-			Size = UDim2.fromOffset(KNOB_HEIGHT, KNOB_HEIGHT),
-			Position = knobPositionLower,
-			ZIndex = 3,
+				SliceCenter = self.props.trackSliceCenter,
+			}, {
+				TrackFill = Roact.createElement(ImageSetComponent.Label, {
+					BackgroundTransparency = 1,
+					ImageColor3 = self.props.trackFillColor,
+					ImageTransparency = self.props.trackFillTransparency,
+					Image = self.props.trackFillImage,
+					Size = fillSize,
+					Position = isTwoKnobs and UDim2.new(fillPercentLower, 0, 0, 0) or UDim2.new(0, 0, 0, 0),
+					ScaleType = Enum.ScaleType.Slice,
+					SliceCenter = self.props.trackFillSliceCenter,
+				})
+			}),
+			LowerKnob = Roact.createElement(imageSetComponent, {
+				AnchorPoint = Vector2.new(0.5, 0.5),
+				BackgroundTransparency = 1,
+				ImageColor3 = self.props.knobColorLower,
+				ImageTransparency = self.props.knobTransparency,
+				Image = self.props.knobImage,
+				Size = UDim2.fromOffset(KNOB_HEIGHT, KNOB_HEIGHT),
+				Position = knobPositionLower,
+				ZIndex = 3,
+				inputBindings = UIBloxConfig.enableExperimentalGamepadSupport and {
+					OnMoveStep = Gamepad.Input.onMoveStep(function(inputObjects, delta)
+						self:onMoveStep(inputObjects, delta)
+					end),
+					SelectLowerKnob = Gamepad.Input.onBegin(Enum.KeyCode.ButtonA, function()
+						self:setState(function(state)
+							return {
+								lowerKnobIsSelected = not state.lowerKnobIsSelected,
+								processingGamepad = false,
+							}
+						end)
+					end),
+					UnselectLowerKnob = Gamepad.Input.onBegin(Enum.KeyCode.ButtonB, function()
+						self:setState({
+							lowerKnobIsSelected = false,
+							processingGamepad = false,
+						})
+					end),
+				} or nil,
+				NextSelectionLeft = knobIsSelected and self.lowerKnobRef or nil,
+				NextSelectionRight = (isTwoKnobs and not knobIsSelected and self.props.upperValue ~= self.props.lowerValue)
+					and self.upperKnobRef or nil,
+				NextSelectionUp = knobIsSelected and self.lowerKnobRef or nil,
+				NextSelectionDown = knobIsSelected and self.lowerKnobRef or nil,
+				SelectionImageObject = knobIsSelected and getSelectionCursor(CursorKind.SelectedKnob)
+					or getSelectionCursor(CursorKind.UnselectedKnob),
+				[Roact.Ref] = self.lowerKnobRef,
+				[Roact.Event.InputBegan] = function(rbx, inputObject)
+					if self.props.isDisabled then
+						return
+					end
 
-			[Roact.Event.InputBegan] = function(rbx, inputObject)
-				if self.props.isDisabled then
-					return
-				end
+					self:onInputBegan(inputObject, true)
+				end,
+			}),
+			LowerKnobShadow = Roact.createElement(ImageSetComponent.Label, {
+				AnchorPoint = Vector2.new(0.5, 0.5),
+				BackgroundTransparency = 1,
+				ImageTransparency = self.props.knobShadowTransparencyLower,
+				Image = self.props.knobShadowImage,
+				Size = UDim2.fromOffset(44, 44),
+				Position = knobPositionLower,
+				ZIndex = 2,
+			}),
+			UpperKnob = isTwoKnobs and Roact.createElement(imageSetComponent, {
+				AnchorPoint = Vector2.new(0.5, 0.5),
+				BackgroundTransparency = 1,
+				ImageColor3 = self.props.knobColorUpper,
+				ImageTransparency = self.props.knobTransparency,
+				Image = self.props.knobImage,
+				Size = UDim2.fromOffset(KNOB_HEIGHT, KNOB_HEIGHT),
+				Position = knobPositionUpper,
+				ZIndex = 3,
 
-				self:onInputBegan(inputObject, true)
-			end,
-		}),
-		LowerKnobShadow = Roact.createElement(ImageSetComponent.Label, {
-			AnchorPoint = Vector2.new(0.5, 0.5),
-			BackgroundTransparency = 1,
-			ImageTransparency = self.props.knobShadowTransparencyLower,
-			Image = self.props.knobShadowImage,
-			Size = UDim2.fromOffset(44, 44),
-			Position = knobPositionLower,
-			ZIndex = 2,
-		}),
-		UpperKnob = isTwoKnobs and Roact.createElement(ImageSetComponent.Button, {
-			AnchorPoint = Vector2.new(0.5, 0.5),
-			BackgroundTransparency = 1,
-			ImageColor3 = self.props.knobColorUpper,
-			ImageTransparency = self.props.knobTransparency,
-			Image = self.props.knobImage,
-			Size = UDim2.fromOffset(KNOB_HEIGHT, KNOB_HEIGHT),
-			Position = knobPositionUpper,
-			ZIndex = 3,
+				NextSelectionLeft = (isTwoKnobs and not knobIsSelected and self.props.upperValue ~= self.props.lowerValue)
+					and self.lowerKnobRef or nil,
+				NextSelectionRight = knobIsSelected and self.upperKnobRef or nil,
+				NextSelectionUp = knobIsSelected and self.upperKnobRef or nil,
+				NextSelectionDown = knobIsSelected and self.upperKnobRef or nil,
+				SelectionImageObject = knobIsSelected and getSelectionCursor(CursorKind.SelectedKnob)
+					or getSelectionCursor(CursorKind.UnselectedKnob),
+				[Roact.Ref] = self.upperKnobRef,
+				[Roact.Event.InputBegan] = function(rbx, inputObject)
+					if self.props.isDisabled then
+						return
+					end
 
-			[Roact.Event.InputBegan] = function(rbx, inputObject)
-				if self.props.isDisabled then
-					return
-				end
-
-				self:onInputBegan(inputObject, true)
-			end,
-		}),
-		UpperKnobShadow = isTwoKnobs and Roact.createElement(ImageSetComponent.Label, {
-			AnchorPoint = Vector2.new(0.5, 0.5),
-			BackgroundTransparency = 1,
-			ImageTransparency = self.props.knobShadowTransparencyUpper,
-			Image = self.props.knobShadowImage,
-			Size = UDim2.fromOffset(44, 44),
-			Position = knobPositionUpper,
-			ZIndex = 2,
-		}),
-	})
+					self:onInputBegan(inputObject, true)
+				end,
+				inputBindings = UIBloxConfig.enableExperimentalGamepadSupport and {
+					OnMoveStep = Gamepad.Input.onMoveStep(function(inputObjects, delta)
+						self:onMoveStep(inputObjects, delta)
+					end),
+					SelectUpperKnob = Gamepad.Input.onBegin(Enum.KeyCode.ButtonA, function()
+						self:setState(function(state)
+							return {
+								upperKnobIsSelected = not state.upperKnobIsSelected,
+								processingGamepad = false,
+							}
+						end)
+					end),
+					UnselectUpperKnob = Gamepad.Input.onBegin(Enum.KeyCode.ButtonB, function()
+						self:setState({
+							upperKnobIsSelected = false,
+							processingGamepad = false,
+						})
+					end),
+				} or nil,
+			}),
+			UpperKnobShadow = isTwoKnobs and Roact.createElement(ImageSetComponent.Label, {
+				AnchorPoint = Vector2.new(0.5, 0.5),
+				BackgroundTransparency = 1,
+				ImageTransparency = self.props.knobShadowTransparencyUpper,
+				Image = self.props.knobShadowImage,
+				Size = UDim2.fromOffset(44, 44),
+				Position = knobPositionUpper,
+				ZIndex = 2,
+			}),
+		})
+	end)
 end
 
 function GenericSlider:didMount()

@@ -147,9 +147,7 @@ function LayoutValues:generate(isTenFoot)
 		and makeImageData("ui/PurchasePrompt/SingleButtonDown@2x.png", Rect.new(18, 5, 20, 7))
 		or makeImageData("ui/PurchasePrompt/SingleButtonDown.png", Rect.new(8, 3, 10, 4))
 
-	Image.PremiumIcon = isTenFoot
-		and makeImageData("ui/PurchasePrompt/premium@2x.png")
-		or makeImageData("ui/PurchasePrompt/premium.png")
+	Image.PremiumIcon = makeImageData("ui/PurchasePrompt/Premium.png")
 
 	if FFlagChinaLicensingApp then
 		Image.RobuxIcon = isTenFoot

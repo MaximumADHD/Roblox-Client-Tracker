@@ -230,18 +230,43 @@ function Expectation:near(otherValue, limit)
 end
 
 --[[
-	Assert that our functoid expectation value throws an error when called
+	Assert that our functoid expectation value throws an error when called.
+	An optional error message can be passed to assert that the error message
+	contains the given value.
 ]]
-function Expectation:throw()
+function Expectation:throw(messageSubstring)
 	local ok, err = pcall(self.value)
 	local result = ok ~= self.successCondition
 
-	local message = formatMessage(self.successCondition,
-		"Expected function to throw an error, but it did not.",
-		("Expected function to succeed, but it threw an error: %s"):format(
-			tostring(err)
+	if messageSubstring and not ok then
+		if self.successCondition then
+			result = err:find(messageSubstring, 1, true) ~= nil
+		else
+			result = err:find(messageSubstring, 1, true) == nil
+		end
+	end
+
+	local message
+
+	if messageSubstring then
+		message = formatMessage(self.successCondition,
+			("Expected function to throw an error containing %q, but it %s"):format(
+				messageSubstring,
+				err and ("threw: %s"):format(err) or "did not throw."
+			),
+			("Expected function to never throw an error containing %q, but it threw: %s"):format(
+				messageSubstring,
+				tostring(err)
+			)
 		)
-	)
+	else
+		message = formatMessage(self.successCondition,
+			"Expected function to throw an error, but it did not throw.",
+			("Expected function to succeed, but it threw an error: %s"):format(
+				tostring(err)
+			)
+		)
+	end
 
 	assertLevel(result, message, 3)
 	self:_resetModifiers()

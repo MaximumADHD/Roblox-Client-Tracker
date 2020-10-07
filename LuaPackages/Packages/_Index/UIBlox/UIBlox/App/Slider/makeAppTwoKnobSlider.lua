@@ -41,6 +41,12 @@ local function makeAppTwoKnobSlider(trackFillThemeKey)
 		position = t.optional(t.UDim2),
 		anchorPoint = t.optional(t.Vector2),
 		layoutOrder = t.optional(t.integer),
+
+		[Roact.Ref] = t.optional(t.table),
+		NextSelectionUp = t.optional(t.table),
+		NextSelectionDown = t.optional(t.table),
+		focusController = t.optional(t.table),
+
 		--Internal Only - Don't Pass In
 		style = validateStyle
 	})

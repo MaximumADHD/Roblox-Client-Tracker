@@ -157,6 +157,11 @@ local theme = {
 		Color = Colors.White,
 		Transparency = 0,
 	},
+
+	SelectionCursor = {
+		Color = Colors.XboxBlue,
+		Transparency = 0,
+	},
 }
 
 return theme
