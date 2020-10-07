@@ -436,7 +436,7 @@ local function createStyles(theme, getColor)
 				ItemPadding = UDim.new(0, 6),
 				Bar = {
 					BackgroundColor = theme:GetColor(c.Titlebar),
-					Height = 38,
+					Height = 24,
 					Padding = 10,
 
 					Button = {

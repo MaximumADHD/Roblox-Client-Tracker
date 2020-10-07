@@ -13,7 +13,6 @@
 ]]
 
 local Roact = require(script.Parent.Internal.RequireRoact)
-local Constants = require(script.Parent.Internal.Constants)
 local ThemeChangeListener = require(script.Parent.Internal.ThemeChangeListener)
 local Theme = require(script.Parent.Internal.Theme)
 

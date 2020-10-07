@@ -281,12 +281,10 @@ Category.RECENT_KEY = "Recent"
 Category.CREATIONS_KEY = "Creations"
 
 table.insert(Category.INVENTORY, Category.MY_PLUGINS)
-if not FFlagToolboxShowRobloxCreatedAssetsForLuobu then
-	if FFlagOnlyWhitelistedPluginsInStudio then
-		table.insert(Category.MARKETPLACE, Category.WHITELISTED_PLUGINS)
-	else
-		table.insert(Category.MARKETPLACE, Category.FREE_PLUGINS)
-	end
+if FFlagOnlyWhitelistedPluginsInStudio then
+	table.insert(Category.MARKETPLACE, Category.WHITELISTED_PLUGINS)
+else
+	table.insert(Category.MARKETPLACE, Category.FREE_PLUGINS)
 end
 
 local insertIndex = Cryo.List.find(Category.INVENTORY_WITH_GROUPS, Category.MY_PACKAGES) + 1
@@ -294,7 +292,7 @@ table.insert(Category.INVENTORY_WITH_GROUPS, insertIndex, Category.MY_PLUGINS)
 local insertIndex2 = Cryo.List.find(Category.INVENTORY_WITH_GROUPS, Category.GROUP_AUDIO) + 1
 table.insert(Category.INVENTORY_WITH_GROUPS, insertIndex2, Category.GROUP_PLUGINS)
 
-if FFlagToolboxShowRobloxCreatedAssetsForLuobu then
+if FFlagToolboxShowRobloxCreatedAssetsForLuobu and RobloxAPI:baseURLHasChineseHost() then
 	local disabledCategories = string.split(FStringLuobuMarketplaceDisabledCategories, ";")
 
 	for _, categoryName in pairs(disabledCategories) do

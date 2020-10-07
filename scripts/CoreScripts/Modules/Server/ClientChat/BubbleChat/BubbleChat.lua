@@ -38,6 +38,13 @@ local UserRoactBubbleChatBeta do
 	UserRoactBubbleChatBeta = success and value
 end
 
+local UserPreventOldBubbleChatOverlap do
+	local success, value = pcall(function()
+		return UserSettings():IsUserFeatureEnabled("UserPreventOldBubbleChatOverlap")
+	end)
+	UserPreventOldBubbleChatOverlap = success and value
+end
+
 local function getMessageLength(message)
 	return utf8.len(utf8.nfcnormalize(message))
 end
@@ -631,6 +638,11 @@ function this:OnPlayerChatMessage(sourcePlayer, message, targetPlayer)
 end
 
 function this:OnGameChatMessage(origin, message, color)
+	-- Prevents conflicts with the new bubble chat if it is enabled
+	if UserRoactBubbleChatBeta or (UserPreventOldBubbleChatOverlap and ChatService.BubbleChatEnabled) then
+		return
+	end
+
 	local localPlayer = PlayersService.LocalPlayer
 	local fromOthers = localPlayer ~= nil and (localPlayer.Character ~= origin)
 
@@ -652,7 +664,7 @@ function this:OnGameChatMessage(origin, message, color)
 end
 
 function this:BubbleChatEnabled()
-	if UserRoactBubbleChatBeta then
+	if UserRoactBubbleChatBeta or (UserPreventOldBubbleChatOverlap and ChatService.BubbleChatEnabled) then
 		return false
 	end
 	local clientChatModules = ChatService:FindFirstChild("ClientChatModules")

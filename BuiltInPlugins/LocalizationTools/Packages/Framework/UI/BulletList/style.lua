@@ -6,17 +6,30 @@ local Style = Util.Style
 local StudioFrameworkStyles = Framework.StudioUI.StudioFrameworkStyles
 local Common = require(StudioFrameworkStyles.Common)
 
-return function(theme, getColor)
-	local common = Common(theme, getColor)
+local FlagsList = Util.Flags.new({
+	FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
+})
 
-	local Default = Style.extend(common.MainText, {
+if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+	return {
 		ItemOffset = 12,
 		MarkerImage = "rbxasset://textures/StudioSharedUI/dot.png",
 		MarkerSize = 4,
 		Padding = 6,
-	})
-
-	return {
-		Default = Default,
 	}
+else
+	return function(theme, getColor)
+		local common = Common(theme, getColor)
+
+		local Default = Style.extend(common.MainText, {
+			ItemOffset = 12,
+			MarkerImage = "rbxasset://textures/StudioSharedUI/dot.png",
+			MarkerSize = 4,
+			Padding = 6,
+		})
+
+		return {
+			Default = Default,
+		}
+	end
 end

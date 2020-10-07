@@ -22,10 +22,12 @@ CrossPluginCommunication.__index = CrossPluginCommunication
 
 CrossPluginCommunication.BASE_FOLDER_NAME = "CrossPluginCommunication"
 
-function CrossPluginCommunication.new(pluginNamespace)
+function CrossPluginCommunication.new(pluginNamespace, hostService)
 	assert(t.string(pluginNamespace), "pluginNamespace must be a string")
+	assert(t.optional(t.instance(pluginNamespace)), "hostService must be an instance if defined")
 
 	local self = {
+		hostService = hostService or RobloxPluginGuiService,
 		pluginNamespace = pluginNamespace
 	}
 
@@ -49,7 +51,7 @@ function CrossPluginCommunication:ensureFolderExists(parent, name)
 end
 
 function CrossPluginCommunication:getNamespaceFolder()
-	local base = self:ensureFolderExists(RobloxPluginGuiService, self.BASE_FOLDER_NAME)
+	local base = self:ensureFolderExists(self.hostService, self.BASE_FOLDER_NAME)
 
 	return self:ensureFolderExists(base, self.pluginNamespace)
 end

@@ -1,3 +1,6 @@
+--!nolint ImplicitReturn
+--^ DEVTOOLS-4493
+
 --[[
 	Test language section
 	Contains a text label for section title, a dropdown language selector,

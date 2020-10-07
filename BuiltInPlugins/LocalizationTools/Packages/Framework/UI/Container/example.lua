@@ -11,47 +11,81 @@ return function(plugin)
 	local Container = UI.Container
 	local Decoration = UI.Decoration
 
+	local FrameworkStyle = Framework.Style
+	local ui = require(FrameworkStyle).ComponentSymbols
+	local StudioTheme = require(FrameworkStyle.Themes.StudioTheme)
+	local BaseTheme = require(FrameworkStyle.Themes.BaseTheme)
+
 	local Util = require(Framework.Util)
+	local Cryo = Util.Cryo
 	local StyleTable = Util.StyleTable
 	local Style = Util.Style
+	local FlagsList = Util.Flags.new({
+		FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
+	})
 
 	local pluginItem = Plugin.new(plugin)
 
-	local theme = Theme.new(function(theme, getColor)
-		local box = StyleTable.new("Box", function()
-			local Black = Style.new({
-				Color = Color3.new(0, 0, 0),
+	local theme
+	if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+		theme = StudioTheme.new()
+		theme:extend({
+			[ui.Box] = Cryo.Dictionary.join(BaseTheme[ui.Box], {
 				Transparency = 0,
 				BorderSize = 0,
-			})
 
-			local Red = Style.extend(Black, {
-				Color = Color3.new(0.3, 0, 0),
-			})
+				["&Black"] = {
+					Color = Color3.new(0, 0, 0),
+				},
+
+				["&Red"] = {
+					Color = Color3.new(0.3, 0, 0),
+				},
+			}),
+
+			[ui.Image] = Cryo.Dictionary.join(BaseTheme[ui.Image], {
+				["&WarningIcon"] = {
+					Image = "rbxasset://textures/ui/ErrorIcon.png",
+				},
+			}),
+		})
+	else
+		theme = Theme.new(function(theme, getColor)
+			local box = StyleTable.new("Box", function()
+				local Black = Style.new({
+					Color = Color3.new(0, 0, 0),
+					Transparency = 0,
+					BorderSize = 0,
+				})
+
+				local Red = Style.extend(Black, {
+					Color = Color3.new(0.3, 0, 0),
+				})
+
+				return {
+					Black = Black,
+					Red = Red,
+				}
+			end)
+
+			local image = StyleTable.new("Image", function()
+				local WarningIcon = Style.new({
+					Image = "rbxasset://textures/ui/ErrorIcon.png",
+				})
+
+				return {
+					WarningIcon = WarningIcon,
+				}
+			end)
 
 			return {
-				Black = Black,
-				Red = Red,
+				Framework = StyleTable.extend(FrameworkStyles.new(), {
+					Box = box,
+					Image = image,
+				})
 			}
 		end)
-
-		local image = StyleTable.new("Image", function()
-			local WarningIcon = Style.new({
-				Image = "rbxasset://textures/ui/ErrorIcon.png",
-			})
-
-			return {
-				WarningIcon = WarningIcon,
-			}
-		end)
-
-		return {
-			Framework = StyleTable.extend(FrameworkStyles.new(), {
-				Box = box,
-				Image = image,
-			})
-		}
-	end)
+	end
 
 	-- Mount and display a dialog
 	local ExampleContainer = Roact.PureComponent:extend("ExampleContainer")

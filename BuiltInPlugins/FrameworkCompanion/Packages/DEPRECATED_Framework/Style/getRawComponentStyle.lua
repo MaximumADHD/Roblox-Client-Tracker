@@ -9,6 +9,7 @@ local UIFolderData = require(Framework.UI.UIFolderData)
 return function(componentName)
 	local componentData = UIFolderData[componentName] or StudioUIFolderData[componentName]
 	local result
+
 	if componentData.style then
 		result = require(componentData.style)
 	end

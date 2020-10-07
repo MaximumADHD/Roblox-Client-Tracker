@@ -15,14 +15,26 @@ return function(plugin)
 	local Decoration = UI.Decoration
 	local Button = UI.Button
 
+	local StudioTheme = require(Framework.Style.Themes.StudioTheme)
+
+	local Util = require(Framework.Util)
+	local FlagsList = Util.Flags.new({
+		FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
+	})
+
 	local pluginItem = Plugin.new(plugin)
 
-	local theme = Theme.new(function(theme, getColor)
-		local studioStyles = StudioFrameworkStyles.new(theme, getColor)
-		return {
-			Framework = studioStyles,
-		}
-	end)
+	local theme
+	if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+		theme = StudioTheme.new()
+	else
+		theme = Theme.new(function(theme, getColor)
+			local studioStyles = StudioFrameworkStyles.new(theme, getColor)
+			return {
+				Framework = studioStyles,
+			}
+		end)
+	end
 
 	-- Mount and display a dialog
 	local ExampleLoadingBar = Roact.PureComponent:extend("ExampleLoadingBar")
@@ -64,6 +76,11 @@ return function(plugin)
 
 		local progressText = ("%i%%"):format(progress * 100)
 
+		local textColor
+		if (not FlagsList:get("FFlagRefactorDevFrameworkTheme")) then
+			textColor = theme:get("Framework").Button.Default.TextColor
+		end
+
 		return ContextServices.provide({pluginItem, theme}, {
 			Main = Roact.createElement(Dialog, {
 				Enabled = enabled,
@@ -99,7 +116,7 @@ return function(plugin)
 						Size = UDim2.fromOffset(120, 16),
 						BackgroundTransparency = 1,
 						Text = progressText,
-						TextColor3 = theme:get("Framework").Button.Default.TextColor,
+						TextColor3 = textColor,
 						Font = Enum.Font.SourceSans,
 						TextSize = 16,
 					}),

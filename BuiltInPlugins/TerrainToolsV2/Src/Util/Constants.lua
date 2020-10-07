@@ -13,6 +13,7 @@ local Constants = {}
 Constants.ToolIcons = {
 	[ToolId.Generate] = TexturePath .. "mt_generate.png",
 	[ToolId.Import] = TexturePath .. "mt_terrain_import.png",
+	[ToolId.ImportLocal] = TexturePath .. "mt_terrain_import.png",
 	[ToolId.ConvertPart] = TexturePath .. "mt_convert_part.png",
 	[ToolId.SeaLevel] = TexturePath .. "mt_sea_level.png",
 	[ToolId.Replace] = TexturePath .. "mt_replace.png",
@@ -70,6 +71,7 @@ Constants.ToolActivatesPlugin = {
 	[ToolId.SeaLevel] = true,
 	[ToolId.Generate] = FFlagTerrainToolsUseMapSettingsWithPreview,
 	[ToolId.Import] = FFlagTerrainToolsUseMapSettingsWithPreview,
+	[ToolId.ImportLocal] = true,
 	[ToolId.Replace] = true,
 }
 

@@ -1,3 +1,6 @@
+--!nolint ImplicitReturn
+--^ DEVTOOLS-4493
+
 --[[
 	The content to be rendered in confirm dialog
 ]]

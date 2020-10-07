@@ -25,7 +25,7 @@ local TextLabel = require(UI.TextLabel)
 Typecheck.wrap(InstanceTreeRow, script)
 
 local function getClassIcon(instance)
-	local StudioService  = game:GetService("StudioService")
+	local StudioService = game:GetService("StudioService")
 	local className = instance.ClassName
 	if instance.IsA then
 		if instance:IsA("JointInstance") and className == "ManualWeld" or className == "ManualGlue" then
@@ -73,9 +73,10 @@ function InstanceTreeRow:render()
 	local arrowSize = style.Arrow.Size
 	local padding = style.IconPadding
 	local iconInfo = getClassIcon(item)
-	local iconSize = iconInfo.ImageRectSize.X
+	-- Default iconSize to (0, 0) as ImageRectSize is unavailable in Roblox CLI
+	local iconSize = iconInfo.ImageRectSize or Vector2.new()
 	local labelOffset = indent + arrowSize + 2 * padding
-	local textOffset = iconSize + 3 * padding
+	local textOffset = iconSize.X + 3 * padding
 
 	return Roact.createElement(Container, {
 		Size = UDim2.new(1, -indent, 0, style.RowHeight),
@@ -105,10 +106,10 @@ function InstanceTreeRow:render()
 			Size = UDim2.new(1, -arrowSize, 1, 0),
 		}, {
 			Icon = Roact.createElement("ImageLabel", {
-				Size = UDim2.fromOffset(iconSize, iconInfo.ImageRectSize.Y),
+				Size = UDim2.fromOffset(iconSize.X, iconSize.Y),
 				BackgroundTransparency = 1,
 				Image = iconInfo.Image,
-				ImageRectSize = iconInfo.ImageRectSize,
+				ImageRectSize = iconSize,
 				ImageRectOffset = iconInfo.ImageRectOffset,
 				Position = UDim2.new(0, padding, 0.5, 0),
 				AnchorPoint = Vector2.new(0, 0.5)

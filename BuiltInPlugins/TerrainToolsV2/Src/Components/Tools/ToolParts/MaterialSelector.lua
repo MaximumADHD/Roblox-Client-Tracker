@@ -9,6 +9,7 @@ Props:
 ]]
 
 local FFlagTerrainToolsUseDevFramework = game:GetFastFlag("TerrainToolsUseDevFramework")
+local FFlagTerrainToolsUseSiblingZIndex = game:GetFastFlag("TerrainToolsUseSiblingZIndex")
 
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
@@ -93,7 +94,7 @@ do
 			TextSize = theme.textSize,
 			TextColor3 = theme.textColor,
 			Font = theme.textFont,
-			ZIndex = 5,
+			ZIndex = FFlagTerrainToolsUseSiblingZIndex and 1 or 5,
 
 			[Roact.Ref] = self.ref,
 		})
@@ -150,6 +151,7 @@ do
 			BackgroundColor3 = theme.backgroundColor,
 			BorderSizePixel = isSelected and 2 or 0,
 			BorderColor3 = isSelected and theme.selectionBorderColor or theme.borderColor,
+			ZIndex = FFlagTerrainToolsUseSiblingZIndex and (isHovered and 2 or 1) or 1,
 
 			[Roact.Event.MouseEnter] = self.onMouseEnter,
 			[Roact.Event.MouseLeave] = self.onMouseLeave,

@@ -7,6 +7,7 @@ return function()
 	it("should create and destroy without errors", function()
 		local element = MockWrap(Roact.createElement(StylesList, {
 			Header = "Test",
+			ComponentName = "TextLabel",
 			Styles = {},
 		}))
 		local instance = Roact.mount(element)
@@ -17,6 +18,7 @@ return function()
 		local container = Instance.new("Folder")
 		local element = MockWrap(Roact.createElement(StylesList, {
 			Header = "Test",
+			ComponentName = "TextLabel",
 			Styles = {
 				Default = {},
 			},
@@ -36,6 +38,8 @@ return function()
 		local container = Instance.new("Folder")
 		local element = MockWrap(Roact.createElement(StylesList, {
 			Header = "Test",
+			-- This can be any DeveloperFramework component with a '&' style override
+			ComponentName = "Button",
 			Styles = {
 				Default = {},
 				Item = {},

@@ -3,7 +3,7 @@ local CorePackages = game:GetService("CorePackages")
 local Roact = require(CorePackages.Packages.Roact)
 
 local createMockMessage = require(script.Parent.Parent.Parent.Helpers.createMockMessage)
-local Constants = require(script.Parent.Parent.Parent.Constants)
+local settings = require(script.Parent.Parent.Parent.ChatSettings)
 local ChatBubble = require(script.Parent.Parent.ChatBubble)
 
 return function(target)
@@ -17,10 +17,10 @@ return function(target)
 		}),
 
 		Padding = Roact.createElement("UIPadding", {
-			PaddingTop = UDim.new(0, Constants.UI_PADDING),
-			PaddingRight = UDim.new(0, Constants.UI_PADDING),
-			PaddingBottom = UDim.new(0, Constants.UI_PADDING),
-			PaddingLeft = UDim.new(0, Constants.UI_PADDING),
+			PaddingTop = UDim.new(0, settings.Padding),
+			PaddingRight = UDim.new(0, settings.Padding),
+			PaddingBottom = UDim.new(0, settings.Padding),
+			PaddingLeft = UDim.new(0, settings.Padding),
 		}),
 
 		ShortMessage = Roact.createElement(ChatBubble, {

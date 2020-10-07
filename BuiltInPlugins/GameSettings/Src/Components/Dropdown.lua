@@ -50,6 +50,8 @@ local function findCurrentTitle(entries, currentId)
 			end
 		end
 	end
+
+	return nil
 end
 
 function Dropdown:init(props)

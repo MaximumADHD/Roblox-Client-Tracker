@@ -9,8 +9,12 @@
 ]]
 
 game:DefineFastFlag("FixDevFrameworkDockWidgetRestore", false)
+game:DefineFastFlag("DevFrameworkPluginWidgetEnabledEvent2", false)
+game:DefineFastFlag("DevFrameworkPluginWidgetUseSiblingZIndex", false)
 
 local FFlagFixDevFrameworkDockWidgetRestore = game:GetFastFlag("FixDevFrameworkDockWidgetRestore")
+local FFlagDevFrameworkPluginWidgetEnabledEvent2 = game:GetFastFlag("DevFrameworkPluginWidgetEnabledEvent2")
+local FFlagDevFrameworkPluginWidgetUseSiblingZIndex = game:GetFastFlag("DevFrameworkPluginWidgetUseSiblingZIndex")
 
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
@@ -29,7 +33,11 @@ local function createPluginWidget(componentName, createWidgetFunc)
 
 		local widget = createWidgetFunc(props)
 		widget.Name = title or ""
-		widget.ZIndexBehavior = props.ZIndexBehavior or Enum.ZIndexBehavior.Global
+		if FFlagDevFrameworkPluginWidgetUseSiblingZIndex then
+			widget.ZIndexBehavior = props.ZIndexBehavior or Enum.ZIndexBehavior.Sibling
+		else
+			widget.ZIndexBehavior = props.ZIndexBehavior or Enum.ZIndexBehavior.Global
+		end
 
 		if widget:IsA("PluginGui") then
 			widget:BindToClose(onClose)
@@ -63,6 +71,17 @@ local function createPluginWidget(componentName, createWidgetFunc)
 					end)
 				end
 			end
+		end
+
+		if FFlagDevFrameworkPluginWidgetEnabledEvent2 then
+			-- Connect to enabled changing *after* restore
+			-- Otherwise users of this will get 2 enabled changes: one from the onRestore, and the same from Roact.Change.Enabled
+			self.widgetEnabledChangedConnection = widget:GetPropertyChangedSignal("Enabled"):Connect(function()
+				local callback = self.props[Roact.Change.Enabled]
+				if callback and self.widget and self.widget.Enabled ~= self.props.Enabled then
+					callback(self.widget)
+				end
+			end)
 		end
 
 		self.focus = Focus.new(widget)
@@ -105,6 +124,11 @@ local function createPluginWidget(componentName, createWidgetFunc)
 	end
 
 	function PluginWidget:willUnmount()
+		if self.widgetEnabledChangedConnection then
+			self.widgetEnabledChangedConnection:Disconnect()
+			self.widgetEnabledChangedConnection = nil
+		end
+
 		if self.windowFocusReleasedConnection then
 			self.windowFocusReleasedConnection:Disconnect()
 			self.windowFocusReleasedConnection = nil
@@ -117,6 +141,7 @@ local function createPluginWidget(componentName, createWidgetFunc)
 
 		if self.widget then
 			self.widget:Destroy()
+			self.widget = nil
 		end
 	end
 

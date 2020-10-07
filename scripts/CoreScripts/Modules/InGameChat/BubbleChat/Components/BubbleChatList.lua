@@ -13,6 +13,7 @@ BubbleChatList.validateProps = t.strictInterface({
 	userId = t.string,
 	isVisible = t.optional(t.boolean),
 	theme = t.optional(t.string),
+	onLastBubbleFadeOut = t.optional(t.callback),
 
 	-- RoactRodux
 	chatSettings = Types.IChatSettings,
@@ -31,7 +32,7 @@ function BubbleChatList.getDerivedStateFromProps(nextProps, lastState)
 		for _, bubble in ipairs(lastState.bubbles) do
 			-- A message being in lastState but not nextProps means it's been removed from the store
 			-- => keep it in the state and fade it out!
-			if not nextProps.messageIds[bubble.message.id] then
+			if not Cryo.List.find(nextProps.messageIds, bubble.message.id) then
 				table.insert(bubbles, {
 					message = bubble.message,
 					fadingOut = true
@@ -52,29 +53,43 @@ function BubbleChatList.getDerivedStateFromProps(nextProps, lastState)
 	}
 end
 
-function BubbleChatList:init()
+function BubbleChatList:init(props)
+	-- It's possible for this component to be initialized with no message if we switch between maximized/minimized
+	-- view during the fade out animation
+	if (not props.messageIds or #props.messageIds == 0) and props.onLastBubbleFadeOut then
+		props.onLastBubbleFadeOut()
+	end
+
 	self.onBubbleFadeOut = function(messageId)
-		self:setState({
-			bubbles = Cryo.List.filter(self.state.bubbles, function(otherBubble)
-				return otherBubble.message.id ~= messageId
-			end)
-		})
+		local bubbles = Cryo.List.filter(self.state.bubbles, function(otherBubble)
+			return otherBubble.message.id ~= messageId
+		end)
+		if #bubbles == 0 and self.props.onLastBubbleFadeOut then
+			self.props.onLastBubbleFadeOut()
+		else
+			-- Doing this when #bubbles == 0 causes Roact to panic, probably because the bubbles are being unmounted twice
+			-- (once due to setState below and once due to this list component being unmounted), hence the above check
+			self:setState({
+				bubbles = bubbles
+			})
+		end
 	end
 end
 
 function BubbleChatList:render()
 	local children = {}
+	local settings = self.props.chatSettings
 
 	children.Layout = Roact.createElement("UIListLayout", {
 		SortOrder = Enum.SortOrder.LayoutOrder,
 		HorizontalAlignment = Enum.HorizontalAlignment.Center,
 		VerticalAlignment = Enum.VerticalAlignment.Bottom,
-		Padding = UDim.new(0, 8),
+		Padding = UDim.new(0, settings.BubblesSpacing),
 	})
 
 	-- This padding pushes up the UI a bit so the first message's
 	-- caret shows up.
-	children.CaretPadding = Roact.createElement("UIPadding", {
+	children.CaretPadding = settings.TailVisible and Roact.createElement("UIPadding", {
 		PaddingBottom = UDim.new(0, 8),
 	})
 

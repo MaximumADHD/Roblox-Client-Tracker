@@ -5,9 +5,7 @@ local Otter = require(CorePackages.Packages.Otter)
 local Roact = require(CorePackages.Packages.Roact)
 local RoactRodux = require(CorePackages.Packages.RoactRodux)
 local t = require(CorePackages.Packages.t)
-local Constants = require(script.Parent.Parent.Constants)
 local Types = require(script.Parent.Parent.Types)
-local Themes = require(script.Parent.Parent.Themes)
 
 local SPRING_CONFIG = {
 	dampingRatio = 1,
@@ -21,21 +19,15 @@ ChatBubble.validateProps = t.strictInterface({
 
 	fadingOut = t.optional(t.boolean),
 	onFadeOut = t.optional(t.callback),
-	maxWidth = t.optional(t.number),
 	LayoutOrder = t.optional(t.number),
 	isMostRecent = t.optional(t.boolean),
 	theme = t.optional(t.string),
-	TextSize = t.optional(t.number),
-	Font = t.optional(t.enum(Enum.Font)),
 
 	chatSettings = Types.IChatSettings,
 })
 
 ChatBubble.defaultProps = {
 	theme = "Light",
-	TextSize = 16,
-	Font = Enum.Font.Gotham,
-	maxWidth = 300,
 	isMostRecent = true,
 }
 
@@ -58,13 +50,14 @@ function ChatBubble:init()
 end
 
 function ChatBubble:getTextBounds()
-	local padding = Vector2.new(Constants.UI_PADDING * 4, Constants.UI_PADDING * 2)
+	local settings = self.props.chatSettings
+	local padding = Vector2.new(settings.Padding * 4, settings.Padding * 2)
 
 	local bounds = TextService:GetTextSize(
 		self.props.message.text,
-		self.props.TextSize,
-		self.props.Font,
-		Vector2.new(self.props.maxWidth, 10000)
+		settings.TextSize,
+		settings.Font,
+		Vector2.new(settings.MaxWidth, 10000)
 	)
 
 	return bounds + padding
@@ -72,6 +65,7 @@ end
 
 function ChatBubble:render()
 	local bounds = self:getTextBounds()
+	local settings = self.props.chatSettings
 
 	return Roact.createElement("Frame", {
 		LayoutOrder = self.props.LayoutOrder,
@@ -88,7 +82,7 @@ function ChatBubble:render()
 
 		Frame = Roact.createElement("Frame", {
 			LayoutOrder = 1,
-			BackgroundColor3 = self.props.chatSettings.BackgroundColor3,
+			BackgroundColor3 = settings.BackgroundColor3,
 			AnchorPoint = Vector2.new(0.5, 0),
 			Size = UDim2.fromScale(1, 1),
 			BorderSizePixel = 0,
@@ -97,7 +91,7 @@ function ChatBubble:render()
 			ClipsDescendants = true,
 		}, {
 			UICorner = Roact.createElement("UICorner", {
-				CornerRadius = UDim.new(0, 12),
+				CornerRadius = settings.CornerRadius,
 			}),
 
 			Text = Roact.createElement("TextLabel", {
@@ -106,27 +100,27 @@ function ChatBubble:render()
 				AnchorPoint = Vector2.new(0.5, 0.5),
 				Position = UDim2.fromScale(0.5, 0.5),
 				BackgroundTransparency = 1,
-				Font = Enum.Font.GothamSemibold,
-				TextColor3 = Themes.FontColor[self.props.theme],
-				TextSize = self.props.TextSize,
+				Font = settings.Font,
+				TextColor3 = settings.TextColor3,
+				TextSize = settings.TextSize,
 				TextTransparency = self.transparency,
 				TextWrapped = true,
 			}, {
 				Padding = Roact.createElement("UIPadding", {
-					PaddingTop = UDim.new(0, Constants.UI_PADDING),
-					PaddingRight = UDim.new(0, Constants.UI_PADDING),
-					PaddingBottom = UDim.new(0, Constants.UI_PADDING),
-					PaddingLeft = UDim.new(0, Constants.UI_PADDING),
+					PaddingTop = UDim.new(0, settings.Padding),
+					PaddingRight = UDim.new(0, settings.Padding),
+					PaddingBottom = UDim.new(0, settings.Padding),
+					PaddingLeft = UDim.new(0, settings.Padding),
 				})
 			})
 		}),
 
-		Carat = self.props.isMostRecent and Roact.createElement("ImageLabel", {
+		Carat = self.props.isMostRecent and settings.TailVisible and Roact.createElement("ImageLabel", {
 			LayoutOrder = 2,
 			BackgroundTransparency = 1,
 			Size = UDim2.fromOffset(9, 6),
 			Image = "rbxasset://textures/ui/InGameChat/Caret.png",
-			ImageColor3 = self.props.chatSettings.BackgroundColor3,
+			ImageColor3 = settings.BackgroundColor3,
 			ImageTransparency = self.transparency,
 		}),
 	})
@@ -167,7 +161,7 @@ function ChatBubble:didMount()
 		self.widthMotor:setGoal(Otter.spring(bounds.X, SPRING_CONFIG))
 	end
 
-	self.transparencyMotor:setGoal(Otter.spring(Constants.BUBBLE_BASE_TRANSPARENCY, SPRING_CONFIG))
+	self.transparencyMotor:setGoal(Otter.spring(self.props.chatSettings.Transparency, SPRING_CONFIG))
 end
 
 function ChatBubble:willUnmount()

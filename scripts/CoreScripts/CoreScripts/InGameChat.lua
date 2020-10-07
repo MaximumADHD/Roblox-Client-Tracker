@@ -184,7 +184,7 @@ onBubbleChatEnabledChanged()
 if game:GetEngineFeature("BubbleChatSettingsApi") then
 	Chat.BubbleChatSettingsChanged:Connect(function(settings)
 		local ok, message = Types.IChatSettings(settings)
-		assert(ok, "Bad settings object passed to Chat:SetBubbleChatSettings:\n"..message)
+		assert(ok, "Bad settings object passed to Chat:SetBubbleChatSettings:\n"..(message or ""))
 		chatStore:dispatch(UpdateChatSettings(settings))
 	end)
 end

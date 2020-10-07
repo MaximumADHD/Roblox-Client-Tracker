@@ -1,4 +1,5 @@
 local FFlagTerrainToolsUseDevFramework = game:GetFastFlag("TerrainToolsUseDevFramework")
+local FFlagTerrainToolsUseSiblingZIndex = game:GetFastFlag("TerrainToolsUseSiblingZIndex")
 
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
@@ -61,7 +62,7 @@ local function SingleSelectButtonGroup_render(props, theme)
 				ImageColor3 = selectedColour,
 				ScaleType = Enum.ScaleType.Slice,
 				SliceCenter = theme.singleSelectButtonGroupTheme.roundedElementSlice,
-				ZIndex = 2,
+				ZIndex = FFlagTerrainToolsUseSiblingZIndex and 1 or 2,
 			}),
 
 			-- Render a round rectangle on the right side if this is the rightmost button
@@ -78,7 +79,7 @@ local function SingleSelectButtonGroup_render(props, theme)
 				ImageColor3 = selectedColour,
 				ScaleType = Enum.ScaleType.Slice,
 				SliceCenter = theme.singleSelectButtonGroupTheme.roundedElementSlice,
-				ZIndex = 2,
+				ZIndex = FFlagTerrainToolsUseSiblingZIndex and 1 or 2,
 			}),
 
 			-- Render a rectangle in the middle that either covers the whole button
@@ -89,7 +90,7 @@ local function SingleSelectButtonGroup_render(props, theme)
 				Size = (isLeftmost and isRightmost) and UDim2.new(1, -INSET_FOR_CURVED_CORNERS * 2, 1, 0)
 					or (isLeftmost or isRightmost) and UDim2.new(1, -INSET_FOR_CURVED_CORNERS, 1, 0)
 					or UDim2.new(1, 0, 1, 0),
-				ZIndex = 3,
+				ZIndex = FFlagTerrainToolsUseSiblingZIndex and 1 or 3,
 
 				BackgroundColor3 = selectedColour,
 				BorderSizePixel = 0,
@@ -101,7 +102,7 @@ local function SingleSelectButtonGroup_render(props, theme)
 				BorderSizePixel = 0,
 				Text = option.Text,
 				TextColor3 = theme.textColor,
-				ZIndex = 4,
+				ZIndex = FFlagTerrainToolsUseSiblingZIndex and 3 or 4,
 			}),
 		})
 	end
@@ -113,20 +114,39 @@ local function SingleSelectButtonGroup_render(props, theme)
 			Size = UDim2.new(0, 1, 1, 0),
 			BorderSizePixel = 0,
 			BackgroundColor3 = theme.borderColor,
-			ZIndex = 10,
+			ZIndex = FFlagTerrainToolsUseSiblingZIndex and 2 or 10,
 		})
 	end
 
-	return Roact.createElement("ImageLabel", {
-		Size = size,
-		BackgroundTransparency = 1,
-		Image = theme.singleSelectButtonGroupTheme.roundedBorderImage,
-		ImageTransparency = 0,
-		ImageColor3 = theme.borderColor,
-		ScaleType = Enum.ScaleType.Slice,
-		SliceCenter = theme.singleSelectButtonGroupTheme.roundedElementSlice,
-		ZIndex = 10,
-	}, content)
+	if FFlagTerrainToolsUseSiblingZIndex then
+		content.Border = Roact.createElement("ImageLabel", {
+			Size = UDim2.new(1, 0, 1, 0),
+			BackgroundTransparency = 1,
+			Image = theme.singleSelectButtonGroupTheme.roundedBorderImage,
+			ImageTransparency = 0,
+			ImageColor3 = theme.borderColor,
+			ScaleType = Enum.ScaleType.Slice,
+			SliceCenter = theme.singleSelectButtonGroupTheme.roundedElementSlice,
+			ZIndex = 3,
+		})
+
+		return Roact.createElement("Frame", {
+			Size = size,
+			BackgroundTransparency = 1,
+		}, content)
+
+	else
+		return Roact.createElement("ImageLabel", {
+			Size = size,
+			BackgroundTransparency = 1,
+			Image = theme.singleSelectButtonGroupTheme.roundedBorderImage,
+			ImageTransparency = 0,
+			ImageColor3 = theme.borderColor,
+			ScaleType = Enum.ScaleType.Slice,
+			SliceCenter = theme.singleSelectButtonGroupTheme.roundedElementSlice,
+			ZIndex = 10,
+		}, content)
+	end
 end
 
 if FFlagTerrainToolsUseDevFramework then

@@ -29,9 +29,16 @@ local BaseTheme = FrameworkStyle.Themes.BaseTheme
 local StudioTheme = FrameworkStyle.Themes.StudioTheme
 local ui = FrameworkStyle.ComponentSymbols
 
-local function makeTheme()
+local function makeTheme(shouldMock)
 	if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
-		local styleRoot = StudioTheme.new()
+
+		local styleRoot
+		if shouldMock then
+			styleRoot = StudioTheme.mock()
+		else
+			styleRoot = StudioTheme.new()
+		end
+
 		return styleRoot:extend({
 			[StyleKey.TypeTextColor] = Color3.fromRGB(0, 162, 255),
 

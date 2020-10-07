@@ -1,10 +1,3 @@
-local Plugin = script.Parent.Parent.Parent
-local Util = require(Plugin.Framework.Util)
-
-local FileUtils = require(Plugin.Src.Util.FileUtils)
-
-local Promise = Util.Promise
-
 local GroupMetadataController = {}
 GroupMetadataController.__index = GroupMetadataController
 

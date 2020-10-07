@@ -28,6 +28,7 @@ local LayoutOrderIterator = UILibrary.Util.LayoutOrderIterator
 local StyledTooltip = UILibrary.Component.StyledTooltip
 local GetTextSize = UILibrary.Util.GetTextSize
 
+local SetRecentViewToggled = require(Plugin.Src.Actions.SetRecentViewToggled)
 local SetSearchTerm = require(Plugin.Src.Actions.SetSearchTerm)
 local SetToPreviousScreen = require(Plugin.Src.Actions.SetToPreviousScreen)
 local SetToNextScreen = require(Plugin.Src.Actions.SetToNextScreen)
@@ -39,6 +40,7 @@ local Screens = require(Plugin.Src.Util.Screens)
 local BulkImportService = game:GetService("BulkImportService")
 
 local FFlagAssetManagerAddAnalytics = game:GetFastFlag("AssetManagerAddAnalytics")
+local FFlagStudioAssetManagerAddRecentlyImportedView = game:GetFastFlag("StudioAssetManagerAddRecentlyImportedView")
 
 local TopBar = Roact.PureComponent:extend("TopBar")
 
@@ -68,6 +70,9 @@ function TopBar:render()
     local layoutOrder = props.LayoutOrder
 
     local enabled = props.Enabled
+
+    local recentViewToggled = props.RecentViewToggled
+    local dispatchSetRecentViewToggled = props.dispatchSetRecentViewToggled
 
     local currentScreen = props.CurrentScreen
     local previousScreens = props.PreviousScreens
@@ -156,6 +161,9 @@ function TopBar:render()
                 OnClick = function()
                     if previousButtonEnabled and enabled then
                         dispatchSetToPreviousScreen(previousButtonEnabled)
+                        if FFlagStudioAssetManagerAddRecentlyImportedView and recentViewToggled then
+                            dispatchSetRecentViewToggled(false)
+                        end
                     end
                 end,
             }, {
@@ -177,6 +185,9 @@ function TopBar:render()
                 OnClick = function()
                     if nextButtonEnabled and enabled then
                         dispatchSetToNextScreen(nextButtonEnabled)
+                        if FFlagStudioAssetManagerAddRecentlyImportedView and recentViewToggled then
+                            dispatchSetRecentViewToggled(false)
+                        end
                     end
                 end,
             }, {
@@ -286,6 +297,7 @@ local function mapStateToProps(state, props)
         CurrentScreen = state.Screen.currentScreen,
         PreviousScreens = previousScreens,
         NextScreens = nextScreens,
+        RecentViewToggled = state.AssetManagerReducer.recentViewToggled,
 	}
 end
 
@@ -293,6 +305,9 @@ local function mapDispatchToProps(dispatch)
 	return {
         dispatchLaunchBulkImporter = function(assetType)
             dispatch(LaunchBulkImport(assetType))
+        end,
+        dispatchSetRecentViewToggled = function(toggled)
+            dispatch(SetRecentViewToggled(toggled))
         end,
         dispatchSetSearchTerm = function(searchTerm)
             dispatch(SetSearchTerm(searchTerm))

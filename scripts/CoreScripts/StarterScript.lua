@@ -34,7 +34,10 @@ local FFlagUseRoactGlobalConfigInCoreScripts = require(RobloxGui.Modules.Flags.F
 local FFlagConnectErrorHandlerInLoadingScript = require(RobloxGui.Modules.Flags.FFlagConnectErrorHandlerInLoadingScript)
 local GetFFlagRoactBubbleChat = require(RobloxGui.Modules.Common.Flags.GetFFlagRoactBubbleChat)
 
+local EngineFeatureAvatarEditorService = game:GetEngineFeature("AvatarEditorService")
+
 local isNewGamepadMenuEnabled = require(RobloxGui.Modules.Flags.isNewGamepadMenuEnabled)
+local GetFFlagScreenTime = require(CorePackages.Regulations.ScreenTime.GetFFlagScreenTime)
 
 -- The Rotriever index, as well as the in-game menu code itself, relies on
 -- the init.lua convention, so we have to run initify over the module.
@@ -109,7 +112,9 @@ ScriptContext:AddCoreScriptLocal("CoreScripts/MainBotChatScript2", RobloxGui)
 coroutine.wrap(function() -- this is the first place we call, which can yield so wrap in coroutine
 	if PolicyService:IsSubjectToChinaPolicies() then
 		ScriptContext:AddCoreScriptLocal("CoreScripts/AntiAddictionPrompt", RobloxGui)
-		ScriptContext:AddCoreScriptLocal("CoreScripts/ScreenTimeInGame", RobloxGui)
+		if GetFFlagScreenTime() then
+			ScriptContext:AddCoreScriptLocal("CoreScripts/ScreenTimeInGame", RobloxGui)
+		end
 	end
 end)()
 
@@ -155,6 +160,11 @@ coroutine.wrap(safeRequire)(RobloxGui.Modules.BackpackScript)
 
 -- Emotes Menu
 coroutine.wrap(safeRequire)(RobloxGui.Modules.EmotesMenu.EmotesMenuMaster)
+
+if EngineFeatureAvatarEditorService then
+	initify(CoreGuiModules.AvatarEditorPrompts)
+	coroutine.wrap(safeRequire)(CoreGuiModules.AvatarEditorPrompts)
+end
 
 ScriptContext:AddCoreScriptLocal("CoreScripts/VehicleHud", RobloxGui)
 

@@ -38,6 +38,7 @@ local FFlagNewAwardBadgeEndpoint = settings():GetFFlag('NewAwardBadgeEndpoint2')
 local FFlagFixNotificationScriptError = game:DefineFastFlag("FixNotificationScriptError", false)
 
 local GetFFlagRemoveInGameFollowingEvents = require(RobloxGui.Modules.Flags.GetFFlagRemoveInGameFollowingEvents)
+local GetFixGraphicsQuality = require(RobloxGui.Modules.Flags.GetFixGraphicsQuality)
 local isNewGamepadMenuEnabled = require(RobloxGui.Modules.Flags.isNewGamepadMenuEnabled)
 
 local RobloxTranslator = require(RobloxGui:WaitForChild("Modules"):WaitForChild("RobloxTranslator"))
@@ -739,6 +740,7 @@ local function onBadgeAwarded(message, userId, badgeId)
 	end
 end
 
+-- DEPRECATED Remove with FixGraphicsQuality
 function onGameSettingsChanged(property, amount)
 	if property == "SavedQualityLevel" then
 		local level = GameSettings.SavedQualityLevel.Value + amount
@@ -784,9 +786,12 @@ if not isTenFootInterface then
 	Players.FriendRequestEvent:connect(onFriendRequestEvent)
 	PointsService.PointsAwarded:connect(onPointsAwarded)
 	--GameSettings.Changed:connect(onGameSettingsChanged)
-	game.GraphicsQualityChangeRequest:connect(function(graphicsIncrease) --graphicsIncrease is a boolean
-		onGameSettingsChanged("SavedQualityLevel", graphicsIncrease == true and 1 or -1)
-	end)
+
+	if not GetFixGraphicsQuality() then
+		game.GraphicsQualityChangeRequest:connect(function(graphicsIncrease) --graphicsIncrease is a boolean
+			onGameSettingsChanged("SavedQualityLevel", graphicsIncrease == true and 1 or -1)
+		end)
+	end
 end
 
 local allowScreenshots = not PolicyService:IsSubjectToChinaPolicies()

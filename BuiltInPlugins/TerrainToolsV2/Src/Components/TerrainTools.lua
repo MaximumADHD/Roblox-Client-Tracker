@@ -1,3 +1,5 @@
+local FFlagTerrainToolsUseSiblingZIndex = game:GetFastFlag("TerrainToolsUseSiblingZIndex")
+
 local Plugin = script.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
@@ -19,11 +21,23 @@ local TOOLBAR_NAME = "TerrainToolsLuaToolbarName"
 local MIN_WIDGET_SIZE = Vector2.new(270, 256)
 local INITIAL_WIDGET_SIZE = Vector2.new(300, 600)
 
+local ABTEST_SHOWHIDEV2_NAME = "AllUsers.RobloxStudio.ShowHideV2"
+local FFlagStudioShowHideABTestV2 = game:GetFastFlag("StudioShowHideABTestV2")
+
 local TerrainTools = Roact.PureComponent:extend("TerrainTools")
 
 function TerrainTools:init()
+	local initiallyEnabled = true
+
+	if FFlagStudioShowHideABTestV2 then
+		local variation = Framework.Util.getTestVariation(ABTEST_SHOWHIDEV2_NAME)
+		if variation == 2 then
+			initiallyEnabled = false
+		end
+	end
+
 	self.state = {
-		enabled = true,
+		enabled = initiallyEnabled,
 	}
 
 	self.toggleEnabled = function()
@@ -147,7 +161,7 @@ function TerrainTools:render()
 			Title = localization:get():getText("Main", "Title"),
 			Enabled = enabled,
 
-			ZIndexBehavior = Enum.ZIndexBehavior.Global,
+			ZIndexBehavior = FFlagTerrainToolsUseSiblingZIndex and Enum.ZIndexBehavior.Sibling or Enum.ZIndexBehavior.Global,
 			InitialDockState = Enum.InitialDockState.Left,
 			Size = INITIAL_WIDGET_SIZE,
 			MinSize = MIN_WIDGET_SIZE,

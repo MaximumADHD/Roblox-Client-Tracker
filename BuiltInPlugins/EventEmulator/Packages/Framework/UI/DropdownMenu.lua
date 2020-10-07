@@ -44,6 +44,7 @@ local TextLabel = require(UI.TextLabel)
 
 local FlagsList = Util.Flags.new({
 	FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
+	FFlagRefactorDevFrameworkContextItems = {"RefactorDevFrameworkContextItems"},
 })
 
 local DropdownMenu = Roact.PureComponent:extend("DropdownMenu")
@@ -201,7 +202,7 @@ function DropdownMenu:renderMenu()
 	local width = style.Width
 	local offset = prioritize(style.Offset, Vector2.new(0, 0))
 
-	local pluginGui = props.Focus:getTarget()
+	local pluginGui = FlagsList:get("FFlagRefactorDevFrameworkContextItems") and props.Focus:get() or props.Focus:getTarget()
 
 	local menuPositionAndSize = self.getPositionAndSize(pluginGui, width, offset)
 	local x = menuPositionAndSize.X

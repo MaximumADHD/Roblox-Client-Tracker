@@ -63,7 +63,7 @@ return function()
 	local function createTreeView()
 		local theme
 		if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
-			theme = StudioTheme.new()
+			theme = StudioTheme.mock()
 		else
 			theme = Theme.new(function()
 				return {

@@ -1,3 +1,5 @@
+--!nocheck
+
 --[[
 	Wraps theme styles and update logic into a ContextItem.
 

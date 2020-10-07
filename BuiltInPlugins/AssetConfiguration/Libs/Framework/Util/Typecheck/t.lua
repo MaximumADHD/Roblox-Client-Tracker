@@ -1,3 +1,5 @@
+--!nocheck
+
 --[[
 	DeveloperFramework uses t from Osyris
 	https://github.com/osyrisrblx/t

@@ -92,7 +92,8 @@ local createInputRow = function(self, label, assetTypeId, layoutOrderIterator)
 		Mouse = self.props.Mouse,
 
 		SetValue = function(text)
-			local id = string.len(string.gsub(text, " ", "")) > 0 and tonumber(text) or 0
+			local whitespaceStrippedText, _ = string.gsub(text, " ", "")
+			local id = string.len(whitespaceStrippedText) > 0 and tonumber(text) or 0
 			if id ~= assetId then
 				local newTemplateModel = StateModelTemplate.makeCopy(template)
 

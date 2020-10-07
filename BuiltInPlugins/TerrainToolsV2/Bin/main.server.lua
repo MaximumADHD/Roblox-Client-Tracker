@@ -17,10 +17,14 @@ end
 
 local FFlagTerrainToolsConvertPartTool = game:GetFastFlag("TerrainToolsConvertPartTool")
 local FFlagTerrainOpenCloseMetrics = game:GetFastFlag("TerrainOpenCloseMetrics")
+local FFlagStudioShowHideABTestV2 = game:GetFastFlag("StudioShowHideABTestV2")
+local FFlagTerrainToolsUseSiblingZIndex = game:GetFastFlag("TerrainToolsUseSiblingZIndex")
 
 -- Services
+local ABTestService = game:GetService("ABTestService")
 local AnalyticsService = game:GetService("RbxAnalyticsService")
 local StudioService = game:GetService("StudioService")
+
 -- libraries
 local Roact = require(Plugin.Packages.Roact)
 local Rodux = require(Plugin.Packages.Rodux)
@@ -67,6 +71,8 @@ if FFlagTerrainOpenCloseMetrics then
 	CLOSE_COUNTER = "TerrainToolsCloseWidget"
 	TOGGLE_COUNTER = "TerrainToolsToggleButton"
 end
+
+local ABTEST_SHOWHIDEV2_NAME = "AllUsers.RobloxStudio.ShowHideV2"
 
 -- Plugin Specific Globals
 local dataStore = Rodux.Store.new(MainReducer, nil, {
@@ -243,10 +249,18 @@ local function main()
 		exampleButton:SetActive(pluginGui.Enabled)
 	end
 
+	local initiallyEnabled = true
+	if FFlagStudioShowHideABTestV2 then
+		-- When toolbox is shown, hide other left-docked plugins
+		if ABTestService:GetVariant(ABTEST_SHOWHIDEV2_NAME) == "Variation2" then
+			initiallyEnabled = false
+		end
+	end
+
 	-- create the plugin
 	local widgetInfo = DockWidgetPluginGuiInfo.new(
 		Enum.InitialDockState.Left,  -- Widget will be initialized docked to the left
-		true,   -- Widget will be initially enabled
+		initiallyEnabled,   -- Widget will be initially enabled
 		false,  -- Don't override the previous enabled state
 		300,    -- Default width of the floating window
 		600,    -- Default height of the floating window
@@ -257,7 +271,8 @@ local function main()
 	pluginGui.Name = localization:getText("Meta", "PluginName")
 	pluginGui.Title = localization:getText("Main", "Title")
 
-	pluginGui.ZIndexBehavior = Enum.ZIndexBehavior.Global
+	pluginGui.ZIndexBehavior = FFlagTerrainToolsUseSiblingZIndex and Enum.ZIndexBehavior.Sibling
+		or Enum.ZIndexBehavior.Global
 	pluginGui:GetPropertyChangedSignal("Enabled"):Connect(showIfEnabled)
 
 	-- configure the widget and button if its visible

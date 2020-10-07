@@ -13,6 +13,8 @@ Props:
 	SetMapSettingsValid : (bool) -> void
 ]]
 
+local FFlagTerrainToolsBetterImportTool = game:GetFastFlag("TerrainToolsBetterImportTool")
+
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
@@ -86,6 +88,9 @@ function MapSettingsFragment:init(props)
 
 	self.onVectorValueChanged = function(vector, axis, text, isValid)
 		self.validFieldState[vector][axis] = isValid
+		if FFlagTerrainToolsBetterImportTool then
+			verifyFields()
+		end
 		dispatchVectorChanged(vector, axis, text, isValid)
 	end
 end

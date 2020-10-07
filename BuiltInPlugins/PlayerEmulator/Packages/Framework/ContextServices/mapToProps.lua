@@ -42,14 +42,32 @@ local function mapToProps(component, contextMap)
 		string.format(missingRenderMessage, tostring(component)))
 	assert(contextMap, "mapToProps expects a contextMap table.")
 
+	local __initWithContext = component.init
 	component.__renderWithContext = component.render
+
+	function component:init(props)
+		for key, item in pairs(contextMap) do
+			if item.initConsumer then
+				item:initConsumer(self)
+			end
+		end
+		if __initWithContext then
+			__initWithContext(self, props)
+		end
+	end
 
 	function component:render()
 		return Roact.createElement(Consumer, {
 			ContextMap = contextMap,
 			Render = function(items)
-				for key, item in pairs(items) do
-					self.props[key] = item
+				if items then
+					for key, item in pairs(items) do
+						if item.getConsumerItem then
+							self.props[key] = item:getConsumerItem(self)
+						else
+							self.props[key] = item
+						end
+					end
 				end
 				return self:__renderWithContext()
 			end,

@@ -91,7 +91,7 @@ return function(contextItemsList, children)
 	-- Theme
 	local theme
 	if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
-		theme = StudioTheme.new()
+		theme = StudioTheme.mock()
 	else
 		theme = ContextServices.Theme.mock(function(theme, getColor)
 			return {

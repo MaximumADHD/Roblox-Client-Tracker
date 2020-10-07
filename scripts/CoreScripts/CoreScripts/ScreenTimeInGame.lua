@@ -3,9 +3,11 @@ local GuiService = game:GetService("GuiService")
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local NotificationService = game:GetService("NotificationService")
+local CorePackages = game:GetService("CorePackages")
 local HttpService = game:GetService("HttpService")
-local HttpRbxApiService = game:GetService("HttpRbxApiService")
-
+local ScreenTimeHttpRequests = require(CorePackages.Regulations.ScreenTime.HttpRequests)
+local ScreenTimeConstants = require(CorePackages.Regulations.ScreenTime.Constants)
+local Logging = require(CorePackages.Logging)
 local ErrorPrompt = require(RobloxGui.Modules.ErrorPrompt)
 local Url = require(RobloxGui.Modules.Common.Url)
 
@@ -20,27 +22,14 @@ local ScreenTimeState = {
 	OpenWebView = 3,
 }
 
-local function markRead(messageToDisplay)
-	-- The ScreenTime V2 markRead endpoint, https://apis.roblox.qq.com/timed-entertainment-allowance/v1/reportExecute
-	local apiPath = "/timed-entertainment-allowance/v1/reportExecute"
-	local fullUrl = Url.APIS_URL .. apiPath
-	local nowLocal = os.date("*t", os.time())
-	-- Required time format 2020-06-04T04:44:09Z
-	local formattedTime = ("%d-%02d-%02dT%02d:%02d:%02dZ"):format(nowLocal.year, nowLocal.month, nowLocal.day, nowLocal.hour, nowLocal.min, nowLocal.sec)
-	local payload = HttpService:JSONEncode({
-		instructionName = messageToDisplay.instructionName,
-		serialId = messageToDisplay.id,
-		execTime = formattedTime,
-	})
-	pcall(function()
-		return HttpRbxApiService:PostAsyncFullUrl(fullUrl, payload) 
-	end)
-end
+local TAG = "ScreenTimeInGame"
+
+local screenTimeHttpRequests = ScreenTimeHttpRequests:new(HttpService)
 
 --[[
 Resolving message:
 	* display (move message PendingResolve -> Displaying)
-	* markread - spawned as soon as displayed to resolve with server
+	* report execution - report as soon as displayed to resolve with server
 	* user input - pressing "ok" (move message Displaying -> Resolved)
 ]]
 
@@ -82,9 +71,7 @@ local messageQueue = {
 			self.displayMessageCallback(messageToDisplay.message)
 		end
 
-		spawn(function()
-			markRead(messageToDisplay)
-		end)
+		screenTimeHttpRequests:reportExecution(messageToDisplay.instructionName, messageToDisplay.id)
 	end,
 
 	-- currently messages will be resolved on client side by user click on the "OK" button
@@ -146,12 +133,12 @@ onScreenSizeChanged()
 
 
 local screenTimeUpdatedConnection
-local function screenTimeStatesUpdated(responseTable)
+local function screenTimeStatesUpdated(instructions)
 	local lockout = false
-	local instructions = {}
-	for _, instruction in ipairs(responseTable.instructions) do
+	local filteredInstructions = {}
+	for _, instruction in ipairs(instructions) do
 		if instruction.type == ScreenTimeState.Warning then
-			table.insert(instructions, instruction)
+			table.insert(filteredInstructions, instruction)
 		elseif instruction.type == ScreenTimeState.Lockout then
 			-- If there is a lockout, we will stop getting other state and then leaveGame
 			lockout = true
@@ -170,13 +157,29 @@ local function screenTimeStatesUpdated(responseTable)
 		end
 		leaveGame()
 	else
-		messageQueue:update(instructions)
+		messageQueue:update(filteredInstructions)
 	end
 end
 
+local function requestInstructions()
+	screenTimeHttpRequests:getInstructions(function(success, unauthorized, instructions)
+		if success then
+			screenTimeStatesUpdated(instructions)
+		elseif unauthorized then
+			-- Leave it to LuaApp
+			Logging.warn(TAG .. " requestInstructions failed: unauthorized")
+		else
+			Logging.warn(TAG .. " requestInstructions failed: error")
+		end
+	end)
+end
+
 screenTimeUpdatedConnection = NotificationService.RobloxEventReceived:Connect(function(eventData)
-	if eventData.namespace == "ScreenTimeClientNotifications" then
-		local responseTable = HttpService:JSONDecode(eventData.detail)
-		screenTimeStatesUpdated(responseTable)
+	if eventData.namespace == ScreenTimeConstants.SIGNALR_NAMESPACE and
+		eventData.detailType == ScreenTimeConstants.SIGNALR_TYPE_NEW_INSTRUCTION then
+		requestInstructions()
 	end
 end)
+
+-- First request on initialization
+requestInstructions()

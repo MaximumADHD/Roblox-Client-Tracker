@@ -17,7 +17,7 @@ return function()
 	local function createTestTextLabelDecoration()
 		local theme
 		if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
-			theme = StudioTheme.new()
+			theme = StudioTheme.mock()
 		else
 			theme = Theme.new(function()
 				return {

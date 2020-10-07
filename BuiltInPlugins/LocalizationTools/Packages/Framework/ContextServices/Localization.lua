@@ -268,6 +268,14 @@ function Localization.mock()
 		end
 	}
 
+	local currentLocale = 0
+	local localeIDs = {"en-us", "es", "es-es", "ko", "ja"}
+	local function getLocale()
+		currentLocale = (currentLocale + 1) % 5
+		local nextLocale = localeIDs[currentLocale]
+		return nextLocale
+	end
+
 	-- create a mock localization object for tests
 	return Localization.new({
 		-- create a mock resource file that mimics the real thing
@@ -278,6 +286,7 @@ function Localization.mock()
 
 		-- for tests, don't connect to any system signals to ensure stuff doesn't change mid test
 		overrideLocaleChangedSignal = Signal.new(),
+		getLocale = getLocale,
 	})
 end
 

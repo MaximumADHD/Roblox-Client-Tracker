@@ -1,5 +1,16 @@
 return function()
-	local Palette = require(script.Parent.Palette)
+
+	local Util = script.Parent
+	local Flags = require(Util.Flags)
+	local FlagsList = Flags.new({
+		FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
+	})
+
+	if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+		return
+	end
+
+	local Palette = require(Util.Palette)
 
 	it("should be a table of color StyleValues", function()
 		expect(Palette).to.be.ok()

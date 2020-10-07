@@ -135,7 +135,6 @@ do
 		Wheel = 0, -- PointerAction
 		Pan = Vector2.new(), -- PointerAction
 		Pinch = 0, -- PointerAction
-		MouseButton2 = 0,
 	}
 	local touchState = {
 		Move = Vector2.new(),
@@ -408,8 +407,11 @@ do
 		function CameraInput.resetInputForFrameEnd()
 			mouseState.Movement = Vector2.new()
 			touchState.Move = Vector2.new()
-			mouseState.Wheel = 0
 			touchState.Pinch = 0
+
+			mouseState.Wheel = 0 -- PointerAction
+			mouseState.Pan = Vector2.new() -- PointerAction
+			mouseState.Pinch = 0 -- PointerAction
 		end
 
 		UserInputService.WindowFocused:Connect(resetInputDevices)

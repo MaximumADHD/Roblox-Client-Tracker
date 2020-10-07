@@ -18,6 +18,7 @@ local Colors = {
 	Ash = Color3.fromRGB(234, 237, 239),
 	Chalk = Color3.fromRGB(216, 219, 222),
 	Smoke = Color3.fromRGB(96, 97, 98),
+	XboxBlue = Color3.fromRGB(17, 139, 211),
 }
 
 return Colors

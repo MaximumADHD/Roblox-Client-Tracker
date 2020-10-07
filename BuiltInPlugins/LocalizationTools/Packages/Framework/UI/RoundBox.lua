@@ -1,12 +1,11 @@
 --[[
 	A round Box decoration with a border.
 
-	Required Props:
-		Theme Theme: A Theme ContextItem, which is provided via mapToProps.
-
 	Optional Props:
 		Style Style: The style with which to render this component.
 		StyleModifier StyleModifier: The StyleModifier index into Style.
+		Theme Theme: A Theme ContextItem, which is provided via mapToProps.
+		Stylizer Stylizer: A Stylizer ContextItem, which is provided via mapToProps.
 
 	Style Values:
 		Color3 Color: The color tint of the image.
@@ -22,9 +21,12 @@
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
 local ContextServices = require(Framework.ContextServices)
-local Typecheck = require(Framework.Util).Typecheck
 
-local FFlagRoundBoxZIndexProp = game:DefineFastFlag("RoundBoxZIndexProp", false)
+local Util = require(Framework.Util)
+local Typecheck = Util.Typecheck
+local FlagsList = Util.Flags.new({
+	FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
+})
 
 local RoundBox = Roact.PureComponent:extend("RoundBox")
 Typecheck.wrap(RoundBox, script)
@@ -32,7 +34,12 @@ Typecheck.wrap(RoundBox, script)
 function RoundBox:render()
 	local props = self.props
 	local theme = props.Theme
-	local style = theme:getStyle("Framework", self)
+	local style
+	if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+		style = props.Stylizer
+	else
+		style = theme:getStyle("Framework", self)
+	end
 
 	local color = style.Color
 	local borderColor = style.BorderColor
@@ -52,7 +59,7 @@ function RoundBox:render()
 		Image = backgroundImage,
 		ScaleType = Enum.ScaleType.Slice,
 		SliceCenter = sliceCenter,
-		ZIndex = FFlagRoundBoxZIndexProp and zIndex or nil
+		ZIndex = zIndex
 	}, {
 		Border = Roact.createElement("ImageLabel", {
 			Size = UDim2.new(1, 0, 1, 0),
@@ -68,7 +75,8 @@ function RoundBox:render()
 end
 
 ContextServices.mapToProps(RoundBox, {
-	Theme = ContextServices.Theme,
+	Stylizer = FlagsList:get("FFlagRefactorDevFrameworkTheme") and ContextServices.Stylizer or nil,
+	Theme = (not FlagsList:get("FFlagRefactorDevFrameworkTheme")) and ContextServices.Theme or nil,
 })
 
 return RoundBox

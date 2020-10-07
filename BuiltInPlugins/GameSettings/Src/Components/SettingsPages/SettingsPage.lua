@@ -128,6 +128,8 @@ function SettingsPage:render()
 			}, self.props.CreateChildren()),
 		})
 	end
+
+	return nil
 end
 
 ContextServices.mapToProps(SettingsPage, {

@@ -2,8 +2,6 @@
 	Theme helper functions
 ]]
 
-local Constants = require(script.Parent.Constants)
-
 local getColor = nil
 
 local Theme = {}

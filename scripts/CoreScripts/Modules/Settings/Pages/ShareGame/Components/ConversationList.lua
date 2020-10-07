@@ -183,12 +183,14 @@ local function handleBinding(self)
 	if isSelectionGroupEnabled() then
 		local conversationList = self.scrollingRef:getValue()
 		if conversationList then
-			if GuiService.SelectedCoreObject == nil then
-				GuiService:AddSelectionParent("invitePrompt", conversationList)
-				for _, object in ipairs(conversationList:GetChildren()) do
-					if object:IsA("GuiObject") and object.LayoutOrder == 1 then
-						GuiService.SelectedCoreObject = object
-						break
+			if conversationList:FindFirstAncestorOfClass("ScreenGui").Enabled then
+				if GuiService.SelectedCoreObject == nil then
+					GuiService:AddSelectionParent("invitePrompt", conversationList)
+					for _, object in ipairs(conversationList:GetChildren()) do
+						if object:IsA("GuiObject") and object.LayoutOrder == 1 then
+							GuiService.SelectedCoreObject = object
+							break
+						end
 					end
 				end
 			end

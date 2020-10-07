@@ -102,7 +102,7 @@ function LegacyCamera:Update(dt)
 
 			local newLookVector
 			if FFlagUserCameraInputRefactor then
-				newLookVector = self:CalculateNewLookVectorFromArg(nil, CameraInput.getRotation())
+				newLookVector = self:CalculateNewLookVectorFromArg(nil, CameraInput.getRotation()*Vector2.new(0, 1))
 			else
 				newLookVector = self:CalculateNewLookVector()
 				self.rotateInput = ZERO_VECTOR2

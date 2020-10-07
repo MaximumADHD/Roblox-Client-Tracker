@@ -11,7 +11,7 @@ return function()
 		it("should coerce to the given name", function()
 			local symbol = Symbol.named("foo")
 
-			expect(tostring(symbol):find("foo")).to.be.ok()
+			expect((tostring(symbol):find("foo"))).to.be.ok()
 		end)
 
 		it("should be unique when constructed", function()

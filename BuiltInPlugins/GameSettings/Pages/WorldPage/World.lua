@@ -347,7 +347,7 @@ World = RoactRodux.connect(
 			end
 		end
 
-		return dispatchChanges(setValue, dispatch)
+		return dispatchChanges(setValue)
 	end
 )(World)
 

@@ -1,5 +1,5 @@
-game:DefineFastFlag("LuaInviteSelectionGroupEnabled", false)
+game:DefineFastFlag("LuaInviteSelectionGroupEnabledV2", false)
 
 return function()
-	return game:GetFastFlag("LuaInviteSelectionGroupEnabled")
+	return game:GetFastFlag("LuaInviteSelectionGroupEnabledV2")
 end

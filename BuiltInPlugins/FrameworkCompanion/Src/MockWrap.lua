@@ -12,6 +12,8 @@
 local Plugin = script.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local Rodux = require(Plugin.Packages.Rodux)
+local Framework = require(Plugin.Packages.Framework)
+local Signal = Framework.Util.Signal
 local MainReducer = require(Plugin.Src.Reducers.MainReducer)
 local ContextServices = require(Plugin.Packages.Framework).ContextServices
 local MakeTheme = require(Plugin.Src.Resources.MakeTheme)
@@ -24,6 +26,7 @@ end
 
 local function mockPlugin(container)
 	local plugin = {}
+	plugin.Name = "FrameworkCompanionMock"
 	function plugin:GetMouse()
 		return {}
 	end
@@ -41,6 +44,11 @@ local function mockPlugin(container)
 	function plugin:CreateDockWidgetPluginGui()
 		return createScreenGui()
 	end
+	function plugin:CreatePluginAction()
+		return {
+			Triggered = Signal.new()
+		}
+	end
 	return plugin
 end
 
@@ -55,8 +63,14 @@ end
 function MockPlugin:render()
 	return ContextServices.provide({
 		ContextServices.Plugin.new(self.plugin),
+		ContextServices.PluginActions.new(self.plugin, {
+			{
+				id = "rerunLastStory",
+				text = "MOCK",
+			}
+		}),
 		ContextServices.Mouse.new({}),
-		MakeTheme(),
+		MakeTheme(true),
 		ContextServices.Focus.new(self.target),
 		ContextServices.Store.new(self.store),
 	}, self.props[Roact.Children])

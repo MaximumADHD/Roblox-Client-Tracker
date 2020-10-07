@@ -4,7 +4,6 @@
 
 	Required Props:
 		callback OnClick: A callback for when the user clicks this button.
-		Theme Theme: A Theme ContextItem, which is provided via mapToProps.
 
 	Optional Props:
 		string Text: The text to display in this button.
@@ -15,6 +14,8 @@
 		Vector2 AnchorPoint: The pivot point of this component's Position prop.
 		number ZIndex: The render index of this component.
 		number LayoutOrder: The layout order of this component in a list.
+		Stylizer Stylizer: A Stylizer ContextItem, which is provided via mapToProps.
+		Theme Theme: A Theme ContextItem, which is provided via mapToProps.
 
 	Style Values:
 		Component Background: The background to render for this Button.
@@ -38,6 +39,10 @@ local Container = require(Framework.UI.Container)
 local Util = require(Framework.Util)
 local StyleModifier = Util.StyleModifier
 local Typecheck = Util.Typecheck
+
+local FlagsList = Util.Flags.new({
+	FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
+})
 
 local Button = Roact.PureComponent:extend("Button")
 Typecheck.wrap(Button, script)
@@ -66,7 +71,12 @@ function Button:render()
 	local theme = props.Theme
 	local styleModifier = props.StyleModifier or state.StyleModifier
 
-	local style = theme:getStyle("Framework", self)
+	local style
+	if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+		style = props.Stylizer
+	else
+		style = theme:getStyle("Framework", self)
+	end
 	local background = style.Background
 	local backgroundStyle = style.BackgroundStyle
 	local foreground = style.Foreground
@@ -124,7 +134,8 @@ function Button:render()
 end
 
 ContextServices.mapToProps(Button, {
-	Theme = ContextServices.Theme,
+	Stylizer = FlagsList:get("FFlagRefactorDevFrameworkTheme") and ContextServices.Stylizer or nil,
+	Theme = (not FlagsList:get("FFlagRefactorDevFrameworkTheme")) and ContextServices.Theme or nil,
 })
 
 return Button

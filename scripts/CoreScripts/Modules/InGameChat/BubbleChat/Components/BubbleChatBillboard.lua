@@ -20,11 +20,12 @@ local BubbleChatBillboard = Roact.Component:extend("BubbleChatBillboard")
 
 BubbleChatBillboard.validateProps = t.strictInterface({
 	userId = t.string,
+	onFadeOut = t.optional(t.callback),
 
 	-- RoactRodux
 	chatSettings = Types.IChatSettings,
 	messages = t.map(t.string, Types.IMessage),
-	messageIds = t.array(t.string)
+	messageIds = t.optional(t.array(t.string)), -- messageIds == nil during the last bubble's fade out animation
 })
 
 function BubbleChatBillboard:init()
@@ -33,6 +34,11 @@ function BubbleChatBillboard:init()
 		isInsideRenderDistance = false,
 		isInsideMaximizeDistance = false
 	}
+	self.onLastBubbleFadeOut = function()
+		if self.props.onFadeOut then
+			self.props.onFadeOut(self.props.userId)
+		end
+	end
 end
 
 function BubbleChatBillboard:didMount()
@@ -179,9 +185,10 @@ end
 -- If the billboard is to be attached to a character, return it,
 -- otherwise return the part specified in lastMessage.adornee
 function BubbleChatBillboard:getAdornee()
-	local lastMessageId = self.props.messageIds[#self.props.messageIds]
-	if not lastMessageId then return end
+	local messageIds = self.props.messageIds
+	if not messageIds or #messageIds == 0 then return end
 
+	local lastMessageId = messageIds[#messageIds]
 	local lastMessage = self.props.messages[lastMessageId]
 	assert(Types.IMessage(lastMessage))
 
@@ -198,19 +205,12 @@ function BubbleChatBillboard:getAdorneePart()
 end
 
 function BubbleChatBillboard:render()
-	local chatSettings = self.props.chatSettings
-	local messageIds = self.props.messageIds
-	local lastMessageId = messageIds[#messageIds]
-	local lastMessage = self.props.messages[lastMessageId]
 	local adornee = self.state.adornee
 	local adorneePart = self:getAdorneePart()
+	local isLocalPlayer = self.props.userId == tostring(Players.LocalPlayer.UserId)
+	local settings = self.props.chatSettings
 
 	if not adorneePart then
-		return
-	end
-
-	-- Don't render the Billboard if the user has not sent any messages recently
-	if os.time() - lastMessage.timestamp > chatSettings.BubbleDuration then
 		return
 	end
 
@@ -226,19 +226,33 @@ function BubbleChatBillboard:render()
 		Adornee = adorneePart,
 		Size = UDim2.fromOffset(500, 200),
 		SizeOffset = Vector2.new(0, 0.5),
-		-- For other players, increase offset by 1 to prevent overlaps with the name display, same behavior as old bubble chat
-		StudsOffset = Vector3.new(0, self.props.userId == tostring(Players.LocalPlayer.UserId) and 0 or 1, 0),
+		-- For other players, increase vertical offset by 1 to prevent overlaps with the name display
+		-- For the local player, increase Z offset to prevent the character from overlapping his bubbles when jumping/emoting
+		-- This behavior is the same as the old bubble chat
+		StudsOffset = Vector3.new(0, (isLocalPlayer and 0 or 1) + settings.VerticalStudsOffset, isLocalPlayer and 2 or 0.1),
 		StudsOffsetWorldSpace = self:getVerticalOffset(adornee),
 		ResetOnSpawn = false,
 	}, {
-		DistantBubble = not self.state.isInsideMaximizeDistance and Roact.createElement(ChatBubbleDistant),
+		DistantBubble = not self.state.isInsideMaximizeDistance and Roact.createElement(ChatBubbleDistant, {
+			fadingOut = not self.props.messageIds or #self.props.messageIds == 0,
+			onFadeOut = self.onLastBubbleFadeOut,
+		}),
 
 		BubbleChatList = self.state.isInsideMaximizeDistance and Roact.createElement(BubbleChatList, {
 			userId = self.props.userId,
 			isVisible = self.state.isInsideMaximizeDistance,
+			onLastBubbleFadeOut = self.onLastBubbleFadeOut,
 		})
 	})
 
+end
+
+function BubbleChatBillboard:didUpdate()
+	-- If self.state.isInsideRenderDistance, the responsibility to call self.onLastBubbleFadeOut will be on either
+	-- DistantBubble or BubbleChatList (after their fade out animation)
+	if (not self.props.messageIds or #self.props.messageIds == 0) and not self.state.isInsideRenderDistance then
+		self.onLastBubbleFadeOut()
+	end
 end
 
 function BubbleChatBillboard:shouldUpdate(nextProps)

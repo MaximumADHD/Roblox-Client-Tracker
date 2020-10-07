@@ -171,7 +171,7 @@ Security = RoactRodux.connect(
 			return settingFromState(state.Settings, propName)
 		end
 
-		return loadValuesToProps(getValue, state)
+		return loadValuesToProps(getValue)
 	end,
 
 	function(dispatch)

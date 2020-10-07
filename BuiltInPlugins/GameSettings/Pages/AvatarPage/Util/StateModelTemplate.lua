@@ -343,6 +343,8 @@ function Template:getAsset(assetTypeID)
 	if self.AssetsOverrides[assetTypeID] then
 		return self.AssetsOverrides[assetTypeID].assetID, self.AssetsOverrides[assetTypeID].isPlayerChoice
 	end
+
+	return nil, nil
 end
 
 createAssetsTable = function(self)

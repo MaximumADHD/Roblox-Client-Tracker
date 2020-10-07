@@ -233,6 +233,31 @@ function Theme.createValues(getColor, c, m)
 		otherTabOffset = UDim2.new(0, 0, 0, 0),
 	})
 
+	local promptSelectorWithPreviewTheme = defineTheme({
+		expandIcon = "rbxasset://textures/StudioSharedUI/preview_expand.png",
+		clearIcon = "rbxasset://textures/StudioSharedUI/preview_clear.png",
+		importIcon = "rbxasset://textures/StudioSharedUI/import_2x.png",
+
+		previewBackgroundColor = getColor(c.RibbonButton),
+		previewHoveredBackgroundColor = getColor(c.RibbonButton, m.Hover),
+		previewBorderColor = getColor(c.Border),
+
+		buttonIconColor = Color3.fromRGB(167, 167, 167),
+		buttonIconHoveredColor = Color3.fromRGB(254, 254, 254),
+
+		toolbarTransparency = 0.4,
+		toolbarBackgroundColor = Color3.fromRGB(0, 0, 0),
+		toolbarButtonBackgroundColor = Color3.fromRGB(39, 39, 39),
+	}, {
+		Dark = {
+			buttonIconColor = Color3.fromRGB(167, 167, 167),
+			buttonIconHoveredColor = Color3.fromRGB(254, 254, 254),
+
+			toolbarBackgroundColor = Color3.fromRGB(0, 0, 0),
+			toolbarButtonBackgroundColor = Color3.fromRGB(39, 39, 39),
+		},
+	})
+
 	if FFlagTerrainToolsUseDevFramework then
 		-- In the first part of the move to dev framework, we've had to port some components from UI library
 		-- Those components used colours etc. defined inside UI library, so we port them here too
@@ -315,6 +340,7 @@ function Theme.createValues(getColor, c, m)
 			roundToggleTextButtonTheme = roundToggleTextButtonTheme,
 			singleSelectButtonGroupTheme = singleSelectButtonGroupTheme,
 			propertyLockTheme = propertyLockTheme,
+			promptSelectorWithPreviewTheme = promptSelectorWithPreviewTheme,
 
 			-- Extras for ui library compatibility
 			checkBox = checkBox,
@@ -351,6 +377,7 @@ function Theme.createValues(getColor, c, m)
 			roundToggleTextButtonTheme = roundToggleTextButtonTheme,
 			singleSelectButtonGroupTheme = singleSelectButtonGroupTheme,
 			propertyLockTheme = propertyLockTheme,
+			promptSelectorWithPreviewTheme = promptSelectorWithPreviewTheme,
 			textSize = 14,
 			padding = 4,
 			font = Enum.Font.SourceSans,

@@ -8,6 +8,7 @@ local OverrideLocaleId = settings():GetFVariable("StudioForceLocale")
 local FFlagAssetManagerLuaPlugin = settings():GetFFlag("AssetManagerLuaPlugin")
 local FFlagAssetManagerAddAnalytics = game:DefineFastFlag("AssetManagerAddAnalytics", false)
 local FFlagStudioAssetManagerAddRecentlyImportedView = game:GetFastFlag("StudioAssetManagerAddRecentlyImportedView")
+local FFlagStudioShowHideABTestV2 = game:GetFastFlag("StudioShowHideABTestV2")
 
 if not FFlagAssetManagerLuaPlugin then
 	return
@@ -21,9 +22,10 @@ local Plugin = script.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local Rodux = require(Plugin.Packages.Rodux)
 local Cryo = require(Plugin.Packages.Cryo)
+local Framework = require(Plugin.Packages.Framework)
 
 -- context services
-local ContextServices = require(Plugin.Packages.Framework).ContextServices
+local ContextServices = Framework.ContextServices
 local ServiceWrapper = require(Plugin.Src.Components.ServiceWrapper)
 local UILibraryWrapper = ContextServices.UILibraryWrapper
 
@@ -47,11 +49,14 @@ local MainView = require(Plugin.Src.Components.MainView)
 
 local SetBulkImporterRunning = require(Plugin.Src.Actions.SetBulkImporterRunning)
 local SetRecentAssets = require(Plugin.Src.Actions.SetRecentAssets)
+local SetRecentViewToggled = require(Plugin.Src.Actions.SetRecentViewToggled)
 
 local PLUGIN_NAME = "AssetManager"
 local TOOLBAR_NAME = "assetManagerToolbar"
 local TOOLBAR_BUTTON_NAME = "assetManagerToolButton"
 local DOCK_WIDGET_PLUGIN_NAME = "AssetManager_PluginGui"
+
+local ABTEST_SHOWHIDEV2_NAME = "AllUsers.RobloxStudio.ShowHideV2"
 
 -- Plugin Specific Globals
 local store = Rodux.Store.new(MainReducer, {}, MainMiddleware)
@@ -110,9 +115,18 @@ end
 local function connectBulkImporterSignals()
 	BulkImportService.BulkImportStarted:connect(function()
 		store:dispatch(SetBulkImporterRunning(true))
+		if FFlagStudioAssetManagerAddRecentlyImportedView then
+			store:dispatch(SetRecentAssets({}))
+		end
 	end)
 	BulkImportService.BulkImportFinished:connect(function(state)
 		store:dispatch(SetBulkImporterRunning(false))
+		if FFlagStudioAssetManagerAddRecentlyImportedView then
+			local state = store:getState()
+			if #state.AssetManagerReducer.recentAssets > 0 then
+				store:dispatch(SetRecentViewToggled(true))
+			end
+		end
 	end)
 	if FFlagStudioAssetManagerAddRecentlyImportedView then
 		BulkImportService.AssetImported:connect(function(assetType, name, id)
@@ -161,10 +175,18 @@ local function main()
 		toolbarButton:SetActive(pluginGui.Enabled)
 	end
 
+	local initiallyEnabled = true
+	if FFlagStudioShowHideABTestV2 then
+		local variation = Framework.Util.getTestVariation(ABTEST_SHOWHIDEV2_NAME)
+		if variation == 2 then
+			initiallyEnabled = false
+		end
+	end
+
 	-- create the plugin
 	local widgetInfo = DockWidgetPluginGuiInfo.new(
 		Enum.InitialDockState.Left,  -- Widget will be initialized docked to the left
-		true,   -- Widget will be initially enabled
+		initiallyEnabled,   -- Widget will be initially enabled
 		false,  -- Don't override the previous enabled state
 		300,    -- Default width of the floating window
 		600,    -- Default height of the floating window

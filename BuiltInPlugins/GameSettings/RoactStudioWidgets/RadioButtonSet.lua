@@ -38,7 +38,7 @@ local function RadioButtonSet(props)
 		local buttons = props.Buttons
 		local numButtons = #buttons
 
-		local children = {
+		local children: { [any]: any } = {
 			Layout = Roact.createElement("UIListLayout", {
 				Padding = UDim.new(0, RADIO_BUTTON_PADDING),
 				SortOrder = Enum.SortOrder.LayoutOrder,
@@ -63,7 +63,6 @@ local function RadioButtonSet(props)
 		end
 
 		local allRadioButtonsHeight = 0
-		local nextLayoutOrder = 1
 		for i, button in ipairs(buttons) do
 			table.insert(children, Roact.createElement(RadioButton, {
 				Title = button.Title,
@@ -81,7 +80,6 @@ local function RadioButtonSet(props)
 
 			allRadioButtonsHeight = allRadioButtonsHeight + Constants.RADIO_BUTTON_SIZE
 			allRadioButtonsHeight = allRadioButtonsHeight + ((nil ~= button.Description) and Constants.RADIO_BUTTON_SIZE or 0)
-			nextLayoutOrder = i + 1
 		end
 
 		if (props.SubDescription) then

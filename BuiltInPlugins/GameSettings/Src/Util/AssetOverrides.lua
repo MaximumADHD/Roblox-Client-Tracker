@@ -51,7 +51,7 @@ function AssetOverrides.getErrors(assetOverridesData)
 	local result = nil
 	for _, subTab in pairs(assetOverridesData) do
 		if not subTab.isPlayerChoice then
-			local isAssetIDSpecified = nil ~= subTab.assetID and 0 ~= subTab.assetID and "0" ~= subTab.assetID and string.len(string.gsub(subTab.assetID, " ", "")) > 0
+			local isAssetIDSpecified = nil ~= subTab.assetID and 0 ~= subTab.assetID and "0" ~= subTab.assetID and string.len((string.gsub(subTab.assetID, " ", ""))) > 0
 			if not isAssetIDSpecified then
 				result = result or {}
 				result[subTab.assetTypeID] = "OverrideEmpty" -- OverrideEmpty is a key into a localization table

@@ -1,10 +1,8 @@
 --[[
 	Loading Indicator of 3 rectangles which cyclically increase and then decrease in height while changing color.
 
-	Required Props:
-		Theme Theme: A Theme ContextItem, which is provided via mapToProps.
-
 	Optional Props:
+		Theme Theme: A Theme ContextItem, which is provided via mapToProps.
 		Vector2 AnchorPoint: an offset for positioning
 		number LayoutOrder: The layout order of this component in a UILayout.
 		UDim2 Position: The position of the component. Defaults to zero.
@@ -12,18 +10,23 @@
 		Style Style: The style with which to render this component.
 		StyleModifier StyleModifier: The StyleModifier index into Style.
 		number ZIndex: The render index of this component.
+		Stylizer Stylizer: A Stylizer ContextItem, which is provided via mapToProps.
 
 	Style Values:
 		Color3 StartColor: The starting color of the blocks.
 		Color3 EndColor: The color of the blocks as they are at their maximum height.
 ]]
-
 local RunService = game:GetService("RunService")
 
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
 local ContextServices = require(Framework.ContextServices)
-local Typecheck = require(Framework.Util).Typecheck
+
+local Util = require(Framework.Util)
+local Typecheck = Util.Typecheck
+local FlagsList = Util.Flags.new({
+	FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
+})
 
 local LoadingIndicator = Roact.PureComponent:extend("LoadingIndicator")
 Typecheck.wrap(LoadingIndicator, script)
@@ -95,7 +98,12 @@ function LoadingIndicator:render()
 	local layoutOrder = props.LayoutOrder
 
 	local theme = props.Theme
-	local style = theme:getStyle("Framework", self)
+	local style
+	if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+		style = props.Stylizer
+	else
+		style = theme:getStyle("Framework", self)
+	end
 
 	local startColor = style.StartColor
 	local endColor = style.EndColor
@@ -142,7 +150,8 @@ function LoadingIndicator:render()
 end
 
 ContextServices.mapToProps(LoadingIndicator, {
-	Theme = ContextServices.Theme,
+	Stylizer = FlagsList:get("FFlagRefactorDevFrameworkTheme") and ContextServices.Stylizer or nil,
+	Theme = (not FlagsList:get("FFlagRefactorDevFrameworkTheme")) and ContextServices.Theme or nil,
 })
 
 return LoadingIndicator

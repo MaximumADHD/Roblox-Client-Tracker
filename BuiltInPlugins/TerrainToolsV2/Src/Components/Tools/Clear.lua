@@ -3,6 +3,7 @@
 ]]
 
 local FFlagTerrainToolsUseDevFramework = game:GetFastFlag("TerrainToolsUseDevFramework")
+local FFlagTerrainToolsUseSiblingZIndex = game:GetFastFlag("TerrainToolsUseSiblingZIndex")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -176,6 +177,7 @@ function Clear:render()
 		MinSize = Vector2.new(dialogWidth, DIALOG_HEIGHT),
 		Resizable = false,
 		Modal = true,
+		ZIndexBehavior = FFlagTerrainToolsUseSiblingZIndex and Enum.ZIndexBehavior.Sibling or nil,
 
 		Enabled = true,
 

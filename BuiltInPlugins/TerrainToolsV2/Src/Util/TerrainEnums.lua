@@ -9,7 +9,10 @@ local TerrainEnums = {}
 
 TerrainEnums.ToolId = {
 	Generate = "Generate",
+
 	Import = "Import",
+	ImportLocal = "ImportLocal",
+
 	SeaLevel = "SeaLevel",
 	Replace = "Replace",
 	Clear = "Clear",

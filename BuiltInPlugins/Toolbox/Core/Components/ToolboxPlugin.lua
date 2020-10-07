@@ -18,25 +18,27 @@ local makeTheme = require(Util.makeTheme)
 
 local ContextServices = require(Libs.Framework.ContextServices)
 local UILibraryWrapper = ContextServices.UILibraryWrapper
+local FrameworkUtil = require(Libs.Framework.Util)
+local getTestVariation = FrameworkUtil.getTestVariation
 
 local Analytics = require(Util.Analytics.Analytics)
 
 local FFlagEnableToolboxImpressionAnalytics = game:GetFastFlag("EnableToolboxImpressionAnalytics")
 local FFlagBootstrapperTryAsset = game:GetFastFlag("BootstrapperTryAsset")
+-- Be sure to turn off ToolboxShowHideABTest before turning on StudioShowHideABTestV2
 local FFlagToolboxShowHideABTest = game:GetFastFlag("ToolboxShowHideABTest")
+local FFlagStudioShowHideABTestV2 = game:GetFastFlag("StudioShowHideABTestV2")
 
-local AB_TEST_GROUP_CONTROL = "Control"
-
--- ShowHideToolbox : AB Test where Toolbox shows on startup for users not in the Control group
--- Control : Toolbox appears on startup
--- All Variations : Toolbox hidden on startup
 local ShowHideABTestName = "AllUsers.RobloxStudio.ShowHideToolbox"
+local ABTEST_SHOWHIDEV2_NAME = "AllUsers.RobloxStudio.ShowHideV2"
 
 local function shouldSeeTestBehavior(abTestName)
+	-- REMOVE THIS WITH FFlagShowHideABTest
+
 	-- helper function for showing a behavior so long as the result is not "Control"
 	-- further specificity can be used if the exact variation is required
 	local variation = ABTestService:GetVariant(abTestName)
-	local shouldShowBehavior = variation ~= AB_TEST_GROUP_CONTROL
+	local shouldShowBehavior = variation ~= "Control"
 	return shouldShowBehavior, variation
 end
 
@@ -151,8 +153,15 @@ function ToolboxPlugin:render()
 		local isToolboxHidden = shouldSeeTestBehavior(ShowHideABTestName)
 		if isToolboxHidden then
 			initialEnabled = false
-		else
+		end
+	elseif FFlagStudioShowHideABTestV2 then
+		local variation = getTestVariation(ABTEST_SHOWHIDEV2_NAME)
+		if variation == 0 or variation == 2 then
+			-- Even though 0 is supposed to be the Control group and preserve existing behaviors,
+			-- Toolbox should be enabled by default. The fact that it isn't is a bug.
 			initialEnabled = true
+		elseif variation == 1 then 
+			initialEnabled = false
 		end
 	end
 

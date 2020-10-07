@@ -1,5 +1,7 @@
 local FFlagTerrainToolsUseDevFramework = game:GetFastFlag("TerrainToolsUseDevFramework")
 
+local FFlagTerrainToolsBetterImportTool = game:GetFastFlag("TerrainToolsBetterImportTool")
+
 local Plugin = script.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
@@ -19,9 +21,11 @@ local AnalyticsService = game:GetService("RbxAnalyticsService")
 local StudioService = game:GetService("StudioService")
 
 local function validateImportSettingsOrWarn(importSettings, localization)
-	if tonumber(game.GameId) == 0 then
-		warn(localization:getText("Warning", "RequirePublishedForImport"))
-		return false
+	if not FFlagTerrainToolsBetterImportTool then
+		if tonumber(game.GameId) == 0 then
+			warn(localization:getText("Warning", "RequirePublishedForImport"))
+			return false
+		end
 	end
 
 	if type(importSettings.heightMapUrl) ~= "string" or importSettings.heightMapUrl == "" then
@@ -51,7 +55,7 @@ function TerrainImporter.new(options)
 		_importSettings = {
 			position = Vector3.new(0, 0, 0),
 			size = Vector3.new(0, 0, 0),
-			useColorMap = true,
+			useColorMap = not FFlagTerrainToolsBetterImportTool, -- Default to false when flag on
 			heightMapUrl = "",
 			colorMapUrl = "",
 		},

@@ -1,5 +1,7 @@
 return function()
+	local CoreGui = game:GetService("CoreGui")
 	local CorePackages = game:GetService("CorePackages")
+
 
 	local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 	local Roact = InGameMenuDependencies.Roact
@@ -15,10 +17,17 @@ return function()
 	local AppDarkTheme = require(CorePackages.AppTempCommon.LuaApp.Style.Themes.DarkTheme)
 	local AppFont = require(CorePackages.AppTempCommon.LuaApp.Style.Fonts.Gotham)
 
+
 	local appStyle = {
 		Theme = AppDarkTheme,
 		Font = AppFont,
 	}
+
+	local RobloxGui = CoreGui:WaitForChild("RobloxGui")
+	local GetFixGraphicsQuality = require(RobloxGui.Modules.Flags.GetFixGraphicsQuality)
+	local SendNotificationInfo = Instance.new("BindableEvent")
+	SendNotificationInfo.Name = "SendNotificationInfo"
+	SendNotificationInfo.Parent = RobloxGui
 
 	local GraphicsQualityEntry = require(script.Parent.GraphicsQualityEntry)
 
@@ -68,15 +77,28 @@ return function()
 			}),
 		})
 
-		UserGameSettings.SavedQualityLevel = Enum.SavedQualitySetting.QualityLevel2
+		if GetFixGraphicsQuality() then
+			UserGameSettings.GraphicsQualityLevel = 11
 
-		local instance = Roact.mount(element)
-		expect(RenderSettings.QualityLevel).to.equal(Enum.QualityLevel.Level03)
-		Roact.unmount(instance)
+			local instance = Roact.mount(element)
+			expect(RenderSettings.QualityLevel).to.equal(Enum.QualityLevel.Level11)
+			Roact.unmount(instance)
 
-		UserGameSettings.SavedQualityLevel = Enum.SavedQualitySetting.QualityLevel10
-		instance = Roact.mount(element)
-		expect(RenderSettings.QualityLevel).to.equal(Enum.QualityLevel.Level21)
-		Roact.unmount(instance)
+			UserGameSettings.GraphicsQualityLevel = 21
+			instance = Roact.mount(element)
+			expect(RenderSettings.QualityLevel).to.equal(Enum.QualityLevel.Level21)
+			Roact.unmount(instance)
+		else
+			UserGameSettings.SavedQualityLevel = Enum.SavedQualitySetting.QualityLevel2
+
+			local instance = Roact.mount(element)
+			expect(RenderSettings.QualityLevel).to.equal(Enum.QualityLevel.Level03)
+			Roact.unmount(instance)
+
+			UserGameSettings.SavedQualityLevel = Enum.SavedQualitySetting.QualityLevel10
+			instance = Roact.mount(element)
+			expect(RenderSettings.QualityLevel).to.equal(Enum.QualityLevel.Level21)
+			Roact.unmount(instance)
+		end
 	end)
 end

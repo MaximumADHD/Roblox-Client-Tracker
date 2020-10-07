@@ -19,6 +19,7 @@ return strict({
 	FitFrame = require(script.FitFrame),
 
 	Flags = require(script.Flags),
+	getTestVariation = require(script.getTestVariation),
 	Immutable = require(script.Immutable),
 	LayoutOrderIterator = require(script.LayoutOrderIterator),
 	Math = require(script.Math),

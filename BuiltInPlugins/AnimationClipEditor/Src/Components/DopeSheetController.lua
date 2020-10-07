@@ -59,6 +59,7 @@ local SetIsPlaying = require(Plugin.Src.Actions.SetIsPlaying)
 local GetFFlagEnforceMaxAnimLength = require(Plugin.LuaFlags.GetFFlagEnforceMaxAnimLength)
 local UseCustomFPS = require(Plugin.LuaFlags.GetFFlagAnimEditorUseCustomFPS)
 local GetFFlagAddImportFailureToast = require(Plugin.LuaFlags.GetFFlagAddImportFailureToast)
+local GetFFlagHideLoadToastIfAnimationClipped = require(Plugin.LuaFlags.GetFFlagHideLoadToastIfAnimationClipped)
 
 local DopeSheetController = Roact.Component:extend("DopeSheetController")
 
@@ -489,6 +490,7 @@ function DopeSheetController:render()
 		local savedAnimName = props.Saved
 		local showClippedWarning = GetFFlagEnforceMaxAnimLength() and props.ClippedWarning
 		local showInvalidIdWarning = GetFFlagAddImportFailureToast() and props.InvalidIdWarning
+		local showLoadToast = not GetFFlagHideLoadToastIfAnimationClipped() or (GetFFlagHideLoadToastIfAnimationClipped() and not (GetFFlagEnforceMaxAnimLength() and showClippedWarning))
 
 		local size = props.Size
 		local position = props.Position
@@ -692,7 +694,7 @@ function DopeSheetController:render()
 						OnClose = props.CloseSavedToast,
 					}),
 
-					LoadedToast = loadedAnimName and Roact.createElement(NoticeToast, {
+					LoadedToast = showLoadToast and loadedAnimName and Roact.createElement(NoticeToast, {
 						Text = localization:getText("Toast", "Loaded", loadedAnimName),
 						OnClose = props.CloseLoadedToast,
 					}),

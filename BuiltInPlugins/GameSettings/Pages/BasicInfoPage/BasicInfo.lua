@@ -158,7 +158,7 @@ local function saveSettings(store, contextItems)
 						store:dispatch(AddErrors({name = "Moderated"}))
 					end
 
-					error()
+					error("Game name was moderated")
 				end
 			end
 		end,
@@ -175,7 +175,7 @@ local function saveSettings(store, contextItems)
 						store:dispatch(AddErrors({description = "Moderated"}))
 					end
 
-					error()
+					error("Game description was moderated")
 				end
 			end
 		end,
@@ -311,7 +311,7 @@ local function dispatchChanges(setValue, dispatch)
 		NameChanged = function(text)
 			dispatch(AddChange("name", text))
 			local nameLength = string.len(text)
-			if nameLength == 0 or string.len(string.gsub(text, " ", "")) == 0 then
+			if nameLength == 0 or string.len((string.gsub(text, " ", ""))) == 0 then
 				dispatch(AddErrors({name = "Empty"}))
 			elseif nameLength > MAX_NAME_LENGTH then
 				dispatch(AddErrors({name = "TooLong"}))

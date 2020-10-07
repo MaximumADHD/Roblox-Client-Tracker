@@ -34,6 +34,18 @@ Types.IChatSettings = t.strictInterface({
 	MaxBubbles = t.optional(t.number),
 
 	BackgroundColor3 = t.optional(t.Color3),
+	TextColor3 = t.optional(t.Color3),
+	TextSize = t.optional(t.number),
+	Font = t.optional(t.enum(Enum.Font)),
+	Transparency = t.optional(t.number),
+	CornerRadius = t.optional(t.UDim),
+	TailVisible = t.optional(t.boolean),
+	Padding = t.optional(t.number),
+	MaxWidth = t.optional(t.number),
+
+	VerticalStudsOffset = t.optional(t.number),
+
+	BubblesSpacing = t.optional(t.number),
 
 	MinimizeDistance = t.optional(t.number),
 	MaxDistance = t.optional(t.number),

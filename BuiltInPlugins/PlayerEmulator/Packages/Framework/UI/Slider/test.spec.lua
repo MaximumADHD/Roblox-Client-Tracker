@@ -43,8 +43,6 @@ return function()
 		local element = createTestSlider(props)
 		local instance = Roact.mount(element, container)
 
-		container.Parent = workspace
-
 		local frame = container:FindFirstChildOfClass("Frame")
 		expect(frame).to.be.ok()
 

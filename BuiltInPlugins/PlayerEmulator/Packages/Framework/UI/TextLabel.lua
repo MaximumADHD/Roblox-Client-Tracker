@@ -3,9 +3,10 @@
 
 	Required Props:
 		string Text: The text to display in this button.
-		Theme Theme: A Theme ContextItem, which is provided via mapToProps.
 
 	Optional Props:
+		Theme Theme: A Theme ContextItem, which is provided via mapToProps.
+		Stylizer Stylizer: A Stylizer ContextItem, which is provided via mapToProps.
 		number LayoutOrder: The layout order of this component in a list.
 		UDim2 Size: The size of this component.
 		UDim2 Position: The position of this component.
@@ -28,14 +29,16 @@
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
 local ContextServices = require(Framework.ContextServices)
+
 local Util = require(Framework.Util)
 local Typecheck = Util.Typecheck
 local prioritize = Util.prioritize
+local FlagsList = Util.Flags.new({
+	FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
+})
 
 local TextLabel = Roact.PureComponent:extend("TextLabel")
 Typecheck.wrap(TextLabel, script)
-
-local FFlagTextLabelProps = game:DefineFastFlag("TextLabelProps", false)
 
 function TextLabel:render()
 	local layoutOrder = self.props.LayoutOrder
@@ -45,7 +48,13 @@ function TextLabel:render()
 	local theme = self.props.Theme
 	local textWrapped = self.props.TextWrapped
 	local zIndex = self.props.ZIndex
-	local style = theme:getStyle("Framework", self)
+
+	local style
+	if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+		style = self.props.Stylizer
+	else
+		style = theme:getStyle("Framework", self)
+	end
 
 	local backgroundTransparency = prioritize(self.props.BackgroundTransparency, style.BackgroundTransparency, 1)
 	local font = prioritize(self.props.Font, style.Font)
@@ -54,8 +63,6 @@ function TextLabel:render()
 	local transparency = prioritize(self.props.TextTransparency, style.TextTransparency)
 	local textXAlignment = prioritize(self.props.TextXAlignment, style.TextXAlignment)
 	local textYAlignment = prioritize(self.props.TextYAlignment, style.TextYAlignment)
-	local position = self.props.Position
-
 
 	return Roact.createElement("TextLabel", {
 		BackgroundTransparency = backgroundTransparency,
@@ -67,15 +74,16 @@ function TextLabel:render()
 		TextColor3 = textColor,
 		TextSize = textSize,
 		TextTransparency = transparency,
-		TextWrapped = FFlagTextLabelProps and textWrapped or nil,
+		TextWrapped = textWrapped,
 		TextXAlignment = textXAlignment,
 		TextYAlignment = textYAlignment,
-		ZIndex = FFlagTextLabelProps and zIndex or nil,
+		ZIndex = zIndex,
 	}, self.props[Roact.Children])
 end
 
 ContextServices.mapToProps(TextLabel, {
-	Theme = ContextServices.Theme,
+	Stylizer = FlagsList:get("FFlagRefactorDevFrameworkTheme") and ContextServices.Stylizer or nil,
+	Theme = (not FlagsList:get("FFlagRefactorDevFrameworkTheme")) and ContextServices.Theme or nil,
 })
 
 return TextLabel

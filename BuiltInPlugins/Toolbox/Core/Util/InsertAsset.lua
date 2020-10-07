@@ -186,7 +186,7 @@ local function insertDecal(plugin, assetId, assetName)
 		decal.Name = assetName
 
 		if FFlagMarketplaceSourceAssetIds then
-			decal.SourceAssetId = tbl[1]
+			decal.SourceAssetId = assetId
 		end
 
 		if FFlagToolboxFixDecalInsert then

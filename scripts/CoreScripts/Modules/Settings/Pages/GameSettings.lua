@@ -22,7 +22,10 @@ local Settings = UserSettings()
 local GameSettings = Settings.GameSettings
 
 -------------- CONSTANTS --------------
+-- DEPRECATED Remove with FixGraphicsQuality
 local GRAPHICS_QUALITY_LEVELS = 10
+
+-- DEPRECATED Remove with FixGraphicsQuality
 local GRAPHICS_QUALITY_TO_INT = {
 	["Enum.SavedQualitySetting.Automatic"] = 0,
 	["Enum.SavedQualitySetting.QualityLevel1"] = 1,
@@ -75,6 +78,17 @@ local PageInstance = nil
 local LocalPlayer = Players.LocalPlayer
 local platform = UserInputService:GetPlatform()
 local PolicyService = require(RobloxGui.Modules.Common.PolicyService)
+
+local GetFixGraphicsQuality = require(RobloxGui.Modules.Flags.GetFixGraphicsQuality)
+local RenderSettings
+local SendNotification
+local RobloxTranslator
+
+if GetFixGraphicsQuality() then
+	RenderSettings = settings().Rendering
+	SendNotification = RobloxGui:WaitForChild("SendNotificationInfo")
+	RobloxTranslator = require(RobloxGui:WaitForChild("Modules"):WaitForChild("RobloxTranslator"))
+end
 
 local UnlSuccess, UnlResult =
 	pcall(
@@ -218,8 +232,15 @@ local function Initialize()
 
 		------------------ Gfx Enabler Selection GUI Setup ------------------
 		local graphicsEnablerStart = 1
-		if GameSettings.SavedQualityLevel ~= Enum.SavedQualitySetting.Automatic then
-			graphicsEnablerStart = 2
+
+		if GetFixGraphicsQuality() then
+			if GameSettings.GraphicsQualityLevel ~= 0 then
+				graphicsEnablerStart = 2
+			end
+		else
+			if GameSettings.SavedQualityLevel ~= Enum.SavedQualitySetting.Automatic then
+				graphicsEnablerStart = 2
+			end
 		end
 
 		this.GraphicsEnablerFrame, this.GraphicsEnablerLabel, this.GraphicsQualityEnabler =
@@ -227,8 +248,28 @@ local function Initialize()
 		this.GraphicsEnablerFrame.LayoutOrder = 7
 
 		------------------ Gfx Slider GUI Setup  ------------------
-		this.GraphicsQualityFrame, this.GraphicsQualityLabel, this.GraphicsQualitySlider =
-			utility:AddNewRow(this, "Graphics Quality", "Slider", GRAPHICS_QUALITY_LEVELS, 1)
+
+		local numGraphicsQualityLevels
+		if GetFixGraphicsQuality() then
+			numGraphicsQualityLevels = RenderSettings:GetMaxQualityLevel() - 1
+			-- Don't be fooled by the word "max". It's not the maximum level, it's a strict upper bound
+			-- so if GetMaxQualityLevel() returns 22, that means the biggest the level can be is 21
+				
+
+			--[[
+				Cache the most recent non-zero graphics level in this member variable.  If the user
+				switches to Auto mode, we use it to set the graphics level to whatever the user had set
+				the last time they were in manual mode.
+			]]
+			this.mostRecentGraphicsQualityValue = numGraphicsQualityLevels
+
+			this.GraphicsQualityFrame, this.GraphicsQualityLabel, this.GraphicsQualitySlider =
+					utility:AddNewRow(this, "Graphics Quality", "Slider", numGraphicsQualityLevels, 1)
+		else
+			this.GraphicsQualityFrame, this.GraphicsQualityLabel, this.GraphicsQualitySlider =
+                utility:AddNewRow(this, "Graphics Quality", "Slider", GRAPHICS_QUALITY_LEVELS, 1)
+		end
+
 		this.GraphicsQualityFrame.LayoutOrder = 8
 		this.GraphicsQualitySlider:SetMinStep(1)
 
@@ -236,6 +277,7 @@ local function Initialize()
 		------------------------- Connection Setup ----------------------------
 		settings().Rendering.EnableFRM = true
 
+		-- DEPRECATED Remove with FixGraphicsQuality
 		function SetGraphicsQuality(newValue, automaticSettingAllowed)
 			local percentage = newValue / GRAPHICS_QUALITY_LEVELS
 			local newQualityLevel = math.floor((settings().Rendering:GetMaxQualityLevel() - 1) * percentage)
@@ -254,6 +296,7 @@ local function Initialize()
 			settings().Rendering.QualityLevel = newQualityLevel
 		end
 
+		-- DEPRECATED Remove with FixGraphicsQuality
 		local function setGraphicsToAuto()
 			this.GraphicsQualitySlider:SetZIndex(1)
 			this.GraphicsQualityLabel.ZIndex = 1
@@ -262,6 +305,7 @@ local function Initialize()
 			SetGraphicsQuality(Enum.QualityLevel.Automatic.Value, true)
 		end
 
+		-- DEPRECATED. Remove with FixGraphicsQuality
 		local function setGraphicsToManual(level)
 			this.GraphicsQualitySlider:SetZIndex(2)
 			this.GraphicsQualityLabel.ZIndex = 2
@@ -275,70 +319,235 @@ local function Initialize()
 			end
 		end
 
-		game.GraphicsQualityChangeRequest:connect(
-			function(isIncrease)
-				--  was using settings().Rendering.Quality level, which was wrongly saying it was automatic.
-				if GameSettings.SavedQualityLevel == Enum.SavedQualitySetting.Automatic then
-					return
-				end
-				local currentGraphicsSliderValue = this.GraphicsQualitySlider:GetValue()
-				if isIncrease then
-					currentGraphicsSliderValue = currentGraphicsSliderValue + 1
+		--[[
+			Perform a UI change corrseponding to the user setting Auto mode.
+		]]
+		local function disableGraphicsQualitySliderForAutoMode()
+			this.GraphicsQualitySlider:SetZIndex(1)
+			this.GraphicsQualityLabel.ZIndex = 1
+			this.GraphicsQualitySlider:SetInteractable(false)
+		end
+
+		--[[
+			Sets the value visible in the slider GUI object to the given number (not an enum)
+			If the slider was hidden because we were in Auto mode before, this function also makes
+			the slider visible and interactable.
+
+			Also, it doesn't bother setting the value if unchanged.
+		]]
+		local function setGraphicsQualitySliderLevel(level)
+			this.GraphicsQualitySlider:SetZIndex(2)
+			this.GraphicsQualityLabel.ZIndex = 2
+			this.GraphicsQualitySlider:SetInteractable(true)
+
+			if this.GraphicsQualitySlider:GetValue() ~= level then
+				this.GraphicsQualitySlider:SetValue(level)
+			end
+		end
+
+		--[[
+			Perform a settings change corresponding to the user setting Auto mode.
+		]]
+		local function setGraphicsQualityToAuto()
+			GameSettings.GraphicsQualityLevel = 0
+			RenderSettings.QualityLevel = 0
+			disableGraphicsQualitySliderForAutoMode()
+		end
+
+		--[[
+			Sets the rendering quality in three places:
+			GameSettings, settings() and the GUI.
+
+			GameSettings gets saved to persistent local storage.
+			settings() affects the graphics engine.
+			To set the GUI, we call setGraphicsQualitySliderLevel, which importantly does nothing if the value is already
+			set on the GUI. (Otherwise, we might get into an infinite loop.)
+
+			Returns two values:
+				newValue - note that the first thing this function does is clamp to the appropriate range,
+					and newValue is the clampped value.
+				delta - the difference between the new value and the old value.
+		]]
+		local function setGraphicsQualityLevel(inputValue)
+			local newValue = math.clamp(inputValue, 1, numGraphicsQualityLevels)
+			local oldValue = GameSettings.GraphicsQualityLevel
+
+			GameSettings.GraphicsQualityLevel = newValue
+			RenderSettings.QualityLevel = newValue
+			setGraphicsQualitySliderLevel(newValue)
+
+			this.mostRecentGraphicsQualityValue = newValue
+
+			--[[
+				The caller might want to know what effect calling this setter actually had, so we return:
+					newValue - the actual new value (after clamping) and
+					delta - the difference between the new value and the old one.
+
+				So for instance, if the level was already at the 21, 21 is the maximum, and we
+				tried to increment it to 22, this would returna newValue of 21 and a delta of 0
+			]]
+			return newValue, newValue - oldValue
+		end
+
+		--[[
+			On startup, set the graphics quality level (according to the engine and also according to UI) to
+			the most logical thing. If the fast-int is set that overrides it, set to the overridden value,
+			if not, use the value stored in settings: GameSettings.GraphicsQualityLevel
+		]]
+		local function initGraphicsQualityLevel()
+			if FIntRomarkStartWithGraphicQualityLevel >= 0 then
+				if FIntRomarkStartWithGraphicQualityLevel == 0 then
+					setGraphicsQualityToAuto()
+					this.mostRecentGraphicsQualityValue = numGraphicsQualityLevels
 				else
-					currentGraphicsSliderValue = currentGraphicsSliderValue - 1
+					setGraphicsQualityLevel(FIntRomarkStartWithGraphicQualityLevel)
 				end
-
-				this.GraphicsQualitySlider:SetValue(currentGraphicsSliderValue)
-			end
-		)
-
-		local initializedGfxLvl = false
-		this.GraphicsQualitySlider.ValueChanged:connect(
-			function(newValue)
-				SetGraphicsQuality(newValue)
-				if initializedGfxLvl == true then
-					reportSettingsForAnalytics()
-				end
-				initializedGfxLvl = true
-			end
-		)
-
-		this.GraphicsQualityEnabler.IndexChanged:connect(
-			function(newIndex)
-				if newIndex == 1 then
-					setGraphicsToAuto()
-				elseif newIndex == 2 then
-					setGraphicsToManual(this.GraphicsQualitySlider:GetValue())
-				end
-				reportSettingsForAnalytics()
-			end
-		)
-
-		-- initialize the slider position
-		if FIntRomarkStartWithGraphicQualityLevel >= 0 then
-			if FIntRomarkStartWithGraphicQualityLevel == 0 then
-				this.GraphicsQualityEnabler:SetSelectionIndex(1)
-				setGraphicsToAuto()
+			elseif GameSettings.GraphicsQualityLevel == 0 then
+				setGraphicsQualityToAuto()
+				this.mostRecentGraphicsQualityValue = numGraphicsQualityLevels
 			else
-				this.GraphicsQualityEnabler:SetSelectionIndex(2)
-				setGraphicsToManual(FIntRomarkStartWithGraphicQualityLevel)
+				setGraphicsQualityLevel(GameSettings.GraphicsQualityLevel)
 			end
-		elseif GameSettings.SavedQualityLevel == Enum.SavedQualitySetting.Automatic then
-			this.GraphicsQualitySlider:SetValue(5)
-			setGraphicsToAuto()
-		else
-			local graphicsLevel = tostring(GameSettings.SavedQualityLevel)
-			if GRAPHICS_QUALITY_TO_INT[graphicsLevel] then
-				graphicsLevel = GRAPHICS_QUALITY_TO_INT[graphicsLevel]
-			else
-				graphicsLevel = GRAPHICS_QUALITY_LEVELS
-			end
-			SetGraphicsQuality(graphicsLevel)
-			spawn(
-				function()
-					this.GraphicsQualitySlider:SetValue(graphicsLevel)
+		end
+
+		if GetFixGraphicsQuality() then
+			this.GraphicsQualitySlider.ValueChanged:connect(setGraphicsQualityLevel)
+				--[[
+					Gets called when the user hits the button in settings that switches between Manual and Auto
+					we forward that call to the appropriate function above.
+				]]
+				this.GraphicsQualityEnabler.IndexChanged:connect(
+					function(newIndex)
+						if newIndex == 1 then
+							setGraphicsQualityToAuto()
+						elseif newIndex == 2 then
+							setGraphicsQualityLevel(this.mostRecentGraphicsQualityValue)
+						end
+						reportSettingsForAnalytics()
 				end
 			)
+
+			--[[
+				Generates the little popup in the lower right hand corner when the user changes the
+				graphics quality level with the F-keys.
+			]]
+			local function sendNotificationForGraphicsQualityLevelChange(message, level)
+				SendNotification:Fire({
+					GroupName = "Graphics",
+					Title = "Graphics Quality",
+					Text = message,
+					DetailText = message,
+					Image = "",
+					Duration = 2
+				})
+			end
+
+			--[[
+				Takes two arguments: newValue, delta. If delta is non-zero, constructs a message for the pop-up
+				notification (based on whether delta is positive or negative) to inform the user that the level
+				incrememnted / decremented to the new value.
+			]]
+			local function notifyForLevelChange(newValue, delta)
+				if delta > 0 then
+					sendNotificationForGraphicsQualityLevelChange(
+						RobloxTranslator:FormatByKey("NotificationScrip2.onCurrentGraphicsQualityLevelChanged.Increased", {RBX_NUMBER = tostring(newValue)}),
+						newValue)
+				elseif delta < 0 then
+					sendNotificationForGraphicsQualityLevelChange(
+						RobloxTranslator:FormatByKey("NotificationScrip2.onCurrentGraphicsQualityLevelChanged.Decreased", {RBX_NUMBER = tostring(newValue)}),
+						newValue)
+				end
+			end
+
+			--[[
+				Gets called when the user hits F10 / Shift-F10 to adjust the graphcs quality level.
+
+				Based on whether the argument indicates an increase (or decrease), calls setGraphicsQualityLevel to increment (or decrement)
+				the level. The setter can decide that it doesn't want to increment (if the new value would be out-of-range)
+				the setter returns two values newValue and delta indicating what change actually happened.  We then pass thos two values
+				to notifyForLevelChange to construct the notification.
+			]]
+			game.GraphicsQualityChangeRequest:connect(
+				function(isIncrease)
+					local current = GameSettings.GraphicsQualityLevel
+					if current ~= 0 then
+						local targetValue = current + (isIncrease and 1 or -1)
+						local newValue, delta = setGraphicsQualityLevel(targetValue)
+						notifyForLevelChange(newValue, delta)
+					end
+				end
+			)
+
+			initGraphicsQualityLevel()
+		else
+			-- DEPRECATED Remove with FixGraphicsQuality
+			local initializedGfxLvl = false
+			this.GraphicsQualitySlider.ValueChanged:connect(
+				function(newValue)
+					SetGraphicsQuality(newValue)
+					if initializedGfxLvl == true then
+						reportSettingsForAnalytics()
+					end
+					initializedGfxLvl = true
+				end
+			)
+
+			-- DEPRECATED Remove with FixGraphicsQuality
+			this.GraphicsQualityEnabler.IndexChanged:connect(
+				function(newIndex)
+					if newIndex == 1 then
+						setGraphicsToAuto()
+					elseif newIndex == 2 then
+						setGraphicsToManual(this.mostRecentGraphicsQualityValue)
+					end
+					reportSettingsForAnalytics()
+				end
+			)
+
+			-- DEPRECATED Remove with FixGraphicsQuality
+			game.GraphicsQualityChangeRequest:connect(
+				function(isIncrease)
+					--	was using settings().Rendering.Quality level, which was wrongly saying it was automatic.
+					if GameSettings.SavedQualityLevel ~= Enum.SavedQualitySetting.Automatic then
+						local currentGraphicsSliderValue = this.GraphicsQualitySlider:GetValue()
+						if isIncrease then
+							currentGraphicsSliderValue = currentGraphicsSliderValue + 1
+						else
+							currentGraphicsSliderValue = currentGraphicsSliderValue - 1
+						end
+
+						this.GraphicsQualitySlider:SetValue(currentGraphicsSliderValue)
+					end
+				end
+			)
+
+			-- DEPRECATED Remove with FixGraphicsQuality
+			-- initialize the slider position
+			if FIntRomarkStartWithGraphicQualityLevel >= 0 then
+				if FIntRomarkStartWithGraphicQualityLevel == 0 then
+					this.GraphicsQualityEnabler:SetSelectionIndex(1)
+					setGraphicsToAuto()
+				else
+					this.GraphicsQualityEnabler:SetSelectionIndex(2)
+					setGraphicsToManual(FIntRomarkStartWithGraphicQualityLevel)
+				end
+			elseif GameSettings.SavedQualityLevel == Enum.SavedQualitySetting.Automatic then
+				this.GraphicsQualitySlider:SetValue(5)
+				setGraphicsToAuto()
+			else
+				local graphicsLevel = tostring(GameSettings.SavedQualityLevel)
+				if GRAPHICS_QUALITY_TO_INT[graphicsLevel] then
+					graphicsLevel = GRAPHICS_QUALITY_TO_INT[graphicsLevel]
+				else
+					graphicsLevel = GRAPHICS_QUALITY_LEVELS
+				end
+				SetGraphicsQuality(graphicsLevel)
+				spawn(
+					function()
+						this.GraphicsQualitySlider:SetValue(graphicsLevel)
+					end
+				)
+			end
 		end
 	end -- of createGraphicsOptions
 
@@ -588,9 +797,8 @@ local function Initialize()
 			end
 		end
 
-		------------------------------------------------------
-		------------------
-		------------------ Camera Mode -----------------------
+		-----------------------------------------------------------
+		----------------------- Camera Mode -----------------------
 
 		function setCameraModeVisible(visible)
 			if this.CameraMode then

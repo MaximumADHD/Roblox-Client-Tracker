@@ -24,6 +24,8 @@ local SPRING_CONFIG = {
 ChatBubbleDistant.validateProps = t.strictInterface({
 	width = t.optional(t.number),
 	height = t.optional(t.number),
+	fadingOut = t.optional(t.boolean),
+	onFadeOut = t.optional(t.callback),
 
 	chatSettings = Types.IChatSettings,
 })
@@ -45,9 +47,17 @@ function ChatBubbleDistant:init(props)
 	self.transparency, self.updateTransparency = Roact.createBinding(1)
 	self.transparencyMotor = Otter.createSingleMotor(1)
 	self.transparencyMotor:onStep(self.updateTransparency)
+
+	-- It's possible for this component to be initialized with fadingOut = true if we switch between maximized/minimized
+	-- view during the fade out animation
+	if props.fadingOut then
+		self:fadeOut()
+	end
 end
 
 function ChatBubbleDistant:render()
+	local settings = self.props.chatSettings
+
 	return Roact.createElement("Frame", {
 		AnchorPoint = Vector2.new(0.5, 1),
 		Size = UDim2.new(0, 43, 0, 32),
@@ -57,25 +67,26 @@ function ChatBubbleDistant:render()
 		Scale = Roact.createElement("UIScale", {
 			Scale = 0.75,
 		}),
-		Carat = Roact.createElement("ImageLabel", {
+		Carat = settings.TailVisible and Roact.createElement("ImageLabel", {
 			AnchorPoint = Vector2.new(0.5, 0),
 			BackgroundTransparency = 1,
 			Position = UDim2.new(0.5, 0, 1, -1), --UICorner generates a 1 pixel gap (UISYS-625), this fixes it by moving the carrot up by 1 pixel
 			Size = UDim2.fromOffset(12, 8),
 			Image = "rbxasset://textures/ui/InGameChat/Caret.png",
-			ImageColor3 = self.props.chatSettings.BackgroundColor3,
+			ImageColor3 = settings.BackgroundColor3,
 			ImageTransparency = self.transparency,
 		}),
 		RoundedFrame = 	Roact.createElement("Frame", {
 			Size = self.frameSize,
-			BackgroundColor3 = self.props.chatSettings.BackgroundColor3,
+			BackgroundColor3 = settings.BackgroundColor3,
 			BackgroundTransparency = self.transparency,
+			BorderSizePixel = 0,
 			AnchorPoint = Vector2.new(0.5, 0),
 			Position = UDim2.new(0.5, 0, 0, 0),
 			ClipsDescendants = true,
 		}, {
 			UICorner = Roact.createElement("UICorner", {
-				CornerRadius = UDim.new(0, 12),
+				CornerRadius = settings.CornerRadius,
 			}),
 
 			Contents = Roact.createElement("Frame", {
@@ -83,15 +94,17 @@ function ChatBubbleDistant:render()
 				BackgroundTransparency = 1,
 			}, {
 				Padding = Roact.createElement("UIPadding", {
-					PaddingTop = UDim.new(0, Constants.UI_PADDING),
-					PaddingRight = UDim.new(0, Constants.UI_PADDING),
-					PaddingBottom = UDim.new(0, Constants.UI_PADDING),
-					PaddingLeft = UDim.new(0, Constants.UI_PADDING),
+					PaddingTop = UDim.new(0, settings.Padding),
+					PaddingRight = UDim.new(0, settings.Padding),
+					PaddingBottom = UDim.new(0, settings.Padding),
+					PaddingLeft = UDim.new(0, settings.Padding),
 				}),
 
 				Icon = Roact.createElement("TextLabel", {
 					BackgroundTransparency = 1,
 					Text = "…",
+					TextColor3 = settings.TextColor3,
+					TextTransparency = self.transparency,
 					Font = Enum.Font.GothamBlack,
 					TextScaled = true,
 					Size = UDim2.fromScale(1, 1),
@@ -101,9 +114,31 @@ function ChatBubbleDistant:render()
 	})
 end
 
+function ChatBubbleDistant:fadeOut()
+	if not self.isFadingOut then
+		self.isFadingOut = true
+
+		self.transparencyMotor:onComplete(function()
+			if self.props.onFadeOut then
+				self.props.onFadeOut()
+			end
+		end)
+
+		self.transparencyMotor:setGoal(Otter.spring(1, SPRING_CONFIG))
+	end
+end
+
+function ChatBubbleDistant:didUpdate()
+	if self.props.fadingOut then
+		self:fadeOut()
+	end
+end
+
 function ChatBubbleDistant:didMount()
-	self.transparencyMotor:setGoal(Otter.spring(Constants.BUBBLE_BASE_TRANSPARENCY, SPRING_CONFIG))
-	self.widthMotor:setGoal(Otter.spring(self.props.width, SPRING_CONFIG))
+	if not self.props.fadingOut then
+		self.transparencyMotor:setGoal(Otter.spring(self.props.chatSettings.Transparency, SPRING_CONFIG))
+		self.widthMotor:setGoal(Otter.spring(self.props.width, SPRING_CONFIG))
+	end
 end
 
 function ChatBubbleDistant:willUnmount()

@@ -16,7 +16,6 @@
 local Roact = require(script.Parent.Internal.RequireRoact)
 local ThemeChangeListener = require(script.Parent.Internal.ThemeChangeListener)
 local Theme = require(script.Parent.Internal.Theme)
-local TextUtil = require(script.Parent.Internal.Text)
 local Constants = require(script.Parent.Internal.Constants)
 
 local getStyle = nil
@@ -48,7 +47,7 @@ end
 
 getStyle = function(props)
 	local style = {
-		TextColor = props.Style and self.props.Style.TextColor or Theme.getMainTextColor()
+		TextColor = props.Style and props.Style.TextColor or Theme.getMainTextColor()
 	}
 	return style
 end

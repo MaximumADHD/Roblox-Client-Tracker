@@ -78,6 +78,7 @@ function RecentlyImportedView:render()
     return Roact.createElement("Frame", {
         Size = size,
         LayoutOrder = layoutOrder,
+        ZIndex = 2,
 
         BackgroundTransparency = 1,
     }, {
@@ -91,6 +92,7 @@ function RecentlyImportedView:render()
         RecentlyImportedViewBar = Roact.createElement("Frame", {
             Size = UDim2.new(1, 0, 0, recentViewTheme.Bar.Height),
             LayoutOrder = layoutIndex:getNextOrder(),
+            ZIndex = 100,
 
             BackgroundColor3 = recentViewTheme.Bar.BackgroundColor,
             BorderColor3 = theme.BorderColor,
@@ -115,7 +117,7 @@ function RecentlyImportedView:render()
 
                 Text = recentlyImportedViewText,
                 TextColor3 = theme.TextColor,
-                TextSize = theme.FontSizeMedium,
+                TextSize = theme.FontSizeSmall,
                 Font = theme.Font,
                 TextXAlignment = Enum.TextXAlignment.Left,
             }),
