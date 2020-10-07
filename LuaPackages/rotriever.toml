@@ -23,7 +23,7 @@ enumerate = "github.com/roblox/enumerate@1.0.0"
 PolicyProvider = { git = "https://github.com/Roblox/lua-roact-policy-provider", rev = "master" }
 Lumberyak = { git = "https://github.rbx.com/Roblox/lumberyak" }
 StringUtilities = "github.com/Roblox/string-utilities@1.0.0"
-UrlBuilder = "github.com/Roblox/url-builder@1.0.1"
+UrlBuilder = "github.com/Roblox/url-builder@1.0.2"
 
 # The following packages were ported from AppTempCommon
 Promise = { git = "https://github.rbx.com/Roblox/lua-promise" }
@@ -37,7 +37,7 @@ InGameMenuDependencies = { git = "https://github.rbx.com/Roblox/in-game-menu-dep
 RoactGamepad = "github.com/roblox/roact-gamepad@0.4.4"
 
 [dev_dependencies]
-TestEZ = "github.com/roblox/testez@0.3.1"
+TestEZ = "github.com/roblox/testez@0.3.3"
 Rhodium = "github.com/roblox/rhodium@0.2.5"
 
 [patch."https://github.rbx.com/roblox/uiblox"]

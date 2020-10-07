@@ -99,6 +99,11 @@ Studio.TerrainToolsV2.Generate.MapSize, ,Map Size
 Studio.TerrainToolsV2.Generate.OtherSettings, ,Other Settings
 Studio.TerrainToolsV2.Generate.Seed, ,Seed
 Studio.TerrainToolsV2.Generate.StartGeneration, ,Generating with size ({1}) at position ({2}) using seed {3} and biomes: {4}
+Studio.TerrainToolsV2.Import.ColormapPreview, ,Color Map Preview
+Studio.TerrainToolsV2.Import.Heightmap, ,Height Map
+Studio.TerrainToolsV2.Import.UseColormap, ,Color Map
+Studio.TerrainToolsV2.Import.HeightmapPreview, ,Height Map Preview
+Studio.TerrainToolsV2.LocalImageSelector.NoImageSelected, ,No image selected
 Studio.TerrainToolsV2.Main.Title, ,Terrain Editor
 Studio.TerrainToolsV2.Main.ToolbarButton, ,Editor
 Studio.TerrainToolsV2.Main.Tooltip,"Add, remove, and modify terrain","Add, remove, and modify terrain"
@@ -182,6 +187,7 @@ Studio.TerrainToolsV2.ToolName.Flatten, ,Flatten
 Studio.TerrainToolsV2.ToolName.Generate, ,Generate
 Studio.TerrainToolsV2.ToolName.Grow, ,Grow
 Studio.TerrainToolsV2.ToolName.Import, ,Import
+Studio.TerrainToolsV2.ToolName.ImportLocal, ,Import
 Studio.TerrainToolsV2.ToolName.Move, ,Move
 Studio.TerrainToolsV2.ToolName.Paint, ,Paint
 Studio.TerrainToolsV2.ToolName.Paste, ,Paste

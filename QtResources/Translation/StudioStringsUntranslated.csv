@@ -981,10 +981,12 @@ Studio.App.PluginPermissionsDialog.HttpDomainPermission,,Allow plugin %1 to acce
 Studio.App.PluginPermissionsDialog.ScriptInjectionPermission,,Do you want to allow Plugin %1 to manage scripts in your game?,Do you want to allow Plugin %1 to manage scripts in your game?
 Studio.App.PluginPermissionsDialog.ScriptInjectionWarning,,"Plugin %1 is attempting to insert or modify scripts in your game. Click Allow to permit all future attempts, or Deny to block. You can edit these settings in Plugin Management.","Plugin %1 is attempting to insert or modify scripts in your game. Click Allow to permit all future attempts, or Deny to block. You can edit these settings in Plugin Management."
 Studio.App.PluginPermissionsDialog.Warning,,You can always revoke this permission from Plugins > Plugin Management.,You can always revoke this permission from Plugins > Plugin Management.
-Studio.App.Properites.AttributeCantStartWithRBX,,Can't start with 'RBX'.,Can't start with 'RBX'.
+Studio.App.Properites.AttributeNameCantStartWithRBX,,Attribute name can't start with 'RBX'.,Attribute name can't start with 'RBX'.
 Studio.App.Properties.AddAttribute,Title/text for Add Attribute button/dialog,Add Attribute,Add Attribute
 Studio.App.Properties.AttributeAlreadyExists,,Attribute already exists.,Attribute already exists.
+Studio.App.Properties.AttributeCantStartWithRBX,,Can't start with 'RBX'.,Can't start with 'RBX'.
 Studio.App.Properties.AttributeName,,Name,Name
+Studio.App.Properties.AttributeTryDifferentName,,Try to use a different name.,Try to use a different name.
 Studio.App.Properties.AttributeType,,Type,Type
 Studio.App.Properties.NoAttributeAdded,,No Attribute has been added yet,No Attribute has been added yet
 Studio.App.Properties.TitleFmt1,title of properties widget,Properties - %1,Properties - %1
@@ -1011,6 +1013,7 @@ Studio.App.Property.AreTerrainReplicationRegionsShown,,Are Terrain Replication R
 Studio.App.Property.AreUnalignedPartsShown,,Are Unaligned Parts Shown,Are Unaligned Parts Shown
 Studio.App.Property.AreWorldCoordsShown,,Are World Coords Shown,Are World Coords Shown
 Studio.App.Property.AttachDebuggerTo,,Attach Debugger To,Attach Debugger To
+Studio.App.Property.AutoCleanEmptyLine,,Auto Clean Empty Line,Auto Clean Empty Line
 Studio.App.Property.AutoClosingBrackets,,Auto Closing Brackets,Auto Closing Brackets
 Studio.App.Property.AutoClosingQuotes,,Auto Closing Quotes,Auto Closing Quotes
 Studio.App.Property.AutoFRMLevel,,Auto FRM Level,Auto FRM Level
@@ -1297,6 +1300,7 @@ Studio.App.PropertyItems.UnableToPublishMeshPart1,Error message that displays in
 Studio.App.PropertyItems.UnsupportedFiletype,One of the issues that could be encountered when uploading a texture.,Unsupported filetype,Unsupported filetype
 Studio.App.PropertyItems.UpdatingMesh,Message which displays in the bottom left of the screen when a MeshPart's mesh is being updated,Updating mesh...,Updating mesh...
 Studio.App.PropertyItems.YouMustLogInToCreateMeshes,Body of error message shown to users to try to import meshes while not logged in.,You must log in to create meshes.,You must log in to create meshes.
+Studio.App.PropertyTooltip.AutoCleanEmptyLine,,Automatically clean tabs and spaces from the line has no content.,Automatically clean tabs and spaces from the line has no content.
 Studio.App.PropertyTooltip.AutoClosingBrackets,,Automatically insert a closing bracket following an opening bracket.,Automatically insert a closing bracket following an opening bracket.
 Studio.App.PropertyTooltip.AutoClosingQuotes,,Automatically insert a closing quotation following an opening quotation.,Automatically insert a closing quotation following an opening quotation.
 Studio.App.PropertyTooltip.AutoIndentRule,,Off: No automatic indentation. Relative: Auto-indent relative to the current line. Absolute: Auto-indent globally.,Off: No automatic indentation. Relative: Auto-indent relative to the current line. Absolute: Auto-indent globally.
@@ -1880,6 +1884,7 @@ Studio.App.RobloxCustomWidgets.MoreColors,,More Colors,More Colors
 Studio.App.RobloxCustomWidgets.Url,,URL:,URL:
 Studio.App.RobloxDiagnosticsView.HeaderLabelName,In performance,Name,Name
 Studio.App.RobloxDiagnosticsView.HeaderLabelValue,In performance,Value,Value
+Studio.App.RobloxDocManager.ApplyingScriptEdits,,Applying script edits...,Applying script edits...
 Studio.App.RobloxDocManager.NoToggleBetweenDMsWhilePaused,Explain why click through message doesn't work,You cannot open a script from one data model while debugger is paused on a different data model.,You cannot open a script from one data model while debugger is paused on a different data model.
 Studio.App.RobloxDocManager.StartPage,,Start Page,Start Page
 Studio.App.RobloxExplorerWidget.FilterPlaceholder1,,Filter workspace %1,Filter workspace %1
@@ -2349,30 +2354,6 @@ Studio.App.ScriptAnalysisWidget.DisplayOnlyCurrentScript,,Display only current s
 Studio.App.ScriptAnalysisWidget.NumErrorsTextFmt2,,%1 of %2 Errors,%1 of %2 Errors
 Studio.App.ScriptAnalysisWidget.NumWarningsTextFmt2,,%1 of %2 Warnings,%1 of %2 Warnings
 Studio.App.ScriptComboBox.RunACommand,,Run a command,Run a command
-Studio.App.ScriptEditorCmdBase.DELETETOSTARTOFLINE,,Delete to start of line,Delete to start of line
-Studio.App.ScriptEditorCmdBase.DELETETOSTARTOFLINEToolTip,,Delete to the start of the current line,Delete to the start of the current line
-Studio.App.ScriptEditorCmdBase.FOLDALL,,Collapse All Folds,Collapse All Folds
-Studio.App.ScriptEditorCmdBase.FOLDALLToolTip,,Collapse All Folds,Collapse All Folds
-Studio.App.ScriptEditorCmdBase.FORMATALL,,Format Document...,Format Document...
-Studio.App.ScriptEditorCmdBase.FORMATALLToolTip,,Format whole document,Format whole document
-Studio.App.ScriptEditorCmdBase.FORMATSEL,,Format Selection,Format Selection
-Studio.App.ScriptEditorCmdBase.FORMATSELToolTip,,Format selected range of document,Format selected range of document
-Studio.App.ScriptEditorCmdBase.INDENT,,Indent,Indent
-Studio.App.ScriptEditorCmdBase.INDENTToolTip,,Indent selected line(s),Indent selected line(s)
-Studio.App.ScriptEditorCmdBase.MOVELINESDOWN,,Move Lines Down,Move Lines Down
-Studio.App.ScriptEditorCmdBase.MOVELINESDOWNToolTip,,Move selected line(s) downwards,Move selected line(s) downwards
-Studio.App.ScriptEditorCmdBase.MOVELINESUP,,Move Lines Up,Move Lines Up
-Studio.App.ScriptEditorCmdBase.MOVELINESUPToolTip,,Move selected line(s) upwards,Move selected line(s) upwards
-Studio.App.ScriptEditorCmdBase.NEWLINEABOVE,,Insert Newline Above,Insert Newline Above
-Studio.App.ScriptEditorCmdBase.NEWLINEABOVEToolTip,,Insert a newline above the current line,Insert a newline above the current line
-Studio.App.ScriptEditorCmdBase.NEWLINEBELOW,,Insert Newline Below,Insert Newline Below
-Studio.App.ScriptEditorCmdBase.NEWLINEBELOWToolTip,,Insert a newline below the current line,Insert a newline below the current line
-Studio.App.ScriptEditorCmdBase.TOGGLECOMMENT,,Toggle Comment,Toggle Comment
-Studio.App.ScriptEditorCmdBase.TOGGLECOMMENTToolTip,,Toggle selection commenting,Toggle selection commenting
-Studio.App.ScriptEditorCmdBase.UNFOLDALL,,Expands all folds,Expands all folds
-Studio.App.ScriptEditorCmdBase.UNFOLDALLToolTip,,Expands all folds,Expands all folds
-Studio.App.ScriptEditorCmdBase.UNINDENT,,Unindent,Unindent
-Studio.App.ScriptEditorCmdBase.UNINDENTToolTip,,Unindent selected line(s),Unindent selected line(s)
 Studio.App.ScriptRecoveryWidget.ErrorRecovering,,Errors occurred while automatically recovering scripts.,Errors occurred while automatically recovering scripts.
 Studio.App.ScriptRecoveryWidget.ErrorRemovedFromWorksapce,,Unable to perform diff because this script has been removed from Workspace.,Unable to perform diff because this script has been removed from Workspace.
 Studio.App.ScriptRecoveryWidget.ErrorWriting,,Issue with writing script autosave,Issue with writing script autosave
@@ -2388,6 +2369,38 @@ Studio.App.ScriptRecoveryWidget.ViewDiff,,View Diff,View Diff
 Studio.App.ScriptResourceController.ConfirmPublishChanges,,Are you sure you want to publish your changes?,Are you sure you want to publish your changes?
 Studio.App.ScriptResourceController.ConfirmWillDestroyChanges,,This will destroy all local changes you have made. Are you sure?,This will destroy all local changes you have made. Are you sure?
 Studio.App.ScriptTextEditor.FilterText,,  Type to filter functions. Tab or Enter to go to selected function,  Type to filter functions. Tab or Enter to go to selected function
+Studio.App.ScriptingCmd.DELETETOSTARTOFLINE,,Delete to start of line,Delete to start of line
+Studio.App.ScriptingCmd.DELETETOSTARTOFLINETooltip,,Delete to the start of the current line,Delete to the start of the current line
+Studio.App.ScriptingCmd.DUPLICATESELECTION,,Duplicate selection,Duplicate selection
+Studio.App.ScriptingCmd.DUPLICATESELECTIONTooltip,,Duplicate current line or selection,Duplicate current line or selection
+Studio.App.ScriptingCmd.FOLDALL,,Collapse All Folds,Collapse All Folds
+Studio.App.ScriptingCmd.FOLDALLTooltip,,Collapse all collapsable sections of scripts,Collapse all collapsable sections of scripts
+Studio.App.ScriptingCmd.FOLDTOGGLE,,Toggle code fold,Toggle code fold
+Studio.App.ScriptingCmd.FOLDTOGGLETooltip,,Toggle a folded code block,Toggle a folded code block
+Studio.App.ScriptingCmd.FORMATALL,,Format Document...,Format Document...
+Studio.App.ScriptingCmd.FORMATALLTooltip,,Format whole document,Format whole document
+Studio.App.ScriptingCmd.FORMATSEL,,Format Selection,Format Selection
+Studio.App.ScriptingCmd.FORMATSELTooltip,,Format selected range of document,Format selected range of document
+Studio.App.ScriptingCmd.GOTOPOS,,Go to line...,Go to line...
+Studio.App.ScriptingCmd.GOTOPOSTooltip,,Go to line...,Go to line...
+Studio.App.ScriptingCmd.INDENT,,Indent,Indent
+Studio.App.ScriptingCmd.INDENTTooltip,,Indent selected line(s),Indent selected line(s)
+Studio.App.ScriptingCmd.MOVELINESDOWN,,Move Lines Down,Move Lines Down
+Studio.App.ScriptingCmd.MOVELINESDOWNTooltip,,Move selected line(s) downwards,Move selected line(s) downwards
+Studio.App.ScriptingCmd.MOVELINESUP,,Move Lines Up,Move Lines Up
+Studio.App.ScriptingCmd.MOVELINESUPTooltip,,Move selected line(s) upwards,Move selected line(s) upwards
+Studio.App.ScriptingCmd.NEWLINEABOVE,,Insert Newline Above,Insert Newline Above
+Studio.App.ScriptingCmd.NEWLINEABOVETooltip,,Insert a newline above the current line,Insert a newline above the current line
+Studio.App.ScriptingCmd.NEWLINEBELOW,,Insert Newline Below,Insert Newline Below
+Studio.App.ScriptingCmd.NEWLINEBELOWTooltip,,Insert a newline below the current line,Insert a newline below the current line
+Studio.App.ScriptingCmd.SELECT,,Select text...,Select text...
+Studio.App.ScriptingCmd.SELECTTooltip,,Select text...,Select text...
+Studio.App.ScriptingCmd.TOGGLECOMMENT,,Toggle Comment,Toggle Comment
+Studio.App.ScriptingCmd.TOGGLECOMMENTTooltip,,Toggle selection commenting,Toggle selection commenting
+Studio.App.ScriptingCmd.UNFOLDALL,,Expands all folds,Expands all folds
+Studio.App.ScriptingCmd.UNFOLDALLTooltip,,Expand all collapsed folds in the script,Expand all collapsed folds in the script
+Studio.App.ScriptingCmd.UNINDENT,,Unindent,Unindent
+Studio.App.ScriptingCmd.UNINDENTTooltip,,Unindent selected line(s),Unindent selected line(s)
 Studio.App.ScriptsInBatchDialog.FailedToLoadDataErrorMessage,,Failed to load data. Please close this dialog and try again.,Failed to load data. Please close this dialog and try again.
 Studio.App.ScriptsInBatchDialog.ScriptSectionHeader,,Script,Script
 Studio.App.ScriptsInBatchDialog.Title,,Scripts In Batch,Scripts In Batch

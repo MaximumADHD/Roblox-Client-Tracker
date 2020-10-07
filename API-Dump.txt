@@ -160,9 +160,10 @@ Class Bone : Attachment
 	Property CFrame Bone.TransformedWorldCFrame  [ReadOnly] [NotReplicated]
 Class AvatarEditorService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function Dictionary AvatarEditorService:GetAvatarRules() [Yields]
-	Function Dictionary AvatarEditorService:GetItemDetails(int64 itemId, Enum<ItemType> itemType) [Yields]
+	Function Dictionary AvatarEditorService:GetItemDetails(int64 itemId, Enum<AvatarItemType> itemType) [Yields]
 	Function Array AvatarEditorService:GetRecommendedAssets(Enum<AvatarAssetType> assetType, int64 contextAssetId = 0) [Yields]
 	Function Array AvatarEditorService:GetRecommendedBundles(int64 bundleId) [Yields]
+	Function Instance AvatarEditorService:SearchCatalog(CatalogSearchParams searchParameters) [Yields]
 Class Backpack : Instance
 Class BackpackItem : Instance [NotCreatable]
 	Property Content BackpackItem.TextureId
@@ -203,6 +204,7 @@ Class BadgeService : Instance [NotCreatable] [Service]
 	Event BadgeService.OnBadgeAwarded(int64 userId, int64 creatorId, int64 badgeId) {RobloxScriptSecurity}
 Class BasePlayerGui : Instance [NotCreatable]
 	Function Objects BasePlayerGui:GetGuiObjectsAtPosition(int x, int y)
+	Function Objects BasePlayerGui:GetGuiObjectsInCircle(Vector2 position, float radius) {RobloxScriptSecurity}
 Class CoreGui : BasePlayerGui [NotCreatable] [Service] [NotReplicated]
 	Property Class<GuiObject> CoreGui.SelectionImageObject {RobloxScriptSecurity}
 	Property int CoreGui.Version [<💾> SaveOnly] [ReadOnly] [NotReplicated]
@@ -410,6 +412,8 @@ Class Chat : Instance [NotCreatable] [Service] [NotReplicated]
 	Function bool Chat:GetShouldUseLuaChat() {RobloxScriptSecurity}
 	Function Tuple Chat:InvokeChatCallback(Enum<ChatCallbackType> callbackType, Tuple callbackArguments)
 	Function void Chat:RegisterChatCallback(Enum<ChatCallbackType> callbackType, Function callbackFunction)
+	Function void Chat:SetBubbleChatSettings(Variant settings)
+	Event Chat.BubbleChatSettingsChanged(Variant settings) {RobloxScriptSecurity}
 	Event Chat.Chatted(Instance part, string message, Enum<ChatColor> color)
 Class ClickDetector : Instance
 	Property float ClickDetector.MaxActivationDistance
@@ -787,6 +791,9 @@ Class GameSettings : Instance [NotCreatable] [Settings] [NotBrowsable]
 	Property bool GameSettings.VideoRecording {RobloxScriptSecurity} {✏️RobloxSecurity} [<📁> LoadOnly] [NotReplicated]
 	Event GameSettings.VideoRecordingChangeRequest(bool recording) {RobloxScriptSecurity}
 Class GamepadService : Instance [NotCreatable] [Service]
+	Property bool GamepadService.GamepadCursorEnabled {RobloxScriptSecurity} [Hidden] [NotReplicated]
+	Function Vector2 GamepadService:GetGamepadCursorPosition() {RobloxScriptSecurity}
+	Function void GamepadService:SetGamepadCursorPosition(Vector2 position) {RobloxScriptSecurity}
 Class Geometry : Instance [NotCreatable] [Service]
 Class GlobalDataStore : Instance [NotCreatable] [NotReplicated]
 	Function Variant GlobalDataStore:GetAsync(string key) [Yields]
@@ -1923,7 +1930,7 @@ Class Terrain : BasePart [NotCreatable]
 Class TriangleMeshPart : BasePart [NotCreatable]
 	Property Enum<CollisionFidelity> TriangleMeshPart.CollisionFidelity {✏️PluginSecurity} [<📁> LoadOnly] [NotReplicated]
 Class MeshPart : TriangleMeshPart
-	Property bool MeshPart.DoubleSided {✏️PluginSecurity} [NotScriptable]
+	Property bool MeshPart.DoubleSided {✏️PluginSecurity}
 	Property bool MeshPart.HasJointOffset {✏️NotAccessibleSecurity} [Hidden]
 	Property bool MeshPart.HasSkinnedMesh {✏️NotAccessibleSecurity} [Hidden]
 	Property Content MeshPart.MeshID  [NotScriptable] [Deprecated]
@@ -2024,6 +2031,7 @@ Class Pages : Instance [NotCreatable] [NotReplicated]
 	Property bool Pages.IsFinished  [ReadOnly] [NotReplicated]
 	Function void Pages:AdvanceToNextPageAsync() [Yields]
 	Function Array Pages:GetCurrentPage()
+Class CatalogPages : Pages [NotCreatable] [NotReplicated]
 Class DataStorePages : Pages [NotCreatable] [NotReplicated]
 Class FriendPages : Pages [NotCreatable] [NotReplicated]
 Class InventoryPages : Pages [NotCreatable] [NotReplicated]
@@ -2141,7 +2149,7 @@ Class Player : Instance
 	Property string Player.LocaleId  [Hidden] [ReadOnly] [NotReplicated]
 	Property float Player.MaximumSimulationRadius {LocalUserSecurity} [<📁> LoadOnly] [NotReplicated]
 	Property Enum<MembershipType> Player.MembershipType  [ReadOnly] [NotReplicated]
-	Property string Player.OsPlatform {RobloxScriptSecurity}
+	Property string Player.OsPlatform {RobloxScriptSecurity} [<📁> LoadOnly] [NotReplicated]
 	Property string Player.PlatformName {RobloxScriptSecurity}
 	Property Instance Player.ReplicationFocus
 	Property Class<SpawnLocation> Player.RespawnLocation
@@ -2874,6 +2882,7 @@ Class Studio : Instance [NotCreatable] [Service] [NotReplicated]
 	Property Enum<OutputLayoutMode> Studio.Output Layout Mode
 	Property float Studio.Line Thickness
 	Property Color3 Studio.Select/Hover Color
+	Property bool Studio.Auto Clean Empty Line
 	Property bool Studio.Auto Closing Brackets
 	Property bool Studio.Auto Closing Quotes
 	Property Enum<AutoIndentRule> Studio.Auto Indent Rule
@@ -2889,26 +2898,26 @@ Class Studio : Instance [NotCreatable] [Service] [NotReplicated]
 	Property bool Studio.Skip Closing Brackets and Quotes
 	Property int Studio.Tab Width
 	Property bool Studio.Text Wrapping
-	Property Color3 Studio.Background Color
-	Property Color3 Studio.Built-in Function Color
-	Property Color3 Studio.Comment Color
-	Property Color3 Studio.Current Line Highlight Color
-	Property Color3 Studio.Debugger Current Line Color
-	Property Color3 Studio.Debugger Error Line Color
-	Property Color3 Studio.Error Color
-	Property Color3 Studio.Find Selection Background Color
-	Property Color3 Studio.Keyword Color
-	Property Color3 Studio.Matching Word Background Color
-	Property Color3 Studio.Number Color
-	Property Color3 Studio.Operator Color
-	Property Color3 Studio.Preprocessor Color
+	Property Color3 Studio.Background Color [<📁> LoadOnly] [NotReplicated]
+	Property Color3 Studio.Built-in Function Color [<📁> LoadOnly] [NotReplicated]
+	Property Color3 Studio.Comment Color [<📁> LoadOnly] [NotReplicated]
+	Property Color3 Studio.Current Line Highlight Color [<📁> LoadOnly] [NotReplicated]
+	Property Color3 Studio.Debugger Current Line Color [<📁> LoadOnly] [NotReplicated]
+	Property Color3 Studio.Debugger Error Line Color [<📁> LoadOnly] [NotReplicated]
+	Property Color3 Studio.Error Color [<📁> LoadOnly] [NotReplicated]
+	Property Color3 Studio.Find Selection Background Color [<📁> LoadOnly] [NotReplicated]
+	Property Color3 Studio.Keyword Color [<📁> LoadOnly] [NotReplicated]
+	Property Color3 Studio.Matching Word Background Color [<📁> LoadOnly] [NotReplicated]
+	Property Color3 Studio.Number Color [<📁> LoadOnly] [NotReplicated]
+	Property Color3 Studio.Operator Color [<📁> LoadOnly] [NotReplicated]
+	Property Color3 Studio.Preprocessor Color [<📁> LoadOnly] [NotReplicated]
 	Property Enum<StudioScriptEditorColorPresets> Studio.Script Editor Color Preset
-	Property Color3 Studio.Selection Background Color
-	Property Color3 Studio.Selection Color
-	Property Color3 Studio.String Color
-	Property Color3 Studio.Text Color
-	Property Color3 Studio.Warning Color
-	Property Color3 Studio.Whitespace Color
+	Property Color3 Studio.Selection Background Color [<📁> LoadOnly] [NotReplicated]
+	Property Color3 Studio.Selection Color [<📁> LoadOnly] [NotReplicated]
+	Property Color3 Studio.String Color [<📁> LoadOnly] [NotReplicated]
+	Property Color3 Studio.Text Color [<📁> LoadOnly] [NotReplicated]
+	Property Color3 Studio.Warning Color [<📁> LoadOnly] [NotReplicated]
+	Property Color3 Studio.Whitespace Color [<📁> LoadOnly] [NotReplicated]
 	Property Color3 Studio.Active Color
 	Property Color3 Studio.Active Hover Over Color
 	Property bool Studio.Animate Hover Over
@@ -2921,9 +2930,9 @@ Class Studio : Instance [NotCreatable] [Service] [NotReplicated]
 	Function Array Studio:GetAvailableThemes() {PluginSecurity}
 	Event Studio.ThemeChanged() {PluginSecurity}
 Class StudioData : Instance [NotCreatable] [Service]
-	Property bool StudioData.EnableScriptCollabByDefaultOnLoad {PluginSecurity} [Hidden]
-	Property bool StudioData.EnableScriptCollabOnLoad {PluginSecurity} [Hidden]
-	Property bool StudioData.EnableScriptCollabVersionHistoryOnLoad {PluginSecurity} [Hidden]
+	Property bool StudioData.EnableScriptCollabByDefaultOnLoad {RobloxScriptSecurity} [Hidden]
+	Property bool StudioData.EnableScriptCollabOnLoad {RobloxScriptSecurity} [Hidden]
+	Property bool StudioData.EnableScriptCollabVersionHistoryOnLoad {RobloxScriptSecurity} [Hidden]
 	Property int64 StudioData.SrcPlaceId {RobloxSecurity} [Hidden] [NotReplicated]
 	Property int64 StudioData.SrcUniverseId {RobloxSecurity} [Hidden] [NotReplicated]
 Class StudioService : Instance [NotCreatable] [Service] [NotReplicated]
@@ -2983,6 +2992,7 @@ Class StudioService : Instance [NotCreatable] [Service] [NotReplicated]
 	Event StudioService.OnPublishAsPlugin(Objects instances) {RobloxScriptSecurity}
 	Event StudioService.OnPublishPlaceToRoblox(bool isOverwritePublish) {RobloxScriptSecurity}
 	Event StudioService.OnSaveToRoblox(Objects instances) {RobloxScriptSecurity}
+	Event StudioService.PromptTransformPluginCheckEnable() {RobloxScriptSecurity}
 Class StudioTheme : Instance [NotCreatable] [NotReplicated]
 	Function Color3 StudioTheme:GetColor(Enum<StudioStyleGuideColor> styleguideitem, Enum<StudioStyleGuideModifier> modifier = "Default") {PluginSecurity}
 	Function string StudioTheme:GetPath(string assetid, Enum<StudioStyleGuideModifier> modifier = "Default") {PluginSecurity}
@@ -3191,6 +3201,7 @@ Class UnvalidatedAssetService : Instance [NotCreatable] [Service]
 	Function bool UnvalidatedAssetService:AppendVantagePoint(int64 id, Vector3 lookAt, Vector3 camPos) {RobloxScriptSecurity}
 	Function bool UnvalidatedAssetService:RenameTempAsset(int64 tempId, int64 assetId) {RobloxScriptSecurity}
 Class UserGameSettings : Instance [NotCreatable] [UserSettings]
+	Property int UserGameSettings.GraphicsQualityLevel {RobloxScriptSecurity}
 	Property Enum<SavedQualitySetting> UserGameSettings.SavedQualityLevel
 	Property Enum<CustomCameraMode> UserGameSettings.CameraMode {RobloxScriptSecurity}
 	Property Enum<ComputerCameraMovementMode> UserGameSettings.ComputerCameraMovementMode
@@ -3560,6 +3571,9 @@ Enum AvatarContextMenuOption
 	EnumItem AvatarContextMenuOption.Chat : 1
 	EnumItem AvatarContextMenuOption.Emote : 2
 	EnumItem AvatarContextMenuOption.InspectMenu : 3
+Enum AvatarItemType
+	EnumItem AvatarItemType.Asset : 1
+	EnumItem AvatarItemType.Bundle : 2
 Enum AvatarJointPositionType
 	EnumItem AvatarJointPositionType.Fixed : 0
 	EnumItem AvatarJointPositionType.ArtistIntent : 1
@@ -3610,6 +3624,9 @@ Enum BreakReason
 Enum BulkMoveMode
 	EnumItem BulkMoveMode.FireAllEvents : 0
 	EnumItem BulkMoveMode.FireCFrameChanged : 1
+Enum BundleType
+	EnumItem BundleType.BodyParts : 1
+	EnumItem BundleType.Animations : 2
 Enum Button
 	EnumItem Button.Dismount : 8
 	EnumItem Button.Jump : 32
@@ -3635,6 +3652,18 @@ Enum CameraType
 	EnumItem CameraType.Custom : 5
 	EnumItem CameraType.Scriptable : 6
 	EnumItem CameraType.Orbital : 7
+Enum CatalogCategoryFilter
+	EnumItem CatalogCategoryFilter.None : 1
+	EnumItem CatalogCategoryFilter.Featured : 2
+	EnumItem CatalogCategoryFilter.Collectibles : 3
+	EnumItem CatalogCategoryFilter.CommunityCreations : 4
+	EnumItem CatalogCategoryFilter.Premium : 5
+Enum CatalogSortType
+	EnumItem CatalogSortType.Relevance : 1
+	EnumItem CatalogSortType.PriceHighToLow : 2
+	EnumItem CatalogSortType.PriceLowToHigh : 3
+	EnumItem CatalogSortType.RecentlyUpdated : 4
+	EnumItem CatalogSortType.MostFavorited : 5
 Enum CellBlock
 	EnumItem CellBlock.Solid : 0
 	EnumItem CellBlock.VerticalWedge : 1
@@ -4154,9 +4183,6 @@ Enum InterpolationThrottlingMode
 	EnumItem InterpolationThrottlingMode.Default : 0
 	EnumItem InterpolationThrottlingMode.Disabled : 1
 	EnumItem InterpolationThrottlingMode.Enabled : 2
-Enum ItemType
-	EnumItem ItemType.Asset : 0
-	EnumItem ItemType.Bundle : 1
 Enum JointCreationMode
 	EnumItem JointCreationMode.All : 0
 	EnumItem JointCreationMode.Surface : 1

@@ -44,7 +44,7 @@ Item {
         source: getResource("fonts/SourceSansPro/TTF/SourceSansPro-Regular.ttf")
     }
     FontLoader {
-        source: getResource("fonts/SourceSansPro/TTF/SourceSansPro-SemiBold.ttf")
+        source: getResource("fonts/SourceSansPro/TTF/SourceSansPro-Semibold.ttf")
     }
     FontLoader {
         source: getResource("fonts/SourceSansPro/TTF/SourceSansPro-Bold.ttf")

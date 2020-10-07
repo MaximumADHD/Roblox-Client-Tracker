@@ -3025,7 +3025,7 @@
                             "Name": "itemType",
                             "Type": {
                                 "Category": "Enum",
-                                "Name": "ItemType"
+                                "Name": "AvatarItemType"
                             }
                         }
                     ],
@@ -3082,6 +3082,27 @@
                     "ReturnType": {
                         "Category": "Group",
                         "Name": "Array"
+                    },
+                    "Security": "None",
+                    "Tags": [
+                        "Yields"
+                    ]
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "SearchCatalog",
+                    "Parameters": [
+                        {
+                            "Name": "searchParameters",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "CatalogSearchParams"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Class",
+                        "Name": "Instance"
                     },
                     "Security": "None",
                     "Tags": [
@@ -3735,6 +3756,31 @@
                         "Name": "Objects"
                     },
                     "Security": "None"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetGuiObjectsInCircle",
+                    "Parameters": [
+                        {
+                            "Name": "position",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "Vector2"
+                            }
+                        },
+                        {
+                            "Name": "radius",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "float"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "DataType",
+                        "Name": "Objects"
+                    },
+                    "Security": "RobloxScriptSecurity"
                 }
             ],
             "MemoryCategory": "Instances",
@@ -7212,6 +7258,24 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "SetBubbleChatSettings",
+                    "Parameters": [
+                        {
+                            "Name": "settings",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Variant"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "None"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "CanUserChatAsync",
                     "Parameters": [
                         {
@@ -7350,6 +7414,20 @@
                         "Yields",
                         "Deprecated"
                     ]
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "BubbleChatSettingsChanged",
+                    "Parameters": [
+                        {
+                            "Name": "settings",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Variant"
+                            }
+                        }
+                    ],
+                    "Security": "RobloxScriptSecurity"
                 },
                 {
                     "MemberType": "Event",
@@ -13790,6 +13868,56 @@
         },
         {
             "Members": [
+                {
+                    "Category": "State",
+                    "MemberType": "Property",
+                    "Name": "GamepadCursorEnabled",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "Hidden",
+                        "NotReplicated"
+                    ],
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetGamepadCursorPosition",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "DataType",
+                        "Name": "Vector2"
+                    },
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "SetGamepadCursorPosition",
+                    "Parameters": [
+                        {
+                            "Name": "position",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "Vector2"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity"
+                }
             ],
             "MemoryCategory": "Instances",
             "Name": "GamepadService",
@@ -34244,9 +34372,6 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
-                    "Tags": [
-                        "NotScriptable"
-                    ],
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "bool"
@@ -36238,6 +36363,17 @@
             "MemoryCategory": "Instances",
             "Name": "Pages",
             "Superclass": "Instance",
+            "Tags": [
+                "NotCreatable",
+                "NotReplicated"
+            ]
+        },
+        {
+            "Members": [
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "CatalogPages",
+            "Superclass": "Pages",
             "Tags": [
                 "NotCreatable",
                 "NotReplicated"
@@ -38355,9 +38491,12 @@
                         "Write": "RobloxScriptSecurity"
                     },
                     "Serialization": {
-                        "CanLoad": false,
+                        "CanLoad": true,
                         "CanSave": false
                     },
+                    "Tags": [
+                        "NotReplicated"
+                    ],
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "string"
@@ -50619,6 +50758,23 @@
                 {
                     "Category": "Script Editor",
                     "MemberType": "Property",
+                    "Name": "Auto Clean Empty Line",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Script Editor",
+                    "MemberType": "Property",
                     "Name": "Auto Closing Brackets",
                     "Security": {
                         "Read": "None",
@@ -50728,8 +50884,11 @@
                     },
                     "Serialization": {
                         "CanLoad": true,
-                        "CanSave": true
+                        "CanSave": false
                     },
+                    "Tags": [
+                        "NotReplicated"
+                    ],
                     "ValueType": {
                         "Category": "DataType",
                         "Name": "Color3"
@@ -50762,8 +50921,11 @@
                     },
                     "Serialization": {
                         "CanLoad": true,
-                        "CanSave": true
+                        "CanSave": false
                     },
+                    "Tags": [
+                        "NotReplicated"
+                    ],
                     "ValueType": {
                         "Category": "DataType",
                         "Name": "Color3"
@@ -50881,8 +51043,11 @@
                     },
                     "Serialization": {
                         "CanLoad": true,
-                        "CanSave": true
+                        "CanSave": false
                     },
+                    "Tags": [
+                        "NotReplicated"
+                    ],
                     "ValueType": {
                         "Category": "DataType",
                         "Name": "Color3"
@@ -50898,8 +51063,11 @@
                     },
                     "Serialization": {
                         "CanLoad": true,
-                        "CanSave": true
+                        "CanSave": false
                     },
+                    "Tags": [
+                        "NotReplicated"
+                    ],
                     "ValueType": {
                         "Category": "DataType",
                         "Name": "Color3"
@@ -50915,8 +51083,11 @@
                     },
                     "Serialization": {
                         "CanLoad": true,
-                        "CanSave": true
+                        "CanSave": false
                     },
+                    "Tags": [
+                        "NotReplicated"
+                    ],
                     "ValueType": {
                         "Category": "DataType",
                         "Name": "Color3"
@@ -50932,8 +51103,11 @@
                     },
                     "Serialization": {
                         "CanLoad": true,
-                        "CanSave": true
+                        "CanSave": false
                     },
+                    "Tags": [
+                        "NotReplicated"
+                    ],
                     "ValueType": {
                         "Category": "DataType",
                         "Name": "Color3"
@@ -51123,8 +51297,11 @@
                     },
                     "Serialization": {
                         "CanLoad": true,
-                        "CanSave": true
+                        "CanSave": false
                     },
+                    "Tags": [
+                        "NotReplicated"
+                    ],
                     "ValueType": {
                         "Category": "DataType",
                         "Name": "Color3"
@@ -51140,8 +51317,11 @@
                     },
                     "Serialization": {
                         "CanLoad": true,
-                        "CanSave": true
+                        "CanSave": false
                     },
+                    "Tags": [
+                        "NotReplicated"
+                    ],
                     "ValueType": {
                         "Category": "DataType",
                         "Name": "Color3"
@@ -51293,8 +51473,11 @@
                     },
                     "Serialization": {
                         "CanLoad": true,
-                        "CanSave": true
+                        "CanSave": false
                     },
+                    "Tags": [
+                        "NotReplicated"
+                    ],
                     "ValueType": {
                         "Category": "DataType",
                         "Name": "Color3"
@@ -51400,8 +51583,11 @@
                     },
                     "Serialization": {
                         "CanLoad": true,
-                        "CanSave": true
+                        "CanSave": false
                     },
+                    "Tags": [
+                        "NotReplicated"
+                    ],
                     "ValueType": {
                         "Category": "DataType",
                         "Name": "Color3"
@@ -51451,8 +51637,11 @@
                     },
                     "Serialization": {
                         "CanLoad": true,
-                        "CanSave": true
+                        "CanSave": false
                     },
+                    "Tags": [
+                        "NotReplicated"
+                    ],
                     "ValueType": {
                         "Category": "DataType",
                         "Name": "Color3"
@@ -51485,8 +51674,11 @@
                     },
                     "Serialization": {
                         "CanLoad": true,
-                        "CanSave": true
+                        "CanSave": false
                     },
+                    "Tags": [
+                        "NotReplicated"
+                    ],
                     "ValueType": {
                         "Category": "DataType",
                         "Name": "Color3"
@@ -51621,8 +51813,11 @@
                     },
                     "Serialization": {
                         "CanLoad": true,
-                        "CanSave": true
+                        "CanSave": false
                     },
+                    "Tags": [
+                        "NotReplicated"
+                    ],
                     "ValueType": {
                         "Category": "DataType",
                         "Name": "Color3"
@@ -51791,8 +51986,11 @@
                     },
                     "Serialization": {
                         "CanLoad": true,
-                        "CanSave": true
+                        "CanSave": false
                     },
+                    "Tags": [
+                        "NotReplicated"
+                    ],
                     "ValueType": {
                         "Category": "DataType",
                         "Name": "Color3"
@@ -51808,8 +52006,11 @@
                     },
                     "Serialization": {
                         "CanLoad": true,
-                        "CanSave": true
+                        "CanSave": false
                     },
+                    "Tags": [
+                        "NotReplicated"
+                    ],
                     "ValueType": {
                         "Category": "DataType",
                         "Name": "Color3"
@@ -52046,8 +52247,11 @@
                     },
                     "Serialization": {
                         "CanLoad": true,
-                        "CanSave": true
+                        "CanSave": false
                     },
+                    "Tags": [
+                        "NotReplicated"
+                    ],
                     "ValueType": {
                         "Category": "DataType",
                         "Name": "Color3"
@@ -52080,8 +52284,11 @@
                     },
                     "Serialization": {
                         "CanLoad": true,
-                        "CanSave": true
+                        "CanSave": false
                     },
+                    "Tags": [
+                        "NotReplicated"
+                    ],
                     "ValueType": {
                         "Category": "DataType",
                         "Name": "Color3"
@@ -52154,8 +52361,11 @@
                     },
                     "Serialization": {
                         "CanLoad": true,
-                        "CanSave": true
+                        "CanSave": false
                     },
+                    "Tags": [
+                        "NotReplicated"
+                    ],
                     "ValueType": {
                         "Category": "DataType",
                         "Name": "Color3"
@@ -52171,8 +52381,11 @@
                     },
                     "Serialization": {
                         "CanLoad": true,
-                        "CanSave": true
+                        "CanSave": false
                     },
+                    "Tags": [
+                        "NotReplicated"
+                    ],
                     "ValueType": {
                         "Category": "DataType",
                         "Name": "Color3"
@@ -52213,8 +52426,8 @@
                     "MemberType": "Property",
                     "Name": "EnableScriptCollabByDefaultOnLoad",
                     "Security": {
-                        "Read": "PluginSecurity",
-                        "Write": "PluginSecurity"
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
@@ -52233,8 +52446,8 @@
                     "MemberType": "Property",
                     "Name": "EnableScriptCollabOnLoad",
                     "Security": {
-                        "Read": "PluginSecurity",
-                        "Write": "PluginSecurity"
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
@@ -52253,8 +52466,8 @@
                     "MemberType": "Property",
                     "Name": "EnableScriptCollabVersionHistoryOnLoad",
                     "Security": {
-                        "Read": "PluginSecurity",
-                        "Write": "PluginSecurity"
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
@@ -53333,6 +53546,13 @@
                                 "Name": "Objects"
                             }
                         }
+                    ],
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "PromptTransformPluginCheckEnable",
+                    "Parameters": [
                     ],
                     "Security": "RobloxScriptSecurity"
                 }
@@ -57212,6 +57432,23 @@
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "float"
+                    }
+                },
+                {
+                    "Category": "Appearance",
+                    "MemberType": "Property",
+                    "Name": "GraphicsQualityLevel",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "int"
                     }
                 },
                 {
@@ -62050,6 +62287,19 @@
         {
             "Items": [
                 {
+                    "Name": "Asset",
+                    "Value": 1
+                },
+                {
+                    "Name": "Bundle",
+                    "Value": 2
+                }
+            ],
+            "Name": "AvatarItemType"
+        },
+        {
+            "Items": [
+                {
                     "Name": "Fixed",
                     "Value": 0
                 },
@@ -62258,6 +62508,19 @@
         {
             "Items": [
                 {
+                    "Name": "BodyParts",
+                    "Value": 1
+                },
+                {
+                    "Name": "Animations",
+                    "Value": 2
+                }
+            ],
+            "Name": "BundleType"
+        },
+        {
+            "Items": [
+                {
                     "Name": "Jump",
                     "Value": 32
                 },
@@ -62359,6 +62622,56 @@
                 }
             ],
             "Name": "CameraType"
+        },
+        {
+            "Items": [
+                {
+                    "Name": "None",
+                    "Value": 1
+                },
+                {
+                    "Name": "Featured",
+                    "Value": 2
+                },
+                {
+                    "Name": "Collectibles",
+                    "Value": 3
+                },
+                {
+                    "Name": "CommunityCreations",
+                    "Value": 4
+                },
+                {
+                    "Name": "Premium",
+                    "Value": 5
+                }
+            ],
+            "Name": "CatalogCategoryFilter"
+        },
+        {
+            "Items": [
+                {
+                    "Name": "Relevance",
+                    "Value": 1
+                },
+                {
+                    "Name": "PriceHighToLow",
+                    "Value": 2
+                },
+                {
+                    "Name": "PriceLowToHigh",
+                    "Value": 3
+                },
+                {
+                    "Name": "RecentlyUpdated",
+                    "Value": 4
+                },
+                {
+                    "Name": "MostFavorited",
+                    "Value": 5
+                }
+            ],
+            "Name": "CatalogSortType"
         },
         {
             "Items": [
@@ -64625,19 +64938,6 @@
                 }
             ],
             "Name": "InterpolationThrottlingMode"
-        },
-        {
-            "Items": [
-                {
-                    "Name": "Asset",
-                    "Value": 0
-                },
-                {
-                    "Name": "Bundle",
-                    "Value": 1
-                }
-            ],
-            "Name": "ItemType"
         },
         {
             "Items": [

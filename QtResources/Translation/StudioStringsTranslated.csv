@@ -1612,7 +1612,7 @@ This will shutdown all running servers.","이 게임을 비공개로 설정할�
 Studio.App.GamesPageController.Restored,,,Restored,Restored,복원함,Восстановленные,已还原
 Studio.App.IDEGameSettingsLinkDefinition.GameSettingsNotAvailable,,,Game Settings not available,Game Settings not available,게임 설정을 사용할 수 없습니다,Настройки игры недоступны,无法使用游戏设置
 Studio.App.IDEGameSettingsLinkDefinition.OpenGameSettings,,,Open Game Settings,Open Game Settings,게임 설정 열기,Открыть настройки игры,打开游戏设置
-Studio.App.LoginManager.CaptchaClosed,,,Captcha response not recognized. Please try again.,Captcha response not recognized. Please try again.,캡차 응답을 인식할 수 없습니다. 다시 시도하세요.,Для входа требуется пройти Captcha. Попробуйте еще раз.,验证码识别未通过。请再试一次。
+Studio.App.LoginManager.CaptchaClosed,,,Login requires Captcha. Please try again.,Login requires Captcha. Please try again.,캡차 응답을 인식할 수 없습니다. 다시 시도하세요.,Для входа требуется пройти Captcha. Попробуйте еще раз.,验证码识别未通过。请再试一次。
 Studio.App.LoginManager.CaptchaError,,,Error displaying captcha,Error displaying captcha,캡차를 표시하는 데 오류가 발생함,Ошибка отображения Captcha,显示验证码时出错
 Studio.App.Login.EnterPassword,,,Please enter your password.,Please enter your password.,비밀번호를 입력하세요.,"Пожалуйста, введите свой пароль.",请输入你的密码。
 Studio.App.Login.EnterUsername,,,Please enter your username.,Please enter your username.,사용자 이름을 입력하세요.,"Пожалуйста, введите свое имя пользователя.",请输入你的用户名。
@@ -3010,6 +3010,44 @@ Studio.App.ScriptEditorCmdBase.UNFOLDALL,,,Expands all folds,Expands all folds,�
 Studio.App.ScriptEditorCmdBase.UNFOLDALLToolTip,,,Expands all folds,Expands all folds,모든 접기 확장,,扩展所有折叠
 Studio.App.ScriptEditorCmdBase.UNINDENT,,,Unindent,Unindent,내어쓰기,,取消缩进
 Studio.App.ScriptEditorCmdBase.UNINDENTToolTip,,,Unindent selected line(s),Unindent selected line(s),선택한 줄 내어쓰기,,所选行取消缩进
+Studio.App.LoginManager.CaptchaInvalid,,,Captcha response not recognized. Please try again.,Captcha response not recognized. Please try again.,,,
+Studio.App.Properties.AttributeCantStartWithRBX,,,Can't start with 'RBX'.,Can't start with 'RBX'.,,,
+Studio.App.Properites.AttributeNameCantStartWithRBX,,,Attribute name can't start with 'RBX'.,Attribute name can't start with 'RBX'.,,,
+Studio.App.Properties.AttributeTryDifferentName,,,Try to use a different name.,Try to use a different name.,,,
+Studio.App.PropertyTooltip.AutoCleanEmptyLine,,,Automatically clean tabs and spaces from the line has no content.,Automatically clean tabs and spaces from the line has no content.,,,
+Studio.App.Property.AutoCleanEmptyLine,,,Auto Clean Empty Line,Auto Clean Empty Line,,,
+Studio.App.ScriptingCmd.DELETETOSTARTOFLINE,,,Delete to start of line,Delete to start of line,,,
+Studio.App.ScriptingCmd.DELETETOSTARTOFLINETooltip,,,Delete to the start of the current line,Delete to the start of the current line,,,
+Studio.App.ScriptingCmd.DUPLICATESELECTION,,,Duplicate selection,Duplicate selection,,,
+Studio.App.ScriptingCmd.DUPLICATESELECTIONTooltip,,,Duplicate current line or selection,Duplicate current line or selection,,,
+Studio.App.ScriptingCmd.FOLDALL,,,Collapse All Folds,Collapse All Folds,,,
+Studio.App.ScriptingCmd.FOLDALLTooltip,,,Collapse All Folds,Collapse All Folds,,,
+Studio.App.ScriptingCmd.FOLDTOGGLE,,,Toggle code fold,Toggle code fold,,,
+Studio.App.ScriptingCmd.FOLDTOGGLETooltip,,,Toggle a folded code block,Toggle a folded code block,,,
+Studio.App.ScriptingCmd.FORMATALL,,,Format Document...,Format Document...,,,
+Studio.App.ScriptingCmd.FORMATALLTooltip,,,Format whole document,Format whole document,,,
+Studio.App.ScriptingCmd.FORMATSEL,,,Format Selection,Format Selection,,,
+Studio.App.ScriptingCmd.FORMATSELTooltip,,,Format selected range of document,Format selected range of document,,,
+Studio.App.ScriptingCmd.GOTOPOS,,,Go to line...,Go to line...,,,
+Studio.App.ScriptingCmd.GOTOPOSTooltip,,,Go to line...,Go to line...,,,
+Studio.App.ScriptingCmd.INDENT,,,Indent,Indent,,,
+Studio.App.ScriptingCmd.INDENTTooltip,,,Indent selected line(s),Indent selected line(s),,,
+Studio.App.ScriptingCmd.MOVELINESDOWN,,,Move Lines Down,Move Lines Down,,,
+Studio.App.ScriptingCmd.MOVELINESDOWNTooltip,,,Move selected line(s) downwards,Move selected line(s) downwards,,,
+Studio.App.ScriptingCmd.MOVELINESUP,,,Move Lines Up,Move Lines Up,,,
+Studio.App.ScriptingCmd.MOVELINESUPTooltip,,,Move selected line(s) upwards,Move selected line(s) upwards,,,
+Studio.App.ScriptingCmd.NEWLINEABOVE,,,Insert Newline Above,Insert Newline Above,,,
+Studio.App.ScriptingCmd.NEWLINEABOVETooltip,,,Insert a newline above the current line,Insert a newline above the current line,,,
+Studio.App.ScriptingCmd.NEWLINEBELOW,,,Insert Newline Below,Insert Newline Below,,,
+Studio.App.ScriptingCmd.NEWLINEBELOWTooltip,,,Insert a newline below the current line,Insert a newline below the current line,,,
+Studio.App.ScriptingCmd.SELECT,,,Select text...,Select text...,,,
+Studio.App.ScriptingCmd.SELECTTooltip,,,Select text...,Select text...,,,
+Studio.App.ScriptingCmd.TOGGLECOMMENT,,,Toggle Comment,Toggle Comment,,,
+Studio.App.ScriptingCmd.TOGGLECOMMENTTooltip,,,Toggle selection commenting,Toggle selection commenting,,,
+Studio.App.ScriptingCmd.UNFOLDALL,,,Expands all folds,Expands all folds,,,
+Studio.App.ScriptingCmd.UNFOLDALLTooltip,,,Expands all folds,Expands all folds,,,
+Studio.App.ScriptingCmd.UNINDENT,,,Unindent,Unindent,,,
+Studio.App.ScriptingCmd.UNINDENTTooltip,,,Unindent selected line(s),Unindent selected line(s),,,
 Studio.Common.Action.Apply,,,Apply,Apply,적용,Применить,应用
 Studio.Common.Action.Back,,,Back,Back,뒤로,Назад,返回
 Studio.Common.Action.Cancel,,,Cancel,Cancel,취소,Отмена,取消

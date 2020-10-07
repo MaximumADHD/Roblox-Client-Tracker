@@ -67,6 +67,7 @@ RBX
 		BvhTreeComponentCollection
 		BvhTreeMidPhaseCollection
 		ChunkBinding
+		ClumpBase
 		ClumpBinding
 		Contact
 		EdgeEdgePair
@@ -83,6 +84,7 @@ RBX
 		SpatialGridHierarchicalPrimInternalsCache
 		SpatialGridPrimitiveBase
 		SpatialHashHierarchical
+		WaterClump
 	}
 	Constraints
 	{
@@ -119,6 +121,8 @@ RBX
 	}
 	DigitalSignature
 	{
+		Signer
+		SignerSodium
 		Verifier
 		VerifierSodium
 	}
@@ -384,10 +388,6 @@ RBX
 		{
 			DummyArbiter
 		}
-		PhysicsSenderS2
-		{
-			TouchJobS2
-		}
 		Replicator
 		{
 			StreamJob
@@ -491,9 +491,13 @@ RBX
 	{
 		OnDemandPartInstance
 	}
-	PlayerIdNameMapping
+	project
 	{
-		MappingJob
+		KeyValueError
+		KeyValueTypeError
+		MissingRequiredKeyError
+		ParseError
+		UnsupportedVersionError
 	}
 	Reflection
 	{
@@ -572,6 +576,7 @@ RBX
 		CmdConfig
 		CmdDeleteToStartOfLine
 		CmdDocumentFormatting
+		CmdDuplicateSelection
 		CmdFoldAll
 		CmdFoldToggle
 		CmdGotoPosition
@@ -816,6 +821,7 @@ RBX
 	CanCollideVerb
 	CanNotSelectCommand
 	CapturedMouseCommand
+	CatalogPages
 	ChangeHistoryService
 	ChangeHistoryStatsItem
 	CharacterAppearance
@@ -1300,7 +1306,6 @@ RBX
 	Skin
 	Sky
 	SleepStage
-	SleepStageNew
 	Smoke
 	SmoothClusterGeometry
 	SmoothNoOutlinesTool
@@ -1323,6 +1328,7 @@ RBX
 	SphereHandleAdornment
 	SpotLight
 	StandalonePluginScripts
+	StandardCursorPages
 	StandardEventIngest
 	StandardEventIngest_DEPRECATED
 	StandardPages

@@ -25,7 +25,7 @@ dependencies = [
     "PolicyProvider roblox/lua-roact-policy-provider 1d595dae git+https://github.com/roblox/lua-roact-policy-provider#master",
     "PremiumUpsellDeps PremiumUpsellDeps c51030b7 git+https://github.com/roblox/premium-upsell-deps#master",
     "Promise lua-promise bbb9e162 git+https://github.rbx.com/roblox/lua-promise#master",
-    "PurchasePrompt roblox/purchase-prompt ad4ca756 git+https://github.com/roblox/purchasepromptscript-roact#master",
+    "PurchasePrompt roblox/purchase-prompt 48fff523 git+https://github.com/roblox/purchasepromptscript-roact#master",
     "Result roblox/lua-result c6817c84 git+https://github.rbx.com/roblox/lua-result#master",
     "Rhodium roblox/rhodium 0.2.5 url+https://github.com/roblox/rhodium",
     "Roact roblox/roact 1.3.0 url+https://github.com/roblox/roact",
@@ -34,9 +34,9 @@ dependencies = [
     "RoactRodux roblox/roact-rodux 0.2.2 url+https://github.com/roblox/roact-rodux",
     "Rodux roblox/rodux 1.0.0 url+https://github.com/roblox/rodux",
     "StringUtilities roblox/string-utilities 1.0.0 url+https://github.com/roblox/string-utilities",
-    "TestEZ roblox/testez 0.3.1 url+https://github.com/roblox/testez",
-    "UIBlox UIBlox a253d523 git+https://github.com/roblox/uiblox#master",
-    "UrlBuilder roblox/url-builder 1.0.1 url+https://github.com/roblox/url-builder",
+    "TestEZ roblox/testez 0.3.3 url+https://github.com/roblox/testez",
+    "UIBlox UIBlox d3684f48 git+https://github.com/roblox/uiblox#master",
+    "UrlBuilder roblox/url-builder 1.0.2 url+https://github.com/roblox/url-builder",
     "enumerate roblox/enumerate 1.0.0 url+https://github.com/roblox/enumerate",
     "t roblox/t 1.2.5 url+https://github.com/roblox/t",
     "tutils tutils 0be577db git+https://github.rbx.com/roblox/tutils#master",
@@ -54,7 +54,7 @@ dependencies = [
     "Roact roblox/roact 1.3.0 url+https://github.com/roblox/roact",
     "RoactRodux roblox/roact-rodux 0.2.2 url+https://github.com/roblox/roact-rodux",
     "Rodux roblox/rodux 1.0.0 url+https://github.com/roblox/rodux",
-    "UIBlox <patched> UIBlox a253d523 git+https://github.com/roblox/uiblox#master",
+    "UIBlox <patched> UIBlox d3684f48 git+https://github.com/roblox/uiblox#master",
     "t roblox/t 1.2.5 url+https://github.com/roblox/t",
 ]
 
@@ -67,7 +67,7 @@ dependencies = [
     "AssetCard asset-card c7b683fb git+https://github.com/roblox/asset-card#v1.0.2",
     "InfiniteScroller roblox/infinite-scroller 0.5.6 url+https://github.com/roblox/infinite-scroller",
     "RoduxNetworking rodux-networking ea19cfe3 git+https://github.rbx.com/roblox/rodux-networking#v1.0.1",
-    "UIBlox UIBlox a253d523 git+https://github.com/roblox/uiblox#master",
+    "UIBlox UIBlox d3684f48 git+https://github.com/roblox/uiblox#master",
 ]
 
 [[package]]
@@ -103,7 +103,7 @@ dependencies = ["RoactFitComponents roblox/roact-fit-components 1.2.5 url+https:
 [[package]]
 name = "UIBlox"
 version = "0.1.1"
-commit = "a253d52373c4ce1611090c04ae2a02994274f1f2"
+commit = "d3684f48defd55c133ae606bce5c9ab41bb35bd5"
 source = "git+https://github.com/roblox/uiblox#master"
 dependencies = [
     "Cryo roblox/cryo 1.0.0 url+https://github.com/roblox/cryo",
@@ -124,7 +124,7 @@ source = "git+https://github.com/roblox/asset-card#v1.0.2"
 dependencies = [
     "Roact roblox/roact 1.3.0 url+https://github.com/roblox/roact",
     "Rodux roblox/rodux 1.0.0 url+https://github.com/roblox/rodux",
-    "UIBlox UIBlox a253d523 git+https://github.com/roblox/uiblox#master",
+    "UIBlox UIBlox d3684f48 git+https://github.com/roblox/uiblox#master",
     "t roblox/t 1.2.5 url+https://github.com/roblox/t",
 ]
 
@@ -250,7 +250,7 @@ source = "url+https://github.com/roblox/otter"
 [[package]]
 name = "roblox/purchase-prompt"
 version = "0.1.6"
-commit = "ad4ca756b1cee3e65122ca3459e2ae38668fcd54"
+commit = "48fff5233c9850e6edf3744d99c2b5409e05a763"
 source = "git+https://github.com/roblox/purchasepromptscript-roact#master"
 dependencies = [
     "Cryo roblox/cryo 1.0.0 url+https://github.com/roblox/cryo",
@@ -259,7 +259,7 @@ dependencies = [
     "Roact roblox/roact 1.3.0 url+https://github.com/roblox/roact",
     "RoactRodux roblox/roact-rodux 0.2.2 url+https://github.com/roblox/roact-rodux",
     "Rodux roblox/rodux 1.0.0 url+https://github.com/roblox/rodux",
-    "UIBlox <patched> UIBlox a253d523 git+https://github.com/roblox/uiblox#master",
+    "UIBlox <patched> UIBlox d3684f48 git+https://github.com/roblox/uiblox#master",
     "t roblox/t 1.2.5 url+https://github.com/roblox/t",
 ]
 
@@ -345,14 +345,14 @@ source = "url+https://github.com/roblox/t"
 
 [[package]]
 name = "roblox/testez"
-version = "0.3.1"
-commit = "42f0b3772c90ed9c0cff187fb56d508aca7b6641"
+version = "0.3.3"
+commit = "058f3dc7185d77e3e2425cc579a9ff120a6ff127"
 source = "url+https://github.com/roblox/testez"
 
 [[package]]
 name = "roblox/url-builder"
-version = "1.0.1"
-commit = "9ae0b3705f07b75f259ffa19e7e363ef4eb02ebe"
+version = "1.0.2"
+commit = "5bef2f1ea01ad0fe7c638e349b864c0978cff619"
 source = "url+https://github.com/roblox/url-builder"
 dependencies = [
     "Cryo roblox/cryo 1.0.0 url+https://github.com/roblox/cryo",

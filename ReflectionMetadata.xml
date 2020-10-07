@@ -6640,9 +6640,7 @@
         </Item>
       </Item>
     </Item>
-    <!--
-      FIXME(jjuang) - When removing FFlagDragFaceInstances, uncomment this XML block
-      <Item class="ReflectionMetadataClass">
+    <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">VideoFrame</string>
         <string name="ClassCategory">GUI</string>
@@ -6652,7 +6650,7 @@
         <string name="PreferredParent">GuiBase2d</string>
         <string name="PreferredParents">GuiBase2d</string>
       </Properties>
-    </Item-->
+    </Item>
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">TextLabel</string>
