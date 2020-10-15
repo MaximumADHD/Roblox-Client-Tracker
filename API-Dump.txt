@@ -329,10 +329,10 @@ Class SolidModelContentProvider : CacheableContentProvider [NotCreatable] [Servi
 Class Camera : Instance [NotReplicated]
 	Property Instance Camera.CameraSubject
 	Property Enum<CameraType> Camera.CameraType
-	Property float Camera.DiagonalFieldOfView
+	Property float Camera.DiagonalFieldOfView  [NotReplicated]
 	Property float Camera.FieldOfView
 	Property Enum<FieldOfViewMode> Camera.FieldOfViewMode
-	Property float Camera.MaxAxisFieldOfView
+	Property float Camera.MaxAxisFieldOfView  [NotReplicated]
 	Property CFrame Camera.CFrame
 	Property CFrame Camera.CoordinateFrame [<📁> LoadOnly] [Hidden] [NotReplicated] [Deprecated]
 	Property CFrame Camera.Focus
@@ -560,7 +560,9 @@ Class ContentProvider : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void ContentProvider:Preload(Content contentId) [Deprecated]
 	Function void ContentProvider:PreloadAsync(Array contentIdList, Function callbackFunction = nil) [Yields]
 	Function void ContentProvider:RegisterDefaultEncryptionKey(string encryptionKey)
+	Function void ContentProvider:RegisterDefaultSessionKey(string sessionKey)
 	Function void ContentProvider:RegisterEncryptedAsset(Content assetId, string encryptionKey)
+	Function void ContentProvider:RegisterSessionEncryptedAsset(Content contentId, string sessionKey)
 	Function void ContentProvider:SetBaseUrl(string url) {LocalUserSecurity}
 	Function void ContentProvider:UnregisterDefaultEncryptionKey()
 	Function void ContentProvider:UnregisterEncryptedAsset(Content assetId)
@@ -815,6 +817,10 @@ Class GuiBase2d : GuiBase [NotCreatable] [NotBrowsable]
 	Property Vector2 GuiBase2d.AbsolutePosition  [ReadOnly] [NotReplicated]
 	Property float GuiBase2d.AbsoluteRotation  [ReadOnly] [NotReplicated]
 	Property Vector2 GuiBase2d.AbsoluteSize  [ReadOnly] [NotReplicated]
+	Property Rect GuiBase2d.ClippedRect {RobloxScriptSecurity} [Hidden] [ReadOnly] [NotReplicated]
+	Property bool GuiBase2d.IsNotOccluded {RobloxScriptSecurity} [Hidden] [ReadOnly] [NotReplicated]
+	Property Rect GuiBase2d.RawRect2D {RobloxScriptSecurity} [Hidden] [ReadOnly] [NotReplicated]
+	Property float GuiBase2d.TotalGroupScale {RobloxScriptSecurity} [Hidden] [ReadOnly] [NotReplicated]
 	Property bool GuiBase2d.AutoLocalize
 	Property bool GuiBase2d.Localize [<📁> LoadOnly] [Hidden] [NotReplicated] [Deprecated]
 	Property Class<LocalizationTable> GuiBase2d.RootLocalizationTable
@@ -950,6 +956,10 @@ Class TextLabel : GuiLabel
 	Property Enum<TextYAlignment> TextLabel.TextYAlignment
 	Function void TextLabel:SetTextFromInput(string text) {RobloxScriptSecurity}
 Class ScrollingFrame : GuiObject
+	Property Vector2 ScrollingFrame.AbsoluteCanvasSize {RobloxScriptSecurity} [Hidden] [ReadOnly] [NotReplicated]
+	Property Rect ScrollingFrame.HorizontalBarRect {RobloxScriptSecurity} [Hidden] [ReadOnly] [NotReplicated]
+	Property Vector2 ScrollingFrame.MaxCanvasPosition {RobloxScriptSecurity} [Hidden] [ReadOnly] [NotReplicated]
+	Property Rect ScrollingFrame.VerticalBarRect {RobloxScriptSecurity} [Hidden] [ReadOnly] [NotReplicated]
 	Property Vector2 ScrollingFrame.AbsoluteWindowSize [<💾> SaveOnly] [ReadOnly] [NotReplicated]
 	Property Enum<AutomaticSize> ScrollingFrame.AutomaticCanvasSize
 	Property Content ScrollingFrame.BottomImage
@@ -1037,6 +1047,7 @@ Class LayerCollector : GuiBase2d [NotCreatable] [NotBrowsable]
 	Property bool LayerCollector.Enabled
 	Property bool LayerCollector.ResetOnSpawn
 	Property Enum<ZIndexBehavior> LayerCollector.ZIndexBehavior
+	Function Dictionary LayerCollector:GetLayoutNodeTree() [Deprecated]
 Class BillboardGui : LayerCollector
 	Property bool BillboardGui.ClipsDescendants
 	Property bool BillboardGui.Active
@@ -1109,6 +1120,7 @@ Class SelectionBox : InstanceAdornment
 Class PVAdornment : GuiBase3d [NotCreatable]
 	Property Class<PVInstance> PVAdornment.Adornee
 Class HandleAdornment : PVAdornment [NotCreatable]
+	Property Enum<AdornCullingMode> HandleAdornment.AdornCullingMode
 	Property bool HandleAdornment.AlwaysOnTop
 	Property CFrame HandleAdornment.CFrame
 	Property Vector3 HandleAdornment.SizeRelativeOffset
@@ -1315,6 +1327,7 @@ Class Humanoid : Instance
 	Function bool Humanoid:AddCustomStatus(string status) [Deprecated]
 	Function bool Humanoid:AddStatus(Enum<Status> status = "Poison") [Deprecated]
 	Function void Humanoid:ApplyDescription(Instance humanoidDescription) [Yields]
+	Function void Humanoid:ApplyDescriptionBlocking(Instance humanoidDescription) {RobloxScriptSecurity}
 	Function void Humanoid:ApplyDescriptionClientServer(Instance humanoidDescription) {RobloxScriptSecurity} [Yields]
 	Function void Humanoid:BuildRigFromAttachments()
 	Function void Humanoid:CacheDefaults() {RobloxScriptSecurity}
@@ -1741,6 +1754,7 @@ Class NetworkClient : NetworkPeer [NotCreatable] [Service] [NotReplicated]
 	Event NetworkClient.ConnectionAccepted(string peer, Instance replicator)
 	Event NetworkClient.ConnectionFailed(string peer, int code, string reason)
 Class NetworkServer : NetworkPeer [NotCreatable] [Service] [NotReplicated]
+	Function string NetworkServer:EncryptStringForPlayerId(string toEncrypt, int64 playerId)
 Class NetworkReplicator : Instance [NotCreatable] [NotReplicated]
 	Function Instance NetworkReplicator:GetPlayer()
 Class ClientReplicator : NetworkReplicator [NotCreatable] [NotReplicated]
@@ -2898,7 +2912,15 @@ Class Studio : Instance [NotCreatable] [Service] [NotReplicated]
 	Property bool Studio.Skip Closing Brackets and Quotes
 	Property int Studio.Tab Width
 	Property bool Studio.Text Wrapping
+	Property Color3 Studio."TODO" Color [<📁> LoadOnly] [NotReplicated]
+	Property Color3 Studio."export" Color [<📁> LoadOnly] [NotReplicated]
+	Property Color3 Studio."function" Color [<📁> LoadOnly] [NotReplicated]
+	Property Color3 Studio."local" Color [<📁> LoadOnly] [NotReplicated]
+	Property Color3 Studio."nil" Color [<📁> LoadOnly] [NotReplicated]
+	Property Color3 Studio."self" Color [<📁> LoadOnly] [NotReplicated]
+	Property Color3 Studio."type" Color [<📁> LoadOnly] [NotReplicated]
 	Property Color3 Studio.Background Color [<📁> LoadOnly] [NotReplicated]
+	Property Color3 Studio.Bool Color [<📁> LoadOnly] [NotReplicated]
 	Property Color3 Studio.Built-in Function Color [<📁> LoadOnly] [NotReplicated]
 	Property Color3 Studio.Comment Color [<📁> LoadOnly] [NotReplicated]
 	Property Color3 Studio.Current Line Highlight Color [<📁> LoadOnly] [NotReplicated]
@@ -2906,11 +2928,14 @@ Class Studio : Instance [NotCreatable] [Service] [NotReplicated]
 	Property Color3 Studio.Debugger Error Line Color [<📁> LoadOnly] [NotReplicated]
 	Property Color3 Studio.Error Color [<📁> LoadOnly] [NotReplicated]
 	Property Color3 Studio.Find Selection Background Color [<📁> LoadOnly] [NotReplicated]
+	Property Color3 Studio.Function Name Color [<📁> LoadOnly] [NotReplicated]
 	Property Color3 Studio.Keyword Color [<📁> LoadOnly] [NotReplicated]
 	Property Color3 Studio.Matching Word Background Color [<📁> LoadOnly] [NotReplicated]
+	Property Color3 Studio.Method Color [<📁> LoadOnly] [NotReplicated]
 	Property Color3 Studio.Number Color [<📁> LoadOnly] [NotReplicated]
 	Property Color3 Studio.Operator Color [<📁> LoadOnly] [NotReplicated]
 	Property Color3 Studio.Preprocessor Color [<📁> LoadOnly] [NotReplicated]
+	Property Color3 Studio.Property Color [<📁> LoadOnly] [NotReplicated]
 	Property Enum<StudioScriptEditorColorPresets> Studio.Script Editor Color Preset
 	Property Color3 Studio.Selection Background Color [<📁> LoadOnly] [NotReplicated]
 	Property Color3 Studio.Selection Color [<📁> LoadOnly] [NotReplicated]
@@ -3073,6 +3098,7 @@ Class TextFilterResult : Instance [NotCreatable] [NotReplicated]
 Class TextService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function Instance TextService:FilterStringAsync(string stringToFilter, int64 fromUserId, Enum<TextFilterContext> textContext = "PrivateChat") [Yields]
 	Function Vector2 TextService:GetTextSize(string string, int fontSize, Enum<Font> font, Vector2 frameSize)
+	Function void TextService:SetResolutionScale(float scale) {RobloxScriptSecurity}
 Class ThirdPartyUserService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function string ThirdPartyUserService:GetUserPlatformId() {RobloxScriptSecurity}
 	Function string ThirdPartyUserService:GetUserPlatformName() {RobloxScriptSecurity}
@@ -3454,6 +3480,9 @@ Enum ActuatorType
 	EnumItem ActuatorType.None : 0
 	EnumItem ActuatorType.Motor : 1
 	EnumItem ActuatorType.Servo : 2
+Enum AdornCullingMode
+	EnumItem AdornCullingMode.Automatic : 0
+	EnumItem AdornCullingMode.Never : 1
 Enum AlignType
 	EnumItem AlignType.Parallel : 0
 	EnumItem AlignType.Perpendicular : 1
@@ -4870,6 +4899,17 @@ Enum StudioScriptEditorColorCategories
 	EnumItem StudioScriptEditorColorCategories.Comment : 4
 	EnumItem StudioScriptEditorColorCategories.Keyword : 5
 	EnumItem StudioScriptEditorColorCategories.Builtin : 6
+	EnumItem StudioScriptEditorColorCategories.Method : 7
+	EnumItem StudioScriptEditorColorCategories.Property : 8
+	EnumItem StudioScriptEditorColorCategories.Nil : 9
+	EnumItem StudioScriptEditorColorCategories.Bool : 10
+	EnumItem StudioScriptEditorColorCategories.Function : 11
+	EnumItem StudioScriptEditorColorCategories.Local : 12
+	EnumItem StudioScriptEditorColorCategories.Self : 13
+	EnumItem StudioScriptEditorColorCategories.Export : 14
+	EnumItem StudioScriptEditorColorCategories.Type : 15
+	EnumItem StudioScriptEditorColorCategories.FunctionName : 16
+	EnumItem StudioScriptEditorColorCategories.TODO : 17
 Enum StudioScriptEditorColorPresets
 	EnumItem StudioScriptEditorColorPresets.RobloxDefault : 0
 	EnumItem StudioScriptEditorColorPresets.Extra1 : 1
@@ -4975,6 +5015,17 @@ Enum StudioStyleGuideColor
 	EnumItem StudioStyleGuideColor.InfoBarWarningBackground : 96
 	EnumItem StudioStyleGuideColor.InfoBarWarningText : 97
 	EnumItem StudioStyleGuideColor.ScriptEditorCurrentLine : 98
+	EnumItem StudioStyleGuideColor.ScriptMethod : 99
+	EnumItem StudioStyleGuideColor.ScriptProperty : 100
+	EnumItem StudioStyleGuideColor.ScriptNil : 101
+	EnumItem StudioStyleGuideColor.ScriptBool : 102
+	EnumItem StudioStyleGuideColor.ScriptFunction : 103
+	EnumItem StudioStyleGuideColor.ScriptLocal : 104
+	EnumItem StudioStyleGuideColor.ScriptSelf : 105
+	EnumItem StudioStyleGuideColor.ScriptExport : 106
+	EnumItem StudioStyleGuideColor.ScriptType : 107
+	EnumItem StudioStyleGuideColor.ScriptFunctionName : 108
+	EnumItem StudioStyleGuideColor.ScriptTodo : 109
 Enum StudioStyleGuideModifier
 	EnumItem StudioStyleGuideModifier.Default : 0
 	EnumItem StudioStyleGuideModifier.Selected : 1

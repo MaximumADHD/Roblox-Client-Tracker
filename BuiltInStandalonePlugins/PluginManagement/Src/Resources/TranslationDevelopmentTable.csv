@@ -1,6 +1,8 @@
 Key,Source,en-us
 Studio.PluginInstallation.Details.HttpRequests, ,HTTP Requests
 Studio.PluginInstallation.Details.HttpRequestInfo, ,"By allowing HTTP requests, 3rd party developers are able to gather information on your machine. These might be harmless (such as crash logs) or malicious (such as gathering information on your game's scripts). Disabling HTTP requests might result in a non-working plugin."
+Studio.PluginInstallation.Details.ScriptInjection, ,Script Injection
+Studio.PluginInstallation.Details.ScriptInjectionInfo, ,"By allowing Script Injection, this plugin may insert or modify scripts that perform malicious actions anywhere in your game (scripts can pretty much do anything). Disabling Script Injection might result in a non-working plugin."
 Studio.PluginInstallation.Meta.PluginWindowName, ,Plugin Installation
 Studio.PluginInstallation.Main.InstallingPlugin, ,Installing plugin : {1}
 Studio.PluginInstallation.Main.ErrorNoId, ,Error : No plugin to install
@@ -37,4 +39,7 @@ Studio.PluginInstallation.Moved.Title, ,Roblox Studio
 Studio.PluginInstallation.Moved.MovedMessage, ,We've moved.
 Studio.PluginInstallation.Moved.NewLocationMessage, ,Get plugins from Marketplace under Toolbox.
 Studio.PluginInstallation.Moved.GotIt, ,Got it
+Studio.PluginInstallation.PluginEntry.NoPermissionsRequested, ,No Permissions Requested
 Studio.PluginInstallation.PluginEntry.HttpRequest, ,HTTP Requests
+Studio.PluginInstallation.PluginEntry.ScriptInjectionAllowed, ,Script Injection Allowed
+Studio.PluginInstallation.PluginEntry.ScriptInjectionDenied, ,Script Injection Denied

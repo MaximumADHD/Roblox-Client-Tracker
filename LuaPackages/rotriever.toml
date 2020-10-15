@@ -9,11 +9,12 @@ proxy = "https://github.com/roblox/rotriever-proxy-index"
 Roact = "github.com/roblox/roact@1.2"
 Rodux = "github.com/roblox/rodux@1.0"
 RoactRodux = "github.com/roblox/roact-rodux@0.2"
-RoactNavigation = "github.com/roblox/roact-navigation@0.2"
+RoactNavigationOld = "github.com/roblox/roact-navigation@0.2.8"
+RoactNavigation = "github.com/roblox/roact-navigation@0.3.0"
 Cryo = "github.com/roblox/cryo@1.0"
-LuaChatDeps = { git = "https://github.rbx.com/Roblox/lua-chat-deps" }
-LuaDiscussionsDeps = { git = "https://github.rbx.com/Roblox/lua-discussions-deps" }
-LuaSocialLibrariesDeps = { git = "https://github.rbx.com/Roblox/lua-social-libraries-deps" }
+LuaChatDeps = { git = "https://github.com/Roblox/lua-chat-deps" }
+LuaDiscussionsDeps = { git = "https://github.com/Roblox/lua-discussions-deps" }
+LuaSocialLibrariesDeps = { git = "https://github.com/Roblox/lua-social-libraries-deps" }
 PremiumUpsellDeps = { git = "https://github.com/Roblox/premium-upsell-deps" }
 AvatarExperienceDeps = { git = "https://github.com/Roblox/avatar-experience-deps" }
 UIBlox = { git = "https://github.com/Roblox/uiblox", rev = "master" }
@@ -21,23 +22,23 @@ Otter = "github.com/roblox/otter@0.1"
 t = "github.com/roblox/t@1.0"
 enumerate = "github.com/roblox/enumerate@1.0.0"
 PolicyProvider = { git = "https://github.com/Roblox/lua-roact-policy-provider", rev = "master" }
-Lumberyak = { git = "https://github.rbx.com/Roblox/lumberyak" }
+Lumberyak = { git = "https://github.com/Roblox/lumberyak" }
 StringUtilities = "github.com/Roblox/string-utilities@1.0.0"
 UrlBuilder = "github.com/Roblox/url-builder@1.0.2"
 
 # The following packages were ported from AppTempCommon
-Promise = { git = "https://github.rbx.com/Roblox/lua-promise" }
-Result = { git = "https://github.rbx.com/Roblox/lua-result" }
-tutils = { git = "https://github.rbx.com/Roblox/tutils" }
+Promise = { git = "https://github.com/Roblox/lua-promise" }
+Result = { git = "https://github.com/Roblox/lua-result" }
+tutils = { git = "https://github.com/Roblox/tutils" }
 
 PurchasePrompt = { git = "https://github.com/Roblox/PurchasePromptScript-Roact", rev = "master" }
 
-InGameMenuDependencies = { git = "https://github.rbx.com/Roblox/in-game-menu-dependencies", rev = "master" }
+InGameMenuDependencies = { git = "https://github.com/Roblox/in-game-menu-dependencies", rev = "master" }
 
 RoactGamepad = "github.com/roblox/roact-gamepad@0.4.4"
 
 [dev_dependencies]
-TestEZ = "github.com/roblox/testez@0.3.3"
+TestEZ = "github.com/roblox/testez@0.4.0"
 Rhodium = "github.com/roblox/rhodium@0.2.5"
 
 [patch."https://github.rbx.com/roblox/uiblox"]

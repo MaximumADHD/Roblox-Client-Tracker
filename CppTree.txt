@@ -119,6 +119,17 @@ RBX
 	{
 		DSServiceLRUCache
 	}
+	Descriptors
+	{
+		AttributePropertyDescriptor
+		IEnumPropertyDescriptor
+		IMemberDescriptor
+		IPropertyDescriptor
+		IRefPropertyDescriptor
+		StandardEnumPropertyDescriptor
+		StandardPropertyDescriptor
+		StandardRefPropertyDescriptor
+	}
 	DigitalSignature
 	{
 		Signer
@@ -346,14 +357,13 @@ RBX
 		ISocketDelegate
 		LanguageClientBase
 		LanguageServerBase
-		LexUpdateObserver
 		LSPManager
 		LSPSocket
 		LuauLanguageServer
 		LuauLanguageServerExt
 		LuauScriptHighlighter
-		LuauScriptLexMap
 		LuauScriptTextProvider
+		LuauSemanticHighlighter
 	}
 	Lua
 	{
@@ -741,7 +751,6 @@ RBX
 	AllCanSelectCommand
 	AnalyticsProviderBase
 	AnalyticsProviderDeveloperEventIngest
-	AnalyticsProviderPlayFab
 	AnalyticsService
 	AnalyticsServiceJob
 	AnchorJoint

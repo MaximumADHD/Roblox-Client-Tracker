@@ -8,7 +8,18 @@
             "String": "#ADF195",
             "Comment": "#666666",
             "Keyword": "#F86D7C",
-            "Builtin": "#84D6F7"
+            "Builtin": "#84D6F7",
+            "Method": "#64EFEF",
+            "Property": "#64EF00",
+            "Nil": "#F86D7C",
+            "Bool": "#F86D7C",
+            "Function": "#F86D7C",
+            "Local": "#F86D7C",
+            "Self": "#F86D7C",
+            "Export": "#F86D7C",
+            "Type": "#F86D7C",
+            "FunctionName": "#77FFFF",
+            "TODO": "#007F09"
         },
         "Extra1": {
             "Default": "#CCCCCC",
@@ -17,7 +28,18 @@
             "String": "#CE9178",
             "Comment": "#6A9955",
             "Keyword": "#C586C0",
-            "Builtin": "#569CD6"
+            "Builtin": "#569CD6",
+            "Method": "#DCDCAA",
+            "Property": "#64EF00",
+            "Nil": "#C586C0",
+            "Bool": "#C586C0",
+            "Function": "#C586C0",
+            "Local": "#C586C0",
+            "Self": "#C586C0",
+            "Export": "#CCCCCC",
+            "Type": "#CCCCCC",
+            "FunctionName": "#C586C0",
+            "TODO": "#6A9955"
         },
         "Extra2": {
             "Default": "#CCCCCC",
@@ -26,7 +48,18 @@
             "String": "#E6DB74",
             "Comment": "#75715E",
             "Keyword": "#F92472",
-            "Builtin": "#CCCCCC"
+            "Builtin": "#CCCCCC",
+            "Method": "#DCDCAA",
+            "Property": "#64EF00",
+            "Nil": "#C586C0",
+            "Bool": "#C586C0",
+            "Function": "#C586C0",
+            "Local": "#C586C0",
+            "Self": "#C586C0",
+            "Export": "#CCCCCC",
+            "Type": "#CCCCCC",
+            "FunctionName": "#C586C0",
+            "TODO": "#6A9955"
         },
         "Custom": {
             "Default": "#CCCCCC",
@@ -35,7 +68,18 @@
             "String": "#ADF195",
             "Comment": "#666666",
             "Keyword": "#F86D7C",
-            "Builtin": "#84D6F7"
+            "Builtin": "#84D6F7",
+            "Method": "#64EFEF",
+            "Property": "#CCCCCC",
+            "Nil": "#F86D7C",
+            "Bool": "#F86D7C",
+            "Function": "#F86D7C",
+            "Local": "#F86D7C",
+            "Self": "#F86D7C",
+            "Export": "#CCCCCC",
+            "Type": "#F86D7C",
+            "FunctionName": "#77FFFF",
+            "TODO": "#666666"
         }
     },
     "Colors": [{
@@ -317,6 +361,94 @@
         }, {
             "ScriptBuiltInFunction": {
                 "Default": "#84D6F7"
+            }
+        }, {
+            "ScriptMethod": {
+                "Default": "#00007F"
+            }
+        }, {
+            "ScriptProperty": {
+                "Default": "#00007F"
+            }
+        }, {
+            "ScriptNil": {
+                "Default": "#00007F"
+            }
+        }, {
+            "ScriptBool": {
+                "Default": "#00007F"
+            }
+        }, {
+            "ScriptFunction": {
+                "Default": "#00007F"
+            }
+        }, {
+            "ScriptLocal": {
+                "Default": "#00007F"
+            }
+        }, {
+            "ScriptSelf": {
+                "Default": "#00007F"
+            }
+        }, {
+            "ScriptExport": {
+                "Default": "#00007F"
+            }
+        }, {
+            "ScriptType": {
+                "Default": "#00007F"
+            }
+        }, {
+            "ScriptFunctionName": {
+                "Default": "#00007F"
+            }
+        }, {
+            "ScriptTodo": {
+                "Default": "#00007F"
+            }
+        }, {
+            "ScriptMethod": {
+                "Default": "#00007F"
+            }
+        }, {
+            "ScriptProperty": {
+                "Default": "#00007F"
+            }
+        }, {
+            "ScriptNil": {
+                "Default": "#00007F"
+            }
+        }, {
+            "ScriptBool": {
+                "Default": "#00007F"
+            }
+        }, {
+            "ScriptFunction": {
+                "Default": "#00007F"
+            }
+        }, {
+            "ScriptLocal": {
+                "Default": "#00007F"
+            }
+        }, {
+            "ScriptSelf": {
+                "Default": "#00007F"
+            }
+        }, {
+            "ScriptExport": {
+                "Default": "#00007F"
+            }
+        }, {
+            "ScriptType": {
+                "Default": "#00007F"
+            }
+        }, {
+            "ScriptFunctionName": {
+                "Default": "#00007F"
+            }
+        }, {
+            "ScriptTodo": {
+                "Default": "#00007F"
             }
         }, {
             "ScriptWarning": {

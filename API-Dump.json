@@ -5980,9 +5980,12 @@
                         "Write": "None"
                     },
                     "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
+                        "CanLoad": false,
+                        "CanSave": false
                     },
+                    "Tags": [
+                        "NotReplicated"
+                    ],
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "float"
@@ -6082,9 +6085,12 @@
                         "Write": "None"
                     },
                     "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
+                        "CanLoad": false,
+                        "CanSave": false
                     },
+                    "Tags": [
+                        "NotReplicated"
+                    ],
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "float"
@@ -9781,6 +9787,24 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "RegisterDefaultSessionKey",
+                    "Parameters": [
+                        {
+                            "Name": "sessionKey",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "None"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "RegisterEncryptedAsset",
                     "Parameters": [
                         {
@@ -9792,6 +9816,31 @@
                         },
                         {
                             "Name": "encryptionKey",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "None"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "RegisterSessionEncryptedAsset",
+                    "Parameters": [
+                        {
+                            "Name": "contentId",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "Content"
+                            }
+                        },
+                        {
+                            "Name": "sessionKey",
                             "Type": {
                                 "Category": "Primitive",
                                 "Name": "string"
@@ -14357,6 +14406,50 @@
                     }
                 },
                 {
+                    "Category": "Debugging",
+                    "MemberType": "Property",
+                    "Name": "ClippedRect",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "Hidden",
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "Rect"
+                    }
+                },
+                {
+                    "Category": "Debugging",
+                    "MemberType": "Property",
+                    "Name": "IsNotOccluded",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "Hidden",
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
                     "Category": "Localization",
                     "MemberType": "Property",
                     "Name": "Localize",
@@ -14379,6 +14472,28 @@
                     }
                 },
                 {
+                    "Category": "Debugging",
+                    "MemberType": "Property",
+                    "Name": "RawRect2D",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "Hidden",
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "Rect"
+                    }
+                },
+                {
                     "Category": "Localization",
                     "MemberType": "Property",
                     "Name": "RootLocalizationTable",
@@ -14393,6 +14508,28 @@
                     "ValueType": {
                         "Category": "Class",
                         "Name": "LocalizationTable"
+                    }
+                },
+                {
+                    "Category": "Debugging",
+                    "MemberType": "Property",
+                    "Name": "TotalGroupScale",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "Hidden",
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
                     }
                 }
             ],
@@ -16831,6 +16968,28 @@
         {
             "Members": [
                 {
+                    "Category": "Debugging",
+                    "MemberType": "Property",
+                    "Name": "AbsoluteCanvasSize",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "Hidden",
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "Vector2"
+                    }
+                },
+                {
                     "Category": "Scrolling",
                     "MemberType": "Property",
                     "Name": "AbsoluteWindowSize",
@@ -16937,6 +17096,28 @@
                     }
                 },
                 {
+                    "Category": "Debugging",
+                    "MemberType": "Property",
+                    "Name": "HorizontalBarRect",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "Hidden",
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "Rect"
+                    }
+                },
+                {
                     "Category": "Scrolling",
                     "MemberType": "Property",
                     "Name": "HorizontalScrollBarInset",
@@ -16951,6 +17132,28 @@
                     "ValueType": {
                         "Category": "Enum",
                         "Name": "ScrollBarInset"
+                    }
+                },
+                {
+                    "Category": "Debugging",
+                    "MemberType": "Property",
+                    "Name": "MaxCanvasPosition",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "Hidden",
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "Vector2"
                     }
                 },
                 {
@@ -17070,6 +17273,28 @@
                     "ValueType": {
                         "Category": "DataType",
                         "Name": "Content"
+                    }
+                },
+                {
+                    "Category": "Debugging",
+                    "MemberType": "Property",
+                    "Name": "VerticalBarRect",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "Hidden",
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "Rect"
                     }
                 },
                 {
@@ -18253,6 +18478,20 @@
                         "Category": "Enum",
                         "Name": "ZIndexBehavior"
                     }
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetLayoutNodeTree",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Dictionary"
+                    },
+                    "Security": "None",
+                    "Tags": [
+                        "Deprecated"
+                    ]
                 }
             ],
             "MemoryCategory": "Instances",
@@ -19364,6 +19603,23 @@
         },
         {
             "Members": [
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "AdornCullingMode",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Enum",
+                        "Name": "AdornCullingMode"
+                    }
+                },
                 {
                     "Category": "Data",
                     "MemberType": "Property",
@@ -22955,6 +23211,24 @@
                     "Tags": [
                         "Deprecated"
                     ]
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "ApplyDescriptionBlocking",
+                    "Parameters": [
+                        {
+                            "Name": "humanoidDescription",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "Instance"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity"
                 },
                 {
                     "MemberType": "Function",
@@ -30618,6 +30892,31 @@
         },
         {
             "Members": [
+                {
+                    "MemberType": "Function",
+                    "Name": "EncryptStringForPlayerId",
+                    "Parameters": [
+                        {
+                            "Name": "toEncrypt",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Name": "playerId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int64"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "string"
+                    },
+                    "Security": "None"
+                }
             ],
             "MemoryCategory": "Instances",
             "Name": "NetworkServer",
@@ -50688,6 +50987,146 @@
         {
             "Members": [
                 {
+                    "Category": "Script Editor Colors",
+                    "MemberType": "Property",
+                    "Name": "\"TODO\" Color",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "NotReplicated"
+                    ],
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "Color3"
+                    }
+                },
+                {
+                    "Category": "Script Editor Colors",
+                    "MemberType": "Property",
+                    "Name": "\"export\" Color",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "NotReplicated"
+                    ],
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "Color3"
+                    }
+                },
+                {
+                    "Category": "Script Editor Colors",
+                    "MemberType": "Property",
+                    "Name": "\"function\" Color",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "NotReplicated"
+                    ],
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "Color3"
+                    }
+                },
+                {
+                    "Category": "Script Editor Colors",
+                    "MemberType": "Property",
+                    "Name": "\"local\" Color",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "NotReplicated"
+                    ],
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "Color3"
+                    }
+                },
+                {
+                    "Category": "Script Editor Colors",
+                    "MemberType": "Property",
+                    "Name": "\"nil\" Color",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "NotReplicated"
+                    ],
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "Color3"
+                    }
+                },
+                {
+                    "Category": "Script Editor Colors",
+                    "MemberType": "Property",
+                    "Name": "\"self\" Color",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "NotReplicated"
+                    ],
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "Color3"
+                    }
+                },
+                {
+                    "Category": "Script Editor Colors",
+                    "MemberType": "Property",
+                    "Name": "\"type\" Color",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "NotReplicated"
+                    ],
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "Color3"
+                    }
+                },
+                {
                     "Category": "Tools",
                     "MemberType": "Property",
                     "Name": "Active Color",
@@ -50909,6 +51348,26 @@
                     "ValueType": {
                         "Category": "Enum",
                         "Name": "ListDisplayMode"
+                    }
+                },
+                {
+                    "Category": "Script Editor Colors",
+                    "MemberType": "Property",
+                    "Name": "Bool Color",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "NotReplicated"
+                    ],
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "Color3"
                     }
                 },
                 {
@@ -51379,6 +51838,26 @@
                     }
                 },
                 {
+                    "Category": "Script Editor Colors",
+                    "MemberType": "Property",
+                    "Name": "Function Name Color",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "NotReplicated"
+                    ],
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "Color3"
+                    }
+                },
+                {
                     "Category": "Script Editor",
                     "MemberType": "Property",
                     "Name": "Highlight Current Line",
@@ -51630,6 +52109,26 @@
                 {
                     "Category": "Script Editor Colors",
                     "MemberType": "Property",
+                    "Name": "Method Color",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "NotReplicated"
+                    ],
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "Color3"
+                    }
+                },
+                {
+                    "Category": "Script Editor Colors",
+                    "MemberType": "Property",
                     "Name": "Number Color",
                     "Security": {
                         "Read": "None",
@@ -51807,6 +52306,26 @@
                     "Category": "Script Editor Colors",
                     "MemberType": "Property",
                     "Name": "Preprocessor Color",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "NotReplicated"
+                    ],
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "Color3"
+                    }
+                },
+                {
+                    "Category": "Script Editor Colors",
+                    "MemberType": "Property",
+                    "Name": "Property Color",
                     "Security": {
                         "Read": "None",
                         "Write": "None"
@@ -55232,6 +55751,24 @@
                         "Name": "Vector2"
                     },
                     "Security": "None"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "SetResolutionScale",
+                    "Parameters": [
+                        {
+                            "Name": "scale",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "float"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity"
                 },
                 {
                     "MemberType": "Function",
@@ -61808,6 +62345,19 @@
         {
             "Items": [
                 {
+                    "Name": "Automatic",
+                    "Value": 0
+                },
+                {
+                    "Name": "Never",
+                    "Value": 1
+                }
+            ],
+            "Name": "AdornCullingMode"
+        },
+        {
+            "Items": [
+                {
                     "Name": "Parallel",
                     "Value": 0
                 },
@@ -67840,6 +68390,50 @@
                 {
                     "Name": "Builtin",
                     "Value": 6
+                },
+                {
+                    "Name": "Method",
+                    "Value": 7
+                },
+                {
+                    "Name": "Property",
+                    "Value": 8
+                },
+                {
+                    "Name": "Nil",
+                    "Value": 9
+                },
+                {
+                    "Name": "Bool",
+                    "Value": 10
+                },
+                {
+                    "Name": "Function",
+                    "Value": 11
+                },
+                {
+                    "Name": "Local",
+                    "Value": 12
+                },
+                {
+                    "Name": "Self",
+                    "Value": 13
+                },
+                {
+                    "Name": "Export",
+                    "Value": 14
+                },
+                {
+                    "Name": "Type",
+                    "Value": 15
+                },
+                {
+                    "Name": "FunctionName",
+                    "Value": 16
+                },
+                {
+                    "Name": "TODO",
+                    "Value": 17
                 }
             ],
             "Name": "StudioScriptEditorColorCategories"
@@ -68262,6 +68856,50 @@
                 {
                     "Name": "InfoBarWarningText",
                     "Value": 97
+                },
+                {
+                    "Name": "ScriptMethod",
+                    "Value": 99
+                },
+                {
+                    "Name": "ScriptProperty",
+                    "Value": 100
+                },
+                {
+                    "Name": "ScriptNil",
+                    "Value": 101
+                },
+                {
+                    "Name": "ScriptBool",
+                    "Value": 102
+                },
+                {
+                    "Name": "ScriptFunction",
+                    "Value": 103
+                },
+                {
+                    "Name": "ScriptLocal",
+                    "Value": 104
+                },
+                {
+                    "Name": "ScriptSelf",
+                    "Value": 105
+                },
+                {
+                    "Name": "ScriptExport",
+                    "Value": 106
+                },
+                {
+                    "Name": "ScriptType",
+                    "Value": 107
+                },
+                {
+                    "Name": "ScriptFunctionName",
+                    "Value": 108
+                },
+                {
+                    "Name": "ScriptTodo",
+                    "Value": 109
                 }
             ],
             "Name": "StudioStyleGuideColor"

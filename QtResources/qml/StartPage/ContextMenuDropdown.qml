@@ -129,13 +129,9 @@ Item {
         {
             canShare = gameHasRootPlace && !isDraft;
         }
-        else if(loginManager.getFFlagStudioRemoveShareOptionFromLocalFiles())
-        {
-            canShare = gameHasRootPlace;
-        }
         else
         {
-            canShare = (gameHasRootPlace || isLocalFile);
+            canShare = gameHasRootPlace;
         }
         var teamCreateEnabled = model.isTeamCreateEnabled;
 

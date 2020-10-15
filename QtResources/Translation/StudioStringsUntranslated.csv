@@ -412,6 +412,7 @@ Studio.App.FileType.LocalizationTableCSV,,LocalizationTable CSV,LocalizationTabl
 Studio.App.FileType.MeshFiles,,Mesh Files,Mesh Files
 Studio.App.FileType.Meshes,,Meshes,Meshes
 Studio.App.FileType.ObjModelFiles,,Object Model Files,Object Model Files
+Studio.App.FileType.RobloxAllFiles,,All Roblox Files,All Roblox Files
 Studio.App.FileType.RobloxAllModelFiles,,All Roblox Model Files,All Roblox Model Files
 Studio.App.FileType.RobloxAllPlaceFiles,,All Roblox Place Files,All Roblox Place Files
 Studio.App.FileType.RobloxInternalProjectFiles,,Roblox Internal Project Files,Roblox Internal Project Files
@@ -419,7 +420,7 @@ Studio.App.FileType.RobloxLuaScriptFiles,,Roblox Lua Scripts,Roblox Lua Scripts
 Studio.App.FileType.RobloxModelFiles,,Roblox Model Files,Roblox Model Files
 Studio.App.FileType.RobloxPlaceFiles,,Roblox Place Files,Roblox Place Files
 Studio.App.FileType.RobloxProjectFiles,,Roblox Project Files,Roblox Project Files
-Studio.App.FileType.RobloxWorkspaceFiles,,All Roblox Files,All Roblox Files
+Studio.App.FileType.RobloxWorkspaceFiles,,Roblox Workspace Files,Roblox Workspace Files
 Studio.App.FileType.RobloxXMLModelFiles,,Roblox XML Model Files,Roblox XML Model Files
 Studio.App.FileType.RobloxXMLPlaceFiles,,Roblox XML Place Files,Roblox XML Place Files
 Studio.App.FileType.ScriptFiles,,Script Files,Script Files
@@ -1027,6 +1028,7 @@ Studio.App.Property.AutoSaveIntervalMinutes,,Auto-Save Interval (Minutes),Auto-S
 Studio.App.Property.AutoSavePath,,Auto-Save Path,Auto-Save Path
 Studio.App.Property.BackgroundColor,,Background Color,Background Color
 Studio.App.Property.BasicObjectsDisplayMode,,Basic Objects Display Mode,Basic Objects Display Mode
+Studio.App.Property.BoolColor,,Bool Color,Bool Color
 Studio.App.Property.BuiltInFunctionColor,,Built-in Function Color,Built-in Function Color
 Studio.App.Property.CameraMouseWheelSpeed,,Camera Mouse Wheel Speed,Camera Mouse Wheel Speed
 Studio.App.Property.CameraShiftSpeed,,Camera Shift Speed,Camera Shift Speed
@@ -1057,12 +1059,15 @@ Studio.App.Property.EnableInternalBetaFeatures,,Enable Internal Beta Features,En
 Studio.App.Property.EnableInternalFeatures,,Enable Internal Features,Enable Internal Features
 Studio.App.Property.ErrorColor,,Error Color,Error Color
 Studio.App.Property.ErrorReporting,,Error Reporting,Error Reporting
+Studio.App.Property.ExportColor,,"""export"" Color","""export"" Color"
 Studio.App.Property.ExportMergeByMaterial,,Export Merge By Material,Export Merge By Material
 Studio.App.Property.FindSelectionBackgroundColor,,Find Selection Background Color,Find Selection Background Color
 Studio.App.Property.Font,,Font,Font
 Studio.App.Property.FormatOnPaste,,Format On Paste,Format On Paste
 Studio.App.Property.FormatOnType,,Format On Type,Format On Type
 Studio.App.Property.FrameRateManager,,Frame Rate Manager,Frame Rate Manager
+Studio.App.Property.FunctionColor,,"""function"" Color","""function"" Color"
+Studio.App.Property.FunctionNameColor,,Function Name Color,Function Name Color
 Studio.App.Property.GfxCard,,Gfx Card,Gfx Card
 Studio.App.Property.GraphicsMode,,Graphics Mode,Graphics Mode
 Studio.App.Property.HighlightCurrentLine,Should we highlight the line we are currently editing in ScriptTextEditor,Highlight Current Line,Highlight Current Line
@@ -1084,13 +1089,16 @@ Studio.App.Property.KeywordColor,,Keyword Color,Keyword Color
 Studio.App.Property.Language,,Language,Language
 Studio.App.Property.LineThickness,,Line Thickness,Line Thickness
 Studio.App.Property.LocalAssetsFolder,,Local Assets Folder,Local Assets Folder
+Studio.App.Property.LocalColor,,"""local"" Color","""local"" Color"
 Studio.App.Property.LuaDebuggerEnabled,,Debugger Enabled,Debugger Enabled
 Studio.App.Property.MatchingWordBackgroundColor,,Matching Word Background Color,Matching Word Background Color
 Studio.App.Property.MaximumOutputLines,,Maximum Output Lines,Maximum Output Lines
 Studio.App.Property.MaximumTableDepth,,Maximum Table Depth,Maximum Table Depth
 Studio.App.Property.MeshCacheSize,,Mesh Cache Size,Mesh Cache Size
 Studio.App.Property.MeshPartDetailLevel,,Mesh Detail Level,Mesh Detail Level
+Studio.App.Property.MethodColor,,Local Method Color,Local Method Color
 Studio.App.Property.NetworkOwnerRate,,Network Owner Rate,Network Owner Rate
+Studio.App.Property.NilColor,,"""nil"" Color","""nil"" Color"
 Studio.App.Property.NumberColor,,Number Color,Number Color
 Studio.App.Property.OnlyPlayAudioFromWindowInFocus,,Only Play Audio from Window in Focus,Only Play Audio from Window in Focus
 Studio.App.Property.OperatorColor,,Operator Color,Operator Color
@@ -1120,6 +1128,7 @@ Studio.App.Property.PrintPhysicsErrors,,Print PhysicsErrors,Print PhysicsErrors
 Studio.App.Property.PrintProperties,,Print Properties,Print Properties
 Studio.App.Property.PrintSplitMessage,,Print Split Message,Print Split Message
 Studio.App.Property.PrintStreamInstanceQuota,,Print Stream Instance Quota,Print Stream Instance Quota
+Studio.App.Property.PropertyColor,,Local Property Color,Local Property Color
 Studio.App.Property.QualityLevel,,Quality Level,Quality Level
 Studio.App.Property.ReceiveRate,,Receive Rate,Receive Rate
 Studio.App.Property.ReloadAssets,,ReloadAssets,ReloadAssets
@@ -1142,6 +1151,7 @@ Studio.App.Property.SelectColor,,Select Color,Select Color
 Studio.App.Property.SelectHoverColor,,Select/Hover Color,Select/Hover Color
 Studio.App.Property.SelectionBackgroundColor,,Selection Background Color,Selection Background Color
 Studio.App.Property.SelectionColor,,Selection Color,Selection Color
+Studio.App.Property.SelfColor,,"""self"" Color","""self"" Color"
 Studio.App.Property.ServerAudioBehavior,,Server Audio Behavior,Server Audio Behavior
 Studio.App.Property.ShowActiveAnimationAsset,,Show Active Animation Asset,Show Active Animation Asset
 Studio.App.Property.ShowBoundingBoxes,,Show Bounding Boxes,Show Bounding Boxes
@@ -1161,6 +1171,7 @@ Studio.App.Property.ShowWhitespace,,Show Whitespace,Show Whitespace
 Studio.App.Property.SkipClosingBracketsAndQuotes,,Skip Closing Brackets and Quotes,Skip Closing Brackets and Quotes
 Studio.App.Property.StringColor,,String Color,String Color
 Studio.App.Property.SystemProductName,,System Product Name,System Product Name
+Studio.App.Property.TODOColor,,TODO Color,TODO Color
 Studio.App.Property.TabWidth,,Tab Width,Tab Width
 Studio.App.Property.TextColor,,Text Color,Text Color
 Studio.App.Property.TextWrapping,,Text Wrapping,Text Wrapping
@@ -1172,6 +1183,7 @@ Studio.App.Property.TickCountPreciseOverride,,Tick Count Precise Override,Tick C
 Studio.App.Property.TouchSendRate,,Touch Send Rate,Touch Send Rate
 Studio.App.Property.TrackDataTypes,,Track Data Types,Track Data Types
 Studio.App.Property.TrackPhysicsDetails,,Track Physics Details,Track Physics Details
+Studio.App.Property.TypeColor,,"""type"" Color","""type"" Color"
 Studio.App.Property.UsePhysicsPacketCache,,Use Physics Packet Cache,Use Physics Packet Cache
 Studio.App.Property.VideoMemory,,Video Memory,Video Memory
 Studio.App.Property.WarningColor,,Warning Color,Warning Color
@@ -1939,7 +1951,7 @@ Studio.App.RobloxOutputRibbonDropdown.LogMode,,Log Mode,Log Mode
 Studio.App.RobloxOutputRibbonDropdown.MessageTypes,,Message Types,Message Types
 Studio.App.RobloxOutputRibbonDropdown.None,,None,None
 Studio.App.RobloxOutputRibbonDropdown.NumberContexts1,,%1 Contexts,%1 Contexts
-Studio.App.RobloxOutputRibbonDropdown.NumberMessages1,,%1 Messages,%1 Messages
+Studio.App.RobloxOutputRibbonDropdown.NumberTypes1,,%1 Types,%1 Types
 Studio.App.RobloxOutputRibbonDropdown.PlaySolo,,NonNetworked,NonNetworked
 Studio.App.RobloxOutputRibbonDropdown.RobloxPlugin,,Roblox Plugin,Roblox Plugin
 Studio.App.RobloxOutputRibbonDropdown.SelectMessageOnly,,Select Messages Only,Select Messages Only

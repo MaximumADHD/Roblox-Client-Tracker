@@ -15,9 +15,13 @@ AdornSelfLitHighlightVS,Vertex
 AdornSelfLitVS,Vertex
 AdornUnlitFS,Fragment
 AdornVS,Vertex
+AdvSkyEnvFixFS,Fragment
 AdvSkyEnvFS,Fragment
+AdvSkyFixFS,Fragment
 AdvSkyFS,Fragment
+AdvSkyLinearEnvFixFS,Fragment
 AdvSkyLinearEnvFS,Fragment
+AdvSkyLinearFixFS,Fragment
 AdvSkyLinearFS,Fragment
 AdvSkyVS,Vertex
 AdvStarsFS,Fragment
@@ -252,6 +256,7 @@ ImageProcessLQNeonFS,Fragment
 ImGuiFS,Fragment
 ImGuiVS,Vertex
 LightGridCullCS,Compute
+LightGridDebugFS,Fragment
 LightGridPointSplatFS,Fragment
 LightGridPointSplatVS,Vertex
 LinearizeDepthAAFS,Fragment

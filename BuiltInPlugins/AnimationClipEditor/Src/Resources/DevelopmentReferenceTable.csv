@@ -29,6 +29,7 @@ Studio.AnimationClipEditor.ContextMenu.RenameKeyframe, ,Rename Key Keyframe
 Studio.AnimationClipEditor.ContextMenu.ChangeDuration, ,Change Duration
 Studio.AnimationClipEditor.ContextMenu.EasingStyle, ,Easing Style
 Studio.AnimationClipEditor.ContextMenu.EasingDirection, ,Easing Direction
+Studio.AnimationClipEditor.ContextMenu.ToggleBoneVis, ,Toggle Microbone Visibility
 Studio.AnimationClipEditor.IKMenu.DisableIK, ,Disable IK
 Studio.AnimationClipEditor.IKMenu.EnableIK, ,Enable IK
 Studio.AnimationClipEditor.IKMenu.IKMode, ,IK Mode
@@ -95,6 +96,10 @@ Studio.AnimationClipEditor.Menu.Overwrite,{1},Do you want to overwrite existing 
 Studio.AnimationClipEditor.Menu.RenamePrompt, ,New Animation Name:
 Studio.AnimationClipEditor.Menu.RenameKeyframePrompt, ,New Keyframe Name
 Studio.AnimationClipEditor.Menu.SetPriority, ,Set Animation Priority
+Studio.AnimationClipEditor.Menu.Core, ,Core
+Studio.AnimationClipEditor.Menu.Idle, ,Idle
+Studio.AnimationClipEditor.Menu.Movement, ,Movement
+Studio.AnimationClipEditor.Menu.Action, ,Action
 Studio.AnimationClipEditor.Menu.AddAllTracks, ,Add All
 Studio.AnimationClipEditor.RigErrors.NoMotors, ,A model needs to have its parts joined together by Motor6Ds to properly animate.
 Studio.AnimationClipEditor.RigErrors.PartsAnchored, ,"All of the parts on this model are anchored, making it non-animatable. Please un-anchor the parts on this model."
