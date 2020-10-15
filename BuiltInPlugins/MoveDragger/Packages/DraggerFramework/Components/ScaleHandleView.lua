@@ -11,6 +11,10 @@ local Roact = require(Packages.Roact)
 -- Dragger Framework
 local Math = require(DraggerFramework.Utility.Math)
 
+local getEngineFeatureAdornCullingMode = require(DraggerFramework.Flags.getEngineFeatureAdornCullingMode)
+
+local CULLING_MODE = getEngineFeatureAdornCullingMode() and Enum.AdornCullingMode.Never or nil
+
 local ScaleHandleView = Roact.PureComponent:extend("ScaleHandleView")
 
 local HANDLE_RADIUS = 0.5
@@ -55,6 +59,7 @@ function ScaleHandleView:render()
 			Radius = radius,
 			Transparency = HANDLE_TRANSPARENCY_START,
 			ZIndex = 1,
+			AdornCullingMode = CULLING_MODE,
 		})
 	end
 
@@ -73,6 +78,7 @@ function ScaleHandleView:render()
 		Radius = radius,
 		Transparency = transparencyEnd,
 		ZIndex = 0,
+		AdornCullingMode = CULLING_MODE,
 	})
 
 	return Roact.createFragment(children)

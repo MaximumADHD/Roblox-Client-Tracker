@@ -2,8 +2,6 @@
 -- If the flags are defined in main, then it's possible for the tests run first
 -- And then error when trying to use flags that aren't yet defined
 
-game:DefineFastFlag("RemoveNilInstances", false)
-game:DefineFastFlag("UseRBXThumbInToolbox", false)
 game:DefineFastFlag("FixAssetConfigManageableGroups", false)
 game:DefineFastFlag("ShowAssetConfigReasons2", false)
 game:DefineFastFlag("DebugAssetConfigNetworkError", false)

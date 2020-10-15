@@ -7,7 +7,9 @@ local Plugin = DraggerFramework.Parent.Parent
 local Math = require(DraggerFramework.Utility.Math)
 local Roact = require(Plugin.Packages.Roact)
 
-local getFFlagDraggerSplit = require(DraggerFramework.Flags.getFFlagDraggerSplit)
+local getEngineFeatureAdornCullingMode = require(DraggerFramework.Flags.getEngineFeatureAdornCullingMode)
+
+local CULLING_MODE = getEngineFeatureAdornCullingMode() and Enum.AdornCullingMode.Never or nil
 
 local MoveHandleView = Roact.PureComponent:extend("MoveHandleView")
 
@@ -24,7 +26,6 @@ local HANDLE_THIN_BY_FRAC = 0.34
 local HANDLE_THICK_BY_FRAC = 1.5
 
 function MoveHandleView:init()
-	assert(getFFlagDraggerSplit())
 end
 
 function MoveHandleView:render()
@@ -70,6 +71,7 @@ function MoveHandleView:render()
 			CFrame = self.props.Axis * CFrame.new(0, 0, -(offset + length * 0.5)),
 			Color3 = self.props.Color,
 			AlwaysOnTop = false,
+			AdornCullingMode = CULLING_MODE,
 		})
 		if not self.props.Thin then
 			children.Head = Roact.createElement("ConeHandleAdornment", {
@@ -80,6 +82,7 @@ function MoveHandleView:render()
 				CFrame = coneAtCFrame,
 				Color3 = self.props.Color,
 				AlwaysOnTop = false,
+				AdornCullingMode = CULLING_MODE,
 			})
 		end
 	end
@@ -94,6 +97,7 @@ function MoveHandleView:render()
 			Color3 = self.props.Color,
 			AlwaysOnTop = true,
 			Transparency = self.props.Hovered and 0.0 or HANDLE_DIM_TRANSPARENCY,
+			AdornCullingMode = CULLING_MODE,
 		})
 		if not self.props.Thin then
 			children.DimmedHead = Roact.createElement("ConeHandleAdornment", {
@@ -105,6 +109,7 @@ function MoveHandleView:render()
 				Color3 = self.props.Color,
 				AlwaysOnTop = true,
 				Transparency = self.props.Hovered and 0.0 or HANDLE_DIM_TRANSPARENCY,
+				AdornCullingMode = CULLING_MODE,
 			})
 		end
 	elseif not self.props.Thin then
@@ -119,6 +124,7 @@ function MoveHandleView:render()
 					BackgroundColor3 = self.props.Color,
 					Position = UDim2.new(0, tipAtScreen.X - halfHandleSize, 0, tipAtScreen.Y - halfHandleSize),
 					Size = UDim2.new(0, SCREENSPACE_HANDLE_SIZE, 0, SCREENSPACE_HANDLE_SIZE),
+					AdornCullingMode = CULLING_MODE,
 				})
 			})
 		})

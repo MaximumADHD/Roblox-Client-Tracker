@@ -1,3 +1,5 @@
+game:DefineFastFlag("RigBuilderNoTwoFace", false)
+
 local RigCreator = {}
 
 local InsertService = game:GetService("InsertService")
@@ -254,9 +256,12 @@ local function r15RigImported(rig)
 
 	local r15Head = rig:WaitForChild("Head", 1) -- 1 second timeout
 
-	local face = Instance.new("Decal", r15Head)
-	face.Name = "face"
-	face.Texture = "rbxasset://textures/face.png"
+	local existingFace = r15Head:FindFirstChild("face") or r15Head:FindFirstChild("Face")
+	if not game:GetFastFlag("RigBuilderNoTwoFace") or existingFace == nil then
+		local face = Instance.new("Decal", r15Head)
+		face.Name = "face"
+		face.Texture = "rbxasset://textures/face.png"
+	end
 
 	return rig
 end

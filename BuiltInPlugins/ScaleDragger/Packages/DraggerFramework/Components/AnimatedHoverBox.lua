@@ -9,8 +9,6 @@ local DraggerFramework = script.Parent.Parent
 local Library = DraggerFramework.Parent.Parent
 local Roact = require(Library.Packages.Roact)
 
-local getFFlagDraggerSplit = require(DraggerFramework.Flags.getFFlagDraggerSplit)
-
 local ANIMATED_HOVER_BOX_UPDATE_BIND_NAME = "AnimatedHoverBoxUpdate"
 local MODEL_LINE_THICKNESS_SCALE = 2.5
 
@@ -30,9 +28,7 @@ function AnimatedHoverBox:init(initialProps)
 	assert(initialProps.SelectColor, "Missing required property 'SelectColor'.")
 	assert(initialProps.HoverColor, "Missing required property 'HoverColor'.")
 	assert(initialProps.LineThickness, "Missing required property 'LineThickness'.")
-	if getFFlagDraggerSplit() then
-		assert(initialProps.SelectionBoxComponent, "Missing required property 'SelectionBoxComponent'.")
-	end
+	assert(initialProps.SelectionBoxComponent, "Missing required property 'SelectionBoxComponent'.")
 
 	self:setState({
 		currentColor = getHoverColorForTime(
@@ -73,19 +69,11 @@ function AnimatedHoverBox:render()
 		lineThickness = lineThickness * MODEL_LINE_THICKNESS_SCALE
 	end
 
-	if getFFlagDraggerSplit() then
-		return Roact.createElement(self.props.SelectionBoxComponent, {
-			Adornee = self.props.HoverTarget,
-			Color3 = self.state.currentColor,
-			LineThickness = lineThickness,
-		})
-	else
-		return Roact.createElement("SelectionBox", {
-			Adornee = self.props.HoverTarget,
-			Color3 = self.state.currentColor,
-			LineThickness = lineThickness,
-		})
-	end
+	return Roact.createElement(self.props.SelectionBoxComponent, {
+		Adornee = self.props.HoverTarget,
+		Color3 = self.state.currentColor,
+		LineThickness = lineThickness,
+	})
 end
 
 return AnimatedHoverBox

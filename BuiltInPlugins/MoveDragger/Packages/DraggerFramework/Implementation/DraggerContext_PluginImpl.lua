@@ -7,12 +7,10 @@
 
 local DraggerFramework = script.Parent.Parent
 
-local SelectionWrapper_DEPRECATED = require(DraggerFramework.Utility.SelectionWrapper_DEPRECATED)
 local Analytics = require(DraggerFramework.Utility.Analytics)
 local setInsertPoint = require(DraggerFramework.Utility.setInsertPoint)
 
 local getEngineFeatureActiveInstanceHighlight = require(DraggerFramework.Flags.getEngineFeatureActiveInstanceHighlight)
-local getFFlagDraggerSplit = require(DraggerFramework.Flags.getFFlagDraggerSplit)
 
 local DraggerContext = {}
 DraggerContext.__index = DraggerContext
@@ -157,14 +155,8 @@ function DraggerContext:setMouseIcon(icon)
 	self._mouse.Icon = icon
 end
 
-if getFFlagDraggerSplit() then
-	function DraggerContext:getSelection()
-		return self._selection
-	end
-else
-	function DraggerContext:getSelectionWrapper()
-		return SelectionWrapper_DEPRECATED
-	end
+function DraggerContext:getSelection()
+	return self._selection
 end
 
 -- Are non-anchored parts in the world currently being physically simulated?

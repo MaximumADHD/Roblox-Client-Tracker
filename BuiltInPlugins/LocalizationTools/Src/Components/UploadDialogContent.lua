@@ -13,6 +13,8 @@ local UI = require(Plugin.Packages.Framework.UI)
 local Button = UI.Button
 local HoverArea = UI.HoverArea
 
+local FlagsList = require(Plugin.Src.Util.FlagsList)
+
 local UploadDialogContent = Roact.PureComponent:extend("UploadDialogContent")
 
 local function Line(props)
@@ -61,7 +63,12 @@ end
 
 function UploadDialogContent:render()
 	local props = self.props
-	local theme = props.Theme:get("UploadDialogContent")
+	local theme
+	if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+		theme = props.Stylizer
+	else
+		theme = props.Theme:get("UploadDialogContent")
+	end
 	local localization = props.Localization
 
 	local cancelCallback = props.CancelCallback
@@ -258,7 +265,8 @@ function UploadDialogContent:render()
 end
 
 ContextServices.mapToProps(UploadDialogContent, {
-	Theme = ContextServices.Theme,
+	Stylizer = FlagsList:get("FFlagRefactorDevFrameworkTheme") and ContextServices.Stylizer or nil,
+	Theme = (not FlagsList:get("FFlagRefactorDevFrameworkTheme")) and ContextServices.Theme or nil,
 	Localization = ContextServices.Localization,
 })
 

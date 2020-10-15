@@ -4,8 +4,6 @@ local DraggerFramework = script.Parent.Parent
 
 local SelectionHelper = require(DraggerFramework.Utility.SelectionHelper)
 
-local getFFlagDraggerSplit = require(DraggerFramework.Flags.getFFlagDraggerSplit)
-
 -- Minimum distance (pixels) required for a drag to select parts.
 local DRAG_SELECTION_THRESHOLD = 3
 
@@ -13,11 +11,9 @@ local DragSelector = {}
 DragSelector.__index = DragSelector
 
 function DragSelector.new(selectionWrapper, beginBoxSelect, endBoxSelect)
-	if getFFlagDraggerSplit() then
-		assert(selectionWrapper ~= nil)
-		assert(beginBoxSelect ~= nil)
-		assert(endBoxSelect ~= nil)
-	end
+	assert(selectionWrapper ~= nil)
+	assert(beginBoxSelect ~= nil)
+	assert(endBoxSelect ~= nil)
 	local self = {
 		_isDragging = false,
 		_selectionBeforeDrag = {},
@@ -80,51 +76,9 @@ function DragSelector:beginDrag(draggerContext, startLocation)
 	assert(not self._isDragging, "Cannot begin drag when already dragging.")
 	self._isDragging = true
 
-	if getFFlagDraggerSplit() then
-		self._dragCandidates = self._beginBoxSelect(draggerContext)
-		self._selectionBeforeDrag = self._selectionWrapper:get()
-		self._dragStartLocation = startLocation or draggerContext:getMouseLocation()
-	else
-		local shouldSelectIndividually = draggerContext:isAltKeyDown()
-
-		self._dragCandidates = {}
-		self._selectionBeforeDrag = draggerContext:getSelectionWrapper():Get()
-		self._dragStartLocation = startLocation or draggerContext:getMouseLocation()
-
-		local getSelectableCache = {}
-		local alreadyAddedSet = {}
-		local descendants = Workspace:GetDescendants()
-		for _, object in ipairs(descendants) do
-			if object:IsA("BasePart") then
-				if not object.Locked then
-					local selectable = SelectionHelper.getSelectableWithCache(object,
-						getSelectableCache, shouldSelectIndividually)
-					if selectable and not alreadyAddedSet[selectable] then
-						local center
-						if selectable:IsA("Tool") then
-							center = object.Position
-						elseif selectable:IsA("Model") then
-							center = selectable:GetBoundingBox().Position
-						else
-							center = selectable.Position
-						end
-						alreadyAddedSet[selectable] = true
-						table.insert(self._dragCandidates, {
-							center = center,
-							object = selectable,
-						})
-					end
-				end
-			elseif object:IsA("Attachment") then
-				if object.Visible or draggerContext:areConstraintDetailsShown() then
-					table.insert(self._dragCandidates, {
-						center = object.WorldPosition,
-						object = object,
-					})
-				end
-			end
-		end
-	end
+	self._dragCandidates = self._beginBoxSelect(draggerContext)
+	self._selectionBeforeDrag = self._selectionWrapper:get()
+	self._dragStartLocation = startLocation or draggerContext:getMouseLocation()
 end
 
 --[[
@@ -152,68 +106,36 @@ function DragSelector:updateDrag(draggerContext)
 
 	local newSelection = {}
 	local didChangeSelection = false
-	if getFFlagDraggerSplit() then
-		for _, candidate in ipairs(self._dragCandidates) do
-			local inside = true
-			for _, plane in ipairs(planes) do
-				-- getFFlagDraggerSplit: candidate.center -> candidate.Center
-				local dot = (candidate.Center - plane.origin):Dot(plane.normal)
-				if dot < 0 then
-					inside = false
-					break
-				end
-			end
-			if inside ~= candidate.Selected then
-				candidate.Selected = inside
-				didChangeSelection = true
-			end
-			if inside then
-				-- getFFlagDraggerSplit: candidate.object -> candidate.Selectable
-				table.insert(newSelection, candidate.Selectable)
+	for _, candidate in ipairs(self._dragCandidates) do
+		local inside = true
+		for _, plane in ipairs(planes) do
+			local dot = (candidate.Center - plane.origin):Dot(plane.normal)
+			if dot < 0 then
+				inside = false
+				break
 			end
 		end
-	else
-		for _, candidate in ipairs(self._dragCandidates) do
-			local inside = true
-			for _, plane in ipairs(planes) do
-				local dot = (candidate.center - plane.origin):Dot(plane.normal)
-				if dot < 0 then
-					inside = false
-					break
-				end
-			end
-			if inside ~= candidate.selected then
-				candidate.selected = inside
-				didChangeSelection = true
-			end
-			if inside then
-				table.insert(newSelection, candidate.object)
-			end
+		if inside ~= candidate.Selected then
+			candidate.Selected = inside
+			didChangeSelection = true
+		end
+		if inside then
+			table.insert(newSelection, candidate.Selectable)
 		end
 	end
 
 	if didChangeSelection then
-		if getFFlagDraggerSplit() then
-			newSelection = SelectionHelper.updateSelectionWithMultipleSelectables(
-				newSelection, self._selectionBeforeDrag,
-				shouldXorSelection)
-			self._selectionWrapper:set(newSelection)
-		else
-			newSelection = SelectionHelper.updateSelectionWithMultipleParts(
-				newSelection, self._selectionBeforeDrag,
-				shouldXorSelection,
-				shouldDrillSelection)
-			draggerContext:getSelectionWrapper():Set(newSelection)
-		end
+		newSelection = SelectionHelper.updateSelectionWithMultipleSelectables(
+			newSelection, self._selectionBeforeDrag,
+			shouldXorSelection)
+		self._selectionWrapper:set(newSelection)
 	end
 end
 
 function DragSelector:commitDrag(draggerContext)
 	self:updateDrag(draggerContext)
 
-	if getFFlagDraggerSplit() then
-		self._endBoxSelect(draggerContext)
-	end
+	self._endBoxSelect(draggerContext)
 
 	self._selectionBeforeDrag = {}
 	self._dragStartLocation = nil

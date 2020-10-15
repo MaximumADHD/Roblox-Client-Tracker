@@ -19,6 +19,8 @@ local AnalyticsContext = require(Plugin.Src.ContextServices.AnalyticsContext)
 local LabeledImageButton = require(Plugin.Src.Components.LabeledImageButton)
 local EmbeddedTableUtil = require(Plugin.Src.Util.EmbeddedTableUtil)
 
+local FlagsList = require(Plugin.Src.Util.FlagsList)
+
 local EmbeddedTableSection = Roact.PureComponent:extend("EmbeddedTableSection")
 
 function EmbeddedTableSection:init()
@@ -32,7 +34,12 @@ end
 
 function EmbeddedTableSection:render()
 	local props = self.props
-	local theme = props.Theme:get("EmbeddedTableSection")
+	local theme
+	if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+		theme = props.Stylizer
+	else
+		theme = props.Theme:get("EmbeddedTableSection")
+	end
 	local localization = props.Localization
 	local analytics = props.Analytics:get()
 	local layoutOrder = props.LayoutOrder
@@ -110,7 +117,8 @@ end
 
 ContextServices.mapToProps(EmbeddedTableSection, {
 	Plugin = ContextServices.Plugin,
-	Theme = ContextServices.Theme,
+	Stylizer = FlagsList:get("FFlagRefactorDevFrameworkTheme") and ContextServices.Stylizer or nil,
+	Theme = (not FlagsList:get("FFlagRefactorDevFrameworkTheme")) and ContextServices.Theme or nil,
 	Localization = ContextServices.Localization,
 	Analytics = AnalyticsContext,
 })

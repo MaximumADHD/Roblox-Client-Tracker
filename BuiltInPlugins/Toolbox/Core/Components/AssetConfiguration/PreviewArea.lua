@@ -45,11 +45,9 @@ local getNetwork = ContextGetter.getNetwork
 
 local PreviewArea = Roact.PureComponent:extend("PreviewArea")
 
-local FFlagUseRBXThumbInToolbox = game:GetFastFlag("UseRBXThumbInToolbox")
-
 local FFlagEnablePreviewTabSelection = settings():GetFFlag("EnablePreviewTabSelection")
 
-local THUMBNAIL_SIZE = FFlagUseRBXThumbInToolbox and Constants.ASSET_THUMBNAIL_REQUESTED_IMAGE_SIZE or 110
+local THUMBNAIL_SIZE = Constants.ASSET_THUMBNAIL_REQUESTED_IMAGE_SIZE
 local TITLE_HEIGHT = 25
 local THUMBNAIL_WIDTH = 150
 

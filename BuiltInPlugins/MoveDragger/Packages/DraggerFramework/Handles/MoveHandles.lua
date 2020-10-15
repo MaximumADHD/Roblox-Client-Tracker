@@ -10,7 +10,6 @@ local StandaloneSelectionBox = require(DraggerFramework.Components.StandaloneSel
 
 local MoveHandleView = require(DraggerFramework.Components.MoveHandleView)
 
-local getFFlagDraggerSplit = require(DraggerFramework.Flags.getFFlagDraggerSplit)
 local getFFlagHideMoveDraggerWarning = require(DraggerFramework.Flags.getFFlagHideMoveDraggerWarning)
 
 local ALWAYS_ON_TOP = true
@@ -50,8 +49,6 @@ local function snapToGridSize(distance, gridSize)
 end
 
 function MoveHandles.new(draggerContext, props, implementation)
-	assert(getFFlagDraggerSplit())
-
 	local self = {}
 	self._handles = {}
 	self._props = props or {}
@@ -327,6 +324,7 @@ function MoveHandles:_updateHandles()
 				Axis = handleBaseCFrame,
 				Color = handleDef.Color,
 				Scale = self._draggerContext:getHandleScale(handleBaseCFrame.Position),
+				AlwaysOnTop = ALWAYS_ON_TOP,
 			}
 		end
 	end

@@ -1,5 +1,8 @@
 local root = script.Parent.Parent
 
+-- load fast flags
+require(root.Bin.defineLuaFlags)
+
 -- constants
 local Constants = require(root.src.Constants)
 

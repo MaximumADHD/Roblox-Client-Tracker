@@ -8,7 +8,6 @@ local StudioService  = game:GetService("StudioService")
 
 local RobloxAPI = require(Plugin.Libs.Framework).RobloxAPI
 
-local FFlagUseRBXThumbInToolbox = game:GetFastFlag("UseRBXThumbInToolbox")
 local FFlagSmallerToolboxMinWidth = game:DefineFastFlag("SmallerToolboxMinWidth", false)
 local FFlagUseCategoryNameInToolbox = game:GetFastFlag("UseCategoryNameInToolbox")
 local FFlagToolboxUseNewPluginEndpoint = settings():GetFFlag("ToolboxUseNewPluginEndpoint")
@@ -124,7 +123,7 @@ Constants.ASSET_WIDTH_NO_PADDING = 75
 Constants.ASSET_INNER_PADDING = 4
 
 Constants.ASSET_THUMBNAIL_SIZE = Constants.ASSET_WIDTH_NO_PADDING
-Constants.ASSET_THUMBNAIL_REQUESTED_IMAGE_SIZE = FFlagUseRBXThumbInToolbox and 150 or 75 -- The endpoint only accepts certain sizes for thumbnails
+Constants.ASSET_THUMBNAIL_REQUESTED_IMAGE_SIZE = 150 -- The endpoint only accepts certain sizes for thumbnails
 Constants.THUMBNAIL_SIZE_LARGE = 420 -- The is the known largest size we support for fetching thumbnail.
 Constants.ASSET_ENDORSED_BADGE_ICON_SIZE = 20
 

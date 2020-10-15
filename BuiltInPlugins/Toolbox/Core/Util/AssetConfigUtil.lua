@@ -7,8 +7,6 @@ local Urls = require(Util.Urls)
 
 local DFIntFileMaxSizeBytes = tonumber(settings():GetFVariable("FileMaxSizeBytes"))
 
-local FFlagRemoveNilInstances = game:GetFastFlag("RemoveNilInstances")
-
 local StudioService = game:GetService("StudioService")
 
 local UILibrary = require(Plugin.Libs.UILibrary)
@@ -198,16 +196,10 @@ function AssetConfigUtil.getClonedInstances(instances)
 	local clonedInstances = {}
 
 	for i = 1, #instances do
-		if FFlagRemoveNilInstances then
-			local success, theClone = pcall(function()
-				return instances[i]:Clone()
-			end)
-			clonedInstances[#clonedInstances + 1] = success and theClone or nil
-		else
-			pcall(function()
-				clonedInstances[i] = instances[i]:Clone()
-			end)
-		end
+		local success, theClone = pcall(function()
+			return instances[i]:Clone()
+		end)
+		clonedInstances[#clonedInstances + 1] = success and theClone or nil
 	end
 
 	return clonedInstances

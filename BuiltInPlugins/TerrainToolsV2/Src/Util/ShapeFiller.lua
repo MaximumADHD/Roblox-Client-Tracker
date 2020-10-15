@@ -7,7 +7,6 @@ local getAABBRegion = require(script.Parent.getAABBRegion)
 local getShapeFunction = require(script.Parent.getShapeFunction)
 local quickWait = require(script.Parent.quickWait)
 
-local DFFlagEnableFillWedge = settings():GetFFlag("EnableFillWedge")
 local FIntSmoothTerrainMaxCppRegion = tonumber(settings():GetFVariable("SmoothTerrainMaxCppRegion")) or 4*1024*1024
 local FIntSmoothTerrainMaxLuaRegion = tonumber(settings():GetFVariable("SmoothTerrainMaxLuaRegion")) or 64*1024*1024
 
@@ -228,11 +227,7 @@ local function fillWedge(terrain, material, cframe, size)
 	-- If we can do this in 1 fill call then take the shortcut
 	-- This is the most common case
 	if not isRegionTooLarge(cframe, size) then
-		if DFFlagEnableFillWedge then
-			terrain:FillWedge(cframe, size, material)
-		else
-			terrain:FillBlock(cframe, size, material)
-		end
+		terrain:FillWedge(cframe, size, material)
 		return 1
 	end
 
@@ -334,12 +329,7 @@ local function fillWedge(terrain, material, cframe, size)
 				)
 			)
 			local sz = adjustedTriangleSize
-
-			if DFFlagEnableFillWedge then
-				terrain:FillWedge(cf, sz, material)
-			else
-				terrain:FillBlock(cf, sz, material)
-			end
+			terrain:FillWedge(cf, sz, material)
 			fills = fills + 1
 		end
 

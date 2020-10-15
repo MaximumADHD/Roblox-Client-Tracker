@@ -34,7 +34,7 @@ function UserCollaboratorItem:getPermissionForKey(key)
 	if not permShortName[key] then
 		-- unrecognized permission
 		return { Key = key, Display = tostring(key), Description = "Error: This permission is not recognized." }
-	end 
+	end
 
 	return {
 		Key = key,
@@ -52,51 +52,21 @@ function UserCollaboratorItem:getAvailablePermissions()
 
 	local localization = props.Localization
 
-	if game:GetFastFlag("StudioShowIndividualPermissionsForGroupGames") then
-		local editable = props.Editable
+	local editable = props.Editable
 
-		if isOwner then
-			return {self:getPermissionForKey(PermissionsConstants.OwnerKey),}
-		elseif not editable then
-			-- if not editable, just show current permission
-			return {self:getPermissionForKey(self:getCurrentPermission()),}
-		else
-			local permissions = {self:getPermissionForKey(PermissionsConstants.PlayKey)}
-
-			if (ownerType == Enum.CreatorType.User and isOwnerFriend) then
-				table.insert(permissions, self:getPermissionForKey(PermissionsConstants.EditKey))
-			end
-
-			return permissions
-		end
+	if isOwner then
+		return {self:getPermissionForKey(PermissionsConstants.OwnerKey),}
+	elseif not editable then
+		-- if not editable, just show current permission
+		return {self:getPermissionForKey(self:getCurrentPermission()),}
 	else
-		if isOwner then
-			return {
-				{
-					Key = PermissionsConstants.OwnerKey,
-					Display = localization:getText("AccessPermissions", "OwnerLabel"),
-					Description = localization:getText("AccessPermissions", "OwnerDescription"),
-				},
-			}
-		else
-			local permissions = {
-				{
-					Key = PermissionsConstants.PlayKey,
-					Display = localization:getText("AccessPermissions", "PlayLabel"),
-					Description = localization:getText("AccessPermissions", "PlayDescription"),
-				},
-			}
-	
-			if ownerType == Enum.CreatorType.User and isOwnerFriend then
-				table.insert(permissions, {
-					Key = PermissionsConstants.EditKey,
-					Display = localization:getText("AccessPermissions", "EditLabel"),
-					Description = localization:getText("AccessPermissions", "EditDescription"),
-				})
-			end
-	
-			return permissions
+		local permissions = {self:getPermissionForKey(PermissionsConstants.PlayKey)}
+
+		if (ownerType == Enum.CreatorType.User and isOwnerFriend) then
+			table.insert(permissions, self:getPermissionForKey(PermissionsConstants.EditKey))
 		end
+
+		return permissions
 	end
 end
 

@@ -100,7 +100,7 @@ local function setupImportedAvatar(avatar, avatarType)
 	avatar:MoveTo(setCameraFocusToFirstHit(10))
 	Selection:Set({ avatar })
 
-	if configurer then
+	if configurer and (not game:GetFastFlag("FixImporterCustomConfigurer") or avatarType ~= Constants.AVATAR_TYPE.CUSTOM) then
 		configurer:ConfigureImportedAvatar(avatar)
 	end
 end

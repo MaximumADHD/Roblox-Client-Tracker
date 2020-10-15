@@ -20,6 +20,7 @@ local PluginButton = StudioUI.PluginButton
 
 local AnalyticsContext = require(main.Src.ContextServices.AnalyticsContext)
 local MakeTheme = require(main.Src.Resources.MakeTheme)
+local PluginTheme = require(main.Src.Resources.PluginTheme)
 local EnglishStrings = main.Src.Resources.Localization.EnglishStrings
 local TranslatedStrings = main.Src.Resources.Localization.TranslatedStrings
 
@@ -27,6 +28,11 @@ local MainView = require(main.Src.Components.MainView)
 local MainReducer = require(main.Src.Reducers.MainReducer)
 local LoadPluginMetadata = require(main.Src.Thunks.LoadPluginMetadata)
 local Analytics = require(main.Src.Util.Analytics)
+
+local FlagsList = require(main.Src.Util.FlagsList)
+
+local PLUGIN_ICON = "rbxasset://textures/localizationTestingIcon.png"
+local WINDOW_SIZE = Vector2.new(300, 250)
 
 local MainPlugin = Roact.PureComponent:extend("MainPlugin")
 
@@ -45,7 +51,12 @@ function MainPlugin:init()
 		pluginName = "LocalizationTools",
 	})
 
-	self.theme = MakeTheme()
+	self.theme = nil
+	if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+		self.theme = PluginTheme
+	else
+		self.theme = MakeTheme()
+	end
 
 	self.api = ContextServices.API.new()
 
@@ -94,7 +105,10 @@ end
 
 function MainPlugin:renderButtons(toolbar, isEditMode)
 	local enabled = self.state.enabled
-	local theme = self.theme:get("Plugin")
+	local theme
+	if (not FlagsList:get("FFlagRefactorDevFrameworkTheme")) then
+		theme = self.theme:get("Plugin")
+	end
 
 	return {
 		Toggle = Roact.createElement(PluginButton, {
@@ -103,7 +117,7 @@ function MainPlugin:renderButtons(toolbar, isEditMode)
 			Enabled = isEditMode,
 			Title = self.localization:getText("Plugin", "RibbonBarButton"),
 			Tooltip = self.localization:getText("Plugin", "ToolTipMessage"),
-			Icon = theme.PluginIcon,
+			Icon = FlagsList:get("FFlagRefactorDevFrameworkTheme") and PLUGIN_ICON or theme.PluginIcon,
 			OnClick = self.toggleState,
 		}),
 	}
@@ -112,7 +126,10 @@ end
 function MainPlugin:render()
 	local props = self.props
 	local state = self.state
-	local theme = self.theme:get("Plugin")
+	local theme
+	if (not FlagsList:get("FFlagRefactorDevFrameworkTheme")) then
+		theme = self.theme:get("Plugin")
+	end
 	local plugin = props.Plugin
 	local enabled = state.enabled
 
@@ -133,7 +150,7 @@ function MainPlugin:render()
 			Title = self.localization:getText("Plugin", "WindowTitle"),
 			ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
 			InitialDockState = Enum.InitialDockState.Left,
-			Size = theme.WindowSize,
+			Size = FlagsList:get("FFlagRefactorDevFrameworkTheme") and WINDOW_SIZE or theme.WindowSize,
 			OnClose = self.onClose,
 			ShouldRestore = true,
 			OnWidgetRestored = self.onRestore,

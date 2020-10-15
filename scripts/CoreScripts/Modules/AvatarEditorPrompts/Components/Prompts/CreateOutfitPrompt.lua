@@ -8,10 +8,7 @@ local UIBlox = require(CorePackages.UIBlox)
 
 local InteractiveAlert = UIBlox.App.Dialog.Alert.InteractiveAlert
 local ButtonType = UIBlox.App.Button.Enum.ButtonType
-local ImageSetLabel = UIBlox.Core.ImageSet.Label
 local withStyle = UIBlox.Style.withStyle
-
-local Images = UIBlox.App.ImageSet.Images
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
@@ -22,14 +19,10 @@ local AvatarEditorPrompts = Components.Parent
 local HumanoidViewport = require(Components.HumanoidViewport)
 
 local SignalCreateOutfitPermissionDenied = require(AvatarEditorPrompts.Thunks.SignalCreateOutfitPermissionDenied)
-local PerformCreateOutfit = require(AvatarEditorPrompts.Thunks.PerformCreateOutfit)
+local CreateOutfitConfirmed = require(AvatarEditorPrompts.Actions.CreateOutfitConfirmed)
 
 local VIEWPORT_SIDE_PADDING = 10
 local SCREEN_SIZE_PADDING = 30
-local NAME_TEXTBOX_HEIGHT = 35
-
-local TEXTBOX_STROKE = Images["component_assets/circle_17_stroke_1"]
-local STROKE_SLICE_CENTER = Rect.new(8, 8, 8, 8)
 
 local CreateOutfitPrompt = Roact.PureComponent:extend("CreateOutfitPrompt")
 
@@ -39,15 +32,11 @@ CreateOutfitPrompt.validateProps = t.strictInterface({
 	humanoidDescription = t.instanceOf("HumanoidDescription"),
 	rigType = t.enum(Enum.HumanoidRigType),
 	--Dispatch
-	performCreateOutfit = t.callback,
+	createOutfitConfirmed = t.callback,
 	signalCreateOutfitPermissionDenied = t.callback,
 })
 
 function CreateOutfitPrompt:init()
-	self:setState({
-		outfitName = "",
-	})
-
 	self.middleContentRef = Roact.createRef()
 	self.contentSize, self.updateContentSize = Roact.createBinding(UDim2.new(1, 0, 0, 200))
 
@@ -63,10 +52,9 @@ function CreateOutfitPrompt:init()
 		local maxAllowedContentHeight = self.props.screenSize.Y - (SCREEN_SIZE_PADDING * 2) - alertNoContentHeight
 
 		local viewportMaxSize = self.middleContentRef:getValue().AbsoluteSize.X - ( VIEWPORT_SIDE_PADDING * 2)
-		local totalMaxHeight = viewportMaxSize + NAME_TEXTBOX_HEIGHT
 
-		if maxAllowedContentHeight > totalMaxHeight then
-			maxAllowedContentHeight = totalMaxHeight
+		if maxAllowedContentHeight > viewportMaxSize then
+			maxAllowedContentHeight = viewportMaxSize
 		end
 
 		if currentHeight ~= maxAllowedContentHeight then
@@ -74,75 +62,18 @@ function CreateOutfitPrompt:init()
 		end
 	end
 
-	self.confirmCreateOutfit = function()
-		self.props.performCreateOutfit(self.state.outfitName)
-	end
-
-	self.textUpdated = function(rbx)
-		self:setState({
-			outfitName = rbx.Text,
-		})
-	end
-
 	self.renderAlertMiddleContent = function()
 		return withStyle(function(styles)
-			local font = styles.Font
-			local theme = styles.Theme
-
 			return Roact.createElement("Frame", {
 				BackgroundTransparency = 1,
 				Size = self.contentSize,
 
 				[Roact.Ref] = self.middleContentRef,
 			}, {
-				HumanoidViewportFrame = Roact.createElement("Frame", {
-					BackgroundTransparency = 1,
-					Size = UDim2.new(1, 0, 1, -40),
-				}, {
-					HumanoidViewport = Roact.createElement(HumanoidViewport, {
-						humanoidDescription = self.props.humanoidDescription,
-						rigType = self.props.rigType,
-					})
+				HumanoidViewport = Roact.createElement(HumanoidViewport, {
+					humanoidDescription = self.props.humanoidDescription,
+					rigType = self.props.rigType,
 				}),
-
-				TextboxContainer = Roact.createElement("Frame", {
-					BackgroundTransparency = 1,
-					Size = UDim2.new(1, 0, 0, NAME_TEXTBOX_HEIGHT),
-					Position = UDim2.fromScale(0, 1),
-					AnchorPoint = Vector2.new(0, 1),
-				}, {
-					TextboxBorder = Roact.createElement(ImageSetLabel, {
-						BackgroundTransparency = 1,
-						Image = TEXTBOX_STROKE,
-						ImageColor3 = theme.UIDefault.Color,
-						ImageTransparency = theme.UIDefault.Transparency,
-						LayoutOrder = 3,
-						ScaleType = Enum.ScaleType.Slice,
-						Size = UDim2.new(1, 0, 1, -5),
-						Position = UDim2.fromScale(0, 1),
-						AnchorPoint = Vector2.new(0, 1),
-						SliceCenter = STROKE_SLICE_CENTER,
-					}, {
-						Textbox = Roact.createElement("TextBox", {
-							BackgroundTransparency = 1,
-							ClearTextOnFocus = false,
-							Font = font.Header2.Font,
-							FontSize = font.BaseSize * font.CaptionBody.RelativeSize,
-							PlaceholderColor3 = theme.TextDefault.Color,
-							PlaceholderText = RobloxTranslator:FormatByKey("CoreScripts.AvatarEditorPrompts.OutfitNamePlaceholder"),
-							Position = UDim2.new(0, 6, 0, 0),
-							Size = UDim2.new(1, -12, 1, 0),
-							TextColor3 = theme.TextEmphasis.Color,
-							TextSize = 16,
-							TextTruncate = Enum.TextTruncate.AtEnd,
-							Text = self.state.outfitName,
-							TextWrapped = true,
-							TextXAlignment = Enum.TextXAlignment.Left,
-							OverlayNativeInput = true,
-							[Roact.Change.Text] = self.textUpdated,
-						})
-					}),
-				})
 			})
 		end)
 	end
@@ -163,8 +94,7 @@ function CreateOutfitPrompt:render()
 				{
 					buttonType = ButtonType.PrimarySystem,
 					props = {
-						isDisabled = self.state.outfitName == "",
-						onActivated = self.confirmCreateOutfit,
+						onActivated = self.props.createOutfitConfirmed,
 						text = RobloxTranslator:FormatByKey("CoreScripts.AvatarEditorPrompts.CreateOutfitPromptYes"),
 					},
 				},
@@ -192,8 +122,8 @@ local function mapDispatchToProps(dispatch)
 			return dispatch(SignalCreateOutfitPermissionDenied)
 		end,
 
-		performCreateOutfit = function(outfitName)
-			return dispatch(PerformCreateOutfit(outfitName))
+		createOutfitConfirmed = function()
+			return dispatch(CreateOutfitConfirmed())
 		end,
 	}
 end

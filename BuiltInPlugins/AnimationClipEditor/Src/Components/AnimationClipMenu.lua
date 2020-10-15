@@ -110,10 +110,10 @@ function AnimationClipMenu:makePrioritySubMenu(localization, current)
 	return {
 		Text = localization:getText("Menu", "SetPriority"),
 		CurrentKey = current,
-		{Text = priority.Core.Name, Key = priority.Core, ItemSelected = setPriority},
-		{Text = priority.Idle.Name, Key = priority.Idle, ItemSelected = setPriority},
-		{Text = priority.Movement.Name, Key = priority.Movement, ItemSelected = setPriority},
-		{Text = priority.Action.Name, Key = priority.Action, ItemSelected = setPriority},
+		{Text = localization:getText("Menu", priority.Core.Name), Key = priority.Core, ItemSelected = setPriority},
+		{Text = localization:getText("Menu", priority.Idle.Name), Key = priority.Idle, ItemSelected = setPriority},
+		{Text = localization:getText("Menu", priority.Movement.Name), Key = priority.Movement, ItemSelected = setPriority},
+		{Text = localization:getText("Menu", priority.Action.Name), Key = priority.Action, ItemSelected = setPriority},
 	}
 end
 

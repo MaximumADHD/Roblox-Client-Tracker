@@ -1,12 +1,13 @@
 local Workspace = game:GetService("Workspace")
 
 local getSelectableWithCache = require(script.Parent.getSelectableWithCache)
+local shouldSelectSubPart = require(script.Parent.shouldSelectSubPart)
 
 return function(draggerContext)
 	local dragCandidates = {}
 
 	local areConstraintDetailsShown = draggerContext:areConstraintDetailsShown()
-	local shouldSelectIndividually = draggerContext:isAltKeyDown()
+	local shouldSelectIndividually = shouldSelectSubPart(draggerContext)
 	local getSelectableCache = {}
 	local alreadyAddedSet = {}
 	local descendants = Workspace:GetDescendants()

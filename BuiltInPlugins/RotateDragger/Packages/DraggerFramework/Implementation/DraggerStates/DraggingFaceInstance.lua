@@ -8,8 +8,6 @@ local DraggerStateType = require(DraggerFramework.Implementation.DraggerStateTyp
 local DragHelper = require(DraggerFramework.Utility.DragHelper)
 local StandardCursor = require(DraggerFramework.Utility.StandardCursor)
 
-local getFFlagDraggerSplit = require(DraggerFramework.Flags.getFFlagDraggerSplit)
-
 local SURFACE_TO_FACE = {
 	["TopSurface"] = "Top",
 	["BottomSurface"] = "Bottom",
@@ -34,6 +32,8 @@ function DraggingFaceInstance:enter()
 end
 
 function DraggingFaceInstance:leave()
+	self._draggerToolModel._draggerSchema.addUndoWaypoint(self._draggerToolModel._draggerContext, "Drag Face Instance")
+
 	if self._connectionToBreak then
 		self._connectionToBreak:Disconnect()
 	end
@@ -52,13 +52,7 @@ end
 
 function DraggingFaceInstance:processViewChanged()
 	local part, surface = DragHelper.getPartAndSurface(self._draggerToolModel._draggerContext:getMouseRay())
-	local configurableFaces
-
-	if getFFlagDraggerSplit() then
-		configurableFaces = self._draggerToolModel._selectionInfo.instancesWithConfigurableFace
-	else
-		configurableFaces = self._draggerToolModel._derivedWorldState._instancesWithConfigurableFace
-	end
+	local configurableFaces = self._draggerToolModel._selectionInfo.instancesWithConfigurableFace
 
 	if configurableFaces then
 		for _, instance in pairs(configurableFaces) do

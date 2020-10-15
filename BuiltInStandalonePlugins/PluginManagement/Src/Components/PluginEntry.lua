@@ -191,6 +191,7 @@ function PluginEntry:render()
 	local data = props.data
 	local allowedHttpCount = props.allowedHttpCount
 	local deniedHttpCount = props.deniedHttpCount
+	local allowedScriptInjection = props.allowedScriptInjection
 	local showMore = state.showMore
 
 	local localization = props.Localization
@@ -222,9 +223,16 @@ function PluginEntry:render()
 		- Constants.PLUGIN_CONTEXT_WIDTH,.5,0)
 
 	local hasHttpPermissions = false
+	local hasScriptInjectionPermissions = false
 	if FlagsList:get("FFlagEnablePluginPermissionsPage") then
 		hasHttpPermissions = (allowedHttpCount > 0) or (deniedHttpCount > 0)
 	end
+	if FlagsListFile:get("FFlagPluginManagementQ3ContentSecurity") then
+		hasScriptInjectionPermissions = (allowedScriptInjection ~= nil)
+	end
+	local hasPermissions = hasHttpPermissions or hasScriptInjectionPermissions
+	-- Q3_2020 new design: always show "no permissions" if we have no permissions
+	local showPermissions = FlagsListFile:get("FFlagPluginManagementQ3ContentSecurity") or (FlagsList:get("FFlagEnablePluginPermissionsPage") and hasPermissions)
 
 	return Roact.createElement("Frame", {
 		BackgroundColor3 = theme.BackgroundColor,
@@ -297,8 +305,7 @@ function PluginEntry:render()
 				TextSize = 16,
 			}),
 
-			HttpRequestOverview = FlagsList:get("FFlagEnablePluginPermissionsPage") and hasHttpPermissions
-				and Roact.createElement(HttpRequestOverview, {
+			HttpRequestOverview = showPermissions and Roact.createElement(HttpRequestOverview, {
 				assetId = data.assetId,
 				LayoutOrder = 3,
 			}),
@@ -557,6 +564,7 @@ if FlagsList:get("FFlagEnablePluginPermissionsPage") then
 		return {
 			allowedHttpCount = pluginPermissions and pluginPermissions.allowedHttpCount or 0,
 			deniedHttpCount = pluginPermissions and pluginPermissions.deniedHttpCount or 0,
+			allowedScriptInjection = pluginPermissions and pluginPermissions.allowedScriptInjection or nil,
 		}
 	end
 end

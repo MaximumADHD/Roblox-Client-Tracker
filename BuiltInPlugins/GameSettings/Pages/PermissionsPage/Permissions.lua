@@ -205,11 +205,9 @@ function Permissions:render()
 		-- here "Edit" refers to adding new collaborators, or changing the permission of collaborators
 		local canUserEditCollaborators = self:isLoggedInUserGameOwner() and self:isTeamCreate() and not self:isGroupGame()
 		local canUserSeeCollaborators = canUserEditCollaborators
-		if game:GetFastFlag("StudioShowIndividualPermissionsForGroupGames") then
-			-- group games show existing individual collaboraters; they can be removed but not edited
-			local canUserRemoveCollaborators = self:isLoggedInUserGameOwner() and self:isTeamCreate()
-			canUserSeeCollaborators = canUserEditCollaborators or canUserRemoveCollaborators
-		end
+		-- group games show existing individual collaboraters; they can be removed but not edited
+		local canUserRemoveCollaborators = self:isLoggedInUserGameOwner() and self:isTeamCreate()
+		canUserSeeCollaborators = canUserEditCollaborators or canUserRemoveCollaborators
 
 		local playabilityButtons = {
 			{

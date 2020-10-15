@@ -18,11 +18,7 @@ local getBoundingBoxScale = require(DraggerFramework.Utility.getBoundingBoxScale
 
 local StandaloneSelectionBox = require(DraggerFramework.Components.StandaloneSelectionBox)
 
-local getFFlagDraggerResizeLimit = require(DraggerFramework.Flags.getFFlagDraggerResizeLimit)
-
 local ScaleHandleView = require(Plugin.Src.ScaleHandleView)
-
-local getFFlagScaleDraggerPartBias = require(DraggerFramework.Flags.getFFlagScaleDraggerPartBias)
 
 local ScaleToolImpl = {}
 ScaleToolImpl.__index = ScaleToolImpl
@@ -129,10 +125,8 @@ function ScaleToolImpl:update(draggerToolState, derivedWorldState)
 	self:_updateHandles()
 end
 
-if getFFlagScaleDraggerPartBias() then
-	function ScaleToolImpl:shouldBiasTowardsObjects()
-		return true
-	end
+function ScaleToolImpl:shouldBiasTowardsObjects()
+	return true
 end
 
 function ScaleToolImpl:hitTest(mouseRay, ignoreExtraThreshold)
@@ -146,7 +140,7 @@ function ScaleToolImpl:hitTest(mouseRay, ignoreExtraThreshold)
 	end
 	if closestHandleId then
 		return closestHandleId, 0
-	elseif getFFlagScaleDraggerPartBias() and ignoreExtraThreshold then
+	elseif ignoreExtraThreshold then
 		return nil, 0
 	else
 		-- Second attempt to find a handle, now using closest distance to the ray
@@ -383,23 +377,16 @@ function ScaleToolImpl:_calculateMinimumSize(normalId)
 	if #self._partsToResize == 1 then
 		local gridSizeValue = self._draggerContext:getGridSize()
 		local partSize = self._partsToResize[1].Size
-		if getFFlagDraggerResizeLimit() then
-			local xmod = partSize.X % gridSizeValue
-			local ymod = partSize.Y % gridSizeValue
-			local zmod = partSize.Z % gridSizeValue
-			local modSize = Vector3.new(
-				xmod > 0 and xmod or gridSizeValue,
-				ymod > 0 and ymod or gridSizeValue,
-				zmod > 0 and zmod or gridSizeValue)
+		local xmod = partSize.X % gridSizeValue
+		local ymod = partSize.Y % gridSizeValue
+		local zmod = partSize.Z % gridSizeValue
+		local modSize = Vector3.new(
+			xmod > 0 and xmod or gridSizeValue,
+			ymod > 0 and ymod or gridSizeValue,
+			zmod > 0 and zmod or gridSizeValue)
 
-			local hardMinSize = Vector3.new(MIN_PART_SIZE, MIN_PART_SIZE, MIN_PART_SIZE)
-			self._minimumSize = hardMinSize:Max(modSize)
-		else
-			local hardMinSize = Vector3.new(MIN_PART_SIZE, MIN_PART_SIZE, MIN_PART_SIZE)
-			local gridSize = Vector3.new(gridSizeValue, gridSizeValue, gridSizeValue)
-			local desiredMinSize = gridSize:Min(partSize)
-			self._minimumSize = desiredMinSize:Max(hardMinSize)
-		end
+		local hardMinSize = Vector3.new(MIN_PART_SIZE, MIN_PART_SIZE, MIN_PART_SIZE)
+		self._minimumSize = hardMinSize:Max(modSize)
 	else
 		local smallest = math.huge
 		for _, part in ipairs(self._partsToResize) do

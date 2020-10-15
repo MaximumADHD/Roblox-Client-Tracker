@@ -7,11 +7,18 @@ local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 local ContextServices = require(Plugin.Packages.Framework.ContextServices)
 
+local FlagsList = require(Plugin.Src.Util.FlagsList)
+
 local MessageFrame = Roact.PureComponent:extend("MessageFrame")
 
 function MessageFrame:render()
 	local props = self.props
-	local theme = props.Theme:get("MessageFrame")
+	local theme
+	if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+		theme = props.Stylizer
+	else
+		theme = props.Theme:get("MessageFrame")
+	end
 	local message = props.Message
 
 	return Roact.createElement("Frame", {
@@ -37,7 +44,8 @@ function MessageFrame:render()
 end
 
 ContextServices.mapToProps(MessageFrame, {
-	Theme = ContextServices.Theme,
+	Stylizer = FlagsList:get("FFlagRefactorDevFrameworkTheme") and ContextServices.Stylizer or nil,
+	Theme = (not FlagsList:get("FFlagRefactorDevFrameworkTheme")) and ContextServices.Theme or nil,
 })
 
 local function mapStateToProps(state, _)

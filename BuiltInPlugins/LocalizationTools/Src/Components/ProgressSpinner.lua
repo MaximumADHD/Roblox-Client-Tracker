@@ -7,6 +7,8 @@ local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 local ContextServices = require(Plugin.Packages.Framework.ContextServices)
 
+local FlagsList = require(Plugin.Src.Util.FlagsList)
+
 local ProgressSpinner = Roact.PureComponent:extend("ProgressSpinner")
 
 local function createSpinnerTask(spinner)
@@ -52,7 +54,12 @@ end
 function ProgressSpinner:render()
 	local props = self.props
 	local enabled = props.IsBusy
-	local theme = props.Theme:get("ProgressSpinner")
+	local theme
+	if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+		theme = props.Stylizer
+	else
+		theme = props.Theme:get("ProgressSpinner")
+	end
 
 	return enabled and Roact.createElement("ImageLabel", {
 		Position = UDim2.new(0.5, 0, 0.5, 0),
@@ -70,7 +77,8 @@ function ProgressSpinner:render()
 end
 
 ContextServices.mapToProps(ProgressSpinner, {
-	Theme = ContextServices.Theme,
+	Stylizer = FlagsList:get("FFlagRefactorDevFrameworkTheme") and ContextServices.Stylizer or nil,
+	Theme = (not FlagsList:get("FFlagRefactorDevFrameworkTheme")) and ContextServices.Theme or nil,
 })
 
 local function mapStateToProps(state, _)

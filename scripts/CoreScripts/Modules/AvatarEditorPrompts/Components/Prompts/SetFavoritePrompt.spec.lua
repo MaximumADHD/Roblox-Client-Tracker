@@ -20,8 +20,7 @@ return function()
 	}
 
 	describe("SetFavoritePrompt", function()
-		--TODO: Fix after rebuilding robloxdev-cli
-		itFIXME("should create and destroy without errors", function()
+		it("should create and destroy without errors", function()
 			local SetFavoritePrompt = require(script.Parent.SetFavoritePrompt)
 
 			local store = Rodux.Store.new(Reducer, nil, {

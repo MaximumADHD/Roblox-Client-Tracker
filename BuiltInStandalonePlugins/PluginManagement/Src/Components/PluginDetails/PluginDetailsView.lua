@@ -7,6 +7,7 @@ local Constants = require(Plugin.Src.Util.Constants)
 
 local DetailsTopBar = require(Plugin.Src.Components.PluginDetails.DetailsTopBar)
 local HttpRequestHolder = require(Plugin.Src.Components.PluginDetails.HttpRequestHolder)
+local ScriptInjectionHolder = require(Plugin.Src.Components.PluginDetails.ScriptInjectionHolder)
 local ListItem = require(Plugin.Src.Components.PluginDetails.ListItem)
 
 local ContextServices = require(Plugin.Packages.Framework.ContextServices)
@@ -48,6 +49,7 @@ function PluginDetailsView:render()
 	local size = self.props.Size
 	local localization = self.props.Localization
 	local httpPermissions = self.props.httpPermissions
+	local scriptInjectionPermissions = self.props.scriptInjectionPermissions
 	local pluginData = self.props.pluginData
 
     local theme
@@ -149,6 +151,18 @@ function PluginDetailsView:render()
 					theme = theme,
 					title = localization:getText("Details", "HttpRequests"),
 				}),
+
+				ScriptInjectionPermissionContainer = FlagsList:get("FFlagPluginManagementQ3ContentSecurity") and next(scriptInjectionPermissions) and Roact.createElement(ListItem, {
+					LayoutOrder = 4,
+					renderContent = function()
+						return Roact.createElement(ScriptInjectionHolder, {
+							assetId = assetId,
+							scriptInjectionPermissions = scriptInjectionPermissions,
+						})
+					end,
+					theme = theme,
+					title = localization:getText("Details", "ScriptInjection"),
+				})
 			}),
 		}),
 	})
@@ -165,7 +179,8 @@ local function mapStateToProps(state, props)
 	local pluginPermissions = state.PluginPermissions[props.assetId]
 	return {
 		pluginData = plugins and plugins[props.assetId] or nil,
-		httpPermissions = pluginPermissions and pluginPermissions.httpPermissions or {}
+		httpPermissions = pluginPermissions and pluginPermissions.httpPermissions or {},
+		scriptInjectionPermissions = pluginPermissions and pluginPermissions.scriptInjectionPermissions or {},
 	}
 end
 

@@ -89,7 +89,7 @@ return function()
 			local parts, originalCFrameMap, weld = createTestWeldConstraint()
 
 			local partMover = PartMover.new()
-			partMover:setDragged({parts[1]}, originalCFrameMap, false, Vector3.new(), {})
+			partMover:setDragged({parts[1]}, originalCFrameMap, true, Vector3.new(), {})
 			local welded = weld.Enabled
 			partMover:commit()
 

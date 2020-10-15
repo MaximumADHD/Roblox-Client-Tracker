@@ -51,6 +51,7 @@ function RigUtils.getOrCreateMicroboneFolder()
 	if not folder then
 		folder = Instance.new("Folder", Workspace)
 		folder.Name = "RBX_MICROBONE_NODES"
+		folder.Archivable = false
 	end
 	return folder
 end
@@ -95,7 +96,7 @@ local function alignBoneLink(parentPos, childPos)
 	return CFrame.fromMatrix(parentPos, rightVector, upVector2)
 end
 
-local function createBoneLink(bone, folder)
+local function createBoneLink(bone, folder, visualizeBones)
 	for _, child in ipairs(bone:GetChildren()) do
 		if child:IsA(Constants.BONE_CLASS_NAME) then
 			local nodePosition = RigUtils.getBoneCFrame(bone).p
@@ -107,9 +108,12 @@ local function createBoneLink(bone, folder)
 				boneLink = Instance.new("Part", folder)
 				boneLink.Transparency = 1
 				boneLink.Name = linkName
+				boneLink.Archivable = false
 				Adorn:Cone("Cone", boneLink, Constants.BONE_LINK_TRANSPARENCY, Constants.BONE_CONE_COLOR, 0)
 				Adorn:Line("Line", boneLink, 1, Constants.BONE_LINK_COLOR, 0, 0)
 			end
+			boneLink.Cone.Transparency = not visualizeBones and 1 or 0
+			boneLink.Line.Transparency = not visualizeBones and 1 or 0
 			boneLink.Cone.Radius = length / Constants.LENGTH_TO_RADIUS_RATIO
 			boneLink.Cone.Height = length
 			boneLink.Line.Length = length
@@ -118,7 +122,7 @@ local function createBoneLink(bone, folder)
 	end
 end
 
-local function createBoneNode(bone, folder)
+local function createBoneNode(bone, folder, visualizeBones)
 	local nodePosition = RigUtils.getBoneCFrame(bone).p
 	local nodeName = bone.Name .."Node"
 	local boneNode = folder:FindFirstChild(nodeName)
@@ -126,14 +130,16 @@ local function createBoneNode(bone, folder)
 		boneNode = Instance.new("Part", folder)
 		boneNode.Transparency = 1
 		boneNode.Name = nodeName
+		boneNode.Archivable = false
 		Adorn:Sphere("Sphere", boneNode, Constants.BONE_NODE_TRANSPARENCY, Constants.BONE_NODE_COLOR, 0)
 	end
 	boneNode.Sphere.Radius = getLinkLength(bone) / Constants.LENGTH_TO_RADIUS_RATIO
+	boneNode.Sphere.Transparency = not visualizeBones and 1 or 0
 	boneNode.CFrame = CFrame.new(nodePosition)
-	createBoneLink(bone, folder)
+	createBoneLink(bone, folder, visualizeBones)
 end
 
-function RigUtils.updateMicrobones(rig)
+function RigUtils.updateMicrobones(rig, visualizeBones)
 	if not rig or type(rig) == "table" then
 		return
 	end
@@ -141,7 +147,7 @@ function RigUtils.updateMicrobones(rig)
 
 	local bones = RigUtils.getBones(rig)
 	for _, bone in ipairs(bones) do
-		createBoneNode(bone, folder)
+		createBoneNode(bone, folder, visualizeBones)
 	end
 end
 

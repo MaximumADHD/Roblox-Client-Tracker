@@ -1,3 +1,5 @@
+--!nolint LocalUnused
+--^ DEVTOOLS-4490
 local ContentProvider = game:GetService("ContentProvider")
 local BaseUrl = ContentProvider.BaseUrl
 local AssetUrl = BaseUrl .."asset/?id="

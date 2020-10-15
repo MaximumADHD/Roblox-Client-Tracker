@@ -5,7 +5,6 @@
 
 local DraggerFramework = script.Parent.Parent
 
-local getFFlagDraggerSplit = require(DraggerFramework.Flags.getFFlagDraggerSplit)
 local getFFlagRevertCtrlScale = require(DraggerFramework.Flags.getFFlagRevertCtrlScale)
 
 local DraggerToolModel = require(DraggerFramework.Implementation.DraggerToolModel)
@@ -13,46 +12,25 @@ local DraggerToolModel = require(DraggerFramework.Implementation.DraggerToolMode
 local DraggerToolFixture = {}
 DraggerToolFixture.__index = DraggerToolFixture
 
-if getFFlagDraggerSplit() then
-	function DraggerToolFixture.new(draggerContext, draggerSchema, draggerSettings)
-		draggerSettings = draggerSettings or {}
+function DraggerToolFixture.new(draggerContext, draggerSchema, draggerSettings)
+	draggerSettings = draggerSettings or {}
 
-		local self = setmetatable({
-			_draggerContext = draggerContext,
-			_viewBoundsDirty = true,
-			_selectionBoundsDirty = true,
-		}, DraggerToolFixture)
+	local self = setmetatable({
+		_draggerContext = draggerContext,
+		_viewBoundsDirty = true,
+		_selectionBoundsDirty = true,
+	}, DraggerToolFixture)
 
-		self._draggerToolModel =
-			DraggerToolModel.new(
-				draggerContext,
-				draggerSchema,
-				draggerSettings,
-				function() end,
-				function() self._viewBoundsDirty = true end,
-				function() self._selectionBoundsDirty = true end)
+	self._draggerToolModel =
+		DraggerToolModel.new(
+			draggerContext,
+			draggerSchema,
+			draggerSettings,
+			function() end,
+			function() self._viewBoundsDirty = true end,
+			function() self._selectionBoundsDirty = true end)
 
-		return self
-	end
-else
-	function DraggerToolFixture.new(props, draggerContext, toolImplementation)
-		local self = setmetatable({
-			_draggerContext = draggerContext,
-			_viewBoundsDirty = true,
-			_selectionBoundsDirty = true,
-		}, DraggerToolFixture)
-
-		self._draggerToolModel =
-			DraggerToolModel.new(
-				props,
-				toolImplementation,
-				draggerContext,
-				function() end,
-				function() self._viewBoundsDirty = true end,
-				function() self._selectionBoundsDirty = true end)
-
-		return self
-	end
+	return self
 end
 
 function DraggerToolFixture:getModel()

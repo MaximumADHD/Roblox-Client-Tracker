@@ -12,6 +12,7 @@ local Cryo = require(Plugin.Cryo)
 local StepAnimation = require(Plugin.Src.Thunks.Playback.StepAnimation)
 local SetRootInstance = require(Plugin.Src.Actions.SetRootInstance)
 local SetAnimationData = require(Plugin.Src.Actions.SetAnimationData)
+local SetSelectedKeyframes = require(Plugin.Src.Actions.SetSelectedKeyframes)
 local AddTrack = require(Plugin.Src.Thunks.AddTrack)
 local SortAndSetTracks = require(Plugin.Src.Thunks.SortAndSetTracks)
 local SetActive = require(Plugin.Src.Actions.SetActive)
@@ -26,6 +27,7 @@ return function()
 		local animationData = state.AnimationData
 
 		local playhead = state.Status.Playhead
+		local visualizeBones = state.Status.VisualizeBones
 
 		ChangeHistoryService:SetEnabled(false)
 		StudioService:CopyToClipboard("")
@@ -36,6 +38,7 @@ return function()
 			or (rootInstance and RigUtils.rigHasErrors(rootInstance)) then
 			store:dispatch(SetRootInstance(Cryo.None))
 			store:dispatch(SortAndSetTracks({}))
+			store:dispatch(SetSelectedKeyframes({}))
 			store:dispatch(SetAnimationData(nil))
 			return
 		end
@@ -56,7 +59,7 @@ return function()
 		if IsMicroboneSupportEnabled() then
 			RigUtils.clearMicrobones()
 			if rootInstance and not animationData then
-				RigUtils.updateMicrobones(rootInstance)
+				RigUtils.updateMicrobones(rootInstance, visualizeBones)
 			end
 		end
 		store:dispatch(StepAnimation(playhead))

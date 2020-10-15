@@ -24,12 +24,6 @@ return function()
 	local DraggerSchemaCore = Packages.DraggerSchemaCore
 	local DraggerSchema = require(DraggerSchemaCore.DraggerSchema)
 
-	local getFFlagDraggerSplit = require(DraggerFramework.Flags.getFFlagDraggerSplit)
-	if not getFFlagDraggerSplit() then
-		-- Not going to bother handling both branches of the split in the test
-		return
-	end
-
 	local DraggerToolFixture = require(DraggerFramework.DraggerTools.DraggerToolFixture)
 	local DraggerContext_FixtureImpl = require(DraggerFramework.Implementation.DraggerContext_FixtureImpl)
 
@@ -328,7 +322,6 @@ return function()
 			local background = setupXYDrag(context)
 
 			local part = Instance.new("Part", workspace)
-			part.Shape = Enum.PartType.Ball
 			part.Size = Vector3.new(2, 2, 2)
 			part.CFrame = CFrame.new()
 			part.FrontSurface = surfaceType
@@ -339,16 +332,19 @@ return function()
 			expect(part:GetChildren()[1].ClassName).to.equal(jointClass)
 		end
 
-		it("should should make a Rotate joint for a hinged sphere", function()
-			testSurfaceJointType(Enum.SurfaceType.Hinge, "Rotate")
+		-- Note: The purpose of these tests is to verify that post surface type
+		-- changes the draggers ignore Hinges / Motors and simply make Welds
+		-- for all surface types.
+		it("should should make a Weld joint for a hinged part", function()
+			testSurfaceJointType(Enum.SurfaceType.Hinge, "Weld")
 		end)
 
-		it("should should make a RotateV joint for a motored sphere", function()
-			testSurfaceJointType(Enum.SurfaceType.Motor, "RotateV")
+		it("should should make a Weld joint for a motored part", function()
+			testSurfaceJointType(Enum.SurfaceType.Motor, "Weld")
 		end)
 
-		it("should should make a RotateP joint for a stepping motored sphere", function()
-			testSurfaceJointType(Enum.SurfaceType.SteppingMotor, "RotateP")
+		it("should should make a Weld joint for a stepping motored part", function()
+			testSurfaceJointType(Enum.SurfaceType.SteppingMotor, "Weld")
 		end)
 	end)
 

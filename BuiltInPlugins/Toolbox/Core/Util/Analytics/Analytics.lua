@@ -15,6 +15,7 @@ local FFlagStudioToolboxInsertAssetCategoryAnalytics = settings():GetFFlag("Stud
 local FFlagToolboxFixAnalyticsBugs = game:GetFastFlag("ToolboxFixAnalyticsBugs")
 local FFlagBootstrapperTryAsset = game:GetFastFlag("BootstrapperTryAsset")
 local FFlagToolboxNewAssetAnalytics = game:GetFastFlag("ToolboxNewAssetAnalytics")
+local FFlagToolboxRestoreInsertEventName = game:DefineFastFlag("ToolboxRestoreInsertEventName", false)
 
 -- TODO CLIDEVSRVS-1689: StudioSession + StudioID
 local function getStudioSessionId()
@@ -134,8 +135,8 @@ function Analytics.onCategorySelected(oldCategory, newCategory)
 end
 
 function Analytics.onAssetInserted(assetId, searchTerm, assetIndex, currentCategory)
-	local context = FFlagToolboxFixAnalyticsBugs and "Marketplace" or "click"
-	local eventName = FFlagToolboxFixAnalyticsBugs and "ClickInsert" or "toolboxInsert"
+	local context = (not FFlagToolboxRestoreInsertEventName and FFlagToolboxFixAnalyticsBugs) and "Marketplace" or "click"
+	local eventName = (not FFlagToolboxRestoreInsertEventName and FFlagToolboxFixAnalyticsBugs) and "ClickInsert" or "toolboxInsert"
 
 	AnalyticsSenders.sendEventImmediately("studio", context, eventName, {
 		assetId = assetId,
@@ -150,8 +151,8 @@ function Analytics.onAssetInserted(assetId, searchTerm, assetIndex, currentCateg
 end
 
 function Analytics.onAssetDragInserted(assetId, searchTerm, assetIndex, currentCategory)
-	local context = FFlagToolboxFixAnalyticsBugs and "Marketplace" or "drag"
-	local eventName = FFlagToolboxFixAnalyticsBugs and "DragInsert" or "toolboxInsert"
+	local context = (not FFlagToolboxRestoreInsertEventName and FFlagToolboxFixAnalyticsBugs) and "Marketplace" or "drag"
+	local eventName = (not FFlagToolboxRestoreInsertEventName and FFlagToolboxFixAnalyticsBugs) and "DragInsert" or "toolboxInsert"
 
 	AnalyticsSenders.sendEventImmediately("studio", context, eventName, {
 		assetId = assetId,

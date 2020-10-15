@@ -10,6 +10,7 @@ local Prompts = script.Parent.Prompts
 local AllowInventoryReadAccessPrompt = require(Prompts.AllowInventoryReadAccessPrompt)
 local SaveAvatarPrompt = require(Prompts.SaveAvatarPrompt)
 local CreateOutfitPrompt = require(Prompts.CreateOutfitPrompt)
+local EnterOutfitNamePrompt = require(Prompts.EnterOutfitNamePrompt)
 local SetFavoritePrompt = require(Prompts.SetFavoritePrompt)
 
 local AvatarEditorPrompts = script.Parent.Parent
@@ -45,6 +46,8 @@ function AvatarEditorPromptsApp:render()
 		promptComponent = Roact.createElement(SaveAvatarPrompt)
 	elseif self.props.promptType == PromptType.CreateOutfit then
 		promptComponent = Roact.createElement(CreateOutfitPrompt)
+	elseif self.props.promptType == PromptType.EnterOutfitName then
+		promptComponent = Roact.createElement(EnterOutfitNamePrompt)
 	elseif self.props.promptType == PromptType.SetFavorite then
 		promptComponent = Roact.createElement(SetFavoritePrompt)
 	end

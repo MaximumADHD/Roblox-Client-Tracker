@@ -17,6 +17,7 @@ return function(frame)
 		local targetInstance = state.Status.RootInstance
 		local isPlaying = state.Status.IsPlaying
 		local active = state.Status.Active
+		local visualizeBones = state.Status.VisualizeBones
 
 		if not animationData or not targetInstance or not active then
 			return
@@ -37,7 +38,7 @@ return function(frame)
 		store:dispatch(SetPlayhead(frame))
 
 		if IsMicroboneSupportEnabled() then
-			RigUtils.updateMicrobones(targetInstance)
+			RigUtils.updateMicrobones(targetInstance, visualizeBones)
 		end
 	end
 end

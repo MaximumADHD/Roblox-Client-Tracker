@@ -8,6 +8,7 @@ function Adorn:Sphere(name, adornee, transparency, color, z)
 	sphere.Adornee = adornee
 	sphere.ZIndex = z
 	sphere.Transparency = transparency
+	sphere.Archivable = false
 	return sphere
 end
 
@@ -20,6 +21,7 @@ function Adorn:Line(name, adornee, thickness, color, transparency, z)
 	line.Adornee = adornee
 	line.ZIndex = z
 	line.Transparency = transparency
+	line.Archivable = false
 	return line
 end
 
@@ -31,6 +33,7 @@ function Adorn:Cone(name, adornee, transparency, color, z)
 	cone.Adornee = adornee
 	cone.ZIndex = z
 	cone.Transparency = transparency
+	cone.Archivable = false
 	return cone
 end
 

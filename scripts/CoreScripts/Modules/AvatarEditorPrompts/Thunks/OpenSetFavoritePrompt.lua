@@ -12,15 +12,12 @@ local PromptType = require(AvatarEditorPrompts.PromptType)
 return function(itemId, itemType, shouldFavorite)
 	return function(store)
 		return Promise.new(function(resolve, reject)
-			local infoType = nil
-			--TODO: Fix after rebuilding robloxdev-cli
-			--[[
+			local infoType
 			if itemType == Enum.AvatarItemType.Asset then
 				infoType = Enum.InfoType.Asset
 			else
 				infoType = Enum.InfoType.Bundle
 			end
-			--]]
 
 			local success, result = pcall(function()
 				return MarketplaceService:GetProductInfo(itemId, infoType)

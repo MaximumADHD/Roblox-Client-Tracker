@@ -3,7 +3,7 @@
 ]]
 local PackageIndex = script.Parent._Index
 
-local package = PackageIndex["roblox_roact-navigation"]["roact-navigation"]
+local package = PackageIndex["roblox_roact-navigation-44c22607-0.3.0"]["roact-navigation"]
 
 if package.ClassName == "ModuleScript" then
 	return require(package)

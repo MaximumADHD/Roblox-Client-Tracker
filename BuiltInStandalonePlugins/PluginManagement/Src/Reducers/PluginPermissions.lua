@@ -5,10 +5,14 @@
 		[123] = {
 			allowedHttpCount = 0,
 			deniedHttpCount = 0,
+			allowedScriptInjection = nil,
 			httpPermissions = {
 				PermissionInfo.new(),
 				PermissionInfo.new(),
 			},
+			scriptInjectionPermissions = {
+				PermissionInfo.new(),
+			}
 		},
 	}
 ]]
@@ -40,9 +44,11 @@ return Rodux.createReducer({}, {
 
 		for id, entry in pairs(action.permissions) do
 			local assetId = tonumber(id)
-			local pluginPermissionsList = {}
+			local httpPermissionsList = {}
+			local scriptInjectionPermissionsList = {}
 			local allowedHttpCount = 0
 			local deniedHttpCount = 0
+			local allowedScriptInjection = nil
 			for permissionIndex, permission in ipairs(entry) do
 				if permission.Type == Constants.PERMISSION_TYPES.HttpService then
 					local permissionInfo = PermissionInfo.fromUserData(permission, permissionIndex)
@@ -51,11 +57,22 @@ return Rodux.createReducer({}, {
 					else
 						deniedHttpCount = deniedHttpCount + 1
 					end
-					table.insert(pluginPermissionsList, permissionInfo)
+					table.insert(httpPermissionsList, permissionInfo)
+				elseif permission.Type == Constants.PERMISSION_TYPES.ScriptInjection then
+					local permissionInfo = PermissionInfo.fromUserData(permission, permissionIndex)
+					if allowedScriptInjection == nil then
+						allowedScriptInjection = permissionInfo.allowed
+						table.insert(scriptInjectionPermissionsList, permissionInfo)
+					else
+						-- Only the first script injection permission is allowed. This state should only
+						-- be possible by manually tweaking the endpoint.
+						assert(false, "Only one script injection permission is allowed. " ..
+							"Uninstall and reinstall plugin " .. tostring(assetId) .. " to reset permissions.")
+					end
 				end
 			end
 
-			table.sort(pluginPermissionsList, function(first, second)
+			table.sort(httpPermissionsList, function(first, second)
 				if not first.data.domain or not second.data.domain then
 					return false
 				end
@@ -68,7 +85,9 @@ return Rodux.createReducer({}, {
 			updatedPluginsList[assetId] = {
 				allowedHttpCount = allowedHttpCount,
 				deniedHttpCount = deniedHttpCount,
-				httpPermissions = pluginPermissionsList,
+				allowedScriptInjection = allowedScriptInjection,
+				httpPermissions = httpPermissionsList,
+				scriptInjectionPermissions = scriptInjectionPermissionsList,
 			}
 		end
 

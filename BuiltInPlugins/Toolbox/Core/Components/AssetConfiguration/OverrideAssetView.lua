@@ -152,7 +152,7 @@ function OverrideAssetView:createAssets(resultsArray, theme)
 		local selected = selectedAssetId == assetId
 
 		local inFilter = true
-		inFilter = filterID == "" or tostring(assetId):find(filterID)
+		inFilter = filterID == "" or tostring(assetId):find(filterID, 1, true)
 
 		itemList[assetId] = inFilter and Roact.createElement("TextButton", {
 			Size = AssetConfigConstants.OverrideAssetItemSize,

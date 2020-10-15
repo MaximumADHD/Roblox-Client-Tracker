@@ -1,10 +1,9 @@
 
 local DraggerFramework = script.Parent.Parent
-local getFFlagDraggerSplit = require(DraggerFramework.Flags.getFFlagDraggerSplit)
 
--- There's some kind of subtle issue with my Signal implementation. This is a
--- copy of the DeveloperFramework implementation for now until I can debug it.
-if getFFlagDraggerSplit() then
+-- For now use the DeveloperFramework Lua Signal implementation. I want to
+-- fix my implementation and return to using it later when I have time.
+if true then
 	--[[
 		A limited, simple implementation of a Signal.
 

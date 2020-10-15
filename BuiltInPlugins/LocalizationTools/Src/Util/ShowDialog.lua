@@ -3,9 +3,16 @@ local Roact = require(Plugin.Packages.Roact)
 local ContextServices = require(Plugin.Packages.Framework.ContextServices)
 local Promise = require(Plugin.Packages.Framework.Util).Promise
 
+local FlagsList = require(Plugin.Src.Util.FlagsList)
+
 return function(plugin, localization, theme, mouse)
 	return function(title, renderContent)
-		local dialogTheme = theme:get("Plugin")
+		local dialogTheme
+		if (FlagsList:get("FFlagRefactorDevFrameworkTheme")) then
+			dialogTheme = theme
+		else
+			dialogTheme = theme:get("Plugin")
+		end
 
 		return Promise.new(function(resolve, _)
 			spawn(function()

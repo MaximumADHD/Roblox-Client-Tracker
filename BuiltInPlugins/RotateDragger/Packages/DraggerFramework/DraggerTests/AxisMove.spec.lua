@@ -5,12 +5,6 @@ return function()
 	local DraggerSchemaCore = Packages.DraggerSchemaCore
 	local DraggerSchema = require(DraggerSchemaCore.DraggerSchema)
 
-	local getFFlagDraggerSplit = require(DraggerFramework.Flags.getFFlagDraggerSplit)
-	if not getFFlagDraggerSplit() then
-		-- Not going to bother handling both branches of the split in the test
-		return
-	end
-
 	local MoveHandles = require(DraggerFramework.Handles.MoveHandles)
 	local function ikTransformFunc_Move(partMover, transform, collisionsMode)
 		return partMover:moveToWithIk(transform, collisionsMode)

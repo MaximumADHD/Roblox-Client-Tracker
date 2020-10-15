@@ -10,11 +10,18 @@ local UI = require(Plugin.Packages.Framework.UI)
 local Button = UI.Button
 local HoverArea = UI.HoverArea
 
+local FlagsList = require(Plugin.Src.Util.FlagsList)
+
 local LabeledTextButton = Roact.PureComponent:extend("LabeledTextButton")
 
 function LabeledTextButton:render()
 	local props = self.props
-	local theme = props.Theme:get("LabeledTextButton")
+	local theme
+	if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+		theme = props.Stylizer
+	else
+		theme = props.Theme:get("LabeledTextButton")
+	end
 	local layoutOrder = props.LayoutOrder
 	local labelText = props.LabelText
 	local buttonText = props.ButtonText
@@ -61,7 +68,8 @@ function LabeledTextButton:render()
 end
 
 ContextServices.mapToProps(LabeledTextButton, {
-	Theme = ContextServices.Theme,
+	Stylizer = FlagsList:get("FFlagRefactorDevFrameworkTheme") and ContextServices.Stylizer or nil,
+	Theme = (not FlagsList:get("FFlagRefactorDevFrameworkTheme")) and ContextServices.Theme or nil,
 })
 
 return LabeledTextButton

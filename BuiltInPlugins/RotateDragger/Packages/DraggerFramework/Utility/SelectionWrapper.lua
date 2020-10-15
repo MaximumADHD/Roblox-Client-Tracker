@@ -1,6 +1,3 @@
--- Note: post getFFlagDraggerSplit This serves an entirely different purpose
--- than what the old SelectionWrapper did.
-
 --[[
 	A wrapper around a Selection object (anything with the same API the Roblox
 	SelectionService has), which disambiguates selection changed events which

@@ -10,7 +10,6 @@ local ContentProvider = game:GetService("ContentProvider")
 
 local FFlagBatchThumbnailAddNewThumbnailTypes = game:GetFastFlag("BatchThumbnailAddNewThumbnailTypes")
 
-local FFlagStudioLocalizePrivacyTypesInPublishPlaceAs = game:DefineFastFlag("StudioLocalizePrivacyTypesInPublishPlaceAs", false)
 local FFlagStudioFixSwappingGroupTabs = game:DefineFastFlag("StudioFixSwappingGroupTabs", false)
 
 local ICON_SIZE = 150
@@ -22,7 +21,7 @@ local TileGame = Roact.PureComponent:extend("TileGame")
 
 function TileGame:init()
 	self.state = {
-		assetFetchStatus = nil,		
+		assetFetchStatus = nil,
 	}
 
 	self.isMounted = false
@@ -56,7 +55,7 @@ function TileGame:render()
 	return Theming.withTheme(function(theme)
 		return Localizing.withLocalization(function(localizing)
 			local props = self.props
-			
+
 			local name = props.Name
 			local layoutOrder = props.LayoutOrder or 0
 			local state = props.State
@@ -107,7 +106,7 @@ function TileGame:render()
 
 				State = Roact.createElement("TextLabel", {
 					-- use localization keys PrivacyType.Public or PrivacyType.Private
-					Text = FFlagStudioLocalizePrivacyTypesInPublishPlaceAs and localizing:getText("PrivacyType", state) or state,
+					Text = localizing:getText("PrivacyType", state),
 					Position = UDim2.new(0, 0, 1, 0),
 					Size = UDim2.new(1, 0, 0, TILE_FOOTER_SIZE),
 

@@ -15,9 +15,6 @@ local getBoundingBoxScale = require(DraggerFramework.Utility.getBoundingBoxScale
 
 local MoveHandleView = require(Plugin.Src.MoveHandleView)
 
-local getFFlagSmoothAttachmentMovement = require(DraggerFramework.Flags.getFFlagSmoothAttachmentMovement)
-local getFFlagScaleDraggerPartBias = require(DraggerFramework.Flags.getFFlagScaleDraggerPartBias)
-
 local ALWAYS_ON_TOP = true
 
 -- The difference from exactly touching to try to bring the parts within when
@@ -84,10 +81,8 @@ function MoveToolImpl:update(draggerToolState, derivedWorldState)
 	self:_updateHandles()
 end
 
-if getFFlagScaleDraggerPartBias() then
-	function MoveToolImpl:shouldBiasTowardsObjects()
-		return false
-	end
+function MoveToolImpl:shouldBiasTowardsObjects()
+	return false
 end
 
 function MoveToolImpl:hitTest(mouseRay, ignoreExtraThreshold)
@@ -206,11 +201,7 @@ function MoveToolImpl:_setupMoveAtCurrentBoundingBox(mouseRay)
 end
 
 function MoveToolImpl:_shouldSolveConstraints()
-	if getFFlagSmoothAttachmentMovement() then
-		return self._draggerContext:areConstraintsEnabled() and #self._partsToMove > 0
-	else
-		return self._draggerContext:areConstraintsEnabled()
-	end
+	return self._draggerContext:areConstraintsEnabled() and #self._partsToMove > 0
 end
 
 --[[
@@ -314,18 +305,10 @@ function MoveToolImpl:mouseDrag(mouseRay)
 	-- implemented as snapping with grid size = 0.001.
 	local snappedDelta = snapToGridSize(delta, self._draggerContext:getGridSize())
 
-	if getFFlagSmoothAttachmentMovement() then
-		if self:_shouldSolveConstraints() then
-			self:_mouseDragWithInverseKinematics(mouseRay, snappedDelta)
-		else
-			self:_mouseDragWithGeometricMovement(mouseRay, snappedDelta)
-		end
+	if self:_shouldSolveConstraints() then
+		self:_mouseDragWithInverseKinematics(mouseRay, snappedDelta)
 	else
-		if self._draggerContext:areConstraintsEnabled() and #self._partsToMove > 0 then
-			self:_mouseDragWithInverseKinematics(mouseRay, snappedDelta)
-		else
-			self:_mouseDragWithGeometricMovement(mouseRay, snappedDelta)
-		end
+		self:_mouseDragWithGeometricMovement(mouseRay, snappedDelta)
 	end
 end
 

@@ -37,12 +37,16 @@ Constants.PLUGIN_ENABLE_WIDTH = 40
 Constants.PLUGIN_CONTEXT_WIDTH = 28
 Constants.MODERATED_WARNING_WIDTH = 194
 
+Constants.TOGGLE_BUTTON_WIDTH = 40
+Constants.TOGGLE_BUTTON_HEIGHT = 24
+
 Constants.HTTP_OVERVIEW_HEIGHT = 18
 Constants.HTTP_OVERVIEW_ICON_SIZE = 18
 Constants.DETAILS_THUMBNAIL_SIZE = 32
 Constants.LIST_ITEM_TITLE_WIDTH = 170
 Constants.PERMISSION_TYPES = {
     HttpService = "HttpService",
+    ScriptInjection = "ScriptInjection",
 }
 
 -- Workaround because the ScrollbarInset does not work.

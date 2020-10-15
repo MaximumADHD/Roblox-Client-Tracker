@@ -13,10 +13,7 @@ local DraggerSchema = require(DraggerSchemaCore.DraggerSchema)
 -- Dragger component
 local DraggerContext_PluginImpl = require(DraggerFramework.Implementation.DraggerContext_PluginImpl)
 local DraggerToolComponent = require(DraggerFramework.DraggerTools.DraggerToolComponent)
-local RotateToolImpl_DEPRECATED = require(Plugin.Src.RotateToolImpl)
 local RotateHandles = require(DraggerFramework.Handles.RotateHandles)
-
-local getFFlagDraggerSplit = require(DraggerFramework.Flags.getFFlagDraggerSplit)
 
 local PLUGIN_NAME = "RotateDragger"
 local DRAGGER_TOOL_NAME = "Rotate"
@@ -39,42 +36,28 @@ local function openPlugin()
 
 	toolButton:SetActive(true)
 
-	if getFFlagDraggerSplit() then
-		local function ikTransformRotateHandler(partMover, transform, collisionsMode)
-			return partMover:rotateToWithIk(transform, collisionsMode)
-		end
+	local function ikTransformRotateHandler(partMover, transform, collisionsMode)
+		return partMover:rotateToWithIk(transform, collisionsMode)
+	end
 
-		pluginHandle = Roact.mount(Roact.createElement(DraggerToolComponent, {
-			Mouse = plugin:GetMouse(),
+	pluginHandle = Roact.mount(Roact.createElement(DraggerToolComponent, {
+		Mouse = plugin:GetMouse(),
 
-			DraggerContext = draggerContext,
-			DraggerSchema = DraggerSchema,
-			DraggerSettings = {
-				AnalyticsName = "Rotate",
-				AllowDragSelect = true,
-				AllowFreeformDrag = true,
-				ShowLocalSpaceIndicator = true,
-				HandlesList = {
-					RotateHandles.new(draggerContext, {
-						ShowBoundingBox = true,
-					}, DraggerSchema.TransformHandlesImplementation.new(
-						draggerContext, ikTransformRotateHandler)),
-				}
-			},
-		}))
-	else
-		local draggerContext = DraggerContext_PluginImpl.new(plugin, game, settings())
-		pluginHandle = Roact.mount(Roact.createElement(DraggerToolComponent, {
+		DraggerContext = draggerContext,
+		DraggerSchema = DraggerSchema,
+		DraggerSettings = {
 			AnalyticsName = "Rotate",
-			Mouse = plugin:GetMouse(),
 			AllowDragSelect = true,
 			AllowFreeformDrag = true,
 			ShowLocalSpaceIndicator = true,
-			ShowSelectionDot = false,
-			DraggerContext = draggerContext,
-			ToolImplementation = RotateToolImpl_DEPRECATED.new(draggerContext),
-		}))
-	end
+			HandlesList = {
+				RotateHandles.new(draggerContext, {
+					ShowBoundingBox = true,
+				}, DraggerSchema.TransformHandlesImplementation.new(
+					draggerContext, ikTransformRotateHandler)),
+			}
+		},
+	}))
 end
 
 local function closePlugin()
@@ -96,10 +79,8 @@ local function main()
 		"Rotate"
 	)
 
-	if getFFlagDraggerSplit() then
-		draggerContext = DraggerContext_PluginImpl.new(
-			plugin, game, settings(), DraggerSchema.Selection.new())
-	end
+	draggerContext = DraggerContext_PluginImpl.new(
+		plugin, game, settings(), DraggerSchema.Selection.new())
 
 	plugin.Deactivation:connect(function()
 		if pluginEnabled then

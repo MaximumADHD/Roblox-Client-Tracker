@@ -5,5 +5,6 @@ return enumerate("PromptType", {
 	"AllowInventoryReadAccess",
 	"SaveAvatar",
 	"CreateOutfit",
+	"EnterOutfitName",
 	"SetFavorite",
 })

@@ -230,7 +230,7 @@ function JointManipulator:init()
 			end
 
 			if IsMicroboneSupportEnabled() then
-				RigUtils.updateMicrobones(self.props.RootInstance)
+				RigUtils.updateMicrobones(self.props.RootInstance, self.props.VisualizeBones)
 			end
 		end
 	end
@@ -288,7 +288,7 @@ function JointManipulator:init()
 			end
 
 			if IsMicroboneSupportEnabled() then
-				RigUtils.updateMicrobones(self.props.RootInstance)
+				RigUtils.updateMicrobones(self.props.RootInstance, self.props.VisualizeBones)
 			end
 		end
 	end

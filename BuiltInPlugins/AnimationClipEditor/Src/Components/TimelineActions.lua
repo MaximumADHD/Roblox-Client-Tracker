@@ -46,6 +46,7 @@ local CopySelectedKeyframes = require(Plugin.Src.Thunks.Selection.CopySelectedKe
 local DeleteSelectedKeyframes = require(Plugin.Src.Thunks.Selection.DeleteSelectedKeyframes)
 local ResetSelectedKeyframes = require(Plugin.Src.Thunks.Selection.ResetSelectedKeyframes)
 local SetRightClickContextInfo = require(Plugin.Src.Actions.SetRightClickContextInfo)
+local ToggleBoneVisibility = require(Plugin.Src.Thunks.ToggleBoneVisibility)
 
 local SelectAllKeyframes = require(Plugin.Src.Thunks.Selection.SelectAllKeyframes)
 local SetSelectedKeyframes = require(Plugin.Src.Actions.SetSelectedKeyframes)
@@ -292,6 +293,7 @@ function TimelineActions:init(initialProps)
 	self:addAction(actions.Redo, initialProps.Redo)
 
 	self:addAction(actions.TogglePlay, initialProps.TogglePlay)
+	self:addAction(actions.ToggleBoneVis, initialProps.ToggleBoneVisibility)
 end
 
 function TimelineActions:render()
@@ -356,6 +358,7 @@ function TimelineActions:render()
 		pluginActions.Redo.Enabled = true
 		pluginActions.TogglePlay.Enabled = true
 		pluginActions.AddEvent.Enabled = true
+		pluginActions.ToggleBoneVis.Enabled = true
 	end
 
 	return withLocalization(function(localization)
@@ -465,6 +468,10 @@ local function mapDispatchToProps(dispatch)
 
 		SetTool = function(tool)
 			dispatch(SetTool(tool))
+		end,
+
+		ToggleBoneVisibility = function()
+			dispatch(ToggleBoneVisibility())
 		end,
 	}
 end

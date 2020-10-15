@@ -9,7 +9,7 @@ local DragHelper = require(DraggerFramework.Utility.DragHelper)
 local PartMover = require(DraggerFramework.Utility.PartMover)
 local AttachmentMover = require(DraggerFramework.Utility.AttachmentMover)
 
-local getFFlagFixGlobalRotateAgain = require(DraggerFramework.Flags.getFFlagFixGlobalRotateAgain)
+local getFFlagEnablePhysicalFreeFormDragger = require(DraggerFramework.Flags.getFFlagEnablePhysicalFreeFormDragger)
 
 local FreeformDragger = {}
 FreeformDragger.__index = FreeformDragger
@@ -37,7 +37,11 @@ function FreeformDragger:_init()
 end
 
 function FreeformDragger:_initMovers()
-	local breakJointsToOutsiders = true
+	local breakJointsToOutsiders = true -- TODO: Remove this line with FFlagEnablePhysicalFreeFormDragger
+	if getFFlagEnablePhysicalFreeFormDragger() then
+		breakJointsToOutsiders = not self._draggerToolModel._draggerContext:areConstraintsEnabled()
+	end
+
 	local partsToMove, attachmentsToMove =
 		self._draggerToolModel._selectionInfo:getObjectsToTransform()
 	self._partMover:setDragged(
@@ -68,18 +72,19 @@ function FreeformDragger:render()
 end
 
 function FreeformDragger:rotate(axis)
+	if getFFlagEnablePhysicalFreeFormDragger() then
+		if self._draggerToolModel._draggerContext:areConstraintsEnabled() then
+			return
+		end
+	end
+
 	if axis == Vector3.new(0, 1, 0) then
 		self._dragAnalytics.dragRotates = self._dragAnalytics.dragRotates + 1
 	else
 		self._dragAnalytics.dragTilts = self._dragAnalytics.dragTilts + 1
 	end
 
-	local mainCFrame
-	if getFFlagFixGlobalRotateAgain() then
-		mainCFrame = self._draggerToolModel._selectionInfo:getLocalBoundingBox()
-	else
-		mainCFrame = self._draggerToolModel._selectionInfo:getBoundingBox()
-	end
+	local mainCFrame = self._draggerToolModel._selectionInfo:getLocalBoundingBox()
 	local lastTargetMatrix
 	if self._lastDragTarget then
 		lastTargetMatrix = self._lastDragTarget.targetMatrix
@@ -92,7 +97,9 @@ function FreeformDragger:rotate(axis)
 		self._tiltRotate, axis, self._draggerToolModel:shouldAlignDraggedObjects())
 end
 
-function FreeformDragger:update()
+function FreeformDragger:_updateGeometric()
+	assert(getFFlagEnablePhysicalFreeFormDragger())
+
 	local lastTargetMatrix = nil
 	if self._lastDragTarget then
 		lastTargetMatrix = self._lastDragTarget.targetMatrix
@@ -124,6 +131,78 @@ function FreeformDragger:update()
 		self._attachmentMover:transformTo(globalTransform)
 		if self._draggerToolModel._draggerContext:shouldJoinSurfaces() then
 			self._jointPairs = self._partMover:computeJointPairs(globalTransform)
+		end
+	end
+end
+
+function FreeformDragger:_updatePhysical()
+	assert(getFFlagEnablePhysicalFreeFormDragger())
+
+	local localBoundingBoxCFrame, localBoundingBoxOffset, localBoundingBoxSize =
+		self._draggerToolModel._selectionInfo:getLocalBoundingBox()
+
+	if not self._dragInfo.clickPoint then
+		return
+	end
+
+	local dragTarget = DragHelper.getCameraPlaneDragTarget(
+		self._draggerToolModel._draggerContext:getMouseRay(),
+		self._draggerToolModel._draggerContext:getCameraCFrame().LookVector,
+		localBoundingBoxCFrame:pointToWorldSpace(self._dragInfo.clickPoint))
+
+	self:_analyticsRecordFreeformDragUpdate(dragTarget)
+
+	if dragTarget then
+		local collisionsMode =
+			self._draggerToolModel._draggerContext:areCollisionsEnabled() and
+			Enum.IKCollisionsMode.IncludeContactedMechanisms or
+			Enum.IKCollisionsMode.NoCollisions
+		local actualGlobalTransformUsed =
+			self._partMover:moveToWithIk(dragTarget.mainCFrame, collisionsMode)
+		self._attachmentMover:transformTo(actualGlobalTransformUsed)
+	end
+end
+
+function FreeformDragger:update()
+	if getFFlagEnablePhysicalFreeFormDragger() then
+		if self._draggerToolModel._draggerContext:areConstraintsEnabled() then
+			self:_updatePhysical()
+		else
+			self:_updateGeometric()
+		end
+	else
+		local lastTargetMatrix = nil
+		if self._lastDragTarget then
+			lastTargetMatrix = self._lastDragTarget.targetMatrix
+		end
+
+		local localBoundingBoxCFrame, localBoundingBoxOffset, localBoundingBoxSize =
+			self._draggerToolModel._selectionInfo:getLocalBoundingBox()
+		local dragTarget = DragHelper.getDragTarget(
+			self._draggerToolModel._draggerContext:getMouseRay(),
+			self._draggerToolModel._draggerContext:getGridSize(),
+			self._dragInfo.clickPoint,
+			self._raycastFilter,
+			localBoundingBoxCFrame,
+			self._dragInfo.basisPoint,
+			localBoundingBoxSize,
+			localBoundingBoxOffset,
+			self._tiltRotate,
+			lastTargetMatrix,
+			self._draggerToolModel:shouldAlignDraggedObjects())
+
+		self:_analyticsRecordFreeformDragUpdate(dragTarget)
+
+		if dragTarget then
+			self._lastDragTarget = dragTarget
+			local originalCFrame = localBoundingBoxCFrame
+			local newCFrame = dragTarget.mainCFrame
+			local globalTransform = newCFrame * originalCFrame:Inverse()
+			self._partMover:transformTo(globalTransform)
+			self._attachmentMover:transformTo(globalTransform)
+			if self._draggerToolModel._draggerContext:shouldJoinSurfaces() then
+				self._jointPairs = self._partMover:computeJointPairs(globalTransform)
+			end
 		end
 	end
 end
@@ -194,6 +273,9 @@ function FreeformDragger:_analyticsSendFreeformDragged()
 	self._dragAnalytics.wasAutoSelected = self._draggerToolModel:wasAutoSelected()
 	self._dragAnalytics.joinSurfaces = self._draggerContext:shouldJoinSurfaces()
 	self._dragAnalytics.useConstraints = self._draggerContext:areConstraintsEnabled()
+	if getFFlagEnablePhysicalFreeFormDragger() then
+		self._dragAnalytics.haveCollisions = self._draggerContext:areCollisionsEnabled()
+	end
 	self._draggerToolModel._draggerContext:getAnalytics():sendEvent(
 		"freeformDragged", self._dragAnalytics)
 end

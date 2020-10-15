@@ -276,6 +276,7 @@ function JointSelector:render()
 		OnManipulateJoints = self.onManipulateJoints,
 		OnDragStart = props.OnDragStart,
 		ToggleWorldSpace = props.ToggleWorldSpace,
+		VisualizeBones = props.VisualizeBones,
 	})
 
 	children["HoverBox"] = hoverPart and Roact.createElement("SelectionBox", {
@@ -321,6 +322,7 @@ local function mapStateToProps(state, props)
 		WorldSpace = state.Status.WorldSpace,
 		StartingPose = state.Status.StartingPose,
 		Analytics = state.Analytics,
+		VisualizeBones = state.Status.VisualizeBones
 	}
 end
 

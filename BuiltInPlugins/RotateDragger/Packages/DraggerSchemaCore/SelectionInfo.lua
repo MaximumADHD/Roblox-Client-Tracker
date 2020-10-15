@@ -338,9 +338,7 @@ function SelectionInfo:isEmpty()
 	return #self.parts == 0 and #self.attachments == 0
 end
 
-function SelectionInfo:getBoundingBox(empty)
-	-- Remove assertion with FFlagDraggerSplit
-	assert(empty == nil)
+function SelectionInfo:getBoundingBox()
 	return self.basisCFrame, self.boundingBoxOffset, self.boundingBoxSize
 end
 

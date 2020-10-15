@@ -17,8 +17,6 @@ local DraggerSchema = require(DraggerSchemaCore.DraggerSchema)
 local DraggerContext_PluginImpl = require(DraggerFramework.Implementation.DraggerContext_PluginImpl)
 local DraggerToolComponent = require(DraggerFramework.DraggerTools.DraggerToolComponent)
 
-local getFFlagDraggerSplit = require(DraggerFramework.Flags.getFFlagDraggerSplit)
-
 local PLUGIN_NAME = "SelectDragger"
 local DRAGGER_TOOL_NAME = "Select"
 local TOOLBAR_NAME = "Home"
@@ -51,30 +49,18 @@ local function openPlugin(wasAutoSelected)
 
 	toolButton:SetActive(true)
 
-	if getFFlagDraggerSplit() then
-		pluginHandle = Roact.mount(Roact.createElement(DraggerToolComponent, {
-			Mouse = plugin:GetMouse(),
+	pluginHandle = Roact.mount(Roact.createElement(DraggerToolComponent, {
+		Mouse = plugin:GetMouse(),
 
-			DraggerContext = draggerContext,
-			DraggerSchema = DraggerSchema,
-			DraggerSettings = {
-				AnalyticsName = "Select",
-				AllowDragSelect = true,
-				AllowFreeformDrag = true,
-			},
-			WasAutoSelected = wasAutoSelected,
-		}))
-	else
-		pluginHandle = Roact.mount(Roact.createElement(DraggerToolComponent, {
+		DraggerContext = draggerContext,
+		DraggerSchema = DraggerSchema,
+		DraggerSettings = {
 			AnalyticsName = "Select",
-			Mouse = plugin:GetMouse(),
 			AllowDragSelect = true,
 			AllowFreeformDrag = true,
-			ShowSelectionDot = false,
-			DraggerContext = DraggerContext_PluginImpl.new(plugin, game, settings()),
-			WasAutoSelected = wasAutoSelected,
-		}))
-	end
+		},
+		WasAutoSelected = wasAutoSelected,
+	}))
 end
 
 local function closePlugin()
@@ -96,10 +82,8 @@ local function main()
 		"Select"
 	)
 
-	if getFFlagDraggerSplit() then
-		draggerContext = DraggerContext_PluginImpl.new(
-			plugin, game, settings(), DraggerSchema.Selection.new())
-	end
+	draggerContext = DraggerContext_PluginImpl.new(
+		plugin, game, settings(), DraggerSchema.Selection.new())
 
 	plugin.Deactivation:connect(function()
 		if pluginEnabled then

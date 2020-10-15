@@ -11,9 +11,6 @@ local roundRotation = require(DraggerFramework.Utility.roundRotation)
 
 local RotateHandleView = require(DraggerFramework.Components.RotateHandleView)
 
-local getFFlagRoundRotation = require(DraggerFramework.Flags.getFFlagRoundRotation)
-local getFFlagFixEdgeOnRotateError = require(DraggerFramework.Flags.getFFlagFixEdgeOnRotateError)
-
 -- The minimum rotate increment to display snapping increments for (below this
 -- increment there are so many points that they become visual noise)
 local MIN_ROTATE_INCREMENT = 5.0
@@ -64,18 +61,7 @@ local function getRotationTransform(mainCFrame, axisVector, delta, rotateIncreme
 		-- thanks to the isRightAngle check, we can find the pure
 		-- permutation rotation matrix simply by rounding the rotation
 		-- matrix elements to the nearest integer.
-		if getFFlagRoundRotation() then
-			rotationCFrame = roundRotation(rotationCFrame)
-		else
-			local _, _, _,
-				r0, r1, r2,
-				r3, r4, r5,
-				r6, r7, r8 = rotationCFrame:components()
-			rotationCFrame = CFrame.new(0, 0, 0,
-				math.floor(r0 + 0.5), math.floor(r1 + 0.5), math.floor(r2 + 0.5),
-				math.floor(r3 + 0.5), math.floor(r4 + 0.5), math.floor(r5 + 0.5),
-				math.floor(r6 + 0.5), math.floor(r7 + 0.5), math.floor(r8 + 0.5))
-		end
+		rotationCFrame = roundRotation(rotationCFrame)
 	end
 
 	-- Convert the rotation to a global space transformation

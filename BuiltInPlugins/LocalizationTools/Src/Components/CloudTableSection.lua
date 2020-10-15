@@ -22,6 +22,7 @@ local isEmpty = require(Plugin.Src.Util.isEmpty)
 local ShowDialog = require(Plugin.Src.Util.ShowDialog)
 local DownloadCloudTable = require(Plugin.Src.Thunks.DownloadCloudTable)
 local UploadCloudTable = require(Plugin.Src.Thunks.UploadCloudTable)
+local FlagsList = require(Plugin.Src.Util.FlagsList)
 
 local CloudTableSection = Roact.PureComponent:extend("CloudTableSection")
 
@@ -43,7 +44,14 @@ function CloudTableSection:init()
 		local localization = props.Localization
 		local analytics = props.Analytics:get()
 		local mouse = props.Mouse
-		local showDialog = ShowDialog(plugin, localization, props.Theme, mouse)
+
+		local theme
+		if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+			theme = props.Stylizer
+		else
+			theme = props.Theme
+		end
+		local showDialog = ShowDialog(plugin, localization, theme, mouse)
 
 		props.UpdateCloudTable(api, localization, analytics, showDialog, isReplace)
 	end
@@ -63,7 +71,12 @@ end
 
 function CloudTableSection:render()
 	local props = self.props
-	local theme = props.Theme:get("CloudTableSection")
+	local theme
+	if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+		theme = props.Stylizer
+	else
+		theme = props.Theme:get("CloudTableSection")
+	end
 	local localization = props.Localization
 	local layoutOrder = props.LayoutOrder
 	local active = not props.IsBusy
@@ -165,7 +178,8 @@ end
 
 ContextServices.mapToProps(CloudTableSection, {
 	Plugin = ContextServices.Plugin,
-	Theme = ContextServices.Theme,
+	Stylizer = FlagsList:get("FFlagRefactorDevFrameworkTheme") and ContextServices.Stylizer or nil,
+	Theme = (not FlagsList:get("FFlagRefactorDevFrameworkTheme")) and ContextServices.Theme or nil,
 	Localization = ContextServices.Localization,
 	API = ContextServices.API,
 	Mouse = ContextServices.Mouse,

@@ -9,15 +9,12 @@ local DraggerSchemaCore = script.Parent
 local Packages = DraggerSchemaCore.Parent
 local DraggerFramework = Packages.DraggerFramework
 
-local getFFlagDraggerSplit = require(DraggerFramework.Flags.getFFlagDraggerSplit)
-
 local MAX_PARTS_TO_TRACK_BOUNDS_FOR = 1024
 
 local BoundsChangedTracker = {}
 BoundsChangedTracker.__index = BoundsChangedTracker
 
 function BoundsChangedTracker.new(draggerContext, handler)
-	assert(getFFlagDraggerSplit()) -- Moved into Schema
 	return setmetatable({
 		_handler = handler,
 		_installed = false,
@@ -78,6 +75,11 @@ end
 function BoundsChangedTracker:setSelection(selectionInfo)
 	self:_setAttachments(selectionInfo:getAllAttachments())
 	self:_setParts(selectionInfo:getObjectsToTransform())
+end
+
+-- Public access for the AlignmentTool, which borrows this class
+function BoundsChangedTracker:setParts(parts)
+	self:_setParts(parts)
 end
 
 function BoundsChangedTracker:_setAttachments(attachments)

@@ -41,6 +41,9 @@ local ACTION_KEYS = {
 	-- Other Events
 	"TogglePlay",
 	"ToggleTool",
+
+	-- Bones
+	"ToggleBoneVis",
 }
 
 local function makeAction(plugin, localization, key)
@@ -75,6 +78,8 @@ return function(plugin, localization)
 	actions.DeselectAll.DefaultShortcut = "Ctrl+Shift+A"
 	actions.TogglePlay.DefaultShortcut = " "
 	actions.ToggleTool.DefaultShortcut = "R"
+
+	actions.ToggleBoneVis.DefaultShortcut = "V"
 
 	return actions
 end

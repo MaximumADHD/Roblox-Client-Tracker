@@ -17,11 +17,18 @@ local MessageFrame = require(Plugin.Src.Components.MessageFrame)
 local CloudTableSection = require(Plugin.Src.Components.CloudTableSection)
 local EmbeddedTableSection = require(Plugin.Src.Components.EmbeddedTableSection)
 
+local FlagsList = require(Plugin.Src.Util.FlagsList)
+
 local MainView = Roact.PureComponent:extend("MainView")
 
 function MainView:render()
 	local props = self.props
-	local theme = props.Theme:get("MainView")
+	local theme
+	if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+		theme = props.Stylizer
+	else
+		theme = props.Theme:get("MainView")
+	end
 
 	return Roact.createElement("Frame", {
 		Size = UDim2.new(1, 0, 1, 0),
@@ -73,7 +80,8 @@ function MainView:render()
 end
 
 ContextServices.mapToProps(MainView, {
-	Theme = ContextServices.Theme,
+	Stylizer = FlagsList:get("FFlagRefactorDevFrameworkTheme") and ContextServices.Stylizer or nil,
+	Theme = (not FlagsList:get("FFlagRefactorDevFrameworkTheme")) and ContextServices.Theme or nil,
 })
 
 return MainView

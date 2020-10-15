@@ -10,6 +10,8 @@ local ContextServices = require(Plugin.Packages.Framework.ContextServices)
 local UI = require(Plugin.Packages.Framework.UI)
 local HoverArea = UI.HoverArea
 
+local FlagsList = require(Plugin.Src.Util.FlagsList)
+
 local LabeledImageButton = Roact.PureComponent:extend("LabeledImageButton")
 
 function LabeledImageButton:init()
@@ -45,7 +47,12 @@ end
 function LabeledImageButton:render()
 	local props = self.props
 	local state = self.state
-	local theme = props.Theme:get("LabeledImageButton")
+	local theme
+	if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+		theme = props.Stylizer
+	else
+		theme = props.Theme:get("LabeledImageButton")
+	end
 	local layoutOrder = props.LayoutOrder
 	local labelText = props.LabelText
 	local buttonText = props.ButtonText
@@ -111,7 +118,8 @@ function LabeledImageButton:render()
 end
 
 ContextServices.mapToProps(LabeledImageButton, {
-	Theme = ContextServices.Theme,
+	Stylizer = FlagsList:get("FFlagRefactorDevFrameworkTheme") and ContextServices.Stylizer or nil,
+	Theme = (not FlagsList:get("FFlagRefactorDevFrameworkTheme")) and ContextServices.Theme or nil,
 })
 
 return LabeledImageButton

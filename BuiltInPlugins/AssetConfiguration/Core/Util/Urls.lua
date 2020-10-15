@@ -6,7 +6,6 @@ local Url = require(Plugin.Libs.Http.Url)
 
 local wrapStrictTable = require(Plugin.Core.Util.wrapStrictTable)
 
-local FFlagUseRBXThumbInToolbox = game:GetFastFlag("UseRBXThumbInToolbox")
 local FFlagEnablePurchaseV2 = game:GetFastFlag("EnablePurchaseV2")
 local FFlagStudioToolboxFixNewEndpointFilters = game:GetFastFlag("StudioToolboxFixNewEndpointFilters")
 local FFlagDragFaceInstances = game:GetFastFlag("DragFaceInstances")
@@ -291,25 +290,10 @@ function Urls.constructAssetGameAssetIdUrl(assetId, assetTypeId, isPackage, asse
 end
 
 function Urls.constructAssetThumbnailUrl(assetId, width, height)
-	if FFlagUseRBXThumbInToolbox then
-		return RBXTHUMB_BASE_URL:format("Asset", tonumber(assetId) or 0, width, height)
-	else
-		-- The URL only accepts certain sizes for thumbnails. This includes 50, 75, 100, 150, 250, 420 etc.
-		width = width or DEFAULT_ASSET_SIZE
-		height = height or DEFAULT_ASSET_SIZE
-
-		return ASSET_THUMBNAIL .. Url.makeQueryString({
-			assetId = assetId,
-			width = width,
-			height = height,
-		})
-	end
+	return RBXTHUMB_BASE_URL:format("Asset", tonumber(assetId) or 0, width, height)
 end
 
 function Urls.constructRBXThumbUrl(type, assetId, size)
-	if not FFlagUseRBXThumbInToolbox then
-		return ""
-	end
 	return RBXTHUMB_BASE_URL:format(type, tonumber(assetId) or 0, size, size)
 end
 

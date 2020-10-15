@@ -6,8 +6,11 @@ local Cryo = require(CorePackages.Cryo)
 local Reducer = script.Parent
 local AvatarEditorPrompts = Reducer.Parent
 
+local PromptType = require(AvatarEditorPrompts.PromptType)
+
 local CloseOpenPrompt = require(AvatarEditorPrompts.Actions.CloseOpenPrompt)
 local OpenPrompt = require(AvatarEditorPrompts.Actions.OpenPrompt)
+local CreateOutfitConfirmed = require(AvatarEditorPrompts.Actions.CreateOutfitConfirmed)
 
 local initialInfo = {
 	promptType = nil,
@@ -50,6 +53,13 @@ local PromptInfo = Rodux.createReducer(initialInfo, {
 		return Cryo.Dictionary.join(state, {
 			queue = Cryo.List.join(state.queue, {action.promptType}),
 			infoQueue = Cryo.List.join(state.infoQueue, {action.promptInfo})
+		})
+	end,
+
+	[CreateOutfitConfirmed.name] = function(state, action)
+		--Does not need to take queue into account as this is a direct transition from CreateOutfit to EnterOutfitName
+		return Cryo.Dictionary.join(state, {
+			promptType = PromptType.EnterOutfitName,
 		})
 	end,
 })

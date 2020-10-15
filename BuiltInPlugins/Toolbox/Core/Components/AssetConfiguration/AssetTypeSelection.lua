@@ -9,8 +9,6 @@
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
-local FFlagAllowCatalogItemCreatorAssetConfig = game:DefineFastFlag("AllowCatalogItemCreatorAssetConfig", false)
-
 local Libs = Plugin.Libs
 local Roact = require(Libs.Roact)
 local RoactRodux = require(Libs.RoactRodux)
@@ -61,25 +59,24 @@ function AssetTypeSelection:getSelectorItems(localizedContent)
 	table.insert(items, { name = "Animation", selectable = true, type = Enum.AssetType.Animation })
 
 	-- only catalog item creators can upload hats
-	if FFlagAllowCatalogItemCreatorAssetConfig then
-		local allowedAssetTypes = AssetConfigUtil.getAllowedAssetTypeEnums(self.props.allowedAssetTypesForRelease)
-		if #allowedAssetTypes > 0 then
-			local dividerName = ""
+
+	local allowedAssetTypes = AssetConfigUtil.getAllowedAssetTypeEnums(self.props.allowedAssetTypesForRelease)
+	if #allowedAssetTypes > 0 then
+		local dividerName = ""
+		if localizedContent then
+			dividerName = localizedContent.Category.CreationsCatalogSectionDivider
+		end
+		items[#items + 1] = { name = dividerName, selectable = false }
+		for _, assetTypeEnum in pairs(allowedAssetTypes) do
+			local assetTypeName = ""
 			if localizedContent then
-				dividerName = localizedContent.Category.CreationsCatalogSectionDivider
+				assetTypeName = localizedContent.AssetConfig.PublishAsset.AssetTextDisplay[assetTypeEnum]
 			end
-			items[#items + 1] = { name = dividerName, selectable = false }
-			for _, assetTypeEnum in pairs(allowedAssetTypes) do
-				local assetTypeName = ""
-				if localizedContent then
-					assetTypeName = localizedContent.AssetConfig.PublishAsset.AssetTextDisplay[assetTypeEnum]
-				end
-				items[#items + 1] = {
-					name = assetTypeName,
-					selectable = true,
-					type = assetTypeEnum,
-				}
-			end
+			items[#items + 1] = {
+				name = assetTypeName,
+				selectable = true,
+				type = assetTypeEnum,
+			}
 		end
 	end
 

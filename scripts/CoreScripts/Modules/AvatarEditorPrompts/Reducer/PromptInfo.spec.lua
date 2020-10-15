@@ -44,7 +44,7 @@ return function()
 
 			expect(newState.promptType).to.equal(PromptType.SaveAvatar)
 			expect(newState.humanoidDescription).to.equal(humanoidDescription)
-			expect(newState.rigType).to.equal(humanoidDescription)
+			expect(newState.rigType).to.equal(Enum.HumanoidRigType.R15)
 		end)
 
 		it("should correctly open PromptType.CreateOutfit", function()
@@ -64,7 +64,7 @@ return function()
 
 			expect(newState.promptType).to.equal(PromptType.CreateOutfit)
 			expect(newState.humanoidDescription).to.equal(humanoidDescription)
-			expect(newState.rigType).to.equal(humanoidDescription)
+			expect(newState.rigType).to.equal(Enum.HumanoidRigType.R15)
 		end)
 
 		it("should correctly open PromptType.AllowInventoryReadAccess", function()
@@ -74,7 +74,7 @@ return function()
 				{}
 			))
 			expect(oldState).to.never.equal(newState)
-			expect(newState).to.equal(3)
+			expect(countValues(newState)).to.equal(3)
 			expect(countValues(newState.queue)).to.equal(0)
 			expect(countValues(newState.infoQueue)).to.equal(0)
 

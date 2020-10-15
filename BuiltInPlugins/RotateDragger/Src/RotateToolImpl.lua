@@ -20,11 +20,6 @@ local roundRotation = require(DraggerFramework.Utility.roundRotation)
 
 local RotateHandleView = require(Plugin.Src.RotateHandleView)
 
-local getFFlagRoundRotation = require(DraggerFramework.Flags.getFFlagRoundRotation)
-local getFFlagFixIKRotateCFrameError = require(DraggerFramework.Flags.getFFlagFixIKRotateCFrameError)
-local getFFlagScaleDraggerPartBias = require(DraggerFramework.Flags.getFFlagScaleDraggerPartBias)
-local getFFlagFixEdgeOnRotateError = require(DraggerFramework.Flags.getFFlagFixEdgeOnRotateError)
-
 -- The difference from exactly touching to try to bring the parts within when
 -- dragging parts into a colliding condition with Collisions enabled.
 local ROTATE_COLLISION_THRESHOLD = 0.0001
@@ -79,18 +74,7 @@ local function getRotationTransform(mainCFrame, axisVector, delta, rotateIncreme
 		-- thanks to the isRightAngle check, we can find the pure
 		-- permutation rotation matrix simply by rounding the rotation
 		-- matrix elements to the nearest integer.
-		if getFFlagRoundRotation() then
-			rotationCFrame = roundRotation(rotationCFrame)
-		else
-			local _, _, _,
-				r0, r1, r2,
-				r3, r4, r5,
-				r6, r7, r8 = rotationCFrame:components()
-			rotationCFrame = CFrame.new(0, 0, 0,
-				math.floor(r0 + 0.5), math.floor(r1 + 0.5), math.floor(r2 + 0.5),
-				math.floor(r3 + 0.5), math.floor(r4 + 0.5), math.floor(r5 + 0.5),
-				math.floor(r6 + 0.5), math.floor(r7 + 0.5), math.floor(r8 + 0.5))
-		end
+		rotationCFrame = roundRotation(rotationCFrame)
 	end
 
 	-- Convert the rotation to a global space transformation
@@ -167,10 +151,8 @@ function RotateToolImpl:update(draggerToolState, derivedWorldState)
 	self:_updateHandles()
 end
 
-if getFFlagScaleDraggerPartBias() then
-	function RotateToolImpl:shouldBiasTowardsObjects()
-		return false
-	end
+function RotateToolImpl:shouldBiasTowardsObjects()
+	return false
 end
 
 function RotateToolImpl:hitTest(mouseRay, ignoreExtraThreshold)
@@ -196,11 +178,7 @@ function RotateToolImpl:render(hoveredHandleId)
 		tickAngle = math.rad(increment)
 	end
 
-	local isDragging = self._handles[self._draggingHandleId]
-	if getFFlagFixEdgeOnRotateError() then
-		isDragging = self._startAngle ~= nil
-	end
-	if self._draggingHandleId and isDragging then
+	if self._draggingHandleId and self._startAngle ~= nil then
 		local handleProps = self._handles[self._draggingHandleId]
 		children[self._draggingHandleId] = Roact.createElement(RotateHandleView, {
 			HandleCFrame = handleProps.HandleCFrame,
@@ -267,10 +245,6 @@ end
 
 function RotateToolImpl:mouseDown(mouseRay, handleId)
 	self._draggingHandleId = handleId
-	if not getFFlagFixEdgeOnRotateError() then
-		self._draggingLastGoodDelta = 0
-		self._originalBoundingBoxCFrame = self._boundingBox.CFrame
-	end
 
 	if self._handles[handleId] then
 		self:_setupRotateAtCurrentBoundingBox(mouseRay)
@@ -280,10 +254,8 @@ function RotateToolImpl:mouseDown(mouseRay, handleId)
 			return
 		end
 
-		if getFFlagFixEdgeOnRotateError() then
-			self._draggingLastGoodDelta = 0
-			self._originalBoundingBoxCFrame = self._boundingBox.CFrame
-		end
+		self._draggingLastGoodDelta = 0
+		self._originalBoundingBoxCFrame = self._boundingBox.CFrame
 
 		self._startAngle = snapToRotateIncrementIfNeeded(angle, self._draggerContext:getRotateIncrement())
 
@@ -297,21 +269,13 @@ end
 function RotateToolImpl:mouseDrag(mouseRay)
 	assert(self._draggingHandleId, "Missing dragging handle ID.")
 
-	if getFFlagFixEdgeOnRotateError() then
-		if not self._startAngle then
-			return
-		end
+	if not self._startAngle then
+		return
 	end
 
 	local angle = rotationAngleFromRay(self._handleCFrame, mouseRay.Unit)
 	if not angle then
 		return
-	end
-
-	if not getFFlagFixEdgeOnRotateError() then
-		if not self._handles[self._draggingHandleId] then
-			return
-		end
 	end
 
 	local snappedDelta =
@@ -376,30 +340,15 @@ end
 	transformation, so that the RotateHandleView can show the correct angle.
 ]]
 function RotateToolImpl:_mouseDragWithInverseKinematics(mouseRay, delta)
-	if not getFFlagFixIKRotateCFrameError() then
-		if delta == 0 then
-			return nil
-		end
-	end
-
 	local collisionsMode = self._draggerContext:areCollisionsEnabled() and
 		Enum.IKCollisionsMode.OtherMechanismsAnchored or
 		Enum.IKCollisionsMode.NoCollisions
 
-	local candidateTransform
-	if getFFlagFixIKRotateCFrameError() then
-		candidateTransform = getRotationTransform(
-			self._originalBoundingBoxCFrame,
-			self._handleCFrame.RightVector,
-			delta,
-			self._draggerContext:getRotateIncrement())
-	else
-		candidateTransform = getRotationTransform(
-			self._boundingBox.CFrame,
-			self._handleCFrame.RightVector,
-			delta,
-			self._draggerContext:getRotateIncrement())
-	end
+	local candidateTransform = getRotationTransform(
+		self._originalBoundingBoxCFrame,
+		self._handleCFrame.RightVector,
+		delta,
+		self._draggerContext:getRotateIncrement())
 	local appliedTransform = self._partMover:rotateToWithIk(candidateTransform, collisionsMode)
 
 	self._attachmentMover:transformTo(appliedTransform)
@@ -417,30 +366,16 @@ function RotateToolImpl:_mouseDragWithInverseKinematics(mouseRay, delta)
 end
 
 function RotateToolImpl:mouseUp(mouseRay)
-	if getFFlagFixEdgeOnRotateError() then
-		if self._startAngle then
-			self._startAngle = nil
-			self._draggingLastGoodDelta = 0
-			self._originalBoundingBoxCFrame = nil
-			if self._draggerContext:shouldJoinSurfaces() and self._jointPairs then
-				self._jointPairs:createJoints()
-			end
-			self._jointPairs = nil
-			self._partMover:commit()
-			self._attachmentMover:commit()
+	if self._startAngle then
+		self._startAngle = nil
+		self._draggingLastGoodDelta = 0
+		self._originalBoundingBoxCFrame = nil
+		if self._draggerContext:shouldJoinSurfaces() and self._jointPairs then
+			self._jointPairs:createJoints()
 		end
-	else
-		if self._handles[self._draggingHandleId] then
-			self._draggingLastGoodDelta = 0
-			self._startAngle = nil
-			self._originalBoundingBoxCFrame = nil
-			if self._draggerContext:shouldJoinSurfaces() and self._jointPairs then
-				self._jointPairs:createJoints()
-			end
-			self._jointPairs = nil
-			self._partMover:commit()
-			self._attachmentMover:commit()
-		end
+		self._jointPairs = nil
+		self._partMover:commit()
+		self._attachmentMover:commit()
 	end
 
 	self._draggingHandleId = nil

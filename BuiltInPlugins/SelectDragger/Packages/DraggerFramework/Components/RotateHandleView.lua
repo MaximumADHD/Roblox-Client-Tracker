@@ -11,6 +11,10 @@ local Packages = DraggerFramework.Parent
 local Roact = require(Packages.Roact)
 local Math = require(DraggerFramework.Utility.Math)
 
+local getEngineFeatureAdornCullingMode = require(DraggerFramework.Flags.getEngineFeatureAdornCullingMode)
+
+local CULLING_MODE = getEngineFeatureAdornCullingMode() and Enum.AdornCullingMode.Never or nil
+
 local RotateHandleView = Roact.PureComponent:extend("RotateHandleView")
 
 local HANDLE_SEGMENTS = 32
@@ -85,6 +89,7 @@ function RotateHandleView:render()
 			Size = Vector3.new(thickness, segmentLength, thickness),
 			Transparency = HANDLE_DIM_TRANSPARENCY,
 			ZIndex = 0,
+			AdornCullingMode = CULLING_MODE,
 		})
 		local brightName = "BrightHandleSegment" .. tostring(i)
 		children[brightName] = Roact.createElement("BoxHandleAdornment", {
@@ -94,6 +99,7 @@ function RotateHandleView:render()
 			Color3 = self.props.Color,
 			Size = Vector3.new(thickness, segmentLength, thickness),
 			ZIndex = 0,
+			AdornCullingMode = CULLING_MODE,
 		})
 	end
 
@@ -132,6 +138,7 @@ function RotateHandleView:render()
 				Color3 = self.props.Color,
 				Size = Vector3.new(tickWidth, tickWidth, tickLength),
 				ZIndex = 0,
+				AdornCullingMode = CULLING_MODE,
 			})
 			children["OnTopTick" .. tostring(i)] = Roact.createElement("BoxHandleAdornment", {
 				Adornee = Workspace.Terrain,
@@ -141,6 +148,7 @@ function RotateHandleView:render()
 				Color3 = self.props.Color,
 				Size = Vector3.new(tickWidth, tickWidth, tickLength),
 				ZIndex = 0,
+				AdornCullingMode = CULLING_MODE,
 			})
 		end
 	end
@@ -157,6 +165,7 @@ function RotateHandleView:render()
 			Height = radius,
 			Radius = thickness / 2,
 			ZIndex = 0,
+			AdornCullingMode = CULLING_MODE,
 		})
 	end
 

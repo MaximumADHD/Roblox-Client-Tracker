@@ -24,8 +24,7 @@ local SetFavoritePrompt = Roact.PureComponent:extend("SetFavoritePrompt")
 SetFavoritePrompt.validateProps = t.strictInterface({
 	--State
 	itemId = t.integer,
-	--TODO: Fix after rebuilding robloxdev-cli
-	--itemType = t.enum(Enum.AvatarItemType),
+	itemType = t.enum(Enum.AvatarItemType),
 	itemName = t.string,
 	shouldFavorite = t.boolean,
 	screenSize = t.Vector2,
@@ -36,15 +35,12 @@ SetFavoritePrompt.validateProps = t.strictInterface({
 
 function SetFavoritePrompt:init()
 	self.renderAlertMiddleContent = function()
-		local thumbnailType = "Asset"
-		--TODO: Fix after rebuilding robloxdev-cli
-		--[[
+		local thumbnailType
 		if self.props.itemType == Enum.AvatarItemType.Asset then
 			thumbnailType = "Asset"
 		elseif self.props.itemType == Enum.AvatarItemType.Bundle then
 			thumbnailType = "BundleThumbnail"
 		end
-		]]
 
 		local imageUrl = "rbxthumb://type=" ..thumbnailType.. "&id=" ..self.props.itemId.. "&w=150&h=150"
 

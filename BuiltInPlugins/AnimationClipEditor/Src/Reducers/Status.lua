@@ -36,6 +36,7 @@ return Rodux.createReducer({
 	PinnedParts = {},
 
 	EventEditingFrame = nil,
+	VisualizeBones = true,
 }, {
 	SetActive = function(state, action)
 		return Cryo.Dictionary.join(state, {
@@ -206,6 +207,12 @@ return Rodux.createReducer({
 	SetStartingPose = function(state, action)
 		return Cryo.Dictionary.join(state, {
 			StartingPose = action.startingPose,
+		})
+	end,
+
+	SetBoneVisualization = function(state, action)
+		return Cryo.Dictionary.join(state, {
+			VisualizeBones = action.visualizeBones,
 		})
 	end,
 })

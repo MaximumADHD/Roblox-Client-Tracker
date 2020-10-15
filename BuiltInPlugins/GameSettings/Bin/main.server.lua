@@ -9,7 +9,6 @@ require(script.Parent.defineLuaFlags)
 -- Fast flags
 local FFlagGameSettingsPlaceSettings = game:GetFastFlag("GameSettingsPlaceSettings")
 local FFlagDeveloperSubscriptionsEnabled = game:GetFastFlag("DeveloperSubscriptionsEnabled")
-local FFlagStudioOpenGameSettingsEvent = game:GetFastFlag("StudioOpenGameSettingsEvent")
 local FFlagLocalizationPageInGameSettingsV2 = game:GetFastFlag("LocalizationPageInGameSettingsV2")
 
 --Turn this on when debugging the store and actions
@@ -320,12 +319,10 @@ local function main()
 			end
 		end)
 
-		if FFlagStudioOpenGameSettingsEvent then
-			-- hook into event for opening game settings
-			StudioService.OnOpenGameSettings:Connect(function(pageIdentifier)
-				openGameSettings(game.GameId, game, pageIdentifier)
-			end)
-		end
+		-- hook into event for opening game settings
+		StudioService.OnOpenGameSettings:Connect(function(pageIdentifier)
+			openGameSettings(game.GameId, game, pageIdentifier)
+		end)
 
 	else
 		settingsButton.Enabled = false

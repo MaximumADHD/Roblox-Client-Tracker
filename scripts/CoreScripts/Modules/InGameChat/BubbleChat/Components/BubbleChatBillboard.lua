@@ -12,11 +12,18 @@ local RunService = game:GetService("RunService")
 local Roact = require(CorePackages.Packages.Roact)
 local RoactRodux = require(CorePackages.Packages.RoactRodux)
 local t = require(CorePackages.Packages.t)
+local Otter = require(CorePackages.Packages.Otter)
 local BubbleChatList = require(script.Parent.BubbleChatList)
 local ChatBubbleDistant = require(script.Parent.ChatBubbleDistant)
 local Types = require(script.Parent.Parent.Types)
+local Constants = require(script.Parent.Parent.Constants)
 
 local BubbleChatBillboard = Roact.Component:extend("BubbleChatBillboard")
+
+local SPRING_CONFIG = {
+	dampingRatio = 1,
+	frequency = 4,
+}
 
 BubbleChatBillboard.validateProps = t.strictInterface({
 	userId = t.string,
@@ -29,11 +36,19 @@ BubbleChatBillboard.validateProps = t.strictInterface({
 })
 
 function BubbleChatBillboard:init()
-	self.state = {
+	self:setState({
 		adornee = nil,
 		isInsideRenderDistance = false,
-		isInsideMaximizeDistance = false
-	}
+		isInsideMaximizeDistance = false,
+	})
+
+	self.offset, self.updateOffset = Roact.createBinding(Vector3.new())
+	self.offsetMotor = Otter.createSingleMotor(0)
+	self.offsetMotor:onStep(function(offset)
+		self.updateOffset(Vector3.new(0, offset, 0))
+	end)
+	self.offsetGoal = 0
+
 	self.onLastBubbleFadeOut = function()
 		if self.props.onFadeOut then
 			self.props.onFadeOut(self.props.userId)
@@ -46,6 +61,10 @@ function BubbleChatBillboard:didMount()
 	self:setState({
 		adornee = adornee
 	})
+
+	local initialOffset = self:getVerticalOffset(adornee)
+	self.offsetGoal = initialOffset
+	self.offsetMotor:setGoal(Otter.instant(initialOffset))
 
 	-- When the character respawns, we need to update the adornee
 	local player = Players:GetPlayerFromCharacter(adornee)
@@ -74,6 +93,12 @@ function BubbleChatBillboard:didMount()
 				})
 			end
 		end
+
+		local offset = self:getVerticalOffset(self.state.adornee)
+		if math.abs(offset - self.offsetGoal) > Constants.BILLBOARD_OFFSET_EPSILON then
+			self.offsetGoal = offset
+			self.offsetMotor:setGoal(Otter.spring(offset, SPRING_CONFIG))
+		end
 	end)
 end
 
@@ -90,10 +115,7 @@ function BubbleChatBillboard:willUnmount()
 		self.humanoidDiedConn:Disconnect()
 		self.humanoidDiedConn = nil
 	end
-	if self.humanoidSeatedConn then
-		self.humanoidSeatedConn:Disconnect()
-		self.humanoidSeatedConn = nil
-	end
+	self.offsetMotor:destroy()
 end
 
 -- Wait for the first of the passed signals to fire
@@ -148,7 +170,7 @@ function BubbleChatBillboard:onCharacterAdded(player, character)
 
 	if rootPart and character:IsDescendantOf(game) and player.Character == character then
 		self:setState({
-			adornee = (humanoid.Health == 0 or humanoid.Sit) and character:FindFirstChild("Head") or character
+			adornee = humanoid.Health == 0 and character:FindFirstChild("Head") or character
 		})
 
 		if self.humanoidDiedConn then
@@ -159,26 +181,25 @@ function BubbleChatBillboard:onCharacterAdded(player, character)
 				adornee = character:FindFirstChild("Head") or character
 			})
 		end)
-
-		if self.humanoidSeatedConn then
-			self.humanoidSeatedConn:Disconnect()
-		end
-		self.humanoidSeatedConn = humanoid.Seated:Connect(function(active)
-			self:setState({
-				adornee = active and character:FindFirstChild("Head") or character
-			})
-		end)
 	end
 end
 
 -- Offsets the billboard so it will align properly with the top of the
 -- character, regardless of what assets they're wearing.
 function BubbleChatBillboard:getVerticalOffset(adornee)
-	if adornee:IsA("Model") then
-		local extents = adornee:GetExtentsSize()
-		return Vector3.new(0, extents.Y / 2, 0)
-	else
-		return Vector3.new(0, adornee.Size.Y / 2 + 0.5, 0)
+	if not adornee then
+		return 0
+	elseif adornee:IsA("Model") then
+		-- Billboard is adornee'd to the PrimaryPart -> need to calculate the distance between it and the top of the
+		-- bounding box
+		local orientation, size = adornee:GetBoundingBox()
+		if adornee.PrimaryPart then
+			local relative = orientation:PointToObjectSpace(adornee.PrimaryPart.Position)
+			return size.Y / 2 - relative.Y
+		end
+		return size.Y / 2
+	elseif adornee:IsA("BasePart") then
+		return adornee.Size.Y / 2
 	end
 end
 
@@ -205,7 +226,6 @@ function BubbleChatBillboard:getAdorneePart()
 end
 
 function BubbleChatBillboard:render()
-	local adornee = self.state.adornee
 	local adorneePart = self:getAdorneePart()
 	local isLocalPlayer = self.props.userId == tostring(Players.LocalPlayer.UserId)
 	local settings = self.props.chatSettings
@@ -230,7 +250,7 @@ function BubbleChatBillboard:render()
 		-- For the local player, increase Z offset to prevent the character from overlapping his bubbles when jumping/emoting
 		-- This behavior is the same as the old bubble chat
 		StudsOffset = Vector3.new(0, (isLocalPlayer and 0 or 1) + settings.VerticalStudsOffset, isLocalPlayer and 2 or 0.1),
-		StudsOffsetWorldSpace = self:getVerticalOffset(adornee),
+		StudsOffsetWorldSpace = self.offset,
 		ResetOnSpawn = false,
 	}, {
 		DistantBubble = not self.state.isInsideMaximizeDistance and Roact.createElement(ChatBubbleDistant, {

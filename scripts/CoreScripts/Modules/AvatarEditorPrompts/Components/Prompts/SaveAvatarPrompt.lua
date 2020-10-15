@@ -23,7 +23,10 @@ local PerformSaveAvatar = require(AvatarEditorPrompts.Thunks.PerformSaveAvatar)
 
 local SCREEN_SIZE_PADDING = 30
 local VIEWPORT_MAX_TOP_PADDING = 40
-local VIEWPORT_SIDE_PADDING = 10
+local VIEWPORT_SIDE_PADDING = 5
+
+local ITEMS_LIST_WIDTH_PERCENT = 0.45
+local HUMANOID_VIEWPORT_WIDTH_PERCENT = 0.55
 
 local SaveAvatarPrompt = Roact.PureComponent:extend("SaveAvatarPrompt")
 
@@ -32,7 +35,6 @@ SaveAvatarPrompt.validateProps = t.strictInterface({
 	gameName = t.string,
 	screenSize = t.Vector2,
 	humanoidDescription = t.instanceOf("HumanoidDescription"),
-	assetNames = t.array(t.string),
 	rigType = t.enum(Enum.HumanoidRigType),
 	--Dispatch
 	performSaveAvatar = t.callback,
@@ -75,17 +77,17 @@ function SaveAvatarPrompt:init()
 		}, {
 			ItemsListFrame = Roact.createElement("Frame", {
 				BackgroundTransparency = 1,
-				Size = UDim2.fromScale(0.5, 1),
+				Size = UDim2.fromScale(ITEMS_LIST_WIDTH_PERCENT, 1),
 			}, {
 				ItemsList = Roact.createElement(ItemsList, {
-					assetNames = self.props.assetNames,
+					humanoidDescription = self.props.humanoidDescription,
 				}),
 			}),
 
 			HumanoidViewportFrame = Roact.createElement("Frame", {
 				BackgroundTransparency = 1,
-				Size = UDim2.fromScale(0.5, 1),
-				Position = UDim2.fromScale(0.5, 0),
+				Size = UDim2.fromScale(HUMANOID_VIEWPORT_WIDTH_PERCENT, 1),
+				Position = UDim2.fromScale(ITEMS_LIST_WIDTH_PERCENT, 0),
 				LayoutOrder = 2,
 			}, {
 				UIPadding = Roact.createElement("UIPadding", {
@@ -143,7 +145,6 @@ local function mapStateToProps(state)
 		screenSize = state.screenSize,
 		humanoidDescription = state.promptInfo.humanoidDescription,
 		rigType = state.promptInfo.rigType,
-		assetNames = state.promptInfo.assetNames,
 	}
 end
 
