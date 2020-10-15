@@ -5,9 +5,15 @@
 return function(A, B)
 	local new = {}
 
-	for key, value in pairs(A) do
-		if B[key] ~= A[key] then
-			new[key] = value
+	for keyA, valueA in pairs(A) do
+		if B[keyA] ~= A[keyA] then
+			new[keyA] = valueA
+		end
+	end
+
+	for keyB, valueB in pairs(B) do
+		if B[keyB] ~= A[keyB] then
+			new[keyB] = valueB
 		end
 	end
 

@@ -14,6 +14,7 @@ return function(props)
 			Size = UDim2.new(1, 0, 0, NAV_HIGHLIGHT_HEIGHT),
 			BorderSizePixel = 1,
 			BackgroundColor3 = style.Theme.SelectionCursor.Color,
+			BorderColor3 = style.Theme.SelectionCursor.Color,
 			BackgroundTransparency = style.Theme.SelectionCursor.Transparency,
 
 			[Roact.Ref] = props[Roact.Ref]

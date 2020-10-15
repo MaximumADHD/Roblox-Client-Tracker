@@ -69,6 +69,40 @@ return function()
 			}
 			expect(shallowEqual(tableA, tableB)).to.equal(false)
 		end)
+
+		it("SHOULD return false if the different table value exist in inner level of nesting tables", function()
+			local tableA = {
+				value1 = "value1",
+				value2 = {
+					innerValue1 = "value2",
+					innerValue2 = "value3",
+				}
+			}
+			local tableB = {
+				value1 = "value1",
+				value2 = {
+					innerValue1 = "value2",
+					innerValue2 = "value4",
+				}
+			}
+			expect(shallowEqual(tableA, tableB)).to.equal(false)
+		end)
 	end)
 
+	describe("WHEN given ignore table", function()
+		it("SHOULD return true if the different table value exist in ignore table", function()
+			local tableA = {
+				value1 = "value1",
+				value2 = "value2",
+			}
+			local tableB = {
+				value1 = "value1",
+				value2 = "value1",
+			}
+			local ignore = {
+				value2 = "value1",
+			}
+			expect(shallowEqual(tableA, tableB, ignore)).to.equal(true)
+		end)
+	end)
 end

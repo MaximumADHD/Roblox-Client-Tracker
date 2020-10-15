@@ -187,9 +187,10 @@ local function log(level, node, args)
 			-- Treat {} as a positional arg.
 			if w == "" then
 				i = i + 1
-				return args[i]
+				return tostring(args[i])
 			end
-			return fullContext[w] or w
+			local c = fullContext[w]
+			return c and tostring(c)
 		end))
 		if i < args.n then
 			interpMsg = interpMsg .. "\nLUMBERYAK INTERNAL: Too many arguments given for format string"

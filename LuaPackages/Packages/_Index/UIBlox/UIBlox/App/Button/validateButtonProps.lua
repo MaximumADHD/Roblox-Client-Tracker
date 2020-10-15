@@ -4,6 +4,7 @@ local UIBlox = App.Parent
 local Packages = UIBlox.Parent
 local Core = UIBlox.Core
 
+local Roact = require(Packages.Roact)
 local t = require(Packages.t)
 
 local validateImage = require(Core.ImageSet.Validator.validateImage)
@@ -38,4 +39,11 @@ return t.strictInterface({
 
 	--A Boolean value that determines whether user events are ignored and sink input
 	userInteractionEnabled = t.optional(t.boolean),
+
+	-- Gamepad Support props
+	NextSelectionDown = t.optional(t.table),
+	NextSelectionUp = t.optional(t.table),
+	NextSelectionLeft = t.optional(t.table),
+	NextSelectionRight = t.optional(t.table),
+	[Roact.Ref] = t.optional(t.table),
 })

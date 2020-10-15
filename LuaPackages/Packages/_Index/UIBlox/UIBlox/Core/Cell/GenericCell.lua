@@ -71,6 +71,7 @@ GenericCell.validateProps = t.strictInterface({
 	NextSelectionRight = t.optional(t.table),
 	NextSelectionUp = t.optional(t.table),
 	NextSelectionDown = t.optional(t.table),
+	SelectionImageObject = t.optional(t.table),
 })
 
 GenericCell.defaultProps = {
@@ -99,6 +100,7 @@ function GenericCell:render()
 			NextSelectionDown = self.props.NextSelectionDown,
 			NextSelectionLeft = self.props.NextSelectionLeft,
 			NextSelectionRight = self.props.NextSelectionRight,
+			SelectionImageObject = self.props.SelectionImageObject,
 			isDisabled = self.props.isDisabled,
 			onStateChanged = self.props.onStateChanged,
 		}, {

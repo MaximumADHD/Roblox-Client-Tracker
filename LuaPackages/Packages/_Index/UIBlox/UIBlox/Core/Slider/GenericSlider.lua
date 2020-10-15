@@ -320,12 +320,12 @@ function GenericSlider:render()
 							}
 						end)
 					end),
-					UnselectLowerKnob = Gamepad.Input.onBegin(Enum.KeyCode.ButtonB, function()
+					UnselectLowerKnob = knobIsSelected and Gamepad.Input.onBegin(Enum.KeyCode.ButtonB, function()
 						self:setState({
 							lowerKnobIsSelected = false,
 							processingGamepad = false,
 						})
-					end),
+					end) or nil,
 				} or nil,
 				NextSelectionLeft = knobIsSelected and self.lowerKnobRef or nil,
 				NextSelectionRight = (isTwoKnobs and not knobIsSelected and self.props.upperValue ~= self.props.lowerValue)
@@ -389,12 +389,12 @@ function GenericSlider:render()
 							}
 						end)
 					end),
-					UnselectUpperKnob = Gamepad.Input.onBegin(Enum.KeyCode.ButtonB, function()
+					UnselectUpperKnob = knobIsSelected and Gamepad.Input.onBegin(Enum.KeyCode.ButtonB, function()
 						self:setState({
 							upperKnobIsSelected = false,
 							processingGamepad = false,
 						})
-					end),
+					end) or nil,
 				} or nil,
 			}),
 			UpperKnobShadow = isTwoKnobs and Roact.createElement(ImageSetComponent.Label, {

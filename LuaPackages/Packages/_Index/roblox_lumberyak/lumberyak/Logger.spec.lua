@@ -385,6 +385,50 @@ return function()
 			assert(string.find(sink.seen[1].message, "LUMBERYAK INTERNAL"),
 				"Expected an internal warning, got [[\n" .. sink.seen[1].message .. "\n]]")
 		end)
+
+		it("should handle a single nil positional argument", function()
+			local log = Logger.new()
+			local sink = newSink(Logger.Levels.Info)
+			log:addSink(sink)
+
+			log:info("foo {} bar", nil)
+
+			expect(#sink.seen).to.equal(1)
+			expect(sink.seen[1].message).to.equal("foo nil bar")
+		end)
+
+		it("should handle a nil positional argument in the middle", function()
+			local log = Logger.new()
+			local sink = newSink(Logger.Levels.Info)
+			log:addSink(sink)
+
+			log:info("foo {} {}", nil, "bar")
+
+			expect(#sink.seen).to.equal(1)
+			expect(sink.seen[1].message).to.equal("foo nil bar")
+		end)
+
+		it("should handle multiple nil arguments", function()
+			local log = Logger.new()
+			local sink = newSink(Logger.Levels.Info)
+			log:addSink(sink)
+
+			log:info("foo {} {}", nil, nil)
+
+			expect(#sink.seen).to.equal(1)
+			expect(sink.seen[1].message).to.equal("foo nil nil")
+		end)
+
+		it("should ignore a nil named arugment", function()
+			local log = Logger.new()
+			local sink = newSink(Logger.Levels.Info)
+			log:addSink(sink)
+
+			log:info("foo {notFound} bar")
+
+			expect(#sink.seen).to.equal(1)
+			expect(sink.seen[1].message).to.equal("foo {notFound} bar")
+		end)
 	end)
 
 	describe("When passing in context", function()

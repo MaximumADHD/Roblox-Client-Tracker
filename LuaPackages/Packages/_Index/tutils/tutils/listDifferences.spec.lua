@@ -16,10 +16,10 @@ return function()
 				expectTable(listDifferences(listA, listB)).toEqual({ 4 })
 			end)
 
-			it("SHOULD return an empty table if the second parameter has extra values", function()
+			it("SHOULD return a list of delta values if the second parameter has extra values", function()
 				local listA = { 1, 2, 3 }
 				local listB = { 1, 2, 3, 4 }
-				expectTable(listDifferences(listA, listB)).toEqual({})
+				expectTable(listDifferences(listA, listB)).toEqual({ 4 })
 			end)
 		end)
 

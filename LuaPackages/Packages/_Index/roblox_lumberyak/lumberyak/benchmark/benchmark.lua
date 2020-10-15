@@ -1,4 +1,4 @@
-local Logger = require(Workspace.LoadedCode.Packages.Lumberyak.Logger)
+local Logger = require(game.LoadedCode.Packages.Lumberyak.Logger)
 
 local runs = 2000000
 

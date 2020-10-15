@@ -20,5 +20,10 @@ return function()
 			}
 			expect(fieldCount(table2)).to.equal(2)
 		end)
+
+		it("should return list's count", function()
+			local list1 = {1, 2, 3}
+			expect(fieldCount(list1)).to.equal(3)
+		end)
 	end)
 end

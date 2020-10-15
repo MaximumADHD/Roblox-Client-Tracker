@@ -4,6 +4,7 @@ local UIBlox = App.Parent
 local Packages = UIBlox.Parent
 
 local Roact = require(Packages.Roact)
+local RoactGamepad = require(Packages.RoactGamepad)
 
 local Images = require(App.ImageSet.Images)
 local CursorKind = require(App.SelectionImage.CursorKind)
@@ -11,6 +12,7 @@ local withSelectionCursorProvider = require(App.SelectionImage.withSelectionCurs
 local validateButtonProps = require(Button.validateButtonProps)
 local GenericButton = require(UIBlox.Core.Button.GenericButton)
 local ControlState = require(UIBlox.Core.Control.Enum.ControlState)
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 local PrimaryContextualButton = Roact.PureComponent:extend("PrimaryContextualButton")
 
@@ -31,8 +33,10 @@ PrimaryContextualButton.defaultProps = {
 function PrimaryContextualButton:render()
 	assert(validateButtonProps(self.props))
 	local image = Images["component_assets/circle_17"]
+	local genericButtonComponent = UIBloxConfig.enableExperimentalGamepadSupport and
+		RoactGamepad.Focusable[GenericButton] or GenericButton
 	return withSelectionCursorProvider(function(getSelectionCursor)
-		return Roact.createElement(GenericButton, {
+		return Roact.createElement(genericButtonComponent, {
 			Size = self.props.size,
 			AnchorPoint = self.props.anchorPoint,
 			Position = self.props.position,
@@ -48,6 +52,12 @@ function PrimaryContextualButton:render()
 			buttonImage = image,
 			buttonStateColorMap = BUTTON_STATE_COLOR,
 			contentStateColorMap = CONTENT_STATE_COLOR,
+
+			NextSelectionUp = self.props.NextSelectionUp,
+			NextSelectionDown = self.props.NextSelectionDown,
+			NextSelectionLeft = self.props.NextSelectionLeft,
+			NextSelectionRight = self.props.NextSelectionRight,
+			[Roact.Ref] = self.props[Roact.Ref],
 		})
 	end)
 end

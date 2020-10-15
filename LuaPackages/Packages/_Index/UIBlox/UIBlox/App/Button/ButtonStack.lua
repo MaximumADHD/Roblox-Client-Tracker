@@ -104,22 +104,15 @@ function ButtonStack:render()
 			end
 
 			if UIBloxConfig.enableExperimentalGamepadSupport then
-				local gamepadFrameProps = {
-					Size = buttonSize,
-					BackgroundTransparency = 1,
+				local gamepadProps = {
 					[Roact.Ref] = self.buttonRefs[colIndex],
 					NextSelectionUp = (isButtonStacked and colIndex > 1) and self.buttonRefs[colIndex - 1] or nil,
 					NextSelectionDown = (isButtonStacked and colIndex < #buttons) and self.buttonRefs[colIndex + 1] or nil,
 					NextSelectionLeft = (not isButtonStacked and colIndex > 1) and self.buttonRefs[colIndex - 1] or nil,
 					NextSelectionRight = (not isButtonStacked and colIndex < #buttons) and self.buttonRefs[colIndex + 1] or nil,
-					inputBindings = {
-						Activated = RoactGamepad.Input.onBegin(Enum.KeyCode.ButtonA, button.props.onActivated),
-					},
 				}
-
-				table.insert(buttonTable, Roact.createElement(RoactGamepad.Focusable.Frame, gamepadFrameProps, {
-					Roact.createElement(buttonComponent, buttonProps)
-				}))
+				local buttonPropsWithGamepad = Cryo.Dictionary.join(buttonProps, gamepadProps)
+				table.insert(buttonTable, Roact.createElement(buttonComponent, buttonPropsWithGamepad))
 			else
 				table.insert(buttonTable, Roact.createElement(buttonComponent, buttonProps))
 			end

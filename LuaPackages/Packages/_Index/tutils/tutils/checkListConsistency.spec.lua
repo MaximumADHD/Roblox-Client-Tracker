@@ -37,5 +37,14 @@ return function()
 			}
 			expect(checkListConsistency(dictionary)).to.equal(false)
 		end)
+
+		it("SHOULD return false for dictionary with number keys which are not exactly 1..#t", function()
+			local dictionary = {
+				[1] = "bar",
+				[2] = "foo",
+				[5] = "woof"
+			}
+			expect(checkListConsistency(dictionary)).to.equal(false)
+		end)
 	end)
 end

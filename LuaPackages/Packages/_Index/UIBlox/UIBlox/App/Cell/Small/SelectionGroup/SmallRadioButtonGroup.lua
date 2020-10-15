@@ -10,6 +10,8 @@ local RoactGamepad = require(Packages.RoactGamepad)
 local t = require(Packages.t)
 
 local UIBloxConfig = require(UIBlox.UIBloxConfig)
+local withSelectionCursorProvider = require(UIBlox.App.SelectionImage.withSelectionCursorProvider)
+local CursorKind = require(UIBlox.App.SelectionImage.CursorKind)
 
 local SmallRadioButtonCell = require(UIBlox.App.Cell.Small.SelectionGroup.SmallRadioButtonCell)
 
@@ -33,6 +35,9 @@ SmallRadioButtonGroup.validateProps = t.strictInterface({
 
 	-- Layout order for this component.
 	layoutOrder = t.optional(t.number),
+
+	-- If this cell should use the default control state
+	useDefaultControlState = t.optional(t.boolean),
 
 	-- optional parameters for RoactGamepad
 	NextSelectionLeft = t.optional(t.table),
@@ -61,18 +66,22 @@ function SmallRadioButtonGroup:render()
 	for index, button in ipairs(self.props.items) do
 		if UIBloxConfig.enableExperimentalGamepadSupport then
 			smallRadioButtonCellGroup["smallRadioButtonCell"..button.key] =
-				Roact.createElement(RoactGamepad.Focusable[SmallRadioButtonCell], {
-				key = button.key,
-				text = button.text,
-				onActivated = self.props.onActivated,
-				isSelected = self.props.selectedValue == button.key,
-				isDisabled = button.isDisabled,
-				layoutOrder = index,
+				withSelectionCursorProvider(function(getSelectionCursor)
+				return Roact.createElement(RoactGamepad.Focusable[SmallRadioButtonCell], {
+					key = button.key,
+					text = button.text,
+					onActivated = self.props.onActivated,
+					isSelected = self.props.selectedValue == button.key,
+					isDisabled = button.isDisabled,
+					layoutOrder = index,
+					useDefaultControlState = self.props.useDefaultControlState,
 
-				[Roact.Ref] = self.gamepadRefs[index],
-				NextSelectionUp = index > 1 and self.gamepadRefs[index - 1] or nil,
-				NextSelectionDown = index < #self.props.items and self.gamepadRefs[index + 1] or nil,
-			})
+					[Roact.Ref] = self.gamepadRefs[index],
+					NextSelectionUp = index > 1 and self.gamepadRefs[index - 1] or nil,
+					NextSelectionDown = index < #self.props.items and self.gamepadRefs[index + 1] or nil,
+					SelectionImageObject = getSelectionCursor(CursorKind.SelectionCell),
+				})
+			end)
 		else
 			smallRadioButtonCellGroup["smallRadioButtonCell"..button.key] = Roact.createElement(SmallRadioButtonCell, {
 				key = button.key,

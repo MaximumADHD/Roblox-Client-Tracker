@@ -15,6 +15,8 @@ local FitFrameVertical = FitFrame.FitFrameVertical
 local ModalTitle = require(ModalRoot.ModalTitle)
 local ModalWindow = require(ModalRoot.ModalWindow)
 
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
+
 local PartialPageModal = Roact.PureComponent:extend("PartialPageModal")
 
 local MARGIN = 24
@@ -35,6 +37,8 @@ local validateProps = t.strictInterface({
 	buttonStackProps = t.optional(t.table), -- Button stack validates the contents
 
 	onCloseClicked = t.optional(t.callback),
+
+	contentPadding = t.optional(t.UDim),
 })
 
 -- Used to determine width of middle content for dynamically sizing children in the content
@@ -75,6 +79,7 @@ function PartialPageModal:render()
 				right = MARGIN,
 			},
 			BackgroundTransparency = 1,
+			contentPadding = UIBloxConfig.enableExperimentalGamepadSupport and self.props.contentPadding or nil,
 		}, {
 			MiddlContent = Roact.createElement(FitFrameVertical, {
 				width = UDim.new(1, 0),

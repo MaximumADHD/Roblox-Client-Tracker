@@ -12,6 +12,8 @@ local t = require(Packages.t)
 local withStyle = require(UIBlox.Core.Style.withStyle)
 local validateButtonProps = require(script.Parent.validateButtonProps)
 
+local withSelectionCursorProvider = require(UIBlox.App.SelectionImage.withSelectionCursorProvider)
+local CursorKind = require(UIBlox.App.SelectionImage.CursorKind)
 local Images = require(Packages.UIBlox.App.ImageSet.Images)
 local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
@@ -36,11 +38,15 @@ local function makeBaseMenu(cellComponent, backgroundThemeKey)
 		position = t.optional(t.union(t.UDim2, t.table)),
 		anchorPoint = t.optional(t.Vector2),
 		layoutOrder = t.optional(t.number),
+		topElementRounded = t.optional(t.boolean),
+		bottomElementRounded = t.optional(t.boolean),
 	})
 
 	baseMenuComponent.defaultProps = {
 		width = UDim.new(1, 0),
 		position = UDim2.new(0, 0, 0, 0),
+		topElementRounded = true,
+		bottomElementRounded = true,
 	}
 
 	function baseMenuComponent:init()
@@ -61,27 +67,40 @@ local function makeBaseMenu(cellComponent, backgroundThemeKey)
 		for index, cellProps in ipairs(self.props.buttonProps) do
 			local mergedProps = Cryo.Dictionary.join(cellProps, {
 				elementHeight = ELEMENT_HEIGHT,
-				hasRoundTop = index == 1 and not needsScrollbar,
-				hasRoundBottom = index == #self.props.buttonProps and not needsScrollbar,
+				hasRoundTop = self.props.topElementRounded and index == 1 and not needsScrollbar,
+				hasRoundBottom = self.props.bottomElementRounded and index == #self.props.buttonProps and not needsScrollbar,
 				hasDivider = index < #self.props.buttonProps,
 				layoutOrder = index,
 			})
 
 			if UIBloxConfig.enableExperimentalGamepadSupport then
-				children["cell " .. index] = Roact.createElement(RoactGamepad.Focusable.Frame, {
-					Size = UDim2.new(self.props.width, UDim.new(0, ELEMENT_HEIGHT)),
-					BackgroundTransparency = 1,
-					LayoutOrder = index,
+				local cursorKind
+				if mergedProps.hasRoundBottom and mergedProps.hasRoundTop then
+					cursorKind = CursorKind.RoundedRectNoInset
+				elseif mergedProps.hasRoundBottom then
+					cursorKind = CursorKind.BulletDown
+				elseif mergedProps.hasRoundTop then
+					cursorKind = CursorKind.BulletUp
+				else
+					cursorKind = CursorKind.Square
+				end
+				children["cell " .. index] = withSelectionCursorProvider(function(getSelectionCursor)
+					return Roact.createElement(RoactGamepad.Focusable.Frame, {
+						Size = UDim2.new(self.props.width, UDim.new(0, ELEMENT_HEIGHT)),
+						BackgroundTransparency = 1,
+						LayoutOrder = index,
 
-					[Roact.Ref] = self.gamepadRefs[index],
-					NextSelectionUp = index > 1 and self.gamepadRefs[index - 1] or nil,
-					NextSelectionDown = index < #self.props.buttonProps and self.gamepadRefs[index + 1] or nil,
-					inputBindings = {
-						Activated = RoactGamepad.Input.onBegin(Enum.KeyCode.ButtonA, cellProps.onActivated),
-					},
-				}, {
-					Cell = Roact.createElement(cellComponent, mergedProps)
-				})
+						[Roact.Ref] = self.gamepadRefs[index],
+						NextSelectionUp = index > 1 and self.gamepadRefs[index - 1] or nil,
+						NextSelectionDown = index < #self.props.buttonProps and self.gamepadRefs[index + 1] or nil,
+						inputBindings = {
+							Activated = RoactGamepad.Input.onBegin(Enum.KeyCode.ButtonA, cellProps.onActivated),
+						},
+						SelectionImageObject = getSelectionCursor(cursorKind)
+					}, {
+						Cell = Roact.createElement(cellComponent, mergedProps)
+					})
+				end)
 			else
 				children["cell " .. index] = Roact.createElement(cellComponent, mergedProps)
 			end

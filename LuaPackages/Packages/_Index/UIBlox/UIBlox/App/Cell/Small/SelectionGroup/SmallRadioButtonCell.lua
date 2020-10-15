@@ -35,6 +35,9 @@ SmallRadioButtonCell.validateProps = t.strictInterface({
 	-- If this cell is disabled
 	isDisabled = t.optional(t.boolean),
 
+	-- If this cell should use the default control state
+	useDefaultControlState = t.optional(t.boolean),
+
 	-- The LayoutOrder.
 	layoutOrder = t.optional(t.number),
 
@@ -44,6 +47,7 @@ SmallRadioButtonCell.validateProps = t.strictInterface({
 	NextSelectionRight = t.optional(t.table),
 	NextSelectionUp = t.optional(t.table),
 	NextSelectionDown = t.optional(t.table),
+	SelectionImageObject = t.optional(t.table),
 })
 
 SmallRadioButtonCell.defaultProps = {
@@ -75,12 +79,14 @@ function SmallRadioButtonCell:render()
 			selectedImageSize = SELECTED_IMAGE_SIZE,
 			text = self.props.text,
 			onActivated = self.onSetValue,
+			useDefaultControlState = self.props.useDefaultControlState,
 
 			[Roact.Ref] = self.props[Roact.Ref],
 			NextSelectionUp = self.props.NextSelectionUp,
 			NextSelectionDown = self.props.NextSelectionDown,
 			NextSelectionLeft = self.props.NextSelectionLeft,
 			NextSelectionRight = self.props.NextSelectionRight,
+			SelectionImageObject = self.props.SelectionImageObject,
 		}),
 	})
 end

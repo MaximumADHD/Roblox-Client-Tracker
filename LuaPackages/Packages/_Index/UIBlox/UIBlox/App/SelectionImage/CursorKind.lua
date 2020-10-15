@@ -13,6 +13,9 @@ local SkinToneCircleCursor = require(script.Parent.Components.SkinToneCircle)
 local SquareCursor = require(script.Parent.Components.Square)
 local ToggleCursor = require(script.Parent.Components.Toggle)
 local InputFieldsCursor = require(script.Parent.Components.InputFields)
+local BulletUpCursor = require(script.Parent.Components.BulletUp)
+local BulletDownCursor = require(script.Parent.Components.BulletDown)
+local SelectionCellCursor = require(script.Parent.Components.SelectionCell)
 
 return enumerate(script.Name, {
 	RoundedRect = RoundedRectCursor,
@@ -26,4 +29,7 @@ return enumerate(script.Name, {
 	Square = SquareCursor,
 	Toggle = ToggleCursor,
 	InputFields = InputFieldsCursor,
+	BulletUp = BulletUpCursor,
+	BulletDown = BulletDownCursor,
+	SelectionCell = SelectionCellCursor,
 })

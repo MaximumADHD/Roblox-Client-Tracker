@@ -6,6 +6,8 @@ return function()
 		expect(deepEqual("str1", "str1")).to.equal(true)
 		expect(deepEqual(1, 2)).to.equal(false)
 		expect(deepEqual("str1", "str2")).to.equal(false)
+		expect(deepEqual(nil, nil)).to.equal(true)
+		expect(deepEqual(nil, false)).to.equal(false)
 	end)
 
 	it("SHOULD correctly identifies deeply-equal tables", function()
