@@ -644,6 +644,7 @@ Class DataModelSession : Instance [NotCreatable]
 Class DataStoreService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property bool DataStoreService.AutomaticRetry {LocalUserSecurity} [NotReplicated]
 	Property bool DataStoreService.LegacyNamingScheme {LocalUserSecurity} [Deprecated]
+	Function Variant DataStoreService:GetDataFromEmptyScopeDataStoreAsyncTemporary(string name, string key) [Yields] [Deprecated]
 	Function Instance DataStoreService:GetDataStore(string name, string scope = "global")
 	Function Instance DataStoreService:GetGlobalDataStore()
 	Function Instance DataStoreService:GetOrderedDataStore(string name, string scope = "global")

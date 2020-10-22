@@ -11464,6 +11464,35 @@
                         "Name": "int"
                     },
                     "Security": "None"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetDataFromEmptyScopeDataStoreAsyncTemporary",
+                    "Parameters": [
+                        {
+                            "Name": "name",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Name": "key",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Variant"
+                    },
+                    "Security": "None",
+                    "Tags": [
+                        "Yields",
+                        "Deprecated"
+                    ]
                 }
             ],
             "MemoryCategory": "Instances",

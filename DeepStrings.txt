@@ -219,7 +219,6 @@ ACTUAL_BYTES_RECEIVED
 ActuatorRelativeTo
 ActuatorType
 Acutesmall
-ACZkI4maImIoK7oMNNFo87pIl88sFZKHPli8CNDcm9R
 AdapterDesc
 ADD_STYLE_NAME
 AddAccessory
@@ -1002,7 +1001,6 @@ AstExprVarargs
 AstStatFor
 AstStatFunction
 AStudioCrashOnInvalidColor3Cast
-ASXMbzZTHdpGFvHvh3BttUsVSXpqGuOLYXwh3
 ASYNC_init_thread
 Async_Mesh
 ASYNC_pause_job
@@ -1231,7 +1229,6 @@ AUScriptPerformanceViewData
 AUshared_state_base
 AUShutdownRequest
 AUShutdownResponse
-AUSklG6zF4nlz
 AUSoundTask
 AUSphereTriangleDetector
 AUSwappedCreateFunc
@@ -4486,6 +4483,7 @@ BIO_socket_nbio
 BIO_write_ex
 BitArrayToObject
 BitstreamList
+BJGGxhOw1iAg
 Bkg_round.png
 Bkg_square.png
 BL17qL9koPpyChCHbWVgSXbfxynzBupojeOEiuqDuGX0BFl
@@ -4836,8 +4834,9 @@ BytesReceivedAndIgnoredPerSec
 BytesReceivedPerSec
 BytesRecvAndIgnored
 BytesWritten
-ByVersion_0.452.1.412846
+ByVersion_0.452.2.413165
 ByVersionForPlatform_
+BZd45Z1qks2sSEWNLZX9
 C_specific_handler
 CA_NPEAVQObject
 CA2168118C14FDE5E01E7934
@@ -5122,7 +5121,6 @@ CComObjectRootEx
 CComPolyObject
 CCPPhotoshop
 CCx[66[xCCx[6L
-CcXiTwmnyiORwbqTo4JofUOpa8jZXKNqmORed5x6qAo25e
 CD583B11E29A3DBD856014A660
 CDA22142068118C14FDE5E01E7934
 CDAC09CD62068118083FFBB091BBC13
@@ -6048,7 +6046,6 @@ CMS_uncompress
 CMS_verify
 CMS3DESwrap
 CMSRC2wrap
-CMwEx3D0KEXp4tdlXg1a
 Cnd_broadcast
 Cnd_destroy
 Cnd_destroy_in_situ
@@ -7375,6 +7372,7 @@ DataStoreJSONRoundTripError
 DataStoreKeyLengthLimit
 DataStoreLargeValueError
 DataStorelastSetByKeySize
+DataStoreLostDataFixEnable
 DataStoreLRUCacheUpdateAsyncExpire
 DataStoreMaxBudgetMultiplier
 DataStoreMaxKeysToFetch
@@ -9791,7 +9789,6 @@ FetchingComplete
 FetchUniverse
 FetchUserId
 FetchUsername
-FeXfUtdo7Dxf0gevCzNds6qnIJung7
 FF65B11E38470F846885BB6FB
 FFFFFFFFFFFFFFF
 FFFFFFFFFFFFFFFFFFFFFFFF
@@ -10426,7 +10423,6 @@ FrontSurface
 FrontSurfaceInput
 FrustumOrdered
 FrustumRenderQueue
-Ft1KDD5ZmYw8G6ZO2dj8Mpqo7
 FullRenderObjects
 Fullscreen
 FullScreen
@@ -10629,6 +10625,7 @@ GE_packagefolder.png
 GearAction
 GearGenreSetting
 GearVersionIds
+GeKTZ6N5kiJO06roLqk2D4Jt4EGce
 GenAlgorithm
 GenBuffers
 GenCryptgrm
@@ -10810,6 +10807,7 @@ GetCurrentThreadId
 GetCurrentUser.ashx
 GetCurrentValue
 GetCustomFrameRate
+GetDataFromEmptyScopeDataStoreAsyncTemporary
 GetDataStore
 GetDateFormatEx
 GetDebuggers
@@ -11401,7 +11399,6 @@ GL_ARB_texture_storage
 GL_EXT_texture_border_clamp
 GL_EXT_texture_compression_s3tc
 GlassTintFS
-GLbejgPRiaxtM1SvhJ5oCHOvnUHTbOXGIyhom
 GlobalAdvancedSettings
 GlobalAdvancedSettingsItem
 GlobalAlloc
@@ -11435,6 +11432,7 @@ GLSL.std.450
 Glsles3Mediump1
 GlslesMediump1
 GlueCursor
+GOkYszGY3Fg
 GoldenHashes
 GoodbyeChoiceActive
 GoodbyeChoiceActiveProperty
@@ -11806,6 +11804,7 @@ HelpForSelectionAction
 HelpPageLink
 HelpWindow
 HelpWindow.style[
+HgSNuyjBAOFaxMWr5OLk8iMke
 HHAEBVQModelIndex
 HHHHHAEBVQString
 HHPEAVQObject
@@ -11943,7 +11942,6 @@ HQFSShadowed
 HQFSShadowedFSM
 HQVSShadowed
 HQVSShadowedFSM
-Hrwzprt1Cs92N
 HtmlEscaped
 Http_Failed
 HTTPAccumulatedBytes
@@ -12269,6 +12267,7 @@ IEBAPEAVQTreeWidgetItem
 IEBAXPEAVQStyleOptionComboBox
 IEBAXPEAVQStyleOptionSlider
 Ierusalimschy
+IeWSsi3EDQzPu5evdJNvq2pJX9O
 IFindListener
 IfLastDocInLastAppInstance
 IfPurchased
@@ -13136,7 +13135,6 @@ KeywordFilterType
 KfaO3j5BbG6ijHHxFy22YNNJwxKTT
 KfE9k0uDfE9k
 KFKPKXK`KhK
-KG8387mQTbyHHJWOMkGCIuY7dMXfE3RqAvRl6T3oF2nza
 KickByDatacenter_
 KiDszBCYB0gyp03Pc
 KillPtClicked
@@ -13483,6 +13481,7 @@ LiveCoding
 LiveScript
 LiveThreadRef
 LivingRoom
+Lj3CHeP2ENSHDB9dkP9
 LLEo6Soxvx2
 LLLLLLLLLLLLLLLL]]]]]]]]]]]]]]]]]]]]
 LmsClientAppReportPeriodSeconds
@@ -13724,6 +13723,7 @@ LowQGlassFS
 LowQMaterialFS
 LowQMaterialWangFallbackFS
 LowQMaterialWangFS
+LrMyTpMvvUEmqHRHCQr27m
 Lslashsmall
 LSPManager
 LSPOnTypeFormatingNewOptions
@@ -14067,6 +14067,7 @@ MaxViscousForceGravityTimesMult
 MaxVisibleItems
 MaxWaitTimeBeforeForcePacketProcessMS
 MayBeLinkedSourceModified
+MBFk3JDEeqknNQHdBmPc2j2CDR0rwoaKq01PyFEceH8popnBNHie5C80FgFcA5m6
 MdiControls
 MDIManagerHost
 MEAA_JPEA_W_J
@@ -14540,7 +14541,6 @@ Metrics.width
 MetricsSets
 MetricType
 MHapV7R8MxA953
-MHNJZtpZJHMW97a9Eb25aGsw6zg2euloNdWGvmWM
 MicroProfile
 MicroProfileFlip
 MicroprofileGroupAtLastStack
@@ -14559,7 +14559,7 @@ MigrateTriangleMeshData3
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAsI9zRp2OSccqdFx2
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAupANB3EbN9hFHHUj0eA
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAzjPRQo9jc
-MIICCgKCAgEA1KfrCWLYmc2Uys
+MIICCgKCAgEAq77XsMScVOUeAqCMewaj63JZU8t9yIy3eV55QUDuJjqV5Sn0dPRD
 Millisecond
 MillisecondsBeforeHandlingReconnect
 MimeDataFromSelection
@@ -15009,6 +15009,7 @@ NCONF_get_string
 NCONF_load
 NCONF_load_bio
 NCONF_load_fp
+Nd0YR7VQSnrcfIvMyQz
 NdnuScpeLkclOiiaVruaSilaKgnjRicyLiraCidyLmahCanaLtvaTtsvApygErmaSusiLumaBavaJietMimrAbraSitrPilhPhkrOihtKktaBharBdnaMmkaCcreMoreMdrlPdrhSaroSrkaTzzzZssaBbhgAlpuDablEnarGjohKdniSaniLjhaMinaMdneMidoMoorMtabNbraNmrePgnmHmlaPcuaPplhPddiShriTaraWmohAwulHrtaHtluMgn
 NE9F0uHE9F4uBE9F8u
 NearIntensity
@@ -15451,6 +15452,7 @@ OgreWidgetShowEvent
 Oh44\h44\Q
 Ohungarumlaut
 OiCCPPhotoshop
+OJBzI6hDbtPucRc9aKksIR
 OldActiveElement
 OldExtents
 OldMessagesFetched
@@ -15795,6 +15797,7 @@ PA_A^A]A\_^
 PA_A^A]A\_^[
 PA_A^A]A\_^]
 PA_A^A]A\_^]H
+PAc7ii73jtd6ZGg7QdeuQBNVC3AdYqXu3Ok5Gh5G23zi6e1U7oRukyvRfLDjYgV
 PacakgeServiceReportFailedRequestsRate
 Package_Size
 PackageAction
@@ -17706,6 +17709,7 @@ QDoubleSpinBox
 QDoubleValidator
 QDragMoveEvent
 QDropEvent
+QE0YRyHuhuyqCKuMowG2E50XDEKqMuFnV2ztZHTPdUrG68XlXFstzdmQ8qwPUn22
 QEAA_JAEBVQByteArray
 QEAA_JPEAD_J
 QEAA_JPEB_W_J
@@ -18203,7 +18207,6 @@ Qml2Imports
 QModelIndex
 QMouseEvent
 QMutexLocker
-QMwNdJTnufzOQmCbIZMw5E7e2YjLAjf
 QNetworkAccessManager
 QNetworkAddressEntry
 QNetworkCookie
@@ -19699,7 +19702,6 @@ RightWrist
 RightWristRigAttachment
 RigidBodyLazyUpdating
 RigidityEnabled
-RIK3UCAwEAAQ
 RiseVelocity
 Rj0isQcnqX
 Roact.createElement
@@ -24307,7 +24309,6 @@ SystemOutputView
 SystemPopup
 SystemTimeToFileTime
 SystemUtil
-Ta4hLBZtZrNDoD9oik
 TabBarModel
 TabBarModel.append
 TabBarTabLabel
@@ -25554,7 +25555,6 @@ TS_TST_INFO_set_time
 TS_TST_INFO_set_tsa
 TS_VERIFY_CTX_new
 TSMk2ThrottleStreamJob
-TtNfqQzyn6zHV7uVn6DHZy72D
 TTTTTTTTTT
 TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
 TTUUEDDsss
@@ -27704,6 +27704,7 @@ VWorldModel
 VWorldRoot
 Vwspp_callback_client
 VWSUATAUAVAW
+VWxf1gQZVuK2mbE1g9GwAY9Bc8CAwEAAQ
 VWXYZ[\]^_`a
 VXmlElement
 VYieldFunctions
@@ -27783,7 +27784,6 @@ WaterWaveSpeed
 WaypointIdx
 WCharArray
 Wcircumflex
-WCnvMvqs7pJ5pNGtZp7JTzv1BYjM4i4So
 WDU_Mbstatet
 WeakFunctionRef
 WeakThreadRef
@@ -27875,7 +27875,6 @@ WGL_NV_vertex_array_range
 WGL_NV_video_capture
 WGL_NV_video_output
 WGL_OML_sync_control
-WGVV5XTtci3XasySPuXOS3gBjVnYE3qRHnIeBnGE
 WhatsNewAction
 WhatsNewFirstTimePopup.qml
 WhatsNewNumEntries
@@ -27981,6 +27980,7 @@ WININET.dll
 WinVerifyTrust
 WireframeRenderingAction
 WireRadius
+WISIe94J9ftUdlcikmApK4NDIyMKQ4G5KnBNRAedvC44zaJknELi8UCawkr425r8
 WithDstu34311
 WithLocation
 WithMD2AndDES
@@ -28045,7 +28045,6 @@ WorldToScreenPoint
 WorldToViewportPoint
 WP1Lk7UmX3No0NAVVrlNv8vM1TKYodC60fXpXkwOnxGMHelMkfu58xsxIB9tXB4U
 WPACKET_start_sub_packet_len__
-Wr8IOSe0wJoWO
 WrappedDevFrameworkLinkText
 WristDisplacementDamping
 WristDisplacementDampingMode
@@ -28260,6 +28259,7 @@ XW4websocket_close_status
 XW4WebSocketEventType
 XwhvcEikuIaqb7nHhEJ
 XXXXXXXXXXXXXXXXuuuuuuuuuuuuuuuuppppppppppppppppppppppp
+XYr4ib4p8MM8k2QmrDCDlWUoLZy4NGDt3unXFO4NTDqwK9BeR3mCOGAfKxe6bN
 XZP8CoreGuiService
 XZP8CRenderSettingsItem
 XZP8GuiObject
@@ -28300,18 +28300,17 @@ YAXPEBVQObject
 YAXVexception_ptr
 YAXW4error_type
 Ycircumflex
-YdbRwVyPUODwyiEh6F9KNiXNKBZlVZWTuLkKw2CEEXks
+YD6UwimDTiIAOf7XW6lfrO
 Ydieresissmall
 YDYHYQYTYbYsY
 YffYZefYDNNDCOO
-Yfuzl85A8ZK
 YieldEvent
 YieldFuncDesc
 YieldFunction
 YQByteArray
 YResolution
-Yud8gQwB3gmq46xzEIhn
 YwBBvY55YvBBwY5
+YyOAsPOvuZmjsPlzbzql4
 YYYYYYYYYYYYYYYYYYYYYYYYY
 Z_KPEIBX_K_KPEIAU1
 ZAEAPEAV34
@@ -28333,6 +28332,5 @@ ZPEAVRBXMessageBox
 ZRZZZbZt[.[
 ZVspecial_equipped_signal
 ZVTouchedSignal
-ZyFU4FMpHHzpa89x
 ZZZZZZZZZZZZZZZ
 ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
