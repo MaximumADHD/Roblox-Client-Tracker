@@ -34,7 +34,6 @@ local SetPublishInfo = require(Plugin.Src.Actions.SetPublishInfo)
 
 local LoadGroups = require(Plugin.Src.Thunks.LoadGroups)
 
-local FFlagStudioPublishMediatorFailedConnection = game:GetFastFlag("StudioPublishMediatorFailedConnection2")
 local FFlagUXImprovementAddScrollToGamesPage= game:GetFastFlag("UXImprovementAddScrollToGamesPage")
 
 local MENU_ENTRIES = {
@@ -61,21 +60,13 @@ end
 
 function ScreenCreateNewGame:didMount()
 	self.finishedConnection = StudioService.GamePublishFinished:connect(function(success, gameId)
-		if FFlagStudioPublishMediatorFailedConnection then
-			if gameId ~= 0 then
-				if success then
-					self.props.OpenPublishSuccessfulPage(self.props.Changed)
-				else
-					self.props.OpenPublishFailPage(self.props.Changed)
-				end
-			end
-		else
-			if success then
-				self.props.OpenPublishSuccessfulPage(self.props.Changed)
-			else
-				self.props.OpenPublishFailPage(self.props.Changed)
-			end
-		end
+        if gameId ~= 0 then
+            if success then
+                self.props.OpenPublishSuccessfulPage(self.props.Changed)
+            else
+                self.props.OpenPublishFailPage(self.props.Changed)
+            end
+        end
 	end)
 end
 

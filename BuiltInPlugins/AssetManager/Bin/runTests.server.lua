@@ -5,7 +5,7 @@ if SHOULD_RUN_TESTS then
 	local TestsFolderPlugin = Plugin.Src
 	local TestsFolderPackages = Plugin.Packages -- Can be used to run package's unit tests
 
-	local TestEZ = require(Plugin.Packages.TestEZ)
+	local TestEZ = require(Plugin.Packages.Dev.TestEZ)
 	local TestBootstrap = TestEZ.TestBootstrap
 	local TextReporter = TestEZ.Reporters.TextReporterQuiet -- Remove Quiet to see output
 

@@ -813,6 +813,7 @@ function AssetConfig:render()
 							AssetStatus = newAssetStatus,
 							AssetId = assetId,
 							IconFile = iconFile,
+							AssetTypeEnum = assetTypeEnum,
 
 							OnTabSelect = self.onTabSelect,
 							ChooseThumbnail = self.chooseThumbnail,

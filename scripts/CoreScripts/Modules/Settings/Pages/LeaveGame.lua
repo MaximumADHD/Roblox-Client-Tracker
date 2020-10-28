@@ -28,7 +28,6 @@ RobloxGui:WaitForChild("Modules"):WaitForChild("TenFootInterface")
 local isTenFootInterface = require(RobloxGui.Modules.TenFootInterface):IsEnabled()
 
 local FFlagUpdateSettingsHubGameText = require(RobloxGui.Modules.Flags.FFlagUpdateSettingsHubGameText)
-local GetFFlagAppUsesAutomaticQualityLevel = require(RobloxGui.Modules.Flags.GetFFlagAppUsesAutomaticQualityLevel)
 local FFlagCollectAnalyticsForSystemMenu = settings():GetFFlag("CollectAnalyticsForSystemMenu")
 
 local GetDefaultQualityLevel = require(RobloxGui.Modules.Common.GetDefaultQualityLevel)
@@ -60,9 +59,7 @@ local function Initialize()
 
 		game:Shutdown()
 
-		if GetFFlagAppUsesAutomaticQualityLevel() then
-			settings().Rendering.QualityLevel = GetDefaultQualityLevel()
-		end
+		settings().Rendering.QualityLevel = GetDefaultQualityLevel()
 	end
 	this.DontLeaveFunc = function(isUsingGamepad)
 		if this.HubRef then

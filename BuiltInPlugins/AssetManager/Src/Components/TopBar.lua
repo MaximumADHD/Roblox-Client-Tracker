@@ -32,15 +32,18 @@ local SetRecentViewToggled = require(Plugin.Src.Actions.SetRecentViewToggled)
 local SetSearchTerm = require(Plugin.Src.Actions.SetSearchTerm)
 local SetToPreviousScreen = require(Plugin.Src.Actions.SetToPreviousScreen)
 local SetToNextScreen = require(Plugin.Src.Actions.SetToNextScreen)
+local SetView = require(Plugin.Src.Actions.SetView)
 
 local LaunchBulkImport = require(Plugin.Src.Thunks.LaunchBulkImport)
 
 local Screens = require(Plugin.Src.Util.Screens)
+local View = require(Plugin.Src.Util.View)
 
 local BulkImportService = game:GetService("BulkImportService")
 
 local FFlagAssetManagerAddAnalytics = game:GetFastFlag("AssetManagerAddAnalytics")
 local FFlagStudioAssetManagerAddRecentlyImportedView = game:GetFastFlag("StudioAssetManagerAddRecentlyImportedView")
+local FFlagStudioAssetManagerAddGridListToggle = game:DefineFastFlag("StudioAssetManagerAddGridListToggle", false)
 
 local TopBar = Roact.PureComponent:extend("TopBar")
 
@@ -92,7 +95,21 @@ function TopBar:render()
         theme.Font, Vector2.new(topBarTheme.Tooltip.Width, math.huge))
     local tooltipHeight = tooltipTextExtents.Y + 3 * topBarTheme.Tooltip.Padding + linkTextExtents.Y
 
-    local searchBarOffset = topBarTheme.Button.Size * 4 + topBarTheme.Padding * 3
+    local view = props.View
+    local dispatchSetView = props.dispatchSetView
+    local viewStyle
+    if view.Key == View.GRID.Key then
+        viewStyle = "ListViewButton"
+    elseif view.Key == View.LIST.Key then
+        viewStyle = "GridViewButton"
+    end
+
+    local searchBarOffset
+    if FFlagStudioAssetManagerAddGridListToggle then
+        searchBarOffset = topBarTheme.Button.Size * 5 + topBarTheme.Padding * 4
+    else
+        searchBarOffset = topBarTheme.Button.Size * 4 + topBarTheme.Padding * 3
+    end
 
     local defaultText = localization:getText("SearchBar", "PlaceholderText")
         .. " " .. localization:getText("Folders", currentScreen.Key)
@@ -268,6 +285,29 @@ function TopBar:render()
             }),
         }),
 
+        GridListToggleButton = FFlagStudioAssetManagerAddGridListToggle and Roact.createElement(Button, {
+            Size = UDim2.new(0, topBarTheme.Button.Size, 0, topBarTheme.Button.Size),
+            AnchorPoint = Vector2.new(0.5, 0.5),
+            LayoutOrder = layoutIndex:getNextOrder(),
+
+            Style = viewStyle,
+            StyleModifier = bulkImporterRunning and StyleModifier.Disabled,
+
+            OnClick = function()
+                if view.Key == View.GRID.Key then
+                    dispatchSetView(View.LIST)
+                elseif view.Key == View.LIST.Key then
+                    dispatchSetView(View.GRID)
+                end
+            end,
+        }, {
+            HoverArea = not bulkImporterRunning and enabled and Roact.createElement(HoverArea, {
+                Cursor = "PointingHand",
+                MouseEnter = self.mouseEnter,
+                MouseLeave = self.mouseLeave,
+            }),
+        }),
+
         SearchBar = currentScreen.Key ~= Screens.MAIN.Key and Roact.createElement(SearchBar, {
             Size = UDim2.new(1, -searchBarOffset, 1, 0),
             LayoutOrder = layoutIndex:getNextOrder(),
@@ -298,6 +338,7 @@ local function mapStateToProps(state, props)
         PreviousScreens = previousScreens,
         NextScreens = nextScreens,
         RecentViewToggled = state.AssetManagerReducer.recentViewToggled,
+        View = state.AssetManagerReducer.view,
 	}
 end
 
@@ -321,6 +362,9 @@ local function mapDispatchToProps(dispatch)
             if enabled then
                 dispatch(SetToNextScreen())
             end
+        end,
+        dispatchSetView = function(view)
+            dispatch(SetView(view))
         end,
 	}
 end

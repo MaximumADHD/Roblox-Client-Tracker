@@ -11,9 +11,6 @@
 		string AvatarCollision - Whether to define collision based on avatar scale
 ]]
 
-local FFlagAvatarSizeFixForReorganizeHeaders =
-	game:GetFastFlag("AvatarSizeFixForReorganizeHeaders")
-
 local StudioService = game:GetService("StudioService")
 
 local Page = script.Parent
@@ -337,12 +334,6 @@ function Avatar:createChildren()
 	local mouse = props.Mouse
 
 	return {
-		PageLayout = (not FFlagAvatarSizeFixForReorganizeHeaders and
-		Roact.createElement("UIListLayout", {
-			Padding = UDim.new(0, 25),
-			SortOrder = Enum.SortOrder.LayoutOrder,
-		}) or nil),
-
 		Morpher = Roact.createElement(RootPanelExternal, {
 			ThemeData = theme,
 			IsEnabled = true,
@@ -374,8 +365,6 @@ function Avatar:createChildren()
 			OnAvatarAssetOverridesChanged = props.AvatarAssetOverridesChanged,
 			OnAvatarScalingMinChanged = props.AvatarScalingMinChanged,
 			OnAvatarScalingMaxChanged = props.AvatarScalingMaxChanged,
-			ContentHeightChanged = (not FFlagAvatarSizeFixForReorganizeHeaders) and
-				props.ContentHeightChanged or nil
 		})
 	}
 end

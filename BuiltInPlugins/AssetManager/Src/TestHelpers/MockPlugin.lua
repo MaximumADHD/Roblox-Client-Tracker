@@ -49,7 +49,7 @@ do
 	end
 
 	function MockPluginToolbar:CreateButton(title, tooltip, icon)
-		return MockPluginToolbarButton.new(title, tooltip, icon)
+		return MockPluginToolbarButton.new()
 	end
 end
 

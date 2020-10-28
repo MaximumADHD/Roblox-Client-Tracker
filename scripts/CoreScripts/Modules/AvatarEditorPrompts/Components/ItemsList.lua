@@ -4,24 +4,21 @@ local CoreGui = game:GetService("CoreGui")
 local Roact = require(CorePackages.Roact)
 local t = require(CorePackages.Packages.t)
 local UIBlox = require(CorePackages.UIBlox)
-local AvatarExperienceDeps = require(CorePackages.AvatarExperienceDeps)
-local Text = require(CorePackages.AppTempCommon.Common.Text)
 
-local RoactFitComponents = AvatarExperienceDeps.RoactFitComponents
-local FitTextLabel = RoactFitComponents.FitTextLabel
 local VerticalScrollView = UIBlox.App.Container.VerticalScrollView
 local withStyle = UIBlox.Style.withStyle
 local ShimmerPanel = UIBlox.Loading.ShimmerPanel
 local EmptyState = UIBlox.App.Indicator.EmptyState
 
+local ListEntry = require(script.Parent.ListEntry)
+
 local AvatarEditorPrompts = script.Parent.Parent
-local GetAssetNamesFromDescription = require(AvatarEditorPrompts.GetAssetNamesFromDescription)
+local GetAssetsDifference = require(AvatarEditorPrompts.GetAssetsDifference)
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 
 local PADDING_BETWEEN = 10
-local BULLET_POINT_SYMBOL = "• "
 
 local GRADIENT_HEIGHT = 30
 
@@ -35,7 +32,8 @@ function ItemsList:init()
 	self:setState({
 		canvasSizeY = 0,
 		loading = true,
-		assetNames = nil,
+		addedAssetNames = nil,
+		removedAssetNames = nil,
 	})
 
 	self.mounted = false
@@ -80,18 +78,18 @@ function ItemsList:init()
 
 	self.loadAssetNames = function()
 		coroutine.wrap(function()
-			GetAssetNamesFromDescription(self.props.humanoidDescription):andThen(function(assetNames)
+			GetAssetsDifference(self.props.humanoidDescription):andThen(function(addedNames, removedNames)
 				if self.mounted then
 					self:setState({
 						loading = false,
-						assetNames = assetNames,
+						addedAssetNames = addedNames,
+						removedAssetNames = removedNames,
 					})
 				end
 			end, function(err)
 				if self.mounted then
 					self:setState({
 						loading = false,
-						assetNames = Roact.None,
 					})
 				end
 			end)
@@ -107,17 +105,86 @@ function ItemsList:init()
 	end
 end
 
+function ItemsList:createEntriesList()
+	local list = {}
+
+	local listIndex = 0
+	if #self.state.addedAssetNames > 0 then
+		list[listIndex] = Roact.createElement(ListEntry, {
+			text = RobloxTranslator:FormatByKey("CoreScripts.AvatarEditorPrompts.Adding"),
+			hasBullet = false,
+			layoutOrder = listIndex,
+			positionChangedCallback = self.firstEntryPositionChanged,
+		})
+		listIndex = listIndex + 1
+
+		for index, name in ipairs(self.state.addedAssetNames) do
+			local positionChangedCallback = nil
+			if #self.state.removedAssetNames == 0 and index == #self.state.addedAssetNames then
+				positionChangedCallback = self.lastEntryPositionChanged
+			end
+
+			list[listIndex] = Roact.createElement(ListEntry, {
+				text = name,
+				hasBullet = true,
+				layoutOrder = listIndex,
+				positionChangedCallback = positionChangedCallback,
+			})
+			listIndex = listIndex + 1
+		end
+
+		if #self.state.removedAssetNames > 0 then
+			--Add some padding
+			list[listIndex] = Roact.createElement("Frame", {
+				BackgroundTransparency = 1,
+				Size = UDim2.new(1, 0, 0, PADDING_BETWEEN * 2)
+			})
+			listIndex = listIndex + 1
+		end
+	end
+
+	if #self.state.removedAssetNames > 0 then
+		list[listIndex] = Roact.createElement(ListEntry, {
+			text = RobloxTranslator:FormatByKey("CoreScripts.AvatarEditorPrompts.Removing"),
+			hasBullet = false,
+			layoutOrder = listIndex,
+			positionChangedCallback = #self.state.addedAssetNames == 0 and self.firstEntryPositionChanged or nil,
+		})
+		listIndex = listIndex + 1
+
+		for index, name in ipairs(self.state.removedAssetNames) do
+			local positionChangedCallback = nil
+			if index == #self.state.removedAssetNames then
+				positionChangedCallback = self.lastEntryPositionChanged
+			end
+
+			list[listIndex] = Roact.createElement(ListEntry, {
+				text = name,
+				hasBullet = true,
+				layoutOrder = listIndex,
+				positionChangedCallback = positionChangedCallback,
+			})
+			listIndex = listIndex + 1
+		end
+	end
+
+	local noChangedAssets = #self.state.addedAssetNames == 0 and #self.state.removedAssetNames == 0
+	if noChangedAssets then
+		list[listIndex] = Roact.createElement(ListEntry, {
+			text = RobloxTranslator:FormatByKey("CoreScripts.AvatarEditorPrompts.NoChangedAssets"),
+			hasBullet = false,
+			layoutOrder = listIndex,
+		})
+	end
+
+	return list
+end
+
 function ItemsList:renderItemsList()
 	return withStyle(function(stylePalette)
-		local fontInfo = stylePalette.Font
 		local theme = stylePalette.Theme
 
-		local font = fontInfo.CaptionBody.Font
-		local fontSize = fontInfo.BaseSize * fontInfo.CaptionBody.RelativeSize
-		local list = {}
-
-		local bulletPointWidth = Text.GetTextWidth(BULLET_POINT_SYMBOL, font, fontSize)
-
+		local list = self:createEntriesList()
 		list.Layout = Roact.createElement("UIListLayout", {
 			FillDirection = Enum.FillDirection.Vertical,
 			HorizontalAlignment = Enum.HorizontalAlignment.Left,
@@ -126,52 +193,6 @@ function ItemsList:renderItemsList()
 
 			[Roact.Change.AbsoluteContentSize] = self.onContentSizeChanged,
 		})
-
-		for i, assetName in ipairs(self.state.assetNames) do
-			local positionChangeFunction
-			if i == 1 then
-				positionChangeFunction = self.firstEntryPositionChanged
-			elseif i == #self.state.assetNames then
-				positionChangeFunction = self.lastEntryPositionChanged
-			end
-
-			list[i] = Roact.createElement(RoactFitComponents.FitFrameVertical, {
-				width = UDim.new(1, 0),
-
-				FillDirection = Enum.FillDirection.Horizontal,
-				VerticalAlignment = Enum.VerticalAlignment.Top,
-
-				BackgroundTransparency = 1,
-				LayoutOrder = i,
-
-				[Roact.Change.AbsolutePosition] = positionChangeFunction,
-			}, {
-				Bullet = Roact.createElement("TextLabel", {
-					BackgroundTransparency = 1,
-					Size = UDim2.fromOffset(bulletPointWidth, fontSize),
-					Text = BULLET_POINT_SYMBOL,
-					Font = font,
-					TextSize = fontSize,
-					TextColor3 = theme.TextDefault.Color,
-					TextTransparency = theme.TextDefault.Transparency,
-					TextXAlignment = Enum.TextXAlignment.Left,
-					LayoutOrder = 1,
-				}),
-
-				Text = Roact.createElement(FitTextLabel, {
-					width = UDim.new(1, -bulletPointWidth),
-
-					BackgroundTransparency = 1,
-					Text = assetName,
-					Font = font,
-					TextSize = fontSize,
-					TextColor3 = theme.TextDefault.Color,
-					TextTransparency = theme.TextDefault.Transparency,
-					TextXAlignment = Enum.TextXAlignment.Left,
-					LayoutOrder = 2,
-				})
-			})
-		end
 
 		return Roact.createElement("Frame", {
 			Size = UDim2.fromScale(1, 1),
@@ -253,7 +274,7 @@ end
 function ItemsList:render()
 	if self.state.loading then
 		return self:renderLoading()
-	elseif self.state.assetNames then
+	elseif self.state.addedAssetNames then
 		return self:renderItemsList()
 	else
 		return self:renderFailed()

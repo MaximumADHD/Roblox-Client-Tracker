@@ -27,6 +27,7 @@ local getPlayerFromPart = require(RobloxGui.Modules.InGameChat.BubbleChat.Helper
 local validateMessage = require(RobloxGui.Modules.InGameChat.BubbleChat.Helpers.validateMessage)
 local Constants = require(RobloxGui.Modules.InGameChat.BubbleChat.Constants)
 local Types = require(RobloxGui.Modules.InGameChat.BubbleChat.Types)
+local GameTranslator = require(RobloxGui.Modules.GameTranslator)
 
 local MALFORMED_TEXT_WARNING = "Message text %q sent to chat event %q is not a valid UTF-8 characters sequence"
 local WRONG_LENGTH_WARNING = "Message text %q is too long for chat event %q (expected a message of length %i, got %i)"
@@ -141,7 +142,7 @@ local function initBubbleChat()
 			id = "chatted_" .. messageId,
 			userId = userId,
 			name = partOrModel.Name,
-			text = message,
+			text = GameTranslator:TranslateGameText(CoreGui, message),
 			timestamp = os.time(),
 			adornee = partOrModel
 		}

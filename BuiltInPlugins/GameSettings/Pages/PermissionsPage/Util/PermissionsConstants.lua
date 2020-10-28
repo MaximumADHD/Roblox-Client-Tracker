@@ -42,12 +42,15 @@ local uniqueIdentifiers = {
 	SubjectRankKey = createKey("SubjectRank"),
 	GroupIdKey = createKey("GroupId"),
 	GroupNameKey = createKey("GroupName"),
+	GroupMemberCountKey = createKey("GroupMemberCountKey"),
 
 	IsFriendKey = createKey("IsFriend"),
 }
 
 local miscConstants = {
-	MaxSearchResultsPerSubjectType = 3,
+	DEPRECATED_MaxSearchResultsPerSubjectType = 3,
+	MaxSearchResultsPerSubjectTypeUsers = 3,
+	MaxSearchResultsPerSubjectTypeGroups = 2,
 }
 
 return Cryo.Dictionary.join(

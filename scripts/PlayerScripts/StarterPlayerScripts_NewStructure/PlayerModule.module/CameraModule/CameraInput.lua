@@ -17,6 +17,7 @@ local MB_TAP_LENGTH = 0.3 -- (s) length of time for a short mouse button tap to 
 
 local ROTATION_SPEED_KEYS = math.rad(2) -- (rad/s)
 local ROTATION_SPEED_MOUSE = Vector2.new(1, 0.77)*math.rad(0.5) -- (rad/s)
+local ROTATION_SPEED_POINTERACTION = Vector2.new(1, 0.77)*math.rad(7) -- (rad/s)
 local ROTATION_SPEED_TOUCH = Vector2.new(1, 0.66)*math.rad(1) -- (rad/s)
 local ROTATION_SPEED_GAMEPAD = Vector2.new(1, 0.77)*math.rad(4) -- (rad/s)
 
@@ -156,13 +157,15 @@ do
 	function CameraInput.getRotation()
 		local kKeyboard = Vector2.new(keyboardState.Right - keyboardState.Left, 0)
 		local kGamepad = gamepadState.Thumbstick2
-		local kMouse = mouseState.Movement + mouseState.Pan
+		local kMouse = mouseState.Movement
+		local kPointerAction = mouseState.Pan
 		local kTouch = adjustTouchPitchSensitivity(touchState.Move)
 
 		local result =
 			kKeyboard*ROTATION_SPEED_KEYS +
 			kGamepad*ROTATION_SPEED_GAMEPAD +
 			kMouse*ROTATION_SPEED_MOUSE +
+			kPointerAction*ROTATION_SPEED_POINTERACTION +
 			kTouch*ROTATION_SPEED_TOUCH
 
 		return result

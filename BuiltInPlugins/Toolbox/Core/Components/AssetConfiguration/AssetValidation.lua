@@ -1,3 +1,6 @@
+--!nocheck
+-- Luau cannot find the CorePackages dependency in this file.
+
 --[[
 	AssetValidation validates the given asset inside the "instance" prop.
 	If pass:

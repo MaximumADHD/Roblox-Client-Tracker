@@ -1,3 +1,6 @@
+--!nocheck
+--^ Remove this hot comment with FFlagUseCategoryNameInToolbox.
+
 local FFlagOnlyWhitelistedPluginsInStudio = settings():GetFFlag("OnlyWhitelistedPluginsInStudio")
 local FFlagToolboxShowGroupCreations = game:DefineFastFlag("ToolboxShowGroupCreations", false)
 local FFlagFixToolboxPluginScaling = game:DefineFastFlag("FixToolboxPluginScaling", false)

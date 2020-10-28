@@ -12,8 +12,6 @@
 		PermissionsChanged = function, callback function that is called when a new user is added.		
 ]]
 
-local FFlagStudioAllowPkgPermsForOtherUsrsAndGrps = game:GetFastFlag("StudioAllowPkgPermsForOtherUsrsAndGrps")
-
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
 local Libs = Plugin.Libs
@@ -61,14 +59,7 @@ local function getMatchesFromTable(text, t)
 end
 
 local function getIsLoading(searchData)
-	local cachedSearchResults = searchData.cachedSearchResults
-	local searchTerm = searchData.SearchText
-
-	return searchData.localUserFriends == LOADING 
-		or (FFlagStudioAllowPkgPermsForOtherUsrsAndGrps and
-			(searchData.localUserGroups == LOADING
-			or cachedSearchResults[searchTerm] == LOADING
-			or (cachedSearchResults[searchTerm] == nil and searchTerm ~= "")))
+	return searchData.localUserFriends == LOADING
 end
 
 local function getMatches(searchData, permissions, groupMetadata)
@@ -85,57 +76,11 @@ local function getMatches(searchData, permissions, groupMetadata)
 
 		return a < b
 	end
-	
-	local matches
-	if not FFlagStudioAllowPkgPermsForOtherUsrsAndGrps then
-		matches = {Users={}}
-	else
-		matches = {Users={}, Groups={}}
-	end
+
+	local matches = {Users={}}
 
 	local matchedUsers = {}
 	local userMatches = {}
-	if FFlagStudioAllowPkgPermsForOtherUsrsAndGrps then
-		if cachedSearchResults and cachedSearchResults[searchTerm] and cachedSearchResults[searchTerm] ~= LOADING then
-			local rawUserMatches = cachedSearchResults[searchTerm][PermissionsConstants.UserSubjectKey]
-
-			for _,v in pairs(rawUserMatches) do
-				local subjectId = v[PermissionsConstants.SubjectIdKey]
-				if not permissions[PermissionsConstants.UserSubjectKey][subjectId] then
-					table.insert(userMatches, v)
-					matchedUsers[subjectId] = true
-				end
-			end
-			
-			local rawGroupMatches = cachedSearchResults[searchTerm][PermissionsConstants.GroupSubjectKey]
-			local groupMatches = {}
-
-			local rawMyGroups = typeof(searchData.LocalUserGroups) == "table" and getMatchesFromTable(searchTerm, searchData.LocalUserGroups) or {}
-			table.sort(rawMyGroups, compare)
-
-			local matchedGroups = {}
-			for _,v in pairs(rawGroupMatches) do
-				if not groupMetadata[v[PermissionsConstants.SubjectIdKey]] then
-					table.insert(groupMatches, v)
-					matchedGroups[v[PermissionsConstants.SubjectIdKey]] = true
-				end
-			end
-
-			-- Insert your groups after exact match (if it exists), but before the rest of the web results (if they exist)
-			local firstGroupIsExactMatch = #matchedGroups > 0 and matchedGroups[1][PermissionsConstants.SubjectNameKey]:lower() == searchTerm:lower()
-			local position = math.min(firstGroupIsExactMatch and 1 or 2, #groupMatches + 1)
-			for _,v in pairs(rawMyGroups) do
-				-- Group web search already matched this. Don't duplicate it
-				
-				if not (matchedGroups[v[PermissionsConstants.SubjectIdKey]] or groupMetadata[v[PermissionsConstants.SubjectIdKey]]) then
-					table.insert(groupMatches, position, v)
-					position = position + 1
-				end
-			end
-
-			matches.Groups = groupMatches
-		end
-	end
 
 	local rawFriendMatches = typeof(searchData.localUserFriends) == "table" and getMatchesFromTable(searchTerm, searchData.localUserFriends) or {}
 	table.sort(rawFriendMatches, compare)
@@ -164,14 +109,10 @@ local function getResults(searchTerm, matches, localized)
 	if searchTerm == "" then
 		return {}
 	else
-		if not FFlagStudioAllowPkgPermsForOtherUsrsAndGrps then
-			results = {Users={LayoutOrder=0}}
-		else
-			results = {Users={LayoutOrder=0}, Groups={LayoutOrder=1}}
-		end
+		results = {Users={LayoutOrder=0}}
 		for _, user in pairs(matches.Users) do
 			if #results.Users + 1 > PermissionsConstants.MaxSearchResultsPerSubjectType then break end
-			
+
 			table.insert(results.Users, {
 				Icon = Roact.createElement(CollaboratorThumbnail, {
 					Image = Urls.constructRBXThumbUrl(AssetConfigConstants.rbxThumbTypes["AvatarHeadShot"], user[PermissionsConstants.SubjectIdKey], AssetConfigConstants.rbxThumbSizes.AvatarHeadshotImageSize),
@@ -183,30 +124,9 @@ local function getResults(searchTerm, matches, localized)
 			})
 		end
 
-		if FFlagStudioAllowPkgPermsForOtherUsrsAndGrps then
-			for _, group in pairs(matches.Groups) do
-				if #results.Groups + 1 > PermissionsConstants.MaxSearchResultsPerSubjectType then break end
-				table.insert(results.Groups, {
-					Icon = Roact.createElement(CollaboratorThumbnail, {
-						Image = thumbnailLoader.getThumbnail(PermissionsConstants.GroupSubjectKey, group[PermissionsConstants.SubjectIdKey]),
-						Size = UDim2.new(1, 0, 1, 0),
-					}),
-					Name = group[PermissionsConstants.SubjectNameKey],
-					Key = {Type=PermissionsConstants.GroupSubjectKey, Id=group[PermissionsConstants.SubjectIdKey], Name=group[PermissionsConstants.SubjectNameKey]},
-				})
-			end
-		end
-
-		if not FFlagStudioAllowPkgPermsForOtherUsrsAndGrps then
-			results = {
-				[localized.PackagePermissions.Collaborators.UsersCollaboratorType] = #results.Users > 0 and results.Users or nil,
-			}
-		else
-			results = {
-				[localized.PackagePermissions.UsersCollaboratorType] = #results.Users > 0 and results.Users or nil,
-				[localized.PackagePermissions.GroupsCollaboratorType] = #results.Groups > 0 and results.Groups or nil,
-			}
-		end
+		results = {
+			[localized.PackagePermissions.Collaborators.UsersCollaboratorType] = #results.Users > 0 and results.Users or nil,
+		}
 	end
 
 	return results
@@ -261,7 +181,7 @@ function CollaboratorSearchWidget:render()
 		else
 			error("Unsupported type: "..tostring(collaboratorType))
 		end
-		
+
 		if newPermissions then
 			props.PermissionsChanged(newPermissions)
 		end
@@ -271,17 +191,17 @@ function CollaboratorSearchWidget:render()
 		return withLocalization(function(localization, localized)
 			local results = getResults(searchTerm, matches, localized)
 			local tooManyCollaboratorsText = localization:getLocalizedTooManyCollaborators(maxCollaborators)
-	
+
 			return Roact.createElement(FitToContent, {
 				BackgroundTransparency = 1,
 				LayoutOrder = props.LayoutOrder,
 			}, {
 				Title = Roact.createElement("TextLabel", {
 					LayoutOrder = 0,
-					
+
 					Text = localized.PackagePermissions.Title.ShareWith,
 					TextXAlignment = Enum.TextXAlignment.Left,
-					
+
 					BackgroundTransparency = 1,
 					Font = Constants.FONT,
 					TextSize = Constants.FONT_SIZE_TITLE,
@@ -313,7 +233,7 @@ function CollaboratorSearchWidget:render()
 							collaboratorAdded(key.Type, key.Id, key.Name, DEFAULT_ADD_ACTION)
 						end
 					end,
-					
+
 					Results = results,
 				}),
 			})

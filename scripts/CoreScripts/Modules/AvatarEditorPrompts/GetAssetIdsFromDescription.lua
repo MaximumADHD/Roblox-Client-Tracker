@@ -1,8 +1,3 @@
-local CorePackages = game:GetService("CorePackages")
-local MarketplaceService = game:GetService("MarketplaceService")
-
-local Promise = require(CorePackages.Promise)
-
 local HumanoidDescriptionAssetProperties = {
 	"BackAccessory",
 	"ClimbAnimation",
@@ -31,20 +26,6 @@ local HumanoidDescriptionAssetProperties = {
 	"WalkAnimation",
 }
 
-local function GetAssetInfo(assetId)
-	return Promise.new(function(resolve, reject)
-		local success, result = pcall(function()
-			return MarketplaceService:GetProductInfo(assetId, Enum.InfoType.Asset)
-		end)
-
-		if success then
-			resolve(result.Name)
-		else
-			reject()
-		end
-	end)
-end
-
 return function(humanoidDescription)
 	local assetIdList = {}
 
@@ -59,17 +40,12 @@ return function(humanoidDescription)
 		end
 	end
 
-	local emotesIds = humanoidDescription:GetEquippedEmotes()
-	for _, emoteId in pairs(emotesIds) do
-		if emoteId and emoteId > 0 then
+	local emotesIds = humanoidDescription:GetEmotes()
+	for _, idList in pairs(emotesIds) do
+		for _, emoteId in ipairs(idList) do
 			table.insert(assetIdList, emoteId)
 		end
 	end
 
-	local promises = {}
-	for _, assetId in ipairs(assetIdList) do
-		table.insert(promises, GetAssetInfo(assetId))
-	end
-
-	return Promise.all(promises)
+	return assetIdList
 end

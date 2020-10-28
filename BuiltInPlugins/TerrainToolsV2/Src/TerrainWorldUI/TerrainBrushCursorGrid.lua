@@ -109,7 +109,7 @@ function TerrainBrushCursorGrid:_updateInternal(point, normal, cursorSize, trans
 	local gridSize = 10
 
 	local baseCFrame = CFrame.new(point, point + normal)
-	local normalSpace = CFrame.new(Vector3.new(0, 0, 0), normal):pointToObjectSpace(point)
+	local normalSpace = CFrame.new(Vector3.new(0, 0, 0), normal):PointToObjectSpace(point)
 
 	local roundedNormalOffset = (Vector3.new((normalSpace.x / gridCellSize) % 1, (normalSpace.y / gridCellSize) % 1, 0)
 		- Vector3.new(0.5, 0.5, 0)) * -gridCellSize

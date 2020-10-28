@@ -1,3 +1,5 @@
+--!nocheck
+
 local CorePackages = game:GetService("CorePackages")
 
 local tests = script.Parent.Parent.src

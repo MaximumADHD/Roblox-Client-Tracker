@@ -12,6 +12,8 @@ local FFlagFixStarterGuiErrors = game:DefineFastFlag("FixStarterGuiErrors", fals
 local paintOrder = {} --array of paintOrder
 local paintOrderMap = {} --map of child to position in order
 
+local lastSelectedElement = nil
+
 local BUFFER_SIZE_MINIMUM = 5
 
 local function calculateVisibleBounds(instance)

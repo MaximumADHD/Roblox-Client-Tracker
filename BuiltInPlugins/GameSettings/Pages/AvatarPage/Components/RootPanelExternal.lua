@@ -7,17 +7,12 @@ local StateModelTemplate = require(Page.Util.StateModelTemplate)
 local AvatarUpdater = require(Page.Components.AvatarUpdater)
 local MorpherTemplateContainer = require(Page.Components.MorpherTemplateContainer)
 
-local FFlagAvatarSizeFixForReorganizeHeaders =
-	game:GetFastFlag("AvatarSizeFixForReorganizeHeaders")
-
 local RootPanelExternal = Roact.Component:extend("ComponentRootPanelExternal")
 
 local sendUpdates = nil
 
-if FFlagAvatarSizeFixForReorganizeHeaders then
-	function RootPanelExternal:init()
-		self.absoluteSizeChange, self.updateAbsoluteSizeChange = Roact.createBinding(0)
-	end
+function RootPanelExternal:init()
+	self.absoluteSizeChange, self.updateAbsoluteSizeChange = Roact.createBinding(0)
 end
 
 function RootPanelExternal:render()
@@ -25,14 +20,14 @@ function RootPanelExternal:render()
 	local themeInfo = self.props.ThemeData
 
 	return Roact.createElement("Frame", {
-		Size = FFlagAvatarSizeFixForReorganizeHeaders and self.absoluteSizeChange:map(function(value)
+		Size = self.absoluteSizeChange:map(function(value)
 			return UDim2.new(1, 0, 0, value)
-		end) or UDim2.new(1, 0, 1, 0),
+		end),
 
 		BorderSizePixel = 0,
 		BackgroundTransparency = 1
 	}, {
-		FFlagAvatarSizeFixForReorganizeHeaders and Roact.createElement("UIListLayout", {
+		Roact.createElement("UIListLayout", {
 			[Roact.Change.AbsoluteContentSize] = function(rbx)
 				self.updateAbsoluteSizeChange(rbx.AbsoluteContentSize.y)
 			end
@@ -51,9 +46,6 @@ function RootPanelExternal:render()
 			clobberTemplate = function(templateId, newTemplateModel)
 				sendUpdates(self, newTemplateModel)
 			end,
-
-			ContentHeightChanged = (not FFlagAvatarSizeFixForReorganizeHeaders) and
-				self.props.ContentHeightChanged or nil
 		}),
 		Roact.createElement(AvatarUpdater, {
 			StateTemplates = templates

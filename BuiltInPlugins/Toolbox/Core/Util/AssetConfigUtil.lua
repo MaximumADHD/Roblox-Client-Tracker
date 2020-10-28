@@ -7,6 +7,7 @@ local Urls = require(Util.Urls)
 
 local DFIntFileMaxSizeBytes = tonumber(settings():GetFVariable("FileMaxSizeBytes"))
 
+local FFlagUseDefaultThumbnailForAnimation = game:GetFastFlag("UseDefaultThumbnailForAnimation")
 local StudioService = game:GetService("StudioService")
 
 local UILibrary = require(Plugin.Libs.UILibrary)
@@ -210,6 +211,9 @@ function AssetConfigUtil.getPreviewType(assetTypeEnum, instances)
 	-- And then we show price according to the sales status and if user is whitelisted.
 	if assetTypeEnum and AssetConfigUtil.isBuyableMarketplaceAsset(assetTypeEnum) then
 		previewType = AssetConfigConstants.PreviewTypes.ImagePicker
+	end
+	if FFlagUseDefaultThumbnailForAnimation and assetTypeEnum == Enum.AssetType.Animation then 
+		previewType = AssetConfigConstants.PreviewTypes.Thumbnail
 	end
 	return previewType
 end

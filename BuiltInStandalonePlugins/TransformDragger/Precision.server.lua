@@ -1,3 +1,4 @@
+--!nocheck
 --!nolint UnknownType
 
 local plugin, settings = plugin, settings

@@ -1,5 +1,8 @@
 local Page = script.Parent.Parent
 
+local Plugin = script.Parent.Parent.Parent.Parent
+local Cryo = require(Plugin.Cryo)
+
 local DeserializeFromRequest = require(Page.Util.DeserializeFromRequest)
 local SerializeForRequest = require(Page.Util.SerializeForRequest)
 local PermissionsConstants = require(Page.Util.PermissionsConstants)
@@ -97,6 +100,17 @@ function GamePermissionsController:apiGetByUsernameV1GET(username)
 	})
 end
 
+function GamePermissionsController:searchGroupsV1GET(searchTerm)
+	local networking = self.__networking
+
+	return networking:get("groups", "/v1/groups/search/lookup", {
+		Params = {
+			groupName = searchTerm,
+			maxRows = PermissionsConstants.MaxSearchResultsPerSubjectType,
+		}
+	})
+end
+
 function GamePermissionsController:isFriendsOnly(gameId)
 	local response = self:configurationV2GET(gameId):await()
 
@@ -124,12 +138,13 @@ end
 function GamePermissionsController:getPermissions(gameId, ownerName, ownerId, ownerType)
 	local response = self:permissionsV2GET(gameId):await()
 	local permissions = response.responseBody.data
-
 	return DeserializeFromRequest.DeserializePermissions(permissions, ownerName, ownerId, ownerType)
 end
 
-function GamePermissionsController:setPermissions(gameId, oldPermissions, newPermissions, groupMetadata)
-	local adds, deletes = SerializeForRequest.SerializePermissions(oldPermissions, newPermissions, groupMetadata)
+-- TODO (smallick) 10/1/2020
+-- Remove DEPRECATED_groupMetadata with FFlagStudioUXImprovementsLoosenTCPermissions
+function GamePermissionsController:setPermissions(gameId, oldPermissions, newPermissions, DEPRECATED_groupMetadata)
+	local adds, deletes = SerializeForRequest.SerializePermissions(oldPermissions, newPermissions, DEPRECATED_groupMetadata)
 	local numChanges = #adds + #deletes
 
 	if (numChanges > MAX_CHANGES) then
@@ -150,7 +165,6 @@ function GamePermissionsController:searchUsers(searchTerm)
 
 	if matches then
 		local users = {}
-
 		for _,webItem in pairs(matches) do
 			table.insert(users, {
 				[PermissionsConstants.SubjectNameKey] = webItem.Name,
@@ -181,6 +195,36 @@ function GamePermissionsController:searchUsers(searchTerm)
 			}
 		end
 	end
+end
+
+function GamePermissionsController:searchGroups(searchTerm, searchResult)
+	local webResults = self:searchGroupsV1GET(searchTerm):await()
+	local matches = webResults.responseBody.data
+	local searchResult = {}
+
+	if matches then
+		local groups = {}
+
+		for _,webItem in pairs(matches) do
+			table.insert(groups, {
+				[PermissionsConstants.GroupNameKey] = webItem.name,
+				[PermissionsConstants.GroupIdKey] = webItem.id,
+				[PermissionsConstants.GroupMemberCountKey] = webItem.memberCount
+			})
+		end
+
+		searchResult[PermissionsConstants.GroupSubjectKey] = groups
+	end
+
+	return searchResult
+end
+
+function GamePermissionsController:search(searchTerm)
+	local searchResultUsers = self:searchUsers(searchTerm)
+	local searchResultsGroups = self:searchGroups(searchTerm)
+	local searchResult = Cryo.Dictionary.join(searchResultUsers, searchResultsGroups)
+
+	return searchResult
 end
 
 return GamePermissionsController

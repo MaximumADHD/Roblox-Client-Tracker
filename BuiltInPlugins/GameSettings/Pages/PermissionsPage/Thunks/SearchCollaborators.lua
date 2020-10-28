@@ -7,6 +7,8 @@ local Page = script.Parent.Parent
 
 local CollaboratorSearchActions = require(Page.Actions.CollaboratorSearchActions)
 
+local FFlagStudioUXImprovementsLoosenTCPermissions = game:GetFastFlag("StudioUXImprovementsLoosenTCPermissions")
+
 return function(searchText, requestSearch)
 	return function(store, contextItems)
 		local state = store:getState()
@@ -20,7 +22,11 @@ return function(searchText, requestSearch)
 			store:dispatch(CollaboratorSearchActions.LoadingWebResults(searchText))
 			spawn(function()
 				local success, webResults = pcall(function()
-					return gamePermissionsController:searchUsers(searchText)
+					if FFlagStudioUXImprovementsLoosenTCPermissions then
+						return gamePermissionsController:search(searchText)
+					else
+						return gamePermissionsController:searchUsers(searchText)
+					end
 				end)
 				store:dispatch(CollaboratorSearchActions.LoadedWebResults(success, searchText, webResults))
 			end)

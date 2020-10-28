@@ -16,15 +16,10 @@ local CollisionPanel = require(Page.Components.CollisionPanel)
 local ScalePanel = require(Page.Components.ScalePanel)
 local AssetsPanel = require(Page.Components.AssetsPanel)
 
-local FFlagAvatarSizeFixForReorganizeHeaders =
-	game:GetFastFlag("AvatarSizeFixForReorganizeHeaders")
-
 local MorpherTemplate = Roact.Component:extend("ComponentMorpherTemplate")
 
-if FFlagAvatarSizeFixForReorganizeHeaders then
-	function MorpherTemplate:init()
-		self.frameRef = Roact.createRef()
-	end
+function MorpherTemplate:init()
+	self.frameRef = Roact.createRef()
 end
 
 function MorpherTemplate:render()
@@ -57,7 +52,7 @@ function MorpherTemplate:render()
 			BorderSizePixel = 0,
 			BackgroundColor3 = StateInterfaceTheme.getBackgroundColor(self.props),
 
-			[Roact.Ref] = FFlagAvatarSizeFixForReorganizeHeaders and self.frameRef or nil,
+			[Roact.Ref] = self.frameRef,
 		}, {
 			UIListLayoutVertical = Roact.createElement("UIListLayout", {
 				SortOrder = Enum.SortOrder.LayoutOrder,
@@ -66,11 +61,7 @@ function MorpherTemplate:render()
 				Padding = ConstantLayout.VirticalPadding,
 
 				[Roact.Change.AbsoluteContentSize] = function(rbx)
-					if FFlagAvatarSizeFixForReorganizeHeaders then
-						self.frameRef.current.Size = UDim2.new(1, 0, 0, rbx.AbsoluteContentSize.y)
-					else
-						self.props.ContentHeightChanged(rbx.AbsoluteContentSize.y)
-					end
+					self.frameRef.current.Size = UDim2.new(1, 0, 0, rbx.AbsoluteContentSize.y)
 				end,
 			}),
 

@@ -47,7 +47,10 @@ return function(apiImpl, assetType, pageCursor, pageNumber, showLoadingIndicator
             showLoading = showLoadingIndicator
         end
         local requestPromise
-        local newAssets = {}
+        local newAssets = {
+            index = 0
+        }
+
         newAssets.assets = {}
         local index = 1
         if pageCursor or (pageNumber and pageNumber ~= 1) then

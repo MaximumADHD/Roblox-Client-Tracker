@@ -17,14 +17,21 @@ local LOADING = require(Page.Keys.loadingInProgress)
 local DEFAULT_ADD_ACTION = PermissionsConstants.PlayKey
 
 local UserHeadshotThumbnail = require(Plugin.Src.Components.AutoThumbnails.UserHeadshotThumbnail)
+local GroupIconThumbnail = require(Plugin.Src.Components.AutoThumbnails.GroupIconThumbnail)
 local Searchbar = require(Page.Components.SearchBar)
 
 local createFitToContent = UILibrary.Component.createFitToContent
 local Hyperlink = UILibrary.Studio.Hyperlink
 
 local GetUserCollaborators = require(Page.Selectors.GetUserCollaborators)
+local GetGroupCollaborators = require(Page.Selectors.GetGroupCollaborators)
 local AddUserCollaborator = require(Page.Thunks.AddUserCollaborator)
-local SearchCollaborators= require(Page.Thunks.SearchCollaborators)
+local AddGroupCollaborator = require(Page.Thunks.AddGroupCollaborator)
+local SearchCollaborators = require(Page.Thunks.SearchCollaborators)
+
+local IsGroupGame = require(Page.Selectors.IsGroupGame)
+
+local FFlagStudioUXImprovementsLoosenTCPermissions = game:GetFastFlag("StudioUXImprovementsLoosenTCPermissions")
 
 local FitToContent = createFitToContent("Frame", "UIListLayout", {
 	SortOrder = Enum.SortOrder.LayoutOrder,
@@ -59,6 +66,7 @@ function CollaboratorSearchWidget:getMatches()
 
 	local searchData = props.SearchData
 	local userCollaborators = props.UserCollaborators
+	local groupCollaborators = props.GroupCollaborators
 
 	local cachedSearchResults = searchData.CachedSearchResults
 	local searchTerm = searchData.SearchText
@@ -71,22 +79,57 @@ function CollaboratorSearchWidget:getMatches()
 		return userCollaboratorLookup[userId] ~= nil
 	end
 
-	local matches = { Users = {} }
-	if cachedSearchResults[searchTerm] and cachedSearchResults[searchTerm] ~= LOADING then
-		local rawUserMatches = cachedSearchResults[searchTerm][PermissionsConstants.UserSubjectKey]
-
-		local userMatches = {}
-		for _,v in pairs(rawUserMatches) do
-			local subjectId = v[PermissionsConstants.SubjectIdKey]
-			if not userAlreadyCollaborator(subjectId) then
-				table.insert(userMatches, v)
-			end
+	if FFlagStudioUXImprovementsLoosenTCPermissions then
+		local groupCollaboratorLookup = {}
+		for _,groupId in ipairs(groupCollaborators) do
+			groupCollaboratorLookup[groupId] = true
 		end
+		local function groupAlreadyCollaborator(groupId)
+			return groupCollaboratorLookup[groupId] ~= nil
+		end
+		
+		local matches = { Users = {}, Groups = {} }
+		if cachedSearchResults[searchTerm] and cachedSearchResults[searchTerm] ~= LOADING then
+			local rawUserMatches = cachedSearchResults[searchTerm][PermissionsConstants.UserSubjectKey]
+			local rawGroupMatches = cachedSearchResults[searchTerm][PermissionsConstants.GroupSubjectKey]
 
-		matches.Users = userMatches
+			local userMatches = {}
+			for _,v in pairs(rawUserMatches) do
+				local subjectId = v[PermissionsConstants.SubjectIdKey]
+				if not userAlreadyCollaborator(subjectId) then
+					table.insert(userMatches, v)
+				end
+			end
+
+			local groupMatches = {}
+			for _,v in pairs(rawGroupMatches) do
+				local groupId = v[PermissionsConstants.GroupIdKey]
+				if not groupAlreadyCollaborator(groupId) then
+					table.insert(groupMatches, v)
+				end
+			end
+
+			matches.Users = userMatches
+			matches.Groups = groupMatches
+		end
+		return matches
+	else
+		local matches = { Users = {} }
+		if cachedSearchResults[searchTerm] and cachedSearchResults[searchTerm] ~= LOADING then
+			local rawUserMatches = cachedSearchResults[searchTerm][PermissionsConstants.UserSubjectKey]
+
+			local userMatches = {}
+			for _,v in pairs(rawUserMatches) do
+				local subjectId = v[PermissionsConstants.SubjectIdKey]
+				if not userAlreadyCollaborator(subjectId) then
+					table.insert(userMatches, v)
+				end
+			end
+
+			matches.Users = userMatches
+		end
+		return matches
 	end
-
-	return matches
 end
 
 function CollaboratorSearchWidget:getResults()
@@ -95,6 +138,8 @@ function CollaboratorSearchWidget:getResults()
 	local searchData = props.SearchData
 
 	local localization = props.Localization
+
+	local isGroupGame = props.IsGroupGame
 
 	local searchTerm = searchData.SearchText
 
@@ -105,11 +150,32 @@ function CollaboratorSearchWidget:getResults()
 	local matches = self:getMatches()
 
 	local results = {}
+
+	-- If there are less than max groups, we can display more users. If there are less than max users, we can display more groups
+	-- Should only be relevant if FFlagStudioUXImprovementsLoosenTCPermissions is enabled
+	local maxUserResultsAfterAdjustment = PermissionsConstants.MaxSearchResultsPerSubjectTypeUsers
+	local maxGroupResultsAfterAdjustment = PermissionsConstants.MaxSearchResultsPerSubjectTypeGroups
+
+	if FFlagStudioUXImprovementsLoosenTCPermissions then
+		local usersRemaining = PermissionsConstants.MaxSearchResultsPerSubjectTypeUsers - #matches.Users
+		local groupsRemaining = PermissionsConstants.MaxSearchResultsPerSubjectTypeGroups - #matches.Groups
+		if groupsRemaining > 0 then
+			maxUserResultsAfterAdjustment = groupsRemaining > 0 and PermissionsConstants.MaxSearchResultsPerSubjectTypeUsers + groupsRemaining
+		end
+		if usersRemaining > 0 then
+			maxGroupResultsAfterAdjustment = usersRemaining > 0 and PermissionsConstants.MaxSearchResultsPerSubjectTypeGroups + usersRemaining
+		end
+	end 
+
 	if #matches.Users > 0  then
 		local userResults = {}
 
 		for _, user in pairs(matches.Users) do
-			if #userResults + 1 > PermissionsConstants.MaxSearchResultsPerSubjectType then break end
+			if FFlagStudioUXImprovementsLoosenTCPermissions then
+				if #userResults + 1 > maxUserResultsAfterAdjustment then break end
+			else
+				if #userResults + 1 > PermissionsConstants.DEPRECATED_MaxSearchResultsPerSubjectType then break end
+			end
 
 			table.insert(userResults, {
 				Icon = Roact.createElement(UserHeadshotThumbnail, {
@@ -130,6 +196,31 @@ function CollaboratorSearchWidget:getResults()
 		results[localization:getText("AccessPermissions", "UsersCollaboratorType")] = userResults
 	end
 
+	if FFlagStudioUXImprovementsLoosenTCPermissions and #matches.Groups > 0 and not isGroupGame then
+
+		local groupResults = {}
+
+		for _, group in pairs(matches.Groups) do
+			if #groupResults + 1 > maxGroupResultsAfterAdjustment then break end
+			table.insert(groupResults, {
+				Icon = Roact.createElement(GroupIconThumbnail, {
+					Id = group[PermissionsConstants.GroupIdKey],
+					Size = UDim2.new(1, 0, 1, 0),
+				}),
+				Name = group[PermissionsConstants.GroupNameKey],
+				Key = {
+					Type = PermissionsConstants.GroupSubjectKey,
+					Id = group[PermissionsConstants.GroupIdKey],
+					Name = group[PermissionsConstants.GroupNameKey]
+				},
+			})
+		end
+
+		groupResults.LayoutOrder = 0
+
+		results[localization:getText("AccessPermissions", "GroupsCollaboratorType")] = groupResults
+	end
+
 	return results
 end
 
@@ -141,6 +232,7 @@ function CollaboratorSearchWidget:render()
 
 	local userCollaborators = props.UserCollaborators
 	local addUserCollaborator = props.AddUserCollaborator
+	local addGroupCollaborator = props.AddGroupCollaborator
 	local searchCollaborators = props.SearchCollaborators
 
 	local theme = props.Theme:get("Plugin")
@@ -229,6 +321,8 @@ function CollaboratorSearchWidget:render()
 			OnItemClicked = function(key)
 				if key.Type == PermissionsConstants.UserSubjectKey then
 					addUserCollaborator(key.Id, key.Name, DEFAULT_ADD_ACTION)
+				elseif FFlagStudioUXImprovementsLoosenTCPermissions and key.Type == PermissionsConstants.GroupSubjectKey then
+					addGroupCollaborator(key.Id, DEFAULT_ADD_ACTION)
 				else
 					assert(false)
 				end
@@ -248,7 +342,9 @@ ContextServices.mapToProps(CollaboratorSearchWidget, {
 CollaboratorSearchWidget = RoactRodux.connect(
 	function(state, props)
 		return {
+			IsGroupGame = FFlagStudioUXImprovementsLoosenTCPermissions and IsGroupGame(state),
 			UserCollaborators = GetUserCollaborators(state),
+			GroupCollaborators = FFlagStudioUXImprovementsLoosenTCPermissions and GetGroupCollaborators(state),
 			SearchData = state.CollaboratorSearch,
 		}
 	end,
@@ -256,6 +352,9 @@ CollaboratorSearchWidget = RoactRodux.connect(
 		return {
 			AddUserCollaborator = function(...)
 				dispatch(AddUserCollaborator(...))
+			end,
+			AddGroupCollaborator = FFlagStudioUXImprovementsLoosenTCPermissions and function(...)
+				dispatch(AddGroupCollaborator(...))
 			end,
 			SearchCollaborators = function(...)
 				dispatch(SearchCollaborators(...))

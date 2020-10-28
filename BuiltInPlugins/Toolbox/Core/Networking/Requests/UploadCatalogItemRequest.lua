@@ -2,6 +2,8 @@ local HttpService = game:GetService("HttpService")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
+local FFlagCMSUploadAccessoryMeshPartFormat = game:GetFastFlag("CMSUploadAccessoryMeshPartFormat")
+
 local SetAssetId = require(Plugin.Core.Actions.SetAssetId)
 local NetworkError = require(Plugin.Core.Actions.NetworkError)
 local SetCurrentScreen = require(Plugin.Core.Actions.SetCurrentScreen)
@@ -14,6 +16,7 @@ local SerializeInstances = require(Util.SerializeInstances)
 local Analytics = require(Util.Analytics.Analytics)
 
 local ConfigureItemTagsRequest = require(Plugin.Core.Networking.Requests.ConfigureItemTagsRequest)
+local UploadCatalogItemMeshPartFormatRequest = require(Plugin.Core.Networking.Requests.UploadCatalogItemMeshPartFormatRequest)
 
 local function createConfigDataTable(nameWithoutExtension, assetTypeId, description)
 	return {
@@ -61,7 +64,21 @@ return function(networkInterface, nameWithoutExtension, extension, description, 
 					return
 				elseif assetDetails.assetId then
 					store:dispatch(SetAssetId(assetDetails.assetId))
-					store:dispatch(ConfigureItemTagsRequest(networkInterface, assetDetails.assetId, {}, tags))
+					if FFlagCMSUploadAccessoryMeshPartFormat then
+						store:dispatch(
+							UploadCatalogItemMeshPartFormatRequest(
+								networkInterface,
+								assetDetails.assetId,
+								assetTypeId,
+								nameWithoutExtension,
+								description,
+								instances,
+								tags
+							)
+						)
+					else
+						store:dispatch(ConfigureItemTagsRequest(networkInterface, assetDetails.assetId, {}, tags))
+					end
 
 					Analytics.incrementUploadAssetSuccess(assetTypeId)
 					return

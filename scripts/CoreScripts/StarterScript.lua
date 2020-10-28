@@ -109,6 +109,10 @@ end
 -- MainBotChatScript (the Lua part of Dialogs)
 ScriptContext:AddCoreScriptLocal("CoreScripts/MainBotChatScript2", RobloxGui)
 
+if game:GetEngineFeature("ProximityPrompts") then
+	ScriptContext:AddCoreScriptLocal("CoreScripts/ProximityPrompt", RobloxGui)
+end
+
 coroutine.wrap(function() -- this is the first place we call, which can yield so wrap in coroutine
 	if PolicyService:IsSubjectToChinaPolicies() then
 		ScriptContext:AddCoreScriptLocal("CoreScripts/AntiAddictionPrompt", RobloxGui)

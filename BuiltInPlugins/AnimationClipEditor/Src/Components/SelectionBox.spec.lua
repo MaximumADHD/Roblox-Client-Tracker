@@ -11,7 +11,7 @@ return function()
 			Container = container,
 		}, {
 			SelectionBox = Roact.createElement(SelectionBox, {
-				SourceExtents = Rect.new(),
+				SourceExtents = Rect.new(0, 0, 0, 0),
 			})
 		})
 	end

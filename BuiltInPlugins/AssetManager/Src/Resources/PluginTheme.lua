@@ -146,6 +146,18 @@ local function createStyles(theme, getColor)
 			}))
 		})
 
+		local GridViewButton = Style.extend(AssetManagerButton, {
+			ForegroundStyle = Style.extend(AssetManagerButton.ForegroundStyle, {
+				Image = "rbxasset://textures/StudioSharedUI/import.png",
+			})
+		})
+
+		local ListViewButton = Style.extend(AssetManagerButton, {
+			ForegroundStyle = Style.extend(AssetManagerButton.ForegroundStyle, {
+				Image = "rbxasset://textures/StudioSharedUI/import.png",
+			})
+		})
+
 		return {
 			OverlayButton = OverlayButton,
 			PreviousButton = PreviousButton,
@@ -154,6 +166,8 @@ local function createStyles(theme, getColor)
 			TreeItemButton = TreeItemButton,
 			UpButton = UpButton,
 			DownButton = DownButton,
+			GridViewButton = GridViewButton,
+			ListViewButton = ListViewButton,
 		}
 	end)
 

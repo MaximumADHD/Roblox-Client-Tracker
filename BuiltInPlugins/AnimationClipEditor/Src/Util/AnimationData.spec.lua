@@ -264,7 +264,10 @@ return function()
 
 	describe("addTrack", function()
 		it("should add a new track", function()
-			local tracks = {}
+			local tracks = {
+				NewTrack = nil,
+			}
+
 			AnimationData.addTrack(tracks, "NewTrack")
 			expect(tracks.NewTrack).to.be.ok()
 			expect(tracks.NewTrack.Data).to.be.ok()

@@ -426,6 +426,15 @@ function NetworkInterface:uploadCatalogItem(formBodyData, boundary)
 	end)
 end
 
+function NetworkInterface:uploadCatalogItemFormat(assetId, type, name, description, isPublic, format, instanceData)
+	local targetUrl = Urls.constructUploadCatalogItemFormatUrl(assetId, type, name, description, isPublic, format)
+
+	return sendRequestAndRetry(function()
+		printUrl("uploadCatalogItemFormat", "POST", targetUrl, instanceData)
+		return self._networkImp:httpPost(targetUrl, instanceData)
+	end)
+end
+
 --multipart/form-data for uploading images to Roblox endpoints
 --Moderation occurs on the web
 local FORM_DATA =

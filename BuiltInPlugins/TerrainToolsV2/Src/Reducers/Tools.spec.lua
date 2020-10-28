@@ -22,7 +22,7 @@ return function()
 		expect(r:getState().currentTab).to.equal(TabId.Create)
 		expect(r:getState().currentTool).to.equal(ToolId.None)
 		expect(type(r:getState().lastToolPerTab)).to.equal("table")
-		expect(next(r:getState().lastToolPerTab)).to.never.be.ok()
+		expect((next(r:getState().lastToolPerTab))).to.never.be.ok()
 	end)
 
 	describe("ChangeTab", function()

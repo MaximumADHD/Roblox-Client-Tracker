@@ -255,7 +255,7 @@ end
 
 -- table(mt Extents2D) Extents2D:getExtentsFromGui(GuiBase2d guiObject)
 function Extents2D:getExtentsFromGui(guiObject)
-	local extents = Extents2D.new()
+	local extents = Extents2D.new(Vector2.new(0, 0))
 	set(extents, guiObject.AbsolutePosition, guiObject.AbsolutePosition + guiObject.AbsoluteSize)
 	
 	return extents
@@ -265,7 +265,7 @@ end
 function Extents2D:getExtentsFromGuis(guiObjects)
 	if (#guiObjects == 0) then return nil end
 	
-	local extents = Extents2D.new()
+	local extents = Extents2D.new(Vector2.new(0, 0))
 	set(extents, guiObjects[1].AbsolutePosition, guiObjects[1].AbsolutePosition + guiObjects[1].AbsoluteSize)
 	
 	for i = 2, #guiObjects do

@@ -11,8 +11,6 @@ local StateModelTemplate = require(Page.Util.StateModelTemplate)
 
 local ButtonBar = require(RoactStudioWidgets.ButtonBar)
 
-local FFlagAvatarSizeFixForReorganizeHeaders = game:GetFastFlag("AvatarSizeFixForReorganizeHeaders")
-
 local PresetsPanel = Roact.Component:extend("ComponentPresetsPanel")
 
 function PresetsPanel:init()
@@ -134,7 +132,7 @@ function PresetsPanel:render()
 			self.props.clobberTemplate(self.props.template, functionToCall(self.props.boundaries))
 		end,
 		ShowPressed = true,
-		LayoutOrder = FFlagAvatarSizeFixForReorganizeHeaders and self.props.LayoutOrder or nil,
+		LayoutOrder = self.props.LayoutOrder,
 	})
 end
 

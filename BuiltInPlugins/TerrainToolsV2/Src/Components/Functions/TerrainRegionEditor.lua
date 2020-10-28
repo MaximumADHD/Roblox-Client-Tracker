@@ -64,6 +64,8 @@ local ceil = math.ceil
 
 local screenGui
 
+local selectionEffect, copyRegion, toolSelect, mode, tool, updateRotateOperation, updateDragOperation, setButton, dragAngle, mouseDown
+
 local function getOrCreateScreenGui()
 	if not screenGui or not screenGui.Parent then
 		screenGui = Instance.new("ScreenGui")

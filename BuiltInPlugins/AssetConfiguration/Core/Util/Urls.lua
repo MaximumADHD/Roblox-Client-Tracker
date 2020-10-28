@@ -476,4 +476,15 @@ function Urls.constructDeleteAssetItemTagUrl(itemTagId)
 	return DELETE_ITEM_TAG:format(itemTagId)
 end
 
+function Urls.constructUploadCatalogItemFormatUrl(assetId, type, name, description, isPublic, format)
+	return POST_UPLOAD_ASSET_BASE .. Url.makeQueryString({
+		assetid = assetId,
+		type = tostring(type),
+		name = tostring(name),
+		description = tostring(description),
+		isPublic = isPublic and "True" or "False",
+		format = format,
+	})
+end
+
 return wrapStrictTable(Urls)

@@ -15,7 +15,6 @@ local Constants = require(InGameMenu.Resources.Constants)
 local CloseMenu = require(InGameMenu.Thunks.CloseMenu)
 local SendAnalytics = require(InGameMenu.Utility.SendAnalytics)
 
-local GetFFlagAppUsesAutomaticQualityLevel = require(RobloxGui.Modules.Flags.GetFFlagAppUsesAutomaticQualityLevel)
 local GetDefaultQualityLevel = require(RobloxGui.Modules.Common.GetDefaultQualityLevel)
 
 
@@ -27,9 +26,7 @@ function LeaveToAppPrompt:init()
 						{confirmed = Constants.AnalyticsConfirmedName})
 		RunService.Heartbeat:Wait()
 		game:Shutdown()
-		if GetFFlagAppUsesAutomaticQualityLevel() then
-			settings().Rendering.QualityLevel = GetDefaultQualityLevel()
-		end
+		settings().Rendering.QualityLevel = GetDefaultQualityLevel()
 	end
 end
 

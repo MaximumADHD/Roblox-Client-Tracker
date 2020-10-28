@@ -18,7 +18,7 @@ local ChatBubbleDistant = require(script.Parent.ChatBubbleDistant)
 local Types = require(script.Parent.Parent.Types)
 local Constants = require(script.Parent.Parent.Constants)
 
-local BubbleChatBillboard = Roact.Component:extend("BubbleChatBillboard")
+local BubbleChatBillboard = Roact.PureComponent:extend("BubbleChatBillboard")
 
 local SPRING_CONFIG = {
 	dampingRatio = 1,
@@ -31,8 +31,8 @@ BubbleChatBillboard.validateProps = t.strictInterface({
 
 	-- RoactRodux
 	chatSettings = Types.IChatSettings,
-	messages = t.map(t.string, Types.IMessage),
 	messageIds = t.optional(t.array(t.string)), -- messageIds == nil during the last bubble's fade out animation
+	lastMessage = t.optional(Types.IMessage),
 })
 
 function BubbleChatBillboard:init()
@@ -42,6 +42,7 @@ function BubbleChatBillboard:init()
 		isInsideMaximizeDistance = false,
 	})
 
+	self.isMounted = false
 	self.offset, self.updateOffset = Roact.createBinding(Vector3.new())
 	self.offsetMotor = Otter.createSingleMotor(0)
 	self.offsetMotor:onStep(function(offset)
@@ -57,7 +58,8 @@ function BubbleChatBillboard:init()
 end
 
 function BubbleChatBillboard:didMount()
-	local adornee = self:getAdornee()
+	self.isMounted = true
+	local adornee = self.props.lastMessage and self.props.lastMessage.adornee
 	self:setState({
 		adornee = adornee
 	})
@@ -103,6 +105,7 @@ function BubbleChatBillboard:didMount()
 end
 
 function BubbleChatBillboard:willUnmount()
+	self.isMounted = false
 	if self.characterConn then
 		self.characterConn:Disconnect()
 		self.characterConn = nil
@@ -168,13 +171,14 @@ function BubbleChatBillboard:onCharacterAdded(player, character)
 		rootPart = character:FindFirstChild("HumanoidRootPart")
 	end
 
-	if rootPart and character:IsDescendantOf(game) and player.Character == character then
+	if rootPart and character:IsDescendantOf(game) and player.Character == character and self.isMounted then
 		self:setState({
 			adornee = humanoid.Health == 0 and character:FindFirstChild("Head") or character
 		})
 
 		if self.humanoidDiedConn then
 			self.humanoidDiedConn:Disconnect()
+			self.humanoidDiedConn = nil
 		end
 		self.humanoidDiedConn = humanoid.Died:Connect(function()
 			self:setState({
@@ -201,19 +205,6 @@ function BubbleChatBillboard:getVerticalOffset(adornee)
 	elseif adornee:IsA("BasePart") then
 		return adornee.Size.Y / 2
 	end
-end
-
--- If the billboard is to be attached to a character, return it,
--- otherwise return the part specified in lastMessage.adornee
-function BubbleChatBillboard:getAdornee()
-	local messageIds = self.props.messageIds
-	if not messageIds or #messageIds == 0 then return end
-
-	local lastMessageId = messageIds[#messageIds]
-	local lastMessage = self.props.messages[lastMessageId]
-	assert(Types.IMessage(lastMessage))
-
-	return lastMessage.adornee
 end
 
 function BubbleChatBillboard:getAdorneePart()
@@ -275,26 +266,13 @@ function BubbleChatBillboard:didUpdate()
 	end
 end
 
-function BubbleChatBillboard:shouldUpdate(nextProps)
-	-- Only update the messages if the user's list of message IDs changed.
-	--
-	-- Since `messages` and `userMessages` are updated at the same time, we only
-	-- want to update the current user's billboard when both a new message has
-	-- been added, AND their specific list of messages has changed. This ensures
-	-- that a user chatting will not cause a rerender for another user.
-	if nextProps.messages ~= self.props.messages then
-		if nextProps.messageIds == self.props.messageIds then
-			return false
-		end
-	end
-	return true
-end
-
 local function mapStateToProps(state, props)
+	local messageIds = state.userMessages[props.userId]
+	local lastMessageId = messageIds and #messageIds >= 1 and messageIds[#messageIds]
 	return {
 		chatSettings = state.chatSettings,
-		messages = state.messages,
-		messageIds = state.userMessages[props.userId]
+		messageIds = messageIds,
+		lastMessage = lastMessageId and state.messages[lastMessageId]
 	}
 end
 

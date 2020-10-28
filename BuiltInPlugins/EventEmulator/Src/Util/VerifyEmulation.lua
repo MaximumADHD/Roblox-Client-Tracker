@@ -9,12 +9,12 @@ local HttpService = game:GetService("HttpService")
 do
 	pcall(function()
 		NotificationService.RobloxEventReceived:Connect(function(event)
-			debug([[
+			print(([[
 				Event Revieved:
 				\tNamespace: %s
 				\tDetail: %s
 				\tDetail Type: %s
-			]]):format(event.Namespace, HttpService:JSONDecode(event.Detail), event.DetailType)
+			]]):format(event.Namespace, HttpService:JSONDecode(event.Detail), event.DetailType))
 		end)
 	end)
 end

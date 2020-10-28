@@ -31,6 +31,7 @@ local Constants = require(Util.Constants)
 local ContextHelper = require(Util.ContextHelper)
 local ContextGetter = require(Util.ContextGetter)
 local Urls = require(Util.Urls)
+local Images = require(Util.Images)
 local AssetConfigConstants = require(Util.AssetConfigConstants)
 local AssetConfigUtil = require(Util.AssetConfigUtil)
 
@@ -45,6 +46,7 @@ local getNetwork = ContextGetter.getNetwork
 
 local PreviewArea = Roact.PureComponent:extend("PreviewArea")
 
+local FFlagUseDefaultThumbnailForAnimation = game:GetFastFlag("UseDefaultThumbnailForAnimation")
 local FFlagEnablePreviewTabSelection = settings():GetFFlag("EnablePreviewTabSelection")
 
 local THUMBNAIL_SIZE = Constants.ASSET_THUMBNAIL_REQUESTED_IMAGE_SIZE
@@ -82,6 +84,7 @@ function PreviewArea:render()
 			local currentTab = props.CurrentTab
 			local assetStatus = props.AssetStatus
 			local assetId = props.AssetId
+			local assetTypeEnum = props.AssetTypeEnum
 
 			local totalWidth = props.TotalWidth
 			local layoutOrder = props.LayoutOrder
@@ -110,6 +113,8 @@ function PreviewArea:render()
 			local formatText = localization:getLocalizedImageFormat(AssetConfigUtil.getImageFormatString(), MAX_IMAGE_X, MAX_IMAGE_Y)
 
 			local orderIterator = LayoutOrderIterator.new()
+
+			local shouldShowDefaultThumbnail = FFlagUseDefaultThumbnailForAnimation and assetTypeEnum == Enum.AssetType.Animation and not thumbnailUrl
 
 			return Roact.createElement("Frame", {
 				Size = UDim2.new(0, totalWidth, 1, 0),
@@ -152,8 +157,7 @@ function PreviewArea:render()
 					Size = UDim2.new(0, THUMBNAIL_WIDTH, 0, thunmbnailHeight),
 					BackgroundTransparency = 1,
 					LayoutOrder = orderIterator:getNextOrder(),
-
-					Image = thumbnailUrl,
+					Image = (shouldShowDefaultThumbnail and "rbxasset://textures/StudioToolbox/Animation.png") or thumbnailUrl,
 					defaultImage = "",
 				}),
 

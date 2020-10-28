@@ -1,3 +1,6 @@
+--!nocheck
+--^ Remove this hot comment with FFlagUseCategoryNameInToolbox
+
 local Plugin = script.Parent.Parent.Parent
 
 local deepEqual = require(Plugin.Libs.Framework.Util.deepEqual)

@@ -61,5 +61,12 @@ return {
 	AnalyticsCancelledName = "cancelled",
 	AnalyticsReportSubmittedName = "ingame_menu_report_submitted",
 	AnalyticsRequestFriendName = "RequestFriendship",
-	AnalyticsExamineAvatarName = "examine_avatar"
+	AnalyticsExamineAvatarName = "examine_avatar",
+
+	DisplayOrder = {
+		-- Fullscreen Title Bar should be on top of Topbar (DisplayOrder = 6)
+		FullscreenTitleBar = 7,
+		ConfirmationDialog = 8,
+		EducationalPopup = 9,
+	}
 }

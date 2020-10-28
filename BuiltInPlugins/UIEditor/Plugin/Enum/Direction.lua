@@ -53,7 +53,7 @@ end
 -- string Direction:toShortName(int direction)
 function Direction:toShortName(direction)
 	if not Direction:isValid(direction) then
-		error("Direction", direction, "is not valid. Cannot convert to short name.")
+		error(("Direction %s is not valid. Cannot convert to short name."):format(tostring(direction)))
 	end
 	
 	return m_shortNames[direction]

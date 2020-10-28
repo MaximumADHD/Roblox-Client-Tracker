@@ -9,6 +9,7 @@ local selectionSettingInProgress = false
 local partsInRubberbandSelection = {}
 
 local rubberBandDragInProgress = false
+local selectionBoxStart = nil
 
 local function findFirstCFrame(parent)
 	if parent:IsA("BasePart") then return parent.CFrame end

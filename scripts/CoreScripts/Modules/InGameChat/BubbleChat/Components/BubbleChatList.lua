@@ -17,7 +17,6 @@ BubbleChatList.validateProps = t.strictInterface({
 
 	-- RoactRodux
 	chatSettings = Types.IChatSettings,
-	messages = t.map(t.string, Types.IMessage),
 	messageIds = t.array(t.string),
 })
 
@@ -32,9 +31,9 @@ function BubbleChatList.getDerivedStateFromProps(nextProps, lastState)
 		for _, bubble in ipairs(lastState.bubbles) do
 			-- A message being in lastState but not nextProps means it's been removed from the store
 			-- => keep it in the state and fade it out!
-			if not Cryo.List.find(nextProps.messageIds, bubble.message.id) then
+			if not Cryo.List.find(nextProps.messageIds, bubble.messageId) then
 				table.insert(bubbles, {
-					message = bubble.message,
+					messageId = bubble.messageId,
 					fadingOut = true
 				})
 			end
@@ -43,7 +42,7 @@ function BubbleChatList.getDerivedStateFromProps(nextProps, lastState)
 
 	for _, messageId in ipairs(nextProps.messageIds) do
 		table.insert(bubbles, {
-			message = nextProps.messages[messageId],
+			messageId = messageId,
 			fadingOut = false
 		})
 	end
@@ -62,7 +61,7 @@ function BubbleChatList:init(props)
 
 	self.onBubbleFadeOut = function(messageId)
 		local bubbles = Cryo.List.filter(self.state.bubbles, function(otherBubble)
-			return otherBubble.message.id ~= messageId
+			return otherBubble.messageId ~= messageId
 		end)
 		if #bubbles == 0 and self.props.onLastBubbleFadeOut then
 			self.props.onLastBubbleFadeOut()
@@ -94,9 +93,8 @@ function BubbleChatList:render()
 	})
 
 	for index, bubble in ipairs(self.state.bubbles) do
-		children["Bubble" .. bubble.message.id] = Roact.createElement(ChatBubble, {
-			LayoutOrder = index,
-			message = bubble.message,
+		children["Bubble" .. bubble.messageId] = Roact.createElement(ChatBubble, {
+			messageId = bubble.messageId,
 			isMostRecent = index == #self.state.bubbles,
 			theme = self.props.theme,
 			fadingOut = bubble.fadingOut,
@@ -114,7 +112,6 @@ end
 local function mapStateToProps(state, props)
 	return {
 		chatSettings = state.chatSettings,
-		messages = state.messages,
 		messageIds = state.userMessages[props.userId] or {},
 	}
 end

@@ -3,6 +3,8 @@ local Plugin = script.Parent.Parent.Parent
 local Cryo = require(Plugin.Packages.Cryo)
 local Rodux = require(Plugin.Packages.Rodux)
 
+local View = require(Plugin.Src.Util.View)
+
 return Rodux.createReducer({
 	-- Contains table of assets, associated preview data, and next page/cursor
 	assetsTable = {
@@ -21,6 +23,7 @@ return Rodux.createReducer({
 	selectedAssets = {},
 	selectionIndex = 0,
 	universeName = "",
+	view = View.GRID,
 	-- only show the scripts folder if the place has linked scripts because linked scripts are deprecated.
 	hasLinkedScripts = false,
 }, {
@@ -81,6 +84,12 @@ return Rodux.createReducer({
 	SetUniverseName = function(state, action)
 		return Cryo.Dictionary.join(state, {
 			universeName = action.universeName,
+		})
+	end,
+
+	SetView = function(state, action)
+		return Cryo.Dictionary.join(state, {
+			view = action.view,
 		})
 	end,
 

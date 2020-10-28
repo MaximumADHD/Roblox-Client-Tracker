@@ -57,5 +57,8 @@ game:DefineFastFlag("AssetConfigFixAssetIdTypo", false)
 game:DefineFastFlag("AssetConfigFixBadIdVerifyState", false)
 
 game:DefineFastFlag("ToolboxConsolidateInsertRemainsEvents", false)
+game:DefineFastFlag("UseDefaultThumbnailForAnimation", false)
+
+game:DefineFastFlag("CMSUploadAccessoryMeshPartFormat", false)
 
 return nil

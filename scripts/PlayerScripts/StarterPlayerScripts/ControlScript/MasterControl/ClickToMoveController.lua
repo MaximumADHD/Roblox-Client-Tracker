@@ -1,9 +1,6 @@
 -- Written By Kip Turner, Copyright Roblox 2014
 -- Updated by Garnold to utilize the new PathfindingService API, 2017
 
-local FFlagUserNavigationClickToMoveSkipPassedWaypointsSuccess, FFlagUserNavigationClickToMoveSkipPassedWaypointsResult = pcall(function() return UserSettings():IsUserFeatureEnabled("UserNavigationClickToMoveSkipPassedWaypoints") end)
-local FFlagUserNavigationClickToMoveSkipPassedWaypoints = FFlagUserNavigationClickToMoveSkipPassedWaypointsSuccess and FFlagUserNavigationClickToMoveSkipPassedWaypointsResult
-
 local FFlagUserNavigationClickToMoveNoDirectPathSuccess, FFlagUserNavigationClickToMoveNoDirectPathResult = pcall(function() return UserSettings():IsUserFeatureEnabled("UserNavigationClickToMoveNoDirectPath") end)
 local FFlagUserNavigationClickToMoveNoDirectPath = FFlagUserNavigationClickToMoveNoDirectPathSuccess and FFlagUserNavigationClickToMoveNoDirectPathResult
 
@@ -499,52 +496,39 @@ local function Pather(character, endPoint, surfaceNormal)
 					end
 				end
 
-				if FFlagUserNavigationClickToMoveSkipPassedWaypoints then
-					-- First, check if we already passed the next point
-					local nextWaypointAlreadyReached
-					-- 1) Build plane (normal is from next waypoint towards current one (provided the two waypoints are not at the same location); location is at next waypoint)
-					local planeNormal = currentWaypoint.Position - nextWaypoint.Position
-					if planeNormal.Magnitude > 0.000001 then
-						planeNormal	= planeNormal.Unit
-						local planeDistance	= planeNormal:Dot(nextWaypoint.Position)
-						-- 2) Find current Humanoid position
-						local humanoidPosition = this.humanoid.RootPart.Position - Vector3.new(0, 0.5 * this.humanoid.RootPart.Size.y + this.humanoid.HipHeight, 0)
-						-- 3) Compute distance from plane
-						local dist = planeNormal:Dot(humanoidPosition) - planeDistance
-						-- 4) If we are less then a stud in front of the plane or if we are behing the plane, we consider we reached it
-						nextWaypointAlreadyReached = dist < 1.0
-					else
-						-- Next waypoint is the same as current waypoint so we reached it as well
-						nextWaypointAlreadyReached = true
-					end
-
-					-- Prepare for next point
-					if this.setPointFunc then
-						this.setPointFunc(nextWaypointIdx)
-					end
-					this.CurrentPoint = nextWaypointIdx
-
-					-- Either callback here right away if next waypoint is already passed
-					-- Otherwise, ask the Humanoid to MoveTo
-					if nextWaypointAlreadyReached then
-						this:OnPointReached(true)
-					else
-						if nextWaypoint.Action == Enum.PathWaypointAction.Jump then
-							this.humanoid.Jump = true
-						end
-						this.humanoid:MoveTo(nextWaypoint.Position)
-					end
+				-- First, check if we already passed the next point
+				local nextWaypointAlreadyReached
+				-- 1) Build plane (normal is from next waypoint towards current one (provided the two waypoints are not at the same location); location is at next waypoint)
+				local planeNormal = currentWaypoint.Position - nextWaypoint.Position
+				if planeNormal.Magnitude > 0.000001 then
+					planeNormal	= planeNormal.Unit
+					local planeDistance	= planeNormal:Dot(nextWaypoint.Position)
+					-- 2) Find current Humanoid position
+					local humanoidPosition = this.humanoid.RootPart.Position - Vector3.new(0, 0.5 * this.humanoid.RootPart.Size.y + this.humanoid.HipHeight, 0)
+					-- 3) Compute distance from plane
+					local dist = planeNormal:Dot(humanoidPosition) - planeDistance
+					-- 4) If we are less then a stud in front of the plane or if we are behing the plane, we consider we reached it
+					nextWaypointAlreadyReached = dist < 1.0
 				else
-					if this.setPointFunc then
-						this.setPointFunc(nextWaypointIdx)
-					end
-				
+					-- Next waypoint is the same as current waypoint so we reached it as well
+					nextWaypointAlreadyReached = true
+				end
+
+				-- Prepare for next point
+				if this.setPointFunc then
+					this.setPointFunc(nextWaypointIdx)
+				end
+				this.CurrentPoint = nextWaypointIdx
+
+				-- Either callback here right away if next waypoint is already passed
+				-- Otherwise, ask the Humanoid to MoveTo
+				if nextWaypointAlreadyReached then
+					this:OnPointReached(true)
+				else
 					if nextWaypoint.Action == Enum.PathWaypointAction.Jump then
 						this.humanoid.Jump = true
 					end
 					this.humanoid:MoveTo(nextWaypoint.Position)
-
-					this.CurrentPoint = nextWaypointIdx
 				end
 			end
 		else

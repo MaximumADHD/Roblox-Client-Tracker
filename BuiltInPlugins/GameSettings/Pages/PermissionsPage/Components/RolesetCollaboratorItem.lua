@@ -16,50 +16,98 @@ local SetRolesetPermission = require(Page.Thunks.SetRolesetPermission)
 
 local RolesetCollaboratorItem = Roact.PureComponent:extend("RolesetCollaboratorItem")
 
+local FFlagStudioUXImprovementsLoosenTCPermissions = game:GetFastFlag("StudioUXImprovementsLoosenTCPermissions")
+
 function RolesetCollaboratorItem:getAvailablePermissions()
 	local props = self.props
 
-	local isOwner = props.IsOwner
+	local isRolesetOwner = props.IsRolesetOwner
+	local isGroupOwner = props.IsGroupOwner
 
 	local localization = props.Localization
 
-	if isOwner then
-		return {
-			{
-				Key = PermissionsConstants.OwnerKey,
-				Display = localization:getText("AccessPermissions", "OwnerLabel"),
-				Description = localization:getText("AccessPermissions", "OwnerDescription"),
-			},
-		}
+	if FFlagStudioUXImprovementsLoosenTCPermissions then
+		if isRolesetOwner then
+			return {
+				{
+					Key = PermissionsConstants.OwnerKey,
+					Display = localization:getText("AccessPermissions", "OwnerLabel"),
+					Description = localization:getText("AccessPermissions", "OwnerDescription"),
+				},
+			}
+		else
+			if isGroupOwner then
+				return {
+					{
+						Key = PermissionsConstants.NoAccessKey,
+						Display = localization:getText("AccessPermissions", "NoAccessLabel"),
+						Description = localization:getText("AccessPermissions", "NoAccessDescription"),
+					},
+					{
+						Key = PermissionsConstants.PlayKey,
+						Display = localization:getText("AccessPermissions", "PlayLabel"),
+						Description = localization:getText("AccessPermissions", "PlayDescription"),
+					},
+					{
+						Key = PermissionsConstants.EditKey,
+						Display = localization:getText("AccessPermissions", "EditLabel"),
+						Description = localization:getText("AccessPermissions", "EditDescription"),
+					},
+				}
+			else
+				return {
+					{
+						Key = PermissionsConstants.NoAccessKey,
+						Display = localization:getText("AccessPermissions", "NoAccessLabel"),
+						Description = localization:getText("AccessPermissions", "NoAccessDescription"),
+					},
+					{
+						Key = PermissionsConstants.PlayKey,
+						Display = localization:getText("AccessPermissions", "PlayLabel"),
+						Description = localization:getText("AccessPermissions", "PlayDescription"),
+					},
+				}
+			end
+		end
 	else
-		return {
-			{
-				Key = PermissionsConstants.NoAccessKey,
-				Display = localization:getText("AccessPermissions", "NoAccessLabel"),
-				Description = localization:getText("AccessPermissions", "NoAccessDescription"),
-			},
-			{
-				Key = PermissionsConstants.PlayKey,
-				Display = localization:getText("AccessPermissions", "PlayLabel"),
-				Description = localization:getText("AccessPermissions", "PlayDescription"),
-			},
-			{
-				Key = PermissionsConstants.EditKey,
-				Display = localization:getText("AccessPermissions", "EditLabel"),
-				Description = localization:getText("AccessPermissions", "EditDescription"),
-			},
-		}
+		if isRolesetOwner then
+			return {
+				{
+					Key = PermissionsConstants.OwnerKey,
+					Display = localization:getText("AccessPermissions", "OwnerLabel"),
+					Description = localization:getText("AccessPermissions", "OwnerDescription"),
+				},
+			}
+		else
+			return {
+				{
+					Key = PermissionsConstants.NoAccessKey,
+					Display = localization:getText("AccessPermissions", "NoAccessLabel"),
+					Description = localization:getText("AccessPermissions", "NoAccessDescription"),
+				},
+				{
+					Key = PermissionsConstants.PlayKey,
+					Display = localization:getText("AccessPermissions", "PlayLabel"),
+					Description = localization:getText("AccessPermissions", "PlayDescription"),
+				},
+				{
+					Key = PermissionsConstants.EditKey,
+					Display = localization:getText("AccessPermissions", "EditLabel"),
+					Description = localization:getText("AccessPermissions", "EditDescription"),
+				},
+			}
+		end
 	end
 end
 
 function RolesetCollaboratorItem:getCurrentPermission()
 	local props = self.props
 
-	local isOwner = props.IsOwner
+	local isRolesetOwner = props.IsRolesetOwner
 
 	local currentPermission = props.CurrentPermission
 
-	if isOwner then
+	if isRolesetOwner then
 		return PermissionsConstants.OwnerKey
 	else
 		return currentPermission
@@ -75,7 +123,7 @@ function RolesetCollaboratorItem:render()
 	local writable = props.Writable
 
 	local name = props.RolesetName
-	local isOwner = props.IsOwner
+	local isRolesetOwner = props.IsRolesetOwner
 
 	local setRolesetPermission = props.SetRolesetPermission
 
@@ -84,7 +132,7 @@ function RolesetCollaboratorItem:render()
 
 		Name = name,
 
-		Writable = writable and not isOwner,
+		Writable = writable and not isRolesetOwner,
 		Loading = false,
 
 		Removable = false,
@@ -104,7 +152,7 @@ ContextServices.mapToProps(RolesetCollaboratorItem, {
 RolesetCollaboratorItem = RoactRodux.connect(
 	function(state, props)
 		return {
-			IsOwner = IsRolesetOwner(state, props.Id),
+			IsRolesetOwner = IsRolesetOwner(state, props.Id),
 			RolesetName = GetRolesetName(state, props.Id),
 			CurrentPermission = GetRolesetPermission(state, props.Id),
 		}

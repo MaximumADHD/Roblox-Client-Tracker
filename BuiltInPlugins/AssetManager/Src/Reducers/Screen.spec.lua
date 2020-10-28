@@ -1,7 +1,7 @@
 local Plugin = script.Parent.Parent.Parent
 local Rodux = require(Plugin.Packages.Rodux)
 
-local Screen = require(script.parent.Screen)
+local Screen = require(script.Parent.Screen)
 
 local Screens = require(Plugin.Src.Util.Screens)
 

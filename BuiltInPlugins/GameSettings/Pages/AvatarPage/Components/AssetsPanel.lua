@@ -16,9 +16,6 @@ local AssetInput = require(Page.Components.AssetInput)
 local DividerRow = require(Page.Components.DividerRow)
 local TitleBar = require(Page.Components.TitleBar)
 
-local FFlagAvatarSizeFixForReorganizeHeaders =
-	game:GetFastFlag("AvatarSizeFixForReorganizeHeaders")
-
 local AssetsPanel = Roact.Component:extend("ComponentAssetsPanel")
 
 local createRowsForBodyParts = nil
@@ -54,10 +51,7 @@ function AssetsPanel:render()
 			BorderSizePixel = 0,
 			BackgroundColor3 = StateInterfaceTheme.getBackgroundColor(self.props),
 			LayoutOrder = (function()
-				if FFlagAvatarSizeFixForReorganizeHeaders then
-					return self.props.LayoutOrder
-				end
-				return layoutOrder:getNextOrder()
+				return self.props.LayoutOrder
 			end)(),
 
 			[Roact.Ref] = self.frameRef,

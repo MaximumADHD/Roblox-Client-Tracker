@@ -15,14 +15,14 @@ return function()
 	end
 
 	it("should create and destroy without errors", function()
-		local element = createTestDropdownButton(nil)
+		local element = createTestDropdownButton()
 		local instance = Roact.mount(element)
 		Roact.unmount(instance)
 	end)
 
 	it("should render correctly", function ()
 		local container = Instance.new("Folder")
-		local instance = Roact.mount(createTestDropdownButton({}), container)
+		local instance = Roact.mount(createTestDropdownButton(), container)
 		local frame = container:FindFirstChildOfClass("ImageButton")
 
 		expect(frame).to.be.ok()

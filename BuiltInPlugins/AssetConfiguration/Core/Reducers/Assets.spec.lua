@@ -196,7 +196,7 @@ return function()
 					},
 				}
 
-				networkInterfaceMock:resolveAssets(generateFakeAssetsFromIds({1, 2}, 3)):andThen(function(results)
+				networkInterfaceMock:resolveAssets(generateFakeAssetsFromIds({1, 2})):andThen(function(results)
 					local assetsList = results.responseBody.Results
 
 					AssetAnalytics.addContextToAssetResults(assetsList, stubPageInfo)
@@ -212,7 +212,7 @@ return function()
 				expect(state.idToAssetMap[2].Context.position).to.equal(2)
 				expect(state.idToAssetMap[2].Context.pagePosition).to.equal(2)
 
-				networkInterfaceMock:resolveAssets(generateFakeAssetsFromIds({3}, 3)):andThen(function(results)
+				networkInterfaceMock:resolveAssets(generateFakeAssetsFromIds({3})):andThen(function(results)
 					local assetsList = results.responseBody.Results
 
 					stubPageInfo.targetPage = 2

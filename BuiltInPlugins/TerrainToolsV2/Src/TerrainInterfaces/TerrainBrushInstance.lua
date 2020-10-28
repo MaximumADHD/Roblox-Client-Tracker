@@ -62,7 +62,7 @@ end
 local function getCameraLookSnappedForPlane()
 	local camera = Workspace.CurrentCamera
 	local lookVector = camera.CoordinateFrame.lookVector
-	return Vector3.new(round(lookVector.x), round(lookVector.y), round(lookVector.z)).unit
+	return Vector3.new(round(lookVector.x), round(lookVector.y), round(lookVector.z)).Unit
 end
 
 local function isShiftKeyDown()

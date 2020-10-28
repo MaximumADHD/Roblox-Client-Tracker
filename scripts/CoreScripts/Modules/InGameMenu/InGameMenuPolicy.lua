@@ -9,6 +9,7 @@ local GetFFlagEducationalPopupOnNativeClose = require(script.Parent.Parent.Flags
 local GetFIntEducationalPopupDisplayMaxCount = require(
 	script.Parent.Parent.Flags.GetFIntEducationalPopupDisplayMaxCount)
 local GetFFlagInGameHomeIcon = require(script.Parent.Flags.GetFFlagInGameHomeIcon)
+local GetFFlagInGameMenuFullscreenTitleBar = require(script.Parent.Flags.GetFFlagInGameMenuFullscreenTitleBar)
 
 InGameMenuPolicy.Mapper = function(policy)
 	local UniversalAppOnWindows = game:GetEngineFeature("UniversalAppOnWindows")
@@ -24,6 +25,10 @@ InGameMenuPolicy.Mapper = function(policy)
 
 		educationalPopupMaxDisplayCount = function()
 			return UniversalAppOnWindows and GetFIntEducationalPopupDisplayMaxCount() or 0
+		end,
+
+		enableFullscreenTitleBar = function()
+			return UniversalAppOnWindows and GetFFlagInGameMenuFullscreenTitleBar()
 		end,
 	}
 end

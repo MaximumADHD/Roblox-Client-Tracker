@@ -23,8 +23,6 @@
 		function HoverChanged(hovering) = Callback when the mouse enters or leaves this TextBox.
 ]]
 
-local StudioUILibraryRoundTextBoxNoTooltip = settings():GetFFlag("StudioUILibraryRoundTextBoxNoTooltip")
-
 local DEFAULT_HEIGHT = 42
 local PADDING = UDim.new(0, 10)
 
@@ -73,9 +71,7 @@ function RoundTextBox:render()
 		local errorState = self.props.ErrorMessage
 			or pastMaxLength
 
-		if StudioUILibraryRoundTextBoxNoTooltip then
-			errorState = errorState or self.props.ErrorBorder
-		end
+		errorState = errorState or self.props.ErrorBorder
 
 		local size = self.props.Size or UDim2.new(1, self.props.WidthOffset or 0, 0, self.props.Height or DEFAULT_HEIGHT)
 
@@ -95,30 +91,20 @@ function RoundTextBox:render()
 		}
 
 		local showToolTip = true
-		if StudioUILibraryRoundTextBoxNoTooltip then
-			if nil ~= self.props.ShowToolTip then
-				showToolTip = self.props.ShowToolTip
-			end
+		if nil ~= self.props.ShowToolTip then
+			showToolTip = self.props.ShowToolTip
 		end
 
 		local tooltipText
 		if active then
-			if StudioUILibraryRoundTextBoxNoTooltip then
-				if showToolTip then
-					if errorState and self.props.ErrorMessage then
-						tooltipText = self.props.ErrorMessage
-					else
-						tooltipText = textLength .. "/" .. self.props.MaxLength
-					end
-				else
-					tooltipText = ""
-				end
-			else
+			if showToolTip then
 				if errorState and self.props.ErrorMessage then
 					tooltipText = self.props.ErrorMessage
 				else
 					tooltipText = textLength .. "/" .. self.props.MaxLength
 				end
+			else
+				tooltipText = ""
 			end
 		else
 			tooltipText = ""
@@ -168,7 +154,7 @@ function RoundTextBox:render()
 				TextYAlignment = Enum.TextYAlignment.Top,
 				TextColor3 = (active and errorState and theme.textBox.error) or theme.textBox.tooltip,
 				Text = tooltipText,
-				Visible =  (not StudioUILibraryRoundTextBoxNoTooltip) or showToolTip
+				Visible = showToolTip
 			}),
 
 			Border = Roact.createElement("ImageLabel", {

@@ -439,8 +439,9 @@ local function findMotorErrors(errorData)
 	end
 end
 
+local rigHasErrors: (any) -> (boolean, any) = nil
 if FFlagFixDuplicateNamedRoot then
-function RigUtils.rigHasErrors(rig)
+function rigHasErrors(rig)
 	local errorData = {
 		errorList = {},
 		motorsMap = {},
@@ -467,7 +468,7 @@ end
 
 else
 
-function RigUtils.rigHasErrors(rig)
+function rigHasErrors(rig)
 	local errorList = {}
 	local motorsMap = {}
 	local partsWithMultipleParents = {}
@@ -588,6 +589,7 @@ function RigUtils.rigHasErrors(rig)
 end
 
 end
+RigUtils.rigHasErrors = rigHasErrors
 
 function RigUtils.buildR15Constraints(rig)
 	local _, motorMap = RigUtils.getRigInfo(rig)

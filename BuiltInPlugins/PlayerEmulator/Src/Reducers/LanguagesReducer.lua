@@ -9,7 +9,7 @@ return Rodux.createReducer({
 	LoadLanguages = function(state, action)
 		local data = action.data
 		local resTable = {}
-		local resList = {}
+		local resList: { [number]: any } = {}
 		for _, localeInfo in pairs(data) do
 			resTable[localeInfo.locale.locale] = {
 				localeId = localeInfo.locale.locale,

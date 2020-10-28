@@ -1,3 +1,5 @@
+--!nocheck
+
 local plugin, settings = plugin, settings
 
 local versionString = "v1.1"
@@ -393,7 +395,7 @@ function On()
 
 	pluginOffInputBeganEvent:disconnect()
 
-	inputBeganEvent = UserInputService.InputBegan:connect(onInputBegan)	
+	inputBeganEvent = UserInputService.InputBegan:connect(onInputBegan)
 	inputChangedEvent = UserInputService.InputChanged:connect(onInputChanged)
 	inputEndedEvent = UserInputService.InputEnded:connect(onInputEnded)
 	selectionChangedEvent = SelectionService.SelectionChanged:connect(onSelectionChanged)

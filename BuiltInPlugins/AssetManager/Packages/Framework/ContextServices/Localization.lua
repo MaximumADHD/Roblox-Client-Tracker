@@ -56,6 +56,7 @@
 ]]
 
 game:DefineFastFlag("FixStudioLocalizationLocaleId", false)
+local FFlagDevFrameworkLocalizationLibraries = game:GetFastFlag("DevFrameworkLocalizationLibraries")
 
 -- services
 local LocalizationService = game:GetService("LocalizationService")
@@ -66,7 +67,9 @@ local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
 local ContextItem = require(Framework.ContextServices.ContextItem)
 local Provider = require(Framework.ContextServices.Provider)
-local Signal = require(Framework.Util).Signal
+local Util = require(Framework.Util)
+local Signal = Util.Signal
+local Cryo = Util.Cryo
 
 -- constants
 local FALLBACK_LOCALE = "en-us"
@@ -78,6 +81,18 @@ function Localization.new(props)
 	assert(props.stringResourceTable ~= nil, "Localization must have a .csv string resource table for English strings")
 	assert(props.translationResourceTable ~= nil, "Localization must have a .csv string resource table of translations")
 	assert(type(props.pluginName) == "string", "Please specify the plugin's name")
+
+	if FFlagDevFrameworkLocalizationLibraries then
+		if props.libraries ~= nil then
+			assert(type(props.libraries) == "table", "Localization libraries prop must be a table or nil")
+			for key, value in pairs(props.libraries) do
+				assert(type(key) == "string", "Localization libraries key must be a string")
+				assert(type(value) == "table", "Localization libraries value must be a table")
+				assert(value.stringResourceTable ~= nil, string.format("Localization table %s must have a .csv string resource table for English strings", key))
+				assert(value.translationResourceTable ~= nil, string.format("Localization table %s must have a .csv string resource table of translations", key))
+			end
+		end
+	end
 
 	local stringResourceTable = props.stringResourceTable
 	local translationResourceTable = props.translationResourceTable
@@ -146,17 +161,32 @@ function Localization.new(props)
 
 		-- stringResourceTable : a CSV file containing all of the English strings
 		--  this is converted into a proper resource by Rojo
+		-- Remove with retirement of FFlagDevFrameworkLocalizationLibraries
 		stringResourceTable = stringResourceTable,
 
 		-- translationResourceTable : a CSV file containing all of the translated strings
 		--  this is converted into a proper resource by Rojo
+		-- Remove with retirement of FFlagDevFrameworkLocalizationLibraries
 		translationResourceTable = translationResourceTable,
 
 		-- translator & fallbackTranslator : (Translator)
 		--  objects that handle the string formatting from the current stringResourceTable
+		-- Remove with retirement of FFlagDevFrameworkLocalizationLibraries
 		translator = nil,
 		fallbackTranslator = nil
 	}
+
+	if FFlagDevFrameworkLocalizationLibraries then
+		self.projects = Cryo.Dictionary.join(props.libraries or {}, {
+			[self.keyPluginName] = {
+				stringResourceTable = stringResourceTable,
+				translationResourceTable = translationResourceTable,
+			},
+		})
+		self.translators = {}
+		self.fallbackTranslators = {}
+	end
+
 	setmetatable(self, Localization)
 
 	-- listen to changes to the locale to alert all listeners of the change
@@ -178,54 +208,119 @@ function Localization:createProvider(root)
 	}, {root})
 end
 
--- scope : (string) the general group of data that the key belongs to
--- key : (string) the id of the string in the resource table
--- args : (optional, map<string,variant>) values used to format a string
-function Localization:getText(scope, key, args)
-	assert(type(scope) == "string", "Cannot fetch the string without a scope")
-	assert(type(key) == "string", "Cannot fetch a string without the key")
-
-	local stringKey = string.format("%s.%s.%s.%s", self.keyNamespace, self.keyPluginName, scope, key)
-
-	local function getTranslation(translator)
-		if not translator then
-			return false, nil
-		end
-
-		local success, result = pcall(function()
-			return translator:FormatByKey(stringKey, args)
-		end)
-		return success, result
+if FFlagDevFrameworkLocalizationLibraries then
+	-- scope : (string) the general group of data that the key belongs to
+	-- key : (string) the id of the string in the resource table
+	-- args : (optional, map<string,variant>) values used to format a string
+	function Localization:getText(scope, key, args)
+		return self:getProjectText(self.keyPluginName, scope, key, args)
 	end
 
-	-- optimize for one lookup when the locale is English
-	local success
-	local translated
-	if self.locale == FALLBACK_LOCALE then
-		-- English strings are only written into the development string table,
-		--  so don't bother looking up the key in the localization table.
-		success, translated = getTranslation(self.fallbackTranslator)
-		if success then
-			return translated
+	-- project : (string) the 2nd level group that the key belongs to (plugin name or library name)
+	-- scope : (string) the general group of data that the key belongs to
+	-- key : (string) the id of the string in the resource table
+	-- args : (optional, map<string,variant>) values used to format a string
+	function Localization:getProjectText(project, scope, key, args)
+		assert(type(project) == "string", "Cannot fetch the string without a project")
+		assert(type(scope) == "string", "Cannot fetch the string without a scope")
+		assert(type(key) == "string", "Cannot fetch a string without the key")
+		assert(self.projects[project] ~= nil, string.format("Project %s is not available", project))
+
+		local stringKey = string.format("%s.%s.%s.%s", self.keyNamespace, project, scope, key)
+
+		local function getTranslation(translator)
+			if not translator then
+				return false, nil
+			end
+
+			local success, result = pcall(function()
+				return translator:FormatByKey(stringKey, args)
+			end)
+			return success, result
 		end
 
-	else
-		-- try to find a translation in our translation file
-		success, translated = getTranslation(self.translator)
-		if success then
-			return translated
+		local translator = self.translators[project]
+		local fallbackTranslator = self.fallbackTranslators[project]
+
+		-- optimize for one lookup when the locale is English
+		local success
+		local translated
+		if self.locale == FALLBACK_LOCALE then
+			-- English strings are only written into the development string table,
+			--  so don't bother looking up the key in the localization table.
+			success, translated = getTranslation(fallbackTranslator)
+			if success then
+				return translated
+			end
+
+		else
+			-- try to find a translation in our translation file
+			success, translated = getTranslation(translator)
+			if success then
+				return translated
+			end
+
+			-- If no translation exists for this locale id, fall back to default (English)
+			success, translated = getTranslation(fallbackTranslator)
+			if success then
+				return translated
+			end
 		end
 
-		-- If no translation exists for this locale id, fall back to default (English)
-		success, translated = getTranslation(self.fallbackTranslator)
-		if success then
-			return translated
-		end
+		-- Fall back to the given key if there is no translation for this value
+		-- Useful for finding misspelled or missing keys
+		return stringKey
 	end
+else
+	-- scope : (string) the general group of data that the key belongs to
+	-- key : (string) the id of the string in the resource table
+	-- args : (optional, map<string,variant>) values used to format a string
+	function Localization:getText(scope, key, args)
+		assert(type(scope) == "string", "Cannot fetch the string without a scope")
+		assert(type(key) == "string", "Cannot fetch a string without the key")
 
-	-- Fall back to the given key if there is no translation for this value
-	-- Useful for finding misspelled or missing keys
-	return stringKey
+		local stringKey = string.format("%s.%s.%s.%s", self.keyNamespace, self.keyPluginName, scope, key)
+
+		local function getTranslation(translator)
+			if not translator then
+				return false, nil
+			end
+
+			local success, result = pcall(function()
+				return translator:FormatByKey(stringKey, args)
+			end)
+			return success, result
+		end
+
+		-- optimize for one lookup when the locale is English
+		local success
+		local translated
+		if self.locale == FALLBACK_LOCALE then
+			-- English strings are only written into the development string table,
+			--  so don't bother looking up the key in the localization table.
+			success, translated = getTranslation(self.fallbackTranslator)
+			if success then
+				return translated
+			end
+
+		else
+			-- try to find a translation in our translation file
+			success, translated = getTranslation(self.translator)
+			if success then
+				return translated
+			end
+
+			-- If no translation exists for this locale id, fall back to default (English)
+			success, translated = getTranslation(self.fallbackTranslator)
+			if success then
+				return translated
+			end
+		end
+
+		-- Fall back to the given key if there is no translation for this value
+		-- Useful for finding misspelled or missing keys
+		return stringKey
+	end
 end
 
 function Localization:destroy()
@@ -237,8 +332,15 @@ end
 function Localization:updateLocaleAndTranslator()
 	-- the locale has changed, update the translators
 	self.locale = self.getLocale()
-	self.translator = self.translationResourceTable:GetTranslator(self.locale)
-	self.fallbackTranslator = self.stringResourceTable:GetTranslator(FALLBACK_LOCALE)
+	if FFlagDevFrameworkLocalizationLibraries then
+		for key, project in pairs(self.projects) do
+			self.translators[key] = project.translationResourceTable:GetTranslator(self.locale)
+			self.fallbackTranslators[key] = project.stringResourceTable:GetTranslator(FALLBACK_LOCALE)
+		end
+	else
+		self.translator = self.translationResourceTable:GetTranslator(self.locale)
+		self.fallbackTranslator = self.stringResourceTable:GetTranslator(FALLBACK_LOCALE)
+	end
 end
 
 function Localization.mock()

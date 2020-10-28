@@ -12,18 +12,20 @@ local SPRING_CONFIG = {
 	frequency = 2,
 }
 
-local ChatBubble = Roact.Component:extend("ChatBubble")
+local ChatBubble = Roact.PureComponent:extend("ChatBubble")
 
 ChatBubble.validateProps = t.strictInterface({
-	message = Types.IMessage,
+	messageId = t.string,
 
 	fadingOut = t.optional(t.boolean),
 	onFadeOut = t.optional(t.callback),
-	LayoutOrder = t.optional(t.number),
 	isMostRecent = t.optional(t.boolean),
 	theme = t.optional(t.string),
 
+	-- RoactRodux
 	chatSettings = Types.IChatSettings,
+	text = t.string,
+	timestamp = t.number,
 })
 
 ChatBubble.defaultProps = {
@@ -54,7 +56,7 @@ function ChatBubble:getTextBounds()
 	local padding = Vector2.new(settings.Padding * 4, settings.Padding * 2)
 
 	local bounds = TextService:GetTextSize(
-		self.props.message.text,
+		self.props.text,
 		settings.TextSize,
 		settings.Font,
 		Vector2.new(settings.MaxWidth, 10000)
@@ -68,7 +70,7 @@ function ChatBubble:render()
 	local settings = self.props.chatSettings
 
 	return Roact.createElement("Frame", {
-		LayoutOrder = self.props.LayoutOrder,
+		LayoutOrder = self.props.timestamp,
 		AnchorPoint = Vector2.new(0.5, 0.5),
 		Size = self.size,
 		Position = UDim2.fromScale(1, 0.5),
@@ -95,7 +97,7 @@ function ChatBubble:render()
 			}),
 
 			Text = Roact.createElement("TextLabel", {
-				Text = self.props.message.text,
+				Text = self.props.text,
 				Size = UDim2.new(0, bounds.X, 0, bounds.Y),
 				AnchorPoint = Vector2.new(0.5, 0.5),
 				Position = UDim2.fromScale(0.5, 0.5),
@@ -105,6 +107,7 @@ function ChatBubble:render()
 				TextSize = settings.TextSize,
 				TextTransparency = self.transparency,
 				TextWrapped = true,
+				AutoLocalize = false,
 			}, {
 				Padding = Roact.createElement("UIPadding", {
 					PaddingTop = UDim.new(0, settings.Padding),
@@ -132,7 +135,7 @@ function ChatBubble:fadeOut()
 
 		self.transparencyMotor:onComplete(function()
 			if self.props.onFadeOut then
-				self.props.onFadeOut(self.props.message.id)
+				self.props.onFadeOut(self.props.messageId)
 			end
 		end)
 
@@ -171,9 +174,14 @@ function ChatBubble:willUnmount()
 	self.widthMotor:destroy()
 end
 
-local function mapStateToProps(state)
+local function mapStateToProps(state, props)
+	local message = state.messages[props.messageId]
 	return {
 		chatSettings = state.chatSettings,
+		-- We must listen for the message's text from the state rather than get it as a prop from the parent BubbleChatList
+		-- because it can be updated (message done filtering) and that would not trigger a BubbleChatList re-render
+		text = message and message.text or "",
+		timestamp = message and message.timestamp or 0,
 	}
 end
 

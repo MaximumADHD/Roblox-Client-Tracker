@@ -1,3 +1,5 @@
+--!nocheck
+
 local SHOULD_RUN_TESTS = false -- Do not check in as true!
 
 if SHOULD_RUN_TESTS then

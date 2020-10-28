@@ -1,5 +1,6 @@
-MockAnalyticsService = {}
+local MockAnalyticsService = {}
 MockAnalyticsService.__index = MockAnalyticsService
+
 function MockAnalyticsService.new()
 	local self = {}
 	setmetatable(self, MockAnalyticsService)
@@ -15,10 +16,10 @@ function MockAnalyticsService.new()
 
 		assert(type(argsTable) == "table", "expected table, argsTable was " .. type(argsTable))
 		for i,v in pairs(argsTable) do
-			if event.i ~= nil then
+			if event[i] ~= nil then
 				warn("overriding base keyword " .. i .. "in via argsTable in SendEventDeferred()." )
 			end
-			event.i = v
+			event[i] = v
 		end
 
 		self.lastEvent = event

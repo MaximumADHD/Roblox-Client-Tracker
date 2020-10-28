@@ -10,8 +10,6 @@
 
 ]]
 
-local FFlagStudioAllowPkgPermsForOtherUsrsAndGrps = game:DefineFastFlag("StudioAllowPkgPermsForOtherUsrsAndGrps", false)
-
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
 local Libs = Plugin.Libs

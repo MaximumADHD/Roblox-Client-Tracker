@@ -172,4 +172,6 @@ AssetConfigConstants.TAGS_SUGGESTION_SUCCESS = "Success"
 AssetConfigConstants.MAX_DISPLAY_SUGGESTIONS = 5
 AssetConfigConstants.MAX_FETCH_SUGGESTIONS = 10
 
+AssetConfigConstants.AVATAR_MESHPART_ACCESSORY_FORMAT = "avatar_meshpart_accessory"
+
 return AssetConfigConstants

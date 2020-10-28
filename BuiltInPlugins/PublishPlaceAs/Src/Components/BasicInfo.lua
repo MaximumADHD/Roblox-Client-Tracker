@@ -245,7 +245,8 @@ local function dispatchForProps(setValue, dispatch)
 		NameChanged = function(text)
 			dispatch(AddChange("name", text))
 			local nameLength = utf8.len(text)
-			if nameLength == 0 or string.len(string.gsub(text, " ", "")) == 0 then
+			local whitespaceTrimmedString, _ = string.gsub(text, " ", "")
+			if nameLength == 0 or string.len(whitespaceTrimmedString) == 0 then
 				dispatch(AddErrors({name = "NameEmpty"}))
 			elseif nameLength > MAX_NAME_LENGTH then
 				dispatch(AddErrors({name = "NameTooLong"}))

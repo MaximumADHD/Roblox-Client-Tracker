@@ -2,7 +2,9 @@ local Plugin = script.Parent.Parent.Parent
 local Cryo = require(Plugin.Packages.Cryo)
 local Rodux = require(Plugin.Packages.Rodux)
 
-local AssetManagerReducer = require(script.parent.AssetManagerReducer)
+local AssetManagerReducer = require(script.Parent.AssetManagerReducer)
+
+local View = require(Plugin.Src.Util.View)
 
 local SetAssets = require(Plugin.Src.Actions.SetAssets)
 local SetAssetFavoriteCount = require(Plugin.Src.Actions.SetAssetFavoriteCount)
@@ -20,6 +22,7 @@ local SetSearchTerm = require(Plugin.Src.Actions.SetSearchTerm)
 local SetSelectedAssets = require(Plugin.Src.Actions.SetSelectedAssets)
 local SetSelectionIndex = require(Plugin.Src.Actions.SetSelectionIndex)
 local SetUniverseName = require(Plugin.Src.Actions.SetUniverseName)
+local SetView = require(Plugin.Src.Actions.SetView)
 
 local testImmutability = require(Plugin.Src.TestHelpers.testImmutability)
 
@@ -37,6 +40,7 @@ return function()
 		expect(state.selectedAssets).to.be.ok()
 		expect(state.selectionIndex).to.be.ok()
 		expect(state.universeName).to.be.ok()
+		expect(state.view).to.be.ok()
 	end)
 
 	describe("SetAssets action", function()
@@ -405,6 +409,38 @@ return function()
 
             state = AssetManagerReducer(state, SetUniverseName("yeet"))
             expect(state.universeName).to.equal("yeet")
+		end)
+	end)
+
+	describe("SetView action", function()
+		it("should validate its inputs", function()
+			expect(function()
+				SetView(nil)
+			end).to.throw()
+
+			expect(function()
+				SetView({ someKey = "value", })
+			end).to.throw()
+
+			expect(function()
+				SetView("some view")
+			end).to.throw()
+		end)
+
+		it("should preserve immutability", function()
+			local immutabilityPreserved = testImmutability(AssetManagerReducer, SetView(View.GRID))
+			expect(immutabilityPreserved).to.equal(true)
+		end)
+
+		it("should set view type", function()
+			local r = Rodux.Store.new(AssetManagerReducer)
+			local state = r:getState()
+			expect(state.view).to.equal(View.GRID)
+
+			for k,v in pairs(View) do
+				state = AssetManagerReducer(state, SetView(v))
+				expect(state.view).to.equal(v)
+			end
 		end)
 	end)
 

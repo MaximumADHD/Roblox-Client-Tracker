@@ -2,12 +2,10 @@ local Plugin = script.Parent.Parent.Parent.Parent
 
 local AnalyticsSenders = require(Plugin.Core.Util.Analytics.Senders)
 
-local DebugSettings = settings():GetService("DebugSettings")
 local AnalyticsService = game:GetService("RbxAnalyticsService")
 local DebugFlags = require(Plugin.Core.Util.DebugFlags)
 
 local getUserId = require(Plugin.Core.Util.getUserId)
-local platformId = 0
 
 local FFlagToolboxConsolidateInsertRemainsEvents = game:GetFastFlag("ToolboxConsolidateInsertRemainsEvents")
 local FFlagStudioToolboxEnablePlaceIDInAnalytics = settings():GetFFlag("StudioToolboxEnablePlaceIDInAnalytics")
@@ -35,12 +33,7 @@ local function getClientId()
 end
 
 local function getPlatformId()
-	if platformId == 0 then
-		pcall(function()
-			platformId = DebugSettings.OsPlatform
-		end)
-	end
-	return platformId
+	return 0
 end
 
 local function getPlaceId()

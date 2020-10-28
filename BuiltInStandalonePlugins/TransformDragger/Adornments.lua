@@ -1,3 +1,4 @@
+--!nocheck
 
 -----------------------------------
 -----------MODULE SCRIPTS----------
@@ -245,7 +246,7 @@ local function setRotatePosition(cframe, radius, degrees)
 	for i = 1, 72 do
 		rotateLines[i].Length = ((i - 1) % 9 == 0) and largeLineLength or smallLineLength
 		local angle = (i - 1) * 5
-		local direction = Vector3.new(math.cos(math.rad(angle)), math.sin(math.rad(angle), 0)) * radius
+		local direction = Vector3.new(math.cos(math.rad(angle)), math.sin(math.rad(angle)), 0) * radius
 		rotateLines[i].Transparency = internalRotate and .4 or 0
 		rotateLines[i].CFrame = cframe:toWorldSpace(CFrame.new(direction, direction * 2))
 	
@@ -254,7 +255,7 @@ local function setRotatePosition(cframe, radius, degrees)
 	for i = 73, 88 do
 		rotateLines[i].Length = largeLineLength
 		local angle = (i - 73) * 22.5
-		local direction = Vector3.new(math.cos(math.rad(angle)), math.sin(math.rad(angle), 0)) * radius
+		local direction = Vector3.new(math.cos(math.rad(angle)), math.sin(math.rad(angle)), 0) * radius
 		rotateLines[i].Transparency = internalRotate and 0 or .4
 		rotateLines[i].CFrame = cframe:toWorldSpace(CFrame.new(direction, direction * 0.5))
 	end
@@ -276,6 +277,7 @@ local function setPlaneFrame(cframe)
 end
 
 local initialPlaneClick = false
+local currentlyOverHandle = false
 
 local function hoverEnterHandle(handle)
 	hoveredHandles[handle] = true

@@ -24,6 +24,10 @@ local GetGroupName = require(Page.Selectors.GetGroupName)
 local RemoveGroupCollaborator = require(Page.Thunks.RemoveGroupCollaborator)
 local SetGroupPermission = require(Page.Thunks.SetGroupPermission)
 
+local DEFAULT_ROLESET_VALUE = PermissionsConstants.NoAccessKey
+
+local FFlagStudioUXImprovementsLoosenTCPermissions = game:GetFastFlag("StudioUXImprovementsLoosenTCPermissions")
+
 local FitToContent = createFitToContent("Frame", "UIListLayout", {
 	SortOrder = Enum.SortOrder.LayoutOrder,
 	Padding = UDim.new(0, 0),
@@ -74,15 +78,15 @@ function GroupCollaboratorItem:getAvailablePermissions()
 	else
 		return {
 			{
+				Key = PermissionsConstants.NoAccessKey,
+				Display = localization:getText("AccessPermissions", "NoAccessLabel"),
+				Description = localization:getText("AccessPermissions", "NoAccessDescription"),
+			},
+			{
 				Key = PermissionsConstants.PlayKey,
 				Display = localization:getText("AccessPermissions", "PlayLabel"),
 				Description = localization:getText("AccessPermissions", "PlayDescription"),
-			},
-			{
-				Key = PermissionsConstants.EditKey,
-				Display = localization:getText("AccessPermissions", "EditLabel"),
-				Description = localization:getText("AccessPermissions", "EditDescription"),
-			},
+			}
 		}
 	end
 end
@@ -119,6 +123,8 @@ function GroupCollaboratorItem:render()
 			LayoutOrder = i*2,
 			Id = rolesetId,
 			Writable = writable,
+			CurrentPermission = DEFAULT_ROLESET_VALUE,
+			IsGroupOwner = isOwner,
 		})
 	end
 

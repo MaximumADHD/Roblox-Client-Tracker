@@ -42,7 +42,7 @@ return function()
 	it("should return its expected default state", function()
 		local r = Rodux.Store.new(DraftsReducer)
 		expect(r:getState()).to.be.ok()
-		expect(next(r:getState())).to.equal(nil)
+		expect((next(r:getState()))).to.equal(nil)
 	end)
 
 	describe("DraftsLoadedAction", function()

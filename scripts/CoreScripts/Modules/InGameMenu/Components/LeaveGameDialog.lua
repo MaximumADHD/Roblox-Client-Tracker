@@ -21,7 +21,6 @@ local Constants = require(InGameMenu.Resources.Constants)
 
 local SendAnalytics = require(InGameMenu.Utility.SendAnalytics)
 
-local GetFFlagAppUsesAutomaticQualityLevel = require(RobloxGui.Modules.Flags.GetFFlagAppUsesAutomaticQualityLevel)
 local GetDefaultQualityLevel = require(RobloxGui.Modules.Common.GetDefaultQualityLevel)
 
 local validateProps = t.strictInterface({
@@ -55,9 +54,7 @@ local function LeaveGameDialog(props)
 								{confirmed = Constants.AnalyticsConfirmedName})
 				RunService.Heartbeat:Wait()
 				game:Shutdown()
-				if GetFFlagAppUsesAutomaticQualityLevel() then
-					settings().Rendering.QualityLevel = GetDefaultQualityLevel()
-				end
+				settings().Rendering.QualityLevel = GetDefaultQualityLevel()
 			end,
 
 			blurBackground = true,

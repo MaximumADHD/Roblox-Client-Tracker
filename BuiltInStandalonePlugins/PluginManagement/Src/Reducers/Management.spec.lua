@@ -104,7 +104,7 @@ return function()
 			local state = Management(nil, SetLoadedPluginData({}))
 			expect(state.plugins).to.be.ok()
 			expect(type(state.plugins)).to.equal("table")
-			expect(next(state.plugins)).to.equal(nil)
+			expect((next(state.plugins))).to.equal(nil)
 		end)
 
 		it("should append data to an existing set", function()

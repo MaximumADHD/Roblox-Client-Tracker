@@ -27,6 +27,9 @@ local SetGroupOwnerId = require(Page.Actions.SetGroupOwnerId)
 local SetGroupOwnerName = require(Page.Actions.SetGroupOwnerName)
 local SetCreatorFriends = require(Plugin.Src.Actions.SetCreatorFriends)
 
+local FFlagUXImprovementsShowUserPermsWhenCollaborator = game:GetFastFlag("UXImprovementsShowUserPermsWhenCollaborator")
+local FFlagStudioUXImprovementsLoosenTCPermissions = game:GetFastFlag("StudioUXImprovementsLoosenTCPermissions")
+
 local function loadSettings(store, contextItems)
 	local state = store:getState()
 	local gameId = state.Metadata.gameId
@@ -110,10 +113,14 @@ local function saveSettings(store, contextItems)
 		function()
 			local current = state.Settings.Current.permissions
 			local changed = state.Settings.Changed.permissions
-			local groupMetadata = state.Settings.Current.groupMetadata
 
 			if changed ~= nil then
-				gamePermissionsController:setPermissions(gameId, current, changed, groupMetadata)
+				if FFlagStudioUXImprovementsLoosenTCPermissions then
+					gamePermissionsController:setPermissions(gameId, current, changed)
+				else
+					local currentGroupMetadata = state.Settings.Current.groupMetadata
+					gamePermissionsController:setPermissions(gameId, current, changed, currentGroupMetadata)
+				end
 			end
 		end,
 	}
@@ -202,12 +209,22 @@ function Permissions:render()
 		local theme = props.Theme:get("Plugin")
 
 		local canUserEditPermissions = self:isLoggedInUserGameOwner()
+		
 		-- here "Edit" refers to adding new collaborators, or changing the permission of collaborators
-		local canUserEditCollaborators = self:isLoggedInUserGameOwner() and self:isTeamCreate() and not self:isGroupGame()
-		local canUserSeeCollaborators = canUserEditCollaborators
-		-- group games show existing individual collaboraters; they can be removed but not edited
-		local canUserRemoveCollaborators = self:isLoggedInUserGameOwner() and self:isTeamCreate()
-		canUserSeeCollaborators = canUserEditCollaborators or canUserRemoveCollaborators
+		local canUserEditCollaborators = false
+		if FFlagStudioUXImprovementsLoosenTCPermissions then
+			canUserEditCollaborators = self:isLoggedInUserGameOwner() and self:isTeamCreate()
+		else
+			canUserEditCollaborators = self:isLoggedInUserGameOwner() and self:isTeamCreate() and not self:isGroupGame()
+		end
+
+		local DEPRECATED_canUserSeeCollaborators = false
+		if not FFlagUXImprovementsShowUserPermsWhenCollaborator then
+			DEPRECATED_canUserSeeCollaborators = canUserEditCollaborators
+			-- group games show existing individual collaboraters; they can be removed but not edited
+			local DEPRECATED_canUserRemoveCollaborators = self:isLoggedInUserGameOwner() and self:isTeamCreate()
+			DEPRECATED_canUserSeeCollaborators = canUserEditCollaborators or DEPRECATED_canUserRemoveCollaborators
+		end
 
 		local playabilityButtons = {
 			{
@@ -226,6 +243,13 @@ function Permissions:render()
 				Title = localization:getText("General", "PlayabilityFriends"),
 				Description = localization:getText("General", "PlayabilityFriendsDesc"),
 			})
+		end
+
+		local teamCreateWarningVisible
+		if FFlagUXImprovementsShowUserPermsWhenCollaborator then
+			teamCreateWarningVisible = self:isLoggedInUserGameOwner() and (not canUserEditCollaborators) and (not self:isGroupGame())
+		else
+			teamCreateWarningVisible = (not canUserEditCollaborators) and (not self:isGroupGame())
 		end
 
 		return {
@@ -268,14 +292,13 @@ function Permissions:render()
 				Size = UDim2.new(1, 0, 0, 1),
 			}),
 
-			TeamCreateWarning = (not canUserEditCollaborators) and (not self:isGroupGame()) and
-			Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Subtitle, {
-				Text = localization:getText("AccessPermissions", "TeamCreateWarning"),
-				TextXAlignment = Enum.TextXAlignment.Left,
-				TextColor3 = theme.warningColor,
-				BackgroundTransparency = 1,
-				Size = UDim2.new(1, 0, 0, 30),
-				LayoutOrder = 50,
+			TeamCreateWarning = teamCreateWarningVisible and Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Subtitle, {
+					Text = localization:getText("AccessPermissions", "TeamCreateWarning"),
+					TextXAlignment = Enum.TextXAlignment.Left,
+					TextColor3 = theme.warningColor,
+					BackgroundTransparency = 1,
+					Size = UDim2.new(1, 0, 0, 30),
+					LayoutOrder = 50,
 			})),
 
 			SearchbarWidget = canUserEditCollaborators and Roact.createElement(SearchbarWidget, {
@@ -283,9 +306,9 @@ function Permissions:render()
 				Writable = true,
 			}),
 
-			CollaboratorListWidget = canUserSeeCollaborators and Roact.createElement(CollaboratorsWidget, {
+			CollaboratorListWidget = (FFlagUXImprovementsShowUserPermsWhenCollaborator or DEPRECATED_canUserSeeCollaborators) and Roact.createElement(CollaboratorsWidget, {
 				LayoutOrder = 60,
-				Writable = true,
+				Writable = (FFlagUXImprovementsShowUserPermsWhenCollaborator and canUserEditCollaborators) or (not FFlagUXImprovementsShowUserPermsWhenCollaborator),
 				Editable = canUserEditCollaborators
 			}),
 		}

@@ -10,7 +10,9 @@ local Test = require(Plugin.RhodiumTests.Test)
 local LoadAnimationData = require(Plugin.Src.Thunks.LoadAnimationData)
 local UpdateRootInstance = require(Plugin.Src.Thunks.UpdateRootInstance)
 
-local TestHelpers = {}
+local TestHelpers = {
+	plugin = nil
+}
 
 function TestHelpers.init(plugin)
 	assert(Workspace:FindFirstChild("Dummy"), "Rhodium Testing requires a 'Dummy' rig in Workspace.")

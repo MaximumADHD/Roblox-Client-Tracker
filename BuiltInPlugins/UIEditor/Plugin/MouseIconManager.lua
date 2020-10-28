@@ -47,6 +47,7 @@ IconType.ROTATE = 3
 local m_defaultIcon = nil
 local m_iconType = IconType.DEFAULT
 local m_handleDirection = Direction.NOT_SET
+local m_mouse = nil
 
 -- Functions
 

@@ -10,7 +10,7 @@ local Opened = false
 
 local AnalyticsService = game:GetService("RbxAnalyticsService")
 
-FFlagSupportPluginDebugging = settings():GetFFlag("SupportPluginDebugging")
+local FFlagSupportPluginDebugging = settings():GetFFlag("SupportPluginDebugging")
 
 local function reportOpening()
 	if Opened then return end

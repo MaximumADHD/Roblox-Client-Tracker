@@ -5,16 +5,16 @@ local Util = require(Libs.Framework.Util)
 local Action = Util.Action
 
 return Action(script.Name, function(response, networkErrorAction)
-
+	local resultResponse = response
 	-- if response is a string, wrap it in a table
 	if type(response) == "string" then
-		response = {
+		resultResponse = {
 			responseBody = response
 		}
 	end
 
 	return {
-		response = response,
+		response = resultResponse,
 		networkErrorAction = networkErrorAction
 	}
 end)

@@ -1,3 +1,6 @@
+--!nocheck
+--^ Remove this hot comment with FFlagUseCategoryNameInToolbox
+
 local FFlagEnableDefaultSortFix2 = game:GetFastFlag("EnableDefaultSortFix2")
 local FFlagUseCategoryNameInToolbox = game:GetFastFlag("UseCategoryNameInToolbox")
 

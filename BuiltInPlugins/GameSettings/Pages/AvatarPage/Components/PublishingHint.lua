@@ -10,9 +10,6 @@ local RoactStudioWidgets = Plugin.RoactStudioWidgets
 local StateInterfaceTheme = require(Page.Util.StateInterfaceTheme)
 local Hyperlink = require(RoactStudioWidgets.Hyperlink)
 
-local FFlagAvatarSizeFixForReorganizeHeaders =
-	game:GetFastFlag("AvatarSizeFixForReorganizeHeaders")
-
 local PublishingHint = Roact.PureComponent:extend("PublishingHint")
 
 function PublishingHint:render()
@@ -34,7 +31,7 @@ function PublishingHint:render()
 	return Roact.createElement("Frame", {
 		Size = UDim2.new(1, 0, 0, hyperLinkTextSize.Y),
 		BackgroundTransparency = 1,
-		LayoutOrder = FFlagAvatarSizeFixForReorganizeHeaders and props.LayoutOrder or nil
+		LayoutOrder = props.LayoutOrder
 	}, {
 		HyperLink = Roact.createElement(Hyperlink, {
 			Text = linkText,
