@@ -39,8 +39,8 @@ void main()
     vec2 v15 = vec2(dot(v0, CB2[v13 * 1 + 0].xyz), dot(v0, CB2[(18 + v13) * 1 + 0].xyz)) * CB2[v14 * 1 + 0].x;
     float v16 = ((TEXCOORD1.w * 0.0078125) - 1.0) * CB2[v14 * 1 + 0].z;
     vec4 v17 = vec4(0.0);
-    v17.w = 1.0;
-    bvec3 v18 = equal(abs(POSITION.www), vec3(1.0, 2.0, 3.0));
+    v17.w = (abs(POSITION.w) > 3.0) ? 0.0 : 1.0;
+    bvec3 v18 = equal(mod(abs(POSITION.www), vec3(4.0)), vec3(1.0, 2.0, 3.0));
     vec3 v19 = vec3(v18.x ? vec3(1.0).x : vec3(0.0).x, v18.y ? vec3(1.0).y : vec3(0.0).y, v18.z ? vec3(1.0).z : vec3(0.0).z);
     bvec3 v20 = greaterThan(TEXCOORD1.xyz, vec3(7.5));
     gl_Position = v4;

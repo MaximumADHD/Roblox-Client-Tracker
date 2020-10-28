@@ -41,12 +41,12 @@
       <addseparator />
       <addaction fflag ="DebugStudioDumpUntranslatedStrings" name="dumpUntranslatedStringsCsvAction"/>
       <addaction fflag ="DebugStudioDumpUntranslatedStrings" name="dumpUntranslatedStringsHeaderAction"/>
-	 
+
       <addaction fflag="!ChangesToFileMenu" name="aboutRobloxAction"/>
       <addaction fflag="!ChangesToFileMenu" name="onlineHelpAction"/>
       <addaction fflag="!ChangesToFileMenu" name="settingsAction"/>
       <addaction fflag="!ChangesToFileMenu" name="betaFeaturesAction"/>
-	  
+
       <addaction fflag="ChangesToFileMenu" name="gameSettingsAction"/>
       <addaction fflag="ChangesToFileMenu" name="settingsAction"/>
       <addaction fflag="ChangesToFileMenu" name="betaFeaturesAction"/>
@@ -130,7 +130,7 @@
           <addaction name="ms_SmoothPlastic" style="textbesideicon" text="Studio.App.Materials.SmoothPlastic" value="SmoothPlastic" icon=":/RibbonBar/images/Studio Ribbon Icons/smoothPlastic.png" width="32" height="32"/>
           <addaction name="ms_Wood" style="textbesideicon"  text="Studio.App.Materials.Wood" value="Wood" icon=":/RibbonBar/images/Studio Ribbon Icons/wood.png" width="32" height="32"/>
           <addaction name="ms_WoodPlanks" style="textbesideicon"  text="Studio.App.RobloxRibbonMainWindow.WoodPlanks" value="WoodPlanks" icon=":/RibbonBar/images/Studio Ribbon Icons/woodplanks.png" width="32" height="32"/>
-		</MenuPopupButton>
+        </MenuPopupButton>
         <ColorPicker name="actionColorSelector" style="textundericon" ischeckable="true" type="color" text="Studio.App.RobloxRibbonMainWindow.Color" icon=":/RibbonBar/images/RibbonIcons/Home/Color.png" tooltip="Studio.App.RobloxRibbonMainWindow.SelectColorAndApplyToParts" width="32" height="32"/>
         <addseparator visible="false"/>
         <MenuPopupButton name="groupSelectionAction" style="textbesideicon" text="Studio.App.RBXMainWindow.Group" popupStyle="menubutton" icon=":/RibbonBar/images/RibbonIcons/Home/Group.png" tooltip="Studio.App.RobloxRibbonMainWindow.GroupsPartsIntoModel" width="16" height="16">
@@ -231,7 +231,7 @@
           <addaction name="ms_SmoothPlastic" style="textbesideicon" text="Studio.App.Materials.SmoothPlastic" value="SmoothPlastic" icon=":/RibbonBar/images/Studio Ribbon Icons/smoothPlastic.png" width="32" height="32"/>
           <addaction name="ms_Neon" style="textbesideicon" text="Studio.App.Materials.Neon" value="Neon" icon=":/RibbonBar/images/Studio Ribbon Icons/neon.png" width="32" height="32"/>
           <addaction name="ms_Glass" style="textbesideicon"  text="Studio.App.Materials.Glass" value="Glass" icon=":/RibbonBar/images/Studio Ribbon Icons/glass.png" width="32" height="32"/>
-		  <addaction name="ms_ForceField" style="textbesideicon"  text="Studio.App.Materials.ForceField" value="ForceField" icon=":/RibbonBar/images/Studio Ribbon Icons/forcefield.png" width="32" height="32"/>
+          <addaction name="ms_ForceField" style="textbesideicon"  text="Studio.App.Materials.ForceField" value="ForceField" icon=":/RibbonBar/images/Studio Ribbon Icons/forcefield.png" width="32" height="32"/>
         </MenuPopupButton>
         <ColorPicker name="actionColorSelector" style="textundericon" ischeckable="true" type="color" text="Studio.App.RobloxRibbonMainWindow.Color" icon=":/RibbonBar/images/RibbonIcons/Home/Color.png" tooltip="Studio.App.RobloxRibbonMainWindow.SelectColorAndApplyToParts" width="32" height="32"/>
         <MenuButton name="actionSurface" style="textundericon" iconvisibleinmenu="false" tooltip="Studio.App.Parts.SurfaceTooltip" text="Studio.App.Parts.Surface" ischeckable="true" icon=":/RibbonBar/images/RibbonIcons/Home/Surfaces.png" width="32" height="32">
@@ -397,8 +397,8 @@
         <addseparator visible="false"/>
         <addaction name="togglePropertiesDockAction" style="textundericon" icon=":/RibbonBar/images/RibbonIcons/View/Properties.png" tooltip="Studio.App.RobloxRibbonMainWindow.ViewPropertiesOfObjects" height="32" width="32"/>
         <addseparator visible="false"/>
-		<addaction fflag="AssetManagerLuaPlugin" name="toggleAssetManagerDockAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Explorer.png" tooltip="Studio.App.RobloxRibbonMainWindow.ViewAssetManager" height="32" width="32"/>
-		<addaction fflag="!AssetManagerLuaPlugin" name="toggleGameExplorerDockAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Explorer.png" tooltip="Studio.App.RobloxRibbonMainWindow.ViewGameExplorer" height="32" width="32"/>
+        <addaction fflag="AssetManagerLuaPlugin" name="toggleAssetManagerDockAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Explorer.png" tooltip="Studio.App.RobloxRibbonMainWindow.ViewAssetManager" height="32" width="32"/>
+        <addaction fflag="!AssetManagerLuaPlugin" name="toggleGameExplorerDockAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Explorer.png" tooltip="Studio.App.RobloxRibbonMainWindow.ViewGameExplorer" height="32" width="32"/>
         <addaction name="luaToolboxAction" style="textbesideicon" icon=":/images/ToolboxIcon.png" height="32" width="32"/>
         <addaction name="toggleTutorialsDockAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Tutorials.png" tooltip="Studio.App.RobloxRibbonMainWindow.ViewTutorials" height="32" width="32"/>
         <addaction fflag="!StudioRemoveObjectBrowserUI" name="objectBrowserAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Object-Browser.png"  tooltip="Studio.App.RobloxRibbonMainWindow.ViewLuaAPIObjects" height="32" width="32"/>
@@ -411,7 +411,8 @@
         <addaction name="toggleDiagnosticsDockAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Diagnostics.png"  tooltip="Studio.App.RobloxRibbonMainWindow.ViewDiagnosticInfo" height="32" width="32"/>
         <addaction name="toggleTaskSchedulerDockAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Task-Scheduler.png" tooltip="Studio.App.RobloxRibbonMainWindow.ViewTaskExecutionInformation" height="32" width="32"/>
         <addaction name="toggleScriptPerformanceDockAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Script-Performance.png" tooltip="Studio.App.RobloxRibbonMainWindow.ViewScriptPerformanceInformat" height="32" width="32"/>
-        <addaction name="toggleFindResultsWindowAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Find-Results.png" tooltip="Studio.App.RBXMainWindow.FindResultsWindow" height="32" width="32"/>
+        <addaction  fflag="!StudioFindReplaceOverhaul" name="toggleFindResultsWindowAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Find-Results.png" tooltip="Studio.App.RBXMainWindow.FindResultsWindow" height="32" width="32"/>
+        <addaction  fflag="StudioFindReplaceOverhaul" name="toggleFindReplaceWidgetAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Find-Results.png" tooltip="Studio.App.FindReplaceController.FindReplaceWindow" height="32" width="32"/>
         <addaction name="toggleTeamCreateDockAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/TeamCreate.png" tooltip="Studio.App.RBXMainWindow.ViewTeamCreateWindow" height="32" width="32"/>
         <addaction name="toggleScriptRecoveryDockAction"
             style="textbesideicon"
@@ -499,7 +500,8 @@
           <addaction name="findNextAction" icon=":/16x16/images/Studio 2.0 icons/16x16/find_next.png" />
           <addaction name="findPreviousAction" icon=":/16x16/images/Studio 2.0 icons/16x16/find_previous.png" />
           <addaction name="findInScriptsAction" icon =":/16x16/images/Studio 2.0 icons/16x16/find.png" />
-	        <addaction name="goToLineAction" icon=":/16x16/images/Studio 2.0 icons/16x16/goToLine.png" />
+          <addaction fflag="!ScriptEditorV2_alpha" name="DEPRECATED_goToLineAction" icon=":/16x16/images/Studio 2.0 icons/16x16/goToLine.png" />
+          <addaction fflag="ScriptEditorV2_alpha" name="GOTOPOS_ScriptingAction" icon=":/16x16/images/Studio 2.0 icons/16x16/goToLine.png" />
           <addaction name="quickOpenAction" icon=":/16x16/images/Studio 2.0 icons/16x16/find.png" />
           <addaction name="quickOpenActionsAction" icon=":/16x16/images/Studio 2.0 icons/16x16/find.png" />
           <addaction name="filterScriptFunctionsAction" icon=":/16x16/images/Studio 2.0 icons/16x16/find.png" />
@@ -517,10 +519,10 @@
       </Group>
       <Group name="Format" text="Studio.App.RBXMainWindow.Format">
         <MenuButton name="formatSelectionActionMenu" text="Studio.App.ScriptEditorCmdBase.FORMATSEL" tooltip="Studio.App.RBXMainWindow.FormatDocumentElps" style="textundericon" icon=":/RibbonBar/images/RibbonIcons/Home/FormatSelection.png" width="32" height="32" >
-          <addaction fflag="!ScriptEditorV2PreAlpha" text="Studio.App.RBXMainWindow.FormatSelection" name="DEPRECATED_formatSelectionAction" style="textundericon" width="16" height="16" />
-          <addaction fflag="!ScriptEditorV2PreAlpha" text="Studio.App.RBXMainWindow.FormatDocument" name="DEPRECATED_formatDocumentAction" style="textundericon" width="16" height="16" />
-          <addaction fflag="ScriptEditorV2PreAlpha"  name="FORMATSEL_ScriptingAction" style="textundericon" width="16" height="16" />
-          <addaction fflag="ScriptEditorV2PreAlpha"  name="FORMATALL_ScriptingAction" style="textundericon" width="16" height="16" />
+          <addaction fflag="!ScriptEditorV2_alpha" text="Studio.App.RBXMainWindow.FormatSelection" name="DEPRECATED_formatSelectionAction" style="textundericon" width="16" height="16" />
+          <addaction fflag="!ScriptEditorV2_alpha" text="Studio.App.RBXMainWindow.FormatDocument" name="DEPRECATED_formatDocumentAction" style="textundericon" width="16" height="16" />
+          <addaction fflag="ScriptEditorV2_alpha" name="FORMATSEL_ScriptingAction" style="textundericon" width="16" height="16" />
+          <addaction fflag="ScriptEditorV2_alpha" name="FORMATALL_ScriptingAction" style="textundericon" width="16" height="16" />
         </MenuButton>
       </Group>
       <Group name="Test" text="Studio.App.RobloxRibbonMainWindow.Test">
@@ -557,12 +559,12 @@
         <addAction name="applyScriptEditsAction" tooltip="Studio.App.RobloxRibbonMainWindow.PushScriptTCServer" style="textbesideicon"/>
         <addAction fflag="StudioReplaceApplyEditWithCommit" name="commitScriptAction" tooltip="Studio.App.RobloxRibbonMainWindow.PushScriptTCServer" style="textbesideicon"/>
         <addseparator />
-        <addaction fflag="!ScriptEditorV2PreAlpha" name="DEPRECATED_toggleCommentAction" tooltip="Studio.App.RobloxRibbonMainWindow.ToggleCommentSelectedLines" style="textbesideicon"/>
-        <addaction fflag="ScriptEditorV2PreAlpha" name="TOGGLECOMMENT_ScriptingAction"  style="textbesideicon"/>
-        <addaction fflag="ScriptEditorV2PreAlpha" name="UNFOLDALL_ScriptingAction" style="textbesideicon"/>
-        <addaction fflag="ScriptEditorV2PreAlpha" name="FOLDALL_ScriptingAction"  style="textbesideicon"/>
-        <addaction fflag="!ScriptEditorV2PreAlpha" name="DEPRECATED_expandAllFoldsAction" tooltip="Studio.App.RobloxRibbonMainWindow.ExpandAllCollapsedFolds" style="textbesideicon"/>
-        <addaction fflag="!ScriptEditorV2PreAlpha" name="DEPRECATED_collapseAllFoldsAction" tooltip="Studio.App.RobloxRibbonMainWindow.CollapseAllCollapsableSections" style="textbesideicon"/>
+        <addaction fflag="!ScriptEditorV2_alpha" name="DEPRECATED_toggleCommentAction" tooltip="Studio.App.RobloxRibbonMainWindow.ToggleCommentSelectedLines" style="textbesideicon"/>
+        <addaction fflag="ScriptEditorV2_alpha" name="TOGGLECOMMENT_ScriptingAction"  style="textbesideicon"/>
+        <addaction fflag="ScriptEditorV2_alpha" name="UNFOLDALL_ScriptingAction" style="textbesideicon"/>
+        <addaction fflag="ScriptEditorV2_alpha" name="FOLDALL_ScriptingAction"  style="textbesideicon"/>
+        <addaction fflag="!ScriptEditorV2_alpha" name="DEPRECATED_expandAllFoldsAction" tooltip="Studio.App.RobloxRibbonMainWindow.ExpandAllCollapsedFolds" style="textbesideicon"/>
+        <addaction fflag="!ScriptEditorV2_alpha" name="DEPRECATED_collapseAllFoldsAction" tooltip="Studio.App.RobloxRibbonMainWindow.CollapseAllCollapsableSections" style="textbesideicon"/>
       </Group>
     </TabPage>
     <TabPage name="diffMenu" text="Studio.App.RobloxRibbonMainWindow.DiffMenu" contextcolor="4" contexttitle="Script tools" visible="false">

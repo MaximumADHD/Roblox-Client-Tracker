@@ -65,10 +65,10 @@ Class AnalyticsService : Instance [NotCreatable] [Service] [Deprecated]
 	Function void AnalyticsService:FireEvent(string category, Variant value) [Deprecated]
 Class Animation : Instance
 	Property Content Animation.AnimationId
-Class AnimationController : Instance
-	Function Array AnimationController:GetPlayingAnimationTracks()
-	Function Instance AnimationController:LoadAnimation(Instance animation)
-	Event AnimationController.AnimationPlayed(Instance animationTrack)
+Class AnimationController : Instance [Deprecated]
+	Function Array AnimationController:GetPlayingAnimationTracks() [Deprecated]
+	Function Instance AnimationController:LoadAnimation(Instance animation) [Deprecated]
+	Event AnimationController.AnimationPlayed(Instance animationTrack) [Deprecated]
 Class AnimationTrack : Instance [NotCreatable]
 	Property Class<Animation> AnimationTrack.Animation  [ReadOnly] [NotReplicated]
 	Property bool AnimationTrack.IsPlaying  [ReadOnly] [NotReplicated]
@@ -160,10 +160,35 @@ Class Bone : Attachment
 	Property CFrame Bone.TransformedWorldCFrame  [ReadOnly] [NotReplicated]
 Class AvatarEditorService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function Dictionary AvatarEditorService:GetAvatarRules() [Yields]
+	Function bool AvatarEditorService:GetFavorite(int64 itemId, Enum<AvatarItemType> itemType) [Yields]
+	Function Instance AvatarEditorService:GetInventory(Array assetTypes) [Yields]
 	Function Dictionary AvatarEditorService:GetItemDetails(int64 itemId, Enum<AvatarItemType> itemType) [Yields]
+	Function Instance AvatarEditorService:GetOutfits() [Yields]
 	Function Array AvatarEditorService:GetRecommendedAssets(Enum<AvatarAssetType> assetType, int64 contextAssetId = 0) [Yields]
 	Function Array AvatarEditorService:GetRecommendedBundles(int64 bundleId) [Yields]
+	Function void AvatarEditorService:PerformCreateOutfit(string name) {RobloxScriptSecurity}
+	Function void AvatarEditorService:PerformSaveAvatar() {RobloxScriptSecurity}
+	Function void AvatarEditorService:PerformSaveAvatarNew(Array addedAssets, Array removedAssets) {RobloxScriptSecurity}
+	Function void AvatarEditorService:PerformSetFavorite() {RobloxScriptSecurity}
+	Function void AvatarEditorService:PromptAllowInventoryReadAccess()
+	Function void AvatarEditorService:PromptCreateOutfit(Instance outfit, Enum<HumanoidRigType> rigType)
+	Function void AvatarEditorService:PromptSaveAvatar(Instance humanoidDescription, Enum<HumanoidRigType> rigType)
+	Function void AvatarEditorService:PromptSetFavorite(int64 itemId, Enum<AvatarItemType> itemType, bool shouldFavorite)
 	Function Instance AvatarEditorService:SearchCatalog(CatalogSearchParams searchParameters) [Yields]
+	Function void AvatarEditorService:SetAllowInventoryReadAccess(bool inventoryReadAccessGranted) {RobloxScriptSecurity}
+	Function void AvatarEditorService:SignalCreateOutfitPermissionDenied() {RobloxScriptSecurity}
+	Function void AvatarEditorService:SignalSaveAvatarFailed() {RobloxScriptSecurity}
+	Function void AvatarEditorService:SignalSaveAvatarPermissionDenied() {RobloxScriptSecurity}
+	Function void AvatarEditorService:SignalSetFavoriteFailed() {RobloxScriptSecurity}
+	Function void AvatarEditorService:SignalSetFavoritePermissionDenied() {RobloxScriptSecurity}
+	Event AvatarEditorService.OpenAllowInventoryReadAccess() {RobloxScriptSecurity}
+	Event AvatarEditorService.OpenPromptCreateOufit(Instance humanoidDescription, Enum<HumanoidRigType> rigType) {RobloxScriptSecurity}
+	Event AvatarEditorService.OpenPromptSaveAvatar(Instance humanoidDescription, Enum<HumanoidRigType> rigType) {RobloxScriptSecurity}
+	Event AvatarEditorService.OpenPromptSetFavorite(int64 itemId, Enum<AvatarItemType> itemType, bool shouldFavorite) {RobloxScriptSecurity}
+	Event AvatarEditorService.PromptAllowInventoryReadAccessCompleted(Enum<AvatarPromptResult> result)
+	Event AvatarEditorService.PromptCreateOutfitCompleted(Enum<AvatarPromptResult> result)
+	Event AvatarEditorService.PromptSaveAvatarCompleted(Enum<AvatarPromptResult> result)
+	Event AvatarEditorService.PromptSetFavoriteCompleted(Enum<AvatarPromptResult> result)
 Class Backpack : Instance
 Class BackpackItem : Instance [NotCreatable]
 	Property Content BackpackItem.TextureId
@@ -566,6 +591,7 @@ Class ContentProvider : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void ContentProvider:SetBaseUrl(string url) {LocalUserSecurity}
 	Function void ContentProvider:UnregisterDefaultEncryptionKey()
 	Function void ContentProvider:UnregisterEncryptedAsset(Content assetId)
+	Event ContentProvider.AssetFetchFailed(Content assetId)
 Class ContextActionService : Instance [NotCreatable] [Service]
 	Function void ContextActionService:BindAction(string actionName, Function functionToBind, bool createTouchButton, Tuple inputTypes)
 	Function void ContextActionService:BindActionAtPriority(string actionName, Function functionToBind, bool createTouchButton, int priorityLevel, Tuple inputTypes)
@@ -1327,7 +1353,7 @@ Class Humanoid : Instance
 	Function void Humanoid:AddAccessory(Instance accessory)
 	Function bool Humanoid:AddCustomStatus(string status) [Deprecated]
 	Function bool Humanoid:AddStatus(Enum<Status> status = "Poison") [Deprecated]
-	Function void Humanoid:ApplyDescription(Instance humanoidDescription) [Yields]
+	Function void Humanoid:ApplyDescription(Instance humanoidDescription, Enum<AssetTypeVerification> assetTypeVerification = "Default") [Yields]
 	Function void Humanoid:ApplyDescriptionBlocking(Instance humanoidDescription) {RobloxScriptSecurity}
 	Function void Humanoid:ApplyDescriptionClientServer(Instance humanoidDescription) {RobloxScriptSecurity} [Yields]
 	Function void Humanoid:BuildRigFromAttachments()
@@ -1338,13 +1364,13 @@ Class Humanoid : Instance
 	Function Instance Humanoid:GetAppliedDescription()
 	Function Enum<BodyPartR15> Humanoid:GetBodyPartR15(Instance part)
 	Function Enum<Limb> Humanoid:GetLimb(Instance part)
-	Function Array Humanoid:GetPlayingAnimationTracks()
+	Function Array Humanoid:GetPlayingAnimationTracks() [Deprecated]
 	Function Enum<HumanoidStateType> Humanoid:GetState()
 	Function bool Humanoid:GetStateEnabled(Enum<HumanoidStateType> state)
 	Function Array Humanoid:GetStatuses() [Deprecated]
 	Function bool Humanoid:HasCustomStatus(string status) [Deprecated]
 	Function bool Humanoid:HasStatus(Enum<Status> status = "Poison") [Deprecated]
-	Function Instance Humanoid:LoadAnimation(Instance animation)
+	Function Instance Humanoid:LoadAnimation(Instance animation) [Deprecated]
 	Function void Humanoid:Move(Vector3 moveDirection, bool relativeToCamera = false)
 	Function void Humanoid:MoveTo(Vector3 location, Instance part = nil)
 	Function bool Humanoid:PlayEmote(string emoteName) [Yields]
@@ -1357,7 +1383,7 @@ Class Humanoid : Instance
 	Function void Humanoid:SetStateEnabled(Enum<HumanoidStateType> state, bool enabled)
 	Function void Humanoid:TakeDamage(float amount)
 	Function void Humanoid:UnequipTools()
-	Event Humanoid.AnimationPlayed(Instance animationTrack)
+	Event Humanoid.AnimationPlayed(Instance animationTrack) [Deprecated]
 	Event Humanoid.Climbing(float speed)
 	Event Humanoid.CustomStatusAdded(string status) [Deprecated]
 	Event Humanoid.CustomStatusRemoved(string status) [Deprecated]
@@ -1426,6 +1452,8 @@ Class HumanoidDescription : Instance
 	Function void HumanoidDescription:SetEquippedEmotes(Array equippedEmotes)
 	Event HumanoidDescription.EmotesChanged(Dictionary newEmotes)
 	Event HumanoidDescription.EquippedEmotesChanged(Array newEquippedEmotes)
+Class ILegacyStudioBridge : Instance [NotCreatable] [Service]
+Class LegacyStudioBridge : ILegacyStudioBridge [NotCreatable] [Service] [NotReplicated]
 Class InputObject : Instance [NotCreatable]
 	Property Vector3 InputObject.Delta
 	Property Enum<KeyCode> InputObject.KeyCode
@@ -1438,6 +1466,7 @@ Class InsertService : Instance [NotCreatable] [Service]
 	Property bool InsertService.AllowInsertFreeModels  [NotReplicated] [NotBrowsable] [Deprecated]
 	Function void InsertService:ApproveAssetId(int64 assetId) [Deprecated]
 	Function void InsertService:ApproveAssetVersionId(int64 assetVersionId) [Deprecated]
+	Function Instance InsertService:CreateMeshPartAsync(Content meshId, Enum<CollisionFidelity> collisionFidelity, Enum<RenderFidelity> renderFidelity) {PluginSecurity} [Yields]
 	Function Array InsertService:GetBaseCategories() [Yields] [Deprecated]
 	Function Array InsertService:GetBaseSets() [Yields]
 	Function Array InsertService:GetCollection(int64 categoryId) [Yields]
@@ -1953,6 +1982,8 @@ Class MeshPart : TriangleMeshPart
 	Property Enum<RenderFidelity> MeshPart.RenderFidelity {✏️PluginSecurity}
 	Property Content MeshPart.TextureID
 	Property Vector3 MeshPart.JointOffset {✏️NotAccessibleSecurity} [Hidden]
+	Property Vector3 MeshPart.MeshSize  [ReadOnly] [NotReplicated]
+	Function void MeshPart:ApplyMesh(Instance meshPart)
 Class PartOperation : TriangleMeshPart
 	Property Enum<RenderFidelity> PartOperation.RenderFidelity {✏️PluginSecurity}
 	Property float PartOperation.SmoothingAngle {✏️PluginSecurity}
@@ -2051,6 +2082,7 @@ Class DataStorePages : Pages [NotCreatable] [NotReplicated]
 Class FriendPages : Pages [NotCreatable] [NotReplicated]
 Class InventoryPages : Pages [NotCreatable] [NotReplicated]
 Class EmotesPages : InventoryPages [NotCreatable] [NotReplicated]
+Class OutfitPages : Pages [NotCreatable] [NotReplicated]
 Class StandardPages : Pages [NotCreatable] [NotReplicated]
 Class PartOperationAsset : Instance
 Class ParticleEmitter : Instance
@@ -2127,6 +2159,7 @@ Class PhysicsSettings : Instance [NotCreatable] [Settings]
 	Property bool PhysicsSettings.AreWorldCoordsShown
 	Property bool PhysicsSettings.DisableCSGv2
 	Property bool PhysicsSettings.ForceCSGv2  [Hidden] [NotReplicated]
+	Property bool PhysicsSettings.IsInterpolationThrottleShown
 	Property bool PhysicsSettings.IsReceiveAgeShown
 	Property bool PhysicsSettings.IsTreeShown
 	Property bool PhysicsSettings.ShowDecompositionGeometry
@@ -2252,7 +2285,7 @@ Class Players : Instance [NotCreatable] [Service]
 	Property bool Players.CharacterAutoLoads  [NotReplicated]
 	Property bool Players.BubbleChat  [ReadOnly] [NotReplicated]
 	Property bool Players.ClassicChat  [ReadOnly] [NotReplicated]
-	Property Instance Players.LocalPlayer  [ReadOnly] [NotReplicated]
+	Property Class<Player> Players.LocalPlayer  [ReadOnly] [NotReplicated]
 	Property int Players.MaxPlayers  [ReadOnly] [NotReplicated]
 	Property int Players.MaxPlayersInternal {LocalUserSecurity}
 	Property int Players.NumPlayers  [ReadOnly] [NotReplicated] [Deprecated]
@@ -2260,7 +2293,7 @@ Class Players : Instance [NotCreatable] [Service]
 	Property int Players.PreferredPlayersInternal {LocalUserSecurity}
 	Property float Players.RespawnTime
 	Function void Players:Chat(string message) {PluginSecurity}
-	Function Instance Players:CreateHumanoidModelFromDescription(Instance description, Enum<HumanoidRigType> rigType) [Yields]
+	Function Instance Players:CreateHumanoidModelFromDescription(Instance description, Enum<HumanoidRigType> rigType, Enum<AssetTypeVerification> assetTypeVerification = "Default") [Yields]
 	Function Instance Players:CreateHumanoidModelFromUserId(int64 userId) [Yields]
 	Function Instance Players:CreateLocalPlayer() {LocalUserSecurity}
 	Function Instance Players:GetCharacterAppearanceAsync(int64 userId) [Yields]
@@ -2417,6 +2450,36 @@ Class DepthOfFieldEffect : PostEffect
 Class SunRaysEffect : PostEffect
 	Property float SunRaysEffect.Intensity
 	Property float SunRaysEffect.Spread
+Class ProximityPrompt : Instance
+	Property string ProximityPrompt.ActionText
+	Property bool ProximityPrompt.ClickablePrompt
+	Property bool ProximityPrompt.Enabled
+	Property Enum<ProximityPromptExclusivity> ProximityPrompt.Exclusivity
+	Property Enum<KeyCode> ProximityPrompt.GamepadKeyCode
+	Property float ProximityPrompt.HoldDuration
+	Property Enum<KeyCode> ProximityPrompt.KeyboardKeyCode
+	Property float ProximityPrompt.MaxActivationDistance
+	Property string ProximityPrompt.ObjectText
+	Property bool ProximityPrompt.RequiresLineOfSight
+	Property Enum<ProximityPromptStyle> ProximityPrompt.Style
+	Property Vector2 ProximityPrompt.UIOffset
+	Function void ProximityPrompt:InputHoldBegin()
+	Function void ProximityPrompt:InputHoldEnd()
+	Event ProximityPrompt.PromptButtonHoldBegan()
+	Event ProximityPrompt.PromptButtonHoldEnded()
+	Event ProximityPrompt.PromptHidden()
+	Event ProximityPrompt.PromptShown(Enum<ProximityPromptInputType> inputType)
+	Event ProximityPrompt.TriggerEnded(Instance playerWhoTriggered)
+	Event ProximityPrompt.Triggered(Instance playerWhoTriggered)
+Class ProximityPromptService : Instance [Service] [NotBrowsable]
+	Property bool ProximityPromptService.Enabled
+	Property int ProximityPromptService.MaxPromptsVisible
+	Event ProximityPromptService.PromptButtonHoldBegan(Instance prompt)
+	Event ProximityPromptService.PromptButtonHoldEnded(Instance prompt)
+	Event ProximityPromptService.PromptHidden(Instance prompt)
+	Event ProximityPromptService.PromptShown(Instance prompt, Enum<ProximityPromptInputType> inputType)
+	Event ProximityPromptService.PromptTriggerEnded(Instance prompt, Instance playerWhoTriggered)
+	Event ProximityPromptService.PromptTriggered(Instance prompt, Instance playerWhoTriggered)
 Class RbxAnalyticsService : Instance [NotCreatable] [Service]
 	Function string RbxAnalyticsService:GetClientId() {RobloxScriptSecurity}
 	Function string RbxAnalyticsService:GetSessionId() {RobloxScriptSecurity}
@@ -2608,9 +2671,6 @@ Class DataModel : ServiceProvider [NotCreatable]
 	Function bool DataModel:GetFastFlag(string name) {LocalUserSecurity}
 	Function int DataModel:GetFastInt(string name) {LocalUserSecurity}
 	Function string DataModel:GetFastString(string name) {LocalUserSecurity}
-	Function double DataModel:GetJobIntervalPeakFraction(string jobname, double greaterThan) {PluginSecurity}
-	Function double DataModel:GetJobTimePeakFraction(string jobname, double greaterThan) {PluginSecurity}
-	Function Array DataModel:GetJobsExtendedStats() {PluginSecurity}
 	Function Array DataModel:GetJobsInfo() {PluginSecurity}
 	Function string DataModel:GetMessage() [Deprecated]
 	Function Objects DataModel:GetObjects(Content url) {PluginSecurity}
@@ -2892,7 +2952,6 @@ Class Studio : Instance [NotCreatable] [Service] [NotReplicated]
 	Property int Studio.ScriptTimeoutLength
 	Property bool Studio.Clear Output On Start
 	Property int Studio.Maximum Output Lines
-	Property int Studio.Maximum Table Depth
 	Property QFont Studio.Output Font
 	Property Enum<OutputLayoutMode> Studio.Output Layout Mode
 	Property float Studio.Line Thickness
@@ -2914,12 +2973,10 @@ Class Studio : Instance [NotCreatable] [Service] [NotReplicated]
 	Property int Studio.Tab Width
 	Property bool Studio.Text Wrapping
 	Property Color3 Studio."TODO" Color [<📁> LoadOnly] [NotReplicated]
-	Property Color3 Studio."export" Color [<📁> LoadOnly] [NotReplicated]
 	Property Color3 Studio."function" Color [<📁> LoadOnly] [NotReplicated]
 	Property Color3 Studio."local" Color [<📁> LoadOnly] [NotReplicated]
 	Property Color3 Studio."nil" Color [<📁> LoadOnly] [NotReplicated]
 	Property Color3 Studio."self" Color [<📁> LoadOnly] [NotReplicated]
-	Property Color3 Studio."type" Color [<📁> LoadOnly] [NotReplicated]
 	Property Color3 Studio.Background Color [<📁> LoadOnly] [NotReplicated]
 	Property Color3 Studio.Bool Color [<📁> LoadOnly] [NotReplicated]
 	Property Color3 Studio.Built-in Function Color [<📁> LoadOnly] [NotReplicated]
@@ -2931,12 +2988,13 @@ Class Studio : Instance [NotCreatable] [Service] [NotReplicated]
 	Property Color3 Studio.Find Selection Background Color [<📁> LoadOnly] [NotReplicated]
 	Property Color3 Studio.Function Name Color [<📁> LoadOnly] [NotReplicated]
 	Property Color3 Studio.Keyword Color [<📁> LoadOnly] [NotReplicated]
+	Property Color3 Studio.Luau Keyword Color [<📁> LoadOnly] [NotReplicated]
 	Property Color3 Studio.Matching Word Background Color [<📁> LoadOnly] [NotReplicated]
 	Property Color3 Studio.Method Color [<📁> LoadOnly] [NotReplicated]
 	Property Color3 Studio.Number Color [<📁> LoadOnly] [NotReplicated]
 	Property Color3 Studio.Operator Color [<📁> LoadOnly] [NotReplicated]
-	Property Color3 Studio.Preprocessor Color [<📁> LoadOnly] [NotReplicated]
 	Property Color3 Studio.Property Color [<📁> LoadOnly] [NotReplicated]
+	Property Color3 Studio.Ruler Color [<📁> LoadOnly] [NotReplicated]
 	Property Enum<StudioScriptEditorColorPresets> Studio.Script Editor Color Preset
 	Property Color3 Studio.Selection Background Color [<📁> LoadOnly] [NotReplicated]
 	Property Color3 Studio.Selection Color [<📁> LoadOnly] [NotReplicated]
@@ -3021,7 +3079,7 @@ Class StudioService : Instance [NotCreatable] [Service] [NotReplicated]
 	Event StudioService.PromptTransformPluginCheckEnable() {RobloxScriptSecurity}
 Class StudioTheme : Instance [NotCreatable] [NotReplicated]
 	Function Color3 StudioTheme:GetColor(Enum<StudioStyleGuideColor> styleguideitem, Enum<StudioStyleGuideModifier> modifier = "Default") {PluginSecurity}
-	Function string StudioTheme:GetPath(string assetid, Enum<StudioStyleGuideModifier> modifier = "Default") {PluginSecurity}
+	Function string StudioTheme:GetPath(string assetid, Enum<StudioStyleGuideModifier> modifier = "Default") {PluginSecurity} [Deprecated]
 Class SurfaceAppearance : Instance
 	Property Enum<AlphaMode> SurfaceAppearance.AlphaMode {LocalUserSecurity}
 	Property Content SurfaceAppearance.ColorMap {LocalUserSecurity}
@@ -3113,6 +3171,9 @@ Class ThirdPartyUserService : Instance [NotCreatable] [Service] [NotReplicated]
 Class TimerService : Instance [NotCreatable] [Service]
 Class TouchInputService : Instance [NotCreatable] [Service]
 Class TouchTransmitter : Instance [NotCreatable] [NotBrowsable]
+Class TracerService : Instance [NotCreatable] [Service] [NotReplicated]
+	Function void TracerService:FinishSpan(string spanId) {RobloxScriptSecurity}
+	Function string TracerService:StartSpan(string name, string parentId) {RobloxScriptSecurity}
 Class Trail : Instance
 	Property ColorSequence Trail.Color
 	Property bool Trail.FaceCamera
@@ -3154,6 +3215,7 @@ Class UGCValidationService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function Array UGCValidationService:GetMeshVertsSync(string meshId) {RobloxScriptSecurity}
 	Function Vector2 UGCValidationService:GetTextureSize(string textureId) {RobloxScriptSecurity} [Yields]
 	Function Vector2 UGCValidationService:GetTextureSizeSync(string textureId) {RobloxScriptSecurity}
+	Function void UGCValidationService:SetMeshIdBlocking(Instance meshPart, string meshId) {RobloxScriptSecurity}
 Class UIBase : Instance [NotCreatable]
 Class UIComponent : UIBase [NotCreatable]
 Class UIConstraint : UIComponent [NotCreatable]
@@ -3224,9 +3286,9 @@ Class UIPadding : UIComponent
 Class UIScale : UIComponent
 	Property float UIScale.Scale
 Class UnvalidatedAssetService : Instance [NotCreatable] [Service]
-	Function void UnvalidatedAssetService:AppendTempAsset(int64 id, Vector3 lookAt, Vector3 camPos, string usage) {RobloxScriptSecurity}
+	Function void UnvalidatedAssetService:AppendTempAssetId(int64 id, Vector3 lookAt, Vector3 camPos, string usage) {RobloxScriptSecurity}
 	Function bool UnvalidatedAssetService:AppendVantagePoint(int64 id, Vector3 lookAt, Vector3 camPos) {RobloxScriptSecurity}
-	Function bool UnvalidatedAssetService:RenameTempAsset(int64 tempId, int64 assetId) {RobloxScriptSecurity}
+	Function bool UnvalidatedAssetService:UpgradeTempAssetId(int64 tempId, int64 assetId) {RobloxScriptSecurity}
 Class UserGameSettings : Instance [NotCreatable] [UserSettings]
 	Property int UserGameSettings.GraphicsQualityLevel {RobloxScriptSecurity}
 	Property Enum<SavedQualitySetting> UserGameSettings.SavedQualityLevel
@@ -3427,11 +3489,11 @@ Class VirtualInputManager : Instance [Service]
 	Function void VirtualInputManager:SendAccelerometerEvent(float x, float y, float z) {RobloxScriptSecurity}
 	Function void VirtualInputManager:SendGravityEvent(float x, float y, float z) {RobloxScriptSecurity}
 	Function void VirtualInputManager:SendGyroscopeEvent(float quatX, float quatY, float quatZ, float quatW) {RobloxScriptSecurity}
-	Function void VirtualInputManager:SendKeyEvent(bool isPressed, Enum<KeyCode> keyCode, bool isRepeatedKey, Instance pluginGui) {RobloxScriptSecurity}
-	Function void VirtualInputManager:SendMouseButtonEvent(int x, int y, int mouseButton, bool isDown, Instance pluginGui, int repeatCount) {RobloxScriptSecurity}
-	Function void VirtualInputManager:SendMouseMoveEvent(float x, float y, Instance pluginGui) {RobloxScriptSecurity}
-	Function void VirtualInputManager:SendMouseWheelEvent(float x, float y, bool isForwardScroll, Instance pluginGui) {RobloxScriptSecurity}
-	Function void VirtualInputManager:SendTextInputCharacterEvent(string str, Instance pluginGui) {RobloxScriptSecurity}
+	Function void VirtualInputManager:SendKeyEvent(bool isPressed, Enum<KeyCode> keyCode, bool isRepeatedKey, Instance layerCollector) {RobloxScriptSecurity}
+	Function void VirtualInputManager:SendMouseButtonEvent(int x, int y, int mouseButton, bool isDown, Instance layerCollector, int repeatCount) {RobloxScriptSecurity}
+	Function void VirtualInputManager:SendMouseMoveEvent(float x, float y, Instance layerCollector) {RobloxScriptSecurity}
+	Function void VirtualInputManager:SendMouseWheelEvent(float x, float y, bool isForwardScroll, Instance layerCollector) {RobloxScriptSecurity}
+	Function void VirtualInputManager:SendTextInputCharacterEvent(string str, Instance layerCollector) {RobloxScriptSecurity}
 	Function void VirtualInputManager:SendTouchEvent(int64 touchId, int state, float x, float y) {RobloxScriptSecurity}
 	Function void VirtualInputManager:StartPlaying(string fileName) {RobloxScriptSecurity}
 	Function void VirtualInputManager:StartRecording() {RobloxScriptSecurity}
@@ -3559,6 +3621,10 @@ Enum AssetType
 	EnumItem AssetType.EyeAccessory : 58
 	EnumItem AssetType.EmoteAnimation : 61
 	EnumItem AssetType.Video : 62
+Enum AssetTypeVerification
+	EnumItem AssetTypeVerification.Default : 1
+	EnumItem AssetTypeVerification.ClientOnly : 2
+	EnumItem AssetTypeVerification.Always : 3
 Enum AutoIndentRule
 	EnumItem AutoIndentRule.Off : 0
 	EnumItem AutoIndentRule.Absolute : 1
@@ -3607,6 +3673,10 @@ Enum AvatarItemType
 Enum AvatarJointPositionType
 	EnumItem AvatarJointPositionType.Fixed : 0
 	EnumItem AvatarJointPositionType.ArtistIntent : 1
+Enum AvatarPromptResult
+	EnumItem AvatarPromptResult.Success : 1
+	EnumItem AvatarPromptResult.PermissionDenied : 2
+	EnumItem AvatarPromptResult.Failed : 3
 Enum Axis
 	EnumItem Axis.X : 0
 	EnumItem Axis.Y : 1
@@ -4705,6 +4775,17 @@ Enum PrivilegeType [Deprecated]
 Enum ProductPurchaseDecision
 	EnumItem ProductPurchaseDecision.NotProcessedYet : 0
 	EnumItem ProductPurchaseDecision.PurchaseGranted : 1
+Enum ProximityPromptExclusivity
+	EnumItem ProximityPromptExclusivity.OnePerButton : 0
+	EnumItem ProximityPromptExclusivity.OneGlobally : 1
+	EnumItem ProximityPromptExclusivity.AlwaysShow : 2
+Enum ProximityPromptInputType
+	EnumItem ProximityPromptInputType.Keyboard : 0
+	EnumItem ProximityPromptInputType.Gamepad : 1
+	EnumItem ProximityPromptInputType.Touch : 2
+Enum ProximityPromptStyle
+	EnumItem ProximityPromptStyle.Default : 0
+	EnumItem ProximityPromptStyle.Custom : 1
 Enum QualityLevel
 	EnumItem QualityLevel.Automatic : 0
 	EnumItem QualityLevel.Level01 : 1
@@ -4907,10 +4988,21 @@ Enum StudioScriptEditorColorCategories
 	EnumItem StudioScriptEditorColorCategories.Function : 11
 	EnumItem StudioScriptEditorColorCategories.Local : 12
 	EnumItem StudioScriptEditorColorCategories.Self : 13
-	EnumItem StudioScriptEditorColorCategories.Export : 14
-	EnumItem StudioScriptEditorColorCategories.Type : 15
-	EnumItem StudioScriptEditorColorCategories.FunctionName : 16
-	EnumItem StudioScriptEditorColorCategories.TODO : 17
+	EnumItem StudioScriptEditorColorCategories.LuauKeyword : 14
+	EnumItem StudioScriptEditorColorCategories.FunctionName : 15
+	EnumItem StudioScriptEditorColorCategories.TODO : 16
+	EnumItem StudioScriptEditorColorCategories.Background : 17
+	EnumItem StudioScriptEditorColorCategories.SelectionText : 18
+	EnumItem StudioScriptEditorColorCategories.SelectionBackground : 19
+	EnumItem StudioScriptEditorColorCategories.FindSelectionBackground : 20
+	EnumItem StudioScriptEditorColorCategories.MatchingWordBackground : 21
+	EnumItem StudioScriptEditorColorCategories.Warning : 22
+	EnumItem StudioScriptEditorColorCategories.Error : 23
+	EnumItem StudioScriptEditorColorCategories.Whitespace : 24
+	EnumItem StudioScriptEditorColorCategories.ActiveLine : 25
+	EnumItem StudioScriptEditorColorCategories.DebuggerCurrentLine : 26
+	EnumItem StudioScriptEditorColorCategories.DebuggerErrorLine : 27
+	EnumItem StudioScriptEditorColorCategories.Ruler : 28
 Enum StudioScriptEditorColorPresets
 	EnumItem StudioScriptEditorColorPresets.RobloxDefault : 0
 	EnumItem StudioScriptEditorColorPresets.Extra1 : 1
@@ -4968,65 +5060,63 @@ Enum StudioStyleGuideColor
 	EnumItem StudioStyleGuideColor.ScriptNumber : 48
 	EnumItem StudioStyleGuideColor.ScriptString : 49
 	EnumItem StudioStyleGuideColor.ScriptComment : 50
-	EnumItem StudioStyleGuideColor.ScriptPreprocessor : 51
-	EnumItem StudioStyleGuideColor.ScriptKeyword : 52
-	EnumItem StudioStyleGuideColor.ScriptBuiltInFunction : 53
-	EnumItem StudioStyleGuideColor.ScriptWarning : 54
-	EnumItem StudioStyleGuideColor.ScriptError : 55
-	EnumItem StudioStyleGuideColor.ScriptWhitespace : 56
-	EnumItem StudioStyleGuideColor.ScriptRuler : 57
-	EnumItem StudioStyleGuideColor.DebuggerCurrentLine : 58
-	EnumItem StudioStyleGuideColor.DebuggerErrorLine : 59
-	EnumItem StudioStyleGuideColor.DiffFilePathText : 60
-	EnumItem StudioStyleGuideColor.DiffTextHunkInfo : 61
-	EnumItem StudioStyleGuideColor.DiffTextNoChange : 62
-	EnumItem StudioStyleGuideColor.DiffTextAddition : 63
-	EnumItem StudioStyleGuideColor.DiffTextDeletion : 64
-	EnumItem StudioStyleGuideColor.DiffTextSeparatorBackground : 65
-	EnumItem StudioStyleGuideColor.DiffTextNoChangeBackground : 66
-	EnumItem StudioStyleGuideColor.DiffTextAdditionBackground : 67
-	EnumItem StudioStyleGuideColor.DiffTextDeletionBackground : 68
-	EnumItem StudioStyleGuideColor.DiffLineNum : 69
-	EnumItem StudioStyleGuideColor.DiffLineNumSeparatorBackground : 70
-	EnumItem StudioStyleGuideColor.DiffLineNumNoChangeBackground : 71
-	EnumItem StudioStyleGuideColor.DiffLineNumAdditionBackground : 72
-	EnumItem StudioStyleGuideColor.DiffLineNumDeletionBackground : 73
-	EnumItem StudioStyleGuideColor.DiffFilePathBackground : 74
-	EnumItem StudioStyleGuideColor.DiffFilePathBorder : 75
-	EnumItem StudioStyleGuideColor.ChatIncomingBgColor : 76
-	EnumItem StudioStyleGuideColor.ChatIncomingTextColor : 77
-	EnumItem StudioStyleGuideColor.ChatOutgoingBgColor : 78
-	EnumItem StudioStyleGuideColor.ChatOutgoingTextColor : 79
-	EnumItem StudioStyleGuideColor.ChatModeratedMessageColor : 80
-	EnumItem StudioStyleGuideColor.Separator : 81
-	EnumItem StudioStyleGuideColor.ButtonBorder : 82
-	EnumItem StudioStyleGuideColor.ButtonText : 83
-	EnumItem StudioStyleGuideColor.InputFieldBorder : 84
-	EnumItem StudioStyleGuideColor.CheckedFieldBackground : 85
-	EnumItem StudioStyleGuideColor.CheckedFieldBorder : 86
-	EnumItem StudioStyleGuideColor.CheckedFieldIndicator : 87
-	EnumItem StudioStyleGuideColor.HeaderSection : 88
-	EnumItem StudioStyleGuideColor.Midlight : 89
-	EnumItem StudioStyleGuideColor.StatusBar : 90
-	EnumItem StudioStyleGuideColor.DialogButton : 91
-	EnumItem StudioStyleGuideColor.DialogButtonText : 92
-	EnumItem StudioStyleGuideColor.DialogButtonBorder : 93
-	EnumItem StudioStyleGuideColor.DialogMainButton : 94
-	EnumItem StudioStyleGuideColor.DialogMainButtonText : 95
-	EnumItem StudioStyleGuideColor.InfoBarWarningBackground : 96
-	EnumItem StudioStyleGuideColor.InfoBarWarningText : 97
-	EnumItem StudioStyleGuideColor.ScriptEditorCurrentLine : 98
-	EnumItem StudioStyleGuideColor.ScriptMethod : 99
-	EnumItem StudioStyleGuideColor.ScriptProperty : 100
-	EnumItem StudioStyleGuideColor.ScriptNil : 101
-	EnumItem StudioStyleGuideColor.ScriptBool : 102
-	EnumItem StudioStyleGuideColor.ScriptFunction : 103
-	EnumItem StudioStyleGuideColor.ScriptLocal : 104
-	EnumItem StudioStyleGuideColor.ScriptSelf : 105
-	EnumItem StudioStyleGuideColor.ScriptExport : 106
-	EnumItem StudioStyleGuideColor.ScriptType : 107
-	EnumItem StudioStyleGuideColor.ScriptFunctionName : 108
-	EnumItem StudioStyleGuideColor.ScriptTodo : 109
+	EnumItem StudioStyleGuideColor.ScriptKeyword : 51
+	EnumItem StudioStyleGuideColor.ScriptBuiltInFunction : 52
+	EnumItem StudioStyleGuideColor.ScriptWarning : 53
+	EnumItem StudioStyleGuideColor.ScriptError : 54
+	EnumItem StudioStyleGuideColor.ScriptWhitespace : 55
+	EnumItem StudioStyleGuideColor.ScriptRuler : 56
+	EnumItem StudioStyleGuideColor.DebuggerCurrentLine : 57
+	EnumItem StudioStyleGuideColor.DebuggerErrorLine : 58
+	EnumItem StudioStyleGuideColor.DiffFilePathText : 59
+	EnumItem StudioStyleGuideColor.DiffTextHunkInfo : 60
+	EnumItem StudioStyleGuideColor.DiffTextNoChange : 61
+	EnumItem StudioStyleGuideColor.DiffTextAddition : 62
+	EnumItem StudioStyleGuideColor.DiffTextDeletion : 63
+	EnumItem StudioStyleGuideColor.DiffTextSeparatorBackground : 64
+	EnumItem StudioStyleGuideColor.DiffTextNoChangeBackground : 65
+	EnumItem StudioStyleGuideColor.DiffTextAdditionBackground : 66
+	EnumItem StudioStyleGuideColor.DiffTextDeletionBackground : 67
+	EnumItem StudioStyleGuideColor.DiffLineNum : 68
+	EnumItem StudioStyleGuideColor.DiffLineNumSeparatorBackground : 69
+	EnumItem StudioStyleGuideColor.DiffLineNumNoChangeBackground : 70
+	EnumItem StudioStyleGuideColor.DiffLineNumAdditionBackground : 71
+	EnumItem StudioStyleGuideColor.DiffLineNumDeletionBackground : 72
+	EnumItem StudioStyleGuideColor.DiffFilePathBackground : 73
+	EnumItem StudioStyleGuideColor.DiffFilePathBorder : 74
+	EnumItem StudioStyleGuideColor.ChatIncomingBgColor : 75
+	EnumItem StudioStyleGuideColor.ChatIncomingTextColor : 76
+	EnumItem StudioStyleGuideColor.ChatOutgoingBgColor : 77
+	EnumItem StudioStyleGuideColor.ChatOutgoingTextColor : 78
+	EnumItem StudioStyleGuideColor.ChatModeratedMessageColor : 79
+	EnumItem StudioStyleGuideColor.Separator : 80
+	EnumItem StudioStyleGuideColor.ButtonBorder : 81
+	EnumItem StudioStyleGuideColor.ButtonText : 82
+	EnumItem StudioStyleGuideColor.InputFieldBorder : 83
+	EnumItem StudioStyleGuideColor.CheckedFieldBackground : 84
+	EnumItem StudioStyleGuideColor.CheckedFieldBorder : 85
+	EnumItem StudioStyleGuideColor.CheckedFieldIndicator : 86
+	EnumItem StudioStyleGuideColor.HeaderSection : 87
+	EnumItem StudioStyleGuideColor.Midlight : 88
+	EnumItem StudioStyleGuideColor.StatusBar : 89
+	EnumItem StudioStyleGuideColor.DialogButton : 90
+	EnumItem StudioStyleGuideColor.DialogButtonText : 91
+	EnumItem StudioStyleGuideColor.DialogButtonBorder : 92
+	EnumItem StudioStyleGuideColor.DialogMainButton : 93
+	EnumItem StudioStyleGuideColor.DialogMainButtonText : 94
+	EnumItem StudioStyleGuideColor.InfoBarWarningBackground : 95
+	EnumItem StudioStyleGuideColor.InfoBarWarningText : 96
+	EnumItem StudioStyleGuideColor.ScriptEditorCurrentLine : 97
+	EnumItem StudioStyleGuideColor.ScriptMethod : 98
+	EnumItem StudioStyleGuideColor.ScriptProperty : 99
+	EnumItem StudioStyleGuideColor.ScriptNil : 100
+	EnumItem StudioStyleGuideColor.ScriptBool : 101
+	EnumItem StudioStyleGuideColor.ScriptFunction : 102
+	EnumItem StudioStyleGuideColor.ScriptLocal : 103
+	EnumItem StudioStyleGuideColor.ScriptSelf : 104
+	EnumItem StudioStyleGuideColor.ScriptLuauKeyword : 105
+	EnumItem StudioStyleGuideColor.ScriptFunctionName : 106
+	EnumItem StudioStyleGuideColor.ScriptTodo : 107
 Enum StudioStyleGuideModifier
 	EnumItem StudioStyleGuideModifier.Default : 0
 	EnumItem StudioStyleGuideModifier.Selected : 1

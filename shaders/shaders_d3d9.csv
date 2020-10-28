@@ -136,12 +136,14 @@ SkyLinearFS,Fragment
 SkyVS,Vertex
 SmoothClusterColoredFS,Fragment
 SmoothClusterColoredVS,Vertex
-SmoothClusterColoredVSFFlagSpecular,Vertex
 SmoothClusterDepthFS,Fragment
 SmoothClusterDepthVS,Vertex
 SmoothClusterFS,Fragment
+SmoothClusterFS_Level0,Fragment
+SmoothClusterFS_Level256,Fragment
 SmoothClusterVS,Vertex
-SmoothClusterVSFFlagSpecular,Vertex
+SmoothClusterVS_Level0,Vertex
+SmoothClusterVS_Level256,Vertex
 SmoothWaterFS,Fragment
 SmoothWaterVS,Vertex
 SRGBToLinearFS,Fragment

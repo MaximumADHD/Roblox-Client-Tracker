@@ -10,7 +10,7 @@ Roact = "github.com/roblox/roact@1.2"
 Rodux = "github.com/roblox/rodux@1.0"
 RoactRodux = "github.com/roblox/roact-rodux@0.2"
 RoactNavigationOld = "github.com/roblox/roact-navigation@0.2.8"
-RoactNavigation = "github.com/roblox/roact-navigation@0.3.0"
+RoactNavigation = "github.com/roblox/roact-navigation@0.4.0"
 Cryo = "github.com/roblox/cryo@1.0"
 LuaChatDeps = { git = "https://github.com/Roblox/lua-chat-deps" }
 LuaDiscussionsDeps = { git = "https://github.com/Roblox/lua-discussions-deps" }

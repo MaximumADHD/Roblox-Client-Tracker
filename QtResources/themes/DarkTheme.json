@@ -9,17 +9,28 @@
             "Comment": "#666666",
             "Keyword": "#F86D7C",
             "Builtin": "#84D6F7",
-            "Method": "#64EFEF",
-            "Property": "#64EF00",
-            "Nil": "#F86D7C",
-            "Bool": "#F86D7C",
+            "Method": "#FDFBAC",
+            "Property": "#61A1F1",
+            "Nil": "#FFC600",
+            "Bool": "#FFC600",
             "Function": "#F86D7C",
             "Local": "#F86D7C",
             "Self": "#F86D7C",
-            "Export": "#F86D7C",
-            "Type": "#F86D7C",
-            "FunctionName": "#77FFFF",
-            "TODO": "#007F09"
+            "LuauKeyword": "#F86D7C",
+            "FunctionName": "#FDFBAC",
+            "TODO": "#666666",
+            "Background": "#252525",
+            "SelectionText": "#FFFFFF",
+            "SelectionBackground": "#0B5AAF",
+            "FindSelectionBackground": "#8D7600",
+            "MatchingWordBackground": "#555555",
+            "Warning": "#FF7315",
+            "Error": "#FF0000",
+            "ActiveLine": "#2D3241",
+            "Whitespace": "#555555",
+            "DebuggerCurrentLine": "#2A3C4C",
+            "DebuggerErrorLine": "#4C2A2A",
+            "Ruler": "#666666"
         },
         "Extra1": {
             "Default": "#CCCCCC",
@@ -36,10 +47,21 @@
             "Function": "#C586C0",
             "Local": "#C586C0",
             "Self": "#C586C0",
-            "Export": "#CCCCCC",
-            "Type": "#CCCCCC",
+            "LuauKeyword": "#CCCCCC",
             "FunctionName": "#C586C0",
-            "TODO": "#6A9955"
+            "TODO": "#6A9955",
+            "Background": "#252525",
+            "SelectionText": "#FFFFFF",
+            "SelectionBackground": "#0B5AAF",
+            "FindSelectionBackground": "#8D7600",
+            "MatchingWordBackground": "#555555",
+            "Warning": "#FF7315",
+            "Error": "#FF0000",
+            "ActiveLine": "#2D3241",
+            "Whitespace": "#555555",
+            "DebuggerCurrentLine": "#2A3C4C",
+            "DebuggerErrorLine": "#4C2A2A",
+            "Ruler": "#666666"
         },
         "Extra2": {
             "Default": "#CCCCCC",
@@ -56,10 +78,21 @@
             "Function": "#C586C0",
             "Local": "#C586C0",
             "Self": "#C586C0",
-            "Export": "#CCCCCC",
-            "Type": "#CCCCCC",
+            "LuauKeyword": "#CCCCCC",
             "FunctionName": "#C586C0",
-            "TODO": "#6A9955"
+            "TODO": "#6A9955",
+            "Background": "#252525",
+            "SelectionText": "#FFFFFF",
+            "SelectionBackground": "#0B5AAF",
+            "FindSelectionBackground": "#8D7600",
+            "MatchingWordBackground": "#555555",
+            "Warning": "#FF7315",
+            "Error": "#FF0000",
+            "ActiveLine": "#2D3241",
+            "Whitespace": "#555555",
+            "DebuggerCurrentLine": "#2A3C4C",
+            "DebuggerErrorLine": "#4C2A2A",
+            "Ruler": "#666666"
         },
         "Custom": {
             "Default": "#CCCCCC",
@@ -69,17 +102,28 @@
             "Comment": "#666666",
             "Keyword": "#F86D7C",
             "Builtin": "#84D6F7",
-            "Method": "#64EFEF",
-            "Property": "#CCCCCC",
-            "Nil": "#F86D7C",
-            "Bool": "#F86D7C",
+            "Method": "#FDFBAC",
+            "Property": "#61A1F1",
+            "Nil": "#FFC600",
+            "Bool": "#FFC600",
             "Function": "#F86D7C",
             "Local": "#F86D7C",
             "Self": "#F86D7C",
-            "Export": "#CCCCCC",
-            "Type": "#F86D7C",
-            "FunctionName": "#77FFFF",
-            "TODO": "#666666"
+            "LuauKeyword": "#F86D7C",
+            "FunctionName": "#FDFBAC",
+            "TODO": "#666666",
+            "Background": "#252525",
+            "SelectionText": "#FFFFFF",
+            "SelectionBackground": "#0B5AAF",
+            "FindSelectionBackground": "#8D7600",
+            "MatchingWordBackground": "#555555",
+            "Warning": "#FF7315",
+            "Error": "#FF0000",
+            "ActiveLine": "#2D3241",
+            "Whitespace": "#555555",
+            "DebuggerCurrentLine": "#2A3C4C",
+            "DebuggerErrorLine": "#4C2A2A",
+            "Ruler": "#666666"
         }
     },
     "Colors": [{
@@ -309,170 +353,6 @@
         }, {
             "ScriptSideWidget": {
                 "Default": "#252525"
-            }
-        }, {
-            "ScriptBackground": {
-                "Default": "#252525"
-            }
-        }, {
-            "ScriptText": {
-                "Default": "#CCCCCC"
-            }
-        }, {
-            "ScriptSelectionText": {
-                "Default": "#FFFFFF"
-            }
-        }, {
-            "ScriptSelectionBackground": {
-                "Default": "#0B5AAF"
-            }
-        }, {
-            "ScriptFindSelectionBackground": {
-                "Default": "#8D7600"
-            }
-        }, {
-            "ScriptMatchingWordSelectionBackground": {
-                "Default": "#555555"
-            }
-        }, {
-            "ScriptOperator": {
-                "Default": "#CCCCCC"
-            }
-        }, {
-            "ScriptNumber": {
-                "Default": "#FFC600"
-            }
-        }, {
-            "ScriptString": {
-                "Default": "#ADF195"
-            }
-        }, {
-            "ScriptComment": {
-                "Default": "#666666"
-            }
-        }, {
-            "ScriptPreprocessor": {
-                "Default": "#66FFCC"
-            }
-        }, {
-            "ScriptKeyword": {
-                "Default": "#F86D7C"
-            }
-        }, {
-            "ScriptBuiltInFunction": {
-                "Default": "#84D6F7"
-            }
-        }, {
-            "ScriptMethod": {
-                "Default": "#00007F"
-            }
-        }, {
-            "ScriptProperty": {
-                "Default": "#00007F"
-            }
-        }, {
-            "ScriptNil": {
-                "Default": "#00007F"
-            }
-        }, {
-            "ScriptBool": {
-                "Default": "#00007F"
-            }
-        }, {
-            "ScriptFunction": {
-                "Default": "#00007F"
-            }
-        }, {
-            "ScriptLocal": {
-                "Default": "#00007F"
-            }
-        }, {
-            "ScriptSelf": {
-                "Default": "#00007F"
-            }
-        }, {
-            "ScriptExport": {
-                "Default": "#00007F"
-            }
-        }, {
-            "ScriptType": {
-                "Default": "#00007F"
-            }
-        }, {
-            "ScriptFunctionName": {
-                "Default": "#00007F"
-            }
-        }, {
-            "ScriptTodo": {
-                "Default": "#00007F"
-            }
-        }, {
-            "ScriptMethod": {
-                "Default": "#00007F"
-            }
-        }, {
-            "ScriptProperty": {
-                "Default": "#00007F"
-            }
-        }, {
-            "ScriptNil": {
-                "Default": "#00007F"
-            }
-        }, {
-            "ScriptBool": {
-                "Default": "#00007F"
-            }
-        }, {
-            "ScriptFunction": {
-                "Default": "#00007F"
-            }
-        }, {
-            "ScriptLocal": {
-                "Default": "#00007F"
-            }
-        }, {
-            "ScriptSelf": {
-                "Default": "#00007F"
-            }
-        }, {
-            "ScriptExport": {
-                "Default": "#00007F"
-            }
-        }, {
-            "ScriptType": {
-                "Default": "#00007F"
-            }
-        }, {
-            "ScriptFunctionName": {
-                "Default": "#00007F"
-            }
-        }, {
-            "ScriptTodo": {
-                "Default": "#00007F"
-            }
-        }, {
-            "ScriptWarning": {
-                "Default": "#FF7315"
-            }
-        }, {
-            "ScriptError": {
-                "Default": "#FF0000"
-            }
-        }, {
-            "ScriptWhitespace": {
-                "Default": "#555555"
-            }
-        },  {
-            "ScriptRuler": {
-                "Default": "#666666"
-            }
-        }, {
-            "DebuggerCurrentLine": {
-                "Default": "#2A3C4C"
-            }
-        }, {
-            "DebuggerErrorLine": {
-                "Default": "#4C2A2A"
             }
         }, {
             "DiffFilePathText": {

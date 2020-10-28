@@ -41,7 +41,7 @@ Rectangle {
     function performLogin(payload) {
         clearErrorMessages();
         loginPage.state = "STATE_LOGGING_IN"
-        if (loginManager.getFFlagStudioLoginInAssertFailureFixEnabled() && (payload == null)) {
+        if (payload == null) {
             loginManager.onLoginClicked(usernameField.text, passwordField.text);
         } 
         else {

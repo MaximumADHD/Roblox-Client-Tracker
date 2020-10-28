@@ -1372,6 +1372,196 @@
 
     <Item class="ReflectionMetadataClass">
       <Properties>
+        <string name="Name">ProximityPrompt</string>
+        <string name="ClassCategory">3D Interfaces</string>
+        <string name="summary">Provides a UI for the player to interact with an object when near.</string>
+        <string name="ExplorerOrder">30</string>
+        <string name="ExplorerImageIndex">41</string>
+        <string name="PreferredParent">BasePart</string>
+      </Properties>
+      <Item class="ReflectionMetadataProperties">
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">MaxActivationDistance</string>
+            <string name="summary">The maximum distance a Player's character can be from the ProximityPrompt for the prompt to appear.</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">ActionText</string>
+            <string name="summary">The action text shown to the user.</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">ObjectText</string>
+            <string name="summary">The object name text shown to the user.</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">KeyboardKeyCode</string>
+            <string name="summary">The key the player should press to trigger the prompt.</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">GamepadKeyCode</string>
+            <string name="summary">The gamepad button the player should press to trigger the prompt.</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Enabled</string>
+            <string name="summary">When false, this prompt will not be shown, and events will not fire.</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">HoldDuration</string>
+            <string name="summary">The user must hold the button down for this duration to trigger the prompt.</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Exclusivity</string>
+            <string name="summary">Describes which prompts will be shown when multiple may be visible.</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Style</string>
+            <string name="summary">When set to custom, no default UI will be provided.</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">UIOffset</string>
+            <string name="summary">a pixel offset applied to the UI.</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">RequiresLineOfSight</string>
+            <string name="summary">If true, this prompt will only be shown if there is a clear path from the camera to the object.</string>
+          </Properties>
+        </Item>
+      </Item>
+      <Item class="ReflectionMetadataFunctions">
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">InputHoldBegin</string>
+            <string name="summary">Used to signal that the player began triggering this prompt.</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">InputHoldEnd</string>
+            <string name="summary">Used to signal that the player ended triggering this prompt.</string>
+          </Properties>
+        </Item>
+      </Item>
+      <Item class="ReflectionMetadataEvents">
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Triggered</string>
+            <string name="summary">Fired when a player triggers the ProximityPrompt.</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">TriggeEnded</string>
+            <string name="summary">Fired when a player releases a button to end triggering the ProximityPrompt.</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">PromptShown</string>
+            <string name="summary">Fired in local scripts when this prompt is shown.  Can be used for customization.</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">PromptHidden</string>
+            <string name="summary">Fired in local scripts when this prompt is hidden.  Can be used for customization.</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">PromptButtonHoldBegan</string>
+            <string name="summary">Fired in local scripts when the user begins holding down the button on a prompt with a non-zero HoldDuration.  This can be used to animate a progress bar.</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">PromptButtonHoldEnded</string>
+            <string name="summary">Fired in local scripts when the user ends holding down the button on a prompt with a non-zero HoldDuration.  This can be used to animate a progress bar.</string>
+          </Properties>
+        </Item>
+      </Item>
+    </Item>
+
+    <Item class="ReflectionMetadataClass">
+      <Properties>
+        <string name="Name">ProximityPromptService</string>
+        <bool name="Browsable">false</bool>
+      </Properties>
+      <Item class="ReflectionMetadataProperties">
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Enabled</string>
+            <string name="summary">When false, no prompts will be shown.</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">MaxPromptsVisible</string>
+            <string name="summary">The maximum number of ProximityPrompts that will be shown.</string>
+          </Properties>
+        </Item>
+      </Item>
+      <Item class="ReflectionMetadataEvents">
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Triggered</string>
+            <string name="summary">Fired when a player triggers the ProximityPrompt.</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">TriggeEnded</string>
+            <string name="summary">Fired when a player releases a button to end triggering the ProximityPrompt.</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">PromptShown</string>
+            <string name="summary">Fired in local scripts when a prompt is shown.  Can be used for customization.</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">PromptHidden</string>
+            <string name="summary">Fired in local scripts when a prompt is hidden.  Can be used for customization.</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">PromptButtonHoldBegan</string>
+            <string name="summary">Fired in local scripts when the user begins holding down the button on a prompt with a non-zero HoldDuration.  This can be used to animate a progress bar.</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">PromptButtonHoldEnded</string>
+            <string name="summary">Fired in local scripts when the user ends holding down the button on a prompt with a non-zero HoldDuration.  This can be used to animate a progress bar.</string>
+          </Properties>
+        </Item>
+      </Item>
+    </Item>
+
+    <Item class="ReflectionMetadataClass">
+      <Properties>
         <string name="Name">Clothing</string>
         <string name="ExplorerOrder">20</string>
       </Properties>

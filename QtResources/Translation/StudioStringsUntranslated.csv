@@ -1,4 +1,7 @@
 Key,Context,Source,en-us
+Studio.App.AboutStudioDialog.AmongRegisteredTrademarks,Replacement of Studio.App.MainWindow.AmongRegisteredTrademarks2 without contact us hyper link,"<i>Roblox</i>, the Roblox <i>logo</i> and <i>Powering Imagination</i> are among our registered and unregistered trademarks in the U.S. and other countries.","<i>Roblox</i>, the Roblox <i>logo</i> and <i>Powering Imagination</i> are among our registered and unregistered trademarks in the U.S. and other countries."
+Studio.App.AboutStudioDialog.ContactUs,Hyper link for contacting Roblox support,Contact Us,Contact Us
+Studio.App.AboutStudioDialog.PrivacyPolicy,Hyper link for privacy policy,Privacy Policy,Privacy Policy
 Studio.App.AddEmulationDeviceDialog.AddNewDevice,,Add New Device,Add New Device
 Studio.App.AddEmulationDeviceDialog.BottomSafeZoneOffset,,Bottom,Bottom
 Studio.App.AddEmulationDeviceDialog.DeviceForm,,Device Form,Device Form
@@ -35,6 +38,8 @@ Studio.App.AssetManagerService.PackageInsertErrorArg1,,Error while inserting pac
 Studio.App.AssetManagerService.PlaceIdInvalid,,PlaceId is invalid,PlaceId is invalid
 Studio.App.AssetManagerService.ResponseInvalid,,Http response is invalid,Http response is invalid
 Studio.App.AssetManagerService.ReturnedIdMalformed,,Id returned for mesh part is malformed,Id returned for mesh part is malformed
+Studio.App.AudioImportConfirmationDialog.NoFilesAvailable,,No files available,No files available
+Studio.App.AudioImportOptionsDialog.ConfirmAudioImport,,Confirm Audio Import,Confirm Audio Import
 Studio.App.AuthenticationHelper.AuthFailedTimeout,,Could not authenticate user. Request timed out.,Could not authenticate user. Request timed out.
 Studio.App.AuthenticationHelper.AuthFailedTryAgain,,Authentication failed. Please try again or contact support if the problem persists.,Authentication failed. Please try again or contact support if the problem persists.
 Studio.App.AutoSave.AutoSaveRecovery,,Auto-Save Recovery,Auto-Save Recovery
@@ -61,6 +66,8 @@ Studio.App.BetaFeatures.AssetManagerDescription,,"Manage your assets in a brand 
 Studio.App.BetaFeatures.AssetManageritle,,Asset Manager,Asset Manager
 Studio.App.BetaFeatures.AsyncPublishDescription,,Keep working in Studio as we publish in the background,Keep working in Studio as we publish in the background
 Studio.App.BetaFeatures.AsyncPublishTitle,,Async Publish Beta,Async Publish Beta
+Studio.App.BetaFeatures.AttributesUIDescription,,Customizable properties on instances,Customizable properties on instances
+Studio.App.BetaFeatures.AttributesUITitle,,Attributes Beta,Attributes Beta
 Studio.App.BetaFeatures.AutoEnrollmentToggle,,Enroll in Beta Channel,Enroll in Beta Channel
 Studio.App.BetaFeatures.AutoEnrollmentToggleTooltip,,New Beta Features Will Automatically Be Activated,New Beta Features Will Automatically Be Activated
 Studio.App.BetaFeatures.AutoUpdateDescription,,Adds an option to automatically update a package when a newer package is available,Adds an option to automatically update a package when a newer package is available
@@ -102,12 +109,16 @@ Studio.App.BetaFeatures.PhysicsNewConvexDecompositionDescription,,"Enable the ne
 Studio.App.BetaFeatures.PhysicsNewConvexDecompositionTitle,,Enable CollisionFidelity.PreciseConvexDecomposition.,Enable CollisionFidelity.PreciseConvexDecomposition.
 Studio.App.BetaFeatures.PhysicsSleepImprovementsDescription,,Set of changes that should make simulated parts awake and fall asleep more reliably.,Set of changes that should make simulated parts awake and fall asleep more reliably.
 Studio.App.BetaFeatures.PhysicsSleepImprovementsTitle,,Physics Sleep Behavior Improvements.,Physics Sleep Behavior Improvements.
+Studio.App.BetaFeatures.ProximityPromptDescription,,ProximityPrompt is a new instance type used to prompt the user for input so they can interact with an object in the 3D world.,ProximityPrompt is a new instance type used to prompt the user for input so they can interact with an object in the 3D world.
+Studio.App.BetaFeatures.ProximityPromptTitle,,Proximity Prompt Beta,Proximity Prompt Beta
 Studio.App.BetaFeatures.RestartStudioTitle,,Restart Studio,Restart Studio
 Studio.App.BetaFeatures.RestartWarning,,Beta features will not be activated until you restart Studio,Beta features will not be activated until you restart Studio
 Studio.App.BetaFeatures.RichTextDescription,,Enable rich text parsing and rendering in xml format.,Enable rich text parsing and rendering in xml format.
 Studio.App.BetaFeatures.RichTextTitle,,Rich Text Beta,Rich Text Beta
 Studio.App.BetaFeatures.SaveToCloudV2Description,,Create new games in the cloud automatically.,Create new games in the cloud automatically.
 Studio.App.BetaFeatures.SaveToCloudV2Title,,New Games in the Cloud,New Games in the Cloud
+Studio.App.BetaFeatures.ScriptEditorDescription,,Enable script editor beta features,Enable script editor beta features
+Studio.App.BetaFeatures.ScriptEditorTitle,,Script Editor Beta Features,Script Editor Beta Features
 Studio.App.BetaFeatures.SelectFeaturesToActivate,,Select beta features to activate,Select beta features to activate
 Studio.App.BetaFeatures.SetInstanceDefaultsWindowDescription,,Set a Part or Script to be the default for future inserted instances of a Part or Script.,Set a Part or Script to be the default for future inserted instances of a Part or Script.
 Studio.App.BetaFeatures.SetInstanceDefaultsWindowTitle,,Set Instance as Default,Set Instance as Default
@@ -145,10 +156,13 @@ Studio.App.BulkImport.Completed,Bulk importer,Completed,Completed
 Studio.App.BulkImport.Expand,Bulk importer,Expand,Expand
 Studio.App.BulkImport.Import,Bulk importer,Import,Import
 Studio.App.BulkImport.ProgressFmt2,Bulk importer,Imported %1 of %2 files,Imported %1 of %2 files
+Studio.App.BulkImportController.AllSupportedTypes1,,All Supported Types (%1),All Supported Types (%1)
 Studio.App.BulkImportController.AllSupportedTypes2,,All Supported Types (%1 %2);;Images (%1);;Meshes (%2),All Supported Types (%1 %2);;Images (%1);;Meshes (%2)
 Studio.App.BulkImportController.AlreadyBusy,,Already busy importing. Please try again later.,Already busy importing. Please try again later.
+Studio.App.BulkImportController.AudioSupportedTypes1,"NOTE TO LOCALIZERS: Do not translate the parentheses (), whatever is inside the parentheses, or any other special characters, use ASCII instead.",Audio (%1),Audio (%1)
 Studio.App.BulkImportController.BusyCancelingPleaseTryAgainLater,,Busy canceling. Please try again later.,Busy canceling. Please try again later.
 Studio.App.BulkImportController.BusySplitting,,Already busy mesh splitting. Please try again later.,Already busy mesh splitting. Please try again later.
+Studio.App.BulkImportController.CancelledBeforeProcessing,,Some files were not uploaded.,Some files were not uploaded.
 Studio.App.BulkImportController.CouldNotStart,,Could not start mesh splitting. Please restart Studio or contact support if the problem persists.,Could not start mesh splitting. Please restart Studio or contact support if the problem persists.
 Studio.App.BulkImportController.EmptyListToSpliut,,Got an empty list of assets to split. Please try again or contact support if the problem persists.,Got an empty list of assets to split. Please try again or contact support if the problem persists.
 Studio.App.BulkImportController.GotEmptyList,,Got an empty list of files to import. Please try again or contact support if the problem persists.,Got an empty list of files to import. Please try again or contact support if the problem persists.
@@ -286,6 +300,8 @@ Studio.App.DeclarationView.BackEnd,,<b>Back-end: </b>This item can only be used 
 Studio.App.DeclarationView.Deprecated,,<b>Deprecated: </b>This item is deprecated. Do not use it for new work.,<b>Deprecated: </b>This item is deprecated. Do not use it for new work.
 Studio.App.DeclarationView.MemberOf1,,"Member of <label style=""font-weight: bold"">%1</label>","Member of <label style=""font-weight: bold"">%1</label>"
 Studio.App.DeclarationView.Summary,,Summary:,Summary:
+Studio.App.DirtyPublishWarningDialog.CommitAllButton,,Commit All,Commit All
+Studio.App.DirtyPublishWarningDialog.CommittedStatus,,Committed,Committed
 Studio.App.DirtyPublishWarningDialog.FailedToGetOpenDrafts1,,Failed to load draft list: %1,Failed to load draft list: %1
 Studio.App.DirtyPublishWarningDialog.LearnMoreLink,,Learn More,Learn More
 Studio.App.DirtyPublishWarningDialog.PublishButton,,Publish,Publish
@@ -406,13 +422,14 @@ Studio.App.FBXRigBuilder.UploadingAvatarMeshFailedTryLater,,"Uploading avatar me
 Studio.App.FBXRigBuilder.UploadingAvatarTextureFailed,,Uploading avatar texture failed.,Uploading avatar texture failed.
 Studio.App.FileType.AllFiles,,All Files,All Files
 Studio.App.FileType.AnimationFiles,,Animation Files,Animation Files
+Studio.App.FileType.AudioFiles,,Audio Files,Audio Files
 Studio.App.FileType.Images,,Images,Images
 Studio.App.FileType.JSONFiles,,JSON Files,JSON Files
 Studio.App.FileType.LocalizationTableCSV,,LocalizationTable CSV,LocalizationTable CSV
 Studio.App.FileType.MeshFiles,,Mesh Files,Mesh Files
 Studio.App.FileType.Meshes,,Meshes,Meshes
 Studio.App.FileType.ObjModelFiles,,Object Model Files,Object Model Files
-Studio.App.FileType.RobloxAllFiles,,All Roblox Files,All Roblox Files
+Studio.App.FileType.RobloxAllFiles,,All Supported Files,All Supported Files
 Studio.App.FileType.RobloxAllModelFiles,,All Roblox Model Files,All Roblox Model Files
 Studio.App.FileType.RobloxAllPlaceFiles,,All Roblox Place Files,All Roblox Place Files
 Studio.App.FileType.RobloxInternalProjectFiles,,Roblox Internal Project Files,Roblox Internal Project Files
@@ -446,6 +463,7 @@ Studio.App.FindAllDialog.ReplaceAllContinue,,Do you want to continue with Replac
 Studio.App.FindAllDialog.UndoSelectOption,,Replace All will open all files with changes for editing.,Replace All will open all files with changes for editing.
 Studio.App.FindDialog.FindCount2,,%1 of %2,%1 of %2
 Studio.App.FindDialog.LineNumber1,,Line number (1-%1):,Line number (1-%1):
+Studio.App.FindReplaceController.FindReplaceWindow,,Find/Replace Window,Find/Replace Window
 Studio.App.FlagEditor.OfferRestart,,You must restart Studio for fast flag changes to take effect.,You must restart Studio for fast flag changes to take effect.
 Studio.App.FlagEditor.OfferRestartTitle,,Overrides Saved,Overrides Saved
 Studio.App.GameExplorer.AddAssets,,Add Assets,Add Assets
@@ -690,6 +708,7 @@ Studio.App.LocalizationPlugin.ErrorReading1Csv2,,Error reading %1.csv: %2,Error 
 Studio.App.LocalizationPlugin.ErrorWritingToFile1,,Error writing to file %1,Error writing to file %1
 Studio.App.LocalizationPlugin.NoFileSelected,,No file selected,No file selected
 Studio.App.LockedScriptsVersionHistory.ApplyEditsRejectedTitle,,Script Apply Edits Failure,Script Apply Edits Failure
+Studio.App.LockedScriptsVersionHistory.AutoGeneratedCommitFmt1,,Applied edits to %1 script(s),Applied edits to %1 script(s)
 Studio.App.LockedScriptsVersionHistory.CommitRejected,,"Some of the scripts cannot be saved.
 Please check their status.","Some of the scripts cannot be saved.
 Please check their status."
@@ -986,7 +1005,9 @@ Studio.App.Properites.AttributeNameCantStartWithRBX,,Attribute name can't start 
 Studio.App.Properties.AddAttribute,Title/text for Add Attribute button/dialog,Add Attribute,Add Attribute
 Studio.App.Properties.AttributeAlreadyExists,,Attribute already exists.,Attribute already exists.
 Studio.App.Properties.AttributeCantStartWithRBX,,Can't start with 'RBX'.,Can't start with 'RBX'.
+Studio.App.Properties.AttributeLengthAndSuggestion2,,Current name length is: %1. Try to use a name within %2 characters.,Current name length is: %1. Try to use a name within %2 characters.
 Studio.App.Properties.AttributeName,,Name,Name
+Studio.App.Properties.AttributeNameExceeds1,,Attribute name exceeds %1 characters.,Attribute name exceeds %1 characters.
 Studio.App.Properties.AttributeTryDifferentName,,Try to use a different name.,Try to use a different name.
 Studio.App.Properties.AttributeType,,Type,Type
 Studio.App.Properties.NoAttributeAdded,,No Attribute has been added yet,No Attribute has been added yet
@@ -1059,7 +1080,6 @@ Studio.App.Property.EnableInternalBetaFeatures,,Enable Internal Beta Features,En
 Studio.App.Property.EnableInternalFeatures,,Enable Internal Features,Enable Internal Features
 Studio.App.Property.ErrorColor,,Error Color,Error Color
 Studio.App.Property.ErrorReporting,,Error Reporting,Error Reporting
-Studio.App.Property.ExportColor,,"""export"" Color","""export"" Color"
 Studio.App.Property.ExportMergeByMaterial,,Export Merge By Material,Export Merge By Material
 Studio.App.Property.FindSelectionBackgroundColor,,Find Selection Background Color,Find Selection Background Color
 Studio.App.Property.Font,,Font,Font
@@ -1080,6 +1100,7 @@ Studio.App.Property.IncomingReplicationLag,,Incoming Replication Lag,Incoming Re
 Studio.App.Property.IndentUsingSpaces,,Indent Using Spaces,Indent Using Spaces
 Studio.App.Property.InstanceCount,,Instance Count,Instance Count
 Studio.App.Property.IsFmodProfilingEnabled,,Is Fmod Profiling Enabled,Is Fmod Profiling Enabled
+Studio.App.Property.IsInterpolationThrottleShown,,Is Interpolation Throttle Shown,Is Interpolation Throttle Shown
 Studio.App.Property.IsQueueErrorComputed,,Is Queue Error Computed,Is Queue Error Computed
 Studio.App.Property.IsReceiveAgeShown,,Is Receive Age Shown,Is Receive Age Shown
 Studio.App.Property.IsScriptStackTracingEnabled,,Is Script Stack Tracing Enabled,Is Script Stack Tracing Enabled
@@ -1091,6 +1112,7 @@ Studio.App.Property.LineThickness,,Line Thickness,Line Thickness
 Studio.App.Property.LocalAssetsFolder,,Local Assets Folder,Local Assets Folder
 Studio.App.Property.LocalColor,,"""local"" Color","""local"" Color"
 Studio.App.Property.LuaDebuggerEnabled,,Debugger Enabled,Debugger Enabled
+Studio.App.Property.LuauKeywordColor,,Luau Keyword Color,Luau Keyword Color
 Studio.App.Property.MatchingWordBackgroundColor,,Matching Word Background Color,Matching Word Background Color
 Studio.App.Property.MaximumOutputLines,,Maximum Output Lines,Maximum Output Lines
 Studio.App.Property.MaximumTableDepth,,Maximum Table Depth,Maximum Table Depth
@@ -1139,6 +1161,7 @@ Studio.App.Property.ReportSoundWarnings,,Report Sound Warnings,Report Sound Warn
 Studio.App.Property.RespectStudioShortcutsWhenGameHasFocus,,Respect Studio shortcuts when game has focus,Respect Studio shortcuts when game has focus
 Studio.App.Property.RobloxProductName,,Roblox Product Name,Roblox Product Name
 Studio.App.Property.RobloxVersion,,Roblox Version,Roblox Version
+Studio.App.Property.RulerColor,,Script Ruler Color,Script Ruler Color
 Studio.App.Property.Rulers,,"Rulers (1, 2, ...)","Rulers (1, 2, ...)"
 Studio.App.Property.RuntimeUndoBehavior,,Runtime Undo Behavior,Runtime Undo Behavior
 Studio.App.Property.SIMD,,SIMD,SIMD
@@ -1183,7 +1206,6 @@ Studio.App.Property.TickCountPreciseOverride,,Tick Count Precise Override,Tick C
 Studio.App.Property.TouchSendRate,,Touch Send Rate,Touch Send Rate
 Studio.App.Property.TrackDataTypes,,Track Data Types,Track Data Types
 Studio.App.Property.TrackPhysicsDetails,,Track Physics Details,Track Physics Details
-Studio.App.Property.TypeColor,,"""type"" Color","""type"" Color"
 Studio.App.Property.UsePhysicsPacketCache,,Use Physics Packet Cache,Use Physics Packet Cache
 Studio.App.Property.VideoMemory,,Video Memory,Video Memory
 Studio.App.Property.WarningColor,,Warning Color,Warning Color
@@ -1397,6 +1419,7 @@ Studio.App.RBXMainWindow.ConvertToPackageElps,,Convert to Package...,Convert to 
 Studio.App.RBXMainWindow.CopyTheSelectionAndPutItOn,,Copy the selection and put it on the Clipboard,Copy the selection and put it on the Clipboard
 Studio.App.RBXMainWindow.CreateANewDocument,,Create a new document,Create a new document
 Studio.App.RBXMainWindow.CreateLocalPluginFromScriptElps,,Create a local plugin from this script...,Create a local plugin from this script...
+Studio.App.RBXMainWindow.CreateNewLinkedSourceElps,,Create new LinkedSource...,Create new LinkedSource...
 Studio.App.RBXMainWindow.CreatePluginFromScript,,Create a local plugin from this script,Create a local plugin from this script
 Studio.App.RBXMainWindow.CustomizeElps,,Customize...,Customize...
 Studio.App.RBXMainWindow.CustomizeQuickAccess,,Customize Quick Access,Customize Quick Access
@@ -1506,6 +1529,8 @@ Studio.App.RBXMainWindow.JumpsToVariable,,Jumps to the declaration of the variab
 Studio.App.RBXMainWindow.LaunchSoloMode,,Launch Studio in Solo Player Mode,Launch Studio in Solo Player Mode
 Studio.App.RBXMainWindow.LaunchStudioInPlayerMode,,Launch Studio in Player Mode,Launch Studio in Player Mode
 Studio.App.RBXMainWindow.LaunchStudioInServerMode,,Launch Studio in Server Mode,Launch Studio in Server Mode
+Studio.App.RBXMainWindow.LinkedSourceCreateSuccessfully,,Successfully created new LinkedSource,Successfully created new LinkedSource
+Studio.App.RBXMainWindow.LinkedSourceCreateUnsuccessfully,,Error occurred while creating new LinkedSource,Error occurred while creating new LinkedSource
 Studio.App.RBXMainWindow.LoadFromCSVElps,,Load from CSV...,Load from CSV...
 Studio.App.RBXMainWindow.LoadLocalizationTableEntriesFromCSV,,Load LocalizationTable entries from a CSV file,Load LocalizationTable entries from a CSV file
 Studio.App.RBXMainWindow.LoadLocalizationTableFromCSV,,Load LocalizationTable from CSV file...,Load LocalizationTable from CSV file...
@@ -1673,6 +1698,7 @@ Studio.App.RBXMainWindow.StepInto,,Step Into,Step Into
 Studio.App.RBXMainWindow.StepOut,,Step Out,Step Out
 Studio.App.RBXMainWindow.StepOver,,Step Over,Step Over
 Studio.App.RBXMainWindow.StopsAndReloadsTheDocument,,Stops and reloads the document,Stops and reloads the document
+Studio.App.RBXMainWindow.StoreScriptCloud,,Store this script in the cloud so that you can easily re-use it,Store this script in the cloud so that you can easily re-use it
 Studio.App.RBXMainWindow.StudioSettingsElps,,Studio Settings...,Studio Settings...
 Studio.App.RBXMainWindow.SummaryStats,,Summary Stats,Summary Stats
 Studio.App.RBXMainWindow.SwapAttachments,,Swap Attachments,Swap Attachments
@@ -1737,6 +1763,8 @@ Studio.App.RBXMainWindow.ViewScriptPerformanceElps,,View Script Performance...,V
 Studio.App.RBXMainWindow.ViewSelector,,View Selector,View Selector
 Studio.App.RBXMainWindow.ViewSelectorTooltip,,Show view selector,Show view selector
 Studio.App.RBXMainWindow.ViewTaskSchedulerElps,,View Task Scheduler...,View Task Scheduler...
+Studio.App.RBXMainWindow.ViewTeamChat,,Team Chat,Team Chat
+Studio.App.RBXMainWindow.ViewTeamChatTooltip,,View Team Chat Window,View Team Chat Window
 Studio.App.RBXMainWindow.ViewTeamCreateWindow,,View Team Create Window,View Team Create Window
 Studio.App.RBXMainWindow.ViewTutorials,,View tutorials,View tutorials
 Studio.App.RBXMainWindow.WeldSurface,,Weld Surface,Weld Surface
@@ -1914,10 +1942,18 @@ Studio.App.RobloxFindWidget.ReplaceWindow,,Replace Results - %1 Matching lines r
 Studio.App.RobloxGameExplorer.LoadingElps,,Loading...,Loading...
 Studio.App.RobloxGameExplorer.PublishToLoad,,Publish this place to load game data,Publish this place to load game data
 Studio.App.RobloxGameExplorer.PublishToLoadClick,,Publish this place to load game data (double click here),Publish this place to load game data (double click here)
+Studio.App.RobloxInputConfigDialog.Backspace,"The name of the Backspace key, as it would appear on the user's keyboard.",Backspace,Backspace
+Studio.App.RobloxInputConfigDialog.CapsLock,"The name of the Caps Lock key, as it would appear on the user's keyboard.",Caps Lock,Caps Lock
+Studio.App.RobloxInputConfigDialog.Command,"The name of the MacOS Command key, as it would appear on the user's keyboard.",Command Cmd,Command Cmd
+Studio.App.RobloxInputConfigDialog.Control,"The name of the Control key, as it would appear on the user's keyboard.",Control Ctrl,Control Ctrl
+Studio.App.RobloxInputConfigDialog.Delete,"The name of the Delete key, as it would appear on the user's keyboard.",Delete,Delete
 Studio.App.RobloxInputConfigDialog.DoYouWantToKeepYourChanges,,Do you want to keep your changes?,Do you want to keep your changes?
 Studio.App.RobloxInputConfigDialog.Keyboard,,Keyboard,Keyboard
 Studio.App.RobloxInputConfigDialog.KeyboardAndMouse,,Keyboard and Mouse,Keyboard and Mouse
 Studio.App.RobloxInputConfigDialog.Mouse,,Mouse,Mouse
+Studio.App.RobloxInputConfigDialog.Option,"The name of the Option key, as it would appear on the user's keyboard.",Option,Option
+Studio.App.RobloxInputConfigDialog.Shift,"The name of the Shift key, as it would appear on the user's keyboard.",Shift,Shift
+Studio.App.RobloxInputConfigDialog.Tab,"The name of the Tab key, as it would appear on the user's keyboard.",Tab,Tab
 Studio.App.RobloxInputConfigDialog.YouHaveMadeChangesToYourSettings,,You have made changes to your settings.,You have made changes to your settings.
 Studio.App.RobloxKeyboardConfig.ClearShortcut,,Clear Shortcut,Clear Shortcut
 Studio.App.RobloxKeyboardConfigWidget.Description,,Description,Description
@@ -2366,6 +2402,12 @@ Studio.App.ScriptAnalysisWidget.DisplayOnlyCurrentScript,,Display only current s
 Studio.App.ScriptAnalysisWidget.NumErrorsTextFmt2,,%1 of %2 Errors,%1 of %2 Errors
 Studio.App.ScriptAnalysisWidget.NumWarningsTextFmt2,,%1 of %2 Warnings,%1 of %2 Warnings
 Studio.App.ScriptComboBox.RunACommand,,Run a command,Run a command
+Studio.App.ScriptInjection.DeniedError,,"Plugin ""%1"" was denied script injection permission. You can grant this permission in the Plugin Manager.","Plugin ""%1"" was denied script injection permission. You can grant this permission in the Plugin Manager."
+Studio.App.ScriptInjection.FirstDeniedError,,"Plugin ""%1"" was denied script injection permission. The user has been prompted for future attempts.","Plugin ""%1"" was denied script injection permission. The user has been prompted for future attempts."
+Studio.App.ScriptPickerDialog.AlreadyTaken,,Name already taken (not case sensitive),Name already taken (not case sensitive)
+Studio.App.ScriptPickerDialog.CanNotBeEmpty,,Name cannot be empty,Name cannot be empty
+Studio.App.ScriptPickerDialog.CreateNewLinkedsource,,Create new LinkedSource,Create new LinkedSource
+Studio.App.ScriptPickerDialog.LinkedsourceDescriptionLabel,,"LinkedSources can be referenced by scripts in your game, allowing you to update all of them at the same time.","LinkedSources can be referenced by scripts in your game, allowing you to update all of them at the same time."
 Studio.App.ScriptRecoveryWidget.ErrorRecovering,,Errors occurred while automatically recovering scripts.,Errors occurred while automatically recovering scripts.
 Studio.App.ScriptRecoveryWidget.ErrorRemovedFromWorksapce,,Unable to perform diff because this script has been removed from Workspace.,Unable to perform diff because this script has been removed from Workspace.
 Studio.App.ScriptRecoveryWidget.ErrorWriting,,Issue with writing script autosave,Issue with writing script autosave
@@ -2381,6 +2423,7 @@ Studio.App.ScriptRecoveryWidget.ViewDiff,,View Diff,View Diff
 Studio.App.ScriptResourceController.ConfirmPublishChanges,,Are you sure you want to publish your changes?,Are you sure you want to publish your changes?
 Studio.App.ScriptResourceController.ConfirmWillDestroyChanges,,This will destroy all local changes you have made. Are you sure?,This will destroy all local changes you have made. Are you sure?
 Studio.App.ScriptTextEditor.FilterText,,  Type to filter functions. Tab or Enter to go to selected function,  Type to filter functions. Tab or Enter to go to selected function
+Studio.App.ScriptingCmd.CONFIG,,Config script editor...,Config script editor...
 Studio.App.ScriptingCmd.DELETETOSTARTOFLINE,,Delete to start of line,Delete to start of line
 Studio.App.ScriptingCmd.DELETETOSTARTOFLINETooltip,,Delete to the start of the current line,Delete to the start of the current line
 Studio.App.ScriptingCmd.DUPLICATESELECTION,,Duplicate selection,Duplicate selection
@@ -2389,7 +2432,7 @@ Studio.App.ScriptingCmd.FOLDALL,,Collapse All Folds,Collapse All Folds
 Studio.App.ScriptingCmd.FOLDALLTooltip,,Collapse all collapsable sections of scripts,Collapse all collapsable sections of scripts
 Studio.App.ScriptingCmd.FOLDTOGGLE,,Toggle code fold,Toggle code fold
 Studio.App.ScriptingCmd.FOLDTOGGLETooltip,,Toggle a folded code block,Toggle a folded code block
-Studio.App.ScriptingCmd.FORMATALL,,Format Document...,Format Document...
+Studio.App.ScriptingCmd.FORMATALL,,Format Document,Format Document
 Studio.App.ScriptingCmd.FORMATALLTooltip,,Format whole document,Format whole document
 Studio.App.ScriptingCmd.FORMATSEL,,Format Selection,Format Selection
 Studio.App.ScriptingCmd.FORMATSELTooltip,,Format selected range of document,Format selected range of document
@@ -2397,6 +2440,7 @@ Studio.App.ScriptingCmd.GOTOPOS,,Go to line...,Go to line...
 Studio.App.ScriptingCmd.GOTOPOSTooltip,,Go to line...,Go to line...
 Studio.App.ScriptingCmd.INDENT,,Indent,Indent
 Studio.App.ScriptingCmd.INDENTTooltip,,Indent selected line(s),Indent selected line(s)
+Studio.App.ScriptingCmd.INSERT,,Insert text...,Insert text...
 Studio.App.ScriptingCmd.MOVELINESDOWN,,Move Lines Down,Move Lines Down
 Studio.App.ScriptingCmd.MOVELINESDOWNTooltip,,Move selected line(s) downwards,Move selected line(s) downwards
 Studio.App.ScriptingCmd.MOVELINESUP,,Move Lines Up,Move Lines Up
@@ -2405,11 +2449,11 @@ Studio.App.ScriptingCmd.NEWLINEABOVE,,Insert Newline Above,Insert Newline Above
 Studio.App.ScriptingCmd.NEWLINEABOVETooltip,,Insert a newline above the current line,Insert a newline above the current line
 Studio.App.ScriptingCmd.NEWLINEBELOW,,Insert Newline Below,Insert Newline Below
 Studio.App.ScriptingCmd.NEWLINEBELOWTooltip,,Insert a newline below the current line,Insert a newline below the current line
+Studio.App.ScriptingCmd.REPEAT,,Repeat command...,Repeat command...
 Studio.App.ScriptingCmd.SELECT,,Select text...,Select text...
-Studio.App.ScriptingCmd.SELECTTooltip,,Select text...,Select text...
 Studio.App.ScriptingCmd.TOGGLECOMMENT,,Toggle Comment,Toggle Comment
 Studio.App.ScriptingCmd.TOGGLECOMMENTTooltip,,Toggle selection commenting,Toggle selection commenting
-Studio.App.ScriptingCmd.UNFOLDALL,,Expands all folds,Expands all folds
+Studio.App.ScriptingCmd.UNFOLDALL,,Expand All Folds,Expand All Folds
 Studio.App.ScriptingCmd.UNFOLDALLTooltip,,Expand all collapsed folds in the script,Expand all collapsed folds in the script
 Studio.App.ScriptingCmd.UNINDENT,,Unindent,Unindent
 Studio.App.ScriptingCmd.UNINDENTTooltip,,Unindent selected line(s),Unindent selected line(s)
@@ -2673,6 +2717,7 @@ Studio.App.VersionHistoryDialog.FailedToEditScriptErrorMessage,,Failed to edit s
 Studio.App.VersionHistoryDialog.FailedToLoad,,Failed to load,Failed to load
 Studio.App.VersionHistoryDialog.FailedToLoadDataErrorMessage,,Failed to load data. Please close this dialog and try again.,Failed to load data. Please close this dialog and try again.
 Studio.App.VersionHistoryDialog.FailedToOpenScriptErrorMessage,,Failed to open selected script version. Please try again.,Failed to open selected script version. Please try again.
+Studio.App.VersionHistoryDialog.NoPublishNoVersionHistory,,Publish Place to begin tracking script history.,Publish Place to begin tracking script history.
 Studio.App.VersionHistoryDialog.NoScriptChanges,,No script changes,No script changes
 Studio.App.VersionHistoryDialog.NoScriptHistoryWarning,,This script does not have version history yet,This script does not have version history yet
 Studio.App.VersionHistoryDialog.OpenDialog,,View Script History,View Script History

@@ -561,6 +561,7 @@ RBX
 		ModelInstance
 		MultipleDocumentInterfaceInstance
 		PartInstance
+		Player
 		PropertyDescriptor
 		PVInstance
 		RefPropertyDescriptor
@@ -604,6 +605,7 @@ RBX
 		CmdUnindentSelection
 		ColorPreviewWidget
 		DebuggerClientView
+		DEPRECATED_ScriptHighlighter
 		GotoLineDialog
 		HighlightFormatProvider
 		HighlightProvider
@@ -612,7 +614,6 @@ RBX
 		QtLanguageClient
 		ScriptEditorCmdBase
 		ScriptHighlightCache
-		ScriptHighlighter
 		ScriptingCmdBase
 		ScriptingCmdInput
 		ScriptingCommands
@@ -650,7 +651,6 @@ RBX
 		ConstraintBallOnAxis
 		ConstraintBodyAngularVelocity
 		ConstraintBodyAngularVelocityVirtual
-		ConstraintCollision
 		ConstraintCone
 		ConstraintFixedDistance
 		ConstraintInsideOfSphere
@@ -730,6 +730,11 @@ RBX
 		ScraperJob
 		ServerScraperJob
 		ServiceScraperJob
+	}
+	Tracing
+	{
+		AnalyticsReporter
+		Reporter
 	}
 	Voxel2
 	{
@@ -1044,6 +1049,7 @@ RBX
 	IHostNotifier
 	IIDREF
 	IJointOwner
+	ILegacyStudioBridge
 	ImageHandleAdornment
 	ImageLabel
 	IMarketplaceApiClient
@@ -1100,6 +1106,7 @@ RBX
 	LeftMotorTool
 	LegacyAdorn
 	LegacyCharacterAppearance
+	LegacyStudioBridge
 	Light
 	Lighting
 	LineHandleAdornment
@@ -1181,6 +1188,7 @@ RBX
 	OnDemandInstance
 	OrderedDataStore
 	OscillateMotorTool
+	OutfitPages
 	PackageLink
 	PackageLinkDummy
 	PackageService
@@ -1238,6 +1246,8 @@ RBX
 	Primitive
 	PrimitiveMidPhaseBinding
 	PrimitiveMovementCallback
+	ProximityPrompt
+	ProximityPromptService
 	PVAdornment
 	PVInstance
 	QWidgetPluginGui
@@ -1390,6 +1400,7 @@ RBX
 	TopMenuBar
 	TouchInputService
 	TouchTransmitter
+	TracerService
 	Trail
 	TranslatorInstance
 	TranslucentVerb
