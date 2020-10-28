@@ -51,6 +51,8 @@ IconButton.validateProps = t.strictInterface({
 	iconColor3 = t.optional(t.Color3),
 	iconTransparency = t.optional(t.union(t.number, bindingValidator(t.number))),
 
+	[Roact.Children] = t.optional(t.table),
+
 	-- Override the default controlState
 	[IconButton.debugProps.controlState] = t.optional(enumerateValidator(ControlState)),
 })
@@ -144,7 +146,9 @@ function IconButton:render()
 				Image = self.props.icon,
 				ImageColor3 = self.props.iconColor3 or iconStyle.Color,
 				ImageTransparency = self.props.iconTransparency or iconStyle.Transparency,
-			}),
+			},
+				self.props[Roact.Children]
+			),
 			background = currentState == ControlState.Hover and Roact.createElement(HoverButtonBackground),
 		})
 	end)

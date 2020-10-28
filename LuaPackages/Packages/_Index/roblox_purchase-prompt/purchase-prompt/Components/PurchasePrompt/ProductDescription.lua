@@ -109,7 +109,7 @@ local function mapStateToProps(state)
 				LocalizationService.getKeyFromItemType(state.productInfo.itemType))
 		}
 	elseif promptState == PromptState.AdultConfirmation then
-		descriptionKey = PURCHASE_MESSAGE_KEY:format("AdultConfirmation")
+		descriptionKey = "CoreScripts.PurchasePrompt.PurchaseDetails.AgeLegalText"
 	elseif promptState == PromptState.Error then
 		descriptionKey = LocalizationService.getErrorKey(state.purchaseError)
 		if state.purchaseError == PurchaseError.UnknownFailure then

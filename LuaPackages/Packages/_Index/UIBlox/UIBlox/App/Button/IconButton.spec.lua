@@ -265,4 +265,29 @@ return function()
 		end)
 	end)
 
+	describe("children", function()
+		it("SHOULD render children passed to it", function()
+			local BUTTON_NAME = "test:" .. tostring(math.random(0, 999))
+			local COLOR = Color3.new(1, 0.5, 0)
+
+			local folder = Instance.new("Folder")
+			local element = mockStyleComponent({
+				[BUTTON_NAME] = Roact.createElement(IconButton, {}, {
+					childFrameElement = Roact.createElement("Frame", {
+						Size = UDim2.new(0, 16, 0, 16),
+						BackgroundColor3 = COLOR,
+					}),
+				}),
+			})
+
+			local instance = Roact.mount(element, folder)
+
+			local childElement = folder:FindFirstChild("childFrameElement", true)
+			expect(childElement).to.be.ok()
+			expect(childElement.BackgroundColor3).to.equal(COLOR)
+
+			Roact.unmount(instance)
+			folder:Destroy()
+		end)
+	end)
 end

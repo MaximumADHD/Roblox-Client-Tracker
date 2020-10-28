@@ -3,7 +3,7 @@
 ]]
 local PackageIndex = script.Parent.Parent
 
-local package = PackageIndex["roblox_lumberyak"]["lumberyak"]
+local package = PackageIndex["roblox_lumberyak-c9fb3068-76fee23f"]["lumberyak"]
 
 if package.ClassName == "ModuleScript" then
 	return require(package)
