@@ -6,6 +6,9 @@ local DraggerFramework = Packages.DraggerFramework
 local JointMaker = require(DraggerFramework.Utility.JointMaker)
 local getBoundingBoxScale = require(DraggerFramework.Utility.getBoundingBoxScale)
 local TemporaryTransparency = require(DraggerFramework.Utility.TemporaryTransparency)
+local PivotImplementation = require(DraggerFramework.Utility.PivotImplementation)
+
+local EngineFeatureEditPivot = require(DraggerFramework.Flags.getEngineFeatureEditPivot)()
 
 local ExtrudeHandlesImplementation = {}
 ExtrudeHandlesImplementation.__index = ExtrudeHandlesImplementation
@@ -359,7 +362,15 @@ function ExtrudeHandlesImplementation:_recordItemsToFixup(parts)
 	self._fixupAttachments = {}
 	self._fixupOffsets = {}
 	self._fixupScales = {}
+	if EngineFeatureEditPivot then
+		self._fixupPivot = {}
+	end
 	for _, part in ipairs(parts) do
+		if EngineFeatureEditPivot then
+			if PivotImplementation.hasPivot(part) then
+				self._fixupPivot[part] = part.CFrame:Inverse() * PivotImplementation.getPivot(part)
+			end
+		end
 		for _, descendant in ipairs(part:GetDescendants()) do
 			if descendant:IsA("Attachment") then
 				self._fixupAttachments[descendant] = descendant.Position
@@ -383,6 +394,13 @@ function ExtrudeHandlesImplementation:_applyFixup(scaledBy)
 	end
 	for scaleItem, scale in pairs(self._fixupScales) do
 		scaleItem.Scale = scale * scaledBy
+	end
+	if EngineFeatureEditPivot then
+		for part, localPivot in pairs(self._fixupPivot) do
+			local offset = localPivot.Position
+			local rotation = localPivot - offset
+			PivotImplementation.setPivot(part, part.CFrame * (rotation + scaledBy * offset))
+		end
 	end
 end
 

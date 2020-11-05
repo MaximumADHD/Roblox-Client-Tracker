@@ -20,8 +20,6 @@ local UpdateActiveInstanceHighlight = require(Plugin.Src.Thunks.UpdateActiveInst
 local MainView = require(Plugin.Src.Components.MainView)
 
 local getEngineFeatureActiveInstanceHighlight = require(Plugin.Src.Flags.getEngineFeatureActiveInstanceHighlight)
-local getFFlagAlignToolAnalytics = require(Plugin.Src.Flags.getFFlagAlignToolAnalytics)
-local getFFlagFixAlignToolAnalyticsEventCount = require(Plugin.Src.Flags.getFFlagFixAlignToolAnalyticsEventCount)
 
 local TOOLBAR_BUTTON_ICON = "rbxasset://textures/AlignTool/AlignTool.png"
 local INITIAL_WINDOW_SIZE = Vector2.new(300, 220)
@@ -30,49 +28,22 @@ local MINIMUM_WINDOW_SIZE = Vector2.new(150, 200)
 local AlignmentToolPlugin = Roact.PureComponent:extend("AlignmentToolPlugin")
 
 function AlignmentToolPlugin:init()
-	if getFFlagAlignToolAnalytics() then
-		self._hasOpenedThisSession = false
-	end
+	self._hasOpenedThisSession = false
 
 	self.toggleState = function()
-		if getFFlagAlignToolAnalytics() then
 			local enabled = not self.props.toolEnabled
-			if getFFlagFixAlignToolAnalyticsEventCount() then
-				local initiatedByUser = true
-				self.setToolEnabled(enabled, initiatedByUser)
-			else
-				self.setToolEnabled(enabled)
-			end
-		else
-			local props = self.props
-			props.setToolEnabled(not props.toolEnabled)
-		end
+			local initiatedByUser = true
+			self.setToolEnabled(enabled, initiatedByUser)
 	end
 
 	self.onClose = function()
-		if getFFlagAlignToolAnalytics() then
-			if getFFlagFixAlignToolAnalyticsEventCount() then
-				local initiatedByUser = true
-				self.setToolEnabled(false, initiatedByUser)
-			else
-				self.setToolEnabled(false)
-			end
-		else
-			self.props.setToolEnabled(false)
-		end
+		local initiatedByUser = true
+		self.setToolEnabled(false, initiatedByUser)
 	end
 
 	self.onRestore = function(enabled)
-		if getFFlagAlignToolAnalytics() then
-			if getFFlagFixAlignToolAnalyticsEventCount() then
-				local initiatedByUser = false
-				self.setToolEnabled(enabled, initiatedByUser)
-			else
-				self.setToolEnabled(enabled)
-			end
-		else
-			self.props.setToolEnabled(enabled)
-		end
+		local initiatedByUser = false
+		self.setToolEnabled(enabled, initiatedByUser)
 	end
 
 	self.renderButtons = function(toolbar)
@@ -93,36 +64,22 @@ function AlignmentToolPlugin:init()
 		}
 	end
 
-	if getFFlagAlignToolAnalytics() then
-		self.setToolEnabled = function(enabled, initiatedByUser)
-			local props = self.props
+	self.setToolEnabled = function(enabled, initiatedByUser)
+		local props = self.props
 
-			props.setToolEnabled(enabled)
+		props.setToolEnabled(enabled)
 
-			if getFFlagFixAlignToolAnalyticsEventCount() then
-				if enabled then
-					if initiatedByUser then
-						props.Analytics:report("alignToolOpen")
-					end
-					if not self._hasOpenedThisSession then
-						props.Analytics:report("alignToolImpression")
-						self._hasOpenedThisSession = true
-					end
-				else
-					if initiatedByUser then
-						props.Analytics:report("alignToolClose")
-					end
-				end
-			else
-				if enabled then
-					props.Analytics:report("alignToolOpen")
-					if not self._hasOpenedThisSession then
-						props.Analytics:report("alignToolImpression")
-						self._hasOpenedThisSession = true
-					end
-				else
-					props.Analytics:report("alignToolClose")
-				end
+		if enabled then
+			if initiatedByUser then
+				props.Analytics:report("alignToolOpen")
+			end
+			if not self._hasOpenedThisSession then
+				props.Analytics:report("alignToolImpression")
+				self._hasOpenedThisSession = true
+			end
+		else
+			if initiatedByUser then
+				props.Analytics:report("alignToolClose")
 			end
 		end
 	end

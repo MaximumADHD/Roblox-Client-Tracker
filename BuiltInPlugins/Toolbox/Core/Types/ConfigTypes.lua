@@ -7,7 +7,6 @@ local Images = require(Util.Images)
 
 local FFlagEnableNonWhitelistedToggle = game:GetFastFlag("EnableNonWhitelistedToggle")
 local FFlagShowAssetConfigReasons2 = game:GetFastFlag("ShowAssetConfigReasons2")
-local FFlagFixAssetConfigPermissionsRace = game:DefineFastFlag("FixAssetConfigPermissionsRace", false)
 
 local ConfigTypes = {}
 
@@ -64,11 +63,7 @@ function ConfigTypes:getAssetconfigContent(screenFlowType, assetTypeEnum, isMark
 	}
 
 	if isPackage then
-		if FFlagFixAssetConfigPermissionsRace then
-			if owner then
-				result[#result + 1] = PERMISSIONS
-			end
-		else
+		if owner then
 			result[#result + 1] = PERMISSIONS
 		end
 	end

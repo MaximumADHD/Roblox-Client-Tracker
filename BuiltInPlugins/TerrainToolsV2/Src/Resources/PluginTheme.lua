@@ -44,6 +44,8 @@ local ColorSheet = {
 
 	singleSelectButtonSelected = Color3.fromRGB(219, 219, 219),
 	singleSelectButtonSelected_dark = Color3.fromRGB(85, 85, 85),
+	singleSelectButtonHovered = Color3.fromRGB(228, 238, 253), -- TODO: Get final light theme hover from design
+	singleSelectButtonHovered_dark = Color3.fromRGB(63, 63, 63),
 
 	propertyLockPaperclipColor = Color3.fromRGB(151, 151, 151),
 	propertyLockIconBackgroundHover = Color3.fromRGB(228, 238, 254),
@@ -197,9 +199,11 @@ function Theme.createValues(getColor, c, m)
 		roundedElementSlice = roundedElementSlice,
 
 		buttonSelectedColor = ColorSheet.singleSelectButtonSelected,
+		buttonHoveredColor = ColorSheet.singleSelectButtonHovered,
 	}, {
 		Dark = {
 			buttonSelectedColor = ColorSheet.singleSelectButtonSelected_dark,
+			buttonHoveredColor = ColorSheet.singleSelectButtonHovered_dark,
 		}
 	})
 

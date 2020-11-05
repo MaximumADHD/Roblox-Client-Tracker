@@ -20,6 +20,7 @@ local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 local Components = script.Parent.Parent
 local AvatarEditorPrompts = Components.Parent
 
+local SignalCreateOutfitPermissionDenied = require(AvatarEditorPrompts.Thunks.SignalCreateOutfitPermissionDenied)
 local PerformCreateOutfit = require(AvatarEditorPrompts.Thunks.PerformCreateOutfit)
 
 local ExternalEventConnection = require(CorePackages.RoactUtilities.ExternalEventConnection)
@@ -145,6 +146,12 @@ function EnterOutfitNamePrompt:render()
 			buttonStackInfo = {
 				buttons = {
 					{
+						props = {
+							onActivated = self.props.signalCreateOutfitPermissionDenied,
+							text = RobloxTranslator:FormatByKey("CoreScripts.AvatarEditorPrompts.EnterOutfitNamePromptNo"),
+						},
+					},
+					{
 						buttonType = ButtonType.PrimarySystem,
 						props = {
 							isDisabled = self.state.outfitName == "",
@@ -190,6 +197,10 @@ end
 
 local function mapDispatchToProps(dispatch)
 	return {
+		signalCreateOutfitPermissionDenied = function()
+			return dispatch(SignalCreateOutfitPermissionDenied)
+		end,
+
 		performCreateOutfit = function(outfitName)
 			return dispatch(PerformCreateOutfit(outfitName))
 		end,

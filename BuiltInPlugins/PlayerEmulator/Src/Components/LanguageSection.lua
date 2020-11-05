@@ -27,6 +27,8 @@
 		function loadLanguages
 			send HTTP request for all languages information
 ]]
+local FFlagPlayerEmulatorSerializeIntoDM = game:GetFastFlag("PlayerEmulatorSerializeIntoDM")
+
 local StudioService = game:GetService("StudioService")
 local LocalizationService = game:GetService("LocalizationService")
 local PlayerEmulatorService = game:GetService("PlayerEmulatorService") 
@@ -42,19 +44,31 @@ local DropdownModule = require(Plugin.Src.Components.DropdownModule)
 local GetLanguages = require(Plugin.Src.Networking.Requests.GetLanguages)
 
 local function GetLocaleId()
-	return LocalizationService.RobloxForcePlayModeRobloxLocaleId
+	if FFlagPlayerEmulatorSerializeIntoDM then
+		return PlayerEmulatorService.EmulatedGameLocale
+	else
+		return LocalizationService.RobloxForcePlayModeRobloxLocaleId
+	end
 end
 
 local function SetLocaleId(localeId)
-	LocalizationService.RobloxForcePlayModeRobloxLocaleId = localeId
+	if FFlagPlayerEmulatorSerializeIntoDM then
+		PlayerEmulatorService.EmulatedGameLocale = localeId
+	else
+		LocalizationService.RobloxForcePlayModeRobloxLocaleId = localeId
+	end
 end
 
 local function GetMainSwitchEnabled()
-	return PlayerEmulatorService.PlayerEmulationEnabled
+	return PlayerEmulatorService.PlayerEmulationEnabled_deprecated
 end
 
 -- set default Play Solo language using studio locale instead of en-us
-SetLocaleId(StudioService.StudioLocaleId)
+if FFlagPlayerEmulatorSerializeIntoDM then
+	LocalizationService.RobloxForcePlayModeRobloxLocaleId = StudioService.StudioLocaleId
+else
+	SetLocaleId(StudioService.StudioLocaleId)
+end
 
 local LanguageSection = Roact.PureComponent:extend("LanguageSection")
 
@@ -83,17 +97,26 @@ function LanguageSection:getTestLangInstructionText()
 end
 
 function LanguageSection:initLocaleId()
-	local plugin = self.props.Plugin:get()
-	local cachedLocaleId = plugin:GetSetting(Constants.LOCALEID_SETTING_KEY)
-
-	if cachedLocaleId then
-		-- set forcePlayModeLocale only if emulation switch enabled; otherwise, only update state
-		if GetMainSwitchEnabled() then
-			SetLocaleId(cachedLocaleId)
-		else
+	if FFlagPlayerEmulatorSerializeIntoDM then
+		if GetLocaleId() == nil or GetLocaleId() == "" then
+			SetLocaleId(LocalizationService.RobloxForcePlayModeRobloxLocaleId)
 			self:setState({
-				localeId = cachedLocaleId,
+				localeId = GetLocaleId(),
 			})
+		end
+	else
+		local plugin = self.props.Plugin:get()
+		local cachedLocaleId = plugin:GetSetting(Constants.LOCALEID_SETTING_KEY)
+
+		if cachedLocaleId then
+			-- set forcePlayModeLocale only if emulation switch enabled; otherwise, only update state
+			if GetMainSwitchEnabled() then
+				SetLocaleId(cachedLocaleId)
+			else
+				self:setState({
+					localeId = cachedLocaleId,
+				})
+			end
 		end
 	end
 end
@@ -108,13 +131,20 @@ function LanguageSection:onPlayerEmulationEnabledChanged()
 end
 
 function LanguageSection:onRobloxForcePlayModeRobloxLocaleIdChanged()
-	local plugin = self.props.Plugin:get()
-	if GetMainSwitchEnabled() then
+	if FFlagPlayerEmulatorSerializeIntoDM then
 		local localeId = GetLocaleId()
 		self:setState({
 			localeId = localeId,
 		})
-		plugin:SetSetting(Constants.LOCALEID_SETTING_KEY, localeId)
+	else
+		if GetMainSwitchEnabled() then
+			local localeId = GetLocaleId()
+			self:setState({
+				localeId = localeId,
+			})
+			local plugin = self.props.Plugin:get()
+			plugin:SetSetting(Constants.LOCALEID_SETTING_KEY, localeId)
+		end
 	end
 end
 
@@ -139,19 +169,34 @@ end
 function LanguageSection:didMount()
 	local networkingImpl = self.props.Networking:get()
 	self.props.loadLanguages(networkingImpl)
-	self:initLocaleId()
 
-	local mainSwitchEnabledSignal = PlayerEmulatorService:GetPropertyChangedSignal(
-		"PlayerEmulationEnabled"):Connect(function()
-			self:onPlayerEmulationEnabledChanged()
-		end)
+	if not FFlagPlayerEmulatorSerializeIntoDM then
+		self:initLocaleId()
+	end
 
-	local localeIdChangedSignal = LocalizationService:GetPropertyChangedSignal(
-		"RobloxForcePlayModeRobloxLocaleId"):Connect(function()
-			self:onRobloxForcePlayModeRobloxLocaleIdChanged()
-		end)
-	table.insert(self.signalTokens, mainSwitchEnabledSignal)
+	local localeIdChangedSignal
+	if FFlagPlayerEmulatorSerializeIntoDM then
+		localeIdChangedSignal = PlayerEmulatorService:GetPropertyChangedSignal(
+			"EmulatedGameLocale"):Connect(function()
+				self:onRobloxForcePlayModeRobloxLocaleIdChanged()
+			end)
+	else
+		local mainSwitchEnabledSignal = PlayerEmulatorService:GetPropertyChangedSignal(
+			"PlayerEmulationEnabled_deprecated"):Connect(function()
+				self:onPlayerEmulationEnabledChanged()
+			end)
+		table.insert(self.signalTokens, mainSwitchEnabledSignal)
+		localeIdChangedSignal = LocalizationService:GetPropertyChangedSignal(
+			"RobloxForcePlayModeRobloxLocaleId"):Connect(function()
+				self:onRobloxForcePlayModeRobloxLocaleIdChanged()
+			end)
+
+	end
 	table.insert(self.signalTokens, localeIdChangedSignal)
+
+	if FFlagPlayerEmulatorSerializeIntoDM then
+		self:initLocaleId()
+	end
 end
 
 function LanguageSection:willUnmount()

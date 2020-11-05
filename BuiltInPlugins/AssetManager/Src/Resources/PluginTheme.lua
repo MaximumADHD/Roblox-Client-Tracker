@@ -26,6 +26,8 @@ local FONT_SIZE_SMALL = 14
 local FONT_SIZE_MEDIUM = 16
 local FONT_SIZE_LARGE = 18
 
+local FFlagStudioAssetManagerAddGridListToggle = game:GetFastFlag("StudioAssetManagerAddGridListToggle")
+
 local function createStyles(theme, getColor)
 	local c = Enum.StudioStyleGuideColor
 	local m = Enum.StudioStyleGuideModifier
@@ -148,13 +150,13 @@ local function createStyles(theme, getColor)
 
 		local GridViewButton = Style.extend(AssetManagerButton, {
 			ForegroundStyle = Style.extend(AssetManagerButton.ForegroundStyle, {
-				Image = "rbxasset://textures/StudioSharedUI/import.png",
+				Image = "rbxasset://textures/StudioSharedUI/grid.png",
 			})
 		})
 
 		local ListViewButton = Style.extend(AssetManagerButton, {
 			ForegroundStyle = Style.extend(AssetManagerButton.ForegroundStyle, {
-				Image = "rbxasset://textures/StudioSharedUI/import.png",
+				Image = "rbxasset://textures/StudioSharedUI/list.png",
 			})
 		})
 
@@ -307,7 +309,8 @@ local function createStyles(theme, getColor)
 				ImageSize = UDim2.new(0, 16, 0, 16),
 				ImagePosition = UDim2.new(0.5, 0, 0.5, 0),
 				ImageAnchorPosition = Vector2.new(0.5, 0.5),
-				BackgroundColor = theme:GetColor(c.ScrollBarBackground),
+				BackgroundColor = FFlagStudioAssetManagerAddGridListToggle and theme:GetColor(c.MainBackground) or
+					theme:GetColor(c.ScrollBarBackground),
 				RBXThumbSize = 150,
 				Folder = "rbxasset://textures/StudioSharedUI/folder.png",
 			},
@@ -342,11 +345,19 @@ local function createStyles(theme, getColor)
 			[StyleModifier.Hover] = {
 				BackgroundTransparency = 0,
 				BackgroundColor = theme:getColor(c.CheckedFieldBackground, m.Hover),
+
+				Image = FFlagStudioAssetManagerAddGridListToggle and {
+					BackgroundColor = theme:getColor(c.CheckedFieldBackground, m.Hover),
+				},
 			},
 
 			[StyleModifier.Selected] = {
 				BackgroundTransparency = 0,
 				BackgroundColor = theme:getColor(c.Item, m.Selected),
+
+				Image = FFlagStudioAssetManagerAddGridListToggle and {
+					BackgroundColor = theme:getColor(c.Item, m.Selected),
+				},
 			}
 		})
 

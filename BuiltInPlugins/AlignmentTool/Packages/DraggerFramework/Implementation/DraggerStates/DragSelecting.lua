@@ -7,30 +7,19 @@ local DraggerStateType = require(DraggerFramework.Implementation.DraggerStateTyp
 local DragSelector = require(DraggerFramework.Utility.DragSelector)
 local StandardCursor = require(DraggerFramework.Utility.StandardCursor)
 
-local getFFlagDraggerSplit = require(DraggerFramework.Flags.getFFlagDraggerSplit)
-
 local DragSelecting = {}
 DragSelecting.__index = DragSelecting
 
 function DragSelecting.new(draggerToolModel)
-	if getFFlagDraggerSplit() then
-		local self = setmetatable({
-			_dragSelector = DragSelector.new(
-				draggerToolModel:getSelectionWrapper(),
-				draggerToolModel:getSchema().beginBoxSelect,
-				draggerToolModel:getSchema().endBoxSelect),
-			_draggerToolModel = draggerToolModel,
-		}, DragSelecting)
-		self:_init()
-		return self
-	else
-		local self = setmetatable({
-			_dragSelector = DragSelector.new(),
-			_draggerToolModel = draggerToolModel,
-		}, DragSelecting)
-		self:_init()
-		return self
-	end
+	local self = setmetatable({
+		_dragSelector = DragSelector.new(
+			draggerToolModel:getSelectionWrapper(),
+			draggerToolModel:getSchema().beginBoxSelect,
+			draggerToolModel:getSchema().endBoxSelect),
+		_draggerToolModel = draggerToolModel,
+	}, DragSelecting)
+	self:_init()
+	return self
 end
 
 function DragSelecting:enter()

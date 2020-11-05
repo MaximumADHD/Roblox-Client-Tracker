@@ -10,6 +10,8 @@
 		function onPlayerEmulationEnabledChanged
 			on toggle plugin enabled
 ]]
+local FFlagPlayerEmulatorSerializeIntoDM = game:GetFastFlag("PlayerEmulatorSerializeIntoDM")
+
 local PlayerEmulatorService = game:GetService("PlayerEmulatorService")
 
 local Plugin = script.Parent.Parent.Parent
@@ -33,17 +35,23 @@ end
 local MainSwitchSection = Roact.PureComponent:extend("MainSwitchSection")
 
 function MainSwitchSection:initEnabledStatus()
-	local plugin = self.props.Plugin:get()
-	local cachedSetting = plugin:GetSetting(Constants.MAIN_SWITCH_KEY)
-	if cachedSetting == true then
-		SetMainSwitchEnabled(true)
+	if FFlagPlayerEmulatorSerializeIntoDM then
+		self:updatePlayerEmulationEnabled(GetMainSwitchEnabled())
+	else
+		local plugin = self.props.Plugin:get()
+		local cachedSetting = plugin:GetSetting(Constants.MAIN_SWITCH_KEY)
+		if cachedSetting == true then
+			SetMainSwitchEnabled(true)
+		end
 	end
 end
 
 function MainSwitchSection:updatePlayerEmulationEnabled(enabled)
-	local plugin = self.props.Plugin:get()
+	if not FFlagPlayerEmulatorSerializeIntoDM then
+		local plugin = self.props.Plugin:get()
+		plugin:SetSetting(Constants.MAIN_SWITCH_KEY, enabled)
+	end
 	local onPlayerEmulationEnabledChanged = self.props.onPlayerEmulationEnabledChanged
-	plugin:SetSetting(Constants.MAIN_SWITCH_KEY, enabled)
 	onPlayerEmulationEnabledChanged(enabled)
 end
 
@@ -52,11 +60,18 @@ function MainSwitchSection:init()
 end
 
 function MainSwitchSection:didMount()
-	local enabledChangedSignal = PlayerEmulatorService:GetPropertyChangedSignal(
-		"PlayerEmulationEnabled"):Connect(function()
-			self:updatePlayerEmulationEnabled(GetMainSwitchEnabled())
-		end)
-
+	local enabledChangedSignal
+	if FFlagPlayerEmulatorSerializeIntoDM then
+		enabledChangedSignal = PlayerEmulatorService:GetPropertyChangedSignal(
+			"PlayerEmulationEnabled"):Connect(function()
+				self:updatePlayerEmulationEnabled(GetMainSwitchEnabled())
+			end)
+	else
+		enabledChangedSignal = PlayerEmulatorService:GetPropertyChangedSignal(
+			"PlayerEmulationEnabled_deprecated"):Connect(function()
+				self:updatePlayerEmulationEnabled(GetMainSwitchEnabled())
+			end)
+	end
 	table.insert(self.signalTokens, enabledChangedSignal)
 
 	self:initEnabledStatus()

@@ -10,7 +10,7 @@ return function()
 	end
 
 	local function lookAtPartFace(part, face)
-		local origin = part.Position + Vector3.FromNormalId(face) * 100
+		local origin = part.Position + Vector3.fromNormalId(face) * 100
 		local direction = part.Position - origin
 		return Ray.new(origin, direction)
 	end

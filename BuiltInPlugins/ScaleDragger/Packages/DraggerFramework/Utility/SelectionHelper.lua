@@ -11,6 +11,7 @@ local shouldDragAsFace = require(DraggerFramework.Utility.shouldDragAsFace)
 local getEngineFeatureActiveInstanceHighlight = require(DraggerFramework.Flags.getEngineFeatureActiveInstanceHighlight)
 local getFFlagDragFaceInstances = require(DraggerFramework.Flags.getFFlagDragFaceInstances)
 
+local getEngineFeatureEditPivot = require(DraggerFramework.Flags.getEngineFeatureEditPivot)
 local getFFlagDraggerSupportBones = require(DraggerFramework.Flags.getFFlagDraggerSupportBones)
 local getEngineFeatureSelectionServiceAddRemove = require(DraggerFramework.Flags.getEngineFeatureSelectionServiceAddRemove)
 
@@ -352,7 +353,7 @@ function SelectionHelper.updateSelection(selectable, oldSelection, isExclusive, 
 		end
 	end
 
-	if doExtendSelection then
+	if doExtendSelection and not (getEngineFeatureEditPivot() and isExclusive) then
 		-- Add or remove from the selection when ctrl or shift is held.
 		if getEngineFeatureSelectionServiceAddRemove() then
 			local newSelection = {}

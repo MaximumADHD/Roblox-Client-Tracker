@@ -7,7 +7,10 @@ local Plugin = DraggerFramework.Parent.Parent
 local Math = require(DraggerFramework.Utility.Math)
 local Roact = require(Plugin.Packages.Roact)
 
-local getFFlagDraggerSplit = require(DraggerFramework.Flags.getFFlagDraggerSplit)
+local getEngineFeatureAdornCullingMode = require(DraggerFramework.Flags.getEngineFeatureAdornCullingMode)
+local getEngineFeatureEditPivot = require(DraggerFramework.Flags.getEngineFeatureEditPivot)
+
+local CULLING_MODE = getEngineFeatureAdornCullingMode() and Enum.AdornCullingMode.Never or nil
 
 local MoveHandleView = Roact.PureComponent:extend("MoveHandleView")
 
@@ -24,7 +27,6 @@ local HANDLE_THIN_BY_FRAC = 0.34
 local HANDLE_THICK_BY_FRAC = 1.5
 
 function MoveHandleView:init()
-	assert(getFFlagDraggerSplit())
 end
 
 function MoveHandleView:render()
@@ -46,6 +48,9 @@ function MoveHandleView:render()
 	local length = scale * BASE_HANDLE_LENGTH
 	local radius = scale * BASE_HANDLE_RADIUS
 	local offset = scale * BASE_HANDLE_OFFSET
+	if getEngineFeatureEditPivot() then
+		offset = offset + length * (self.props.Outset or 0)
+	end
 	local tipOffset = scale * BASE_TIP_OFFSET
 	local tipLength = length * BASE_TIP_LENGTH
 	if self.props.Thin then
@@ -70,6 +75,7 @@ function MoveHandleView:render()
 			CFrame = self.props.Axis * CFrame.new(0, 0, -(offset + length * 0.5)),
 			Color3 = self.props.Color,
 			AlwaysOnTop = false,
+			AdornCullingMode = CULLING_MODE,
 		})
 		if not self.props.Thin then
 			children.Head = Roact.createElement("ConeHandleAdornment", {
@@ -80,6 +86,7 @@ function MoveHandleView:render()
 				CFrame = coneAtCFrame,
 				Color3 = self.props.Color,
 				AlwaysOnTop = false,
+				AdornCullingMode = CULLING_MODE,
 			})
 		end
 	end
@@ -94,6 +101,7 @@ function MoveHandleView:render()
 			Color3 = self.props.Color,
 			AlwaysOnTop = true,
 			Transparency = self.props.Hovered and 0.0 or HANDLE_DIM_TRANSPARENCY,
+			AdornCullingMode = CULLING_MODE,
 		})
 		if not self.props.Thin then
 			children.DimmedHead = Roact.createElement("ConeHandleAdornment", {
@@ -105,6 +113,7 @@ function MoveHandleView:render()
 				Color3 = self.props.Color,
 				AlwaysOnTop = true,
 				Transparency = self.props.Hovered and 0.0 or HANDLE_DIM_TRANSPARENCY,
+				AdornCullingMode = CULLING_MODE,
 			})
 		end
 	elseif not self.props.Thin then
@@ -119,6 +128,7 @@ function MoveHandleView:render()
 					BackgroundColor3 = self.props.Color,
 					Position = UDim2.new(0, tipAtScreen.X - halfHandleSize, 0, tipAtScreen.Y - halfHandleSize),
 					Size = UDim2.new(0, SCREENSPACE_HANDLE_SIZE, 0, SCREENSPACE_HANDLE_SIZE),
+					AdornCullingMode = CULLING_MODE,
 				})
 			})
 		})
@@ -133,6 +143,9 @@ function MoveHandleView.hitTest(props, mouseRay)
 	local radius = scale * BASE_HANDLE_HITTEST_RADIUS
 	local tipRadius = radius * TIP_RADIUS_MULTIPLIER
 	local offset = scale * BASE_HANDLE_OFFSET
+	if getEngineFeatureEditPivot() then
+		offset = offset + length * (props.Outset or 0)
+	end
 	local tipOffset = scale * BASE_TIP_OFFSET
 	local tipLength = length * BASE_TIP_LENGTH
 	local shaftEnd = offset + length
@@ -185,9 +198,12 @@ end
 		float Offset - From base CFrame
 		float Size - Extending from CFrame + Offset
 ]]
-function MoveHandleView.getHandleDimensionForScale(scale)
+function MoveHandleView.getHandleDimensionForScale(scale, outset)
 	local length = scale * BASE_HANDLE_LENGTH
 	local offset = scale * BASE_HANDLE_OFFSET
+	if getEngineFeatureEditPivot() then
+		offset = offset + length * (outset or 0)
+	end
 	local tipLength = length * BASE_TIP_LENGTH
 	return offset, length + tipLength
 end

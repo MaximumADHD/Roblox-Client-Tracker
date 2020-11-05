@@ -35,8 +35,6 @@ local StudioService = game:GetService("StudioService")
 
 local strict = require(DevFrameworkRoot.Util.strict)
 
-local FFlagDevFrameworkStrictAPITables = game:DefineFastFlag("DevFrameworkStrictAPITables", false)
-
 -- helper functions
 -- dir : (Instance) a Folder to dig through
 -- ... : (Variant) any number of arguments to initialize the children with
@@ -66,11 +64,7 @@ local function initDirectoryWithArgs(dir, networkingImpl, baseUrl)
 		warn(string.format("Could not find any children for %s", dir:GetFullName()))
 	end
 
-	if FFlagDevFrameworkStrictAPITables then
-		return strict(childrenMap)
-	else
-		return childrenMap
-	end
+	return strict(childrenMap)
 end
 
 local RobloxAPI = {}

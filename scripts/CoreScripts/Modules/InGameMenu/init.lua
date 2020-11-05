@@ -45,7 +45,6 @@ local FFlagDisableAutoTranslateForKeyTranslatedContent = require(
 local isNewGamepadMenuEnabled = require(RobloxGui.Modules.Flags.isNewGamepadMenuEnabled)
 
 local GetFFlagUseRoactPolicyProvider = require(RobloxGui.Modules.Flags.GetFFlagUseRoactPolicyProvider)
-local GetFFlagInstrumentMenuOpenMethods = require(RobloxGui.Modules.Flags.GetFFlagInstrumentMenuOpenMethods)
 
 local OpenChangedEvent = Instance.new("BindableEvent")
 local RespawnBehaviourChangedEvent = Instance.new("BindableEvent")
@@ -173,40 +172,21 @@ return {
 	end,
 
 	openInGameMenu = function()
-		if GetFFlagInstrumentMenuOpenMethods() then
-			menuStore:dispatch(OpenMenu(Constants.AnalyticsMenuOpenTypes.TopbarButton))
-		else
-			menuStore:dispatch(OpenMenu)
-		end
+		menuStore:dispatch(OpenMenu(Constants.AnalyticsMenuOpenTypes.TopbarButton))
 	end,
 
 	openReportDialog = function(player)
-		if GetFFlagInstrumentMenuOpenMethods() then
-			menuStore:dispatch(OpenMenu(Constants.AnalyticsMenuOpenTypes.ReportAbuseTriggered))
-		else
-			menuStore:dispatch(OpenMenu)
-		end
-
+		menuStore:dispatch(OpenMenu(Constants.AnalyticsMenuOpenTypes.ReportAbuseTriggered))
 		menuStore:dispatch(OpenReportDialog(player.UserId, player.Name))
 	end,
 
 	openGameSettingsPage = function()
-		if GetFFlagInstrumentMenuOpenMethods() then
-			menuStore:dispatch(OpenMenu(Constants.AnalyticsMenuOpenTypes.SettingsTriggered))
-		else
-			menuStore:dispatch(OpenMenu)
-		end
-
+		menuStore:dispatch(OpenMenu(Constants.AnalyticsMenuOpenTypes.SettingsTriggered))
 		menuStore:dispatch(SetCurrentPage("GameSettings"))
 	end,
 
 	openPlayersPage = function()
-		if GetFFlagInstrumentMenuOpenMethods() then
-			menuStore:dispatch(OpenMenu(Constants.AnalyticsMenuOpenTypes.PlayersTriggered))
-		else
-			menuStore:dispatch(OpenMenu)
-		end
-
+		menuStore:dispatch(OpenMenu(Constants.AnalyticsMenuOpenTypes.PlayersTriggered))
 		menuStore:dispatch(SetCurrentPage("Players"))
 	end,
 

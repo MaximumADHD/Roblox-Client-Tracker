@@ -29,7 +29,7 @@ local ListItem = require(Plugin.Src.Components.ListItem)
 local SetRecentViewToggled = require(Plugin.Src.Actions.SetRecentViewToggled)
 local SetSelectedAssets = require(Plugin.Src.Actions.SetSelectedAssets)
 
-local FFlagAssetManagerAddAnalytics = game:GetFastFlag("AssetManagerAddAnalytics")
+local FFlagStudioAssetManagerAddGridListToggle = game:GetFastFlag("StudioAssetManagerAddGridListToggle")
 
 local RecentlyImportedView = Roact.PureComponent:extend("RecentlyImportedView")
 
@@ -53,7 +53,6 @@ end
 
 function RecentlyImportedView:render()
     local props = self.props
-    local analytics = props.Analytics
     local theme = props.Theme:get("Plugin")
     local recentViewTheme = theme.RecentView
     local localization = props.Localization
@@ -85,7 +84,8 @@ function RecentlyImportedView:render()
         RecentlyImportedViewLayout = Roact.createElement("UIListLayout", {
             Padding = UDim.new(0, 0),
             FillDirection = Enum.FillDirection.Vertical,
-            VerticalAlignment = Enum.VerticalAlignment.Center,
+            VerticalAlignment = FFlagStudioAssetManagerAddGridListToggle and nil or
+                Enum.VerticalAlignment.Center,
             SortOrder = Enum.SortOrder.LayoutOrder,
         }),
 
@@ -101,7 +101,8 @@ function RecentlyImportedView:render()
             RecentlyImportedViewBarLayout = Roact.createElement("UIListLayout", {
                 Padding = UDim.new(0, recentViewTheme.Bar.Padding),
                 FillDirection = Enum.FillDirection.Horizontal,
-                VerticalAlignment = Enum.VerticalAlignment.Center,
+                VerticalAlignment = FFlagStudioAssetManagerAddGridListToggle and nil or
+                Enum.VerticalAlignment.Center,
                 SortOrder = Enum.SortOrder.LayoutOrder,
             }),
 

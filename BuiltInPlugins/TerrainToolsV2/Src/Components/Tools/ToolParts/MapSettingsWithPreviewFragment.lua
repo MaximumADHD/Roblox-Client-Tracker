@@ -16,7 +16,6 @@ Props
 ]]
 
 local FFlagTerrainToolsUseDevFramework = game:GetFastFlag("TerrainToolsUseDevFramework")
-local FFlagTerrainToolsUseMapSettingsWithPreview = game:GetFastFlag("TerrainToolsUseMapSettingsWithPreview2")
 
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
@@ -86,7 +85,7 @@ function MapSettingsWithPreviewFragment:updatePreview()
 	assert(self.preview, "MapSettingsWithPreviewFragment preview is nil")
 	local position = Vector3.new(self.props.Position.X, self.props.Position.Y, self.props.Position.Z)
 	local size = Vector3.new(self.props.Size.X, self.props.Size.Y, self.props.Size.Z)
-	if FFlagTerrainToolsUseMapSettingsWithPreview and self.props.PreviewOffset then
+	if self.props.PreviewOffset then
 		position = position + size * self.props.PreviewOffset
 	end
 	self.preview:setSizeAndPosition(size, position)
@@ -111,7 +110,7 @@ function MapSettingsWithPreviewFragment:didMount()
 
 	self.onPreviewSizeChangeConnect = self.preview:getOnSizeChanged():Connect(function(size, position)
 		local adjustedPos = position
-		if FFlagTerrainToolsUseMapSettingsWithPreview and self.props.PreviewOffset then
+		if self.props.PreviewOffset then
 			adjustedPos = adjustedPos - size * self.props.PreviewOffset
 		end
 

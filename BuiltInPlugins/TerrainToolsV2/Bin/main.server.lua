@@ -18,7 +18,6 @@ end
 local FFlagTerrainToolsConvertPartTool = game:GetFastFlag("TerrainToolsConvertPartTool")
 local FFlagTerrainOpenCloseMetrics = game:GetFastFlag("TerrainOpenCloseMetrics")
 local FFlagStudioShowHideABTestV2 = game:GetFastFlag("StudioShowHideABTestV2")
-local FFlagTerrainToolsUseSiblingZIndex = game:GetFastFlag("TerrainToolsUseSiblingZIndex")
 
 -- Services
 local ABTestService = game:GetService("ABTestService")
@@ -271,8 +270,7 @@ local function main()
 	pluginGui.Name = localization:getText("Meta", "PluginName")
 	pluginGui.Title = localization:getText("Main", "Title")
 
-	pluginGui.ZIndexBehavior = FFlagTerrainToolsUseSiblingZIndex and Enum.ZIndexBehavior.Sibling
-		or Enum.ZIndexBehavior.Global
+	pluginGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 	pluginGui:GetPropertyChangedSignal("Enabled"):Connect(showIfEnabled)
 
 	-- configure the widget and button if its visible

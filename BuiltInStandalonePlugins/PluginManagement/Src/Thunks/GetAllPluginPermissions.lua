@@ -1,5 +1,3 @@
-local FFlagPluginManagementSkipInvalidAssetIds = game:GetFastFlag("PluginManagementSkipInvalidAssetIds")
-
 local Plugin = script.Parent.Parent.Parent
 
 local StudioService = game:GetService("StudioService")
@@ -14,12 +12,12 @@ return function(permissionsServiceImpl, apiImpl)
 		local plugins = extractPluginsFromJsonString(StudioService.InstalledPluginData)
 		local permissions = {}
 		for _, data in pairs(plugins) do
-			local assetId = tonumber(data.assetId)
+			local assetIdValue = tonumber(data.assetId)
 
-			if FFlagPluginManagementSkipInvalidAssetIds and assetId == nil then
-				warn("assetId is nil for installedPlugin", data.assetId)
+			if assetIdValue == nil then
+				warn("assetId is nil or non-numeric for installedPlugin", data.assetId)
 			else
-				permissions[assetId] = permissionsServiceImpl:GetPermissions(assetId)
+				permissions[assetIdValue] = permissionsServiceImpl:GetPermissions(assetIdValue)
 			end
 		end
 		store:dispatch(SetAllPluginPermissions(permissions))

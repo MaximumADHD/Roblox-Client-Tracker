@@ -30,6 +30,7 @@ local Image = require(Framework.UI).Decoration.Image
 local Util = require(Framework.Util)
 local StyleModifier = Util.StyleModifier
 
+local SetRecentViewToggled = require(Plugin.Src.Actions.SetRecentViewToggled)
 local SetScreen = require(Plugin.Src.Actions.SetScreen)
 
 local Screens = require(Plugin.Src.Util.Screens)
@@ -47,6 +48,8 @@ local previousScreen = nil
 local truncatedPathParts = {}
 
 local NavBarPadding = 12
+
+local FFlagStudioAssetManagerAddGridListToggle = game:GetFastFlag("StudioAssetManagerAddGridListToggle")
 
 function NavBar:getCurrentPath(currentScreen)
     local path = {}
@@ -75,6 +78,9 @@ function NavBar:buildPathComponents(props, theme, localization, dispatch)
     local pathComponents = {}
 
     local currentScreen = props.CurrentScreen
+    
+    local recentViewToggled = props.RecentViewToggled
+    local dispatchSetRecentViewToggled = props.dispatchSetRecentViewToggled
 
     local path = self:getCurrentPath(currentScreen)
 
@@ -108,6 +114,9 @@ function NavBar:buildPathComponents(props, theme, localization, dispatch)
             OnClick = function()
                 if not isStartingElement then
                     dispatch(true, screen)
+                    if FFlagStudioAssetManagerAddGridListToggle and recentViewToggled then
+                        dispatchSetRecentViewToggled(false)
+                    end
                 end
             end,
 
@@ -254,11 +263,15 @@ local function mapStateToProps(state, props)
     return {
         UniverseName = state.AssetManagerReducer.universeName,
         CurrentScreen = currentScreen,
+        RecentViewToggled = state.AssetManagerReducer.recentViewToggled,
     }
 end
 
 local function mapDispatchToProps(dispatch)
     return {
+        dispatchSetRecentViewToggled = function(toggled)
+            dispatch(SetRecentViewToggled(toggled))
+        end,
         dispatchSetScreen = function(enabled, screen)
             if enabled then
                 dispatch(SetScreen(screen))

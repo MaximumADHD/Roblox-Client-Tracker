@@ -1,5 +1,3 @@
-local FFlagTerrainToolsUseSiblingZIndex = game:GetFastFlag("TerrainToolsUseSiblingZIndex")
-
 local Plugin = script.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
@@ -15,10 +13,11 @@ local PluginButton = StudioUI.PluginButton
 local Manager = require(Plugin.Src.Components.Manager)
 local ToolSelectionListener = require(Plugin.Src.Components.ToolSelectionListener)
 
+local Constants = require(Plugin.Src.Util.Constants)
+
 local EDITOR_META_NAME = "Editor"
 local TOOLBAR_NAME = "TerrainToolsLuaToolbarName"
 
-local MIN_WIDGET_SIZE = Vector2.new(270, 256)
 local INITIAL_WIDGET_SIZE = Vector2.new(300, 600)
 
 local ABTEST_SHOWHIDEV2_NAME = "AllUsers.RobloxStudio.ShowHideV2"
@@ -161,10 +160,10 @@ function TerrainTools:render()
 			Title = localization:get():getText("Main", "Title"),
 			Enabled = enabled,
 
-			ZIndexBehavior = FFlagTerrainToolsUseSiblingZIndex and Enum.ZIndexBehavior.Sibling or Enum.ZIndexBehavior.Global,
+			ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
 			InitialDockState = Enum.InitialDockState.Left,
 			Size = INITIAL_WIDGET_SIZE,
-			MinSize = MIN_WIDGET_SIZE,
+			MinSize = Constants.MIN_WIDGET_SIZE,
 
 			OnClose = self.onClose,
 

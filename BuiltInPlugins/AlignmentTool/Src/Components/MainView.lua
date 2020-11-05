@@ -7,16 +7,9 @@
 
 local Plugin = script.Parent.Parent.Parent
 
-local getFFlagDraggerSplit = require(Plugin.Src.Flags.getFFlagDraggerSplit)
-
 local DraggerFramework = Plugin.Packages.DraggerFramework
 local DraggerSchemaCore = Plugin.Packages.DraggerSchemaCore
-local BoundsChangedTracker
-if getFFlagDraggerSplit() then
-	BoundsChangedTracker = require(DraggerSchemaCore.BoundsChangedTracker)
-else
-	BoundsChangedTracker = require(DraggerFramework.Utility.BoundsChangedTracker)
-end
+local BoundsChangedTracker = require(DraggerSchemaCore.BoundsChangedTracker)
 local Selection = require(DraggerSchemaCore.Selection)
 
 local Roact = require(Plugin.Packages.Roact)
@@ -55,18 +48,12 @@ local function shouldShowDebugView()
 end
 
 function MainView:init()
-	if getFFlagDraggerSplit() then
-		-- BoundsChangedTrackers take a context, but the Core schema does not use it
-		-- so we can safely leave it nil here.
-		local context = nil
-		self._boundsChangedTracker = BoundsChangedTracker.new(context, function()
-			self.props.updateAlignEnabled()
-		end)
-	else
-		self._boundsChangedTracker = BoundsChangedTracker.new(function()
-			self.props.updateAlignEnabled()
-		end)
-	end
+	-- BoundsChangedTrackers take a context, but the Core schema does not use it
+	-- so we can safely leave it nil here.
+	local context = nil
+	self._boundsChangedTracker = BoundsChangedTracker.new(context, function()
+		self.props.updateAlignEnabled()
+	end)
 
 	self:_updateSelectionInfo()
 end

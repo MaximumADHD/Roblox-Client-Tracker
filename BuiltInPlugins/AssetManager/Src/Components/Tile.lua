@@ -18,16 +18,18 @@ local SetEditingAssets = require(Plugin.Src.Actions.SetEditingAssets)
 
 local OnAssetDoubleClick = require(Plugin.Src.Thunks.OnAssetDoubleClick)
 local OnAssetRightClick = require(Plugin.Src.Thunks.OnAssetRightClick)
+local DEPRECATED_OnAssetRightClick = require(Plugin.Src.Thunks.DEPRECATED_OnAssetRightClick)
 local OnAssetSingleClick = require(Plugin.Src.Thunks.OnAssetSingleClick)
 local DEPRECATED_OnAssetSingleClick = require(Plugin.Src.Thunks.DEPRECATED_OnAssetSingleClick)
 
 local AssetManagerService = game:GetService("AssetManagerService")
 local ContentProvider = game:GetService("ContentProvider")
 
+local FFlagStudioAssetManagerAddGridListToggle = game:GetFastFlag("StudioAssetManagerAddGridListToggle")
 local FFlagBatchThumbnailAddNewThumbnailTypes = game:GetFastFlag("BatchThumbnailAddNewThumbnailTypes")
-local FFlagStudioAssetManagerShiftMultiSelect = game:DefineFastFlag("StudioAssetManagerShiftMultiSelect", false)
+local FFlagStudioAssetManagerShiftMultiSelect = game:GetFastFlag("StudioAssetManagerShiftMultiSelect")
 local FFlagAssetManagerOpenContextMenu = game:GetFastFlag("AssetManagerOpenContextMenu")
-local FFlagStudioAssetManagerAddMiddleElision = game:DefineFastFlag("StudioAssetManagerAddMiddleElision", false)
+local FFlagStudioAssetManagerAddMiddleElision = game:GetFastFlag("StudioAssetManagerAddMiddleElision")
 
 
 local Tile = Roact.PureComponent:extend("Tile")
@@ -137,7 +139,11 @@ function Tile:init()
                 end
             end
         end
-        props.dispatchOnAssetRightClick(props.Analytics, props.API:get(), assetData, props.Localization, props.Plugin:get())
+        if FFlagStudioAssetManagerAddGridListToggle then
+            props.dispatchOnAssetRightClick(props)
+        else
+            props.DEPRECATED_dispatchOnAssetRightClick(props.Analytics, props.API:get(), assetData, props.Localization, props.Plugin:get())
+        end
     end
 
     self.openAssetPreview = function()
@@ -432,8 +438,11 @@ local function mapDispatchToProps(dispatch)
         dispatchOnAssetDoubleClick = function(analytics, assetData)
             dispatch(OnAssetDoubleClick(analytics, assetData))
         end,
-        dispatchOnAssetRightClick = function(analytics, apiImpl, assetData, localization, plugin)
-            dispatch(OnAssetRightClick(analytics, apiImpl, assetData, localization, plugin))
+        DEPRECATED_dispatchOnAssetRightClick = function(analytics, apiImpl, assetData, localization, plugin)
+            dispatch(DEPRECATED_OnAssetRightClick(analytics, apiImpl, assetData, localization, plugin))
+        end,
+        dispatchOnAssetRightClick = function(props)
+            dispatch(OnAssetRightClick(props))
         end,
         dispatchOnAssetSingleClick = function(obj, assetData)
             dispatch(OnAssetSingleClick(obj, assetData))

@@ -3,7 +3,6 @@
 ]]
 
 local FFlagTerrainToolsUseDevFramework = game:GetFastFlag("TerrainToolsUseDevFramework")
-local FFlagTerrainToolsReplaceSrcTogglesOff = game:GetFastFlag("TerrainToolsReplaceSrcTogglesOff")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -273,8 +272,8 @@ function BaseBrush:render()
 	local material = self.props.material
 	local pivot = self.props.pivot
 	local planeLock = self.props.planeLock
-	local disablePlaneLock = FFlagTerrainToolsReplaceSrcTogglesOff and self.props.disablePlaneLock
-	local disableIgnoreWater = FFlagTerrainToolsReplaceSrcTogglesOff and self.props.disableIgnoreWater
+	local disablePlaneLock = self.props.disablePlaneLock
+	local disableIgnoreWater = self.props.disableIgnoreWater
 	local planePositionY = self.props.planePositionY
 	local snapToGrid = self.props.snapToGrid
 	local strength = self.props.strength

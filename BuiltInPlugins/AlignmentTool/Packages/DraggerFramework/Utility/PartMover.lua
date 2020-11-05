@@ -9,33 +9,21 @@ local DraggerFramework = script.Parent.Parent
 local getGeometry = require(DraggerFramework.Utility.getGeometry)
 local JointPairs = require(DraggerFramework.Utility.JointPairs)
 local JointUtil = require(DraggerFramework.Utility.JointUtil)
-local SelectionWrapper_DEPRECATED = require(DraggerFramework.Utility.SelectionWrapper_DEPRECATED)
 
-local getFFlagDraggerSplit = require(DraggerFramework.Flags.getFFlagDraggerSplit)
 local getFFlagEnablePhysicalFreeFormDragger = require(DraggerFramework.Flags.getFFlagEnablePhysicalFreeFormDragger)
+local getFFlagFixPartMoverGhostCollisions = require(DraggerFramework.Flags.getFFlagFixPartMoverGhostCollisions)
+local getFFlagMoveAnchoredWhileRunning = require(DraggerFramework.Flags.getFFlagMoveAnchoredWhileRunning)
 
 local DEFAULT_COLLISION_THRESHOLD = 0.001
 
 -- Get all the instances the user has directly selected (actually part of the
 -- selection)
-local getSelectedInstanceSet
-if getFFlagDraggerSplit() then
-	function getSelectedInstanceSet(selection)
-		local selectedInstanceSet = {}
-		for _, instance in pairs(selection) do
-			selectedInstanceSet[instance] = true
-		end
-		return selectedInstanceSet
+local function getSelectedInstanceSet(selection)
+	local selectedInstanceSet = {}
+	for _, instance in pairs(selection) do
+		selectedInstanceSet[instance] = true
 	end
-else
-	function getSelectedInstanceSet()
-		local selection = SelectionWrapper_DEPRECATED:Get()
-		local selectedInstanceSet = {}
-		for _, instance in pairs(selection) do
-			selectedInstanceSet[instance] = true
-		end
-		return selectedInstanceSet
-	end
+	return selectedInstanceSet
 end
 
 local PartMover = {}
@@ -66,9 +54,6 @@ function PartMover:getIgnorePart()
 end
 
 function PartMover:setDragged(parts, originalCFrameMap, breakJoints, customCenter, selection)
-	if getFFlagDraggerSplit() then
-		assert(selection ~= nil)
-	end
 	-- Separate out the Workspace parts which will be passed to
 	-- Workspace::ArePartsTouchingOthers for collision testing
 	local workspaceParts = table.create(16)
@@ -101,73 +86,145 @@ function PartMover:setDragged(parts, originalCFrameMap, breakJoints, customCente
 end
 
 function PartMover:_setupBulkMove(parts, selectedInstanceSet)
-	local alreadyMovingRootSet = {}
-	local originalCFrameMap = self._originalCFrameMap
+	if getFFlagMoveAnchoredWhileRunning() then
+		local movingRootSet = {}
+		local originalCFrameMap = self._originalCFrameMap
 
-	local isPhysicsRunning = RunService:IsRunning()
+		-- Directly selected instances need special handling, they must be moved
+		-- with CFrame changes. If they are not, the properties widget will not
+		-- show updates to their properties in real time, that is why there are
+		-- two loops below: A first pass to handle all the directly selected
+		-- instances, and a second pass to capture everything else.
 
-	-- Directly selected instances need special handling, they must be moved
-	-- with CFrame changes. If they are not, the properties widget will not
-	-- show updates to their properties in real time.
-	local moveWithCFrameChangeOriginalCFrameArray = {}
-	local moveWithCFrameChangePartArray = {}
-	local moveWithCFrameChangeNextIndex = 1
-	for _, part in ipairs(parts) do
-		if selectedInstanceSet[part] then
-			local root = part:GetRootPart()
-			if root then
-				alreadyMovingRootSet[root] = true
-			end
+		local moveWithCFrameChangeOriginalCFrameArray = {}
+		local moveWithCFrameChangePartArray = {}
+		local moveWithCFrameChangeNextIndex = 1
+		for _, part in ipairs(parts) do
+			if selectedInstanceSet[part] then
+				-- Only need to care about parts which are their own root here.
+				-- In order to move directly selected parts, at least one of the
+				-- directly selected parts will usually become a root as the
+				-- selection is dis-jointed from the surroundings at the start
+				-- of the drag. The only edge-case this does not cover is the
+				-- case where you select a model and part welded to the model,
+				-- and the assembly root is in the model. This case is not
+				-- possible to handle so don't worry about it.
+				if (part:GetRootPart() or part) == part then
+					-- We don't need to check whether we're already in the set,
+					-- because the root == part check already implies that
+					-- we're not as long as the parts list doesn't have
+					-- duplicates (a condition which is enforced elsewhere).
+					movingRootSet[part] = true
 
-			moveWithCFrameChangePartArray[moveWithCFrameChangeNextIndex] = part
-			moveWithCFrameChangeOriginalCFrameArray[moveWithCFrameChangeNextIndex] =
-				originalCFrameMap[part]
-			moveWithCFrameChangeNextIndex = moveWithCFrameChangeNextIndex + 1
-
-			-- We need the roots we're moving to be temporarily anchored in run
-			-- mode, otherwise they won't stay put as we drag them.
-			if isPhysicsRunning and not root.Anchored then
-				root.Anchored = true
-				self._toUnanchor[root] = true
+					moveWithCFrameChangePartArray[moveWithCFrameChangeNextIndex] = part
+					moveWithCFrameChangeOriginalCFrameArray[moveWithCFrameChangeNextIndex] =
+						originalCFrameMap[part]
+					moveWithCFrameChangeNextIndex = moveWithCFrameChangeNextIndex + 1
+				end
 			end
 		end
-	end
 
-	local partsToBulkMoveArray = {}
-	local originalCFramesArray = {}
-	local nextIndexToInsertAt = 1
-	for _, part in ipairs(parts) do
-		local root = part:GetRootPart()
-		if root then
-			-- Root? Move it if we aren't moving it already
-			if not alreadyMovingRootSet[root] then
-				alreadyMovingRootSet[root] = true
-				partsToBulkMoveArray[nextIndexToInsertAt] = root
-				originalCFramesArray[nextIndexToInsertAt] = originalCFrameMap[root]
+		local partsToBulkMoveArray = {}
+		local originalCFramesArray = {}
+		local nextIndexToInsertAt = 1
+		for _, part in ipairs(parts) do
+			local movementRoot = part:GetRootPart() or part
+			if not movingRootSet[movementRoot] then
+				movingRootSet[movementRoot] = true
+
+				partsToBulkMoveArray[nextIndexToInsertAt] = movementRoot
+				originalCFramesArray[nextIndexToInsertAt] = originalCFrameMap[movementRoot]
 				nextIndexToInsertAt = nextIndexToInsertAt + 1
 			end
-
-			-- We need the roots we're moving to be temporarily anchored in run
-			-- mode, otherwise they won't stay put as we drag them.
-			if isPhysicsRunning and not root.Anchored then
-				root.Anchored = true
-				self._toUnanchor[root] = true
-			end
-		else
-			-- No root? Include it, parts not in the world have to be moved
-			-- individually.
-			partsToBulkMoveArray[nextIndexToInsertAt] = part
-			originalCFramesArray[nextIndexToInsertAt] = originalCFrameMap[part]
-			nextIndexToInsertAt = nextIndexToInsertAt + 1
 		end
-	end
 
-	self._moveWithCFrameChangeParts = moveWithCFrameChangePartArray
-	self._moveWithCFrameChangeOriginalCFrames = moveWithCFrameChangeOriginalCFrameArray
-	self._moveWithCFrameChangeTargetCFrames = table.create(#moveWithCFrameChangePartArray)
-	self._bulkMoveParts = partsToBulkMoveArray
-	self._bulkMoveOriginalCFrames = originalCFramesArray
-	self._bulkMoveTargetCFrames = table.create(#partsToBulkMoveArray)
+		-- Anchor all of the unanchored roots if we're dragging while simulation
+		-- is happening, so that the parts don't move around as we're trying
+		-- to drag them.
+		if RunService:IsRunning() then
+			for root, _ in pairs(movingRootSet) do
+				if not root.Anchored then
+					root.Anchored = true
+					self._toUnanchor[root] = true
+				end
+			end
+		end
+
+		self._moveWithCFrameChangeParts = moveWithCFrameChangePartArray
+		self._moveWithCFrameChangeOriginalCFrames = moveWithCFrameChangeOriginalCFrameArray
+		self._moveWithCFrameChangeTargetCFrames = table.create(#moveWithCFrameChangePartArray)
+		self._bulkMoveParts = partsToBulkMoveArray
+		self._bulkMoveOriginalCFrames = originalCFramesArray
+		self._bulkMoveTargetCFrames = table.create(#partsToBulkMoveArray)
+	else
+		local alreadyMovingRootSet = {}
+		local originalCFrameMap = self._originalCFrameMap
+
+		local isPhysicsRunning = RunService:IsRunning()
+
+		-- Directly selected instances need special handling, they must be moved
+		-- with CFrame changes. If they are not, the properties widget will not
+		-- show updates to their properties in real time.
+		local moveWithCFrameChangeOriginalCFrameArray = {}
+		local moveWithCFrameChangePartArray = {}
+		local moveWithCFrameChangeNextIndex = 1
+		for _, part in ipairs(parts) do
+			if selectedInstanceSet[part] then
+				local root = part:GetRootPart()
+				if root then
+					alreadyMovingRootSet[root] = true
+				end
+
+				moveWithCFrameChangePartArray[moveWithCFrameChangeNextIndex] = part
+				moveWithCFrameChangeOriginalCFrameArray[moveWithCFrameChangeNextIndex] =
+					originalCFrameMap[part]
+				moveWithCFrameChangeNextIndex = moveWithCFrameChangeNextIndex + 1
+
+				-- We need the roots we're moving to be temporarily anchored in run
+				-- mode, otherwise they won't stay put as we drag them.
+				if isPhysicsRunning and not root.Anchored then
+					root.Anchored = true
+					self._toUnanchor[root] = true
+				end
+			end
+		end
+
+		local partsToBulkMoveArray = {}
+		local originalCFramesArray = {}
+		local nextIndexToInsertAt = 1
+		for _, part in ipairs(parts) do
+			local root = part:GetRootPart()
+			if root then
+				-- Root? Move it if we aren't moving it already
+				if not alreadyMovingRootSet[root] then
+					alreadyMovingRootSet[root] = true
+					partsToBulkMoveArray[nextIndexToInsertAt] = root
+					originalCFramesArray[nextIndexToInsertAt] = originalCFrameMap[root]
+					nextIndexToInsertAt = nextIndexToInsertAt + 1
+				end
+
+				-- We need the roots we're moving to be temporarily anchored in run
+				-- mode, otherwise they won't stay put as we drag them.
+				if isPhysicsRunning and not root.Anchored then
+					root.Anchored = true
+					self._toUnanchor[root] = true
+				end
+			else
+				-- No root? Include it, parts not in the world have to be moved
+				-- individually.
+				partsToBulkMoveArray[nextIndexToInsertAt] = part
+				originalCFramesArray[nextIndexToInsertAt] = originalCFrameMap[part]
+				nextIndexToInsertAt = nextIndexToInsertAt + 1
+			end
+		end
+
+		self._moveWithCFrameChangeParts = moveWithCFrameChangePartArray
+		self._moveWithCFrameChangeOriginalCFrames = moveWithCFrameChangeOriginalCFrameArray
+		self._moveWithCFrameChangeTargetCFrames = table.create(#moveWithCFrameChangePartArray)
+		self._bulkMoveParts = partsToBulkMoveArray
+		self._bulkMoveOriginalCFrames = originalCFramesArray
+		self._bulkMoveTargetCFrames = table.create(#partsToBulkMoveArray)
+	end
 end
 
 function PartMover:_initPartSet(parts)
@@ -201,6 +258,10 @@ function PartMover:_createMainPart()
 	part.Name = "PartDragMover"
 	part.Transparency = 1
 	part.Archivable = false
+
+	if getFFlagFixPartMoverGhostCollisions() then
+		part.CanCollide = false
+	end
 
 	-- 0 Density so that we don't effect the IK drag weighting
 	part.CustomPhysicalProperties =
@@ -393,12 +454,12 @@ end
 
 function PartMover:moveToWithIk(transform, collisionsMode)
 	local translateStiffness = DRAG_CONSTRAINT_STIFFNESS
-	local rotateStiffness = getFFlagDraggerSplit() and DRAG_CONSTRAINT_LESS_STIFFNESS or 0
+	local rotateStiffness = DRAG_CONSTRAINT_LESS_STIFFNESS
 	return self:transformToWithIk(transform, translateStiffness, rotateStiffness, collisionsMode)
 end
 
 function PartMover:rotateToWithIk(transform, collisionsMode)
-	local translateStiffness = getFFlagDraggerSplit() and DRAG_CONSTRAINT_LESS_STIFFNESS or 0
+	local translateStiffness = DRAG_CONSTRAINT_LESS_STIFFNESS
 	local rotateStiffness = DRAG_CONSTRAINT_STIFFNESS
 	return self:transformToWithIk(transform, translateStiffness, rotateStiffness, collisionsMode)
 end

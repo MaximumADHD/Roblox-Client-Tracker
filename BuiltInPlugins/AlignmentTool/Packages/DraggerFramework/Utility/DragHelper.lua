@@ -6,7 +6,6 @@ local getGeometry = require(DraggerFramework.Utility.getGeometry)
 local roundRotation = require(DraggerFramework.Utility.roundRotation)
 
 local getFFlagDragFaceInstances = require(DraggerFramework.Flags.getFFlagDragFaceInstances)
-local getFFlagRoundRotation = require(DraggerFramework.Flags.getFFlagRoundRotation)
 
 local PrimaryDirections = {
 	Vector3.new(1, 0, 0),
@@ -306,15 +305,10 @@ function DragHelper.updateTiltRotate(cameraCFrame, mouseRay, selection, mainCFra
 		end
 	end
 
-	if getFFlagRoundRotation() then
-		-- Could be written without the need for rounding by permuting the
-		-- components of closestAxis, but this is more understandable.
-		local rotation = roundRotation(CFrame.fromAxisAngle(closestAxis, math.pi / 2))
-		return rotation * tiltRotate, dragTargetType
-	else
-		local rotation = CFrame.fromAxisAngle(closestAxis, math.pi / 2)
-		return rotation * tiltRotate, dragTargetType
-	end
+	-- Could be written without the need for rounding by permuting the
+	-- components of closestAxis, but this is more understandable.
+	local rotation = roundRotation(CFrame.fromAxisAngle(closestAxis, math.pi / 2))
+	return rotation * tiltRotate, dragTargetType
 end
 
 local function snap(value, gridSize)
@@ -422,7 +416,12 @@ function DragHelper.getCameraPlaneDragTarget(mouseRay, cameraLookVector, clickPo
 	if t >= 0 then
 		local targetPosition = unitMouseRay.Origin + (t * unitMouseRay.Direction)
 		local positionDelta = targetPosition - clickPoint
-		return CFrame.new(positionDelta)
+		return {
+			mainCFrame = CFrame.new(positionDelta),
+			snapPoint = nil, -- not applicable to in-camera plane drag
+			targetMatrix = nil, -- not applicable to in-camera plane drag
+			dragTargetType = DragTargetType.Nothing,
+		}
 	end
 
 	return nil

@@ -1,5 +1,4 @@
 local FFlagTerrainToolsUseDevFramework = game:GetFastFlag("TerrainToolsUseDevFramework")
-local FFlagTerrainToolsFixRegionPreviewDeactivation = game:GetFastFlag("TerrainToolsFixRegionPreviewDeactivation")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -35,12 +34,11 @@ function LargeVoxelRegionPreview.new(mouse, target)
 	-- function is used to verify new position of adorns when dragging
 	local function getDraggerClamp(movingAdorn, stationaryAdorn)
 		return function(newPosition)
-			if FFlagTerrainToolsFixRegionPreviewDeactivation then
-				-- Check if we've already deactivated the the region preview
-				if not self._adorns or not self._adorns[movingAdorn] or not self._adorns[stationaryAdorn] then
-					return newPosition
-				end
+			-- Check if we've already deactivated the the region preview
+			if not self._adorns or not self._adorns[movingAdorn] or not self._adorns[stationaryAdorn] then
+				return newPosition
 			end
+
 			local movingPos = self._adorns[movingAdorn]:getPosition()
 			local stationaryPos = self._adorns[stationaryAdorn]:getPosition()
 

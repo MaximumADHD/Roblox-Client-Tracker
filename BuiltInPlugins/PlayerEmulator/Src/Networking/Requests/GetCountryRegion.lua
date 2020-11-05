@@ -1,3 +1,5 @@
+local FFlagPlayerEmulatorSerializeIntoDM = game:GetFastFlag("PlayerEmulatorSerializeIntoDM")
+
 local Plugin = script.Parent.Parent.Parent.Parent
 local UrlConstructor = require(Plugin.Src.Networking.UrlConstructor)
 local Http = require(Plugin.Packages.Http)
@@ -18,7 +20,11 @@ return function(networkingImpl, plugin)
 		networkingImpl.parseJson(retryPromise):andThen(function(result)
 			if result.responseCode == Http.StatusCodes.OK then
 				store:dispatch(LoadCountryRegion(result.responseBody.countryRegionList))
-				store:dispatch(InitCountryRegionSetting(networkingImpl, plugin))
+				if FFlagPlayerEmulatorSerializeIntoDM then
+					store:dispatch(InitCountryRegionSetting(networkingImpl))
+				else
+					store:dispatch(InitCountryRegionSetting(networkingImpl, plugin))
+				end
 			else
 				warn("Player Emulator can't get country region list: HTTP error "..tostring(result.responseCode))
 			end

@@ -43,7 +43,7 @@ local BulkImportService = game:GetService("BulkImportService")
 
 local FFlagAssetManagerAddAnalytics = game:GetFastFlag("AssetManagerAddAnalytics")
 local FFlagStudioAssetManagerAddRecentlyImportedView = game:GetFastFlag("StudioAssetManagerAddRecentlyImportedView")
-local FFlagStudioAssetManagerAddGridListToggle = game:DefineFastFlag("StudioAssetManagerAddGridListToggle", false)
+local FFlagStudioAssetManagerAddGridListToggle = game:GetFastFlag("StudioAssetManagerAddGridListToggle")
 
 local TopBar = Roact.PureComponent:extend("TopBar")
 

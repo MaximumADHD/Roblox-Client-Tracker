@@ -19,9 +19,6 @@ local Constants = require(InGameMenu.Resources.Constants)
 
 local GetFFlagUseNewLeaveGamePrompt = require(InGameMenu.Flags.GetFFlagUseNewLeaveGamePrompt)
 
-local RobloxGui = CoreGui:WaitForChild("RobloxGui")
-local GetFFlagInstrumentMenuOpenMethods = require(RobloxGui.Modules.Flags.GetFFlagInstrumentMenuOpenMethods)
-
 local TOGGLE_DEVELOPER_CONSOLE_ACTION_NAME = "ToggleDeveloperConsole"
 local TOGGLE_PERFORMANCE_STATS_ACTION_NAME = "TogglePerformanceStats"
 local TOGGLE_MENU_ACTION_NAME = "ToggleInGameMenu"
@@ -45,11 +42,7 @@ local function bindMenuActions(store)
 			if isMenuOpen then
 				store:dispatch(CloseMenu)
 			else
-				if GetFFlagInstrumentMenuOpenMethods() then
-					store:dispatch(OpenMenu(Constants.AnalyticsMenuOpenTypes.Keyboard))
-				else
-					store:dispatch(OpenMenu)
-				end
+				store:dispatch(OpenMenu(Constants.AnalyticsMenuOpenTypes.Keyboard))
 			end
 		end
 	end

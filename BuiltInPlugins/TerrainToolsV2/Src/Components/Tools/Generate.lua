@@ -1,10 +1,8 @@
 local FFlagTerrainToolsUseDevFramework = game:GetFastFlag("TerrainToolsUseDevFramework")
-local FFlagTerrainToolsUseMapSettingsWithPreview = game:GetFastFlag("TerrainToolsUseMapSettingsWithPreview2")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
-local Cryo = require(Plugin.Packages.Cryo)
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 local UILibrary = not FFlagTerrainToolsUseDevFramework and require(Plugin.Packages.UILibrary) or nil
@@ -23,7 +21,6 @@ local ToolParts = script.Parent.ToolParts
 local BiomeSettingsFragment = require(ToolParts.BiomeSettingsFragment)
 local ButtonGroup = require(ToolParts.ButtonGroup)
 local GenerateProgressFrame = require(Plugin.Src.Components.GenerateProgressFrame)
-local MapSettings = not FFlagTerrainToolsUseMapSettingsWithPreview and require(ToolParts.MapSettings) or nil
 local MapSettingsWithPreview = require(ToolParts.MapSettingsWithPreview)
 local OtherGenerateSettings = require(ToolParts.OtherGenerateSettings)
 local Panel = require(ToolParts.Panel)
@@ -68,30 +65,6 @@ function Generate:init()
 		local value = not biomes[biome]
 
 		self.props.dispatchSetBiomeSelection(biome, value)
-	end
-
-	if not FFlagTerrainToolsUseMapSettingsWithPreview then
-		local function makeOnVectorAxisChanged(getCurrentValue, setNewValue)
-			return function(vector, axis, text, isValid)
-				if not isValid then
-					self.warnings[vector .. axis] = true
-					return
-				end
-				self.warnings[vector .. axis] = false
-
-				setNewValue(Cryo.Dictionary.join(getCurrentValue(), {
-					[axis] = text,
-				}))
-			end
-		end
-
-		self.onPositionChanged = makeOnVectorAxisChanged(function()
-			return self.props.position
-		end, self.props.dispatchChangePosition)
-
-		self.onSizeChanged = makeOnVectorAxisChanged(function()
-			return self.props.size
-		end, self.props.dispatchChangeSize)
 	end
 
 	self.onBiomeSizeChanged = function(text)
@@ -237,7 +210,7 @@ function Generate:_render(localization)
 	local generateIsActive = self.state.mapSettingsValid and not generateInProgress
 
 	return Roact.createFragment({
-		MapSettingsWithPreview = FFlagTerrainToolsUseMapSettingsWithPreview and Roact.createElement(MapSettingsWithPreview, {
+		MapSettingsWithPreview = Roact.createElement(MapSettingsWithPreview, {
 			toolName = self.props.toolName,
 			LayoutOrder = 1,
 
@@ -248,16 +221,6 @@ function Generate:_render(localization)
 			OnSizeChanged = self.props.dispatchChangeSize,
 			SetMapSettingsValid = self.setMapSettingsValidated,
 			SetWarnings = self.setWarnings,
-		}),
-
-		MapSettings = not FFlagTerrainToolsUseMapSettingsWithPreview and Roact.createElement(MapSettings, {
-			LayoutOrder = 1,
-			Position = position,
-			Size = size,
-
-			OnPositionChanged = self.onPositionChanged,
-			OnSizeChanged = self.onSizeChanged,
-			SetMapSettingsValid = self.setMapSettingsValidated,
 		}),
 
 		MaterialSettings = Roact.createElement(Panel, {

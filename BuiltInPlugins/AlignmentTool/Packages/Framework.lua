@@ -5,6 +5,7 @@ return strict({
 	ErrorReporter = require(script.ErrorReporter),
 	Examples = require(script.Examples),
 	Http = require(script.Http),
+	Resources = require(script.Resources),
 	RobloxAPI = require(script.RobloxAPI),
 	StudioUI = require(script.StudioUI),
 	Style = require(script.Style),

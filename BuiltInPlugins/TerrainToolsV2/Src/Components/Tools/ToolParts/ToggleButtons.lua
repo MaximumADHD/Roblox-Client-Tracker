@@ -1,7 +1,5 @@
 local FFlagTerrainToolsUseDevFramework = game:GetFastFlag("TerrainToolsUseDevFramework")
 
-local FFlagTerrainToolsReplaceSrcTogglesOff = game:GetFastFlag("TerrainToolsReplaceSrcTogglesOff")
-
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
@@ -17,11 +15,7 @@ local BaseToggleButton = Roact.PureComponent:extend("ToggleButton")
 
 function BaseToggleButton:init(props)
 	self.toggle = function()
-		if FFlagTerrainToolsReplaceSrcTogglesOff then
-			if not self.props.Disabled then
-				self.props.SetIsOn(not self.props.IsOn)
-			end
-		else
+		if not self.props.Disabled then
 			self.props.SetIsOn(not self.props.IsOn)
 		end
 	end
@@ -35,16 +29,12 @@ function BaseToggleButton:render()
 
 	local onImage = self.props.OnImage
 	local offImage = self.props.OffImage
-	local image
-	if FFlagTerrainToolsReplaceSrcTogglesOff then
-		local disabled = self.props.Disabled
-		local disabledOffImage = self.props.DisabledOffImage
-		local disabledOnImage = self.props.DisabledOnImage
+	local disabledOffImage = self.props.DisabledOffImage
+	local disabledOnImage = self.props.DisabledOnImage
 
-		image = disabled and (isOn and disabledOnImage or disabledOffImage) or (isOn and onImage or offImage)
-	else
-		image = isOn and onImage or offImage
-	end
+	local disabled = self.props.Disabled
+	local image = disabled and (isOn and disabledOnImage or disabledOffImage)
+		or (isOn and onImage or offImage)
 
 	return Roact.createElement("ImageButton", {
 		Position = position,
@@ -63,7 +53,7 @@ local function ToggleButton_render(props, theme)
 		OffImage = theme.toggleTheme.toggleOffImage,
 		DisabledOnImage = theme.toggleTheme.toggleLockModeOnImage,
 		DisabledOffImage = theme.toggleTheme.toggleLockModeOffImage,
-		Disabled = FFlagTerrainToolsReplaceSrcTogglesOff and props.Disabled,
+		Disabled = props.Disabled,
 		Size = UDim2.new(0, 27, 0, 16),
 	})
 	return Roact.createElement(BaseToggleButton, newProps)

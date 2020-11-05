@@ -1,4 +1,5 @@
 local FFlagCGELocalizeWindowTitle = game:DefineFastFlag("CGELocalizeWindowTitle", false)
+local FFlagFixCGECursor = game:DefineFastFlag("FixCGECursor", false)
 
 local Roact = require(script.Parent.Parent.modules.Roact)
 local Gui = require(script.Parent.Parent.Plugin.Components.Gui)
@@ -60,6 +61,14 @@ local RoactHandle = nil
 
 local function handleDMSession(dmSession)
 	if (Window == nil) then 
+		if FFlagFixCGECursor then
+			-- Set the initial icon to show while over this plugin's dock widget.
+			-- Without this, the cursor will be the odd plugin cursor for a
+			-- fraction of a second when entering the DockWidget for the first
+			-- time.
+			plugin:GetMouse().Icon = "rbxasset://SystemCursors/Arrow"
+		end
+
 		Window = plugin:CreateDockWidgetPluginGui("CollisionGroupsEditorWindow", Info)
 		
 		if FFlagCGELocalizeWindowTitle then

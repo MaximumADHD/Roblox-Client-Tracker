@@ -236,9 +236,9 @@ function DraggerToolModel:_processSelected()
 
 	self._selectionWrapper = SelectionWrapper.new(self._draggerContext:getSelection())
 	self._selectionChangedConnection =
-	self._selectionWrapper.onSelectionExternallyChanged:Connect(function()
-		self:_processSelectionChanged()
-	end)
+		self._selectionWrapper.onSelectionExternallyChanged:Connect(function()
+			self:_processSelectionChanged()
+		end)
 
 	self:_updateSelectionInfo()
 

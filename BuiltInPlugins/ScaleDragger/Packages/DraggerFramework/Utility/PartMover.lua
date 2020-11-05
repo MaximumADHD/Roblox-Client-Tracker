@@ -11,7 +11,7 @@ local JointPairs = require(DraggerFramework.Utility.JointPairs)
 local JointUtil = require(DraggerFramework.Utility.JointUtil)
 
 local getFFlagEnablePhysicalFreeFormDragger = require(DraggerFramework.Flags.getFFlagEnablePhysicalFreeFormDragger)
-
+local getFFlagFixPartMoverGhostCollisions = require(DraggerFramework.Flags.getFFlagFixPartMoverGhostCollisions)
 local getFFlagMoveAnchoredWhileRunning = require(DraggerFramework.Flags.getFFlagMoveAnchoredWhileRunning)
 
 local DEFAULT_COLLISION_THRESHOLD = 0.001
@@ -258,6 +258,10 @@ function PartMover:_createMainPart()
 	part.Name = "PartDragMover"
 	part.Transparency = 1
 	part.Archivable = false
+
+	if getFFlagFixPartMoverGhostCollisions() then
+		part.CanCollide = false
+	end
 
 	-- 0 Density so that we don't effect the IK drag weighting
 	part.CustomPhysicalProperties =

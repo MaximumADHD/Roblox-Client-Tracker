@@ -21,7 +21,7 @@ local HoverArea = UI.HoverArea
 
 local PopUpButton = Roact.PureComponent:extend("PopUpButton")
 
-local FFlagAssetManagerOpenContextMenu = game:DefineFastFlag("AssetManagerOpenContextMenu", false)
+local FFlagAssetManagerOpenContextMenu = game:GetFastFlag("AssetManagerOpenContextMenu")
 
 local HOVER_SIZE = UDim2.new(0, 32, 0, 32)
 local DEFAULT_SIZE = UDim2.new(0, 28, 0, 28)

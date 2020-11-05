@@ -61,9 +61,9 @@ if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
 			}),
 			TextColor = StyleKey.DialogMainButtonText,
 			[StyleModifier.Hover] = {
-				BackgroundStyle = {
+				BackgroundStyle = Cryo.Dictionary.join(roundBox, {
 					Color = StyleKey.DialogMainButtonHover,
-				},
+				}),
 			},
 			[StyleModifier.Disabled] = {
 				BackgroundStyle = {

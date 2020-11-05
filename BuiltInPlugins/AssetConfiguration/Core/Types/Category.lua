@@ -10,6 +10,7 @@ local FFlagToolboxUseNewPluginEndpoint = settings():GetFFlag("ToolboxUseNewPlugi
 local FFlagFixGroupPackagesCategoryInToolbox = game:DefineFastFlag("FixGroupPackagesCategoryInToolbox", false)
 local FFlagToolboxDisableMarketplaceAndRecentsForLuobu = game:GetFastFlag("ToolboxDisableMarketplaceAndRecentsForLuobu")
 local FFlagToolboxShowRobloxCreatedAssetsForLuobu = game:GetFastFlag("ToolboxShowRobloxCreatedAssetsForLuobu")
+local FFlagFixAudioAssetsForLuoBu = game:DefineFastFlag("FixAudioAssetsForLuoBu", false)
 
 local Plugin = script.Parent.Parent.Parent
 local DebugFlags = require(Plugin.Core.Util.DebugFlags)
@@ -222,9 +223,16 @@ else
 	Category.DEFAULT = Category.FREE_MODELS
 end
 
-Category.CREATOR_ROBLOX = {
-	Id = 1,
-}
+if FFlagFixAudioAssetsForLuoBu then
+	Category.CREATOR_ROBLOX ={
+		Id = 1,
+		Type = Enum.CreatorType.User.Value,
+	}
+else
+	Category.CREATOR_ROBLOX = {
+		Id = 1,
+	}
+end
 
 -- NOTE: When FFlagEnableToolboxVideos is enabled, remember to move the keys directy into the tables for cleaner code!
 if FFlagEnableToolboxVideos then

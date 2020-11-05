@@ -1,5 +1,3 @@
-local FFlagTerrainToolsUseMapSettingsWithPreview = game:GetFastFlag("TerrainToolsUseMapSettingsWithPreview2")
-
 local Plugin = script.Parent.Parent.Parent
 
 local TerrainEnums = require(Plugin.Src.Util.TerrainEnums)
@@ -9,6 +7,9 @@ local ToolId = TerrainEnums.ToolId
 local TexturePath = "rbxasset://textures/TerrainTools/"
 
 local Constants = {}
+
+-- The smallest size of the dock widget
+Constants.MIN_WIDGET_SIZE = Vector2.new(270, 256)
 
 Constants.ToolIcons = {
 	[ToolId.Generate] = TexturePath .. "mt_generate.png",
@@ -69,8 +70,8 @@ Constants.ToolActivatesPlugin = {
 	[ToolId.Flatten] = true,
 	[ToolId.Paint] = true,
 	[ToolId.SeaLevel] = true,
-	[ToolId.Generate] = FFlagTerrainToolsUseMapSettingsWithPreview,
-	[ToolId.Import] = FFlagTerrainToolsUseMapSettingsWithPreview,
+	[ToolId.Generate] = true,
+	[ToolId.Import] = true,
 	[ToolId.ImportLocal] = true,
 	[ToolId.Replace] = true,
 }

@@ -34,10 +34,15 @@ local function stripText(text)
     return newText
 end
 
-local function getClassIcon(assetType)
+local function getClassIcon(assetData)
+    local assetType = assetData.assetType
 	local StudioService  = game:GetService("StudioService")
-	if assetType == Enum.AssetType.Place then
-        return StudioService:GetClassIcon("Place")
+    if assetType == Enum.AssetType.Place then
+        if assetData.isRootPlace then
+            return StudioService:GetClassIcon("SpawnLocation")
+        else
+            return StudioService:GetClassIcon("Workspace")
+        end
     elseif assetType == Enum.AssetType.Package then
         return StudioService:GetClassIcon("Model")
     elseif assetType == Enum.AssetType.Image then
@@ -108,7 +113,7 @@ function ListItem:init()
         if props.RecentListItem then
             props.dispatchOnRecentAssetRightClick(props)
         else
-            props.dispatchOnAssetRightClick(props.Analytics, props.API:get(), assetData, props.Localization, props.Plugin:get())
+            props.dispatchOnAssetRightClick(props)
         end
     end
 
@@ -198,7 +203,7 @@ function ListItem:render()
     if isFolder then
         imageInfo.Image = listItemStyle.Image.Folder
     else
-        imageInfo = getClassIcon(assetData.assetType)
+        imageInfo = getClassIcon(assetData)
     end
 
     local imageFrameSize = listItemStyle.Image.FrameSize
@@ -346,8 +351,8 @@ local function mapDispatchToProps(dispatch)
         dispatchOnAssetDoubleClick = function(analytics, assetData)
             dispatch(OnAssetDoubleClick(analytics, assetData))
         end,
-        dispatchOnAssetRightClick = function(analytics, apiImpl, assetData, localization, plugin)
-            dispatch(OnAssetRightClick(analytics, apiImpl, assetData, localization, plugin))
+        dispatchOnAssetRightClick = function(props)
+            dispatch(OnAssetRightClick(props))
         end,
         dispatchOnAssetSingleClick = function(obj, assetData)
             dispatch(OnAssetSingleClick(obj, assetData))

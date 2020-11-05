@@ -10,11 +10,14 @@ local Framework = Plugin.Packages.Framework
 local ContextServices = require(Framework.ContextServices)
 
 local OnAssetDoubleClick = require(Plugin.Src.Thunks.OnAssetDoubleClick)
+local DEPRECATED_OnAssetRightClick = require(Plugin.Src.Thunks.DEPRECATED_OnAssetRightClick)
 local OnAssetRightClick = require(Plugin.Src.Thunks.OnAssetRightClick)
 
 local GetAssetFavorited = require(Plugin.Src.Thunks.GetAssetFavorited)
 local GetAssetFavoriteCount = require(Plugin.Src.Thunks.GetAssetFavoriteCount)
 local ToggleFavoriteStatus = require(Plugin.Src.Thunks.ToggleFavoriteStatus)
+
+local FFlagStudioAssetManagerAddGridListToggle = game:GetFastFlag("StudioAssetManagerAddGridListToggle")
 
 local StudioService = game:GetService("StudioService")
 
@@ -74,7 +77,11 @@ function AssetPreviewWrapper:init()
         local assetData = props.AssetData
         local analytics = props.Analytics
 
-        props.dispatchOnAssetRightClick(analytics, props.API:get(), assetData, props.Localization, props.Plugin:get())
+        if FFlagStudioAssetManagerAddGridListToggle then
+            props.dispatchOnAssetRightClick(props)
+        else
+            props.DEPRECATED_dispatchOnAssetRightClick(analytics, props.API:get(), assetData, props.Localization, props.Plugin:get())
+        end
     end
 
     self.ClickDetectorRef = Roact.createRef()
@@ -195,8 +202,12 @@ local function mapDispatchToProps(dispatch)
         dispatchOnAssetDoubleClick = function(analytics, assetData)
             dispatch(OnAssetDoubleClick(analytics, assetData))
         end,
-        dispatchOnAssetRightClick = function(analytics, apiImpl, assetData, localization, plugin)
-            dispatch(OnAssetRightClick(analytics, apiImpl, assetData, localization, plugin))
+        DEPRECATED_dispatchOnAssetRightClick = function(analytics, apiImpl, assetData, localization, plugin)
+            dispatch(DEPRECATED_OnAssetRightClick(analytics, apiImpl, assetData, localization, plugin))
+        end,
+        dispatchOnAssetRightClick = function(props)
+            props.IsAssetPreviewMenu = true
+            dispatch(OnAssetRightClick(props))
         end,
         dispatchGetAssetFavorited = function(apiImpl, assetId, userId)
 			dispatch(GetAssetFavorited(apiImpl, assetId, userId))

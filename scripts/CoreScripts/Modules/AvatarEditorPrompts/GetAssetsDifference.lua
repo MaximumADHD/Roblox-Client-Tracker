@@ -9,6 +9,7 @@ local GetAssetNamesForIds = require(script.Parent.GetAssetNamesForIds)
 return function(humanoidDescription)
 	local newAssetIds = GetAssetIdsFromDescription(humanoidDescription)
 	local currentAssetIds = nil
+	local removedAssetIds = {}
 
 	local getRemovedAssetNames = GetCurrentHumanoidDescription():andThen(function(currentDescription)
 		currentAssetIds = GetAssetIdsFromDescription(currentDescription)
@@ -18,7 +19,6 @@ return function(humanoidDescription)
 			newAssetMap[id] = true
 		end
 
-		local removedAssetIds = {}
 		for _, id in ipairs(currentAssetIds) do
 			if not newAssetMap[id] then
 				table.insert(removedAssetIds, id)
@@ -48,12 +48,19 @@ return function(humanoidDescription)
 		end
 
 		local addedNames = {}
+		local addedAssetIds = {}
 		for id, name in pairs(newIdNameMap) do
 			if not currentAssetMap[id] then
+				table.insert(addedAssetIds, id)
 				table.insert(addedNames, name)
 			end
 		end
 
-		return addedNames, removedNames
+		return {
+			addedNames = addedNames,
+			removedNames = removedNames,
+			addedAssetIds = addedAssetIds,
+			removedAssetIds = removedAssetIds
+		}
 	end)
 end

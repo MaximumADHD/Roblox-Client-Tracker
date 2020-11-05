@@ -1,10 +1,7 @@
 game:DefineFastFlag("TerrainToolsBrushUseIsKeyDown", false)
-game:DefineFastFlag("TerrainToolsRaycastUpdate", false)
 
 local FFlagTerrainToolsUseDevFramework = game:GetFastFlag("TerrainToolsUseDevFramework")
 local FFlagTerrainToolsBrushUseIsKeyDown = game:GetFastFlag("TerrainToolsBrushUseIsKeyDown")
-
-local FFlagTerrainToolsRaycastUpdate = game:GetFastFlag("TerrainToolsRaycastUpdate")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -165,10 +162,8 @@ function TerrainBrush.new(options)
 	assert(self._operationSettings.currentTool ~= nil and self._operationSettings.currentTool ~= ToolId.None,
 		"TerrainBrush needs a tool passed to constructor")
 
-	if FFlagTerrainToolsRaycastUpdate then
-		self._raycastParams = RaycastParams.new()
-		self._raycastParams.FilterType = Enum.RaycastFilterType.Blacklist
-	end
+	self._raycastParams = RaycastParams.new()
+	self._raycastParams.FilterType = Enum.RaycastFilterType.Blacklist
 
 	return self
 end
@@ -418,27 +413,21 @@ function TerrainBrush:_run()
 		end
 
 		local unitRay = self._mouse.UnitRay.Direction
-		local rayHit, mainPoint, _, hitMaterial
+		local rayHit, mainPoint, hitMaterial
 
-		if FFlagTerrainToolsRaycastUpdate then
-			self._raycastParams.FilterDescendantsInstances = ignoreList
-			self._raycastParams.IgnoreWater = ignoreWater
+		self._raycastParams.FilterDescendantsInstances = ignoreList
+		self._raycastParams.IgnoreWater = ignoreWater
 
-			local raycastResult = Workspace:Raycast(cameraPos, unitRay * 10000, self._raycastParams)
+		local raycastResult = Workspace:Raycast(cameraPos, unitRay * 10000, self._raycastParams)
 
-			if raycastResult then
-				rayHit = raycastResult.Instance
-				mainPoint = raycastResult.Position
-				hitMaterial = raycastResult.Material
-			else
-				--raycast returns nil if it does not encounter anything, this will esentially cap the ray and prevent breaking
-				rayHit, hitMaterial = nil, nil
-				mainPoint = cameraPos + unitRay * 10000
-			end
+		if raycastResult then
+			rayHit = raycastResult.Instance
+			mainPoint = raycastResult.Position
+			hitMaterial = raycastResult.Material
 		else
-			local mouseRay = Ray.new(cameraPos, unitRay * 10000)
-			rayHit, mainPoint, _, hitMaterial = Workspace:FindPartOnRayWithIgnoreList(mouseRay, ignoreList,
-				false, ignoreWater)
+			--raycast returns nil if it does not encounter anything, this will esentially cap the ray and prevent breaking
+			rayHit, hitMaterial = nil, nil
+			mainPoint = cameraPos + unitRay * 10000
 		end
 
 		if currentTool == ToolId.Add then

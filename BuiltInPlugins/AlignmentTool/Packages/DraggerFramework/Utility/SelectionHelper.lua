@@ -10,7 +10,9 @@ local shouldDragAsFace = require(DraggerFramework.Utility.shouldDragAsFace)
 
 local getEngineFeatureActiveInstanceHighlight = require(DraggerFramework.Flags.getEngineFeatureActiveInstanceHighlight)
 local getFFlagDragFaceInstances = require(DraggerFramework.Flags.getFFlagDragFaceInstances)
-local getFFlagDraggerSplit = require(DraggerFramework.Flags.getFFlagDraggerSplit)
+
+local getEngineFeatureEditPivot = require(DraggerFramework.Flags.getEngineFeatureEditPivot)
+local getFFlagDraggerSupportBones = require(DraggerFramework.Flags.getFFlagDraggerSupportBones)
 local getEngineFeatureSelectionServiceAddRemove = require(DraggerFramework.Flags.getEngineFeatureSelectionServiceAddRemove)
 
 local SelectionHelper = {}
@@ -279,7 +281,12 @@ function SelectionHelper.computeSelectionInfo(selectedObjects, isSimulating, use
 		end
 		if not selectionHasPhysics then
 			for _, attachment in ipairs(allAttachments) do
-				local parentPart = attachment.Parent
+				local parentPart
+				if getFFlagDraggerSupportBones() then
+					parentPart = attachment:FindFirstAncestorWhichIsA("BasePart")
+				else
+					parentPart = attachment.Parent
+				end
 				if parentPart and not parentPart:IsGrounded() then
 					selectionHasPhysics = true
 					break
@@ -332,397 +339,153 @@ function SelectionHelper.computeSelectionInfo(selectedObjects, isSimulating, use
 	}
 end
 
---[[
-	Get the selectable object from the passed-in part or model.
 
-	If the instance is an Attachment or Constraint, it is returned directly.
+-- Returns: Did the selection change, The new selection, A change hint
+function SelectionHelper.updateSelection(selectable, oldSelection, isExclusive, shouldExtendSelection)
+	local doExtendSelection = shouldExtendSelection
 
-	If the instance belongs to a model the top-level model is returned, unless
-	the alt key is held, in which case the part itself is returned. Locked parts
-	are not considered selectable.
+	if not selectable then
+		if doExtendSelection then
+			return false, oldSelection
+		else
+			local wasOldSelectionNonempty = (#oldSelection > 0)
+			return wasOldSelectionNonempty, {}
+		end
+	end
 
-	getMostNested specifies whether to drill down to the most nested selectable
-	object instead of taking the least nested object like normal.
-]]
-if not getFFlagDraggerSplit() then
-	function SelectionHelper.getSelectable(instance, getMostNested)
-		return SelectionHelper.getSelectableWithCache(instance, {}, getMostNested)
+	if doExtendSelection and not (getEngineFeatureEditPivot() and isExclusive) then
+		-- Add or remove from the selection when ctrl or shift is held.
+		if getEngineFeatureSelectionServiceAddRemove() then
+			local newSelection = {}
+			local added, removed = {}, {}
+			local didRemoveSelectableInstance = false
+			for _, item in ipairs(oldSelection) do
+				if item == selectable then
+					didRemoveSelectableInstance = true
+				else
+					table.insert(newSelection, item)
+				end
+			end
+			if didRemoveSelectableInstance then
+				table.insert(removed, selectable)
+			else
+				table.insert(newSelection, selectable)
+				table.insert(added, selectable)
+			end
+			return true, newSelection, {Added = added, Removed = removed}
+		else
+			local newSelection = {}
+			local didRemoveSelectableInstance = false
+			for _, item in ipairs(oldSelection) do
+				if item == selectable then
+					didRemoveSelectableInstance = true
+				else
+					table.insert(newSelection, item)
+				end
+			end
+			if not didRemoveSelectableInstance then
+				table.insert(newSelection, selectable)
+			end
+			return true, newSelection
+		end
+	else
+		if getEngineFeatureActiveInstanceHighlight() then
+			local index = table.find(oldSelection, selectable)
+			if index and not isExclusive then
+				-- The instance is already in the selection. If the active instance
+				-- needs to be updated, and the instance isn't already the last item
+				-- in the list, move it to the end of the selection.
+				local lastIndex = #oldSelection
+				if index < lastIndex then
+					local newSelection = {}
+					table.move(oldSelection, 1, index, 1, newSelection)
+					table.move(oldSelection, index + 1, lastIndex, index, newSelection)
+					newSelection[lastIndex] = selectable
+
+					if getEngineFeatureSelectionServiceAddRemove() then
+						-- Remove and then add the selectable to push it to
+						-- the end of the selection.
+						local hint = {Added = {selectable}, Removed = {selectable}}
+						return true, newSelection, hint
+					else
+						return true, newSelection
+					end
+				end
+
+				-- Otherwise, leave the selection alone.
+				return false, oldSelection
+			else
+				-- The instance is not in the selection and the selection is not being
+				-- extended; overwrite the old selection.
+				return true, {selectable}
+			end
+		else
+			local isAlreadyInSelection = false
+			for _, item in ipairs(oldSelection) do
+				if item == selectable then
+					isAlreadyInSelection = true
+					break
+				end
+			end
+
+			if isAlreadyInSelection and not isExclusive then
+				-- The instance is already in the selection; leave the selection alone.
+				return false, oldSelection
+			else
+				-- The instance is not in the selection and the selection is not being
+				-- extended; overwrite the old selection.
+				return true, {selectable}
+			end
+		end
 	end
 end
 
---[[
-	getSelectable, but accepting a cache parameter to optimize the box selection
-	tight loop case, and a cached value of isAltKeyDown to avoid repeated calls
-	to that function.
-]]
-if not getFFlagDraggerSplit() then
-	function SelectionHelper.getSelectableWithCache(instance, cache, isAltKeyDown)
-		-- First, the easy nil and attachment cases.
-		if not instance then
-			return nil
-		elseif instance:IsA("Attachment") or instance:IsA("Constraint") or
-			instance:IsA("WeldConstraint") or instance:IsA("NoCollisionConstraint") then
-			-- Note, this attachment case has to come before the fast-flat-model
-			-- optimization, otherwise selecting an attachment might result in the
-			-- parent part of the attachment being selected instead for cases with
-			-- parts nested under other parts.
-			return instance
-		end
+function SelectionHelper.updateSelectionWithMultipleSelectables(
+	selectables, oldSelection, shouldXorSelection, shouldExtendSelection)
 
-		-- Fast-flat-model optimization. Most places have a large number of parts
-		-- directly underneath models with no further nesting of models. We have a
-		-- nice optimization in this case, where we can cache what selectable
-		-- a given parent will result in. That way we can handle many of the
-		-- selectable determinations with a single hashtable lookup.
-		local instanceParent = instance.Parent
-		local fastCached = cache[instanceParent]
-		if fastCached then
-			-- Note: We don't need to worry about the locked case here. In order to
-			-- return a Model as a selectable thanks to a locked part here, we would
-			-- already have had to have already found an unlocked part in the same
-			-- model, in which case it does not hurt to return it.
-			return fastCached
-		end
-
-		-- Make sure that instance is a model or non-locked instance
-		if instance:IsA("BasePart") then
-			if instance.Locked then
-				return nil
-			end
-		elseif not (instance:IsA("Model") or instance:IsA("Tool")) then
-			return nil
-		end
-
-		if isAltKeyDown then
-			return instance
-		else
-			local selectableInstance = instance
-			local candidate = instanceParent
-			while candidate do
-				if (candidate:IsA("Model") or candidate:IsA("Tool")) and candidate ~= Workspace then
-					selectableInstance = candidate
-				end
-				candidate = candidate.Parent
-			end
-
-			-- Add to cache. Note: We could add all of the entries in the hierarchy
-			-- between instance and selectableInstance to the cache, but that
-			-- actually has worse perf, since it costs time to modify cache, while
-			-- most models are flat and thus don't benefit from it.
-			if selectableInstance ~= instance then
-				cache[instanceParent] = selectableInstance
-			end
-
-			return selectableInstance
-		end
-	end
-end
-
-if getFFlagDraggerSplit() then
-	-- Returns: Did the selection change, The new selection, A change hint
-	function SelectionHelper.updateSelection(selectable, oldSelection, isExclusive, shouldExtendSelection)
-		local doExtendSelection = shouldExtendSelection
-
-		if not selectable then
-			if doExtendSelection then
-				return false, oldSelection
-			else
-				local wasOldSelectionNonempty = (#oldSelection > 0)
-				return wasOldSelectionNonempty, {}
-			end
-		end
-
-		if doExtendSelection then
-			-- Add or remove from the selection when ctrl or shift is held.
-			if getEngineFeatureSelectionServiceAddRemove() then
-				local newSelection = {}
-				local added, removed = {}, {}
-				local didRemoveSelectableInstance = false
-				for _, item in ipairs(oldSelection) do
-					if item == selectable then
-						didRemoveSelectableInstance = true
-					else
-						table.insert(newSelection, item)
-					end
-				end
-				if didRemoveSelectableInstance then
-					table.insert(removed, selectable)
-				else
-					table.insert(newSelection, selectable)
-					table.insert(added, selectable)
-				end
-				return true, newSelection, {Added = added, Removed = removed}
-			else
-				local newSelection = {}
-				local didRemoveSelectableInstance = false
-				for _, item in ipairs(oldSelection) do
-					if item == selectable then
-						didRemoveSelectableInstance = true
-					else
-						table.insert(newSelection, item)
-					end
-				end
-				if not didRemoveSelectableInstance then
-					table.insert(newSelection, selectable)
-				end
-				return true, newSelection
-			end
-		else
-			if getEngineFeatureActiveInstanceHighlight() then
-				local index = table.find(oldSelection, selectable)
-				if index and not isExclusive then
-					-- The instance is already in the selection. If the active instance
-					-- needs to be updated, and the instance isn't already the last item
-					-- in the list, move it to the end of the selection.
-					local lastIndex = #oldSelection
-					if index < lastIndex then
-						local newSelection = {}
-						table.move(oldSelection, 1, index, 1, newSelection)
-						table.move(oldSelection, index + 1, lastIndex, index, newSelection)
-						newSelection[lastIndex] = selectable
-
-						if getEngineFeatureSelectionServiceAddRemove() then
-							-- Remove and then add the selectable to push it to
-							-- the end of the selection.
-							local hint = {Added = {selectable}, Removed = {selectable}}
-							return true, newSelection, hint
-						else
-							return true, newSelection
-						end
-					end
-
-					-- Otherwise, leave the selection alone.
-					return false, oldSelection
-				else
-					-- The instance is not in the selection and the selection is not being
-					-- extended; overwrite the old selection.
-					return true, {selectable}
-				end
-			else
-				local isAlreadyInSelection = false
-				for _, item in ipairs(oldSelection) do
-					if item == selectable then
-						isAlreadyInSelection = true
-						break
-					end
-				end
-
-				if isAlreadyInSelection and not isExclusive then
-					-- The instance is already in the selection; leave the selection alone.
-					return false, oldSelection
-				else
-					-- The instance is not in the selection and the selection is not being
-					-- extended; overwrite the old selection.
-					return true, {selectable}
-				end
-			end
-		end
+	if #selectables == 0 then
+		return (shouldXorSelection or shouldExtendSelection) and oldSelection or {}
 	end
 
-	function SelectionHelper.updateSelectionWithMultipleSelectables(
-		selectables, oldSelection, shouldXorSelection, shouldExtendSelection)
-
-		if #selectables == 0 then
-			return (shouldXorSelection or shouldExtendSelection) and oldSelection or {}
+	local newSelection
+	if shouldXorSelection or shouldExtendSelection then
+		newSelection = {}
+		-- Add or remove from the selection when ctrl or shift is held.
+		local alreadySelectedInstances = {}
+		for _, instance in ipairs(oldSelection) do
+			alreadySelectedInstances[instance] = true
 		end
 
-		local newSelection
-		if shouldXorSelection or shouldExtendSelection then
-			newSelection = {}
-			-- Add or remove from the selection when ctrl or shift is held.
-			local alreadySelectedInstances = {}
-			for _, instance in ipairs(oldSelection) do
-				alreadySelectedInstances[instance] = true
-			end
-
-			if shouldXorSelection then
-				local newInstancesToSelect = {}
-				for _, instance in ipairs(selectables) do
-					newInstancesToSelect[instance] = true
-				end
-				for _, selectable in ipairs(oldSelection) do
-					if not newInstancesToSelect[selectable] then
-						table.insert(newSelection, selectable)
-					end
-				end
-				for _, selectable in ipairs(selectables) do
-					if not alreadySelectedInstances[selectable] then
-						table.insert(newSelection, selectable)
-					end
-				end
-			elseif shouldExtendSelection then
-				for _, selectable in ipairs(oldSelection) do
-					table.insert(newSelection, selectable)
-				end
-				for _, selectable in ipairs(selectables) do
-					if not alreadySelectedInstances[selectable] then
-						table.insert(newSelection, selectable)
-					end
-				end
-			end
-		else
-			-- The selection is not being extended; overwrite the old selection.
-			newSelection = selectables
-		end
-		return newSelection
-	end
-else
-	-- Returns: Did the selection change, The new selection
-	function SelectionHelper.updateSelection(instance, oldSelection,
-		shouldExtendSelection, getMostNested, shouldUpdateActiveInstance)
-		local doExtendSelection = shouldExtendSelection
-		local selectableInstance = SelectionHelper.getSelectable(instance, getMostNested)
-		local doUpdateActiveInstance = shouldUpdateActiveInstance
-
-		if not selectableInstance then
-			if doExtendSelection then
-				return false, oldSelection
-			else
-				local wasOldSelectionNonempty = (#oldSelection > 0)
-				return wasOldSelectionNonempty, {}
-			end
-		end
-
-		if doExtendSelection then
-			-- Add or remove from the selection when ctrl or shift is held.
-			if getEngineFeatureSelectionServiceAddRemove() then
-				local newSelection = {}
-				local added, removed = {}, {}
-				local didRemoveSelectableInstance = false
-				for _, item in ipairs(oldSelection) do
-					if item == selectableInstance then
-						didRemoveSelectableInstance = true
-					else
-						table.insert(newSelection, item)
-					end
-				end
-				if didRemoveSelectableInstance then
-					table.insert(removed, selectableInstance)
-				else
-					table.insert(newSelection, selectableInstance)
-					table.insert(added, selectableInstance)
-				end
-				return true, newSelection, {Added = added, Removed = removed}
-			else
-				local newSelection = {}
-				local didRemoveSelectableInstance = false
-				for _, item in ipairs(oldSelection) do
-					if item == selectableInstance then
-						didRemoveSelectableInstance = true
-					else
-						table.insert(newSelection, item)
-					end
-				end
-				if not didRemoveSelectableInstance then
-					table.insert(newSelection, selectableInstance)
-				end
-				return true, newSelection
-			end
-		else
-			if getEngineFeatureActiveInstanceHighlight() then
-				local index = table.find(oldSelection, selectableInstance)
-				if index then
-					-- The instance is already in the selection. If the active instance
-					-- needs to be updated, and the instance isn't already the last item
-					-- in the list, move it to the end of the selection.
-					if doUpdateActiveInstance then
-						local lastIndex = #oldSelection
-						if index < lastIndex then
-							local newSelection = {}
-							table.move(oldSelection, 1, index, 1, newSelection)
-							table.move(oldSelection, index + 1, lastIndex, index, newSelection)
-							newSelection[lastIndex] = selectableInstance
-
-							if getEngineFeatureSelectionServiceAddRemove() then
-								-- Remove and then add the selectable to push it to
-								-- the end of the selection.
-								local hint = {Added = {selectableInstance}, Removed = {selectableInstance}}
-								return true, newSelection, hint
-							else
-								return true, newSelection
-							end
-						end
-					end
-					-- Otherwise, leave the selection alone.
-					return false, oldSelection
-				else
-					-- The instance is not in the selection and the selection is not being
-					-- extended; overwrite the old selection.
-					return true, {selectableInstance}
-				end
-			else
-				local isAlreadyInSelection = false
-				for _, item in ipairs(oldSelection) do
-					if item == selectableInstance then
-						isAlreadyInSelection = true
-						break
-					end
-				end
-
-				if isAlreadyInSelection then
-					-- The instance is already in the selection; leave the selection alone.
-					return false, oldSelection
-				else
-					-- The instance is not in the selection and the selection is not being
-					-- extended; overwrite the old selection.
-					return true, {selectableInstance}
-				end
-			end
-		end
-	end
-
-	-- TODO: combine with SelectionHelper.updateSelection, or at least break out
-	-- the common bits into a local function.
-	function SelectionHelper.updateSelectionWithMultipleParts(instances, oldSelection,
-		shouldXorSelection, getMostNested)
-
-		local selectableInstances = {}
-
-		-- Note here: instances IS a list of unique instances, but multiple
-		-- instances in that list may induce selection of the same selectable.
-		-- (E.g., any time you box-select a model and your box select includes
-		-- multiple parts in the model)
-		-- The result is, we need to filter out the duplicate selectables.
-		local alreadyFlaggedForAddSet = {}
-		for _, instance in ipairs(instances) do
-			local selectablePart = SelectionHelper.getSelectable(instance, getMostNested)
-			if selectablePart ~= nil and not alreadyFlaggedForAddSet[selectablePart] then
-				table.insert(selectableInstances, selectablePart)
-				alreadyFlaggedForAddSet[selectablePart] = true
-			end
-		end
-
-		if #selectableInstances == 0 then
-			return shouldXorSelection and oldSelection or {}
-		end
-
-		local newSelection
 		if shouldXorSelection then
-			newSelection = {}
-			-- Add or remove from the selection when ctrl or shift is held.
-			local alreadySelectedInstances = {}
-			for _, instance in ipairs(oldSelection) do
-				alreadySelectedInstances[instance] = true
+			local newInstancesToSelect = {}
+			for _, instance in ipairs(selectables) do
+				newInstancesToSelect[instance] = true
 			end
-
-			for _, instance in ipairs(selectableInstances) do
-				if alreadySelectedInstances[instance] then
-					alreadySelectedInstances[instance] = nil
-				else
-					table.insert(newSelection, instance)
+			for _, selectable in ipairs(oldSelection) do
+				if not newInstancesToSelect[selectable] then
+					table.insert(newSelection, selectable)
 				end
 			end
-			for instance, _ in pairs(alreadySelectedInstances) do
-				table.insert(newSelection, instance)
+			for _, selectable in ipairs(selectables) do
+				if not alreadySelectedInstances[selectable] then
+					table.insert(newSelection, selectable)
+				end
 			end
-		else
-			-- The selection is not being extended; overwrite the old selection.
-			newSelection = selectableInstances
+		elseif shouldExtendSelection then
+			for _, selectable in ipairs(oldSelection) do
+				table.insert(newSelection, selectable)
+			end
+			for _, selectable in ipairs(selectables) do
+				if not alreadySelectedInstances[selectable] then
+					table.insert(newSelection, selectable)
+				end
+			end
 		end
-		return newSelection
+	else
+		-- The selection is not being extended; overwrite the old selection.
+		newSelection = selectables
 	end
+	return newSelection
 end
-
-
 
 return SelectionHelper

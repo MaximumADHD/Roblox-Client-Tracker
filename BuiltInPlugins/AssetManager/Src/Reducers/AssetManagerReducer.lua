@@ -23,7 +23,7 @@ return Rodux.createReducer({
 	selectedAssets = {},
 	selectionIndex = 0,
 	universeName = "",
-	view = View.GRID,
+	view = View.LIST,
 	-- only show the scripts folder if the place has linked scripts because linked scripts are deprecated.
 	hasLinkedScripts = false,
 }, {

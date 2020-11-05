@@ -3,7 +3,6 @@ return function()
 	local HttpService = game:GetService("HttpService")
 
 	local FFlagStudioFixFrameworkJsonParsing = game:GetFastFlag("StudioFixFrameworkJsonParsing")
-	local FFlagStudioFixFrameworkNonIdempotentRetries = game:GetFastFlag("StudioFixFrameworkNonIdempotentRetries")
 
 	describe("new()", function()
 		it("should construct with no params", function()
@@ -364,63 +363,61 @@ return function()
 			expect(callCount).to.equal(1)
 		end)
 
-		if FFlagStudioFixFrameworkNonIdempotentRetries then
-			it("should not retry POST requests", function()
-				local callCount = 0
+		it("should not retry POST requests", function()
+			local callCount = 0
 
-				local n = Networking.mock({
-					onRequest = function(requestOptions)
-						callCount = callCount + 1
+			local n = Networking.mock({
+				onRequest = function(requestOptions)
+					callCount = callCount + 1
 
-						return {
-							Body = "bad",
-							Success = false,
-							StatusMessage = "Server Error",
-							StatusCode = 500,
-						}
-					end,
-				})
+					return {
+						Body = "bad",
+						Success = false,
+						StatusMessage = "Server Error",
+						StatusCode = 500,
+					}
+				end,
+			})
 
-				local didError = false
-				local httpPromise = n:post("https://www.test.com")
-				n:handleRetry(httpPromise, 3, true):andThen(function(response)
-					expect(response.responseBody).to.equal("foo")
-				end, function()
-					didError = true
-				end)
-
-				expect(didError).to.equal(true)
-				expect(callCount).to.equal(1)
+			local didError = false
+			local httpPromise = n:post("https://www.test.com")
+			n:handleRetry(httpPromise, 3, true):andThen(function(response)
+				expect(response.responseBody).to.equal("foo")
+			end, function()
+				didError = true
 			end)
 
-			it("should not retry PATCH requests", function()
-				local callCount = 0
+			expect(didError).to.equal(true)
+			expect(callCount).to.equal(1)
+		end)
 
-				local n = Networking.mock({
-					onRequest = function(requestOptions)
-						callCount = callCount + 1
+		it("should not retry PATCH requests", function()
+			local callCount = 0
 
-						return {
-							Body = "bad",
-							Success = false,
-							StatusMessage = "Server Error",
-							StatusCode = 500,
-						}
-					end,
-				})
+			local n = Networking.mock({
+				onRequest = function(requestOptions)
+					callCount = callCount + 1
 
-				local didError = false
-				local httpPromise = n:patch("https://www.test.com")
-				n:handleRetry(httpPromise, 3, true):andThen(function(response)
-					expect(response.responseBody).to.equal("foo")
-				end, function()
-					didError = true
-				end)
+					return {
+						Body = "bad",
+						Success = false,
+						StatusMessage = "Server Error",
+						StatusCode = 500,
+					}
+				end,
+			})
 
-				expect(didError).to.equal(true)
-				expect(callCount).to.equal(1)
+			local didError = false
+			local httpPromise = n:patch("https://www.test.com")
+			n:handleRetry(httpPromise, 3, true):andThen(function(response)
+				expect(response.responseBody).to.equal("foo")
+			end, function()
+				didError = true
 			end)
-		end
+
+			expect(didError).to.equal(true)
+			expect(callCount).to.equal(1)
+		end)
 	end)
 
 

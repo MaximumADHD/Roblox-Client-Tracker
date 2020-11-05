@@ -11,8 +11,8 @@ local roundRotation = require(DraggerFramework.Utility.roundRotation)
 
 local RotateHandleView = require(DraggerFramework.Components.RotateHandleView)
 
-local getFFlagRoundRotation = require(DraggerFramework.Flags.getFFlagRoundRotation)
-local getFFlagFixEdgeOnRotateError = require(DraggerFramework.Flags.getFFlagFixEdgeOnRotateError)
+local getFFlagUseCylinderHandle = require(DraggerFramework.Flags.getFFlagUseCylinderHandle)
+local getEngineFeatureEditPivot = require(DraggerFramework.Flags.getEngineFeatureEditPivot)
 
 -- The minimum rotate increment to display snapping increments for (below this
 -- increment there are so many points that they become visual noise)
@@ -41,7 +41,9 @@ local RotateHandleDefinitions = {
 		RadiusOffset = 0.01,
 	},
 	ZAxis = {
-		Offset = CFrame.fromMatrix(Vector3.new(), Vector3.new(0, 0, 1), Vector3.new(0, 1, 0), Vector3.new(-1, 0, 0)),
+		Offset = getFFlagUseCylinderHandle()
+			and CFrame.fromMatrix(Vector3.new(), Vector3.new(0, 0, 1), Vector3.new(1, 0, 0), Vector3.new(0, 1, 0))
+			or CFrame.fromMatrix(Vector3.new(), Vector3.new(0, 0, 1), Vector3.new(0, 1, 0), Vector3.new(-1, 0, 0)),
 		Color = Colors.Z_AXIS,
 		RadiusOffset = 0.02,
 	},
@@ -64,18 +66,7 @@ local function getRotationTransform(mainCFrame, axisVector, delta, rotateIncreme
 		-- thanks to the isRightAngle check, we can find the pure
 		-- permutation rotation matrix simply by rounding the rotation
 		-- matrix elements to the nearest integer.
-		if getFFlagRoundRotation() then
-			rotationCFrame = roundRotation(rotationCFrame)
-		else
-			local _, _, _,
-				r0, r1, r2,
-				r3, r4, r5,
-				r6, r7, r8 = rotationCFrame:components()
-			rotationCFrame = CFrame.new(0, 0, 0,
-				math.floor(r0 + 0.5), math.floor(r1 + 0.5), math.floor(r2 + 0.5),
-				math.floor(r3 + 0.5), math.floor(r4 + 0.5), math.floor(r5 + 0.5),
-				math.floor(r6 + 0.5), math.floor(r7 + 0.5), math.floor(r8 + 0.5))
-		end
+		rotationCFrame = roundRotation(rotationCFrame)
 	end
 
 	-- Convert the rotation to a global space transformation
@@ -250,8 +241,13 @@ function RotateHandles:mouseDown(mouseRay, handleId)
 	end
 
 	-- Check if we can find a starting angle
-	local offset = RotateHandleDefinitions[handleId].Offset
-	local handleCFrame = self._boundingBox.CFrame * offset
+	local handleCFrame
+	if getEngineFeatureEditPivot() then
+		handleCFrame = self._handles[handleId].HandleCFrame
+	else
+		local offset = RotateHandleDefinitions[handleId].Offset
+		handleCFrame = self._boundingBox.CFrame * offset
+	end
 	local angle = rotationAngleFromRay(handleCFrame, mouseRay.Unit)
 	if not angle then
 		return
@@ -283,7 +279,7 @@ function RotateHandles:mouseDrag(mouseRay)
 
 	local snappedDelta = snappedAngle - self._startAngle
 	local candidateGlobalTransform = getRotationTransform(
-		self._originalBoundingBoxCFrame,
+		getEngineFeatureEditPivot() and self._handleCFrame or self._originalBoundingBoxCFrame,
 		self._handleCFrame.RightVector,
 		snappedDelta,
 		self._draggerContext:getRotateIncrement())
@@ -319,7 +315,9 @@ function RotateHandles:_updateHandles()
 	else
 		for handleId, handleDefinition in pairs(RotateHandleDefinitions) do
 			self._handles[handleId] = {
-				HandleCFrame = self._boundingBox.CFrame * handleDefinition.Offset,
+				HandleCFrame = getEngineFeatureEditPivot() and
+					(self._boundingBox.CFrame * self._basisOffset * handleDefinition.Offset) or
+					(self._boundingBox.CFrame * handleDefinition.Offset),
 				Color = handleDefinition.Color,
 				RadiusOffset = handleDefinition.RadiusOffset,
 				Scale = self._scale,

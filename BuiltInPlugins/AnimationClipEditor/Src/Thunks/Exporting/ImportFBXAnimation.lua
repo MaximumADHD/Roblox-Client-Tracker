@@ -35,6 +35,10 @@ return function(plugin)
 			store:dispatch(LoadAnimationData(newData))
 			store:dispatch(SetIsDirty(false))
 
+			if result then
+				result:Destroy()
+			end
+
 			state.Analytics:onImportFbxAnimation()
 		else
 			warn(result)

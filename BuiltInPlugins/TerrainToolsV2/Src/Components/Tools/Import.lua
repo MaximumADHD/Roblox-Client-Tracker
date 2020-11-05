@@ -6,12 +6,10 @@
 ]]
 
 local FFlagTerrainToolsUseDevFramework = game:GetFastFlag("TerrainToolsUseDevFramework")
-local FFlagTerrainToolsUseMapSettingsWithPreview = game:GetFastFlag("TerrainToolsUseMapSettingsWithPreview2")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
-local Cryo = require(Plugin.Packages.Cryo)
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 local UILibrary = not FFlagTerrainToolsUseDevFramework and require(Plugin.Packages.UILibrary) or nil
@@ -28,7 +26,6 @@ local ButtonGroup = require(ToolParts.ButtonGroup)
 local ImportProgressFrame = require(Plugin.Src.Components.ImportProgressFrame)
 local LabeledElementPair = require(ToolParts.LabeledElementPair)
 local LabeledToggle = require(ToolParts.LabeledToggle)
-local MapSettings = not FFlagTerrainToolsUseMapSettingsWithPreview and require(ToolParts.MapSettings) or nil
 local MapSettingsWithPreviewFragment = require(ToolParts.MapSettingsWithPreviewFragment)
 local Panel = require(ToolParts.Panel)
 
@@ -68,24 +65,6 @@ function Import:init()
 			isImporting = self.terrainImporter:isImporting(),
 			importProgress = self.terrainImporter:getImportProgress(),
 		}
-	end
-
-	if not FFlagTerrainToolsUseMapSettingsWithPreview then
-		self.onPositionChanged = function(_, axis, text, isValid)
-			if isValid then
-				self.props.dispatchChangePosition(Cryo.Dictionary.join(self.props.Position, {
-					[axis] = text,
-				}))
-			end
-		end
-
-		self.onSizeChanged = function(_, axis, text, isValid)
-			if isValid then
-				self.props.dispatchChangeSize(Cryo.Dictionary.join(self.props.Size, {
-					[axis] = text,
-				}))
-			end
-		end
 	end
 
 	self.updateImportProps = function()
@@ -200,9 +179,8 @@ function Import:_render(localization, theme)
 		toggleOff = theme.toggleTheme.toggleOffImage
 	end
 
-	local mapSettingsComponent
-	if FFlagTerrainToolsUseMapSettingsWithPreview then
-		mapSettingsComponent = Roact.createElement(Panel, {
+	return Roact.createFragment({
+		MapSettings = Roact.createElement(Panel, {
 			LayoutOrder = 1,
 			Title = localization:getText("MapSettings", "MapSettings"),
 			Padding = UDim.new(0, 12),
@@ -226,23 +204,7 @@ function Import:_render(localization, theme)
 				OnSizeChanged = self.props.dispatchChangeSize,
 				SetMapSettingsValid = self.mapSettingsValidated,
 			}),
-		})
-	else
-		mapSettingsComponent = Roact.createElement(MapSettings, {
-			LayoutOrder = 1,
-
-			Position = position,
-			Size = size,
-
-			OnPositionChanged = self.onPositionChanged,
-			OnSizeChanged = self.onSizeChanged,
-			SetMapSettingsValid = self.mapSettingsValidated,
-			HeightMapValidation = self.heightMapValidated,
-		})
-	end
-
-	return Roact.createFragment({
-		MapSettings = mapSettingsComponent,
+		}),
 
 		MaterialSettings = Roact.createElement(Panel, {
 			Title = localization:getText("MaterialSettings", "MaterialSettings"),

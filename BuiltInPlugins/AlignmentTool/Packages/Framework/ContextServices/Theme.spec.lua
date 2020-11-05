@@ -11,6 +11,13 @@ return function()
 	local StyleTable = Util.StyleTable
 	local StyleModifier = Util.StyleModifier
 	local Signal = Util.Signal
+	local FlagsList = Util.Flags.new({
+		FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
+	})
+
+	if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+		return
+	end
 
 	local function createTestThemedComponent(render)
 		local TestThemedComponent = Roact.PureComponent:extend("TestThemedComponent")

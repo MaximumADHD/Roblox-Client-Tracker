@@ -64,7 +64,6 @@ local HttpResponse = require(script.Parent.HttpResponse)
 local StatusCodes = require(script.Parent.StatusCodes)
 
 local FFlagStudioFixFrameworkJsonParsing = game:DefineFastFlag("StudioFixFrameworkJsonParsing", true)
-local FFlagStudioFixFrameworkNonIdempotentRetries = game:DefineFastFlag("StudioFixFrameworkNonIdempotentRetries", false)
 
 local LOGGING_CHANNELS = {
 	NONE = 0,
@@ -452,15 +451,13 @@ function Networking:handleRetry(requestPromise, numRetries, disableBackoff)
 					return
 				end
 
-				if FFlagStudioFixFrameworkNonIdempotentRetries then
-					local method = err.requestOptions["Method"]
-					if method == "POST" or method == "PATCH" then
-						if self:_isLoggingEnabled(LOGGING_CHANNELS.RESPONSES) then
-							print("Error response to " .. method .. " request. Rejecting request.")
-						end
-						reject(errResponse)
-						return
+				local method = err.requestOptions["Method"]
+				if method == "POST" or method == "PATCH" then
+					if self:_isLoggingEnabled(LOGGING_CHANNELS.RESPONSES) then
+						print("Error response to " .. method .. " request. Rejecting request.")
 					end
+					reject(errResponse)
+					return
 				end
 
 				if self:_isLoggingEnabled(LOGGING_CHANNELS.DEBUG) then

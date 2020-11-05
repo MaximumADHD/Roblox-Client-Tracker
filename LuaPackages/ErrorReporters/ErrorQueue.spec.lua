@@ -165,8 +165,6 @@ return function()
 	end)
 
 	describe("queueTimeLimit", function()
-		HACK_NO_XPCALL()
-
 		it("should report errors correctly when the total time limit is reached", function()
 			local expectedErrorsReported = {
 				["test"] = {

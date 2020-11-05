@@ -40,7 +40,6 @@ local FFlagXboxOverrideEnablePlayNextGame = settings():GetFFlag("XboxOverrideEna
 local FFlagLocalizeVersionLabels = settings():GetFFlag("LocalizeVersionLabels")
 
 local FFlagUpdateSettingsHubGameText = require(RobloxGui.Modules.Flags.FFlagUpdateSettingsHubGameText)
-local GetFFlagInstrumentMenuOpenMethods = require(RobloxGui.Modules.Flags.GetFFlagInstrumentMenuOpenMethods)
 local FFlagDisableAutoTranslateForKeyTranslatedContent = require(RobloxGui.Modules.Flags.FFlagDisableAutoTranslateForKeyTranslatedContent)
 local FFlagCollectAnalyticsForSystemMenu = settings():GetFFlag("CollectAnalyticsForSystemMenu")
 
@@ -1536,11 +1535,11 @@ local function CreateSettingsHub()
 			if visibilityChanged then
 				if visible then
 					AnalyticsService:SetRBXEventStream(Constants.AnalyticsTargetName, Constants.AnalyticsMenuOpenName, Constants.AnalyticsMenuActionName, {
-						source = GetFFlagInstrumentMenuOpenMethods() and analyticsContext or nil,
+						source = analyticsContext,
 					})
 				else
 					AnalyticsService:SetRBXEventStream(Constants.AnalyticsTargetName, Constants.AnalyticsMenuCloseName, Constants.AnalyticsMenuActionName, {
-						source = GetFFlagInstrumentMenuOpenMethods() and analyticsContext or nil,
+						source = analyticsContext,
 					})
 				end
 			end

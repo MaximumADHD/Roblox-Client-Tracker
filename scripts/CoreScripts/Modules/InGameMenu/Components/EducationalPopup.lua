@@ -21,7 +21,6 @@ local EducationalPopupDialog = require(script.Parent.EducationalPopupDialog)
 local SendAnalytics = require(InGameMenu.Utility.SendAnalytics)
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
-local GetFFlagInstrumentMenuOpenMethods = require(RobloxGui.Modules.Flags.GetFFlagInstrumentMenuOpenMethods)
 local GetFFlagInGameMenuIconTooltip = require(RobloxGui.Modules.Flags.GetFFlagInGameMenuIconTooltip)
 
 local NotificationType = GuiService:GetNotificationTypeList()
@@ -113,10 +112,8 @@ end, function(dispatch)
 
 			if GetFFlagInGameMenuIconTooltip() then
 				dispatch(SetMenuIconTooltipOpen(true))
-			elseif GetFFlagInstrumentMenuOpenMethods() then
-				dispatch(OpenMenu(Constants.AnalyticsMenuOpenTypes.EducationalMenuTriggered))
 			else
-				dispatch(OpenMenu)
+				dispatch(OpenMenu(Constants.AnalyticsMenuOpenTypes.EducationalMenuTriggered))
 			end
 
 			RbxAnalyticsService:ReportCounter("EducationalPopup_Confirm", 1)

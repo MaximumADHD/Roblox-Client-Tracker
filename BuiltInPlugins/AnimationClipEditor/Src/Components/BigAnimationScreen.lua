@@ -17,6 +17,8 @@ local withLocalization = Localizing.withLocalization
 local Theme = require(Plugin.Src.Context.Theme)
 local withTheme = Theme.withTheme
 
+local TimelineActions = require(Plugin.Src.Components.TimelineActions)
+
 local BigAnimationScreen = Roact.PureComponent:extend("BigAnimationScreen")
 
 function BigAnimationScreen:render()
@@ -25,6 +27,8 @@ function BigAnimationScreen:render()
 		local props = self.props
 		local size = props.Size
 		local layoutOrder = props.LayoutOrder
+
+		local emptyFunc = function() end
 
 		return Roact.createElement("Frame", {
 			Size = size,
@@ -39,6 +43,15 @@ function BigAnimationScreen:render()
 				TextColor3 = startScreenTheme.textColor,
 				TextTruncate = Enum.TextTruncate.AtEnd,
 				BackgroundColor3 = theme.backgroundColor,
+			}),
+
+			TimelineActions = Roact.createElement(TimelineActions, {
+				ShowMenu = false,
+				MultipleSelected = false,
+				OnMenuOpened = emptyFunc,
+				OnItemSelected = emptyFunc,
+				OnRenameKeyframe = emptyFunc,
+				OnChangeDuration = emptyFunc,
 			}),
 		})
 	end)

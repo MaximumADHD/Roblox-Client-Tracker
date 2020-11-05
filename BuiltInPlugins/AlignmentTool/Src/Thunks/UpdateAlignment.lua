@@ -8,7 +8,6 @@ local Selection = game:GetService("Selection")
 local Plugin = script.Parent.Parent.Parent
 
 local getEngineFeatureActiveInstanceHighlight = require(Plugin.Src.Flags.getEngineFeatureActiveInstanceHighlight)
-local getFFlagAlignToolAnalytics = require(Plugin.Src.Flags.getFFlagAlignToolAnalytics)
 
 local SetAlignEnabled = require(Plugin.Src.Actions.SetAlignEnabled)
 local RelativeTo = require(Plugin.Src.Utility.RelativeTo)
@@ -30,9 +29,7 @@ return function(analytics)
 			alignObjects(objects, axes, mode)
 		end
 
-		if getFFlagAlignToolAnalytics() then
-			analytics:report("useAlignTool", mode, axes, relativeTo, objects)
-		end
+		analytics:report("useAlignTool", mode, axes, relativeTo, objects)
 
 		ChangeHistoryService:SetWaypoint("Align Objects")
 		store:dispatch(SetAlignEnabled(false))

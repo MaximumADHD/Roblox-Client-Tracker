@@ -3,7 +3,6 @@
 ]]
 
 local FFlagTerrainToolsUseDevFramework = game:GetFastFlag("TerrainToolsUseDevFramework")
-local FFlagTerrainToolsReplaceSrcTogglesOff = game:GetFastFlag("TerrainToolsReplaceSrcTogglesOff")
 
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
@@ -43,8 +42,8 @@ function BrushSettings:_render(localization)
 	local showSnapToGrid = self.props.snapToGrid ~= nil
 	local showIgnoreWater = self.props.ignoreWater ~= nil
 	local showPlaneLockToggle = self.props.planeLock ~= nil
-	local disablePlaneLockToggle = FFlagTerrainToolsReplaceSrcTogglesOff and self.props.disablePlaneLock
-	local disableIgnoreWaterToggle = FFlagTerrainToolsReplaceSrcTogglesOff and self.props.disableIgnoreWater
+	local disablePlaneLockToggle = self.props.disablePlaneLock
+	local disableIgnoreWaterToggle = self.props.disableIgnoreWater
 	local showFixedPlaneToggle = self.props.fixedPlane ~= nil
 
 	local showFlattenModes = self.props.flattenMode ~= nil

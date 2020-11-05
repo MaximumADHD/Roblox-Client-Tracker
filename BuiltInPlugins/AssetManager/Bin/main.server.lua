@@ -3,10 +3,11 @@ if not plugin then
 end
 
 -- Fast flags
+require(script.Parent.defineLuaFlags)
+
 local OverrideLocaleId = settings():GetFVariable("StudioForceLocale")
 
 local FFlagAssetManagerLuaPlugin = settings():GetFFlag("AssetManagerLuaPlugin")
-local FFlagAssetManagerAddAnalytics = game:DefineFastFlag("AssetManagerAddAnalytics", false)
 local FFlagStudioAssetManagerAddRecentlyImportedView = game:GetFastFlag("StudioAssetManagerAddRecentlyImportedView")
 local FFlagStudioShowHideABTestV2 = game:GetFastFlag("StudioShowHideABTestV2")
 

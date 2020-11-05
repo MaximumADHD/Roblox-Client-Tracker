@@ -1,3 +1,5 @@
+local FFlagPlayerEmulatorSerializeIntoDM = game:GetFastFlag("PlayerEmulatorSerializeIntoDM")
+
 local PlayerEmulatorService = game:GetService("PlayerEmulatorService")
 
 local Plugin = script.Parent.Parent.Parent
@@ -12,9 +14,11 @@ end
 
 return function(allPoliciesResponse, playerPolicyResponse, plugin)
 	return function(store)
-		local cachedPolicySettingStatus = plugin:GetSetting(Constants.POLICY_SETTING_KEY) or {}
 		local allPolicies = {}
 		local policySettingStatus = {}
+
+		local status = FFlagPlayerEmulatorSerializeIntoDM and PlayerEmulatorService:GetEmulatedPolicyInfo()
+			or plugin:GetSetting(Constants.POLICY_SETTING_KEY) or {}
 
 		for k, v in pairs(allPoliciesResponse) do
 			if type(v) == "table" then
@@ -22,8 +26,8 @@ return function(allPoliciesResponse, playerPolicyResponse, plugin)
 			end
 			allPolicies[firstToUpper(k)] = v
 
-			if cachedPolicySettingStatus[firstToUpper(k)] ~= nil then
-				policySettingStatus[firstToUpper(k)] = cachedPolicySettingStatus[firstToUpper(k)]
+			if status[firstToUpper(k)] ~= nil then
+				policySettingStatus[firstToUpper(k)] = status[firstToUpper(k)]
 			elseif playerPolicyResponse[k] ~= nil then
 				policySettingStatus[firstToUpper(k)] = playerPolicyResponse[k]
 			else
@@ -36,7 +40,9 @@ return function(allPoliciesResponse, playerPolicyResponse, plugin)
 
 		store:dispatch(LoadAllPolicyValues(allPolicies, sortedKeys))
 		PlayerEmulatorService:SetEmulatedPolicyInfo(policySettingStatus)
-		plugin:SetSetting(Constants.POLICY_SETTING_KEY, policySettingStatus)
+		if not FFlagPlayerEmulatorSerializeIntoDM then
+			plugin:SetSetting(Constants.POLICY_SETTING_KEY, policySettingStatus)
+		end
 		store:dispatch(UpdatePolicySettingStatus(policySettingStatus))
 	end
 end

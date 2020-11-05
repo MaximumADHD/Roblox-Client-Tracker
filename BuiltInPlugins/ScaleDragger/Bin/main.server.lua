@@ -15,6 +15,8 @@ local ExtrudeHandles = require(DraggerFramework.Handles.ExtrudeHandles)
 local DraggerSchemaCore = Plugin.Packages.DraggerSchemaCore
 local DraggerSchema = require(DraggerSchemaCore.DraggerSchema)
 
+local getEngineFeatureEditPivot = require(DraggerFramework.Flags.getEngineFeatureEditPivot)
+
 local PLUGIN_NAME = "ScaleDragger"
 local DRAGGER_TOOL_NAME = "Scale"
 local TOOLBAR_NAME = "Home"
@@ -76,6 +78,10 @@ local function main()
 
 	draggerContext = DraggerContext_PluginImpl.new(
 		plugin, game, settings(), DraggerSchema.Selection.new())
+
+	if getEngineFeatureEditPivot() then
+		draggerContext.ScaleToolSpecialCaseIgnorePivotWithSinglePartSelected = true
+	end
 
 	plugin.Deactivation:Connect(function()
 		if pluginEnabled then

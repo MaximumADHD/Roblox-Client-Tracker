@@ -348,7 +348,6 @@ function MainView:render()
 					searchTerm = searchTerm,
 					categoryIndex = (not FFlagUseCategoryNameInToolbox) and (categoryIndex),
 					categoryName = categoryName,
-					mostRecentAssetInsertTime = self.props.mostRecentAssetInsertTime, -- TODO: Remove when retiring FFlagToolboxFixDuplicateAssetInsertions as True
 
 					ZIndex = 1,
 

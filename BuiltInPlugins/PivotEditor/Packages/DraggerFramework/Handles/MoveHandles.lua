@@ -10,8 +10,8 @@ local StandaloneSelectionBox = require(DraggerFramework.Components.StandaloneSel
 
 local MoveHandleView = require(DraggerFramework.Components.MoveHandleView)
 
-local getFFlagDraggerSplit = require(DraggerFramework.Flags.getFFlagDraggerSplit)
 local getFFlagHideMoveDraggerWarning = require(DraggerFramework.Flags.getFFlagHideMoveDraggerWarning)
+local EngineFeatureEditPivot = require(DraggerFramework.Flags.getEngineFeatureEditPivot)()
 
 local ALWAYS_ON_TOP = true
 
@@ -50,8 +50,6 @@ local function snapToGridSize(distance, gridSize)
 end
 
 function MoveHandles.new(draggerContext, props, implementation)
-	assert(getFFlagDraggerSplit())
-
 	local self = {}
 	self._handles = {}
 	self._props = props or {}
@@ -101,7 +99,8 @@ function MoveHandles:render(hoveredHandleId)
 		local handleProps = self._handles[self._draggingHandleId]
 		children[self._draggingHandleId] = Roact.createElement(MoveHandleView, {
 			Axis = handleProps.Axis,
-			AxisOffset = handleProps.AxisOffset,
+			AxisOffset = (not EngineFeatureEditPivot) and handleProps.AxisOffset or nil,
+			Outset = handleProps.Outset,
 			Color = handleProps.Color,
 			Scale = handleProps.Scale,
 			AlwaysOnTop = ALWAYS_ON_TOP,
@@ -111,7 +110,8 @@ function MoveHandles:render(hoveredHandleId)
 			if otherHandleId ~= self._draggingHandleId then
 				children[otherHandleId] = Roact.createElement(MoveHandleView, {
 					Axis = otherHandleProps.Axis,
-					AxisOffset = otherHandleProps.AxisOffset,
+					AxisOffset = (not EngineFeatureEditPivot) and otherHandleProps.AxisOffset or nil,
+					Outset = handleProps.Outset,
 					Color = Colors.makeDimmed(otherHandleProps.Color),
 					Scale = otherHandleProps.Scale,
 					AlwaysOnTop = ALWAYS_ON_TOP,
@@ -131,7 +131,8 @@ function MoveHandles:render(hoveredHandleId)
 			end
 			children[handleId] = Roact.createElement(MoveHandleView, {
 				Axis = handleProps.Axis,
-				AxisOffset = handleProps.AxisOffset,
+				AxisOffset = (not EngineFeatureEditPivot) and handleProps.AxisOffset or nil,
+				Outset = handleProps.Outset,
 				Color = color,
 				Scale = handleProps.Scale,
 				AlwaysOnTop = ALWAYS_ON_TOP,
@@ -162,9 +163,17 @@ function MoveHandles:mouseDown(mouseRay, handleId)
 		self:_setupMoveAtCurrentBoundingBox(mouseRay)
 
 		local handleProps = self._handles[handleId]
-		local handleOffset, handleLength =
-			MoveHandleView.getHandleDimensionForScale(handleProps.Scale)
-		local offsetDueToBoundingBox = handleProps.AxisOffset
+		local handleOffset, handleLength
+		local offsetDueToBoundingBox
+		if EngineFeatureEditPivot then
+			handleOffset, handleLength =
+				MoveHandleView.getHandleDimensionForScale(handleProps.Scale, self._props.Outset)
+			offsetDueToBoundingBox = -handleProps.OffsetInHandleSpace.Z
+		else
+			handleOffset, handleLength =
+				MoveHandleView.getHandleDimensionForScale(handleProps.Scale)
+			offsetDueToBoundingBox = handleProps.AxisOffset
+		end
 		self._draggingHandleFrac =
 			(self._startDistance - handleOffset - offsetDueToBoundingBox) / handleLength
 	end
@@ -189,9 +198,15 @@ function MoveHandles:_setMidMoveBoundingBox(newBoundingBoxCFrame)
 end
 
 function MoveHandles:_getDistanceAlongAxis(mouseRay)
-	return Math.intersectRayRay(
-		self._draggingOriginalBoundingBoxCFrame.Position, self._axis,
-		mouseRay.Origin, mouseRay.Direction.Unit)
+	if EngineFeatureEditPivot then
+		return Math.intersectRayRay(
+			(self._draggingOriginalBoundingBoxCFrame * self._basisOffset).Position, self._axis,
+			mouseRay.Origin, mouseRay.Direction.Unit)
+	else
+		return Math.intersectRayRay(
+			self._draggingOriginalBoundingBoxCFrame.Position, self._axis,
+			mouseRay.Origin, mouseRay.Direction.Unit)
+	end
 end
 
 --[[
@@ -209,7 +224,13 @@ end
 	Do this using a binary search over the potential solution space.
 ]]
 function MoveHandles:_solveForAdjustedDistance(unadjustedDistance)
-	local offsetDueToBoundingBox = self._handles[self._draggingHandleId].AxisOffset
+	local offsetDueToBoundingBox
+	local offsetInHandleSpace
+	if EngineFeatureEditPivot then
+		offsetInHandleSpace = self._handles[self._draggingHandleId].OffsetInHandleSpace
+	else
+		offsetDueToBoundingBox = self._handles[self._draggingHandleId].AxisOffset
+	end
 	local handleRotation = MoveHandleDefinitions[self._draggingHandleId].Offset
 
 	local function getScaleForDistance(distance)
@@ -217,21 +238,38 @@ function MoveHandles:_solveForAdjustedDistance(unadjustedDistance)
 			self._draggingOriginalBoundingBoxCFrame +
 			self._axis * (distance - self._startDistance)
 		local baseCFrameAtDistance =
-			boundingBoxAtDistance * handleRotation *
-			CFrame.new(0, 0, -offsetDueToBoundingBox)
+			EngineFeatureEditPivot and
+			(boundingBoxAtDistance * handleRotation * offsetInHandleSpace) or
+			(boundingBoxAtDistance * handleRotation *
+			CFrame.new(0, 0, -offsetDueToBoundingBox))
 		return self._draggerContext:getHandleScale(baseCFrameAtDistance.Position)
 	end
 
 	local function getHandleFracForDistance(distance)
 		local scale = getScaleForDistance(distance)
-		local handleOffset, handleLength = MoveHandleView.getHandleDimensionForScale(scale)
+		local handleOffset, handleLength
+		if EngineFeatureEditPivot then
+			handleOffset, handleLength =
+				MoveHandleView.getHandleDimensionForScale(scale, self._props.Outset)
+		else
+			handleOffset, handleLength = MoveHandleView.getHandleDimensionForScale(scale)
+		end
 		local intoDist = unadjustedDistance - distance + self._startDistance
-		return (intoDist - handleOffset - offsetDueToBoundingBox) / handleLength
+		if EngineFeatureEditPivot then
+			return (intoDist - handleOffset + offsetInHandleSpace.Z) / handleLength
+		else
+			return (intoDist - handleOffset - offsetDueToBoundingBox) / handleLength
+		end
 	end
 
 	local function getHandleLengthForDistance(distance)
-		local _, handleLength =
-			MoveHandleView.getHandleDimensionForScale(getScaleForDistance(distance))
+		local _, handleLength
+		if EngineFeatureEditPivot then
+			_, handleLength = MoveHandleView.getHandleDimensionForScale(
+				getScaleForDistance(distance), self._props.Outset)
+		else
+			_, handleLength = MoveHandleView.getHandleDimensionForScale(getScaleForDistance(distance))
+		end
 		return handleLength
 	end
 
@@ -314,20 +352,40 @@ function MoveHandles:_updateHandles()
 		self._handles = {}
 	else
 		for handleId, handleDef in pairs(MoveHandleDefinitions) do
-			-- Offset the handle's base position by the size of the bounding
-			-- box on that handle's axis.
-			local localSize = handleDef.Offset:Inverse():VectorToWorldSpace(self._boundingBox.Size)
-			local offsetDueToBoundingBox = 0.5 * math.abs(localSize.Z)
-			local handleBaseCFrame =
-				self._boundingBox.CFrame *
-				handleDef.Offset *
-				CFrame.new(0, 0, -offsetDueToBoundingBox)
-			self._handles[handleId] = {
-				AxisOffset = offsetDueToBoundingBox,
-				Axis = handleBaseCFrame,
-				Color = handleDef.Color,
-				Scale = self._draggerContext:getHandleScale(handleBaseCFrame.Position),
-			}
+			if EngineFeatureEditPivot then
+				local inverseHandleCFrame = handleDef.Offset:Inverse()
+				local localSize = inverseHandleCFrame:VectorToWorldSpace(self._boundingBox.Size)
+				local offsetDueToBoundingBox = 0.5 * math.abs(localSize.Z)
+				local offsetDueToBasisOffset = inverseHandleCFrame:VectorToWorldSpace(self._basisOffset.Position)
+				local offsetInHandleSpace =
+					CFrame.new(offsetDueToBasisOffset.X, offsetDueToBasisOffset.Y, -offsetDueToBoundingBox)
+				local handleBaseCFrame =
+					self._boundingBox.CFrame * handleDef.Offset * offsetInHandleSpace
+				self._handles[handleId] = {
+					OffsetInHandleSpace = offsetInHandleSpace,
+					Outset = self._props.Outset,
+					Axis = handleBaseCFrame,
+					Color = handleDef.Color,
+					Scale = self._draggerContext:getHandleScale(handleBaseCFrame.Position),
+					AlwaysOnTop = ALWAYS_ON_TOP,
+				}
+			else
+				-- Offset the handle's base position by the size of the bounding
+				-- box on that handle's axis.
+				local localSize = handleDef.Offset:Inverse():VectorToWorldSpace(self._boundingBox.Size)
+				local offsetDueToBoundingBox = 0.5 * math.abs(localSize.Z)
+				local handleBaseCFrame =
+					self._boundingBox.CFrame *
+					handleDef.Offset *
+					CFrame.new(0, 0, -offsetDueToBoundingBox)
+				self._handles[handleId] = {
+					AxisOffset = offsetDueToBoundingBox,
+					Axis = handleBaseCFrame,
+					Color = handleDef.Color,
+					Scale = self._draggerContext:getHandleScale(handleBaseCFrame.Position),
+					AlwaysOnTop = ALWAYS_ON_TOP,
+				}
+			end
 		end
 	end
 end

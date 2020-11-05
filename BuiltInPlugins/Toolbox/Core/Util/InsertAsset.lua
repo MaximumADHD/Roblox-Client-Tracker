@@ -22,7 +22,6 @@ local FFlagStudioToolboxInsertAssetCategoryAnalytics = settings():GetFFlag("Stud
 local FFlagToolboxFixDecalInsert = settings():GetFFlag("ToolboxFixDecalInsert")
 local FFlagUseCategoryNameInToolbox = game:GetFastFlag("UseCategoryNameInToolbox")
 local FFlagEnableToolboxVideos = game:GetFastFlag("EnableToolboxVideos")
-local FFlagStudioFixUndoAfterInsertByDrag = game:GetFastFlag("StudioFixUndoAfterInsertByDrag")
 local FFlagToolboxForceSelectDragger = game:GetFastFlag("ToolboxForceSelectDragger")
 local FFlagDragFaceInstances = game:GetFastFlag("DragFaceInstances")
 local EFLuaDraggers = game:GetEngineFeature("LuaDraggers")
@@ -476,9 +475,6 @@ function InsertAsset.doDragInsertAsset(options)
 	end)
 
 	if success then
-		if not FFlagStudioFixUndoAfterInsertByDrag then
-			ChangeHistoryService:SetWaypoint(("After insert asset %d"):format(assetId))
-		end
 		sendInsertionAnalytics(options, true)
 
 		-- TODO CLIDEVSRVS-1689: For AssetInsertionTracker.trackInsert with dragged

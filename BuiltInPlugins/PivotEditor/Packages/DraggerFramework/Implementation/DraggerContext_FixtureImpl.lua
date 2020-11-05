@@ -10,11 +10,9 @@ local ChangeHistoryService = game:GetService("ChangeHistoryService")
 
 local DraggerFramework = script.Parent.Parent
 
-local SelectionWrapper_DEPRECATED = require(DraggerFramework.Utility.SelectionWrapper_DEPRECATED)
 local MockAnalytics = require(DraggerFramework.Utility.MockAnalytics)
 
 local getEngineFeatureActiveInstanceHighlight = require(DraggerFramework.Flags.getEngineFeatureActiveInstanceHighlight)
-local getFFlagDraggerSplit = require(DraggerFramework.Flags.getFFlagDraggerSplit)
 
 local DraggerContext = {}
 DraggerContext.__index = DraggerContext
@@ -26,9 +24,7 @@ local VIEWPORT_SIZE = 1000
 local MAX_UNDO_WAYPOINTS = 20
 
 function DraggerContext.new(guiTarget, selection)
-	if getFFlagDraggerSplit() then
-		assert(selection ~= nil)
-	end
+	assert(selection ~= nil)
 	return setmetatable({
 		_guiTarget = guiTarget,
 		_useLocalSpace = false,
@@ -38,7 +34,7 @@ function DraggerContext.new(guiTarget, selection)
 		_drawConstraintsOnTop = false,
 		_shouldJoinSurfaces = true,
 		_mouseLocation = Vector2.new(),
-		_mouseUnitRay = Ray.new(),
+		_mouseUnitRay = Ray.new(Vector3.new(), Vector3.new()),
 		_cameraCFrame = CFrame.new(),
 		_cameraSize = 10,
 		_mouseIcon = "",
@@ -47,6 +43,9 @@ function DraggerContext.new(guiTarget, selection)
 		_rotateIncrement = math.rad(30),
 		_selection = selection,
 		_undoWaypoints = {},
+		_isAltDown = false,
+		_isCtrlDown = false,
+		_isShiftDown = false,
 	}, DraggerContext)
 end
 
@@ -212,14 +211,8 @@ function DraggerContext:expectMouseIcon(icon)
 	end
 end
 
-if getFFlagDraggerSplit() then
-	function DraggerContext:getSelection()
-		return self._selection
-	end
-else
-	function DraggerContext:getSelectionWrapper()
-		return SelectionWrapper_DEPRECATED
-	end
+function DraggerContext:getSelection()
+	return self._selection
 end
 
 -- Are non-anchored parts in the world currently being physically simulated?

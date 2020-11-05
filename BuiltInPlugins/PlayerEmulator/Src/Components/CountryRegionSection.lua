@@ -27,6 +27,8 @@
 		function onEmulatedCountryRegionChanged
 			on changing selected country region
 ]]
+local FFlagPlayerEmulatorSerializeIntoDM = game:GetFastFlag("PlayerEmulatorSerializeIntoDM")
+
 local PlayerEmulatorService = game:GetService("PlayerEmulatorService")
 
 local Plugin = script.Parent.Parent.Parent
@@ -44,11 +46,19 @@ local CountryRegionSection = Roact.PureComponent:extend("CountryRegionSection")
 
 
 local function GetEmulatedCountryRegionCode()
-	return PlayerEmulatorService.StudioEmulatedCountryRegionCode
+	if FFlagPlayerEmulatorSerializeIntoDM then
+		return PlayerEmulatorService.EmulatedCountryCode
+	else
+		return PlayerEmulatorService.StudioEmulatedCountryRegionCode
+	end
 end
 
 local function SetEmulatedCountryRegionCode(code)
-	PlayerEmulatorService.StudioEmulatedCountryRegionCode = code
+	if FFlagPlayerEmulatorSerializeIntoDM then
+		PlayerEmulatorService.EmulatedCountryCode = code
+	else
+		PlayerEmulatorService.StudioEmulatedCountryRegionCode = code
+	end
 end
 
 function CountryRegionSection:getCurrentCountryRegionText(userCountryRegionCode)
@@ -62,9 +72,11 @@ function CountryRegionSection:getCurrentCountryRegionText(userCountryRegionCode)
 end
 
 function CountryRegionSection:updateCountryRegionSetting(code)
-	local plugin = self.props.Plugin:get()
-	if plugin:GetSetting(Constants.COUNTRY_REGION_SETTING_KEY) ~= code then
-		plugin:SetSetting(Constants.COUNTRY_REGION_SETTING_KEY, code)
+	if not FFlagPlayerEmulatorSerializeIntoDM then
+		local plugin = self.props.Plugin:get()
+		if plugin:GetSetting(Constants.COUNTRY_REGION_SETTING_KEY) ~= code then
+			plugin:SetSetting(Constants.COUNTRY_REGION_SETTING_KEY, code)
+		end
 	end
 
 	local onEmulatedCountryRegionChanged = self.props.onEmulatedCountryRegionChanged
@@ -78,14 +90,26 @@ end
 function CountryRegionSection:didMount()
 	local plugin = self.props.Plugin:get()
 	local networkingImpl = self.props.Networking:get()
-	self.props.loadCountryRegion(networkingImpl, plugin)
 
-	local countryRegionChangedSignal = PlayerEmulatorService:GetPropertyChangedSignal(
-		"StudioEmulatedCountryRegionCode"):Connect(function()
-			self:updateCountryRegionSetting(GetEmulatedCountryRegionCode())
-		end)
-
+	local countryRegionChangedSignal
+	if FFlagPlayerEmulatorSerializeIntoDM then
+		countryRegionChangedSignal = PlayerEmulatorService:GetPropertyChangedSignal(
+			"EmulatedCountryCode"):Connect(function()
+				self:updateCountryRegionSetting(GetEmulatedCountryRegionCode())
+			end)
+	else
+		countryRegionChangedSignal = PlayerEmulatorService:GetPropertyChangedSignal(
+			"StudioEmulatedCountryRegionCode"):Connect(function()
+				self:updateCountryRegionSetting(GetEmulatedCountryRegionCode())
+			end)
+	end
 	table.insert(self.signalTokens, countryRegionChangedSignal)
+
+	if FFlagPlayerEmulatorSerializeIntoDM then
+		self.props.loadCountryRegion(networkingImpl)
+	else
+		self.props.loadCountryRegion(networkingImpl, plugin)
+	end
 end
 
 function CountryRegionSection:willUnmount()
@@ -157,7 +181,11 @@ end
 local function mapDispatchToProps(dispatch)
 	return {
 		loadCountryRegion = function(networkingImpl, plugin)
-			dispatch(GetCountryRegion(networkingImpl, plugin))
+			if FFlagPlayerEmulatorSerializeIntoDM then
+				dispatch(GetCountryRegion(networkingImpl))
+			else
+				dispatch(GetCountryRegion(networkingImpl, plugin))
+			end
 		end,
 
 		onEmulatedCountryRegionChanged = function(code)

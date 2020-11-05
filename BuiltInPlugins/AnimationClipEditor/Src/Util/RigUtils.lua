@@ -26,6 +26,7 @@ local FixDuplicateChildNames = require(Plugin.LuaFlags.GetFFlagFixDuplicateChild
 local AllowDuplicateNamesOnNonAnimatedParts = require(Plugin.LuaFlags.GetFFlagAllowDuplicateNamesOnNonAnimatedParts)
 
 local FFlagFixDuplicateNamedRoot = game:DefineFastFlag("FixDuplicateNamedRoot", false)
+local FFlagFixMakeChainPose = game:DefineFastFlag("FixMakeChainPose", false)
 
 local RigUtils = {}
 
@@ -1113,40 +1114,64 @@ local function makePoseChain(keyframe, trackName, rig, trackData, partsToMotors,
 			end
 		end
 
-		local currentPart = trackName
-		while currentPart ~= nil do
-			local motor = partsToMotors[currentPart]
-			if motor then
-				currentPart = motor.Part0.Name
-				local parentPose = keyframe:FindFirstChild(currentPart, true)
+		if IsMicroboneSupportEnabled() and FFlagFixMakeChainPose then
+			local current = trackName
+			while current ~= nil do
+				local motor = partsToMotors[current]
+				local bone = boneMap[current]
+				if motor then
+					current = motor.Part0.Name
+				elseif bone then
+					current = bone.Parent.Name
+				else
+					break
+				end
+
+				local parentPose = keyframe:FindFirstChild(current, true)
 				if not parentPose then
 					parentPose = Instance.new("Pose")
-					parentPose.Name = currentPart
+					parentPose.Name = current
 					parentPose.Weight = 0
 				end
 				poseChain.Parent = parentPose
 				poseChain = parentPose
-			else
-				currentPart = nil
 			end
-		end
-
-		if IsMicroboneSupportEnabled() then
-			local currentBone = trackName
-			while currentBone ~= nil do
-				local bone = boneMap[currentBone]
-				if bone then
-					currentBone = bone.Parent.Name
-					local parentPose = keyframe:FindFirstChild(currentBone, true)
+		else
+			local currentPart = trackName
+			while currentPart ~= nil do
+				local motor = partsToMotors[currentPart]
+				if motor then
+					currentPart = motor.Part0.Name
+					local parentPose = keyframe:FindFirstChild(currentPart, true)
 					if not parentPose then
 						parentPose = Instance.new("Pose")
-						parentPose.Name = currentBone
+						parentPose.Name = currentPart
 						parentPose.Weight = 0
 					end
 					poseChain.Parent = parentPose
 					poseChain = parentPose
 				else
-					currentBone = nil
+					currentPart = nil
+				end
+			end
+
+			if IsMicroboneSupportEnabled() then
+				local currentBone = trackName
+				while currentBone ~= nil do
+					local bone = boneMap[currentBone]
+					if bone then
+						currentBone = bone.Parent.Name
+						local parentPose = keyframe:FindFirstChild(currentBone, true)
+						if not parentPose then
+							parentPose = Instance.new("Pose")
+							parentPose.Name = currentBone
+							parentPose.Weight = 0
+						end
+						poseChain.Parent = parentPose
+						poseChain = parentPose
+					else
+						currentBone = nil
+					end
 				end
 			end
 		end

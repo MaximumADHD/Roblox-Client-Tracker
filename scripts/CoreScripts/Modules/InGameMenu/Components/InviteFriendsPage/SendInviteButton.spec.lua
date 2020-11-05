@@ -43,7 +43,6 @@ return function()
 	end)
 
 	describe("animations", function()
-		HACK_NO_XPCALL()
 		it("should call animation began and ended once", function()
 			local animationBegunCalled = 0
 			local animationEndedCalled = 0

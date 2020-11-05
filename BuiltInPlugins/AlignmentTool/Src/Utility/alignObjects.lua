@@ -6,6 +6,8 @@ local plugin = Plugin.Parent
 local DraggerFramework = Plugin.Packages.DraggerFramework
 local JointMaker = require(DraggerFramework.Utility.JointMaker)
 
+local getFFlagFixAlignToolMissingTargetObject = require(Plugin.Src.Flags.getFFlagFixAlignToolMissingTargetObject)
+
 local AlignmentMode = require(Plugin.Src.Utility.AlignmentMode)
 local getAlignableObjects = require(Plugin.Src.Utility.getAlignableObjects)
 local getBoundingBoxes = require(Plugin.Src.Utility.getBoundingBoxes)
@@ -68,17 +70,25 @@ return function(objects, axes, mode, target)
 			targetOffset = adjustOffset(targetBoundingBox.offset, targetBoundingBox.size)
 		end
 
-		-- Remove the target from the list of objects, since it serves as a
-		-- reference only and should not be transformed or modified.
-		local targetIndex = table.find(objects, target)
-		if targetIndex then
-			table.remove(objects, targetIndex)
+		if not getFFlagFixAlignToolMissingTargetObject() then
+			-- Remove the target from the list of objects, since it serves as a
+			-- reference only and should not be transformed or modified.
+			local targetIndex = table.find(objects, target)
+			if targetIndex then
+				table.remove(objects, targetIndex)
+			end
 		end
 	else
 		targetOffset = adjustOffset(boundingBoxOffset, boundingBoxSize)
 	end
 
 	for _, object in ipairs(objects) do
+		if getFFlagFixAlignToolMissingTargetObject() then
+			if object == target then
+				continue
+			end
+		end
+
 		local _, allParts = getAlignableObjects({object})
 		assert(#allParts, "Missing parts for alignable object")
 

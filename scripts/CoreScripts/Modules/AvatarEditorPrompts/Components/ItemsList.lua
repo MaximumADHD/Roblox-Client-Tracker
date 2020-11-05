@@ -2,6 +2,7 @@ local CorePackages = game:GetService("CorePackages")
 local CoreGui = game:GetService("CoreGui")
 
 local Roact = require(CorePackages.Roact)
+local RoactRodux = require(CorePackages.RoactRodux)
 local t = require(CorePackages.Packages.t)
 local UIBlox = require(CorePackages.UIBlox)
 
@@ -14,6 +15,9 @@ local ListEntry = require(script.Parent.ListEntry)
 
 local AvatarEditorPrompts = script.Parent.Parent
 local GetAssetsDifference = require(AvatarEditorPrompts.GetAssetsDifference)
+local AddAnalyticsInfo = require(AvatarEditorPrompts.Actions.AddAnalyticsInfo)
+
+local EngineFeatureAvatarEditorServiceAnalytics = game:GetEngineFeature("AvatarEditorServiceAnalytics")
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
@@ -26,6 +30,8 @@ local ItemsList = Roact.PureComponent:extend("ItemsList")
 
 ItemsList.validateProps = t.strictInterface({
 	humanoidDescription = t.instanceOf("HumanoidDescription"),
+
+	addAnalyticsInfo = t.callback,
 })
 
 function ItemsList:init()
@@ -78,12 +84,16 @@ function ItemsList:init()
 
 	self.loadAssetNames = function()
 		coroutine.wrap(function()
-			GetAssetsDifference(self.props.humanoidDescription):andThen(function(addedNames, removedNames)
+			GetAssetsDifference(self.props.humanoidDescription):andThen(function(result)
 				if self.mounted then
+					if EngineFeatureAvatarEditorServiceAnalytics then
+						self.props.addAnalyticsInfo(result.addedAssetIds, result.removedAssetIds)
+					end
+
 					self:setState({
 						loading = false,
-						addedAssetNames = addedNames,
-						removedAssetNames = removedNames,
+						addedAssetNames = result.addedNames,
+						removedAssetNames = result.removedNames,
 					})
 				end
 			end, function(err)
@@ -291,4 +301,12 @@ function ItemsList:willUnmount()
 	self.mounted = false
 end
 
-return ItemsList
+local function mapDispatchToProps(dispatch)
+	return {
+		addAnalyticsInfo = function(info)
+			return dispatch(AddAnalyticsInfo(info))
+		end,
+	}
+end
+
+return RoactRodux.UNSTABLE_connect2(nil, mapDispatchToProps)(ItemsList)

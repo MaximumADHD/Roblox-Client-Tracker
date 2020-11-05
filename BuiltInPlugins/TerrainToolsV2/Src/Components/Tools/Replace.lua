@@ -2,9 +2,10 @@
 	Displays panels associated with The Replace tool
 ]]
 
-local FFlagTerrainToolsUseDevFramework = game:GetFastFlag("TerrainToolsUseDevFramework")
+game:DefineFastFlag("TerrainToolsReplaceUseModeSelector", false)
 
-local FFlagTerrainToolsReplaceSrcTogglesOff = game:GetFastFlag("TerrainToolsReplaceSrcTogglesOff")
+local FFlagTerrainToolsUseDevFramework = game:GetFastFlag("TerrainToolsUseDevFramework")
+local FFlagTerrainToolsReplaceUseModeSelector = game:GetFastFlag("TerrainToolsReplaceUseModeSelector")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -40,6 +41,7 @@ local ButtonGroup = require(ToolParts.ButtonGroup)
 local Panel = require(ToolParts.Panel)
 local MapSettingsWithPreview = require(ToolParts.MapSettingsWithPreview)
 local MaterialSelector = require(ToolParts.MaterialSelector)
+local ModeSelector = require(ToolParts.ModeSelector)
 local ProgressFrame = require(script.Parent.Parent.ProgressFrame)
 
 local BaseBrush = require(Plugin.Src.Components.Tools.BaseBrush)
@@ -177,7 +179,23 @@ function Replace:_render(localization)
 			Title = localization:getText("Replace", "ReplaceMaterial"),
 			LayoutOrder = 1,
 		}, {
-			ModeButtonsWithBoxToggled = Roact.createElement(ToggleButtonGroup, {
+			ModeButtonsWithBoxToggled = FFlagTerrainToolsReplaceUseModeSelector
+			and Roact.createElement(ModeSelector, {
+				Selected = self.props.Mode,
+				Select = self.props.dispatchSetReplaceMode,
+
+				Options = {
+					{
+						Data = ReplaceMode.Box,
+						Text = localization:getText("ReplaceMode", "Box"),
+					},
+					{
+						Data = ReplaceMode.Brush,
+						Text = localization:getText("ReplaceMode", "Brush"),
+					},
+				},
+			})
+			or Roact.createElement(ToggleButtonGroup, {
 				Selected = self.props.Mode,
 
 				Buttons = {
@@ -224,8 +242,8 @@ function Replace:_render(localization)
 				dispatchSetSnapToGrid = self.props.dispatchSetSnapToGrid,
 				dispatchSetSourceMaterial = self.props.dispatchSetSourceMaterial,
 				dispatchSetTargetMaterial = self.props.dispatchSetTargetMaterial,
-				disablePlaneLock = FFlagTerrainToolsReplaceSrcTogglesOff and self.props.Source == Enum.Material.Air,
-				disableIgnoreWater = FFlagTerrainToolsReplaceSrcTogglesOff and self.props.Source == Enum.Material.Water,
+				disablePlaneLock = self.props.Source == Enum.Material.Air,
+				disableIgnoreWater = self.props.Source == Enum.Material.Water,
 			}),
 
 			MapSettingsWithPreview = self.props.Mode == ReplaceMode.Box and Roact.createElement(MapSettingsWithPreview, {

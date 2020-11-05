@@ -1,5 +1,3 @@
-local FFlagTerrainToolsFixRegionPreviewDeactivation = game:GetFastFlag("TerrainToolsFixRegionPreviewDeactivation")
-
 local CoreGui = game:GetService("CoreGui")
 local RunService = game:GetService("RunService")
 local Workspace = game:GetService("Workspace")
@@ -35,70 +33,41 @@ function AxisLockedDragger.new(mouse, initialPos, axis, clampingFunc)
 	draggerAdorn.Visible = false
 	draggerAdorn.ZIndex = 1
 
-	if FFlagTerrainToolsFixRegionPreviewDeactivation then
-		self._updateDrag = function()
-			local newPos = self:calcAxisPosMouseClick()
-			if newPos then
-				self:setPosition(newPos)
-			end
+	self._updateDrag = function()
+		local newPos = self:calcAxisPosMouseClick()
+		if newPos then
+			self:setPosition(newPos)
 		end
-
-		self._endDrag = function()
-			if self._updateDragConnection then
-				self._updateDragConnection:Disconnect()
-				self._updateDragConnection = nil
-			end
-
-			if self._mouseButton1UpConnection then
-				self._mouseButton1UpConnection:Disconnect()
-				self._mouseButton1UpConnection = nil
-			end
-		end
-
-		self._startDrag = function()
-			-- Can't start a drag twice
-			if self._updateDragConnection then
-				return
-			end
-
-			self:updateCollisionPlaneNormal()
-			self._prevPosition = self._position
-
-			self._mouseButton1UpConnection = self._mouse.Button1Up:Connect(self._endDrag)
-			self._updateDragConnection = RunService.RenderStepped:Connect(self._updateDrag)
-		end
-
-		self._mouseButton1UpConnection = nil
-		self._mouseButton1DownConnection = draggerAdorn.MouseButton1Down:Connect(self._startDrag)
-		self._updateDragConnection = nil
-	else
-		-- on click, Button1Down event will be used to start listening loop
-		-- Button1Up is used reset all connections once position evaluation is done
-		self._connection1 = draggerAdorn.MouseButton1Down:Connect(function()
-			if not self._planeNormal then
-				self:updateCollisionPlaneNormal()
-
-				self._prevPosition = self._position
-				self._mouseUpConnect = self._mouse.Button1Up:Connect(function()
-					self._mouseDown = false
-					if self._planeNormal then
-						self._planeNormal = nil
-					end
-					self._mouseUpConnect:Disconnect()
-					self._mouseUpConnect = nil
-				end)
-
-				self._mouseDown = true
-				while self._mouseDown do
-					local newPos = self:calcAxisPosMouseClick()
-					if newPos then
-						self:setPosition(newPos)
-					end
-					wait()
-				end
-			end
-		end)
 	end
+
+	self._endDrag = function()
+		if self._updateDragConnection then
+			self._updateDragConnection:Disconnect()
+			self._updateDragConnection = nil
+		end
+
+		if self._mouseButton1UpConnection then
+			self._mouseButton1UpConnection:Disconnect()
+			self._mouseButton1UpConnection = nil
+		end
+	end
+
+	self._startDrag = function()
+		-- Can't start a drag twice
+		if self._updateDragConnection then
+			return
+		end
+
+		self:updateCollisionPlaneNormal()
+		self._prevPosition = self._position
+
+		self._mouseButton1UpConnection = self._mouse.Button1Up:Connect(self._endDrag)
+		self._updateDragConnection = RunService.RenderStepped:Connect(self._updateDrag)
+	end
+
+	self._mouseButton1UpConnection = nil
+	self._mouseButton1DownConnection = draggerAdorn.MouseButton1Down:Connect(self._startDrag)
+	self._updateDragConnection = nil
 
 	draggerAdorn.Adornee = draggerPart
 	draggerAdorn.Parent = draggerPart
@@ -110,56 +79,40 @@ function AxisLockedDragger.new(mouse, initialPos, axis, clampingFunc)
 end
 
 function AxisLockedDragger:destroy()
-	if FFlagTerrainToolsFixRegionPreviewDeactivation then
-		self._clampingFunc = nil
+	self._clampingFunc = nil
 
-		if self._updateDragConnection then
-			self._updateDragConnection:Disconnect()
-			self._updateDragConnection = nil
-		end
+	if self._updateDragConnection then
+		self._updateDragConnection:Disconnect()
+		self._updateDragConnection = nil
+	end
 
-		if self._mouseButton1DownConnection then
-			self._mouseButton1DownConnection:Disconnect()
-			self._mouseButton1DownConnection = nil
-		end
+	if self._mouseButton1DownConnection then
+		self._mouseButton1DownConnection:Disconnect()
+		self._mouseButton1DownConnection = nil
+	end
 
-		if self._mouseButton1UpConnection then
-			self._mouseButton1UpConnection:Disconnect()
-			self._mouseButton1UpConnection = nil
-		end
+	if self._mouseButton1UpConnection then
+		self._mouseButton1UpConnection:Disconnect()
+		self._mouseButton1UpConnection = nil
+	end
 
-		if self._adorn then
-			self._adorn:Destroy()
-			self._adorn = nil
-		end
+	if self._adorn then
+		self._adorn:Destroy()
+		self._adorn = nil
+	end
 
-		if self._part then
-			self._part:Destroy()
-			self._part = nil
-		end
-
-	else
-		if self._part then
-			self._part:Destroy()
-		end
-		if self._adorn then
-			self._adorn:Destroy()
-		end
-		if self._connection1 then
-			self._connection1:Disconnect()
-			self._connection1 = nil
-		end
+	if self._part then
+		self._part:Destroy()
+		self._part = nil
 	end
 end
 
 function AxisLockedDragger:updateVisibility(isVisible)
 	self._adorn.Visible = isVisible
 
-	if FFlagTerrainToolsFixRegionPreviewDeactivation then
-		-- Force an in-progress drag of the adorn to stop if we're becoming invisible
-		if not isVisible then
-			self._endDrag()
-		end
+	-- Force an in-progress drag of the adorn to stop if we're becoming invisible
+	if not isVisible then
+		self._endDrag()
 	end
 end
 

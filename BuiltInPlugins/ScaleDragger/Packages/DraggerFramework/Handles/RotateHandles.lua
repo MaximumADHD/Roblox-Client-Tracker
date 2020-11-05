@@ -11,6 +11,9 @@ local roundRotation = require(DraggerFramework.Utility.roundRotation)
 
 local RotateHandleView = require(DraggerFramework.Components.RotateHandleView)
 
+local getFFlagUseCylinderHandle = require(DraggerFramework.Flags.getFFlagUseCylinderHandle)
+local getEngineFeatureEditPivot = require(DraggerFramework.Flags.getEngineFeatureEditPivot)
+
 -- The minimum rotate increment to display snapping increments for (below this
 -- increment there are so many points that they become visual noise)
 local MIN_ROTATE_INCREMENT = 5.0
@@ -38,7 +41,9 @@ local RotateHandleDefinitions = {
 		RadiusOffset = 0.01,
 	},
 	ZAxis = {
-		Offset = CFrame.fromMatrix(Vector3.new(), Vector3.new(0, 0, 1), Vector3.new(0, 1, 0), Vector3.new(-1, 0, 0)),
+		Offset = getFFlagUseCylinderHandle()
+			and CFrame.fromMatrix(Vector3.new(), Vector3.new(0, 0, 1), Vector3.new(1, 0, 0), Vector3.new(0, 1, 0))
+			or CFrame.fromMatrix(Vector3.new(), Vector3.new(0, 0, 1), Vector3.new(0, 1, 0), Vector3.new(-1, 0, 0)),
 		Color = Colors.Z_AXIS,
 		RadiusOffset = 0.02,
 	},
@@ -236,8 +241,13 @@ function RotateHandles:mouseDown(mouseRay, handleId)
 	end
 
 	-- Check if we can find a starting angle
-	local offset = RotateHandleDefinitions[handleId].Offset
-	local handleCFrame = self._boundingBox.CFrame * offset
+	local handleCFrame
+	if getEngineFeatureEditPivot() then
+		handleCFrame = self._handles[handleId].HandleCFrame
+	else
+		local offset = RotateHandleDefinitions[handleId].Offset
+		handleCFrame = self._boundingBox.CFrame * offset
+	end
 	local angle = rotationAngleFromRay(handleCFrame, mouseRay.Unit)
 	if not angle then
 		return
@@ -269,7 +279,7 @@ function RotateHandles:mouseDrag(mouseRay)
 
 	local snappedDelta = snappedAngle - self._startAngle
 	local candidateGlobalTransform = getRotationTransform(
-		self._originalBoundingBoxCFrame,
+		getEngineFeatureEditPivot() and self._handleCFrame or self._originalBoundingBoxCFrame,
 		self._handleCFrame.RightVector,
 		snappedDelta,
 		self._draggerContext:getRotateIncrement())
@@ -305,7 +315,9 @@ function RotateHandles:_updateHandles()
 	else
 		for handleId, handleDefinition in pairs(RotateHandleDefinitions) do
 			self._handles[handleId] = {
-				HandleCFrame = self._boundingBox.CFrame * handleDefinition.Offset,
+				HandleCFrame = getEngineFeatureEditPivot() and
+					(self._boundingBox.CFrame * self._basisOffset * handleDefinition.Offset) or
+					(self._boundingBox.CFrame * handleDefinition.Offset),
 				Color = handleDefinition.Color,
 				RadiusOffset = handleDefinition.RadiusOffset,
 				Scale = self._scale,

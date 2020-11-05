@@ -1,8 +1,3 @@
-game:DefineFastFlag("TerrainToolsTerrainCylinderOnSizeOne", false)
-
-local FFlagTerrainToolsTerrainCylinderOnSizeOne = game:GetFastFlag("TerrainToolsTerrainCylinderOnSizeOne")
-local FFlagTerrainToolsFixLargeSmoothAirFillerMaterial = game:GetFastFlag("TerrainToolsFixLargeSmoothAirFillerMaterial")
-
 local Plugin = script.Parent.Parent.Parent
 
 local Constants = require(Plugin.Src.Util.Constants)
@@ -93,14 +88,13 @@ local function performOperation(terrain, opSet)
 			terrain:FillBlock(CFrame.new(centerPoint), Vector3.new(size, height, size), desiredMaterial)
 			return
 		elseif brushShape == BrushShape.Cylinder then
-			--Cylinder at Base Size 1 does actually add anything into workspace
-			--To combat this we will use a ballfill instead. At this size the user will see no difference
-			if FFlagTerrainToolsTerrainCylinderOnSizeOne then
-				if (maxBounds - minBounds).x <= 2 * Constants.VOXEL_RESOLUTION then
-					terrain:FillBall(centerPoint, radius, desiredMaterial)
-					return
-				end
+			-- Cylinder at Base Size 1 does actually add anything into workspace
+			-- To combat this we will use a ballfill instead. At this size the user will see no difference
+			if (maxBounds - minBounds).x <= 2 * Constants.VOXEL_RESOLUTION then
+				terrain:FillBall(centerPoint, radius, desiredMaterial)
+				return
 			end
+
 			terrain:FillCylinder(CFrame.new(centerPoint), height, radius, desiredMaterial)
 			return
 		end
@@ -141,15 +135,8 @@ local function performOperation(terrain, opSet)
 
 	local airFillerMaterial = materialAir
 	local waterHeight = 0
-
-	if FFlagTerrainToolsFixLargeSmoothAirFillerMaterial then
-		if ignoreWater then
-			waterHeight, airFillerMaterial = OperationHelper.getWaterHeightAndAirFillerMaterial(readMaterials)
-		end
-	else
-		if ignoreWater and (tool == ToolId.Erode or tool == ToolId.Subtract) then
-			waterHeight, airFillerMaterial = OperationHelper.getWaterHeightAndAirFillerMaterial(readMaterials)
-		end
+	if ignoreWater then
+		waterHeight, airFillerMaterial = OperationHelper.getWaterHeightAndAirFillerMaterial(readMaterials)
 	end
 
 	local sizeX = table.getn(readOccupancies)
