@@ -1523,6 +1523,12 @@
       </returns>
       <description>Returns the values: x, y, z, R00, R01, R02, R10, R11, R12, R20, R21, R22</description>
     </Function>
+    <Function name="Orthonormalize">
+      <returns>
+        <CFrame>orthonormalized</CFrame>
+      </returns>
+      <description>Returns an orthonormalized copy of the CFrame</description>
+    </Function>
     <Function name="ToEulerAnglesXYZ">
       <returns>
         <number>x</number>
@@ -2412,6 +2418,17 @@
       </parameters>
       <description>Registers a function to call each time an event is triggered.  Returns a connection object that can be used to undo this registration.</description>
     </Function>
+    <!-- Enable when ParallelLua is enabled
+    <Function name="ConnectParallel">
+      <returns>
+        <RobloxScriptConnection></RobloxScriptConnection>
+      </returns>
+      <parameters>
+        <function name="func"></function>
+      </parameters>
+      <description>Registers a function to call each time an event is triggered.  Returns a connection object that can be used to undo this registration. Dispatch will be deferred.</description>
+    </Function>
+    -->
     <Function name="Wait">
       <returns>
         <value></value>

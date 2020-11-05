@@ -24,7 +24,7 @@ enumerate = "github.com/roblox/enumerate@1.0.0"
 PolicyProvider = { git = "https://github.com/Roblox/lua-roact-policy-provider", rev = "master" }
 Lumberyak = { git = "https://github.com/Roblox/lumberyak" }
 StringUtilities = "github.com/Roblox/string-utilities@1.0.0"
-UrlBuilder = "github.com/Roblox/url-builder@1.0.2"
+UrlBuilder = "github.com/Roblox/url-builder@1.0.3"
 
 # The following packages were ported from AppTempCommon
 Promise = { git = "https://github.com/Roblox/lua-promise" }
@@ -44,23 +44,3 @@ Rhodium = "github.com/roblox/rhodium@0.2.5"
 [patch."https://github.rbx.com/roblox/uiblox"]
 git = "https://github.com/roblox/uiblox"
 rev = "master"
-
-[patch."https://github.com/roblox/roact"]
-target = "github.com/roblox/roact"
-version = "1.2"
-
-[patch."https://github.com/roblox/cryo"]
-target = "github.com/roblox/cryo"
-version = "1.0"
-
-[patch."https://github.com/roblox/t"]
-target = "github.com/roblox/t"
-version = "1.0"
-
-[patch."https://github.com/roblox/rodux"]
-target = "github.com/roblox/rodux"
-version = "1.0"
-
-[patch."https://github.com/roblox/otter"]
-target = "github.com/roblox/otter"
-version = "0.1"

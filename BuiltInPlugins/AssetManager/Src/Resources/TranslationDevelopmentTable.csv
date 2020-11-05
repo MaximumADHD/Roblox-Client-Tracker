@@ -39,6 +39,7 @@ Studio.AssetManager.ContextMenu.PackageDetails,Package Details
 Studio.AssetManager.ContextMenu.PublishLinkedSource,Publish this LinkedSource
 Studio.AssetManager.ContextMenu.RevertToLastPublishedVersion,Revert To Last Published Version
 Studio.AssetManager.ContextMenu.RefreshScript,Refresh Script
+Studio.AssetManager.ContextMenu.AssetPreview,Asset Preview
 Studio.AssetManager.AssetPreview.Insert,Insert
 Studio.AssetManager.MainView.PublishText,You need to publish the game to start using Asset Manager.
 Studio.AssetManager.MainView.ButtonText,Publish

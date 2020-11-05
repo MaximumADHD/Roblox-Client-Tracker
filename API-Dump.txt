@@ -15,6 +15,7 @@ Class Instance : <<<ROOT>>> [NotCreatable] [NotBrowsable]
 	Function Instance Instance:FindFirstChild(string name, bool recursive = false)
 	Function Instance Instance:FindFirstChildOfClass(string className)
 	Function Instance Instance:FindFirstChildWhichIsA(string className, bool recursive = false)
+	Function Instance Instance:GetActor()
 	Function Variant Instance:GetAttribute(string attribute)
 	Function RBXScriptSignal Instance:GetAttributeChangedSignal(string attribute)
 	Function Dictionary Instance:GetAttributes()
@@ -94,7 +95,11 @@ Class Animator : Instance
 	Function Instance Animator:LoadAnimation(Instance animation)
 	Function void Animator:StepAnimations(float deltaTime) {PluginSecurity}
 	Event Animator.AnimationPlayed(Instance animationTrack)
+Class AppUpdateService : Instance [NotCreatable] [Service] [NotReplicated]
+	Function void AppUpdateService:CheckForUpdate(Function handler = nil) {RobloxScriptSecurity}
+	Function bool AppUpdateService:PerformManagedUpdate() {RobloxScriptSecurity}
 Class AssetCounterService : Instance [NotCreatable] [Service] [NotReplicated]
+Class AssetDeliveryProxy : Instance [NotCreatable] [Service] [NotReplicated]
 Class AssetManagerService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function int64 AssetManagerService:AddNewPlace() {RobloxScriptSecurity} [Yields]
 	Function void AssetManagerService:DeleteAlias(string aliasName) {RobloxScriptSecurity} [Yields]
@@ -1684,7 +1689,7 @@ Class MarketplaceService : Instance [NotCreatable] [Service]
 	Function Dictionary MarketplaceService:PerformPurchase(Enum<InfoType> infoType, int64 productId, int expectedPrice, string requestId, bool isRobloxPurchase) {RobloxScriptSecurity} [Yields]
 	Function bool MarketplaceService:PlayerCanMakePurchases(Instance player) {RobloxScriptSecurity}
 	Function bool MarketplaceService:PlayerOwnsAsset(Instance player, int64 assetId) [Yields]
-	Function void MarketplaceService:PromptBundlePurchase(Instance player, int64 bundleId) {RobloxScriptSecurity}
+	Function void MarketplaceService:PromptBundlePurchase(Instance player, int64 bundleId)
 	Function void MarketplaceService:PromptGamePassPurchase(Instance player, int64 gamePassId)
 	Function void MarketplaceService:PromptNativePurchase(Instance player, string productId) {RobloxScriptSecurity}
 	Function void MarketplaceService:PromptPremiumPurchase(Instance player)
@@ -1711,7 +1716,7 @@ Class MarketplaceService : Instance [NotCreatable] [Service]
 	Event MarketplaceService.ClientLuaDialogRequested(Tuple arguments) {RobloxScriptSecurity}
 	Event MarketplaceService.ClientPurchaseSuccess(string ticket, int64 playerId, int64 productId) {RobloxScriptSecurity}
 	Event MarketplaceService.NativePurchaseFinished(Instance player, string productId, bool wasPurchased) {RobloxScriptSecurity}
-	Event MarketplaceService.PromptBundlePurchaseFinished(Instance player, int64 bundleId, bool wasPurchased) {RobloxScriptSecurity}
+	Event MarketplaceService.PromptBundlePurchaseFinished(Instance player, int64 bundleId, bool wasPurchased)
 	Event MarketplaceService.PromptBundlePurchaseRequested(Instance player, int64 bundleId) {RobloxScriptSecurity}
 	Event MarketplaceService.PromptGamePassPurchaseFinished(Instance player, int64 gamePassId, bool wasPurchased)
 	Event MarketplaceService.PromptGamePassPurchaseRequested(Instance player, int64 gamePassId) {RobloxScriptSecurity}
@@ -1832,6 +1837,11 @@ Class BasePart : PVInstance [NotCreatable] [NotBrowsable]
 	Property Enum<Material> BasePart.Material
 	Property float BasePart.Reflectance
 	Property float BasePart.Transparency
+	Property Vector3 BasePart.AssemblyAngularVelocity [<📁> LoadOnly] [NotReplicated]
+	Property Vector3 BasePart.AssemblyCenterOfMass  [ReadOnly] [NotReplicated]
+	Property Vector3 BasePart.AssemblyLinearVelocity [<📁> LoadOnly] [NotReplicated]
+	Property float BasePart.AssemblyMass  [ReadOnly] [NotReplicated]
+	Property Class<BasePart> BasePart.AssemblyRootPart  [ReadOnly] [NotReplicated]
 	Property bool BasePart.Anchored
 	Property bool BasePart.CanCollide
 	Property int BasePart.CollisionGroupId
@@ -1879,6 +1889,9 @@ Class BasePart : PVInstance [NotCreatable] [NotBrowsable]
 	Property float BasePart.TopParamA
 	Property float BasePart.TopParamB
 	Property Enum<InputType> BasePart.TopSurfaceInput
+	Function void BasePart:ApplyAngularImpulse(Vector3 impulse)
+	Function void BasePart:ApplyImpulse(Vector3 impulse)
+	Function void BasePart:ApplyImpulseAtPosition(Vector3 impulse, Vector3 position)
 	Function void BasePart:BreakJoints()
 	Function bool BasePart:CanCollideWith(Instance part)
 	Function Tuple BasePart:CanSetNetworkOwnership()
@@ -2022,6 +2035,7 @@ Class Model : PVInstance
 	Function void Model:SetPrimaryPartCFrame(CFrame cframe)
 	Function void Model:TranslateBy(Vector3 delta)
 	Function void Model:move(Vector3 location) [Deprecated]
+Class Actor : Model
 Class Status : Model [NotCreatable] [Deprecated]
 Class WorldRoot : Model [NotCreatable]
 	Function bool WorldRoot:ArePartsTouchingOthers(Objects partList, float overlapIgnored = 0.000199999995)
@@ -2259,8 +2273,12 @@ Class Player : Instance
 	Event Player.Idled(double time)
 	Event Player.OnTeleport(Enum<TeleportState> teleportState, int64 placeId, string spawnName)
 	Event Player.SimulationRadiusChanged(float radius) {LocalUserSecurity}
-Class PlayerEmulatorService : Instance [NotCreatable] [Service] [NotReplicated]
-	Property bool PlayerEmulatorService.PlayerEmulationEnabled {RobloxScriptSecurity} [<📁> LoadOnly] [NotReplicated]
+Class PlayerEmulatorService : Instance [NotCreatable] [Service]
+	Property string PlayerEmulatorService.EmulatedCountryCode
+	Property string PlayerEmulatorService.EmulatedGameLocale
+	Property bool PlayerEmulatorService.PlayerEmulationEnabled
+	Property bool PlayerEmulatorService.PlayerEmulationEnabled_deprecated {RobloxScriptSecurity} [<📁> LoadOnly] [NotReplicated]
+	Property string PlayerEmulatorService.SerializedEmulatedPolicyInfo
 	Property string PlayerEmulatorService.StudioEmulatedCountryRegionCode {RobloxScriptSecurity} [<📁> LoadOnly] [NotReplicated]
 	Function Dictionary PlayerEmulatorService:GetEmulatedPolicyInfo() {RobloxScriptSecurity}
 	Function void PlayerEmulatorService:SetEmulatedPolicyInfo(Dictionary emulatedPolicyInfo) {RobloxScriptSecurity}
@@ -2420,12 +2438,15 @@ Class PolicyService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property Enum<TriStateBoolean> PolicyService.IsLuobuServer {RobloxScriptSecurity} [Hidden]
 	Property Enum<TriStateBoolean> PolicyService.LuobuWhitelisted {RobloxScriptSecurity} [Hidden]
 	Function Dictionary PolicyService:GetPolicyInfoForPlayerAsync(Instance player) [Yields]
-Class Pose : Instance
+Class PoseBase : Instance [NotCreatable]
+	Property Enum<PoseEasingDirection> PoseBase.EasingDirection
+	Property Enum<PoseEasingStyle> PoseBase.EasingStyle
+	Property float PoseBase.Weight
+Class NumberPose : PoseBase
+	Property double NumberPose.Value
+Class Pose : PoseBase
 	Property CFrame Pose.CFrame
-	Property Enum<PoseEasingDirection> Pose.EasingDirection
-	Property Enum<PoseEasingStyle> Pose.EasingStyle
 	Property float Pose.MaskWeight [<📁> LoadOnly] [NotReplicated] [Deprecated]
-	Property float Pose.Weight
 	Function void Pose:AddSubPose(Instance pose)
 	Function Objects Pose:GetSubPoses()
 	Function void Pose:RemoveSubPose(Instance pose)
@@ -2968,6 +2989,7 @@ Class Studio : Instance [NotCreatable] [Service] [NotReplicated]
 	Property bool Studio.Highlight Occurances
 	Property bool Studio.Indent Using Spaces
 	Property string Studio.Rulers
+	Property bool Studio.Scroll Past Last Line
 	Property bool Studio.Show Whitespace
 	Property bool Studio.Skip Closing Brackets and Quotes
 	Property int Studio.Tab Width
@@ -3569,6 +3591,12 @@ Enum AppShellActionType
 	EnumItem AppShellActionType.GamePageLoaded : 8
 	EnumItem AppShellActionType.HomePageLoaded : 9
 	EnumItem AppShellActionType.AvatarEditorPageLoaded : 10
+Enum AppUpdateStatus
+	EnumItem AppUpdateStatus.Unknown : 0
+	EnumItem AppUpdateStatus.NotSupported : 1
+	EnumItem AppUpdateStatus.Failed : 2
+	EnumItem AppUpdateStatus.NotAvailable : 3
+	EnumItem AppUpdateStatus.Available : 4
 Enum AspectType
 	EnumItem AspectType.FitWithinMaxSize : 0
 	EnumItem AspectType.ScaleWithParentSize : 1

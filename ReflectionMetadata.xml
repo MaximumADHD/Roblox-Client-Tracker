@@ -1,6 +1,16 @@
 <roblox xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.roblox.com/roblox.xsd" version="4">
   <Item class="ReflectionMetadataClasses">
     <Properties></Properties>
+    <!-- Remove with FFlag::ParallelLua
+    <Item class="ReflectionMetadataClass">
+      <Properties>
+        <string name="Name">Actor</string>
+        <string name="ClassCategory">Scripting</string>
+        <string name="summary">A logical grouping of datamodel nodes</string>
+        <string name="ExplorerOrder">10</string>
+        <string name="ExplorerImageIndex">113</string>
+      </Properties>
+    </Item-->
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">BindableFunction</string>
@@ -141,7 +151,7 @@
         </Item>
       </Item>
       <Item class="ReflectionMetadataFunctions">
-        <Item class="ReflectionMetadataMember">
+            <Item class="ReflectionMetadataMember">
           <Properties>
             <string name="Name">GetCollection</string>
             <bool name="Deprecated">true</bool>
@@ -6068,6 +6078,37 @@
         <Item class="ReflectionMetadataMember">
           <Properties>
             <string name="Name">CenterOfMass</string>
+            <string name="summary">The position of the center of mass of this part.</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">AssemblyMass</string>
+            <string name="summary">The total mass of this part's assembly - collection of parts connected by welds or animated joints.</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">AssemblyCenterOfMass</string>
+            <string name="summary">The position of the center mass of this part's assembly - collection of parts connected by welds or animated joints.</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">AssemblyLinearVelocity</string>
+            <string name="summary">The linear velocity of this part's assembly - collection of parts connected by welds or animated joints.</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">AssemblyAngularVelocity</string>
+            <string name="summary">The angular velocity of this part's rigid body - collection of parts connected by welds or animated joints.</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">AssemblyRootParty</string>
+            <string name="summary">The root part of this part's assembly - can be changed with RootPriority or Anchored property.</string>
           </Properties>
         </Item>
       </Item>
@@ -7115,7 +7156,7 @@
 				<string name="ExplorerImageIndex">104</string>
 			</Properties>
 		</Item>
-		<Item class="ReflectionMetadataClass">
+    <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">Folder</string>
         <string name="summary">An object that can be created to hold and organize objects</string>
@@ -7224,8 +7265,25 @@
     </Item>
     <Item class="ReflectionMetadataClass">
       <Properties>
+        <string name="Name">PoseBase</string>
+        <string name="ExplorerOrder">220</string>
+        <string name="ExplorerImageIndex">60</string>
+        <string name="summary">The base class to all Pose Objects.</string>
+      </Properties>
+    </Item>
+    <Item class="ReflectionMetadataClass">
+      <Properties>
         <string name="Name">Pose</string>
-        <string name="summary">The pose of a joint relative to it's parent part in a keyframe</string>
+        <string name="summary">The pose of a joint relative to its parent part in a keyframe</string>
+        <string name="ExplorerOrder">220</string>
+        <string name="ExplorerImageIndex">60</string>
+        <string name="Insertable">false</string>
+      </Properties>
+    </Item>
+      <Item class="ReflectionMetadataClass">
+      <Properties>
+        <string name="Name">NumberPose</string>
+        <string name="summary">The value of a float channel for a specific keyframe</string>
         <string name="ExplorerOrder">220</string>
         <string name="ExplorerImageIndex">60</string>
         <string name="Insertable">false</string>

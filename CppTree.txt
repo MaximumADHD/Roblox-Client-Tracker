@@ -718,6 +718,9 @@ RBX
 		DirtyPublishWarningDialog
 		InfoBarBanner
 		InfoBarManager
+		PackagesBlockingPublishDialog
+		PackagesInfoUIModel
+		PathColumnDelegate
 	}
 	TaskScheduler
 	{
@@ -742,6 +745,7 @@ RBX
 	}
 	Accessory
 	Accoutrement
+	Actor
 	Adorn
 	AdService
 	AdvArrowTool
@@ -767,6 +771,7 @@ RBX
 	Animator
 	AppStorage
 	AppStorageService
+	AppUpdateService
 	ArcHandles
 	ArrowToolBase
 	Assembly
@@ -774,6 +779,7 @@ RBX
 	AssemblyMidPhaseBinding
 	AssemblyStage
 	AssetCounterService
+	AssetDeliveryProxy
 	AssetFetchMediator
 	AssetService
 	AsyncHttpQueue
@@ -836,6 +842,7 @@ RBX
 	CanNotSelectCommand
 	CapturedMouseCommand
 	CatalogPages
+	CFramePose
 	ChangeHistoryService
 	ChangeHistoryStatsItem
 	CharacterAppearance
@@ -1241,7 +1248,7 @@ RBX
 	PolicyServiceAnalyticsStatReporter
 	PolicyServiceStatReporter
 	Poly
-	Pose
+	PoseBase
 	PostEffect
 	Primitive
 	PrimitiveMidPhaseBinding
@@ -1460,6 +1467,7 @@ RBX
 	VirtualUser
 	Visit
 	VRService
+	WaitingParallelScriptsJob
 	WaitingScriptsJob
 	WebSocket
 	WebSocketCurl

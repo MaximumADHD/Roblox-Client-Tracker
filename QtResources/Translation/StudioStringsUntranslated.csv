@@ -635,6 +635,23 @@ Studio.App.IdeDoc.WouldYouLikeToSaveTheseChanges,Roblox IDE Doc,Would you like t
 Studio.App.IdeDoc.YouMustLogInToCreateMeshes,Roblox IDE Doc,You must log in to create meshes.,You must log in to create meshes.
 Studio.App.ImagePickerWidget.AddImageElps,,Add Image...,Add Image...
 Studio.App.ImageResourceController.ImagesReferencedByName,,"Images are referenced by name, so any references to this image will fail to load. Are you sure you want to remove it?","Images are referenced by name, so any references to this image will fail to load. Are you sure you want to remove it?"
+Studio.App.ImportCostVerificationDialog.BalanceAfterImport,,Balance after import:,Balance after import:
+Studio.App.ImportCostVerificationDialog.CostVerificationDescription,,You will not be charged for imports that fail due to not meeting import requirements.,You will not be charged for imports that fail due to not meeting import requirements.
+Studio.App.ImportCostVerificationDialog.CostVerificationMainText1,,Would you like to import the selected audio files for %1 Robux?,Would you like to import the selected audio files for %1 Robux?
+Studio.App.ImportCostVerificationDialog.CostVerificationTitle,,File Import Cost,File Import Cost
+Studio.App.ImportCostVerificationDialog.CurrentBalance,,Your current balance:,Your current balance:
+Studio.App.ImportCostVerificationDialog.DetailsCostTitle,,Cost,Cost
+Studio.App.ImportCostVerificationDialog.DetailsNameTitle,,Name,Name
+Studio.App.ImportCostVerificationDialog.PurchaseRobux,,Purchase more Robux.,Purchase more Robux.
+Studio.App.ImportCostVerificationErrorDialog.EstimatedCostErrorDescription,,"Click ‘Show Details’ to view the files that could not be estimated and the import cost of files that were successfully estimated. Try importing a new selection, or resolve conflicts and reattempt.","Click ‘Show Details’ to view the files that could not be estimated and the import cost of files that were successfully estimated. Try importing a new selection, or resolve conflicts and reattempt."
+Studio.App.ImportCostVerificationErrorDialog.EstimatedCostErrorMainText,,Failed to estimate import cost of the selected files.,Failed to estimate import cost of the selected files.
+Studio.App.ImportCostVerificationErrorDialog.EstimatedCostErrorTitle,,Estimated Cost Error,Estimated Cost Error
+Studio.App.ImportCostVerificationErrorDialog.Failed,,Failed,Failed
+Studio.App.ImportCostVerificationErrorDialog.FundsRequired,,Funds Required:,Funds Required:
+Studio.App.ImportCostVerificationErrorDialog.InsufficientFundsErrorDescription1,,Click ‘Show Details’ to view the cost of each file and the files that cannot be imported. Try importing a new selection or %1,Click ‘Show Details’ to view the cost of each file and the files that cannot be imported. Try importing a new selection or %1
+Studio.App.ImportCostVerificationErrorDialog.InsufficientFundsErrorMainText,,You do not have enough Robux to import selected files.,You do not have enough Robux to import selected files.
+Studio.App.ImportCostVerificationErrorDialog.InsufficientFundsErrorTitle,,Insufficient Funds,Insufficient Funds
+Studio.App.ImportCostVerificationErrorDialog.TotalImportCost,,Total import cost:,Total import cost:
 Studio.App.InsertObject.MultipleSelectionError,,InsertObject: Cannot do insert object when there are multiple selections. Please make sure you select a valid target object.,InsertObject: Cannot do insert object when there are multiple selections. Please make sure you select a valid target object.
 Studio.App.InsertObject.SearchObject1,,Search object %1,Search object %1
 Studio.App.InsertObjectCategory.3DInterfaces,,3D Interfaces,3D Interfaces
@@ -972,9 +989,26 @@ Studio.App.PackageResourceController.PackageInsertError1,,Game Explorer Package 
 Studio.App.PackageUtilities.GoToRevisionError1,,Package go to revision error: %1,Package go to revision error: %1
 Studio.App.PackageUtilities.ModifiedPackagesInDMError,,Error: Cannot publish place to Roblox while there are packages with unpublished changes.,Error: Cannot publish place to Roblox while there are packages with unpublished changes.
 Studio.App.PackageUtilities.PendingPackagesInDMError,,Unable to publish this place as there may be modified packages. Please try again later.,Unable to publish this place as there may be modified packages. Please try again later.
+Studio.App.PackageUtilities.PermissionEdit,,Edit,Edit
+Studio.App.PackageUtilities.PermissionNoAccess,,No Access,No Access
+Studio.App.PackageUtilities.PermissionOwn,,Own,Own
+Studio.App.PackageUtilities.PermissionUseView,,Use & View,Use & View
 Studio.App.PackageUtilities.SelectInExplorer,Button text. The button allows user to select some packages in Explorer,Select in Explorer,Select in Explorer
 Studio.App.PackageUtilities.UndoChangesError1,,Package undo changes error: %1,Package undo changes error: %1
 Studio.App.PackageUtilities.UpdateError1,,Package update error: %1,Package update error: %1
+Studio.App.PackagesBlockingPublishDialog.CannotCheck,Shows when an error is preventing Studio from checking if a package has been modified.,ERROR: Cannot check package for modification,ERROR: Cannot check package for modification
+Studio.App.PackagesBlockingPublishDialog.CheckInProgress,,Modification check is in progress,Modification check is in progress
+Studio.App.PackagesBlockingPublishDialog.CreatorTypeGroup,"Used in a list of package owners. Packages can be owned by individual users or by groups, so this label is used to distinguish the names of groups from the names of users.",Group,Group
+Studio.App.PackagesBlockingPublishDialog.Header,Header of dialog window showing packages in a place that are preventing the user from publishing that place,Place could not be published.,Place could not be published.
+Studio.App.PackagesBlockingPublishDialog.InsufficientPermissions,,Insufficient permissions,Insufficient permissions
+Studio.App.PackagesBlockingPublishDialog.ModificationCheckStatus,,Package Link Status,Package Link Status
+Studio.App.PackagesBlockingPublishDialog.Owner,,Owner,Owner
+Studio.App.PackagesBlockingPublishDialog.PackageAssetName,,Package Asset Name,Package Asset Name
+Studio.App.PackagesBlockingPublishDialog.PackageInstance,,Package Instance,Package Instance
+Studio.App.PackagesBlockingPublishDialog.PackageInstanceName,,Package Instance Name,Package Instance Name
+Studio.App.PackagesBlockingPublishDialog.PackageIsModified,,Package is modified,Package is modified
+Studio.App.PackagesBlockingPublishDialog.Permission,,Permission,Permission
+Studio.App.PackagesBlockingPublishDialog.Warning,,The following packages are preventing this place from being published:,The following packages are preventing this place from being published:
 Studio.App.Parts.Surface,Parts menu,Surface,Surface
 Studio.App.Parts.SurfaceTooltip,tooltip,"Pick a surface type, and click on part surfaces to apply","Pick a surface type, and click on part surfaces to apply"
 Studio.App.PlaceResourceController.AddingPlace,,Adding Place...,Adding Place...
@@ -1010,6 +1044,7 @@ Studio.App.Properties.AttributeName,,Name,Name
 Studio.App.Properties.AttributeNameExceeds1,,Attribute name exceeds %1 characters.,Attribute name exceeds %1 characters.
 Studio.App.Properties.AttributeTryDifferentName,,Try to use a different name.,Try to use a different name.
 Studio.App.Properties.AttributeType,,Type,Type
+Studio.App.Properties.MultipleTypes,,<Multiple Types>,<Multiple Types>
 Studio.App.Properties.NoAttributeAdded,,No Attribute has been added yet,No Attribute has been added yet
 Studio.App.Properties.TitleFmt1,title of properties widget,Properties - %1,Properties - %1
 Studio.App.Property.ActiveColor,,Active Color,Active Color
@@ -1169,6 +1204,7 @@ Studio.App.Property.SchedulerDutyCycle,,Scheduler Duty Cycle,Scheduler Duty Cycl
 Studio.App.Property.SchedulerRate,,Scheduler Rate,Scheduler Rate
 Studio.App.Property.ScriptEditorColorPreset,The set of colors used in syntax highlighting in script editor,Script Editor Color Preset,Script Editor Color Preset
 Studio.App.Property.ScriptTimeoutLength,,Script Timeout Length,Script Timeout Length
+Studio.App.Property.ScrollPastLastLine,,Scroll Past Last Line,Scroll Past Last Line
 Studio.App.Property.SearchContentForCoreScripts,,Search Content For Core Scripts,Search Content For Core Scripts
 Studio.App.Property.SelectColor,,Select Color,Select Color
 Studio.App.Property.SelectHoverColor,,Select/Hover Color,Select/Hover Color
@@ -1344,6 +1380,7 @@ Studio.App.PropertyTooltip.FormatOnPaste,,Automatically format the code after pa
 Studio.App.PropertyTooltip.FormatOnType,,Automatically format the code after typing.,Automatically format the code after typing.
 Studio.App.PropertyTooltip.IndentUsingSpaces,,Prefer indent with spaces over tabs. This will affect Auto Indent and pressing Tab behavior.,Prefer indent with spaces over tabs. This will affect Auto Indent and pressing Tab behavior.
 Studio.App.PropertyTooltip.Rulers,,Vertical lines drawn at the specified column numbers. These can be used as a guide to code length limits.,Vertical lines drawn at the specified column numbers. These can be used as a guide to code length limits.
+Studio.App.PropertyTooltip.ScrollPastLastLine,,Allow script editor to scroll past the last line.,Allow script editor to scroll past the last line.
 Studio.App.PropertyTooltip.ShowWhitespace,,Visibly display spaces and tabs.,Visibly display spaces and tabs.
 Studio.App.PropertyTooltip.SkipClosingBracketsAndQuotes,,Skip over a closing bracket/quote instead of inserting another.,Skip over a closing bracket/quote instead of inserting another.
 Studio.App.PropertyTooltip.TabWidth,,"The width of a tab, measured in number of spaces. Value can only be between 1 and 8.","The width of a tab, measured in number of spaces. Value can only be between 1 and 8."
@@ -2303,6 +2340,7 @@ Studio.App.RobloxScriptDoc.BreakpointsDisabledLinkedSource,,Breakpoints are curr
 Studio.App.RobloxScriptDoc.CantAccessRevertingChange,,"Cannot gain write access to script, reverting your change","Cannot gain write access to script, reverting your change"
 Studio.App.RobloxScriptDoc.CloseOtherScripts,,Close Other Scripts,Close Other Scripts
 Studio.App.RobloxScriptDoc.CloseScript,,Close Script,Close Script
+Studio.App.RobloxScriptDoc.DockTab,,Dock Tab,Dock Tab
 Studio.App.RobloxScriptDoc.LockTakenInactivity,,A script lock was taken from you due to inactivity. Please see the Script Recovery Widget to resolve issues.,A script lock was taken from you due to inactivity. Please see the Script Recovery Widget to resolve issues.
 Studio.App.RobloxScriptDoc.MultipleScriptLocks,,Multiple script locks were taken from you due to inactivity. Please see the Script Recovery Widget to resolve issues.,Multiple script locks were taken from you due to inactivity. Please see the Script Recovery Widget to resolve issues.
 Studio.App.RobloxScriptDoc.OtherChangesReverted1,,"%1 is currently modifying this script, your changes will be reverted","%1 is currently modifying this script, your changes will be reverted"
@@ -2481,7 +2519,7 @@ Studio.App.SettingsCategory.RenderingGeneral,,General,General
 Studio.App.SettingsCategory.RenderingPerformance,,Performance,Performance
 Studio.App.SettingsCategory.StudioAdvanced,,Advanced,Advanced
 Studio.App.SettingsCategory.StudioAudio,,Audio,Audio
-Studio.App.SettingsCategory.StudioAutoRecovery,,AutoRecovery,AutoRecovery
+Studio.App.SettingsCategory.StudioAutoRecovery,,Auto-Recovery,Auto-Recovery
 Studio.App.SettingsCategory.StudioBrowsing,,Browsing,Browsing
 Studio.App.SettingsCategory.StudioCamera,,Camera,Camera
 Studio.App.SettingsCategory.StudioDebugger,,Debugger,Debugger
@@ -2490,8 +2528,8 @@ Studio.App.SettingsCategory.StudioExplorer,,Explorer,Explorer
 Studio.App.SettingsCategory.StudioGeneral,,General,General
 Studio.App.SettingsCategory.StudioOutput,,Output,Output
 Studio.App.SettingsCategory.StudioPrimaryPart,,PrimaryPart,PrimaryPart
-Studio.App.SettingsCategory.StudioScriptEditor,,ScriptEditor,ScriptEditor
-Studio.App.SettingsCategory.StudioScriptEditorColors,,ScriptEditorColors,ScriptEditorColors
+Studio.App.SettingsCategory.StudioScriptEditor,,Script Editor,Script Editor
+Studio.App.SettingsCategory.StudioScriptEditorColors,,Script Editor Colors,Script Editor Colors
 Studio.App.SettingsCategory.StudioTools,,Tools,Tools
 Studio.App.SettingsCategory.StudioUndo,,Undo,Undo
 Studio.App.SettingsCategory.StudioVisualization,,Visualization,Visualization
@@ -2748,6 +2786,7 @@ Studio.Common.Action.Back,,Back,Back
 Studio.Common.Action.Cancel,,Cancel,Cancel
 Studio.Common.Action.Clear,,Clear,Clear
 Studio.Common.Action.Close,,Close,Close
+Studio.Common.Action.Confirm,,Confirm,Confirm
 Studio.Common.Action.Continue,,Continue,Continue
 Studio.Common.Action.Copy,,Copy,Copy
 Studio.Common.Action.Create,,Create,Create
@@ -2761,10 +2800,12 @@ Studio.Common.Action.Find,,Find,Find
 Studio.Common.Action.Goto,,Goto,Goto
 Studio.Common.Action.Height,,Height,Height
 Studio.Common.Action.Help,,Help,Help
+Studio.Common.Action.HideDetails,,Hide Details,Hide Details
 Studio.Common.Action.Home,,Home,Home
 Studio.Common.Action.Ignore,,Ignore,Ignore
 Studio.Common.Action.Insert,,Insert,Insert
 Studio.Common.Action.LabelWithColon1,,%1:,%1:
+Studio.Common.Action.LearnMore,,Learn More,Learn More
 Studio.Common.Action.Name,,Name,Name
 Studio.Common.Action.New,,New,New
 Studio.Common.Action.Next,,Next,Next
@@ -2788,7 +2829,9 @@ Studio.Common.Action.Retry,,Retry,Retry
 Studio.Common.Action.Save,,Save,Save
 Studio.Common.Action.Search,,Search,Search
 Studio.Common.Action.Select,,Select,Select
+Studio.Common.Action.SelectAll,,Select All,Select All
 Studio.Common.Action.Share,,Share,Share
+Studio.Common.Action.ShowDetails,,Show Details,Show Details
 Studio.Common.Action.Stop,,Stop,Stop
 Studio.Common.Action.Undo,,Undo,Undo
 Studio.Common.Action.Update,,Update,Update

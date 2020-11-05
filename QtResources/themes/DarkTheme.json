@@ -503,6 +503,36 @@
     ],
   "Paths": [
     {
+      "AudioImport/ErrorImage": {
+        "Default": ":/images/BulkImport/alert-octagon.png"
+      }
+    },
+    {
+      "AudioImport/ErrorIcon": {
+        "Default": ":/images/BulkImport/alert-octagon-sm.png"
+      }
+    },
+    {
+      "AudioImport/RobuxIcon": {
+        "Default": ":/images/BulkImport/DarkTheme/robux-dark.png"
+      }
+    },
+    {
+      "AudioImport/VolumeError": {
+        "Default": ":/images/BulkImport/volume-error.png"
+      }
+    },
+    {
+      "AudioImport/VolumeImage": {
+        "Default": ":/images/BulkImport/volume.png"
+      }
+    },
+    {
+      "AudioImport/VolumeIcon": {
+        "Default": ":/images/BulkImport/DarkTheme/volume-sm-dark.png"
+      }
+    },
+    {
       "BulkImport/CloseIcon": {
         "Default": ":/images/BulkImport/DarkTheme/close-dark.png"
       }

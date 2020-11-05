@@ -378,7 +378,7 @@
     <TabPage name="Geometry" fflag="EditPivot" text="Studio.App.RobloxRibbonMainWindow.GeometryTab">
         <Group name="Pivot" text="Studio.App.RobloxRibbonMainWindow.PivotGroup">
             <addaction name="editPivotAction" style="textundericon" text="Studio.App.RobloxRibbonMainWindow.EditPivot" tooltip="Studio.App.RobloxRibbonMainWindow.EditPivotTooltip" icon=":/RibbonBar/images/RibbonIcons/Home/Drag.png" width="32" height="32" />
-            <MenuPopupButton name="editPivotActionGroup" style="textonly" popupStyle="instant" text="Studio.App.RobloxRibbonMainWindow.SetPivotMenu" tooltip="Studio.App.RobloxRibbonMainWindow.SetPivotMenuTooltip">
+            <MenuPopupButton name="setPivotToGeometryAction" style="textonly" popupStyle="instant" text="Studio.App.RobloxRibbonMainWindow.SetPivotMenu" tooltip="Studio.App.RobloxRibbonMainWindow.SetPivotMenuTooltip">
                 <addaction name="setPivotToGeometryAction" style="textonly" text="Studio.App.RobloxRibbonMainWindow.SetPivotToGeometry" tooltip="Studio.App.RobloxRibbonMainWindow.SetPivotToGeometryTooltip" />
                 <addaction name="setPivotToSurfaceAction" style="textonly" text="Studio.App.RobloxRibbonMainWindow.SetPivotToSurface" tooltip="Studio.App.RobloxRibbonMainWindow.SetPivotToSurfaceTooltip" />
                 <addaction name="setPivotToPartAction" style="textonly" text="Studio.App.RobloxRibbonMainWindow.SetPivotToPart" tooltip="Studio.App.RobloxRibbonMainWindow.SetPivotToPartTooltip" />

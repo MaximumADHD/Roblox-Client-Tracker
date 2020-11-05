@@ -340,6 +340,17 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "GetActor",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Class",
+                        "Name": "Instance"
+                    },
+                    "Security": "None"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "GetAttribute",
                     "Parameters": [
                         {
@@ -1768,9 +1779,63 @@
         },
         {
             "Members": [
+                {
+                    "MemberType": "Function",
+                    "Name": "CheckForUpdate",
+                    "Parameters": [
+                        {
+                            "Default": "nil",
+                            "Name": "handler",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "Function"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "PerformManagedUpdate",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    },
+                    "Security": "RobloxScriptSecurity"
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "AppUpdateService",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotCreatable",
+                "Service",
+                "NotReplicated"
+            ]
+        },
+        {
+            "Members": [
             ],
             "MemoryCategory": "Instances",
             "Name": "AssetCounterService",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotCreatable",
+                "Service",
+                "NotReplicated"
+            ]
+        },
+        {
+            "Members": [
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "AssetDeliveryProxy",
             "Superclass": "Instance",
             "Tags": [
                 "NotCreatable",
@@ -29244,7 +29309,7 @@
                         "Category": "Primitive",
                         "Name": "void"
                     },
-                    "Security": "RobloxScriptSecurity"
+                    "Security": "None"
                 },
                 {
                     "MemberType": "Function",
@@ -30114,7 +30179,7 @@
                             }
                         }
                     ],
-                    "Security": "RobloxScriptSecurity"
+                    "Security": "None"
                 },
                 {
                     "MemberType": "Event",
@@ -32220,6 +32285,109 @@
                     }
                 },
                 {
+                    "Category": "Assembly ",
+                    "MemberType": "Property",
+                    "Name": "AssemblyAngularVelocity",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "NotReplicated"
+                    ],
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "Vector3"
+                    }
+                },
+                {
+                    "Category": "Assembly ",
+                    "MemberType": "Property",
+                    "Name": "AssemblyCenterOfMass",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "Vector3"
+                    }
+                },
+                {
+                    "Category": "Assembly ",
+                    "MemberType": "Property",
+                    "Name": "AssemblyLinearVelocity",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "NotReplicated"
+                    ],
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "Vector3"
+                    }
+                },
+                {
+                    "Category": "Assembly ",
+                    "MemberType": "Property",
+                    "Name": "AssemblyMass",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    }
+                },
+                {
+                    "Category": "Assembly ",
+                    "MemberType": "Property",
+                    "Name": "AssemblyRootPart",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ValueType": {
+                        "Category": "Class",
+                        "Name": "BasePart"
+                    }
+                },
+                {
                     "Category": "Surface Inputs",
                     "MemberType": "Property",
                     "Name": "BackParamA",
@@ -33181,6 +33349,67 @@
                         "Category": "DataType",
                         "Name": "BrickColor"
                     }
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "ApplyAngularImpulse",
+                    "Parameters": [
+                        {
+                            "Name": "impulse",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "Vector3"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "None"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "ApplyImpulse",
+                    "Parameters": [
+                        {
+                            "Name": "impulse",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "Vector3"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "None"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "ApplyImpulseAtPosition",
+                    "Parameters": [
+                        {
+                            "Name": "impulse",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "Vector3"
+                            }
+                        },
+                        {
+                            "Name": "position",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "Vector3"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "None"
                 },
                 {
                     "MemberType": "Function",
@@ -36021,6 +36250,13 @@
             "MemoryCategory": "PhysicsParts",
             "Name": "Model",
             "Superclass": "PVInstance"
+        },
+        {
+            "Members": [
+            ],
+            "MemoryCategory": "PhysicsParts",
+            "Name": "Actor",
+            "Superclass": "Model"
         },
         {
             "Members": [
@@ -40795,7 +41031,58 @@
                 {
                     "Category": "Behavior",
                     "MemberType": "Property",
+                    "Name": "EmulatedCountryCode",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "string"
+                    }
+                },
+                {
+                    "Category": "Behavior",
+                    "MemberType": "Property",
+                    "Name": "EmulatedGameLocale",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "string"
+                    }
+                },
+                {
+                    "Category": "Behavior",
+                    "MemberType": "Property",
                     "Name": "PlayerEmulationEnabled",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Behavior",
+                    "MemberType": "Property",
+                    "Name": "PlayerEmulationEnabled_deprecated",
                     "Security": {
                         "Read": "RobloxScriptSecurity",
                         "Write": "RobloxScriptSecurity"
@@ -40810,6 +41097,23 @@
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Behavior",
+                    "MemberType": "Property",
+                    "Name": "SerializedEmulatedPolicyInfo",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "string"
                     }
                 },
                 {
@@ -40867,8 +41171,7 @@
             "Superclass": "Instance",
             "Tags": [
                 "NotCreatable",
-                "Service",
-                "NotReplicated"
+                "Service"
             ]
         },
         {
@@ -43839,23 +44142,6 @@
                 {
                     "Category": "Data",
                     "MemberType": "Property",
-                    "Name": "CFrame",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "ValueType": {
-                        "Category": "DataType",
-                        "Name": "CFrame"
-                    }
-                },
-                {
-                    "Category": "Data",
-                    "MemberType": "Property",
                     "Name": "EasingDirection",
                     "Security": {
                         "Read": "None",
@@ -43890,6 +44176,74 @@
                 {
                     "Category": "Data",
                     "MemberType": "Property",
+                    "Name": "Weight",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    }
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "PoseBase",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotCreatable"
+            ]
+        },
+        {
+            "Members": [
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "Value",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "double"
+                    }
+                }
+            ],
+            "MemoryCategory": "Animation",
+            "Name": "NumberPose",
+            "Superclass": "PoseBase"
+        },
+        {
+            "Members": [
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "CFrame",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "CFrame"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
                     "Name": "MaskWeight",
                     "Security": {
                         "Read": "None",
@@ -43903,23 +44257,6 @@
                         "NotReplicated",
                         "Deprecated"
                     ],
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "float"
-                    }
-                },
-                {
-                    "Category": "Data",
-                    "MemberType": "Property",
-                    "Name": "Weight",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "float"
@@ -43975,7 +44312,7 @@
             ],
             "MemoryCategory": "Animation",
             "Name": "Pose",
-            "Superclass": "Instance"
+            "Superclass": "PoseBase"
         },
         {
             "Members": [
@@ -53419,6 +53756,23 @@
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "int"
+                    }
+                },
+                {
+                    "Category": "Script Editor",
+                    "MemberType": "Property",
+                    "Name": "Scroll Past Last Line",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
                     }
                 },
                 {
@@ -63510,6 +63864,31 @@
                 }
             ],
             "Name": "AppShellActionType"
+        },
+        {
+            "Items": [
+                {
+                    "Name": "Unknown",
+                    "Value": 0
+                },
+                {
+                    "Name": "NotSupported",
+                    "Value": 1
+                },
+                {
+                    "Name": "Failed",
+                    "Value": 2
+                },
+                {
+                    "Name": "NotAvailable",
+                    "Value": 3
+                },
+                {
+                    "Name": "Available",
+                    "Value": 4
+                }
+            ],
+            "Name": "AppUpdateStatus"
         },
         {
             "Items": [
