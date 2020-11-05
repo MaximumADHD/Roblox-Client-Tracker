@@ -15,7 +15,9 @@ local GenericTextLabel = require(UIBlox.Core.Text.GenericTextLabel.GenericTextLa
 local GetTextSize = require(UIBlox.Core.Text.GetTextSize)
 
 local ThreeSectionBar = require(UIBlox.Core.Bar.ThreeSectionBar)
+
 local HeaderBar = Roact.PureComponent:extend("HeaderBar")
+
 HeaderBar.renderLeft = {
 	backButton = function(onActivated)
 		return function(_)
@@ -44,17 +46,18 @@ HeaderBar.validateProps = t.strictInterface({
 
 	-- A function that returns a Roact Component, used for customizing buttons on the right side of the bar
 	renderRight = t.optional(t.callback),
+
+	-- A function that returns a Roact Component, used for customizing, e.g. back button, on the left side of the bar
 	renderLeft = t.optional(t.callback),
 
+	-- A function that returns a Roact Component, used for containing, e.g. search bar, on the center of the bar
+	renderCenter = t.optional(t.callback),
 })
 
 -- default values are taken from Abstract
 HeaderBar.defaultProps = {
 	barHeight = 48,
-	contentPaddingRight = UDim.new(0, 12),
-	renderRight = function()
-		return nil
-	end,
+	contentPaddingRight = UDim.new(0, 0),
 	renderLeft = function()
 		return nil
 	end
@@ -81,12 +84,14 @@ function HeaderBar:render()
 		local centerTextFontStyle = font.Header1
 		local centerTextSize = centerTextFontStyle.RelativeSize * font.BaseSize
 
-		local estimatedCenterWidth = GetTextSize(
+		local renderCenter = self.props.renderCenter
+
+		local estimatedCenterWidth = (not renderCenter) and GetTextSize(
 			self.props.title,
 			centerTextSize,
 			centerTextFontStyle.Font,
 			Vector2.new(1000, 1000)
-		).X
+		).X or 0
 
 		return Roact.createElement("Frame", {
 			BackgroundTransparency = 1,
@@ -100,7 +105,7 @@ function HeaderBar:render()
 				barHeight = self.props.barHeight,
 				marginLeft = self.state.margin,
 				renderLeft = self.props.renderLeft,
-				renderCenter = function()
+				renderCenter = renderCenter or function()
 					return Roact.createElement(GenericTextLabel, {
 						ClipsDescendants = true,
 						Size = UDim2.new(1, 0, 0, centerTextSize),

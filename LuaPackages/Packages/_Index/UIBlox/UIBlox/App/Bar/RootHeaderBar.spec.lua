@@ -28,6 +28,38 @@ return function()
 		end)
 	end)
 
+	describe("renderCenter", function()
+		it("should mount things correctly", function()
+			local frame = Instance.new("Frame")
+			local element = mockStyleComponent({
+				barFrame = Roact.createElement("Frame", {
+					Size = UDim2.new(0, 0, 0, 0),
+				}, {
+					bar = Roact.createElement(RootHeaderBar, {
+						title = "Root Header Bar",
+						renderCenter = function()
+							return Roact.createElement("TextBox", {
+								Size = UDim2.fromOffset(200, 36),
+								Position = UDim2.fromScale(0.5, 0.5),
+								AnchorPoint = Vector2.new(0.5, 0.5),
+								Text = "Search Box Text",
+							})
+						end,
+					}),
+				})
+			})
+
+			local instance = Roact.mount(element, frame, "Frame")
+			local barFrame = frame:FindFirstChild("barFrame", true)
+			local bar = barFrame:FindFirstChild("bar")
+			local centerFrame = bar:FindFirstChild("centerFrame", true)
+			local centerContent = centerFrame:FindFirstChild("centerContent")
+			expect(centerContent.Text).to.equal("Search Box Text")
+
+			Roact.unmount(instance)
+		end)
+	end)
+
 	describe("margin logic", function()
 		it("should have margin of 12 on small screens", function()
 			local frame = Instance.new("Frame")

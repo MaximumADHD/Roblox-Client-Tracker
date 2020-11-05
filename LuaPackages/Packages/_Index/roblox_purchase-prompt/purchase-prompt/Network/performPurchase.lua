@@ -2,6 +2,7 @@ local Root = script.Parent.Parent
 
 local PurchaseError = require(Root.Enums.PurchaseError)
 local Promise = require(Root.Promise)
+local GetFFlagNewEconomyDeveloperProductUrl = require(Root.Flags.GetFFlagNewEconomyDeveloperProductUrl)
 
 local function performPurchase(network, infoType, productId, expectedPrice, requestId, isRobloxPurchase)
 	return network.performPurchase(infoType, productId, expectedPrice, requestId, isRobloxPurchase)
@@ -16,7 +17,8 @@ local function performPurchase(network, infoType, productId, expectedPrice, requ
 				Assets and Gamepasses use the new economy purchasing endpoint. Developer Products still use
 				the old marketplace/submitpurchase endpoint.
 			]]
-			if infoType == Enum.InfoType.Asset or infoType == Enum.InfoType.GamePass or infoType == Enum.InfoType.Bundle then
+			if infoType == Enum.InfoType.Asset or infoType == Enum.InfoType.GamePass or infoType == Enum.InfoType.Bundle
+					or (GetFFlagNewEconomyDeveloperProductUrl() and infoType == Enum.InfoType.Product) then
 				if result.purchased or result.reason == "AlreadyOwned" then
 					return Promise.resolve(result)
 				elseif result.reason == "EconomyDisabled" then

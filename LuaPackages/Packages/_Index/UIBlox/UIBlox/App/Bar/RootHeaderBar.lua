@@ -20,8 +20,12 @@ RootHeaderBar.validateProps = t.strictInterface({
 	-- How tall the bar is
 	barHeight = t.optional(t.number),
 
+	-- A function that returns a Roact Component, used for containing, e.g. search bar, on the center of the bar
+	renderCenter = t.optional(t.callback),
+
 	-- A function that returns a Roact Component, used for customizing buttons on the right side of the bar
 	renderRight = t.optional(t.callback),
+
 	backgroundTransparency = t.optional(t.number),
 })
 
@@ -65,6 +69,7 @@ function RootHeaderBar:render()
 				marginLeft = self.state.margin,
 				marginRight = self.state.margin,
 
+				renderCenter = self.props.renderCenter,
 				renderRight = self.props.renderRight,
 				renderLeft = function(props)
 					return Roact.createFragment({

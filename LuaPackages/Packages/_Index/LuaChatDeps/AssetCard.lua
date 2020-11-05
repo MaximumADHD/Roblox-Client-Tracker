@@ -3,7 +3,7 @@
 ]]
 local PackageIndex = script.Parent.Parent
 
-local package = PackageIndex["asset-card"]["asset-card"]
+local package = PackageIndex["roblox_asset-card"]["asset-card"]
 
 if package.ClassName == "ModuleScript" then
 	return require(package)

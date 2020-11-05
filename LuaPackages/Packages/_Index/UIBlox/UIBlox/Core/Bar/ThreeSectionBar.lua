@@ -154,7 +154,7 @@ function ThreeSectionBar:render()
 			Position = Roact.joinBindings({self.leftWidth, self.rightWidth, self.fullWidth}):map(function(widths)
 				local centeredSize = self.computeCenteredSize(widths)
 
-				if centeredSize.X.Offset <= self.props.estimatedCenterWidth then
+				if math.abs(centeredSize.X.Offset) <= self.props.estimatedCenterWidth then
 					return self.computeBumpedPosition(widths)
 				else
 					return centerPosition
@@ -163,13 +163,17 @@ function ThreeSectionBar:render()
 			Size = Roact.joinBindings({self.leftWidth, self.rightWidth, self.fullWidth}):map(function(widths)
 				local centeredSize = self.computeCenteredSize(widths)
 
-				if centeredSize.X.Offset <= self.props.estimatedCenterWidth then
+				if math.abs(centeredSize.X.Offset) <= self.props.estimatedCenterWidth then
 					return self.computeBumpedSize(widths)
 				else
 					return centeredSize
 				end
 			end),
 		}, {
+			UIPadding = Roact.createElement("UIPadding", {
+				PaddingLeft = self.props.renderLeft and UDim.new(0, 0) or UDim.new(0, self.props.marginLeft),
+				PaddingRight = self.props.renderRight and UDim.new(0, 0) or UDim.new(0, self.props.marginRight),
+			}),
 			["$layout"] = Roact.createElement("UIListLayout", {
 				HorizontalAlignment = Enum.HorizontalAlignment.Center,
 				VerticalAlignment = Enum.VerticalAlignment.Center,

@@ -43,7 +43,7 @@ return function(props, state): (number?, number?, number?)
 	-- Scan outward from the old anchor index until we find the top and bottom or hit the max distance
 	local deltas = {top=-1, bottom=1}
 	repeat
-		for _, delta in pairs(deltas) do
+		for _, delta: number in pairs(deltas) do
 			local pos = anchorIndex + delta * step
 
 			if pos >= 1 and pos <= listSize then
