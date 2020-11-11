@@ -3,9 +3,10 @@
 -- And then error when trying to use flags that aren't yet defined
 
 game:DefineFastFlag("TerrainOpenCloseMetrics", false)
-game:DefineFastFlag("TerrainToolsUseDevFramework", false)
 game:DefineFastFlag("TerrainEnableErrorReporting", false)
 game:DefineFastFlag("TerrainToolsBetterImportTool", false)
+game:DefineFastFlag("TerrainToolsIncludeDevFrameworkTheme", false)
+game:DefineFastFlag("TerrainToolsRedesignProgressDialog", false)
 game:DefineFastFlag("TerrainToolsSingleSelectUseHover", false)
 
 local function handleFlagDependencies(flag, requiredFlags)
@@ -20,10 +21,12 @@ local function handleFlagDependencies(flag, requiredFlags)
 end
 
 handleFlagDependencies("TerrainToolsBetterImportTool", {
-	"TerrainToolsUseDevFramework",
 	"TerrainImportSupportTempId",
 })
-handleFlagDependencies("TerrainToolsSingleSelectUseHover", {"TerrainToolsUseDevFramework"})
+
+handleFlagDependencies("TerrainToolsRedesignProgressDialog", {
+	"TerrainToolsIncludeDevFrameworkTheme",
+})
 
 -- Need to explicitly return something from a module
 -- Else you get an error "Module code did not return exactly one value"

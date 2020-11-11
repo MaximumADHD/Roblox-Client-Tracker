@@ -8,17 +8,13 @@ Props
 	                         Use InfoLabel.Info, .Warning and .Error
 ]]
 
-local FFlagTerrainToolsUseDevFramework = game:GetFastFlag("TerrainToolsUseDevFramework")
-
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
 local Roact = require(Plugin.Packages.Roact)
 
-local ContextServices = FFlagTerrainToolsUseDevFramework and Framework.ContextServices or nil
-local ContextItems = FFlagTerrainToolsUseDevFramework and require(Plugin.Src.ContextItems) or nil
-
-local withTheme = not FFlagTerrainToolsUseDevFramework and require(Plugin.Src.ContextServices.Theming).withTheme or nil
+local ContextServices = Framework.ContextServices
+local ContextItems = require(Plugin.Src.ContextItems)
 
 local Constants = require(Plugin.Src.Util.Constants)
 
@@ -57,7 +53,9 @@ function InfoLabel:didUpdate()
 	self.updateHeight()
 end
 
-function InfoLabel:_render(theme)
+function InfoLabel:render()
+	local theme = self.props.Theme:get()
+
 	local layoutOrder = self.props.LayoutOrder or 1
 	local text = self.props.Text or ""
 
@@ -93,20 +91,8 @@ function InfoLabel:_render(theme)
 	})
 end
 
-function InfoLabel:render()
-	if FFlagTerrainToolsUseDevFramework then
-		return self:_render(self.props.Theme:get())
-	else
-		return withTheme(function(theme)
-			return self:_render(theme)
-		end)
-	end
-end
-
-if FFlagTerrainToolsUseDevFramework then
-	ContextServices.mapToProps(InfoLabel, {
-		Theme = ContextItems.UILibraryTheme,
-	})
-end
+ContextServices.mapToProps(InfoLabel, {
+	Theme = ContextItems.UILibraryTheme,
+})
 
 return InfoLabel

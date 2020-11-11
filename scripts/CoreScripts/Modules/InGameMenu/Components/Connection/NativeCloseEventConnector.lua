@@ -12,6 +12,9 @@ local InGameMenu = script.Parent.Parent.Parent
 local OpenNativeClosePrompt = require(InGameMenu.Actions.OpenNativeClosePrompt)
 local ExternalEventConnection = require(InGameMenu.Utility.ExternalEventConnection)
 local InGameMenuPolicy = require(InGameMenu.InGameMenuPolicy)
+local UserLocalStore = require(InGameMenu.Utility.UserLocalStore)
+
+local GetFFlagPlayerSpecificPopupCounter = require(InGameMenu.Flags.GetFFlagPlayerSpecificPopupCounter)
 
 local LOCAL_STORAGE_KEY_NATIVE_CLOSE = "NativeCloseLuaPromptDisplayCount"
 local notificationTypes = GuiService:GetNotificationTypeList()
@@ -26,12 +29,20 @@ NativeCloseEventConnector.validateProps = t.strictInterface({
 
 function NativeCloseEventConnector:init()
 	local function getDisplayCount()
-		return tonumber(AppStorageService:GetItem(LOCAL_STORAGE_KEY_NATIVE_CLOSE)) or 0
+		local localStore = AppStorageService
+		if GetFFlagPlayerSpecificPopupCounter() then
+			localStore = UserLocalStore.new()
+		end
+		return tonumber(localStore:GetItem(LOCAL_STORAGE_KEY_NATIVE_CLOSE)) or 0
 	end
 
 	local function setDisplayCount(number)
-		AppStorageService:SetItem(LOCAL_STORAGE_KEY_NATIVE_CLOSE, tostring(number))
-		AppStorageService:flush()
+		local localStore = AppStorageService
+		if GetFFlagPlayerSpecificPopupCounter() then
+			localStore = UserLocalStore.new()
+		end
+		localStore:SetItem(LOCAL_STORAGE_KEY_NATIVE_CLOSE, tostring(number))
+		localStore:flush()
 	end
 
 	self.onNativeCloseConnect = function()

@@ -497,7 +497,7 @@ function NetworkInterface:configureCatalogItem(assetId, patchDataTable)
 	}
 
 	-- TODO: replace this with Networking:httpPatch
-	printUrl("uploadCatalogItem", "PATCH", targetUrl, patchPayload)
+	printUrl("configureCatalogItem", "PATCH", targetUrl, patchPayload)
 	return self._networkImp:requestInternal(requestInfo)
 	:catch(function(err)
 		return Promise.reject(err)
@@ -548,7 +548,7 @@ end
 function NetworkInterface:postUploadAsset(assetid, type, name, description, genreTypeId, ispublic, allowComments, groupId, instanceData)
 	local targetUrl = Urls.constructPostUploadAssetUrl(assetid, type, name, description, genreTypeId, ispublic, allowComments, groupId)
 
-	printUrl("uploadCatalogItem", "POST", targetUrl, instanceData)
+	printUrl("postUploadAsset", "POST", targetUrl, instanceData)
 	return self._networkImp:httpPost(targetUrl, instanceData)
 end
 
@@ -775,6 +775,44 @@ function NetworkInterface:deleteAssetItemTag(itemTagId)
 		printUrl("deleteAssetItemTag", "DELETE", targetUrl)
 		return self._networkImp:httpDelete(targetUrl)
 	end)
+end
+
+function NetworkInterface:avatarAssetsGetUploadFee(assetType, formBodyData, boundary)
+	local targetUrl = Urls.constructAvatarAssetsGetUploadFeeUrl(assetType)
+
+	local requestInfo = {
+		Url = targetUrl,
+		Method = "POST",
+		Body = formBodyData,
+		CachePolicy = Enum.HttpCachePolicy.None,
+		Headers = {
+			["Content-Type"] = "multipart/form-data; boundary=" .. boundary,
+		}
+	}
+
+	printUrl("avatarAssetsGetUploadFee", "POST FORM-DATA", targetUrl, formBodyData)
+	return self._networkImp
+		:requestInternalRaw(requestInfo)
+		:catch(function(err) return Promise.reject(err) end)
+end
+
+function NetworkInterface:avatarAssetsUpload(assetType, formBodyData, boundary)
+	local targetUrl = Urls.constructAvatarAssetsUploadUrl(assetType)
+
+	local requestInfo = {
+		Url = targetUrl,
+		Method = "POST",
+		Body = formBodyData,
+		CachePolicy = Enum.HttpCachePolicy.None,
+		Headers = {
+			["Content-Type"] = "multipart/form-data; boundary=" .. boundary,
+		}
+	}
+
+	printUrl("avatarAssetsUpload", "POST FORM-DATA", targetUrl, formBodyData)
+	return self._networkImp
+		:requestInternalRaw(requestInfo)
+		:catch(function(err) return Promise.reject(err) end)
 end
 
 return NetworkInterface

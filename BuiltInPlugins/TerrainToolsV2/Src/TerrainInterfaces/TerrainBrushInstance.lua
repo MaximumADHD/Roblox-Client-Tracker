@@ -1,16 +1,14 @@
 game:DefineFastFlag("TerrainToolsBrushUseIsKeyDown", false)
 
-local FFlagTerrainToolsUseDevFramework = game:GetFastFlag("TerrainToolsUseDevFramework")
 local FFlagTerrainToolsBrushUseIsKeyDown = game:GetFastFlag("TerrainToolsBrushUseIsKeyDown")
 
 local Plugin = script.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
 local Cryo = require(Plugin.Packages.Cryo)
-local UILibrary = not FFlagTerrainToolsUseDevFramework and require(Plugin.Packages.UILibrary) or nil
 
-local FrameworkUtil = FFlagTerrainToolsUseDevFramework and Framework.Util or nil
-local Signal = FFlagTerrainToolsUseDevFramework and FrameworkUtil.Signal or UILibrary.Util.Signal
+local FrameworkUtil = Framework.Util
+local Signal = FrameworkUtil.Signal
 
 local Constants = require(Plugin.Src.Util.Constants)
 local TerrainEnums = require(Plugin.Src.Util.TerrainEnums)
@@ -26,10 +24,8 @@ local TerrainBrushCursorGrid = require(Plugin.Src.TerrainWorldUI.TerrainBrushCur
 
 local performTerrainBrushOperation = require(Plugin.Src.TerrainOperations.performTerrainBrushOperation)
 
-local AnalyticsService = game:GetService("RbxAnalyticsService")
 local ChangeHistoryService = game:GetService("ChangeHistoryService")
 local Players = game:GetService("Players")
-local StudioService = game:GetService("StudioService")
 local UserInputService = game:GetService("UserInputService")
 local Workspace = game:GetService("Workspace")
 
@@ -503,17 +499,8 @@ function TerrainBrush:_run()
 				self._mouseClick = false
 
 				if reportClick then
-					if FFlagTerrainToolsUseDevFramework then
-						if self._analytics then
-							self._analytics:report("useBrushTool", currentTool)
-						end
-					else
-						AnalyticsService:SendEventDeferred("studio", "Terrain", "UseTerrainTool", {
-							userId = StudioService:GetUserId(),
-							toolName = currentTool,
-							studioSId = AnalyticsService:GetSessionId(),
-							placeId = game.PlaceId,
-						})
+					if self._analytics then
+						self._analytics:report("useBrushTool", currentTool)
 					end
 					reportClick = false
 				end

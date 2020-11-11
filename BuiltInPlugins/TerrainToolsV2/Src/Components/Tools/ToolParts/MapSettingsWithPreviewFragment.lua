@@ -15,21 +15,14 @@ Props
 	SetWarnings :       ((bool) -> void) | nil
 ]]
 
-local FFlagTerrainToolsUseDevFramework = game:GetFastFlag("TerrainToolsUseDevFramework")
-
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
 local Cryo = require(Plugin.Packages.Cryo)
 local Roact = require(Plugin.Packages.Roact)
 
-local ContextServices = FFlagTerrainToolsUseDevFramework and Framework.ContextServices or nil
-local ContextItems = FFlagTerrainToolsUseDevFramework and require(Plugin.Src.ContextItems) or nil
-
-local StudioPlugin = not FFlagTerrainToolsUseDevFramework and require(Plugin.Src.ContextServices.StudioPlugin) or nil
-
-local TerrainInterface = not FFlagTerrainToolsUseDevFramework and require(Plugin.Src.ContextServices.TerrainInterface)
-	or nil
+local ContextServices = Framework.ContextServices
+local ContextItems = require(Plugin.Src.ContextItems)
 
 local LargeVoxelRegionPreview = require(Plugin.Src.TerrainWorldUI.LargeVoxelRegionPreview)
 
@@ -39,12 +32,6 @@ local MapSettingsFragment = require(ToolParts.MapSettingsFragment)
 local MapSettingsWithPreviewFragment = Roact.PureComponent:extend(script.Name)
 
 function MapSettingsWithPreviewFragment:init()
-	if not FFlagTerrainToolsUseDevFramework then
-		self.pluginActivationController = TerrainInterface.getPluginActivationController(self)
-		assert(self.pluginActivationController,
-			"MapSettingsWithPreviewFragment requires a PluginActivationController from context")
-	end
-
 	-- Initialised in didMount
 	self.preview = nil
 	self.warnings = {}
@@ -92,16 +79,8 @@ function MapSettingsWithPreviewFragment:updatePreview()
 end
 
 function MapSettingsWithPreviewFragment:didMount()
-	local mouse, terrain
-
-	if FFlagTerrainToolsUseDevFramework then
-		mouse = self.props.Mouse:get()
-		terrain = self.props.Terrain:get()
-	else
-		local plugin = StudioPlugin.getPlugin(self)
-		mouse = plugin:GetMouse()
-		terrain = TerrainInterface.getTerrain(self)
-	end
+	local mouse = self.props.Mouse:get()
+	local terrain = self.props.Terrain:get()
 
 	assert(not self.preview, "MapSettingsWithPreviewFragment preview already exists")
 	self.preview = LargeVoxelRegionPreview.new(mouse, terrain)
@@ -118,9 +97,7 @@ function MapSettingsWithPreviewFragment:didMount()
 		self.props.OnSizeChanged({X = size.x, Y = size.y, Z = size.z})
 	end)
 
-	local pluginActivationController = FFlagTerrainToolsUseDevFramework
-		and self.props.PluginActivationController
-		or self.pluginActivationController
+	local pluginActivationController = self.props.PluginActivationController
 
 	self.onToolActivatedConnection = pluginActivationController:subscribeToToolActivated(function()
 		if pluginActivationController:getActiveTool() == self.props.toolName then
@@ -172,12 +149,10 @@ function MapSettingsWithPreviewFragment:render()
 	return Roact.createElement(MapSettingsFragment, props)
 end
 
-if FFlagTerrainToolsUseDevFramework then
-	ContextServices.mapToProps(MapSettingsWithPreviewFragment, {
-		Mouse = ContextServices.Mouse,
-		Terrain = ContextItems.Terrain,
-		PluginActivationController = ContextItems.PluginActivationController,
-	})
-end
+ContextServices.mapToProps(MapSettingsWithPreviewFragment, {
+	Mouse = ContextServices.Mouse,
+	Terrain = ContextItems.Terrain,
+	PluginActivationController = ContextItems.PluginActivationController,
+})
 
 return MapSettingsWithPreviewFragment

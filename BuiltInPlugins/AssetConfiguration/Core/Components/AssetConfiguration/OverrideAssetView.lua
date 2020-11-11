@@ -14,8 +14,7 @@
 ]]
 
 local FFlagAssetConifgOverrideAssetScrollingFrame = game:DefineFastFlag("AssetConifgOverrideAssetScrollingFrame", false)
-local FFlagToolboxUseInfinteScroller = game:DefineFastFlag("ToolboxUseInfiniteScroller", false)
-local FFlagEnableOverrideAssetCursorFix = game:GetFastFlag("EnableOverrideAssetCursorFix")
+local FFlagToolboxUseInfiniteScroller = game:DefineFastFlag("ToolboxUseInfiniteScroller", false)
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -96,16 +95,16 @@ function OverrideAssetView:init(props)
 	end
 
 	self.requestOverrideAsset = function()
-		-- TODO: FFlagToolboxUseInfinteScroller and FFlagEnableOverrideAssetCursorFix do not work together.
+		-- TODO STM-352: Apparently FFlagToolboxUseInfiniteScroller does not work with this code.
 		props.getOverrideAssets(self.state.pageIndex)
 		self:setState({
-			pageIndex = (FFlagEnableOverrideAssetCursorFix and self.state.pageIndex or pageIndex) + 1,
+			pageIndex = self.state.pageIndex + 1,
 		})
 	end
 
 	self.DEPRECATED_requestOverrideAsset = function(targetPage)
 		props.getOverrideAssets(targetPage)
-		if FFlagEnableOverrideAssetCursorFix and self.state.pageIndex ~= targetPage then
+		if self.state.pageIndex ~= targetPage then
 			self:setState({
 				pageIndex = targetPage
 			})
@@ -243,7 +242,7 @@ function OverrideAssetView:render()
 
 		local layouterRef = self.layouterRef
 
-		if FFlagToolboxUseInfinteScroller then
+		if FFlagToolboxUseInfiniteScroller then
 			return Roact.createElement(InfiniteScrollingFrame, {
 				Size = Size,
 

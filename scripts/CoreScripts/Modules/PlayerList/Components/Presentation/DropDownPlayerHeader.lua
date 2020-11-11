@@ -15,7 +15,6 @@ local WithLayoutValues = LayoutValues.WithLayoutValues
 
 local PlayerList = Components.Parent
 local isDisplayNameEnabled = require(PlayerList.isDisplayNameEnabled)
-local FFlagLeaderboardDontWaitOnChinaPolicy = require(PlayerList.Flags.FFlagLeaderboardDontWaitOnChinaPolicy)
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local FFlagPlayerListFormattingUpdates = require(RobloxGui.Modules.Flags.FFlagPlayerListFormattingUpdates)
@@ -29,7 +28,7 @@ local DropDownPlayerHeader = Roact.PureComponent:extend("DropDownPlayerHeader")
 DropDownPlayerHeader.validateProps = t.strictInterface({
 	player = t.instanceIsA("Player"),
 
-	subjectToChinaPolicies = FFlagLeaderboardDontWaitOnChinaPolicy and t.boolean or nil,
+	subjectToChinaPolicies = t.boolean,
 })
 
 function DropDownPlayerHeader:render()
@@ -165,14 +164,10 @@ function DropDownPlayerHeader:render()
 	end)
 end
 
-if FFlagLeaderboardDontWaitOnChinaPolicy then
-	local function mapStateToProps(state)
-		return {
-			subjectToChinaPolicies = state.displayOptions.subjectToChinaPolicies,
-		}
-	end
-
-	return RoactRodux.UNSTABLE_connect2(mapStateToProps, nil)(DropDownPlayerHeader)
-else
-	return DropDownPlayerHeader
+local function mapStateToProps(state)
+	return {
+		subjectToChinaPolicies = state.displayOptions.subjectToChinaPolicies,
+	}
 end
+
+return RoactRodux.UNSTABLE_connect2(mapStateToProps, nil)(DropDownPlayerHeader)

@@ -17,22 +17,12 @@ local SetOwnsAsset = require(Plugin.Core.Actions.SetOwnsAsset)
 local SetPurchaseStatus = require(Plugin.Core.Actions.SetPurchaseStatus)
 local PurchaseStatus = require(Plugin.Core.Types.PurchaseStatus)
 
-local FFlagEnablePurchaseV2 = game:GetFastFlag("EnablePurchaseV2")
-
 return function(networkInterface, assetId, productId, price)
 	return function(store)
 		store:dispatch(SetPurchaseStatus(PurchaseStatus.Waiting))
-		local info
-		if FFlagEnablePurchaseV2 then
-			info = {
-				expectedPrice = price,
-			}
-		else
-			info = {
-				expectedPrice = price,
-				expectedCurrency = 0,
-			}
-		end
+		local info = {
+			expectedPrice = price,
+		}
 
 		return networkInterface:purchaseAsset(productId, info):andThen(function(result)
 			local purchased = result.responseBody.purchased

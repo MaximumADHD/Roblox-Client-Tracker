@@ -3,6 +3,7 @@ local CoreGui = game:GetService("CoreGui")
 local UserInputService = game:GetService("UserInputService")
 
 local Roact = require(CorePackages.Roact)
+local RoactGamepad = require(CorePackages.Packages.RoactGamepad)
 local RoactRodux = require(CorePackages.RoactRodux)
 local t = require(CorePackages.Packages.t)
 local UIBlox = require(CorePackages.UIBlox)
@@ -24,6 +25,9 @@ local SignalCreateOutfitPermissionDenied = require(AvatarEditorPrompts.Thunks.Si
 local PerformCreateOutfit = require(AvatarEditorPrompts.Thunks.PerformCreateOutfit)
 
 local ExternalEventConnection = require(CorePackages.RoactUtilities.ExternalEventConnection)
+
+local Modules = AvatarEditorPrompts.Parent
+local FFlagAESPromptsSupportGamepad = require(Modules.Flags.FFlagAESPromptsSupportGamepad)
 
 local NAME_TEXTBOX_HEIGHT = 35
 
@@ -82,17 +86,17 @@ function EnterOutfitNamePrompt:init()
 					AnchorPoint = Vector2.new(0, 1),
 					SliceCenter = STROKE_SLICE_CENTER,
 				}, {
-					Textbox = Roact.createElement("TextBox", {
+					Textbox = Roact.createElement(FFlagAESPromptsSupportGamepad and
+						RoactGamepad.Focusable.TextBox or "TextBox", {
 						BackgroundTransparency = 1,
 						ClearTextOnFocus = false,
 						Font = font.Header2.Font,
-						FontSize = font.BaseSize * font.CaptionBody.RelativeSize,
+						TextSize = font.BaseSize * font.CaptionBody.RelativeSize,
 						PlaceholderColor3 = theme.TextDefault.Color,
 						PlaceholderText = RobloxTranslator:FormatByKey("CoreScripts.AvatarEditorPrompts.OutfitNamePlaceholder"),
 						Position = UDim2.new(0, 6, 0, 0),
 						Size = UDim2.new(1, -12, 1, 0),
 						TextColor3 = theme.TextEmphasis.Color,
-						TextSize = 16,
 						TextTruncate = Enum.TextTruncate.AtEnd,
 						Text = self.state.outfitName,
 						TextWrapped = true,
@@ -137,6 +141,13 @@ function EnterOutfitNamePrompt:init()
 
 		self.calculateAlertPosition()
 	end
+
+	self.alertMounted = function()
+		local textBox = self.textBoxRef:getValue()
+		if textBox then
+			textBox:CaptureFocus()
+		end
+	end
 end
 
 function EnterOutfitNamePrompt:render()
@@ -164,8 +175,9 @@ function EnterOutfitNamePrompt:render()
 			position = self.state.alertPosition,
 			screenSize = self.props.screenSize,
 			middleContent = self.renderAlertMiddleContent,
-			isMiddleContentFocusable = false,
+			isMiddleContentFocusable = FFlagAESPromptsSupportGamepad,
 			onAbsoluteSizeChanged = self.alertSizeChanged,
+			onMounted = self.alertMounted,
 		}),
 
 		OnScreenKeyboardVisibleConnection = Roact.createElement(ExternalEventConnection, {
@@ -181,11 +193,6 @@ function EnterOutfitNamePrompt:render()
 end
 
 function EnterOutfitNamePrompt:didMount()
-	local textBox = self.textBoxRef:getValue()
-	if textBox then
-		textBox:CaptureFocus()
-	end
-
 	self.calculateAlertPosition()
 end
 

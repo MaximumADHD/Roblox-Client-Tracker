@@ -1,5 +1,3 @@
-local FFlagTerrainToolsUseDevFramework = game:GetFastFlag("TerrainToolsUseDevFramework")
-
 --[[
 	Fragment containing a Position and Size input field.
 
@@ -19,12 +17,9 @@ local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
 local Roact = require(Plugin.Packages.Roact)
-local UILibrary = not FFlagTerrainToolsUseDevFramework and require(Plugin.Packages.UILibrary) or nil
 
-local ContextServices = FFlagTerrainToolsUseDevFramework and Framework.ContextServices or nil
-local ContextItems = FFlagTerrainToolsUseDevFramework and require(Plugin.Src.ContextItems) or nil
-
-local withLocalization = not FFlagTerrainToolsUseDevFramework and UILibrary.Localizing.withLocalization or nil
+local ContextServices = Framework.ContextServices
+local ContextItems = require(Plugin.Src.ContextItems)
 
 local ToolParts = script.Parent
 local VectorTextInput = require(ToolParts.VectorTextInput)
@@ -95,7 +90,9 @@ function MapSettingsFragment:init(props)
 	end
 end
 
-function MapSettingsFragment:_render(localization)
+function MapSettingsFragment:render()
+	local localization = self.props.Localization:get()
+
 	local pos = self.props.Position
 	local size = self.props.Size
 	local initialLayoutOrder = self.props.InitialLayoutOrder or 1
@@ -131,20 +128,8 @@ function MapSettingsFragment:_render(localization)
 	})
 end
 
-function MapSettingsFragment:render()
-	if FFlagTerrainToolsUseDevFramework then
-		return self:_render(self.props.Localization:get())
-	else
-		return withLocalization(function(localization)
-			return self:_render(localization)
-		end)
-	end
-end
-
-if FFlagTerrainToolsUseDevFramework then
-	ContextServices.mapToProps(MapSettingsFragment, {
-		Localization = ContextItems.UILibraryLocalization,
-	})
-end
+ContextServices.mapToProps(MapSettingsFragment, {
+	Localization = ContextItems.UILibraryLocalization,
+})
 
 return MapSettingsFragment

@@ -2,20 +2,13 @@
 	used to select images for file import in the terrain editor
 ]]
 
-local FFlagTerrainToolsUseDevFramework = game:GetFastFlag("TerrainToolsUseDevFramework")
-
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
 local Roact = require(Plugin.Packages.Roact)
-local UILibrary = not FFlagTerrainToolsUseDevFramework and require(Plugin.Packages.UILibrary) or nil
 
-local ContextServices = FFlagTerrainToolsUseDevFramework and Framework.ContextServices or nil
-local ContextItems = FFlagTerrainToolsUseDevFramework and require(Plugin.Src.ContextItems) or nil
-
-local getUILibraryLocalization = not FFlagTerrainToolsUseDevFramework and UILibrary.Localizing.getLocalization or nil
-local withLocalization = not FFlagTerrainToolsUseDevFramework and UILibrary.Localizing.withLocalization or nil
-local withTheme = not FFlagTerrainToolsUseDevFramework and require(Plugin.Src.ContextServices.Theming).withTheme or nil
+local ContextServices = Framework.ContextServices
+local ContextItems = require(Plugin.Src.ContextItems)
 
 local ToolParts = script.Parent
 local LabeledElementPair = require(ToolParts.LabeledElementPair)
@@ -180,11 +173,7 @@ function AssetIdSelector:init()
 	}
 
 	self.getLocalization = function()
-		if FFlagTerrainToolsUseDevFramework then
-			return self.props.Localization:get()
-		else
-			return getUILibraryLocalization(self)
-		end
+		return self.props.Localization:get()
 	end
 
 	self.updateGameImages = function()
@@ -288,7 +277,10 @@ function AssetIdSelector:didMount()
 	end
 end
 
-function AssetIdSelector:_render(theme, localization)
+function AssetIdSelector:render()
+	local theme = self.props.Theme:get()
+	local localization = self.props.Localization:get()
+
 	local size = self.props.Size
 	local label = self.props.Label
 	local layoutOrder = self.props.LayoutOrder
@@ -384,23 +376,9 @@ function AssetIdSelector:_render(theme, localization)
 	})
 end
 
-function AssetIdSelector:render()
-	if FFlagTerrainToolsUseDevFramework then
-		return self:_render(self.props.Theme:get(), self.props.Localization:get())
-	else
-		return withLocalization(function(localization)
-			return withTheme(function(theme)
-				return self:_render(theme, localization)
-			end)
-		end)
-	end
-end
-
-if FFlagTerrainToolsUseDevFramework then
-	ContextServices.mapToProps(AssetIdSelector, {
-		Theme = ContextItems.UILibraryTheme,
-		Localization = ContextItems.UILibraryLocalization,
-	})
-end
+ContextServices.mapToProps(AssetIdSelector, {
+	Theme = ContextItems.UILibraryTheme,
+	Localization = ContextItems.UILibraryLocalization,
+})
 
 return AssetIdSelector

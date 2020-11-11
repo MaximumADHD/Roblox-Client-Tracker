@@ -132,15 +132,12 @@
 			How long to wait between checking if the operation has resumed. Defaults to 0.1 seconds
 ]]
 
-local FFlagTerrainToolsUseDevFramework = game:GetFastFlag("TerrainToolsUseDevFramework")
-
 local Plugin = script.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
-local UILibrary = not FFlagTerrainToolsUseDevFramework and require(Plugin.Packages.UILibrary) or nil
 
-local FrameworkUtil = FFlagTerrainToolsUseDevFramework and Framework.Util or nil
-local Signal = FFlagTerrainToolsUseDevFramework and FrameworkUtil.Signal or UILibrary.Util.Signal
+local FrameworkUtil = Framework.Util
+local Signal = FrameworkUtil.Signal
 
 local quickWait = require(Plugin.Src.Util.quickWait)
 

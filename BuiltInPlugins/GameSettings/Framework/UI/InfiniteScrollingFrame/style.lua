@@ -10,8 +10,10 @@ local FlagsList = Util.Flags.new({
 	FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
 })
 
+local export: any
+
 if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
-	return {
+	export = {
 		BackgroundTransparency = 1,
 		BorderSizePixel = 0,
 		BackgroundColor3 = StyleKey.MainBackground,
@@ -28,7 +30,7 @@ if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
 		VerticalScrollBarInset = Enum.ScrollBarInset.Always
 	}
 else
-	return function(theme, getColor)
+	export = function(theme, getColor)
 		local common = Common(theme, getColor)
 
 		local Default = common.Scroller
@@ -38,3 +40,5 @@ else
 		}
 	end
 end
+
+return export

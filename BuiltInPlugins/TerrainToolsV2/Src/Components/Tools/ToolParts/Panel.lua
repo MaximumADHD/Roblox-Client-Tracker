@@ -2,17 +2,13 @@
 	Children of this component should not have a UiListLayout Sibling
 --]]
 
-local FFlagTerrainToolsUseDevFramework = game:GetFastFlag("TerrainToolsUseDevFramework")
-
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
 local Roact = require(Plugin.Packages.Roact)
 
-local ContextServices = FFlagTerrainToolsUseDevFramework and Framework.ContextServices or nil
-local ContextItems = FFlagTerrainToolsUseDevFramework and require(Plugin.Src.ContextItems) or nil
-
-local withTheme = not FFlagTerrainToolsUseDevFramework and require(Plugin.Src.ContextServices.Theming).withTheme or nil
+local ContextServices = Framework.ContextServices
+local ContextItems = require(Plugin.Src.ContextItems)
 
 local DEFAULT_PADDING = UDim.new(0, 12)
 
@@ -56,7 +52,9 @@ function Panel:init(initialProps)
 	end
 end
 
-function Panel:_render(theme)
+function Panel:render()
+	local theme = self.props.Theme:get()
+
 	local panelTheme = theme.panelTheme
 	local title = self.props.Title or "Title"
 	local layoutOrder = self.props.LayoutOrder
@@ -134,20 +132,8 @@ function Panel:_render(theme)
 	})
 end
 
-function Panel:render()
-	if FFlagTerrainToolsUseDevFramework then
-		return self:_render(self.props.Theme:get())
-	else
-		return withTheme(function(theme)
-			return self:_render(theme)
-		end)
-	end
-end
-
-if FFlagTerrainToolsUseDevFramework then
-	ContextServices.mapToProps(Panel, {
-		Theme = ContextItems.UILibraryTheme,
-	})
-end
+ContextServices.mapToProps(Panel, {
+	Theme = ContextItems.UILibraryTheme,
+})
 
 return Panel

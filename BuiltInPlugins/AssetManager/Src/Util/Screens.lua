@@ -1,3 +1,8 @@
+local Plugin = script.Parent.Parent.Parent
+local Framework = require(Plugin.Packages.Framework)
+local RobloxAPI = Framework.RobloxAPI
+local FFlagAllowAudioBulkImport = game:GetFastFlag("AllowAudioBulkImport")
+
 local Screens = {
     MAIN = {
 		Key = "MAIN",
@@ -36,5 +41,15 @@ Screens.IMAGES.LayoutOrder = 2
 Screens.MESHES.LayoutOrder = 3
 Screens.PACKAGES.LayoutOrder = 4
 Screens.SCRIPTS.LayoutOrder = 5
+
+if FFlagAllowAudioBulkImport and (not RobloxAPI:baseURLHasChineseHost()) then
+	-- TODO: FFlagAllowAudioBulkImport - move these in the correct order when flag is turned on for pretty code
+	Screens["AUDIO"] = {
+		Key = "AUDIO",
+	}
+	Screens.AUDIO.Parent = Screens.MAIN.Key
+	Screens.AUDIO.AssetType = Enum.AssetType.Audio
+	Screens.AUDIO.LayoutOrder = 6
+end
 
 return Screens

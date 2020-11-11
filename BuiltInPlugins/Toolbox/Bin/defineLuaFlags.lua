@@ -5,14 +5,8 @@
 game:DefineFastFlag("FixAssetConfigManageableGroups", false)
 game:DefineFastFlag("ShowAssetConfigReasons2", false)
 game:DefineFastFlag("DebugAssetConfigNetworkError", false)
-game:DefineFastFlag("FixAssetConfigIcon", false)
 
--- when removing this flag, remove all references to isCatalogItemCreator
-game:DefineFastFlag("EnableNonWhitelistedToggle", false)
-game:DefineFastFlag("EnablePurchaseV2", false)
 game:DefineFastFlag("EnableDefaultSortFix2", false)
-game:DefineFastFlag("EnableOverrideAssetCursorFix", false)
-game:DefineFastFlag("FixAssetUploadName", false)
 game:DefineFastFlag("UseCategoryNameInToolbox", false)
 -- Need to explicitly return something from a module
 -- Else you get an error "Module code did not return exactly one value"
@@ -60,5 +54,7 @@ game:DefineFastFlag("ToolboxConsolidateInsertRemainsEvents", false)
 game:DefineFastFlag("UseDefaultThumbnailForAnimation", false)
 
 game:DefineFastFlag("CMSUploadAccessoryMeshPartFormat", false)
+
+game:DefineFastFlag("CMSUploadFees", false)
 
 return nil

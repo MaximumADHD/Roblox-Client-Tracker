@@ -125,6 +125,7 @@ function TerrainTools:render()
 	local store = self.props.store
 
 	local theme = self.props.theme
+	local devFrameworkThemeItem = self.props.devFrameworkThemeItem
 	local localization = self.props.localization
 	local analytics = self.props.analytics
 
@@ -141,6 +142,8 @@ function TerrainTools:render()
 		mouse,
 		store,
 		theme,
+		-- devFrameworkThemeItem is nil if FFlagTerrainToolsIncludeDevFrameworkTheme is false
+		devFrameworkThemeItem,
 		localization,
 		analytics,
 		terrain,

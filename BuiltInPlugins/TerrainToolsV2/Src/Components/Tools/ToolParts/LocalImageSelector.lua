@@ -36,8 +36,6 @@ function LocalImageSelector:init()
 		if success then
 			if file then
 				self.props.SelectFile(file)
-			else
-				warn("Failed to select image: prompt was successful but file is nil")
 			end
 		else
 			warn(("Failed to select image: %s"):format(tostring(err)))

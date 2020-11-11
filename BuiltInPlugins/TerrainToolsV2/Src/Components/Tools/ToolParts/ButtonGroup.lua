@@ -1,29 +1,26 @@
-local FFlagTerrainToolsUseDevFramework = game:GetFastFlag("TerrainToolsUseDevFramework")
-
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
 local Roact = require(Plugin.Packages.Roact)
-local UILibrary = not FFlagTerrainToolsUseDevFramework and require(Plugin.Packages.UILibrary) or nil
 
-local ContextServices = FFlagTerrainToolsUseDevFramework and Framework.ContextServices or nil
-local ContextItems = FFlagTerrainToolsUseDevFramework and require(Plugin.Src.ContextItems) or nil
-
-local withTheme = not FFlagTerrainToolsUseDevFramework and require(Plugin.Src.ContextServices.Theming).withTheme or nil
+local ContextServices = Framework.ContextServices
+local ContextItems = require(Plugin.Src.ContextItems)
 
 local UILibraryCompat = Plugin.Src.UILibraryCompat
-local RoundTextButton = FFlagTerrainToolsUseDevFramework
-	and require(UILibraryCompat.RoundTextButton)
-	or UILibrary.Component.RoundTextButton
+local RoundTextButton = require(UILibraryCompat.RoundTextButton)
 
 local MIN_BUTTON_WIDTH = 64
 local MAX_BUTTON_WIDTH = 200
 local BUTTON_HEIGHT = 28
 local GROUP_HEIGHT = BUTTON_HEIGHT + 24
 
-local function ButtonGroup_render(props, theme)
-	local layoutOrder = props.LayoutOrder
-	local buttons = props.Buttons or {}
+local ButtonGroup = Roact.PureComponent:extend("ButtonGroup")
+
+function ButtonGroup:render()
+	local theme = self.props.Theme:get()
+
+	local layoutOrder = self.props.LayoutOrder
+	local buttons = self.props.Buttons or {}
 
 	local children = {
 		UIListLayout = Roact.createElement("UIListLayout", {
@@ -58,26 +55,8 @@ local function ButtonGroup_render(props, theme)
 	}, children)
 end
 
-if FFlagTerrainToolsUseDevFramework then
-	local ButtonGroup = Roact.PureComponent:extend("ButtonGroup")
+ContextServices.mapToProps(ButtonGroup, {
+	Theme = ContextItems.UILibraryTheme,
+})
 
-	function ButtonGroup:render()
-		local theme = self.props.Theme:get()
-
-		return ButtonGroup_render(self.props, theme)
-	end
-
-	ContextServices.mapToProps(ButtonGroup, {
-		Theme = ContextItems.UILibraryTheme,
-	})
-
-	return ButtonGroup
-else
-	local function ButtonGroup(props)
-		return withTheme(function(theme)
-			return ButtonGroup_render(props, theme)
-		end)
-	end
-
-	return ButtonGroup
-end
+return ButtonGroup

@@ -243,4 +243,18 @@ function Networking:requestInternal(requestInfo)
 	end)
 end
 
+function Networking:requestInternalRaw(requestInfo)
+	return Promise.new(function(resolve, reject)
+		spawn(function()
+			HttpService:RequestInternal(requestInfo):Start(function(success, response)
+				if success and response.StatusCode < StatusCodes.BAD_REQUEST then
+					resolve(response)
+				else
+					reject(response)
+				end
+			end)
+		end)
+	end)
+end
+
 return Networking

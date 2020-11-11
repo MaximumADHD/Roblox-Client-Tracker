@@ -3,18 +3,14 @@
 	composed of 3 frames: tabs, tools, and then tool components.
 ]]
 
-local FFlagTerrainToolsUseDevFramework = game:GetFastFlag("TerrainToolsUseDevFramework")
-
 local Plugin = script.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 
-local ContextServices = FFlagTerrainToolsUseDevFramework and Framework.ContextServices or nil
-local ContextItems = FFlagTerrainToolsUseDevFramework and require(Plugin.Src.ContextItems) or nil
-
-local withTheme = not FFlagTerrainToolsUseDevFramework and require(Plugin.Src.ContextServices.Theming).withTheme or nil
+local ContextServices = Framework.ContextServices
+local ContextItems = require(Plugin.Src.ContextItems)
 
 local Actions = Plugin.Src.Actions
 local ChangeTab = require(Actions.ChangeTab)
@@ -79,7 +75,9 @@ local function createTabs(props)
 	return Roact.createFragment(fragment)
 end
 
-function Manager:_render(theme)
+function Manager:render()
+	local theme = self.props.Theme:get()
+
 	local currentTab = self.props.currentTab
 
 	return Roact.createElement("Frame", {
@@ -122,21 +120,9 @@ function Manager:_render(theme)
 	})
 end
 
-function Manager:render()
-	if FFlagTerrainToolsUseDevFramework then
-		return self:_render(self.props.Theme:get())
-	else
-		return withTheme(function(theme)
-			return self:_render(theme)
-		end)
-	end
-end
-
-if FFlagTerrainToolsUseDevFramework then
-	ContextServices.mapToProps(Manager, {
-		Theme = ContextItems.UILibraryTheme,
-	})
-end
+ContextServices.mapToProps(Manager, {
+	Theme = ContextItems.UILibraryTheme,
+})
 
 local function mapStateToProps(state, props)
 	return {

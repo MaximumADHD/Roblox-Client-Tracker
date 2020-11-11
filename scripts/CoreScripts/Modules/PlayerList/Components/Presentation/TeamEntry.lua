@@ -19,9 +19,6 @@ local EntryFrame = require(script.Parent.EntryFrame)
 local StatEntry = require(script.Parent.StatEntry)
 local CellExtender = require(script.Parent.CellExtender)
 
-local PlayerList = Components.Parent
-local FFlagFixLeaderboardWaitingOnScreenSize = require(PlayerList.Flags.FFlagFixLeaderboardWaitingOnScreenSize)
-
 local TeamEntry = Roact.PureComponent:extend("TeamEntry")
 
 function TeamEntry:render()
@@ -130,7 +127,7 @@ function TeamEntry:render()
 			})
 
 			local maxLeaderstats = layoutValues.MaxLeaderstats
-			if FFlagFixLeaderboardWaitingOnScreenSize and self.props.isSmallTouchDevice then
+			if self.props.isSmallTouchDevice then
 				maxLeaderstats = layoutValues.MaxLeaderstatsSmallScreen
 			end
 
@@ -167,14 +164,10 @@ function TeamEntry:render()
 	end)
 end
 
-if FFlagFixLeaderboardWaitingOnScreenSize then
-	local function mapStateToProps(state)
-		return {
-			isSmallTouchDevice = state.displayOptions.isSmallTouchDevice,
-		}
-	end
-
-	return RoactRodux.UNSTABLE_connect2(mapStateToProps, nil)(TeamEntry)
+local function mapStateToProps(state)
+	return {
+		isSmallTouchDevice = state.displayOptions.isSmallTouchDevice,
+	}
 end
 
-return TeamEntry
+return RoactRodux.UNSTABLE_connect2(mapStateToProps, nil)(TeamEntry)

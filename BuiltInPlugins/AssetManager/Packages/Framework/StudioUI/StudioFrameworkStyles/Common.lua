@@ -14,9 +14,11 @@ local FlagsList = Util.Flags.new({
 	FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
 })
 
+local export: any
+
 if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
 	-- TODO: DEVTOOLS-4908 Refactor everything using MainText so that we can remove Common.lua completely
-	return {
+	export = {
 		MainText = {
 			Font = Enum.Font.SourceSans,
 			TextSize = 18,
@@ -24,7 +26,7 @@ if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
 		},
 	}
 else
-	return function(theme, getColor)
+	export = function(theme, getColor)
 		local MainText = Style.new({
 			Font = Enum.Font.SourceSans,
 			TextSize = 18,
@@ -73,3 +75,5 @@ else
 		}
 	end
 end
+
+return export

@@ -1,7 +1,3 @@
-if not game:GetFastFlag("TerrainToolsUseDevFramework") then
-	return function() end
-end
-
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
 local Roact = require(Plugin.Packages.Roact)

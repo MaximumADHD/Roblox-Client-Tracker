@@ -16,9 +16,11 @@ local Decoration = UI.Decoration
 local UIFolderData = require(Framework.UI.UIFolderData)
 local RoundBox = require(UIFolderData.RoundBox.style)
 
+local export: any
+
 if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
 	local roundBox = deepCopy(RoundBox)
-	return {
+	export = {
 		Background = Decoration.RoundBox,
 		Foreground = Decoration.RoundBox,
 		BackgroundStyle = Cryo.Dictionary.join(roundBox, {
@@ -29,7 +31,7 @@ if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
 		}),
 	}
 else
-	return function(theme, getColor)
+	export = function(theme, getColor)
 		local roundBox = RoundBox(theme, getColor)
 
 		local Default = Style.new({
@@ -48,3 +50,5 @@ else
 		}
 	end
 end
+
+return export

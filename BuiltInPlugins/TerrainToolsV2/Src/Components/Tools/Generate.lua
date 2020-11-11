@@ -1,29 +1,24 @@
-local FFlagTerrainToolsUseDevFramework = game:GetFastFlag("TerrainToolsUseDevFramework")
+local FFlagTerrainToolsRedesignProgressDialog = game:GetFastFlag("TerrainToolsRedesignProgressDialog")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
-local UILibrary = not FFlagTerrainToolsUseDevFramework and require(Plugin.Packages.UILibrary) or nil
 
-local ContextServices = FFlagTerrainToolsUseDevFramework and Framework.ContextServices or nil
-local ContextItems = FFlagTerrainToolsUseDevFramework and require(Plugin.Src.ContextItems) or nil
-
-local withLocalization = not FFlagTerrainToolsUseDevFramework and UILibrary.Localizing.withLocalization or nil
-
-local TerrainInterface = not FFlagTerrainToolsUseDevFramework and require(Plugin.Src.ContextServices.TerrainInterface)
-	or nil
+local ContextServices = Framework.ContextServices
+local ContextItems = require(Plugin.Src.ContextItems)
 
 local TerrainEnums = require(Plugin.Src.Util.TerrainEnums)
 
 local ToolParts = script.Parent.ToolParts
 local BiomeSettingsFragment = require(ToolParts.BiomeSettingsFragment)
 local ButtonGroup = require(ToolParts.ButtonGroup)
-local GenerateProgressFrame = require(Plugin.Src.Components.GenerateProgressFrame)
+local DEPRECATED_GenerateProgressFrame = require(Plugin.Src.Components.DEPRECATED_GenerateProgressFrame)
 local MapSettingsWithPreview = require(ToolParts.MapSettingsWithPreview)
 local OtherGenerateSettings = require(ToolParts.OtherGenerateSettings)
 local Panel = require(ToolParts.Panel)
+local ProgressDialog = require(Plugin.Src.Components.ProgressDialog)
 
 local Actions = Plugin.Src.Actions
 local ApplyToolAction = require(Actions.ApplyToolAction)
@@ -41,24 +36,9 @@ local Generate = Roact.PureComponent:extend(script.Name)
 function Generate:init()
 	self.warnings = {}
 
-	if FFlagTerrainToolsUseDevFramework then
-		self.state = {
-			mapSettingsValid = true,
-		}
-	else
-		self.terrainGeneration = TerrainInterface.getTerrainGeneration(self)
-		assert(self.terrainGeneration, "Generate component requires a TerrainGeneration from context")
-
-		self.state = {
-			mapSettingsValid = true,
-
-			-- If we open the generate tool and there's generation in progress
-			-- Then we want to initialize with that state
-			isGenerating = self.terrainGeneration:isGenerating(),
-			generateProgress = self.terrainGeneration:getProgress(),
-			generatePaused = self.terrainGeneration:isPaused(),
-		}
-	end
+	self.state = {
+		mapSettingsValid = true,
+	}
 
 	self.selectBiome = function(biome)
 		local biomes = self.props.biomeSelection
@@ -78,8 +58,7 @@ function Generate:init()
 		-- Because TerrainGeneration copies the settings into makeTerrainGenerator()
 		-- It's safe to update the settings even during a generation
 		-- They won't affect the current generation, just the next one
-		local terrainGeneration = FFlagTerrainToolsUseDevFramework and self.props.TerrainGeneration or self.terrainGeneration
-		terrainGeneration:updateSettings({
+		self.props.TerrainGeneration:updateSettings({
 			position = self.props.position,
 			size = self.props.size,
 
@@ -110,47 +89,15 @@ function Generate:init()
 		end
 
 		self.updateGenerateProps()
-		local terrainGeneration = FFlagTerrainToolsUseDevFramework and self.props.TerrainGeneration or self.terrainGeneration
-		terrainGeneration:startGeneration()
-	end
-
-	if not FFlagTerrainToolsUseDevFramework then
-		self.onGenerateStartStopConnection = self.terrainGeneration:subscribeToStartStopGeneratingChanged(function(generating)
-			if not generating then
-				-- If we've stopped generating then also reset the UI
-				self:setState({
-					isGenerating = generating,
-					generateProgress = 0,
-					generatePaused = false,
-				})
-			else
-				self:setState({
-					isGenerating = generating,
-				})
-			end
-		end)
-
-		self.onProgressChangedConnection = self.terrainGeneration:subscribeToProgressUpdate(function(progress)
-			self:setState({
-				generateProgress = progress,
-			})
-		end)
-
-		self.onPausedChangedConnection = self.terrainGeneration:subscribeToPaused(function(isPaused)
-			self:setState({
-				generatePaused = isPaused,
-			})
-		end)
+		self.props.TerrainGeneration:startGeneration()
 	end
 
 	self.onGenerationPauseRequested = function()
-		local terrainGeneration = FFlagTerrainToolsUseDevFramework and self.props.TerrainGeneration or self.terrainGeneration
-		terrainGeneration:togglePauseGeneration()
+		self.props.TerrainGeneration:togglePauseGeneration()
 	end
 
 	self.onGenerationCancelRequested = function()
-		local terrainGeneration = FFlagTerrainToolsUseDevFramework and self.props.TerrainGeneration or self.terrainGeneration
-		terrainGeneration:cancelGeneration()
+		self.props.TerrainGeneration:cancelGeneration()
 	end
 
 	self.setWarnings = function(warnings)
@@ -166,26 +113,9 @@ function Generate:didMount()
 	self.updateGenerateProps()
 end
 
-if not FFlagTerrainToolsUseDevFramework then
-	function Generate:willUnmount()
-		if self.onGenerateStartStopConnection then
-			self.onGenerateStartStopConnection:Disconnect()
-			self.onGenerateStartStopConnection = nil
-		end
+function Generate:render()
+	local localization = self.props.Localization:get()
 
-		if self.onProgressChangedConnection then
-			self.onProgressChangedConnection:Disconnect()
-			self.onProgressChangedConnection = nil
-		end
-
-		if self.onPausedChangedConnection then
-			self.onPausedChangedConnection:Disconnect()
-			self.onPausedChangedConnection = nil
-		end
-	end
-end
-
-function Generate:_render(localization)
 	local position = self.props.position
 	local size = self.props.size
 	local biomeSelection = self.props.biomeSelection
@@ -194,18 +124,9 @@ function Generate:_render(localization)
 	local seed = self.props.seed
 	local selectBiome = self.selectBiome
 
-	local generateInProgress
-	local generateProgress
-	local generatePaused
-	if FFlagTerrainToolsUseDevFramework then
-		generateInProgress = self.props.TerrainGeneration:isGenerating()
-		generateProgress = generateInProgress and self.props.TerrainGeneration:getProgress() or 0
-		generatePaused = generateInProgress and self.props.TerrainGeneration:isPaused() or false
-	else
-		generateInProgress = self.state.isGenerating
-		generateProgress = self.state.generateProgress
-		generatePaused = self.state.generatePaused
-	end
+	local generateInProgress = self.props.TerrainGeneration:isGenerating()
+	local generateProgress = generateInProgress and self.props.TerrainGeneration:getProgress() or 0
+	local generatePaused = generateInProgress and self.props.TerrainGeneration:isPaused() or false
 
 	local generateIsActive = self.state.mapSettingsValid and not generateInProgress
 
@@ -256,31 +177,32 @@ function Generate:_render(localization)
 			},
 		}),
 
-		GenerateProgressFrame = generateInProgress and Roact.createElement(GenerateProgressFrame, {
+		DEPRECATED_GenerateProgressFrame = not FFlagTerrainToolsRedesignProgressDialog and (generateInProgress
+			and Roact.createElement(DEPRECATED_GenerateProgressFrame, {
 			GenerateProgress = generateProgress,
 			IsPaused = generatePaused,
 			OnPauseRequested = self.onGenerationPauseRequested,
 			OnCancelRequested = self.onGenerationCancelRequested,
-		}),
+		})),
+
+		ProgressDialog = FFlagTerrainToolsRedesignProgressDialog and (generateInProgress
+			and Roact.createElement(ProgressDialog, {
+			Title = localization:getText("Generate", "GenerateProgressTitle"),
+			SubText = localization:getText("Generate", "GenerateVoxels"),
+
+			Progress = generateProgress,
+			IsPaused = generatePaused,
+
+			OnPauseButtonClicked = self.onGenerationPauseRequested,
+			OnCancelButtonClicked = self.onGenerationCancelRequested,
+		})),
 	})
 end
 
-function Generate:render()
-	if FFlagTerrainToolsUseDevFramework then
-		return self:_render(self.props.Localization:get())
-	else
-		return withLocalization(function(localization)
-			return self:_render(localization)
-		end)
-	end
-end
-
-if FFlagTerrainToolsUseDevFramework then
-	ContextServices.mapToProps(Generate, {
-		Localization = ContextItems.UILibraryLocalization,
-		TerrainGeneration = ContextItems.TerrainGeneration,
-	})
-end
+ContextServices.mapToProps(Generate, {
+	Localization = ContextItems.UILibraryLocalization,
+	TerrainGeneration = ContextItems.TerrainGeneration,
+})
 
 local function mapStateToProps(state, props)
 	return {

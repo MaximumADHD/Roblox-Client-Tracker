@@ -5,38 +5,31 @@
 	Displays panels associated with the import tool
 ]]
 
-local FFlagTerrainToolsUseDevFramework = game:GetFastFlag("TerrainToolsUseDevFramework")
+local FFlagTerrainToolsRedesignProgressDialog = game:GetFastFlag("TerrainToolsRedesignProgressDialog")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
-local UILibrary = not FFlagTerrainToolsUseDevFramework and require(Plugin.Packages.UILibrary) or nil
 
-local ContextServices = FFlagTerrainToolsUseDevFramework and Framework.ContextServices or nil
-local ContextItems = FFlagTerrainToolsUseDevFramework and require(Plugin.Src.ContextItems) or nil
-
-local withLocalization = not FFlagTerrainToolsUseDevFramework and UILibrary.Localizing.withLocalization or nil
-local withTheme = not FFlagTerrainToolsUseDevFramework and require(Plugin.Src.ContextServices.Theming).withTheme or nil
+local ContextServices = Framework.ContextServices
+local ContextItems = require(Plugin.Src.ContextItems)
 
 local ToolParts = script.Parent.ToolParts
 local AssetIdSelector = require(ToolParts.AssetIdSelector)
 local ButtonGroup = require(ToolParts.ButtonGroup)
-local ImportProgressFrame = require(Plugin.Src.Components.ImportProgressFrame)
-local LabeledElementPair = require(ToolParts.LabeledElementPair)
+local DEPRECATED_ImportProgressFrame = require(Plugin.Src.Components.DEPRECATED_ImportProgressFrame)
 local LabeledToggle = require(ToolParts.LabeledToggle)
 local MapSettingsWithPreviewFragment = require(ToolParts.MapSettingsWithPreviewFragment)
 local Panel = require(ToolParts.Panel)
+local ProgressDialog = require(Plugin.Src.Components.ProgressDialog)
 
 local Actions = Plugin.Src.Actions
 local ApplyToolAction = require(Actions.ApplyToolAction)
 local ChangePosition = require(Actions.ChangePosition)
 local ChangeSize = require(Actions.ChangeSize)
 local SetUseColorMap = require(Actions.SetUseColorMap)
-
-local TerrainInterface = not FFlagTerrainToolsUseDevFramework and require(Plugin.Src.ContextServices.TerrainInterface)
-	or nil
 
 local TerrainEnums = require(Plugin.Src.Util.TerrainEnums)
 
@@ -45,31 +38,14 @@ local REDUCER_KEY = "ImportTool"
 local Import = Roact.PureComponent:extend(script.Name)
 
 function Import:init()
-	if FFlagTerrainToolsUseDevFramework then
-		self.state = {
-			validatedMapSettings = true,
-			validatedHeightMap = nil,
-			validatedColorMap = nil,
-		}
-	else
-		self.terrainImporter = TerrainInterface.getTerrainImporter(self)
-		assert(self.terrainImporter, "Import component requires a TerrainImporter from context")
-
-		self.state = {
-			validatedMapSettings = true,
-			validatedHeightMap = nil,
-			validatedColorMap = nil,
-
-			-- If we open the import tool and there's an import in progress
-			-- Then we want to initialize with that state
-			isImporting = self.terrainImporter:isImporting(),
-			importProgress = self.terrainImporter:getImportProgress(),
-		}
-	end
+	self.state = {
+		validatedMapSettings = true,
+		validatedHeightMap = nil,
+		validatedColorMap = nil,
+	}
 
 	self.updateImportProps = function()
-		local terrainImporter = FFlagTerrainToolsUseDevFramework and self.props.TerrainImporter or self.terrainImporter
-		terrainImporter:updateSettings({
+		self.props.TerrainImporter:updateSettings({
 			size = Vector3.new(self.props.Size.X, self.props.Size.Y, self.props.Size.Z),
 			position = Vector3.new(self.props.Position.X, self.props.Position.Y, self.props.Position.Z),
 			useColorMap = self.props.UseColorMap,
@@ -97,31 +73,8 @@ function Import:init()
 		})
 	end
 
-	if not FFlagTerrainToolsUseDevFramework then
-		self.toggleUseColorMap = function()
-			if self.props.dispatchSetUseColorMap then
-				self.props.dispatchSetUseColorMap(not self.props.UseColorMap)
-			end
-		end
-	end
-
 	self.onImportButtonClicked = function()
-		local terrainImporter = FFlagTerrainToolsUseDevFramework and self.props.TerrainImporter or self.terrainImporter
-		terrainImporter:startImport()
-	end
-
-	if not FFlagTerrainToolsUseDevFramework then
-		self.onImportingStateChangedConnnection = self.terrainImporter:subscribeToImportingStateChanged(function(importing)
-			self:setState({
-				isImporting = importing,
-			})
-		end)
-
-		self.onImportProgressChangedConnection = self.terrainImporter:subscribeToImportProgressChanged(function(progress)
-			self:setState({
-				importProgress = progress,
-			})
-		end)
+		self.props.TerrainImporter:startImport()
 	end
 end
 
@@ -133,35 +86,15 @@ function Import:didMount()
 	self.updateImportProps()
 end
 
-if not FFlagTerrainToolsUseDevFramework then
-	function Import:willUnmount()
-		if self.onImportingStateChangedConnnection then
-			self.onImportingStateChangedConnnection:Disconnect()
-			self.onImportingStateChangedConnnection = nil
-		end
+function Import:render()
+	local localization = self.props.Localization:get()
 
-		if self.onImportProgressChangedConnection then
-			self.onImportProgressChangedConnection:Disconnect()
-			self.onImportProgressChangedConnection = nil
-		end
-	end
-end
-
--- TODO: Remove theme when removing FFlagTerrainToolsUseDevFramework
-function Import:_render(localization, theme)
 	local size = self.props.Size
 	local position = self.props.Position
 	local useColorMap = self.props.UseColorMap
 
-	local importInProgress
-	local importProgress
-	if FFlagTerrainToolsUseDevFramework then
-		importInProgress = self.props.TerrainImporter:isImporting()
-		importProgress = importInProgress and self.props.TerrainImporter:getImportProgress() or 0
-	else
-		importInProgress = self.state.isImporting
-		importProgress = self.state.importProgress
-	end
+	local importInProgress = self.props.TerrainImporter:isImporting()
+	local importProgress = importInProgress and self.props.TerrainImporter:getImportProgress() or 0
 
 	local importIsActive = not importInProgress
 		and self.state.validatedMapSettings
@@ -171,13 +104,6 @@ function Import:_render(localization, theme)
 		and (not useColorMap or self.state.validatedColorMap)
 
 	local hideColorMapAssetSelector = not useColorMap
-
-	-- TODO: Remove when removing FFlagTerrainToolsUseDevFramework
-	local toggleOn, toggleOff
-	if not FFlagTerrainToolsUseDevFramework then
-		toggleOn = theme.toggleTheme.toggleOnImage
-		toggleOff = theme.toggleTheme.toggleOffImage
-	end
 
 	return Roact.createFragment({
 		MapSettings = Roact.createElement(Panel, {
@@ -210,25 +136,11 @@ function Import:_render(localization, theme)
 			Title = localization:getText("MaterialSettings", "MaterialSettings"),
 			LayoutOrder = 2,
 		}, {
-			UseColorMapToggle = FFlagTerrainToolsUseDevFramework
-			and Roact.createElement(LabeledToggle, {
+			UseColorMapToggle = Roact.createElement(LabeledToggle, {
 				LayoutOrder = 1,
 				Text = localization:getText("MaterialSettings", "UseColorMap"),
 				IsOn = useColorMap,
 				SetIsOn = self.props.dispatchSetUseColorMap,
-			})
-			or Roact.createElement(LabeledElementPair, {
-				Size = UDim2.new(1, 0, 0, 60),
-				LayoutOrder = 1,
-				Text = localization:getText("MaterialSettings", "UseColorMap"),
-				SizeToContent = true,
-			}, {
-				Content = Roact.createElement("ImageButton", {
-					Size = UDim2.new(0, 27, 0, 16),
-					Image = useColorMap and toggleOn or toggleOff,
-					BackgroundTransparency = 1,
-					[Roact.Event.Activated] = self.toggleUseColorMap,
-				}),
 			}),
 
 			ColorMapAssetSelector = Roact.createElement(AssetIdSelector, {
@@ -253,30 +165,25 @@ function Import:_render(localization, theme)
 			}
 		}),
 
-		ImportProgressFrame = importInProgress and Roact.createElement(ImportProgressFrame, {
+		DEPRECATED_ImportProgressFrame = not FFlagTerrainToolsRedesignProgressDialog and (importInProgress
+			and Roact.createElement(DEPRECATED_ImportProgressFrame, {
 			ImportProgress = importProgress,
-		}),
+		})),
+
+		ProgressDialog = FFlagTerrainToolsRedesignProgressDialog and (importInProgress
+			and Roact.createElement(ProgressDialog, {
+			Title = localization:getText("Generate", "GenerateProgressTitle"),
+			SubText = localization:getText("Generate", "GenerateVoxels"),
+
+			Progress = importProgress,
+		})),
 	})
 end
 
-function Import:render()
-	if FFlagTerrainToolsUseDevFramework then
-		return self:_render(self.props.Localization:get())
-	else
-		return withTheme(function(theme)
-			return withLocalization(function(localization)
-				return self:_render(localization, theme)
-			end)
-		end)
-	end
-end
-
-if FFlagTerrainToolsUseDevFramework then
-	ContextServices.mapToProps(Import, {
-		Localization = ContextItems.UILibraryLocalization,
-		TerrainImporter = ContextItems.TerrainImporter,
-	})
-end
+ContextServices.mapToProps(Import, {
+	Localization = ContextItems.UILibraryLocalization,
+	TerrainImporter = ContextItems.TerrainImporter,
+})
 
 local function mapStateToProps(state, props)
 	return {

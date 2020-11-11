@@ -19,6 +19,12 @@ ListEntry.validateProps = t.strictInterface({
 	hasBullet = t.boolean,
 	layoutOrder = t.integer,
 	positionChangedCallback = t.optional(t.callback),
+
+	NextSelectionLeft = t.optional(t.table),
+	NextSelectionRight = t.optional(t.table),
+	NextSelectionUp = t.optional(t.table),
+	NextSelectionDown = t.optional(t.table),
+	[Roact.Ref] = t.optional(t.table),
 })
 
 function ListEntry:render()
@@ -41,6 +47,12 @@ function ListEntry:render()
 			LayoutOrder = self.props.layoutOrder,
 
 			[Roact.Change.AbsolutePosition] = self.props.positionChangedCallback,
+
+			NextSelectionLeft = self.props.NextSelectionLeft,
+			NextSelectionRight = self.props.NextSelectionRight,
+			NextSelectionUp = self.props.NextSelectionUp,
+			NextSelectionDown = self.props.NextSelectionDown,
+			[Roact.Ref] = self.props[Roact.Ref],
 		}, {
 			Bullet = self.props.hasBullet and Roact.createElement("TextLabel", {
 				BackgroundTransparency = 1,

@@ -2,37 +2,26 @@
 	Displays panels associated with the Clear tool
 ]]
 
-local FFlagTerrainToolsUseDevFramework = game:GetFastFlag("TerrainToolsUseDevFramework")
-
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
-local UILibrary = not FFlagTerrainToolsUseDevFramework and require(Plugin.Packages.UILibrary) or nil
 
-local ContextServices = FFlagTerrainToolsUseDevFramework and Framework.ContextServices or nil
-local ContextItems = FFlagTerrainToolsUseDevFramework and require(Plugin.Src.ContextItems) or nil
+local ContextServices = Framework.ContextServices
+local ContextItems = require(Plugin.Src.ContextItems)
 
-local withLocalization = not FFlagTerrainToolsUseDevFramework and UILibrary.Localizing.withLocalization or nil
-local withTheme = not FFlagTerrainToolsUseDevFramework and require(Plugin.Src.ContextServices.Theming).withTheme or nil
-
-local StudioUI = FFlagTerrainToolsUseDevFramework and Framework.StudioUI or nil
-local Dialog = FFlagTerrainToolsUseDevFramework and StudioUI.Dialog or nil
+local StudioUI = Framework.StudioUI
+local Dialog = StudioUI.Dialog
 
 local UILibraryCompat = Plugin.Src.UILibraryCompat
-local Button = FFlagTerrainToolsUseDevFramework and require(UILibraryCompat.Button) or nil
-
-local StyledDialog = not FFlagTerrainToolsUseDevFramework and UILibrary.Component.StyledDialog or nil
+local Button = require(UILibraryCompat.Button)
 
 local Actions = Plugin.Src.Actions
 local ChangeTool = require(Actions.ChangeTool)
 
 local TerrainEnums = require(Plugin.Src.Util.TerrainEnums)
 local ToolId = TerrainEnums.ToolId
-
-local TerrainInterface = not FFlagTerrainToolsUseDevFramework and require(Plugin.Src.ContextServices.TerrainInterface)
-	or nil
 
 local ChangeHistoryService = game:GetService("ChangeHistoryService")
 local TextService = game:GetService("TextService")
@@ -68,11 +57,7 @@ function Clear:init()
 			showingDialog = false,
 		})
 
-		if FFlagTerrainToolsUseDevFramework then
-			self.props.Terrain:get():Clear()
-		else
-			TerrainInterface.getTerrain(self):Clear()
-		end
+		self.props.Terrain:get():Clear()
 
 		ChangeHistoryService:SetWaypoint("Terrain Clear")
 		self.props.dispatchChangeTool(ToolId.None)
@@ -101,12 +86,6 @@ function Clear:didMount()
 end
 
 function Clear:render()
-	if not FFlagTerrainToolsUseDevFramework then
-		-- Clear tool rendering under dev framework is very different
-		-- so can't share the same :_render() like other components
-		return self:DEPRECATED_render()
-	end
-
 	local theme = self.props.Theme:get()
 	local localization = self.props.Localization:get()
 
@@ -228,66 +207,11 @@ function Clear:render()
 	})
 end
 
-function Clear:DEPRECATED_render()
-	return withTheme(function(theme)
-		return withLocalization(function(localization)
-			local message = localization:getText("ClearTool", "ConfirmationMessage")
-			local messageSize = TextService:GetTextSize(message, theme.textSize, theme.font, Vector2.new())
-			local messageWidth = messageSize.x
-
-			local dialogWidth = math.max(DIALOG_MIN_WIDTH,
-				PADDING + ICON_SIZE + PADDING + messageWidth + PADDING)
-
-			return self.state.showingDialog and Roact.createElement(StyledDialog, {
-				Title = localization:getText("ClearTool", "ConfirmationTitle"),
-				Buttons = {
-					{Key = KEY_NO, Text = localization:getText("Confirmation", "No")},
-					{Key = KEY_YES, Text = localization:getText("Confirmation", "Yes"), Style = "Primary"},
-				},
-
-				OnButtonClicked = self.onButtonClicked,
-				OnClose = self.onNoClicked,
-
-				Size = Vector2.new(dialogWidth, DIALOG_HEIGHT),
-				MinSize = Vector2.new(dialogWidth, DIALOG_HEIGHT),
-				Resizable = false,
-
-				BorderPadding = PADDING,
-				ButtonPadding = PADDING,
-
-				ButtonWidth = BUTTON_WIDTH,
-				ButtonHeight = BUTTON_HEIGHT,
-
-				TextSize = theme.textSize,
-			}, {
-				Icon = Roact.createElement("ImageLabel", {
-					Size = UDim2.new(0, ICON_SIZE, 0, ICON_SIZE),
-					BackgroundTransparency = 1,
-					Image = INFO_ICON,
-				}),
-
-				Message = Roact.createElement("TextLabel", {
-					Position = UDim2.new(0, ICON_SIZE + PADDING, 0, 0),
-					Size = UDim2.new(0, messageWidth, 1, 0),
-					BackgroundTransparency = 1,
-					Text = localization:getText("ClearTool", "ConfirmationMessage"),
-					Font = theme.font,
-					TextSize = theme.textSize,
-					TextColor3 = theme.textColor,
-					TextYAlignment = Enum.TextYAlignment.Top,
-				}),
-			})
-		end)
-	end)
-end
-
-if FFlagTerrainToolsUseDevFramework then
-	ContextServices.mapToProps(Clear, {
-		Theme = ContextItems.UILibraryTheme,
-		Localization = ContextItems.UILibraryLocalization,
-		Terrain = ContextItems.Terrain,
-	})
-end
+ContextServices.mapToProps(Clear, {
+	Theme = ContextItems.UILibraryTheme,
+	Localization = ContextItems.UILibraryLocalization,
+	Terrain = ContextItems.Terrain,
+})
 
 local function mapDispatchToProps(dispatch)
 	return {

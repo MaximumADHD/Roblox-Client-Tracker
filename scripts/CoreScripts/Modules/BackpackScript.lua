@@ -90,10 +90,6 @@ local IsTenFootInterface = require(RobloxGui.Modules.TenFootInterface):IsEnabled
 local Utility = require(RobloxGui.Modules.Settings.Utility)
 local GameTranslator = require(RobloxGui.Modules.GameTranslator)
 
-local FFlagTapAwayToCloseBackpack = game:DefineFastFlag("TapAwayToCloseBackpack", false)
-
-local FFlagFixEmotesHotkeysEquipTools = game:DefineFastFlag("FixEmotesHotKeysEquipTools", false)
-
 pcall(function()
 	local LocalizationService = game:GetService("LocalizationService")
 	local CorescriptLocalization = LocalizationService:GetCorescriptLocalizations()[1]
@@ -567,7 +563,7 @@ local function MakeSlot(parent, index)
 
 	-- Slot select logic, activated by clicking or pressing hotkey
 		function slot:Select(isProcessed)
-			if FFlagFixEmotesHotkeysEquipTools and isProcessed then
+			if isProcessed then
 				return
 			end
 
@@ -663,12 +659,9 @@ local function MakeSlot(parent, index)
 			SlotNumber.Size = UDim2.new(0.15, 0, 0.15, 0)
 			SlotNumber.Visible = false
 			SlotNumber.Parent = SlotFrame
-			if FFlagFixEmotesHotkeysEquipTools then
-				HotkeyFns[ZERO_KEY_VALUE + slotNum] = function(isProcessed)
-					slot:Select(isProcessed)
-				end
-			else
-				HotkeyFns[ZERO_KEY_VALUE + slotNum] = slot.Select
+
+			HotkeyFns[ZERO_KEY_VALUE + slotNum] = function(isProcessed)
+				slot:Select(isProcessed)
 			end
 		end
 	end
@@ -1030,13 +1023,11 @@ local function OnInputBegan(input, isProcessed)
 		end
 	end
 
-	if FFlagTapAwayToCloseBackpack then
-		local inputType = input.UserInputType
-		if not isProcessed then
-			if inputType == Enum.UserInputType.MouseButton1 or inputType == Enum.UserInputType.Touch then
-				if InventoryFrame.Visible then
-					BackpackScript.OpenClose()
-				end
+	local inputType = input.UserInputType
+	if not isProcessed then
+		if inputType == Enum.UserInputType.MouseButton1 or inputType == Enum.UserInputType.Touch then
+			if InventoryFrame.Visible then
+				BackpackScript.OpenClose()
 			end
 		end
 	end

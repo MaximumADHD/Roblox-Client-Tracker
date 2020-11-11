@@ -21,39 +21,18 @@ return function()
 	local Reducers = PlayerList.Reducers
 	local Reducer = require(Reducers.Reducer)
 
-	local FFlagLeaderboardDontWaitOnChinaPolicy = require(PlayerList.Flags.FFlagLeaderboardDontWaitOnChinaPolicy)
-
 	local appStyle = {
 		Theme = AppDarkTheme,
 		Font = AppFont,
 	}
 
 	it("should create and destroy without errors", function()
-		if FFlagLeaderboardDontWaitOnChinaPolicy then
-			local store = Rodux.Store.new(Reducer)
+		local store = Rodux.Store.new(Reducer)
 
-			local element = Roact.createElement(RoactRodux.StoreProvider, {
-				store = store,
-			}, {
-				LayoutValuesProvider = Roact.createElement(LayoutValuesProvider, {
-					layoutValues = CreateLayoutValues(false, false)
-				}, {
-					ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {
-						style = appStyle,
-					}, {
-						TeamEntry = Roact.createElement(TeamEntry, {
-							entrySize = 50,
-							layoutOrder = 0,
-							leaderstats = {},
-							gameStats = {},
-						})
-					})
-				})
-			})
-			local instance = Roact.mount(element)
-			Roact.unmount(instance)
-		else
-			local element = Roact.createElement(LayoutValuesProvider, {
+		local element = Roact.createElement(RoactRodux.StoreProvider, {
+			store = store,
+		}, {
+			LayoutValuesProvider = Roact.createElement(LayoutValuesProvider, {
 				layoutValues = CreateLayoutValues(false, false)
 			}, {
 				ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {
@@ -67,37 +46,18 @@ return function()
 					})
 				})
 			})
-			local instance = Roact.mount(element)
-			Roact.unmount(instance)
-		end
+		})
+		local instance = Roact.mount(element)
+		Roact.unmount(instance)
 	end)
 
 	it("should create and destroy without errors tenfoot", function()
-		if FFlagLeaderboardDontWaitOnChinaPolicy then
-			local store = Rodux.Store.new(Reducer)
+		local store = Rodux.Store.new(Reducer)
 
-			local element = Roact.createElement(RoactRodux.StoreProvider, {
-				store = store,
-			}, {
-				LayoutValuesProvider = Roact.createElement(LayoutValuesProvider, {
-					layoutValues = CreateLayoutValues(true, false)
-				}, {
-					ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {
-						style = appStyle,
-					}, {
-						TeamEntry = Roact.createElement(TeamEntry, {
-							entrySize = 150,
-							layoutOrder = 0,
-							leaderstats = {},
-							gameStats = {},
-						})
-					})
-				})
-			})
-			local instance = Roact.mount(element)
-			Roact.unmount(instance)
-		else
-			local element = Roact.createElement(LayoutValuesProvider, {
+		local element = Roact.createElement(RoactRodux.StoreProvider, {
+			store = store,
+		}, {
+			LayoutValuesProvider = Roact.createElement(LayoutValuesProvider, {
 				layoutValues = CreateLayoutValues(true, false)
 			}, {
 				ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {
@@ -111,8 +71,8 @@ return function()
 					})
 				})
 			})
-			local instance = Roact.mount(element)
-			Roact.unmount(instance)
-		end
+		})
+		local instance = Roact.mount(element)
+		Roact.unmount(instance)
 	end)
 end

@@ -224,9 +224,16 @@ else
 end
 
 if FFlagFixAudioAssetsForLuoBu then
-	Category.CREATOR_ROBLOX ={
+	Category.CREATOR_ROBLOX = {
 		Id = 1,
 		Type = Enum.CreatorType.User.Value,
+	}
+
+	-- Develop Api creatorType is not aligned with the CreatorType Enum
+	local DEVELOP_API_CREATOR_TYPE_USER = 1
+	Category.CREATOR_ROBLOX_DEVELOP_API = {
+		Id = 1,
+		Type = DEVELOP_API_CREATOR_TYPE_USER,
 	}
 else
 	Category.CREATOR_ROBLOX = {

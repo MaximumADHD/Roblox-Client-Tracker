@@ -1,4 +1,3 @@
-local FFlagTerrainToolsUseDevFramework = game:GetFastFlag("TerrainToolsUseDevFramework")
 local FFlagTerrainToolsSingleSelectUseHover = game:GetFastFlag("TerrainToolsSingleSelectUseHover")
 
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
@@ -6,10 +5,8 @@ local Plugin = script.Parent.Parent.Parent.Parent.Parent
 local Framework = require(Plugin.Packages.Framework)
 local Roact = require(Plugin.Packages.Roact)
 
-local ContextServices = FFlagTerrainToolsUseDevFramework and Framework.ContextServices or nil
-local ContextItems = FFlagTerrainToolsUseDevFramework and require(Plugin.Src.ContextItems) or nil
-
-local withTheme = not FFlagTerrainToolsUseDevFramework and require(Plugin.Src.ContextServices.Theming).withTheme or nil
+local ContextServices = Framework.ContextServices
+local ContextItems = require(Plugin.Src.ContextItems)
 
 local INSET_FOR_CURVED_CORNERS = 4
 
@@ -136,15 +133,19 @@ if FFlagTerrainToolsSingleSelectUseHover then
 	})
 end
 
-local function SingleSelectButtonGroup_render(props, theme)
-	local size = props.Size
+local SingleSelectButtonGroup = Roact.PureComponent:extend("SingleSelectButtonGroup")
 
-	local options = props.Options or {}
+function SingleSelectButtonGroup:render()
+	local theme = self.props.Theme:get()
+
+	local size = self.props.Size
+
+	local options = self.props.Options or {}
 	local optionsCount = #options
 
 	local buttonWidth = 1 / optionsCount
 
-	local selected = props.Selected
+	local selected = self.props.Selected
 
 	local selectedColour = theme.singleSelectButtonGroupTheme.buttonSelectedColor
 
@@ -168,7 +169,7 @@ local function SingleSelectButtonGroup_render(props, theme)
 
 				Data = option.Data,
 				Text = option.Text,
-				Select = props.Select,
+				Select = self.props.Select,
 			})
 		else
 			content["Button" .. i] = Roact.createElement("ImageButton", {
@@ -182,7 +183,7 @@ local function SingleSelectButtonGroup_render(props, theme)
 
 				[Roact.Event.Activated] = function()
 					if not isSelected then
-						props.Select(option.Data)
+						self.props.Select(option.Data)
 					end
 				end,
 			}, {
@@ -270,25 +271,8 @@ local function SingleSelectButtonGroup_render(props, theme)
 	}, content)
 end
 
-if FFlagTerrainToolsUseDevFramework then
-	local SingleSelectButtonGroup = Roact.PureComponent:extend("SingleSelectButtonGroup")
+ContextServices.mapToProps(SingleSelectButtonGroup, {
+	Theme = ContextItems.UILibraryTheme,
+})
 
-	function SingleSelectButtonGroup:render()
-		local theme = self.props.Theme:get()
-
-		return SingleSelectButtonGroup_render(self.props, theme)
-	end
-
-	ContextServices.mapToProps(SingleSelectButtonGroup, {
-		Theme = ContextItems.UILibraryTheme,
-	})
-
-	return SingleSelectButtonGroup
-
-else
-	return function(props)
-		return withTheme(function(theme)
-			return SingleSelectButtonGroup_render(props, theme)
-		end)
-	end
-end
+return SingleSelectButtonGroup

@@ -2,18 +2,13 @@
 	EditSettings.lua
 ]]
 
-local FFlagTerrainToolsUseDevFramework = game:GetFastFlag("TerrainToolsUseDevFramework")
-
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
 local Roact = require(Plugin.Packages.Roact)
-local UILibrary = not FFlagTerrainToolsUseDevFramework and require(Plugin.Packages.UILibrary) or nil
 
-local ContextServices = FFlagTerrainToolsUseDevFramework and Framework.ContextServices or nil
-local ContextItems = FFlagTerrainToolsUseDevFramework and require(Plugin.Src.ContextItems) or nil
-
-local withLocalization = not FFlagTerrainToolsUseDevFramework and UILibrary.Localizing.withLocalization or nil
+local ContextServices = Framework.ContextServices
+local ContextItems = require(Plugin.Src.ContextItems)
 
 local ToolParts = script.Parent
 local LabeledToggle = require(ToolParts.LabeledToggle)
@@ -21,7 +16,9 @@ local Panel = require(ToolParts.Panel)
 
 local EditSettings = Roact.PureComponent:extend(script.Name)
 
-function EditSettings:_render(localization)
+function EditSettings:render()
+	local localization = self.props.Localization:get()
+
 	return Roact.createElement(Panel, {
 		Title = localization:getText("EditSettings", "EditSettings"),
 		Padding = UDim.new(0, 12),
@@ -36,20 +33,8 @@ function EditSettings:_render(localization)
 	})
 end
 
-function EditSettings:render()
-	if FFlagTerrainToolsUseDevFramework then
-		return self:_render(self.props.Localization:get())
-	else
-		return withLocalization(function(localization)
-			return self:_render(localization)
-		end)
-	end
-end
-
-if FFlagTerrainToolsUseDevFramework then
-	ContextServices.mapToProps(EditSettings, {
-		Localization = ContextItems.UILibraryLocalization,
-	})
-end
+ContextServices.mapToProps(EditSettings, {
+	Localization = ContextItems.UILibraryLocalization,
+})
 
 return EditSettings

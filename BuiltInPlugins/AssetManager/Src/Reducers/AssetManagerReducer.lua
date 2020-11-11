@@ -153,4 +153,27 @@ return Rodux.createReducer({
 			})
 		})
 	end,
+
+	IncrementAssetFavoriteCount = function(state, action)
+		local asset = state.assetsTable.assetPreviewData[action.assetId]
+		local newAssetPreviewData
+		if asset then
+			newAssetPreviewData = {
+				[action.assetId] = Cryo.Dictionary.join(state.assetsTable.assetPreviewData[action.assetId], {
+					favoriteCount = asset.favoriteCount + action.incrementCount,
+				})
+			}
+		else
+			newAssetPreviewData = {
+				[action.assetId] = {
+					favoriteCount = action.incrementCount,
+				}
+			}
+		end
+		return Cryo.Dictionary.join(state,{
+			assetsTable = Cryo.Dictionary.join(state.assetsTable, {
+				assetPreviewData = Cryo.Dictionary.join(state.assetsTable.assetPreviewData, newAssetPreviewData)
+			})
+		})
+	end,
 })

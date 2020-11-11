@@ -2,18 +2,13 @@
 	BrushSettings.lua
 ]]
 
-local FFlagTerrainToolsUseDevFramework = game:GetFastFlag("TerrainToolsUseDevFramework")
-
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
 local Roact = require(Plugin.Packages.Roact)
-local UILibrary = not FFlagTerrainToolsUseDevFramework and require(Plugin.Packages.UILibrary) or nil
 
-local ContextServices = FFlagTerrainToolsUseDevFramework and Framework.ContextServices or nil
-local ContextItems = FFlagTerrainToolsUseDevFramework and require(Plugin.Src.ContextItems) or nil
-
-local withLocalization = not FFlagTerrainToolsUseDevFramework and UILibrary.Localizing.withLocalization or nil
+local ContextServices = Framework.ContextServices
+local ContextItems = require(Plugin.Src.ContextItems)
 
 local Constants = require(Plugin.Src.Util.Constants)
 local TerrainEnums = require(Plugin.Src.Util.TerrainEnums)
@@ -33,7 +28,9 @@ local PivotSelector = require(BrushProperties.PivotSelector)
 
 local BrushSettings = Roact.PureComponent:extend(script.Name)
 
-function BrushSettings:_render(localization)
+function BrushSettings:render()
+	local localization = self.props.Localization:get()
+
 	local layoutOrder = self.props.LayoutOrder
 	local isSubsection = self.props.isSubsection
 
@@ -144,20 +141,8 @@ function BrushSettings:_render(localization)
 	})
 end
 
-function BrushSettings:render()
-	if FFlagTerrainToolsUseDevFramework then
-		return self:_render(self.props.Localization:get())
-	else
-		return withLocalization(function(localization)
-			return self:_render(localization)
-		end)
-	end
-end
-
-if FFlagTerrainToolsUseDevFramework then
-	ContextServices.mapToProps(BrushSettings, {
-		Localization = ContextItems.UILibraryLocalization,
-	})
-end
+ContextServices.mapToProps(BrushSettings, {
+	Localization = ContextItems.UILibraryLocalization,
+})
 
 return BrushSettings

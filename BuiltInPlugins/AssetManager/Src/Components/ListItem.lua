@@ -6,6 +6,7 @@ local RoactRodux = require(Plugin.Packages.RoactRodux)
 
 local Framework = Plugin.Packages.Framework
 local ContextServices = require(Framework.ContextServices)
+local RobloxAPI = require(Framework).RobloxAPI
 
 local Util = require(Framework.Util)
 local StyleModifier = Util.StyleModifier
@@ -26,6 +27,8 @@ local OnRecentAssetRightClick = require(Plugin.Src.Thunks.OnRecentAssetRightClic
 local AssetManagerService = game:GetService("AssetManagerService")
 
 local ListItem = Roact.PureComponent:extend("ListItem")
+
+local FFlagAllowAudioBulkImport = game:GetFastFlag("AllowAudioBulkImport")
 
 local function stripText(text)
     local newText = string.gsub(text, "%s+", "")
@@ -49,6 +52,8 @@ local function getClassIcon(assetData)
         return StudioService:GetClassIcon("Decal")
     elseif assetType == Enum.AssetType.MeshPart then
         return StudioService:GetClassIcon("MeshPart")
+    elseif FFlagAllowAudioBulkImport and (not RobloxAPI:baseURLHasChineseHost()) and assetType == Enum.AssetType.Audio then
+        return StudioService:GetClassIcon("Audio")
     elseif assetType == Enum.AssetType.Lua then
         return StudioService:GetClassIcon("LinkedScript")
     end
@@ -135,7 +140,8 @@ function ListItem:init()
                 AssetManagerService:RenamePlace(assetData.id, newName)
             elseif assetData.assetType == Enum.AssetType.Image
             or assetData.assetType == Enum.AssetType.MeshPart
-            or assetData.assetType == Enum.AssetType.Image then
+            or assetData.assetType == Enum.AssetType.Image
+            or (FFlagAllowAudioBulkImport and (not RobloxAPI:baseURLHasChineseHost()) and assetData.assetType == Enum.AssetType.Audio) then
                 local prefix
                 -- Setting asset type to same value as Enum.AssetType since it cannot be passed into function
                 if assetData.assetType == Enum.AssetType.Image then
@@ -144,6 +150,8 @@ function ListItem:init()
                     prefix = "Meshes/"
                 elseif assetData.assetType == Enum.AssetType.Lua then
                     prefix = "Scripts/"
+                elseif FFlagAllowAudioBulkImport and (not RobloxAPI:baseURLHasChineseHost()) and assetData.assetType == Enum.AssetType.Audio then
+                    prefix = "Audio/"
                 end
                 AssetManagerService:RenameAlias(assetData.assetType.Value, assetData.id, prefix .. assetData.name, prefix .. newName)
             end
@@ -224,7 +232,7 @@ function ListItem:render()
 
     local editText = self.state.editText
     local isEditingAsset = props.EditingAssets[assetData.id]
-    local editTextWrapped = listItemStyle.EditText.TextWrapped
+    local editTextPadding = listItemStyle.EditText.TextPadding
     local editTextClearOnFocus = listItemStyle.EditText.ClearTextOnFocus
     local editTextXAlignment = listItemStyle.Text.XAlignment
 
@@ -300,7 +308,7 @@ function ListItem:render()
             }),
 
             RenameTextBox = isEditingAsset and Roact.createElement("TextBox",{
-                Size = UDim2.new(0, editTextSize.X, 0, editTextSize.Y),
+                Size = UDim2.new(0, editTextSize.X + editTextPadding, 0, textFrameSize.Y.Offset),
                 LayoutOrder = layoutIndex:getNextOrder(),
 
                 BackgroundColor3 = editTextFrameBackgroundColor,
@@ -312,7 +320,6 @@ function ListItem:render()
                 TextSize = textSize,
 
                 TextXAlignment = editTextXAlignment,
-                TextWrapped = editTextWrapped,
                 ClearTextOnFocus = editTextClearOnFocus,
 
                 [Roact.Ref] = self.textBoxRef,

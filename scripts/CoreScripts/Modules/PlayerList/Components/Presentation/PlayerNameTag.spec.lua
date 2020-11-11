@@ -16,43 +16,17 @@ return function()
 	local Reducers = PlayerList.Reducers
 	local Reducer = require(Reducers.Reducer)
 
-	local FFlagLeaderboardDontWaitOnChinaPolicy = require(PlayerList.Flags.FFlagLeaderboardDontWaitOnChinaPolicy)
-
 	local PlayerNameTag = require(script.Parent.PlayerNameTag)
 
 	it("should create and destroy without errors", function()
 		local layoutValues = CreateLayoutValues(false, false)
 
-		if FFlagLeaderboardDontWaitOnChinaPolicy then
-			local store = Rodux.Store.new(Reducer)
+		local store = Rodux.Store.new(Reducer)
 
-			local element = Roact.createElement(RoactRodux.StoreProvider, {
-				store = store,
-			}, {
-				LayoutValues = Roact.createElement(LayoutValuesProvider, {
-					layoutValues = layoutValues
-				}, {
-					PlayerNameTag = Roact.createElement(PlayerNameTag, {
-						player = Players.LocalPlayer,
-						isTitleEntry = false,
-						isHovered = false,
-						layoutOrder = 2,
-
-						textStyle = {
-							Color = Color3.new(1, 1, 1),
-							Transparency = 1,
-						},
-						textFont = {
-							Size = 20,
-							Font = Enum.Font.Gotham,
-						},
-					})
-				})
-			})
-			local instance = Roact.mount(element)
-			Roact.unmount(instance)
-		else
-			local element = Roact.createElement(LayoutValuesProvider, {
+		local element = Roact.createElement(RoactRodux.StoreProvider, {
+			store = store,
+		}, {
+			LayoutValues = Roact.createElement(LayoutValuesProvider, {
 				layoutValues = layoutValues
 			}, {
 				PlayerNameTag = Roact.createElement(PlayerNameTag, {
@@ -71,41 +45,20 @@ return function()
 					},
 				})
 			})
-			local instance = Roact.mount(element)
-			Roact.unmount(instance)
-		end
+		})
+		local instance = Roact.mount(element)
+		Roact.unmount(instance)
 	end)
 
 	it("should create and destroy without errors tenfoot", function()
 		local layoutValues = CreateLayoutValues(true, false)
 
-		if FFlagLeaderboardDontWaitOnChinaPolicy then
-			local store = Rodux.Store.new(Reducer)
+		local store = Rodux.Store.new(Reducer)
 
-			local element = Roact.createElement(RoactRodux.StoreProvider, {
-				store = store,
-			}, {
-				LayoutValues = Roact.createElement(LayoutValuesProvider, {
-					layoutValues = layoutValues
-				}, {
-					PlayerNameTag = Roact.createElement(PlayerNameTag, {
-						player = Players.LocalPlayer,
-						isTitleEntry = true,
-						isHovered = true,
-						layoutOrder = 1,
-
-						textStyle = layoutValues.DefaultTextStyle,
-						textFont = {
-							Size = 32,
-							Font = Enum.Font.Gotham,
-						},
-					})
-				})
-			})
-			local instance = Roact.mount(element)
-			Roact.unmount(instance)
-		else
-			local element = Roact.createElement(LayoutValuesProvider, {
+		local element = Roact.createElement(RoactRodux.StoreProvider, {
+			store = store,
+		}, {
+			LayoutValues = Roact.createElement(LayoutValuesProvider, {
 				layoutValues = layoutValues
 			}, {
 				PlayerNameTag = Roact.createElement(PlayerNameTag, {
@@ -121,8 +74,8 @@ return function()
 					},
 				})
 			})
-			local instance = Roact.mount(element)
-			Roact.unmount(instance)
-		end
+		})
+		local instance = Roact.mount(element)
+		Roact.unmount(instance)
 	end)
 end

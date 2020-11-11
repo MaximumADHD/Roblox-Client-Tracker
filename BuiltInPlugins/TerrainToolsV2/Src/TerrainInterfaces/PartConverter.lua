@@ -1,30 +1,21 @@
-local FFlagTerrainToolsUseDevFramework = game:GetFastFlag("TerrainToolsUseDevFramework")
-
 local Plugin = script.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
 local Cryo = require(Plugin.Packages.Cryo)
 local Roact = require(Plugin.Packages.Roact)
-local UILibrary = not FFlagTerrainToolsUseDevFramework and require(Plugin.Packages.UILibrary) or nil
 
-local ContextItem = FFlagTerrainToolsUseDevFramework and Framework.ContextServices.ContextItem or nil
-local Provider = FFlagTerrainToolsUseDevFramework and Framework.ContextServices.Provider or nil
+local ContextItem = Framework.ContextServices.ContextItem
+local Provider = Framework.ContextServices.Provider
 
-local FrameworkUtil = FFlagTerrainToolsUseDevFramework and Framework.Util or nil
-local Signal = FFlagTerrainToolsUseDevFramework and FrameworkUtil.Signal or UILibrary.Util.Signal
+local FrameworkUtil = Framework.Util
+local Signal = FrameworkUtil.Signal
 
 local ConversionOperationDetails = require(Plugin.Src.Util.ConversionOperationDetails)
 local LongOperation = require(Plugin.Src.Util.LongOperation)
 local LongOperationQueue = require(Plugin.Src.Util.LongOperationQueue)
 local PartConverterVisuals = require(Plugin.Src.Util.PartConverterVisuals)
 
-local PartConverter
-if FFlagTerrainToolsUseDevFramework then
-	PartConverter = ContextItem:extend("PartConverter")
-else
-	PartConverter = {}
-	PartConverter.__index = PartConverter
-end
+local PartConverter = ContextItem:extend("PartConverter")
 
 PartConverter.NOT_RUNNING_CONVERT_STATE = "NotRunning"
 
@@ -47,16 +38,12 @@ function PartConverter.new(options)
 		-- We only have a visuals object after a conversion has started
 		_visuals = nil,
 		_visualsFinishedConnection = nil,
+
+		_updateSignal = Signal.new(),
 	}, PartConverter)
 
 	assert(self._terrain, "PartConverter needs a terrain instance")
 	assert(self._localization, "PartConverter needs a localization instance")
-
-	if FFlagTerrainToolsUseDevFramework then
-		self._updateSignal = Signal.new()
-	else
-		self._convertStateChanged = Signal.new()
-	end
 
 	-- When a new operation starts (e.g. transitioning from GetTargetShapes->ConvertShapesToMaterial)
 	-- Store this data so that the progress bar can show what's happening
@@ -66,9 +53,7 @@ function PartConverter.new(options)
 
 	-- When the queue finishes, reset our own state
 	self._queueRunningChangedConnection = self._operationQueue.QueueRunningChanged:Connect(function(running)
-		if FFlagTerrainToolsUseDevFramework then
-			self._updateSignal:Fire()
-		end
+		self._updateSignal:Fire()
 
 		if not running then
 			if self._visuals then
@@ -78,14 +63,12 @@ function PartConverter.new(options)
 		end
 	end)
 
-	if FFlagTerrainToolsUseDevFramework then
-		self._progressChangedConnection = self._operationQueue.ProgressChanged:Connect(function()
-			self._updateSignal:Fire()
-		end)
-		self._pausedChangedConnection = self._operationQueue.PausedChanged:Connect(function()
-			self._updateSignal:Fire()
-		end)
-	end
+	self._progressChangedConnection = self._operationQueue.ProgressChanged:Connect(function()
+		self._updateSignal:Fire()
+	end)
+	self._pausedChangedConnection = self._operationQueue.PausedChanged:Connect(function()
+		self._updateSignal:Fire()
+	end)
 
 	self._onVisualsFinished = function()
 		self:_destroyVisuals()
@@ -94,14 +77,13 @@ function PartConverter.new(options)
 	return self
 end
 
-if FFlagTerrainToolsUseDevFramework then
-	function PartConverter:createProvider(root)
-		return Roact.createElement(Provider, {
-			ContextItem = self,
-			UpdateSignal = self._updateSignal,
-		}, {root})
-	end
+function PartConverter:createProvider(root)
+	return Roact.createElement(Provider, {
+		ContextItem = self,
+		UpdateSignal = self._updateSignal,
+	}, {root})
 end
+
 -- selectionModel can be nil, meaning we should clear our reference
 function PartConverter:setSelectionModel(selectionModel)
 	self._selectionModel = selectionModel
@@ -114,16 +96,14 @@ function PartConverter:destroy()
 	self:setSelectionModel(nil)
 	self:_destroyVisuals()
 
-	if FFlagTerrainToolsUseDevFramework then
-		if self._progressChangedConnection then
-			self._progressChangedConnection:Disconnect()
-			self._progressChangedConnection = nil
-		end
+	if self._progressChangedConnection then
+		self._progressChangedConnection:Disconnect()
+		self._progressChangedConnection = nil
+	end
 
-		if self._pausedChangedConnection then
-			self._pausedChangedConnection:Disconnect()
-			self._pausedChangedConnection = nil
-		end
+	if self._pausedChangedConnection then
+		self._pausedChangedConnection:Disconnect()
+		self._pausedChangedConnection = nil
 	end
 
 	if self._operationStartedConnection then
@@ -193,11 +173,6 @@ function PartConverter:convertInstancesToBiome(instances, generateSettings)
 		})
 end
 
-function PartConverter:subscribeToConvertStateChanged(...)
-	assert(not FFlagTerrainToolsUseDevFramework, "TerrainGeneration:subscribeToConvertStateChanged() is deprecated")
-	return self._convertStateChanged:Connect(...)
-end
-
 function PartConverter:getConvertState()
 	return self._convertState
 end
@@ -205,11 +180,7 @@ end
 function PartConverter:_setConvertState(convertState)
 	if self._convertState ~= convertState then
 		self._convertState = convertState
-		if FFlagTerrainToolsUseDevFramework then
-			self._updateSignal:Fire()
-		else
-			self._convertStateChanged:Fire(convertState)
-		end
+		self._updateSignal:Fire()
 	end
 end
 
@@ -241,21 +212,6 @@ end
 --[[
 	Methods that pass through to our operation queue
 ]]
-function PartConverter:subscribeToRunningChanged(...)
-	assert(not FFlagTerrainToolsUseDevFramework, "TerrainGeneration:subscribeToRunningChanged() is deprecated")
-	return self._operationQueue.QueueRunningChanged:Connect(...)
-end
-
-function PartConverter:subscribeToPausedChanged(...)
-	assert(not FFlagTerrainToolsUseDevFramework, "TerrainGeneration:subscribeToPausedChanged() is deprecated")
-	return self._operationQueue.PausedChanged:Connect(...)
-end
-
-function PartConverter:subscribeToProgressChanged(...)
-	assert(not FFlagTerrainToolsUseDevFramework, "TerrainGeneration:subscribeToProgressChanged() is deprecated")
-	return self._operationQueue.ProgressChanged:Connect(...)
-end
-
 function PartConverter:pause()
 	self._operationQueue:pause()
 end

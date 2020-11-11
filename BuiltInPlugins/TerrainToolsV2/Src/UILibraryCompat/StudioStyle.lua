@@ -8,7 +8,7 @@ StudioStyle.__index = StudioStyle
 -- c : StudioStyleGuideColor
 -- m : StudioStyleGuideModifier
 function StudioStyle.new(getColor, c, m)
-	local FStringMainFont = game:GetFastString("StudioBuiltinPluginDefaultFont")
+	local FStringMainFont = "SourceSans"
 
 	return {
 		font = Enum.Font[FStringMainFont],

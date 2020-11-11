@@ -18,6 +18,9 @@ local OpenEducationalPopup = require(InGameMenu.Thunks.OpenEducationalPopup)
 local StartLeavingGame = require(InGameMenu.Actions.StartLeavingGame)
 
 local ExternalEventConnection = require(InGameMenu.Utility.ExternalEventConnection)
+local UserLocalStore = require(InGameMenu.Utility.UserLocalStore)
+
+local GetFFlagPlayerSpecificPopupCounter = require(InGameMenu.Flags.GetFFlagPlayerSpecificPopupCounter)
 
 local DISAPPEAR_DELAY = 0.5
 
@@ -79,7 +82,11 @@ function FullscreenTitleBar:init()
 		self.hideTitleBar()
 
 		if self.props.isEducationalPopupEnabled then
-			self.props.openEducationalPopup(GuiService, AppStorageService, self.props.maxDisplayCount)
+			local localStore = AppStorageService
+			if GetFFlagPlayerSpecificPopupCounter() then
+				localStore = UserLocalStore.new()
+			end
+			self.props.openEducationalPopup(GuiService, localStore, self.props.maxDisplayCount)
 		else
 			self.props.startLeavingGame()
 		end

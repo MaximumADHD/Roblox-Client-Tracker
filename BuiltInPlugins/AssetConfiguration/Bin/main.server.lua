@@ -6,7 +6,6 @@ local PluginRoot = script.Parent.Parent
 
 -- Fast flags
 require(PluginRoot.ToolboxFFlags)
-local FFlagEnableOverrideAssetCursorFix = game:GetFastFlag("EnableOverrideAssetCursorFix")
 local FFlagStudioAssetConfigurationPlugin = game:GetFastFlag("StudioAssetConfigurationPlugin")
 local FFlagDebugAssetConfigurationEnableRoactChecks = game:DefineFastFlag("DebugAssetConfigurationEnableRoactChecks", false)
 
@@ -127,7 +126,7 @@ local function createAssetConfig(assetId, flowType, instances, assetTypeEnum, to
 		instances = instances,
 		assetTypeEnum = assetTypeEnum,
 		currentTab = defaultTab,
-		overrideCursor = FFlagEnableOverrideAssetCursorFix and {} or nil,
+		overrideCursor = {},
 	}, toolboxStoreData)
 
 	-- If we don't have asset id, we will be publish an new asset.

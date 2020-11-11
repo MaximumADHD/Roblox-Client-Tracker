@@ -25,8 +25,6 @@ local FFlagPlayerShowDropDownNoEntries = game:DefineFastFlag("PlayerShowDropDown
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 
-local PolicyService = require(RobloxGui.Modules.Common.PolicyService)
-
 local Images = UIBlox.App.ImageSet.Images
 
 local isNewInGameMenuEnabled = require(RobloxGui.Modules.isNewInGameMenuEnabled)
@@ -40,8 +38,6 @@ local UnfollowPlayer = require(PlayerList.Thunks.UnfollowPlayer)
 local BlockPlayer = require(PlayerList.Thunks.BlockPlayer)
 local UnblockPlayer = require(PlayerList.Thunks.UnblockPlayer)
 local RequestFriendship = require(PlayerList.Thunks.RequestFriendship)
-
-local FFlagLeaderboardDontWaitOnChinaPolicy = require(PlayerList.Flags.FFlagLeaderboardDontWaitOnChinaPolicy)
 
 local PlayerDropDown = Roact.PureComponent:extend("PlayerDropDown")
 
@@ -61,7 +57,7 @@ PlayerDropDown.validateProps = t.strictInterface({
 	})),
 	inspectMenuEnabled = t.boolean,
 	isTenFootInterface = t.boolean,
-	subjectToChinaPolicies = FFlagLeaderboardDontWaitOnChinaPolicy and t.boolean or nil,
+	subjectToChinaPolicies = t.boolean,
 
 	closeDropDown = t.callback,
 	blockPlayer = t.callback,
@@ -228,12 +224,7 @@ function PlayerDropDown:render()
 				end
 			end
 
-			local showPlayerBlocking
-			if FFlagLeaderboardDontWaitOnChinaPolicy then
-				showPlayerBlocking = not self.props.subjectToChinaPolicies
-			else
-				showPlayerBlocking = not PolicyService:IsSubjectToChinaPolicies()
-			end
+			local showPlayerBlocking = not self.props.subjectToChinaPolicies
 
 			if showPlayerBlocking then
 				dropDownButtons["BlockButton"] = self:createBlockButton(playerRelationship)
@@ -320,18 +311,13 @@ end
 local function mapStateToProps(state)
 	local selectedPlayer = state.playerDropDown.selectedPlayer
 
-	local subjectToChinaPolicies = nil
-	if FFlagLeaderboardDontWaitOnChinaPolicy then
-		subjectToChinaPolicies = state.displayOptions.subjectToChinaPolicies
-	end
-
 	return {
 		selectedPlayer = selectedPlayer,
 		isVisible = state.playerDropDown.isVisible,
 		playerRelationship = selectedPlayer and state.playerRelationship[selectedPlayer.UserId],
 		inspectMenuEnabled = state.displayOptions.inspectMenuEnabled,
 		isTenFootInterface = state.displayOptions.isTenFootInterface,
-		subjectToChinaPolicies = subjectToChinaPolicies,
+		subjectToChinaPolicies = state.displayOptions.subjectToChinaPolicies,
 	}
 end
 

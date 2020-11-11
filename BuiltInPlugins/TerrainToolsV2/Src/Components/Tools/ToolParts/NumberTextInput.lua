@@ -14,19 +14,14 @@
 		See LabeledTextInput for more
 ]]
 
-local FFlagTerrainToolsUseDevFramework = game:GetFastFlag("TerrainToolsUseDevFramework")
-
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
 local Cryo = require(Plugin.Packages.Cryo)
 local Roact = require(Plugin.Packages.Roact)
-local UILibrary = not FFlagTerrainToolsUseDevFramework and require(Plugin.Packages.UILibrary) or nil
 
-local ContextServices = FFlagTerrainToolsUseDevFramework and Framework.ContextServices or nil
-local ContextItems = FFlagTerrainToolsUseDevFramework and require(Plugin.Src.ContextItems) or nil
-
-local getUILibraryLocalization = not FFlagTerrainToolsUseDevFramework and UILibrary.Localizing.getLocalization or nil
+local ContextServices = Framework.ContextServices
+local ContextItems = require(Plugin.Src.ContextItems)
 
 local ToolParts = script.Parent
 local LabeledTextInput = require(ToolParts.LabeledTextInput)
@@ -65,11 +60,7 @@ function NumberTextInput:init(props)
 	end
 
 	self.getLocalization = function()
-		if FFlagTerrainToolsUseDevFramework then
-			return self.props.Localization:get()
-		else
-			return getUILibraryLocalization(self)
-		end
+		return self.props.Localization:get()
 	end
 
 	self.isTextValid = function(text)
@@ -137,10 +128,8 @@ function NumberTextInput:render()
 	return Roact.createElement(LabeledTextInput, newProps)
 end
 
-if FFlagTerrainToolsUseDevFramework then
-	ContextServices.mapToProps(NumberTextInput, {
-		Localization = ContextItems.UILibraryLocalization,
-	})
-end
+ContextServices.mapToProps(NumberTextInput, {
+	Localization = ContextItems.UILibraryLocalization,
+})
 
 return NumberTextInput

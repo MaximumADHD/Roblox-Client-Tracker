@@ -12,8 +12,6 @@ local UpdateOverrideAssetData = require(Actions.UpdateOverrideAssetData)
 local SetCurrentPage = require(Actions.SetCurrentPage)
 local SetOverrideCursor = require(Actions.SetOverrideCursor)
 
-local FFlagEnableOverrideAssetCursorFix = game:GetFastFlag("EnableOverrideAssetCursorFix")
-
 local function filterAssetByCreatorId(resultsArray, creatorId)
 	local results = {}
 	for index, asset in pairs(resultsArray) do
@@ -41,20 +39,12 @@ local function convertCreationsDetailsToResultsFormat(creationData)
 end
 
 local function getNextCursor(store)
-	if FFlagEnableOverrideAssetCursorFix then
-		local currentCursor = store:getState().overrideCursor
-		local targetCursor = ""
-		if currentCursor.nextPageCursor then
-			targetCursor = currentCursor.nextPageCursor
-		end
-		return targetCursor
-	else
-		local currentCursor = store:getState().overrideCursor
-		currentCursor = currentCursor or PagedRequestCursor.createDefaultCursor()
-		if PagedRequestCursor.isNextPageAvailable(currentCursor) then
-			return PagedRequestCursor.getNextPageCursor(currentCursor)
-		end
+	local currentCursor = store:getState().overrideCursor
+	local targetCursor = ""
+	if currentCursor.nextPageCursor then
+		targetCursor = currentCursor.nextPageCursor
 	end
+	return targetCursor
 end
 
 local function getOverrideModels(store, networkInterface, category, targetPage, groupId)
@@ -98,33 +88,23 @@ return function(networkInterface, assetTypeEnum, creatorType, creatorId, targetP
 				-- TODO: Can remove and update this method after this change
 				store:dispatch(SetOverrideAssets(totalResult, resultsArray, filteredResultsArray))
 
-				-- If we swtich to page 1, we will be using an new cursor
-				local defaultCursor = FFlagEnableOverrideAssetCursorFix and {} or PagedRequestCursor.createDefaultCursor()
+				-- If we switch to page 1, we will be using a new cursor
+				local defaultCursor = {}
 				store:dispatch(SetOverrideCursor(defaultCursor))
 				store:dispatch(SetCurrentPage(1))
 			else
-				if FFlagEnableOverrideAssetCursorFix then
-					local currentCursor = store:getState().overrideCursor
-					local isNextPageAvailable = result.nextPageCursor ~= nil
-					local fetchedAll = not isNextPageAvailable
-					if isNextPageAvailable then
-						currentCursor = {
-							nextPageCursor = result.nextPageCursor
-						}
-					end
-
-					store:dispatch(UpdateOverrideAssetData(totalResult, resultsArray, filteredResultsArray, fetchedAll))
-					store:dispatch(SetOverrideCursor(currentCursor))
-					store:dispatch(SetCurrentPage(targetPage))
-				else
-					-- For creation, we can check if we have next cursor to see if we have reached the end.
-					local fetchedAll = result.nextPageCursor and true or false
-					local nextCursor = PagedRequestCursor.createCursor(result.responseBody)
-
-					store:dispatch(UpdateOverrideAssetData(totalResult, resultsArray, filteredResultsArray, fetchedAll))
-					store:dispatch(SetOverrideCursor(nextCursor))
-					store:dispatch(SetCurrentPage(targetPage))
+				local currentCursor = store:getState().overrideCursor
+				local isNextPageAvailable = result.nextPageCursor ~= nil
+				local fetchedAll = not isNextPageAvailable
+				if isNextPageAvailable then
+					currentCursor = {
+						nextPageCursor = result.nextPageCursor
+					}
 				end
+
+				store:dispatch(UpdateOverrideAssetData(totalResult, resultsArray, filteredResultsArray, fetchedAll))
+				store:dispatch(SetOverrideCursor(currentCursor))
+				store:dispatch(SetCurrentPage(targetPage))
 			end
 
 			SetLoadingPage(0)
@@ -146,14 +126,12 @@ return function(networkInterface, assetTypeEnum, creatorType, creatorId, targetP
 
 		if creatorType == "Group" then
 			if category == "Animation" then
-				if FFlagEnableOverrideAssetCursorFix then
-					local currentCursor = store:getState().overrideCursor
-					local targetCursor = currentCursor.nextPageCursor or ""
-					return networkInterface:getGroupAnimations(targetCursor, groupId):andThen(
-						handleGetCreationOverrideSuccess,
-						handleOverrideFailed
-					)
-				end
+				local currentCursor = store:getState().overrideCursor
+				local targetCursor = currentCursor.nextPageCursor or ""
+				return networkInterface:getGroupAnimations(targetCursor, groupId):andThen(
+					handleGetCreationOverrideSuccess,
+					handleOverrideFailed
+				)
 			else
 				getOverrideModels(store, networkInterface, category, targetPage, groupId):andThen(
 					handleGetCreationOverrideSuccess,

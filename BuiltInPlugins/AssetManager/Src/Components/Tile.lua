@@ -7,6 +7,7 @@ local Framework = Plugin.Packages.Framework
 local ContextServices = require(Framework.ContextServices)
 local Util = require(Framework.Util)
 local StyleModifier = Util.StyleModifier
+local RobloxAPI = require(Framework).RobloxAPI
 
 local UILibrary = require(Plugin.Packages.UILibrary)
 local GetTextSize = UILibrary.Util.GetTextSize
@@ -15,6 +16,7 @@ local Tooltip = UILibrary.Component.Tooltip
 local PopUpButton = require(Plugin.Src.Components.PopUpButton)
 
 local SetEditingAssets = require(Plugin.Src.Actions.SetEditingAssets)
+local SetSelectedAssets = require(Plugin.Src.Actions.SetSelectedAssets)
 
 local OnAssetDoubleClick = require(Plugin.Src.Thunks.OnAssetDoubleClick)
 local OnAssetRightClick = require(Plugin.Src.Thunks.OnAssetRightClick)
@@ -25,11 +27,15 @@ local DEPRECATED_OnAssetSingleClick = require(Plugin.Src.Thunks.DEPRECATED_OnAss
 local AssetManagerService = game:GetService("AssetManagerService")
 local ContentProvider = game:GetService("ContentProvider")
 
+local FFlagAssetManagerFixRenameTextBox = game:DefineFastFlag("AssetManagerFixRenameTextBox", false)
+
 local FFlagStudioAssetManagerAddGridListToggle = game:GetFastFlag("StudioAssetManagerAddGridListToggle")
 local FFlagBatchThumbnailAddNewThumbnailTypes = game:GetFastFlag("BatchThumbnailAddNewThumbnailTypes")
 local FFlagStudioAssetManagerShiftMultiSelect = game:GetFastFlag("StudioAssetManagerShiftMultiSelect")
 local FFlagAssetManagerOpenContextMenu = game:GetFastFlag("AssetManagerOpenContextMenu")
 local FFlagStudioAssetManagerAddMiddleElision = game:GetFastFlag("StudioAssetManagerAddMiddleElision")
+local FFlagAssetManagerRemoveAssetFixes = game:GetFastFlag("AssetManagerRemoveAssetFixes")
+local FFlagAllowAudioBulkImport = game:GetFastFlag("AllowAudioBulkImport")
 
 
 local Tile = Roact.PureComponent:extend("Tile")
@@ -147,7 +153,12 @@ function Tile:init()
     end
 
     self.openAssetPreview = function()
-        self.props.OnOpenAssetPreview(self.props.AssetData)
+        local assetData = self.props.AssetData
+        if FFlagAssetManagerRemoveAssetFixes then
+            -- when opening asset preview, set selected assets to that asset only
+            self.props.dispatchSetSelectedAssets({ [assetData.key] = true })
+        end
+        self.props.OnOpenAssetPreview(assetData)
     end
 
     self.onTextChanged = function(rbx)
@@ -168,7 +179,8 @@ function Tile:init()
                 AssetManagerService:RenamePlace(assetData.id, newName)
             elseif assetData.assetType == Enum.AssetType.Image
             or assetData.assetType == Enum.AssetType.MeshPart
-            or assetData.assetType == Enum.AssetType.Image then
+            or assetData.assetType == Enum.AssetType.Image
+            or (FFlagAllowAudioBulkImport and (not RobloxAPI:baseURLHasChineseHost()) and assetData.assetType == Enum.AssetType.Audio) then
                 local prefix
                 -- Setting asset type to same value as Enum.AssetType since it cannot be passed into function
                 if assetData.assetType == Enum.AssetType.Image then
@@ -177,6 +189,8 @@ function Tile:init()
                     prefix = "Meshes/"
                 elseif assetData.assetType == Enum.AssetType.Lua then
                     prefix = "Scripts/"
+                elseif (FFlagAllowAudioBulkImport and (not RobloxAPI:baseURLHasChineseHost()) and assetData.assetType == Enum.AssetType.Audio) then
+                    prefix = "Audio/"
                 end
                 AssetManagerService:RenameAlias(assetData.assetType.Value, assetData.id, prefix .. assetData.name, prefix .. newName)
             end
@@ -273,6 +287,12 @@ function Tile:render()
     local editTextFrameBorderColor = tileStyle.EditText.Frame.BorderColor
 
     local editTextSize = GetTextSize(editText, textSize, textFont, Vector2.new(tileStyle.Size.X.Offset, math.huge))
+    local editTextPadding
+    if FFlagAssetManagerFixRenameTextBox and editTextSize.X < tileStyle.Size.X.Offset then
+        editTextPadding = tileStyle.EditText.TextPadding
+    else
+        editTextPadding = 0
+    end
 
     local name = assetData.name
     local displayName = assetData.name
@@ -387,7 +407,8 @@ function Tile:render()
         }),
 
         RenameTextBox = isEditingAsset and Roact.createElement("TextBox",{
-            Size = UDim2.new(0, editTextSize.X, 0, editTextSize.Y),
+            Size = UDim2.new(0, editTextSize.X + editTextPadding,
+                0, editTextSize.Y),
             Position = textFramePos,
 
             BackgroundColor3 = editTextFrameBackgroundColor,
@@ -399,7 +420,7 @@ function Tile:render()
             TextSize = textSize,
 
             TextXAlignment = editTextXAlignment,
-            TextTruncate = textTruncate,
+            TextTruncate = FFlagAssetManagerFixRenameTextBox and Enum.TextTruncate.None or textTruncate,
             TextWrapped = editTextWrapped,
             ClearTextOnFocus = editTextClearOnFocus,
 
@@ -452,6 +473,9 @@ local function mapDispatchToProps(dispatch)
         end,
         dispatchSetEditingAssets = function(editingAssets)
             dispatch(SetEditingAssets(editingAssets))
+        end,
+        dispatchSetSelectedAssets = function(selectedAssets)
+            dispatch(SetSelectedAssets(selectedAssets))
         end,
     }
 end

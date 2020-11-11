@@ -2,8 +2,6 @@
 	Same as UILibrary Localization.lua but with dev framework Signal
 ]]
 
-game:DefineFastFlag("FixStudioLocalizationLocaleId", false)
-
 -- services
 local LocalizationService = game:GetService("LocalizationService")
 local StudioService = game:GetService("StudioService")
@@ -40,10 +38,8 @@ function Localization.new(props)
 	local externalLocaleChanged
 	if overrideLocaleChangedSignal then
 		externalLocaleChanged = overrideLocaleChangedSignal
-	elseif game:GetFastFlag("FixStudioLocalizationLocaleId") then
-		externalLocaleChanged = StudioService:GetPropertyChangedSignal("StudioLocaleId")
 	else
-		externalLocaleChanged = LocalizationService:GetPropertyChangedSignal("RobloxLocaleId")
+		externalLocaleChanged = StudioService:GetPropertyChangedSignal("StudioLocaleId")
 	end
 
 	-- a function that gets called when the locale changes, returns the new locale
@@ -54,10 +50,8 @@ function Localization.new(props)
 
 		if overrideLocaleId ~= nil then
 			return overrideLocaleId
-		elseif game:GetFastFlag("FixStudioLocalizationLocaleId") then
-			return StudioService["StudioLocaleId"]
 		else
-			return LocalizationService["RobloxLocaleId"]
+			return StudioService["StudioLocaleId"]
 		end
 	end
 

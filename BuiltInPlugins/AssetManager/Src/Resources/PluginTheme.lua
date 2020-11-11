@@ -264,6 +264,7 @@ local function createStyles(theme, getColor)
 			},
 
 			EditText = {
+				TextPadding = 10,
 				TextWrapped = true,
 				ClearTextOnFocus = false,
 
@@ -331,7 +332,7 @@ local function createStyles(theme, getColor)
 			},
 
 			EditText = {
-				TextWrapped = true,
+				TextPadding = 10,
 				ClearTextOnFocus = false,
 
 				XAlignment = Enum.TextXAlignment.Center,

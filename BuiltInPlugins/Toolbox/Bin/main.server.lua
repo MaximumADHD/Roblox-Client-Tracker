@@ -7,7 +7,6 @@ end
 
 -- Fast flags
 require(script.Parent.defineLuaFlags)
-local FFlagEnableOverrideAssetCursorFix = game:GetFastFlag("EnableOverrideAssetCursorFix")
 local FFlagAssetManagerLuaPlugin = game:GetFastFlag("AssetManagerLuaPlugin")
 local FFlagStudioAssetConfigurationPlugin = game:GetFastFlag("StudioAssetConfigurationPlugin")
 local FFlagToolboxDisableForLuobu = game:GetFastFlag("ToolboxDisableForLuobu")
@@ -185,7 +184,7 @@ local function DEPRECATED_createMonolithicAssetConfig(assetId, flowType, instanc
 			assetTypeEnum = assetTypeEnum,
 			currentTab = defaultTab,
 			packagePermissions = packagePermissions,
-			overrideCursor = FFlagEnableOverrideAssetCursorFix and {} or nil,
+			overrideCursor = {},
 		}, {
 			Rodux.thunkMiddleware
 		}

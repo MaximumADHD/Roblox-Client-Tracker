@@ -2,11 +2,15 @@ local Plugin = script.Parent.Parent.Parent
 
 local Cryo = require(Plugin.Packages.Cryo)
 
+local Framework = require(Plugin.Packages.Framework)
+local RobloxAPI = Framework.RobloxAPI
+
 local SetAssets = require(Plugin.Src.Actions.SetAssets)
 local SetIsFetchingAssets = require(Plugin.Src.Actions.SetIsFetchingAssets)
 local SetHasLinkedScripts = require(Plugin.Src.Actions.SetHasLinkedScripts)
 
 local FFlagStudioAssetManagerFilterPackagePermissions = game:DefineFastFlag("StudioAssetManagerFilterPackagePermissions", false)
+local FFlagAllowAudioBulkImport = game:GetFastFlag("AllowAudioBulkImport")
 
 local function checkIfPackageHasPermission(store, apiImpl, packageIds, newAssetsTable, assetBody, assetType, index)
     apiImpl.Develop.V1.Packages.highestPermissions(packageIds):makeRequest()
@@ -79,13 +83,16 @@ return function(apiImpl, assetType, pageCursor, pageNumber, showLoadingIndicator
             end)
         elseif assetType == Enum.AssetType.Image
         or assetType == Enum.AssetType.MeshPart
-        or assetType == Enum.AssetType.Lua then
+        or assetType == Enum.AssetType.Lua
+        or (FFlagAllowAudioBulkImport and (not RobloxAPI:baseURLHasChineseHost()) and assetType == Enum.AssetType.Audio)
+        then
             local page
             if not pageNumber then
                 page = 1
             else
                 page = pageNumber
             end
+
             apiImpl.API.Universes.getAliases(game.GameId, page):makeRequest()
             :andThen(function(response)
                 local body = response.responseBody
@@ -102,7 +109,10 @@ return function(apiImpl, assetType, pageCursor, pageNumber, showLoadingIndicator
                 for _, alias in pairs(body.Aliases) do
                     if (assetType == Enum.AssetType.Image and string.find(alias.Name, "Images/"))
                     or (assetType == Enum.AssetType.MeshPart and string.find(alias.Name, "Meshes/"))
-                    or (assetType == Enum.AssetType.Lua and string.find(alias.Name, "Scripts/")) then
+                    or (assetType == Enum.AssetType.Lua and string.find(alias.Name, "Scripts/"))
+                    or (FFlagAllowAudioBulkImport and (not RobloxAPI:baseURLHasChineseHost()) and
+                        (assetType == Enum.AssetType.Audio and string.find(alias.Name, "Audio/"))
+                    ) then
                         -- creating new table so keys across all assets are consistent
                         local assetAlias = {}
                         local sAssetAliasId = tostring(alias.TargetId)
@@ -116,6 +126,11 @@ return function(apiImpl, assetType, pageCursor, pageNumber, showLoadingIndicator
                         elseif assetType == Enum.AssetType.Lua and string.find(alias.Name, "Scripts/") then
                             hasLinkedScripts = true
                             assetAlias.name = string.gsub(alias.Name, "Scripts/", "")
+                        elseif FFlagAllowAudioBulkImport and (not RobloxAPI:baseURLHasChineseHost()) and assetType == Enum.AssetType.Audio
+                            and string.find(alias.Name, "Audio/")
+                        then
+                            hasLinkedScripts = true
+                            assetAlias.name = string.gsub(alias.Name, "Audio/", "")
                         end
                         assetAlias.layoutOrder = index
                         newAssets.assets = Cryo.Dictionary.join(newAssets.assets, {

@@ -1,5 +1,3 @@
-local FFlagTerrainToolsUseDevFramework = game:GetFastFlag("TerrainToolsUseDevFramework")
-
 local Plugin = script.Parent.Parent.Parent
 
 local Constants = require(Plugin.Src.Util.Constants)
@@ -9,9 +7,6 @@ local Biome = TerrainEnums.Biome
 
 local getAABBRegion = require(Plugin.Src.Util.getAABBRegion)
 local getShapeFunction = require(Plugin.Src.Util.getShapeFunction)
-
-local AnalyticsService = game:GetService("RbxAnalyticsService")
-local StudioService = game:GetService("StudioService")
 
 local seedArray
 do
@@ -595,19 +590,8 @@ local function create(generateSettings, analytics)
 	state.processVoxel = processVoxel
 
 	local numVoxels = tostring(voxelSize.X * voxelSize.Y * voxelSize.Z)
-	if FFlagTerrainToolsUseDevFramework then
-		if analytics then
-			analytics:report("generateTerrain", numVoxels, biomeSize, seed)
-		end
-	else
-		AnalyticsService:SendEventDeferred("studio", "Terrain", "GenerateTerrain", {
-			userId = StudioService:GetUserId(),
-			numVoxels = numVoxels,
-			biomeSize = biomeSize,
-			seed = seed,
-			studioSId = AnalyticsService:GetSessionId(),
-			placeId = game.PlaceId,
-		})
+	if analytics then
+		analytics:report("generateTerrain", numVoxels, biomeSize, seed)
 	end
 
 	return state

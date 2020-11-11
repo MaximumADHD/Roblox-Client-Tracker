@@ -1,11 +1,9 @@
-local FFlagTerrainToolsUseDevFramework = game:GetFastFlag("TerrainToolsUseDevFramework")
-
 local Plugin = script.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
 
-local FrameworkUtil = FFlagTerrainToolsUseDevFramework and Framework.Util or nil
-local Signal = FFlagTerrainToolsUseDevFramework and FrameworkUtil.Signal or require(Plugin.Src.Util.Signal)
+local FrameworkUtil = Framework.Util
+local Signal = FrameworkUtil.Signal
 
 local MockTerrain = {}
 MockTerrain.__index = MockTerrain

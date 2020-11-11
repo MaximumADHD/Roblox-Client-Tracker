@@ -1,14 +1,10 @@
-local FFlagTerrainToolsUseDevFramework = game:GetFastFlag("TerrainToolsUseDevFramework")
-
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
 local Roact = require(Plugin.Packages.Roact)
 
-local ContextServices = FFlagTerrainToolsUseDevFramework and Framework.ContextServices or nil
-local ContextItems = FFlagTerrainToolsUseDevFramework and require(Plugin.Src.ContextItems) or nil
-
-local withTheme = not FFlagTerrainToolsUseDevFramework and require(Plugin.Src.ContextServices.Theming).withTheme or nil
+local ContextServices = Framework.ContextServices
+local ContextItems = require(Plugin.Src.ContextItems)
 
 local PropertyLock = Roact.PureComponent:extend(script.Name)
 
@@ -30,7 +26,9 @@ function PropertyLock:init()
 	end
 end
 
-function PropertyLock:_render(theme)
+function PropertyLock:render()
+	local theme = self.props.Theme:get()
+
 	local locked = self.props.Locked or false
 	local isHovered = self.state.isHovered
 
@@ -94,20 +92,8 @@ function PropertyLock:_render(theme)
 	})
 end
 
-function PropertyLock:render()
-	if FFlagTerrainToolsUseDevFramework then
-		return self:_render(self.props.Theme:get())
-	else
-		return withTheme(function(theme)
-			return self:_render(theme)
-		end)
-	end
-end
-
-if FFlagTerrainToolsUseDevFramework then
-	ContextServices.mapToProps(PropertyLock, {
-		Theme = ContextItems.UILibraryTheme,
-	})
-end
+ContextServices.mapToProps(PropertyLock, {
+	Theme = ContextItems.UILibraryTheme,
+})
 
 return PropertyLock

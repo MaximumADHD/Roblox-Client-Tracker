@@ -3,15 +3,22 @@
 --	// Description: Installs Freecam for privileged users.
 --  The code is kept on the server and only replicated to the client to minimize security problems.
 
+local FFlagAllowLuobuFreecamGroup = game:DefineFastFlag("AllowLuobuFreecamGroup", false)
+
 -- Users in the following groups have global Freecam permissions:
 local FREECAM_GROUP_IDS = {
 	1200769, -- Roblox Admins
 	4358041, -- Freecam
 }
 
+local LUOBU_FREECAM_GROUP_IDS = {
+	7842878,
+}
+
 local HttpRbxApiService = game:GetService("HttpRbxApiService")
 local HttpService = game:GetService("HttpService")
 local Players = game:GetService("Players")
+local PolicyService = game:GetService("PolicyService")
 local RunService = game:GetService("RunService")
 
 local function Install()
@@ -63,6 +70,17 @@ local function Install()
 			local success, inGroup = pcall(player.IsInGroup, player, groupId)
 			if success and inGroup then
 				return true
+			end
+		end
+
+		if FFlagAllowLuobuFreecamGroup and game:GetEngineFeature("LuobuModerationStatus") then
+			if PolicyService.IsLuobuServer == Enum.TriStateBoolean.True then
+				for _, groupId in ipairs(LUOBU_FREECAM_GROUP_IDS) do
+					local success, inGroup = pcall(player.IsInGroup, player, groupId)
+					if success and inGroup then
+						return true
+					end
+				end
 			end
 		end
 

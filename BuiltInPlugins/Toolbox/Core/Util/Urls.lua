@@ -6,7 +6,6 @@ local Url = require(Plugin.Libs.Http.Url)
 
 local wrapStrictTable = require(Plugin.Core.Util.wrapStrictTable)
 
-local FFlagEnablePurchaseV2 = game:GetFastFlag("EnablePurchaseV2")
 local FFlagStudioToolboxFixNewEndpointFilters = game:GetFastFlag("StudioToolboxFixNewEndpointFilters")
 local FFlagDragFaceInstances = game:GetFastFlag("DragFaceInstances")
 local FFlagStudioFixGroupCreatorInfo3 = game:GetFastFlag("StudioFixGroupCreatorInfo3")
@@ -76,7 +75,6 @@ local ROBUX_BALANCE_URL = Url.ECONOMY_URL .. "v1/users/%d/currency"
 local OWNS_ASSET_URL = Url.API_URL .. "ownership/hasasset?assetId=%d&userId=%d"
 
 local CAN_MANAGE_ASSET_URL = Url.API_URL .. "users/%d/canmanage/%d"
-local ASSET_PURCHASE_URL = Url.ECONOMY_URL .. "v1/purchases/products/%d"
 local ASSET_PURCHASE_URLV2 = Url.ECONOMY_URL .. "/v2/user-products/%d/purchase"
 
 -- Package Permissions URLs
@@ -93,6 +91,9 @@ local DELETE_ITEM_TAG = Url.ITEM_CONFIGURATION_URL .. "v1/item-tags/%s"
 
 local GET_TOOLBOX_ITEMS = Url.APIS_URL .. "toolbox-service/v1/%s?"
 local GET_ITEM_DETAILS = Url.APIS_URL .. "toolbox-service/v1/items/details"
+
+local AVATAR_ASSETS_GET_UPLOAD_FEE = Url.ITEM_CONFIGURATION_URL .. "v1/avatar-assets/%s/get-upload-fee"
+local AVATAR_ASSETS_UPLOAD = Url.ITEM_CONFIGURATION_URL .. "v1/avatar-assets/%s/upload"
 
 local DEFAULT_ASSET_SIZE = 100
 local DEFAULT_SEARCH_ROWS = 3
@@ -443,12 +444,7 @@ function Urls.constructCanManageAssetUrl(assetId, userId)
 end
 
 function Urls.constructAssetPurchaseUrl(productId)
-	if FFlagEnablePurchaseV2 then
-		return ASSET_PURCHASE_URLV2:format(productId)
-	else
-		return ASSET_PURCHASE_URL:format(productId)
-	end
-
+	return ASSET_PURCHASE_URLV2:format(productId)
 end
 
 function Urls.constructGetTagsPrefixSearchUrl(prefix, numberOfResults)
@@ -485,6 +481,14 @@ function Urls.constructUploadCatalogItemFormatUrl(assetId, type, name, descripti
 		isPublic = isPublic and "True" or "False",
 		format = format,
 	})
+end
+
+function Urls.constructAvatarAssetsGetUploadFeeUrl(assetType)
+	return AVATAR_ASSETS_GET_UPLOAD_FEE:format(assetType.Name)
+end
+
+function Urls.constructAvatarAssetsUploadUrl(assetType)
+	return AVATAR_ASSETS_UPLOAD:format(assetType.Name)
 end
 
 return wrapStrictTable(Urls)

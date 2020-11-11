@@ -5,6 +5,8 @@
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
+
+local Cryo = require(Plugin.Packages.Cryo)
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 
@@ -13,12 +15,12 @@ local ContextItems = require(Plugin.Src.ContextItems)
 
 local ToolParts = script.Parent.ToolParts
 local ButtonGroup = require(ToolParts.ButtonGroup)
-local ImportProgressFrame = require(Plugin.Src.Components.ImportProgressFrame)
 local LabeledElementPair = require(ToolParts.LabeledElementPair)
 local LabeledToggle = require(ToolParts.LabeledToggle)
 local LocalImageSelector = require(ToolParts.LocalImageSelector)
 local MapSettingsWithPreviewFragment = require(ToolParts.MapSettingsWithPreviewFragment)
 local Panel = require(ToolParts.Panel)
+local ProgressDialog = require(Plugin.Src.Components.ProgressDialog)
 
 local Actions = Plugin.Src.Actions
 local ApplyToolAction = require(Actions.ApplyToolAction)
@@ -49,6 +51,16 @@ function ImportLocal:init()
 			mapSettingsValid = mapSettingsValid,
 		})
 	end
+
+	self.onPauseRequested = function()
+		-- TODO: MOD-231
+		print("TODO: Import local tool pausing")
+	end
+
+	self.onCancelRequested = function()
+		-- TODO: MOD-231
+		print("TODO: Import local tool canceling")
+	end
 end
 
 function ImportLocal:updateImportProps()
@@ -56,9 +68,9 @@ function ImportLocal:updateImportProps()
 		size = Vector3.new(self.props.size.X, self.props.size.Y, self.props.size.Z),
 		position = Vector3.new(self.props.position.X, self.props.position.Y, self.props.position.Z),
 
-		heightMapUrl = self.props.heightmap and self.props.heightmap:GetTemporaryId() or "",
+		heightmap = self.props.heightmap or Cryo.None,
 		useColorMap = self.props.useColorMap,
-		colorMapUrl = self.props.colormap and self.props.colormap:GetTemporaryId() or "",
+		colormap = self.props.colormap or Cryo.None,
 	})
 end
 
@@ -154,8 +166,15 @@ function ImportLocal:render()
 			}
 		}),
 
-		ImportProgressFrame = importInProgress and Roact.createElement(ImportProgressFrame, {
-			ImportProgress = importProgress,
+		ProgressDialog = importInProgress
+			and Roact.createElement(ProgressDialog, {
+			Title = localization:getText("Generate", "GenerateProgressTitle"),
+			SubText = localization:getText("Generate", "GenerateVoxels"),
+
+			Progress = importProgress,
+
+			OnPauseButtonClicked = self.onPauseRequested,
+			OnCancelButtonClicked = self.onCancelRequested,
 		}),
 	})
 end

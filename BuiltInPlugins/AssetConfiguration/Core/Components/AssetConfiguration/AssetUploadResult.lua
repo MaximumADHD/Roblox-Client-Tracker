@@ -6,7 +6,6 @@
 		onClose callback, called when the user presses the "cancel" button
 ]]
 
-local FFlagFixAssetConfigIcon = game:GetFastFlag("FixAssetConfigIcon")
 local FFlagShowAssetConfigReasons2 = game:GetFastFlag("ShowAssetConfigReasons2")
 local FFlagAddCopyIDToResultPage = game:DefineFastFlag("AddCopyIDToResultPage", false)
 
@@ -120,14 +119,8 @@ function AssetUploadResult:render()
 		local previewType = AssetConfigUtil.getPreviewType(props.assetTypeEnum, props.instances)
 
 		local showViewport = previewType == PreviewTypes.ModelPreview
-		local showThumbnail
-		if FFlagFixAssetConfigIcon then
-			showThumbnail = previewType == PreviewTypes.Thumbnail
+		local showThumbnail = previewType == PreviewTypes.Thumbnail
 				or previewType == PreviewTypes.ImagePicker
-		else
-			showThumbnail = previewType == PreviewTypes.Thumbnail
-		end
-
 		local reasons = getReasonArray(props.networkTable)
 
 		local showSuccess = props.uploadSucceeded
@@ -317,11 +310,8 @@ local function mapStateToProps(state, props)
 		assetTypeEnum = state.assetTypeEnum,
 		thumbnailStatus = state.thumbnailStatus,
 		networkTable = state.networkTable or {},
+		iconFile = state.iconFile
 	}
-
-	if FFlagFixAssetConfigIcon then
-		stateToProps.iconFile = state.iconFile
-	end
 
 	return stateToProps
 end

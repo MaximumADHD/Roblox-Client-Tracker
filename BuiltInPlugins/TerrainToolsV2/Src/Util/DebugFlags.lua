@@ -20,4 +20,6 @@ DebugFlags.RunTests = defineFlag("RunTests")
 DebugFlags.LogTestsQuiet = defineFlag("LogTestsQuiet")
 DebugFlags.RunDeveloperFrameworkTests = defineFlag("RunDeveloperFrameworkTests")
 DebugFlags.LogAnalytics = defineFlag("LogAnalytics")
+-- In the heightmap importer, position the camera to the vantage point for the target region
+DebugFlags.SetCameraOnRegionImport = defineFlag("SetCameraOnRegionImport")
 return DebugFlags

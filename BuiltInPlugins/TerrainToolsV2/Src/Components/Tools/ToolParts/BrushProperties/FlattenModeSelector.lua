@@ -1,16 +1,10 @@
-local FFlagTerrainToolsUseDevFramework = game:GetFastFlag("TerrainToolsUseDevFramework")
-
 local Plugin = script.Parent.Parent.Parent.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
 local Roact = require(Plugin.Packages.Roact)
-local UILibrary = not FFlagTerrainToolsUseDevFramework and require(Plugin.Packages.UILibrary) or nil
 
-local ContextServices = FFlagTerrainToolsUseDevFramework and Framework.ContextServices or nil
-local ContextItems = FFlagTerrainToolsUseDevFramework and require(Plugin.Src.ContextItems) or nil
-
-local withLocalization = not FFlagTerrainToolsUseDevFramework and UILibrary.Localizing.withLocalization or nil
-local withTheme = not FFlagTerrainToolsUseDevFramework and require(Plugin.Src.ContextServices.Theming).withTheme or nil
+local ContextServices = Framework.ContextServices
+local ContextItems = require(Plugin.Src.ContextItems)
 
 local TerrainEnums = require(Plugin.Src.Util.TerrainEnums)
 local FlattenMode = TerrainEnums.FlattenMode
@@ -22,10 +16,15 @@ local SelectableImageButton = require(ToolParts.SelectableImageButton)
 local BUTTON_BACKGROUND_COLOR = Color3.fromRGB(228, 238, 254)
 local FRAME_BORDER_COLOR1 = Color3.fromRGB(227, 227, 227)
 
-local function FlattenModeSelector_render(props, theme, localization)
-	local layoutOrder = props.LayoutOrder
-	local flattenMode = props.flattenMode
-	local setFlattenMode = props.setFlattenMode
+local FlattenModeSelector = Roact.PureComponent:extend("FlattenModeSelector")
+
+function FlattenModeSelector:render()
+	local theme = self.props.Theme:get()
+	local localization = self.props.Localization:get()
+
+	local layoutOrder = self.props.LayoutOrder
+	local flattenMode = self.props.flattenMode
+	local setFlattenMode = self.props.setFlattenMode
 
 	local flattenBothImage = theme.brushSettingsTheme.flattenBothImage
 	local flattenErodeImage = theme.brushSettingsTheme.flattenErodeImage
@@ -77,31 +76,9 @@ local function FlattenModeSelector_render(props, theme, localization)
 	})
 end
 
-if FFlagTerrainToolsUseDevFramework then
-	local FlattenModeSelector = Roact.PureComponent:extend("FlattenModeSelector")
+ContextServices.mapToProps(FlattenModeSelector, {
+	Theme = ContextItems.UILibraryTheme,
+	Localization = ContextItems.UILibraryLocalization,
+})
 
-	function FlattenModeSelector:render()
-		local theme = self.props.Theme:get()
-		local localization = self.props.Localization:get()
-
-		return FlattenModeSelector_render(self.props, theme, localization)
-	end
-
-	ContextServices.mapToProps(FlattenModeSelector, {
-		Theme = ContextItems.UILibraryTheme,
-		Localization = ContextItems.UILibraryLocalization,
-	})
-
-	return FlattenModeSelector
-
-else
-	local function FlattenModeSelector(props)
-		return withLocalization(function(localization)
-			return withTheme(function(theme)
-				return FlattenModeSelector_render(props, theme, localization)
-			end)
-		end)
-	end
-
-	return FlattenModeSelector
-end
+return FlattenModeSelector

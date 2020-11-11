@@ -24,6 +24,7 @@ local FFlagLoadTheLoadingScreenFaster = FFlagLoadTheLoadingScreenFasterSuccess a
 local FFlagLoadTheLoadingScreenEvenFaster = game:DefineFastFlag("LoadTheLoadingScreenEvenFaster", false)
 local FFlagLoadingScreenDontBlockOnPolicyService = game:DefineFastFlag("LoadingScreenDontBlockOnPolicyService", false)
 local FFlagBackButtonWhileLoadingGoesBackToApp = game:DefineFastFlag("BackButtonWhileLoadingGoesBackToApp", false)
+local FFlagLoadingScreenShowBlankUntilPolicyServiceReturns = game:DefineFastFlag("LoadingScreenShowBlankUntilPolicyServiceReturns", false)
 
 local FFlagShowConnectionErrorCode = settings():GetFFlag("ShowConnectionErrorCode")
 local FFlagConnectionScriptEnabled = settings():GetFFlag("ConnectionScriptEnabled")
@@ -628,6 +629,9 @@ end
 
 if FFlagLoadingScreenDontBlockOnPolicyService then
 	local showAntiAddictionNoticeStringEn = false
+	if FFlagLoadingScreenShowBlankUntilPolicyServiceReturns then
+		showAntiAddictionNoticeStringEn = "waiting"
+	end
 	-- PolicyService requires LocalPlayer to exist, which doesn't happen until
 	-- after we connect to the server. If the server is full, this can take a
 	-- very long time (like several minutes) to return a value. As a result, we
@@ -649,7 +653,9 @@ if FFlagLoadingScreenDontBlockOnPolicyService then
 
 			-- set creator name
 			if creatorLabel and creatorLabel.Text == "" then
-				if showAntiAddictionNoticeStringEn then
+				if FFlagLoadingScreenShowBlankUntilPolicyServiceReturns and showAntiAddictionNoticeStringEn == "waiting" then
+					creatorLabel.Text = ""
+				elseif showAntiAddictionNoticeStringEn then
 					creatorLabel.Text = antiAddictionNoticeStringEn
 				else
 					local creatorName = InfoProvider:GetCreatorName()

@@ -21,6 +21,9 @@ local ItemsList = require(Components.ItemsList)
 local SignalSaveAvatarPermissionDenied = require(AvatarEditorPrompts.Thunks.SignalSaveAvatarPermissionDenied)
 local PerformSaveAvatar = require(AvatarEditorPrompts.Thunks.PerformSaveAvatar)
 
+local Modules = AvatarEditorPrompts.Parent
+local FFlagAESPromptsSupportGamepad = require(Modules.Flags.FFlagAESPromptsSupportGamepad)
+
 local SCREEN_SIZE_PADDING = 30
 local VIEWPORT_MAX_TOP_PADDING = 40
 local VIEWPORT_SIDE_PADDING = 5
@@ -42,6 +45,10 @@ SaveAvatarPrompt.validateProps = t.strictInterface({
 })
 
 function SaveAvatarPrompt:init()
+	self:setState({
+		itemListScrollable = false,
+	})
+
 	self.middleContentRef = Roact.createRef()
 	self.contentSize, self.updateContentSize = Roact.createBinding(UDim2.new(1, 0, 0, 200))
 
@@ -68,6 +75,14 @@ function SaveAvatarPrompt:init()
 		end
 	end
 
+	self.itemListScrollableUpdated = function(itemListScrollable, currentListHeight)
+		if currentListHeight == self.contentSize:getValue().Y.Offset then
+			self:setState({
+				itemListScrollable = itemListScrollable,
+			})
+		end
+	end
+
 	self.renderAlertMiddleContent = function()
 		return Roact.createElement("Frame", {
 			BackgroundTransparency = 1,
@@ -81,6 +96,7 @@ function SaveAvatarPrompt:init()
 			}, {
 				ItemsList = Roact.createElement(ItemsList, {
 					humanoidDescription = self.props.humanoidDescription,
+					itemListScrollableUpdated = self.itemListScrollableUpdated,
 				}),
 			}),
 
@@ -135,7 +151,7 @@ function SaveAvatarPrompt:render()
 		screenSize = self.props.screenSize,
 		middleContent = self.renderAlertMiddleContent,
 		onAbsoluteSizeChanged = self.onAlertSizeChanged,
-		isMiddleContentFocusable = false,
+		isMiddleContentFocusable = FFlagAESPromptsSupportGamepad and self.state.itemListScrollable,
 	})
 end
 

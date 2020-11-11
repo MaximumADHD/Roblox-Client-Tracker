@@ -1,16 +1,13 @@
-local FFlagTerrainToolsUseDevFramework = game:GetFastFlag("TerrainToolsUseDevFramework")
-
 local Plugin = script.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
 local Roact = require(Plugin.Packages.Roact)
-local UILibrary = not FFlagTerrainToolsUseDevFramework and require(Plugin.Packages.UILibrary) or nil
 
-local ContextItem = FFlagTerrainToolsUseDevFramework and Framework.ContextServices.ContextItem or nil
-local Provider = FFlagTerrainToolsUseDevFramework and Framework.ContextServices.Provider or nil
+local ContextItem = Framework.ContextServices.ContextItem
+local Provider = Framework.ContextServices.Provider
 
-local FrameworkUtil = FFlagTerrainToolsUseDevFramework and Framework.Util or nil
-local Signal = FFlagTerrainToolsUseDevFramework and FrameworkUtil.Signal or UILibrary.Util.Signal
+local FrameworkUtil = Framework.Util
+local Signal = FrameworkUtil.Signal
 
 local Constants = require(Plugin.Src.Util.Constants)
 
@@ -18,13 +15,7 @@ local ChangeHistoryService = game:GetService('ChangeHistoryService')
 
 local MAX_VOXELS_PER_SLICE = 4*1024*1024-1
 
-local TerrainSeaLevel
-if FFlagTerrainToolsUseDevFramework then
-	TerrainSeaLevel = ContextItem:extend("TerrainSeaLevel")
-else
-	TerrainSeaLevel = {}
-	TerrainSeaLevel.__index = TerrainSeaLevel
-end
+local TerrainSeaLevel = ContextItem:extend("TerrainSeaLevel")
 
 function TerrainSeaLevel.new(options)
 	assert(options and type(options) == "table", "TerrainSeaLevel.new() requires an options table")
@@ -35,25 +26,16 @@ function TerrainSeaLevel.new(options)
 
 		_replacing = false,
 		_replacingProgress = 0,
+
+		_updateSignal = Signal.new(),
 	}, TerrainSeaLevel)
 
 	assert(self._terrain, "TerrainSeaLevel.new() requires a terrain instance")
 
-	if FFlagTerrainToolsUseDevFramework then
-		self._updateSignal = Signal.new()
-	else
-		self._progressChanged = Signal.new()
-		self._stateChange = Signal.new()
-	end
-
 	self._setReplacing = function(state)
 		if state ~= self._replacing then
 			self._replacing = state
-			if FFlagTerrainToolsUseDevFramework then
-				self._updateSignal:Fire()
-			else
-				self._stateChange:Fire(state)
-			end
+			self._updateSignal:Fire()
 		end
 
 		if state == false then
@@ -63,11 +45,7 @@ function TerrainSeaLevel.new(options)
 
 	self._updateReplaceProgress = function(completionPercent)
 		self._replaceProgress = completionPercent
-		if FFlagTerrainToolsUseDevFramework then
-			self._updateSignal:Fire()
-		else
-			self._progressChanged:Fire(completionPercent)
-		end
+		self._updateSignal:Fire()
 		if completionPercent >= 1 then
 			self._setReplacing(false)
 		end
@@ -76,19 +54,15 @@ function TerrainSeaLevel.new(options)
 	return self
 end
 
-if FFlagTerrainToolsUseDevFramework then
-	function TerrainSeaLevel:createProvider(root)
-		return Roact.createElement(Provider, {
-			ContextItem = self,
-			UpdateSignal = self._updateSignal,
-		}, {root})
-	end
+function TerrainSeaLevel:createProvider(root)
+	return Roact.createElement(Provider, {
+		ContextItem = self,
+		UpdateSignal = self._updateSignal,
+	}, {root})
 end
 
 function TerrainSeaLevel:destroy()
-	if FFlagTerrainToolsUseDevFramework then
-		self:cancel()
-	end
+	self:cancel()
 end
 
 function TerrainSeaLevel:localizedWarn(...)

@@ -6,8 +6,6 @@
 		onClose callback, called when the user presses the "cancel" button
 ]]
 
-local FFlagFixAssetConfigIcon = game:GetFastFlag("FixAssetConfigIcon")
-
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Libs = Plugin.Libs
@@ -58,17 +56,8 @@ function AssetUpload:render()
 		local previewType = AssetConfigUtil.getPreviewType(props.assetTypeEnum, props.instances)
 
 		local showViewport = previewType == PreviewTypes.ModelPreview
-		local showThumbnail
-		if FFlagFixAssetConfigIcon then
-			showThumbnail = previewType == PreviewTypes.Thumbnail
+		local showThumbnail = previewType == PreviewTypes.Thumbnail
 				or previewType == PreviewTypes.ImagePicker
-		else
-			showThumbnail = previewType == PreviewTypes.Thumbnail
-		end
-
-		-- Remove when removing FFlagFixAssetConfigIcon
-		local showPicker = not FFlagFixAssetConfigIcon
-			and previewType == PreviewTypes.ImagePicker
 
 		return Roact.createElement("Frame", {
 			BackgroundColor3 = theme.typeValidation.background,
@@ -98,20 +87,6 @@ function AssetUpload:render()
 				BorderSizePixel = 0,
 			}),
 
-			-- Remove when removing FFlagFixAssetConfigIcon
-			ImagePicker = showPicker and Roact.createElement(ImagePicker, {
-				Position = UDim2.new(0.5, -PREVIEW_SIZE/2, 0, PREVIEW_PADDING),
-				Size = UDim2.new(
-					0, PREVIEW_SIZE,
-					0, PREVIEW_SIZE
-				),
-				AssetId = nil,
-				ThumbnailStatus = nil,
-				ChooseThumbnail = nil, -- Won't get called
-				IconFile = props.iconFile,
-			}),
-
-
 			LoadingBar = Roact.createElement(LoadingBar, {
 				loadingText = LOADING_TEXT,
 				loadingTime = LOADING_TIME,
@@ -135,11 +110,8 @@ local function mapStateToProps(state, props)
 		screenFlowType = state.screenFlowType,
 		assetTypeEnum = state.assetTypeEnum,
 		thumbnailStatus = state.thumbnailStatus,
+		iconFile = state.iconFile,
 	}
-
-	if FFlagFixAssetConfigIcon then
-		stateToProps.iconFile = state.iconFile
-	end
 
 	return stateToProps
 end

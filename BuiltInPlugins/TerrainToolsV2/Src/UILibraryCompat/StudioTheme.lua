@@ -2,8 +2,6 @@
 	Same as UILibrary StudioTheme.lua but with dev framework Signal
 ]]
 
-game:DefineFastFlag("FixMockStudioTheme", false)
-
 local Plugin = script.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
@@ -100,15 +98,11 @@ function StudioTheme.newDummyTheme(createValues)
 
 	setmetatable(self, StudioTheme)
 
-	if game:GetFastFlag("FixMockStudioTheme") then
-		local newValues = self.createValues(function()
-			return self.getTheme():GetColor()
-		end, {}, {})
+	local newValues = self.createValues(function()
+		return self.getTheme():GetColor()
+	end, {}, {})
 
-		self:update(newValues)
-	else
-		self:recalculateTheme()
-	end
+	self:update(newValues)
 
 	return self
 end

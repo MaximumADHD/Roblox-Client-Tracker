@@ -10,6 +10,9 @@ local LaunchBulkImport = require(Plugin.Src.Thunks.LaunchBulkImport)
 
 local Screens = require(Plugin.Src.Util.Screens)
 
+local Framework = require(Plugin.Packages.Framework)
+local RobloxAPI = Framework.RobloxAPI
+
 local AssetManagerService = game:GetService("AssetManagerService")
 local HttpService = game:GetService("HttpService")
 local MemStorageService = game:GetService("MemStorageService")
@@ -24,6 +27,7 @@ local FFlagAssetManagerAddNewPlaceBehavior = game:GetFastFlag("AssetManagerAddNe
 local FFlagOnlyAllowInsertPackageInEdit = game:GetFastFlag("OnlyAllowInsertPackageInEdit")
 local FFlagAssetManagerOpenContextMenu = game:GetFastFlag("AssetManagerOpenContextMenu")
 local FFlagAssetManagerAddAnalytics = game:GetFastFlag("AssetManagerAddAnalytics")
+local FFlagAllowAudioBulkImport = game:GetFastFlag("AllowAudioBulkImport")
 
 local EVENT_ID_OPENASSETCONFIG = "OpenAssetConfiguration"
 
@@ -38,6 +42,8 @@ local function removeAssets(apiImpl, assetData, assets, selectedAssets, store)
                 AssetManagerService:DeleteAlias("Meshes/".. asset.name)
             elseif asset.assetType == Enum.AssetType.Lua then
                 AssetManagerService:DeleteAlias("Scripts/".. asset.name)
+            elseif FFlagAllowAudioBulkImport and (not RobloxAPI:baseURLHasChineseHost()) and asset.assetType == Enum.AssetType.Audio then
+                AssetManagerService:DeleteAlias("Audio/".. asset.name)
             end
         end
     end
@@ -64,9 +70,16 @@ local function createFolderContextMenu(analytics, apiImpl, assetData, contextMen
                 analytics:report("clickContextMenuItem")
             end
         end)
-    elseif assetData.Screen.Key == Screens.MESHES.Key then
+    elseif FFlagAllowAudioBulkImport and (not RobloxAPI:baseURLHasChineseHost()) and assetData.Screen.Key == Screens.MESHES.Key then
         contextMenu:AddNewAction("AddMeshes", localization:getText("ContextMenu", "AddMeshes")).Triggered:connect(function()
             store:dispatch(LaunchBulkImport(Enum.AssetType.MeshPart.Value))
+            if FFlagAssetManagerAddAnalytics then
+                analytics:report("clickContextMenuItem")
+            end
+        end)
+    elseif FFlagAllowAudioBulkImport and (not RobloxAPI:baseURLHasChineseHost()) and assetData.Screen.Key == Screens.AUDIO.Key then
+        contextMenu:AddNewAction("AddAudio", localization:getText("ContextMenu", "AddAudio")).Triggered:connect(function()
+            store:dispatch(LaunchBulkImport(Enum.AssetType.Audio.Value))
             if FFlagAssetManagerAddAnalytics then
                 analytics:report("clickContextMenuItem")
             end
@@ -198,6 +211,55 @@ local function createPackageContextMenu(analytics, assetData, contextMenu, local
             end
         end)
     end
+
+    contextMenu:ShowAsync()
+    contextMenu:Destroy()
+end
+
+local function createAudioContextMenu(analytics, apiImpl, assetData, contextMenu, localization, store)
+    local state = store:getState()
+    local assets = state.AssetManagerReducer.assetsTable.assets
+    local selectedAssets = state.AssetManagerReducer.selectedAssets
+    contextMenu:AddNewAction("RemoveFromGame", localization:getText("ContextMenu", "RemoveFromGame")).Triggered:connect(function()
+        removeAssets(apiImpl, assetData, assets, selectedAssets, store)
+        if FFlagAssetManagerAddAnalytics then
+            analytics:report("clickContextMenuItem")
+        end
+    end)
+    if RunService:IsEdit() then
+        contextMenu:AddNewAction("EditAsset", localization:getText("ContextMenu", "EditAsset")).Triggered:connect(function()
+            MemStorageService:Fire(EVENT_ID_OPENASSETCONFIG,
+                HttpService:JSONEncode({ id = assetData.id, assetType = Enum.AssetType.Audio.Value, }))
+            if FFlagAssetManagerAddAnalytics then
+                analytics:report("clickContextMenuItem")
+            end
+        end)
+    end
+    contextMenu:AddNewAction("RenameAlias", localization:getText("ContextMenu", "RenameAlias")).Triggered:connect(function()
+        local assetToEdit = {
+            [assetData.id] = true,
+        }
+        store:dispatch(SetEditingAssets(assetToEdit))
+        if FFlagAssetManagerAddAnalytics then
+            analytics:report("clickContextMenuItem")
+        end
+    end)
+    contextMenu:AddNewAction("Insert", localization:getText("ContextMenu", "Insert")).Triggered:connect(function()
+        AssetManagerService:InsertAudio(assetData.id)
+        if FFlagAssetManagerAddAnalytics then
+            analytics:report("clickContextMenuItem")
+            local searchTerm = state.AssetManagerReducer.searchTerm
+            if utf8.len(searchTerm) ~= 0 then
+                analytics:report("insertAfterSearch")
+            end
+        end
+    end)
+    contextMenu:AddNewAction("CopyIdToClipboard", localization:getText("ContextMenu", "CopyIdToClipboard")).Triggered:connect(function()
+        StudioService:CopyToClipboard("rbxassetid://" .. assetData.id)
+        if FFlagAssetManagerAddAnalytics then
+            analytics:report("clickContextMenuItem")
+        end
+    end)
 
     contextMenu:ShowAsync()
     contextMenu:Destroy()
@@ -428,6 +490,8 @@ local function createAssetContextMenu(analytics, apiImpl, assetData, contextMenu
         createMeshPartContextMenu(analytics, apiImpl, assetData, contextMenu, localization, store)
     elseif assetType == Enum.AssetType.Lua then
         createLinkedScriptContextMenu(analytics, apiImpl, assetData, contextMenu, localization, store)
+    elseif FFlagAllowAudioBulkImport and (not RobloxAPI:baseURLHasChineseHost()) and assetType == Enum.AssetType.Audio then
+        createAudioContextMenu(analytics, apiImpl, assetData, contextMenu, localization, store)
     end
 end
 

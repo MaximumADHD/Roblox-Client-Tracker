@@ -57,6 +57,76 @@ function CameraUtils.map(x, inMin, inMax, outMin, outMax)
 	return (x - inMin)*(outMax - outMin)/(inMax - inMin) + outMin
 end
 
+-- maps a value from one range to another, clamping to the output range. order does not matter
+function CameraUtils.mapClamp(x, inMin, inMax, outMin, outMax)
+	return math.clamp(
+		(x - inMin)*(outMax - outMin)/(inMax - inMin) + outMin,
+		math.min(outMin, outMax),
+		math.max(outMin, outMax)
+	)
+end
+
+-- Ritter's loose bounding sphere algorithm
+function CameraUtils.getLooseBoundingSphere(parts)
+	local points = table.create(#parts)
+	for idx, part in pairs(parts) do
+		points[idx] = part.Position
+	end
+	
+	-- pick an arbitrary starting point
+	local x = points[1]
+
+	-- get y, the point furthest from x
+	local y = x
+	local yDist = 0
+
+	for _, p in ipairs(points) do
+		local pDist = (p - x).Magnitude
+
+		if pDist > yDist then
+			y = p
+			yDist = pDist
+		end
+	end
+
+	-- get z, the point furthest from y
+	local z = y
+	local zDist = 0
+
+	for _, p in ipairs(points) do
+		local pDist = (p - y).Magnitude
+
+		if pDist > zDist then
+			z = p
+			zDist = pDist
+		end
+	end
+
+	-- use (y, z) as the initial bounding sphere
+	local sc = (y + z)*0.5
+	local sr = (y - z).Magnitude*0.5
+
+	-- expand sphere to fit any outlying points
+	for _, p in ipairs(points) do
+		local pDist = (p - sc).Magnitude
+
+		if pDist > sr then
+			-- shift to midpoint
+			sc = sc + (pDist - sr)*0.5*(p - sc).Unit
+
+			-- expand
+			sr = (pDist + sr)*0.5
+		end
+	end
+
+	return sc, sr
+end
+
+-- canonicalize an angle to +-180 degrees
+function CameraUtils.sanitizeAngle(a)
+	return (a + math.pi)%(2*math.pi) - math.pi
+end
+
 -- From TransparencyController
 function CameraUtils.Round(num, places)
 	local decimalPivot = 10^places
@@ -76,7 +146,7 @@ function CameraUtils.GetAngleBetweenXZVectors(v1, v2)
 	return math.atan2(v2.X*v1.Z-v2.Z*v1.X, v2.X*v1.X+v2.Z*v1.Z)
 end
 
-function  CameraUtils.RotateVectorByAngleAndRound(camLook, rotateAngle, roundAmount)
+function CameraUtils.RotateVectorByAngleAndRound(camLook, rotateAngle, roundAmount)
 	if camLook.Magnitude > 0 then
 		camLook = camLook.unit
 		local currAngle = math.atan2(camLook.z, camLook.x)

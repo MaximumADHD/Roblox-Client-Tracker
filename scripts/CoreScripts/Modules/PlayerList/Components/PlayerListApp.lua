@@ -26,9 +26,6 @@ local WithLayoutValues = LayoutValues.WithLayoutValues
 local FFlagDisableAutoTranslateForKeyTranslatedContent = require(
 	RobloxGui.Modules.Flags.FFlagDisableAutoTranslateForKeyTranslatedContent)
 
-local PlayerList = script.Parent.Parent
-local FFlagFixLeaderboardWaitingOnScreenSize = require(PlayerList.Flags.FFlagFixLeaderboardWaitingOnScreenSize)
-
 local MOTOR_OPTIONS = {
     dampingRatio = 1,
     frequency = 7,
@@ -96,7 +93,7 @@ function PlayerListApp:render()
 		end
 
 		local maxLeaderstats = layoutValues.MaxLeaderstats
-		if FFlagFixLeaderboardWaitingOnScreenSize and self.props.displayOptions.isSmallTouchDevice then
+		if self.props.displayOptions.isSmallTouchDevice then
 			maxLeaderstats = layoutValues.MaxLeaderstatsSmallScreen
 		end
 

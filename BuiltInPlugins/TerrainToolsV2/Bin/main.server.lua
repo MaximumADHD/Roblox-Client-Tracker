@@ -11,273 +11,155 @@ end
 
 -- Fast flags
 require(script.Parent.defineLuaFlags)
-if game:GetFastFlag("TerrainToolsUseDevFramework") then
-	return
-end
 
-local FFlagTerrainToolsConvertPartTool = game:GetFastFlag("TerrainToolsConvertPartTool")
-local FFlagTerrainOpenCloseMetrics = game:GetFastFlag("TerrainOpenCloseMetrics")
-local FFlagStudioShowHideABTestV2 = game:GetFastFlag("StudioShowHideABTestV2")
+local FFlagTerrainToolsBetterImportTool = game:GetFastFlag("TerrainToolsBetterImportTool")
 
--- Services
-local ABTestService = game:GetService("ABTestService")
-local AnalyticsService = game:GetService("RbxAnalyticsService")
-local StudioService = game:GetService("StudioService")
-
--- libraries
+-- Libraries
+local Framework = require(Plugin.Packages.Framework)
 local Roact = require(Plugin.Packages.Roact)
 local Rodux = require(Plugin.Packages.Rodux)
-local UILibrary = require(Plugin.Packages.UILibrary)
-local Manager = require(Plugin.Src.Components.Manager) -- top most ui component
+local UILibraryCompat = Plugin.Src.UILibraryCompat
+
+-- Context
+local ContextServices = Framework.ContextServices
+local Analytics = ContextServices.Analytics
+local Mouse = ContextServices.Mouse
+local Store = ContextServices.Store
+
+local ContextItems = require(Plugin.Src.ContextItems)
+
+local createAnalyticsHandlers = require(Plugin.Src.Util.createAnalyticsHandlers)
+
+local Http = Framework.Http
+
+-- Rodux Store
+local MainReducer = require(Plugin.Src.Reducers.MainReducer)
+
+-- Theme
+local PluginTheme = require(Plugin.Src.Resources.PluginTheme)
+local makeTheme = require(Plugin.Src.Resources.makeTheme)
+
+-- Localization
+local DevelopmentReferenceTable = Plugin.Src.Resources.DevelopmentReferenceTable
+local TranslationReferenceTable = Plugin.Src.Resources.TranslationReferenceTable
+local Localization = require(UILibraryCompat.Localization)
+
+-- Terrain Context Items
 local PluginActivationController = require(Plugin.Src.Util.PluginActivationController)
-local ToolSelectionListener = require(Plugin.Src.Components.ToolSelectionListener)
 local TerrainImporter = require(Plugin.Src.TerrainInterfaces.TerrainImporterInstance)
 local TerrainGeneration = require(Plugin.Src.TerrainInterfaces.TerrainGenerationInstance)
 local TerrainSeaLevel = require(Plugin.Src.TerrainInterfaces.TerrainSeaLevel)
-local PartConverter
-if FFlagTerrainToolsConvertPartTool then
-	PartConverter = require(Plugin.Src.TerrainInterfaces.PartConverter)
-end
+local PartConverter = require(Plugin.Src.TerrainInterfaces.PartConverter)
 
--- components
-local ServiceWrapper = require(Plugin.Src.Components.ServiceWrapper)
+local ImageUploader = require(Plugin.Src.Util.ImageUploader)
 
--- data
-local MainReducer = require(Plugin.Src.Reducers.MainReducer)
-
--- middleware
-local getReportTerrainToolMetrics = require(Plugin.Src.Middlewares.getReportTerrainToolMetrics)
-
--- theme
-local PluginTheme = require(Plugin.Src.Resources.PluginTheme)
-
--- localization
-local DevelopmentReferenceTable = Plugin.Src.Resources.DevelopmentReferenceTable
-local TranslationReferenceTable = Plugin.Src.Resources.TranslationReferenceTable
-local Localization = UILibrary.Studio.Localization
-
-local EDITOR_META_NAME = "Editor"
-local PLUGIN_NAME = "TerrainToolsV2"
-local TOOLBAR_NAME = "TerrainToolsLuaToolbarName"
-local DOCK_WIDGET_PLUGIN_NAME = "TerrainTools_PluginGui"
-
-local OPEN_COUNTER
-local CLOSE_COUNTER
-local TOGGLE_COUNTER
-
-if FFlagTerrainOpenCloseMetrics then
-	OPEN_COUNTER = "TerrainToolsOpenWidget"
-	CLOSE_COUNTER = "TerrainToolsCloseWidget"
-	TOGGLE_COUNTER = "TerrainToolsToggleButton"
-end
-
-local ABTEST_SHOWHIDEV2_NAME = "AllUsers.RobloxStudio.ShowHideV2"
+-- Top Level Component
+local TerrainTools = require(Plugin.Src.Components.TerrainTools)
 
 -- Plugin Specific Globals
-local dataStore = Rodux.Store.new(MainReducer, nil, {
-	getReportTerrainToolMetrics({
-		AnalyticsService = AnalyticsService,
-		StudioService = StudioService,
-	}),
-})
+local PLUGIN_NAME = "TerrainToolsV2"
 
-local theme = PluginTheme.new()
-local localization = Localization.new({
-	pluginName = PLUGIN_NAME,
-	stringResourceTable = DevelopmentReferenceTable,
-	translationResourceTable = TranslationReferenceTable,
-})
+local function createTerrainContextItems()
+	local pluginItem = ContextServices.Plugin.new(plugin)
+	local mouse = Mouse.new(plugin:getMouse())
 
-local terrain = require(Plugin.Src.Util.getTerrain)()
-local pluginActivationController = PluginActivationController.new(plugin)
-local terrainImporter = TerrainImporter.new({
-	terrain = terrain,
-	localization = localization,
-})
-local terrainGeneration = TerrainGeneration.new({
-	terrain = terrain,
-	localization = localization,
-})
-local seaLevel = TerrainSeaLevel.new({
-	terrain = terrain,
-	localization = localization,
-})
-local partConverter
-if FFlagTerrainToolsConvertPartTool then
-	partConverter = PartConverter.new({
-		terrain = terrain,
-		localization = localization,
+	local store = Store.new(Rodux.Store.new(MainReducer, nil, {}))
+
+	local theme = ContextItems.UILibraryTheme.new(PluginTheme.new())
+	local localization = Localization.new({
+		pluginName = PLUGIN_NAME,
+		stringResourceTable = DevelopmentReferenceTable,
+		translationResourceTable = TranslationReferenceTable,
 	})
-end
+	local localizationItem = ContextItems.UILibraryLocalization.new(localization)
 
--- Widget Gui Elements
-local pluginHandle
-local pluginGui
+	local networking
+	local imageUploader
+	if FFlagTerrainToolsBetterImportTool then
+		networking = Http.Networking.new({
+			isInternal = true,
+		})
 
---Initializes and populates the plugin popup window
-local function openPluginWindow()
-	if pluginHandle then
-		warn("Plugin handle already exists")
-		return
+		imageUploader = ImageUploader.new(networking)
 	end
 
-	-- create the roact tree
-	local servicesProvider = Roact.createElement(ServiceWrapper, {
-		plugin = plugin,
-		localization = localization,
-		theme = theme,
-		store = dataStore,
+	local analytics = Analytics.new(createAnalyticsHandlers)
 
-		terrain = terrain,
+	local terrainInstance = require(Plugin.Src.Util.getTerrain)()
+	local terrainItem = ContextItems.Terrain.new(terrainInstance)
+	local pluginActivationController = PluginActivationController.new(plugin)
+
+	local terrainImporter = TerrainImporter.new({
+		terrain = terrainInstance,
+		localization = localization,
+		analytics = analytics,
+	})
+
+	local terrainGeneration = TerrainGeneration.new({
+		terrain = terrainInstance,
+		localization = localization,
+		analytics = analytics,
+	})
+
+	local seaLevel = TerrainSeaLevel.new({
+		terrain = terrainInstance,
+		localization = localization,
+	})
+
+	local partConverter
+	if game:GetFastFlag("TerrainToolsConvertPartTool") then
+		partConverter = PartConverter.new({
+			terrain = terrainInstance,
+			localization = localization,
+			analytics = analytics,
+		})
+	end
+
+	local devFrameworkThemeItem = nil
+	if game:GetFastFlag("TerrainToolsIncludeDevFrameworkTheme") then
+		devFrameworkThemeItem = makeTheme()
+	end
+
+	return {
+		plugin = pluginItem,
+		mouse = mouse,
+		store = store,
+		theme = theme,
+		devFrameworkThemeItem = devFrameworkThemeItem,
+		localization = localizationItem,
+		analytics = analytics,
+		networking = networking,
+		imageUploader = imageUploader,
+		terrain = terrainItem,
 		pluginActivationController = pluginActivationController,
 		terrainImporter = terrainImporter,
 		terrainGeneration = terrainGeneration,
 		seaLevel = seaLevel,
 		partConverter = partConverter,
-	}, {
-		TerrainTools = Roact.createFragment({
-			UIManager = Roact.createElement(Manager, {
-				Name = Manager,
-			}),
-
-			ToolSelectionListener = Roact.createElement(ToolSelectionListener),
-		}),
-	})
-
-	pluginHandle = Roact.mount(servicesProvider, pluginGui)
-
-	-- Bring back the last tool the user was using, if there is one
-	pluginActivationController:restoreSelectedTool()
+	}
 end
 
---Closes and unmounts the plugin popup window
-local function closePluginWindow()
-	-- Save the tool the user's using for later
-	pluginActivationController:pauseActivatedTool()
-
-	if pluginHandle then
-		Roact.unmount(pluginHandle)
-		pluginHandle = nil
+local function cleanupTerrainContextItems(contextItems)
+	for _, item in pairs(contextItems) do
+		pcall(function()
+			item:destroy()
+		end)
 	end
 end
 
-local function toggleWidget()
-	pluginGui.Enabled = not pluginGui.Enabled
-	if FFlagTerrainOpenCloseMetrics then
-		AnalyticsService:ReportCounter(TOGGLE_COUNTER, 1)
-		AnalyticsService:SendEventDeferred("studio", "Terrain", "ToggleWidget", {
-			userId = StudioService:GetUserId(),
-			placeId = game.PlaceId,
-		})
-	end
-end
-
-local function onWidgetFocused()
-	-- If another studio ribbon tool or plugin was selected, but the user's clicked on the terrain tools window
-	-- Then assume that means they want to use the terrain tools again and activate the tool they were last using
-	pluginActivationController:restoreSelectedTool()
-end
-
-local function onPluginUnloading()
-	closePluginWindow()
-
-	-- Because this persists "selected" tool state between opening and closing the plugin window
-	-- We can't destroy it when unmounting the Roact tree when the plugin window closes (i.e. in TerrainInterfaceProvider)
-	-- So instead destroy it when the plugin is unloading
-	if pluginActivationController then
-		pluginActivationController:destroy()
-		pluginActivationController = nil
-	end
-
-	if terrainImporter then
-		terrainImporter:destroy()
-		terrainImporter = nil
-	end
-
-	if terrainGeneration then
-		terrainGeneration:destroy()
-		terrainGeneration = nil
-	end
-
-	if seaLevel then
-		seaLevel:destroy()
-		seaLevel = nil
-	end
-
-	if partConverter then
-		partConverter:destroy()
-		partConverter = nil
-	end
-end
-
---Binds a toolbar button
 local function main()
-	plugin.Name = "Terrain Editor"
-	local toolbar = plugin:CreateToolbar(TOOLBAR_NAME)
-	local exampleButton = toolbar:CreateButton(
-		EDITOR_META_NAME,
-		localization:getText("Main", "PluginButtonEditorTooltip"),
-		"rbxasset://textures/TerrainTools/icon_terrain_big.png",
-		localization:getText("Main", "ToolbarButton")
-	)
+	local contextItems = createTerrainContextItems()
 
-	exampleButton.Click:Connect(toggleWidget)
+	local roactHandle = Roact.mount(Roact.createElement(TerrainTools, contextItems))
 
-	local function showIfEnabled()
-		if pluginGui.Enabled then
-			openPluginWindow()
-			if FFlagTerrainOpenCloseMetrics then
-				AnalyticsService:ReportCounter(OPEN_COUNTER, 1)
-				AnalyticsService:SendEventDeferred("studio", "Terrain", "OpenWidget", {
-					userId = StudioService:GetUserId(),
-					placeId = game.PlaceId,
-				})
-			end
-		else
-			closePluginWindow()
-			if FFlagTerrainOpenCloseMetrics then
-				AnalyticsService:ReportCounter(CLOSE_COUNTER, 1)
-					AnalyticsService:SendEventDeferred("studio", "Terrain", "CloseWidget", {
-					userId = StudioService:GetUserId(),
-					placeId = game.PlaceId,
-				})
-			end
+	plugin.Unloading:Connect(function()
+		if roactHandle then
+			Roact.unmount(roactHandle)
+			roactHandle = nil
 		end
 
-		-- toggle the plugin UI
-		exampleButton:SetActive(pluginGui.Enabled)
-	end
-
-	local initiallyEnabled = true
-	if FFlagStudioShowHideABTestV2 then
-		-- When toolbox is shown, hide other left-docked plugins
-		if ABTestService:GetVariant(ABTEST_SHOWHIDEV2_NAME) == "Variation2" then
-			initiallyEnabled = false
-		end
-	end
-
-	-- create the plugin
-	local widgetInfo = DockWidgetPluginGuiInfo.new(
-		Enum.InitialDockState.Left,  -- Widget will be initialized docked to the left
-		initiallyEnabled,   -- Widget will be initially enabled
-		false,  -- Don't override the previous enabled state
-		300,    -- Default width of the floating window
-		600,    -- Default height of the floating window
-		270,    -- Minimum width of the floating window (optional)
-		256     -- Minimum height of the floating window (optional)
-	)
-	pluginGui = plugin:CreateDockWidgetPluginGui(DOCK_WIDGET_PLUGIN_NAME, widgetInfo)
-	pluginGui.Name = localization:getText("Meta", "PluginName")
-	pluginGui.Title = localization:getText("Main", "Title")
-
-	pluginGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-	pluginGui:GetPropertyChangedSignal("Enabled"):Connect(showIfEnabled)
-
-	-- configure the widget and button if its visible
-	showIfEnabled()
-
-	pluginGui.WindowFocused:Connect(onWidgetFocused)
-	plugin.Unloading:Connect(onPluginUnloading)
+		cleanupTerrainContextItems(contextItems)
+	end)
 end
 
 main()

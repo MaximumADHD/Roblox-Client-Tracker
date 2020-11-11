@@ -254,6 +254,7 @@ function MainView:render()
             LayoutOrder = layoutIndex:getNextOrder(),
 
             OnOpenAssetPreview = self.openAssetPreview,
+            OnAssetPreviewClose = self.closeAssetPreview,
             Enabled = not self.state.showOverlay,
         }),
 
@@ -265,6 +266,7 @@ function MainView:render()
             LayoutOrder = layoutIndex:getNextOrder(),
 
             OnOpenAssetPreview = self.openAssetPreview,
+            onAssetPreviewClose = self.closeAssetPreview,
             Enabled = not self.state.showOverlay,
         }),
 

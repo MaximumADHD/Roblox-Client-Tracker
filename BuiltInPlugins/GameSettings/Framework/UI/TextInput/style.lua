@@ -15,9 +15,11 @@ local Common = require(Framework.StudioUI.StudioFrameworkStyles.Common)
 local UIFolderData = require(Framework.UI.UIFolderData)
 local RoundBox = require(UIFolderData.RoundBox.style)
 
+local export: any
+
 if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
 	local roundBox = deepCopy(RoundBox)
-	return {
+	export = {
 		PlaceholderTextColor = StyleKey.DimmedText,
 
 		["&RoundedBorder"] = {
@@ -36,7 +38,7 @@ if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
 		}
 	}
 else
-	return function(theme, getColor)
+	export = function(theme, getColor)
 		local common = Common(theme, getColor)
 
 		local Default = Style.extend(common.MainText, common.Border, {
@@ -64,3 +66,5 @@ else
 		}
 	end
 end
+
+return export

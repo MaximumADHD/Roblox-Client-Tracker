@@ -11,5 +11,9 @@ game:DefineFastFlag("AssetManagerAddPlaceVerisonHistoryToContextMenu", false)
 game:DefineFastFlag("FixAssetManagerInsertWithLocation", false)
 game:DefineFastFlag("AssetManagerAddNewPlaceBehavior", false)
 game:DefineFastFlag("OnlyAllowInsertPackageInEdit", false)
+game:DefineFastFlag("CleanupRightClickContextMenuFunctions", false)
+game:DefineFastFlag("AssetManagerRemoveAssetFixes", false)
+game:DefineFastFlag("UseFakeFavoriteIncrement", false)
+game:DefineFastFlag("AssetManagerFixNavBarSetState", false)
 
 return nil

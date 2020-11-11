@@ -13,8 +13,6 @@ local FAKE_NEUTRAL_TEAM = require(PlayerList.GetFakeNeutralTeam)
 
 local isDisplayNameEnabled = require(PlayerList.isDisplayNameEnabled)
 
-local FFlagLeaderboardDontWaitOnChinaPolicy = require(PlayerList.Flags.FFlagLeaderboardDontWaitOnChinaPolicy)
-
 local PlayerListSorter = Roact.PureComponent:extend("PlayerListSorter")
 
 local function playerInTeam(player, team)
@@ -153,7 +151,7 @@ PlayerListSorter.validateProps = t.strictInterface({
 		priority = t.number,
 	})),
 
-	subjectToChinaPolicies = FFlagLeaderboardDontWaitOnChinaPolicy and t.boolean or nil,
+	subjectToChinaPolicies = t.boolean,
 })
 
 function PlayerListSorter:render()
@@ -204,11 +202,6 @@ function PlayerListSorter:render()
 end
 
 local function mapStateToProps(state)
-	local subjectToChinaPolicies = nil
-	if FFlagLeaderboardDontWaitOnChinaPolicy then
-		subjectToChinaPolicies = state.displayOptions.subjectToChinaPolicies
-	end
-
 	return {
 		gameStats = state.gameStats,
 
@@ -218,7 +211,7 @@ local function mapStateToProps(state)
 		playerStats = state.playerStats,
 		playerTeam = state.playerTeam,
 
-		subjectToChinaPolicies = subjectToChinaPolicies,
+		subjectToChinaPolicies = state.displayOptions.subjectToChinaPolicies,
 	}
 end
 

@@ -1,15 +1,10 @@
-local FFlagTerrainToolsUseDevFramework = game:GetFastFlag("TerrainToolsUseDevFramework")
-
 local Plugin = script.Parent.Parent.Parent.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
 local Roact = require(Plugin.Packages.Roact)
-local UILibrary = not FFlagTerrainToolsUseDevFramework and require(Plugin.Packages.UILibrary) or nil
 
-local ContextServices = FFlagTerrainToolsUseDevFramework and Framework.ContextServices or nil
-local ContextItems = FFlagTerrainToolsUseDevFramework and require(Plugin.Src.ContextItems) or nil
-
-local withLocalization = not FFlagTerrainToolsUseDevFramework and UILibrary.Localizing.withLocalization or nil
+local ContextServices = Framework.ContextServices
+local ContextItems = require(Plugin.Src.ContextItems)
 
 local Constants = require(Plugin.Src.Util.Constants)
 
@@ -17,14 +12,18 @@ local ToolParts = script.Parent.Parent
 local LabeledSlider = require(ToolParts.LabeledSlider)
 local PropertyLock = require(ToolParts.PropertyLock)
 
-local function BrushBaseSizeSlider_render(props, localization)
-	local layoutOrder = props.LayoutOrder
-	local baseSize = props.baseSize
-	local setBaseSize = props.setBaseSize
+local BrushBaseSizeSlider = Roact.PureComponent:extend("BrushBaseSizeSlider")
 
-	local showLock = props.ShowLock
-	local isLocked = props.IsLocked
-	local toggleLock = props.ToggleLock
+function BrushBaseSizeSlider:render()
+	local localization = self.props.Localization:get()
+
+	local layoutOrder = self.props.LayoutOrder
+	local baseSize = self.props.baseSize
+	local setBaseSize = self.props.setBaseSize
+
+	local showLock = self.props.ShowLock
+	local isLocked = self.props.IsLocked
+	local toggleLock = self.props.ToggleLock
 
 	return Roact.createElement(LabeledSlider, {
 		LayoutOrder = layoutOrder,
@@ -42,27 +41,8 @@ local function BrushBaseSizeSlider_render(props, localization)
 	})
 end
 
-if FFlagTerrainToolsUseDevFramework then
-	local BrushBaseSizeSlider = Roact.PureComponent:extend("BrushBaseSizeSlider")
+ContextServices.mapToProps(BrushBaseSizeSlider, {
+	Localization = ContextItems.UILibraryLocalization,
+})
 
-	function BrushBaseSizeSlider:render()
-		local localization = self.props.Localization:get()
-
-		return BrushBaseSizeSlider_render(self.props, localization)
-	end
-
-	ContextServices.mapToProps(BrushBaseSizeSlider, {
-		Localization = ContextItems.UILibraryLocalization,
-	})
-
-	return BrushBaseSizeSlider
-
-else
-	local function BrushBaseSizeSlider(props)
-		return withLocalization(function(localization)
-			return BrushBaseSizeSlider_render(props, localization)
-		end)
-	end
-
-	return BrushBaseSizeSlider
-end
+return BrushBaseSizeSlider

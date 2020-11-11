@@ -3,17 +3,13 @@
 	TODO: Replace with a new component
 ]]
 
-local FFlagTerrainToolsUseDevFramework = game:GetFastFlag("TerrainToolsUseDevFramework")
-
 local Plugin = script.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
 local Roact = require(Plugin.Packages.Roact)
 
-local ContextServices = FFlagTerrainToolsUseDevFramework and Framework.ContextServices or nil
-local ContextItems = FFlagTerrainToolsUseDevFramework and require(Plugin.Src.ContextItems) or nil
-
-local withTheme = not FFlagTerrainToolsUseDevFramework and require(Plugin.Src.ContextServices.Theming).withTheme or nil
+local ContextServices = Framework.ContextServices
+local ContextItems = require(Plugin.Src.ContextItems)
 
 local kWidth = 362
 local kHeight = 148
@@ -29,7 +25,9 @@ local kTitleBarHeight = 25
 
 local ConfirmationPrompt = Roact.PureComponent:extend(script.Name)
 
-function ConfirmationPrompt:_render(theme)
+function ConfirmationPrompt:render()
+	local theme = self.props.Theme:get()
+
 	local anchorPoint = self.props.AnchorPoint or Vector2.new(0, 0)
 	local position = self.props.Position or UDim2.new(0, 0, 0, 0)
 
@@ -92,20 +90,8 @@ function ConfirmationPrompt:_render(theme)
 	})
 end
 
-function ConfirmationPrompt:render()
-	if FFlagTerrainToolsUseDevFramework then
-		return self:_render(self.props.Theme:get())
-	else
-		return withTheme(function(theme)
-			return self:_render(theme)
-		end)
-	end
-end
-
-if FFlagTerrainToolsUseDevFramework then
-	ContextServices.mapToProps(ConfirmationPrompt, {
-		Theme = ContextItems.UILibraryTheme,
-	})
-end
+ContextServices.mapToProps(ConfirmationPrompt, {
+	Theme = ContextItems.UILibraryTheme,
+})
 
 return ConfirmationPrompt

@@ -48,7 +48,6 @@ local GetAssetConfigManageableGroupsRequest = require(Requests.GetAssetConfigMan
 local UpdateAssetConfigStore = require(Plugin.Core.Actions.UpdateAssetConfigStore)
 
 local FFlagSupportAnimImportByID = game:GetFastFlag("SupportAnimImportByID")
-local FFlagEnableOverrideAssetCursorFix = game:GetFastFlag("EnableOverrideAssetCursorFix")
 local FFlagAssetConifgOverrideAssetScrollingFrame = game:GetFastFlag("AssetConifgOverrideAssetScrollingFrame")
 
 local OverrideAsset = Roact.PureComponent:extend("OverrideAsset")
@@ -82,7 +81,7 @@ function OverrideAsset:init(props)
 	self.onDropDownSelect = function(index)
 		local item = self.dropdownContent[index]
 		-- We supported override plugin only after this change.
-		local overrideCursor = FFlagEnableOverrideAssetCursorFix and "" or PagedRequestCursor.createDefaultCursor()
+		local overrideCursor = ""
 		self.props.updateStore({
 			fetchedAll = false,
 			loadingPage = 0,
@@ -97,7 +96,7 @@ function OverrideAsset:init(props)
 	end
 
 	self.getOverrideAssetsFunc = function(targetPage)
-		local selectItem = FFlagEnableOverrideAssetCursorFix and self.state.selectItem or {}
+		local selectItem = self.state.selectItem
 		self.props.getOverrideAssets(getNetwork(self), self.props.assetTypeEnum, selectItem.creatorType, selectItem.creatorId, targetPage)
 	end
 end
@@ -105,18 +104,14 @@ end
 function OverrideAsset:didMount()
 	local userId = getUserId()
 	-- Initial request
-	if FFlagEnableOverrideAssetCursorFix then
-		local defaultSelect = self.dropdownContent[1]
-		self.props.getOverrideAssets(
-			getNetwork(self),
-			self.props.assetTypeEnum,
-			defaultSelect.creatorType,
-			defaultSelect.creatorId,
-			1
-		)
-	else
-		self.props.getOverrideAssets(getNetwork(self), self.props.assetTypeEnum, "User", userId, 1)
-	end
+	local defaultSelect = self.dropdownContent[1]
+	self.props.getOverrideAssets(
+		getNetwork(self),
+		self.props.assetTypeEnum,
+		defaultSelect.creatorType,
+		defaultSelect.creatorId,
+		1
+	)
 	if game:GetFastFlag("FixAssetConfigManageableGroups") then
 		self.props.getManageableGroups(getNetwork(self))
 	else

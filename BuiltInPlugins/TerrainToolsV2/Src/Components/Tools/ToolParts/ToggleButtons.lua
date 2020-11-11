@@ -1,15 +1,11 @@
-local FFlagTerrainToolsUseDevFramework = game:GetFastFlag("TerrainToolsUseDevFramework")
-
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
 local Cryo = require(Plugin.Packages.Cryo)
 local Roact = require(Plugin.Packages.Roact)
 
-local ContextServices = FFlagTerrainToolsUseDevFramework and Framework.ContextServices or nil
-local ContextItems = FFlagTerrainToolsUseDevFramework and require(Plugin.Src.ContextItems) or nil
-
-local withTheme = not FFlagTerrainToolsUseDevFramework and require(Plugin.Src.ContextServices.Theming).withTheme or nil
+local ContextServices = Framework.ContextServices
+local ContextItems = require(Plugin.Src.ContextItems)
 
 local BaseToggleButton = Roact.PureComponent:extend("ToggleButton")
 
@@ -47,71 +43,44 @@ function BaseToggleButton:render()
 	})
 end
 
-local function ToggleButton_render(props, theme)
-	local newProps = Cryo.Dictionary.join(props, {
+local ToggleButton = Roact.PureComponent:extend("ToggleButton")
+
+function ToggleButton:render()
+	local theme = self.props.Theme:get()
+
+	local newProps = Cryo.Dictionary.join(self.props, {
 		OnImage = theme.toggleTheme.toggleOnImage,
 		OffImage = theme.toggleTheme.toggleOffImage,
 		DisabledOnImage = theme.toggleTheme.toggleLockModeOnImage,
 		DisabledOffImage = theme.toggleTheme.toggleLockModeOffImage,
-		Disabled = props.Disabled,
 		Size = UDim2.new(0, 27, 0, 16),
 	})
 	return Roact.createElement(BaseToggleButton, newProps)
 end
 
-local function PickerButton_render(props, theme)
-	local newProps = Cryo.Dictionary.join(props, {
+ContextServices.mapToProps(ToggleButton, {
+	Theme = ContextItems.UILibraryTheme,
+})
+
+local PickerButton = Roact.PureComponent:extend("PickerButton")
+
+function PickerButton:render()
+	local theme = self.props.Theme:get()
+
+	local newProps = Cryo.Dictionary.join(self.props, {
 		OnImage = theme.brushSettingsTheme.pickHeightEnableImage,
 		OffImage = theme.brushSettingsTheme.pickHeightDisableImage,
 		Size = UDim2.new(0, 18, 0, 18),
 	})
+
 	return Roact.createElement(BaseToggleButton, newProps)
 end
 
-if FFlagTerrainToolsUseDevFramework then
-	local ToggleButton = Roact.PureComponent:extend("ToggleButton")
+ContextServices.mapToProps(PickerButton, {
+	Theme = ContextItems.UILibraryTheme,
+})
 
-	function ToggleButton:render()
-		local theme = self.props.Theme:get()
-
-		return ToggleButton_render(self.props, theme)
-	end
-
-	ContextServices.mapToProps(ToggleButton, {
-		Theme = ContextItems.UILibraryTheme,
-	})
-
-	local PickerButton = Roact.PureComponent:extend("PickerButton")
-
-	function PickerButton:render()
-		local theme = self.props.Theme:get()
-
-		return PickerButton_render(self.props, theme)
-	end
-
-	ContextServices.mapToProps(PickerButton, {
-		Theme = ContextItems.UILibraryTheme,
-	})
-
-	return {
-		ToggleButton = ToggleButton,
-		PickerButton = PickerButton,
-	}
-else
-	local function ToggleButton(props)
-		return withTheme(function(theme)
-			return ToggleButton_render(props, theme)
-		end)
-	end
-
-	local function PickerButton(props)
-		return withTheme(function(theme)
-			return PickerButton_render(props, theme)
-		end)
-	end
-
-	return {
-		ToggleButton = ToggleButton,
-		PickerButton = PickerButton,
-	}
-end
+return {
+	ToggleButton = ToggleButton,
+	PickerButton = PickerButton,
+}

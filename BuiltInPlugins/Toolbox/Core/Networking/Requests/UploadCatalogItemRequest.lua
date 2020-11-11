@@ -3,6 +3,7 @@ local HttpService = game:GetService("HttpService")
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local FFlagCMSUploadAccessoryMeshPartFormat = game:GetFastFlag("CMSUploadAccessoryMeshPartFormat")
+local FFlagCMSUploadFees = game:GetFastFlag("CMSUploadFees")
 
 local SetAssetId = require(Plugin.Core.Actions.SetAssetId)
 local NetworkError = require(Plugin.Core.Actions.NetworkError)
@@ -14,6 +15,8 @@ local DebugFlags = require(Util.DebugFlags)
 local AssetConfigConstants = require(Util.AssetConfigConstants)
 local SerializeInstances = require(Util.SerializeInstances)
 local Analytics = require(Util.Analytics.Analytics)
+
+local createMultipartFormDataBody = require(Util.createMultipartFormDataBody)
 
 local ConfigureItemTagsRequest = require(Plugin.Core.Networking.Requests.ConfigureItemTagsRequest)
 local UploadCatalogItemMeshPartFormatRequest = require(Plugin.Core.Networking.Requests.UploadCatalogItemMeshPartFormatRequest)
@@ -102,8 +105,31 @@ return function(networkInterface, nameWithoutExtension, extension, description, 
 		local fileDataString = SerializeInstances(instances)
 
 		local configDataBlob = networkInterface:jsonEncode(createConfigDataTable(nameWithoutExtension, assetTypeId, description))
-		local boundary = "EA0A21C3-8388-4038-9BD5-92C8B1B7BF8E"
-		local formBodyData = createFormDataBody(configDataBlob, nameWithoutExtension, extension, fileDataString, boundary)
-		networkInterface:uploadCatalogItem(formBodyData, boundary):andThen(handlerFunc, errorFunc)
+
+		if FFlagCMSUploadFees then
+			local formBodyData = createMultipartFormDataBody({
+				{
+					type = "application/json",
+					disposition = {
+						name = "config",
+						filename = "config.json",
+					},
+					value = configDataBlob,
+				},
+				{
+					type = "application/octet-stream",
+					disposition = {
+						name = nameWithoutExtension,
+						filename = nameWithoutExtension .. "." .. extension,
+					},
+					value = fileDataString,
+				}
+			})
+			networkInterface:uploadCatalogItem(formBodyData, AssetConfigConstants.MULTIPART_FORM_BOUNDARY):andThen(handlerFunc, errorFunc)
+		else
+			local boundary = "EA0A21C3-8388-4038-9BD5-92C8B1B7BF8E"
+			local formBodyData = createFormDataBody(configDataBlob, nameWithoutExtension, extension, fileDataString, boundary)
+			networkInterface:uploadCatalogItem(formBodyData, boundary):andThen(handlerFunc, errorFunc)
+		end
 	end
 end

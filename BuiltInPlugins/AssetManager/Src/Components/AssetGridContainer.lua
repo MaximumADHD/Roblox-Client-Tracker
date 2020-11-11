@@ -15,6 +15,7 @@ local Framework = Plugin.Packages.Framework
 local ContextServices = require(Framework.ContextServices)
 local Util = require(Framework.Util)
 local StyleModifier = Util.StyleModifier
+local RobloxAPI = Framework.RobloxAPI
 
 local UI = require(Framework.UI)
 local Button = UI.Button
@@ -44,12 +45,14 @@ local OnScreenChange = require(Plugin.Src.Thunks.OnScreenChange)
 local BulkImportService = game:GetService("BulkImportService")
 
 local FFlagStudioAssetManagerShiftMultiSelect = game:GetFastFlag("StudioAssetManagerShiftMultiSelect")
+local FFlagAllowAudioBulkImport = game:GetFastFlag("AllowAudioBulkImport")
 local FFlagStudioAssetManagerAddGridListToggle = game:GetFastFlag("StudioAssetManagerAddGridListToggle")
 
 local AssetGridContainer = Roact.Component:extend("AssetGridContainer")
 
 local function isSupportedBulkImportAssetScreen(screen)
     return screen.Key == Screens.IMAGES.Key or screen.Key == Screens.MESHES.Key
+            or (FFlagAllowAudioBulkImport and (not RobloxAPI:baseURLHasChineseHost()) and screen.Key == Screens.AUDIO.Key)
 end
 
 function AssetGridContainer:init()
@@ -94,6 +97,10 @@ function AssetGridContainer:init()
     self.onOpenAssetPreview = function(assetData)
         local assetPreviewData = self.props.AssetsTable.assetPreviewData[assetData.id]
         self.props.OnOpenAssetPreview(assetData, assetPreviewData)
+    end
+
+    self.onAssetPreviewClose = function()
+        self.props.OnAssetPreviewClose()
     end
 end
 
@@ -161,6 +168,7 @@ function AssetGridContainer:createTiles(apiImpl, localization, theme,
                     StyleModifier = selectedAssets[asset.layoutOrder] and StyleModifier.Selected or nil,
                     Enabled = enabled,
                     OnOpenAssetPreview = self.onOpenAssetPreview,
+                    OnAssetPreviewClose = self.onAssetPreviewClose,
                 })
                 if FFlagStudioAssetManagerAddGridListToggle then
                     assetsToDisplay[asset.id] = assetTile
@@ -219,6 +227,7 @@ function AssetGridContainer:createListItems(apiImpl, localization, theme,
                     StyleModifier = selectedAssets[asset.layoutOrder] and StyleModifier.Selected or nil,
                     Enabled = enabled,
                     OnOpenAssetPreview = self.onOpenAssetPreview,
+                    OnAssetPreviewClose = self.onAssetPreviewClose,
                 })
                 assetsToDisplay[asset.id] = assetListItem
                 numberAssets = numberAssets + 1

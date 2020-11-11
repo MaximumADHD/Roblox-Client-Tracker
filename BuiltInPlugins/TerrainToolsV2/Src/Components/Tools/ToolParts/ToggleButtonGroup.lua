@@ -1,20 +1,13 @@
-local FFlagTerrainToolsUseDevFramework = game:GetFastFlag("TerrainToolsUseDevFramework")
-
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
 local Roact = require(Plugin.Packages.Roact)
-local UILibrary = not FFlagTerrainToolsUseDevFramework and require(Plugin.Packages.UILibrary) or nil
 
-local ContextServices = FFlagTerrainToolsUseDevFramework and Framework.ContextServices or nil
-local ContextItems = FFlagTerrainToolsUseDevFramework and require(Plugin.Src.ContextItems) or nil
-
-local withTheme = not FFlagTerrainToolsUseDevFramework and require(Plugin.Src.ContextServices.Theming).withTheme or nil
+local ContextServices = Framework.ContextServices
+local ContextItems = require(Plugin.Src.ContextItems)
 
 local UILibraryCompat = Plugin.Src.UILibraryCompat
-local RoundTextButton = FFlagTerrainToolsUseDevFramework
-	and require(UILibraryCompat.RoundTextButton)
-	or UILibrary.Component.RoundTextButton
+local RoundTextButton = require(UILibraryCompat.RoundTextButton)
 
 -- TODO: This is very related to ButtonGroup, should simplify this to be DRY
 local MIN_BUTTON_WIDTH = 64
@@ -22,10 +15,14 @@ local MAX_BUTTON_WIDTH = 200
 local BUTTON_HEIGHT = 28
 local GROUP_HEIGHT = BUTTON_HEIGHT + 24
 
-local function ToggleButtonGroup_render(props, theme)
-	local layoutOrder = props.LayoutOrder
-	local Selected = props.Selected
-	local buttons = props.Buttons or {}
+local ToggleButtonGroup = Roact.PureComponent:extend("ButtonGroup")
+
+function ToggleButtonGroup:render()
+	local theme = self.props.Theme:get()
+
+	local layoutOrder = self.props.LayoutOrder
+	local Selected = self.props.Selected
+	local buttons = self.props.Buttons or {}
 
 	local children = {
 		UIListLayout = Roact.createElement("UIListLayout", {
@@ -62,28 +59,8 @@ local function ToggleButtonGroup_render(props, theme)
 	}, children)
 end
 
-if FFlagTerrainToolsUseDevFramework then
-	local ToggleButtonGroup = Roact.PureComponent:extend("ButtonGroup")
+ContextServices.mapToProps(ToggleButtonGroup, {
+	Theme = ContextItems.UILibraryTheme,
+})
 
-	function ToggleButtonGroup:render()
-		local theme = self.props.Theme:get()
-
-		return ToggleButtonGroup_render(self.props, theme)
-	end
-
-	ContextServices.mapToProps(ToggleButtonGroup, {
-		Theme = ContextItems.UILibraryTheme,
-	})
-
-
-	return ToggleButtonGroup
-else
-
-	local function ToggleButtonGroup(props)
-		return withTheme(function(theme)
-			return ToggleButtonGroup_render(props, theme)
-		end)
-	end
-
-	return ToggleButtonGroup
-end
+return ToggleButtonGroup

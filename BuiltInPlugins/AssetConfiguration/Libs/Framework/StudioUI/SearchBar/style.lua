@@ -60,9 +60,11 @@ local function buttonStyle(image, hoverImage, theme)
 	end
 end
 
+local export: any
+
 if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
 	local roundBox = deepCopy(RoundBox)
-	return {
+	export = {
 		BackgroundColor = StyleKey.MainBackground,
 		BackgroundStyle = roundBox,
 		Padding = FFlagDevFrameworkTextInputContainer and {
@@ -88,7 +90,7 @@ if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
 		},
 	}
 else
-	return function(theme, getColor)
+	export = function(theme, getColor)
 		local common = Common(theme, getColor)
 		local roundBox = RoundBox(theme, getColor)
 
@@ -120,3 +122,5 @@ else
 		}
 	end
 end
+
+return export

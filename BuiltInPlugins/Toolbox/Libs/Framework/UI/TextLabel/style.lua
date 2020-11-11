@@ -10,14 +10,16 @@ local StudioFrameworkStyles = Framework.StudioUI.StudioFrameworkStyles
 local Common = require(StudioFrameworkStyles.Common)
 local StyleModifier = Util.StyleModifier
 
+local export: any
+
 if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
-	return {
+	export = {
 		[StyleModifier.Disabled] = {
 			TextTransparency = 0.5,
 		},
 	}
 else
-	return function(theme, getColor)
+	export = function(theme, getColor)
 		local common = Common(theme, getColor)
 
 		local Default = Style.extend(common.MainText, {
@@ -31,3 +33,5 @@ else
 		}
 	end
 end
+
+return export

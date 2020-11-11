@@ -44,6 +44,7 @@ local SetGroupRoleInfo = require(Actions.SetGroupRoleInfo)
 local SetPackagePermission = require(Actions.SetPackagePermission)
 local SetTagSuggestions = require(Actions.SetTagSuggestions)
 local SetFieldError = require(Actions.SetFieldError)
+local SetUploadFee = require(Actions.SetUploadFee)
 
 local ConfigTypes = require(Plugin.Core.Types.ConfigTypes)
 
@@ -305,7 +306,7 @@ return Rodux.createReducer({
 		if Enum.CreatorType[state.assetConfigData.Creator.type] ~= Enum.CreatorType.User then
 			return state
 		end
-		
+
 		return Cryo.Dictionary.join(state, {
 			assetConfigData = Cryo.Dictionary.join(state.assetConfigData, {
 				Creator = Cryo.Dictionary.join(state.assetConfigData.Creator, {
@@ -431,6 +432,14 @@ return Rodux.createReducer({
 					[action.fieldName] = action.hasError
 				})
 			})
+		})
+	end,
+
+	[SetUploadFee.name] = function(state, action)
+		return Cryo.Dictionary.join(state, {
+			isUploadFeeEnabled = action.isUploadFeeEnabled,
+			uploadFee = action.uploadFee,
+			canAffordUploadFee = action.canAffordUploadFee,
 		})
 	end,
 })

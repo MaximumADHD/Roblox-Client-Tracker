@@ -1,8 +1,11 @@
 local Plugin = script.Parent.Parent.Parent
 
+local IncrementAssetFavoriteCount = require(Plugin.Src.Actions.IncrementAssetFavoriteCount)
 local SetAssetFavorited = require(Plugin.Src.Actions.SetAssetFavorited)
 
 local GetAssetFavoriteCount = require(Plugin.Src.Thunks.GetAssetFavoriteCount)
+
+local FFlagUseFakeFavoriteIncrement = game:GetFastFlag("UseFakeFavoriteIncrement")
 
 return function(apiImpl, assetId, userId, favorited)
     return function(store)
@@ -11,7 +14,15 @@ return function(apiImpl, assetId, userId, favorited)
             local body = response.responseBody
             if body == "{}" or body == "null" then
                 store:dispatch(SetAssetFavorited(assetId, not favorited))
-                store:dispatch(GetAssetFavoriteCount(apiImpl, assetId))
+                if FFlagUseFakeFavoriteIncrement then
+                    if favorited then
+                        store:dispatch(IncrementAssetFavoriteCount(assetId, -1))
+                    else
+                        store:dispatch(IncrementAssetFavoriteCount(assetId, 1))
+                    end
+                else
+                    store:dispatch(GetAssetFavoriteCount(apiImpl, assetId))
+                end
             end
         end, function()
             error("Failed to get asset favorite information for asset id: ", assetId)

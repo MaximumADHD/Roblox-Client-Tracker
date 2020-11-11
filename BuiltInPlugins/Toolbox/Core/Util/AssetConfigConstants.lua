@@ -174,4 +174,6 @@ AssetConfigConstants.MAX_FETCH_SUGGESTIONS = 10
 
 AssetConfigConstants.AVATAR_MESHPART_ACCESSORY_FORMAT = "avatar_meshpart_accessory"
 
+AssetConfigConstants.MULTIPART_FORM_BOUNDARY = "EA0A21C3-8388-4038-9BD5-92C8B1B7BF8E"
+
 return AssetConfigConstants

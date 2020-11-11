@@ -16,7 +16,6 @@ local isDisplayNameEnabled = require(PlayerList.isDisplayNameEnabled)
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local FFlagPlayerListFormattingUpdates = require(RobloxGui.Modules.Flags.FFlagPlayerListFormattingUpdates)
-local FFlagLeaderboardDontWaitOnChinaPolicy = require(PlayerList.Flags.FFlagLeaderboardDontWaitOnChinaPolicy)
 
 local PlayerNameTag = Roact.PureComponent:extend("PlayerNameTag")
 
@@ -38,7 +37,7 @@ PlayerNameTag.validateProps = t.strictInterface({
 		Font = t.enum(Enum.Font),
 	}),
 
-	subjectToChinaPolicies = FFlagLeaderboardDontWaitOnChinaPolicy and t.boolean or nil,
+	subjectToChinaPolicies = t.boolean,
 })
 
 function PlayerNameTag:render()
@@ -156,14 +155,10 @@ function PlayerNameTag:render()
 	end)
 end
 
-if FFlagLeaderboardDontWaitOnChinaPolicy then
-	local function mapStateToProps(state)
-		return {
-			subjectToChinaPolicies = state.displayOptions.subjectToChinaPolicies,
-		}
-	end
-
-	return RoactRodux.UNSTABLE_connect2(mapStateToProps, nil)(PlayerNameTag)
+local function mapStateToProps(state)
+	return {
+		subjectToChinaPolicies = state.displayOptions.subjectToChinaPolicies,
+	}
 end
 
-return PlayerNameTag
+return RoactRodux.UNSTABLE_connect2(mapStateToProps, nil)(PlayerNameTag)

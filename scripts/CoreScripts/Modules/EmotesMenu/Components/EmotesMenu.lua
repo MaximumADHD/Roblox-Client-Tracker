@@ -10,8 +10,6 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local FFlagDisableAutoTranslateForKeyTranslatedContent
 	= require(RobloxGui.Modules.Flags.FFlagDisableAutoTranslateForKeyTranslatedContent)
 
-local FFlagEmotesMenuFixSelectedObject = game:DefineFastFlag("EmotesMenuFixSelectedObject", false)
-
 local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
 
@@ -164,16 +162,14 @@ function EmotesMenu:willUnmount()
     self:unbindActions()
 end
 
-if FFlagEmotesMenuFixSelectedObject then
-	function EmotesMenu:didUpdate(prevProps, prevState)
-		if self.props.displayOptions.menuVisible ~= prevProps.displayOptions.menuVisible then
-			if self.props.displayOptions.menuVisible then
-				self:saveSelectedObject()
-			else
-				self:resetSelectedObject()
-			end
-		end
-	end
+function EmotesMenu:didUpdate(prevProps, prevState)
+    if self.props.displayOptions.menuVisible ~= prevProps.displayOptions.menuVisible then
+        if self.props.displayOptions.menuVisible then
+            self:saveSelectedObject()
+        else
+            self:resetSelectedObject()
+        end
+    end
 end
 
 function EmotesMenu:render()

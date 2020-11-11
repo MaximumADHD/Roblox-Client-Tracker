@@ -5,7 +5,6 @@ local AssetConfigConstants = require(Util.AssetConfigConstants)
 local ScreenSetup = require(Util.ScreenSetup)
 local Images = require(Util.Images)
 
-local FFlagEnableNonWhitelistedToggle = game:GetFastFlag("EnableNonWhitelistedToggle")
 local FFlagShowAssetConfigReasons2 = game:GetFastFlag("ShowAssetConfigReasons2")
 
 local ConfigTypes = {}
@@ -75,10 +74,6 @@ function ConfigTypes:getAssetconfigContent(screenFlowType, assetTypeEnum, isMark
 		end
 	end
 
-	-- Non-whitelisted users will also have access to sales tab.
-	if not FFlagEnableNonWhitelistedToggle then
-		if isMarketBuyAndNonWhiteList then return result end
-	end
 	if owner and owner.typeId == ConfigTypes.OWNER_TYPES.Group then return result end
 	if ScreenSetup.queryParam(screenFlowType, assetTypeEnum, ScreenSetup.keys.SHOW_SALES_TAB) then
 		result[#result + 1] = SALES

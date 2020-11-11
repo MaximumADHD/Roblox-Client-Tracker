@@ -9,6 +9,7 @@ local DevConsoleMaster = require(CoreGui.RobloxGui.Modules.DevConsoleMaster)
 local InGameMenu = script.Parent.Parent
 
 local OpenMenu = require(InGameMenu.Thunks.OpenMenu)
+local OpenSystemMenu = require(InGameMenu.Thunks.OpenSystemMenu)
 local CloseMenu = require(InGameMenu.Thunks.CloseMenu)
 local SetRespawning = require(InGameMenu.Actions.SetRespawning)
 local StartLeavingGame = require(InGameMenu.Actions.StartLeavingGame)
@@ -18,6 +19,7 @@ local Pages = require(InGameMenu.Components.Pages)
 local Constants = require(InGameMenu.Resources.Constants)
 
 local GetFFlagUseNewLeaveGamePrompt = require(InGameMenu.Flags.GetFFlagUseNewLeaveGamePrompt)
+local GetFFlagInGameOpenSystemMenuFix = require(InGameMenu.Flags.GetFFlagInGameOpenSystemMenuFix)
 
 local TOGGLE_DEVELOPER_CONSOLE_ACTION_NAME = "ToggleDeveloperConsole"
 local TOGGLE_PERFORMANCE_STATS_ACTION_NAME = "TogglePerformanceStats"
@@ -42,7 +44,11 @@ local function bindMenuActions(store)
 			if isMenuOpen then
 				store:dispatch(CloseMenu)
 			else
-				store:dispatch(OpenMenu(Constants.AnalyticsMenuOpenTypes.Keyboard))
+				if GetFFlagInGameOpenSystemMenuFix() then
+					store:dispatch(OpenSystemMenu(Constants.AnalyticsMenuOpenTypes.Keyboard))
+				else
+					store:dispatch(OpenMenu(Constants.AnalyticsMenuOpenTypes.Keyboard))
+				end
 			end
 		end
 	end

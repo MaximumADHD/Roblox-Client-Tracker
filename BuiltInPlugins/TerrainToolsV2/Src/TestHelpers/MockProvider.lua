@@ -7,6 +7,8 @@ local Rodux = require(Plugin.Packages.Rodux)
 local ContextServices = Framework.ContextServices
 local ContextItems = require(Plugin.Src.ContextItems)
 
+local Http = Framework.Http
+
 local MockPlugin = Framework.TestHelpers.Instances.MockPlugin
 local MockTerrain = require(Plugin.Src.TestHelpers.MockTerrain)
 
@@ -16,6 +18,7 @@ local Localization = require(UILibraryCompat.Localization)
 local MainReducer = require(Plugin.Src.Reducers.MainReducer)
 
 local PluginTheme = require(Plugin.Src.Resources.PluginTheme)
+local makeTheme = require(Plugin.Src.Resources.makeTheme)
 
 local PluginActivationController = require(Plugin.Src.Util.PluginActivationController)
 
@@ -24,6 +27,8 @@ local TerrainGeneration = require(TerrainInterfaces.TerrainGenerationInstance)
 local TerrainImporter = require(TerrainInterfaces.TerrainImporterInstance)
 local SeaLevel = require(TerrainInterfaces.TerrainSeaLevel)
 local PartConverter = require(TerrainInterfaces.PartConverter)
+
+local ImageUploader = require(Plugin.Src.Util.ImageUploader)
 
 local MockProvider = Roact.PureComponent:extend(script.Name)
 
@@ -37,25 +42,31 @@ function MockProvider.createMocks()
 		theme = PluginTheme.mock(),
 		localization = Localization.mock(),
 		terrain = MockTerrain.new(),
+		networking = Http.Networking.mock(),
 	}
 end
 
 function MockProvider.createMockContextItems(mocks)
 	local analytics = ContextServices.Analytics.mock()
+	local imageUploader = ImageUploader.new(mocks.networking)
 
 	return {
 		plugin = ContextServices.Plugin.new(mocks.plugin),
 		mouse = ContextServices.Mouse.new(mocks.mouse),
 		store = ContextServices.Store.new(mocks.store),
 		theme = ContextItems.UILibraryTheme.new(mocks.theme),
+		devFrameworkThemeItem = makeTheme(true),
 		localization = ContextItems.UILibraryLocalization.new(mocks.localization),
 		analytics = analytics,
+		networking = mocks.networking,
+		imageUploader = imageUploader,
 		terrain = ContextItems.Terrain.new(mocks.terrain),
 		pluginActivationController = PluginActivationController.new(mocks.plugin),
 		terrainImporter = TerrainImporter.new({
 			terrain = mocks.terrain,
 			localization = mocks.localization,
 			analytics = analytics,
+			imageUploader = imageUploader,
 		}),
 		terrainGeneration = TerrainGeneration.new({
 			terrain = mocks.terrain,
@@ -80,7 +91,10 @@ function MockProvider.cleanupMocks(mocks, mockItems)
 	mockItems.terrainGeneration:destroy()
 	mockItems.terrainImporter:destroy()
 	mockItems.pluginActivationController:destroy()
+	mockItems.imageUploader:destroy()
+
 	mockItems.localization:destroy()
+	mockItems.devFrameworkThemeItem:destroy()
 	mockItems.theme:destroy()
 
 	mocks.store:destruct()

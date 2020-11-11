@@ -26,7 +26,6 @@ local OpenPlayerDropDown = require(PlayerList.Actions.OpenPlayerDropDown)
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local FFlagPlayerListFormattingUpdates = require(RobloxGui.Modules.Flags.FFlagPlayerListFormattingUpdates)
-local FFlagFixLeaderboardWaitingOnScreenSize = require(PlayerList.Flags.FFlagFixLeaderboardWaitingOnScreenSize)
 
 local PlayerEntry = Roact.PureComponent:extend("PlayerEntry")
 
@@ -64,7 +63,7 @@ PlayerEntry.validateProps = t.strictInterface({
 	selectedPlayer = t.optional(t.instanceIsA("Player")),
 	dropDownOpen = t.boolean,
 
-	isSmallTouchDevice = FFlagFixLeaderboardWaitingOnScreenSize and t.boolean or nil,
+	isSmallTouchDevice = t.boolean,
 
 	closeDropDown = t.callback,
 	openDropDown = t.callback,
@@ -311,7 +310,7 @@ function PlayerEntry:render()
 			})
 
 			local maxLeaderstats = layoutValues.MaxLeaderstats
-			if FFlagFixLeaderboardWaitingOnScreenSize and self.props.isSmallTouchDevice then
+			if self.props.isSmallTouchDevice then
 				maxLeaderstats = layoutValues.MaxLeaderstatsSmallScreen
 			end
 
@@ -373,16 +372,11 @@ function PlayerEntry:render()
 end
 
 local function mapStateToProps(state)
-	local smallTouchDevice = nil
-	if FFlagFixLeaderboardWaitingOnScreenSize then
-		smallTouchDevice = state.displayOptions.isSmallTouchDevice
-	end
-
 	return {
 		selectedPlayer = state.playerDropDown.selectedPlayer,
 		dropDownOpen = state.playerDropDown.isVisible,
 
-		isSmallTouchDevice = smallTouchDevice,
+		isSmallTouchDevice = state.displayOptions.isSmallTouchDevice,
 	}
 end
 

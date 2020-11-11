@@ -453,13 +453,13 @@ return function()
 			reporter:reportErrorImmediately(mockErrorMessage, mockErrorStack)
 
 			expect(requestsSent).to.equal(1)
-			expect(deepEqual(annotations, requestBody.annotations, true)).to.equal(true)
+			expect(deepEqual(annotations, requestBody.annotations)).to.equal(true)
 
 			requestBody = nil
 			reporter:reportErrorImmediately("some other message", mockErrorStack)
 
 			expect(requestsSent).to.equal(2)
-			expect(deepEqual(annotations, requestBody.annotations, true)).to.equal(true)
+			expect(deepEqual(annotations, requestBody.annotations)).to.equal(true)
 
 			reporter:stop()
 		end)
@@ -489,7 +489,7 @@ return function()
 			reporter:reportErrorImmediately(mockErrorMessage, mockErrorStack)
 
 			expect(requestsSent).to.equal(1)
-			expect(deepEqual(annotations, requestBody.annotations, true)).to.equal(true)
+			expect(deepEqual(annotations, requestBody.annotations)).to.equal(true)
 
 			reporter:updateSharedAnnotations({
 				["Message"] = Cryo.None,
@@ -508,7 +508,7 @@ return function()
 				["AppVersion"] = "1.0",
 			}
 			expect(requestsSent).to.equal(2)
-			expect(deepEqual(expectedAnnotations, requestBody.annotations, true)).to.equal(true)
+			expect(deepEqual(expectedAnnotations, requestBody.annotations)).to.equal(true)
 
 			reporter:stop()
 		end)

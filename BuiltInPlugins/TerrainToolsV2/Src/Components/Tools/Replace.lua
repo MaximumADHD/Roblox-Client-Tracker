@@ -4,20 +4,17 @@
 
 game:DefineFastFlag("TerrainToolsReplaceUseModeSelector", false)
 
-local FFlagTerrainToolsUseDevFramework = game:GetFastFlag("TerrainToolsUseDevFramework")
 local FFlagTerrainToolsReplaceUseModeSelector = game:GetFastFlag("TerrainToolsReplaceUseModeSelector")
+local FFlagTerrainToolsRedesignProgressDialog = game:GetFastFlag("TerrainToolsRedesignProgressDialog")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
-local UILibrary = not FFlagTerrainToolsUseDevFramework and require(Plugin.Packages.UILibrary) or nil
 
-local ContextServices = FFlagTerrainToolsUseDevFramework and Framework.ContextServices or nil
-local ContextItems = FFlagTerrainToolsUseDevFramework and require(Plugin.Src.ContextItems) or nil
-
-local withLocalization = not FFlagTerrainToolsUseDevFramework and UILibrary.Localizing.withLocalization or nil
+local ContextServices = Framework.ContextServices
+local ContextItems = require(Plugin.Src.ContextItems)
 
 local Actions = Plugin.Src.Actions
 local ApplyToolAction = require(Actions.ApplyToolAction)
@@ -41,16 +38,14 @@ local ButtonGroup = require(ToolParts.ButtonGroup)
 local Panel = require(ToolParts.Panel)
 local MapSettingsWithPreview = require(ToolParts.MapSettingsWithPreview)
 local MaterialSelector = require(ToolParts.MaterialSelector)
+local DEPRECATED_ProgressFrame = require(script.Parent.Parent.DEPRECATED_ProgressFrame)
+local ProgressDialog = require(Plugin.Src.Components.ProgressDialog)
 local ModeSelector = require(ToolParts.ModeSelector)
-local ProgressFrame = require(script.Parent.Parent.ProgressFrame)
 
 local BaseBrush = require(Plugin.Src.Components.Tools.BaseBrush)
 
 local TerrainEnums = require(Plugin.Src.Util.TerrainEnums)
 local ReplaceMode = TerrainEnums.ReplaceMode
-
-local TerrainInterface = not FFlagTerrainToolsUseDevFramework and require(Plugin.Src.ContextServices.TerrainInterface)
-	or nil
 
 local CoreGui = game:GetService("CoreGui")
 
@@ -59,25 +54,11 @@ local REDUCER_KEY = "ReplaceTool"
 local Replace = Roact.PureComponent:extend(script.Name)
 
 function Replace:init()
-	if not FFlagTerrainToolsUseDevFramework then
-		self.pluginActivationController = TerrainInterface.getPluginActivationController(self)
-		self.replace = TerrainInterface.getReplace(self)
-
-		self.state = {
-			isReplacing = self.replace:isReplacing(),
-			progress = self.replace:getProgress(),
-		}
-
-		assert(self.pluginActivationController, "Replace requires a PluginActivationController from context")
-		assert(self.replace, "Replace requires Replace function from context")
-	end
-
 	self.tryGenerateReplace = function()
 		local position = Vector3.new(self.props.Position.X,self.props.Position.Y,self.props.Position.Z)
 		local size = Vector3.new(self.props.Size.X,self.props.Size.Y,self.props.Size.Z)
 
-		local replace = FFlagTerrainToolsUseDevFramework and self.props.Replace or self.replace
-		replace:replaceMaterial(position, size, self.props.Source, self.props.Target)
+		self.props.Replace:replaceMaterial(position, size, self.props.Source, self.props.Target)
 	end
 
 	self.setSourceMaterial = function(material)
@@ -115,52 +96,18 @@ function Replace:init()
 	end
 
 	self.cancel = function()
-		local replace = FFlagTerrainToolsUseDevFramework and self.props.Replace or self.replace
-		replace:cancel()
+		self.props.Replace:cancel()
 	end
 end
 
-if not FFlagTerrainToolsUseDevFramework then
-	function Replace:didMount()
-		self.onProgressChanged = self.replace:subscribeToProgressChange(function(progress)
-			self:setState({
-				progress = progress
-			})
-		end)
+function Replace:render()
+	local localization = self.props.Localization:get()
 
-		self.onStateChanged = self.replace:subscribeToStateChange(function(state)
-			self:setState({
-				isReplacing = state
-			})
-		end)
-	end
-
-	function Replace:willUnmount()
-		if self.onProgressChanged then
-			self.onProgressChanged:Disconnect()
-			self.onProgressChanged = nil
-		end
-
-		if self.onStateChanged then
-			self.onStateChanged:Disconnect()
-			self.onStateChanged = nil
-		end
-	end
-end
-
-function Replace:_render(localization)
 	local position = self.props.Position
 	local size = self.props.Size
 
-	local isReplacing
-	local progress
-	if FFlagTerrainToolsUseDevFramework then
-		isReplacing = self.props.Replace:isReplacing()
-		progress = isReplacing and self.props.Replace:getProgress() or 0
-	else
-		isReplacing = self.state.isReplacing
-		progress = self.state.progress
-	end
+	local isReplacing = self.props.Replace:isReplacing()
+	local progress = isReplacing and self.props.Replace:getProgress() or 0
 
 	local baseSize = self.props.baseSize
 	local baseSizeHeightLocked = self.props.baseSizeHeightLocked
@@ -294,41 +241,39 @@ function Replace:_render(localization)
 				}
 			}),
 
-			ProgressBar = isReplacing and Roact.createElement(Roact.Portal, {
+			DEPRECATED_ProgressBar = not FFlagTerrainToolsRedesignProgressDialog and (isReplacing
+				and Roact.createElement(Roact.Portal, {
 				target = CoreGui,
 			}, {
 				ReplaceProgressScreenGui = Roact.createElement("ScreenGui", {}, {
-					Roact.createElement(ProgressFrame, {
+					Roact.createElement(DEPRECATED_ProgressFrame, {
 						AnchorPoint = Vector2.new(0.5, 0),
 						Position = UDim2.new(0.5, 0, 0, 0),
 						Progress = progress,
 						OnCancelButtonClicked = self.cancel,
 					})
 				})
-			}),
+			})),
 		}),
+
+		ProgressDialog = FFlagTerrainToolsRedesignProgressDialog and (isReplacing
+			and Roact.createElement(ProgressDialog, {
+			Title = localization:getText("Replace", "ReplaceProgressTitle"),
+			SubText = localization:getText("Replace", "Replacing"),
+
+			Progress = progress,
+
+			OnCancelButtonClicked = self.cancel,
+		})),
 	})
 end
 
-function Replace:render()
-	if FFlagTerrainToolsUseDevFramework then
-		return self:_render(self.props.Localization:get())
-	else
-		return withLocalization(function(localization)
-			return self:_render(localization)
-		end)
-	end
-end
-
-if FFlagTerrainToolsUseDevFramework then
-	ContextServices.mapToProps(Replace, {
-		Localization = ContextItems.UILibraryLocalization,
-		PluginActivationController = ContextItems.PluginActivationController,
-		-- Replace tool reuses SeaLevel object
-		-- TODO: Rename SeaLevel object to TerrainReplacer?
-		Replace = ContextItems.SeaLevel,
-	})
-end
+ContextServices.mapToProps(Replace, {
+	Localization = ContextItems.UILibraryLocalization,
+	-- Replace tool reuses SeaLevel object
+	-- TODO: Rename SeaLevel object to TerrainReplacer?
+	Replace = ContextItems.SeaLevel,
+})
 
 local function mapStateToProps(state, props)
 	return {

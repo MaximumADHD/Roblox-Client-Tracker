@@ -3,22 +3,14 @@
 	Handles all the bindings between the ui and the tool functionality
 ]]
 
-local FFlagTerrainToolsUseDevFramework = game:GetFastFlag("TerrainToolsUseDevFramework")
-
 local Plugin = script.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
-local UILibrary = not FFlagTerrainToolsUseDevFramework and require(Plugin.Packages.UILibrary) or nil
 
-local ContextServices = FFlagTerrainToolsUseDevFramework and Framework.ContextServices or nil
-local ContextItems = FFlagTerrainToolsUseDevFramework and require(Plugin.Src.ContextItems) or nil
-
-local withLocalization = not FFlagTerrainToolsUseDevFramework and UILibrary.Localizing.withLocalization or nil
-local withTheme = not FFlagTerrainToolsUseDevFramework and require(Plugin.Src.ContextServices.Theming).withTheme or nil
-
-local StudioPlugin = not FFlagTerrainToolsUseDevFramework and require(Plugin.Src.ContextServices.StudioPlugin) or nil
+local ContextServices = Framework.ContextServices
+local ContextItems = require(Plugin.Src.ContextItems)
 
 local Tools = script.Parent.Tools
 local Add = require(Tools.Add)
@@ -105,13 +97,6 @@ end
 local ToolRenderer = Roact.PureComponent:extend(script.Name)
 
 function ToolRenderer:init()
-	if not FFlagTerrainToolsUseDevFramework then
-		local plugin = StudioPlugin.getPlugin(self)
-		self.state = {
-			mouse = plugin:GetMouse()
-		}
-	end
-
 	self.scrollingRef = Roact.createRef()
 	self.layoutRef = Roact.createRef()
 
@@ -133,15 +118,7 @@ function ToolRenderer:willUnmount()
 end
 
 function ToolRenderer:willUpdate(nextProps, nextState)
-	if FFlagTerrainToolsUseDevFramework then
-		ToggleTool(nextProps.currentTool, self.props.Mouse:get())
-	else
-		-- this only toggles whether the tool's workspace ui is visible
-		-- the initial paramters are passed the the modules in the
-		-- components since each component knows how to retrieve its data
-		-- from the Rodux store
-		ToggleTool(nextProps.currentTool, self.state.mouse)
-	end
+	ToggleTool(nextProps.currentTool, self.props.Mouse:get())
 end
 
 function ToolRenderer:didUpdate(previousProps, previousState)
@@ -154,7 +131,9 @@ function ToolRenderer:didUpdate(previousProps, previousState)
 	end
 end
 
-function ToolRenderer:_render(theme)
+function ToolRenderer:render()
+	local theme = self.props.Theme:get()
+
 	local currentTool = self.props.currentTool
 	local layoutOrder = self.props.LayoutOrder
 	local roactElement = toolComponent[currentTool]
@@ -190,24 +169,10 @@ function ToolRenderer:_render(theme)
 	})
 end
 
-function ToolRenderer:render()
-	if FFlagTerrainToolsUseDevFramework then
-		return self:_render(self.props.Theme:get())
-	else
-		return withLocalization(function(localization)
-			return withTheme(function(theme)
-				return self:_render(theme)
-			end)
-		end)
-	end
-end
-
-if FFlagTerrainToolsUseDevFramework then
-	ContextServices.mapToProps(ToolRenderer, {
-		Theme = ContextItems.UILibraryTheme,
-		Mouse = ContextServices.Mouse,
-	})
-end
+ContextServices.mapToProps(ToolRenderer, {
+	Theme = ContextItems.UILibraryTheme,
+	Mouse = ContextServices.Mouse,
+})
 
 local function mapStateToProps(state, props)
 	return {

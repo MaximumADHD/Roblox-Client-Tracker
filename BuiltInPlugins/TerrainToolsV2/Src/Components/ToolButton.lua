@@ -7,19 +7,13 @@
 	|_________|
 ]]
 
-local FFlagTerrainToolsUseDevFramework = game:GetFastFlag("TerrainToolsUseDevFramework")
-
 local Plugin = script.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
 local Roact = require(Plugin.Packages.Roact)
-local UILibrary = not FFlagTerrainToolsUseDevFramework and require(Plugin.Packages.UILibrary) or nil
 
-local ContextServices = FFlagTerrainToolsUseDevFramework and Framework.ContextServices or nil
-local ContextItems = FFlagTerrainToolsUseDevFramework and require(Plugin.Src.ContextItems) or nil
-
-local withLocalization = not FFlagTerrainToolsUseDevFramework and UILibrary.Localizing.withLocalization or nil
-local withTheme = not FFlagTerrainToolsUseDevFramework and require(Plugin.Src.ContextServices.Theming).withTheme or nil
+local ContextServices = Framework.ContextServices
+local ContextItems = require(Plugin.Src.ContextItems)
 
 local Constants = require(Plugin.Src.Util.Constants)
 
@@ -53,7 +47,10 @@ function ToolButton:init()
 	end
 end
 
-function ToolButton:_render(theme, localization)
+function ToolButton:render()
+	local theme = self.props.Theme:get()
+	local localization = self.props.Localization:get()
+
 	local toolId = self.props.ToolId
 	local text = localization:getText("ToolName", toolId)
 	local layoutOrder = self.props.LayoutOrder
@@ -96,23 +93,9 @@ function ToolButton:_render(theme, localization)
 	})
 end
 
-function ToolButton:render()
-	if FFlagTerrainToolsUseDevFramework then
-		return self:_render(self.props.Theme:get(), self.props.Localization:get())
-	else
-		return withLocalization(function(localization)
-			return withTheme(function(theme)
-				return self:_render(theme, localization)
-			end)
-		end)
-	end
-end
-
-if FFlagTerrainToolsUseDevFramework then
-	ContextServices.mapToProps(ToolButton, {
-		Theme = ContextItems.UILibraryTheme,
-		Localization = ContextItems.UILibraryLocalization,
-	})
-end
+ContextServices.mapToProps(ToolButton, {
+	Theme = ContextItems.UILibraryTheme,
+	Localization = ContextItems.UILibraryLocalization,
+})
 
 return ToolButton

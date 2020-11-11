@@ -6,12 +6,23 @@ local RequestReason = require(Plugin.Core.Types.RequestReason)
 local Cryo = require(Plugin.Libs.Cryo)
 local RobloxAPI = require(Plugin.Libs.Framework).RobloxAPI
 
+local PageInfoHelper = require(Plugin.Core.Util.PageInfoHelper)
 local UpdatePageInfoAndSendRequest = require(Plugin.Core.Networking.Requests.UpdatePageInfoAndSendRequest)
 local StopAllSounds = require(Plugin.Core.Actions.StopAllSounds)
 
 local FFlagEnableDefaultSortFix2 = game:GetFastFlag("EnableDefaultSortFix2")
 local FFlagUseCategoryNameInToolbox = game:GetFastFlag("UseCategoryNameInToolbox")
 local FFlagToolboxShowRobloxCreatedAssetsForLuobu = game:GetFastFlag("ToolboxShowRobloxCreatedAssetsForLuobu")
+
+local FFlagFixLuobuVideoCategory = game:DefineFastFlag("FixLuobuVideoCategory", false)
+
+local function isVideo(categoryKey, categories)
+	if FFlagUseCategoryNameInToolbox then
+		return Category.categoryIsVideo(categoryKey)
+	else
+		return Category.categoryIsVideo(categories, categoryKey)
+	end
+end
 
 -- TODO rename categoryKey to categoryName when FFlagUseCategoryNameInToolbox is retired
 return function(networkInterface, settings, categoryKey)
@@ -28,9 +39,20 @@ return function(networkInterface, settings, categoryKey)
 
 		local creator = nil
 		if FFlagToolboxShowRobloxCreatedAssetsForLuobu and RobloxAPI:baseURLHasChineseHost() then
-			local currentTab = store:getState().pageInfo.currentTab
+			local currentTab
+			if FFlagFixLuobuVideoCategory then
+				currentTab = PageInfoHelper.getCurrentTab(store:getState().pageInfo)
+			else
+				currentTab = store:getState().pageInfo.currentTab
+			end
+			local categories = store:getState().pageInfo.categories
+
 			if currentTab == Category.MARKETPLACE_KEY then
-				creator = Category.CREATOR_ROBLOX
+				if FFlagFixLuobuVideoCategory and isVideo(categoryKey, categories) then
+					creator = Category.CREATOR_ROBLOX_DEVELOP_API
+				else
+					creator = Category.CREATOR_ROBLOX
+				end
 			end
 		end
 

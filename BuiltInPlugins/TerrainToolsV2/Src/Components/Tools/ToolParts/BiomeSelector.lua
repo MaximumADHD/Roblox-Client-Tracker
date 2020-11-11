@@ -1,5 +1,3 @@
-local FFlagTerrainToolsUseDevFramework = game:GetFastFlag("TerrainToolsUseDevFramework")
-
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
 local Roact = require(Plugin.Packages.Roact)
@@ -26,10 +24,15 @@ local BiomeOrder = {
 	Biome.Arctic,
 }
 
-local function BiomeSelector_render(props, theme, localization)
-	local selectBiome = props.selectBiome
-	local biomeSelection = props.biomeSelection
-	local layoutOrder = props.LayoutOrder
+local BiomeSelector = Roact.PureComponent:extend("BiomeSelector")
+
+function BiomeSelector:render()
+	local theme = self.props.Theme:get()
+	local localization = self.props.Localization:get()
+
+	local selectBiome = self.props.selectBiome
+	local biomeSelection = self.props.biomeSelection
+	local layoutOrder = self.props.LayoutOrder
 
 	local content = {
 		LayoutPadding = Roact.createElement("UIPadding", {
@@ -79,27 +82,9 @@ local function BiomeSelector_render(props, theme, localization)
 	})
 end
 
-if FFlagTerrainToolsUseDevFramework then
-	local BiomeSelector = Roact.PureComponent:extend("BiomeSelector")
+ContextServices.mapToProps(BiomeSelector, {
+	Theme = ContextItems.UILibraryTheme,
+	Localization = ContextItems.UILibraryLocalization,
+})
 
-	function BiomeSelector:render()
-		local theme = self.props.Theme:get()
-		local localization = self.props.Localization:get()
-
-		return BiomeSelector_render(self.props, theme, localization)
-	end
-
-	ContextServices.mapToProps(BiomeSelector, {
-		Theme = ContextItems.UILibraryTheme,
-		Localization = ContextItems.UILibraryLocalization,
-	})
-
-	return BiomeSelector
-else
-	return function (props)
-		local theme = props.theme
-		local localization = props.localization
-
-		return BiomeSelector_render(props, theme, localization)
-	end
-end
+return BiomeSelector

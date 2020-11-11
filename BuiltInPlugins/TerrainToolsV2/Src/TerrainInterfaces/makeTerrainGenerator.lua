@@ -1,12 +1,9 @@
-local FFlagTerrainToolsUseDevFramework = game:GetFastFlag("TerrainToolsUseDevFramework")
-
 local Plugin = script.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
-local UILibrary = not FFlagTerrainToolsUseDevFramework and require(Plugin.Packages.UILibrary) or nil
 
-local FrameworkUtil = FFlagTerrainToolsUseDevFramework and Framework.Util or nil
-local Signal = FFlagTerrainToolsUseDevFramework and FrameworkUtil.Signal or UILibrary.Util.Signal
+local FrameworkUtil = Framework.Util
+local Signal = FrameworkUtil.Signal
 
 local Constants = require(Plugin.Src.Util.Constants)
 local TerrainEnums = require(Plugin.Src.Util.TerrainEnums)
@@ -14,9 +11,7 @@ local Biome = TerrainEnums.Biome
 
 local quickWait = require(Plugin.Src.Util.quickWait)
 
-local AnalyticsService = game:GetService("RbxAnalyticsService")
 local ChangeHistoryService = game:GetService("ChangeHistoryService")
-local StudioService = game:GetService("StudioService")
 
 local mat = Enum.Material
 
@@ -611,19 +606,8 @@ return function(terrain, generateSettings, analytics)
 		local biomeBlendPercentInverse = 1 - biomeBlendPercent
 
 		local numVoxels = tostring(voxelSize.X * voxelSize.Y * voxelSize.Z)
-		if FFlagTerrainToolsUseDevFramework then
-			if analytics then
-				analytics:report("generateTerrain", numVoxels, biomeSize, seed)
-			end
-		else
-			AnalyticsService:SendEventDeferred("studio", "Terrain", "GenerateTerrain", {
-				userId = StudioService:GetUserId(),
-				numVoxels = numVoxels,
-				biomeSize = biomeSize,
-				seed = seed,
-				studioSId = AnalyticsService:GetSessionId(),
-				placeId = game.PlaceId,
-			})
+		if analytics then
+			analytics:report("generateTerrain", numVoxels, biomeSize, seed)
 		end
 
 		local biomePoints = table.create(9)

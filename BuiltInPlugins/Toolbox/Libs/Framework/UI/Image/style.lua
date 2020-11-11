@@ -7,12 +7,14 @@ local FlagsList = Util.Flags.new({
 	FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
 })
 
+local export: any
+
 if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
-	return {
+	export = {
 		Color = Color3.new(1, 1, 1), -- Full white so image is uncolored
 	}
 else
-	return function(theme, getColor)
+	export = function(theme, getColor)
 		local Default = Style.new({
 			Color = Color3.new(1, 1, 1), -- Full white so image is uncolored
 		})
@@ -22,3 +24,5 @@ else
 		}
 	end
 end
+
+return export

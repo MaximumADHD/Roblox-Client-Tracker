@@ -239,6 +239,12 @@ function Localization:getThumbnailStatus(status)
 	return self:_safeLocalize("Studio.Toolbox.ThumbnailStatus." .. status)
 end
 
+function Localization:getUploadWithFee(price)
+	return self:_safeLocalize("Studio.Toolbox.AssetConfigFooter.UploadWithFee", {
+		price = price,
+	})
+end
+
 function Localization:destroy()
 	if self._externalLocaleIdChangedConnection then
 		self._externalLocaleIdChangedConnection:Disconnect()
@@ -595,7 +601,7 @@ function Localization:_recalculateContent()
 			Upload = {
 				IDCopied = self:_safeLocalize("Studio.Toolbox.AssetConfigUpload.IDCopied")
 			},
-			
+
 			UploadResult = {
 				Success = self:_safeLocalize("Studio.Toolbox.AssetUploadResult.Success"),
 				Failure = self:_safeLocalize("Studio.Toolbox.AssetUploadResult.Failure"),

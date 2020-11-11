@@ -12,15 +12,17 @@ local FlagsList = Util.Flags.new({
 	FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
 })
 
+local export: any
+
 if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
-	return {
+	export = {
 		Background = Decoration.RoundBox,
 		BackgroundStyle = RoundBox,
 		ScrollingFrame = ScrollingFrame,
 		Padding = 1
 	}
 else
-	return function(theme, getColor)
+	export = function(theme, getColor)
 		local roundBox = RoundBox(theme, getColor)
 		local scrollingFrame = ScrollingFrame(theme, getColor)
 
@@ -36,3 +38,5 @@ else
 		}
 	end
 end
+
+return export

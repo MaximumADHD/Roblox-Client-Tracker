@@ -2,19 +2,13 @@
 	Displays panels associated with the BaseBrush tool
 ]]
 
-local FFlagTerrainToolsUseDevFramework = game:GetFastFlag("TerrainToolsUseDevFramework")
-
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
 local Roact = require(Plugin.Packages.Roact)
 
-local ContextServices = FFlagTerrainToolsUseDevFramework and Framework.ContextServices or nil
-local ContextItems = FFlagTerrainToolsUseDevFramework and require(Plugin.Src.ContextItems) or nil
-
-local StudioPlugin = not FFlagTerrainToolsUseDevFramework and require(Plugin.Src.ContextServices.StudioPlugin) or nil
-local TerrainInterface = not FFlagTerrainToolsUseDevFramework and require(Plugin.Src.ContextServices.TerrainInterface)
-	or nil
+local ContextServices = Framework.ContextServices
+local ContextItems = require(Plugin.Src.ContextItems)
 
 local TerrainBrush = require(Plugin.Src.TerrainInterfaces.TerrainBrushInstance)
 
@@ -31,17 +25,6 @@ local BaseBrush = Roact.PureComponent:extend(script.Name)
 
 function BaseBrush:init()
 	assert(TerrainEnums.ToolId[self.props.toolName], "Cannot use BaseBrush if brush type is not known")
-
-	if not FFlagTerrainToolsUseDevFramework then
-		self.pluginActivationController = TerrainInterface.getPluginActivationController(self)
-		assert(self.pluginActivationController, "BaseBrush requires a PluginActivationController from context")
-
-		self.terrainBrush = TerrainBrush.new({
-			terrain = TerrainInterface.getTerrain(self),
-			mouse = StudioPlugin.getPlugin(self):GetMouse(),
-			tool = self.props.toolName,
-		})
-	end
 
 	-- Ordered array of connections to signals
 	-- Disconnected in willUnmount() in reverse order of connection
@@ -153,16 +136,10 @@ function BaseBrush:init()
 			self.terrainBrush:start()
 		end)
 	end
-
-	if not FFlagTerrainToolsUseDevFramework then
-		self:_connectEvents()
-	end
 end
 
 function BaseBrush:_connectEvents()
-	local pluginActivationController = FFlagTerrainToolsUseDevFramework
-		and self.props.PluginActivationController
-		or self.pluginActivationController
+	local pluginActivationController = self.props.PluginActivationController
 
 	table.insert(self.connections, pluginActivationController:subscribeToToolDeactivated(function(toolId)
 		-- Stop the terrain brush if the tool that was deselected is my tool
@@ -226,16 +203,14 @@ function BaseBrush:didUpdate(previousProps, previousState)
 end
 
 function BaseBrush:didMount()
-	if FFlagTerrainToolsUseDevFramework then
-		self.terrainBrush = TerrainBrush.new({
-			terrain = self.props.Terrain:get(),
-			mouse = self.props.Mouse:get(),
-			analytics = self.props.Analytics,
-			tool = self.props.toolName,
-		})
+	self.terrainBrush = TerrainBrush.new({
+		terrain = self.props.Terrain:get(),
+		mouse = self.props.Mouse:get(),
+		analytics = self.props.Analytics,
+		tool = self.props.toolName,
+	})
 
-		self:_connectEvents()
-	end
+	self:_connectEvents()
 
 	self.updateBrushProperties()
 	self.startBrush()
@@ -328,13 +303,11 @@ function BaseBrush:render()
 	})
 end
 
-if FFlagTerrainToolsUseDevFramework then
-	ContextServices.mapToProps(BaseBrush, {
-		Mouse = ContextServices.Mouse,
-		Analytics = ContextServices.Analytics,
-		Terrain = ContextItems.Terrain,
-		PluginActivationController = ContextItems.PluginActivationController,
-	})
-end
+ContextServices.mapToProps(BaseBrush, {
+	Mouse = ContextServices.Mouse,
+	Analytics = ContextServices.Analytics,
+	Terrain = ContextItems.Terrain,
+	PluginActivationController = ContextItems.PluginActivationController,
+})
 
 return BaseBrush

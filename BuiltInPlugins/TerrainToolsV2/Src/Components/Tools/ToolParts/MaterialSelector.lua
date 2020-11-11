@@ -8,19 +8,13 @@ Props:
 	AllowAir : boolean = false - Whether to show Air in the materials grid
 ]]
 
-local FFlagTerrainToolsUseDevFramework = game:GetFastFlag("TerrainToolsUseDevFramework")
-
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
 local Roact = require(Plugin.Packages.Roact)
-local UILibrary = not FFlagTerrainToolsUseDevFramework and require(Plugin.Packages.UILibrary) or nil
 
-local ContextServices = FFlagTerrainToolsUseDevFramework and Framework.ContextServices or nil
-local ContextItems = FFlagTerrainToolsUseDevFramework and require(Plugin.Src.ContextItems) or nil
-
-local withLocalization = not FFlagTerrainToolsUseDevFramework and UILibrary.Localizing.withLocalization or nil
-local withTheme = not FFlagTerrainToolsUseDevFramework and require(Plugin.Src.ContextServices.Theming).withTheme or nil
+local ContextServices = Framework.ContextServices
+local ContextItems = require(Plugin.Src.ContextItems)
 
 local TextService = game:GetService("TextService")
 
@@ -78,7 +72,9 @@ do
 		end
 	end
 
-	function MaterialTooltip:_render(theme)
+	function MaterialTooltip:render()
+		local theme = self.props.Theme:get()
+
 		local materialName = self.props.MaterialName
 		local tooltipSize = TextService:GetTextSize(materialName, theme.textSize, 0, Vector2.new())
 
@@ -98,21 +94,9 @@ do
 		})
 	end
 
-	function MaterialTooltip:render()
-		if FFlagTerrainToolsUseDevFramework then
-			return self:_render(self.props.Theme:get())
-		else
-			return withTheme(function(theme)
-				return self:_render(theme)
-			end)
-		end
-	end
-
-	if FFlagTerrainToolsUseDevFramework then
-		ContextServices.mapToProps(MaterialTooltip, {
-			Theme = ContextItems.UILibraryTheme,
-		})
-	end
+	ContextServices.mapToProps(MaterialTooltip, {
+		Theme = ContextItems.UILibraryTheme,
+	})
 
 	function MaterialButton:init(props)
 		self.onMouseEnter = function()
@@ -128,7 +112,10 @@ do
 		end
 	end
 
-	function MaterialButton:_render(theme, localization)
+	function MaterialButton:render()
+		local theme = self.props.Theme:get()
+		local localization = self.props.Localization:get()
+
 		local props = self.props
 		local layoutOrder = props.LayoutOrder
 		local material = props.Material
@@ -161,24 +148,10 @@ do
 		})
 	end
 
-	function MaterialButton:render()
-		if FFlagTerrainToolsUseDevFramework then
-			return self:_render(self.props.Theme:get(), self.props.Localization:get())
-		else
-			return withLocalization(function(localization)
-				return withTheme(function(theme)
-					return self:_render(theme, localization)
-				end)
-			end)
-		end
-	end
-
-	if FFlagTerrainToolsUseDevFramework then
-		ContextServices.mapToProps(MaterialButton, {
-			Theme = ContextItems.UILibraryTheme,
-			Localization = ContextItems.UILibraryLocalization,
-		})
-	end
+	ContextServices.mapToProps(MaterialButton, {
+		Theme = ContextItems.UILibraryTheme,
+		Localization = ContextItems.UILibraryLocalization,
+	})
 end
 
 function MaterialSelector:init(props)
@@ -203,7 +176,10 @@ function MaterialSelector:init(props)
 	end
 end
 
-function MaterialSelector:_render(theme, localization)
+function MaterialSelector:render()
+	local theme = self.props.Theme:get()
+	local localization = self.props.Localization:get()
+
 	local layoutOrder = self.props.LayoutOrder or 1
 	local material = self.props.material
 
@@ -270,24 +246,9 @@ function MaterialSelector:_render(theme, localization)
 	})
 end
 
-function MaterialSelector:render()
-	if FFlagTerrainToolsUseDevFramework then
-		return self:_render(self.props.Theme:get(), self.props.Localization:get())
-
-	else
-		return withLocalization(function(localization)
-			return withTheme(function(theme)
-				return self:_render(theme, localization)
-			end)
-		end)
-	end
-end
-
-if FFlagTerrainToolsUseDevFramework then
-	ContextServices.mapToProps(MaterialSelector, {
-		Theme = ContextItems.UILibraryTheme,
-		Localization = ContextItems.UILibraryLocalization,
-	})
-end
+ContextServices.mapToProps(MaterialSelector, {
+	Theme = ContextItems.UILibraryTheme,
+	Localization = ContextItems.UILibraryLocalization,
+})
 
 return MaterialSelector

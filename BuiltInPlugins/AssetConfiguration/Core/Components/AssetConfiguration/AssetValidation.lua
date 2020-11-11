@@ -13,6 +13,8 @@
 		onClose callback, called when the user presses the "cancel" button
 ]]
 
+local FFlagCMSUploadFees = game:GetFastFlag("CMSUploadFees")
+
 local CorePackages = game:GetService("CorePackages")
 
 local Plugin = script.Parent.Parent.Parent.Parent
@@ -74,25 +76,47 @@ function AssetValidation:init(props)
 		isLoading = true,
 	}
 
-	if AssetConfigUtil.isMarketplaceAsset(self.props.assetTypeEnum) or
-		self.props.assetTypeEnum == Enum.AssetType.Model or
-		self.props.assetTypeEnum == Enum.AssetType.Animation then
-		self.props.nextScreen()
+	if FFlagCMSUploadFees then
+		if AssetConfigUtil.isCatalogAsset(self.props.assetTypeEnum) then
+			UGCValidation.validateAsync(self.props.instances, self.props.assetTypeEnum, function(success, reasons)
+				if success then
+					self:setState({ onFinish = self.props.nextScreen })
+				else
+					self:setState({
+						onFinish = function()
+							self:setState({
+								isLoading = false,
+								reasons = reasons
+							})
+						end
+					})
+				end
+			end)
+		else
+			-- skip validation for non-catalog assets
+			self.props.nextScreen()
+		end
 	else
-		UGCValidation.validateAsync(self.props.instances, self.props.assetTypeEnum, function(success, reasons)
-			if success then
-				self:setState({ onFinish = self.props.nextScreen })
-			else
-				self:setState({
-					onFinish = function()
-						self:setState({
-							isLoading = false,
-							reasons = reasons
-						})
-					end
-				})
-			end
-		end)
+		if AssetConfigUtil.isMarketplaceAsset(self.props.assetTypeEnum) or
+			self.props.assetTypeEnum == Enum.AssetType.Model or
+			self.props.assetTypeEnum == Enum.AssetType.Animation then
+			self.props.nextScreen()
+		else
+			UGCValidation.validateAsync(self.props.instances, self.props.assetTypeEnum, function(success, reasons)
+				if success then
+					self:setState({ onFinish = self.props.nextScreen })
+				else
+					self:setState({
+						onFinish = function()
+							self:setState({
+								isLoading = false,
+								reasons = reasons
+							})
+						end
+					})
+				end
+			end)
+		end
 	end
 end
 

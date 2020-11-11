@@ -15,8 +15,6 @@
 		onPriceChange, function, price has changed
 ]]
 
-local FFlagEnableNonWhitelistedToggle = game:GetFastFlag("EnableNonWhitelistedToggle")
-
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local ContentProvider = game:GetService("ContentProvider")
@@ -83,13 +81,7 @@ function SalesPage:render()
 			-- When we are in this page, sales and price are default to available.
 			-- Only when for marketplace buyable, and none whitelist user, we hide the price.
 			-- And the sales will only be toggle between Free and OffSale.
-			local showPrice = true
-			if FFlagEnableNonWhitelistedToggle then
-				-- Only none whileList and marketplace buy will have no price
-				if not allowedAssetTypesForRelease[assetTypeEnum.Name] then
-					showPrice = false
-				end
-			end
+			local showPrice = allowedAssetTypesForRelease[assetTypeEnum.Name]
 
 			local premiumBenefitsLink
 			local premiumBenefitsSize

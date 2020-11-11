@@ -16,8 +16,10 @@ local Decoration = UI.Decoration
 local StudioFrameworkStyles = Framework.StudioUI.StudioFrameworkStyles
 local Common = require(StudioFrameworkStyles.Common)
 
+local export: any
+
 if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
-	return {
+	export = {
 		Background = Decoration.Image,
 		BackgroundStyle = {
 			Image = StyleKey.ToggleOffImage,
@@ -51,7 +53,7 @@ if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
 		},
 	}
 else
-	return function(theme, getColor)
+	export = function(theme, getColor)
 		local common = Common(theme, getColor)
 		local themeName = theme.Name
 
@@ -110,3 +112,5 @@ else
 		}
 	end
 end
+
+return export

@@ -3,16 +3,16 @@
 	It will need to display tabs, and change pages acorrding to current tab selection.
 
 	Necessary props:
-	assetId, numeber, will be used to request assetData on didMount.
+	assetId, number, will be used to request assetData on didMount.
 ]]
 
 local FFlagAssetConfigOverrideFromAnyScreen = game:DefineFastFlag("AssetConfigOverrideFromAnyScreen", false)
 local FFlagCanPublishDefaultAsset = game:DefineFastFlag("CanPublishDefaultAsset", false)
 local FFlagShowAssetConfigReasons2 = game:GetFastFlag("ShowAssetConfigReasons2")
-local FFlagEnableNonWhitelistedToggle = game:GetFastFlag("EnableNonWhitelistedToggle")
 local FFlagAssetConfigUseItemConfig = game:GetFastFlag("AssetConfigUseItemConfig")
 local FFlagAssetConfigBlockUntilReadyToEdit = game:DefineFastFlag("AssetConfigBlockUntilReadyToEdit", false)
 local FFlagAssetConfigEnforceNonEmptyDescription = game:DefineFastFlag("AssetConfigEnforceNonEmptyDescription", false)
+local FFlagCMSUploadFees = game:GetFastFlag("CMSUploadFees")
 
 local StudioService = game:GetService("StudioService")
 
@@ -70,6 +70,8 @@ local GetPackageCollaboratorsRequest = require(Requests.GetPackageCollaboratorsR
 local PutPackagePermissionsRequest = require(Requests.PutPackagePermissionsRequest)
 local GetPackageHighestPermission = require(Requests.GetPackageHighestPermission)
 local GetMarketplaceInfoRequest = require(Requests.GetMarketplaceInfoRequest)
+local AvatarAssetsGetUploadFeeRequest = require(Requests.AvatarAssetsGetUploadFeeRequest)
+local AvatarAssetsUploadRequest = require(Requests.AvatarAssetsUploadRequest)
 
 local ClearChange = require(Plugin.Core.Actions.ClearChange)
 local SetAssetConfigTab = require(Plugin.Core.Actions.SetAssetConfigTab)
@@ -220,15 +222,27 @@ function AssetConfig:init(props)
 						})
 					end
 				elseif AssetConfigUtil.isCatalogAsset(props.assetTypeEnum) then
-					props.uploadCatalogItem(
-						getNetwork(self),
-						self.state.name,
-						getExtension(props.allowedAssetTypesForUpload, props.assetTypeEnum),
-						self.state.description or "",
-						props.assetTypeEnum,
-						props.instances,
-						self.state.tags
-					)
+					if FFlagCMSUploadFees and props.isUploadFeeEnabled then
+						props.uploadCatalogItemWithFee(
+							getNetwork(self),
+							self.state.name,
+							getExtension(props.allowedAssetTypesForUpload, props.assetTypeEnum),
+							self.state.description or "",
+							props.assetTypeEnum,
+							props.instances,
+							self.state.tags
+						)
+					else
+						props.uploadCatalogItem(
+							getNetwork(self),
+							self.state.name,
+							getExtension(props.allowedAssetTypesForUpload, props.assetTypeEnum),
+							self.state.description or "",
+							props.assetTypeEnum,
+							props.instances,
+							self.state.tags
+						)
+					end
 				elseif AssetConfigUtil.isMarketplaceAsset(props.assetTypeEnum) and
 					ConfigTypes:isOverride(props.currentTab) then
 					-- Only need assetId from existing asset
@@ -587,6 +601,10 @@ function AssetConfig:didMount()
 		end
 
 		self.props.getIsVerifiedCreator(getNetwork(self))
+
+		if FFlagCMSUploadFees and AssetConfigUtil.isCatalogAsset(self.props.assetTypeEnum) then
+			self.props.getCatalogItemUploadFee(getNetwork(self), self.props.assetTypeEnum, self.props.instances)
+		end
 	end
 end
 
@@ -597,10 +615,7 @@ end
 local function validatePrice(text, minPrice, maxPrice, assetStatus)
 	local result = true
 
-	local shouldValidate = AssetConfigConstants.ASSET_STATUS.OnSale == assetStatus
-	if FFlagEnableNonWhitelistedToggle then
-		shouldValidate = shouldValidate and text ~= nil
-	end
+	local shouldValidate = AssetConfigConstants.ASSET_STATUS.OnSale == assetStatus and text ~= nil
 
 	if shouldValidate and AssetConfigConstants.ASSET_STATUS.OnSale == assetStatus then
 		result = false
@@ -971,6 +986,7 @@ local function mapStateToProps(state, props)
 		isItemTagsFeatureEnabled = state.isItemTagsFeatureEnabled,
 		enabledAssetTypesForItemTags = state.enabledAssetTypesForItemTags,
 		maximumItemTagsPerItem = state.maximumItemTagsPerItem,
+		isUploadFeeEnabled = state.isUploadFeeEnabled,
 	}
 end
 
@@ -1034,6 +1050,14 @@ local function mapDispatchToProps(dispatch)
 
 		getIsVerifiedCreator = function(networkInterface)
 			dispatch(GetIsVerifiedCreatorRequest(networkInterface))
+		end,
+
+		getCatalogItemUploadFee = function(networkInterface, assetTypeEnum, instances)
+			dispatch(AvatarAssetsGetUploadFeeRequest(networkInterface, assetTypeEnum, instances))
+		end,
+
+		uploadCatalogItemWithFee = function(networkInterface, nameWithoutExtension, extension, description, assetTypeEnum, instances, tags)
+			dispatch(AvatarAssetsUploadRequest(networkInterface, nameWithoutExtension, extension, description, assetTypeEnum, instances, tags))
 		end,
 
 		dispatchPostPackageMetadataRequest = function(networkInterface, assetId)

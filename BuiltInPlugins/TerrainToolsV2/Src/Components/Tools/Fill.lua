@@ -2,20 +2,14 @@
 	Displays panels associated with the Fill tool
 ]]
 
-local FFlagTerrainToolsUseDevFramework = game:GetFastFlag("TerrainToolsUseDevFramework")
-
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
-local UILibrary = not FFlagTerrainToolsUseDevFramework and require(Plugin.Packages.UILibrary) or nil
 
-local ContextServices = FFlagTerrainToolsUseDevFramework and Framework.ContextServices or nil
-local ContextItems = FFlagTerrainToolsUseDevFramework and require(Plugin.Src.ContextItems) or nil
-
-local withLocalization = not FFlagTerrainToolsUseDevFramework and UILibrary.Localizing.withLocalization or nil
-local withTheme = not FFlagTerrainToolsUseDevFramework and require(Plugin.Src.ContextServices.Theming).withTheme or nil
+local ContextServices = Framework.ContextServices
+local ContextItems = require(Plugin.Src.ContextItems)
 
 local ToolParts = Plugin.Src.Components.Tools.ToolParts
 local ButtonGroup = require(ToolParts.ButtonGroup)
@@ -58,7 +52,9 @@ function Fill:didMount()
 	self.updateProperties()
 end
 
-function Fill:_render(localization)
+function Fill:render()
+	local localization = self.props.Localization:get()
+
 	local mergeEmpty = self.props.mergeEmpty
 	local material = self.props.material
 
@@ -89,23 +85,9 @@ function Fill:_render(localization)
 	})
 end
 
-function Fill:render()
-	if FFlagTerrainToolsUseDevFramework then
-		return self:_render(self.props.Localization:get())
-	else
-		return withLocalization(function(localization)
-			return withTheme(function(theme)
-				return self:_render(localization)
-			end)
-		end)
-	end
-end
-
-if FFlagTerrainToolsUseDevFramework then
-	ContextServices.mapToProps(Fill, {
-		Localization = ContextItems.UILibraryLocalization,
-	})
-end
+ContextServices.mapToProps(Fill, {
+	Localization = ContextItems.UILibraryLocalization,
+})
 
 local function mapStateToProps(state, props)
 	return {

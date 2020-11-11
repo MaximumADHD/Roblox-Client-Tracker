@@ -237,7 +237,7 @@ function PromptSelectorWithPreview:render()
 				PreviewContentContainer = Roact.createElement("Frame", {
 					ZIndex = 3,
 					Size = UDim2.new(1, 0, 1, 0),
-					BackgroundTransparency = 1,
+					BackgroundColor3 = theme.backgroundColor,
 					BorderSizePixel = 0,
 				}, {
 					PreviewContent = previewRenderResult,

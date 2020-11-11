@@ -1,17 +1,13 @@
-local FFlagTerrainToolsUseDevFramework = game:GetFastFlag("TerrainToolsUseDevFramework")
+local FFlagTerrainToolsRedesignProgressDialog = game:GetFastFlag("TerrainToolsRedesignProgressDialog")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
-local UILibrary = not FFlagTerrainToolsUseDevFramework and require(Plugin.Packages.UILibrary) or nil
 
-local ContextServices = FFlagTerrainToolsUseDevFramework and Framework.ContextServices or nil
-local ContextItems = FFlagTerrainToolsUseDevFramework and require(Plugin.Src.ContextItems) or nil
-local StudioPlugin = not FFlagTerrainToolsUseDevFramework and require(Plugin.Src.ContextServices.StudioPlugin) or nil
-
-local withLocalization = not FFlagTerrainToolsUseDevFramework and UILibrary.Localizing.withLocalization or nil
+local ContextServices = Framework.ContextServices
+local ContextItems = require(Plugin.Src.ContextItems)
 
 local ToolParts = Plugin.Src.Components.Tools.ToolParts
 local BiomeSettingsFragment = require(ToolParts.BiomeSettingsFragment)
@@ -23,14 +19,12 @@ local OtherGenerateSettings = require(ToolParts.OtherGenerateSettings)
 local Panel = require(ToolParts.Panel)
 local SingleSelectButtonGroup = require(ToolParts.SingleSelectButtonGroup)
 
-local ConvertProgressFrame = require(Plugin.Src.Components.ConvertProgressFrame)
+local DEPRECATED_ConvertProgressFrame = require(Plugin.Src.Components.DEPRECATED_ConvertProgressFrame)
+local ProgressDialog = require(Plugin.Src.Components.ProgressDialog)
 
 local TerrainEnums = require(Plugin.Src.Util.TerrainEnums)
 local ConvertMode = TerrainEnums.ConvertMode
 local ConvertPartWarning = TerrainEnums.ConvertPartWarning
-
-local TerrainInterface = not FFlagTerrainToolsUseDevFramework and require(Plugin.Src.ContextServices.TerrainInterface)
-	or nil
 
 local PartConverter = require(Plugin.Src.TerrainInterfaces.PartConverter)
 local PartConverterUtil = require(Plugin.Src.Util.PartConverterUtil)
@@ -79,23 +73,10 @@ function ConvertPart:init()
 
 	self.connections = {}
 
-	if FFlagTerrainToolsUseDevFramework then
-		self.state = {
-			hasValidInstances = self.partSelectionModel:hasValidInstances(),
-			warnings = self.partSelectionModel:getWarnings(),
-		}
-	else
-		self.partConverter = TerrainInterface.getPartConverter(self)
-		self.state = {
-			hasValidInstances = self.partSelectionModel:hasValidInstances(),
-			warnings = self.partSelectionModel:getWarnings(),
-
-			progress = self.partConverter:getProgress(),
-			isRunning = self.partConverter:isRunning(),
-			isPaused = self.partConverter:isPaused(),
-			convertState = self.partConverter:getConvertState(),
-		}
-	end
+	self.state = {
+		hasValidInstances = self.partSelectionModel:hasValidInstances(),
+		warnings = self.partSelectionModel:getWarnings(),
+	}
 
 	self.selectBiome = function(biome)
 		local biomes = self.props.biomeSelection
@@ -126,8 +107,7 @@ function ConvertPart:init()
 	end
 
 	self.onConvertBiomeClicked = function()
-		local partConverter = FFlagTerrainToolsUseDevFramework and self.props.PartConverter or self.partConverter
-		partConverter:convertInstancesToBiome(
+		self.props.PartConverter:convertInstancesToBiome(
 			self.partSelectionModel:getValidInstancesSet(),
 			{
 				biomeSelection = self.props.biomeSelection,
@@ -140,8 +120,7 @@ function ConvertPart:init()
 	end
 
 	self.onConvertMaterialClicked = function()
-		local partConverter = FFlagTerrainToolsUseDevFramework and self.props.PartConverter or self.partConverter
-		partConverter:convertInstancesToMaterial(
+		self.props.PartConverter:convertInstancesToMaterial(
 			self.partSelectionModel:getValidInstancesSet(),
 			self.props.convertMaterial
 		)
@@ -156,13 +135,11 @@ function ConvertPart:init()
 	end
 
 	self.onPauseClicked = function()
-		local partConverter = FFlagTerrainToolsUseDevFramework and self.props.PartConverter or self.partConverter
-		partConverter:togglePause()
+		self.props.PartConverter:togglePause()
 	end
 
 	self.onCancelClicked = function()
-		local partConverter = FFlagTerrainToolsUseDevFramework and self.props.PartConverter or self.partConverter
-		partConverter:cancel()
+		self.props.PartConverter:cancel()
 	end
 
 	self.onSelectionChanged = function()
@@ -180,7 +157,7 @@ function ConvertPart:init()
 					if self.midPlanePreview then
 						self.midPlanePreview:updatePlaneScaling(min,max)
 					else
-						local plugin = FFlagTerrainToolsUseDevFramework and self.props.Plugin or StudioPlugin.getPlugin(self)
+						local plugin = self.props.Plugin
 						self.midPlanePreview = MidPlanePreview.new(plugin, Workspace, min, max)
 						local mid = (min + max) * 0.5
 						self.setPlanePositionY(mid.y)
@@ -199,43 +176,6 @@ function ConvertPart:init()
 end
 
 function ConvertPart:didMount()
-	local partConverter = FFlagTerrainToolsUseDevFramework and self.props.PartConverter or self.partConverter
-
-	if not FFlagTerrainToolsUseDevFramework then
-		self.connections.convertStateChangedConnection = partConverter:subscribeToConvertStateChanged(
-			function(convertState)
-			self:setState({
-				convertState = convertState,
-			})
-		end)
-
-		self.connections.runningChangedConnection = partConverter:subscribeToRunningChanged(function(running)
-			if not running then
-				self:setState({
-					isRunning = running,
-					progress = 0,
-					isPaused = false,
-				})
-			else
-				self:setState({
-					isRunning = running,
-				})
-			end
-		end)
-
-		self.connections.progressChangedConnection = partConverter:subscribeToProgressChanged(function(progress)
-			self:setState({
-				progress = progress,
-			})
-		end)
-
-		self.connections.pausedChangedConnection = partConverter:subscribeToPausedChanged(function(paused)
-			self:setState({
-				isPaused = paused,
-			})
-		end)
-	end
-
 	self.connections.selectionStateChangedConnection = self.partSelectionModel:subscribeToSelectionStateChanged(function()
 		self:onSelectionChanged()
 
@@ -245,7 +185,7 @@ function ConvertPart:didMount()
 		})
 	end)
 
-	partConverter:setSelectionModel(self.partSelectionModel)
+	self.props.PartConverter:setSelectionModel(self.partSelectionModel)
 	self.onSelectionChanged()
 end
 
@@ -254,8 +194,7 @@ function ConvertPart:didUpdate()
 end
 
 function ConvertPart:willUnmount()
-	local partConverter = FFlagTerrainToolsUseDevFramework and self.props.PartConverter or self.partConverter
-	partConverter:setSelectionModel(nil)
+	self.props.PartConverter:setSelectionModel(nil)
 
 	for _, connection in pairs(self.connections) do
 		connection:Disconnect()
@@ -272,23 +211,13 @@ function ConvertPart:willUnmount()
 	end
 end
 
-function ConvertPart:_render(localization)
-	local progress
-	local isRunning
-	local isPaused
-	local convertState
+function ConvertPart:render()
+	local localization = self.props.Localization:get()
 
-	if FFlagTerrainToolsUseDevFramework then
-		isRunning = self.props.PartConverter:isRunning()
-		progress = isRunning and self.props.PartConverter:getProgress() or 0
-		isPaused = isRunning and self.props.PartConverter:isPaused() or false
-		convertState = self.props.PartConverter:getConvertState()
-	else
-		progress = self.state.progress
-		isRunning = self.state.isRunning
-		isPaused = self.state.isPaused
-		convertState = self.state.convertState
-	end
+	local isRunning = self.props.PartConverter:isRunning()
+	local progress = isRunning and self.props.PartConverter:getProgress() or 0
+	local isPaused = isRunning and self.props.PartConverter:isPaused() or false
+	local convertState = self.props.PartConverter:getConvertState()
 
 	local convertMode = self.props.convertMode
 
@@ -427,34 +356,34 @@ function ConvertPart:_render(localization)
 			}
 		}),
 
-		ConvertProgressFrame = isRunning and Roact.createElement(ConvertProgressFrame, {
+		DEPRECATED_ConvertProgressFrame = not FFlagTerrainToolsRedesignProgressDialog and (isRunning
+		and Roact.createElement(DEPRECATED_ConvertProgressFrame, {
 			Progress = progress,
 			IsPaused = isPaused,
 
 			Title = localizedConvertState,
 			OnPauseRequested = self.onPauseClicked,
 			OnCancelRequested = self.onCancelClicked,
-		}),
+		})),
+
+		ProgressDialog = FFlagTerrainToolsRedesignProgressDialog and (isRunning and Roact.createElement(ProgressDialog, {
+			Title = localization:getText("ConvertPart", "ConvertProgressTitle"),
+			SubText = localizedConvertState,
+
+			Progress = progress,
+			IsPaused = isPaused,
+
+			OnPauseButtonClicked = self.onPauseClicked,
+			OnCancelButtonClicked = self.onCancelClicked,
+		})),
 	})
 end
 
-function ConvertPart:render()
-	if FFlagTerrainToolsUseDevFramework then
-		return self:_render(self.props.Localization:get())
-	else
-		return withLocalization(function(localization)
-			return self:_render(localization)
-		end)
-	end
-end
-
-if FFlagTerrainToolsUseDevFramework then
-	ContextServices.mapToProps(ConvertPart, {
-		Plugin = ContextServices.Plugin,
-		Localization = ContextItems.UILibraryLocalization,
-		PartConverter = ContextItems.PartConverter,
-	})
-end
+ContextServices.mapToProps(ConvertPart, {
+	Plugin = ContextServices.Plugin,
+	Localization = ContextItems.UILibraryLocalization,
+	PartConverter = ContextItems.PartConverter,
+})
 
 local function mapStateToProps(state, props)
 	return {

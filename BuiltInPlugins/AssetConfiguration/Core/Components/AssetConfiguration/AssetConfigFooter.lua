@@ -15,6 +15,8 @@
 	override the Position of the whole component.
 ]]
 
+local FFlagCMSUploadFees = game:GetFastFlag("CMSUploadFees")
+
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Libs = Plugin.Libs
@@ -27,6 +29,7 @@ local ContextHelper = require(Util.ContextHelper)
 local Constants = require(Util.Constants)
 local ScreenSetup = require(Util.ScreenSetup)
 local AssetConfigConstants = require(Util.AssetConfigConstants)
+local AssetConfigUtil = require(Util.AssetConfigUtil)
 
 local FrameworkUtil = require(Libs.Framework.Util)
 
@@ -51,10 +54,9 @@ local LinkButton = require(AssetConfiguration.LinkButton)
 local AssetConfigFooter = Roact.PureComponent:extend("AssetConfigFooter")
 
 local FFlagSupportAnimImportByID = game:DefineFastFlag("SupportAnimImportByID", false)
-local FFlagEnableOverrideAssetCursorFix = game:GetFastFlag("EnableOverrideAssetCursorFix")
 local FFlagAssetConfigFixBadIdVerifyState = game:GetFastFlag("AssetConfigFixBadIdVerifyState")
 
-local BUTTON_HEIGHT = 32
+local BUTTON_HEIGHT = FFlagCMSUploadFees and 40 or 32
 local BUTTON_WIDTH = 120
 local LINK_BUTTON_HEIGHT = 20
 local IMPORT_BOX_WIDTH = 160
@@ -117,7 +119,7 @@ end
 
 function AssetConfigFooter:render()
 	return withTheme(function(theme)
-		return withLocalization(function(_, localizedContent)
+		return withLocalization(function(localization, localizedContent)
 			local props = self.props
 			local state = self.state
 
@@ -145,17 +147,10 @@ function AssetConfigFooter:render()
 
 			local showOverride = ScreenSetup.queryParam(screenFlowType, assetTypeEnum, ScreenSetup.keys.SHOW_OVERRIDE_BUTTON)
 			local overrideText
-			if FFlagEnableOverrideAssetCursorFix then
-				if ConfigTypes:isOverride(currentTab) then
-					overrideText = localizedContent.AssetConfig.Footer.NewAsset
-				else
-					overrideText = localizedContent.AssetConfig.Footer.Override
-				end
+			if ConfigTypes:isOverride(currentTab) then
+				overrideText = localizedContent.AssetConfig.Footer.NewAsset
 			else
 				overrideText = localizedContent.AssetConfig.Footer.Override
-				if ConfigTypes:isOverride(currentTab) then
-					overrideText = localizedContent.AssetConfig.Footer.NewAsset
-				end
 			end
 
 			local useNewAnimFlow = FFlagSupportAnimImportByID and assetTypeEnum == Enum.AssetType.Animation and ConfigTypes:isOverride(currentTab)
@@ -168,6 +163,19 @@ function AssetConfigFooter:render()
 					publishActive = validateAnimationSucceeded
 				-- thumbnail selected but id in box is invalid
 				elseif not validateAnimationSucceeded then
+					publishActive = false
+				end
+			end
+
+			local publishText = localizedContent.AssetConfig.Apply
+			if FFlagCMSUploadFees and screenFlowType == AssetConfigConstants.FLOW_TYPE.UPLOAD_FLOW and AssetConfigUtil.isCatalogAsset(assetTypeEnum) then
+				if props.isUploadFeeEnabled then
+					publishText = localization:getUploadWithFee(props.uploadFee)
+					if not props.canAffordUploadFee then
+						publishActive = false
+					end
+				elseif props.isUploadFeeEnabled == nil then
+					-- upload fee info hasn't loaded yet (not true/false)
 					publishActive = false
 				end
 			end
@@ -248,7 +256,7 @@ function AssetConfigFooter:render()
 					BorderMatchesBackground = true,
 					Size = UDim2.new(0, BUTTON_WIDTH, 0, BUTTON_HEIGHT),
 					Active = publishActive,
-					Name = localizedContent.AssetConfig.Apply,
+					Name = publishText,
 					TextSize = Constants.FONT_SIZE_MEDIUM,
 
 					OnClicked = FFlagSupportAnimImportByID and function() tryPublish(self.state.animationId) end or tryPublish,
@@ -278,6 +286,9 @@ local function mapStateToProps(state, props)
 		instances = state.instances,
 		screenFlowType = state.screenFlowType,
 		assetTypeEnum = state.assetTypeEnum,
+		isUploadFeeEnabled = state.isUploadFeeEnabled,
+		uploadFee = state.uploadFee,
+		canAffordUploadFee = state.canAffordUploadFee,
 	}
 
 	if FFlagSupportAnimImportByID then
