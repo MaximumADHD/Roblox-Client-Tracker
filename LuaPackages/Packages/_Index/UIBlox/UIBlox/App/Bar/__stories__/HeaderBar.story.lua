@@ -16,40 +16,42 @@ local IconButton = require(UIBlox.App.Button.IconButton)
 local TextButton = require(UIBlox.App.Button.TextButton)
 local ImageSetComponent = require(UIBlox.Core.ImageSet.ImageSetComponent)
 
+local renderRightIcons = function()
+	return Roact.createFragment({
+		search = Roact.createElement(IconButton, {
+			iconSize = IconSize.Medium,
+			icon = Images["icons/common/search"],
+			onActivated = function()
+				print("Opening Search!")
+			end,
+			layoutOrder = 1,
+		}),
+		premium = Roact.createElement(IconButton, {
+			iconSize = IconSize.Medium,
+			icon = Images["icons/common/goldrobux"],
+			onActivated = function()
+				print("Oooh Shiny!")
+			end,
+			layoutOrder = 2,
+		}),
+		alert = Roact.createElement(IconButton, {
+			iconSize = IconSize.Medium,
+			icon = Images["icons/common/notificationOn"],
+			onActivated = function()
+				print("Alert!")
+			end,
+			layoutOrder = 3,
+		}),
+	})
+end
+
 local function BarDemo()
 	return Roact.createElement(HeaderBar, {
 		title = string.rep("Header Bar Story", 1),
 		renderLeft = HeaderBar.renderLeft.backButton(function()
 			print("navProps.navigation.pop()")
 		end),
-		renderRight = function()
-			return Roact.createFragment({
-				search = Roact.createElement(IconButton, {
-					iconSize = IconSize.Medium,
-					icon = Images["icons/common/search"],
-					onActivated = function()
-						print("Opening Search!")
-					end,
-					layoutOrder = 1,
-				}),
-				premium = Roact.createElement(IconButton, {
-					iconSize = IconSize.Medium,
-					icon = Images["icons/common/goldrobux"],
-					onActivated = function()
-						print("Oooh Shiny!")
-					end,
-					layoutOrder = 2,
-				}),
-				alert = Roact.createElement(IconButton, {
-					iconSize = IconSize.Medium,
-					icon = Images["icons/common/notificationOn"],
-					onActivated = function()
-						print("Alert!")
-					end,
-					layoutOrder = 3,
-				}),
-			})
-		end,
+		renderRight = renderRightIcons,
 	})
 end
 
@@ -94,8 +96,6 @@ local function HeaderBarWithSearchBox()
 					SliceCenter = Rect.new(8, 8, 9, 9),
 					ScaleType = Enum.ScaleType.Slice,
 					Size = UDim2.new(1, 0, 0, 36),
-					Position = UDim2.fromScale(0.5, 0.5),
-					AnchorPoint = Vector2.new(0.5, 0.5),
 					BackgroundTransparency = 1,
 				}),
 			})
@@ -114,12 +114,57 @@ local function HeaderBarWithOnlySearchBox()
 					SliceCenter = Rect.new(8, 8, 9, 9),
 					ScaleType = Enum.ScaleType.Slice,
 					Size = UDim2.new(1, 0, 0, 36),
-					Position = UDim2.fromScale(0.5, 0.5),
-					AnchorPoint = Vector2.new(0.5, 0.5),
 					BackgroundTransparency = 1,
 				}),
 			})
 		end,
+	})
+end
+
+local function HeaderBarWithRootTitle()
+	return Roact.createElement(HeaderBar, {
+		title = "Avatar",
+		isRootTitle = true,
+		renderRight = renderRightIcons,
+	})
+end
+
+local function HeaderBarWithRootTitleAndSearchBoxForTablet()
+	return Roact.createElement(HeaderBar, {
+		title = "Discover",
+		isRootTitle = true,
+		renderCenter = function()
+			return Roact.createFragment({
+				searchBoxMock = Roact.createElement(ImageSetComponent.Label, {
+					Image = Images["component_assets/circle_17_stroke_1"],
+					SliceCenter = Rect.new(8, 8, 9, 9),
+					ScaleType = Enum.ScaleType.Slice,
+					Size = UDim2.new(0, 250, 0, 36),
+					BackgroundTransparency = 1,
+				}),
+			})
+		end,
+		renderRight = renderRightIcons,
+	})
+end
+
+local function HeaderBarWithBackButtonAndSearchBoxForTablet()
+	return Roact.createElement(HeaderBar, {
+		renderLeft = HeaderBar.renderLeft.backButton(function()
+			print("navProps.navigation.pop()")
+		end),
+		renderCenter = function()
+			return Roact.createFragment({
+				searchBoxMock = Roact.createElement(ImageSetComponent.Label, {
+					Image = Images["component_assets/circle_17_stroke_1"],
+					SliceCenter = Rect.new(8, 8, 9, 9),
+					ScaleType = Enum.ScaleType.Slice,
+					Size = UDim2.new(0, 250, 0, 36),
+					BackgroundTransparency = 1,
+				}),
+			})
+		end,
+		renderRight = renderRightIcons,
 	})
 end
 
@@ -136,7 +181,7 @@ return function(target)
 			}),
 			frame = Roact.createElement("Frame", {
 				BackgroundTransparency = 1,
-				Size = UDim2.fromOffset(600, 45),
+				Size = UDim2.fromOffset(700, 45),
 				LayoutOrder = 1,
 			}, {
 				headerBar = Roact.createElement(BarDemo)
@@ -157,7 +202,7 @@ return function(target)
 			}),
 			frame4 = Roact.createElement("Frame", {
 				BackgroundTransparency = 1,
-				Size = UDim2.fromOffset(600, 45),
+				Size = UDim2.fromOffset(700, 45),
 				LayoutOrder = 4,
 			}, {
 				headerBar = Roact.createElement(BarWithTextButtonsDemo)
@@ -178,17 +223,38 @@ return function(target)
 			}),
 			frameHeaderBarWithSearchBoxForPhone = Roact.createElement("Frame", {
 				BackgroundTransparency = 1,
-				Size = UDim2.fromOffset(300, 45),
+				Size = UDim2.fromOffset(450, 45),
 				LayoutOrder = 7,
 			}, {
 				headerBar = Roact.createElement(HeaderBarWithSearchBox)
 			}),
 			frameHeaderBarWithOnlySearchBoxForPhone = Roact.createElement("Frame", {
 				BackgroundTransparency = 1,
-				Size = UDim2.fromOffset(300, 45),
+				Size = UDim2.fromOffset(450, 45),
 				LayoutOrder = 8,
 			}, {
 				headerBar = Roact.createElement(HeaderBarWithOnlySearchBox)
+			}),
+			frameHeaderBarWithRootTitleForPhone = Roact.createElement("Frame", {
+				BackgroundTransparency = 1,
+				Size = UDim2.fromOffset(450, 45),
+				LayoutOrder = 9,
+			}, {
+				headerBar = Roact.createElement(HeaderBarWithRootTitle)
+			}),
+			frameHeaderBarWithRootTitleAndSearchBoxForTablet = Roact.createElement("Frame", {
+				BackgroundTransparency = 1,
+				Size = UDim2.fromOffset(950, 45),
+				LayoutOrder = 10,
+			}, {
+				headerBar = Roact.createElement(HeaderBarWithRootTitleAndSearchBoxForTablet)
+			}),
+			frameHeaderBarWithBackButtonAndSearchBoxForTablet = Roact.createElement("Frame", {
+				BackgroundTransparency = 1,
+				Size = UDim2.fromOffset(950, 45),
+				LayoutOrder = 11,
+			}, {
+				headerBar = Roact.createElement(HeaderBarWithBackButtonAndSearchBoxForTablet)
 			}),
 		}),
 	}), target, "HeaderBar")

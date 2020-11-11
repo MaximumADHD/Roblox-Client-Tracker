@@ -7,5 +7,5 @@ dependencies = [
     "AssetCard roblox/asset-card 103b2a57 git+https://github.com/roblox/asset-card#v1.0.3",
     "InfiniteScroller roblox/infinite-scroller 0.7.1 url+https://github.com/roblox/infinite-scroller",
     "RoduxNetworking rodux-networking 8902a6aa git+https://github.com/roblox/rodux-networking#v1.0.2",
-    "UIBlox UIBlox eb73759f git+https://github.com/roblox/uiblox#master",
+    "UIBlox UIBlox 7a55ceba git+https://github.com/roblox/uiblox#master",
 ]

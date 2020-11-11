@@ -251,5 +251,25 @@ return function()
 
 			motor:destroy()
 		end)
+
+		it("is stopped in onStep", function()
+			local motor = createGroupMotor({
+				x = 0,
+			})
+
+			motor:setGoal({
+				x = createStepper(1),
+			})
+
+			local spy = createSpy()
+			motor:onComplete(spy.value)
+			motor:onStep(function() motor:stop() end)
+
+			motor:step(1)
+
+			expect(spy.callCount).to.equal(0)
+
+			motor:destroy()
+		end)
 	end)
 end

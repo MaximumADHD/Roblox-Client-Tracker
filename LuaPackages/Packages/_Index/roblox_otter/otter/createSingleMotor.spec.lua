@@ -46,6 +46,21 @@ return function()
 		motor:destroy()
 	end)
 
+	describe("onStep", function()
+		it("should not be called initially", function()
+			local motor = createSingleMotor(0)
+
+			local spy = createSpy()
+			motor:onStep(spy.value)
+
+			motor:setGoal(createStepper(5))
+
+			expect(spy.callCount).to.equal(0)
+
+			motor:destroy()
+		end)
+	end)
+
 	it("should invoke subscribers with new values", function()
 		local motor = createSingleMotor(8)
 		motor:setGoal(identityGoal)
@@ -170,6 +185,22 @@ return function()
 			local spy = createSpy()
 
 			motor:onComplete(spy.value)
+
+			expect(spy.callCount).to.equal(0)
+
+			motor:destroy()
+		end)
+
+		it("is stopped in onStep", function()
+			local motor = createSingleMotor(0)
+
+			motor:setGoal(createStepper(1))
+
+			local spy = createSpy()
+			motor:onComplete(spy.value)
+			motor:onStep(function() motor:stop() end)
+
+			motor:step(1)
 
 			expect(spy.callCount).to.equal(0)
 

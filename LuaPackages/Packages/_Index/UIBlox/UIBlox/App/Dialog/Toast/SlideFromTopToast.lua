@@ -78,7 +78,13 @@ function SlideFromTopToast:init()
 	end
 
 	self.onComplete = function()
-		self.stateTable.events.AnimationComplete()
+		local duration = self.props.duration
+
+		if self.state.currentState == AnimationState.Appearing and duration and duration <= 0 then
+			self.stateTable.events.AutoDismiss()
+		else
+			self.stateTable.events.AnimationComplete()
+		end
 	end
 
 	self.onDisappeared = function()
@@ -135,6 +141,7 @@ function SlideFromTopToast:init()
 	self.stateTable = StateTable.new(stateTableName, initialState, {}, {
 		[AnimationState.Appearing] = {
 			AnimationComplete = { nextState = AnimationState.Appeared, action = self.onAppeared },
+			AutoDismiss = { nextState = AnimationState.Disappearing, action = self.onAppeared },
 			ContentChanged = { nextState = AnimationState.Disappearing },
 			ForceDismiss = { nextState = AnimationState.Disappearing },
 		},

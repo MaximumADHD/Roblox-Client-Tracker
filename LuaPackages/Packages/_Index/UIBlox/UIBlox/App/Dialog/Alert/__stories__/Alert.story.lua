@@ -106,7 +106,6 @@ function AlertContainer:render()
 					},
 				},
 				middleContent = self.renderMiddle,
-				onMounted = function() print("alert was mounted") end,
 				position = UDim2.new(0.5, 0, 0, 10),
 				screenSize = self.state.screenSize,
 				title = "Alert Component. Title goes up to 2 lines max.",

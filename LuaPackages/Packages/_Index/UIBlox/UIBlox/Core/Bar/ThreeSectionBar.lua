@@ -13,8 +13,7 @@ local PADDING_BETWEEN_SIDE_AND_CENTER = 8
 
 local ThreeSectionBar = Roact.PureComponent:extend("ThreeSectionBar")
 ThreeSectionBar.validateProps = t.strictInterface({
-	BackgroundColor3 = t.Color3,
-
+	BackgroundColor3 = t.optional(t.Color3),
 	BackgroundTransparency = t.optional(t.union(t.number, bindingValidator(t.number))),
 	barHeight = t.optional(t.number),
 	contentPaddingLeft = t.optional(t.UDim),
@@ -85,18 +84,26 @@ function ThreeSectionBar:init()
 	end
 end
 
+function ThreeSectionBar:didUpdate()
+	-- When we update the props to set renderLeft or renderRight to nil,
+	-- corresponding bindings should be reset
+	if not self.props.renderLeft then
+		self.updateLeftWidth(0)
+	end
+	if not self.props.renderRight then
+		self.updateRightWidth(0)
+	end
+end
+
 function ThreeSectionBar:render()
-	local centerAnchor
+	local centerAnchor = Vector2.new(0.5, 0.5)
 	local centerPosition
 
 	if not self.props.renderLeft and self.props.renderRight then
-		centerAnchor = Vector2.new(0, 0.5)
 		centerPosition = UDim2.fromScale(0, 0.5)
 	elseif self.props.renderLeft and not self.props.renderRight then
-		centerAnchor = Vector2.new(1, 0.5)
 		centerPosition = UDim2.fromScale(1, 0.5)
 	else
-		centerAnchor = Vector2.new(0.5, 0.5)
 		centerPosition = UDim2.fromScale(0.5, 0.5)
 	end
 

@@ -93,7 +93,9 @@ function GenericButtonOverviewComponent:render()
 					print("Generic Button Clicked!")
 				end,
 				onStateChanged = function(oldState, newState)
-					print("state changed \n oldState:", oldState, " newState:", newState)
+					if oldState ~= ControlState.Initialize then
+						print("state changed \n oldState:", oldState, " newState:", newState)
+					end
 				end
 			})
 		})

@@ -35,8 +35,8 @@ HeaderBar.validateProps = t.strictInterface({
 	-- The title of the screen
 	title = t.string,
 
-	-- The function that is called when the back button is clicked
-	onBack = t.optional(t.callback),
+	-- Use the left side root title style
+	isRootTitle = t.boolean,
 
 	-- How tall the bar is
 	barHeight = t.optional(t.number),
@@ -52,15 +52,23 @@ HeaderBar.validateProps = t.strictInterface({
 
 	-- A function that returns a Roact Component, used for containing, e.g. search bar, on the center of the bar
 	renderCenter = t.optional(t.callback),
+
+	-- Background transparency
+	backgroundTransparency = t.optional(t.number),
+
+	-- Left side margin
+	marginLeft = t.optional(t.number),
+
+	-- Right side margin
+	marginRight = t.optional(t.number),
 })
 
 -- default values are taken from Abstract
 HeaderBar.defaultProps = {
+	title = "",
+	isRootTitle = false,
 	barHeight = 48,
 	contentPaddingRight = UDim.new(0, 0),
-	renderLeft = function()
-		return nil
-	end
 }
 
 function HeaderBar:init()
@@ -81,45 +89,68 @@ function HeaderBar:render()
 		local theme = style.Theme
 		local font = style.Font
 
-		local centerTextFontStyle = font.Header1
-		local centerTextSize = centerTextFontStyle.RelativeSize * font.BaseSize
-
+		local isRootTitle = self.props.isRootTitle
+		local renderLeft = self.props.renderLeft
 		local renderCenter = self.props.renderCenter
+		local renderRight = self.props.renderRight
+		local estimatedCenterWidth = math.huge
 
-		local estimatedCenterWidth = (not renderCenter) and GetTextSize(
-			self.props.title,
-			centerTextSize,
-			centerTextFontStyle.Font,
-			Vector2.new(1000, 1000)
-		).X or 0
+		if not renderLeft and isRootTitle then
+			renderLeft = function()
+				return Roact.createElement(GenericTextLabel, {
+					fluidSizing = true,
+					Text = self.props.title,
+					TextTruncate = Enum.TextTruncate.AtEnd,
+					TextXAlignment = Enum.TextXAlignment.Left,
+					fontStyle = font.Title,
+					colorStyle = theme.TextEmphasis,
+				})
+			end
+		end
+
+		-- Make center fixed-width components in the center, e.g search bar
+		if renderLeft and renderCenter and renderRight then
+			estimatedCenterWidth = 0
+		end
+
+		if not renderCenter and not isRootTitle then
+			local centerTextFontStyle = font.Header1
+			local centerTextSize = centerTextFontStyle.RelativeSize * font.BaseSize
+			renderCenter = function()
+				return Roact.createElement(GenericTextLabel, {
+					ClipsDescendants = true,
+					Size = UDim2.new(1, 0, 0, centerTextSize),
+					Text = self.props.title,
+					TextTruncate = Enum.TextTruncate.AtEnd,
+					TextWrapped = false,
+					fontStyle = centerTextFontStyle,
+					colorStyle = theme.TextEmphasis,
+				})
+			end
+			estimatedCenterWidth = GetTextSize(
+				self.props.title,
+				centerTextSize,
+				centerTextFontStyle.Font,
+				Vector2.new(1000, 1000)
+			).X
+		end
 
 		return Roact.createElement("Frame", {
 			BackgroundTransparency = 1,
 			Size = UDim2.new(1, 0, 0, self.props.barHeight),
-			[Roact.Change.AbsoluteSize] = self.onResize,
+			[Roact.Change.AbsoluteSize] = (self.props.marginLeft == nil and self.props.marginRight == nil) and self.onResize,
 		}, {
 			ThreeSectionBar = Roact.createElement(ThreeSectionBar, {
-				BackgroundTransparency = theme.BackgroundDefault.Transparency,
+				BackgroundTransparency = self.props.backgroundTransparency or theme.BackgroundDefault.Transparency,
 				BackgroundColor3 = theme.BackgroundDefault.Color,
-
 				barHeight = self.props.barHeight,
-				marginLeft = self.state.margin,
-				renderLeft = self.props.renderLeft,
-				renderCenter = renderCenter or function()
-					return Roact.createElement(GenericTextLabel, {
-						ClipsDescendants = true,
-						Size = UDim2.new(1, 0, 0, centerTextSize),
-						Text = self.props.title,
-						TextTruncate = Enum.TextTruncate.AtEnd,
-						TextWrapped = false,
-						fontStyle = centerTextFontStyle,
-						colorStyle = theme.TextEmphasis,
-					})
-				end,
+				marginLeft = self.props.marginLeft or self.state.margin,
+				renderLeft = renderLeft,
+				renderCenter = renderCenter,
 				estimatedCenterWidth = estimatedCenterWidth,
-				marginRight = self.state.margin,
+				marginRight = self.props.marginRight or self.state.margin,
 				contentPaddingRight = self.props.contentPaddingRight,
-				renderRight = self.props.renderRight,
+				renderRight = renderRight,
 			})
 		})
 	end)

@@ -15,13 +15,13 @@ return function()
 	it("should create and destroy ActionBar with one button without errors", function()
 		local element = mockStyleComponent({
 			ActionBar = Roact.createElement(ActionBar, {
-        button = {
-          props = {
-            onActivated = function() end,
-            text = "Button",
-          },
-        }
-      })
+		button = {
+		  props = {
+			onActivated = function() end,
+			text = "Button",
+		  },
+		}
+	  })
 		})
 		local instance = Roact.mount(element)
 		Roact.unmount(instance)
@@ -30,30 +30,27 @@ return function()
 	it("should create and destroy ActionBar with one button and one icon button without errors", function()
 		local element = mockStyleComponent({
 			ActionBar = Roact.createElement(ActionBar, {
-        button = {
-          props = {
-            onActivated = function() end,
-            text = "Button",
-            icon = icon,
-          },
-        },
-        icons = {
-          {
-            props = {
-              anchorPoint = Vector2.new(0.5, 0.5),
-              position = UDim2.fromScale(0.5, 0.5),
-              icon = icon,
-              userInteractionEnabled = true,
-              onActivated = function()
-                print("Text Button Clicked!")
-              end,
-              onStateChanged = function(oldState, newState)
-                print("state changed \n oldState:", oldState, " newState:", newState)
-              end
-            }
-          }
-        }
-      })
+		button = {
+		  props = {
+			onActivated = function() end,
+			text = "Button",
+			icon = icon,
+		  },
+		},
+		icons = {
+		  {
+			props = {
+			  anchorPoint = Vector2.new(0.5, 0.5),
+			  position = UDim2.fromScale(0.5, 0.5),
+			  icon = icon,
+			  userInteractionEnabled = true,
+			  onActivated = function()
+				print("Text Button Clicked!")
+			  end,
+			}
+		  }
+		}
+	  })
 		})
 
 		local instance = Roact.mount(element)
@@ -63,44 +60,38 @@ return function()
 	it("should create and destroy ActionBar with one button and two icon button without errors", function()
 		local element = mockStyleComponent({
 			ActionBar = Roact.createElement(ActionBar, {
-        button = {
-          props = {
-            onActivated = function() end,
-            text = "Button",
-            icon = icon,
-          },
-        },
-        icons = {
-          {
-            props = {
-              anchorPoint = Vector2.new(0.5, 0.5),
-              position = UDim2.fromScale(0.5, 0.5),
-              icon = icon,
-              userInteractionEnabled = true,
-              onActivated = function()
-                print("Text Button Clicked!")
-              end,
-              onStateChanged = function(oldState, newState)
-                print("state changed \n oldState:", oldState, " newState:", newState)
-              end
-            }
-          },
-          {
-            props = {
-              anchorPoint = Vector2.new(0.5, 0.5),
-              position = UDim2.fromScale(0.5, 0.5),
-              icon = icon,
-              userInteractionEnabled = true,
-              onActivated = function()
-                print("Text Button Clicked!")
-              end,
-              onStateChanged = function(oldState, newState)
-                print("state changed \n oldState:", oldState, " newState:", newState)
-              end
-            }
-          }
-        }
-      })
+		button = {
+		  props = {
+			onActivated = function() end,
+			text = "Button",
+			icon = icon,
+		  },
+		},
+		icons = {
+		  {
+			props = {
+			  anchorPoint = Vector2.new(0.5, 0.5),
+			  position = UDim2.fromScale(0.5, 0.5),
+			  icon = icon,
+			  userInteractionEnabled = true,
+			  onActivated = function()
+				print("Text Button Clicked!")
+			  end,
+			}
+		  },
+		  {
+			props = {
+			  anchorPoint = Vector2.new(0.5, 0.5),
+			  position = UDim2.fromScale(0.5, 0.5),
+			  icon = icon,
+			  userInteractionEnabled = true,
+			  onActivated = function()
+				print("Text Button Clicked!")
+			  end,
+			}
+		  }
+		}
+	  })
 		})
 
 		local instance = Roact.mount(element)
@@ -110,8 +101,8 @@ return function()
 	it("should create and destroy a ActionBar with children without errors", function()
 		local element = mockStyleComponent({
 			ActionBar = Roact.createElement(ActionBar, {}, {
-        ChildFrame = Roact.createElement("Frame",{})
-      })
+				ChildFrame = Roact.createElement("Frame", {})
+			})
 		})
 
 		local instance = Roact.mount(element)
