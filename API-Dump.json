@@ -1901,6 +1901,24 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "InsertAudio",
+                    "Parameters": [
+                        {
+                            "Name": "assetId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int64"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "InsertImage",
                     "Parameters": [
                         {
@@ -49647,6 +49665,9 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
+                    "Tags": [
+                        "Deprecated"
+                    ],
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "float"
@@ -49744,6 +49765,9 @@
                         "CanLoad": false,
                         "CanSave": false
                     },
+                    "Tags": [
+                        "Deprecated"
+                    ],
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "float"
@@ -49865,6 +49889,46 @@
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "RollOffMaxDistance",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "NotReplicated"
+                    ],
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "RollOffMinDistance",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "NotReplicated"
+                    ],
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
                     }
                 },
                 {
@@ -59126,6 +59190,13 @@
                     "Name": "AppendTempAssetId",
                     "Parameters": [
                         {
+                            "Name": "userId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int64"
+                            }
+                        },
+                        {
                             "Name": "id",
                             "Type": {
                                 "Category": "Primitive",
@@ -59165,6 +59236,13 @@
                     "Name": "AppendVantagePoint",
                     "Parameters": [
                         {
+                            "Name": "userId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int64"
+                            }
+                        },
+                        {
                             "Name": "id",
                             "Type": {
                                 "Category": "Primitive",
@@ -59196,6 +59274,13 @@
                     "MemberType": "Function",
                     "Name": "UpgradeTempAssetId",
                     "Parameters": [
+                        {
+                            "Name": "userId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int64"
+                            }
+                        },
                         {
                             "Name": "tempId",
                             "Type": {

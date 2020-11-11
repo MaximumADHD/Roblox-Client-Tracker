@@ -40,6 +40,7 @@ Studio.App.AssetManagerService.ResponseInvalid,,Http response is invalid,Http re
 Studio.App.AssetManagerService.ReturnedIdMalformed,,Id returned for mesh part is malformed,Id returned for mesh part is malformed
 Studio.App.AudioImportConfirmationDialog.NoFilesAvailable,,No files available,No files available
 Studio.App.AudioImportOptionsDialog.ConfirmAudioImport,,Confirm Audio Import,Confirm Audio Import
+Studio.App.AudioResourceController.AudioReferencedByName,,"Audio files are referenced by name, so any references to this asset will fail to load. Are you sure you want to remove it?","Audio files are referenced by name, so any references to this asset will fail to load. Are you sure you want to remove it?"
 Studio.App.AuthenticationHelper.AuthFailedTimeout,,Could not authenticate user. Request timed out.,Could not authenticate user. Request timed out.
 Studio.App.AuthenticationHelper.AuthFailedTryAgain,,Authentication failed. Please try again or contact support if the problem persists.,Authentication failed. Please try again or contact support if the problem persists.
 Studio.App.AutoSave.AutoSaveRecovery,,Auto-Save Recovery,Auto-Save Recovery
@@ -98,8 +99,8 @@ Studio.App.BetaFeatures.InsertObjectStreamliningTitle,,Insert Object Streamlinin
 Studio.App.BetaFeatures.LearnMoreTooltip,,Learn More,Learn More
 Studio.App.BetaFeatures.LuaDraggersDescription,,Migrates the Select/Move/Rotate/Scale tools to a Lua BuiltInPlugin implementation and makes some minor improvements to their functionality.,Migrates the Select/Move/Rotate/Scale tools to a Lua BuiltInPlugin implementation and makes some minor improvements to their functionality.
 Studio.App.BetaFeatures.LuaDraggersTitle,,Lua Draggers Beta,Lua Draggers Beta
-Studio.App.BetaFeatures.ModelMeshComputerBetaDescription,,Automatically generate Impostor meshes to be rendered outside of streaming radius. Use LevelOfDetail property on Model to enable it.,Automatically generate Impostor meshes to be rendered outside of streaming radius. Use LevelOfDetail property on Model to enable it.
-Studio.App.BetaFeatures.ModelMeshComputerBetaTitle,,Automatic Impostors for Models,Automatic Impostors for Models
+Studio.App.BetaFeatures.LuauNonStrictByDefaultDescription,,"Script analysis uses non-strict mode for all scripts by default. Use --!strict, --!nonstrict or --!nocheck to override mode on a per script basis.","Script analysis uses non-strict mode for all scripts by default. Use --!strict, --!nonstrict or --!nocheck to override mode on a per script basis."
+Studio.App.BetaFeatures.LuauNonStrictByDefaultTitle,,Scripts Are Non-Strict By Default,Scripts Are Non-Strict By Default
 Studio.App.BetaFeatures.NewFeaturesForChannelUserWarning1,,"New beta features have been automatically enabled above as you are enrolled in Beta Channel. You must restart Studio for them to be activated. <a href=""%1"">Restart Now</a>","New beta features have been automatically enabled above as you are enrolled in Beta Channel. You must restart Studio for them to be activated. <a href=""%1"">Restart Now</a>"
 Studio.App.BetaFeatures.NewScriptFoldStateDescription,,Enables new improved behavior for code folding in the Script Editor.,Enables new improved behavior for code folding in the Script Editor.
 Studio.App.BetaFeatures.NewScriptFoldStateTitle,,Script Editor Folds Behavior Beta,Script Editor Folds Behavior Beta
@@ -117,7 +118,7 @@ Studio.App.BetaFeatures.RichTextDescription,,Enable rich text parsing and render
 Studio.App.BetaFeatures.RichTextTitle,,Rich Text Beta,Rich Text Beta
 Studio.App.BetaFeatures.SaveToCloudV2Description,,Create new games in the cloud automatically.,Create new games in the cloud automatically.
 Studio.App.BetaFeatures.SaveToCloudV2Title,,New Games in the Cloud,New Games in the Cloud
-Studio.App.BetaFeatures.ScriptEditorDescription,,Enable script editor beta features,Enable script editor beta features
+Studio.App.BetaFeatures.ScriptEditorDescription,,Customizable Semantic Highlighting and Temporary tabs that open Scripts in preview mode by default.,Customizable Semantic Highlighting and Temporary tabs that open Scripts in preview mode by default.
 Studio.App.BetaFeatures.ScriptEditorTitle,,Script Editor Beta Features,Script Editor Beta Features
 Studio.App.BetaFeatures.SelectFeaturesToActivate,,Select beta features to activate,Select beta features to activate
 Studio.App.BetaFeatures.SetInstanceDefaultsWindowDescription,,Set a Part or Script to be the default for future inserted instances of a Part or Script.,Set a Part or Script to be the default for future inserted instances of a Part or Script.
@@ -148,6 +149,19 @@ Studio.App.BreakpointsTreeWidget.HeaderLabelSourceLine,In breakpoints,Source Lin
 Studio.App.BreakpointsWidget.DisableAllBreakpoints,,Disable All Breakpoints,Disable All Breakpoints
 Studio.App.BreakpointsWidget.DoYouWantToDeleteAllBreakpoints,,Do you want to delete all breakpoints?,Do you want to delete all breakpoints?
 Studio.App.BreakpointsWidget.EnableAllBreakpoints,,Enable All Breakpoints,Enable All Breakpoints
+Studio.App.BulkAudioImportErrors.AudioCostUnverifiedFormat1,"NOTE TO LOCALIZERS: Do not translate the numbers inside the single quotes. For whatever is inside the single quotes, please use ASCII instead.",Verifing the audio cost did not return correctly formatted data. Status Code: '%1',Verifing the audio cost did not return correctly formatted data. Status Code: '%1'
+Studio.App.BulkAudioImportErrors.AudioUploadErrorCode1,"NOTE TO LOCALIZERS: Do not translate the numbers inside the single quotes. For whatever is inside the single quotes, please use ASCII instead.",Uploading the audio file failed. Status Code: '%1',Uploading the audio file failed. Status Code: '%1'
+Studio.App.BulkAudioImportErrors.DurationEstimationError,,The duration estimation error was greater than the acceptable margin of error.,The duration estimation error was greater than the acceptable margin of error.
+Studio.App.BulkAudioImportErrors.DurationTooLarge,,The duration of the audio file is too long.,The duration of the audio file is too long.
+Studio.App.BulkAudioImportErrors.FileCorrupted,,The file is corrupted.,The file is corrupted.
+Studio.App.BulkAudioImportErrors.FileSizeEstimationError,,The file size estimation error was greater than the acceptable margin of error.,The file size estimation error was greater than the acceptable margin of error.
+Studio.App.BulkAudioImportErrors.FileTooLarge,,The file in the request is too large.,The file in the request is too large.
+Studio.App.BulkAudioImportErrors.FileTypeNotSupported,,The file type is not supported.,The file type is not supported.
+Studio.App.BulkAudioImportErrors.InsufficentFunds,,The user/group does not have sufficient funds to publish.,The user/group does not have sufficient funds to publish.
+Studio.App.BulkAudioImportErrors.MissingGroupPermissions,,Missing permissions to spend group funds.,Missing permissions to spend group funds.
+Studio.App.BulkAudioImportErrors.RejectedAudio,,The audio file has already been reviewed and rejected.,The audio file has already been reviewed and rejected.
+Studio.App.BulkAudioImportErrors.TooManyRequests,,Too many requests. Try again later.,Too many requests. Try again later.
+Studio.App.BulkAudioImportErrors.UnableToPurchase,,Error while trying to purchase the product.,Error while trying to purchase the product.
 Studio.App.BulkImport.CancelImport,Bulk importer,Cancel Import,Cancel Import
 Studio.App.BulkImport.ClearWindow,Bulk importer,Clear Window,Clear Window
 Studio.App.BulkImport.CloseWindow,Bulk importer,Close Window,Close Window
@@ -159,7 +173,6 @@ Studio.App.BulkImport.ProgressFmt2,Bulk importer,Imported %1 of %2 files,Importe
 Studio.App.BulkImportController.AllSupportedTypes1,,All Supported Types (%1),All Supported Types (%1)
 Studio.App.BulkImportController.AllSupportedTypes2,,All Supported Types (%1 %2);;Images (%1);;Meshes (%2),All Supported Types (%1 %2);;Images (%1);;Meshes (%2)
 Studio.App.BulkImportController.AlreadyBusy,,Already busy importing. Please try again later.,Already busy importing. Please try again later.
-Studio.App.BulkImportController.AudioSupportedTypes1,"NOTE TO LOCALIZERS: Do not translate the parentheses (), whatever is inside the parentheses, or any other special characters, use ASCII instead.",Audio (%1),Audio (%1)
 Studio.App.BulkImportController.BusyCancelingPleaseTryAgainLater,,Busy canceling. Please try again later.,Busy canceling. Please try again later.
 Studio.App.BulkImportController.BusySplitting,,Already busy mesh splitting. Please try again later.,Already busy mesh splitting. Please try again later.
 Studio.App.BulkImportController.CancelledBeforeProcessing,,Some files were not uploaded.,Some files were not uploaded.
@@ -464,6 +477,7 @@ Studio.App.FindAllDialog.UndoSelectOption,,Replace All will open all files with 
 Studio.App.FindDialog.FindCount2,,%1 of %2,%1 of %2
 Studio.App.FindDialog.LineNumber1,,Line number (1-%1):,Line number (1-%1):
 Studio.App.FindReplaceController.FindReplaceWindow,,Find/Replace Window,Find/Replace Window
+Studio.App.FindReplaceWindow.ResultsPerFile2,,%1 results in %2 files,%1 results in %2 files
 Studio.App.FlagEditor.OfferRestart,,You must restart Studio for fast flag changes to take effect.,You must restart Studio for fast flag changes to take effect.
 Studio.App.FlagEditor.OfferRestartTitle,,Overrides Saved,Overrides Saved
 Studio.App.GameExplorer.AddAssets,,Add Assets,Add Assets
@@ -473,6 +487,7 @@ Studio.App.GameExplorer.CopyIdToClipboard,,Copy ID to Clipboard,Copy ID to Clipb
 Studio.App.GameExplorer.CopyTextureIdToClipboard,,Copy Texture ID to Clipboard,Copy Texture ID to Clipboard
 Studio.App.GameExplorer.CreateBadge,,Create Badge,Create Badge
 Studio.App.GameExplorer.ErrorRetrievingMeshContent1,,Error while retrieving mesh content: %1,Error while retrieving mesh content: %1
+Studio.App.GameExplorer.FailedToLoadResource1,"NOTE TO LOCALIZERS: Do not translate the numbers inside the single quotes. For whatever is inside the single quotes, please use ASCII instead.",Failed to load resource : '%1',Failed to load resource : '%1'
 Studio.App.GameExplorer.GameSettings,,Game Settings...,Game Settings...
 Studio.App.GameExplorer.InsertAsLocalScript,,Insert as LocalScript,Insert as LocalScript
 Studio.App.GameExplorer.InsertAsModuleScript,,Insert as ModuleScript,Insert as ModuleScript
@@ -521,6 +536,7 @@ This will shutdown all running servers."
 Studio.App.GamesPageController.RemoveTeamCreateGame,,Remove Team Create Game,Remove Team Create Game
 Studio.App.GamesPageController.RestoreGameFail,,Failed to restore game,Failed to restore game
 Studio.App.GamesPageController.Restored,,Restored,Restored
+Studio.App.GeneralCmd.REPEAT,,Repeat command...,Repeat command...
 Studio.App.GenericResourceController.RemovingGameAsset,,Removing game asset(s),Removing game asset(s)
 Studio.App.GoToLineDialog.LineNumber,,Line number:,Line number:
 Studio.App.GradientEditor.Time,,Time,Time
@@ -637,7 +653,7 @@ Studio.App.ImagePickerWidget.AddImageElps,,Add Image...,Add Image...
 Studio.App.ImageResourceController.ImagesReferencedByName,,"Images are referenced by name, so any references to this image will fail to load. Are you sure you want to remove it?","Images are referenced by name, so any references to this image will fail to load. Are you sure you want to remove it?"
 Studio.App.ImportCostVerificationDialog.BalanceAfterImport,,Balance after import:,Balance after import:
 Studio.App.ImportCostVerificationDialog.CostVerificationDescription,,You will not be charged for imports that fail due to not meeting import requirements.,You will not be charged for imports that fail due to not meeting import requirements.
-Studio.App.ImportCostVerificationDialog.CostVerificationMainText1,,Would you like to import the selected audio files for %1 Robux?,Would you like to import the selected audio files for %1 Robux?
+Studio.App.ImportCostVerificationDialog.CostVerificationMainText1,,Would you like to import the selected files for %1 Robux?,Would you like to import the selected files for %1 Robux?
 Studio.App.ImportCostVerificationDialog.CostVerificationTitle,,File Import Cost,File Import Cost
 Studio.App.ImportCostVerificationDialog.CurrentBalance,,Your current balance:,Your current balance:
 Studio.App.ImportCostVerificationDialog.DetailsCostTitle,,Cost,Cost
@@ -845,6 +861,7 @@ Studio.App.MainWindow.UnableToLockFileForOpen,Main Window,This file is currently
 Studio.App.MainWindow.UnableToOpenDeletedFile1,Main Window,"Could not open the file ""%1"" because it no longer exists.","Could not open the file ""%1"" because it no longer exists."
 Studio.App.MainWindow.UnableToOpenPlace2,Main Window,"Could not open the place ""%1"" with exception: ""%2"".","Could not open the place ""%1"" with exception: ""%2""."
 Studio.App.MainWindow.UploadingImageQuitAnyway,Main Window,Roblox is uploading an image. Quit anyway?,Roblox is uploading an image. Quit anyway?
+Studio.App.MainWindow.UploadingPlaceQuitCommitAuto,Main Window,Applying script changes. Studio will close automatically when complete.,Applying script changes. Studio will close automatically when complete.
 Studio.App.MainWindow.UploadingPlaceQuitPublishAuto,Main Window,Publishing in progress. Studio will close automatically when complete.,Publishing in progress. Studio will close automatically when complete.
 Studio.App.MainWindow.UploadingPlaceQuitPublishFailed,Main Window,Failed To Publish. Please try again later.,Failed To Publish. Please try again later.
 Studio.App.MainWindow.UploadingPlaceQuitSaveAuto,Main Window,Saving in progress. Studio will close automatically when complete.,Saving in progress. Studio will close automatically when complete.
@@ -1025,7 +1042,9 @@ Studio.App.PlaceVersionHistoryDialog.ViewHistory,,View History,View History
 Studio.App.PlayModifiedScriptController.AlwaysSave,,Always Save,Always Save
 Studio.App.PlayModifiedScriptController.KeepTheseChanges,,You've made script changes while playing.  Would you like to keep these changes?,You've made script changes while playing.  Would you like to keep these changes?
 Studio.App.PluginLoader.CloudLoadFailedFmt1,error fetching installed plugins from cloud,Failed to load installed plugins from cloud: %1,Failed to load installed plugins from cloud: %1
+Studio.App.PluginLoader.CloudLoadPermissionsFailedFmt1,error fetching plugin permissions from cloud,Failed to load plugin permissions from cloud: %1,Failed to load plugin permissions from cloud: %1
 Studio.App.PluginLoader.CloudWriteFailedFmt1,error writing installed plugins to cloud,Failed to write installed plugins to cloud: %1,Failed to write installed plugins to cloud: %1
+Studio.App.PluginLoader.CloudWritePermissionsFailedFmt1,error writing plugin permissions to cloud,Failed to write plugin permissions to cloud: %1,Failed to write plugin permissions to cloud: %1
 Studio.App.PluginLoader.DownloadFailedFmt1,error downloading plugin,Failed to download plugin: %1,Failed to download plugin: %1
 Studio.App.PluginLoader.RefreshingPluginElps,,Refreshing plugin...,Refreshing plugin...
 Studio.App.PluginLoader.RefreshingPluginsElps,,Refreshing plugins...,Refreshing plugins...
@@ -1035,17 +1054,18 @@ Studio.App.PluginPermissionsDialog.HttpDomainPermission,,Allow plugin %1 to acce
 Studio.App.PluginPermissionsDialog.ScriptInjectionPermission,,Do you want to allow Plugin %1 to manage scripts in your game?,Do you want to allow Plugin %1 to manage scripts in your game?
 Studio.App.PluginPermissionsDialog.ScriptInjectionWarning,,"Plugin %1 is attempting to insert or modify scripts in your game. Click Allow to permit all future attempts, or Deny to block. You can edit these settings in Plugin Management.","Plugin %1 is attempting to insert or modify scripts in your game. Click Allow to permit all future attempts, or Deny to block. You can edit these settings in Plugin Management."
 Studio.App.PluginPermissionsDialog.Warning,,You can always revoke this permission from Plugins > Plugin Management.,You can always revoke this permission from Plugins > Plugin Management.
-Studio.App.Properites.AttributeNameCantStartWithRBX,,Attribute name can't start with 'RBX'.,Attribute name can't start with 'RBX'.
+Studio.App.Properites.AttributeNameCantStartWithRBX,Displayed when editing and trying to add RBX at the beginning.,Attribute name can't start with 'RBX'.,Attribute name can't start with 'RBX'.
 Studio.App.Properties.AddAttribute,Title/text for Add Attribute button/dialog,Add Attribute,Add Attribute
-Studio.App.Properties.AttributeAlreadyExists,,Attribute already exists.,Attribute already exists.
-Studio.App.Properties.AttributeCantStartWithRBX,,Can't start with 'RBX'.,Can't start with 'RBX'.
-Studio.App.Properties.AttributeLengthAndSuggestion2,,Current name length is: %1. Try to use a name within %2 characters.,Current name length is: %1. Try to use a name within %2 characters.
-Studio.App.Properties.AttributeName,,Name,Name
-Studio.App.Properties.AttributeNameExceeds1,,Attribute name exceeds %1 characters.,Attribute name exceeds %1 characters.
-Studio.App.Properties.AttributeTryDifferentName,,Try to use a different name.,Try to use a different name.
-Studio.App.Properties.AttributeType,,Type,Type
+Studio.App.Properties.AttributeAlreadyExists,Displayed when adding an attribute and entering a name that exists.,Attribute already exists.,Attribute already exists.
+Studio.App.Properties.AttributeCantStartWithRBX,Displayed when adding a new attribute in the Add Attribute dialog.,Can't start with 'RBX'.,Can't start with 'RBX'.
+Studio.App.Properties.AttributeLengthAndSuggestion2,"Displayed when exceeding maximum characters while editing, along with AttributeNameExceeds1",Current name length is: %1. Try to use a name within %2 characters.,Current name length is: %1. Try to use a name within %2 characters.
+Studio.App.Properties.AttributeName,Displayed to the left of attribute name line edit.,Name,Name
+Studio.App.Properties.AttributeNameCantBeEmpty,Displayed when trying to commit an empty attribute while editing.,Attribute name cannot be empty.,Attribute name cannot be empty.
+Studio.App.Properties.AttributeNameExceeds1,Displayed when exceeding maximum charecters while editing.,Attribute name exceeds %1 characters.,Attribute name exceeds %1 characters.
+Studio.App.Properties.AttributeTryDifferentName,Displayed when editing an attribute and entering a name that exists.,Try to use a different name.,Try to use a different name.
+Studio.App.Properties.AttributeType,Displayed to the left of attribute type combo box,Type,Type
 Studio.App.Properties.MultipleTypes,,<Multiple Types>,<Multiple Types>
-Studio.App.Properties.NoAttributeAdded,,No Attribute has been added yet,No Attribute has been added yet
+Studio.App.Properties.NoAttributeAdded,Displayed in Attributes Section when no attribute has been added yet.,No Attribute has been added yet,No Attribute has been added yet
 Studio.App.Properties.TitleFmt1,title of properties widget,Properties - %1,Properties - %1
 Studio.App.Property.ActiveColor,,Active Color,Active Color
 Studio.App.Property.ActiveHoverOverColor,,Active Hover Over Color,Active Hover Over Color
@@ -2462,6 +2482,8 @@ Studio.App.ScriptResourceController.ConfirmPublishChanges,,Are you sure you want
 Studio.App.ScriptResourceController.ConfirmWillDestroyChanges,,This will destroy all local changes you have made. Are you sure?,This will destroy all local changes you have made. Are you sure?
 Studio.App.ScriptTextEditor.FilterText,,  Type to filter functions. Tab or Enter to go to selected function,  Type to filter functions. Tab or Enter to go to selected function
 Studio.App.ScriptingCmd.CONFIG,,Config script editor...,Config script editor...
+Studio.App.ScriptingCmd.DELETELINES,,Delete Lines,Delete Lines
+Studio.App.ScriptingCmd.DELETELINESTooltip,,Delete selected line(s),Delete selected line(s)
 Studio.App.ScriptingCmd.DELETETOSTARTOFLINE,,Delete to start of line,Delete to start of line
 Studio.App.ScriptingCmd.DELETETOSTARTOFLINETooltip,,Delete to the start of the current line,Delete to the start of the current line
 Studio.App.ScriptingCmd.DUPLICATESELECTION,,Duplicate selection,Duplicate selection
@@ -2487,7 +2509,6 @@ Studio.App.ScriptingCmd.NEWLINEABOVE,,Insert Newline Above,Insert Newline Above
 Studio.App.ScriptingCmd.NEWLINEABOVETooltip,,Insert a newline above the current line,Insert a newline above the current line
 Studio.App.ScriptingCmd.NEWLINEBELOW,,Insert Newline Below,Insert Newline Below
 Studio.App.ScriptingCmd.NEWLINEBELOWTooltip,,Insert a newline below the current line,Insert a newline below the current line
-Studio.App.ScriptingCmd.REPEAT,,Repeat command...,Repeat command...
 Studio.App.ScriptingCmd.SELECT,,Select text...,Select text...
 Studio.App.ScriptingCmd.TOGGLECOMMENT,,Toggle Comment,Toggle Comment
 Studio.App.ScriptingCmd.TOGGLECOMMENTTooltip,,Toggle selection commenting,Toggle selection commenting

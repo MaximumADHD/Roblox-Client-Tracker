@@ -85,7 +85,6 @@ DefaultHQVS_Level26,Vertex,✔,✔,✔,❌,❌,❌,✔
 DefaultHQVS_Level30,Vertex,✔,✔,✔,❌,❌,❌,✔
 DefaultModelLodFS,Fragment,✔,✔,✔,❌,❌,✔,✔
 DefaultModelLodVS,Vertex,✔,✔,✔,❌,❌,✔,✔
-DefaultModelLodVSNew,Vertex,✔,✔,✔,❌,❌,✔,✔
 DefaultNeonFS,Fragment,✔,✔,✔,✔,✔,✔,✔
 DefaultNeonHQFS_Level0,Fragment,✔,✔,✔,❌,✔,✔,✔
 DefaultNeonHQFS_Level8,Fragment,✔,✔,✔,❌,❌,✔,✔

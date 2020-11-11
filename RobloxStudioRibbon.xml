@@ -500,8 +500,8 @@
           <addaction name="findNextAction" icon=":/16x16/images/Studio 2.0 icons/16x16/find_next.png" />
           <addaction name="findPreviousAction" icon=":/16x16/images/Studio 2.0 icons/16x16/find_previous.png" />
           <addaction name="findInScriptsAction" icon =":/16x16/images/Studio 2.0 icons/16x16/find.png" />
-          <addaction fflag="!ScriptEditorV2_alpha" name="DEPRECATED_goToLineAction" icon=":/16x16/images/Studio 2.0 icons/16x16/goToLine.png" />
-          <addaction fflag="ScriptEditorV2_alpha" name="GOTOPOS_ScriptingAction" icon=":/16x16/images/Studio 2.0 icons/16x16/goToLine.png" />
+          <addaction fflag="!ScriptEditorV2" name="DEPRECATED_goToLineAction" icon=":/16x16/images/Studio 2.0 icons/16x16/goToLine.png" />
+          <addaction fflag="ScriptEditorV2" name="GOTOPOS_ScriptingCmd" icon=":/16x16/images/Studio 2.0 icons/16x16/goToLine.png" />
           <addaction name="quickOpenAction" icon=":/16x16/images/Studio 2.0 icons/16x16/find.png" />
           <addaction name="quickOpenActionsAction" icon=":/16x16/images/Studio 2.0 icons/16x16/find.png" />
           <addaction name="filterScriptFunctionsAction" icon=":/16x16/images/Studio 2.0 icons/16x16/find.png" />
@@ -519,10 +519,10 @@
       </Group>
       <Group name="Format" text="Studio.App.RBXMainWindow.Format">
         <MenuButton name="formatSelectionActionMenu" text="Studio.App.ScriptEditorCmdBase.FORMATSEL" tooltip="Studio.App.RBXMainWindow.FormatDocumentElps" style="textundericon" icon=":/RibbonBar/images/RibbonIcons/Home/FormatSelection.png" width="32" height="32" >
-          <addaction fflag="!ScriptEditorV2_alpha" text="Studio.App.RBXMainWindow.FormatSelection" name="DEPRECATED_formatSelectionAction" style="textundericon" width="16" height="16" />
-          <addaction fflag="!ScriptEditorV2_alpha" text="Studio.App.RBXMainWindow.FormatDocument" name="DEPRECATED_formatDocumentAction" style="textundericon" width="16" height="16" />
-          <addaction fflag="ScriptEditorV2_alpha" name="FORMATSEL_ScriptingAction" style="textundericon" width="16" height="16" />
-          <addaction fflag="ScriptEditorV2_alpha" name="FORMATALL_ScriptingAction" style="textundericon" width="16" height="16" />
+          <addaction fflag="!ScriptEditorV2" text="Studio.App.RBXMainWindow.FormatSelection" name="DEPRECATED_formatSelectionAction" style="textundericon" width="16" height="16" />
+          <addaction fflag="!ScriptEditorV2" text="Studio.App.RBXMainWindow.FormatDocument" name="DEPRECATED_formatDocumentAction" style="textundericon" width="16" height="16" />
+          <addaction fflag="ScriptEditorV2" name="FORMATSEL_ScriptingCmd" style="textundericon" width="16" height="16" />
+          <addaction fflag="ScriptEditorV2" name="FORMATALL_ScriptingCmd" style="textundericon" width="16" height="16" />
         </MenuButton>
       </Group>
       <Group name="Test" text="Studio.App.RobloxRibbonMainWindow.Test">
@@ -559,12 +559,12 @@
         <addAction name="applyScriptEditsAction" tooltip="Studio.App.RobloxRibbonMainWindow.PushScriptTCServer" style="textbesideicon"/>
         <addAction fflag="StudioReplaceApplyEditWithCommit" name="commitScriptAction" tooltip="Studio.App.RobloxRibbonMainWindow.PushScriptTCServer" style="textbesideicon"/>
         <addseparator />
-        <addaction fflag="!ScriptEditorV2_alpha" name="DEPRECATED_toggleCommentAction" tooltip="Studio.App.RobloxRibbonMainWindow.ToggleCommentSelectedLines" style="textbesideicon"/>
-        <addaction fflag="ScriptEditorV2_alpha" name="TOGGLECOMMENT_ScriptingAction"  style="textbesideicon"/>
-        <addaction fflag="ScriptEditorV2_alpha" name="UNFOLDALL_ScriptingAction" style="textbesideicon"/>
-        <addaction fflag="ScriptEditorV2_alpha" name="FOLDALL_ScriptingAction"  style="textbesideicon"/>
-        <addaction fflag="!ScriptEditorV2_alpha" name="DEPRECATED_expandAllFoldsAction" tooltip="Studio.App.RobloxRibbonMainWindow.ExpandAllCollapsedFolds" style="textbesideicon"/>
-        <addaction fflag="!ScriptEditorV2_alpha" name="DEPRECATED_collapseAllFoldsAction" tooltip="Studio.App.RobloxRibbonMainWindow.CollapseAllCollapsableSections" style="textbesideicon"/>
+        <addaction fflag="!ScriptEditorV2" name="DEPRECATED_toggleCommentAction" tooltip="Studio.App.RobloxRibbonMainWindow.ToggleCommentSelectedLines" style="textbesideicon"/>
+        <addaction fflag="ScriptEditorV2" name="TOGGLECOMMENT_ScriptingCmd"  style="textbesideicon"/>
+        <addaction fflag="ScriptEditorV2" name="UNFOLDALL_ScriptingCmd" style="textbesideicon"/>
+        <addaction fflag="ScriptEditorV2" name="FOLDALL_ScriptingCmd"  style="textbesideicon"/>
+        <addaction fflag="!ScriptEditorV2" name="DEPRECATED_expandAllFoldsAction" tooltip="Studio.App.RobloxRibbonMainWindow.ExpandAllCollapsedFolds" style="textbesideicon"/>
+        <addaction fflag="!ScriptEditorV2" name="DEPRECATED_collapseAllFoldsAction" tooltip="Studio.App.RobloxRibbonMainWindow.CollapseAllCollapsableSections" style="textbesideicon"/>
       </Group>
     </TabPage>
     <TabPage name="diffMenu" text="Studio.App.RobloxRibbonMainWindow.DiffMenu" contextcolor="4" contexttitle="Script tools" visible="false">

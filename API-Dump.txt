@@ -106,6 +106,7 @@ Class AssetManagerService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function int64 AssetManagerService:GetMeshId(string aliasName) {RobloxScriptSecurity}
 	Function int64 AssetManagerService:GetTextureId(string aliasName) {RobloxScriptSecurity}
 	Function bool AssetManagerService:HasUnpublishedChangesForLinkedSource(string aliasName) {RobloxScriptSecurity}
+	Function void AssetManagerService:InsertAudio(int64 assetId) {RobloxScriptSecurity}
 	Function void AssetManagerService:InsertImage(int64 assetId) {RobloxScriptSecurity}
 	Function void AssetManagerService:InsertLinkedSourceAsLocalScript(string aliasName) {RobloxScriptSecurity}
 	Function void AssetManagerService:InsertLinkedSourceAsModuleScript(string aliasName) {RobloxScriptSecurity}
@@ -2765,17 +2766,19 @@ Class SocialService : Instance [NotCreatable] [Service] [NotReplicated]
 	Event SocialService.PromptInviteRequested(Instance player) {RobloxScriptSecurity}
 Class Sound : Instance
 	Property bool Sound.PlayOnRemove
-	Property float Sound.EmitterSize
+	Property float Sound.EmitterSize  [Deprecated]
 	Property bool Sound.IsLoaded  [ReadOnly] [NotReplicated]
 	Property bool Sound.IsPaused  [ReadOnly] [NotReplicated]
 	Property bool Sound.IsPlaying  [ReadOnly] [NotReplicated]
 	Property bool Sound.Looped
-	Property float Sound.MaxDistance
+	Property float Sound.MaxDistance  [Deprecated]
 	Property float Sound.MinDistance [<📁> LoadOnly] [Deprecated]
 	Property float Sound.Pitch [<📁> LoadOnly] [Deprecated]
 	Property double Sound.PlaybackLoudness  [ReadOnly] [NotReplicated]
 	Property float Sound.PlaybackSpeed  [NotReplicated]
 	Property bool Sound.Playing  [NotReplicated]
+	Property float Sound.RollOffMaxDistance  [NotReplicated]
+	Property float Sound.RollOffMinDistance  [NotReplicated]
 	Property Enum<RollOffMode> Sound.RollOffMode
 	Property Class<SoundGroup> Sound.SoundGroup
 	Property Content Sound.SoundId
@@ -3308,9 +3311,9 @@ Class UIPadding : UIComponent
 Class UIScale : UIComponent
 	Property float UIScale.Scale
 Class UnvalidatedAssetService : Instance [NotCreatable] [Service]
-	Function void UnvalidatedAssetService:AppendTempAssetId(int64 id, Vector3 lookAt, Vector3 camPos, string usage) {RobloxScriptSecurity}
-	Function bool UnvalidatedAssetService:AppendVantagePoint(int64 id, Vector3 lookAt, Vector3 camPos) {RobloxScriptSecurity}
-	Function bool UnvalidatedAssetService:UpgradeTempAssetId(int64 tempId, int64 assetId) {RobloxScriptSecurity}
+	Function void UnvalidatedAssetService:AppendTempAssetId(int64 userId, int64 id, Vector3 lookAt, Vector3 camPos, string usage) {RobloxScriptSecurity}
+	Function bool UnvalidatedAssetService:AppendVantagePoint(int64 userId, int64 id, Vector3 lookAt, Vector3 camPos) {RobloxScriptSecurity}
+	Function bool UnvalidatedAssetService:UpgradeTempAssetId(int64 userId, int64 tempId, int64 assetId) {RobloxScriptSecurity}
 Class UserGameSettings : Instance [NotCreatable] [UserSettings]
 	Property int UserGameSettings.GraphicsQualityLevel {RobloxScriptSecurity}
 	Property Enum<SavedQualitySetting> UserGameSettings.SavedQualityLevel

@@ -12,7 +12,7 @@ out vec3 VARYING1;
 
 void main()
 {
-    vec4 v0 = vec4((POSITION.xyz * 0.0078740157186985015869140625) - vec3(1.0), 1.0);
+    vec4 v0 = vec4((POSITION.xyz * 0.0039215688593685626983642578125) - vec3(0.5), 1.0);
     vec4 v1 = vec4(dot(CB1[gl_InstanceID * 3 + 0], v0), dot(CB1[gl_InstanceID * 3 + 1], v0), dot(CB1[gl_InstanceID * 3 + 2], v0), 1.0);
     float v2 = (POSITION.w * 0.0078740157186985015869140625) - 1.0;
     float v3 = (NORMAL.x * 0.0078740157186985015869140625) - 1.0;

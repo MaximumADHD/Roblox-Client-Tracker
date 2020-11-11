@@ -679,6 +679,14 @@
 		The default for init is 1.
       </description>
     </Function>
+    <Function name="clear" static="true">
+      <parameters>
+        <table name="table"></table>
+      </parameters>
+      <description>
+        Clears all keys from the table, but leaves their capacity allocated so that future keys added to the table can re-use that storage, avoiding additional allocations.
+      </description>
+    </Function>
   </LuaLibrary>
   
   <LuaLibrary name="coroutine">

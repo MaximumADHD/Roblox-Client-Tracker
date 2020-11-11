@@ -585,6 +585,7 @@ RBX
 	ScriptEditor
 	{
 		CmdConfig
+		CmdDeleteLines
 		CmdDeleteToStartOfLine
 		CmdDocumentFormatting
 		CmdDuplicateSelection
@@ -598,7 +599,6 @@ RBX
 		CmdNewlineAbove
 		CmdNewlineBelow
 		CmdRangeFormatting
-		CmdRepeat
 		CmdSelect
 		CmdToggleComment
 		CmdUnfoldAll
@@ -612,9 +612,7 @@ RBX
 		IHostAppServices
 		LSPClientSettings
 		QtLanguageClient
-		ScriptEditorCmdBase
 		ScriptHighlightCache
-		ScriptingCmdBase
 		ScriptingCmdInput
 		ScriptingCommands
 		ScriptingManager
