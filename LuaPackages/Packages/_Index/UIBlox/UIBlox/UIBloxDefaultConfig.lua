@@ -21,4 +21,7 @@ return {
 
 	--useNewUICornerRoundedCorners: Uses the new roblox CornerUI Instance instead of mask-based UI corners
 	useNewUICornerRoundedCorners = false,
+
+	-- refactorCreateImageSetComponent: Moves part of the createImageSetComponent code to its own function
+	refactorCreateImageSetComponent = false,
 }

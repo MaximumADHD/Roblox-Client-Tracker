@@ -62,6 +62,7 @@ local function initializeLibrary()
 			Images = require(script.App.ImageSet.Images),
 			getIconSize = require(script.App.ImageSet.getIconSize),
 			getIconSizeUDim2 = require(script.App.ImageSet.getIconSizeUDim2),
+			scaleSliceToResolution = require(script.App.ImageSet.scaleSliceToResolution),
 			Enum = strict({
 				IconSize = require(script.App.ImageSet.Enum.IconSize)
 			}),
