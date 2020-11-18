@@ -103,10 +103,14 @@ Studio.TerrainToolsV2.Generate.MapSize, ,Map Size
 Studio.TerrainToolsV2.Generate.OtherSettings, ,Other Settings
 Studio.TerrainToolsV2.Generate.Seed, ,Seed
 Studio.TerrainToolsV2.Generate.StartGeneration, ,Generating with size ({1}) at position ({2}) using seed {3} and biomes: {4}
-Studio.TerrainToolsV2.Import.ColormapPreview, ,Color Map Preview
-Studio.TerrainToolsV2.Import.Heightmap, ,Height Map
-Studio.TerrainToolsV2.Import.UseColormap, ,Color Map
-Studio.TerrainToolsV2.Import.HeightmapPreview, ,Height Map Preview
+Studio.TerrainToolsV2.Import.ColormapPreview, ,Colormap Preview
+Studio.TerrainToolsV2.Import.DefaultMaterial, ,Default Material
+Studio.TerrainToolsV2.Import.Colormap, ,Colormap
+Studio.TerrainToolsV2.Import.Heightmap, ,Heightmap
+Studio.TerrainToolsV2.Import.UseColormap, ,Colormap
+Studio.TerrainToolsV2.Import.HeightmapPreview, ,Heightmap Preview
+Studio.TerrainToolsV2.ImportMaterialMode.Colormap, ,Colormap
+Studio.TerrainToolsV2.ImportMaterialMode.DefaultMaterial, ,Material
 Studio.TerrainToolsV2.LocalImageSelector.NoImageSelected, ,No image selected
 Studio.TerrainToolsV2.Main.Title, ,Terrain Editor
 Studio.TerrainToolsV2.Main.ToolbarButton, ,Editor
@@ -226,3 +230,4 @@ Studio.TerrainToolsV2.Warning.RequirePublishedForImport, ,Game must be published
 Studio.TerrainToolsV2.Warning.UnknownAssetStatusError, ,Unable to verify asset.
 Studio.TerrainToolsV2.Warning.UnknownShape, ,Instance shape is unknown
 Studio.TerrainToolsV2.Warning.ValidHeightMapImport, ,Valid HeightMap required to begin importing Terrain.
+Studio.TerrainToolsV2.Warning.NoColormapProvided, ,No colormap was provided.

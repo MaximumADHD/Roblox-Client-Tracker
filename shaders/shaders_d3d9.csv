@@ -32,6 +32,9 @@ Blur1FS,Fragment
 Blur3FS,Fragment
 Blur5FS,Fragment
 Blur7FS,Fragment
+CloudsCompFS,Fragment
+CloudsFS,Fragment
+CloudsVS,Vertex
 CopyGuiVS,Vertex
 DefaultDepthFS,Fragment
 DefaultDepthVS_Level0,Vertex
@@ -49,6 +52,9 @@ DefaultPlasticReflectionFS,Fragment
 DefaultReflectionVS_Level0,Vertex
 DefaultReflectionVS_Level2,Vertex
 DefaultReflectionVS_Level6,Vertex
+DefaultReflectionVS_Level512,Vertex
+DefaultReflectionVS_Level514,Vertex
+DefaultReflectionVS_Level518,Vertex
 DefaultShadowFS,Fragment
 DefaultShadowGeomVS_Level0,Vertex
 DefaultShadowGeomVS_Level2,Vertex
@@ -81,6 +87,7 @@ GlassVS_Level6,Vertex
 GrassFS,Fragment
 GrassVS,Vertex
 GridFS_Level0,Fragment
+GridFS_Level512,Fragment
 ImageProcessAlphaFS,Fragment
 ImageProcessBloomFS,Fragment
 ImageProcessBloomLinearFS,Fragment

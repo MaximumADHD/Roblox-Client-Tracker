@@ -251,6 +251,11 @@
                 "Default": "#353535"
             }
         }, {
+            "AttributeCog": {
+                "Default": "#AAAAAA",
+                "Selected": "#CCCCCC"
+            }
+        }, {
             "GameSettingsTableItem": {
                 "Default": "#2A2A2A",
                 "Selected": "#0B5AAF",
@@ -839,13 +844,17 @@
         },
         "InfoText": {
              "color": "#AAAAAA"
+        },
+        "ProgressBar": {
+             "background-color": "#252525",
+             "color": "#00A2FF"
         }
     },
     "Merge": {
         "TextUnconflicted": "#4CB5C2BD",
         "TextConflictActive": "#DDDDDDDD",
         "TextConflictInactive": "#4CB5C2BD",
-        
+
         "HighlightServerActive": "#20FA6400",
         "HighlightServerInactive": "#10FA6400",
         "HighlightDraftActive": "#2000B06F",

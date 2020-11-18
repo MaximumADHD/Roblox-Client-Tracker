@@ -3927,6 +3927,36 @@
 
     <Item class="ReflectionMetadataClass">
       <Properties>
+        <string name="Name">Clouds</string>
+        <string name="ClassCategory">Environment</string>
+        <string name="ExplorerOrder">5</string>
+        <string name="ExplorerImageIndex">28</string>
+        <string name="PreferredParent">Workspace</string>
+      </Properties>
+      <Item class="ReflectionMetadataProperties">
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Cover</string>
+            <double name="UIMinimum">0</double>
+            <double name="UIMaximum">1</double>
+            <double name="UINumTicks">1000</double>
+            <string name="summary">A value that controls the cloud cover within the clouds volume, from 0 oktas to 8 oktas (full cloud cover).</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Density</string>
+            <double name="UIMinimum">0</double>
+            <double name="UIMaximum">1</double>
+            <double name="UINumTicks">1000</double>
+            <string name="summary">A value that controls the clouds particulates density. The proportion of airborne water vapour particles within a cubic stud at full cloud cover.</string>
+          </Properties>
+        </Item>
+      </Item>
+    </Item>
+
+    <Item class="ReflectionMetadataClass">
+      <Properties>
         <string name="Name">Sky</string>
         <string name="ClassCategory">Environment</string>
         <string name="ExplorerOrder">5</string>

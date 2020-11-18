@@ -1219,6 +1219,38 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "FireCustomEvent",
+                    "Parameters": [
+                        {
+                            "Name": "player",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "Instance"
+                            }
+                        },
+                        {
+                            "Name": "eventCategory",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Name": "customData",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Variant"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "None"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "FireEvent",
                     "Parameters": [
                         {
@@ -1244,13 +1276,178 @@
                     "Tags": [
                         "Deprecated"
                     ]
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "FireInGameEconomyEvent",
+                    "Parameters": [
+                        {
+                            "Name": "player",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "Instance"
+                            }
+                        },
+                        {
+                            "Name": "itemName",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Name": "economyAction",
+                            "Type": {
+                                "Category": "Enum",
+                                "Name": "AnalyticsEconomyAction"
+                            }
+                        },
+                        {
+                            "Name": "itemCategory",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Name": "amount",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int"
+                            }
+                        },
+                        {
+                            "Name": "currency",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Name": "location",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Variant"
+                            }
+                        },
+                        {
+                            "Name": "customData",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Variant"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "None"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "FireLogEvent",
+                    "Parameters": [
+                        {
+                            "Name": "player",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "Instance"
+                            }
+                        },
+                        {
+                            "Name": "logLevel",
+                            "Type": {
+                                "Category": "Enum",
+                                "Name": "AnalyticsLogLevel"
+                            }
+                        },
+                        {
+                            "Name": "message",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Name": "debugInfo",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Variant"
+                            }
+                        },
+                        {
+                            "Name": "customData",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Variant"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "None"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "FirePlayerProgressionEvent",
+                    "Parameters": [
+                        {
+                            "Name": "player",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "Instance"
+                            }
+                        },
+                        {
+                            "Name": "category",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Name": "progressionStatus",
+                            "Type": {
+                                "Category": "Enum",
+                                "Name": "AnalyticsProgressionStatus"
+                            }
+                        },
+                        {
+                            "Name": "location",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Variant"
+                            }
+                        },
+                        {
+                            "Name": "statistics",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Variant"
+                            }
+                        },
+                        {
+                            "Name": "customData",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Variant"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "None"
                 }
             ],
             "MemoryCategory": "Instances",
             "Name": "AnalyticsService",
             "Superclass": "Instance",
             "Tags": [
-                "NotCreatable",
                 "Service"
             ]
         },
@@ -8104,6 +8301,47 @@
             ],
             "MemoryCategory": "Instances",
             "Name": "ClickDetector",
+            "Superclass": "Instance"
+        },
+        {
+            "Members": [
+                {
+                    "Category": "Appearance",
+                    "MemberType": "Property",
+                    "Name": "Cover",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    }
+                },
+                {
+                    "Category": "Appearance",
+                    "MemberType": "Property",
+                    "Name": "Density",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    }
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "Clouds",
             "Superclass": "Instance"
         },
         {
@@ -34633,6 +34871,17 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "CancelImportHeightmap",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "CellCenterToWorld",
                     "Parameters": [
                         {
@@ -35238,6 +35487,24 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "SetImportHeightmapPaused",
+                    "Parameters": [
+                        {
+                            "Name": "paused",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "bool"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "SetMaterialColor",
                     "Parameters": [
                         {
@@ -35404,6 +35671,48 @@
                     "Security": "None",
                     "Tags": [
                         "CustomLuaState"
+                    ]
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "ImportHeightmap",
+                    "Parameters": [
+                        {
+                            "Name": "region",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "Region3"
+                            }
+                        },
+                        {
+                            "Name": "heightmapAssetId",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "Content"
+                            }
+                        },
+                        {
+                            "Name": "colormapAssetId",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "Content"
+                            }
+                        },
+                        {
+                            "Name": "defaultMaterial",
+                            "Type": {
+                                "Category": "Enum",
+                                "Name": "Material"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "Tags": [
+                        "Yields"
                     ]
                 },
                 {
@@ -41051,13 +41360,16 @@
                     "MemberType": "Property",
                     "Name": "EmulatedCountryCode",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
                         "CanSave": true
                     },
+                    "Tags": [
+                        "Hidden"
+                    ],
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "string"
@@ -41068,13 +41380,16 @@
                     "MemberType": "Property",
                     "Name": "EmulatedGameLocale",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
                         "CanSave": true
                     },
+                    "Tags": [
+                        "Hidden"
+                    ],
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "string"
@@ -41085,13 +41400,16 @@
                     "MemberType": "Property",
                     "Name": "PlayerEmulationEnabled",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
                         "CanSave": true
                     },
+                    "Tags": [
+                        "Hidden"
+                    ],
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "bool"
@@ -41122,13 +41440,16 @@
                     "MemberType": "Property",
                     "Name": "SerializedEmulatedPolicyInfo",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
                         "CanSave": true
                     },
+                    "Tags": [
+                        "Hidden"
+                    ],
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "string"
@@ -55297,6 +55618,20 @@
                 },
                 {
                     "MemberType": "Event",
+                    "Name": "GameNameUpdated",
+                    "Parameters": [
+                        {
+                            "Name": "name",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Event",
                     "Name": "GamePublishFinished",
                     "Parameters": [
                         {
@@ -63883,6 +64218,77 @@
         {
             "Items": [
                 {
+                    "Name": "Default",
+                    "Value": 0
+                },
+                {
+                    "Name": "Acquire",
+                    "Value": 1
+                },
+                {
+                    "Name": "Spend",
+                    "Value": 2
+                }
+            ],
+            "Name": "AnalyticsEconomyAction"
+        },
+        {
+            "Items": [
+                {
+                    "Name": "Trace",
+                    "Value": 0
+                },
+                {
+                    "Name": "Debug",
+                    "Value": 1
+                },
+                {
+                    "Name": "Infomation",
+                    "Value": 2
+                },
+                {
+                    "Name": "Warning",
+                    "Value": 3
+                },
+                {
+                    "Name": "Error",
+                    "Value": 4
+                },
+                {
+                    "Name": "Fatal",
+                    "Value": 5
+                }
+            ],
+            "Name": "AnalyticsLogLevel"
+        },
+        {
+            "Items": [
+                {
+                    "Name": "Default",
+                    "Value": 0
+                },
+                {
+                    "Name": "Begin",
+                    "Value": 1
+                },
+                {
+                    "Name": "Complete",
+                    "Value": 2
+                },
+                {
+                    "Name": "Abandon",
+                    "Value": 3
+                },
+                {
+                    "Name": "Fail",
+                    "Value": 4
+                }
+            ],
+            "Name": "AnalyticsProgressionStatus"
+        },
+        {
+            "Items": [
+                {
                     "Name": "Idle",
                     "Value": 0
                 },
@@ -70541,6 +70947,10 @@
                 {
                     "Name": "ScriptTodo",
                     "Value": 107
+                },
+                {
+                    "Name": "AttributeCog",
+                    "Value": 108
                 }
             ],
             "Name": "StudioStyleGuideColor"

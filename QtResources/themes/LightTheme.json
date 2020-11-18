@@ -253,6 +253,11 @@
             "CategoryItem": {
                 "Default": "#e9e9e9"
             }
+        },  {
+            "AttributeCog": {
+                "Default": "#888888",
+                "Selected": "#FFFFFF"
+            }
         }, {
             "GameSettingsTableItem": {
                 "Default": "#f5f5f5",
@@ -817,7 +822,7 @@
             "color": "#000000"
         },
         "ImportButtonDisabled": {
-            "color": "#B8B8B8"
+            "color": "#252525"
         },
         "ImportButtonFrame": {
             "background-color": "#E3E3E3"
@@ -833,13 +838,17 @@
         },
          "InfoText": {
              "color": "#B8B8B8"
+        },
+        "ProgressBar": {
+             "background-color": "#E3E3E3",
+             "color": "#00A2FF"
         }
     },
     "Merge": {
         "TextUnconflicted": "#4C000000",
         "TextConflictActive": "#E0000000",
         "TextConflictInactive": "#4C000000",
-        
+
         "HighlightServerActive": "#20FA6400",
         "HighlightServerInactive": "#10FA6400",
         "HighlightDraftActive": "#2000B06F",

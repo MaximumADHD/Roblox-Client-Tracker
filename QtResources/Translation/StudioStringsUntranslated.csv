@@ -651,6 +651,7 @@ Studio.App.IdeDoc.WouldYouLikeToSaveTheseChanges,Roblox IDE Doc,Would you like t
 Studio.App.IdeDoc.YouMustLogInToCreateMeshes,Roblox IDE Doc,You must log in to create meshes.,You must log in to create meshes.
 Studio.App.ImagePickerWidget.AddImageElps,,Add Image...,Add Image...
 Studio.App.ImageResourceController.ImagesReferencedByName,,"Images are referenced by name, so any references to this image will fail to load. Are you sure you want to remove it?","Images are referenced by name, so any references to this image will fail to load. Are you sure you want to remove it?"
+Studio.App.ImportCostVerificationDialog.AudioUpload,,Audio Upload,Audio Upload
 Studio.App.ImportCostVerificationDialog.BalanceAfterImport,,Balance after import:,Balance after import:
 Studio.App.ImportCostVerificationDialog.CostVerificationDescription,,You will not be charged for imports that fail due to not meeting import requirements.,You will not be charged for imports that fail due to not meeting import requirements.
 Studio.App.ImportCostVerificationDialog.CostVerificationMainText1,,Would you like to import the selected files for %1 Robux?,Would you like to import the selected files for %1 Robux?
@@ -658,6 +659,7 @@ Studio.App.ImportCostVerificationDialog.CostVerificationTitle,,File Import Cost,
 Studio.App.ImportCostVerificationDialog.CurrentBalance,,Your current balance:,Your current balance:
 Studio.App.ImportCostVerificationDialog.DetailsCostTitle,,Cost,Cost
 Studio.App.ImportCostVerificationDialog.DetailsNameTitle,,Name,Name
+Studio.App.ImportCostVerificationDialog.LoadingFileData,,Loading file data...,Loading file data...
 Studio.App.ImportCostVerificationDialog.PurchaseRobux,,Purchase more Robux.,Purchase more Robux.
 Studio.App.ImportCostVerificationErrorDialog.EstimatedCostErrorDescription,,"Click ‘Show Details’ to view the files that could not be estimated and the import cost of files that were successfully estimated. Try importing a new selection, or resolve conflicts and reattempt.","Click ‘Show Details’ to view the files that could not be estimated and the import cost of files that were successfully estimated. Try importing a new selection, or resolve conflicts and reattempt."
 Studio.App.ImportCostVerificationErrorDialog.EstimatedCostErrorMainText,,Failed to estimate import cost of the selected files.,Failed to estimate import cost of the selected files.
@@ -705,8 +707,13 @@ Studio.App.InsertServiceDialog.InsertService,,Insert Service,Insert Service
 Studio.App.InstanceSelectionEditor.ClearValue,,Clear Value,Clear Value
 Studio.App.InstanceSelectionEditor.SelectValue,,Select Value,Select Value
 Studio.App.LocalPlacePublishRequestMediator.ErrorWhileSaving1,,Error while publishing: %1,Error while publishing: %1
+Studio.App.LocalPlacePublishRequestMediator.FetchActivePlayersInTCFailureText2,Display text for error message,"Unable to check active Team Create Session for place '%1'.
+Error Message: '%2'","Unable to check active Team Create Session for place '%1'.
+Error Message: '%2'"
+Studio.App.LocalPlacePublishRequestMediator.FetchActivePlayersInTCFailureTitle,Title of the pop up dialog,Overwrite Place,Overwrite Place
 Studio.App.LocalPlacePublishRequestMediator.PublishInProgress,,A Place Publish / Save is already in progress,A Place Publish / Save is already in progress
 Studio.App.LocalPlacePublishRequestMediator.Saving,,saving,saving
+Studio.App.LocalPlacePublishRequestMediator.UnexpectedDataFormat,Display this message when fetched result has unexpected format,Unexpected data format.,Unexpected data format.
 Studio.App.LocalSaveHelper.DataModelError,,Failed to save the DataModel.,Failed to save the DataModel.
 Studio.App.LocalSaveHelper.FailedToLock1,,"Failed to obtain a file lock on '%1'.
 
@@ -1008,7 +1015,7 @@ Studio.App.PackageUtilities.ModifiedPackagesInDMError,,Error: Cannot publish pla
 Studio.App.PackageUtilities.PendingPackagesInDMError,,Unable to publish this place as there may be modified packages. Please try again later.,Unable to publish this place as there may be modified packages. Please try again later.
 Studio.App.PackageUtilities.PermissionEdit,,Edit,Edit
 Studio.App.PackageUtilities.PermissionNoAccess,,No Access,No Access
-Studio.App.PackageUtilities.PermissionOwn,,Own,Own
+Studio.App.PackageUtilities.PermissionOwn,,Owner,Owner
 Studio.App.PackageUtilities.PermissionUseView,,Use & View,Use & View
 Studio.App.PackageUtilities.SelectInExplorer,Button text. The button allows user to select some packages in Explorer,Select in Explorer,Select in Explorer
 Studio.App.PackageUtilities.UndoChangesError1,,Package undo changes error: %1,Package undo changes error: %1
@@ -1018,13 +1025,19 @@ Studio.App.PackagesBlockingPublishDialog.CheckInProgress,,Modification check is 
 Studio.App.PackagesBlockingPublishDialog.CreatorTypeGroup,"Used in a list of package owners. Packages can be owned by individual users or by groups, so this label is used to distinguish the names of groups from the names of users.",Group,Group
 Studio.App.PackagesBlockingPublishDialog.Header,Header of dialog window showing packages in a place that are preventing the user from publishing that place,Place could not be published.,Place could not be published.
 Studio.App.PackagesBlockingPublishDialog.InsufficientPermissions,,Insufficient permissions,Insufficient permissions
+Studio.App.PackagesBlockingPublishDialog.MessageInsufficientPermissions,,Unable to publish this place as you do not have access to use one or more Packages. Get permission from the Package owner.,Unable to publish this place as you do not have access to use one or more Packages. Get permission from the Package owner.
+Studio.App.PackagesBlockingPublishDialog.MessageModifiedNoAccess,,Unable to publish this place while one or more Packages have unpublished changes. Get permission to publish changes from the Package owner.,Unable to publish this place while one or more Packages have unpublished changes. Get permission to publish changes from the Package owner.
+Studio.App.PackagesBlockingPublishDialog.MessageModifiedReadAccess,,Unable to publish this place while one or more Packages have unpublished changes. Undo the changes or get permission from the Package owner.,Unable to publish this place while one or more Packages have unpublished changes. Undo the changes or get permission from the Package owner.
+Studio.App.PackagesBlockingPublishDialog.MessageModifiedWriteAccess,,Unable to publish this place while one or more Packages have unpublished changes. Publish or undo changes to the following Packages.,Unable to publish this place while one or more Packages have unpublished changes. Publish or undo changes to the following Packages.
+Studio.App.PackagesBlockingPublishDialog.MessageStillChecking,,Unable to publish this place as Studio is still checking for updates and modifications to the following packages. Please try again later.,Unable to publish this place as Studio is still checking for updates and modifications to the following packages. Please try again later.
 Studio.App.PackagesBlockingPublishDialog.ModificationCheckStatus,,Package Link Status,Package Link Status
 Studio.App.PackagesBlockingPublishDialog.Owner,,Owner,Owner
 Studio.App.PackagesBlockingPublishDialog.PackageAssetName,,Package Asset Name,Package Asset Name
-Studio.App.PackagesBlockingPublishDialog.PackageInstance,,Package Instance,Package Instance
+Studio.App.PackagesBlockingPublishDialog.PackageInstance,,Package Instance Name,Package Instance Name
 Studio.App.PackagesBlockingPublishDialog.PackageInstanceName,,Package Instance Name,Package Instance Name
 Studio.App.PackagesBlockingPublishDialog.PackageIsModified,,Package is modified,Package is modified
-Studio.App.PackagesBlockingPublishDialog.Permission,,Permission,Permission
+Studio.App.PackagesBlockingPublishDialog.Permission,,Permission Status,Permission Status
+Studio.App.PackagesBlockingPublishDialog.SelectPackages,,Select All in Explorer,Select All in Explorer
 Studio.App.PackagesBlockingPublishDialog.Warning,,The following packages are preventing this place from being published:,The following packages are preventing this place from being published:
 Studio.App.Parts.Surface,Parts menu,Surface,Surface
 Studio.App.Parts.SurfaceTooltip,tooltip,"Pick a surface type, and click on part surfaces to apply","Pick a surface type, and click on part surfaces to apply"
@@ -1661,8 +1674,6 @@ Studio.App.RBXMainWindow.PublishSelectionToRobloxElps,,Save to Roblox...,Save to
 Studio.App.RBXMainWindow.PublishTheSelectionToRoblox,,Publish the Selection to Roblox,Publish the Selection to Roblox
 Studio.App.RBXMainWindow.PublishToRoblox,,Publish to Roblox,Publish to Roblox
 Studio.App.RBXMainWindow.PublishToRobloxAsElps,,Publish to Roblox As...,Publish to Roblox As...
-Studio.App.RBXMainWindow.QuickFindScript,,Type to quickly open another script,Type to quickly open another script
-Studio.App.RBXMainWindow.QuickFindScriptUseCtrlP,,"This Dialog is deprecated, please use Quick Open (Ctrl+P) instead","This Dialog is deprecated, please use Quick Open (Ctrl+P) instead"
 Studio.App.RBXMainWindow.QuitApplication,,Quit the application; prompts to save documents,Quit the application; prompts to save documents
 Studio.App.RBXMainWindow.RedoThePreviouslyUndo,,Redo the previously undone action,Redo the previously undone action
 Studio.App.RBXMainWindow.ReloadPlugin,,Reload Plugin,Reload Plugin
@@ -2501,6 +2512,7 @@ Studio.App.ScriptingCmd.GOTOPOSTooltip,,Go to line...,Go to line...
 Studio.App.ScriptingCmd.INDENT,,Indent,Indent
 Studio.App.ScriptingCmd.INDENTTooltip,,Indent selected line(s),Indent selected line(s)
 Studio.App.ScriptingCmd.INSERT,,Insert text...,Insert text...
+Studio.App.ScriptingCmd.INVOKECOMPLETIONS,,Invoke Autocomplete,Invoke Autocomplete
 Studio.App.ScriptingCmd.MOVELINESDOWN,,Move Lines Down,Move Lines Down
 Studio.App.ScriptingCmd.MOVELINESDOWNTooltip,,Move selected line(s) downwards,Move selected line(s) downwards
 Studio.App.ScriptingCmd.MOVELINESUP,,Move Lines Up,Move Lines Up
@@ -2510,6 +2522,8 @@ Studio.App.ScriptingCmd.NEWLINEABOVETooltip,,Insert a newline above the current 
 Studio.App.ScriptingCmd.NEWLINEBELOW,,Insert Newline Below,Insert Newline Below
 Studio.App.ScriptingCmd.NEWLINEBELOWTooltip,,Insert a newline below the current line,Insert a newline below the current line
 Studio.App.ScriptingCmd.SELECT,,Select text...,Select text...
+Studio.App.ScriptingCmd.SELECTWORD,,Select Word,Select Word
+Studio.App.ScriptingCmd.SELECTWORDTooltip,,Select the word under the cursor.,Select the word under the cursor.
 Studio.App.ScriptingCmd.TOGGLECOMMENT,,Toggle Comment,Toggle Comment
 Studio.App.ScriptingCmd.TOGGLECOMMENTTooltip,,Toggle selection commenting,Toggle selection commenting
 Studio.App.ScriptingCmd.UNFOLDALL,,Expand All Folds,Expand All Folds
@@ -2702,6 +2716,13 @@ Studio.App.TeamCreate.SyncingGenericWarning,,Quitting Roblox Studio will cause y
 Studio.App.TeamCreate.SyncingTerrainWarning,,Quitting Roblox Studio will cause you to lose data that is currently syncing and might corrupt your Terrain.,Quitting Roblox Studio will cause you to lose data that is currently syncing and might corrupt your Terrain.
 Studio.App.TeamCreate.TurnOn,,Turn On,Turn On
 Studio.App.TeamCreate.UnpublishedChangesWarning,,Other users are currently editing scripts. Turning off team create will lose these unpublished changes. Continue anyway?,Other users are currently editing scripts. Turning off team create will lose these unpublished changes. Continue anyway?
+Studio.App.TeamCreateActivePlayersDialog.PlayerID1,String for Player ID,Player ID: '%1',Player ID: '%1'
+Studio.App.TeamCreateActivePlayersDialog.TopLabelText1,Display this message to inform user about the ongoing active team create session,Place '%1' currently has an active Team Create Session with other users. The following users will need to close their session in order to proceed with this operation,Place '%1' currently has an active Team Create Session with other users. The following users will need to close their session in order to proceed with this operation
+Studio.App.TeamCreateActivePlayersDialog.UnableToRetrieveUsernames1,Error message on fetching failure,"Unable to retrieve usernames.
+Additional Info: '%1'","Unable to retrieve usernames.
+Additional Info: '%1'"
+Studio.App.TeamCreateActivePlayersDialog.UnexpectedDataFormat,Display this message when fetched result has unexpected format,Unexpected data format.,Unexpected data format.
+Studio.App.TeamCreateActivePlayersDialog.UsernameField,Username field,User Name,User Name
 Studio.App.TeamCreateConnectionDialog.YouHaveLostConnectionToTheServer,,You have lost connection to the server. Trying to reconnect...<br><br>Recent copy of the place has been saved. <a href='openautosave://file'>Click here</a> to open the saved place.,You have lost connection to the server. Trying to reconnect...<br><br>Recent copy of the place has been saved. <a href='openautosave://file'>Click here</a> to open the saved place.
 Studio.App.TemplatePage.Gameplay,,Gameplay,Gameplay
 Studio.App.TemplatePage.Theme,,Theme,Theme
@@ -2787,6 +2808,7 @@ Studio.App.VersionHistoryDialog.ShowBatchContentsLink,,Show,Show
 Studio.App.VersionHistoryDialog.Title1,Title of dialog to view history for a script. Example: MyScriptName - Version History,%1 - Version History,%1 - Version History
 Studio.App.VersionHistoryDialog.VersionColumnTitle,,Version,Version
 Studio.App.VersionHistoryDialog.VersionComparedWithFmt2,,Version %1 compared with %2,Version %1 compared with %2
+Studio.App.VersionHistoryDialog.VersionHistoryHashMismatch,,Current Source does not match latest commit.,Current Source does not match latest commit.
 Studio.App.VersionHistoryDialog.ViewButtonText,,View,View
 Studio.App.VideoControl.RecordingStarted,,Video recording started,Video recording started
 Studio.App.VideoControl.RecordingStopped,,Video recording stopped,Video recording stopped

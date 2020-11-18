@@ -61,9 +61,13 @@ Class AdService : Instance [NotCreatable] [Service] [Deprecated]
 	Function void AdService:ShowVideoAd() [Deprecated]
 	Event AdService.VideoAdClosed(bool adShown) [Deprecated]
 Class AdvancedDragger : Instance
-Class AnalyticsService : Instance [NotCreatable] [Service] [Deprecated]
+Class AnalyticsService : Instance [Service]
 	Property string AnalyticsService.ApiKey {LocalUserSecurity} [Deprecated]
+	Function void AnalyticsService:FireCustomEvent(Instance player, string eventCategory, Variant customData)
 	Function void AnalyticsService:FireEvent(string category, Variant value) [Deprecated]
+	Function void AnalyticsService:FireInGameEconomyEvent(Instance player, string itemName, Enum<AnalyticsEconomyAction> economyAction, string itemCategory, int amount, string currency, Variant location, Variant customData)
+	Function void AnalyticsService:FireLogEvent(Instance player, Enum<AnalyticsLogLevel> logLevel, string message, Variant debugInfo, Variant customData)
+	Function void AnalyticsService:FirePlayerProgressionEvent(Instance player, string category, Enum<AnalyticsProgressionStatus> progressionStatus, Variant location, Variant statistics, Variant customData)
 Class Animation : Instance
 	Property Content Animation.AnimationId
 Class AnimationController : Instance [Deprecated]
@@ -453,6 +457,9 @@ Class ClickDetector : Instance
 	Event ClickDetector.MouseHoverEnter(Instance playerWhoHovered)
 	Event ClickDetector.MouseHoverLeave(Instance playerWhoHovered)
 	Event ClickDetector.RightMouseClick(Instance playerWhoClicked)
+Class Clouds : Instance
+	Property float Clouds.Cover
+	Property float Clouds.Density
 Class ClusterPacketCache : Instance [NotCreatable] [Service] [NotReplicated]
 Class CollectionService : Instance [NotCreatable] [Service]
 	Function void CollectionService:AddTag(Instance instance, string tag)
@@ -1958,6 +1965,7 @@ Class Terrain : BasePart [NotCreatable]
 	Property Region3int16 Terrain.MaxExtents  [ReadOnly] [NotReplicated]
 	Function bool Terrain:AutowedgeCell(int x, int y, int z) [Deprecated]
 	Function void Terrain:AutowedgeCells(Region3int16 region) [Deprecated]
+	Function void Terrain:CancelImportHeightmap() {RobloxScriptSecurity}
 	Function Vector3 Terrain:CellCenterToWorld(int x, int y, int z)
 	Function Vector3 Terrain:CellCornerToWorld(int x, int y, int z)
 	Function void Terrain:Clear()
@@ -1973,11 +1981,13 @@ Class Terrain : BasePart [NotCreatable]
 	Function Color3 Terrain:GetMaterialColor(Enum<Material> material)
 	Function Tuple Terrain:GetWaterCell(int x, int y, int z) [Deprecated]
 	Function void Terrain:ImportHeightMap(string heightMapBinary, string colorMapBinary, Region3 region) {RobloxScriptSecurity} [CustomLuaState]
+	Function void Terrain:ImportHeightmap(Region3 region, Content heightmapAssetId, Content colormapAssetId, Enum<Material> defaultMaterial) {RobloxScriptSecurity} [Yields]
 	Function void Terrain:PasteRegion(Instance region, Vector3int16 corner, bool pasteEmptyCells)
 	Function Tuple Terrain:ReadVoxels(Region3 region, float resolution) [CustomLuaState]
 	Function void Terrain:ReplaceMaterial(Region3 region, float resolution, Enum<Material> sourceMaterial, Enum<Material> targetMaterial)
 	Function void Terrain:SetCell(int x, int y, int z, Enum<CellMaterial> material, Enum<CellBlock> block, Enum<CellOrientation> orientation) [Deprecated]
 	Function void Terrain:SetCells(Region3int16 region, Enum<CellMaterial> material, Enum<CellBlock> block, Enum<CellOrientation> orientation) [Deprecated]
+	Function void Terrain:SetImportHeightmapPaused(bool paused) {RobloxScriptSecurity}
 	Function void Terrain:SetMaterialColor(Enum<Material> material, Color3 value)
 	Function void Terrain:SetWaterCell(int x, int y, int z, Enum<WaterForce> force, Enum<WaterDirection> direction) [Deprecated]
 	Function Vector3 Terrain:WorldToCell(Vector3 position)
@@ -2275,11 +2285,11 @@ Class Player : Instance
 	Event Player.OnTeleport(Enum<TeleportState> teleportState, int64 placeId, string spawnName)
 	Event Player.SimulationRadiusChanged(float radius) {LocalUserSecurity}
 Class PlayerEmulatorService : Instance [NotCreatable] [Service]
-	Property string PlayerEmulatorService.EmulatedCountryCode
-	Property string PlayerEmulatorService.EmulatedGameLocale
-	Property bool PlayerEmulatorService.PlayerEmulationEnabled
+	Property string PlayerEmulatorService.EmulatedCountryCode {RobloxScriptSecurity} [Hidden]
+	Property string PlayerEmulatorService.EmulatedGameLocale {RobloxScriptSecurity} [Hidden]
+	Property bool PlayerEmulatorService.PlayerEmulationEnabled {RobloxScriptSecurity} [Hidden]
 	Property bool PlayerEmulatorService.PlayerEmulationEnabled_deprecated {RobloxScriptSecurity} [<📁> LoadOnly] [NotReplicated]
-	Property string PlayerEmulatorService.SerializedEmulatedPolicyInfo
+	Property string PlayerEmulatorService.SerializedEmulatedPolicyInfo {RobloxScriptSecurity} [Hidden]
 	Property string PlayerEmulatorService.StudioEmulatedCountryRegionCode {RobloxScriptSecurity} [<📁> LoadOnly] [NotReplicated]
 	Function Dictionary PlayerEmulatorService:GetEmulatedPolicyInfo() {RobloxScriptSecurity}
 	Function void PlayerEmulatorService:SetEmulatedPolicyInfo(Dictionary emulatedPolicyInfo) {RobloxScriptSecurity}
@@ -3090,6 +3100,7 @@ Class StudioService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void StudioService:UninstallPlugin(int64 assetId) {RobloxScriptSecurity}
 	Function void StudioService:UpdatePluginManagement() {RobloxScriptSecurity}
 	Event StudioService.DEPRECATED_OnPublishPlaceToRoblox() {RobloxScriptSecurity}
+	Event StudioService.GameNameUpdated(string name) {RobloxScriptSecurity}
 	Event StudioService.GamePublishFinished(bool success, int64 gameId) {RobloxScriptSecurity}
 	Event StudioService.OnConvertToPackageResult(bool isSuccessful, string errorMessage) {RobloxScriptSecurity}
 	Event StudioService.OnImportFromRoblox() {RobloxScriptSecurity}
@@ -3577,6 +3588,23 @@ Enum AlignType
 Enum AlphaMode
 	EnumItem AlphaMode.Overlay : 0
 	EnumItem AlphaMode.Transparency : 1
+Enum AnalyticsEconomyAction
+	EnumItem AnalyticsEconomyAction.Default : 0
+	EnumItem AnalyticsEconomyAction.Acquire : 1
+	EnumItem AnalyticsEconomyAction.Spend : 2
+Enum AnalyticsLogLevel
+	EnumItem AnalyticsLogLevel.Trace : 0
+	EnumItem AnalyticsLogLevel.Debug : 1
+	EnumItem AnalyticsLogLevel.Infomation : 2
+	EnumItem AnalyticsLogLevel.Warning : 3
+	EnumItem AnalyticsLogLevel.Error : 4
+	EnumItem AnalyticsLogLevel.Fatal : 5
+Enum AnalyticsProgressionStatus
+	EnumItem AnalyticsProgressionStatus.Default : 0
+	EnumItem AnalyticsProgressionStatus.Begin : 1
+	EnumItem AnalyticsProgressionStatus.Complete : 2
+	EnumItem AnalyticsProgressionStatus.Abandon : 3
+	EnumItem AnalyticsProgressionStatus.Fail : 4
 Enum AnimationPriority
 	EnumItem AnimationPriority.Idle : 0
 	EnumItem AnimationPriority.Movement : 1
@@ -5148,6 +5176,7 @@ Enum StudioStyleGuideColor
 	EnumItem StudioStyleGuideColor.ScriptLuauKeyword : 105
 	EnumItem StudioStyleGuideColor.ScriptFunctionName : 106
 	EnumItem StudioStyleGuideColor.ScriptTodo : 107
+	EnumItem StudioStyleGuideColor.AttributeCog : 108
 Enum StudioStyleGuideModifier
 	EnumItem StudioStyleGuideModifier.Default : 0
 	EnumItem StudioStyleGuideModifier.Selected : 1
