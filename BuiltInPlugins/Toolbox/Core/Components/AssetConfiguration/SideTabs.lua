@@ -39,8 +39,6 @@ local withLocalization = ContextHelper.withLocalization
 
 local SideTabs = Roact.PureComponent:extend("SideTabs")
 
-local FFlagEnablePreviewTabSelection = settings():GetFFlag("EnablePreviewTabSelection")
-
 local SIDE_TAB_SELECT_WIDTH = 4
 
 function SideTabs:init(props)
@@ -84,12 +82,7 @@ function SideTabs:createSideButtons(items, currentTab, ItemHeight, theme, locali
 		local itemName = localizedContent.AssetConfig.SideTabs[item.name]
 		local isCurrentTab = item == currentTab
 
-		local iconColor
-		if FFlagEnablePreviewTabSelection then
-			iconColor = theme.sideTab.contentColor
-		else
-			iconColor = (item == currentTab) and theme.sideTab.selectedColor or theme.sideTab.contentColor
-		end
+		local iconColor = theme.sideTab.contentColor
 
 		children[itemName] = Roact.createElement("Frame", {
 			Size = UDim2.new(0.5, 0, 0, ItemHeight),
@@ -131,7 +124,7 @@ function SideTabs:createSideButtons(items, currentTab, ItemHeight, theme, locali
 			}),
 
 			-- The postion and size we set will take priority.
-			Selection = FFlagEnablePreviewTabSelection and isCurrentTab and Roact.createElement("Frame", {
+			Selection = isCurrentTab and Roact.createElement("Frame", {
 				Position = UDim2.new(-0.5, 0, 0, 0),
 				Size = UDim2.new(0, seletctionWidth, 1, 0),
 

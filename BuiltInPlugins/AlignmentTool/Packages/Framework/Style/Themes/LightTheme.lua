@@ -10,6 +10,8 @@ return {
 	[StyleKey.ButtonHover] = Color3.fromRGB(228, 238, 254),
 	[StyleKey.ButtonDisabled] = Colors.White,
 	[StyleKey.ButtonPressed] = Color3.fromRGB(219, 219, 219),
+	[StyleKey.ImageButtonBackground] = Color3.fromRGB(182, 182, 182),
+	[StyleKey.ImageButtonHover] = Colors.lighter(Color3.fromRGB(182, 182, 182), 0.26),
 
 	[StyleKey.CategoryItem] = Color3.fromRGB(233, 233, 233),
 
@@ -32,6 +34,7 @@ return {
 	[StyleKey.MainText] = Colors.Black,
 	[StyleKey.MainTextDisabled] = Color3.fromRGB(120, 120, 120),
 	[StyleKey.Mid] = Color3.fromRGB(238, 238, 238),
+	[StyleKey.SubBackground] = Colors.Gray_Lighter,
 
 	[StyleKey.RibbonTab] = Color3.fromRGB(243, 243, 243),
 

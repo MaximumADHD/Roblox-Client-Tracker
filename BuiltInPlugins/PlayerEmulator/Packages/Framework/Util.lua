@@ -8,6 +8,9 @@ return strict({
 	-- Plugin Utilities
 	Action = require(script.Action),
 
+	-- Studio Utilities
+	AssetRenderUtil = require(script.AssetRenderUtil),
+
 	-- TODO DEVTOOLS-4459: Remove this export
 	Cryo = require(script.Cryo),
 	CrossPluginCommunication = require(script.CrossPluginCommunication),
@@ -18,6 +21,8 @@ return strict({
 	-- TODO DEVTOOLS-4459: Remove this export
 	FitFrame = require(script.FitFrame),
 
+	formatDuration = require(script.formatDuration),
+	formatLocalDateTime = require(script.formatLocalDateTime),
 	Flags = require(script.Flags),
 	getTestVariation = require(script.getTestVariation),
 	Immutable = require(script.Immutable),

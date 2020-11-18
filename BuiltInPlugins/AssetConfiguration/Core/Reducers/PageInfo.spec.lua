@@ -10,7 +10,6 @@ return function()
 	local UpdatePageInfo = require(Plugin.Core.Actions.UpdatePageInfo)
 
 	local FFlagUseCategoryNameInToolbox = game:GetFastFlag("UseCategoryNameInToolbox")
-	local FFlagToolboxNewAssetAnalytics = game:GetFastFlag("ToolboxNewAssetAnalytics")
 
 	local PageInfo = require(Plugin.Core.Reducers.PageInfo)
 
@@ -168,33 +167,30 @@ return function()
 			expect(state.category).to.equal(state.categories[2].category)
 		end)
 
-		if FFlagToolboxNewAssetAnalytics then
+		it("should generate a new searchId if RequestReason is not Update", function()
+			local state = PageInfo(nil, {})
 
-			it("should generate a new searchId if RequestReason is not Update", function()
-				local state = PageInfo(nil, {})
+			expect(state.searchId).to.equal(nil)
 
-				expect(state.searchId).to.equal(nil)
+			state = PageInfo(state, UpdatePageInfo({}))
 
-				state = PageInfo(state, UpdatePageInfo({}))
+			local originalSearchId = state.searchId
+			expect(type(originalSearchId)).to.equal("string")
 
-				local originalSearchId = state.searchId
-				expect(type(originalSearchId)).to.equal("string")
+			state = PageInfo(state, UpdatePageInfo({
+				requestReason = RequestReason.NextPage
+			}))
+			expect(state.searchId).to.equal(originalSearchId)
 
-				state = PageInfo(state, UpdatePageInfo({
-					requestReason = RequestReason.NextPage
-				}))
-				expect(state.searchId).to.equal(originalSearchId)
+			state = PageInfo(state, UpdatePageInfo({
+				requestReason = RequestReason.UpdatePage
+			}))
+			expect(state.searchId).to.equal(originalSearchId)
 
-				state = PageInfo(state, UpdatePageInfo({
-					requestReason = RequestReason.UpdatePage
-				}))
-				expect(state.searchId).to.equal(originalSearchId)
-
-				state = PageInfo(state, UpdatePageInfo({
-					requestReason = RequestReason.StartSearch
-				}))
-				expect(state.searchId).to.never.equal(originalSearchId)
-			end)
-		end
+			state = PageInfo(state, UpdatePageInfo({
+				requestReason = RequestReason.StartSearch
+			}))
+			expect(state.searchId).to.never.equal(originalSearchId)
+		end)
 	end)
 end

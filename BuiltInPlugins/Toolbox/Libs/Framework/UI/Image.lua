@@ -5,6 +5,8 @@
 		Theme Theme: A Theme ContextItem, which is provided via mapToProps.
 		Style Style: The style with which to render this component.
 		StyleModifier StyleModifier: The StyleModifier index into Style.
+		Enum.SizeConstraint SizeConstraint: the direction(s) that the image can be resized in.
+		number LayoutOrder: LayoutOrder of the component.
 		Stylizer Stylizer: A Stylizer ContextItem, which is provided via mapToProps.
 
 	Style Values:
@@ -50,6 +52,7 @@ function Image:render()
 	local imageRectSize = style.ImageRectSize
 	local imageRectOffset = style.ImageRectOffset
 	local scaleType = style.ScaleType
+	local sizeConstraint = props.SizeConstraint
 	local sliceCenter = style.SliceCenter
 	local anchorPoint = style.AnchorPoint
 	local position = style.Position or UDim2.new(0, 0, 0, 0)
@@ -69,6 +72,7 @@ function Image:render()
 		ImageRectOffset = imageRectOffset,
 		ScaleType = scaleType,
 		SliceCenter = sliceCenter,
+		SizeConstraint = sizeConstraint,
 		LayoutOrder = FFlagAssetManagerLuaCleanup1 and layoutOrder or nil,
 	}, props[Roact.Children])
 end

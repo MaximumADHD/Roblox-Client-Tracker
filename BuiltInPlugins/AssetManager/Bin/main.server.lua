@@ -10,6 +10,7 @@ local OverrideLocaleId = settings():GetFVariable("StudioForceLocale")
 local FFlagAssetManagerLuaPlugin = settings():GetFFlag("AssetManagerLuaPlugin")
 local FFlagStudioAssetManagerAddRecentlyImportedView = game:GetFastFlag("StudioAssetManagerAddRecentlyImportedView")
 local FFlagStudioShowHideABTestV2 = game:GetFastFlag("StudioShowHideABTestV2")
+local FFlagStudioAssetManagerUpdateGameName = game:GetFastFlag("StudioAssetManagerUpdateGameName")
 
 if not FFlagAssetManagerLuaPlugin then
 	return
@@ -54,6 +55,7 @@ local MainView = require(Plugin.Src.Components.MainView)
 local SetBulkImporterRunning = require(Plugin.Src.Actions.SetBulkImporterRunning)
 local SetRecentAssets = require(Plugin.Src.Actions.SetRecentAssets)
 local SetRecentViewToggled = require(Plugin.Src.Actions.SetRecentViewToggled)
+local SetUniverseName = require(Plugin.Src.Actions.SetUniverseName)
 
 local PLUGIN_NAME = "AssetManager"
 local TOOLBAR_NAME = "assetManagerToolbar"
@@ -64,7 +66,7 @@ local ABTEST_SHOWHIDEV2_NAME = "AllUsers.RobloxStudio.ShowHideV2"
 
 -- Plugin Specific Globals
 local store = Rodux.Store.new(MainReducer, {}, MainMiddleware)
-local theme = PluginTheme:makePluginTheme()
+local theme = PluginTheme.makePluginTheme()
 local analytics = ContextServices.Analytics.new(AnalyticsHandlers)
 local localization = ContextServices.Localization.new({
 	pluginName = PLUGIN_NAME,
@@ -211,6 +213,12 @@ local function main()
 
 	plugin.Unloading:Connect(onPluginUnloading)
 	connectBulkImporterSignals()
+
+	if FFlagStudioAssetManagerUpdateGameName then
+		StudioService.GameNameUpdated:connect(function(name)
+			store:dispatch(SetUniverseName(name))
+		end)
+	end
 end
 
 main()

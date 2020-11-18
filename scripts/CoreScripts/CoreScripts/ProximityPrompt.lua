@@ -5,6 +5,9 @@ local TweenService = game:GetService("TweenService")
 local TextService = game:GetService("TextService")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
+local FFlagProximityPromptNoButtonDrag = game:DefineFastFlag("ProximityPromptNoButtonDrag", false)
+local FFlagProximityPromptLiveChanges = game:DefineFastFlag("ProximityPromptLiveChanges", false)
+
 local GamepadButtonImage = {
 	[Enum.KeyCode.ButtonX] = "rbxasset://textures/ui/Controls/xboxX.png",
 	[Enum.KeyCode.ButtonY] = "rbxasset://textures/ui/Controls/xboxY.png",
@@ -80,7 +83,8 @@ local function createCircularProgressBar()
 	return bar
 end
 
-local function createPrompt(prompt, inputType)
+-- remove with FFlagProximityPromptLiveChanges
+local function createPrompt_DEPRECATED(prompt, inputType)
 
 	local tweensForButtonHoldBegin = {}
 	local tweensForButtonHoldEnd = {}
@@ -261,16 +265,36 @@ local function createPrompt(prompt, inputType)
 		button.Size = UDim2.fromScale(1, 1)
 		button.Parent = promptUI
 
-		button.InputBegan:Connect(function(input)
-			if input.UserInputType == Enum.UserInputType.Touch or input.UserInputType == Enum.UserInputType.MouseButton1 then
-				prompt:InputHoldBegin()
-			end
-		end)
-		button.InputEnded:Connect(function(input)
-			if input.UserInputType == Enum.UserInputType.Touch or input.UserInputType == Enum.UserInputType.MouseButton1 then
-				prompt:InputHoldEnd()
-			end
-		end)
+		if FFlagProximityPromptNoButtonDrag then
+			local buttonDown = false
+
+			button.InputBegan:Connect(function(input)
+				if (input.UserInputType == Enum.UserInputType.Touch or input.UserInputType == Enum.UserInputType.MouseButton1) and
+					input.UserInputState ~= Enum.UserInputState.Change then
+					prompt:InputHoldBegin()
+					buttonDown = true
+				end
+			end)
+			button.InputEnded:Connect(function(input)
+				if input.UserInputType == Enum.UserInputType.Touch or input.UserInputType == Enum.UserInputType.MouseButton1 then
+					if buttonDown then
+						buttonDown = false
+						prompt:InputHoldEnd()
+					end
+				end
+			end)
+		else
+			button.InputBegan:Connect(function(input)
+				if input.UserInputType == Enum.UserInputType.Touch or input.UserInputType == Enum.UserInputType.MouseButton1 then
+					prompt:InputHoldBegin()
+				end
+			end)
+			button.InputEnded:Connect(function(input)
+				if input.UserInputType == Enum.UserInputType.Touch or input.UserInputType == Enum.UserInputType.MouseButton1 then
+					prompt:InputHoldEnd()
+				end
+			end)
+		end
 
 		promptUI.Active = true
 	end
@@ -285,6 +309,283 @@ local function createPrompt(prompt, inputType)
 	return promptUI, tweensForButtonHoldBegin, tweensForButtonHoldEnd, tweensForTriggered, tweensForTriggerEnded
 end
 
+local function createPrompt(prompt, inputType, gui)
+
+	local tweensForButtonHoldBegin = {}
+	local tweensForButtonHoldEnd = {}
+	local tweensForTriggered = {}
+	local tweensForTriggerEnded = {}
+	local tweenInfoInFullDuration = TweenInfo.new(prompt.HoldDuration, Enum.EasingStyle.Linear, Enum.EasingDirection.Out)
+	local tweenInfoOutHalfSecond = TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
+	local tweenInfoFast = TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
+	local tweenInfoQuick = TweenInfo.new(0.06, Enum.EasingStyle.Linear, Enum.EasingDirection.Out)
+
+	local promptUI = Instance.new("BillboardGui")
+	promptUI.Name = "Prompt"
+	promptUI.AlwaysOnTop = true
+
+	local frame = Instance.new("Frame")
+	frame.Size = UDim2.fromScale(1, 1)
+	frame.BackgroundTransparency = 0.2
+	frame.BackgroundColor3 = Color3.new(0.07, 0.07, 0.07)
+	frame.Parent = promptUI
+
+	local roundedCorner = Instance.new("UICorner")
+	roundedCorner.Parent = frame
+
+	local inputFrame = Instance.new("Frame")
+	inputFrame.Name = "InputFrame"
+	inputFrame.Size = UDim2.fromScale(1, 1)
+	inputFrame.BackgroundTransparency = 1
+	inputFrame.SizeConstraint = Enum.SizeConstraint.RelativeYY
+	inputFrame.Parent = frame
+
+	local resizeableInputFrame = Instance.new("Frame")
+	resizeableInputFrame.Size = UDim2.fromScale(1, 1)
+	resizeableInputFrame.Position = UDim2.fromScale(0.5, 0.5)
+	resizeableInputFrame.AnchorPoint = Vector2.new(0.5, 0.5)
+	resizeableInputFrame.BackgroundTransparency = 1
+	resizeableInputFrame.Parent = inputFrame
+
+	local inputFrameScaler = Instance.new("UIScale")
+	inputFrameScaler.Parent = resizeableInputFrame
+
+	local inputFrameScaleFactor = inputType == Enum.ProximityPromptInputType.Touch and 1.6 or 1.33
+	table.insert(tweensForButtonHoldBegin, TweenService:Create(inputFrameScaler, tweenInfoFast, { Scale = inputFrameScaleFactor }))
+	table.insert(tweensForButtonHoldEnd, TweenService:Create(inputFrameScaler, tweenInfoFast, { Scale = 1 }))
+
+	local actionText = Instance.new("TextLabel")
+	actionText.Name = "ActionText"
+	actionText.Size = UDim2.fromScale(1, 1)
+	actionText.Font = Enum.Font.GothamSemibold
+	actionText.TextSize = 19
+	actionText.BackgroundTransparency = 1
+	actionText.TextColor3 = Color3.new(1, 1, 1)
+	actionText.TextXAlignment = Enum.TextXAlignment.Left
+	actionText.Parent = frame
+	table.insert(tweensForButtonHoldBegin, TweenService:Create(actionText, tweenInfoFast, { TextTransparency = 1 }))
+	table.insert(tweensForButtonHoldEnd, TweenService:Create(actionText, tweenInfoFast, { TextTransparency = 0 }))
+	table.insert(tweensForTriggered, TweenService:Create(actionText, tweenInfoFast, { TextTransparency = 1 }))
+	table.insert(tweensForTriggerEnded, TweenService:Create(actionText, tweenInfoFast, { TextTransparency = 0 }))
+
+	local objectText = Instance.new("TextLabel")
+	objectText.Name = "ObjectText"
+	objectText.Size = UDim2.fromScale(1, 1)
+	objectText.Font = Enum.Font.GothamSemibold
+	objectText.TextSize = 14
+	objectText.BackgroundTransparency = 1
+	objectText.TextColor3 = Color3.new(0.7, 0.7, 0.7)
+	objectText.TextXAlignment = Enum.TextXAlignment.Left
+	objectText.Parent = frame
+
+	table.insert(tweensForButtonHoldBegin, TweenService:Create(objectText, tweenInfoFast, { TextTransparency = 1 }))
+	table.insert(tweensForButtonHoldEnd, TweenService:Create(objectText, tweenInfoFast, { TextTransparency = 0 }))
+	table.insert(tweensForTriggered, TweenService:Create(objectText, tweenInfoFast, { TextTransparency = 1 }))
+	table.insert(tweensForTriggerEnded, TweenService:Create(objectText, tweenInfoFast, { TextTransparency = 0 }))
+	
+	table.insert(tweensForButtonHoldBegin, TweenService:Create(frame, tweenInfoFast, { Size = UDim2.fromScale(0.5, 1), BackgroundTransparency = 1 }))
+	table.insert(tweensForButtonHoldEnd, TweenService:Create(frame, tweenInfoFast, { Size = UDim2.fromScale(1, 1), BackgroundTransparency = 0.2 }))
+	table.insert(tweensForTriggered, TweenService:Create(frame, tweenInfoFast, { Size = UDim2.fromScale(0.5, 1), BackgroundTransparency = 1 }))
+	table.insert(tweensForTriggerEnded, TweenService:Create(frame, tweenInfoFast, { Size = UDim2.fromScale(1, 1), BackgroundTransparency = 0.2 }))
+
+	local roundFrame = Instance.new("Frame")
+	roundFrame.Name = "RoundFrame"
+	roundFrame.Size = UDim2.fromOffset(48, 48)
+
+	roundFrame.AnchorPoint = Vector2.new(0.5, 0.5)
+	roundFrame.Position = UDim2.fromScale(0.5, 0.5)
+	roundFrame.BackgroundTransparency = 0.5
+	roundFrame.Parent = resizeableInputFrame
+
+	local roundedFrameCorner = Instance.new("UICorner")
+	roundedFrameCorner.CornerRadius = UDim.new(0.5, 0)
+	roundedFrameCorner.Parent = roundFrame
+
+	table.insert(tweensForTriggered, TweenService:Create(roundFrame, tweenInfoQuick, { BackgroundTransparency = 1 }))
+	table.insert(tweensForTriggerEnded, TweenService:Create(roundFrame, tweenInfoQuick, { BackgroundTransparency = 0.5 }))
+
+	if inputType == Enum.ProximityPromptInputType.Gamepad then
+		if GamepadButtonImage[prompt.GamepadKeyCode] then
+			local icon = Instance.new("ImageLabel")
+			icon.Name = "ButtonImage"
+			icon.AnchorPoint = Vector2.new(0.5, 0.5)
+			icon.Size = UDim2.fromOffset(24, 24)
+			icon.Position = UDim2.fromScale(0.5, 0.5)
+			icon.BackgroundTransparency = 1
+			icon.Image = GamepadButtonImage[prompt.GamepadKeyCode]
+			icon.Parent = resizeableInputFrame
+			table.insert(tweensForTriggered, TweenService:Create(icon, tweenInfoQuick, { ImageTransparency = 1 }))
+			table.insert(tweensForTriggerEnded, TweenService:Create(icon, tweenInfoQuick, { ImageTransparency = 0 }))
+		end
+	elseif inputType == Enum.ProximityPromptInputType.Touch then
+		local buttonImage = Instance.new("ImageLabel")
+		buttonImage.Name = "ButtonImage"
+		buttonImage.BackgroundTransparency = 1
+		buttonImage.Size = UDim2.fromOffset(25, 31)
+		buttonImage.AnchorPoint = Vector2.new(0.5, 0.5)
+		buttonImage.Position = UDim2.fromScale(0.5, 0.5)
+		buttonImage.Image = "rbxasset://textures/ui/Controls/TouchTapIcon.png"
+		buttonImage.Parent = resizeableInputFrame
+
+		table.insert(tweensForTriggered, TweenService:Create(buttonImage, tweenInfoQuick, { ImageTransparency = 1 }))
+		table.insert(tweensForTriggerEnded, TweenService:Create(buttonImage, tweenInfoQuick, { ImageTransparency = 0 }))
+	else
+		local buttonImage = Instance.new("ImageLabel")
+		buttonImage.Name = "ButtonImage"
+		buttonImage.BackgroundTransparency = 1
+		buttonImage.Size = UDim2.fromOffset(28, 30)
+		buttonImage.AnchorPoint = Vector2.new(0.5, 0.5)
+		buttonImage.Position = UDim2.fromScale(0.5, 0.5)
+		buttonImage.Image = "rbxasset://textures/ui/Controls/key_single.png"
+		buttonImage.Parent = resizeableInputFrame
+		table.insert(tweensForTriggered, TweenService:Create(buttonImage, tweenInfoQuick, { ImageTransparency = 1 }))
+		table.insert(tweensForTriggerEnded, TweenService:Create(buttonImage, tweenInfoQuick, { ImageTransparency = 0 }))
+
+		local buttonText = Instance.new("TextLabel")
+		buttonText.Name = "ButtonText"
+		buttonText.Position = UDim2.fromOffset(-1, -1)
+		buttonText.Size = UDim2.fromScale(1, 1)
+		buttonText.Font = Enum.Font.GothamSemibold
+		buttonText.TextSize = 14
+		buttonText.BackgroundTransparency = 1
+		buttonText.TextColor3 = Color3.new(1, 1, 1)
+		buttonText.TextXAlignment = Enum.TextXAlignment.Center
+		buttonText.Text = UserInputService:GetStringForKeyCode(prompt.KeyboardKeyCode)
+		buttonText.Parent = resizeableInputFrame
+		table.insert(tweensForTriggered, TweenService:Create(buttonText, tweenInfoQuick, { TextTransparency = 1 }))
+		table.insert(tweensForTriggerEnded, TweenService:Create(buttonText, tweenInfoQuick, { TextTransparency = 0 }))
+	end
+
+	if inputType == Enum.ProximityPromptInputType.Touch or prompt.ClickablePrompt then
+		local button = Instance.new("TextButton")
+		button.BackgroundTransparency = 1
+		button.TextTransparency = 1
+		button.Size = UDim2.fromScale(1, 1)
+		button.Parent = promptUI
+
+		if FFlagProximityPromptNoButtonDrag then
+			local buttonDown = false
+
+			button.InputBegan:Connect(function(input)
+				if (input.UserInputType == Enum.UserInputType.Touch or input.UserInputType == Enum.UserInputType.MouseButton1) and
+					input.UserInputState ~= Enum.UserInputState.Change then
+					prompt:InputHoldBegin()
+					buttonDown = true
+				end
+			end)
+			button.InputEnded:Connect(function(input)
+				if input.UserInputType == Enum.UserInputType.Touch or input.UserInputType == Enum.UserInputType.MouseButton1 then
+					if buttonDown then
+						buttonDown = false
+						prompt:InputHoldEnd()
+					end
+				end
+			end)
+		else
+			button.InputBegan:Connect(function(input)
+				if input.UserInputType == Enum.UserInputType.Touch or input.UserInputType == Enum.UserInputType.MouseButton1 then
+					prompt:InputHoldBegin()
+				end
+			end)
+			button.InputEnded:Connect(function(input)
+				if input.UserInputType == Enum.UserInputType.Touch or input.UserInputType == Enum.UserInputType.MouseButton1 then
+					prompt:InputHoldEnd()
+				end
+			end)
+		end
+
+		promptUI.Active = true
+	end
+
+	if prompt.HoldDuration > 0 then
+		local circleBar = createCircularProgressBar()
+		circleBar.Parent = resizeableInputFrame
+		table.insert(tweensForButtonHoldBegin, TweenService:Create(circleBar.Progress, tweenInfoInFullDuration, { Value = 1 }))
+		table.insert(tweensForButtonHoldEnd, TweenService:Create(circleBar.Progress, tweenInfoOutHalfSecond, { Value = 0 }))
+	end
+
+	local holdBeganConnection
+	local holdEndedConnection
+	local triggeredConnection
+	local triggerEndedConnection
+	
+	if prompt.HoldDuration > 0 then
+		holdBeganConnection = prompt.PromptButtonHoldBegan:Connect(function()
+			for _, tween in ipairs(tweensForButtonHoldBegin) do
+				tween:Play()
+			end
+		end)
+	
+		holdEndedConnection = prompt.PromptButtonHoldEnded:Connect(function()
+			for _, tween in ipairs(tweensForButtonHoldEnd) do
+				tween:Play()
+			end
+		end)
+	end
+	
+	triggeredConnection = prompt.Triggered:Connect(function()
+		for _, tween in ipairs(tweensForTriggered) do
+			tween:Play()
+		end
+	end)
+	
+	triggerEndedConnection = prompt.TriggerEnded:Connect(function()
+		for _, tween in ipairs(tweensForTriggerEnded) do
+			tween:Play()
+		end
+	end)
+	
+	local function updateUIFromPrompt()
+		-- todo: Use AutomaticSize instead of GetTextSize when that feature becomes available
+		local actionTextSize = TextService:GetTextSize(prompt.ActionText, 19, Enum.Font.GothamSemibold, Vector2.new(1000, 1000))
+		local objectTextSize = TextService:GetTextSize(prompt.ObjectText, 14, Enum.Font.GothamSemibold, Vector2.new(1000, 1000))
+		local maxTextWidth = math.max(actionTextSize.X, objectTextSize.X)
+		local promptHeight = 72
+		local promptWidth = 72
+		local textPaddingLeft = 72
+		if prompt.ActionText ~= nil and prompt.ActionText ~= '' then
+			promptWidth = maxTextWidth + textPaddingLeft + 24
+		end
+	
+		local actionTextYOffset = 0
+		if prompt.ObjectText ~= nil and prompt.ObjectText ~= '' then
+			actionTextYOffset = 9
+		end
+		actionText.Position = UDim2.new(0.5, textPaddingLeft - promptWidth/2, 0, actionTextYOffset)
+		objectText.Position = UDim2.new(0.5, textPaddingLeft - promptWidth/2, 0, -10)
+	
+		actionText.Text = prompt.ActionText
+		objectText.Text = prompt.ObjectText
+	
+		promptUI.Size = UDim2.fromOffset(promptWidth, promptHeight)
+		promptUI.SizeOffset = Vector2.new(prompt.UIOffset.X / promptUI.Size.Width.Offset, prompt.UIOffset.Y / promptUI.Size.Height.Offset)
+	end
+	
+	local changedConnection = prompt.Changed:Connect(updateUIFromPrompt)
+	updateUIFromPrompt()
+	
+	promptUI.Adornee = prompt.Parent
+	promptUI.Parent = gui
+	
+	local function cleanup()
+		if holdBeganConnection then
+			holdBeganConnection:Disconnect()
+		end
+	
+		if holdEndedConnection then
+			holdEndedConnection:Disconnect()
+		end
+	
+		triggeredConnection:Disconnect()
+		triggerEndedConnection:Disconnect()
+		changedConnection:Disconnect()
+	
+		promptUI.Parent = nil
+	end
+	
+	return cleanup
+end
+
 local function onLoad()
 
 	local gui = createMainFrame()
@@ -294,54 +595,62 @@ local function onLoad()
 			return
 		end
 
-		local promptUI, tweensForButtonHoldBegin, tweensForButtonHoldEnd, tweensForTriggered, tweensForTriggerEnded = createPrompt(prompt, inputType)
-		promptUI.Parent = gui
+		if FFlagProximityPromptLiveChanges then
+			local cleanupFunction = createPrompt(prompt, inputType, gui)
 
-		local holdBeganConnection
-		local holdEndedConnection
-		local triggeredConnection
-		local triggerEndedConnection
+			prompt.PromptHidden:Wait()
 
-		if prompt.HoldDuration > 0 then
-			holdBeganConnection = prompt.PromptButtonHoldBegan:connect(function()
-				for _, tween in ipairs(tweensForButtonHoldBegin) do
+			cleanupFunction()
+		else
+			local promptUI, tweensForButtonHoldBegin, tweensForButtonHoldEnd, tweensForTriggered, tweensForTriggerEnded = createPrompt_DEPRECATED(prompt, inputType)
+			promptUI.Parent = gui
+
+			local holdBeganConnection
+			local holdEndedConnection
+			local triggeredConnection
+			local triggerEndedConnection
+
+			if prompt.HoldDuration > 0 then
+				holdBeganConnection = prompt.PromptButtonHoldBegan:Connect(function()
+					for _, tween in ipairs(tweensForButtonHoldBegin) do
+						tween:Play()
+					end
+				end)
+
+				holdEndedConnection = prompt.PromptButtonHoldEnded:Connect(function()
+					for _, tween in ipairs(tweensForButtonHoldEnd) do
+						tween:Play()
+					end
+				end)
+			end
+
+			triggeredConnection = prompt.Triggered:Connect(function()
+				for _, tween in ipairs(tweensForTriggered) do
 					tween:Play()
 				end
 			end)
 
-			holdEndedConnection = prompt.PromptButtonHoldEnded:connect(function()
-				for _, tween in ipairs(tweensForButtonHoldEnd) do
+			triggerEndedConnection = prompt.TriggerEnded:Connect(function()
+				for _, tween in ipairs(tweensForTriggerEnded) do
 					tween:Play()
 				end
 			end)
-		end
 
-		triggeredConnection = prompt.Triggered:connect(function()
-			for _, tween in ipairs(tweensForTriggered) do
-				tween:Play()
+			prompt.PromptHidden:Wait()
+
+			if holdBeganConnection then
+				holdBeganConnection:Disconnect()
 			end
-		end)
 
-		triggerEndedConnection = prompt.TriggerEnded:connect(function()
-			for _, tween in ipairs(tweensForTriggerEnded) do
-				tween:Play()
+			if holdEndedConnection then
+				holdEndedConnection:Disconnect()
 			end
-		end)
 
-		prompt.PromptHidden:Wait()
+			triggeredConnection:Disconnect()
+			triggerEndedConnection:Disconnect()
 
-		if holdBeganConnection then
-			holdBeganConnection:Disconnect()
+			promptUI.Parent = nil
 		end
-
-		if holdEndedConnection then
-			holdEndedConnection:Disconnect()
-		end
-
-		triggeredConnection:Disconnect()
-		triggerEndedConnection:Disconnect()
-
-		promptUI.Parent = nil
     end)
 end
 

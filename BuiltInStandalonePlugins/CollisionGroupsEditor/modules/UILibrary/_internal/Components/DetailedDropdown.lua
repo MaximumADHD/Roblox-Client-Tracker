@@ -34,7 +34,6 @@
 		int ScrollBarPadding = The padding which appears on either side of the scrollbar.
 		int ScrollBarThickness = The horizontal width of the scrollbar.
 ]]
-local FFlagStudioFixUILibDropdownStyle = game:GetFastFlag("StudioFixUILibDropdownStyle")
 local FFlagStudioFixUILibDropdownText = game:GetFastFlag("StudioFixUILibDropdownText")
 
 -- Defaults
@@ -227,10 +226,7 @@ function DetailedDropdown:render()
 
 		maxWidth = math.min(maxItemWidth, maxWidth)
 
-		local hoverTheme = dropdownTheme.selected
-		if FFlagStudioFixUILibDropdownStyle then
-			hoverTheme = dropdownTheme.hovered
-		end
+		local hoverTheme = dropdownTheme.hovered
 
 		local buttonTheme = (showDropdown or isButtonHovered) and hoverTheme
 			or dropdownTheme
@@ -307,7 +303,7 @@ function DetailedDropdown:render()
 						descriptionTextSize, dropdownTheme.font, Vector2.new(maxWidth, math.huge))
 
 					local itemColor = dropdownTheme.backgroundColor
-					if FFlagStudioFixUILibDropdownStyle and selected then
+					if selected then
 						itemColor = dropdownTheme.selected.backgroundColor
 					elseif isHovered then
 						itemColor = dropdownTheme.hovered.backgroundColor

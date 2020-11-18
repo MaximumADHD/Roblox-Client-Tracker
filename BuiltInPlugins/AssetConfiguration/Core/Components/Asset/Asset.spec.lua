@@ -1,6 +1,4 @@
 return function()
-	local FFlagToolboxNewAssetAnalytics = game:GetFastFlag("ToolboxNewAssetAnalytics")
-
 	local Plugin = script.Parent.Parent.Parent.Parent
 
 	local Libs = Plugin.Libs
@@ -63,24 +61,22 @@ return function()
 
 		Roact.unmount(instance)
 	end)
+	
+	it("should log AssetAnalytics impression on mount", function()
+		local assetAnalytics = AssetAnalytics.mock()
+		local calls = {}
+		assetAnalytics.logImpression = function(...)
+			table.insert(calls, {...})
+		end
 
-	if FFlagToolboxNewAssetAnalytics then
-		it("should log AssetAnalytics impression on mount", function()
-			local assetAnalytics = AssetAnalytics.mock()
-			local calls = {}
-			assetAnalytics.logImpression = function(...)
-				table.insert(calls, {...})
-			end
+		local asset = getStubAsset()
+		local instance = createTestAsset(nil, nil, asset, {
+			assetAnalytics = assetAnalytics,
+		})
 
-			local asset = getStubAsset()
-			local instance = createTestAsset(nil, nil, asset, {
-				assetAnalytics = assetAnalytics,
-			})
+		expect(#calls).to.equal(1)
+		expect(calls[1][2]).to.equal(asset)
 
-			expect(#calls).to.equal(1)
-			expect(calls[1][2]).to.equal(asset)
-
-			Roact.unmount(instance)
-		end)
-	end
+		Roact.unmount(instance)
+	end)
 end

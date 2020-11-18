@@ -5,10 +5,12 @@ local GetFFlagLuaAppUseNewUIBloxRoundedCorners = require(CorePackages.UIBloxFlag
 local GetFFlagLuaUIBloxModalWindowAnchorPoint = require(CorePackages.UIBloxFlags.GetFFlagLuaUIBloxModalWindowAnchorPoint)
 local GetFFlagLuaFixItemTilePremiumIcon = require(CorePackages.UIBloxFlags.GetFFlagLuaFixItemTilePremiumIcon)
 local GetFFlagLuaUIBloxGamepadSupport = require(CorePackages.UIBloxFlags.GetFFlagLuaUIBloxGamepadSupport)
+local GetFFlagUIBloxRefactorCreateImageSetComponent = require(CorePackages.UIBloxFlags.GetFFlagUIBloxRefactorCreateImageSetComponent)
 
 return {
 	useNewUICornerRoundedCorners = GetFFlagLuaAppUseNewUIBloxRoundedCorners(),
 	modalWindowAnchorPoint = GetFFlagLuaUIBloxModalWindowAnchorPoint(),
 	fixItemTilePremiumIcon = GetFFlagLuaFixItemTilePremiumIcon(),
 	enableExperimentalGamepadSupport = GetFFlagLuaUIBloxGamepadSupport(),
+	refactorCreateImageSetComponent = GetFFlagUIBloxRefactorCreateImageSetComponent(),
 }

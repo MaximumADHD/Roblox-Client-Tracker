@@ -15,9 +15,11 @@ local FlagsList = Util.Flags.new({
 	FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
 })
 
+local export: any
+
 if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
 	local roundBox = deepCopy(RoundBox)
-	return {
+	export = {
 		BackgroundStyle = roundBox,
 		BorderColor = StyleKey.Border,
 		Width = 240,
@@ -29,7 +31,7 @@ if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
 		},
 	}
 else
-	return function(theme, getColor)
+	export = function(theme, getColor)
 		local common = Common(theme, getColor)
 		local roundBox = RoundBox(theme, getColor)
 
@@ -47,3 +49,5 @@ else
 		}
 	end
 end
+
+return export

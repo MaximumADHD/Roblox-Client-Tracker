@@ -1,5 +1,3 @@
-local FFlagToolboxNewAssetAnalytics = game:GetFastFlag("ToolboxNewAssetAnalytics")
-
 local Plugin = script.Parent.Parent.Parent
 
 local Libs = Plugin.Libs
@@ -51,11 +49,7 @@ local function MockWrapper(props)
 		networking = Networking.mock(),
 	})
 
-	local assetAnalytics
-
-	if FFlagToolboxNewAssetAnalytics then
-		assetAnalytics = AssetAnalyticsContextItem.new(props.assetAnalytics or AssetAnalytics.mock())
-	end
+	local assetAnalytics = AssetAnalyticsContextItem.new(props.assetAnalytics or AssetAnalytics.mock())
 
 	return Roact.createElement(ExternalServicesWrapper, {
 		store = store,

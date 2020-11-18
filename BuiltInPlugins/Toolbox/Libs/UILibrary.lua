@@ -54,6 +54,8 @@ local LayoutOrderIterator = require(Utils.LayoutOrderIterator)
 local GetClassIcon = require(Utils.GetClassIcon)
 local GetTextSize = require(Utils.GetTextSize)
 local getTimeString = require(Utils.getTimeString)
+
+-- TODO DEVTOOLS-4549: Remove in favour of DevFramework
 local AssetType = require(Utils.AssetType)
 
 local Focus = require(Src.Focus)
@@ -74,10 +76,7 @@ local function createStrictTable(t)
 end
 
 local UILibrary = createStrictTable({
-	Component = createStrictTable({
-		ActionBar = ActionBar,
-		AssetDescription = AssetDescription,
-		AssetPreview = AssetPreview,
+	Component = createStrictTable({		
 		BulletPoint = BulletPoint,
 		Button = Button,
 		CheckBox = CheckBox,
@@ -88,15 +87,9 @@ local UILibrary = createStrictTable({
 		DropdownMenu = DropdownMenu,
 		DropShadow = DropShadow,
 		ExpandableList = ExpandableList,
-		Favorites = Favorites,
-		ImagePreview = ImagePreview,
-		AudioPreview = AudioPreview,
-		AudioControl = AudioControl,
 		InfiniteScrollingFrame = InfiniteScrollingFrame,
 		LoadingBar = LoadingBar,
 		LoadingIndicator = LoadingIndicator,
-		ModelPreview = ModelPreview,
-		PreviewController = PreviewController,
 		RadioButtons = RadioButtons,
 		RoundFrame = RoundFrame,
 		RoundTextBox = RoundTextBox,
@@ -108,11 +101,22 @@ local UILibrary = createStrictTable({
 		StyledScrollingFrame = StyledScrollingFrame,
 		StyledTooltip = StyledTooltip,
 		TextEntry = TextEntry,
-		ThumbnailIconPreview = ThumbnailIconPreview,
 		TitledFrame = TitledFrame,
 		Tooltip = Tooltip,
 		ToggleButton = ToggleButton,
 		TreeView = TreeView,
+
+		-- Below to be removed with removal of FFlagToolboxUseDevFrameworkAssetPreview and FFlagAssetManagerUseDevFrameworkAssetPreview
+		AssetPreview = AssetPreview,
+		ActionBar = ActionBar,
+		AssetDescription = AssetDescription,
+		Favorites = Favorites,
+		ImagePreview = ImagePreview,
+		AudioPreview = AudioPreview,
+		AudioControl = AudioControl,
+		ModelPreview = ModelPreview,
+		PreviewController = PreviewController,
+		ThumbnailIconPreview = ThumbnailIconPreview,
 		TreeViewButton = TreeViewButton,
 		TreeViewItem = TreeViewItem,
 		Vote = Vote,

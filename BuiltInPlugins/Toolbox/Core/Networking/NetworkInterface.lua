@@ -4,11 +4,7 @@
 	Provides an interface between real Networking implementation and Mock one for production and test
 ]]--
 
-local FFlagToolboxShowGroupCreations = game:GetFastFlag("ToolboxShowGroupCreations")
 local FFlagUseCategoryNameInToolbox = game:GetFastFlag("UseCategoryNameInToolbox")
-local FFlagStudioFixGroupCreatorInfo3 = game:GetFastFlag("StudioFixGroupCreatorInfo3")
-local FFlagStudioFixComparePageInfo2 = game:GetFastFlag("StudioFixComparePageInfo2")
-local FFlagToolboxWaitForPluginOwnedStatus = game:GetFastFlag("ToolboxWaitForPluginOwnedStatus")
 
 local Plugin = script.Parent.Parent.Parent
 local Networking = require(Plugin.Libs.Http.Networking)
@@ -69,37 +65,17 @@ function NetworkInterface:jsonEncode(data)
 end
 
 function NetworkInterface:getAssets(pageInfo)
-	local targetUrl
-	if FFlagStudioFixComparePageInfo2 then
-		local requestInfo = PageInfoHelper.getRequestInfo(pageInfo)
+	local requestInfo = PageInfoHelper.getRequestInfo(pageInfo)
 
-		targetUrl = Urls.constructGetAssetsUrl(
-			requestInfo.category,
-			requestInfo.searchTerm,
-			Constants.GET_ITEMS_PAGE_SIZE,
-			requestInfo.targetPage,
-			requestInfo.sortType,
-			requestInfo.groupId,
-			requestInfo.creatorId
-		)
-	else
-		local category = PageInfoHelper.getCategoryForPageInfo(pageInfo) or ""
-		local searchTerm = pageInfo.searchTerm or ""
-		local targetPage = pageInfo.targetPage or 1
-		local sortType = PageInfoHelper.getSortTypeForPageInfo(pageInfo) or ""
-		local categoryIsGroup
-		if FFlagUseCategoryNameInToolbox then
-			categoryIsGroup = Category.categoryIsGroupAsset(pageInfo.categoryName)
-		else
-			categoryIsGroup = Category.categoryIsGroupAsset(pageInfo.currentTab, pageInfo.categoryIndex)
-		end
-		local groupId = categoryIsGroup
-			and PageInfoHelper.getGroupIdForPageInfo(pageInfo)
-			or 0
-		local creatorId = pageInfo.creator and pageInfo.creator.Id or ""
-
-		targetUrl = Urls.constructGetAssetsUrl(category, searchTerm, Constants.GET_ITEMS_PAGE_SIZE, targetPage, sortType, groupId, creatorId)
-	end
+	local targetUrl = Urls.constructGetAssetsUrl(
+		requestInfo.category,
+		requestInfo.searchTerm,
+		Constants.GET_ITEMS_PAGE_SIZE,
+		requestInfo.targetPage,
+		requestInfo.sortType,
+		requestInfo.groupId,
+		requestInfo.creatorId
+	)
 
 	return sendRequestAndRetry(function()
 		printUrl("getAssets", "GET", targetUrl)
@@ -142,41 +118,18 @@ end
 
 -- For now, only whitelistplugin uses this endpoint to fetch data.
 function NetworkInterface:getDevelopAsset(pageInfo)
-	local targetUrl
-	if FFlagStudioFixComparePageInfo2 then
-		local requestInfo = PageInfoHelper.getRequestInfo(pageInfo)
+	local requestInfo = PageInfoHelper.getRequestInfo(pageInfo)
 
-		targetUrl = Urls.getDevelopAssetUrl(
-			requestInfo.category,
-			requestInfo.searchTerm,
-			requestInfo.sortType,
-			requestInfo.creatorId,
-			Constants.GET_ITEMS_PAGE_SIZE,
-			requestInfo.targetPage,
-			requestInfo.groupId,
-			requestInfo.creatorType
-		)
-	else
-		local category = PageInfoHelper.getCategoryForPageInfo(pageInfo) or ""
-		local searchTerm = pageInfo.searchTerm or ""
-		local targetPage = pageInfo.targetPage or 1
-		local sortType = PageInfoHelper.getSortTypeForPageInfo(pageInfo) or ""
-
-		local categoryIsGroup
-		if FFlagUseCategoryNameInToolbox then
-			categoryIsGroup = Category.categoryIsGroupAsset(pageInfo.categoryName)
-		else
-			categoryIsGroup = Category.categoryIsGroupAsset(pageInfo.currentTab, pageInfo.categoryIndex)
-		end
-		local groupId = categoryIsGroup
-			and PageInfoHelper.getGroupIdForPageInfo(pageInfo)
-			or 0
-
-		local creatorId = pageInfo.creator and pageInfo.creator.Id or ""
-		local creatorType = pageInfo.creator and pageInfo.creator.Type or 1
-
-		targetUrl = Urls.getDevelopAssetUrl(category, searchTerm, sortType, creatorId, Constants.GET_ITEMS_PAGE_SIZE, targetPage, groupId, creatorType)
-	end
+	local targetUrl = Urls.getDevelopAssetUrl(
+		requestInfo.category,
+		requestInfo.searchTerm,
+		requestInfo.sortType,
+		requestInfo.creatorId,
+		Constants.GET_ITEMS_PAGE_SIZE,
+		requestInfo.targetPage,
+		requestInfo.groupId,
+		requestInfo.creatorType
+	)
 
 	return sendRequestAndRetry(function()
 		printUrl("getDevelopAsset", "GET", targetUrl)
@@ -192,18 +145,16 @@ function NetworkInterface:getAssetCreations(pageInfo, cursor, assetTypeOverride,
 	if pageInfo then
 		assetTypeName = PageInfoHelper.getBackendNameForPageInfoCategory(pageInfo)
 
-		if FFlagToolboxShowGroupCreations then
-			local categoryIsGroup
-			if FFlagUseCategoryNameInToolbox then
-				categoryIsGroup = Category.categoryIsGroupAsset(pageInfo.categoryName)
-			else
-				categoryIsGroup = Category.categoryIsGroupAsset(pageInfo.currentTab, pageInfo.categoryIndex)
-			end
-
-			groupId = categoryIsGroup
-				and PageInfoHelper.getGroupIdForPageInfo(pageInfo)
-				or nil
+		local categoryIsGroup
+		if FFlagUseCategoryNameInToolbox then
+			categoryIsGroup = Category.categoryIsGroupAsset(pageInfo.categoryName)
+		else
+			categoryIsGroup = Category.categoryIsGroupAsset(pageInfo.currentTab, pageInfo.categoryIndex)
 		end
+
+		groupId = categoryIsGroup
+			and PageInfoHelper.getGroupIdForPageInfo(pageInfo)
+			or nil
 	end
 
 	local targetUrl = Urls.constructGetAssetCreationsUrl(assetTypeName, Constants.GET_ASSET_CREATIONS_PAGE_SIZE_LIMIT,
@@ -239,24 +190,13 @@ function NetworkInterface:getAssetCreationDetails(assetIds)
 	end)
 end
 
-if FFlagStudioFixGroupCreatorInfo3 then
-	function NetworkInterface:getCreatorInfo(creatorId, creatorType)
-		local targetUrl = Urls.constructGetCreatorInfoUrl(creatorId, creatorType)
+function NetworkInterface:getCreatorInfo(creatorId, creatorType)
+	local targetUrl = Urls.constructGetCreatorInfoUrl(creatorId, creatorType)
 
-		return sendRequestAndRetry(function()
-			printUrl("getCreatorInfo", "GET", targetUrl)
-			return self._networkImp:httpGetJson(targetUrl)
-		end)
-	end
-else
-	function NetworkInterface:getCreatorName(creatorId)
-		local targetUrl = Urls.constructGetCreatorNameUrl(creatorId)
-
-		return sendRequestAndRetry(function()
-			printUrl("getCreatorName", "GET", targetUrl)
-			return self._networkImp:httpGetJson(targetUrl)
-		end)
-	end
+	return sendRequestAndRetry(function()
+		printUrl("getCreatorInfo", "GET", targetUrl)
+		return self._networkImp:httpGetJson(targetUrl)
+	end)
 end
 
 function NetworkInterface:getMetaData()
@@ -635,13 +575,6 @@ function NetworkInterface:getIsVerifiedCreator()
 	return self._networkImp:httpGetJson(targetUrl)
 end
 
-function NetworkInterface:deprecated_getAssetVersionId(assetId)
-	local targetUrl = Urls.constructGetAssetVersionUrl(assetId)
-
-	printUrl("deprecated_getAssetVersionId", "GET", targetUrl)
-	return self._networkImp:httpGet(targetUrl)
-end
-
 -- Extend this function if using an array.
 function NetworkInterface:getPluginInfo(assetId)
 	local targetUrl = Urls.constructGetPluginInfoUrl(assetId)
@@ -677,15 +610,6 @@ function NetworkInterface:getRobuxBalance(userId)
 
 	printUrl("getRobuxBalance", "GET", targetUrl)
 	return self._networkImp:httpGetJson(targetUrl)
-end
-
-if not FFlagToolboxWaitForPluginOwnedStatus then
-	function NetworkInterface:getOwnsAsset(assetId, userId)
-		local targetUrl = Urls.constructOwnsAssetUrl(assetId, userId)
-
-		printUrl("getOwnsAsset", "GET", targetUrl)
-		return self._networkImp:httpGet(targetUrl)
-	end
 end
 
 function NetworkInterface:getCanManageAsset(assetId, userId)

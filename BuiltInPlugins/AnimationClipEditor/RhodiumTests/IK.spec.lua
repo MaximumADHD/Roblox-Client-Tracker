@@ -39,10 +39,10 @@ return function()
 	end
 
 	local function cleanupInstance(store, instance)
-		TestHelpers:delay()
+		TestHelpers.delay()
 		store:dispatch(SetRootInstance(nil))
 		store:dispatch(SetAnimationData(nil))
-		TestHelpers:delay()
+		TestHelpers.delay()
 
 		instance:Destroy()
 	end
@@ -226,16 +226,16 @@ return function()
 			TestHelpers.loadAnimation(store, AnimationData.newRigAnimation("Test"))
 
 			store:dispatch(ToggleIKEnabled())
-			TestHelpers:delay()
+			TestHelpers.delay()
 
 			store:dispatch(SetIKMode(Constants.IK_MODE.BodyPart))
-			TestHelpers:delay()
+			TestHelpers.delay()
 
 			store:dispatch(SetSelectedTracks({"LeftHand"}))
-			TestHelpers:delay()
+			TestHelpers.delay()
 
 			store:dispatch(SetMotorData(RigUtils.ikDragStart(dummy, dummy.LeftHand, true)))
-			TestHelpers:delay()
+			TestHelpers.delay()
 
 			expect(game:GetService("CoreGui"):FindFirstChild("Adornee")).to.be.ok()
 
@@ -257,16 +257,16 @@ return function()
 			else
 				PhysicsService:ikSolve(dummy.LeftHand, CFrame.new(), 0.5, 0.5)
 			end
-			TestHelpers:delay()
+			TestHelpers.delay()
 
 			RigUtils.ikDragEnd(dummy, motorData)
-			TestHelpers:delay()
+			TestHelpers.delay()
 
 			store:dispatch(SetSelectedTracks({"LowerTorso"}))
-			TestHelpers:delay()
+			TestHelpers.delay()
 
 			store:dispatch(SetMotorData(RigUtils.ikDragStart(dummy, dummy.LowerTorso, true)))
-			TestHelpers:delay()
+			TestHelpers.delay()
 
 			status = store:getState().Status
 			motorData = status.MotorData
@@ -286,10 +286,10 @@ return function()
 			else
 				PhysicsService:ikSolve(dummy.LowerTorso, CFrame.new(), 0.5, 0.5)
 			end
-			TestHelpers:delay()
+			TestHelpers.delay()
 
 			RigUtils.ikDragEnd(dummy, motorData)
-			TestHelpers:delay()
+			TestHelpers.delay()
 		end)
 	end)
 
@@ -299,7 +299,7 @@ return function()
 
 			local dummy = Workspace.Dummy
 			TestHelpers.loadAnimation(store, AnimationData.newRigAnimation("Test"))
-			TestHelpers:delay()
+			TestHelpers.delay()
 
 			local state = store:getState()
 			local startingPose = state.Status.StartingPose
@@ -319,16 +319,16 @@ return function()
 			TestHelpers.loadAnimation(store, AnimationData.newRigAnimation("Test"))
 
 			store:dispatch(ToggleIKEnabled())
-			TestHelpers:delay()
+			TestHelpers.delay()
 
 			store:dispatch(SetIKMode(Constants.IK_MODE.BodyPart))
-			TestHelpers:delay()
+			TestHelpers.delay()
 
 			local startingPose = store:getState().Status.StartingPose
 
 			local oldAxis = dummy.LeftHand.LeftWristRigAttachment.Axis
 			store:dispatch(SetMotorData(RigUtils.ikDragStart(dummy, dummy.LeftHand, true, startingPose, {})))
-			TestHelpers:delay()
+			TestHelpers.delay()
 
 			local newAxis = dummy.LeftHand.LeftWristRigAttachment.Axis
 			expect(MathUtil:fuzzyEq(oldAxis.X, newAxis.X)).to.equal(false)
@@ -338,7 +338,7 @@ return function()
 			local motorData = status.MotorData
 
 			RigUtils.ikDragEnd(dummy, motorData)
-			TestHelpers:delay()
+			TestHelpers.delay()
 
 			local originalAxis = dummy.LeftHand.LeftWristRigAttachment.Axis
 			expect(MathUtil:fuzzyEq(oldAxis.X, originalAxis.X)).to.equal(true)
@@ -355,7 +355,7 @@ return function()
 			setupInstance(store, spider)
 
 			store:dispatch(ToggleIKEnabled())
-			TestHelpers:delay()
+			TestHelpers.delay()
 
 			-- cache old motor data before it gets deleted
 			local _, nameToMotor = RigUtils.getRigInfo(spider)
@@ -371,7 +371,7 @@ return function()
 				[spider.Tip1] = true,
 				[spider.Tip2] = true,
 			})))
-			TestHelpers:delay()
+			TestHelpers.delay()
 
 			local activeConstraints = {
 				["UpperLeg1Constraint"] = {},
@@ -426,10 +426,10 @@ return function()
 			else
 				PhysicsService:ikSolve(spider.Tip3, CFrame.new(), 0.5, 0.5)
 			end
-			TestHelpers:delay()
+			TestHelpers.delay()
 
 			RigUtils.ikDragEnd(spider, motorData)
-			TestHelpers:delay()
+			TestHelpers.delay()
 
 			--verify all constraints are off and motors restored properly
 			for _, child in ipairs(spider:GetChildren()) do
@@ -446,7 +446,7 @@ return function()
 			end
 
 			store:dispatch(ToggleIKEnabled())
-			TestHelpers:delay()
+			TestHelpers.delay()
 
 			cleanupInstance(store, spider)
 		end)

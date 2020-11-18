@@ -13,6 +13,7 @@ return function()
 	local ignoredFileNamesSiblingToTests = {
 		["example"] = true,
 		["renderExample"] = true,
+		["stories"] = true,
 		["style"] = true,
 	}
 

@@ -23,7 +23,6 @@
 local FFlagFixAssetTextTruncation = game:DefineFastFlag("FixAssetTextTruncation", false)
 local FFlagRemoveAudioEndorsedIcon = game:GetFastFlag("RemoveAudioEndorsedIcon")
 local FFlagUseCategoryNameInToolbox = game:GetFastFlag("UseCategoryNameInToolbox")
-local FFlagToolboxNewAssetAnalytics = game:GetFastFlag("ToolboxNewAssetAnalytics")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -139,9 +138,7 @@ function Asset:didMount()
 
 	self.props.getCanManageAsset(getNetwork(self), assetId)
 
-	if FFlagToolboxNewAssetAnalytics then
-		self.props.AssetAnalytics:get():logImpression(assetData)
-	end
+	self.props.AssetAnalytics:get():logImpression(assetData)
 end
 
 function Asset:render()
@@ -405,11 +402,9 @@ function Asset:render()
 	end)
 end
 
-if FFlagToolboxNewAssetAnalytics then
-	ContextServices.mapToProps(Asset, {
-		AssetAnalytics = AssetAnalyticsContextItem,
-	})
-end
+ContextServices.mapToProps(Asset, {
+	AssetAnalytics = AssetAnalyticsContextItem,
+})
 
 local function mapStateToProps(state, props)
 	state = state or {}

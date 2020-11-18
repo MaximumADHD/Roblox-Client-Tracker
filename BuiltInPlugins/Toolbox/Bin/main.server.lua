@@ -11,7 +11,6 @@ local FFlagAssetManagerLuaPlugin = game:GetFastFlag("AssetManagerLuaPlugin")
 local FFlagStudioAssetConfigurationPlugin = game:GetFastFlag("StudioAssetConfigurationPlugin")
 local FFlagToolboxDisableForLuobu = game:GetFastFlag("ToolboxDisableForLuobu")
 local FFlagDebugToolboxEnableRoactChecks = game:GetFastFlag("DebugToolboxEnableRoactChecks")
-local FFlagToolboxNewAssetAnalytics = game:GetFastFlag("ToolboxNewAssetAnalytics")
 
 local Plugin = script.Parent.Parent
 local Libs = Plugin.Libs
@@ -291,11 +290,7 @@ local function main()
 		Rodux.thunkMiddleware
 	})
 
-	local assetAnalyticsContextItem
-
-	if FFlagToolboxNewAssetAnalytics then
-		assetAnalyticsContextItem = AssetAnalyticsContextItem.new()
-	end
+	local assetAnalyticsContextItem = AssetAnalyticsContextItem.new()
 
 	local settings = Settings.new(plugin)
 	local theme = createTheme()

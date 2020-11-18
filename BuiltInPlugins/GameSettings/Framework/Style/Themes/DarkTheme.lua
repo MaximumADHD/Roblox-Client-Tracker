@@ -7,9 +7,11 @@ return {
 	[StyleKey.BrightText] = Colors.White,
 	[StyleKey.Button] = Colors.Gray,
 	[StyleKey.ButtonText] = Colors.Gray_Light,
-	[StyleKey.ButtonHover] = Colors.Gray,
+	[StyleKey.ButtonHover] = Colors.lighter(Colors.Gray, 0.26),
 	[StyleKey.ButtonDisabled] = Colors.lighter(Colors.Black, 0.26),
 	[StyleKey.ButtonPressed] = Colors.lighter(Colors.Black, 0.16),
+	[StyleKey.ImageButtonBackground] = Colors.Gray_Mid,
+	[StyleKey.ImageButtonHover] = Colors.lighter(Colors.Gray_Mid, 0.26),
 
 	[StyleKey.CategoryItem] = Color3.fromRGB(53, 53, 53),
 
@@ -32,6 +34,7 @@ return {
 	[StyleKey.MainText] = Colors.Gray_Light,
 	[StyleKey.MainTextDisabled] = Color3.fromRGB(85, 85, 85),
 	[StyleKey.Mid] = Color3.fromRGB(34, 34, 34),
+	[StyleKey.SubBackground] = Colors.Gray,
 
 	[StyleKey.RibbonTab] = Color3.fromRGB(37, 37, 37),
 

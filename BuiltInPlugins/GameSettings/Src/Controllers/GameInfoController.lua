@@ -6,7 +6,11 @@ local FileUtils = require(Plugin.Src.Util.FileUtils)
 local Promise = Util.Promise
 local Symbol = Util.Symbol
 
+local StudioService = game:GetService("StudioService")
+
 local FFlagStudioAllowNullDescriptions = game:DefineFastFlag("StudioAllowNullDescriptions", false)
+
+local FFlagStudioAssetManagerUpdateGameName = game:GetFastFlag("StudioAssetManagerUpdateGameName")
 
 local GameInfoController = {}
 GameInfoController.__index = GameInfoController
@@ -102,6 +106,10 @@ function GameInfoController:setName(gameId, name)
 
 	if returnError then
 		error(returnError)
+	else
+		if FFlagStudioAssetManagerUpdateGameName then
+			StudioService:SetUniverseDisplayName(name)
+		end
 	end
 end
 

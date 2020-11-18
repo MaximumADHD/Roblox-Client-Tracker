@@ -35,8 +35,6 @@ local FFlagUseRoactGlobalConfigInCoreScripts = require(RobloxGui.Modules.Flags.F
 local FFlagConnectErrorHandlerInLoadingScript = require(RobloxGui.Modules.Flags.FFlagConnectErrorHandlerInLoadingScript)
 local GetFFlagRoactBubbleChat = require(RobloxGui.Modules.Common.Flags.GetFFlagRoactBubbleChat)
 
-local EngineFeatureAvatarEditorService = game:GetEngineFeature("AvatarEditorService")
-
 local isNewGamepadMenuEnabled = require(RobloxGui.Modules.Flags.isNewGamepadMenuEnabled)
 local GetFFlagScreenTime = require(CorePackages.Regulations.ScreenTime.GetFFlagScreenTime)
 
@@ -166,7 +164,7 @@ coroutine.wrap(safeRequire)(RobloxGui.Modules.BackpackScript)
 -- Emotes Menu
 coroutine.wrap(safeRequire)(RobloxGui.Modules.EmotesMenu.EmotesMenuMaster)
 
-if EngineFeatureAvatarEditorService then
+if game:GetEngineFeature("AvatarEditorService") then
 	initify(CoreGuiModules.AvatarEditorPrompts)
 	coroutine.wrap(safeRequire)(CoreGuiModules.AvatarEditorPrompts)
 end

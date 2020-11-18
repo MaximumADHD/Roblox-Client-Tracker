@@ -22,8 +22,6 @@ local PostVoteRequest = require(Plugin.Core.Networking.Requests.PostVoteRequest)
 
 local VoteButtons = Roact.PureComponent:extend("VoteButtons")
 
-local EnableToolboxVoteFix = settings():GetFFlag("EnableToolboxVoteFix")
-
 function VoteButtons:init(props)
 	local networkInterface = getNetwork(self)
 	local assetId = self.props.assetId
@@ -32,36 +30,20 @@ function VoteButtons:init(props)
 	local onUnvoteRequested = self.props.onUnvoteRequested
 
 	self.onVoteUpClicked = function(rbx, x, y)
-		if EnableToolboxVoteFix then
-			local voting = self.props.voting
-			if voting.HasVoted and voting.UserVote then
-				onUnvoteRequested(networkInterface, assetId)
-			else
-				onVoteRequested(networkInterface, assetId, true)
-			end
+		local voting = self.props.voting
+		if voting.HasVoted and voting.UserVote then
+			onUnvoteRequested(networkInterface, assetId)
 		else
-			if self.props.voting.UserVote then
-				onUnvoteRequested(networkInterface, assetId)
-			else
-				onVoteRequested(networkInterface, assetId, true)
-			end
+			onVoteRequested(networkInterface, assetId, true)
 		end
 	end
 
 	self.onVoteDownClicked = function(rbx, x, y)
-		if EnableToolboxVoteFix then
-			local voting = self.props.voting
-			if voting.HasVoted and (not voting.UserVote) then
-				onUnvoteRequested(networkInterface, assetId)
-			else
-				onVoteRequested(networkInterface, assetId, false)
-			end
+		local voting = self.props.voting
+		if voting.HasVoted and (not voting.UserVote) then
+			onUnvoteRequested(networkInterface, assetId)
 		else
-			if self.props.voting.UserVote then
-				onVoteRequested(networkInterface, assetId, false)
-			else
-				onUnvoteRequested(networkInterface, assetId)
-			end
+			onVoteRequested(networkInterface, assetId, false)
 		end
 	end
 end

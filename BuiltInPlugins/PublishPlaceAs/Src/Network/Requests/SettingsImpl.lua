@@ -8,6 +8,8 @@
 		SettingsImpl_mock, can be provided to allow testing.
 ]]
 
+local FFlagStudioAssetManagerUpdateGameName = game:GetFastFlag("StudioAssetManagerUpdateGameName")
+
 local StudioService = game:GetService("StudioService")
 
 local Plugin = script.Parent.Parent.Parent.Parent
@@ -46,6 +48,9 @@ local function saveAll(state, localization)
 			}
 			Promise.all(setRequests):andThen(function()
 				StudioService:SetUniverseDisplayName(configuration.name)
+				if FFlagStudioAssetManagerUpdateGameName then
+					StudioService:SetDocumentDisplayName(configuration.name)
+				end
 				StudioService:EmitPlacePublishedSignal()
 			end):catch(function(err)
 				warn(tostring(localization:getText("PublishFail", "FailConfiguration")))

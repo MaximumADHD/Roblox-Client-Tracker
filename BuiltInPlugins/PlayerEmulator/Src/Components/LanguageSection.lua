@@ -27,11 +27,11 @@
 		function loadLanguages
 			send HTTP request for all languages information
 ]]
-local FFlagPlayerEmulatorSerializeIntoDM = game:GetFastFlag("PlayerEmulatorSerializeIntoDM")
+local FFlagPlayerEmulatorSerializeIntoDM2 = game:GetFastFlag("PlayerEmulatorSerializeIntoDM2")
 
 local StudioService = game:GetService("StudioService")
 local LocalizationService = game:GetService("LocalizationService")
-local PlayerEmulatorService = game:GetService("PlayerEmulatorService") 
+local PlayerEmulatorService = game:GetService("PlayerEmulatorService")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -44,7 +44,7 @@ local DropdownModule = require(Plugin.Src.Components.DropdownModule)
 local GetLanguages = require(Plugin.Src.Networking.Requests.GetLanguages)
 
 local function GetLocaleId()
-	if FFlagPlayerEmulatorSerializeIntoDM then
+	if FFlagPlayerEmulatorSerializeIntoDM2 then
 		return PlayerEmulatorService.EmulatedGameLocale
 	else
 		return LocalizationService.RobloxForcePlayModeRobloxLocaleId
@@ -52,7 +52,7 @@ local function GetLocaleId()
 end
 
 local function SetLocaleId(localeId)
-	if FFlagPlayerEmulatorSerializeIntoDM then
+	if FFlagPlayerEmulatorSerializeIntoDM2 then
 		PlayerEmulatorService.EmulatedGameLocale = localeId
 	else
 		LocalizationService.RobloxForcePlayModeRobloxLocaleId = localeId
@@ -64,7 +64,7 @@ local function GetMainSwitchEnabled()
 end
 
 -- set default Play Solo language using studio locale instead of en-us
-if FFlagPlayerEmulatorSerializeIntoDM then
+if FFlagPlayerEmulatorSerializeIntoDM2 then
 	LocalizationService.RobloxForcePlayModeRobloxLocaleId = StudioService.StudioLocaleId
 else
 	SetLocaleId(StudioService.StudioLocaleId)
@@ -97,18 +97,13 @@ function LanguageSection:getTestLangInstructionText()
 end
 
 function LanguageSection:initLocaleId()
-	if FFlagPlayerEmulatorSerializeIntoDM then
-		if GetLocaleId() == nil or GetLocaleId() == "" then
-			SetLocaleId(LocalizationService.RobloxForcePlayModeRobloxLocaleId)
-			self:setState({
-				localeId = GetLocaleId(),
-			})
-		end
-	else
-		local plugin = self.props.Plugin:get()
-		local cachedLocaleId = plugin:GetSetting(Constants.LOCALEID_SETTING_KEY)
+	local plugin = self.props.Plugin:get()
+	local cachedLocaleId = plugin:GetSetting(Constants.LOCALEID_SETTING_KEY)
 
-		if cachedLocaleId then
+	if cachedLocaleId then
+		if FFlagPlayerEmulatorSerializeIntoDM2 then
+			SetLocaleId(cachedLocaleId)
+		else
 			-- set forcePlayModeLocale only if emulation switch enabled; otherwise, only update state
 			if GetMainSwitchEnabled() then
 				SetLocaleId(cachedLocaleId)
@@ -131,20 +126,13 @@ function LanguageSection:onPlayerEmulationEnabledChanged()
 end
 
 function LanguageSection:onRobloxForcePlayModeRobloxLocaleIdChanged()
-	if FFlagPlayerEmulatorSerializeIntoDM then
+	if FFlagPlayerEmulatorSerializeIntoDM2 or GetMainSwitchEnabled() then
 		local localeId = GetLocaleId()
 		self:setState({
 			localeId = localeId,
 		})
-	else
-		if GetMainSwitchEnabled() then
-			local localeId = GetLocaleId()
-			self:setState({
-				localeId = localeId,
-			})
-			local plugin = self.props.Plugin:get()
-			plugin:SetSetting(Constants.LOCALEID_SETTING_KEY, localeId)
-		end
+		local plugin = self.props.Plugin:get()
+		plugin:SetSetting(Constants.LOCALEID_SETTING_KEY, localeId)
 	end
 end
 
@@ -170,12 +158,12 @@ function LanguageSection:didMount()
 	local networkingImpl = self.props.Networking:get()
 	self.props.loadLanguages(networkingImpl)
 
-	if not FFlagPlayerEmulatorSerializeIntoDM then
+	if not FFlagPlayerEmulatorSerializeIntoDM2 then
 		self:initLocaleId()
 	end
 
 	local localeIdChangedSignal
-	if FFlagPlayerEmulatorSerializeIntoDM then
+	if FFlagPlayerEmulatorSerializeIntoDM2 then
 		localeIdChangedSignal = PlayerEmulatorService:GetPropertyChangedSignal(
 			"EmulatedGameLocale"):Connect(function()
 				self:onRobloxForcePlayModeRobloxLocaleIdChanged()
@@ -194,7 +182,7 @@ function LanguageSection:didMount()
 	end
 	table.insert(self.signalTokens, localeIdChangedSignal)
 
-	if FFlagPlayerEmulatorSerializeIntoDM then
+	if FFlagPlayerEmulatorSerializeIntoDM2 then
 		self:initLocaleId()
 	end
 end

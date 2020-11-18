@@ -3,7 +3,7 @@ return function()
 	local Constants = require(Plugin.Src.Resources.Constants)
 	local testImmutability = require(Plugin.Src.TestHelpers.testImmutability)
 
-	local Reducer = require(script.parent.Screen)
+	local Reducer = require(script.Parent.Screen)
 
 	it("should return a table with the correct members", function()
 		local state = Reducer(nil, {})

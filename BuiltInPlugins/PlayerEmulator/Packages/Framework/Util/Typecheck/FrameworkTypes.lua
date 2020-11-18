@@ -105,4 +105,13 @@ function FrameworkTypes.Instance(value)
 	return instanceOrTable(value)
 end
 
+function FrameworkTypes.Voting(value)
+	return t.strictInterface({
+		UpVotes = t.integer,
+		DownVotes = t.integer,
+		CanVote = t.optional(t.boolean),
+		UserVote = t.optional(t.boolean),
+	})
+end
+
 return FrameworkTypes

@@ -1,7 +1,5 @@
 --!nocheck
 -- TODO STM-151: Re-enable Luau Type Checks when Luau bugs are fixed
-local FFlagToolboxConsolidateInsertRemainsEvents = game:GetFastFlag("ToolboxConsolidateInsertRemainsEvents")
-
 local RunService = game:GetService("RunService")
 local HttpService = game:GetService("HttpService")
 
@@ -52,11 +50,7 @@ type TSenders = {
 local AssetAnalytics = {}
 AssetAnalytics.__index = AssetAnalytics
 
-if FFlagToolboxConsolidateInsertRemainsEvents then
-    AssetAnalytics.InsertRemainsCheckDelays = {30, 120, 600}
-else
-    AssetAnalytics.InsertRemainsCheckDelays = {30, 600}
-end
+AssetAnalytics.InsertRemainsCheckDelays = {30, 120, 600}
 
 local EVENT_TARGET = "studio"
 local EVENT_CONTEXT = "Marketplace"
@@ -101,26 +95,15 @@ function AssetAnalytics.addContextToAssetResults(assetResults: Array<Object<any>
 end
 
 function AssetAnalytics.pageInfoToContext(pageInfo: PageInfo) : AssetContext
-    if FFlagToolboxConsolidateInsertRemainsEvents then
-        return {
-            category = "Studio",
-            currentCategory = PageInfoHelper.getCategoryForPageInfo(pageInfo),
-            toolboxTab = PageInfoHelper.getCurrentTab(pageInfo),
-            sort = PageInfoHelper.getSortTypeForPageInfo(pageInfo),
-            searchKeyword = pageInfo.searchTerm,
-            page = pageInfo.targetPage,
-            searchId = pageInfo.searchId,
-        }
-    else
-        return {
-            category = PageInfoHelper.getCategoryForPageInfo(pageInfo),
-            toolboxTab = PageInfoHelper.getCurrentTab(pageInfo),
-            sort = PageInfoHelper.getSortTypeForPageInfo(pageInfo),
-            searchKeyword = pageInfo.searchTerm,
-            page = pageInfo.targetPage,
-            searchId = pageInfo.searchId,
-        }
-    end
+    return {
+        category = "Studio",
+        currentCategory = PageInfoHelper.getCategoryForPageInfo(pageInfo),
+        toolboxTab = PageInfoHelper.getCurrentTab(pageInfo),
+        sort = PageInfoHelper.getSortTypeForPageInfo(pageInfo),
+        searchKeyword = pageInfo.searchTerm,
+        page = pageInfo.targetPage,
+        searchId = pageInfo.searchId,
+    }
 end
 
 function AssetAnalytics.getAssetCategoryName(assetTypeId: number)
@@ -137,38 +120,24 @@ function AssetAnalytics.isAssetTrackable(assetData: AssetData)
 end
 
 function AssetAnalytics.getTrackingAttributes(assetData: AssetData)
-    local attributes
+    local attributes = Cryo.Dictionary.join(assetData.Context, {
+        assetID = assetData.Asset.Id,
+        assetType = AssetAnalytics.getAssetCategoryName(assetData.Asset.TypeId),
+        -- TODO STM-49: Do we get userId for free in EventIngest?
+        userID = getUserId(),
+        placeID = Analytics.getPlaceId(),
+        platformID = Analytics.getPlatformId(),
+        clientID = Analytics.getClientId(),
+        searchID = assetData.Context.searchId,
+        studioSid = Analytics.getStudioSessionId(),
 
-    if FFlagToolboxConsolidateInsertRemainsEvents then
-        attributes = Cryo.Dictionary.join(assetData.Context, {
-            assetID = assetData.Asset.Id,
-            assetType = AssetAnalytics.getAssetCategoryName(assetData.Asset.TypeId),
-            -- TODO STM-49: Do we get userId for free in EventIngest?
-            userID = getUserId(),
-            placeID = Analytics.getPlaceId(),
-            platformID = Analytics.getPlatformId(),
-            clientID = Analytics.getClientId(),
-            searchID = assetData.Context.searchId,
-            studioSid = Analytics.getStudioSessionId(),
+        -- Legacy fields kept for S&D (see STM-215)
+        label = assetData.Asset.Id,
+        value = 0,
+    })
 
-            -- Legacy fields kept for S&D (see STM-215)
-            label = assetData.Asset.Id,
-            value = 0,
-        })
-        -- We track "ID" as standard
-        attributes.searchId = nil
-    else
-        attributes = Cryo.Dictionary.join(assetData.Context, {
-            assetId = assetData.Asset.Id,
-            assetType = AssetAnalytics.getAssetCategoryName(assetData.Asset.TypeId),
-            -- TODO STM-49: Do we get userId for free in EventIngest?
-            userId = getUserId(),
-            placeId = Analytics.getPlaceId(),
-            platformId = Analytics.getPlatformId(),
-            clientId = Analytics.getClientId(),
-            studioSid = Analytics.getStudioSessionId(),
-        })
-    end
+    -- We track "ID" as standard
+    attributes.searchId = nil
 
     -- Senders expects string attributes
     for key, val in pairs(attributes) do
@@ -248,12 +217,7 @@ function AssetAnalytics:logInsert(assetData: AssetData, insertionMethod: string,
 end
 
 function AssetAnalytics:logRemainsOrDeleted(delay: number, insertionAttributes: Object<any>, insertedInstance: Instance)
-    local eventNameStem
-    if FFlagToolboxConsolidateInsertRemainsEvents then
-        eventNameStem = (insertedInstance and insertedInstance.Parent) and "InsertRemains" or "InsertDeleted"
-    else
-        eventNameStem = (insertedInstance and insertedInstance.Parent) and "MarketplaceInsertRemains" or "MarketplaceInsertDeleted"
-    end
+    local eventNameStem = (insertedInstance and insertedInstance.Parent) and "InsertRemains" or "InsertDeleted"
     
     self.senders.sendEventDeferred(EVENT_TARGET, EVENT_CONTEXT, eventNameStem .. tostring(delay), insertionAttributes)
 end

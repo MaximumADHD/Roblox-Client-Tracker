@@ -70,7 +70,7 @@ local function createFolderContextMenu(analytics, apiImpl, assetData, contextMen
                 analytics:report("clickContextMenuItem")
             end
         end)
-    elseif FFlagAllowAudioBulkImport and (not RobloxAPI:baseURLHasChineseHost()) and assetData.Screen.Key == Screens.MESHES.Key then
+    elseif assetData.Screen.Key == Screens.MESHES.Key then
         contextMenu:AddNewAction("AddMeshes", localization:getText("ContextMenu", "AddMeshes")).Triggered:connect(function()
             store:dispatch(LaunchBulkImport(Enum.AssetType.MeshPart.Value))
             if FFlagAssetManagerAddAnalytics then

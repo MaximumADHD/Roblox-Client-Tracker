@@ -258,8 +258,6 @@ function AssetConfigTheme:_recalculateTheme()
 			leftBorderColor = isDark and Colors.BLUE_PRIMARY or color(c.Border),
 			tabBackground = color(c.Titlebar),
 			contentColor = color(c.TitlebarText),
-			-- Remove me when remvoing: FFlagEnablePreviewTabSelection
-			selectedColor = isDark and Colors.WHITE or Colors.BLUE_PRIMARY,
 			selecteBarColor = isDark and Color3.fromRGB(11, 90, 175) or Colors.GRAY_1,
 			selecteBarTrans = isDark and 0 or 0.9,
 			selecteBarZindex = isDark and -1 or 0,

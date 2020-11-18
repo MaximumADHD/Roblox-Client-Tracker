@@ -14,7 +14,6 @@ local StopPreviewSound = require(Plugin.Core.Actions.StopPreviewSound)
 
 local Analytics = require(Plugin.Core.Util.Analytics.Analytics)
 
-local FFlagStudioFixGroupCreatorInfo3 = game:GetFastFlag("StudioFixGroupCreatorInfo3")
 local FFlagToolboxShowRobloxCreatedAssetsForLuobu = game:GetFastFlag("ToolboxShowRobloxCreatedAssetsForLuobu")
 
 local function searchUsers(networkInterface, searchTerm, store)
@@ -27,7 +26,7 @@ local function searchUsers(networkInterface, searchTerm, store)
 				return {
 					Name = info.Name,
 					Id = info.UserId,
-					Type = FFlagStudioFixGroupCreatorInfo3 and Enum.CreatorType.User.Value or nil,
+					Type = Enum.CreatorType.User.Value,
 				}
 			end
 		end
@@ -35,7 +34,7 @@ local function searchUsers(networkInterface, searchTerm, store)
 		return {
 			Name = searchTerm,
 			Id = -1,
-			Type = FFlagStudioFixGroupCreatorInfo3 and Enum.CreatorType.User.Value or nil,
+			Type = Enum.CreatorType.User.Value,
 		}
 	end)
 end

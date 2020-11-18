@@ -8,14 +8,16 @@ local FlagsList = Util.Flags.new({
 	FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
 })
 
+local export: any
+
 if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
-	return {
+	export = {
 		Color = StyleKey.Border,
 		StretchMargin = 0,
 		Weight = 1
 	}
 else
-	return function(theme, getColor)
+	export = function(theme, getColor)
 
 		local Default = Style.new({
 			Color = theme:GetColor("Border"),
@@ -28,3 +30,5 @@ else
 		}
 	end
 end
+
+return export

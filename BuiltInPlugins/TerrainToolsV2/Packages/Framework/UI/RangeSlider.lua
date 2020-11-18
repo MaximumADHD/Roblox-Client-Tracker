@@ -30,6 +30,7 @@ local ContextServices = require(Framework.ContextServices)
 
 local Util = require(Framework.Util)
 local Typecheck = Util.Typecheck
+local prioritize = Util.prioritize
 local StyleModifier = Util.StyleModifier
 local FlagsList = Util.Flags.new({
 	FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
@@ -44,7 +45,6 @@ Typecheck.wrap(RangeSlider, script)
 
 RangeSlider.defaultProps = {
 	Disabled = false,
-	Size = UDim2.new(1, 0, 1, 0),
 	SnapIncrement = 0,
 	VerticalDragTolerance = 300,
 }
@@ -161,24 +161,25 @@ function RangeSlider:init()
 end
 
 function RangeSlider:render()
-	local theme = self.props.Theme
+	local props = self.props
+	local theme = props.Theme
 	local style
 	if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
-		style = self.props.Stylizer
+		style = props.Stylizer
 	else
 		style = theme:getStyle("Framework", self)
 	end
 
-	local anchorPoint = self.props.AnchorPoint
-	local isDisabled = self.props.Disabled
-	local min = self.props.Min
-	local layoutOrder = self.props.LayoutOrder
-	local lowerRangeValue = self.props.LowerRangeValue
-	local position = self.props.Position
-	local upperRangeValue = self.props.UpperRangeValue
-	local size = self.props.Size
-	local verticalDragBuffer = self.props.VerticalDragTolerance
-	local hideLowerKnob = self.props.HideLowerKnob
+	local anchorPoint = props.AnchorPoint
+	local isDisabled = props.Disabled
+	local min = props.Min
+	local layoutOrder = props.LayoutOrder
+	local lowerRangeValue = props.LowerRangeValue
+	local position = props.Position
+	local upperRangeValue = props.UpperRangeValue
+	local size = prioritize(props.Size, style.Size, UDim2.new(1, 0, 1, 0))
+	local verticalDragBuffer = props.VerticalDragTolerance
+	local hideLowerKnob = props.HideLowerKnob
 
 	local background = style.Background
 	local backgroundStyle = style.BackgroundStyle

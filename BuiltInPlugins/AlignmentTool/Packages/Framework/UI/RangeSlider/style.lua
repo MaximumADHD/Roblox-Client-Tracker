@@ -20,6 +20,7 @@ local BAR_HEIGHT = 6
 local BAR_SLICE_CENTER = Rect.new(3, 0, 4, 6)
 local SLIDER_HANDLE_SIZE = 18
 
+local export: any
 
 if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
 	local knobStyle = {
@@ -32,7 +33,7 @@ if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
 		},
 	}
 
-	return {
+	export = {
 		KnobSize = Vector2.new(18, 18),
 		Background = Decoration.Image,
 		BackgroundStyle = {
@@ -62,7 +63,7 @@ if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
 		UpperKnobBackgroundStyle = knobStyle,
 	}
 else
-	return function(theme, getColor)
+	export = function(theme, getColor)
 		local common = Common(theme, getColor)
 
 		local BackgroundColor = StyleValue.new("BackgroundColor", {
@@ -125,3 +126,5 @@ else
 		}
 	end
 end
+
+return export

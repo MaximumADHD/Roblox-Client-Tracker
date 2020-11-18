@@ -6,8 +6,6 @@
 
 local Plugin = script.Parent.Parent.Parent
 
-local FFlagToolboxWaitForPluginOwnedStatus = game:GetFastFlag("ToolboxWaitForPluginOwnedStatus")
-
 local Promise = require(Plugin.Libs.Framework.Util.Promise)
 
 -- public api
@@ -62,11 +60,12 @@ function NetworkingMock:getAssets(pageInfo)
 end
 
 -- Pass this a list of assets and it returns a promise with the same data structure as returned from the web
-function NetworkingMock:resolveAssets(assets, totalResults)
+function NetworkingMock:resolveAssets(assets, totalResults, nextPageCursor)
 	return Promise.resolve({
 		responseBody = {
 			TotalResults = totalResults or #assets,
 			Results = assets,
+			nextPageCursor = nextPageCursor,
 		},
 	})
 end
@@ -93,14 +92,6 @@ end
 function NetworkingMock:getManageableGroups()
 	local fakeGroups = {}
 	return Promise.resolve(fakeGroups)
-end
-
-if not FFlagToolboxWaitForPluginOwnedStatus then
-	function NetworkingMock:getOwnsAsset(assetId, myUserId)
-		return Promise.resolve({
-			responseBody = "true"
-		})
-	end
 end
 
 function NetworkingMock:getCanManageAsset(assetId, myUserId)

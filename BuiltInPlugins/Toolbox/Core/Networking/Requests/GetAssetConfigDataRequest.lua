@@ -12,7 +12,8 @@ local FFlagShowAssetConfigReasons2 = game:GetFastFlag("ShowAssetConfigReasons2")
 local FFlagAssetConfigUseItemConfig = game:GetFastFlag("AssetConfigUseItemConfig")
 
 if FFlagAssetConfigUseItemConfig then
-	return nil
+	local export: any = nil
+	return export
 end
 
 return function(networkInterface, assetId)

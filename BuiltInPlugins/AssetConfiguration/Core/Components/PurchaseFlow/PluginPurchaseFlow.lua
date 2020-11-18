@@ -23,8 +23,6 @@ local THUMBNAIL_SIZE = Vector2.new(150, 150)
 
 local GuiService = game:GetService("GuiService")
 
-local FFlagToolboxWaitForPluginOwnedStatus = game:GetFastFlag("ToolboxWaitForPluginOwnedStatus")
-
 local Plugin = script.Parent.Parent.Parent.Parent
 local Libs = Plugin.Libs
 
@@ -64,17 +62,11 @@ function PurchaseFlow:init()
 
 			local assetData = self.props.AssetData
 			local assetId = assetData.Asset.Id
-			local productId
-			if FFlagToolboxWaitForPluginOwnedStatus then
-				-- We should never get here without a Product. This was almost certainly only ever happening due to
-				-- the ownership status not having loaded and bad logic in AssetPreviewWrapper causing
-				-- a purchase to be triggered. But in case something else is causing this too, let's fail here
-				assert(assetData.Product, "Attempted to purchase asset without a Product: " .. tostring(assetId))
-				productId = assetData.Product.ProductId
-			else
-				-- This guarding makes no sense - purchaseAsset requires a productId
-				productId = assetData.Product and assetData.Product.ProductId
-			end
+			-- We should never get here without a Product. This was almost certainly only ever happening due to
+			-- the ownership status not having loaded and bad logic in AssetPreviewWrapper causing
+			-- a purchase to be triggered. But in case something else is causing this too, let's fail here
+			assert(assetData.Product, "Attempted to purchase asset without a Product: " .. tostring(assetId))
+			local productId = assetData.Product.ProductId
 
 			local price = assetData.Product.Price
 			self.props.purchaseAsset(getNetwork(self), assetId, productId, price)

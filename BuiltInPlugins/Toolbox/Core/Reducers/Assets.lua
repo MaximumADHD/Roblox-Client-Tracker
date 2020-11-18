@@ -1,6 +1,3 @@
-local FFlagStudioGetSharedPackagesInToolbox = game:GetFastFlag("StudioGetSharedPackagesInToolbox")
-local FFlagToolboxNewAssetAnalytics = game:GetFastFlag("ToolboxNewAssetAnalytics")
-
 local Plugin = script.Parent.Parent.Parent
 
 local Libs = Plugin.Libs
@@ -18,7 +15,6 @@ local SetCachedCreatorInfo = require(Actions.SetCachedCreatorInfo)
 local SetAssetPreview = require(Actions.SetAssetPreview)
 local SetPreviewModel = require(Actions.SetPreviewModel)
 local ClearPreview = require(Actions.ClearPreview)
-local SetAssetVersionId = require(Actions.SetAssetVersionId)
 local SetCanManageAsset = require(Actions.SetCanManageAsset)
 local SetPluginData = require(Actions.SetPluginData)
 
@@ -41,11 +37,9 @@ local function handleAssetsAddedToState(state, assets, totalAssets, newCursor)
 		local id = asset.Asset.Id
 		local index = #newIdsToRender + 1
 
-		if FFlagToolboxNewAssetAnalytics then
-			if asset.Context then
-				asset.Context.pagePosition = index
-				asset.Context.position = (state.assetsReceived or 0) + index
-			end
+		if asset.Context then
+			asset.Context.pagePosition = index
+			asset.Context.position = (state.assetsReceived or 0) + index
 		end
 
 		newIdToAssetMap[id] = Cryo.Dictionary.join(asset, removeVoting)
@@ -60,12 +54,7 @@ local function handleAssetsAddedToState(state, assets, totalAssets, newCursor)
 		newHasReachedBottom = not PagedRequestCursor.isNextPageAvailable(newCursor)
 	else
 
-		local haveAllAssets = false
-		if FFlagStudioGetSharedPackagesInToolbox then
-			haveAllAssets = (newAssetsReceived >= newTotalAssets and #assets == 0)
-		else
-			haveAllAssets = (newAssetsReceived >= newTotalAssets)
-		end
+		local haveAllAssets = newAssetsReceived >= newTotalAssets and #assets == 0
 
 		newHasReachedBottom = state.hasReachedBottom or haveAllAssets or (#newIdsToRender == 0 and newTotalAssets > 0)
 	end
@@ -95,8 +84,6 @@ return Rodux.createReducer({
 	isPreviewing = false,
 
 	manageableAssets = {},
-	-- Currently used by a hacky implementation, will be removed with FFlagFixUseDevelopFetchPluginVersionId2
-	assetVersionId = nil,
 	-- Will be used to fetch versionId to install the latest plugin.
 	previewPluginData = nil,
 }, {
@@ -142,14 +129,7 @@ return Rodux.createReducer({
 	[ClearPreview.name] = function(state, action)
 		return Cryo.Dictionary.join(state, {
 			previewModel = Cryo.None,
-			assetVersionId = Cryo.None,
 			previewPluginData = Cryo.None
-		})
-	end,
-
-	[SetAssetVersionId.name] = function(state, action)
-		return Cryo.Dictionary.join(state, {
-			assetVersionId = action.assetVersionId
 		})
 	end,
 

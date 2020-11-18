@@ -4,9 +4,6 @@
 	Props:
 		table assetData = A table of asset data, passed from Rodux
 
-		number assetVersionId = if our asset is a plugin,
-		this will be the most updated asset version ID for that plugin
-
 		table previewFuncs = A table of functions that can be called from
 			the AssetPreview component, provided from Rodux
 
@@ -55,7 +52,6 @@ local PurchaseSuccessDialog = require(Plugin.Core.Components.PurchaseFlow.Purcha
 
 local Requests = Plugin.Core.Networking.Requests
 local GetPreviewInstanceRequest = require(Requests.GetPreviewInstanceRequest)
-local GetAssetVersionIdRequest = require(Requests.GetAssetVersionIdRequest)
 local GetPluginInfoRequest = require(Requests.GetPluginInfoRequest)
 local SearchWithOptions = require(Requests.SearchWithOptions)
 local PostUnvoteRequest = require(Requests.PostUnvoteRequest)
@@ -71,15 +67,8 @@ local PurchaseStatus = require(Plugin.Core.Types.PurchaseStatus)
 
 local AssetPreviewWrapper = Roact.PureComponent:extend("AssetPreviewWrapper")
 
-local FixModelPreviewSelection = settings():GetFFlag("FixModelPreviewSelection")
-local FFlagFixUseDevelopFetchPluginVersionId2 = game:DefineFastFlag("FixUseDevelopFetchPluginVersionId2", false)
 local FFlagStudioToolboxPluginPurchaseFlow = game:GetFastFlag("StudioToolboxPluginPurchaseFlow")
 local FFlagStudioHideSuccessDialogWhenFree = game:GetFastFlag("StudioHideSuccessDialogWhenFree")
-local FFlagToolboxFixAnalyticsBugs = game:GetFastFlag("ToolboxFixAnalyticsBugs")
-local FFlagToolboxWaitForPluginOwnedStatus = game:GetFastFlag("ToolboxWaitForPluginOwnedStatus")
-local FFlagToolboxInsertEventContextFixes = game:GetFastFlag("ToolboxInsertEventContextFixes")
-local FFlagToolboxNewAssetAnalytics = game:GetFastFlag("ToolboxNewAssetAnalytics")
-local FFlagToolboxNewInsertAnalytics = game:GetFastFlag("ToolboxNewInsertAnalytics")
 
 
 local PADDING = 32
@@ -101,13 +90,9 @@ function AssetPreviewWrapper:createPurchaseFlow(localizedContent)
 	local typeId = assetData.Asset.TypeId or Enum.AssetType.Model.Value
 
 	local assetVersionId
-	if FFlagFixUseDevelopFetchPluginVersionId2 then
-		local previewPluginData = self.props.previewPluginData
-		if previewPluginData then
-			assetVersionId = previewPluginData.versionId
-		end
-	else
-		assetVersionId = self.props.assetVersionId
+	local previewPluginData = self.props.previewPluginData
+	if previewPluginData then
+		assetVersionId = previewPluginData.versionId
 	end
 
 	local assetPreviewType
@@ -147,19 +132,17 @@ function AssetPreviewWrapper:createPurchaseFlow(localizedContent)
 		or (isPluginAsset and isPluginInstalled) or self.state.overrideEnableVoting
 
 	local installDisabled = (isPluginAsset and (isPluginLoading or isPluginUpToDate)) or
-		(FFlagFixUseDevelopFetchPluginVersionId2 and isPluginAsset and assetVersionId == nil)
+		(isPluginAsset and assetVersionId == nil)
 
-	if FFlagToolboxWaitForPluginOwnedStatus then
-		-- This function needs to be rewritten and unit tested.
-		-- STM-55 was a report of the purchase flow breaking, which was caused
-		-- by this function allowing install when asset ownership data was not yet loaded.
-		-- There was no retrying of the network request to get ownership, so install would
-		-- be enabled but not work if ownership data was not loaded.
+	-- This function needs to be rewritten and unit tested.
+	-- STM-55 was a report of the purchase flow breaking, which was caused
+	-- by this function allowing install when asset ownership data was not yet loaded.
+	-- There was no retrying of the network request to get ownership, so install would
+	-- be enabled but not work if ownership data was not loaded.
 
-		-- TODO DEVTOOLS-4896: When this is rewritten, also make the loading status correct for this state
-		-- (if it's still a reachable state)
-		installDisabled = installDisabled or (isPluginAsset and owned == nil)
-	end
+	-- TODO DEVTOOLS-4896: When this is rewritten, also make the loading status correct for this state
+	-- (if it's still a reachable state)
+	installDisabled = installDisabled or (isPluginAsset and owned == nil)
 
 	local tryInsert
 	if not FFlagStudioToolboxPluginPurchaseFlow then
@@ -172,7 +155,7 @@ function AssetPreviewWrapper:createPurchaseFlow(localizedContent)
 	local showRobuxIcon
 	local pluginButtonText = localizedContent.AssetConfig.Insert
 	if isPluginAsset then
-		if FFlagFixUseDevelopFetchPluginVersionId2 and assetVersionId == nil then
+		if assetVersionId == nil then
 			pluginButtonText = localizedContent.AssetConfig.Loading
 		elseif isPluginLoading then
 			pluginButtonText = localizedContent.AssetConfig.Installing
@@ -250,10 +233,7 @@ function AssetPreviewWrapper:init(props)
 			currentPreview = nil
 		})
 
-		local assetData
-		if FFlagToolboxFixAnalyticsBugs then
-			assetData = self.props.assetData
-		end
+		local assetData = self.props.assetData
 		self.props.onClose(assetData)
 		self.props.clearPreview()
 	end
@@ -290,13 +270,8 @@ function AssetPreviewWrapper:init(props)
 
 	self.tryInsert = function()
 		local assetData = props.assetData
-
-		if FFlagToolboxNewAssetAnalytics and FFlagToolboxNewInsertAnalytics then
-			local assetWasDragged = false
-			return self.props.tryInsert(assetData, assetWasDragged, "PreviewClickInsertButton")
-		else
-			return self.props.tryInsert(assetData, false) --Asset was not dragged
-		end
+		local assetWasDragged = false
+		return self.props.tryInsert(assetData, assetWasDragged, "PreviewClickInsertButton")
 	end
 
 	self.takePlugin = function(assetId)
@@ -308,10 +283,7 @@ function AssetPreviewWrapper:init(props)
 		self.props.searchWithOptions(networkInterface, settings, {
 			Creator = creatorName,
 		})
-		local assetData
-		if FFlagToolboxFixAnalyticsBugs then
-			assetData = self.props.assetData
-		end
+		local assetData = self.props.assetData
 		self.props.onClose(assetData)
 	end
 
@@ -362,13 +334,8 @@ function AssetPreviewWrapper:init(props)
 
 	self.tryInstall = function()
 		local assetData = self.props.assetData
-		local assetVersionId
-		if FFlagFixUseDevelopFetchPluginVersionId2 then
-			local previewPluginData = self.props.previewPluginData
-			assetVersionId = previewPluginData.versionId
-		else
-			assetVersionId = self.props.assetVersionId
-		end
+		local previewPluginData = self.props.previewPluginData
+		local assetVersionId = previewPluginData.versionId
 
 		local asset = assetData.Asset
 		local assetId = asset.Id
@@ -394,12 +361,10 @@ function AssetPreviewWrapper:init(props)
 		end
 
 		local currentCategoryName = nil
-		if FFlagToolboxInsertEventContextFixes then
-			if FFlagUseCategoryNameInToolbox then
-				currentCategoryName = categoryName
-			else
-				currentCategoryName = PageInfoHelper.getCategory(self.props.categories, categoryIndex)
-			end
+		if FFlagUseCategoryNameInToolbox then
+			currentCategoryName = categoryName
+		else
+			currentCategoryName = PageInfoHelper.getCategory(self.props.categories, categoryIndex)
 		end
 
 		local success = InsertAsset.tryInsert({
@@ -411,9 +376,9 @@ function AssetPreviewWrapper:init(props)
 			categoryIndex = (not FFlagUseCategoryNameInToolbox) and (FFlagEnableDefaultSortFix2 and categoryIndex or nil),
 			categoryName = FFlagUseCategoryNameInToolbox and categoryName or nil,
 			currentCategoryName = currentCategoryName,
-			onSuccess = FFlagToolboxNewAssetAnalytics and FFlagToolboxNewInsertAnalytics and function()
+			onSuccess = function()
 				self.props.AssetAnalytics:get():logInsert(assetData, "PreviewClickInsertButton")
-			end or nil,
+			end,
 		})
 		if success then
 			self:setState({
@@ -490,11 +455,7 @@ end
 function AssetPreviewWrapper:didMount()
 	self.props.getPreviewInstance(self.props.assetData.Asset.Id, self.props.assetData.Asset.TypeId)
 	if self.props.assetData.Asset.TypeId == Enum.AssetType.Plugin.Value then
-		if FFlagFixUseDevelopFetchPluginVersionId2 then
-			self.props.getPluginInfo(getNetwork(self), self.props.assetData.Asset.Id)
-		else
-			self.props.deprecated_getAssetVersionId(getNetwork(self), self.props.assetData.Asset.Id)
-		end
+		self.props.getPluginInfo(getNetwork(self), self.props.assetData.Asset.Id)
 	end
 
 	if FFlagStudioToolboxPluginPurchaseFlow then
@@ -523,12 +484,7 @@ function AssetPreviewWrapper:render()
 				local maxPreviewHeight = state.maxPreviewHeight
 
 				local previewModel = props.previewModel
-				local currentPreview
-				if FixModelPreviewSelection then
-					currentPreview = state.currentPreview or previewModel
-				else
-					currentPreview = previewModel
-				end
+				local currentPreview = state.currentPreview or previewModel
 
 				local popUpTheme = theme.assetPreview.popUpWrapperButton
 
@@ -608,7 +564,6 @@ local function mapStateToProps(state, props)
 	local previewModel = assets.previewModel
 
 	local pageInfo = state.pageInfo or {}
-	local assetVersionId = assets.assetVersionId
 
 	local assetId = props.assetData.Asset.Id
 	local manageableAssets = assets.manageableAssets
@@ -628,13 +583,9 @@ local function mapStateToProps(state, props)
 
 	local categories = nil
 	local categoryIndex
-	if FFlagToolboxInsertEventContextFixes then
-		if not FFlagUseCategoryNameInToolbox then
-			categories = pageInfo.categories or {}
-			categoryIndex = pageInfo.categoryIndex or 1
-		end
-	else
-		categoryIndex = (not FFlagUseCategoryNameInToolbox) and (FFlagEnableDefaultSortFix2 and (pageInfo.categoryIndex or 1) or nil)
+	if not FFlagUseCategoryNameInToolbox then
+		categories = pageInfo.categories or {}
+		categoryIndex = pageInfo.categoryIndex or 1
 	end
 
 	local stateToProps = {
@@ -643,7 +594,6 @@ local function mapStateToProps(state, props)
 		categoryName = FFlagUseCategoryNameInToolbox and (pageInfo.categoryName or Category.DEFAULT.name) or nil,
 		previewModel = previewModel or nil,
 		currentTab = PageInfoHelper.getCurrentTab(pageInfo),
-		assetVersionId = assetVersionId,
 		canManage = canManage,
 		previewPluginData = assets.previewPluginData,
 		assetId = assetId,
@@ -669,10 +619,6 @@ local function mapDispatchToProps(dispatch)
 
 		clearPreview = function()
 			dispatch(ClearPreview())
-		end,
-
-		deprecated_getAssetVersionId = function(networkInterface, assetId)
-			dispatch(GetAssetVersionIdRequest(networkInterface, assetId))
 		end,
 
 		getPluginInfo = function(networkInterface, assetId)
@@ -717,7 +663,7 @@ end
 
 ContextServices.mapToProps(AssetPreviewWrapper, {
 	Settings = Settings,
-	AssetAnalytics = FFlagToolboxNewAssetAnalytics and FFlagToolboxNewInsertAnalytics and AssetAnalyticsContextItem or nil,
+	AssetAnalytics = AssetAnalyticsContextItem,
 })
 
 return RoactRodux.UNSTABLE_connect2(mapStateToProps, mapDispatchToProps)(AssetPreviewWrapper)

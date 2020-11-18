@@ -7,7 +7,11 @@
 
 local Plugin = script.Parent.Parent.Parent
 
+local getFFlagBoundingBoxRefactor = require(Plugin.Src.Flags.getFFlagBoundingBoxRefactor)
+
 local DraggerFramework = Plugin.Packages.DraggerFramework
+local BoundingBox = getFFlagBoundingBoxRefactor() and require(DraggerFramework.Utility.BoundingBox) or nil
+
 local DraggerSchemaCore = Plugin.Packages.DraggerSchemaCore
 local BoundsChangedTracker = require(DraggerSchemaCore.BoundsChangedTracker)
 local Selection = require(DraggerSchemaCore.Selection)
@@ -36,7 +40,7 @@ local UpdateAlignment = require(Plugin.Src.Thunks.UpdateAlignment)
 
 local AlignToolError = require(Plugin.Src.Utility.AlignToolError)
 local getAlignableObjects = require(Plugin.Src.Utility.getAlignableObjects)
-local getBoundingBoxes = require(Plugin.Src.Utility.getBoundingBoxes)
+local getBoundingBoxes = not getFFlagBoundingBoxRefactor() and require(Plugin.Src.Utility.getBoundingBoxes) or nil
 local getDebugSettingValue = require(Plugin.Src.Utility.getDebugSettingValue)
 
 local SelectionWrapper = Selection.new()
@@ -145,7 +149,12 @@ function MainView:_updateSelectionInfo()
 	self._boundsChangedTracker:setParts(allParts)
 
 	if shouldShowDebugView() then
-		local offset, size, boundingBoxMap = getBoundingBoxes(alignableObjects)
+		local offset, size, boundingBoxMap
+		if getFFlagBoundingBoxRefactor() then
+			offset, size, boundingBoxMap = BoundingBox.fromObjectsIncludeAll(alignableObjects)
+		else
+			offset, size, boundingBoxMap = getBoundingBoxes(alignableObjects)
+		end
 
 		self:setState({
 			debug = {

@@ -49,6 +49,7 @@ local UpdateAssetConfigStore = require(Plugin.Core.Actions.UpdateAssetConfigStor
 
 local FFlagSupportAnimImportByID = game:GetFastFlag("SupportAnimImportByID")
 local FFlagAssetConifgOverrideAssetScrollingFrame = game:GetFastFlag("AssetConifgOverrideAssetScrollingFrame")
+local FFlagImproveAssetCreationsPageFetching = game:GetFastFlag("ImproveAssetCreationsPageFetching")
 
 local OverrideAsset = Roact.PureComponent:extend("OverrideAsset")
 
@@ -134,7 +135,12 @@ function OverrideAsset:render()
 			local instances = props.instances
 			local onOverrideAssetSelected = props.onOverrideAssetSelected
 
-			local filteredResultsArray = props.filteredResultsArray
+			local resultsArray
+			if FFlagImproveAssetCreationsPageFetching then
+				resultsArray = props.resultsArray
+			else
+				resultsArray = props.filteredResultsArray
+			end
 
 			local selectIndex = state.selectIndex
 
@@ -246,7 +252,7 @@ function OverrideAsset:render()
 
 					assetTypeEnum = assetTypeEnum,
 					instances = instances,
-					resultsArray = filteredResultsArray,
+					resultsArray = resultsArray,
 					onOverrideAssetSelected = onOverrideAssetSelected,
 					getOverrideAssets = self.getOverrideAssetsFunc,
 					filterID = state.filterID,
@@ -271,6 +277,10 @@ local function mapStateToProps(state, props)
 
 	if FFlagAssetConifgOverrideAssetScrollingFrame then
 		stateToProps["screenFlowType"] = state.screenFlowType
+	end
+
+	if FFlagImproveAssetCreationsPageFetching then
+		stateToProps.filteredResultsArray = nil
 	end
 
 	return stateToProps

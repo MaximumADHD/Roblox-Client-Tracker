@@ -47,7 +47,6 @@ local getNetwork = ContextGetter.getNetwork
 local PreviewArea = Roact.PureComponent:extend("PreviewArea")
 
 local FFlagUseDefaultThumbnailForAnimation = game:GetFastFlag("UseDefaultThumbnailForAnimation")
-local FFlagEnablePreviewTabSelection = settings():GetFFlag("EnablePreviewTabSelection")
 
 local THUMBNAIL_SIZE = Constants.ASSET_THUMBNAIL_REQUESTED_IMAGE_SIZE
 local TITLE_HEIGHT = 25
@@ -272,18 +271,8 @@ function PreviewArea:render()
 					}),
 				}),
 
-				SideTabs = (not FFlagEnablePreviewTabSelection) and showSideTabs and Roact.createElement(SideTabs, {
-					Size = UDim2.new(0, THUMBNAIL_WIDTH, 1, -preTabHeight),
-					ItemHeight = TAB_ITEM_HEIGHT,
-					Items = tabItems,
-					CurrentTab = currentTab,
-					ItemClickCallBack = onTabSelect,
-					SelectParentRef = self.baseFrameRef,
-					LayoutOrder = orderIterator:getNextOrder()
-				}),
-
 				-- We need to the base frame here for selction bar so we can ignore the padding
-				TabArea = FFlagEnablePreviewTabSelection and showSideTabs and Roact.createElement("Frame", {
+				TabArea = showSideTabs and Roact.createElement("Frame", {
 					Size = UDim2.new(1, 10, 1, -thunmbnailHeight -TITLE_HEIGHT*2),
 
 					BackgroundTransparency = 1,

@@ -13,6 +13,7 @@
 		Theme Theme: The theme supplied from mapToProps()
 		callback SortChildren: A comparator function to sort two items in the tree - SortChildren(left: Item, right: Item) => boolean
 		Style Style: a style table supplied from props and theme:getStyle()
+		number LayoutOrder: LayoutOrder of the component.
 		Stylizer Stylizer: A Stylizer ContextItem, which is provided via mapToProps.
 
 	Style Values:
@@ -100,6 +101,7 @@ function InstanceTreeView:render()
 	end
 
 	return Roact.createElement(TreeView, {
+		LayoutOrder = props.LayoutOrder,
 		RootItems = props.Instances,
 		GetChildren = self.getChildren,
 		GetItemKey = self.getItemKey,

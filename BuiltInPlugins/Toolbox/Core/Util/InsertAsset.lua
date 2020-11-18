@@ -1,7 +1,6 @@
 local Plugin = script.Parent.Parent.Parent
 
 local Analytics = require(Plugin.Core.Util.Analytics.Analytics)
-local AssetInsertionTracker = require(Plugin.Core.Util.AssetInsertionTracker)
 local DebugFlags = require(Plugin.Core.Util.DebugFlags)
 local InsertToolPromise = require(Plugin.Core.Util.InsertToolPromise)
 local Urls = require(Plugin.Core.Util.Urls)
@@ -16,9 +15,6 @@ local Workspace = game:GetService("Workspace")
 local StudioService = game:GetService("StudioService")
 local Lighting = game:GetService("Lighting")
 
-local FFlagToolboxConsolidateInsertRemainsEvents = game:GetFastFlag("ToolboxConsolidateInsertRemainsEvents")
-local FFlagEnableToolboxInsertWithJoin2 = settings():GetFFlag("EnableToolboxInsertWithJoin2")
-local FFlagStudioToolboxInsertAssetCategoryAnalytics = settings():GetFFlag("StudioToolboxInsertAssetCategoryAnalytics")
 local FFlagToolboxFixDecalInsert = settings():GetFFlag("ToolboxFixDecalInsert")
 local FFlagUseCategoryNameInToolbox = game:GetFastFlag("UseCategoryNameInToolbox")
 local FFlagEnableToolboxVideos = game:GetFastFlag("EnableToolboxVideos")
@@ -26,10 +22,7 @@ local FFlagToolboxForceSelectDragger = game:GetFastFlag("ToolboxForceSelectDragg
 local FFlagDragFaceInstances = game:GetFastFlag("DragFaceInstances")
 local EFLuaDraggers = game:GetEngineFeature("LuaDraggers")
 local FFlagFixGroupPackagesCategoryInToolbox = game:GetFastFlag("FixGroupPackagesCategoryInToolbox")
-local FFlagMarketplaceSourceAssetIds = game:GetFastFlag("MarketplaceSourceAssetIds")
-local FFlagToolboxInsertEventContextFixes = game:GetFastFlag("ToolboxInsertEventContextFixes")
 local FFlagEnableDefaultSortFix2 = game:GetFastFlag("EnableDefaultSortFix2")
-local FFlagToolboxNewInsertAnalytics = game:GetFastFlag("ToolboxNewInsertAnalytics")
 
 local INSERT_MAX_SEARCH_DEPTH = 2048
 local INSERT_MAX_DISTANCE_AWAY = 64
@@ -64,9 +57,7 @@ local function insertAudio(assetId, assetName)
 	end
 
 	local soundObj = Instance.new("Sound")
-	if FFlagMarketplaceSourceAssetIds then
-		soundObj.SourceAssetId = assetId
-	end
+	soundObj.SourceAssetId = assetId
 	soundObj.SoundId = url
 	soundObj.Name = assetName
 	soundObj.Parent = (Selection:Get() or {})[1] or Workspace
@@ -85,17 +76,7 @@ local function insertAsset(assetId, assetName, insertToolPromise)
 			print(("Inserting asset %s"):format(url))
 		end
 
-		if FFlagEnableToolboxInsertWithJoin2 then
-			assetInstance = game:InsertObjectsAndJoinIfLegacyAsync(url)
-		else
-			assetInstance = game:GetObjectsAsync(url)
-
-			if FFlagMarketplaceSourceAssetIds then
-				for _, o in ipairs(assetInstance) do
-					o.SourceAssetId = assetId
-				end
-			end
-		end
+		assetInstance = game:InsertObjectsAndJoinIfLegacyAsync(url)
 	end)
 
 	if success and assetInstance then
@@ -183,10 +164,7 @@ local function insertDecal(plugin, assetId, assetName)
 	if success and tbl and tbl[1] then
 		local decal = tbl[1]
 		decal.Name = assetName
-
-		if FFlagMarketplaceSourceAssetIds then
-			decal.SourceAssetId = assetId
-		end
+		decal.SourceAssetId = assetId
 
 		if FFlagToolboxFixDecalInsert then
 			decal.Parent = (Selection:Get() or {})[1] or Workspace
@@ -220,9 +198,7 @@ local function insertPackage(assetId)
 	end)
 
 	if success and instanceTable and instanceTable[1] then
-		if FFlagMarketplaceSourceAssetIds then
-			instanceTable[1].SourceAssetId = assetId
-		end
+		instanceTable[1].SourceAssetId = assetId
 		instanceTable[1].Parent = (Selection:Get() or {})[1] or Workspace
 		Selection:set(instanceTable)
 		return instanceTable[1]
@@ -238,9 +214,7 @@ local function insertVideo(assetId, assetName)
 	end
 
 	local videoObj = Instance.new("VideoFrame")
-	if FFlagMarketplaceSourceAssetIds then
-		videoObj.SourceAssetId = assetId
-	end
+	videoObj.SourceAssetId = assetId
 	videoObj.Video = url
 	videoObj.Name = assetName
 	videoObj.Parent = (Selection:Get() or {})[1] or Workspace
@@ -317,7 +291,7 @@ local function sendInsertionAnalytics(options, assetWasDragged)
 	Analytics.incrementToolboxInsertCounter(assetTypeIdToString(options.assetTypeId))
 
 	local categoryName
-	if FFlagToolboxInsertEventContextFixes and FFlagUseCategoryNameInToolbox then
+	if FFlagUseCategoryNameInToolbox then
 		categoryName = options.categoryName
 	else
 		categoryName = options.currentCategoryName
@@ -347,7 +321,7 @@ Options table format:
 	assetTypeId = AssetType,
 	onSuccess = function,
 	categoryName = string,
-	currentCategoryName = string, TODO: Remove when FFlagToolboxInsertEventContextFixes and FFlagUseCategoryNameInToolbox are retired
+	currentCategoryName = string, TODO: Remove when FFlagUseCategoryNameInToolbox is retired
 	searchTerm = string,
 	assetIndex = number,
 }
@@ -388,36 +362,22 @@ function InsertAsset.doInsertAsset(options, insertToolPromise)
 		ChangeHistoryService:SetWaypoint(("After attempt to install plugin %d"):format(assetId))
 		sendInsertionAnalytics(options, false)
 
-		if FFlagToolboxNewInsertAnalytics and options.onSuccess then
+		if options.onSuccess then
 			options.onSuccess(assetId)
 		end
 	elseif asset then
 		ChangeHistoryService:SetWaypoint(("After insert asset %d"):format(assetId))
 		sendInsertionAnalytics(options, false)
 
-		if FFlagStudioToolboxInsertAssetCategoryAnalytics then
-			local categoryName
-			if FFlagToolboxInsertEventContextFixes and FFlagUseCategoryNameInToolbox then
-				categoryName = options.categoryName
-			else
-				categoryName = options.currentCategoryName
-			end
-
-			if not FFlagToolboxConsolidateInsertRemainsEvents then
-				AssetInsertionTracker.trackInsert(assetId, asset, categoryName)
-			end
+		local categoryName
+		if FFlagUseCategoryNameInToolbox then
+			categoryName = options.categoryName
 		else
-			if not FFlagToolboxConsolidateInsertRemainsEvents then
-				AssetInsertionTracker.trackInsert(assetId, asset)
-			end
+			categoryName = options.currentCategoryName
 		end
 
-		if FFlagToolboxNewInsertAnalytics then
-			if options.onSuccess then
-				options.onSuccess(assetId, asset)
-			end
-		else
-			options.onSuccess(assetId)
+		if options.onSuccess then
+			options.onSuccess(assetId, asset)
 		end
 	else
 		warn(("Toolbox failed to insert asset %d %s: %s"):format(assetId, assetName, errorMessage or ""))
@@ -477,7 +437,7 @@ function InsertAsset.doDragInsertAsset(options)
 	if success then
 		sendInsertionAnalytics(options, true)
 
-		-- TODO CLIDEVSRVS-1689: For AssetInsertionTracker.trackInsert with dragged
+		-- TODO CLIDEVSRVS-1689: For tracking insert with dragged
 		-- asset, need to listen for dropped event on 3d view which
 		-- depends on viewports api
 

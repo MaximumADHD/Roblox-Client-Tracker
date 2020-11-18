@@ -8,13 +8,15 @@ local FlagsList = Util.Flags.new({
 	FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
 })
 
+local export: any
+
 if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
-	return {
+	export = {
 		StartColor = StyleKey.DimmedText,
 		EndColor = StyleKey.DialogMainButtonSelected,
 	}
 else
-	return function(theme, getColor)
+	export = function(theme, getColor)
 		local Default = Style.new({
 			StartColor = theme:GetColor("DimmedText"),
 			EndColor = theme:GetColor("DialogMainButton", "Selected")
@@ -25,3 +27,5 @@ else
 		}
 	end
 end
+
+return export

@@ -15,8 +15,10 @@ local Decoration = UI.Decoration
 local StudioFrameworkStyles = Framework.StudioUI.StudioFrameworkStyles
 local Common = require(StudioFrameworkStyles.Common)
 
+local export: any
+
 if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
-	return {
+	export = {
 		Padding = 6,
 		ImageSize = UDim2.new(0, 20, 0, 20),
 		Background = UI.Button,
@@ -48,7 +50,7 @@ if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
 		},
 	}
 else
-	return function(theme, getColor)
+	export = function(theme, getColor)
 		local common = Common(theme, getColor)
 
 		local Default = Style.extend(common.MainText, {
@@ -88,3 +90,5 @@ else
 		}
 	end
 end
+
+return export

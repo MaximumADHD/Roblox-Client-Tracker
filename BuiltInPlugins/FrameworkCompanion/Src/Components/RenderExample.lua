@@ -8,6 +8,9 @@
 	Optional Props:
 		number LayoutOrder: The sort order of this component.
 ]]
+
+local SelectionService = game:GetService("Selection")
+
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local Render = require(Plugin.Packages.Framework).Examples.Render
@@ -27,6 +30,7 @@ local PanelEntry = require(Plugin.Src.Components.PanelEntry)
 local RenderExample = Roact.PureComponent:extend("RenderExample")
 
 function RenderExample:init()
+	self.containerRef = Roact.createRef()
 	self.state = {
 		extents = Vector2.new(),
 		ExampleComponent = nil,
@@ -48,6 +52,14 @@ end
 
 function RenderExample:didMount()
 	self:loadExampleComponent()
+
+	-- Focus the example container Frame in the Explorer
+	-- Not having this in a spawn can result in rare crashes of Studio
+	spawn(function()
+		if self.containerRef.current then
+			SelectionService:Set({self.containerRef.current})
+		end
+	end)
 end
 
 function RenderExample:didUpdate(prevProps)
@@ -84,6 +96,7 @@ function RenderExample:render()
 			Background = Decoration.RoundBox,
 			BackgroundStyle = "__Example",
 			Padding = sizes.OuterPadding,
+			[Roact.Ref] = self.containerRef
 		}, {
 			Layout = Roact.createElement("UIListLayout", {
 				SortOrder = Enum.SortOrder.LayoutOrder,

@@ -17,6 +17,7 @@ local Framework = require(Plugin.Packages.Framework)
 local Util = Framework.Util
 local FlagsList = Util.Flags.new({
 	FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
+	FFlagDevFrameworkLocalizationLibraries = {"DevFrameworkLocalizationLibraries"},
 })
 
 local StudioUI = Framework.StudioUI
@@ -26,7 +27,11 @@ local PluginButton = StudioUI.PluginButton
 local PluginActions = ContextServices.PluginActions
 local Mouse = ContextServices.Mouse
 local Store = ContextServices.Store
+local Localization = ContextServices.Localization
 local MakeTheme = require(Plugin.Src.Resources.MakeTheme)
+
+local TranslationDevelopmentTable = Plugin.Src.Resources.TranslationDevelopmentTable
+local TranslationReferenceTable = Plugin.Src.Resources.TranslationReferenceTable
 
 local ComponentList = require(Plugin.Src.Components.ComponentList)
 local InfoPanel = require(Plugin.Src.Components.InfoPanel)
@@ -66,6 +71,17 @@ function MainPlugin:init(props)
 	self.contextItems = {
 		Mouse.new(props.Plugin:getMouse()),
 		MakeTheme(),
+		Localization.new({
+			stringResourceTable = TranslationDevelopmentTable,
+			translationResourceTable = TranslationReferenceTable,
+			pluginName = "FrameworkCompanion",
+			libraries = FlagsList:get("FFlagDevFrameworkLocalizationLibraries") and {
+				[Framework.Resources.LOCALIZATION_PROJECT_NAME] = {
+					stringResourceTable = Framework.Resources.TranslationDevelopmentTable,
+					translationResourceTable = Framework.Resources.TranslationReferenceTable,
+				},
+			} or nil,
+		}),
 		PluginActions.new(
 			props.Plugin,
 			{
@@ -101,6 +117,7 @@ function MainPlugin:render()
 
 	return ContextServices.provide({
 		ContextServices.Plugin.new(plugin),
+		ContextServices.Analytics.mock()
 	}, {
 		Toolbar = Roact.createElement(PluginToolbar, {
 			Title = "DevFramework",

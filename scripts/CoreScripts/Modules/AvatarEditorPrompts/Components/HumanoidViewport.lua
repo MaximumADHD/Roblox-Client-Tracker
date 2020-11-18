@@ -7,10 +7,13 @@ local UIBlox = require(CorePackages.UIBlox)
 
 local ShimmerPanel = UIBlox.Loading.ShimmerPanel
 
+local FFlagBetterHumanoidViewportCameraPositioning =
+	game:DefineFastFlag("BetterHumanoidViewportCameraPositioning", false)
+
 local INITIAL_OFFSET = 5
 local ROTATION_CFRAME = CFrame.fromEulerAnglesXYZ(math.rad(20), math.rad(15), math.rad(40))
 local THUMBNAIL_FOV = 70
-local ZOOM_FACTOR = 1.2
+local ZOOM_FACTOR = FFlagBetterHumanoidViewportCameraPositioning and 1 or 1.2
 
 local HumanoidViewport = Roact.PureComponent:extend("HumanoidViewport")
 
@@ -50,10 +53,21 @@ end
 
 local function getCameraOffset(fov, extentsSize)
 	local xSize, ySize, zSize = extentsSize.X, extentsSize.Y, extentsSize.Z
-	local maxSize = math.sqrt(xSize^2 + ySize^2 + zSize^2)
+
+	local maxSize
+	if FFlagBetterHumanoidViewportCameraPositioning then
+		maxSize = math.max(xSize, ySize)
+	else
+		maxSize = math.sqrt(xSize^2 + ySize^2 + zSize^2)
+	end
+
 	local fovMultiplier = 1 / math.tan(math.rad(fov) / 2)
 	local halfSize = maxSize / 2
-	return halfSize * fovMultiplier
+	if FFlagBetterHumanoidViewportCameraPositioning then
+		return (halfSize * fovMultiplier) + (zSize / 2)
+	else
+		return halfSize * fovMultiplier
+	end
 end
 
 local function zoomExtents(model, lookVector, cameraCFrame)

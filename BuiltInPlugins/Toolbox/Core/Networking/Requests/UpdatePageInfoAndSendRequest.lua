@@ -1,4 +1,3 @@
-local FFlagToolboxUseNewPluginEndpoint = settings():GetFFlag("ToolboxUseNewPluginEndpoint")
 local FFlagUseCategoryNameInToolbox = game:GetFastFlag("UseCategoryNameInToolbox")
 
 local Plugin = script.Parent.Parent.Parent.Parent
@@ -30,13 +29,11 @@ return function(networkInterface, settings, newPageInfo)
 		local pageInfo = store:getState().pageInfo
 		local audioSearchInfo = pageInfo.audioSearchInfo -- or store:getState().assets.audioSearchInfo
 		local categoryName
-		if FFlagToolboxUseNewPluginEndpoint then
-			if FFlagUseCategoryNameInToolbox then
-				categoryName = pageInfo.categoryName
-			else
-				local category = pageInfo.categories[pageInfo.categoryIndex]
-				categoryName = category and category.name
-			end
+		if FFlagUseCategoryNameInToolbox then
+			categoryName = pageInfo.categoryName
+		else
+			local category = pageInfo.categories[pageInfo.categoryIndex]
+			categoryName = category and category.name
 		end
 
 		if FFlagToolboxShowRobloxCreatedAssetsForLuobu and RobloxAPI:baseURLHasChineseHost() then
@@ -49,10 +46,7 @@ return function(networkInterface, settings, newPageInfo)
 			end
 		end
 
-		if (not FFlagToolboxUseNewPluginEndpoint) and audioSearchInfo then
-			store:dispatch(GetToolboxItems(networkInterface, Constants.AUDIO_SERACH_CATEGORY_NAME,
-				audioSearchInfo, pageInfo, settings))
-		elseif FFlagToolboxUseNewPluginEndpoint and Category.API_NAMES[categoryName] then
+		if Category.API_NAMES[categoryName] then
 			store:dispatch(GetToolboxItems(networkInterface, Category.API_NAMES[categoryName],
 				audioSearchInfo, pageInfo, settings))
 		else

@@ -8,6 +8,7 @@ game:DefineFastFlag("DebugAssetConfigNetworkError", false)
 
 game:DefineFastFlag("EnableDefaultSortFix2", false)
 game:DefineFastFlag("UseCategoryNameInToolbox", false)
+game:DefineFastFlag("DebugToolboxGetRolesRequest", false)
 -- Need to explicitly return something from a module
 -- Else you get an error "Module code did not return exactly one value"
 
@@ -22,16 +23,9 @@ game:DefineFastFlag("EnableToolboxVideos", false)
 game:DefineFastFlag("CMSPremiumBenefitsLink2", false)
 game:DefineFastFlag("CMSFixAssetPreviewForThumbnailConfig", false)
 
-game:DefineFastFlag("ToolboxShowGroupCreations", false)
 game:DefineFastFlag("ToolboxFixOneSecondAudioMaxDuration", false)
 game:DefineFastFlag("ToolboxForceSelectDragger", false)
 
-game:DefineFastFlag("StudioFixComparePageInfo2", false)
-
-game:DefineFastFlag("StudioFixGroupCreatorInfo3", false)
-game:DefineFastFlag("StudioToolboxFixNewEndpointFilters", false)
-
-game:DefineFastFlag("ToolboxFixAnalyticsBugs", false)
 game:DefineFastFlag("DebugToolboxEnableRoactChecks", false)
 
 game:DefineFastFlag("ToolboxDisableMarketplaceAndRecentsForLuobu", false)
@@ -40,21 +34,15 @@ game:DefineFastFlag("ToolboxShowRobloxCreatedAssetsForLuobu", false)
 game:DefineFastInt("LuobuToolboxMaxAudioLength", 5)
 game:DefineFastString("LuobuMarketplaceDisabledCategories", "PaidPlugins;FreePlugins;Plugins")
 
-game:DefineFastFlag("ToolboxWaitForPluginOwnedStatus", false)
-
-game:DefineFastFlag("ToolboxInsertEventContextFixes", false)
-
-game:DefineFastFlag("ToolboxNewAssetAnalytics", false)
-game:DefineFastFlag("ToolboxNewInsertAnalytics", false)
-
 game:DefineFastFlag("AssetConfigFixAssetIdTypo", false)
 game:DefineFastFlag("AssetConfigFixBadIdVerifyState", false)
 
-game:DefineFastFlag("ToolboxConsolidateInsertRemainsEvents", false)
 game:DefineFastFlag("UseDefaultThumbnailForAnimation", false)
 
 game:DefineFastFlag("CMSUploadAccessoryMeshPartFormat", false)
 
 game:DefineFastFlag("CMSUploadFees", false)
+
+game:DefineFastFlag("ImproveAssetCreationsPageFetching", false)
 
 return nil

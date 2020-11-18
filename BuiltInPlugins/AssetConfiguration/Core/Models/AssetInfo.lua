@@ -40,7 +40,6 @@ local AssetInfo = {}
 			string ReasonForNotVoteable :the reason why the user cannot vote
 		}
 ]]
-local FFlagToolboxUseNewPluginEndpoint = settings():GetFFlag("ToolboxUseNewPluginEndpoint")
 
 AssetInfo.new = function()
 	return {
@@ -73,7 +72,7 @@ function AssetInfo.fromItemDetailsRequest(data)
 		}
 	end
 
-	if FFlagToolboxUseNewPluginEndpoint and data.product then
+	if data.product then
 		result.Product = {
 			ProductId = data.product.productId,
 			Price = data.product.price,

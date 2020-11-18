@@ -3,7 +3,7 @@ return function()
 	local Cryo = require(Plugin.Packages.Cryo)
 	local testImmutability = require(Plugin.Src.TestHelpers.testImmutability)
 
-	local Reducer = require(script.parent.GroupsHavePermission)
+	local Reducer = require(script.Parent.GroupsHavePermission)
 
 	it("should return a table with the correct members", function()
 		local state = Reducer(nil, {})

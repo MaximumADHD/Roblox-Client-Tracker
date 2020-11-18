@@ -31,7 +31,7 @@ end
 
 local FFlagUserCameraInputRefactor do
 	local success, result = pcall(function()
-		return UserSettings():IsUserFeatureEnabled("UserCameraInputRefactor2")
+		return UserSettings():IsUserFeatureEnabled("UserCameraInputRefactor3")
 	end)
 	FFlagUserCameraInputRefactor = success and result
 end

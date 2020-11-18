@@ -1,14 +1,10 @@
 local Plugin = script.Parent.Parent.Parent
 
-local FFlagToolboxWaitForPluginOwnedStatus = game:GetFastFlag("ToolboxWaitForPluginOwnedStatus")
-
 local Url = require(Plugin.Libs.Http.Url)
 
 local wrapStrictTable = require(Plugin.Core.Util.wrapStrictTable)
 
-local FFlagStudioToolboxFixNewEndpointFilters = game:GetFastFlag("StudioToolboxFixNewEndpointFilters")
 local FFlagDragFaceInstances = game:GetFastFlag("DragFaceInstances")
-local FFlagStudioFixGroupCreatorInfo3 = game:GetFastFlag("StudioFixGroupCreatorInfo3")
 
 local Urls = {}
 
@@ -30,7 +26,6 @@ local POST_VOTE = Url.BASE_URL .. "voting/vote"
 local INSERT_ASSET = Url.BASE_URL .. "IDE/Toolbox/InsertAsset?"
 local GET_MANAGEABLE_GROUPS = Url.DEVELOP_URL .. "v1/user/groups/canmanage"
 
-local GET_ASSET_VERSION = Url.BASE_URL .. "studio/plugins/info?"
 local GET_PLUGIN_INFO = Url.DEVELOP_URL .. "v1/plugins?"
 
 local ASSET_ID_STRING = "rbxassetid://%d"
@@ -70,9 +65,6 @@ local GET_GROUP_ROLE_INFO = Url.GROUP_URL .. "v1/groups/%s/roles"
 local GET_USER_FRIENDS_URL = Url.FRIENDS_URL .. "v1/users/%d/friends"
 local ROBUX_PURCHASE_URL = Url.BASE_URL .. "upgrades/robux"
 local ROBUX_BALANCE_URL = Url.ECONOMY_URL .. "v1/users/%d/currency"
-
--- Remove when ToolboxWaitForPluginOwnedStatus is retired
-local OWNS_ASSET_URL = Url.API_URL .. "ownership/hasasset?assetId=%d&userId=%d"
 
 local CAN_MANAGE_ASSET_URL = Url.API_URL .. "users/%d/canmanage/%d"
 local ASSET_PURCHASE_URLV2 = Url.ECONOMY_URL .. "/v2/user-products/%d/purchase"
@@ -126,7 +118,7 @@ keyword, cursor, limit)
 		keyword = keyword,
 		cursor = cursor,
 		limit = limit,
-		useCreatorWhitelist = FFlagStudioToolboxFixNewEndpointFilters and true or nil,
+		useCreatorWhitelist = true,
 	})
 end
 -- category, string, neccesary parameter.
@@ -177,12 +169,6 @@ function Urls.constructGetCreatorInfoUrl(creatorId, creatorType)
 	end
 end
 
-if not FFlagStudioFixGroupCreatorInfo3 then
-	function Urls.constructGetCreatorNameUrl(creatorId, creatorType)
-		return GET_USER:format(creatorId)
-	end
-end
-
 function Urls.constructGetMetaDataUrl()
 	return GET_METADATA
 end
@@ -222,12 +208,6 @@ end
 
 function Urls.constructInsertAssetUrl(assetId)
 	return INSERT_ASSET .. Url.makeQueryString({
-		assetId = assetId
-	})
-end
-
-function Urls.constructGetAssetVersionUrl(assetId)
-	return GET_ASSET_VERSION .. Url.makeQueryString({
 		assetId = assetId
 	})
 end
@@ -431,12 +411,6 @@ function Urls.constructPackageHighestPermissionUrl(assetIds)
 		assetIdStringList = assetIdStringList .. assetId .. (assetIds[i+1] ~= nil and "," or "")
 	end
 	return GET_PACKAGE_HIGHEST_PERMISSION_LIST:format(assetIdStringList)
-end
-
-if not FFlagToolboxWaitForPluginOwnedStatus then
-	function Urls.constructOwnsAssetUrl(assetId, userId)
-		return OWNS_ASSET_URL:format(assetId, userId)
-	end
 end
 
 function Urls.constructCanManageAssetUrl(assetId, userId)

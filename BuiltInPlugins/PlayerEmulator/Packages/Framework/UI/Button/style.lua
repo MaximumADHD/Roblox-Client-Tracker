@@ -21,9 +21,11 @@ local Common = require(StudioFrameworkStyles.Common)
 local UIFolderData = require(Framework.UI.UIFolderData)
 local RoundBox = require(UIFolderData.RoundBox.style)
 
+local export: any
+
 if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
 	local roundBox = deepCopy(RoundBox)
-	return {
+	export = {
 		Padding = 0,
 		TextXAlignment = Enum.TextXAlignment.Center,
 		TextYAlignment = Enum.TextYAlignment.Center,
@@ -55,8 +57,10 @@ if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
 		},
 
 		["&RoundPrimary"] = {
+			Font = Enum.Font.SourceSansBold,
 			Background = Decoration.RoundBox,
 			BackgroundStyle = Cryo.Dictionary.join(roundBox, {
+				BorderColor = StyleKey.MainBackground,
 				Color = StyleKey.DialogMainButton,
 			}),
 			TextColor = StyleKey.DialogMainButtonText,
@@ -74,7 +78,7 @@ if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
 		},
 	}
 else
-	return function(theme, getColor)
+	export = function(theme, getColor)
 		local common = Common(theme, getColor)
 		local roundBox = RoundBox(theme, getColor)
 
@@ -110,14 +114,17 @@ else
 		})
 
 		local RoundPrimary = Style.extend(Round, {
+			Font = Enum.Font.SourceSansBold,
 			TextColor = theme:GetColor("DialogMainButtonText"),
 			BackgroundStyle = Style.extend(roundBox.Default, {
+				BorderColor = common.Background.Color,
 				Color = theme:GetColor("DialogMainButton"),
 			}),
 			[StyleModifier.Hover] = {
-				BackgroundStyle = {
+				BackgroundStyle = Style.extend(roundBox.Default, {
+					BorderColor = common.Background.Color,
 					Color = theme:GetColor("DialogMainButton", "Hover"),
-				},
+				}),
 			},
 			[StyleModifier.Disabled] = {
 				BackgroundStyle = {
@@ -134,3 +141,5 @@ else
 		}
 	end
 end
+
+return export

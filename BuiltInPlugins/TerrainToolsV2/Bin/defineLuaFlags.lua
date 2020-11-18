@@ -21,7 +21,8 @@ local function handleFlagDependencies(flag, requiredFlags)
 end
 
 handleFlagDependencies("TerrainToolsBetterImportTool", {
-	"TerrainImportSupportTempId",
+	"TerrainToolsRedesignProgressDialog",
+	"TerrainImportNewYieldMethod",
 })
 
 handleFlagDependencies("TerrainToolsRedesignProgressDialog", {

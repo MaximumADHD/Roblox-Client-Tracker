@@ -156,7 +156,8 @@ function DocParser.toInterface(docs)
 
 	local propsTable = {
 		[Roact.Children] = t.optional(t.table),
-		[Roact.Ref] = t.optional(FrameworkTypes.RoactRef)
+		[Roact.Ref] = t.optional(FrameworkTypes.RoactRef),
+		[Roact.Change.AbsoluteSize] = t.optional(t.callback),
 	}
 	local styleTable = {}
 

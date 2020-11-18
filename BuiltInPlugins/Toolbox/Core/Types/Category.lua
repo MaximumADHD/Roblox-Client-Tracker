@@ -2,17 +2,16 @@
 --^ Remove this hot comment with FFlagUseCategoryNameInToolbox.
 
 local FFlagOnlyWhitelistedPluginsInStudio = settings():GetFFlag("OnlyWhitelistedPluginsInStudio")
-local FFlagToolboxShowGroupCreations = game:DefineFastFlag("ToolboxShowGroupCreations", false)
 local FFlagFixToolboxPluginScaling = game:DefineFastFlag("FixToolboxPluginScaling", false)
 local FFlagUseCategoryNameInToolbox = game:GetFastFlag("UseCategoryNameInToolbox")
 local FFlagEnableToolboxVideos = game:GetFastFlag("EnableToolboxVideos")
-local FFlagToolboxUseNewPluginEndpoint = settings():GetFFlag("ToolboxUseNewPluginEndpoint")
 local FFlagFixGroupPackagesCategoryInToolbox = game:DefineFastFlag("FixGroupPackagesCategoryInToolbox", false)
 local FFlagToolboxDisableMarketplaceAndRecentsForLuobu = game:GetFastFlag("ToolboxDisableMarketplaceAndRecentsForLuobu")
 local FFlagToolboxShowRobloxCreatedAssetsForLuobu = game:GetFastFlag("ToolboxShowRobloxCreatedAssetsForLuobu")
 local FFlagFixAudioAssetsForLuoBu = game:DefineFastFlag("FixAudioAssetsForLuoBu", false)
 
 local Plugin = script.Parent.Parent.Parent
+local CreatorInfoHelper = require(Plugin.Core.Util.CreatorInfoHelper)
 local DebugFlags = require(Plugin.Core.Util.DebugFlags)
 local AssetConfigUtil = require(Plugin.Core.Util.AssetConfigUtil)
 local Cryo = require(Plugin.Libs.Cryo)
@@ -229,11 +228,10 @@ if FFlagFixAudioAssetsForLuoBu then
 		Type = Enum.CreatorType.User.Value,
 	}
 
-	-- Develop Api creatorType is not aligned with the CreatorType Enum
-	local DEVELOP_API_CREATOR_TYPE_USER = 1
 	Category.CREATOR_ROBLOX_DEVELOP_API = {
 		Id = 1,
-		Type = DEVELOP_API_CREATOR_TYPE_USER,
+		-- Develop API creatorType is not aligned with the CreatorType Enum
+		Type = CreatorInfoHelper.clientToBackend(Enum.CreatorType.User.Value),
 	}
 else
 	Category.CREATOR_ROBLOX = {
@@ -249,46 +247,34 @@ if FFlagEnableToolboxVideos then
 	table.insert(Category.MARKETPLACE, Category.MARKETPLACE_VIDEOS)
 end
 
-if FFlagToolboxUseNewPluginEndpoint then
-	Category.API_NAMES = {
-		[Category.FREE_AUDIO.name] = "Audio",
-		[Category.WHITELISTED_PLUGINS.name] = "Plugins",
-	}
-end
+Category.API_NAMES = {
+	[Category.FREE_AUDIO.name] = "Audio",
+	[Category.WHITELISTED_PLUGINS.name] = "Plugins",
+}
+
+
+
 
 local function getCreationCategories()
-	local categories
-	if FFlagToolboxShowGroupCreations then
-		categories = {
-			Category.CREATIONS_DEVELOPMENT_SECTION_DIVIDER,
-			Category.CREATIONS_MODELS,
-			Category.CREATIONS_DECALS,
-			Category.CREATIONS_AUDIO,
-			Category.CREATIONS_MESHES,
-			Category.CREATIONS_GROUP_MODELS,
-			Category.CREATIONS_GROUP_DECALS,
-			Category.CREATIONS_GROUP_AUDIO,
-			Category.CREATIONS_GROUP_MESHES,
-		}
-	else
-		categories = {
-			Category.CREATIONS_DEVELOPMENT_SECTION_DIVIDER,
-			Category.CREATIONS_MODELS,
-			Category.CREATIONS_DECALS,
-			Category.CREATIONS_AUDIO,
-			Category.CREATIONS_MESHES,
-		}
-	end
+	local categories = {
+		Category.CREATIONS_DEVELOPMENT_SECTION_DIVIDER,
+		Category.CREATIONS_MODELS,
+		Category.CREATIONS_DECALS,
+		Category.CREATIONS_AUDIO,
+		Category.CREATIONS_MESHES,
+		Category.CREATIONS_GROUP_MODELS,
+		Category.CREATIONS_GROUP_DECALS,
+		Category.CREATIONS_GROUP_AUDIO,
+		Category.CREATIONS_GROUP_MESHES,
+	}
 
 	table.insert(categories, Cryo.List.find(categories, Category.CREATIONS_MESHES) + 1,
 		Category.CREATIONS_PLUGIN)
-	if FFlagToolboxShowGroupCreations then
-		table.insert(
-			categories,
-			Cryo.List.find(categories, Category.CREATIONS_GROUP_MESHES) + 1,
-			Category.CREATIONS_GROUP_PLUGIN
-		)
-	end
+	table.insert(
+		categories,
+		Cryo.List.find(categories, Category.CREATIONS_GROUP_MESHES) + 1,
+		Category.CREATIONS_GROUP_PLUGIN
+	)
 
 	return categories
 end
@@ -386,10 +372,10 @@ if FFlagUseCategoryNameInToolbox then
 	end
 
 	function Category.getTabForCategoryName(categoryName)
-		return tabForCategoryName[categoryName]
+		return tabForCategoryName[categoryName] or Category.CREATIONS
 	end
 	function Category.getTabKeyForCategoryName(categoryName)
-		return tabKeyForCategoryName[categoryName]
+		return tabKeyForCategoryName[categoryName] or Category.CREATIONS_KEY
 	end
 
 	function Category.getCategoryByName(categoryName)
@@ -400,11 +386,12 @@ if FFlagUseCategoryNameInToolbox then
 		return category
 	end
 
-	function Category.getCategoryIndex(categoryName)
-		local tab = Category.getTabForCategoryName(categoryName)
+	function Category.getCategoryIndex(categoryName, roles)
 		if categoryName == "" then
 			return 1
 		end
+		local tabKey = Category.getTabKeyForCategoryName(categoryName)
+		local tab = Category.getCategories(tabKey, roles)
 		for index, category in ipairs(tab) do
 			if category.name == categoryName then
 				return index
@@ -480,15 +467,11 @@ else
 
 	function Category.categoryIsGroupAsset(currentTab, index)
 		if currentTab == Category.CREATIONS_KEY then
-			if FFlagToolboxShowGroupCreations then
-				local categories = Category.getCategories(currentTab, {})
-				if categories[index] == nil then
-					return false
-				end
-				return categories[index].ownershipType == Category.OwnershipType.GROUP
-			else
+			local categories = Category.getCategories(currentTab, {})
+			if categories[index] == nil then
 				return false
 			end
+			return categories[index].ownershipType == Category.OwnershipType.GROUP
 		end
 		return checkBounds(index) and
 			Category.INVENTORY_WITH_GROUPS[index].ownershipType == Category.OwnershipType.GROUP

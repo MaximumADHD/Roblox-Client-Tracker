@@ -482,7 +482,7 @@ function Configurer:_constructUI(screenGui)
 end
 
 function Configurer:_setupExistingRig()
-    local importedFbxModel = RigFunctions.FindExistimgImportedFbx()
+    local importedFbxModel = RigFunctions.FindExistingImportedFbx()
     if importedFbxModel then
         self._r15Avatar = importedFbxModel:FindFirstChild(Constants.R15_ARTIST_INTENT_FOLDER_NAME)
         self._r6Avatar = importedFbxModel:FindFirstChild(Constants.R6_FOLDER_NAME)

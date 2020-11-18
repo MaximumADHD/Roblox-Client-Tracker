@@ -35,9 +35,7 @@ function MockServiceWrapper.getMockGlobals(props)
 
 	local pluginInstance = props.plugin
 	if not pluginInstance then
-		-- if the player has provided a target container, parent mock elements there
-		local container = props.container
-		pluginInstance = MockPlugin.new(container)
+		pluginInstance = MockPlugin.new()
 	end
 
 	local mouse = props.mouse

@@ -1,9 +1,6 @@
-local FFlagStudioUseDevelopAPIForPackages = settings():GetFFlag("StudioUseDevelopAPIForPackages")
+local FFlagImproveAssetCreationsPageFetching = game:GetFastFlag("ImproveAssetCreationsPageFetching")
 local FFlagUseCategoryNameInToolbox = game:GetFastFlag("UseCategoryNameInToolbox")
 local FFlagEnableToolboxVideos = game:GetFastFlag("EnableToolboxVideos")
-local FFlagStudioFixComparePageInfo2 = game:GetFastFlag("StudioFixComparePageInfo2")
-local FFlagStudioFixGroupCreatorInfo3 = game:GetFastFlag("StudioFixGroupCreatorInfo3")
-local FFlagToolboxNewAssetAnalytics = game:GetFastFlag("ToolboxNewAssetAnalytics")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -50,12 +47,8 @@ end
 
 local function extractCreatorInfo(responseBodyResults)
 	if responseBodyResults and #responseBodyResults > 0 then
-		if FFlagStudioFixGroupCreatorInfo3 then
-			local firstResult = responseBodyResults[1]
-			return firstResult.Creator.Id, firstResult.Creator.Name, CreatorInfoHelper.backendToClient(firstResult.Creator.Type)
-		else
-			return responseBodyResults[1].Creator.Id, responseBodyResults[1].Creator.Name
-		end
+		local firstResult = responseBodyResults[1]
+		return firstResult.Creator.Id, firstResult.Creator.Name, CreatorInfoHelper.backendToClient(firstResult.Creator.Type)
 	end
 end
 
@@ -67,9 +60,7 @@ local function dispatchGetAssets(store, pageInfo, creationDetailsTable, creatorN
 	local assetType = PageInfoHelper.getEngineAssetTypeForPageInfoCategory(pageInfo)
 	local assetResults = convertCreationsDetailsToResultsFormat(creationDetailsTable, assetType, creatorName, creatorType)
 
-	if FFlagToolboxNewAssetAnalytics then
-		AssetAnalytics.addContextToAssetResults(assetResults, pageInfo)
-	end
+	AssetAnalytics.addContextToAssetResults(assetResults, pageInfo)
 
 	store:dispatch(GetAssets(assetResults, nil, nextCursor))
 	store:dispatch(SetCurrentPage(0))
@@ -78,7 +69,13 @@ end
 
 local function dispatchGetAssetsWarning(store, errorText, nextCursor)
 	if DebugFlags.shouldDebugWarnings() then
-		warn(errorText)
+		if FFlagImproveAssetCreationsPageFetching then
+			if errorText then
+				warn(errorText)
+			end
+		else
+			warn(errorText)
+		end
 	end
 	store:dispatch(GetAssets({}, nil, nextCursor))
 	store:dispatch(SetLoading(false))
@@ -96,10 +93,8 @@ return function(networkInterface, pageInfoOnStart)
 		end
 
 		local errorFunc = function(result)
-			if FFlagStudioFixComparePageInfo2 then
-				if PageInfoHelper.isPageInfoStale(pageInfoOnStart, store) then
-					return
-				end
+			if PageInfoHelper.isPageInfoStale(pageInfoOnStart, store) then
+				return
 			end
 			store:dispatch(NetworkError(result))
 			store:dispatch(SetLoading(false))
@@ -121,22 +116,15 @@ return function(networkInterface, pageInfoOnStart)
 			else
 				categoryOnRequestFinish = pageInfo.categories[pageInfo.categoryIndex]
 			end
-			local isResponseFresh
 
-			if FFlagStudioFixComparePageInfo2 then
-				isResponseFresh = not PageInfoHelper.isPageInfoStale(pageInfoOnStart, store)
-			else
-				isResponseFresh = categoryOnStart == categoryOnRequestFinish and pageInfoOnStart.targetPage - pageInfo.currentPage == 1
-			end
+			local isResponseFresh = not PageInfoHelper.isPageInfoStale(pageInfoOnStart, store)
 
 			if isResponseFresh then
 				if data then
 					dispatchCreatorInfo(store, extractCreatorInfo(data.Results))
 					local assetResults = data.Results or {}
 
-					if FFlagToolboxNewAssetAnalytics then
-						AssetAnalytics.addContextToAssetResults(assetResults, pageInfoOnStart)
-					end
+					AssetAnalytics.addContextToAssetResults(assetResults, pageInfoOnStart)
 
 					store:dispatch(GetAssets(assetResults, data.TotalResults))
 					-- If success get asset, update currentPage.
@@ -169,45 +157,35 @@ return function(networkInterface, pageInfoOnStart)
 								local isCreatorInfoFetchRequired = false
 								local newCreatorId = creationDetailsTable[1].creatorTargetId
 
-								if FFlagStudioFixGroupCreatorInfo3 then
-									local newCreatorType = CreatorInfoHelper.getCreatorTypeValueFromName(creationDetailsTable[1].creatorType)
-									isCreatorInfoFetchRequired = not CreatorInfoHelper.isCached(store, newCreatorId, newCreatorType)
+								local newCreatorType = CreatorInfoHelper.getCreatorTypeValueFromName(creationDetailsTable[1].creatorType)
+								isCreatorInfoFetchRequired = not CreatorInfoHelper.isCached(store, newCreatorId, newCreatorType)
 
-									if isCreatorInfoFetchRequired then
-										networkInterface:getCreatorInfo(newCreatorId, newCreatorType):andThen(function(creatorInfoResult)
-											local creatorName = CreatorInfoHelper.getNameFromResult(creatorInfoResult, newCreatorType)
-											dispatchCreatorInfo(store, newCreatorId, creatorName, newCreatorType)
-											dispatchGetAssets(store, pageInfoOnStart, creationDetailsTable, creatorName, nextCursor, newCreatorType)
-										end, errorFunc)
-									end
-
-									if not isCreatorInfoFetchRequired then
-										local creatorName = store:getState().assets.cachedCreatorInfo.Name
+								if isCreatorInfoFetchRequired then
+									networkInterface:getCreatorInfo(newCreatorId, newCreatorType):andThen(function(creatorInfoResult)
+										local creatorName = CreatorInfoHelper.getNameFromResult(creatorInfoResult, newCreatorType)
+										dispatchCreatorInfo(store, newCreatorId, creatorName, newCreatorType)
 										dispatchGetAssets(store, pageInfoOnStart, creationDetailsTable, creatorName, nextCursor, newCreatorType)
-									end
-								else
-									local cachedCreatorId = store:getState().assets.cachedCreatorInfo and store:getState().assets.cachedCreatorInfo.Id
+									end, errorFunc)
+								end
 
-									if (not cachedCreatorId) or cachedCreatorId ~= newCreatorId then
-										isCreatorInfoFetchRequired = true
-										networkInterface:getCreatorName(creationDetailsTable[1].creatorTargetId):andThen(function(creatorNameResult)
-											local creatorName = creatorNameResult.responseBody and creatorNameResult.responseBody.Username
-											dispatchCreatorInfo(store, newCreatorId, creatorName)
-											dispatchGetAssets(store, pageInfoOnStart, creationDetailsTable, creatorName, nextCursor)
-										end, errorFunc)
-									end
-
-									if not isCreatorInfoFetchRequired then
-										local creatorName = store:getState().assets.cachedCreatorInfo.Name
-										dispatchGetAssets(store, pageInfoOnStart, creationDetailsTable, creatorName, nextCursor)
-									end
+								if not isCreatorInfoFetchRequired then
+									local creatorName = store:getState().assets.cachedCreatorInfo.Name
+									dispatchGetAssets(store, pageInfoOnStart, creationDetailsTable, creatorName, nextCursor, newCreatorType)
 								end
 							else
 								dispatchGetAssetsWarning(store, "getAssetCreationDetails() did not return any asset details", nextCursor)
 							end
 						end, errorFunc)
 					else
-						dispatchGetAssetsWarning(store, "getAssetCreations() did not return any assets for cursor", nextCursor)
+						-- The endpoint can return empty pages with a valid cursor for a next page, because
+						-- it filters out packages from the list AFTER applying pagination. So this should not be a warning
+						-- See MKTPL-1416 for more information. This is planned to be fixed on the backend, so just nil out
+						-- the warning for now.
+						if FFlagImproveAssetCreationsPageFetching then
+							dispatchGetAssetsWarning(store, nil, nextCursor)
+						else
+							dispatchGetAssetsWarning(store, "getAssetCreations() did not return any assets for cursor", nextCursor)
+						end
 					end
 				end, errorFunc)
 			end
@@ -230,7 +208,7 @@ return function(networkInterface, pageInfoOnStart)
 			end
 
 			if PageInfoHelper.isDeveloperCategory(pageInfoOnStart)
-				or (FFlagStudioUseDevelopAPIForPackages and PageInfoHelper.isPackagesCategory(pageInfoOnStart))
+				or PageInfoHelper.isPackagesCategory(pageInfoOnStart)
 				or isAudio
 				or isVideo
 			then

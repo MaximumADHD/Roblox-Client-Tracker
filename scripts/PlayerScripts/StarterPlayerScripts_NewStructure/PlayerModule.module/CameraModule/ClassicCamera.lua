@@ -16,6 +16,7 @@ local TIME_BEFORE_AUTO_ROTATE = 2       -- Seconds, used when auto-aligning came
 
 local INITIAL_CAMERA_ANGLE = CFrame.fromOrientation(math.rad(-15), 0, 0)
 local ZOOM_SENSITIVITY_CURVATURE = 0.5
+local FIRST_PERSON_DISTANCE_MIN = 0.5
 
 local FFlagUserCameraToggle do
 	local success, result = pcall(function()
@@ -26,7 +27,7 @@ end
 
 local FFlagUserCameraInputRefactor do
 	local success, result = pcall(function()
-		return UserSettings():IsUserFeatureEnabled("UserCameraInputRefactor2")
+		return UserSettings():IsUserFeatureEnabled("UserCameraInputRefactor3")
 	end)
 	FFlagUserCameraInputRefactor = success and result
 end
@@ -119,23 +120,7 @@ function ClassicCamera:Update()
 	end
 
 	if FFlagUserCameraInputRefactor then
-		local zoom = self.currentSubjectDistance	
-		local zoomDelta = CameraInput.getZoomDelta()	
-		
-		if math.abs(zoomDelta) > 0 then
-			local newZoom
-			if self.inFirstPerson and zoomDelta < 0 then
-				newZoom = 0.5
-			else
-				if zoomDelta > 0 then
-					newZoom = zoom + zoomDelta*(1 + zoom*ZOOM_SENSITIVITY_CURVATURE)
-				else
-					newZoom = (zoom + zoomDelta) / (1 - zoomDelta*ZOOM_SENSITIVITY_CURVATURE)
-				end
-			end
-
-			self:SetCameraToSubjectDistance(newZoom)
-		end
+		self:StepZoom()
 	end
 
 	if self.lastUpdate and not FFlagUserCameraInputRefactor then

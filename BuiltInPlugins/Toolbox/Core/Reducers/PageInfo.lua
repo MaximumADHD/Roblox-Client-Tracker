@@ -22,10 +22,8 @@ local SetCurrentPage = require(Actions.SetCurrentPage)
 
 local RobloxAPI = require(Libs.Framework).RobloxAPI
 
-local FFlagToolboxShowGroupCreations = game:GetFastFlag("ToolboxShowGroupCreations")
 local FFlagUseCategoryNameInToolbox = game:GetFastFlag("UseCategoryNameInToolbox")
 local FFlagToolboxDisableMarketplaceAndRecentsForLuobu = game:GetFastFlag("ToolboxDisableMarketplaceAndRecentsForLuobu")
-local FFlagToolboxNewAssetAnalytics = game:GetFastFlag("ToolboxNewAssetAnalytics")
 
 local defaultSorts = Sort.SORT_OPTIONS
 local defaultCategories
@@ -128,12 +126,10 @@ return Rodux.createReducer({
 
 		local newState = Cryo.Dictionary.join(state, action.changes)
 
-		if FFlagToolboxNewAssetAnalytics then
-			if not RequestReason.IsUpdate(newState.requestReason) then
-				-- If we are just changing page, don't generate a new searchId
-				newState.searchId = HttpService:GenerateGUID(false)
-			end
-		end
+		if not RequestReason.IsUpdate(newState.requestReason) then
+			-- If we are just changing page, don't generate a new searchId
+			newState.searchId = HttpService:GenerateGUID(false)
+		end		
 
 		-- Update the plugin settings. Reducers should be pure functions
 		-- but this guarantees that the plugin settings use the most up-
@@ -209,21 +205,13 @@ return Rodux.createReducer({
 
 			newState.groupIndex = newIndex
 
-			if FFlagToolboxShowGroupCreations then
-				if newState.categories == Category.INVENTORY then
-					newState.categories = Category.INVENTORY_WITH_GROUPS
-				end
-			else
+			if newState.categories == Category.INVENTORY then
 				newState.categories = Category.INVENTORY_WITH_GROUPS
 			end
 		else
 			newState.groupIndex = 0
 
-			if FFlagToolboxShowGroupCreations then
-				if newState.categories == Category.INVENTORY_WITH_GROUPS then
-					newState.categories = Category.INVENTORY
-				end
-			else
+			if newState.categories == Category.INVENTORY_WITH_GROUPS then
 				newState.categories = Category.INVENTORY
 			end
 

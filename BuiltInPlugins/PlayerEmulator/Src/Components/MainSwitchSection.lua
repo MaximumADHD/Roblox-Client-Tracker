@@ -10,7 +10,7 @@
 		function onPlayerEmulationEnabledChanged
 			on toggle plugin enabled
 ]]
-local FFlagPlayerEmulatorSerializeIntoDM = game:GetFastFlag("PlayerEmulatorSerializeIntoDM")
+local FFlagPlayerEmulatorSerializeIntoDM2 = game:GetFastFlag("PlayerEmulatorSerializeIntoDM2")
 
 local PlayerEmulatorService = game:GetService("PlayerEmulatorService")
 
@@ -35,22 +35,17 @@ end
 local MainSwitchSection = Roact.PureComponent:extend("MainSwitchSection")
 
 function MainSwitchSection:initEnabledStatus()
-	if FFlagPlayerEmulatorSerializeIntoDM then
-		self:updatePlayerEmulationEnabled(GetMainSwitchEnabled())
-	else
-		local plugin = self.props.Plugin:get()
-		local cachedSetting = plugin:GetSetting(Constants.MAIN_SWITCH_KEY)
-		if cachedSetting == true then
-			SetMainSwitchEnabled(true)
-		end
+	local plugin = self.props.Plugin:get()
+	local cachedSetting = plugin:GetSetting(Constants.MAIN_SWITCH_KEY)
+	if cachedSetting == true then
+		SetMainSwitchEnabled(true)
 	end
 end
 
 function MainSwitchSection:updatePlayerEmulationEnabled(enabled)
-	if not FFlagPlayerEmulatorSerializeIntoDM then
-		local plugin = self.props.Plugin:get()
-		plugin:SetSetting(Constants.MAIN_SWITCH_KEY, enabled)
-	end
+	local plugin = self.props.Plugin:get()
+	plugin:SetSetting(Constants.MAIN_SWITCH_KEY, enabled)
+
 	local onPlayerEmulationEnabledChanged = self.props.onPlayerEmulationEnabledChanged
 	onPlayerEmulationEnabledChanged(enabled)
 end
@@ -61,7 +56,7 @@ end
 
 function MainSwitchSection:didMount()
 	local enabledChangedSignal
-	if FFlagPlayerEmulatorSerializeIntoDM then
+	if FFlagPlayerEmulatorSerializeIntoDM2 then
 		enabledChangedSignal = PlayerEmulatorService:GetPropertyChangedSignal(
 			"PlayerEmulationEnabled"):Connect(function()
 				self:updatePlayerEmulationEnabled(GetMainSwitchEnabled())

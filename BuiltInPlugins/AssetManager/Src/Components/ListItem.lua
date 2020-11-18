@@ -53,7 +53,7 @@ local function getClassIcon(assetData)
     elseif assetType == Enum.AssetType.MeshPart then
         return StudioService:GetClassIcon("MeshPart")
     elseif FFlagAllowAudioBulkImport and (not RobloxAPI:baseURLHasChineseHost()) and assetType == Enum.AssetType.Audio then
-        return StudioService:GetClassIcon("Audio")
+        return StudioService:GetClassIcon("Sound")
     elseif assetType == Enum.AssetType.Lua then
         return StudioService:GetClassIcon("LinkedScript")
     end

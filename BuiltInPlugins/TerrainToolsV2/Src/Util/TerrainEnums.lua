@@ -120,4 +120,9 @@ TerrainEnums.ReplaceMode = {
 	Brush = "Brush",
 }
 
+TerrainEnums.ImportMaterialMode = {
+	DefaultMaterial = "DefaultMaterial",
+	Colormap = "Colormap",
+}
+
 return TerrainEnums

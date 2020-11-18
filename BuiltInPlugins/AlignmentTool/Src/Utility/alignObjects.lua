@@ -3,14 +3,16 @@ local Workspace = game:GetService("Workspace")
 local Plugin = script.Parent.Parent.Parent
 local plugin = Plugin.Parent
 
-local DraggerFramework = Plugin.Packages.DraggerFramework
-local JointMaker = require(DraggerFramework.Utility.JointMaker)
-
 local getFFlagFixAlignToolMissingTargetObject = require(Plugin.Src.Flags.getFFlagFixAlignToolMissingTargetObject)
+local getFFlagBoundingBoxRefactor = require(Plugin.Src.Flags.getFFlagBoundingBoxRefactor)
+
+local DraggerFramework = Plugin.Packages.DraggerFramework
+local BoundingBox = getFFlagBoundingBoxRefactor() and require(DraggerFramework.Utility.BoundingBox) or nil
+local JointMaker = require(DraggerFramework.Utility.JointMaker)
 
 local AlignmentMode = require(Plugin.Src.Utility.AlignmentMode)
 local getAlignableObjects = require(Plugin.Src.Utility.getAlignableObjects)
-local getBoundingBoxes = require(Plugin.Src.Utility.getBoundingBoxes)
+local getBoundingBoxes = not getFFlagBoundingBoxRefactor() and require(Plugin.Src.Utility.getBoundingBoxes) or nil
 
 local function getAxesMask(axes)
 	return Vector3.new(
@@ -39,7 +41,13 @@ return function(objects, axes, mode, target)
 		return
 	end
 
-	local boundingBoxOffset, boundingBoxSize, objectBoundingBoxMap = getBoundingBoxes(objects)
+	local boundingBoxOffset, boundingBoxSize, objectBoundingBoxMap
+	if getFFlagBoundingBoxRefactor() then
+		boundingBoxOffset, boundingBoxSize, objectBoundingBoxMap =
+			BoundingBox.fromObjectsComputeAll(objects)
+	else
+		boundingBoxOffset, boundingBoxSize, objectBoundingBoxMap = getBoundingBoxes(objects)
+	end
 	local axesMask = getAxesMask(axes)
 
 	local function translateObject(object, offset)

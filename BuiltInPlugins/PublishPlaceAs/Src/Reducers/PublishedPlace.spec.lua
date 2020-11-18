@@ -5,7 +5,7 @@ return function()
 
 	local testImmutability = require(Plugin.Src.TestHelpers.testImmutability)
 
-	local PublishedPlace = require(script.parent.PublishedPlace)
+	local PublishedPlace = require(script.Parent.PublishedPlace)
 
 	it("should return a table with the correct members", function()
 		local state = PublishedPlace(nil, {})

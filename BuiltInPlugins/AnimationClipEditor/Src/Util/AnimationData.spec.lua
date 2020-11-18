@@ -403,7 +403,7 @@ return function()
 					[2] = {},
 				},
 			}
-			AnimationData.deleteKeyframe(track, 2, 3)
+			AnimationData.deleteKeyframe(track, 2)
 			expect(track.Data[1]).to.be.ok()
 		end)
 	end)

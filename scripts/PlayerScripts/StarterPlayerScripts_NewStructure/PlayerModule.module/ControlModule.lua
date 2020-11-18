@@ -34,6 +34,13 @@ end
 
 local TouchThumbstick = FFlagUserMakeThumbstickDynamic and DynamicThumbstick or require(script:WaitForChild("TouchThumbstick"))
 
+local FFlagUserFixExternalJumpRequest do
+	local success, result = pcall(function()
+		return UserSettings():IsUserFeatureEnabled("UserFixExternalJumpRequest")
+	end)
+	FFlagUserFixExternalJumpRequest = success and result
+end
+
 -- These controllers handle only walk/run movement, jumping is handled by the
 -- TouchJump controller if any of these are active
 local ClickToMove = require(script:WaitForChild("ClickToMoveController"))
@@ -343,7 +350,13 @@ function ControlModule:OnRenderStepped(dt)
 		--end
 
 		-- And make them jump if needed
-		self.humanoid.Jump = self.activeController:GetIsJumping() or (self.touchJumpController and self.touchJumpController:GetIsJumping())
+		if FFlagUserFixExternalJumpRequest then
+			if self.activeController:GetIsJumping() or (self.touchJumpController and self.touchJumpController:GetIsJumping()) then
+				self.humanoid.Jump = true
+			end
+		else
+			self.humanoid.Jump = self.activeController:GetIsJumping() or (self.touchJumpController and self.touchJumpController:GetIsJumping())
+		end
 	end
 end
 

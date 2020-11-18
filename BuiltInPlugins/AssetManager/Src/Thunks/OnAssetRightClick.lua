@@ -26,6 +26,7 @@ local FFlagAssetManagerAddPlaceVersionHistoryToContextMenu = game:GetFastFlag("A
 local FFlagCleanupRightClickContextMenuFunctions = game:GetFastFlag("CleanupRightClickContextMenuFunctions")
 local FFlagAssetManagerRemoveAssetFixes = game:GetFastFlag("AssetManagerRemoveAssetFixes")
 local FFlagAllowAudioBulkImport = game:GetFastFlag("AllowAudioBulkImport")
+local FFlagStudioAssetManagerFixPackageBehavior = game:GetFastFlag("StudioAssetManagerFixPackageBehavior")
 
 local EVENT_ID_OPENASSETCONFIG = "OpenAssetConfiguration"
 
@@ -219,12 +220,21 @@ local function createPackageContextMenu(analytics, assetData, contextMenu, isAss
             end
         end)
     end
-    contextMenu:AddNewAction("UpdateAll", localization:getText("ContextMenu", "UpdateAll")).Triggered:connect(function()
-        AssetManagerService:UpdateAllPackages(assetData.id)
-        if FFlagAssetManagerAddAnalytics then
-            analytics:report("clickContextMenuItem")
-        end
-    end)
+    if FFlagStudioAssetManagerFixPackageBehavior and RunService:IsEdit() then
+        contextMenu:AddNewAction("UpdateAll", localization:getText("ContextMenu", "UpdateAll")).Triggered:connect(function()
+            AssetManagerService:UpdateAllPackages(assetData.id)
+            if FFlagAssetManagerAddAnalytics then
+                analytics:report("clickContextMenuItem")
+            end
+        end)
+    else
+        contextMenu:AddNewAction("UpdateAll", localization:getText("ContextMenu", "UpdateAll")).Triggered:connect(function()
+            AssetManagerService:UpdateAllPackages(assetData.id)
+            if FFlagAssetManagerAddAnalytics then
+                analytics:report("clickContextMenuItem")
+            end
+        end)
+    end
     contextMenu:AddNewAction("ViewOnWebsite", localization:getText("ContextMenu", "ViewOnWebsite")).Triggered:connect(function()
         AssetManagerService:ViewPackageOnWebsite(assetData.id)
         if FFlagAssetManagerAddAnalytics then
@@ -271,7 +281,7 @@ local function createImageContextMenu(analytics, apiImpl, assetData, contextMenu
         if RunService:IsEdit() then
             contextMenu:AddNewAction("EditAsset", localization:getText("ContextMenu", "EditAsset")).Triggered:connect(function()
                 MemStorageService:Fire(EVENT_ID_OPENASSETCONFIG,
-                    HttpService:JSONEncode({ id = assetData.id, assetType = Enum.AssetType.Image.Value }))
+                    HttpService:JSONEncode({ id = assetData.id, assetType = Enum.AssetType.Image.Value, }))
                 if FFlagAssetManagerAddAnalytics then
                     analytics:report("clickContextMenuItem")
                 end
@@ -290,6 +300,34 @@ local function createImageContextMenu(analytics, apiImpl, assetData, contextMenu
             end
         end)
     end
+    contextMenu:AddNewAction("Insert", localization:getText("ContextMenu", "Insert")).Triggered:connect(function()
+        AssetManagerService:InsertImage(assetData.id)
+        if FFlagAssetManagerAddAnalytics then
+            analytics:report("clickContextMenuItem")
+            local searchTerm = state.AssetManagerReducer.searchTerm
+            if utf8.len(searchTerm) ~= 0 then
+                analytics:report("insertAfterSearch")
+            end
+        end
+    end)
+    contextMenu:AddNewAction("CopyIdToClipboard", localization:getText("ContextMenu", "CopyIdToClipboard")).Triggered:connect(function()
+        StudioService:CopyToClipboard("rbxassetid://" .. assetData.id)
+        if FFlagAssetManagerAddAnalytics then
+            analytics:report("clickContextMenuItem")
+        end
+    end)
+    contextMenu:AddNewAction("RemoveFromGame", localization:getText("ContextMenu", "RemoveFromGame")).Triggered:connect(function()
+        removeAssets(apiImpl, assetData, assets, selectedAssets, store)
+        if FFlagAssetManagerRemoveAssetFixes then
+            onAssetPreviewClose()
+        end
+        if FFlagAssetManagerAddAnalytics then
+            analytics:report("clickContextMenuItem")
+        end
+    end)
+
+    contextMenu:ShowAsync()
+    contextMenu:Destroy()
 end
 
 local function createAudioContextMenu(analytics, apiImpl, assetData, contextMenu, isAssetPreviewMenu, localization, onOpenAssetPreview, onAssetPreviewClose, store)

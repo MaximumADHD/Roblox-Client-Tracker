@@ -19,7 +19,7 @@ return function()
 			{Rodux.thunkMiddleware}
 		)
 
-		local result = store:dispatch(SaveChanges(settingsImpl))
+		local result = store:dispatch(SaveChanges()(settingsImpl))
 		expect(Promise.is(result)).to.equal(true)
 	end)
 
@@ -38,7 +38,7 @@ return function()
 
 		expect(store:getState()).to.equal(startState)
 
-		store:dispatch(SaveChanges(settingsImpl)):await()
+		store:dispatch(SaveChanges()(settingsImpl)):await()
 
 		expect(store:getState()).to.equal(startState)
 	end)

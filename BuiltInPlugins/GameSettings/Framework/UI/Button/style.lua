@@ -57,8 +57,10 @@ if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
 		},
 
 		["&RoundPrimary"] = {
+			Font = Enum.Font.SourceSansBold,
 			Background = Decoration.RoundBox,
 			BackgroundStyle = Cryo.Dictionary.join(roundBox, {
+				BorderColor = StyleKey.MainBackground,
 				Color = StyleKey.DialogMainButton,
 			}),
 			TextColor = StyleKey.DialogMainButtonText,
@@ -112,14 +114,17 @@ else
 		})
 
 		local RoundPrimary = Style.extend(Round, {
+			Font = Enum.Font.SourceSansBold,
 			TextColor = theme:GetColor("DialogMainButtonText"),
 			BackgroundStyle = Style.extend(roundBox.Default, {
+				BorderColor = common.Background.Color,
 				Color = theme:GetColor("DialogMainButton"),
 			}),
 			[StyleModifier.Hover] = {
-				BackgroundStyle = {
+				BackgroundStyle = Style.extend(roundBox.Default, {
+					BorderColor = common.Background.Color,
 					Color = theme:GetColor("DialogMainButton", "Hover"),
-				},
+				}),
 			},
 			[StyleModifier.Disabled] = {
 				BackgroundStyle = {

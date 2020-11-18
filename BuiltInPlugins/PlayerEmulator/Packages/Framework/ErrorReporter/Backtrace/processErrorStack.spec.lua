@@ -169,7 +169,7 @@ return function()
 			expect(deepEqual(testCase.expectedOutput, {
 				stack = stack,
 				sourceCodeOutput = sourceCodeOutput,
-			}, true)).to.equal(true)
+			})).to.equal(true)
 		end
 	end)
 

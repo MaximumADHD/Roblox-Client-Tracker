@@ -10,7 +10,6 @@ local FFlagAssetConfigOverrideFromAnyScreen = game:DefineFastFlag("AssetConfigOv
 local FFlagCanPublishDefaultAsset = game:DefineFastFlag("CanPublishDefaultAsset", false)
 local FFlagShowAssetConfigReasons2 = game:GetFastFlag("ShowAssetConfigReasons2")
 local FFlagAssetConfigUseItemConfig = game:GetFastFlag("AssetConfigUseItemConfig")
-local FFlagAssetConfigBlockUntilReadyToEdit = game:DefineFastFlag("AssetConfigBlockUntilReadyToEdit", false)
 local FFlagAssetConfigEnforceNonEmptyDescription = game:DefineFastFlag("AssetConfigEnforceNonEmptyDescription", false)
 local FFlagCMSUploadFees = game:GetFastFlag("CMSUploadFees")
 
@@ -490,13 +489,7 @@ function AssetConfig:detachXButtonCallback()
 end
 
 function AssetConfig:isLoading()
-	if FFlagAssetConfigBlockUntilReadyToEdit then
-		if self.props.screenFlowType == AssetConfigConstants.FLOW_TYPE.EDIT_FLOW and not self.state.assetId then
-			return true
-		end
-	end
-
-	return false
+	return self.props.screenFlowType == AssetConfigConstants.FLOW_TYPE.EDIT_FLOW and not self.state.assetId
 end
 
 function AssetConfig:didUpdate(previousProps, previousState)

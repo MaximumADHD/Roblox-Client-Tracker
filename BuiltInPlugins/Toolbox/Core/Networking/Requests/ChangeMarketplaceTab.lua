@@ -1,4 +1,3 @@
-local FFlagToolboxShowGroupCreations = game:GetFastFlag("ToolboxShowGroupCreations")
 local FFlagUseCategoryNameInToolbox = game:GetFastFlag("UseCategoryNameInToolbox")
 
 local Plugin = script.Parent.Parent.Parent.Parent
@@ -41,12 +40,7 @@ return function(networkInterface, tabName, newCategories,  settings, options)
 		}))
 
 		-- This is an independent request
-		local shouldGetGroups
-		if FFlagToolboxShowGroupCreations then
-			shouldGetGroups = tabName == Category.INVENTORY_KEY or tabName == Category.CREATIONS_KEY
-		else
-			shouldGetGroups = tabName == Category.INVENTORY_KEY
-		end
+		local shouldGetGroups = tabName == Category.INVENTORY_KEY or tabName == Category.CREATIONS_KEY
 
 		if shouldGetGroups then
 			store:dispatch(GetToolboxManageableGroupsRequest(networkInterface))

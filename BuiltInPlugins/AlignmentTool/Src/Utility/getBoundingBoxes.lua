@@ -1,3 +1,5 @@
+-- TODO: Remove this file when FFlagBoundingBoxRefactor is removed.
+
 local Workspace = game:GetService("Workspace")
 
 --[[

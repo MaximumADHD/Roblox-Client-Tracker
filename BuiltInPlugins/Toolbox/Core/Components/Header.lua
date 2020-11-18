@@ -16,7 +16,6 @@
 		callback onSearchOptionsToggled()
 ]]
 
-local FFlagToolboxShowGroupCreations = game:GetFastFlag("ToolboxShowGroupCreations")
 local FFlagToolboxHideSearchForMyPlugins = game:DefineFastFlag("ToolboxHideSearchForMyPlugins", false)
 local FFlagUseCategoryNameInToolbox = game:GetFastFlag("UseCategoryNameInToolbox")
 
@@ -153,7 +152,7 @@ function Header:render()
 			local categoryName = props.categoryName
 			local categoryIndex
 			if FFlagUseCategoryNameInToolbox then
-				categoryIndex = Category.getCategoryIndex(categoryName)
+				categoryIndex = Category.getCategoryIndex(categoryName, props.roles)
 			else
 				categoryIndex = props.categoryIndex or 0
 			end
@@ -212,12 +211,7 @@ function Header:render()
 				isInventoryTab = currentTab == Category.INVENTORY_KEY
 			end
 
-			local fullWidthDropdown
-			if FFlagToolboxShowGroupCreations then
-				fullWidthDropdown = isCreationsTab and not isGroupCategory
-			else
-				fullWidthDropdown = isCreationsTab
-			end
+			local fullWidthDropdown = isCreationsTab and not isGroupCategory
 
 			local showSearchBar
 			if FFlagToolboxHideSearchForMyPlugins then
@@ -397,6 +391,7 @@ local function mapStateToProps(state, props)
 		categoryIndex = (not FFlagUseCategoryNameInToolbox) and (pageInfo.categoryIndex or 0),
 		categoryName = FFlagUseCategoryNameInToolbox and (pageInfo.categoryName or Category.DEFAULT.name) or nil,
 		searchTerm = pageInfo.searchTerm or "",
+		roles = FFlagUseCategoryNameInToolbox and state.roles or {},
 		groups = pageInfo.groups or {},
 		groupIndex = pageInfo.groupIndex or 0,
 		creatorFilter = pageInfo.creator or {},

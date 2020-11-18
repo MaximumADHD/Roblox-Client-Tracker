@@ -50,7 +50,10 @@ function PluginActions:__mapActionDefinitions(actionDefinitions)
 		local text = definition.text
 		local statusTip = definition.statusTip or ""
 		local iconName = definition.iconName or ""
-		local allowBinding = definition.allowBinding or true
+		local allowBinding = true
+		if definition.allowBinding ~= nil then
+			allowBinding = definition.allowBinding
+		end
 
 		local action = self.plugin:CreatePluginAction(
 			actionNamespace .. "_" .. id,

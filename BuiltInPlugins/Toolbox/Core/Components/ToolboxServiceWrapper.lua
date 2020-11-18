@@ -1,8 +1,6 @@
 --[[
 	Wraps the Toolbox with ContextItems.
 ]]
-local FFlagToolboxNewAssetAnalytics = game:GetFastFlag("ToolboxNewAssetAnalytics")
-
 local Plugin = script.Parent.Parent.Parent
 
 local Libs = Plugin.Libs
@@ -37,7 +35,7 @@ function ToolboxServiceWrapper:render()
 		ContextServices.Store.new(store),
 		SettingsContext.new(settings),
 		ContextServices.Mouse.new(MOUSE),
-		FFlagToolboxNewAssetAnalytics and props.assetAnalytics or nil
+		props.assetAnalytics,
 	}, props[Roact.Children]
 )
 end

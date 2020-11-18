@@ -14,6 +14,8 @@
 		UDim2 Position: The position of this component.
 		Vector2 AnchorPoint: The pivot point of this component's Position prop.
 		number ZIndex: The render index of this component.
+		Enum.TextTruncate TextTruncate: Sets text truncated.
+		UDim2 Size: The size of this component.
 		number LayoutOrder: The layout order of this component in a list.
 
 	Style Values:
@@ -45,7 +47,6 @@ local LinkText = Roact.PureComponent:extend("LinkText")
 Typecheck.wrap(LinkText, script)
 
 function LinkText:init(props)
-	assert(type(props.OnClick) == "function", "LinkText expects an 'OnClick' function.")
 
 	if FFlagWrappedDevFrameworkLinkText then
 		assert(props.Size or (not props.TextWrapped), "Size prop is required to use the TextWrapped prop")

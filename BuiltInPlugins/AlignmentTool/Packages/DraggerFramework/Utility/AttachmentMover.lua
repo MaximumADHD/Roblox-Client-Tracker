@@ -2,8 +2,6 @@ local RunService = game:GetService("RunService")
 
 local DraggerFramework = script.Parent.Parent
 
-local getFFlagDraggerSupportBones = require(DraggerFramework.Flags.getFFlagDraggerSupportBones)
-
 local AttachmentMover = {}
 AttachmentMover.__index = AttachmentMover
 
@@ -18,12 +16,7 @@ function AttachmentMover:setDragged(attachments)
 	for _, attachment in ipairs(attachments) do
 		self._originalWorldCFrames[attachment] = attachment.WorldCFrame
 		if isRunning then
-			local part
-			if getFFlagDraggerSupportBones() then
-				part = attachment:FindFirstAncestorWhichIsA("BasePart")
-			else
-				part = attachment.Parent
-			end
+			local part = attachment:FindFirstAncestorWhichIsA("BasePart")
 			if part and not part:IsGrounded() then
 				self._partsToUnanchor[part] = true
 			end

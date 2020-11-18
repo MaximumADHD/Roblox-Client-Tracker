@@ -15,5 +15,6 @@ game:DefineFastFlag("CleanupRightClickContextMenuFunctions", false)
 game:DefineFastFlag("AssetManagerRemoveAssetFixes", false)
 game:DefineFastFlag("UseFakeFavoriteIncrement", false)
 game:DefineFastFlag("AssetManagerFixNavBarSetState", false)
+game:DefineFastFlag("StudioAssetManagerHideTooltipOnAssetPreview", false)
 
 return nil

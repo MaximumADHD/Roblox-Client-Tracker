@@ -1,6 +1,6 @@
 local FFlagUserCameraInputRefactor do
 	local success, result = pcall(function()
-		return UserSettings():IsUserFeatureEnabled("UserCameraInputRefactor2")
+		return UserSettings():IsUserFeatureEnabled("UserCameraInputRefactor3")
 	end)
 	FFlagUserCameraInputRefactor = success and result
 end
@@ -8,6 +8,7 @@ end
 local ContextActionService = game:GetService("ContextActionService")
 local UserInputService = game:GetService("UserInputService")
 local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
 local UserGameSettings = UserSettings():GetService("UserGameSettings")
 
 local player = Players.LocalPlayer
@@ -15,7 +16,7 @@ local player = Players.LocalPlayer
 local CAMERA_INPUT_PRIORITY = Enum.ContextActionPriority.Default.Value
 local MB_TAP_LENGTH = 0.3 -- (s) length of time for a short mouse button tap to be registered
 
-local ROTATION_SPEED_KEYS = math.rad(2) -- (rad/s)
+local ROTATION_SPEED_KEYS = math.rad(120) -- (rad/s)
 local ROTATION_SPEED_MOUSE = Vector2.new(1, 0.77)*math.rad(0.5) -- (rad/s)
 local ROTATION_SPEED_POINTERACTION = Vector2.new(1, 0.77)*math.rad(7) -- (rad/s)
 local ROTATION_SPEED_TOUCH = Vector2.new(1, 0.66)*math.rad(1) -- (rad/s)
@@ -116,6 +117,13 @@ local function isInDynamicThumbstickArea(pos)
 		pos.Y <= posBottomRight.Y
 end
 
+local worldDt = 1/60
+if FFlagUserCameraInputRefactor then
+	RunService.Stepped:Connect(function(_, _worldDt)
+		worldDt = _worldDt
+	end)
+end
+
 local CameraInput = {}
 
 do
@@ -155,7 +163,10 @@ do
 	end
 	
 	function CameraInput.getRotation()
-		local kKeyboard = Vector2.new(keyboardState.Right - keyboardState.Left, 0)
+		local inversionVector = Vector2.new(1, UserGameSettings:GetCameraYInvertValue())
+
+		-- keyboard input is non-coalesced, so must account for time delta
+		local kKeyboard = Vector2.new(keyboardState.Right - keyboardState.Left, 0)*worldDt
 		local kGamepad = gamepadState.Thumbstick2
 		local kMouse = mouseState.Movement
 		local kPointerAction = mouseState.Pan
@@ -168,7 +179,7 @@ do
 			kPointerAction*ROTATION_SPEED_POINTERACTION +
 			kTouch*ROTATION_SPEED_TOUCH
 
-		return result
+		return result*inversionVector
 	end
 	
 	function CameraInput.getZoomDelta()
@@ -184,10 +195,9 @@ do
 			gamepadState[input.KeyCode.Name] = Vector2.new(thumbstickCurve(position.X), -thumbstickCurve(position.Y))
 		end
 
-		local function mouseMove(action, state, input)
+		local function mouseMovement(input)
 			local delta = input.Delta
 			mouseState.Movement = Vector2.new(delta.X, delta.Y)
-			return Enum.ContextActionResult.Pass
 		end
 		
 		local function mouseWheel(action, state, input)
@@ -222,7 +232,7 @@ do
 			end
 		end
 
-		local touchBegan, touchChanged, touchEnded do
+		local touchBegan, touchChanged, touchEnded, resetTouchState do
 			-- Use TouchPan & TouchPinch when they work in the Studio emulator
 
 			local touches = {} -- {[InputObject] = sunk}
@@ -306,14 +316,18 @@ do
 					lastPinchDiameter = nil
 				end
 			end
+
+			function resetTouchState()
+				touches = {}
+				dynamicThumbstickInput = nil
+				lastPinchDiameter = nil
+			end
 		end
 
 		local function pointerAction(wheel, pan, pinch, gpe)
 			if not gpe then
-				local inversionVector = Vector2.new(1, UserGameSettings:GetCameraYInvertValue())
-				
 				mouseState.Wheel = wheel
-				mouseState.Pan = pan*inversionVector
+				mouseState.Pan = pan
 				mouseState.Pinch = -pinch
 			end
 		end
@@ -327,6 +341,9 @@ do
 		local function inputChanged(input, sunk)
 			if input.UserInputType == Enum.UserInputType.Touch then
 				touchChanged(input, sunk)
+
+			elseif input.UserInputType == Enum.UserInputType.MouseMovement then
+				mouseMovement(input)
 			end
 		end
 
@@ -346,9 +363,10 @@ do
 			end
 			inputEnabled = _inputEnabled
 
+			resetInputDevices()
+			resetTouchState()
+
 			if inputEnabled then -- enable
-				resetInputDevices()
-				
 				ContextActionService:BindActionAtPriority(
 					"RbxCameraThumbstick",
 					thumbstick,
@@ -356,15 +374,7 @@ do
 					CAMERA_INPUT_PRIORITY,
 					Enum.KeyCode.Thumbstick2
 				)
-				
-				ContextActionService:BindActionAtPriority(
-					"RbxCameraMouseMove",
-					mouseMove,
-					false,
-					CAMERA_INPUT_PRIORITY,
-					Enum.UserInputType.MouseMovement
-				)
-				
+
 				ContextActionService:BindActionAtPriority(
 					"RbxCameraKeypress",
 					keypress,
@@ -393,9 +403,7 @@ do
 				ContextActionService:UnbindAction("RbxCameraMouseMove")
 				ContextActionService:UnbindAction("RbxCameraMouseWheel")
 				ContextActionService:UnbindAction("RbxCameraKeypress")
-				
-				resetInputDevices()
-				
+
 				for _, conn in pairs(connectionList) do
 					conn:Disconnect()
 				end

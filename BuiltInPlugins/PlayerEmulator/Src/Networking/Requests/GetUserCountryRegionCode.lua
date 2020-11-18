@@ -1,4 +1,4 @@
-local FFlagPlayerEmulatorSerializeIntoDM = game:GetFastFlag("PlayerEmulatorSerializeIntoDM")
+local FFlagPlayerEmulatorSerializeIntoDM2 = game:GetFastFlag("PlayerEmulatorSerializeIntoDM2")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local UrlConstructor = require(Plugin.Src.Networking.UrlConstructor)
@@ -16,7 +16,7 @@ return function(networkingImpl)
 		local retryPromise = networkingImpl:handleRetry(httpPromise)
 		networkingImpl.parseJson(retryPromise):andThen(function(result)
 			if result.responseCode == Http.StatusCodes.OK then
-				if FFlagPlayerEmulatorSerializeIntoDM then
+				if FFlagPlayerEmulatorSerializeIntoDM2 then
 					PlayerEmulatorService.EmulatedCountryCode = result.responseBody.CountryCode
 				else
 					PlayerEmulatorService.StudioEmulatedCountryRegionCode = result.responseBody.CountryCode

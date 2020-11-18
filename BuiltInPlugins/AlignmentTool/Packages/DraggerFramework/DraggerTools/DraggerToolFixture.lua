@@ -5,8 +5,6 @@
 
 local DraggerFramework = script.Parent.Parent
 
-local getFFlagRevertCtrlScale = require(DraggerFramework.Flags.getFFlagRevertCtrlScale)
-
 local DraggerToolModel = require(DraggerFramework.Implementation.DraggerToolModel)
 
 local DraggerToolFixture = {}
@@ -81,10 +79,8 @@ function DraggerToolFixture:keyPress(key)
 	assert(self._selected, "must call select before keyPress")
 	self._draggerToolModel:_processKeyDown(key)
 	self:_update()
-	if getFFlagRevertCtrlScale() then
-		self._draggerToolModel:_processKeyUp(key)
-		self:_update()
-	end
+	self._draggerToolModel:_processKeyUp(key)
+	self:_update()
 end
 
 function DraggerToolFixture:deselect()

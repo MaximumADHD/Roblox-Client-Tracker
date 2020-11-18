@@ -9,8 +9,10 @@ local FlagsList = Util.Flags.new({
 	FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
 })
 
+local export: any
+
 if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
-	return {
+	export = {
 		Color = StyleKey.Border,
 		Image = "rbxasset://textures/StudioSharedUI/dropShadow.png",
 		ImageSize = 16,
@@ -19,7 +21,7 @@ if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
 		Transparency = 0,
 	}
 else
-	return function(theme, getColor)
+	export = function(theme, getColor)
 
 		local Default = Style.new({
 			Color = theme:GetColor("Border"),
@@ -35,3 +37,5 @@ else
 		}
 	end
 end
+
+return export

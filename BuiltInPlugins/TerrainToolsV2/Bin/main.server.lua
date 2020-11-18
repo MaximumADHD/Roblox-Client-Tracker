@@ -93,6 +93,7 @@ local function createTerrainContextItems()
 		terrain = terrainInstance,
 		localization = localization,
 		analytics = analytics,
+		imageUploader = imageUploader,
 	})
 
 	local terrainGeneration = TerrainGeneration.new({

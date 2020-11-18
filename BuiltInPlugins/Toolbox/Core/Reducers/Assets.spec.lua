@@ -1,14 +1,14 @@
 return function()
-	local FFlagToolboxNewAssetAnalytics = game:GetFastFlag("ToolboxNewAssetAnalytics")
-	local FFlagStudioGetSharedPackagesInToolbox = game:GetFastFlag("StudioGetSharedPackagesInToolbox")
+	local FFlagImproveAssetCreationsPageFetching = game:GetFastFlag("ImproveAssetCreationsPageFetching")
 
 	local Plugin = script.Parent.Parent.Parent
-
+	local Cryo = require(Plugin.Libs.Cryo)
 	local ClearAssets = require(Plugin.Core.Actions.ClearAssets)
 	local GetAssets = require(Plugin.Core.Actions.GetAssets)
 	local SetLoading = require(Plugin.Core.Actions.SetLoading)
 	local SetCanManageAsset = require(Plugin.Core.Actions.SetCanManageAsset)
 	local AssetAnalytics = require(Plugin.Core.Util.Analytics.AssetAnalytics)
+	local PagedRequestCursor = require(Plugin.Core.Util.PagedRequestCursor)
 
 	local Assets = require(Plugin.Core.Reducers.Assets)
 
@@ -159,9 +159,7 @@ return function()
 				state = Assets(state, GetAssets(results.responseBody.Results, results.responseBody.TotalResults))
 			end)
 
-			if FFlagStudioGetSharedPackagesInToolbox then
-				state = Assets(state, GetAssets({}, totalResults))
-			end
+			state = Assets(state, GetAssets({}, totalResults))
 
 			expect(tableLength(state.idsToRender)).to.equal(totalResults)
 			expect(state.totalAssets).to.equal(totalResults)
@@ -169,60 +167,82 @@ return function()
 			expect(state.hasReachedBottom).to.equal(true)
 		end)
 
-		if FFlagToolboxNewAssetAnalytics then
-			it("should add position and pagePosition to assets with Context", function()
+		it("should add position and pagePosition to assets with Context", function()
+			local state = Assets(nil, {})
+			local stubPageInfo = {
+				currentTab = "Inventory",
+				searchTerm = "abc",
+				targetPage = 1,
+				searchId = "4581e024-c0f4-4d22-a107-18282b426833",
+				categoryIndex = 1,
+				categoryName = "MyModels",
+				categories = {
+					{
+						category = "MyModelsExceptPackage",
+						name = "MyModels",
+						ownershipType = 1,
+						assetType = 0,
+					},
+				},
+				sortIndex = 1,
+				sorts = {
+					{
+						sort = "Relevance",
+						name = "Relevance",
+					},
+				},
+			}
+
+			networkInterfaceMock:resolveAssets(generateFakeAssetsFromIds({1, 2})):andThen(function(results)
+				local assetsList = results.responseBody.Results
+
+				AssetAnalytics.addContextToAssetResults(assetsList, stubPageInfo)
+
+				state = Assets(state, GetAssets(assetsList))
+			end)
+
+			expect(state.idToAssetMap[1].Context).to.be.ok()
+			expect(state.idToAssetMap[1].Context.position).to.equal(1)
+			expect(state.idToAssetMap[1].Context.pagePosition).to.equal(1)
+
+			expect(state.idToAssetMap[2].Context).to.be.ok()
+			expect(state.idToAssetMap[2].Context.position).to.equal(2)
+			expect(state.idToAssetMap[2].Context.pagePosition).to.equal(2)
+
+			networkInterfaceMock:resolveAssets(generateFakeAssetsFromIds({3})):andThen(function(results)
+				local assetsList = results.responseBody.Results
+
+				stubPageInfo.targetPage = 2
+				AssetAnalytics.addContextToAssetResults(assetsList, stubPageInfo)
+				state = Assets(state, GetAssets(assetsList))
+			end)
+
+			expect(state.idToAssetMap[3].Context).to.be.ok()
+			expect(state.idToAssetMap[3].Context.position).to.equal(3)
+			expect(state.idToAssetMap[3].Context.pagePosition).to.equal(1)
+		end)
+
+		if FFlagImproveAssetCreationsPageFetching then
+			it("should continue to fetch further pages if an empty page is returned", function()
 				local state = Assets(nil, {})
-				local stubPageInfo = {
-					currentTab = "Inventory",
-					searchTerm = "abc",
-					targetPage = 1,
-					searchId = "4581e024-c0f4-4d22-a107-18282b426833",
-					categoryIndex = 1,
-					categoryName = "MyModels",
-					categories = {
-						{
-							category = "MyModelsExceptPackage",
-							name = "MyModels",
-							ownershipType = 1,
-							assetType = 0,
-						},
-					},
-					sortIndex = 1,
-					sorts = {
-						{
-							sort = "Relevance",
-							name = "Relevance",
-						},
-					},
+				local total = 6
+
+				local pages = {
+					{generateFakeAssetsFromIds({1, 2, 3}), total, 'page1Cursor'},
+					{generateFakeAssetsFromIds({}), total, 'page2Cursor'},
+					{generateFakeAssetsFromIds({4, 5, 6}), total, nil}
 				}
 
-				networkInterfaceMock:resolveAssets(generateFakeAssetsFromIds({1, 2})):andThen(function(results)
-					local assetsList = results.responseBody.Results
+				for i, params in ipairs(pages) do
+					networkInterfaceMock:resolveAssets(table.unpack(params)):andThen(function(results)
+						local responseBody = results.responseBody
+						state = Assets(state, GetAssets(responseBody.Results, responseBody.TotalResults, PagedRequestCursor.createCursor(responseBody)))
+					end):await()
 
-					AssetAnalytics.addContextToAssetResults(assetsList, stubPageInfo)
+					expect(state.hasReachedBottom).to.equal(i == #pages)
+				end
 
-					state = Assets(state, GetAssets(assetsList))
-				end)
-
-				expect(state.idToAssetMap[1].Context).to.be.ok()
-				expect(state.idToAssetMap[1].Context.position).to.equal(1)
-				expect(state.idToAssetMap[1].Context.pagePosition).to.equal(1)
-
-				expect(state.idToAssetMap[2].Context).to.be.ok()
-				expect(state.idToAssetMap[2].Context.position).to.equal(2)
-				expect(state.idToAssetMap[2].Context.pagePosition).to.equal(2)
-
-				networkInterfaceMock:resolveAssets(generateFakeAssetsFromIds({3})):andThen(function(results)
-					local assetsList = results.responseBody.Results
-
-					stubPageInfo.targetPage = 2
-					AssetAnalytics.addContextToAssetResults(assetsList, stubPageInfo)
-					state = Assets(state, GetAssets(assetsList))
-				end)
-
-				expect(state.idToAssetMap[3].Context).to.be.ok()
-				expect(state.idToAssetMap[3].Context.position).to.equal(3)
-				expect(state.idToAssetMap[3].Context.pagePosition).to.equal(1)
+				expect(#Cryo.Dictionary.values(state.idToAssetMap)).to.equal(total)
 			end)
 		end
 	end)

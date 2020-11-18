@@ -1,5 +1,3 @@
-local FFlagToolboxNewAssetAnalytics = game:GetFastFlag("ToolboxNewAssetAnalytics")
-
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Actions = Plugin.Core.Actions
@@ -27,9 +25,7 @@ return function(networkInterface, items, totalResults, audioSearchInfo, targetPa
                     table.insert(assetsList, formattedAsset)
                 end
 
-                if FFlagToolboxNewAssetAnalytics then
-                    AssetAnalytics.addContextToAssetResults(assetsList, pageInfo)
-                end
+                AssetAnalytics.addContextToAssetResults(assetsList, pageInfo)
 
                 store:dispatch(GetAssets(assetsList, totalResults, cursor))
                 store:dispatch(SetCurrentPage(targetPage))

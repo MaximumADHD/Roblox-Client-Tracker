@@ -23,7 +23,7 @@ return function(frame, multiSelect)
 
 		for instanceName, instance in pairs(animationData.Instances) do
 			for trackName, _ in pairs(instance.Tracks) do
-				store:dispatch(DeselectKeyframe(instanceName, trackName, frame, true))
+				store:dispatch(DeselectKeyframe(instanceName, trackName, frame))
 			end
 		end
 	end

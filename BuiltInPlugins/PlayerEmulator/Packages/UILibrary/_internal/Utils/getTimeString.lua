@@ -1,3 +1,4 @@
+-- DEPRECATED - use formatDuration from DeveloperFramework
 -- return mm:ss format.
 return function(seconds)
 	assert(type(seconds) == "number", "seconds must be a number")

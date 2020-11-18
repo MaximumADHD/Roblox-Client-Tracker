@@ -16,7 +16,11 @@ local MemStorageService = game:GetService("MemStorageService")
 local RunService = game:GetService("RunService")
 local StudioService = game:GetService("StudioService")
 
+local Framework = Plugin.Packages.Framework
+local RobloxAPI = require(Framework).RobloxAPI
+
 local FFlagAssetManagerAddAnalytics = game:GetFastFlag("AssetManagerAddAnalytics")
+local FFlagAllowAudioBulkImport = game:GetFastFlag("AllowAudioBulkImport")
 
 local function createImageContextMenu(analytics, apiImpl, assetData, contextMenu, localization, store)
     contextMenu:AddNewAction("Insert", localization:getText("ContextMenu", "Insert")).Triggered:connect(function()
@@ -30,6 +34,23 @@ local function createImageContextMenu(analytics, apiImpl, assetData, contextMenu
             end
         end
         AssetManagerService:InsertImage(assetData.id)
+        if FFlagAssetManagerAddAnalytics then
+            analytics:report("clickContextMenuItem")
+            local searchTerm = state.AssetManagerReducer.searchTerm
+            if utf8.len(searchTerm) ~= 0 then
+                analytics:report("insertAfterSearch")
+            end
+        end
+    end)
+
+    contextMenu:ShowAsync()
+    contextMenu:Destroy()
+end
+
+local function createAudioContextMenu(analytics, assetData, contextMenu, localization, store)
+    contextMenu:AddNewAction("Insert", localization:getText("ContextMenu", "Insert")).Triggered:connect(function()
+        local state = store:getState()
+        AssetManagerService:InsertAudio(assetData.id)
         if FFlagAssetManagerAddAnalytics then
             analytics:report("clickContextMenuItem")
             local searchTerm = state.AssetManagerReducer.searchTerm
@@ -88,6 +109,8 @@ local function createAssetContextMenu(analytics, apiImpl, assetData, contextMenu
         createImageContextMenu(analytics, apiImpl, assetData, contextMenu, localization, store)
     elseif assetType == Enum.AssetType.MeshPart then
         createMeshPartContextMenu(analytics, apiImpl, assetData, contextMenu, localization, store)
+    elseif FFlagAllowAudioBulkImport and (not RobloxAPI:baseURLHasChineseHost()) and assetType == Enum.AssetType.Audio then
+        createAudioContextMenu(analytics, assetData, contextMenu, localization, store)
     end
 end
 

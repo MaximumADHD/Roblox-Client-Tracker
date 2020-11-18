@@ -7,13 +7,7 @@ local DebugFlags = require(Plugin.Core.Util.DebugFlags)
 
 local getUserId = require(Plugin.Core.Util.getUserId)
 
-local FFlagToolboxConsolidateInsertRemainsEvents = game:GetFastFlag("ToolboxConsolidateInsertRemainsEvents")
-local FFlagStudioToolboxEnablePlaceIDInAnalytics = settings():GetFFlag("StudioToolboxEnablePlaceIDInAnalytics")
-local FFlagStudioToolboxInsertAssetCategoryAnalytics = settings():GetFFlag("StudioToolboxInsertAssetCategoryAnalytics")
-local FFlagToolboxFixAnalyticsBugs = game:GetFastFlag("ToolboxFixAnalyticsBugs")
 local FFlagBootstrapperTryAsset = game:GetFastFlag("BootstrapperTryAsset")
-local FFlagToolboxNewAssetAnalytics = game:GetFastFlag("ToolboxNewAssetAnalytics")
-local FFlagToolboxRestoreInsertEventName = game:DefineFastFlag("ToolboxRestoreInsertEventName", false)
 
 -- TODO CLIDEVSRVS-1689: StudioSession + StudioID
 local function getStudioSessionId()
@@ -49,14 +43,12 @@ local function getPlaceId()
 	return placeId
 end
 
-local Analytics = { }
+local Analytics = {}
 
-if FFlagToolboxNewAssetAnalytics then
-	Analytics.getPlaceId = getPlaceId
-	Analytics.getPlatformId = getPlatformId
-	Analytics.getClientId = getClientId
-	Analytics.getStudioSessionId = getStudioSessionId
-end
+Analytics.getPlaceId = getPlaceId
+Analytics.getPlatformId = getPlatformId
+Analytics.getClientId = getClientId
+Analytics.getStudioSessionId = getStudioSessionId
 
 function Analytics.sendReports(plugin)
 	AnalyticsSenders.sendReports(plugin)
@@ -128,8 +120,8 @@ function Analytics.onCategorySelected(oldCategory, newCategory)
 end
 
 function Analytics.onAssetInserted(assetId, searchTerm, assetIndex, currentCategory)
-	local context = (not FFlagToolboxRestoreInsertEventName and FFlagToolboxFixAnalyticsBugs) and "Marketplace" or "click"
-	local eventName = (not FFlagToolboxRestoreInsertEventName and FFlagToolboxFixAnalyticsBugs) and "ClickInsert" or "toolboxInsert"
+	local context = "click"
+	local eventName = "toolboxInsert"
 
 	AnalyticsSenders.sendEventImmediately("studio", context, eventName, {
 		assetId = assetId,
@@ -138,14 +130,14 @@ function Analytics.onAssetInserted(assetId, searchTerm, assetIndex, currentCateg
 		currentCategory = currentCategory,
 		studioSid = getStudioSessionId(),
 		clientId = getClientId(),
-		placeId = FFlagStudioToolboxEnablePlaceIDInAnalytics and getPlaceId() or nil,
-		userId = FFlagToolboxFixAnalyticsBugs and getUserId() or nil,
+		placeId = getPlaceId(),
+		userId = getUserId(),
 	})
 end
 
 function Analytics.onAssetDragInserted(assetId, searchTerm, assetIndex, currentCategory)
-	local context = (not FFlagToolboxRestoreInsertEventName and FFlagToolboxFixAnalyticsBugs) and "Marketplace" or "drag"
-	local eventName = (not FFlagToolboxRestoreInsertEventName and FFlagToolboxFixAnalyticsBugs) and "DragInsert" or "toolboxInsert"
+	local context = "drag"
+	local eventName = "toolboxInsert"
 
 	AnalyticsSenders.sendEventImmediately("studio", context, eventName, {
 		assetId = assetId,
@@ -154,31 +146,9 @@ function Analytics.onAssetDragInserted(assetId, searchTerm, assetIndex, currentC
 		currentCategory = currentCategory,
 		studioSid = getStudioSessionId(),
 		clientId = getClientId(),
-		placeId = FFlagStudioToolboxEnablePlaceIDInAnalytics and getPlaceId() or nil,
-		userId = FFlagToolboxFixAnalyticsBugs and getUserId() or nil,
+		placeId = getPlaceId(),
+		userId = getUserId(),
 	})
-end
-
-if not FFlagToolboxConsolidateInsertRemainsEvents then
-	function Analytics.onAssetInsertRemains(time, contentId, currentCategory)
-		if FFlagStudioToolboxInsertAssetCategoryAnalytics then
-			AnalyticsSenders.trackEventWithArgs("Studio", ("InsertRemains%d"):format(time), contentId, {
-				currentCategory = currentCategory,
-			})
-		else
-			AnalyticsSenders.trackEvent("Studio", ("InsertRemains%d"):format(time), contentId)
-		end
-	end
-
-	function Analytics.onAssetInsertDeleted(time, contentId, currentCategory)
-		if FFlagStudioToolboxInsertAssetCategoryAnalytics then
-			AnalyticsSenders.trackEventWithArgs("Studio", ("InsertDeleted%d"):format(time), contentId, {
-				currentCategory = currentCategory,
-			})
-		else
-			AnalyticsSenders.trackEvent("Studio", ("InsertDeleted%d"):format(time), contentId)
-		end
-	end
 end
 
 function Analytics.trackEventAssetInsert(assetId)
@@ -267,21 +237,21 @@ end
 function Analytics.onPluginButtonClickOpen()
 	AnalyticsSenders.sendEventDeferred("studio", "toolbox", "MarketplaceOpen", {
 		userId = getUserId(),
-		placeId = FFlagStudioToolboxEnablePlaceIDInAnalytics and getPlaceId() or nil,
+		placeId = getPlaceId(),
 	})
 end
 
 function Analytics.onPluginButtonClickClose()
 	AnalyticsSenders.sendEventDeferred("studio", "toolbox", "MarketplaceClosed", {
 		userId = getUserId(),
-		placeId = FFlagStudioToolboxEnablePlaceIDInAnalytics and getPlaceId() or nil,
+		placeId = getPlaceId(),
 	})
 end
 
 function Analytics.onToolboxDisplayed()
 	AnalyticsSenders.sendEventDeferred("studio", "toolbox", "MarketplaceImpression", {
 		userId = getUserId(),
-		placeId = FFlagStudioToolboxEnablePlaceIDInAnalytics and getPlaceId() or nil,
+		placeId = getPlaceId(),
 	})
 end
 

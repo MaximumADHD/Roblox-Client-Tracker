@@ -10,7 +10,6 @@ local RobloxAPI = require(Plugin.Libs.Framework).RobloxAPI
 
 local FFlagSmallerToolboxMinWidth = game:DefineFastFlag("SmallerToolboxMinWidth", false)
 local FFlagUseCategoryNameInToolbox = game:GetFastFlag("UseCategoryNameInToolbox")
-local FFlagToolboxUseNewPluginEndpoint = settings():GetFFlag("ToolboxUseNewPluginEndpoint")
 local FFlagToolboxDisableMarketplaceAndRecentsForLuobu = game:GetFastFlag("ToolboxDisableMarketplaceAndRecentsForLuobu")
 local FFlagToolboxShowRobloxCreatedAssetsForLuobu = game:GetFastFlag("ToolboxShowRobloxCreatedAssetsForLuobu")
 
@@ -272,9 +271,6 @@ if FFlagToolboxShowRobloxCreatedAssetsForLuobu and RobloxAPI:baseURLHasChineseHo
 end
 
 Constants.TOOLBOX_ITEM_SEARCH_LIMIT = 30
-if (not FFlagToolboxUseNewPluginEndpoint) then
-	Constants.AUDIO_SERACH_CATEGORY_NAME = "audio"
-end
 Constants.PLUGIN_LIBRARY_URL = "https://www.roblox.com/develop/library?CatalogContext=2&SortAggregation=5&LegendExpanded=true&Category=7"
 
 return wrapStrictTable(Constants, "Constants")

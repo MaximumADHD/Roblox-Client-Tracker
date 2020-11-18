@@ -11,14 +11,16 @@ local FlagsList = Util.Flags.new({
 	FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
 })
 
+local export: any
+
 if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
-	return {
+	export = {
 		Color = StyleKey.MainBackground,
 		Transparency = 0,
 		BorderSize = 0,
 	}
 else
-	return function(theme, getColor)
+	export = function(theme, getColor)
 		local common = Common(theme, getColor)
 
 		local Default = Style.extend(common.Background, {
@@ -31,3 +33,5 @@ else
 		}
 	end
 end
+
+return export

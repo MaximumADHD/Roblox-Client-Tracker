@@ -19,11 +19,7 @@ local StudioService = game:GetService("StudioService")
 local FFlagUseCategoryNameInToolbox = game:GetFastFlag("UseCategoryNameInToolbox")
 local FFlagBootstrapperTryAsset = game:GetFastFlag("BootstrapperTryAsset")
 local FFlagFixGroupPackagesCategoryInToolbox = game:GetFastFlag("FixGroupPackagesCategoryInToolbox")
-local FFlagToolboxFixAnalyticsBugs = game:GetFastFlag("ToolboxFixAnalyticsBugs")
-local FFlagToolboxInsertEventContextFixes = game:GetFastFlag("ToolboxInsertEventContextFixes")
 local FFlagEnableDefaultSortFix2 = game:GetFastFlag("EnableDefaultSortFix2")
-local FFlagToolboxNewAssetAnalytics = game:GetFastFlag("ToolboxNewAssetAnalytics")
-local FFlagToolboxNewInsertAnalytics = game:GetFastFlag("ToolboxNewInsertAnalytics")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -98,21 +94,17 @@ function AssetGridContainer:init(props)
 		self.props.onPreviewToggled(true)
 		self:setState({
 			previewAssetData = assetData,
-			openAssetPreviewStartTime = FFlagToolboxFixAnalyticsBugs and tick() or nil,
+			openAssetPreviewStartTime = tick(),
 		})
 
 		if self.props.isPlaying then
 			self.props.pauseASound()
 		end
 
-		if FFlagToolboxFixAnalyticsBugs then
-			-- TODO STM-146: Remove this once we are happy with the new MarketplaceAssetPreview event
-			Analytics.onAssetPreviewSelected(assetData.Asset.Id)
-		end
+		-- TODO STM-146: Remove this once we are happy with the new MarketplaceAssetPreview event
+		Analytics.onAssetPreviewSelected(assetData.Asset.Id)
 
-		if FFlagToolboxNewAssetAnalytics then
-			self.props.AssetAnalytics:get():logPreview(assetData)
-		end
+		self.props.AssetAnalytics:get():logPreview(assetData)
 	end
 
 	self.closeAssetPreview = function(assetData)
@@ -120,16 +112,14 @@ function AssetGridContainer:init(props)
 		modal.onAssetPreviewToggled(false)
 		self.props.onPreviewToggled(false)
 
-		if FFlagToolboxFixAnalyticsBugs then
-			local endTime = tick()
-			local startTime = self.state.openAssetPreviewStartTime
-			local deltaMs = (endTime - startTime) * 1000
-			Analytics.onAssetPreviewEnded(assetData.Asset.Id, deltaMs)
-		end
+		local endTime = tick()
+		local startTime = self.state.openAssetPreviewStartTime
+		local deltaMs = (endTime - startTime) * 1000
+		Analytics.onAssetPreviewEnded(assetData.Asset.Id, deltaMs)
 
 		self:setState({
 			previewAssetData = Roact.None,
-			openAssetPreviewStartTime = FFlagToolboxFixAnalyticsBugs and Roact.None or nil,
+			openAssetPreviewStartTime = Roact.None,
 		})
 	end
 
@@ -255,14 +245,10 @@ function AssetGridContainer:init(props)
 		local categories = (not FFlagUseCategoryNameInToolbox) and (currentProps.categories)
 
 		local currentCategoryName
-		if FFlagToolboxInsertEventContextFixes then
-			if FFlagUseCategoryNameInToolbox then
-				currentCategoryName = categoryName
-			else
-				currentCategoryName = PageInfoHelper.getCategory(categories, categoryIndex)
-			end
+		if FFlagUseCategoryNameInToolbox then
+			currentCategoryName = categoryName
 		else
-			currentCategoryName = (not FFlagUseCategoryNameInToolbox) and (PageInfoHelper.getCategory(categories, categoryIndex))
+			currentCategoryName = PageInfoHelper.getCategory(categories, categoryIndex)
 		end
 
 		local currentTab
@@ -278,11 +264,11 @@ function AssetGridContainer:init(props)
 				assetId = assetId,
 				assetName = assetName,
 				assetTypeId = assetTypeId,
-				onSuccess = FFlagToolboxNewAssetAnalytics and FFlagToolboxNewInsertAnalytics and function(assetId, insertedInstance)
+				onSuccess = function(assetId, insertedInstance)
 					self.onAssetInsertionSuccesful(assetId)
 					insertionMethod = insertionMethod or (assetWasDragged and "DragInsert" or "ClickInsert")
 					self.props.AssetAnalytics:get():logInsert(assetData, insertionMethod, insertedInstance)
-				end or self.onAssetInsertionSuccesful,
+				end,
 				categoryIndex = (not FFlagUseCategoryNameInToolbox) and categoryIndex,
 				currentCategoryName = currentCategoryName,
 				categoryName = categoryName,
@@ -564,7 +550,7 @@ ContextServices.mapToProps(AssetGridContainer, {
 	API = ContextServices.API,
 	Localization = ContextServices.Localization,
 	Plugin = ContextServices.Plugin,
-	AssetAnalytics = FFlagToolboxNewAssetAnalytics and AssetAnalyticsContextItem or nil,
+	AssetAnalytics = AssetAnalyticsContextItem,
 })
 
 local function mapStateToProps(state, props)

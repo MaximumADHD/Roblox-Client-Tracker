@@ -152,31 +152,6 @@ function VehicleCamera:_StepRotation(dt, vdotz)
 	)
 end
 
-function VehicleCamera:_StepZoom()
-	local zoom = self.currentSubjectDistance
-	local zoomDelta = CameraInput.getZoomDelta()
-
-	if math.abs(zoomDelta) > 0 then
-		local newZoom
-		
-		if self.inFirstPerson and zoomDelta < 0 then
-			newZoom = ZOOM_MINIMUM
-			
-		else
-			if zoomDelta > 0 then
-				newZoom = zoom + zoomDelta*(1 + zoom*ZOOM_SENSITIVITY_CURVATURE)
-			else
-				newZoom = (zoom + zoomDelta)/(1 - zoomDelta*ZOOM_SENSITIVITY_CURVATURE)
-			end
-		end
-		
-		newZoom = math.max(newZoom, ZOOM_MINIMUM)
-		self:SetCameraToSubjectDistance(newZoom)
-	end
-	
-	return ZoomController.GetZoomRadius()
-end
-
 function VehicleCamera:_GetThirdPersonLocalOffset()
 	return self.assemblyOffset + Vector3.new(0, self.assemblyRadius*VehicleCameraConfig.verticalCenterOffset, 0)
 end
@@ -220,7 +195,7 @@ function VehicleCamera:Update()
 	local pitchVel = pitchVelocity(subjectRotVel, subjectCFrame)
 	
 	-- step camera components forward
-	local zoom = self:_StepZoom()
+	local zoom = self:StepZoom()
 	local objectRotation = self:_StepRotation(dt, vDotZ)
 	
 	-- mix third and first person offsets in local space

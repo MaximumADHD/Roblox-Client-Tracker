@@ -42,6 +42,7 @@ local StudioService = game:GetService("StudioService")
 local MainView = Roact.PureComponent:extend("MainView")
 
 local FFlagStudioAssetManagerAddRecentlyImportedView = game:GetFastFlag("StudioAssetManagerAddRecentlyImportedView")
+local FFlagStudioAssetManagerHideTooltipOnAssetPreview = game:GetFastFlag("StudioAssetManagerHideTooltipOnAssetPreview")
 
 local universeNameSet = false
 local initialHasLinkedScriptValue = false
@@ -184,6 +185,13 @@ function MainView:render()
     local assetGridViewOffset = theme.TopBar.Height + theme.NavBar.Height + (hasRecentAssets and theme.RecentView.Bar.Height or 0)
     local recentViewOffset = theme.TopBar.Height + theme.NavBar.Height
 
+    local isAssetGridViewEnabled
+    if FFlagStudioAssetManagerHideTooltipOnAssetPreview then
+        isAssetGridViewEnabled = not self.state.showOverlay and not self.state.showAssetPreview
+    else
+        isAssetGridViewEnabled = not self.state.showOverlay
+    end
+
     return Roact.createElement("Frame", {
         Size = UDim2.new(1, 0, 1, 0),
         Position = UDim2.new(0, 0, 0, 0),
@@ -255,7 +263,7 @@ function MainView:render()
 
             OnOpenAssetPreview = self.openAssetPreview,
             OnAssetPreviewClose = self.closeAssetPreview,
-            Enabled = not self.state.showOverlay,
+            Enabled = isAssetGridViewEnabled,
         }),
 
         RecentsAssetGridView = FFlagStudioAssetManagerAddRecentlyImportedView and
@@ -267,7 +275,7 @@ function MainView:render()
 
             OnOpenAssetPreview = self.openAssetPreview,
             onAssetPreviewClose = self.closeAssetPreview,
-            Enabled = not self.state.showOverlay,
+            Enabled = isAssetGridViewEnabled,
         }),
 
         RecentlyImportedView = FFlagStudioAssetManagerAddRecentlyImportedView and

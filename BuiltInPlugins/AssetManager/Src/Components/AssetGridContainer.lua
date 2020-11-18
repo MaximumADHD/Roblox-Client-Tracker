@@ -15,7 +15,7 @@ local Framework = Plugin.Packages.Framework
 local ContextServices = require(Framework.ContextServices)
 local Util = require(Framework.Util)
 local StyleModifier = Util.StyleModifier
-local RobloxAPI = Framework.RobloxAPI
+local RobloxAPI = require(Framework).RobloxAPI
 
 local UI = require(Framework.UI)
 local Button = UI.Button

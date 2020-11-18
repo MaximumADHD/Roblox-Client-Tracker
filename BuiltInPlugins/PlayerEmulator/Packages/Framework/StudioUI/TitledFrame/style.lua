@@ -11,14 +11,16 @@ local FlagsList = Util.Flags.new({
 	FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
 })
 
+local export: any
+
 if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
-	return {
+	export = {
 		Padding = 10,
 		TextSize = 24,
 		TextColor = StyleKey.TitlebarText,
 	}
 else
-	return function(theme, getColor)
+	export = function(theme, getColor)
 		local common = Common(theme, getColor)
 
 		local Default = Style.extend(common.MainText, {
@@ -32,3 +34,5 @@ else
 		}
 	end
 end
+
+return export

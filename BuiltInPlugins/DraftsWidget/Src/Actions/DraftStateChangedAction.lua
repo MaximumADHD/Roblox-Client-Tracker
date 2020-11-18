@@ -30,7 +30,7 @@ return Action(script.Name, function(draft, draftStateType, draftStateValue)
 	assert(draft:IsA("LuaSourceContainer"), "Expected draft to be a LuaSourceContainer. Got '"..draft.ClassName.."'")
 	assert(dictContains(DraftState, draftStateType) ~= nil, "Expected valid DraftState. Got '"..strStateType.."'")
 
-	if draftStateType == DraftState.Outdated or draftStateType == DraftState.Removed then
+	if draftStateType == DraftState.Outdated or draftStateType == DraftState.Deleted then
 		local stateValueType = typeof(draftStateValue)
 		assert(stateValueType == "boolean", "Expected type boolean for state type "..strStateType
 			..". Got '"..strStateValue.."'")

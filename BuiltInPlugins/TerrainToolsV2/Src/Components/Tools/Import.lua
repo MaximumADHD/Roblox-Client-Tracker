@@ -6,6 +6,7 @@
 ]]
 
 local FFlagTerrainToolsRedesignProgressDialog = game:GetFastFlag("TerrainToolsRedesignProgressDialog")
+local FFlagTerrainImportNewYieldMethod = game:GetFastFlag("TerrainImportNewYieldMethod")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -76,6 +77,14 @@ function Import:init()
 	self.onImportButtonClicked = function()
 		self.props.TerrainImporter:startImport()
 	end
+
+	self.onPauseRequested = function()
+		self.props.TerrainImporter:togglePause()
+	end
+
+	self.onCancelRequested = function()
+		self.props.TerrainImporter:cancel()
+	end
 end
 
 function Import:didUpdate()
@@ -93,6 +102,7 @@ function Import:render()
 	local position = self.props.Position
 	local useColorMap = self.props.UseColorMap
 
+	local importPaused = self.props.TerrainImporter:isPaused()
 	local importInProgress = self.props.TerrainImporter:isImporting()
 	local importProgress = importInProgress and self.props.TerrainImporter:getImportProgress() or 0
 
@@ -176,6 +186,10 @@ function Import:render()
 			SubText = localization:getText("Generate", "GenerateVoxels"),
 
 			Progress = importProgress,
+			IsPaused = importPaused,
+
+			OnPauseButtonClicked = FFlagTerrainImportNewYieldMethod and self.onPauseRequested or nil,
+			OnCancelButtonClicked = FFlagTerrainImportNewYieldMethod and self.onCancelRequested or nil,
 		})),
 	})
 end

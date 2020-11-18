@@ -50,6 +50,7 @@ local UpdatePageInfoAndSendRequest = require(Requests.UpdatePageInfoAndSendReque
 local ChangeMarketplaceTab = require(Requests.ChangeMarketplaceTab)
 local GetToolboxManageableGroupsRequest = require(Requests.GetToolboxManageableGroupsRequest)
 local GetRolesRequest = require(Requests.GetRolesRequest)
+local GetRolesDebugRequest = require(Requests.GetRolesDebugRequest)
 local GetRobuxBalance = require(Requests.GetRobuxBalance)
 
 local ContextServices = require(Libs.Framework.ContextServices)
@@ -60,6 +61,8 @@ local RobloxAPI = require(Libs.Framework).RobloxAPI
 local FFlagStudioToolboxPluginPurchaseFlow = game:GetFastFlag("StudioToolboxPluginPurchaseFlow")
 local FFlagStudioToolboxPersistBackgroundColor = game:DefineFastFlag("StudioToolboxPersistsBackgroundColor", false)
 local FFlagUseCategoryNameInToolbox = game:GetFastFlag("UseCategoryNameInToolbox")
+
+local FFlagDebugToolboxGetRolesRequest = game:GetFastFlag("DebugToolboxGetRolesRequest")
 local FFlagToolboxDisableMarketplaceAndRecentsForLuobu = game:GetFastFlag("ToolboxDisableMarketplaceAndRecentsForLuobu")
 local FFlagToolboxShowRobloxCreatedAssetsForLuobu = game:GetFastFlag("ToolboxShowRobloxCreatedAssetsForLuobu")
 
@@ -367,7 +370,11 @@ end
 local function mapDispatchToProps(dispatch)
 	return {
 		setRoles = function(networkInterface)
-			dispatch(GetRolesRequest(networkInterface))
+			if FFlagDebugToolboxGetRolesRequest then
+				dispatch(GetRolesDebugRequest(networkInterface))
+			else
+				dispatch(GetRolesRequest(networkInterface))
+			end
 		end,
 
 		updatePageInfo = function(networkInterface, settings, newPageInfo)

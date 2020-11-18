@@ -56,6 +56,7 @@
 ]]
 
 game:DefineFastFlag("FixStudioLocalizationLocaleId", false)
+local FFlagDevFrameworkFilterTranslationErrors = game:DefineFastFlag("DevFrameworkFilterTranslationErrors", false)
 local FFlagDevFrameworkLocalizationLibraries = game:GetFastFlag("DevFrameworkLocalizationLibraries")
 
 -- services
@@ -72,6 +73,7 @@ local Signal = Util.Signal
 local Cryo = Util.Cryo
 
 -- constants
+local MOCK_PLUGIN_NAME = "Test"
 local FALLBACK_LOCALE = "en-us"
 
 local Localization = ContextItem:extend("Localization")
@@ -266,6 +268,13 @@ if FFlagDevFrameworkLocalizationLibraries then
 				return translated
 			end
 		end
+		
+		if FFlagDevFrameworkFilterTranslationErrors then
+			if self.keyPluginName ~= MOCK_PLUGIN_NAME and not success and not string.find(translated, "LocalizationTable or parent tables do not contain a translation") then
+				-- TODO DEVTOOLS-4532: Use logger contextItem for this
+				warn(translated, debug.traceback())
+			end
+		end
 
 		-- Fall back to the given key if there is no translation for this value
 		-- Useful for finding misspelled or missing keys
@@ -317,6 +326,13 @@ else
 			end
 		end
 
+		if FFlagDevFrameworkFilterTranslationErrors then
+			if not success and not string.find(translated, "LocalizationTable or parent tables do not contain a translation") then
+				-- TODO DEVTOOLS-4532: Use logger contextItem for this
+				warn(translated, debug.traceback())
+			end
+		end
+
 		-- Fall back to the given key if there is no translation for this value
 		-- Useful for finding misspelled or missing keys
 		return stringKey
@@ -343,7 +359,7 @@ function Localization:updateLocaleAndTranslator()
 	end
 end
 
-function Localization.mock()
+function Localization.mock(props)
 	local mockResourceTable = {
 		GetTranslator = function()
 			local translator = {
@@ -370,26 +386,31 @@ function Localization.mock()
 		end
 	}
 
-	local currentLocale = 0
-	local localeIDs = {"en-us", "es", "es-es", "ko", "ja"}
+	local currentLocaleIndex = 0
+	local localeIDs = {"en-us", "es-es", "ko-kr", "ja-jp"}
 	local function getLocale()
-		currentLocale = (currentLocale + 1) % 5
-		local nextLocale = localeIDs[currentLocale]
+		currentLocaleIndex = math.max((currentLocaleIndex + 1) % #localeIDs, 1)
+		local nextLocale = localeIDs[currentLocaleIndex]
 		return nextLocale
 	end
 
+	if not FFlagDevFrameworkLocalizationLibraries then
+		-- Disable mock construction with props unless the flag is on
+		props = {}
+	end
+
 	-- create a mock localization object for tests
-	return Localization.new({
+	return Localization.new(Cryo.Dictionary.join({
 		-- create a mock resource file that mimics the real thing
 		stringResourceTable = mockResourceTable,
 		translationResourceTable = mockResourceTable,
 
-		pluginName = "Test",
+		pluginName = MOCK_PLUGIN_NAME,
 
 		-- for tests, don't connect to any system signals to ensure stuff doesn't change mid test
 		overrideLocaleChangedSignal = Signal.new(),
 		getLocale = getLocale,
-	})
+	}, props or {}))
 end
 
 

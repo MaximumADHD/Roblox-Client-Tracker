@@ -14,6 +14,7 @@
 		Stylizer Stylizer: A Stylizer ContextItem, which is provided via mapToProps.
 		callback SortChildren: A comparator function to sort two items in the tree - SortChildren(left: Item, right: Item) => boolean
 		callback GetItemKey: Return a unique key for an item - GetItemKey(item: Item) => string
+		number LayoutOrder: LayoutOrder of the component.
 
 	Style Values:
 		table ScrollingFrame: Style values for the tree view's scrolling frame.
@@ -124,6 +125,7 @@ function TreeView:render()
 		Size = props.Size,
 		Background = style.Background,
 		BackgroundStyle = style.BackgroundStyle,
+		LayoutOrder = props.LayoutOrder,
 	}, {
 		ScrollingFrame = Roact.createElement(ScrollingFrame, {
 			Size = UDim2.fromScale(1, 1),

@@ -12,9 +12,6 @@ local PagedRequestCursor = require(Util.PagedRequestCursor)
 local Constants = require(Util.Constants)
 local CreatorInfoHelper = require(Util.CreatorInfoHelper)
 
-local FFlagStudioFixGroupCreatorInfo3 = game:GetFastFlag("StudioFixGroupCreatorInfo3")
-local FFlagStudioToolboxFixNewEndpointFilters = game:GetFastFlag("StudioToolboxFixNewEndpointFilters")
-
 return function(networkInterface, category, audioSearchInfo, pageInfo, settings, nextPageCursor)
 	return function(store)
 		store:dispatch(SetLoading(true))
@@ -26,18 +23,8 @@ return function(networkInterface, category, audioSearchInfo, pageInfo, settings,
 		local assetStore = store:getState().assets
 		local currentCursor = assetStore.currentCursor
 
-		if FFlagStudioFixGroupCreatorInfo3 then
-			if creator and (not CreatorInfoHelper.isCached(store, creatorTargetId, creator.Type)) then
-				store:dispatch(GetCreatorName(networkInterface, creatorTargetId, creator.Type))
-			end
-		else
-			local cachedCreatorId = assetStore.cachedCreatorInfo and assetStore.cachedCreatorInfo.Id
-			-- Set creator name filter
-			if creatorTargetId
-				and ((not cachedCreatorId) or (cachedCreatorId ~= creatorTargetId))
-			then
-				store:dispatch(GetCreatorName(networkInterface, creatorTargetId))
-			end
+		if creator and (not CreatorInfoHelper.isCached(store, creatorTargetId, creator.Type)) then
+			store:dispatch(GetCreatorName(networkInterface, creatorTargetId, creator.Type))
 		end
 
 		-- Get from API
@@ -45,7 +32,7 @@ return function(networkInterface, category, audioSearchInfo, pageInfo, settings,
 			local nextPageCursor = currentCursor.nextPageCursor
 			local sort = pageInfo.sorts[pageInfo.sortIndex]
 			local sortName
-			if FFlagStudioToolboxFixNewEndpointFilters and sort then
+			if sort then
 				sortName = sort.name
 			else
 				sortName = sort

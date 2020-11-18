@@ -1,3 +1,5 @@
+-- TODO DEVTOOLS-4549: Remove in favour of DevFramework
+
 local FFlagFixGetAssetTypeErrorHandling = game:DefineFastFlag("FixGetAssetTypeErrorHandling", false)
 local FFlagStudioUILibFixAssetTypeMap = game:DefineFastFlag("StudioUILibFixAssetTypeMap", false)
 local FFlagStudioFixMeshPartPreview = game:DefineFastFlag("StudioFixMeshPartPreview", false)

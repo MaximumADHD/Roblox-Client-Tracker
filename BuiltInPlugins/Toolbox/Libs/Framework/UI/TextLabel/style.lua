@@ -17,6 +17,9 @@ if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
 		[StyleModifier.Disabled] = {
 			TextTransparency = 0.5,
 		},
+		["&Bold"] = {
+			Font = Enum.Font.SourceSansBold
+		},
 	}
 else
 	export = function(theme, getColor)
@@ -28,7 +31,12 @@ else
 			},
 		})
 
+		local Bold = Style.extend(Default, {
+			Font = Enum.Font.SourceSansBold
+		})
+
 		return {
+			Bold = Bold,
 			Default = Default,
 		}
 	end

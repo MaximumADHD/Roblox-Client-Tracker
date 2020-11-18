@@ -1,3 +1,4 @@
+-- Deprecated - remove this folder with removal of FFlagToolboxUseDevFrameworkAssetPreview and FFlagAssetManagerUseDevFrameworkAssetPreview
 --[[
 	AssetPreview component is responsible for manageing the models will be displaying on the
 	ViewPortFrame.
@@ -175,7 +176,6 @@ function AssetPreview:didMount()
 		This is a temporary fix recommended by PlayerEx.
 		There is a permanent fix on the way for this bug in C++.
 		See https://jira.rbx.com/browse/CLIPLAYEREX-2494
-		We will enable the flag FFlagStudioRemoveToolboxScrollingFrameHack when the fix is done.
 	]]
 
 	local scrollingFrame = self.baseScrollRef.current
