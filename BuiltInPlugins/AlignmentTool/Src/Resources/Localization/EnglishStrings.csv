@@ -12,6 +12,11 @@ Studio.AlignmentTool.AxesSection.Title,Align In
 Studio.AlignmentTool.AxesSection.WorldX,World X
 Studio.AlignmentTool.AxesSection.WorldY,World Y
 Studio.AlignmentTool.AxesSection.WorldZ,World Z
+Studio.AlignmentTool.AxesSettingsFragment.World,World
+Studio.AlignmentTool.AxesSettingsFragment.Local,Local
+Studio.AlignmentTool.AxesSettingsFragment.X,X
+Studio.AlignmentTool.AxesSettingsFragment.Y,Y
+Studio.AlignmentTool.AxesSettingsFragment.Z,Z
 Studio.AlignmentTool.RelativeToSection.Title,Relative To
 Studio.AlignmentTool.RelativeToSection.Selection,Selection Bounds
 Studio.AlignmentTool.RelativeToSection.Active,Active Object

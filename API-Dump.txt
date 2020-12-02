@@ -110,7 +110,7 @@ Class AssetManagerService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function int64 AssetManagerService:GetMeshId(string aliasName) {RobloxScriptSecurity}
 	Function int64 AssetManagerService:GetTextureId(string aliasName) {RobloxScriptSecurity}
 	Function bool AssetManagerService:HasUnpublishedChangesForLinkedSource(string aliasName) {RobloxScriptSecurity}
-	Function void AssetManagerService:InsertAudio(int64 assetId) {RobloxScriptSecurity}
+	Function void AssetManagerService:InsertAudio(int64 assetId, string assetName) {RobloxScriptSecurity}
 	Function void AssetManagerService:InsertImage(int64 assetId) {RobloxScriptSecurity}
 	Function void AssetManagerService:InsertLinkedSourceAsLocalScript(string aliasName) {RobloxScriptSecurity}
 	Function void AssetManagerService:InsertLinkedSourceAsModuleScript(string aliasName) {RobloxScriptSecurity}
@@ -265,6 +265,27 @@ Class StarterGui : BasePlayerGui [NotCreatable] [Service]
 	Function void StarterGui:SetCore(string parameterName, Variant value)
 	Function void StarterGui:SetCoreGuiEnabled(Enum<CoreGuiType> coreGuiType, bool enabled)
 	Event StarterGui.CoreGuiChangedSignal(Enum<CoreGuiType> coreGuiType, bool enabled) {RobloxScriptSecurity}
+Class BaseWrap : Instance [NotCreatable]
+	Property Content BaseWrap.CageMeshId {✏️PluginSecurity}
+	Property CFrame BaseWrap.CageOrigin {✏️PluginSecurity}
+	Property CFrame BaseWrap.ImportOrigin {✏️PluginSecurity}
+	Property CFrame BaseWrap.CageOriginWorld  [ReadOnly] [NotReplicated]
+	Property CFrame BaseWrap.ImportOriginWorld  [ReadOnly] [NotReplicated]
+Class WrapLayer : BaseWrap
+	Property int WrapLayer.Order {✏️PluginSecurity}
+	Property float WrapLayer.Puffiness {✏️PluginSecurity}
+	Property Content WrapLayer.ReferenceMeshId {✏️PluginSecurity}
+	Property CFrame WrapLayer.ReferenceOrigin {✏️PluginSecurity}
+	Property bool WrapLayer.Enabled
+	Property CFrame WrapLayer.ReferenceOriginWorld  [ReadOnly] [NotReplicated]
+	Property Color3 WrapLayer.Color  [NotReplicated] [NotScriptable]
+	Property Enum<WrapLayerDebugMode> WrapLayer.DebugMode  [NotReplicated] [NotScriptable]
+	Property CFrame WrapLayer.BindOffset {✏️PluginSecurity}
+	Property float WrapLayer.ShrinkFactor {✏️PluginSecurity}
+Class WrapTarget : BaseWrap
+	Property float WrapTarget.Stiffness {✏️PluginSecurity}
+	Property Color3 WrapTarget.Color  [NotReplicated] [NotScriptable]
+	Property Enum<WrapTargetDebugMode> WrapTarget.DebugMode  [NotReplicated] [NotScriptable]
 Class Beam : Instance
 	Property ColorSequence Beam.Color
 	Property bool Beam.Enabled
@@ -649,7 +670,7 @@ Class ControllerService : Instance [NotCreatable] [Service] [NotReplicated]
 Class CookiesService : Instance [NotCreatable] [Service]
 Class CorePackages : Instance [NotCreatable] [Service] [NotReplicated]
 Class CoreScriptSyncService : Instance [NotCreatable] [Service] [NotReplicated]
-	Function string CoreScriptSyncService:GetScriptFilePath(Instance script) {RobloxScriptSecurity}
+	Function Variant CoreScriptSyncService:GetScriptFilePath(Instance script) {RobloxScriptSecurity}
 Class CustomEvent : Instance [Deprecated]
 	Function Objects CustomEvent:GetAttachedReceivers() [Deprecated]
 	Function void CustomEvent:SetValue(float newValue) [Deprecated]
@@ -1302,6 +1323,9 @@ Class HapticService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function bool HapticService:IsMotorSupported(Enum<UserInputType> inputType, Enum<VibrationMotor> vibrationMotor)
 	Function bool HapticService:IsVibrationSupported(Enum<UserInputType> inputType)
 	Function void HapticService:SetMotor(Enum<UserInputType> inputType, Enum<VibrationMotor> vibrationMotor, Tuple vibrationValues)
+Class HeightmapImporterService : Instance [Service] [NotReplicated]
+	Function Tuple HeightmapImporterService:IsValidColormap(Content heightmapAssetId) {RobloxScriptSecurity}
+	Function Tuple HeightmapImporterService:IsValidHeightmap(Content heightmapAssetId) {RobloxScriptSecurity}
 Class Hopper : Instance [NotCreatable] [Service] [Deprecated]
 Class HttpRbxApiService : Instance [NotCreatable] [Service]
 	Function string HttpRbxApiService:GetAsync(string apiUrlPath, Enum<ThrottlingPriority> priority = "Default", Enum<HttpRequestType> httpRequestType = "Default") {RobloxScriptSecurity} [Yields]
@@ -1387,6 +1411,7 @@ Class Humanoid : Instance
 	Function void Humanoid:Move(Vector3 moveDirection, bool relativeToCamera = false)
 	Function void Humanoid:MoveTo(Vector3 location, Instance part = nil)
 	Function bool Humanoid:PlayEmote(string emoteName) [Yields]
+	Function Tuple Humanoid:PlayEmoteAndGetAnimTrackById(int64 emoteId) {RobloxScriptSecurity} [Yields]
 	Function bool Humanoid:PlayEmoteById(string emoteName, int64 emoteId) {RobloxScriptSecurity} [Yields]
 	Function void Humanoid:RemoveAccessories()
 	Function bool Humanoid:RemoveCustomStatus(string status) [Deprecated]
@@ -2495,10 +2520,12 @@ Class ProximityPrompt : Instance
 	Property bool ProximityPrompt.RequiresLineOfSight
 	Property Enum<ProximityPromptStyle> ProximityPrompt.Style
 	Property Vector2 ProximityPrompt.UIOffset
+	Property bool ProximityPrompt.AutoLocalize
+	Property Class<LocalizationTable> ProximityPrompt.RootLocalizationTable
 	Function void ProximityPrompt:InputHoldBegin()
 	Function void ProximityPrompt:InputHoldEnd()
-	Event ProximityPrompt.PromptButtonHoldBegan()
-	Event ProximityPrompt.PromptButtonHoldEnded()
+	Event ProximityPrompt.PromptButtonHoldBegan(Instance playerWhoTriggered)
+	Event ProximityPrompt.PromptButtonHoldEnded(Instance playerWhoTriggered)
 	Event ProximityPrompt.PromptHidden()
 	Event ProximityPrompt.PromptShown(Enum<ProximityPromptInputType> inputType)
 	Event ProximityPrompt.TriggerEnded(Instance playerWhoTriggered)
@@ -2506,8 +2533,8 @@ Class ProximityPrompt : Instance
 Class ProximityPromptService : Instance [Service] [NotBrowsable]
 	Property bool ProximityPromptService.Enabled
 	Property int ProximityPromptService.MaxPromptsVisible
-	Event ProximityPromptService.PromptButtonHoldBegan(Instance prompt)
-	Event ProximityPromptService.PromptButtonHoldEnded(Instance prompt)
+	Event ProximityPromptService.PromptButtonHoldBegan(Instance prompt, Instance playerWhoTriggered)
+	Event ProximityPromptService.PromptButtonHoldEnded(Instance prompt, Instance playerWhoTriggered)
 	Event ProximityPromptService.PromptHidden(Instance prompt)
 	Event ProximityPromptService.PromptShown(Instance prompt, Enum<ProximityPromptInputType> inputType)
 	Event ProximityPromptService.PromptTriggerEnded(Instance prompt, Instance playerWhoTriggered)
@@ -2944,7 +2971,6 @@ Class Studio : Instance [NotCreatable] [Service] [NotReplicated]
 	Property bool Studio.Drag Multiple Parts As Single Part
 	Property bool Studio.Enable CoreScript Debugger
 	Property bool Studio.Enable Http Sandboxing
-	Property bool Studio.Enable Intellisense [<📁> LoadOnly] [NotReplicated] [Deprecated]
 	Property bool Studio.Enable Internal Beta Features
 	Property bool Studio.Enable Internal Features
 	Property bool Studio.Respect Studio shortcuts when game has focus
@@ -2995,6 +3021,7 @@ Class Studio : Instance [NotCreatable] [Service] [NotReplicated]
 	Property bool Studio.Auto Closing Quotes
 	Property Enum<AutoIndentRule> Studio.Auto Indent Rule
 	Property bool Studio.Enable Autocomplete
+	Property bool Studio.Enable Temporary Tabs
 	Property QFont Studio.Font
 	Property bool Studio.Format On Paste
 	Property bool Studio.Format On Type
@@ -3007,36 +3034,37 @@ Class Studio : Instance [NotCreatable] [Service] [NotReplicated]
 	Property bool Studio.Skip Closing Brackets and Quotes
 	Property int Studio.Tab Width
 	Property bool Studio.Text Wrapping
-	Property Color3 Studio."TODO" Color [<📁> LoadOnly] [NotReplicated]
-	Property Color3 Studio."function" Color [<📁> LoadOnly] [NotReplicated]
-	Property Color3 Studio."local" Color [<📁> LoadOnly] [NotReplicated]
-	Property Color3 Studio."nil" Color [<📁> LoadOnly] [NotReplicated]
-	Property Color3 Studio."self" Color [<📁> LoadOnly] [NotReplicated]
-	Property Color3 Studio.Background Color [<📁> LoadOnly] [NotReplicated]
-	Property Color3 Studio.Bool Color [<📁> LoadOnly] [NotReplicated]
-	Property Color3 Studio.Built-in Function Color [<📁> LoadOnly] [NotReplicated]
-	Property Color3 Studio.Comment Color [<📁> LoadOnly] [NotReplicated]
-	Property Color3 Studio.Current Line Highlight Color [<📁> LoadOnly] [NotReplicated]
-	Property Color3 Studio.Debugger Current Line Color [<📁> LoadOnly] [NotReplicated]
-	Property Color3 Studio.Debugger Error Line Color [<📁> LoadOnly] [NotReplicated]
-	Property Color3 Studio.Error Color [<📁> LoadOnly] [NotReplicated]
-	Property Color3 Studio.Find Selection Background Color [<📁> LoadOnly] [NotReplicated]
-	Property Color3 Studio.Function Name Color [<📁> LoadOnly] [NotReplicated]
-	Property Color3 Studio.Keyword Color [<📁> LoadOnly] [NotReplicated]
-	Property Color3 Studio.Luau Keyword Color [<📁> LoadOnly] [NotReplicated]
-	Property Color3 Studio.Matching Word Background Color [<📁> LoadOnly] [NotReplicated]
-	Property Color3 Studio.Method Color [<📁> LoadOnly] [NotReplicated]
-	Property Color3 Studio.Number Color [<📁> LoadOnly] [NotReplicated]
-	Property Color3 Studio.Operator Color [<📁> LoadOnly] [NotReplicated]
-	Property Color3 Studio.Property Color [<📁> LoadOnly] [NotReplicated]
-	Property Color3 Studio.Ruler Color [<📁> LoadOnly] [NotReplicated]
+	Property Color3 Studio."TODO" Color  [NotReplicated]
+	Property Color3 Studio."function" Color  [NotReplicated]
+	Property Color3 Studio."local" Color  [NotReplicated]
+	Property Color3 Studio."nil" Color  [NotReplicated]
+	Property Color3 Studio."self" Color  [NotReplicated]
+	Property Color3 Studio.Background Color  [NotReplicated]
+	Property Color3 Studio.Bool Color  [NotReplicated]
+	Property Color3 Studio.Bracket Color  [NotReplicated]
+	Property Color3 Studio.Built-in Function Color  [NotReplicated]
+	Property Color3 Studio.Comment Color  [NotReplicated]
+	Property Color3 Studio.Current Line Highlight Color  [NotReplicated]
+	Property Color3 Studio.Debugger Current Line Color  [NotReplicated]
+	Property Color3 Studio.Debugger Error Line Color  [NotReplicated]
+	Property Color3 Studio.Error Color  [NotReplicated]
+	Property Color3 Studio.Find Selection Background Color  [NotReplicated]
+	Property Color3 Studio.Function Name Color  [NotReplicated]
+	Property Color3 Studio.Keyword Color  [NotReplicated]
+	Property Color3 Studio.Luau Keyword Color  [NotReplicated]
+	Property Color3 Studio.Matching Word Background Color  [NotReplicated]
+	Property Color3 Studio.Method Color  [NotReplicated]
+	Property Color3 Studio.Number Color  [NotReplicated]
+	Property Color3 Studio.Operator Color  [NotReplicated]
+	Property Color3 Studio.Property Color  [NotReplicated]
+	Property Color3 Studio.Ruler Color  [NotReplicated]
 	Property Enum<StudioScriptEditorColorPresets> Studio.Script Editor Color Preset
-	Property Color3 Studio.Selection Background Color [<📁> LoadOnly] [NotReplicated]
-	Property Color3 Studio.Selection Color [<📁> LoadOnly] [NotReplicated]
-	Property Color3 Studio.String Color [<📁> LoadOnly] [NotReplicated]
-	Property Color3 Studio.Text Color [<📁> LoadOnly] [NotReplicated]
-	Property Color3 Studio.Warning Color [<📁> LoadOnly] [NotReplicated]
-	Property Color3 Studio.Whitespace Color [<📁> LoadOnly] [NotReplicated]
+	Property Color3 Studio.Selection Background Color  [NotReplicated]
+	Property Color3 Studio.Selection Color  [NotReplicated]
+	Property Color3 Studio.String Color  [NotReplicated]
+	Property Color3 Studio.Text Color  [NotReplicated]
+	Property Color3 Studio.Warning Color  [NotReplicated]
+	Property Color3 Studio.Whitespace Color  [NotReplicated]
 	Property Color3 Studio.Active Color
 	Property Color3 Studio.Active Hover Over Color
 	Property bool Studio.Animate Hover Over
@@ -3084,7 +3112,6 @@ Class StudioService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function bool StudioService:IsPluginInstalled(int64 assetId) {RobloxScriptSecurity}
 	Function bool StudioService:IsPluginUpToDate(int64 assetId, int64 currentAssetVersion) {RobloxScriptSecurity}
 	Function void StudioService:OpenInBrowser_DONOTUSE(string url) {RobloxScriptSecurity}
-	Function void StudioService:OpenPluginInsertPage(int64 assetId) {RobloxScriptSecurity}
 	Function Instance StudioService:PromptImportFile(Array fileTypeFilter = {}) {PluginSecurity} [Yields]
 	Function Objects StudioService:PromptImportFiles(Array fileTypeFilter = {}) {PluginSecurity} [Yields]
 	Function Instance StudioService:PromptImportLocalAsset(string prompt, Array fileTypeFilter = {}) {PluginSecurity} [Yields] [Deprecated]
@@ -3140,6 +3167,15 @@ Class Team : Instance
 Class Teams : Instance [NotCreatable] [Service]
 	Function Objects Teams:GetTeams()
 	Function void Teams:RebalanceTeams() [Deprecated]
+Class TeleportAsyncResult : Instance [NotCreatable]
+	Property string TeleportAsyncResult.PrivateServerId [<💾> SaveOnly] [ReadOnly] [NotReplicated]
+	Property string TeleportAsyncResult.ReservedServerAccessCode [<💾> SaveOnly] [ReadOnly] [NotReplicated]
+Class TeleportOptions : Instance
+	Property string TeleportOptions.ReservedServerAccessCode
+	Property string TeleportOptions.ServerInstanceId
+	Property bool TeleportOptions.ShouldReserveServer
+	Function Variant TeleportOptions:GetTeleportData()
+	Function void TeleportOptions:SetTeleportData(Variant teleportData)
 Class TeleportService : Instance [NotCreatable] [Service]
 	Property bool TeleportService.CustomizedTeleportUI [<📁> LoadOnly] [NotReplicated] [Deprecated]
 	Function Instance TeleportService:GetArrivingTeleportGui()
@@ -3150,6 +3186,7 @@ Class TeleportService : Instance [NotCreatable] [Service]
 	Function void TeleportService:SetTeleportGui(Instance gui)
 	Function void TeleportService:SetTeleportSetting(string setting, Variant value)
 	Function void TeleportService:Teleport(int64 placeId, Instance player = nil, Variant teleportData, Instance customLoadingScreen = nil)
+	Function Instance TeleportService:TeleportAsync(int64 placeId, Objects players, Instance teleportOptions = nil) [Yields]
 	Function void TeleportService:TeleportCancel() {RobloxScriptSecurity}
 	Function string TeleportService:TeleportPartyAsync(int64 placeId, Objects players, Variant teleportData, Instance customLoadingScreen = nil) [Yields]
 	Function void TeleportService:TeleportToPlaceInstance(int64 placeId, string instanceId, Instance player = nil, string spawnName = "", Variant teleportData, Instance customLoadingScreen = nil)
@@ -5062,6 +5099,7 @@ Enum StudioScriptEditorColorCategories
 	EnumItem StudioScriptEditorColorCategories.DebuggerCurrentLine : 26
 	EnumItem StudioScriptEditorColorCategories.DebuggerErrorLine : 27
 	EnumItem StudioScriptEditorColorCategories.Ruler : 28
+	EnumItem StudioScriptEditorColorCategories.Bracket : 29
 Enum StudioScriptEditorColorPresets
 	EnumItem StudioScriptEditorColorPresets.RobloxDefault : 0
 	EnumItem StudioScriptEditorColorPresets.Extra1 : 1
@@ -5176,7 +5214,8 @@ Enum StudioStyleGuideColor
 	EnumItem StudioStyleGuideColor.ScriptLuauKeyword : 105
 	EnumItem StudioStyleGuideColor.ScriptFunctionName : 106
 	EnumItem StudioStyleGuideColor.ScriptTodo : 107
-	EnumItem StudioStyleGuideColor.AttributeCog : 108
+	EnumItem StudioStyleGuideColor.ScriptBracket : 108
+	EnumItem StudioStyleGuideColor.AttributeCog : 109
 Enum StudioStyleGuideModifier
 	EnumItem StudioStyleGuideModifier.Default : 0
 	EnumItem StudioStyleGuideModifier.Selected : 1
@@ -5409,6 +5448,15 @@ Enum WaterForce
 	EnumItem WaterForce.Medium : 2
 	EnumItem WaterForce.Strong : 3
 	EnumItem WaterForce.Max : 4
+Enum WrapLayerDebugMode
+	EnumItem WrapLayerDebugMode.None : 0
+	EnumItem WrapLayerDebugMode.BindedCage : 1
+	EnumItem WrapLayerDebugMode.LayerCage : 2
+	EnumItem WrapLayerDebugMode.BindedCageAndLinks : 3
+	EnumItem WrapLayerDebugMode.Reference : 4
+Enum WrapTargetDebugMode
+	EnumItem WrapTargetDebugMode.None : 0
+	EnumItem WrapTargetDebugMode.TargetCage : 1
 Enum ZIndexBehavior
 	EnumItem ZIndexBehavior.Global : 0
 	EnumItem ZIndexBehavior.Sibling : 1

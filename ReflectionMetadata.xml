@@ -493,6 +493,59 @@
 
     <Item class="ReflectionMetadataClass">
       <Properties>
+        <string name="Name">WrapTarget</string>
+        <string name="ClassCategory">Effects</string>
+        <string name="ExplorerOrder">32</string>
+        <string name="ExplorerImageIndex">122</string>
+        <string name="PreferredParent">BasePart</string>
+        <string name="PreferredParents">BasePart</string>
+        <string name="PreferredParents">Model</string>
+      </Properties>
+      <Item class="ReflectionMetadataProperties">
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Stiffness</string>
+            <double name="UIMinimum">0</double>
+            <double name="UIMaximum">1</double>
+            <double name="UINumTicks">50</double>
+          </Properties>
+        </Item>
+      </Item>
+    </Item>
+
+    <Item class="ReflectionMetadataClass">
+      <Properties>
+        <string name="Name">WrapLayer</string>
+        <string name="ClassCategory">Effects</string>
+        <string name="ExplorerOrder">32</string>
+        <string name="ExplorerImageIndex">121</string>
+        <string name="PreferredParent">BasePart</string>
+        <string name="PreferredParents">BasePart</string>
+        <string name="PreferredParents">Model</string>
+      </Properties>
+      <Item class="ReflectionMetadataProperties">
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Puffiness</string>
+            <double name="UIMinimum">0</double>
+            <double name="UIMaximum">1</double>
+            <double name="UINumTicks">50</double>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">ShrinkFactor</string>
+            <double name="UIMinimum">-1</double>
+            <double name="UIMaximum">1</double>
+            <double name="UINumTicks">80</double>
+          </Properties>
+        </Item>
+      </Item>
+    </Item>
+
+
+    <Item class="ReflectionMetadataClass">
+      <Properties>
         <string name="Name">Bone</string>
         <string name="ClassCategory">Animations</string>
         <string name="ExplorerOrder">30</string>

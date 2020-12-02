@@ -30,7 +30,8 @@
             "Whitespace": "#555555",
             "DebuggerCurrentLine": "#2A3C4C",
             "DebuggerErrorLine": "#4C2A2A",
-            "Ruler": "#666666"
+            "Ruler": "#666666",
+            "Bracket": "#CCCCCC"
         },
         "Extra1": {
             "Default": "#D4D4D4",
@@ -61,7 +62,8 @@
             "Whitespace": "#555555",
             "DebuggerCurrentLine": "#2A3C4C",
             "DebuggerErrorLine": "#4C2A2A",
-            "Ruler": "#666666"
+            "Ruler": "#666666",
+            "Bracket": "#D4D4D4"
         },
         "Extra2": {
             "Default": "#F7F8F1",
@@ -92,7 +94,8 @@
             "Whitespace": "#555555",
             "DebuggerCurrentLine": "#2A3C4C",
             "DebuggerErrorLine": "#4C2A2A",
-            "Ruler": "#666666"
+            "Ruler": "#666666",
+            "Bracket": "#F92472"
         },
         "Custom": {
             "Default": "#CCCCCC",
@@ -123,7 +126,8 @@
             "Whitespace": "#555555",
             "DebuggerCurrentLine": "#2A3C4C",
             "DebuggerErrorLine": "#4C2A2A",
-            "Ruler": "#666666"
+            "Ruler": "#666666",
+            "Bracket": "#CCCCCC"
         }
     },
     "Colors": [{

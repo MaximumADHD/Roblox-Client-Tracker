@@ -103,6 +103,7 @@ Studio.TerrainToolsV2.Generate.MapSize, ,Map Size
 Studio.TerrainToolsV2.Generate.OtherSettings, ,Other Settings
 Studio.TerrainToolsV2.Generate.Seed, ,Seed
 Studio.TerrainToolsV2.Generate.StartGeneration, ,Generating with size ({1}) at position ({2}) using seed {3} and biomes: {4}
+Studio.TerrainToolsV2.Import.ButtonImport, ,Generate
 Studio.TerrainToolsV2.Import.ColormapPreview, ,Colormap Preview
 Studio.TerrainToolsV2.Import.DefaultMaterial, ,Default Material
 Studio.TerrainToolsV2.Import.Colormap, ,Colormap
@@ -111,6 +112,21 @@ Studio.TerrainToolsV2.Import.UseColormap, ,Colormap
 Studio.TerrainToolsV2.Import.HeightmapPreview, ,Heightmap Preview
 Studio.TerrainToolsV2.ImportMaterialMode.Colormap, ,Colormap
 Studio.TerrainToolsV2.ImportMaterialMode.DefaultMaterial, ,Material
+Studio.TerrainToolsV2.ImportError.FailedToLoadHeightmap, ,Failed to load heightmap
+Studio.TerrainToolsV2.ImportError.FailedToLoadColormap, ,Failed to load colormap
+Studio.TerrainToolsV2.ImportError.FailedToFindInContentProvider, ,Image could not be found.
+Studio.TerrainToolsV2.ImportError.FailedToReadImage, ,Image is not a valid PNG file.
+Studio.TerrainToolsV2.ImportError.InvalidBytesPerChannel, ,Only 8 bit PNGs are supported.
+Studio.TerrainToolsV2.ImportError.InvalidChannelCount, ,Image has invalid number of channels.
+Studio.TerrainToolsV2.ImportError.ImportFailed, ,Import failed
+Studio.TerrainToolsV2.ImportError.ImportInProgress, ,An import operation is already in progress.
+Studio.TerrainToolsV2.ImportError.TerrainPreprocessNullptr, ,An internal error has occurred.
+Studio.TerrainToolsV2.ImportError.DataModelPreprocessNullptr, ,An internal error has occurred.
+Studio.TerrainToolsV2.ImportError.RegionExceedsMaxVoxelCount, ,Target region is too large.
+Studio.TerrainToolsV2.ImportError.RegionIsEmpty, ,Target region is empty.
+Studio.TerrainToolsV2.ImportError.TerrainWorkerNullptr, ,An internal error has occurred.
+Studio.TerrainToolsV2.ImportError.TerrainWriteNullptr, ,An internal error has occurred.
+Studio.TerrainToolsV2.ImportError.DataModelWorkerNullptr, ,An internal error has occurred.
 Studio.TerrainToolsV2.LocalImageSelector.NoImageSelected, ,No image selected
 Studio.TerrainToolsV2.Main.Title, ,Terrain Editor
 Studio.TerrainToolsV2.Main.ToolbarButton, ,Editor

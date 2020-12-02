@@ -193,6 +193,9 @@
         <addspinbox type="spinbox" keyboardTracking="true" tooltip="Studio.App.RobloxRibbonMainWindow.TheRotateGrid" name="setRotateIncrementAction" decimals="3" text="" minimum="0" maximum="9999" minumumWidth="100" step="5" suffix=" °"/>
         <addspinbox type="spinbox" keyboardTracking="true" tooltip="Studio.App.RobloxRibbonMainWindow.TheSnapGrid" name="setDragGridIncrementAction" decimals="3" text="" minimum="0" maximum="1024" minumumWidth="100" step="0.2" suffix="Studio.App.MainWindow.StudsSuffix"/>
       </Group>
+      <Group name="Alignment" fflag="StudioAlignTool" text="Studio.App.RobloxRibbonMainWindow.AlignToolGroup">
+        <addaction name="alignToolAction" type="plugin" style="textundericon" text="Studio.App.RobloxRibbonMainWindow.AlignTool" icon=":/RibbonBar/images/RibbonIcons/Home/Align.png" tooltip="Studio.App.RobloxRibbonMainWindow.AlignToolTooltip" height="32" width="32"/>
+      </Group>
       <Group name="UI" text="Studio.App.RBXMainWindow.UI" controlsCentering="true">
         <addaction name="RobloxUIEditor" instancename="UIEditor" style="textundericon" text="Studio.App.RBXMainWindow.UIEditor" tooltip="Studio.App.RBXMainWindow.UIEditorVOne" type="plugin" icon=":/RibbonBar/images/RibbonIcons/Home/UIEditor.png" width="32" height="32" />
       </Group>
@@ -362,10 +365,9 @@
         <addaction name="cleanupServersAndPlayersAction" style="textundericon" text="Studio.App.RobloxRibbonMainWindow.Cleanup" icon=":/RibbonBar/images/Studio 2.0 icons/32x32/delete_x_32.png"  width="32" height="32"/>
       </Group>
       <Group name ="Emulation" text="Studio.App.RobloxRibbonMainWindow.Emulation">
-        <addaction name="deviceEmulatorToggleAction" style="textundericon" text="Studio.App.RobloxRibbonMainWindow.Emulator" ischeckable="true" icon=":/RibbonBar/images/RibbonIcons/Test/emulator_32.png"  width="32" height="32" fflag="!StudioPlayerEmulatorPluginEnabled"/>
-        <addaction name="deviceEmulatorToggleAction" style="textundericon" text="Studio.App.RobloxRibbonMainWindow.DeviceEmulator" ischeckable="true" icon=":/RibbonBar/images/RibbonIcons/Test/emulator_32.png"  width="32" height="32" fflag="StudioPlayerEmulatorPluginEnabled"/>
+        <addaction name="deviceEmulatorToggleAction" style="textundericon" text="Studio.App.RobloxRibbonMainWindow.DeviceEmulator" ischeckable="true" icon=":/RibbonBar/images/RibbonIcons/Test/emulator_32.png"  width="32" height="32"/>
         <addseparator visible="false"/>
-        <addaction name="playerEmulatorToggleAction" style="textundericon" text="Studio.App.RobloxRibbonMainWindow.PlayerEmulator" ischeckable="true" width="32" height="32" fflag="StudioPlayerEmulatorPluginEnabled"/>
+        <addaction name="playerEmulatorToggleAction" style="textundericon" text="Studio.App.RobloxRibbonMainWindow.PlayerEmulator" ischeckable="true" width="32" height="32"/>
       </Group>
       <Group name="Audio" text="Studio.App.RobloxRibbonMainWindow.Audio">
         <addaction name="audioToggleAction" iscommonslot="true" style="textundericon" ischeckable="true" icon=":/RibbonBar/images/RibbonIcons/Test/Audio-Disabled.png" width="32" height="32" text="Studio.App.RobloxRibbonMainWindow.Mute" tooltip="Studio.App.RobloxRibbonMainWindow.ToggleGameAudioSounds"/>
@@ -550,7 +552,6 @@
       </Group>
       <Group debugOnly="true" fflag="LuaDebuggerBreakOnError" name="Debug Errors" text="Studio.App.RobloxRibbonMainWindow.DebugErrors">
         <addaction type="radio" name="neverBreakOnScriptErrorsAction" style="textbesideicon" text="Studio.App.RBXMainWindow.Never" tooltip="Studio.App.RBXMainWindow.NeverBreakErrorsIntoDebugger"/>
-        <addaction fflag="!DeprecateBreakOnAllScriptErrors" type="radio" name="breakOnAllScriptErrorsAction" style="textbesideicon" text="Studio.App.RBXMainWindow.OnAllExceptions" tooltip="Studio.App.RBXMainWindow.BreakAllExceptionsDebugger"/>
         <addaction type="radio" name="breakOnUnhandledScriptErrorsAction" style="textbesideicon" text="Studio.App.RBXMainWindow.OnUnhandledExceptions" tooltip="Studio.App.RBXMainWindow.ExceptionsInDebugger"/>
       </Group>
       <Group name="Script Actions" text="Studio.App.RobloxRibbonMainWindow.Actions">

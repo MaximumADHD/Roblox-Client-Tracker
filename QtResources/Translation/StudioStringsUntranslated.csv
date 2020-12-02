@@ -2,6 +2,11 @@ Key,Context,Source,en-us
 Studio.App.AboutStudioDialog.AmongRegisteredTrademarks,Replacement of Studio.App.MainWindow.AmongRegisteredTrademarks2 without contact us hyper link,"<i>Roblox</i>, the Roblox <i>logo</i> and <i>Powering Imagination</i> are among our registered and unregistered trademarks in the U.S. and other countries.","<i>Roblox</i>, the Roblox <i>logo</i> and <i>Powering Imagination</i> are among our registered and unregistered trademarks in the U.S. and other countries."
 Studio.App.AboutStudioDialog.ContactUs,Hyper link for contacting Roblox support,Contact Us,Contact Us
 Studio.App.AboutStudioDialog.PrivacyPolicy,Hyper link for privacy policy,Privacy Policy,Privacy Policy
+Studio.App.AddAttributeDialog.AttributeAlreadyExists,Displayed when adding an attribute and entering a name that exists.,Attribute already exists.,Attribute already exists.
+Studio.App.AddAttributeDialog.AttributeCantStartWithRBX,Displayed when adding a new attribute in the Add Attribute dialog.,Can't start with 'RBX'.,Can't start with 'RBX'.
+Studio.App.AddAttributeDialog.AttributeName,Displayed to the left of attribute name line edit.,Name,Name
+Studio.App.AddAttributeDialog.AttributeType,Displayed to the left of attribute type combo box,Type,Type
+Studio.App.AddAttributeDialog.ContainsIllegalCharacter,Displayed when an attribute contains special characters or an underscore,Contains illegal character(s).,Contains illegal character(s).
 Studio.App.AddEmulationDeviceDialog.AddNewDevice,,Add New Device,Add New Device
 Studio.App.AddEmulationDeviceDialog.BottomSafeZoneOffset,,Bottom,Bottom
 Studio.App.AddEmulationDeviceDialog.DeviceForm,,Device Form,Device Form
@@ -38,6 +43,14 @@ Studio.App.AssetManagerService.PackageInsertErrorArg1,,Error while inserting pac
 Studio.App.AssetManagerService.PlaceIdInvalid,,PlaceId is invalid,PlaceId is invalid
 Studio.App.AssetManagerService.ResponseInvalid,,Http response is invalid,Http response is invalid
 Studio.App.AssetManagerService.ReturnedIdMalformed,,Id returned for mesh part is malformed,Id returned for mesh part is malformed
+Studio.App.AttributeRenameDialog.AttributeAlphanumberic,Displayed when entering an illegal character while renaming an attribute,Attributes can only contain alphanumeric characters and underscores.,Attributes can only contain alphanumeric characters and underscores.
+Studio.App.AttributeRenameDialog.AttributeContainsIllegalCharacters,Displayed when entering an illegal character while renaming an attribute,Attribute contains illegal character(s).,Attribute contains illegal character(s).
+Studio.App.AttributeRenameDialog.AttributeLengthAndSuggestion2,"Displayed when exceeding maximum characters while editing, along with AttributeNameExceeds1",Current name length is: %1. Try to use a name within %2 characters.,Current name length is: %1. Try to use a name within %2 characters.
+Studio.App.AttributeRenameDialog.AttributeNameAlreadyExists,Displayed when renaming an attribute and entering a name that exists.,Attribute name already exists.,Attribute name already exists.
+Studio.App.AttributeRenameDialog.AttributeNameCantBeEmpty,Displayed when trying to commit an empty attribute while editing.,Attribute name cannot be empty.,Attribute name cannot be empty.
+Studio.App.AttributeRenameDialog.AttributeNameCantStartWithRBX,Displayed when editing and trying to add RBX at the beginning.,Attribute name can't start with 'RBX'.,Attribute name can't start with 'RBX'.
+Studio.App.AttributeRenameDialog.AttributeNameExceeds1,Displayed when exceeding maximum charecters while editing.,Attribute name exceeds %1 characters.,Attribute name exceeds %1 characters.
+Studio.App.AttributeRenameDialog.AttributeTryDifferentName,Displayed when editing an attribute and entering a name that exists.,Try to use a different name.,Try to use a different name.
 Studio.App.AudioImportConfirmationDialog.NoFilesAvailable,,No files available,No files available
 Studio.App.AudioImportOptionsDialog.ConfirmAudioImport,,Confirm Audio Import,Confirm Audio Import
 Studio.App.AudioResourceController.AudioReferencedByName,,"Audio files are referenced by name, so any references to this asset will fail to load. Are you sure you want to remove it?","Audio files are referenced by name, so any references to this asset will fail to load. Are you sure you want to remove it?"
@@ -61,6 +74,8 @@ Studio.App.AutoSaveDialog.Title,,Auto-Recovery,Auto-Recovery
 Studio.App.AutoSaveDialog.WantToLoad,,Do you want to load the auto-recovered file?,Do you want to load the auto-recovered file?
 Studio.App.AutocompleteMenu.MoreChildrenItemTextFmt1,,%1 more children...,%1 more children...
 Studio.App.AutocompleteTooltip.FunctionNumberLabelTextFmt2,,%1 of %2,%1 of %2
+Studio.App.BetaFeatures.AlignToolImprovementsDescription,,Adds support for aligning in local space to the Align Tool and shows a preview UI displaying how the selected objects will be aligned.,Adds support for aligning in local space to the Align Tool and shows a preview UI displaying how the selected objects will be aligned.
+Studio.App.BetaFeatures.AlignToolImprovementsTitle,,Align Tool Improvements,Align Tool Improvements
 Studio.App.BetaFeatures.AnimationEditorDescription,,Enables the new Beta version of the Animation Editor.,Enables the new Beta version of the Animation Editor.
 Studio.App.BetaFeatures.AnimationEditorTitle,,Animation Editor Beta,Animation Editor Beta
 Studio.App.BetaFeatures.AssetManagerDescription,,"Manage your assets in a brand new widget, with new features. This replaces the Game Explorer.","Manage your assets in a brand new widget, with new features. This replaces the Game Explorer."
@@ -97,8 +112,6 @@ Studio.App.BetaFeatures.GameManagementTitle,,Game Management,Game Management
 Studio.App.BetaFeatures.InsertObjectStreamliningDescription,,Enables a new unified workflow for inserting objects.,Enables a new unified workflow for inserting objects.
 Studio.App.BetaFeatures.InsertObjectStreamliningTitle,,Insert Object Streamlining,Insert Object Streamlining
 Studio.App.BetaFeatures.LearnMoreTooltip,,Learn More,Learn More
-Studio.App.BetaFeatures.LuaDraggersDescription,,Migrates the Select/Move/Rotate/Scale tools to a Lua BuiltInPlugin implementation and makes some minor improvements to their functionality.,Migrates the Select/Move/Rotate/Scale tools to a Lua BuiltInPlugin implementation and makes some minor improvements to their functionality.
-Studio.App.BetaFeatures.LuaDraggersTitle,,Lua Draggers Beta,Lua Draggers Beta
 Studio.App.BetaFeatures.LuauNonStrictByDefaultDescription,,"Script analysis uses non-strict mode for all scripts by default. Use --!strict, --!nonstrict or --!nocheck to override mode on a per script basis.","Script analysis uses non-strict mode for all scripts by default. Use --!strict, --!nonstrict or --!nocheck to override mode on a per script basis."
 Studio.App.BetaFeatures.LuauNonStrictByDefaultTitle,,Scripts Are Non-Strict By Default,Scripts Are Non-Strict By Default
 Studio.App.BetaFeatures.NewFeaturesForChannelUserWarning1,,"New beta features have been automatically enabled above as you are enrolled in Beta Channel. You must restart Studio for them to be activated. <a href=""%1"">Restart Now</a>","New beta features have been automatically enabled above as you are enrolled in Beta Channel. You must restart Studio for them to be activated. <a href=""%1"">Restart Now</a>"
@@ -747,7 +760,17 @@ Studio.App.LocalizationPlugin.CouldntOpenFile1,,Couldn't open file %1,Couldn't o
 Studio.App.LocalizationPlugin.ErrorReading1Csv2,,Error reading %1.csv: %2,Error reading %1.csv: %2
 Studio.App.LocalizationPlugin.ErrorWritingToFile1,,Error writing to file %1,Error writing to file %1
 Studio.App.LocalizationPlugin.NoFileSelected,,No file selected,No file selected
+Studio.App.LockedScriptsCommitProgressDialog.CommittingStatus,,Applying edits...,Applying edits...
+Studio.App.LockedScriptsCommitProgressDialog.FailedStatus,,Failed,Failed
+Studio.App.LockedScriptsCommitProgressDialog.Label,,Applying edits from the following scripts,Applying edits from the following scripts
+Studio.App.LockedScriptsCommitProgressDialog.ScriptNameColumn,,Script Name,Script Name
+Studio.App.LockedScriptsCommitProgressDialog.ScriptStatusColumn,,Status,Status
+Studio.App.LockedScriptsCommitProgressDialog.Title,,Apply Edits Progress,Apply Edits Progress
 Studio.App.LockedScriptsVersionHistory.ApplyEditsRejectedTitle,,Script Apply Edits Failure,Script Apply Edits Failure
+Studio.App.LockedScriptsVersionHistory.ApplyingEditsBatchNotification1,,Applying edits from %1 scripts...,Applying edits from %1 scripts...
+Studio.App.LockedScriptsVersionHistory.ApplyingEditsBatchNotification2,,Applying edits from %1 and %2 more scripts...,Applying edits from %1 and %2 more scripts...
+Studio.App.LockedScriptsVersionHistory.ApplyingEditsNotification1,,Applying edits from %1...,Applying edits from %1...
+Studio.App.LockedScriptsVersionHistory.ApplyingEditsOnPlaceClose,,Applying script changes. Studio will close automatically when complete,Applying script changes. Studio will close automatically when complete
 Studio.App.LockedScriptsVersionHistory.AutoGeneratedCommitFmt1,,Applied edits to %1 script(s),Applied edits to %1 script(s)
 Studio.App.LockedScriptsVersionHistory.CommitRejected,,"Some of the scripts cannot be saved.
 Please check their status.","Some of the scripts cannot be saved.
@@ -1067,19 +1090,11 @@ Studio.App.PluginPermissionsDialog.HttpDomainPermission,,Allow plugin %1 to acce
 Studio.App.PluginPermissionsDialog.ScriptInjectionPermission,,Do you want to allow Plugin %1 to manage scripts in your game?,Do you want to allow Plugin %1 to manage scripts in your game?
 Studio.App.PluginPermissionsDialog.ScriptInjectionWarning,,"Plugin %1 is attempting to insert or modify scripts in your game. Click Allow to permit all future attempts, or Deny to block. You can edit these settings in Plugin Management.","Plugin %1 is attempting to insert or modify scripts in your game. Click Allow to permit all future attempts, or Deny to block. You can edit these settings in Plugin Management."
 Studio.App.PluginPermissionsDialog.Warning,,You can always revoke this permission from Plugins > Plugin Management.,You can always revoke this permission from Plugins > Plugin Management.
-Studio.App.Properites.AttributeNameCantStartWithRBX,Displayed when editing and trying to add RBX at the beginning.,Attribute name can't start with 'RBX'.,Attribute name can't start with 'RBX'.
 Studio.App.Properties.AddAttribute,Title/text for Add Attribute button/dialog,Add Attribute,Add Attribute
-Studio.App.Properties.AttributeAlreadyExists,Displayed when adding an attribute and entering a name that exists.,Attribute already exists.,Attribute already exists.
-Studio.App.Properties.AttributeCantStartWithRBX,Displayed when adding a new attribute in the Add Attribute dialog.,Can't start with 'RBX'.,Can't start with 'RBX'.
-Studio.App.Properties.AttributeLengthAndSuggestion2,"Displayed when exceeding maximum characters while editing, along with AttributeNameExceeds1",Current name length is: %1. Try to use a name within %2 characters.,Current name length is: %1. Try to use a name within %2 characters.
-Studio.App.Properties.AttributeName,Displayed to the left of attribute name line edit.,Name,Name
-Studio.App.Properties.AttributeNameCantBeEmpty,Displayed when trying to commit an empty attribute while editing.,Attribute name cannot be empty.,Attribute name cannot be empty.
-Studio.App.Properties.AttributeNameExceeds1,Displayed when exceeding maximum charecters while editing.,Attribute name exceeds %1 characters.,Attribute name exceeds %1 characters.
-Studio.App.Properties.AttributeTryDifferentName,Displayed when editing an attribute and entering a name that exists.,Try to use a different name.,Try to use a different name.
-Studio.App.Properties.AttributeType,Displayed to the left of attribute type combo box,Type,Type
 Studio.App.Properties.MultipleTypes,,<Multiple Types>,<Multiple Types>
 Studio.App.Properties.NoAttributeAdded,Displayed in Attributes Section when no attribute has been added yet.,No Attribute has been added yet,No Attribute has been added yet
 Studio.App.Properties.TitleFmt1,title of properties widget,Properties - %1,Properties - %1
+Studio.App.Properties.UnknownAttribute,Displayed when an unhandled exception occurs.,Unknown attributes runtime error.,Unknown attributes runtime error.
 Studio.App.Property.ActiveColor,,Active Color,Active Color
 Studio.App.Property.ActiveHoverOverColor,,Active Hover Over Color,Active Hover Over Color
 Studio.App.Property.AdditionalCoreIncludeDirs,,Additional Core Include Dirs,Additional Core Include Dirs
@@ -1118,6 +1133,7 @@ Studio.App.Property.AutoSavePath,,Auto-Save Path,Auto-Save Path
 Studio.App.Property.BackgroundColor,,Background Color,Background Color
 Studio.App.Property.BasicObjectsDisplayMode,,Basic Objects Display Mode,Basic Objects Display Mode
 Studio.App.Property.BoolColor,,Bool Color,Bool Color
+Studio.App.Property.BracketColor,,Script Bracket Color,Script Bracket Color
 Studio.App.Property.BuiltInFunctionColor,,Built-in Function Color,Built-in Function Color
 Studio.App.Property.CameraMouseWheelSpeed,,Camera Mouse Wheel Speed,Camera Mouse Wheel Speed
 Studio.App.Property.CameraShiftSpeed,,Camera Shift Speed,Camera Shift Speed
@@ -1146,6 +1162,7 @@ Studio.App.Property.EnableCoreScriptDebugger,,Enable CoreScript Debugger,Enable 
 Studio.App.Property.EnableHttpSandboxing,,Enable Http Sandboxing,Enable Http Sandboxing
 Studio.App.Property.EnableInternalBetaFeatures,,Enable Internal Beta Features,Enable Internal Beta Features
 Studio.App.Property.EnableInternalFeatures,,Enable Internal Features,Enable Internal Features
+Studio.App.Property.EnableTemporaryTabs,Enable script tab previews in Roblox Studio,Enable Temporary Script Tabs,Enable Temporary Script Tabs
 Studio.App.Property.ErrorColor,,Error Color,Error Color
 Studio.App.Property.ErrorReporting,,Error Reporting,Error Reporting
 Studio.App.Property.ExportMergeByMaterial,,Export Merge By Material,Export Merge By Material
@@ -1429,15 +1446,20 @@ Studio.App.QDebuggerClient.WatchWindowTitle,,Watch,Watch
 Studio.App.QtUtilities.DisabledDuringTesting,,Disabled during testing,Disabled during testing
 Studio.App.QtUtilities.DontAskMeAgain,,Don't ask me again,Don't ask me again
 Studio.App.QuickOpenDialog.Actions,,Actions,Actions
+Studio.App.QuickOpenDialog.EmptyScript,,This is an empty Script,This is an empty Script
+Studio.App.QuickOpenDialog.GotoLine,,GotoLine,GotoLine
+Studio.App.QuickOpenDialog.GotoLine1,,Goto line %1,Goto line %1
 Studio.App.QuickOpenDialog.Instance,,Instance,Instance
 Studio.App.QuickOpenDialog.MatchCase,,Match Case,Match Case
 Studio.App.QuickOpenDialog.MoreSettings,,More Settings,More Settings
+Studio.App.QuickOpenDialog.OpenScriptFirst,,Open a Script first to go to line,Open a Script first to go to line
 Studio.App.QuickOpenDialog.Recent,,Recent,Recent
 Studio.App.QuickOpenDialog.RegularExpr,,Regular Expression,Regular Expression
 Studio.App.QuickOpenDialog.ScriptOnly,,Script Only,Script Only
 Studio.App.QuickOpenDialog.SearchScriptContent,,Search Script Content,Search Script Content
 Studio.App.QuickOpenDialog.ShowMore,,Show More,Show More
 Studio.App.QuickOpenDialog.SpaceAsWildcard,,Space as Wildcard,Space as Wildcard
+Studio.App.QuickOpenDialog.TypeLineNumber2,,Type a line number between %1 and %2 to navigate.,Type a line number between %1 and %2 to navigate.
 Studio.App.RBXMainWindow.15StudGrid,,1/5 Stud Grid,1/5 Stud Grid
 Studio.App.RBXMainWindow.3DGrid,,3D Grid,3D Grid
 Studio.App.RBXMainWindow.AboutRobloxStudio,,About Roblox Studio,About Roblox Studio
@@ -2113,6 +2135,9 @@ Studio.App.RobloxRibbonMainWindow.Advanced,,Advanced,Advanced
 Studio.App.RobloxRibbonMainWindow.AdvancedObjects,,Advanced Objects,Advanced Objects
 Studio.App.RobloxRibbonMainWindow.AlignOrientation,,Align Orientation,Align Orientation
 Studio.App.RobloxRibbonMainWindow.AlignPosition,,Align Position,Align Position
+Studio.App.RobloxRibbonMainWindow.AlignTool,,Align Tool,Align Tool
+Studio.App.RobloxRibbonMainWindow.AlignToolGroup,,Alignment,Alignment
+Studio.App.RobloxRibbonMainWindow.AlignToolTooltip,,Align the selected parts and models,Align the selected parts and models
 Studio.App.RobloxRibbonMainWindow.Always,,Always,Always
 Studio.App.RobloxRibbonMainWindow.Anchor,,Anchor ,Anchor 
 Studio.App.RobloxRibbonMainWindow.AngularVelocity,,Angular Velocity,Angular Velocity
@@ -2523,7 +2548,7 @@ Studio.App.ScriptingCmd.NEWLINEBELOW,,Insert Newline Below,Insert Newline Below
 Studio.App.ScriptingCmd.NEWLINEBELOWTooltip,,Insert a newline below the current line,Insert a newline below the current line
 Studio.App.ScriptingCmd.SELECT,,Select text...,Select text...
 Studio.App.ScriptingCmd.SELECTWORD,,Select Word,Select Word
-Studio.App.ScriptingCmd.SELECTWORDTooltip,,Select the word under the cursor.,Select the word under the cursor.
+Studio.App.ScriptingCmd.SELECTWORDTooltip,,Select the word under the cursor,Select the word under the cursor
 Studio.App.ScriptingCmd.TOGGLECOMMENT,,Toggle Comment,Toggle Comment
 Studio.App.ScriptingCmd.TOGGLECOMMENTTooltip,,Toggle selection commenting,Toggle selection commenting
 Studio.App.ScriptingCmd.UNFOLDALL,,Expand All Folds,Expand All Folds

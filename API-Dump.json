@@ -2106,6 +2106,13 @@
                                 "Category": "Primitive",
                                 "Name": "int64"
                             }
+                        },
+                        {
+                            "Name": "assetName",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
                         }
                     ],
                     "ReturnType": {
@@ -4964,6 +4971,364 @@
                 "NotCreatable",
                 "Service"
             ]
+        },
+        {
+            "Members": [
+                {
+                    "Category": "Appearance",
+                    "MemberType": "Property",
+                    "Name": "CageMeshId",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "PluginSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "Content"
+                    }
+                },
+                {
+                    "Category": "Appearance",
+                    "MemberType": "Property",
+                    "Name": "CageOrigin",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "PluginSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "CFrame"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "CageOriginWorld",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "CFrame"
+                    }
+                },
+                {
+                    "Category": "Appearance",
+                    "MemberType": "Property",
+                    "Name": "ImportOrigin",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "PluginSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "CFrame"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "ImportOriginWorld",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "CFrame"
+                    }
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "BaseWrap",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotCreatable"
+            ]
+        },
+        {
+            "Members": [
+                {
+                    "Category": "Tuning",
+                    "MemberType": "Property",
+                    "Name": "BindOffset",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "PluginSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "CFrame"
+                    }
+                },
+                {
+                    "Category": "Debug",
+                    "MemberType": "Property",
+                    "Name": "Color",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "NotReplicated",
+                        "NotScriptable"
+                    ],
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "Color3"
+                    }
+                },
+                {
+                    "Category": "Debug",
+                    "MemberType": "Property",
+                    "Name": "DebugMode",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "NotReplicated",
+                        "NotScriptable"
+                    ],
+                    "ValueType": {
+                        "Category": "Enum",
+                        "Name": "WrapLayerDebugMode"
+                    }
+                },
+                {
+                    "Category": "Behavior",
+                    "MemberType": "Property",
+                    "Name": "Enabled",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Appearance",
+                    "MemberType": "Property",
+                    "Name": "Order",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "PluginSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "int"
+                    }
+                },
+                {
+                    "Category": "Appearance",
+                    "MemberType": "Property",
+                    "Name": "Puffiness",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "PluginSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    }
+                },
+                {
+                    "Category": "Appearance",
+                    "MemberType": "Property",
+                    "Name": "ReferenceMeshId",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "PluginSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "Content"
+                    }
+                },
+                {
+                    "Category": "Appearance",
+                    "MemberType": "Property",
+                    "Name": "ReferenceOrigin",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "PluginSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "CFrame"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "ReferenceOriginWorld",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "CFrame"
+                    }
+                },
+                {
+                    "Category": "Tuning",
+                    "MemberType": "Property",
+                    "Name": "ShrinkFactor",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "PluginSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    }
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "WrapLayer",
+            "Superclass": "BaseWrap"
+        },
+        {
+            "Members": [
+                {
+                    "Category": "Debug",
+                    "MemberType": "Property",
+                    "Name": "Color",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "NotReplicated",
+                        "NotScriptable"
+                    ],
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "Color3"
+                    }
+                },
+                {
+                    "Category": "Debug",
+                    "MemberType": "Property",
+                    "Name": "DebugMode",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "NotReplicated",
+                        "NotScriptable"
+                    ],
+                    "ValueType": {
+                        "Category": "Enum",
+                        "Name": "WrapTargetDebugMode"
+                    }
+                },
+                {
+                    "Category": "Appearance",
+                    "MemberType": "Property",
+                    "Name": "Stiffness",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "PluginSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    }
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "WrapTarget",
+            "Superclass": "BaseWrap"
         },
         {
             "Members": [
@@ -11694,8 +12059,8 @@
                         }
                     ],
                     "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "string"
+                        "Category": "Group",
+                        "Name": "Variant"
                     },
                     "Security": "RobloxScriptSecurity"
                 }
@@ -22683,6 +23048,53 @@
         },
         {
             "Members": [
+                {
+                    "MemberType": "Function",
+                    "Name": "IsValidColormap",
+                    "Parameters": [
+                        {
+                            "Name": "heightmapAssetId",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "Content"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Tuple"
+                    },
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "IsValidHeightmap",
+                    "Parameters": [
+                        {
+                            "Name": "heightmapAssetId",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "Content"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Tuple"
+                    },
+                    "Security": "RobloxScriptSecurity"
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "HeightmapImporterService",
+            "Superclass": "Instance",
+            "Tags": [
+                "Service",
+                "NotReplicated"
+            ]
+        },
+        {
+            "Members": [
             ],
             "MemoryCategory": "Instances",
             "Name": "Hopper",
@@ -24580,6 +24992,27 @@
                         "Name": "bool"
                     },
                     "Security": "None",
+                    "Tags": [
+                        "Yields"
+                    ]
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "PlayEmoteAndGetAnimTrackById",
+                    "Parameters": [
+                        {
+                            "Name": "emoteId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int64"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Tuple"
+                    },
+                    "Security": "RobloxScriptSecurity",
                     "Tags": [
                         "Yields"
                     ]
@@ -44973,6 +45406,23 @@
                     }
                 },
                 {
+                    "Category": "Localization",
+                    "MemberType": "Property",
+                    "Name": "AutoLocalize",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
                     "Category": "Data",
                     "MemberType": "Property",
                     "Name": "ClickablePrompt",
@@ -45126,6 +45576,23 @@
                     }
                 },
                 {
+                    "Category": "Localization",
+                    "MemberType": "Property",
+                    "Name": "RootLocalizationTable",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Class",
+                        "Name": "LocalizationTable"
+                    }
+                },
+                {
                     "Category": "Data",
                     "MemberType": "Property",
                     "Name": "Style",
@@ -45185,6 +45652,13 @@
                     "MemberType": "Event",
                     "Name": "PromptButtonHoldBegan",
                     "Parameters": [
+                        {
+                            "Name": "playerWhoTriggered",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "Instance"
+                            }
+                        }
                     ],
                     "Security": "None"
                 },
@@ -45192,6 +45666,13 @@
                     "MemberType": "Event",
                     "Name": "PromptButtonHoldEnded",
                     "Parameters": [
+                        {
+                            "Name": "playerWhoTriggered",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "Instance"
+                            }
+                        }
                     ],
                     "Security": "None"
                 },
@@ -45295,6 +45776,13 @@
                                 "Category": "Class",
                                 "Name": "Instance"
                             }
+                        },
+                        {
+                            "Name": "playerWhoTriggered",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "Instance"
+                            }
                         }
                     ],
                     "Security": "None"
@@ -45305,6 +45793,13 @@
                     "Parameters": [
                         {
                             "Name": "prompt",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "Instance"
+                            }
+                        },
+                        {
+                            "Name": "playerWhoTriggered",
                             "Type": {
                                 "Category": "Class",
                                 "Name": "Instance"
@@ -52731,7 +53226,7 @@
                         "Write": "None"
                     },
                     "Serialization": {
-                        "CanLoad": true,
+                        "CanLoad": false,
                         "CanSave": false
                     },
                     "Tags": [
@@ -52751,7 +53246,7 @@
                         "Write": "None"
                     },
                     "Serialization": {
-                        "CanLoad": true,
+                        "CanLoad": false,
                         "CanSave": false
                     },
                     "Tags": [
@@ -52771,7 +53266,7 @@
                         "Write": "None"
                     },
                     "Serialization": {
-                        "CanLoad": true,
+                        "CanLoad": false,
                         "CanSave": false
                     },
                     "Tags": [
@@ -52791,7 +53286,7 @@
                         "Write": "None"
                     },
                     "Serialization": {
-                        "CanLoad": true,
+                        "CanLoad": false,
                         "CanSave": false
                     },
                     "Tags": [
@@ -52811,7 +53306,7 @@
                         "Write": "None"
                     },
                     "Serialization": {
-                        "CanLoad": true,
+                        "CanLoad": false,
                         "CanSave": false
                     },
                     "Tags": [
@@ -53018,7 +53513,7 @@
                         "Write": "None"
                     },
                     "Serialization": {
-                        "CanLoad": true,
+                        "CanLoad": false,
                         "CanSave": false
                     },
                     "Tags": [
@@ -53055,7 +53550,27 @@
                         "Write": "None"
                     },
                     "Serialization": {
-                        "CanLoad": true,
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "NotReplicated"
+                    ],
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "Color3"
+                    }
+                },
+                {
+                    "Category": "Script Editor Colors",
+                    "MemberType": "Property",
+                    "Name": "Bracket Color",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
                         "CanSave": false
                     },
                     "Tags": [
@@ -53075,7 +53590,7 @@
                         "Write": "None"
                     },
                     "Serialization": {
-                        "CanLoad": true,
+                        "CanLoad": false,
                         "CanSave": false
                     },
                     "Tags": [
@@ -53197,7 +53712,7 @@
                         "Write": "None"
                     },
                     "Serialization": {
-                        "CanLoad": true,
+                        "CanLoad": false,
                         "CanSave": false
                     },
                     "Tags": [
@@ -53217,7 +53732,7 @@
                         "Write": "None"
                     },
                     "Serialization": {
-                        "CanLoad": true,
+                        "CanLoad": false,
                         "CanSave": false
                     },
                     "Tags": [
@@ -53237,7 +53752,7 @@
                         "Write": "None"
                     },
                     "Serialization": {
-                        "CanLoad": true,
+                        "CanLoad": false,
                         "CanSave": false
                     },
                     "Tags": [
@@ -53257,7 +53772,7 @@
                         "Write": "None"
                     },
                     "Serialization": {
-                        "CanLoad": true,
+                        "CanLoad": false,
                         "CanSave": false
                     },
                     "Tags": [
@@ -53390,27 +53905,6 @@
                 {
                     "Category": "Advanced",
                     "MemberType": "Property",
-                    "Name": "Enable Intellisense",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": false
-                    },
-                    "Tags": [
-                        "NotReplicated",
-                        "Deprecated"
-                    ],
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "bool"
-                    }
-                },
-                {
-                    "Category": "Advanced",
-                    "MemberType": "Property",
                     "Name": "Enable Internal Beta Features",
                     "Security": {
                         "Read": "None",
@@ -53443,6 +53937,23 @@
                     }
                 },
                 {
+                    "Category": "Script Editor",
+                    "MemberType": "Property",
+                    "Name": "Enable Temporary Tabs",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
                     "Category": "Script Editor Colors",
                     "MemberType": "Property",
                     "Name": "Error Color",
@@ -53451,7 +53962,7 @@
                         "Write": "None"
                     },
                     "Serialization": {
-                        "CanLoad": true,
+                        "CanLoad": false,
                         "CanSave": false
                     },
                     "Tags": [
@@ -53471,7 +53982,7 @@
                         "Write": "None"
                     },
                     "Serialization": {
-                        "CanLoad": true,
+                        "CanLoad": false,
                         "CanSave": false
                     },
                     "Tags": [
@@ -53542,7 +54053,7 @@
                         "Write": "None"
                     },
                     "Serialization": {
-                        "CanLoad": true,
+                        "CanLoad": false,
                         "CanSave": false
                     },
                     "Tags": [
@@ -53647,7 +54158,7 @@
                         "Write": "None"
                     },
                     "Serialization": {
-                        "CanLoad": true,
+                        "CanLoad": false,
                         "CanSave": false
                     },
                     "Tags": [
@@ -53757,7 +54268,7 @@
                         "Write": "None"
                     },
                     "Serialization": {
-                        "CanLoad": true,
+                        "CanLoad": false,
                         "CanSave": false
                     },
                     "Tags": [
@@ -53777,7 +54288,7 @@
                         "Write": "None"
                     },
                     "Serialization": {
-                        "CanLoad": true,
+                        "CanLoad": false,
                         "CanSave": false
                     },
                     "Tags": [
@@ -53814,7 +54325,7 @@
                         "Write": "None"
                     },
                     "Serialization": {
-                        "CanLoad": true,
+                        "CanLoad": false,
                         "CanSave": false
                     },
                     "Tags": [
@@ -53834,7 +54345,7 @@
                         "Write": "None"
                     },
                     "Serialization": {
-                        "CanLoad": true,
+                        "CanLoad": false,
                         "CanSave": false
                     },
                     "Tags": [
@@ -53871,7 +54382,7 @@
                         "Write": "None"
                     },
                     "Serialization": {
-                        "CanLoad": true,
+                        "CanLoad": false,
                         "CanSave": false
                     },
                     "Tags": [
@@ -54010,7 +54521,7 @@
                         "Write": "None"
                     },
                     "Serialization": {
-                        "CanLoad": true,
+                        "CanLoad": false,
                         "CanSave": false
                     },
                     "Tags": [
@@ -54064,7 +54575,7 @@
                         "Write": "None"
                     },
                     "Serialization": {
-                        "CanLoad": true,
+                        "CanLoad": false,
                         "CanSave": false
                     },
                     "Tags": [
@@ -54220,7 +54731,7 @@
                         "Write": "None"
                     },
                     "Serialization": {
-                        "CanLoad": true,
+                        "CanLoad": false,
                         "CanSave": false
                     },
                     "Tags": [
@@ -54240,7 +54751,7 @@
                         "Write": "None"
                     },
                     "Serialization": {
-                        "CanLoad": true,
+                        "CanLoad": false,
                         "CanSave": false
                     },
                     "Tags": [
@@ -54481,7 +54992,7 @@
                         "Write": "None"
                     },
                     "Serialization": {
-                        "CanLoad": true,
+                        "CanLoad": false,
                         "CanSave": false
                     },
                     "Tags": [
@@ -54518,7 +55029,7 @@
                         "Write": "None"
                     },
                     "Serialization": {
-                        "CanLoad": true,
+                        "CanLoad": false,
                         "CanSave": false
                     },
                     "Tags": [
@@ -54595,7 +55106,7 @@
                         "Write": "None"
                     },
                     "Serialization": {
-                        "CanLoad": true,
+                        "CanLoad": false,
                         "CanSave": false
                     },
                     "Tags": [
@@ -54615,7 +55126,7 @@
                         "Write": "None"
                     },
                     "Serialization": {
-                        "CanLoad": true,
+                        "CanLoad": false,
                         "CanSave": false
                     },
                     "Tags": [
@@ -55281,24 +55792,6 @@
                             "Type": {
                                 "Category": "Primitive",
                                 "Name": "string"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "void"
-                    },
-                    "Security": "RobloxScriptSecurity"
-                },
-                {
-                    "MemberType": "Function",
-                    "Name": "OpenPluginInsertPage",
-                    "Parameters": [
-                        {
-                            "Name": "assetId",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "int64"
                             }
                         }
                     ],
@@ -56267,6 +56760,145 @@
                 {
                     "Category": "Data",
                     "MemberType": "Property",
+                    "Name": "PrivateServerId",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "string"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "ReservedServerAccessCode",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "string"
+                    }
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "TeleportAsyncResult",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotCreatable"
+            ]
+        },
+        {
+            "Members": [
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "ReservedServerAccessCode",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "string"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "ServerInstanceId",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "string"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "ShouldReserveServer",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetTeleportData",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Variant"
+                    },
+                    "Security": "None"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "SetTeleportData",
+                    "Parameters": [
+                        {
+                            "Name": "teleportData",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Variant"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "None"
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "TeleportOptions",
+            "Superclass": "Instance"
+        },
+        {
+            "Members": [
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
                     "Name": "CustomizedTeleportUI",
                     "Security": {
                         "Read": "None",
@@ -56615,6 +57247,42 @@
                     "ReturnType": {
                         "Category": "Group",
                         "Name": "Tuple"
+                    },
+                    "Security": "None",
+                    "Tags": [
+                        "Yields"
+                    ]
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "TeleportAsync",
+                    "Parameters": [
+                        {
+                            "Name": "placeId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int64"
+                            }
+                        },
+                        {
+                            "Name": "players",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "Objects"
+                            }
+                        },
+                        {
+                            "Default": "nil",
+                            "Name": "teleportOptions",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "Instance"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Class",
+                        "Name": "Instance"
                     },
                     "Security": "None",
                     "Tags": [
@@ -70489,6 +71157,10 @@
                 {
                     "Name": "Ruler",
                     "Value": 28
+                },
+                {
+                    "Name": "Bracket",
+                    "Value": 29
                 }
             ],
             "Name": "StudioScriptEditorColorCategories"
@@ -70949,8 +71621,12 @@
                     "Value": 107
                 },
                 {
-                    "Name": "AttributeCog",
+                    "Name": "ScriptBracket",
                     "Value": 108
+                },
+                {
+                    "Name": "AttributeCog",
+                    "Value": 109
                 }
             ],
             "Name": "StudioStyleGuideColor"
@@ -71936,6 +72612,44 @@
                 }
             ],
             "Name": "WaterForce"
+        },
+        {
+            "Items": [
+                {
+                    "Name": "None",
+                    "Value": 0
+                },
+                {
+                    "Name": "BindedCage",
+                    "Value": 1
+                },
+                {
+                    "Name": "LayerCage",
+                    "Value": 2
+                },
+                {
+                    "Name": "BindedCageAndLinks",
+                    "Value": 3
+                },
+                {
+                    "Name": "Reference",
+                    "Value": 4
+                }
+            ],
+            "Name": "WrapLayerDebugMode"
+        },
+        {
+            "Items": [
+                {
+                    "Name": "None",
+                    "Value": 0
+                },
+                {
+                    "Name": "TargetCage",
+                    "Value": 1
+                }
+            ],
+            "Name": "WrapTargetDebugMode"
         },
         {
             "Items": [

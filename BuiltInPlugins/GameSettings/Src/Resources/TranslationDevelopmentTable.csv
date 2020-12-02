@@ -158,13 +158,16 @@ Studio.GameSettings.General.SingleImageDialogHeader,No Image Loaded,No Image Loa
 Studio.GameSettings.General.SingleImageDialogBody,Select a compatible image.,Select a compatible image.
 Studio.GameSettings.General.MultiImageDialogHeader,Images Failed,Images Failed
 Studio.GameSettings.General.MultiImageDialogBody,The following file(s) exceed {maxThumbnailSize:int} MB:,The following file(s) exceed {maxThumbnailSize:int} MB:
-Studio.GameSettings.General.DevSubsEditHeader,Edit Developer Subscription,Edit Developer Subscription
-Studio.GameSettings.General.DevSubsListHeader,Developer Subscriptions,Developer Subscriptions
+Studio.GameSettings.General.DevSubsEditHeader,Edit Subscription,Edit Subscription
+Studio.GameSettings.General.DevSubsListHeader,Subscriptions,Subscriptions
 Studio.GameSettings.General.DevSubsName,Name,Name
+Studio.GameSettings.General.DevSubsPlanID,Plan ID,Plan ID
+Studio.GameSettings.General.DevSubsCreationDate,Creation Date,Creation Date
 Studio.GameSettings.General.DevSubsTitle,Title,Title
 Studio.GameSettings.General.DevSubsPrice,Price,Price
 Studio.GameSettings.General.DevSubsImage,Image,Image
-Studio.GameSettings.General.DevSubsDuration,Duration,Duration
+Studio.GameSettings.General.DevSubsDuration,Pre-paid,Pre-paid
+Studio.GameSettings.General.DevSubsPendingEarning,Pending Earning,Pending Earning
 Studio.GameSettings.General.DevSubsId,Id,Id
 Studio.GameSettings.General.DevSubsSubscribers,Subscribers,Subscribers
 Studio.GameSettings.General.DevSubsActive,Active,Active
@@ -173,10 +176,12 @@ Studio.GameSettings.General.DevSubsDiscontinueAction,Discontinue,Discontinue
 Studio.GameSettings.General.DevSubsUnsaved,Unsaved,Unsaved
 Studio.GameSettings.General.DevSubsIsActive,Yes,Yes
 Studio.GameSettings.General.DevSubsIsNotActive,No,No
-Studio.GameSettings.General.DevSubsDiscontinueTitle,Discontinue Subscription,Discontinue Subscription
-Studio.GameSettings.General.DevSubsDiscontinueHeader,Would you like to discontinue this subscription?,Would you like to discontinue this subscription?
-Studio.GameSettings.General.DevSubsDiscontinueDescription,This will cancel all renewing payments. You must maintain benefits until no subscribers remain.,This will cancel all renewing payments. You must maintain benefits until no subscribers remain.
-Studio.GameSettings.General.DevSubsDiscontinueConfirm,Discontinue,Discontinue
+Studio.GameSettings.General.DevSubsDeleteTitle,Delete Subscription,Delete Subscription
+Studio.GameSettings.General.DevSubsDeleteHeader,Are you sure you want to delete this subscription?,Are you sure you want to delete this subscription?
+Studio.GameSettings.General.DevSubsDeleteDescription,"You will lose pending payments for this subscription, including the current month.","You will lose pending payments for this subscription, including the current month."
+Studio.GameSettings.General.DevSubsDeleteConfirm,Delete,Delete
+Studio.GameSettings.General.DevSubsDuration6Months,6 months,6 months
+Studio.GameSettings.General.DevSubsDuration12Months,12 months,12 months
 Studio.GameSettings.AccessPermissions.NoAccessLabel,No Access,No Access
 Studio.GameSettings.AccessPermissions.PlayLabel,Play,Play
 Studio.GameSettings.AccessPermissions.EditLabel,Edit,Edit
@@ -207,7 +212,7 @@ Studio.GameSettings.General.ScaleSliderUnits,%,%
 Studio.GameSettings.General.PublishingHintLink,Publishing the game to Roblox,Publishing the game to Roblox
 Studio.GameSettings.General.PublishingHintLinkExplanation, is required for changing Avatar game settings, is required for changing Avatar game settings
 Studio.GameSettings.General.TitleCollaborators,Collaborators,Collaborators
-Studio.GameSettings.General.DevSubsNewHeader,New Developer Subscription,New Developer Subscription
+Studio.GameSettings.General.DevSubsNewHeader,New Subscription,New Subscription
 Studio.GameSettings.General.DevSubsDiscontinuedHeader,Discontinued Developer Subscription,Discontinued Developer Subscription
 Studio.GameSettings.General.DevSubsDeleteAction,Delete,Delete
 Studio.GameSettings.General.PublishIsRequiredHyperlink,Publishing the game to Roblox,Publishing the game to Roblox
