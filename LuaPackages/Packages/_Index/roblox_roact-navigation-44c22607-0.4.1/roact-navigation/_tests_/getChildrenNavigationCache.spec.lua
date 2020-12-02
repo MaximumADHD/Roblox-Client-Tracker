@@ -1,3 +1,4 @@
+-- upstream https://github.com/react-navigation/react-navigation/blob/f10543f9fcc0f347c9d23aeb57616fd0f21cd4e3/packages/core/src/__tests__/getChildrenNavigationCache.test.js
 return function()
 	local getChildrenNavigationCache = require(script.Parent.Parent.getChildrenNavigationCache)
 

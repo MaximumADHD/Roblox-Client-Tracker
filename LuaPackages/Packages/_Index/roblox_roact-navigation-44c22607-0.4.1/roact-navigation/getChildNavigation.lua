@@ -1,7 +1,7 @@
 -- upstream https://github.com/react-navigation/react-navigation/blob/72e8160537954af40f1b070aa91ef45fc02bba69/packages/core/src/getChildNavigation.js
 
 local Cryo = require(script.Parent.Parent.Cryo)
-local getChildEventSubscriber = require(script.Parent.getChildEventSubscriber)
+local getEventManager = require(script.Parent.getEventManager)
 local getChildRouter = require(script.Parent.getChildRouter)
 local getNavigationActionCreators = require(script.Parent.routers.getNavigationActionCreators)
 local getChildrenNavigationCache = require(script.Parent.getChildrenNavigationCache)
@@ -85,7 +85,7 @@ local function getChildNavigation(navigation, childKey, getCurrentParentNavigati
 		return children[childKey]
 	else
 		-- No cached value for requestedChild. Create a new entry.
-		local childSubscriber = getChildEventSubscriber(navigation.addListener, childKey)
+		local childSubscriber = getEventManager(childKey)
 
 		children[childKey] = Cryo.Dictionary.join(actionHelpers, {
 			state = childRoute,
@@ -123,7 +123,9 @@ local function getChildNavigation(navigation, childKey, getCurrentParentNavigati
 			end,
 			dispatch = navigation.dispatch,
 			getScreenProps = navigation.getScreenProps,
-			-- deviation: `dangerouslyGetParent` function removed (deprecated in future)
+			-- deviation: `dangerouslyGetParent` is renamed as private because
+			-- it is deprecated in latest react navigation
+			_dangerouslyGetParent = getCurrentParentNavigation,
 			addListener = childSubscriber.addListener,
 			emit = childSubscriber.emit,
 		})

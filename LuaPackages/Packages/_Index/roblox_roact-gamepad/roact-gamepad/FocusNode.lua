@@ -6,6 +6,7 @@ local Roact = require(Packages.Roact)
 local Cryo = require(Packages.Cryo)
 
 local InternalApi = require(script.Parent.FocusControllerInternalApi)
+local inputBindingsEqual = require(script.Parent.inputBindingsEqual)
 
 local FocusNode = {}
 FocusNode.__index = FocusNode
@@ -93,12 +94,14 @@ function FocusNode:updateNavProps(navProps)
 		restorePreviousChildFocus = navProps.restorePreviousChildFocus
 	end
 
+	local oldInputBindings = self.inputBindings
+
 	self.defaultChildRef = navProps.defaultChild
 	self.restorePreviousChildFocus = restorePreviousChildFocus
 	self.inputBindings = navProps.inputBindings or {}
 
 	local focusController = self:__getFocusControllerInternal()
-	if focusController:isNodeFocused(self) then
+	if focusController:isNodeFocused(self) and not inputBindingsEqual(oldInputBindings, self.inputBindings) then
 		focusController:updateInputBindings()
 	end
 end

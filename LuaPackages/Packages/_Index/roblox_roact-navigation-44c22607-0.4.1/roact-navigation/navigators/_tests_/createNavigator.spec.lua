@@ -19,7 +19,7 @@ return function()
 			navigationOptions = testNavOptions,
 		})
 
-		expect(type(navigator.render)).to.equal("function")
+		expect(navigator.render).to.be.a("function")
 		expect(navigator.router).to.equal(testRouter)
 		expect(navigator.navigationOptions).to.equal(testNavOptions)
 
@@ -31,6 +31,7 @@ return function()
 				index = 1
 			},
 			getChildNavigation = function() return nil end, -- stub
+			addListener = function() end,
 		}
 
 		-- Try to mount it

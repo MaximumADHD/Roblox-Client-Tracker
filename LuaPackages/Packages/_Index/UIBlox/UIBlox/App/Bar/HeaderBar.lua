@@ -138,7 +138,8 @@ function HeaderBar:render()
 		return Roact.createElement("Frame", {
 			BackgroundTransparency = 1,
 			Size = UDim2.new(1, 0, 0, self.props.barHeight),
-			[Roact.Change.AbsoluteSize] = (self.props.marginLeft == nil and self.props.marginRight == nil) and self.onResize,
+			[Roact.Change.AbsoluteSize] =
+				(self.props.marginLeft == nil and self.props.marginRight == nil) and self.onResize or nil,
 		}, {
 			ThreeSectionBar = Roact.createElement(ThreeSectionBar, {
 				BackgroundTransparency = self.props.backgroundTransparency or theme.BackgroundDefault.Transparency,

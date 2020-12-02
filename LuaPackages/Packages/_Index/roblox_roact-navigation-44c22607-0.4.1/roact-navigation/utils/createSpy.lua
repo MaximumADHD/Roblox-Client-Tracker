@@ -5,6 +5,7 @@ local expectDeepEqual = require(script.Parent.expectDeepEqual)
 local function createSpy(inner)
 	local self = {
 		callCount = 0,
+		calls = {},
 		values = {},
 		valuesLength = 0,
 	}
@@ -13,6 +14,7 @@ local function createSpy(inner)
 		self.callCount = self.callCount + 1
 		self.values = {...}
 		self.valuesLength = select("#", ...)
+		table.insert(self.calls, self.values)
 
 		if inner ~= nil then
 			return inner(...)
@@ -67,6 +69,13 @@ local function createSpy(inner)
 		end
 
 		return result
+	end
+
+	self.mockClear = function()
+		self.callCount = 0
+		self.calls = {}
+		self.values = {}
+		self.valuesLength = 0
 	end
 
 	setmetatable(self, {

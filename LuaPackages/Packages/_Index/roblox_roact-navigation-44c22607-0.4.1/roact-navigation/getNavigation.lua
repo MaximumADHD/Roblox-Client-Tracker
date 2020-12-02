@@ -15,7 +15,11 @@ return function(router, state, dispatch, actionSubscribers, getScreenProps, getC
 		state = state,
 		dispatch = dispatch,
 		getScreenProps = getScreenProps,
-		-- deviation: `dangerouslyGetParent` function removed (deprecated in future)
+		-- deviation: `dangerouslyGetParent` is renamed as private because
+		-- it is deprecated in latest react navigation
+		_dangerouslyGetParent = function()
+			return nil
+		end,
 		isFirstRouteInParent = function()
 			return true
 		end,

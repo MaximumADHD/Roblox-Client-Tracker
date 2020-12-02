@@ -88,6 +88,34 @@ return function()
 		end)
 	end)
 
+	describe("calls", function()
+		it("should keep all the arguments given to each call", function()
+			local spy = createSpy()
+			local firstCall = {}
+			spy.value(firstCall)
+			local secondCall = {}
+			spy.value(secondCall)
+
+			expect(spy.calls[1][1]).to.equal(firstCall)
+			expect(spy.calls[2][1]).to.equal(secondCall)
+		end)
+	end)
+
+	describe("mockClear", function()
+		it("clears the spy state", function()
+			local spy = createSpy()
+			spy.value(1)
+			expect(spy.callCount).to.equal(1)
+
+			spy:mockClear()
+
+			expect(spy.callCount).to.equal(0)
+			expect(#spy.calls).to.equal(0)
+			expect(#spy.values).to.equal(0)
+			expect(spy.valuesLength).to.equal(0)
+		end)
+	end)
+
 	describe("call", function()
 		it("should increment callCount when called", function()
 			local spy = createSpy(function() end)

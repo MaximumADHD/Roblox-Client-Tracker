@@ -1,8 +1,11 @@
--- upstream https://github.com/react-navigation/react-navigation/blob/62da341b672a83786b9c3a80c8a38f929964d7cc/packages/core/src/navigators/createNavigator.js
+-- upstream https://github.com/react-navigation/react-navigation/blob/9b55493e7662f4d54c21f75e53eb3911675f61bc/packages/core/src/navigators/createNavigator.js
 
-local Roact = require(script.Parent.Parent.Parent.Roact)
-local Cryo = require(script.Parent.Parent.Parent.Cryo)
-local validate = require(script.Parent.Parent.utils.validate)
+local root = script.Parent.Parent
+local Packages = root.Parent
+local Roact = require(Packages.Roact)
+local Cryo = require(Packages.Cryo)
+local validate = require(root.utils.validate)
+local NavigationFocusEvents = require(root.views.NavigationFocusEvents)
 
 return function(navigatorViewComponent, router, navigationConfig)
 	local Navigator = Roact.Component:extend("Navigator")
@@ -80,13 +83,22 @@ return function(navigatorViewComponent, router, navigationConfig)
 		local screenProps = self.state.screenProps
 		local descriptors = self.state.descriptors
 
-		-- deviation: not rendering a NavigationFocusEvents component
-		return Roact.createElement(navigatorViewComponent, Cryo.Dictionary.join(self.props, {
-			screenProps = screenProps,
-			navigation = navigation,
-			navigationConfig = navigationConfig,
-			descriptors = descriptors,
-		}))
+		return Roact.createFragment({
+			Events = Roact.createElement(NavigationFocusEvents, {
+				navigation = navigation,
+				onEvent = function(target, type, data)
+					if descriptors[target] then
+						descriptors[target].navigation.emit(type, data);
+					end
+				end,
+			}),
+			View = Roact.createElement(navigatorViewComponent, Cryo.Dictionary.join(self.props, {
+				screenProps = screenProps,
+				navigation = navigation,
+				navigationConfig = navigationConfig,
+				descriptors = descriptors,
+			}))
+		})
 	end
 
 	return Navigator
