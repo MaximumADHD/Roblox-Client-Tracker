@@ -16,7 +16,7 @@ return function(component)
 			src = {component}
 			TestBootstrap:run(src, TextReporter)
 		else
-			Framework.TestHelpers.runFrameworkTests(TestEZ)
+			Framework.TestHelpers.runFrameworkTests(TestEZ, TextReporter)
 		end
 	end
 end

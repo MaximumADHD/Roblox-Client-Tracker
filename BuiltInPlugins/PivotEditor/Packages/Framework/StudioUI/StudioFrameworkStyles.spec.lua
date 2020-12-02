@@ -38,9 +38,15 @@ return function()
 				return Color3.new()
 			end)
 
-			for _, entry in pairs(styles) do
-				expect(entry.Default).to.be.ok()
-				expect((next(entry.Default))).to.be.ok()
+			for name, entry in pairs(styles) do
+				local ok, result = pcall(function()
+					expect(entry.Default).to.be.ok()
+					expect((next(entry.Default))).to.be.ok()
+				end)
+
+				if not ok then
+					error(string.format("Error checking %s: %s", name, result))
+				end
 			end
 		end)
 	end)

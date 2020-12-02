@@ -11,7 +11,6 @@ local ManagementMainView = require(Plugin.Src.Components.ManagementMainView)
 local NavigationContainer = require(Plugin.Src.Components.Navigation.NavigationContainer)
 
 local ContextServices = require(Plugin.Packages.Framework.ContextServices)
-local UILibraryWrapper = require(Plugin.Packages.Framework.ContextServices.UILibraryWrapper) -- remove with FFlagPluginManagementRemoveUILibrary
 local PluginAPI2 = require(Plugin.Src.ContextServices.PluginAPI2)
 
 local StudioUI = require(Plugin.Packages.Framework.StudioUI)
@@ -35,7 +34,6 @@ local FlagsList = Flags.new({
 	},
 })
 local FFlagPluginManagementFixWhiteScreen = game:DefineFastFlag("PluginManagementFixWhiteScreen", false)
-local FFlagPluginManagementRemoveUILibrary = game:GetFastFlag("PluginManagementRemoveUILibrary2")
 
 local makeTheme
 
@@ -159,7 +157,6 @@ function ManagementApp:render()
 			MainProvider = enabled and ContextServices.provide({
 				self.localization,
 				self.theme,
-				(not FFlagPluginManagementRemoveUILibrary) and UILibraryWrapper.new() or nil,
 				ContextServices.Store.new(store),
 				ContextServices.Mouse.new(plugin:GetMouse()),
 			}, {

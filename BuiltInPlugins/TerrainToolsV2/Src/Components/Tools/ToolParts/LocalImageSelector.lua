@@ -48,8 +48,8 @@ function LocalImageSelector:init()
 
 	self.renderPreview = function()
 		local imageId = ""
-		if self.props.CurrentFile then
-			imageId = self.props.CurrentFile:GetTemporaryId()
+		if self.props.CurrentFile and self.props.CurrentFile.file then
+			imageId = self.props.CurrentFile.file:GetTemporaryId()
 		end
 		return Roact.createElement("ImageLabel", {
 			BackgroundTransparency = 1,
@@ -61,16 +61,18 @@ function LocalImageSelector:init()
 end
 
 function LocalImageSelector:render()
+	local hasSelection = false
 	local filename
-	if self.props.CurrentFile then
-		filename = self.props.CurrentFile.Name
+	if self.props.CurrentFile and self.props.CurrentFile.file then
+		hasSelection = true
+		filename = self.props.CurrentFile.file.Name
 	else
 		filename = self.props.Localization:get():getText("LocalImageSelector", "NoImageSelected")
 	end
 
 	return Roact.createElement(PromptSelectorWithPreview, {
 		SelectionName = filename,
-		HasSelection = self.props.CurrentFile ~= nil,
+		HasSelection = hasSelection,
 
 		RenderPreview = self.renderPreview,
 		PreviewTitle = self.props.PreviewTitle,

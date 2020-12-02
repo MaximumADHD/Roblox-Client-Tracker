@@ -24,7 +24,6 @@ local getTestVariation = FrameworkUtil.getTestVariation
 local Analytics = require(Util.Analytics.Analytics)
 
 local FFlagEnableToolboxImpressionAnalytics = game:GetFastFlag("EnableToolboxImpressionAnalytics")
-local FFlagBootstrapperTryAsset = game:GetFastFlag("BootstrapperTryAsset")
 -- Be sure to turn off ToolboxShowHideABTest before turning on StudioShowHideABTestV2
 local FFlagToolboxShowHideABTest = game:GetFastFlag("ToolboxShowHideABTest")
 local FFlagStudioShowHideABTestV2 = game:GetFastFlag("StudioShowHideABTestV2")
@@ -104,12 +103,10 @@ function ToolboxPlugin:init(props)
 end
 
 function ToolboxPlugin:didMount()
-	if FFlagBootstrapperTryAsset then
-		-- Ensure that the Toolbox shows if starting Studio with an asset ID
-		local startupAsset = StudioService:getStartupAssetId()
-		if startupAsset and #startupAsset > 0 then
-			self.dockWidget.Enabled = true
-		end
+	-- Ensure that the Toolbox shows if starting Studio with an asset ID
+	local startupAsset = StudioService:getStartupAssetId()
+	if startupAsset and #startupAsset > 0 then
+		self.dockWidget.Enabled = true
 	end
 
 	self.onDockWidgetEnabledChanged(self.dockWidget)

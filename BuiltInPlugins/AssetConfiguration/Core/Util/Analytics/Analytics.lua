@@ -7,7 +7,7 @@ local DebugFlags = require(Plugin.Core.Util.DebugFlags)
 
 local getUserId = require(Plugin.Core.Util.getUserId)
 
-local FFlagBootstrapperTryAsset = game:GetFastFlag("BootstrapperTryAsset")
+local FlagsList = require(Plugin.Core.Util.FlagsList)
 
 -- TODO CLIDEVSRVS-1689: StudioSession + StudioID
 local function getStudioSessionId()
@@ -82,24 +82,22 @@ function Analytics.onCreatorSearched(searchTerm, creatorId)
 	})
 end
 
-if FFlagBootstrapperTryAsset then
-	function Analytics.onTryAsset(assetId)
-		AnalyticsSenders.sendEventImmediately("studio", "toolbox", "tryAsset", {
-			assetId = assetId,
-			studioSid = getStudioSessionId(),
-			clientId = getClientId(),
-			userId = getUserId(),
-		})
-	end
+function Analytics.onTryAsset(assetId)
+	AnalyticsSenders.sendEventImmediately("studio", "toolbox", "tryAsset", {
+		assetId = assetId,
+		studioSid = getStudioSessionId(),
+		clientId = getClientId(),
+		userId = getUserId(),
+	})
+end
 
-	function Analytics.onTryAssetFailure(assetId)
-		AnalyticsSenders.sendEventImmediately("studio", "toolbox", "tryAssetFailure", {
-			assetId = assetId,
-			studioSid = getStudioSessionId(),
-			clientId = getClientId(),
-			userId = getUserId(),
-		})
-	end
+function Analytics.onTryAssetFailure(assetId)
+	AnalyticsSenders.sendEventImmediately("studio", "toolbox", "tryAssetFailure", {
+		assetId = assetId,
+		studioSid = getStudioSessionId(),
+		clientId = getClientId(),
+		userId = getUserId(),
+	})
 end
 
 function Analytics.onSearchOptionsOpened()
@@ -225,13 +223,16 @@ function Analytics.onAssetInsertedFromAssetPreview(assetId)
 	})
 end
 
-function Analytics.onTreeviewActivated(assetId)
-	AnalyticsSenders.sendEventDeferred("studio", "toolbox", "treeviewUsage", {
-		assetId = assetId,
-		clientId = getClientId(),
-		userId = getUserId(),
-		platformId = getPlatformId(),
-	})
+if not FlagsList:get("FFlagToolboxUseDevFrameworkAssetPreview") then
+	-- This appears to never be used.
+	function Analytics.onTreeviewActivated(assetId)
+		AnalyticsSenders.sendEventDeferred("studio", "toolbox", "treeviewUsage", {
+			assetId = assetId,
+			clientId = getClientId(),
+			userId = getUserId(),
+			platformId = getPlatformId(),
+		})
+	end
 end
 
 function Analytics.onPluginButtonClickOpen()

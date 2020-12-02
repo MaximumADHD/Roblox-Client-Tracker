@@ -37,6 +37,7 @@ function FrameworkStyles.new()
 		ScrollingFrame = newDefaults(),
 		SelectInput = newDefaults(),
 		Separator = newDefaults(),
+		Slider = newDefaults(),
 		TextInput = newDefaults(),
 		TextLabel = newDefaults(),
 		ToggleButton = newDefaults(),
@@ -44,9 +45,17 @@ function FrameworkStyles.new()
 		TreeView = newDefaults(),
 
 		-- StudioUI Styles
+		AssetRender = newDefaults(),
+		AssetPreview = newDefaults(),
+		Favorites = newDefaults(),
+		MediaPlayerControls = newDefaults(),
 		SearchBar = newDefaults(),
 		StyledDialog = newDefaults(),
 		TitledFrame = newDefaults(),
+		StatelessAudioPlayer = newDefaults(),
+		StatelessVideoPlayer = newDefaults(),
+		Votes = newDefaults(),
+		VoteBar = newDefaults(),
 	}
 end
 

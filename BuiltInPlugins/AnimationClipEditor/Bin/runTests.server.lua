@@ -1,17 +1,28 @@
 local Plugin = script.Parent.Parent
 local DebugFlags = require(Plugin.Src.Util.DebugFlags)
 
+local function getReporter()
+	local TestEZ = Plugin.TestEZ
+	local TeamCityReporter = require(TestEZ.Reporters.TeamCityReporter)
+	local TextReporter = require(TestEZ.Reporters.TextReporter)
+
+	return _G["TEAMCITY"] and TeamCityReporter or TextReporter
+end
+
 local function runTests()
 	local TestEZ = Plugin.TestEZ
-	local tests = Plugin.Src -- Where stores the package's unit tests
-
 	local TestBootstrap = require(TestEZ.TestBootstrap)
-	local TextReporter = require(TestEZ.Reporters.TextReporter) -- Remove Quiet to see output
+	local tests = Plugin.Src -- Where stores the package's unit tests
+	
+	local reporter = getReporter()
 
-	TestBootstrap:run(tests, TextReporter)
+	TestBootstrap:run(tests, reporter)
 end
 
 local function runRhodiumTests()
+	local TestEZ = Plugin.TestEZ
+	local TestBootstrap = require(TestEZ.TestBootstrap)
+
 	local RigCreator = require(Plugin.RigCreator)
 	local TestHelpers = require(Plugin.RhodiumTests.TestHelpers)
 
@@ -19,14 +30,12 @@ local function runRhodiumTests()
 	DummyRig.Name = "Dummy"
 	DummyRig.HumanoidRootPart.Anchored = true
 
-	local TestEZ = Plugin.TestEZ
 	local tests = Plugin.RhodiumTests
-
-	local TestBootstrap = require(TestEZ.TestBootstrap)
-	local TextReporter = require(TestEZ.Reporters.TextReporter) -- Remove Quiet to see output
+	
+	local reporter = getReporter()
 
 	TestHelpers.init(plugin)
-	TestBootstrap:run(tests, TextReporter, false, true)
+	TestBootstrap:run(tests, reporter, false, true)
 	DummyRig:Destroy()
 end
 

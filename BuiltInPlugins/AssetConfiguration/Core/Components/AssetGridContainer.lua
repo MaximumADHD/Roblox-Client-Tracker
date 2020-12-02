@@ -17,13 +17,13 @@
 local StudioService = game:GetService("StudioService")
 
 local FFlagUseCategoryNameInToolbox = game:GetFastFlag("UseCategoryNameInToolbox")
-local FFlagBootstrapperTryAsset = game:GetFastFlag("BootstrapperTryAsset")
 local FFlagFixGroupPackagesCategoryInToolbox = game:GetFastFlag("FixGroupPackagesCategoryInToolbox")
 local FFlagEnableDefaultSortFix2 = game:GetFastFlag("EnableDefaultSortFix2")
 
 local Plugin = script.Parent.Parent.Parent
 
 local Libs = Plugin.Libs
+local Cryo = require(Libs.Cryo)
 local Roact = require(Libs.Roact)
 local RoactRodux = require(Libs.RoactRodux)
 
@@ -39,6 +39,7 @@ local InsertAsset = require(Util.InsertAsset)
 local ContextMenuHelper = require(Util.ContextMenuHelper)
 local PageInfoHelper = require(Util.PageInfoHelper)
 local Category = require(Plugin.Core.Types.Category)
+local FlagsList = require(Util.FlagsList)
 
 local getModal = ContextGetter.getModal
 local getPlugin = ContextGetter.getPlugin
@@ -283,85 +284,92 @@ function AssetGridContainer:init(props)
 end
 
 function AssetGridContainer:didMount()
-	if FFlagBootstrapperTryAsset then
-		local assetIdStr = StudioService:getStartupAssetId()
-		local assetId = tonumber(assetIdStr)
+	local assetIdStr = StudioService:getStartupAssetId()
+	local assetId = tonumber(assetIdStr)
 
-		if assetId then
-			local ok, result = pcall(function()
-				local props = self.props
-				local localization = props.Localization
-				local api = props.API:get()
+	if assetId then
+		local ok, result = pcall(function()
+			local props = self.props
+			local localization = props.Localization
+			local api = props.API:get()
 
-				-- There is no API to get individual Toolbox item details in the same format as that which
-				-- we use for fetching the whole page of Toolbox assets, so we map the fields from this API
-				-- to the expected format from the whole-page batch API (IDE/Toolbox/Items)
-				api.ToolboxService.V1.Items.details({
-					items = {
-						{
-							id = assetId,
-							itemType = "Asset",
-						}
+			-- There is no API to get individual Toolbox item details in the same format as that which
+			-- we use for fetching the whole page of Toolbox assets, so we map the fields from this API
+			-- to the expected format from the whole-page batch API (IDE/Toolbox/Items)
+			api.ToolboxService.V1.Items.details({
+				items = {
+					{
+						id = assetId,
+						itemType = "Asset",
 					}
-				}):makeRequest():andThen(function(response)
-					local responseItem = response.responseBody.data[1]
+				}
+			}):makeRequest():andThen(function(response)
+				local responseItem = response.responseBody.data[1]
 
-					if not responseItem then
-						-- TODO STM-135: Replace these warnings with Lumberyak logs
-						warn("Could not find asset information in response for", assetIdStr)
+				if not responseItem then
+					-- TODO STM-135: Replace these warnings with Lumberyak logs
+					warn("Could not find asset information in response for", assetIdStr)
 
-						Analytics.onTryAssetFailure(assetId)
-						return
-					end
+					Analytics.onTryAssetFailure(assetId)
+					return
+				end
 
+				local assetData = {
+					Asset = {
+						Id = responseItem.asset.id,
+						TypeId = responseItem.asset.typeId,
+						AssetGenres = responseItem.asset.assetGenres,
+						Name = responseItem.asset.name,
+						Description = responseItem.asset.description,
+
+					},
+					Creator = {
+						Name = responseItem.creator.name,
+						Id = responseItem.creator.id,
+						TypeId = responseItem.creator.type,
+					},
+				}
+
+				if FlagsList:get("FFlagToolboxUseDevFrameworkAssetPreview") then
+					assetData.Asset = Cryo.Dictionary.join(assetData.Asset, {
+						Created = responseItem.asset.createdUtc,
+						Updated = responseItem.asset.updatedUtc,
+					})
+				else
 					local localeId = localization.getLocale()
 					local created = DateTime.fromIsoDate(responseItem.asset.createdUtc)
 					local updated = DateTime.fromIsoDate(responseItem.asset.updatedUtc)
 
-					local assetData = {
-						Asset = {
-							Id = responseItem.asset.id,
-							TypeId = responseItem.asset.typeId,
-							AssetGenres = responseItem.asset.assetGenres,
-							Name = responseItem.asset.name,
-							Description = responseItem.asset.description,
-							-- TODO DEVTOOLS-3378: Format as a "friendly" duration string
-							Created = created:FormatLocalTime("LLL", localeId),
-							CreatedRaw = created.UnixTimestamp,
-							-- TODO DEVTOOLS-3378: Format as a "friendly" duration string
-							Updated = updated:FormatLocalTime("LLL", localeId),
-							UpdatedRaw = updated.UnixTimestamp,
-						},
-						Creator = {
-							Name = responseItem.creator.name,
-							Id = responseItem.creator.id,
-							TypeId = responseItem.creator.type,
-						},
-					}
-
-					-- Add the asset data to the store, so that we can open AssetPreview
-					self.props.dispatchGetAssets({
-						assetData,
+					assetData.Asset = Cryo.Dictionary.join(assetData.Asset, {
+						Created = created:FormatLocalTime("LLL", localeId),
+						CreatedRaw = created.UnixTimestamp,
+						Updated = updated:FormatLocalTime("LLL", localeId),
+						UpdatedRaw = updated.UnixTimestamp,
 					})
+				end
 
-					self.openAssetPreview(assetData)
+				-- Add the asset data to the store, so that we can open AssetPreview
+				self.props.dispatchGetAssets({
+					assetData,
+				})
 
-					self.tryInsert(assetData, false)
+				self.openAssetPreview(assetData)
 
-					Analytics.onTryAsset(assetId)
-				end, function(err)
-					-- TODO STM-135: Replace these warnings with Lumberyak logs
-					warn("Could not load asset information for", assetIdStr, err)
+				self.tryInsert(assetData, false)
 
-					Analytics.onTryAssetFailure(assetId)
-				end)
-			end)
-
-			if not ok then
+				Analytics.onTryAsset(assetId)
+			end, function(err)
 				-- TODO STM-135: Replace these warnings with Lumberyak logs
-				warn("Failed to try asset", assetIdStr, tostring(result))
+				warn("Could not load asset information for", assetIdStr, err)
+
 				Analytics.onTryAssetFailure(assetId)
-			end
+			end)
+		end)
+
+		if not ok then
+			-- TODO STM-135: Replace these warnings with Lumberyak logs
+			warn("Failed to try asset", assetIdStr, tostring(result))
+			Analytics.onTryAssetFailure(assetId)
 		end
 	end
 end

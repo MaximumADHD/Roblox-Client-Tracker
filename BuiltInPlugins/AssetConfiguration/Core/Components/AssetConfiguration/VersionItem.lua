@@ -13,11 +13,16 @@
 	LayoutOrder, number, will be used by the internal layouter. So Position will be overrode.
 ]]
 
+local FFlagAssetConfigVersionShowLocalTime = game:DefineFastFlag("AssetConfigVersionShowLocalTime", false)
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Libs = Plugin.Libs
 local Roact = require(Libs.Roact)
+
+local Framework = require(Libs.Framework)
+local ContextServices = Framework.ContextServices
+local formatLocalDateTime = Framework.Util.formatLocalDateTime
 
 local AssetConfiguration = Plugin.Core.Components.AssetConfiguration
 local VersionDivider = require(AssetConfiguration.VersionDivider)
@@ -81,7 +86,6 @@ function VersionItem:render()
 			Constants.ASSET_THUMBNAIL_REQUESTED_IMAGE_SIZE)
 
 		local versionsTheme = theme.versions
-
 		-- The only difference between the current item and itemList in the
 		-- position and size of the divider.
 		return Roact.createElement("Frame", {
@@ -113,7 +117,7 @@ function VersionItem:render()
 				Position = UDim2.new(0, 120, 0, 15 + IITEM_CONTENT_HEIGHT),
 				Size = UDim2.new(1, -67, 0, IITEM_CONTENT_HEIGHT),
 
-				Text = tostring(ItemInfo.created),
+				Text = FFlagAssetConfigVersionShowLocalTime and formatLocalDateTime(ItemInfo.created, "L LTS", self.props.Localization:getLocale()) or tostring(ItemInfo.created),
 				TextColor3 = versionsTheme.textColor,
 				Font = Constants.FONT,
 				TextSize = Constants.FONT_SIZE_MEDIUM,
@@ -152,6 +156,12 @@ function VersionItem:render()
 			})
 		})
 	end)
+end
+
+if FFlagAssetConfigVersionShowLocalTime then
+	ContextServices.mapToProps(VersionItem, {
+		Localization = ContextServices.Localization,
+	})
 end
 
 return VersionItem

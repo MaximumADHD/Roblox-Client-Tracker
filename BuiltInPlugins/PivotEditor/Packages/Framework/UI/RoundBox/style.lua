@@ -11,8 +11,10 @@ local FlagsList = Util.Flags.new({
 local StudioFrameworkStyles = Framework.StudioUI.StudioFrameworkStyles
 local Common = require(StudioFrameworkStyles.Common)
 
+local export: any
+
 if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
-	return {
+	export = {
 		Color = StyleKey.MainBackground,
 		BorderColor = StyleKey.Border,
 		Transparency = 0,
@@ -22,7 +24,7 @@ if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
 		SliceCenter = Rect.new(3, 3, 13, 13),
 	}
 else
-	return function(theme, getColor)
+	export = function(theme, getColor)
 		local common = Common(theme, getColor)
 
 		local Default = Style.extend(common.Background, common.Border, {
@@ -38,3 +40,5 @@ else
 		}
 	end
 end
+
+return export

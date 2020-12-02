@@ -31,9 +31,6 @@ local ContextServices = require(Framework.ContextServices)
 local Util = require(Framework.Util)
 local Typecheck = Util.Typecheck
 local StyleModifier = Util.StyleModifier
-local FlagsList = Util.Flags.new({
-	FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
-})
 
 local UI = require(Framework.UI)
 local Button = UI.Button
@@ -41,6 +38,10 @@ local Container = UI.Container
 local Decoration = UI.Decoration
 local Separator = UI.Separator
 local TextInput = UI.TextInput
+
+local FlagsList = Util.Flags.new({
+	FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
+})
 
 local SearchBar = Roact.PureComponent:extend("SearchBar")
 Typecheck.wrap(SearchBar, script)

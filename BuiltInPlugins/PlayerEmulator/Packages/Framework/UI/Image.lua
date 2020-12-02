@@ -21,7 +21,6 @@
 		Vector2 ImageRectSize: partial pixel size of the image
 		Vector2 ImageRectOffset: pixel offset for rendering part of image
 ]]
-local FFlagAssetManagerLuaCleanup1 = settings():GetFFlag("AssetManagerLuaCleanup1")
 
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
@@ -73,7 +72,7 @@ function Image:render()
 		ScaleType = scaleType,
 		SliceCenter = sliceCenter,
 		SizeConstraint = sizeConstraint,
-		LayoutOrder = FFlagAssetManagerLuaCleanup1 and layoutOrder or nil,
+		LayoutOrder = layoutOrder,
 	}, props[Roact.Children])
 end
 

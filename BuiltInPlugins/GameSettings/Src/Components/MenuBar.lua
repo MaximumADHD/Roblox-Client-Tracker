@@ -43,7 +43,7 @@ errorsFromPage["BasicInfo"].gameIcon = true
 
 
 if settings():GetFFlag("DeveloperSubscriptionsEnabled") then
-	errorsFromPage["DeveloperSubscriptions"] = {
+	errorsFromPage["Monetization"] = {
 		DeveloperSubscriptions = true
 	}
 end

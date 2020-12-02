@@ -8,14 +8,22 @@ local Analytics = require(InspectAndBuyFolder.Services.Analytics)
 local SetFavoriteBundle = require(InspectAndBuyFolder.Actions.SetFavoriteBundle)
 local SetBundles = require(InspectAndBuyFolder.Actions.SetBundles)
 local BundleInfo = require(InspectAndBuyFolder.Models.BundleInfo)
+local createInspectAndBuyKeyMapper = require(InspectAndBuyFolder.createInspectAndBuyKeyMapper)
+
+local FFlagFixInspectAndBuyPerformFetch = require(InspectAndBuyFolder.Flags.FFlagFixInspectAndBuyPerformFetch)
 
 local requiredServices = {
 	Network,
 	Analytics,
 }
 
-local function keyMapper(bundleId)
-	return "inspectAndBuy.createFavoriteForBundle." ..tostring(bundleId)
+local keyMapper
+if FFlagFixInspectAndBuyPerformFetch then
+	keyMapper = createInspectAndBuyKeyMapper("createFavoriteForBundle")
+else
+	keyMapper = function(bundleId)
+		return "inspectAndBuy.createFavoriteForBundle." ..tostring(bundleId)
+	end
 end
 
 --[[
@@ -26,7 +34,14 @@ local function CreateFavoriteForBundle(bundleId)
 		local network = services[Network]
 		local analytics = services[Analytics]
 
-		return PerformFetch.Single(keyMapper(bundleId), function()
+		local key
+		if FFlagFixInspectAndBuyPerformFetch then
+			key = keyMapper(store:getState().storeId, bundleId)
+		else
+			key = keyMapper(bundleId)
+		end
+
+		return PerformFetch.Single(key, function()
 			return network.createFavoriteForBundle(bundleId):andThen(
 				function()
 					-- If Promise was resolved, the favorite was a success!

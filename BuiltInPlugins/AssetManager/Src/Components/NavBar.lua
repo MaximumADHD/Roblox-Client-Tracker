@@ -50,6 +50,7 @@ local DEPRECATED_truncatedPathParts = {}
 local NavBarPadding = 12
 
 local FFlagStudioAssetManagerAddGridListToggle = game:GetFastFlag("StudioAssetManagerAddGridListToggle")
+local FFlagStudioAssetManagerUXFixes = game:GetFastFlag("StudioAssetManagerUXFixes")
 
 -- clean up DEPRECATED_previousDEPRECATED_shouldTruncate, DEPRECATED_isTruncated, DEPRECATED_shouldTruncate with flag
 local FFlagAssetManagerFixNavBarSetState = game:GetFastFlag("AssetManagerFixNavBarSetState")
@@ -165,7 +166,12 @@ function NavBar:buildPathComponents(props, theme, localization, dispatch)
         end
 
         if startingScreenKey == Screens.MAIN.Key then
-            local gameIDText = localization:getText("NavBar", "ID", {gameId = game.GameId})
+            local gameIDText
+            if FFlagStudioAssetManagerUXFixes then
+                gameIDText = "[" .. localization:getText("NavBar", "ID", {gameId = game.GameId}) .. "]"
+            else
+                gameIDText = localization:getText("NavBar", "ID", {gameId = game.GameId})
+            end
 
             local textExtents = GetTextSize(gameIDText, theme.FontSizeMedium, theme.Font)
             local textDimensions = UDim2.fromOffset(textExtents.X, textExtents.Y)
@@ -174,7 +180,7 @@ function NavBar:buildPathComponents(props, theme, localization, dispatch)
                 Size = textDimensions,
                 BackgroundTransparency = 1,
                 Text = gameIDText,
-                TextColor3 = theme.DisabledColor,
+                TextColor3 = FFlagStudioAssetManagerUXFixes and theme.SubTextColor or theme.DisabledColor,
                 TextSize = theme.FontSizeSmall,
                 Font = theme.Font,
                 LayoutOrder = layoutIndex:getNextOrder(),

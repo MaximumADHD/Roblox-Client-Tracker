@@ -9,10 +9,6 @@ local FlagsList = Flags.new({
 		"StudioPermissionsServiceEnabled",
 	},
 })
-local FFlagEnableStudioServiceOpenBrowser = game:GetFastFlag("EnableStudioServiceOpenBrowser")
-local FFlagPluginManagementAllowLotsOfPlugins2 = settings():GetFFlag("PluginManagementAllowLotsOfPlugins2")
-local FFlagFixFindPluginsMessage = game:DefineFastFlag("FixFindPluginsMessage", false)
-local FFlagPluginManagementRemoveUILibrary = game:GetFastFlag("PluginManagementRemoveUILibrary2")
 
 local FlagsListFile = require(Plugin.Src.Util.FlagsList)
 
@@ -23,7 +19,6 @@ local MarketplaceService = game:GetService("MarketplaceService")
 local PermissionsService = game:GetService("PermissionsService")
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
-local UILibrary = require(Plugin.Packages.UILibrary) -- remove with FFlagPluginManagementRemoveUILibrary
 local PluginHolder = require(Plugin.Src.Components.PluginHolder)
 local GetAllPluginPermissions = require(Plugin.Src.Thunks.GetAllPluginPermissions)
 local Constants = require(Plugin.Src.Util.Constants)
@@ -34,16 +29,9 @@ local Util = require(Plugin.Packages.Framework.Util)
 local PluginAPI2 = require(Plugin.Src.ContextServices.PluginAPI2)
 local UpdateAllPlugins = require(Plugin.Src.Thunks.UpdateAllPlugins)
 local RefreshPlugins = require(Plugin.Src.Thunks.RefreshPlugins)
-local Button = UILibrary.Component.Button -- remove with FFlagPluginManagementRemoveUILibrary
 local FrameworkButton = UI.Button
 local StyleModifier = Util.StyleModifier
-
-local LoadingIndicator
-if FFlagPluginManagementRemoveUILibrary then
-	LoadingIndicator = UI.LoadingIndicator
-else
-	LoadingIndicator = UILibrary.Component.LoadingIndicator
-end
+local LoadingIndicator = UI.LoadingIndicator
 
 local ManagementMainView = Roact.Component:extend("ManagementMainView")
 
@@ -167,27 +155,7 @@ function ManagementMainView:render()
 			TextXAlignment = Enum.TextXAlignment.Left.Value,
 		}),
 
-		UpdateAllButtonOLD = (not FFlagPluginManagementRemoveUILibrary and anyUpdateNeeded) and Roact.createElement(Button, {
-			Size = UDim2.new(0,Constants.HEADER_UPDATE_WIDTH,0,Constants.HEADER_BUTTON_SIZE),
-			Position = UDim2.new(1, Constants.HEADER_RIGHT_PADDING * 2
-				- Constants.HEADER_UPDATE_WIDTH - Constants.HEADER_BUTTON_SIZE,0,Constants.HEADER_TOP_PADDING),
-			Style = updateDisabled and "Disabled" or "Default",
-			OnClick = not updateDisabled and self.updateAllPlugins or nil,
-			RenderContents = function()
-				return {
-					Label = Roact.createElement("TextLabel", {
-						Size = UDim2.new(1, 0, 1, 0),
-						Text = localization:getText("Main", "UpdateAllButton"),
-						TextColor3 = updateDisabled and theme.DisabledColor or theme.TextColor,
-						Font = Enum.Font.SourceSans,
-						TextSize = 18,
-						BackgroundTransparency = 1,
-					})
-				}
-			end,
-		}),
-
-		UpdateAllButton = (FFlagPluginManagementRemoveUILibrary and anyUpdateNeeded) and Roact.createElement(FrameworkButton, {
+		UpdateAllButton = anyUpdateNeeded and Roact.createElement(FrameworkButton, {
 			Size = UDim2.new(0,Constants.HEADER_UPDATE_WIDTH,0,Constants.HEADER_BUTTON_SIZE),
 			Position = UDim2.new(1, Constants.HEADER_RIGHT_PADDING * 2
 				- Constants.HEADER_UPDATE_WIDTH - Constants.HEADER_BUTTON_SIZE, 0, Constants.HEADER_TOP_PADDING),
@@ -205,33 +173,7 @@ function ManagementMainView:render()
 			}),
 		}),
 
-		FindPluginsButtonOLD = not FFlagPluginManagementRemoveUILibrary and Roact.createElement(Button, {
-			Size = UDim2.new(
-				0, Constants.HEADER_BUTTON_SIZE,
-				0, Constants.HEADER_BUTTON_SIZE),
-			Position = UDim2.new(
-				1, Constants.HEADER_RIGHT_PADDING,
-				0, Constants.HEADER_TOP_PADDING),
-			AnchorPoint = Vector2.new(1, 0),
-			Style = "Primary",
-			BackgroundTransparency = 1,
-			OnClick = self.findPlugins,
-
-			RenderContents = function()
-				return {
-					Dots = Roact.createElement("TextLabel", {
-						Position = UDim2.new(0, 0, 0, 0),
-						Size = UDim2.new(1, 0, 1, 0),
-						Text = "+",
-						TextColor3 = theme.White,
-						Font = Enum.Font.SourceSansBold,
-						TextSize = 24,
-						BackgroundTransparency = 1,
-					})
-				}
-			end,
-		}),
-		FindPluginsButton = FFlagPluginManagementRemoveUILibrary and Roact.createElement(FrameworkButton, {
+		FindPluginsButton = Roact.createElement(FrameworkButton, {
 			Size = UDim2.new(0, Constants.HEADER_BUTTON_SIZE, 0, Constants.HEADER_BUTTON_SIZE),
 			Position = UDim2.new(1, Constants.HEADER_RIGHT_PADDING, 0, Constants.HEADER_TOP_PADDING),
 			AnchorPoint = Vector2.new(1, 0),
@@ -272,27 +214,7 @@ function ManagementMainView:render()
 			TextYAlignment = Enum.TextYAlignment.Top.Value,
 		}),
 
-		-- Remove when removing FFlagFixFindPluginsMessage
-		FindPluginsMessage_Old = showNoPlugins and not FFlagFixFindPluginsMessage and Roact.createElement("TextButton", {
-			Position = UDim2.new(
-				0, Constants.HEADER_LEFT_PADDING,
-				0, Constants.HEADER_HEIGHT + Constants.HEADER_MESSAGE_LINE_HEIGHT
-			),
-			Size = UDim2.new(
-				1, -Constants.HEADER_LEFT_PADDING,
-				0, Constants.HEADER_MESSAGE_LINE_HEIGHT
-			),
-			Text = localization:getText("Main", "FindPluginsMessage_Old"),
-			TextSize = 17,
-			TextColor3 = theme.LinkColor,
-			Font = Enum.Font.SourceSans,
-			BackgroundTransparency = 1,
-			TextXAlignment = Enum.TextXAlignment.Left.Value,
-			TextYAlignment = Enum.TextYAlignment.Top.Value,
-			[Roact.Event.Activated] = self.findPlugins,
-		}),
-
-		FindPluginsMessage = showNoPlugins and FFlagFixFindPluginsMessage and Roact.createElement("TextLabel", {
+		FindPluginsMessage = showNoPlugins and Roact.createElement("TextLabel", {
 			Position = UDim2.new(
 				0, Constants.HEADER_LEFT_PADDING,
 				0, Constants.HEADER_HEIGHT + Constants.HEADER_MESSAGE_LINE_HEIGHT
@@ -326,13 +248,13 @@ function ManagementMainView:render()
 		Indicator = loading and Roact.createElement(LoadingIndicator, {
 			AnchorPoint = Vector2.new(0.5, 0),
 			Position = UDim2.new(0.5, 0, 0, Constants.HEADER_HEIGHT + Constants.HEADER_MESSAGE_LINE_HEIGHT),
-			Size = FFlagPluginManagementRemoveUILibrary and UDim2.new(0, 92, 0, 24) or nil,
+			Size = UDim2.new(0, 92, 0, 24),
 		}),
 	})
 end
 
 ContextServices.mapToProps(ManagementMainView, {
-	Plugin = FFlagPluginManagementAllowLotsOfPlugins2 and ContextServices.Plugin or nil,
+	Plugin = ContextServices.Plugin,
 	Localization = ContextServices.Localization,
 	Stylizer = FlagsListFile:get("FFlagRefactorDevFrameworkTheme") and ContextServices.Stylizer or nil,
 	Theme = (not FlagsListFile:get("FFlagRefactorDevFrameworkTheme")) and ContextServices.Theme or nil,
@@ -352,11 +274,7 @@ local function mapDispatchToProps(dispatch)
 		end,
 
 		dispatchRefreshPlugins = function(apiImpl)
-			if FFlagPluginManagementAllowLotsOfPlugins2 then
-				dispatch(RefreshPlugins(apiImpl, MarketplaceService))
-			else
-				dispatch(RefreshPlugins(apiImpl))
-			end
+			dispatch(RefreshPlugins(apiImpl, MarketplaceService))
 		end,
 
 		getAllPluginPermissions = function(apiImpl)

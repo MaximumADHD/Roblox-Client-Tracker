@@ -47,6 +47,8 @@ local BulkImportService = game:GetService("BulkImportService")
 local FFlagStudioAssetManagerShiftMultiSelect = game:GetFastFlag("StudioAssetManagerShiftMultiSelect")
 local FFlagAllowAudioBulkImport = game:GetFastFlag("AllowAudioBulkImport")
 local FFlagStudioAssetManagerAddGridListToggle = game:GetFastFlag("StudioAssetManagerAddGridListToggle")
+local FFlagStudioAssetManagerUXFixes = game:GetFastFlag("StudioAssetManagerUXFixes")
+local FFlagStudioAssetManagerAssetPreviewRequest = game:GetFastFlag("StudioAssetManagerAssetPreviewRequest")
 
 local AssetGridContainer = Roact.Component:extend("AssetGridContainer")
 
@@ -240,13 +242,16 @@ end
 
 function AssetGridContainer:didUpdate()
     local props = self.props
-    local apiImpl = props.API:get()
-    local screen = props.CurrentScreen
-    if screen ~= self.state.currentScreen then
-        props.dispatchOnScreenChange(apiImpl, screen)
-        self:setState({
-            currentScreen = screen,
-        })
+    if not FFlagStudioAssetManagerUXFixes then
+        -- clean state.currentScreen with flag FFlagStudioAssetManagerUXFixes
+        local apiImpl = props.API:get()
+        local screen = props.CurrentScreen
+        if screen ~= self.state.currentScreen then
+            props.dispatchOnScreenChange(apiImpl, screen)
+            self:setState({
+                currentScreen = screen,
+            })
+        end
     end
     if FFlagStudioAssetManagerAddGridListToggle then
         -- force re-render so scrolling frame updates to new layout ref
@@ -308,18 +313,20 @@ function AssetGridContainer:render()
 
     local hasAssetsToDisplay = currentScreen.Key == Screens.MAIN.Key or assetCount ~= 0
 
-    if hasAssetsToDisplay then
-        if numberOfAssets ~= 0 then
-            local assetIds = {}
-            for assetId, asset in pairs(assets) do
-                local isPlace = asset.assetType == Enum.AssetType.Place
-                if not isPlace and assetPreviewData[assetId] == nil then
-                    table.insert(assetIds, assetId)
+    if not FFlagStudioAssetManagerAssetPreviewRequest then
+        if hasAssetsToDisplay then
+            if numberOfAssets ~= 0 then
+                local assetIds = {}
+                for assetId, asset in pairs(assets) do
+                    local isPlace = asset.assetType == Enum.AssetType.Place
+                    if not isPlace and assetPreviewData[assetId] == nil then
+                        table.insert(assetIds, assetId)
+                    end
                 end
-            end
 
-            if #assetIds ~= 0 then
-                dispatchGetAssetPreviewData(apiImpl, assetIds)
+                if #assetIds ~= 0 then
+                    dispatchGetAssetPreviewData(apiImpl, assetIds)
+                end
             end
         end
     end

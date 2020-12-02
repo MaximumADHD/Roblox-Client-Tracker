@@ -10,7 +10,7 @@ local Theme = {}
 
 
 local function defineTheme(defaults, overrides)
-	local themeName = settings().Studio["UI Theme"].Name
+	local themeName = game:GetFastFlag("StudioPluginsDontUseUITheme") and settings().Studio.Theme.Name or settings().Studio["UI Theme"].Name
     local override = overrides and overrides[themeName]
     if override then
         return Cryo.Dictionary.join(defaults, override)

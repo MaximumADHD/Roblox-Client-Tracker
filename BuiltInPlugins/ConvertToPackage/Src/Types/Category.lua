@@ -58,8 +58,6 @@ Category.FREE_MESHES = {name = "FreeMeshes", category = "FreeMeshes",
 	ownershipType = Category.OwnershipType.FREE, assetType = Category.AssetType.MESH}
 Category.FREE_AUDIO = {name = "FreeAudio", category = "FreeAudio",
 	ownershipType = Category.OwnershipType.FREE, assetType = Category.AssetType.AUDIO}
-Category.FREE_PLUGINS = {name = "FreePlugins", category = "FreePlugins",
-	ownershipType = Category.OwnershipType.FREE, Category.AssetType.PLUGIN}
 
 Category.MY_MODELS = {name = "MyModels", category = "MyModelsExceptPackage",
 	ownershipType = Category.OwnershipType.MY, assetType = Category.AssetType.MODEL}

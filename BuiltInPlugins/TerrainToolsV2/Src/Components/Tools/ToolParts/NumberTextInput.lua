@@ -14,6 +14,8 @@
 		See LabeledTextInput for more
 ]]
 
+local FFlagTerrainToolsFixLabeledElementPairWidth = game:GetFastFlag("TerrainToolsFixLabeledElementPairWidth")
+
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
@@ -36,10 +38,16 @@ end
 
 local NumberTextInput = Roact.PureComponent:extend("NumberTextInput")
 
-NumberTextInput.defaultProps = {
-	Width = UDim.new(0, 136),
-	MaxGraphemes = MAX_GRAPHEMES,
-}
+if FFlagTerrainToolsFixLabeledElementPairWidth then
+	NumberTextInput.defaultProps = {
+		MaxGraphemes = MAX_GRAPHEMES,
+	}
+else
+	NumberTextInput.defaultProps = {
+		Width = UDim.new(0, 136),
+		MaxGraphemes = MAX_GRAPHEMES,
+	}
+end
 
 function NumberTextInput:init(props)
 	self.isValid = true

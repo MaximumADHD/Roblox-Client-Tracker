@@ -30,8 +30,10 @@ return function()
 		expect(r:getState().size.Z).to.equal(1024)
 
 		expect(r:getState().useColorMap).to.equal(false)
-		expect(r:getState().heightmap).to.equal(nil)
-		expect(r:getState().colormap).to.equal(nil)
+		expect(type(r:getState().heightmap)).to.equal("table")
+		expect((next(r:getState().heightmap))).to.never.be.ok()
+		expect(type(r:getState().colormap)).to.equal("table")
+		expect((next(r:getState().colormap))).to.never.be.ok()
 	end)
 
 	describe("ChangePosition", function()
@@ -101,7 +103,7 @@ return function()
 
 	describe("SelectHeightmap", function()
 		it("should select the heightmap", function()
-			local heightmap = {}
+			local heightmap = {file = "foo"}
 			local state = ImportLocalTool(nil, SelectHeightmap(heightmap))
 
 			expect(state).to.be.ok()
@@ -110,16 +112,18 @@ return function()
 		end)
 
 		it("should be clearable", function()
-			local heightmap = {}
+			local heightmap = {file = "foo"}
 			local state = ImportLocalTool(nil, SelectHeightmap(heightmap))
 
 			expect(state.heightmap).to.equal(heightmap)
 			state = ImportLocalTool(state, SelectHeightmap(nil))
-			expect(state.heightmap).to.equal(nil)
+			expect(state.heightmap).to.be.ok()
+			expect(type(state.heightmap)).to.equal("table")
+			expect((next(state.heightmap))).to.never.be.ok()
 		end)
 
 		it("should preserve immutability", function()
-			local heightmap = {}
+			local heightmap = {file = "foo"}
 			local immutabilityPreserved = testImmutability(ImportLocalTool, SelectHeightmap(heightmap))
 			expect(immutabilityPreserved).to.equal(true)
 		end)
@@ -127,7 +131,7 @@ return function()
 
 	describe("SelectColormap", function()
 		it("should select the colormap", function()
-			local colormap = {}
+			local colormap = {file = "foo"}
 			local state = ImportLocalTool(nil, SelectColormap(colormap))
 
 			expect(state).to.be.ok()
@@ -136,16 +140,18 @@ return function()
 		end)
 
 		it("should be clearable", function()
-			local colormap = {}
+			local colormap = {file = "foo"}
 			local state = ImportLocalTool(nil, SelectColormap(colormap))
 
 			expect(state.colormap).to.equal(colormap)
 			state = ImportLocalTool(state, SelectColormap(nil))
-			expect(state.colormap).to.equal(nil)
+			expect(state.colormap).to.be.ok()
+			expect(type(state.colormap)).to.equal("table")
+			expect((next(state.colormap))).to.never.be.ok()
 		end)
 
 		it("should preserve immutability", function()
-			local colormap = {}
+			local colormap = {file = "foo"}
 			local immutabilityPreserved = testImmutability(ImportLocalTool, SelectColormap(colormap))
 			expect(immutabilityPreserved).to.equal(true)
 		end)

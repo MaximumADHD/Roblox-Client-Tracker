@@ -9,7 +9,6 @@
 			as a parameter to be used as the button parent.
 		Plugin Plugin: A Plugin ContextItem, which is provided via mapToProps.
 ]]
-local FFlagAssetManagerLuaCleanup1 = settings():GetFFlag("AssetManagerLuaCleanup1")
 
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
@@ -24,9 +23,7 @@ function PluginToolbar:createToolbar()
 	local plugin = props.Plugin:get()
 	local title = props.Title
 
-	if FFlagAssetManagerLuaCleanup1 then
-		assert(typeof(title) == "string", string.format("PluginToolbar requires Title to be of type string not %s", typeof(title)))
-	end
+	assert(typeof(title) == "string", string.format("PluginToolbar requires Title to be of type string not %s", typeof(title)))
 	self.toolbar = plugin:CreateToolbar(title)
 end
 

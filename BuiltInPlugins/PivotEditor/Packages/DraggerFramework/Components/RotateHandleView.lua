@@ -17,7 +17,6 @@ local CULLING_MODE = getEngineFeatureAdornCullingMode() and Enum.AdornCullingMod
 
 local RotateHandleView = Roact.PureComponent:extend("RotateHandleView")
 
-local getFFlagUseCylinderHandle = require(DraggerFramework.Flags.getFFlagUseCylinderHandle)
 local getFFlagShowStartAngle = require(DraggerFramework.Flags.getFFlagShowStartAngle)
 
 local HANDLE_SEGMENTS = 32
@@ -76,58 +75,31 @@ function RotateHandleView:render()
 		thickness = HANDLE_THICK_BY_FRAC * thickness
 	end
 
-	if getFFlagUseCylinderHandle() then
-		-- Draw main rotation gimbal.
-		local halfThickness = 0.5 * thickness
-		children["OnTopHandle"] = Roact.createElement("CylinderHandleAdornment", {
-			Adornee = Workspace.Terrain,
-			CFrame = self.props.HandleCFrame * CFrame.Angles(self.props.StartAngle or 0, math.pi / 2, math.pi / 2),
-			Height = thickness,
-			Radius = radius + halfThickness,
-			InnerRadius = radius - halfThickness,
-			Color3 = self.props.Color,
-			AlwaysOnTop = true,
-			Transparency = HANDLE_DIM_TRANSPARENCY,
-			ZIndex = 0,
-			AdornCullingMode = CULLING_MODE,
-		})
-		children["BrightHandle"] = Roact.createElement("CylinderHandleAdornment", {
-			Adornee = Workspace.Terrain,
-			CFrame = self.props.HandleCFrame * CFrame.Angles(self.props.StartAngle or 0, math.pi / 2, math.pi / 2),
-			Height = thickness,
-			Radius = radius + halfThickness,
-			InnerRadius = radius - halfThickness,
-			Color3 = self.props.Color,
-			AlwaysOnTop = false,
-			ZIndex = 0,
-			AdornCullingMode = CULLING_MODE,
-		})
-	else
-		local segmentLength = 2 * (radius + 0.5 * thickness) * math.sin(angleStep / 2)
-		for i = 0, HANDLE_SEGMENTS - 1 do
-			local angle = angleStep * i
-			local cframe = self.props.HandleCFrame * CFrame.Angles(angle, 0, 0) * CFrame.new(0, 0, offset)
-			local alwaysOnTopName = "OnTopHandleSegment" .. tostring(i)
-			children[alwaysOnTopName] = Roact.createElement("BoxHandleAdornment", {
-				Adornee = Workspace.Terrain,
-				AlwaysOnTop = true,
-				CFrame = cframe,
-				Color3 = self.props.Color,
-				Size = Vector3.new(thickness, segmentLength, thickness),
-				Transparency = HANDLE_DIM_TRANSPARENCY,
-				ZIndex = 0,
-			})
-			local brightName = "BrightHandleSegment" .. tostring(i)
-			children[brightName] = Roact.createElement("BoxHandleAdornment", {
-				Adornee = Workspace.Terrain,
-				AlwaysOnTop = false,
-				CFrame = cframe,
-				Color3 = self.props.Color,
-				Size = Vector3.new(thickness, segmentLength, thickness),
-				ZIndex = 0,
-			})
-		end
-	end
+	-- Draw main rotation gimbal.
+	local halfThickness = 0.5 * thickness
+	children["OnTopHandle"] = Roact.createElement("CylinderHandleAdornment", {
+		Adornee = Workspace.Terrain,
+		CFrame = self.props.HandleCFrame * CFrame.Angles(self.props.StartAngle or 0, math.pi / 2, math.pi / 2),
+		Height = thickness,
+		Radius = radius + halfThickness,
+		InnerRadius = radius - halfThickness,
+		Color3 = self.props.Color,
+		AlwaysOnTop = true,
+		Transparency = HANDLE_DIM_TRANSPARENCY,
+		ZIndex = 0,
+		AdornCullingMode = CULLING_MODE,
+	})
+	children["BrightHandle"] = Roact.createElement("CylinderHandleAdornment", {
+		Adornee = Workspace.Terrain,
+		CFrame = self.props.HandleCFrame * CFrame.Angles(self.props.StartAngle or 0, math.pi / 2, math.pi / 2),
+		Height = thickness,
+		Radius = radius + halfThickness,
+		InnerRadius = radius - halfThickness,
+		Color3 = self.props.Color,
+		AlwaysOnTop = false,
+		ZIndex = 0,
+		AdornCullingMode = CULLING_MODE,
+	})
 
 	if self.props.TickAngle then
 		local angleStep = self.props.TickAngle
@@ -179,84 +151,57 @@ function RotateHandleView:render()
 		end
 	end
 
-	local function createRadiusElement(angle, thickness)
-		assert(not getFFlagUseCylinderHandle())
-		local offset = CFrame.new(0, 0, -radius / 2)
-		local cframe = self.props.HandleCFrame * CFrame.Angles(angle, 0, 0) * offset
-
-		return Roact.createElement("CylinderHandleAdornment", {
-			Adornee = Workspace.Terrain,
-			AlwaysOnTop = true,
-			CFrame = cframe,
-			Color3 = self.props.Color,
-			Height = radius,
-			Radius = thickness / 2,
-			ZIndex = 0,
-			AdornCullingMode = CULLING_MODE,
-		})
-	end
-
 	-- Draw the swept angle as circular section at the outer edge. The circular
 	-- section shows the smallest swept angle back to the starting point.
-	if getFFlagUseCylinderHandle() then
-		if self.props.StartAngle and self.props.EndAngle then
-			local smallTickLength = HANDLE_TICK_RADIUS_FRAC * radius
-			local primaryTickLength = HANDLE_TICK_RADIUS_LONG_FRAC * radius
-			local outerWidth = 0.5 * (primaryTickLength - smallTickLength)
+	if self.props.StartAngle and self.props.EndAngle then
+		local smallTickLength = HANDLE_TICK_RADIUS_FRAC * radius
+		local primaryTickLength = HANDLE_TICK_RADIUS_LONG_FRAC * radius
+		local outerWidth = 0.5 * (primaryTickLength - smallTickLength)
 
-			local theta = self.props.EndAngle - self.props.StartAngle
-			local startAngle = self.props.StartAngle
-			if theta > math.pi then
-				theta = theta - math.pi * 2
-			end
-			if theta < -math.pi then
-				theta = theta + math.pi * 2
-			end
-			if theta < 0 then
-				startAngle = startAngle + theta
-				theta = math.abs(theta)
-			end
-			if math.abs(theta) > 0.001 then
-				children.AngleSweepElement = Roact.createElement("CylinderHandleAdornment", {
-					Adornee = Workspace.Terrain,
-					CFrame = self.props.HandleCFrame * CFrame.Angles(startAngle - math.pi / 2, math.pi / 2, math.pi / 2),
-					Height = 0,
-					Radius = radius,
-					InnerRadius = 0,
-					Angle = math.deg(theta),
-					Color3 = self.props.Color,
-					AlwaysOnTop = true,
-					Transparency = 0.6,
-					ZIndex = 0,
-				})
-			end
-
-			local angleDisplayThickness = ANGLE_DISPLAY_THICKNESS * self.props.Scale
-			local function createAngleDisplay(angle)
-				local offset = CFrame.new(0, 0, -(radius + outerWidth) / 2)
-				local cframe = self.props.HandleCFrame * CFrame.Angles(angle, 0, 0) * offset
-				return Roact.createElement("CylinderHandleAdornment", {
-					Adornee = Workspace.Terrain,
-					AlwaysOnTop = true,
-					CFrame = cframe,
-					Color3 = self.props.Color,
-					Height = radius + outerWidth,
-					Radius = angleDisplayThickness / 2,
-					ZIndex = 0,
-				})
-			end
-			children.EndAngleElement = createAngleDisplay(self.props.EndAngle)
-			if getFFlagShowStartAngle() then
-				children.StartAngleElement = createAngleDisplay(self.props.StartAngle)
-			end
+		local theta = self.props.EndAngle - self.props.StartAngle
+		local startAngle = self.props.StartAngle
+		if theta > math.pi then
+			theta = theta - math.pi * 2
 		end
-	else
+		if theta < -math.pi then
+			theta = theta + math.pi * 2
+		end
+		if theta < 0 then
+			startAngle = startAngle + theta
+			theta = math.abs(theta)
+		end
+		if math.abs(theta) > 0.001 then
+			children.AngleSweepElement = Roact.createElement("CylinderHandleAdornment", {
+				Adornee = Workspace.Terrain,
+				CFrame = self.props.HandleCFrame * CFrame.Angles(startAngle - math.pi / 2, math.pi / 2, math.pi / 2),
+				Height = 0,
+				Radius = radius,
+				InnerRadius = 0,
+				Angle = math.deg(theta),
+				Color3 = self.props.Color,
+				AlwaysOnTop = true,
+				Transparency = 0.6,
+				ZIndex = 0,
+			})
+		end
+
 		local angleDisplayThickness = ANGLE_DISPLAY_THICKNESS * self.props.Scale
-		if self.props.StartAngle ~= nil then
-			children.StartAngleElement = createRadiusElement(self.props.StartAngle, angleDisplayThickness)
+		local function createAngleDisplay(angle)
+			local offset = CFrame.new(0, 0, -(radius + outerWidth) / 2)
+			local cframe = self.props.HandleCFrame * CFrame.Angles(angle, 0, 0) * offset
+			return Roact.createElement("CylinderHandleAdornment", {
+				Adornee = Workspace.Terrain,
+				AlwaysOnTop = true,
+				CFrame = cframe,
+				Color3 = self.props.Color,
+				Height = radius + outerWidth,
+				Radius = angleDisplayThickness / 2,
+				ZIndex = 0,
+			})
 		end
-		if self.props.EndAngle ~= nil then
-			children.EndAngleElement = createRadiusElement(self.props.EndAngle, angleDisplayThickness)
+		children.EndAngleElement = createAngleDisplay(self.props.EndAngle)
+		if getFFlagShowStartAngle() then
+			children.StartAngleElement = createAngleDisplay(self.props.StartAngle)
 		end
 	end
 

@@ -11,6 +11,8 @@ local PaidAccess = require(Page.Components.PaidAccess)
 local VIPServers = require(Page.Components.VIPServers)
 local DevProducts = require(Page.Components.DevProducts)
 local SettingsPage = require(Plugin.Src.Components.SettingsPages.SettingsPage)
+local DevSubList = require(Page.Components.DevSubList)
+local DevSubDetails = require(Page.Components.DevSubDetails)
 
 local FrameworkUI = require(Framework.UI)
 local HoverArea = FrameworkUI.HoverArea
@@ -33,6 +35,11 @@ local DiscardError = require(Plugin.Src.Actions.DiscardError)
 local SetEditDevProductId = require(Plugin.Src.Actions.SetEditDevProductId)
 
 local LoadDeveloperProducts = require(Page.Thunks.LoadDeveloperProducts)
+local AddDevSubKeyChange = require(Page.Thunks.AddDevSubKeyChange)
+local AddDevSubKeyError = require(Page.Thunks.AddDevSubKeyError)
+local AddDevSubChange = require(Page.Thunks.AddDevSubChange)
+
+local HttpService = game:GetService("HttpService")
 
 local Monetization = Roact.PureComponent:extend(script.name)
 
@@ -49,8 +56,10 @@ local DEV_PRODUCTS_MIN_PRICE = 1
 
 local FFlagSupportFreePrivateServers = game:GetFastFlag("SupportFreePrivateServers")
 local FFlagEnableDevProductsInGameSettings = game:GetFastFlag("EnableDevProductsInGameSettings")
+local FFlagDeveloperSubscriptionsEnabled = game:GetFastFlag("DeveloperSubscriptionsEnabled")
 local FFlagStudioFixGameManagementIndexNil = game:getFastFlag("StudioFixGameManagementIndexNil")
 local FFlagStudioFixMissingMonetizationHeader = game:DefineFastFlag("StudioFixMissingMonetizationHeader", false)
+local FVariableMaxRobuxPrice = game:DefineFastInt("DeveloperSubscriptionsMaxRobuxPrice", 2000)
 
 local priceErrors = {
     BelowMin = "ErrorPriceBelowMin",
@@ -68,6 +77,7 @@ local function loadSettings(store, contextItems)
     local state = store:getState()
     local gameId = state.Metadata.gameId
     local monetizationController = contextItems.monetizationController
+    local devSubsController = contextItems.devSubsController
 
     return {
         function(loadedSettings)
@@ -116,7 +126,13 @@ local function loadSettings(store, contextItems)
 
             loadedSettings["developerProducts"] = developerProducts
             loadedSettings["devProductsCursor"] = cursor
-        end
+        end,
+
+        function(loadedSettings)
+            local openDevSubs = devSubsController:getDevSubs(gameId, true)
+
+            loadedSettings["DeveloperSubscriptions"] = openDevSubs
+        end,
     }
 end
 
@@ -124,8 +140,11 @@ local function saveSettings(store, contextItems)
     local state = store:getState()
     local gameId = state.Metadata.gameId
     local monetizationController = contextItems.monetizationController
+    local devSubsController = contextItems.devsubs
     local unsavedDevProducts = state.Settings.Changed.unsavedDevProducts
     local editedDevProducts = state.Settings.Changed.editedDeveloperProducts
+    local currDevSubs = state.Settings.Current.DeveloperSubscriptions
+    local changedDevSubs = state.Settings.Changed.DeveloperSubscriptions or {}
 
     local saveFunctions = {
         function()
@@ -178,6 +197,26 @@ local function saveSettings(store, contextItems)
         end
     end
 
+    if changedDevSubs ~= nil then
+        for key, devSub in pairs(changedDevSubs) do
+            if devSub.IsNew then
+                table.insert(saveFunctions, function()
+                    devSubsController:createDevSub(gameId, devSub)
+                end)
+            else
+                if devSub.Active == false then
+                    table.insert(saveFunctions, function()
+                        devSubsController:discontinueDevSub(currDevSubs[key])
+                    end)
+                else
+                    table.insert(saveFunctions, function()
+                        devSubsController:changeDevSub(currDevSubs[key], devSub)
+                    end)
+                end
+            end
+        end
+    end
+
     return saveFunctions
 end
 
@@ -207,7 +246,7 @@ local function loadValuesToProps(getValue, state)
             isEnabled = getValue("vipServersIsEnabled"),
             price = getValue("vipServersPrice"),
             initialPrice = state.Settings.Current.vipServersPrice and state.Settings.Current.vipServersPrice or 0,
-			activeServersCount = getValue("vipServersActiveServersCount"),
+            activeServersCount = getValue("vipServersActiveServersCount"),
             activeSubscriptionsCount = getValue("vipServersActiveSubscriptionsCount"),
             changed = changed,
             willShutdown = vipServersShutdown,
@@ -223,9 +262,32 @@ local function loadValuesToProps(getValue, state)
         DevProductPriceError = errors.devProductPrice,
         DevProductNameError = errors.devProductName,
 
+        isEditingSubscription = getValue("isEditingSubscription"),
+        editedSubscriptionKey = getValue("editedSubscriptionKey"),
     }
 
     return loadedProps
+end
+
+local function checkChangedDevSubKey(dispatch, devSubKey, valueKey, value)
+    if valueKey == "Name" and (value == "" or value == nil) then
+        dispatch(AddDevSubKeyError(devSubKey, valueKey, {Empty = "Name can't be empty"}))
+    elseif valueKey == "Price" then
+        local price = tonumber(value)
+        if not price or price <= 0  then
+            dispatch(AddDevSubKeyError(devSubKey, valueKey, {NotANumber = "Price needs to be a valid number"}))
+        elseif FVariableMaxRobuxPrice and price > FVariableMaxRobuxPrice then
+            dispatch(AddDevSubKeyError(devSubKey, valueKey, {AboveMaxRobuxAmount = "Price must be less than a certain amount"}))
+        end
+    elseif valueKey == "Image" and (value == nil or value == "None") then
+        dispatch(AddDevSubKeyError(devSubKey, valueKey, {Empty = "Image can't be empty"}))
+    end
+end
+
+local function checkChangedDevSub(dispatch, devSub)
+    checkChangedDevSubKey(dispatch, devSub.Key, "Name", devSub.Name)
+    checkChangedDevSubKey(dispatch, devSub.Key, "Image", devSub.Image)
+    checkChangedDevSubKey(dispatch, devSub.Key, "Price", devSub.Price)
 end
 
 --Implements dispatch functions for when the user changes values
@@ -322,6 +384,44 @@ local function dispatchChanges(setValue, dispatch)
 
         LoadMoreDevProducts = function()
             dispatch(LoadDeveloperProducts())
+        end,
+
+        SetDevSubKey = function(devSubKey, valueKey, value)
+            dispatch(AddDevSubKeyChange(devSubKey, valueKey, value))
+            checkChangedDevSubKey(dispatch, devSubKey, valueKey, value)
+        end,
+
+        OnDeveloperSubscriptionChanged = function(devSub)
+            checkChangedDevSub(dispatch, devSub)
+        end,
+
+        OnDeveloperSubscriptionCreated = function()
+            -- when we create a developer subscription, we grant it
+            -- a temporary key. ultimately, its key will be based
+            -- upon its id as given by the backend, but for now we
+            -- just need to put it into our table for later
+            local key = "TEMPORARY_"..HttpService:GenerateGUID()
+
+            local newDeveloperSubscription = {
+                IsNew = true,
+                Key = key,
+                Price = 0,
+                Subscribers = 0,
+                Active = false,
+                Id = -1,
+                Prepaid = 6,
+            }
+
+            -- in this case, we can borrow the functionality of this
+            -- function in order to join this new sub to the store
+            dispatch(AddDevSubChange(newDeveloperSubscription.Key, newDeveloperSubscription))
+            checkChangedDevSub(dispatch, newDeveloperSubscription)
+
+            -- now switch state, there's a chance that the new
+            -- subscription isn't in the store as we understand it, but
+            -- we just show nothing until the store gives it to us
+            dispatch(AddChange("isEditingSubscription", true))
+            dispatch(AddChange("editedSubscriptionKey", newDeveloperSubscription.Key))
         end,
     }
     return dispatchFuncs
@@ -463,6 +563,8 @@ local function displayMonetizationPage(props)
     local setEditDevProductId = props.SetEditDevProductId
     local loadMoreDevProducts = props.LoadMoreDevProducts
 
+    local developerSubscriptionCreated = props.OnDeveloperSubscriptionCreated
+
     local priceError = getPriceErrorText(props.AccessPriceError, vipServers.isEnabled, paidAccessEnabled, localization)
 
     local layoutIndex = LayoutOrderIterator.new()
@@ -508,7 +610,12 @@ local function displayMonetizationPage(props)
             OnVipServersPriceChanged = vipServersPriceChanged,
         }),
 
-		DevProducts = FFlagEnableDevProductsInGameSettings and Roact.createElement(DevProducts, {
+        DevSubsList = FFlagDeveloperSubscriptionsEnabled and Roact.createElement(DevSubList, {
+            LayoutOrder = layoutIndex:getNextOrder(),
+            OnDeveloperSubscriptionCreated = developerSubscriptionCreated,
+        }),
+
+        DevProducts = FFlagEnableDevProductsInGameSettings and Roact.createElement(DevProducts, {
             ProductList = devProductsForTable,
             ShowTable = numberOfDevProducts ~= 0,
 
@@ -520,14 +627,13 @@ local function displayMonetizationPage(props)
                 table.insert(unsavedDevProducts, 1, {
                     name = nextDevProductName,
                     price = 1,
-                    description = "",
                     iconImageAssetId = "None",
                 })
                 setUnsavedDevProducts(unsavedDevProducts, nil, nil)
             end,
             OnLoadMoreDevProducts = loadMoreDevProducts,
             OnEditDevProductClicked = setEditDevProductId
-		})
+        }),
     }
 end
 
@@ -535,7 +641,7 @@ local function displayEditDevProductsPage(props)
     local theme = props.Theme:get("Plugin")
     local localization = props.Localization
 
-	local layoutIndex = LayoutOrderIterator.new()
+    local layoutIndex = LayoutOrderIterator.new()
 
     local productId = props.EditDevProductId
 
@@ -580,21 +686,21 @@ local function displayEditDevProductsPage(props)
 
     local setUnsavedDevProducts = props.SetUnsavedDevProducts
 
-	return {
-		HeaderFrame = Roact.createElement(FitFrameOnAxis, {
-			LayoutOrder = layoutIndex:getNextOrder(),
-			BackgroundTransparency = 1,
-			axis = FitFrameOnAxis.Axis.Vertical,
-			minimumSize = UDim2.new(1, 0, 0, 0),
-			contentPadding = UDim.new(0, theme.settingsPage.headerPadding),
-		}, {
-			BackButton = Roact.createElement("ImageButton", {
-				Size = UDim2.new(0, theme.backButton.size, 0, theme.backButton.size),
-				LayoutOrder = 0,
+    return {
+        HeaderFrame = Roact.createElement(FitFrameOnAxis, {
+            LayoutOrder = layoutIndex:getNextOrder(),
+            BackgroundTransparency = 1,
+            axis = FitFrameOnAxis.Axis.Vertical,
+            minimumSize = UDim2.new(1, 0, 0, 0),
+            contentPadding = UDim.new(0, theme.settingsPage.headerPadding),
+        }, {
+            BackButton = Roact.createElement("ImageButton", {
+                Size = UDim2.new(0, theme.backButton.size, 0, theme.backButton.size),
+                LayoutOrder = 0,
 
-				Image = theme.backButton.image,
+                Image = theme.backButton.image,
 
-				BackgroundTransparency = 1,
+                BackgroundTransparency = 1,
 
                 [Roact.Event.Activated] = function()
                     local cleanDevProduct, errorKeys = sanitizeCurrentDevProduct(currentDevProduct, initialName)
@@ -612,31 +718,31 @@ local function displayEditDevProductsPage(props)
                     end
 
                     setEditDevProductId(nil)
-				end,
-			}, {
-				Roact.createElement(HoverArea, {Cursor = "PointingHand"}),
-			}),
+                end,
+            }, {
+                Roact.createElement(HoverArea, {Cursor = "PointingHand"}),
+            }),
 
-			Roact.createElement(Separator, {
-				LayoutOrder = 1
-			}),
+            Roact.createElement(Separator, {
+                LayoutOrder = 1
+            }),
 
-			Header = Roact.createElement(Header, {
-				Title = localization:getText("Monetization", "EditDeveloperProduct"),
-				LayoutOrder = 2,
-			}),
-		}),
+            Header = Roact.createElement(Header, {
+                Title = localization:getText("Monetization", "EditDeveloperProduct"),
+                LayoutOrder = 2,
+            }),
+        }),
 
-		Name = Roact.createElement(TitledFrame, {
-			Title = localization:getText("General", "TitleName"),
-			MaxHeight = 60,
-			LayoutOrder = layoutIndex:getNextOrder(),
-			TextSize = theme.fontStyle.Normal.TextSize,
-		}, {
-			TextBox = Roact.createElement(RoundTextBox, {
-				Active = true,
-				MaxLength = MAX_NAME_LENGTH,
-				Text = productTitle,
+        Name = Roact.createElement(TitledFrame, {
+            Title = localization:getText("General", "TitleName"),
+            MaxHeight = 60,
+            LayoutOrder = layoutIndex:getNextOrder(),
+            TextSize = theme.fontStyle.Normal.TextSize,
+        }, {
+            TextBox = Roact.createElement(RoundTextBox, {
+                Active = true,
+                MaxLength = MAX_NAME_LENGTH,
+                Text = productTitle,
                 TextSize = theme.fontStyle.Normal.TextSize,
 
                 ErrorMessage = dpNameError,
@@ -666,15 +772,15 @@ local function displayEditDevProductsPage(props)
                         setUnsavedDevProducts(unsavedDevProducts, errorKey, errorValue)
                     end
                 end
-			}),
-		}),
+            }),
+        }),
 
         Price = Roact.createElement(TitledFrame, {
-			Title = localization:getText("Monetization", "PriceTitle"),
-			MaxHeight = 150,
-			LayoutOrder = layoutIndex:getNextOrder(),
-			TextSize = theme.fontStyle.Normal.TextSize,
-		}, {
+            Title = localization:getText("Monetization", "PriceTitle"),
+            MaxHeight = 150,
+            LayoutOrder = layoutIndex:getNextOrder(),
+            TextSize = theme.fontStyle.Normal.TextSize,
+        }, {
             VerticalLayout = Roact.createElement("UIListLayout",{
                 SortOrder = Enum.SortOrder.LayoutOrder,
                 FillDirection = Enum.FillDirection.Vertical,
@@ -768,15 +874,29 @@ local function displayEditDevProductsPage(props)
     }
 end
 
+local function displayEditDevSubPage(props)
+    return {
+        Roact.createElement(DevSubDetails, {
+            SetDevSubKey = props.SetDevSubKey,
+            OnDeveloperSubscriptionChanged = props.OnDeveloperSubscriptionChanged,
+        })
+    }
+end
+
 function Monetization:render()
     local props = self.props
     local localization = props.Localization
 
     local editDevProductId = props.EditDevProductId
+    local isEditingSubscription = props.isEditingSubscription
 
     local createChildren
     local showHeader = editDevProductId == 0
-    if editDevProductId == nil then
+    if isEditingSubscription then
+        createChildren = function()
+            return displayEditDevSubPage(props)
+        end
+    elseif editDevProductId == nil then
         if FFlagStudioFixMissingMonetizationHeader then
             showHeader = true
         end
@@ -793,41 +913,41 @@ function Monetization:render()
     end
 
     return Roact.createElement(SettingsPage, {
-		SettingsLoadJobs = loadSettings,
-		SettingsSaveJobs = saveSettings,
-		Title = localization:getText("General", "Category"..LOCALIZATION_ID),
-		PageId = script.Name,
+        SettingsLoadJobs = loadSettings,
+        SettingsSaveJobs = saveSettings,
+        Title = localization:getText("General", "Category"..LOCALIZATION_ID),
+        PageId = script.Name,
         CreateChildren = createChildren,
         ShowHeader = showHeader,
-	})
+    })
 end
 
 ContextServices.mapToProps(Monetization, {
-	Localization = ContextServices.Localization,
-	Theme = ContextServices.Theme,
+    Localization = ContextServices.Localization,
+    Theme = ContextServices.Theme,
 })
 
 local settingFromState = require(Plugin.Src.Networking.settingFromState)
 Monetization = RoactRodux.connect(
-	function(state, props)
-		if not state then return end
+    function(state, props)
+        if not state then return end
 
-		local getValue = function(propName)
-			return settingFromState(state.Settings, propName)
-		end
+        local getValue = function(propName)
+            return settingFromState(state.Settings, propName)
+        end
 
-		return loadValuesToProps(getValue, state)
-	end,
+        return loadValuesToProps(getValue, state)
+    end,
 
-	function(dispatch)
-		local setValue = function(propName)
-			return function(value)
-				dispatch(AddChange(propName, value))
-			end
-		end
+    function(dispatch)
+        local setValue = function(propName)
+            return function(value)
+                dispatch(AddChange(propName, value))
+            end
+        end
 
-		return dispatchChanges(setValue, dispatch)
-	end
+        return dispatchChanges(setValue, dispatch)
+    end
 )(Monetization)
 
 Monetization.LocalizationId = LOCALIZATION_ID

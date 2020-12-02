@@ -6,7 +6,8 @@
 		Component Background: The Decoration to use as this component's background.
 		Style BackgroundStyle: The Style to style the Background decoration with.
 		StyleModifier BackgroundStyleModifier: The Modifier to index into the Background style with.
-
+		boolean Active: Determines whether the container should sink input.
+			NB: This does not stop input from propagating unless ElementOverride is set to "ImageButton".
 		number Margin: A constant margin all around the component, including the background.
 		table Margin: Specific margin values for Top, Bottom, Left, and Right.
 		number Padding: A constant padding all around the interior of the component.
@@ -16,7 +17,9 @@
 		Vector2 AnchorPoint: The pivot point of this component's Position prop.
 		number ZIndex: The render index of this component.
 		number LayoutOrder: The layout order of this component in a list.
+		Enum.SizeConstraint SizeConstraint: the direction(s) that the container can be resized in.
 		boolean Visible: whether or not the component is rendered.
+		string ElementOverride: use this built-in GuiObject instead of Frame.
 ]]
 
 local Framework = script.Parent.Parent
@@ -35,6 +38,7 @@ function Container:render()
 	local backgroundStyle = props.BackgroundStyle
 	local backgroundStyleModifier = props.BackgroundStyleModifier
 
+	local active = props.Active
 	local padding = props.Padding
 	local margin = props.Margin
 	local size = props.Size or UDim2.new(1, 0, 1, 0)
@@ -43,6 +47,7 @@ function Container:render()
 	local zIndex = props.ZIndex
 	local layoutOrder = props.LayoutOrder
 	local visible = props.Visible
+	local elementOverride = props.ElementOverride
 	local ref = props[Roact.Ref]
 
 	local children = props[Roact.Children] or {}
@@ -85,15 +90,18 @@ function Container:render()
 		end
 	end
 
-	return Roact.createElement("Frame", {
+	return Roact.createElement(elementOverride or "Frame", {
+		Active = active,
 		BackgroundTransparency = 1,
 		Size = size,
+		SizeConstraint = props.SizeConstraint,
 		Position = position,
 		LayoutOrder = layoutOrder,
 		AnchorPoint = anchorPoint,
 		ZIndex = zIndex,
 		Visible = visible,
 		[Roact.Ref] = ref,
+		[Roact.Change.AbsoluteSize] = props[Roact.Change.AbsoluteSize],
 	}, {
 		Margin = marginComponent,
 

@@ -1,8 +1,6 @@
 local FFlagEnableStudioServiceOpenBrowser = game:GetFastFlag("EnableStudioServiceOpenBrowser")
-local FFlagPluginManagementNewLoadingBar = game:DefineFastFlag("PluginManagementNewLoadingBar", false)
 local FFlagShowModeratedPluginInfo = game:DefineFastFlag("ShowModeratedPluginInfo", false)
 local FFlagPluginManagementPrettifyDesign = game:GetFastFlag("PluginManagementPrettifyDesign2")
-local FFlagPluginManagementRemoveUILibrary = game:GetFastFlag("PluginManagementRemoveUILibrary2")
 
 local StudioService = game:getService("StudioService")
 local ContentProvider = game:getService("ContentProvider")
@@ -26,7 +24,6 @@ local FlagsList = Flags.new({
 local FlagsListFile = require(Plugin.Src.Util.FlagsList)
 
 local Constants = require(Plugin.Src.Util.Constants)
-local UILibrary = require(Plugin.Packages.UILibrary) -- remove with FFlagPluginManagementRemoveUILibrary
 local UpdateStatus = require(Plugin.Src.Util.UpdateStatus)
 local UI = require(Plugin.Packages.Framework.UI)
 local ContextServices = require(Plugin.Packages.Framework.ContextServices)
@@ -34,23 +31,16 @@ local PluginAPI2 = require(Plugin.Src.ContextServices.PluginAPI2)
 local Navigation = require(Plugin.Src.ContextServices.Navigation)
 local SetPluginEnabledState = require(Plugin.Src.Thunks.SetPluginEnabledState)
 local UpdatePlugin = require(Plugin.Src.Thunks.UpdatePlugin)
-local Button = UILibrary.Component.Button -- remove with FFlagPluginManagementRemoveUILibrary
 local FrameworkButton = UI.Button
 local FrameworkLabel = UI.Decoration.TextLabel
 local DropdownMenu = UI.DropdownMenu
 local ToggleButton = UI.ToggleButton
 
 local RemovePluginData = require(Plugin.Src.Actions.RemovePluginData)
-local MoreDropdown = require(Plugin.Src.Components.MoreDropdown) -- remove with FFlagPluginManagementRemoveUILibrary
 local HttpRequestOverview = require(Plugin.Src.Components.HttpRequestOverview)
 
-local LoadingBar
-if FFlagPluginManagementNewLoadingBar then
-	local UI = require(Plugin.Packages.Framework.UI)
-	LoadingBar = UI.FakeLoadingBar
-else
-	LoadingBar = require(Plugin.Src.Components.LoadingBar)
-end
+local UI = require(Plugin.Packages.Framework.UI)
+local LoadingBar = UI.FakeLoadingBar
 
 local LOADING_BAR_SIZE = UDim2.new(0, 120, 0, 8)
 local LOADING_BAR_TIME = 0.5
@@ -325,51 +315,7 @@ function PluginEntry:render()
 			Text = localization:getText("Entry", "ModeratedWarning"),
 		}),
 
-		UpdateButtonOLD = (not FFlagPluginManagementRemoveUILibrary and showUpdateButton) and Roact.createElement(Button, {
-			AnchorPoint = Vector2.new(1, 0.5),
-			Size = UDim2.new(0, Constants.HEADER_UPDATE_WIDTH, 0, Constants.HEADER_BUTTON_SIZE),
-			Position = buttonPosition,
-			Style = "Default",
-			OnClick = self.updatePlugin,
-
-			RenderContents = function()
-				return {
-					Label = Roact.createElement("TextLabel", {
-						Size = UDim2.new(1, 0, 1, 0),
-						Text = localization:getText("Entry", "UpdateButton"),
-						TextColor3 = theme.TextColor,
-						Font = Enum.Font.SourceSans,
-						TextSize = 18,
-						BackgroundTransparency = 1,
-					}),
-
-					DateLabel = updateStatus ~= UpdateStatus.Error and Roact.createElement("TextLabel", {
-						BackgroundTransparency = 1,
-						Size = UDim2.new(1, 0, 0, 14),
-						Position = UDim2.new(0, 0, 1, 3),
-						TextSize = 14,
-						Font = Enum.Font.SourceSans,
-						TextColor3 = theme.TextColor,
-						TextTransparency = FFlagPluginManagementPrettifyDesign and 0 or 0.6,
-						Text = localization:getText("Entry", "LastUpdatedDate", {
-							date = data.updated,
-						}),
-					}),
-
-					ErrorLabel = updateStatus == UpdateStatus.Error and Roact.createElement("TextLabel", {
-						BackgroundTransparency = 1,
-						Size = UDim2.new(1, 0, 0, 14),
-						Position = UDim2.new(0, 0, 1, 3),
-						TextSize = 14,
-						Font = Enum.Font.SourceSans,
-						TextColor3 = theme.ErrorColor,
-						Text = localization:getText("Entry", "UpdateError"),
-					}),
-				}
-			end,
-		}),
-
-		UpdateButton = (FFlagPluginManagementRemoveUILibrary and showUpdateButton) and Roact.createElement(FrameworkButton, {
+		UpdateButton = showUpdateButton and Roact.createElement(FrameworkButton, {
 			AnchorPoint = Vector2.new(1, 0.5),
 			Size = UDim2.new(0, Constants.HEADER_UPDATE_WIDTH, 0, Constants.HEADER_BUTTON_SIZE),
 			Position = buttonPosition,
@@ -461,37 +407,7 @@ function PluginEntry:render()
 			[Roact.Event.Activated] = self.onPluginDisabled,
 		}),
 
-		ShowMoreButtonOLD = (not FFlagPluginManagementRemoveUILibrary) and Roact.createElement(Button, {
-			AnchorPoint = Vector2.new(0, 0.5),
-			Size = UDim2.new(0, Constants.HEADER_BUTTON_SIZE, 0, Constants.HEADER_BUTTON_SIZE),
-			Position = UDim2.new(1,Constants.PLUGIN_HORIZONTAL_PADDING*-1 - Constants.PLUGIN_CONTEXT_WIDTH,.5,0),
-			Style = "Default",
-			OnClick = self.onShowMoreActivated,
-
-			RenderContents = function()
-				return {
-					Dots = Roact.createElement("TextLabel", {
-						AnchorPoint = Vector2.new(0.5, 0.5),
-						Position = UDim2.new(0.5, 0, 0.5, -4),
-						Size = UDim2.new(0, 16, 0, 16),
-
-						Text = "...",
-						TextColor3 = theme.TextColor,
-						Font = Enum.Font.SourceSansBold,
-						TextSize = 18,
-						BackgroundTransparency = 1,
-					}),
-
-					Dropdown = showMore and Roact.createElement(MoreDropdown, {
-						Items = self.getMoreItems(),
-						OnItemClicked = self.moreItemClicked,
-						OnFocusLost = self.hideShowMore,
-					}),
-				}
-			end,
-		}),
-
-		ShowMoreButton = FFlagPluginManagementRemoveUILibrary and Roact.createElement(FrameworkButton, {
+		ShowMoreButton = Roact.createElement(FrameworkButton, {
 			AnchorPoint = Vector2.new(0, 0.5),
 			Size = UDim2.new(0, Constants.HEADER_BUTTON_SIZE, 0, Constants.HEADER_BUTTON_SIZE),
 			Position = UDim2.new(1, -1 * (Constants.PLUGIN_HORIZONTAL_PADDING + Constants.PLUGIN_CONTEXT_WIDTH),.5,0),

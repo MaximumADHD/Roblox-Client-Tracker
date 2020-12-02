@@ -18,6 +18,7 @@ local PopUpButton = require(Plugin.Src.Components.PopUpButton)
 local SetEditingAssets = require(Plugin.Src.Actions.SetEditingAssets)
 local SetSelectedAssets = require(Plugin.Src.Actions.SetSelectedAssets)
 
+local GetAssetPreviewData = require(Plugin.Src.Thunks.GetAssetPreviewData)
 local OnAssetDoubleClick = require(Plugin.Src.Thunks.OnAssetDoubleClick)
 local OnAssetRightClick = require(Plugin.Src.Thunks.OnAssetRightClick)
 local DEPRECATED_OnAssetRightClick = require(Plugin.Src.Thunks.DEPRECATED_OnAssetRightClick)
@@ -36,7 +37,7 @@ local FFlagAssetManagerOpenContextMenu = game:GetFastFlag("AssetManagerOpenConte
 local FFlagStudioAssetManagerAddMiddleElision = game:GetFastFlag("StudioAssetManagerAddMiddleElision")
 local FFlagAssetManagerRemoveAssetFixes = game:GetFastFlag("AssetManagerRemoveAssetFixes")
 local FFlagAllowAudioBulkImport = game:GetFastFlag("AllowAudioBulkImport")
-
+local FFlagStudioAssetManagerAssetPreviewRequest = game:GetFastFlag("StudioAssetManagerAssetPreviewRequest")
 
 local Tile = Roact.PureComponent:extend("Tile")
 
@@ -154,6 +155,9 @@ function Tile:init()
 
     self.openAssetPreview = function()
         local assetData = self.props.AssetData
+        if FFlagStudioAssetManagerAssetPreviewRequest then
+            self.props.dispatchGetAssetPreviewData(self.props.API:get(), {assetData.id})
+        end
         if FFlagAssetManagerRemoveAssetFixes then
             -- when opening asset preview, set selected assets to that asset only
             self.props.dispatchSetSelectedAssets({ [assetData.key] = true })
@@ -456,6 +460,9 @@ end
 
 local function mapDispatchToProps(dispatch)
 	return {
+        dispatchGetAssetPreviewData = function(apiImpl, assetIds)
+            dispatch(GetAssetPreviewData(apiImpl, assetIds))
+        end,
         dispatchOnAssetDoubleClick = function(analytics, assetData)
             dispatch(OnAssetDoubleClick(analytics, assetData))
         end,

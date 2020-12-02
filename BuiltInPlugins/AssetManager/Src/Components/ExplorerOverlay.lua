@@ -25,7 +25,10 @@ local FolderTreeItem = require(Plugin.Src.Components.FolderTreeItem)
 
 local Screens = require(Plugin.Src.Util.Screens)
 
+local SetRecentViewToggled = require(Plugin.Src.Actions.SetRecentViewToggled)
 local SetScreen = require(Plugin.Src.Actions.SetScreen)
+
+local FFlagStudioAssetManagerUXFixes = game:GetFastFlag("StudioAssetManagerUXFixes")
 
 local ExplorerOverlay = Roact.PureComponent:extend("ExplorerOverlay")
 
@@ -36,6 +39,9 @@ function ExplorerOverlay:render()
 
     local dispatchSetScreen = props.dispatchSetScreen
     local closeOverlay = props.CloseOverlay
+
+    local recentViewToggled = props.RecentViewToggled
+    local dispatchSetRecentViewToggled = props.dispatchSetRecentViewToggled
 
     return Roact.createElement(ShowOnTop, {}, {
         Background = Roact.createElement(Button, {
@@ -102,6 +108,9 @@ function ExplorerOverlay:render()
 
                 onSelectionChanged = function(instances)
                     if instances[1] then
+                        if FFlagStudioAssetManagerUXFixes and recentViewToggled then
+                            dispatchSetRecentViewToggled(false)
+                        end
                         local screen = Screens[instances[1].Screen]
                         dispatchSetScreen(screen)
                     end
@@ -121,12 +130,21 @@ ContextServices.mapToProps(ExplorerOverlay, {
     Localization = ContextServices.Localization,
 })
 
+local function mapStateToProps(state, props)
+	return {
+        RecentViewToggled = state.AssetManagerReducer.recentViewToggled,
+	}
+end
+
 local function mapDispatchToProps(dispatch)
     return {
+        dispatchSetRecentViewToggled = function(toggled)
+            dispatch(SetRecentViewToggled(toggled))
+        end,
         dispatchSetScreen = function(screen)
             dispatch(SetScreen(screen))
         end,
     }
 end
 
-return RoactRodux.connect(nil, mapDispatchToProps)(ExplorerOverlay)
+return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(ExplorerOverlay)

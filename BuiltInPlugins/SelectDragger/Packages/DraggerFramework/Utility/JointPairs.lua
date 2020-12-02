@@ -6,8 +6,6 @@ local Roact = require(Plugin.Packages.Roact)
 local Colors = require(DraggerFramework.Utility.Colors)
 local Math = require(DraggerFramework.Utility.Math)
 
-local getFFlagNoSurfaceRotate = require(DraggerFramework.Flags.getFFlagNoSurfaceRotate)
-
 local JointPairs = {}
 JointPairs.__index = JointPairs
 
@@ -203,32 +201,6 @@ end
 	as far as determining the type of joint.
 ]]
 local function buildAppropriateJoint(part, otherPart, shape, otherShape, face, otherFace)
-	if not getFFlagNoSurfaceRotate() then
-		local jointType = SurfaceTypeToJointType[part[face.surface]]
-		if jointType then
-			-- The hinge/motor location has to actually be in the other face for
-			-- a joint to be created.
-			if isVertexInFace(getFaceCenter(face), otherFace.vertices, otherFace.normal) then
-				return buildJoint(part, face, otherPart, jointType)
-			else
-				-- Note: This return nil is correct. Putting a motor/hinge on a
-				-- surface totally TURNS OFF joint creation for it everywhere
-				-- except where the hinge/motor is, rather than just making those
-				-- other parts of the surface default to welding.
-				return nil
-			end
-		end
-
-		local otherJointType = SurfaceTypeToJointType[otherPart[otherFace.surface]]
-		if otherJointType then
-			if isVertexInFace(getFaceCenter(otherFace), face.vertices, face.normal) then
-				return buildJoint(otherPart, otherFace, part, otherJointType)
-			else
-				return nil
-			end
-		end
-	end
-
 	local isFaceAcceptable =
 		(shape == "Mesh") or
 		(shape == "Cylinder" and

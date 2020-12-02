@@ -1,7 +1,6 @@
 --!nocheck
 --^ Remove this hot comment with FFlagUseCategoryNameInToolbox.
 
-local FFlagOnlyWhitelistedPluginsInStudio = settings():GetFFlag("OnlyWhitelistedPluginsInStudio")
 local FFlagFixToolboxPluginScaling = game:DefineFastFlag("FixToolboxPluginScaling", false)
 local FFlagUseCategoryNameInToolbox = game:GetFastFlag("UseCategoryNameInToolbox")
 local FFlagEnableToolboxVideos = game:GetFastFlag("EnableToolboxVideos")
@@ -83,8 +82,6 @@ Category.FREE_MESHES = {name = "FreeMeshes", category = "FreeMeshes",
 	ownershipType = Category.OwnershipType.FREE, assetType = Category.AssetType.MESH}
 Category.FREE_AUDIO = {name = "FreeAudio", category = "FreeAudio",
 	ownershipType = Category.OwnershipType.FREE, assetType = Category.AssetType.AUDIO}
-Category.FREE_PLUGINS = {name = "FreePlugins", category = "FreePlugins",
-	ownershipType = Category.OwnershipType.FREE, Category.AssetType.PLUGIN}
 Category.WHITELISTED_PLUGINS = {name = "PaidPlugins", category = "WhitelistedPlugins",
 	ownershipType = Category.OwnershipType.FREE, assetType = Category.AssetType.PLUGIN}
 
@@ -284,12 +281,9 @@ Category.INVENTORY_KEY = "Inventory"
 Category.RECENT_KEY = "Recent"
 Category.CREATIONS_KEY = "Creations"
 
+-- TODO: When FFlagEnableToolboxVideos flag is retired please move these inserts into the table definitions
 table.insert(Category.INVENTORY, Category.MY_PLUGINS)
-if FFlagOnlyWhitelistedPluginsInStudio then
-	table.insert(Category.MARKETPLACE, Category.WHITELISTED_PLUGINS)
-else
-	table.insert(Category.MARKETPLACE, Category.FREE_PLUGINS)
-end
+table.insert(Category.MARKETPLACE, Category.WHITELISTED_PLUGINS)
 
 local insertIndex = Cryo.List.find(Category.INVENTORY_WITH_GROUPS, Category.MY_PACKAGES) + 1
 table.insert(Category.INVENTORY_WITH_GROUPS, insertIndex, Category.MY_PLUGINS)

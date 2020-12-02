@@ -21,4 +21,14 @@ return function()
 			expect(Math.round(num, 4)).to.be.equal(-0.9909)
 		end)
 	end)
+
+	describe("isNaN", function()
+		it("returns true", function()
+			expect(Math.isNaN(0/0)).to.equal(true)
+		end)
+
+		it("returns false", function()
+			expect(Math.isNaN(1/0)).to.equal(false)
+		end)
+	end)
 end

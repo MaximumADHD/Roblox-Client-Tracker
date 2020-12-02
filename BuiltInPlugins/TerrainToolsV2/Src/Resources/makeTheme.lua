@@ -1,3 +1,5 @@
+local FFlagRefactorDevFrameworkTheme = game:GetFastFlag("RefactorDevFrameworkTheme")
+
 local Plugin = script.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
@@ -23,11 +25,23 @@ local function makeTerrainToolsTheme()
 				BorderTransparency = 1,
 			}),
 		}),
+
+		[ui.Tooltip] = Cryo.Dictionary.join(BaseTheme[ui.Tooltip], {
+			MaxWidth = 1000,
+		}),
 	}
 end
 
 local function DEPRECATED_makeTerrainToolsTheme(theme, getColor)
 	local studioFrameworkStyles = StudioFrameworkStyles.new(theme, getColor)
+
+	local tooltip = StyleTable.new("Tooltip", function()
+		return {
+			Default = Style.extend(studioFrameworkStyles.Tooltip.Default, {
+				MaxWidth = 1000,
+			}),
+		}
+	end)
 
 	local loadingBar = StyleTable.new("LoadingBar", function()
 		local base = studioFrameworkStyles.LoadingBar.Default
@@ -43,6 +57,7 @@ local function DEPRECATED_makeTerrainToolsTheme(theme, getColor)
 
 	return {
 		Framework = StyleTable.extend(studioFrameworkStyles, {
+			Tooltip = tooltip,
 			LoadingBar = loadingBar,
 		}),
 	}
@@ -51,9 +66,9 @@ end
 return function(makeMock)
 	makeMock = makeMock or false
 
-	if game:GetFastFlag("RefactorDevFrameworkTheme") then
-		local t = makeMock and StudioTheme.mock() or StudioTheme.new()
-		return t:extend(makeTerrainToolsTheme())
+	if FFlagRefactorDevFrameworkTheme then
+		local studioTheme = makeMock and StudioTheme.mock() or StudioTheme.new()
+		return studioTheme:extend(makeTerrainToolsTheme())
 	else
 		if makeMock then
 			return Theme.mock(DEPRECATED_makeTerrainToolsTheme, function()

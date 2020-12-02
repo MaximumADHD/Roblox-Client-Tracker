@@ -25,6 +25,7 @@ local StyleModifier = Util.StyleModifier
 local UILibrary = require(Plugin.Packages.UILibrary)
 local SearchBar = UILibrary.Component.SearchBar
 local LayoutOrderIterator = UILibrary.Util.LayoutOrderIterator
+local Tooltip = UILibrary.Component.Tooltip
 local StyledTooltip = UILibrary.Component.StyledTooltip
 local GetTextSize = UILibrary.Util.GetTextSize
 
@@ -44,6 +45,7 @@ local BulkImportService = game:GetService("BulkImportService")
 local FFlagAssetManagerAddAnalytics = game:GetFastFlag("AssetManagerAddAnalytics")
 local FFlagStudioAssetManagerAddRecentlyImportedView = game:GetFastFlag("StudioAssetManagerAddRecentlyImportedView")
 local FFlagStudioAssetManagerAddGridListToggle = game:GetFastFlag("StudioAssetManagerAddGridListToggle")
+local FFlagStudioAssetManagerUXFixes = game:GetFastFlag("StudioAssetManagerUXFixes")
 
 local TopBar = Roact.PureComponent:extend("TopBar")
 
@@ -116,6 +118,17 @@ function TopBar:render()
 
     local layoutIndex = LayoutOrderIterator.new()
 
+    local explorerOverlayButtonTooltipText = localization:getText("TopBar", "ExplorerOverlayButton")
+    local backButtonTooltipText = localization:getText("TopBar", "BackButton")
+    local forwardButtonTooltipText = localization:getText("TopBar", "ForwardButton")
+    local bulkImportButtonTooltipText = localization:getText("TopBar", "BulkImportButton")
+    local gridListToggleButtonTooltipText
+    if view.Key == View.GRID.Key then
+        gridListToggleButtonTooltipText = localization:getText("TopBar", "ListViewButton")
+    elseif view.Key == View.LIST.Key then
+        gridListToggleButtonTooltipText = localization:getText("TopBar", "GridViewButton")
+    end
+
     return Roact.createElement("Frame", {
         Size = size,
         LayoutOrder = layoutOrder,
@@ -154,6 +167,11 @@ function TopBar:render()
                 MouseEnter = self.mouseEnter,
                 MouseLeave = self.mouseLeave,
             }),
+
+            Tooltip = FFlagStudioAssetManagerUXFixes and enabled and Roact.createElement(Tooltip, {
+                Text = explorerOverlayButtonTooltipText,
+                Enabled = true,
+            }),
         }),
 
         NavigationButtonsFrame = Roact.createElement("Frame", {
@@ -189,6 +207,11 @@ function TopBar:render()
                     MouseEnter = self.mouseEnter,
                     MouseLeave = self.mouseLeave,
                 }),
+
+                Tooltip = FFlagStudioAssetManagerUXFixes and previousButtonEnabled and enabled and Roact.createElement(Tooltip, {
+                    Text = backButtonTooltipText,
+                    Enabled = true,
+                }),
             }),
 
             NextButton = Roact.createElement(Button, {
@@ -213,6 +236,11 @@ function TopBar:render()
                     MouseEnter = self.mouseEnter,
                     MouseLeave = self.mouseLeave,
                 }),
+
+                Tooltip = FFlagStudioAssetManagerUXFixes and nextButtonEnabled and enabled and Roact.createElement(Tooltip, {
+                    Text = forwardButtonTooltipText,
+                    Enabled = true,
+                }),
             }),
         }),
 
@@ -233,7 +261,7 @@ function TopBar:render()
                 end
             end,
         }, {
-            Tooltip = Roact.createElement(StyledTooltip, {
+            OpenBulkImporterTooltip = Roact.createElement(StyledTooltip, {
                 Elements = {
                     Roact.createElement("UIListLayout", {
                         Padding = UDim.new(0, topBarTheme.Tooltip.Padding),
@@ -283,6 +311,11 @@ function TopBar:render()
                 MouseEnter = self.mouseEnter,
                 MouseLeave = self.mouseLeave,
             }),
+
+            BulkImportButtonTooltip = FFlagStudioAssetManagerUXFixes and not bulkImporterRunning and enabled and Roact.createElement(Tooltip, {
+                Text = bulkImportButtonTooltipText,
+                Enabled = true,
+            }),
         }),
 
         GridListToggleButton = FFlagStudioAssetManagerAddGridListToggle and Roact.createElement(Button, {
@@ -305,6 +338,11 @@ function TopBar:render()
                 Cursor = "PointingHand",
                 MouseEnter = self.mouseEnter,
                 MouseLeave = self.mouseLeave,
+            }),
+
+            Tooltip = FFlagStudioAssetManagerUXFixes and enabled and Roact.createElement(Tooltip, {
+                Text = gridListToggleButtonTooltipText,
+                Enabled = true,
             }),
         }),
 

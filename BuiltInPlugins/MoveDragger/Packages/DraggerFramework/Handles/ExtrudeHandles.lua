@@ -13,7 +13,7 @@ local Math = require(DraggerFramework.Utility.Math)
 local StandaloneSelectionBox = require(DraggerFramework.Components.StandaloneSelectionBox)
 local ScaleHandleView = require(DraggerFramework.Components.ScaleHandleView)
 
-local getFFlagRevertCtrlScale = require(DraggerFramework.Flags.getFFlagRevertCtrlScale)
+local EngineFeatureEditPivot = require(DraggerFramework.Flags.getEngineFeatureEditPivot)()
 
 local ExtrudeHandle = {}
 ExtrudeHandle.__index = ExtrudeHandle
@@ -86,6 +86,9 @@ function ExtrudeHandle:update(draggerToolModel, selectionInfo)
 
 		local cframe, offset, size = self._implementation:getBoundingBox(
 			self._selectionWrapper:get(), self._selectionInfo)
+		if EngineFeatureEditPivot then
+			self._basisOffset = CFrame.new(-offset) -- negative since relative to bounding box
+		end
 		self._boundingBox = {
 			Size = size,
 			CFrame = cframe * CFrame.new(offset),
@@ -243,22 +246,25 @@ function ExtrudeHandle:mouseDown(mouseRay, handleId)
 		self._handleCFrame = self._handles[handleId].HandleCFrame
 		self._originalBoundingBoxCFrame = self._boundingBox.CFrame
 		self._originalBoundingBoxSize = self._boundingBox.Size
-
-		if getFFlagRevertCtrlScale() then
-			self._lastKeepAspectRatio, self._lastResizeFromCenter = self:_getExtrudeMode()
+		if EngineFeatureEditPivot then
+			self._originalBasisOffset = self._basisOffset.Position
+			local axis = self._handles[handleId].Axis
+			local perpendicularMovement = self._originalBasisOffset
+			perpendicularMovement = perpendicularMovement - axis * perpendicularMovement:Dot(axis)
+			self._perpendicularMovement = perpendicularMovement
 		end
+
+		self._lastKeepAspectRatio, self._lastResizeFromCenter = self:_getExtrudeMode()
 
 		local hasDistance, distance = self:_getDistanceAlongAxis(mouseRay)
 		assert(hasDistance)
 		self._startDistance = distance
 
-		if getFFlagRevertCtrlScale() then
-			-- When you change extrude modes mid drag, we need to separate the
-			-- resize you've done so far from the part you will do in the new mode.
-			-- The part you've done so far is the "committed" part.
-			self._committedDeltaSize = Vector3.new()
-			self._committedOffset = Vector3.new()
-		end
+		-- When you change extrude modes mid drag, we need to separate the
+		-- resize you've done so far from the part you will do in the new mode.
+		-- The part you've done so far is the "committed" part.
+		self._committedDeltaSize = Vector3.new()
+		self._committedOffset = Vector3.new()
 
 		self._lastDeltaSize = Vector3.new()
 		self._lastOffset = Vector3.new()
@@ -295,13 +301,11 @@ function ExtrudeHandle:mouseDrag(mouseRay)
 		return
 	end
 
-	if getFFlagRevertCtrlScale() then
-		-- The settings used for the drag may have changed.
-		-- Return value intentionally ignored, we're already in the process of
-		-- updating the drag, so we're doing the drag update anyways regardless
-		-- of whether a refresh was needed due to a settings change.
-		self:_refreshDragIfNeeded()
-	end
+	-- The settings used for the drag may have changed.
+	-- Return value intentionally ignored, we're already in the process of
+	-- updating the drag, so we're doing the drag update anyways regardless
+	-- of whether a refresh was needed due to a settings change.
+	self:_refreshDragIfNeeded()
 
 	local hasDistance, distance = self:_getDistanceAlongAxis(mouseRay)
 	if not hasDistance then
@@ -313,39 +317,30 @@ function ExtrudeHandle:mouseDrag(mouseRay)
 	local normalId = handleProps.NormalId
 	local axis = handleProps.Axis
 
-	local keepAspectRatio, resizeFromCenter
-	if getFFlagRevertCtrlScale() then
-		-- These have been updated by the preceeding _refreshDragIfNeeded call
-		keepAspectRatio = self._lastKeepAspectRatio
-		resizeFromCenter = self._lastResizeFromCenter
-	else
-		keepAspectRatio = self._implementation:shouldKeepAspectRatio(
-			self._selectionWrapper:get(), self._selectionInfo, self._normalId)
-		resizeFromCenter = self._implementation:shouldScaleFromCenter(
-			self._selectionWrapper:get(), self._selectionInfo, self._normalId)
-	end
-
-	-- TODO: Replace resizeFromCenter with self._lastResizeFromCenter when
-	-- removing getFFlagRevertCtrlScale.
 	local localOffset
-	if resizeFromCenter then
+	if self._lastResizeFromCenter then
 		delta = delta * 2
 		localOffset = Vector3.new()
 	else
 		localOffset = axis * 0.5 * delta
 	end
 
+	-- Add the movement thanks to an offset center
+	if EngineFeatureEditPivot then
+		local sizeComponents = {self._originalBoundingBoxSize.X, self._originalBoundingBoxSize.Y, self._originalBoundingBoxSize.Z}
+		local ratio = delta / sizeComponents[normalId]
+		localOffset = localOffset - self._perpendicularMovement * ratio
+	end
+
 	-- Determine the size change for the selection
-	-- TODO: Replace keepAspectRatio with self._lastKeepAspectRatio when
-	-- removing getFFlagRevertCtrlScale.
 	local originalSize = self._originalBoundingBoxSize
-	local deltaSize = computeDeltaSize(originalSize, delta, normalId, keepAspectRatio)
+	local deltaSize = computeDeltaSize(originalSize, delta, normalId, self._lastKeepAspectRatio)
 
 	-- Apply the minimum size
 	local targetSize = self._originalBoundingBoxSize + deltaSize
 	local modTargetSize = self._minimumSize:Max(targetSize)
 	if targetSize ~= modTargetSize then
-		if keepAspectRatio then
+		if self._lastKeepAspectRatio then
 			-- Can't keep aspect ratio while applying a min size, bail out
 			-- TODO: Improve this
 			return
@@ -358,33 +353,24 @@ function ExtrudeHandle:mouseDrag(mouseRay)
 		deltaSize = newDeltaSize
 	end
 
-	if getFFlagRevertCtrlScale() then
-		local deltaSizeToApply = deltaSize + self._committedDeltaSize
-		local localOffsetToApply = localOffset + self._committedOffset
+	local deltaSizeToApply = deltaSize + self._committedDeltaSize
+	local localOffsetToApply = localOffset + self._committedOffset
 
-		-- Eliminate floating-point error for edits that don't have any visible impact
-		if deltaSizeToApply:FuzzyEq(Vector3.new()) then
-			deltaSizeToApply = Vector3.new()
-		end
-		if localOffsetToApply:FuzzyEq(Vector3.new()) then
-			localOffsetToApply = Vector3.new()
-		end
+	-- Eliminate floating-point error for edits that don't have any visible impact
+	if deltaSizeToApply:FuzzyEq(Vector3.new()) then
+		deltaSizeToApply = Vector3.new()
+	end
+	if localOffsetToApply:FuzzyEq(Vector3.new()) then
+		localOffsetToApply = Vector3.new()
+	end
 
-		self._lastDeltaSize, self._lastOffset =
-			self._implementation:updateScale(deltaSizeToApply, localOffsetToApply)
-		self._boundingBox.CFrame = self._originalBoundingBoxCFrame * CFrame.new(self._lastOffset - self._committedOffset)
-		self._boundingBox.Size = originalSize + (self._lastDeltaSize - self._committedDeltaSize)
-	else
-		-- Eliminate floating-point error for edits that don't have any visible impact
-		if deltaSize:FuzzyEq(Vector3.new()) then
-			deltaSize = Vector3.new()
-		end
-
-		-- Call on the implementation to perform the scaling
-		self._lastDeltaSize, self._lastOffset =
-			self._implementation:updateScale(deltaSize, localOffset)
-		self._boundingBox.CFrame = self._originalBoundingBoxCFrame * CFrame.new(self._lastOffset)
-		self._boundingBox.Size = originalSize + self._lastDeltaSize
+	self._lastDeltaSize, self._lastOffset =
+		self._implementation:updateScale(deltaSizeToApply, localOffsetToApply)
+	self._boundingBox.CFrame = self._originalBoundingBoxCFrame * CFrame.new(self._lastOffset - self._committedOffset)
+	self._boundingBox.Size = originalSize + (self._lastDeltaSize - self._committedDeltaSize)
+	if EngineFeatureEditPivot then
+		self._basisOffset =
+			CFrame.new(self._originalBasisOffset / self._originalBoundingBoxSize * self._boundingBox.Size)
 	end
 end
 
@@ -400,7 +386,13 @@ end
 
 function ExtrudeHandle:_getDistanceAlongAxis(mouseRay)
 	local axis = self._handleCFrame.LookVector
-	return Math.intersectRayRay(self._originalBoundingBoxCFrame.Position, axis, mouseRay.Origin, mouseRay.Direction.Unit)
+	if EngineFeatureEditPivot then
+		return Math.intersectRayRay(
+			(self._originalBoundingBoxCFrame * CFrame.new(self._originalBasisOffset)).Position, axis,
+			mouseRay.Origin, mouseRay.Direction.Unit)
+	else
+		return Math.intersectRayRay(self._originalBoundingBoxCFrame.Position, axis, mouseRay.Origin, mouseRay.Direction.Unit)
+	end
 end
 
 function ExtrudeHandle:_updateHandles()
@@ -412,17 +404,35 @@ function ExtrudeHandle:_updateHandles()
 			-- Offset the handle's base position by the size of the bounding
 			-- box on that handle's axis.
 			local offset = handleDefinition.Offset
-			local localSize = offset:Inverse():VectorToWorldSpace(self._boundingBox.Size)
-			local boundingBoxOffset = 0.5 * math.abs(localSize.Z)
-			local handleBaseCFrame = self._boundingBox.CFrame * offset * CFrame.new(0, 0, -boundingBoxOffset)
+			if EngineFeatureEditPivot then
+				local inverseHandleCFrame = offset:Inverse()
+				local localSize = inverseHandleCFrame:VectorToWorldSpace(self._boundingBox.Size)
+				local offsetDueToBoundingBox = 0.5 * math.abs(localSize.Z)
+				local offsetDueToBasisOffset = inverseHandleCFrame:VectorToWorldSpace(self._basisOffset.Position)
+				local handleBaseCFrame =
+					self._boundingBox.CFrame *
+					offset *
+					CFrame.new(offsetDueToBasisOffset.X, offsetDueToBasisOffset.Y, -offsetDueToBoundingBox)
+				self._handles[handleId] = {
+					Color = handleDefinition.Color,
+					Axis = offset.LookVector,
+					HandleCFrame = handleBaseCFrame,
+					NormalId = handleDefinition.NormalId,
+					Scale = self._draggerContext:getHandleScale(handleBaseCFrame.Position),
+				}
+			else
+				local localSize = offset:Inverse():VectorToWorldSpace(self._boundingBox.Size)
+				local boundingBoxOffset = 0.5 * math.abs(localSize.Z)
+				local handleBaseCFrame = self._boundingBox.CFrame * offset * CFrame.new(0, 0, -boundingBoxOffset)
 
-			self._handles[handleId] = {
-				Color = handleDefinition.Color,
-				Axis = offset.LookVector,
-				HandleCFrame = handleBaseCFrame,
-				NormalId = handleDefinition.NormalId,
-				Scale = self._draggerContext:getHandleScale(handleBaseCFrame.Position),
-			}
+				self._handles[handleId] = {
+					Color = handleDefinition.Color,
+					Axis = offset.LookVector,
+					HandleCFrame = handleBaseCFrame,
+					NormalId = handleDefinition.NormalId,
+					Scale = self._draggerContext:getHandleScale(handleBaseCFrame.Position),
+				}
+			end
 		end
 	end
 end

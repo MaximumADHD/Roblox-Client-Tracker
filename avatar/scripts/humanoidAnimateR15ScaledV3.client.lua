@@ -5,6 +5,13 @@ local pose = "Standing"
 local userNoUpdateOnLoopSuccess, userNoUpdateOnLoopValue = pcall(function() return UserSettings():IsUserFeatureEnabled("UserNoUpdateOnLoop") end)
 local userNoUpdateOnLoop = userNoUpdateOnLoopSuccess and userNoUpdateOnLoopValue
 
+local userPlayEmoteByIdAnimTrackReturn do
+	local success, value = pcall(function()
+		return UserSettings():IsUserFeatureEnabled("UserPlayEmoteByIdAnimTrackReturn")
+	end)
+	userPlayEmoteByIdAnimTrackReturn = success and value
+end
+
 local animateScriptEmoteHookFlagExists, animateScriptEmoteHookFlagEnabled = pcall(function()
 	return UserSettings():IsUserFeatureEnabled("UserAnimateScriptEmoteHook")
 end)
@@ -738,11 +745,20 @@ if FFlagAnimateScriptEmoteHook then
 			-- Default emotes
 			playAnimation(emote, EMOTE_TRANSITION_TIME, Humanoid)
 			
-			return true
+			if userPlayEmoteByIdAnimTrackReturn then
+				return true, currentAnimTrack
+			else
+				return true
+			end
 		elseif typeof(emote) == "Instance" and emote:IsA("Animation") then
 			-- Non-default emotes
 			playEmote(emote, EMOTE_TRANSITION_TIME, Humanoid)
-			return true
+			
+			if userPlayEmoteByIdAnimTrackReturn then
+				return true, currentAnimTrack
+			else
+				return true
+			end
 		end
 		
 		-- Return false to indicate that the emote could not be played

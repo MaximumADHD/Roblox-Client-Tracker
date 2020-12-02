@@ -57,6 +57,8 @@
 	})
 --]]
 
+local FFlagTerrainToolsFixLabeledElementPairWidth = game:GetFastFlag("TerrainToolsFixLabeledElementPairWidth")
+
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
@@ -64,6 +66,8 @@ local Roact = require(Plugin.Packages.Roact)
 
 local ContextServices = Framework.ContextServices
 local ContextItems = require(Plugin.Src.ContextItems)
+
+local Constants = require(Plugin.Src.Util.Constants)
 
 local TextService = game:GetService("TextService")
 
@@ -81,6 +85,12 @@ local ROUNDED_BACKGROUND_IMAGE = "rbxasset://textures/StudioToolbox/RoundedBorde
 local ROUNDED_FRAME_SLICE = Rect.new(3, 3, 13, 13)
 
 local LabeledTextInput = Roact.PureComponent:extend(script.Name)
+
+if FFlagTerrainToolsFixLabeledElementPairWidth then
+	LabeledTextInput.defaultProps = {
+		Width = UDim.new(0, Constants.SECOND_COLUMN_WIDTH),
+	}
+end
 
 function LabeledTextInput:init()
 	self.state = {

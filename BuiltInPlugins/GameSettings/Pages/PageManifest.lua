@@ -1,8 +1,6 @@
 local FFlagQ220PermissionsSettings = settings():GetFFlag("Q220PermissionsSettings")
 local FFlagGameSettingsPlaceSettings = game:GetFastFlag("GameSettingsPlaceSettings")
 local FFlagStudioAddMonetizationToGameSettings = game:GetFastFlag("StudioAddMonetizationToGameSettings")
-local FFlagDeveloperSubscriptionsEnabled = game:GetFastFlag("DeveloperSubscriptionsEnabled")
-local FFlagLocalizationPageInGameSettingsV2 = game:GetFastFlag("LocalizationPageInGameSettingsV2")
 
 local Permissions = require(script.Parent.PermissionsPage.Permissions)
 local Avatar = require(script.Parent.AvatarPage.Avatar)
@@ -12,7 +10,6 @@ local Options = require(script.Parent.OptionsPage.Options)
 local Places = require(script.Parent.PlacesPage.Places)
 local Security = require(script.Parent.SecurityPage.Security)
 local World = require(script.Parent.WorldPage.World)
-local DeveloperSubscriptions = require(script.Parent.DeveloperSubscriptionsPage.DeveloperSubscriptions)
 local LocalizationPage = require(script.Parent.LocalizationPage.LocalizationPage)
 
 local pages = {
@@ -35,12 +32,6 @@ if FFlagQ220PermissionsSettings then
 	table.insert(pages, 4, Security)
 end
 
-if FFlagDeveloperSubscriptionsEnabled then
-	table.insert(pages, DeveloperSubscriptions)
-end
-
-if FFlagLocalizationPageInGameSettingsV2 then
-	table.insert(pages, 5, LocalizationPage)
-end
+table.insert(pages, 5, LocalizationPage)
 
 return pages

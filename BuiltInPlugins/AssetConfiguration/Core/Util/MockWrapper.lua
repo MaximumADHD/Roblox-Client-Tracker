@@ -13,6 +13,7 @@ local ToolboxReducerMock = require(Plugin.Core.Reducers.ToolboxReducerMock)
 local NetworkInterfaceMock = require(Plugin.Core.Networking.NetworkInterfaceMock)
 local AssetAnalyticsContextItem = require(Plugin.Core.Util.Analytics.AssetAnalyticsContextItem)
 local AssetAnalytics = require(Plugin.Core.Util.Analytics.AssetAnalytics)
+local FlagsList = require(Plugin.Core.Util.FlagsList)
 
 local ExternalServicesWrapper = require(Plugin.Core.Components.ExternalServicesWrapper)
 local UILibraryWrapper = require(Libs.Framework.ContextServices.UILibraryWrapper)
@@ -48,6 +49,11 @@ local function MockWrapper(props)
 	local api = ContextServices.API.new({
 		networking = Networking.mock(),
 	})
+	local analytics
+
+	if FlagsList:get("FFlagToolboxUseDevFrameworkAssetPreview") then
+		analytics = ContextServices.Analytics.mock()
+	end
 
 	local assetAnalytics = AssetAnalyticsContextItem.new(props.assetAnalytics or AssetAnalytics.mock())
 
@@ -70,6 +76,7 @@ local function MockWrapper(props)
 			uiLibraryWrapper,
 			api,
 			assetAnalytics,
+			analytics,
 		},
 			props[Roact.Children])
 	})

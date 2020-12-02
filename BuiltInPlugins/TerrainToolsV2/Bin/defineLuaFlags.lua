@@ -6,8 +6,10 @@ game:DefineFastFlag("TerrainOpenCloseMetrics", false)
 game:DefineFastFlag("TerrainEnableErrorReporting", false)
 game:DefineFastFlag("TerrainToolsBetterImportTool", false)
 game:DefineFastFlag("TerrainToolsIncludeDevFrameworkTheme", false)
+game:DefineFastFlag("TerrainToolsFixLabeledElementPairWidth", false)
 game:DefineFastFlag("TerrainToolsRedesignProgressDialog", false)
 game:DefineFastFlag("TerrainToolsSingleSelectUseHover", false)
+game:DefineFastFlag("TerrainToolsImportUploadAssets", false)
 
 local function handleFlagDependencies(flag, requiredFlags)
 	if not game:GetFastFlag(flag) then
@@ -21,6 +23,8 @@ local function handleFlagDependencies(flag, requiredFlags)
 end
 
 handleFlagDependencies("TerrainToolsBetterImportTool", {
+	"TerrainToolsIncludeDevFrameworkTheme",
+	"TerrainToolsFixLabeledElementPairWidth",
 	"TerrainToolsRedesignProgressDialog",
 	"TerrainImportNewYieldMethod",
 })

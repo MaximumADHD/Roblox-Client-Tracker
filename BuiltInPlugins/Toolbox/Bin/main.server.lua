@@ -7,6 +7,7 @@ end
 
 -- Fast flags
 require(script.Parent.defineLuaFlags)
+local FFlagDevFrameworkLocalizationLibraries = game:GetFastFlag("DevFrameworkLocalizationLibraries")
 local FFlagAssetManagerLuaPlugin = game:GetFastFlag("AssetManagerLuaPlugin")
 local FFlagStudioAssetConfigurationPlugin = game:GetFastFlag("StudioAssetConfigurationPlugin")
 local FFlagToolboxDisableForLuobu = game:GetFastFlag("ToolboxDisableForLuobu")
@@ -36,6 +37,8 @@ local Localization = require(Util.Localization)
 local AssetConfigTheme = require(Util.AssetConfigTheme)
 local AssetConfigConstants = require(Util.AssetConfigConstants)
 local AssetConfigUtil = require(Util.AssetConfigUtil)
+local makeToolboxAnalyticsContext = require(Util.Analytics.makeToolboxAnalyticsContext)
+local FlagsList = require(Util.FlagsList)
 
 if DebugFlags.shouldDebugWarnings() then
 	local Promise = require(Libs.Framework.Util.Promise)
@@ -81,6 +84,12 @@ local localization2 = ContextServices.Localization.new({
 	stringResourceTable = TranslationStringsTable,
 	translationResourceTable = TranslationStringsTable,
 	pluginName = "Toolbox",
+	libraries = FFlagDevFrameworkLocalizationLibraries and {
+		[Framework.Resources.LOCALIZATION_PROJECT_NAME] = {
+			stringResourceTable = Framework.Resources.TranslationDevelopmentTable,
+			translationResourceTable = Framework.Resources.TranslationReferenceTable,
+		},
+	} or nil,
 })
 
 local function createTheme()
@@ -104,9 +113,9 @@ local function createAssetConfigTheme()
 			return settings().Studio.Theme
 		end,
 		-- Get the theme value
-		getUITheme = function()
+		getUITheme = (not game:GetFastFlag("StudioPluginsDontUseUITheme")) and function()
 			return settings().Studio["UI Theme"]
-		end,
+		end or nil,
 		themeChanged = settings().Studio.ThemeChanged,
 	})
 end
@@ -292,6 +301,12 @@ local function main()
 
 	local assetAnalyticsContextItem = AssetAnalyticsContextItem.new()
 
+	local analyticsContextItem
+
+	if FlagsList:get("FFlagToolboxUseDevFrameworkAssetPreview") then
+		analyticsContextItem = makeToolboxAnalyticsContext()
+	end
+
 	local settings = Settings.new(plugin)
 	local theme = createTheme()
 	local networkInterface = NetworkInterface.new()
@@ -336,6 +351,7 @@ local function main()
 		store = toolboxStore,
 		settings = settings,
 		assetAnalytics = assetAnalyticsContextItem,
+		analytics = analyticsContextItem,
 	}, {
 		toolboxComponent
 	})

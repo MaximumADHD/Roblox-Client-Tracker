@@ -12,7 +12,6 @@ local getEngineFeatureActiveInstanceHighlight = require(DraggerFramework.Flags.g
 local getFFlagDragFaceInstances = require(DraggerFramework.Flags.getFFlagDragFaceInstances)
 
 local getEngineFeatureEditPivot = require(DraggerFramework.Flags.getEngineFeatureEditPivot)
-local getFFlagDraggerSupportBones = require(DraggerFramework.Flags.getFFlagDraggerSupportBones)
 local getEngineFeatureSelectionServiceAddRemove = require(DraggerFramework.Flags.getEngineFeatureSelectionServiceAddRemove)
 
 local SelectionHelper = {}
@@ -281,12 +280,7 @@ function SelectionHelper.computeSelectionInfo(selectedObjects, isSimulating, use
 		end
 		if not selectionHasPhysics then
 			for _, attachment in ipairs(allAttachments) do
-				local parentPart
-				if getFFlagDraggerSupportBones() then
-					parentPart = attachment:FindFirstAncestorWhichIsA("BasePart")
-				else
-					parentPart = attachment.Parent
-				end
+				local parentPart = attachment:FindFirstAncestorWhichIsA("BasePart")
 				if parentPart and not parentPart:IsGrounded() then
 					selectionHasPhysics = true
 					break

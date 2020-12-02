@@ -3,13 +3,21 @@ local PerformFetch = require(CorePackages.AppTempCommon.LuaApp.Thunks.Networking
 local InspectAndBuyFolder = script.Parent.Parent
 local Thunk = require(InspectAndBuyFolder.Thunk)
 local Network = require(InspectAndBuyFolder.Services.Network)
+local createInspectAndBuyKeyMapper = require(InspectAndBuyFolder.createInspectAndBuyKeyMapper)
+
+local FFlagFixInspectAndBuyPerformFetch = require(InspectAndBuyFolder.Flags.FFlagFixInspectAndBuyPerformFetch)
 
 local requiredServices = {
 	Network,
 }
 
-local function keyMapper(costumeId)
-	return "inspectAndBuy.getHumanoidDescriptionFromCostumeId." ..tostring(costumeId)
+local keyMapper
+if FFlagFixInspectAndBuyPerformFetch then
+	keyMapper = createInspectAndBuyKeyMapper("getHumanoidDescriptionFromCostumeId")
+else
+	keyMapper = function(costumeId)
+		return "inspectAndBuy.getHumanoidDescriptionFromCostumeId." ..tostring(costumeId)
+	end
 end
 
 --[[
@@ -18,7 +26,15 @@ end
 local function GetHumanoidDescriptionFromCostumeId(costumeId, callback)
 	return Thunk.new(script.Name, requiredServices, function(store, services)
 		local network = services[Network]
-		return PerformFetch.Single(keyMapper(costumeId), function()
+
+		local key
+		if FFlagFixInspectAndBuyPerformFetch then
+			key = keyMapper(store:getState().storeId, costumeId)
+		else
+			key = keyMapper(costumeId)
+		end
+
+		return PerformFetch.Single(key, function()
 			return network.getHumanoidDescriptionFromCostumeId(costumeId):andThen(function(humanoidDescription)
 				callback(humanoidDescription)
 			end)

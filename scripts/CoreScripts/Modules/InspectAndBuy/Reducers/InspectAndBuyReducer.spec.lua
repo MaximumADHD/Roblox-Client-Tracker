@@ -20,6 +20,7 @@ return function()
 			gamepadEnabled = true,
 			isLoaded = true,
 			FetchingStatus = true,
+			storeId = true,
 		}
 
 		for key in pairs(expectedKeys) do

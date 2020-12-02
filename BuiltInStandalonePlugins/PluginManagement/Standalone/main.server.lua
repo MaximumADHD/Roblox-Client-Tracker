@@ -1,5 +1,3 @@
-local FFlagPluginManagementAllowLotsOfPlugins2 = settings():GetFFlag("PluginManagementAllowLotsOfPlugins2")
-
 local StudioService = game:GetService("StudioService")
 local MarketplaceService = game:GetService("MarketplaceService")
 
@@ -47,12 +45,10 @@ local function main()
 	end
 
 	-- start preloading data
-	if FFlagPluginManagementAllowLotsOfPlugins2 then
-		spawn(function()
-			wait()
-			globals.store:dispatch(RefreshPlugins(globals.api, MarketplaceService))
-		end)
-	end
+	spawn(function()
+		wait()
+		globals.store:dispatch(RefreshPlugins(globals.api, MarketplaceService))
+	end)
 
 	local mgmtWindow = Roact.createElement(ManagementApp, {
 		plugin = plugin,

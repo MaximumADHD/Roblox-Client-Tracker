@@ -245,7 +245,7 @@ local function createAudioContextMenu(analytics, apiImpl, assetData, contextMenu
         end
     end)
     contextMenu:AddNewAction("Insert", localization:getText("ContextMenu", "Insert")).Triggered:connect(function()
-        AssetManagerService:InsertAudio(assetData.id)
+        AssetManagerService:InsertAudio(assetData.id, assetData.name)
         if FFlagAssetManagerAddAnalytics then
             analytics:report("clickContextMenuItem")
             local searchTerm = state.AssetManagerReducer.searchTerm

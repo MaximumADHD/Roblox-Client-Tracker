@@ -16,8 +16,7 @@ return function()
 		return DraggerToolFixture.new(
 			context, DraggerSchema, {
 				AnalyticsName = "DispatchWorldClickTest"
-			},
-			function() end, function() end, function() end)
+			})
 	end
 
 	it("should drag select when you click nothing", function()

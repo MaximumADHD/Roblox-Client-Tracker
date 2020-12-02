@@ -8,8 +8,10 @@ local FlagsList = Util.Flags.new({
 	FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
 })
 
+local export: any
+
 if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
-	return {
+	export = {
 		Background = StyleKey.MainBackground,
 		Modal = false,
 		Resizable = false,
@@ -29,7 +31,7 @@ if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
 		},
 	}
 else
-	return function(theme, getColor)
+	export = function(theme, getColor)
 
 		local Default = Style.new({
 			Background = theme:GetColor("MainBackground"),
@@ -58,3 +60,5 @@ else
 		}
 	end
 end
+
+return export

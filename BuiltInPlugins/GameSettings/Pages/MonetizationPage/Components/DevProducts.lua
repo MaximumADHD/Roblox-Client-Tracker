@@ -59,7 +59,7 @@ function DevProducts:render()
     local layoutOrder = props.LayoutOrder
 
     local buttonText = localization:getText("General", "ButtonCreate")
-    local buttonTextExtents = GetTextSize(buttonText, theme.fontStyle.Header.TextSize, theme.fontStyle.Header.Font)
+    local buttonTextExtents = GetTextSize(buttonText, theme.fontStyle.Normal.TextSize, theme.fontStyle.Normal.Font)
 
     local headers
     if FFlagFixRadioButtonSeAndTableHeadertForTesting then
@@ -100,6 +100,15 @@ function DevProducts:render()
             MaxHeight = theme.header.height,
             TextSize = theme.fontStyle.Title.TextSize,
         },{
+            Padding = Roact.createElement("UIPadding", {
+                PaddingRight = UDim.new(0, 12)
+            }),
+
+            Layout = Roact.createElement("UIListLayout", {
+                HorizontalAlignment = Enum.HorizontalAlignment.Right,
+                VerticalAlignment = Enum.VerticalAlignment.Center,
+            }),
+
             CreateButton = Roact.createElement(Button, {
                 Style = "GameSettingsPrimaryButton",
                 Text = buttonText,

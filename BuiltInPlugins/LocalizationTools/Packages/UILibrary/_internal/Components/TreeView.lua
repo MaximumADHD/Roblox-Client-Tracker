@@ -34,8 +34,6 @@
 		toggleSelected : (function<void>(bool)) a function that tells the treeview to select this row
 ]]
 local FFlagStudioFixTreeViewForSquish = settings():GetFFlag("StudioFixTreeViewForSquish")
--- Related Ticket https://jira.rbx.com/browse/CLISTUDIO-21831
-local FFlagStudioFixTreeViewForFlatList = settings():GetFFlag("StudioFixTreeViewForFlatList")
 local FFlagFixTreeViewFlatListDefault = game:DefineFastFlag("FixTreeViewFlatListDefault", false)
 
 local Library = script.Parent.Parent
@@ -299,7 +297,7 @@ function TreeView:init()
 				createFlatList = self.props.createFlatList
 			end
 		else
-			createFlatList = FFlagStudioFixTreeViewForFlatList and self.props.createFlatList
+			createFlatList = self.props.createFlatList
 		end
 
 		if handlers.sortChildren then
@@ -340,7 +338,7 @@ function TreeView:init()
 				createFlatList = self.props.createFlatList
 			end
 		else
-			createFlatList = FFlagStudioFixTreeViewForFlatList and self.props.createFlatList
+			createFlatList = self.props.createFlatList
 		end
 
 		local numNodes = 1

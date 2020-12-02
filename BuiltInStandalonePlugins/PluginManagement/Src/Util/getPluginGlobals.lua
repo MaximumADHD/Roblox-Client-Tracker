@@ -1,17 +1,16 @@
 --[[
-	A number of components may need to create ServiceWrappers, this file constructs the table once.
+	A number of components may need to create a context provider, this file constructs the table once.
 
 	Then every dialog and widget that needs to reference these elements can refernce the globals
 	instead of needing to create their own.
 
 	NOTE - because this object creates an object with global state, it is inherently untestable.
 ]]
-local FFlagPluginManagementRemoveUILibrary = game:GetFastFlag("PluginManagementRemoveUILibrary2")
+local FFlagRefactorDevFrameworkTheme = game:GetFastFlag("RefactorDevFrameworkTheme")
 
 local Plugin = script.Parent.Parent.Parent
 local Framework = Plugin.Packages.Framework
 local ContextServices = require(Framework.ContextServices)
-local UILibrary = require(Plugin.Packages.UILibrary) -- remove with FFlagPluginManagementRemoveUILibrary
 
 -- data
 local Rodux = require(Plugin.Packages.Rodux)
@@ -19,25 +18,18 @@ local MainReducer = require(Plugin.Src.Reducers.MainReducer)
 local dataStore = Rodux.Store.new(MainReducer, nil, { Rodux.thunkMiddleware })
 
 -- theme
-local theme
-if FFlagPluginManagementRemoveUILibrary then
-	local makeTheme =  require(Plugin.Src.Resources.makeTheme)
-	theme = makeTheme()
+local makeTheme
+if FFlagRefactorDevFrameworkTheme then
+	makeTheme = require(Plugin.Src.Resources.makeTheme2)
 else
-	local PluginTheme = require(Plugin.Src.Resources.PluginTheme)
-	theme = PluginTheme.new()
+	makeTheme = require(Plugin.Src.Resources.makeTheme)
 end
+local theme = makeTheme()
 
 -- localization
 local TranslationDevelopmentTable = Plugin.Src.Resources.TranslationDevelopmentTable
 local TranslationReferenceTable = Plugin.Src.Resources.TranslationReferenceTable
-
-local Localization
-if FFlagPluginManagementRemoveUILibrary then
-	Localization = ContextServices.Localization
-else
-	Localization = UILibrary.Studio.Localization
-end
+local Localization = ContextServices.Localization
 local localization = Localization.new({
 	stringResourceTable = TranslationDevelopmentTable,
 	translationResourceTable = TranslationReferenceTable,

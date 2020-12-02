@@ -19,10 +19,21 @@ local ImportLocalTool = Rodux.createReducer({
 		Z = 1024,
 	},
 
-	heightmap = nil,
-	colormap = nil,
+	--[[
+		heightmap and colormap are structs of the form:
+		file : File instance
+		width : int
+		height : int
+		channels : int
+		bytesPerChannel : int (heightmap only, for 16 bit support)
+		status : string (error message)
+	]]
+	heightmap = {},
+	colormap = {},
+
 	-- TODO: Remove useColorMap when removing FFlagTerrainImportSupportDefaultMaterial
 	useColorMap = false,
+
 	defaultMaterial = Enum.Material.Asphalt,
 	materialMode = ImportMaterialMode.DefaultMaterial,
 }, {
@@ -57,15 +68,13 @@ local ImportLocalTool = Rodux.createReducer({
 
 	SelectHeightmap = function(state, action)
 		return Cryo.Dictionary.join(state, {
-			-- Ensure that selecting nil (i.e. clearing the selection) actually clears it from state
-			heightmap = action.heightmap or Cryo.None,
+			heightmap = action.heightmap or {},
 		})
 	end,
 
 	SelectColormap = function(state, action)
 		return Cryo.Dictionary.join(state, {
-			-- Ensure that selecting nil (i.e. clearing the selection) actually clears it from state
-			colormap = action.colormap or Cryo.None,
+			colormap = action.colormap or {},
 		})
 	end,
 
@@ -73,7 +82,6 @@ local ImportLocalTool = Rodux.createReducer({
 		return Cryo.Dictionary.join(state, {
 			defaultMaterial = action.defaultMaterial,
 		})
-
 	end,
 })
 

@@ -3,6 +3,8 @@ local MarketplaceService = game:GetService("MarketplaceService")
 
 local Promise = require(CorePackages.Promise)
 
+local FFlagMakeGetAssetsDifferenceFaster = require(script.Parent.Flags.FFlagMakeGetAssetsDifferenceFaster)
+
 local function GetAssetInfo(assetId)
 	return Promise.new(function(resolve, reject)
 		local success, result = pcall(function()
@@ -26,11 +28,21 @@ return function(assetIdList)
 		table.insert(promises, GetAssetInfo(assetId))
 	end
 
-	return Promise.all(promises):andThen(function(results)
-		local idNameMap = {}
-		for _, data in ipairs(results) do
-			idNameMap[data.id] = data.name
-		end
-		return idNameMap
-	end)
+	if FFlagMakeGetAssetsDifferenceFaster then
+		return Promise.all(promises):andThen(function(results)
+			local nameList = {}
+			for _, data in ipairs(results) do
+				table.insert(nameList, data.name)
+			end
+			return nameList
+		end)
+	else
+		return Promise.all(promises):andThen(function(results)
+			local idNameMap = {}
+			for _, data in ipairs(results) do
+				idNameMap[data.id] = data.name
+			end
+			return idNameMap
+		end)
+	end
 end

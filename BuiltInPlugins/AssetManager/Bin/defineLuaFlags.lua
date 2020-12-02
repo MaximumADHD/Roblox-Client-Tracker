@@ -16,5 +16,9 @@ game:DefineFastFlag("AssetManagerRemoveAssetFixes", false)
 game:DefineFastFlag("UseFakeFavoriteIncrement", false)
 game:DefineFastFlag("AssetManagerFixNavBarSetState", false)
 game:DefineFastFlag("StudioAssetManagerHideTooltipOnAssetPreview", false)
+game:DefineFastFlag("StudioAssetManagerUXFixes", false)
+game:DefineFastFlag("AssetManagerFixRightClickForAudio", false)
+game:DefineFastFlag("StudioAssetManagerAssetPreviewRequest", false)
+game:DefineFastFlag("StudioAssetManagerLinkedScriptIcon", false)
 
 return nil

@@ -11,7 +11,7 @@ local shouldDragAsFace = require(DraggerFramework.Utility.shouldDragAsFace)
 local getEngineFeatureActiveInstanceHighlight = require(DraggerFramework.Flags.getEngineFeatureActiveInstanceHighlight)
 local getFFlagDragFaceInstances = require(DraggerFramework.Flags.getFFlagDragFaceInstances)
 
-local getFFlagDraggerSupportBones = require(DraggerFramework.Flags.getFFlagDraggerSupportBones)
+local getEngineFeatureEditPivot = require(DraggerFramework.Flags.getEngineFeatureEditPivot)
 local getEngineFeatureSelectionServiceAddRemove = require(DraggerFramework.Flags.getEngineFeatureSelectionServiceAddRemove)
 
 local SelectionHelper = {}
@@ -280,12 +280,7 @@ function SelectionHelper.computeSelectionInfo(selectedObjects, isSimulating, use
 		end
 		if not selectionHasPhysics then
 			for _, attachment in ipairs(allAttachments) do
-				local parentPart
-				if getFFlagDraggerSupportBones() then
-					parentPart = attachment:FindFirstAncestorWhichIsA("BasePart")
-				else
-					parentPart = attachment.Parent
-				end
+				local parentPart = attachment:FindFirstAncestorWhichIsA("BasePart")
 				if parentPart and not parentPart:IsGrounded() then
 					selectionHasPhysics = true
 					break
@@ -352,7 +347,7 @@ function SelectionHelper.updateSelection(selectable, oldSelection, isExclusive, 
 		end
 	end
 
-	if doExtendSelection then
+	if doExtendSelection and not (getEngineFeatureEditPivot() and isExclusive) then
 		-- Add or remove from the selection when ctrl or shift is held.
 		if getEngineFeatureSelectionServiceAddRemove() then
 			local newSelection = {}

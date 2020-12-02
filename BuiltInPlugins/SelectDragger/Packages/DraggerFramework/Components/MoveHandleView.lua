@@ -8,6 +8,7 @@ local Math = require(DraggerFramework.Utility.Math)
 local Roact = require(Plugin.Packages.Roact)
 
 local getEngineFeatureAdornCullingMode = require(DraggerFramework.Flags.getEngineFeatureAdornCullingMode)
+local getEngineFeatureEditPivot = require(DraggerFramework.Flags.getEngineFeatureEditPivot)
 
 local CULLING_MODE = getEngineFeatureAdornCullingMode() and Enum.AdornCullingMode.Never or nil
 
@@ -47,6 +48,9 @@ function MoveHandleView:render()
 	local length = scale * BASE_HANDLE_LENGTH
 	local radius = scale * BASE_HANDLE_RADIUS
 	local offset = scale * BASE_HANDLE_OFFSET
+	if getEngineFeatureEditPivot() then
+		offset = offset + length * (self.props.Outset or 0)
+	end
 	local tipOffset = scale * BASE_TIP_OFFSET
 	local tipLength = length * BASE_TIP_LENGTH
 	if self.props.Thin then
@@ -139,6 +143,9 @@ function MoveHandleView.hitTest(props, mouseRay)
 	local radius = scale * BASE_HANDLE_HITTEST_RADIUS
 	local tipRadius = radius * TIP_RADIUS_MULTIPLIER
 	local offset = scale * BASE_HANDLE_OFFSET
+	if getEngineFeatureEditPivot() then
+		offset = offset + length * (props.Outset or 0)
+	end
 	local tipOffset = scale * BASE_TIP_OFFSET
 	local tipLength = length * BASE_TIP_LENGTH
 	local shaftEnd = offset + length
@@ -191,9 +198,12 @@ end
 		float Offset - From base CFrame
 		float Size - Extending from CFrame + Offset
 ]]
-function MoveHandleView.getHandleDimensionForScale(scale)
+function MoveHandleView.getHandleDimensionForScale(scale, outset)
 	local length = scale * BASE_HANDLE_LENGTH
 	local offset = scale * BASE_HANDLE_OFFSET
+	if getEngineFeatureEditPivot() then
+		offset = offset + length * (outset or 0)
+	end
 	local tipLength = length * BASE_TIP_LENGTH
 	return offset, length + tipLength
 end

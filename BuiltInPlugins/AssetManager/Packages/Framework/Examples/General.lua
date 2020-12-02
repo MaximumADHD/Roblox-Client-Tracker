@@ -188,7 +188,7 @@ function Examples:render()
 		}, {
 			ExampleList = entries and Roact.createElement("ScrollingFrame", {
 				Size = UDim2.new(0, 400, 0, 600),
-				CanvasSize = UDim2.new(0, 400, 0, 80 * #exampleData),
+				CanvasSize = UDim2.new(0, 0, 0, 80 * #exampleData),
 				Position = UDim2.new(0.5, 0, 0.5, 0),
 				AnchorPoint = Vector2.new(0.5, 0.5),
 				BorderSizePixel = 2,

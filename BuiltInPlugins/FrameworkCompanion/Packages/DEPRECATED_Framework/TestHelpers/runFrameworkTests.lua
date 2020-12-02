@@ -8,10 +8,9 @@ local Framework = script.Parent.Parent
 	FrameworkCompanion should be the only plugin that needs to run
 	DeveloperFramework tests.
 ]]
-local function runFrameworkTests(TestEZ)
+local function runFrameworkTests(TestEZ, ...)
 	local TestBootstrap = TestEZ.TestBootstrap
-	local TextReporter = TestEZ.TextReporter
-	return TestBootstrap:run({Framework}, TextReporter)
+	return TestBootstrap:run({Framework}, ...)
 end
 
 return runFrameworkTests

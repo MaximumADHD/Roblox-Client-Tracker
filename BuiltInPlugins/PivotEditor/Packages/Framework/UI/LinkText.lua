@@ -14,6 +14,8 @@
 		UDim2 Position: The position of this component.
 		Vector2 AnchorPoint: The pivot point of this component's Position prop.
 		number ZIndex: The render index of this component.
+		Enum.TextTruncate TextTruncate: Sets text truncated.
+		UDim2 Size: The size of this component.
 		number LayoutOrder: The layout order of this component in a list.
 
 	Style Values:
@@ -21,7 +23,6 @@
 		number TextSize: The font size of the text in this link.
 		Color3 TextColor: The color of the text and underline in this link.
 ]]
-local FFlagAssetManagerLuaCleanup1 = settings():GetFFlag("AssetManagerLuaCleanup1")
 local FFlagTruncateDevFrameworkHyperlinkText = game:GetFastFlag("TruncateDevFrameworkHyperlinkText")
 local FFlagWrappedDevFrameworkLinkText = game:GetFastFlag("WrappedDevFrameworkLinkText")
 
@@ -45,7 +46,6 @@ local LinkText = Roact.PureComponent:extend("LinkText")
 Typecheck.wrap(LinkText, script)
 
 function LinkText:init(props)
-	assert(type(props.OnClick) == "function", "LinkText expects an 'OnClick' function.")
 
 	if FFlagWrappedDevFrameworkLinkText then
 		assert(props.Size or (not props.TextWrapped), "Size prop is required to use the TextWrapped prop")
@@ -124,12 +124,8 @@ function LinkText:render()
 
 	local hovered = styleModifier == StyleModifier.Hover
 
-	local enableHover = true
-	local showUnderline = true
-	if FFlagAssetManagerLuaCleanup1 then
-		enableHover = (style.EnableHover == nil) and true or style.EnableHover
-		showUnderline = (style.ShowUnderline == nil) and true or style.ShowUnderline
-	end
+	local enableHover = (style.EnableHover == nil) and true or style.EnableHover
+	local showUnderline = (style.ShowUnderline == nil) and true or style.ShowUnderline
 
 	return Roact.createElement(Button, {
 		Style = {

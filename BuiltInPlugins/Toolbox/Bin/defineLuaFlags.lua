@@ -32,7 +32,7 @@ game:DefineFastFlag("ToolboxDisableMarketplaceAndRecentsForLuobu", false)
 game:DefineFastFlag("ToolboxShowRobloxCreatedAssetsForLuobu", false)
 
 game:DefineFastInt("LuobuToolboxMaxAudioLength", 5)
-game:DefineFastString("LuobuMarketplaceDisabledCategories", "PaidPlugins;FreePlugins;Plugins")
+game:DefineFastString("LuobuMarketplaceDisabledCategories", "PaidPlugins;Plugins")
 
 game:DefineFastFlag("AssetConfigFixAssetIdTypo", false)
 game:DefineFastFlag("AssetConfigFixBadIdVerifyState", false)
@@ -40,6 +40,8 @@ game:DefineFastFlag("AssetConfigFixBadIdVerifyState", false)
 game:DefineFastFlag("UseDefaultThumbnailForAnimation", false)
 
 game:DefineFastFlag("CMSUploadAccessoryMeshPartFormat", false)
+
+game:DefineFastFlag("ToolboxUseDevFrameworkAssetPreview", false)
 
 game:DefineFastFlag("CMSUploadFees", false)
 

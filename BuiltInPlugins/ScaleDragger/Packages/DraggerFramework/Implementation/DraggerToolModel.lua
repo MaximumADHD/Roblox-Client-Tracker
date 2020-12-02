@@ -11,8 +11,6 @@ local SelectionWrapper = require(DraggerFramework.Utility.SelectionWrapper)
 local DerivedWorldState = require(DraggerFramework.Implementation.DerivedWorldState)
 local SelectionHelper = require(DraggerFramework.Utility.SelectionHelper)
 
-local getFFlagRevertCtrlScale = require(DraggerFramework.Flags.getFFlagRevertCtrlScale)
-
 local DraggerToolModel = {}
 DraggerToolModel.__index = DraggerToolModel
 
@@ -277,7 +275,6 @@ function DraggerToolModel:_processKeyDown(keyCode)
 end
 
 function DraggerToolModel:_processKeyUp(keyCode)
-	assert(getFFlagRevertCtrlScale())
 	self._stateObject:processKeyUp(keyCode)
 end
 

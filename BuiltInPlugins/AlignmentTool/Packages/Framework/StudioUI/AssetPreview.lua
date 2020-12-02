@@ -160,8 +160,7 @@ function AssetPreview:formatLocalDateTimeForAsset(asset, key)
 	local field = asset[key]
 
 	-- TODO DEVTOOLS-3378: Format as a "friendly" duration string
-	-- TODO STM-173: Expose LocalizationService FormatInfo to enable fully local DateTime formatting
-	local DATETIME_FORMAT_STRING = "YYYY/MM/DD LTS"
+	local DATETIME_FORMAT_STRING = "L LTS"
 
 	if typeof(rawField) == "string" then
 		-- Of the form "/Date(1413925184257)/"
@@ -302,6 +301,7 @@ function AssetPreview:render()
 	local layoutOrderIterator = LayoutOrderIterator.new()
 
 	local scrollingFramePadding = style.ScrollingFrame.Padding
+	local textMaxWidth = size.X.Offset - scrollingFramePadding.PaddingLeft.Offset - scrollingFramePadding.PaddingRight.Offset
 
 	return Roact.createElement(Container, {
 		AnchorPoint = anchorPoint,
@@ -342,7 +342,7 @@ function AssetPreview:render()
 
 				AssetName = Roact.createElement(TextLabel, {
 					FitWidth = true,
-					FitMaxWidth = size.X.Offset,
+					FitMaxWidth = textMaxWidth,
 					TextWrapped = true,
 					Style = style.ScrollingFrame.AssetName,
 					LayoutOrder = layoutOrderIterator:getNextOrder(),
@@ -384,7 +384,7 @@ function AssetPreview:render()
 
 				AssetDescription = Roact.createElement(TextLabel, {
 					FitWidth = true,
-					FitMaxWidth = size.X.Offset,
+					FitMaxWidth = textMaxWidth,
 					TextWrapped = true,
 					Style = style.ScrollingFrame.AssetDescription,
 					LayoutOrder = layoutOrderIterator:getNextOrder(),

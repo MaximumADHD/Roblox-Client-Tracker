@@ -8,8 +8,8 @@ local PivotImplementation = require(DraggerFramework.Utility.PivotImplementation
 local shouldDragAsFace = require(DraggerFramework.Utility.shouldDragAsFace)
 
 local getFFlagDragFaceInstances = require(DraggerFramework.Flags.getFFlagDragFaceInstances)
-local getFFlagDraggerSupportBones = require(DraggerFramework.Flags.getFFlagDraggerSupportBones)
 local EngineFeatureEditPivot = require(DraggerFramework.Flags.getEngineFeatureEditPivot)()
+local getFFlagImproveDragOrientation = require(DraggerFramework.Flags.getFFlagImproveDragOrientation)
 
 local function computeBoundingBox(basisCFrame, allParts, allAttachments)
 	local inverseBasis = basisCFrame:Inverse()
@@ -220,9 +220,11 @@ local function computeInfo(draggerContext, selectedObjects)
 	local basisCFrame = nil
 	local terrain = Workspace.Terrain
 
+	local FFlagImproveDragOrientation = getFFlagImproveDragOrientation()
+
 	for _, instance in ipairs(selectedObjects) do
 		if instance:IsA("Model") then
-			if not basisCFrame or EngineFeatureEditPivot then
+			if not basisCFrame or FFlagImproveDragOrientation then
 				local boundingBoxCFrame, boundingBoxSize =
 					instance:GetBoundingBox()
 				if boundingBoxSize ~= Vector3.new() then
@@ -233,7 +235,7 @@ local function computeInfo(draggerContext, selectedObjects)
 			if not allPartSet[instance] and instance ~= terrain then
 				table.insert(allParts, instance)
 				allPartSet[instance] = true
-				if EngineFeatureEditPivot then
+				if FFlagImproveDragOrientation then
 					basisCFrame = instance.CFrame
 				else
 					basisCFrame = basisCFrame or instance.CFrame
@@ -242,12 +244,8 @@ local function computeInfo(draggerContext, selectedObjects)
 		elseif getFFlagDragFaceInstances() and shouldDragAsFace(instance) then
 			table.insert(allInstancesWithConfigurableFace, instance)
 		elseif instance:IsA("Attachment") then
-			if getFFlagDraggerSupportBones() then
-				if instance:IsA("Bone") then
-					table.insert(allBones, instance)
-				else
-					table.insert(allAttachments, instance)
-				end
+			if instance:IsA("Bone") then
+				table.insert(allBones, instance)
 			else
 				table.insert(allAttachments, instance)
 			end
@@ -268,7 +266,7 @@ local function computeInfo(draggerContext, selectedObjects)
 	if not basisCFrame then
 		if #allAttachments > 0 then
 			basisCFrame = allAttachments[1].WorldCFrame
-		elseif getFFlagDraggerSupportBones() and #allBones > 0 then
+		elseif #allBones > 0 then
 			basisCFrame = allBones[1].WorldCFrame
 		else
 			basisCFrame = CFrame.new()
@@ -300,13 +298,10 @@ local function computeInfo(draggerContext, selectedObjects)
 	-- Figure out what bones in the list of bones are "roots" that are not
 	-- relative to another bone we are already moving. Then add those bones to
 	-- the above list of "interesting"a attachments.
-	local rootBoneMap
-	if getFFlagDraggerSupportBones() then
-		rootBoneMap = findRootBoneMap(allBones)
-		for attachment, ancestorPart in pairs(rootBoneMap) do
-			if not allPartSet[ancestorPart] then
-				table.insert(interestingAttachments, attachment)
-			end
+	local rootBoneMap = findRootBoneMap(allBones)
+	for attachment, ancestorPart in pairs(rootBoneMap) do
+		if not allPartSet[ancestorPart] then
+			table.insert(interestingAttachments, attachment)
 		end
 	end
 
@@ -336,11 +331,9 @@ local function computeInfo(draggerContext, selectedObjects)
 					break
 				end
 			end
-			if getFFlagDraggerSupportBones() then
-				for attachment, ancestorPart in pairs(rootBoneMap) do
-					if not ancestorPart:IsGrounded() then
-						selectionHasPhysics = true
-					end
+			for attachment, ancestorPart in pairs(rootBoneMap) do
+				if not ancestorPart:IsGrounded() then
+					selectionHasPhysics = true
 				end
 			end
 		end
@@ -352,10 +345,8 @@ local function computeInfo(draggerContext, selectedObjects)
 	-- treat Bones and non-Bone Attachments slightily differently.
 	-- We re-use the allAttachments table for this purpose to avoid allocating
 	-- another table of both attachments and bones.
-	if getFFlagDraggerSupportBones() then
-		for _, bone in ipairs(allBones) do
-			table.insert(allAttachments, bone)
-		end
+	for _, bone in ipairs(allBones) do
+		table.insert(allAttachments, bone)
 	end
 
 	-- Build the basisCFrame aligned bounding box.

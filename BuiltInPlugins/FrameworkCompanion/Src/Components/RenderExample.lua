@@ -27,6 +27,17 @@ local Decoration = UI.Decoration
 
 local PanelEntry = require(Plugin.Src.Components.PanelEntry)
 
+--[[
+	Component examples are often functional components.
+	Those rerender when their parent component does, but we don't want this behaviour.
+	This wrapper ensures that the example only rerenders when it needs to, vs. when RenderExample component changes
+]]
+local PureWrapper = Roact.PureComponent:extend("PureWrapper")
+
+function PureWrapper:render()
+	return Roact.createElement(self.props.Component)
+end
+
 local RenderExample = Roact.PureComponent:extend("RenderExample")
 
 function RenderExample:init()
@@ -108,7 +119,9 @@ function RenderExample:render()
 				end,
 			}),
 
-			Example = Roact.createElement(ExampleComponent),
+			Example = Roact.createElement(PureWrapper, {
+				Component = ExampleComponent,
+			}),
 		})
 	})
 end

@@ -10,6 +10,7 @@ local PartMover = require(DraggerFramework.Utility.PartMover)
 local AttachmentMover = require(DraggerFramework.Utility.AttachmentMover)
 
 local getFFlagEnablePhysicalFreeFormDragger = require(DraggerFramework.Flags.getFFlagEnablePhysicalFreeFormDragger)
+local getFFlagDraggerMiscFixes = require(DraggerFramework.Flags.getFFlagDraggerMiscFixes)
 
 local FreeformDragger = {}
 FreeformDragger.__index = FreeformDragger
@@ -217,7 +218,14 @@ function FreeformDragger:destroy()
 		if worldHit then
 			local worldCFrame = attachment.WorldCFrame
 			if attachment.Parent ~= worldHit then
-				attachment.Parent = worldHit
+				if getFFlagDraggerMiscFixes() then
+					-- pcall as the dragged attachment may have been Destroyed.
+					pcall(function()
+						attachment.Parent = worldHit
+					end)
+				else
+					attachment.Parent = worldHit
+				end
 				attachment.WorldCFrame = worldCFrame
 			end
 		else

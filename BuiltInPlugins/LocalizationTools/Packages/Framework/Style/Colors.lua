@@ -1,5 +1,7 @@
 return {
+	Gray_Lighter = Color3.fromRGB(234, 234, 234),
 	Gray_Light = Color3.fromRGB(204, 204, 204),
+	Gray_Mid = Color3.fromRGB(107, 107, 107),
 	Gray = Color3.fromRGB(60, 60, 60),
 	Slate = Color3.fromRGB(46, 46, 46),
 	Carbon = Color3.fromRGB(34, 34, 34),

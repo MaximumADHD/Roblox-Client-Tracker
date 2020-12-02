@@ -3,7 +3,8 @@ local Libs = Plugin.Libs
 local Util = require(Libs.Framework.Util)
 
 local FlagsList = Util.Flags.new({
-	FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"}
+	FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
+	FFlagToolboxUseDevFrameworkAssetPreview = {"ToolboxUseDevFrameworkAssetPreview", "DevFrameworkLocalizationLibraries"},
 })
 
 return FlagsList

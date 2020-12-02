@@ -1,8 +1,3 @@
-
-if not game:GetEngineFeature("LuaDraggers") then
-	return
-end
-
 local RunService = game:GetService("RunService")
 
 -- Libraries

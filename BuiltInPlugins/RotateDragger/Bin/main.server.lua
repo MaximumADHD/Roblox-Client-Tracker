@@ -1,7 +1,3 @@
-if not game:GetEngineFeature("LuaDraggers") then
-	return
-end
-
 -- Libraries
 local Plugin = script.Parent.Parent
 local DraggerFramework = Plugin.Packages.DraggerFramework

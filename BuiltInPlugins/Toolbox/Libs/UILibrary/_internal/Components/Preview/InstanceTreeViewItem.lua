@@ -10,8 +10,6 @@
 		rowIndex = number, The order in which this item appears in the list.
 		toggleSelected = callback, A callback when this item is clicked.
 ]]
-local FFlagAssetManagerLuaCleanup1 = settings():GetFFlag("AssetManagerLuaCleanup1")
-
 local Library = script.Parent.Parent.Parent
 
 local Roact = require(Library.Parent.Parent.Roact)
@@ -54,10 +52,8 @@ function TreeViewItem:render(props)
 		local instance = self.props.element
 		local name = instance.Name
 		local iconInfo = GetClassIcon(instance)
-		if FFlagAssetManagerLuaCleanup1 then
-			if typeof(instance) == "table" and instance.Icon then
-				iconInfo = instance.Icon
-			end
+		if typeof(instance) == "table" and instance.Icon then
+			iconInfo = instance.Icon
 		end
 
 		local indent = self.props.indent

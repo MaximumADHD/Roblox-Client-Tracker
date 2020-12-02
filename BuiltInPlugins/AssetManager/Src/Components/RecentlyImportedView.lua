@@ -8,6 +8,7 @@
 
 local Plugin = script.Parent.Parent.Parent
 
+local Cryo = require(Plugin.Packages.Cryo)
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 local Framework = Plugin.Packages.Framework
@@ -30,6 +31,7 @@ local SetRecentViewToggled = require(Plugin.Src.Actions.SetRecentViewToggled)
 local SetSelectedAssets = require(Plugin.Src.Actions.SetSelectedAssets)
 
 local FFlagStudioAssetManagerAddGridListToggle = game:GetFastFlag("StudioAssetManagerAddGridListToggle")
+local FFlagStudioAssetManagerUXFixes = game:GetFastFlag("StudioAssetManagerUXFixes")
 
 local RecentlyImportedView = Roact.PureComponent:extend("RecentlyImportedView")
 
@@ -51,6 +53,23 @@ function RecentlyImportedView:createListItems(theme, recentAssets, selectedAsset
     return assetsToDisplay
 end
 
+function RecentlyImportedView:init()
+    self.onMouseActivated = function(rbx, obj, clickCount)
+        local props = self.props
+        props.dispatchSetRecentViewToggled(not props.RecentViewToggled)
+    end
+
+    self.mouseEnter = function()
+        local props = self.props
+        props.Mouse:__pushCursor("PointingHand")
+	end
+
+    self.mouseLeave = function()
+        local props = self.props
+        props.Mouse:__popCursor()
+	end
+end
+
 function RecentlyImportedView:render()
     local props = self.props
     local theme = props.Theme:get("Plugin")
@@ -65,6 +84,7 @@ function RecentlyImportedView:render()
 
     local recentViewToggled = props.RecentViewToggled
     local dispatchSetRecentViewToggled = props.dispatchSetRecentViewToggled
+    local arrowImageProps = recentViewToggled and recentViewTheme.Bar.Arrow.Expanded or recentViewTheme.Bar.Arrow.Collapsed
 
     local dispatchSetSelectedAssets = props.dispatchSetSelectedAssets
 
@@ -89,7 +109,61 @@ function RecentlyImportedView:render()
             SortOrder = Enum.SortOrder.LayoutOrder,
         }),
 
-        RecentlyImportedViewBar = Roact.createElement("Frame", {
+        RecentlyImportedViewBar = FFlagStudioAssetManagerUXFixes and Roact.createElement("ImageButton", {
+            Size = UDim2.new(1, 0, 0, recentViewTheme.Bar.Height),
+            LayoutOrder = layoutIndex:getNextOrder(),
+            ZIndex = 100,
+
+            BackgroundColor3 = recentViewTheme.Bar.BackgroundColor,
+            BorderColor3 = theme.BorderColor,
+            BorderSizePixel = 1,
+
+            [Roact.Event.Activated] = self.onMouseActivated,
+            [Roact.Event.MouseEnter] = self.mouseEnter,
+            [Roact.Event.mouseLeave] = self.mouseLeave,
+        }, {
+            RecentlyImportedViewBarLayout = Roact.createElement("UIListLayout", {
+                Padding = UDim.new(0, recentViewTheme.Bar.Padding),
+                FillDirection = Enum.FillDirection.Horizontal,
+                VerticalAlignment = FFlagStudioAssetManagerAddGridListToggle and nil or
+                Enum.VerticalAlignment.Center,
+                SortOrder = Enum.SortOrder.LayoutOrder,
+            }),
+
+            GameBarPadding = Roact.createElement("UIPadding", {
+                PaddingLeft = UDim.new(0, recentViewTheme.Bar.Padding),
+            }),
+
+            RecentlyImportedViewBarText = Roact.createElement("TextLabel", {
+                Size = UDim2.new(1, -recentViewTheme.Bar.Button.Size - recentViewTheme.Bar.Padding, 1, 0),
+                LayoutOrder = 0,
+
+                BackgroundTransparency = 1,
+
+                Text = recentlyImportedViewText,
+                TextColor3 = theme.TextColor,
+                TextSize = theme.FontSizeSmall,
+                Font = theme.Font,
+                TextXAlignment = Enum.TextXAlignment.Left,
+            }),
+
+            CollapseImageFrame = Roact.createElement("Frame", {
+                Size = UDim2.new(0, recentViewTheme.Bar.Button.Size, 0, recentViewTheme.Bar.Button.Size),
+                LayoutOrder = 1,
+
+                BackgroundTransparency = 1,
+            }, {
+                CollapseArrow = Roact.createElement("ImageLabel", Cryo.Dictionary.join(arrowImageProps, {
+                    Size = UDim2.new(0, recentViewTheme.Bar.Arrow.Size, 0, recentViewTheme.Bar.Arrow.Size),
+                    AnchorPoint = Vector2.new(0, 0.5),
+                    Position = UDim2.new(0, 0, 0.5, 0),
+                    BackgroundTransparency = 1,
+                    ImageColor3 = recentViewTheme.Bar.Arrow.Color,
+                })),
+            }),
+        }),
+
+        DEPRECATED_RecentlyImportedViewBar = not FFlagStudioAssetManagerUXFixes and Roact.createElement("Frame", {
             Size = UDim2.new(1, 0, 0, recentViewTheme.Bar.Height),
             LayoutOrder = layoutIndex:getNextOrder(),
             ZIndex = 100,
@@ -161,6 +235,7 @@ end
 ContextServices.mapToProps(RecentlyImportedView,{
     Analytics = ContextServices.Analytics,
     Localization = ContextServices.Localization,
+    Mouse = ContextServices.Mouse,
     Theme = ContextServices.Theme,
 })
 

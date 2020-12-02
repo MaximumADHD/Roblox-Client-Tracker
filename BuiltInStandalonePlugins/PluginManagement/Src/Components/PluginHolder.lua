@@ -1,22 +1,15 @@
 local FFlagPluginManagementScrollbarDesign = game:DefineFastFlag("PluginManagementScrollbarDesign", false)
 local FFlagPluginManagementPrettifyDesign = game:GetFastFlag("PluginManagementPrettifyDesign2")
-local FFlagPluginManagementRemoveUILibrary = game:GetFastFlag("PluginManagementRemoveUILibrary2")
 local FFlagPluginManagementFixHorizontalScrollbar = game:DefineFastFlag("PluginManagementFixHorizontalScrollbar", false)
 
 local StudioService = game:GetService("StudioService")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
-local UILibrary = require(Plugin.Packages.UILibrary) -- remove with FFlagPluginManagementRemoveUILibrary
 local FrameworkUtil = require(Plugin.Packages.Framework.Util)
 local PluginEntry = require(Plugin.Src.Components.PluginEntry)
 local Constants = require(Plugin.Src.Util.Constants)
-local LayoutOrderIterator
-if FFlagPluginManagementRemoveUILibrary then
-	LayoutOrderIterator = FrameworkUtil.LayoutOrderIterator
-else
-	LayoutOrderIterator = UILibrary.Util.LayoutOrderIterator
-end
+local LayoutOrderIterator = FrameworkUtil.LayoutOrderIterator
 local ContextServices = require(Plugin.Packages.Framework.ContextServices)
 
 local FlagsList = require(Plugin.Src.Util.FlagsList)

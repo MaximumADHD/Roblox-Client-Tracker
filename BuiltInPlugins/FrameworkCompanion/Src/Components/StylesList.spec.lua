@@ -30,7 +30,7 @@ return function()
 		expect(main.Contents).to.be.ok()
 		expect(main.Contents.Name).to.be.ok()
 		expect(main.Contents.Description).to.be.ok()
-		expect(main.Contents:FindFirstChild("List")).never.to.be.ok()
+		expect(main.Contents:FindFirstChild("List")).to.be.ok()
 		Roact.unmount(instance)
 	end)
 

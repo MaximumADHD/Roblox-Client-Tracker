@@ -18,7 +18,6 @@
 		boolean ClickableWhenViewportHidden: Whether the button is enabled
 			when the main window is not active
 ]]
-local FFlagAssetManagerLuaCleanup1 = settings():GetFFlag("AssetManagerLuaCleanup1")
 local FFlagSupportOneShotButtons = game:DefineFastFlag("SupportOneShotButtons", false)
 
 local Framework = script.Parent.Parent
@@ -37,9 +36,7 @@ function PluginButton:createButton()
 	local onClick = props.OnClick
 
 
-	if FFlagAssetManagerLuaCleanup1 then
-		assert(typeof(title) == "string", string.format("PluginButton requires Title to be of type string not %s", typeof(title)))
-	end
+	assert(typeof(title) == "string", string.format("PluginButton requires Title to be of type string not %s", typeof(title)))
 
 	self.button = toolbar:CreateButton(title, tooltip, icon)
 

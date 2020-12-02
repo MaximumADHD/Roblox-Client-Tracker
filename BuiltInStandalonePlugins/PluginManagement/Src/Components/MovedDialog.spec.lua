@@ -1,6 +1,4 @@
 return function()
-	local FFlagPluginManagementRemoveUILibrary = game:GetFastFlag("PluginManagementRemoveUILibrary2")
-
 	local Plugin = script.Parent.Parent.Parent
 	local Roact = require(Plugin.Packages.Roact)
 	local MockManagement = require(Plugin.Src.Components.MockManagement)
@@ -33,11 +31,7 @@ return function()
 		expect(root.Background).to.be.ok()
 		expect(root.Background.Label).to.be.ok()
 		expect(root.Background.Label2).to.be.ok()
-		if FFlagPluginManagementRemoveUILibrary then
-			expect(root.Background.CloseButton).to.be.ok()
-		else
-			expect(root.Background.CloseButtonOLD).to.be.ok()
-		end
+		expect(root.Background.CloseButton).to.be.ok()
 		Roact.unmount(instance)
 	end)
 end

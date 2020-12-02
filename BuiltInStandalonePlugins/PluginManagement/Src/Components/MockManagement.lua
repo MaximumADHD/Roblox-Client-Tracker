@@ -16,7 +16,6 @@ local Rodux = require(Plugin.Packages.Rodux)
 local Http = require(Plugin.Packages.Http)
 local MainReducer = require(Plugin.Src.Reducers.MainReducer)
 local ContextServices = require(Plugin.Packages.Framework.ContextServices)
-local UILibraryWrapper = require(Plugin.Packages.Framework.ContextServices.UILibraryWrapper) -- remove with FFlagPluginManagementRemoveUILibrary
 local PluginAPI2 = require(Plugin.Src.ContextServices.PluginAPI2)
 local Navigation = require(Plugin.Src.ContextServices.Navigation)
 
@@ -26,7 +25,6 @@ local FlagsList = Flags.new({
 		"EnablePluginPermissionsPage2",
 		"StudioPermissionsServiceEnabled",
 	},
-	FFlagPluginManagementRemoveUILibrary = "PluginManagementRemoveUILibrary2",
 	FFlagRefactorDevFrameworkTheme = "RefactorDevFrameworkTheme",
 })
 
@@ -81,10 +79,6 @@ function MockManagement:render()
 		ContextServices.Focus.new(self.target),
 		ContextServices.Store.new(self.store),
 	}
-
-	if not FlagsList:get("FFlagPluginManagementRemoveUILibrary") then
-		table.insert(services, UILibraryWrapper.new())
-	end
 
 	if FlagsList:get("FFlagEnablePluginPermissionsPage") then
 		table.insert(services, Navigation.new())

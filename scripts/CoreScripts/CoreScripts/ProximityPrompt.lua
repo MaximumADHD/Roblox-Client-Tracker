@@ -3,10 +3,26 @@ local ProximityPromptService = game:GetService("ProximityPromptService")
 local CoreGui = game:GetService("CoreGui")
 local TweenService = game:GetService("TweenService")
 local TextService = game:GetService("TextService")
+local Players = game:GetService("Players")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
+local FFlagProximityPromptLocalization = game:DefineFastFlag("ProximityPromptLocalization", false)
 local FFlagProximityPromptNoButtonDrag = game:DefineFastFlag("ProximityPromptNoButtonDrag", false)
 local FFlagProximityPromptLiveChanges = game:DefineFastFlag("ProximityPromptLiveChanges", false)
+local FFlagProximityPromptMoreKeyCodes = game:DefineFastFlag("ProximityPromptMoreKeyCodes", false)
+local FFlagProximityPromptsFadeIn = game:DefineFastFlag("ProximityPromptsFadeIn", false)
+
+local PlayerGui
+
+if FFlagProximityPromptLocalization then
+	local LocalPlayer = Players.LocalPlayer
+	while LocalPlayer == nil do
+		Players.ChildAdded:wait()
+		LocalPlayer = Players.LocalPlayer
+	end
+
+	PlayerGui = LocalPlayer:WaitForChild("PlayerGui")
+end
 
 local GamepadButtonImage = {
 	[Enum.KeyCode.ButtonX] = "rbxasset://textures/ui/Controls/xboxX.png",
@@ -22,7 +38,51 @@ local GamepadButtonImage = {
 	[Enum.KeyCode.ButtonR1] = "rbxasset://textures/ui/Controls/xboxRS.png",
 }
 
-local function createMainFrame()
+local KeyboardButtonImage = {
+	[Enum.KeyCode.Backspace] = "rbxasset://textures/ui/Controls/backspace.png",
+	[Enum.KeyCode.Return] = "rbxasset://textures/ui/Controls/return.png",
+	[Enum.KeyCode.LeftShift] = "rbxasset://textures/ui/Controls/shift.png",
+	[Enum.KeyCode.RightShift] = "rbxasset://textures/ui/Controls/shift.png",
+	[Enum.KeyCode.Tab] = "rbxasset://textures/ui/Controls/tab.png",
+}
+
+-- This is only available in Core Scripts, so this block must be removed
+-- when copying this code as an example for customization in developer scripts
+if UserInputService:GetPlatform() == Enum.Platform.OSX then
+	KeyboardButtonImage[Enum.KeyCode.LeftControl] = "rbxasset://textures/ui/Controls/command.png"
+	KeyboardButtonImage[Enum.KeyCode.RightControl] = "rbxasset://textures/ui/Controls/command.png"
+	KeyboardButtonImage[Enum.KeyCode.LeftAlt] = "rbxasset://textures/ui/Controls/option.png"
+	KeyboardButtonImage[Enum.KeyCode.RightAlt] = "rbxasset://textures/ui/Controls/option.png"
+end 
+
+local KeyboardButtonIconMapping = {
+	["'"] = "rbxasset://textures/ui/Controls/apostrophe.png",
+	[","] = "rbxasset://textures/ui/Controls/comma.png",
+	["`"] = "rbxasset://textures/ui/Controls/graveaccent.png",
+	["."] = "rbxasset://textures/ui/Controls/period.png",
+	[" "] = "rbxasset://textures/ui/Controls/spacebar.png",
+}
+
+local KeyCodeToTextMapping = {
+	[Enum.KeyCode.LeftControl] = "Ctrl",
+	[Enum.KeyCode.RightControl] = "Ctrl",
+	[Enum.KeyCode.LeftAlt] = "Alt",
+	[Enum.KeyCode.RightAlt] = "Alt",
+	[Enum.KeyCode.F1] = "F1",
+	[Enum.KeyCode.F2] = "F2",
+	[Enum.KeyCode.F3] = "F3",
+	[Enum.KeyCode.F4] = "F4",
+	[Enum.KeyCode.F5] = "F5",
+	[Enum.KeyCode.F6] = "F6",
+	[Enum.KeyCode.F7] = "F7",
+	[Enum.KeyCode.F8] = "F8",
+	[Enum.KeyCode.F9] = "F9",
+	[Enum.KeyCode.F10] = "F10",
+	[Enum.KeyCode.F11] = "F11",
+	[Enum.KeyCode.F12] = "F12",
+}
+
+local function createMainFrame_DEPRECATED()
 	local frame = Instance.new("Frame")
 	frame.Name = "ProximityPrompts"
 	frame.BackgroundTransparency = 1
@@ -30,6 +90,17 @@ local function createMainFrame()
 	frame.Position = UDim2.fromScale(0, 0)
 	frame.Parent = RobloxGui
 	return frame
+end
+
+local function getScreenGui()
+	local screenGui = PlayerGui:FindFirstChild("ProximityPrompts")
+	if screenGui == nil then
+		screenGui = Instance.new("ScreenGui")
+		screenGui.Name = "ProximityPrompts"
+		screenGui.ResetOnSpawn = false
+		screenGui.Parent = PlayerGui
+	end
+	return screenGui
 end
 
 local function createProgressBarGradient(parent, leftSide)
@@ -88,8 +159,8 @@ local function createPrompt_DEPRECATED(prompt, inputType)
 
 	local tweensForButtonHoldBegin = {}
 	local tweensForButtonHoldEnd = {}
-	local tweensForTriggered = {}
-	local tweensForTriggerEnded = {}
+	local tweensForFadeOut = {}
+	local tweensForFadeIn = {}
 	local tweenInfoInFullDuration = TweenInfo.new(prompt.HoldDuration, Enum.EasingStyle.Linear, Enum.EasingDirection.Out)
 	local tweenInfoOutHalfSecond = TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
 	local tweenInfoFast = TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
@@ -153,11 +224,15 @@ local function createPrompt_DEPRECATED(prompt, inputType)
 		actionText.TextColor3 = Color3.new(1, 1, 1)
 		actionText.TextXAlignment = Enum.TextXAlignment.Left
 		actionText.Text = prompt.ActionText
+		if FFlagProximityPromptLocalization then
+			actionText.AutoLocalize = prompt.AutoLocalize
+			actionText.RootLocalizationTable = prompt.RootLocalizationTable
+		end
 		actionText.Parent = frame
 		table.insert(tweensForButtonHoldBegin, TweenService:Create(actionText, tweenInfoFast, { TextTransparency = 1 }))
 		table.insert(tweensForButtonHoldEnd, TweenService:Create(actionText, tweenInfoFast, { TextTransparency = 0 }))
-		table.insert(tweensForTriggered, TweenService:Create(actionText, tweenInfoFast, { TextTransparency = 1 }))
-		table.insert(tweensForTriggerEnded, TweenService:Create(actionText, tweenInfoFast, { TextTransparency = 0 }))
+		table.insert(tweensForFadeOut, TweenService:Create(actionText, tweenInfoFast, { TextTransparency = 1 }))
+		table.insert(tweensForFadeIn, TweenService:Create(actionText, tweenInfoFast, { TextTransparency = 0 }))
 
 		if prompt.ObjectText ~= nil and prompt.ObjectText ~= '' then
 			actionText.Position = UDim2.new(0.5, textPaddingLeft - promptWidth/2, 0, 9)
@@ -172,22 +247,26 @@ local function createPrompt_DEPRECATED(prompt, inputType)
 			objectText.TextColor3 = Color3.new(0.7, 0.7, 0.7)
 			objectText.TextXAlignment = Enum.TextXAlignment.Left
 			objectText.Text = prompt.ObjectText
+			if FFlagProximityPromptLocalization then
+				objectText.AutoLocalize = prompt.AutoLocalize
+				objectText.RootLocalizationTable = prompt.RootLocalizationTable
+			end
 			objectText.Parent = frame
 			table.insert(tweensForButtonHoldBegin, TweenService:Create(objectText, tweenInfoFast, { TextTransparency = 1 }))
 			table.insert(tweensForButtonHoldEnd, TweenService:Create(objectText, tweenInfoFast, { TextTransparency = 0 }))
-			table.insert(tweensForTriggered, TweenService:Create(objectText, tweenInfoFast, { TextTransparency = 1 }))
-			table.insert(tweensForTriggerEnded, TweenService:Create(objectText, tweenInfoFast, { TextTransparency = 0 }))
+			table.insert(tweensForFadeOut, TweenService:Create(objectText, tweenInfoFast, { TextTransparency = 1 }))
+			table.insert(tweensForFadeIn, TweenService:Create(objectText, tweenInfoFast, { TextTransparency = 0 }))
 		end
 
 		table.insert(tweensForButtonHoldBegin, TweenService:Create(frame, tweenInfoFast, { Size = UDim2.fromScale(0.5, 1), BackgroundTransparency = 1 }))
 		table.insert(tweensForButtonHoldEnd, TweenService:Create(frame, tweenInfoFast, { Size = UDim2.fromScale(1, 1), BackgroundTransparency = 0.2 }))
-		table.insert(tweensForTriggered, TweenService:Create(frame, tweenInfoFast, { Size = UDim2.fromScale(0.5, 1), BackgroundTransparency = 1 }))
-		table.insert(tweensForTriggerEnded, TweenService:Create(frame, tweenInfoFast, { Size = UDim2.fromScale(1, 1), BackgroundTransparency = 0.2 }))
+		table.insert(tweensForFadeOut, TweenService:Create(frame, tweenInfoFast, { Size = UDim2.fromScale(0.5, 1), BackgroundTransparency = 1 }))
+		table.insert(tweensForFadeIn, TweenService:Create(frame, tweenInfoFast, { Size = UDim2.fromScale(1, 1), BackgroundTransparency = 0.2 }))
 	else
 		table.insert(tweensForButtonHoldBegin, TweenService:Create(frame, tweenInfoFast, { BackgroundTransparency = 1 }))
 		table.insert(tweensForButtonHoldEnd, TweenService:Create(frame, tweenInfoFast, { BackgroundTransparency = 0.2 }))
-		table.insert(tweensForTriggered, TweenService:Create(frame, tweenInfoFast, { BackgroundTransparency = 1 }))
-		table.insert(tweensForTriggerEnded, TweenService:Create(frame, tweenInfoFast, { BackgroundTransparency = 0.2 }))
+		table.insert(tweensForFadeOut, TweenService:Create(frame, tweenInfoFast, { BackgroundTransparency = 1 }))
+		table.insert(tweensForFadeIn, TweenService:Create(frame, tweenInfoFast, { BackgroundTransparency = 0.2 }))
 	end
 
 	local roundFrame = Instance.new("Frame")
@@ -203,8 +282,8 @@ local function createPrompt_DEPRECATED(prompt, inputType)
 	roundedFrameCorner.CornerRadius = UDim.new(0.5, 0)
 	roundedFrameCorner.Parent = roundFrame
 
-	table.insert(tweensForTriggered, TweenService:Create(roundFrame, tweenInfoQuick, { BackgroundTransparency = 1 }))
-	table.insert(tweensForTriggerEnded, TweenService:Create(roundFrame, tweenInfoQuick, { BackgroundTransparency = 0.5 }))
+	table.insert(tweensForFadeOut, TweenService:Create(roundFrame, tweenInfoQuick, { BackgroundTransparency = 1 }))
+	table.insert(tweensForFadeIn, TweenService:Create(roundFrame, tweenInfoQuick, { BackgroundTransparency = 0.5 }))
 
 	if inputType == Enum.ProximityPromptInputType.Gamepad then
 		if GamepadButtonImage[prompt.GamepadKeyCode] then
@@ -216,8 +295,8 @@ local function createPrompt_DEPRECATED(prompt, inputType)
 			icon.BackgroundTransparency = 1
 			icon.Image = GamepadButtonImage[prompt.GamepadKeyCode]
 			icon.Parent = resizeableInputFrame
-			table.insert(tweensForTriggered, TweenService:Create(icon, tweenInfoQuick, { ImageTransparency = 1 }))
-			table.insert(tweensForTriggerEnded, TweenService:Create(icon, tweenInfoQuick, { ImageTransparency = 0 }))
+			table.insert(tweensForFadeOut, TweenService:Create(icon, tweenInfoQuick, { ImageTransparency = 1 }))
+			table.insert(tweensForFadeIn, TweenService:Create(icon, tweenInfoQuick, { ImageTransparency = 0 }))
 		end
 	elseif inputType == Enum.ProximityPromptInputType.Touch then
 		local buttonImage = Instance.new("ImageLabel")
@@ -229,8 +308,8 @@ local function createPrompt_DEPRECATED(prompt, inputType)
 		buttonImage.Image = "rbxasset://textures/ui/Controls/TouchTapIcon.png"
 		buttonImage.Parent = resizeableInputFrame
 
-		table.insert(tweensForTriggered, TweenService:Create(buttonImage, tweenInfoQuick, { ImageTransparency = 1 }))
-		table.insert(tweensForTriggerEnded, TweenService:Create(buttonImage, tweenInfoQuick, { ImageTransparency = 0 }))
+		table.insert(tweensForFadeOut, TweenService:Create(buttonImage, tweenInfoQuick, { ImageTransparency = 1 }))
+		table.insert(tweensForFadeIn, TweenService:Create(buttonImage, tweenInfoQuick, { ImageTransparency = 0 }))
 	else
 		local buttonImage = Instance.new("ImageLabel")
 		buttonImage.Name = "ButtonImage"
@@ -240,8 +319,8 @@ local function createPrompt_DEPRECATED(prompt, inputType)
 		buttonImage.Position = UDim2.fromScale(0.5, 0.5)
 		buttonImage.Image = "rbxasset://textures/ui/Controls/key_single.png"
 		buttonImage.Parent = resizeableInputFrame
-		table.insert(tweensForTriggered, TweenService:Create(buttonImage, tweenInfoQuick, { ImageTransparency = 1 }))
-		table.insert(tweensForTriggerEnded, TweenService:Create(buttonImage, tweenInfoQuick, { ImageTransparency = 0 }))
+		table.insert(tweensForFadeOut, TweenService:Create(buttonImage, tweenInfoQuick, { ImageTransparency = 1 }))
+		table.insert(tweensForFadeIn, TweenService:Create(buttonImage, tweenInfoQuick, { ImageTransparency = 0 }))
 
 		local buttonText = Instance.new("TextLabel")
 		buttonText.Name = "ButtonText"
@@ -254,8 +333,8 @@ local function createPrompt_DEPRECATED(prompt, inputType)
 		buttonText.TextXAlignment = Enum.TextXAlignment.Center
 		buttonText.Text = UserInputService:GetStringForKeyCode(prompt.KeyboardKeyCode)
 		buttonText.Parent = resizeableInputFrame
-		table.insert(tweensForTriggered, TweenService:Create(buttonText, tweenInfoQuick, { TextTransparency = 1 }))
-		table.insert(tweensForTriggerEnded, TweenService:Create(buttonText, tweenInfoQuick, { TextTransparency = 0 }))
+		table.insert(tweensForFadeOut, TweenService:Create(buttonText, tweenInfoQuick, { TextTransparency = 1 }))
+		table.insert(tweensForFadeIn, TweenService:Create(buttonText, tweenInfoQuick, { TextTransparency = 0 }))
 	end
 
 	if inputType == Enum.ProximityPromptInputType.Touch or prompt.ClickablePrompt then
@@ -306,15 +385,15 @@ local function createPrompt_DEPRECATED(prompt, inputType)
 		table.insert(tweensForButtonHoldEnd, TweenService:Create(circleBar.Progress, tweenInfoOutHalfSecond, { Value = 0 }))
 	end
 
-	return promptUI, tweensForButtonHoldBegin, tweensForButtonHoldEnd, tweensForTriggered, tweensForTriggerEnded
+	return promptUI, tweensForButtonHoldBegin, tweensForButtonHoldEnd, tweensForFadeOut, tweensForFadeIn
 end
 
 local function createPrompt(prompt, inputType, gui)
 
 	local tweensForButtonHoldBegin = {}
 	local tweensForButtonHoldEnd = {}
-	local tweensForTriggered = {}
-	local tweensForTriggerEnded = {}
+	local tweensForFadeOut = {}
+	local tweensForFadeIn = {}
 	local tweenInfoInFullDuration = TweenInfo.new(prompt.HoldDuration, Enum.EasingStyle.Linear, Enum.EasingDirection.Out)
 	local tweenInfoOutHalfSecond = TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
 	local tweenInfoFast = TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
@@ -325,8 +404,8 @@ local function createPrompt(prompt, inputType, gui)
 	promptUI.AlwaysOnTop = true
 
 	local frame = Instance.new("Frame")
-	frame.Size = UDim2.fromScale(1, 1)
-	frame.BackgroundTransparency = 0.2
+	frame.Size = FFlagProximityPromptsFadeIn and UDim2.fromScale(0.5, 1) or UDim2.fromScale(1, 1)
+	frame.BackgroundTransparency = FFlagProximityPromptsFadeIn and 1 or 0.2
 	frame.BackgroundColor3 = Color3.new(0.07, 0.07, 0.07)
 	frame.Parent = promptUI
 
@@ -360,13 +439,16 @@ local function createPrompt(prompt, inputType, gui)
 	actionText.Font = Enum.Font.GothamSemibold
 	actionText.TextSize = 19
 	actionText.BackgroundTransparency = 1
+	if FFlagProximityPromptsFadeIn then
+		actionText.TextTransparency = 1
+	end
 	actionText.TextColor3 = Color3.new(1, 1, 1)
 	actionText.TextXAlignment = Enum.TextXAlignment.Left
 	actionText.Parent = frame
 	table.insert(tweensForButtonHoldBegin, TweenService:Create(actionText, tweenInfoFast, { TextTransparency = 1 }))
 	table.insert(tweensForButtonHoldEnd, TweenService:Create(actionText, tweenInfoFast, { TextTransparency = 0 }))
-	table.insert(tweensForTriggered, TweenService:Create(actionText, tweenInfoFast, { TextTransparency = 1 }))
-	table.insert(tweensForTriggerEnded, TweenService:Create(actionText, tweenInfoFast, { TextTransparency = 0 }))
+	table.insert(tweensForFadeOut, TweenService:Create(actionText, tweenInfoFast, { TextTransparency = 1 }))
+	table.insert(tweensForFadeIn, TweenService:Create(actionText, tweenInfoFast, { TextTransparency = 0 }))
 
 	local objectText = Instance.new("TextLabel")
 	objectText.Name = "ObjectText"
@@ -374,19 +456,22 @@ local function createPrompt(prompt, inputType, gui)
 	objectText.Font = Enum.Font.GothamSemibold
 	objectText.TextSize = 14
 	objectText.BackgroundTransparency = 1
+	if FFlagProximityPromptsFadeIn then
+		objectText.TextTransparency = 1
+	end
 	objectText.TextColor3 = Color3.new(0.7, 0.7, 0.7)
 	objectText.TextXAlignment = Enum.TextXAlignment.Left
 	objectText.Parent = frame
 
 	table.insert(tweensForButtonHoldBegin, TweenService:Create(objectText, tweenInfoFast, { TextTransparency = 1 }))
 	table.insert(tweensForButtonHoldEnd, TweenService:Create(objectText, tweenInfoFast, { TextTransparency = 0 }))
-	table.insert(tweensForTriggered, TweenService:Create(objectText, tweenInfoFast, { TextTransparency = 1 }))
-	table.insert(tweensForTriggerEnded, TweenService:Create(objectText, tweenInfoFast, { TextTransparency = 0 }))
+	table.insert(tweensForFadeOut, TweenService:Create(objectText, tweenInfoFast, { TextTransparency = 1 }))
+	table.insert(tweensForFadeIn, TweenService:Create(objectText, tweenInfoFast, { TextTransparency = 0 }))
 	
 	table.insert(tweensForButtonHoldBegin, TweenService:Create(frame, tweenInfoFast, { Size = UDim2.fromScale(0.5, 1), BackgroundTransparency = 1 }))
 	table.insert(tweensForButtonHoldEnd, TweenService:Create(frame, tweenInfoFast, { Size = UDim2.fromScale(1, 1), BackgroundTransparency = 0.2 }))
-	table.insert(tweensForTriggered, TweenService:Create(frame, tweenInfoFast, { Size = UDim2.fromScale(0.5, 1), BackgroundTransparency = 1 }))
-	table.insert(tweensForTriggerEnded, TweenService:Create(frame, tweenInfoFast, { Size = UDim2.fromScale(1, 1), BackgroundTransparency = 0.2 }))
+	table.insert(tweensForFadeOut, TweenService:Create(frame, tweenInfoFast, { Size = UDim2.fromScale(0.5, 1), BackgroundTransparency = 1 }))
+	table.insert(tweensForFadeIn, TweenService:Create(frame, tweenInfoFast, { Size = UDim2.fromScale(1, 1), BackgroundTransparency = 0.2 }))
 
 	local roundFrame = Instance.new("Frame")
 	roundFrame.Name = "RoundFrame"
@@ -394,15 +479,15 @@ local function createPrompt(prompt, inputType, gui)
 
 	roundFrame.AnchorPoint = Vector2.new(0.5, 0.5)
 	roundFrame.Position = UDim2.fromScale(0.5, 0.5)
-	roundFrame.BackgroundTransparency = 0.5
+	roundFrame.BackgroundTransparency = FFlagProximityPromptsFadeIn and 1 or 0.5
 	roundFrame.Parent = resizeableInputFrame
 
 	local roundedFrameCorner = Instance.new("UICorner")
 	roundedFrameCorner.CornerRadius = UDim.new(0.5, 0)
 	roundedFrameCorner.Parent = roundFrame
 
-	table.insert(tweensForTriggered, TweenService:Create(roundFrame, tweenInfoQuick, { BackgroundTransparency = 1 }))
-	table.insert(tweensForTriggerEnded, TweenService:Create(roundFrame, tweenInfoQuick, { BackgroundTransparency = 0.5 }))
+	table.insert(tweensForFadeOut, TweenService:Create(roundFrame, tweenInfoQuick, { BackgroundTransparency = 1 }))
+	table.insert(tweensForFadeIn, TweenService:Create(roundFrame, tweenInfoQuick, { BackgroundTransparency = 0.5 }))
 
 	if inputType == Enum.ProximityPromptInputType.Gamepad then
 		if GamepadButtonImage[prompt.GamepadKeyCode] then
@@ -412,48 +497,115 @@ local function createPrompt(prompt, inputType, gui)
 			icon.Size = UDim2.fromOffset(24, 24)
 			icon.Position = UDim2.fromScale(0.5, 0.5)
 			icon.BackgroundTransparency = 1
+			if FFlagProximityPromptsFadeIn then
+				icon.ImageTransparency = 1
+			end
 			icon.Image = GamepadButtonImage[prompt.GamepadKeyCode]
 			icon.Parent = resizeableInputFrame
-			table.insert(tweensForTriggered, TweenService:Create(icon, tweenInfoQuick, { ImageTransparency = 1 }))
-			table.insert(tweensForTriggerEnded, TweenService:Create(icon, tweenInfoQuick, { ImageTransparency = 0 }))
+			table.insert(tweensForFadeOut, TweenService:Create(icon, tweenInfoQuick, { ImageTransparency = 1 }))
+			table.insert(tweensForFadeIn, TweenService:Create(icon, tweenInfoQuick, { ImageTransparency = 0 }))
 		end
 	elseif inputType == Enum.ProximityPromptInputType.Touch then
 		local buttonImage = Instance.new("ImageLabel")
 		buttonImage.Name = "ButtonImage"
 		buttonImage.BackgroundTransparency = 1
+		if FFlagProximityPromptsFadeIn then
+			buttonImage.ImageTransparency = 1
+		end
 		buttonImage.Size = UDim2.fromOffset(25, 31)
 		buttonImage.AnchorPoint = Vector2.new(0.5, 0.5)
 		buttonImage.Position = UDim2.fromScale(0.5, 0.5)
 		buttonImage.Image = "rbxasset://textures/ui/Controls/TouchTapIcon.png"
 		buttonImage.Parent = resizeableInputFrame
 
-		table.insert(tweensForTriggered, TweenService:Create(buttonImage, tweenInfoQuick, { ImageTransparency = 1 }))
-		table.insert(tweensForTriggerEnded, TweenService:Create(buttonImage, tweenInfoQuick, { ImageTransparency = 0 }))
+		table.insert(tweensForFadeOut, TweenService:Create(buttonImage, tweenInfoQuick, { ImageTransparency = 1 }))
+		table.insert(tweensForFadeIn, TweenService:Create(buttonImage, tweenInfoQuick, { ImageTransparency = 0 }))
 	else
 		local buttonImage = Instance.new("ImageLabel")
 		buttonImage.Name = "ButtonImage"
 		buttonImage.BackgroundTransparency = 1
+		if FFlagProximityPromptsFadeIn then
+			buttonImage.ImageTransparency = 1
+		end
 		buttonImage.Size = UDim2.fromOffset(28, 30)
 		buttonImage.AnchorPoint = Vector2.new(0.5, 0.5)
 		buttonImage.Position = UDim2.fromScale(0.5, 0.5)
 		buttonImage.Image = "rbxasset://textures/ui/Controls/key_single.png"
 		buttonImage.Parent = resizeableInputFrame
-		table.insert(tweensForTriggered, TweenService:Create(buttonImage, tweenInfoQuick, { ImageTransparency = 1 }))
-		table.insert(tweensForTriggerEnded, TweenService:Create(buttonImage, tweenInfoQuick, { ImageTransparency = 0 }))
+		table.insert(tweensForFadeOut, TweenService:Create(buttonImage, tweenInfoQuick, { ImageTransparency = 1 }))
+		table.insert(tweensForFadeIn, TweenService:Create(buttonImage, tweenInfoQuick, { ImageTransparency = 0 }))
 
-		local buttonText = Instance.new("TextLabel")
-		buttonText.Name = "ButtonText"
-		buttonText.Position = UDim2.fromOffset(-1, -1)
-		buttonText.Size = UDim2.fromScale(1, 1)
-		buttonText.Font = Enum.Font.GothamSemibold
-		buttonText.TextSize = 14
-		buttonText.BackgroundTransparency = 1
-		buttonText.TextColor3 = Color3.new(1, 1, 1)
-		buttonText.TextXAlignment = Enum.TextXAlignment.Center
-		buttonText.Text = UserInputService:GetStringForKeyCode(prompt.KeyboardKeyCode)
-		buttonText.Parent = resizeableInputFrame
-		table.insert(tweensForTriggered, TweenService:Create(buttonText, tweenInfoQuick, { TextTransparency = 1 }))
-		table.insert(tweensForTriggerEnded, TweenService:Create(buttonText, tweenInfoQuick, { TextTransparency = 0 }))
+		if FFlagProximityPromptMoreKeyCodes then
+			local buttonTextString = UserInputService:GetStringForKeyCode(prompt.KeyboardKeyCode)
+
+			local buttonTextImage = KeyboardButtonImage[prompt.KeyboardKeyCode]
+			if buttonTextImage == nil then
+				buttonTextImage = KeyboardButtonIconMapping[buttonTextString]
+			end
+
+			if buttonTextImage == nil then
+				local keyCodeMappedText = KeyCodeToTextMapping[prompt.KeyboardKeyCode]
+				if keyCodeMappedText then
+					buttonTextString = keyCodeMappedText
+				end
+			end
+
+			if buttonTextImage then
+				local icon = Instance.new("ImageLabel")
+				icon.Name = "ButtonImage"
+				icon.AnchorPoint = Vector2.new(0.5, 0.5)
+				icon.Size = UDim2.fromOffset(36, 36)
+				icon.Position = UDim2.fromScale(0.5, 0.5)
+				icon.BackgroundTransparency = 1
+				if FFlagProximityPromptsFadeIn then
+					icon.ImageTransparency = 1
+				end
+				icon.Image = buttonTextImage
+				icon.Parent = resizeableInputFrame
+				table.insert(tweensForFadeOut, TweenService:Create(icon, tweenInfoQuick, { ImageTransparency = 1 }))
+				table.insert(tweensForFadeIn, TweenService:Create(icon, tweenInfoQuick, { ImageTransparency = 0 }))
+			elseif buttonTextString ~= nil and buttonTextString ~= '' then
+				local buttonText = Instance.new("TextLabel")
+				buttonText.Name = "ButtonText"
+				buttonText.Position = UDim2.fromOffset(0, -1)
+				buttonText.Size = UDim2.fromScale(1, 1)
+				buttonText.Font = Enum.Font.GothamSemibold
+				buttonText.TextSize = 14
+				if string.len(buttonTextString) > 2 then
+					buttonText.TextSize = 12
+				end
+				buttonText.BackgroundTransparency = 1
+				if FFlagProximityPromptsFadeIn then
+					buttonText.TextTransparency = 1
+				end
+				buttonText.TextColor3 = Color3.new(1, 1, 1)
+				buttonText.TextXAlignment = Enum.TextXAlignment.Center
+				buttonText.Text = buttonTextString
+				buttonText.Parent = resizeableInputFrame
+				table.insert(tweensForFadeOut, TweenService:Create(buttonText, tweenInfoQuick, { TextTransparency = 1 }))
+				table.insert(tweensForFadeIn, TweenService:Create(buttonText, tweenInfoQuick, { TextTransparency = 0 }))
+			else
+				error("ProximityPrompt '" .. prompt.Name .. "' has an unsupported keycode for rendering UI: " .. tostring(prompt.KeyboardKeyCode))
+			end
+
+		else
+			local buttonText = Instance.new("TextLabel")
+			buttonText.Name = "ButtonText"
+			buttonText.Position = UDim2.fromOffset(-1, -1)
+			buttonText.Size = UDim2.fromScale(1, 1)
+			buttonText.Font = Enum.Font.GothamSemibold
+			buttonText.TextSize = 14
+			buttonText.BackgroundTransparency = 1
+			if FFlagProximityPromptsFadeIn then
+				buttonText.TextTransparency = 1
+			end
+			buttonText.TextColor3 = Color3.new(1, 1, 1)
+			buttonText.TextXAlignment = Enum.TextXAlignment.Center
+			buttonText.Text = UserInputService:GetStringForKeyCode(prompt.KeyboardKeyCode)
+			buttonText.Parent = resizeableInputFrame
+			table.insert(tweensForFadeOut, TweenService:Create(buttonText, tweenInfoQuick, { TextTransparency = 1 }))
+			table.insert(tweensForFadeIn, TweenService:Create(buttonText, tweenInfoQuick, { TextTransparency = 0 }))
+		end
 	end
 
 	if inputType == Enum.ProximityPromptInputType.Touch or prompt.ClickablePrompt then
@@ -524,13 +676,13 @@ local function createPrompt(prompt, inputType, gui)
 	end
 	
 	triggeredConnection = prompt.Triggered:Connect(function()
-		for _, tween in ipairs(tweensForTriggered) do
+		for _, tween in ipairs(tweensForFadeOut) do
 			tween:Play()
 		end
 	end)
 	
 	triggerEndedConnection = prompt.TriggerEnded:Connect(function()
-		for _, tween in ipairs(tweensForTriggerEnded) do
+		for _, tween in ipairs(tweensForFadeIn) do
 			tween:Play()
 		end
 	end)
@@ -543,7 +695,9 @@ local function createPrompt(prompt, inputType, gui)
 		local promptHeight = 72
 		local promptWidth = 72
 		local textPaddingLeft = 72
-		if prompt.ActionText ~= nil and prompt.ActionText ~= '' then
+
+		if (prompt.ActionText ~= nil and prompt.ActionText ~= '') or
+			(prompt.ObjectText ~= nil and prompt.ObjectText ~= '') then
 			promptWidth = maxTextWidth + textPaddingLeft + 24
 		end
 	
@@ -556,7 +710,13 @@ local function createPrompt(prompt, inputType, gui)
 	
 		actionText.Text = prompt.ActionText
 		objectText.Text = prompt.ObjectText
-	
+		if FFlagProximityPromptLocalization then
+			actionText.AutoLocalize = prompt.AutoLocalize
+			actionText.RootLocalizationTable = prompt.RootLocalizationTable
+			objectText.AutoLocalize = prompt.AutoLocalize
+			objectText.RootLocalizationTable = prompt.RootLocalizationTable
+		end
+
 		promptUI.Size = UDim2.fromOffset(promptWidth, promptHeight)
 		promptUI.SizeOffset = Vector2.new(prompt.UIOffset.X / promptUI.Size.Width.Offset, prompt.UIOffset.Y / promptUI.Size.Height.Offset)
 	end
@@ -566,7 +726,13 @@ local function createPrompt(prompt, inputType, gui)
 	
 	promptUI.Adornee = prompt.Parent
 	promptUI.Parent = gui
-	
+
+	if FFlagProximityPromptsFadeIn then
+		for _, tween in ipairs(tweensForFadeIn) do
+			tween:Play()
+		end
+	end
+
 	local function cleanup()
 		if holdBeganConnection then
 			holdBeganConnection:Disconnect()
@@ -579,6 +745,14 @@ local function createPrompt(prompt, inputType, gui)
 		triggeredConnection:Disconnect()
 		triggerEndedConnection:Disconnect()
 		changedConnection:Disconnect()
+
+		if FFlagProximityPromptsFadeIn then
+			for _, tween in ipairs(tweensForFadeOut) do
+				tween:Play()
+			end
+
+			wait(0.2)
+		end
 	
 		promptUI.Parent = nil
 	end
@@ -588,11 +762,18 @@ end
 
 local function onLoad()
 
-	local gui = createMainFrame()
+	local gui
+	if not FFlagProximityPromptLocalization then
+		gui = createMainFrame_DEPRECATED()
+	end
 
 	ProximityPromptService.PromptShown:Connect(function(prompt, inputType)
 		if prompt.Style == Enum.ProximityPromptStyle.Custom then
 			return
+		end
+
+		if FFlagProximityPromptLocalization then
+			gui = getScreenGui()
 		end
 
 		if FFlagProximityPromptLiveChanges then
@@ -602,7 +783,7 @@ local function onLoad()
 
 			cleanupFunction()
 		else
-			local promptUI, tweensForButtonHoldBegin, tweensForButtonHoldEnd, tweensForTriggered, tweensForTriggerEnded = createPrompt_DEPRECATED(prompt, inputType)
+			local promptUI, tweensForButtonHoldBegin, tweensForButtonHoldEnd, tweensForFadeOut, tweensForFadeIn = createPrompt_DEPRECATED(prompt, inputType)
 			promptUI.Parent = gui
 
 			local holdBeganConnection
@@ -625,13 +806,13 @@ local function onLoad()
 			end
 
 			triggeredConnection = prompt.Triggered:Connect(function()
-				for _, tween in ipairs(tweensForTriggered) do
+				for _, tween in ipairs(tweensForFadeOut) do
 					tween:Play()
 				end
 			end)
 
 			triggerEndedConnection = prompt.TriggerEnded:Connect(function()
-				for _, tween in ipairs(tweensForTriggerEnded) do
+				for _, tween in ipairs(tweensForFadeIn) do
 					tween:Play()
 				end
 			end)

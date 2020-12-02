@@ -1,5 +1,3 @@
-local FFlagPluginManagementRemoveUILibrary = game:GetFastFlag("PluginManagementRemoveUILibrary2")
-
 return function()
 	local Plugin = script.Parent.Parent.Parent.Parent
 	local Roact = require(Plugin.Packages.Roact)
@@ -63,13 +61,7 @@ return function()
 
 		local function getTitleLabel(childName)
 			local frame = checkboxList:FindFirstChild(childName)
-			if FFlagPluginManagementRemoveUILibrary then
-				return frame:FindFirstChild("TitleLabel", true)
-			else
-				local chkbx = frame:FindFirstChild("CheckBox")
-				local bkgnd = chkbx:FindFirstChild("Background")
-				return bkgnd:FindFirstChild("TitleLabel")
-			end
+			return frame:FindFirstChild("TitleLabel", true)
 		end
 
 		local first = getTitleLabel("1")

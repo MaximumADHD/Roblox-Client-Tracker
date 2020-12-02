@@ -34,7 +34,7 @@ function DraggerContext.new(guiTarget, selection)
 		_drawConstraintsOnTop = false,
 		_shouldJoinSurfaces = true,
 		_mouseLocation = Vector2.new(),
-		_mouseUnitRay = Ray.new(),
+		_mouseUnitRay = Ray.new(Vector3.new(), Vector3.new()),
 		_cameraCFrame = CFrame.new(),
 		_cameraSize = 10,
 		_mouseIcon = "",

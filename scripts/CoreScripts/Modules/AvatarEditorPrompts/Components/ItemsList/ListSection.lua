@@ -72,7 +72,8 @@ function ListSection:render()
 	end
 
 	return Roact.createElement(
-		FFlagAESPromptsSupportGamepad and RoactGamepad.Focusable[RoactFitComponents.FitFrameVertical] or nil, {
+		FFlagAESPromptsSupportGamepad and RoactGamepad.Focusable[RoactFitComponents.FitFrameVertical]
+			or RoactFitComponents.FitFrameVertical, {
 		width = UDim.new(1, 0),
 
 		FillDirection = Enum.FillDirection.Vertical,
@@ -81,7 +82,7 @@ function ListSection:render()
 		BackgroundTransparency = 1,
 		LayoutOrder = self.props.layoutOrder,
 
-		defaultChild = self.listRefCache[0],
+		defaultChild = FFlagAESPromptsSupportGamepad and self.listRefCache[0] or nil,
 		NextSelectionLeft = self.props.NextSelectionLeft,
 		NextSelectionRight = self.props.NextSelectionRight,
 		NextSelectionUp = self.props.NextSelectionUp,

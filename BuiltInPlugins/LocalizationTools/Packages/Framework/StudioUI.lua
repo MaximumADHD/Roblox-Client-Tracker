@@ -9,10 +9,17 @@ local StudioUI = strict({
 	StudioFrameworkStyles = require(script.StudioFrameworkStyles),
 
 	-- PluginWidgets
+	AssetRender = require(script.AssetRender),
+	AssetPreview = require(script.AssetPreview),
+	AudioPlayer = require(script.AudioPlayer),
 	DockWidget = require(script.DockWidget),
 	Dialog = require(script.Dialog),
+	Favorites = require(script.Favorites),
 	SearchBar = require(script.SearchBar),
 	StyledDialog = require(script.StyledDialog),
+	VideoPlayer = require(script.VideoPlayer),
+	VoteBar = require(script.VoteBar),
+	Votes = require(script.Votes),
 
 	--PluginButton
 	PluginToolbar = require(script.PluginToolbar),

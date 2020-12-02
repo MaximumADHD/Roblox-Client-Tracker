@@ -5,7 +5,6 @@ local ClearAllPluginData = require(Plugin.Src.Actions.ClearAllPluginData)
 local RemovePluginData = require(Plugin.Src.Actions.RemovePluginData)
 local SetPluginEnabledState = require(Plugin.Src.Actions.SetPluginEnabledState)
 local SetPluginUpdateStatus = require(Plugin.Src.Actions.SetPluginUpdateStatus)
-local SetPluginInfo = require(Plugin.Src.Actions.SetPluginInfo)
 local SetLoadedPluginData = require(Plugin.Src.Actions.SetLoadedPluginData)
 
 local Flags = require(Plugin.Packages.Framework.Util.Flags)
@@ -147,37 +146,6 @@ return function()
 			}))
 			expect(state.plugins[123]).to.be.ok()
 			expect(state.plugins[456]).to.be.ok()
-		end)
-	end)
-
-	describe("SetPluginInfo action", function()
-		it("should set the plugin info", function()
-			local state = Management(nil, SetPluginInfo(nil, {
-				{
-					id = 0,
-					name = "Test",
-					description = "Test",
-					versionId = 0,
-					updated = "",
-				},
-			}))
-			expect(state.plugins).to.be.ok()
-			expect(state.plugins[0]).to.be.ok()
-			expect(state.plugins[0].assetId).to.equal(0)
-			expect(state.plugins[0].name).to.equal("Test")
-			expect(state.plugins[0].latestVersion).to.equal(0)
-			expect(state.plugins[0].updated).to.equal("")
-		end)
-
-		it("should clear the update status if nil", function()
-			local state = Management({
-				plugins = {
-					[0] = {
-						status = 0,
-					},
-				},
-			}, SetPluginUpdateStatus(0))
-			expect(state.plugins[0].status).never.to.be.ok()
 		end)
 	end)
 

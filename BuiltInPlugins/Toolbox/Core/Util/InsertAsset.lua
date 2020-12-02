@@ -20,7 +20,6 @@ local FFlagUseCategoryNameInToolbox = game:GetFastFlag("UseCategoryNameInToolbox
 local FFlagEnableToolboxVideos = game:GetFastFlag("EnableToolboxVideos")
 local FFlagToolboxForceSelectDragger = game:GetFastFlag("ToolboxForceSelectDragger")
 local FFlagDragFaceInstances = game:GetFastFlag("DragFaceInstances")
-local EFLuaDraggers = game:GetEngineFeature("LuaDraggers")
 local FFlagFixGroupPackagesCategoryInToolbox = game:GetFastFlag("FixGroupPackagesCategoryInToolbox")
 local FFlagEnableDefaultSortFix2 = game:GetFastFlag("EnableDefaultSortFix2")
 
@@ -331,7 +330,7 @@ Options table format:
 -- insertToolPromise can be nil if dragged.
 function InsertAsset.tryInsert(options, insertToolPromise, assetWasDragged)
 	if assetWasDragged then
-		if FFlagToolboxForceSelectDragger and EFLuaDraggers then
+		if FFlagToolboxForceSelectDragger then
 			local selectedRibbonTool = options.plugin:GetSelectedRibbonTool()
 			if not RIBBON_DRAGGER_TOOLS[selectedRibbonTool] then
 				options.plugin:SelectRibbonTool(Enum.RibbonTool.Select, UDim2.new())
@@ -392,7 +391,7 @@ function InsertAsset.doDragInsertAsset(options)
 	if assetTypeId == Enum.AssetType.Plugin.Value then
 		-- We should absolutely never allow plugins to be installed via dragging!
 		return
-	elseif (not (EFLuaDraggers and FFlagDragFaceInstances)) and assetTypeId == Enum.AssetType.Video.Value then
+	elseif (not FFlagDragFaceInstances) and assetTypeId == Enum.AssetType.Video.Value then
 		-- We need draggerFramework and face instance dragging to be on to drag videos
 		insertVideo(assetId, assetName)
 		return

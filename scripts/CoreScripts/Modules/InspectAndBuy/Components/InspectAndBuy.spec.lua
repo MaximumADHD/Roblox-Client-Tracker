@@ -13,6 +13,7 @@ return function()
 		local element = Roact.createElement(TestContainer, nil, {
 			Roact.createElement(InspectAndBuy, {
 				localPlayerModel = mockModel,
+				ctx = "tests",
 			})
 		})
 

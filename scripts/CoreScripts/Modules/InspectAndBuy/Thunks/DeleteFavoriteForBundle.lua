@@ -8,14 +8,22 @@ local Analytics = require(InspectAndBuyFolder.Services.Analytics)
 local SetFavoriteBundle = require(InspectAndBuyFolder.Actions.SetFavoriteBundle)
 local SetBundles = require(InspectAndBuyFolder.Actions.SetBundles)
 local BundleInfo = require(InspectAndBuyFolder.Models.BundleInfo)
+local createInspectAndBuyKeyMapper = require(InspectAndBuyFolder.createInspectAndBuyKeyMapper)
+
+local FFlagFixInspectAndBuyPerformFetch = require(InspectAndBuyFolder.Flags.FFlagFixInspectAndBuyPerformFetch)
 
 local requiredServices = {
 	Network,
 	Analytics,
 }
 
-local function keyMapper(bundleId)
-	return "inspectAndBuy.deleteFavoriteForBundle." ..tostring(bundleId)
+local keyMapper
+if FFlagFixInspectAndBuyPerformFetch then
+	keyMapper = createInspectAndBuyKeyMapper("deleteFavoriteForBundle")
+else
+	keyMapper = function(bundleId)
+		return "inspectAndBuy.deleteFavoriteForBundle." ..tostring(bundleId)
+	end
 end
 
 --[[
@@ -26,7 +34,14 @@ local function DeleteFavoriteForBundle(bundleId)
 		local network = services[Network]
 		local analytics = services[Analytics]
 
-		return PerformFetch.Single(keyMapper(bundleId), function()
+		local key
+		if FFlagFixInspectAndBuyPerformFetch then
+			key = keyMapper(store:getState().storeId, bundleId)
+		else
+			key = keyMapper(bundleId)
+		end
+
+		return PerformFetch.Single(key, function()
 			return network.deleteFavoriteForBundle(bundleId):andThen(
 				function()
 					-- If Promise was resolved, the delete was a success!

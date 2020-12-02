@@ -64,9 +64,9 @@ local function createAssetConfigTheme()
 			return settings().Studio.Theme
 		end,
 		-- Get the theme value
-		getUITheme = function()
+		getUITheme = not game:GetFastFlag("StudioPluginsDontUseUITheme") and function()
 			return settings().Studio["UI Theme"]
-		end,
+		end or nil,
 		themeChanged = settings().Studio.ThemeChanged,
 	})
 end

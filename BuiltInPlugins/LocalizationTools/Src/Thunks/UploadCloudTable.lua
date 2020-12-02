@@ -18,9 +18,6 @@ local RbxEntriesToWebEntries = require(Plugin.Src.Util.RbxEntriesToWebEntries)
 local PatchInfo = require(Plugin.Src.Util.PatchInfo)
 local isEmpty = require(Plugin.Src.Util.isEmpty)
 
-local FFlagRequestAssetGenerationAfterSuccess = game:GetFastFlag("RequestAssetGenerationAfterSuccess")
-local FFlagLocalizationToolsFixHttpFailureBacktrace = game:GetFastFlag("LocalizationToolsFixHttpFailureBacktrace")
-
 local function makeDispatchErrorMessageFunc(store, localization)
 	return function()
 		store:dispatch(SetIsBusy(false))
@@ -30,30 +27,19 @@ end
 
 local function getGameSupportedLanguages(request)
 	local languageSet = {}
-	if FFlagLocalizationToolsFixHttpFailureBacktrace then
-		request:makeRequest():andThen(
-			function(response)
-				if response and response.responseCode == Http.StatusCodes.OK then
-					for _, languageInfo in ipairs(response.responseBody.data) do
-						languageSet[languageInfo.languageCode] = true
-					end
-				else
-					return
+	request:makeRequest():andThen(
+		function(response)
+			if response and response.responseCode == Http.StatusCodes.OK then
+				for _, languageInfo in ipairs(response.responseBody.data) do
+					languageSet[languageInfo.languageCode] = true
 				end
-			end,
-			function()
+			else
 				return
-			end):await()
-	else
-		local responseTable = request:makeRequest():await()
-		if responseTable and responseTable.responseCode == Http.StatusCodes.OK then
-			for _, languageInfo in ipairs(responseTable.responseBody.data) do
-				languageSet[languageInfo.languageCode] = true
 			end
-		else
+		end,
+		function()
 			return
-		end
-	end
+		end):await()
 
 	return languageSet
 end
@@ -69,28 +55,19 @@ local function patchSupportedLanguages(api, gameId, languagesList)
 	end
 	local body = HttpService:JSONEncode(requestBody)
 	local request = api.GameInternationalization.V1.SupportedLanguages.Games.patch(gameId, body)
-	if FFlagLocalizationToolsFixHttpFailureBacktrace then
-		local success
-		request:makeRequest():andThen(
-			function(response)
-				if response.responseCode == Http.StatusCodes.OK then
-					success = true
-				else
-					success = false
-				end
-			end,
-			function()
+	local success
+	request:makeRequest():andThen(
+		function(response)
+			if response.responseCode == Http.StatusCodes.OK then
+				success = true
+			else
 				success = false
-			end):await()
-		return success
-	else
-		local responseTable = request:makeRequest():await()
-		if responseTable.responseCode == Http.StatusCodes.OK then
-			return true
-		else
-			return false
-		end
-	end
+			end
+		end,
+		function()
+			success = false
+		end):await()
+	return success
 end
 
 local function patchCloudTable(api, tableId, gameId, patchInfo)
@@ -230,11 +207,6 @@ return function(api, localization, analytics, showDialog, isReplace)
 			return
 		end
 
-		if not FFlagRequestAssetGenerationAfterSuccess then
-			--4.3 regenerate assets
-			requestGenerateAssets(api, game.GameId)
-		end
-
 		-- 5. success
 		store:dispatch(SetIsBusy(false))
 		store:dispatch(
@@ -242,8 +214,6 @@ return function(api, localization, analytics, showDialog, isReplace)
 		local buttonName = isReplace and "replace" or "update"
 		analytics:reportUploadTable(patchInfo, buttonName)
 
-		if FFlagRequestAssetGenerationAfterSuccess then
-			requestGenerateAssets(api, game.GameId)
-		end
+		requestGenerateAssets(api, game.GameId)
 	end
 end

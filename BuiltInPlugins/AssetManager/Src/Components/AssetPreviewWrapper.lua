@@ -18,6 +18,7 @@ local GetAssetFavoriteCount = require(Plugin.Src.Thunks.GetAssetFavoriteCount)
 local ToggleFavoriteStatus = require(Plugin.Src.Thunks.ToggleFavoriteStatus)
 
 local FFlagStudioAssetManagerAddGridListToggle = game:GetFastFlag("StudioAssetManagerAddGridListToggle")
+local FFlagStudioAssetManagerAssetPreviewRequest = game:GetFastFlag("StudioAssetManagerAssetPreviewRequest")
 
 local StudioService = game:GetService("StudioService")
 
@@ -180,7 +181,8 @@ end
 local function mapStateToProps(state, props)
     local assetManagerReducer = state.AssetManagerReducer
     local assetId = props.AssetData.id
-    local assetPreviewData = assetManagerReducer.assetsTable.assetPreviewData[assetId]
+    local assetPreviewData = FFlagStudioAssetManagerAssetPreviewRequest and props.AssetPreviewData
+        or assetManagerReducer.assetsTable.assetPreviewData[assetId]
 
 	return {
         Favorited = assetPreviewData.favorited,

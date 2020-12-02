@@ -31,7 +31,9 @@ return function()
 		expect(formatLocalDateTime(nonIsoDateString, FORMAT_STRING, LOCALE)).to.equal(nonIsoDateString)
 	end)
 
-	it("formats UTC date string", function()
+	-- TODO STM-369: This test does not work in CLI - the locale information does not appear to be available
+	-- so formatLocalDateTime falls back to returning the ISO input string
+	itSKIP("formats UTC date string", function()
 		-- We can't set the current timezone as used by this function,
 		-- so we calculate what we expect the result to be dynamically
 		-- as this will vary based on the machine running the test.

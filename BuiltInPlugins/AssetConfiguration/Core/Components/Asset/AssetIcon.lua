@@ -35,7 +35,12 @@ local PageInfoHelper = require(Util.PageInfoHelper)
 
 local Types = Plugin.Core.Types
 local Category = require(Types.Category)
-local AssetType = UILibrary.Util.AssetType
+
+local AssetRenderUtil
+local AssetType
+if not FlagsList:get("FFlagToolboxUseDevFrameworkAssetPreview") then
+	AssetType = UILibrary.Util.AssetType
+end
 
 local getModal = ContextGetter.getModal
 local withModal = ContextHelper.withModal
@@ -109,7 +114,12 @@ function AssetIcon:render()
 
 		local assetStatusImage = status and Images.AssetStatus[status]
 
-		local showAssetPreview = AssetType:isPreviewAvailable(typeId)
+		local showAssetPreview
+		if FlagsList:get("FFlagToolboxUseDevFrameworkAssetPreview") then
+			showAssetPreview = true
+		else
+			showAssetPreview = AssetType:isPreviewAvailable(typeId)
+		end
 
 		-- Asset Data is missing for AssetPreview in the creation tab.
 		if FFlagUseCategoryNameInToolbox then

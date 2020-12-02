@@ -14,7 +14,6 @@ local Roact = require(Library.Packages.Roact)
 
 -- Flags
 local getFFlagDragFaceInstances = require(DraggerFramework.Flags.getFFlagDragFaceInstances)
-local getFFlagRevertCtrlScale = require(DraggerFramework.Flags.getFFlagRevertCtrlScale)
 
 -- Utilities
 local DraggerToolModel = require(DraggerFramework.Implementation.DraggerToolModel)

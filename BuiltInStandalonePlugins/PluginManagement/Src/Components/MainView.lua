@@ -1,50 +1,24 @@
-local FFlagPluginManagementRemoveUILibrary = game:GetFastFlag("PluginManagementRemoveUILibrary2")
-
 local Plugin = script.Parent.Parent.Parent
 
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 local ContextServices = require(Plugin.Packages.Framework.ContextServices)
-local Theming = require(Plugin.Src.ContextServices.Theming) -- Remove with FFlagPluginManagementRemoveUILibrary
-local Localizing = require(Plugin.Packages.UILibrary).Localizing -- Remove with FFlagPluginManagementRemoveUILibrary
 local PluginInstalledStatus = require(Plugin.Src.Constants.PluginInstalledStatus)
 
 local FlagsList = require(Plugin.Src.Util.FlagsList)
 
 local MainView = Roact.Component:extend("MainView")
 
--- remove with FFlagPluginManagementRemoveUILibrary
-local composedRender = function(component, renderFunc)
-	if FFlagPluginManagementRemoveUILibrary then
-		return renderFunc()
-	else
-		return Theming.withTheme(function(theme)
-			return Localizing.withLocalization( function(localization)
-				local contextProps = {
-					theme = theme,
-					localization = localization,
-				}
-				return renderFunc(contextProps)
-			end)
-		end)
-	end
-end
-
 function MainView:renderContentNotReady(theme, localization)
 	local targetPluginId = self.props.pluginId
-	local localizationArgs
-	if FFlagPluginManagementRemoveUILibrary then
-		localizationArgs = { targetPluginId }
-	else
-		localizationArgs = targetPluginId
-	end
+	local localizationArgs = { targetPluginId }
 	return {
 		SimpleLabel = Roact.createElement("TextLabel", {
 			Text = localization:getText("Main", "InstallingPlugin", localizationArgs),
 			Size = UDim2.new(1, 0, 1, 0),
 			Position = UDim2.new(0,0,0,0),
 			BackgroundTransparency = 1.0,
-			TextColor3 = FFlagPluginManagementRemoveUILibrary and theme.TextColor or theme.textColor,
+			TextColor3 = theme.TextColor,
 			TextSize = 18,
 			TextWrapped = true,
 			TextXAlignment = Enum.TextXAlignment.Center,
@@ -57,12 +31,8 @@ function MainView:renderInstallSuccess(theme, localization)
 	local pluginInfo = self.props.info
 	local name = pluginInfo.name or ""
 
-	local localizationArgs
-	if FFlagPluginManagementRemoveUILibrary then
-		localizationArgs = { '"' .. name .. '"' }
-	else
-		localizationArgs = '"' .. name .. '"'
-	end
+	local localizationArgs = { '"' .. name .. '"' }
+
 
 	return {
 		ListLayout = Roact.createElement("UIListLayout", {
@@ -70,7 +40,7 @@ function MainView:renderInstallSuccess(theme, localization)
 		}),
 		Title = Roact.createElement("TextLabel", {
 			Text = localization:getText("Progress", "Completed"),
-			TextColor3 = FFlagPluginManagementRemoveUILibrary and theme.TextColor or theme.textColor,
+			TextColor3 = theme.TextColor,
 			TextSize = 16,
 			Font = Enum.Font.SourceSansSemibold,
 			BackgroundTransparency = 1.0,
@@ -86,7 +56,7 @@ function MainView:renderInstallSuccess(theme, localization)
 		}),
 		Message = Roact.createElement("TextLabel", {
 			Text = localization:getText("Progress", "CompletedMessage", localizationArgs),
-			TextColor3 = FFlagPluginManagementRemoveUILibrary and theme.TextColor or theme.textColor,
+			TextColor3 = theme.TextColor,
 			TextSize = 16,
 			Font = Enum.Font.SourceSans,
 			TextWrapped = true,
@@ -105,34 +75,18 @@ function MainView:renderInstallProgress(theme, localization)
 	local installationMsg = pluginInfo.installationMsg
 
 	local msg
-	if FFlagPluginManagementRemoveUILibrary then
-		if installStatus == PluginInstalledStatus.UNKNOWN then
-			msg = localization:getText("Main", "InstallingPlugin", { targetPluginId })
-		elseif installStatus == PluginInstalledStatus.HTTP_ERROR then
-			msg = localization:getText("Progress", "HttpError", { installationMsg })
-		elseif installStatus == PluginInstalledStatus.PLUGIN_NOT_OWNED then
-			msg = localization:getText("Progress", "NotOwned", { installationMsg })
-		elseif installStatus == PluginInstalledStatus.PLUGIN_DETAILS_UNAVAILABLE then
-			msg = localization:getText("Progress", "Unavailable", { installationMsg })
-		elseif installStatus == PluginInstalledStatus.PLUGIN_NOT_INSTALLED then
-			msg = localization:getText("Progress", "NotInstalled", { installationMsg })
-		elseif installStatus == PluginInstalledStatus.PLUGIN_AlREADY_INSTALLED then
-			msg = localization:getText("Progress", "AlreadyInstalled", { installationMsg })
-		end
-	else
-		if installStatus == PluginInstalledStatus.UNKNOWN then
-			msg = localization:getText("Main", "InstallingPlugin", targetPluginId)
-		elseif installStatus == PluginInstalledStatus.HTTP_ERROR then
-			msg = localization:getText("Progress", "HttpError", installationMsg)
-		elseif installStatus == PluginInstalledStatus.PLUGIN_NOT_OWNED then
-			msg = localization:getText("Progress", "NotOwned", installationMsg)
-		elseif installStatus == PluginInstalledStatus.PLUGIN_DETAILS_UNAVAILABLE then
-			msg = localization:getText("Progress", "Unavailable", installationMsg)
-		elseif installStatus == PluginInstalledStatus.PLUGIN_NOT_INSTALLED then
-			msg = localization:getText("Progress", "NotInstalled", installationMsg)
-		elseif installStatus == PluginInstalledStatus.PLUGIN_AlREADY_INSTALLED then
-			msg = localization:getText("Progress", "AlreadyInstalled", installationMsg)
-		end
+	if installStatus == PluginInstalledStatus.UNKNOWN then
+		msg = localization:getText("Main", "InstallingPlugin", { targetPluginId })
+	elseif installStatus == PluginInstalledStatus.HTTP_ERROR then
+		msg = localization:getText("Progress", "HttpError", { installationMsg })
+	elseif installStatus == PluginInstalledStatus.PLUGIN_NOT_OWNED then
+		msg = localization:getText("Progress", "NotOwned", { installationMsg })
+	elseif installStatus == PluginInstalledStatus.PLUGIN_DETAILS_UNAVAILABLE then
+		msg = localization:getText("Progress", "Unavailable", { installationMsg })
+	elseif installStatus == PluginInstalledStatus.PLUGIN_NOT_INSTALLED then
+		msg = localization:getText("Progress", "NotInstalled", { installationMsg })
+	elseif installStatus == PluginInstalledStatus.PLUGIN_AlREADY_INSTALLED then
+		msg = localization:getText("Progress", "AlreadyInstalled", { installationMsg })
 	end
 
 	-- render a simple error message
@@ -142,7 +96,7 @@ function MainView:renderInstallProgress(theme, localization)
 			Size = UDim2.new(1, 0, 1, 0),
 			Position = UDim2.new(0,0,0,0),
 			BackgroundTransparency = 1.0,
-			TextColor3 = FFlagPluginManagementRemoveUILibrary and theme.TextColor or theme.textColor,
+			TextColor3 = theme.TextColor,
 			TextSize = 18,
 			TextWrapped = true,
 			TextXAlignment = Enum.TextXAlignment.Center,
@@ -152,52 +106,37 @@ function MainView:renderInstallProgress(theme, localization)
 end
 
 function MainView:render()
-	-- remove with FFlagPluginManagementRemoveUILibrary
-	return composedRender( self, function(contextProps)
-		local pluginInfo = self.props.info
+	local pluginInfo = self.props.info
 
-		local localization
-		local theme
-		if FFlagPluginManagementRemoveUILibrary then
-			if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
-				theme = self.props.Stylizer
-			else
-				theme = self.props.Theme:get("Plugin")
-			end
-			localization = self.props.Localization
-		else
-			localization = contextProps.localization
-			if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
-				theme = self.props.Stylizer
-			else
-				theme = contextProps.theme
-			end
-		end
+	local theme
+	if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+		theme = self.props.Stylizer
+	else
+		theme = self.props.Theme:get("Plugin")
+	end
+	local localization = self.props.Localization
 
-		local contents
-		if not pluginInfo then
-			contents = self:renderContentNotReady(theme, localization)
-		elseif pluginInfo.installStatus == PluginInstalledStatus.PLUGIN_INSTALLED_SUCCESSFULLY then
-			contents = self:renderInstallSuccess(theme, localization)
-		else
-			contents = self:renderInstallProgress(theme, localization)
-		end
+	local contents
+	if not pluginInfo then
+		contents = self:renderContentNotReady(theme, localization)
+	elseif pluginInfo.installStatus == PluginInstalledStatus.PLUGIN_INSTALLED_SUCCESSFULLY then
+		contents = self:renderInstallSuccess(theme, localization)
+	else
+		contents = self:renderInstallProgress(theme, localization)
+	end
 
-		return Roact.createElement("Frame", {
-			Size = UDim2.new(1, 0, 1, 0),
-			Position = UDim2.new(0,0,0,0),
-			BackgroundTransparency = 1,
-		}, contents)
-	end)
+	return Roact.createElement("Frame", {
+		Size = UDim2.new(1, 0, 1, 0),
+		Position = UDim2.new(0,0,0,0),
+		BackgroundTransparency = 1,
+	}, contents)
 end
 
-if FFlagPluginManagementRemoveUILibrary then
-	ContextServices.mapToProps(MainView, {
-		Localization = ContextServices.Localization,
-		Stylizer = FlagsList:get("FFlagRefactorDevFrameworkTheme") and ContextServices.Stylizer or nil,
-		Theme = (not FlagsList:get("FFlagRefactorDevFrameworkTheme")) and ContextServices.Theme or nil,
-	})
-end
+ContextServices.mapToProps(MainView, {
+	Localization = ContextServices.Localization,
+	Stylizer = FlagsList:get("FFlagRefactorDevFrameworkTheme") and ContextServices.Stylizer or nil,
+	Theme = (not FlagsList:get("FFlagRefactorDevFrameworkTheme")) and ContextServices.Theme or nil,
+})
 
 return RoactRodux.connect(function(state, props)
 	local targetPluginId = props.pluginId

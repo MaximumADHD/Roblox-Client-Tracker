@@ -5,12 +5,6 @@ end
 -- Fast flags
 require(script.Parent.defineLuaFlags)
 
-local FFlagStudioPlayerEmulatorPluginEnabled = settings():GetFFlag("StudioPlayerEmulatorPluginEnabled")
-
-if not FFlagStudioPlayerEmulatorPluginEnabled then
-	return
-end
-
 local Plugin = script.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local PlayerEmulatorPlugin = require(Plugin.Src.Components.PlayerEmulatorPlugin)

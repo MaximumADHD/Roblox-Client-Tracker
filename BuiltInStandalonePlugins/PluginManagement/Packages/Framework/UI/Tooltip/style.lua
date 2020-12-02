@@ -11,9 +11,11 @@ local Common = require(StudioFrameworkStyles.Common)
 local UIFolderData = require(Framework.UI.UIFolderData)
 local DropShadow = require(UIFolderData.DropShadow.style)
 
+local export: any
+
 if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
 	local dropShadow = DropShadow
-	return {
+	export = {
 		Padding = 5,
 		MaxWidth = 200,
 		ShowDelay = 0.3,
@@ -23,7 +25,7 @@ if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
 		}),
 	}
 else
-	return function(theme, getColor)
+	export = function(theme, getColor)
 		local common = Common(theme, getColor)
 		local dropShadow = DropShadow(theme, getColor)
 
@@ -42,3 +44,5 @@ else
 		}
 	end
 end
+
+return export

@@ -335,6 +335,11 @@ function Theme.createValues(theme, getColor)
 				imageColor = isDark and Color3.fromRGB(255, 255, 255) or Color3.fromRGB(25, 25, 25)
 			},
 
+			copyButton = {
+				image = "rbxasset://textures/GameSettings/copy.png",
+				imageColor = isDark and Color3.fromRGB(255, 255, 255) or Color3.fromRGB(25, 25, 25)
+			},
+
 			uiListLayout = {
 				padding = 10,
 			},

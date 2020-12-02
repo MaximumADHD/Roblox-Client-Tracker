@@ -6,13 +6,21 @@ local Network = require(InspectAndBuyFolder.Services.Network)
 local BundleInfo = require(InspectAndBuyFolder.Models.BundleInfo)
 local SetBundles = require(InspectAndBuyFolder.Actions.SetBundles)
 local SetBundlesAssetIsPartOf = require(InspectAndBuyFolder.Actions.SetBundlesAssetIsPartOf)
+local createInspectAndBuyKeyMapper = require(InspectAndBuyFolder.createInspectAndBuyKeyMapper)
+
+local FFlagFixInspectAndBuyPerformFetch = require(InspectAndBuyFolder.Flags.FFlagFixInspectAndBuyPerformFetch)
 
 local requiredServices = {
 	Network,
 }
 
-local function keyMapper(assetId)
-	return "inspectAndBuy.getAssetBundles." ..tostring(assetId)
+local keyMapper
+if FFlagFixInspectAndBuyPerformFetch then
+	keyMapper = createInspectAndBuyKeyMapper("getAssetBundles")
+else
+	keyMapper = function(assetId)
+		return "inspectAndBuy.getAssetBundles." ..tostring(assetId)
+	end
 end
 
 --[[
@@ -22,7 +30,14 @@ local function GetAssetBundles(assetId)
 	return Thunk.new(script.Name, requiredServices, function(store, services)
 		local network = services[Network]
 
-		return PerformFetch.Single(keyMapper(assetId), function(fetchSingleStore)
+		local key
+		if FFlagFixInspectAndBuyPerformFetch then
+			key = keyMapper(store:getState().storeId, assetId)
+		else
+			key = keyMapper(assetId)
+		end
+
+		return PerformFetch.Single(key, function(fetchSingleStore)
 			return network.getAssetBundles(assetId):andThen(
 				function(results)
 					local bundleIdsAssetIsIn = {}

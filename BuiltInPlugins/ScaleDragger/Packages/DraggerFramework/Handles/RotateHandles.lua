@@ -11,7 +11,6 @@ local roundRotation = require(DraggerFramework.Utility.roundRotation)
 
 local RotateHandleView = require(DraggerFramework.Components.RotateHandleView)
 
-local getFFlagUseCylinderHandle = require(DraggerFramework.Flags.getFFlagUseCylinderHandle)
 local getEngineFeatureEditPivot = require(DraggerFramework.Flags.getEngineFeatureEditPivot)
 
 -- The minimum rotate increment to display snapping increments for (below this
@@ -41,9 +40,7 @@ local RotateHandleDefinitions = {
 		RadiusOffset = 0.01,
 	},
 	ZAxis = {
-		Offset = getFFlagUseCylinderHandle()
-			and CFrame.fromMatrix(Vector3.new(), Vector3.new(0, 0, 1), Vector3.new(1, 0, 0), Vector3.new(0, 1, 0))
-			or CFrame.fromMatrix(Vector3.new(), Vector3.new(0, 0, 1), Vector3.new(0, 1, 0), Vector3.new(-1, 0, 0)),
+		Offset = CFrame.fromMatrix(Vector3.new(), Vector3.new(0, 0, 1), Vector3.new(1, 0, 0), Vector3.new(0, 1, 0)),
 		Color = Colors.Z_AXIS,
 		RadiusOffset = 0.02,
 	},

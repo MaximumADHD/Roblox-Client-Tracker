@@ -30,6 +30,11 @@ local ContextItems = require(Plugin.Src.ContextItems)
 
 local Dialog = Framework.StudioUI.Dialog
 
+local Tooltip = Framework.UI.Tooltip
+
+local Constants = require(Plugin.Src.Util.Constants)
+local ellipsizeMiddle = require(Plugin.Src.Util.ellipsizeMiddle)
+
 local PREVIEW_SIZE = 88
 local VERT_PADDING = 4
 local TEXT_HEIGHT = 16
@@ -44,6 +49,8 @@ local IMPORT_ICON_SIZE = 24
 local EXPANDED_PREVIEW_DEFAULT_SIZE = Vector2.new(200, 200)
 local EXPANDED_PREVIEW_MIN_SIZE = Vector2.new(100, 100)
 local EXPANDED_PREVIEW_PADDING = UDim.new(0, 16)
+
+local TextService = game:GetService("TextService")
 
 -- Button used in the toolbar shown on hover in PromptSelectorWithPreview
 local PreviewToolbarButton = Roact.PureComponent:extend("PreviewToolbarButton")
@@ -149,6 +156,47 @@ function PromptSelectorWithPreview:init()
 			showingExpandedPreview = false,
 		})
 	end
+
+	self.selectionNameRef = Roact.createRef()
+
+	self.getSelectionNameWidth = function(text)
+		local selectionNameInstance = self.selectionNameRef.current
+		if not selectionNameInstance then
+			return 0
+		end
+
+		return TextService:GetTextSize(text, selectionNameInstance.TextSize, selectionNameInstance.Font,
+			Vector2.new(math.huge, math.huge)).x
+	end
+
+	self.lastSelectionName = ""
+	self.lastSelectionNameWidth = 0
+
+	self.updateSelectionNameText = function()
+		local selectionNameInstance = self.selectionNameRef.current
+		if not selectionNameInstance then
+			return
+		end
+
+		local maxWidth = selectionNameInstance.AbsoluteSize.x
+		local selectionName = self.props.SelectionName or ""
+
+		-- Only calculate the truncation if we need to
+		if selectionName ~= self.lastSelectionName or maxWidth ~= self.lastSelectionNameWidth then
+			selectionNameInstance.Text = ellipsizeMiddle(selectionName, maxWidth,
+				self.getSelectionNameWidth, Constants.FILENAME_ELLIPSIZE_MIDDLE_SUFFIX_LENGTH)
+			self.lastSelectionName = selectionName
+			self.lastSelectionNameWidth = maxWidth
+		end
+	end
+end
+
+function PromptSelectorWithPreview:didMount()
+	self.updateSelectionNameText()
+end
+
+function PromptSelectorWithPreview:didUpdate()
+	self.updateSelectionNameText()
 end
 
 function PromptSelectorWithPreview:render()
@@ -158,7 +206,6 @@ function PromptSelectorWithPreview:render()
 	local selectionName = self.props.SelectionName or ""
 	local previewTitle = self.props.PreviewTitle or ""
 
-	local width = PREVIEW_SIZE
 	local height = PREVIEW_SIZE + VERT_PADDING + TEXT_HEIGHT
 
 	local hasSelection = self.props.HasSelection
@@ -273,10 +320,17 @@ function PromptSelectorWithPreview:render()
 		SelectionName = Roact.createElement("TextLabel", {
 			LayoutOrder = 2,
 			BackgroundTransparency = 1,
-			Text = selectionName,
 			Size = UDim2.new(1, 0, 0, TEXT_HEIGHT),
 			TextXAlignment = Enum.TextXAlignment.Left,
 			TextColor3 = theme.textColor,
+			-- Note that the text isn't set here, it's controlled by updateSelectionNameText as we need to handle truncation
+			[Roact.Ref] = self.selectionNameRef,
+			[Roact.Change.AbsoluteSize] = self.updateSelectionNameText,
+		}, {
+			Tooltip = Roact.createElement(Tooltip, {
+				Text = selectionName,
+				Enabled = hasSelection,
+			}),
 		}),
 
 		ExpandedPreview = showingExpandedPreview and Roact.createElement(Dialog, {
@@ -317,7 +371,7 @@ function PromptSelectorWithPreview:render()
 
 	return Roact.createElement("Frame", {
 		BackgroundTransparency = 1,
-		Size = UDim2.new(0, width, 0, height),
+		Size = UDim2.new(0, Constants.SECOND_COLUMN_WIDTH, 0, height),
 	}, content)
 end
 

@@ -27,6 +27,7 @@ local FFlagCleanupRightClickContextMenuFunctions = game:GetFastFlag("CleanupRigh
 local FFlagAssetManagerRemoveAssetFixes = game:GetFastFlag("AssetManagerRemoveAssetFixes")
 local FFlagAllowAudioBulkImport = game:GetFastFlag("AllowAudioBulkImport")
 local FFlagStudioAssetManagerFixPackageBehavior = game:GetFastFlag("StudioAssetManagerFixPackageBehavior")
+local FFlagAssetManagerFixRightClickForAudio = game:GetFastFlag("AssetManagerFixRightClickForAudio")
 
 local EVENT_ID_OPENASSETCONFIG = "OpenAssetConfiguration"
 
@@ -110,7 +111,11 @@ local function createFolderContextMenu(analytics, apiImpl, assetData, contextMen
         end)
     elseif FFlagAllowAudioBulkImport and (not RobloxAPI:baseURLHasChineseHost()) and assetData.Screen.Key == Screens.AUDIO.Key then
         contextMenu:AddNewAction("AddAudio", localization:getText("ContextMenu", "AddAudio")).Triggered:connect(function()
-            store:dispatch(LaunchBulkImport(Enum.AssetType.MeshPart.Value))
+            if FFlagAssetManagerFixRightClickForAudio then
+                store:dispatch(LaunchBulkImport(Enum.AssetType.Audio.Value))
+            else
+                store:dispatch(LaunchBulkImport(Enum.AssetType.MeshPart.Value))
+            end
             if FFlagAssetManagerAddAnalytics then
                 analytics:report("clickContextMenuItem")
             end
@@ -220,13 +225,15 @@ local function createPackageContextMenu(analytics, assetData, contextMenu, isAss
             end
         end)
     end
-    if FFlagStudioAssetManagerFixPackageBehavior and RunService:IsEdit() then
-        contextMenu:AddNewAction("UpdateAll", localization:getText("ContextMenu", "UpdateAll")).Triggered:connect(function()
-            AssetManagerService:UpdateAllPackages(assetData.id)
-            if FFlagAssetManagerAddAnalytics then
-                analytics:report("clickContextMenuItem")
-            end
-        end)
+    if FFlagStudioAssetManagerFixPackageBehavior then
+        if RunService:IsEdit() then
+            contextMenu:AddNewAction("UpdateAll", localization:getText("ContextMenu", "UpdateAll")).Triggered:connect(function()
+                AssetManagerService:UpdateAllPackages(assetData.id)
+                if FFlagAssetManagerAddAnalytics then
+                    analytics:report("clickContextMenuItem")
+                end
+            end)
+        end
     else
         contextMenu:AddNewAction("UpdateAll", localization:getText("ContextMenu", "UpdateAll")).Triggered:connect(function()
             AssetManagerService:UpdateAllPackages(assetData.id)
@@ -341,7 +348,7 @@ local function createAudioContextMenu(analytics, apiImpl, assetData, contextMenu
     addEditAssetContextItem(contextMenu, analytics, assetData, localization, Enum.AssetType.Audio.Value)
     addRenameAliasContextItem(contextMenu, analytics, assetData, localization, onAssetPreviewClose, store)
     contextMenu:AddNewAction("Insert", localization:getText("ContextMenu", "Insert")).Triggered:connect(function()
-        AssetManagerService:InsertAudio(assetData.id)
+        AssetManagerService:InsertAudio(assetData.id, assetData.name)
         if FFlagAssetManagerAddAnalytics then
             analytics:report("clickContextMenuItem")
             local searchTerm = state.AssetManagerReducer.searchTerm

@@ -201,7 +201,12 @@ function Slider:render()
 	local labelOffset = sliderFrameOffset + handleSize.Height.Offset / 2 + 2
 	local verticalDragTolerance = sliderSize.Height.Offset * 2
 
-	local isDarkerTheme = settings().Studio["UI Theme"] == Enum.UITheme.Dark
+	local isDarkerTheme = false
+	if game:GetFastFlag("StudioPluginsDontUseUITheme") then
+		isDarkerTheme = settings().Studio.Theme.Name == "Dark"
+	else
+		isDarkerTheme = settings().Studio["UI Theme"] == Enum.UITheme.Dark
+	end
 
 	return Roact.createElement("Frame", {
 		BackgroundTransparency = 1,

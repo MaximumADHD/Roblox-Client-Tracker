@@ -16,7 +16,6 @@ local Status = require(Plugin.Src.Reducers.Status)
 local EditAsset = require(Plugin.Src.Reducers.EditAsset)
 
 local CollaboratorSearch = require(Plugin.Pages.PermissionsPage.Reducers.CollaboratorSearch)
-local DevSubModeration = require(Plugin.Pages.DeveloperSubscriptionsPage.Reducers.DevSubModeration)
 local MorpherEditorRoot = require(Plugin.Pages.AvatarPage.Reducers.MorpherEditorRoot)
 
 return Rodux.combineReducers({
@@ -24,7 +23,6 @@ return Rodux.combineReducers({
 	Status = Status,
 	MorpherEditorRoot = MorpherEditorRoot,
 	CollaboratorSearch = CollaboratorSearch,
-	DevSubModeration = settings():GetFFlag("DeveloperSubscriptionsEnabled") and DevSubModeration or nil,
 	PageLoadState = PageLoadState,
 	PageSaveState = PageSaveState,
 	Metadata = GameMetadata,

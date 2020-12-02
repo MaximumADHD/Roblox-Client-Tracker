@@ -11,9 +11,11 @@ local SettingsContext = require(Plugin.Core.ContextServices.Settings)
 
 local Util = Plugin.Core.Util
 local makeTheme = require(Util.makeTheme)
+local FlagsList = require(Util.FlagsList)
 
 local ToolboxServiceWrapper = Roact.PureComponent:extend("ToolboxServiceWrapper")
 
+-- TODO: Remove MOUSE with FFlagToolboxUseDevFrameworkAssetPreview
 local MOUSE = {
 	Icon = "rbxasset://SystemCursors/Arrow",
 }
@@ -26,6 +28,9 @@ function ToolboxServiceWrapper:render()
 	local settings = props.settings
 	local store = props.store
 	local theme = props.theme
+	local analytics = props.analytics
+
+	local mouse = FlagsList:get("FFlagToolboxUseDevFrameworkAssetPreview") and plugin:GetMouse() or MOUSE
 
 	return ContextServices.provide({
 		ContextServices.API.new(),
@@ -34,7 +39,8 @@ function ToolboxServiceWrapper:render()
 		makeTheme(theme:getUILibraryTheme()),
 		ContextServices.Store.new(store),
 		SettingsContext.new(settings),
-		ContextServices.Mouse.new(MOUSE),
+		ContextServices.Mouse.new(mouse),
+		FlagsList:get("FFlagToolboxUseDevFrameworkAssetPreview") and analytics or nil,
 		props.assetAnalytics,
 	}, props[Roact.Children]
 )

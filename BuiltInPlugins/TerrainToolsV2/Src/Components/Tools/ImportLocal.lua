@@ -8,12 +8,13 @@ local Plugin = script.Parent.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
 
-local Cryo = require(Plugin.Packages.Cryo)
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 
 local ContextServices = Framework.ContextServices
 local ContextItems = require(Plugin.Src.ContextItems)
+
+local ErrorDialog = require(Plugin.Src.Components.ErrorDialog)
 
 local ToolParts = script.Parent.ToolParts
 local ButtonGroup = require(ToolParts.ButtonGroup)
@@ -39,6 +40,8 @@ local SetImportMaterialMode = require(Actions.SetImportMaterialMode)
 local TerrainEnums = require(Plugin.Src.Util.TerrainEnums)
 local ImportMaterialMode = TerrainEnums.ImportMaterialMode
 
+local HeightmapImporterService = game:GetService("HeightmapImporterService")
+
 local REDUCER_KEY = "ImportLocalTool"
 
 local ImportLocal = Roact.PureComponent:extend(script.Name)
@@ -46,6 +49,10 @@ local ImportLocal = Roact.PureComponent:extend(script.Name)
 function ImportLocal:init()
 	self.state = {
 		mapSettingsValid = true,
+
+		hasError = false,
+		errorMainText = "",
+		errorSubText = "",
 	}
 
 	self.onImportButtonClicked = function()
@@ -66,6 +73,82 @@ function ImportLocal:init()
 	self.onCancelRequested = function()
 		self.props.TerrainImporter:cancel()
 	end
+
+	self.selectHeightmap = function(file)
+		if not file then
+			-- Reducers understand that nil = clear selection
+			self.props.dispatchSelectHeightmap(nil)
+			return
+		end
+
+		local id = file:GetTemporaryId()
+		local success, status, width, height, channels, bytesPerChannel = HeightmapImporterService:IsValidHeightmap(id)
+
+		if success then
+			print(("Loaded heightmap %s with width:%d height:%d channels:%d bytesPerChannel:%d")
+				:format(file.Name, width, height, channels, bytesPerChannel))
+			self.props.dispatchSelectHeightmap({
+				file = file,
+				width = width,
+				height = height,
+				channels = channels,
+				bytesPerChannel = bytesPerChannel,
+			})
+		else
+			self.setErrorMessage("FailedToLoadHeightmap", status)
+		end
+	end
+
+	self.selectColormap = function(file)
+		if not file then
+			-- Reducers understand that nil = clear selection
+			self.props.dispatchSelectColormap(nil)
+			return
+		end
+
+		local id = file:GetTemporaryId()
+		local success, status, width, height, channels = HeightmapImporterService:IsValidColormap(id)
+
+		if success then
+			print(("Loaded colormap %s with width:%d height:%d channels:%d"):format(
+				file.Name, width, height, channels))
+			self.props.dispatchSelectColormap({
+				file = file,
+				width = width,
+				height = height,
+				channels = channels,
+			})
+		else
+			self.setErrorMessage("FailedToLoadColormap", status)
+		end
+	end
+
+	self.setErrorMessage = function(errorTitle, errorBody)
+		if errorTitle then
+			local localization = self.props.Localization:get()
+
+			local mainText = localization:getText("ImportError", errorTitle)
+			local subText = localization:getText("ImportError", errorBody)
+
+			warn(("Import error: %s - %s"):format(errorTitle, errorBody))
+
+			self:setState({
+				hasError = true,
+				errorMainText = mainText,
+				errorSubText = subText,
+			})
+		else
+			self:setState({
+				hasError = false,
+				errorMainText = "",
+				errorSubText = "",
+			})
+		end
+	end
+
+	self.clearErrorMessage = function()
+		self.setErrorMessage(nil)
+	end
 end
 
 function ImportLocal:updateImportProps()
@@ -73,8 +156,8 @@ function ImportLocal:updateImportProps()
 		size = Vector3.new(self.props.size.X, self.props.size.Y, self.props.size.Z),
 		position = Vector3.new(self.props.position.X, self.props.position.Y, self.props.position.Z),
 
-		heightmap = self.props.heightmap or Cryo.None,
-		colormap = self.props.colormap or Cryo.None,
+		heightmap = self.props.heightmap or {},
+		colormap = self.props.colormap or {},
 	}
 
 	if FFlagTerrainImportSupportDefaultMaterial then
@@ -89,10 +172,21 @@ end
 
 function ImportLocal:didMount()
 	self:updateImportProps()
+
+	self._onImportErrorConnection = self.props.TerrainImporter:subscribeToErrors(function(message)
+		self.setErrorMessage("ImportFailed", message)
+	end)
 end
 
 function ImportLocal:didUpdate()
 	self:updateImportProps()
+end
+
+function ImportLocal:willUnmount()
+	if self._onImportErrorConnection then
+		self._onImportErrorConnection:Disconnect()
+		self._onImportErrorConnection = nil
+	end
 end
 
 function ImportLocal:render()
@@ -104,15 +198,15 @@ function ImportLocal:render()
 
 	local canImport = not importInProgress
 		and self.state.mapSettingsValid
-		and self.props.heightmap
+		and self.props.heightmap.file
 
 	if FFlagTerrainImportSupportDefaultMaterial then
 		canImport = canImport
 			-- If we're using default material then we're fine, else we're using colormap so check we actually have a colormap
-			and (self.props.materialMode == ImportMaterialMode.DefaultMaterial or self.props.colormap)
+			and (self.props.materialMode == ImportMaterialMode.DefaultMaterial or self.props.colormap.file)
 	else
 		canImport = canImport
-			and (not self.props.useColorMap or self.props.colormap)
+			and (not self.props.useColorMap or self.props.colormap.file)
 	end
 
 	local showColormapMaterialToggle
@@ -134,6 +228,9 @@ function ImportLocal:render()
 		showDefaultMaterial = false
 	end
 
+	local errorMainText = self.state.errorMainText
+	local errorSubText = self.state.errorSubText
+
 	return Roact.createFragment({
 		MapSettings = Roact.createElement(Panel, {
 			LayoutOrder = 1,
@@ -148,7 +245,7 @@ function ImportLocal:render()
 			}, {
 				LocalImageSelector = Roact.createElement(LocalImageSelector, {
 					CurrentFile = self.props.heightmap,
-					SelectFile = self.props.dispatchSelectHeightmap,
+					SelectFile = self.selectHeightmap,
 					PreviewTitle = localization:getText("Import", "HeightmapPreview"),
 				}),
 			}),
@@ -214,7 +311,7 @@ function ImportLocal:render()
 			}, {
 				LocalImageSelector = Roact.createElement(LocalImageSelector, {
 					CurrentFile = self.props.colormap,
-					SelectFile = self.props.dispatchSelectColormap,
+					SelectFile = self.selectColormap,
 					PreviewTitle = localization:getText("Import", "ColormapPreview"),
 				}),
 			}),
@@ -225,7 +322,7 @@ function ImportLocal:render()
 			Buttons = {
 				{
 					Key = "Import",
-					Name = localization:getText("ToolName", "Import"),
+					Name = localization:getText("Import", "ButtonImport"),
 					Active = canImport,
 					OnClicked = self.onImportButtonClicked,
 				}
@@ -243,6 +340,13 @@ function ImportLocal:render()
 			OnPauseButtonClicked = self.onPauseRequested,
 			OnCancelButtonClicked = self.onCancelRequested,
 		}),
+
+		ErrorDialog = self.state.hasError and Roact.createElement(ErrorDialog, {
+			Title = "Roblox Studio",
+			MainText = errorMainText,
+			SubText = errorSubText,
+			OnClose = self.clearErrorMessage,
+		}),
 	})
 end
 
@@ -257,8 +361,8 @@ local function mapStateToProps(state, props)
 		position = state[REDUCER_KEY].position,
 		size = state[REDUCER_KEY].size,
 
-		heightmap = state[REDUCER_KEY].heightmap,
-		colormap = state[REDUCER_KEY].colormap,
+		heightmap = state[REDUCER_KEY].heightmap or {},
+		colormap = state[REDUCER_KEY].colormap or {},
 
 		-- TODO: Remove useColorMap when removing FFlagTerrainImportSupportDefaultMaterial
 		useColorMap = state[REDUCER_KEY].useColorMap,

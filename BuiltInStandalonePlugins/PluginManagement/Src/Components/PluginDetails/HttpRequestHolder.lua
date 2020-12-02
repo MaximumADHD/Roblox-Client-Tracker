@@ -1,5 +1,3 @@
-local FFlagPluginManagementRemoveUILibrary = game:GetFastFlag("PluginManagementRemoveUILibrary2")
-
 local Plugin = script.Parent.Parent.Parent.Parent
 local TextService = game:GetService("TextService")
 
@@ -7,7 +5,6 @@ local PermissionsService = game:GetService("PermissionsService")
 
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
-local UILibrary = require(Plugin.Packages.UILibrary) -- remove with FFlagPluginManagementRemoveUILibrary
 local FitFrame = require(Plugin.Packages.FitFrame)
 local ContextServices = require(Plugin.Packages.Framework.ContextServices)
 local UI = require(Plugin.Packages.Framework.UI)
@@ -18,7 +15,6 @@ local FluidFitTextLabel = require(Plugin.Src.Components.FluidFitTextLabel)
 local PluginAPI2 = require(Plugin.Src.ContextServices.PluginAPI2)
 
 local FitFrameVertical = FitFrame.FitFrameVertical
-local CheckBox = UILibrary.Component.CheckBox -- remove with FFlagPluginManagementRemoveUILibrary
 local Constants = require(Plugin.Src.Util.Constants)
 local ToggleButton = UI.ToggleButton
 
@@ -88,66 +84,44 @@ function HttpRequestHolder:renderCheckbox(theme, index, permission)
 	local urlText = self.getTruncatedText(fullUrlText, theme)
 	local isChecked = permission.allowed
 
-	if FFlagPluginManagementRemoveUILibrary then
-		local elem = Roact.createElement("Frame", {
+	local elem = Roact.createElement("Frame", {
+		BackgroundTransparency = 1,
+		Size = UDim2.new(1, 0, 0, CHECKBOX_WIDTH),
+		LayoutOrder = index,
+	}, {
+		Layout = Roact.createElement("UIListLayout", {
+			FillDirection = Enum.FillDirection.Horizontal,
+			Padding = UDim.new(0, 8),
+		}),
+
+		Checkbox = Roact.createElement(ToggleButton, {
+			Style = "Checkbox",
+			LayoutOrder = 1,
+			Selected = isChecked,
+			Size = UDim2.new(0, CHECKBOX_WIDTH, 0, CHECKBOX_WIDTH),
+			OnClick = function()
+				return self.onCheckboxActivated(permission)
+			end,
+		}),
+
+		TitleLabel = Roact.createElement("TextButton", {
+			Text = urlText,
+			Size = UDim2.new(1, -CHECKBOX_WIDTH, 1, 0),
 			BackgroundTransparency = 1,
-			Size = UDim2.new(1, 0, 0, CHECKBOX_WIDTH),
-			LayoutOrder = index,
-		}, {
-			Layout = Roact.createElement("UIListLayout", {
-				FillDirection = Enum.FillDirection.Horizontal,
-				Padding = UDim.new(0, 8),
-			}),
+			BorderSizePixel = 0,
+			TextColor3 = theme.TextColor,
+			Font = theme.Font,
+			TextSize = 16,
+			TextXAlignment = Enum.TextXAlignment.Left,
+			TextYAlignment = Enum.TextYAlignment.Center,
+			TextTransparency = 0,
 
-			Checkbox = Roact.createElement(ToggleButton, {
-				Style = "Checkbox",
-				LayoutOrder = 1,
-				Selected = isChecked,
-				Size = UDim2.new(0, CHECKBOX_WIDTH, 0, CHECKBOX_WIDTH),
-				OnClick = function()
-					return self.onCheckboxActivated(permission)
-				end,
-			}),
-
-			TitleLabel = Roact.createElement("TextButton", {
-				Text = urlText,
-				Size = UDim2.new(1, -CHECKBOX_WIDTH, 1, 0),
-				BackgroundTransparency = 1,
-				BorderSizePixel = 0,
-				TextColor3 = theme.TextColor,
-				Font = theme.Font,
-				TextSize = 16,
-				TextXAlignment = Enum.TextXAlignment.Left,
-				TextYAlignment = Enum.TextYAlignment.Center,
-				TextTransparency = 0,
-
-				[Roact.Event.Activated] = function()
-					return self.onCheckboxActivated(permission)
-				end,
-			})
+			[Roact.Event.Activated] = function()
+				return self.onCheckboxActivated(permission)
+			end,
 		})
-		return elem
-	else
-		local elem = Roact.createElement("Frame", {
-			BackgroundTransparency = 1,
-			Size = UDim2.new(1, 0, 0, CHECKBOX_WIDTH)
-		}, {
-			CheckBox = Roact.createElement(CheckBox, {
-				Id = index,
-				Enabled = true,
-				Height = CHECKBOX_WIDTH,
-				LayoutOrder = index,
-				TextSize = 16,
-				Title = urlText,
-				titlePadding = 8,
-				Selected = isChecked,
-				OnActivated = function() 
-					return self.onCheckboxActivated(permission)
-				end,
-			}),
-		})
-		return elem
-	end
+	})
+	return elem
 end
 
 function HttpRequestHolder:render()

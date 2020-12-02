@@ -13,6 +13,8 @@ end
 require(script.Parent.defineLuaFlags)
 
 local FFlagTerrainToolsBetterImportTool = game:GetFastFlag("TerrainToolsBetterImportTool")
+local FFlagTerrainToolsImportUploadAssets = game:GetFastFlag("TerrainToolsImportUploadAssets")
+local FFlagTerrainToolsIncludeDevFrameworkTheme = game:GetFastFlag("TerrainToolsIncludeDevFrameworkTheme")
 
 -- Libraries
 local Framework = require(Plugin.Packages.Framework)
@@ -75,7 +77,7 @@ local function createTerrainContextItems()
 
 	local networking
 	local imageUploader
-	if FFlagTerrainToolsBetterImportTool then
+	if FFlagTerrainToolsBetterImportTool and FFlagTerrainToolsImportUploadAssets then
 		networking = Http.Networking.new({
 			isInternal = true,
 		})
@@ -117,7 +119,7 @@ local function createTerrainContextItems()
 	end
 
 	local devFrameworkThemeItem = nil
-	if game:GetFastFlag("TerrainToolsIncludeDevFrameworkTheme") then
+	if FFlagTerrainToolsIncludeDevFrameworkTheme then
 		devFrameworkThemeItem = makeTheme()
 	end
 

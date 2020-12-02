@@ -1,5 +1,3 @@
-local FFlagPluginManagementRemoveUILibrary = game:GetFastFlag("PluginManagementRemoveUILibrary2")
-
 return function()
 	local Plugin = script.Parent.Parent.Parent
 	local Roact = require(Plugin.Packages.Roact)
@@ -29,11 +27,7 @@ return function()
 		local root = container:FindFirstChildOfClass("Frame")
 		expect(root).to.be.ok()
 		expect(root.PluginLabel).to.be.ok()
-		if FFlagPluginManagementRemoveUILibrary then
-			expect(root.FindPluginsButton).to.be.ok()
-		else
-			expect(root.FindPluginsButtonOLD).to.be.ok()
-		end
+		expect(root.FindPluginsButton).to.be.ok()
 		Roact.unmount(instance)
 	end)
 end

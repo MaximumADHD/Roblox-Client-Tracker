@@ -31,6 +31,7 @@ local Networking = require(Framework.Http.Networking)
 local t = require(Framework.Util.Typecheck.t)
 local BacktraceReporter = require(script.Parent.Backtrace.BacktraceReporter)
 
+local FFlagPluginErrorReporterCheckExpectedPrefix = game:DefineFastFlag("PluginErrorReporterCheckExpectedPrefix", false)
 local FStringStudioPluginsBacktraceToken = settings():GetFVariable("StudioPluginsBacktraceToken")
 local STUDIO_DEVELOPMENT_VERSION = "0.0.0.1"
 local STUDIO_PLUGIN_ERRORS_DIAG_COLLECTOR = "StudioPluginErrors"
@@ -69,6 +70,10 @@ function StudioPluginErrorReporter.new(args)
 	assert(IStudioPluginErrorReporterArgs(args), "Expected the correct args")
 	local expectedSecurityLevel = args.expectedSecurityLevel
 	local expectedPrefix = args.expectedPrefix
+
+	if FFlagPluginErrorReporterCheckExpectedPrefix then
+		assert(expectedPrefix ~= "", "expectedPrefix must not be an empty string")
+	end
 
 	-- optional overrides for minimal security tests
 	local networking = args.networking or Networking.new({ isInternal = true })

@@ -10,7 +10,6 @@ local StandaloneSelectionBox = require(DraggerFramework.Components.StandaloneSel
 
 local MoveHandleView = require(DraggerFramework.Components.MoveHandleView)
 
-local getFFlagHideMoveDraggerWarning = require(DraggerFramework.Flags.getFFlagHideMoveDraggerWarning)
 local EngineFeatureEditPivot = require(DraggerFramework.Flags.getEngineFeatureEditPivot)()
 
 local ALWAYS_ON_TOP = true
@@ -299,15 +298,6 @@ function MoveHandles:_solveForAdjustedDistance(unadjustedDistance)
 		else
 			maxPossibleDistance = mid
 			fracAtMax = fracAtMid
-		end
-	end
-
-	if not getFFlagHideMoveDraggerWarning() then
-		if math.abs(fracAtMin - self._draggingHandleFrac) > 0.001 then
-			-- TODO: If you see this, I still got something wrong in this solution,
-			-- remove before shipping.
-			warn("Failed to solve for movement amount! Wanted:", self._draggingHandleFrac,
-				"Got:", fracAtMin)
 		end
 	end
 

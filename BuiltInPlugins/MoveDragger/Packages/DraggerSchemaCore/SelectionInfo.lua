@@ -4,9 +4,12 @@ local DraggerSchemaCore = script.Parent
 local Packages = DraggerSchemaCore.Parent
 local DraggerFramework = Packages.DraggerFramework
 
+local PivotImplementation = require(DraggerFramework.Utility.PivotImplementation)
 local shouldDragAsFace = require(DraggerFramework.Utility.shouldDragAsFace)
 
 local getFFlagDragFaceInstances = require(DraggerFramework.Flags.getFFlagDragFaceInstances)
+local EngineFeatureEditPivot = require(DraggerFramework.Flags.getEngineFeatureEditPivot)()
+local getFFlagImproveDragOrientation = require(DraggerFramework.Flags.getFFlagImproveDragOrientation)
 
 local function computeBoundingBox(basisCFrame, allParts, allAttachments)
 	local inverseBasis = basisCFrame:Inverse()
@@ -168,6 +171,43 @@ local function computeTwoBoundingBoxes(basisCFrame1, allParts, allAttachments)
 		globalBoundingBoxOffset, globalBoundingBoxSize
 end
 
+-- Where (offset, size) specifies a bounding box relative to the origin, return
+-- modified (offset, size) such that the bounding box is expanded to include the
+-- origin if it was not already included.
+local ZERO = Vector3.new()
+local function updateBoundingBoxToIncludeOrigin(offset, size)
+	local halfSize = 0.5 * size
+	local max = (offset + halfSize):Max(ZERO)
+	local min = (offset - halfSize):Min(ZERO)
+	return 0.5 * (max + min), max - min
+end
+
+--[[
+	Find all of the "roots" bones in a list of Bones. One of the bones in the
+	list is a root iff it is not a descendant of any of the other root bones.
+]]
+local function markBoneRecursive(bone, movedSet, rootBoneMap)
+	if movedSet[bone] then
+		rootBoneMap[bone] = nil
+	else
+		movedSet[bone] = true
+		for _, ch in ipairs(bone:GetChildren()) do
+			markBoneRecursive(ch, movedSet, rootBoneMap)
+		end
+	end
+end
+local function findRootBoneMap(boneList)
+	local rootBoneMap = {}
+	local movedSet = {}
+	for _, bone in ipairs(boneList) do
+		if not movedSet[bone] then
+			rootBoneMap[bone] = bone:FindFirstAncestorWhichIsA("BasePart")
+			markBoneRecursive(bone, movedSet, rootBoneMap)
+		end
+	end
+	return rootBoneMap
+end
+
 local function computeInfo(draggerContext, selectedObjects)
 	local isSimulating = draggerContext:isSimulating()
 	local useLocalSpace = draggerContext:shouldUseLocalSpace()
@@ -175,13 +215,16 @@ local function computeInfo(draggerContext, selectedObjects)
 	local allParts = table.create(64)
 	local allPartSet = {}
 	local allAttachments = {}
+	local allBones = {}
 	local allInstancesWithConfigurableFace = {}
 	local basisCFrame = nil
 	local terrain = Workspace.Terrain
 
+	local FFlagImproveDragOrientation = getFFlagImproveDragOrientation()
+
 	for _, instance in ipairs(selectedObjects) do
 		if instance:IsA("Model") then
-			if not basisCFrame then
+			if not basisCFrame or FFlagImproveDragOrientation then
 				local boundingBoxCFrame, boundingBoxSize =
 					instance:GetBoundingBox()
 				if boundingBoxSize ~= Vector3.new() then
@@ -192,12 +235,20 @@ local function computeInfo(draggerContext, selectedObjects)
 			if not allPartSet[instance] and instance ~= terrain then
 				table.insert(allParts, instance)
 				allPartSet[instance] = true
-				basisCFrame = basisCFrame or instance.CFrame
+				if FFlagImproveDragOrientation then
+					basisCFrame = instance.CFrame
+				else
+					basisCFrame = basisCFrame or instance.CFrame
+				end
 			end
 		elseif getFFlagDragFaceInstances() and shouldDragAsFace(instance) then
 			table.insert(allInstancesWithConfigurableFace, instance)
 		elseif instance:IsA("Attachment") then
-			table.insert(allAttachments, instance)
+			if instance:IsA("Bone") then
+				table.insert(allBones, instance)
+			else
+				table.insert(allAttachments, instance)
+			end
 		end
 		-- It is possible to place parts inside of other parts, so this isn't an else on the prior if.
 		for _, descendant in ipairs(instance:GetDescendants()) do
@@ -215,34 +266,24 @@ local function computeInfo(draggerContext, selectedObjects)
 	if not basisCFrame then
 		if #allAttachments > 0 then
 			basisCFrame = allAttachments[1].WorldCFrame
+		elseif #allBones > 0 then
+			basisCFrame = allBones[1].WorldCFrame
 		else
 			basisCFrame = CFrame.new()
 		end
 	end
 
-	-- Build the basisCFrame aligned bounding box.
-	-- Local = always the local space. Needed because freeform dragging always
-	-- uses the local space bounding box.
-	local localBasisCFrame = basisCFrame
-	local localBoundingBoxOffset, localBoundingBoxSize
-
-	-- Chosen = local or global depending on the UseLocalSpace setting
-	local chosenBasisCFrame
-	local chosenBoundingBoxOffset, chosenBoundingBoxSize
-
-	if useLocalSpace then
-		localBoundingBoxOffset, localBoundingBoxSize =
-			computeBoundingBox(localBasisCFrame, allParts, allAttachments)
-
-		chosenBasisCFrame = localBasisCFrame
-		chosenBoundingBoxOffset, chosenBoundingBoxSize =
-			localBoundingBoxOffset, localBoundingBoxSize
-	else
-		localBoundingBoxOffset, localBoundingBoxSize,
-			chosenBoundingBoxOffset, chosenBoundingBoxSize =
-			computeTwoBoundingBoxes(localBasisCFrame, allParts, allAttachments)
-
-		chosenBasisCFrame = CFrame.new(basisCFrame.Position)
+	-- Look for a pivot
+	if EngineFeatureEditPivot and #selectedObjects == 1 then
+		local specialIgnore =
+			draggerContext.ScaleToolSpecialCaseIgnorePivotWithSinglePartSelected and
+			selectedObjects[1]:IsA("BasePart")
+		if not specialIgnore then
+			local pivot = PivotImplementation.getPivot(selectedObjects[1])
+			if pivot then
+				basisCFrame = pivot
+			end
+		end
 	end
 
 	-- Build a table of only the "interesting" attachments, that is, those
@@ -250,6 +291,16 @@ local function computeInfo(draggerContext, selectedObjects)
 	local interestingAttachments = {}
 	for _, attachment in ipairs(allAttachments) do
 		if not allPartSet[attachment.Parent] then
+			table.insert(interestingAttachments, attachment)
+		end
+	end
+
+	-- Figure out what bones in the list of bones are "roots" that are not
+	-- relative to another bone we are already moving. Then add those bones to
+	-- the above list of "interesting"a attachments.
+	local rootBoneMap = findRootBoneMap(allBones)
+	for attachment, ancestorPart in pairs(rootBoneMap) do
+		if not allPartSet[ancestorPart] then
 			table.insert(interestingAttachments, attachment)
 		end
 	end
@@ -280,7 +331,55 @@ local function computeInfo(draggerContext, selectedObjects)
 					break
 				end
 			end
+			for attachment, ancestorPart in pairs(rootBoneMap) do
+				if not ancestorPart:IsGrounded() then
+					selectionHasPhysics = true
+				end
+			end
 		end
+	end
+
+	-- Finally add all the bones to the list of all attachments, because we want
+	-- to pass back a list of all the selected things that inherit Attachment.
+	-- We don't do this earlier because for the preceeding code we want to
+	-- treat Bones and non-Bone Attachments slightily differently.
+	-- We re-use the allAttachments table for this purpose to avoid allocating
+	-- another table of both attachments and bones.
+	for _, bone in ipairs(allBones) do
+		table.insert(allAttachments, bone)
+	end
+
+	-- Build the basisCFrame aligned bounding box.
+	-- Local = always the local space. Needed because freeform dragging always
+	-- uses the local space bounding box.
+	local localBasisCFrame = basisCFrame
+	local localBoundingBoxOffset, localBoundingBoxSize
+
+	-- Chosen = local or global depending on the UseLocalSpace setting
+	local chosenBasisCFrame
+	local chosenBoundingBoxOffset, chosenBoundingBoxSize
+
+	if useLocalSpace then
+		localBoundingBoxOffset, localBoundingBoxSize =
+			computeBoundingBox(localBasisCFrame, allParts, allAttachments)
+
+		chosenBasisCFrame = localBasisCFrame
+		chosenBoundingBoxOffset, chosenBoundingBoxSize =
+			localBoundingBoxOffset, localBoundingBoxSize
+	else
+		localBoundingBoxOffset, localBoundingBoxSize,
+			chosenBoundingBoxOffset, chosenBoundingBoxSize =
+			computeTwoBoundingBoxes(localBasisCFrame, allParts, allAttachments)
+
+		chosenBasisCFrame = CFrame.new(basisCFrame.Position)
+	end
+
+	-- Ensure that the bounding box includes the basis point.
+	if EngineFeatureEditPivot then
+		localBoundingBoxOffset, localBoundingBoxSize =
+			updateBoundingBoxToIncludeOrigin(localBoundingBoxOffset, localBoundingBoxSize)
+		chosenBoundingBoxOffset, chosenBoundingBoxSize =
+			updateBoundingBoxToIncludeOrigin(chosenBoundingBoxOffset, chosenBoundingBoxSize)
 	end
 
 	return {

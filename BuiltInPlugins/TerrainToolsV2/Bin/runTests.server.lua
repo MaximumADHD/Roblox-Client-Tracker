@@ -6,20 +6,23 @@ if DebugFlags.RunningUnderCLI() or DebugFlags.RunTests() then
 	local TestEZ = require(Plugin.Packages.Dev.TestEZ)
 	local TestBootstrap = TestEZ.TestBootstrap
 
-	local TextReporter = TestEZ.Reporters.TextReporter
+	local TeamCityReporter = TestEZ.Reporters.TeamCityReporter
+	local reporter = TestEZ.Reporters.TextReporter
 	if DebugFlags.LogTestsQuiet() then
-		TextReporter = TestEZ.Reporters.TextReporterQuiet
+		reporter = TestEZ.Reporters.TextReporterQuiet
 	end
+
+	reporter = _G["TEAMCITY"] and TeamCityReporter or reporter
 
 	print("----- All " .. script.Parent.Parent.Name .. " Tests ------")
 	require(script.Parent.defineLuaFlags)
-	TestBootstrap:run({Plugin.Src}, TextReporter)
+	TestBootstrap:run({Plugin.Src}, reporter)
 	print("----------------------------------")
 
 	if DebugFlags.RunDeveloperFrameworkTests() then
 		print("")
 		print("----- All Developer Framework Tests ------")
-		TestBootstrap:run({Plugin.Packages.Framework}, TextReporter)
+		TestBootstrap:run({Plugin.Packages.Framework}, reporter)
 		print("----------------------------------")
 	end
 end

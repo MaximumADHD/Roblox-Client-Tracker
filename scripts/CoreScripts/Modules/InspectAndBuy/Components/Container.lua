@@ -14,6 +14,8 @@ local Constants = require(InspectAndBuyFolder.Constants)
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local FFlagDisableAutoTranslateForKeyTranslatedContent = require(RobloxGui.Modules.Flags.FFlagDisableAutoTranslateForKeyTranslatedContent)
 
+local FFlagInspectAndBuyResetSelectedCoreObject = game:DefineFastFlag("InspectAndBuyResetSelectedCoreObject", false)
+
 local Container = Roact.PureComponent:extend("Container")
 
 function Container:init()
@@ -57,6 +59,10 @@ end
 function Container:willUnmount()
 	self.selectedCoreObjectChangedSignal:disconnect()
 	GuiService:RemoveSelectionGroup("InspectMenu")
+
+	if FFlagInspectAndBuyResetSelectedCoreObject then
+		GuiService.SelectedCoreObject = nil
+	end
 end
 
 function Container:render()

@@ -29,7 +29,6 @@
 		number TextSize: The size of the text in this button.
 		Color3 TextColor: The color of the text in this button.
 ]]
-local FFlagAssetManagerLuaCleanup1 = settings():GetFFlag("AssetManagerLuaCleanup1")
 local FFlagStudioFixTreeViewForSquish = settings():GetFFlag("StudioFixTreeViewForSquish")
 local FFlagTruncateDevFrameworkHyperlinkText = game:GetFastFlag("TruncateDevFrameworkHyperlinkText")
 local FFlagWrappedDevFrameworkLinkText = game:GetFastFlag("WrappedDevFrameworkLinkText")
@@ -95,9 +94,7 @@ function Button:render()
 	local zIndex = props.ZIndex
 	local layoutOrder = props.LayoutOrder
 
-	if FFlagAssetManagerLuaCleanup1 then
-		assert(typeof(onClick) == "function", string.format("Button requires OnClick to be of type function, not %s", typeof(onClick)))
-	end
+	assert(typeof(onClick) == "function", string.format("Button requires OnClick to be of type function, not %s", typeof(onClick)))
 
 	return Roact.createElement(Container, {
 		Background = background,

@@ -1,13 +1,10 @@
 local Plugin = script.Parent.Parent.Parent
 local StudioService = game:GetService("StudioService")
 local HttpService = game:GetService("HttpService")
-local GetPluginInfoRequest = require(Plugin.Src.Thunks.GetPluginInfoRequest)
 local MultiGetPluginInfoRequest = require(Plugin.Src.Thunks.MultiGetPluginInfoRequest)
-local SetPluginInfo = require(Plugin.Src.Actions.SetPluginInfo)
 local SetLoadedPluginData = require(Plugin.Src.Actions.SetLoadedPluginData)
 local ClearAllPluginData = require(Plugin.Src.Actions.ClearAllPluginData)
 
-local FFlagPluginManagementAllowLotsOfPlugins2 = settings():GetFFlag("PluginManagementAllowLotsOfPlugins2")
 local FFlagEnablePluginPermissionsPage = settings():GetFFlag("EnablePluginPermissionsPage2")
 
 local Flags = require(Plugin.Packages.Framework.Util.Flags)
@@ -59,21 +56,13 @@ return function(apiImpl, marketplaceService)
 			end
 		end
 
-		if FFlagPluginManagementAllowLotsOfPlugins2 then
-			if not FlagsList:get("FFlagPluginManagementFixRemovePlugins") then
-				store:dispatch(ClearAllPluginData())
-			end
-			if #assetIds > 0 then
-				store:dispatch(MultiGetPluginInfoRequest(apiImpl, marketplaceService, assetIds, plugins))
-			else
-				store:dispatch(SetLoadedPluginData({}))
-			end
+		if not FlagsList:get("FFlagPluginManagementFixRemovePlugins") then
+			store:dispatch(ClearAllPluginData())
+		end
+		if #assetIds > 0 then
+			store:dispatch(MultiGetPluginInfoRequest(apiImpl, marketplaceService, assetIds, plugins))
 		else
-			if #assetIds > 0 then
-				store:dispatch(GetPluginInfoRequest(apiImpl, assetIds, plugins))
-			else
-				store:dispatch(SetPluginInfo({}, {}))
-			end
+			store:dispatch(SetLoadedPluginData({}))
 		end
 	end
 end

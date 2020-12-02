@@ -58,7 +58,6 @@ local Settings = require(Plugin.Core.ContextServices.Settings)
 
 local RobloxAPI = require(Libs.Framework).RobloxAPI
 
-local FFlagStudioToolboxPluginPurchaseFlow = game:GetFastFlag("StudioToolboxPluginPurchaseFlow")
 local FFlagStudioToolboxPersistBackgroundColor = game:DefineFastFlag("StudioToolboxPersistsBackgroundColor", false)
 local FFlagUseCategoryNameInToolbox = game:GetFastFlag("UseCategoryNameInToolbox")
 
@@ -262,9 +261,7 @@ function Toolbox:didMount()
 
 	self.props.setRoles(getNetwork(self))
 
-	if FFlagStudioToolboxPluginPurchaseFlow then
-		self.props.getRobuxBalance(getNetwork(self))
-	end
+	self.props.getRobuxBalance(getNetwork(self))
 end
 
 function Toolbox:render()

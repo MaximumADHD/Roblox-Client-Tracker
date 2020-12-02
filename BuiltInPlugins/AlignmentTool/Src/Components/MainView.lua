@@ -8,9 +8,10 @@
 local Plugin = script.Parent.Parent.Parent
 
 local getFFlagBoundingBoxRefactor = require(Plugin.Src.Flags.getFFlagBoundingBoxRefactor)
+local getFFlagAlignInLocalSpace = require(Plugin.Src.Flags.getFFlagAlignInLocalSpace)
 
 local DraggerFramework = Plugin.Packages.DraggerFramework
-local BoundingBox = getFFlagBoundingBoxRefactor() and require(DraggerFramework.Utility.BoundingBox) or nil
+local BoundingBox = require(DraggerFramework.Utility.BoundingBox)
 
 local DraggerSchemaCore = Plugin.Packages.DraggerSchemaCore
 local BoundsChangedTracker = require(DraggerSchemaCore.BoundsChangedTracker)
@@ -34,13 +35,14 @@ local AxesSection = require(Plugin.Src.Components.AxesSection)
 local DebugView = require(Plugin.Src.Components.DebugView)
 local InfoLabel = require(Plugin.Src.Components.InfoLabel)
 local ModeSection = require(Plugin.Src.Components.ModeSection)
+local AlignObjectsPreview = require(Plugin.Src.Components.AlignObjectsPreview)
 local RelativeToSection = require(Plugin.Src.Components.RelativeToSection)
 local UpdateAlignEnabled = require(Plugin.Src.Thunks.UpdateAlignEnabled)
 local UpdateAlignment = require(Plugin.Src.Thunks.UpdateAlignment)
 
 local AlignToolError = require(Plugin.Src.Utility.AlignToolError)
 local getAlignableObjects = require(Plugin.Src.Utility.getAlignableObjects)
-local getBoundingBoxes = not getFFlagBoundingBoxRefactor() and require(Plugin.Src.Utility.getBoundingBoxes) or nil
+local getBoundingBoxes = require(Plugin.Src.Utility.getBoundingBoxes) -- TODO: remove when removing FFlagBoundingBoxRefactor
 local getDebugSettingValue = require(Plugin.Src.Utility.getDebugSettingValue)
 
 local SelectionWrapper = Selection.new()
@@ -132,6 +134,8 @@ function MainView:render()
 			}),
 		}),
 
+		AlignObjectsPreview = props.previewVisible and Roact.createElement(AlignObjectsPreview) or nil,
+
 		DebugView = shouldShowDebugView() and Roact.createElement(DebugView, {
 			BoundingBoxOffset = debugState.boundingBoxOffset,
 			BoundingBoxSize = debugState.boundingBoxSize,
@@ -190,10 +194,12 @@ ContextServices.mapToProps(MainView, {
 
 local function mapStateToProps(state, _)
 	return {
+		previewVisible = state.previewVisible,
 		alignEnabled = state.alignEnabled,
 		disabledReason = state.disabledReason,
 		alignableObjects = state.alignableObjects,
 		alignmentMode = state.alignmentMode,
+		alignmentSpace = getFFlagAlignInLocalSpace() and state.alignmentSpace or nil,
 		enabledAxes = state.enabledAxes,
 	}
 end

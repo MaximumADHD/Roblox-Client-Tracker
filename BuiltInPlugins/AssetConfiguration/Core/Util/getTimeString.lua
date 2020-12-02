@@ -1,3 +1,4 @@
+-- DEPRECATED - use formatDuration from DeveloperFramework
 -- Returns a time in seconds to a 00:00 (min:sec) format
 return function (seconds, minSeconds)
 	local min = math.floor(seconds / 60)

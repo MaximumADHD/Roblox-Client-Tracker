@@ -7,6 +7,8 @@
 
 local Plugin = script.Parent.Parent.Parent
 
+local getFFlagAlignInLocalSpace = require(Plugin.Src.Flags.getFFlagAlignInLocalSpace)
+
 local Framework = Plugin.Packages.Framework
 local ContextServices = require(Framework.ContextServices)
 local Theme = ContextServices.Theme
@@ -49,6 +51,9 @@ local function makeTheme()
 
 		return {
 			Plugin = Style.new({
+				LabelColumnWidth = getFFlagAlignInLocalSpace() and 80 or nil,
+				ContentListItemPadding = getFFlagAlignInLocalSpace() and UDim.new(0, 10) or nil,
+
 				-- Size of leading labels "Align In" and "Relative To".
 				-- Once localization is added, we should use the width of the
 				-- localized text from TextService, clamped to a range.
@@ -75,6 +80,7 @@ local function makeTheme()
 				},
 
 				AxesSection = {
+					Height = getFFlagAlignInLocalSpace() and 54 or nil, -- 22 (space row) + 22 (axes row) + 10 (ContentListItemPadding)
 					ListItemPadding = 5,
 					Size = UDim2.new(1, 0, 0, 22),
 				},
@@ -83,6 +89,10 @@ local function makeTheme()
 					ListItemPadding = 5,
 					Size = UDim2.new(1, 0, 0, 22),
 				},
+
+				AxesSettingsFragment = getFFlagAlignInLocalSpace() and {
+					CheckboxListItemPadding = UDim.new(0, 10),
+				} or nil,
 
 				Checkbox = StyleTable.new("Checkbox", function()
 					local Default = Style.extend(common.MainText, {

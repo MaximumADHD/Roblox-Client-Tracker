@@ -9,6 +9,7 @@ local TemporaryTransparency = require(DraggerFramework.Utility.TemporaryTranspar
 local PivotImplementation = require(DraggerFramework.Utility.PivotImplementation)
 
 local EngineFeatureEditPivot = require(DraggerFramework.Flags.getEngineFeatureEditPivot)()
+local getFFlagDraggerScaleBones = require(DraggerFramework.Flags.getFFlagDraggerScaleBones)
 
 local ExtrudeHandlesImplementation = {}
 ExtrudeHandlesImplementation.__index = ExtrudeHandlesImplementation
@@ -360,20 +361,37 @@ end
 
 function ExtrudeHandlesImplementation:_recordItemsToFixup(parts)
 	self._fixupAttachments = {}
+	self._fixupNontrivialAttachments = {}
 	self._fixupOffsets = {}
 	self._fixupScales = {}
 	if EngineFeatureEditPivot then
 		self._fixupPivot = {}
 	end
+	local FFlagDraggerScaleBones = getFFlagDraggerScaleBones()
 	for _, part in ipairs(parts) do
 		if EngineFeatureEditPivot then
 			if PivotImplementation.hasPivot(part) then
 				self._fixupPivot[part] = part.CFrame:Inverse() * PivotImplementation.getPivot(part)
 			end
 		end
+		local inverseCFrame = FFlagDraggerScaleBones and part.CFrame:Inverse()
 		for _, descendant in ipairs(part:GetDescendants()) do
 			if descendant:IsA("Attachment") then
-				self._fixupAttachments[descendant] = descendant.Position
+				if FFlagDraggerScaleBones and descendant.Parent ~= part then
+					-- Note: We need this for bones, which may be under another
+					-- bone rather than directly under the part.
+					local cframeRelativeToPart = inverseCFrame * descendant.WorldCFrame
+					local localPosition = cframeRelativeToPart.Position
+					local localRotation = cframeRelativeToPart - localPosition
+					table.insert(self._fixupNontrivialAttachments, {
+						Attachment = descendant,
+						RelativeTo = part,
+						LocalRotation = localRotation, 
+						LocalPosition = localPosition,
+					})
+				else
+					self._fixupAttachments[descendant] = descendant.Position
+				end
 			elseif descendant:IsA("DataModelMesh") then
 				self._fixupOffsets[descendant] = descendant.Offset
 				if descendant.ClassName == "FileMesh" or
@@ -388,6 +406,17 @@ end
 function ExtrudeHandlesImplementation:_applyFixup(scaledBy)
 	for attachment, position in pairs(self._fixupAttachments) do
 		attachment.Position = position * scaledBy
+	end
+	local FFlagDraggerScaleBones = getFFlagDraggerScaleBones()
+	if FFlagDraggerScaleBones then
+		-- Note: The forwards iteration is important here. Parents must have
+		-- their CFrames updated first for things to work out as intended, as
+		-- we're assigning WorldCFrame, which has a dependency on the CFrames
+		-- of the ancestor attachments.
+		for _, data in ipairs(self._fixupNontrivialAttachments) do
+			data.Attachment.WorldCFrame = 
+				(data.RelativeTo.CFrame * data.LocalRotation) + data.LocalPosition * scaledBy
+		end
 	end
 	for offsetItem, offset in pairs(self._fixupOffsets) do
 		offsetItem.Offset = offset * scaledBy

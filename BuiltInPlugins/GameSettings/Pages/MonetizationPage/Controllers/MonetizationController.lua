@@ -2,7 +2,6 @@ local MonetizationController = {}
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Cryo = require(Plugin.Cryo)
-local Promise = require(Plugin.Framework).Util.Promise
 
 MonetizationController.__index = MonetizationController
 

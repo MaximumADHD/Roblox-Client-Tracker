@@ -1,7 +1,6 @@
 local Plugin = script.Parent.Parent.Parent
 local Cryo = require(Plugin.Packages.Cryo)
 local Rodux = require(Plugin.Packages.Rodux)
-local cleanTimestamp = require(Plugin.Src.Util.cleanTimestamp)
 local Flags = require(Plugin.Packages.Framework.Util.Flags)
 local FlagsList = Flags.new({
 	FFlagPluginManagementFixRemovePlugins = { "PluginManagementFixRemovePlugins" },
@@ -49,41 +48,6 @@ return Rodux.createReducer({
 	SetLoadedPluginData = function(state, action)
 		return Cryo.Dictionary.join(state, {
 			plugins = Cryo.Dictionary.join(state.plugins or {}, action.pluginData),
-		})
-	end,
-
-	--[[ fired when the network request returns with information about a specific plugin ]]
-	SetPluginInfo = function(state, action)
-		-- FFlagPluginManagementAllowLotsOfPlugins TODO : Remove this handler when cleaning up this flag
-		local pluginTab = action.plugins or {}
-		local dataTab = action.data or {}
-
-		local resultTab = {}
-		for _, entry in pairs(dataTab) do
-			resultTab[entry.id] = {
-				assetId = entry.id,
-				name = entry.name,
-				description = entry.description,
-				latestVersion = entry.versionId,
-				updated = cleanTimestamp(entry.updated),
-			}
-		end
-
-		for _, entry in pairs(pluginTab) do
-			if resultTab[entry.assetId] then
-				resultTab[entry.assetId].enabled = entry.enabled
-				resultTab[entry.assetId].installedVersion = entry.installedVersion
-				resultTab[entry.assetId].isModerated = entry.isModerated
-
-				local productInfo = game.MarketplaceService:GetProductInfo(entry.assetId)
-				if productInfo then
-					resultTab[entry.assetId].creator = productInfo.Creator
-				end
-			end
-		end
-
-		return Cryo.Dictionary.join(state, {
-			plugins = resultTab,
 		})
 	end,
 

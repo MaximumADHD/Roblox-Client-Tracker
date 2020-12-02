@@ -308,6 +308,7 @@ function ToolboxTheme:_recalculateTheme()
 			clearAllText = color(c.LinkText),
 		},
 
+		-- Remove with FFlagToolboxUseDevFrameworkAssetPreview
 		assetPreview = {
 			background = isDark and Color3.fromRGB(46, 46, 46) or Color3.fromRGB(255, 255, 255),
 
@@ -477,6 +478,7 @@ function ToolboxTheme:_recalculateTheme()
 	})
 
 	local overrides = {
+		-- Remove with FFlagToolboxUseDevFrameworkAssetPreview
 		assetPreview = {
 			fontBold = Enum.Font.GothamBold,
 			textSizeMedium = 16,

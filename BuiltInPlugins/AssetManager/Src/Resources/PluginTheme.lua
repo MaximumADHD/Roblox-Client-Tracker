@@ -465,6 +465,12 @@ local function createStyles(theme, getColor)
 					Height = 24,
 					Padding = 10,
 
+					Arrow = {
+						Expanded = downArrowProps,
+						Collapsed = upArrowProps,
+						Color = theme:GetColor(c.MainText),
+						Size = 9,
+					},
 					Button = {
 						Size = 24,
 					},

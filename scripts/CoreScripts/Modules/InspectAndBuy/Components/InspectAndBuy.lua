@@ -27,10 +27,13 @@ local SetPlayerId = require(InspectAndBuyFolder.Actions.SetPlayerId)
 local SetPlayerName = require(InspectAndBuyFolder.Actions.SetPlayerName)
 local SetLocale = require(InspectAndBuyFolder.Actions.SetLocale)
 local SetItemBeingPurchased = require(InspectAndBuyFolder.Actions.SetItemBeingPurchased)
+local UpdateStoreId = require(InspectAndBuyFolder.Actions.UpdateStoreId)
 local GetAssetsFromHumanoidDescription = require(InspectAndBuyFolder.Thunks.GetAssetsFromHumanoidDescription)
 local UpdateOwnedStatus = require(InspectAndBuyFolder.Thunks.UpdateOwnedStatus)
 local GetCharacterModelFromUserId = require(InspectAndBuyFolder.Thunks.GetCharacterModelFromUserId)
 local GetPlayerName = require(InspectAndBuyFolder.Thunks.GetPlayerName)
+
+local FFlagFixInspectAndBuyPerformFetch = require(InspectAndBuyFolder.Flags.FFlagFixInspectAndBuyPerformFetch)
 
 local COMPACT_VIEW_MAX_WIDTH = 600
 local CURSOR_OVERRIDE_KEY = "OverrideCursorInspectMenu"
@@ -96,6 +99,10 @@ function InspectAndBuy:init()
 			}),
 		}),
 	}
+
+	if FFlagFixInspectAndBuyPerformFetch then
+		self.state.store:dispatch(UpdateStoreId())
+	end
 
 	self._context[Constants.View.Compact] = CompactView
 	self._context[Constants.View.Wide] = WideView

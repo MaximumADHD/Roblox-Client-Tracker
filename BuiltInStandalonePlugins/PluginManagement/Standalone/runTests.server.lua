@@ -8,7 +8,7 @@ local TextReporter = TestEZ.Reporters.TextReporterQuiet -- Remove Quite to see o
 
 local SHOULD_RUN_TESTS = false -- Do not check in as true!
 if SHOULD_RUN_TESTS then
-	print("----- All PluginInstallation Tests ------")
+	print("----- All " .. Plugin.Name .. " Tests ------")
 	TestBootstrap:run({ TestsFolderPlugin, TestsFolderPackages }, TextReporter)
 	print("----------------------------------")
 end

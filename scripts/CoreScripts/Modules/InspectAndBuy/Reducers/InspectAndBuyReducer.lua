@@ -16,6 +16,7 @@ local Visible = require(Reducers.Visible)
 local ItemBeingPurchased = require(Reducers.ItemBeingPurchased)
 local IsLoaded = require(Reducers.IsLoaded)
 local GamepadEnabled = require(Reducers.GamepadEnabled)
+local StoreId = require(Reducers.StoreId)
 
 return Rodux.combineReducers({
 	view = View,
@@ -33,4 +34,5 @@ return Rodux.combineReducers({
 	gamepadEnabled = GamepadEnabled,
 	isLoaded = IsLoaded,
 	FetchingStatus = FetchingStatus,
+	storeId = StoreId,
 })

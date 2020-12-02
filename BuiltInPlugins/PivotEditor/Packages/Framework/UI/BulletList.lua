@@ -10,7 +10,7 @@
 		number LayoutOrder: Order in which the element is placed.
 		StyleModifier StyleModifier: The StyleModifier index into Style.
 		boolean TextWrapped: Sets text wrapped.
-		boolean TextTruncate: Sets text truncated.
+		Enum.TextTruncate TextTruncate: Sets text truncated.
 		Stylizer Stylizer: A Stylizer ContextItem, which is provided via mapToProps.
 
 	Style Values:

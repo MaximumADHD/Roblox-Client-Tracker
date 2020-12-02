@@ -2,8 +2,6 @@ local DraggerFramework = script.Parent.Parent.Parent
 local DraggerStateType = require(DraggerFramework.Implementation.DraggerStateType)
 local StandardCursor = require(DraggerFramework.Utility.StandardCursor)
 
-local getFFlagRevertCtrlScale = require(DraggerFramework.Flags.getFFlagRevertCtrlScale)
-
 local DraggingHandle = {}
 DraggingHandle.__index = DraggingHandle
 
@@ -58,18 +56,15 @@ function DraggingHandle:processMouseUp()
 end
 
 function DraggingHandle:processKeyDown(keyCode)
-	if getFFlagRevertCtrlScale() then
-		if self._draggingHandles.keyDown then
-			if self._draggingHandles:keyDown(keyCode) then
-				-- Update the drag
-				self:processViewChanged()
-			end
+	if self._draggingHandles.keyDown then
+		if self._draggingHandles:keyDown(keyCode) then
+			-- Update the drag
+			self:processViewChanged()
 		end
 	end
 end
 
 function DraggingHandle:processKeyUp(keyCode)
-	assert(getFFlagRevertCtrlScale())
 	if self._draggingHandles.keyUp then
 		if self._draggingHandles:keyUp(keyCode) then
 			-- Update the drag

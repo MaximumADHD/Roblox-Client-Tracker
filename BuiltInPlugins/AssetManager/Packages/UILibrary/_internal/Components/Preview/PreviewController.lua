@@ -21,7 +21,6 @@
 ]]
 local FFlagStudioMinorFixesForAssetPreview = settings():GetFFlag("StudioMinorFixesForAssetPreview")
 local FFlagHideOneChildTreeviewButton = game:GetFastFlag("HideOneChildTreeviewButton")
-local FFlagStudioFixTreeViewForFlatList = settings():GetFFlag("StudioFixTreeViewForFlatList")
 local FFlagStudioAssetPreviewTreeFix2 = game:DefineFastFlag("StudioAssetPreviewTreeFix2", false)
 local FFlagEnableToolboxVideos = game:GetFastFlag("EnableToolboxVideos")
 
@@ -95,7 +94,7 @@ function PreviewController:createTreeView(previewModel, size)
 		if FFlagStudioAssetPreviewTreeFix2 then
 			dataTree = previewModel
 		else
-			dataTree = FFlagStudioFixTreeViewForFlatList and self.props.CurrentPreview or previewModel
+			dataTree = self.props.CurrentPreview
 		end
 
 		return Roact.createElement("ImageButton", {
@@ -115,7 +114,7 @@ function PreviewController:createTreeView(previewModel, size)
 				dataTree = dataTree,
 				onSelectionChanged = self.onTreeItemClicked,
 
-				createFlatList = FFlagStudioFixTreeViewForFlatList and true or false,
+				createFlatList = true,
 
 				getChildren = function(instance)
 					return instance:GetChildren()
@@ -233,7 +232,7 @@ function PreviewController:render()
 		if FFlagStudioAssetPreviewTreeFix2 then
 			dataTree = previewModel
 		else
-			dataTree = FFlagStudioFixTreeViewForFlatList and self.props.CurrentPreview or previewModel
+			dataTree = self.props.CurrentPreview
 		end
 		local hasMultiplechildren = dataTree and (#dataTree:GetChildren() > 0) or false
 		showTreeViewButton = showTreeViewButton and hasMultiplechildren

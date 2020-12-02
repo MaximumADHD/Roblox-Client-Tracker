@@ -35,7 +35,7 @@ function EditPivotPlugin:init()
 end
 
 function EditPivotPlugin:didMount()
-	self._deactivatedConnection = self.props.Plugin.plugin.Deactivation:Connect(function()
+	self._deactivatedConnection = self.props.Plugin:get().Deactivation:Connect(function()
 		self:setState({
 			active = false,
 		})
@@ -49,7 +49,7 @@ end
 function EditPivotPlugin:willUpdate(nextProps, nextState)
 	-- Must activate the plugin every time we transition from inactive -> active
 	if nextState.active and not self.state.active then
-		self.props.Plugin.plugin:Activate(true)
+		self.props.Plugin:get():Activate(true)
 	end
 end
 

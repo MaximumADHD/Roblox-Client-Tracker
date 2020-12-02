@@ -36,6 +36,7 @@ local Screens = require(Plugin.Src.Util.Screens)
 
 local GetAssets = require(Plugin.Src.Thunks.GetAssets)
 local GetUniverseConfiguration = require(Plugin.Src.Thunks.GetUniverseConfiguration)
+local OnScreenChange = require(Plugin.Src.Thunks.OnScreenChange)
 
 local StudioService = game:GetService("StudioService")
 
@@ -43,6 +44,7 @@ local MainView = Roact.PureComponent:extend("MainView")
 
 local FFlagStudioAssetManagerAddRecentlyImportedView = game:GetFastFlag("StudioAssetManagerAddRecentlyImportedView")
 local FFlagStudioAssetManagerHideTooltipOnAssetPreview = game:GetFastFlag("StudioAssetManagerHideTooltipOnAssetPreview")
+local FFlagStudioAssetManagerUXFixes = game:GetFastFlag("StudioAssetManagerUXFixes")
 
 local universeNameSet = false
 local initialHasLinkedScriptValue = false
@@ -63,6 +65,7 @@ end
 
 function MainView:init()
     self.state = {
+        currentScreen = "",
         showAssetPreview = false,
         showOverlay = false,
         fileExplorerData = {
@@ -152,6 +155,16 @@ function MainView:didUpdate()
         end
         if hasLinkedScripts then
             initialHasLinkedScriptValue = hasLinkedScripts
+        end
+    end
+    if FFlagStudioAssetManagerUXFixes then
+        local apiImpl = props.API:get()
+        local screen = props.CurrentScreen
+        if screen ~= self.state.currentScreen then
+            props.dispatchOnScreenChange(apiImpl, screen)
+            self:setState({
+                currentScreen = screen,
+            })
         end
     end
 end
@@ -300,6 +313,7 @@ local function mapStateToProps(state, props)
 
 	return {
         AssetsTable = assetManagerReducer.assetsTable,
+        CurrentScreen = state.Screen.currentScreen,
         UniverseName = assetManagerReducer.universeName,
         HasLinkedScripts = assetManagerReducer.hasLinkedScripts,
         RecentAssets = assetManagerReducer.recentAssets,
@@ -315,6 +329,10 @@ local function mapDispatchToProps(dispatch)
 
         dispatchGetUniverseConfiguration = function(apiImpl)
             dispatch(GetUniverseConfiguration(apiImpl))
+        end,
+
+        dispatchOnScreenChange = function(apiImpl, screen)
+            dispatch(OnScreenChange(apiImpl, screen))
         end,
     }
 end

@@ -6,6 +6,7 @@ local getGeometry = require(DraggerFramework.Utility.getGeometry)
 local roundRotation = require(DraggerFramework.Utility.roundRotation)
 
 local getFFlagDragFaceInstances = require(DraggerFramework.Flags.getFFlagDragFaceInstances)
+local getFFlagDraggerMiscFixes = require(DraggerFramework.Flags.getFFlagDraggerMiscFixes)
 
 local PrimaryDirections = {
 	Vector3.new(1, 0, 0),
@@ -303,6 +304,11 @@ function DragHelper.updateTiltRotate(cameraCFrame, mouseRay, selection, mainCFra
 			closestAxis = direction
 			closestDelta = delta
 		end
+	end
+
+	if getFFlagDraggerMiscFixes() then
+		-- If we somehow had NaNs in our CFrame then closestAxis may still be nil
+		closestAxis = closestAxis or Vector3.new(0, 1, 0)
 	end
 
 	-- Could be written without the need for rounding by permuting the

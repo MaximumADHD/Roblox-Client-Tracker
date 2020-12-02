@@ -31,7 +31,7 @@ return function(analytics, assetData)
             elseif assetType == Enum.AssetType.Lua then
                 AssetManagerService:OpenLinkedSource("Scripts/" .. assetData.name)
             elseif FFlagAllowAudioBulkImport and (not RobloxAPI:baseURLHasChineseHost()) and assetType == Enum.AssetType.Audio then
-                AssetManagerService:InsertAudio(assetData.id)
+                AssetManagerService:InsertAudio(assetData.id, assetData.name)
             end
             if FFlagAssetManagerAddAnalytics then
                 analytics:report("doubleClickInsert")

@@ -9,7 +9,12 @@ local deepJoin = require(Plugin.Src.Util.deepJoin)
 -- c = Enum.StudioStyleGuideColor
 -- m = Enum.StudioStyleGuideModifier
 local function createValues(getColor, c, m)
-	local isDark = settings().Studio["UI Theme"].Name == Enum.UITheme.Dark.Name
+	local isDark = false
+	if game:GetFastFlag("StudioPluginsDontUseUITheme") then
+		isDark = settings().Studio.Theme.Name == "Dark"
+	else
+		isDark = settings().Studio["UI Theme"] == Enum.UITheme.Dark
+	end
 
 	local DefaultStudioStyle = StudioStyle.new(getColor, c, m)
 

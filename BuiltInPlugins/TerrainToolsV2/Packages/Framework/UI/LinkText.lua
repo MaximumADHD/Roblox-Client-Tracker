@@ -23,7 +23,6 @@
 		number TextSize: The font size of the text in this link.
 		Color3 TextColor: The color of the text and underline in this link.
 ]]
-local FFlagAssetManagerLuaCleanup1 = settings():GetFFlag("AssetManagerLuaCleanup1")
 local FFlagTruncateDevFrameworkHyperlinkText = game:GetFastFlag("TruncateDevFrameworkHyperlinkText")
 local FFlagWrappedDevFrameworkLinkText = game:GetFastFlag("WrappedDevFrameworkLinkText")
 
@@ -125,12 +124,8 @@ function LinkText:render()
 
 	local hovered = styleModifier == StyleModifier.Hover
 
-	local enableHover = true
-	local showUnderline = true
-	if FFlagAssetManagerLuaCleanup1 then
-		enableHover = (style.EnableHover == nil) and true or style.EnableHover
-		showUnderline = (style.ShowUnderline == nil) and true or style.ShowUnderline
-	end
+	local enableHover = (style.EnableHover == nil) and true or style.EnableHover
+	local showUnderline = (style.ShowUnderline == nil) and true or style.ShowUnderline
 
 	return Roact.createElement(Button, {
 		Style = {

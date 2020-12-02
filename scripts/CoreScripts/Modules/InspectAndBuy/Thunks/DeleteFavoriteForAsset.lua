@@ -8,14 +8,22 @@ local Analytics = require(InspectAndBuyFolder.Services.Analytics)
 local SetFavoriteAsset = require(InspectAndBuyFolder.Actions.SetFavoriteAsset)
 local SetAssets = require(InspectAndBuyFolder.Actions.SetAssets)
 local AssetInfo = require(InspectAndBuyFolder.Models.AssetInfo)
+local createInspectAndBuyKeyMapper = require(InspectAndBuyFolder.createInspectAndBuyKeyMapper)
+
+local FFlagFixInspectAndBuyPerformFetch = require(InspectAndBuyFolder.Flags.FFlagFixInspectAndBuyPerformFetch)
 
 local requiredServices = {
 	Network,
 	Analytics,
 }
 
-local function keyMapper(assetId)
-	return "inspectAndBuy.deleteFavoriteForAsset." ..tostring(assetId)
+local keyMapper
+if FFlagFixInspectAndBuyPerformFetch then
+	keyMapper = createInspectAndBuyKeyMapper("deleteFavoriteForAsset")
+else
+	keyMapper = function(assetId)
+		return "inspectAndBuy.deleteFavoriteForAsset." ..tostring(assetId)
+	end
 end
 
 --[[
@@ -26,7 +34,14 @@ local function DeleteFavoriteForAsset(assetId)
 		local network = services[Network]
 		local analytics = services[Analytics]
 
-		return PerformFetch.Single(keyMapper(assetId), function(fetchSingleStore)
+		local key
+		if FFlagFixInspectAndBuyPerformFetch then
+			key = keyMapper(store:getState().storeId, assetId)
+		else
+			key = keyMapper(assetId)
+		end
+
+		return PerformFetch.Single(key, function(fetchSingleStore)
 			return network.deleteFavoriteForAsset(assetId):andThen(
 				function()
 					-- If Promise was resolved, the delete was a success!

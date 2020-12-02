@@ -5,13 +5,21 @@ local Thunk = require(InspectAndBuyFolder.Thunk)
 local Network = require(InspectAndBuyFolder.Services.Network)
 local SetAssets = require(InspectAndBuyFolder.Actions.SetAssets)
 local AssetInfo = require(InspectAndBuyFolder.Models.AssetInfo)
+local createInspectAndBuyKeyMapper = require(InspectAndBuyFolder.createInspectAndBuyKeyMapper)
+
+local FFlagFixInspectAndBuyPerformFetch = require(InspectAndBuyFolder.Flags.FFlagFixInspectAndBuyPerformFetch)
 
 local requiredServices = {
 	Network,
 }
 
-local function keyMapper(assetId)
-	return "inspectAndBuy.getAssetFavoriteCount." ..tostring(assetId)
+local keyMapper
+if FFlagFixInspectAndBuyPerformFetch then
+	keyMapper = createInspectAndBuyKeyMapper("getAssetFavoriteCount")
+else
+	keyMapper = function(assetId)
+		return "inspectAndBuy.getAssetFavoriteCount." ..tostring(assetId)
+	end
 end
 
 --[[
@@ -21,7 +29,14 @@ local function GetAssetFavoriteCount(assetId)
 	return Thunk.new(script.Name, requiredServices, function(store, services)
 		local network = services[Network]
 
-		return PerformFetch.Single(keyMapper(assetId), function(fetchSingleStore)
+		local key
+		if FFlagFixInspectAndBuyPerformFetch then
+			key = keyMapper(store:getState().storeId, assetId)
+		else
+			key = keyMapper(assetId)
+		end
+
+		return PerformFetch.Single(key, function(fetchSingleStore)
 			return network.getAssetFavoriteCount(assetId):andThen(
 				function(numFavorites)
 					if numFavorites then

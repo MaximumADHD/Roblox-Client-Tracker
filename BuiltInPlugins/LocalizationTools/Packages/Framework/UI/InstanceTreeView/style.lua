@@ -17,9 +17,11 @@ local FlagsList = Util.Flags.new({
 	FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
 })
 
+local export: any
+
 if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
 	local treeView = deepCopy(TreeView)
-	return {
+	export = {
 		Text = Common.MainText,
 		TreeView = treeView,
 		Indent = 20,
@@ -46,7 +48,7 @@ if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
 		}
 	}
 else
-	return function(theme, getColor)
+	export = function(theme, getColor)
 		local common = Common(theme, getColor)
 		local treeView = TreeView(theme, getColor)
 
@@ -83,3 +85,5 @@ else
 		}
 	end
 end
+
+return export

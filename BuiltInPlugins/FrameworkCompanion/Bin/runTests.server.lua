@@ -11,18 +11,21 @@ if DebugFlags.RunningUnderCLI() or DebugFlags.RunTests() then
 	-- Requiring TestEZ initialises TestService, so we require it under the condition
 	local TestEZ = require(Plugin.Packages.Dev.TestEZ)
 	local TestBootstrap = TestEZ.TestBootstrap
+	local TeamCityReporter = TestEZ.Reporters.TeamCityReporter
 	local TextReporter = TestEZ.Reporters.TextReporter
+
+	local reporter = _G["TEAMCITY"] and TeamCityReporter or TextReporter
 	local TestsFolderPlugin = Plugin.Src
 
 	if FFlagRefactorDevFrameworkTheme then
 		print("----- All " .. Plugin.Name .. " Tests ------")
-		TestBootstrap:run({TestsFolderPlugin}, TextReporter)
+		TestBootstrap:run({TestsFolderPlugin}, reporter)
 		print("----------------------------------")
 
 		if DebugFlags.RunDeveloperFrameworkTests() then
 			print("")
 			print("----- All DeveloperFramework Tests ------")
-			Framework.TestHelpers.runFrameworkTests(TestEZ)
+			Framework.TestHelpers.runFrameworkTests(TestEZ, reporter)
 			print("----------------------------------")
 		end
 	else

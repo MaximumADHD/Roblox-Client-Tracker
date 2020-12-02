@@ -1,10 +1,7 @@
-local FFlagPluginManagementRemoveUILibrary = game:GetFastFlag("PluginManagementRemoveUILibrary2")
-
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local ContextServices = require(Plugin.Packages.Framework.ContextServices)
 
-local ServiceWrapper = require(Plugin.Src.Components.ServiceWrapper)
 local InstallationDialog = require(Plugin.Src.Components.InstallationDialog)
 local MainView = require(Plugin.Src.Components.MainView)
 local getPluginGlobals = require(Plugin.Src.Util.getPluginGlobals)
@@ -30,17 +27,12 @@ return function(pluginId)
 		})
 	}
 
-	local dialog
-	if FFlagPluginManagementRemoveUILibrary then
-		local globals = getPluginGlobals()
-		dialog = ContextServices.provide({
-			ContextServices.Plugin.new(globals.plugin),
-			ContextServices.Store.new(globals.store),
-			globals.localization,
-			globals.theme,
-		}, children)
-	else
-		dialog = Roact.createElement(ServiceWrapper, getPluginGlobals(), children)
-	end 
+	local globals = getPluginGlobals()
+	local dialog = ContextServices.provide({
+		ContextServices.Plugin.new(globals.plugin),
+		ContextServices.Store.new(globals.store),
+		globals.localization,
+		globals.theme,
+	}, children)
 	handle = Roact.mount(dialog)
 end

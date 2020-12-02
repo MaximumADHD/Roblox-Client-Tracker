@@ -1,6 +1,7 @@
 local FFlagTerrainToolsBetterImportTool = game:GetFastFlag("TerrainToolsBetterImportTool")
 local FFlagTerrainImportNewYieldMethod = game:GetFastFlag("TerrainImportNewYieldMethod")
 local FFlagTerrainImportSupportDefaultMaterial = game:GetFastFlag("TerrainImportSupportDefaultMaterial")
+local FFlagTerrainToolsImportUploadAssets = game:GetFastFlag("TerrainToolsImportUploadAssets")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -27,12 +28,13 @@ When flag on, returns `false, warningString` to be logged
 ]]
 local function validateImportSettingsOrWarn(importSettings, DEPRECATED_localization)
 	if FFlagTerrainToolsBetterImportTool then
-		if not importSettings.heightmap then
+		if not (importSettings.heightmap and importSettings.heightmap.file) then
 			return false, "ValidHeightMapImport"
 		end
 
 		if FFlagTerrainImportSupportDefaultMaterial then
-			if importSettings.materialMode == ImportMaterialMode.Colormap and not importSettings.colormap then
+			if importSettings.materialMode == ImportMaterialMode.Colormap
+				and not (importSettings.colormap and importSettings.colormap.file) then
 				return false, "NoColormapProvided"
 			end
 		else
@@ -65,7 +67,9 @@ function TerrainImporter.new(options)
 		_terrain = options.terrain,
 		_localization = options.localization,
 		_analytics = options.analytics,
-		_assetHandler = FFlagTerrainToolsBetterImportTool and ImportAssetHandler.new(options.imageUploader) or nil,
+		_assetHandler = (FFlagTerrainToolsBetterImportTool and FFlagTerrainToolsImportUploadAssets)
+			and ImportAssetHandler.new(options.imageUploader)
+			or nil,
 
 		_importSettings = {
 			position = Vector3.new(0, 0, 0),
@@ -90,6 +94,7 @@ function TerrainImporter.new(options)
 		_isPaused = false,
 
 		_updateSignal = Signal.new(),
+		_errorSignal = Signal.new(),
 
 	}, TerrainImporter)
 
@@ -115,6 +120,10 @@ function TerrainImporter:createProvider(root)
 		ContextItem = self,
 		UpdateSignal = self._updateSignal,
 	}, {root})
+end
+
+function TerrainImporter:subscribeToErrors(callback)
+	return self._errorSignal:Connect(callback)
 end
 
 function TerrainImporter:getImportProgress()
@@ -252,7 +261,7 @@ local function doImport(terrain, importSettings, updateProgress, localization, a
 		local regionEnd = center + offset
 		local region = Region3.new(regionStart, regionEnd):ExpandToGrid(Constants.VOXEL_RESOLUTION)
 
-		local heightmapUrl = importSettings.heightmap:GetTemporaryId()
+		local heightmapUrl = importSettings.heightmap.file:GetTemporaryId()
 
 		local materialMode = importSettings.materialMode
 		local colormapUrl = ""
@@ -262,11 +271,11 @@ local function doImport(terrain, importSettings, updateProgress, localization, a
 			if materialMode == ImportMaterialMode.DefaultMaterial then
 				defaultMaterial = importSettings.defaultMaterial
 			elseif materialMode == ImportMaterialMode.Colormap then
-				colormapUrl = importSettings.colormap:GetTemporaryId()
+				colormapUrl = importSettings.colormap.file:GetTemporaryId()
 			end
 		else
 			if importSettings.useColorMap then
-				colormapUrl = importSettings.colormap:GetTemporaryId()
+				colormapUrl = importSettings.colormap.file:GetTemporaryId()
 			end
 		end
 
@@ -275,27 +284,29 @@ local function doImport(terrain, importSettings, updateProgress, localization, a
 			analytics:report("importTerrain", region, heightmapUrl, colormapUrl)
 		end
 
-		-- Spawn this before calling ImportHeightmap() as that blocks until the import has entirely finished
-		spawn(function()
-			assetHandler:handleAsset(importSettings.heightmap, region)
+		if FFlagTerrainToolsImportUploadAssets then
+			-- Spawn this before calling ImportHeightmap() as that blocks until the import has entirely finished
+			spawn(function()
+				assetHandler:handleAsset(importSettings.heightmap.file, region)
 
-			local handleColormap
-			if FFlagTerrainImportSupportDefaultMaterial then
-				handleColormap = materialMode == ImportMaterialMode.Colormap and importSettings.colormap ~= nil
-			else
-				handleColormap = importSettings.useColorMap
-			end
-			if handleColormap then
-				assetHandler:handleAsset(importSettings.colormap, region)
-			end
-		end)
+				local handleColormap
+				if FFlagTerrainImportSupportDefaultMaterial then
+					handleColormap = materialMode == ImportMaterialMode.Colormap and importSettings.colormap.file
+				else
+					handleColormap = importSettings.useColorMap
+				end
+				if handleColormap then
+					assetHandler:handleAsset(importSettings.colormap.file, region)
+				end
+			end)
+		end
 
 		success, err = pcall(function()
 			terrain:ImportHeightmap(region, heightmapUrl, colormapUrl, defaultMaterial)
 		end)
 
 		if not success then
-			reject(localization:getText("Warning", "ImportError", err))
+			reject(err)
 			return
 		end
 
@@ -323,10 +334,14 @@ function TerrainImporter:startImport()
 		self:_setImporting(false)
 	end
 
+	local function handleFailure(message)
+		self._errorSignal:Fire(message)
+	end
+
 	beginImport()
 	doImport(self._terrain, self._importSettings, self._updateImportProgress,
 		self._localization, self._analytics, self._assetHandler)
-		:catch(warn) -- TODO: Better failure case handling
+		:catch(handleFailure)
 		:await()
 	finishImport()
 end
