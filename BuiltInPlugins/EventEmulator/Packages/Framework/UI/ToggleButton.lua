@@ -25,9 +25,7 @@ local ContextServices = require(Framework.ContextServices)
 
 local Util = require(Framework.Util)
 local Typecheck = Util.Typecheck
-local FlagsList = Util.Flags.new({
-	FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
-})
+local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 
 local Button = require(Framework.UI.Button)
 local HoverArea = require(Framework.UI.HoverArea)
@@ -64,7 +62,7 @@ function ToggleButton:render()
 	local zIndex = self.props.ZIndex
 
 	local style
-	if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+	if THEME_REFACTOR then
 		style = self.props.Stylizer
 	else
 		style = theme:getStyle("Framework", self)
@@ -93,8 +91,8 @@ function ToggleButton:render()
 end
 
 ContextServices.mapToProps(ToggleButton, {
-	Stylizer = FlagsList:get("FFlagRefactorDevFrameworkTheme") and ContextServices.Stylizer or nil,
-	Theme = (not FlagsList:get("FFlagRefactorDevFrameworkTheme")) and ContextServices.Theme or nil,
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
 })
 
 return ToggleButton

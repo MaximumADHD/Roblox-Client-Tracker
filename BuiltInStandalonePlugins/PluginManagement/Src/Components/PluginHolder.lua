@@ -12,7 +12,7 @@ local Constants = require(Plugin.Src.Util.Constants)
 local LayoutOrderIterator = FrameworkUtil.LayoutOrderIterator
 local ContextServices = require(Plugin.Packages.Framework.ContextServices)
 
-local FlagsList = require(Plugin.Src.Util.FlagsList)
+local THEME_REFACTOR = require(Plugin.Packages.Framework).Util.RefactorFlags.THEME_REFACTOR
 
 local PluginHolder = Roact.Component:extend("PluginHolder")
 
@@ -66,7 +66,7 @@ function PluginHolder:render()
 
 	local localization = props.Localization
 	local theme
-	if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+	if THEME_REFACTOR then
 		theme = props.Stylizer
     else
         theme = props.Theme:get("Plugin")
@@ -206,8 +206,8 @@ end
 
 ContextServices.mapToProps(PluginHolder, {
 	Localization = ContextServices.Localization,
-	Stylizer = FlagsList:get("FFlagRefactorDevFrameworkTheme") and ContextServices.Stylizer or nil,
-	Theme = (not FlagsList:get("FFlagRefactorDevFrameworkTheme")) and ContextServices.Theme or nil,
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
 })
 
 return PluginHolder

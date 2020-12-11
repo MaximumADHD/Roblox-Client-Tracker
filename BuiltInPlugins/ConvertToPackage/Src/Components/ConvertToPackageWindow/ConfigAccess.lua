@@ -27,6 +27,8 @@ local ConfigAccess = Roact.PureComponent:extend("ConfigAccess")
 local DROP_DOWN_WIDTH = 220
 local DROP_DOWN_HEIGHT = 38
 
+local FFlagPackageProductUXImprovementsGroupGamesDefaultToOwnerGroup = game:DefineFastFlag("PackageProductUXImprovementsGroupGamesDefaultToOwnerGroup", false)
+
 function ConfigAccess:didMount()
 	-- Initial request
 	self.props.getMyGroups(getNetwork(self))
@@ -40,14 +42,24 @@ function ConfigAccess:render()
 		local LayoutOrder = props.LayoutOrder
 		local TotalHeight = props.TotalHeight
 		local owner = props.owner or {}
+		local onDropDownSelect = props.onDropDownSelect
+
+		self.dropdownContent = Constants.getOwnerDropDownContent(props.groupsArray, localization)
 
 		-- We have a bug, on here: https://developer.roblox.com/api-reference/enum/CreatorType
 		-- User is 0, however in source code, User is 1.
 		-- TODO: Notice UX to change the website.
 		local ownerIndex = (owner.typeId or 1)
-		self.dropdownContent = Constants.getOwnerDropDownContent(props.groupsArray, localization)
-
-		local onDropDownSelect = props.onDropDownSelect
+		if FFlagPackageProductUXImprovementsGroupGamesDefaultToOwnerGroup then
+			if ownerIndex == 1 then
+				for pos, group in pairs(self.dropdownContent) do
+					if group.creatorId == game.CreatorId then
+						ownerIndex = pos
+						onDropDownSelect(self.dropdownContent[ownerIndex])
+					end
+				end
+			end
+		end
 
 		local publishAssetTheme = theme.publishAsset
 

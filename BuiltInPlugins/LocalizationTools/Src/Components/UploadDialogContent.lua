@@ -7,13 +7,14 @@
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
-local ContextServices = require(Plugin.Packages.Framework.ContextServices)
+local Framework = require(Plugin.Packages.Framework)
+local ContextServices = Framework.ContextServices
 
-local UI = require(Plugin.Packages.Framework.UI)
+local UI = Framework.UI
 local Button = UI.Button
 local HoverArea = UI.HoverArea
 
-local FlagsList = require(Plugin.Src.Util.FlagsList)
+local THEME_REFACTOR = Framework.Util.RefactorFlags.THEME_REFACTOR
 
 local UploadDialogContent = Roact.PureComponent:extend("UploadDialogContent")
 
@@ -64,7 +65,7 @@ end
 function UploadDialogContent:render()
 	local props = self.props
 	local theme
-	if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+	if THEME_REFACTOR then
 		theme = props.Stylizer
 	else
 		theme = props.Theme:get("UploadDialogContent")
@@ -265,8 +266,8 @@ function UploadDialogContent:render()
 end
 
 ContextServices.mapToProps(UploadDialogContent, {
-	Stylizer = FlagsList:get("FFlagRefactorDevFrameworkTheme") and ContextServices.Stylizer or nil,
-	Theme = (not FlagsList:get("FFlagRefactorDevFrameworkTheme")) and ContextServices.Theme or nil,
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
 	Localization = ContextServices.Localization,
 })
 

@@ -5,11 +5,9 @@ local MediaPlayerControls = require(StudioUIFolderData.MediaPlayerControls.style
 
 local Util = require(Framework.Util)
 local deepCopy = Util.deepCopy
-local FlagsList = Util.Flags.new({
-	FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
-})
+local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 
-if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+if THEME_REFACTOR then
 	return {
 		PlaceholderImage = {
 			ScaleType = Enum.ScaleType.Fit,

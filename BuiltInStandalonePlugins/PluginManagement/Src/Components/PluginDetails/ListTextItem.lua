@@ -7,7 +7,7 @@ local ContextServices = require(Plugin.Packages.Framework.ContextServices)
 local ListItem = require(Plugin.Src.Components.PluginDetails.ListItem)
 local FluidFitTextLabel = require(Plugin.Src.Components.FluidFitTextLabel)
 
-local FlagsList = require(Plugin.Src.Util.FlagsList)
+local THEME_REFACTOR = require(Plugin.Packages.Framework).Util.RefactorFlags.THEME_REFACTOR
 
 local ListTextItem = Roact.Component:extend("ListTextItem")
 
@@ -24,7 +24,7 @@ function ListTextItem:render()
 	local titleWidth = self.props.titleWidth
 
 	local theme
-	if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+	if THEME_REFACTOR then
 		theme = self.props.Stylizer
 	else
 		theme = self.props.Theme:get("Plugin")
@@ -49,8 +49,8 @@ function ListTextItem:render()
 end
 
 ContextServices.mapToProps(ListTextItem, {
-	Stylizer = FlagsList:get("FFlagRefactorDevFrameworkTheme") and ContextServices.Stylizer or nil,
-	Theme = (not FlagsList:get("FFlagRefactorDevFrameworkTheme")) and ContextServices.Theme or nil,
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
 })
 
 return ListTextItem

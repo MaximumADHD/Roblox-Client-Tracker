@@ -6,9 +6,7 @@ local Util = require(Framework.Util)
 local Cryo = Util.Cryo
 local deepCopy = Util.deepCopy
 local Style = Util.Style
-local FlagsList = Util.Flags.new({
-	FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
-})
+local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 
 local UI = require(Framework.UI)
 local Decoration = UI.Decoration
@@ -16,11 +14,9 @@ local Decoration = UI.Decoration
 local UIFolderData = require(Framework.UI.UIFolderData)
 local RoundBox = require(UIFolderData.RoundBox.style)
 
-local export: any
-
-if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+if THEME_REFACTOR then
 	local roundBox = deepCopy(RoundBox)
-	export = {
+	return {
 		Background = Decoration.RoundBox,
 		Foreground = Decoration.RoundBox,
 		BackgroundStyle = Cryo.Dictionary.join(roundBox, {
@@ -31,7 +27,7 @@ if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
 		}),
 	}
 else
-	export = function(theme, getColor)
+	return function(theme, getColor)
 		local roundBox = RoundBox(theme, getColor)
 
 		local Default = Style.new({
@@ -50,5 +46,3 @@ else
 		}
 	end
 end
-
-return export

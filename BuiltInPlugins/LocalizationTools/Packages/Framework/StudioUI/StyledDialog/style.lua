@@ -4,14 +4,10 @@ local StyleKey = require(Framework.Style.StyleKey)
 
 local Util = require(Framework.Util)
 local Style = Util.Style
-local FlagsList = Util.Flags.new({
-	FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
-})
+local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 
-local export: any
-
-if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
-	export = {
+if THEME_REFACTOR then
+	return {
 		Background = StyleKey.MainBackground,
 		Modal = false,
 		Resizable = false,
@@ -31,7 +27,7 @@ if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
 		},
 	}
 else
-	export = function(theme, getColor)
+	return function(theme, getColor)
 
 		local Default = Style.new({
 			Background = theme:GetColor("MainBackground"),
@@ -60,5 +56,3 @@ else
 		}
 	end
 end
-
-return export

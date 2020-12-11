@@ -1,10 +1,9 @@
-local FFlagRefactorDevFrameworkTheme = game:GetFastFlag("RefactorDevFrameworkTheme")
-
 local Plugin = script.Parent.Parent
 local commonInit = require(Plugin.Src.Util.commonInit)
 commonInit()
 
 local Framework = require(Plugin.Packages.Framework)
+local THEME_REFACTOR = Framework.Util.RefactorFlags.THEME_REFACTOR
 local DebugFlags = require(Plugin.Src.Util.DebugFlags)
 
 if DebugFlags.RunningUnderCLI() or DebugFlags.RunTests() then
@@ -17,7 +16,7 @@ if DebugFlags.RunningUnderCLI() or DebugFlags.RunTests() then
 	local reporter = _G["TEAMCITY"] and TeamCityReporter or TextReporter
 	local TestsFolderPlugin = Plugin.Src
 
-	if FFlagRefactorDevFrameworkTheme then
+	if THEME_REFACTOR then
 		print("----- All " .. Plugin.Name .. " Tests ------")
 		TestBootstrap:run({TestsFolderPlugin}, reporter)
 		print("----------------------------------")
@@ -33,7 +32,7 @@ if DebugFlags.RunningUnderCLI() or DebugFlags.RunTests() then
 			We do not support mocking the old theme system. Skip tests rather than refactoring it
 			due to its impending removal.
 		]]
-		print("Skipping tests due to run without FFlagRefactorDevFrameworkTheme")
+		print("Skipping tests due to run without Developer Framework theme refactor")
 	end
 end
 

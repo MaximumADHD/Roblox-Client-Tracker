@@ -11,6 +11,10 @@ local PromptState = createEnum("PromptState", {
 	"PurchaseInProgress",
 	"UpsellInProgress",
 	"AdultConfirmation",
+	"U13PaymentModal",
+	"U13MonthlyThreshold1Modal",
+	"RequireEmailVerification",
+	"U13MonthlyThreshold2Modal",
 	"PurchaseComplete",
 	"Error",
 })

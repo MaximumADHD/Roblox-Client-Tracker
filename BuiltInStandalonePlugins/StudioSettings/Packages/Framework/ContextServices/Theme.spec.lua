@@ -5,12 +5,17 @@ return function()
 	local mapToProps = require(script.Parent.mapToProps)
 
 	local Theme = require(script.Parent.Theme)
+	local THEME_REFACTOR = require(Framework.Util.RefactorFlags).THEME_REFACTOR
 
 	local Util = require(Framework.Util)
 	local Style = Util.Style
 	local StyleTable = Util.StyleTable
 	local StyleModifier = Util.StyleModifier
 	local Signal = Util.Signal
+
+	if THEME_REFACTOR then
+		return
+	end
 
 	local function createTestThemedComponent(render)
 		local TestThemedComponent = Roact.PureComponent:extend("TestThemedComponent")

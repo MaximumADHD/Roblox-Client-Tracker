@@ -19,15 +19,12 @@ local RoundBox = require(UIFolderData.RoundBox.style)
 local StudioUIFolderData = require(Framework.StudioUI.StudioUIFolderData)
 local Votes = require(StudioUIFolderData.Votes.style)
 
-local FlagsList = Util.Flags.new({
-	FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
-})
+local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 
 local red = Color3.fromRGB(0, 100, 0)
 local green = Color3.fromRGB(100, 0, 0)
 
-
-if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+if THEME_REFACTOR then
 	local roundBox = deepCopy(RoundBox)
 	local common = deepCopy(Common)
 	local votes = deepCopy(Votes)

@@ -14,6 +14,7 @@ local IconWithText = require(Plugin.Src.Components.IconWithText)
 local FitTextLabel = FitFrame.FitTextLabel
 
 local FlagsList = require(Plugin.Src.Util.FlagsList)
+local THEME_REFACTOR = require(Plugin.Packages.Framework).Util.RefactorFlags.THEME_REFACTOR
 
 --TODO: Rename this component to PermissionOverview as it now pertains to multiple permissions
 local HttpRequestOverview = Roact.PureComponent:extend("HttpRequestOverview")
@@ -50,7 +51,7 @@ function HttpRequestOverview:render()
 	local localization = self.props.Localization
 
 	local theme
-	if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+	if THEME_REFACTOR then
 		theme = self.props.Stylizer
 	else
 		theme = self.props.Theme:get("Plugin")
@@ -166,8 +167,8 @@ end
 ContextServices.mapToProps(HttpRequestOverview, {
 	Navigation = Navigation,
 	Localization = ContextServices.Localization,
-	Stylizer = FlagsList:get("FFlagRefactorDevFrameworkTheme") and ContextServices.Stylizer or nil,
-	Theme = (not FlagsList:get("FFlagRefactorDevFrameworkTheme")) and ContextServices.Theme or nil,
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
 	API = PluginAPI2,
 })
 

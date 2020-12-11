@@ -113,7 +113,7 @@ local function mapStateToProps(state)
 	}
 end
 
-AdditionalDetailLabel = connectToStore(
+local AdditionalDetailLabel = connectToStore(
 	mapStateToProps
 )(AdditionalDetailLabel)
 

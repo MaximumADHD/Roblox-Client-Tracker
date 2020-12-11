@@ -18,9 +18,7 @@ local Render = require(Plugin.Packages.Framework).Examples.Render
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
 local Util = Framework.Util
-local FlagsList = Util.Flags.new({
-	FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
-})
+local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local UI = Framework.UI
 local Container = UI.Container
 local Decoration = UI.Decoration
@@ -89,7 +87,7 @@ function RenderExample:render()
 	local layoutOrder = props.LayoutOrder
 	local sizes
 	local style = props.Stylizer
-	if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+	if THEME_REFACTOR then
 		sizes = style.Sizes
 	else
 		sizes = props.Theme:get("Sizes")
@@ -127,8 +125,8 @@ function RenderExample:render()
 end
 
 ContextServices.mapToProps(RenderExample, {
-	Stylizer = FlagsList:get("FFlagRefactorDevFrameworkTheme") and ContextServices.Stylizer or nil,
-	Theme = (not FlagsList:get("FFlagRefactorDevFrameworkTheme")) and ContextServices.Theme or nil,
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
 })
 
 return RenderExample

@@ -6,9 +6,7 @@ local Util = require(Framework.Util)
 local Style = Util.Style
 local StyleModifier = Util.StyleModifier
 local StyleValue = Util.StyleValue
-local FlagsList = Util.Flags.new({
-	FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
-})
+local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 
 local UI = require(Framework.UI)
 local Decoration = UI.Decoration
@@ -20,8 +18,7 @@ local BAR_HEIGHT = 6
 local BAR_SLICE_CENTER = Rect.new(3, 0, 4, 6)
 local SLIDER_HANDLE_SIZE = 18
 
-
-if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+if THEME_REFACTOR then
 	local knobStyle = {
 		AnchorPoint = Vector2.new(0.5, 0.5),
 		Color = StyleKey.SliderKnobColor,

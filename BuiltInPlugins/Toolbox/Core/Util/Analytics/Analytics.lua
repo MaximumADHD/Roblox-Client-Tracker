@@ -9,6 +9,8 @@ local getUserId = require(Plugin.Core.Util.getUserId)
 
 local FlagsList = require(Plugin.Core.Util.FlagsList)
 
+local FFlagPluginManagementDirectlyOpenToolbox = game:GetFastFlag("PluginManagementDirectlyOpenToolbox")
+
 -- TODO CLIDEVSRVS-1689: StudioSession + StudioID
 local function getStudioSessionId()
 	local sessionId = nil
@@ -254,6 +256,15 @@ function Analytics.onToolboxDisplayed()
 		userId = getUserId(),
 		placeId = getPlaceId(),
 	})
+end
+
+if FFlagPluginManagementDirectlyOpenToolbox then
+	function Analytics.openedFromPluginManagement()
+		AnalyticsSenders.sendEventImmediately("studio", "Marketplace", "OpenedFromPluginManagement", {
+			studioSid = getStudioSessionId(),
+			clientId = getClientId(),
+		})
+	end
 end
 
 return Analytics

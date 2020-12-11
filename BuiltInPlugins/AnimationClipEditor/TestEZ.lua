@@ -9,6 +9,7 @@ local TestRunner = require(script.TestRunner)
 local TestSession = require(script.TestSession)
 local TextReporter = require(script.Reporters.TextReporter)
 local TeamCityReporter = require(script.Reporters.TeamCityReporter)
+local TextReporterQuiet = require(script.Reporters.TextReporterQuiet)
 
 local function run(testRoot, callback)
 	local modules = TestBootstrap:getModules(testRoot)
@@ -34,6 +35,7 @@ local TestEZ = {
 	Reporters = {
 		TextReporter = TextReporter,
 		TeamCityReporter = TeamCityReporter,
+		TextReporterQuiet = TextReporterQuiet,
 	},
 }
 

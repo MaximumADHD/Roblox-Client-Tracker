@@ -1,14 +1,15 @@
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
-local ContextServices = require(Plugin.Packages.Framework.ContextServices)
-local Promise = require(Plugin.Packages.Framework.Util).Promise
+local Framework = require(Plugin.Packages.Framework)
+local ContextServices = Framework.ContextServices
+local Promise = Framework.Util.Promise
 
-local FlagsList = require(Plugin.Src.Util.FlagsList)
+local THEME_REFACTOR = Framework.Util.RefactorFlags.THEME_REFACTOR
 
 return function(plugin, localization, theme, mouse)
 	return function(title, renderContent)
 		local dialogTheme
-		if (FlagsList:get("FFlagRefactorDevFrameworkTheme")) then
+		if (THEME_REFACTOR) then
 			dialogTheme = theme
 		else
 			dialogTheme = theme:get("Plugin")

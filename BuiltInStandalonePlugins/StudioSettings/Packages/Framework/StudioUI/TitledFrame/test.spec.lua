@@ -7,12 +7,23 @@ return function()
 	local TitledFrame = require(script.Parent)
 	local Theme = ContextServices.Theme
 
+	local StudioTheme = require(Framework.Style.Themes.StudioTheme)
+
+	local Util = require(Framework.Util)
+	local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
+
+
 	local function createTestTitledFrame(children, container)
-		local theme = Theme.new(function()
-			return {
-				Framework = FrameworkStyles.new(),
-			}
-		end)
+		local theme
+		if THEME_REFACTOR then
+			theme = StudioTheme.mock()
+		else
+			theme = Theme.new(function()
+				return {
+					Framework = FrameworkStyles.new(),
+				}
+			end)
+		end
 		return provide({theme}, {
 			TitledFrame = Roact.createElement(TitledFrame, {
 				Title = "Test",

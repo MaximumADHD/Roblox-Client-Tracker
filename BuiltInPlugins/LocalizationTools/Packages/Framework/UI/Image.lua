@@ -28,9 +28,7 @@ local ContextServices = require(Framework.ContextServices)
 local Typecheck = require(Framework.Util).Typecheck
 local Util = require(Framework.Util)
 
-local FlagsList = Util.Flags.new({
-	FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
-})
+local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 
 local Image = Roact.PureComponent:extend("Image")
 Typecheck.wrap(Image, script)
@@ -39,7 +37,7 @@ function Image:render()
 	local props = self.props
 	local theme = props.Theme
 	local style
-	if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+	if THEME_REFACTOR then
 		style = props.Stylizer
 	else
 		style = theme:getStyle("Framework", self)
@@ -77,8 +75,8 @@ function Image:render()
 end
 
 ContextServices.mapToProps(Image, {
-	Stylizer = FlagsList:get("FFlagRefactorDevFrameworkTheme") and ContextServices.Stylizer or nil,
-	Theme = (not FlagsList:get("FFlagRefactorDevFrameworkTheme")) and ContextServices.Theme or nil,
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
 })
 
 return Image

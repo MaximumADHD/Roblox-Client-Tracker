@@ -6,11 +6,9 @@ local Common = require(StudioFrameworkStyles.Common)
 local StyleKey = require(Framework.Style.StyleKey)
 
 local Util = require(Framework.Util)
-local FlagsList = Util.Flags.new({
-	FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
-})
+local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 
-if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+if THEME_REFACTOR then
 	return {
 		BackgroundTransparency = 1,
 		BorderSizePixel = 0,

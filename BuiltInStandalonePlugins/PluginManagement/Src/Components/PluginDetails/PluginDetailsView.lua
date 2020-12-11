@@ -15,6 +15,7 @@ local ContextServices = require(Plugin.Packages.Framework.ContextServices)
 local FitFrameVertical = FitFrame.FitFrameVertical
 
 local FlagsList = require(Plugin.Src.Util.FlagsList)
+local THEME_REFACTOR = require(Plugin.Packages.Framework).Util.RefactorFlags.THEME_REFACTOR
 
 local PluginDetailsView = Roact.Component:extend("PluginDetailsView")
 
@@ -53,7 +54,7 @@ function PluginDetailsView:render()
 	local pluginData = self.props.pluginData
 
     local theme
-	if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+	if THEME_REFACTOR then
 		theme = self.props.Stylizer
     else
         theme = self.props.Theme:get("Plugin")
@@ -170,8 +171,8 @@ end
 
 ContextServices.mapToProps(PluginDetailsView, {
 	Localization = ContextServices.Localization,
-	Stylizer = FlagsList:get("FFlagRefactorDevFrameworkTheme") and ContextServices.Stylizer or nil,
-	Theme = (not FlagsList:get("FFlagRefactorDevFrameworkTheme")) and ContextServices.Theme or nil,
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
 })
 
 local function mapStateToProps(state, props)

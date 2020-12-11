@@ -6,8 +6,9 @@ local UILibrary = require(Libs.UILibrary)
 local createTheme = UILibrary.createTheme
 local StudioStyle = UILibrary.Studio.Style
 
-local ContextServices = require(Libs.Framework.ContextServices)
-local StudioUI = require(Libs.Framework.StudioUI)
+local Framework = require(Libs.Framework)
+local ContextServices = Framework.ContextServices
+local StudioUI = Framework.StudioUI
 local StudioFrameworkStyles = StudioUI.StudioFrameworkStyles
 
 local Theme = ContextServices.Theme
@@ -15,9 +16,9 @@ local Stylizer = ContextServices.Stylizer
 
 local Util = Plugin.Core.Util
 local Colors = require(Util.Colors)
-local FlagsList = require(Util.FlagsList)
+local THEME_REFACTOR = Framework.Util.RefactorFlags.THEME_REFACTOR
 
-local FrameworkStyle = require(Libs.Framework.Style)
+local FrameworkStyle = Framework.Style
 local StudioTheme = FrameworkStyle.Themes.StudioTheme
 local StyleKey = FrameworkStyle.StyleKey
 
@@ -25,7 +26,7 @@ local ToolboxTheme = {}
 ToolboxTheme.__index = ToolboxTheme
 
 local makeTheme
-if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+if THEME_REFACTOR then
 	local function getUILibraryTheme(styleRoot, overrides)
 		local theme = settings().Studio.Theme
 

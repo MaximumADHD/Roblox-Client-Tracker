@@ -22,9 +22,7 @@ local Util = require(Framework.Util)
 local Typecheck = Util.Typecheck
 local Math = Util.Math
 
-local FlagsList = Util.Flags.new({
-	FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
-})
+local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 
 local AssetRenderModel = Roact.PureComponent:extend("AssetRenderModel")
 Typecheck.wrap(AssetRenderModel, script)
@@ -213,8 +211,8 @@ function AssetRenderModel:render()
 end
 
 ContextServices.mapToProps(AssetRenderModel, {
-	Stylizer = FlagsList:get("FFlagRefactorDevFrameworkTheme") and ContextServices.Stylizer or nil,
-	Theme = (not FlagsList:get("FFlagRefactorDevFrameworkTheme")) and ContextServices.Theme or nil,
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
 })
 
 return AssetRenderModel

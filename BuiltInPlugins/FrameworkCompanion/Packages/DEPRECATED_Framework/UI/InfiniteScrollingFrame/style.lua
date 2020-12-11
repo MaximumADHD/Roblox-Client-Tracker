@@ -6,14 +6,10 @@ local Common = require(StudioFrameworkStyles.Common)
 local StyleKey = require(Framework.Style.StyleKey)
 
 local Util = require(Framework.Util)
-local FlagsList = Util.Flags.new({
-	FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
-})
+local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 
-local export: any
-
-if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
-	export = {
+if THEME_REFACTOR then
+	return {
 		BackgroundTransparency = 1,
 		BorderSizePixel = 0,
 		BackgroundColor3 = StyleKey.MainBackground,
@@ -30,7 +26,7 @@ if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
 		VerticalScrollBarInset = Enum.ScrollBarInset.Always
 	}
 else
-	export = function(theme, getColor)
+	return function(theme, getColor)
 		local common = Common(theme, getColor)
 
 		local Default = common.Scroller
@@ -40,5 +36,3 @@ else
 		}
 	end
 end
-
-return export

@@ -19,9 +19,7 @@ local Roact = require(Plugin.Packages.Roact)
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
 local Util = Framework.Util
-local FlagsList = Util.Flags.new({
-	FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
-})
+local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local UI = Framework.UI
 local Container = UI.Container
 local Decoration = UI.Decoration
@@ -48,7 +46,7 @@ function PropsList:renderProp(name, type, comment, index)
 	local text
 	local sizes
 	local style = props.Stylizer
-	if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+	if THEME_REFACTOR then
 		sizes = style.Sizes
 		text = style.Text
 	else
@@ -109,7 +107,7 @@ function PropsList:render()
 	local state = self.state
 	local sizes
 	local style = props.Stylizer
-	if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+	if THEME_REFACTOR then
 		sizes = style.Sizes
 	else
 		sizes = props.Theme:get("Sizes")
@@ -149,8 +147,8 @@ function PropsList:render()
 end
 
 ContextServices.mapToProps(PropsList, {
-	Stylizer = FlagsList:get("FFlagRefactorDevFrameworkTheme") and ContextServices.Stylizer or nil,
-	Theme = (not FlagsList:get("FFlagRefactorDevFrameworkTheme")) and ContextServices.Theme or nil,
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
 })
 
 return PropsList

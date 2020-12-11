@@ -12,9 +12,7 @@ local RoactRodux = require(Plugin.Packages.RoactRodux)
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
 local Util = Framework.Util
-local FlagsList = Util.Flags.new({
-	FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
-})
+local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 
 local UI = require(Plugin.Packages.Framework).UI
 local Container = UI.Container
@@ -49,7 +47,7 @@ end
 function InfoPanel:renderButton(index, text, callback)
 	local sizes
 	local style = self.props.Stylizer
-	if FlagsList:get("FFlagRefactorDevFrameworkTheme") and style then
+	if THEME_REFACTOR and style then
 		sizes = style.Sizes
 	else
 		sizes = self.props.Theme:get("Sizes")
@@ -75,7 +73,7 @@ function InfoPanel:render()
 	local text
 	local sizes
 	local style = props.Stylizer
-	if FlagsList:get("FFlagRefactorDevFrameworkTheme") and style then
+	if THEME_REFACTOR and style then
 		text = style.Text
 		sizes = style.Sizes
 		scrollbar = style.Scrollbar
@@ -211,8 +209,8 @@ function InfoPanel:render()
 			Styles = next(docs.Style) and Roact.createElement(StylesList, {
 				Header = "Styles",
 				LayoutOrder = nextOrder(),
-				Styles = (not FlagsList:get("FFlagRefactorDevFrameworkTheme")) and props.Theme:get("Framework")[name] or nil,
-				ComponentName = FlagsList:get("FFlagRefactorDevFrameworkTheme") and name or nil,
+				Styles = (not THEME_REFACTOR) and props.Theme:get("Framework")[name] or nil,
+				ComponentName = THEME_REFACTOR and name or nil,
 			}),
 
 			StyleValues = next(docs.Style) and Roact.createElement(PropsList, {
@@ -226,8 +224,8 @@ function InfoPanel:render()
 end
 
 ContextServices.mapToProps(InfoPanel, {
-	Stylizer = FlagsList:get("FFlagRefactorDevFrameworkTheme") and ContextServices.Stylizer or nil,
-	Theme = (not FlagsList:get("FFlagRefactorDevFrameworkTheme")) and ContextServices.Theme or nil,
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
 	Plugin = ContextServices.Plugin,
 })
 

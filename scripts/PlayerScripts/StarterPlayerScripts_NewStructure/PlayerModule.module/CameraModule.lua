@@ -220,6 +220,10 @@ function CameraModule:ActivateOcclusionModule( occlusionMode )
 		return
 	end
 
+	if FFlagUserCarCam then
+		self.occlusionMode = occlusionMode
+	end
+
 	-- First check to see if there is actually a change. If the module being requested is already
 	-- the currently-active solution then just make sure it's enabled and exit early
 	if self.activeOcclusionModule and self.activeOcclusionModule:GetOcclusionMode() == occlusionMode then
@@ -286,7 +290,7 @@ function CameraModule:ActivateOcclusionModule( occlusionMode )
 	end
 end
 
-local function shouldUseVehicleCamera()
+function CameraModule:ShouldUseVehicleCamera()
 	assert(FFlagUserCarCam)
 	
 	local camera = workspace.CurrentCamera
@@ -299,8 +303,9 @@ local function shouldUseVehicleCamera()
 	
 	local isEligibleType = cameraType == Enum.CameraType.Custom or cameraType == Enum.CameraType.Follow
 	local isEligibleSubject = cameraSubject and cameraSubject:IsA("VehicleSeat") or false
-	
-	return isEligibleSubject and isEligibleType
+	local isEligibleOcclusionMode = self.occlusionMode ~= Enum.DevCameraOcclusionMode.Invisicam
+
+	return isEligibleSubject and isEligibleType and isEligibleOcclusionMode
 end
 
 -- When supplied, legacyCameraType is used and cameraMovementMode is ignored (should be nil anyways)
@@ -359,7 +364,7 @@ function CameraModule:ActivateCameraController(cameraMovementMode, legacyCameraT
 		end
 	end
 
-	local isVehicleCamera = FFlagUserCarCam and shouldUseVehicleCamera()
+	local isVehicleCamera = FFlagUserCarCam and self:ShouldUseVehicleCamera()
 	if isVehicleCamera then
 		newCameraCreator = VehicleCamera
 	end

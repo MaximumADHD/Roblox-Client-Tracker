@@ -4,9 +4,11 @@
 
 	Required Props:
 		callback OnClick: The function that will be called when this button is clicked to turn on and off.
-		Theme Theme: A Theme ContextItem, which is provided via mapToProps.
 
 	Optional Props:
+		Style Style: The style with which to render this component.
+		Theme Theme: A Theme ContextItem, which is provided via mapToProps.
+		Stylizer Stylizer: A Stylizer ContextItem, which is provided via mapToProps.
 		Vector2 AnchorPoint: The pivot point of this component's Position prop.
 		boolean Disabled: Whether or not this button can be clicked.
 		number LayoutOrder: The layout order of this component.
@@ -17,13 +19,13 @@
 		string Text: A text to be displayed over the image if any.
 		number ZIndex: The render index of this component.
 ]]
-
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
 local ContextServices = require(Framework.ContextServices)
 
 local Util = require(Framework.Util)
 local Typecheck = Util.Typecheck
+local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 
 local Button = require(Framework.UI.Button)
 local HoverArea = require(Framework.UI.HoverArea)
@@ -59,7 +61,12 @@ function ToggleButton:render()
 	local theme = self.props.Theme
 	local zIndex = self.props.ZIndex
 
-	local style = theme:getStyle("Framework", self)
+	local style
+	if THEME_REFACTOR then
+		style = self.props.Stylizer
+	else
+		style = theme:getStyle("Framework", self)
+	end
 
 	local styleModifier
 	if isDisabled then
@@ -84,7 +91,8 @@ function ToggleButton:render()
 end
 
 ContextServices.mapToProps(ToggleButton, {
-	Theme = ContextServices.Theme,
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
 })
 
 return ToggleButton

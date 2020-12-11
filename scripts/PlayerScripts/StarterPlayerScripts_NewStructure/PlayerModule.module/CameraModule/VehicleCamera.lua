@@ -93,14 +93,14 @@ function VehicleCamera:_StepRotation(dt, vdotz)
 	local yawSpring = self.yawSpring
 	local pitchSpring = self.pitchSpring
 	
-	local rotationInput = CameraInput.getRotation()
+	local rotationInput = CameraInput.getRotation(true)
 	local dYaw = -rotationInput.X
 	local dPitch = -rotationInput.Y
 	
 	yawSpring.pos = sanitizeAngle(yawSpring.pos + dYaw)
 	pitchSpring.pos = sanitizeAngle(math.clamp(pitchSpring.pos + dPitch, -PITCH_LIMIT, PITCH_LIMIT))
 
-	if rotationInput.Magnitude > 0 then
+	if CameraInput.getRotationActivated() then
 		self.lastPanTick = os.clock()
 	end
 

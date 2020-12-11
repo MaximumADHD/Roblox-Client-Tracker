@@ -19,7 +19,6 @@
 
 	LayoutOrder = number,
 ]]
-local FFlagStudioMinorFixesForAssetPreview = settings():GetFFlag("StudioMinorFixesForAssetPreview")
 local FFlagHideOneChildTreeviewButton = game:GetFastFlag("HideOneChildTreeviewButton")
 local FFlagStudioAssetPreviewTreeFix2 = game:DefineFastFlag("StudioAssetPreviewTreeFix2", false)
 local FFlagEnableToolboxVideos = game:GetFastFlag("EnableToolboxVideos")
@@ -57,10 +56,8 @@ local MODAL_MIN_WIDTH = 235
 local PreviewController = Roact.PureComponent:extend("PreviewController")
 
 local function getImage(instance)
-	if FFlagStudioMinorFixesForAssetPreview then
-		if typeof(instance) ~= "Instance" then
-			return nil
-		end
+	if typeof(instance) ~= "Instance" then
+		return nil
 	end
 
 	if instance:IsA("Decal") or instance:IsA("Texture") then
@@ -73,10 +70,8 @@ local function getImage(instance)
 end
 
 local function getImageScaleType(instance)
-	if FFlagStudioMinorFixesForAssetPreview then
-		if typeof(instance) ~= "Instance" then
-			return Enum.ScaleType.Fit
-		end
+	if typeof(instance) ~= "Instance" then
+		return Enum.ScaleType.Fit
 	end
 	if instance:IsA("Sky") then
 		return Enum.ScaleType.Crop

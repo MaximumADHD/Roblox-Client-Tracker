@@ -9,9 +9,7 @@ local deepCopy = Util.deepCopy
 local Style = Util.Style
 local StyleModifier = Util.StyleModifier
 local StyleKey = require(Framework.Style.StyleKey)
-local FlagsList = Util.Flags.new({
-	FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
-})
+local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 
 local Common = require(Framework.StudioUI.StudioFrameworkStyles.Common)
 
@@ -24,7 +22,7 @@ local function buttonStyle(image, hoverImage, theme)
 	local hoverStyle
 
 	if FFlagDevFrameworkTextInputContainer then
-		if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+		if THEME_REFACTOR then
 			hoverStyle = StyleKey.DialogMainButton
 		else
 			hoverStyle = theme:GetColor("DialogMainButton")
@@ -53,18 +51,16 @@ local function buttonStyle(image, hoverImage, theme)
 		},
 	}
 
-	if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+	if THEME_REFACTOR then
 		return style
 	else
 		return Style.new(style)
 	end
 end
 
-local export: any
-
-if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+if THEME_REFACTOR then
 	local roundBox = deepCopy(RoundBox)
-	export = {
+	return {
 		BackgroundColor = StyleKey.MainBackground,
 		BackgroundStyle = roundBox,
 		Padding = FFlagDevFrameworkTextInputContainer and {
@@ -90,7 +86,7 @@ if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
 		},
 	}
 else
-	export = function(theme, getColor)
+	return function(theme, getColor)
 		local common = Common(theme, getColor)
 		local roundBox = RoundBox(theme, getColor)
 
@@ -122,5 +118,3 @@ else
 		}
 	end
 end
-
-return export

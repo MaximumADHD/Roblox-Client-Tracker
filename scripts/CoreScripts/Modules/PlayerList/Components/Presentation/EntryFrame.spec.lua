@@ -13,7 +13,7 @@ return function()
 	local EntryFrame = require(script.Parent.EntryFrame)
 
 	it("should create and destroy without errors", function()
-		local layoutValues = CreateLayoutValues(false, false)
+		local layoutValues = CreateLayoutValues(false)
 
 		local element = Roact.createElement(LayoutValuesProvider, {
 			layoutValues = layoutValues
@@ -40,7 +40,7 @@ return function()
 
 	it("should create and destroy without errors while tenfoot", function()
 		local element = Roact.createElement(LayoutValuesProvider, {
-			layoutValues = CreateLayoutValues(true, false)
+			layoutValues = CreateLayoutValues(true)
 		}, {
 			EntryFrame = Roact.createElement(EntryFrame, {
 				sizeX = 50,

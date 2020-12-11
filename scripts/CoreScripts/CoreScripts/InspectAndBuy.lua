@@ -8,7 +8,11 @@ local Roact = require(CorePackages.Roact)
 local InspectAndBuy = require(InspectAndBuyModules.Components.InspectAndBuy)
 local InspectAndBuyInstanceHandle = nil
 
+
+local PolicyService = require(RobloxGui.Modules.Common.PolicyService)
 local TopBar = require(RobloxGui.Modules.TopBar)
+
+local FFlagInspectMenuDeveloperMethodsPolicy = game:DefineFastFlag("InspectMenuDeveloperMethodsPolicy", false)
 
 local INSPECT_MENU_KEY = "InspectMenu"
 
@@ -54,10 +58,18 @@ local function mountInspectAndBuyFromUserId(userId, ctx)
 end
 
 GuiService.InspectPlayerFromHumanoidDescriptionRequest:Connect(function(humanoidDescription, playerName)
+	if FFlagInspectMenuDeveloperMethodsPolicy and PolicyService:IsSubjectToChinaPolicies() then
+		return
+	end
+
 	mountInspectAndBuyFromHumanoidDescription(humanoidDescription, playerName, "developerThroughHumanoidDescription")
 end)
 
 GuiService.InspectPlayerFromUserIdWithCtxRequest:Connect(function(userId, ctx)
+	if FFlagInspectMenuDeveloperMethodsPolicy and PolicyService:IsSubjectToChinaPolicies() then
+		return
+	end
+
 	mountInspectAndBuyFromUserId(userId, ctx)
 end)
 
@@ -72,3 +84,13 @@ GuiService.InspectMenuEnabledChangedSignal:Connect(function(enabled)
 		unmountInspectAndBuy()
 	end
 end)
+
+if FFlagInspectMenuDeveloperMethodsPolicy then
+	spawn(function()
+		-- Check whether InspectMenu is disabled by policy after PolicyService is finished initializing
+		PolicyService:InitAsync()
+		if PolicyService:IsSubjectToChinaPolicies() and InspectAndBuyInstanceHandle then
+			unmountInspectAndBuy()
+		end
+	end)
+end

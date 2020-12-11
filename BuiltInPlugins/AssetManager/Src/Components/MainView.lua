@@ -287,7 +287,7 @@ function MainView:render()
             LayoutOrder = layoutIndex:getNextOrder(),
 
             OnOpenAssetPreview = self.openAssetPreview,
-            onAssetPreviewClose = self.closeAssetPreview,
+            OnAssetPreviewClose = self.closeAssetPreview,
             Enabled = isAssetGridViewEnabled,
         }),
 

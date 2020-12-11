@@ -37,9 +37,7 @@ local ContextServices = require(Framework.ContextServices)
 
 local Util = require(Framework.Util)
 local Typecheck = Util.Typecheck
-local FlagsList = Util.Flags.new({
-	FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
-})
+local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 
 local Container = require(Framework.UI.Container)
 local RoundBox = require(Framework.UI.RoundBox)
@@ -103,7 +101,7 @@ function TextInput:render()
 
 	local theme = props.Theme
 	local style
-	if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+	if THEME_REFACTOR then
 		style = props.Stylizer
 	else
 		style = theme:getStyle("Framework", self)
@@ -189,8 +187,8 @@ function TextInput:render()
 end
 
 ContextServices.mapToProps(TextInput, {
-	Stylizer = FlagsList:get("FFlagRefactorDevFrameworkTheme") and ContextServices.Stylizer or nil,
-	Theme = (not FlagsList:get("FFlagRefactorDevFrameworkTheme")) and ContextServices.Theme or nil,
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
 })
 
 return TextInput

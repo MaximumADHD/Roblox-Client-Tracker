@@ -57,6 +57,9 @@ local FFlagUseNotificationsLocalization = success and result
 local FFlagUpdateSettingsHubGameText = require(RobloxGui.Modules.Flags.FFlagUpdateSettingsHubGameText)
 local FFlagDisableAutoTranslateForKeyTranslatedContent = require(RobloxGui.Modules.Flags.FFlagDisableAutoTranslateForKeyTranslatedContent)
 
+local FFlagShowInGameReportingLuobu = require(RobloxGui.Modules.Flags.FFlagShowInGameReportingLuobu)
+local FFlagInspectMenuSubjectToPolicy = require(RobloxGui.Modules.Flags.FFlagInspectMenuSubjectToPolicy)
+
 ----------- CLASS DECLARATION --------------
 local function Initialize()
 	local settingsPageFactory = require(RobloxGui.Modules.Settings.SettingsPageFactory)
@@ -650,6 +653,9 @@ local function Initialize()
 		end
 
 		local inspectMenuEnabled = GuiService:GetInspectMenuEnabled()
+		if FFlagInspectMenuSubjectToPolicy then
+			inspectMenuEnabled = inspectMenuEnabled and not PolicyService:IsSubjectToChinaPolicies()
+		end
 
 		-- iterate through players to reuse or create labels for players
 		for index=1, #sortedPlayers do
@@ -703,7 +709,7 @@ local function Initialize()
 					end
 				end)
 
-				local showReportAbuse = not PolicyService:IsSubjectToChinaPolicies()
+				local showReportAbuse = not PolicyService:IsSubjectToChinaPolicies() or FFlagShowInGameReportingLuobu
 
 				if showReportAbuse then
 					reportAbuseButtonCreate(frame, player)
@@ -782,24 +788,39 @@ local function Initialize()
 		end
 	end)
 
-	-- If the developer disables the Inspect Menu, remove the button from the escape menu.
-	GuiService.InspectMenuEnabledChangedSignal:Connect(function(enabled)
-		if not enabled then
-			for _, frame in pairs(existingPlayerLabels) do
-				local buttons = frame:FindFirstChild("RightSideButtons")
+	local function removeInspectButtons()
+		for _, frame in pairs(existingPlayerLabels) do
+			local buttons = frame:FindFirstChild("RightSideButtons")
 
-				if buttons then
-					local inspectButton = buttons:FindFirstChild("Inspect")
-					if inspectButton then
-						if GuiService.SelectedCoreObject == inspectButton then
-							GuiService.SelectedCoreObject = nil
-						end
-						inspectButton:Destroy()
+			if buttons then
+				local inspectButton = buttons:FindFirstChild("Inspect")
+				if inspectButton then
+					if GuiService.SelectedCoreObject == inspectButton then
+						GuiService.SelectedCoreObject = nil
 					end
+					inspectButton:Destroy()
 				end
 			end
 		end
+	end
+
+	-- If the developer disables the Inspect Menu, remove the button from the escape menu.
+	GuiService.InspectMenuEnabledChangedSignal:Connect(function(enabled)
+		if not enabled then
+			removeInspectButtons()
+		end
 	end)
+
+	if FFlagInspectMenuSubjectToPolicy then
+		spawn(function()
+			-- Re-check whether InspectMenu is enabled after PolicyService is finished initializing
+			PolicyService:InitAsync()
+			local enabled = GuiService:GetInspectMenuEnabled() and not PolicyService:IsSubjectToChinaPolicies()
+			if not enabled then
+				removeInspectButtons()
+			end
+		end)
+	end
 
 	return this
 end

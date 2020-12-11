@@ -23,9 +23,7 @@ local Image = Decoration.Image
 local Util = require(Framework.Util)
 local Typecheck = Util.Typecheck
 
-local FlagsList = Util.Flags.new({
-	FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
-})
+local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 
 local AssetRenderImage = Roact.PureComponent:extend("AssetRenderImage")
 Typecheck.wrap(AssetRenderImage, script)
@@ -77,8 +75,8 @@ function AssetRenderImage:render()
 end
 
 ContextServices.mapToProps(AssetRenderImage, {
-	Stylizer = FlagsList:get("FFlagRefactorDevFrameworkTheme") and ContextServices.Stylizer or nil,
-	Theme = (not FlagsList:get("FFlagRefactorDevFrameworkTheme")) and ContextServices.Theme or nil,
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
 })
 
 return AssetRenderImage

@@ -21,4 +21,8 @@ function Math.round(num, numDecimalPlaces)
 	return math.floor(num * mult + 0.5) / mult
 end
 
+function Math.isNaN(n)
+	return n ~= n
+end
+
 return Math

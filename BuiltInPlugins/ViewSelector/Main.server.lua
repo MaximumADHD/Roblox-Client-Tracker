@@ -1,3 +1,7 @@
+--!nolint LocalUnused
+--!nolint ImplicitReturn
+--^ DEVTOOLS-4490, DEVTOOLS-4493
+
 local RunService = game:GetService("RunService")
 local GuiService = game:GetService("GuiService")
 local CoreGui = game:GetService("CoreGui")

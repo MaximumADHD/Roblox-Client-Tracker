@@ -13,15 +13,11 @@ local TreeView = require(UIFolderData.TreeView.style)
 local StudioFrameworkStyles = Framework.StudioUI.StudioFrameworkStyles
 local Common = require(StudioFrameworkStyles.Common)
 
-local FlagsList = Util.Flags.new({
-	FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
-})
+local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 
-local export: any
-
-if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+if THEME_REFACTOR then
 	local treeView = deepCopy(TreeView)
-	export = {
+	return {
 		Text = Common.MainText,
 		TreeView = treeView,
 		Indent = 20,
@@ -48,7 +44,7 @@ if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
 		}
 	}
 else
-	export = function(theme, getColor)
+	return function(theme, getColor)
 		local common = Common(theme, getColor)
 		local treeView = TreeView(theme, getColor)
 
@@ -85,5 +81,3 @@ else
 		}
 	end
 end
-
-return export

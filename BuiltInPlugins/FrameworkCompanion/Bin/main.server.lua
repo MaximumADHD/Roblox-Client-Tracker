@@ -2,10 +2,10 @@
 	DevFramework Companion main script.
 	Mounts and unmounts the Roact tree.
 ]]
-
-local FFlagDebugEnableDevFrameworkCompanion = game:DefineFastFlag("DebugEnableDevFrameworkCompanion", false)
-
 local Plugin = script.Parent.Parent
+
+require(script.Parent.defineLuaFlags)
+local FFlagDebugEnableDevFrameworkCompanion = game:GetFastFlag("DebugEnableDevFrameworkCompanion")
 
 local DebugFlags = require(Plugin.Src.Util.DebugFlags)
 if DebugFlags.RunningUnderCLI() then
@@ -25,6 +25,7 @@ local handle
 
 local function init()
 	plugin.Name = "DevFramework Companion"
+	
 
 	local mainPlugin = Roact.createElement(MainPlugin, {
 		Plugin = plugin,

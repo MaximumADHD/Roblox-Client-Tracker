@@ -4,15 +4,16 @@
 	Required Props:
 		string Key: The key that will be sent back to the OnClick function.
 		string Text: The text to display.
-		Theme Theme: A Theme ContextItem, which is provided via mapToProps.
 
 	Optional Props:
 		boolean Disabled: Whether or not the radio button is disabled. OnClick will not work when disabled.
 		number LayoutOrder: The layout order of the frame.
 		callback OnClick: paramters(string key). Fires when the button is activated and returns back the Key.
 		boolean Selected: Whether or not the radio button is selected.
+		Style Style: The style with which to render this component.
+		Theme Theme: A Theme ContextItem, which is provided via mapToProps.
+		Stylizer Stylizer: A Stylizer ContextItem, which is provided via mapToProps.
 ]]
-
 local TextService = game:GetService("TextService")
 
 local Framework = script.Parent.Parent
@@ -25,6 +26,7 @@ local TextLabel = require(Framework.UI.TextLabel)
 local Util = require(Framework.Util)
 local Typecheck = Util.Typecheck
 local StyleModifier = Util.StyleModifier
+local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 
 local RadioButton = Roact.PureComponent:extend("RadioButton")
 Typecheck.wrap(RadioButton, script)
@@ -55,7 +57,13 @@ function RadioButton:render()
 	local text = self.props.Text
 	local theme = self.props.Theme
 
-	local style = theme:getStyle("Framework", self)
+	local style
+	if THEME_REFACTOR then
+		style = self.props.Stylizer
+	else
+		style = theme:getStyle("Framework", self)
+	end
+
 	local font = style.Font
 	local textSize = style.TextSize
 	local imageSize = style.ImageSize
@@ -116,7 +124,8 @@ function RadioButton:render()
 end
 
 ContextServices.mapToProps(RadioButton, {
-	Theme = ContextServices.Theme,
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
 })
 
 return RadioButton

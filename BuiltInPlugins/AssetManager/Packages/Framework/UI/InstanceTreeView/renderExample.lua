@@ -2,6 +2,7 @@ local Framework = script.Parent.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
 local UI = require(Framework.UI)
 local InstanceTreeView = UI.InstanceTreeView
+local Cryo = require(Framework.Parent.Cryo)
 
 local Example = Roact.PureComponent:extend(script.Parent.Name .. "Example")
 
@@ -26,7 +27,7 @@ function Example:render()
 		end,
 		OnExpansionChange = function(items)
 			self:setState({
-				Expansion = items
+				Expansion = Cryo.Dictionary.join(self.state.Expansion, items)
 			})
 		end,
 		Style = "Compact"

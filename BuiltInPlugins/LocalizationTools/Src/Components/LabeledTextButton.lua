@@ -4,20 +4,21 @@
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
-local ContextServices = require(Plugin.Packages.Framework.ContextServices)
+local Framework = require(Plugin.Packages.Framework)
+local ContextServices = Framework.ContextServices
 
 local UI = require(Plugin.Packages.Framework.UI)
 local Button = UI.Button
 local HoverArea = UI.HoverArea
 
-local FlagsList = require(Plugin.Src.Util.FlagsList)
+local THEME_REFACTOR = Framework.Util.RefactorFlags.THEME_REFACTOR
 
 local LabeledTextButton = Roact.PureComponent:extend("LabeledTextButton")
 
 function LabeledTextButton:render()
 	local props = self.props
 	local theme
-	if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+	if THEME_REFACTOR then
 		theme = props.Stylizer
 	else
 		theme = props.Theme:get("LabeledTextButton")
@@ -68,8 +69,8 @@ function LabeledTextButton:render()
 end
 
 ContextServices.mapToProps(LabeledTextButton, {
-	Stylizer = FlagsList:get("FFlagRefactorDevFrameworkTheme") and ContextServices.Stylizer or nil,
-	Theme = (not FlagsList:get("FFlagRefactorDevFrameworkTheme")) and ContextServices.Theme or nil,
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
 })
 
 return LabeledTextButton

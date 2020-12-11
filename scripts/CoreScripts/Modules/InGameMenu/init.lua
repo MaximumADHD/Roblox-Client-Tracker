@@ -13,6 +13,7 @@ local LocalizationProvider = require(script.Localization.LocalizationProvider)
 
 local AppDarkTheme = require(CorePackages.AppTempCommon.LuaApp.Style.Themes.DarkTheme)
 local AppFont = require(CorePackages.AppTempCommon.LuaApp.Style.Fonts.Gotham)
+local PolicyService = require(RobloxGui.Modules.Common.PolicyService)
 
 local bindMenuActions = require(script.SetupFunctions.bindMenuActions)
 local registerSetCores = require(script.SetupFunctions.registerSetCores)
@@ -45,6 +46,7 @@ local FFlagDisableAutoTranslateForKeyTranslatedContent = require(
 local isNewGamepadMenuEnabled = require(RobloxGui.Modules.Flags.isNewGamepadMenuEnabled)
 
 local GetFFlagUseRoactPolicyProvider = require(RobloxGui.Modules.Flags.GetFFlagUseRoactPolicyProvider)
+local FFlagInspectMenuSubjectToPolicy = require(RobloxGui.Modules.Flags.FFlagInspectMenuSubjectToPolicy)
 
 local OpenChangedEvent = Instance.new("BindableEvent")
 local RespawnBehaviourChangedEvent = Instance.new("BindableEvent")
@@ -106,8 +108,20 @@ return {
 
 		menuStore:dispatch(SetInspectMenuEnabled(GuiService:GetInspectMenuEnabled()))
 		GuiService.InspectMenuEnabledChangedSignal:Connect(function(enabled)
+			if FFlagInspectMenuSubjectToPolicy then
+				enabled = enabled and not PolicyService:IsSubjectToChinaPolicies()
+			end
 			menuStore:dispatch(SetInspectMenuEnabled(enabled))
 		end)
+
+		if FFlagInspectMenuSubjectToPolicy then
+			spawn(function()
+				-- Check whether InspectMenu is disabled by policy after PolicyService is finished initializing
+				PolicyService:InitAsync()
+				local enabled = GuiService:GetInspectMenuEnabled() and not PolicyService:IsSubjectToChinaPolicies()
+				menuStore:dispatch(SetInspectMenuEnabled(enabled))
+			end)
+		end
 
 		local menuTree
 		if GetFFlagUseRoactPolicyProvider() then

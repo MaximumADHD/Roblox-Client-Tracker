@@ -5,6 +5,10 @@ if not getFFlagEnableAlignmentToolPlugin() then
 	return
 end
 
+local getFFlagEnableAlignToolStylizer = require(Plugin.Src.Flags.getFFlagEnableAlignToolStylizer)
+local RefactorFlags = require(Plugin.Packages.Framework.Util.RefactorFlags)
+RefactorFlags.THEME_REFACTOR = getFFlagEnableAlignToolStylizer()
+
 local Roact = require(Plugin.Packages.Roact)
 local Rodux = require(Plugin.Packages.Rodux)
 local ContextServices = require(Plugin.Packages.Framework.ContextServices)

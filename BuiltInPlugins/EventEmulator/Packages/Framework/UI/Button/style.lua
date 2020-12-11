@@ -11,9 +11,7 @@ local StyleKey = require(Framework.Style.StyleKey)
 local UI = require(Framework.UI)
 local Decoration = UI.Decoration
 
-local FlagsList = Util.Flags.new({
-	FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
-})
+local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 
 local StudioFrameworkStyles = Framework.StudioUI.StudioFrameworkStyles
 local Common = require(StudioFrameworkStyles.Common)
@@ -21,7 +19,7 @@ local Common = require(StudioFrameworkStyles.Common)
 local UIFolderData = require(Framework.UI.UIFolderData)
 local RoundBox = require(UIFolderData.RoundBox.style)
 
-if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+if THEME_REFACTOR then
 	local roundBox = deepCopy(RoundBox)
 	return {
 		Padding = 0,
@@ -55,15 +53,17 @@ if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
 		},
 
 		["&RoundPrimary"] = {
+			Font = Enum.Font.SourceSansBold,
 			Background = Decoration.RoundBox,
 			BackgroundStyle = Cryo.Dictionary.join(roundBox, {
+				BorderColor = StyleKey.MainBackground,
 				Color = StyleKey.DialogMainButton,
 			}),
 			TextColor = StyleKey.DialogMainButtonText,
 			[StyleModifier.Hover] = {
-				BackgroundStyle = {
+				BackgroundStyle = Cryo.Dictionary.join(roundBox, {
 					Color = StyleKey.DialogMainButtonHover,
-				},
+				}),
 			},
 			[StyleModifier.Disabled] = {
 				BackgroundStyle = {
@@ -110,14 +110,17 @@ else
 		})
 
 		local RoundPrimary = Style.extend(Round, {
+			Font = Enum.Font.SourceSansBold,
 			TextColor = theme:GetColor("DialogMainButtonText"),
 			BackgroundStyle = Style.extend(roundBox.Default, {
+				BorderColor = common.Background.Color,
 				Color = theme:GetColor("DialogMainButton"),
 			}),
 			[StyleModifier.Hover] = {
-				BackgroundStyle = {
+				BackgroundStyle = Style.extend(roundBox.Default, {
+					BorderColor = common.Background.Color,
 					Color = theme:GetColor("DialogMainButton", "Hover"),
-				},
+				}),
 			},
 			[StyleModifier.Disabled] = {
 				BackgroundStyle = {

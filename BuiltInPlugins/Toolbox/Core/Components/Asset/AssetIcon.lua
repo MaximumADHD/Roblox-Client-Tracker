@@ -23,6 +23,8 @@ local Libs = Plugin.Libs
 local Roact = require(Libs.Roact)
 local RoactRodux = require(Libs.RoactRodux)
 local UILibrary = require(Libs.UILibrary)
+local Framework = require(Libs.Framework)
+local THEME_REFACTOR = Framework.Util.RefactorFlags.THEME_REFACTOR
 
 local Util = Plugin.Core.Util
 local Constants = require(Util.Constants)
@@ -53,8 +55,7 @@ local ImageWithDefault = require(Plugin.Core.Components.ImageWithDefault)
 local TooltipWrapper = require(Plugin.Core.Components.TooltipWrapper)
 local PopUpWrapperButton = require(Plugin.Core.Components.Asset.Preview.PopUpWrapperButton)
 
-local ContextServices = require(Libs.Framework.ContextServices)
-
+local ContextServices = Framework.ContextServices
 local AssetIcon = Roact.PureComponent:extend("AssetIcon")
 
 local PREVIEW_POSITION = UDim2.new(1, -14, 0, 14)
@@ -198,8 +199,8 @@ function AssetIcon:render()
 end
 
 ContextServices.mapToProps(AssetIcon, {
-	Stylizer = FlagsList:get("FFlagRefactorDevFrameworkTheme") and ContextServices.Stylizer or nil,
-	Theme = (not FlagsList:get("FFlagRefactorDevFrameworkTheme")) and ContextServices.Theme or nil,
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
 })
 
 local function mapStateToProps(state, props)

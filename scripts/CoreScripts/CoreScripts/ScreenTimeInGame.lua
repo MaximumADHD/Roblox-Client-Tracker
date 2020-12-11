@@ -7,6 +7,7 @@ local CorePackages = game:GetService("CorePackages")
 local HttpService = game:GetService("HttpService")
 local ScreenTimeHttpRequests = require(CorePackages.Regulations.ScreenTime.HttpRequests)
 local ScreenTimeConstants = require(CorePackages.Regulations.ScreenTime.Constants)
+local GetFFlagScreenTimeSignalR = require(CorePackages.Regulations.ScreenTime.GetFFlagScreenTimeSignalR)
 local Logging = require(CorePackages.Logging)
 local ErrorPrompt = require(RobloxGui.Modules.ErrorPrompt)
 local Url = require(RobloxGui.Modules.Common.Url)
@@ -175,11 +176,30 @@ local function requestInstructions()
 end
 
 screenTimeUpdatedConnection = NotificationService.RobloxEventReceived:Connect(function(eventData)
-	if eventData.namespace == ScreenTimeConstants.SIGNALR_NAMESPACE and
-		eventData.detailType == ScreenTimeConstants.SIGNALR_TYPE_NEW_INSTRUCTION then
-		requestInstructions()
+	if GetFFlagScreenTimeSignalR() then
+		if eventData.namespace == ScreenTimeConstants.SIGNALR_NAMESPACE and
+			eventData.detailType == ScreenTimeConstants.SIGNALR_TYPE_NEW_INSTRUCTION then
+			requestInstructions()
+		end
+	else
+		if eventData.namespace == ScreenTimeConstants.HEARTBEAT_NOTIFICATIONS_NAMESPACE then
+			local success, json = pcall(function()
+				return HttpService:JSONDecode(eventData.detail)
+			end)
+			if not success then
+				Logging.warn(TAG .. " json decoding failed")
+				return
+			end
+			-- "errorCode" has been checked by C++, so no need to recheck.
+			if json.notifications == nil then
+				Logging.warn(TAG .. " empty heartbeat notifications")
+				return
+			end
+			for _, notification in ipairs(json.notifications) do
+				if notification.type == ScreenTimeConstants.HEARTBEAT_NOTIFICATION_TYPE_NEW_INSTRUCTION then
+					requestInstructions()
+				end
+			end
+		end
 	end
 end)
-
--- First request on initialization
-requestInstructions()

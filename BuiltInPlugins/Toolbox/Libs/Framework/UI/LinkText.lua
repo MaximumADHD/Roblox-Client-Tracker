@@ -12,11 +12,14 @@
 		Style Style: The style with which to render this component.
 		StyleModifier StyleModifier: The StyleModifier index into Style.
 		UDim2 Position: The position of this component.
+		UDim2 Size: The fixed size of this component.
 		Vector2 AnchorPoint: The pivot point of this component's Position prop.
 		number ZIndex: The render index of this component.
 		Enum.TextTruncate TextTruncate: Sets text truncated.
 		UDim2 Size: The size of this component.
 		number LayoutOrder: The layout order of this component in a list.
+		Enum.TextXAlignment TextXAlignment: The TextXAlignment of this link.
+		Enum.TextYAlignment TextYAlignment: The TextYAlignment of this link.
 
 	Style Values:
 		Enum.Font Font: The font used to render the text in this link.
@@ -36,9 +39,7 @@ local HoverArea = require(Framework.UI.HoverArea)
 local Util = require(Framework.Util)
 local StyleModifier = Util.StyleModifier
 local Typecheck = Util.Typecheck
-local FlagsList = Util.Flags.new({
-	FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
-})
+local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 
 local Button = require(Framework.UI.Button)
 
@@ -79,7 +80,7 @@ function LinkText:render()
 	local theme = props.Theme
 	local styleModifier = state.StyleModifier
 	local style
-	if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+	if THEME_REFACTOR then
 		style = props.Stylizer
 	else
 		style = theme:getStyle("Framework", self)
@@ -172,8 +173,8 @@ function LinkText:render()
 end
 
 ContextServices.mapToProps(LinkText, {
-	Stylizer = FlagsList:get("FFlagRefactorDevFrameworkTheme") and ContextServices.Stylizer or nil,
-	Theme = (not FlagsList:get("FFlagRefactorDevFrameworkTheme")) and ContextServices.Theme or nil,
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
 })
 
 return LinkText

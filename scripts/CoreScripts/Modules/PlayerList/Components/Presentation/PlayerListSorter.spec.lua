@@ -43,7 +43,7 @@ return function()
 			store = Rodux.Store.new(Reducer)
 		}, {
 			LayoutValuesProvider = Roact.createElement(LayoutValuesProvider, {
-				layoutValues = CreateLayoutValues(false, false)
+				layoutValues = CreateLayoutValues(false)
 			}, {
 				ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {
 					style = appStyle,
@@ -65,7 +65,7 @@ return function()
 			store = Rodux.Store.new(Reducer)
 		}, {
 			LayoutValuesProvider = Roact.createElement(LayoutValuesProvider, {
-				layoutValues = CreateLayoutValues(true, false)
+				layoutValues = CreateLayoutValues(true)
 			}, {
 				ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {
 					style = appStyle,

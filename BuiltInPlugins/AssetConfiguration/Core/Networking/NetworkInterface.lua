@@ -4,6 +4,8 @@
 	Provides an interface between real Networking implementation and Mock one for production and test
 ]]--
 
+local FFlagToolboxMicroserviceSearch = game:GetFastFlag("ToolboxMicroserviceSearch")
+local FFlagToolboxUseGetItemDetails = game:GetFastFlag("ToolboxUseGetItemDetails")
 local FFlagUseCategoryNameInToolbox = game:GetFastFlag("UseCategoryNameInToolbox")
 
 local Plugin = script.Parent.Parent.Parent
@@ -86,6 +88,12 @@ end
 function NetworkInterface:getToolboxItems(category, sortType, creatorType, minDuration, maxDuration, creatorTargetId,
 keyword, cursor, limit)
 
+	local useCreatorWhitelist = nil
+
+	if FFlagToolboxMicroserviceSearch and category == Category.API_NAMES[Category.WHITELISTED_PLUGINS.name] then
+		useCreatorWhitelist = true
+	end
+
 	local targetUrl = Urls.constructGetToolboxItemsUrl(
 		category,
 		sortType,
@@ -95,7 +103,8 @@ keyword, cursor, limit)
 		creatorTargetId,
 		keyword,
 		cursor,
-		limit)
+		limit,
+		useCreatorWhitelist)
 
 	return sendRequestAndRetry(function()
 		printUrl("getToolboxItems", "GET", targetUrl)
@@ -104,16 +113,24 @@ keyword, cursor, limit)
 end
 
 function NetworkInterface:getItemDetails(data)
-	local targetUrl = Urls.constructPostGetItemDetails()
+	if FFlagToolboxUseGetItemDetails then
+		local targetUrl = Urls.constructGetItemDetails(data)
 
-	local payload = self._networkImp:jsonEncode({
-		items = data,
-	})
+		return sendRequestAndRetry(function()
+			printUrl("getItemDetails", "GET", targetUrl)
+			return self._networkImp:httpGetJson(targetUrl)
+		end)
+	else
+		local targetUrl = Urls.constructPostGetItemDetails()
+		local payload = self._networkImp:jsonEncode({
+			items = data,
+		})
 
-	return sendRequestAndRetry(function()
-		printUrl("getItemDetails", "POST", targetUrl, payload)
-		return self._networkImp:httpPostJson(targetUrl, payload)
-	end)
+		return sendRequestAndRetry(function()
+			printUrl("getItemDetails", "POST", targetUrl, payload)
+			return self._networkImp:httpPostJson(targetUrl, payload)
+		end)
+	end
 end
 
 -- For now, only whitelistplugin uses this endpoint to fetch data.

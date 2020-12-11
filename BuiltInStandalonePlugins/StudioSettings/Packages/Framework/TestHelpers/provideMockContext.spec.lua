@@ -4,7 +4,8 @@ local provideMockContext = require(script.Parent.provideMockContext)
 local ContextServices = require(Framework.ContextServices)
 local Provider = require(Framework.ContextServices.Provider)
 local ContextItem = require(Framework.ContextServices.ContextItem)
-
+local Util = require(Framework.Util)
+local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 return function()
 	it("should work without arguments", function()
 		local element = provideMockContext({}, {
@@ -37,10 +38,15 @@ return function()
 		function testComponent:render()
 			wasRendered = true
 
-			local theme = self.props.Theme:get("Framework")
 			local localization = self.props.Localization
 			local plugin = self.props.Plugin:get()
 			local mouse = self.props.Mouse:get()
+			local theme
+			if THEME_REFACTOR then
+				theme = self.props.Stylizer
+			else
+				theme = self.props.Theme:get("Framework")
+			end
 
 			expect(theme).to.never.equal(nil)
 			expect(localization).to.never.equal(nil)
@@ -51,7 +57,8 @@ return function()
 		end
 		ContextServices.mapToProps(testComponent,
 		{
-			Theme = ContextServices.Theme,
+			Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+			Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
 			Localization = ContextServices.Localization,
 			Mouse = ContextServices.Mouse,
 			Plugin = ContextServices.Plugin,

@@ -12,6 +12,7 @@
 ]]
 local FFlagEnableDefaultSortFix2 = game:GetFastFlag("EnableDefaultSortFix2")
 local FFlagUseCategoryNameInToolbox = game:GetFastFlag("UseCategoryNameInToolbox")
+local FFlagToolboxDontFetchPluginPreviewModel = game:DefineFastFlag("ToolboxDontFetchPluginPreviewModel", false)
 
 local StudioService = game:GetService("StudioService")
 
@@ -445,9 +446,17 @@ function AssetPreviewWrapper:init(props)
 end
 
 function AssetPreviewWrapper:didMount()
-	self.props.getPreviewInstance(self.props.assetData.Asset.Id, self.props.assetData.Asset.TypeId)
-	if self.props.assetData.Asset.TypeId == Enum.AssetType.Plugin.Value then
-		self.props.getPluginInfo(getNetwork(self), self.props.assetData.Asset.Id)
+	if FFlagToolboxDontFetchPluginPreviewModel then
+		if self.props.assetData.Asset.TypeId == Enum.AssetType.Plugin.Value then
+			self.props.getPluginInfo(getNetwork(self), self.props.assetData.Asset.Id)
+		else
+			self.props.getPreviewInstance(self.props.assetData.Asset.Id, self.props.assetData.Asset.TypeId)	
+		end
+	else
+		self.props.getPreviewInstance(self.props.assetData.Asset.Id, self.props.assetData.Asset.TypeId)
+		if self.props.assetData.Asset.TypeId == Enum.AssetType.Plugin.Value then
+			self.props.getPluginInfo(getNetwork(self), self.props.assetData.Asset.Id)
+		end
 	end
 
 	local assetData = self.props.assetData
@@ -490,10 +499,12 @@ function AssetPreviewWrapper:render()
 						AssetInstance = previewModel,
 
 						-- TODO DEVTOOLS-4896: refactor the action bar out of AssetPreview and clean up the logic in this component, bring back loading bar for installs in a sensible place
-						ActionEnabled = not self.InstallDisabled,
+						ActionEnabled = not purchaseFlow.InstallDisabled,
 						ShowRobuxIcon = purchaseFlow.ShowRobuxIcon,
 						ActionText = purchaseFlow.ActionBarText,
-						OnClickAction  = purchaseFlow.TryInsert,
+						OnClickAction = purchaseFlow.TryInsert,
+						PurchaseFlow = purchaseFlow.PurchaseFlow,
+						SuccessDialog = purchaseFlow.SuccessDialog,
 
 						OnClickContext = self.tryCreateContextMenu,
 

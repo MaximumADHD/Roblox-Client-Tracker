@@ -4,15 +4,13 @@ local Util = require(Framework.Util)
 local Cryo = Util.Cryo
 local deepCopy = Util.deepCopy
 local Style = Util.Style
-local FlagsList = Util.Flags.new({
-	FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
-})
+local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local Common = require(Framework.StudioUI.StudioFrameworkStyles.Common)
 
 local height = 16
 local textSize = 24
 
-if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+if THEME_REFACTOR then
 	local common = deepCopy(Common)
 
 	return {

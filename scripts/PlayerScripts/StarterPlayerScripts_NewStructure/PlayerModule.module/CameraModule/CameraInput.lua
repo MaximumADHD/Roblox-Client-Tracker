@@ -128,7 +128,16 @@ local CameraInput = {}
 
 do
 	local connectionList = {}
-	
+	local panInputCount = 0
+
+	local function incPanInputCount()
+		panInputCount = math.max(0, panInputCount + 1)
+	end
+
+	local function decPanInputCount()
+		panInputCount = math.max(0, panInputCount - 1)
+	end
+
 	local touchPitchSensitivity = 1
 	local gamepadState = {
 		Thumbstick2 = Vector2.new(),
@@ -153,16 +162,11 @@ do
 	local gamepadZoomPressBindable = Instance.new("BindableEvent")
 	CameraInput.gamepadZoomPress = gamepadZoomPressBindable.Event
 	
-	function CameraInput.getPanning()
-		for _, input in pairs(UserInputService:GetMouseButtonsPressed()) do
-			if input.UserInputType == Enum.UserInputType.MouseButton2 then
-				return true
-			end
-		end
-		return false
+	function CameraInput.getRotationActivated()
+		return panInputCount > 0 or gamepadState.Thumbstick2.Magnitude > 0
 	end
 	
-	function CameraInput.getRotation()
+	function CameraInput.getRotation(disableKeyboardRotation)
 		local inversionVector = Vector2.new(1, UserGameSettings:GetCameraYInvertValue())
 
 		-- keyboard input is non-coalesced, so must account for time delta
@@ -171,6 +175,10 @@ do
 		local kMouse = mouseState.Movement
 		local kPointerAction = mouseState.Pan
 		local kTouch = adjustTouchPitchSensitivity(touchState.Move)
+
+		if disableKeyboardRotation then
+			kKeyboard = Vector2.new()
+		end
 
 		local result =
 			kKeyboard*ROTATION_SPEED_KEYS +
@@ -251,6 +259,10 @@ do
 					return
 				end
 				
+				if not sunk then
+					incPanInputCount()
+				end
+				
 				-- register the finger
 				touches[input] = sunk
 			end
@@ -267,6 +279,7 @@ do
 				-- reset pinch state if one unsunk finger lifts
 				if touches[input] == false then
 					lastPinchDiameter = nil
+					decPanInputCount()
 				end
 				
 				-- unregister input
@@ -335,6 +348,9 @@ do
 		local function inputBegan(input, sunk)
 			if input.UserInputType == Enum.UserInputType.Touch then
 				touchBegan(input, sunk)
+
+			elseif input.UserInputType == Enum.UserInputType.MouseButton2 and not sunk then
+				incPanInputCount()
 			end
 		end
 
@@ -350,6 +366,9 @@ do
 		local function inputEnded(input, sunk)
 			if input.UserInputType == Enum.UserInputType.Touch then
 				touchEnded(input, sunk)
+
+			elseif input.UserInputType == Enum.UserInputType.MouseButton2 then
+				decPanInputCount()
 			end
 		end
 

@@ -6,9 +6,7 @@ local Util = require(Framework.Util)
 local Cryo = Util.Cryo
 local deepCopy = Util.deepCopy
 local Style = Util.Style
-local FlagsList = Util.Flags.new({
-	FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
-})
+local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 
 local UI = require(Framework.UI)
 local Decoration = UI.Decoration
@@ -16,7 +14,7 @@ local Decoration = UI.Decoration
 local UIFolderData = require(Framework.UI.UIFolderData)
 local RoundBox = require(UIFolderData.RoundBox.style)
 
-if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+if THEME_REFACTOR then
 	local roundBox = deepCopy(RoundBox)
 	return {
 		Background = Decoration.RoundBox,

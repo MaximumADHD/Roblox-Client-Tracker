@@ -1,7 +1,4 @@
 local FFlagVersionControlServiceScriptCollabEnabled = settings():GetFFlag("VersionControlServiceScriptCollabEnabled")
-local FFlagsEnableVersionHistorySetting = settings():GetFFlag("CollabEditVersionHistoryEnabled") and
-	(settings():GetFFlag("StudioInternalScriptVersionHistorySetting")
-	or settings():GetFFlag("StudioPlaceFilterScriptVersionHistorySetting"))
 local FFlagGameSettingsShutdownAllServersButton = game:GetFastFlag("GameSettingsShutdownAllServersButton")
 
 local Page = script.Parent
@@ -42,11 +39,6 @@ local function loadSettings(store, contextItems)
 
 			loadedSettings["ScriptCollabEnabled"] = enabled
 		end,
-		function(loadedSettings)
-			local enabled = gameOptionsController:getScriptVersionHistoryEnabled(game)
-
-			loadedSettings["ScriptVersionHistoryEnabled"] = enabled
-		end,
 	}
 end
 
@@ -63,13 +55,6 @@ local function saveSettings(store, contextItems)
 				gameOptionsController:setScriptCollaborationEnabled(game, changed)
 			end
 		end,
-		function()
-			local changed = state.Settings.Changed.ScriptVersionHistoryEnabled
-
-			if changed ~= nil then
-				gameOptionsController:setScriptVersionHistoryEnabled(game, changed)
-			end
-		end,
 	}
 end
 
@@ -77,7 +62,6 @@ end
 local function loadValuesToProps(getValue)
 	local loadedProps = {
 		ScriptCollabEnabled = FFlagVersionControlServiceScriptCollabEnabled and getValue("ScriptCollabEnabled"),
-		ScriptVersionHistoryEnabled = FFlagsEnableVersionHistorySetting and getValue("ScriptVersionHistoryEnabled")
 	}
 	return loadedProps
 end
@@ -86,7 +70,6 @@ end
 local function dispatchChanges(setValue, dispatch)
 	local dispatchFuncs = {
 		ScriptCollabEnabledChanged = FFlagVersionControlServiceScriptCollabEnabled and setValue("ScriptCollabEnabled"),
-		ScriptVersionHistoryEnabledChanged = FFlagsEnableVersionHistorySetting and setValue("ScriptVersionHistoryEnabled"),
 		dispatchShutdownAllServers = function()
 			dispatch(ShutdownAllServers())
 		end,
@@ -123,8 +106,7 @@ function Options:render()
 			EnableScriptCollab = FFlagVersionControlServiceScriptCollabEnabled and Roact.createElement(RadioButtonSet, {
 				LayoutOrder = 1,
 				Title = localization:getText("General", "TitleScriptCollab"),
-				Enabled = props.ScriptCollabEnabled ~= nil and
-					(not FFlagsEnableVersionHistorySetting or props.ScriptVersionHistoryEnabled == false),
+				Enabled = props.ScriptCollabEnabled ~= nil,
 
 				Selected = props.ScriptCollabEnabled,
 				SelectionChanged = function(button)
@@ -135,28 +117,6 @@ function Options:render()
 						Id = true,
 						Title = localization:getText("General", "SettingOn"),
 						Description = localization:getText("General", "ScriptCollabDesc"),
-					}, {
-						Id = false,
-						Title = localization:getText("General", "SettingOff"),
-					},
-				},
-			}),
-
-			EnableScriptVersionHistory = FFlagsEnableVersionHistorySetting and Roact.createElement(RadioButtonSet, {
-				LayoutOrder = 2,
-				--Internal ONLY, no translation needed, should never be in production
-				Title = "Enable Script Version History",
-				Enabled = props.ScriptCollabEnabled,  --only enabled if enablescriptcollab is true
-
-				Selected = props.ScriptVersionHistoryEnabled,
-				SelectionChanged = function(button)
-					props.ScriptVersionHistoryEnabledChanged(button.Id)
-				end,
-
-				Buttons = {{
-						Id = true,
-						Title = localization:getText("General", "SettingOn"),
-						Description = "Track version history for scripts"
 					}, {
 						Id = false,
 						Title = localization:getText("General", "SettingOff"),

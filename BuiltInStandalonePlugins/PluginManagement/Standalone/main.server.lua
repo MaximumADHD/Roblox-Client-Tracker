@@ -1,14 +1,25 @@
 local StudioService = game:GetService("StudioService")
 local MarketplaceService = game:GetService("MarketplaceService")
 
+require(script.Parent.defineLuaFlags)
+local FFlagEnablePluginManagementStylizer = game:GetFastFlag("EnablePluginManagementStylizer")
+
 local Plugin = script.Parent.Parent
+
+--[[
+	RefactorFlags needs to be required and updated directly; before Framework's init
+	is required (so that any files that Framework's init requires get the correct values).
+]]
+local RefactorFlags = require(Plugin.Packages.Framework.Util.RefactorFlags)
+RefactorFlags.THEME_REFACTOR = FFlagEnablePluginManagementStylizer
+
 local Roact = require(Plugin.Packages.Roact)
-local Framework = require(Plugin.Packages.Framework)
 local getPluginGlobals = require(Plugin.Src.Util.getPluginGlobals)
 local showDialog = require(Plugin.Src.Util.showDialog)
 local InstallPluginFromWeb = require(Plugin.Src.Thunks.InstallPluginFromWeb)
 local RefreshPlugins = require(Plugin.Src.Thunks.RefreshPlugins)
 local ManagementApp = require(Plugin.Src.Components.ManagementApp)
+
 
 -- initialize all globals
 local globals = getPluginGlobals(plugin)

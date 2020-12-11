@@ -12,10 +12,20 @@ local FFlagAssetManagerLuaPlugin = game:GetFastFlag("AssetManagerLuaPlugin")
 local FFlagStudioAssetConfigurationPlugin = game:GetFastFlag("StudioAssetConfigurationPlugin")
 local FFlagToolboxDisableForLuobu = game:GetFastFlag("ToolboxDisableForLuobu")
 local FFlagDebugToolboxEnableRoactChecks = game:GetFastFlag("DebugToolboxEnableRoactChecks")
+local FFlagEnableToolboxStylizer = game:GetFastFlag("EnableToolboxStylizer")
 
 local Plugin = script.Parent.Parent
 local Libs = Plugin.Libs
 local Roact = require(Libs.Roact)
+
+--[[
+	RefactorFlags needs to be required and updated directly; before Framework's init
+	is required (so that any files that Framework's init requires get the correct values).
+]]
+local RefactorFlags = require(Libs.Framework.Util.RefactorFlags)
+RefactorFlags.THEME_REFACTOR = FFlagEnableToolboxStylizer
+
+local Framework = require(Libs.Framework)
 
 if FFlagDebugToolboxEnableRoactChecks then
 	Roact.setGlobalConfig({
@@ -62,7 +72,6 @@ local ToolboxServiceWrapper =  require(Plugin.Core.Components.ToolboxServiceWrap
 local GetRolesRequest = require(Plugin.Core.Networking.Requests.GetRolesRequest)
 local SettingsContext = require(Plugin.Core.ContextServices.Settings)
 
-local Framework = require(Libs.Framework)
 local ContextServices = Framework.ContextServices
 local CrossPluginCommunication = Framework.Util.CrossPluginCommunication
 

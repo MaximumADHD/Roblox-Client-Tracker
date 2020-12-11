@@ -11,6 +11,11 @@ local SetHasLinkedScripts = require(Plugin.Src.Actions.SetHasLinkedScripts)
 
 local FFlagStudioAssetManagerFilterPackagePermissions = game:DefineFastFlag("StudioAssetManagerFilterPackagePermissions", false)
 local FFlagAllowAudioBulkImport = game:GetFastFlag("AllowAudioBulkImport")
+local FFlagStudioAssetManagerFetchMoreAssets = game:GetFastFlag("StudioAssetManagerFetchMoreAssets")
+
+local FIntStudioAssetManagerAssetFetchNumber = game:GetFastInt("StudioAssetManagerAssetFetchNumber")
+
+local numberOfAssetsToFetch = FFlagStudioAssetManagerFetchMoreAssets and FIntStudioAssetManagerAssetFetchNumber or 10
 
 local function checkIfPackageHasPermission(store, apiImpl, packageIds, newAssetsTable, assetBody, assetType, index)
     apiImpl.Develop.V1.Packages.highestPermissions(packageIds):makeRequest()
@@ -66,7 +71,7 @@ return function(apiImpl, assetType, pageCursor, pageNumber, showLoadingIndicator
             store:dispatch(SetIsFetchingAssets(true))
         end
         if assetType == Enum.AssetType.Place then
-            requestPromise = apiImpl.Develop.V2.Universes.places(game.GameId, pageCursor):makeRequest()
+            requestPromise = apiImpl.Develop.V2.Universes.places(game.GameId, pageCursor, numberOfAssetsToFetch):makeRequest()
             :andThen(function(response)
                 return response
             end, function()
@@ -74,7 +79,7 @@ return function(apiImpl, assetType, pageCursor, pageNumber, showLoadingIndicator
                 error("Failed to load places")
             end)
         elseif assetType == Enum.AssetType.Package then
-            requestPromise = apiImpl.Develop.V2.Universes.symbolicLinks(game.GameId, pageCursor):makeRequest()
+            requestPromise = apiImpl.Develop.V2.Universes.symbolicLinks(game.GameId, pageCursor, numberOfAssetsToFetch):makeRequest()
             :andThen(function(response)
                 return response
             end, function()

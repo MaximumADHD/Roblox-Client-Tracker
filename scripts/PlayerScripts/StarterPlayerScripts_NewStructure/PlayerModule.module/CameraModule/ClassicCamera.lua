@@ -281,7 +281,7 @@ function ClassicCamera:Update()
 				if distToSubject > zoom or flaggedRotateInput.x ~= 0 then
 					local desiredDist = math.min(distToSubject, zoom)
 					if FFlagUserCameraInputRefactor then
-						vecToSubject = self:CalculateNewLookFromArg(nil, rotateInput) * desiredDist
+						vecToSubject = self:CalculateNewLookVectorFromArg(nil, rotateInput) * desiredDist
 					else
 						vecToSubject = self:CalculateNewLookVector() * desiredDist
 					end

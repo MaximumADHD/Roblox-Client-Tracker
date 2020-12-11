@@ -5,6 +5,8 @@ Props:
 	InitialLayoutOrder : number = 1
 	Position : {X: number, Y: number, Z: number}
 	Size : {X: number, Y: number, Z: number}
+	MaxVolume : number optional : Maximum volume the size can occupy. If nil then it's not checked, otherwise can show an
+		error icon next to size
 	OnPositionChanged : (vector : string, axis : string, value : string, isValid : bool) -> void
 		e.g.: props.OnPositionChanged("Position", "X", "123", true)
 	OnSizeChanged : (vector : string, axis : string, value : string, isValid : bool) -> void
@@ -12,10 +14,12 @@ Props:
 ]]
 
 local FFlagTerrainToolsBetterImportTool = game:GetFastFlag("TerrainToolsBetterImportTool")
+local FFlagTerrainToolsMapSettingsMaxVolume = game:GetFastFlag("TerrainToolsMapSettingsMaxVolume")
 
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
+local Cryo = require(Plugin.Packages.Cryo)
 local Roact = require(Plugin.Packages.Roact)
 
 local ContextServices = Framework.ContextServices
@@ -24,8 +28,39 @@ local ContextItems = require(Plugin.Src.ContextItems)
 local ToolParts = script.Parent
 local VectorTextInput = require(ToolParts.VectorTextInput)
 
-local MIN_SIZE = 4
-local MAX_SIZE = 16384
+local Constants = require(Plugin.Src.Util.Constants)
+
+local function checkVolume(size, maxVolume)
+	if not maxVolume then
+		return true
+	end
+
+	local volume = 1
+	for _, maybeValue in pairs(size) do
+		local value = tonumber(maybeValue)
+		if value then
+			volume = volume * value
+		end
+	end
+
+	return volume <= maxVolume
+end
+
+local function checkFields(position, size, maxVolume, validFieldState)
+	for _, vectorState in pairs(validFieldState) do
+		for _, isValid in pairs(vectorState) do
+			if not isValid then
+				return false
+			end
+		end
+	end
+
+	if not checkVolume(size, maxVolume) then
+		return false
+	end
+
+	return true
+end
 
 local MapSettingsFragment = Roact.PureComponent:extend(script.Name)
 
@@ -43,7 +78,8 @@ function MapSettingsFragment:init(props)
 		}
 	}
 
-	local function verifyFields()
+	-- Remove with FFlagTerrainToolsMapSettingsMaxVolume
+	local function DEPRECATED_verifyFields()
 		local result = true
 		for _, vectorState in pairs(self.validFieldState) do
 			for _, isValid in pairs(vectorState) do
@@ -53,6 +89,27 @@ function MapSettingsFragment:init(props)
 				end
 			end
 		end
+
+		if self.props.SetMapSettingsValid then
+			self.props.SetMapSettingsValid(result)
+		end
+
+		return result
+	end
+
+	local function locallyApplyChangeAndVerify(vector, axis, text)
+		-- We want to check the most up-to-date version of position/size given what the user typed
+		-- But normally won't get that until the next render call
+		-- So here we fake applying the change to the struct
+		local position = self.props.Position
+		local size = self.props.Size
+		if vector == "Position" then
+			position = Cryo.Dictionary.join(position, {[axis] = text})
+		elseif vector == "Size" then
+			size = Cryo.Dictionary.join(size, {[axis] = text})
+		end
+
+		local result = checkFields(position, size, self.props.MaxVolume, self.validFieldState)
 
 		if self.props.SetMapSettingsValid then
 			self.props.SetMapSettingsValid(result)
@@ -76,17 +133,29 @@ function MapSettingsFragment:init(props)
 	end
 
 	self.onVectorFocusLost = function(vector, axis, enterPressed, text, isValid)
-		if verifyFields() then
-			dispatchVectorChanged(vector, axis, text, isValid)
+		if FFlagTerrainToolsMapSettingsMaxVolume then
+			if locallyApplyChangeAndVerify(vector, axis, text) then
+				dispatchVectorChanged(vector, axis, text, isValid)
+			end
+		else
+			if DEPRECATED_verifyFields() then
+				dispatchVectorChanged(vector, axis, text, isValid)
+			end
 		end
 	end
 
 	self.onVectorValueChanged = function(vector, axis, text, isValid)
-		self.validFieldState[vector][axis] = isValid
-		if FFlagTerrainToolsBetterImportTool then
-			verifyFields()
+		if FFlagTerrainToolsMapSettingsMaxVolume then
+			self.validFieldState[vector][axis] = isValid
+			locallyApplyChangeAndVerify(vector, axis, text)
+			dispatchVectorChanged(vector, axis, text, isValid)
+		else
+			self.validFieldState[vector][axis] = isValid
+			if FFlagTerrainToolsBetterImportTool then
+				DEPRECATED_verifyFields()
+			end
+			dispatchVectorChanged(vector, axis, text, isValid)
 		end
-		dispatchVectorChanged(vector, axis, text, isValid)
 	end
 end
 
@@ -102,6 +171,9 @@ function MapSettingsFragment:render()
 
 	local positionLayoutOrder = initialLayoutOrder
 	local sizeLayoutOrder = initialLayoutOrder + (showPositionSelector and 1 or 0)
+
+	local showVolumeError = FFlagTerrainToolsMapSettingsMaxVolume
+		and not checkVolume(size, self.props.MaxVolume)
 
 	return Roact.createFragment({
 		PositionInput = showPositionSelector and Roact.createElement(VectorTextInput, {
@@ -119,11 +191,12 @@ function MapSettingsFragment:render()
 			Text = localization:getText("MapSettings", "Size"),
 			Key = "Size",
 			Vector = size,
-			MinValues = {X = MIN_SIZE, Y = MIN_SIZE, Z = MIN_SIZE},
-			MaxValues = {X = MAX_SIZE, Y = MAX_SIZE, Z = MAX_SIZE},
+			MinValues = {X = Constants.REGION_MIN_SIZE, Y = Constants.REGION_MIN_SIZE, Z = Constants.REGION_MIN_SIZE},
+			MaxValues = {X = Constants.REGION_MAX_SIZE, Y = Constants.REGION_MAX_SIZE, Z = Constants.REGION_MAX_SIZE},
 			Precisions = {X = 0, Y = 0, Z = 0},
 			OnFocusLost = self.onVectorFocusLost,
 			OnValueChanged = self.onVectorValueChanged,
+			ErrorMessage = showVolumeError and localization:getText("Warning", "VolumeTooLarge"),
 		}),
 	})
 end

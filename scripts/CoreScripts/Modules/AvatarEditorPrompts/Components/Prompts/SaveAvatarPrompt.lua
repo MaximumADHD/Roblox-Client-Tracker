@@ -21,8 +21,12 @@ local ItemsList = require(Components.ItemsList)
 local SignalSaveAvatarPermissionDenied = require(AvatarEditorPrompts.Thunks.SignalSaveAvatarPermissionDenied)
 local PerformSaveAvatar = require(AvatarEditorPrompts.Thunks.PerformSaveAvatar)
 
+local GetConformedHumanoidDescription = require(AvatarEditorPrompts.GetConformedHumanoidDescription)
+
 local Modules = AvatarEditorPrompts.Parent
 local FFlagAESPromptsSupportGamepad = require(Modules.Flags.FFlagAESPromptsSupportGamepad)
+
+local EngineFeatureAESConformToAvatarRules = game:GetEngineFeature("AESConformToAvatarRules")
 
 local SCREEN_SIZE_PADDING = 30
 local VIEWPORT_MAX_TOP_PADDING = 40
@@ -45,9 +49,19 @@ SaveAvatarPrompt.validateProps = t.strictInterface({
 })
 
 function SaveAvatarPrompt:init()
-	self:setState({
-		itemListScrollable = false,
-	})
+	self.mounted = false
+
+	if EngineFeatureAESConformToAvatarRules then
+		self:setState({
+			conformedHumanoidDescription = nil,
+			getConformedDescriptionFailed = false,
+			itemListScrollable = false,
+		})
+	else
+		self:setState({
+			itemListScrollable = false,
+		})
+	end
 
 	self.middleContentRef = Roact.createRef()
 	self.contentSize, self.updateContentSize = Roact.createBinding(UDim2.new(1, 0, 0, 200))
@@ -83,7 +97,24 @@ function SaveAvatarPrompt:init()
 		end
 	end
 
+	if EngineFeatureAESConformToAvatarRules then
+		self.retryLoadDescription = function()
+			self:setState({
+				getConformedDescriptionFailed = false,
+			})
+
+			self:getConformedHumanoidDescription()
+		end
+	end
+
 	self.renderAlertMiddleContent = function()
+		local humanoidDescription = self.props.humanoidDescription
+		local loadingFailed = nil
+		if EngineFeatureAESConformToAvatarRules then
+			humanoidDescription = self.state.conformedHumanoidDescription
+			loadingFailed = self.state.getConformedDescriptionFailed
+		end
+
 		return Roact.createElement("Frame", {
 			BackgroundTransparency = 1,
 			Size = self.contentSize,
@@ -95,7 +126,9 @@ function SaveAvatarPrompt:init()
 				Size = UDim2.fromScale(ITEMS_LIST_WIDTH_PERCENT, 1),
 			}, {
 				ItemsList = Roact.createElement(ItemsList, {
-					humanoidDescription = self.props.humanoidDescription,
+					humanoidDescription = humanoidDescription,
+					retryLoadDescription = self.retryLoadDescription,
+					loadingFailed = loadingFailed,
 					itemListScrollableUpdated = self.itemListScrollableUpdated,
 				}),
 			}),
@@ -112,7 +145,9 @@ function SaveAvatarPrompt:init()
 				}),
 
 				HumanoidViewport = Roact.createElement(HumanoidViewport, {
-					humanoidDescription = self.props.humanoidDescription,
+					humanoidDescription = humanoidDescription,
+					loadingFailed = loadingFailed,
+					retryLoadDescription = self.retryLoadDescription,
 					rigType = self.props.rigType,
 				}),
 			}),
@@ -153,6 +188,52 @@ function SaveAvatarPrompt:render()
 		onAbsoluteSizeChanged = self.onAlertSizeChanged,
 		isMiddleContentFocusable = FFlagAESPromptsSupportGamepad and self.state.itemListScrollable,
 	})
+end
+
+function SaveAvatarPrompt:getConformedHumanoidDescription(humanoidDescription)
+	local includeDefaultClothing = true
+	GetConformedHumanoidDescription(humanoidDescription, includeDefaultClothing):andThen(function(conformedDescription)
+		if not self.mounted then
+			return
+		end
+
+		self:setState({
+			conformedHumanoidDescription = conformedDescription,
+		})
+	end, function(err)
+		if not self.mounted then
+			return
+		end
+
+		self:setState({
+			getConformedDescriptionFailed = true,
+		})
+	end)
+end
+
+function SaveAvatarPrompt:didMount()
+	self.mounted = true
+
+	if EngineFeatureAESConformToAvatarRules then
+		self:getConformedHumanoidDescription(self.props.humanoidDescription)
+	end
+end
+
+function SaveAvatarPrompt:willUpdate(nextProps, nextState)
+	if EngineFeatureAESConformToAvatarRules then
+		if nextProps.humanoidDescription ~= self.props.humanoidDescription then
+			self:setState({
+				conformedHumanoidDescription = Roact.None,
+				getConformedDescriptionFailed = false,
+			})
+
+			self:getConformedHumanoidDescription(nextProps.humanoidDescription)
+		end
+	end
+end
+
+function SaveAvatarPrompt:willUnmount()
+	self.mounted = false
 end
 
 local function mapStateToProps(state)

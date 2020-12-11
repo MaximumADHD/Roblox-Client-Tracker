@@ -11,9 +11,7 @@ local RoactRodux = require(Plugin.Packages.RoactRodux)
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
 local Util = Framework.Util
-local FlagsList = Util.Flags.new({
-	FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
-})
+local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 
 local UI = require(Plugin.Packages.Framework).UI
 local Container = UI.Container
@@ -62,7 +60,7 @@ function ComponentList:renderHeader(header, index)
 	local text
 	local sizes
 	local style = props.Stylizer
-	if FlagsList:get("FFlagRefactorDevFrameworkTheme") and style then
+	if THEME_REFACTOR and style then
 		text = style.Text
 		sizes = style.Sizes
 	else
@@ -92,7 +90,7 @@ function ComponentList:renderEntry(name, index)
 	local text
 	local sizes
 	local style = props.Stylizer
-	if FlagsList:get("FFlagRefactorDevFrameworkTheme") and style then
+	if THEME_REFACTOR and style then
 		text = style.Text
 		sizes = style.Sizes
 	else
@@ -172,7 +170,7 @@ function ComponentList:render()
 	local scrollbar
 	local sizes
 	local style = props.Stylizer
-	if FlagsList:get("FFlagRefactorDevFrameworkTheme") and style then
+	if THEME_REFACTOR and style then
 		scrollbar = style.Scrollbar
 		sizes = style.Sizes
 	else
@@ -226,8 +224,8 @@ function ComponentList:render()
 end
 
 ContextServices.mapToProps(ComponentList, {
-	Stylizer = FlagsList:get("FFlagRefactorDevFrameworkTheme") and ContextServices.Stylizer or nil,
-	Theme = (not FlagsList:get("FFlagRefactorDevFrameworkTheme")) and ContextServices.Theme or nil,
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
 	PluginActions = ContextServices.PluginActions,
 	Plugin = ContextServices.Plugin,
 })

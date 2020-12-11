@@ -4,7 +4,7 @@
 
 local FFlagEnableToolboxVideos = game:GetFastFlag("EnableToolboxVideos")
 
-local Src = script
+local Src = script._internal
 local Components = Src.Components
 local Utils = Src.Utils
 
@@ -24,8 +24,6 @@ local Favorites = require(Components.Preview.Favorites)
 local ImagePreview = require(Components.Preview.ImagePreview)
 local AudioPreview = require(Components.Preview.AudioPreview)
 local AudioControl = FFlagEnableToolboxVideos and nil or require(Components.Preview.AudioControl)
--- TODO FFlagRemoveUILibraryTimeline remove import
-local Keyframe = require(Components.Timeline.Keyframe)
 local InfiniteScrollingFrame = require(Components.InfiniteScrollingFrame)
 local LoadingBar = require(Components.LoadingBar)
 local LoadingIndicator = require(Components.LoadingIndicator)
@@ -35,8 +33,6 @@ local RadioButtons = require(Components.RadioButtons)
 local RoundFrame = require(Components.RoundFrame)
 local RoundTextBox = require(Components.RoundTextBox)
 local RoundTextButton = require(Components.RoundTextButton)
--- TODO FFlagRemoveUILibraryTimeline remove import
-local Scrubber = require(Components.Timeline.Scrubber)
 local SearchBar = require(Components.SearchBar)
 local Separator = require(Components.Separator)
 local StyledDialog = require(Components.StyledDialog)
@@ -58,6 +54,8 @@ local LayoutOrderIterator = require(Utils.LayoutOrderIterator)
 local GetClassIcon = require(Utils.GetClassIcon)
 local GetTextSize = require(Utils.GetTextSize)
 local getTimeString = require(Utils.getTimeString)
+
+-- TODO DEVTOOLS-4549: Remove in favour of DevFramework
 local AssetType = require(Utils.AssetType)
 
 local Focus = require(Src.Focus)
@@ -69,9 +67,6 @@ local Signal = require(Utils.Signal)
 
 local Dialog = require(Components.PluginWidget.Dialog)
 
-game:DefineFastFlag("RemoveUILibraryTimeline", false)
-local FFlagRemoveUILibraryTimeline = game:GetFastFlag("RemoveUILibraryTimeline")
-
 local function createStrictTable(t)
 	return setmetatable(t, {
 		__index = function(_, index)
@@ -81,10 +76,7 @@ local function createStrictTable(t)
 end
 
 local UILibrary = createStrictTable({
-	Component = createStrictTable({
-		ActionBar = ActionBar,
-		AssetDescription = AssetDescription,
-		AssetPreview = AssetPreview,
+	Component = createStrictTable({		
 		BulletPoint = BulletPoint,
 		Button = Button,
 		CheckBox = CheckBox,
@@ -95,21 +87,13 @@ local UILibrary = createStrictTable({
 		DropdownMenu = DropdownMenu,
 		DropShadow = DropShadow,
 		ExpandableList = ExpandableList,
-		Favorites = Favorites,
-		ImagePreview = ImagePreview,
-		AudioPreview = AudioPreview,
-		AudioControl = AudioControl,
 		InfiniteScrollingFrame = InfiniteScrollingFrame,
-		Keyframe = (not FFlagRemoveUILibraryTimeline) and Keyframe or nil,
 		LoadingBar = LoadingBar,
 		LoadingIndicator = LoadingIndicator,
-		ModelPreview = ModelPreview,
-		PreviewController = PreviewController,
 		RadioButtons = RadioButtons,
 		RoundFrame = RoundFrame,
 		RoundTextBox = RoundTextBox,
 		RoundTextButton = RoundTextButton,
-		Scrubber = (not FFlagRemoveUILibraryTimeline) and Scrubber or nil,
 		SearchBar = SearchBar,
 		Separator = Separator,
 		StyledDialog = StyledDialog,
@@ -117,11 +101,22 @@ local UILibrary = createStrictTable({
 		StyledScrollingFrame = StyledScrollingFrame,
 		StyledTooltip = StyledTooltip,
 		TextEntry = TextEntry,
-		ThumbnailIconPreview = ThumbnailIconPreview,
 		TitledFrame = TitledFrame,
 		Tooltip = Tooltip,
 		ToggleButton = ToggleButton,
 		TreeView = TreeView,
+
+		-- Below to be removed with removal of FFlagToolboxUseDevFrameworkAssetPreview and FFlagAssetManagerUseDevFrameworkAssetPreview
+		AssetPreview = AssetPreview,
+		ActionBar = ActionBar,
+		AssetDescription = AssetDescription,
+		Favorites = Favorites,
+		ImagePreview = ImagePreview,
+		AudioPreview = AudioPreview,
+		AudioControl = AudioControl,
+		ModelPreview = ModelPreview,
+		PreviewController = PreviewController,
+		ThumbnailIconPreview = ThumbnailIconPreview,
 		TreeViewButton = TreeViewButton,
 		TreeViewItem = TreeViewItem,
 		Vote = Vote,
@@ -163,15 +158,5 @@ local UILibrary = createStrictTable({
 
 	createTheme = require(Src.createTheme),
 })
-
-local virtualFolder = Instance.new("Folder")
-virtualFolder.Name = "UILibraryInternals-Do-Not-Access-Directly"
--- The number of parents to the plugin cannot change since UILibrary components reach out of UILibrary
--- to get the plugin's copy of Roact
-virtualFolder.Parent = script.Parent
-
-for _,v in pairs(script:GetChildren()) do
-	v.Parent = virtualFolder
-end
 
 return UILibrary

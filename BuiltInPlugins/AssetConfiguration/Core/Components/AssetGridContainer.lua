@@ -19,6 +19,7 @@ local StudioService = game:GetService("StudioService")
 local FFlagUseCategoryNameInToolbox = game:GetFastFlag("UseCategoryNameInToolbox")
 local FFlagFixGroupPackagesCategoryInToolbox = game:GetFastFlag("FixGroupPackagesCategoryInToolbox")
 local FFlagEnableDefaultSortFix2 = game:GetFastFlag("EnableDefaultSortFix2")
+local FFlagToolboxViewInBrowserUtmAttributes = game:GetFastFlag("ToolboxViewInBrowserUtmAttributes")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -37,6 +38,7 @@ local Util = Plugin.Core.Util
 local InsertToolPromise = require(Util.InsertToolPromise)
 local InsertAsset = require(Util.InsertAsset)
 local ContextMenuHelper = require(Util.ContextMenuHelper)
+local CreatorInfoHelper = require(Util.CreatorInfoHelper)
 local PageInfoHelper = require(Util.PageInfoHelper)
 local Category = require(Plugin.Core.Types.Category)
 local FlagsList = require(Util.FlagsList)
@@ -67,6 +69,17 @@ local withLocalization = ContextHelper.withLocalization
 local ContextServices = require(Libs.Framework.ContextServices)
 
 local AssetGridContainer = Roact.PureComponent:extend("AssetGridContainer")
+
+local function nameForValueInEnum(enum, value)
+	local items = enum:GetEnumItems()
+
+	for _, item in ipairs(items) do
+		if item.Value == value then
+			return item.Name
+		end
+	end
+	return
+end
 
 function AssetGridContainer:init(props)
 	self.state = {
@@ -227,7 +240,36 @@ function AssetGridContainer:init(props)
 			showEditOption = canEditPackage
 		end
 
-		ContextMenuHelper.tryCreateContextMenu(plugin, assetId, assetTypeId, showEditOption, localizedContent, props.tryOpenAssetConfig, isPackageAsset)
+		if FFlagToolboxViewInBrowserUtmAttributes then
+			local context = assetData.Context
+			local creatorTypeEnumValue
+
+			-- TODO STM-406: Refactor creator types to be stored as Enum.CreatorType in Toolbox Rodux 
+			-- The data for Creations is stored as Enum.CreatorType Values, whereas for other tabs
+			-- it is stored as backend enum values with range [1, 2] instead of [0, 1]
+			-- We can address this by storing Enum.CreatorType instead of numeric Values and converting to/from backend [1, 2]
+			-- values in the network interfacing code.
+			if context.toolboxTab == Category.CREATIONS_KEY then
+				creatorTypeEnumValue = assetData.Creator.Type
+			else
+				creatorTypeEnumValue = CreatorInfoHelper.backendToClient(assetData.Creator.Type)
+			end
+
+			local trackingAttributes = {
+				Category = nameForValueInEnum(Enum.AssetType, assetTypeId),
+				SortType = context.sort,
+				CreatorId = assetData.Creator.Id,
+				CreatorType = nameForValueInEnum(Enum.CreatorType, creatorTypeEnumValue),
+				SearchKeyword = context.searchKeyword,
+				Position = context.position,
+				SearchId = context.searchId,
+				ViewInBrowser = true,
+			}
+
+			ContextMenuHelper.tryCreateContextMenu(plugin, assetId, assetTypeId, showEditOption, localizedContent, props.tryOpenAssetConfig, isPackageAsset, trackingAttributes)
+		else
+			ContextMenuHelper.tryCreateContextMenu(plugin, assetId, assetTypeId, showEditOption, localizedContent, props.tryOpenAssetConfig, isPackageAsset)
+		end
 	end
 
 	self.tryInsert = function(assetData, assetWasDragged, insertionMethod)

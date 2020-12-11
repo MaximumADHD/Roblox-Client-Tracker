@@ -12,12 +12,15 @@ local CollaboratorItem = require(Page.Components.CollaboratorItem)
 
 local IsUserOwner = require(Page.Selectors.IsUserOwner)
 local IsUserCreatorFriend = require(Page.Selectors.IsUserCreatorFriend)
+local CanUserAddCollaborators = require(Page.Selectors.CanUserAddCollaborators)
 local GetUserName = require(Page.Selectors.GetUserName)
 local GetUserPermission = require(Page.Selectors.GetUserPermission)
 local SetUserPermission = require(Page.Thunks.SetUserPermission)
 local RemoveUserCollaborator = require(Page.Thunks.RemoveUserCollaborator)
 
 local UserCollaboratorItem = Roact.PureComponent:extend("UserCollaboratorItem")
+
+local FFlagUXImprovementsNonTCPlacesAllowedPlay = game:GetFastFlag("UXImprovementsNonTCPlacesAllowedPlay")
 
 local permShortName = {
 	[PermissionsConstants.OwnerKey] = "Owner",
@@ -48,6 +51,7 @@ function UserCollaboratorItem:getAvailablePermissions()
 
 	local isOwner = props.IsOwner
 	local isOwnerFriend = props.IsOwnerFriend
+	local canUserAddCollaborators = FFlagUXImprovementsNonTCPlacesAllowedPlay and props.CanUserAddCollaborators
 	local ownerType = props.OwnerType
 
 	local localization = props.Localization
@@ -62,7 +66,7 @@ function UserCollaboratorItem:getAvailablePermissions()
 	else
 		local permissions = {self:getPermissionForKey(PermissionsConstants.PlayKey)}
 
-		if (ownerType == Enum.CreatorType.User and isOwnerFriend) then
+		if (ownerType == Enum.CreatorType.User and isOwnerFriend and (not FFlagUXImprovementsNonTCPlacesAllowedPlay or canUserAddCollaborators)) then
 			table.insert(permissions, self:getPermissionForKey(PermissionsConstants.EditKey))
 		end
 
@@ -134,6 +138,7 @@ UserCollaboratorItem = RoactRodux.connect(
 
 			IsOwner = IsUserOwner(state, props.Id),
 			IsOwnerFriend = IsUserCreatorFriend(state, props.Id),
+			CanUserAddCollaborators = FFlagUXImprovementsNonTCPlacesAllowedPlay and CanUserAddCollaborators(),
 			UserName = GetUserName(state, props.Id),
 			CurrentPermission = GetUserPermission(state, props.Id),
 		}

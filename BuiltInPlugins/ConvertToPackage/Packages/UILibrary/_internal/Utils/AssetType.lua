@@ -1,7 +1,4 @@
 -- TODO DEVTOOLS-4549: Remove in favour of DevFramework
-
-local FFlagFixGetAssetTypeErrorHandling = game:DefineFastFlag("FixGetAssetTypeErrorHandling", false)
-local FFlagStudioUILibFixAssetTypeMap = game:DefineFastFlag("StudioUILibFixAssetTypeMap", false)
 local FFlagStudioFixMeshPartPreview = game:DefineFastFlag("StudioFixMeshPartPreview", false)
 local FFlagEnableToolboxVideos = game:GetFastFlag("EnableToolboxVideos")
 
@@ -36,6 +33,7 @@ local classTypeMap = {
 	Model = AssetType.TYPES.ModelType,
 	BackpackItem = AssetType.TYPES.ModelType,
 	Accoutrement = AssetType.TYPES.ModelType,
+	Part =  AssetType.TYPES.ModelType,
 
 	Decal = AssetType.TYPES.ImageType,
 	ImageLabel = AssetType.TYPES.ImageType,
@@ -49,10 +47,6 @@ local classTypeMap = {
 	BaseScript = AssetType.TYPES.ScriptType,
 }
 
-if FFlagStudioUILibFixAssetTypeMap then
-	classTypeMap.Part =  AssetType.TYPES.ModelType
-end
-
 if FFlagStudioFixMeshPartPreview then
 	classTypeMap.MeshPart = AssetType.TYPES.ModelType
 end
@@ -64,12 +58,7 @@ end
 -- probably improve this in the future)
 -- For BaseScript, show only names while for all other types show assetName and type
 function AssetType:getAssetType(assetInstance)
-	local notInstance
-	if FFlagFixGetAssetTypeErrorHandling then
-		notInstance = not assetInstance or typeof(assetInstance) ~= "Instance"
-	else
-		notInstance = not assetInstance
-	end
+	local notInstance = not assetInstance or typeof(assetInstance) ~= "Instance"
 
 	if notInstance then
 		return self.TYPES.LoadingType

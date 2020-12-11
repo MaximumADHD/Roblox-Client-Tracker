@@ -20,9 +20,7 @@ return function(plugin)
 	local ExampleRangeSlider = Roact.PureComponent:extend("ExampleRangeSlider")
 
 	local Util = require(Framework.Util)
-	local FlagsList = Util.Flags.new({
-		FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
-	})
+	local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 
 	local StudioTheme = require(Framework.Style.Themes.StudioTheme)
 
@@ -46,7 +44,7 @@ return function(plugin)
 		end
 
 		self.theme = nil
-		if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+		if THEME_REFACTOR then
 			self.theme = StudioTheme.new()
 		else
 			self.theme = Theme.new(function(theme, getColor)

@@ -10,13 +10,11 @@ local StyleModifier = Util.StyleModifier
 
 local Common = require(Framework.StudioUI.StudioFrameworkStyles.Common)
 
-local FlagsList = Util.Flags.new({
-	FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
-})
+local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 
 local yellow = Color3.fromRGB(246, 183, 2)
 
-if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+if THEME_REFACTOR then
 
 	local filled = {
 		Foreground = Decoration.Image,

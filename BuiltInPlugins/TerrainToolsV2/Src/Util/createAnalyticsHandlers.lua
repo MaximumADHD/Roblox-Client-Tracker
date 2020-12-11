@@ -84,5 +84,36 @@ return function(analyticsService)
 				colorMapUrl = colormap,
 			})
 		end,
+
+		importTerrainLocal = function(_, region, material, heightmapTable, colormapTable, guid)
+			local args = {
+				regionDims = ("%d,%d,%d)"):format(region.Size.x, region.Size.y, region.Size.z), 
+				heightMapImgDims = ("%d, %d"):format(heightmapTable.width, heightmapTable.height),
+				heightMapChannels = heightmapTable.channels,
+				material = material, 
+				guid = guid,
+			}
+
+			if next(colormapTable) then
+				args.colorMapImgDims = ("%d, %d"):format(colormapTable.width, colormapTable.height)
+				args.colorMapChannels = colormapTable.channels
+			end
+
+			sendEvent("ImportTerrainLocal", args)
+		end,
+
+		importTerrainLocalHeightMap = function(_, assetId, guid)
+			sendEvent("ImportTerrainHeightmapMapping", {
+				assetId = assetId,
+				guid = guid,
+			})
+		end, 
+
+		importTerrainLocalColorMap = function(_, assetId, guid)
+			sendEvent("ImportTerrainColormapMapping", {
+				assetId = assetId,
+				guid = guid,
+			})
+		end,
 	}
 end

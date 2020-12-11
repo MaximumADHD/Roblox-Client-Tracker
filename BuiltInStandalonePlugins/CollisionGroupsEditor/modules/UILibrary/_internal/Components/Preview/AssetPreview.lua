@@ -49,6 +49,8 @@
 		ZIndex = num, used to override the zIndex depth of the base button.
 ]]
 
+local FFlagAssetPreviewDescriptionFallback = game:GetFastFlag("AssetPreviewDescriptionFallback")
+
 local RunService = game:GetService("RunService")
 local StudioService = game:GetService("StudioService")
 
@@ -212,7 +214,14 @@ function AssetPreview:render()
 		local Asset = assetData.Asset
 		local assetId = Asset.Id
 		local assetName = Asset.Name or "Test Name"
-		local detailDescription = Asset.Description
+		local detailDescription
+
+		if FFlagAssetPreviewDescriptionFallback then
+			detailDescription = Asset.Description or ""
+		else
+			detailDescription = Asset.Description
+		end
+		
 		local created = Asset.Created
 		local updated = Asset.Updated
 		local assetGenres = Asset.AssetGenres

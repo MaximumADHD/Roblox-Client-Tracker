@@ -8,8 +8,10 @@ local PurchasePromptDeps = require(CorePackages.PurchasePromptDeps)
 	local PromptState = require(Root.Enums.PromptState)
 	local Reducer = require(Root.Reducers.Reducer)
 	local Analytics = require(Root.Services.Analytics)
+	local Network = require(Root.Services.Network)
 	local PlatformInterface = require(Root.Services.PlatformInterface)
 	local MockAnalytics = require(Root.Test.MockAnalytics)
+	local MockNetwork = require(Root.Test.MockNetwork)
 	local MockPlatformInterface = require(Root.Test.MockPlatformInterface)
 	local Constants = require(Root.Misc.Constants)
 	local Thunk = require(Root.Thunk)
@@ -29,10 +31,12 @@ local PurchasePromptDeps = require(CorePackages.PurchasePromptDeps)
 
 		local thunk = launchRobuxUpsell()
 		local analytics = MockAnalytics.new()
+		local network = MockNetwork.new()
 		local platformInterface = MockPlatformInterface.new()
 
 		Thunk.test(thunk, store, {
 			[Analytics] = analytics.mockService,
+			[Network] = network,
 			[PlatformInterface] = platformInterface.mockService,
 		})
 
@@ -56,10 +60,12 @@ local PurchasePromptDeps = require(CorePackages.PurchasePromptDeps)
 
 			local thunk = launchRobuxUpsell()
 			local analytics = MockAnalytics.new()
+			local network = MockNetwork.new()
 			local platformInterface = MockPlatformInterface.new()
 
 			Thunk.test(thunk, store, {
 				[Analytics] = analytics.mockService,
+				[Network] = network,
 				[PlatformInterface] = platformInterface.mockService,
 			})
 
@@ -84,10 +90,12 @@ local PurchasePromptDeps = require(CorePackages.PurchasePromptDeps)
 
 			local thunk = launchRobuxUpsell()
 			local analytics = MockAnalytics.new()
+			local network = MockNetwork.new()
 			local platformInterface = MockPlatformInterface.new()
 
 			Thunk.test(thunk, store, {
 				[Analytics] = analytics.mockService,
+				[Network] = network,
 				[PlatformInterface] = platformInterface.mockService,
 			})
 
@@ -110,10 +118,12 @@ local PurchasePromptDeps = require(CorePackages.PurchasePromptDeps)
 
 			local thunk = launchRobuxUpsell()
 			local analytics = MockAnalytics.new()
+			local network = MockNetwork.new()
 			local platformInterface = MockPlatformInterface.new()
 
 			Thunk.test(thunk, store, {
 				[Analytics] = analytics.mockService,
+				[Network] = network,
 				[PlatformInterface] = platformInterface.mockService,
 			})
 

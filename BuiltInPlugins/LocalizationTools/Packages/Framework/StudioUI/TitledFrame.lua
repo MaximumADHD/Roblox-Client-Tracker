@@ -19,9 +19,7 @@ local ContextServices = require(Framework.ContextServices)
 
 local Util = require(Framework.Util)
 local Typecheck = Util.Typecheck
-local FlagsList = Util.Flags.new({
-	FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
-})
+local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 
 local FitFrame = require(Framework.Util.FitFrame)
 local FitFrameVertical = FitFrame.FitFrameVertical
@@ -39,7 +37,7 @@ function TitledFrame:render()
 	local props = self.props
 	local theme = props.Theme
 	local style
-	if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+	if THEME_REFACTOR then
 		style = props.Stylizer
 	else
 		style = theme:getStyle("Framework", self)
@@ -91,8 +89,8 @@ function TitledFrame:render()
 end
 
 ContextServices.mapToProps(TitledFrame, {
-	Stylizer = FlagsList:get("FFlagRefactorDevFrameworkTheme") and ContextServices.Stylizer or nil,
-	Theme = (not FlagsList:get("FFlagRefactorDevFrameworkTheme")) and ContextServices.Theme or nil,
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
 })
 
 return TitledFrame

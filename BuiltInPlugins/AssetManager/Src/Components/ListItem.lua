@@ -35,6 +35,7 @@ local FFlagBatchThumbnailAddNewThumbnailTypes = game:GetFastFlag("BatchThumbnail
 local FFlagStudioAssetManagerUXFixes = game:GetFastFlag("StudioAssetManagerUXFixes")
 local FFlagStudioAssetManagerAssetPreviewRequest = game:GetFastFlag("StudioAssetManagerAssetPreviewRequest")
 local FFlagStudioAssetManagerLinkedScriptIcon = game:GetFastFlag("StudioAssetManagerLinkedScriptIcon")
+local FFlagStudioAssetManagerShowRootPlaceListView = game:GetFastFlag("StudioAssetManagerShowRootPlaceListView")
 
 local ICON_SIZE = 150
 
@@ -132,7 +133,7 @@ function ListItem:init()
             props.dispatchOnRecentAssetRightClick(props)
         else
             if FFlagStudioAssetManagerAssetPreviewRequest then
-                if assetData.assetType ~= Enum.AssetType.Place then
+                if assetData.assetType ~= Enum.AssetType.Place and not isFolder then
                     self.props.dispatchGetAssetPreviewData(props.API:get(), {assetData.id})
                 end
             end
@@ -255,7 +256,15 @@ function ListItem:render()
     else
         if FFlagStudioAssetManagerUXFixes then
             if self.state.assetFetchStatus == Enum.AssetFetchStatus.Success then
-                imageInfo.Image = self.thumbnailUrl
+                if FFlagStudioAssetManagerShowRootPlaceListView then
+                    if assetData.assetType == Enum.AssetType.Place and assetData.isRootPlace then
+                        imageInfo = getClassIcon(assetData)
+                    else
+                        imageInfo.Image = self.thumbnailUrl
+                    end
+                else
+                    imageInfo.Image = self.thumbnailUrl
+                end
             elseif self.state.assetFetchStatus == Enum.AssetFetchStatus.Failure or props.RecentListItem then
                 imageInfo = getClassIcon(assetData)
             end

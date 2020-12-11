@@ -5,17 +5,15 @@ return function()
 	local mapToProps = require(script.Parent.mapToProps)
 
 	local Theme = require(script.Parent.Theme)
+	local THEME_REFACTOR = require(Framework.Util.RefactorFlags).THEME_REFACTOR
 
 	local Util = require(Framework.Util)
 	local Style = Util.Style
 	local StyleTable = Util.StyleTable
 	local StyleModifier = Util.StyleModifier
 	local Signal = Util.Signal
-	local FlagsList = Util.Flags.new({
-		FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
-	})
 
-	if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+	if THEME_REFACTOR then
 		return
 	end
 

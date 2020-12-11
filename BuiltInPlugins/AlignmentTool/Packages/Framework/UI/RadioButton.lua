@@ -26,9 +26,7 @@ local TextLabel = require(Framework.UI.TextLabel)
 local Util = require(Framework.Util)
 local Typecheck = Util.Typecheck
 local StyleModifier = Util.StyleModifier
-local FlagsList = Util.Flags.new({
-	FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
-})
+local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 
 local RadioButton = Roact.PureComponent:extend("RadioButton")
 Typecheck.wrap(RadioButton, script)
@@ -60,7 +58,7 @@ function RadioButton:render()
 	local theme = self.props.Theme
 
 	local style
-	if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+	if THEME_REFACTOR then
 		style = self.props.Stylizer
 	else
 		style = theme:getStyle("Framework", self)
@@ -126,8 +124,8 @@ function RadioButton:render()
 end
 
 ContextServices.mapToProps(RadioButton, {
-	Stylizer = FlagsList:get("FFlagRefactorDevFrameworkTheme") and ContextServices.Stylizer or nil,
-	Theme = (not FlagsList:get("FFlagRefactorDevFrameworkTheme")) and ContextServices.Theme or nil,
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
 })
 
 return RadioButton

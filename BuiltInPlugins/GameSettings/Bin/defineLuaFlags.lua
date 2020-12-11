@@ -9,5 +9,6 @@ game:DefineFastFlag("EnableDevProductsInGameSettings", false)
 game:DefineFastFlag("StudioFixGameManagementIndexNil", false)
 game:DefineFastFlag("StudioUXImprovementsLoosenTCPermissions", false)
 game:DefineFastFlag("UXImprovementsShowUserPermsWhenCollaborator", false)
+game:DefineFastFlag("UXImprovementsNonTCPlacesAllowedPlay", false)
 
 return nil

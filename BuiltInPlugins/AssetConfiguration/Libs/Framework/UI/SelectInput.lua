@@ -38,9 +38,7 @@ local StyleModifier = Util.StyleModifier
 local SelectInput = Roact.PureComponent:extend("SelectInput")
 Typecheck.wrap(SelectInput, script)
 
-local FlagsList = Util.Flags.new({
-	FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
-})
+local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 
 local BORDER_SIZE = 1
 
@@ -81,7 +79,7 @@ function SelectInput:render()
 	local state = self.state
 
 	local style
-	if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+	if THEME_REFACTOR then
 		style = props.Stylizer
 	else
 		style = props.Theme:getStyle("Framework", self)
@@ -138,8 +136,8 @@ end
 
 ContextServices.mapToProps(SelectInput, {
 	Focus = ContextServices.Focus,
-	Stylizer = FlagsList:get("FFlagRefactorDevFrameworkTheme") and ContextServices.Stylizer or nil,
-	Theme = (not FlagsList:get("FFlagRefactorDevFrameworkTheme")) and ContextServices.Theme or nil,
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
 })
 
 return SelectInput

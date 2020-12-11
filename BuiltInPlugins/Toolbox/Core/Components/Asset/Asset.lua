@@ -20,9 +20,9 @@
 		callback onPreviewAudioButtonClicked
 ]]
 
-local FFlagFixAssetTextTruncation = game:DefineFastFlag("FixAssetTextTruncation", false)
 local FFlagRemoveAudioEndorsedIcon = game:GetFastFlag("RemoveAudioEndorsedIcon")
 local FFlagUseCategoryNameInToolbox = game:GetFastFlag("UseCategoryNameInToolbox")
+local FFlagToolboxFixShowNilCreationStatus = game:DefineFastFlag("ToolboxFixShowNilCreationStatus", false)
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -192,7 +192,17 @@ function Asset:render()
 				showVotes = false
 			end
 
-			local showStatus = isCurrentlyCreationsTab
+			local showStatus
+			if FFlagToolboxFixShowNilCreationStatus then
+				showStatus = isCurrentlyCreationsTab
+
+				if showStatus and status == nil then
+					warn("Status is nil for asset", assetId)
+					showStatus = false
+				end
+			else
+				showStatus = isCurrentlyCreationsTab
+			end
 
 			local layoutOrder = props.LayoutOrder
 			local isHovered = props.isHovered
@@ -393,8 +403,7 @@ function Asset:render()
 						TextXAlignment = Enum.TextXAlignment.Center,
 						TextYAlignment = Enum.TextYAlignment.Top,
 						ClipsDescendants = false,
-						TextTruncate = FFlagFixAssetTextTruncation and Enum.TextTruncate.None
-							or Enum.TextTruncate.AtEnd,
+						TextTruncate = Enum.TextTruncate.None,
 					}),
 				}),
 			})

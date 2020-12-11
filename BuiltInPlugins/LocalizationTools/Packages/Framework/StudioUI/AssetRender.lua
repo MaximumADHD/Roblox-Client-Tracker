@@ -50,8 +50,9 @@ local AssetRenderModel = require(Framework.StudioUI.AssetRenderModel)
 local AssetRenderThumbnail = require(Framework.StudioUI.AssetRenderThumbnail)
 
 local FlagsList = Util.Flags.new({
-	FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
+	FFlagEnableRoactInspector = {"EnableRoactInspector"},
 })
+local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 
 local AssetRender = Roact.PureComponent:extend("AssetRender")
 Typecheck.wrap(AssetRender, script)
@@ -77,9 +78,18 @@ function AssetRender:init()
 	end
 
 	self.onTreeViewExpansionChange = function(expansion)
-		self:setState({
-			treeViewExpansion = expansion
-		})
+		if FlagsList:get("FFlagEnableRoactInspector") then
+			-- TODO FFlagEnableRoactInspector: Move import to top of file
+			local Dash = require(Framework.packages.Dash)
+			local join = Dash.join
+			self:setState({
+				treeViewExpansion = join(self.state.treeViewExpansion, expansion)
+			})
+		else
+			self:setState({
+				treeViewExpansion = expansion
+			})
+		end
 	end
 
 	self.onTreeViewSelectionChange = function(selection)
@@ -105,7 +115,7 @@ function AssetRender:render()
 
 	local theme = props.Theme
 	local style
-	if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+	if THEME_REFACTOR then
 		style = self.props.Stylizer
 	else
 		style = theme:getStyle("Framework", self)
@@ -237,8 +247,8 @@ function AssetRender:render()
 end
 
 ContextServices.mapToProps(AssetRender, {
-	Stylizer = FlagsList:get("FFlagRefactorDevFrameworkTheme") and ContextServices.Stylizer or nil,
-	Theme = (not FlagsList:get("FFlagRefactorDevFrameworkTheme")) and ContextServices.Theme or nil,
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
 })
 
 return AssetRender

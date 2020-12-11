@@ -1,12 +1,9 @@
 return function()
 
 	local Util = script.Parent
-	local Flags = require(Util.Flags)
-	local FlagsList = Flags.new({
-		FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
-	})
+	local THEME_REFACTOR = require(Util.RefactorFlags).THEME_REFACTOR
 
-	if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+	if THEME_REFACTOR then
 		return
 	end
 

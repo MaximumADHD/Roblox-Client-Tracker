@@ -6,13 +6,14 @@
 		table Instances: The instance which this tree should display at root
 		table Expansion: Which items should be expanded - Set<Item>
 		table Selection: Which items should be selected - Set<Item>
-		callback OnExpansionChange: Called when a node is expanded or not - (newExpansion: Set<Item>) => void
+		callback OnExpansionChange: Called when a node is expanded or not - (changedExpansion: Set<Item>) => void
 		callback OnSelectionChange: Called when a node is selected or not - (newSelection: Set<Item>) => void
 
 	Optional Props:
 		Theme Theme: The theme supplied from mapToProps()
 		callback SortChildren: A comparator function to sort two items in the tree - SortChildren(left: Item, right: Item) => boolean
 		Style Style: a style table supplied from props and theme:getStyle()
+		number LayoutOrder: LayoutOrder of the component.
 		Stylizer Stylizer: A Stylizer ContextItem, which is provided via mapToProps.
 
 	Style Values:
@@ -31,11 +32,13 @@ local Cryo = require(Framework.Parent.Cryo)
 local UI = Framework.UI
 local TreeView = require(UI.TreeView)
 local InstanceTreeRow = require(script.InstanceTreeRow)
-local Util = require(Framework.Util)
 
+local Util = require(Framework.Util)
 local FlagsList = Util.Flags.new({
-	FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
+	FFlagEnableRoactInspector = {"EnableRoactInspector"},
 })
+
+local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 
 local InstanceTreeView = Roact.PureComponent:extend("InstanceTreeView")
 Typecheck.wrap(InstanceTreeView, script)
@@ -45,9 +48,16 @@ InstanceTreeView.defaultProps = {}
 function InstanceTreeView:init()
 
 	self.toggleRow = function(row)
-		local newExpansion = Cryo.Dictionary.join(self.props.Expansion, {
-			[row.item] = not self.props.Expansion[row.item]
-		})
+		local newExpansion
+		if FlagsList:get("FFlagEnableRoactInspector") then
+			newExpansion = {
+				[row.item] = not self.props.Expansion[row.item]
+			}
+		else
+			newExpansion = Cryo.Dictionary.join(self.props.Expansion, {
+				[row.item] = not self.props.Expansion[row.item]
+			})
+		end
 		self.props.OnExpansionChange(newExpansion)
 	end
 
@@ -62,14 +72,13 @@ function InstanceTreeView:init()
 		local props = self.props
 		local theme = props.Theme
 		local style
-		if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+		if THEME_REFACTOR then
 			style = props.Stylizer
 		else
 			style = theme:getStyle("Framework", self)
 		end
 		local isSelected = props.Selection[row.item]
 		local isExpanded = props.Expansion[row.item]
-
 		return Roact.createElement(InstanceTreeRow, {
 			row = row,
 			style = style,
@@ -93,13 +102,14 @@ function InstanceTreeView:render()
 	local props = self.props
 	local theme = props.Theme
 	local style
-	if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+	if THEME_REFACTOR then
 		style = props.Stylizer
 	else
 		style = theme:getStyle("Framework", self)
 	end
 
 	return Roact.createElement(TreeView, {
+		LayoutOrder = props.LayoutOrder,
 		RootItems = props.Instances,
 		GetChildren = self.getChildren,
 		GetItemKey = self.getItemKey,
@@ -111,8 +121,8 @@ function InstanceTreeView:render()
 end
 
 ContextServices.mapToProps(InstanceTreeView, {
-	Stylizer = FlagsList:get("FFlagRefactorDevFrameworkTheme") and ContextServices.Stylizer or nil,
-	Theme = (not FlagsList:get("FFlagRefactorDevFrameworkTheme")) and ContextServices.Theme or nil,
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
 })
 
 return InstanceTreeView

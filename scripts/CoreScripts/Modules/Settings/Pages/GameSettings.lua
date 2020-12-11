@@ -54,8 +54,6 @@ local FFlagGroupEditDevConsoleButton = settings():GetFFlag("GroupEditDevConsoleB
 local FFlagMicroProfilerSessionAnalytics = settings():GetFFlag("MicroProfilerSessionAnalytics")
 local FFlagCollectAnalyticsForSystemMenu = settings():GetFFlag("CollectAnalyticsForSystemMenu")
 
-game:DefineFastFlag("PutGameSettingsInitBackTheWayItWas", false)
-
 local GetFFlagFullscreenAnalytics = require(RobloxGui.Modules.Flags.GetFFlagFullscreenAnalytics)
 
 local MICROPROFILER_SETTINGS_PRESSED = "MicroprofilerSettingsPressed"
@@ -500,11 +498,7 @@ local function Initialize()
 					if newIndex == 1 then
 						setGraphicsToAuto()
 					elseif newIndex == 2 then
-						if game:GetFastFlag("PutGameSettingsInitBackTheWayItWas") then
-							setGraphicsToManual(this.GraphicsQualitySlider:GetValue())
-						else
-							setGraphicsToManual(this.mostRecentGraphicsQualityValue)
-						end
+						setGraphicsToManual(this.GraphicsQualitySlider:GetValue())
 					end
 					reportSettingsForAnalytics()
 				end

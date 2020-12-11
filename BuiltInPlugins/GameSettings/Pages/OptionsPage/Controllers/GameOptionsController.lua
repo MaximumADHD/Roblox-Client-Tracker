@@ -45,18 +45,6 @@ function GameOptionsController:setScriptCollaborationEnabled(game, enabled)
 	end
 end
 
-function GameOptionsController:getScriptVersionHistoryEnabled(game)
-	local StudioData = game:GetService("StudioData")
-
-	return StudioData.EnableScriptCollabVersionHistoryOnLoad
-end
-
-function GameOptionsController:setScriptVersionHistoryEnabled(game, enabled)
-	local StudioData = game:GetService("StudioData")
-
-	StudioData.EnableScriptCollabVersionHistoryOnLoad = enabled
-end
-
 function GameOptionsController:shutdownAllServers(gameId)
 	self:universesShutdownV2POST(gameId):await()
 end

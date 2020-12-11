@@ -5,10 +5,13 @@ local CorePackages = game:GetService("CorePackages")
 local PurchasePromptDeps = require(CorePackages.PurchasePromptDeps)
 local Roact = PurchasePromptDeps.Roact
 
+local ButtonState = require(Root.Enums.ButtonState)
 local connectToStore = require(Root.connectToStore)
 
 local TextLocalizer = require(script.Parent.Parent.Connection.TextLocalizer)
 local withLayoutValues = require(script.Parent.Parent.Connection.withLayoutValues)
+
+local GetFFlagPurchasePromptScaryModalV2 = require(Root.Flags.GetFFlagPurchasePromptScaryModalV2)
 
 local Button = Roact.PureComponent:extend("Button")
 
@@ -34,7 +37,15 @@ function Button:init()
 	end
 
 	self.activated = function()
-		onClick()
+		if GetFFlagPurchasePromptScaryModalV2() and self.props.buttonState ~= ButtonState.Enabled then
+			return
+		end
+
+		if GetFFlagPurchasePromptScaryModalV2() then
+			self.props.onClick()
+		else
+			onClick()
+		end
 		self:setState({
 			currentImage = imageUp
 		})
@@ -80,11 +91,16 @@ function Button:render()
 		local font = self.props.font
 		local size = self.props.size
 		local position = self.props.position
+		local buttonState = self.props.buttonState
 
 		local gamepadEnabled = self.props.gamepadEnabled
 		local gamepadButton = self.props.gamepadButton
 
 		local imageData = values.Image[self.state.currentImage]
+
+		if GetFFlagPurchasePromptScaryModalV2() and buttonState ~= ButtonState.Enabled then
+			imageData = values.Image[self.props.imageDown]
+		end
 
 		local buttonContents = {
 			ButtonLabel = Roact.createElement(TextLocalizer, {
@@ -153,7 +169,8 @@ end
 
 local function mapStateToProps(state)
 	return {
-		gamepadEnabled = state.gamepadEnabled
+		gamepadEnabled = state.gamepadEnabled,
+		buttonState = state.buttonState,
 	}
 end
 

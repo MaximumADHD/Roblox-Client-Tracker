@@ -31,8 +31,11 @@ local MockPlugin = require(DevFrameworkRoot.TestHelpers.Instances.MockPlugin)
 local Rodux = require(DevFrameworkRoot.Parent.Rodux)
 local StudioTheme = require(DevFrameworkRoot.Style.Themes.StudioTheme)
 local Util = require(DevFrameworkRoot.Util)
+local Resources = require(DevFrameworkRoot.Resources)
+
+local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local FlagsList = Util.Flags.new({
-	FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
+	FFlagDevFrameworkLocalizationLibraries = {"DevFrameworkLocalizationLibraries"},
 })
 
 -- contextItemsList : (table, optional) a list of ContextItems to include in the stack. Will override any duplicates.
@@ -59,7 +62,14 @@ return function(contextItemsList, children)
 	table.insert(contextItems, focus)
 
 	-- Localization
-	local localization = ContextServices.Localization.mock()
+	local localization = ContextServices.Localization.mock(FlagsList:get("FFlagDevFrameworkLocalizationLibraries") and {
+		libraries = {
+			[Resources.LOCALIZATION_PROJECT_NAME] = {
+				stringResourceTable = Resources.TranslationDevelopmentTable,
+				translationResourceTable = Resources.TranslationReferenceTable,
+			},
+		},
+	} or nil)
 	table.insert(contextItems, localization)
 
 	-- Mouse
@@ -90,7 +100,7 @@ return function(contextItemsList, children)
 
 	-- Theme
 	local theme
-	if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+	if THEME_REFACTOR then
 		theme = StudioTheme.mock()
 	else
 		theme = ContextServices.Theme.mock(function(theme, getColor)

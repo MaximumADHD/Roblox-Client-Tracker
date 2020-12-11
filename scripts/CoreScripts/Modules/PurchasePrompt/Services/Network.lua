@@ -14,6 +14,7 @@ local BASE_URL = string.gsub(ContentProvider.BaseUrl:lower(), "/m.", "/www.")
 BASE_URL = string.gsub(BASE_URL, "http:", "https:")
 
 local API_URL = string.gsub(BASE_URL, "https://www", "https://api")
+local APIS_URL = string.gsub(BASE_URL, "https://www", "https://apis")
 local AB_TEST_URL = string.gsub(BASE_URL, "https://www", "https://abtesting")
 local BASE_CATALOG_URL = string.gsub(BASE_URL, "https://www.", "https://catalog.")
 local BASE_ECONOMY_URL = string.gsub(BASE_URL, "https://www.", "https://economy.")
@@ -208,6 +209,43 @@ local function getPremiumUpsellPrecheck()
 	end)
 end
 
+local function getPurchaseWarning(mobileProductId)
+	local url = string.format("%spurchase-warning/v1/purchase-warnings?mobileProductId=%s", APIS_URL, mobileProductId)
+	local options = {
+		Url = url,
+		Method = "GET"
+	}
+
+	return Promise.new(function(resolve, reject)
+		spawn(function()
+			request(options, resolve, reject)
+		end)
+	end)
+end
+
+local function postPurchaseWarningAcknowledge(userAction)
+	local url = string.format("%spurchase-warning/v1/purchase-warnings/acknowledge", APIS_URL)
+	local options = {
+		Url = url,
+		Method = "POST",
+		Body = HttpService:JSONEncode({
+			acknowledgement = userAction,
+		}),
+		Headers = {
+			["Content-Type"] = "application/json",
+			["Accept"] = "application/json",
+		}
+	}
+
+	return Promise.new(function(resolve, reject)
+		spawn(function()
+			return HttpService:RequestInternal(options):Start(function(success, response)
+				-- Ignore all responses, don't need to do anything
+			end)
+		end)
+	end)
+end
+
 local Network = {}
 
 -- TODO: "Promisify" is not strictly necessary with the new `request` structure,
@@ -226,6 +264,8 @@ function Network.new()
 		getPremiumProductInfo = Promise.promisify(getPremiumProductInfo),
 		postPremiumImpression = Promise.promisify(postPremiumImpression),
 		getPremiumUpsellPrecheck = Promise.promisify(getPremiumUpsellPrecheck),
+		getPurchaseWarning = Promise.promisify(getPurchaseWarning),
+		postPurchaseWarningAcknowledge = Promise.promisify(postPurchaseWarningAcknowledge),
 	}
 
 	setmetatable(networkService, {

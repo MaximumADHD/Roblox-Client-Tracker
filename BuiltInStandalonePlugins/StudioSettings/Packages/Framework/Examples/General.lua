@@ -29,23 +29,42 @@ local Plugin = ContextServices.Plugin
 local UIFolderData = require(Framework.UI.UIFolderData)
 local StudioUIFolderData = require(Framework.StudioUI.StudioUIFolderData)
 
-local exampleData = {
-	{
-		name = "theme",
-		label = "Theme",
-		folderPrefix = "examples",
-	},
-	{
-		name = "localization",
-		label = "Localization",
-		folderPrefix = "examples",
-	},
-	{
-		name = "stylevalue",
-		label = "StyleValue",
-		folderPrefix = "examples",
-	},
-}
+local Util = require(Framework.Util)
+local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
+
+local exampleData
+if (THEME_REFACTOR) then
+	exampleData = {
+		{
+			name = "stylizer",
+			label = "Stylizer (Theme2)",
+			folderPrefix = "examples",
+		},
+		{
+			name = "localization",
+			label = "Localization",
+			folderPrefix = "examples",
+		},
+	}
+else
+	exampleData = {
+		{
+			name = "theme",
+			label = "Theme",
+			folderPrefix = "examples",
+		},
+		{
+			name = "localization",
+			label = "Localization",
+			folderPrefix = "examples",
+		},
+		{
+			name = "stylevalue",
+			label = "StyleValue",
+			folderPrefix = "examples",
+		},
+	}
+end
 
 local overrideUiExampleName = {
 	["Container"] = "Container and Decoration",
@@ -167,7 +186,7 @@ function Examples:render()
 		}, {
 			ExampleList = entries and Roact.createElement("ScrollingFrame", {
 				Size = UDim2.new(0, 400, 0, 600),
-				CanvasSize = UDim2.new(0, 400, 0, 80 * #exampleData),
+				CanvasSize = UDim2.new(0, 0, 0, 80 * #exampleData),
 				Position = UDim2.new(0.5, 0, 0.5, 0),
 				AnchorPoint = Vector2.new(0.5, 0.5),
 				BorderSizePixel = 2,

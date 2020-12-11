@@ -13,7 +13,9 @@
 		Style Style: a style table supplied from props and theme:getStyle()
 		Stylizer Stylizer: A Stylizer ContextItem, which is provided via mapToProps.
 		callback SortChildren: A comparator function to sort two items in the tree - SortChildren(left: Item, right: Item) => boolean
-		callback GetItemKey: Return a unique key for an item - GetItemKey(item: Item) => string
+		callback GetItemKey: Return a key for an item, unique among siblings - GetItemKey(item: Item) => string
+		Enum.ScrollingDirection ScrollingDirection: The direction to allow scroll in default = XY
+		number LayoutOrder: LayoutOrder of the component.
 
 	Style Values:
 		table ScrollingFrame: Style values for the tree view's scrolling frame.
@@ -39,9 +41,7 @@ local UI = Framework.UI
 local Container = require(UI.Container)
 local Util = require(Framework.Util)
 
-local FlagsList = Util.Flags.new({
-	FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
-})
+local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 
 local TreeView = Roact.PureComponent:extend("TreeView")
 local ScrollingFrame = require(Framework.UI.ScrollingFrame)
@@ -107,7 +107,7 @@ function TreeView:render()
 	local rows = state.rows
 	local theme = props.Theme
 	local style
-	if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+	if THEME_REFACTOR then
 		style = props.Stylizer
 	else
 		style = theme:getStyle("Framework", self)
@@ -124,10 +124,12 @@ function TreeView:render()
 		Size = props.Size,
 		Background = style.Background,
 		BackgroundStyle = style.BackgroundStyle,
+		LayoutOrder = props.LayoutOrder,
 	}, {
 		ScrollingFrame = Roact.createElement(ScrollingFrame, {
 			Size = UDim2.fromScale(1, 1),
 			Style = style.ScrollingFrame,
+			ScrollingDirection = props.ScrollingDirection,
 			AutoSizeCanvas = true,
 			AutoSizeLayoutOptions = {
 				SortOrder = Enum.SortOrder.LayoutOrder
@@ -137,8 +139,8 @@ function TreeView:render()
 end
 
 ContextServices.mapToProps(TreeView, {
-	Stylizer = FlagsList:get("FFlagRefactorDevFrameworkTheme") and ContextServices.Stylizer or nil,
-	Theme = (not FlagsList:get("FFlagRefactorDevFrameworkTheme")) and ContextServices.Theme or nil,
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
 })
 
 return TreeView

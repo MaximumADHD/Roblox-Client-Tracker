@@ -34,6 +34,7 @@ local TestEZ = {
 	Reporters = {
 		TextReporter = TextReporter,
 		TeamCityReporter = TeamCityReporter,
+		TextReporterQuiet = TextReporter,
 	},
 }
 

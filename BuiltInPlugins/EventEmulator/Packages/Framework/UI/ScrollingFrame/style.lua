@@ -4,16 +4,14 @@ local Util = require(Framework.Util)
 local Cryo = Util.Cryo
 local deepCopy = Util.deepCopy
 local Style = Util.Style
-local FlagsList = Util.Flags.new({
-	FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
-})
+local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 
 local StudioFrameworkStyles = Framework.StudioUI.StudioFrameworkStyles
 local Common = require(StudioFrameworkStyles.Common)
 local UIFolderData = require(Framework.UI.UIFolderData)
 local InfiniteScrollingFrame = require(UIFolderData.InfiniteScrollingFrame.style)
 
-if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+if THEME_REFACTOR then
 	local infiniteScrollingFrame = deepCopy(InfiniteScrollingFrame)
 	return Cryo.Dictionary.join(infiniteScrollingFrame, {
 		AutoSizeCanvas = true,

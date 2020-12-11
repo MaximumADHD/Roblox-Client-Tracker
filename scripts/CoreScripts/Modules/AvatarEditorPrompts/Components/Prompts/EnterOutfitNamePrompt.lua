@@ -42,6 +42,7 @@ EnterOutfitNamePrompt.validateProps = t.strictInterface({
 	--State
 	screenSize = t.Vector2,
 	--Dispatch
+	signalCreateOutfitPermissionDenied = t.callback,
 	performCreateOutfit = t.callback,
 })
 

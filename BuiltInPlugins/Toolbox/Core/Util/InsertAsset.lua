@@ -22,6 +22,7 @@ local FFlagToolboxForceSelectDragger = game:GetFastFlag("ToolboxForceSelectDragg
 local FFlagDragFaceInstances = game:GetFastFlag("DragFaceInstances")
 local FFlagFixGroupPackagesCategoryInToolbox = game:GetFastFlag("FixGroupPackagesCategoryInToolbox")
 local FFlagEnableDefaultSortFix2 = game:GetFastFlag("EnableDefaultSortFix2")
+local FFlagToolboxInsertAllAssetsAsync = game:DefineFastFlag("ToolboxInsertAllAssetsAsync", false)
 
 local INSERT_MAX_SEARCH_DEPTH = 2048
 local INSERT_MAX_DISTANCE_AWAY = 64
@@ -157,7 +158,11 @@ local function insertDecal(plugin, assetId, assetName)
 		if DebugFlags.shouldDebugUrls() then
 			print(("Inserting decal %s"):format(url))
 		end
-		tbl = game:GetObjects(url)
+		if FFlagToolboxInsertAllAssetsAsync then
+			tbl = game:GetObjectsAsync(url)
+		else
+			tbl = game:GetObjects(url)
+		end
 	end)
 
 	if success and tbl and tbl[1] then
@@ -193,7 +198,11 @@ local function insertPackage(assetId)
 		if DebugFlags.shouldDebugUrls() then
 			print(("Inserting package %s"):format(url))
 		end
-		instanceTable = InsertService:LoadPackageAsset(url)
+		if FFlagToolboxInsertAllAssetsAsync then
+			instanceTable = InsertService:LoadPackageAssetAsync(url)
+		else
+			instanceTable = InsertService:LoadPackageAsset(url)
+		end
 	end)
 
 	if success and instanceTable and instanceTable[1] then

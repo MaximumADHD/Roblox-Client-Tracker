@@ -1,12 +1,13 @@
 --[[
 	A Decoration image.
 
-	Required Props:
-		Theme Theme: A Theme ContextItem, which is provided via mapToProps.
-
 	Optional Props:
+		Theme Theme: A Theme ContextItem, which is provided via mapToProps.
 		Style Style: The style with which to render this component.
 		StyleModifier StyleModifier: The StyleModifier index into Style.
+		Enum.SizeConstraint SizeConstraint: the direction(s) that the image can be resized in.
+		number LayoutOrder: LayoutOrder of the component.
+		Stylizer Stylizer: A Stylizer ContextItem, which is provided via mapToProps.
 
 	Style Values:
 		Vector2 AnchorPoint: The anchor point of the image.
@@ -20,12 +21,14 @@
 		Vector2 ImageRectSize: partial pixel size of the image
 		Vector2 ImageRectOffset: pixel offset for rendering part of image
 ]]
-local FFlagAssetManagerLuaCleanup1 = settings():GetFFlag("AssetManagerLuaCleanup1")
 
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
 local ContextServices = require(Framework.ContextServices)
 local Typecheck = require(Framework.Util).Typecheck
+local Util = require(Framework.Util)
+
+local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 
 local Image = Roact.PureComponent:extend("Image")
 Typecheck.wrap(Image, script)
@@ -33,7 +36,12 @@ Typecheck.wrap(Image, script)
 function Image:render()
 	local props = self.props
 	local theme = props.Theme
-	local style = theme:getStyle("Framework", self)
+	local style
+	if THEME_REFACTOR then
+		style = props.Stylizer
+	else
+		style = theme:getStyle("Framework", self)
+	end
 
 	local color = style.Color
 	local transparency = style.Transparency
@@ -41,6 +49,7 @@ function Image:render()
 	local imageRectSize = style.ImageRectSize
 	local imageRectOffset = style.ImageRectOffset
 	local scaleType = style.ScaleType
+	local sizeConstraint = props.SizeConstraint
 	local sliceCenter = style.SliceCenter
 	local anchorPoint = style.AnchorPoint
 	local position = style.Position or UDim2.new(0, 0, 0, 0)
@@ -60,12 +69,14 @@ function Image:render()
 		ImageRectOffset = imageRectOffset,
 		ScaleType = scaleType,
 		SliceCenter = sliceCenter,
-		LayoutOrder = FFlagAssetManagerLuaCleanup1 and layoutOrder or nil,
+		SizeConstraint = sizeConstraint,
+		LayoutOrder = layoutOrder,
 	}, props[Roact.Children])
 end
 
 ContextServices.mapToProps(Image, {
-	Theme = ContextServices.Theme,
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
 })
 
 return Image

@@ -4,6 +4,9 @@
 	Provides a single location for base urls.
 ]]
 
+local FFlagToolboxUrlEncodeQueryStrings = game:DefineFastFlag("ToolboxUrlEncodeQueryStrings", false)
+
+local HttpService = game:GetService("HttpService")
 local ContentProvider = game:GetService("ContentProvider")
 
 -- helper functions
@@ -93,10 +96,18 @@ function Url.makeQueryString(data)
 		if value ~= nil then --for optional params
 			if type(value) == "table" then
 				for i = 1, #value do
-					table.insert(params, key .. "=" .. value[i])
+					if FFlagToolboxUrlEncodeQueryStrings then
+						table.insert(params, HttpService:UrlEncode(key) .. "=" .. HttpService:UrlEncode(value[i]))
+					else
+						table.insert(params, key .. "=" .. value[i])
+					end
 				end
 			else
-				table.insert(params, key .. "=" .. tostring(value))
+				if FFlagToolboxUrlEncodeQueryStrings then
+					table.insert(params, HttpService:UrlEncode(key) .. "=" .. HttpService:UrlEncode(tostring(value)))
+				else
+					table.insert(params, key .. "=" .. tostring(value))
+				end
 			end
 		end
 	end

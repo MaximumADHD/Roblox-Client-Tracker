@@ -8,17 +8,27 @@ return function()
 	local RadioButton = require(script.Parent)
 	local Immutable = require(Framework.Util.Immutable)
 
+	local StudioTheme = require(Framework.Style.Themes.StudioTheme)
+
+	local Util = require(Framework.Util)
+	local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
+
 	local DEFAULT_PROPS = {
 		Key = "",
 		Text = "",
 	}
 
 	local function createTestRadioButton(props, children)
-		local theme = Theme.new(function()
-			return {
-				Framework = FrameworkStyles.new(),
-			}
-		end)
+		local theme
+		if THEME_REFACTOR then
+			theme = StudioTheme.mock()
+		else
+			theme = Theme.new(function()
+				return {
+					Framework = FrameworkStyles.new(),
+				}
+			end)
+		end
 		local combinedProps
 		if props then
 			combinedProps = Immutable.JoinDictionaries(DEFAULT_PROPS, props)

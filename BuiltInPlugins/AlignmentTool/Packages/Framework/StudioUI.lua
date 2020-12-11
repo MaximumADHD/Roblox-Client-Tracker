@@ -7,6 +7,7 @@ local strict = require(script.Parent.Util.strict)
 local StudioUI = strict({
 	-- Default styles for the Framework
 	StudioFrameworkStyles = require(script.StudioFrameworkStyles),
+	Common = require(script.StudioFrameworkStyles.Common),
 
 	-- PluginWidgets
 	AssetRender = require(script.AssetRender),

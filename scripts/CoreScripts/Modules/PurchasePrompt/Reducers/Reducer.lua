@@ -19,6 +19,7 @@ local HasCompletedPurchaseReducer = require(script.Parent.HasCompletedPurchaseRe
 local GamepadEnabledReducer = require(script.Parent.GamepadEnabledReducer)
 local ABVariationReducer = require(script.Parent.ABVariationReducer)
 local WindowStateReducer = require(script.Parent.WindowStateReducer)
+local ButtonStateReducer = require(script.Parent.ButtonStateReducer)
 
 local Reducer = Rodux.combineReducers({
 	promptRequest = PromptRequestReducer,
@@ -33,6 +34,7 @@ local Reducer = Rodux.combineReducers({
 	gamepadEnabled = GamepadEnabledReducer,
 	abVariations = ABVariationReducer,
 	windowState = WindowStateReducer,
+	buttonState = ButtonStateReducer,
 })
 
 return Reducer

@@ -22,7 +22,7 @@ return function()
 	}
 
 	it("should create and destroy without errors", function()
-		local layoutValues = CreateLayoutValues(false, false)
+		local layoutValues = CreateLayoutValues(false)
 
 		local element = Roact.createElement(LayoutValuesProvider, {
 			layoutValues = layoutValues
@@ -58,7 +58,7 @@ return function()
 	end)
 
 	it("should create and destroy without errors tenfoot", function()
-		local layoutValues = CreateLayoutValues(true, false)
+		local layoutValues = CreateLayoutValues(true)
 
 		local element = Roact.createElement(LayoutValuesProvider, {
 			layoutValues = layoutValues

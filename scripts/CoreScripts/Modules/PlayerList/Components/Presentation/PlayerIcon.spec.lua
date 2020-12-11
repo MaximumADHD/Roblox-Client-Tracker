@@ -15,7 +15,7 @@ return function()
 
 	it("should create and destroy without errors", function()
 		local element = Roact.createElement(LayoutValuesProvider, {
-			layoutValues = CreateLayoutValues(false, false)
+			layoutValues = CreateLayoutValues(false)
 		}, {
 			PlayerIcon = Roact.createElement(PlayerIcon, {
 				player = Players.LocalPlayer,
@@ -41,7 +41,7 @@ return function()
 
 	it("should create and destroy without errors tenfoot", function()
 		local element = Roact.createElement(LayoutValuesProvider, {
-			layoutValues = CreateLayoutValues(true, false)
+			layoutValues = CreateLayoutValues(true)
 		}, {
 			PlayerIcon = Roact.createElement(PlayerIcon, {
 				player = Players.LocalPlayer,

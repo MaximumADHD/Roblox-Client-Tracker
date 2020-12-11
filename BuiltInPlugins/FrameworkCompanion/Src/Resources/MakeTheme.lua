@@ -19,9 +19,7 @@ local StyleTable = Util.StyleTable
 local Style = Util.Style
 local StyleValue = Util.StyleValue
 local Cryo = Util.Cryo
-local FlagsList = Util.Flags.new({
-	FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
-})
+local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 
 local FrameworkStyle = Framework.Style
 local StyleKey = FrameworkStyle.StyleKey
@@ -30,8 +28,7 @@ local StudioTheme = FrameworkStyle.Themes.StudioTheme
 local ui = FrameworkStyle.ComponentSymbols
 
 local function makeTheme(shouldMock)
-	if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
-
+	if THEME_REFACTOR then
 		local styleRoot
 		if shouldMock then
 			styleRoot = StudioTheme.mock()

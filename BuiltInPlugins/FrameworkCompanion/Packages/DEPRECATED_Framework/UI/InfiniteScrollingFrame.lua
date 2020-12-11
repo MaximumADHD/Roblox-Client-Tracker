@@ -38,9 +38,9 @@
 ]]
 local Framework = script.Parent.Parent
 local Util = require(Framework.Util)
+local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local FlagsList = Util.Flags.new({
 	FFlagStudioDevFrameworkPackage = {"StudioDevFrameworkPackage"},
-	FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
 })
 
 local Roact = require(Framework.Parent.Roact)
@@ -97,7 +97,7 @@ function InfiniteScrollingFrame:init()
 		-- After filtering out parent's props and DeveloperFramework-specific props (such as Style and Theme),
 		-- what is left are infinite-scroller props
 		local updatedProps
-		if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+		if THEME_REFACTOR then
 			updatedProps = Cryo.Dictionary.join(props, {
 				Stylizer = Cryo.None
 			})
@@ -139,7 +139,7 @@ function InfiniteScrollingFrame:render()
 	local theme = props.Theme
 
 	local style
-	if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+	if THEME_REFACTOR then
 		style = props.Stylizer
 	else
 		style = theme:getStyle("Framework", self)
@@ -162,8 +162,8 @@ function InfiniteScrollingFrame:render()
 end
 
 ContextServices.mapToProps(InfiniteScrollingFrame, {
-	Stylizer = FlagsList:get("FFlagRefactorDevFrameworkTheme") and ContextServices.Stylizer or nil,
-	Theme = (not FlagsList:get("FFlagRefactorDevFrameworkTheme")) and ContextServices.Theme or nil,
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
 })
 
 return InfiniteScrollingFrame

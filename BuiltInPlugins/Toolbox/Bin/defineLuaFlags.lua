@@ -9,8 +9,6 @@ game:DefineFastFlag("DebugAssetConfigNetworkError", false)
 game:DefineFastFlag("EnableDefaultSortFix2", false)
 game:DefineFastFlag("UseCategoryNameInToolbox", false)
 game:DefineFastFlag("DebugToolboxGetRolesRequest", false)
--- Need to explicitly return something from a module
--- Else you get an error "Module code did not return exactly one value"
 
 game:DefineFastFlag("EnableToolboxAssetNameColorChange", false)
 game:DefineFastFlag("RemoveAudioEndorsedIcon", false)
@@ -46,5 +44,13 @@ game:DefineFastFlag("ToolboxUseDevFrameworkAssetPreview", false)
 game:DefineFastFlag("CMSUploadFees", false)
 
 game:DefineFastFlag("ImproveAssetCreationsPageFetching", false)
+
+game:DefineFastFlag("ToolboxMicroserviceSearch", false)
+game:DefineFastFlag("ToolboxModelsMicroserviceSearch", false)
+game:DefineFastFlag("ToolboxUseGetItemDetails", false)
+
+game:DefineFastFlag("EnableToolboxStylizer", false)
+
+game:DefineFastFlag("ToolboxViewInBrowserUtmAttributes", false)
 
 return nil

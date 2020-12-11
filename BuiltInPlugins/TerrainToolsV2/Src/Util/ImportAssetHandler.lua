@@ -81,7 +81,7 @@ function ImportAssetHandler.new(imageUploader, unvalidatedAssetService, userId)
 	return self
 end
 
-function ImportAssetHandler:handleAsset(assetFile, region)
+function ImportAssetHandler:handleAsset(assetFile, region, onAssetUpload)
 	assert(assetFile, "ImportAssetHandler:handleAsset() requires an assetFile")
 	assert(region, "ImportAssetHandler:handleAsset() requires a Region3")
 
@@ -128,6 +128,10 @@ function ImportAssetHandler:handleAsset(assetFile, region)
 
 		self._unvalidatedAssetService:UpgradeTempAssetId(self._userId, tempIdNumber, assetIdNumber)
 		self._seenAssets[tempId] = assetIdNumber
+
+		if onAssetUpload then
+			onAssetUpload(assetIdNumber)
+		end
 	end, function(err)
 		warn("Failed to upload asset", tempId, assetFile.Name)
 	end)

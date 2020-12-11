@@ -3,6 +3,8 @@
 ]]
 
 local FFlagTerrainImportSupportDefaultMaterial = game:GetFastFlag("TerrainImportSupportDefaultMaterial")
+local FFlagTerrainImportGreyscale = game:GetFastFlag("TerrainImportGreyscale")
+local FFlagTerrainToolsMapSettingsMaxVolume = game:GetFastFlag("TerrainToolsMapSettingsMaxVolume")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -36,13 +38,71 @@ local SelectHeightmap = require(Actions.SelectHeightmap)
 local SetUseColorMap = require(Actions.SetUseColorMap)
 local SetDefaultMaterial = require(Actions.SetDefaultMaterial)
 local SetImportMaterialMode = require(Actions.SetImportMaterialMode)
+local SetSizeChangedByUser = require(Actions.SetSizeChangedByUser)
 
+local Constants = require(Plugin.Src.Util.Constants)
 local TerrainEnums = require(Plugin.Src.Util.TerrainEnums)
 local ImportMaterialMode = TerrainEnums.ImportMaterialMode
 
 local HeightmapImporterService = game:GetService("HeightmapImporterService")
 
 local REDUCER_KEY = "ImportLocalTool"
+
+-- TODO: Tweak these
+local ASPECT_RATIO_THRESHOLD = 0.1
+local MAX_SCALE_FACTOR = 2
+
+local MAX_VOLUME_VOXELS = 256 * 4096 * 4096
+local MAX_VOLUME_STUDS = MAX_VOLUME_VOXELS * Constants.VOXEL_RESOLUTION^3
+
+--[[
+	Returns a struct with 3 members: Error, Warning and Info. All either strings or nil
+]]
+local function getMessagesForImage(image, targetRegion, localization)
+	local messages = {}
+
+	if not image or not image.file then
+		return messages
+	end
+
+	local targetRegionWidth = targetRegion.X
+	local targetRegionHeight = targetRegion.Z
+	local targetRegionAspectRatio = targetRegionWidth / targetRegionHeight
+
+	local width = image.width
+	local height = image.height
+
+	local heightmapAspectRatio = width / height
+	local widthScale = (targetRegionWidth / Constants.VOXEL_RESOLUTION) / width
+	local heightScale = (targetRegionHeight / Constants.VOXEL_RESOLUTION) / height
+
+	if math.abs(heightmapAspectRatio - targetRegionAspectRatio) > ASPECT_RATIO_THRESHOLD then
+		local aspectW = width
+		local aspectH = height
+
+		for i = math.min(width, height), 1, -1 do
+			local w = width / i
+			local h = height / i
+			if math.floor(w) == w and math.floor(h) == h then
+				aspectW = w
+				aspectH = h
+				break
+			end
+		end
+
+		local aspectString = ("%i:%i"):format(aspectW, aspectH)
+
+		messages.Warning = localization:getText("ImportWarning", "AspectRatio",
+			aspectString, targetRegionWidth, targetRegionHeight)
+	end
+
+	if widthScale > MAX_SCALE_FACTOR or heightScale > MAX_SCALE_FACTOR then
+		messages.Warning = localization:getText("ImportWarning", "ImageTooSmall",
+			width, height, targetRegionWidth, targetRegionHeight)
+	end
+
+	return messages
+end
 
 local ImportLocal = Roact.PureComponent:extend(script.Name)
 
@@ -58,6 +118,9 @@ function ImportLocal:init()
 	self.onImportButtonClicked = function()
 		-- TODO MOD-46, MOD-49: Handle registering asset usage and uploading local files to get real asset ids
 		self.props.TerrainImporter:startImport()
+
+		-- This import is "finished", so reset for the next image selection
+		self.props.dispatchSetSizeChangedByUser(false)
 	end
 
 	self.setMapSettingsValid = function(mapSettingsValid)
@@ -74,35 +137,73 @@ function ImportLocal:init()
 		self.props.TerrainImporter:cancel()
 	end
 
-	self.selectHeightmap = function(file)
+	self.selectHeightmap = function(file, err)
 		if not file then
-			-- Reducers understand that nil = clear selection
-			self.props.dispatchSelectHeightmap(nil)
+			warn(("Failed to select heightmap: %s"):format(tostring(err)))
+			self.setErrorMessage("FailedToLoadHeightmap", "FailedToSelectFile")
 			return
 		end
 
 		local id = file:GetTemporaryId()
 		local success, status, width, height, channels, bytesPerChannel = HeightmapImporterService:IsValidHeightmap(id)
+		local previewSuccess, preview, channelsWereDiscarded
+		if FFlagTerrainImportGreyscale then
+			previewSuccess, preview, channelsWereDiscarded = HeightmapImporterService:GetGreyscale(id)
+		end
 
-		if success then
+		if channelsWereDiscarded then
+			warn(("Only the red channel of imported heightmaps is used, the other channels were discarded."):format(tostring(err)))
+		end
+
+		if success and (not FFlagTerrainImportGreyscale or previewSuccess) then
 			print(("Loaded heightmap %s with width:%d height:%d channels:%d bytesPerChannel:%d")
 				:format(file.Name, width, height, channels, bytesPerChannel))
 			self.props.dispatchSelectHeightmap({
+				preview = preview,
+				channelsWereDiscarded = channelsWereDiscarded,
 				file = file,
 				width = width,
 				height = height,
 				channels = channels,
 				bytesPerChannel = bytesPerChannel,
 			})
+
+			-- We want to set the target region size to match the image that was Selected
+			-- But only if the user hasn't already changed the size themselves
+			if not self.props.sizeChangedByUser then
+				local STUDS_PER_PIXEL = 4
+
+				local newX = math.min(math.max(width * STUDS_PER_PIXEL, Constants.REGION_MIN_SIZE), Constants.REGION_MAX_SIZE)
+				local newY = self.props.size.Y
+				local newZ = math.min(math.max(height * STUDS_PER_PIXEL, Constants.REGION_MIN_SIZE), Constants.REGION_MAX_SIZE)
+
+				self.props.dispatchChangeSize({
+					X = newX,
+					Y = newY,
+					Z = newZ,
+				})
+			end
 		else
-			self.setErrorMessage("FailedToLoadHeightmap", status)
+			if FFlagTerrainImportGreyscale then
+				if not success then
+					self.setErrorMessage("FailedToLoadHeightmap", status)
+				else
+					self.setErrorMessage("FailedToGenerateHeightmapPreviewTitle", "FailedToGenerateHeightmapPreview")
+				end
+			else
+				self.setErrorMessage("FailedToLoadHeightmap", status)
+			end
 		end
 	end
 
-	self.selectColormap = function(file)
+	self.clearHeightmap = function()
+		self.props.dispatchSelectHeightmap(nil)
+	end
+
+	self.selectColormap = function(file, err)
 		if not file then
-			-- Reducers understand that nil = clear selection
-			self.props.dispatchSelectColormap(nil)
+			warn(("Failed to select heightmap: %s"):format(tostring(err)))
+			self.setErrorMessage("FailedToLoadColormap", "FailedToSelectFile")
 			return
 		end
 
@@ -113,6 +214,7 @@ function ImportLocal:init()
 			print(("Loaded colormap %s with width:%d height:%d channels:%d"):format(
 				file.Name, width, height, channels))
 			self.props.dispatchSelectColormap({
+				preview = id,
 				file = file,
 				width = width,
 				height = height,
@@ -121,6 +223,10 @@ function ImportLocal:init()
 		else
 			self.setErrorMessage("FailedToLoadColormap", status)
 		end
+	end
+
+	self.clearColormap = function()
+		self.props.dispatchSelectColormap(nil)
 	end
 
 	self.setErrorMessage = function(errorTitle, errorBody)
@@ -148,6 +254,15 @@ function ImportLocal:init()
 
 	self.clearErrorMessage = function()
 		self.setErrorMessage(nil)
+	end
+
+	self.onUserChangedSize = function(size)
+		if tonumber(size.X) ~= self.props.size.X
+			or tonumber(size.Y) ~= self.props.size.Y
+			or tonumber(size.Z) ~= self.props.size.Z then
+			self.props.dispatchChangeSize(size)
+			self.props.dispatchSetSizeChangedByUser(true)
+		end
 	end
 end
 
@@ -219,13 +334,20 @@ function ImportLocal:render()
 		showUseColormap = false
 
 		showColormap = self.props.materialMode == ImportMaterialMode.Colormap
-		showDefaultMaterial =  self.props.materialMode == ImportMaterialMode.DefaultMaterial
+		showDefaultMaterial = self.props.materialMode == ImportMaterialMode.DefaultMaterial
 	else
 		showColormapMaterialToggle = false
 		showUseColormap = true
 
 		showColormap = self.props.useColorMap
 		showDefaultMaterial = false
+	end
+
+	local heightmapMessages = getMessagesForImage(self.props.heightmap, self.props.size, localization)
+	local colormapMessages = getMessagesForImage(self.props.colormap, self.props.size, localization)
+
+	if FFlagTerrainImportGreyscale and canImport and self.props.heightmap.channelsWereDiscarded then
+		heightmapMessages.Info = localization:getText("ImportInfo", "ChannelsWereDiscarded")
 	end
 
 	local errorMainText = self.state.errorMainText
@@ -246,7 +368,12 @@ function ImportLocal:render()
 				LocalImageSelector = Roact.createElement(LocalImageSelector, {
 					CurrentFile = self.props.heightmap,
 					SelectFile = self.selectHeightmap,
+					ClearSelection = self.clearHeightmap,
 					PreviewTitle = localization:getText("Import", "HeightmapPreview"),
+
+					ErrorMessage = heightmapMessages.Error,
+					WarningMessage = heightmapMessages.Warning,
+					InfoMessage = heightmapMessages.Info,
 				}),
 			}),
 
@@ -256,10 +383,11 @@ function ImportLocal:render()
 
 				Position = self.props.position,
 				Size = self.props.size,
+				MaxVolume = FFlagTerrainToolsMapSettingsMaxVolume and MAX_VOLUME_STUDS or nil,
 				PreviewOffset = Vector3.new(0, 0.5, 0),
 
 				OnPositionChanged = self.props.dispatchChangePosition,
-				OnSizeChanged = self.props.dispatchChangeSize,
+				OnSizeChanged = self.onUserChangedSize,
 				SetMapSettingsValid = self.setMapSettingsValid,
 			}),
 		}),
@@ -312,7 +440,12 @@ function ImportLocal:render()
 				LocalImageSelector = Roact.createElement(LocalImageSelector, {
 					CurrentFile = self.props.colormap,
 					SelectFile = self.selectColormap,
+					ClearSelection = self.clearColormap,
 					PreviewTitle = localization:getText("Import", "ColormapPreview"),
+
+					ErrorMessage = colormapMessages.Error,
+					WarningMessage = colormapMessages.Warning,
+					InfoMessage = colormapMessages.Info,
 				}),
 			}),
 		}),
@@ -369,6 +502,8 @@ local function mapStateToProps(state, props)
 
 		materialMode = state[REDUCER_KEY].materialMode,
 		defaultMaterial = state[REDUCER_KEY].defaultMaterial,
+
+		sizeChangedByUser = state[REDUCER_KEY].sizeChangedByUser,
 	}
 end
 
@@ -399,6 +534,9 @@ local function mapDispatchToProps(dispatch)
 		end,
 		dispatchSetDefaultMaterial = function(defaultMaterial)
 			dispatchToImportLocal(SetDefaultMaterial(defaultMaterial))
+		end,
+		dispatchSetSizeChangedByUser = function(sizeChangedByUser)
+			dispatchToImportLocal(SetSizeChangedByUser(sizeChangedByUser))
 		end,
 	}
 end

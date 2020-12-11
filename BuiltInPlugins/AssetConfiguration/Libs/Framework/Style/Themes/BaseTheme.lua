@@ -17,12 +17,9 @@ local Common = require(StudioFrameworkStyles.Common)
 
 local Util = Framework.Util
 local Cryo = require(Util.Cryo)
-local FlagsList = require(Util.Flags).new({
-	FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
-})
+local THEME_REFACTOR = require(Util.RefactorFlags).THEME_REFACTOR
 
-
-if (not FlagsList:get("FFlagRefactorDevFrameworkTheme")) then
+if (not THEME_REFACTOR) then
 	return {}
 end
 

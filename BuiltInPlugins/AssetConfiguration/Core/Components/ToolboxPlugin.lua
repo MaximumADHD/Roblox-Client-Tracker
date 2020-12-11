@@ -1,11 +1,14 @@
 local ABTestService = game:GetService("ABTestService")
 local StudioService = game:GetService("StudioService")
+local MemStorageService = game:GetService("MemStorageService")
 
 local Plugin = script.Parent.Parent.Parent
 
 local Libs = Plugin.Libs
 local Roact = require(Libs.Roact)
 local Util = Plugin.Core.Util
+
+local SharedPluginConstants = require(Plugin.SharedPluginConstants)
 
 local Constants = require(Plugin.Core.Util.Constants)
 local Images = require(Plugin.Core.Util.Images)
@@ -27,6 +30,7 @@ local FFlagEnableToolboxImpressionAnalytics = game:GetFastFlag("EnableToolboxImp
 -- Be sure to turn off ToolboxShowHideABTest before turning on StudioShowHideABTestV2
 local FFlagToolboxShowHideABTest = game:GetFastFlag("ToolboxShowHideABTest")
 local FFlagStudioShowHideABTestV2 = game:GetFastFlag("StudioShowHideABTestV2")
+local FFlagPluginManagementDirectlyOpenToolbox = game:GetFastFlag("PluginManagementDirectlyOpenToolbox")
 
 local ShowHideABTestName = "AllUsers.RobloxStudio.ShowHideToolbox"
 local ABTEST_SHOWHIDEV2_NAME = "AllUsers.RobloxStudio.ShowHideV2"
@@ -115,12 +119,22 @@ function ToolboxPlugin:didMount()
 	self:setState({
 		pluginGui = self.dockWidget,
 	})
+
+	if FFlagPluginManagementDirectlyOpenToolbox then
+		self._showPluginsConnection = MemStorageService:Bind(SharedPluginConstants.SHOW_TOOLBOX_PLUGINS_EVENT, function()
+			self.dockWidget.Enabled = true
+		end)
+	end
 end
 
 function ToolboxPlugin:willUnmount()
 	if self.disconnectLocalizationListener then
 		self.disconnectLocalizationListener()
 	end
+
+	if FFlagPluginManagementDirectlyOpenToolbox then
+		self._showPluginsConnection:Disconnect()
+	end	
 end
 
 function ToolboxPlugin:render()

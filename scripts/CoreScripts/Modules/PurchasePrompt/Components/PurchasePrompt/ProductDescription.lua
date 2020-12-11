@@ -111,6 +111,12 @@ local function mapStateToProps(state)
 		}
 	elseif promptState == PromptState.AdultConfirmation then
 		descriptionKey = "CoreScripts.PurchasePrompt.PurchaseDetails.AgeLegalText"
+	elseif promptState == PromptState.U13PaymentModal then
+		descriptionKey = "CoreScripts.PurchasePrompt.PurchaseDetails.ScaryModalOne"
+	elseif promptState == PromptState.U13MonthlyThreshold1Modal then
+		descriptionKey = "CoreScripts.PurchasePrompt.PurchaseDetails.ScaryModalTwo"
+	elseif promptState == PromptState.U13MonthlyThreshold2Modal then
+		descriptionKey = "CoreScripts.PurchasePrompt.PurchaseDetails.ScaryModalParental"
 	elseif promptState == PromptState.Error then
 		descriptionKey = LocalizationService.getErrorKey(state.purchaseError)
 		if state.purchaseError == PurchaseError.UnknownFailure then
@@ -137,12 +143,14 @@ local function mapStateToProps(state)
 	return {
 		descriptionKey = descriptionKey,
 		descriptionParams = descriptionParams,
-		showPrice = not isFree and canPurchase and promptState ~= PromptState.AdultConfirmation,
+		showPrice = not isFree and canPurchase and (promptState ~= PromptState.AdultConfirmation
+			and promptState ~= PromptState.U13PaymentModal and promptState ~= PromptState.U13MonthlyThreshold1Modal
+			and promptState ~= PromptState.U13MonthlyThreshold2Modal),
 		price = price,
 	}
 end
 
-ProductDescription = connectToStore(
+local ProductDescription = connectToStore(
 	mapStateToProps
 )(ProductDescription)
 

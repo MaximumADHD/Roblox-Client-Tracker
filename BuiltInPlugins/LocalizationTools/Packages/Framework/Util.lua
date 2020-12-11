@@ -42,7 +42,10 @@ return strict({
 	StyleModifier = require(script.StyleModifier),
 	StyleTable = require(script.StyleTable),
 	StyleValue = require(script.StyleValue),
+	createFolderDataLookup = require(script.createFolderDataLookup),
 
 	-- Document Generation and Type Enforcement Utilities
 	Typecheck = require(script.Typecheck),
+
+	RefactorFlags = require(script.RefactorFlags)
 })

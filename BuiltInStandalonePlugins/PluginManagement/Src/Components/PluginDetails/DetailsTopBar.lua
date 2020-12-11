@@ -10,7 +10,7 @@ local Navigation = require(Plugin.Src.ContextServices.Navigation)
 
 local FitFrameVertical = FitFrame.FitFrameVertical
 
-local FlagsList = require(Plugin.Src.Util.FlagsList)
+local THEME_REFACTOR = require(Plugin.Packages.Framework).Util.RefactorFlags.THEME_REFACTOR
 
 local CONTENT_PADDING = 18
 local BACK_ICON_SIZE = 32
@@ -35,7 +35,7 @@ function DetailsTopBar:render()
     local name = self.props.name
 
     local theme
-	if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+	if THEME_REFACTOR then
 		theme = self.props.Stylizer
     else
         theme = self.props.Theme:get("Plugin")
@@ -100,8 +100,8 @@ end
 
 ContextServices.mapToProps(DetailsTopBar, {
     Navigation = Navigation,
-	Stylizer = FlagsList:get("FFlagRefactorDevFrameworkTheme") and ContextServices.Stylizer or nil,
-	Theme = (not FlagsList:get("FFlagRefactorDevFrameworkTheme")) and ContextServices.Theme or nil,
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
     API = PluginAPI2,
 })
 

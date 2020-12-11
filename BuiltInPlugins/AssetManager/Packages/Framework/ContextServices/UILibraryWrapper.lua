@@ -11,14 +11,14 @@
 ]]
 local Framework = script.Parent.Parent
 local Util = require(Framework.Util)
+local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local FlagsList = Util.Flags.new({
 	FFlagStudioDevFrameworkPackage = {"StudioDevFrameworkPackage"},
 	FFlagRefactorDevFrameworkContextItems = {"RefactorDevFrameworkContextItems"},
-	FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
 })
 
 local noGetThemeError
-if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+if THEME_REFACTOR then
 	noGetThemeError = [[
 	UILibraryProvider expects Stylizer to have a 'getUILibraryTheme' instance function.]]
 else
@@ -56,7 +56,7 @@ function UILibraryProvider:render()
 	local props = self.props
 	local plugin = props.Plugin
 	local theme
-	if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+	if THEME_REFACTOR then
 		theme = props.Stylizer
 	else
 		theme = props.Theme
@@ -76,8 +76,8 @@ function UILibraryProvider:render()
 end
 
 mapToProps(UILibraryProvider, {
-	Stylizer = FlagsList:get("FFlagRefactorDevFrameworkTheme") and Stylizer or nil,
-	Theme = (not FlagsList:get("FFlagRefactorDevFrameworkTheme")) and Theme or nil,
+	Stylizer = THEME_REFACTOR and Stylizer or nil,
+	Theme = (not THEME_REFACTOR) and Theme or nil,
 	Plugin = Plugin,
 	Focus = Focus,
 })

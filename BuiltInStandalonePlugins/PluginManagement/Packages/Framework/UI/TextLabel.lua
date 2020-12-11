@@ -23,6 +23,8 @@
 		number FitMaxWidth: Max width in pixels to use with FitTextLabel.
 		Color3 TextColor: The color of the label.
 		number TextTransparency: The transparency of this text.
+		Enum.TextTruncate TextTruncate: The text truncation of this text.
+		Enum.Font Font: The font of this text.
 		Enum.TextXAlignment TextXAlignment: The x alignment of this text.
 		Enum.TextYAlignment TextYAlignment: The y alignment of this text.
 
@@ -42,9 +44,9 @@ local Immutable = Util.Immutable
 local Typecheck = Util.Typecheck
 local prioritize = Util.prioritize
 local FitTextLabel = Util.FitFrame.FitTextLabel
-local FlagsList = Util.Flags.new({
-	FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
-})
+local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
+
+local FFlagDevFrameworkClampTextLabelMaxWidth = game:DefineFastFlag("DevFrameworkClampTextLabelMaxWidth", false)
 
 local TextLabel = Roact.PureComponent:extend("TextLabel")
 Typecheck.wrap(TextLabel, script)
@@ -56,13 +58,11 @@ function TextLabel:render()
 	local size = self.props.Size
 	local text = self.props.Text
 	local theme = self.props.Theme
-	local textWrapped = self.props.TextWrapped
-	local textTruncate = self.props.TextTruncate
 	local zIndex = self.props.ZIndex
 	local fitWidth = self.props.FitWidth
 
 	local style
-	if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+	if THEME_REFACTOR then
 		style = self.props.Stylizer
 	else
 		style = theme:getStyle("Framework", self)
@@ -75,6 +75,8 @@ function TextLabel:render()
 	local transparency = prioritize(self.props.TextTransparency, style.TextTransparency)
 	local textXAlignment = prioritize(self.props.TextXAlignment, style.TextXAlignment)
 	local textYAlignment = prioritize(self.props.TextYAlignment, style.TextYAlignment)
+	local textTruncate = self.props.TextTruncate
+	local textWrapped = self.props.TextWrapped
 
 	local textLabelProps = {
 		AnchorPoint = anchorPoint,
@@ -95,13 +97,22 @@ function TextLabel:render()
 	}
 
 	if fitWidth then
+		local maximumWidth
+		if FFlagDevFrameworkClampTextLabelMaxWidth then
+			if self.props.FitMaxWidth ~= nil then
+				maximumWidth = math.max(0, self.props.FitMaxWidth)
+			end
+		else
+			maximumWidth = self.props.FitMaxWidth
+		end
+
 		return Roact.createElement(
 			FitTextLabel,
 			Immutable.JoinDictionaries(
 				textLabelProps,
 				{
 					width = FitTextLabel.Width.FitToText,
-					maximumWidth = self.props.FitMaxWidth,
+					maximumWidth = maximumWidth,
 				}
 			),
 			self.props[Roact.Children]
@@ -112,8 +123,8 @@ function TextLabel:render()
 end
 
 ContextServices.mapToProps(TextLabel, {
-	Stylizer = FlagsList:get("FFlagRefactorDevFrameworkTheme") and ContextServices.Stylizer or nil,
-	Theme = (not FlagsList:get("FFlagRefactorDevFrameworkTheme")) and ContextServices.Theme or nil,
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
 })
 
 return TextLabel

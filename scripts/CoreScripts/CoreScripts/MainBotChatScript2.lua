@@ -82,7 +82,9 @@ local conversationTimedOutSize = 350
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local RobloxReplicatedStorage = game:GetService('RobloxReplicatedStorage')
-local setDialogInUseEvent = RobloxReplicatedStorage:WaitForChild("SetDialogInUse", 86400)
+local setDialogInUseEvent = RobloxReplicatedStorage:WaitForChild("SetDialogInUse", math.huge)
+
+local FFlagFixDialogServerWait = require(RobloxGui.Modules.Common.Flags.GetFFlagFixDialogServerWait)()
 
 local player
 local screenGui
@@ -276,11 +278,19 @@ function endDialog()
 	local dialog = currentConversationDialog
 	currentConversationDialog = nil
 	if dialog and dialog.InUse then
-		-- Waits 5 seconds before setting InUse to false
-		setDialogInUseEvent:FireServer(dialog, false, 5)
-		delay(5, function()
-			dialog.InUse = false
-		end)
+		if FFlagFixDialogServerWait then
+			-- Waits 5 seconds before setting InUse to false
+			delay(5, function()
+				setDialogInUseEvent:FireServer(dialog, false)
+				dialog.InUse = false
+			end)
+		else
+			-- Waits 5 seconds before setting InUse to false
+			setDialogInUseEvent:FireServer(dialog, false, 5)
+			delay(5, function()
+				dialog.InUse = false
+			end)
+		end
 	end
 
 	for dialog, gui in pairs(dialogMap) do
@@ -504,7 +514,11 @@ function doDialog(dialog)
 		contextActionService:BindCoreAction("Nothing", function()
 		end, false, Enum.UserInputType.Gamepad1, Enum.UserInputType.Gamepad2, Enum.UserInputType.Gamepad3, Enum.UserInputType.Gamepad4)
 		-- Immediately sets InUse to true on the server
-		setDialogInUseEvent:FireServer(dialog, true, 0)
+		if FFlagFixDialogServerWait then
+			setDialogInUseEvent:FireServer(dialog, true)
+		else
+			setDialogInUseEvent:FireServer(dialog, true, 0)
+		end
 	end
 	chatFunc(dialog, dialog.Parent, dialog.InitialPrompt, getChatColor(dialog.Tone))
 	variableDelay(dialog.InitialPrompt)
@@ -522,7 +536,11 @@ function renewKillswitch(dialog)
 		wait(15)
 		if thisCoroutine ~= nil then
 			if coroutineMap[thisCoroutine] == nil then
-				setDialogInUseEvent:FireServer(dialog, false, 0)
+				if FFlagFixDialogServerWait then
+					setDialogInUseEvent:FireServer(dialog, false)
+				else
+					setDialogInUseEvent:FireServer(dialog, false, 0)
+				end
 				dialog.InUse = false
 			end
 			coroutineMap[thisCoroutine] = nil

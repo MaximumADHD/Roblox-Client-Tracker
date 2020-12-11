@@ -29,6 +29,7 @@ local SetCreatorFriends = require(Plugin.Src.Actions.SetCreatorFriends)
 
 local FFlagUXImprovementsShowUserPermsWhenCollaborator = game:GetFastFlag("UXImprovementsShowUserPermsWhenCollaborator")
 local FFlagStudioUXImprovementsLoosenTCPermissions = game:GetFastFlag("StudioUXImprovementsLoosenTCPermissions")
+local FFlagUXImprovementsNonTCPlacesAllowedPlay = game:GetFastFlag("UXImprovementsNonTCPlacesAllowedPlay")
 
 local function loadSettings(store, contextItems)
 	local state = store:getState()
@@ -213,7 +214,11 @@ function Permissions:render()
 		-- here "Edit" refers to adding new collaborators, or changing the permission of collaborators
 		local canUserEditCollaborators = false
 		if FFlagStudioUXImprovementsLoosenTCPermissions then
-			canUserEditCollaborators = self:isLoggedInUserGameOwner() and self:isTeamCreate()
+			if FFlagUXImprovementsNonTCPlacesAllowedPlay then
+				canUserEditCollaborators = self:isLoggedInUserGameOwner()
+			else
+				canUserEditCollaborators = self:isLoggedInUserGameOwner() and self:isTeamCreate()
+			end
 		else
 			canUserEditCollaborators = self:isLoggedInUserGameOwner() and self:isTeamCreate() and not self:isGroupGame()
 		end
@@ -301,7 +306,7 @@ function Permissions:render()
 					LayoutOrder = 50,
 			})),
 
-			SearchbarWidget = canUserEditCollaborators and Roact.createElement(SearchbarWidget, {
+			SearchbarWidget = (FFlagUXImprovementsNonTCPlacesAllowedPlay or canUserEditCollaborators) and Roact.createElement(SearchbarWidget, {
 				LayoutOrder = 50,
 				Writable = true,
 			}),

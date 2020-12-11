@@ -7,7 +7,8 @@ local LocalizationService = game:GetService("LocalizationService")
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
-local ContextServices = require(Plugin.Packages.Framework.ContextServices)
+local Framework = require(Plugin.Packages.Framework)
+local ContextServices = Framework.ContextServices
 
 local UILibrary = require(Plugin.Packages.UILibrary)
 local createFitToContent = UILibrary.Component.createFitToContent
@@ -19,7 +20,7 @@ local AnalyticsContext = require(Plugin.Src.ContextServices.AnalyticsContext)
 local LabeledImageButton = require(Plugin.Src.Components.LabeledImageButton)
 local EmbeddedTableUtil = require(Plugin.Src.Util.EmbeddedTableUtil)
 
-local FlagsList = require(Plugin.Src.Util.FlagsList)
+local THEME_REFACTOR = Framework.Util.RefactorFlags.THEME_REFACTOR
 
 local EmbeddedTableSection = Roact.PureComponent:extend("EmbeddedTableSection")
 
@@ -35,7 +36,7 @@ end
 function EmbeddedTableSection:render()
 	local props = self.props
 	local theme
-	if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+	if THEME_REFACTOR then
 		theme = props.Stylizer
 	else
 		theme = props.Theme:get("EmbeddedTableSection")
@@ -117,8 +118,8 @@ end
 
 ContextServices.mapToProps(EmbeddedTableSection, {
 	Plugin = ContextServices.Plugin,
-	Stylizer = FlagsList:get("FFlagRefactorDevFrameworkTheme") and ContextServices.Stylizer or nil,
-	Theme = (not FlagsList:get("FFlagRefactorDevFrameworkTheme")) and ContextServices.Theme or nil,
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
 	Localization = ContextServices.Localization,
 	Analytics = AnalyticsContext,
 })

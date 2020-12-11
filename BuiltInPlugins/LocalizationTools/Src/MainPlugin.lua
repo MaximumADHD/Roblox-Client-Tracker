@@ -8,12 +8,13 @@ local RunService = game:GetService("RunService")
 local main = script.Parent.Parent
 local Roact = require(main.Packages.Roact)
 local Rodux = require(main.Packages.Rodux)
+local Framework = require(main.Packages.Framework)
 
-local ContextServices = require(main.Packages.Framework.ContextServices)
+local ContextServices = Framework.ContextServices
 local Plugin = ContextServices.Plugin
 local Mouse = ContextServices.Mouse
 local Store = ContextServices.Store
-local StudioUI = require(main.Packages.Framework.StudioUI)
+local StudioUI = Framework.StudioUI
 local DockWidget = StudioUI.DockWidget
 local PluginToolbar = StudioUI.PluginToolbar
 local PluginButton = StudioUI.PluginButton
@@ -29,7 +30,7 @@ local MainReducer = require(main.Src.Reducers.MainReducer)
 local LoadPluginMetadata = require(main.Src.Thunks.LoadPluginMetadata)
 local Analytics = require(main.Src.Util.Analytics)
 
-local FlagsList = require(main.Src.Util.FlagsList)
+local THEME_REFACTOR = Framework.Util.RefactorFlags.THEME_REFACTOR
 
 local PLUGIN_ICON = "rbxasset://textures/localizationTestingIcon.png"
 local WINDOW_SIZE = Vector2.new(300, 250)
@@ -52,7 +53,7 @@ function MainPlugin:init()
 	})
 
 	self.theme = nil
-	if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+	if THEME_REFACTOR then
 		self.theme = PluginTheme
 	else
 		self.theme = MakeTheme()
@@ -106,7 +107,7 @@ end
 function MainPlugin:renderButtons(toolbar, isEditMode)
 	local enabled = self.state.enabled
 	local theme
-	if (not FlagsList:get("FFlagRefactorDevFrameworkTheme")) then
+	if (not THEME_REFACTOR) then
 		theme = self.theme:get("Plugin")
 	end
 
@@ -117,7 +118,7 @@ function MainPlugin:renderButtons(toolbar, isEditMode)
 			Enabled = isEditMode,
 			Title = self.localization:getText("Plugin", "RibbonBarButton"),
 			Tooltip = self.localization:getText("Plugin", "ToolTipMessage"),
-			Icon = FlagsList:get("FFlagRefactorDevFrameworkTheme") and PLUGIN_ICON or theme.PluginIcon,
+			Icon = THEME_REFACTOR and PLUGIN_ICON or theme.PluginIcon,
 			OnClick = self.toggleState,
 		}),
 	}
@@ -127,7 +128,7 @@ function MainPlugin:render()
 	local props = self.props
 	local state = self.state
 	local theme
-	if (not FlagsList:get("FFlagRefactorDevFrameworkTheme")) then
+	if (not THEME_REFACTOR) then
 		theme = self.theme:get("Plugin")
 	end
 	local plugin = props.Plugin
@@ -150,7 +151,7 @@ function MainPlugin:render()
 			Title = self.localization:getText("Plugin", "WindowTitle"),
 			ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
 			InitialDockState = Enum.InitialDockState.Left,
-			Size = FlagsList:get("FFlagRefactorDevFrameworkTheme") and WINDOW_SIZE or theme.WindowSize,
+			Size = THEME_REFACTOR and WINDOW_SIZE or theme.WindowSize,
 			OnClose = self.onClose,
 			ShouldRestore = true,
 			OnWidgetRestored = self.onRestore,

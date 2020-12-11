@@ -27,7 +27,7 @@ return function()
 
 	describe("GetTextWidth", function()
 		it("should return width equal to 1 when string is empty", function()
-			local width = Text.GetTextWidth("", Enum.Font.SourceSans, 18, 18)
+			local width = Text.GetTextWidth("", Enum.Font.SourceSans, 18)
 			expect(width).to.equal(Text._TEMP_PATCHED_PADDING.x)
 		end)
 	end)

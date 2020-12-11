@@ -1,17 +1,20 @@
 local Plugin = script.Parent.Parent.Parent
 local TestHelpers = Plugin.Src.TestHelpers
 
+local MockHeightmapImporterService = require(TestHelpers.MockHeightmapImporterService)
 local MockTerrain = require(TestHelpers.MockTerrain)
 
 local TerrainImporter = require(script.Parent.TerrainImporterInstance)
 
 return function()
+	local heightmapImporterService = MockHeightmapImporterService.new()
 	local terrain = MockTerrain.new()
 
 	it("should be creatable", function()
 		expect(TerrainImporter.new({
 			terrain = terrain,
 			imageUploader = {},
+			heightmapImporterService = heightmapImporterService,
 		})).to.be.ok()
 	end)
 
@@ -21,19 +24,22 @@ return function()
 		end).to.throw()
 	end)
 
-	it("should require a terrain instance", function()
-		expect(function()
-			TerrainImporter.new({
-				imageUploader = {},
-			})
-		end).to.throw()
-	end)
+	if not game:GetFastFlag("TerrainImportUseService") then
+		it("should require a terrain instance", function()
+			expect(function()
+				TerrainImporter.new({
+					imageUploader = {},
+				})
+			end).to.throw()
+		end)
+	end
 
-	if game:GetFastFlag("TerrainToolsBetterImportTool") then
+	if game:GetFastFlag("TerrainToolsBetterImportTool") and game:GetFastFlag("TerrainToolsImportUploadAssets") then
 		it("should require an ImageUploader instance", function()
 			expect(function()
 				TerrainImporter.new({
 					terrain = terrain,
+					heightmapImporterService = heightmapImporterService,
 				})
 			end).to.throw()
 		end)

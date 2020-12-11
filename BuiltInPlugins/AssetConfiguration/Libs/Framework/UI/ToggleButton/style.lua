@@ -6,9 +6,7 @@ local Util = require(Framework.Util)
 local Style = Util.Style
 local StyleModifier = Util.StyleModifier
 local StyleValue = Util.StyleValue
-local FlagsList = Util.Flags.new({
-	FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
-})
+local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 
 local UI = require(Framework.UI)
 local Decoration = UI.Decoration
@@ -16,10 +14,8 @@ local Decoration = UI.Decoration
 local StudioFrameworkStyles = Framework.StudioUI.StudioFrameworkStyles
 local Common = require(StudioFrameworkStyles.Common)
 
-local export: any
-
-if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
-	export = {
+if THEME_REFACTOR then
+	return {
 		Background = Decoration.Image,
 		BackgroundStyle = {
 			Image = StyleKey.ToggleOffImage,
@@ -53,7 +49,7 @@ if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
 		},
 	}
 else
-	export = function(theme, getColor)
+	return function(theme, getColor)
 		local common = Common(theme, getColor)
 		local themeName = theme.Name
 
@@ -112,5 +108,3 @@ else
 		}
 	end
 end
-
-return export

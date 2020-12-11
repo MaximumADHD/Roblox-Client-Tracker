@@ -16,7 +16,6 @@ local ContextServices = require(Plugin.Packages.Framework).ContextServices
 local Framework = require(Plugin.Packages.Framework)
 local Util = Framework.Util
 local FlagsList = Util.Flags.new({
-	FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
 	FFlagDevFrameworkLocalizationLibraries = {"DevFrameworkLocalizationLibraries"},
 })
 

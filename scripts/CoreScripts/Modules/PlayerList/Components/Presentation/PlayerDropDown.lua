@@ -25,6 +25,10 @@ local FFlagPlayerShowDropDownNoEntries = game:DefineFastFlag("PlayerShowDropDown
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 
+local FFlagShowInGameBlockingLuobu = require(RobloxGui.Modules.Flags.FFlagShowInGameBlockingLuobu)
+local FFlagShowInGameReportingLuobu = require(RobloxGui.Modules.Flags.FFlagShowInGameReportingLuobu)
+local FFlagInspectMenuSubjectToPolicy = require(RobloxGui.Modules.Flags.FFlagInspectMenuSubjectToPolicy)
+
 local Images = UIBlox.App.ImageSet.Images
 
 local isNewInGameMenuEnabled = require(RobloxGui.Modules.isNewInGameMenuEnabled)
@@ -224,18 +228,22 @@ function PlayerDropDown:render()
 				end
 			end
 
-			local showPlayerBlocking = not self.props.subjectToChinaPolicies
+			local showPlayerBlocking = not self.props.subjectToChinaPolicies or FFlagShowInGameBlockingLuobu
+			local showPlayerReporting = not self.props.subjectToChinaPolicies or FFlagShowInGameReportingLuobu
 
 			if showPlayerBlocking then
 				dropDownButtons["BlockButton"] = self:createBlockButton(playerRelationship)
 				dropDownHeight = dropDownHeight + layoutValues.DropDownButtonPadding + layoutValues.DropDownButtonSizeY
+			end
 
+			if showPlayerReporting then
 				dropDownButtons["ReportButton"] = self:createReportButton()
 				dropDownHeight = dropDownHeight + layoutValues.DropDownButtonPadding + layoutValues.DropDownButtonSizeY
 			end
 		end
 
-		if self.props.inspectMenuEnabled then
+		local disableInspectPolicy = FFlagInspectMenuSubjectToPolicy and self.props.subjectToChinaPolicies
+		if self.props.inspectMenuEnabled and not disableInspectPolicy then
 			dropDownButtons["InspectButton"] = self:createInspectButton()
 			dropDownHeight = dropDownHeight + layoutValues.DropDownButtonPadding + layoutValues.DropDownButtonSizeY
 		end

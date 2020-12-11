@@ -5,16 +5,21 @@
 		CurrentFile : File?
 			The currently selected file we should render a preview of.
 			Can be nil to mean no file is selected.
-		SelectFile : File? -> void
-			Callback to select a new file. Can be passed nil to mean clear selection.
+		SelectFile : (File?, string?) -> void
+			Callback to select a new file. If an error occurred, file is nil and 2nd param is error message
+		ClearSelection : void -> void
+			Callback to clear the current selection
 		PreviewTitle : string
 			Title to use on the expanded preview window
 ]]
+
+local FFlagTerrainImportGreyscale = game:GetFastFlag("TerrainImportGreyscale")
 
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
 local Roact = require(Plugin.Packages.Roact)
+local Cryo = require(Plugin.Packages.Cryo)
 
 local ContextServices = Framework.ContextServices
 local ContextItems = require(Plugin.Src.ContextItems)
@@ -38,18 +43,18 @@ function LocalImageSelector:init()
 				self.props.SelectFile(file)
 			end
 		else
-			warn(("Failed to select image: %s"):format(tostring(err)))
+			self.props.SelectFile(nil, err)
 		end
-	end
-
-	self.clearSelection = function()
-		self.props.SelectFile(nil)
 	end
 
 	self.renderPreview = function()
 		local imageId = ""
 		if self.props.CurrentFile and self.props.CurrentFile.file then
-			imageId = self.props.CurrentFile.file:GetTemporaryId()
+			if FFlagTerrainImportGreyscale then
+				imageId = self.props.CurrentFile.preview
+			else
+				imageId = self.props.CurrentFile.file:GetTemporaryId()
+			end
 		end
 		return Roact.createElement("ImageLabel", {
 			BackgroundTransparency = 1,
@@ -57,6 +62,17 @@ function LocalImageSelector:init()
 			Image = imageId,
 			ScaleType = Enum.ScaleType.Fit,
 		})
+	end
+
+	self.getMetadata = function()
+		local cf = self.props.CurrentFile
+		if not cf or not cf.file then
+			return {}
+		end
+		return {
+			-- TODO: Add 8/16 bit info here once supported
+			("%ix%ipx"):format(cf.width, cf.height),
+		}
 	end
 end
 
@@ -70,16 +86,22 @@ function LocalImageSelector:render()
 		filename = self.props.Localization:get():getText("LocalImageSelector", "NoImageSelected")
 	end
 
-	return Roact.createElement(PromptSelectorWithPreview, {
+	local newProps = Cryo.Dictionary.join(self.props, {
+		CurrentFile = Cryo.None,
+		SelectFile = Cryo.None,
+
 		SelectionName = filename,
 		HasSelection = hasSelection,
 
-		RenderPreview = self.renderPreview,
 		PreviewTitle = self.props.PreviewTitle,
+		RenderPreview = self.renderPreview,
+		GetMetadata = self.getMetadata,
 
 		PromptSelection = self.promptSelection,
-		ClearSelection = self.clearSelection,
+		ClearSelection = self.props.ClearSelection,
 	})
+
+	return Roact.createElement(PromptSelectorWithPreview, newProps)
 end
 
 ContextServices.mapToProps(LocalImageSelector, {

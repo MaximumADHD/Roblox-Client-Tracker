@@ -11,11 +11,9 @@ local Style = Util.Style
 
 local StyleKey = require(Framework.Style.StyleKey)
 
-local FlagsList = Util.Flags.new({
-	FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
-})
+local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 
-if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+if THEME_REFACTOR then
 	local roundBox = deepCopy(RoundBox)
 	return {
 		BackgroundStyle = roundBox,

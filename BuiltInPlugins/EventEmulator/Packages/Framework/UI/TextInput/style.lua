@@ -7,15 +7,13 @@ local Cryo = Util.Cryo
 local deepCopy = Util.deepCopy
 local Style = Util.Style
 local StyleModifier = Util.StyleModifier
-local FlagsList = Util.Flags.new({
-	FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
-})
+local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 
 local Common = require(Framework.StudioUI.StudioFrameworkStyles.Common)
 local UIFolderData = require(Framework.UI.UIFolderData)
 local RoundBox = require(UIFolderData.RoundBox.style)
 
-if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+if THEME_REFACTOR then
 	local roundBox = deepCopy(RoundBox)
 	return {
 		PlaceholderTextColor = StyleKey.DimmedText,

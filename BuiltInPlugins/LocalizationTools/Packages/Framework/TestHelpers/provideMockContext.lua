@@ -32,8 +32,9 @@ local Rodux = require(DevFrameworkRoot.Parent.Rodux)
 local StudioTheme = require(DevFrameworkRoot.Style.Themes.StudioTheme)
 local Util = require(DevFrameworkRoot.Util)
 local Resources = require(DevFrameworkRoot.Resources)
+
+local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local FlagsList = Util.Flags.new({
-	FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
 	FFlagDevFrameworkLocalizationLibraries = {"DevFrameworkLocalizationLibraries"},
 })
 
@@ -99,7 +100,7 @@ return function(contextItemsList, children)
 
 	-- Theme
 	local theme
-	if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+	if THEME_REFACTOR then
 		theme = StudioTheme.mock()
 	else
 		theme = ContextServices.Theme.mock(function(theme, getColor)

@@ -32,8 +32,8 @@ local Button = UI.Button
 local HoverArea = UI.HoverArea
 local TextLabel = UI.Decoration.TextLabel
 
+local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local FlagsList = Util.Flags.new({
-	FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
 	FFlagDevFrameworkLocalizationLibraries = {"DevFrameworkLocalizationLibraries"},
 })
 
@@ -65,7 +65,7 @@ function Favorites:render()
 
 	local theme = props.Theme
 	local style
-	if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+	if THEME_REFACTOR then
 		style = self.props.Stylizer
 	else
 		style = theme:getStyle("Framework", self)
@@ -108,8 +108,8 @@ end
 
 ContextServices.mapToProps(Favorites, {
 	Localization = ContextServices.Localization,
-	Stylizer = FlagsList:get("FFlagRefactorDevFrameworkTheme") and ContextServices.Stylizer or nil,
-	Theme = (not FlagsList:get("FFlagRefactorDevFrameworkTheme")) and ContextServices.Theme or nil,
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
 })
 
 return Favorites

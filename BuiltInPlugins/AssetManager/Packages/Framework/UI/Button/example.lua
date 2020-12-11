@@ -21,9 +21,8 @@ return function(plugin)
 	local StyleTable = Util.StyleTable
 	local Style = Util.Style
 	local StyleModifier = Util.StyleModifier
-	local FlagsList = Util.Flags.new({
-		FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
-	})
+	local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
+
 
 	local FrameworkStyle = Framework.Style
 	local ui = require(FrameworkStyle).ComponentSymbols
@@ -35,7 +34,7 @@ return function(plugin)
 	local mouse = Mouse.new(plugin:GetMouse())
 
 	local theme
-	if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+	if THEME_REFACTOR then
 		theme = StudioTheme.new()
 		theme:extend({
 			[ui.Button] = Cryo.Dictionary.join(BaseTheme[ui.Button], {

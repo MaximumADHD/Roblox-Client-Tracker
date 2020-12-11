@@ -7,6 +7,7 @@ local Roact = PurchasePromptDeps.Roact
 local PromptState = require(Root.Enums.PromptState)
 local purchaseItem = require(Root.Thunks.purchaseItem)
 local launchRobuxUpsell = require(Root.Thunks.launchRobuxUpsell)
+local initiatePurchasePrecheck = require(Root.Thunks.initiatePurchasePrecheck)
 local getPlayerPrice = require(Root.Utils.getPlayerPrice)
 local connectToStore = require(Root.connectToStore)
 
@@ -14,6 +15,8 @@ local ConfirmButton = require(script.Parent.ConfirmButton)
 local CancelButton = require(script.Parent.CancelButton)
 local OkButton = require(script.Parent.OkButton)
 local withLayoutValues = require(script.Parent.Parent.Connection.withLayoutValues)
+
+local GetFFlagPurchasePromptScaryModalV2 = require(Root.Flags.GetFFlagPurchasePromptScaryModalV2)
 
 local CONFIRM_PURCHASE_KEY = "CoreScripts.PurchasePrompt.ConfirmPurchase.%s"
 
@@ -28,6 +31,7 @@ function PromptButtons:render()
 
 		local onBuy = self.props.onBuy
 		local onRobuxUpsell = self.props.onRobuxUpsell
+		local onScaryModalConfirm = self.props.onScaryModalConfirm
 
 		local children
 		if promptState == PromptState.PurchaseComplete
@@ -52,6 +56,10 @@ function PromptButtons:render()
 			elseif promptState == PromptState.AdultConfirmation then
 				confirmButtonStringKey = "CoreScripts.PurchasePrompt.Button.OK"
 				leftButtonCallback = onRobuxUpsell
+			elseif promptState == PromptState.U13PaymentModal or promptState == PromptState.U13MonthlyThreshold1Modal
+					or promptState == PromptState.U13MonthlyThreshold2Modal then
+				confirmButtonStringKey = "CoreScripts.PurchasePrompt.Button.OK"
+				leftButtonCallback = onScaryModalConfirm
 			end
 			children = {
 				ConfirmButton = Roact.createElement(ConfirmButton, {
@@ -87,8 +95,15 @@ local function mapDispatchToProps(dispatch)
 		onBuy = function()
 			dispatch(purchaseItem())
 		end,
-		onRobuxUpsell = function()
+		onScaryModalConfirm = function()
 			dispatch(launchRobuxUpsell())
+		end,
+		onRobuxUpsell = function()
+			if (GetFFlagPurchasePromptScaryModalV2()) then
+				dispatch(initiatePurchasePrecheck())
+			else
+				dispatch(launchRobuxUpsell())
+			end
 		end,
 	}
 end

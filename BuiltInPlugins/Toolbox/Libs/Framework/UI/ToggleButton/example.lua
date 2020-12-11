@@ -19,13 +19,11 @@ return function(plugin)
 	local pluginItem = Plugin.new(plugin)
 
 	local Util = require(Framework.Util)
-	local FlagsList = Util.Flags.new({
-		FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
-	})
+	local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 	local StudioTheme = require(Framework.Style.Themes.StudioTheme)
 
 	local theme
-	if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+	if THEME_REFACTOR then
 		theme = StudioTheme.new()
 	else
 		theme = Theme.new(function(theme, getColor)

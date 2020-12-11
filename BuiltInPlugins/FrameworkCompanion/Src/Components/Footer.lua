@@ -11,9 +11,7 @@ local RoactRodux = require(Plugin.Packages.RoactRodux)
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
 local Util = Framework.Util
-local FlagsList = Util.Flags.new({
-	FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
-})
+local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 
 local UI = Framework.UI
 local Button = UI.Button
@@ -48,7 +46,7 @@ function Footer:renderButton(index, text, callback)
 	local props = self.props
 	local sizes
 	local style = props.Stylizer
-	if FlagsList:get("FFlagRefactorDevFrameworkTheme") and style then
+	if THEME_REFACTOR and style then
 		sizes = style.Sizes
 	else
 		sizes = props.Theme:get("Sizes")
@@ -71,7 +69,7 @@ function Footer:render()
 	local props = self.props
 	local state = self.state
 	local sizes
-	if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+	if THEME_REFACTOR then
 		local style = props.Stylizer
 		sizes = style and style.Sizes
 	else
@@ -108,8 +106,8 @@ function Footer:render()
 end
 
 ContextServices.mapToProps(Footer, {
-	Stylizer = FlagsList:get("FFlagRefactorDevFrameworkTheme") and ContextServices.Stylizer or nil,
-	Theme = (not FlagsList:get("FFlagRefactorDevFrameworkTheme")) and ContextServices.Theme or nil,
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
 	Plugin = ContextServices.Plugin,
 })
 

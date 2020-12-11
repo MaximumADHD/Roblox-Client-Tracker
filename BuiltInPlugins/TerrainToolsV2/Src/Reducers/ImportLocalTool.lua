@@ -36,6 +36,8 @@ local ImportLocalTool = Rodux.createReducer({
 
 	defaultMaterial = Enum.Material.Asphalt,
 	materialMode = ImportMaterialMode.DefaultMaterial,
+
+	sizeChangedByUser = false,
 }, {
 	ChangePosition = function(state, action)
 		local position = action.position
@@ -81,6 +83,12 @@ local ImportLocalTool = Rodux.createReducer({
 	SetDefaultMaterial = function(state, action)
 		return Cryo.Dictionary.join(state, {
 			defaultMaterial = action.defaultMaterial,
+		})
+	end,
+
+	SetSizeChangedByUser = function(state, action)
+		return Cryo.Dictionary.join(state, {
+			sizeChangedByUser = action.sizeChangedByUser,
 		})
 	end,
 })

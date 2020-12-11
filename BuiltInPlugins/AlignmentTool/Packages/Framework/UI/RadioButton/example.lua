@@ -18,15 +18,13 @@ return function(plugin)
 	local StudioTheme = require(Framework.Style.Themes.StudioTheme)
 
 	local Util = require(Framework.Util)
-	local FlagsList = Util.Flags.new({
-		FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
-	})
+	local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 
 	local pluginItem = Plugin.new(plugin)
 
 	local mouse = Mouse.new(plugin:GetMouse())
 	local theme
-	if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+	if THEME_REFACTOR then
 		theme = StudioTheme.new()
 	else
 		theme = Theme.new(function(theme, getColor)

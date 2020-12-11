@@ -21,9 +21,7 @@ local StudioUIFolderData = require(Framework.StudioUI.StudioUIFolderData)
 local StatelessAudioPlayer = require(StudioUIFolderData.StatelessAudioPlayer.style)
 local StatelessVideoPlayer = require(StudioUIFolderData.StatelessVideoPlayer.style)
 
-local FlagsList = Util.Flags.new({
-	FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
-})
+local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 
 --[[
 	Reduce the width of the controls so that the TreeView button has space to display on the right
@@ -39,7 +37,7 @@ end
 
 local DEFAULT_HEIGHT = 242
 
-if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+if THEME_REFACTOR then
 	local box = deepCopy(Box)
 	local roundBox = deepCopy(RoundBox)
 	local audioPlayerStyle = deepCopy(StatelessAudioPlayer)

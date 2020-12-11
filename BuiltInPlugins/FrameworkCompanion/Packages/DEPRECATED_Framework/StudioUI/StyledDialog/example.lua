@@ -15,16 +15,15 @@ return function(plugin)
 	local TestHelpers = require(Framework.TestHelpers)
 
 	local Util = require(Framework.Util)
-	local FlagsList = Util.Flags.new({
-		FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
-	})
+	local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
+
 
 	local FrameworkStyle = Framework.Style
 	local StudioTheme = require(FrameworkStyle.Themes.StudioTheme)
 
 	local pluginItem = ContextServices.Plugin.new(plugin)
 	local theme
-	if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+	if THEME_REFACTOR then
 		theme = StudioTheme.new()
 	else
 		theme = ContextServices.Theme.new(function(theme, getColor)

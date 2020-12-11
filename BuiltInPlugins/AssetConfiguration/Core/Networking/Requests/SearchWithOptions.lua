@@ -13,8 +13,10 @@ local SetLoading = require(Plugin.Core.Actions.SetLoading)
 local StopPreviewSound = require(Plugin.Core.Actions.StopPreviewSound)
 
 local Analytics = require(Plugin.Core.Util.Analytics.Analytics)
+local CreatorInfoHelper = require(Plugin.Core.Util.CreatorInfoHelper)
 
 local FFlagToolboxShowRobloxCreatedAssetsForLuobu = game:GetFastFlag("ToolboxShowRobloxCreatedAssetsForLuobu")
+local FFlagFixCreatorTypeParameterForAssetRequest = game:DefineFastFlag("FixCreatorTypeParameterForAssetRequest", false)
 
 local function searchUsers(networkInterface, searchTerm, store)
 	return networkInterface:getUsers(searchTerm, 1):andThen(function(result)
@@ -26,7 +28,7 @@ local function searchUsers(networkInterface, searchTerm, store)
 				return {
 					Name = info.Name,
 					Id = info.UserId,
-					Type = Enum.CreatorType.User.Value,
+					Type = FFlagFixCreatorTypeParameterForAssetRequest and CreatorInfoHelper.clientToBackend(Enum.CreatorType.User.Value) or Enum.CreatorType.User.Value,
 				}
 			end
 		end
@@ -34,7 +36,7 @@ local function searchUsers(networkInterface, searchTerm, store)
 		return {
 			Name = searchTerm,
 			Id = -1,
-			Type = Enum.CreatorType.User.Value,
+			Type = FFlagFixCreatorTypeParameterForAssetRequest and CreatorInfoHelper.clientToBackend(Enum.CreatorType.User.Value) or Enum.CreatorType.User.Value,
 		}
 	end)
 end

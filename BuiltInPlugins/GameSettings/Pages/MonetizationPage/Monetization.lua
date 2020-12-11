@@ -129,6 +129,10 @@ local function loadSettings(store, contextItems)
         end,
 
         function(loadedSettings)
+            if not FFlagDeveloperSubscriptionsEnabled then
+                return
+            end
+
             local openDevSubs = devSubsController:getDevSubs(gameId, true)
 
             loadedSettings["DeveloperSubscriptions"] = openDevSubs
@@ -197,7 +201,7 @@ local function saveSettings(store, contextItems)
         end
     end
 
-    if changedDevSubs ~= nil then
+    if FFlagDeveloperSubscriptionsEnabled and changedDevSubs ~= nil then
         for key, devSub in pairs(changedDevSubs) do
             if devSub.IsNew then
                 table.insert(saveFunctions, function()

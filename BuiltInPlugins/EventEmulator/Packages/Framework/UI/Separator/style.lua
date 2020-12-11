@@ -4,11 +4,9 @@ local StyleKey = require(Framework.Style.StyleKey)
 
 local Util = require(Framework.Util)
 local Style = Util.Style
-local FlagsList = Util.Flags.new({
-	FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
-})
+local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 
-if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+if THEME_REFACTOR then
 	return {
 		Color = StyleKey.Border,
 		StretchMargin = 0,

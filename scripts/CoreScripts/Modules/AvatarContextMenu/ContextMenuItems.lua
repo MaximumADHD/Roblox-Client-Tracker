@@ -23,6 +23,10 @@ local ContextMenuUtil = require(AvatarMenuModules:WaitForChild("ContextMenuUtil"
 local ThemeHandler = require(AvatarMenuModules.ThemeHandler)
 
 local BlockingUtility = require(CoreGuiModules.BlockingUtility)
+local PolicyService = require(RobloxGui.Modules.Common.PolicyService)
+
+-- FLAGS
+local FFlagInspectMenuSubjectToPolicy = require(CoreGuiModules.Flags.FFlagInspectMenuSubjectToPolicy)
 
 -- VARIABLES
 
@@ -59,6 +63,10 @@ ContextMenuItems.__index = ContextMenuItems
 -- PRIVATE METHODS
 function ContextMenuItems:UpdateInspectMenuEnabled()
 	local enabled = GuiService:GetInspectMenuEnabled()
+	if FFlagInspectMenuSubjectToPolicy then
+		enabled = enabled and not PolicyService:IsSubjectToChinaPolicies()
+	end
+
 	if enabled ~= EnabledContextMenuItems[Enum.AvatarContextMenuOption.InspectMenu] then
 		EnabledContextMenuItems[Enum.AvatarContextMenuOption.InspectMenu] = enabled
 	end
@@ -412,11 +420,23 @@ function ContextMenuItems.new(menuItemFrame)
 end
 
 GuiService.InspectMenuEnabledChangedSignal:Connect(function(enabled)
+	if FFlagInspectMenuSubjectToPolicy then
+		enabled = enabled and PolicyService:IsSubjectToChinaPolicies()
+	end
+
 	if not enabled then
 		ContextMenuItems:RemoveDefaultMenuItem(Enum.AvatarContextMenuOption.InspectMenu)
 	else
 		ContextMenuItems:EnableDefaultMenuItem(Enum.AvatarContextMenuOption.InspectMenu)
 	end
 end)
+
+if FFlagInspectMenuSubjectToPolicy then
+	spawn(function()
+		-- Check whether InspectMenu is disabled by policy after PolicyService is finished initializing
+		PolicyService:InitAsync()
+		ContextMenuItems:UpdateInspectMenuEnabled()
+	end)
+end
 
 return ContextMenuItems

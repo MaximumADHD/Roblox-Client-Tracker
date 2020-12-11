@@ -27,9 +27,12 @@
 		boolean ActionEnabled: Whether the action button is enabled.
 		boolean ShowRobuxIcon: Whether to show a Robux icon on the action button.
 		number LayoutOrder: LayoutOrder of the component.
+		table PurchaseFlow: PurchaseFlow dialog to show.
+		table SuccessDialog: SuccessDialog dialog to show.
 ]]
 
 local FFlagDevFrameworkDestroyAssetPreviewVideo = game:DefineFastFlag("DevFrameworkDestroyAssetPreviewVideo", false)
+local FFlagAssetPreviewDescriptionFallback = game:GetFastFlag("AssetPreviewDescriptionFallback")
 
 local TextService = game:GetService("TextService")
 
@@ -65,9 +68,9 @@ local HoverArea = UI.HoverArea
 local TextLabel = Decoration.TextLabel
 local Image = Decoration.Image
 
+local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local FlagsList = Util.Flags.new({
-	FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
-	FFlagDevFrameworkLocalizationLibraries = {"DevFrameworkLocalizationLibraries"},	
+	FFlagDevFrameworkLocalizationLibraries = {"DevFrameworkLocalizationLibraries"},
 })
 
 local COMPONENT_NAME = "AssetPreview"
@@ -249,7 +252,7 @@ function AssetPreview:render()
 
 	local theme = props.Theme
 	local style
-	if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+	if THEME_REFACTOR then
 		style = self.props.Stylizer
 	else
 		style = theme:getStyle("Framework", self)
@@ -272,6 +275,12 @@ function AssetPreview:render()
 	local assetData = props.AssetData
 	local assetId = assetData.Asset.Id
 	local assetGenres = assetData.Asset.AssetGenres
+	local assetDescription
+	if FFlagAssetPreviewDescriptionFallback then
+		assetDescription = assetData.Asset.Description or ""
+	else
+		assetDescription = assetData.Asset.Description
+	end
 
 	local localization = props.Localization
 
@@ -318,6 +327,9 @@ function AssetPreview:render()
 		CloseButton = Roact.createElement(Image, {
 			Style = style.CloseButton,
 		}),
+
+		PurchaseFlow = props.PurchaseFlow,
+		SuccessDialog = props.SuccessDialog,
 
 		Contents = Roact.createElement(Container, {}, {
 			Layout = Roact.createElement("UIListLayout", {
@@ -388,7 +400,7 @@ function AssetPreview:render()
 					TextWrapped = true,
 					Style = style.ScrollingFrame.AssetDescription,
 					LayoutOrder = layoutOrderIterator:getNextOrder(),
-					Text = assetData.Asset.Description,
+					Text = assetDescription
 				}),
 
 				VoteBar = props.Voting and Roact.createElement(VoteBar, {
@@ -512,8 +524,8 @@ end
 ContextServices.mapToProps(AssetPreview, {
 	Analytics = ContextServices.Analytics,
 	Localization = ContextServices.Localization,
-	Stylizer = FlagsList:get("FFlagRefactorDevFrameworkTheme") and ContextServices.Stylizer or nil,
-	Theme = (not FlagsList:get("FFlagRefactorDevFrameworkTheme")) and ContextServices.Theme or nil,
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
 })
 
 return AssetPreview

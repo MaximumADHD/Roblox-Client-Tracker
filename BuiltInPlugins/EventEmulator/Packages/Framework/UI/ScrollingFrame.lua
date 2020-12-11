@@ -8,9 +8,13 @@
 		UDim2 Size: The size of the scrolling frame.
 		integer LayoutOrder: The order this component will display in a UILayout.
 		boolean AutoSizeCanvas: When true, will automatically resize the canvas size of the scrolling frame.
+		Enum.ScrollingDirection ScrollingDirection: The direction to scroll in (default = XY)
+		callback OnCanvasResize: Called when content size is updated. Only called when AutoSizeCanvas is true.
+			OnCanvasResize(absSize: Vector2)
 		table AutoSizeLayoutOptions: The options of the UILayout instance if auto-sizing.
 		UDim2 CanvasSize: The size of the scrolling frame's canvas.
 		integer ElementPadding: The padding between children when AutoSizeCanvas is true.
+		boolean ScrollingEnabled: Whether scrolling in this frame will change the CanvasPosition.
 		Style Style: a style table supplied from props and theme:getStyle()
 		Stylizer Stylizer: A Stylizer ContextItem, which is provided via mapToProps
 		Theme Theme: the theme supplied from mapToProps()
@@ -22,14 +26,13 @@
 		UDim2 CanvasSize: The size of the scrolling frame's canvas.
 		integer ScrollBarPadding: The padding which appears on either side of the scrollbar.
 		integer ScrollBarThickness: The horizontal width of the scrollbar.
-		boolean ScrollingEnabled: Whether scrolling in this frame will change the CanvasPosition.
 		integer ZIndex: The draw index of the frame.
 ]]
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
 local Util = require(Framework.Util)
+local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local FlagsList = Util.Flags.new({
-	FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
 	FFlagStudioDevFrameworkPackage = {"StudioDevFrameworkPackage"},
 	FFlagFixContentNotFullyShownAfterResize = {"FixContentNotFullyShownAfterResize"},
 })
@@ -55,7 +58,7 @@ local function getStyle(self)
 	local props = self.props
 	local theme = props.Theme
 	local style
-	if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+	if THEME_REFACTOR then
 		style = props.Stylizer
 	else
 		style = theme:getStyle("Framework", self)
@@ -93,6 +96,10 @@ function ScrollingFrame:init()
 			end
 
 			self.scrollingRef.current.CanvasSize = UDim2.new(0, contentSizeX, 0, contentSizeY)
+
+			if self.props.OnCanvasResize then
+				self.props.OnCanvasResize(Vector2.new(contentSizeX, contentSizeY))
+			end
 		end
 	end
 
@@ -104,25 +111,20 @@ function ScrollingFrame:init()
 			AutoSizeCanvas = Cryo.None,
 			AutoSizeLayoutElement = Cryo.None,
 			AutoSizeLayoutOptions = Cryo.None,
+			OnCanvasResize = Cryo.None,
 			Theme = Cryo.None,
 			Style = Cryo.None,
+			Stylizer = Cryo.None,
+			getUILibraryTheme = Cryo.None,
 		},
 	}
 
 	self.getScrollingFrameProps = function(props, style)
 		-- after filtering out parent's props and other component specific props,
 		-- what is left should be ScrollingFrame specific props
-		local updatedProps
-		if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
-			updatedProps = Cryo.Dictionary.join(props, {
-				Stylizer = Cryo.None
-			})
-		else
-			updatedProps = props
-		end
 		return Cryo.Dictionary.join(
 			style,
-			updatedProps,
+			props,
 			self.propFilters.parentContainerProps,
 			{
 				Size = UDim2.new(1, 0, 1, 0),
@@ -175,8 +177,8 @@ function ScrollingFrame:render()
 end
 
 ContextServices.mapToProps(ScrollingFrame, {
-	Stylizer = FlagsList:get("FFlagRefactorDevFrameworkTheme") and ContextServices.Stylizer or nil,
-	Theme = (not FlagsList:get("FFlagRefactorDevFrameworkTheme")) and ContextServices.Theme or nil,
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
 })
 
 return ScrollingFrame

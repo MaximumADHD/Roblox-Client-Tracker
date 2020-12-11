@@ -19,6 +19,7 @@ local GetAssetsDifference = require(AvatarEditorPrompts.GetAssetsDifference)
 local AddAnalyticsInfo = require(AvatarEditorPrompts.Actions.AddAnalyticsInfo)
 
 local EngineFeatureAvatarEditorServiceAnalytics = game:GetEngineFeature("AvatarEditorServiceAnalytics")
+local EngineFeatureAESConformToAvatarRules = game:GetEngineFeature("AESConformToAvatarRules")
 
 local Modules = AvatarEditorPrompts.Parent
 local FFlagAESPromptsSupportGamepad = require(Modules.Flags.FFlagAESPromptsSupportGamepad)
@@ -33,7 +34,10 @@ local GRADIENT_HEIGHT = 30
 local ItemsList = Roact.PureComponent:extend("ItemsList")
 
 ItemsList.validateProps = t.strictInterface({
-	humanoidDescription = t.instanceOf("HumanoidDescription"),
+	humanoidDescription = EngineFeatureAESConformToAvatarRules and t.optional(t.instanceOf("HumanoidDescription"))
+		or t.instanceOf("HumanoidDescription"),
+	loadingFailed = EngineFeatureAESConformToAvatarRules and t.boolean or nil,
+	retryLoadDescription = EngineFeatureAESConformToAvatarRules and t.callback or nil,
 	itemListScrollableUpdated = t.optional(t.callback),
 
 	addAnalyticsInfo = t.callback,
@@ -141,7 +145,15 @@ function ItemsList:init()
 			loading = true,
 		})
 
-		self.loadAssetNames()
+		if EngineFeatureAESConformToAvatarRules then
+			if self.props.humanoidDescription then
+				self.loadAssetNames()
+			else
+				self.props.retryLoadDescription()
+			end
+		else
+			self.loadAssetNames()
+		end
 	end
 end
 
@@ -300,7 +312,12 @@ function ItemsList:renderFailed()
 end
 
 function ItemsList:render()
-	if self.state.loading then
+	local isLoading = self.state.loading
+	if EngineFeatureAESConformToAvatarRules then
+		isLoading = self.state.loading and not self.props.loadingFailed
+	end
+
+	if isLoading then
 		return self:renderLoading()
 	elseif self.state.addedAssetNames then
 		return self:renderItemsList()
@@ -312,12 +329,30 @@ end
 function ItemsList:didMount()
 	self.mounted = true
 
-	self.loadAssetNames()
+	if EngineFeatureAESConformToAvatarRules then
+		if self.props.humanoidDescription then
+			self.loadAssetNames()
+		end
+	else
+		self.loadAssetNames()
+	end
 	self.checkIsScrollable()
 end
 
-function ItemsList:didUpdate()
+function ItemsList:didUpdate(prevProps, prevState)
 	self.checkIsScrollable()
+
+	if EngineFeatureAESConformToAvatarRules then
+		if prevProps.humanoidDescription ~= self.props.humanoidDescription then
+			self:setState({
+				loading = true,
+				addedAssetNames = Roact.None,
+				removedAssetNames = Roact.None,
+			})
+
+			self.loadAssetNames()
+		end
+	end
 end
 
 function ItemsList:willUnmount()

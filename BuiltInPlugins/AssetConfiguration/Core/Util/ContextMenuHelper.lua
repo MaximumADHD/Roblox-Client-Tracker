@@ -1,6 +1,7 @@
 local Plugin = script.Parent.Parent.Parent
 
 local Util = Plugin.Core.Util
+local Url = require(Plugin.Libs.Http.Url)
 local Urls = require(Util.Urls)
 local DebugFlags = require(Util.DebugFlags)
 
@@ -8,6 +9,7 @@ local AssetConfigConstants = require(Util.AssetConfigConstants)
 local EnumConvert = require(Util.EnumConvert)
 
 local FFlagShowReportOptionInToolbox = game:DefineFastFlag("ShowReportOptionInToolbox", false)
+local FFlagToolboxViewInBrowserUtmAttributes = game:GetFastFlag("ToolboxViewInBrowserUtmAttributes")
 
 local StudioService = game:GetService("StudioService")
 local GuiService = game:GetService("GuiService")
@@ -35,7 +37,7 @@ local function getImageIdFromDecalId(decalId)
 end
 
 -- typeof(assetTypeId) == number
-function ContextMenuHelper.tryCreateContextMenu(plugin, assetId, assetTypeId, showEditOption, localizedContent, editAssetFunc, isPackageAsset)
+function ContextMenuHelper.tryCreateContextMenu(plugin, assetId, assetTypeId, showEditOption, localizedContent, editAssetFunc, isPackageAsset, trackingAttributes)
 	local menu = plugin:CreatePluginMenu("ToolboxAssetMenu")
 
 	local localize = localizedContent
@@ -43,7 +45,15 @@ function ContextMenuHelper.tryCreateContextMenu(plugin, assetId, assetTypeId, sh
 -- add an action to view an asset in browser
 	menu:AddNewAction("OpenInBrowser", localize.RightClickMenu.ViewInBrowser).Triggered:connect(function()
 		local baseUrl = ContentProvider.BaseUrl
-		local targetUrl = string.format("%s/library/%s/asset", baseUrl, HttpService:urlEncode(assetId))
+		local targetUrl
+		if FFlagToolboxViewInBrowserUtmAttributes then
+			targetUrl = string.format("%slibrary/%s/asset", baseUrl, HttpService:urlEncode(assetId))
+			if trackingAttributes then
+				targetUrl = targetUrl .. "?" .. Url.makeQueryString(trackingAttributes)
+			end
+		else
+			targetUrl = string.format("%s/library/%s/asset", baseUrl, HttpService:urlEncode(assetId))
+		end
 		GuiService:OpenBrowserWindow(targetUrl)
 	end)
 

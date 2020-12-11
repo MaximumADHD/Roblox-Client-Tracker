@@ -5,9 +5,7 @@ local ContextServices = require(Framework.ContextServices)
 local Provider = require(Framework.ContextServices.Provider)
 local ContextItem = require(Framework.ContextServices.ContextItem)
 local Util = require(Framework.Util)
-local FlagsList = Util.Flags.new({
-	FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
-})
+local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 return function()
 	it("should work without arguments", function()
 		local element = provideMockContext({}, {
@@ -44,7 +42,7 @@ return function()
 			local plugin = self.props.Plugin:get()
 			local mouse = self.props.Mouse:get()
 			local theme
-			if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+			if THEME_REFACTOR then
 				theme = self.props.Stylizer
 			else
 				theme = self.props.Theme:get("Framework")
@@ -59,8 +57,8 @@ return function()
 		end
 		ContextServices.mapToProps(testComponent,
 		{
-			Stylizer = FlagsList:get("FFlagRefactorDevFrameworkTheme") and ContextServices.Stylizer or nil,
-			Theme = (not FlagsList:get("FFlagRefactorDevFrameworkTheme")) and ContextServices.Theme or nil,
+			Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+			Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
 			Localization = ContextServices.Localization,
 			Mouse = ContextServices.Mouse,
 			Plugin = ContextServices.Plugin,

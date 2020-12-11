@@ -25,7 +25,8 @@ local function ItemPreviewImage(props)
 		local showPremiumIcon = false
 		local showAdultErrorIcon = false
 		local backgroundTransparency = 0
-		if promptState == PromptState.AdultConfirmation then
+		if promptState == PromptState.AdultConfirmation or promptState == PromptState.U13PaymentModal
+				or promptState == PromptState.U13MonthlyThreshold1Modal or promptState == PromptState.U13MonthlyThreshold2Modal then
 			showAdultErrorIcon = true
 			backgroundTransparency = 1
 		elseif promptState == PromptState.Error then
@@ -88,7 +89,7 @@ local function mapStateToProps(state)
 	}
 end
 
-ItemPreviewImage = connectToStore(
+local ItemPreviewImage = connectToStore(
 	mapStateToProps
 )(ItemPreviewImage)
 

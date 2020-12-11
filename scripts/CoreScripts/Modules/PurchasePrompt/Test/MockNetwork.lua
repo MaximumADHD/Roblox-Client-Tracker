@@ -2,7 +2,10 @@
 	Mock network implementation that returns values in the expected
 	formats, or returns promise rejections if specified
 ]]
-local Promise = require(script.Parent.Parent.Promise)
+local Root = script.Parent.Parent
+local Promise = require(Root.Promise)
+
+local PurchaseWarning = require(Root.Enums.PurchaseWarning)
 
 local function getABTestGroup()
 	return Promise.resolve(false)
@@ -97,6 +100,16 @@ local function getPremiumUpsellPrecheck()
 	return Promise.resolve(true)
 end
 
+local function getPurchaseWarning(productId)
+	return Promise.resolve({
+		action = PurchaseWarning.NoAction
+	})
+end
+
+local function postPurchaseWarningAcknowledge()
+	return Promise.resolve()
+end
+
 local function networkFailure(id, infoType)
 	return Promise.reject("Failed to access network service")
 end
@@ -119,6 +132,8 @@ function MockNetwork.new(shouldFail)
 			getProductPurchasableDetails = networkFailure,
 			postPremiumImpression = networkFailure,
 			getPremiumUpsellPrecheck = networkFailure,
+			getPurchaseWarning = networkFailure,
+			postPurchaseWarningAcknowledge = networkFailure,
 		}
 	else
 		mockNetworkService = {
@@ -132,6 +147,8 @@ function MockNetwork.new(shouldFail)
 			getProductPurchasableDetails = getProductPurchasableDetails,
 			postPremiumImpression = postPremiumImpression,
 			getPremiumUpsellPrecheck = getPremiumUpsellPrecheck,
+			getPurchaseWarning = getPurchaseWarning,
+			postPurchaseWarningAcknowledge = postPurchaseWarningAcknowledge,
 		}
 	end
 

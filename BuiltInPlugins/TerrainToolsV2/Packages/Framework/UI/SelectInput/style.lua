@@ -12,15 +12,11 @@ local Cryo = Util.Cryo
 local deepCopy = Util.deepCopy
 local Style = Util.Style
 local StyleModifier = Util.StyleModifier
-local FlagsList = Util.Flags.new({
-	FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
-})
+local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 
-local export: any
-
-if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+if THEME_REFACTOR then
 	local roundBox = deepCopy(RoundBox)
-	export = {
+	return {
 		Padding = 10,
 		BackgroundStyle = roundBox,
 		[StyleModifier.Hover] = {
@@ -45,7 +41,7 @@ if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
 		}),
 	}
 else
-	export = function(theme, getColor)
+	return function(theme, getColor)
 		local common = Common(theme, getColor)
 		local roundBox = RoundBox(theme, getColor)
 
@@ -75,5 +71,3 @@ else
 		}
 	end
 end
-
-return export

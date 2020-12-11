@@ -5,19 +5,19 @@
 ]]
 
 local Plugin = script.Parent.Parent.Parent
-local Framework = Plugin.Packages.Framework
+local Framework = require(Plugin.Packages.Framework)
 local Cryo = require(Plugin.Packages.Cryo)
 
-local Util = require(Framework.Util)
+local Util = Framework.Util
 local StyleModifier = Util.StyleModifier
 
-local FrameworkStyle = require(Framework.Style)
+local FrameworkStyle = Framework.Style
 local StudioTheme = FrameworkStyle.Themes.StudioTheme
 local ui = FrameworkStyle.ComponentSymbols
 local StyleKey = FrameworkStyle.StyleKey
 local getRawComponentStyle = FrameworkStyle.getRawComponentStyle
 
-local UI = require(Plugin.Packages.Framework.UI)
+local UI = Framework.UI
 local Decoration = UI.Decoration
 
 local darkThemeOverride = {
@@ -28,7 +28,7 @@ local lightThemeOverride = {
 }
 local styleRoot = StudioTheme.new(darkThemeOverride, lightThemeOverride)
 
-local FlagsList = require(Plugin.Src.Util.FlagsList)
+local THEME_REFACTOR = Framework.Util.RefactorFlags.THEME_REFACTOR
 
 ui:add("MainView")
 ui:add("MessageFrame")
@@ -40,7 +40,7 @@ ui:add("EmbeddedTableSection")
 ui:add("UploadDialogContent")
 ui:add("LabeledImageButton")
 
-if (not FlagsList:get("FFlagRefactorDevFrameworkTheme")) then
+if (not THEME_REFACTOR) then
    return {}
 end
 

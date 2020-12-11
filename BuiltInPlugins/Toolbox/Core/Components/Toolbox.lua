@@ -16,12 +16,17 @@
 		callback updatePageInfo()
 		callback tryOpenAssetConfig, invoke assetConfig page with an assetId.
 ]]
+local MemStorageService = game:GetService("MemStorageService")
 
 local Plugin = script.Parent.Parent.Parent
 
 local Libs = Plugin.Libs
+local Cryo = require(Libs.Cryo)
 local Roact = require(Libs.Roact)
 local RoactRodux = require(Libs.RoactRodux)
+local Framework = require(Libs.Framework)
+
+local SharedPluginConstants = require(Plugin.SharedPluginConstants)
 
 local Util = Plugin.Core.Util
 local Constants = require(Util.Constants)
@@ -29,7 +34,6 @@ local ContextGetter = require(Util.ContextGetter)
 local PageInfoHelper = require(Util.PageInfoHelper)
 local getTabs = require(Util.getTabs)
 local Analytics = require(Util.Analytics.Analytics)
-local FlagsList = require(Util.FlagsList)
 
 local Types = Plugin.Core.Types
 local Sort = require(Types.Sort)
@@ -53,10 +57,10 @@ local GetRolesRequest = require(Requests.GetRolesRequest)
 local GetRolesDebugRequest = require(Requests.GetRolesDebugRequest)
 local GetRobuxBalance = require(Requests.GetRobuxBalance)
 
-local ContextServices = require(Libs.Framework.ContextServices)
+local ContextServices = Framework.ContextServices
 local Settings = require(Plugin.Core.ContextServices.Settings)
 
-local RobloxAPI = require(Libs.Framework).RobloxAPI
+local RobloxAPI = Framework.RobloxAPI
 
 local FFlagStudioToolboxPersistBackgroundColor = game:DefineFastFlag("StudioToolboxPersistsBackgroundColor", false)
 local FFlagUseCategoryNameInToolbox = game:GetFastFlag("UseCategoryNameInToolbox")
@@ -64,6 +68,8 @@ local FFlagUseCategoryNameInToolbox = game:GetFastFlag("UseCategoryNameInToolbox
 local FFlagDebugToolboxGetRolesRequest = game:GetFastFlag("DebugToolboxGetRolesRequest")
 local FFlagToolboxDisableMarketplaceAndRecentsForLuobu = game:GetFastFlag("ToolboxDisableMarketplaceAndRecentsForLuobu")
 local FFlagToolboxShowRobloxCreatedAssetsForLuobu = game:GetFastFlag("ToolboxShowRobloxCreatedAssetsForLuobu")
+local FFlagPluginManagementDirectlyOpenToolbox = game:GetFastFlag("PluginManagementDirectlyOpenToolbox")
+local THEME_REFACTOR = Framework.Util.RefactorFlags.THEME_REFACTOR
 
 local Toolbox = Roact.PureComponent:extend("Toolbox")
 
@@ -139,8 +145,7 @@ function Toolbox:init(props)
 		toolboxWidth = math.max(props.initialWidth or 0, Constants.TOOLBOX_MIN_WIDTH),
 		showSearchOptions = false,
 		-- Keep track of the timestamp an asset was last inserted
-		-- Prevents double clicking on assets inserting 2 instead of just 1
-		-- Also allows us to track an analytic if a search is made and no asset is chosen
+		-- Allows us to track an analytic if a search is made and no asset is chosen
 		mostRecentAssetInsertTime = 0
 	}
 
@@ -208,12 +213,12 @@ function Toolbox:init(props)
 		return nil
 	end
 
-	self.changeMarketplaceTab = function(tabName)
+	self.changeMarketplaceTab = function(tabName, optionsOverrides)
 		-- TODO remove newCategoryIndex when FFlagUseCategoryNameInToolbox is retired
 		local newCategoryIndex = 1
 		-- Change tab will always set categoryName to the first category in the new tab.
 		local newCategories = Category.getCategories(tabName, self.props.roles)
-		local options = {
+		local options = Cryo.Dictionary.join({
 			categoryIndex = (not FFlagUseCategoryNameInToolbox) and (determineCategoryIndexOnTabChange(tabName, newCategories) or newCategoryIndex),
 			categoryName = determineCategoryNameOnTabChange(tabName, newCategories),
 			creator = getCreatorOverrideIfNeeded(tabName),
@@ -221,7 +226,7 @@ function Toolbox:init(props)
 			sortIndex = 1,
 			groupIndex = 0,
 			selectedBackgroundIndex = (not FFlagStudioToolboxPersistBackgroundColor) and 0 or nil,
-		}
+		}, FFlagPluginManagementDirectlyOpenToolbox and optionsOverrides or {})
 		local mySettings = self.props.Settings:get("Plugin")
 		self.props.changeMarketplaceTab(networkInterface, tabName, newCategories, mySettings, options)
 
@@ -262,6 +267,37 @@ function Toolbox:didMount()
 	self.props.setRoles(getNetwork(self))
 
 	self.props.getRobuxBalance(getNetwork(self))
+
+	if FFlagPluginManagementDirectlyOpenToolbox then
+		self._showPluginsConnection = MemStorageService:Bind(SharedPluginConstants.SHOW_TOOLBOX_PLUGINS_EVENT, function()
+			local categoryIndex
+			local categoryName
+
+			if FFlagUseCategoryNameInToolbox then
+				categoryName = Category.WHITELISTED_PLUGINS.name
+			else
+				categoryIndex = Cryo.List.find(Category.MARKETPLACE, Category.WHITELISTED_PLUGINS)
+
+				if not categoryIndex then
+					warn("Could not find categoryIndex for plugins to show toolbox plugins")
+					return
+				end
+			end
+
+			self.changeMarketplaceTab(Category.MARKETPLACE_KEY, {
+				categoryIndex = categoryIndex,
+				categoryName = categoryName,
+			})
+
+			Analytics.openedFromPluginManagement()
+		end)
+	end
+end
+
+function Toolbox:willUnmount()
+	if FFlagPluginManagementDirectlyOpenToolbox then
+		self._showPluginsConnection:Disconnect()
+	end
 end
 
 function Toolbox:render()
@@ -284,7 +320,7 @@ function Toolbox:render()
 	local pluginGui = props.pluginGui
 
 	local toolboxTheme
-	if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+	if THEME_REFACTOR then
 		toolboxTheme = self.props.Stylizer
 	else
 		toolboxTheme = self.props.Theme:get("Plugin")
@@ -344,8 +380,8 @@ function Toolbox:render()
 end
 
 ContextServices.mapToProps(Toolbox, {
-	Stylizer = FlagsList:get("FFlagRefactorDevFrameworkTheme") and ContextServices.Stylizer or nil,
-	Theme = (not FlagsList:get("FFlagRefactorDevFrameworkTheme")) and ContextServices.Theme or nil,
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
 	Localization = ContextServices.Localization,
 	Settings = Settings,
 })

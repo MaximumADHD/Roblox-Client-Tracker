@@ -32,9 +32,7 @@ local Util = require(Framework.Util)
 local t = require(Framework.Util.Typecheck.t)
 local Typecheck = Util.Typecheck
 
-local FlagsList = Util.Flags.new({
-	FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
-})
+local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 
 local BulletList = Roact.PureComponent:extend("BulletList")
 Typecheck.wrap(BulletList, script)
@@ -53,7 +51,7 @@ function BulletList:init()
 		local items = props.Items
 		local theme = props.Theme
 		local style
-		if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+		if THEME_REFACTOR then
 			style = props.Stylizer
 		else
 			style = theme:getStyle("Framework", self)
@@ -109,7 +107,7 @@ end
 
 function BulletList:calculateItemOffset()
 	local style
-	if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+	if THEME_REFACTOR then
 		style = self.props.Stylizer
 	else
 		style = self.props.Theme:getStyle("Framework", self)
@@ -130,7 +128,7 @@ function BulletList:render()
 
 	local theme = props.Theme
 	local style
-	if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+	if THEME_REFACTOR then
 		style = props.Stylizer
 	else
 		style = theme:getStyle("Framework", self)
@@ -228,8 +226,8 @@ function BulletList:render()
 end
 
 ContextServices.mapToProps(BulletList, {
-	Stylizer = FlagsList:get("FFlagRefactorDevFrameworkTheme") and ContextServices.Stylizer or nil,
-	Theme = (not FlagsList:get("FFlagRefactorDevFrameworkTheme")) and ContextServices.Theme or nil,
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
 })
 
 return BulletList

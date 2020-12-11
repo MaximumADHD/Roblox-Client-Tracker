@@ -8,6 +8,9 @@ local FFlagFixGroupPackagesCategoryInToolbox = game:DefineFastFlag("FixGroupPack
 local FFlagToolboxDisableMarketplaceAndRecentsForLuobu = game:GetFastFlag("ToolboxDisableMarketplaceAndRecentsForLuobu")
 local FFlagToolboxShowRobloxCreatedAssetsForLuobu = game:GetFastFlag("ToolboxShowRobloxCreatedAssetsForLuobu")
 local FFlagFixAudioAssetsForLuoBu = game:DefineFastFlag("FixAudioAssetsForLuoBu", false)
+local FFlagToolboxMicroserviceSearch = game:GetFastFlag("ToolboxMicroserviceSearch")
+local FFlagToolboxModelsMicroserviceSearch = game:GetFastFlag("ToolboxModelsMicroserviceSearch")
+local FFlagMakeLuobuDisabledMarketplaceCategoriesIndependent = game:DefineFastFlag("MakeLuobuDisabledMarketplaceCategoriesIndependent", false)
 
 local Plugin = script.Parent.Parent.Parent
 local CreatorInfoHelper = require(Plugin.Core.Util.CreatorInfoHelper)
@@ -244,13 +247,25 @@ if FFlagEnableToolboxVideos then
 	table.insert(Category.MARKETPLACE, Category.MARKETPLACE_VIDEOS)
 end
 
+-- Categories which are supported by GetToolboxItems
 Category.API_NAMES = {
 	[Category.FREE_AUDIO.name] = "Audio",
 	[Category.WHITELISTED_PLUGINS.name] = "Plugins",
 }
+if FFlagToolboxMicroserviceSearch then
+	Category.API_NAMES = Cryo.Dictionary.join(Category.API_NAMES, {
+		[Category.FREE_MESHES.name] = "Meshes",
+		[Category.FREE_DECALS.name] = "Decals",
+	})
 
+	if FFlagEnableToolboxVideos then
+		Category.API_NAMES[Category.MARKETPLACE_VIDEOS.name] = "Videos"
+	end
 
-
+	if FFlagToolboxModelsMicroserviceSearch then
+		Category.API_NAMES[Category.FREE_MODELS.name] = "Models"
+	end
+end
 
 local function getCreationCategories()
 	local categories = {
@@ -290,24 +305,44 @@ table.insert(Category.INVENTORY_WITH_GROUPS, insertIndex, Category.MY_PLUGINS)
 local insertIndex2 = Cryo.List.find(Category.INVENTORY_WITH_GROUPS, Category.GROUP_AUDIO) + 1
 table.insert(Category.INVENTORY_WITH_GROUPS, insertIndex2, Category.GROUP_PLUGINS)
 
-if FFlagToolboxShowRobloxCreatedAssetsForLuobu and RobloxAPI:baseURLHasChineseHost() then
-	local disabledCategories = string.split(FStringLuobuMarketplaceDisabledCategories, ";")
 
-	for _, categoryName in pairs(disabledCategories) do
-		local categoryIndex = nil
+if FFlagMakeLuobuDisabledMarketplaceCategoriesIndependent then
+	if RobloxAPI:baseURLHasChineseHost() then
+		local disabledCategories = string.split(FStringLuobuMarketplaceDisabledCategories, ";")
 
-		for i, category in pairs(Category.MARKETPLACE) do
-			if category.name == categoryName then
-				categoryIndex = i
+		for _, categoryName in pairs(disabledCategories) do
+			local categoryIndex = nil
+
+			for i, category in pairs(Category.MARKETPLACE) do
+				if category.name == categoryName then
+					categoryIndex = i
+				end
+			end
+
+			if categoryIndex then
+				table.remove(Category.MARKETPLACE, categoryIndex)
 			end
 		end
+	end
+else
+	if FFlagToolboxShowRobloxCreatedAssetsForLuobu and RobloxAPI:baseURLHasChineseHost() then
+		local disabledCategories = string.split(FStringLuobuMarketplaceDisabledCategories, ";")
 
-		if categoryIndex then
-			table.remove(Category.MARKETPLACE, categoryIndex)
+		for _, categoryName in pairs(disabledCategories) do
+			local categoryIndex = nil
+
+			for i, category in pairs(Category.MARKETPLACE) do
+				if category.name == categoryName then
+					categoryIndex = i
+				end
+			end
+
+			if categoryIndex then
+				table.remove(Category.MARKETPLACE, categoryIndex)
+			end
 		end
 	end
 end
-
 if FFlagUseCategoryNameInToolbox then
 	local tabForCategoryName = {}
 	local tabKeyForCategoryName = {}

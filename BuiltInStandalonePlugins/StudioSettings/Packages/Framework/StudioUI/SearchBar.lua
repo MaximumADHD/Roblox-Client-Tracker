@@ -1,9 +1,6 @@
 --[[
 	A search bar component with a single line TextInput and button to request a search.
 
-	Required Props:
-		Theme Theme: A Theme ContextItem, which is provided via mapToProps.
-
 	Optional Props:
 		number Width: how wide the search bar is in pixels.
 		number ButtonWidth: how wide the search button is in pixels.
@@ -17,7 +14,8 @@
 		boolean ShowSearchButton: Whether to show the search button at the right of the bar (default true).
 		Style Style: The style with which to render this component.
 		StyleModifier StyleModifier: The StyleModifier index into Style.
-
+		Stylizer Stylizer: A Stylizer ContextItem, which is provided via mapToProps.
+		Theme Theme: A Theme ContextItem, which is provided via mapToProps.
 
 	Style Values:
 		Style BackgroundStyle: The style with which to render the background.
@@ -26,19 +24,22 @@
 		number TextSize: The font size of the text in this link.
 		Color3 TextColor: The color of the search term text.
 ]]
-
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
 local ContextServices = require(Framework.ContextServices)
-local Typecheck = require(Framework.Util).Typecheck
+
 local Util = require(Framework.Util)
+local Typecheck = Util.Typecheck
 local StyleModifier = Util.StyleModifier
+
 local UI = require(Framework.UI)
 local Button = UI.Button
 local Container = UI.Container
 local Decoration = UI.Decoration
 local Separator = UI.Separator
 local TextInput = UI.TextInput
+
+local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 
 local SearchBar = Roact.PureComponent:extend("SearchBar")
 Typecheck.wrap(SearchBar, script)
@@ -205,7 +206,12 @@ function SearchBar:render()
 	end
 
 	local theme = props.Theme
-	local style = theme:getStyle("Framework", self)
+	local style
+	if THEME_REFACTOR then
+		style = props.Stylizer
+	else
+		style = theme:getStyle("Framework", self)
+	end
 	local backgroundStyle = style.BackgroundStyle
 
 	local padding = style.Padding
@@ -282,7 +288,8 @@ function SearchBar:render()
 end
 
 ContextServices.mapToProps(SearchBar, {
-	Theme = ContextServices.Theme,
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
 })
 
 return SearchBar

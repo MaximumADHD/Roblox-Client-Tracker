@@ -31,9 +31,7 @@ local Container = require(Framework.UI.Container)
 
 local Util = require(Framework.Util)
 local Typecheck = Util.Typecheck
-local FlagsList = Util.Flags.new({
-	FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
-})
+local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 
 local LoadingBar = Roact.PureComponent:extend("LoadingBar")
 Typecheck.wrap(LoadingBar, script)
@@ -46,7 +44,7 @@ function LoadingBar:render()
 	local props = self.props
 	local theme = props.Theme
 	local style
-	if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+	if THEME_REFACTOR then
 		style = props.Stylizer
 	else
 		style = theme:getStyle("Framework", self)
@@ -84,8 +82,8 @@ function LoadingBar:render()
 end
 
 ContextServices.mapToProps(LoadingBar, {
-	Stylizer = FlagsList:get("FFlagRefactorDevFrameworkTheme") and ContextServices.Stylizer or nil,
-	Theme = (not FlagsList:get("FFlagRefactorDevFrameworkTheme")) and ContextServices.Theme or nil,
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
 })
 
 return LoadingBar

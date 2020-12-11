@@ -19,9 +19,7 @@
 
 	LayoutOrder = number,
 ]]
-local FFlagStudioMinorFixesForAssetPreview = settings():GetFFlag("StudioMinorFixesForAssetPreview")
 local FFlagHideOneChildTreeviewButton = game:GetFastFlag("HideOneChildTreeviewButton")
-local FFlagStudioFixTreeViewForFlatList = settings():GetFFlag("StudioFixTreeViewForFlatList")
 local FFlagStudioAssetPreviewTreeFix2 = game:DefineFastFlag("StudioAssetPreviewTreeFix2", false)
 local FFlagEnableToolboxVideos = game:GetFastFlag("EnableToolboxVideos")
 
@@ -58,10 +56,8 @@ local MODAL_MIN_WIDTH = 235
 local PreviewController = Roact.PureComponent:extend("PreviewController")
 
 local function getImage(instance)
-	if FFlagStudioMinorFixesForAssetPreview then
-		if typeof(instance) ~= "Instance" then
-			return nil
-		end
+	if typeof(instance) ~= "Instance" then
+		return nil
 	end
 
 	if instance:IsA("Decal") or instance:IsA("Texture") then
@@ -74,10 +70,8 @@ local function getImage(instance)
 end
 
 local function getImageScaleType(instance)
-	if FFlagStudioMinorFixesForAssetPreview then
-		if typeof(instance) ~= "Instance" then
-			return Enum.ScaleType.Fit
-		end
+	if typeof(instance) ~= "Instance" then
+		return Enum.ScaleType.Fit
 	end
 	if instance:IsA("Sky") then
 		return Enum.ScaleType.Crop
@@ -95,7 +89,7 @@ function PreviewController:createTreeView(previewModel, size)
 		if FFlagStudioAssetPreviewTreeFix2 then
 			dataTree = previewModel
 		else
-			dataTree = FFlagStudioFixTreeViewForFlatList and self.props.CurrentPreview or previewModel
+			dataTree = self.props.CurrentPreview
 		end
 
 		return Roact.createElement("ImageButton", {
@@ -115,7 +109,7 @@ function PreviewController:createTreeView(previewModel, size)
 				dataTree = dataTree,
 				onSelectionChanged = self.onTreeItemClicked,
 
-				createFlatList = FFlagStudioFixTreeViewForFlatList and true or false,
+				createFlatList = true,
 
 				getChildren = function(instance)
 					return instance:GetChildren()
@@ -233,7 +227,7 @@ function PreviewController:render()
 		if FFlagStudioAssetPreviewTreeFix2 then
 			dataTree = previewModel
 		else
-			dataTree = FFlagStudioFixTreeViewForFlatList and self.props.CurrentPreview or previewModel
+			dataTree = self.props.CurrentPreview
 		end
 		local hasMultiplechildren = dataTree and (#dataTree:GetChildren() > 0) or false
 		showTreeViewButton = showTreeViewButton and hasMultiplechildren

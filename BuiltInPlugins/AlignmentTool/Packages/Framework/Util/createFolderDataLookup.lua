@@ -1,5 +1,5 @@
 --[[
-    Internal utility file used to get files from UI/StudioUI folders using a Fractal pattern.
+	Utility function used to get associated files from components that follow the fractal pattern.
 
     Parameter "folderPath" is expected to be an array of file instances.
 ]]

@@ -10,8 +10,11 @@ local FlagsList = Flags.new({
 	},
 })
 
+local FFlagPluginManagementDirectlyOpenToolbox = game:GetFastFlag("PluginManagementDirectlyOpenToolbox")
+
 local FlagsListFile = require(Plugin.Src.Util.FlagsList)
 
+local MemStorageService = game:GetService("MemStorageService")
 local StudioService = game:GetService("StudioService")
 local GuiService = game:GetService("GuiService")
 local MarketplaceService = game:GetService("MarketplaceService")
@@ -32,6 +35,8 @@ local RefreshPlugins = require(Plugin.Src.Thunks.RefreshPlugins)
 local FrameworkButton = UI.Button
 local StyleModifier = Util.StyleModifier
 local LoadingIndicator = UI.LoadingIndicator
+
+local SharedPluginConstants = require(Plugin.SharedPluginConstants)
 
 local ManagementMainView = Roact.Component:extend("ManagementMainView")
 
@@ -82,10 +87,18 @@ function ManagementMainView:init()
 	end
 
 	self.findPlugins = function()
-		-- Show this has moved to toolbox dialog
-		self:setState({
-			showingMovedDialog = true,
-		})
+		if FFlagPluginManagementDirectlyOpenToolbox then
+			if self:isPlaceOpen() then
+				MemStorageService:Fire(SharedPluginConstants.SHOW_TOOLBOX_PLUGINS_EVENT)
+			else
+				warn("findPlugins not supported when no place is open")
+			end
+		else
+			-- Show this has moved to toolbox dialog
+			self:setState({
+				showingMovedDialog = true,
+			})
+		end
 	end
 
 	self.onCloseMoveDialog = function()
@@ -96,6 +109,10 @@ function ManagementMainView:init()
 
 	local toolboxInstallToken = StudioService.OnPluginInstalledFromToolbox:connect(self.refreshPlugins)
 	table.insert(self.tokens, toolboxInstallToken)
+end
+
+function ManagementMainView:isPlaceOpen()
+	return self.props.Plugin:get().MultipleDocumentInterfaceInstance.FocusedDataModelSession
 end
 
 function ManagementMainView:didMount()
@@ -140,6 +157,20 @@ function ManagementMainView:render()
 	local showList = not loading and next(pluginList) ~= nil
 	local showNoPlugins = not showList and not loading
 
+	local showFindPluginsButton
+	local findPluginsMessageText
+	if FFlagPluginManagementDirectlyOpenToolbox then
+		showFindPluginsButton = self:isPlaceOpen()
+		if showFindPluginsButton then
+			findPluginsMessageText = localization:getText("Main", "FindPluginsWithButtonMessage")
+		else
+			findPluginsMessageText = localization:getText("Main", "FindPluginsMessage")
+		end
+	else
+		showFindPluginsButton = true
+		findPluginsMessageText = localization:getText("Main", "FindPluginsMessage")
+	end
+
 	return Roact.createElement("Frame", {
 		Size = UDim2.new(1, 0, 1, 0),
 		BackgroundColor3 = theme.BackgroundColor,
@@ -161,7 +192,7 @@ function ManagementMainView:render()
 				- Constants.HEADER_UPDATE_WIDTH - Constants.HEADER_BUTTON_SIZE, 0, Constants.HEADER_TOP_PADDING),
 			Style = "Round",
 			StyleModifier = updateDisabled and StyleModifier.Disabled or nil,
-			OnClick = not updateDisabled and self.updateAllPlugins or nil,
+			OnClick = not updateDisabled and self.updateAllPlugins or function() end,
 		},{
 			Label = Roact.createElement("TextLabel", {
 				Size = UDim2.new(1, 0, 1, 0),
@@ -173,7 +204,7 @@ function ManagementMainView:render()
 			}),
 		}),
 
-		FindPluginsButton = Roact.createElement(FrameworkButton, {
+		FindPluginsButton = showFindPluginsButton and Roact.createElement(FrameworkButton, {
 			Size = UDim2.new(0, Constants.HEADER_BUTTON_SIZE, 0, Constants.HEADER_BUTTON_SIZE),
 			Position = UDim2.new(1, Constants.HEADER_RIGHT_PADDING, 0, Constants.HEADER_TOP_PADDING),
 			AnchorPoint = Vector2.new(1, 0),
@@ -190,11 +221,11 @@ function ManagementMainView:render()
 				TextSize = 24,
 				BackgroundTransparency = 1,
 			}),
-		}),
+		}) or nil,
 
-		MovedToToolboxDialog = showingMovedDialog and Roact.createElement(MovedDialog, {
+		MovedToToolboxDialog = not FFlagPluginManagementDirectlyOpenToolbox and showingMovedDialog and Roact.createElement(MovedDialog, {
 			OnClose = self.onCloseMoveDialog
-		}),
+		}) or nil,
 
 		NoPluginsMessage = showNoPlugins and Roact.createElement("TextLabel", {
 			Position = UDim2.new(
@@ -223,7 +254,7 @@ function ManagementMainView:render()
 				1, -Constants.HEADER_LEFT_PADDING,
 				0, Constants.HEADER_MESSAGE_LINE_HEIGHT
 			),
-			Text = localization:getText("Main", "FindPluginsMessage"),
+			Text = findPluginsMessageText,
 			TextSize = 17,
 			TextColor3 = theme.TextColor,
 			Font = Enum.Font.SourceSans,

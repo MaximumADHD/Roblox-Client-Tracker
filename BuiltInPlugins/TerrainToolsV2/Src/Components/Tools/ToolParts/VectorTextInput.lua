@@ -72,11 +72,12 @@ function VectorTextInput:render()
 	end
 
 	return Roact.createElement(LabeledElementPair, {
-		Text = text,
+		LayoutOrder = layoutOrder,
 		Size = UDim2.new(1, 0, 0, 60),
 		Padding = UDim.new(0, 3),
+		Text = text,
 		SizeToContent = true,
-		LayoutOrder = layoutOrder,
+		ErrorMessage = self.props.ErrorMessage,
 	}, children)
 end
 

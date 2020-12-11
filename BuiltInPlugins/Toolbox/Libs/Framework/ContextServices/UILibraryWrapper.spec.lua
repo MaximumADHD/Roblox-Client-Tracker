@@ -3,9 +3,9 @@ return function()
 
 	local Util = require(Framework.Util)
 	local Signal = Util.Signal
+	local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 	local FlagsList = Util.Flags.new({
 		FFlagStudioDevFrameworkPackage = {"StudioDevFrameworkPackage"},
-		FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
 	})
 
 	local isUsedAsPackage = require(Framework.Util.isUsedAsPackage)
@@ -34,7 +34,7 @@ return function()
 
 	local function createThemeMock()
 
-		if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+		if THEME_REFACTOR then
 			return StudioTheme.mock()
 		else
 			local createStyles = function()

@@ -1,4 +1,5 @@
 local CorePackages = game:GetService("CorePackages")
+local CoreGui = game:GetService("CoreGui")
 local Players = game:GetService("Players")
 
 local Roact = require(CorePackages.Roact)
@@ -6,9 +7,15 @@ local t = require(CorePackages.Packages.t)
 local UIBlox = require(CorePackages.UIBlox)
 
 local ShimmerPanel = UIBlox.Loading.ShimmerPanel
+local EmptyState = UIBlox.App.Indicator.EmptyState
 
 local FFlagBetterHumanoidViewportCameraPositioning =
 	game:DefineFastFlag("BetterHumanoidViewportCameraPositioning", false)
+
+local RobloxGui = CoreGui:WaitForChild("RobloxGui")
+local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
+
+local EngineFeatureAESConformToAvatarRules = game:GetEngineFeature("AESConformToAvatarRules")
 
 local INITIAL_OFFSET = 5
 local ROTATION_CFRAME = CFrame.fromEulerAnglesXYZ(math.rad(20), math.rad(15), math.rad(40))
@@ -18,13 +25,17 @@ local ZOOM_FACTOR = FFlagBetterHumanoidViewportCameraPositioning and 1 or 1.2
 local HumanoidViewport = Roact.PureComponent:extend("HumanoidViewport")
 
 HumanoidViewport.validateProps = t.strictInterface({
-	humanoidDescription = t.instanceOf("HumanoidDescription"),
+	humanoidDescription = EngineFeatureAESConformToAvatarRules and t.optional(t.instanceOf("HumanoidDescription"))
+		or t.instanceOf("HumanoidDescription"),
+	loadingFailed = EngineFeatureAESConformToAvatarRules and t.boolean or nil,
+	retryLoadDescription = EngineFeatureAESConformToAvatarRules and t.callback or nil,
 	rigType = t.enum(Enum.HumanoidRigType),
 })
 
 function HumanoidViewport:init()
 	self:setState({
-		loading = true
+		loading = true,
+		loadingFailed = false,
 	})
 
 	self.cameraRef = Roact.createRef()
@@ -36,6 +47,19 @@ function HumanoidViewport:init()
 	self.humanoidModel = nil
 
 	self.mounted = false
+
+	self.onRetryLoading = function()
+		self:setState({
+			loading = true,
+			loadingFailed = false,
+		})
+
+		if self.props.humanoidDescription then
+			self:loadHumanoidModel()
+		else
+			self.props.retryLoadDescription()
+		end
+	end
 end
 
 local function rotateLookVector(lookVector)
@@ -131,7 +155,14 @@ function HumanoidViewport:loadHumanoidModel()
 	local rigType = self.props.rigType
 
 	coroutine.wrap(function()
-		local model = Players:CreateHumanoidModelFromDescription(humanoidDescription, rigType)
+		local model
+		if EngineFeatureAESConformToAvatarRules then
+			pcall(function()
+				model = Players:CreateHumanoidModelFromDescription(humanoidDescription, rigType)
+			end)
+		else
+			model = Players:CreateHumanoidModelFromDescription(humanoidDescription, rigType)
+		end
 
 		if not self.mounted then
 			return
@@ -145,6 +176,13 @@ function HumanoidViewport:loadHumanoidModel()
 			return
 		end
 
+		if EngineFeatureAESConformToAvatarRules and model == nil then
+			self:setState({
+				loadingFailed = true,
+			})
+			return
+		end
+
 		self.humanoidModel = model
 		if self.worldModelRef:getValue() then
 			self.humanoidModel.Parent = self.worldModelRef:getValue()
@@ -154,12 +192,22 @@ function HumanoidViewport:loadHumanoidModel()
 		self:loadIdleAnimation(model)
 
 		self:setState({
-			loading = false
+			loading = false,
+			loadingFailed = false,
 		})
 	end)()
 end
 
 function HumanoidViewport:render()
+	local showShimmerFrame = self.state.loading
+	local showLoadingFailed = false
+	local showViewportFrame = not self.state.loading
+	if EngineFeatureAESConformToAvatarRules then
+		showLoadingFailed = self.props.loadingFailed or self.state.loadingFailed
+		showShimmerFrame = (not showLoadingFailed) and self.state.loading
+		showViewportFrame = not (showLoadingFailed or self.state.loading)
+	end
+
 	return Roact.createElement("Frame", {
 		BackgroundTransparency = 1,
 		Size = UDim2.fromScale(1, 1),
@@ -172,14 +220,20 @@ function HumanoidViewport:render()
 			DominantAxis = Enum.DominantAxis.Width,
 		}),
 
-		ShimmerFrame = self.state.loading and Roact.createElement(ShimmerPanel, {
+		ShimmerFrame = showShimmerFrame and Roact.createElement(ShimmerPanel, {
 			Size = UDim2.fromScale(1, 1),
 			Position = UDim2.fromScale(0.5, 0.5),
 			AnchorPoint = Vector2.new(0.5, 0.5),
 		}),
 
+		LoadingFailed = showLoadingFailed and Roact.createElement(EmptyState, {
+			text = RobloxTranslator:FormatByKey("CoreScripts.AvatarEditorPrompts.ItemsListLoadingFailed"),
+			size = UDim2.fromScale(1, 1),
+			reloadAction = self.onRetryLoading,
+		}),
+
 		ViewportFrame = Roact.createElement("ViewportFrame", {
-			Visible = not self.state.loading,
+			Visible = showViewportFrame,
 			BackgroundTransparency = 1,
 			Size = UDim2.fromScale(1, 1),
 			Position = UDim2.fromScale(0.5, 0.5),
@@ -208,7 +262,13 @@ end
 function HumanoidViewport:didMount()
 	self.mounted = true
 
-	self:loadHumanoidModel()
+	if EngineFeatureAESConformToAvatarRules then
+		if self.props.humanoidDescription then
+			self:loadHumanoidModel()
+		end
+	else
+		self:loadHumanoidModel()
+	end
 end
 
 function HumanoidViewport:didUpdate(prevProps)
@@ -223,7 +283,13 @@ function HumanoidViewport:didUpdate(prevProps)
 			loading = true
 		})
 
-		self:loadHumanoidModel()
+		if EngineFeatureAESConformToAvatarRules then
+			if self.props.humanoidDescription ~= nil then
+				self:loadHumanoidModel()
+			end
+		else
+			self:loadHumanoidModel()
+		end
 	end
 end
 

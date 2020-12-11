@@ -4,6 +4,8 @@ local Url = require(Plugin.Libs.Http.Url)
 
 local wrapStrictTable = require(Plugin.Core.Util.wrapStrictTable)
 
+local FFlagToolboxUseGetItemDetails = game:GetFastFlag("ToolboxUseGetItemDetails")
+local FFlagToolboxMicroserviceSearch = game:GetFastFlag("ToolboxMicroserviceSearch")
 local FFlagDragFaceInstances = game:GetFastFlag("DragFaceInstances")
 
 local Urls = {}
@@ -82,7 +84,12 @@ local ADD_ASSET_TAG = Url.ITEM_CONFIGURATION_URL .. "v1/item-tags"
 local DELETE_ITEM_TAG = Url.ITEM_CONFIGURATION_URL .. "v1/item-tags/%s"
 
 local GET_TOOLBOX_ITEMS = Url.APIS_URL .. "toolbox-service/v1/%s?"
-local GET_ITEM_DETAILS = Url.APIS_URL .. "toolbox-service/v1/items/details"
+local GET_ITEM_DETAILS
+if FFlagToolboxMicroserviceSearch then
+	GET_ITEM_DETAILS = Url.APIS_URL .. "toolbox-service/v1/items/details?"
+else
+	GET_ITEM_DETAILS = Url.APIS_URL .. "toolbox-service/v1/items/details"
+end
 
 local AVATAR_ASSETS_GET_UPLOAD_FEE = Url.ITEM_CONFIGURATION_URL .. "v1/avatar-assets/%s/get-upload-fee"
 local AVATAR_ASSETS_UPLOAD = Url.ITEM_CONFIGURATION_URL .. "v1/avatar-assets/%s/upload"
@@ -90,8 +97,14 @@ local AVATAR_ASSETS_UPLOAD = Url.ITEM_CONFIGURATION_URL .. "v1/avatar-assets/%s/
 local DEFAULT_ASSET_SIZE = 100
 local DEFAULT_SEARCH_ROWS = 3
 
-function Urls.constructPostGetItemDetails()
-	return GET_ITEM_DETAILS
+if FFlagToolboxUseGetItemDetails then
+	function Urls.constructGetItemDetails(data)
+		return GET_ITEM_DETAILS .. Url.makeQueryString(data)
+	end
+else
+	function Urls.constructPostGetItemDetails()
+		return GET_ITEM_DETAILS
+	end
 end
 
 function Urls.constructGetAssetsUrl(category, searchTerm, pageSize, page, sortType, groupId, creatorId)
@@ -107,19 +120,36 @@ function Urls.constructGetAssetsUrl(category, searchTerm, pageSize, page, sortTy
 end
 
 function Urls.constructGetToolboxItemsUrl(category, sortType, creatorType, minDuration, maxDuration, creatorTargetId,
-keyword, cursor, limit)
+keyword, cursor, limit, useCreatorWhitelist)
 	local targetUrl = string.format(GET_TOOLBOX_ITEMS, category)
-	return targetUrl .. Url.makeQueryString({
-		sortType = sortType,
-		creatorType = creatorType,
-		minDuration = minDuration,
-		maxDuration = maxDuration,
-		creatorTargetId = creatorTargetId,
-		keyword = keyword,
-		cursor = cursor,
-		limit = limit,
-		useCreatorWhitelist = true,
-	})
+	local query
+	if FFlagToolboxMicroserviceSearch then
+		query = {
+			creatorType = creatorType,
+			minDuration = minDuration,
+			maxDuration = maxDuration,
+			creatorTargetId = creatorTargetId,
+			keyword = keyword,
+			sortType = sortType,
+			cursor = cursor,
+			limit = limit,
+			useCreatorWhitelist = useCreatorWhitelist,
+		}
+	else
+		query = {
+			sortType = sortType,
+			creatorType = creatorType,
+			minDuration = minDuration,
+			maxDuration = maxDuration,
+			creatorTargetId = creatorTargetId,
+			keyword = keyword,
+			cursor = cursor,
+			limit = limit,
+			useCreatorWhitelist = true,
+		}
+	end
+
+	return targetUrl .. Url.makeQueryString(query)
 end
 -- category, string, neccesary parameter.
 -- keyword, string, used for searching.

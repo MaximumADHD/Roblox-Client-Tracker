@@ -19,7 +19,7 @@ local Constants = require(Plugin.Src.Util.Constants)
 local ToggleButton = UI.ToggleButton
 
 local truncateMiddleText = require(Plugin.Src.Util.truncateMiddleText)
-local FlagsList = require(Plugin.Src.Util.FlagsList)
+local THEME_REFACTOR = require(Plugin.Packages.Framework).Util.RefactorFlags.THEME_REFACTOR
 
 local HttpRequestHolder = Roact.Component:extend("HttpRequestHolder")
 
@@ -130,7 +130,7 @@ function HttpRequestHolder:render()
 	local layoutOrder = self.props.LayoutOrder
 
     local theme
-	if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+	if THEME_REFACTOR then
 		theme = self.props.Stylizer
     else
         theme = self.props.Theme:get("Plugin")
@@ -171,8 +171,8 @@ end
 ContextServices.mapToProps(HttpRequestHolder, {
 	API = PluginAPI2,
 	Localization = ContextServices.Localization,
-	Stylizer = FlagsList:get("FFlagRefactorDevFrameworkTheme") and ContextServices.Stylizer or nil,
-	Theme = (not FlagsList:get("FFlagRefactorDevFrameworkTheme")) and ContextServices.Theme or nil,
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
 })
 
 local function mapDispatchToProps(dispatch)

@@ -35,9 +35,7 @@ local UIFolderData = require(Framework.UI.UIFolderData)
 local StudioUIFolderData = require(Framework.StudioUI.StudioUIFolderData)
 local Util = require(Framework.Util)
 
-local FlagsList = Util.Flags.new({
-	FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
-})
+local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 
 local FrameworkStyles = UI.FrameworkStyles
 local StyleTable = Util.StyleTable
@@ -46,7 +44,7 @@ local StudioFrameworkStyles = {}
 
 
 function StudioFrameworkStyles.new(theme, getColor)
-	if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+	if THEME_REFACTOR then
 		return {}
 	end
 

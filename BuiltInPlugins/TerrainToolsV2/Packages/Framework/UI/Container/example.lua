@@ -20,14 +20,12 @@ return function(plugin)
 	local Cryo = Util.Cryo
 	local StyleTable = Util.StyleTable
 	local Style = Util.Style
-	local FlagsList = Util.Flags.new({
-		FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
-	})
+	local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 
 	local pluginItem = Plugin.new(plugin)
 
 	local theme
-	if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+	if THEME_REFACTOR then
 		theme = StudioTheme.new()
 		theme:extend({
 			[ui.Box] = Cryo.Dictionary.join(BaseTheme[ui.Box], {

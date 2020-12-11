@@ -1,3 +1,5 @@
+-- Delete file with removal of FFlagPluginManagementDirectlyOpenToolbox
+
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local Constants = require(Plugin.Src.Util.Constants)
@@ -8,7 +10,7 @@ local StudioUI = require(Plugin.Packages.Framework.StudioUI)
 local Dialog = StudioUI.Dialog
 local FrameworkButton = UI.Button
 
-local FlagsList = require(Plugin.Src.Util.FlagsList)
+local THEME_REFACTOR = require(Plugin.Packages.Framework).Util.RefactorFlags.THEME_REFACTOR
 
 local MovedDialog = Roact.PureComponent:extend("MovedDialog")
 
@@ -16,7 +18,7 @@ function MovedDialog:render()
 	local props = self.props
 	local localization = props.Localization
     local theme
-	if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+	if THEME_REFACTOR then
 		theme = self.props.Stylizer
     else
         theme = self.props.Theme:get("Plugin")
@@ -91,8 +93,8 @@ end
 
 ContextServices.mapToProps(MovedDialog, {
 	Localization = ContextServices.Localization,
-	Stylizer = FlagsList:get("FFlagRefactorDevFrameworkTheme") and ContextServices.Stylizer or nil,
-	Theme = (not FlagsList:get("FFlagRefactorDevFrameworkTheme")) and ContextServices.Theme or nil,
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
 })
 
 return MovedDialog

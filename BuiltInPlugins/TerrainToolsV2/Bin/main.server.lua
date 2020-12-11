@@ -12,6 +12,10 @@ end
 -- Fast flags
 require(script.Parent.defineLuaFlags)
 
+local FFlagEnableTerrainToolsStylizer = game:GetFastFlag("EnableTerrainToolsStylizer")
+local RefactorFlags = require(Plugin.Packages.Framework.Util.RefactorFlags)
+RefactorFlags.THEME_REFACTOR = FFlagEnableTerrainToolsStylizer
+
 local FFlagTerrainToolsBetterImportTool = game:GetFastFlag("TerrainToolsBetterImportTool")
 local FFlagTerrainToolsImportUploadAssets = game:GetFastFlag("TerrainToolsImportUploadAssets")
 local FFlagTerrainToolsIncludeDevFrameworkTheme = game:GetFastFlag("TerrainToolsIncludeDevFrameworkTheme")

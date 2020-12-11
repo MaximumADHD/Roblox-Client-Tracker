@@ -115,12 +115,19 @@ local function initBubbleChat()
 	chattedConn = Chat.Chatted:Connect(function(partOrModel, message)
 		local part
 		if partOrModel:IsA("Model") then
-			part = partOrModel.PrimaryPart
+			if partOrModel.PrimaryPart then
+				part = partOrModel.PrimaryPart
+			else
+				part = partOrModel:FindFirstChildWhichIsA("BasePart", true)
+			end
 		else
 			part = partOrModel
 		end
 
-		local player = getPlayerFromPart(part)
+		local player
+		if part then
+			player = getPlayerFromPart(part)
+		end
 
 		local userId
 		if player then

@@ -6,14 +6,15 @@ local GuiService = game:GetService("GuiService")
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
-local ContextServices = require(Plugin.Packages.Framework.ContextServices)
+local Framework = require(Plugin.Packages.Framework)
+local ContextServices = Framework.ContextServices
 
 local UILibrary = require(Plugin.Packages.UILibrary)
 local createFitToContent = UILibrary.Component.createFitToContent
 local FitToContent = createFitToContent("Frame", "UIListLayout", {
 	SortOrder = Enum.SortOrder.LayoutOrder,
 })
-local LinkText = require(Plugin.Packages.Framework.UI).LinkText
+local LinkText = Framework.UI.LinkText
 
 local AnalyticsContext = require(Plugin.Src.ContextServices.AnalyticsContext)
 local LabeledTextButton = require(Plugin.Src.Components.LabeledTextButton)
@@ -22,7 +23,7 @@ local isEmpty = require(Plugin.Src.Util.isEmpty)
 local ShowDialog = require(Plugin.Src.Util.ShowDialog)
 local DownloadCloudTable = require(Plugin.Src.Thunks.DownloadCloudTable)
 local UploadCloudTable = require(Plugin.Src.Thunks.UploadCloudTable)
-local FlagsList = require(Plugin.Src.Util.FlagsList)
+local THEME_REFACTOR = Framework.Util.RefactorFlags.THEME_REFACTOR
 
 local CloudTableSection = Roact.PureComponent:extend("CloudTableSection")
 
@@ -46,7 +47,7 @@ function CloudTableSection:init()
 		local mouse = props.Mouse
 
 		local theme
-		if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+		if THEME_REFACTOR then
 			theme = props.Stylizer
 		else
 			theme = props.Theme
@@ -72,7 +73,7 @@ end
 function CloudTableSection:render()
 	local props = self.props
 	local theme
-	if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+	if THEME_REFACTOR then
 		theme = props.Stylizer
 	else
 		theme = props.Theme:get("CloudTableSection")
@@ -178,8 +179,8 @@ end
 
 ContextServices.mapToProps(CloudTableSection, {
 	Plugin = ContextServices.Plugin,
-	Stylizer = FlagsList:get("FFlagRefactorDevFrameworkTheme") and ContextServices.Stylizer or nil,
-	Theme = (not FlagsList:get("FFlagRefactorDevFrameworkTheme")) and ContextServices.Theme or nil,
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
 	Localization = ContextServices.Localization,
 	API = ContextServices.API,
 	Mouse = ContextServices.Mouse,

@@ -19,6 +19,8 @@ local ContextServices = require(Plugin.Packages.Framework.ContextServices)
 local PluginAPI2 = require(Plugin.Src.ContextServices.PluginAPI2)
 local Navigation = require(Plugin.Src.ContextServices.Navigation)
 
+local THEME_REFACTOR = require(Plugin.Packages.Framework).Util.RefactorFlags.THEME_REFACTOR
+
 local Flags = require(Plugin.Packages.Framework.Util.Flags)
 local FlagsList = Flags.new({
 	FFlagEnablePluginPermissionsPage = {
@@ -29,7 +31,7 @@ local FlagsList = Flags.new({
 })
 
 local makeTheme
-if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+if THEME_REFACTOR then
 	makeTheme = require(Plugin.Src.Resources.makeTheme2)
 else
 	makeTheme = require(Plugin.Src.Resources.makeTheme)
@@ -75,7 +77,7 @@ function MockManagement:render()
 		PluginAPI2.new(self.api),
 		ContextServices.Localization.mock(),
 		ContextServices.Mouse.new(self.plugin:GetMouse()),
-		(FlagsList:get("FFlagRefactorDevFrameworkTheme") and makeTheme) or makeTheme(),
+		(THEME_REFACTOR and makeTheme) or makeTheme(),
 		ContextServices.Focus.new(self.target),
 		ContextServices.Store.new(self.store),
 	}

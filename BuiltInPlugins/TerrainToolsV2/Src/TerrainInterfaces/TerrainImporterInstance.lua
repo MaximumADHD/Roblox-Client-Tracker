@@ -2,8 +2,11 @@ local FFlagTerrainToolsBetterImportTool = game:GetFastFlag("TerrainToolsBetterIm
 local FFlagTerrainImportNewYieldMethod = game:GetFastFlag("TerrainImportNewYieldMethod")
 local FFlagTerrainImportSupportDefaultMaterial = game:GetFastFlag("TerrainImportSupportDefaultMaterial")
 local FFlagTerrainToolsImportUploadAssets = game:GetFastFlag("TerrainToolsImportUploadAssets")
+local FFlagTerrainImportUseService = game:GetFastFlag("TerrainImportUseService")
+local FFlagTerrainToolsReportBetterImport = game:GetFastFlag("TerrainToolsReportBetterImport")
 
 local Plugin = script.Parent.Parent.Parent
+
 
 local Framework = require(Plugin.Packages.Framework)
 local Cryo = require(Plugin.Packages.Cryo)
@@ -21,6 +24,10 @@ local ImportAssetHandler = require(Plugin.Src.Util.ImportAssetHandler)
 
 local TerrainEnums = require(Plugin.Src.Util.TerrainEnums)
 local ImportMaterialMode = TerrainEnums.ImportMaterialMode
+
+local HeightmapImporterService = game:GetService("HeightmapImporterService")
+-- Importing HttpService only for GenerateGUID
+local HttpService = FFlagTerrainToolsReportBetterImport and game:GetService("HttpService") or nil
 
 --[[
 When FFlagTerrainToolsBetterImportTool off, logs warning and returns false
@@ -64,11 +71,14 @@ function TerrainImporter.new(options)
 	assert(options and type(options) == "table", "TerrainImporter requires an options table")
 
 	local self = setmetatable({
-		_terrain = options.terrain,
+		_terrain = not FFlagTerrainImportUseService and options.terrain or nil,
 		_localization = options.localization,
 		_analytics = options.analytics,
 		_assetHandler = (FFlagTerrainToolsBetterImportTool and FFlagTerrainToolsImportUploadAssets)
 			and ImportAssetHandler.new(options.imageUploader)
+			or nil,
+		_heightmapImporterService = FFlagTerrainImportUseService
+			and (options.heightmapImporterService or HeightmapImporterService)
 			or nil,
 
 		_importSettings = {
@@ -98,7 +108,16 @@ function TerrainImporter.new(options)
 
 	}, TerrainImporter)
 
-	assert(self._terrain, "TerrainImporter.new() requires a terrain instance")
+	if FFlagTerrainImportUseService then
+		assert(self._heightmapImporterService, "TerrainImporter.new() requires a HeightmapImporterService")
+	else
+		assert(self._terrain, "TerrainImporter.new() requires a terrain instance")
+	end
+
+	-- move into _importSettings when removing FFlagTerrainToolsBetterImportTool
+	if FFlagTerrainToolsImportUploadAssets then
+		self._importSettings.guid = nil
+	end
 
 	self._updateImportProgress = function(completionPercent)
 		self._importProgress = completionPercent
@@ -110,7 +129,12 @@ function TerrainImporter.new(options)
 		end
 	end
 
-	self._terrainProgressUpdateConnection = self._terrain.TerrainProgressUpdate:Connect(self._updateImportProgress)
+	if FFlagTerrainImportUseService then
+		self._terrainProgressUpdateConnection = self._heightmapImporterService.ProgressUpdate:Connect(
+			self._updateImportProgress)
+	else
+		self._terrainProgressUpdateConnection = self._terrain.TerrainProgressUpdate:Connect(self._updateImportProgress)
+	end
 
 	return self
 end
@@ -148,6 +172,7 @@ function TerrainImporter:destroy()
 
 	self:_setImporting(false)
 
+	self._heightmapImporterService = nil
 	self._terrain = nil
 	self._localization = nil
 	self._analytics = nil
@@ -169,13 +194,21 @@ end
 function TerrainImporter:togglePause()
 	assert(FFlagTerrainImportNewYieldMethod, "TerrainImporter:togglePause() requires FFlagTerrainImportNewYieldMethod")
 	self._isPaused = not self._isPaused
-	self._terrain:SetImportHeightmapPaused(self._isPaused)
+	if FFlagTerrainImportUseService then
+		self._heightmapImporterService:SetImportHeightmapPaused(self._isPaused)
+	else
+		self._terrain:SetImportHeightmapPaused(self._isPaused)
+	end
 	self._updateSignal:Fire()
 end
 
 function TerrainImporter:cancel()
 	assert(FFlagTerrainImportNewYieldMethod, "TerrainImporter:cancel() requires FFlagTerrainImportNewYieldMethod")
-	self._terrain:CancelImportHeightmap()
+	if FFlagTerrainImportUseService then
+		self._heightmapImporterService:CancelImportHeightmap()
+	else
+		self._terrain:CancelImportHeightmap()
+	end
 end
 
 function TerrainImporter:DEPRECATED_startImport()
@@ -241,7 +274,8 @@ function TerrainImporter:DEPRECATED_startImport()
 	end)
 end
 
-local function doImport(terrain, importSettings, updateProgress, localization, analytics, assetHandler)
+-- Note when FFlagTerrainImportUseService is false, heightmapImporterService is actually the Terrain instance
+local function doImport(heightmapImporterService, importSettings, updateProgress, localization, analytics, assetHandler)
 	-- Copy the settings we're using in case they change during the import
 	importSettings = Cryo.Dictionary.join(importSettings, {})
 
@@ -280,14 +314,39 @@ local function doImport(terrain, importSettings, updateProgress, localization, a
 		end
 
 		if analytics then
-			-- TODO: Fix analytics to handle heightmap IDs being meaningless, and missing defaultMaterial
-			analytics:report("importTerrain", region, heightmapUrl, colormapUrl)
+			if FFlagTerrainToolsReportBetterImport then
+				local material = "Colormap"
+				local colormapData = {}
+				if (materialMode == ImportMaterialMode.DefaultMaterial) then
+					material =  importSettings.defaultMaterial.Name
+				else
+					colormapData = {
+						width = importSettings.colormap.width,
+						height = importSettings.colormap.height,
+						channels = importSettings.colormap.channels,
+					}
+				end
+
+				local heightmapData = {
+					width = importSettings.heightmap.width,
+					height = importSettings.heightmap.height,
+					channels = importSettings.heightmap.channels,
+				}
+
+				analytics:report("importTerrainLocal", region, material, heightmapData, colormapData, importSettings.guid)
+
+			else
+				analytics:report("importTerrain", region, heightmapUrl, colormapUrl)
+			end
 		end
 
 		if FFlagTerrainToolsImportUploadAssets then
 			-- Spawn this before calling ImportHeightmap() as that blocks until the import has entirely finished
 			spawn(function()
-				assetHandler:handleAsset(importSettings.heightmap.file, region)
+				assetHandler:handleAsset(importSettings.heightmap.file, region,
+					importSettings.guid and function(assetId)
+						analytics:report("importTerrainLocalHeightMap", assetId, importSettings.guid)
+					end or nil)
 
 				local handleColormap
 				if FFlagTerrainImportSupportDefaultMaterial then
@@ -296,13 +355,16 @@ local function doImport(terrain, importSettings, updateProgress, localization, a
 					handleColormap = importSettings.useColorMap
 				end
 				if handleColormap then
-					assetHandler:handleAsset(importSettings.colormap.file, region)
+					assetHandler:handleAsset(importSettings.colormap.file, region,
+						importSettings.guid and function(assetId)
+							analytics:report("importTerrainLocalColorMap", assetId, importSettings.guid)
+						end or nil)
 				end
 			end)
 		end
 
 		success, err = pcall(function()
-			terrain:ImportHeightmap(region, heightmapUrl, colormapUrl, defaultMaterial)
+			heightmapImporterService:ImportHeightmap(region, heightmapUrl, colormapUrl, defaultMaterial)
 		end)
 
 		if not success then
@@ -324,6 +386,12 @@ function TerrainImporter:startImport()
 		return
 	end
 
+	if FFlagTerrainToolsReportBetterImport and FFlagTerrainToolsImportUploadAssets then
+		self:updateSettings({
+			guid = HttpService:GenerateGUID(),
+		})
+	end
+
 	local function beginImport()
 		self._updateImportProgress(0)
 		self:_setImporting(true)
@@ -339,7 +407,8 @@ function TerrainImporter:startImport()
 	end
 
 	beginImport()
-	doImport(self._terrain, self._importSettings, self._updateImportProgress,
+	local importObject = FFlagTerrainImportUseService and self._heightmapImporterService or self._terrain
+	doImport(importObject, self._importSettings, self._updateImportProgress,
 		self._localization, self._analytics, self._assetHandler)
 		:catch(handleFailure)
 		:await()

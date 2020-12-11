@@ -16,10 +16,11 @@ local Plugin = script.Parent.Parent.Parent.Parent
 local Libs = Plugin.Libs
 local Roact = require(Libs.Roact)
 local RoactRodux = require(Libs.RoactRodux)
-local ContextServices = require(Libs.Framework.ContextServices)
+local Framework = require(Libs.Framework)
+local ContextServices = Framework.ContextServices
 
 local Util = Plugin.Core.Util
-local FlagsList = require(Util.FlagsList)
+local THEME_REFACTOR = Framework.Util.RefactorFlags.THEME_REFACTOR
 
 local AudioProgressBar = Roact.PureComponent:extend("AudioProgressBar")
 
@@ -44,7 +45,7 @@ function AudioProgressBar:render()
 	local totalTime = props.totalTime
 
 	local progressBarColor
-	if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+	if THEME_REFACTOR then
 		progressBarColor = props.Stylizer.progressBarColor
 	else
 		progressBarColor = props.Theme:get("Plugin").progressBarColor
@@ -85,8 +86,8 @@ local function mapStateToProps(state, props)
 end
 
 ContextServices.mapToProps(AudioProgressBar, {
-	Stylizer = FlagsList:get("FFlagRefactorDevFrameworkTheme") and ContextServices.Stylizer or nil,
-	Theme = (not FlagsList:get("FFlagRefactorDevFrameworkTheme")) and ContextServices.Theme or nil,
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
 })
 
 return RoactRodux.connect(mapStateToProps, nil)(AudioProgressBar)

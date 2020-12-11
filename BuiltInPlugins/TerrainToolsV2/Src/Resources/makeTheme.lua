@@ -1,9 +1,9 @@
-local FFlagRefactorDevFrameworkTheme = game:GetFastFlag("RefactorDevFrameworkTheme")
-
 local Plugin = script.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
 local Cryo = require(Plugin.Packages.Cryo)
+
+local RefactorFlags = Framework.Util.RefactorFlags
 
 local StudioFrameworkStyles = Framework.StudioUI.StudioFrameworkStyles
 local StudioTheme = Framework.Style.Themes.StudioTheme
@@ -66,7 +66,7 @@ end
 return function(makeMock)
 	makeMock = makeMock or false
 
-	if FFlagRefactorDevFrameworkTheme then
+	if RefactorFlags.THEME_REFACTOR then
 		local studioTheme = makeMock and StudioTheme.mock() or StudioTheme.new()
 		return studioTheme:extend(makeTerrainToolsTheme())
 	else

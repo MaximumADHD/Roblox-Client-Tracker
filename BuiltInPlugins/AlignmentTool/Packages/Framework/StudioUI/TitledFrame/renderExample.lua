@@ -5,9 +5,7 @@ local StudioUI = require(Framework.StudioUI)
 local TitledFrame = StudioUI.TitledFrame
 
 local Util = require(Framework.Util)
-local FlagsList = Util.Flags.new({
-	FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
-})
+local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 
 local Example = Roact.PureComponent:extend("StyledDialogExample")
 
@@ -27,8 +25,8 @@ end
 
 ContextServices.mapToProps(Example, {
 	Plugin = ContextServices.Plugin,
-	Stylizer = FlagsList:get("FFlagRefactorDevFrameworkTheme") and ContextServices.Stylizer or nil,
-	Theme = (not FlagsList:get("FFlagRefactorDevFrameworkTheme")) and ContextServices.Theme or nil,
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
 })
 
 return Example

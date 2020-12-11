@@ -71,6 +71,19 @@ return function()
 			}))
 		}),
 
+		BasicNoDescription = Roact.createElement(Container, {
+			Size = UDim2.new(0, 368, 0, 700)
+		}, {
+			Roact.createElement(AssetPreview, Cryo.Dictionary.join(props, {
+				Size = UDim2.new(0, 368, 1, 0),
+				AssetData = Cryo.Dictionary.join(props.AssetData, {
+					Asset = Cryo.Dictionary.join(props.AssetData.Asset, {
+						Description = Cryo.None,
+					})
+				}),
+			}))
+		}),
+
 		BasicVideo = Roact.createElement(Container, {
 			Size = UDim2.new(0, 368, 0, 700)
 		}, {

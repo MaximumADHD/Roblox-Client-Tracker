@@ -13,6 +13,8 @@
 
 		RenderPreview : void -> Roact element
 			Function to render a preview of the current item
+		GetMetadata : void -> [String]
+			Return an array of strings of metadata about the current item. Each item in the array is rendered as a separate row
 		PromptSelection : void -> void
 			Callback to prompt the user to select an item (e.g. with StudioService:PromptImportFile())
 		ClearSelection : void -> void
@@ -28,9 +30,19 @@ local Cryo = require(Plugin.Packages.Cryo)
 local ContextServices = Framework.ContextServices
 local ContextItems = require(Plugin.Src.ContextItems)
 
-local Dialog = Framework.StudioUI.Dialog
+local UI = Framework.UI
+local Container = UI.Container
+local Tooltip = UI.Tooltip
 
-local Tooltip = Framework.UI.Tooltip
+local Decoration = UI.Decoration
+local TextLabel = Decoration.TextLabel
+
+local StudioUI = Framework.StudioUI
+local Dialog = StudioUI.Dialog
+
+local LayoutOrderIterator = Framework.Util.LayoutOrderIterator
+
+local StatusIcon = require(Plugin.Src.Components.StatusIcon)
 
 local Constants = require(Plugin.Src.Util.Constants)
 local ellipsizeMiddle = require(Plugin.Src.Util.ellipsizeMiddle)
@@ -45,8 +57,7 @@ local TOOLBAR_ICON_SIZE = 18
 
 local IMPORT_ICON_SIZE = 24
 
--- TODO: Get sizes from design
-local EXPANDED_PREVIEW_DEFAULT_SIZE = Vector2.new(200, 200)
+local EXPANDED_PREVIEW_DEFAULT_SIZE = Vector2.new(400, 400)
 local EXPANDED_PREVIEW_MIN_SIZE = Vector2.new(100, 100)
 local EXPANDED_PREVIEW_PADDING = UDim.new(0, 16)
 
@@ -122,6 +133,93 @@ function PreviewToolbarButton:render()
 end
 
 ContextServices.mapToProps(PreviewToolbarButton, {
+	Theme = ContextItems.UILibraryTheme,
+})
+
+local PreviewDialog = Roact.PureComponent:extend("PreviewDialog")
+
+function PreviewDialog:render()
+	local theme = self.props.Theme:get()
+	local promptSelectorWithPreviewTheme = theme.promptSelectorWithPreviewTheme
+
+	local previewTitle = self.props.PreviewTitle or ""
+
+	local previewRenderResult
+	if self.props.RenderPreview then
+		previewRenderResult = self.props.RenderPreview()
+	end
+
+	local metadata = self.props.Metadata or {}
+
+	local textRowHeight = 16
+	local padding = 4
+
+	local imageInset = #metadata > 0 and (padding + ((padding + textRowHeight) * #metadata)) or 0
+
+	local layoutOrderIterator = LayoutOrderIterator.new()
+
+	local contents = {
+		UIListLayout = Roact.createElement("UIListLayout", {
+			SortOrder = Enum.SortOrder.LayoutOrder,
+			Padding = UDim.new(0, padding),
+		}),
+
+		PreviewContentContainer = Roact.createElement("Frame", {
+			LayoutOrder = layoutOrderIterator:getNextOrder(),
+			Size = UDim2.new(1, 0, 1, -imageInset),
+			BackgroundColor3 = promptSelectorWithPreviewTheme.previewBackgroundColor,
+			BorderColor3 = promptSelectorWithPreviewTheme.previewBorderColor,
+		}, {
+			PreviewContent = previewRenderResult,
+		}),
+
+		-- Double the padding between the preview and filename
+		EmptyRow = Roact.createElement(Container, {
+			LayoutOrder = layoutOrderIterator:getNextOrder(),
+			Size = UDim2.new(1, 0, 0, 0),
+		}),
+	}
+
+	for index, text in ipairs(metadata) do
+		contents["Metadata_" .. tostring(index)] = Roact.createElement(TextLabel, {
+			LayoutOrder = layoutOrderIterator:getNextOrder(),
+			Size = UDim2.new(1, 0, 0, 16),
+
+			Text = text,
+			TextSize = 16,
+			TextXAlignment = Enum.TextXAlignment.Left,
+		})
+	end
+
+	return Roact.createElement(Dialog, {
+		Title = previewTitle,
+
+		Size = EXPANDED_PREVIEW_DEFAULT_SIZE,
+		MinSize = EXPANDED_PREVIEW_MIN_SIZE,
+		Resizable = true,
+		Enabled = true,
+		Modal = false,
+		ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
+
+		OnClose = self.props.OnClose,
+	}, {
+		Background = Roact.createElement("Frame", {
+			Size = UDim2.new(1, 0, 1, 0),
+			BackgroundColor3 = theme.backgroundColor,
+		}, {
+			UIPadding = Roact.createElement("UIPadding", {
+				PaddingTop = EXPANDED_PREVIEW_PADDING,
+				PaddingBottom = EXPANDED_PREVIEW_PADDING,
+				PaddingLeft = EXPANDED_PREVIEW_PADDING,
+				PaddingRight = EXPANDED_PREVIEW_PADDING,
+			}),
+
+			Container = Roact.createElement(Container, {}, contents),
+		}),
+	})
+end
+
+ContextServices.mapToProps(PreviewDialog, {
 	Theme = ContextItems.UILibraryTheme,
 })
 
@@ -217,12 +315,16 @@ function PromptSelectorWithPreview:render()
 		previewRenderResult = self.props.RenderPreview()
 	end
 
-	local expandedPreviewRenderResult
-	if hasSelection and showingExpandedPreview and self.props.RenderPreview then
-		expandedPreviewRenderResult = self.props.RenderPreview()
-	end
-
 	local shouldShowToolbar = (hasSelection and promptSelectionHovered) and true or false
+
+	local metadata
+	if showingExpandedPreview then
+		if self.props.GetMetadata then
+			metadata = Cryo.List.join({selectionName}, self.props.GetMetadata())
+		else
+			metadata = {selectionName}
+		end
+	end
 
 	local content = {
 		UIListLayout = Roact.createElement("UIListLayout", {
@@ -315,6 +417,14 @@ function PromptSelectorWithPreview:render()
 					}),
 				}),
 			}),
+
+			-- This doesn't need to worry about layering as it's off to the side
+			StatusIcon = Roact.createElement(StatusIcon, {
+				Position = UDim2.new(0, PREVIEW_SIZE + 8, 0, 0),
+				ErrorMessage = self.props.ErrorMessage,
+				WarningMessage = self.props.WarningMessage,
+				InfoMessage = self.props.InfoMessage,
+			}),
 		}),
 
 		SelectionName = Roact.createElement("TextLabel", {
@@ -333,39 +443,11 @@ function PromptSelectorWithPreview:render()
 			}),
 		}),
 
-		ExpandedPreview = showingExpandedPreview and Roact.createElement(Dialog, {
-			Title = previewTitle,
-
-			Size = EXPANDED_PREVIEW_DEFAULT_SIZE,
-			MinSize = EXPANDED_PREVIEW_MIN_SIZE,
-			Resizable = true,
-			Enabled = true,
-			Modal = false, -- TODO: Should this be modal?
-			ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
-
+		ExpandedPreview = showingExpandedPreview and Roact.createElement(PreviewDialog, {
+			PreviewTitle = previewTitle,
+			RenderPreview = self.props.RenderPreview,
+			Metadata = metadata,
 			OnClose = self.closeExpandedPreview,
-		}, {
-			Background = Roact.createElement("Frame", {
-				Size = UDim2.new(1, 0, 1, 0),
-				BackgroundColor3 = theme.backgroundColor,
-			}, {
-				UIPadding = Roact.createElement("UIPadding", {
-					PaddingTop = EXPANDED_PREVIEW_PADDING,
-					PaddingBottom = EXPANDED_PREVIEW_PADDING,
-					PaddingLeft = EXPANDED_PREVIEW_PADDING,
-					PaddingRight = EXPANDED_PREVIEW_PADDING,
-				}),
-
-				PreviewContentContainer = Roact.createElement("Frame", {
-					Size = UDim2.new(1, 0, 1, 0),
-					BackgroundColor3 = promptSelectorWithPreviewTheme.previewBackgroundColor,
-					BorderColor3 = promptSelectorWithPreviewTheme.previewBorderColor,
-				}, {
-					PreviewContent = expandedPreviewRenderResult,
-				}),
-
-				-- TODO MOD-180: Add metadata
-			}),
 		}),
 	}
 

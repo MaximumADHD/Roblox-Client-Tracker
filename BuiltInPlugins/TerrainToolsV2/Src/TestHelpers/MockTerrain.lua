@@ -1,3 +1,6 @@
+local FFlagTerrainImportUseService = game:GetFastFlag("TerrainImportUseService")
+local FFlagTerrainImportNewYieldMethod = game:GetFastFlag("TerrainImportNewYieldMethod")
+
 local Plugin = script.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
@@ -9,9 +12,11 @@ local MockTerrain = {}
 MockTerrain.__index = MockTerrain
 
 function MockTerrain.new()
-	return setmetatable({
-		TerrainProgressUpdate = Signal.new(),
-	}, MockTerrain)
+	local self = {}
+	if not FFlagTerrainImportUseService then
+		self.TerrainProgressUpdate = Signal.new()
+	end
+	return setmetatable(self, MockTerrain)
 end
 
 -- TODO: More robust "IsA" methods for our mock instances
@@ -35,7 +40,20 @@ end
 function MockTerrain:FillCylinder(center, height, radius, material)
 end
 
-function MockTerrain:ImportHeightmap(heightmapUrl, colormapUrl, region)
+if not FFlagTerrainImportUseService then
+	if FFlagTerrainImportNewYieldMethod then
+		function MockTerrain:ImportHeightmap(region, heightmapAssetId, colormapAssetId, defaultMaterial)
+		end
+
+		function MockTerrain:SetImportHeightmapPaused(paused)
+		end
+
+		function MockTerrain:CancelImportHeightmap()
+		end
+	else
+		function MockTerrain:ImportHeightMap(heightmapUrl, colormapUrl, region)
+		end
+	end
 end
 
 function MockTerrain:Clear()

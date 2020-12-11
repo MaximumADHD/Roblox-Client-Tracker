@@ -19,9 +19,7 @@ return function()
 	local wrap = require(Framework.Util.Typecheck.wrap)
 	local StudioTheme = require(Framework.Style.Themes.StudioTheme)
 	local ui = require(Framework.Style.ComponentSymbols)
-	local FlagsList = require(Framework.Util.Flags).new({
-		FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
-	})
+	local THEME_REFACTOR = require(Framework.Util.RefactorFlags).THEME_REFACTOR
 
 	local WrapTestComponent = Roact.PureComponent:extend("WrapTestComponent")
 	wrap(WrapTestComponent, script)
@@ -30,7 +28,7 @@ return function()
 		local props = self.props
 		local size = props.Size
 		local style
-		if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+		if THEME_REFACTOR then
 			style = props.Stylizer
 		else
 			style = props.Theme:getStyle("Framework", self)
@@ -44,13 +42,13 @@ return function()
 	end
 
 	ContextServices.mapToProps(WrapTestComponent, {
-		Stylizer = FlagsList:get("FFlagRefactorDevFrameworkTheme") and ContextServices.Stylizer or nil,
-		Theme = (not FlagsList:get("FFlagRefactorDevFrameworkTheme")) and ContextServices.Theme or nil,
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
 	})
 
 	local function createWrapTestComponent(props, styleTable)
 		local theme
-		if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+		if THEME_REFACTOR then
 			theme = StudioTheme.mock()
 			ui:add("WrapTestComponent")
 			theme:extend({
