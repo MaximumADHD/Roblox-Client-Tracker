@@ -4,7 +4,7 @@
 #include <Globals.h>
 #include <GrassParams.h>
 #include <GrassPerFrameParams.h>
-uniform vec4 CB0[52];
+uniform vec4 CB0[53];
 uniform vec4 CB1[2];
 uniform vec4 CB2[2];
 attribute vec4 POSITION;

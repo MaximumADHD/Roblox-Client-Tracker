@@ -35,7 +35,10 @@ Blur7FS,Fragment
 BokehFarCoCFS,Fragment
 BokehNearCoCFS,Fragment
 CheapBokehFS,Fragment
+Clouds2dFoVFixFS,Fragment
+Clouds2dFS,Fragment
 CloudsCompFS,Fragment
+CloudsFoVFixFS,Fragment
 CloudsFS,Fragment
 CloudsVS,Vertex
 CopyGuiVS,Vertex
@@ -213,6 +216,8 @@ SmoothClusterColoredFS,Fragment
 SmoothClusterColoredHQFS,Fragment
 SmoothClusterColoredHQVS,Vertex
 SmoothClusterColoredSuperHQFS,Fragment
+SmoothClusterColoredSuperHQFSAO,Fragment
+SmoothClusterColoredSuperHQFSAOFlagHeight,Fragment
 SmoothClusterColoredSuperHQFSFlagHeight,Fragment
 SmoothClusterColoredSuperHQVS,Vertex
 SmoothClusterColoredSuperHQVSFlagHeight,Vertex
@@ -237,6 +242,8 @@ SmoothClusterSuperHQFS_Level0,Fragment
 SmoothClusterSuperHQFS_Level256,Fragment
 SmoothClusterSuperHQFS_Level512,Fragment
 SmoothClusterSuperHQFS_Level768,Fragment
+SmoothClusterSuperHQFSAO,Fragment
+SmoothClusterSuperHQFSAOFlagHeight,Fragment
 SmoothClusterSuperHQFSFlagHeight,Fragment
 SmoothClusterSuperHQFSFlagHeight_Level0,Fragment
 SmoothClusterSuperHQFSFlagHeight_Level256,Fragment

@@ -1,0 +1,15 @@
+{
+	"LocalizationService": [
+		"SystemLocaleId",
+		"RobloxLocaleId",
+		"GetCorescriptLocalizations"
+	],
+	"LocalizationTable": [
+		"GetString",
+		"DevelopmentLanguage",
+		"GetContents",
+		"SetContents",
+		"SetEntry",
+		"RemoveKey"
+	]
+}

@@ -4,7 +4,7 @@
 #include <Globals.h>
 #include <LightShadowGPUTransform.h>
 #include <MaterialParams.h>
-uniform vec4 CB0[52];
+uniform vec4 CB0[53];
 uniform vec4 CB8[24];
 uniform vec4 CB2[4];
 uniform sampler2D ShadowAtlasTexture;
@@ -68,13 +68,13 @@ void main()
     vec4 f30 = vec4(f18, 1.0) * mat4(CB8[((dot(f27, f27) < CB0[41].w) ? 0 : ((dot(f28, f28) < CB0[42].w) ? 1 : ((dot(f29, f29) < CB0[43].w) ? 2 : 3))) * 4 + 0], CB8[((dot(f27, f27) < CB0[41].w) ? 0 : ((dot(f28, f28) < CB0[42].w) ? 1 : ((dot(f29, f29) < CB0[43].w) ? 2 : 3))) * 4 + 1], CB8[((dot(f27, f27) < CB0[41].w) ? 0 : ((dot(f28, f28) < CB0[42].w) ? 1 : ((dot(f29, f29) < CB0[43].w) ? 2 : 3))) * 4 + 2], CB8[((dot(f27, f27) < CB0[41].w) ? 0 : ((dot(f28, f28) < CB0[42].w) ? 1 : ((dot(f29, f29) < CB0[43].w) ? 2 : 3))) * 4 + 3]);
     vec4 f31 = textureLod(ShadowAtlasTexture, f30.xy, 0.0);
     vec2 f32 = vec2(0.0);
-    f32.x = CB0[45].z;
+    f32.x = CB0[46].z;
     vec2 f33 = f32;
-    f33.y = CB0[45].w;
+    f33.y = CB0[46].w;
     float f34 = (2.0 * f30.z) - 1.0;
-    float f35 = exp(CB0[45].z * f34);
-    float f36 = -exp((-CB0[45].w) * f34);
-    vec2 f37 = (f33 * CB0[46].y) * vec2(f35, f36);
+    float f35 = exp(CB0[46].z * f34);
+    float f36 = -exp((-CB0[46].w) * f34);
+    vec2 f37 = (f33 * CB0[47].y) * vec2(f35, f36);
     vec2 f38 = f37 * f37;
     float f39 = f31.x;
     float f40 = max(f31.y - (f39 * f39), f38.x);
@@ -94,7 +94,7 @@ void main()
     vec3 f54 = textureLod(PrefilteredEnvTexture, f53, f52).xyz * mix(CB0[26].xyz, CB0[25].xyz, vec3(clamp(f51.y * 1.58823525905609130859375, 0.0, 1.0)));
     vec4 f55 = texture(PrecomputedBRDFTexture, vec2(f11, f50));
     vec3 f56 = normalize(f16 + f47);
-    float f57 = clamp(f17 * ((f17 > 0.0) ? mix(f26, mix(min((f35 <= f39) ? 1.0 : clamp(((f40 / (f40 + (f41 * f41))) - 0.20000000298023223876953125) * 1.25, 0.0, 1.0), (f36 <= f42) ? 1.0 : clamp(((f43 / (f43 + (f44 * f44))) - 0.20000000298023223876953125) * 1.25, 0.0, 1.0)), f26, clamp((length(f18 - CB0[7].xyz) * CB0[45].y) - (CB0[45].x * CB0[45].y), 0.0, 1.0)), CB0[46].x) : 0.0), 0.0, 1.0);
+    float f57 = clamp(f17 * ((f17 > 0.0) ? mix(f26, mix(min((f35 <= f39) ? 1.0 : clamp(((f40 / (f40 + (f41 * f41))) - 0.20000000298023223876953125) * 1.25, 0.0, 1.0), (f36 <= f42) ? 1.0 : clamp(((f43 / (f43 + (f44 * f44))) - 0.20000000298023223876953125) * 1.25, 0.0, 1.0)), f26, clamp((length(f18 - CB0[7].xyz) * CB0[46].y) - (CB0[46].x * CB0[46].y), 0.0, 1.0)), CB0[47].x) : 0.0), 0.0, 1.0);
     float f58 = f11 * f11;
     float f59 = max(0.001000000047497451305389404296875, dot(f15, f56));
     float f60 = dot(f16, f56);

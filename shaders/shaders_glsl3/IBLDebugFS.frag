@@ -5,7 +5,7 @@
 #extension GL_ARB_shading_language_include : require
 #include <Globals.h>
 #include <IBLDebugParams.h>
-uniform vec4 CB0[52];
+uniform vec4 CB0[53];
 uniform vec4 CB1[109];
 uniform samplerCube PrefilteredEnvIndoorTexture;
 uniform samplerCube PrefilteredEnvTexture;

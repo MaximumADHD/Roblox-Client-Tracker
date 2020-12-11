@@ -169,6 +169,8 @@ Class Bone : Attachment
 	Property CFrame Bone.TransformedCFrame  [ReadOnly] [NotReplicated]
 	Property CFrame Bone.TransformedWorldCFrame  [ReadOnly] [NotReplicated]
 Class AvatarEditorService : Instance [NotCreatable] [Service] [NotReplicated]
+	Function Instance AvatarEditorService:CheckApplyDefaultClothing(Instance humanoidDescription) {RobloxScriptSecurity} [Yields]
+	Function Instance AvatarEditorService:ConformToAvatarRules(Instance humanoidDescription) {RobloxScriptSecurity} [Yields]
 	Function Dictionary AvatarEditorService:GetAvatarRules() [Yields]
 	Function bool AvatarEditorService:GetFavorite(int64 itemId, Enum<AvatarItemType> itemType) [Yields]
 	Function Instance AvatarEditorService:GetInventory(Array assetTypes) [Yields]
@@ -177,8 +179,10 @@ Class AvatarEditorService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function Array AvatarEditorService:GetRecommendedAssets(Enum<AvatarAssetType> assetType, int64 contextAssetId = 0) [Yields]
 	Function Array AvatarEditorService:GetRecommendedBundles(int64 bundleId) [Yields]
 	Function void AvatarEditorService:PerformCreateOutfit(string name) {RobloxScriptSecurity}
+	Function void AvatarEditorService:PerformCreateOutfitWithDescription(Instance humanoidDescription, string name) {RobloxScriptSecurity}
 	Function void AvatarEditorService:PerformSaveAvatar() {RobloxScriptSecurity}
 	Function void AvatarEditorService:PerformSaveAvatarNew(Array addedAssets, Array removedAssets) {RobloxScriptSecurity}
+	Function void AvatarEditorService:PerformSaveAvatarWithDescription(Instance humanoidDescription, Array addedAssets, Array removedAssets) {RobloxScriptSecurity}
 	Function void AvatarEditorService:PerformSetFavorite() {RobloxScriptSecurity}
 	Function void AvatarEditorService:PromptAllowInventoryReadAccess()
 	Function void AvatarEditorService:PromptCreateOutfit(Instance outfit, Enum<HumanoidRigType> rigType)
@@ -186,6 +190,7 @@ Class AvatarEditorService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void AvatarEditorService:PromptSetFavorite(int64 itemId, Enum<AvatarItemType> itemType, bool shouldFavorite)
 	Function Instance AvatarEditorService:SearchCatalog(CatalogSearchParams searchParameters) [Yields]
 	Function void AvatarEditorService:SetAllowInventoryReadAccess(bool inventoryReadAccessGranted) {RobloxScriptSecurity}
+	Function void AvatarEditorService:SignalCreateOutfitFailed() {RobloxScriptSecurity}
 	Function void AvatarEditorService:SignalCreateOutfitPermissionDenied() {RobloxScriptSecurity}
 	Function void AvatarEditorService:SignalSaveAvatarFailed() {RobloxScriptSecurity}
 	Function void AvatarEditorService:SignalSaveAvatarPermissionDenied() {RobloxScriptSecurity}
@@ -250,9 +255,9 @@ Class PlayerGui : BasePlayerGui [NotCreatable] [PlayerReplicated]
 	Property Class<GuiObject> PlayerGui.SelectionImageObject
 	Property Enum<ScreenOrientation> PlayerGui.CurrentScreenOrientation  [ReadOnly] [NotReplicated]
 	Property Enum<ScreenOrientation> PlayerGui.ScreenOrientation
-	Function float PlayerGui:GetTopbarTransparency()
-	Function void PlayerGui:SetTopbarTransparency(float transparency)
-	Event PlayerGui.TopbarTransparencyChangedSignal(float transparency)
+	Function float PlayerGui:GetTopbarTransparency() [Deprecated]
+	Function void PlayerGui:SetTopbarTransparency(float transparency) [Deprecated]
+	Event PlayerGui.TopbarTransparencyChangedSignal(float transparency) [Deprecated]
 Class StarterGui : BasePlayerGui [NotCreatable] [Service]
 	Property bool StarterGui.ProcessUserInput {PluginSecurity} [Hidden] [NotReplicated]
 	Property bool StarterGui.ResetPlayerGuiOnSpawn  [Deprecated]
@@ -859,11 +864,11 @@ Class GamepadService : Instance [NotCreatable] [Service]
 	Function void GamepadService:SetGamepadCursorPosition(Vector2 position) {RobloxScriptSecurity}
 Class Geometry : Instance [NotCreatable] [Service]
 Class GlobalDataStore : Instance [NotCreatable] [NotReplicated]
-	Function Variant GlobalDataStore:GetAsync(string key) [Yields]
+	Function Tuple GlobalDataStore:GetAsync(string key) [Yields]
 	Function Variant GlobalDataStore:IncrementAsync(string key, int delta = 1) [Yields]
 	Function RBXScriptConnection GlobalDataStore:OnUpdate(string key, Function callback) [Deprecated]
-	Function Variant GlobalDataStore:RemoveAsync(string key) [Yields]
-	Function void GlobalDataStore:SetAsync(string key, Variant value) [Yields]
+	Function Tuple GlobalDataStore:RemoveAsync(string key) [Yields]
+	Function Variant GlobalDataStore:SetAsync(string key, Variant value, Variant userids, Instance options = nil) [Yields]
 	Function Tuple GlobalDataStore:UpdateAsync(string key, Function transformFunction) [Yields]
 Class OrderedDataStore : GlobalDataStore [NotCreatable] [NotReplicated]
 	Function Instance OrderedDataStore:GetSortedAsync(bool ascending, int pagesize, Variant minValue, Variant maxValue) [Yields]
@@ -1324,8 +1329,13 @@ Class HapticService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function bool HapticService:IsVibrationSupported(Enum<UserInputType> inputType)
 	Function void HapticService:SetMotor(Enum<UserInputType> inputType, Enum<VibrationMotor> vibrationMotor, Tuple vibrationValues)
 Class HeightmapImporterService : Instance [Service] [NotReplicated]
-	Function Tuple HeightmapImporterService:IsValidColormap(Content heightmapAssetId) {RobloxScriptSecurity}
+	Function void HeightmapImporterService:CancelImportHeightmap() {RobloxScriptSecurity}
+	Function Tuple HeightmapImporterService:GetGreyscale(Content heightmapAssetId) {RobloxScriptSecurity}
+	Function void HeightmapImporterService:ImportHeightmap(Region3 region, Content heightmapAssetId, Content colormapAssetId, Enum<Material> defaultMaterial) {RobloxScriptSecurity} [Yields]
+	Function Tuple HeightmapImporterService:IsValidColormap(Content colormapAssetId) {RobloxScriptSecurity}
 	Function Tuple HeightmapImporterService:IsValidHeightmap(Content heightmapAssetId) {RobloxScriptSecurity}
+	Function void HeightmapImporterService:SetImportHeightmapPaused(bool paused) {RobloxScriptSecurity}
+	Event HeightmapImporterService.ProgressUpdate(float progressRatio) {RobloxScriptSecurity}
 Class Hopper : Instance [NotCreatable] [Service] [Deprecated]
 Class HttpRbxApiService : Instance [NotCreatable] [Service]
 	Function string HttpRbxApiService:GetAsync(string apiUrlPath, Enum<ThrottlingPriority> priority = "Default", Enum<HttpRequestType> httpRequestType = "Default") {RobloxScriptSecurity} [Yields]
@@ -1518,6 +1528,7 @@ Class InsertService : Instance [NotCreatable] [Service]
 	Function Instance InsertService:LoadAssetVersion(int64 assetVersionId) [Yields]
 	Function Instance InsertService:LoadLocalAsset(string assetPath) {RobloxScriptSecurity}
 	Function Objects InsertService:LoadPackageAsset(Content url) {RobloxScriptSecurity}
+	Function Objects InsertService:LoadPackageAssetAsync(Content url) {RobloxScriptSecurity} [Yields]
 Class InternalContainer : Instance [NotCreatable] [Service] [NotReplicated]
 Class JointInstance : Instance [NotCreatable]
 	Property bool JointInstance.Active  [ReadOnly] [NotReplicated]
@@ -2113,6 +2124,7 @@ Class Workspace : WorldRoot [NotCreatable] [Service]
 	Function void Workspace:JoinToOutsiders(Objects objects, Enum<JointCreationMode> jointType)
 	Function void Workspace:MakeJoints(Objects objects) {PluginSecurity}
 	Function bool Workspace:PGSIsEnabled()
+	Function void Workspace:SetMeshPartHeads(Enum<MeshPartHeads> value) {RobloxScriptSecurity}
 	Function void Workspace:SetPhysicsThrottleEnabled(bool value) {LocalUserSecurity}
 	Function void Workspace:UnjoinFromOutsiders(Objects objects)
 	Function void Workspace:ZoomToExtents() {PluginSecurity}
@@ -3022,6 +3034,7 @@ Class Studio : Instance [NotCreatable] [Service] [NotReplicated]
 	Property Enum<AutoIndentRule> Studio.Auto Indent Rule
 	Property bool Studio.Enable Autocomplete
 	Property bool Studio.Enable Temporary Tabs
+	Property bool Studio.Enable Temporary Tabs In Explorer
 	Property QFont Studio.Font
 	Property bool Studio.Format On Paste
 	Property bool Studio.Format On Type
@@ -3079,7 +3092,6 @@ Class Studio : Instance [NotCreatable] [Service] [NotReplicated]
 Class StudioData : Instance [NotCreatable] [Service]
 	Property bool StudioData.EnableScriptCollabByDefaultOnLoad {RobloxScriptSecurity} [Hidden]
 	Property bool StudioData.EnableScriptCollabOnLoad {RobloxScriptSecurity} [Hidden]
-	Property bool StudioData.EnableScriptCollabVersionHistoryOnLoad {RobloxScriptSecurity} [Hidden]
 	Property int64 StudioData.SrcPlaceId {RobloxSecurity} [Hidden] [NotReplicated]
 	Property int64 StudioData.SrcUniverseId {RobloxSecurity} [Hidden] [NotReplicated]
 Class StudioService : Instance [NotCreatable] [Service] [NotReplicated]
@@ -5450,9 +5462,9 @@ Enum WaterForce
 	EnumItem WaterForce.Max : 4
 Enum WrapLayerDebugMode
 	EnumItem WrapLayerDebugMode.None : 0
-	EnumItem WrapLayerDebugMode.BindedCage : 1
+	EnumItem WrapLayerDebugMode.BoundCage : 1
 	EnumItem WrapLayerDebugMode.LayerCage : 2
-	EnumItem WrapLayerDebugMode.BindedCageAndLinks : 3
+	EnumItem WrapLayerDebugMode.BoundCageAndLinks : 3
 	EnumItem WrapLayerDebugMode.Reference : 4
 Enum WrapTargetDebugMode
 	EnumItem WrapTargetDebugMode.None : 0

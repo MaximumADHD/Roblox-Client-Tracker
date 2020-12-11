@@ -5,7 +5,7 @@
 #include <IBLDebugParams.h>
 #include <Globals.h>
 uniform vec4 CB1[109];
-uniform vec4 CB0[52];
+uniform vec4 CB0[53];
 in vec4 POSITION;
 in vec3 NORMAL;
 out vec3 VARYING0;

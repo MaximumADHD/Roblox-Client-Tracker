@@ -3312,6 +3312,31 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "PerformCreateOutfitWithDescription",
+                    "Parameters": [
+                        {
+                            "Name": "humanoidDescription",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "Instance"
+                            }
+                        },
+                        {
+                            "Name": "name",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "PerformSaveAvatar",
                     "Parameters": [
                     ],
@@ -3325,6 +3350,38 @@
                     "MemberType": "Function",
                     "Name": "PerformSaveAvatarNew",
                     "Parameters": [
+                        {
+                            "Name": "addedAssets",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Array"
+                            }
+                        },
+                        {
+                            "Name": "removedAssets",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Array"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "PerformSaveAvatarWithDescription",
+                    "Parameters": [
+                        {
+                            "Name": "humanoidDescription",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "Instance"
+                            }
+                        },
                         {
                             "Name": "addedAssets",
                             "Type": {
@@ -3470,6 +3527,17 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "SignalCreateOutfitFailed",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "SignalCreateOutfitPermissionDenied",
                     "Parameters": [
                     ],
@@ -3522,6 +3590,48 @@
                         "Name": "void"
                     },
                     "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "CheckApplyDefaultClothing",
+                    "Parameters": [
+                        {
+                            "Name": "humanoidDescription",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "Instance"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Class",
+                        "Name": "Instance"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "Tags": [
+                        "Yields"
+                    ]
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "ConformToAvatarRules",
+                    "Parameters": [
+                        {
+                            "Name": "humanoidDescription",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "Instance"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Class",
+                        "Name": "Instance"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "Tags": [
+                        "Yields"
+                    ]
                 },
                 {
                     "MemberType": "Function",
@@ -4683,7 +4793,10 @@
                         "Category": "Primitive",
                         "Name": "float"
                     },
-                    "Security": "None"
+                    "Security": "None",
+                    "Tags": [
+                        "Deprecated"
+                    ]
                 },
                 {
                     "MemberType": "Function",
@@ -4701,7 +4814,10 @@
                         "Category": "Primitive",
                         "Name": "void"
                     },
-                    "Security": "None"
+                    "Security": "None",
+                    "Tags": [
+                        "Deprecated"
+                    ]
                 },
                 {
                     "MemberType": "Event",
@@ -4715,7 +4831,10 @@
                             }
                         }
                     ],
-                    "Security": "None"
+                    "Security": "None",
+                    "Tags": [
+                        "Deprecated"
+                    ]
                 }
             ],
             "MemoryCategory": "Instances",
@@ -15196,7 +15315,7 @@
                     ],
                     "ReturnType": {
                         "Category": "Group",
-                        "Name": "Variant"
+                        "Name": "Tuple"
                     },
                     "Security": "None",
                     "Tags": [
@@ -15246,7 +15365,7 @@
                     ],
                     "ReturnType": {
                         "Category": "Group",
-                        "Name": "Variant"
+                        "Name": "Tuple"
                     },
                     "Security": "None",
                     "Tags": [
@@ -15270,11 +15389,26 @@
                                 "Category": "Group",
                                 "Name": "Variant"
                             }
+                        },
+                        {
+                            "Name": "userids",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Variant"
+                            }
+                        },
+                        {
+                            "Default": "nil",
+                            "Name": "options",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "Instance"
+                            }
                         }
                     ],
                     "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "void"
+                        "Category": "Group",
+                        "Name": "Variant"
                     },
                     "Security": "None",
                     "Tags": [
@@ -23050,10 +23184,39 @@
             "Members": [
                 {
                     "MemberType": "Function",
-                    "Name": "IsValidColormap",
+                    "Name": "CancelImportHeightmap",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetGreyscale",
                     "Parameters": [
                         {
                             "Name": "heightmapAssetId",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "Content"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Tuple"
+                    },
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "IsValidColormap",
+                    "Parameters": [
+                        {
+                            "Name": "colormapAssetId",
                             "Type": {
                                 "Category": "DataType",
                                 "Name": "Content"
@@ -23082,6 +23245,80 @@
                         "Category": "Group",
                         "Name": "Tuple"
                     },
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "SetImportHeightmapPaused",
+                    "Parameters": [
+                        {
+                            "Name": "paused",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "bool"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "ImportHeightmap",
+                    "Parameters": [
+                        {
+                            "Name": "region",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "Region3"
+                            }
+                        },
+                        {
+                            "Name": "heightmapAssetId",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "Content"
+                            }
+                        },
+                        {
+                            "Name": "colormapAssetId",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "Content"
+                            }
+                        },
+                        {
+                            "Name": "defaultMaterial",
+                            "Type": {
+                                "Category": "Enum",
+                                "Name": "Material"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "Tags": [
+                        "Yields"
+                    ]
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "ProgressUpdate",
+                    "Parameters": [
+                        {
+                            "Name": "progressRatio",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "float"
+                            }
+                        }
+                    ],
                     "Security": "RobloxScriptSecurity"
                 }
             ],
@@ -26701,6 +26938,27 @@
                         "Name": "Instance"
                     },
                     "Security": "None",
+                    "Tags": [
+                        "Yields"
+                    ]
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "LoadPackageAssetAsync",
+                    "Parameters": [
+                        {
+                            "Name": "url",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "Content"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "DataType",
+                        "Name": "Objects"
+                    },
+                    "Security": "RobloxScriptSecurity",
                     "Tags": [
                         "Yields"
                     ]
@@ -38030,6 +38288,24 @@
                         "Name": "bool"
                     },
                     "Security": "None"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "SetMeshPartHeads",
+                    "Parameters": [
+                        {
+                            "Name": "value",
+                            "Type": {
+                                "Category": "Enum",
+                                "Name": "MeshPartHeads"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity"
                 },
                 {
                     "MemberType": "Function",
@@ -53954,6 +54230,23 @@
                     }
                 },
                 {
+                    "Category": "Script Editor",
+                    "MemberType": "Property",
+                    "Name": "Enable Temporary Tabs In Explorer",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
                     "Category": "Script Editor Colors",
                     "MemberType": "Property",
                     "Name": "Error Color",
@@ -55191,26 +55484,6 @@
                     "Category": "Data",
                     "MemberType": "Property",
                     "Name": "EnableScriptCollabOnLoad",
-                    "Security": {
-                        "Read": "RobloxScriptSecurity",
-                        "Write": "RobloxScriptSecurity"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "Tags": [
-                        "Hidden"
-                    ],
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "bool"
-                    }
-                },
-                {
-                    "Category": "Data",
-                    "MemberType": "Property",
-                    "Name": "EnableScriptCollabVersionHistoryOnLoad",
                     "Security": {
                         "Read": "RobloxScriptSecurity",
                         "Write": "RobloxScriptSecurity"
@@ -72620,7 +72893,7 @@
                     "Value": 0
                 },
                 {
-                    "Name": "BindedCage",
+                    "Name": "BoundCage",
                     "Value": 1
                 },
                 {
@@ -72628,7 +72901,7 @@
                     "Value": 2
                 },
                 {
-                    "Name": "BindedCageAndLinks",
+                    "Name": "BoundCageAndLinks",
                     "Value": 3
                 },
                 {

@@ -36,7 +36,7 @@
         <addaction name="fastLogDumpAction"/>
         <addaction name="managePluginsAction"/>
         <addaction fflag ="StudioAddResetDefaultInstanceProperties" name="resetDefaultInstancePropertiesAction"/>
-        <addaction fflag ="EnableFastFlagEditorWithInternalPermission" name="flagEditorAction"/>
+        <addaction name="flagEditorAction"/>
       </submenu>
       <addseparator />
       <addaction fflag ="DebugStudioDumpUntranslatedStrings" name="dumpUntranslatedStringsCsvAction"/>

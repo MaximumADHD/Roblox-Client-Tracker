@@ -4,7 +4,7 @@
 #include <Globals.h>
 #include <LightShadowGPUTransform.h>
 #include <Params.h>
-uniform vec4 CB0[52];
+uniform vec4 CB0[53];
 uniform vec4 CB8[24];
 uniform vec4 CB3[3];
 uniform sampler2D ShadowAtlasTexture;
@@ -42,13 +42,13 @@ void main()
     vec4 f13 = vec4(f0, 1.0) * mat4(CB8[((dot(f10, f10) < CB0[41].w) ? 0 : ((dot(f11, f11) < CB0[42].w) ? 1 : ((dot(f12, f12) < CB0[43].w) ? 2 : 3))) * 4 + 0], CB8[((dot(f10, f10) < CB0[41].w) ? 0 : ((dot(f11, f11) < CB0[42].w) ? 1 : ((dot(f12, f12) < CB0[43].w) ? 2 : 3))) * 4 + 1], CB8[((dot(f10, f10) < CB0[41].w) ? 0 : ((dot(f11, f11) < CB0[42].w) ? 1 : ((dot(f12, f12) < CB0[43].w) ? 2 : 3))) * 4 + 2], CB8[((dot(f10, f10) < CB0[41].w) ? 0 : ((dot(f11, f11) < CB0[42].w) ? 1 : ((dot(f12, f12) < CB0[43].w) ? 2 : 3))) * 4 + 3]);
     vec4 f14 = textureLod(ShadowAtlasTexture, f13.xy, 0.0);
     vec2 f15 = vec2(0.0);
-    f15.x = CB0[45].z;
+    f15.x = CB0[46].z;
     vec2 f16 = f15;
-    f16.y = CB0[45].w;
+    f16.y = CB0[46].w;
     float f17 = (2.0 * f13.z) - 1.0;
-    float f18 = exp(CB0[45].z * f17);
-    float f19 = -exp((-CB0[45].w) * f17);
-    vec2 f20 = (f16 * CB0[46].y) * vec2(f18, f19);
+    float f18 = exp(CB0[46].z * f17);
+    float f19 = -exp((-CB0[46].w) * f17);
+    vec2 f20 = (f16 * CB0[47].y) * vec2(f18, f19);
     vec2 f21 = f20 * f20;
     float f22 = f14.x;
     float f23 = max(f14.y - (f22 * f22), f21.x);
@@ -56,7 +56,7 @@ void main()
     float f25 = f14.z;
     float f26 = max(f14.w - (f25 * f25), f21.y);
     float f27 = f19 - f25;
-    float f28 = (dot(VARYING6.xyz, f1) > 0.0) ? mix(f9, mix(min((f18 <= f22) ? 1.0 : clamp(((f23 / (f23 + (f24 * f24))) - 0.20000000298023223876953125) * 1.25, 0.0, 1.0), (f19 <= f25) ? 1.0 : clamp(((f26 / (f26 + (f27 * f27))) - 0.20000000298023223876953125) * 1.25, 0.0, 1.0)), f9, clamp((length(f0 - CB0[7].xyz) * CB0[45].y) - (CB0[45].x * CB0[45].y), 0.0, 1.0)), CB0[46].x) : 0.0;
+    float f28 = (dot(VARYING6.xyz, f1) > 0.0) ? mix(f9, mix(min((f18 <= f22) ? 1.0 : clamp(((f23 / (f23 + (f24 * f24))) - 0.20000000298023223876953125) * 1.25, 0.0, 1.0), (f19 <= f25) ? 1.0 : clamp(((f26 / (f26 + (f27 * f27))) - 0.20000000298023223876953125) * 1.25, 0.0, 1.0)), f9, clamp((length(f0 - CB0[7].xyz) * CB0[46].y) - (CB0[46].x * CB0[46].y), 0.0, 1.0)), CB0[47].x) : 0.0;
     vec4 f29 = vec4(CB3[0].w);
     float f30 = -VARYING6.x;
     vec4 f31 = ((mix(texture(NormalMap1Texture, VARYING2), texture(NormalMap2Texture, VARYING2), f29) * VARYING0.x) + (mix(texture(NormalMap1Texture, VARYING3), texture(NormalMap2Texture, VARYING3), f29) * VARYING0.y)) + (mix(texture(NormalMap1Texture, VARYING4), texture(NormalMap2Texture, VARYING4), f29) * VARYING0.z);

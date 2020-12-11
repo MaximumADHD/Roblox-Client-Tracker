@@ -2,7 +2,7 @@
 
 #extension GL_ARB_shading_language_include : require
 #include <Globals.h>
-uniform vec4 CB0[52];
+uniform vec4 CB0[53];
 uniform vec4 CB4[36];
 uniform sampler2D ShadowMapTexture;
 uniform sampler3D LightMapTexture;
@@ -120,7 +120,7 @@ void main()
     float f80 = f73.z;
     vec3 f81 = ((((((CB0[35].xyz * f75) + (CB0[37].xyz * f76)) + (CB0[39].xyz * f77)) + (CB0[36].xyz * f78)) + (CB0[38].xyz * f79)) + (CB0[40].xyz * f80)) + (((((((CB0[29].xyz * f75) + (CB0[31].xyz * f76)) + (CB0[33].xyz * f77)) + (CB0[30].xyz * f78)) + (CB0[32].xyz * f79)) + (CB0[34].xyz * f80)) * f43);
     vec3 f82 = (mix(textureLod(PrefilteredEnvIndoorTexture, f65, f64).xyz, textureLod(PrefilteredEnvTexture, f65, f64).xyz * mix(CB0[26].xyz, CB0[25].xyz, vec3(clamp(f50.y * 1.58823525905609130859375, 0.0, 1.0))), vec3(f43)) * f69) * f49;
-    vec3 f83 = (((((((((vec3(1.0) - (f61 * f49)) * CB0[10].xyz) * f54) + (CB0[12].xyz * clamp(-f52, 0.0, 1.0))) + (((vec3(1.0) - f70) * f81) * CB0[25].w)) + (CB0[27].xyz + (CB0[28].xyz * f43))) + vec3((f2.z * 2.0) * f31)) * f47) + (((((f61 * (((f62 + (f62 * f62)) / (((f63 * f63) * ((f57 * 3.0) + 0.5)) * ((f56 * 0.75) + 0.25))) * f54)) * CB0[10].xyz) * f31) * VARYING0.w) + f82)) + ((f41.xyz * (f41.w * 120.0)).xyz * mix(f47, f82 * (1.0 / (max(max(f81.x, f81.y), f81.z) + 0.00999999977648258209228515625)), f70 * (f49 * (1.0 - f43))));
+    vec3 f83 = (((((((((vec3(1.0) - (f61 * f49)) * CB0[10].xyz) * f54) + (CB0[12].xyz * clamp(-f52, 0.0, 1.0))) + (((vec3(1.0) - f70) * f81) * CB0[25].w)) + ((CB0[27].xyz + (CB0[28].xyz * f43)) * 1.0)) + vec3((f2.z * 2.0) * f31)) * f47) + (((((f61 * (((f62 + (f62 * f62)) / (((f63 * f63) * ((f57 * 3.0) + 0.5)) * ((f56 * 0.75) + 0.25))) * f54)) * CB0[10].xyz) * f31) * VARYING0.w) + f82)) + (((f41.xyz * (f41.w * 120.0)).xyz * mix(f47, f82 * (1.0 / (max(max(f81.x, f81.y), f81.z) + 0.00999999977648258209228515625)), f70 * (f49 * (1.0 - f43)))) * 1.0);
     vec4 f84 = vec4(f83.x, f83.y, f83.z, vec4(0.0).w);
     f84.w = 1.0;
     float f85 = clamp(exp2((CB0[13].z * VARYING5.w) + CB0[13].x) - CB0[13].w, 0.0, 1.0);

@@ -3,7 +3,7 @@
 #extension GL_ARB_shading_language_include : require
 #include <Globals.h>
 #include <MaterialParams.h>
-uniform vec4 CB0[52];
+uniform vec4 CB0[53];
 uniform vec4 CB2[4];
 uniform sampler2D ShadowMapTexture;
 uniform sampler3D LightMapTexture;
@@ -85,7 +85,7 @@ void main()
     float f53 = f47.y;
     float f54 = f47.z;
     vec3 f55 = (mix(textureLod(PrefilteredEnvIndoorTexture, f24, f23).xyz * f16, f25, vec3(f17)) * f43) * f20;
-    vec3 f56 = ((((((((vec3(1.0) - (f38 * f20)) * CB0[10].xyz) * f31) + (CB0[12].xyz * clamp(-f29, 0.0, 1.0))) + ((vec3(1.0) - f44) * (((((((CB0[35].xyz * f49) + (CB0[37].xyz * f50)) + (CB0[39].xyz * f51)) + (CB0[36].xyz * f52)) + (CB0[38].xyz * f53)) + (CB0[40].xyz * f54)) + (((((((CB0[29].xyz * f49) + (CB0[31].xyz * f50)) + (CB0[33].xyz * f51)) + (CB0[30].xyz * f52)) + (CB0[32].xyz * f53)) + (CB0[34].xyz * f54)) * f17)))) + (CB0[27].xyz + (CB0[28].xyz * f17))) * f27) + (((f38 * (((f39 + (f39 * f39)) / (((f40 * f40) * ((f34 * 3.0) + 0.5)) * ((f33 * 0.75) + 0.25))) * f31)) * CB0[10].xyz) + f55)) + (f16 * mix(f27, f55 * (1.0 / (max(max(f55.x, f55.y), f55.z) + 0.00999999977648258209228515625)), f44 * (f20 * (1.0 - f17))));
+    vec3 f56 = ((((((((vec3(1.0) - (f38 * f20)) * CB0[10].xyz) * f31) + (CB0[12].xyz * clamp(-f29, 0.0, 1.0))) + ((vec3(1.0) - f44) * (((((((CB0[35].xyz * f49) + (CB0[37].xyz * f50)) + (CB0[39].xyz * f51)) + (CB0[36].xyz * f52)) + (CB0[38].xyz * f53)) + (CB0[40].xyz * f54)) + (((((((CB0[29].xyz * f49) + (CB0[31].xyz * f50)) + (CB0[33].xyz * f51)) + (CB0[30].xyz * f52)) + (CB0[32].xyz * f53)) + (CB0[34].xyz * f54)) * f17)))) + ((CB0[27].xyz + (CB0[28].xyz * f17)) * 1.0)) * f27) + (((f38 * (((f39 + (f39 * f39)) / (((f40 * f40) * ((f34 * 3.0) + 0.5)) * ((f33 * 0.75) + 0.25))) * f31)) * CB0[10].xyz) + f55)) + ((f16 * mix(f27, f55 * (1.0 / (max(max(f55.x, f55.y), f55.z) + 0.00999999977648258209228515625)), f44 * (f20 * (1.0 - f17)))) * 1.0);
     vec4 f57 = vec4(f56.x, f56.y, f56.z, vec4(0.0).w);
     f57.w = VARYING2.w;
     float f58 = clamp(exp2((CB0[13].z * f0) + CB0[13].x) - CB0[13].w, 0.0, 1.0);

@@ -2,7 +2,7 @@
 
 #extension GL_ARB_shading_language_include : require
 #include <Globals.h>
-uniform vec4 CB0[52];
+uniform vec4 CB0[53];
 uniform vec4 CB4[36];
 uniform vec4 CB5[74];
 uniform sampler2D ShadowMapTexture;
@@ -160,7 +160,7 @@ void main()
     float f107 = f100.z;
     vec3 f108 = ((((((CB0[35].xyz * f102) + (CB0[37].xyz * f103)) + (CB0[39].xyz * f104)) + (CB0[36].xyz * f105)) + (CB0[38].xyz * f106)) + (CB0[40].xyz * f107)) + (((((((CB0[29].xyz * f102) + (CB0[31].xyz * f103)) + (CB0[33].xyz * f104)) + (CB0[30].xyz * f105)) + (CB0[32].xyz * f106)) + (CB0[34].xyz * f107)) * f70);
     vec3 f109 = (mix(textureLod(PrefilteredEnvIndoorTexture, f92, f91).xyz, textureLod(PrefilteredEnvTexture, f92, f91).xyz * mix(CB0[26].xyz, CB0[25].xyz, vec3(clamp(f77.y * 1.58823525905609130859375, 0.0, 1.0))), vec3(f70)) * f96) * f76;
-    vec3 f110 = (((((((((vec3(1.0) - (f88 * f76)) * CB0[10].xyz) * f81) + (CB0[12].xyz * clamp(-f79, 0.0, 1.0))) + (((vec3(1.0) - f97) * f108) * CB0[25].w)) + (CB0[27].xyz + (CB0[28].xyz * f70))) + vec3((f28.z * 2.0) * f57)) * f74) + (((((f88 * (((f89 + (f89 * f89)) / (((f90 * f90) * ((f84 * 3.0) + 0.5)) * ((f83 * 0.75) + 0.25))) * f81)) * CB0[10].xyz) * f57) * VARYING0.w) + f109)) + ((f68.xyz * (f68.w * 120.0)).xyz * mix(f74, f109 * (1.0 / (max(max(f108.x, f108.y), f108.z) + 0.00999999977648258209228515625)), f97 * (f76 * (1.0 - f70))));
+    vec3 f110 = (((((((((vec3(1.0) - (f88 * f76)) * CB0[10].xyz) * f81) + (CB0[12].xyz * clamp(-f79, 0.0, 1.0))) + (((vec3(1.0) - f97) * f108) * CB0[25].w)) + ((CB0[27].xyz + (CB0[28].xyz * f70)) * 1.0)) + vec3((f28.z * 2.0) * f57)) * f74) + (((((f88 * (((f89 + (f89 * f89)) / (((f90 * f90) * ((f84 * 3.0) + 0.5)) * ((f83 * 0.75) + 0.25))) * f81)) * CB0[10].xyz) * f57) * VARYING0.w) + f109)) + (((f68.xyz * (f68.w * 120.0)).xyz * mix(f74, f109 * (1.0 / (max(max(f108.x, f108.y), f108.z) + 0.00999999977648258209228515625)), f97 * (f76 * (1.0 - f70)))) * 1.0);
     vec4 f111 = vec4(f110.x, f110.y, f110.z, vec4(0.0).w);
     f111.w = 1.0;
     float f112 = clamp(exp2((CB0[13].z * VARYING5.w) + CB0[13].x) - CB0[13].w, 0.0, 1.0);

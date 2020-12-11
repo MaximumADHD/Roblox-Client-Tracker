@@ -3,7 +3,7 @@
 #extension GL_ARB_shading_language_include : require
 #include <Globals.h>
 #include <SAParams.h>
-uniform vec4 CB0[52];
+uniform vec4 CB0[53];
 uniform vec4 CB3[1];
 uniform sampler2D ShadowMapTexture;
 uniform sampler3D LightMapTexture;
@@ -32,7 +32,7 @@ void main()
     vec4 f3 = texture(DiffuseMapTexture, VARYING0);
     float f4 = f3.w;
     float f5 = fract(52.98291778564453125 * fract(dot(gl_FragCoord.xy, vec2(0.067110560834407806396484375, 0.005837149918079376220703125))));
-    if (smoothstep(0.0, 1.0, f4) < (f5 + ((fract(CB0[46].z) - f5) * clamp((0.001000000047497451305389404296875 * floor(CB0[46].z)) * VARYING4.w, 0.0, 1.0))))
+    if (smoothstep(0.0, 1.0, f4) < (f5 + ((fract(CB0[47].z) - f5) * clamp((0.001000000047497451305389404296875 * floor(CB0[47].z)) * VARYING4.w, 0.0, 1.0))))
     {
         discard;
     }
@@ -97,7 +97,7 @@ void main()
     float f64 = f58.y;
     float f65 = f58.z;
     vec3 f66 = (mix(textureLod(PrefilteredEnvIndoorTexture, f32, f31).xyz * f23, textureLod(PrefilteredEnvTexture, f32, f31).xyz * mix(CB0[26].xyz, CB0[25].xyz, vec3(clamp(f30.y * 1.58823525905609130859375, 0.0, 1.0))), vec3(f24)) * f54) * f28;
-    vec3 f67 = ((((((((f51 - (f46 * f50)) * CB0[10].xyz) * f39) + (CB0[12].xyz * (f49 * clamp(-f37, 0.0, 1.0)))) + (f55 * (((((((CB0[35].xyz * f60) + (CB0[37].xyz * f61)) + (CB0[39].xyz * f62)) + (CB0[36].xyz * f63)) + (CB0[38].xyz * f64)) + (CB0[40].xyz * f65)) + (((((((CB0[29].xyz * f60) + (CB0[31].xyz * f61)) + (CB0[33].xyz * f62)) + (CB0[30].xyz * f63)) + (CB0[32].xyz * f64)) + (CB0[34].xyz * f65)) * f24)))) + (CB0[27].xyz + (CB0[28].xyz * f24))) * f27) + (((f46 * (((f47 + (f47 * f47)) / (((f48 * f48) * ((f42 * 3.0) + 0.5)) * ((f41 * 0.75) + 0.25))) * f39)) * CB0[10].xyz) + f66)) + (f23 * mix(f27, f66 * (1.0 / (max(max(f66.x, f66.y), f66.z) + 0.00999999977648258209228515625)), (vec3(1.0) - f55) * (f28 * (1.0 - f24))));
+    vec3 f67 = ((((((((f51 - (f46 * f50)) * CB0[10].xyz) * f39) + (CB0[12].xyz * (f49 * clamp(-f37, 0.0, 1.0)))) + (f55 * (((((((CB0[35].xyz * f60) + (CB0[37].xyz * f61)) + (CB0[39].xyz * f62)) + (CB0[36].xyz * f63)) + (CB0[38].xyz * f64)) + (CB0[40].xyz * f65)) + (((((((CB0[29].xyz * f60) + (CB0[31].xyz * f61)) + (CB0[33].xyz * f62)) + (CB0[30].xyz * f63)) + (CB0[32].xyz * f64)) + (CB0[34].xyz * f65)) * f24)))) + ((CB0[27].xyz + (CB0[28].xyz * f24)) * 1.0)) * f27) + (((f46 * (((f47 + (f47 * f47)) / (((f48 * f48) * ((f42 * 3.0) + 0.5)) * ((f41 * 0.75) + 0.25))) * f39)) * CB0[10].xyz) + f66)) + ((f23 * mix(f27, f66 * (1.0 / (max(max(f66.x, f66.y), f66.z) + 0.00999999977648258209228515625)), (vec3(1.0) - f55) * (f28 * (1.0 - f24)))) * 1.0);
     float f68 = f9.w;
     vec4 f69 = vec4(f67.x, f67.y, f67.z, vec4(0.0).w);
     f69.w = f68;

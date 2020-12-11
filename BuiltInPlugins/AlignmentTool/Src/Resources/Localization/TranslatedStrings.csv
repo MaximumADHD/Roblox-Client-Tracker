@@ -1,14 +1,14 @@
 Key,Source
-Studio.AlignmentTool.Plugin.Toolbar,Alignment
-Studio.AlignmentTool.Plugin.Button,Align Tool
-Studio.AlignmentTool.Plugin.Description,Align selected objects.
-Studio.AlignmentTool.Plugin.WindowTitle,Align Tool
 Studio.AlignmentTool.MainView.AlignButton,Align
-Studio.AlignmentTool.ModeSection.Min,Min
+Studio.AlignmentTool.Plugin.Toolbar,Alignment
 Studio.AlignmentTool.ModeSection.Center,Center
+Studio.AlignmentTool.Plugin.Button,Align Tool
+Studio.AlignmentTool.Plugin.WindowTitle,Align Tool
+Studio.AlignmentTool.AxesSection.WorldX,World X
+Studio.AlignmentTool.Plugin.Description,Align selected objects.
+Studio.AlignmentTool.ModeSection.Min,Min
 Studio.AlignmentTool.ModeSection.Max,Max
 Studio.AlignmentTool.AxesSection.Title,Align In
-Studio.AlignmentTool.AxesSection.WorldX,World X
 Studio.AlignmentTool.AxesSection.WorldY,World Y
 Studio.AlignmentTool.AxesSection.WorldZ,World Z
 Studio.AlignmentTool.RelativeToSection.Title,Relative To

@@ -1,62 +1,62 @@
 Key,Context,en-us
-Studio.PublishPlaceAs.General.PublishPlace, ,Publish Place
-Studio.PublishPlaceAs.General.ContentDialogTitle, ,Content Agreement
+Studio.PublishPlaceAs.Button.AddNewPlace, ,Add New
+Studio.PublishPlaceAs.Button.Close, ,Close
+Studio.PublishPlaceAs.Button.ReplyAgree, ,Agree
+Studio.PublishPlaceAs.Button.ReplyDisagree, ,Disagree
+Studio.PublishPlaceAs.Button.Retry, ,Retry
+Studio.PublishPlaceAs.Devices.Computer, ,Computer
+Studio.PublishPlaceAs.Devices.Console, ,Console
+Studio.PublishPlaceAs.Devices.Header, ,Devices
+Studio.PublishPlaceAs.Devices.Phone, ,Phone
+Studio.PublishPlaceAs.Devices.Tablet, ,Tablet
+Studio.PublishPlaceAs.Error.DescriptionModerated, ,The description didn't go through our moderation. Please revise it and try again.
+Studio.PublishPlaceAs.Error.NameEmpty, ,Name cannot be empty.
+Studio.PublishPlaceAs.Error.NameModerated, ,The name didn't go through our moderation. Please revise it and try again.
+Studio.PublishPlaceAs.Error.NoDevices, ,You must select at least one playable device.
+Studio.PublishPlaceAs.FooterButton.Cancel, ,Cancel
+Studio.PublishPlaceAs.FooterButton.Create, ,Create
+Studio.PublishPlaceAs.FooterButton.CreateNewGame, ,Create new game...
+Studio.PublishPlaceAs.FooterButton.Overwrite, ,Overwrite
+Studio.PublishPlaceAs.FooterButton.UpdateExistingGame, ,Update existing game...
 Studio.PublishPlaceAs.General.ContentDialogHeader, ,Do you agree that your game is controller compatible and contains NONE of the following?
 Studio.PublishPlaceAs.General.ContentDialogItem1, ,Blood or Gore
 Studio.PublishPlaceAs.General.ContentDialogItem2, ,Intense Violence
 Studio.PublishPlaceAs.General.ContentDialogItem3, ,Strong Language (Swearing)
 Studio.PublishPlaceAs.General.ContentDialogItem4, ,Robux Gambling
 Studio.PublishPlaceAs.General.ContentDialogItem5, ,Drug Reference or Use
+Studio.PublishPlaceAs.General.ContentDialogTitle, ,Content Agreement
+Studio.PublishPlaceAs.General.PublishPlace, ,Publish Place
 Studio.PublishPlaceAs.General.UntitledGame, ,Untitled Game
-Studio.PublishPlaceAs.Button.AddNewPlace, ,Add New
-Studio.PublishPlaceAs.Button.Close, ,Close
-Studio.PublishPlaceAs.Button.ReplyAgree, ,Agree
-Studio.PublishPlaceAs.Button.ReplyDisagree, ,Disagree
-Studio.PublishPlaceAs.Button.Retry, ,Retry
-Studio.PublishPlaceAs.FooterButton.UpdateExistingGame, ,Update existing game...
-Studio.PublishPlaceAs.FooterButton.CreateNewGame, ,Create new game...
-Studio.PublishPlaceAs.FooterButton.Create, ,Create
-Studio.PublishPlaceAs.FooterButton.Overwrite, ,Overwrite
-Studio.PublishPlaceAs.FooterButton.Cancel, ,Cancel
-Studio.PublishPlaceAs.GroupDropdown.Me, ,Me
-Studio.PublishPlaceAs.GroupDropdown.MyGames, ,My Games
-Studio.PublishPlaceAs.MenuItem.BasicInfo, ,Basic Info
-Studio.PublishPlaceAs.Devices.Header, ,Devices
-Studio.PublishPlaceAs.Devices.Computer, ,Computer
-Studio.PublishPlaceAs.Devices.Phone, ,Phone
-Studio.PublishPlaceAs.Devices.Tablet, ,Tablet
-Studio.PublishPlaceAs.Devices.Console, ,Console
-Studio.PublishPlaceAs.PageTitle.Name, ,Name
-Studio.PublishPlaceAs.PageTitle.Description, ,Description
-Studio.PublishPlaceAs.PageTitle.Creator, ,Creator
-Studio.PublishPlaceAs.PageTitle.Genre, ,Genre
-Studio.PublishPlaceAs.PageTitle.Devices, ,Devices
-Studio.PublishPlaceAs.Genre.All, ,All
 Studio.PublishPlaceAs.Genre.Adventure, ,Adventure
-Studio.PublishPlaceAs.Genre.Tutorial, ,Building
+Studio.PublishPlaceAs.Genre.All, ,All
+Studio.PublishPlaceAs.Genre.FPS, ,FPS
+Studio.PublishPlaceAs.Genre.Fantasy, ,Medieval
 Studio.PublishPlaceAs.Genre.Funny, ,Comedy
 Studio.PublishPlaceAs.Genre.Ninja, ,Fighting
-Studio.PublishPlaceAs.Genre.FPS, ,FPS
-Studio.PublishPlaceAs.Genre.Scary, ,Horror
-Studio.PublishPlaceAs.Genre.Fantasy, ,Medieval
-Studio.PublishPlaceAs.Genre.War, ,Military
 Studio.PublishPlaceAs.Genre.Pirate, ,Naval
 Studio.PublishPlaceAs.Genre.RPG, ,RPG
+Studio.PublishPlaceAs.Genre.Scary, ,Horror
 Studio.PublishPlaceAs.Genre.SciFi, ,Sci-Fi
 Studio.PublishPlaceAs.Genre.Sports, ,Sports
 Studio.PublishPlaceAs.Genre.TownAndCity, ,Town and City
+Studio.PublishPlaceAs.Genre.Tutorial, ,Building
+Studio.PublishPlaceAs.Genre.War, ,Military
 Studio.PublishPlaceAs.Genre.WildWest, ,Western
-Studio.PublishPlaceAs.Error.NameEmpty, ,Name cannot be empty.
-Studio.PublishPlaceAs.Error.NameTooLong,Substituted with current name length and max name length,{1}/{2}
-Studio.PublishPlaceAs.Error.NameModerated, ,The name didn't go through our moderation. Please revise it and try again.
-Studio.PublishPlaceAs.Error.DescriptionModerated, ,The description didn't go through our moderation. Please revise it and try again.
-Studio.PublishPlaceAs.Error.DescriptionTooLong,Substituted with current description length and max description length,{1}/{2}
-Studio.PublishPlaceAs.Error.NoDevices, ,You must select at least one playable device.
-Studio.PublishPlaceAs.ScreenHeader.ChooseGame, ,Choose an existing game to add this place
-Studio.PublishPlaceAs.ScreenHeader.ChoosePlace,Substituted with game name to tell user where their place will be added,Overwrite or add a new place to {1}
-Studio.PublishPlaceAs.PublishSuccess.Success, ,Successfully published!
-Studio.PublishPlaceAs.PublishSuccess.FindInGame,Substituted with game name to tell user where their place has been published to,You may find this place in {1}
+Studio.PublishPlaceAs.GroupDropdown.Me, ,Me
+Studio.PublishPlaceAs.GroupDropdown.MyGames, ,My Games
+Studio.PublishPlaceAs.MenuItem.BasicInfo, ,Basic Info
+Studio.PublishPlaceAs.PageTitle.Creator, ,Creator
+Studio.PublishPlaceAs.PageTitle.Description, ,Description
+Studio.PublishPlaceAs.PageTitle.Devices, ,Devices
+Studio.PublishPlaceAs.PageTitle.Genre, ,Genre
+Studio.PublishPlaceAs.PageTitle.Name, ,Name
+Studio.PublishPlaceAs.PrivacyType.Private, ,Private
+Studio.PublishPlaceAs.PrivacyType.Public, ,Public
 Studio.PublishPlaceAs.PublishFail.Fail, ,Publish failed
 Studio.PublishPlaceAs.PublishFail.FailConfiguration, ,Could not publish configuration settings.
-Studio.PublishPlaceAs.PrivacyType.Public, ,Public
-Studio.PublishPlaceAs.PrivacyType.Private, ,Private
+Studio.PublishPlaceAs.PublishSuccess.Success, ,Successfully published!
+Studio.PublishPlaceAs.ScreenHeader.ChooseGame, ,Choose an existing game to add this place
+Studio.PublishPlaceAs.Error.DescriptionTooLong,Substituted with current description length and max description length,{1}/{2}
+Studio.PublishPlaceAs.Error.NameTooLong,Substituted with current name length and max name length,{1}/{2}
+Studio.PublishPlaceAs.PublishSuccess.FindInGame,Substituted with game name to tell user where their place has been published to,You may find this place in {1}
+Studio.PublishPlaceAs.ScreenHeader.ChoosePlace,Substituted with game name to tell user where their place will be added,Overwrite or add a new place to {1}

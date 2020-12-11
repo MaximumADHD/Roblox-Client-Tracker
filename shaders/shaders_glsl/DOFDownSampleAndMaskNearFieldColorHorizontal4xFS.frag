@@ -3,7 +3,7 @@
 #extension GL_ARB_shading_language_include : require
 #include <Globals.h>
 #include <Params.h>
-uniform vec4 CB0[52];
+uniform vec4 CB0[53];
 uniform vec4 CB1[8];
 uniform sampler2D colorTexture;
 

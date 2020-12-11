@@ -3,7 +3,7 @@
 
 #extension GL_ARB_shading_language_include : require
 #include <Globals.h>
-uniform vec4 CB0[52];
+uniform vec4 CB0[53];
 uniform vec4 CB3[1];
 uniform sampler2D ShadowMapTexture;
 uniform sampler3D LightMapTexture;
@@ -60,7 +60,7 @@ void main()
     vec3 f35 = vec3(f34) + (vec3(0.039999999105930328369140625) * (1.0 - f34));
     float f36 = f29 * f29;
     float f37 = (((f30 * f36) - f30) * f30) + 1.0;
-    vec3 f38 = (((((((vec3(1.0) - (f35 * (CB0[26].w * f14))) * CB0[10].xyz) * f28) + (CB0[12].xyz * clamp(-f26, 0.0, 1.0))) + min((f20.xyz * (f20.w * 120.0)).xyz + (CB0[8].xyz + (CB0[9].xyz * f21.x)), vec3(CB0[16].w))) + vec3((f8.z * 2.0) * f14)) * (f13 * f13).xyz) + ((((f35 * (((f36 + (f36 * f36)) / (((f37 * f37) * ((f31 * 3.0) + 0.5)) * ((f30 * 0.75) + 0.25))) * f28)) * CB0[10].xyz) * f14) * VARYING0.w);
+    vec3 f38 = (((((((vec3(1.0) - (f35 * (CB0[26].w * f14))) * CB0[10].xyz) * f28) + (CB0[12].xyz * clamp(-f26, 0.0, 1.0))) + (min((f20.xyz * (f20.w * 120.0)).xyz + (CB0[8].xyz + (CB0[9].xyz * f21.x)), vec3(CB0[16].w)) * 1.0)) + vec3((f8.z * 2.0) * f14)) * (f13 * f13).xyz) + ((((f35 * (((f36 + (f36 * f36)) / (((f37 * f37) * ((f31 * 3.0) + 0.5)) * ((f30 * 0.75) + 0.25))) * f28)) * CB0[10].xyz) * f14) * VARYING0.w);
     vec4 f39 = vec4(f38.x, f38.y, f38.z, vec4(0.0).w);
     f39.w = 1.0;
     vec3 f40 = sqrt(clamp(mix(CB0[14].xyz, f39.xyz, vec3(clamp(exp2((CB0[13].z * VARYING5.w) + CB0[13].x) - CB0[13].w, 0.0, 1.0))).xyz * CB0[15].y, vec3(0.0), vec3(1.0)));

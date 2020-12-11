@@ -4,7 +4,7 @@
 #include <Globals.h>
 #include <LightShadowGPUTransform.h>
 #include <MaterialParams.h>
-uniform vec4 CB0[52];
+uniform vec4 CB0[53];
 uniform vec4 CB8[24];
 uniform vec4 CB2[4];
 uniform sampler2D ShadowAtlasTexture;
@@ -57,13 +57,13 @@ void main()
     vec4 f23 = vec4(f12, 1.0) * mat4(CB8[((dot(f20, f20) < CB0[41].w) ? 0 : ((dot(f21, f21) < CB0[42].w) ? 1 : ((dot(f22, f22) < CB0[43].w) ? 2 : 3))) * 4 + 0], CB8[((dot(f20, f20) < CB0[41].w) ? 0 : ((dot(f21, f21) < CB0[42].w) ? 1 : ((dot(f22, f22) < CB0[43].w) ? 2 : 3))) * 4 + 1], CB8[((dot(f20, f20) < CB0[41].w) ? 0 : ((dot(f21, f21) < CB0[42].w) ? 1 : ((dot(f22, f22) < CB0[43].w) ? 2 : 3))) * 4 + 2], CB8[((dot(f20, f20) < CB0[41].w) ? 0 : ((dot(f21, f21) < CB0[42].w) ? 1 : ((dot(f22, f22) < CB0[43].w) ? 2 : 3))) * 4 + 3]);
     vec4 f24 = textureLod(ShadowAtlasTexture, f23.xy, 0.0);
     vec2 f25 = vec2(0.0);
-    f25.x = CB0[45].z;
+    f25.x = CB0[46].z;
     vec2 f26 = f25;
-    f26.y = CB0[45].w;
+    f26.y = CB0[46].w;
     float f27 = (2.0 * f23.z) - 1.0;
-    float f28 = exp(CB0[45].z * f27);
-    float f29 = -exp((-CB0[45].w) * f27);
-    vec2 f30 = (f26 * CB0[46].y) * vec2(f28, f29);
+    float f28 = exp(CB0[46].z * f27);
+    float f29 = -exp((-CB0[46].w) * f27);
+    vec2 f30 = (f26 * CB0[47].y) * vec2(f28, f29);
     vec2 f31 = f30 * f30;
     float f32 = f24.x;
     float f33 = max(f24.y - (f32 * f32), f31.x);
@@ -80,7 +80,7 @@ void main()
     vec4 f44 = texture(PrecomputedBRDFTexture, vec2(f39, max(9.9999997473787516355514526367188e-05, dot(f8, f1))));
     vec3 f45 = mix((f11 * f11).xyz, f43, vec3(VARYING7.w));
     vec3 f46 = normalize(f9 + f1);
-    float f47 = clamp(f10 * ((f10 > 0.0) ? mix(f19, mix(min((f28 <= f32) ? 1.0 : clamp(((f33 / (f33 + (f34 * f34))) - 0.20000000298023223876953125) * 1.25, 0.0, 1.0), (f29 <= f35) ? 1.0 : clamp(((f36 / (f36 + (f37 * f37))) - 0.20000000298023223876953125) * 1.25, 0.0, 1.0)), f19, clamp((length(f12 - CB0[7].xyz) * CB0[45].y) - (CB0[45].x * CB0[45].y), 0.0, 1.0)), CB0[46].x) : 0.0), 0.0, 1.0);
+    float f47 = clamp(f10 * ((f10 > 0.0) ? mix(f19, mix(min((f28 <= f32) ? 1.0 : clamp(((f33 / (f33 + (f34 * f34))) - 0.20000000298023223876953125) * 1.25, 0.0, 1.0), (f29 <= f35) ? 1.0 : clamp(((f36 / (f36 + (f37 * f37))) - 0.20000000298023223876953125) * 1.25, 0.0, 1.0)), f19, clamp((length(f12 - CB0[7].xyz) * CB0[46].y) - (CB0[46].x * CB0[46].y), 0.0, 1.0)), CB0[47].x) : 0.0), 0.0, 1.0);
     float f48 = f39 * f39;
     float f49 = max(0.001000000047497451305389404296875, dot(f8, f46));
     float f50 = dot(f9, f46);
@@ -106,7 +106,7 @@ void main()
     float f70 = f63.z;
     vec3 f71 = ((((((CB0[35].xyz * f65) + (CB0[37].xyz * f66)) + (CB0[39].xyz * f67)) + (CB0[36].xyz * f68)) + (CB0[38].xyz * f69)) + (CB0[40].xyz * f70)) + (((((((CB0[29].xyz * f65) + (CB0[31].xyz * f66)) + (CB0[33].xyz * f67)) + (CB0[30].xyz * f68)) + (CB0[32].xyz * f69)) + (CB0[34].xyz * f70)) * f18);
     vec3 f72 = (mix(textureLod(PrefilteredEnvIndoorTexture, f42, f41).xyz, f43, vec3(f18)) * f59) * f38;
-    vec3 f73 = (((((((vec3(1.0) - (f54 * f38)) * CB0[10].xyz) * f47) + (((vec3(1.0) - f60) * f71) * CB0[25].w)) + (CB0[27].xyz + (CB0[28].xyz * f18))) * f45) + (((f54 * (((f55 + (f55 * f55)) / (((f56 * f56) * ((f50 * 3.0) + 0.5)) * ((f49 * 0.75) + 0.25))) * f47)) * CB0[10].xyz) + f72)) + ((f16.xyz * (f16.w * 120.0)).xyz * mix(f45, f72 * (1.0 / (max(max(f71.x, f71.y), f71.z) + 0.00999999977648258209228515625)), f60 * (f38 * (1.0 - f18))));
+    vec3 f73 = (((((((vec3(1.0) - (f54 * f38)) * CB0[10].xyz) * f47) + (((vec3(1.0) - f60) * f71) * CB0[25].w)) + ((CB0[27].xyz + (CB0[28].xyz * f18)) * 1.0)) * f45) + (((f54 * (((f55 + (f55 * f55)) / (((f56 * f56) * ((f50 * 3.0) + 0.5)) * ((f49 * 0.75) + 0.25))) * f47)) * CB0[10].xyz) + f72)) + (((f16.xyz * (f16.w * 120.0)).xyz * mix(f45, f72 * (1.0 / (max(max(f71.x, f71.y), f71.z) + 0.00999999977648258209228515625)), f60 * (f38 * (1.0 - f18)))) * 1.0);
     vec4 f74 = vec4(f73.x, f73.y, f73.z, vec4(0.0).w);
     f74.w = VARYING2.w;
     float f75 = clamp(exp2((CB0[13].z * f0) + CB0[13].x) - CB0[13].w, 0.0, 1.0);

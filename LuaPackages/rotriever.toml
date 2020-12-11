@@ -6,7 +6,7 @@ version = "0.1.0"
 proxy = "https://github.com/roblox/rotriever-proxy-index"
 
 [dependencies]
-Roact = "github.com/roblox/roact@1.2"
+Roact = "github.com/roblox/roact@1.3.1"
 Rodux = "github.com/roblox/rodux@1.0"
 RoactRodux = "github.com/roblox/roact-rodux@0.2"
 RoactNavigationOld = "github.com/roblox/roact-navigation@0.2.8"

@@ -4,7 +4,7 @@
 #include <Globals.h>
 #include <LightShadowGPUTransform.h>
 #include <MaterialParams.h>
-uniform vec4 CB0[52];
+uniform vec4 CB0[53];
 uniform vec4 CB8[24];
 uniform vec4 CB2[4];
 uniform sampler2D ShadowAtlasTexture;
@@ -66,13 +66,13 @@ void main()
     vec4 f30 = vec4(f19, 1.0) * mat4(CB8[((dot(f27, f27) < CB0[41].w) ? 0 : ((dot(f28, f28) < CB0[42].w) ? 1 : ((dot(f29, f29) < CB0[43].w) ? 2 : 3))) * 4 + 0], CB8[((dot(f27, f27) < CB0[41].w) ? 0 : ((dot(f28, f28) < CB0[42].w) ? 1 : ((dot(f29, f29) < CB0[43].w) ? 2 : 3))) * 4 + 1], CB8[((dot(f27, f27) < CB0[41].w) ? 0 : ((dot(f28, f28) < CB0[42].w) ? 1 : ((dot(f29, f29) < CB0[43].w) ? 2 : 3))) * 4 + 2], CB8[((dot(f27, f27) < CB0[41].w) ? 0 : ((dot(f28, f28) < CB0[42].w) ? 1 : ((dot(f29, f29) < CB0[43].w) ? 2 : 3))) * 4 + 3]);
     vec4 f31 = textureLod(ShadowAtlasTexture, f30.xy, 0.0);
     vec2 f32 = vec2(0.0);
-    f32.x = CB0[45].z;
+    f32.x = CB0[46].z;
     vec2 f33 = f32;
-    f33.y = CB0[45].w;
+    f33.y = CB0[46].w;
     float f34 = (2.0 * f30.z) - 1.0;
-    float f35 = exp(CB0[45].z * f34);
-    float f36 = -exp((-CB0[45].w) * f34);
-    vec2 f37 = (f33 * CB0[46].y) * vec2(f35, f36);
+    float f35 = exp(CB0[46].z * f34);
+    float f36 = -exp((-CB0[46].w) * f34);
+    vec2 f37 = (f33 * CB0[47].y) * vec2(f35, f36);
     vec2 f38 = f37 * f37;
     float f39 = f31.x;
     float f40 = max(f31.y - (f39 * f39), f38.x);
@@ -90,7 +90,7 @@ void main()
     float f52 = f11.x * f46;
     vec3 f53 = mix(vec3(0.039999999105930328369140625), f45, vec3(f52));
     vec3 f54 = normalize(f16 + f1);
-    float f55 = clamp(f17 * ((f17 > 0.0) ? mix(f26, mix(min((f35 <= f39) ? 1.0 : clamp(((f40 / (f40 + (f41 * f41))) - 0.20000000298023223876953125) * 1.25, 0.0, 1.0), (f36 <= f42) ? 1.0 : clamp(((f43 / (f43 + (f44 * f44))) - 0.20000000298023223876953125) * 1.25, 0.0, 1.0)), f26, clamp((length(f19 - CB0[7].xyz) * CB0[45].y) - (CB0[45].x * CB0[45].y), 0.0, 1.0)), CB0[46].x) : 0.0), 0.0, 1.0);
+    float f55 = clamp(f17 * ((f17 > 0.0) ? mix(f26, mix(min((f35 <= f39) ? 1.0 : clamp(((f40 / (f40 + (f41 * f41))) - 0.20000000298023223876953125) * 1.25, 0.0, 1.0), (f36 <= f42) ? 1.0 : clamp(((f43 / (f43 + (f44 * f44))) - 0.20000000298023223876953125) * 1.25, 0.0, 1.0)), f26, clamp((length(f19 - CB0[7].xyz) * CB0[46].y) - (CB0[46].x * CB0[46].y), 0.0, 1.0)), CB0[47].x) : 0.0), 0.0, 1.0);
     float f56 = f47 * f47;
     float f57 = max(0.001000000047497451305389404296875, dot(f15, f54));
     float f58 = dot(f16, f54);
@@ -119,7 +119,7 @@ void main()
     float f81 = f74.z;
     vec3 f82 = ((((((CB0[35].xyz * f76) + (CB0[37].xyz * f77)) + (CB0[39].xyz * f78)) + (CB0[36].xyz * f79)) + (CB0[38].xyz * f80)) + (CB0[40].xyz * f81)) + (((((((CB0[29].xyz * f76) + (CB0[31].xyz * f77)) + (CB0[33].xyz * f78)) + (CB0[30].xyz * f79)) + (CB0[32].xyz * f80)) + (CB0[34].xyz * f81)) * f25);
     vec3 f83 = (mix(textureLod(PrefilteredEnvIndoorTexture, f50, f49).xyz, textureLod(PrefilteredEnvTexture, f50, f49).xyz * mix(CB0[26].xyz, CB0[25].xyz, vec3(clamp(f48.y * 1.58823525905609130859375, 0.0, 1.0))), vec3(f25)) * f70) * f46;
-    vec3 f84 = (((((((f67 - (f62 * f66)) * CB0[10].xyz) * f55) + ((f71 * f82) * CB0[25].w)) + (CB0[27].xyz + (CB0[28].xyz * f25))) * f45) + (((f62 * (((f63 + (f63 * f63)) / (((f64 * f64) * ((f58 * 3.0) + 0.5)) * ((f57 * 0.75) + 0.25))) * f55)) * CB0[10].xyz) + f83)) + ((f23.xyz * (f23.w * 120.0)).xyz * mix(f45, f83 * (1.0 / (max(max(f82.x, f82.y), f82.z) + 0.00999999977648258209228515625)), (vec3(1.0) - f71) * (f46 * (1.0 - f25))));
+    vec3 f84 = (((((((f67 - (f62 * f66)) * CB0[10].xyz) * f55) + ((f71 * f82) * CB0[25].w)) + ((CB0[27].xyz + (CB0[28].xyz * f25)) * 1.0)) * f45) + (((f62 * (((f63 + (f63 * f63)) / (((f64 * f64) * ((f58 * 3.0) + 0.5)) * ((f57 * 0.75) + 0.25))) * f55)) * CB0[10].xyz) + f83)) + (((f23.xyz * (f23.w * 120.0)).xyz * mix(f45, f83 * (1.0 / (max(max(f82.x, f82.y), f82.z) + 0.00999999977648258209228515625)), (vec3(1.0) - f71) * (f46 * (1.0 - f25)))) * 1.0);
     vec4 f85 = vec4(f84.x, f84.y, f84.z, vec4(0.0).w);
     f85.w = VARYING2.w;
     float f86 = clamp(exp2((CB0[13].z * f0) + CB0[13].x) - CB0[13].w, 0.0, 1.0);

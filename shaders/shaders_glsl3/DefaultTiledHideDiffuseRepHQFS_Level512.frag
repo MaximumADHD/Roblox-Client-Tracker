@@ -3,7 +3,7 @@
 #extension GL_ARB_shading_language_include : require
 #include <Globals.h>
 #include <MaterialParams.h>
-uniform vec4 CB0[52];
+uniform vec4 CB0[53];
 uniform vec4 CB2[4];
 uniform sampler2D ShadowMapTexture;
 uniform sampler3D LightMapTexture;
@@ -95,7 +95,7 @@ void main()
     float f61 = f54.z;
     vec3 f62 = ((((((CB0[35].xyz * f56) + (CB0[37].xyz * f57)) + (CB0[39].xyz * f58)) + (CB0[36].xyz * f59)) + (CB0[38].xyz * f60)) + (CB0[40].xyz * f61)) + (((((((CB0[29].xyz * f56) + (CB0[31].xyz * f57)) + (CB0[33].xyz * f58)) + (CB0[30].xyz * f59)) + (CB0[32].xyz * f60)) + (CB0[34].xyz * f61)) * f20);
     vec3 f63 = (mix(textureLod(PrefilteredEnvIndoorTexture, f28, f27).xyz, textureLod(PrefilteredEnvTexture, f28, f27).xyz * mix(CB0[26].xyz, CB0[25].xyz, vec3(clamp(f26.y * 1.58823525905609130859375, 0.0, 1.0))), vec3(f20)) * f50) * f24;
-    vec3 f64 = ((((((((f47 - (f42 * f46)) * CB0[10].xyz) * f35) + (CB0[12].xyz * (f45 * clamp(-f33, 0.0, 1.0)))) + ((f51 * f62) * CB0[25].w)) + (CB0[27].xyz + (CB0[28].xyz * f20))) * f23) + (((f42 * (((f43 + (f43 * f43)) / (((f44 * f44) * ((f38 * 3.0) + 0.5)) * ((f37 * 0.75) + 0.25))) * f35)) * CB0[10].xyz) + f63)) + ((f18.xyz * (f18.w * 120.0)).xyz * mix(f23, f63 * (1.0 / (max(max(f62.x, f62.y), f62.z) + 0.00999999977648258209228515625)), (vec3(1.0) - f51) * (f24 * (1.0 - f20))));
+    vec3 f64 = ((((((((f47 - (f42 * f46)) * CB0[10].xyz) * f35) + (CB0[12].xyz * (f45 * clamp(-f33, 0.0, 1.0)))) + ((f51 * f62) * CB0[25].w)) + ((CB0[27].xyz + (CB0[28].xyz * f20)) * 1.0)) * f23) + (((f42 * (((f43 + (f43 * f43)) / (((f44 * f44) * ((f38 * 3.0) + 0.5)) * ((f37 * 0.75) + 0.25))) * f35)) * CB0[10].xyz) + f63)) + (((f18.xyz * (f18.w * 120.0)).xyz * mix(f23, f63 * (1.0 / (max(max(f62.x, f62.y), f62.z) + 0.00999999977648258209228515625)), (vec3(1.0) - f51) * (f24 * (1.0 - f20)))) * 1.0);
     vec4 f65 = vec4(f64.x, f64.y, f64.z, vec4(0.0).w);
     f65.w = VARYING2.w;
     float f66 = clamp(exp2((CB0[13].z * f0) + CB0[13].x) - CB0[13].w, 0.0, 1.0);

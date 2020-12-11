@@ -127,8 +127,6 @@ Studio.App.BetaFeatures.ProximityPromptDescription,,ProximityPrompt is a new ins
 Studio.App.BetaFeatures.ProximityPromptTitle,,Proximity Prompt Beta,Proximity Prompt Beta
 Studio.App.BetaFeatures.RestartStudioTitle,,Restart Studio,Restart Studio
 Studio.App.BetaFeatures.RestartWarning,,Beta features will not be activated until you restart Studio,Beta features will not be activated until you restart Studio
-Studio.App.BetaFeatures.RichTextDescription,,Enable rich text parsing and rendering in xml format.,Enable rich text parsing and rendering in xml format.
-Studio.App.BetaFeatures.RichTextTitle,,Rich Text Beta,Rich Text Beta
 Studio.App.BetaFeatures.SaveToCloudV2Description,,Create new games in the cloud automatically.,Create new games in the cloud automatically.
 Studio.App.BetaFeatures.SaveToCloudV2Title,,New Games in the Cloud,New Games in the Cloud
 Studio.App.BetaFeatures.ScriptEditorDescription,,Customizable Semantic Highlighting and Temporary tabs that open Scripts in preview mode by default.,Customizable Semantic Highlighting and Temporary tabs that open Scripts in preview mode by default.
@@ -143,6 +141,8 @@ Studio.App.BetaFeatures.SupportPluginDebuggingDescription,,Set `Plugin Debugging
 Studio.App.BetaFeatures.SupportPluginDebuggingTitle,,Plugin Debugging,Plugin Debugging
 Studio.App.BetaFeatures.SurfaceJoinChangesDescription,,"Remove the 'Surface' Join Mode, all surfaces create ManualWelds.","Remove the 'Surface' Join Mode, all surfaces create ManualWelds."
 Studio.App.BetaFeatures.SurfaceJoinChangesTitle,,Surface Join Behavior Change,Surface Join Behavior Change
+Studio.App.BetaFeatures.TerrainHeightmapImporterDescription,,Instantly generate heightmaps from high-res (up to 4k) and high-bit-depth (16-bit) PNGs,Instantly generate heightmaps from high-res (up to 4k) and high-bit-depth (16-bit) PNGs
+Studio.App.BetaFeatures.TerrainHeightmapImporterTitle,,Heightmaps 2,Heightmaps 2
 Studio.App.BetaFeatures.TexturePacksDescription,,Unlocks PBR texture properties on SurfaceAppearance Instances.,Unlocks PBR texture properties on SurfaceAppearance Instances.
 Studio.App.BetaFeatures.TexturePacksTitle,,Advanced SurfaceAppearance Textures,Advanced SurfaceAppearance Textures
 Studio.App.BetaFeatures.TryCoolFeatures,,Try out cool new Studio features! Your feedback is invaluable to us as we move forward towards building a powerful imagination platform.,Try out cool new Studio features! Your feedback is invaluable to us as we move forward towards building a powerful imagination platform.
@@ -336,6 +336,9 @@ Studio.App.DirtyPublishWarningDialog.ScriptStatusColumn,,Status,Status
 Studio.App.DirtyPublishWarningDialog.Title,,Uncommitted Scripts,Uncommitted Scripts
 Studio.App.DirtyPublishWarningDialog.UncommittedStatus,,Uncommitted,Uncommitted
 Studio.App.DirtyPublishWarningDialog.WarningText,,The following scripts are uncommitted and will not be published with the place. The Drafts widget can be used to commit them. Do you want publish without these script changes?,The following scripts are uncommitted and will not be published with the place. The Drafts widget can be used to commit them. Do you want publish without these script changes?
+Studio.App.DocTabManager.CloseTab,,Close Tab,Close Tab
+Studio.App.DocTabManager.CloseTabsOther,,Close Other Tabs,Close Other Tabs
+Studio.App.DocTabManager.CloseTabsRight,,Close Tabs to the Right,Close Tabs to the Right
 Studio.App.DraftsServiceHost.CommitRejected,,"Some of the scripts cannot be committed.
 Please check their status first.","Some of the scripts cannot be committed.
 Please check their status first."
@@ -490,7 +493,9 @@ Studio.App.FindAllDialog.UndoSelectOption,,Replace All will open all files with 
 Studio.App.FindDialog.FindCount2,,%1 of %2,%1 of %2
 Studio.App.FindDialog.LineNumber1,,Line number (1-%1):,Line number (1-%1):
 Studio.App.FindReplaceController.FindReplaceWindow,,Find/Replace Window,Find/Replace Window
+Studio.App.FindReplaceWindow.AllScripts,,All Scripts,All Scripts
 Studio.App.FindReplaceWindow.ResultsPerFile2,,%1 results in %2 files,%1 results in %2 files
+Studio.App.FindReplaceWindow.WhereToLook,,Where to look,Where to look
 Studio.App.FlagEditor.OfferRestart,,You must restart Studio for fast flag changes to take effect.,You must restart Studio for fast flag changes to take effect.
 Studio.App.FlagEditor.OfferRestartTitle,,Overrides Saved,Overrides Saved
 Studio.App.GameExplorer.AddAssets,,Add Assets,Add Assets
@@ -1163,6 +1168,7 @@ Studio.App.Property.EnableHttpSandboxing,,Enable Http Sandboxing,Enable Http San
 Studio.App.Property.EnableInternalBetaFeatures,,Enable Internal Beta Features,Enable Internal Beta Features
 Studio.App.Property.EnableInternalFeatures,,Enable Internal Features,Enable Internal Features
 Studio.App.Property.EnableTemporaryTabs,Enable script tab previews in Roblox Studio,Enable Temporary Script Tabs,Enable Temporary Script Tabs
+Studio.App.Property.EnableTemporaryTabsInExplorer,Enable script tab previews in Roblox Studio's explorer widget.,Enable Temporary Script Tabs In Explorer,Enable Temporary Script Tabs In Explorer
 Studio.App.Property.ErrorColor,,Error Color,Error Color
 Studio.App.Property.ErrorReporting,,Error Reporting,Error Reporting
 Studio.App.Property.ExportMergeByMaterial,,Export Merge By Material,Export Merge By Material
@@ -2800,6 +2806,9 @@ Studio.App.UserPlaceCreatorsListWidget.Offline,User is offline,Offline,Offline
 Studio.App.UserPlaceCreatorsListWidget.PlaceOwner,User is owner of place,Place Owner,Place Owner
 Studio.App.UserPlaceCreatorsListWidget.PlaceOwnerOffline,User is owner of place and is offline,Place Owner (Offline),Place Owner (Offline)
 Studio.App.VersionHistoryController.AutoCommitMessage,,Auto generated commit,Auto generated commit
+Studio.App.VersionHistoryController.AutoCommitNewSlotInitialPublish,,Initial publish commit,Initial publish commit
+Studio.App.VersionHistoryController.AutoCommitNewSlotMessage1,,Initial commit published from place: %1,Initial commit published from place: %1
+Studio.App.VersionHistoryController.AutoCommitPlaceRevision1,,Overwriting place from version: %1,Overwriting place from version: %1
 Studio.App.VersionHistoryController.ReadOnlyScriptDocMessageFmt4,,This version is read-only. <a href='%1://%2_%3_%4'>Click here to edit.</a>,This version is read-only. <a href='%1://%2_%3_%4'>Click here to edit.</a>
 Studio.App.VersionHistoryController.ReadOnlyScriptDocMessageNoEdit,,This version is read-only.,This version is read-only.
 Studio.App.VersionHistoryController.ScriptEditErrorMessage,,Unable to edit script. Please try again.,Unable to edit script. Please try again.

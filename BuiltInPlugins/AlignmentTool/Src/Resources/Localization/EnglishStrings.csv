@@ -1,23 +1,23 @@
 Key,en-us
-Studio.AlignmentTool.Plugin.Toolbar,Alignment
-Studio.AlignmentTool.Plugin.Button,Align Tool
-Studio.AlignmentTool.Plugin.Description,Align selected objects.
-Studio.AlignmentTool.Plugin.WindowTitle,Align Tool
-Studio.AlignmentTool.ErrorMessages.InvalidActiveObject,Align to {name} is not supported.
-Studio.AlignmentTool.MainView.AlignButton,Align
-Studio.AlignmentTool.ModeSection.Min,Min
-Studio.AlignmentTool.ModeSection.Center,Center
-Studio.AlignmentTool.ModeSection.Max,Max
 Studio.AlignmentTool.AxesSection.Title,Align In
 Studio.AlignmentTool.AxesSection.WorldX,World X
 Studio.AlignmentTool.AxesSection.WorldY,World Y
 Studio.AlignmentTool.AxesSection.WorldZ,World Z
-Studio.AlignmentTool.AxesSettingsFragment.World,World
 Studio.AlignmentTool.AxesSettingsFragment.Local,Local
+Studio.AlignmentTool.AxesSettingsFragment.World,World
 Studio.AlignmentTool.AxesSettingsFragment.X,X
 Studio.AlignmentTool.AxesSettingsFragment.Y,Y
 Studio.AlignmentTool.AxesSettingsFragment.Z,Z
-Studio.AlignmentTool.RelativeToSection.Title,Relative To
-Studio.AlignmentTool.RelativeToSection.Selection,Selection Bounds
+Studio.AlignmentTool.ErrorMessages.InvalidActiveObject,Align to {name} is not supported.
+Studio.AlignmentTool.MainView.AlignButton,Align
+Studio.AlignmentTool.ModeSection.Center,Center
+Studio.AlignmentTool.ModeSection.Max,Max
+Studio.AlignmentTool.ModeSection.Min,Min
+Studio.AlignmentTool.Plugin.Button,Align Tool
+Studio.AlignmentTool.Plugin.Description,Align selected objects.
+Studio.AlignmentTool.Plugin.Toolbar,Alignment
+Studio.AlignmentTool.Plugin.WindowTitle,Align Tool
 Studio.AlignmentTool.RelativeToSection.Active,Active Object
 Studio.AlignmentTool.RelativeToSection.ActiveObjectTooltip,Align objects relative to the most recently selected object. Click on a selected object to switch the active object.
+Studio.AlignmentTool.RelativeToSection.Selection,Selection Bounds
+Studio.AlignmentTool.RelativeToSection.Title,Relative To
