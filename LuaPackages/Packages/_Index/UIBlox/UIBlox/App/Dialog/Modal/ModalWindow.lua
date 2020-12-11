@@ -3,7 +3,6 @@ local DialogRoot = ModalRoot.Parent
 local AppRoot = DialogRoot.Parent
 local UIBlox = AppRoot.Parent
 local Packages = UIBlox.Parent
-local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 local Roact = require(Packages.Roact)
 local t = require(Packages.t)
@@ -18,8 +17,6 @@ local SLICE_CENTER = Rect.new(8, 8, 9, 9)
 
 local ANCHORED_BACKGROUND_IMAGE = "component_assets/bullet_17"
 local FLOATING_BACKGROUND_IMAGE = "component_assets/circle_17"
-
-local modalWindowAnchorPoint = UIBloxConfig.modalWindowAnchorPoint
 
 local ModalWindow = Roact.PureComponent:extend("ModalWindow")
 
@@ -66,9 +63,7 @@ function ModalWindow:render()
 			position = self.props.position or UDim2.new(0.5, 0, 0.5, 0)
 		end
 
-		if modalWindowAnchorPoint then
-			anchorPoint = self.props.anchorPoint or anchorPoint
-		end
+		anchorPoint = self.props.anchorPoint or anchorPoint
 
 		if self.props.isFullHeight then
 			return Roact.createElement(ImageSetComponent.Button, {
@@ -113,8 +108,8 @@ function ModalWindow:render()
 				Selectable = false,
 			}, {
 				BackgroundImage = Roact.createElement(FitFrameVertical, {
-					Position = modalWindowAnchorPoint and UDim2.new(0.5, 0, 0.5, 0) or position,
-					AnchorPoint = modalWindowAnchorPoint and Vector2.new(0.5, 0.5) or anchorPoint,
+					Position = UDim2.new(0.5, 0, 0.5, 0),
+					AnchorPoint = Vector2.new(0.5, 0.5),
 					BackgroundTransparency = 1,
 					BorderSizePixel = 0,
 					width = width,

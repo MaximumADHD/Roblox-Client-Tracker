@@ -11,10 +11,6 @@ return {
 	-- when the flag is true, the second line will align with the start of the premium icon.
 	fixItemTilePremiumIcon = false,
 
-	--modalWindowAnchorPoint: Allows passing an anchorPoint to a modalWindow (makes it easier
-	-- to use with a tween), and fix issues when the anchorPoint/position are not the usual (0.5, 0.5)
-	modalWindowAnchorPoint = false,
-
 	--enableExperimentalGamepadSupport: Enables support of gamepad navigation via the roact-gamepad
 	-- library. This is currently experimental and not yet ready for release.
 	enableExperimentalGamepadSupport = false,

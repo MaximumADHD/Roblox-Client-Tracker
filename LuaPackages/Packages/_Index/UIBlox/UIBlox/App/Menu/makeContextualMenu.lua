@@ -23,7 +23,7 @@ local MOTOR_OPTIONS_OPEN = {
 }
 
 local MOTOR_OPTIONS_CLOSE = {
-	frequency = 5.4,
+	frequency = 2.6,
 	dampingRatio = 1,
 }
 
