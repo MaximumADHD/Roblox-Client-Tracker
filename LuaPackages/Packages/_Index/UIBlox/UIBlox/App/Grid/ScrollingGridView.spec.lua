@@ -39,6 +39,12 @@ return function()
 				itemSize = Vector2.new(100, 100),
 				size = UDim2.new(1, 0, 1, 0),
 				itemPadding = Vector2.new(12, 24),
+				innerUIPadding = {
+					PaddingTop = UDim.new(0, 10),
+					PaddingBottom = UDim.new(0, 10),
+					PaddingLeft = UDim.new(0, 10),
+					PaddingRight = UDim.new(0, 10),
+				},
 				horizontalAlignment = Enum.HorizontalAlignment.Center,
 			})
 		})

@@ -16,6 +16,12 @@ ScrollingGridView.validateProps = t.strictInterface({
 	itemSize = t.Vector2,
 	size = t.optional(t.UDim2),
 	itemPadding = t.optional(t.Vector2),
+	innerUIPadding = t.optional(t.strictInterface({
+		PaddingTop = t.optional(t.UDim),
+		PaddingBottom = t.optional(t.UDim),
+		PaddingLeft = t.optional(t.UDim),
+		PaddingRight = t.optional(t.UDim),
+	})),
 	horizontalAlignment = t.optional(t.EnumItem),
 })
 
@@ -55,6 +61,8 @@ function ScrollingGridView:render()
 		[Roact.Change.AbsoluteContentSize] = self.onGridResize,
 		[Roact.Ref] = self.gridRef,
 	})
+
+	gridItems.UIPadding = Roact.createElement("UIPadding", self.props.innerUIPadding)
 
 	return Roact.createElement("Frame", {
 		Size = UDim2.fromScale(1, 1),
