@@ -22,10 +22,7 @@ local shallowEqual = Dash.shallowEqual
 
 local NodeListRow = require(script.NodeListRow)
 
-local FlagsList = Util.Flags.new({
-	FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
-	FFlagRefactorDevFrameworkContextItems = {"RefactorDevFrameworkContextItems"},
-})
+local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 
 local Actions = main.Src.Actions
 local SelectNode = require(Actions.RoactInspector.SelectNode)
@@ -65,7 +62,7 @@ end
 function NodeList:render()
 	local props = self.props
 	local style
-	if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+	if THEME_REFACTOR then
 		style = props.Stylizer
 	else
 		local theme = props.Theme
@@ -109,8 +106,8 @@ function NodeList:render()
 end
 
 ContextServices.mapToProps(NodeList, {
-	Stylizer = FlagsList:get("FFlagRefactorDevFrameworkTheme") and ContextServices.Stylizer or nil,
-	Theme = (not FlagsList:get("FFlagRefactorDevFrameworkTheme")) and ContextServices.Theme or nil,
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
 	Inspector = InspectorContext
 })
 

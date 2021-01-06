@@ -1,16 +1,8 @@
 --[[
 	This script contains all the strings that needs to be localized in the toolbox.
-
-	Source is from ToolboxTranslationReferenceTable. And it's imported from a CSV table.
-
-	Here is the steps to update the localizationTable:
-	1. Edit and download CSV source from here:
-	https://docs.google.com/spreadsheets/d/1Xq7Tjh45r7Nq0n7SsneVJIbhdRzzCN__fXEXCk1nI_E/edit?usp=sharing
-
-	2. In your target studio, build the Toolbox with robin or using rojo 0.5.0 to build the plugin,
-	localization will be automatic included in the Toolbox.
-	Here is the current path for LocalizationTable: Toolbox/LocalizationTable
 ]]
+local FFlagToolboxUseTranslationDevelopmentTable = game:GetFastFlag("ToolboxUseTranslationDevelopmentTable")
+
 local Plugin = script.Parent.Parent.Parent
 
 local Libs = Plugin.Libs
@@ -27,12 +19,14 @@ Localization.__index = Localization
 	options:
 		getLocaleId : function void -> LocaleId
 		getTranslator : function LocaleId -> Translator
+		getFallbackTranslator : function LocaleId -> Translator
 		localeIdChanged : RbxScriptSignal
 ]]
 function Localization.new(options)
 	local self = {
 		_externalLocaleIdGetter = options.getLocaleId or nil,
 		_externalTranslatorGetter = options.getTranslator or nil,
+		_externalFallbackTranslatorGetter = FFlagToolboxUseTranslationDevelopmentTable and options.getFallbackTranslator or nil,
 		_externalLocaleIdChangedSignal = options.localeIdChanged,
 
 		_externalLocaleIdChangedConnection = nil,
@@ -281,6 +275,15 @@ function Localization:_getTranslator(localeId)
 	return nil
 end
 
+if FFlagToolboxUseTranslationDevelopmentTable then
+	function Localization:_getFallbackTranslator()
+		if self._externalTranslatorGetter then
+			return self._externalTranslatorGetter(self:_getDefaultLocaleId())
+		end
+		return nil
+	end
+end
+
 function Localization:_getDefaultTranslator()
 	return self:_getTranslator(self:_getDefaultLocaleId())
 end
@@ -332,6 +335,20 @@ function Localization:_safeLocalize(key, args)
 			if DebugFlags.shouldDebugWarnings() then
 				warn(("\tToolbox falling back to default locale \"%s\" for key \"%s\""):format(
 					defaultTranslator.LocaleId, key))
+			end
+		end
+
+		if FFlagToolboxUseTranslationDevelopmentTable then
+			local fallbackTranslator = self:_getFallbackTranslator()
+			local fallbackTranslation
+			success, fallbackTranslation = self:_safeLocalizeInner(fallbackTranslator, key, args)
+
+			if success then
+				translated = fallbackTranslation
+			else
+				if DebugFlags.shouldDebugWarnings() then
+					warn(("\tToolbox error in localizing key \"%s\" using fallback table"):format(key))
+				end
 			end
 		end
 	end

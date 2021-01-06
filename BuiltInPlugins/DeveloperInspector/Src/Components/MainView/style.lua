@@ -12,11 +12,9 @@ local Common = Framework.StudioUI.Common
 local UIFolderData = Framework.UIData
 local Box = require(UIFolderData.Box.style)
 
-local FlagsList = Util.Flags.new({
-	FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
-})
+local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 
-if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+if THEME_REFACTOR then
 	local box = deepCopy(Box)
 	return {
 		BackgroundColor = StyleKey.CategoryItem,

@@ -33,9 +33,6 @@ local HoverArea = UI.HoverArea
 local TextLabel = UI.Decoration.TextLabel
 
 local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
-local FlagsList = Util.Flags.new({
-	FFlagDevFrameworkLocalizationLibraries = {"DevFrameworkLocalizationLibraries"},
-})
 
 local COMPONENT_NAME = "Favorites"
 
@@ -57,10 +54,6 @@ function Favorites:formatCount(count)
 end
 
 function Favorites:render()
-	if not FlagsList:get("FFlagDevFrameworkLocalizationLibraries") then
-		error("FFlagDevFrameworkLocalizationLibraries must be true to use the Favorites component")
-	end
-
 	local props = self.props
 
 	local theme = props.Theme

@@ -3,8 +3,6 @@
 
 	Call the function createFitToContent and pass in the container, the layout of the elements, and any properties
 ]]
-local FFlagFixFitToContentOnCloseError = game:DefineFastFlag("FixFitToContentOnCloseError", false)
-
 local Library = script.Parent.Parent
 local Roact = require(Library.Parent.Parent.Roact)
 
@@ -52,14 +50,9 @@ local function createFitToContent(containerComponent, layoutComponent, layoutPro
 	end
 
 	function FitComponent:resizeContainer()
-		if FFlagFixFitToContentOnCloseError then
-			local layout = self.layoutRef.current
-			if layout then
-				local layoutSize = layout.AbsoluteContentSize
-				self.containerRef.current.Size = UDim2.new(1, 0, 0, layoutSize.Y)
-			end
-		else
-			local layoutSize = self.layoutRef.current.AbsoluteContentSize
+		local layout = self.layoutRef.current
+		if layout then
+			local layoutSize = layout.AbsoluteContentSize
 			self.containerRef.current.Size = UDim2.new(1, 0, 0, layoutSize.Y)
 		end
 	end

@@ -15,9 +15,7 @@ local UI = Framework.UI
 local TreeView = UI.TreeView
 
 local Util = Framework.Util
-local FlagsList = Util.Flags.new({
-	FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
-})
+local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 
 local Actions = main.Src.Actions
 local SelectField = require(Actions.RoactInspector.SelectField)
@@ -50,7 +48,7 @@ function FieldsTable:init()
 
 	self.renderRow = function(row)
 		local style
-		if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+		if THEME_REFACTOR then
 			style = self.props.Stylizer
 		else
 			local theme = self.props.Theme
@@ -83,8 +81,8 @@ function FieldsTable:render()
 end
 
 ContextServices.mapToProps(FieldsTable, {
-	Stylizer = FlagsList:get("FFlagRefactorDevFrameworkTheme") and ContextServices.Stylizer or nil,
-	Theme = (not FlagsList:get("FFlagRefactorDevFrameworkTheme")) and ContextServices.Theme or nil,
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
 	Inspector = InspectorContext
 })
 

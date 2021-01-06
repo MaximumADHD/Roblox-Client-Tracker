@@ -8,6 +8,7 @@ local PluginRoot = script.Parent.Parent
 require(PluginRoot.ToolboxFFlags)
 local FFlagStudioAssetConfigurationPlugin = game:GetFastFlag("StudioAssetConfigurationPlugin")
 local FFlagDebugAssetConfigurationEnableRoactChecks = game:DefineFastFlag("DebugAssetConfigurationEnableRoactChecks", false)
+local FFlagToolboxUseTranslationDevelopmentTable = game:GetFastFlag("ToolboxUseTranslationDevelopmentTable")
 
 if not FFlagStudioAssetConfigurationPlugin then
 	return
@@ -45,15 +46,16 @@ local ToolboxServiceWrapper =  require(PluginRoot.Core.Components.ToolboxService
 local ContextServices = require(Libs.Framework.ContextServices)
 local CrossPluginCommunication = require(Libs.Framework.Util.CrossPluginCommunication)
 
-local TranslationStringsTable = PluginRoot.LocalizationSource.ToolboxTranslationReferenceTable
+local TranslationDevelopmentTable = PluginRoot.LocalizationSource.TranslationDevelopmentTable
+local TranslationReferenceTable = PluginRoot.LocalizationSource.TranslationReferenceTable
 
 local RobloxPluginGuiService = game:GetService("RobloxPluginGuiService")
 local StudioService = game:GetService("StudioService")
 
 local localization2
 localization2 = ContextServices.Localization.new({
-	stringResourceTable = TranslationStringsTable,
-	translationResourceTable = TranslationStringsTable,
+	stringResourceTable =  FFlagToolboxUseTranslationDevelopmentTable and TranslationDevelopmentTable or TranslationReferenceTable,
+	translationResourceTable = TranslationReferenceTable,
 	pluginName = "Toolbox",
 })
 
@@ -72,7 +74,8 @@ local function createAssetConfigTheme()
 end
 
 local function createLocalization()
-	local localizationTable = PluginRoot.LocalizationSource.ToolboxTranslationReferenceTable
+	local translationDevelopmentTable = PluginRoot.LocalizationSource.TranslationDevelopmentTable
+	local translationReferenceTable = PluginRoot.LocalizationSource.TranslationReferenceTable
 
 	-- Check if we should use a fake locale
 	if DebugFlags.shouldUseTestCustomLocale() then
@@ -82,7 +85,7 @@ local function createLocalization()
 
 	if DebugFlags.shouldUseTestRealLocale() then
 		print("Toolbox using test real locale")
-		return Localization.createTestRealLocaleLocalization(localizationTable, DebugFlags.getOrCreateTestRealLocale())
+		return Localization.createTestRealLocaleLocalization(translationReferenceTable, DebugFlags.getOrCreateTestRealLocale())
 	end
 
     return Localization.new({
@@ -90,8 +93,11 @@ local function createLocalization()
             return StudioService["StudioLocaleId"]
         end,
         getTranslator = function(localeId)
-            return localizationTable:GetTranslator(localeId)
-        end,
+            return translationReferenceTable:GetTranslator(localeId)
+		end,
+		getFallbackTranslator = FFlagToolboxUseTranslationDevelopmentTable and function(localeId)
+            return translationDevelopmentTable:GetTranslator(localeId)
+        end or nil,		
         localeIdChanged = StudioService:GetPropertyChangedSignal("StudioLocaleId")
     })
 end

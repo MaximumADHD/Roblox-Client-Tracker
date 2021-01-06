@@ -75,7 +75,7 @@ function SoundPreviewComponent:init(props)
 	end
 
 	self.onSoundEnded = function(soundId)
-		self.props.stopASound()
+		self.props.stopPreviewSound()
 	end
 end
 
@@ -137,7 +137,7 @@ end
 
 local function mapDispatchToProps(dispatch)
 	return {
-		stopASound = function()
+		stopPreviewSound = function()
 			dispatch(StopPreviewSound())
 		end,
 		setSoundLoaded = function(isLoading)

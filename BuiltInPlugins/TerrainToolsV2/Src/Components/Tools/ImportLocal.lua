@@ -3,13 +3,14 @@
 ]]
 
 local FFlagTerrainImportSupportDefaultMaterial = game:GetFastFlag("TerrainImportSupportDefaultMaterial")
-local FFlagTerrainImportGreyscale = game:GetFastFlag("TerrainImportGreyscale")
+local FFlagTerrainImportGreyscale2 = game:GetFastFlag("TerrainImportGreyscale2")
 local FFlagTerrainToolsMapSettingsMaxVolume = game:GetFastFlag("TerrainToolsMapSettingsMaxVolume")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
 
+local Cryo = require(Plugin.Packages.Cryo)
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 
@@ -146,21 +147,41 @@ function ImportLocal:init()
 
 		local id = file:GetTemporaryId()
 		local success, status, width, height, channels, bytesPerChannel = HeightmapImporterService:IsValidHeightmap(id)
-		local previewSuccess, preview, channelsWereDiscarded
-		if FFlagTerrainImportGreyscale then
-			previewSuccess, preview, channelsWereDiscarded = HeightmapImporterService:GetGreyscale(id)
-		end
 
-		if channelsWereDiscarded then
-			warn(("Only the red channel of imported heightmaps is used, the other channels were discarded."):format(tostring(err)))
-		end
+		if success then
+			if FFlagTerrainImportGreyscale2 then
+				spawn(function()
+					local previewId, channelsWereDiscarded
+					local success, err = pcall(function()
+						previewId, channelsWereDiscarded = HeightmapImporterService:GetHeightmapPreviewAsync(id)
+					end)
 
-		if success and (not FFlagTerrainImportGreyscale or previewSuccess) then
-			print(("Loaded heightmap %s with width:%d height:%d channels:%d bytesPerChannel:%d")
-				:format(file.Name, width, height, channels, bytesPerChannel))
+					-- If the user changed their selection whilst we were generating a preview, just ignore this
+					if not self.props.heightmap.file or id ~= self.props.heightmap.file:GetTemporaryId() then
+						return
+					end
+
+					if not success then
+						warn(("Failed to generate heightmap preview: %s"):format(tostring(err)))
+						self.props.dispatchSelectHeightmap(nil)
+						self.setErrorMessage("FailedToGenerateHeightmapPreviewTitle", "FailedToGenerateHeightmapPreview")
+						return
+					end
+
+					if channelsWereDiscarded then
+						warn("Only the red channel of imported heightmaps is used, the other channels were discarded.")
+					end
+
+					self.props.dispatchSelectHeightmap(Cryo.Dictionary.join(self.props.heightmap, {
+						preview = previewId,
+						channelsWereDiscarded = channelsWereDiscarded,
+					}))
+				end)
+			end
+
 			self.props.dispatchSelectHeightmap({
-				preview = preview,
-				channelsWereDiscarded = channelsWereDiscarded,
+				preview = nil,
+				channelsWereDiscarded = false,
 				file = file,
 				width = width,
 				height = height,
@@ -184,15 +205,7 @@ function ImportLocal:init()
 				})
 			end
 		else
-			if FFlagTerrainImportGreyscale then
-				if not success then
-					self.setErrorMessage("FailedToLoadHeightmap", status)
-				else
-					self.setErrorMessage("FailedToGenerateHeightmapPreviewTitle", "FailedToGenerateHeightmapPreview")
-				end
-			else
-				self.setErrorMessage("FailedToLoadHeightmap", status)
-			end
+			self.setErrorMessage("FailedToLoadHeightmap", status)
 		end
 	end
 
@@ -211,8 +224,6 @@ function ImportLocal:init()
 		local success, status, width, height, channels = HeightmapImporterService:IsValidColormap(id)
 
 		if success then
-			print(("Loaded colormap %s with width:%d height:%d channels:%d"):format(
-				file.Name, width, height, channels))
 			self.props.dispatchSelectColormap({
 				preview = id,
 				file = file,
@@ -346,7 +357,7 @@ function ImportLocal:render()
 	local heightmapMessages = getMessagesForImage(self.props.heightmap, self.props.size, localization)
 	local colormapMessages = getMessagesForImage(self.props.colormap, self.props.size, localization)
 
-	if FFlagTerrainImportGreyscale and canImport and self.props.heightmap.channelsWereDiscarded then
+	if FFlagTerrainImportGreyscale2 and canImport and self.props.heightmap.channelsWereDiscarded then
 		heightmapMessages.Info = localization:getText("ImportInfo", "ChannelsWereDiscarded")
 	end
 

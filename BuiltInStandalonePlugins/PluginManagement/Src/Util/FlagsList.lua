@@ -8,6 +8,5 @@ local FlagsList = Util.Flags.new({
 	},
 	FFlagPluginManagementQ3ContentSecurity = "PluginManagementQ3ContentSecurity",
 	FFlagPluginManagementFixRemovePlugins = "PluginManagementFixRemovePlugins",
-	FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
 })
 return FlagsList

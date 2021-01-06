@@ -60,6 +60,8 @@ local CELL_HEIGHT = 56
 local GAMEPAD_MENU_MOUNT_TAG = "gamepadMenuMount"
 local GAMEPAD_MENU_UPDATE_TAG = "gamepadMenuUpdate"
 
+local GAMEPAD_MENU_KEY = "GamepadMenu"
+
 local GamepadMenu = Roact.PureComponent:extend("GamepadMenu")
 
 GamepadMenu.validateProps = t.strictInterface({
@@ -504,6 +506,8 @@ function GamepadMenu:didUpdate(prevProps, prevState)
 			GuiService.SelectedCoreObject = nil
 			self.savedSelectedObject = GuiService.SelectedObject
 			GuiService.SelectedObject = nil
+
+			GuiService:SetMenuIsOpen(true, GAMEPAD_MENU_KEY)
 		else
 			self:unbindMenuOpenActions()
 
@@ -513,6 +517,8 @@ function GamepadMenu:didUpdate(prevProps, prevState)
 			if GuiService.SelectedObject == nil then
 				GuiService.SelectedObject = self.savedSelectedObject
 			end
+
+			GuiService:SetMenuIsOpen(false, GAMEPAD_MENU_KEY)
 		end
 	end
 

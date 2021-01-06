@@ -8,6 +8,10 @@ local StyleModifier = Util.StyleModifier
 local StyleValue = Util.StyleValue
 local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 
+local FlagsList = Util.Flags.new({
+	FFlagUpdateDevFrameworkCheckboxStyle = {"UpdateDevFrameworkCheckboxStyle"},
+})
+
 local UI = require(Framework.UI)
 local Decoration = UI.Decoration
 
@@ -31,7 +35,22 @@ if THEME_REFACTOR then
 			},
 		},
 
-		["&Checkbox"] = {
+		["&Checkbox"] = FlagsList:get("FFlagUpdateDevFrameworkCheckboxStyle") and {
+			Background = Decoration.Image,
+			BackgroundStyle = {
+				Image = StyleKey.CheckboxDefaultImage,
+			},
+			[StyleModifier.Selected] = {
+				BackgroundStyle = {
+					Image = StyleKey.CheckboxSelectedImage,
+				},
+			},
+			[StyleModifier.Disabled] = {
+				BackgroundStyle = {
+					Image = StyleKey.CheckboxDisabledImage,
+				},
+			},
+		} or {
 			Background = Decoration.Image,
 			BackgroundStyle = {
 				Image = "rbxasset://textures/GameSettings/UncheckedBox.png",
@@ -85,22 +104,57 @@ else
 			},
 		})
 
-		local Checkbox = Style.new({
-			Background = Decoration.Image,
-			BackgroundStyle = {
-				Image = "rbxasset://textures/GameSettings/UncheckedBox.png",
-			},
-			[StyleModifier.Selected] = {
+		local Checkbox
+		if FlagsList:get("FFlagUpdateDevFrameworkCheckboxStyle") then
+			local checkboxDefaultImage = StyleValue.new("checkboxDefaultImage", {
+				Light = "rbxasset://textures/DeveloperFramework/checkbox_unchecked_light.png",
+				Dark = "rbxasset://textures/DeveloperFramework/checkbox_unchecked_dark.png",
+			})
+
+			local checkboxSelectedImage = StyleValue.new("checkboxSelectedImage", {
+				Light = "rbxasset://textures/DeveloperFramework/checkbox_checked_light.png",
+				Dark = "rbxasset://textures/DeveloperFramework/checkbox_checked_dark.png",
+			})
+
+			local checkboxDisabledImage = StyleValue.new("checkboxDisabledImage", {
+				Light = "rbxasset://textures/DeveloperFramework/checkbox_unchecked_disabled_light.png",
+				Dark = "rbxasset://textures/DeveloperFramework/checkbox_unchecked_disabled_dark.png",
+			})
+
+			Checkbox = Style.new({
+				Background = Decoration.Image,
 				BackgroundStyle = {
-					Image = "rbxasset://textures/GameSettings/CheckedBoxLight.png",
+					Image = checkboxDefaultImage:get(themeName),
 				},
-			},
-			[StyleModifier.Disabled] = {
+				[StyleModifier.Selected] = {
+					BackgroundStyle = {
+						Image = checkboxSelectedImage:get(themeName),
+					},
+				},
+				[StyleModifier.Disabled] = {
+					BackgroundStyle = {
+						Image = checkboxDisabledImage:get(themeName),
+					},
+				},
+			})
+		else
+			Checkbox = Style.new({
+				Background = Decoration.Image,
 				BackgroundStyle = {
 					Image = "rbxasset://textures/GameSettings/UncheckedBox.png",
 				},
-			},
-		})
+				[StyleModifier.Selected] = {
+					BackgroundStyle = {
+						Image = "rbxasset://textures/GameSettings/CheckedBoxLight.png",
+					},
+				},
+				[StyleModifier.Disabled] = {
+					BackgroundStyle = {
+						Image = "rbxasset://textures/GameSettings/UncheckedBox.png",
+					},
+				},
+			})
+		end
 
 		return {
 			Default = Default,

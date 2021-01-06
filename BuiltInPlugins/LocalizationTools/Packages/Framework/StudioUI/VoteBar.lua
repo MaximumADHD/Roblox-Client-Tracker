@@ -39,9 +39,6 @@ local TextLabel = UI.Decoration.TextLabel
 local Votes = require(script.Parent.Votes)
 
 local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
-local FlagsList = Util.Flags.new({
-	FFlagDevFrameworkLocalizationLibraries = {"DevFrameworkLocalizationLibraries"},
-})
 
 local COMPONENT_NAME = "VoteBar"
 
@@ -49,9 +46,6 @@ local VoteBar = Roact.PureComponent:extend(COMPONENT_NAME)
 Typecheck.wrap(VoteBar, script)
 
 function VoteBar:render()
-	if not FlagsList:get("FFlagDevFrameworkLocalizationLibraries") then
-		error("FFlagDevFrameworkLocalizationLibraries must be true to use the VoteBar component")
-	end
 
 	local props = self.props
 

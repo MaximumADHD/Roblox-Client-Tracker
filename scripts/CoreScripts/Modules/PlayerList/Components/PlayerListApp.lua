@@ -23,9 +23,6 @@ local TopStatConnector = require(Connection.TopStatConnector)
 local LayoutValues = require(Connection.LayoutValues)
 local WithLayoutValues = LayoutValues.WithLayoutValues
 
-local FFlagDisableAutoTranslateForKeyTranslatedContent = require(
-	RobloxGui.Modules.Flags.FFlagDisableAutoTranslateForKeyTranslatedContent)
-
 local MOTOR_OPTIONS = {
     dampingRatio = 1,
     frequency = 7,
@@ -177,7 +174,7 @@ function PlayerListApp:render()
 			Visible = self.state.visible,
 			---Increase ZIndex on TenFootInferface to put this on front of the VoiceChatShield.
 			ZIndex = layoutValues.IsTenFoot and 2 or 1,
-			AutoLocalize = not FFlagDisableAutoTranslateForKeyTranslatedContent,
+			AutoLocalize = false,
 
 			[Roact.Ref] = self.rootRef,
 		}, {

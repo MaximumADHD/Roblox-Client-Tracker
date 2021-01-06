@@ -6,7 +6,6 @@
 
 	NOTE - because this object creates an object with global state, it is inherently untestable.
 ]]
-local FFlagRefactorDevFrameworkTheme = game:GetFastFlag("RefactorDevFrameworkTheme")
 
 local Plugin = script.Parent.Parent.Parent
 local Framework = Plugin.Packages.Framework
@@ -18,8 +17,9 @@ local MainReducer = require(Plugin.Src.Reducers.MainReducer)
 local dataStore = Rodux.Store.new(MainReducer, nil, { Rodux.thunkMiddleware })
 
 -- theme
+local THEME_REFACTOR = require(Plugin.Packages.Framework).Util.RefactorFlags.THEME_REFACTOR
 local makeTheme
-if FFlagRefactorDevFrameworkTheme then
+if THEME_REFACTOR then
 	makeTheme = require(Plugin.Src.Resources.makeTheme2)
 else
 	makeTheme = require(Plugin.Src.Resources.makeTheme)

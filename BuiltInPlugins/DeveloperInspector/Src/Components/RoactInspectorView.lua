@@ -20,9 +20,7 @@ local Container = UI.Container
 local Decoration = UI.Decoration
 local TextLabel = Decoration.TextLabel
 
-local FlagsList = Util.Flags.new({
-	FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
-})
+local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 
 local Actions = main.Src.Actions
 local CloseTarget = require(Actions.CloseTarget)
@@ -49,7 +47,7 @@ end
 function RoactInspectorView:render()
 	local props = self.props
 	local style
-	if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+	if THEME_REFACTOR then
 		style = props.Stylizer
 	else
 		style = props.Theme:getStyle("Plugin", self)
@@ -234,8 +232,8 @@ end
 
 ContextServices.mapToProps(RoactInspectorView, {
 	Inspector = InspectorContext,
-	Stylizer = FlagsList:get("FFlagRefactorDevFrameworkTheme") and ContextServices.Stylizer or nil,
-	Theme = (not FlagsList:get("FFlagRefactorDevFrameworkTheme")) and ContextServices.Theme or nil,
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
 })
 
 return RoactRodux.connect(

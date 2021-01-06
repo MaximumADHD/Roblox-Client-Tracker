@@ -22,6 +22,7 @@ local FlagsList = Flags.new({
 })
 
 local FlagsListFile = require(Plugin.Src.Util.FlagsList)
+local THEME_REFACTOR = require(Plugin.Packages.Framework).Util.RefactorFlags.THEME_REFACTOR
 
 local Constants = require(Plugin.Src.Util.Constants)
 local UpdateStatus = require(Plugin.Src.Util.UpdateStatus)
@@ -35,12 +36,10 @@ local FrameworkButton = UI.Button
 local FrameworkLabel = UI.Decoration.TextLabel
 local DropdownMenu = UI.DropdownMenu
 local ToggleButton = UI.ToggleButton
+local LoadingBar = UI.FakeLoadingBar
 
 local RemovePluginData = require(Plugin.Src.Actions.RemovePluginData)
 local HttpRequestOverview = require(Plugin.Src.Components.HttpRequestOverview)
-
-local UI = require(Plugin.Packages.Framework.UI)
-local LoadingBar = UI.FakeLoadingBar
 
 local LOADING_BAR_SIZE = UDim2.new(0, 120, 0, 8)
 local LOADING_BAR_TIME = 0.5
@@ -186,7 +185,7 @@ function PluginEntry:render()
 
 	local localization = props.Localization
 	local theme
-	if FlagsListFile:get("FFlagRefactorDevFrameworkTheme") then
+	if THEME_REFACTOR then
 		theme = props.Stylizer
     else
         theme = props.Theme:get("Plugin")
@@ -377,7 +376,7 @@ function PluginEntry:render()
 			Text = localization:getText("Entry", "UpdateSuccess"),
 		}),
 
-		ToggleButton = FlagsListFile:get("FFlagRefactorDevFrameworkTheme") and Roact.createElement(ToggleButton, {
+		ToggleButton = THEME_REFACTOR and Roact.createElement(ToggleButton, {
 			Disabled = false,
 			Selected = enabled,
 			OnClick = self.onToggleClick,
@@ -386,7 +385,7 @@ function PluginEntry:render()
 				- Constants.PLUGIN_CONTEXT_WIDTH,.5,0),
 		}),
 
-		EnableButton = (not FlagsListFile:get("FFlagRefactorDevFrameworkTheme")) and not enabled and Roact.createElement("ImageButton", {
+		EnableButton = (not THEME_REFACTOR) and not enabled and Roact.createElement("ImageButton", {
 			AnchorPoint = Vector2.new(0, 0.5),
 			Size = UDim2.new(0, Constants.PLUGIN_ENABLE_WIDTH, 0, 24),
 			Position = UDim2.new(1,Constants.PLUGIN_HORIZONTAL_PADDING*-2 - Constants.PLUGIN_ENABLE_WIDTH
@@ -396,7 +395,7 @@ function PluginEntry:render()
 			[Roact.Event.Activated] = isModerated and function() end or self.onPluginEnabled,
 		}),
 
-		DisableButton = (not FlagsListFile:get("FFlagRefactorDevFrameworkTheme")) and enabled and Roact.createElement("ImageButton", {
+		DisableButton = (not THEME_REFACTOR) and enabled and Roact.createElement("ImageButton", {
 			AnchorPoint = Vector2.new(0, 0.5),
 			Size = UDim2.new(0, Constants.PLUGIN_ENABLE_WIDTH, 0, 24),
 			Position = UDim2.new(1,Constants.PLUGIN_HORIZONTAL_PADDING*-2 - Constants.PLUGIN_ENABLE_WIDTH
@@ -460,15 +459,15 @@ if FlagsList:get("FFlagEnablePluginPermissionsPage") then
 	ContextServices.mapToProps(PluginEntry, {
 		Navigation = Navigation,
 		Localization = ContextServices.Localization,
-		Stylizer = FlagsListFile:get("FFlagRefactorDevFrameworkTheme") and ContextServices.Stylizer or nil,
-		Theme = (not FlagsListFile:get("FFlagRefactorDevFrameworkTheme")) and ContextServices.Theme or nil,
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
 		API = PluginAPI2,
 	})
 else
 	ContextServices.mapToProps(PluginEntry, {
 		Localization = ContextServices.Localization,
-		Stylizer = FlagsListFile:get("FFlagRefactorDevFrameworkTheme") and ContextServices.Stylizer or nil,
-		Theme = (not FlagsListFile:get("FFlagRefactorDevFrameworkTheme")) and ContextServices.Theme or nil,
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
 		API = PluginAPI2,
 	})
 end

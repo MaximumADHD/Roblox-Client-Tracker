@@ -5,7 +5,6 @@ local SetScreen = require(Plugin.Src.Actions.SetScreen)
 local Framework = require(Plugin.Packages.Framework)
 local RobloxAPI = Framework.RobloxAPI
 
-local FFlagAssetManagerAddAnalytics = game:GetFastFlag("AssetManagerAddAnalytics")
 local FFlagAllowAudioBulkImport = game:GetFastFlag("AllowAudioBulkImport")
 
 local AssetManagerService = game:GetService("AssetManagerService")
@@ -14,9 +13,7 @@ return function(analytics, assetData)
     return function(store)
         local isFolder = assetData.ClassName == "Folder"
         if isFolder then
-            if FFlagAssetManagerAddAnalytics then
-                analytics:report("openFolder", assetData.Screen.Key)
-            end
+            analytics:report("openFolder", assetData.Screen.Key)
             store:dispatch(SetScreen(assetData.Screen))
         else
             local assetType = assetData.assetType
@@ -33,13 +30,11 @@ return function(analytics, assetData)
             elseif FFlagAllowAudioBulkImport and (not RobloxAPI:baseURLHasChineseHost()) and assetType == Enum.AssetType.Audio then
                 AssetManagerService:InsertAudio(assetData.id, assetData.name)
             end
-            if FFlagAssetManagerAddAnalytics then
-                analytics:report("doubleClickInsert")
-                local state = store:getState()
-                local searchTerm = state.AssetManagerReducer.searchTerm
-                if utf8.len(searchTerm) ~= 0 then
-                    analytics:report("insertAfterSearch")
-                end
+            analytics:report("doubleClickInsert")
+            local state = store:getState()
+            local searchTerm = state.AssetManagerReducer.searchTerm
+            if utf8.len(searchTerm) ~= 0 then
+                analytics:report("insertAfterSearch")
             end
         end
     end

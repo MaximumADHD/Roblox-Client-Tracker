@@ -10,14 +10,12 @@ local Framework = Plugin.Packages.Framework
 local ContextServices = require(Framework.ContextServices)
 
 local OnAssetDoubleClick = require(Plugin.Src.Thunks.OnAssetDoubleClick)
-local DEPRECATED_OnAssetRightClick = require(Plugin.Src.Thunks.DEPRECATED_OnAssetRightClick)
 local OnAssetRightClick = require(Plugin.Src.Thunks.OnAssetRightClick)
 
 local GetAssetFavorited = require(Plugin.Src.Thunks.GetAssetFavorited)
 local GetAssetFavoriteCount = require(Plugin.Src.Thunks.GetAssetFavoriteCount)
 local ToggleFavoriteStatus = require(Plugin.Src.Thunks.ToggleFavoriteStatus)
 
-local FFlagStudioAssetManagerAddGridListToggle = game:GetFastFlag("StudioAssetManagerAddGridListToggle")
 local FFlagStudioAssetManagerAssetPreviewRequest = game:GetFastFlag("StudioAssetManagerAssetPreviewRequest")
 
 local StudioService = game:GetService("StudioService")
@@ -75,14 +73,8 @@ function AssetPreviewWrapper:init()
 
     self.tryCreateContextMenu = function()
         local props = self.props
-        local assetData = props.AssetData
-        local analytics = props.Analytics
 
-        if FFlagStudioAssetManagerAddGridListToggle then
-            props.dispatchOnAssetRightClick(props)
-        else
-            props.DEPRECATED_dispatchOnAssetRightClick(analytics, props.API:get(), assetData, props.Localization, props.Plugin:get())
-        end
+        props.dispatchOnAssetRightClick(props)
     end
 
     self.ClickDetectorRef = Roact.createRef()
@@ -203,9 +195,6 @@ local function mapDispatchToProps(dispatch)
 	return {
         dispatchOnAssetDoubleClick = function(analytics, assetData)
             dispatch(OnAssetDoubleClick(analytics, assetData))
-        end,
-        DEPRECATED_dispatchOnAssetRightClick = function(analytics, apiImpl, assetData, localization, plugin)
-            dispatch(DEPRECATED_OnAssetRightClick(analytics, apiImpl, assetData, localization, plugin))
         end,
         dispatchOnAssetRightClick = function(props)
             props.IsAssetPreviewMenu = true

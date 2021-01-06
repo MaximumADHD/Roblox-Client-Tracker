@@ -26,8 +26,8 @@ local getEngineFeatureActiveInstanceHighlight = require(Plugin.Src.Flags.getEngi
 local getFFlagAlignShowPreview = require(Plugin.Src.Flags.getFFlagAlignShowPreview)
 
 local TOOLBAR_BUTTON_ICON = "rbxasset://textures/AlignTool/AlignTool.png"
-local INITIAL_WINDOW_SIZE = Vector2.new(300, 220)
-local MINIMUM_WINDOW_SIZE = Vector2.new(150, 200)
+local INITIAL_WINDOW_SIZE = Vector2.new(300, 250)
+local MINIMUM_WINDOW_SIZE = Vector2.new(175, 250)
 
 local STUDIO_RELAY_PLUGIN_TOOLBAR = "Alignment"
 local STUDIO_RELAY_PLUGIN_BUTTON = "AlignTool"

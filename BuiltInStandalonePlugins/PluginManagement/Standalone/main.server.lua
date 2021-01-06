@@ -2,16 +2,9 @@ local StudioService = game:GetService("StudioService")
 local MarketplaceService = game:GetService("MarketplaceService")
 
 require(script.Parent.defineLuaFlags)
-local FFlagEnablePluginManagementStylizer = game:GetFastFlag("EnablePluginManagementStylizer")
+local FFlagEnableRoactInspector = game:GetFastFlag("EnableRoactInspector")
 
 local Plugin = script.Parent.Parent
-
---[[
-	RefactorFlags needs to be required and updated directly; before Framework's init
-	is required (so that any files that Framework's init requires get the correct values).
-]]
-local RefactorFlags = require(Plugin.Packages.Framework.Util.RefactorFlags)
-RefactorFlags.THEME_REFACTOR = FFlagEnablePluginManagementStylizer
 
 local Roact = require(Plugin.Packages.Roact)
 local getPluginGlobals = require(Plugin.Src.Util.getPluginGlobals)
@@ -40,20 +33,17 @@ local function main()
 	-- if Studio fires the signal to install a plugin from web, do it!
 	table.insert(tokens, StudioService.OnPluginInstalledFromWeb:Connect(installPlugin))
 
+	local mgmtHandle
+
 	-- clean up
 	plugin.Unloading:connect(function()
 		for _, token in ipairs(tokens) do
 			token:Disconnect()
 		end
-	end)
-
-	local mgmtHandle
-
-	local function onPluginWillDestroy()
-		if mgmtHandle then
+		if FFlagEnableRoactInspector and mgmtHandle then
 			Roact.unmount(mgmtHandle)
 		end
-	end
+	end)
 
 	-- start preloading data
 	spawn(function()
@@ -65,7 +55,6 @@ local function main()
 		plugin = plugin,
 		store = globals.store,
 		api = globals.api,
-		onPluginWillDestroy = onPluginWillDestroy,
 	})
 
 	mgmtHandle = Roact.mount(mgmtWindow)

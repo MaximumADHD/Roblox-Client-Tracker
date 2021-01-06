@@ -22,8 +22,8 @@ local PluginButton = StudioUI.PluginButton
 local AnalyticsContext = require(main.Src.ContextServices.AnalyticsContext)
 local MakeTheme = require(main.Src.Resources.MakeTheme)
 local PluginTheme = require(main.Src.Resources.PluginTheme)
-local EnglishStrings = main.Src.Resources.Localization.EnglishStrings
-local TranslatedStrings = main.Src.Resources.Localization.TranslatedStrings
+local TranslationDevelopmentTable = main.Src.Resources.Localization.TranslationDevelopmentTable
+local TranslationReferenceTable = main.Src.Resources.Localization.TranslationReferenceTable
 
 local MainView = require(main.Src.Components.MainView)
 local MainReducer = require(main.Src.Reducers.MainReducer)
@@ -47,8 +47,8 @@ function MainPlugin:init()
 	})
 
 	self.localization = ContextServices.Localization.new({
-		stringResourceTable = EnglishStrings,
-		translationResourceTable = TranslatedStrings,
+		stringResourceTable = TranslationDevelopmentTable,
+		translationResourceTable = TranslationReferenceTable,
 		pluginName = "LocalizationTools",
 	})
 

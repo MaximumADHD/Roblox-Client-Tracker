@@ -29,7 +29,6 @@ local LoadExistingPlaces = require(Plugin.Src.Thunks.LoadExistingPlaces)
 local Footer = require(Plugin.Src.Components.Footer)
 local TilePlace = require(Plugin.Src.Components.TilePlace)
 
-local FFlagLuaPublishFlowFixCreateButtonInChinese = game:GetFastFlag("LuaPublishFlowFixCreateButtonInChinese")
 local FFlagUXImprovementAddScrollToGamesPage = game:GetFastFlag("UXImprovementAddScrollToGamesPage")
 local FFlagUXImprovementsPublishSuccessScreenPublishAs = game:GetFastFlag("UXImprovementsPublishSuccessScreenPublishAs")
 local FFlagUXImprovementAddSearchBar = game:GetFastFlag("UXImprovementAddSearchBar")
@@ -132,13 +131,7 @@ function ScreenChoosePlaceWithScrolling:render()
 				end,
 			})
 
-			local footerMainButtonName
-			if FFlagLuaPublishFlowFixCreateButtonInChinese then
-				footerMainButtonName = newPlaceSelected and "Create" or "Overwrite"
-			else
-				footerMainButtonName = newPlaceSelected and localization:getText("FooterButton", "Create")
-				or localization:getText("FooterButton", "Overwrite")
-			end
+			local footerMainButtonName = newPlaceSelected and "Create" or "Overwrite"
 
 			local TILE_HEIGHT = 80
 

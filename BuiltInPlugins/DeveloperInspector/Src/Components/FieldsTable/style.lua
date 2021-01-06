@@ -5,12 +5,9 @@ local StyleKey = Framework.Style.StyleKey
 
 local Util = Framework.Util
 local Style = Util.Style
+local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 
-local FlagsList = Util.Flags.new({
-	FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
-})
-
-if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+if THEME_REFACTOR then
 	return {
 		RowHeight = 24,
 		HoverColor = StyleKey.ButtonHover,

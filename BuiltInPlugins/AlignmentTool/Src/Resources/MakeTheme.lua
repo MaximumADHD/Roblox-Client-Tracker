@@ -9,6 +9,8 @@ local Plugin = script.Parent.Parent.Parent
 
 local getFFlagAlignInLocalSpace = require(Plugin.Src.Flags.getFFlagAlignInLocalSpace)
 local getFFlagAlignToolFixHelpIconTheming = require(Plugin.Src.Flags.getFFlagAlignToolFixHelpIconTheming)
+local getFFlagUpdateDevFrameworkCheckboxStyle = require(Plugin.Src.Flags.getFFlagUpdateDevFrameworkCheckboxStyle)
+local getFFlagAlignToolNarrowUI = require(Plugin.Src.Flags.getFFlagAlignToolNarrowUI)
 
 local Framework = Plugin.Packages.Framework
 local ContextServices = require(Framework.ContextServices)
@@ -16,6 +18,11 @@ local Theme = ContextServices.Theme
 
 local StudioFrameworkStyles = require(Framework.StudioUI.StudioFrameworkStyles)
 local Common = require(Framework.StudioUI.StudioFrameworkStyles.Common)
+
+local UIFolderData = require(Framework).UIData
+local Button = require(UIFolderData.Button.style)
+
+local Colors = require(Framework.Style.Colors)
 
 local Util = require(Framework.Util)
 local RefactorFlags = Util.RefactorFlags
@@ -31,6 +38,44 @@ local function makeTheme()
 		return Theme.new(function(theme, getColor)
 			local studioFrameworkStyles = StudioFrameworkStyles.new(theme, getColor)
 			local common = Common(theme, getColor)
+			local button = Button(theme, getColor)
+
+			local selectableButton = StyleTable.new("Button", function()
+				local selectedColor = StyleValue.new("SelectedColor", {
+					Light = Colors.Gray_Lighter,
+					Dark = Colors.Gray_Mid,
+				})
+
+				local borderColor = StyleValue.new("BorderColor", {
+					Light = Colors.Gray_Light,
+					Dark = Colors.Gray,
+				})
+
+				local selectable = Style.extend(button.Default, {
+					BackgroundStyle = {
+						BorderSize = 1,
+						Transparency = 1,
+					},
+					[StyleModifier.Hover] = {
+						BackgroundStyle = {
+							BorderColor = borderColor:get(theme.Name),
+							Color = theme:getColor("Button", "Hover"),
+							Transparency = 0,
+						},
+					},
+					[StyleModifier.Selected] = {
+						BackgroundStyle = {
+							BorderColor = borderColor:get(theme.Name),
+							Color = selectedColor:get(theme.Name),
+							Transparency = 0,
+						},
+					},
+				})
+
+				return {
+					Selectable = selectable,
+				}
+			end)
 
 			local helpIconImage -- remove with FFlagAlignToolFixHelpIconTheming
 			if not getFFlagAlignToolFixHelpIconTheming() then
@@ -41,7 +86,7 @@ local function makeTheme()
 					Dark = "rbxasset://textures/AlignTool/Help_Dark.png",
 				})
 			end
-			
+
 			local helpIconColor = StyleValue.new("HelpIconColor", {
 				Light = Color3.fromRGB(184, 184, 184),
 				Dark = Color3.fromRGB(204, 204, 204),
@@ -66,13 +111,17 @@ local function makeTheme()
 
 			return {
 				Plugin = Style.new({
-					LabelColumnWidth = getFFlagAlignInLocalSpace() and 80 or nil,
-					ContentListItemPadding = getFFlagAlignInLocalSpace() and UDim.new(0, 10) or nil,
+					LabelColumnWidth = not getFFlagAlignToolNarrowUI() and getFFlagAlignInLocalSpace() and 80 or nil,
+					ContentListItemPadding = not getFFlagAlignToolNarrowUI() and getFFlagAlignInLocalSpace() and UDim.new(0, 10) or nil,
 
 					-- Size of leading labels "Align In" and "Relative To".
 					-- Once localization is added, we should use the width of the
 					-- localized text from TextService, clamped to a range.
-					SectionLabelSize = UDim2.fromOffset(80, 20),
+					SectionLabelSize = not getFFlagAlignToolNarrowUI() and UDim2.fromOffset(80, 20) or nil,
+
+					SectionPadding = getFFlagAlignToolNarrowUI() and UDim.new(0, 15) or nil,
+					SectionContentPadding = getFFlagAlignToolNarrowUI() and UDim.new(0, 10) or nil,
+					SectionContentPaddingCompact = getFFlagAlignToolNarrowUI() and UDim.new(0, 6) or nil,
 
 					ErrorTextColor = theme:GetColor("ErrorText"),
 					WarningTextColor = theme:GetColor("WarningText"),
@@ -81,38 +130,44 @@ local function makeTheme()
 					MainView = {
 						ListItemPadding = UDim.new(0, 10),
 						Padding = 10,
-						ButtonContainerPadding = {
+						ButtonContainerPadding = not getFFlagAlignToolNarrowUI() and {
 							Top = 10,
-						},
-						PrimaryButtonSize = UDim2.fromOffset(200, 32),
+						} or nil,
+						PrimaryButtonSize = getFFlagAlignToolNarrowUI() and UDim2.new(0, 160, 0, 32)
+							or UDim2.new(0, 200, 0, 32),
 					},
 
-					ModeSection = {
+					ModeSection = not getFFlagAlignToolNarrowUI() and {
 						ButtonContainerSize = UDim2.fromOffset(175, 55),
 						CellPadding = UDim2.fromOffset(5, 0),
 						CellSize = UDim2.new(0, 55, 0, 55),
 						Size = UDim2.new(1, 0, 0, 60),
-					},
+					} or nil,
 
-					AxesSection = {
+					AxesSection = not getFFlagAlignToolNarrowUI() and {
 						Height = getFFlagAlignInLocalSpace() and 54 or nil, -- 22 (space row) + 22 (axes row) + 10 (ContentListItemPadding)
 						ListItemPadding = 5,
 						Size = UDim2.new(1, 0, 0, 22),
-					},
+					} or nil,
 
-					RelativeToSection = {
+					RelativeToSection = not getFFlagAlignToolNarrowUI() and {
 						ListItemPadding = 5,
 						Size = UDim2.new(1, 0, 0, 22),
-					},
+					} or nil,
 
-					AxesSettingsFragment = getFFlagAlignInLocalSpace() and {
+					AxesSettingsFragment = not getFFlagAlignToolNarrowUI() and getFFlagAlignInLocalSpace() and {
 						CheckboxListItemPadding = UDim.new(0, 10),
+					} or nil,
+
+					RelativeToSetting = getFFlagAlignToolNarrowUI() and {
+						HelpIconPadding = UDim.new(0, 2),
 					} or nil,
 
 					Checkbox = StyleTable.new("Checkbox", function()
 						local Default = Style.extend(common.MainText, {
-							Padding = 5,
-							ImageSize = UDim2.new(0, 20, 0, 20),
+							Padding = getFFlagAlignToolNarrowUI() and 6 or 5,
+							ImageSize = getFFlagUpdateDevFrameworkCheckboxStyle() and UDim2.new(0, 16, 0, 16)
+								or UDim2.new(0, 20, 0, 20),
 						})
 
 						return {
@@ -120,7 +175,7 @@ local function makeTheme()
 						}
 					end),
 
-					ImageButton = StyleTable.new("ImageButton", function()
+					ImageButton = not getFFlagAlignToolNarrowUI() and StyleTable.new("ImageButton", function()
 						local Default = Style.extend(common.MainText, {
 							BackgroundTransparency = 1,
 							Padding = 6,
@@ -140,10 +195,25 @@ local function makeTheme()
 						return {
 							Default = Default,
 						}
-					end),
+					end) or nil,
+
+					LabeledElementList = getFFlagAlignToolNarrowUI() and StyleTable.new("LabeledElementList", function()
+						local Default = Style.extend(common.MainText, {
+							ItemContentPadding = UDim.new(0, 10),
+							ItemPaddingHorizontal = UDim.new(0, 15),
+							ItemPaddingVertical = UDim.new(0, 8),
+							MaximumLabelWidth = 100,
+							SectionPadding = UDim.new(0, 15),
+						})
+
+						return {
+							Default = Default,
+						}
+					end) or nil,
 				}),
 
 				Framework = StyleTable.extend(studioFrameworkStyles, {
+					Button = selectableButton,
 					Image = image,
 				}),
 			}

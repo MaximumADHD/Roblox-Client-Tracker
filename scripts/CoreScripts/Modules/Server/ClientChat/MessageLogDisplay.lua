@@ -2,13 +2,6 @@
 --	// Written by: Xsitsu, TheGamer101
 --	// Description: ChatChannel window for displaying messages.
 
-local FFlagUserChatHistorySinksInput do
-	local success, value = pcall(function()
-		return UserSettings():IsUserFeatureEnabled("UserChatHistorySinksInput")
-	end)
-	FFlagUserChatHistorySinksInput = success and value
-end
-
 local module = {}
 module.ScrollBarThickness = 4
 
@@ -44,7 +37,7 @@ local function CreateGuiObjects()
 	Scroller.Size = UDim2.new(1, -4, 1, -6)
 	Scroller.CanvasSize = UDim2.new(0, 0, 0, 0)
 	Scroller.ScrollBarThickness = module.ScrollBarThickness
-	Scroller.Active = FFlagUserChatHistorySinksInput
+	Scroller.Active = true
 	Scroller.Parent = BaseFrame
 
 	local Layout = Instance.new("UIListLayout")

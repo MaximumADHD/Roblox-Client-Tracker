@@ -22,8 +22,6 @@ local isEmpty = require(Plugin.Src.Util.isEmpty)
 local Scales = require(Plugin.Src.Util.Scales)
 local AssetOverrides = require(Plugin.Src.Util.AssetOverrides)
 
-local FFlagFixWarningsInGameSettings = game:DefineFastFlag("FixWarningsInGameSettings", false)
-
 local equalityCheckFunctions = {
 	universeAvatarAssetOverrides = AssetOverrides.isEqual,
 	universeAvatarMinScales = Scales.isEqual,
@@ -131,20 +129,12 @@ return Rodux.createReducer(getDefaultState(), {
 	end,
 
 	AddWarning = function(state, action)
-		if FFlagFixWarningsInGameSettings then
-			if not Cryo.List.find(state.Warnings, action.key) then
-				return Cryo.Dictionary.join(state, {
-					Warnings = Cryo.List.join(state.Warnings, {action.key})
-				})
-			else
-				return state
-			end
+		if not Cryo.List.find(state.Warnings, action.key) then
+			return Cryo.Dictionary.join(state, {
+				Warnings = Cryo.List.join(state.Warnings, {action.key})
+			})
 		else
-			if not Cryo.List.find(state.Warnings, action.key) then
-				return Cryo.Dictionary.join(state, {
-					Warnings = Cryo.List.join(state.Warnings, {action.key})
-				})
-			end
+			return state
 		end
 	end,
 

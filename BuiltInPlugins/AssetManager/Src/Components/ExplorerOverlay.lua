@@ -28,8 +28,6 @@ local Screens = require(Plugin.Src.Util.Screens)
 local SetRecentViewToggled = require(Plugin.Src.Actions.SetRecentViewToggled)
 local SetScreen = require(Plugin.Src.Actions.SetScreen)
 
-local FFlagStudioAssetManagerUXFixes = game:GetFastFlag("StudioAssetManagerUXFixes")
-
 local ExplorerOverlay = Roact.PureComponent:extend("ExplorerOverlay")
 
 function ExplorerOverlay:render()
@@ -108,7 +106,7 @@ function ExplorerOverlay:render()
 
                 onSelectionChanged = function(instances)
                     if instances[1] then
-                        if FFlagStudioAssetManagerUXFixes and recentViewToggled then
+                        if recentViewToggled then
                             dispatchSetRecentViewToggled(false)
                         end
                         local screen = Screens[instances[1].Screen]

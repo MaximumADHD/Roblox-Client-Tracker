@@ -38,16 +38,12 @@ local SetSelectedAssets = require(Plugin.Src.Actions.SetSelectedAssets)
 local GetAssets = require(Plugin.Src.Thunks.GetAssets)
 local GetAssetPreviewData = require(Plugin.Src.Thunks.GetAssetPreviewData)
 local LoadAllAliases = require(Plugin.Src.Thunks.LoadAllAliases)
-local DEPRECATED_OnAssetRightClick = require(Plugin.Src.Thunks.DEPRECATED_OnAssetRightClick)
 local OnAssetRightClick = require(Plugin.Src.Thunks.OnAssetRightClick)
 local OnScreenChange = require(Plugin.Src.Thunks.OnScreenChange)
 
 local BulkImportService = game:GetService("BulkImportService")
 
-local FFlagStudioAssetManagerShiftMultiSelect = game:GetFastFlag("StudioAssetManagerShiftMultiSelect")
 local FFlagAllowAudioBulkImport = game:GetFastFlag("AllowAudioBulkImport")
-local FFlagStudioAssetManagerAddGridListToggle = game:GetFastFlag("StudioAssetManagerAddGridListToggle")
-local FFlagStudioAssetManagerUXFixes = game:GetFastFlag("StudioAssetManagerUXFixes")
 local FFlagStudioAssetManagerAssetPreviewRequest = game:GetFastFlag("StudioAssetManagerAssetPreviewRequest")
 
 local AssetGridContainer = Roact.Component:extend("AssetGridContainer")
@@ -88,11 +84,7 @@ function AssetGridContainer:init()
                 ClassName = "Folder",
                 Screen = screen,
             }
-            if FFlagStudioAssetManagerAddGridListToggle then
-                props.dispatchOnAssetRightClick(props, placesFolder)
-            else
-                props.DEPRECATED_dispatchOnAssetRightClick(props.Analytics, props.API:get(), placesFolder, props.Localization, props.Plugin:get())
-            end
+            props.dispatchOnAssetRightClick(props, placesFolder)
         end
     end
 
@@ -142,7 +134,7 @@ function AssetGridContainer:createTiles(apiImpl, localization, theme,
     if currentScreen.Key == Screens.MAIN.Key then
         for _, screen in pairs(Screens) do
             if screen.Key ~= Screens.MAIN.Key then
-                local selectedAssetsKey = FFlagStudioAssetManagerShiftMultiSelect and screen.LayoutOrder or screen.Key
+                local selectedAssetsKey = screen.LayoutOrder
                 if (screen.Key == Screens.SCRIPTS.Key and hasLinkedScripts) or screen.Key ~= Screens.SCRIPTS.Key then
                     local folderTile = Roact.createElement(Tile, {
                         AssetData = {
@@ -172,11 +164,7 @@ function AssetGridContainer:createTiles(apiImpl, localization, theme,
                     OnOpenAssetPreview = self.onOpenAssetPreview,
                     OnAssetPreviewClose = self.onAssetPreviewClose,
                 })
-                if FFlagStudioAssetManagerAddGridListToggle then
-                    assetsToDisplay[asset.id] = assetTile
-                else
-                    assetsToDisplay[asset.layoutOrder] = assetTile
-                end
+                assetsToDisplay[asset.id] = assetTile
                 numberAssets = numberAssets + 1
             end
         end
@@ -242,25 +230,12 @@ end
 
 function AssetGridContainer:didUpdate()
     local props = self.props
-    if not FFlagStudioAssetManagerUXFixes then
-        -- clean state.currentScreen with flag FFlagStudioAssetManagerUXFixes
-        local apiImpl = props.API:get()
-        local screen = props.CurrentScreen
-        if screen ~= self.state.currentScreen then
-            props.dispatchOnScreenChange(apiImpl, screen)
-            self:setState({
-                currentScreen = screen,
-            })
-        end
-    end
-    if FFlagStudioAssetManagerAddGridListToggle then
-        -- force re-render so scrolling frame updates to new layout ref
-        local view = props.View
-        if view ~= self.state.currentView then
-            self:setState({
-                currentView = view,
-            })
-        end
+    -- force re-render so scrolling frame updates to new layout ref
+    local view = props.View
+    if view ~= self.state.currentView then
+        self:setState({
+            currentView = view,
+        })
     end
 end
 
@@ -295,17 +270,11 @@ function AssetGridContainer:render()
     local contents, assetCount
 
     local layoutRef
-    if FFlagStudioAssetManagerAddGridListToggle then
-        if view.Key == View.LIST.Key then
-            contents, assetCount = self:createListItems(apiImpl, localization, theme,
-                assets, currentScreen, searchTerm, selectedAssets, hasLinkedScripts, enabled)
-            layoutRef = self.listLayoutRef
-        elseif view.Key == View.GRID.Key then
-            contents, assetCount = self:createTiles(apiImpl, localization, theme,
-                assets, currentScreen, searchTerm, selectedAssets, hasLinkedScripts, enabled)
-            layoutRef = self.gridLayoutRef
-        end
-    else
+    if view.Key == View.LIST.Key then
+        contents, assetCount = self:createListItems(apiImpl, localization, theme,
+            assets, currentScreen, searchTerm, selectedAssets, hasLinkedScripts, enabled)
+        layoutRef = self.listLayoutRef
+    elseif view.Key == View.GRID.Key then
         contents, assetCount = self:createTiles(apiImpl, localization, theme,
             assets, currentScreen, searchTerm, selectedAssets, hasLinkedScripts, enabled)
         layoutRef = self.gridLayoutRef
@@ -438,9 +407,6 @@ local function mapDispatchToProps(dispatch)
         end,
         dispatchLoadAllAliases = function(apiImpl, assetType)
             dispatch(LoadAllAliases(apiImpl, assetType))
-        end,
-        DEPRECATED_dispatchOnAssetRightClick = function(analytics, apiImpl, assetData, localization, plugin)
-            dispatch(DEPRECATED_OnAssetRightClick(analytics, apiImpl, assetData, localization, plugin))
         end,
         dispatchOnAssetRightClick = function(props, placesFolder)
             props.AssetData = placesFolder

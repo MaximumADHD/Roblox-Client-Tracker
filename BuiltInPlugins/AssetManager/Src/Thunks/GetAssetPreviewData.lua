@@ -11,7 +11,6 @@ local GetRootTreeViewInstance = require(Plugin.Src.Thunks.GetRootTreeViewInstanc
 local SetAssetPreviewData = require(Plugin.Src.Actions.SetAssetPreviewData)
 local SetAssetOwnerName = require(Plugin.Src.Actions.SetAssetOwnerName)
 
-local FFlagFixGettingAssetOwnerNameInAssetPreview = game:DefineFastFlag("FixGettingAssetOwnerNameInAssetPreview", false)
 local FFlagStopTryingToFormatTimeInLuaForAssetManager = game:DefineFastFlag("StopTryingToFormatTimeInLuaForAssetManager", false)
 local FFlagAllowAudioBulkImport = game:GetFastFlag("AllowAudioBulkImport")
 
@@ -118,20 +117,13 @@ return function(apiImpl, assetIds)
                     },
                 }
                 spawn(function()
-                    if FFlagFixGettingAssetOwnerNameInAssetPreview then
-                        if assetData.creator.type == "Group" then
-                            local groupMetadata = GroupService:GetGroupInfoAsync(ownerId)
-                            local groupName = groupMetadata.Name
-                            if groupName then
-                                store:dispatch(SetAssetOwnerName(assetId, groupName))
-                            end
-                        elseif assetData.creator.type == "User" then
-                            local username = Players:GetNameFromUserIdAsync(ownerId)
-                            if username then
-                                store:dispatch(SetAssetOwnerName(assetId, username))
-                            end
+                    if assetData.creator.type == "Group" then
+                        local groupMetadata = GroupService:GetGroupInfoAsync(ownerId)
+                        local groupName = groupMetadata.Name
+                        if groupName then
+                            store:dispatch(SetAssetOwnerName(assetId, groupName))
                         end
-                    else
+                    elseif assetData.creator.type == "User" then
                         local username = Players:GetNameFromUserIdAsync(ownerId)
                         if username then
                             store:dispatch(SetAssetOwnerName(assetId, username))

@@ -21,8 +21,6 @@ local HoverArea = UI.HoverArea
 
 local PopUpButton = Roact.PureComponent:extend("PopUpButton")
 
-local FFlagAssetManagerOpenContextMenu = game:GetFastFlag("AssetManagerOpenContextMenu")
-
 local HOVER_SIZE = UDim2.new(0, 32, 0, 32)
 local DEFAULT_SIZE = UDim2.new(0, 28, 0, 28)
 
@@ -71,7 +69,7 @@ function PopUpButton:render()
         [Roact.Event.MouseEnter] = self.mouseEnter,
         [Roact.Event.MouseLeave] = self.mouseLeave,
     }, {
-        Hover = FFlagAssetManagerOpenContextMenu and Roact.createElement(HoverArea, {Cursor = "PointingHand"}),
+        Hover = Roact.createElement(HoverArea, {Cursor = "PointingHand"}),
 	})
 end
 

@@ -13,7 +13,7 @@
 			Title to use on the expanded preview window
 ]]
 
-local FFlagTerrainImportGreyscale = game:GetFastFlag("TerrainImportGreyscale")
+local FFlagTerrainImportGreyscale2 = game:GetFastFlag("TerrainImportGreyscale2")
 
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
@@ -50,7 +50,8 @@ function LocalImageSelector:init()
 	self.renderPreview = function()
 		local imageId = ""
 		if self.props.CurrentFile and self.props.CurrentFile.file then
-			if FFlagTerrainImportGreyscale then
+			if FFlagTerrainImportGreyscale2 then
+				-- TODO MOD-383: Show a spinner whilst the preview is loading
 				imageId = self.props.CurrentFile.preview
 			else
 				imageId = self.props.CurrentFile.file:GetTemporaryId()

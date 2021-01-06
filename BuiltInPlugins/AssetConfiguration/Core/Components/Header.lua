@@ -17,6 +17,7 @@
 ]]
 
 local FFlagToolboxHideSearchForMyPlugins = game:DefineFastFlag("ToolboxHideSearchForMyPlugins", false)
+local FFlagToolboxHideInventorySearchWhenEmpty = game:DefineFastFlag("ToolboxHideInventorySearchWhenEmpty", false)
 local FFlagUseCategoryNameInToolbox = game:GetFastFlag("UseCategoryNameInToolbox")
 
 local Plugin = script.Parent.Parent.Parent
@@ -162,6 +163,7 @@ function Header:render()
 
 			local searchTerm = props.searchTerm
 			local onSearchRequested = self.onSearchRequested
+			local hasAssetsInCategory = props.hasAssetsInCategory
 
 			local groups = props.groups
 			local groupIndex = props.groupIndex
@@ -225,6 +227,10 @@ function Header:render()
 					and not (isInventoryTab and isPlugins)
 			else
 				showSearchBar = not isGroupCategory and not isCreationsTab
+			end
+
+			if FFlagToolboxHideInventorySearchWhenEmpty and isInventoryTab and not hasAssetsInCategory then
+				showSearchBar = false
 			end
 
 			local isRecentsTab
@@ -385,11 +391,20 @@ local function mapStateToProps(state, props)
 
 	local pageInfo = state.pageInfo or {}
 
+	local hasAssetsInCategory
+	if FFlagToolboxHideInventorySearchWhenEmpty then
+		local assets = state.assets or {}
+		local idsToRender = assets.idsToRender or {}
+		local isLoading = assets.isLoading or false
+		hasAssetsInCategory = not isLoading and #idsToRender > 0
+	end
+
 	return {
 		categories = pageInfo.categories or {},
 		currentTab = PageInfoHelper.getCurrentTab(pageInfo),
 		categoryIndex = (not FFlagUseCategoryNameInToolbox) and (pageInfo.categoryIndex or 0),
 		categoryName = FFlagUseCategoryNameInToolbox and (pageInfo.categoryName or Category.DEFAULT.name) or nil,
+		hasAssetsInCategory = hasAssetsInCategory,
 		searchTerm = pageInfo.searchTerm or "",
 		roles = FFlagUseCategoryNameInToolbox and state.roles or {},
 		groups = pageInfo.groups or {},

@@ -6,6 +6,7 @@ local Plugin = script.Parent.Parent.Parent
 
 local Libs = Plugin.Libs
 local Roact = require(Libs.Roact)
+local RoactRodux = require(Libs.RoactRodux)
 local Util = Plugin.Core.Util
 
 local SharedPluginConstants = require(Plugin.SharedPluginConstants)
@@ -16,6 +17,8 @@ local Images = require(Plugin.Core.Util.Images)
 local ExternalServicesWrapper = require(Plugin.Core.Components.ExternalServicesWrapper)
 local DockWidget = require(Plugin.Core.Components.PluginWidget.DockWidget)
 local Toolbox = require(Plugin.Core.Components.Toolbox)
+
+local StopAllSounds = require(Plugin.Core.Actions.StopAllSounds)
 
 local makeTheme = require(Util.makeTheme)
 
@@ -31,6 +34,7 @@ local FFlagEnableToolboxImpressionAnalytics = game:GetFastFlag("EnableToolboxImp
 local FFlagToolboxShowHideABTest = game:GetFastFlag("ToolboxShowHideABTest")
 local FFlagStudioShowHideABTestV2 = game:GetFastFlag("StudioShowHideABTestV2")
 local FFlagPluginManagementDirectlyOpenToolbox = game:GetFastFlag("PluginManagementDirectlyOpenToolbox")
+local FFlagToolboxStopAudioFromPlayingOnCloseAndCategorySwitch = game:GetFastFlag("ToolboxStopAudioFromPlayingOnCloseAndCategorySwitch")
 
 local ShowHideABTestName = "AllUsers.RobloxStudio.ShowHideToolbox"
 local ABTEST_SHOWHIDEV2_NAME = "AllUsers.RobloxStudio.ShowHideV2"
@@ -85,6 +89,9 @@ function ToolboxPlugin:init(props)
 	end)
 
 	self.onDockWidgetEnabledChanged = function(rbx)
+		if FFlagToolboxStopAudioFromPlayingOnCloseAndCategorySwitch and self.dockWidget.Enabled == false then
+			self.props.stopAllSounds()
+		end
 		-- Update Button to match DockWidget
 		self.toolboxButton:SetActive(self.dockWidget.Enabled)
 
@@ -134,7 +141,7 @@ function ToolboxPlugin:willUnmount()
 
 	if FFlagPluginManagementDirectlyOpenToolbox then
 		self._showPluginsConnection:Disconnect()
-	end	
+	end
 end
 
 function ToolboxPlugin:render()
@@ -226,4 +233,16 @@ ContextServices.mapToProps(ToolboxPlugin, {
 	Localization = ContextServices.Localization,
 })
 
-return ToolboxPlugin
+if FFlagToolboxStopAudioFromPlayingOnCloseAndCategorySwitch then
+	local function mapDispatchToProps(dispatch)
+		return {
+			stopAllSounds = function()
+				dispatch(StopAllSounds())
+			end,
+		}
+	end
+
+	return RoactRodux.connect(nil, mapDispatchToProps)(ToolboxPlugin)
+else
+	return ToolboxPlugin
+end

@@ -19,8 +19,8 @@ local Mouse = ContextServices.Mouse
 local Store = ContextServices.Store
 local MakeTheme = require(main.Src.Resources.MakeTheme)
 
-local EnglishStrings = main.Src.Resources.Localization.EnglishStrings
-local TranslatedStrings = main.Src.Resources.Localization.TranslatedStrings
+local TranslationDevelopmentTable = main.Src.Resources.Localization.TranslationDevelopmentTable
+local TranslationReferenceTable = main.Src.Resources.Localization.TranslationReferenceTable
 
 local EventEmulator = require(main.Src.Components.EventEmulator)
 
@@ -62,8 +62,8 @@ function MainPlugin:init(props)
 	})
 
 	self.localization = ContextServices.Localization.new({
-		stringResourceTable = EnglishStrings,
-		translationResourceTable = TranslatedStrings,
+		stringResourceTable = TranslationDevelopmentTable,
+		translationResourceTable = TranslationReferenceTable,
 		pluginName = "EventEmulator",
 	})
 end
@@ -104,7 +104,7 @@ function MainPlugin:render()
 			Enabled = enabled,
 			Title = self.localization:getText("Plugin", "Name"),
 			ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
-			InitialDockState = Enum.InitialDockState.Float,
+			InitialDockState = Enum.InitialDockState.Left,
 			Size = Vector2.new(310, 225),
 			MinSize = Vector2.new(310, 225),
 			OnClose = self.onClose,

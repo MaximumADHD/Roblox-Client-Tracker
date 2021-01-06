@@ -9,42 +9,12 @@ local SetAssets = require(Plugin.Src.Actions.SetAssets)
 local SetIsFetchingAssets = require(Plugin.Src.Actions.SetIsFetchingAssets)
 local SetHasLinkedScripts = require(Plugin.Src.Actions.SetHasLinkedScripts)
 
-local FFlagStudioAssetManagerFilterPackagePermissions = game:DefineFastFlag("StudioAssetManagerFilterPackagePermissions", false)
 local FFlagAllowAudioBulkImport = game:GetFastFlag("AllowAudioBulkImport")
 local FFlagStudioAssetManagerFetchMoreAssets = game:GetFastFlag("StudioAssetManagerFetchMoreAssets")
 
 local FIntStudioAssetManagerAssetFetchNumber = game:GetFastInt("StudioAssetManagerAssetFetchNumber")
 
 local numberOfAssetsToFetch = FFlagStudioAssetManagerFetchMoreAssets and FIntStudioAssetManagerAssetFetchNumber or 10
-
-local function checkIfPackageHasPermission(store, apiImpl, packageIds, newAssetsTable, assetBody, assetType, index)
-    apiImpl.Develop.V1.Packages.highestPermissions(packageIds):makeRequest()
-    :andThen(function(response)
-        local body = response.responseBody
-        if not body then
-            return
-        end
-        for _, permission in pairs(body.permissions) do
-            for _, asset in pairs(assetBody.data) do
-                if permission.hasPermission and permission.assetId == asset.assetId then
-                    local newAsset = asset
-                    newAsset.assetType = assetType
-                    newAsset.name = asset.assetName
-                    newAsset.id = asset.assetId
-                    newAsset.assetName = nil
-                    newAsset.assetId = nil
-                    newAssetsTable = Cryo.Dictionary.join(newAssetsTable, {
-                        [index] = newAsset,
-                    })
-                    index = index + 1
-                end
-            end
-        end
-    end, function()
-        store:dispatch(SetIsFetchingAssets(false))
-        error("Failed to load package permissions")
-    end)
-end
 
 return function(apiImpl, assetType, pageCursor, pageNumber, showLoadingIndicator)
     return function(store)
@@ -160,15 +130,12 @@ return function(apiImpl, assetType, pageCursor, pageNumber, showLoadingIndicator
                 end
                 newAssets.previousPageCursor = body.previousPageCursor
                 newAssets.nextPageCursor = body.nextPageCursor
-                -- Remove with FFlagStudioAssetManagerFilterPackagePermissions
-                local packageIds = {}
 
                 for _, asset in pairs(body.data) do
                     local newAsset = asset
                     newAsset.assetType = assetType
                     -- make sure packages have similar keys in table
                     if assetType == Enum.AssetType.Package then
-                        if not FFlagStudioAssetManagerFilterPackagePermissions then
                             local sAssetId = tostring(asset.assetId)
                             newAsset.name = asset.assetName
                             newAsset.id = asset.assetId
@@ -179,9 +146,6 @@ return function(apiImpl, assetType, pageCursor, pageNumber, showLoadingIndicator
                                 [sAssetId] = newAsset,
                             })
                             index = index + 1
-                        else
-                            table.insert(packageIds, asset.assetId)
-                        end
                     else
                         local sAssetId = tostring(newAsset.id)
                         newAsset.layoutOrder = index
@@ -190,10 +154,6 @@ return function(apiImpl, assetType, pageCursor, pageNumber, showLoadingIndicator
                         })
                         index = index + 1
                     end
-                end
-                if FFlagStudioAssetManagerFilterPackagePermissions
-                and #packageIds ~= 0 then
-                    checkIfPackageHasPermission(store, apiImpl, packageIds, newAssets.assets,body.data, assetType, index)
                 end
                 store:dispatch(SetIsFetchingAssets(false))
                 store:dispatch(SetAssets(newAssets, index))

@@ -11,14 +11,17 @@
 local Plugin = script.Parent.Parent.Parent
 
 local getFFlagAlignInLocalSpace = require(Plugin.Src.Flags.getFFlagAlignInLocalSpace)
+local getFFlagAlignToolNarrowUI = require(Plugin.Src.Flags.getFFlagAlignToolNarrowUI)
 
 local Cryo = require(Plugin.Packages.Cryo)
+local FitFrameOnAxis = require(Plugin.Packages.FitFrame).FitFrameOnAxis
 local Roact = require(Plugin.Packages.Roact)
 local ContextServices = require(Plugin.Packages.Framework.ContextServices)
 
 local UI = require(Plugin.Packages.Framework.UI)
 local Container = UI.Container
-local RadioButtonList = UI.RadioButtonList
+local RadioButton = UI.RadioButton
+local RadioButtonList = UI.RadioButtonList -- TODO: Remove with FFlagAlignToolNarrowUI
 local TextLabel = UI.Decoration.TextLabel
 
 local Util = require(Plugin.Packages.Framework.Util)
@@ -66,11 +69,12 @@ function AxesSettingsFragment:render()
 	local layoutOrderIterator = LayoutOrderIterator.new()
 
 	local axesCheckboxComponents = {
-		Layout = Roact.createElement("UIListLayout", {
+		Layout = not getFFlagAlignToolNarrowUI() and Roact.createElement("UIListLayout", {
 			FillDirection = Enum.FillDirection.Horizontal,
-			Padding = theme.AxesSettingsFragment.CheckboxListItemPadding,
+			Padding = getAlignToolNarrowUI() and theme.SectionContentPadding
+				or theme.AxesSettingsFragment.CheckboxListItemPadding,
 			SortOrder = Enum.SortOrder.LayoutOrder,
-		})
+		}) or nil,
 	}
 
 	local axisIds = {"X", "Y", "Z"}
@@ -88,34 +92,68 @@ function AxesSettingsFragment:render()
 		})
 	end
 
-	return Roact.createFragment({
-		Layout = Roact.createElement("UIListLayout", {
-			FillDirection = Enum.FillDirection.Vertical,
-			Padding = theme.ContentListItemPadding,
-			SortOrder = Enum.SortOrder.LayoutOrder,
-		}),
+	if getFFlagAlignToolNarrowUI() then
+		local function renderRadioButton(key, layoutOrder)
+			return Roact.createElement(RadioButton, {
+				Disabled = false,
+				Key = key,
+				LayoutOrder = layoutOrder,
+				Selected = (props.AlignmentSpace == key),
+				Text = localization:getText("AxesSettingsFragment", key),
+				OnClick = self.setAlignmentSpace,
+			})
+		end
 
-		AlignmentSpaceButtons = Roact.createElement(RadioButtonList, {
-			Buttons = {
-				{
-					Key = AlignmentSpace.World,
-					Text = localization:getText("AxesSettingsFragment", AlignmentSpace.World)
-				},
-				{
-					Key = AlignmentSpace.Local,
-					Text = localization:getText("AxesSettingsFragment", AlignmentSpace.Local)
-				},
-			},
-			FillDirection = Enum.FillDirection.Horizontal,
-			LayoutOrder = 1,
-			SelectedKey = props.AlignmentSpace,
-			OnClick = self.setAlignmentSpace,
-		}),
+		return Roact.createFragment({
+			AlignmentSpaceButtons = Roact.createElement(FitFrameOnAxis, {
+				axis = FitFrameOnAxis.Axis.Both,
+				contentPadding = theme.SectionContentPadding,
+				BackgroundTransparency = 1,
+				FillDirection = Enum.FillDirection.Horizontal,
+				LayoutOrder = 1,
+			}, {
+				WorldSpaceButton = renderRadioButton(AlignmentSpace.World, 1),
+				LocalSpaceButton = renderRadioButton(AlignmentSpace.Local, 2),
+			}),
 
-		AxisCheckboxes = Roact.createElement(Container, {
-			LayoutOrder = 2,
-		}, axesCheckboxComponents),
-	})
+			AxisCheckboxes = Roact.createElement(FitFrameOnAxis, {
+				axis = FitFrameOnAxis.Axis.Both,
+				contentPadding = theme.SectionContentPadding,
+				BackgroundTransparency = 1,
+				FillDirection = Enum.FillDirection.Horizontal,
+				LayoutOrder = 1,
+			}, axesCheckboxComponents),
+		})
+	else
+		return Roact.createFragment({
+			Layout = Roact.createElement("UIListLayout", {
+				FillDirection = Enum.FillDirection.Vertical,
+				Padding = theme.ContentListItemPadding,
+				SortOrder = Enum.SortOrder.LayoutOrder,
+			}),
+
+			AlignmentSpaceButtons = Roact.createElement(RadioButtonList, {
+				Buttons = {
+					{
+						Key = AlignmentSpace.World,
+						Text = localization:getText("AxesSettingsFragment", AlignmentSpace.World)
+					},
+					{
+						Key = AlignmentSpace.Local,
+						Text = localization:getText("AxesSettingsFragment", AlignmentSpace.Local)
+					},
+				},
+				FillDirection = Enum.FillDirection.Horizontal,
+				LayoutOrder = 1,
+				SelectedKey = props.AlignmentSpace,
+				OnClick = self.setAlignmentSpace,
+			}),
+
+			AxisCheckboxes = Roact.createElement(Container, {
+				LayoutOrder = 2,
+			}, axesCheckboxComponents),
+		})
+	end
 end
 
 ContextServices.mapToProps(AxesSettingsFragment, {

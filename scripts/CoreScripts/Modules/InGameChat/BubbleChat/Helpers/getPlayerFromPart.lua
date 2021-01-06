@@ -2,13 +2,19 @@ local Players = game:GetService("Players")
 
 -- Gets the player from a Part inside their Character model.
 local function getPlayerFromPart(part)
-	for _, player in ipairs(Players:GetPlayers()) do
-		if player.Character then
-			if part:IsDescendantOf(player.Character) then
+	if not part then
+		return nil
+	end
+
+	for _, player in pairs(Players:GetPlayers()) do
+		local character = player.Character
+		if character then
+			if part:IsDescendantOf(character) then
 				return player
 			end
 		end
 	end
+
 	return nil
 end
 

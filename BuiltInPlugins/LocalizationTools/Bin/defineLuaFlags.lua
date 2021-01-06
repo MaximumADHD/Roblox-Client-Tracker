@@ -3,4 +3,9 @@
 -- And then error when trying to use flags that aren't yet defined
 game:DefineFastFlag("EnableLocalizationToolsStylizer", false)
 
+-- Overrides THEME_REFACTOR before require
+local main = script.Parent.Parent
+local RefactorFlags = require(main.Packages.Framework.Util.RefactorFlags)
+RefactorFlags.THEME_REFACTOR = game:GetFastFlag("EnableLocalizationToolsStylizer")
+
 return nil

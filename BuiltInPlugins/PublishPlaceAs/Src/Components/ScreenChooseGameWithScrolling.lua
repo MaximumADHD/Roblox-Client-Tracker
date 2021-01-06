@@ -35,7 +35,6 @@ local RoundFrame = UILibrary.Component.RoundFrame
 
 local groupsLoaded = false
 
-local FFlagLuaPublishFlowFixCreateButtonInChinese = game:GetFastFlag("LuaPublishFlowFixCreateButtonInChinese")
 local FFlagStudioAddingScrollingToScreenChoosePlace = game:GetFastFlag("StudioAddingScrollingToScreenChoosePlace")
 local FFlagBatchThumbnailAddNewThumbnailTypes = game:GetFastFlag("BatchThumbnailAddNewThumbnailTypes")
 local FFlagUXImprovementAddSearchBar = game:GetFastFlag("UXImprovementAddSearchBar")
@@ -207,7 +206,7 @@ function ScreenChooseGame:render()
 
 					Footer = Roact.createElement(Footer, {
 						MainButton = {
-							Name = FFlagLuaPublishFlowFixCreateButtonInChinese and "Create" or localization:getText("FooterButton", "Create"),
+							Name = "Create",
 							Active = false,
 						},
 						OnClose = onClose,
@@ -268,7 +267,7 @@ function ScreenChooseGame:render()
 
 					Footer = Roact.createElement(Footer, {
 						MainButton = {
-							Name = FFlagLuaPublishFlowFixCreateButtonInChinese and "Create" or localization:getText("FooterButton", "Create"),
+							Name = "Create",
 							Active = false,
 						},
 						OnClose = onClose,

@@ -11,11 +11,13 @@ local UpdatePageInfoAndSendRequest = require(Plugin.Core.Networking.Requests.Upd
 
 local Category = require(Plugin.Core.Types.Category)
 
+local StopAllSounds = require(Plugin.Core.Actions.StopAllSounds)
+
 local FFlagToolboxShowRobloxCreatedAssetsForLuobu = game:GetFastFlag("ToolboxShowRobloxCreatedAssetsForLuobu")
+local FFlagToolboxStopAudioFromPlayingOnCloseAndCategorySwitch = game:GetFastFlag("ToolboxStopAudioFromPlayingOnCloseAndCategorySwitch")
 
 return function(networkInterface, tabName, newCategories,  settings, options)
 	return function(store)
-
 		local categories = Category.getCategories(tabName, store:getState().roles)
 
 		local creator = Cryo.None
@@ -44,6 +46,10 @@ return function(networkInterface, tabName, newCategories,  settings, options)
 
 		if shouldGetGroups then
 			store:dispatch(GetToolboxManageableGroupsRequest(networkInterface))
+		end
+
+		if FFlagToolboxStopAudioFromPlayingOnCloseAndCategorySwitch then
+			store:dispatch(StopAllSounds())
 		end
 	end
 end

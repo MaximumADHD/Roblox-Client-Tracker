@@ -127,9 +127,9 @@ if FFlagAESPromptsSupportGamepad then
 		self.selectedGuiObject = nil
 	end
 
-	function AvatarEditorPromptsApp:didUpdate(prevProps)
-		local shouldCaptureFocus = self.props.isGamepad and self.props.promptType ~= nil
-		local lastShouldCaptureFocus = prevProps.isGamepad and prevProps.promptType ~= nil
+	function AvatarEditorPromptsApp:didUpdate(prevProps, prevState)
+		local shouldCaptureFocus = self.state.isGamepad and self.props.promptType ~= nil
+		local lastShouldCaptureFocus = prevState.isGamepad and prevProps.promptType ~= nil
 
 		if shouldCaptureFocus ~= lastShouldCaptureFocus then
 			if shouldCaptureFocus then
@@ -139,7 +139,7 @@ if FFlagAESPromptsSupportGamepad then
 				self.focusController.captureFocus()
 			else
 				self.focusController.releaseFocus()
-				if self.props.isGamepad then
+				if self.state.isGamepad then
 					self:revertSelectedGuiObject()
 				end
 			end
@@ -147,7 +147,7 @@ if FFlagAESPromptsSupportGamepad then
 	end
 
 	function AvatarEditorPromptsApp:willUnmount()
-		if self.props.isGamepad then
+		if self.state.isGamepad then
 			self:revertSelectedGuiObject()
 		end
 	end

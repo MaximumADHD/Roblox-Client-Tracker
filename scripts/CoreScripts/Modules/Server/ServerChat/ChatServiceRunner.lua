@@ -22,20 +22,6 @@ ChatLocalization = ChatLocalization or {}
 local MAX_MESSAGE_LENGTH = ChatSettings.MaximumMessageLength
 local MAX_BYTES_PER_CODEPOINT = 6
 
-local FFlagUserChatAddServerSideChecks do
-	local success, result = pcall(function()
-		return UserSettings():IsUserFeatureEnabled("UserChatAddServerSideChecks")
-	end)
-	FFlagUserChatAddServerSideChecks = success and result
-end
-
-local FFlagUserChatAddServerSideChecks2 do
-	local success, result = pcall(function()
-		return UserSettings():IsUserFeatureEnabled("UserChatAddServerSideChecks2")
-	end)
-	FFlagUserChatAddServerSideChecks2 = success and result
-end
-
 if not ChatLocalization.FormatMessageToSend or not ChatLocalization.LocalizeFormattedMessage then
 	function ChatLocalization:FormatMessageToSend(key,default) return default end
 end
@@ -233,71 +219,31 @@ PlayersService.PlayerRemoving:connect(function(removingPlayer)
 	BlockedUserIdsMap[removingPlayer] = nil
 end)
 
-if FFlagUserChatAddServerSideChecks2 then
-	EventFolder.SetBlockedUserIdsRequest.OnServerEvent:Connect(function(player, blockedUserIdsList)
-		if type(blockedUserIdsList) ~= "table" then
-			return
-		end
+EventFolder.SetBlockedUserIdsRequest.OnServerEvent:Connect(function(player, blockedUserIdsList)
+	if type(blockedUserIdsList) ~= "table" then
+		return
+	end
 
-		local prunedBlockedUserIdsList = {}
-		local speaker = ChatService:GetSpeaker(player.Name)
-		if speaker then
-			for i = 1, math.min(#blockedUserIdsList, MAX_BLOCKED_SPEAKERS_PER_REQ) do
-				if type(blockedUserIdsList[i]) == "number" then
+	local prunedBlockedUserIdsList = {}
+	local speaker = ChatService:GetSpeaker(player.Name)
+	if speaker then
+		for i = 1, math.min(#blockedUserIdsList, MAX_BLOCKED_SPEAKERS_PER_REQ) do
+			if type(blockedUserIdsList[i]) == "number" then
 
-					table.insert(prunedBlockedUserIdsList, blockedUserIdsList[i])
+				table.insert(prunedBlockedUserIdsList, blockedUserIdsList[i])
 
-					local blockedPlayer = PlayersService:GetPlayerByUserId(blockedUserIdsList[i])
-					if blockedPlayer then
-						speaker:AddMutedSpeaker(blockedPlayer.Name)
-					end
-				end
-			end
-
-			-- We only want to store the first
-			-- MAX_BLOCKED_SPEAKERS_PER_REQ number of ids as needed
-			BlockedUserIdsMap[player] = prunedBlockedUserIdsList
-		end
-	end)
-elseif FFlagUserChatAddServerSideChecks then
-	EventFolder.SetBlockedUserIdsRequest.OnServerEvent:Connect(function(player, blockedUserIdsList)
-		if type(blockedUserIdsList) ~= "table" then
-			return
-		end
-
-		BlockedUserIdsMap[player] = blockedUserIdsList
-		local speaker = ChatService:GetSpeaker(player.Name)
-		if speaker then
-			for i = 1, math.min(#blockedUserIdsList, MAX_BLOCKED_SPEAKERS_PER_REQ) do
-				if type(blockedUserIdsList[i]) == "number" then
-					local blockedPlayer = PlayersService:GetPlayerByUserId(blockedUserIdsList[i])
-					if blockedPlayer then
-						speaker:AddMutedSpeaker(blockedPlayer.Name)
-					end
+				local blockedPlayer = PlayersService:GetPlayerByUserId(blockedUserIdsList[i])
+				if blockedPlayer then
+					speaker:AddMutedSpeaker(blockedPlayer.Name)
 				end
 			end
 		end
-	end)
-else
-	EventFolder.SetBlockedUserIdsRequest.OnServerEvent:Connect(function(player, blockedUserIdsList)
-		if type(blockedUserIdsList) ~= "table" then
-			return
-		end
 
-		BlockedUserIdsMap[player] = blockedUserIdsList
-		local speaker = ChatService:GetSpeaker(player.Name)
-		if speaker then
-			for i = 1, #blockedUserIdsList do
-				if type(blockedUserIdsList[i]) == "number" then
-					local blockedPlayer = PlayersService:GetPlayerByUserId(blockedUserIdsList[i])
-					if blockedPlayer then
-						speaker:AddMutedSpeaker(blockedPlayer.Name)
-					end
-				end
-			end
-		end
-	end)
-end
+		-- We only want to store the first
+		-- MAX_BLOCKED_SPEAKERS_PER_REQ number of ids as needed
+		BlockedUserIdsMap[player] = prunedBlockedUserIdsList
+	end
+end)
 
 EventFolder.GetInitDataRequest.OnServerInvoke = (function(playerObj)
 	local speaker = ChatService:GetSpeaker(playerObj.Name)

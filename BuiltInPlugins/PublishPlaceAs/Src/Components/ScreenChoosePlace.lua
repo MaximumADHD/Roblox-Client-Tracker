@@ -50,7 +50,6 @@ local HorizontalContentFit = createFitToContent("Frame", "UIListLayout", {
 	SortOrder = Enum.SortOrder.LayoutOrder,
 })
 
-local FFlagLuaPublishFlowFixCreateButtonInChinese = game:GetFastFlag("LuaPublishFlowFixCreateButtonInChinese")
 local FFlagUXImprovementsPublishSuccessScreenPublishAs = game:GetFastFlag("UXImprovementsPublishSuccessScreenPublishAs")
 local FFlagUXImprovementAddScrollToGamesPage = game:GetFastFlag("UXImprovementAddScrollToGamesPage")
 
@@ -213,13 +212,7 @@ function ScreenChoosePlace:render()
 				})
 			end
 
-			local footerMainButtonName
-			if FFlagLuaPublishFlowFixCreateButtonInChinese then
-				footerMainButtonName = newPlaceSelected and "Create" or "Overwrite"
-			else
-				footerMainButtonName = newPlaceSelected and localization:getText("FooterButton", "Create")
-				or localization:getText("FooterButton", "Overwrite")
-			end
+			local footerMainButtonName = newPlaceSelected and "Create" or "Overwrite"
 
 			return Roact.createElement("Frame", {
 				Size = UDim2.new(1, 0, 1, 0),

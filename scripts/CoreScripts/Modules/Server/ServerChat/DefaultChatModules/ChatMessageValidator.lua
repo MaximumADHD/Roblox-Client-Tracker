@@ -15,20 +15,6 @@ if not ChatLocalization.FormatMessageToSend or not ChatLocalization.LocalizeForm
 	function ChatLocalization:FormatMessageToSend(key,default) return default end
 end
 
-local FFlagUserChatAddServerSideChecks do
-	local success, result = pcall(function()
-		return UserSettings():IsUserFeatureEnabled("UserChatAddServerSideChecks")
-	end)
-	FFlagUserChatAddServerSideChecks = success and result
-end
-
-local FFlagUserChatValidateFirst do
-	local success, result = pcall(function()
-		return UserSettings():IsUserFeatureEnabled("UserChatValidateFirst")
-	end)
-	FFlagUserChatValidateFirst = success and result
-end
-
 local MAX_BYTES_PER_UTF8_CODEPOINT = 6
 local DISALLOWED_WHITESPACE = {"\n", "\r", "\t", "\v", "\f"}
 
@@ -85,47 +71,29 @@ local function Run(ChatService)
 			return true
 		end
 
-		if FFlagUserChatAddServerSideChecks then
-			if not isMessageValidServer(message) then
-				local localizedError = ChatLocalization:FormatMessageToSend(
-					"GameChat_ChatMessageValidator_MaxLengthError",
-					"Your message exceeds the maximum message length."
-				)
-				speakerObj:SendSystemMessage(localizedError, channel)
-				return true
-			end
+		if not isMessageValidServer(message) then
+			local localizedError = ChatLocalization:FormatMessageToSend(
+				"GameChat_ChatMessageValidator_MaxLengthError",
+				"Your message exceeds the maximum message length."
+			)
+			speakerObj:SendSystemMessage(localizedError, channel)
+			return true
+		end
 
-			for _, whitespace in pairs(DISALLOWED_WHITESPACE) do
-				if message:find(whitespace) then
-					speakerObj:SendSystemMessage(ChatLocalization:FormatMessageToSend(
-						"GameChat_ChatMessageValidator_WhitespaceError",
-						"Your message contains whitespace that is not allowed."
-					), channel)
-					return true
-				end
-			end
-		else
-			if message:len() > ChatSettings.MaximumMessageLength + 1 then
-				speakerObj:SendSystemMessage(ChatLocalization:FormatMessageToSend("GameChat_ChatMessageValidator_MaxLengthError","Your message exceeds the maximum message length."), channel)
+		for _, whitespace in pairs(DISALLOWED_WHITESPACE) do
+			if message:find(whitespace) then
+				speakerObj:SendSystemMessage(ChatLocalization:FormatMessageToSend(
+					"GameChat_ChatMessageValidator_WhitespaceError",
+					"Your message contains whitespace that is not allowed."
+				), channel)
 				return true
-			end
-
-			for i = 1, #DISALLOWED_WHITESPACE do
-				if string.find(message, DISALLOWED_WHITESPACE[i]) then
-					speakerObj:SendSystemMessage(ChatLocalization:FormatMessageToSend("GameChat_ChatMessageValidator_WhitespaceError","Your message contains whitespace that is not allowed."), channel)
-					return true
-				end
 			end
 		end
 
 		return false
 	end
 
-	if FFlagUserChatValidateFirst then
-		ChatService:RegisterProcessCommandsFunction("message_validation", ValidateChatFunction, ChatConstants.VeryHighPriority)
-	else
-		ChatService:RegisterProcessCommandsFunction("message_validation", ValidateChatFunction, ChatSettings.LowPriority)
-	end
+	ChatService:RegisterProcessCommandsFunction("message_validation", ValidateChatFunction, ChatConstants.VeryHighPriority)
 end
 
 return Run

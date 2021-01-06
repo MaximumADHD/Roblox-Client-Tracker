@@ -1,5 +1,4 @@
 return function()
-	local FFlagDevFrameworkLocalizationLibraries = game:GetFastFlag("DevFrameworkLocalizationLibraries")
 	local Framework = script.Parent.Parent
 	local Signal = require(Framework.Util).Signal
 	local Roact = require(Framework.Parent.Roact)
@@ -19,12 +18,12 @@ return function()
 				stringResourceTable = TestDevStrings,
 				translationResourceTable = TestTranslationStrings,
 				pluginName = "Framework",
-				libraries = FFlagDevFrameworkLocalizationLibraries and {
+				libraries = {
 					[LIBRARY_PROJECT] = {
 						stringResourceTable = TestLibraryDevStrings,
 						translationResourceTable = TestLibraryTranslationStrings,
 					}
-				} or nil,
+				},
 				overrideLocaleChangedSignal = TestLocalizationChangedSignal,
 				overrideLocaleId = props.localeId or "en-us",
 				getLocale = props.getLocale,
@@ -50,35 +49,33 @@ return function()
 				Localization.new({})
 			end).to.throw()
 
-			if FFlagDevFrameworkLocalizationLibraries then
-				expect(function()
-					Localization.new({ 
-						libraries = {
-							MyBadlySpecifiedLibrary = {},
-						}
-					})
-				end).to.throw()
+			expect(function()
+				Localization.new({ 
+					libraries = {
+						MyBadlySpecifiedLibrary = {},
+					}
+				})
+			end).to.throw()
 
-				expect(function()
-					Localization.new({ 
-						libraries = {
-							MyBadlySpecifiedLibrary = {
-								stringResourceTable = TestDevStrings
-							},
+			expect(function()
+				Localization.new({ 
+					libraries = {
+						MyBadlySpecifiedLibrary = {
+							stringResourceTable = TestDevStrings
 						},
-					})
-				end).to.throw()
+					},
+				})
+			end).to.throw()
 
-				expect(function()
-					Localization.new({ 
-						libraries = {
-							MyBadlySpecifiedLibrary = {
-								translationResourceTable = TestTranslationStrings
-							},
+			expect(function()
+				Localization.new({ 
+					libraries = {
+						MyBadlySpecifiedLibrary = {
+							translationResourceTable = TestTranslationStrings
 						},
-					})
-				end).to.throw()
-			end
+					},
+				})
+			end).to.throw()
 
 			expect(function()
 				Localization.new({ stringResourceTable = TestDevStrings })
@@ -108,13 +105,11 @@ return function()
 				local greeting = localization:getText("Spec", "greeting_formal")
 				expect(greeting).to.equal("Hello")
 
-				if FFlagDevFrameworkLocalizationLibraries then
-					greeting = localization:getProjectText("Framework", "Spec", "greeting_formal")
-					expect(greeting).to.equal("Hello")
+				greeting = localization:getProjectText("Framework", "Spec", "greeting_formal")
+				expect(greeting).to.equal("Hello")
 
-					local farewell = localization:getProjectText(LIBRARY_PROJECT, "Spec", "farewell_formal")
-					expect(farewell).to.equal("Goodbye")
-				end
+				local farewell = localization:getProjectText(LIBRARY_PROJECT, "Spec", "farewell_formal")
+				expect(farewell).to.equal("Goodbye")
 			end)
 		end)
 
@@ -144,10 +139,8 @@ return function()
 				local surprise = localization:getText("Spec", "greeting_surprise")
 				expect(surprise).to.equal("No one expects the Spanish Inquisition!")
 
-				if FFlagDevFrameworkLocalizationLibraries then
-					local farewell = localization:getProjectText(LIBRARY_PROJECT, "Spec", "farewell_surprise")
-					expect(farewell).to.equal("Fare thee well!")
-				end
+				local farewell = localization:getProjectText(LIBRARY_PROJECT, "Spec", "farewell_surprise")
+				expect(farewell).to.equal("Fare thee well!")
 			end)
 		end)
 
@@ -156,22 +149,18 @@ return function()
 				local greeting = localization:getText("Spec", "greeting_serious")
 				expect(greeting).to.equal("Studio.Framework.Spec.greeting_serious")
 
-				if FFlagDevFrameworkLocalizationLibraries then
-					local farewell = localization:getProjectText(LIBRARY_PROJECT, "Spec", "oops")
-					expect(farewell).to.equal("Studio.MyLibrary.Spec.oops")
-				end
+				local farewell = localization:getProjectText(LIBRARY_PROJECT, "Spec", "oops")
+				expect(farewell).to.equal("Studio.MyLibrary.Spec.oops")
 			end)
 		end)
 
-		if FFlagDevFrameworkLocalizationLibraries then
-			it("should throw if project is missing", function()
-				runTestWithLocalization({}, function(localization)
-					expect(function()
-						localization:getProjectText("missingProject", "Spec", "farewell_formal")
-					end).to.throw()
-				end)
+		it("should throw if project is missing", function()
+			runTestWithLocalization({}, function(localization)
+				expect(function()
+					localization:getProjectText("missingProject", "Spec", "farewell_formal")
+				end).to.throw()
 			end)
-		end
+		end)
 
 		it("should update its strings if the localization changes", function()
 			local currentLocale = "en-us"
@@ -185,10 +174,8 @@ return function()
 				local greeting = localization:getText("Spec", "greeting_formal")
 				expect(greeting).to.equal("Hello")
 
-				if FFlagDevFrameworkLocalizationLibraries then
-					local farewell = localization:getProjectText(LIBRARY_PROJECT, "Spec", "farewell_formal")
-					expect(farewell).to.equal("Goodbye")
-				end
+				local farewell = localization:getProjectText(LIBRARY_PROJECT, "Spec", "farewell_formal")
+				expect(farewell).to.equal("Goodbye")
 
 				-- trigger a locale change
 				currentLocale = "es-es"
@@ -197,10 +184,8 @@ return function()
 				greeting = localization:getText("Spec", "greeting_formal")
 				expect(greeting).to.equal("Hola")
 
-				if FFlagDevFrameworkLocalizationLibraries then
-					local farewell = localization:getProjectText(LIBRARY_PROJECT, "Spec", "farewell_formal")
-					expect(farewell).to.equal("Adios")
-				end
+				local farewell = localization:getProjectText(LIBRARY_PROJECT, "Spec", "farewell_formal")
+				expect(farewell).to.equal("Adios")
 			end)
 		end)
 
@@ -246,10 +231,8 @@ return function()
 				local greeting = localization:getText("Spec", "greeting_formal")
 				expect(greeting).to.equal("Hola")
 
-				if FFlagDevFrameworkLocalizationLibraries then
-					local farewell = localization:getProjectText(LIBRARY_PROJECT, "Spec", "farewell_formal")
-					expect(farewell).to.equal("Adios")
-				end
+				local farewell = localization:getProjectText(LIBRARY_PROJECT, "Spec", "farewell_formal")
+				expect(farewell).to.equal("Adios")
 			end)
 		end)
 	end)

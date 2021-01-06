@@ -71,13 +71,13 @@ local messageQueue = {
 		if self.displayMessageCallback then
 			self.displayMessageCallback(messageToDisplay.message)
 		end
-
-		screenTimeHttpRequests:reportExecution(messageToDisplay.instructionName, messageToDisplay.id)
 	end,
 
 	-- currently messages will be resolved on client side by user click on the "OK" button
 	resolve = function(self)
 		self.resolvedMessage[self.displaying.id] = self.displaying.message
+		-- Report execution after user interacted
+		screenTimeHttpRequests:reportExecution(self.displaying.instructionName, self.displaying.id)
 		self.displaying = nil
 		self:processNext()
 	end,

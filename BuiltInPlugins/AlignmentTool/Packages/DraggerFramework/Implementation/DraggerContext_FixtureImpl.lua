@@ -251,6 +251,16 @@ function DraggerContext:getGridSize()
 	return self._gridSize
 end
 
+function DraggerContext:snapToGridSize(distance)
+	-- Use an exact check here because we're in control of things, we can set
+	-- exactly grid size = 0 when snapping should be disabled.
+	if self._gridSize > 0 then
+		return math.floor(distance / self._gridSize + 0.5) * self._gridSize
+	else
+		return distance
+	end
+end
+
 function DraggerContext:getRotateIncrement()
 	return self._rotateIncrement
 end

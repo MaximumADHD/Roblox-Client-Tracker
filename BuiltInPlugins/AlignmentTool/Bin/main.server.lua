@@ -24,13 +24,13 @@ local MainReducer = require(Plugin.Src.Reducers.MainReducer)
 local MakeTheme = require(Plugin.Src.Resources.MakeTheme)
 local analyticsHandlers = require(Plugin.Src.Resources.AnalyticsHandlers)
 
-local EnglishStringsTable = Plugin.Src.Resources.Localization.EnglishStrings
-local TranslatedStringsTable = Plugin.Src.Resources.Localization.TranslatedStrings
+local TranslationDevelopmentTable = Plugin.Src.Resources.Localization.TranslationDevelopmentTable
+local TranslationReferenceTable = Plugin.Src.Resources.Localization.TranslationReferenceTable
 
 local localization = Localization.new({
 	pluginName = "AlignmentTool",
-	stringResourceTable = EnglishStringsTable,
-	translationResourceTable = TranslatedStringsTable,
+	stringResourceTable = TranslationDevelopmentTable,
+	translationResourceTable = TranslationReferenceTable,
 })
 
 local store = Rodux.Store.new(MainReducer, nil, { Rodux.thunkMiddleware })

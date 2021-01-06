@@ -21,20 +21,12 @@ local SetSelectedAssets = require(Plugin.Src.Actions.SetSelectedAssets)
 local GetAssetPreviewData = require(Plugin.Src.Thunks.GetAssetPreviewData)
 local OnAssetDoubleClick = require(Plugin.Src.Thunks.OnAssetDoubleClick)
 local OnAssetRightClick = require(Plugin.Src.Thunks.OnAssetRightClick)
-local DEPRECATED_OnAssetRightClick = require(Plugin.Src.Thunks.DEPRECATED_OnAssetRightClick)
 local OnAssetSingleClick = require(Plugin.Src.Thunks.OnAssetSingleClick)
-local DEPRECATED_OnAssetSingleClick = require(Plugin.Src.Thunks.DEPRECATED_OnAssetSingleClick)
 
 local AssetManagerService = game:GetService("AssetManagerService")
 local ContentProvider = game:GetService("ContentProvider")
 
-local FFlagAssetManagerFixRenameTextBox = game:DefineFastFlag("AssetManagerFixRenameTextBox", false)
-
-local FFlagStudioAssetManagerAddGridListToggle = game:GetFastFlag("StudioAssetManagerAddGridListToggle")
 local FFlagBatchThumbnailAddNewThumbnailTypes = game:GetFastFlag("BatchThumbnailAddNewThumbnailTypes")
-local FFlagStudioAssetManagerShiftMultiSelect = game:GetFastFlag("StudioAssetManagerShiftMultiSelect")
-local FFlagAssetManagerOpenContextMenu = game:GetFastFlag("AssetManagerOpenContextMenu")
-local FFlagStudioAssetManagerAddMiddleElision = game:GetFastFlag("StudioAssetManagerAddMiddleElision")
 local FFlagAssetManagerRemoveAssetFixes = game:GetFastFlag("AssetManagerRemoveAssetFixes")
 local FFlagAllowAudioBulkImport = game:GetFastFlag("AllowAudioBulkImport")
 local FFlagStudioAssetManagerAssetPreviewRequest = game:GetFastFlag("StudioAssetManagerAssetPreviewRequest")
@@ -64,11 +56,7 @@ function Tile:init()
     self.textBoxRef = Roact.createRef()
 
     self.onMouseEnter = function()
-        local props = self.props
         if self.state.StyleModifier == nil then
-            if not FFlagAssetManagerOpenContextMenu then
-                props.Mouse:__pushCursor("PointingHand")
-            end
             self:setState({
                 StyleModifier = StyleModifier.Hover,
             })
@@ -79,11 +67,7 @@ function Tile:init()
     end
 
     self.onMouseLeave = function()
-        local props = self.props
         if self.state.StyleModifier == StyleModifier.Hover then
-            if not FFlagAssetManagerOpenContextMenu then
-                props.Mouse:__popCursor()
-            end
             self:setState({
                 StyleModifier = Roact.None,
             })
@@ -100,21 +84,9 @@ function Tile:init()
         end
         local assetData = props.AssetData
         if clickCount == 0 then
-            if FFlagStudioAssetManagerShiftMultiSelect then
-                props.dispatchOnAssetSingleClick(obj, assetData)
-            else
-                if obj:IsModifierKeyDown(Enum.ModifierKey.Ctrl) then
-                    props.DEPRECATED_dispatchOnAssetSingleClick(true, assetData)
-                else
-                    props.DEPRECATED_dispatchOnAssetSingleClick(false, assetData)
-                end
-            end
+            props.dispatchOnAssetSingleClick(obj, assetData)
         elseif clickCount == 1 then
             props.dispatchOnAssetDoubleClick(props.Analytics, assetData)
-        end
-
-        if not FFlagAssetManagerOpenContextMenu then
-            props.Mouse:__popCursor()
         end
     end
 
@@ -125,32 +97,16 @@ function Tile:init()
         end
         local assetData = props.AssetData
         local isFolder = assetData.ClassName == "Folder"
-        if FFlagStudioAssetManagerShiftMultiSelect then
-            if isFolder then
-                if not props.SelectedAssets[assetData.Screen.LayoutOrder] then
-                    props.dispatchOnAssetSingleClick(nil, assetData)
-                end
-            else
-                if not props.SelectedAssets[assetData.key] then
-                    props.dispatchOnAssetSingleClick(nil, assetData)
-                end
+        if isFolder then
+            if not props.SelectedAssets[assetData.Screen.LayoutOrder] then
+                props.dispatchOnAssetSingleClick(nil, assetData)
             end
         else
-            if isFolder then
-                if not props.SelectedAssets[assetData.Screen.Key] then
-                    props.DEPRECATED_dispatchOnAssetSingleClick(false, assetData)
-                end
-            else
-                if not props.SelectedAssets[assetData.key] then
-                    props.DEPRECATED_dispatchOnAssetSingleClick(false, assetData)
-                end
+            if not props.SelectedAssets[assetData.key] then
+                props.dispatchOnAssetSingleClick(nil, assetData)
             end
         end
-        if FFlagStudioAssetManagerAddGridListToggle then
-            props.dispatchOnAssetRightClick(props)
-        else
-            props.DEPRECATED_dispatchOnAssetRightClick(props.Analytics, props.API:get(), assetData, props.Localization, props.Plugin:get())
-        end
+        props.dispatchOnAssetRightClick(props)
     end
 
     self.openAssetPreview = function()
@@ -292,7 +248,7 @@ function Tile:render()
 
     local editTextSize = GetTextSize(editText, textSize, textFont, Vector2.new(tileStyle.Size.X.Offset, math.huge))
     local editTextPadding
-    if FFlagAssetManagerFixRenameTextBox and editTextSize.X < tileStyle.Size.X.Offset then
+    if editTextSize.X < tileStyle.Size.X.Offset then
         editTextPadding = tileStyle.EditText.TextPadding
     else
         editTextPadding = 0
@@ -398,7 +354,7 @@ function Tile:render()
             Size = textFrameSize,
             Position = textFramePos,
 
-            Text = FFlagStudioAssetManagerAddMiddleElision and displayName or name,
+            Text = displayName,
             TextColor3 = textColor,
             Font = textFont,
             TextSize = textSize,
@@ -424,7 +380,7 @@ function Tile:render()
             TextSize = textSize,
 
             TextXAlignment = editTextXAlignment,
-            TextTruncate = FFlagAssetManagerFixRenameTextBox and Enum.TextTruncate.None or textTruncate,
+            TextTruncate = Enum.TextTruncate.None,
             TextWrapped = editTextWrapped,
             ClearTextOnFocus = editTextClearOnFocus,
 
@@ -466,17 +422,11 @@ local function mapDispatchToProps(dispatch)
         dispatchOnAssetDoubleClick = function(analytics, assetData)
             dispatch(OnAssetDoubleClick(analytics, assetData))
         end,
-        DEPRECATED_dispatchOnAssetRightClick = function(analytics, apiImpl, assetData, localization, plugin)
-            dispatch(DEPRECATED_OnAssetRightClick(analytics, apiImpl, assetData, localization, plugin))
-        end,
         dispatchOnAssetRightClick = function(props)
             dispatch(OnAssetRightClick(props))
         end,
         dispatchOnAssetSingleClick = function(obj, assetData)
             dispatch(OnAssetSingleClick(obj, assetData))
-        end,
-        DEPRECATED_dispatchOnAssetSingleClick = function(isCtrlKeyDown, assetData)
-            dispatch(DEPRECATED_OnAssetSingleClick(isCtrlKeyDown, assetData))
         end,
         dispatchSetEditingAssets = function(editingAssets)
             dispatch(SetEditingAssets(editingAssets))

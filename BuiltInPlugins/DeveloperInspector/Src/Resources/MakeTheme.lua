@@ -13,15 +13,13 @@ local Plugin = script.Parent.Parent.Parent
 local Framework = require(Plugin.Packages.Framework)
 
 local Util = Framework.Util
-local FlagsList = Util.Flags.new({
-	FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
-})
+local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 
 local Style = Framework.Style
 local StudioTheme = Style.Themes.StudioTheme
 local getPluginTheme = require(script.Parent.getPluginTheme)
 
-if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+if THEME_REFACTOR then
 	return function(createMock)
 		local styleRoot
 		if createMock then
@@ -33,7 +31,7 @@ if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
 		return styleRoot:extend(getPluginTheme())
 	end
 else 
-	-- TODO: DEVTOOLS-4731: Once RefactorDevFrameworkTheme is on, remove this
+	-- TODO: DEVTOOLS-4731: Once stylizer refactor is on, remove this
 	return require(script.Parent.DEPRECATED_MakeTheme)
 end
 

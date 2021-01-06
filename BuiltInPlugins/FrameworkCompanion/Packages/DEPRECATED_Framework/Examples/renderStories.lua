@@ -39,6 +39,11 @@ return function(generateStories, options)
 	for _, name in ipairs(storyNames) do
 		local story = stories[name]
 
+		if story == nil then
+			-- Story values might be nil if disabled using a FFlag, for example
+			continue
+		end
+
 		elements["Title_" .. name] = Roact.createElement(TextLabel, {
 			LayoutOrder = layoutOrderIterator:getNextOrder(),
 			Style = "Bold",

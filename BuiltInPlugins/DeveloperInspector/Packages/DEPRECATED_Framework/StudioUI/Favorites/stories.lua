@@ -1,14 +1,9 @@
-local FFlagDevFrameworkLocalizationLibraries = game:GetFastFlag("DevFrameworkLocalizationLibraries")
-
 local Framework = script.Parent.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
 
 local Favorites = require(script.Parent)
 
 return function()
-	if not FFlagDevFrameworkLocalizationLibraries then
-		return {}
-	end	
 	return {
 		LowCount = Roact.createElement(Favorites, {
 			Count = 5,

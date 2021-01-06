@@ -20,7 +20,6 @@ local FriendDropDownButton = require(script.Parent.FriendDropDownButton)
 
 local LocalPlayer = Players.LocalPlayer
 local FFlagDisableFollowInGameMenu = game:DefineFastFlag("DisableFollowInGameMenu", false)
-local FFlagPlayerShowDropDownNoEntries = game:DefineFastFlag("PlayerShowDropDownNoEntries", false)
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
@@ -246,12 +245,6 @@ function PlayerDropDown:render()
 		if self.props.inspectMenuEnabled and not disableInspectPolicy then
 			dropDownButtons["InspectButton"] = self:createInspectButton()
 			dropDownHeight = dropDownHeight + layoutValues.DropDownButtonPadding + layoutValues.DropDownButtonSizeY
-		end
-
-		if not FFlagPlayerShowDropDownNoEntries then
-			if dropDownHeight <= dropDownHeaderHeight then
-				self.props.closeDropDown()
-			end
 		end
 
 		dropDownHeight = dropDownHeight - layoutValues.DropDownButtonPadding

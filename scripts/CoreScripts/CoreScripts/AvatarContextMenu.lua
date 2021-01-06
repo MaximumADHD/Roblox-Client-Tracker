@@ -261,7 +261,7 @@ end
 function shouldIgnoreLocalCharacter()
 	if LocalPlayer.Character then
 		local head = LocalPlayer.Character:FindFirstChild("Head")
-		if head then
+		if head and head:IsA("BasePart") then
 			-- This will be true if the player is in first person.
 			return head.LocalTransparencyModifier >= 0.95
 		end

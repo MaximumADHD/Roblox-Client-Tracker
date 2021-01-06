@@ -14,10 +14,6 @@ local MainReducer = require(Plugin.Src.Reducers.MainReducer)
 local ContextServices = require(Plugin.Packages.Framework).ContextServices
 
 local Framework = require(Plugin.Packages.Framework)
-local Util = Framework.Util
-local FlagsList = Util.Flags.new({
-	FFlagDevFrameworkLocalizationLibraries = {"DevFrameworkLocalizationLibraries"},
-})
 
 local StudioUI = Framework.StudioUI
 local DockWidget = StudioUI.DockWidget
@@ -74,12 +70,12 @@ function MainPlugin:init(props)
 			stringResourceTable = TranslationDevelopmentTable,
 			translationResourceTable = TranslationReferenceTable,
 			pluginName = "FrameworkCompanion",
-			libraries = FlagsList:get("FFlagDevFrameworkLocalizationLibraries") and {
+			libraries = {
 				[Framework.Resources.LOCALIZATION_PROJECT_NAME] = {
 					stringResourceTable = Framework.Resources.TranslationDevelopmentTable,
 					translationResourceTable = Framework.Resources.TranslationReferenceTable,
 				},
-			} or nil,
+			},
 		}),
 		PluginActions.new(
 			props.Plugin,

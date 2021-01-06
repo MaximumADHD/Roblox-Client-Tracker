@@ -1,8 +1,9 @@
 local FFlagCGELocalizeWindowTitle = game:DefineFastFlag("CGELocalizeWindowTitle", false)
 local FFlagFixCGECursor = game:DefineFastFlag("FixCGECursor", false)
 
-local Roact = require(script.Parent.Parent.modules.Roact)
-local Gui = require(script.Parent.Parent.Plugin.Components.Gui)
+local Root = script.Parent.Parent
+local Roact = require(Root.modules.Roact)
+local Gui = require(Root.Plugin.Components.Gui)
 
 local MinX = 128
 local MinY = 256
@@ -12,6 +13,9 @@ local Opened = false
 local AnalyticsService = game:GetService("RbxAnalyticsService")
 
 local FFlagSupportPluginDebugging = settings():GetFFlag("SupportPluginDebugging")
+local FFlagEnableRoactInspector = settings():GetFFlag("EnableRoactInspector")
+
+local hasInternalPermission = game:GetService("StudioService"):HasInternalPermission()
 
 local function reportOpening()
 	if Opened then return end
@@ -58,6 +62,7 @@ end
 
 local Window = nil
 local RoactHandle = nil
+local inspector
 
 local function handleDMSession(dmSession)
 	if (Window == nil) then 
@@ -84,7 +89,10 @@ local function handleDMSession(dmSession)
 		Window:GetPropertyChangedSignal("Enabled"):connect(function(property)
 			updateButtonActive(Button, Window)
 		end)
-
+		if FFlagEnableRoactInspector and hasInternalPermission then
+			local DeveloperTools = require(Root.Packages.Dev.DeveloperTools)
+			inspector = DeveloperTools.forStandalonePlugin("CollisionGroupsEditor", plugin, Window)
+		end
 		if FFlagCGELocalizeWindowTitle then
 			RoactHandle = Roact.mount(
 				Roact.createElement(Gui, {
@@ -104,6 +112,9 @@ local function handleDMSession(dmSession)
 				Window,
 				"CollisionGroupEditorGui"
 			)	
+		end
+		if inspector then
+			inspector:addRoactTree("Roact tree", RoactHandle)
 		end
 	end
 
@@ -132,15 +143,24 @@ if (FFlagSupportPluginDebugging) then
 	end
 end
 
--- If place session ends and we have a gui, destroy it.
-plugin.MultipleDocumentInterfaceInstance.DataModelSessionEnded:connect(function(dmSession)
+local function destroyWindow()
 	if (Window ~= nil) then 
 		Roact.unmount(RoactHandle)
 		RoactHandle = nil
 		Window:Destroy()
 		Window = nil
+		if inspector then
+			inspector:destroy()
+		end
 	end
-end)
+end
+
+if FFlagEnableRoactInspector then
+	plugin.Unloading:connect(destroyWindow)
+end
+
+-- If place session ends and we have a gui, destroy it.
+plugin.MultipleDocumentInterfaceInstance.DataModelSessionEnded:connect(destroyWindow)
 
 function onClicked()
 	-- Theoretically not possible, the button isn't available to users unless 

@@ -23,6 +23,7 @@ local FFlagDragFaceInstances = game:GetFastFlag("DragFaceInstances")
 local FFlagFixGroupPackagesCategoryInToolbox = game:GetFastFlag("FixGroupPackagesCategoryInToolbox")
 local FFlagEnableDefaultSortFix2 = game:GetFastFlag("EnableDefaultSortFix2")
 local FFlagToolboxInsertAllAssetsAsync = game:DefineFastFlag("ToolboxInsertAllAssetsAsync", false)
+local FFlagToolboxPreventCameraMoveForScripts = game:GetFastFlag("ToolboxPreventCameraMoveForScripts", false)
 
 local INSERT_MAX_SEARCH_DEPTH = 2048
 local INSERT_MAX_DISTANCE_AWAY = 64
@@ -121,28 +122,55 @@ local function insertAsset(assetId, assetName, insertToolPromise)
 
 			newSelection[#newSelection + 1] = o
 		end
+		if FFlagToolboxPreventCameraMoveForScripts then
+			if model then
+				if #model:GetChildren() > 0 then
+					model:MoveTo(insertPosition)
+					local modelCf, size = model:GetBoundingBox()
 
-		if model and #model:GetChildren() > 0 then
-			model:MoveTo(insertPosition)
+					if size.Magnitude > 0 then
 
-			local camera = Workspace.CurrentCamera
-			local cameraCf = camera.CFrame
-			local modelCf, size = model:GetBoundingBox()
+						local camera = Workspace.CurrentCamera
+						local cameraCf = camera.CFrame
 
-			local cameraDistAway = size.magnitude * INSERT_CAMERA_DIST_MULT
-			local dir = (cameraCf.p - modelCf.p).unit
+						local cameraDistAway = size.Magnitude * INSERT_CAMERA_DIST_MULT
+						local dir = (cameraCf.p - modelCf.p).unit
 
-			camera.CFrame = CFrame.new(modelCf.p + (cameraDistAway * dir))
-			camera.Focus = CFrame.new(modelCf.p)
+						camera.CFrame = CFrame.new(modelCf.p + (cameraDistAway * dir))
+						camera.Focus = CFrame.new(modelCf.p)
+					end
 
-			for _, o in ipairs(model:GetChildren()) do
-				o.Parent = model.Parent
+					for _, o in ipairs(model:GetChildren()) do
+						o.Parent = model.Parent
+					end
+				end
+
+				model:Destroy()
+			end
+		else
+			if model and #model:GetChildren() > 0 then
+				model:MoveTo(insertPosition)
+
+				local camera = Workspace.CurrentCamera
+				local cameraCf = camera.CFrame
+				local modelCf, size = model:GetBoundingBox()
+
+				local cameraDistAway = size.magnitude * INSERT_CAMERA_DIST_MULT
+				local dir = (cameraCf.p - modelCf.p).unit
+
+				camera.CFrame = CFrame.new(modelCf.p + (cameraDistAway * dir))
+				camera.Focus = CFrame.new(modelCf.p)
+
+				for _, o in ipairs(model:GetChildren()) do
+					o.Parent = model.Parent
+				end
+			end
+
+			if model then
+				model:Destroy()
 			end
 		end
 
-		if model then
-			model:Destroy()
-		end
 		Selection:Set(newSelection)
 
 		return newSelection

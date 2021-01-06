@@ -4,11 +4,9 @@ local CorePackages = game:GetService("CorePackages")
 local GetFFlagLuaAppUseNewUIBloxRoundedCorners = require(CorePackages.UIBloxFlags.GetFFlagLuaAppUseNewUIBloxRoundedCorners)
 local GetFFlagLuaFixItemTilePremiumIcon = require(CorePackages.UIBloxFlags.GetFFlagLuaFixItemTilePremiumIcon)
 local GetFFlagLuaUIBloxGamepadSupport = require(CorePackages.UIBloxFlags.GetFFlagLuaUIBloxGamepadSupport)
-local GetFFlagUIBloxRefactorCreateImageSetComponent = require(CorePackages.UIBloxFlags.GetFFlagUIBloxRefactorCreateImageSetComponent)
 
 return {
 	useNewUICornerRoundedCorners = GetFFlagLuaAppUseNewUIBloxRoundedCorners(),
 	fixItemTilePremiumIcon = GetFFlagLuaFixItemTilePremiumIcon(),
 	enableExperimentalGamepadSupport = GetFFlagLuaUIBloxGamepadSupport(),
-	refactorCreateImageSetComponent = GetFFlagUIBloxRefactorCreateImageSetComponent(),
 }

@@ -13,8 +13,6 @@ local CurrentStatus = require(Plugin.Src.Util.CurrentStatus)
 local SaveState = require(Plugin.Src.Util.SaveState)
 local Promise = require(Plugin.Promise)
 
-local FFlagStudioGameSettingsOnlySaveModifiedPages = game:DefineFastFlag("StudioGameSettingsOnlySaveModifiedPages", false)
-
 return function()
 	return function(store)
 		local startTime = tick()
@@ -43,14 +41,8 @@ return function()
 						if saveState == SaveState.SaveFailed then
 							allSuccessful = false
 						end
-						if FFlagStudioGameSettingsOnlySaveModifiedPages then
-							if saveState == SaveState.Saving then
-								allSaved = false
-							end
-						else
-							if saveState <= SaveState.Saving then
-								allSaved = false
-							end
+						if saveState == SaveState.Saving then
+							allSaved = false
 						end
 					end
 

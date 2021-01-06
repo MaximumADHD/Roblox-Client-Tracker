@@ -30,8 +30,6 @@ local ListItem = require(Plugin.Src.Components.ListItem)
 local SetRecentViewToggled = require(Plugin.Src.Actions.SetRecentViewToggled)
 local SetSelectedAssets = require(Plugin.Src.Actions.SetSelectedAssets)
 
-local FFlagStudioAssetManagerAddGridListToggle = game:GetFastFlag("StudioAssetManagerAddGridListToggle")
-local FFlagStudioAssetManagerUXFixes = game:GetFastFlag("StudioAssetManagerUXFixes")
 
 local RecentlyImportedView = Roact.PureComponent:extend("RecentlyImportedView")
 
@@ -104,12 +102,10 @@ function RecentlyImportedView:render()
         RecentlyImportedViewLayout = Roact.createElement("UIListLayout", {
             Padding = UDim.new(0, 0),
             FillDirection = Enum.FillDirection.Vertical,
-            VerticalAlignment = FFlagStudioAssetManagerAddGridListToggle and nil or
-                Enum.VerticalAlignment.Center,
             SortOrder = Enum.SortOrder.LayoutOrder,
         }),
 
-        RecentlyImportedViewBar = FFlagStudioAssetManagerUXFixes and Roact.createElement("ImageButton", {
+        RecentlyImportedViewBar = Roact.createElement("ImageButton", {
             Size = UDim2.new(1, 0, 0, recentViewTheme.Bar.Height),
             LayoutOrder = layoutIndex:getNextOrder(),
             ZIndex = 100,
@@ -125,8 +121,6 @@ function RecentlyImportedView:render()
             RecentlyImportedViewBarLayout = Roact.createElement("UIListLayout", {
                 Padding = UDim.new(0, recentViewTheme.Bar.Padding),
                 FillDirection = Enum.FillDirection.Horizontal,
-                VerticalAlignment = FFlagStudioAssetManagerAddGridListToggle and nil or
-                Enum.VerticalAlignment.Center,
                 SortOrder = Enum.SortOrder.LayoutOrder,
             }),
 
@@ -160,62 +154,6 @@ function RecentlyImportedView:render()
                     BackgroundTransparency = 1,
                     ImageColor3 = recentViewTheme.Bar.Arrow.Color,
                 })),
-            }),
-        }),
-
-        DEPRECATED_RecentlyImportedViewBar = not FFlagStudioAssetManagerUXFixes and Roact.createElement("Frame", {
-            Size = UDim2.new(1, 0, 0, recentViewTheme.Bar.Height),
-            LayoutOrder = layoutIndex:getNextOrder(),
-            ZIndex = 100,
-
-            BackgroundColor3 = recentViewTheme.Bar.BackgroundColor,
-            BorderColor3 = theme.BorderColor,
-            BorderSizePixel = 1,
-        }, {
-            RecentlyImportedViewBarLayout = Roact.createElement("UIListLayout", {
-                Padding = UDim.new(0, recentViewTheme.Bar.Padding),
-                FillDirection = Enum.FillDirection.Horizontal,
-                VerticalAlignment = FFlagStudioAssetManagerAddGridListToggle and nil or
-                Enum.VerticalAlignment.Center,
-                SortOrder = Enum.SortOrder.LayoutOrder,
-            }),
-
-            GameBarPadding = Roact.createElement("UIPadding", {
-                PaddingLeft = UDim.new(0, recentViewTheme.Bar.Padding),
-            }),
-
-            RecentlyImportedViewBarText = Roact.createElement("TextLabel", {
-                Size = UDim2.new(1, -recentViewTheme.Bar.Button.Size - recentViewTheme.Bar.Padding, 1, 0),
-                LayoutOrder = 0,
-
-                BackgroundTransparency = 1,
-
-                Text = recentlyImportedViewText,
-                TextColor3 = theme.TextColor,
-                TextSize = theme.FontSizeSmall,
-                Font = theme.Font,
-                TextXAlignment = Enum.TextXAlignment.Left,
-            }),
-
-            RecentlyImportedViewBarToggleButton = Roact.createElement(Button, {
-                Size = UDim2.new(0, recentViewTheme.Bar.Button.Size, 0, recentViewTheme.Bar.Button.Size),
-                AnchorPoint = Vector2.new(0.5, 0.5),
-                LayoutOrder = 1,
-
-                Style = recentViewToggled and "DownButton" or "UpButton",
-
-                OnClick = function()
-                    if enabled then
-                        dispatchSetRecentViewToggled(not recentViewToggled)
-                        dispatchSetSelectedAssets({})
-                    end
-                end,
-            }, {
-                HoverArea = enabled and Roact.createElement(HoverArea, {
-                    Cursor = "PointingHand",
-                    MouseEnter = self.mouseEnter,
-                    MouseLeave = self.mouseLeave,
-                }),
             }),
         }),
 

@@ -20,7 +20,7 @@ function LcovReporter.generate(files, includeFilter)
                 end
             end
             table.insert(report, ("LH:%d"):format(file.hits))
-            table.insert(report, ("LF:%d"):format(file.hits, file.misses))
+            table.insert(report, ("LF:%d"):format(file.hits + file.misses))
             table.insert(report, "end_of_record")
         end
     end

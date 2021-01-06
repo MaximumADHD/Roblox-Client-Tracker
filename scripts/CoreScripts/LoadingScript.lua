@@ -30,7 +30,6 @@ local FFlagShowConnectionErrorCode = settings():GetFFlag("ShowConnectionErrorCod
 local FFlagConnectionScriptEnabled = settings():GetFFlag("ConnectionScriptEnabled")
 
 local antiAddictionNoticeStringEn = "Boycott bad games, refuse pirated games. Be aware of self-defense and being deceived. Playing games is good for your brain, but too much game play can harm your health. Manage your time well and enjoy a healthy lifestyle."
-local FFlagDisableAutoTranslateForKeyTranslatedContent = require(RobloxGui.Modules.Flags.FFlagDisableAutoTranslateForKeyTranslatedContent)
 local FFlagConnectErrorHandlerInLoadingScript = require(RobloxGui.Modules.Flags.FFlagConnectErrorHandlerInLoadingScript)
 
 local debugMode = false
@@ -598,7 +597,7 @@ local function GenerateGui()
 		infoFrameList:ApplyLayout()
 
 		placeLabel.TextXAlignment = Enum.TextXAlignment.Center
-		placeLabel.AutoLocalize = not FFlagDisableAutoTranslateForKeyTranslatedContent
+		placeLabel.AutoLocalize = false
 	end
 	onResized()
 	screenGui:GetPropertyChangedSignal("AbsoluteSize"):connect(onResized)

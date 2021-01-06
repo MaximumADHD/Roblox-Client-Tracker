@@ -69,9 +69,6 @@ local TextLabel = Decoration.TextLabel
 local Image = Decoration.Image
 
 local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
-local FlagsList = Util.Flags.new({
-	FFlagDevFrameworkLocalizationLibraries = {"DevFrameworkLocalizationLibraries"},
-})
 
 local COMPONENT_NAME = "AssetPreview"
 
@@ -79,10 +76,6 @@ local AssetPreview = Roact.PureComponent:extend(COMPONENT_NAME)
 Typecheck.wrap(AssetPreview, script)
 
 function AssetPreview:init()
-	if not FlagsList:get("FFlagDevFrameworkLocalizationLibraries") then
-		error("FFlagDevFrameworkLocalizationLibraries must be true to use the AssetPreview component")
-	end
-
 	self.containerRef = Roact.createRef()
 
 	self.state = {

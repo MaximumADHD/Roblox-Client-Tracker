@@ -37,8 +37,9 @@ local FFlagPluginManagementFixWhiteScreen = game:DefineFastFlag("PluginManagemen
 
 local makeTheme
 
-local FlagsListFile = require(Plugin.Src.Util.FlagsList)
-if FlagsListFile:get("FFlagRefactorDevFrameworkTheme") then
+local THEME_REFACTOR = require(Plugin.Packages.Framework).Util.RefactorFlags.THEME_REFACTOR
+
+if THEME_REFACTOR then
 	makeTheme = require(Plugin.Src.Resources.makeTheme2)
 else
 	makeTheme = require(Plugin.Src.Resources.makeTheme)
@@ -61,7 +62,7 @@ function ManagementApp:init()
 	})
 
 	self.theme = nil
-	if FlagsListFile:get("FFlagRefactorDevFrameworkTheme") then
+	if THEME_REFACTOR then
 		self.theme = makeTheme
 	else
 		self.theme = makeTheme()
@@ -77,12 +78,6 @@ function ManagementApp:init()
 		self:setState({
 			enabled = false,
 		})
-	end
-
-	self.onAncestryChanged = function(_, _, parent)
-		if not parent and self.props.onPluginWillDestroy then
-			self.props.onPluginWillDestroy()
-		end
 	end
 
 	if FFlagPluginManagementFixWhiteScreen then

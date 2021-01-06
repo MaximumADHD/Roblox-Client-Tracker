@@ -9,6 +9,7 @@ local Plugin = script.Parent.Parent.Parent
 
 local getFFlagBoundingBoxRefactor = require(Plugin.Src.Flags.getFFlagBoundingBoxRefactor)
 local getFFlagAlignInLocalSpace = require(Plugin.Src.Flags.getFFlagAlignInLocalSpace)
+local getFFlagAlignToolNarrowUI = require(Plugin.Src.Flags.getFFlagAlignToolNarrowUI)
 
 local DraggerFramework = Plugin.Packages.DraggerFramework
 local BoundingBox = require(DraggerFramework.Utility.BoundingBox)
@@ -31,12 +32,13 @@ local LayoutOrderIterator = Util.LayoutOrderIterator
 local StyleModifier = Util.StyleModifier
 
 local SetAlignableObjects = require(Plugin.Src.Actions.SetAlignableObjects)
-local AxesSection = require(Plugin.Src.Components.AxesSection)
+local AlignmentSettings = require(Plugin.Src.Components.AlignmentSettings)
+local AxesSection = require(Plugin.Src.Components.AxesSection) -- TODO: Remove component with FFlagAlignToolNarrowUI
 local DebugView = require(Plugin.Src.Components.DebugView)
 local InfoLabel = require(Plugin.Src.Components.InfoLabel)
-local ModeSection = require(Plugin.Src.Components.ModeSection)
+local ModeSection = require(Plugin.Src.Components.ModeSection) -- TODO: Remove component with FFlagAlignToolNarrowUI
 local AlignObjectsPreview = require(Plugin.Src.Components.AlignObjectsPreview)
-local RelativeToSection = require(Plugin.Src.Components.RelativeToSection)
+local RelativeToSection = require(Plugin.Src.Components.RelativeToSection) -- TODO: Remove component with FFlagAlignToolNarrowUI
 local UpdateAlignEnabled = require(Plugin.Src.Thunks.UpdateAlignEnabled)
 local UpdateAlignment = require(Plugin.Src.Thunks.UpdateAlignment)
 
@@ -96,17 +98,21 @@ function MainView:render()
 			SortOrder = Enum.SortOrder.LayoutOrder,
 		}),
 
-		ModeSection = Roact.createElement(ModeSection, {
+		AlignmentSettings = getFFlagAlignToolNarrowUI() and Roact.createElement(AlignmentSettings, {
 			LayoutOrder = layoutOrderIterator:getNextOrder(),
-		}),
+		}) or nil,
 
-		AxesSection = Roact.createElement(AxesSection, {
+		ModeSection = not getFFlagAlignToolNarrowUI() and Roact.createElement(ModeSection, {
 			LayoutOrder = layoutOrderIterator:getNextOrder(),
-		}),
+		}) or nil,
 
-		RelativeToSection = Roact.createElement(RelativeToSection, {
+		AxesSection = not getFFlagAlignToolNarrowUI() and Roact.createElement(AxesSection, {
 			LayoutOrder = layoutOrderIterator:getNextOrder(),
-		}),
+		}) or nil,
+
+		RelativeToSection = not getFFlagAlignToolNarrowUI() and Roact.createElement(RelativeToSection, {
+			LayoutOrder = layoutOrderIterator:getNextOrder(),
+		}) or nil,
 
 		InfoLabel = Roact.createElement(InfoLabel, {
 			LayoutOrder = layoutOrderIterator:getNextOrder(),
@@ -116,13 +122,15 @@ function MainView:render()
 
 		ButtonContainer = Roact.createElement(Container, {
 			LayoutOrder = layoutOrderIterator:getNextOrder(),
-			Padding = theme.MainView.ButtonContainerPadding,
-			Size = UDim2.new(1, 0, 0, 22),
+			Padding = not getFFlagAlignToolNarrowUI() and theme.MainView.ButtonContainerPadding or nil,
+			Size = getFFlagAlignToolNarrowUI() and UDim2.new(1, 0, 0, theme.MainView.PrimaryButtonSize.Y.Offset)
+				or UDim2.new(1, 0, 0, 22)
 		}, {
 			Button = Roact.createElement(Button, {
 				AnchorPoint = Vector2.new(0.5, 0),
 				Position = UDim2.new(0.5, 0, 0, 0),
-				Size = theme.MainView.PrimaryButtonSize,
+				Size = getFFlagAlignToolNarrowUI() and UDim2.new(0, theme.MainView.PrimaryButtonSize.X.Offset, 1, 0)
+					or theme.MainView.PrimaryButtonSize,
 				Style = "RoundPrimary",
 				StyleModifier = not enabled and StyleModifier.Disabled,
 				Text = localization:getText("MainView", "AlignButton"),

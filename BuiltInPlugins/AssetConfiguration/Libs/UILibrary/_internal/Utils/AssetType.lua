@@ -1,5 +1,4 @@
 -- TODO DEVTOOLS-4549: Remove in favour of DevFramework
-local FFlagStudioFixMeshPartPreview = game:DefineFastFlag("StudioFixMeshPartPreview", false)
 local FFlagEnableToolboxVideos = game:GetFastFlag("EnableToolboxVideos")
 
 local AssetType = {}
@@ -47,9 +46,7 @@ local classTypeMap = {
 	BaseScript = AssetType.TYPES.ScriptType,
 }
 
-if FFlagStudioFixMeshPartPreview then
-	classTypeMap.MeshPart = AssetType.TYPES.ModelType
-end
+classTypeMap.MeshPart = AssetType.TYPES.ModelType
 
 -- For AssetPreview, we divide assets into four categories.
 -- For any parts or meshes, we will need to do a model preview.

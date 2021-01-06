@@ -3,13 +3,10 @@
 ]]
 
 -- Fast flags
-require(script.Parent.defineLuaFlags)
-local FFlagEnableLocalizationToolsStylizer = game:GetFastFlag("EnableLocalizationToolsStylizer")
 local main = script.Parent.Parent
 local Roact = require(main.Packages.Roact)
 
-local RefactorFlags = require(main.Packages.Framework.Util.RefactorFlags)
-RefactorFlags.THEME_REFACTOR = FFlagEnableLocalizationToolsStylizer
+require(script.Parent.defineLuaFlags)
 
 local MainPlugin = require(main.Src.MainPlugin)
 local handle

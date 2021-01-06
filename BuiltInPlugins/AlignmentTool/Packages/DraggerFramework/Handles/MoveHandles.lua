@@ -12,6 +12,8 @@ local MoveHandleView = require(DraggerFramework.Components.MoveHandleView)
 
 local EngineFeatureEditPivot = require(DraggerFramework.Flags.getEngineFeatureEditPivot)()
 
+local getFFlagNoSnapLimit = require(DraggerFramework.Flags.getFFlagNoSnapLimit)
+
 local ALWAYS_ON_TOP = true
 
 local MoveHandles = {}
@@ -45,6 +47,7 @@ local MoveHandleDefinitions = {
 }
 
 local function snapToGridSize(distance, gridSize)
+	assert(not getFFlagNoSnapLimit())
 	return math.floor(distance / gridSize + 0.5) * gridSize
 end
 
@@ -318,7 +321,12 @@ function MoveHandles:mouseDrag(mouseRay)
 
 	-- Apply snapping unconditionally because free axis movement in studio is
 	-- implemented as snapping with grid size = 0.001.
-	local snappedDelta = snapToGridSize(delta, self._draggerContext:getGridSize())
+	local snappedDelta;
+	if getFFlagNoSnapLimit() then
+		snappedDelta = self._draggerContext:snapToGridSize(delta)
+	else
+		snappedDelta = snapToGridSize(delta, self._draggerContext:getGridSize())
+	end
 
 	-- Let the implementation figure out what global transform can actually be
 	-- applied (because there may be collisions / constraints involved)

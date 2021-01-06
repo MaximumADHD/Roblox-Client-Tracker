@@ -4,7 +4,4 @@
 -- And then error when trying to use flags that aren't yet defined
 -- In most circumstances flags should be initialized to false
 
--- New Plugin Setup: Uncomment and rename fflag
--- game:DefineFastFlag("YourFlagHere", false)
-
 return nil

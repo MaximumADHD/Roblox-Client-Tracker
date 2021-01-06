@@ -375,6 +375,8 @@ local function MakeSlot(parent, index)
 
 			if icon ~= "" then
 				ToolName.Visible = false
+			else
+				ToolName.Visible = true
 			end
 
 			GameTranslator:TranslateAndRegister(ToolName, tool, tool.Name)

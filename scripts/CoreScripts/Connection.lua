@@ -13,7 +13,7 @@ local ErrorPrompt = require(RobloxGui.Modules.ErrorPrompt)
 local Url = require(RobloxGui.Modules.Common.Url)
 local PolicyService = require(RobloxGui.Modules.Common.PolicyService)
 
-local fflagEnableErrorStringTesting = game:DefineFastFlag("EnableErrorStringTesting", false)
+local fflagDebugEnableErrorStringTesting = game:DefineFastFlag("DebugEnableErrorStringTesting", false)
 local fflagShouldMuteUnlocalizedError = game:DefineFastFlag("ShouldMuteUnlocalizedError", false)
 
 -- After 2 hours, disable reconnect after the failure of first try
@@ -38,8 +38,6 @@ local defaultTimeoutTime  = safeGetFInt("DefaultTimeoutTimeMs", 10000) / 1000
 -- when this flag turns on, all the errors will not have reconnect option
 local reconnectDisabled = settings():GetFFlag("ReconnectDisabled")
 local reconnectDisabledReason = safeGetFString("ReconnectDisabledReason", "We're sorry, Roblox is temporarily unavailable.  Please try again later.")
-
-local FFlagDisableAutoTranslateForKeyTranslatedContent = require(RobloxGui.Modules.Flags.FFlagDisableAutoTranslateForKeyTranslatedContent)
 
 local lastErrorTimeStamp = tick()
 
@@ -108,7 +106,7 @@ local screenGui = create 'ScreenGui' {
 	Name = "RobloxPromptGui",
 	OnTopOfCoreBlur = true,
 	DisplayOrder = 9,
-	AutoLocalize = not FFlagDisableAutoTranslateForKeyTranslatedContent,
+	AutoLocalize = false,
 }
 
 -- semi-transparent frame overlay
@@ -294,7 +292,7 @@ local function onEnter(newState)
 	if not errorPrompt then
 		local extraConfiguration = {
 			MenuIsOpenKey = "ConnectionErrorPrompt",
-			PlayAnimation = not fflagEnableErrorStringTesting
+			PlayAnimation = not fflagDebugEnableErrorStringTesting
 		}
 		errorPrompt = ErrorPrompt.new("Default", extraConfiguration)
 		errorPrompt:setParent(promptOverlay)
@@ -470,7 +468,7 @@ LocalizationService:GetPropertyChangedSignal("RobloxLocaleId"):connect(onLocaleI
 onErrorMessageChanged()
 GuiService.ErrorMessageChanged:connect(onErrorMessageChanged)
 
-if fflagEnableErrorStringTesting then
+if fflagDebugEnableErrorStringTesting then
 	local testingSet = require(RobloxGui.Modules.ErrorTestSets)
 	for errorType, errorList in pairs(testingSet) do
 		for _, errorCode in pairs(errorList) do

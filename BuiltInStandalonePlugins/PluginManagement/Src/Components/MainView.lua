@@ -5,7 +5,7 @@ local RoactRodux = require(Plugin.Packages.RoactRodux)
 local ContextServices = require(Plugin.Packages.Framework.ContextServices)
 local PluginInstalledStatus = require(Plugin.Src.Constants.PluginInstalledStatus)
 
-local FlagsList = require(Plugin.Src.Util.FlagsList)
+local THEME_REFACTOR = require(Plugin.Packages.Framework).Util.RefactorFlags.THEME_REFACTOR
 
 local MainView = Roact.Component:extend("MainView")
 
@@ -109,7 +109,7 @@ function MainView:render()
 	local pluginInfo = self.props.info
 
 	local theme
-	if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+	if THEME_REFACTOR then
 		theme = self.props.Stylizer
 	else
 		theme = self.props.Theme:get("Plugin")
@@ -134,8 +134,8 @@ end
 
 ContextServices.mapToProps(MainView, {
 	Localization = ContextServices.Localization,
-	Stylizer = FlagsList:get("FFlagRefactorDevFrameworkTheme") and ContextServices.Stylizer or nil,
-	Theme = (not FlagsList:get("FFlagRefactorDevFrameworkTheme")) and ContextServices.Theme or nil,
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
 })
 
 return RoactRodux.connect(function(state, props)

@@ -37,28 +37,10 @@ local Screens = require(Plugin.Src.Util.Screens)
 
 local NavBar = Roact.PureComponent:extend("NavBar")
 
-local DEPRECATED_previousShouldTruncate = nil
-local DEPRECATED_shouldTruncate = false
-local DEPRECATED_isTruncated = false
-
-local DEPRECATED_preTruncContentWidth = 0
-
-local DEPRECATED_previousScreen = nil
-
-local DEPRECATED_truncatedPathParts = {}
-
 local NavBarPadding = 12
-
-local FFlagStudioAssetManagerAddGridListToggle = game:GetFastFlag("StudioAssetManagerAddGridListToggle")
-local FFlagStudioAssetManagerUXFixes = game:GetFastFlag("StudioAssetManagerUXFixes")
-
--- clean up DEPRECATED_previousDEPRECATED_shouldTruncate, DEPRECATED_isTruncated, DEPRECATED_shouldTruncate with flag
-local FFlagAssetManagerFixNavBarSetState = game:GetFastFlag("AssetManagerFixNavBarSetState")
 
 function NavBar:getCurrentPath(currentScreen)
     local path = {}
-    -- remove continueTruncated with FFlagAssetManagerFixNavBarSetState
-    local continueTruncating = DEPRECATED_shouldTruncate
     local startingScreen = currentScreen
 
     local isFolderScreen = currentScreen.Key == Screens.MAIN.Key
@@ -66,23 +48,13 @@ function NavBar:getCurrentPath(currentScreen)
     local navBarWidth = self.NavBar.current and self.NavBar.current.AbsoluteSize.X or 0
 
     while currentScreen ~= nil do
-        if FFlagAssetManagerFixNavBarSetState then
-            if self.state.contentWidth + NavBarPadding > navBarWidth then
-                self.preTruncContentWidth = self.state.contentWidth
-                if (currentScreen.Key ~= startingScreen.Key or isFolderScreen) and not self.truncatedPathParts[currentScreen.Key] then
-                    self.truncatedPathParts[currentScreen.Key] = true
-                end
-            elseif self.preTruncContentWidth + NavBarPadding <= navBarWidth then
-                self.truncatedPathParts = {}
+        if self.state.contentWidth + NavBarPadding > navBarWidth then
+            self.preTruncContentWidth = self.state.contentWidth
+            if (currentScreen.Key ~= startingScreen.Key or isFolderScreen) and not self.truncatedPathParts[currentScreen.Key] then
+                self.truncatedPathParts[currentScreen.Key] = true
             end
-        else
-            if continueTruncating then
-                if (currentScreen.Key ~= startingScreen.Key or isFolderScreen) and not DEPRECATED_truncatedPathParts[currentScreen.Key] then
-                    DEPRECATED_truncatedPathParts[currentScreen.Key] = true
-                    continueTruncating = false
-                    DEPRECATED_isTruncated = true
-                end
-            end
+        elseif self.preTruncContentWidth + NavBarPadding <= navBarWidth then
+            self.truncatedPathParts = {}
         end
         table.insert(path, 1, currentScreen)
 
@@ -114,16 +86,11 @@ function NavBar:buildPathComponents(props, theme, localization, dispatch)
         or localization:getText("NavBar", "GamePlaceholderName")
         local pathPartText = isTopLevel and gameName or localization:getText("Folders", screen.Key)
 
-        local textTruncate
-        if FFlagAssetManagerFixNavBarSetState then
-            textTruncate = self.truncatedPathParts[screen.Key] and Enum.TextTruncate.AtEnd or nil
-        else
-            textTruncate = DEPRECATED_truncatedPathParts[screen.Key] and Enum.TextTruncate.AtEnd or nil
-        end
+        local textTruncate = self.truncatedPathParts[screen.Key] and Enum.TextTruncate.AtEnd or nil
 
         local size = nil
 
-        if FFlagAssetManagerFixNavBarSetState and self.truncatedPathParts[screen.Key] or DEPRECATED_truncatedPathParts[screen.Key] then
+        if self.truncatedPathParts[screen.Key] then
             size = UDim2.new(theme.NavBar.TruncatedTextScale, 0, 1, 0)
         end
 
@@ -137,7 +104,7 @@ function NavBar:buildPathComponents(props, theme, localization, dispatch)
             OnClick = function()
                 if not isStartingElement then
                     dispatch(true, screen)
-                    if FFlagStudioAssetManagerAddGridListToggle and recentViewToggled then
+                    if recentViewToggled then
                         dispatchSetRecentViewToggled(false)
                     end
                 end
@@ -166,12 +133,7 @@ function NavBar:buildPathComponents(props, theme, localization, dispatch)
         end
 
         if startingScreenKey == Screens.MAIN.Key then
-            local gameIDText
-            if FFlagStudioAssetManagerUXFixes then
-                gameIDText = "[" .. localization:getText("NavBar", "ID", {gameId = game.GameId}) .. "]"
-            else
-                gameIDText = localization:getText("NavBar", "ID", {gameId = game.GameId})
-            end
+            local gameIDText = "[" .. localization:getText("NavBar", "ID", {gameId = game.GameId}) .. "]"
 
             local textExtents = GetTextSize(gameIDText, theme.FontSizeMedium, theme.Font)
             local textDimensions = UDim2.fromOffset(textExtents.X, textExtents.Y)
@@ -180,7 +142,7 @@ function NavBar:buildPathComponents(props, theme, localization, dispatch)
                 Size = textDimensions,
                 BackgroundTransparency = 1,
                 Text = gameIDText,
-                TextColor3 = FFlagStudioAssetManagerUXFixes and theme.SubTextColor or theme.DisabledColor,
+                TextColor3 = theme.SubTextColor,
                 TextSize = theme.FontSizeSmall,
                 Font = theme.Font,
                 LayoutOrder = layoutIndex:getNextOrder(),
@@ -204,61 +166,22 @@ function NavBar:init()
 
     self.Layout = Roact.createRef()
     self.NavBar = Roact.createRef()
-
-    self.DEPRECATED_recalculateTextTruncation = function()
-        assert(not FFlagAssetManagerFixNavBarSetState)
-        if not DEPRECATED_previousScreen then
-            return
-        end
-
-        DEPRECATED_previousShouldTruncate = DEPRECATED_shouldTruncate
-
-        local shouldRerender = false
-
-        local contentWidth = self.Layout.current and self.Layout.current.AbsoluteContentSize.X or 0
-        local navBarWidth = self.NavBar.current and self.NavBar.current.AbsoluteSize.X or 0
-
-        -- content doesn't fit on screen
-        if contentWidth + NavBarPadding > navBarWidth then
-            DEPRECATED_preTruncContentWidth = contentWidth
-            DEPRECATED_shouldTruncate = true
-        -- screen is now wide enough to fit pre-truncated content
-        elseif DEPRECATED_isTruncated and DEPRECATED_preTruncContentWidth <= navBarWidth then
-            DEPRECATED_shouldTruncate = false
-            shouldRerender = true
-            DEPRECATED_isTruncated = false
-            DEPRECATED_truncatedPathParts = {}
-        end
-
-        if DEPRECATED_previousScreen.Key ~= self.props.CurrentScreen.Key then
-            DEPRECATED_truncatedPathParts = {}
-            shouldRerender = true
-        end
-
-        if DEPRECATED_previousShouldTruncate ~= DEPRECATED_shouldTruncate or shouldRerender then
-            self:setState({})
-        end
-    end
 end
 
 function NavBar:didMount()
-    if FFlagAssetManagerFixNavBarSetState then
-        self:setState({
-            contentWidth = self.Layout.current and self.Layout.current.AbsoluteContentSize.X or 0,
-        })
-    end
+    self:setState({
+        contentWidth = self.Layout.current and self.Layout.current.AbsoluteContentSize.X or 0,
+    })
 end
 
 function NavBar:didUpdate()
     local props = self.props
     local screen = props.CurrentScreen
-    if FFlagAssetManagerFixNavBarSetState then
-        if screen ~= self.state.currentScreen then
-            self:setState({
-                currentScreen = screen,
-                contentWidth = self.Layout.current and self.Layout.current.AbsoluteContentSize.X or 0,
-            })
-        end
+    if screen ~= self.state.currentScreen then
+        self:setState({
+            currentScreen = screen,
+            contentWidth = self.Layout.current and self.Layout.current.AbsoluteContentSize.X or 0,
+        })
     end
 end
 
@@ -272,9 +195,6 @@ function NavBar:render()
 
     local dispatchSetScreen = props.dispatchSetScreen
 
-    if not FFlagAssetManagerFixNavBarSetState then
-        self:DEPRECATED_recalculateTextTruncation()
-    end
     local navPathComponents = self:buildPathComponents(props, theme, localization, dispatchSetScreen)
 
     local NavBarChildren = {
@@ -303,20 +223,12 @@ function NavBar:render()
             BorderSizePixel = 0,
 
             [Roact.Change.AbsoluteSize] = function()
-                if FFlagAssetManagerFixNavBarSetState then
-                    self:setState({
-                        contentWidth = self.Layout.current and self.Layout.current.AbsoluteContentSize.X or 0,
-                    })
-                else
-                    self.DEPRECATED_recalculateTextTruncation()
-                end
+                self:setState({
+                    contentWidth = self.Layout.current and self.Layout.current.AbsoluteContentSize.X or 0,
+                })
             end,
             [Roact.Ref] = self.NavBar,
         }, NavBarChildren)
-
-    if not FFlagAssetManagerFixNavBarSetState then
-        DEPRECATED_previousScreen = props.CurrentScreen
-    end
 
     return NavBarContents
 end

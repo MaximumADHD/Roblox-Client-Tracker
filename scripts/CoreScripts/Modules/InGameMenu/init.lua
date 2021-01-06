@@ -40,9 +40,6 @@ local InGameMenuPolicy = require(script.InGameMenuPolicy)
 local GlobalConfig = require(script.GlobalConfig)
 local Constants = require(script.Resources.Constants)
 
-local FFlagDisableAutoTranslateForKeyTranslatedContent = require(
-	RobloxGui.Modules.Flags.FFlagDisableAutoTranslateForKeyTranslatedContent)
-
 local isNewGamepadMenuEnabled = require(RobloxGui.Modules.Flags.isNewGamepadMenuEnabled)
 
 local GetFFlagUseRoactPolicyProvider = require(RobloxGui.Modules.Flags.GetFFlagUseRoactPolicyProvider)
@@ -130,7 +127,7 @@ return {
 				IgnoreGuiInset = true,
 				DisplayOrder = 1,
 				ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
-				AutoLocalize = not FFlagDisableAutoTranslateForKeyTranslatedContent,
+				AutoLocalize = false,
 				[Roact.Change.AbsoluteSize] = function(rbx)
 					menuStore:dispatch(SetScreenSize(rbx.AbsoluteSize))
 				end
@@ -159,7 +156,7 @@ return {
 				IgnoreGuiInset = true,
 				DisplayOrder = 1,
 				ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
-				AutoLocalize = not FFlagDisableAutoTranslateForKeyTranslatedContent,
+				AutoLocalize = false,
 				[Roact.Change.AbsoluteSize] = function(rbx)
 					menuStore:dispatch(SetScreenSize(rbx.AbsoluteSize))
 				end

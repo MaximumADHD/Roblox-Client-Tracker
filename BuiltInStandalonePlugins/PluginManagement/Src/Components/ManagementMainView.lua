@@ -12,7 +12,7 @@ local FlagsList = Flags.new({
 
 local FFlagPluginManagementDirectlyOpenToolbox = game:GetFastFlag("PluginManagementDirectlyOpenToolbox")
 
-local FlagsListFile = require(Plugin.Src.Util.FlagsList)
+local THEME_REFACTOR = require(Plugin.Packages.Framework).Util.RefactorFlags.THEME_REFACTOR
 
 local MemStorageService = game:GetService("MemStorageService")
 local StudioService = game:GetService("StudioService")
@@ -144,7 +144,7 @@ function ManagementMainView:render()
 
 	local localization = props.Localization
 	local theme
-	if FlagsListFile:get("FFlagRefactorDevFrameworkTheme") then
+	if THEME_REFACTOR then
 		theme = self.props.Stylizer
 	else
 		theme = self.props.Theme:get("Plugin")
@@ -287,8 +287,8 @@ end
 ContextServices.mapToProps(ManagementMainView, {
 	Plugin = ContextServices.Plugin,
 	Localization = ContextServices.Localization,
-	Stylizer = FlagsListFile:get("FFlagRefactorDevFrameworkTheme") and ContextServices.Stylizer or nil,
-	Theme = (not FlagsListFile:get("FFlagRefactorDevFrameworkTheme")) and ContextServices.Theme or nil,
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
 	API = PluginAPI2,
 })
 

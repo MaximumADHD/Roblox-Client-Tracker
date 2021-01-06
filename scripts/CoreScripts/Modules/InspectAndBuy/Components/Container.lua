@@ -1,6 +1,5 @@
 local CorePackages = game:GetService("CorePackages")
 local GuiService = game:GetService("GuiService")
-local CoreGui = game:GetService("CoreGui")
 local InspectAndBuyFolder = script.Parent.Parent
 local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
@@ -10,9 +9,6 @@ local CloseButton = require(InspectAndBuyFolder.Components.CloseButton)
 local NoInventoryNotice = require(InspectAndBuyFolder.Components.NoInventoryNotice)
 local Colors = require(InspectAndBuyFolder.Colors)
 local Constants = require(InspectAndBuyFolder.Constants)
-
-local RobloxGui = CoreGui:WaitForChild("RobloxGui")
-local FFlagDisableAutoTranslateForKeyTranslatedContent = require(RobloxGui.Modules.Flags.FFlagDisableAutoTranslateForKeyTranslatedContent)
 
 local FFlagInspectAndBuyResetSelectedCoreObject = game:DefineFastFlag("InspectAndBuyResetSelectedCoreObject", false)
 
@@ -79,7 +75,7 @@ function Container:render()
 		Visible = visible,
 		Selectable = false,
 		AutoButtonColor = false,
-		AutoLocalize = not FFlagDisableAutoTranslateForKeyTranslatedContent,
+		AutoLocalize = false,
 		[Roact.Event.Activated] = function()
 			if view == Constants.View.Wide then
 				GuiService:CloseInspectMenu()

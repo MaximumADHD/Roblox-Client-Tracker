@@ -2,25 +2,12 @@
 -- If the flags are defined in main, then it's possible for the tests run first
 -- And then error when trying to use flags that aren't yet defined
 
-
-game:DefineFastFlag("AssetManagerAddAnalytics", false)
-game:DefineFastFlag("AssetManagerAddNewPlaceBehavior", false)
-game:DefineFastFlag("AssetManagerAddPlaceVerisonHistoryToContextMenu", false)
-game:DefineFastFlag("AssetManagerFixNavBarSetState", false)
 game:DefineFastFlag("AssetManagerFixRightClickForAudio", false)
-game:DefineFastFlag("AssetManagerOpenContextMenu", false)
 game:DefineFastFlag("AssetManagerRemoveAssetFixes", false)
 game:DefineFastFlag("CleanupRightClickContextMenuFunctions", false)
 game:DefineFastFlag("EnableAssetManagerStylizer", false)
-game:DefineFastFlag("FixAssetManagerInsertWithLocation", false)
-game:DefineFastFlag("OnlyAllowInsertPackageInEdit", false)
-game:DefineFastFlag("StudioAssetManagerAddGridListToggle", false)
-game:DefineFastFlag("StudioAssetManagerAddMiddleElision", false)
 game:DefineFastFlag("StudioAssetManagerAssetPreviewRequest", false)
-game:DefineFastFlag("StudioAssetManagerHideTooltipOnAssetPreview", false)
 game:DefineFastFlag("StudioAssetManagerLinkedScriptIcon", false)
-game:DefineFastFlag("StudioAssetManagerShiftMultiSelect", false)
-game:DefineFastFlag("StudioAssetManagerUXFixes", false)
 game:DefineFastFlag("UseFakeFavoriteIncrement", false)
 game:DefineFastFlag("StudioAssetManagerFetchMoreAssets", false)
 game:DefineFastInt("StudioAssetManagerAssetFetchNumber", 50)

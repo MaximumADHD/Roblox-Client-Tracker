@@ -19,6 +19,10 @@ local getPartsInGroup = require(script.Parent.Parent.Plugin.getPartsInGroup)
 local getGroups = require(script.Parent.Parent.Plugin.getGroups)
 local getSelectedGroupIds = require(script.Parent.Parent.Plugin.getSelectedGroupIds)
 
+local FFlagEnableRoactInspector = settings():GetFFlag("EnableRoactInspector")
+
+local hasInternalPermission = game:GetService("StudioService"):HasInternalPermission()
+
 local getGroupsChanged do
 	local lastGroups
 
@@ -56,152 +60,162 @@ local getGroupsChanged do
 end
 
 local function UpdateGroupsAndSelectedGroups()
-    -- Write into store a summary of existing collision groups, and which ones are selected.
-    local groups = getGroups()
-    local selectedGroupIds = getSelectedGroupIds(groups)
+	-- Write into store a summary of existing collision groups, and which ones are selected.
+	local groups = getGroups()
+	local selectedGroupIds = getSelectedGroupIds(groups)
 
-    plugin:SetItem("Groups", groups)
-    plugin:SetItem("SelectedGroupIds", selectedGroupIds)
+	plugin:SetItem("Groups", groups)
+	plugin:SetItem("SelectedGroupIds", selectedGroupIds)
 end
 
 local function SetStateAndRefresh(stateBlob) 
-    -- Update store's notion of current groups/selected groups, and prompt a refresh on 
-    -- GUI.
-    UpdateGroupsAndSelectedGroups()
-    plugin:Invoke("SetStateAndRefresh", stateBlob)
+	-- Update store's notion of current groups/selected groups, and prompt a refresh on 
+	-- GUI.
+	UpdateGroupsAndSelectedGroups()
+	plugin:Invoke("SetStateAndRefresh", stateBlob)
 end
 
 local PluginEventConnections = {}
 
 local function bindToPluginEvents()
-    -- Bind to all the events from the Plugin DM.
-    table.insert(PluginEventConnections, plugin:OnInvoke("WindowEnabled", function(payload) 
-        SetStateAndRefresh({})
-    end))
+	-- Bind to all the events from the Plugin DM.
+	table.insert(PluginEventConnections, plugin:OnInvoke("WindowEnabled", function(payload) 
+		SetStateAndRefresh({})
+	end))
 
-    table.insert(PluginEventConnections, plugin:OnInvoke("DeleteCollisionGroup", function(groupName) 
-        ChangeHistoryService:SetWaypoint("Deleting collision group")
-        PhysicsService:RemoveCollisionGroup(groupName)
-        ChangeHistoryService:SetWaypoint("Deleted collision group")
-        SetStateAndRefresh({})
-    end))
+	table.insert(PluginEventConnections, plugin:OnInvoke("DeleteCollisionGroup", function(groupName) 
+		ChangeHistoryService:SetWaypoint("Deleting collision group")
+		PhysicsService:RemoveCollisionGroup(groupName)
+		ChangeHistoryService:SetWaypoint("Deleted collision group")
+		SetStateAndRefresh({})
+	end))
 
-    table.insert(PluginEventConnections, plugin:OnInvoke("RenameCollisionGroup", function(renameBlob)
-        ChangeHistoryService:SetWaypoint("Renaming collision group")
-        PhysicsService:RenameCollisionGroup(renameBlob.oldName, renameBlob.newName)
-        ChangeHistoryService:SetWaypoint("Renamed collision group")
-        SetStateAndRefresh({GroupRenaming = ""})
-    end))
+	table.insert(PluginEventConnections, plugin:OnInvoke("RenameCollisionGroup", function(renameBlob)
+		ChangeHistoryService:SetWaypoint("Renaming collision group")
+		PhysicsService:RenameCollisionGroup(renameBlob.oldName, renameBlob.newName)
+		ChangeHistoryService:SetWaypoint("Renamed collision group")
+		SetStateAndRefresh({GroupRenaming = ""})
+	end))
 
-    table.insert(PluginEventConnections, plugin:OnInvoke("AddSelectedPartsToCollisionGroup", function(groupName)
-        ChangeHistoryService:SetWaypoint("Setting part membership to collision group")
-        for _, part in pairs(getSelectedParts()) do
-            PhysicsService:SetPartCollisionGroup(part, groupName)
-        end
-        ChangeHistoryService:SetWaypoint("Set part membership to collision group")
-        SetStateAndRefresh({})
-    end))
+	table.insert(PluginEventConnections, plugin:OnInvoke("AddSelectedPartsToCollisionGroup", function(groupName)
+		ChangeHistoryService:SetWaypoint("Setting part membership to collision group")
+		for _, part in pairs(getSelectedParts()) do
+			PhysicsService:SetPartCollisionGroup(part, groupName)
+		end
+		ChangeHistoryService:SetWaypoint("Set part membership to collision group")
+		SetStateAndRefresh({})
+	end))
 
-    table.insert(PluginEventConnections, plugin:OnInvoke("ToggleCollidesWith", function(toggleCollisionBlob)
-        local collides = not PhysicsService:CollisionGroupsAreCollidable(toggleCollisionBlob.groupName, 
-            toggleCollisionBlob.otherGroupName)
-        ChangeHistoryService:SetWaypoint("Setting group collision state")
-        PhysicsService:CollisionGroupSetCollidable(toggleCollisionBlob.groupName, toggleCollisionBlob.otherGroupName, collides)
-        ChangeHistoryService:SetWaypoint("Set group collision state")
-        SetStateAndRefresh({})
-    end))
+	table.insert(PluginEventConnections, plugin:OnInvoke("ToggleCollidesWith", function(toggleCollisionBlob)
+		local collides = not PhysicsService:CollisionGroupsAreCollidable(toggleCollisionBlob.groupName, 
+			toggleCollisionBlob.otherGroupName)
+		ChangeHistoryService:SetWaypoint("Setting group collision state")
+		PhysicsService:CollisionGroupSetCollidable(toggleCollisionBlob.groupName, toggleCollisionBlob.otherGroupName, collides)
+		ChangeHistoryService:SetWaypoint("Set group collision state")
+		SetStateAndRefresh({})
+	end))
 
-    table.insert(PluginEventConnections, plugin:OnInvoke("CreateCollisionGroup", function(groupName) 
-        ChangeHistoryService:SetWaypoint("Creating collision group")
-        PhysicsService:CreateCollisionGroup(groupName)
-        ChangeHistoryService:SetWaypoint("Created collision group")
-        SetStateAndRefresh({})
-    end))
+	table.insert(PluginEventConnections, plugin:OnInvoke("CreateCollisionGroup", function(groupName) 
+		ChangeHistoryService:SetWaypoint("Creating collision group")
+		PhysicsService:CreateCollisionGroup(groupName)
+		ChangeHistoryService:SetWaypoint("Created collision group")
+		SetStateAndRefresh({})
+	end))
 
-    table.insert(PluginEventConnections, plugin:OnInvoke("SelectPartsInCollisionGroup", function(groupName)
-        game:GetService("Selection"):Set(getPartsInGroup(groupName))
-    end))
+	table.insert(PluginEventConnections, plugin:OnInvoke("SelectPartsInCollisionGroup", function(groupName)
+		game:GetService("Selection"):Set(getPartsInGroup(groupName))
+	end))
 
 end
 
 local function unbindFromPluginEvents()
-    -- Drop connection to events from plugin DM.
-    for i, conn in ipairs(PluginEventConnections) do
-        conn:Disconnect()
-    end
+	-- Drop connection to events from plugin DM.
+	for i, conn in ipairs(PluginEventConnections) do
+		conn:Disconnect()
+	end
 end
 
 local AssetDMConnections = {}
 
 local function bindToAssetDMEvents()
-    -- Listen for events from the Asset DM that should be relayed to the Plugin GUI.
-    table.insert(AssetDMConnections, game:GetService("Selection").SelectionChanged:Connect(function()
-        SetStateAndRefresh({})
-    end))
+	-- Listen for events from the Asset DM that should be relayed to the Plugin GUI.
+	table.insert(AssetDMConnections, game:GetService("Selection").SelectionChanged:Connect(function()
+		SetStateAndRefresh({})
+	end))
 
-    table.insert(AssetDMConnections, ChangeHistoryService.OnUndo:Connect(function()
-        SetStateAndRefresh({})
-    end))
+	table.insert(AssetDMConnections, ChangeHistoryService.OnUndo:Connect(function()
+		SetStateAndRefresh({})
+	end))
 
-    table.insert(AssetDMConnections, ChangeHistoryService.OnRedo:Connect(function()
-        SetStateAndRefresh({})
-    end))
+	table.insert(AssetDMConnections, ChangeHistoryService.OnRedo:Connect(function()
+		SetStateAndRefresh({})
+	end))
 end
 
 local function unbindFromAssetDmEvents()
-    -- Drop connections to this asset DM.
-    for i, conn in ipairs(AssetDMConnections) do
-        conn:Disconnect()
-    end
+	-- Drop connections to this asset DM.
+	for i, conn in ipairs(AssetDMConnections) do
+		conn:Disconnect()
+	end
 end
 
 local PollingGroupChanges = false
 local function pollForCollisionGroupChanges()
-    -- Poll for changes to collision groups.  When change detected, ping for 
-    -- an update to GUI.
-    PollingGroupChanges = true
-    spawn(function()
-        while PollingGroupChanges do
-            if getGroupsChanged() then
-                plugin:Invoke("SetStateAndRefresh", nil)
-            end
-            wait(1)
-        end
-    end)
+	-- Poll for changes to collision groups.  When change detected, ping for 
+	-- an update to GUI.
+	PollingGroupChanges = true
+	spawn(function()
+		while PollingGroupChanges do
+			if getGroupsChanged() then
+				plugin:Invoke("SetStateAndRefresh", nil)
+			end
+			wait(1)
+		end
+	end)
 end
 
 local function stopPollingForCollisionGroupChanges()
-    -- Stop polling for changes to collision groups.
-    PollingGroupChanges = false
+	-- Stop polling for changes to collision groups.
+	PollingGroupChanges = false
 end
 
+local inspector
+
 local function bindToCurrentDM()
-    SetStateAndRefresh({})
-    pollForCollisionGroupChanges()
-    bindToAssetDMEvents()
-    bindToPluginEvents()
+	SetStateAndRefresh({})
+	pollForCollisionGroupChanges()
+	bindToAssetDMEvents()
+	bindToPluginEvents()
+	if FFlagEnableRoactInspector and hasInternalPermission then
+		local DeveloperTools = require(script.Parent.Parent.Packages.Dev.DeveloperTools)
+		inspector = DeveloperTools.forPlugin("CollisionGroupsEditor", plugin)
+		inspector:addPluginRouter(plugin)
+	end
 end
 
 local function unbindFromCurrentDM()
-    unbindFromPluginEvents()
-    unbindFromAssetDmEvents()
-    stopPollingForCollisionGroupChanges()
+	unbindFromPluginEvents()
+	unbindFromAssetDmEvents()
+	stopPollingForCollisionGroupChanges()
+	if inspector then
+		inspector:destroy()
+	end
 end
 
 local function bindToDataModelSession(dmSession)
-    dmSession.CurrentDataModelTypeAboutToChange:Connect(function()
-        if (plugin.HostDataModelTypeIsCurrent) then 
-            unbindFromCurrentDM()
-        end        
-    end)
-    dmSession.CurrentDataModelTypeChanged:Connect(function()
-        if (plugin.HostDataModelTypeIsCurrent) then 
-            bindToCurrentDM()
-        end
-    end)
-    if (plugin.HostDataModelTypeIsCurrent) then 
-        bindToCurrentDM()
-    end
+	dmSession.CurrentDataModelTypeAboutToChange:Connect(function()
+		if (plugin.HostDataModelTypeIsCurrent) then 
+			unbindFromCurrentDM()
+		end        
+	end)
+	dmSession.CurrentDataModelTypeChanged:Connect(function()
+		if (plugin.HostDataModelTypeIsCurrent) then 
+			bindToCurrentDM()
+		end
+	end)
+	if (plugin.HostDataModelTypeIsCurrent) then 
+		bindToCurrentDM()
+	end
 end
 
 -- Listen to MDI instance of plugin.

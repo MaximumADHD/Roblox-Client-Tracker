@@ -27,7 +27,6 @@ local FlagsList = Flags.new({
 		"EnablePluginPermissionsPage2",
 		"StudioPermissionsServiceEnabled",
 	},
-	FFlagRefactorDevFrameworkTheme = "RefactorDevFrameworkTheme",
 })
 
 local makeTheme

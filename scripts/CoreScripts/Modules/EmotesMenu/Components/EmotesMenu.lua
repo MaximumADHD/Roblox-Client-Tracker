@@ -4,12 +4,6 @@ local GuiService = game:GetService("GuiService")
 local UserInputService = game:GetService("UserInputService")
 local Workspace = game:GetService("Workspace")
 
-local CoreGui = game:GetService("CoreGui")
-local RobloxGui = CoreGui:WaitForChild("RobloxGui")
-
-local FFlagDisableAutoTranslateForKeyTranslatedContent
-	= require(RobloxGui.Modules.Flags.FFlagDisableAutoTranslateForKeyTranslatedContent)
-
 local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
 
@@ -28,6 +22,8 @@ local ErrorMessage = require(Components.ErrorMessage)
 
 local Constants = require(EmotesModules.Constants)
 
+local FFlagFixEmotesHotkeyAzerty = game:DefineFastFlag("FixEmotesHotkeyAzerty", false)
+
 local EmotesMenu = Roact.PureComponent:extend("EmotesMenu")
 
 function EmotesMenu:init()
@@ -39,6 +35,12 @@ function EmotesMenu:bindActions()
     local function toggleMenuFunc(actionName, inputState, inputObj)
         if GuiService.MenuIsOpen then
             return Enum.ContextActionResult.Pass
+        end
+
+        if FFlagFixEmotesHotkeyAzerty then
+            if UserInputService:IsKeyDown(Enum.KeyCode.LeftShift) or UserInputService:IsKeyDown(Enum.KeyCode.RightShift) then
+                return Enum.ContextActionResult.Pass
+            end
         end
 
         if inputState == Enum.UserInputState.Begin then
@@ -182,7 +184,7 @@ function EmotesMenu:render()
         Position = UDim2.new(0, 0, 0, -guiInset),
         Size = UDim2.new(1, 0, 1, guiInset),
         ZIndex = Constants.EmotesMenuZIndex,
-        AutoLocalize = not FFlagDisableAutoTranslateForKeyTranslatedContent,
+        AutoLocalize = false,
     }, {
         Main = Roact.createElement("Frame", {
             AnchorPoint = Vector2.new(0.5, 0.5),

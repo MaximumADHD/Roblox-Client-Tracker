@@ -5,8 +5,6 @@ end
 -- Fast flags
 local FFlagStudioLuaPublishFlowLocalizeUntitledGameText = game:DefineFastFlag("StudioLuaPublishFlowLocalizeUntitledGameText", false)
 local FFlagStudioAddingScrollingToScreenChoosePlace = game:DefineFastFlag("StudioAddingScrollingToScreenChoosePlace", false)
-local FFlagLuaPublishFlowFixCreateButtonInChinese = game:DefineFastFlag("LuaPublishFlowFixCreateButtonInChinese", false)
-local FFlagLuaPublishFlowFixPluginHandleWarning = game:DefineFastFlag("LuaPublishFlowFixPluginHandleWarning", false)
 local FFlagUXImprovementsPublishSuccessScreenPublishAs = game:DefineFastFlag("UXImprovementsPublishSuccessScreenPublishAs", false)
 local FFlagUXImprovementAddScrollToGamesPage = game:DefineFastFlag("UXImprovementAddScrollToGamesPage", false)
 local FFlagStudioPublishLuaWorkflow = game:GetFastFlag("StudioPublishLuaWorkflow")
@@ -53,9 +51,6 @@ local SetIsPublishing = require(Plugin.Src.Actions.SetIsPublishing)
 local function closePlugin()
 	if pluginHandle then
 		Roact.unmount(pluginHandle)
-		if not FFlagLuaPublishFlowFixPluginHandleWarning then
-			pluginHandle = nil
-		end
 	end
 	pluginGui.Enabled = false
 end
@@ -80,13 +75,6 @@ end
 
 --Initializes and populates the plugin popup window
 local function openPluginWindow(isOverwritePublish)
-	if not FFlagLuaPublishFlowFixPluginHandleWarning then
-		if pluginHandle then
-			warn("Plugin handle already exists")
-			return
-		end
-	end
-
 	local servicesProvider = Roact.createElement(ServiceWrapper, {
 		plugin = plugin,
 		localization = localization,

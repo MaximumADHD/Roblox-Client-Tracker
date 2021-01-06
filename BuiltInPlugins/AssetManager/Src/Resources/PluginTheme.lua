@@ -26,8 +26,6 @@ local FONT_SIZE_SMALL = 14
 local FONT_SIZE_MEDIUM = 16
 local FONT_SIZE_LARGE = 18
 
-local FFlagStudioAssetManagerAddGridListToggle = game:GetFastFlag("StudioAssetManagerAddGridListToggle")
-
 local function createStyles(theme, getColor)
 	local c = Enum.StudioStyleGuideColor
 	local m = Enum.StudioStyleGuideModifier
@@ -310,8 +308,7 @@ local function createStyles(theme, getColor)
 				ImageSize = UDim2.new(0, 16, 0, 16),
 				ImagePosition = UDim2.new(0.5, 0, 0.5, 0),
 				ImageAnchorPosition = Vector2.new(0.5, 0.5),
-				BackgroundColor = FFlagStudioAssetManagerAddGridListToggle and theme:GetColor(c.MainBackground) or
-					theme:GetColor(c.ScrollBarBackground),
+				BackgroundColor = theme:GetColor(c.MainBackground),
 				RBXThumbSize = 150,
 				Folder = "rbxasset://textures/StudioSharedUI/folder.png",
 			},
@@ -347,7 +344,7 @@ local function createStyles(theme, getColor)
 				BackgroundTransparency = 0,
 				BackgroundColor = theme:getColor(c.CheckedFieldBackground, m.Hover),
 
-				Image = FFlagStudioAssetManagerAddGridListToggle and {
+				Image = {
 					BackgroundColor = theme:getColor(c.CheckedFieldBackground, m.Hover),
 				},
 			},
@@ -356,7 +353,7 @@ local function createStyles(theme, getColor)
 				BackgroundTransparency = 0,
 				BackgroundColor = theme:getColor(c.Item, m.Selected),
 
-				Image = FFlagStudioAssetManagerAddGridListToggle and {
+				Image = {
 					BackgroundColor = theme:getColor(c.Item, m.Selected),
 				},
 			}

@@ -43,8 +43,6 @@ local StudioService = game:GetService("StudioService")
 local MainView = Roact.PureComponent:extend("MainView")
 
 local FFlagStudioAssetManagerAddRecentlyImportedView = game:GetFastFlag("StudioAssetManagerAddRecentlyImportedView")
-local FFlagStudioAssetManagerHideTooltipOnAssetPreview = game:GetFastFlag("StudioAssetManagerHideTooltipOnAssetPreview")
-local FFlagStudioAssetManagerUXFixes = game:GetFastFlag("StudioAssetManagerUXFixes")
 
 local universeNameSet = false
 local initialHasLinkedScriptValue = false
@@ -157,15 +155,14 @@ function MainView:didUpdate()
             initialHasLinkedScriptValue = hasLinkedScripts
         end
     end
-    if FFlagStudioAssetManagerUXFixes then
-        local apiImpl = props.API:get()
-        local screen = props.CurrentScreen
-        if screen ~= self.state.currentScreen then
-            props.dispatchOnScreenChange(apiImpl, screen)
-            self:setState({
-                currentScreen = screen,
-            })
-        end
+
+    local apiImpl = props.API:get()
+    local screen = props.CurrentScreen
+    if screen ~= self.state.currentScreen then
+        props.dispatchOnScreenChange(apiImpl, screen)
+        self:setState({
+            currentScreen = screen,
+        })
     end
 end
 
@@ -198,12 +195,7 @@ function MainView:render()
     local assetGridViewOffset = theme.TopBar.Height + theme.NavBar.Height + (hasRecentAssets and theme.RecentView.Bar.Height or 0)
     local recentViewOffset = theme.TopBar.Height + theme.NavBar.Height
 
-    local isAssetGridViewEnabled
-    if FFlagStudioAssetManagerHideTooltipOnAssetPreview then
-        isAssetGridViewEnabled = not self.state.showOverlay and not self.state.showAssetPreview
-    else
-        isAssetGridViewEnabled = not self.state.showOverlay
-    end
+    local isAssetGridViewEnabled = not self.state.showOverlay and not self.state.showAssetPreview
 
     return Roact.createElement("Frame", {
         Size = UDim2.new(1, 0, 1, 0),

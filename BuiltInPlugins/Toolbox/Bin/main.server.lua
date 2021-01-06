@@ -7,12 +7,15 @@ end
 
 -- Fast flags
 require(script.Parent.defineLuaFlags)
-local FFlagDevFrameworkLocalizationLibraries = game:GetFastFlag("DevFrameworkLocalizationLibraries")
 local FFlagAssetManagerLuaPlugin = game:GetFastFlag("AssetManagerLuaPlugin")
 local FFlagStudioAssetConfigurationPlugin = game:GetFastFlag("StudioAssetConfigurationPlugin")
 local FFlagToolboxDisableForLuobu = game:GetFastFlag("ToolboxDisableForLuobu")
 local FFlagDebugToolboxEnableRoactChecks = game:GetFastFlag("DebugToolboxEnableRoactChecks")
+local FFlagEnableRoactInspector = game:GetFastFlag("EnableRoactInspector")
+
+local hasInternalPermission = game:GetService("StudioService"):HasInternalPermission()
 local FFlagEnableToolboxStylizer = game:GetFastFlag("EnableToolboxStylizer")
+local FFlagToolboxUseTranslationDevelopmentTable = game:GetFastFlag("ToolboxUseTranslationDevelopmentTable")
 
 local Plugin = script.Parent.Parent
 local Libs = Plugin.Libs
@@ -75,7 +78,8 @@ local SettingsContext = require(Plugin.Core.ContextServices.Settings)
 local ContextServices = Framework.ContextServices
 local CrossPluginCommunication = Framework.Util.CrossPluginCommunication
 
-local TranslationStringsTable = Plugin.LocalizationSource.ToolboxTranslationReferenceTable
+local TranslationDevelopmentTable = Plugin.LocalizationSource.TranslationDevelopmentTable
+local TranslationReferenceTable = Plugin.LocalizationSource.TranslationReferenceTable
 
 local HttpService = game:GetService("HttpService")
 local MemStorageService = game:GetService("MemStorageService")
@@ -90,15 +94,15 @@ if FFlagToolboxDisableForLuobu then
 end
 
 local localization2 = ContextServices.Localization.new({
-	stringResourceTable = TranslationStringsTable,
-	translationResourceTable = TranslationStringsTable,
+	stringResourceTable = FFlagToolboxUseTranslationDevelopmentTable and TranslationDevelopmentTable or TranslationReferenceTable,
+	translationResourceTable = TranslationReferenceTable,
 	pluginName = "Toolbox",
-	libraries = FFlagDevFrameworkLocalizationLibraries and {
+	libraries = {
 		[Framework.Resources.LOCALIZATION_PROJECT_NAME] = {
 			stringResourceTable = Framework.Resources.TranslationDevelopmentTable,
 			translationResourceTable = Framework.Resources.TranslationReferenceTable,
 		},
-	} or nil,
+	},
 })
 
 local function createTheme()
@@ -130,7 +134,8 @@ local function createAssetConfigTheme()
 end
 
 local function createLocalization()
-	local localizationTable = Plugin.LocalizationSource.ToolboxTranslationReferenceTable
+	local translationDevelopmentTable = Plugin.LocalizationSource.TranslationDevelopmentTable
+	local translationReferenceTable = Plugin.LocalizationSource.TranslationReferenceTable
 
 	-- Check if we should use a fake locale
 	if DebugFlags.shouldUseTestCustomLocale() then
@@ -140,7 +145,7 @@ local function createLocalization()
 
 	if DebugFlags.shouldUseTestRealLocale() then
 		print("Toolbox using test real locale")
-		return Localization.createTestRealLocaleLocalization(localizationTable, DebugFlags.getOrCreateTestRealLocale())
+		return Localization.createTestRealLocaleLocalization(translationReferenceTable, DebugFlags.getOrCreateTestRealLocale())
 	end
 
     return Localization.new({
@@ -148,8 +153,11 @@ local function createLocalization()
             return StudioService["StudioLocaleId"]
         end,
         getTranslator = function(localeId)
-            return localizationTable:GetTranslator(localeId)
-        end,
+            return translationReferenceTable:GetTranslator(localeId)
+		end,
+		getFallbackTranslator = FFlagToolboxUseTranslationDevelopmentTable and function(localeId)
+            return translationDevelopmentTable:GetTranslator(localeId)
+        end or nil,
         localeIdChanged = StudioService:GetPropertyChangedSignal("StudioLocaleId")
     })
 end
@@ -325,11 +333,18 @@ local function main()
 	local suggestions = Suggestion.SUGGESTIONS
 
 	local toolboxHandle
+	local inspector
+	if FFlagEnableRoactInspector and hasInternalPermission then
+		inspector = Framework.DeveloperTools.forPlugin("Toolbox", plugin)
+	end
 
 	local function onPluginWillDestroy()
 		if toolboxHandle then
 			Analytics.sendReports(plugin)
 			Roact.unmount(toolboxHandle)
+		end
+		if inspector then
+			inspector:destroy()
 		end
 	end
 
@@ -365,6 +380,9 @@ local function main()
 		toolboxComponent
 	})
 	toolboxHandle = Roact.mount(toolboxWithServices)
+	if inspector then
+		inspector:addRoactTree("Roact tree", toolboxHandle)
+	end
 
 	-- Create publish new asset page.
 	StudioService.OnSaveToRoblox:connect(function(instances)

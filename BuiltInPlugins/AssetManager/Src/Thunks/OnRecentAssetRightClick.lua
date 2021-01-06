@@ -1,27 +1,12 @@
 local Plugin = script.Parent.Parent.Parent
 
-local SetAssets = require(Plugin.Src.Actions.SetAssets)
-local SetEditingAssets = require(Plugin.Src.Actions.SetEditingAssets)
-local SetScreen = require(Plugin.Src.Actions.SetScreen)
-local SetSelectedAssets = require(Plugin.Src.Actions.SetSelectedAssets)
-
-local GetAssets = require(Plugin.Src.Thunks.GetAssets)
-local LaunchBulkImport = require(Plugin.Src.Thunks.LaunchBulkImport)
-
-local Screens = require(Plugin.Src.Util.Screens)
-
 local AssetManagerService = game:GetService("AssetManagerService")
-local HttpService = game:GetService("HttpService")
-local MemStorageService = game:GetService("MemStorageService")
-local RunService = game:GetService("RunService")
 local StudioService = game:GetService("StudioService")
 
 local Framework = Plugin.Packages.Framework
 local RobloxAPI = require(Framework).RobloxAPI
 
-local FFlagAssetManagerAddAnalytics = game:GetFastFlag("AssetManagerAddAnalytics")
 local FFlagAllowAudioBulkImport = game:GetFastFlag("AllowAudioBulkImport")
-local FFlagStudioAssetManagerUXFixes = game:GetFastFlag("StudioAssetManagerUXFixes")
 
 local function createImageContextMenu(analytics, apiImpl, assetData, contextMenu, localization, store)
     contextMenu:AddNewAction("Insert", localization:getText("ContextMenu", "Insert")).Triggered:connect(function()
@@ -35,22 +20,16 @@ local function createImageContextMenu(analytics, apiImpl, assetData, contextMenu
             end
         end
         AssetManagerService:InsertImage(assetData.id)
-        if FFlagAssetManagerAddAnalytics then
-            analytics:report("clickContextMenuItem")
-            local searchTerm = state.AssetManagerReducer.searchTerm
-            if utf8.len(searchTerm) ~= 0 then
-                analytics:report("insertAfterSearch")
-            end
+        analytics:report("clickContextMenuItem")
+        local searchTerm = state.AssetManagerReducer.searchTerm
+        if utf8.len(searchTerm) ~= 0 then
+            analytics:report("insertAfterSearch")
         end
     end)
-    if FFlagStudioAssetManagerUXFixes then
-        contextMenu:AddNewAction("CopyIdToClipboard", localization:getText("ContextMenu", "CopyIdToClipboard")).Triggered:connect(function()
-            StudioService:CopyToClipboard("rbxassetid://" .. assetData.id)
-            if FFlagAssetManagerAddAnalytics then
-                analytics:report("clickContextMenuItem")
-            end
-        end)
-    end
+    contextMenu:AddNewAction("CopyIdToClipboard", localization:getText("ContextMenu", "CopyIdToClipboard")).Triggered:connect(function()
+        StudioService:CopyToClipboard("rbxassetid://" .. assetData.id)
+        analytics:report("clickContextMenuItem")
+    end)
 
     contextMenu:ShowAsync()
     contextMenu:Destroy()
@@ -60,22 +39,16 @@ local function createAudioContextMenu(analytics, assetData, contextMenu, localiz
     contextMenu:AddNewAction("Insert", localization:getText("ContextMenu", "Insert")).Triggered:connect(function()
         local state = store:getState()
         AssetManagerService:InsertAudio(assetData.id, assetData.name)
-        if FFlagAssetManagerAddAnalytics then
-            analytics:report("clickContextMenuItem")
-            local searchTerm = state.AssetManagerReducer.searchTerm
-            if utf8.len(searchTerm) ~= 0 then
-                analytics:report("insertAfterSearch")
-            end
+        analytics:report("clickContextMenuItem")
+        local searchTerm = state.AssetManagerReducer.searchTerm
+        if utf8.len(searchTerm) ~= 0 then
+            analytics:report("insertAfterSearch")
         end
     end)
-    if FFlagStudioAssetManagerUXFixes then
-        contextMenu:AddNewAction("CopyIdToClipboard", localization:getText("ContextMenu", "CopyIdToClipboard")).Triggered:connect(function()
-            StudioService:CopyToClipboard("rbxassetid://" .. assetData.id)
-            if FFlagAssetManagerAddAnalytics then
-                analytics:report("clickContextMenuItem")
-            end
-        end)
-    end
+    contextMenu:AddNewAction("CopyIdToClipboard", localization:getText("ContextMenu", "CopyIdToClipboard")).Triggered:connect(function()
+        StudioService:CopyToClipboard("rbxassetid://" .. assetData.id)
+        analytics:report("clickContextMenuItem")
+    end)
 
     contextMenu:ShowAsync()
     contextMenu:Destroy()
@@ -93,12 +66,10 @@ local function createMeshPartContextMenu(analytics, apiImpl, assetData, contextM
                 AssetManagerService:InsertMesh("Meshes/".. asset.name, false)
             end
         end
-        if FFlagAssetManagerAddAnalytics then
-            analytics:report("clickContextMenuItem")
-            local searchTerm = state.AssetManagerReducer.searchTerm
-            if utf8.len(searchTerm) ~= 0 then
-                analytics:report("insertAfterSearch")
-            end
+        analytics:report("clickContextMenuItem")
+        local searchTerm = state.AssetManagerReducer.searchTerm
+        if utf8.len(searchTerm) ~= 0 then
+            analytics:report("insertAfterSearch")
         end
     end)
     contextMenu:AddNewAction("InsertWithLocation", localization:getText("ContextMenu", "InsertWithLocation")).Triggered:connect(function()
@@ -108,29 +79,21 @@ local function createMeshPartContextMenu(analytics, apiImpl, assetData, contextM
                 AssetManagerService:InsertMesh("Meshes/".. asset.name, true)
             end
         end
-        if FFlagAssetManagerAddAnalytics then
-            analytics:report("clickContextMenuItem")
-            local searchTerm = state.AssetManagerReducer.searchTerm
-            if utf8.len(searchTerm) ~= 0 then
-                analytics:report("insertAfterSearch")
-            end
+        analytics:report("clickContextMenuItem")
+        local searchTerm = state.AssetManagerReducer.searchTerm
+        if utf8.len(searchTerm) ~= 0 then
+            analytics:report("insertAfterSearch")
         end
     end)
-    if FFlagStudioAssetManagerUXFixes then
-        contextMenu:AddNewAction("CopyIdToClipboard", localization:getText("ContextMenu", "CopyIdToClipboard")).Triggered:connect(function()
-            StudioService:CopyToClipboard("rbxassetid://" .. AssetManagerService:GetMeshId("Meshes/".. assetData.name))
-            if FFlagAssetManagerAddAnalytics then
-                analytics:report("clickContextMenuItem")
-            end
+    contextMenu:AddNewAction("CopyIdToClipboard", localization:getText("ContextMenu", "CopyIdToClipboard")).Triggered:connect(function()
+        StudioService:CopyToClipboard("rbxassetid://" .. AssetManagerService:GetMeshId("Meshes/".. assetData.name))
+        analytics:report("clickContextMenuItem")
+    end)
+    if textureId ~= -1 then
+        contextMenu:AddNewAction("CopyTextureIdToClipboard", localization:getText("ContextMenu", "CopyTextureIdToClipboard")).Triggered:connect(function()
+            StudioService:CopyToClipboard("rbxassetid://" .. textureId)
+            analytics:report("clickContextMenuItem")
         end)
-        if textureId ~= -1 then
-            contextMenu:AddNewAction("CopyTextureIdToClipboard", localization:getText("ContextMenu", "CopyTextureIdToClipboard")).Triggered:connect(function()
-                StudioService:CopyToClipboard("rbxassetid://" .. textureId)
-                if FFlagAssetManagerAddAnalytics then
-                    analytics:report("clickContextMenuItem")
-                end
-            end)
-        end
     end
 
     contextMenu:ShowAsync()

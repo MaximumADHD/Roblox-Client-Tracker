@@ -28,6 +28,7 @@ local DROP_DOWN_WIDTH = 220
 local DROP_DOWN_HEIGHT = 38
 
 local FFlagPackageProductUXImprovementsGroupGamesDefaultToOwnerGroup = game:DefineFastFlag("PackageProductUXImprovementsGroupGamesDefaultToOwnerGroup", false)
+local FFlagPackageProductUXImprovementsMatchTextSizeWithGS = game:GetFastFlag("PackageProductUXImprovementsMatchTextSizeWithGS")
 
 function ConfigAccess:didMount()
 	-- Initial request
@@ -51,7 +52,7 @@ function ConfigAccess:render()
 		-- TODO: Notice UX to change the website.
 		local ownerIndex = (owner.typeId or 1)
 		if FFlagPackageProductUXImprovementsGroupGamesDefaultToOwnerGroup then
-			if ownerIndex == 1 then
+			if game.CreatorType == Enum.CreatorType.Group and ownerIndex == 1 then
 				for pos, group in pairs(self.dropdownContent) do
 					if group.creatorId == game.CreatorId then
 						ownerIndex = pos
@@ -64,7 +65,8 @@ function ConfigAccess:render()
 		local publishAssetTheme = theme.publishAsset
 
 		local ownerName;
-		if ownerIndex > #self.dropdownContent then
+		if ownerIndex > #self.dropdownContent or (FFlagPackageProductUXImprovementsGroupGamesDefaultToOwnerGroup 
+			and game.CreatorType == Enum.CreatorType.Group and #self.dropdownContent == 1) then
 			ownerName = ""
 		else
 			ownerName = self.dropdownContent[ownerIndex].Text
@@ -107,7 +109,7 @@ function ConfigAccess:render()
 				MaxItems = 5,
 				ItemHeight = DROP_DOWN_HEIGHT,
 				ButtonText = ownerName,
-				TextSize = Constants.FONT_SIZE_MEDIUM,
+				TextSize = FFlagPackageProductUXImprovementsMatchTextSizeWithGS and Constants.FONT_SIZE_TITLE or Constants.FONT_SIZE_MEDIUM,
 				SelectedItem =  publishAssetTheme.highlightDropdownSelectedItem and self.dropdownContent[ownerIndex].Key,
 				ScrollBarThickness = Constants.SCROLLBAR_BACKGROUND_THICKNESS,
 				ShowRibbon = publishAssetTheme.showDropdownRibbon,

@@ -20,7 +20,6 @@ local withLocalization = ContextHelper.withLocalization
 
 local FFlagUseCategoryNameInToolbox = game:GetFastFlag("UseCategoryNameInToolbox")
 
-local RequestSearchRequest = require(Plugin.Core.Networking.Requests.RequestSearchRequest)
 local SearchWithOptions = require(Plugin.Core.Networking.Requests.SearchWithOptions)
 
 local MainViewHeader = Roact.PureComponent:extend("MainViewHeader")
@@ -145,10 +144,6 @@ end
 
 local function mapDispatchToProps(dispatch)
 	return {
-		requestSearch = function(networkInterface, settings, searchTerm)
-			dispatch(RequestSearchRequest(networkInterface, settings, searchTerm))
-		end,
-
 		searchWithOptions = function(networkInterface, settings, options)
 			dispatch(SearchWithOptions(networkInterface, settings, options))
 		end,

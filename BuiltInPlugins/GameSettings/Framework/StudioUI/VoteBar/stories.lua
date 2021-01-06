@@ -1,5 +1,3 @@
-local FFlagDevFrameworkLocalizationLibraries = game:GetFastFlag("DevFrameworkLocalizationLibraries")
-
 local Framework = script.Parent.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
 
@@ -7,9 +5,6 @@ local VoteBar = require(script.Parent)
 local Container = require(Framework.UI.Container)
 
 return function()
-	if not FFlagDevFrameworkLocalizationLibraries then
-		return {}
-	end	
 	return {
 		NoVotes = Roact.createElement(VoteBar, {
 			AssetId = 123,
