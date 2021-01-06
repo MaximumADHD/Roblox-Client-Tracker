@@ -3607,7 +3607,7 @@
                         "Category": "Class",
                         "Name": "Instance"
                     },
-                    "Security": "RobloxScriptSecurity",
+                    "Security": "None",
                     "Tags": [
                         "Yields"
                     ]
@@ -3641,6 +3641,34 @@
                     "ReturnType": {
                         "Category": "Group",
                         "Name": "Dictionary"
+                    },
+                    "Security": "None",
+                    "Tags": [
+                        "Yields"
+                    ]
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetBatchItemDetails",
+                    "Parameters": [
+                        {
+                            "Name": "itemIds",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Array"
+                            }
+                        },
+                        {
+                            "Name": "itemType",
+                            "Type": {
+                                "Category": "Enum",
+                                "Name": "AvatarItemType"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Array"
                     },
                     "Security": "None",
                     "Tags": [
@@ -15340,6 +15368,22 @@
                                 "Category": "Primitive",
                                 "Name": "int"
                             }
+                        },
+                        {
+                            "Default": "{}",
+                            "Name": "userids",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Array"
+                            }
+                        },
+                        {
+                            "Default": "nil",
+                            "Name": "options",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "Instance"
+                            }
                         }
                     ],
                     "ReturnType": {
@@ -15391,10 +15435,11 @@
                             }
                         },
                         {
+                            "Default": "{}",
                             "Name": "userids",
                             "Type": {
                                 "Category": "Group",
-                                "Name": "Variant"
+                                "Name": "Array"
                             }
                         },
                         {
@@ -23195,24 +23240,6 @@
                 },
                 {
                     "MemberType": "Function",
-                    "Name": "GetGreyscale",
-                    "Parameters": [
-                        {
-                            "Name": "heightmapAssetId",
-                            "Type": {
-                                "Category": "DataType",
-                                "Name": "Content"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "Group",
-                        "Name": "Tuple"
-                    },
-                    "Security": "RobloxScriptSecurity"
-                },
-                {
-                    "MemberType": "Function",
                     "Name": "IsValidColormap",
                     "Parameters": [
                         {
@@ -23264,6 +23291,27 @@
                         "Name": "void"
                     },
                     "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetHeightmapPreviewAsync",
+                    "Parameters": [
+                        {
+                            "Name": "heightmapAssetId",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "Content"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Tuple"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "Tags": [
+                        "Yields"
+                    ]
                 },
                 {
                     "MemberType": "Function",
@@ -33525,6 +33573,23 @@
                     }
                 },
                 {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "CanTouch",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
                     "Category": "Appearance",
                     "MemberType": "Property",
                     "Name": "CastShadow",
@@ -38089,6 +38154,26 @@
                     "ValueType": {
                         "Category": "Class",
                         "Name": "Instance"
+                    }
+                },
+                {
+                    "Category": "Behavior",
+                    "MemberType": "Property",
+                    "Name": "TouchesUseCollisionGroups",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "NotScriptable"
+                    ],
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
                     }
                 },
                 {
@@ -43872,7 +43957,7 @@
                     "Name": "PauseSound",
                     "Parameters": [
                         {
-                            "Name": "soundChannel",
+                            "Name": "sound",
                             "Type": {
                                 "Category": "Class",
                                 "Name": "Instance"
@@ -43890,7 +43975,7 @@
                     "Name": "PlaySound",
                     "Parameters": [
                         {
-                            "Name": "soundChannel",
+                            "Name": "sound",
                             "Type": {
                                 "Category": "Class",
                                 "Name": "Instance"
@@ -43916,7 +44001,7 @@
                     "Name": "ResumeSound",
                     "Parameters": [
                         {
-                            "Name": "soundChannel",
+                            "Name": "sound",
                             "Type": {
                                 "Category": "Class",
                                 "Name": "Instance"

@@ -1875,6 +1875,24 @@ Studio.App.RbxWorkspace.Processing,,Processing...,Processing...
 Studio.App.RbxWorkspace.SnapshotInProgress,,Snapshot in progress...,Snapshot in progress...
 Studio.App.RbxWorkspace.TakeSnapshot,,Take Snapshot,Take Snapshot
 Studio.App.RecentGamesPage.RecentGames,,Recent Games,Recent Games
+Studio.App.RemoteDebugger.AddRow,,Add Row,Add Row
+Studio.App.RemoteDebugger.AssetProxy,,Asset Proxy:,Asset Proxy:
+Studio.App.RemoteDebugger.AssetProxyError,,Error starting server,Error starting server
+Studio.App.RemoteDebugger.AssetProxyRunning2,,Asset Proxy running at %1:%2,Asset Proxy running at %1:%2
+Studio.App.RemoteDebugger.AssetProxyStopped,,Asset Proxy stopped,Asset Proxy stopped
+Studio.App.RemoteDebugger.ColumnAssetId,,Asset Id,Asset Id
+Studio.App.RemoteDebugger.ColumnPath,,Path,Path
+Studio.App.RemoteDebugger.InvalidIp,,Invalid IP Address. ,Invalid IP Address. 
+Studio.App.RemoteDebugger.InvalidPort,,Invalid Port. ,Invalid Port. 
+Studio.App.RemoteDebugger.IpAddress,,IP Address:,IP Address:
+Studio.App.RemoteDebugger.Messages,,Messages,Messages
+Studio.App.RemoteDebugger.Port,,Port:,Port:
+Studio.App.RemoteDebugger.RemoveRow,,Remove Row,Remove Row
+Studio.App.RemoteDebugger.Start,,Start,Start
+Studio.App.RemoteDebugger.Stop,,Stop,Stop
+Studio.App.RemoteDebugger.TabAssetOverrides,,Asset Overrides,Asset Overrides
+Studio.App.RemoteDebugger.TabServerStatus,,Server Status,Server Status
+Studio.App.RemoteDebugger.Title,,Remote Debugging,Remote Debugging
 Studio.App.RenderScheduler.FailedCreateGameWindow,,Failed to Create Game Window.  A key file may have gotten Corrupted.  Please try to reInstall Roblox Studio.  If the issue persists make sure your drivers are up to date http://www.roblox.com/drivers or Contact Customer support,Failed to Create Game Window.  A key file may have gotten Corrupted.  Please try to reInstall Roblox Studio.  If the issue persists make sure your drivers are up to date http://www.roblox.com/drivers or Contact Customer support
 Studio.App.RenderScheduler.FailedToBindToWorkspace,,Failed to Bind to Workspace. Please restart Studio in order to resolve the issue.,Failed to Bind to Workspace. Please restart Studio in order to resolve the issue.
 Studio.App.Restart.RestartLater,restart studio later,Restart Later,Restart Later
@@ -2552,6 +2570,7 @@ Studio.App.ScriptingCmd.NEWLINEABOVE,,Insert Newline Above,Insert Newline Above
 Studio.App.ScriptingCmd.NEWLINEABOVETooltip,,Insert a newline above the current line,Insert a newline above the current line
 Studio.App.ScriptingCmd.NEWLINEBELOW,,Insert Newline Below,Insert Newline Below
 Studio.App.ScriptingCmd.NEWLINEBELOWTooltip,,Insert a newline below the current line,Insert a newline below the current line
+Studio.App.ScriptingCmd.REPLACE,,Replace text in an open script,Replace text in an open script
 Studio.App.ScriptingCmd.SELECT,,Select text...,Select text...
 Studio.App.ScriptingCmd.SELECTWORD,,Select Word,Select Word
 Studio.App.ScriptingCmd.SELECTWORDTooltip,,Select the word under the cursor,Select the word under the cursor
@@ -2574,6 +2593,7 @@ Studio.App.SettingsCategory.DiagnosticsErrors,,Errors,Errors
 Studio.App.SettingsCategory.DiagnosticsPerformance,,Performance,Performance
 Studio.App.SettingsCategory.DiagnosticsProfile,,Profile,Profile
 Studio.App.SettingsCategory.GameOptionsInternal,,Internal,Internal
+Studio.App.SettingsCategory.General,,General,General
 Studio.App.SettingsCategory.NetworkAppearance,,Appearance,Appearance
 Studio.App.SettingsCategory.NetworkDiagnostics,,Diagnostics,Diagnostics
 Studio.App.SettingsCategory.NetworkProxy,,Proxy,Proxy
@@ -2601,11 +2621,13 @@ Studio.App.SettingsCategory.StudioUndo,,Undo,Undo
 Studio.App.SettingsCategory.StudioVisualization,,Visualization,Visualization
 Studio.App.SettingsCategory.TaskSchedulerConfiguration,,Configuration,Configuration
 Studio.App.SettingsCategory.TaskSchedulerDiagnostics,,Diagnostics,Diagnostics
+Studio.App.SettingsCategory.Theme,,Theme,Theme
 Studio.App.SettingsHeader.Diagnostics,,Diagnostics,Diagnostics
 Studio.App.SettingsHeader.GameOptions,,Game Options,Game Options
 Studio.App.SettingsHeader.Network,,Network,Network
 Studio.App.SettingsHeader.Physics,,Physics,Physics
 Studio.App.SettingsHeader.Rendering,,Rendering,Rendering
+Studio.App.SettingsHeader.ScriptEditor,,Script Editor,Script Editor
 Studio.App.SettingsHeader.Studio,,Studio,Studio
 Studio.App.SettingsHeader.TaskScheduler,,Task Scheduler,Task Scheduler
 Studio.App.Shapes.Cylinder,,Cylinder,Cylinder

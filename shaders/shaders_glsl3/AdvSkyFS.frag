@@ -18,7 +18,7 @@ void main()
     vec4 f1 = f0 * VARYING2;
     vec3 f2 = f1.xyz;
     vec3 f3 = normalize(VARYING0);
-    float f4 = exp2(CB1[10].x / (0.001000000047497451305389404296875 + pow(clamp(f3.y, 0.0, 1.0), CB1[10].y)));
+    float f4 = exp2(CB1[10].x / (0.001000000047497451305389404296875 + pow(max(f3.y, 9.9999997473787516355514526367188e-06), CB1[10].y)));
     vec3 f5 = clamp(f3, vec3(0.0), vec3(1.0));
     vec3 f6 = f5 * f5;
     vec3 f7 = clamp(-f3, vec3(0.0), vec3(1.0));

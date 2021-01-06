@@ -428,6 +428,7 @@
             height="32"
             width="32"/>
         <addaction name="toggleDraftsDockAction" style="textbesideicon" text="Studio.App.RBXMainWindow.Drafts" tooltip="Studio.App.RBXMainWindow.ViewDrafts" icon=":/RibbonBar/images/RibbonIcons/View/Drafts.png" width="32" height="32" ischeckable="true" fflag="StudioShipCollaborativeEditingV0"/>
+        <addaction fflag="DebugStudioAssetProxy" name="remoteDebugDockWidgetAction" style="textbesideicon" text="Studio.App.RemoteDebugger.Title" tooltip="Studio.App.RemoteDebugger.Title" height="32" width="32" />
       </Group>
       <Group name="Actions" text="Studio.App.RobloxRibbonMainWindow.Actions">
         <addaction name="viewSelectorAction" style="textundericon" text="Studio.App.RBXMainWindow.ViewSelector" tooltip="Studio.App.RBXMainWindow.ViewSelectorTooltip" type="plugin" icon=":/RibbonBar/images/RibbonIcons/View/View-Selector.png" width="32" height="32"/>

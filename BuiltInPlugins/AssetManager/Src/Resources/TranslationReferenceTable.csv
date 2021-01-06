@@ -1,15 +1,18 @@
 Key,Source,en-us,ko,zh-cn
 Studio.AssetManager.ContextMenu.ViewPlaceHistory,View History,View History,기록 보기,查看历史记录
 Studio.AssetManager.ContextMenu.ViewOnWebsite,View On Website,View On Website,웹사이트에서 보기,在网站上查看
-Studio.AssetManager.Main.Title,Asset Manager,Asset Manager,애셋 관리자,资源管理器
-Studio.AssetManager.Main.ToolbarButton,Asset Manager,Asset Manager,애셋 관리자,资源管理器
-Studio.AssetManager.Meta.ToolbarName,Asset Manager,Asset Manager,애셋 관리자,资源管理器
+Studio.AssetManager.Main.Title,Asset Manager,Asset Manager,애셋 관리자,素材管理器
+Studio.AssetManager.Main.ToolbarButton,Asset Manager,Asset Manager,애셋 관리자,素材管理器
+Studio.AssetManager.Meta.ToolbarName,Asset Manager,Asset Manager,애셋 관리자,素材管理器
 Studio.AssetManager.BulkImport.BulkImportShowLink,Check current status,Check current status,현재 상태 확인,检查当前状态
-Studio.AssetManager.Main.Tooltip,"Add, remove, and modify assets","Add, remove, and modify assets","애셋 추가, 제거, 수정",添加、移除和修改资源
+Studio.AssetManager.TopBar.GridViewButton,Grid View,Grid View, , 
+Studio.AssetManager.TopBar.ExplorerOverlayButton,Explorer Overlay,Explorer Overlay, , 
+Studio.AssetManager.Main.Tooltip,"Add, remove, and modify assets","Add, remove, and modify assets","애셋 추가, 제거, 수정",添加、移除和修改素材
+Studio.AssetManager.TopBar.ForwardButton,Forward,Forward, , 
 Studio.AssetManager.ContextMenu.RevertToLastPublishedVersion,Revert To Last Published Version,Revert To Last Published Version,마지막 게시 버전으로 되돌리기,还原至上次发布版本
 Studio.AssetManager.NavBar.ID,ID: {gameId:int},ID: {gameId:int},ID: {gameId:int},ID：{gameId:int}
 Studio.AssetManager.Meta.PluginName,AssetManager,AssetManager,AssetManager,AssetManager
-Studio.AssetManager.ContextMenu.EditAsset,Edit Asset,Edit Asset,애셋 편집,编辑资源
+Studio.AssetManager.ContextMenu.EditAsset,Edit Asset,Edit Asset,애셋 편집,编辑素材
 Studio.AssetManager.BulkImport.BulkImportRunning,You can import other files after the current import is finished.,You can import other files after the current import is finished.,현재 가져오기가 완료된 후 다른 파일을 가져올 수 있습니다.,请在当前导入完成后开始其它文件的导入。
 Studio.AssetManager.ContextMenu.UpdateAll,Update All,Update All,모두 업데이트,全部更新
 Studio.AssetManager.NavBar.GamePlaceholderName,Game,Game,게임,游戏
@@ -19,16 +22,13 @@ Studio.AssetManager.Folders.IMAGES,Images,Images,이미지,图片
 Studio.AssetManager.Folders.MESHES,Meshes,Meshes,메시,网格
 Studio.AssetManager.ContextMenu.PublishLinkedSource,Publish this LinkedSource,Publish this LinkedSource,이 LinkedSource 게시,发布此 LinkedSource
 Studio.AssetManager.Folders.PACKAGES,Packages,Packages,패키지,包
-Studio.AssetManager.MainView.PublishText,You need to publish the game to start using Asset Manager.,You need to publish the game to start using Asset Manager.,애셋 관리자를 사용하려면 게임을 게시해야 합니다.,发布游戏后即可使用资源管理器。
+Studio.AssetManager.MainView.PublishText,You need to publish the game to start using Asset Manager.,You need to publish the game to start using Asset Manager.,애셋 관리자를 사용하려면 게임을 게시해야 합니다.,发布游戏后即可使用素材管理器。
 Studio.AssetManager.Folders.PLACES,Places,Places,플레이스,场景
+Studio.AssetManager.ContextMenu.AssetPreview,Asset Preview,Asset Preview, , 
 Studio.AssetManager.ContextMenu.InsertAsScript,Insert As Script,Insert As Script,스크립트로 삽입,插入为脚本
 Studio.AssetManager.ContextMenu.RenameAlias,Rename Alias,Rename Alias,닉네임 변경,重命名别名
 Studio.AssetManager.Folders.SCRIPTS,Scripts,Scripts,스크립트,脚本
-Studio.AssetManager.ContextMenu.PackageDetails,Package Details,Package Details,패키지 세부 사항,包详情
-Studio.AssetManager.Folders.AUDIO,Audio, , , 
 Studio.AssetManager.AssetGrid.NoResults,No {assetType} Found,No {assetType} Found,{assetType}을(를) 찾을 수 없음,未找到 {assetType}
-Studio.AssetManager.AssetGrid.LoadButton,Load All Pages,Load All Pages,모든 페이지 불러오기,加载所有页面
-Studio.AssetManager.ContextMenu.AddAudio,Add Audio,Add Audio, , 
 Studio.AssetManager.ContextMenu.AddImages,Add Images,Add Images,이미지 추가,添加图片
 Studio.AssetManager.ContextMenu.AddMeshes,Add Meshes,Add Meshes,메시 추가,添加网格
 Studio.AssetManager.ContextMenu.AddNewPlace,Add New Place,Add New Place,새 플레이스 추가,添加新场景
@@ -39,9 +39,16 @@ Studio.AssetManager.ContextMenu.CopyIdToClipboard,Copy ID to Clipboard,Copy ID t
 Studio.AssetManager.MainView.ButtonText,Publish,Publish,게시,发布
 Studio.AssetManager.AssetPreview.Insert,Insert,Insert,삽입,插入
 Studio.AssetManager.ContextMenu.Insert,Insert,Insert,삽입,插入
+Studio.AssetManager.TopBar.ListViewButton,List View,List View, , 
 Studio.AssetManager.ContextMenu.InsertAsLocalScript,Insert As Local Script,Insert As Local Script,로컬 스크립트로 삽입,插入为本地脚本
 Studio.AssetManager.ContextMenu.InsertAsModuleScript,Insert As Module Script,Insert As Module Script,모듈 스크립트로 삽입,插入为模块脚本
 Studio.AssetManager.ContextMenu.RemoveFromGame,Remove From Game,Remove From Game,게임에서 제거,从游戏中删除
+Studio.AssetManager.Folders.AUDIO,Audio,Audio, , 
+Studio.AssetManager.ContextMenu.PackageDetails,Package Details,Package Details,패키지 세부 정보,包详情
 Studio.AssetManager.ContextMenu.RefreshScript,Refresh Script,Refresh Script,스크립트 새로고침,刷新脚本
+Studio.AssetManager.ContextMenu.AddAudio,Add Audio,Add Audio, , 
+Studio.AssetManager.AssetGrid.LoadButton,Load All Pages,Load All Pages,모든 페이지 불러오기,加载所有页面
 Studio.AssetManager.ContextMenu.OpenFolder,Open,Open,열기,打开
 Studio.AssetManager.RecentlyImportedView.Title,Recently Added,Recently Added,최근 추가된 항목,最近添加
+Studio.AssetManager.TopBar.BackButton,Back,Back, , 
+Studio.AssetManager.TopBar.BulkImportButton,Bulk import,Bulk import, , 

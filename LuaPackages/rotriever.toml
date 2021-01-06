@@ -41,6 +41,7 @@ RoactGamepad = "github.com/roblox/roact-gamepad@0.4.6"
 [dev_dependencies]
 TestEZ = "github.com/roblox/testez@0.4.0"
 Rhodium = "github.com/roblox/rhodium@0.2.5"
+DeveloperTools = "github.com/Roblox/developer-tools@0.1"
 
 [patch."https://github.rbx.com/roblox/uiblox"]
 git = "https://github.com/roblox/uiblox"

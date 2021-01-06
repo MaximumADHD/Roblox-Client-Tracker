@@ -33,9 +33,9 @@ Studio.PluginInstallation.Entry.UpdateError,Error. Try updating again.,Error. Tr
 Studio.PluginInstallation.Entry.UpdateSuccess,Update complete!,Update complete!,업데이트 완료!,Обновление завершено!,更新完成！
 Studio.PluginInstallation.EntrySeeMore.RemoveButton,Uninstall,Uninstall,제거,Удалить,卸载
 Studio.PluginInstallation.Entry.ModeratedWarning,This plugin includes malicious content and can’t be run anymore.,This plugin includes malicious content and can’t be run anymore.,이 플러그인에는 악성 콘텐츠가 들어 있어 더 이상 실행할 수 없습니다.,Этот плагин содержит вредоносный контент и больше не может быть запущен.,此插件包含恶意内容，无法继续使用。
-Studio.PluginInstallation.EntrySeeMore.DetailsButton,Details,Details,세부 사항,Подробнее,详情
+Studio.PluginInstallation.EntrySeeMore.DetailsButton,Details,Details,세부 정보,Подробнее,详情
 Studio.PluginInstallation.Header.PendingUpdates,Pending updates,Pending updates,업데이트 보류 중,Ожидающие обновления,待更新
-Studio.PluginInstallation.Moved.NewLocationMessage,Get plugins from Marketplace under Toolbox.,Get plugins from Marketplace under Toolbox.,도구 상자 아래의 마켓플레이스에서 플러그인을 받으세요.,Плагины находятся в разделе «Панель инструментов» > «Магазин».,从“工具箱”下的“商店”中获取插件。
+Studio.PluginInstallation.Moved.NewLocationMessage,Get plugins from Marketplace under Toolbox.,Get plugins from Marketplace under Toolbox.,도구 상자 아래의 마켓플레이스에서 플러그인을 받으세요.,Плагины находятся в разделе «Панель инструментов» > «Магазин».,请到“工具箱”下的“商店”中获取插件。
 Studio.PluginInstallation.Header.UpToDate,Up to date,Up to date,최신 상태,Обновлено,最新版本
 Studio.PluginInstallation.Moved.Title,Roblox Studio,Roblox Studio,Roblox Studio,Roblox Studio,Roblox Studio
 Studio.PluginInstallation.Moved.MovedMessage,We've moved.,We've moved.,이동시켰습니다.,Мы переехали.,我们已经搬移。
@@ -44,5 +44,6 @@ Studio.PluginInstallation.PluginEntry.HttpRequest,HTTP Requests,HTTP Requests,HT
 Studio.PluginInstallation.Details.Description,Description,Description,설명,Описание,描述
 Studio.PluginInstallation.PluginEntry.ScriptInjectionAllowed,Script Injection Allowed,Script Injection Allowed, , , 
 Studio.PluginInstallation.Details.ScriptInjectionInfo,"By allowing Script Injection, this plugin may insert or modify scripts that perform malicious actions anywhere in your game (scripts can pretty much do anything). Disabling Script Injection might result in a non-working plugin.","By allowing Script Injection, this plugin may insert or modify scripts that perform malicious actions anywhere in your game (scripts can pretty much do anything). Disabling Script Injection might result in a non-working plugin.", , , 
+Studio.PluginInstallation.Main.FindPluginsWithButtonMessage,"To find more plugins, open Marketplace by clicking the '+' button.","To find more plugins, open Marketplace by clicking the '+' button.", , , 
 Studio.PluginInstallation.PluginEntry.ScriptInjectionDenied,Script Injection Denied,Script Injection Denied, , , 
 Studio.PluginInstallation.PluginEntry.NoPermissionsRequested,No Permissions Requested,No Permissions Requested, , , 

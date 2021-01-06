@@ -967,6 +967,25 @@
         "hoverBorder": "#3A3A3A",
         "checkMarkIcon": "qrc:/images/StartPage/checkmark_blue.png"
     },
+    "SecondaryButton": {
+      "Default": {
+        "background-color": "#3C3C3C",
+        "color": "#CCCCCC",
+        "font-size:": 16,
+        "border-color": "#3C3C3C",
+        "border-radius": 3,
+        "min-height": 32
+      },
+      "Hover": {
+        "background-color": "#424242"
+      },
+      "Pressed": {
+        "background-color": "#333333"
+      },
+      "Disabled": {
+        "color": "#909090"
+      }
+    },
     "Menu": {
         "background": "#2E2E2E",
         "itemHover": "#424242",

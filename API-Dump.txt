@@ -169,9 +169,10 @@ Class Bone : Attachment
 	Property CFrame Bone.TransformedCFrame  [ReadOnly] [NotReplicated]
 	Property CFrame Bone.TransformedWorldCFrame  [ReadOnly] [NotReplicated]
 Class AvatarEditorService : Instance [NotCreatable] [Service] [NotReplicated]
-	Function Instance AvatarEditorService:CheckApplyDefaultClothing(Instance humanoidDescription) {RobloxScriptSecurity} [Yields]
+	Function Instance AvatarEditorService:CheckApplyDefaultClothing(Instance humanoidDescription) [Yields]
 	Function Instance AvatarEditorService:ConformToAvatarRules(Instance humanoidDescription) {RobloxScriptSecurity} [Yields]
 	Function Dictionary AvatarEditorService:GetAvatarRules() [Yields]
+	Function Array AvatarEditorService:GetBatchItemDetails(Array itemIds, Enum<AvatarItemType> itemType) [Yields]
 	Function bool AvatarEditorService:GetFavorite(int64 itemId, Enum<AvatarItemType> itemType) [Yields]
 	Function Instance AvatarEditorService:GetInventory(Array assetTypes) [Yields]
 	Function Dictionary AvatarEditorService:GetItemDetails(int64 itemId, Enum<AvatarItemType> itemType) [Yields]
@@ -865,10 +866,10 @@ Class GamepadService : Instance [NotCreatable] [Service]
 Class Geometry : Instance [NotCreatable] [Service]
 Class GlobalDataStore : Instance [NotCreatable] [NotReplicated]
 	Function Tuple GlobalDataStore:GetAsync(string key) [Yields]
-	Function Variant GlobalDataStore:IncrementAsync(string key, int delta = 1) [Yields]
+	Function Variant GlobalDataStore:IncrementAsync(string key, int delta = 1, Array userids = {}, Instance options = nil) [Yields]
 	Function RBXScriptConnection GlobalDataStore:OnUpdate(string key, Function callback) [Deprecated]
 	Function Tuple GlobalDataStore:RemoveAsync(string key) [Yields]
-	Function Variant GlobalDataStore:SetAsync(string key, Variant value, Variant userids, Instance options = nil) [Yields]
+	Function Variant GlobalDataStore:SetAsync(string key, Variant value, Array userids = {}, Instance options = nil) [Yields]
 	Function Tuple GlobalDataStore:UpdateAsync(string key, Function transformFunction) [Yields]
 Class OrderedDataStore : GlobalDataStore [NotCreatable] [NotReplicated]
 	Function Instance OrderedDataStore:GetSortedAsync(bool ascending, int pagesize, Variant minValue, Variant maxValue) [Yields]
@@ -1330,7 +1331,7 @@ Class HapticService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void HapticService:SetMotor(Enum<UserInputType> inputType, Enum<VibrationMotor> vibrationMotor, Tuple vibrationValues)
 Class HeightmapImporterService : Instance [Service] [NotReplicated]
 	Function void HeightmapImporterService:CancelImportHeightmap() {RobloxScriptSecurity}
-	Function Tuple HeightmapImporterService:GetGreyscale(Content heightmapAssetId) {RobloxScriptSecurity}
+	Function Tuple HeightmapImporterService:GetHeightmapPreviewAsync(Content heightmapAssetId) {RobloxScriptSecurity} [Yields]
 	Function void HeightmapImporterService:ImportHeightmap(Region3 region, Content heightmapAssetId, Content colormapAssetId, Enum<Material> defaultMaterial) {RobloxScriptSecurity} [Yields]
 	Function Tuple HeightmapImporterService:IsValidColormap(Content colormapAssetId) {RobloxScriptSecurity}
 	Function Tuple HeightmapImporterService:IsValidHeightmap(Content heightmapAssetId) {RobloxScriptSecurity}
@@ -1894,6 +1895,7 @@ Class BasePart : PVInstance [NotCreatable] [NotBrowsable]
 	Property int BasePart.ResizeIncrement  [ReadOnly] [NotReplicated]
 	Property Faces BasePart.ResizeableFaces  [ReadOnly] [NotReplicated]
 	Property CFrame BasePart.CFrame
+	Property bool BasePart.CanTouch
 	Property Vector3 BasePart.CenterOfMass  [ReadOnly] [NotReplicated]
 	Property float BasePart.LocalTransparencyModifier  [Hidden] [NotReplicated]
 	Property float BasePart.Mass  [ReadOnly] [NotReplicated]
@@ -2111,6 +2113,7 @@ Class Workspace : WorldRoot [NotCreatable] [Service]
 	Property Enum<StreamingPauseMode> Workspace.StreamingPauseMode  [NotScriptable]
 	Property int Workspace.StreamingTargetRadius  [NotScriptable]
 	Property Instance Workspace.Terrain  [ReadOnly] [NotReplicated]
+	Property bool Workspace.TouchesUseCollisionGroups  [NotScriptable]
 	Property Class<Camera> Workspace.CurrentCamera  [NotReplicated]
 	Property double Workspace.DistributedGameTime  [NotReplicated]
 	Function void Workspace:BreakJoints(Objects objects) {PluginSecurity}
@@ -2419,11 +2422,11 @@ Class Plugin : Instance [NotCreatable]
 	Function Instance Plugin:OnSetItem(string key, Function callback) {RobloxScriptSecurity}
 	Function void Plugin:OpenScript(Instance script, int lineNumber = 1) {PluginSecurity}
 	Function void Plugin:OpenWikiPage(string url) {PluginSecurity}
-	Function void Plugin:PauseSound(Instance soundChannel) {RobloxScriptSecurity}
-	Function void Plugin:PlaySound(Instance soundChannel, double normalizedTimePosition = 0) {RobloxScriptSecurity}
+	Function void Plugin:PauseSound(Instance sound) {RobloxScriptSecurity}
+	Function void Plugin:PlaySound(Instance sound, double normalizedTimePosition = 0) {RobloxScriptSecurity}
 	Function int64 Plugin:PromptForExistingAssetId(string assetType) {PluginSecurity} [Yields]
 	Function bool Plugin:PromptSaveSelection(string suggestedFileName = "") {PluginSecurity} [Yields]
-	Function void Plugin:ResumeSound(Instance soundChannel) {RobloxScriptSecurity}
+	Function void Plugin:ResumeSound(Instance sound) {RobloxScriptSecurity}
 	Function void Plugin:SaveSelectedToRoblox() {PluginSecurity}
 	Function void Plugin:SelectRibbonTool(Enum<RibbonTool> tool, UDim2 position) {PluginSecurity}
 	Function Objects Plugin:Separate(Objects objects) {PluginSecurity}

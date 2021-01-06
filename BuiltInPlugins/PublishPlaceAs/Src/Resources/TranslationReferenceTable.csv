@@ -1,5 +1,5 @@
 Key,Source,en-us,ko,ru,zh-cn
-Studio.PublishPlaceAs.Genre.Adventure,Adventure,Adventure,어드벤처,Приключения,冒险
+Studio.PublishPlaceAs.Genre.Adventure,Adventure,Adventure,모험,Приключения,冒险
 Studio.PublishPlaceAs.General.PublishPlace,Publish Place,Publish Place,플레이스 게시,Опубликовать место,发布场景
 Studio.PublishPlaceAs.General.UntitledGame,Untitled Game,Untitled Game,제목 없는 게임, ,未命名游戏
 Studio.PublishPlaceAs.Genre.Sports,Sports,Sports,스포츠,Спорт,体育
@@ -44,7 +44,7 @@ Studio.PublishPlaceAs.Genre.All,All,All,모두,Все,全部
 Studio.PublishPlaceAs.Genre.WildWest,Western,Western,서부극,Вестерн,西部
 Studio.PublishPlaceAs.Genre.Tutorial,Building,Building,건설,Постройки,建筑
 Studio.PublishPlaceAs.PageTitle.Creator,Creator,Creator,크리에이터, ,创建者
-Studio.PublishPlaceAs.Genre.Ninja,Fighting,Fighting,격투,Файтинг,格斗
+Studio.PublishPlaceAs.Genre.Ninja,Fighting,Fighting,대전,Файтинг,格斗
 Studio.PublishPlaceAs.Genre.FPS,FPS,FPS,FPS,Шутер от первого лица,FPS
 Studio.PublishPlaceAs.Genre.War,Military,Military,군사,Войнушка,军事
 Studio.PublishPlaceAs.Genre.Pirate,Naval,Naval,해군,Морской флот,海军

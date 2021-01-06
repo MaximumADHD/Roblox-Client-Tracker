@@ -14,7 +14,7 @@ Studio.ConvertToPackage.General.InstanceFail,Convert to Package failed due to in
 Studio.ConvertToPackage.General.ChooseOne,Choose One,Choose One,하나 선택,Выберите один,选择一个
 Studio.ConvertToPackage.General.OK,OK,OK,확인,ОК,确认
 Studio.ConvertToPackage.General.DiscardMessage,Would you like to discard all changes?,Would you like to discard all changes?,모든 변경 사항을 제거할까요?,Отменить все изменения?,确定放弃所有更改吗?
-Studio.ConvertToPackage.General.GetAssetFailed,There was a problem fetching asset data.,There was a problem fetching asset data.,애셋 데이터를 가져오는 중에 문제가 발생했습니다.,Возникла проблема при получении данных доступа.,获取资源数据时出现问题。
+Studio.ConvertToPackage.General.GetAssetFailed,There was a problem fetching asset data.,There was a problem fetching asset data.,애셋 데이터를 가져오는 중에 문제가 발생했습니다.,Возникла проблема при получении данных доступа.,获取素材数据时出现问题。
 Studio.ConvertToPackage.Action.Discard,Discard,Discard,제거,Сбросить,丢弃
 Studio.ConvertToPackage.General.SuccessfullyConverted,Successfully Converted!,Successfully Converted!,전환 성공!,Преобразование завершено!,转换成功!
 Studio.ConvertToPackage.Action.Cancel,Cancel,Cancel,취소,Отмена,取消

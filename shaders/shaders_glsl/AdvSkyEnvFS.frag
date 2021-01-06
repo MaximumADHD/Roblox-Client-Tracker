@@ -16,7 +16,7 @@ void main()
     vec4 f0 = texture2D(DiffuseMapTexture, VARYING1) * VARYING2;
     vec3 f1 = f0.xyz;
     vec3 f2 = normalize(VARYING0);
-    float f3 = exp2(CB1[10].x / (0.001000000047497451305389404296875 + pow(clamp(f2.y, 0.0, 1.0), CB1[10].y)));
+    float f3 = exp2(CB1[10].x / (0.001000000047497451305389404296875 + pow(max(f2.y, 9.9999997473787516355514526367188e-06), CB1[10].y)));
     vec3 f4 = clamp(f2, vec3(0.0), vec3(1.0));
     vec3 f5 = f4 * f4;
     vec3 f6 = clamp(-f2, vec3(0.0), vec3(1.0));
