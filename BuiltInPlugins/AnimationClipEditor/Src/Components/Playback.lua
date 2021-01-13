@@ -2,8 +2,8 @@ game:DefineFastFlag("FixPlaybackWithEndFrameAtZero", false)
 
 local Plugin = script.Parent.Parent.Parent
 
-local Roact = require(Plugin.Roact)
-local RoactRodux = require(Plugin.RoactRodux)
+local Roact = require(Plugin.Packages.Roact)
+local RoactRodux = require(Plugin.Packages.RoactRodux)
 
 local StepAnimation = require(Plugin.Src.Thunks.Playback.StepAnimation)
 local SetIsPlaying = require(Plugin.Src.Actions.SetIsPlaying)

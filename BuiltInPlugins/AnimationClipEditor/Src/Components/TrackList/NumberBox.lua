@@ -27,15 +27,15 @@
 local PADDING = 12
 
 local Plugin = script.Parent.Parent.Parent.Parent
-local Roact = require(Plugin.Roact)
+local Roact = require(Plugin.Packages.Roact)
 local StringUtils = require(Plugin.Src.Util.StringUtils)
 local DragListenerArea = require(Plugin.Src.Components.DragListenerArea)
 
-local Theme = require(Plugin.Src.Context.Theme)
-local withTheme = Theme.withTheme
+local Framework = require(Plugin.Packages.Framework)
+local ContextServices = Framework.ContextServices
 
-local UILibrary = require(Plugin.UILibrary)
-local RoundFrame = UILibrary.Component.RoundFrame
+local UILibraryCompat = Plugin.Src.UILibraryCompat
+local RoundFrame = require(UILibraryCompat.RoundFrame)
 
 local TextBox = require(Plugin.Src.Components.TextBox)
 
@@ -90,11 +90,11 @@ function NumberBox:formatNumber(number)
 end
 
 function NumberBox:render()
-	return withTheme(function(theme)
+		local props = self.props
+		local theme = props.Theme:get("PluginTheme")
+
 		local textBoxTheme = theme.textBox
 		local trackTheme = theme.trackTheme
-
-		local props = self.props
 		local state = self.state
 
 		local name = props.Name
@@ -168,7 +168,11 @@ function NumberBox:render()
 				FocusChanged = self.focusChanged,
 			})
 		})
-	end)
 end
+
+ContextServices.mapToProps(NumberBox, {
+	Theme = ContextServices.Theme,
+})
+
 
 return NumberBox

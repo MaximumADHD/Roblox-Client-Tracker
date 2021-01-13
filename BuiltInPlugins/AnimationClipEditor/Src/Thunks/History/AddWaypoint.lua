@@ -6,7 +6,7 @@
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
-local Cryo = require(Plugin.Cryo)
+local Cryo = require(Plugin.Packages.Cryo)
 local SetPast = require(Plugin.Src.Actions.SetPast)
 local SetFuture = require(Plugin.Src.Actions.SetFuture)
 local SetIsDirty = require(Plugin.Src.Actions.SetIsDirty)

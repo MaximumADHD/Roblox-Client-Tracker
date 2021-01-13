@@ -15,16 +15,20 @@ local DEFAULT_DIALOG_SIZE = Vector2.new(400, 200)
 local BORDER_PADDING = 20
 
 local Plugin = script.Parent.Parent.Parent.Parent
-local Roact = require(Plugin.Roact)
-local Cryo = require(Plugin.Cryo)
+local Roact = require(Plugin.Packages.Roact)
+local Cryo = require(Plugin.Packages.Cryo)
 local Constants = require(Plugin.Src.Util.Constants)
+local DebugFlags = require(Plugin.Src.Util.DebugFlags)
 
-local UILibrary = require(Plugin.UILibrary)
-local StyledDialog = UILibrary.Component.StyledDialog
+local Framework = require(Plugin.Packages.Framework)
+local StyledDialog = Framework.StudioUI.StyledDialog
 
 local MainProvider = require(Plugin.Src.Context.MainProvider)
+local MakePluginActions = require(Plugin.Src.Util.MakePluginActions)
 local Theme = require(Plugin.Src.Util.Theme)
-local Localization = UILibrary.Studio.Localization
+local ContextServices = Framework.ContextServices
+local Localization = ContextServices.Localization
+local Mouse = ContextServices.Mouse
 local DevelopmentReferenceTable = Plugin.Src.Resources.DevelopmentReferenceTable
 local TranslationReferenceTable = Plugin.Src.Resources.TranslationReferenceTable
 
@@ -58,18 +62,18 @@ function BlockingDialog:render()
 		ButtonWidth = Constants.PROMPT_BUTTON_SIZE.X,
 		TextSize = theme.values.PluginTheme.dialogTheme.textSize,
 		Title = localization:getText("Title", titleKey),
+		OnClose = props.OnClose,
+		OnButtonPressed = props.OnButtonClicked,
 	})
-	newProps.Size = newProps.Size or DEFAULT_DIALOG_SIZE
+	newProps.MinContentSize = newProps.Size or DEFAULT_DIALOG_SIZE
 	newProps.Buttons = newProps.Buttons or {
-		{Key = true, Text = localization:getText("Dialog", "Ok"), Style = "Primary"},
+		{Key = true, Text = localization:getText("Dialog", "Ok"), Style = "Round"},
 	}
 
 	return Roact.createElement(MainProvider, {
 		theme = theme,
 		plugin = plugin,
 		localization = localization,
-		mouse = plugin:GetMouse(),
-		focusGui = {},
 	}, {
 		Dialog = Roact.createElement(StyledDialog, newProps),
 	})

@@ -6,11 +6,10 @@
 
 local Plugin = script.Parent.Parent.Parent
 
-local Roact = require(Plugin.Roact)
-local RoactRodux = require(Plugin.RoactRodux)
-
-local PluginContext = require(Plugin.Src.Context.Plugin)
-local getPlugin = PluginContext.getPlugin
+local Roact = require(Plugin.Packages.Roact)
+local RoactRodux = require(Plugin.Packages.RoactRodux)
+local Framework = require(Plugin.Packages.Framework)
+local ContextServices = Framework.ContextServices
 
 local UpdateRootInstance = require(Plugin.Src.Thunks.UpdateRootInstance)
 local RigUtils = require(Plugin.Src.Util.RigUtils)
@@ -46,7 +45,7 @@ local function getSelectedInstance()
 end
 
 local function getMouseTarget(self)
-	return getPlugin(self):GetMouse().Target
+	return self.props.Mouse:get().Target
 end
 
 local function isValidRig(instance)
@@ -108,14 +107,7 @@ function InstanceSelector:init()
 		})
 	end
 
-	local plugin = getPlugin(self)
-	if plugin then
-		plugin:Activate(true)
-
-		self.MouseButtonDown = plugin:GetMouse().Button1Down:Connect(function()
-			self:selectValidInstance(self.selectInstance, self.deselect)
-		end)
-	end
+	local plugin = self.props.Plugin
 
 	self.SelectionChangedHandle = Selection.SelectionChanged:Connect(function()
 		local selectedInstance = getSelectedInstance()
@@ -124,13 +116,13 @@ function InstanceSelector:init()
 		if isValidRig(rigInstance) and not self:isCurrentRootInstance(rigInstance) then
 			local hasErrors, errorList = RigUtils.rigHasErrors(rigInstance)
 			if not hasErrors then
-				self.props.UpdateRootInstance(rigInstance)
+				self.props.UpdateRootInstance(rigInstance, self.props.Analytics)
 				self.deselect()
 			else
 				plugin:Deactivate()
 				self:showErrorDialogs(plugin, errorList)
 			end
-		elseif selectedInstance then
+		elseif selectedInstance and plugin then
 			plugin:Deactivate()
 		end
 	end)
@@ -142,6 +134,14 @@ function InstanceSelector:didMount()
 	self.Heartbeat = RunService.Heartbeat:Connect(function(step)
 		self:selectValidInstance(self.highlightInstance, self.removeHighlight)
 	end)
+	local plugin = self.props.Plugin
+	if plugin then
+		plugin:get():Activate(true)
+
+		self.MouseButtonDown = self.props.Mouse:get().Button1Down:Connect(function()
+			self:selectValidInstance(self.selectInstance, self.deselect)
+		end)
+	end
 end
 
 function InstanceSelector:render()
@@ -175,10 +175,16 @@ function InstanceSelector:willUnmount()
 		self.MouseButtonDown:Disconnect()
 	end
 
-	if getPlugin(self) then
-		getPlugin(self):Deactivate()
+	if self.props.Plugin then
+		self.props.Plugin:get():Deactivate()
 	end
 end
+
+ContextServices.mapToProps(InstanceSelector, {
+	Plugin = ContextServices.Plugin,
+	Mouse = ContextServices.Mouse,
+	Analytics = ContextServices.Analytics,
+})
 
 local function mapStateToProps(state, props)
 	return{
@@ -188,8 +194,8 @@ end
 
 local function mapDispatchToProps(dispatch)
 	return {
-		UpdateRootInstance = function(rootInstance)
-			dispatch(UpdateRootInstance(rootInstance))
+		UpdateRootInstance = function(rootInstance, analytics)
+			dispatch(UpdateRootInstance(rootInstance, analytics))
 		end,
 	}
 end

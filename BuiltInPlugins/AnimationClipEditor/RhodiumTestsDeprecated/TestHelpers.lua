@@ -7,8 +7,8 @@ local Plugin = script.Parent.Parent
 local Element = require(Plugin.Rhodium.Element)
 local Test = require(Plugin.RhodiumTestsDeprecated.Test)
 
-local LoadAnimationData = require(Plugin.Src.Thunks.LoadAnimationData)
-local UpdateRootInstance = require(Plugin.Src.Thunks.UpdateRootInstance)
+local LoadAnimationData = require(Plugin.SrcDeprecated.Thunks.LoadAnimationData)
+local UpdateRootInstance = require(Plugin.SrcDeprecated.Thunks.UpdateRootInstance)
 
 local TestHelpers = {
 	plugin = nil

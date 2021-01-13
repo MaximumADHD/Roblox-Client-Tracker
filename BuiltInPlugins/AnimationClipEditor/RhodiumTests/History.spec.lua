@@ -1,5 +1,9 @@
 return function()
 	local Plugin = script.Parent.Parent
+	local Framework = require(Plugin.Packages.Framework)
+	local ContextServices = Framework.ContextServices
+
+	local Analytics = Framework.ContextServices.Analytics
 
 	local StepAnimation = require(Plugin.Src.Thunks.Playback.StepAnimation)
 	local DeleteSelectedKeyframes = require(Plugin.Src.Thunks.Selection.DeleteSelectedKeyframes)
@@ -125,12 +129,14 @@ return function()
 		runTest(function(test)
 			local store = test:getStore()
 			local container = test:getContainer()
+			local analytics = Analytics.mock()
+
 			TestHelpers.loadAnimation(store, testAnimationData)
 			local testTrack = TestPaths.getTrack(container, "Track_Head")
 
 			TestHelpers.clickInstance(testTrack["1"])
 			store:dispatch(AddWaypoint())
-			store:dispatch(DeleteSelectedKeyframes())
+			store:dispatch(DeleteSelectedKeyframes(analytics))
 			TestHelpers.delay()
 
 			expect(#testTrack:GetChildren()).to.equal(1)

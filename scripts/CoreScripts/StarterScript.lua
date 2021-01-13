@@ -14,6 +14,8 @@ local RunService = game:GetService("RunService")
 local RobloxGui = game:GetService("CoreGui"):WaitForChild("RobloxGui")
 local CoreGuiModules = RobloxGui:WaitForChild("Modules")
 
+local loadErrorHandlerFromEngine = game:GetEngineFeature("LoadErrorHandlerFromEngine")
+
 local initify = require(CorePackages.initify)
 
 -- Initifying CorePackages.Packages is required for the error reporter to work.
@@ -87,7 +89,7 @@ local function safeRequire(moduleScript)
 	end
 end
 
-if not FFlagConnectErrorHandlerInLoadingScript then
+if not FFlagConnectErrorHandlerInLoadingScript and not loadErrorHandlerFromEngine then
 	if FFlagConnectionScriptEnabled and not GuiService:IsTenFootInterface() then
 		ScriptContext:AddCoreScriptLocal("Connection", RobloxGui)
 	end

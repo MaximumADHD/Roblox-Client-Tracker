@@ -21,14 +21,16 @@ local requiredServices = {
 	ExternalSettings,
 }
 
-local function resolvePromptState(productInfo, accountInfo, alreadyOwned)
+local function resolvePromptState(productInfo, accountInfo, alreadyOwned, isRobloxPurchase)
 	return Thunk.new(script.Name, requiredServices, function(store, services)
 		local externalSettings = services[ExternalSettings]
 
 		store:dispatch(ProductInfoReceived(productInfo))
 		store:dispatch(AccountInfoReceived(accountInfo))
 
-		local restrictThirdParty = externalSettings.getLuaUseThirdPartyPermissions() or externalSettings.getFlagRestrictSales2()
+		local restrictThirdParty =
+			(not externalSettings.getFlagBypassThirdPartySettingForRobloxPurchase or not isRobloxPurchase)
+			and (externalSettings.getLuaUseThirdPartyPermissions() or externalSettings.getFlagRestrictSales2())
 
 		local canPurchase, failureReason = meetsPrerequisites(productInfo, alreadyOwned, restrictThirdParty, externalSettings)
 		if not canPurchase then

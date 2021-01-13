@@ -15,47 +15,43 @@
 ]]
 
 local Plugin = script.Parent.Parent.Parent
-local Roact = require(Plugin.Roact)
-local UILibrary = require(Plugin.UILibrary)
+local Roact = require(Plugin.Packages.Roact)
+local Framework = require(Plugin.Packages.Framework)
 
-local Localizing = UILibrary.Localizing
-local withLocalization = Localizing.withLocalization
+local ContextServices = Framework.ContextServices
+local Localization = ContextServices.Localization
 
-local LibraryTooltip = UILibrary.Component.Tooltip
+local LibraryTooltip = Framework.UI.Tooltip
 
 local Tooltip = Roact.PureComponent:extend("Tooltip")
 
 function Tooltip:render()
-	return self:renderInternal(function(localization)
-		local props = self.props
-		local text = props.Text
-		local textKey = props.TextKey
-		local showDelay = props.ShowDelay
-		local priority = props.Priority
+	local props = self.props
+	local text = props.Text
+	local textKey = props.TextKey
+	local showDelay = props.ShowDelay
+	local priority = props.Priority
+	local localization = self.props.Localization
 
-		assert(text or textKey, "Expected either a Text or TextKey prop.")
+	assert(text or textKey, "Expected either a Text or TextKey prop.")
 
-		local displayText
-		if text then
-			displayText = text
-		elseif textKey then
-			displayText = localization:getText("Tooltip", textKey)
-		end
+	local displayText
+	if text then
+		displayText = text
+	elseif textKey then
+		displayText = localization:getText("Tooltip", textKey)
+	end
 
-		return Roact.createElement(LibraryTooltip, {
-			Text = displayText,
-			ShowDelay = showDelay,
-			Enabled = true,
-			Priority = priority or -100,
-		})
-	end)
+	return Roact.createElement(LibraryTooltip, {
+		Text = displayText,
+		ShowDelay = showDelay,
+		Enabled = true,
+		Priority = priority or -100,
+	})
 end
 
--- Combine "with" context functions to prevent rightward drift of render()
-function Tooltip:renderInternal(renderFunc)
-	return withLocalization(function(localization)
-		return renderFunc(localization)
-	end)
-end
+ContextServices.mapToProps(Tooltip, {
+	Localization = ContextServices.Localization,
+})
 
 return Tooltip

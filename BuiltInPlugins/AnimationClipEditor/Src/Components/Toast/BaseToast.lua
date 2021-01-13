@@ -15,23 +15,22 @@
 local EDGE_DISTANCE = 28
 
 local Plugin = script.Parent.Parent.Parent.Parent
-local Roact = require(Plugin.Roact)
+local Roact = require(Plugin.Packages.Roact)
 
-local Theme = require(Plugin.Src.Context.Theme)
-local withTheme = Theme.withTheme
-
-local UILibrary = require(Plugin.UILibrary)
-local ShowOnTop = UILibrary.Focus.ShowOnTop
-local DropShadow = UILibrary.Component.DropShadow
-local RoundFrame = UILibrary.Component.RoundFrame
+local Framework = require(Plugin.Packages.Framework)
+local ShowOnTop = Framework.UI.ShowOnTop
+local DropShadow = Framework.UI.DropShadow
+local ContextServices = Framework.ContextServices
+local UILibraryCompat = Plugin.Src.UILibraryCompat
+local RoundFrame = require(UILibraryCompat.RoundFrame)
 
 local BaseToast = Roact.PureComponent:extend("BaseToast")
 
 function BaseToast:render()
-	return withTheme(function(theme)
+		local props = self.props
+		local theme = props.Theme:get("PluginTheme")
 		local toastTheme = theme.toastTheme
 
-		local props = self.props
 		local anchorPoint = props.AnchorPoint
 		local size = props.Size
 		local transparency = props.Transparency or 0
@@ -60,13 +59,13 @@ function BaseToast:render()
 		return Roact.createElement(ShowOnTop, {
 			Priority = -1,
 		}, {
-			Container = Roact.createElement("Frame", {
+			Container = Roact.createElement(RoundFrame, {
 				AnchorPoint = anchorPoint,
 				Size = size,
 				Position = UDim2.new(anchorPoint.X, xPadding, anchorPoint.Y, yPadding),
 				BackgroundTransparency = 1,
 			}, {
-				Background =  Roact.createElement(RoundFrame, {
+				Background =  Roact.createElement("Frame", {
 					Size = UDim2.new(1, 0, 1, 0),
 					BackgroundColor3 = theme.backgroundColor,
 					BackgroundTransparency = transparency,
@@ -83,7 +82,10 @@ function BaseToast:render()
 				}),
 			}),
 		})
-	end)
 end
+
+ContextServices.mapToProps(BaseToast, {
+	Theme = ContextServices.Theme,
+})
 
 return BaseToast

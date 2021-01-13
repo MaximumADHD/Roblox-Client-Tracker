@@ -8,11 +8,9 @@ local Workspace = game:GetService("Workspace")
 local DraggerFramework = script.Parent.Parent
 local shouldDragAsFace = require(DraggerFramework.Utility.shouldDragAsFace)
 
-local getEngineFeatureActiveInstanceHighlight = require(DraggerFramework.Flags.getEngineFeatureActiveInstanceHighlight)
 local getFFlagDragFaceInstances = require(DraggerFramework.Flags.getFFlagDragFaceInstances)
 
 local getEngineFeatureEditPivot = require(DraggerFramework.Flags.getEngineFeatureEditPivot)
-local getEngineFeatureSelectionServiceAddRemove = require(DraggerFramework.Flags.getEngineFeatureSelectionServiceAddRemove)
 
 local SelectionHelper = {}
 
@@ -349,87 +347,48 @@ function SelectionHelper.updateSelection(selectable, oldSelection, isExclusive, 
 
 	if doExtendSelection and not (getEngineFeatureEditPivot() and isExclusive) then
 		-- Add or remove from the selection when ctrl or shift is held.
-		if getEngineFeatureSelectionServiceAddRemove() then
-			local newSelection = {}
-			local added, removed = {}, {}
-			local didRemoveSelectableInstance = false
-			for _, item in ipairs(oldSelection) do
-				if item == selectable then
-					didRemoveSelectableInstance = true
-				else
-					table.insert(newSelection, item)
-				end
-			end
-			if didRemoveSelectableInstance then
-				table.insert(removed, selectable)
+		local newSelection = {}
+		local added, removed = {}, {}
+		local didRemoveSelectableInstance = false
+		for _, item in ipairs(oldSelection) do
+			if item == selectable then
+				didRemoveSelectableInstance = true
 			else
-				table.insert(newSelection, selectable)
-				table.insert(added, selectable)
+				table.insert(newSelection, item)
 			end
-			return true, newSelection, {Added = added, Removed = removed}
-		else
-			local newSelection = {}
-			local didRemoveSelectableInstance = false
-			for _, item in ipairs(oldSelection) do
-				if item == selectable then
-					didRemoveSelectableInstance = true
-				else
-					table.insert(newSelection, item)
-				end
-			end
-			if not didRemoveSelectableInstance then
-				table.insert(newSelection, selectable)
-			end
-			return true, newSelection
 		end
-	else
-		if getEngineFeatureActiveInstanceHighlight() then
-			local index = table.find(oldSelection, selectable)
-			if index and not isExclusive then
-				-- The instance is already in the selection. If the active instance
-				-- needs to be updated, and the instance isn't already the last item
-				-- in the list, move it to the end of the selection.
-				local lastIndex = #oldSelection
-				if index < lastIndex then
-					local newSelection = {}
-					table.move(oldSelection, 1, index, 1, newSelection)
-					table.move(oldSelection, index + 1, lastIndex, index, newSelection)
-					newSelection[lastIndex] = selectable
-
-					if getEngineFeatureSelectionServiceAddRemove() then
-						-- Remove and then add the selectable to push it to
-						-- the end of the selection.
-						local hint = {Added = {selectable}, Removed = {selectable}}
-						return true, newSelection, hint
-					else
-						return true, newSelection
-					end
-				end
-
-				-- Otherwise, leave the selection alone.
-				return false, oldSelection
-			else
-				-- The instance is not in the selection and the selection is not being
-				-- extended; overwrite the old selection.
-				return true, {selectable}
-			end
+		if didRemoveSelectableInstance then
+			table.insert(removed, selectable)
 		else
-			local isAlreadyInSelection = false
-			for _, item in ipairs(oldSelection) do
-				if item == selectable then
-					isAlreadyInSelection = true
-					break
-				end
+			table.insert(newSelection, selectable)
+			table.insert(added, selectable)
+		end
+		return true, newSelection, {Added = added, Removed = removed}
+	else
+		local index = table.find(oldSelection, selectable)
+		if index and not isExclusive then
+			-- The instance is already in the selection. If the active instance
+			-- needs to be updated, and the instance isn't already the last item
+			-- in the list, move it to the end of the selection.
+			local lastIndex = #oldSelection
+			if index < lastIndex then
+				local newSelection = {}
+				table.move(oldSelection, 1, index, 1, newSelection)
+				table.move(oldSelection, index + 1, lastIndex, index, newSelection)
+				newSelection[lastIndex] = selectable
+
+				-- Remove and then add the selectable to push it to
+				-- the end of the selection.
+				local hint = {Added = {selectable}, Removed = {selectable}}
+				return true, newSelection, hint
 			end
 
-			if isAlreadyInSelection and not isExclusive then
-				-- The instance is already in the selection; leave the selection alone.
-				return false, oldSelection
-			else
-				-- The instance is not in the selection and the selection is not being
-				-- extended; overwrite the old selection.
-				return true, {selectable}
-			end
+			-- Otherwise, leave the selection alone.
+			return false, oldSelection
+		else
+			-- The instance is not in the selection and the selection is not being
+			-- extended; overwrite the old selection.
+			return true, {selectable}
 		end
 	end
 end

@@ -14,7 +14,7 @@ local SetIsPlaying = require(Plugin.Src.Actions.SetIsPlaying)
 local SaveKeyframeSequence = require(Plugin.Src.Thunks.Exporting.SaveKeyframeSequence)
 local IsMicroboneSupportEnabled = require(Plugin.LuaFlags.GetFFlagAnimationEditorMicroboneSupport)
 
-return function()
+return function(analytics)
 	return function(store)
 		local state = store:getState()
 		store:dispatch(SetActive(false))
@@ -41,7 +41,7 @@ return function()
 		if animationData.Metadata and animationData.Instances and animationData.Instances.Root
 			and animationData.Instances.Root.Type == Constants.INSTANCE_TYPES.Rig
 			and state.Status.IsDirty then
-			store:dispatch(SaveKeyframeSequence(Constants.DEFAULT_AUTOSAVE_NAME))
+			store:dispatch(SaveKeyframeSequence(Constants.DEFAULT_AUTOSAVE_NAME, analytics))
 		end
 
 		if IsMicroboneSupportEnabled() then

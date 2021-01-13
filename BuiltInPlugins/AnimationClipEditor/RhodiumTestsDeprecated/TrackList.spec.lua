@@ -6,7 +6,7 @@ return function()
 	local VirtualInput = require(Plugin.Rhodium.VirtualInput)
 	local runTest = TestHelpers.runTest
 
-	local Templates = require(Plugin.Src.Util.Templates)
+	local Templates = require(Plugin.SrcDeprecated.Util.Templates)
 
 	local testAnimationData = Templates.animationData()
 	testAnimationData.Instances = {

@@ -18,6 +18,7 @@ local PurchasePromptDeps = require(CorePackages.PurchasePromptDeps)
 
 	local GetFFlagAdultConfirmationEnabled = require(Root.Flags.GetFFlagAdultConfirmationEnabled)
 	local GetFFlagAdultConfirmationEnabledNew = require(Root.Flags.GetFFlagAdultConfirmationEnabledNew)
+	local GetFFlagDisableRobuxUpsell = require(Root.Flags.GetFFlagDisableRobuxUpsell)
 
 	local launchRobuxUpsell = require(script.Parent.launchRobuxUpsell)
 
@@ -42,7 +43,7 @@ local PurchasePromptDeps = require(CorePackages.PurchasePromptDeps)
 
 		local state = store:getState()
 
-		if not settings():GetFFlag("ChinaLicensingApp") then
+		if not GetFFlagDisableRobuxUpsell() then
 			expect(analytics.spies.reportRobuxUpsellStarted.callCount).to.equal(1)
 			expect(platformInterface.spies.startRobuxUpsellWeb.callCount).to.equal(1)
 			expect(state.promptState).to.equal(PromptState.UpsellInProgress)
@@ -128,8 +129,7 @@ local PurchasePromptDeps = require(CorePackages.PurchasePromptDeps)
 			})
 
 			local state = store:getState()
-
-			if not settings():GetFFlag("ChinaLicensingApp") then
+			if not GetFFlagDisableRobuxUpsell() then
 				expect(analytics.spies.reportRobuxUpsellStarted.callCount).to.equal(1)
 				expect(platformInterface.spies.startRobuxUpsellWeb.callCount).to.equal(1)
 				expect(state.promptState).to.equal(PromptState.UpsellInProgress)

@@ -1,99 +1,106 @@
+local MockWrapper = require(script.Parent.MockWrapper)
+
+local Plugin = script.Parent.Parent.Parent
+local Roact = require(Plugin.Packages.Roact)
+local RoactRodux = require(Plugin.Packages.RoactRodux)
+local Rodux = require(Plugin.Packages.Rodux)
+
+local Framework = require(Plugin.Packages.Framework)
+local ContextServices = Framework.ContextServices
+local Localization = ContextServices.Localization
+local MainReducer = require(Plugin.Src.Reducers.MainReducer)
+
 return function()
-	local Plugin = script.Parent.Parent.Parent
-	local Roact = require(Plugin.Roact)
-	local UILibrary = require(Plugin.UILibrary)
-
-	local Theme = require(Plugin.Src.Context.Theme)
-	local ThemeConsumer = Theme.Consumer
-	local Localizing = UILibrary.Localizing
-	local LocalizationConsumer = Localizing.Consumer
-	local UILibraryProvider = require(Plugin.Src.Context.UILibraryProvider)
-	local PluginContext = require(Plugin.Src.Context.Plugin)
-
-	local getPlugin = PluginContext.getPlugin
-	local getStore = require(Plugin.RoactRodux.getStore)
-
-	local MockWrapper = require(Plugin.Src.Context.MockWrapper)
-
-	local ContextTester = Roact.PureComponent:extend("ContextTester")
-	function ContextTester:init(props)
-		local item = props.Getter(self)
-		local foundItem = Instance.new("BoolValue")
-		foundItem.Name = "Found"
-		foundItem.Parent = props.Container
-		foundItem.Value = item ~= nil
-	end
-	function ContextTester:render()
-	end
-
-	local function createContextTester(container, getter)
-		return Roact.createElement(ContextTester, {
-			Getter = getter,
-			Container = container,
-		})
-	end
-
-	local function createTestMockWrapper(props, children)
-		return Roact.createElement(MockWrapper, props, children)
-	end
-
 	it("should create and destroy without errors", function()
-		local element = createTestMockWrapper()
-		local instance = Roact.mount(element)
-		Roact.unmount(instance)
-	end)
-
-	it("should work with a ThemeConsumer", function ()
-		local element = createTestMockWrapper({
-			Roact.createElement(ThemeConsumer)
+		local element = Roact.createElement(MockWrapper, {}, {
+			TestElement = Roact.createElement("Frame")
 		})
-		local instance = Roact.mount(element)
+
+		local container = Instance.new("Folder")
+		local instance = Roact.mount(element, container)
 		Roact.unmount(instance)
 	end)
 
-	it("should work with a LocalizationConsumer", function ()
-		local element = createTestMockWrapper({
-			Roact.createElement(LocalizationConsumer, {
-				localizedRender = {},
+	it("should error if you do not provide an element to wrap", function()
+		expect(function()
+			local element = Roact.createElement(MockWrapper)
+			local container = Instance.new("Folder")
+			local instance = Roact.mount(element, container)
+			Roact.unmount(instance)
+		end).to.throw()
+	end)
+
+	describe("Store", function()
+		it("should supply a functional Rodux Store object to its children", function()
+			local function createTestElementWithStore()
+				local TestElement = Roact.Component:extend("TestElement")
+				function TestElement:render()
+					local abcVal = self.props.abc
+					return Roact.createElement("TextLabel", {
+						Text = abcVal,
+					})
+				end
+				TestElement = RoactRodux.connect(function(store)
+					return {
+						abc = store.abc
+					}
+				end)(TestElement)
+
+				return TestElement
+			end
+
+			local TestElement = createTestElementWithStore()
+
+			local testReducer = Rodux.createReducer({
+				abc = "123"
+			},{
+				["TestAction"] = function(state, action)
+					return {
+						abc = action.abc
+					}
+				end,
 			})
-		})
-		local instance = Roact.mount(element)
-		Roact.unmount(instance)
+			local roduxStore = Rodux.Store.new(testReducer)
+
+			local element = Roact.createElement(MockWrapper, {
+				store = roduxStore,
+			}, {
+				TestElement = Roact.createElement(TestElement)
+			})
+			local container = Instance.new("Folder")
+			local instance = Roact.mount(element, container)
+			Roact.unmount(instance)
+		end)
 	end)
 
-	it("should work with a UILibraryProvider", function ()
-		local element = createTestMockWrapper({
-			Roact.createElement(UILibraryProvider)
-		})
-		local instance = Roact.mount(element)
-		Roact.unmount(instance)
-	end)
+	describe("Theme", function()
+		local function createTestThemedElement()
+			local testThemedElement = Roact.PureComponent:extend("testThemedElement")
 
-	it("should provide a Plugin", function ()
-		local container = Instance.new("Folder")
-		local element = createTestMockWrapper({}, {
-			PluginTester = createContextTester(container, getPlugin),
-		})
-		local instance = Roact.mount(element)
+			function testThemedElement:render()
+				local theme = self.props.Theme:get("PluginTheme")
+				return Roact.createElement("Frame",{
+					BackgroundColor3 = theme.BackgroundColor
+				})
+			end
 
-		local foundPlugin = container:FindFirstChild("Found")
-		expect(foundPlugin.Value).to.equal(true)
-		foundPlugin:Destroy()
+			ContextServices.mapToProps(testThemedElement, {
+				Theme = ContextServices.Theme,
+			})
 
-		Roact.unmount(instance)
-	end)
+			return testThemedElement
+		end
 
-	it("should provide a Rodux store", function ()
-		local container = Instance.new("Folder")
-		local element = createTestMockWrapper({}, {
-			StoreTester = createContextTester(container, getStore),
-		})
-		local instance = Roact.mount(element)
+		it("should supply a functional theme object to its children", function()
+			local testThemedElement = createTestThemedElement()
 
-		local foundStore = container:FindFirstChild("Found")
-		expect(foundStore.Value).to.equal(true)
-		foundStore:Destroy()
+			local element = Roact.createElement(MockWrapper, {}, {
+				TestElement = Roact.createElement(testThemedElement)
+			})
 
-		Roact.unmount(instance)
+			local container = Instance.new("Folder")
+			local instance = Roact.mount(element, container)
+			Roact.unmount(instance)
+		end)
 	end)
 end

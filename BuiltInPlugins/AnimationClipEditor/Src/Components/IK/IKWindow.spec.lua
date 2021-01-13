@@ -1,6 +1,6 @@
 return function()
 	local Plugin = script.Parent.Parent.Parent.Parent
-	local Roact = require(Plugin.Roact)
+	local Roact = require(Plugin.Packages.Roact)
 	local Constants = require(Plugin.Src.Util.Constants)
 
 	local MockWrapper = require(Plugin.Src.Context.MockWrapper)
@@ -58,6 +58,7 @@ return function()
 				end,
 				SetIKEnabled = function()
 				end,
+				ToggleIKEnabled = function () end,
 			}),
 		})
 	end
@@ -75,27 +76,8 @@ return function()
 
 		local instance = Roact.mount(element, container)
 
-		local gui = container:FindFirstChildOfClass("BillboardGui")
+		local gui = container:FindFirstChildOfClass("ScreenGui")
 		expect(gui).to.be.ok()
-		expect(gui.Container).to.be.ok()
-		expect(gui.Container.TreeView).to.be.ok()
-		expect(gui.Container.BottomFrame).to.be.ok()
-
-		Roact.unmount(instance)
-	end)
-
-	it("should render prompt", function()
-		local container = Instance.new("Folder")
-
-		local element = createTestIKWindow(container, false)
-
-		local instance = Roact.mount(element, container)
-
-		local gui = container:FindFirstChildOfClass("BillboardGui")
-		expect(gui).to.be.ok()
-		expect(gui.Container).to.be.ok()
-		expect(gui.Container.EnableIKPrompt).to.be.ok()
-		expect(gui.Container.BottomFrame).to.be.ok()
 
 		Roact.unmount(instance)
 	end)

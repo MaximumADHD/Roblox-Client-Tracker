@@ -15,7 +15,7 @@ local Templates = require(Plugin.Src.Util.Templates)
 local Constants = require(Plugin.Src.Util.Constants)
 local deepCopy = require(Plugin.Src.Util.deepCopy)
 local isEmpty = require(Plugin.Src.Util.isEmpty)
-local Cryo = require(Plugin.Cryo)
+local Cryo = require(Plugin.Packages.Cryo)
 
 local AnimationData = {}
 

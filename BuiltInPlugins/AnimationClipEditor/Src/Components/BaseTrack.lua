@@ -14,17 +14,15 @@
 ]]
 
 local Plugin = script.Parent.Parent.Parent
-local Roact = require(Plugin.Roact)
-
-local Theme = require(Plugin.Src.Context.Theme)
-local withTheme = Theme.withTheme
+local Framework = require(Plugin.Packages.Framework)
+local ContextServices = Framework.ContextServices
+local Roact = require(Plugin.Packages.Roact)
 
 local BaseTrack = Roact.PureComponent:extend("BaseTrack")
 
 function BaseTrack:render()
-	return withTheme(function(theme)
 		local props = self.props
-
+		local theme = props.Theme:get("PluginTheme")
 		local trackTheme = theme.trackTheme
 		local size = props.Size
 		local width = props.Width
@@ -56,7 +54,11 @@ function BaseTrack:render()
 				ZIndex = zIndex,
 			}, self.props[Roact.Children])
 		})
-	end)
 end
+
+ContextServices.mapToProps(BaseTrack, {
+	Theme = ContextServices.Theme,
+})
+
 
 return BaseTrack

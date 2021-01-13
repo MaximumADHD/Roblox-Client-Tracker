@@ -1,17 +1,17 @@
 return function()
 	local Plugin = script.Parent.Parent
 
-	local StepAnimation = require(Plugin.Src.Thunks.Playback.StepAnimation)
-	local DeleteSelectedEvents = require(Plugin.Src.Thunks.Events.DeleteSelectedEvents)
-	local CopySelectedEvents = require(Plugin.Src.Thunks.Events.CopySelectedEvents)
-	local PasteEvents = require(Plugin.Src.Thunks.Events.PasteEvents)
+	local StepAnimation = require(Plugin.SrcDeprecated.Thunks.Playback.StepAnimation)
+	local DeleteSelectedEvents = require(Plugin.SrcDeprecated.Thunks.Events.DeleteSelectedEvents)
+	local CopySelectedEvents = require(Plugin.SrcDeprecated.Thunks.Events.CopySelectedEvents)
+	local PasteEvents = require(Plugin.SrcDeprecated.Thunks.Events.PasteEvents)
 
 	local TestHelpers = require(Plugin.RhodiumTestsDeprecated.TestHelpers)
 	local TestPaths = require(Plugin.RhodiumTestsDeprecated.TestPaths)
 	local VirtualInput = require(Plugin.Rhodium.VirtualInput)
 	local runTest = TestHelpers.runTest
 
-	local Templates = require(Plugin.Src.Util.Templates)
+	local Templates = require(Plugin.SrcDeprecated.Util.Templates)
 	local testAnimationData = Templates.animationData()
 	testAnimationData.Events = {
 		Keyframes = {0, 1},

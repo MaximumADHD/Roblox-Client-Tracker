@@ -9,7 +9,7 @@ local Plugin = script.Parent.Parent.Parent.Parent
 local RigUtils = require(Plugin.Src.Util.RigUtils)
 local SaveKeyframeSequence = require(Plugin.Src.Thunks.Exporting.SaveKeyframeSequence)
 
-return function(plugin)
+return function(plugin, analytics)
 	return function(store)
 		local state = store:getState()
 		local animationData = state.AnimationData
@@ -19,19 +19,19 @@ return function(plugin)
 		end
 
 		local animName = animationData.Metadata.Name
-		store:dispatch(SaveKeyframeSequence(animName))
+		store:dispatch(SaveKeyframeSequence(animName, analytics))
 		local animSaves = RigUtils.getAnimSavesFolder(rootInstance)
 		local exported = animSaves and animSaves:FindFirstChild(animName)
 		if animSaves and exported then
 			local selectionChanged
 			selectionChanged = Selection.SelectionChanged:Connect(function(selected)
 				selectionChanged:Disconnect()
-				plugin:SaveSelectedToRoblox()
+				plugin:get():SaveSelectedToRoblox()
 			end)
 
 			Selection:Set({exported})
 
-			state.Analytics:onExportAnimation()
+			analytics:report("onExportAnimation")
 		end
 	end
 end

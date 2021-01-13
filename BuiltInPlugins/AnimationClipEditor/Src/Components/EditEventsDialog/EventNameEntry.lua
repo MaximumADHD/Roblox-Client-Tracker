@@ -23,14 +23,11 @@ local ICON_SIZE = 8
 local MAX_EVENT_ITEMS = 3
 
 local Plugin = script.Parent.Parent.Parent.Parent
-local Roact = require(Plugin.Roact)
+local Roact = require(Plugin.Packages.Roact)
 local Constants = require(Plugin.Src.Util.Constants)
 
-local Theme = require(Plugin.Src.Context.Theme)
-local withTheme = Theme.withTheme
-
-local Mouse = require(Plugin.Src.Context.Mouse)
-local getMouse = Mouse.getMouse
+local Framework = require(Plugin.Packages.Framework)
+local ContextServices = Framework.ContextServices
 
 local FilteringTextBox = require(Plugin.Src.Components.FilteringTextBox)
 local EditEventMenu = require(Plugin.Src.Components.EditEventsDialog.EditEventMenu)
@@ -99,11 +96,15 @@ function EventNameEntry:init(initialProps)
 	end
 
 	self.mouseEnter = function()
-		getMouse(self).pushCursor("PointingHand")
+		if self.props.Mouse then
+			self.props.Mouse:__pushCursor("PointingHand")
+		end
 	end
 
 	self.mouseLeave = function()
-		getMouse(self).popCursor()
+		if self.props.Mouse then
+			self.props.Mouse:__popCursor()
+		end
 	end
 end
 
@@ -116,12 +117,13 @@ function EventNameEntry:didMount()
 end
 
 function EventNameEntry:willUnmount()
-	getMouse(self).resetCursor()
+	self.props.Mouse:__resetCursor()
 end
 
+
 function EventNameEntry:render()
-	return withTheme(function(theme)
 		local props = self.props
+		local theme = props.Theme:get("PluginTheme")
 		local state = self.state
 		local size = props.Size
 		local name = props.Name
@@ -195,7 +197,12 @@ function EventNameEntry:render()
 				OnMenuItemClicked = self.onMenuItemClicked,
 			}),
 		})
-	end)
 end
+
+ContextServices.mapToProps(EventNameEntry, {
+	Theme = ContextServices.Theme,
+	Mouse = ContextServices.Mouse,
+})
+
 
 return EventNameEntry

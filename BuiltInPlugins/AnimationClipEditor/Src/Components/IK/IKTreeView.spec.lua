@@ -1,6 +1,6 @@
 return function()
 	local Plugin = script.Parent.Parent.Parent.Parent
-	local Roact = require(Plugin.Roact)
+	local Roact = require(Plugin.Packages.Roact)
 
 	local MockWrapper = require(Plugin.Src.Context.MockWrapper)
 
@@ -68,7 +68,7 @@ return function()
 		local frame = container:FindFirstChildOfClass("Frame")
 		expect(frame).to.be.ok()
 		expect(frame.TreeView).to.be.ok()
-		expect(#frame.TreeView:GetChildren()).to.equal(3)
+		expect(#frame.TreeView:GetChildren()).to.equal(2)
 
 		Roact.unmount(instance)
 	end)

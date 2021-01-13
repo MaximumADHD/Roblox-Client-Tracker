@@ -1,6 +1,6 @@
 return function()
 	local Plugin = script.Parent.Parent.Parent
-	local Roact = require(Plugin.Roact)
+	local Roact = require(Plugin.Packages.Roact)
 
 	local MockWrapper = require(Plugin.Src.Context.MockWrapper)
 	local StartScreen = require(script.Parent.StartScreen)
@@ -26,34 +26,6 @@ return function()
 
 		expect(frame).to.be.ok()
 		expect(frame.SelectScreen).to.be.ok()
-
-		Roact.unmount(instance)
-	end)
-
-	it("should capture focus when rendering SelectScreen", function ()
-		local container = Instance.new("Folder")
-		local instance = Roact.mount(createTestStartScreen(container), container)
-
-		local gui = container:FindFirstChildOfClass("ScreenGui")
-		expect(gui).to.be.ok()
-		local capture = gui.TopLevelDetector.ScrollBlocker
-		expect(capture).to.be.ok()
-
-		Roact.unmount(instance)
-	end)
-
-	it("should capture focus when rendering CreateNewPrompt", function ()
-		local container = Instance.new("Folder")
-		local instance = Roact.mount(createTestStartScreen(container, {
-			RootInstance = {},
-		}), container)
-
-		local gui = container:FindFirstChildOfClass("ScreenGui")
-		expect(gui).to.be.ok()
-		local main = gui.TopLevelDetector.ScrollBlocker
-		expect(main).to.be.ok()
-		local contents = main.Background.CenterFrame.Container
-		expect(contents).to.be.ok()
 
 		Roact.unmount(instance)
 	end)

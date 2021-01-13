@@ -1,41 +1,76 @@
 local Plugin = script.Parent.Parent
 local DebugFlags = require(Plugin.Src.Util.DebugFlags)
+local GetFFlagUseDeveloperFrameworkMigratedSrc = require(Plugin.LuaFlags.GetFFlagUseDeveloperFrameworkMigratedSrc)
+local TestEZDeprecated = require(Plugin.TestEZ)
+
+-- Set THEME_REFACTOR in the DevFramework to false
+local RefactorFlags = require(Plugin.Packages.Framework.Util.RefactorFlags)
+RefactorFlags.THEME_REFACTOR = false
+
 
 local function getReporter()
-	local TestEZ = Plugin.TestEZ
-	local TeamCityReporter = require(TestEZ.Reporters.TeamCityReporter)
-	local TextReporter = require(TestEZ.Reporters.TextReporter)
+	local TestEZ = nil
+	if GetFFlagUseDeveloperFrameworkMigratedSrc() then 
+		TestEZ = require(Plugin.Packages.Dev.TestEZ)
+	else 
+		TestEZ = require(Plugin.TestEZ)
+	end
+	local TeamCityReporter = TestEZ.Reporters.TeamCityReporter
+	local TextReporter = TestEZ.Reporters.TextReporter
 
 	return _G["TEAMCITY"] and TeamCityReporter or TextReporter
 end
 
 local function runTests()
-	local TestEZ = Plugin.TestEZ
-	local TestBootstrap = require(TestEZ.TestBootstrap)
-	local tests = Plugin.Src -- Where stores the package's unit tests
+	local TestEZ = nil
+	local tests = nil
+	if GetFFlagUseDeveloperFrameworkMigratedSrc() then 
+		TestEZ = require(Plugin.Packages.Dev.TestEZ)
+		tests = Plugin.Src
+	else 
+		TestEZ = require(Plugin.TestEZ)
+		tests = Plugin.SrcDeprecated
+	end
+	local TestBootstrap = TestEZ.TestBootstrap
 	
 	local reporter = getReporter()
 
-	TestBootstrap:run(tests, reporter)
+	if GetFFlagUseDeveloperFrameworkMigratedSrc() then 
+		TestBootstrap:run({tests}, reporter)
+	else 
+		TestBootstrap:run(tests, reporter)
+	end
 end
 
 local function runRhodiumTests()
-	local TestEZ = Plugin.TestEZ
-	local TestBootstrap = require(TestEZ.TestBootstrap)
+	local TestEZ = nil
+	local TestHelpers = nil
+	local tests = nil
+	if GetFFlagUseDeveloperFrameworkMigratedSrc() then 
+		TestEZ = require(Plugin.Packages.Dev.TestEZ)
+		TestHelpers = require(Plugin.RhodiumTests.TestHelpers)
+		tests = Plugin.RhodiumTests
+	else 
+		TestEZ = require(Plugin.TestEZ)
+		TestHelpers = require(Plugin.RhodiumTestsDeprecated.TestHelpers)
+		tests = Plugin.RhodiumTestsDeprecated
+	end
+	local TestBootstrap = TestEZ.TestBootstrap
 
 	local RigCreator = require(Plugin.RigCreator)
-	local TestHelpers = require(Plugin.RhodiumTests.TestHelpers)
 
 	local DummyRig = RigCreator.BuildAnthroRig("AnthroNormal")
 	DummyRig.Name = "Dummy"
 	DummyRig.HumanoidRootPart.Anchored = true
-
-	local tests = Plugin.RhodiumTests
 	
 	local reporter = getReporter()
 
 	TestHelpers.init(plugin)
-	TestBootstrap:run(tests, reporter, false, true)
+	if GetFFlagUseDeveloperFrameworkMigratedSrc() then 
+		TestBootstrap:run({tests}, reporter, false, true)
+	else 
+		TestBootstrap:run(tests, reporter, false, true)
+	end
 	DummyRig:Destroy()
 end
 

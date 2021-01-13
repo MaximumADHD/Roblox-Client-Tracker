@@ -9,17 +9,15 @@
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
-local Roact = require(Plugin.Roact)
-local RoactRodux = require(Plugin.RoactRodux)
-local UILibrary = require(Plugin.UILibrary)
+local Roact = require(Plugin.Packages.Roact)
+local RoactRodux = require(Plugin.Packages.RoactRodux)
 
-local Button = UILibrary.Component.Button
+local Framework = require(Plugin.Packages.Framework)
 
-local Localizing = UILibrary.Localizing
-local withLocalization = Localizing.withLocalization
+local Button = Framework.UI.Button
 
-local Theme = require(Plugin.Src.Context.Theme)
-local withTheme = Theme.withTheme
+local ContextServices = Framework.ContextServices
+local Localization = ContextServices.Localization
 
 local RigUtils = require(Plugin.Src.Util.RigUtils)
 local Constants = require(Plugin.Src.Util.Constants)
@@ -76,6 +74,10 @@ function IKController:init()
 		if self.props.SelectedTracks then
 			return self.props.SelectedTracks[#self.props.SelectedTracks]
 		end
+	end
+
+	self.toggleIKEnabledHandler = function()
+		return self.props.ToggleIKEnabled(self.props.Analytics)
 	end
 
 	self.makeChains = function()
@@ -138,63 +140,67 @@ function IKController:didUpdate()
 end
 
 function IKController:render()
-	return withTheme(function(theme)
-		return withLocalization(function(localization)
-			local props = self.props
-			local state = self.state
+		local localization = self.props.Localization
+		local props = self.props
+		local theme = props.Theme:get("PluginTheme")
+		local selectedTrack = self.getLastSelectedTrack()
+		local style = props.Theme:get("PluginTheme").button
+		local state = self.state
 
-			local toggleShowTree = props.ToggleShowTree
-			local canUseIK, emptyR15 = RigUtils.canUseIK(props.RootInstance)
+		local toggleShowTree = props.ToggleShowTree
+		local canUseIK, emptyR15 = RigUtils.canUseIK(props.RootInstance)
 
-			local selectedTrack = self.getLastSelectedTrack()
 
-			return self.props.RootInstance and Roact.createElement("Frame", {
-				Position = props.Position,
-				Size = UDim2.new(0, IK_BUTTON_WIDTH, 0, IK_BUTTON_HEIGHT),
-				BackgroundTransparency = 1,
-				AnchorPoint = Vector2.new(0, 0.5),
+		return self.props.RootInstance and Roact.createElement("Frame", {
+			Position = props.Position,
+			Size = UDim2.new(0, IK_BUTTON_WIDTH, 0, IK_BUTTON_HEIGHT),
+			BackgroundTransparency = 1,
+			AnchorPoint = Vector2.new(0, 0.5),
+		}, {
+			IKButton = props.RootInstance and canUseIK and Roact.createElement(Button, {
+				Style = state.showTree and style.IKActive or style.IKDefault,
+				Size = UDim2.new(1, 0, 1, 0),
+				OnClick = toggleShowTree,
 			}, {
-				IKButton = props.RootInstance and canUseIK and Roact.createElement(Button, {
-					Style = state.showTree and "IKActive" or "IKDefault",
-					Size = UDim2.new(1, 0, 1, 0),
-					RenderContents = function(_, hover)
-						return Roact.createElement("TextLabel", {
-							BackgroundTransparency = 1,
-							Size = UDim2.new(1, 0, 1, 0),
-							TextYAlignment = Enum.TextYAlignment.Center,
-							TextSize = theme.ikTheme.textSize,
-							Text = localization:getText("Title", "IK"),
-							Font = theme.font,
-							TextColor3 = theme.ikTheme.textColor,
-						})
-					end,
-					OnClick = toggleShowTree,
-				}),
+				Label = Roact.createElement("TextLabel", {
+						BackgroundTransparency = 1,
+						Size = UDim2.new(1, 0, 1, 0),
+						TextYAlignment = Enum.TextYAlignment.Center,
+						TextSize = theme.ikTheme.textSize,
+						Text = localization:getText("Title", "IK"),
+						Font = theme.font,
+						TextColor3 = theme.ikTheme.textColor,
+					})
+			}),
 
-				IKWindow = props.ShowTree and state.showTree and Roact.createElement(IKWindow, {
-					RootInstance = props.RootInstance,
-					PinnedParts = props.PinnedParts,
-					IKEnabled = props.IKEnabled,
-					ShowTree = props.ShowTree,
-					SelectedTrack = selectedTrack,
-					SetSelectedTracks = props.SetSelectedTracks,
-					ToggleIKEnabled = props.ToggleIKEnabled,
-					TogglePinnedPart = props.TogglePinnedPart,
-					SetShowTree = props.SetShowTree,
-					SetIKEnabled = props.SetIKEnabled,
-					SetIKMode = props.SetIKMode,
-					Chain = self.makeChains(),
-					IKMode = props.IKMode,
-					IsR15 = emptyR15,
-				}),
+			IKWindow = props.ShowTree and state.showTree and Roact.createElement(IKWindow, {
+				RootInstance = props.RootInstance,
+				PinnedParts = props.PinnedParts,
+				IKEnabled = props.IKEnabled,
+				ShowTree = props.ShowTree,
+				SelectedTrack = selectedTrack,
+				SetSelectedTracks = props.SetSelectedTracks,
+				ToggleIKEnabled = self.toggleIKEnabledHandler,
+				TogglePinnedPart = props.TogglePinnedPart,
+				SetShowTree = props.SetShowTree,
+				SetIKEnabled = props.SetIKEnabled,
+				SetIKMode = props.SetIKMode,
+				Chain = self.makeChains(),
+				IKMode = props.IKMode,
+				IsR15 = emptyR15,
+			}),
 
-				R15IKRig = props.IKEnabled and emptyR15 and Roact.createElement(R15IKRig, {
-					RootInstance = props.RootInstance,
-				})
+			R15IKRig = props.IKEnabled and emptyR15 and Roact.createElement(R15IKRig, {
+				RootInstance = props.RootInstance,
 			})
-		end)
-	end)
+		})
 end
+
+ContextServices.mapToProps(IKController, {
+	Theme = ContextServices.Theme,
+	Localization = ContextServices.Localization,
+	Analytics = ContextServices.Analytics,
+})
 
 local function mapStateToProps(state, props)
 	return {
@@ -221,8 +227,8 @@ local function mapDispatchToProps(dispatch)
 			dispatch(SetIKEnabled(enabled))
 		end,
 
-		ToggleIKEnabled = function()
-			dispatch(ToggleIKEnabled())
+		ToggleIKEnabled = function(analytics)
+			dispatch(ToggleIKEnabled(analytics))
 		end,
 
 		TogglePinnedPart = function(part)
@@ -238,5 +244,6 @@ local function mapDispatchToProps(dispatch)
 		end,
 	}
 end
+
 
 return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(IKController)

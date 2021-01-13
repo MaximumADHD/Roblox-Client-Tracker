@@ -20,8 +20,8 @@
 ]]
 
 local Plugin = script.Parent.Parent.Parent
-local Roact = require(Plugin.Roact)
-local Cryo = require(Plugin.Cryo)
+local Roact = require(Plugin.Packages.Roact)
+local Cryo = require(Plugin.Packages.Cryo)
 
 local BaseTrack = require(Plugin.Src.Components.BaseTrack)
 local EventMarker = require(Plugin.Src.Components.EventMarker)

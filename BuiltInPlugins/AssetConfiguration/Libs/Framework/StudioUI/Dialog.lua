@@ -15,6 +15,9 @@
 		boolean Resizable: Whether the widget can be resized.
 		Vector2 MinSize: The minimum size of the widget, in pixels.
 			If the widget is not resizable, this property is not required.
+		boolean CreateWidgetImmediately: C++ method for creating a widget yields, which can cause issues with Roact/Rodux.
+			That method is run in its own thread, but that means creation of the widget is delayed.
+			Set this to false to create the widget immediately instead. Mostly useful for unit tests.
 ]]
 local HttpService = game:GetService("HttpService")
 

@@ -10,7 +10,7 @@ local AddTrack = require(Plugin.Src.Thunks.AddTrack)
 local UpdateAnimationData = require(Plugin.Src.Thunks.UpdateAnimationData)
 local GetFFlagAutoCreateBasePoseKeyframe = require(Plugin.LuaFlags.GetFFlagAutoCreateBasePoseKeyframe)
 
-return function(instanceName, trackName, frame, value)
+return function(instanceName, trackName, frame, value, analytics)
 	return function(store)
 		local state = store:getState()
 		local animationData = state.AnimationData
@@ -28,7 +28,7 @@ return function(instanceName, trackName, frame, value)
 		-- Add the track if it does not exist
 		local tracks = instance.Tracks
 		if tracks[trackName] == nil then
-			store:dispatch(AddTrack(instanceName, trackName))
+			store:dispatch(AddTrack(instanceName, trackName, analytics))
 			AnimationData.addTrack(tracks, trackName)
 		end
 		local track = tracks[trackName]
@@ -44,8 +44,8 @@ return function(instanceName, trackName, frame, value)
 
 			store:dispatch(UpdateAnimationData(newData))
 
-			if state.Analytics then
-				state.Analytics:onAddKeyframe(trackName, frame)
+			if analytics then
+				analytics:report("onAddKeyframe", trackName, frame)
 			end
 		end
 	end

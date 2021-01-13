@@ -5,7 +5,7 @@ return function()
 	local TestPaths = require(Plugin.RhodiumTestsDeprecated.TestPaths)
 	local runTest = TestHelpers.runTest
 
-	local Templates = require(Plugin.Src.Util.Templates)
+	local Templates = require(Plugin.SrcDeprecated.Util.Templates)
 
 	local testAnimationData = Templates.animationData()
 	local tracks = {

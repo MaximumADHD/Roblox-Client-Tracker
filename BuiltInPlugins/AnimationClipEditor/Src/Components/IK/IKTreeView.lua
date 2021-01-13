@@ -18,16 +18,16 @@
 ]]
 
 local Plugin = script.Parent.Parent.Parent.Parent
+local Cryo = require(Plugin.Packages.Cryo)
 local Constants = require(Plugin.Src.Util.Constants)
 local RigUtils = require(Plugin.Src.Util.RigUtils)
 
-local Roact = require(Plugin.Roact)
-local UILibrary = require(Plugin.UILibrary)
-local TreeView = UILibrary.Component.TreeView
-local Button = UILibrary.Component.Button
+local Roact = require(Plugin.Packages.Roact)
+local Framework = require(Plugin.Packages.Framework)
+local TreeView = Framework.UI.TreeView
+local Button = Framework.UI.Button
 
-local Theme = require(Plugin.Src.Context.Theme)
-local withTheme = Theme.withTheme
+local ContextServices = Framework.ContextServices
 
 local HierarchyLines = require(Plugin.Src.Components.IK.HierarchyLines)
 local LayoutOrderIterator = require(Plugin.Src.Util.LayoutOrderIterator)
@@ -40,7 +40,18 @@ local PIN_OFFSET = -10
 local LABEL_WIDTH = 160
 
 function IKTreeView:init()
+	local initExpandedItems = {}
+
 	local motors = RigUtils.getMotors(self.props.RootInstance)
+	for _, motor in ipairs(motors) do
+		initExpandedItems[motor.Part1.Name] = true
+	end
+	local rootPart = RigUtils.findRootPart(self.props.RootInstance)
+	initExpandedItems[rootPart.Name] = true
+	self.state = {
+		expandedItems = initExpandedItems,
+		treeArray = {}
+	}
 
 	self.getChildren = function(partName)
 		local children = {}
@@ -61,9 +72,9 @@ function IKTreeView:init()
 	self.getVerticalLineHeight = function(elementProps, forIK)
 		local startIndex = 1
 		local orderedChildren = {}
-		local children = self.getChildren(elementProps.element)
-		for index, node in ipairs(self.props.TreeArray) do
-			if node == elementProps.element then
+		local children = self.getChildren(elementProps.item)
+		for index, node in ipairs(self.state.treeArray) do
+			if node == elementProps.item then
 				startIndex = index
 			end
 			for _, child in ipairs(children) do
@@ -83,6 +94,46 @@ function IKTreeView:init()
 		end
 		return (endIndex - startIndex) * Constants.TRACK_HEIGHT
 	end
+
+	self.toggleExpanded = function(elementName)
+		self:setState(function(oldState)
+			return {
+				expandedItems = Cryo.Dictionary.join(oldState.expandedItems, {
+					[elementName] = not oldState.expandedItems[elementName],
+				}),
+			}
+		end)
+	end
+	
+	self.contributeItem = function(item, depth, list)
+		table.insert(list, item)
+		if self.state.expandedItems[item] then
+			local children = self.getChildren(item)
+			for _, child in ipairs(children) do
+				self.contributeItem(child, depth + 1, list)
+			end
+		end
+		return list
+	end
+
+	self.calculateRows = function(prevState)
+		if prevState and self.state.expandedItems == prevState.expandedItems then 
+			return
+		end
+		local rows = {}
+		self.contributeItem(RigUtils.findRootPart(self.props.RootInstance).Name, 0, rows)
+		self:setState({
+			treeArray = rows
+		})
+	end
+end
+
+function IKTreeView:didMount()
+	self.calculateRows()
+end
+
+function IKTreeView:didUpdate(prevProps, prevState)
+	self.calculateRows(prevState)
 end
 
 function IKTreeView:renderPinButton(theme, elementProps, selected)
@@ -92,7 +143,7 @@ function IKTreeView:renderPinButton(theme, elementProps, selected)
 	local pinnedParts = props.PinnedParts
 	local togglePinnedPart = props.TogglePinnedPart
 
-	local part = RigUtils.getPartByName(rootInstance, elementProps.element)
+	local part = RigUtils.getPartByName(rootInstance, elementProps.item)
 	local pinned = pinnedParts[part]
 
 	return Roact.createElement(Button, {
@@ -102,18 +153,17 @@ function IKTreeView:renderPinButton(theme, elementProps, selected)
 		IsRound = false,
 		Size = UDim2.new(0, PIN_SIZE, 0, PIN_SIZE),
 		BorderSizePixel = 0,
-		RenderContents = function(_, hover)
-			return Roact.createElement("ImageLabel", {
+		OnClick = function()
+			togglePinnedPart(part)
+		end
+		}, {
+			Image = Roact.createElement("ImageLabel", {
 				BackgroundColor3 = selected and theme.ikTheme.selected or theme.backgroundColor,
 				BorderSizePixel = 0,
 				Size = UDim2.new(1, 0, 1, 0),
 				Image = theme.ikTheme.pinImage,
 				ImageColor3 = (hover or pinned) and theme.ikTheme.pinHover or theme.ikTheme.iconColor,
-			})
-		end,
-		OnClick = function()
-			togglePinnedPart(part)
-		end,
+			}),
 	})
 end
 
@@ -121,10 +171,10 @@ function IKTreeView:renderHierarchyLines(elementProps, isSelected)
 	local props = self.props
 
 	local chain = props.Chain
-	local joint = elementProps.element
-	local indent = elementProps.indent - 1
-	local expanded = elementProps.isExpanded
-	local toggleExpanded = elementProps.toggleExpanded
+	local joint = elementProps.item
+	local indent = elementProps.depth - 1
+	local expanded = true
+	local toggleExpanded = self.toggleExpanded
 
 	return Roact.createElement(HierarchyLines, {
 		Highlight = chain[joint] ~= nil,
@@ -138,11 +188,12 @@ function IKTreeView:renderHierarchyLines(elementProps, isSelected)
 		IKHeight = self.getVerticalLineHeight(elementProps, true),
 		LayoutOrder = 1,
 		ToggleExpanded = toggleExpanded,
+		Element = elementProps.item,
 	})
 end
 
 function IKTreeView:renderJointLabel(theme, elementProps, isSelected)
-	local text = elementProps.element
+	local text = elementProps.item
 
 	return Roact.createElement("TextLabel", {
 		Text = text,
@@ -167,9 +218,8 @@ function IKTreeView:renderPadding()
 end
 
 function IKTreeView:render()
-	return withTheme(function(theme)
 		local props = self.props
-
+		local theme = props.Theme:get("PluginTheme")
 		local position = props.Position
 		local size = props.Size
 		local rootInstance = props.RootInstance
@@ -178,6 +228,8 @@ function IKTreeView:render()
 		local onTreeUpdated = props.onTreeUpdated
 		local iterator = LayoutOrderIterator.new()
 		local rootPart = RigUtils.findRootPart(rootInstance)
+		local rootItems = {}
+		table.insert(rootItems, rootPart.Name)
 
 		return Roact.createElement("Frame", {
 			Position = position,
@@ -185,17 +237,16 @@ function IKTreeView:render()
 			BackgroundTransparency = 1,
 		}, {
 			TreeView = Roact.createElement(TreeView, {
-				dataTree = rootPart.Name,
-				getChildren = self.getChildren,
-				expandAll = true,
-				onTreeUpdated = onTreeUpdated,
-				renderElement = function(elementProps)
+				RootItems = rootItems,
+				GetChildren = self.getChildren,
+				Expansion = self.state.expandedItems,
+				RenderRow = function(elementProps)
 					-- exclude root
-					if elementProps.element == rootPart.Name then
+					if elementProps.item == rootPart.Name then
 						return nil
 					end
 
-					local isSelected = selectedTrack == elementProps.element
+					local isSelected = selectedTrack == elementProps.item
 
 					return Roact.createElement("ImageButton", {
 						Size = UDim2.new(1, -8, 0, Constants.TRACK_HEIGHT),
@@ -206,7 +257,7 @@ function IKTreeView:render()
 						ZIndex = 1,
 						LayoutOrder = iterator:getNextOrder(),
 						[Roact.Event.InputBegan] = function(rbx, input)
-							self.onInputBegan(input, elementProps.element)
+							self.onInputBegan(input, elementProps.item)
 						end,
 					}, {
 						Pin = ikMode == Constants.IK_MODE.FullBody and self:renderPinButton(theme, elementProps, isSelected),
@@ -230,7 +281,11 @@ function IKTreeView:render()
 				end,
 			})
 		})
-	end)
 end
+
+ContextServices.mapToProps(IKTreeView, {
+	Theme = ContextServices.Theme,
+})
+
 
 return IKTreeView

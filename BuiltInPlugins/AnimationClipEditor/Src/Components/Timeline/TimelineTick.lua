@@ -14,11 +14,9 @@
 ]]
 
 local Plugin = script.Parent.Parent.Parent.Parent
-local Roact = require(Plugin.Roact)
-
-local Theme = require(Plugin.Src.Context.Theme)
-local withTheme = Theme.withTheme
-
+local Roact = require(Plugin.Packages.Roact)
+local Framework = require(Plugin.Packages.Framework)
+local ContextServices = Framework.ContextServices
 local TimelineTick = Roact.PureComponent:extend("TimelineTick")
 
 local LABEL_SIZE = UDim2.new(0, 25, 0, 15)
@@ -26,9 +24,9 @@ local LABEL_POSITION = UDim2.new(0, 5, 0, 0)
 local TICK_HEIGHT_SCALE = 0.7
 
 function TimelineTick:render()
-	return withTheme(function(theme)
+	local props = self.props
+	local theme = props.Theme:get("PluginTheme")
 		local timelineTheme = theme.timelineTheme
-		local props = self.props
 
 		local time = props.Time
 		local height = props.Height
@@ -77,7 +75,11 @@ function TimelineTick:render()
 					or timelineTheme.lowerTransparency
 			}),
 		})
-	end)
 end
+
+ContextServices.mapToProps(TimelineTick, {
+	Theme = ContextServices.Theme,
+})
+
 
 return TimelineTick

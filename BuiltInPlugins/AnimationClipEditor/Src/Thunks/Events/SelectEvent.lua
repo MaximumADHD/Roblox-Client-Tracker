@@ -5,7 +5,7 @@
 ]]
 
 local Plugin = script.Parent.Parent.Parent.Parent
-local Cryo = require(Plugin.Cryo)
+local Cryo = require(Plugin.Packages.Cryo)
 local SetSelectedEvents = require(Plugin.Src.Actions.SetSelectedEvents)
 
 return function(frame, multiSelect)

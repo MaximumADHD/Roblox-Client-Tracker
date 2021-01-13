@@ -11,9 +11,7 @@ local Roact = require(Packages.Roact)
 -- Dragger Framework
 local Math = require(DraggerFramework.Utility.Math)
 
-local getEngineFeatureAdornCullingMode = require(DraggerFramework.Flags.getEngineFeatureAdornCullingMode)
-
-local CULLING_MODE = getEngineFeatureAdornCullingMode() and Enum.AdornCullingMode.Never or nil
+local CULLING_MODE = Enum.AdornCullingMode.Never
 
 local ScaleHandleView = Roact.PureComponent:extend("ScaleHandleView")
 

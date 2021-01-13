@@ -17,7 +17,7 @@ local SetNotification = require(Plugin.Src.Actions.SetNotification)
 local UseCustomFPS = require(Plugin.LuaFlags.GetFFlagAnimEditorUseCustomFPS)
 local GetFFlagAddImportFailureToast = require(Plugin.LuaFlags.GetFFlagAddImportFailureToast)
 
-return function(plugin)
+return function(plugin, analytics)
 	return function(store)
 		local state = store:getState()
 		local rootInstance = state.Status.RootInstance
@@ -25,7 +25,7 @@ return function(plugin)
 			return
 		end
 
-		local id = plugin:PromptForExistingAssetId("Animation")
+		local id = plugin:get():PromptForExistingAssetId("Animation")
 		if id and tonumber(id) > 0 then
 			local anim
 			if GetFFlagAddImportFailureToast() then
@@ -56,10 +56,10 @@ return function(plugin)
 				newData = RigUtils.fromRigAnimation(anim, Constants.DEFAULT_FRAMERATE)
 			end
 			newData.Metadata.Name = Constants.DEFAULT_IMPORTED_NAME
-			store:dispatch(LoadAnimationData(newData))
+			store:dispatch(LoadAnimationData(newData, analytics))
 			store:dispatch(SetIsDirty(false))
 
-			state.Analytics:onImportAnimation(id)
+			analytics:report("onImportAnimation", id)
 		end
 	end
 end

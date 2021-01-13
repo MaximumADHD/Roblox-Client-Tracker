@@ -16,7 +16,7 @@ local AddTrack = require(Plugin.Src.Thunks.AddTrack)
 
 local allowPasteKeysBetweenAnimations = require(Plugin.LuaFlags.GetFFlagAllowPasteKeysBetweenAnimations)
 
-return function(frame)
+return function(frame, analytics)
 	return function(store)
 		local state = store:getState()
 		local clipboard = state.Status.Clipboard
@@ -45,7 +45,7 @@ return function(frame)
 					dataTrack = dataInstance.Tracks[trackName]
 
 					if allowPasteKeysBetweenAnimations() then
-						store:dispatch(AddTrack(instanceName, trackName))
+						store:dispatch(AddTrack(instanceName, trackName, analytics))
 					end
 				end
 
@@ -55,7 +55,7 @@ return function(frame)
 					AnimationData.addKeyframe(dataTrack, insertFrame, data.Value)
 					AnimationData.setKeyframeData(dataTrack, insertFrame, data)
 
-					state.Analytics:onAddKeyframe(trackName, insertFrame)
+					analytics:report("onAddKeyframe", trackName, insertFrame)
 				end
 			end
 		end

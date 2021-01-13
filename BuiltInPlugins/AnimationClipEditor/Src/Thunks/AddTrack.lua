@@ -7,12 +7,12 @@
 ]]
 
 local Plugin = script.Parent.Parent.Parent
-local Cryo = require(Plugin.Cryo)
+local Cryo = require(Plugin.Packages.Cryo)
 
 local Templates = require(Plugin.Src.Util.Templates)
 local SortAndSetTracks = require(Plugin.Src.Thunks.SortAndSetTracks)
 
-return function(instanceName, trackName)
+return function(instanceName, trackName, analytics)
 	return function(store)
 		local state = store:getState()
 		local status = state.Status
@@ -36,7 +36,6 @@ return function(instanceName, trackName)
 		local newTracks = Cryo.List.join(tracks, {newTrack})
 
 		store:dispatch(SortAndSetTracks(newTracks))
-
-		state.Analytics:onTrackAdded(trackName)
+		analytics:report("onTrackAdded", trackName)
 	end
 end

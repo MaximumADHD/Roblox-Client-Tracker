@@ -19,11 +19,11 @@ local DEFAULT_SHOW_TIME = 3
 local DEFAULT_FADE_TIME = 0.5
 
 local Plugin = script.Parent.Parent.Parent.Parent
-local Roact = require(Plugin.Roact)
+local Roact = require(Plugin.Packages.Roact)
 local StringUtils = require(Plugin.Src.Util.StringUtils)
 
-local Theme = require(Plugin.Src.Context.Theme)
-local withTheme = Theme.withTheme
+local Framework = require(Plugin.Packages.Framework)
+local ContextServices = Framework.ContextServices
 
 local BaseToast = require(Plugin.Src.Components.Toast.BaseToast)
 
@@ -93,10 +93,9 @@ function NoticeToast:willUnmount()
 end
 
 function NoticeToast:render()
-	return withTheme(function(theme)
-		local toastTheme = theme.toastTheme
-
 		local props = self.props
+		local theme = props.Theme:get("PluginTheme")
+		local toastTheme = theme.toastTheme
 		local state = self.state
 		local text = props.Text
 		local showingToast = state.showingToast
@@ -125,7 +124,11 @@ function NoticeToast:render()
 				})
 			}),
 		})
-	end)
 end
+
+ContextServices.mapToProps(NoticeToast, {
+	Theme = ContextServices.Theme,
+})
+
 
 return NoticeToast

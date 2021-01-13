@@ -1,6 +1,6 @@
 return function()
 	local Plugin = script.Parent.Parent.Parent.Parent
-	local Roact = require(Plugin.Roact)
+	local Roact = require(Plugin.Packages.Roact)
 
 	local MockWrapper = require(Plugin.Src.Context.MockWrapper)
 	local MediaControls = require(script.Parent.MediaControls)
@@ -11,6 +11,10 @@ return function()
 				isPlaying = false,
 				isLooping = false,
 				layoutOrder = 0,
+				SkipBackward = function () end,
+				SkipForward = function () end,
+				TogglePlay = function () end,
+				ToggleLooping = function () end,
 			})
 		})
 	end

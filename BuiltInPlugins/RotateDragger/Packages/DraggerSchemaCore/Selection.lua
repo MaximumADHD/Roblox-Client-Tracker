@@ -5,9 +5,6 @@ local Plugin = script.Parent.Parent.Parent
 local DraggerFramework = Plugin.Packages.DraggerFramework
 local isProtectedInstance = require(DraggerFramework.Utility.isProtectedInstance)
 
-local getEngineFeatureActiveInstanceHighlight = require(DraggerFramework.Flags.getEngineFeatureActiveInstanceHighlight)
-local getEngineFeatureSelectionServiceAddRemove = require(DraggerFramework.Flags.getEngineFeatureSelectionServiceAddRemove)
-
 local Selection = {}
 Selection.__index = Selection
 
@@ -23,13 +20,9 @@ end
 	handle things this way.
 ]]
 function Selection:Set(objects, hint)
-	if getEngineFeatureSelectionServiceAddRemove() then
-		if hint then
-			SelectionService:Remove(hint.Removed)
-			SelectionService:Add(hint.Added)
-		else
-			SelectionService:Set(objects)
-		end
+	if hint then
+		SelectionService:Remove(hint.Removed)
+		SelectionService:Add(hint.Added)
 	else
 		SelectionService:Set(objects)
 	end
@@ -47,7 +40,6 @@ function Selection:Get()
 end
 
 function Selection:GetActiveInstance()
-	assert(getEngineFeatureActiveInstanceHighlight())
 	return SelectionService.ActiveInstance
 end
 

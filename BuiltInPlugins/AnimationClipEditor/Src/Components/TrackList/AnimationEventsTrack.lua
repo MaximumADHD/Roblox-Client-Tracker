@@ -10,18 +10,12 @@
 ]]
 
 local Plugin = script.Parent.Parent.Parent.Parent
-local Roact = require(Plugin.Roact)
-local UILibrary = require(Plugin.UILibrary)
+local Roact = require(Plugin.Packages.Roact)
+local Framework = require(Plugin.Packages.Framework)
 local StringUtils = require(Plugin.Src.Util.StringUtils)
 
-local Localizing = UILibrary.Localizing
-local withLocalization = Localizing.withLocalization
-
-local Theme = require(Plugin.Src.Context.Theme)
-local withTheme = Theme.withTheme
-
-local Mouse = require(Plugin.Src.Context.Mouse)
-local getMouse = Mouse.getMouse
+local ContextServices = Framework.ContextServices
+local Localization = ContextServices.Localization
 
 local TrackListEntry = require(Plugin.Src.Components.TrackList.TrackListEntry)
 local Constants = require(Plugin.Src.Util.Constants)
@@ -46,14 +40,18 @@ function AnimationEventsTrack:init()
 	end
 
 	self.mouseEnter = function()
-		getMouse(self).pushCursor("PointingHand")
+		if self.props.Mouse then 
+			self.props.Mouse:__pushCursor("PointingHand")
+		end
 		self:setState({
 			hovering = true,
 		})
 	end
 
 	self.mouseLeave = function()
-		getMouse(self).popCursor()
+		if self.props.Mouse then 
+			self.props.Mouse:__popCursor()
+		end
 		self:setState({
 			hovering = false,
 		})
@@ -61,13 +59,13 @@ function AnimationEventsTrack:init()
 end
 
 function AnimationEventsTrack:willUnmount()
-	getMouse(self).resetCursor()
+	self.props.Mouse:__resetCursor()
 end
 
 function AnimationEventsTrack:render()
-	return withTheme(function(theme)
-		return withLocalization(function(localization)
+		local localization = self.props.Localization
 			local props = self.props
+			local theme = props.Theme:get("PluginTheme")
 			local state = self.state
 			local layoutOrder = props.LayoutOrder
 			local indent = props.Indent or 0
@@ -122,8 +120,13 @@ function AnimationEventsTrack:render()
 					}),
 				}),
 			})
-		end)
-	end)
 end
+
+ContextServices.mapToProps(AnimationEventsTrack, {
+	Theme = ContextServices.Theme,
+	Localization = ContextServices.Localization,
+	Mouse = ContextServices.Mouse
+})
+
 
 return AnimationEventsTrack

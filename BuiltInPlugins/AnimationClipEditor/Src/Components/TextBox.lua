@@ -18,16 +18,11 @@
 local PADDING = UDim.new(0, 6)
 
 local Plugin = script.Parent.Parent.Parent
-local Roact = require(Plugin.Roact)
-
-local Theme = require(Plugin.Src.Context.Theme)
-local withTheme = Theme.withTheme
-
-local Mouse = require(Plugin.Src.Context.Mouse)
-local getMouse = Mouse.getMouse
-
-local UILibrary = require(Plugin.UILibrary)
-local RoundFrame = UILibrary.Component.RoundFrame
+local Roact = require(Plugin.Packages.Roact)
+local Framework = require(Plugin.Packages.Framework)
+local ContextServices = Framework.ContextServices
+local UILibraryCompat = Plugin.Src.UILibraryCompat
+local RoundFrame = require(UILibraryCompat.RoundFrame)
 
 local TextBox = Roact.PureComponent:extend("TextBox")
 
@@ -36,19 +31,23 @@ function TextBox:init(initialProps)
 		Focused = false,
 	}
 
-	self.textBoxRef = Roact.createRef()
-
 	self.mouseEnter = function()
-		getMouse(self).pushCursor("IBeam")
+		if self.props.Mouse then 
+			self.props.Mouse:__pushCursor("IBeam")
+		end
 	end
 
 	self.mouseLeave = function()
-		getMouse(self).popCursor()
+		if self.props.Mouse then 
+			self.props.Mouse:__popCursor()
+		end
 	end
+
+	self.textBoxRef = Roact.createRef()
 end
 
 function TextBox:willUnmount()
-	getMouse(self).resetCursor()
+	self.props.Mouse:__resetCursor()
 	self.unmounting = true
 end
 
@@ -65,8 +64,8 @@ function TextBox:didMount()
 end
 
 function TextBox:render()
-	return withTheme(function(theme)
 		local props = self.props
+		local theme = props.Theme:get("PluginTheme")
 		local state = self.state
 
 		local size = props.Size
@@ -146,7 +145,11 @@ function TextBox:render()
 				[Roact.Event.MouseLeave] = self.mouseLeave,
 			}, props[Roact.Children]),
 		})
-	end)
 end
+
+ContextServices.mapToProps(TextBox, {
+	Theme = ContextServices.Theme,
+	Mouse = ContextServices.Mouse,
+})
 
 return TextBox

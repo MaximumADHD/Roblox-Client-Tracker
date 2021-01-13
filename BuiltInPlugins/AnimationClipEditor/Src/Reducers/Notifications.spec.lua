@@ -1,6 +1,6 @@
 return function()
 	local Plugin = script.Parent.Parent.Parent
-	local Rodux = require(Plugin.Rodux)
+	local Rodux = require(Plugin.Packages.Rodux)
 
 	local Notifications = require(script.Parent.Notifications)
 

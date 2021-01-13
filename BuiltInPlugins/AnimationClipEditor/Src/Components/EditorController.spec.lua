@@ -1,6 +1,6 @@
 return function()
 	local Plugin = script.Parent.Parent.Parent
-	local Roact = require(Plugin.Roact)
+	local Roact = require(Plugin.Packages.Roact)
 	local Templates = require(Plugin.Src.Util.Templates)
 
 	local MockWrapper = require(Plugin.Src.Context.MockWrapper)

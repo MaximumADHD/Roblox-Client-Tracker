@@ -10,7 +10,7 @@ local PartMover = require(DraggerFramework.Utility.PartMover)
 local AttachmentMover = require(DraggerFramework.Utility.AttachmentMover)
 
 local getFFlagEnablePhysicalFreeFormDragger = require(DraggerFramework.Flags.getFFlagEnablePhysicalFreeFormDragger)
-local getFFlagDraggerMiscFixes = require(DraggerFramework.Flags.getFFlagDraggerMiscFixes)
+local getFFlagNoSnapLimit = require(DraggerFramework.Flags.getFFlagNoSnapLimit)
 
 local FreeformDragger = {}
 FreeformDragger.__index = FreeformDragger
@@ -106,11 +106,15 @@ function FreeformDragger:_updateGeometric()
 		lastTargetMatrix = self._lastDragTarget.targetMatrix
 	end
 
+	local function snapFunction(distance)
+		return self._draggerContext:snapToGridSize(distance)
+	end
+
 	local localBoundingBoxCFrame, localBoundingBoxOffset, localBoundingBoxSize =
 		self._draggerToolModel._selectionInfo:getLocalBoundingBox()
 	local dragTarget = DragHelper.getDragTarget(
 		self._draggerToolModel._draggerContext:getMouseRay(),
-		self._draggerToolModel._draggerContext:getGridSize(),
+		getFFlagNoSnapLimit() and snapFunction or self._draggerToolModel._draggerContext:getGridSize(),
 		self._dragInfo.clickPoint,
 		self._raycastFilter,
 		localBoundingBoxCFrame,
@@ -177,11 +181,15 @@ function FreeformDragger:update()
 			lastTargetMatrix = self._lastDragTarget.targetMatrix
 		end
 
+		local function snapFunction(distance)
+			return self._draggerContext:snapToGridSize(distance)
+		end
+
 		local localBoundingBoxCFrame, localBoundingBoxOffset, localBoundingBoxSize =
 			self._draggerToolModel._selectionInfo:getLocalBoundingBox()
 		local dragTarget = DragHelper.getDragTarget(
 			self._draggerToolModel._draggerContext:getMouseRay(),
-			self._draggerToolModel._draggerContext:getGridSize(),
+			getFFlagNoSnapLimit() and snapFunction or self._draggerToolModel._draggerContext:getGridSize(),
 			self._dragInfo.clickPoint,
 			self._raycastFilter,
 			localBoundingBoxCFrame,
@@ -218,14 +226,10 @@ function FreeformDragger:destroy()
 		if worldHit then
 			local worldCFrame = attachment.WorldCFrame
 			if attachment.Parent ~= worldHit then
-				if getFFlagDraggerMiscFixes() then
-					-- pcall as the dragged attachment may have been Destroyed.
-					pcall(function()
-						attachment.Parent = worldHit
-					end)
-				else
+				-- pcall as the dragged attachment may have been Destroyed.
+				pcall(function()
 					attachment.Parent = worldHit
-				end
+				end)
 				attachment.WorldCFrame = worldCFrame
 			end
 		else

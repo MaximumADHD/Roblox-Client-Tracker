@@ -11,16 +11,17 @@
 local UserInputService = game:GetService("UserInputService")
 
 local Plugin = script.Parent.Parent.Parent
-local Cryo = require(Plugin.Cryo)
-local Roact = require(Plugin.Roact)
-local RoactRodux = require(Plugin.RoactRodux)
-local UILibrary = require(Plugin.UILibrary)
+local Cryo = require(Plugin.Packages.Cryo)
+local Roact = require(Plugin.Packages.Roact)
+local RoactRodux = require(Plugin.Packages.RoactRodux)
+local Framework = require(Plugin.Packages.Framework)
+local ContextServices = Framework.ContextServices
 local Input = require(Plugin.Src.Util.Input)
 local Constants = require(Plugin.Src.Util.Constants)
 local TrackUtils = require(Plugin.Src.Util.TrackUtils)
 local AnimationData = require(Plugin.Src.Util.AnimationData)
 
-local KeyboardListener = UILibrary.Focus.KeyboardListener
+local KeyboardListener = Framework.UI.KeyboardListener
 local InactiveCover = require(Plugin.Src.Components.InactiveCover)
 
 local TrackEditor = require(Plugin.Src.Components.TrackEditor)
@@ -187,8 +188,7 @@ function EditorController:init()
 			self.lastSelected = trackName
 			setSelectedTracks({trackName})
 		end
-
-		props.Analytics:onTrackSelected(trackName, "TrackList")
+		props.Analytics:report("onTrackSelected", trackName, "TrackList")
 	end
 
 	self.onPartSelected = function(trackName)
@@ -204,6 +204,24 @@ function EditorController:init()
 		end
 		self.lastSelected = trackName
 		setSelectedTracks({trackName})
+	end
+
+	self.addTrackWrapper = function(instanceName, trackName)
+		if self.props.Analytics then 
+			self.props.AddTrack(instanceName, trackName, self.props.Analytics)
+		end
+	end
+
+	self.createAnimationWrapper = function(name)
+		if self.props.Analytics then 
+			self.props.CreateAnimation(name, self.props.Analytics)
+		end
+	end
+
+	self.attachEditorWrapper = function()
+		if self.props.Analytics then
+			self.props.AttachEditor(self.props.Analytics)
+		end
 	end
 end
 
@@ -329,7 +347,7 @@ function EditorController:render()
 					OnScroll = self.onScroll,
 					OpenContextMenu = self.showMenu,
 					ToggleTrackExpanded = props.SetTracksExpanded,
-					OnTrackAdded = props.AddTrack,
+					OnTrackAdded = self.addTrackWrapper,
 					OnValueChanged = props.ValueChanged,
 					OnChangeBegan = props.AddWaypoint,
 					OnTrackSelected = self.onTrackSelected,
@@ -413,7 +431,7 @@ function EditorController:render()
 			RootInstance = rootInstance,
 			Size = UDim2.new(1, -trackListWidth, 1, 0),
 			LayoutOrder = 2,
-			OnCreateAnimation = props.CreateAnimation,
+			OnCreateAnimation = self.createAnimationWrapper,
 		}),
 
 		Playback = active and showEditor and Roact.createElement(Playback),
@@ -430,11 +448,11 @@ function EditorController:render()
 			OnSelectPart = self.onPartSelected,
 			OnDragStart = props.AddWaypoint,
 			OnManipulateJoint = function(instanceName, trackName, value)
-				props.ValueChanged(instanceName, trackName, playhead, value)
+				props.ValueChanged(instanceName, trackName, playhead, value, props.Analytics)
 			end,
 			OnManipulateJoints = function(instanceName, values)
 				for trackName, value in pairs(values) do
-					props.ValueChanged(instanceName, trackName, playhead, value)
+					props.ValueChanged(instanceName, trackName, playhead, value, props.Analytics)
 				end
 			end,
 		}),
@@ -458,7 +476,7 @@ function EditorController:render()
 		}),
 
 		InactiveCover = not active and Roact.createElement(InactiveCover, {
-			OnFocused = props.AttachEditor,
+			OnFocused = self.attachEditorWrapper,
 		}),
 
 		ChangeFPSPrompt = UseCustomFPS() and showChangeFPSPrompt and Roact.createElement(ChangeFPSPrompt, {
@@ -473,14 +491,15 @@ function EditorController:didMount()
 	local props = self.props
 	local snapToKeys = props.SnapToKeys
 	local timelineUnit = props.ShowAsSeconds and "Seconds" or "Frames"
-	props.AttachEditor()
-	props.Analytics:onEditorOpened(timelineUnit, snapToKeys)
+	props.AttachEditor(props.Analytics)
+	props.Analytics:report("onEditorOpened", timelineUnit, snapToKeys)
+	self.openedTimestamp = os.time()
 end
 
 function EditorController:willUnmount()
 	local props = self.props
-	props.ReleaseEditor()
-	props.Analytics:onEditorClosed()
+	props.ReleaseEditor(props.Analytics)
+	props.Analytics:report("onEditorClosed", os.time() - self.openedTimestamp)
 end
 
 local function mapStateToProps(state, props)
@@ -531,29 +550,29 @@ local function mapDispatchToProps(dispatch)
 			dispatch(SetTracksExpanded(tracks, false))
 		end,
 
-		AddTrack = function(instance, track)
+		AddTrack = function(instance, track, analytics)
 			dispatch(AddWaypoint())
-			dispatch(AddTrack(instance, track))
+			dispatch(AddTrack(instance, track, analytics))
 		end,
 
 		SetRightClickContextInfo = function(info)
 			dispatch(SetRightClickContextInfo(info))
 		end,
 
-		ValueChanged = function(instanceName, trackName, frame, value)
-			dispatch(ValueChanged(instanceName, trackName, frame, value))
+		ValueChanged = function(instanceName, trackName, frame, value, analytics)
+			dispatch(ValueChanged(instanceName, trackName, frame, value, analytics))
 		end,
 
 		AddWaypoint = function()
 			dispatch(AddWaypoint())
 		end,
 
-		AttachEditor = function()
-			dispatch(AttachEditor())
+		AttachEditor = function(analytics)
+			dispatch(AttachEditor(analytics))
 		end,
 
-		ReleaseEditor = function()
-			dispatch(ReleaseEditor())
+		ReleaseEditor = function(analytics)
+			dispatch(ReleaseEditor(analytics))
 		end,
 
 		SetEventEditingFrame = function(frame)
@@ -564,9 +583,9 @@ local function mapDispatchToProps(dispatch)
 			dispatch(SetMotorData(motorData))
 		end,
 
-		CreateAnimation = function(name)
+		CreateAnimation = function(name, analytics)
 			local newData = AnimationData.newRigAnimation(name)
-			dispatch(LoadAnimationData(newData))
+			dispatch(LoadAnimationData(newData, analytics))
 			dispatch(SetIsDirty(false))
 		end,
 
@@ -583,5 +602,10 @@ local function mapDispatchToProps(dispatch)
 
 	return dispatchToProps
 end
+
+ContextServices.mapToProps(EditorController, {
+	Analytics = ContextServices.Analytics
+})
+
 
 return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(EditorController)

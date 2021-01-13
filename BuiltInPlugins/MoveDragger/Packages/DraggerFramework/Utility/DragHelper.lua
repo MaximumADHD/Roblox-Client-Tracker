@@ -6,7 +6,7 @@ local getGeometry = require(DraggerFramework.Utility.getGeometry)
 local roundRotation = require(DraggerFramework.Utility.roundRotation)
 
 local getFFlagDragFaceInstances = require(DraggerFramework.Flags.getFFlagDragFaceInstances)
-local getFFlagDraggerMiscFixes = require(DraggerFramework.Flags.getFFlagDraggerMiscFixes)
+local getFFlagNoSnapLimit = require(DraggerFramework.Flags.getFFlagNoSnapLimit)
 
 local PrimaryDirections = {
 	Vector3.new(1, 0, 0),
@@ -306,10 +306,8 @@ function DragHelper.updateTiltRotate(cameraCFrame, mouseRay, selection, mainCFra
 		end
 	end
 
-	if getFFlagDraggerMiscFixes() then
-		-- If we somehow had NaNs in our CFrame then closestAxis may still be nil
-		closestAxis = closestAxis or Vector3.new(0, 1, 0)
-	end
+	-- If we somehow had NaNs in our CFrame then closestAxis may still be nil
+	closestAxis = closestAxis or Vector3.new(0, 1, 0)
 
 	-- Could be written without the need for rounding by permuting the
 	-- components of closestAxis, but this is more understandable.
@@ -318,10 +316,11 @@ function DragHelper.updateTiltRotate(cameraCFrame, mouseRay, selection, mainCFra
 end
 
 local function snap(value, gridSize)
+	assert(not getFFlagNoSnapLimit())
 	return math.floor(value / gridSize + 0.5) * gridSize
 end
 
-function DragHelper.getDragTarget(mouseRay, gridSize, dragInMainSpace, selection, mainCFrame, basisPoint,
+function DragHelper.getDragTarget(mouseRay, snapFunction, dragInMainSpace, selection, mainCFrame, basisPoint,
 	boundingBoxSize, boundingBoxOffset, tiltRotate, lastTargetMat, alignRotation)
 	if not dragInMainSpace then
 		return
@@ -351,9 +350,18 @@ function DragHelper.getDragTarget(mouseRay, gridSize, dragInMainSpace, selection
 	-- parts by that much when we finally apply them. That is equivalent to
 	-- applying the offset as a final factor in the transform this function
 	-- returns.
-	local offsetX = snap(basisPoint.X, gridSize) - basisPoint.X
-	local offsetY = snap(basisPoint.Y, gridSize) - basisPoint.Y
-	local offsetZ = snap(basisPoint.Z, gridSize) - basisPoint.Z
+	local offsetX
+	local offsetY
+	local offsetZ
+	if getFFlagNoSnapLimit() then
+		offsetX = snapFunction(basisPoint.X) - basisPoint.X
+		offsetY = snapFunction(basisPoint.Y) - basisPoint.Y
+		offsetZ = snapFunction(basisPoint.Z) - basisPoint.Z
+	else
+		offsetX = snap(basisPoint.X, snapFunction) - basisPoint.X
+		offsetY = snap(basisPoint.Y, snapFunction) - basisPoint.Y
+		offsetZ = snap(basisPoint.Z, snapFunction) - basisPoint.Z
+	end
 	local contentOffset = Vector3.new(offsetX, offsetY, offsetZ)
 	local contentOffsetCF = CFrame.new(contentOffset)
 	local snappedBoundingBoxOffset = boundingBoxOffset + contentOffset
@@ -388,8 +396,12 @@ function DragHelper.getDragTarget(mouseRay, gridSize, dragInMainSpace, selection
 		(normalBumpCF * dragInTargetSpace * tiltRotate * mouseInMainSpaceCF * contentOffsetCF):inverse()
 
 	-- Now that the snapping space is isolated we can apply the snap
-	local snapAdjustCF =
-		CFrame.new(snap(snapAdjust.X, gridSize), 0, snap(snapAdjust.Z, gridSize))
+	local snapAdjustCF
+	if getFFlagNoSnapLimit() then
+		snapAdjustCF = CFrame.new(snapFunction(snapAdjust.X), 0, snapFunction(snapAdjust.Z))
+	else
+		snapAdjustCF = CFrame.new(snap(snapAdjust.X, snapFunction), 0, snap(snapAdjust.Z, snapFunction))
+	end
 
 	-- Get the final CFrame to move the parts to.
 	local rotatedBase =

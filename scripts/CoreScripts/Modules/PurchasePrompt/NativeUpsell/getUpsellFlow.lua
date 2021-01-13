@@ -2,11 +2,10 @@ local Root = script.Parent.Parent
 
 local UpsellFlow = require(Root.Enums.UpsellFlow)
 
-local FFlagChinaLicensingApp = settings():GetFFlag("ChinaLicensingApp")
 local GetFFlagDisableRobuxUpsell = require(Root.Flags.GetFFlagDisableRobuxUpsell)
 
 local function getUpsellFlow(platform)
-	if FFlagChinaLicensingApp or GetFFlagDisableRobuxUpsell() then
+	if GetFFlagDisableRobuxUpsell() then
 		return UpsellFlow.Unavailable
 	end
 

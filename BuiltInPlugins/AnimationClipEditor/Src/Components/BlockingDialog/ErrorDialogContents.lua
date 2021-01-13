@@ -14,86 +14,81 @@ local PADDING = 10
 local HEADER_HEIGHT = 21
 
 local Plugin = script.Parent.Parent.Parent.Parent
-local Roact = require(Plugin.Roact)
-local UILibrary = require(Plugin.UILibrary)
+local Roact = require(Plugin.Packages.Roact)
+local Framework = require(Plugin.Packages.Framework)
 
 local Constants = require(Plugin.Src.Util.Constants)
-local Theme = require(Plugin.Src.Context.Theme)
-local withTheme = Theme.withTheme
-
-local withLocalization = UILibrary.Localizing.withLocalization
+local ContextServices = Framework.ContextServices
 
 local ErrorDialogContents = Roact.PureComponent:extend("ErrorDialogContents")
 
-function ErrorDialogContents:renderInternal(renderFunc)
-	return withTheme(function(theme)
-		return withLocalization(function(localization)
-			return renderFunc(theme, localization)
-		end)
-	end)
-end
-
 function ErrorDialogContents:render()
-	return self:renderInternal(function(theme, localization)
-		local dialogTheme = theme.dialogTheme
-		local props = self.props
-		local entries = props.Entries
-		local errorType = props.ErrorType
-		local errorKey = props.ErrorKey or Constants.RIG_ERRORS_KEY
-		local errorHeader = props.ErrorHeader or Constants.RIG_ERRORS_HEADER_KEY
-		local entryList
-		if entries then
-			entryList = table.concat(entries, "; ")
-		end
+	local theme = self.props.Theme:get("PluginTheme")
+	local localization = self.props.Localization
+	local dialogTheme = theme.dialogTheme
+	local props = self.props
+	local entries = props.Entries
+	local errorType = props.ErrorType
+	local errorKey = props.ErrorKey or Constants.RIG_ERRORS_KEY
+	local errorHeader = props.ErrorHeader or Constants.RIG_ERRORS_HEADER_KEY
+	local entryList
+	if entries then
+		entryList = table.concat(entries, "; ")
+	end
 
-		return Roact.createElement("Frame", {
-			Size = UDim2.new(1, 0, 1, 0),
+	return Roact.createElement("Frame", {
+		Size = UDim2.new(1, 0, 1, 0),
+		BackgroundTransparency = 1,
+	}, {
+		Layout = Roact.createElement("UIListLayout", {
+			SortOrder = Enum.SortOrder.LayoutOrder,
+			FillDirection = Enum.FillDirection.Vertical,
+			Padding = UDim.new(0, PADDING)
+		}),
+
+		Header = Roact.createElement("Frame", {
+			LayoutOrder = 1,
+			Size = UDim2.new(1, 0, 0, HEADER_HEIGHT),
 			BackgroundTransparency = 1,
 		}, {
-			Layout = Roact.createElement("UIListLayout", {
-				SortOrder = Enum.SortOrder.LayoutOrder,
-				FillDirection = Enum.FillDirection.Vertical,
-				Padding = UDim.new(0, PADDING)
-			}),
-
-			Header = Roact.createElement("Frame", {
-				LayoutOrder = 1,
-				Size = UDim2.new(1, 0, 0, HEADER_HEIGHT),
+			Icon = Roact.createElement("ImageLabel", {
+				Size = UDim2.new(0, HEADER_HEIGHT, 0, HEADER_HEIGHT),
 				BackgroundTransparency = 1,
-			}, {
-				Icon = Roact.createElement("ImageLabel", {
-					Size = UDim2.new(0, HEADER_HEIGHT, 0, HEADER_HEIGHT),
-					BackgroundTransparency = 1,
-					Image = dialogTheme.errorImage,
-				}),
-
-				Text = Roact.createElement("TextLabel", {
-					Size = UDim2.new(1, -HEADER_HEIGHT, 1, 0),
-					Position = UDim2.new(0, HEADER_HEIGHT + PADDING, 0, 0),
-					BackgroundTransparency = 1,
-					TextSize = dialogTheme.textSize,
-					TextColor3 = dialogTheme.textColor,
-					Font = dialogTheme.headerFont,
-					TextXAlignment = Enum.TextXAlignment.Left,
-					Text = localization:getText(Constants.DIALOG_KEY, errorHeader),
-				}),
+				Image = dialogTheme.errorImage,
 			}),
 
-			Body = Roact.createElement("TextLabel", {
-				LayoutOrder = 2,
-				Size = UDim2.new(1, 0, 1, -HEADER_HEIGHT - PADDING),
+			Text = Roact.createElement("TextLabel", {
+				Size = UDim2.new(1, -HEADER_HEIGHT, 1, 0),
+				Position = UDim2.new(0, HEADER_HEIGHT + PADDING, 0, 0),
 				BackgroundTransparency = 1,
 				TextSize = dialogTheme.textSize,
 				TextColor3 = dialogTheme.textColor,
-				Font = theme.font,
+				Font = dialogTheme.headerFont,
 				TextXAlignment = Enum.TextXAlignment.Left,
-				TextYAlignment = Enum.TextYAlignment.Top,
-				TextWrapped = true,
-				TextTruncate = Enum.TextTruncate.AtEnd,
-				Text = localization:getText(errorKey, errorType, entryList),
+				Text = localization:getText(Constants.DIALOG_KEY, errorHeader),
 			}),
-		})
-	end)
+		}),
+
+		Body = Roact.createElement("TextLabel", {
+			LayoutOrder = 2,
+			Size = UDim2.new(1, 0, 1, -HEADER_HEIGHT - PADDING),
+			BackgroundTransparency = 1,
+			TextSize = dialogTheme.textSize,
+			TextColor3 = dialogTheme.textColor,
+			Font = theme.font,
+			TextXAlignment = Enum.TextXAlignment.Left,
+			TextYAlignment = Enum.TextYAlignment.Top,
+			TextWrapped = true,
+			TextTruncate = Enum.TextTruncate.AtEnd,
+			Text = localization:getText(errorKey, errorType, entryList),
+		}),
+	})
 end
+
+ContextServices.mapToProps(ErrorDialogContents, {
+	Theme = ContextServices.Theme,
+	Localization = ContextServices.Localization,
+})
+
 
 return ErrorDialogContents

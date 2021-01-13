@@ -11,8 +11,6 @@
 local DraggerFramework = script.Parent.Parent
 local Signal = require(DraggerFramework.Utility.Signal)
 
-local getEngineFeatureActiveInstanceHighlight = require(DraggerFramework.Flags.getEngineFeatureActiveInstanceHighlight)
-
 local SelectionWrapper = {}
 SelectionWrapper.__index = SelectionWrapper
 
@@ -66,7 +64,6 @@ function SelectionWrapper:_handleSelectionChanged()
 end
 
 function SelectionWrapper:getActiveSelectable()
-	assert(getEngineFeatureActiveInstanceHighlight())
 	return self._selection[#self._selection]
 end
 

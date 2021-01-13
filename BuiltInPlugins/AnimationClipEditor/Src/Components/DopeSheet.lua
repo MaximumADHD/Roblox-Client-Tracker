@@ -32,7 +32,7 @@
 ]]
 
 local Plugin = script.Parent.Parent.Parent
-local Roact = require(Plugin.Roact)
+local Roact = require(Plugin.Packages.Roact)
 
 local SummaryTrack = require(Plugin.Src.Components.SummaryTrack)
 local DopeSheetTrack = require(Plugin.Src.Components.DopeSheetTrack)

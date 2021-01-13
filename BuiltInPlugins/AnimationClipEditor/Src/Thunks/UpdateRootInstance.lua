@@ -1,7 +1,7 @@
 local CollectionService = game:GetService("CollectionService")
 
 local Plugin = script.Parent.Parent.Parent
-local Roact = require(Plugin.Roact)
+local Roact = require(Plugin.Packages.Roact)
 local RigUtils = require(Plugin.Src.Util.RigUtils)
 local Constants = require(Plugin.Src.Util.Constants)
 
@@ -20,9 +20,9 @@ local LoadKeyframeSequence = require(Plugin.Src.Thunks.Exporting.LoadKeyframeSeq
 
 local allowPasteKeysBetweenAnimations = require(Plugin.LuaFlags.GetFFlagAllowPasteKeysBetweenAnimations)
 
-return function(rootInstance)
+return function(rootInstance, analytics)
 	return function(store)
-		store:dispatch(ReleaseEditor())
+		store:dispatch(ReleaseEditor(analytics))
 
 		--reset IK
 		store:dispatch(SetPinnedParts({}))
@@ -60,7 +60,7 @@ return function(rootInstance)
 					return timestamp1 > timestamp2
 				end
 			end)
-			store:dispatch(LoadKeyframeSequence(animSaves[1].Name))
+			store:dispatch(LoadKeyframeSequence(animSaves[1].Name, analytics))
 		else
 			store:dispatch(SetAnimationData(nil))
 		end
@@ -69,6 +69,6 @@ return function(rootInstance)
 			store:dispatch(SetClipboard({}))
 		end
 
-		store:dispatch(AttachEditor())
+		store:dispatch(AttachEditor(analytics))
 	end
 end

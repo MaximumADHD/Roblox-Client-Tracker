@@ -1,5 +1,5 @@
 local Plugin = script.Parent.Parent.Parent
-local Roact = require(Plugin.Roact)
+local Roact = require(Plugin.Packages.Roact)
 local Promise = require(Plugin.Promise)
 
 local BlockingDialog = require(Plugin.Src.Components.BlockingDialog.BlockingDialog)

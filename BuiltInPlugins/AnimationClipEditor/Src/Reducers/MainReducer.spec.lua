@@ -1,15 +1,19 @@
 return function()
 	local Plugin = script.Parent.Parent.Parent
-	local Rodux = require(Plugin.Rodux)
+	local Rodux = require(Plugin.Packages.Rodux)
 	local isEmpty = require(Plugin.Src.Util.isEmpty)
 	local Constants = require(Plugin.Src.Util.Constants)
 
 	local MainReducer = require(script.Parent.MainReducer)
+	local Framework = require(Plugin.Packages.Framework)
+
+	local ContextServices = Plugin.Packages.Framework.ContextServices
+
+	local Analytics = Framework.ContextServices.Analytics
 
 	local SetClipboard = require(Plugin.Src.Actions.SetClipboard)
 	local SetAnimationData = require(Plugin.Src.Actions.SetAnimationData)
 	local PasteKeyframes = require(Plugin.Src.Thunks.PasteKeyframes)
-	local SetAnalytics = require(Plugin.Src.Actions.SetAnalytics)
 
 	local SelectKeyframe = require(Plugin.Src.Thunks.Selection.SelectKeyframe)
 	local DeselectKeyframe = require(Plugin.Src.Thunks.Selection.DeselectKeyframe)
@@ -120,7 +124,6 @@ return function()
 		expect(state.Status).to.be.ok()
 		expect(state.History).to.be.ok()
 		expect(state.Notifications).to.be.ok()
-		expect(state.Analytics).to.be.ok()
 	end)
 
 	describe("SelectKeyframe", function()
@@ -256,9 +259,10 @@ return function()
 	describe("PasteKeyframes", function()
 		it("should add a new keyframe if none existed", function()
 			local store = createTestStore()
+			local analytics = Analytics.mock()
 			store:dispatch(SelectKeyframe("Root", "TestTrack", 1))
 			store:dispatch(CopySelectedKeyframes())
-			store:dispatch(PasteKeyframes(4))
+			store:dispatch(PasteKeyframes(4, analytics))
 
 			local data = store:getState().AnimationData
 			local testTrack = data.Instances.Root.Tracks.TestTrack
@@ -270,9 +274,10 @@ return function()
 
 		it("should replace an old keyframe if one existed", function()
 			local store = createTestStore()
+			local analytics = Analytics.mock()
 			store:dispatch(SelectKeyframe("Root", "TestTrack", 1))
 			store:dispatch(CopySelectedKeyframes())
-			store:dispatch(PasteKeyframes(3))
+			store:dispatch(PasteKeyframes(3, analytics))
 
 			local data = store:getState().AnimationData
 			local testTrack = data.Instances.Root.Tracks.TestTrack
@@ -283,11 +288,12 @@ return function()
 
 		it("should paste all keyframes if multiple were copied", function()
 			local store = createTestStore()
+			local analytics = Analytics.mock()
 			store:dispatch(SelectKeyframe("Root", "TestTrack", 1, true))
 			store:dispatch(SelectKeyframe("Root", "TestTrack", 2, true))
 			store:dispatch(SelectKeyframe("Root", "OtherTrack", 1, true))
 			store:dispatch(CopySelectedKeyframes())
-			store:dispatch(PasteKeyframes(4))
+			store:dispatch(PasteKeyframes(4, analytics))
 
 			local data = store:getState().AnimationData
 			local tracks = data.Instances.Root.Tracks
@@ -396,9 +402,10 @@ return function()
 	describe("DeleteSelectedKeyframes", function()
 		it("should delete all selected keyframes", function()
 			local store = createTestStore()
+			local analytics = Analytics.mock()
 			store:dispatch(SelectKeyframe("Root", "TestTrack", 1, true))
 			store:dispatch(SelectKeyframe("Root", "TestTrack", 2, true))
-			store:dispatch(DeleteSelectedKeyframes())
+			store:dispatch(DeleteSelectedKeyframes(analytics))
 
 			local animationData = store:getState().AnimationData
 			local testTrack = animationData.Instances.Root.Tracks.TestTrack
@@ -780,6 +787,7 @@ return function()
 	describe("SetEvents", function()
 		it("should replace the Events table in the animation data", function()
 			local store = createTestStore()
+			local analytics = Analytics.mock()
 			store:dispatch(SetEvents({
 				Keyframes = {1},
 				Data = {
@@ -787,7 +795,7 @@ return function()
 						TestEvent2 = "TestValue2",
 					},
 				},
-			}))
+			}, analytics))
 			local events = store:getState().AnimationData.Events
 			expect(#events.Keyframes).to.equal(1)
 			expect(events.Data[1]).to.be.ok()
@@ -829,7 +837,8 @@ return function()
 	describe("RenameKeyframe", function()
 		it("should set the name of a summary keyframe", function()
 			local store = createTestStore()
-			store:dispatch(RenameKeyframe(1, "TestName"))
+			local analytics = Analytics.mock()
+			store:dispatch(RenameKeyframe(1, "TestName", analytics))
 			local animationData = store:getState().AnimationData
 			local names = animationData.Events.NamedKeyframes
 
@@ -839,8 +848,9 @@ return function()
 
 		it("should clear the name of a summary keyframe", function()
 			local store = createTestStore()
-			store:dispatch(RenameKeyframe(1, "TestName"))
-			store:dispatch(RenameKeyframe(1, nil))
+			local analytics = Analytics.mock()
+			store:dispatch(RenameKeyframe(1, "TestName", analytics))
+			store:dispatch(RenameKeyframe(1, nil, analytics))
 			local animationData = store:getState().AnimationData
 			local names = animationData.Events.NamedKeyframes
 
@@ -850,8 +860,9 @@ return function()
 
 		it("should clear the name of a summary keyframe if it is the default name", function()
 			local store = createTestStore()
-			store:dispatch(RenameKeyframe(1, "TestName"))
-			store:dispatch(RenameKeyframe(1, Constants.DEFAULT_KEYFRAME_NAME))
+			local analytics = Analytics.mock()
+			store:dispatch(RenameKeyframe(1, "TestName", analytics))
+			store:dispatch(RenameKeyframe(1, Constants.DEFAULT_KEYFRAME_NAME, analytics))
 			local animationData = store:getState().AnimationData
 			local names = animationData.Events.NamedKeyframes
 
@@ -863,29 +874,31 @@ return function()
 	describe("SkipAnimation", function()
 		it("should skip the playhead to the previous summary keyframe", function()
 			local store = createTestStore()
-			store:dispatch(AddTrack("Root", "TestTrack"))
-			store:dispatch(AddTrack("Root", "OtherTrack"))
+			local analytics = Analytics.mock()
+			store:dispatch(AddTrack("Root", "TestTrack", analytics))
+			store:dispatch(AddTrack("Root", "OtherTrack", analytics))
 			store:dispatch(SetPlayhead(3))
 			store:dispatch(SetRootInstance({}))
-			store:dispatch(SkipAnimation(false))
+			store:dispatch(SkipAnimation(false, analytics))
 			expect(store:getState().Status.Playhead).to.equal(2)
-			store:dispatch(SkipAnimation(false))
+			store:dispatch(SkipAnimation(false, analytics))
 			expect(store:getState().Status.Playhead).to.equal(1)
-			store:dispatch(SkipAnimation(false))
+			store:dispatch(SkipAnimation(false, analytics))
 			expect(store:getState().Status.Playhead).to.equal(0)
 		end)
 
 		it("should skip the playhead to the next summary keyframe", function()
 			local store = createTestStore()
-			store:dispatch(AddTrack("Root", "TestTrack"))
-			store:dispatch(AddTrack("Root", "OtherTrack"))
+			local analytics = Analytics.mock()
+			store:dispatch(AddTrack("Root", "TestTrack", analytics))
+			store:dispatch(AddTrack("Root", "OtherTrack", analytics))
 			store:dispatch(SetPlayhead(3))
 			store:dispatch(SetRootInstance({}))
-			store:dispatch(SkipAnimation(true))
+			store:dispatch(SkipAnimation(true, analytics))
 			expect(store:getState().Status.Playhead).to.equal(4)
-			store:dispatch(SkipAnimation(true))
+			store:dispatch(SkipAnimation(true, analytics))
 			expect(store:getState().Status.Playhead).to.equal(6)
-			store:dispatch(SkipAnimation(true))
+			store:dispatch(SkipAnimation(true, analytics))
 			expect(store:getState().Status.Playhead).to.equal(8)
 		end)
 	end)
@@ -901,14 +914,6 @@ return function()
 			local store = createTestStore()
 			store:dispatch(UpdateEditingLength(2))
 			expect(store:getState().Status.EditingLength).to.equal(Constants.DEFAULT_FRAMERATE)
-		end)
-	end)
-
-	describe("SetAnalytics", function()
-		it("should set the Analytics implementation", function()
-			local store = createTestStore()
-			store:dispatch(SetAnalytics("NewTestAnalytics"))
-			expect(store:getState().Analytics).to.equal("NewTestAnalytics")
 		end)
 	end)
 end

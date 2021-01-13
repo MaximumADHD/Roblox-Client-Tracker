@@ -1,6 +1,6 @@
 return function()
 	local Plugin = script.Parent.Parent.Parent.Parent
-	local Roact = require(Plugin.Roact)
+	local Roact = require(Plugin.Packages.Roact)
 
 	local MockWrapper = require(Plugin.Src.Context.MockWrapper)
 
@@ -34,8 +34,9 @@ return function()
 		local main = gui.TopLevelFrame
 		expect(main).to.be.ok()
 		expect(main.Container).to.be.ok()
-		expect(main.Container.Background).to.be.ok()
-		expect(main.Container.Shadow).to.be.ok()
+		expect(main.Container.Border).to.be.ok()
+		expect(main.Container.Border.Shadow).to.be.ok()
+		expect(main.Container.Border.Background).to.be.ok()
 
 		Roact.unmount(instance)
 	end)
@@ -50,9 +51,8 @@ return function()
 		local instance = Roact.mount(element, container)
 		local gui = container:FindFirstChildOfClass("ScreenGui")
 		local frame = gui.TopLevelFrame.Container
-		expect(frame.Background).to.be.ok()
-		expect(frame.Background.Border).to.be.ok()
-		expect(frame.Background.Border.ChildFrame).to.be.ok()
+		expect(frame.Border).to.be.ok()
+		expect(frame.Border.Background.ChildFrame).to.be.ok()
 
 		Roact.unmount(instance)
 	end)

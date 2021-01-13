@@ -17,15 +17,14 @@
 ]]
 
 local Plugin = script.Parent.Parent.Parent.Parent
-local Roact = require(Plugin.Roact)
+local Roact = require(Plugin.Packages.Roact)
 local Constants = require(Plugin.Src.Util.Constants)
 
-local UILibrary = require(Plugin.UILibrary)
-local Button = UILibrary.Component.Button
-local CaptureFocus = UILibrary.Focus.CaptureFocus
+local Framework = require(Plugin.Packages.Framework)
+local Button = Framework.UI.Button
+local CaptureFocus = Framework.UI.CaptureFocus
 
-local Theme = require(Plugin.Src.Context.Theme)
-local withTheme = Theme.withTheme
+local ContextServices = Framework.ContextServices
 
 local FocusedPrompt = Roact.PureComponent:extend("FocusedPrompt")
 
@@ -33,35 +32,24 @@ function FocusedPrompt:renderButton(index, button, textSize)
 	local props = self.props
 	local buttonHeight = Constants.PROMPT_BUTTON_SIZE.Y
 	local buttonWidth = Constants.PROMPT_BUTTON_SIZE.X
+	local style = button.Style
 
 	return Roact.createElement(Button, {
 		Size = UDim2.new(0, buttonWidth, 0, buttonHeight),
 		LayoutOrder = index,
-		Style = button.Style,
-
+		Style = "RoundPrimary",
+		Text = button.Text,
 		OnClick = function()
 			props.OnButtonClicked(button.Key)
 		end,
-		RenderContents = function(buttonTheme)
-			return {
-				Text = Roact.createElement("TextLabel", {
-					Size = UDim2.new(1, 0, 1, 0),
-					BackgroundTransparency = 1,
-					Font = buttonTheme.font,
-					Text = button.Text,
-					TextSize = textSize,
-					TextColor3 = buttonTheme.textColor,
-				})
-			}
-		end,
 	})
-end
+	end
 
 function FocusedPrompt:render()
-	return withTheme(function(theme)
+		local props = self.props
+		local theme = props.Theme:get("PluginTheme")
 		local dialogTheme = theme.dialogTheme
 
-		local props = self.props
 		local buttonPadding = Constants.PROMPT_BUTTON_PADDING
 		local buttonHeight = Constants.PROMPT_BUTTON_SIZE.Y
 		local buttons = props.Buttons
@@ -138,7 +126,11 @@ function FocusedPrompt:render()
 				}),
 			}),
 		})
-	end)
 end
+
+ContextServices.mapToProps(FocusedPrompt, {
+	Theme = ContextServices.Theme,
+})
+
 
 return FocusedPrompt

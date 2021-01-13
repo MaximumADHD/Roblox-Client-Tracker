@@ -7,6 +7,7 @@
 -- Services
 local RunService = game:GetService("RunService")
 local UserInputService = game:GetService("UserInputService")
+local HttpService = game:GetService("HttpService")
 
 local DraggerFramework = script.Parent.Parent
 local Library = DraggerFramework.Parent.Parent
@@ -14,6 +15,7 @@ local Roact = require(Library.Packages.Roact)
 
 -- Flags
 local getFFlagDragFaceInstances = require(DraggerFramework.Flags.getFFlagDragFaceInstances)
+local getFFlagDraggerUseUniqueBindNames = require(DraggerFramework.Flags.getFFlagDraggerUseUniqueBindNames)
 
 -- Utilities
 local DraggerToolModel = require(DraggerFramework.Implementation.DraggerToolModel)
@@ -54,6 +56,12 @@ function DraggerToolComponent:setup(props)
 
 	self._selectionBoundsAreDirty = false
 	self._viewBoundsAreDirty = false
+
+	self._bindName = DRAGGER_UPDATE_BIND_NAME
+	if getFFlagDraggerUseUniqueBindNames() then
+		local guid = HttpService:GenerateGUID(false)
+		self._bindName = self._bindName ..guid
+	end
 
 	local function requestRender()
 		if self._isMounted then
@@ -98,7 +106,7 @@ function DraggerToolComponent:setup(props)
 
 	local viewChange = ViewChangeDetector.new(mouse)
 	local lastUseLocalSpace = props.DraggerContext:shouldUseLocalSpace()
-	RunService:BindToRenderStep(DRAGGER_UPDATE_BIND_NAME, Enum.RenderPriority.First.Value, function()
+	RunService:BindToRenderStep(self._bindName, Enum.RenderPriority.First.Value, function()
 		if not self._isMounted then
 			return
 		end
@@ -156,7 +164,7 @@ function DraggerToolComponent:teardown()
 	self._dragEnterConnection:Disconnect()
 	self._dragEnterConnection = nil
 
-	RunService:UnbindFromRenderStep(DRAGGER_UPDATE_BIND_NAME)
+	RunService:UnbindFromRenderStep(self._bindName)
 
 	-- Deselect after we stop potentially sending events
 	self._draggerToolModel:_processDeselected()

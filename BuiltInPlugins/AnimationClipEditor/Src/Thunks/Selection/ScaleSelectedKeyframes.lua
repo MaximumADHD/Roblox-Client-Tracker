@@ -16,7 +16,7 @@
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
-local Cryo = require(Plugin.Cryo)
+local Cryo = require(Plugin.Packages.Cryo)
 local deepCopy = require(Plugin.Src.Util.deepCopy)
 local Constants = require(Plugin.Src.Util.Constants)
 local KeyframeUtils = require(Plugin.Src.Util.KeyframeUtils)

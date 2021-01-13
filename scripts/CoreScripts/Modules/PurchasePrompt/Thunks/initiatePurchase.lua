@@ -77,7 +77,8 @@ local function initiatePurchase(id, infoType, equipIfPurchased, isRobloxPurchase
 				store:dispatch(resolvePromptState(
 					results.productInfo,
 					results.accountInfo,
-					results.alreadyOwned
+					results.alreadyOwned,
+					isRobloxPurchase
 				))
 			end)
 			:catch(function(errorReason)

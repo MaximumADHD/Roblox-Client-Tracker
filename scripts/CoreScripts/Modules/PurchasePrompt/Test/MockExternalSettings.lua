@@ -57,6 +57,10 @@ function MockExternalSettings.new(isStudio, isTenFoot, flags, platform)
 		return flags.HideThirdPartyPurchaseFailure
 	end
 
+	function service.getFlagBypassThirdPartySettingForRobloxPurchase()
+		return flags.BypassThirdPartySettingForRobloxPurchase
+	end
+
 	-- TODO(DEVTOOLS-4227): Remove this flag
 	function service.getFlagRestrictSales2()
 		return flags.RestrictSales2

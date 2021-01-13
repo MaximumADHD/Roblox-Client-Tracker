@@ -12,15 +12,16 @@
 local FFlagAnimEditorRenameKeyOptionFix = game:DefineFastFlag("AnimEditorRenameKeyOptionFix", false)
 
 local Plugin = script.Parent.Parent.Parent
-local Roact = require(Plugin.Roact)
-local RoactRodux = require(Plugin.RoactRodux)
-local Cryo = require(Plugin.Cryo)
+local Roact = require(Plugin.Packages.Roact)
+local RoactRodux = require(Plugin.Packages.RoactRodux)
+local Cryo = require(Plugin.Packages.Cryo)
 local AnimationData = require(Plugin.Src.Util.AnimationData)
 
-local UILibrary = require(Plugin.UILibrary)
-local DragTarget = UILibrary.Component.DragTarget
-local KeyboardListener = UILibrary.Focus.KeyboardListener
-local withLocalization = UILibrary.Localizing.withLocalization
+local Framework = require(Plugin.Packages.Framework)
+local DragTarget = Framework.UI.DragListener
+local ContextServices = Framework.ContextServices
+local KeyboardListener = Framework.UI.KeyboardListener
+local Localization = ContextServices.Localization
 
 local Preview = require(Plugin.Src.Util.Preview)
 local Input = require(Plugin.Src.Util.Input)
@@ -322,7 +323,7 @@ function DopeSheetController:handleTimelineInputBegan(input, keysHeld)
 			-- Start multi selecting on ctrl hold
 			self.isMultiSelecting = true
 		elseif Input.isDeleteKey(input.KeyCode) then
-			self.props.DeleteSelectedKeyframes()
+			self.props.DeleteSelectedKeyframes(props.Analytics)
 		end
 	elseif input.UserInputType == Enum.UserInputType.MouseButton1 then
 		self.props.DeselectAllKeyframes()
@@ -452,7 +453,6 @@ function DopeSheetController:shouldUpdate(nextProps, nextState)
 end
 
 function DopeSheetController:render()
-	return withLocalization(function(localization)
 		local props = self.props
 		local state = self.state
 		local dragFrame = state.dragFrame
@@ -472,6 +472,7 @@ function DopeSheetController:render()
 		local endFrame = props.EndFrame
 		local topTrackIndex = props.TopTrackIndex
 		local showEvents = props.ShowEvents
+		local localization = self.props.Localization
 
 		local namedKeyframes = animationData and animationData.Events
 			and animationData.Events.NamedKeyframes or {}
@@ -644,12 +645,12 @@ function DopeSheetController:render()
 						OnButtonClicked = function(key)
 							if key == "Delete" then
 								self.setRenamingKeyframe()
-								props.RenameKeyframe(renamingKeyframe, Constants.DEFAULT_KEYFRAME_NAME)
+								props.RenameKeyframe(renamingKeyframe, Constants.DEFAULT_KEYFRAME_NAME, props.Analytics)
 							end
 						end,
 						OnTextSubmitted = function(text)
 							self.setRenamingKeyframe()
-							props.RenameKeyframe(renamingKeyframe, text)
+							props.RenameKeyframe(renamingKeyframe, text, props.Analytics)
 						end,
 						OnClose = self.setRenamingKeyframe,
 					}),
@@ -657,7 +658,7 @@ function DopeSheetController:render()
 					ChangeDurationPrompt = currentDuration and Roact.createElement(TextEntryPrompt, {
 						PromptText = localization:getText("Title", "ChangeDuration"),
 						InputText = localization:getText("Title", "NewDuration"),
-						NoticeText = localization:getText("Title", "CurrentDuration", currentDuration),
+						NoticeText = localization:getText("Title", "CurrentDuration", {currentDuration = currentDuration}),
 						Text = currentDuration,
 						Buttons = {
 							{Key = false, Text = localization:getText("Dialog", "Cancel")},
@@ -679,8 +680,7 @@ function DopeSheetController:render()
 								props.QuantizeKeyframes()
 							end
 							props.CloseQuantizeWarning()
-
-							props.Analytics:onQuantizeSelection(didQuantize)
+							props.Analytics:report("onQuantizeSelection", didQuantize)
 						end,
 					}),
 
@@ -690,12 +690,12 @@ function DopeSheetController:render()
 					}),
 
 					SavedToast = savedAnimName and Roact.createElement(NoticeToast, {
-						Text = localization:getText("Toast", "Saved", savedAnimName),
+						Text = localization:getText("Toast", "Saved", {savedAnimName = savedAnimName}),
 						OnClose = props.CloseSavedToast,
 					}),
 
 					LoadedToast = showLoadToast and loadedAnimName and Roact.createElement(NoticeToast, {
-						Text = localization:getText("Toast", "Loaded", loadedAnimName),
+						Text = localization:getText("Toast", "Loaded", {loadedAnimName = loadedAnimName}),
 						OnClose = props.CloseLoadedToast,
 					}),
 
@@ -713,8 +713,13 @@ function DopeSheetController:render()
 				[Roact.Change.AbsoluteSize] = self.recalculateExtents,
 			})
 		end
-	end)
 end
+
+ContextServices.mapToProps(DopeSheetController, {
+	Localization = ContextServices.Localization,
+	Theme = ContextServices.Theme,
+	Analytics = ContextServices.Analytics
+})
 
 local function mapStateToProps(state, props)
 	local status = state.Status
@@ -727,7 +732,6 @@ local function mapStateToProps(state, props)
 		QuantizeWarning = state.Notifications.QuantizeWarning,
 		Saved = state.Notifications.Saved,
 		Loaded = state.Notifications.Loaded,
-		Analytics = state.Analytics,
 	}
 
 	if GetFFlagEnforceMaxAnimLength() then
@@ -776,9 +780,9 @@ local function mapDispatchToProps(dispatch)
 			dispatch(SetSelectedEvents({}))
 		end,
 
-		DeleteSelectedKeyframes = function()
+		DeleteSelectedKeyframes = function(analytics)
 			dispatch(AddWaypoint())
-			dispatch(DeleteSelectedKeyframes())
+			dispatch(DeleteSelectedKeyframes(analytics))
 			dispatch(SetRightClickContextInfo({}))
 		end,
 
@@ -791,9 +795,9 @@ local function mapDispatchToProps(dispatch)
 			dispatch(SetSelectedKeyframeData(newData))
 		end,
 
-		RenameKeyframe = function(frame, name)
+		RenameKeyframe = function(frame, name, analytics)
 			dispatch(AddWaypoint())
-			dispatch(RenameKeyframe(frame, name))
+			dispatch(RenameKeyframe(frame, name, analytics))
 		end,
 
 		QuantizeKeyframes = function()
@@ -833,7 +837,5 @@ local function mapDispatchToProps(dispatch)
 	return dispatchToProps
 end
 
-DopeSheetController = RoactRodux.connect(mapStateToProps,
+return RoactRodux.connect(mapStateToProps,
 	mapDispatchToProps)(DopeSheetController)
-
-return DopeSheetController

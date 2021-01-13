@@ -37,7 +37,6 @@ local DEPRECATED_Constants = require(Plugin.Src.Util.DEPRECATED_Constants)
 local RadioButton = require(Plugin.Src.Components.RadioButton)
 local TitledFrame = UILibrary.Component.TitledFrame
 
-local FFlagStudioAddMonetizationToGameSettings = game:GetFastFlag("StudioAddMonetizationToGameSettings")
 local FFlagGameSettingsPlaceSettings = game:GetFastFlag("GameSettingsPlaceSettings")
 local FFlagFixRadioButtonSeAndTableHeadertForTesting = game:GetFastFlag("FixRadioButtonSeAndTableHeadertForTesting")
 
@@ -122,12 +121,12 @@ function RadioButtonSet:render()
 							Selected = (button.Id == selected) or (i == selected),
 							Index = i,
 							Enabled = props.Enabled,
-							LayoutOrder = FFlagStudioAddMonetizationToGameSettings and layoutIndex:getNextOrder() or i,
+							LayoutOrder = layoutIndex:getNextOrder(),
 							OnClicked = function()
 								props.SelectionChanged(button)
 							end,
 
-							Children = FFlagStudioAddMonetizationToGameSettings and button.Children or nil,
+							Children = button.Children,
 						})
 					})
 				else
@@ -138,12 +137,12 @@ function RadioButtonSet:render()
 						Selected = (button.Id == selected) or (i == selected),
 						Index = i,
 						Enabled = props.Enabled,
-						LayoutOrder = FFlagStudioAddMonetizationToGameSettings and layoutIndex:getNextOrder() or i,
+						LayoutOrder = layoutIndex:getNextOrder(),
 						OnClicked = function()
 							props.SelectionChanged(button)
 						end,
 
-						Children = FFlagStudioAddMonetizationToGameSettings and button.Children or nil,
+						Children = button.Children,
 					}))
 				end
 			end
@@ -157,12 +156,12 @@ function RadioButtonSet:render()
 						Selected = (button.Id == selected) or (i == selected),
 						Index = i,
 						Enabled = props.Enabled,
-						LayoutOrder = FFlagStudioAddMonetizationToGameSettings and layoutIndex:getNextOrder() or i,
+						LayoutOrder = layoutIndex:getNextOrder(),
 						OnClicked = function()
 							props.SelectionChanged(button)
 						end,
 
-						Children = FFlagStudioAddMonetizationToGameSettings and button.Children or nil,
+						Children = button.Children,
 					})
 				})
 			else
@@ -173,12 +172,12 @@ function RadioButtonSet:render()
 					Selected = (button.Id == selected) or (i == selected),
 					Index = i,
 					Enabled = props.Enabled,
-					LayoutOrder = FFlagStudioAddMonetizationToGameSettings and layoutIndex:getNextOrder() or i,
+					LayoutOrder = layoutIndex:getNextOrder(),
 					OnClicked = function()
 						props.SelectionChanged(button)
 					end,
 
-					Children = FFlagStudioAddMonetizationToGameSettings and button.Children or nil,
+					Children = button.Children,
 				}))
 			end
 		end

@@ -9,12 +9,12 @@
 ]]
 
 local Plugin = script.Parent.Parent.Parent.Parent
-local Roact = require(Plugin.Roact)
-local UILibrary = require(Plugin.UILibrary)
+local Roact = require(Plugin.Packages.Roact)
+local Framework = require(Plugin.Packages.Framework)
 local Constants = require(Plugin.Src.Util.Constants)
 
-local Localizing = UILibrary.Localizing
-local withLocalization = Localizing.withLocalization
+local ContextServices = Framework.ContextServices
+local Localization = ContextServices.Localization
 
 local ContextMenu = require(Plugin.Src.Components.ContextMenu)
 
@@ -41,15 +41,14 @@ function EditEventMenu:makeMenuActions(localization)
 end
 
 function EditEventMenu:render()
-	return withLocalization(function(localization)
-		local props = self.props
-		local showMenu = props.ShowMenu
+	local localization = self.props.Localization
+	local props = self.props
+	local showMenu = props.ShowMenu
 
-		return showMenu and Roact.createElement(ContextMenu, {
-			Actions = self:makeMenuActions(localization),
-			OnMenuOpened = props.OnMenuOpened,
-		}) or nil
-	end)
+	return showMenu and Roact.createElement(ContextMenu, {
+		Actions = self:makeMenuActions(localization),
+		OnMenuOpened = props.OnMenuOpened,
+	}) or nil
 end
 
 return EditEventMenu

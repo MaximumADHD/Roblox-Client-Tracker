@@ -10,19 +10,17 @@
 ]]
 
 local Plugin = script.Parent.Parent.Parent
-local Roact = require(Plugin.Roact)
-
-local Theme = require(Plugin.Src.Context.Theme)
-local withTheme = Theme.withTheme
+local Roact = require(Plugin.Packages.Roact)
+local Framework = require(Plugin.Packages.Framework)
+local ContextServices = Framework.ContextServices
 
 local KeyframeCluster = Roact.PureComponent:extend("KeyframeCluster")
 
 local TRIM_AMOUNT = 4
 
 function KeyframeCluster:render()
-	return withTheme(function(theme)
 		local props = self.props
-
+		local theme = props.Theme:get("PluginTheme")
 		local keyframeTheme = theme.keyframeTheme
 		local position = props.Position
 		local size = props.Size
@@ -58,7 +56,11 @@ function KeyframeCluster:render()
 				Rotation = 45,
 			}),
 		})
-	end)
 end
+
+ContextServices.mapToProps(KeyframeCluster, {
+	Theme = ContextServices.Theme,
+})
+
 
 return KeyframeCluster

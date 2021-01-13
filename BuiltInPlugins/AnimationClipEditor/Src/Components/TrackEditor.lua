@@ -15,14 +15,13 @@
 ]]
 
 local Plugin = script.Parent.Parent.Parent
-local Roact = require(Plugin.Roact)
-local RoactRodux = require(Plugin.RoactRodux)
-local UILibrary = require(Plugin.UILibrary)
+local Roact = require(Plugin.Packages.Roact)
+local RoactRodux = require(Plugin.Packages.RoactRodux)
+local Framework = require(Plugin.Packages.Framework)
+local ContextServices = Framework.ContextServices
+local KeyboardListener = Framework.UI.KeyboardListener
 
-local Separator = UILibrary.Component.Separator
-
-local Mouse = require(Plugin.Src.Context.Mouse)
-local getMouse = Mouse.getMouse
+local Separator = Framework.UI.Separator
 
 local Constants = require(Plugin.Src.Util.Constants)
 local TrackUtils = require(Plugin.Src.Util.TrackUtils)
@@ -32,7 +31,6 @@ local DopeSheetController = require(Plugin.Src.Components.DopeSheetController)
 local TimelineContainer = require(Plugin.Src.Components.TimelineContainer)
 local ZoomBar = require(Plugin.Src.Components.ZoomBar)
 local Scrubber = require(Plugin.Src.Components.Timeline.Scrubber)
-local KeyboardListener = UILibrary.Focus.KeyboardListener
 
 local SetScrollZoom = require(Plugin.Src.Actions.SetScrollZoom)
 local StepAnimation = require(Plugin.Src.Thunks.Playback.StepAnimation)
@@ -88,21 +86,6 @@ function TrackEditor:init()
 		self.dragging = false
 	end
 
-	self.inputBegan = function(_, input)
-		if input.UserInputType == Enum.UserInputType.MouseButton3 then
-			getMouse(self).pushCursor("ClosedHand")
-			self.startDragging()
-		end
-	end
-
-	self.inputEnded = function(_, input)
-		if self.dragging and input.UserInputType == Enum.UserInputType.MouseMovement
-			or input.UserInputType == Enum.UserInputType.MouseButton3 then
-			getMouse(self).popCursor()
-			self.stopDragging()
-		end
-	end
-
 	self.getPlayheadPositionX = function()
 		local props = self.props
 		local absoluteSize = self.state.AbsoluteSize or Vector2.new()
@@ -118,6 +101,21 @@ function TrackEditor:init()
 		local props = self.props
 		if not props.IsPlaying then
 			props.StepAnimation(frame)
+		end
+	end
+
+	self.inputBegan = function(_, input)
+		if self.props.Mouse and input.UserInputType == Enum.UserInputType.MouseButton3 then
+			self.props.Mouse:__pushCursor("ClosedHand")
+			self.startDragging()
+		end
+	end
+
+	self.inputEnded = function(_, input)
+		if self.props.Mouse and self.dragging and input.UserInputType == Enum.UserInputType.MouseMovement
+			or input.UserInputType == Enum.UserInputType.MouseButton3 then
+			self.props.Mouse:__popCursor()
+			self.stopDragging()
 		end
 	end
 end
@@ -258,5 +256,10 @@ local function mapDispatchToProps(dispatch)
 		end,
 	}
 end
+
+ContextServices.mapToProps(TrackEditor, {
+	Mouse = ContextServices.Mouse,
+})
+
 
 return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(TrackEditor)

@@ -1,6 +1,5 @@
 local FFlagQ220PermissionsSettings = settings():GetFFlag("Q220PermissionsSettings")
 local FFlagGameSettingsPlaceSettings = game:GetFastFlag("GameSettingsPlaceSettings")
-local FFlagStudioAddMonetizationToGameSettings = game:GetFastFlag("StudioAddMonetizationToGameSettings")
 
 local Permissions = require(script.Parent.PermissionsPage.Permissions)
 local Avatar = require(script.Parent.AvatarPage.Avatar)
@@ -20,9 +19,7 @@ local pages = {
 	Options,
 }
 
-if FFlagStudioAddMonetizationToGameSettings then
-	table.insert(pages, 3, Monetization)
-end
+table.insert(pages, 3, Monetization)
 
 if FFlagGameSettingsPlaceSettings then
 	table.insert(pages, 4, Places)

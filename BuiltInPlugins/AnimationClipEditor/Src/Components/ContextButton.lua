@@ -12,14 +12,10 @@
 ]]
 
 local Plugin = script.Parent.Parent.Parent
-local Roact = require(Plugin.Roact)
+local Roact = require(Plugin.Packages.Roact)
 local Constants = require(Plugin.Src.Util.Constants)
-
-local Theme = require(Plugin.Src.Context.Theme)
-local withTheme = Theme.withTheme
-
-local Mouse = require(Plugin.Src.Context.Mouse)
-local getMouse = Mouse.getMouse
+local Framework = require(Plugin.Packages.Framework)
+local ContextServices = Framework.ContextServices
 
 local ContextButton = Roact.PureComponent:extend("ContextButton")
 
@@ -29,21 +25,24 @@ function ContextButton:init()
 	}
 
 	self.mouseEnter = function()
-		getMouse(self).pushCursor("PointingHand")
-		self:setState({
-			hovered = true,
-		})
+		if self.props.Mouse then 
+			self.props.Mouse:__pushCursor("PointingHand")
+			self:setState({
+				hovered = true,
+			})
+		end
 	end
 
 	self.mouseLeave = function()
-		getMouse(self).popCursor()
-		self:setState({
-			hovered = false,
-		})
+		if self.props.Mouse then 
+			self.props.Mouse:__popCursor()
+			self:setState({
+				hovered = false,
+			})
+		end
 	end
 
 	self.onActivated = function()
-		getMouse(self).resetCursor()
 		if self.props.OnActivated then
 			self.props.OnActivated()
 		end
@@ -51,12 +50,12 @@ function ContextButton:init()
 end
 
 function ContextButton:willUnmount()
-	getMouse(self).resetCursor()
+	self.props.Mouse:__resetCursor()
 end
 
 function ContextButton:render()
-	return withTheme(function(theme)
 		local props = self.props
+		local theme = props.Theme:get("PluginTheme")
 		local state = self.state
 		local trackTheme = theme.trackTheme
 		local anchorPoint = props.AnchorPoint
@@ -88,7 +87,12 @@ function ContextButton:render()
 			[Roact.Event.MouseEnter] = self.mouseEnter,
 			[Roact.Event.MouseLeave] = self.mouseLeave,
 		})
-	end)
 end
+
+ContextServices.mapToProps(ContextButton, {
+	Theme = ContextServices.Theme,
+	Mouse = ContextServices.Mouse,
+})
+
 
 return ContextButton

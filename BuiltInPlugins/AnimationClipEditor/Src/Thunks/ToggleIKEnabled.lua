@@ -1,7 +1,8 @@
 local Plugin = script.Parent.Parent.Parent
 local SetIKEnabled = require(Plugin.Src.Actions.SetIKEnabled)
+local SetIKOpenedTimestamp = require(Plugin.Src.Actions.SetIKOpenedTimestamp)
 
-return function()
+return function(analytics)
 	return function(store)
 		local state = store:getState()
 
@@ -14,9 +15,10 @@ return function()
 		store:dispatch(SetIKEnabled(ikEnabled))
 
 		if ikEnabled then
-			state.Analytics:onIkEnabled()
+			analytics:report("onIkEnabled")
+			store:dispatch(SetIKOpenedTimestamp(os.time()))
 		else
-			state.Analytics:onIkDisabled()
+			analytics:report("onIkDisabled", os.time() - state.Status.IKOpenedTimestamp)
 		end
 	end
 end

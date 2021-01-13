@@ -4,14 +4,14 @@
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
-local Cryo = require(Plugin.Cryo)
+local Cryo = require(Plugin.Packages.Cryo)
 local deepCopy = require(Plugin.Src.Util.deepCopy)
 local isEmpty = require(Plugin.Src.Util.isEmpty)
 local AnimationData = require(Plugin.Src.Util.AnimationData)
 local SetSelectedKeyframes = require(Plugin.Src.Actions.SetSelectedKeyframes)
 local UpdateAnimationData = require(Plugin.Src.Thunks.UpdateAnimationData)
 
-return function()
+return function(analytics)
 	return function(store)
 		local state = store:getState()
 		local selectedKeyframes = state.Status.SelectedKeyframes
@@ -34,7 +34,7 @@ return function()
 					if track.Data[keyframe] then
 						AnimationData.deleteKeyframe(track, keyframe)
 
-						state.Analytics:onDeleteKeyframe(trackName, keyframe)
+						analytics:report("onDeleteKeyframe", trackName, keyframe)
 					end
 				end
 

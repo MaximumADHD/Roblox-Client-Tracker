@@ -11,9 +11,7 @@ local JointPairs = require(DraggerFramework.Utility.JointPairs)
 local JointUtil = require(DraggerFramework.Utility.JointUtil)
 
 local getFFlagEnablePhysicalFreeFormDragger = require(DraggerFramework.Flags.getFFlagEnablePhysicalFreeFormDragger)
-local getFFlagHandleIKError = require(DraggerFramework.Flags.getFFlagHandleIKError)
 local getFFlagWarnOnIKError = require(DraggerFramework.Flags.getFFlagWarnOnIKError)
-local getFFlagDraggerMiscFixes = require(DraggerFramework.Flags.getFFlagDraggerMiscFixes)
 
 local DEFAULT_COLLISION_THRESHOLD = 0.001
 
@@ -57,24 +55,19 @@ end
 function PartMover:setDragged(parts, originalCFrameMap, breakJoints, customCenter, selection)
 	-- Separate out the Workspace parts which will be passed to
 	-- Workspace::ArePartsTouchingOthers for collision testing
-	local FFlagDraggerMiscFixes = getFFlagDraggerMiscFixes()
 	local workspaceParts = table.create(16)
 	for _, part in ipairs(parts) do
 		if part:IsDescendantOf(Workspace) then
-			if FFlagDraggerMiscFixes then
-				-- The part:GetRootPart() check should not be needed!
-				-- This is a hack because parts under the workspace are supposed to
-				-- always have a root part, but under some unknown extremely rare
-				-- circumstances they do not.
-				if part:GetRootPart() then
-					table.insert(workspaceParts, part)
-				else
-					warn("Part `"..part:GetFullName().."` is missing a root! " ..
-						"Please make a bug report explaining how you triggered this warning " ..
-						"on the Developer Forum or https://www.roblox.com/support.")
-				end
-			else
+			-- The part:GetRootPart() check should not be needed!
+			-- This is a hack because parts under the workspace are supposed to
+			-- always have a root part, but under some unknown extremely rare
+			-- circumstances they do not.
+			if part:GetRootPart() then
 				table.insert(workspaceParts, part)
+			else
+				warn("Part `"..part:GetFullName().."` is missing a root! " ..
+					"Please make a bug report explaining how you triggered this warning " ..
+					"on the Developer Forum or https://www.roblox.com/support.")
 			end
 		end
 	end
@@ -382,21 +375,14 @@ function PartMover:transformToWithIk(transform, translateStiffness, rotateStiffn
 
 	local targetCFrame = transform * self._originalMainPartCFrame
 
-	if getFFlagHandleIKError() then
-		local success, errorMessage = pcall(function()
-			Workspace:IKMoveTo(
-				self._mainPart, targetCFrame,
-				translateStiffness, rotateStiffness,
-				collisionsMode)
-		end)
-		if not success and getFFlagWarnOnIKError() then
-			warn("Error while solving IK: " .. errorMessage)
-		end
-	else
+	local success, errorMessage = pcall(function()
 		Workspace:IKMoveTo(
 			self._mainPart, targetCFrame,
 			translateStiffness, rotateStiffness,
 			collisionsMode)
+	end)
+	if not success and getFFlagWarnOnIKError() then
+		warn("Error while solving IK: " .. errorMessage)
 	end
 	local actualCFrame = self._mainPart.CFrame
 	local actualGlobalTransform = actualCFrame * self._originalMainPartCFrame:Inverse()

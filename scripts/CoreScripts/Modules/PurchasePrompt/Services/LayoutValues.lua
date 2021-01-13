@@ -3,8 +3,6 @@ local Root = script.Parent.Parent
 local createSignal = require(Root.Misc.createSignal)
 local strict = require(Root.strict)
 
-local FFlagChinaLicensingApp = settings():GetFFlag("ChinaLicensingApp")
-
 local function makeImageData(path, sliceCenter)
 	return {
 		Path = "rbxasset://textures/" .. path,
@@ -149,16 +147,10 @@ function LayoutValues:generate(isTenFoot)
 
 	Image.PremiumIcon = makeImageData("ui/PurchasePrompt/Premium.png")
 
-	if FFlagChinaLicensingApp then
-		Image.RobuxIcon = isTenFoot
-			and makeImageData("ui/clb_robux_20@3x.png")
-			or makeImageData("ui/clb_robux_20.png")
-	else
-		-- Set a reference to both so they can be preloaded and displayed depending on AB test
-		Image.RobuxIcon = isTenFoot
-			and makeImageData("ui/common/robux_small@2x.png")
-			or makeImageData("ui/common/robux_small.png")
-	end
+	-- Set a reference to both so they can be preloaded and displayed depending on AB test
+	Image.RobuxIcon = isTenFoot
+		and makeImageData("ui/common/robux_small@2x.png")
+		or makeImageData("ui/common/robux_small.png")
 
 	Image.ErrorIcon = isTenFoot
 		and makeImageData("ui/ErrorIcon.png")

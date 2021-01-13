@@ -17,11 +17,10 @@ local EXTENTS = ROWS / 2
 local CoreGui = game:GetService("CoreGui")
 
 local Plugin = script.Parent.Parent.Parent
-local Roact = require(Plugin.Roact)
+local Roact = require(Plugin.Packages.Roact)
 local RigUtils = require(Plugin.Src.Util.RigUtils)
-
-local Theme = require(Plugin.Src.Context.Theme)
-local withTheme = Theme.withTheme
+local Framework = require(Plugin.Packages.Framework)
+local ContextServices = Framework.ContextServices
 
 local FloorGrid = Roact.PureComponent:extend("FloorGrid")
 
@@ -59,9 +58,9 @@ function FloorGrid:renderLines(gridTheme, rootInstance, adornee)
 end
 
 function FloorGrid:render()
-	return withTheme(function(theme)
-		local gridTheme = theme.gridTheme
 		local props = self.props
+		local theme = props.Theme:get("PluginTheme")
+		local gridTheme = theme.gridTheme
 		local container = props.Container or CoreGui
 		local rootInstance = props.RootInstance
 		local adornee = rootInstance and RigUtils.findRootPart(rootInstance)
@@ -75,7 +74,11 @@ function FloorGrid:render()
 				GridLines = Roact.createElement("Folder", {}, gridLines)
 			})
 		end
-	end)
 end
+
+ContextServices.mapToProps(FloorGrid, {
+	Theme = ContextServices.Theme,
+})
+
 
 return FloorGrid

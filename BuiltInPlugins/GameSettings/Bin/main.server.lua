@@ -56,8 +56,6 @@ local SetGame = require(Plugin.Src.Actions.SetGame)
 local isEmpty = require(Plugin.Src.Util.isEmpty)
 local Analytics = require(Plugin.Src.Util.Analytics)
 
-local FFlagStudioAddMonetizationToGameSettings = game:GetFastFlag("StudioAddMonetizationToGameSettings")
-
 local gameSettingsHandle
 local pluginGui
 local openedTimestamp
@@ -71,7 +69,7 @@ local gameInfoController = GameInfoController.new(networking:get())
 local gameMetadataController = GameMetadataController.new(networking:get())
 local groupMetadataController = GroupMetadataController.new(networking:get())
 local gamePermissionsController = GamePermissionsController.new(networking:get())
-local monetizationController = FFlagStudioAddMonetizationToGameSettings and MonetizationController.new(networking:get()) or nil
+local monetizationController = MonetizationController.new(networking:get())
 local devSubsController = FFlagDeveloperSubscriptionsEnabled and DevSubsController.new(networking:get()) or nil
 local gameOptionsController = GameOptionsController.new(networking:get())
 local universePermissionsController = FFlagQ220PermissionsSettings and SecurityController.new(networking:get()) or nil

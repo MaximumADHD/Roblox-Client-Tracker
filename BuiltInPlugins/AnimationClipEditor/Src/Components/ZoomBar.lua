@@ -11,14 +11,12 @@
 ]]
 
 local Plugin = script.Parent.Parent.Parent
-local Roact = require(Plugin.Roact)
-local UILibrary = require(Plugin.UILibrary)
+local Roact = require(Plugin.Packages.Roact)
+local Framework = require(Plugin.Packages.Framework)
 local Constants = require(Plugin.Src.Util.Constants)
+local ContextServices = Framework.ContextServices
 
-local Theme = require(Plugin.Src.Context.Theme)
-local withTheme = Theme.withTheme
-
-local DragTarget = UILibrary.Component.DragTarget
+local DragTarget = Framework.UI.DragListener
 local ArrowButton = require(Plugin.Src.Components.ArrowButton)
 
 local ZoomBar = Roact.PureComponent:extend("ZoomBar")
@@ -133,9 +131,9 @@ function ZoomBar:init()
 end
 
 function ZoomBar:render()
-	return withTheme(function(theme)
 		local props = self.props
 		local state = self.state
+		local theme = props.Theme:get("PluginTheme")
 		local zoomBarTheme = theme.zoomBarTheme
 
 		local position = props.Position
@@ -247,7 +245,11 @@ function ZoomBar:render()
 				end,
 			}),
 		})
-	end)
 end
+
+ContextServices.mapToProps(ZoomBar, {
+	Theme = ContextServices.Theme,
+})
+
 
 return ZoomBar

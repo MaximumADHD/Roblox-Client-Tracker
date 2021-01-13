@@ -12,17 +12,17 @@
 local ARROW_SIZE = UDim2.new(0, 9, 0, 5)
 
 local Plugin = script.Parent.Parent.Parent
-local Roact = require(Plugin.Roact)
+local Framework = require(Plugin.Packages.Framework)
+local ContextServices = Framework.ContextServices
+local Roact = require(Plugin.Packages.Roact)
 local Constants = require(Plugin.Src.Util.Constants)
-
-local Theme = require(Plugin.Src.Context.Theme)
-local withTheme = Theme.withTheme
 
 local ArrowButton = Roact.PureComponent:extend("ArrowButton")
 
 function ArrowButton:render()
-	return withTheme(function(theme)
 		local props = self.props
+		local theme = props.Theme:get("PluginTheme")
+
 		local scrollTheme = theme.scrollBarTheme
 		local rotation = props.Rotation
 		local position = props.Position
@@ -49,7 +49,10 @@ function ArrowButton:render()
 				BackgroundTransparency = 1,
 			}),
 		})
-	end)
 end
+
+ContextServices.mapToProps(ArrowButton, {
+	Theme = ContextServices.Theme,
+})
 
 return ArrowButton

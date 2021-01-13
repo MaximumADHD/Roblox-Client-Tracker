@@ -10,7 +10,7 @@
 ]]
 
 local Plugin = script.Parent.Parent.Parent
-local Cryo = require(Plugin.Cryo)
+local Cryo = require(Plugin.Packages.Cryo)
 local KeyframeUtils = require(Plugin.Src.Util.KeyframeUtils)
 local AnimationData = require(Plugin.Src.Util.AnimationData)
 

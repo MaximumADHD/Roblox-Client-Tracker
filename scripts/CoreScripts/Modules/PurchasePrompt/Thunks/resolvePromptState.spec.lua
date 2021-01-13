@@ -14,6 +14,8 @@ local PurchasePromptDeps = require(CorePackages.PurchasePromptDeps)
 	local resolvePromptState = require(script.Parent.resolvePromptState)
 	local RequestType = require(Root.Enums.RequestType)
 
+	local GetFFlagDisableRobuxUpsell = require(Root.Flags.GetFFlagDisableRobuxUpsell)
+
 	local function getTestProductInfo()
 		return {
 			IsForSale = true,
@@ -110,6 +112,28 @@ local PurchasePromptDeps = require(CorePackages.PurchasePromptDeps)
 		})
 
 		local state = store:getState()
+		expect(state.promptState).to.equal(PromptState.PromptPurchase)
+	end)
+
+	it("should resolve state to PromptPurchase if is roblox purchase but third party sales are disabled", function()
+		local store = Rodux.Store.new(Reducer, {})
+
+		local productInfo = getTestProductInfo()
+		local accountInfo = {
+			RobuxBalance = 10,
+			MembershipType = 0,
+		}
+		local thunk = resolvePromptState(productInfo, accountInfo, false, true)
+
+		Thunk.test(thunk, store, {
+			[ExternalSettings] = MockExternalSettings.new(false, false, {
+				LuaUseThirdPartyPermissions = true,
+				PermissionsServiceIsThirdPartyPurchaseAllowed = false,
+				BypassThirdPartySettingForRobloxPurchase = true,
+			})
+		})
+
+		local state = store:getState()
 
 		if not settings():GetFFlag("ChinaLicensingApp") then
 			expect(state.promptState).to.equal(PromptState.PromptPurchase)
@@ -132,8 +156,7 @@ local PurchasePromptDeps = require(CorePackages.PurchasePromptDeps)
 		})
 
 		local state = store:getState()
-
-		if not settings():GetFFlag("ChinaLicensingApp") then
+		if not GetFFlagDisableRobuxUpsell() then
 			expect(state.promptState).to.equal(PromptState.RobuxUpsell)
 		end
 	end)

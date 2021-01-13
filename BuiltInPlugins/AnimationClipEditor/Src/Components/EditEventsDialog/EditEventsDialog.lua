@@ -29,23 +29,17 @@ local DEFAULT_INNER_HEIGHT = ROW_HEIGHT * 5
 local PADDING_HEIGHT = Constants.PROMPT_BUTTON_SIZE.Y + BORDER_PADDING * 3
 local WIDTH = COLUMN_WIDTH * 2 + BORDER_PADDING * 2
 
-local Roact = require(Plugin.Roact)
-local Cryo = require(Plugin.Cryo)
+local Roact = require(Plugin.Packages.Roact)
+local Cryo = require(Plugin.Packages.Cryo)
 local LayoutOrderIterator = require(Plugin.Src.Util.LayoutOrderIterator)
 local AnimationData = require(Plugin.Src.Util.AnimationData)
 local deepCopy = require(Plugin.Src.Util.deepCopy)
 
-local UILibrary = require(Plugin.UILibrary)
-local StyledDialog = UILibrary.Component.StyledDialog
+local Framework = require(Plugin.Packages.Framework)
+local StyledDialog = Framework.StudioUI.StyledDialog
 
-local Localizing = UILibrary.Localizing
-local withLocalization = Localizing.withLocalization
-
-local Theme = require(Plugin.Src.Context.Theme)
-local withTheme = Theme.withTheme
-
-local Mouse = require(Plugin.Src.Context.Mouse)
-local getMouse = Mouse.getMouse
+local ContextServices = Framework.ContextServices
+local Localization = ContextServices.Localization
 
 local TextBox = require(Plugin.Src.Components.TextBox)
 local EventNameEntry = require(Plugin.Src.Components.EditEventsDialog.EventNameEntry)
@@ -185,8 +179,9 @@ function EditEventsDialog:init(initialProps)
 end
 
 function EditEventsDialog:didMount()
-	getMouse(self).resetCursor()
+	self.props.Mouse:__resetCursor()
 end
+
 
 -- Makes a TextLabel with the props we want
 function EditEventsDialog:makeText(theme, text, color, center)
@@ -329,13 +324,14 @@ end
 function EditEventsDialog:renderDeleteAllPrompt(theme, localization)
 	local state = self.state
 	local name = state.deleteAllName
+	local style = theme.button
 
 	return Roact.createElement(FocusedPrompt, {
 		Buttons = {
 			{Key = false, Text = localization:getText("Dialog", "No")},
-			{Key = true, Text = localization:getText("Dialog", "Yes"), Style = "Primary"},
+			{Key = true, Text = localization:getText("Dialog", "Yes"), Style = style.Primary},
 		},
-		PromptText = localization:getText("Dialog", "DeleteAllPrompt", name),
+		PromptText = localization:getText("Dialog", "DeleteAllPrompt", {name = name}),
 		OnButtonClicked = function(doDeleteAll)
 			if doDeleteAll then
 				self.onDeleteAllEvents(name)
@@ -356,7 +352,7 @@ function EditEventsDialog:renderRenameAllPrompt(theme, localization)
 			{Key = false, Text = localization:getText("Dialog", "ChangeThis")},
 			{Key = true, Text = localization:getText("Dialog", "ChangeAll")},
 		},
-		PromptText = localization:getText("Dialog", "RenameAllPrompt", name, newName),
+		PromptText = localization:getText("Dialog", "RenameAllPrompt", {name = name}, {newName = newName}),
 		OnButtonClicked = function(doRenameAll)
 			if doRenameAll then
 				self.onRenameAllEvents(name, newName)
@@ -370,70 +366,69 @@ function EditEventsDialog:renderRenameAllPrompt(theme, localization)
 end
 
 function EditEventsDialog:render()
-	return self:renderInternal(function(theme, localization)
-		self.layout = LayoutOrderIterator.new()
-		local props = self.props
-		local state = self.state
-		local dialogTheme = theme.dialogTheme
-		local showDeleteAllPrompt = state.deleteAllName ~= nil
-		local showRenameAllPrompt = state.renameAllNames ~= nil
+	local theme = self.props.Theme:get("PluginTheme")
+	local localization = self.props.Localization
+	self.layout = LayoutOrderIterator.new()
+	local props = self.props
+	local state = self.state
+	local dialogTheme = theme.dialogTheme
+	local style = theme.button
+	local showDeleteAllPrompt = state.deleteAllName ~= nil
+	local showRenameAllPrompt = state.renameAllNames ~= nil
 
-		local buttons = {
-			{Key = false, Text = localization:getText("Dialog", "Cancel")},
-			{Key = true, Text = localization:getText("Dialog", "Save"), Style = "Primary"},
-		}
+	local buttons = {
+		{Key = false, Text = localization:getText("Dialog", "Cancel")},
+		{Key = true, Text = localization:getText("Dialog", "Save"), Style = style.Primary},
+	}
 
-		local contents = {
-			Layout = Roact.createElement("UITableLayout", {
-				SortOrder = Enum.SortOrder.LayoutOrder,
-				FillEmptySpaceColumns = true,
-			}),
-		}
+	local contents = {
+		Layout = Roact.createElement("UITableLayout", {
+			SortOrder = Enum.SortOrder.LayoutOrder,
+			FillEmptySpaceColumns = true,
+		}),
+	}
 
-		contents.TitleRow = self:addTitleRow(theme, localization)
-		local innerHeight = self:renderEvents(theme, contents)
-		contents.AddNew = self:addNewEventRow(theme, localization)
+	contents.TitleRow = self:addTitleRow(theme, localization)
+	local innerHeight = self:renderEvents(theme, contents)
+	contents.AddNew = self:addNewEventRow(theme, localization)
 
-		if showDeleteAllPrompt then
-			contents.DeleteAllPrompt = self:renderDeleteAllPrompt(theme, localization)
-		elseif showRenameAllPrompt then
-			contents.RenameAllPrompt = self:renderRenameAllPrompt(theme, localization)
-		end
+	if showDeleteAllPrompt then
+		contents.DeleteAllPrompt = self:renderDeleteAllPrompt(theme, localization)
+	elseif showRenameAllPrompt then
+		contents.RenameAllPrompt = self:renderRenameAllPrompt(theme, localization)
+	end
 
-		local defaultSize = Vector2.new(WIDTH, math.max(innerHeight, DEFAULT_INNER_HEIGHT) + PADDING_HEIGHT)
+	local defaultSize = Vector2.new(WIDTH, math.max(innerHeight, DEFAULT_INNER_HEIGHT) + PADDING_HEIGHT)
 
-		return Roact.createElement(StyledDialog, {
-			Size = defaultSize,
-			MinSize = defaultSize,
-			TextSize = dialogTheme.textSize,
-			Resizable = true,
-			Buttons = buttons,
-			OnButtonClicked = self.onButtonClicked,
-			OnClose = props.OnClose,
-			BorderPadding = BORDER_PADDING,
-			ButtonPadding = Constants.PROMPT_BUTTON_PADDING,
-			ButtonHeight = Constants.PROMPT_BUTTON_SIZE.Y,
-			ButtonWidth = Constants.PROMPT_BUTTON_SIZE.X,
-			Title = localization:getText("Title", "EditEvents"),
-		}, {
-			Container = Roact.createElement("ScrollingFrame", {
-				BorderSizePixel = 0,
-				BackgroundColor3 = theme.backgroundColor,
-				Size = UDim2.new(1, 0, 1, -BOTTOM_PADDING),
-				ScrollBarThickness = 8,
-				CanvasSize = UDim2.new(0, 0, 0, innerHeight),
-			}, contents)
-		})
-	end)
+	return Roact.createElement(StyledDialog, {
+		Size = defaultSize,
+		MinContentSize = defaultSize,
+		TextSize = dialogTheme.textSize,
+		Resizable = true,
+		Buttons = buttons,
+		OnButtonClicked = self.onButtonClicked,
+		OnClose = props.OnClose,
+		BorderPadding = BORDER_PADDING,
+		ButtonPadding = Constants.PROMPT_BUTTON_PADDING,
+		ButtonHeight = Constants.PROMPT_BUTTON_SIZE.Y,
+		ButtonWidth = Constants.PROMPT_BUTTON_SIZE.X,
+		Title = localization:getText("Title", "EditEvents"),
+	}, {
+		Container = Roact.createElement("ScrollingFrame", {
+			BorderSizePixel = 0,
+			BackgroundColor3 = theme.backgroundColor,
+			Size = UDim2.new(1, 0, 1, -BOTTOM_PADDING),
+			ScrollBarThickness = 8,
+			CanvasSize = UDim2.new(0, 0, 0, innerHeight),
+		}, contents)
+	})
 end
 
--- Combines "with" functions to prevent rightward drift of the render func
-function EditEventsDialog:renderInternal(render)
-	return withTheme(function(theme)
-		return withLocalization(function(localization)
-			return render(theme, localization)
-		end)
-	end)
-end
+ContextServices.mapToProps(EditEventsDialog, {
+	Theme = ContextServices.Theme,
+	Localization = ContextServices.Localization,
+	Mouse = ContextServices.Mouse,
+})
+
 
 return EditEventsDialog

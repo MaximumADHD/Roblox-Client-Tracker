@@ -13,17 +13,15 @@
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
-local Roact = require(Plugin.Roact)
-local UILibrary = require(Plugin.UILibrary)
-local Theme = require(Plugin.Src.Context.Theme)
-local withTheme = Theme.withTheme
+local Roact = require(Plugin.Packages.Roact)
+local Framework = require(Plugin.Packages.Framework)
+local ContextServices = Framework.ContextServices
 
 local Scrubber = Roact.PureComponent:extend("Scrubber")
 
 function Scrubber:render()
-	return withTheme(function(theme)
 		local props = self.props
-
+		local theme = props.Theme:get("PluginTheme")
 		local position = props.Position
 		local headSize = props.HeadSize
 		local height = props.Height
@@ -61,7 +59,11 @@ function Scrubber:render()
 			AnchorPoint = anchorPoint,
 			[Roact.Event.InputBegan] = self.onDragBegan,
 		}, children)
-	end)
 end
+
+ContextServices.mapToProps(Scrubber, {
+	Theme = ContextServices.Theme,
+})
+
 
 return Scrubber

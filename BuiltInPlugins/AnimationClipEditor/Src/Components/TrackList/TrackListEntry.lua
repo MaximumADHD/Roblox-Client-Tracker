@@ -12,18 +12,18 @@
 ]]
 
 local Plugin = script.Parent.Parent.Parent.Parent
-local Roact = require(Plugin.Roact)
+local Roact = require(Plugin.Packages.Roact)
 
-local Theme = require(Plugin.Src.Context.Theme)
-local withTheme = Theme.withTheme
+local Framework = require(Plugin.Packages.Framework)
+local ContextServices = Framework.ContextServices
 
 local Constants = require(Plugin.Src.Util.Constants)
 
 local TrackListEntry = Roact.PureComponent:extend("TrackListEntry")
 
 function TrackListEntry:render()
-	return withTheme(function(theme)
 		local props = self.props
+		local theme = props.Theme:get("PluginTheme")
 		local layoutOrder = props.LayoutOrder
 		local indent = props.Indent or 0
 		local height = props.Height
@@ -54,7 +54,10 @@ function TrackListEntry:render()
 			BackgroundTransparency = backgroundColor and 0 or 1,
 			LayoutOrder = layoutOrder,
 		}, children)
-	end)
 end
+
+ContextServices.mapToProps(TrackListEntry, {
+	Theme = ContextServices.Theme,
+})
 
 return TrackListEntry

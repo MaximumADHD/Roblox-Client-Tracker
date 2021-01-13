@@ -24,10 +24,10 @@
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
-local Roact = require(Plugin.Roact)
+local Roact = require(Plugin.Packages.Roact)
 
-local Theme = require(Plugin.Src.Context.Theme)
-local withTheme = Theme.withTheme
+local Framework = require(Plugin.Packages.Framework)
+local ContextServices = Framework.ContextServices
 
 local TrackUtils = require(Plugin.Src.Util.TrackUtils)
 local Constants = require(Plugin.Src.Util.Constants)
@@ -110,8 +110,8 @@ function ScaleControls:init()
 end
 
 function ScaleControls:render()
-	return withTheme(function(theme)
 		local props = self.props
+		local theme = props.Theme:get("PluginTheme")
 
 		local showSelectionArea = props.ShowSelectionArea
 		local showAsSeconds = props.ShowAsSeconds
@@ -175,7 +175,11 @@ function ScaleControls:render()
 				ZIndex = zIndex,
 			}),
 		})
-	end)
 end
+
+ContextServices.mapToProps(ScaleControls, {
+	Theme = ContextServices.Theme,
+})
+
 
 return ScaleControls

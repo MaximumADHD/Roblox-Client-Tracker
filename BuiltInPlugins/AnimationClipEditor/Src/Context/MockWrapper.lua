@@ -1,97 +1,90 @@
 --[[
-	A mock provider that provides fake values for testing.
-	Do not use this component outside of tests.
-
-	Props:
-		Plugin plugin = A plugin value or mock for testing.
-		table state = The test initial state for the Rodux store.
+	A customizable wrapper for tests that supplies all the required providers for component testing
 ]]
-
 local Plugin = script.Parent.Parent.Parent
-local Roact = require(Plugin.Roact)
-local Rodux = require(Plugin.Rodux)
-local UILibrary = require(Plugin.UILibrary)
 
-local Theme = require(Plugin.Src.Util.Theme)
-local Localization = UILibrary.Studio.Localization
-local MainReducer = require(Plugin.Src.Reducers.MainReducer)
+local Roact = require(Plugin.Packages.Roact)
+local Rodux = require(Plugin.Packages.Rodux)
+local Framework = Plugin.Packages.Framework
+local ContextServices = require(Framework.ContextServices)
 
+local MockPlugin = require(Plugin.Packages.Framework.TestHelpers.Instances.MockPlugin)
 local MainProvider = require(Plugin.Src.Context.MainProvider)
-local MakePluginActions = require(Plugin.Src.Util.MakePluginActions)
-local MouseContext = require(Plugin.Src.Context.Mouse)
+local PluginTheme = require(Plugin.Src.Util.Theme)
+local MainReducer = require(Plugin.Src.Reducers.MainReducer)
+local UILibraryWrapper = require(Plugin.Packages.Framework.ContextServices.UILibraryWrapper)
+local Localization = ContextServices.Localization
 
-local MockWrapper = Roact.PureComponent:extend("MockWrapper")
+local MockWrapper = Roact.Component:extend("MockWrapper")
 
-local function mockConnection()
-	local mockConnection = {}
-	function mockConnection:Connect()
-		local mockDisconnection = {}
-		function mockDisconnection:Disconnect()
-		end
-		return mockDisconnection
+-- props : (table, optional)
+function MockWrapper.getMockGlobals(props)
+	if not props then
+		props = {}
 	end
-	return mockConnection
-end
 
-local function mockPlugin(container)
-	local plugin = {}
-	function plugin:Activate()
+	local localization = props.localization
+	if not localization then
+		localization = Localization.mock()
 	end
-	function plugin:Deactivate()
-	end
-	function plugin:GetMouse()
-		local mouse = {}
-		mouse.Button1Down = mockConnection()
-		return mouse
-	end
-	local function createScreenGui()
-		local screenGui = Instance.new("BillboardGui")
-		screenGui.Name = "PluginGuiMock"
-		screenGui.Parent = container
-		return screenGui
-	end
-	function plugin:CreateQWidgetPluginGui()
-		return createScreenGui()
-	end
-	function plugin:CreateDockWidgetPluginGui()
-		return createScreenGui()
-	end
-	return plugin
-end
 
-function MockWrapper:init(props)
-	local focusGui = Instance.new("ScreenGui")
+	local focusGui = props.focusGui
+	if not focusGui then
+		focusGui = Instance.new("ScreenGui")
+	end
+
 	focusGui.Name = "FocusGuiMock"
-	self.focusGui = focusGui
 	if props.Container then
-		self.focusGui.Parent = props.Container
+		focusGui.Parent = props.Container
 	end
-end
 
-function MockWrapper:render()
-	local props = self.props
-	local storeState = props.state or nil
-	local plugin = props.plugin or mockPlugin(props.Container)
+	local pluginInstance = props.plugin
+	if not pluginInstance then
+		pluginInstance = MockPlugin.new()
+	end
 
-	local localization = Localization.mock()
+	local mouse = props.mouse
+	if not mouse then
+		mouse = pluginInstance:GetMouse()
+	end
 
-	return Roact.createElement(MainProvider, {
-		theme = Theme.mock(),
+	local storeState = props.storeState
+	local store = Rodux.Store.new(MainReducer, storeState, { Rodux.thunkMiddleware })
+
+	local theme = props.theme
+	if not theme then
+		theme = PluginTheme.mock()
+	end
+
+	local pluginActions = ContextServices.PluginActions.new(pluginInstance, {
+		{
+			id = "rerunLastStory",
+			text = "MOCK",
+		}
+	})
+
+	local analytics = ContextServices.Analytics.mock()
+
+	return {
+		focusGui = focusGui,
+		plugin = pluginInstance,
 		localization = localization,
-		store = Rodux.Store.new(MainReducer, storeState, {
-			Rodux.thunkMiddleware
-		}),
-		plugin = plugin,
-		focusGui = self.focusGui,
-		pluginActions = props.plugin ~= nil and MakePluginActions(plugin, localization) or {},
-		mouse = MouseContext.mock(),
-	}, self.props[Roact.Children])
+		theme = theme,
+		mouse = mouse,
+		store = store,
+		analytics = analytics,
+		pluginActions = pluginActions
+	}
 end
 
-function MockWrapper:willUnmount()
-	if self.focusGui then
-		self.focusGui:Destroy()
-	end
+-- props.localization : (optional, Framework.Localization)
+-- props.plugin : (optional, plugin)
+-- props.storeState : (optional, table) a default state for the MainReducer
+-- props.theme : (optional, Resources.PluginTheme)
+-- props.api : (optional, Http.API)
+function MockWrapper:render()
+	local globals = MockWrapper.getMockGlobals(self.props)
+	return Roact.createElement(MainProvider, globals, self.props[Roact.Children])
 end
 
 return MockWrapper

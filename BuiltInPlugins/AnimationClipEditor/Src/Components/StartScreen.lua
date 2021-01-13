@@ -12,69 +12,62 @@
 ]]
 
 local Plugin = script.Parent.Parent.Parent
-local Roact = require(Plugin.Roact)
+local Roact = require(Plugin.Packages.Roact)
 local Constants = require(Plugin.Src.Util.Constants)
-local UILibrary = require(Plugin.UILibrary)
+local Framework = require(Plugin.Packages.Framework)
 local TextEntryPrompt = require(Plugin.Src.Components.TextEntryPrompt)
 
-local CaptureFocus = UILibrary.Focus.CaptureFocus
-
-local Localizing = UILibrary.Localizing
-local withLocalization = Localizing.withLocalization
-
-local Theme = require(Plugin.Src.Context.Theme)
-local withTheme = Theme.withTheme
+local CaptureFocus = Framework.UI.CaptureFocus
+local ContextServices = Framework.ContextServices
+local Localization = ContextServices.Localization
 
 local StartScreen = Roact.PureComponent:extend("StartScreen")
 
 function StartScreen:render()
-	return self:renderInternal(function(theme, localization)
-		local startScreenTheme = theme.startScreenTheme
-		local props = self.props
-		local size = props.Size
-		local layoutOrder = props.LayoutOrder
-		local rootInstance = props.RootInstance
-		local onCreateAnimation = props.OnCreateAnimation
+	local theme = self.props.Theme:get("PluginTheme")
+	local localization = self.props.Localization
+	local startScreenTheme = theme.startScreenTheme
+	local props = self.props
+	local size = props.Size
+	local layoutOrder = props.LayoutOrder
+	local rootInstance = props.RootInstance
+	local onCreateAnimation = props.OnCreateAnimation
+	local style = theme.button
 
-		return Roact.createElement("Frame", {
-			Size = size,
-			BackgroundTransparency = 1,
-			LayoutOrder = layoutOrder,
+	return Roact.createElement("Frame", {
+		Size = size,
+		BackgroundTransparency = 1,
+		LayoutOrder = layoutOrder,
+	}, {
+		SelectScreen = rootInstance == nil and Roact.createElement("TextLabel", {
+			Size = UDim2.new(1, 0, 1, 0),
+			Text = localization:getText("Title", "SelectARig"),
+			Font = theme.font,
+			TextSize = startScreenTheme.textSize,
+			TextColor3 = startScreenTheme.textColor,
+			TextTruncate = Enum.TextTruncate.AtEnd,
+			BackgroundColor3 = theme.backgroundColor,
 		}, {
-			SelectScreen = rootInstance == nil and Roact.createElement("TextLabel", {
-				Size = UDim2.new(1, 0, 1, 0),
-				Text = localization:getText("Title", "SelectARig"),
-				Font = theme.font,
-				TextSize = startScreenTheme.textSize,
-				TextColor3 = startScreenTheme.textColor,
-				TextTruncate = Enum.TextTruncate.AtEnd,
-				BackgroundColor3 = theme.backgroundColor,
-			}, {
-				-- Prevent interaction with the editor until the user selects a rig.
-				CaptureFocus = Roact.createElement(CaptureFocus),
-			}),
+			-- Prevent interaction with the editor until the user selects a rig.
+			CaptureFocus = Roact.createElement(CaptureFocus),
+		}),
 
-			CreateNewPrompt = rootInstance ~= nil and Roact.createElement(TextEntryPrompt, {
-				PromptText = localization:getText("Title", "CreateToStart"),
-				NoticeText = localization:getText("Title", "NoAnimationExists", rootInstance.Name),
-				InputText = localization:getText("Dialog", "AnimationName"),
-				Text = Constants.DEFAULT_ANIMATION_NAME,
-				Buttons = {
-					{Key = true, Text = localization:getText("Dialog", "Create"), Style = "Primary"},
-				},
-				OnTextSubmitted = onCreateAnimation,
-			}),
-		})
-	end)
+		CreateNewPrompt = rootInstance ~= nil and Roact.createElement(TextEntryPrompt, {
+			PromptText = localization:getText("Title", "CreateToStart"),
+			NoticeText = localization:getText("Title", "NoAnimationExists", {rig = rootInstance.Name}),
+			InputText = localization:getText("Dialog", "AnimationName"),
+			Text = Constants.DEFAULT_ANIMATION_NAME,
+			Buttons = {
+				{Key = true, Text = localization:getText("Dialog", "Create"), Style = style.Primary},
+			},
+			OnTextSubmitted = onCreateAnimation,
+		}),
+	})
 end
 
--- Combine "with" functions to prevent rightward drift of render()
-function StartScreen:renderInternal(renderFunc)
-	return withTheme(function(theme)
-		return withLocalization(function(localization)
-			return renderFunc(theme, localization)
-		end)
-	end)
-end
+ContextServices.mapToProps(StartScreen, {
+	Theme = ContextServices.Theme,
+	Localization = ContextServices.Localization,
+})
 
 return StartScreen

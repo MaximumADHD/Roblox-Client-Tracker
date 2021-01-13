@@ -4,7 +4,7 @@
 ]]
 
 local Plugin = script.Parent.Parent.Parent
-local Cryo = require(Plugin.Cryo)
+local Cryo = require(Plugin.Packages.Cryo)
 local deepCopy = require(Plugin.Src.Util.deepCopy)
 local isEmpty = require(Plugin.Src.Util.isEmpty)
 
@@ -12,7 +12,7 @@ local SortAndSetTracks = require(Plugin.Src.Thunks.SortAndSetTracks)
 local SetSelectedKeyframes = require(Plugin.Src.Actions.SetSelectedKeyframes)
 local UpdateAnimationData = require(Plugin.Src.Thunks.UpdateAnimationData)
 
-return function(trackName)
+return function(trackName, analytics)
 	return function(store)
 		local state = store:getState()
 		local status = state.Status
@@ -48,7 +48,7 @@ return function(trackName)
 						store:dispatch(UpdateAnimationData(newData))
 						store:dispatch(SetSelectedKeyframes({}))
 
-						state.Analytics:onTrackDeleted(trackName, hadKeyframes)
+						analytics:report("onTrackDeleted", trackName, hadKeyframes)
 						return
 					end
 				end

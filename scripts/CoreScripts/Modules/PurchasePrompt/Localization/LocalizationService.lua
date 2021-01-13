@@ -6,14 +6,6 @@ local Symbol = require(Root.Symbols.Symbol)
 
 local KeyMappings = require(script.Parent.KeyMappings)
 
-local FFlagChinaLicensingApp = settings():GetFFlag("ChinaLicensingApp")
-local HARDCODED_CLB_TRANSLATIONS = {
-	["CoreScripts.PurchasePrompt.PurchaseFailed.InvalidFunds"] = [[由于你帐户的乐币余额不足，购买失败。系统并未向你的帐户收取费用。]],
-	["CoreScripts.PurchasePrompt.PurchaseFailed.NotEnoughRobux"] = [[你的乐币余额不足，无法购买此物品。]],
-	["CoreScripts.PurchasePrompt.ConfirmPurchase.BuyRobux"] = [[购买乐币]],
-	["CoreScripts.PurchasePrompt.PurchaseDetails.BalanceFuture"] = [[你在此次交易后的余额将为 {BALANCE_FUTURE} 乐币]],
-}
-
 local GetFFlagProductPercentLocFix = require(Root.Flags.GetFFlagProductPercentLocFix)
 
 local DEBUG_LOCALIZATION = false
@@ -67,22 +59,6 @@ end
 local function getLocalizedString(localizationContext, key)
 	local translations = localizationContext.translations
 	local fallbackTranslations = localizationContext.fallbackTranslations
-
-	if FFlagChinaLicensingApp then
-		--[[
-			We've been instructed by Tencent to replace all references to 'Robux' with a new
-			word for it; we don't want to do this as translations, since we don't want to affect
-			other Chinese language users.
-
-			So our approach here is to short-circuit translation with hard-coded strings for the
-			case where we
-				a. Are in the China Licensing Build
-				b. Encounter the specific string keys that were problematic
-		]]
-		if HARDCODED_CLB_TRANSLATIONS[key] ~= nil then
-			return HARDCODED_CLB_TRANSLATIONS[key]
-		end
-	end
 
 	if DEBUG_LOCALIZATION and translations[key] == nil then
 		warn(("Missing translation for %s in locale %s"):format(key, localizationContext.locale))

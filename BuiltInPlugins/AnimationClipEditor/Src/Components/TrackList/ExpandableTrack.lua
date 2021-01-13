@@ -20,11 +20,11 @@
 ]]
 
 local Plugin = script.Parent.Parent.Parent.Parent
-local Roact = require(Plugin.Roact)
+local Roact = require(Plugin.Packages.Roact)
 local DoubleClickDetector = require(Plugin.Src.Util.DoubleClickDetector)
 
-local Theme = require(Plugin.Src.Context.Theme)
-local withTheme = Theme.withTheme
+local Framework = require(Plugin.Packages.Framework)
+local ContextServices = Framework.ContextServices
 
 local TrackListEntry = require(Plugin.Src.Components.TrackList.TrackListEntry)
 local ContextButton = require(Plugin.Src.Components.ContextButton)
@@ -58,8 +58,8 @@ function ExpandableTrack:init()
 end
 
 function ExpandableTrack:render()
-	return withTheme(function(theme)
 		local props = self.props
+		local theme = props.Theme:get("PluginTheme")
 		local layoutOrder = props.LayoutOrder
 		local indent = props.Indent or 0
 		local name = props.Name
@@ -110,7 +110,11 @@ function ExpandableTrack:render()
 				OnActivated = self.onContextButtonClick,
 			}),
 		})
-	end)
 end
+
+ContextServices.mapToProps(ExpandableTrack, {
+	Theme = ContextServices.Theme,
+})
+
 
 return ExpandableTrack

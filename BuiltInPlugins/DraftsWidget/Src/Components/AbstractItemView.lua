@@ -122,7 +122,7 @@ function AbstractItemView:init()
 	end
 	
 	self.selectionChanged = function(selectedIds)
-		if self.props.OnSelectionChanged  and game:GetFastFlag("DraftWidgetResponsiveCommitButton") then
+		if self.props.OnSelectionChanged then
 			self.props.OnSelectionChanged(selectedIds)
 		end
 	end

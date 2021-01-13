@@ -7,7 +7,7 @@
 ]]
 
 local Plugin = script.Parent.Parent.Parent
-local Cryo = require(Plugin.Cryo)
+local Cryo = require(Plugin.Packages.Cryo)
 
 local SetClipboard = require(Plugin.Src.Actions.SetClipboard)
 

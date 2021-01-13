@@ -4,14 +4,10 @@
 ]]
 
 local Plugin = script.Parent.Parent.Parent
-local Roact = require(Plugin.Roact)
+local Roact = require(Plugin.Packages.Roact)
 local Constants = require(Plugin.Src.Util.Constants)
-
-local Theme = require(Plugin.Src.Context.Theme)
-local withTheme = Theme.withTheme
-
-local Mouse = require(Plugin.Src.Context.Mouse)
-local getMouse = Mouse.getMouse
+local Framework = require(Plugin.Packages.Framework)
+local ContextServices = Framework.ContextServices
 
 local SettingsMenu = require(Plugin.Src.Components.SettingsMenu)
 
@@ -35,22 +31,27 @@ function SettingsButton:init()
 	end
 
 	self.mouseEnter = function()
-		getMouse(self).pushCursor("PointingHand")
+		if self.props.Mouse then
+			self.props.Mouse:__pushCursor("PointingHand")
+		end
 	end
 
 	self.mouseLeave = function()
-		getMouse(self).popCursor()
+		if self.props.Mouse then
+			self.props.Mouse:__popCursor()
+		end
 	end
 end
 
 function SettingsButton:willUnmount()
-	getMouse(self).resetCursor()
+	self.props.Mouse:__resetCursor()
 end
 
+
 function SettingsButton:render()
-	return withTheme(function(theme)
 		local props = self.props
 		local state = self.state
+		local theme = props.Theme:get("PluginTheme")
 
 		local onChangeFPS = props.OnChangeFPS
 
@@ -73,7 +74,12 @@ function SettingsButton:render()
 				OnChangeFPS = onChangeFPS,
 			}),
 		})
-	end)
 end
+
+ContextServices.mapToProps(SettingsButton, {
+	Mouse = ContextServices.Mouse,
+	Theme = ContextServices.Theme,
+})
+
 
 return SettingsButton

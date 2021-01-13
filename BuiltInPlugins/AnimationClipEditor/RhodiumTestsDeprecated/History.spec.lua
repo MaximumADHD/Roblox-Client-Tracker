@@ -1,11 +1,11 @@
 return function()
 	local Plugin = script.Parent.Parent
 
-	local StepAnimation = require(Plugin.Src.Thunks.Playback.StepAnimation)
-	local DeleteSelectedKeyframes = require(Plugin.Src.Thunks.Selection.DeleteSelectedKeyframes)
-	local AddWaypoint = require(Plugin.Src.Thunks.History.AddWaypoint)
-	local Undo = require(Plugin.Src.Thunks.History.Undo)
-	local Redo = require(Plugin.Src.Thunks.History.Redo)
+	local StepAnimation = require(Plugin.SrcDeprecated.Thunks.Playback.StepAnimation)
+	local DeleteSelectedKeyframes = require(Plugin.SrcDeprecated.Thunks.Selection.DeleteSelectedKeyframes)
+	local AddWaypoint = require(Plugin.SrcDeprecated.Thunks.History.AddWaypoint)
+	local Undo = require(Plugin.SrcDeprecated.Thunks.History.Undo)
+	local Redo = require(Plugin.SrcDeprecated.Thunks.History.Redo)
 
 	local TestHelpers = require(Plugin.RhodiumTestsDeprecated.TestHelpers)
 	local TestPaths = require(Plugin.RhodiumTestsDeprecated.TestPaths)
@@ -13,7 +13,7 @@ return function()
 	local Element = require(Plugin.Rhodium.Element)
 	local runTest = TestHelpers.runTest
 
-	local Templates = require(Plugin.Src.Util.Templates)
+	local Templates = require(Plugin.SrcDeprecated.Util.Templates)
 	local testAnimationData = Templates.animationData()
 	testAnimationData.Instances = {
 		Root = {

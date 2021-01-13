@@ -2,6 +2,8 @@ local Root = script.Parent.Parent
 local RunService = game:GetService("RunService")
 local GuiService = game:GetService("GuiService")
 local UserInputService = game:GetService("UserInputService")
+
+local FFlagBypassThirdPartySettingForRobloxPurchase = require(Root.Flags.FFlagBypassThirdPartySettingForRobloxPurchase)
 local GetFFlagLuaUseThirdPartyPermissions = require(Root.Flags.GetFFlagLuaUseThirdPartyPermissions)
 local GetFFlagHideThirdPartyPurchaseFailure = require(Root.Flags.GetFFlagHideThirdPartyPurchaseFailure)
 
@@ -39,6 +41,10 @@ function ExternalSettings.new()
 
 	function service.getFlagHideThirdPartyPurchaseFailure()
 		return GetFFlagHideThirdPartyPurchaseFailure()
+	end
+
+	function service.getFlagBypassThirdPartySettingForRobloxPurchase()
+		return FFlagBypassThirdPartySettingForRobloxPurchase
 	end
 
 	-- TODO(DEVTOOLS-4227): Remove this flag

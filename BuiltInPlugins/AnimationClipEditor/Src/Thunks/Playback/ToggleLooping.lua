@@ -9,7 +9,7 @@ local deepCopy = require(Plugin.Src.Util.deepCopy)
 local AnimationData = require(Plugin.Src.Util.AnimationData)
 local SetAnimationData = require(Plugin.Src.Actions.SetAnimationData)
 
-return function()
+return function(analytics)
 	return function(store)
 		local animationData = store:getState().AnimationData
 
@@ -23,6 +23,6 @@ return function()
 		AnimationData.setLooping(newData, not looping)
 		store:dispatch(SetAnimationData(newData))
 
-		store:getState().Analytics:onControlPressed("ToggleLooping")
+		analytics:report("onControlPressed", "ToggleLooping")
 	end
 end

@@ -7,12 +7,11 @@
 ]]
 
 local Plugin = script.Parent.Parent.Parent
-local Roact = require(Plugin.Roact)
-local RoactRodux = require(Plugin.RoactRodux)
-local UILibrary = require(Plugin.UILibrary)
-
-local Localizing = UILibrary.Localizing
-local withLocalization = Localizing.withLocalization
+local Roact = require(Plugin.Packages.Roact)
+local RoactRodux = require(Plugin.Packages.RoactRodux)
+local Framework = require(Plugin.Packages.Framework)
+local ContextServices = Framework.ContextServices
+local Localization = ContextServices.Localization
 
 local Constants = require(Plugin.Src.Util.Constants)
 
@@ -38,7 +37,7 @@ function SettingsMenu:makeTimelineUnitMenu(localization)
 		CurrentItem = props.ShowAsSeconds and Constants.TIMELINE_UNITS.Seconds or Constants.TIMELINE_UNITS.Frames,
 		ItemSelected = function(item)
 			props.SetShowAsSeconds(item.Value == Constants.TIMELINE_UNITS.Seconds)
-			props.Analytics:onTimeUnitChanged(item.Value)
+			props.Analytics:report("onTimeUnitChanged", item.Value)
 		end,
 	}
 end
@@ -107,7 +106,7 @@ function SettingsMenu:makeMenuActions(localization)
 		IsEnabled = props.SnapToKeys,
 		ItemSelected = function()
 			props.ToggleSnapToKeys()
-			props.Analytics:onKeyframeSnapChanged(not props.SnapToKeys)
+			props.Analytics:report("onKeyframeSnapChanged", not props.SnapToKeys)
 		end,
 	})
 
@@ -115,7 +114,7 @@ function SettingsMenu:makeMenuActions(localization)
 end
 
 function SettingsMenu:render()
-	return withLocalization(function(localization)
+	local localization = self.props.Localization
 		local props = self.props
 		local showMenu = props.ShowMenu
 
@@ -123,7 +122,6 @@ function SettingsMenu:render()
 			Actions = self:makeMenuActions(localization),
 			OnMenuOpened = props.OnMenuOpened,
 		}) or nil
-	end)
 end
 
 local function mapStateToProps(state, props)
@@ -166,5 +164,9 @@ local function mapDispatchToProps(dispatch)
 
 	return dispatchToProps
 end
+
+ContextServices.mapToProps(SettingsMenu, {
+	Localization = ContextServices.Localization,
+})
 
 return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(SettingsMenu)

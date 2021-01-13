@@ -22,20 +22,16 @@
 ]]
 
 local Plugin = script.Parent.Parent.Parent
-local Roact = require(Plugin.Roact)
-local RoactRodux = require(Plugin.RoactRodux)
-local UILibrary = require(Plugin.UILibrary)
+local Roact = require(Plugin.Packages.Roact)
+local RoactRodux = require(Plugin.Packages.RoactRodux)
+local Framework = require(Plugin.Packages.Framework)
 local RigUtils = require(Plugin.Src.Util.RigUtils)
 
-local Localizing = UILibrary.Localizing
-local withLocalization = Localizing.withLocalization
+local ContextServices = Framework.ContextServices
+local Localization = ContextServices.Localization
 
-local PluginContext = require(Plugin.Src.Context.Plugin)
-local getPlugin = PluginContext.getPlugin
-
-local ContextMenus = UILibrary.Studio.ContextMenus
-local ContextMenu = ContextMenus.ContextMenu
-local Separator = ContextMenus.Separator
+local ContextMenu = require(Plugin.Src.Components.ContextMenu)
+local Separator = ContextMenu.Separator
 
 local SaveKeyframeSequence = require(Plugin.Src.Thunks.Exporting.SaveKeyframeSequence)
 local ExportKeyframeSequence = require(Plugin.Src.Thunks.Exporting.ExportKeyframeSequence)
@@ -49,14 +45,14 @@ function AnimationClipMenu:makeLoadMenu(localization, current)
 	local onLoadRequested = props.OnLoadRequested
 	local saves = RigUtils.getAnimSaves(props.RootInstance)
 	local items = {
-		Text = localization:getText("Menu", "Load"),
+		Name = localization:getText("Menu", "Load"),
 		CurrentKey = current,
 	}
 
 	if #saves > 0 then
 		for _, save in ipairs(saves) do
 			table.insert(items, {
-				Text = save.Name,
+				Name = save.Name,
 				Key = save.Name,
 				ItemSelected = function()
 					onLoadRequested(save.Name)
@@ -76,10 +72,10 @@ function AnimationClipMenu:makeSaveAsMenu(localization, current)
 	local onSaveAsRequested = props.OnSaveAsRequested
 	local saves = RigUtils.getAnimSaves(props.RootInstance)
 	local items = {
-		Text = localization:getText("Menu", "SaveAs"),
+		Name = localization:getText("Menu", "SaveAs"),
 		CurrentKey = current,
 		{
-			Text = localization:getText("Menu", "New"),
+			Name = localization:getText("Menu", "New"),
 			ItemSelected = onSaveAsRequested,
 		},
 	}
@@ -90,7 +86,7 @@ function AnimationClipMenu:makeSaveAsMenu(localization, current)
 
 	for _, save in ipairs(saves) do
 		table.insert(items, {
-			Text = save.Name,
+			Name = save.Name,
 			Key = save.Name,
 			ItemSelected = function()
 				onOverwriteRequested(save.Name)
@@ -108,12 +104,12 @@ function AnimationClipMenu:makePrioritySubMenu(localization, current)
 	local setPriority = props.SetPriority
 
 	return {
-		Text = localization:getText("Menu", "SetPriority"),
+		Name = localization:getText("Menu", "SetPriority"),
 		CurrentKey = current,
-		{Text = localization:getText("Menu", priority.Core.Name), Key = priority.Core, ItemSelected = setPriority},
-		{Text = localization:getText("Menu", priority.Idle.Name), Key = priority.Idle, ItemSelected = setPriority},
-		{Text = localization:getText("Menu", priority.Movement.Name), Key = priority.Movement, ItemSelected = setPriority},
-		{Text = localization:getText("Menu", priority.Action.Name), Key = priority.Action, ItemSelected = setPriority},
+		{Name = localization:getText("Menu", priority.Core.Name), Key = priority.Core, ItemSelected = setPriority},
+		{Name = localization:getText("Menu", priority.Idle.Name), Key = priority.Idle, ItemSelected = setPriority},
+		{Name = localization:getText("Menu", priority.Movement.Name), Key = priority.Movement, ItemSelected = setPriority},
+		{Name = localization:getText("Menu", priority.Action.Name), Key = priority.Action, ItemSelected = setPriority},
 	}
 end
 
@@ -122,7 +118,7 @@ function AnimationClipMenu:makeMenuActions(localization)
 	local onCreateNewRequested = props.OnCreateNewRequested
 	local current = props.CurrentAnimation or ""
 	local animationData = props.AnimationData
-	local plugin = getPlugin(self)
+	local plugin = props.Plugin
 
 	local currentPriority = animationData and animationData.Metadata
 		and animationData.Metadata.Priority
@@ -130,33 +126,33 @@ function AnimationClipMenu:makeMenuActions(localization)
 	local actions = {}
 	table.insert(actions, self:makeLoadMenu(localization, current))
 	table.insert(actions, {
-		Text = localization:getText("Menu", "Save"),
+		Name = localization:getText("Menu", "Save"),
 		ItemSelected = function()
-			props.SaveKeyframeSequence(current)
+			props.SaveKeyframeSequence(current, props.Analytics)
 		end,
 	})
 	table.insert(actions, self:makeSaveAsMenu(localization, current))
 	table.insert(actions, Separator)
 	table.insert(actions, {
-		Text = localization:getText("Menu", "Import"),
+		Name = localization:getText("Menu", "Import"),
 		{
-			Text = localization:getText("Menu", "FromRoblox"),
+			Name = localization:getText("Menu", "FromRoblox"),
 			ItemSelected = props.OnImportRequested,
 		},
 		{
-			Text = localization:getText("Menu", "FromFBX"),
+			Name = localization:getText("Menu", "FromFBX"),
 			ItemSelected = props.OnImportFbxRequested,
 		},
 	})
 	table.insert(actions, {
-		Text = localization:getText("Menu", "Export"),
+		Name = localization:getText("Menu", "Export"),
 		ItemSelected = function()
-			props.ExportKeyframeSequence(plugin)
+			props.ExportKeyframeSequence(plugin, props.Analytics)
 		end,
 	})
 	table.insert(actions, Separator)
 	table.insert(actions, {
-		Text = localization:getText("Menu", "CreateNew"),
+		Name = localization:getText("Menu", "CreateNew"),
 		ItemSelected = function()
 			onCreateNewRequested()
 		end,
@@ -168,16 +164,20 @@ function AnimationClipMenu:makeMenuActions(localization)
 end
 
 function AnimationClipMenu:render()
-	return withLocalization(function(localization)
-		local props = self.props
-		local showMenu = props.ShowMenu
-
-		return showMenu and Roact.createElement(ContextMenu, {
-			Actions = self:makeMenuActions(localization),
-			OnMenuOpened = props.OnMenuOpened,
-		}) or nil
-	end)
+	local localization = self.props.Localization
+	local props = self.props
+	local showMenu = props.ShowMenu
+	return showMenu and Roact.createElement(ContextMenu, {
+		Actions = self:makeMenuActions(localization),
+		OnMenuOpened = props.OnMenuOpened,
+	}) or nil
 end
+
+ContextServices.mapToProps(AnimationClipMenu, {
+	Localization = ContextServices.Localization,
+	Plugin = ContextServices.Plugin,
+	Analytics = ContextServices.Analytics
+})
 
 local function mapStateToProps(state, props)
 	local status = state.Status
@@ -189,12 +189,12 @@ end
 
 local function mapDispatchToProps(dispatch)
 	return {
-		SaveKeyframeSequence = function(name)
-			dispatch(SaveKeyframeSequence(name))
+		SaveKeyframeSequence = function(name, analytics)
+			dispatch(SaveKeyframeSequence(name, analytics))
 		end,
 
-		ExportKeyframeSequence = function(plugin)
-			dispatch(ExportKeyframeSequence(plugin))
+		ExportKeyframeSequence = function(plugin, analytics)
+			dispatch(ExportKeyframeSequence(plugin, analytics))
 		end,
 
 		SetPriority = function(priority)

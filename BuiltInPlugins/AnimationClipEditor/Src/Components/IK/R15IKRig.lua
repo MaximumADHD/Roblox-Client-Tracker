@@ -7,7 +7,7 @@
 ]]
 
 local Plugin = script.Parent.Parent.Parent.Parent
-local Roact = require(Plugin.Roact)
+local Roact = require(Plugin.Packages.Roact)
 local RigUtils = require(Plugin.Src.Util.RigUtils)
 local Constants = require(Plugin.Src.Util.Constants)
 

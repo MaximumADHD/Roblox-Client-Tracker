@@ -15,7 +15,7 @@ end
 
 function TestPaths.getEditorController(container)
 	return TestPaths.waitForDescendant(container, {
-		"RoactTree", "EditorController",
+		"AnimationClipEditor", "EditorController",
 	})
 end
 
@@ -77,7 +77,7 @@ end
 function TestPaths.getTreeViewJoint(ikWindow, nodeName)
 	local base = TestPaths.getIKTreeView(ikWindow)
 	return TestPaths.waitForDescendant(base, {
-		nodeName,
+		"Contents", "ScrollingFrame", "Contents", "Scroller", nodeName,
 	})
 end
 

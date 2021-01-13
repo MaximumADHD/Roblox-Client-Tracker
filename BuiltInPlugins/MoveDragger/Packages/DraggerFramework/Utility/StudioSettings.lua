@@ -1,7 +1,5 @@
 local DraggerFramework = script.Parent.Parent
 
-local getEngineFeatureActiveInstanceHighlight = require(DraggerFramework.Flags.getEngineFeatureActiveInstanceHighlight)
-
 local Studio = settings().Studio
 
 local StudioSettings = {
@@ -11,12 +9,9 @@ local StudioSettings = {
 	LineThickness = 0.04,
 	SelectColor = Studio["Select Color"],
 	ShowHoverOver = Studio["Show Hover Over"],
+	ActiveColor = Studio["Active Color"],
+	ActiveHoverOverColor = Studio["Active Hover Over Color"],
 }
-
-if getEngineFeatureActiveInstanceHighlight() then
-	StudioSettings.ActiveColor = Studio["Active Color"]
-	StudioSettings.ActiveHoverOverColor = Studio["Active Hover Over Color"]
-end
 
 function StudioSettings.getHoverAnimateSpeedSeconds(speed)
 	if speed == Enum.HoverAnimateSpeed.VerySlow then

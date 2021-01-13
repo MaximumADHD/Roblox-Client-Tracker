@@ -7,7 +7,7 @@ local Plugin = script.Parent.Parent.Parent.Parent
 local TrackUtils = require(Plugin.Src.Util.TrackUtils)
 local StepAnimation = require(Plugin.Src.Thunks.Playback.StepAnimation)
 
-return function(isForward)
+return function(isForward, analytics)
 	return function(store)
 		local state = store:getState()
 		local animationData = state.AnimationData
@@ -55,9 +55,9 @@ return function(isForward)
 		store:dispatch(StepAnimation(newFrame))
 
 		if isForward then
-			store:getState().Analytics:onControlPressed("SkipForward")
+			analytics:report("onControlPressed", "SkipForward")
 		else
-			store:getState().Analytics:onControlPressed("SkipBackward")
+			analytics:report("onControlPressed", "SkipBackward")
 		end
 	end
 end

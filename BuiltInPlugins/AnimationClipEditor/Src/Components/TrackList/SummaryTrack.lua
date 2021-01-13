@@ -12,10 +12,10 @@
 ]]
 
 local Plugin = script.Parent.Parent.Parent.Parent
-local Roact = require(Plugin.Roact)
+local Roact = require(Plugin.Packages.Roact)
 
-local Theme = require(Plugin.Src.Context.Theme)
-local withTheme = Theme.withTheme
+local Framework = require(Plugin.Packages.Framework)
+local ContextServices = Framework.ContextServices
 
 local IKController = require(Plugin.Src.Components.IK.IKController)
 
@@ -38,8 +38,8 @@ function SummaryTrack:init()
 end
 
 function SummaryTrack:render()
-	return withTheme(function(theme)
 		local props = self.props
+		local theme = props.Theme:get("PluginTheme")
 		local name = props.Name
 		local layoutOrder = props.LayoutOrder
 		local tracks = props.UnusedTracks
@@ -77,7 +77,11 @@ function SummaryTrack:render()
 				OnTrackSelected = self.onTrackAdded,
 			}),
 		})
-	end)
 end
+
+ContextServices.mapToProps(SummaryTrack, {
+	Theme = ContextServices.Theme,
+})
+
 
 return SummaryTrack

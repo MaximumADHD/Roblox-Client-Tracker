@@ -8,7 +8,10 @@ local Constants = require(script.Parent.Constants)
 local FixedRigPositions = require(script.Parent.FixedRigPositions)
 local R6 = require(script.Parent.R6)
 
-local useBaseUrlFlagExists, useBaseUrlFlagValue = pcall(function() return settings():GetFFlag("UseBaseUrlInPlugins") end)
+local useBaseUrlFlagExists, useBaseUrlFlagValue = pcall(function()
+    return settings():GetFFlag("UseBaseUrlInPlugins")
+end)
+
 local useBaseUrl = useBaseUrlFlagExists and useBaseUrlFlagValue
 
 local R15_PART_MAPPING = {
@@ -20,7 +23,7 @@ local R15_PART_MAPPING = {
 	["Left Leg"]  = { "LeftUpperLeg" , "LeftLowerLeg" , "LeftFoot"  },
 }
 
-local ASSET_URLS = nil
+local ASSET_URLS
 if useBaseUrl then
     ASSET_URLS = {
         ContentProvider.BaseUrl .."asset/?id=",
@@ -132,6 +135,11 @@ function RigFunctions.GetCurrentCharacterMeshIdFromRig(rig, bodyPartName)
             if isCharacterMeshPropertyValid(item.MeshId) then
                 return item.MeshId
             end
+        elseif item:IsA("Part") and item.Name == bodyPartName then
+            local specialMesh = item:FindFirstChildWhichIsA("SpecialMesh")
+            if specialMesh and isCharacterMeshPropertyValid(specialMesh.MeshId) then
+                return RigFunctions.RemoveAssetUrlFromText(specialMesh.MeshId)
+            end
         end
     end
 
@@ -183,11 +191,21 @@ local function getCharacterMesh(bodyPartEnum, rig)
     return nil
 end
 
+local function getCharacterPart(partName, rig)
+    for _, characterObject in pairs(rig:GetChildren()) do
+        if characterObject:IsA("Part") and characterObject.Name == partName then
+            return characterObject
+        end
+    end
+
+    return nil
+end
+
 function RigFunctions.CopyCharacterMeshesToRig(characterMeshesMap, rig)
     for _, enum in pairs(Enum.BodyPart:GetEnumItems()) do
         local meshId = tonumber(characterMeshesMap[enum.Name])
 
-        if meshId then
+        if meshId and enum ~= Enum.BodyPart.Head then
             local characterMesh = getCharacterMesh(enum, rig)
             if not characterMesh then
                 characterMesh = Instance.new("CharacterMesh")
@@ -196,6 +214,17 @@ function RigFunctions.CopyCharacterMeshesToRig(characterMeshesMap, rig)
             end
 
             characterMesh.MeshId = meshId
+        end
+    end
+
+    -- Special Case for SpecialMesh Head
+    local headName = Enum.BodyPart.Head.Name
+    local headPart = getCharacterPart(headName, rig)
+    local headMeshId = tonumber(characterMeshesMap[headName])
+    if headMeshId and headPart then
+        local specialMesh = headPart:FindFirstChildWhichIsA("SpecialMesh")
+        if specialMesh then
+            specialMesh.MeshId = idToContentUrl(headMeshId)
         end
     end
 end
@@ -320,7 +349,7 @@ end
 
 function RigFunctions.CreateImportedFbxModel(importedAvatar)
 	-- Remove duplicates if re-importing
-	for _, obj in pairs(game.Workspace:GetChildren()) do
+	for _, obj in pairs(workspace:GetChildren()) do
 		if obj.Name == Constants.IMPORTED_RIGS_MODEL_NAME then
 			obj:Destroy()
 		end
@@ -334,14 +363,14 @@ function RigFunctions.CreateImportedFbxModel(importedAvatar)
     setupR6(importedAvatar, rigModel)
     setupR15Fixed(importedAvatar, rigModel)
 
-    rigModel.Parent = game.Workspace
+    rigModel.Parent = workspace
     return rigModel
 end
 
 -- Find current copies of imported rigs in workspace
 -- Used for re-configuring rigs after opening/closing Studio for example
 function RigFunctions.FindExistingImportedFbx()
-    local importedFbxModel = game.Workspace:FindFirstChild(Constants.IMPORTED_RIGS_MODEL_NAME)
+    local importedFbxModel = workspace:FindFirstChild(Constants.IMPORTED_RIGS_MODEL_NAME)
     return importedFbxModel
 end
 
@@ -410,9 +439,34 @@ function RigFunctions.MakeExportVersion(importedRigsModel)
             local r6Folder = Instance.new("Folder", partFolder)
             r6Folder.Name = "R6"
 
-            local characterMesh = getCharacterMeshForPartName(r6Model, r6Name)
-            if characterMesh then
-                characterMesh.Parent = r6Folder
+            local head = Enum.BodyPart.Head.Name
+            if r6Name == head then
+                local r6Head = getCharacterPart(head, r6Model)
+                local r15head = getCharacterPart(head, r15ArtistIntentModel)
+
+                local headMesh = r6Head and r6Head:FindFirstChildWhichIsA("SpecialMesh") or nil
+                if headMesh and r15head then
+                    headMesh = headMesh:Clone()
+                    headMesh:ClearAllChildren()
+
+                    for _, item in pairs(r15head:GetChildren()) do
+                        if item:IsA("ValueBase") then
+                            item:Clone().Parent = headMesh
+                        elseif item:IsA("Attachment") then
+                            local attachmentValue = Instance.new("Vector3Value")
+                            attachmentValue.Name = item.Name
+                            attachmentValue.Value = item.Position
+                            attachmentValue.Parent = headMesh
+                        end
+                    end
+
+                    headMesh.Parent = r6Folder
+                end
+            else
+                local characterMesh = getCharacterMeshForPartName(r6Model, r6Name)
+                if characterMesh then
+                    characterMesh.Parent = r6Folder
+                end
             end
         end
     end
@@ -452,7 +506,7 @@ function RigFunctions.MakeExportVersion(importedRigsModel)
 end
 
 function RigFunctions.Export(plugin)
-    local exportModel = ServerStorage:FindFirstChild("PackageExport")
+    local exportModel = ServerStorage:FindFirstChild(Constants.PACKAGE_EXPORT_MODEL_NAME)
     if not exportModel then
         return
     end

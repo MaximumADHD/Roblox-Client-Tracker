@@ -30,14 +30,13 @@
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
-local Roact = require(Plugin.Roact)
+local Roact = require(Plugin.Packages.Roact)
 
-local UILibrary = require(Plugin.UILibrary)
+local Framework = require(Plugin.Packages.Framework)
 
-local DragTarget = UILibrary.Component.DragTarget
+local DragTarget = Framework.UI.DragListener
 
-local Theme = require(Plugin.Src.Context.Theme)
-local withTheme = Theme.withTheme
+local ContextServices = Framework.ContextServices
 
 local TimelineTick = require(Plugin.Src.Components.Timeline.TimelineTick)
 
@@ -109,10 +108,10 @@ function Timeline:renderLastFrame(timelineTheme)
 end
 
 function Timeline:render()
-	return withTheme(function(theme)
+		local props = self.props
+		local theme = props.Theme:get("PluginTheme")
 		local timelineTheme = theme.timelineTheme
 
-		local props = self.props
 		local state = self.state
 
 		local startFrame = math.max(props.StartFrame, 0)
@@ -190,7 +189,11 @@ function Timeline:render()
 			FirstFrame = self:renderFirstFrame(timelineTheme),
 			LastFrame = self:renderLastFrame(timelineTheme),
 		})
-	end)
 end
+
+ContextServices.mapToProps(Timeline, {
+	Theme = ContextServices.Theme,
+})
+
 
 return Timeline

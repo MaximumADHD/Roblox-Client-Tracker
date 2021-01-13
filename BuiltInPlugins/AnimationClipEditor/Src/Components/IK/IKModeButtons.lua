@@ -9,18 +9,17 @@
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
-local Roact = require(Plugin.Roact)
+local Roact = require(Plugin.Packages.Roact)
 
-local UILibrary = require(Plugin.UILibrary)
-local RadioButtons = UILibrary.Component.RadioButtons
+local Framework = require(Plugin.Packages.Framework)
+local UILibraryCompat = Plugin.Src.UILibraryCompat
 
-local Localizing = UILibrary.Localizing
-local withLocalization = Localizing.withLocalization
+local RadioButtons = require(UILibraryCompat.RadioButtons)
+
+local ContextServices = Framework.ContextServices
+local Localization = ContextServices.Localization
 
 local Constants = require(Plugin.Src.Util.Constants)
-
-local Theme = require(Plugin.Src.Context.Theme)
-local withTheme = Theme.withTheme
 
 local IKModeButtons = Roact.PureComponent:extend("IKModeButtons")
 
@@ -28,60 +27,64 @@ local LABEL_WIDTH = 64
 local GROUP_WIDTH = 186
 
 function IKModeButtons:render()
-	return withTheme(function(theme)
-		return withLocalization(function(localization)
-			local props = self.props
+	local localization = self.props.Localization
+	local props = self.props
+	local theme = props.Theme:get("PluginTheme")
 
-			local ikMode = props.IKMode
-			local height = props.Height
-			local layoutOrder = props.LayoutOrder
-			local setIKMode = props.SetIKMode
+	local ikMode = props.IKMode
+	local height = props.Height
+	local layoutOrder = props.LayoutOrder
+	local setIKMode = props.SetIKMode
 
-			return Roact.createElement("Frame", {
-				Size = UDim2.new(1, 0, 0, height),
-				BackgroundColor3 = theme.ikTheme.headerColor,
-				BorderSizePixel = 1,
-				BorderColor3 = theme.ikTheme.headerBorder,
-				LayoutOrder = layoutOrder,
-			}, {
-				IKModeLabel = Roact.createElement("TextLabel", {
-					AnchorPoint = Vector2.new(0, 0.5),
-					Position = UDim2.new(0, 0, 0.5, 0),
-					Size = UDim2.new(0, LABEL_WIDTH, 0, Constants.TRACK_HEIGHT),
-					BackgroundTransparency = 1,
-					TextSize = theme.ikTheme.textSize,
-					Font = theme.font,
-					TextColor3 = theme.ikTheme.textColor,
-					TextXAlignment = Enum.TextXAlignment.Center,
-					TextYAlignment = Enum.TextYAlignment.Center,
-					Text = localization:getText("IKMenu", "IKMode"),
-					LayoutOrder = 0,
-				}),
+	return Roact.createElement("Frame", {
+		Size = UDim2.new(1, 0, 0, height),
+		BackgroundColor3 = theme.ikTheme.headerColor,
+		BorderSizePixel = 1,
+		BorderColor3 = theme.ikTheme.headerBorder,
+		LayoutOrder = layoutOrder,
+	}, {
+		IKModeLabel = Roact.createElement("TextLabel", {
+			AnchorPoint = Vector2.new(0, 0.5),
+			Position = UDim2.new(0, 0, 0.5, 0),
+			Size = UDim2.new(0, LABEL_WIDTH, 0, Constants.TRACK_HEIGHT),
+			BackgroundTransparency = 1,
+			TextSize = theme.ikTheme.textSize,
+			Font = theme.font,
+			TextColor3 = theme.ikTheme.textColor,
+			TextXAlignment = Enum.TextXAlignment.Center,
+			TextYAlignment = Enum.TextYAlignment.Center,
+			Text = localization:getText("IKMenu", "IKMode"),
+			LayoutOrder = 0,
+		}),
 
-				RadioButtonsFrame = Roact.createElement("Frame", {
-					BackgroundTransparency = 1,
-					AnchorPoint = Vector2.new(1, 0.5),
-					Position = UDim2.new(1, 0, 0.5, 0),
-					Size = UDim2.new(0, GROUP_WIDTH, 0.5, 0),
-					LayoutOrder = 1,
-				}, {
-					RadioButtons = Roact.createElement(RadioButtons, {
-						Buttons = {
-							{Key = Constants.IK_MODE.BodyPart, Text = localization:getText("IKMenu", "BodyPart")},
-							{Key = Constants.IK_MODE.FullBody, Text = localization:getText("IKMenu", "FullBody")},
-						},
-						Selected = ikMode,
-						FillDirection = Enum.FillDirection.Horizontal,
-						LayoutOrder = 1,
-						onButtonClicked = function(key, index)
-							setIKMode(key)
-						end,
-					})
-				})
+		RadioButtonsFrame = Roact.createElement("Frame", {
+			BackgroundTransparency = 1,
+			AnchorPoint = Vector2.new(1, 0.5),
+			Position = UDim2.new(1, 0, 0.5, 0),
+			Size = UDim2.new(0, GROUP_WIDTH, 0.5, 0),
+			LayoutOrder = 1,
+		}, {
+			RadioButtons = Roact.createElement(RadioButtons, {
+				Buttons = {
+					{Key = Constants.IK_MODE.BodyPart, Text = localization:getText("IKMenu", "BodyPart")},
+					{Key = Constants.IK_MODE.FullBody, Text = localization:getText("IKMenu", "FullBody")},
+				},
+				Selected = ikMode,
+				FillDirection = Enum.FillDirection.Horizontal,
+				LayoutOrder = 1,
+				onButtonClicked = function(key, index)
+					setIKMode(key)
+				end,
 			})
-		end)
-	end)
+		})
+	})
 end
+
+ContextServices.mapToProps(IKModeButtons, {
+	Theme = ContextServices.Theme,
+	Localization = ContextServices.Localization,
+})
+
 
 return IKModeButtons
 

@@ -1,6 +1,6 @@
 return function()
 	local Plugin = script.Parent.Parent.Parent
-	local Roact = require(Plugin.Roact)
+	local Roact = require(Plugin.Packages.Roact)
 
 	local MockWrapper = require(Plugin.Src.Context.MockWrapper)
 
@@ -47,10 +47,8 @@ return function()
 		Roact.update(instance, createTestFilteringTextBox({"Item1", "Item2"}, container))
 
 		local gui = container:FindFirstChildOfClass("ScreenGui")
-		expect(gui).to.be.ok()
-		local main = gui.TopLevelDetector.ScrollBlocker.Container
+		local main = gui.TopLevelDetector.ScrollBlocker
 		expect(main).to.be.ok()
-		expect(#main:GetChildren()).to.equal(3) -- 2 items + UIListLayout in dropdown
 
 		Roact.unmount(instance)
 	end)
@@ -64,8 +62,8 @@ return function()
 		Roact.update(instance, createTestFilteringTextBox({"Test", "Other"}, container, "Te"))
 
 		local gui = container:FindFirstChildOfClass("ScreenGui")
-		local main = gui.TopLevelDetector.ScrollBlocker.Container
-		expect(#main:GetChildren()).to.equal(2) -- 1 item + UIListLayout in dropdown
+		local main = gui.TopLevelDetector.ScrollBlocker
+		expect(main).to.be.ok()
 
 		Roact.unmount(instance)
 	end)

@@ -13,7 +13,9 @@ local function connectAction(connections, action, entry, item)
 		for _, connection in ipairs(connections) do
 			connection:Disconnect()
 		end
-		entry.ItemSelected(item)
+		if entry.ItemSelected then
+			entry.ItemSelected(item)
+		end
 	end))
 end
 

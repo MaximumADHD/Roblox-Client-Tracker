@@ -27,5 +27,5 @@ return Rodux.combineReducers({
 	PageSaveState = PageSaveState,
 	Metadata = GameMetadata,
     GameOwnerMetadata = GameOwnerMetadata,
-	EditAsset = (game:GetFastFlag("GameSettingsPlaceSettings") or game:GetFastFlag("StudioAddMonetizationToGameSettings")) and EditAsset or nil,
+	EditAsset = EditAsset,
 })

@@ -159,9 +159,9 @@ function Keyboard:ConnectFocusEventListeners()
 end
 
 function Keyboard:DisconnectFocusEventListeners()
-	if self.textFocusReleasedCon then
-		self.textFocusReleasedCon:Disconnect()
-		self.textFocusReleasedCon = nil
+	if self.textFocusReleasedConn then
+		self.textFocusReleasedConn:Disconnect()
+		self.textFocusReleasedConn = nil
 	end
 	if self.textFocusGainedConn then
 		self.textFocusGainedConn:Disconnect()

@@ -1,91 +1,86 @@
 return function()
 	local Plugin = script.Parent.Parent.Parent
-	local Roact = require(Plugin.Roact)
-	local UILibrary = require(Plugin.UILibrary)
+	local Roact = require(Plugin.Packages.Roact)
+	local Rodux = require(Plugin.Packages.Rodux)
+	local Framework = require(Plugin.Packages.Framework)
 
-	local Theme = require(Plugin.Src.Util.Theme)
-	local Localization = UILibrary.Studio.Localization
+	local PluginTheme = require(Plugin.Src.Util.Theme)
+	local ContextServices = Framework.ContextServices
+	local Analytics = Framework.ContextServices.Analytics
+	local Localization = Framework.ContextServices.Localization
+	local MainReducer = require(Plugin.Src.Reducers.MainReducer)
+
+
+	local MockPlugin = Framework.TestHelpers.Instances.MockPlugin
+
 
 	local MainProvider = require(script.Parent.MainProvider)
 
-	local function createTestMainProvider(props, children)
-		return Roact.createElement(MainProvider, props, children)
-	end
-
 	it("should create and destroy without errors", function()
-		local element = createTestMainProvider()
+		local analytics = Analytics.mock()
+		local focusGui = Instance.new("ScreenGui")
+		local localization = Localization.mock()
+		local pluginInstance = MockPlugin.new()
+		local mouse = pluginInstance:GetMouse()
+
+		local store = Rodux.Store.new(MainReducer, {}, { Rodux.thunkMiddleware })
+		local theme = PluginTheme.mock()
+
+		local pluginActions = {}
+
+
+		local element = Roact.createElement(MainProvider, {
+			analytics = analytics,
+			focusGui = focusGui,
+			plugin = pluginInstance,
+			localization = localization,
+			theme = theme,
+			mouse = mouse,
+			store = store,
+		}, {
+			testFrame = Roact.createElement("Frame")
+		})
+		
 		local instance = Roact.mount(element)
-		Roact.unmount(instance)
-	end)
-
-	it("should render its children if nothing is provided", function ()
-		local container = Instance.new("Folder")
-		local instance = Roact.mount(createTestMainProvider({}, {
-			Frame = Roact.createElement("Frame")
-		}), container)
-
-		local frame = container:FindFirstChildOfClass("Frame")
-
-		expect(frame).to.be.ok()
-
 		Roact.unmount(instance)
 	end)
 
 	it("should render its children if items are provided", function ()
 		local container = Instance.new("Folder")
-		local instance = Roact.mount(createTestMainProvider({
-			theme = Theme.mock(),
-			localization = Localization.mock(),
-			focusGui = {},
-			store = {},
-			plugin = {},
-			pluginActions = {},
+
+		local analytics = Analytics.mock()
+		local focusGui = Instance.new("ScreenGui")
+		local localization = Localization.mock()
+		local pluginInstance = MockPlugin.new()
+		local mouse = pluginInstance:GetMouse()
+		local store = Rodux.Store.new(MainReducer, {}, { Rodux.thunkMiddleware })
+		local theme = PluginTheme.mock()
+		local pluginActions = ContextServices.PluginActions.new(pluginInstance, {
+			{
+				id = "rerunLastStory",
+				text = "MOCK",
+			}
+		})
+
+		local instance = Roact.createElement(MainProvider, {
+			analytics = analytics,
+			focusGui = focusGui,
+			plugin = pluginInstance,
+			localization = localization,
+			theme = theme,
+			mouse = mouse,
+			store = store,
+			pluginActions = pluginActions,
 		}, {
 			Frame = Roact.createElement("Frame")
-		}), container)
+		})
+
+		local container = Instance.new("Folder")
+		local instance = Roact.mount(instance, container)
 
 		local frame = container:FindFirstChildOfClass("Frame")
 
 		expect(frame).to.be.ok()
-
-		Roact.unmount(instance)
 	end)
 
-	describe("addProvider", function()
-		it("should place the new provider above the root", function ()
-			local container = Instance.new("Folder")
-			local root = Roact.createElement("Frame")
-
-			local result = MainProvider:addProvider(root, "Frame")
-			local instance = Roact.mount(result, container)
-			local frame = container:FindFirstChildOfClass("Frame")
-
-			expect(frame).to.be.ok()
-			expect(frame[1]).to.be.ok()
-
-			Roact.unmount(instance)
-		end)
-
-		it("should not modify the tree below the root", function ()
-			local container = Instance.new("Folder")
-			local root = Roact.createElement("Frame", {}, {
-				ChildFrame = Roact.createElement("Frame", {}, {
-					DescendantFrame = Roact.createElement("Frame"),
-				}),
-				OtherChild = Roact.createElement("Frame"),
-			})
-
-			local result = MainProvider:addProvider(root, "Frame")
-			local instance = Roact.mount(result, container)
-			local frame = container:FindFirstChildOfClass("Frame")
-
-			expect(frame).to.be.ok()
-			expect(frame[1]).to.be.ok()
-			expect(frame[1].ChildFrame).to.be.ok()
-			expect(frame[1].ChildFrame.DescendantFrame).to.be.ok()
-			expect(frame[1].OtherChild).to.be.ok()
-
-			Roact.unmount(instance)
-		end)
-	end)
 end

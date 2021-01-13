@@ -1,5 +1,5 @@
 local Plugin = script.Parent.Parent.Parent
-local Rodux = require(Plugin.Rodux)
+local Rodux = require(Plugin.Packages.Rodux)
 local isEmpty = require(Plugin.Src.Util.isEmpty)
 
 return Rodux.createReducer(nil, {

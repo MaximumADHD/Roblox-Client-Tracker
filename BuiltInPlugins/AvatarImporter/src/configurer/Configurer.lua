@@ -242,7 +242,10 @@ function Configurer:_constructR6TextureBoxes(r6Frame)
     end
 
     baseTextureIdTextbox:GetPropertyChangedSignal("Text"):Connect(function() r6TextureChanged(baseTextureIdTextbox) end)
-    overlayTextureIdTextbox:GetPropertyChangedSignal("Text"):Connect(function() r6TextureChanged(overlayTextureIdTextbox) end)
+    overlayTextureIdTextbox:GetPropertyChangedSignal("Text"):Connect(function()
+        r6TextureChanged(overlayTextureIdTextbox)
+    end)
+
     self._onConfigureStarted.Event:Connect(function(_, r6Avatar)
         self._r6TexturesMap = {}
 

@@ -34,11 +34,11 @@ local StudioService = game:GetService("StudioService")
 local CoreGui = game:GetService("CoreGui")
 
 local Plugin = script.Parent.Parent.Parent.Parent
-local Roact = require(Plugin.Roact)
-local RoactRodux = require(Plugin.RoactRodux)
+local Roact = require(Plugin.Packages.Roact)
+local RoactRodux = require(Plugin.Packages.RoactRodux)
+local Framework = require(Plugin.Packages.Framework)
+local ContextServices = Framework.ContextServices
 
-local PluginContext = require(Plugin.Src.Context.Plugin)
-local getPlugin = PluginContext.getPlugin
 
 local RigUtils = require(Plugin.Src.Util.RigUtils)
 local Constants = require(Plugin.Src.Util.Constants)
@@ -78,15 +78,20 @@ function JointSelector:init()
 		self.CurrentMotorData = motorData
 	end
 
-	local mouse = getPlugin(self):GetMouse()
-	mouse.TargetFilter = RigUtils.findRootPart(rootInstance)
+	self.onManipulateJoints = function(values)
+		self.props.OnManipulateJoints("Root", values)
+	end
+end
 
+function JointSelector:didMount()
+	local mouse = self.props.Mouse:get()
 	self.mouseButtonDown = mouse.Button1Down:Connect(function()
 		local props = self.props
 		local target = mouse.Target
+
 		if target and self:isValidJoint(target) then
 			props.OnSelectPart(target.Name)
-			props.Analytics:onTrackSelected(target.Name, "View")
+			props.Analytics:report("onTrackSelected", target.Name, "View")
 		else
 			props.OnSelectPart(nil)
 		end
@@ -113,9 +118,8 @@ function JointSelector:init()
 		end
 	end)
 
-	self.onManipulateJoints = function(values)
-		self.props.OnManipulateJoints("Root", values)
-	end
+	local rootInstance = self.props.RootInstance
+	mouse.TargetFilter = RigUtils.findRootPart(rootInstance)
 end
 
 function JointSelector:isValidJoint(instance)
@@ -134,7 +138,7 @@ function JointSelector:willUpdate()
 			if IsMicroboneSupportEnabled() then
 				self.Bones = RigUtils.getBoneMap(rootInstance)
 			end
-			local mouse = getPlugin(self):GetMouse()
+			local mouse = self.props.Mouse
 			mouse.TargetFilter = RigUtils.findRootPart(rootInstance)
 		end
 	else
@@ -142,7 +146,7 @@ function JointSelector:willUpdate()
 		if rootInstance ~= self.CurrentRoot or (self.CurrentMotorData ~= nil and motorData == nil) then
 			self.CurrentRoot = rootInstance
 			self.KinematicParts, self.PartsToMotors = RigUtils.getRigInfo(rootInstance)
-			local mouse = getPlugin(self):GetMouse()
+			local mouse = self.props.Mouse
 			mouse.TargetFilter = RigUtils.findRootPart(rootInstance)
 		end
 		self.CurrentMotorData = motorData
@@ -304,7 +308,7 @@ function JointSelector:render()
 end
 
 function JointSelector:willUnmount()
-	local mouse = getPlugin(self):GetMouse()
+	local mouse = self.props.Mouse
 	mouse.TargetFilter = nil
 
 	if self.heartbeat then
@@ -315,6 +319,13 @@ function JointSelector:willUnmount()
 		self.mouseButtonDown:Disconnect()
 	end
 end
+
+ContextServices.mapToProps(JointSelector, {
+	Plugin = ContextServices.Plugin,
+	Mouse = ContextServices.Mouse,
+	Analytics = ContextServices.Analytics,
+})
+
 
 local function mapStateToProps(state, props)
 	return {

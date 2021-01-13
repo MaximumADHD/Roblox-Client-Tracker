@@ -6,7 +6,7 @@
 local Plugin = script.Parent.Parent.Parent.Parent
 local SetIsPlaying = require(Plugin.Src.Actions.SetIsPlaying)
 
-return function()
+return function(analytics)
 	return function(store)
 		local state = store:getState()
 		local animationData = state.AnimationData
@@ -16,6 +16,6 @@ return function()
 			store:dispatch(SetIsPlaying(not playing))
 		end
 
-		store:getState().Analytics:onControlPressed("TogglePlay")
+		analytics:report("onControlPressed", "TogglePlay")
 	end
 end

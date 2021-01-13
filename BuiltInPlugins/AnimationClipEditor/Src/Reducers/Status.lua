@@ -1,6 +1,6 @@
 local Plugin = script.Parent.Parent.Parent
-local Rodux = require(Plugin.Rodux)
-local Cryo = require(Plugin.Cryo)
+local Rodux = require(Plugin.Packages.Rodux)
+local Cryo = require(Plugin.Packages.Cryo)
 
 local Constants = require(Plugin.Src.Util.Constants)
 
@@ -23,6 +23,7 @@ return Rodux.createReducer({
 	ShowAsSeconds = true,
 	ShowEvents = true,
 	IKEnabled = false,
+	IKOpenedTimestamp = nil,
 	IKMode = Constants.IK_MODE.FullBody,
 	ShowTree = false,
 
@@ -159,6 +160,12 @@ return Rodux.createReducer({
 	SetIKEnabled = function(state, action)
 		return Cryo.Dictionary.join(state, {
 			IKEnabled = action.ikEnabled,
+		})
+	end,
+
+	SetIKOpenedTimestamp = function(state, action)
+		return Cryo.Dictionary.join(state, {
+			IKOpenedTimestamp = action.iKOpenedTimestamp,
 		})
 	end,
 

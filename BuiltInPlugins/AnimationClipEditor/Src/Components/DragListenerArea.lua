@@ -14,12 +14,11 @@
 ]]
 
 local Plugin = script.Parent.Parent.Parent
-local Roact = require(Plugin.Roact)
-local UILibrary = require(Plugin.UILibrary)
-local DragTarget = UILibrary.Component.DragTarget
+local Roact = require(Plugin.Packages.Roact)
+local Framework = require(Plugin.Packages.Framework)
+local ContextServices = Framework.ContextServices
 
-local Mouse = require(Plugin.Src.Context.Mouse)
-local getMouse = Mouse.getMouse
+local DragTarget = Framework.UI.DragListener
 
 local DragListenerArea = Roact.PureComponent:extend("DragListenerArea")
 
@@ -29,12 +28,14 @@ function DragListenerArea:init()
 	}
 
 	self.onMouseEnter = function()
-		getMouse(self).pushCursor(self.props.Cursor)
+		if self.props.Mouse then 
+			self.props.Mouse:__pushCursor(self.props.Cursor)
+		end
 	end
 
 	self.onMouseLeave = function()
-		if not self.state.Dragging then
-			getMouse(self).popCursor()
+		if self.props.Mouse and not self.state.Dragging then
+			self.props.Mouse:__popCursor()
 		end
 	end
 
@@ -52,9 +53,12 @@ function DragListenerArea:init()
 			self.props.OnDragMoved(input)
 		end
 	end
+end
 
+function DragListenerArea:didMount()
+	local Mouse = self.props.Mouse
 	self.stopDragging = function()
-		getMouse(self).resetCursor()
+		Mouse:__resetCursor()
 		self:setState({
 			Dragging = false
 		})
@@ -65,7 +69,7 @@ function DragListenerArea:init()
 end
 
 function DragListenerArea:willUnmount()
-	getMouse(self).resetCursor()
+	self.props.Mouse:__resetCursor()
 end
 
 function DragListenerArea:render()
@@ -92,5 +96,9 @@ function DragListenerArea:render()
 		}),
 	})
 end
+
+ContextServices.mapToProps(DragListenerArea, {
+	Mouse = ContextServices.Mouse,
+})
 
 return DragListenerArea

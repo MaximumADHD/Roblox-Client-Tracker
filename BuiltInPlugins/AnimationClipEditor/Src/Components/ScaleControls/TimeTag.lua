@@ -12,20 +12,18 @@
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
-local Roact = require(Plugin.Roact)
-local UILibrary = require(Plugin.UILibrary)
+local Roact = require(Plugin.Packages.Roact)
+local Framework = require(Plugin.Packages.Framework)
+local ContextServices = Framework.ContextServices
 
-local Theme = require(Plugin.Src.Context.Theme)
-local withTheme = Theme.withTheme
-
-local RoundFrame = UILibrary.Component.RoundFrame
+local UILibraryCompat = Plugin.Src.UILibraryCompat
+local RoundFrame = require(UILibraryCompat.RoundFrame)
 
 local TimeTag = Roact.PureComponent:extend("TimeTag")
 
 function TimeTag:render()
-	return withTheme(function(theme)
 		local props = self.props
-
+		local theme = props.Theme:get("PluginTheme")
 		local position = props.Position
 		local size = props.Size
 		local anchorPoint = props.AnchorPoint
@@ -53,7 +51,11 @@ function TimeTag:render()
 				Font = theme.font,
 			})
 		})
-	end)
 end
+
+ContextServices.mapToProps(TimeTag, {
+	Theme = ContextServices.Theme,
+})
+
 
 return TimeTag

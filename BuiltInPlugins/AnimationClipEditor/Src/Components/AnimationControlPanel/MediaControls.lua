@@ -19,20 +19,19 @@ local ACTIVE_STYLE = "ActiveControl"
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
-local Roact = require(Plugin.Roact)
-local UILibrary = require(Plugin.UILibrary)
-
-local Theme = require(Plugin.Src.Context.Theme)
-local withTheme = Theme.withTheme
+local Roact = require(Plugin.Packages.Roact)
+local Framework = require(Plugin.Packages.Framework)
+local ContextServices = Framework.ContextServices
 
 local Constants = require(Plugin.Src.Util.Constants)
 local LayoutOrderIterator = require(Plugin.Src.Util.LayoutOrderIterator)
-local Button = UILibrary.Component.Button
+local Button = Framework.UI.Button
 local Tooltip = require(Plugin.Src.Components.Tooltip)
 
 local MediaControls = Roact.PureComponent:extend("MediaControls")
 
 function MediaControls:makeButton(image, onClick, playbackTheme, tooltipKey)
+	local style = self.props.Theme:get("PluginTheme").button
 	return Roact.createElement("Frame", {
 		LayoutOrder = self.layoutOrderIterator:getNextOrder(),
 		Size = UDim2.new(0, Constants.TIMELINE_HEIGHT, 0, Constants.TIMELINE_HEIGHT),
@@ -41,25 +40,24 @@ function MediaControls:makeButton(image, onClick, playbackTheme, tooltipKey)
 		Button = Roact.createElement(Button, {
 			ZIndex = 1,
 			Size = UDim2.new(1, 0, 1, 0),
-			Style = DEFAULT_STYLE,
-			RenderContents = function(theme, hover)
-				return {Roact.createElement("ImageLabel", {
+			OnClick = onClick,
+			Style = style.MediaControl,
+		}, {
+			Image = Roact.createElement("ImageLabel", {
 					BackgroundTransparency = 1,
 					Size = UDim2.new(1, 0, 1, 0),
 					Image = image,
 					ImageColor3 = playbackTheme.iconColor,
-				})}
-			end,
-			OnClick = onClick,
-		}),
-
-		Tooltip = tooltipKey and Roact.createElement(Tooltip, {
-			TextKey = tooltipKey,
+				}),
+				Tooltip = tooltipKey and Roact.createElement(Tooltip, {
+					TextKey = tooltipKey,
+				}),
 		}),
 	})
 end
 
 function MediaControls:makeToggle(active, activeImage, inactiveImage, onClick, playbackTheme, tooltipKey)
+	local style = self.props.Theme:get("PluginTheme").button
 	return Roact.createElement("Frame", {
 		LayoutOrder = self.layoutOrderIterator:getNextOrder(),
 		Size = UDim2.new(0, Constants.TIMELINE_HEIGHT, 0, Constants.TIMELINE_HEIGHT),
@@ -68,27 +66,26 @@ function MediaControls:makeToggle(active, activeImage, inactiveImage, onClick, p
 		Button = Roact.createElement(Button, {
 			ZIndex = 1,
 			Size = UDim2.new(1, 0, 1, 0),
-			Style = active and ACTIVE_STYLE or DEFAULT_STYLE,
-			RenderContents = function(theme, hover)
-				return {Roact.createElement("ImageLabel", {
+			Style = active and style.ActiveControl or style.MediaControl,
+			OnClick = onClick,
+		}, {
+				Image = Roact.createElement("ImageLabel", {
 					BackgroundTransparency = 1,
 					Size = UDim2.new(1, 0, 1, 0),
 					Image = active and activeImage or inactiveImage,
 					ImageColor3 = active and playbackTheme.iconHighlightColor or playbackTheme.iconColor,
-				})}
-			end,
-			OnClick = onClick,
-		}),
-
-		Tooltip = tooltipKey and Roact.createElement(Tooltip, {
-			TextKey = tooltipKey,
-		}),
-	})
-end
+				}),
+				Tooltip = tooltipKey and Roact.createElement(Tooltip, {
+					TextKey = tooltipKey,
+				}),
+			}),
+		})
+	end
+	
 
 function MediaControls:render()
-	return withTheme(function(theme)
 		local props = self.props
+		local theme = props.Theme:get("PluginTheme")
 
 		local isPlaying = props.IsPlaying
 		local isLooping = props.IsLooping
@@ -122,7 +119,11 @@ function MediaControls:render()
 			Loop = self:makeToggle(isLooping, playbackTheme.loop, playbackTheme.loop, toggleLooping,
 				playbackTheme, "ToggleLooping"),
 		})
-	end)
 end
+
+ContextServices.mapToProps(MediaControls, {
+	Theme = ContextServices.Theme,
+})
+
 
 return MediaControls

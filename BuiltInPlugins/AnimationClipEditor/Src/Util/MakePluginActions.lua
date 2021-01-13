@@ -47,10 +47,11 @@ local ACTION_KEYS = {
 }
 
 local function makeAction(plugin, localization, key)
-	local action = plugin:CreatePluginAction("AnimationClipEditor_" .. key,
-		localization:getText("ContextMenu", key), "", "", false)
-	action.Enabled = false
-	return action
+	return {
+		id = key,
+		text = localization:getText("ContextMenu", key),
+		allowBinding = false,
+	}
 end
 
 return function(plugin, localization)
@@ -59,27 +60,27 @@ return function(plugin, localization)
 		actions[key] = makeAction(plugin, localization, key)
 	end
 
-	actions.CopySelected.DefaultShortcut = "Ctrl+C"
-	actions.CutSelected.DefaultShortcut = "Ctrl+X"
-	actions.DeleteSelected.DefaultShortcut = "Delete"
-	actions.DeleteSelectedBackspace.DefaultShortcut = "Backspace"
-	actions.PasteKeyframes.DefaultShortcut = "Ctrl+V"
-	actions.AddKeyframeAtScrubber.DefaultShortcut = "K"
+	actions.CopySelected.defaultShortcut = "Ctrl+C"
+	actions.CutSelected.defaultShortcut = "Ctrl+X"
+	actions.DeleteSelected.defaultShortcut = "Delete"
+	actions.DeleteSelectedBackspace.defaultShortcut = "Backspace"
+	actions.PasteKeyframes.defaultShortcut = "Ctrl+V"
+	actions.AddKeyframeAtScrubber.defaultShortcut = "K"
 
-	actions.CopyEvents.DefaultShortcut = "Ctrl+C"
-	actions.CutEvents.DefaultShortcut = "Ctrl+X"
-	actions.DeleteEvents.DefaultShortcut = "Delete"
-	actions.DeleteEventsBackspace.DefaultShortcut = "Backspace"
-	actions.PasteEvents.DefaultShortcut = "Ctrl+V"
+	actions.CopyEvents.defaultShortcut = "Ctrl+C"
+	actions.CutEvents.defaultShortcut = "Ctrl+X"
+	actions.DeleteEvents.defaultShortcut = "Delete"
+	actions.DeleteEventsBackspace.defaultShortcut = "Backspace"
+	actions.PasteEvents.defaultShortcut = "Ctrl+V"
 
-	actions.Undo.DefaultShortcut = "Ctrl+Z"
-	actions.Redo.DefaultShortcut = "Ctrl+Y"
-	actions.SelectAll.DefaultShortcut = "Ctrl+Shift+A"
-	actions.DeselectAll.DefaultShortcut = "Ctrl+Shift+A"
-	actions.TogglePlay.DefaultShortcut = " "
-	actions.ToggleTool.DefaultShortcut = "R"
+	actions.Undo.defaultShortcut = "Ctrl+Z"
+	actions.Redo.defaultShortcut = "Ctrl+Y"
+	actions.SelectAll.defaultShortcut = "Ctrl+Shift+A"
+	actions.DeselectAll.defaultShortcut = "Ctrl+Shift+A"
+	actions.TogglePlay.defaultShortcut = " "
+	actions.ToggleTool.defaultShortcut = "R"
 
-	actions.ToggleBoneVis.DefaultShortcut = "V"
+	actions.ToggleBoneVis.defaultShortcut = "V"
 
 	return actions
 end

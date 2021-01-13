@@ -6,12 +6,14 @@ local PurchasePromptDeps = require(CorePackages.PurchasePromptDeps)
 local Roact = PurchasePromptDeps.Roact
 
 local ButtonState = require(Root.Enums.ButtonState)
+local WindowState = require(Root.Enums.WindowState)
 local connectToStore = require(Root.connectToStore)
 
 local TextLocalizer = require(script.Parent.Parent.Connection.TextLocalizer)
 local withLayoutValues = require(script.Parent.Parent.Connection.withLayoutValues)
 
 local GetFFlagPurchasePromptScaryModalV2 = require(Root.Flags.GetFFlagPurchasePromptScaryModalV2)
+local GetFFlagFixAcceptingCanceledPurchased = require(Root.Flags.GetFFlagFixAcceptingCanceledPurchased)
 
 local Button = Roact.PureComponent:extend("Button")
 
@@ -37,6 +39,10 @@ function Button:init()
 	end
 
 	self.activated = function()
+		if GetFFlagFixAcceptingCanceledPurchased() and self.props.windowState == WindowState.Hidden then
+			return
+		end
+
 		if GetFFlagPurchasePromptScaryModalV2() and self.props.buttonState ~= ButtonState.Enabled then
 			return
 		end
@@ -69,7 +75,11 @@ function Button:didMount()
 				it's being canceled)
 			]]
 			if inputState == Enum.UserInputState.Begin then
-				self.props.onClick()
+				if GetFFlagFixAcceptingCanceledPurchased() then
+					self.activated()
+				else
+					self.props.onClick()
+				end
 			end
 		end,
 		false,
@@ -171,6 +181,7 @@ local function mapStateToProps(state)
 	return {
 		gamepadEnabled = state.gamepadEnabled,
 		buttonState = state.buttonState,
+		windowState = state.windowState,
 	}
 end
 

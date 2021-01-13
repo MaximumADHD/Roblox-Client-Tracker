@@ -1,6 +1,6 @@
 local Plugin = script.Parent.Parent.Parent
-local Rodux = require(Plugin.Rodux)
-local Cryo = require(Plugin.Cryo)
+local Rodux = require(Plugin.Packages.Rodux)
+local Cryo = require(Plugin.Packages.Cryo)
 local Constants = require(Plugin.Src.Util.Constants)
 
 return Rodux.createReducer({

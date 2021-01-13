@@ -17,6 +17,7 @@ return function()
 	it("should create and destroy without errors", function()
 		local element = ContextServices.provide({mockPlugin()}, {
 			DockWidget = Roact.createElement(DockWidget, {
+				CreateWidgetImmediately = true,
 				Enabled = true,
 				Title = "Test",
 				Size = Vector2.new(),
@@ -34,6 +35,7 @@ return function()
 	it("should expect an OnClose prop", function()
 		local element = ContextServices.provide({mockPlugin()}, {
 			DockWidget = Roact.createElement(DockWidget, {
+				CreateWidgetImmediately = true,
 				Enabled = true,
 				Title = "Test",
 				Size = Vector2.new(),
@@ -51,6 +53,7 @@ return function()
 	it("should expect an OnWidgetRestored prop if ShouldRestore is true", function()
 		local element = ContextServices.provide({mockPlugin()}, {
 			DockWidget = Roact.createElement(DockWidget, {
+				CreateWidgetImmediately = true,
 				Enabled = true,
 				Title = "Test",
 				Size = Vector2.new(),
@@ -69,6 +72,7 @@ return function()
 
 		element = ContextServices.provide({mockPlugin()}, {
 			DockWidget = Roact.createElement(DockWidget, {
+				CreateWidgetImmediately = true,
 				Enabled = true,
 				Title = "Test",
 				Size = Vector2.new(),

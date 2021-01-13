@@ -1,15 +1,15 @@
 return function()
 	local Plugin = script.Parent.Parent
-	local Constants = require(Plugin.Src.Util.Constants)
+	local Constants = require(Plugin.SrcDeprecated.Util.Constants)
 
-	local StepAnimation = require(Plugin.Src.Thunks.Playback.StepAnimation)
+	local StepAnimation = require(Plugin.SrcDeprecated.Thunks.Playback.StepAnimation)
 
 	local TestHelpers = require(Plugin.RhodiumTestsDeprecated.TestHelpers)
 	local TestPaths = require(Plugin.RhodiumTestsDeprecated.TestPaths)
 	local VirtualInput = require(Plugin.Rhodium.VirtualInput)
 	local runTest = TestHelpers.runTest
 
-	local Templates = require(Plugin.Src.Util.Templates)
+	local Templates = require(Plugin.SrcDeprecated.Util.Templates)
 	local testAnimationData = Templates.animationData()
 	testAnimationData.Instances = {
 		Root = {

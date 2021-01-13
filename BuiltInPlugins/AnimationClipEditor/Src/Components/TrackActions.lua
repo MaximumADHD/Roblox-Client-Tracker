@@ -12,16 +12,15 @@
 ]]
 
 local Plugin = script.Parent.Parent.Parent
-local Roact = require(Plugin.Roact)
-local RoactRodux = require(Plugin.RoactRodux)
+local Roact = require(Plugin.Packages.Roact)
+local RoactRodux = require(Plugin.Packages.RoactRodux)
 local isEmpty = require(Plugin.Src.Util.isEmpty)
-
+local Framework = Plugin.Packages.Framework
+local ContextServices = require(Framework.ContextServices)
 local ContextMenu = require(Plugin.Src.Components.ContextMenu)
 
 local KeyframeUtils = require(Plugin.Src.Util.KeyframeUtils)
 local TrackUtils = require(Plugin.Src.Util.TrackUtils)
-local ActionContext = require(Plugin.Src.Context.ActionContext)
-local getActions = ActionContext.getActions
 
 local AddWaypoint = require(Plugin.Src.Thunks.History.AddWaypoint)
 local AddKeyframe = require(Plugin.Src.Thunks.AddKeyframe)
@@ -31,10 +30,10 @@ local SetRightClickContextInfo = require(Plugin.Src.Actions.SetRightClickContext
 local TrackActions = Roact.PureComponent:extend("TrackActions")
 
 function TrackActions:makeMenuActions()
-	local pluginActions = getActions(self)
+	local pluginActions = self.props.PluginActions
 	local actions = {
-		pluginActions.AddKeyframe,
-		pluginActions.DeleteTrack,
+		pluginActions:get("AddKeyframe"),
+		pluginActions:get("DeleteTrack"),
 	}
 
 	return actions
@@ -44,22 +43,23 @@ function TrackActions:addAction(action, func)
 	if action then
 		action.Enabled = false
 		table.insert(self.Actions, action)
-		table.insert(self.Connections, action.Triggered:connect(func))
+
+		table.insert(self.Connections, action.Triggered:Connect(func))
 	end
 end
 
-function TrackActions:init()
-	local actions = getActions(self)
+function TrackActions:didMount()
+	local actions = self.props.PluginActions
 	self.Actions = {}
 	self.Connections = {}
 
-	self:addAction(actions.DeleteTrack, function()
+	self:addAction(actions:get("DeleteTrack"), function()
 		local props = self.props
 		local trackName = props.TrackName
-		props.DeleteTrack(trackName)
+		props.DeleteTrack(trackName, props.Analytics)
 	end)
 
-	self:addAction(actions.AddKeyframe, function()
+	self:addAction(actions:get("AddKeyframe"), function()
 		local props = self.props
 		local playhead = props.Playhead
 		local trackName = props.TrackName
@@ -74,7 +74,7 @@ function TrackActions:init()
 			else
 				newValue = TrackUtils.getDefaultValue(track)
 			end
-			props.AddKeyframe(instanceName, trackName, playhead, newValue)
+			props.AddKeyframe(instanceName, trackName, playhead, newValue, props.Analytics)
 		end
 	end)
 end
@@ -88,9 +88,9 @@ function TrackActions:render()
 	local playhead = props.Playhead
 
 	local actions = self.Actions
-	local pluginActions = getActions(self)
+	local pluginActions = self.props.PluginActions
 
-	if not isEmpty(pluginActions) then
+	if not isEmpty(pluginActions) and actions ~= nil then
 		for _, action in ipairs(actions) do
 			action.Enabled = false
 		end
@@ -99,11 +99,11 @@ function TrackActions:render()
 			local instance = animationData.Instances[instanceName]
 			local track = instance.Tracks[trackName]
 			if not (track and track.Data and track.Data[playhead]) then
-				pluginActions.AddKeyframe.Enabled = true
+				pluginActions:get("AddKeyframe").Enabled = true
 			end
 		end
 
-		pluginActions.DeleteTrack.Enabled = true
+		pluginActions:get("DeleteTrack").Enabled = true
 	end
 
 	return showMenu and Roact.createElement(ContextMenu, {
@@ -126,6 +126,11 @@ function TrackActions:willUnmount()
 	end
 end
 
+ContextServices.mapToProps(TrackActions,{
+	PluginActions = ContextServices.PluginActions,
+	Analytics = ContextServices.Analytics,
+})
+
 local function mapStateToProps(state, props)
 	local status = state.Status
 
@@ -139,15 +144,15 @@ end
 
 local function mapDispatchToProps(dispatch)
 	return{
-		DeleteTrack = function(trackName)
+		DeleteTrack = function(trackName, analytics)
 			dispatch(AddWaypoint())
-			dispatch(DeleteTrack(trackName))
+			dispatch(DeleteTrack(trackName, analytics))
 			dispatch(SetRightClickContextInfo({}))
 		end,
 
-		AddKeyframe = function(instance, track, frame, value)
+		AddKeyframe = function(instance, track, frame, value, analytics)
 			dispatch(AddWaypoint())
-			dispatch(AddKeyframe(instance, track, frame, value))
+			dispatch(AddKeyframe(instance, track, frame, value, analytics))
 			dispatch(SetRightClickContextInfo({}))
 		end,
 	}

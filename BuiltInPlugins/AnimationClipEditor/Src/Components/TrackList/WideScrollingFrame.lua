@@ -16,13 +16,12 @@
 ]]
 
 local Plugin = script.Parent.Parent.Parent.Parent
-local Roact = require(Plugin.Roact)
+local Roact = require(Plugin.Packages.Roact)
 local Constants = require(Plugin.Src.Util.Constants)
 
-local Theme = require(Plugin.Src.Context.Theme)
-local withTheme = Theme.withTheme
-local UILibrary = require(Plugin.UILibrary)
-local DragTarget = UILibrary.Component.DragTarget
+local Framework = require(Plugin.Packages.Framework)
+local ContextServices = Framework.ContextServices
+local DragTarget = Framework.UI.DragListener
 
 local ArrowButton = require(Plugin.Src.Components.ArrowButton)
 
@@ -109,8 +108,8 @@ function WideScrollingFrame:init()
 end
 
 function WideScrollingFrame:render()
-	return withTheme(function(theme)
 		local props = self.props
+		local theme = props.Theme:get("PluginTheme")
 		local state = self.state
 		local size = props.Size
 		local anchorPoint = props.AnchorPoint
@@ -218,7 +217,10 @@ function WideScrollingFrame:render()
 				}),
 			}),
 		})
-	end)
 end
+
+ContextServices.mapToProps(WideScrollingFrame, {
+	Theme = ContextServices.Theme,
+})
 
 return WideScrollingFrame

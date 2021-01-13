@@ -11,7 +11,7 @@
 ]]
 
 local Plugin = script.Parent.Parent.Parent
-local Cryo = require(Plugin.Cryo)
+local Cryo = require(Plugin.Packages.Cryo)
 local SkeletonUtils = require(Plugin.Src.Util.SkeletonUtils)
 local RigUtils = require(Plugin.Src.Util.RigUtils)
 

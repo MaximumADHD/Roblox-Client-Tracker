@@ -21,7 +21,7 @@ local SetShowEvents = require(Plugin.Src.Actions.SetShowEvents)
 
 local allowPasteKeysBetweenAnimations = require(Plugin.LuaFlags.GetFFlagAllowPasteKeysBetweenAnimations)
 
-return function(animationData)
+return function(animationData, analytics)
 	return function(store)
 		-- Remove potential change history waypoints
 		store:dispatch(SetPast({}))
@@ -36,7 +36,7 @@ return function(animationData)
 
 		for instanceName, instance in pairs(animationData.Instances) do
 			for trackName, _ in pairs(instance.Tracks) do
-				store:dispatch(AddTrack(instanceName, trackName))
+				store:dispatch(AddTrack(instanceName, trackName, analytics))
 			end
 		end
 

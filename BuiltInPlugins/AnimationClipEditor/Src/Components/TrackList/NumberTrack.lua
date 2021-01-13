@@ -44,12 +44,12 @@ local NUMBERBOX_PADDING = 4
 local DRAG_MULTIPLIER = 0.05
 
 local Plugin = script.Parent.Parent.Parent.Parent
-local Roact = require(Plugin.Roact)
+local Roact = require(Plugin.Packages.Roact)
 local StringUtils = require(Plugin.Src.Util.StringUtils)
 local LayoutOrderIterator = require(Plugin.Src.Util.LayoutOrderIterator)
 
-local Theme = require(Plugin.Src.Context.Theme)
-local withTheme = Theme.withTheme
+local Framework = require(Plugin.Packages.Framework)
+local ContextServices = Framework.ContextServices
 
 local TrackListEntry = require(Plugin.Src.Components.TrackList.TrackListEntry)
 local Constants = require(Plugin.Src.Util.Constants)
@@ -110,8 +110,8 @@ function NumberTrack.getDerivedStateFromProps(nextProps, lastState)
 end
 
 function NumberTrack:render()
-	return withTheme(function(theme)
 		local props = self.props
+		local theme = props.Theme:get("PluginTheme")
 		local state = self.state
 		local layoutOrder = props.LayoutOrder
 		local indent = props.Indent or 0
@@ -175,7 +175,11 @@ function NumberTrack:render()
 			Indent = indent,
 			LayoutOrder = layoutOrder,
 		}, children)
-	end)
 end
+
+ContextServices.mapToProps(NumberTrack, {
+	Theme = ContextServices.Theme,
+})
+
 
 return NumberTrack

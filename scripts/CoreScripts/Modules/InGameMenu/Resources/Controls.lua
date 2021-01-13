@@ -1,7 +1,5 @@
 local UserInputService = game:GetService("UserInputService")
 
-local FFlagChinaLicensingApp = settings():GetFFlag("ChinaLicensingApp")
-
 local key = Enum.KeyCode
 local input = Enum.UserInputType
 
@@ -113,12 +111,10 @@ local pcMiscKeybinds = {
 	}
 }
 
-if not FFlagChinaLicensingApp then
-	if UserInputService:GetPlatform() == Enum.Platform.OSX then
-		table.insert(keybinds, osxMiscKeybinds)
-	else
-		table.insert(keybinds, pcMiscKeybinds)
-	end
+if UserInputService:GetPlatform() == Enum.Platform.OSX then
+	table.insert(keybinds, osxMiscKeybinds)
+else
+	table.insert(keybinds, pcMiscKeybinds)
 end
 
 local gamepadLabels = {

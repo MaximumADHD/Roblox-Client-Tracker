@@ -1,6 +1,5 @@
 local Character = script.Parent
 local Humanoid = Character:WaitForChild("Humanoid")
-local animator = Humanoid:WaitForChild("Animator")
 local pose = "Standing"
 
 local userNoUpdateOnLoopSuccess, userNoUpdateOnLoopValue = pcall(function() return UserSettings():IsUserFeatureEnabled("UserNoUpdateOnLoop") end)
@@ -177,7 +176,7 @@ function configureAnimationSet(name, fileList)
 	for i, animType in pairs(animTable) do
 		for idx = 1, animType.count, 1 do
 			if PreloadedAnims[animType[idx].anim.AnimationId] == nil then
-				animator:LoadAnimation(animType[idx].anim)
+				Humanoid:LoadAnimation(animType[idx].anim)
 				PreloadedAnims[animType[idx].anim.AnimationId] = true
 			end				
 		end
@@ -245,7 +244,7 @@ function configureAnimationSetOld(name, fileList)
 	-- preload anims
 	for i, animType in pairs(animTable) do
 		for idx = 1, animType.count, 1 do 
-			animator:LoadAnimation(animType[idx].anim)
+			Humanoid:LoadAnimation(animType[idx].anim)
 		end
 	end
 end
@@ -454,7 +453,7 @@ local function switchToAnim(anim, animName, transitionTime, humanoid)
 		currentAnimSpeed = 1.0
 
 		-- load it to the humanoid; get AnimationTrack
-		currentAnimTrack = animator:LoadAnimation(anim)
+		currentAnimTrack = humanoid:LoadAnimation(anim)
 		currentAnimTrack.Priority = Enum.AnimationPriority.Core
 
 		-- play the animation
@@ -473,7 +472,7 @@ local function switchToAnim(anim, animName, transitionTime, humanoid)
 			local runAnimName = "run"
 			local runIdx = rollAnimation(runAnimName)
 
-			runAnimTrack = animator:LoadAnimation(animTable[runAnimName][runIdx].anim)
+			runAnimTrack = humanoid:LoadAnimation(animTable[runAnimName][runIdx].anim)
 			runAnimTrack.Priority = Enum.AnimationPriority.Core
 			runAnimTrack:Play(transitionTime)		
 
@@ -526,7 +525,7 @@ function playToolAnimation(animName, transitionTime, humanoid, priority)
 		end
 
 		-- load it to the humanoid; get AnimationTrack
-		toolAnimTrack = animator:LoadAnimation(anim)
+		toolAnimTrack = humanoid:LoadAnimation(anim)
 		if priority then
 			toolAnimTrack.Priority = priority
 		end

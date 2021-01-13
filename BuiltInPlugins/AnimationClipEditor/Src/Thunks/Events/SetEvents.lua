@@ -7,7 +7,7 @@ local deepCopy = require(Plugin.Src.Util.deepCopy)
 
 local UpdateAnimationData = require(Plugin.Src.Thunks.UpdateAnimationData)
 
-return function(newEvents)
+return function(newEvents, analytics)
 	return function(store)
 		local state = store:getState()
 		local animationData = state.AnimationData
@@ -23,7 +23,7 @@ return function(newEvents)
 		for frame, events in pairs(newEvents.Data) do
 			for name, parameter in pairs(events) do
 				if oldEvents[frame] == nil or oldEvents[frame][name] == nil then
-					state.Analytics:onAddEvent(name, parameter)
+					analytics:report("onAddEvent", name, parameter)
 				end
 			end
 		end

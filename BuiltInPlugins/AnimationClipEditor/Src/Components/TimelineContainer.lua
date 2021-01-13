@@ -12,13 +12,12 @@
 ]]
 
 local Plugin = script.Parent.Parent.Parent
-local Roact = require(Plugin.Roact)
+local Roact = require(Plugin.Packages.Roact)
 
 local TrackUtils = require(Plugin.Src.Util.TrackUtils)
 local Constants = require(Plugin.Src.Util.Constants)
-
-local Theme = require(Plugin.Src.Context.Theme)
-local withTheme = Theme.withTheme
+local Framework = require(Plugin.Packages.Framework)
+local ContextServices = Framework.ContextServices
 
 local Timeline = require(Plugin.Src.Components.Timeline.Timeline)
 
@@ -72,9 +71,8 @@ function TimelineContainer:init()
 end
 
 function TimelineContainer:render()
-	return withTheme(function(theme)
 		local props = self.props
-
+		local theme = props.Theme:get("PluginTheme")
 		local startFrame = props.StartFrame
 		local endFrame = props.EndFrame
 		local lastFrame = props.LastFrame
@@ -113,7 +111,11 @@ function TimelineContainer:render()
 				OnDragMoved = self.onScrubberMoved,
 			}),
 		})
-	end)
 end
+
+ContextServices.mapToProps(TimelineContainer, {
+	Theme = ContextServices.Theme,
+})
+
 
 return TimelineContainer

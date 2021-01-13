@@ -11,7 +11,7 @@ local SetIsDirty = require(Plugin.Src.Actions.SetIsDirty)
 
 local UseCustomFPS = require(Plugin.LuaFlags.GetFFlagAnimEditorUseCustomFPS)
 
-return function(plugin)
+return function(plugin, analytics)
 	return function(store)
 		local state = store:getState()
 		local rootInstance = state.Status.RootInstance
@@ -20,7 +20,7 @@ return function(plugin)
 		end
 
 		local success, result = pcall(function()
-			return plugin:ImportFbxAnimation(rootInstance)
+			return plugin:get():ImportFbxAnimation(rootInstance)
 		end)
 
 		if success then
@@ -32,14 +32,14 @@ return function(plugin)
 				newData = RigUtils.fromRigAnimation(result, Constants.DEFAULT_FRAMERATE)
 			end
 			newData.Metadata.Name = Constants.DEFAULT_IMPORTED_NAME
-			store:dispatch(LoadAnimationData(newData))
+			store:dispatch(LoadAnimationData(newData, analytics))
 			store:dispatch(SetIsDirty(false))
 
 			if result then
 				result:Destroy()
 			end
 
-			state.Analytics:onImportFbxAnimation()
+			analytics:report("onImportFbxAnimation")
 		else
 			warn(result)
 		end

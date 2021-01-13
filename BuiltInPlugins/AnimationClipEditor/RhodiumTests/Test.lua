@@ -19,13 +19,19 @@
 local HttpService = game:GetService("HttpService")
 
 local Plugin = script.Parent.Parent
-local Roact = require(Plugin.Roact)
-local Rodux = require(Plugin.Rodux)
+local Framework = Plugin.Packages.Framework
+local Signal = require(Plugin.Packages.Framework.Util.Signal)
+local MockPlugin = require(Plugin.Packages.Framework.TestHelpers.Instances.MockPlugin)
+
+local ContextServices = require(Framework.ContextServices)
+local Roact = require(Plugin.Packages.Roact)
+local Rodux = require(Plugin.Packages.Rodux)
 local UILibrary = require(Plugin.UILibrary)
 local Constants = require(Plugin.Src.Util.Constants)
 
 local Theme = require(Plugin.Src.Util.Theme)
-local Localization = UILibrary.Studio.Localization
+local MakePluginActions = require(Plugin.Src.Util.MakePluginActions)
+local Localization = ContextServices.Localization
 local MainReducer = require(Plugin.Src.Reducers.MainReducer)
 
 local AnimationClipEditor = require(Plugin.Src.Components.AnimationClipEditor)
@@ -66,6 +72,7 @@ function Test:createMockPlugin(plugin)
 	return {
 		Activate = function(_, ...)
 		end,
+		Name = "MockPlugin",
 
 		Deactivate = function()
 		end,
@@ -80,6 +87,13 @@ function Test:createMockPlugin(plugin)
 			local gui = createScreenGui()
 			table.insert(self.subWindows, gui)
 			return gui
+		end,
+
+		CreatePluginAction = function()
+			local signal = Signal.new()
+			return {
+				Triggered = signal
+			}
 		end,
 
 		CreateQWidgetPluginGui = function(_, ...)
@@ -98,7 +112,7 @@ function Test:makeContainer()
 	screen.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
 	local container = Instance.new("Frame", screen)
-	container.Name = "RhodiumTest"
+	container.Name = "RhodiumTests"
 	container.BackgroundTransparency = 1
 	container.Size = UDim2.new(0, widgetSize.X, 0, widgetSize.Y)
 
@@ -137,6 +151,8 @@ function Test.new(plugin)
 	self.store = self:createTestStore()
 	self.mockPlugin = self:createMockPlugin(plugin)
 	self.container = self:makeContainer()
+	self.analytics = ContextServices.Analytics.mock()
+	self.pluginActions = ContextServices.PluginActions.new(self.mockPlugin, MakePluginActions(self.mockPlugin, self.localization))
 
 	return self
 end
@@ -147,9 +163,10 @@ function Test:run(testRunner)
 		localization = self.localization,
 		store = self.store,
 		plugin = self.mockPlugin,
-		focusGui = self.container,
-		pluginActions = {},
-		mouse = self.plugin:GetMouse(),
+		focusGui = self.container.Parent,
+		pluginActions = self.pluginActions,
+		mouse = self.mockPlugin:GetMouse(),
+		analytics = self.analytics,
 	}, {
 		AnimationClipEditor = Roact.createElement(AnimationClipEditor),
 	})

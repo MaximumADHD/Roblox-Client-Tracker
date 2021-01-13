@@ -12,7 +12,7 @@ local SetKeyframeData = require(Plugin.Src.Thunks.SetKeyframeData)
 local AddTrack = require(Plugin.Src.Thunks.AddTrack)
 local StepAnimation = require(Plugin.Src.Thunks.Playback.StepAnimation)
 
-return function(instanceName, trackName, frame, value)
+return function(instanceName, trackName, frame, value, analytics)
 	return function(store)
 		local animationData = store:getState().AnimationData
 		if not animationData then
@@ -31,8 +31,8 @@ return function(instanceName, trackName, frame, value)
 
 		local track = tracks[trackName]
 		if track == nil then
-			store:dispatch(AddTrack(instanceName, trackName))
-			store:dispatch(AddKeyframe(instanceName, trackName, frame, value))
+			store:dispatch(AddTrack(instanceName, trackName, analytics))
+			store:dispatch(AddKeyframe(instanceName, trackName, frame, value, analytics))
 			store:dispatch(StepAnimation(frame))
 			return
 		end
@@ -44,7 +44,7 @@ return function(instanceName, trackName, frame, value)
 				Value = value,
 			}))
 		else
-			store:dispatch(AddKeyframe(instanceName, trackName, frame, value))
+			store:dispatch(AddKeyframe(instanceName, trackName, frame, value, analytics))
 		end
 
 		store:dispatch(StepAnimation(frame))

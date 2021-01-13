@@ -1,11 +1,11 @@
 return function()
 	local Plugin = script.Parent.Parent
-	local isEmpty = require(Plugin.Src.Util.isEmpty)
+	local isEmpty = require(Plugin.SrcDeprecated.Util.isEmpty)
 
-	local ValueChanged = require(Plugin.Src.Thunks.ValueChanged)
-	local DeleteSelectedKeyframes = require(Plugin.Src.Thunks.Selection.DeleteSelectedKeyframes)
-	local CopySelectedKeyframes = require(Plugin.Src.Thunks.Selection.CopySelectedKeyframes)
-	local PasteKeyframes = require(Plugin.Src.Thunks.PasteKeyframes)
+	local ValueChanged = require(Plugin.SrcDeprecated.Thunks.ValueChanged)
+	local DeleteSelectedKeyframes = require(Plugin.SrcDeprecated.Thunks.Selection.DeleteSelectedKeyframes)
+	local CopySelectedKeyframes = require(Plugin.SrcDeprecated.Thunks.Selection.CopySelectedKeyframes)
+	local PasteKeyframes = require(Plugin.SrcDeprecated.Thunks.PasteKeyframes)
 
 	local TestHelpers = require(Plugin.RhodiumTestsDeprecated.TestHelpers)
 	local TestPaths = require(Plugin.RhodiumTestsDeprecated.TestPaths)
@@ -13,7 +13,7 @@ return function()
 	local Element = require(Plugin.Rhodium.Element)
 	local runTest = TestHelpers.runTest
 
-	local Templates = require(Plugin.Src.Util.Templates)
+	local Templates = require(Plugin.SrcDeprecated.Util.Templates)
 	local emptyData = Templates.animationData()
 	local testAnimationData = Templates.animationData()
 	testAnimationData.Instances = {

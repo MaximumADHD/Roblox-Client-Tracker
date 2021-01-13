@@ -14,15 +14,14 @@
 ]]
 
 local Plugin = script.Parent.Parent.Parent
-local Roact = require(Plugin.Roact)
-local RoactRodux = require(Plugin.RoactRodux)
+local Roact = require(Plugin.Packages.Roact)
+local RoactRodux = require(Plugin.Packages.RoactRodux)
 local isEmpty = require(Plugin.Src.Util.isEmpty)
 local Constants = require(Plugin.Src.Util.Constants)
+local Framework = Plugin.Packages.Framework
+local ContextServices = require(Framework.ContextServices)
 
 local ContextMenu = require(Plugin.Src.Components.ContextMenu)
-
-local ActionContext = require(Plugin.Src.Context.ActionContext)
-local getActions = ActionContext.getActions
 
 local AddWaypoint = require(Plugin.Src.Thunks.History.AddWaypoint)
 local PasteEvents = require(Plugin.Src.Thunks.Events.PasteEvents)
@@ -35,62 +34,64 @@ local FFlagAnimEditorFixBackspaceOnMac = require(Plugin.LuaFlags.GetFFlagAnimEdi
 local EventActions = Roact.PureComponent:extend("EventActions")
 
 function EventActions:makeMenuActions()
-	local pluginActions = getActions(self)
-	local props = self.props
+	local pluginActions = self.props.PluginActions
+	if pluginActions then 
+		local props = self.props
 
-	local actions = {
-		pluginActions.DeleteEvents,
-		Constants.MENU_SEPARATOR,
-		pluginActions.CutEvents,
-		pluginActions.CopyEvents,
-		pluginActions.PasteEvents,
-	}
+		local actions = {
+			pluginActions:get("DeleteEvents"),
+			Constants.MENU_SEPARATOR,
+			pluginActions:get("CutEvents"),
+			pluginActions:get("CopyEvents"),
+			pluginActions:get("PasteEvents"),
+		}
 
-	if props.OnEvent then
-		table.insert(actions, 1, pluginActions.EditEvents)
-	else
-		table.insert(actions, 1, pluginActions.AddEvent)
+		if props.OnEvent then
+			table.insert(actions, 1, pluginActions:get("EditEvents"))
+		else
+			table.insert(actions, 1, pluginActions:get("AddEvent"))
+		end
+
+		return actions
 	end
-
-	return actions
 end
 
 function EventActions:addAction(action, func)
 	if action then
 		action.Enabled = false
 		table.insert(self.Actions, action)
-		table.insert(self.Connections, action.Triggered:connect(func))
+		table.insert(self.Connections, action.Triggered:Connect(func))
 	end
 end
 
-function EventActions:init(initialProps)
-	local actions = getActions(self)
+function EventActions:didMount()
+	local actions = self.props.PluginActions
 	self.Connections = {}
 	self.Actions = {}
 
-	self:addAction(actions.EditEvents, function()
+	self:addAction(actions:get("EditEvents"), function()
 		local props = self.props
 		local frame = props.Frame
 		props.OnEditEvents(frame)
 	end)
 
-	self:addAction(actions.PasteEvents, function()
+	self:addAction(actions:get("PasteEvents"), function()
 		local props = self.props
 		local frame = props.Frame or props.Playhead
 		props.PasteEvents(frame)
 	end)
 
-	self:addAction(actions.CutEvents, function()
+	self:addAction(actions:get("CutEvents"), function()
 		local props = self.props
 		props.CopySelectedEvents()
 		props.DeleteSelectedEvents()
 	end)
 
-	self:addAction(actions.CopyEvents, initialProps.CopySelectedEvents)
-	self:addAction(actions.DeleteEvents, initialProps.DeleteSelectedEvents)
+	self:addAction(actions:get("CopyEvents"), self.props.CopySelectedEvents)
+	self:addAction(actions:get("DeleteEvents"), self.props.DeleteSelectedEvents)
 
 	if FFlagAnimEditorFixBackspaceOnMac() then
-		self:addAction(actions.DeleteEventsBackspace, initialProps.DeleteSelectedEvents)
+		self:addAction(actions:get("DeleteEventsBackspace"), self.props.DeleteSelectedEvents)
 	end
 end
 
@@ -104,28 +105,28 @@ function EventActions:render()
 	local onMenuOpened = props.OnMenuOpened
 
 	local actions = self.Actions
-	local pluginActions = getActions(self)
+	local pluginActions = self.props.PluginActions
 
-	if not isEmpty(pluginActions) then
+	if not isEmpty(pluginActions) and actions ~= nil then
 		for _, action in ipairs(actions) do
 			action.Enabled = false
 		end
 
 		if clipboard and not isEmpty(clipboard)
 			and clipboardType == Constants.CLIPBOARD_TYPE.Events then
-			pluginActions.PasteEvents.Enabled = true
+			pluginActions:get("PasteEvents").Enabled = true
 		end
 
 		if selectedEvents and not isEmpty(selectedEvents) then
-			pluginActions.CutEvents.Enabled = true
-			pluginActions.CopyEvents.Enabled = true
-			pluginActions.DeleteEvents.Enabled = true
+			pluginActions:get("CutEvents").Enabled = true
+			pluginActions:get("CopyEvents").Enabled = true
+			pluginActions:get("DeleteEvents").Enabled = true
 			if FFlagAnimEditorFixBackspaceOnMac() then
-				pluginActions.DeleteEventsBackspace.Enabled = true
+				pluginActions:get("DeleteEventsBackspace").Enabled = true
 			end
 		end
 		if props.OnEvent then
-			pluginActions.EditEvents.Enabled = true
+			pluginActions:get("EditEvents").Enabled = true
 		end
 	end
 
@@ -148,6 +149,10 @@ function EventActions:willUnmount()
 		end
 	end
 end
+
+ContextServices.mapToProps(EventActions,{
+	PluginActions = ContextServices.PluginActions,
+})
 
 local function mapStateToProps(state, props)
 	local status = state.Status

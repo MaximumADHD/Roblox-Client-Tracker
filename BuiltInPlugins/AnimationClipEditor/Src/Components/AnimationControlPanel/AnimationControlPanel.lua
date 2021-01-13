@@ -11,12 +11,12 @@
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
-local Roact = require(Plugin.Roact)
-local RoactRodux = require(Plugin.RoactRodux)
+local Roact = require(Plugin.Packages.Roact)
+local RoactRodux = require(Plugin.Packages.RoactRodux)
 
 local Constants = require(Plugin.Src.Util.Constants)
-local Theme = require(Plugin.Src.Context.Theme)
-local withTheme = Theme.withTheme
+local Framework = require(Plugin.Packages.Framework)
+local ContextServices = Framework.ContextServices
 
 local AnimationClipDropdown = require(Plugin.Src.Components.AnimationControlPanel.AnimationClipDropdown)
 local MediaControls = require(Plugin.Src.Components.AnimationControlPanel.MediaControls)
@@ -31,9 +31,29 @@ local UpdateEditingLength = require(Plugin.Src.Thunks.UpdateEditingLength)
 
 local AnimationControlPanel = Roact.PureComponent:extend("AnimationControlPanel")
 
+function AnimationControlPanel:init()
+	self.toggleLoopingWrapper = function()
+		return self.props.ToggleLooping(self.props.Analytics)
+	end
+	self.loadAnimationDataWrapper = function(animation)
+		return self.props.LoadAnimationData(animation, self.props.Analytics)
+	end
+	self.skipBackwardWrapper = function()
+		return self.props.SkipBackward(self.props.Analytics)
+	end
+
+	self.skipForwardWrapper = function()
+		return self.props.SkipForward(self.props.Analytics)
+	end
+
+	self.togglePlayWrapper = function()
+		return self.props.TogglePlay(self.props.Analytics)
+	end
+end
+
 function AnimationControlPanel:render()
-	return withTheme(function(theme)
 		local props = self.props
+		local theme = props.Theme:get("PluginTheme")
 
 		local animationData = props.AnimationData
 		local isPlaying = props.IsPlaying
@@ -43,12 +63,8 @@ function AnimationControlPanel:render()
 		local playhead = props.Playhead
 		local editingLength = props.EditingLength
 		local showAsSeconds = props.ShowAsSeconds
-
-		local stepAnimation = props.StepAnimation
-		local togglePlay = props.TogglePlay
-		local toggleLooping = props.ToggleLooping
-		local loadAnimationData = props.LoadAnimationData
 		local updateEditingLength = props.UpdateEditingLength
+		local stepAnimation = props.StepAnimation
 
 		return Roact.createElement("Frame", {
 			Size = UDim2.new(1, 0, 0, Constants.TIMELINE_HEIGHT),
@@ -67,7 +83,7 @@ function AnimationControlPanel:render()
 			AnimationClipDropdown = Roact.createElement(AnimationClipDropdown, {
 				AnimationName = animationData and animationData.Metadata.Name or "",
 				RootInstance = rootInstance,
-				LoadAnimationData = loadAnimationData,
+				LoadAnimationData = self.loadAnimationDataWrapper,
 				InstanceType = rootInstance and animationData and animationData.Instances.Root.Type,
 				LayoutOrder = 0,
 			}),
@@ -78,10 +94,10 @@ function AnimationControlPanel:render()
 					and animationData.Metadata.Looping or false,
 				StartFrame = startFrame,
 				EndFrame = endFrame,
-				SkipBackward = props.SkipBackward,
-				SkipForward = props.SkipForward,
-				TogglePlay = togglePlay,
-				ToggleLooping = toggleLooping,
+				SkipBackward = self.skipBackwardWrapper,
+				SkipForward = self.skipForwardWrapper,
+				TogglePlay = self.togglePlayWrapper,
+				ToggleLooping = self.toggleLoopingWrapper,
 				LayoutOrder = 1,
 			}),
 
@@ -97,8 +113,12 @@ function AnimationControlPanel:render()
 				LayoutOrder = 2,
 			}),
 		})
-	end)
 end
+
+ContextServices.mapToProps(AnimationControlPanel, {
+	Theme = ContextServices.Theme,
+	Analytics = ContextServices.Analytics
+})
 
 local function mapStateToProps(state, props)
 	return {
@@ -109,34 +129,35 @@ end
 
 local function mapDispatchToProps(dispatch)
 	return {
-		ToggleLooping = function()
-			dispatch(ToggleLooping())
+		ToggleLooping = function(analytics)
+			dispatch(ToggleLooping(analytics))
 		end,
 
-		TogglePlay = function()
-			dispatch(TogglePlay())
+		TogglePlay = function(analytics)
+			dispatch(TogglePlay(analytics))
 		end,
 
 		StepAnimation = function(frame)
 			dispatch(StepAnimation(frame))
 		end,
 
-		LoadAnimationData = function(data)
-			dispatch(LoadAnimationData(data))
+		LoadAnimationData = function(data, analytics)
+			dispatch(LoadAnimationData(data, analytics))
 		end,
 
 		UpdateEditingLength = function(length)
 			dispatch(UpdateEditingLength(length))
 		end,
 
-		SkipBackward = function()
-			dispatch(SkipAnimation(false))
+		SkipBackward = function(analytics)
+			dispatch(SkipAnimation(false, analytics))
 		end,
 
-		SkipForward = function()
-			dispatch(SkipAnimation(true))
+		SkipForward = function(analytics)
+			dispatch(SkipAnimation(true, analytics))
 		end,
 	}
 end
+
 
 return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(AnimationControlPanel)

@@ -5,10 +5,10 @@
 local DEFAULT_TOLERANCE = 0.0001
 
 local Plugin = script.Parent.Parent.Parent
-local Roact = require(Plugin.Roact)
-local UILibrary = require(Plugin.UILibrary)
+local Roact = require(Plugin.Packages.Roact)
+local Framework = require(Plugin.Packages.Framework)
 
-local MathUtils = UILibrary.Util.MathUtils
+local MathUtils = Framework.Util.Math
 local buildHierarchy = require(Plugin.Src.Util.buildHierarchy)
 local AnimationData = require(Plugin.Src.Util.AnimationData)
 local KeyframeUtils = require(Plugin.Src.Util.KeyframeUtils)
@@ -1325,7 +1325,7 @@ function RigUtils.calculateFrameRate(keyframeSequence)
 
 	local fps = Constants.DEFAULT_FRAMERATE
 	if minDelta and minDelta > 0 then
-		fps = MathUtils:round(1/minDelta)
+		fps = MathUtils.round(1/minDelta)
 	end
 
 	-- check all keyframes can align with frames at 30/24/60 fps first

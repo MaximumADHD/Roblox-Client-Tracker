@@ -7,7 +7,7 @@ local ChangeHistoryService = game:GetService("ChangeHistoryService")
 local StudioService = game:GetService("StudioService")
 
 local Plugin = script.Parent.Parent.Parent
-local Cryo = require(Plugin.Cryo)
+local Cryo = require(Plugin.Packages.Cryo)
 
 local StepAnimation = require(Plugin.Src.Thunks.Playback.StepAnimation)
 local SetRootInstance = require(Plugin.Src.Actions.SetRootInstance)
@@ -19,7 +19,7 @@ local SetActive = require(Plugin.Src.Actions.SetActive)
 local RigUtils = require(Plugin.Src.Util.RigUtils)
 local IsMicroboneSupportEnabled = require(Plugin.LuaFlags.GetFFlagAnimationEditorMicroboneSupport)
 
-return function()
+return function(analytics)
 	return function(store)
 		local state = store:getState()
 		store:dispatch(SetActive(true))
@@ -51,7 +51,7 @@ return function()
 			store:dispatch(SortAndSetTracks({}))
 			for instanceName, instance in pairs(animationData.Instances) do
 				for trackName, _ in pairs(instance.Tracks) do
-					store:dispatch(AddTrack(instanceName, trackName))
+					store:dispatch(AddTrack(instanceName, trackName, analytics))
 				end
 			end
 		end

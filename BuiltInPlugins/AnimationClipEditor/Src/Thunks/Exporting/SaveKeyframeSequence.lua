@@ -13,7 +13,7 @@ local SetAnimationData = require(Plugin.Src.Actions.SetAnimationData)
 local SetIsDirty = require(Plugin.Src.Actions.SetIsDirty)
 local SetNotification = require(Plugin.Src.Actions.SetNotification)
 
-return function(name)
+return function(name, analytics)
 	return function(store)
 		local state = store:getState()
 		local animationData = state.AnimationData
@@ -48,6 +48,6 @@ return function(name)
 		store:dispatch(SetIsDirty(false))
 		store:dispatch(SetNotification("Saved", name))
 
-		state.Analytics:onSaveAnimation(name, numKeyframes, numPoses, numEvents)
+		analytics:report("onSaveAnimation", name, numKeyframes, numPoses, numEvents)
 	end
 end

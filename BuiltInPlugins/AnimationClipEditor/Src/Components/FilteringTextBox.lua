@@ -18,13 +18,11 @@ local SCROLLBAR_PADDING = 2
 local SCROLLBAR_THICKNESS = 10
 
 local Plugin = script.Parent.Parent.Parent
-local Roact = require(Plugin.Roact)
-local Cryo = require(Plugin.Cryo)
-local UILibrary = require(Plugin.UILibrary)
-local DropdownMenu = UILibrary.Component.DropdownMenu
-
-local Theme = require(Plugin.Src.Context.Theme)
-local withTheme = Theme.withTheme
+local Roact = require(Plugin.Packages.Roact)
+local Cryo = require(Plugin.Packages.Cryo)
+local Framework = require(Plugin.Packages.Framework)
+local DropdownMenu = Framework.UI.DropdownMenu
+local ContextServices = Framework.ContextServices
 
 local TextBox = require(Plugin.Src.Components.TextBox)
 
@@ -70,9 +68,10 @@ function FilteringTextBox:init(initialProps)
 end
 
 function FilteringTextBox:render()
-	return withTheme(function(theme)
-		local dropdownTheme = theme.dropdownTheme
 		local props = self.props
+		local theme = props.Theme:get("PluginTheme")
+		local dropdownTheme = theme.dropdownTheme
+
 		local state = self.state
 
 		local frameRef = self.frameRef and self.frameRef.current
@@ -145,7 +144,11 @@ function FilteringTextBox:render()
 				end,
 			}),
 		})
-	end)
 end
+
+ContextServices.mapToProps(FilteringTextBox, {
+	Theme = ContextServices.Theme,
+})
+
 
 return FilteringTextBox

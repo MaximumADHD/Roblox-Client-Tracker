@@ -11,12 +11,13 @@
 ]]
 
 local Plugin = script.Parent.Parent.Parent
-local Roact = require(Plugin.Roact)
-local RoactRodux = require(Plugin.RoactRodux)
+local Roact = require(Plugin.Packages.Roact)
+local RoactRodux = require(Plugin.Packages.RoactRodux)
 
-local UILibrary = require(Plugin.UILibrary)
-local DragTarget = UILibrary.Component.DragTarget
-local KeyboardListener = UILibrary.Focus.KeyboardListener
+local Framework = require(Plugin.Packages.Framework)
+local DragTarget = Framework.UI.DragListener
+local ContextServices = Framework.ContextServices
+local KeyboardListener = Framework.UI.KeyboardListener
 
 local Constants = require(Plugin.Src.Util.Constants)
 local TrackUtils = require(Plugin.Src.Util.TrackUtils)
@@ -167,6 +168,12 @@ function EventsController:init()
 		self:setState({
 			eventEditingFrame = frame or Roact.None,
 		})
+	end
+
+	self.setEventsHandler = function(newEvents)
+		if self.props.Analytics then
+			return self.props.SetEvents(newEvents, self.props.Analytics)
+		end
 	end
 end
 
@@ -363,7 +370,7 @@ function EventsController:render()
 		EditEventsDialog = animationData and editingFrame and Roact.createElement(EditEventsDialog, {
 			Events = animationData.Events,
 			Frame = editingFrame,
-			OnSaved = props.SetEvents,
+			OnSaved = self.setEventsHandler,
 			OnClose = props.SetEventEditingFrame,
 		}),
 	})
@@ -379,9 +386,9 @@ end
 
 local function mapDispatchToProps(dispatch)
 	return {
-		SetEvents = function(newEvents)
+		SetEvents = function(newEvents, analytics)
 			dispatch(AddWaypoint())
-			dispatch(SetEvents(newEvents))
+			dispatch(SetEvents(newEvents, analytics))
 		end,
 
 		SelectEvent = function(frame, multiSelect)

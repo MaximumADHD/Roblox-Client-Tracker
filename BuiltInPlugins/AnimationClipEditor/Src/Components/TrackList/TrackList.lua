@@ -28,12 +28,12 @@
 ]]
 
 local Plugin = script.Parent.Parent.Parent.Parent
-local Roact = require(Plugin.Roact)
+local Roact = require(Plugin.Packages.Roact)
 local TrackUtils = require(Plugin.Src.Util.TrackUtils)
 local StringUtils = require(Plugin.Src.Util.StringUtils)
 
-local Theme = require(Plugin.Src.Context.Theme)
-local withTheme = Theme.withTheme
+local Framework = require(Plugin.Packages.Framework)
+local ContextServices = Framework.ContextServices
 
 local Constants = require(Plugin.Src.Util.Constants)
 local ExpandableTrack = require(Plugin.Src.Components.TrackList.ExpandableTrack)
@@ -101,9 +101,9 @@ function TrackList:init()
 		end
 	end
 
-	self.onValueChanged = function(instanceName, trackName, frame, value)
+	self.onValueChanged = function(instanceName, trackName, frame, value, analytics)
 		if self.props.OnValueChanged then
-			self.props.OnValueChanged(instanceName, trackName, frame, value)
+			self.props.OnValueChanged(instanceName, trackName, frame, value, analytics)
 		end
 	end
 
@@ -162,7 +162,7 @@ function TrackList:renderExpandedCFrameTrack(track, children, theme)
 					end
 				end
 				local newValue = TrackUtils.getPropertyForItems(track, items)
-				self.onValueChanged(instance, name, playhead, newValue)
+				self.onValueChanged(instance, name, playhead, newValue, props.analytics)
 			end,
 			OnChangeBegan = props.OnChangeBegan,
 		})
@@ -268,11 +268,11 @@ function TrackList:renderTracks(startIndex, endIndex, theme)
 end
 
 function TrackList:render()
-	return withTheme(function(theme)
 		self.resetTrackCount()
 		self.maxTrackWidth = 0
 
 		local props = self.props
+		local theme = props.Theme:get("PluginTheme")
 		local state = self.state
 
 		local size = props.Size
@@ -301,7 +301,11 @@ function TrackList:render()
 			OnInputChanged = self.inputChanged,
 			OnSizeChanged = self.sizeChanged,
 		}, children)
-	end)
 end
+
+ContextServices.mapToProps(TrackList, {
+	Theme = ContextServices.Theme,
+	Analytics = ContextServices.Analytics
+})
 
 return TrackList

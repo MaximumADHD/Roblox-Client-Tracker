@@ -3,7 +3,8 @@ local TEST_DELAY_SECONDS = 0.1
 local Workspace = game:GetService("Workspace")
 
 local Plugin = script.Parent.Parent
-
+local Framework = require(Plugin.Packages.Framework)
+local Analytics = Framework.ContextServices.Analytics
 local Element = require(Plugin.Rhodium.Element)
 local Test = require(Plugin.RhodiumTests.Test)
 
@@ -21,8 +22,10 @@ function TestHelpers.init(plugin)
 end
 
 function TestHelpers.loadAnimation(store, animation)
-	store:dispatch(UpdateRootInstance(Workspace.Dummy))
-	store:dispatch(LoadAnimationData(animation))
+	local analytics = Analytics.mock()
+
+	store:dispatch(UpdateRootInstance(Workspace.Dummy, analytics))
+	store:dispatch(LoadAnimationData(animation, analytics))
 end
 
 function TestHelpers.delay()

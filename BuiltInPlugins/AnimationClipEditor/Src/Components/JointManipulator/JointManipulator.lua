@@ -37,12 +37,11 @@ local CoreGui = game:GetService("CoreGui")
 local Workspace = game:GetService("Workspace")
 
 local Plugin = script.Parent.Parent.Parent.Parent
-local Roact = require(Plugin.Roact)
-local Cryo = require(Plugin.Cryo)
+local Roact = require(Plugin.Packages.Roact)
+local Cryo = require(Plugin.Packages.Cryo)
 local Constants = require(Plugin.Src.Util.Constants)
-
-local ActionContext = require(Plugin.Src.Context.ActionContext)
-local getActions = ActionContext.getActions
+local Framework = Plugin.Packages.Framework
+local ContextServices = require(Framework.ContextServices)
 
 local RigUtils = require(Plugin.Src.Util.RigUtils)
 local FixManipulators = require(Plugin.LuaFlags.GetFFlagFixAnimEditorManipulators)
@@ -432,9 +431,9 @@ end
 
 function JointManipulator:didMount()
 	self:adornHandles()
-	local actions = getActions(self)
-	if actions.ToggleWorldSpace then
-		actions.ToggleWorldSpace.Enabled = true
+	local actions = self.props.PluginActions
+	if actions:get("ToggleWorldSpace") then
+		actions:get("ToggleWorldSpace").Enabled = true
 	end
 end
 
@@ -527,10 +526,14 @@ function JointManipulator:willUnmount()
 		self.worldSpaceConnection:Disconnect()
 	end
 
-	local actions = getActions(self)
-	if actions.ToggleWorldSpace then
-		actions.ToggleWorldSpace.Enabled = false
+	local actions = self.props.PluginActions
+	if actions:get("ToggleWorldSpace") then
+		actions:get("ToggleWorldSpace").Enabled = false
 	end
 end
+
+ContextServices.mapToProps(JointManipulator,{
+	PluginActions = ContextServices.PluginActions,
+})
 
 return JointManipulator

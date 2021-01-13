@@ -3,7 +3,7 @@
 ]]
 
 local Plugin = script.Parent.Parent.Parent.Parent
-local Cryo = require(Plugin.Cryo)
+local Cryo = require(Plugin.Packages.Cryo)
 
 local isEmpty = require(Plugin.Src.Util.isEmpty)
 local deepCopy = require(Plugin.Src.Util.deepCopy)

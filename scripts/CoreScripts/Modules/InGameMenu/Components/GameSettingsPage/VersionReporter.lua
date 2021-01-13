@@ -16,8 +16,6 @@ local Roact = InGameMenuDependencies.Roact
 local t = InGameMenuDependencies.t
 local UIBlox = InGameMenuDependencies.UIBlox
 
-local FFlagChinaLicensingApp = game:GetFastFlag("ChinaLicensingApp")
-
 local PlayerPermissions = require(CoreGui.RobloxGui.Modules.PlayerPermissionsModule)
 
 local InGameMenu = script.Parent.Parent.Parent
@@ -89,8 +87,8 @@ function VersionReporter:render()
 	local haveServerVersion = self.state.serverVersion ~= nil
 	local haveLatestPlaceVersion = self.state.latestPlaceVersion ~= nil
 	local isTestEnvironment = not self.state.baseUrl:find("www.roblox.com")
-	local showEnvironment = isTestEnvironment and not FFlagChinaLicensingApp
-	local showPlayerScriptStatus = (isTestEnvironment or self.state.isAdmin) and not FFlagChinaLicensingApp
+	local showEnvironment = isTestEnvironment
+	local showPlayerScriptStatus = (isTestEnvironment or self.state.isAdmin)
 
 	return withLocalization({
 		clientVersion = {

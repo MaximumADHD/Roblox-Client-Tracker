@@ -31,6 +31,7 @@ local FFlagConnectionScriptEnabled = settings():GetFFlag("ConnectionScriptEnable
 
 local antiAddictionNoticeStringEn = "Boycott bad games, refuse pirated games. Be aware of self-defense and being deceived. Playing games is good for your brain, but too much game play can harm your health. Manage your time well and enjoy a healthy lifestyle."
 local FFlagConnectErrorHandlerInLoadingScript = require(RobloxGui.Modules.Flags.FFlagConnectErrorHandlerInLoadingScript)
+local loadErrorHandlerFromEngine = game:GetEngineFeature("LoadErrorHandlerFromEngine")
 
 local debugMode = false
 
@@ -555,7 +556,7 @@ local function GenerateGui()
 			}
 		}
 	else
-		if FFlagConnectErrorHandlerInLoadingScript then
+		if not loadErrorHandlerFromEngine and FFlagConnectErrorHandlerInLoadingScript then
 			ScriptContext:AddCoreScriptLocal("Connection", RobloxGui)
 		end
 	end

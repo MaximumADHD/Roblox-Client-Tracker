@@ -22,14 +22,14 @@ local Plugin = script.Parent.Parent
 local Roact = require(Plugin.Roact)
 local Rodux = require(Plugin.Rodux)
 local UILibrary = require(Plugin.UILibrary)
-local Constants = require(Plugin.Src.Util.Constants)
+local Constants = require(Plugin.SrcDeprecated.Util.Constants)
 
-local Theme = require(Plugin.Src.Util.Theme)
+local Theme = require(Plugin.SrcDeprecated.Util.Theme)
 local Localization = UILibrary.Studio.Localization
-local MainReducer = require(Plugin.Src.Reducers.MainReducer)
+local MainReducer = require(Plugin.SrcDeprecated.Reducers.MainReducer)
 
-local AnimationClipEditor = require(Plugin.Src.Components.AnimationClipEditor)
-local MainProvider = require(Plugin.Src.Context.MainProvider)
+local AnimationClipEditor = require(Plugin.SrcDeprecated.Components.AnimationClipEditor)
+local MainProvider = require(Plugin.SrcDeprecated.Context.MainProvider)
 
 local Test = {}
 

@@ -5,7 +5,7 @@
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
-local Cryo = require(Plugin.Cryo)
+local Cryo = require(Plugin.Packages.Cryo)
 local SetPast = require(Plugin.Src.Actions.SetPast)
 local SetFuture = require(Plugin.Src.Actions.SetFuture)
 local SetSelectedKeyframes = require(Plugin.Src.Actions.SetSelectedKeyframes)

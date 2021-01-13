@@ -13,6 +13,8 @@ local PurchasePromptDeps = require(CorePackages.PurchasePromptDeps)
 
 	local resolveBundlePromptState = require(script.Parent.resolveBundlePromptState)
 
+	local GetFFlagDisableRobuxUpsell = require(Root.Flags.GetFFlagDisableRobuxUpsell)
+
 	local function getTestPurchasableDetails()
 		return {
 			purchasable = true,
@@ -129,6 +131,8 @@ local PurchasePromptDeps = require(CorePackages.PurchasePromptDeps)
 
 		local state = store:getState()
 
-		expect(state.promptState).to.equal(PromptState.RobuxUpsell)
+		if not GetFFlagDisableRobuxUpsell() then
+			expect(state.promptState).to.equal(PromptState.RobuxUpsell)
+		end
 	end)
 end

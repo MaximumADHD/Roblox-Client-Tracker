@@ -85,6 +85,7 @@ local RobloxReplicatedStorage = game:GetService('RobloxReplicatedStorage')
 local setDialogInUseEvent = RobloxReplicatedStorage:WaitForChild("SetDialogInUse", math.huge)
 
 local FFlagFixDialogServerWait = require(RobloxGui.Modules.Common.Flags.GetFFlagFixDialogServerWait)()
+local FFlagFixDialogScriptNilChecks = game:DefineFastFlag("FixDialogScriptNilChecks", false)
 
 local player
 local screenGui
@@ -324,6 +325,10 @@ local function chatFunc(dialog, ...)
 end
 
 function selectChoice(choice)
+	if FFlagFixDialogScriptNilChecks and not currentConversationDialog then
+		return
+	end
+
 	renewKillswitch(currentConversationDialog)
 
 	--First hide the Gui
@@ -337,6 +342,11 @@ function selectChoice(choice)
 
 		chatFunc(currentConversationDialog, localPlayer.Character, sanitizeMessage(dialogChoice.UserDialog), getChatColor(currentTone()))
 		wait(1)
+
+		if FFlagFixDialogScriptNilChecks and not currentConversationDialog then
+			return
+		end
+
 		currentConversationDialog:SignalDialogChoiceSelected(localPlayer, dialogChoice)
 		chatFunc(currentConversationDialog, currentConversationPartner, sanitizeMessage(dialogChoice.ResponseDialog), getChatColor(currentTone()))
 

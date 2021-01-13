@@ -4,8 +4,8 @@
 ]]
 
 local Plugin = script.Parent.Parent.Parent
-local Rodux = require(Plugin.Rodux)
-local Cryo = require(Plugin.Cryo)
+local Rodux = require(Plugin.Packages.Rodux)
+local Cryo = require(Plugin.Packages.Cryo)
 local GetFFlagEnforceMaxAnimLength = require(Plugin.LuaFlags.GetFFlagEnforceMaxAnimLength)
 local GetFFlagAddImportFailureToast = require(Plugin.LuaFlags.GetFFlagAddImportFailureToast)
 

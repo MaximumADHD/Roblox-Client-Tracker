@@ -11,8 +11,6 @@ local getFaceInstance = require(DraggerFramework.Utility.getFaceInstance)
 local HoverTracker = require(DraggerFramework.Implementation.HoverTracker)
 local StandardCursor = require(DraggerFramework.Utility.StandardCursor)
 
-local getEngineFeatureActiveInstanceHighlight = require(DraggerFramework.Flags.getEngineFeatureActiveInstanceHighlight)
-
 local Ready = {}
 Ready.__index = Ready
 
@@ -55,14 +53,11 @@ function Ready:render()
 				animatePeriod = draggerContext:getHoverAnimationSpeedInSeconds()
 			end
 
-			local isActive
-			if getEngineFeatureActiveInstanceHighlight() then
-				isActive = false
-				if draggerContext:shouldShowActiveInstanceHighlight() then
-					local activeInstance =
-						self._draggerToolModel:getSelectionWrapper():getActiveSelectable()
-					isActive = (hoverSelectable == activeInstance)
-				end
+			local isActive = false
+			if draggerContext:shouldShowActiveInstanceHighlight() then
+				local activeInstance =
+					self._draggerToolModel:getSelectionWrapper():getActiveSelectable()
+				isActive = (hoverSelectable == activeInstance)
 			end
 
 			elements.HoverBox = Roact.createElement(AnimatedHoverBox, {

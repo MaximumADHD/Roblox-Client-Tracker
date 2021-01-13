@@ -1,13 +1,13 @@
 return function()
 	local Plugin = script.Parent.Parent
-	local Constants = require(Plugin.Src.Util.Constants)
+	local Constants = require(Plugin.SrcDeprecated.Util.Constants)
 
-	local SaveKeyframeSequence = require(Plugin.Src.Thunks.Exporting.SaveKeyframeSequence)
+	local SaveKeyframeSequence = require(Plugin.SrcDeprecated.Thunks.Exporting.SaveKeyframeSequence)
 
 	local TestHelpers = require(Plugin.RhodiumTestsDeprecated.TestHelpers)
 	local runTest = TestHelpers.runTest
 
-	local Templates = require(Plugin.Src.Util.Templates)
+	local Templates = require(Plugin.SrcDeprecated.Util.Templates)
 
 	local testAnimationData = Templates.animationData()
 	testAnimationData.Instances = {

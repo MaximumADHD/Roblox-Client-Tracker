@@ -18,10 +18,9 @@
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
-local Roact = require(Plugin.Roact)
-local UILibrary = require(Plugin.UILibrary)
-local Theme = require(Plugin.Src.Context.Theme)
-local withTheme = Theme.withTheme
+local Roact = require(Plugin.Packages.Roact)
+local Framework = require(Plugin.Packages.Framework)
+local ContextServices = Framework.ContextServices
 
 local DEFAULT_WIDTH = 10
 local DEFAULT_BORDER_SIZE = 2
@@ -29,9 +28,8 @@ local DEFAULT_BORDER_SIZE = 2
 local Keyframe = Roact.PureComponent:extend("Keyframe")
 
 function Keyframe:render()
-	return withTheme(function(theme)
 		local props = self.props
-
+		local theme = props.Theme:get("PluginTheme")
 		local style = props.Style
 		local selected = props.Selected
 
@@ -69,7 +67,11 @@ function Keyframe:render()
 			[Roact.Event.InputBegan] = onInputBegan,
 			[Roact.Event.InputEnded] = onInputEnded,
 		}, props[Roact.Children])
-	end)
 end
+
+ContextServices.mapToProps(Keyframe, {
+	Theme = ContextServices.Theme,
+})
+
 
 return Keyframe

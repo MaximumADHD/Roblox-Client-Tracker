@@ -11,9 +11,7 @@ local Packages = DraggerFramework.Parent
 local Roact = require(Packages.Roact)
 local Math = require(DraggerFramework.Utility.Math)
 
-local getEngineFeatureAdornCullingMode = require(DraggerFramework.Flags.getEngineFeatureAdornCullingMode)
-
-local CULLING_MODE = getEngineFeatureAdornCullingMode() and Enum.AdornCullingMode.Never or nil
+local CULLING_MODE = Enum.AdornCullingMode.Never
 
 local RotateHandleView = Roact.PureComponent:extend("RotateHandleView")
 
@@ -39,19 +37,6 @@ local function isMultipleOf90Degrees(angle)
 end
 
 function RotateHandleView:render()
-	-- DEBUG: Allow designers to play with handle settings.
-	-- Remove before shipping!
-	if Workspace:FindFirstChild("RotateHandleRadius") and Workspace.RotateHandleRadius.Value ~= 0 then
-		HANDLE_RADIUS = 4.5 * Workspace.RotateHandleRadius.Value
-	end
-	if Workspace:FindFirstChild("RotateHandleSegments") and Workspace.RotateHandleSegments.Value ~= 0 then
-		HANDLE_SEGMENTS = 64 * Workspace.RotateHandleSegments.Value
-	end
-	if Workspace:FindFirstChild("RotateHandleThickness") and Workspace.RotateHandleThickness.Value ~= 0 then
-		HANDLE_THICKNESS = 0.15 * Workspace.RotateHandleThickness.Value
-		HANDLE_HITTEST_THICKNESS = HANDLE_THICKNESS * 2.5
-	end
-
 	-- TODO: DEVTOOLS-3876: [Modeling] Rotate tool enhancements
 	-- Gimbal arc length should be a function of the viewing angle, and handle
 	-- should face the camera.

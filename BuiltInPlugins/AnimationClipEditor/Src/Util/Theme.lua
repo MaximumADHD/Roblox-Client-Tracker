@@ -1,22 +1,38 @@
 local Plugin = script.Parent.Parent.Parent
-local UILibrary = require(Plugin.UILibrary)
+local Framework = require(Plugin.Packages.Framework)
+local Style = require(Plugin.Packages.Framework.Util.Style)
+local StyleModifier = require(Plugin.Packages.Framework.Util.StyleModifier)
+local StyleTable = require(Plugin.Packages.Framework.Util.StyleTable)
+local UI = require(Plugin.Packages.Framework.UI)
+local Decoration = UI.Decoration
+local StudioFrameworkStyles = Framework.StudioUI.StudioFrameworkStyles
+local StudioStyle = require(Plugin.Src.UILibraryCompat.StudioStyle)
+local ContextServicesTheme = require(Plugin.Packages.Framework.ContextServices.Theme)
 
-local StudioTheme = UILibrary.Studio.Theme
-local StudioStyle = UILibrary.Studio.Style
-local Cryo = require(Plugin.Cryo)
+
+local Cryo = require(Plugin.Packages.Cryo)
 
 local Theme = {}
 
-function Theme.createValues(getColor, c, m)
-	local theme = settings().Studio.Theme
-	return Theme.createValuesInternal(theme, getColor, c, m)
+function Theme.createValues(theme, getColor)
+	local c = Enum.StudioStyleGuideColor
+	local m = Enum.StudioStyleGuideModifier
+	local themeGetColor = function(...) 
+		return theme:GetColor(...)
+	end
+	return Theme.createValuesInternal(theme, themeGetColor, c, m)
 end
 
-function Theme.createValuesMock(getColor, c, m)
+function Theme.createValuesMock(getColor)
+	local getColorMock = function()
+		return Color3.new()
+	end
 	local theme = {
 		Name = "Dark",
+		GetColor = getColorMock
 	}
-	return Theme.createValuesInternal(theme, getColor, c, m)
+
+	return Theme.createValuesInternal(theme, getColorMock, {}, {})
 end
 
 function Theme.createValuesInternal(theme, getColor, c, m)
@@ -29,9 +45,18 @@ function Theme.createValuesInternal(theme, getColor, c, m)
 		end
 	end
 
+	local UILibraryPalette = StudioStyle.new(function(...)
+		return theme:GetColor(...)
+	end, c, m)
+
+
 	local lightKeyframeError = Color3.fromRGB(255, 161, 161)
 	local lightKeyframeErrorBorder = Color3.fromRGB(168, 132, 132)
 	local easingStyleBorder = Color3.fromRGB(56, 56, 56)
+
+	local studioStyles = StudioFrameworkStyles.new(theme, function(...)
+		return theme:GetColor(...)
+	end)
 
 	local dropdownTheme = {
 		itemColor = getColor(c.Item),
@@ -126,6 +151,82 @@ function Theme.createValuesInternal(theme, getColor, c, m)
 			primaryClusterColor = getColor(c.SubText),
 		},
 	})
+
+	local checkBoxTheme = defineTheme({
+		backgroundColor = Color3.fromRGB(182, 182, 182),
+		titleColor = getColor(c.MainText, m.Default),
+
+		-- Previously this used Arial
+		-- The whole plugin should use SourceSans
+		-- But currently uses Legacy
+		-- For now, keep this consistent and fix later with the rest of the plugin
+		font = Enum.Font.Legacy,
+		textSize = 8,
+
+		backgroundImage = "rbxasset://textures/GameSettings/UncheckedBox.png",
+		selectedImage = "rbxasset://textures/GameSettings/CheckedBoxLight.png",
+	})
+
+	-- Rest of the values come from UILibrary createTheme.lua and StudioStyle.lua
+	local roundFrameTheme = defineTheme({
+		slice = Rect.new(3, 3, 13, 13),
+		backgroundImage = "rbxasset://textures/StudioToolbox/RoundedBackground.png",
+		borderImage = "rbxasset://textures/StudioToolbox/RoundedBorder.png",
+	})
+
+	local textButtonTheme = defineTheme({
+		font = Enum.Font.SourceSans,
+	})
+
+	local buttonTheme = StyleTable.new("Button", function()
+		-- Defining a new button style that uses images
+		local MediaControl = Style.new({
+			Background = Decoration.Box,
+			BackgroundStyle = {
+				Color = getColor(c.MainBackground),
+				BorderColor =  getColor(c.Border),
+				BorderSize = 1,
+			},
+			[StyleModifier.Hover] = {
+				BackgroundStyle = {
+					Color = getColor(c.Button, m.Hover),
+					BorderColor = getColor(c.Border),
+					BorderSize = 1,
+				},
+			},
+		})
+
+		local ActiveControl = Style.new({
+			Background = Decoration.Box,
+			BackgroundStyle = {
+				Color = getColor(c.DialogMainButton),
+				BorderColor =  getColor(c.DialogMainButton),
+				BorderSize = 1,
+			},
+			[StyleModifier.Hover] = {
+				BackgroundStyle = {
+					Color = getColor(c.DialogMainButton, m.Hover),
+					BorderColor = getColor(c.DialogMainButton, m.Hover),
+					BorderSize = 1,
+				},
+			},
+		})
+
+		local IKDefault = Style.new({
+			Background = Decoration.RoundBox,
+		})
+
+		local IKActive = Style.new({
+			Background = Decoration.RoundBox,
+		})
+		
+		return {
+			MediaControl = MediaControl,
+			ActiveControl = ActiveControl,
+			IKActive = IKActive,
+			IKDefault = IKDefault,
+		}
+	end)
 
 	local eventMarker = defineTheme({
 		imageColor = getColor(c.DialogButtonText, m.Disabled),
@@ -251,6 +352,10 @@ function Theme.createValuesInternal(theme, getColor, c, m)
 		startScreenTheme = startScreenTheme,
 		gridTheme = gridTheme,
 		ikTheme = ikTheme,
+		checkBox =checkBoxTheme,
+		roundFrame = roundFrameTheme,
+		button = buttonTheme,
+
 
 		keyframe = {
 			Default = {
@@ -367,74 +472,7 @@ function Theme.createValuesInternal(theme, getColor, c, m)
 
 	}
 
-	local UILibraryPalette = StudioStyle.new(getColor, c, m)
-
 	local UILibraryOverrides = {
-		button = {
-			Default = {
-				font = PluginTheme.font,
-				backgroundColor = getColor(c.Button),
-				hovered = {
-					font = PluginTheme.font,
-				},
-			},
-
-			Primary = {
-				font = PluginTheme.font,
-				borderColor = getColor(c.MainBackground),
-				textColor = getColor(c.DialogMainButtonText),
-				hovered = {
-					font = PluginTheme.font,
-					borderColor = getColor(c.MainBackground),
-					textColor = getColor(c.DialogMainButtonText),
-				},
-			},
-
-			MediaControl = {
-				isRound = false,
-				backgroundColor = getColor(c.MainBackground),
-				borderColor = getColor(c.Border),
-
-				hovered = {
-					backgroundColor = getColor(c.Button, m.Hover),
-					borderColor = getColor(c.Border),
-				},
-			},
-
-			ActiveControl = {
-				isRound = false,
-				backgroundColor = getColor(c.DialogMainButton),
-				borderColor = getColor(c.DialogMainButton),
-
-				hovered = {
-					backgroundColor = getColor(c.DialogMainButton, m.Hover),
-					borderColor = getColor(c.DialogMainButton, m.Hover),
-				},
-			},
-
-			IKDefault = {
-				isRound = true,
-				font = PluginTheme.font,
-				backgroundColor = getColor(c.Button),
-				borderColor = getColor(c.Border),
-				hovered = {
-					font = PluginTheme.font,
-					backgroundColor = getColor(c.Button, m.Hover),
-				},
-			},
-
-			IKActive = {
-				isRound = true,
-				font = PluginTheme.font,
-				backgroundColor = getColor(c.Button, m.Pressed),
-				borderColor = getColor(c.Border),
-				hovered = {
-					font = PluginTheme.font,
-					backgroundColor = getColor(c.Button, m.Hover),
-				},
-			},
-		},
-
 		dialog = {
 			backgroundColor = PluginTheme.backgroundColor,
 		},
@@ -442,6 +480,11 @@ function Theme.createValuesInternal(theme, getColor, c, m)
 		radioButton = {
 			font = PluginTheme.font,
 			textSize = 15,
+			buttonHeight = 20,
+			radioButtonBackground = "rbxasset://textures/GameSettings/RadioButton.png",
+			radioButtonSelected = "rbxasset://textures/ui/LuaApp/icons/ic-blue-dot.png",
+			contentPadding = 16,
+			buttonPadding = 6,
 		},
 
 		keyframe = {
@@ -571,15 +614,22 @@ function Theme.createValuesInternal(theme, getColor, c, m)
 		PluginTheme = PluginTheme,
 		UILibraryPalette = UILibraryPalette,
 		UILibraryOverrides = UILibraryOverrides,
+		Framework = studioStyles
 	}
 end
 
 function Theme.new()
-	return StudioTheme.new(Theme.createValues)
+	return ContextServicesTheme.new(Theme.createValues)
 end
 
 function Theme.mock()
-	return StudioTheme.newDummyTheme(Theme.createValuesMock)
+	return ContextServicesTheme.mock(Theme.createValuesMock, function()
+		return {
+			Name = "MockTheme",
+			GetColor = function() return Color3.fromRGB(0, 0, 0) end,
+		}
+	end)
 end
 
 return Theme
+

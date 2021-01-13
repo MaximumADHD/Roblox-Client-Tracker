@@ -1,7 +1,12 @@
 return function()
 	local Plugin = script.Parent.Parent.Parent
-	local Rodux = require(Plugin.Rodux)
+	local Rodux = require(Plugin.Packages.Rodux)
 	local Templates = require(Plugin.Src.Util.Templates)
+	local ContextServices = Plugin.Packages.Framework.ContextServices
+	local Framework = require(Plugin.Packages.Framework)
+
+	local Analytics = Framework.ContextServices.Analytics
+
 
 	local MainReducer = require(Plugin.Src.Reducers.MainReducer)
 	local SetRootInstance = require(Plugin.Src.Actions.SetRootInstance)
@@ -33,18 +38,20 @@ return function()
 	end
 
 	local function createTestStore()
+		local analytics = Analytics.mock()
 		local middlewares = {Rodux.thunkMiddleware}
 		local store = Rodux.Store.new(MainReducer, nil, middlewares)
 		store:dispatch(SetRootInstance(mockSkeleton))
-		store:dispatch(LoadAnimationData(testAnimationData))
+		store:dispatch(LoadAnimationData(testAnimationData, analytics))
 		return store
 	end
 
 	describe("LoadAnimationData", function()
 		it("should add a track for every track in the AnimationData", function()
 			local store = createEmptyStore()
+			local analytics = Analytics.mock()
 			store:dispatch(SetRootInstance(mockSkeleton))
-			store:dispatch(LoadAnimationData(testAnimationData))
+			store:dispatch(LoadAnimationData(testAnimationData, analytics))
 
 			local status = store:getState().Status
 			expect(#status.Tracks).to.equal(1)
@@ -55,7 +62,8 @@ return function()
 	describe("AddTrack", function()
 		it("should add a track to Tracks", function()
 			local store = createTestStore()
-			store:dispatch(AddTrack("Root", "Neck"))
+			local analytics = Analytics.mock()
+			store:dispatch(AddTrack("Root", "Neck", analytics))
 
 			local found = false
 			local status = store:getState().Status
@@ -71,7 +79,8 @@ return function()
 
 		it("should do nothing if a track already exists", function()
 			local store = createTestStore()
-			store:dispatch(AddTrack("Root", "Hips"))
+			local analytics = Analytics.mock()
+			store:dispatch(AddTrack("Root", "Hips", analytics))
 
 			local found = 0
 			local status = store:getState().Status
@@ -88,7 +97,8 @@ return function()
 	describe("DeleteTrack", function()
 		it("should remove a track from Tracks", function()
 			local store = createTestStore()
-			store:dispatch(DeleteTrack("Hips"))
+			local analytics = Analytics.mock()
+			store:dispatch(DeleteTrack("Hips", analytics))
 
 			local found = false
 			local status = store:getState().Status
@@ -104,7 +114,8 @@ return function()
 
 		it("should remove the track from animationData", function()
 			local store = createTestStore()
-			store:dispatch(DeleteTrack("Hips"))
+			local analytics = Analytics.mock()
+			store:dispatch(DeleteTrack("Hips", analytics))
 
 			local data = store:getState().AnimationData
 			local tracks = data.Instances.Root.Tracks
@@ -203,7 +214,8 @@ return function()
 	describe("AddKeyframe", function()
 		it("should add a track if the track does not exist", function()
 			local store = createTestStore()
-			store:dispatch(AddKeyframe("Root", "Head", 0))
+			local analytics = Analytics.mock()
+			store:dispatch(AddKeyframe("Root", "Head", 0, nil, analytics))
 
 			local found = false
 			local status = store:getState().Status

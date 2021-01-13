@@ -19,14 +19,13 @@
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
-local Roact = require(Plugin.Roact)
+local Roact = require(Plugin.Packages.Roact)
 
 local Constants = require(Plugin.Src.Util.Constants)
 local StringUtils = require(Plugin.Src.Util.StringUtils)
 local AnimationData = require(Plugin.Src.Util.AnimationData)
-
-local Theme = require(Plugin.Src.Context.Theme)
-local withTheme = Theme.withTheme
+local Framework = require(Plugin.Packages.Framework)
+local ContextServices = Framework.ContextServices
 
 local TextBox = require(Plugin.Src.Components.TextBox)
 local Tooltip = require(Plugin.Src.Components.Tooltip)
@@ -77,8 +76,8 @@ function TimeDisplay:init()
 end
 
 function TimeDisplay:render()
-	return withTheme(function(theme)
 		local props = self.props
+		local theme = props.Theme:get("PluginTheme")
 
 		local showAsTime = props.ShowAsTime
 		local playhead = props.Playhead
@@ -137,7 +136,11 @@ function TimeDisplay:render()
 				}),
 			}),
 		})
-	end)
 end
+
+ContextServices.mapToProps(TimeDisplay, {
+	Theme = ContextServices.Theme,
+})
+
 
 return TimeDisplay

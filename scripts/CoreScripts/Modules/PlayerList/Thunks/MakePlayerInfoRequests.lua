@@ -92,7 +92,7 @@ local function getPlayerIsBlocked(store, player)
 end
 
 local function getPlayerFriendStatus(store, player)
-	if player ~= Players.LocalPlayer then
+	if player ~= Players.LocalPlayer and player.Parent == Players and Players.LocalPlayer.Parent == Players then
 		dispatchIfPlayerExists(store, player, SetPlayerFriendStatus(player, Players.LocalPlayer:GetFriendStatus(player)))
 	end
 end

@@ -26,9 +26,9 @@ local EASING_STYLE_ORDER = {
 }
 
 local Plugin = script.Parent.Parent.Parent
-local Roact = require(Plugin.Roact)
-local RoactRodux = require(Plugin.RoactRodux)
-local Cryo = require(Plugin.Cryo)
+local Roact = require(Plugin.Packages.Roact)
+local RoactRodux = require(Plugin.Packages.RoactRodux)
+local Cryo = require(Plugin.Packages.Cryo)
 local isEmpty = require(Plugin.Src.Util.isEmpty)
 local Constants = require(Plugin.Src.Util.Constants)
 
@@ -36,8 +36,6 @@ local ContextMenu = require(Plugin.Src.Components.ContextMenu)
 
 local KeyframeUtils = require(Plugin.Src.Util.KeyframeUtils)
 local TrackUtils = require(Plugin.Src.Util.TrackUtils)
-local ActionContext = require(Plugin.Src.Context.ActionContext)
-local getActions = ActionContext.getActions
 
 local AddWaypoint = require(Plugin.Src.Thunks.History.AddWaypoint)
 local AddKeyframe = require(Plugin.Src.Thunks.AddKeyframe)
@@ -55,8 +53,8 @@ local SetShowEvents = require(Plugin.Src.Actions.SetShowEvents)
 local SetEventEditingFrame = require(Plugin.Src.Actions.SetEventEditingFrame)
 local SetTool = require	(Plugin.Src.Actions.SetTool)
 
-local UILibrary = require(Plugin.UILibrary)
-local withLocalization = UILibrary.Localizing.withLocalization
+local Framework = require(Plugin.Packages.Framework)
+local ContextServices = Framework.ContextServices
 
 local Undo = require(Plugin.Src.Thunks.History.Undo)
 local Redo = require(Plugin.Src.Thunks.History.Redo)
@@ -114,22 +112,22 @@ function TimelineActions:makeMenuActions(localization)
 	local props = self.props
 	local selectedKeyframes = props.SelectedKeyframes
 	local summaryKeyframe = props.SummaryKeyframe
-	local pluginActions = getActions(self)
+	local pluginActions = self.props.PluginActions
 
 	local actions = {
-		pluginActions.AddKeyframeHere,
-		pluginActions.DeleteSelected,
+		pluginActions:get("AddKeyframeHere"),
+		pluginActions:get("DeleteSelected"),
 		Constants.MENU_SEPARATOR,
-		pluginActions.CutSelected,
-		pluginActions.CopySelected,
-		pluginActions.PasteKeyframes,
+		pluginActions:get("CutSelected"),
+		pluginActions:get("CopySelected"),
+		pluginActions:get("PasteKeyframes"),
 		Constants.MENU_SEPARATOR,
 	}
 
 	if selectedKeyframes and not isEmpty(selectedKeyframes) then
-		table.insert(actions, pluginActions.ResetSelected)
+		table.insert(actions, pluginActions:get("ResetSelected"))
 		table.insert(actions, Constants.MENU_SEPARATOR)
-		table.insert(actions, pluginActions.ChangeDuration)
+		table.insert(actions, pluginActions:get("ChangeDuration"))
 		-- EasingStyle and EasingDirection customization
 		table.insert(actions, Constants.MENU_SEPARATOR)
 		table.insert(actions, self:makeSelectionSubMenu("PoseEasingStyle", "EasingStyle",
@@ -137,14 +135,14 @@ function TimelineActions:makeMenuActions(localization)
 		table.insert(actions, self:makeSelectionSubMenu("PoseEasingDirection", "EasingDirection",
 			localization:getText("ContextMenu", "EasingDirection")))
 	else
-		table.insert(actions, pluginActions.AddResetKeyframe)
+		table.insert(actions, pluginActions:get("AddResetKeyframe"))
 	end
 
 	table.insert(actions, Constants.MENU_SEPARATOR)
-	table.insert(actions, pluginActions.AddEvent)
+	table.insert(actions, pluginActions:get("AddEvent"))
 
 	if summaryKeyframe ~= nil then
-		table.insert(actions, pluginActions.RenameKeyframe)
+		table.insert(actions, pluginActions:get("RenameKeyframe"))
 	end
 
 	return actions
@@ -154,16 +152,16 @@ function TimelineActions:addAction(action, func)
 	if action then
 		action.Enabled = false
 		table.insert(self.Actions, action)
-		table.insert(self.Connections, action.Triggered:connect(func))
+		table.insert(self.Connections, action.Triggered:Connect(func))
 	end
 end
 
-function TimelineActions:init(initialProps)
-	local actions = getActions(self)
+function TimelineActions:didMount()
+	local actions = self.props.PluginActions
 	self.Connections = {}
 	self.Actions = {}
 
-	self:addAction(actions.AddKeyframeHere, function()
+	self:addAction(actions:get("AddKeyframeHere"), function()
 		local props = self.props
 		local frame = props.Frame
 		local trackName = props.TrackName
@@ -177,7 +175,7 @@ function TimelineActions:init(initialProps)
 			else
 				newValue = TrackUtils.getDefaultValue(track)
 			end
-			props.AddKeyframe(instanceName, trackName, frame, newValue)
+			props.AddKeyframe(instanceName, trackName, frame, newValue, props.Analytics)
 		end
 
 		if instanceName and trackName then
@@ -198,7 +196,7 @@ function TimelineActions:init(initialProps)
 	end)
 
 	if FFlagAddKeyframeAtScrubber then
-		self:addAction(actions.AddKeyframeAtScrubber, function()
+		self:addAction(actions:get("AddKeyframeAtScrubber"), function()
 			local props = self.props
 			local playhead = props.Playhead
 			local selectedTracks = props.SelectedTracks
@@ -213,14 +211,14 @@ function TimelineActions:init(initialProps)
 						else
 							newValue = TrackUtils.getDefaultValue(track)
 						end
-						props.AddKeyframe(instanceName, selectedTrack, playhead, newValue)
+						props.AddKeyframe(instanceName, selectedTrack, playhead, newValue, props.Analytics)
 					end
 				end
 			end
 		end)
 	end
 
-	self:addAction(actions.AddResetKeyframe, function()
+	self:addAction(actions:get("AddResetKeyframe"), function()
 		local props = self.props
 		local frame = props.Frame
 		local trackName = props.TrackName
@@ -231,7 +229,7 @@ function TimelineActions:init(initialProps)
 			local instance = props.AnimationData.Instances[instanceName]
 			local track = instance.Tracks[trackName]
 			local newValue = TrackUtils.getDefaultValue(track)
-			props.AddKeyframe(instanceName, trackName, frame, newValue)
+			props.AddKeyframe(instanceName, trackName, frame, newValue, props.Analytics)
 		else
 			-- If the user clicked the summary track, add a reset keyframe for
 			-- every currently opened track.
@@ -240,36 +238,36 @@ function TimelineActions:init(initialProps)
 					local trackName = openTrack.Name
 					local track = instance.Tracks[trackName]
 					local newValue = TrackUtils.getDefaultValue(track)
-					props.AddKeyframe(instanceName, trackName, frame, newValue)
+					props.AddKeyframe(instanceName, trackName, frame, newValue, props.Analytics)
 				end
 			end
 		end
 	end)
 
-	self:addAction(actions.RenameKeyframe, function()
+	self:addAction(actions:get("RenameKeyframe"), function()
 		local props = self.props
 		props.OnRenameKeyframe(props.Frame)
 	end)
 
-	self:addAction(actions.PasteKeyframes, function()
+	self:addAction(actions:get("PasteKeyframes"), function()
 		local props = self.props
 		local frame = props.Frame or props.Playhead
-		props.PasteKeyframes(frame)
+		props.PasteKeyframes(frame, props.Analytics)
 	end)
 
-	self:addAction(actions.CutSelected, function()
+	self:addAction(actions:get("CutSelected"), function()
 		local props = self.props
 		props.CopySelectedKeyframes()
-		props.DeleteSelectedKeyframes()
+		props.DeleteSelectedKeyframes(props.Analytics)
 	end)
 
-	self:addAction(actions.AddEvent, function()
+	self:addAction(actions:get("AddEvent"), function()
 		local props = self.props
 		local frame = props.Frame
 		props.OnEditEvents(frame)
 	end)
 
-	self:addAction(actions.ToggleTool, function()
+	self:addAction(actions:get("ToggleTool"), function()
 		local props = self.props
 		local tool = props.Tool
 		if tool == Enum.RibbonTool.Move then
@@ -279,22 +277,31 @@ function TimelineActions:init(initialProps)
 		end
 	end)
 
-	self:addAction(actions.CopySelected, initialProps.CopySelectedKeyframes)
-	self:addAction(actions.DeleteSelected, initialProps.DeleteSelectedKeyframes)
-	if FFlagAnimEditorFixBackspaceOnMac() then
-		self:addAction(actions.DeleteSelectedBackspace, initialProps.DeleteSelectedKeyframes)
+	local function togglePlayWrapper()
+		return self.props.TogglePlay(props.Analytics)
 	end
-	self:addAction(actions.ResetSelected, initialProps.ResetSelectedKeyframes)
-	self:addAction(actions.SelectAll, initialProps.SelectAllKeyframes)
-	self:addAction(actions.DeselectAll, initialProps.DeselectAllKeyframes)
-	self:addAction(actions.ChangeDuration, initialProps.OnChangeDuration)
 
-	self:addAction(actions.Undo, initialProps.Undo)
-	self:addAction(actions.Redo, initialProps.Redo)
+	local function deleteSelectedKeyframesWrapper()
+		return self.props.DeleteSelectedKeyframes(props.Analytics)
+	end
+		
 
-	self:addAction(actions.TogglePlay, initialProps.TogglePlay)
-	self:addAction(actions.ToggleBoneVis, initialProps.ToggleBoneVisibility)
-end
+	self:addAction(actions:get("CopySelected"), self.props.CopySelectedKeyframes)
+	self:addAction(actions:get("DeleteSelected"), deleteSelectedKeyframesWrapper)
+	if FFlagAnimEditorFixBackspaceOnMac() then
+		self:addAction(actions:get("DeleteSelectedBackspace"), deleteSelectedKeyframesWrapper)
+	end
+	self:addAction(actions:get("ResetSelected"), self.props.ResetSelectedKeyframes)
+	self:addAction(actions:get("SelectAll"), self.props.SelectAllKeyframes)
+	self:addAction(actions:get("DeselectAll"), self.props.DeselectAllKeyframes)
+	self:addAction(actions:get("ChangeDuration"), self.props.OnChangeDuration)
+
+	self:addAction(actions:get("Undo"), self.props.Undo)
+	self:addAction(actions:get("Redo"), self.props.Redo)
+
+	self:addAction(actions:get("TogglePlay"), togglePlayWrapper)
+	self:addAction(actions:get("ToggleBoneVis"), self.props.ToggleBoneVisibility)
+end	
 
 function TimelineActions:render()
 	local props = self.props
@@ -308,65 +315,63 @@ function TimelineActions:render()
 	local tracks = props.Tracks
 
 	local actions = self.Actions
-	local pluginActions = getActions(self)
-
-	if not isEmpty(pluginActions) then
+	local pluginActions = self.props.PluginActions
+	if not isEmpty(pluginActions) and actions ~= nil then
 		for _, action in ipairs(actions) do
 			action.Enabled = false
 		end
 
 		if clipboard and not isEmpty(clipboard)
 			and clipboardType == Constants.CLIPBOARD_TYPE.Keyframes then
-			pluginActions.PasteKeyframes.Enabled = true
+			pluginActions:get("PasteKeyframes").Enabled = true
 		end
 
 		if selectedKeyframes and not isEmpty(selectedKeyframes) then
-			pluginActions.DeselectAll.Enabled = true
-			pluginActions.CutSelected.Enabled = true
-			pluginActions.CopySelected.Enabled = true
-			pluginActions.ResetSelected.Enabled = true
-			pluginActions.DeleteSelected.Enabled = true
+			pluginActions:get("DeselectAll").Enabled = true
+			pluginActions:get("CutSelected").Enabled = true
+			pluginActions:get("CopySelected").Enabled = true
+			pluginActions:get("ResetSelected").Enabled = true
+			pluginActions:get("DeleteSelected").Enabled = true
 			if FFlagAnimEditorFixBackspaceOnMac() then
-				pluginActions.DeleteSelectedBackspace.Enabled = true
+				pluginActions:get("DeleteSelectedBackspace").Enabled = true
 			end
 		else
-			pluginActions.SelectAll.Enabled = true
+			pluginActions:get("SelectAll").Enabled = true
 		end
 
 		if not props.OnKeyframe and not isEmpty(tracks) then
-			pluginActions.AddKeyframeHere.Enabled = true
-			pluginActions.AddResetKeyframe.Enabled = true
+			pluginActions:get("AddKeyframeHere").Enabled = true
+			pluginActions:get("AddResetKeyframe").Enabled = true
 		end
 
 		if FFlagAddKeyframeAtScrubber then
-			pluginActions.AddKeyframeAtScrubber.Enabled = true
+			pluginActions:get("AddKeyframeAtScrubber").Enabled = true
 		end
 
 		if multipleSelected then
-			pluginActions.ChangeDuration.Enabled = true
+			pluginActions:get("ChangeDuration").Enabled = true
 		end
 
 		if summaryKeyframe ~= nil then
-			pluginActions.RenameKeyframe.Enabled = true
+			pluginActions:get("RenameKeyframe").Enabled = true
 		end
 
 		if tool == Enum.RibbonTool.Rotate or tool == Enum.RibbonTool.Move then
-			pluginActions.ToggleTool.Enabled = true
+			pluginActions:get("ToggleTool").Enabled = true
 		end
 
-		pluginActions.Undo.Enabled = true
-		pluginActions.Redo.Enabled = true
-		pluginActions.TogglePlay.Enabled = true
-		pluginActions.AddEvent.Enabled = true
-		pluginActions.ToggleBoneVis.Enabled = true
+		pluginActions:get("Undo").Enabled = true
+		pluginActions:get("Redo").Enabled = true
+		pluginActions:get("TogglePlay").Enabled = true
+		pluginActions:get("AddEvent").Enabled = true
+		pluginActions:get("ToggleBoneVis").Enabled = true
 	end
 
-	return withLocalization(function(localization)
+	local localization = self.props.Localization
 		return showMenu and Roact.createElement(ContextMenu, {
 			Actions = self:makeMenuActions(localization),
 			OnMenuOpened = props.OnMenuOpened,
 		}) or nil
-	end)
 end
 
 function TimelineActions:willUnmount()
@@ -382,6 +387,12 @@ function TimelineActions:willUnmount()
 		end
 	end
 end
+
+ContextServices.mapToProps(TimelineActions, {
+	Localization = ContextServices.Localization,
+	PluginActions = ContextServices.PluginActions,
+	Analytics = ContextServices.Analytics,
+})
 
 local function mapStateToProps(state, props)
 	local status = state.Status
@@ -420,9 +431,9 @@ local function mapDispatchToProps(dispatch)
 			dispatch(SetSelectedEvents({}))
 		end,
 
-		DeleteSelectedKeyframes = function()
+		DeleteSelectedKeyframes = function(analytics)
 			dispatch(AddWaypoint())
-			dispatch(DeleteSelectedKeyframes())
+			dispatch(DeleteSelectedKeyframes(analytics))
 			dispatch(SetRightClickContextInfo({}))
 		end,
 
@@ -437,15 +448,15 @@ local function mapDispatchToProps(dispatch)
 			dispatch(SetRightClickContextInfo({}))
 		end,
 
-		PasteKeyframes = function(frame)
+		PasteKeyframes = function(frame, analytics)
 			dispatch(AddWaypoint())
-			dispatch(PasteKeyframes(frame))
+			dispatch(PasteKeyframes(frame, analytics))
 			dispatch(SetRightClickContextInfo({}))
 		end,
 
-		AddKeyframe = function(instance, track, frame, value)
+		AddKeyframe = function(instance, track, frame, value, analytics)
 			dispatch(AddWaypoint())
-			dispatch(AddKeyframe(instance, track, frame, value))
+			dispatch(AddKeyframe(instance, track, frame, value, analytics))
 			dispatch(SetRightClickContextInfo({}))
 		end,
 
@@ -462,8 +473,8 @@ local function mapDispatchToProps(dispatch)
 			dispatch(Redo())
 		end,
 
-		TogglePlay = function()
-			dispatch(TogglePlay())
+		TogglePlay = function(analytics)
+			dispatch(TogglePlay(analytics))
 		end,
 
 		SetTool = function(tool)

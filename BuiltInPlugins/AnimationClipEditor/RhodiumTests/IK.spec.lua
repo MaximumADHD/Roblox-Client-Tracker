@@ -16,7 +16,8 @@ return function()
 	local TestPaths = require(Plugin.RhodiumTests.TestPaths)
 
 	local runTest = TestHelpers.runTest
-
+	local Framework = require(Plugin.Packages.Framework)
+	local Analytics = Framework.ContextServices.Analytics
 	local LoadAnimationData = require(Plugin.Src.Thunks.LoadAnimationData)
 	local SetRootInstance = require(Plugin.Src.Actions.SetRootInstance)
 	local AnimationData = require(Plugin.Src.Util.AnimationData)
@@ -32,9 +33,11 @@ return function()
 
 	local function setupInstance(store, instance)
 		expect(instance).to.be.ok()
+		local analytics = Analytics.mock()
 
 		store:dispatch(SetRootInstance(instance))
-		store:dispatch(LoadAnimationData(AnimationData.newRigAnimation("Test")))
+
+		store:dispatch(LoadAnimationData(AnimationData.newRigAnimation("Test"), analytics))
 		TestHelpers.delay()
 	end
 
@@ -160,7 +163,7 @@ return function()
 			TestHelpers.loadAnimation(store, AnimationData.newRigAnimation("Test"))
 
 			local ikDockWidget = openIKWindow(test)
-			local lowerTorsoJoint = TestPaths.getTreeViewJoint(ikDockWidget, "Node-1")
+			local lowerTorsoJoint = TestPaths.getTreeViewJoint(ikDockWidget, "2")
 			TestHelpers.clickInstance(lowerTorsoJoint)
 
 			local status = store:getState().Status
@@ -203,7 +206,7 @@ return function()
 
 			local ikDockWidget = openIKWindow(test)
 			store:dispatch(SetIKMode(Constants.IK_MODE.FullBody))
-			local pin = TestPaths.getTreeViewJointPin(ikDockWidget, "Node-1")
+			local pin = TestPaths.getTreeViewJointPin(ikDockWidget, "2")
 			TestHelpers.clickInstance(pin)
 
 			local status = store:getState().Status
@@ -221,11 +224,13 @@ return function()
 	it("should manipulate proper chains for BodyPart mode", function()
 		runTest(function(test)
 			local store = test:getStore()
+			local analytics = Analytics.mock()
+
 
 			local dummy = Workspace.Dummy
 			TestHelpers.loadAnimation(store, AnimationData.newRigAnimation("Test"))
 
-			store:dispatch(ToggleIKEnabled())
+			store:dispatch(ToggleIKEnabled(analytics))
 			TestHelpers.delay()
 
 			store:dispatch(SetIKMode(Constants.IK_MODE.BodyPart))
@@ -314,11 +319,12 @@ return function()
 	it("Rig Attachment Axes should be adjusted for R15", function()
 		runTest(function(test)
 			local store = test:getStore()
+			local analytics = Analytics.mock()
 
 			local dummy = Workspace.Dummy
 			TestHelpers.loadAnimation(store, AnimationData.newRigAnimation("Test"))
 
-			store:dispatch(ToggleIKEnabled())
+			store:dispatch(ToggleIKEnabled(analytics))
 			TestHelpers.delay()
 
 			store:dispatch(SetIKMode(Constants.IK_MODE.BodyPart))
@@ -350,11 +356,13 @@ return function()
 	it("motors and constraints should be properly swapped during manipulation", function()
 		runTest(function(test)
 			local store = test:getStore()
+			local analytics = Analytics.mock()
+
 
 			local spider = makeSpider()
 			setupInstance(store, spider)
 
-			store:dispatch(ToggleIKEnabled())
+			store:dispatch(ToggleIKEnabled(analytics))
 			TestHelpers.delay()
 
 			-- cache old motor data before it gets deleted
@@ -445,7 +453,7 @@ return function()
 				end
 			end
 
-			store:dispatch(ToggleIKEnabled())
+			store:dispatch(ToggleIKEnabled(analytics))
 			TestHelpers.delay()
 
 			cleanupInstance(store, spider)

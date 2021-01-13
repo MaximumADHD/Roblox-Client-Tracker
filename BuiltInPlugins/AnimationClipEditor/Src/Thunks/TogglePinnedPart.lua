@@ -1,5 +1,5 @@
 local Plugin = script.Parent.Parent.Parent
-local Cryo = require(Plugin.Cryo)
+local Cryo = require(Plugin.Packages.Cryo)
 local SetPinnedParts = require(Plugin.Src.Actions.SetPinnedParts)
 
 return function(part)

@@ -14,83 +14,81 @@
 local ICON_SIZE = UDim2.new(0, 9, 0, 8)
 
 local Plugin = script.Parent.Parent.Parent.Parent
-local Roact = require(Plugin.Roact)
-local UILibrary = require(Plugin.UILibrary)
+local Roact = require(Plugin.Packages.Roact)
+local Framework = require(Plugin.Packages.Framework)
 local Constants = require(Plugin.Src.Util.Constants)
-
-local Theme = require(Plugin.Src.Context.Theme)
-local withTheme = Theme.withTheme
-
-local Localizing = UILibrary.Localizing
-local withLocalization = Localizing.withLocalization
-
-local Mouse = require(Plugin.Src.Context.Mouse)
-local getMouse = Mouse.getMouse
+local ContextServices = Framework.ContextServices
+local Localization = ContextServices.Localization
 
 local AddEventEntry = Roact.PureComponent:extend("AddEventEntry")
 
 function AddEventEntry:init()
 	self.mouseEnter = function()
-		getMouse(self).pushCursor("PointingHand")
+		if self.props.Mouse then
+			self.props.Mouse:__pushCursor("PointingHand")
+		end
 	end
 
 	self.mouseLeave = function()
-		getMouse(self).popCursor()
+		if self.props.Mouse then
+			self.props.Mouse:__popCursor()
+		end
 	end
 end
 
-function AddEventEntry:willUnmount()
-	getMouse(self).resetCursor()
-end
-
 function AddEventEntry:render()
-	return withTheme(function(theme)
-		return withLocalization(function(localization)
-			local props = self.props
-			local size = props.Size
-			local paddingLeft = props.PaddingLeft
-			local paddingRight = props.PaddingRight
+	local localization = self.props.Localization
+	local props = self.props
+	local theme = props.Theme:get("PluginTheme")
+	local size = props.Size
+	local paddingLeft = props.PaddingLeft
+	local paddingRight = props.PaddingRight
 
-			local dialogTheme = theme.dialogTheme
+	local dialogTheme = theme.dialogTheme
 
-			return Roact.createElement("ImageButton", {
-				Size = size,
-				BackgroundTransparency = 1,
-				AutoButtonColor = false,
+	return Roact.createElement("ImageButton", {
+		Size = size,
+		BackgroundTransparency = 1,
+		AutoButtonColor = false,
 
-				[Roact.Event.Activated] = props.OnAddEvent,
-				[Roact.Event.MouseEnter] = self.mouseEnter,
-				[Roact.Event.MouseLeave] = self.mouseLeave,
-			}, {
-				Padding = Roact.createElement("UIPadding", {
-					PaddingLeft = paddingLeft,
-					PaddingRight = paddingRight,
-					PaddingTop = UDim.new(0, 2),
-					PaddingBottom = UDim.new(0, 2),
-				}),
+		[Roact.Event.Activated] = props.OnAddEvent,
+		[Roact.Event.MouseEnter] = self.mouseEnter,
+		[Roact.Event.MouseLeave] = self.mouseLeave,
+	}, {
+		Padding = Roact.createElement("UIPadding", {
+			PaddingLeft = paddingLeft,
+			PaddingRight = paddingRight,
+			PaddingTop = UDim.new(0, 2),
+			PaddingBottom = UDim.new(0, 2),
+		}),
 
-				Label = Roact.createElement("TextLabel", {
-					Size = UDim2.new(1, -Constants.TRACKLIST_BUTTON_SIZE, 1, 0),
-					Text = localization:getText("Title", "AddEvent"),
-					TextColor3 = dialogTheme.subTextColor,
-					Font = theme.font,
-					TextSize = dialogTheme.textSize,
-					TextXAlignment = Enum.TextXAlignment.Left,
-					BackgroundTransparency = 1,
-				}),
+		Label = Roact.createElement("TextLabel", {
+			Size = UDim2.new(1, -Constants.TRACKLIST_BUTTON_SIZE, 1, 0),
+			Text = localization:getText("Title", "AddEvent"),
+			TextColor3 = dialogTheme.subTextColor,
+			Font = theme.font,
+			TextSize = dialogTheme.textSize,
+			TextXAlignment = Enum.TextXAlignment.Left,
+			BackgroundTransparency = 1,
+		}),
 
-				AddImage = Roact.createElement("ImageLabel", {
-					Size = ICON_SIZE,
-					AnchorPoint = Vector2.new(0.5, 0.5),
-					Position = UDim2.new(0, -paddingLeft.Offset / 2, 0.5, 0),
-					BackgroundTransparency = 1,
+		AddImage = Roact.createElement("ImageLabel", {
+			Size = ICON_SIZE,
+			AnchorPoint = Vector2.new(0.5, 0.5),
+			Position = UDim2.new(0, -paddingLeft.Offset / 2, 0.5, 0),
+			BackgroundTransparency = 1,
 
-					Image = dialogTheme.addImage,
-					ImageColor3 = dialogTheme.subTextColor,
-				}),
-			})
-		end)
-	end)
+			Image = dialogTheme.addImage,
+			ImageColor3 = dialogTheme.subTextColor,
+		}),
+	})
 end
+
+ContextServices.mapToProps(AddEventEntry, {
+	Theme = ContextServices.Theme,
+	Localization = ContextServices.Localization,
+	Mouse = ContextServices.Mouse,
+})
+
 
 return AddEventEntry

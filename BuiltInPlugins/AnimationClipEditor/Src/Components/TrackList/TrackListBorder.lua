@@ -10,18 +10,18 @@
 local HITBOX_WIDTH = 5
 
 local Plugin = script.Parent.Parent.Parent.Parent
-local Roact = require(Plugin.Roact)
+local Roact = require(Plugin.Packages.Roact)
 
 local DragListenerArea = require(Plugin.Src.Components.DragListenerArea)
 
-local Theme = require(Plugin.Src.Context.Theme)
-local withTheme = Theme.withTheme
+local Framework = require(Plugin.Packages.Framework)
+local ContextServices = Framework.ContextServices
 
 local TrackListBorder = Roact.PureComponent:extend("TrackListBorder")
 
 function TrackListBorder:render()
-	return withTheme(function(theme)
 		local props = self.props
+		local theme = props.Theme:get("PluginTheme")
 
 		return Roact.createElement("Frame", {
 			Size = UDim2.new(0, 2, 1, 0),
@@ -39,7 +39,10 @@ function TrackListBorder:render()
 				OnDragMoved = props.OnDragMoved,
 			}),
 		})
-	end)
 end
+
+ContextServices.mapToProps(TrackListBorder, {
+	Theme = ContextServices.Theme,
+})
 
 return TrackListBorder

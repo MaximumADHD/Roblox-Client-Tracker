@@ -1,13 +1,10 @@
 local Plugin = script.Parent.Parent.Parent.Parent
 
-local PluginContext = require(Plugin.Src.Context.Plugin)
-local getPlugin = PluginContext.getPlugin
-
 local PluginWidget = require(Plugin.Src.Components.PluginWidget.PluginWidget)
 
 return PluginWidget("DockWidget", function(self, id)
 	local props = self.props
-	local plugin = props.Plugin or getPlugin(self)
+	local plugin = props.Plugin
 
 	local dwpgi = DockWidgetPluginGuiInfo.new(
 		props.InitialDockState,

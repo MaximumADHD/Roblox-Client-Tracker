@@ -15,22 +15,16 @@ local IMPORT_KEY = newproxy(true)
 local IMPORT_FBX_KEY = newproxy(true)
 
 local Plugin = script.Parent.Parent.Parent.Parent
-local UILibrary = require(Plugin.UILibrary)
+local Framework = require(Plugin.Packages.Framework)
 
-local Roact = require(Plugin.Roact)
-local RoactRodux = require(Plugin.RoactRodux)
+local Roact = require(Plugin.Packages.Roact)
+local RoactRodux = require(Plugin.Packages.RoactRodux)
 local Constants = require(Plugin.Src.Util.Constants)
 local AnimationData = require(Plugin.Src.Util.AnimationData)
 local PADDING = UDim.new(0, Constants.INDENT_PADDING)
 
-local PluginContext = require(Plugin.Src.Context.Plugin)
-local getPlugin = PluginContext.getPlugin
-
-local Localizing = UILibrary.Localizing
-local withLocalization = Localizing.withLocalization
-
-local Theme = require(Plugin.Src.Context.Theme)
-local withTheme = Theme.withTheme
+local ContextServices = Framework.ContextServices
+local Localization = ContextServices.Localization
 
 local AnimationClipMenu = require(Plugin.Src.Components.AnimationClipMenu)
 local ContextButton = require(Plugin.Src.Components.ContextButton)
@@ -128,8 +122,8 @@ function AnimationClipDropdown:init()
 		if self.props.IsDirty then
 			self.showLoadNewPrompt(IMPORT_KEY)
 		else
-			local plugin = getPlugin(self)
-			self.props.ImportKeyframeSequence(plugin)
+			local plugin = self.props.Plugin
+			self.props.ImportKeyframeSequence(plugin, props.Analytics)
 		end
 	end
 
@@ -137,8 +131,8 @@ function AnimationClipDropdown:init()
 		if self.props.IsDirty then
 			self.showLoadNewPrompt(IMPORT_FBX_KEY)
 		else
-			local plugin = getPlugin(self)
-			self.props.ImportFBXAnimation(plugin)
+			local plugin = self.props.Plugin
+			self.props.ImportFBXAnimation(plugin, props.Analytics)
 		end
 	end
 
@@ -154,7 +148,7 @@ function AnimationClipDropdown:init()
 		if self.props.IsDirty then
 			self.showLoadNewPrompt(name)
 		else
-			self.props.LoadKeyframeSequence(name)
+			self.props.LoadKeyframeSequence(name, self.props.Analytics)
 		end
 	end
 
@@ -162,7 +156,7 @@ function AnimationClipDropdown:init()
 		local props = self.props
 		local state = self.state
 		local loadingName = state.loadingName
-		local plugin = getPlugin(self)
+		local plugin = self.props.Plugin
 
 		if loadingName == NEW_KEY then
 			self.hideLoadNewPrompt()
@@ -172,150 +166,157 @@ function AnimationClipDropdown:init()
 			props.ImportKeyframeSequence(plugin)
 		elseif loadingName == IMPORT_FBX_KEY then
 			self.hideLoadNewPrompt()
-			props.ImportFBXAnimation(plugin)
+			props.ImportFBXAnimation(plugin, props.Analytics)
 		else
-			props.LoadKeyframeSequence(loadingName)
+			props.LoadKeyframeSequence(loadingName, props.Analytics)
 			self.hideLoadNewPrompt()
 		end
 	end
 end
 
+
 function AnimationClipDropdown:render()
-	return withLocalization(function(localization)
-		return withTheme(function(theme)
-			local props = self.props
-			local state = self.state
+	local localization = self.props.Localization
+	local props = self.props
+	local state = self.state
+	local theme = props.Theme:get("PluginTheme")
 
-			local animationName = props.AnimationName
-			local layoutOrder = props.LayoutOrder
+	local animationName = props.AnimationName
+	local layoutOrder = props.LayoutOrder
 
-			local dropdownTheme = theme.dropdownTheme
+	local dropdownTheme = theme.dropdownTheme
 
-			local showMenu = state.showMenu
-			local showSaveAsPrompt = state.showSaveAsPrompt
-			local showCreateNewPrompt = state.showCreateNewPrompt
-			local overwriteName = state.overwriteName
-			local loadingName = state.loadingName
+	local showMenu = state.showMenu
+	local showSaveAsPrompt = state.showSaveAsPrompt
+	local showCreateNewPrompt = state.showCreateNewPrompt
+	local overwriteName = state.overwriteName
+	local loadingName = state.loadingName
+	local style = theme.button
 
-			return Roact.createElement("ImageButton", {
-				Size = UDim2.new(1, -Constants.CONTROLS_WIDTH - Constants.TIME_DISPLAY_WIDTH, 1, 0),
-				BackgroundTransparency = 1,
-				ImageTransparency = 1,
-				AutoButtonColor = false,
-				LayoutOrder = layoutOrder,
+	return Roact.createElement("ImageButton", {
+		Size = UDim2.new(1, -Constants.CONTROLS_WIDTH - Constants.TIME_DISPLAY_WIDTH, 1, 0),
+		BackgroundTransparency = 1,
+		ImageTransparency = 1,
+		AutoButtonColor = false,
+		LayoutOrder = layoutOrder,
 
-				[Roact.Event.Activated] = self.showMenu,
-			}, {
-				Padding = Roact.createElement("UIPadding", {
-					PaddingLeft = PADDING,
-					PaddingRight = PADDING,
-				}),
+		[Roact.Event.Activated] = self.showMenu,
+	}, {
+		Padding = Roact.createElement("UIPadding", {
+			PaddingLeft = PADDING,
+			PaddingRight = PADDING,
+		}),
 
-				AnimationClipLabel = Roact.createElement("TextLabel", {
-					Size = UDim2.new(1, -Constants.TRACKLIST_BUTTON_SIZE - Constants.INDENT_PADDING, 1, 0),
-					BackgroundTransparency = 1,
+		AnimationClipLabel = Roact.createElement("TextLabel", {
+			Size = UDim2.new(1, -Constants.TRACKLIST_BUTTON_SIZE - Constants.INDENT_PADDING, 1, 0),
+			BackgroundTransparency = 1,
 
-					Text = animationName,
-					TextTruncate = Enum.TextTruncate.AtEnd,
-					TextSize = dropdownTheme.textSize,
-					Font = theme.font,
-					TextColor3 = dropdownTheme.textColor,
-					TextXAlignment = Enum.TextXAlignment.Left,
-				}),
+			Text = animationName,
+			TextTruncate = Enum.TextTruncate.AtEnd,
+			TextSize = dropdownTheme.textSize,
+			Font = theme.font,
+			TextColor3 = dropdownTheme.textColor,
+			TextXAlignment = Enum.TextXAlignment.Left,
+		}),
 
-				ContextButton = Roact.createElement(ContextButton, {
-					AnchorPoint = Vector2.new(1, 0.5),
-					Position = UDim2.new(1, 0, 0.5, 0),
-					OnActivated = self.showMenu,
-				}),
+		ContextButton = Roact.createElement(ContextButton, {
+			AnchorPoint = Vector2.new(1, 0.5),
+			Position = UDim2.new(1, 0, 0.5, 0),
+			OnActivated = self.showMenu,
+		}),
 
-				AnimationClipMenu = Roact.createElement(AnimationClipMenu, {
-					ShowMenu = showMenu,
-					CurrentAnimation = animationName,
-					OnMenuOpened = self.hideMenu,
-					OnOverwriteRequested = self.showOverwritePrompt,
-					OnSaveAsRequested = self.showSaveAsPrompt,
-					OnCreateNewRequested = self.createNew,
-					OnLoadRequested = self.loadNew,
-					OnImportRequested = self.importRequested,
-					OnImportFbxRequested = self.importFbxRequested,
-				}),
+		AnimationClipMenu = Roact.createElement(AnimationClipMenu, {
+			ShowMenu = showMenu,
+			CurrentAnimation = animationName,
+			OnMenuOpened = self.hideMenu,
+			OnOverwriteRequested = self.showOverwritePrompt,
+			OnSaveAsRequested = self.showSaveAsPrompt,
+			OnCreateNewRequested = self.createNew,
+			OnLoadRequested = self.loadNew,
+			OnImportRequested = self.importRequested,
+			OnImportFbxRequested = self.importFbxRequested,
+		}),
 
-				CreateNewPrompt = showCreateNewPrompt and Roact.createElement(TextEntryPrompt, {
-					PromptText = localization:getText("Title", "CreateNew"),
-					InputText = localization:getText("Dialog", "AnimationName"),
-					Text = Constants.DEFAULT_ANIMATION_NAME,
-					Buttons = {
-						{Key = false, Text = localization:getText("Dialog", "Cancel")},
-						{Key = true, Text = localization:getText("Dialog", "Create"), Style = "Primary"},
-					},
-					OnTextSubmitted = function(text)
-						self.hideCreateNewPrompt()
-						local newData = AnimationData.newRigAnimation(text)
-						props.LoadAnimationData(newData)
-						props.SetIsDirty(false)
+		CreateNewPrompt = showCreateNewPrompt and Roact.createElement(TextEntryPrompt, {
+			PromptText = localization:getText("Title", "CreateNew"),
+			InputText = localization:getText("Dialog", "AnimationName"),
+			Text = Constants.DEFAULT_ANIMATION_NAME,
+			Buttons = {
+				{Key = false, Text = localization:getText("Dialog", "Cancel")},
+				{Key = true, Text = localization:getText("Dialog", "Create"), Style = style.Primary},
+			},
+			OnTextSubmitted = function(text)
+				self.hideCreateNewPrompt()
+				local newData = AnimationData.newRigAnimation(text)
+				props.LoadAnimationData(newData, self.props.Analytics)
+				props.SetIsDirty(false)
+				props.Analytics:report("onCreateNewAnimation", text)
+			end,
+			OnClose = self.hideCreateNewPrompt,
+		}),
 
-						props.Analytics:onCreateNewAnimation(text)
-					end,
-					OnClose = self.hideCreateNewPrompt,
-				}),
+		SaveAsPrompt = showSaveAsPrompt and Roact.createElement(TextEntryPrompt, {
+			PromptText = localization:getText("Title", "SaveAsNew"),
+			InputText = localization:getText("Dialog", "AnimationName"),
+			NoticeText = localization:getText("Dialog", "SaveLocation"),
+			Text = animationName,
+			Buttons = {
+				{Key = false, Text = localization:getText("Dialog", "Cancel")},
+				{Key = true, Text = localization:getText("Dialog", "Save"), Style = style.Primary},
+			},
+			OnTextSubmitted = function(text)
+				self.hideSaveAsPrompt()
+				props.SaveKeyframeSequence(text, props.Analytics)
+			end,
+			OnClose = self.hideSaveAsPrompt,
+		}),
 
-				SaveAsPrompt = showSaveAsPrompt and Roact.createElement(TextEntryPrompt, {
-					PromptText = localization:getText("Title", "SaveAsNew"),
-					InputText = localization:getText("Dialog", "AnimationName"),
-					NoticeText = localization:getText("Dialog", "SaveLocation"),
-					Text = animationName,
-					Buttons = {
-						{Key = false, Text = localization:getText("Dialog", "Cancel")},
-						{Key = true, Text = localization:getText("Dialog", "Save"), Style = "Primary"},
-					},
-					OnTextSubmitted = function(text)
-						self.hideSaveAsPrompt()
-						props.SaveKeyframeSequence(text)
-					end,
-					OnClose = self.hideSaveAsPrompt,
-				}),
+		OverwritePrompt = overwriteName and Roact.createElement(FocusedPrompt, {
+			PromptText = localization:getText("Menu", "Overwrite", {overwriteName = overwriteName}),
+			Buttons = {
+				{Key = false, Text = localization:getText("Dialog", "No")},
+				{Key = true, Text = localization:getText("Dialog", "Yes"), Style = style.Primary},
+			},
+			OnButtonClicked = function(didSave)
+				self.hideOverwritePrompt()
+				if didSave then
+					props.SaveKeyframeSequence(overwriteName, props.Analytics)
+				end
+			end,
+			OnClose = self.hideOverwritePrompt,
+		}),
 
-				OverwritePrompt = overwriteName and Roact.createElement(FocusedPrompt, {
-					PromptText = localization:getText("Menu", "Overwrite", overwriteName),
-					Buttons = {
-						{Key = false, Text = localization:getText("Dialog", "No")},
-						{Key = true, Text = localization:getText("Dialog", "Yes"), Style = "Primary"},
-					},
-					OnButtonClicked = function(didSave)
-						self.hideOverwritePrompt()
-						if didSave then
-							props.SaveKeyframeSequence(overwriteName)
-						end
-					end,
-					OnClose = self.hideOverwritePrompt,
-				}),
-
-				LoadNewPrompt = loadingName and Roact.createElement(TextEntryPrompt, {
-					PromptText = localization:getText("Title", "ConfirmSave"),
-					InputText = localization:getText("Dialog", "AnimationName"),
-					NoticeText = localization:getText("Dialog", "SaveLocation"),
-					Text = animationName,
-					Buttons = {
-						{Key = "Delete", Text = localization:getText("Dialog", "Delete")},
-						{Key = false, Text = localization:getText("Dialog", "Cancel")},
-						{Key = true, Text = localization:getText("Dialog", "Save"), Style = "Primary"},
-					},
-					OnButtonClicked = function(text)
-						if text == "Delete" then
-							self.handleLoadNewPrompt()
-						end
-					end,
-					OnTextSubmitted = function(text)
-						props.SaveKeyframeSequence(text)
-						self.handleLoadNewPrompt()
-					end,
-					OnClose = self.hideLoadNewPrompt,
-				}),
-			})
-		end)
-	end)
+		LoadNewPrompt = loadingName and Roact.createElement(TextEntryPrompt, {
+			PromptText = localization:getText("Title", "ConfirmSave"),
+			InputText = localization:getText("Dialog", "AnimationName"),
+			NoticeText = localization:getText("Dialog", "SaveLocation"),
+			Text = animationName,
+			Buttons = {
+				{Key = "Delete", Text = localization:getText("Dialog", "Delete")},
+				{Key = false, Text = localization:getText("Dialog", "Cancel")},
+				{Key = true, Text = localization:getText("Dialog", "Save"), Style = style.Primary},
+			},
+			OnButtonClicked = function(text)
+				if text == "Delete" then
+					self.handleLoadNewPrompt()
+				end
+			end,
+			OnTextSubmitted = function(text)
+				props.SaveKeyframeSequence(text, props.Analytics)
+				self.handleLoadNewPrompt()
+			end,
+			OnClose = self.hideLoadNewPrompt,
+		}),
+	})
 end
+
+ContextServices.mapToProps(AnimationClipDropdown, {
+	Theme = ContextServices.Theme,
+	Localization = ContextServices.Localization,
+	Plugin = ContextServices.Plugin,
+	Analytics = ContextServices.Analytics,
+})
+
 
 local function mapStateToProps(state, props)
 	return {
@@ -326,28 +327,28 @@ end
 
 local function mapDispatchToProps(dispatch)
 	return {
-		LoadAnimationData = function(name)
-			dispatch(LoadAnimationData(name))
+		LoadAnimationData = function(name, analytics)
+			dispatch(LoadAnimationData(name, analytics))
 		end,
 
-		LoadKeyframeSequence = function(name)
-			dispatch(LoadKeyframeSequence(name))
+		LoadKeyframeSequence = function(name, analytics)
+			dispatch(LoadKeyframeSequence(name, analytics))
 		end,
 
-		SaveKeyframeSequence = function(name)
-			dispatch(SaveKeyframeSequence(name))
+		SaveKeyframeSequence = function(name, analytics)
+			dispatch(SaveKeyframeSequence(name, analytics))
 		end,
 
 		SetIsPlaying = function(isPlaying)
 			dispatch(SetIsPlaying(isPlaying))
 		end,
 
-		ImportKeyframeSequence = function(plugin)
-			dispatch(ImportKeyframeSequence(plugin))
+		ImportKeyframeSequence = function(plugin, analytics)
+			dispatch(ImportKeyframeSequence(plugin, analytics))
 		end,
 
-		ImportFBXAnimation = function(plugin)
-			dispatch(ImportFBXAnimation(plugin))
+		ImportFBXAnimation = function(plugin, analytics)
+			dispatch(ImportFBXAnimation(plugin, analytics))
 		end,
 
 		SetIsDirty = function(isDirty)

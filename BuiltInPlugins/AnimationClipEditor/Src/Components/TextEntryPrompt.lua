@@ -28,12 +28,12 @@ local HORIZONTAL_SIZE = 380
 local WRAP_SIZE = Vector2.new(340, 100000)
 
 local Plugin = script.Parent.Parent.Parent
-local Roact = require(Plugin.Roact)
+local Roact = require(Plugin.Packages.Roact)
 local Constants = require(Plugin.Src.Util.Constants)
 local StringUtils = require(Plugin.Src.Util.StringUtils)
 
-local Theme = require(Plugin.Src.Context.Theme)
-local withTheme = Theme.withTheme
+local Framework = require(Plugin.Packages.Framework)
+local ContextServices = Framework.ContextServices
 
 local FocusedPrompt = require(Plugin.Src.Components.EditEventsDialog.FocusedPrompt)
 local TextBox = require(Plugin.Src.Components.TextBox)
@@ -80,10 +80,10 @@ function TextEntryPrompt:init(initialProps)
 end
 
 function TextEntryPrompt:render()
-	return withTheme(function(theme)
+		local props = self.props
+		local theme = props.Theme:get("PluginTheme")
 		local dialogTheme = theme.dialogTheme
 
-		local props = self.props
 		local state = self.state
 		local promptText = props.PromptText
 		local inputText = props.InputText
@@ -189,7 +189,11 @@ function TextEntryPrompt:render()
 				Font = theme.font,
 			}),
 		})
-	end)
 end
+
+ContextServices.mapToProps(TextEntryPrompt, {
+	Theme = ContextServices.Theme,
+})
+
 
 return TextEntryPrompt

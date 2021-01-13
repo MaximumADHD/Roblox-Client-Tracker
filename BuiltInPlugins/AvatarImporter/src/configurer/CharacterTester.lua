@@ -15,7 +15,7 @@ end
 
 local function addAccessoriesFromWorkspace(character)
 	-- Clone accessories into character
-	for _, accessory in pairs(game.Workspace:GetChildren()) do
+	for _, accessory in pairs(workspace:GetChildren()) do
 		if accessory:IsA("Accessory") then
 			local newAccessory = accessory:Clone()
 			newAccessory.Parent = character

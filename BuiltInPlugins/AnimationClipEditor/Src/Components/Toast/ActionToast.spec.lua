@@ -1,6 +1,6 @@
 return function()
 	local Plugin = script.Parent.Parent.Parent.Parent
-	local Roact = require(Plugin.Roact)
+	local Roact = require(Plugin.Packages.Roact)
 
 	local MockWrapper = require(Plugin.Src.Context.MockWrapper)
 
@@ -37,10 +37,10 @@ return function()
 		local main = gui.TopLevelFrame
 		expect(main).to.be.ok()
 		expect(main.Container).to.be.ok()
-		expect(main.Container.Background).to.be.ok()
-		expect(main.Container.Shadow).to.be.ok()
+		expect(main.Container.Border.Background).to.be.ok()
+		expect(main.Container.Border.Shadow).to.be.ok()
 
-		local containerFrame = main.Container.Background.Border
+		local containerFrame = main.Container.Border.Background
 		expect(containerFrame.Padding).to.be.ok()
 		expect(containerFrame.Text).to.be.ok()
 		expect(containerFrame.Buttons).to.be.ok()

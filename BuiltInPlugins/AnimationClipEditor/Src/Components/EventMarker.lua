@@ -13,13 +13,12 @@
 ]]
 
 local Plugin = script.Parent.Parent.Parent
-local Roact = require(Plugin.Roact)
+local Roact = require(Plugin.Packages.Roact)
 local Constants = require(Plugin.Src.Util.Constants)
+local Framework = require(Plugin.Packages.Framework)
+local ContextServices = Framework.ContextServices
 
 local Tooltip = require(Plugin.Src.Components.Tooltip)
-
-local Theme = require(Plugin.Src.Context.Theme)
-local withTheme = Theme.withTheme
 
 local EventMarker = Roact.PureComponent:extend("EventMarker")
 
@@ -35,8 +34,8 @@ function EventMarker:getTooltip(names)
 end
 
 function EventMarker:render()
-	return withTheme(function(theme)
 		local props = self.props
+		local theme = props.Theme:get("PluginTheme")
 
 		local selected = props.Selected
 		local names = props.Names
@@ -88,7 +87,11 @@ function EventMarker:render()
 				Image = eventTheme.selectionBorderImage,
 			}),
 		})
-	end)
 end
+
+ContextServices.mapToProps(EventMarker, {
+	Theme = ContextServices.Theme,
+})
+
 
 return EventMarker

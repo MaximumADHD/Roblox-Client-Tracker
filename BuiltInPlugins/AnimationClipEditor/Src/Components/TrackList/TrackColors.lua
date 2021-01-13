@@ -11,11 +11,11 @@
 ]]
 
 local Plugin = script.Parent.Parent.Parent.Parent
-local Roact = require(Plugin.Roact)
+local Roact = require(Plugin.Packages.Roact)
 local TrackUtils = require(Plugin.Src.Util.TrackUtils)
 
-local Theme = require(Plugin.Src.Context.Theme)
-local withTheme = Theme.withTheme
+local Framework = require(Plugin.Packages.Framework)
+local ContextServices = Framework.ContextServices
 
 local Constants = require(Plugin.Src.Util.Constants)
 
@@ -69,9 +69,10 @@ function TrackColors:renderTracks(theme)
 end
 
 function TrackColors:render()
-	return withTheme(function(theme)
-		local children = self:renderTracks(theme)
 		local props = self.props
+		local theme = props.Theme:get("PluginTheme")
+		local children = self:renderTracks(theme)
+
 		local position = props.Position
 
 		return Roact.createElement("Frame", {
@@ -80,7 +81,10 @@ function TrackColors:render()
 			BackgroundTransparency = 1,
 			ZIndex = 0,
 		}, children)
-	end)
 end
+
+ContextServices.mapToProps(TrackColors, {
+	Theme = ContextServices.Theme,
+})
 
 return TrackColors

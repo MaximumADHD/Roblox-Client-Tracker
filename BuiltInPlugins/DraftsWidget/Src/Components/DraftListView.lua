@@ -2,8 +2,6 @@
     Displays a list of scripts you have checked out. Drafts are loaded from the
     Rodux store
 --]]
-game:DefineFastFlag("DraftWidgetResponsiveCommitButton", false)
-
 local RunService = game:GetService("RunService")
 
 local Plugin = script.Parent.Parent.Parent
@@ -223,10 +221,7 @@ function DraftListView:render()
     local showDiscardDialog = pendingDiscards ~= nil
     local noDrafts = next(drafts) == nil
 
-    local commitButtonEnabled = true
-    if game:GetFastFlag("DraftWidgetResponsiveCommitButton") then
-        commitButtonEnabled = self.getCommitButtonEnabled()
-    end
+    local commitButtonEnabled = self.getCommitButtonEnabled()
 
     local draftStatusSidebarEnabled = false
     local sortedDraftList = {}
@@ -284,7 +279,7 @@ function DraftListView:render()
                     Size = UDim2.new(1, 0, 1, -TOOLBAR_HEIGHT),
                     LayoutOrder = 1,
                 }, {
-                    ListItemView = (game:GetFastFlag("DraftWidgetResponsiveCommitButton") or (not noDrafts)) and Roact.createElement(ListItemView, {
+                    ListItemView = Roact.createElement(ListItemView, {
                         ButtonStyle = "tableItemButton",
                         Items = sortedDraftList,
                         ItemHeight = ITEM_HEIGHT,

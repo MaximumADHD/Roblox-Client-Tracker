@@ -14,19 +14,17 @@
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
-local Roact = require(Plugin.Roact)
-
-local Theme = require(Plugin.Src.Context.Theme)
-local withTheme = Theme.withTheme
+local Roact = require(Plugin.Packages.Roact)
+local Framework = require(Plugin.Packages.Framework)
+local ContextServices = Framework.ContextServices
 
 local DragListenerArea = require(Plugin.Src.Components.DragListenerArea)
 
 local ScaleHandle = Roact.PureComponent:extend("ScaleHandle")
 
 function ScaleHandle:render()
-	return withTheme(function(theme)
 		local props = self.props
-
+		local theme = props.Theme:get("PluginTheme")
 		local size = props.Size
 		local position = props.Position
 		local zIndex = props.ZIndex
@@ -56,7 +54,11 @@ function ScaleHandle:render()
 				ZIndex = zIndex,
 			}),
 		})
-	end)
 end
+
+ContextServices.mapToProps(ScaleHandle, {
+	Theme = ContextServices.Theme,
+})
+
 
 return ScaleHandle

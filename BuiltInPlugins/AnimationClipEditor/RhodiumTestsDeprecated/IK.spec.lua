@@ -17,16 +17,16 @@ return function()
 
 	local runTest = TestHelpers.runTest
 
-	local LoadAnimationData = require(Plugin.Src.Thunks.LoadAnimationData)
-	local SetRootInstance = require(Plugin.Src.Actions.SetRootInstance)
-	local AnimationData = require(Plugin.Src.Util.AnimationData)
-	local ToggleIKEnabled = require(Plugin.Src.Thunks.ToggleIKEnabled)
-	local RigUtils = require(Plugin.Src.Util.RigUtils)
-	local Constants = require(Plugin.Src.Util.Constants)
-	local SetMotorData = require(Plugin.Src.Actions.SetMotorData)
-	local SetAnimationData = require(Plugin.Src.Actions.SetAnimationData)
-	local SetSelectedTracks = require(Plugin.Src.Actions.SetSelectedTracks)
-	local SetIKMode = require(Plugin.Src.Actions.SetIKMode)
+	local LoadAnimationData = require(Plugin.SrcDeprecated.Thunks.LoadAnimationData)
+	local SetRootInstance = require(Plugin.SrcDeprecated.Actions.SetRootInstance)
+	local AnimationData = require(Plugin.SrcDeprecated.Util.AnimationData)
+	local ToggleIKEnabled = require(Plugin.SrcDeprecated.Thunks.ToggleIKEnabled)
+	local RigUtils = require(Plugin.SrcDeprecated.Util.RigUtils)
+	local Constants = require(Plugin.SrcDeprecated.Util.Constants)
+	local SetMotorData = require(Plugin.SrcDeprecated.Actions.SetMotorData)
+	local SetAnimationData = require(Plugin.SrcDeprecated.Actions.SetAnimationData)
+	local SetSelectedTracks = require(Plugin.SrcDeprecated.Actions.SetSelectedTracks)
+	local SetIKMode = require(Plugin.SrcDeprecated.Actions.SetIKMode)
 
 	local MathUtil = UILibrary.Util.MathUtils
 

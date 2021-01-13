@@ -12,19 +12,16 @@
 ]]
 
 local Plugin = script.Parent.Parent.Parent
-local Roact = require(Plugin.Roact)
-local UILibrary = require(Plugin.UILibrary)
-
-local Theme = require(Plugin.Src.Context.Theme)
-local withTheme = Theme.withTheme
-
-local DragTarget = UILibrary.Component.DragTarget
+local Roact = require(Plugin.Packages.Roact)
+local Framework = require(Plugin.Packages.Framework)
+local ContextServices = Framework.ContextServices
+local DragTarget = Framework.UI.DragListener
 
 local SelectionBox = Roact.PureComponent:extend("SelectionBox")
 
 function SelectionBox:render()
-	return withTheme(function(theme)
 		local props = self.props
+		local theme = props.Theme:get("PluginTheme")
 		local selectionStart = props.SelectionStart
 		local selectionEnd = props.SelectionEnd
 		local sourceExtents = props.SourceExtents
@@ -56,7 +53,11 @@ function SelectionBox:render()
 				})
 			}),
 		})
-	end)
 end
+
+ContextServices.mapToProps(SelectionBox, {
+	Theme = ContextServices.Theme,
+})
+
 
 return SelectionBox

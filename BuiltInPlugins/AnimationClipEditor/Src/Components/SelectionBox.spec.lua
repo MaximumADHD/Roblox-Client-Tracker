@@ -1,6 +1,6 @@
 return function()
 	local Plugin = script.Parent.Parent.Parent
-	local Roact = require(Plugin.Roact)
+	local Roact = require(Plugin.Packages.Roact)
 
 	local MockWrapper = require(Plugin.Src.Context.MockWrapper)
 
@@ -28,11 +28,9 @@ return function()
 
 		local gui = container:FindFirstChild("FocusGuiMock")
 		expect(gui).to.be.ok()
-		expect(gui.TopLevelDetector).to.be.ok()
-		expect(gui.TopLevelDetector.ScrollBlocker).to.be.ok()
-		expect(gui.TopLevelDetector.ScrollBlocker.DragListener).to.be.ok()
-		expect(gui.TopLevelDetector.ScrollBlocker.DragListener.Extents).to.be.ok()
-		expect(gui.TopLevelDetector.ScrollBlocker.DragListener.Extents.Box).to.be.ok()
+		expect(gui.TopLevelDetector.ScrollBlocker.Listener).to.be.ok()
+		expect(gui.TopLevelDetector.ScrollBlocker.Listener.Extents).to.be.ok()
+		expect(gui.TopLevelDetector.ScrollBlocker.Listener.Extents.Box).to.be.ok()
 
 		Roact.unmount(instance)
 	end)

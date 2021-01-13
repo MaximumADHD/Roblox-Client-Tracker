@@ -9,10 +9,11 @@
 ]]
 
 local Plugin = script.Parent.Parent.Parent
-local Roact = require(Plugin.Roact)
+local Roact = require(Plugin.Packages.Roact)
 
-local UILibrary = require(Plugin.UILibrary)
-local withLocalization = UILibrary.Localizing.withLocalization
+local Framework = require(Plugin.Packages.Framework)
+local ContextServices = Framework.ContextServices
+local Localization = ContextServices.Localization
 
 local Constants = require(Plugin.Src.Util.Constants)
 local TextEntryPrompt = require(Plugin.Src.Components.TextEntryPrompt)
@@ -70,23 +71,27 @@ function ChangeFPSPrompt:render()
 
 	local hasNoticeText = noticeText ~= Roact.None
 
-	return withLocalization(function(localization)
-		return Roact.createElement(TextEntryPrompt, {
-			PromptText = " ",
-			InputText = localization:getText("Title", "CustomFPS"),
-			NoticeText = hasNoticeText and noticeText or nil,
-			HasError = hasNoticeText,
-			Text = frameRate,
-			Buttons = {
-				{Key = false, Text = localization:getText("Dialog", "Cancel")},
-				{Key = true, Text = localization:getText("Dialog", "Confirm"), Style = "Primary"},
-			},
-			OnTextSubmitted = function(text)
-				return self.setFrameRate(text, localization)
-			end,
-			OnClose = self.onClose,
-		})
-	end)
+	local localization = self.props.Localization
+	return Roact.createElement(TextEntryPrompt, {
+		PromptText = " ",
+		InputText = localization:getText("Title", "CustomFPS"),
+		NoticeText = hasNoticeText and noticeText or nil,
+		HasError = hasNoticeText,
+		Text = frameRate,
+		Buttons = {
+			{Key = false, Text = localization:getText("Dialog", "Cancel")},
+			{Key = true, Text = localization:getText("Dialog", "Confirm"), Style = "Primary"},
+		},
+		OnTextSubmitted = function(text)
+			return self.setFrameRate(text, localization)
+		end,
+		OnClose = self.onClose,
+	})
 end
+
+ContextServices.mapToProps(ChangeFPSPrompt, {
+	Localization = ContextServices.Localization,
+	Theme = ContextServices.Theme,
+})
 
 return ChangeFPSPrompt

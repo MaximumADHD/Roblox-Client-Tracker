@@ -11,9 +11,10 @@ local Selection = game:GetService("Selection")
 local RunService = game:GetService("RunService")
 
 local Plugin = script.Parent.Parent.Parent
-local Roact = require(Plugin.Roact)
-local Rodux = require(Plugin.Rodux)
-local UILibrary = require(Plugin.UILibrary)
+local Roact = require(Plugin.Packages.Roact)
+local Rodux = require(Plugin.Packages.Rodux)
+local Framework = require(Plugin.Packages.Framework)
+local ContextServices = Framework.ContextServices
 local isEmpty = require(Plugin.Src.Util.isEmpty)
 
 local AnimationClipEditor = require(Plugin.Src.Components.AnimationClipEditor)
@@ -23,7 +24,8 @@ local ErrorDialogContents = require(Plugin.Src.Components.BlockingDialog.ErrorDi
 local MainProvider = require(Plugin.Src.Context.MainProvider)
 local Theme = require(Plugin.Src.Util.Theme)
 local MainReducer = require(Plugin.Src.Reducers.MainReducer)
-local Localization = UILibrary.Studio.Localization
+local Localization = ContextServices.Localization
+local Mouse = ContextServices.Mouse
 local DevelopmentReferenceTable = Plugin.Src.Resources.DevelopmentReferenceTable
 local TranslationReferenceTable = Plugin.Src.Resources.TranslationReferenceTable
 
@@ -36,6 +38,9 @@ local ReleaseEditor = require(Plugin.Src.Thunks.ReleaseEditor)
 local SetSnapToKeys = require(Plugin.Src.Actions.SetSnapToKeys)
 local SetShowAsSeconds = require(Plugin.Src.Actions.SetShowAsSeconds)
 local SetTool = require(Plugin.Src.Actions.SetTool)
+
+-- analytics
+local AnalyticsHandlers = require(Plugin.Src.Resources.AnalyticsHandlers)
 
 local AnimationClipEditorPlugin = Roact.PureComponent:extend("AnimationClipEditorPlugin")
 
@@ -60,12 +65,14 @@ function AnimationClipEditorPlugin:init(initialProps)
 		translationResourceTable = TranslationReferenceTable,
 	})
 
-	self.actions = MakePluginActions(initialProps.plugin, self.localization)
+	self.actions = ContextServices.PluginActions.new(initialProps.plugin, MakePluginActions(initialProps.plugin, self.localization))
 
 	self.state = {
 		enabled = true,
 		pluginGui = nil,
 	}
+
+	self.analytics = ContextServices.Analytics.new(AnalyticsHandlers)
 
 	self.onDockWidgetLoaded = function(dockWidget)
 		self.dockWidget = dockWidget
@@ -121,12 +128,11 @@ function AnimationClipEditorPlugin:init(initialProps)
 
 				tool = (tool == Enum.RibbonTool.Scale and Enum.RibbonTool.Select) or tool
 				self.store:dispatch(SetTool(tool))
-				self.store:getState().Analytics:onToolChanged(tool.Name)
+				self.analytics:report("onToolChanged", tool.Name)
 				return true
 			end
 		end
 	end
-
 	self.deactivationListener = self.props.plugin.Deactivation:Connect(function()
 		local plugin = initialProps.plugin
 		local tool = plugin:GetSelectedRibbonTool()
@@ -136,9 +142,19 @@ function AnimationClipEditorPlugin:init(initialProps)
 			end
 		end
 		if self.state.enabled then
-			self.store:dispatch(ReleaseEditor())
+			self.store:dispatch(ReleaseEditor(self.analytics))
 		end
 	end)
+
+	self.mouse = self.props.plugin:GetMouse()
+
+	self.theme = Theme.new()
+
+	self.closeWidget = function()
+		self:setState({
+			enabled = enabled,
+		})
+	end
 end
 
 function AnimationClipEditorPlugin:getPluginSettings()
@@ -171,6 +187,7 @@ function AnimationClipEditorPlugin:willUnmount()
 		self.deactivationListener:Disconnect()
 	end
 	self:setPluginSettings()
+	self.theme:destroy()
 end
 
 function AnimationClipEditorPlugin:render()
@@ -180,6 +197,9 @@ function AnimationClipEditorPlugin:render()
 	local localization = self.localization
 	local plugin = props.plugin
 	local actions = self.actions
+	local analytics = self.analytics
+	local mouse = self.mouse
+	local theme = self.theme
 
 	local pluginGui = self.state.pluginGui
 	local pluginGuiLoaded = pluginGui ~= nil
@@ -203,19 +223,22 @@ function AnimationClipEditorPlugin:render()
 
 		[Roact.Ref] = self.onDockWidgetLoaded,
 		[Roact.Change.Enabled] = self.onDockWidgetEnabledChanged,
+		OnClose = self.closeWidget,
 	}, {
 		MainProvider = pluginGuiLoaded and enabled and Roact.createElement(MainProvider, {
-			theme = Theme.new(),
+			theme = theme,
 			focusGui = pluginGui,
 			store = store,
 			plugin = plugin,
 			localization = localization,
 			pluginActions = actions,
-			mouse = plugin:GetMouse(),
+			mouse = mouse,
+			analytics = analytics,
 		}, {
 			AnimationClipEditor = Roact.createElement(AnimationClipEditor),
 		})
 	})
 end
+
 
 return AnimationClipEditorPlugin

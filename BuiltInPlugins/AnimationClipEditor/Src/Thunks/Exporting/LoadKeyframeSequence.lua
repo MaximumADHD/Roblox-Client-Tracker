@@ -12,7 +12,7 @@ local SetIsDirty = require(Plugin.Src.Actions.SetIsDirty)
 
 local UseCustomFPS = require(Plugin.LuaFlags.GetFFlagAnimEditorUseCustomFPS)
 
-return function(name)
+return function(name, analytics)
 	return function(store)
 		local state = store:getState()
 		local rootInstance = state.Status.RootInstance
@@ -33,11 +33,11 @@ return function(name)
 					newData, numKeyframes, numPoses, numEvents = RigUtils.fromRigAnimation(
 						keyframeSequence, Constants.DEFAULT_FRAMERATE)
 				end
-				store:dispatch(LoadAnimationData(newData))
+				store:dispatch(LoadAnimationData(newData, analytics))
 				store:dispatch(SetNotification("Loaded", name))
 				store:dispatch(SetIsDirty(false))
 
-				state.Analytics:onLoadAnimation(name, numKeyframes, numPoses, numEvents)
+				analytics:report("onLoadAnimation", name, numKeyframes, numPoses, numEvents)
 			end
 		end
 	end

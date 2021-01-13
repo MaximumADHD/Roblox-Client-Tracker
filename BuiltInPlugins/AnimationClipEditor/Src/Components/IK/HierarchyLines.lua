@@ -21,10 +21,9 @@
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
-local Roact = require(Plugin.Roact)
-
-local Theme = require(Plugin.Src.Context.Theme)
-local withTheme = Theme.withTheme
+local Roact = require(Plugin.Packages.Roact)
+local Framework = require(Plugin.Packages.Framework)
+local ContextServices = Framework.ContextServices
 
 local HierarchyLines = Roact.PureComponent:extend("HierarchyLines")
 
@@ -33,9 +32,8 @@ local TOGGLE_SIZE = 12
 local WIDTH = 20
 
 function HierarchyLines:render()
-	return withTheme(function(theme)
 		local props = self.props
-
+		local theme = props.Theme:get("PluginTheme")
 		local isLeafNode = props.IsLeafNode
 		local inActiveChain = props.InActiveChain
 		local isChildNode = props.IsChildNode
@@ -113,10 +111,16 @@ function HierarchyLines:render()
 				AnchorPoint = Vector2.new(0, 0.5),
 				AutoButtonColor = false,
 				ZIndex = 4,
-				[Roact.Event.MouseButton1Click] = props.ToggleExpanded,
+				[Roact.Event.MouseButton1Click] = function ()
+					props.ToggleExpanded(props.Element)
+				end
 			}),
 		})
-	end)
 end
+
+ContextServices.mapToProps(HierarchyLines, {
+	Theme = ContextServices.Theme,
+})
+
 
 return HierarchyLines

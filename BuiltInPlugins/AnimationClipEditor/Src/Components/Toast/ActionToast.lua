@@ -21,14 +21,13 @@ local TEXT_FIT = Vector2.new(340, 10000)
 local TextService = game:GetService("TextService")
 
 local Plugin = script.Parent.Parent.Parent.Parent
-local Roact = require(Plugin.Roact)
+local Roact = require(Plugin.Packages.Roact)
 local Constants = require(Plugin.Src.Util.Constants)
 
-local UILibrary = require(Plugin.UILibrary)
-local Button = UILibrary.Component.Button
+local Framework = require(Plugin.Packages.Framework)
+local Button = Framework.UI.Button
 
-local Theme = require(Plugin.Src.Context.Theme)
-local withTheme = Theme.withTheme
+local ContextServices = Framework.ContextServices
 
 local BaseToast = require(Plugin.Src.Components.Toast.BaseToast)
 
@@ -47,26 +46,20 @@ function ActionToast:renderButton(index, button, textSize)
 		OnClick = function()
 			props.OnButtonClicked(button.Key)
 		end,
-		RenderContents = function(buttonTheme)
-			return {
+		}, {
 				Text = Roact.createElement("TextLabel", {
 					Size = UDim2.new(1, 0, 1, 0),
 					BackgroundTransparency = 1,
-					Font = buttonTheme.font,
 					Text = button.Text,
 					TextSize = textSize,
-					TextColor3 = buttonTheme.textColor,
 				})
-			}
-		end,
 	})
 end
 
 function ActionToast:render()
-	return withTheme(function(theme)
-		local toastTheme = theme.toastTheme
-
 		local props = self.props
+		local theme = props.Theme:get("PluginTheme")
+		local toastTheme = theme.toastTheme
 		local buttonPadding = Constants.PROMPT_BUTTON_PADDING
 		local buttonHeight = Constants.PROMPT_BUTTON_SIZE.Y
 		local text = props.Text
@@ -118,7 +111,11 @@ function ActionToast:render()
 				BackgroundTransparency = 1,
 			}, buttonComponents),
 		})
-	end)
 end
+
+ContextServices.mapToProps(ActionToast, {
+	Theme = ContextServices.Theme,
+})
+
 
 return ActionToast

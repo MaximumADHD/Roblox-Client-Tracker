@@ -8,7 +8,7 @@ local LocalizationService = game:GetService("LocalizationService")
 local HttpRbxApiService = game:GetService("HttpRbxApiService")
 local HttpService = game:GetService("HttpService")
 
-local create = require(RobloxGui.Modules.Common.Create)
+local create = require(RobloxGui:WaitForChild("Modules"):WaitForChild("Common"):WaitForChild("Create"))
 local ErrorPrompt = require(RobloxGui.Modules.ErrorPrompt)
 local Url = require(RobloxGui.Modules.Common.Url)
 local PolicyService = require(RobloxGui.Modules.Common.PolicyService)
@@ -461,20 +461,27 @@ local function onLocaleIdChanged()
 	coreScriptTableTranslator = CoreGui.CoreScriptLocalization:GetTranslator(LocalizationService.RobloxLocaleId)
 end
 
-RobloxGui:GetPropertyChangedSignal("AbsoluteSize"):connect(onScreenSizeChanged)
-LocalizationService:GetPropertyChangedSignal("RobloxLocaleId"):connect(onLocaleIdChanged)
+-- only when we load this script from engine (engine feature LoadErrorHandlerFromEngine is enabled)
+-- stop the connection for xBox as its handler is loaded in loadingscript.lua
+local loadErrorHandlerFromEngine = game:GetEngineFeature("LoadErrorHandlerFromEngine")
+local shouldSetUpErrorHandlerFromThisScript = not (loadErrorHandlerFromEngine and GuiService:IsTenFootInterface())
 
--- pre-run it once in case some error occurs before the connection
-onErrorMessageChanged()
-GuiService.ErrorMessageChanged:connect(onErrorMessageChanged)
+if shouldSetUpErrorHandlerFromThisScript then
+	RobloxGui:GetPropertyChangedSignal("AbsoluteSize"):connect(onScreenSizeChanged)
+	LocalizationService:GetPropertyChangedSignal("RobloxLocaleId"):connect(onLocaleIdChanged)
 
-if fflagDebugEnableErrorStringTesting then
-	local testingSet = require(RobloxGui.Modules.ErrorTestSets)
-	for errorType, errorList in pairs(testingSet) do
-		for _, errorCode in pairs(errorList) do
-			updateErrorPrompt("Should show localized strings, please file a jira ticket for missing translation.", errorCode, errorType)
-			wait(2)
-			connectionPromptState = ConnectionPromptState.NONE
+	-- pre-run it once in case some error occurs before the connection
+	onErrorMessageChanged()
+	GuiService.ErrorMessageChanged:connect(onErrorMessageChanged)
+
+	if fflagDebugEnableErrorStringTesting then
+		local testingSet = require(RobloxGui.Modules.ErrorTestSets)
+		for errorType, errorList in pairs(testingSet) do
+			for _, errorCode in pairs(errorList) do
+				updateErrorPrompt("Should show localized strings, please file a jira ticket for missing translation.", errorCode, errorType)
+				wait(2)
+				connectionPromptState = ConnectionPromptState.NONE
+			end
 		end
 	end
 end

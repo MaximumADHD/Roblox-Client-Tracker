@@ -1,5 +1,4 @@
 local FFlagEnableStudioServiceOpenBrowser = game:GetFastFlag("EnableStudioServiceOpenBrowser")
-local FFlagShowModeratedPluginInfo = game:DefineFastFlag("ShowModeratedPluginInfo", false)
 local FFlagPluginManagementPrettifyDesign = game:GetFastFlag("PluginManagementPrettifyDesign2")
 
 local StudioService = game:getService("StudioService")
@@ -147,7 +146,7 @@ function PluginEntry:init()
 
 	self.onToggleClick = function()
 		local data = self.props.data
-		local isModerated = FFlagShowModeratedPluginInfo and data.isModerated
+		local isModerated = data.isModerated
 		local enabled = not isModerated and data.enabled
 
 		if enabled then
@@ -195,7 +194,7 @@ function PluginEntry:render()
 	local layoutOrder = props.LayoutOrder
 
 	local isUpdated = props.isUpdated
-	local isModerated = FFlagShowModeratedPluginInfo and data.isModerated
+	local isModerated = data.isModerated
 	local updateStatus = data.status
 
 	local assetId = data.assetId

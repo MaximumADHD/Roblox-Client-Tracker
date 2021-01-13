@@ -4,7 +4,7 @@
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
-local Cryo = require(Plugin.Cryo)
+local Cryo = require(Plugin.Packages.Cryo)
 local deepCopy = require(Plugin.Src.Util.deepCopy)
 local AnimationData = require(Plugin.Src.Util.AnimationData)
 local TrackUtils = require(Plugin.Src.Util.TrackUtils)
