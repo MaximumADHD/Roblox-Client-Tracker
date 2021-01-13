@@ -101,6 +101,8 @@ Studio.App.BetaFeatures.ClarifiedIKDraggersDescription,,Enables a new clarified 
 Studio.App.BetaFeatures.ClarifiedIKDraggersTitle,,New Physical Draggers,New Physical Draggers
 Studio.App.BetaFeatures.CloudLoadFailedFmt1,error fetching BF from cloud,Failed to load beta features from cloud: %1,Failed to load beta features from cloud: %1
 Studio.App.BetaFeatures.CloudReloadPrompt,reload because BFs loaded from cloud,Beta features enabled for this account differ from those saved locally. Updated Beta features will not be available until you restart Studio.,Beta features enabled for this account differ from those saved locally. Updated Beta features will not be available until you restart Studio.
+Studio.App.BetaFeatures.CloudsPhase1Description,,Volumetric clouds integrated with sky box with initial minimal density and cover controls for phase 1a-b of dynamic skies.,Volumetric clouds integrated with sky box with initial minimal density and cover controls for phase 1a-b of dynamic skies.
+Studio.App.BetaFeatures.CloudsPhase1Title,,Dynamic Skies: Clouds Initial Phase 1,Dynamic Skies: Clouds Initial Phase 1
 Studio.App.BetaFeatures.ConvertToTerrainDescription,,Enables the Convert TerrainTool which can convert Parts into Terrain materials and biomes.,Enables the Convert TerrainTool which can convert Parts into Terrain materials and biomes.
 Studio.App.BetaFeatures.ConvertToTerrainTitle,,TerrainTools: ConvertTool Beta,TerrainTools: ConvertTool Beta
 Studio.App.BetaFeatures.CouldBeUnstable,,Note: Beta features could be unstable resulting in data loss or game corruption,Note: Beta features could be unstable resulting in data loss or game corruption

@@ -116,6 +116,7 @@ Class AssetManagerService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void AssetManagerService:InsertLinkedSourceAsModuleScript(string aliasName) {RobloxScriptSecurity}
 	Function void AssetManagerService:InsertLinkedSourceAsScript(string aliasName) {RobloxScriptSecurity}
 	Function void AssetManagerService:InsertMesh(string aliasName, bool insertWithLocation) {RobloxScriptSecurity}
+	Function void AssetManagerService:InsertMeshesWithLocation(Array aliasNames) {RobloxScriptSecurity}
 	Function void AssetManagerService:InsertPackage(int64 packageId) {RobloxScriptSecurity}
 	Function void AssetManagerService:OpenLinkedSource(string aliasName) {RobloxScriptSecurity}
 	Function void AssetManagerService:OpenPlace(int64 placeId) {RobloxScriptSecurity}
@@ -707,6 +708,8 @@ Class DataModelSession : Instance [NotCreatable]
 	Event DataModelSession.CurrentDataModelTypeChanged() {RobloxScriptSecurity}
 	Event DataModelSession.DataModelCreated(Enum<StudioDataModelType> gameStateType) {RobloxScriptSecurity}
 	Event DataModelSession.DataModelWillBeDestroyed(Enum<StudioDataModelType> gameStateType) {RobloxScriptSecurity}
+Class DataStoreKeyInfo : Instance [NotCreatable] [NotReplicated]
+	Property string DataStoreKeyInfo.KeyName [<💾> SaveOnly] [ReadOnly] [NotReplicated]
 Class DataStoreService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property bool DataStoreService.AutomaticRetry {LocalUserSecurity} [NotReplicated]
 	Property bool DataStoreService.LegacyNamingScheme {LocalUserSecurity} [Deprecated]
@@ -871,6 +874,8 @@ Class GlobalDataStore : Instance [NotCreatable] [NotReplicated]
 	Function Tuple GlobalDataStore:RemoveAsync(string key) [Yields]
 	Function Variant GlobalDataStore:SetAsync(string key, Variant value, Array userids = {}, Instance options = nil) [Yields]
 	Function Tuple GlobalDataStore:UpdateAsync(string key, Function transformFunction) [Yields]
+Class DataStore : GlobalDataStore [NotCreatable] [NotReplicated]
+	Function Instance DataStore:ListKeysAsync(string prefix = "", int pageSize = 0) [Yields]
 Class OrderedDataStore : GlobalDataStore [NotCreatable] [NotReplicated]
 	Function Instance OrderedDataStore:GetSortedAsync(bool ascending, int pagesize, Variant minValue, Variant maxValue) [Yields]
 Class GoogleAnalyticsConfiguration : Instance [NotCreatable] [Service]
@@ -1870,6 +1875,7 @@ Class NotificationService : Instance [NotCreatable] [Service]
 	Function void NotificationService:CancelNotification(int64 userId, int alertId) {LocalUserSecurity}
 	Function Array NotificationService:GetScheduledNotifications(int64 userId) {LocalUserSecurity} [Yields]
 	Function void NotificationService:ScheduleNotification(int64 userId, int alertId, string alertMsg, int minutesToFire) {LocalUserSecurity}
+	Function void NotificationService:SwitchedToAppShellFeature(Enum<AppShellFeature> appShellFeature) {RobloxScriptSecurity}
 	Event NotificationService.Roblox17sConnectionChanged(string connectionName, Enum<ConnectionState> connectionState, string namespaceSequenceNumbers)
 	Event NotificationService.Roblox17sEventReceived(Map eventData)
 	Event NotificationService.RobloxConnectionChanged(string connectionName, Enum<ConnectionState> connectionState, string sequenceNumber, string namespaceSequenceNumbers) {RobloxScriptSecurity}
@@ -1889,13 +1895,13 @@ Class BasePart : PVInstance [NotCreatable] [NotBrowsable]
 	Property Class<BasePart> BasePart.AssemblyRootPart  [ReadOnly] [NotReplicated]
 	Property bool BasePart.Anchored
 	Property bool BasePart.CanCollide
+	Property bool BasePart.CanTouch
 	Property int BasePart.CollisionGroupId
 	Property bool BasePart.Locked
 	Property bool BasePart.Massless
 	Property int BasePart.ResizeIncrement  [ReadOnly] [NotReplicated]
 	Property Faces BasePart.ResizeableFaces  [ReadOnly] [NotReplicated]
 	Property CFrame BasePart.CFrame
-	Property bool BasePart.CanTouch
 	Property Vector3 BasePart.CenterOfMass  [ReadOnly] [NotReplicated]
 	Property float BasePart.LocalTransparencyModifier  [Hidden] [NotReplicated]
 	Property float BasePart.Mass  [ReadOnly] [NotReplicated]
@@ -2143,6 +2149,7 @@ Class Pages : Instance [NotCreatable] [NotReplicated]
 	Function void Pages:AdvanceToNextPageAsync() [Yields]
 	Function Array Pages:GetCurrentPage()
 Class CatalogPages : Pages [NotCreatable] [NotReplicated]
+Class DataStoreKeyPages : Pages [NotCreatable] [NotReplicated]
 Class DataStorePages : Pages [NotCreatable] [NotReplicated]
 Class FriendPages : Pages [NotCreatable] [NotReplicated]
 Class InventoryPages : Pages [NotCreatable] [NotReplicated]
@@ -3647,7 +3654,7 @@ Enum AnalyticsEconomyAction
 Enum AnalyticsLogLevel
 	EnumItem AnalyticsLogLevel.Trace : 0
 	EnumItem AnalyticsLogLevel.Debug : 1
-	EnumItem AnalyticsLogLevel.Infomation : 2
+	EnumItem AnalyticsLogLevel.Information : 2
 	EnumItem AnalyticsLogLevel.Warning : 3
 	EnumItem AnalyticsLogLevel.Error : 4
 	EnumItem AnalyticsLogLevel.Fatal : 5
@@ -3674,6 +3681,14 @@ Enum AppShellActionType
 	EnumItem AppShellActionType.GamePageLoaded : 8
 	EnumItem AppShellActionType.HomePageLoaded : 9
 	EnumItem AppShellActionType.AvatarEditorPageLoaded : 10
+Enum AppShellFeature
+	EnumItem AppShellFeature.None : 0
+	EnumItem AppShellFeature.Chat : 1
+	EnumItem AppShellFeature.AvatarEditor : 2
+	EnumItem AppShellFeature.GamePage : 3
+	EnumItem AppShellFeature.HomePage : 4
+	EnumItem AppShellFeature.More : 5
+	EnumItem AppShellFeature.Landing : 6
 Enum AppUpdateStatus
 	EnumItem AppUpdateStatus.Unknown : 0
 	EnumItem AppUpdateStatus.NotSupported : 1

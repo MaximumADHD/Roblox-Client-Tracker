@@ -1,5 +1,4 @@
 Key,Source,en-us
-Studio.AnimationClipEditor.Title.CurrentDuration,{1:int},Current duration is {1:int} frames
 Studio.AnimationClipEditor.ContextMenu.AddEvent, ,Add Animation Event Here
 Studio.AnimationClipEditor.ContextMenu.AddKeyframe, ,Add Keyframe
 Studio.AnimationClipEditor.ContextMenu.AddKeyframeHere, ,Add Keyframe Here
@@ -34,10 +33,12 @@ Studio.AnimationClipEditor.Dialog.ChangeThis, ,Change This
 Studio.AnimationClipEditor.Dialog.Confirm, ,Confirm
 Studio.AnimationClipEditor.Dialog.Create, ,Create
 Studio.AnimationClipEditor.Dialog.Delete, ,Delete
+Studio.AnimationClipEditor.Dialog.DeleteAllPrompt, ,Do you want to delete all {name} from this animation?
 Studio.AnimationClipEditor.Dialog.EditorErrorsHeader, ,Editor Error Detected
 Studio.AnimationClipEditor.Dialog.ErrorsHeader, ,Rig Error(s) Detected
 Studio.AnimationClipEditor.Dialog.No, ,No
 Studio.AnimationClipEditor.Dialog.Ok, ,OK
+Studio.AnimationClipEditor.Dialog.RenameAllPrompt, ,Do you want to change all {name} to {newName}?
 Studio.AnimationClipEditor.Dialog.Save, ,Save
 Studio.AnimationClipEditor.Dialog.SaveLocation, ,Animation will be saved to Rig > AnimSaves in Explorer
 Studio.AnimationClipEditor.Dialog.Yes, ,Yes
@@ -63,6 +64,7 @@ Studio.AnimationClipEditor.Menu.Import, ,Import
 Studio.AnimationClipEditor.Menu.Load, ,Load
 Studio.AnimationClipEditor.Menu.Movement, ,Movement
 Studio.AnimationClipEditor.Menu.New, ,New...
+Studio.AnimationClipEditor.Menu.Overwrite, ,Do you want to overwrite existing animation {overwriteName}?
 Studio.AnimationClipEditor.Menu.RenameKeyframePrompt, ,New Keyframe Name
 Studio.AnimationClipEditor.Menu.RenamePrompt, ,New Animation Name:
 Studio.AnimationClipEditor.Menu.Save, ,Save
@@ -92,6 +94,7 @@ Studio.AnimationClipEditor.Title.ClickToContinue, ,Click here to continue using 
 Studio.AnimationClipEditor.Title.ConfirmSave, ,Do you want to save this animation file?
 Studio.AnimationClipEditor.Title.CreateNew, ,Create New Animation
 Studio.AnimationClipEditor.Title.CreateToStart, ,Create an animation to start
+Studio.AnimationClipEditor.Title.CurrentDuration, ,Current duration is {currentDuration} frames
 Studio.AnimationClipEditor.Title.CustomFPS, ,Custom Frame Rate [FPS]
 Studio.AnimationClipEditor.Title.EditEvents, ,Edit Animation Events
 Studio.AnimationClipEditor.Title.Error, ,Error
@@ -101,6 +104,7 @@ Studio.AnimationClipEditor.Title.ManageIK, ,Manage IK
 Studio.AnimationClipEditor.Title.MaxFPS, ,Maximum frame rate is 120 fps
 Studio.AnimationClipEditor.Title.MinFPS, ,Minimum frame rate is 1 fps
 Studio.AnimationClipEditor.Title.NewDuration, ,New Duration
+Studio.AnimationClipEditor.Title.NoAnimationExists, ,"No animation exists for {rig}, please create one to start animating"
 Studio.AnimationClipEditor.Title.Parameter, ,Parameter
 Studio.AnimationClipEditor.Title.SaveAsNew, ,Save As New Animation
 Studio.AnimationClipEditor.Title.SelectARig, ,Select a rig to animate
@@ -108,8 +112,10 @@ Studio.AnimationClipEditor.Toast.AlignNow, ,Align all keys now
 Studio.AnimationClipEditor.Toast.ClippedWarning, ,Warning: An animation cannot exceed 30 seconds in length. Excess keyframes have been removed.
 Studio.AnimationClipEditor.Toast.IgnoreWarning, ,Ignore warning
 Studio.AnimationClipEditor.Toast.InvalidAnimation, ,Animation was not imported. You do not have ownership of animation with the selected ID.
+Studio.AnimationClipEditor.Toast.Loaded, ,Loaded animation {loadedAnimName}
 Studio.AnimationClipEditor.Toast.MaxFramerateWarning, ,"Warning: This animation exceeds the maximum 120 fps frame rate. Some keys are not aligned to frames, they will snap to frames when you edit them."
 Studio.AnimationClipEditor.Toast.QuantizeWarning, ,"Warning: Some keys of your animation are not aligned to frames, they will snap to frames when you edit them."
+Studio.AnimationClipEditor.Toast.Saved, ,Saved animation {savedAnimName}
 Studio.AnimationClipEditor.Tooltip.AddTrackButton, ,Add a new animation track
 Studio.AnimationClipEditor.Tooltip.CurrentFrameBox, ,Change scrubber time
 Studio.AnimationClipEditor.Tooltip.EndFrameBox, ,Change timeline length
@@ -117,12 +123,6 @@ Studio.AnimationClipEditor.Tooltip.Play, ,Preview the animation [Space]
 Studio.AnimationClipEditor.Tooltip.SkipBackward, ,Move scrubber to previous key
 Studio.AnimationClipEditor.Tooltip.SkipForward, ,Move scrubber to next key
 Studio.AnimationClipEditor.Tooltip.ToggleLooping, ,Toggle looping animation
-Studio.AnimationClipEditor.Dialog.DeleteAllPrompt,{1},Do you want to delete all "{1}" from this animation?
-Studio.AnimationClipEditor.Menu.Overwrite,{1},Do you want to overwrite existing animation "{1}"?
 Studio.AnimationClipEditor.RigErrors.MissingPart0,{1},The following Motor6Ds do not have a Part0 set: {1}
 Studio.AnimationClipEditor.RigErrors.MissingPart1,{1},The following Motor6Ds do not have a Part1 set: {1}
 Studio.AnimationClipEditor.RigErrors.MultipleParents,{1},The following parts are affected by multiple Motor6Ds: {1}
-Studio.AnimationClipEditor.Title.NoAnimationExists,{1},"No animation exists for {1}, please create one to start animating"
-Studio.AnimationClipEditor.Toast.Loaded,{1},Loaded animation {1}
-Studio.AnimationClipEditor.Toast.Saved,{1},Saved animation {1}
-Studio.AnimationClipEditor.Dialog.RenameAllPrompt,{1}{2},Do you want to change all "{1}" to "{2}"?

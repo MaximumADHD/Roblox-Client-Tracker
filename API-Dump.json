@@ -2220,6 +2220,24 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "InsertMeshesWithLocation",
+                    "Parameters": [
+                        {
+                            "Name": "aliasNames",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Array"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "InsertPackage",
                     "Parameters": [
                         {
@@ -12628,6 +12646,38 @@
         {
             "Members": [
                 {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "KeyName",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "string"
+                    }
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "DataStoreKeyInfo",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotCreatable",
+                "NotReplicated"
+            ]
+        },
+        {
+            "Members": [
+                {
                     "Category": "Behavior",
                     "MemberType": "Property",
                     "Name": "AutomaticRetry",
@@ -15492,6 +15542,47 @@
             "MemoryCategory": "Instances",
             "Name": "GlobalDataStore",
             "Superclass": "Instance",
+            "Tags": [
+                "NotCreatable",
+                "NotReplicated"
+            ]
+        },
+        {
+            "Members": [
+                {
+                    "MemberType": "Function",
+                    "Name": "ListKeysAsync",
+                    "Parameters": [
+                        {
+                            "Default": "",
+                            "Name": "prefix",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Default": "0",
+                            "Name": "pageSize",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Class",
+                        "Name": "Instance"
+                    },
+                    "Security": "None",
+                    "Tags": [
+                        "Yields"
+                    ]
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "DataStore",
+            "Superclass": "GlobalDataStore",
             "Tags": [
                 "NotCreatable",
                 "NotReplicated"
@@ -33130,6 +33221,24 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "SwitchedToAppShellFeature",
+                    "Parameters": [
+                        {
+                            "Name": "appShellFeature",
+                            "Type": {
+                                "Category": "Enum",
+                                "Name": "AppShellFeature"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "GetScheduledNotifications",
                     "Parameters": [
                         {
@@ -33573,7 +33682,7 @@
                     }
                 },
                 {
-                    "Category": "Data",
+                    "Category": "Behavior",
                     "MemberType": "Property",
                     "Name": "CanTouch",
                     "Security": {
@@ -38622,6 +38731,17 @@
             ],
             "MemoryCategory": "Instances",
             "Name": "CatalogPages",
+            "Superclass": "Pages",
+            "Tags": [
+                "NotCreatable",
+                "NotReplicated"
+            ]
+        },
+        {
+            "Members": [
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "DataStoreKeyPages",
             "Superclass": "Pages",
             "Tags": [
                 "NotCreatable",
@@ -65269,7 +65389,7 @@
                     "Value": 1
                 },
                 {
-                    "Name": "Infomation",
+                    "Name": "Information",
                     "Value": 2
                 },
                 {
@@ -65381,6 +65501,39 @@
                 }
             ],
             "Name": "AppShellActionType"
+        },
+        {
+            "Items": [
+                {
+                    "Name": "None",
+                    "Value": 0
+                },
+                {
+                    "Name": "Chat",
+                    "Value": 1
+                },
+                {
+                    "Name": "AvatarEditor",
+                    "Value": 2
+                },
+                {
+                    "Name": "GamePage",
+                    "Value": 3
+                },
+                {
+                    "Name": "HomePage",
+                    "Value": 4
+                },
+                {
+                    "Name": "More",
+                    "Value": 5
+                },
+                {
+                    "Name": "Landing",
+                    "Value": 6
+                }
+            ],
+            "Name": "AppShellFeature"
         },
         {
             "Items": [

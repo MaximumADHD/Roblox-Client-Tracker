@@ -25,7 +25,7 @@ enumerate = "github.com/roblox/enumerate@1.0.0"
 PolicyProvider = { git = "https://github.com/Roblox/lua-roact-policy-provider", rev = "master" }
 Lumberyak = { git = "https://github.com/Roblox/lumberyak" }
 StringUtilities = "github.com/Roblox/string-utilities@1.0.0"
-UrlBuilder = "github.com/Roblox/url-builder@1.0.3"
+UrlBuilder = "github.com/Roblox/url-builder@1.0.4"
 
 # The following packages were ported from AppTempCommon
 Promise = { git = "https://github.com/Roblox/lua-promise" }
