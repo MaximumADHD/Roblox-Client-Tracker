@@ -17,4 +17,8 @@ return {
 
 	--useNewUICornerRoundedCorners: Uses the new roblox CornerUI Instance instead of mask-based UI corners
 	useNewUICornerRoundedCorners = false,
+
+	-- genericSliderFilterOldTouchInputs: Filters inputObjects that trigger inputBegan with a
+	-- non Enum.UserInputState.Begin UserInputState in the GenericSlider component
+	genericSliderFilterOldTouchInputs = false,
 }

@@ -120,14 +120,23 @@ local function makeAppSlider(trackFillThemeKey, isTwoKnobs)
 		self.pressedMotorUpper:onStep(setPressedProgressUpper)
 
 		self.onDragStartLower = function()
+			if self.props.onDragStartLower then
+				self.props.onDragStartLower()
+			end
 			self.pressedMotorLower:setGoal(Otter.spring(1, SPRING_PARAMETERS))
 		end
 
 		self.onDragStartUpper = function()
+			if self.props.onDragStartUpper then
+				self.props.onDragStartUpper()
+			end
 			self.pressedMotorUpper:setGoal(Otter.spring(1, SPRING_PARAMETERS))
 		end
 
 		self.onDragEnd = function()
+			if self.props.onDragEnd then
+				self.props.onDragEnd()
+			end
 			self.pressedMotorLower:setGoal(Otter.spring(0, SPRING_PARAMETERS))
 			self.pressedMotorUpper:setGoal(Otter.spring(0, SPRING_PARAMETERS))
 		end

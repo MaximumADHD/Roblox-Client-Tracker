@@ -47,7 +47,9 @@ return function(UrlBuilder)
 			notifications = UrlBuilder.fromString("www:my/account#!/notifications"),
 		},
 		tencent = {
-			reputationInfo = UrlBuilder.fromString("https://gamecredit.qq.com/static/games/index.htm")
-		}
+			childrenPrivacyGuide = UrlBuilder.fromString("https://game.qq.com/privacy_guide_children.shtml"),
+			luobuRiderTerms = UrlBuilder.fromString("https://roblox.qq.com/web201904/newsdetail.html?newsid=12429812"),
+			reputationInfo = UrlBuilder.fromString("https://gamecredit.qq.com/static/games/index.htm"),
+		},
 	}
 end

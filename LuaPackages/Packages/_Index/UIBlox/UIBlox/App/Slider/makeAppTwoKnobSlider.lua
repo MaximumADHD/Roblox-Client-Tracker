@@ -35,6 +35,9 @@ local function makeAppTwoKnobSlider(trackFillThemeKey)
 		max = t.number,
 		stepInterval = t.optional(t.numberPositive),
 		onValueChanged = t.callback,
+		onDragStartLower = t.optional(t.callback),
+		onDragStartUpper = t.optional(t.callback),
+		onDragEnd = t.optional(t.callback),
 		isDisabled = t.optional(t.boolean),
 
 		width = t.optional(t.UDim),

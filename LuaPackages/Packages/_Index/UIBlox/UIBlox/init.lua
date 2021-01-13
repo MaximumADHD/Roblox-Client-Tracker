@@ -215,6 +215,12 @@ local function initializeLibrary()
 
 		}),
 
+		Control = strict({
+			Knob = require(script.App.Control.Knob.Knob),
+			SegmentedControl = require(script.App.Control.SegmentedControl),
+			RobuxBalance = require(script.App.Control.RobuxBalance),
+		}),
+
 		Navigation = strict({
 			Enum = strict({
 				Placement = require(script.App.Navigation.Enum.Placement),
@@ -227,6 +233,7 @@ local function initializeLibrary()
 			CursorKind = require(script.App.SelectionImage.CursorKind),
 			withSelectionCursorProvider = require(script.App.SelectionImage.withSelectionCursorProvider),
 		}),
+
 	})
 
 	-- DEPRECATED SECTION

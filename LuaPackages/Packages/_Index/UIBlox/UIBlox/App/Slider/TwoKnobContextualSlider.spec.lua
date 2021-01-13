@@ -32,6 +32,9 @@ return function()
 				max = 100,
 				stepInterval = 1,
 				onValueChanged = function() end,
+				onDragStartLower = function() end,
+				onDragStartUpper = function() end,
+				onDragEnd = function() end,
 				isDisabled = false,
 
 				width = UDim.new(1, 1),

@@ -251,6 +251,18 @@ return function()
 			cleanup()
 		end)
 
+		it("SHOULD render ControlState.Hover when background disabled with no issues", function()
+			local folder, cleanup = runTest({
+				[TextButton.debugProps.controlState] = ControlState.Hover,
+				hoverBackgroundEnabled = false,
+			})
+
+			expect(isShowingBackground(folder)).to.equal(false)
+			expect(isTextTransparent(folder)).to.equal(false)
+
+			cleanup()
+		end)
+
 		it("SHOULD render ControlState.Pressed with no issues", function()
 			local folder, cleanup = runTest({
 				[TextButton.debugProps.controlState] = ControlState.Pressed,

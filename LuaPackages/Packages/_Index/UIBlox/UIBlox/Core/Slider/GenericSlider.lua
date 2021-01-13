@@ -446,6 +446,12 @@ function GenericSlider:onInputBegan(inputObject, isKnob)
 		return
 	end
 
+	-- Old touch inputs can trigger onInputBegan when they first touch a GuiElement
+	-- These are filtered by checking UserInputState
+	if UIBloxConfig.genericSliderFilterOldTouchInputs and inputObject.UserInputState ~= Enum.UserInputState.Begin then
+		return
+	end
+
 	local inputType = inputObject.UserInputType
 
 	if inputType ~= Enum.UserInputType.MouseButton1 and inputType ~= Enum.UserInputType.Touch then
