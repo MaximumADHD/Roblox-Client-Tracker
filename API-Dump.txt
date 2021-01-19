@@ -1,7 +1,7 @@
 Class Instance : <<<ROOT>>> [NotCreatable] [NotBrowsable]
 	Property bool Instance.Archivable
-	Property string Instance.ClassName  [ReadOnly] [NotReplicated]
-	Property int Instance.DataCost {LocalUserSecurity} [ReadOnly] [NotReplicated] [Deprecated]
+	Property string Instance.ClassName [ReadOnly]
+	Property int Instance.DataCost {LocalUserSecurity} [ReadOnly] [Deprecated]
 	Property string Instance.Name
 	Property Instance Instance.Parent [<📁> LoadOnly] [NotReplicated]
 	Property bool Instance.RobloxLocked {PluginSecurity}
@@ -75,15 +75,15 @@ Class AnimationController : Instance [Deprecated]
 	Function Instance AnimationController:LoadAnimation(Instance animation) [Deprecated]
 	Event AnimationController.AnimationPlayed(Instance animationTrack) [Deprecated]
 Class AnimationTrack : Instance [NotCreatable]
-	Property Class<Animation> AnimationTrack.Animation  [ReadOnly] [NotReplicated]
-	Property bool AnimationTrack.IsPlaying  [ReadOnly] [NotReplicated]
-	Property float AnimationTrack.Length  [ReadOnly] [NotReplicated]
+	Property Class<Animation> AnimationTrack.Animation [ReadOnly]
+	Property bool AnimationTrack.IsPlaying [ReadOnly]
+	Property float AnimationTrack.Length [ReadOnly]
 	Property bool AnimationTrack.Looped
 	Property Enum<AnimationPriority> AnimationTrack.Priority
-	Property float AnimationTrack.Speed  [ReadOnly] [NotReplicated]
+	Property float AnimationTrack.Speed [ReadOnly]
 	Property float AnimationTrack.TimePosition [<📁> LoadOnly] [NotReplicated]
-	Property float AnimationTrack.WeightCurrent  [ReadOnly] [NotReplicated]
-	Property float AnimationTrack.WeightTarget  [ReadOnly] [NotReplicated]
+	Property float AnimationTrack.WeightCurrent [ReadOnly]
+	Property float AnimationTrack.WeightTarget [ReadOnly]
 	Function void AnimationTrack:AdjustSpeed(float speed = 1)
 	Function void AnimationTrack:AdjustWeight(float weight = 1, float fadeTime = 0.100000001)
 	Function RBXScriptSignal AnimationTrack:GetMarkerReachedSignal(string name)
@@ -152,10 +152,10 @@ Class Attachment : Instance
 	Property CFrame Attachment.CFrame
 	Property Vector3 Attachment.Orientation [<📁> LoadOnly] [NotReplicated]
 	Property Vector3 Attachment.Position [<📁> LoadOnly] [NotReplicated]
-	Property Vector3 Attachment.Rotation  [Hidden] [NotReplicated] [Deprecated]
+	Property Vector3 Attachment.Rotation [Hidden] [NotReplicated] [Deprecated]
 	Property Vector3 Attachment.Axis [<📁> LoadOnly] [NotReplicated]
 	Property Vector3 Attachment.SecondaryAxis [<📁> LoadOnly] [NotReplicated]
-	Property Vector3 Attachment.WorldRotation  [Hidden] [ReadOnly] [NotReplicated] [Deprecated]
+	Property Vector3 Attachment.WorldRotation [Hidden] [ReadOnly] [Deprecated]
 	Property Vector3 Attachment.WorldAxis [<📁> LoadOnly] [NotReplicated]
 	Property CFrame Attachment.WorldCFrame [<📁> LoadOnly] [NotReplicated]
 	Property Vector3 Attachment.WorldOrientation [<📁> LoadOnly] [NotReplicated]
@@ -167,8 +167,8 @@ Class Attachment : Instance
 	Function void Attachment:SetSecondaryAxis(Vector3 axis) [Deprecated]
 Class Bone : Attachment
 	Property CFrame Bone.Transform [<📁> LoadOnly] [NotReplicated]
-	Property CFrame Bone.TransformedCFrame  [ReadOnly] [NotReplicated]
-	Property CFrame Bone.TransformedWorldCFrame  [ReadOnly] [NotReplicated]
+	Property CFrame Bone.TransformedCFrame [ReadOnly]
+	Property CFrame Bone.TransformedWorldCFrame [ReadOnly]
 Class AvatarEditorService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function Instance AvatarEditorService:CheckApplyDefaultClothing(Instance humanoidDescription) [Yields]
 	Function Instance AvatarEditorService:ConformToAvatarRules(Instance humanoidDescription) {RobloxScriptSecurity} [Yields]
@@ -210,8 +210,8 @@ Class Backpack : Instance
 Class BackpackItem : Instance [NotCreatable]
 	Property Content BackpackItem.TextureId
 Class HopperBin : BackpackItem [Deprecated]
-	Property bool HopperBin.Active  [Deprecated]
-	Property Enum<BinType> HopperBin.BinType  [Deprecated]
+	Property bool HopperBin.Active [Deprecated]
+	Property Enum<BinType> HopperBin.BinType [Deprecated]
 	Function void HopperBin:Disable() {RobloxScriptSecurity} [Deprecated]
 	Function void HopperBin:ToggleSelect() {RobloxScriptSecurity} [Deprecated]
 	Event HopperBin.Deselected() [Deprecated]
@@ -234,7 +234,7 @@ Class Tool : BackpackItem
 	Event Tool.Equipped(Instance mouse)
 	Event Tool.Unequipped()
 Class Flag : Tool [Deprecated]
-	Property BrickColor Flag.TeamColor  [Deprecated]
+	Property BrickColor Flag.TeamColor [Deprecated]
 Class BadgeService : Instance [NotCreatable] [Service]
 	Function bool BadgeService:AwardBadge(int64 userId, int64 badgeId) [Yields]
 	Function Dictionary BadgeService:GetBadgeInfoAsync(int64 badgeId) [Yields]
@@ -249,20 +249,20 @@ Class BasePlayerGui : Instance [NotCreatable]
 	Function Objects BasePlayerGui:GetGuiObjectsInCircle(Vector2 position, float radius) {RobloxScriptSecurity}
 Class CoreGui : BasePlayerGui [NotCreatable] [Service] [NotReplicated]
 	Property Class<GuiObject> CoreGui.SelectionImageObject {RobloxScriptSecurity}
-	Property int CoreGui.Version [<💾> SaveOnly] [ReadOnly] [NotReplicated]
+	Property int CoreGui.Version [<💾> SaveOnly] [ReadOnly]
 	Function void CoreGui:SetUserGuiRendering(bool enabled, Instance guiAdornee, Enum<NormalId> faceId) {RobloxScriptSecurity}
 	Function void CoreGui:TakeScreenshot() {RobloxScriptSecurity}
 	Function void CoreGui:ToggleRecording() {RobloxScriptSecurity}
 Class PlayerGui : BasePlayerGui [NotCreatable] [PlayerReplicated]
 	Property Class<GuiObject> PlayerGui.SelectionImageObject
-	Property Enum<ScreenOrientation> PlayerGui.CurrentScreenOrientation  [ReadOnly] [NotReplicated]
+	Property Enum<ScreenOrientation> PlayerGui.CurrentScreenOrientation [ReadOnly]
 	Property Enum<ScreenOrientation> PlayerGui.ScreenOrientation
 	Function float PlayerGui:GetTopbarTransparency() [Deprecated]
 	Function void PlayerGui:SetTopbarTransparency(float transparency) [Deprecated]
 	Event PlayerGui.TopbarTransparencyChangedSignal(float transparency) [Deprecated]
 Class StarterGui : BasePlayerGui [NotCreatable] [Service]
 	Property bool StarterGui.ProcessUserInput {PluginSecurity} [Hidden] [NotReplicated]
-	Property bool StarterGui.ResetPlayerGuiOnSpawn  [Deprecated]
+	Property bool StarterGui.ResetPlayerGuiOnSpawn [Deprecated]
 	Property Enum<ScreenOrientation> StarterGui.ScreenOrientation
 	Property bool StarterGui.ShowDevelopmentGui
 	Function Variant StarterGui:GetCore(string parameterName) [Yields]
@@ -276,23 +276,23 @@ Class BaseWrap : Instance [NotCreatable]
 	Property Content BaseWrap.CageMeshId {✏️PluginSecurity}
 	Property CFrame BaseWrap.CageOrigin {✏️PluginSecurity}
 	Property CFrame BaseWrap.ImportOrigin {✏️PluginSecurity}
-	Property CFrame BaseWrap.CageOriginWorld  [ReadOnly] [NotReplicated]
-	Property CFrame BaseWrap.ImportOriginWorld  [ReadOnly] [NotReplicated]
+	Property CFrame BaseWrap.CageOriginWorld [ReadOnly]
+	Property CFrame BaseWrap.ImportOriginWorld [ReadOnly]
 Class WrapLayer : BaseWrap
 	Property int WrapLayer.Order {✏️PluginSecurity}
 	Property float WrapLayer.Puffiness {✏️PluginSecurity}
 	Property Content WrapLayer.ReferenceMeshId {✏️PluginSecurity}
 	Property CFrame WrapLayer.ReferenceOrigin {✏️PluginSecurity}
 	Property bool WrapLayer.Enabled
-	Property CFrame WrapLayer.ReferenceOriginWorld  [ReadOnly] [NotReplicated]
-	Property Color3 WrapLayer.Color  [NotReplicated] [NotScriptable]
-	Property Enum<WrapLayerDebugMode> WrapLayer.DebugMode  [NotReplicated] [NotScriptable]
+	Property CFrame WrapLayer.ReferenceOriginWorld [ReadOnly]
+	Property Color3 WrapLayer.Color [NotReplicated] [NotScriptable]
+	Property Enum<WrapLayerDebugMode> WrapLayer.DebugMode [NotReplicated] [NotScriptable]
 	Property CFrame WrapLayer.BindOffset {✏️PluginSecurity}
 	Property float WrapLayer.ShrinkFactor {✏️PluginSecurity}
 Class WrapTarget : BaseWrap
 	Property float WrapTarget.Stiffness {✏️PluginSecurity}
-	Property Color3 WrapTarget.Color  [NotReplicated] [NotScriptable]
-	Property Enum<WrapTargetDebugMode> WrapTarget.DebugMode  [NotReplicated] [NotScriptable]
+	Property Color3 WrapTarget.Color [NotReplicated] [NotScriptable]
+	Property Enum<WrapTargetDebugMode> WrapTarget.DebugMode [NotReplicated] [NotScriptable]
 Class Beam : Instance
 	Property ColorSequence Beam.Color
 	Property bool Beam.Enabled
@@ -392,17 +392,17 @@ Class SolidModelContentProvider : CacheableContentProvider [NotCreatable] [Servi
 Class Camera : Instance [NotReplicated]
 	Property Instance Camera.CameraSubject
 	Property Enum<CameraType> Camera.CameraType
-	Property float Camera.DiagonalFieldOfView  [NotReplicated]
+	Property float Camera.DiagonalFieldOfView [NotReplicated]
 	Property float Camera.FieldOfView
 	Property Enum<FieldOfViewMode> Camera.FieldOfViewMode
-	Property float Camera.MaxAxisFieldOfView  [NotReplicated]
+	Property float Camera.MaxAxisFieldOfView [NotReplicated]
 	Property CFrame Camera.CFrame
 	Property CFrame Camera.CoordinateFrame [<📁> LoadOnly] [Hidden] [NotReplicated] [Deprecated]
 	Property CFrame Camera.Focus
 	Property bool Camera.HeadLocked
 	Property float Camera.HeadScale
-	Property float Camera.NearPlaneZ [<💾> SaveOnly] [ReadOnly] [NotReplicated]
-	Property Vector2 Camera.ViewportSize [<💾> SaveOnly] [ReadOnly] [NotReplicated]
+	Property float Camera.NearPlaneZ [<💾> SaveOnly] [ReadOnly]
+	Property Vector2 Camera.ViewportSize [<💾> SaveOnly] [ReadOnly]
 	Function float Camera:GetLargestCutoffDistance(Objects ignoreList) [Deprecated]
 	Function float Camera:GetPanSpeed()
 	Function Objects Camera:GetPartsObscuringTarget(Array castPoints, Objects ignoreList)
@@ -461,7 +461,7 @@ Class ShirtGraphic : CharacterAppearance
 	Property Color3 ShirtGraphic.Color3
 	Property Content ShirtGraphic.Graphic
 Class Skin : CharacterAppearance [Deprecated]
-	Property BrickColor Skin.SkinColor  [Deprecated]
+	Property BrickColor Skin.SkinColor [Deprecated]
 Class Chat : Instance [NotCreatable] [Service] [NotReplicated]
 	Property bool Chat.BubbleChatEnabled
 	Property bool Chat.LoadDefaultChat {✏️NotAccessibleSecurity}
@@ -506,7 +506,7 @@ Class Constraint : Instance [NotCreatable]
 	Property bool Constraint.Visible
 	Property Class<Attachment> Constraint.Attachment0
 	Property Class<Attachment> Constraint.Attachment1
-	Property bool Constraint.Active  [ReadOnly] [NotReplicated]
+	Property bool Constraint.Active [ReadOnly]
 	Property bool Constraint.Enabled
 Class AlignOrientation : Constraint
 	Property Enum<AlignType> AlignOrientation.AlignType
@@ -539,7 +539,7 @@ Class BallSocketConstraint : Constraint
 	Property float BallSocketConstraint.TwistUpperAngle
 Class HingeConstraint : Constraint
 	Property float HingeConstraint.Radius
-	Property float HingeConstraint.CurrentAngle [<💾> SaveOnly] [ReadOnly] [NotReplicated]
+	Property float HingeConstraint.CurrentAngle [<💾> SaveOnly] [ReadOnly]
 	Property Enum<ActuatorType> HingeConstraint.ActuatorType
 	Property bool HingeConstraint.LimitsEnabled
 	Property float HingeConstraint.LowerAngle
@@ -559,16 +559,16 @@ Class LineForce : Constraint
 	Property bool LineForce.ReactionForceEnabled
 Class RodConstraint : Constraint
 	Property float RodConstraint.Thickness
-	Property float RodConstraint.CurrentDistance [<💾> SaveOnly] [ReadOnly] [NotReplicated]
+	Property float RodConstraint.CurrentDistance [<💾> SaveOnly] [ReadOnly]
 	Property float RodConstraint.Length
 Class RopeConstraint : Constraint
 	Property float RopeConstraint.Thickness
-	Property float RopeConstraint.CurrentDistance [<💾> SaveOnly] [ReadOnly] [NotReplicated]
+	Property float RopeConstraint.CurrentDistance [<💾> SaveOnly] [ReadOnly]
 	Property float RopeConstraint.Length
 	Property float RopeConstraint.Restitution
 Class SlidingBallConstraint : Constraint [NotCreatable]
 	Property float SlidingBallConstraint.Size
-	Property float SlidingBallConstraint.CurrentPosition [<💾> SaveOnly] [ReadOnly] [NotReplicated]
+	Property float SlidingBallConstraint.CurrentPosition [<💾> SaveOnly] [ReadOnly]
 	Property float SlidingBallConstraint.LowerLimit
 	Property float SlidingBallConstraint.Restitution
 	Property float SlidingBallConstraint.UpperLimit
@@ -594,14 +594,14 @@ Class CylindricalConstraint : SlidingBallConstraint
 	Property Enum<ActuatorType> CylindricalConstraint.AngularActuatorType
 	Property bool CylindricalConstraint.AngularLimitsEnabled
 	Property float CylindricalConstraint.InclinationAngle
-	Property float CylindricalConstraint.CurrentAngle [<💾> SaveOnly] [ReadOnly] [NotReplicated]
-	Property Vector3 CylindricalConstraint.WorldRotationAxis [<💾> SaveOnly] [ReadOnly] [NotReplicated]
+	Property float CylindricalConstraint.CurrentAngle [<💾> SaveOnly] [ReadOnly]
+	Property Vector3 CylindricalConstraint.WorldRotationAxis [<💾> SaveOnly] [ReadOnly]
 Class PrismaticConstraint : SlidingBallConstraint
 Class SpringConstraint : Constraint
 	Property float SpringConstraint.Coils
 	Property float SpringConstraint.Radius
 	Property float SpringConstraint.Thickness
-	Property float SpringConstraint.CurrentLength [<💾> SaveOnly] [ReadOnly] [NotReplicated]
+	Property float SpringConstraint.CurrentLength [<💾> SaveOnly] [ReadOnly]
 	Property float SpringConstraint.MaxLength
 	Property float SpringConstraint.MinLength
 	Property float SpringConstraint.Damping
@@ -617,8 +617,8 @@ Class VectorForce : Constraint
 	Property Vector3 VectorForce.Force
 	Property Enum<ActuatorRelativeTo> VectorForce.RelativeTo
 Class ContentProvider : Instance [NotCreatable] [Service] [NotReplicated]
-	Property string ContentProvider.BaseUrl [<💾> SaveOnly] [ReadOnly] [NotReplicated]
-	Property int ContentProvider.RequestQueueSize [<💾> SaveOnly] [ReadOnly] [NotReplicated]
+	Property string ContentProvider.BaseUrl [<💾> SaveOnly] [ReadOnly]
+	Property int ContentProvider.RequestQueueSize [<💾> SaveOnly] [ReadOnly]
 	Function int ContentProvider:CalculateNumTrianglesInMesh(string meshId) {RobloxScriptSecurity} [Yields]
 	Function int ContentProvider:CalculateNumTrianglesInMeshSync(string meshId) {RobloxScriptSecurity}
 	Function Array ContentProvider:GetFailedRequests() {RobloxScriptSecurity}
@@ -669,8 +669,8 @@ Class Controller : Instance [NotCreatable]
 	Event Controller.ButtonChanged(Enum<Button> button)
 Class HumanoidController : Controller
 Class SkateboardController : Controller
-	Property float SkateboardController.Steer  [ReadOnly] [NotReplicated]
-	Property float SkateboardController.Throttle  [ReadOnly] [NotReplicated]
+	Property float SkateboardController.Steer [ReadOnly]
+	Property float SkateboardController.Throttle [ReadOnly]
 	Event SkateboardController.AxisChanged(string axis)
 Class VehicleController : Controller
 Class ControllerService : Instance [NotCreatable] [Service] [NotReplicated]
@@ -684,7 +684,7 @@ Class CustomEvent : Instance [Deprecated]
 	Event CustomEvent.ReceiverConnected(Instance receiver) [Deprecated]
 	Event CustomEvent.ReceiverDisconnected(Instance receiver) [Deprecated]
 Class CustomEventReceiver : Instance [Deprecated]
-	Property Instance CustomEventReceiver.Source  [Deprecated]
+	Property Instance CustomEventReceiver.Source [Deprecated]
 	Function float CustomEventReceiver:GetCurrentValue() [Deprecated]
 	Event CustomEventReceiver.EventConnected(Instance event) [Deprecated]
 	Event CustomEventReceiver.EventDisconnected(Instance event) [Deprecated]
@@ -702,14 +702,14 @@ Class FileMesh : DataModelMesh
 Class SpecialMesh : FileMesh
 	Property Enum<MeshType> SpecialMesh.MeshType
 Class DataModelSession : Instance [NotCreatable]
-	Property Enum<StudioDataModelType> DataModelSession.CurrentDataModelType {RobloxScriptSecurity} [ReadOnly] [NotReplicated]
-	Property string DataModelSession.SessionId {RobloxScriptSecurity} [ReadOnly] [NotReplicated]
+	Property Enum<StudioDataModelType> DataModelSession.CurrentDataModelType {RobloxScriptSecurity} [ReadOnly]
+	Property string DataModelSession.SessionId {RobloxScriptSecurity} [ReadOnly]
 	Event DataModelSession.CurrentDataModelTypeAboutToChange(Enum<StudioDataModelType> dataModelType) {RobloxScriptSecurity}
 	Event DataModelSession.CurrentDataModelTypeChanged() {RobloxScriptSecurity}
 	Event DataModelSession.DataModelCreated(Enum<StudioDataModelType> gameStateType) {RobloxScriptSecurity}
 	Event DataModelSession.DataModelWillBeDestroyed(Enum<StudioDataModelType> gameStateType) {RobloxScriptSecurity}
 Class DataStoreKeyInfo : Instance [NotCreatable] [NotReplicated]
-	Property string DataStoreKeyInfo.KeyName [<💾> SaveOnly] [ReadOnly] [NotReplicated]
+	Property string DataStoreKeyInfo.KeyName [<💾> SaveOnly] [ReadOnly]
 Class DataStoreService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property bool DataStoreService.AutomaticRetry {LocalUserSecurity} [NotReplicated]
 	Property bool DataStoreService.LegacyNamingScheme {LocalUserSecurity} [Deprecated]
@@ -719,25 +719,25 @@ Class DataStoreService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function Instance DataStoreService:GetOrderedDataStore(string name, string scope = "global")
 	Function int DataStoreService:GetRequestBudgetForRequestType(Enum<DataStoreRequestType> requestType)
 Class Debris : Instance [NotCreatable] [Service]
-	Property int Debris.MaxItems  [Deprecated]
+	Property int Debris.MaxItems [Deprecated]
 	Function void Debris:AddItem(Instance item, double lifetime = 10)
 	Function void Debris:SetLegacyMaxItems(bool enabled) {LocalUserSecurity}
 Class DebugSettings : Instance [NotCreatable] [Settings] [NotBrowsable]
 	Property Enum<TickCountSampleMethod> DebugSettings.TickCountPreciseOverride
 	Property bool DebugSettings.IsScriptStackTracingEnabled
 	Property bool DebugSettings.ReportSoundWarnings
-	Property int DebugSettings.DataModel [<💾> SaveOnly] [ReadOnly] [NotReplicated]
-	Property int DebugSettings.InstanceCount [<💾> SaveOnly] [ReadOnly] [NotReplicated]
-	Property int DebugSettings.JobCount [<💾> SaveOnly] [ReadOnly] [NotReplicated]
-	Property int DebugSettings.PlayerCount [<💾> SaveOnly] [ReadOnly] [NotReplicated]
-	Property string DebugSettings.RobloxVersion [<💾> SaveOnly] [ReadOnly] [NotReplicated]
+	Property int DebugSettings.DataModel [<💾> SaveOnly] [ReadOnly]
+	Property int DebugSettings.InstanceCount [<💾> SaveOnly] [ReadOnly]
+	Property int DebugSettings.JobCount [<💾> SaveOnly] [ReadOnly]
+	Property int DebugSettings.PlayerCount [<💾> SaveOnly] [ReadOnly]
+	Property string DebugSettings.RobloxVersion [<💾> SaveOnly] [ReadOnly]
 Class DebuggerBreakpoint : Instance [NotCreatable]
 	Property string DebuggerBreakpoint.Condition
 	Property bool DebuggerBreakpoint.IsEnabled
-	Property int DebuggerBreakpoint.Line  [ReadOnly] [NotReplicated]
+	Property int DebuggerBreakpoint.Line [ReadOnly]
 	Property bool DebuggerBreakpoint.isContextDependentBreakpoint
 Class DebuggerManager : Instance [NotCreatable] [NotReplicated]
-	Property bool DebuggerManager.DebuggingEnabled [<💾> SaveOnly] [ReadOnly] [NotReplicated]
+	Property bool DebuggerManager.DebuggingEnabled [<💾> SaveOnly] [ReadOnly]
 	Function Instance DebuggerManager:AddDebugger(Instance script)
 	Function void DebuggerManager:EnableDebugging() {LocalUserSecurity}
 	Function Objects DebuggerManager:GetDebuggers()
@@ -807,7 +807,7 @@ Class FaceInstance : Instance [NotCreatable] [NotBrowsable]
 	Property Enum<NormalId> FaceInstance.Face
 Class Decal : FaceInstance
 	Property Color3 Decal.Color3
-	Property float Decal.LocalTransparencyModifier  [Hidden] [NotReplicated]
+	Property float Decal.LocalTransparencyModifier [Hidden] [NotReplicated]
 	Property float Decal.Shiny [<📁> LoadOnly] [NotReplicated] [Deprecated]
 	Property float Decal.Specular [<📁> LoadOnly] [NotReplicated] [Deprecated]
 	Property Content Decal.Texture
@@ -825,9 +825,9 @@ Class Feature : Instance [NotCreatable]
 Class Hole : Feature [Deprecated]
 Class MotorFeature : Feature [Deprecated]
 Class File : Instance [NotCreatable] [NotReplicated]
-	Property string File.FileName {PluginSecurity} [Hidden] [ReadOnly] [NotReplicated] [Deprecated]
-	Property int64 File.FileSize {PluginSecurity} [Hidden] [ReadOnly] [NotReplicated] [Deprecated]
-	Property int64 File.Size {PluginSecurity} [Hidden] [ReadOnly] [NotReplicated]
+	Property string File.FileName {PluginSecurity} [Hidden] [ReadOnly] [Deprecated]
+	Property int64 File.FileSize {PluginSecurity} [Hidden] [ReadOnly] [Deprecated]
+	Property int64 File.Size {PluginSecurity} [Hidden] [ReadOnly]
 	Function string File:GetBinaryContents() {PluginSecurity}
 	Function string File:GetFileContentsBinary() {PluginSecurity} [Deprecated]
 	Function Content File:GetTemporaryId() {PluginSecurity}
@@ -848,7 +848,7 @@ Class FriendService : Instance [NotCreatable] [Service]
 	Function Array FriendService:GetPlatformFriends() {RobloxScriptSecurity} [Yields]
 	Event FriendService.FriendsUpdated(Array friendData) {RobloxScriptSecurity}
 Class FunctionalTest : Instance [Deprecated]
-	Property string FunctionalTest.Description  [Deprecated]
+	Property string FunctionalTest.Description [Deprecated]
 	Function void FunctionalTest:Error(string message = "") [Deprecated]
 	Function void FunctionalTest:Failed(string message = "") [Deprecated]
 	Function void FunctionalTest:Pass(string message = "") [Deprecated]
@@ -886,20 +886,20 @@ Class GroupService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function Array GroupService:GetGroupsAsync(int64 userId) [Yields]
 Class GuiBase : Instance [NotCreatable]
 Class GuiBase2d : GuiBase [NotCreatable] [NotBrowsable]
-	Property Vector2 GuiBase2d.AbsolutePosition  [ReadOnly] [NotReplicated]
-	Property float GuiBase2d.AbsoluteRotation  [ReadOnly] [NotReplicated]
-	Property Vector2 GuiBase2d.AbsoluteSize  [ReadOnly] [NotReplicated]
-	Property Rect GuiBase2d.ClippedRect {RobloxScriptSecurity} [Hidden] [ReadOnly] [NotReplicated]
-	Property bool GuiBase2d.IsNotOccluded {RobloxScriptSecurity} [Hidden] [ReadOnly] [NotReplicated]
-	Property Rect GuiBase2d.RawRect2D {RobloxScriptSecurity} [Hidden] [ReadOnly] [NotReplicated]
-	Property float GuiBase2d.TotalGroupScale {RobloxScriptSecurity} [Hidden] [ReadOnly] [NotReplicated]
+	Property Vector2 GuiBase2d.AbsolutePosition [ReadOnly]
+	Property float GuiBase2d.AbsoluteRotation [ReadOnly]
+	Property Vector2 GuiBase2d.AbsoluteSize [ReadOnly]
+	Property Rect GuiBase2d.ClippedRect {RobloxScriptSecurity} [Hidden] [ReadOnly]
+	Property bool GuiBase2d.IsNotOccluded {RobloxScriptSecurity} [Hidden] [ReadOnly]
+	Property Rect GuiBase2d.RawRect2D {RobloxScriptSecurity} [Hidden] [ReadOnly]
+	Property float GuiBase2d.TotalGroupScale {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property bool GuiBase2d.AutoLocalize
 	Property bool GuiBase2d.Localize [<📁> LoadOnly] [Hidden] [NotReplicated] [Deprecated]
 	Property Class<LocalizationTable> GuiBase2d.RootLocalizationTable
 Class GuiObject : GuiBase2d [NotCreatable] [NotBrowsable]
 	Property Class<GuiObject> GuiObject.SelectionImageObject
 	Property bool GuiObject.ClipsDescendants
-	Property bool GuiObject.Draggable  [Deprecated]
+	Property bool GuiObject.Draggable [Deprecated]
 	Property Class<GuiObject> GuiObject.NextSelectionDown
 	Property Class<GuiObject> GuiObject.NextSelectionLeft
 	Property Class<GuiObject> GuiObject.NextSelectionRight
@@ -965,23 +965,23 @@ Class ImageButton : GuiButton
 	Property Vector2 ImageButton.ImageRectOffset
 	Property Vector2 ImageButton.ImageRectSize
 	Property float ImageButton.ImageTransparency
-	Property bool ImageButton.IsLoaded  [ReadOnly] [NotReplicated]
+	Property bool ImageButton.IsLoaded [ReadOnly]
 	Property Content ImageButton.PressedImage
 	Property Enum<ScaleType> ImageButton.ScaleType
 	Property Rect ImageButton.SliceCenter
 	Property float ImageButton.SliceScale
 	Property UDim2 ImageButton.TileSize
 Class TextButton : GuiButton
-	Property string TextButton.LocalizedText [<💾> SaveOnly] [Hidden] [ReadOnly] [NotReplicated]
+	Property string TextButton.LocalizedText [<💾> SaveOnly] [Hidden] [ReadOnly]
 	Property Enum<Font> TextButton.Font
 	Property Enum<FontSize> TextButton.FontSize [<📁> LoadOnly] [NotReplicated] [Deprecated]
 	Property float TextButton.LineHeight
 	Property bool TextButton.RichText
 	Property string TextButton.Text
-	Property Vector2 TextButton.TextBounds  [ReadOnly] [NotReplicated]
+	Property Vector2 TextButton.TextBounds [ReadOnly]
 	Property BrickColor TextButton.TextColor [<📁> LoadOnly] [Hidden] [NotReplicated] [Deprecated]
 	Property Color3 TextButton.TextColor3
-	Property bool TextButton.TextFits  [ReadOnly] [NotReplicated]
+	Property bool TextButton.TextFits [ReadOnly]
 	Property bool TextButton.TextScaled
 	Property float TextButton.TextSize
 	Property Color3 TextButton.TextStrokeColor3
@@ -1000,22 +1000,22 @@ Class ImageLabel : GuiLabel
 	Property Vector2 ImageLabel.ImageRectOffset
 	Property Vector2 ImageLabel.ImageRectSize
 	Property float ImageLabel.ImageTransparency
-	Property bool ImageLabel.IsLoaded  [ReadOnly] [NotReplicated]
+	Property bool ImageLabel.IsLoaded [ReadOnly]
 	Property Enum<ScaleType> ImageLabel.ScaleType
 	Property Rect ImageLabel.SliceCenter
 	Property float ImageLabel.SliceScale
 	Property UDim2 ImageLabel.TileSize
 Class TextLabel : GuiLabel
-	Property string TextLabel.LocalizedText [<💾> SaveOnly] [Hidden] [ReadOnly] [NotReplicated]
+	Property string TextLabel.LocalizedText [<💾> SaveOnly] [Hidden] [ReadOnly]
 	Property Enum<Font> TextLabel.Font
 	Property Enum<FontSize> TextLabel.FontSize [<📁> LoadOnly] [NotReplicated] [Deprecated]
 	Property float TextLabel.LineHeight
 	Property bool TextLabel.RichText
 	Property string TextLabel.Text
-	Property Vector2 TextLabel.TextBounds  [ReadOnly] [NotReplicated]
+	Property Vector2 TextLabel.TextBounds [ReadOnly]
 	Property BrickColor TextLabel.TextColor [<📁> LoadOnly] [Hidden] [NotReplicated] [Deprecated]
 	Property Color3 TextLabel.TextColor3
-	Property bool TextLabel.TextFits  [ReadOnly] [NotReplicated]
+	Property bool TextLabel.TextFits [ReadOnly]
 	Property bool TextLabel.TextScaled
 	Property float TextLabel.TextSize
 	Property Color3 TextLabel.TextStrokeColor3
@@ -1028,11 +1028,11 @@ Class TextLabel : GuiLabel
 	Property Enum<TextYAlignment> TextLabel.TextYAlignment
 	Function void TextLabel:SetTextFromInput(string text) {RobloxScriptSecurity}
 Class ScrollingFrame : GuiObject
-	Property Vector2 ScrollingFrame.AbsoluteCanvasSize {RobloxScriptSecurity} [Hidden] [ReadOnly] [NotReplicated]
-	Property Rect ScrollingFrame.HorizontalBarRect {RobloxScriptSecurity} [Hidden] [ReadOnly] [NotReplicated]
-	Property Vector2 ScrollingFrame.MaxCanvasPosition {RobloxScriptSecurity} [Hidden] [ReadOnly] [NotReplicated]
-	Property Rect ScrollingFrame.VerticalBarRect {RobloxScriptSecurity} [Hidden] [ReadOnly] [NotReplicated]
-	Property Vector2 ScrollingFrame.AbsoluteWindowSize [<💾> SaveOnly] [ReadOnly] [NotReplicated]
+	Property Vector2 ScrollingFrame.AbsoluteCanvasSize {RobloxScriptSecurity} [Hidden] [ReadOnly]
+	Property Rect ScrollingFrame.HorizontalBarRect {RobloxScriptSecurity} [Hidden] [ReadOnly]
+	Property Vector2 ScrollingFrame.MaxCanvasPosition {RobloxScriptSecurity} [Hidden] [ReadOnly]
+	Property Rect ScrollingFrame.VerticalBarRect {RobloxScriptSecurity} [Hidden] [ReadOnly]
+	Property Vector2 ScrollingFrame.AbsoluteWindowSize [<💾> SaveOnly] [ReadOnly]
 	Property Enum<AutomaticSize> ScrollingFrame.AutomaticCanvasSize
 	Property Content ScrollingFrame.BottomImage
 	Property Vector2 ScrollingFrame.CanvasPosition
@@ -1070,10 +1070,10 @@ Class TextBox : GuiObject
 	Property string TextBox.PlaceholderText
 	Property bool TextBox.RichText
 	Property string TextBox.Text
-	Property Vector2 TextBox.TextBounds  [ReadOnly] [NotReplicated]
+	Property Vector2 TextBox.TextBounds [ReadOnly]
 	Property BrickColor TextBox.TextColor [<📁> LoadOnly] [Hidden] [NotReplicated] [Deprecated]
 	Property Color3 TextBox.TextColor3
-	Property bool TextBox.TextFits  [ReadOnly] [NotReplicated]
+	Property bool TextBox.TextFits [ReadOnly]
 	Property bool TextBox.TextScaled
 	Property float TextBox.TextSize
 	Property Color3 TextBox.TextStrokeColor3
@@ -1093,12 +1093,12 @@ Class TextBox : GuiObject
 	Event TextBox.Focused()
 	Event TextBox.ReturnPressedFromOnScreenKeyboard()
 Class VideoFrame : GuiObject
-	Property bool VideoFrame.IsLoaded  [ReadOnly] [NotReplicated]
+	Property bool VideoFrame.IsLoaded [ReadOnly]
 	Property bool VideoFrame.Looped
-	Property bool VideoFrame.Playing  [NotReplicated]
-	Property Vector2 VideoFrame.Resolution  [ReadOnly] [NotReplicated]
-	Property double VideoFrame.TimeLength  [ReadOnly] [NotReplicated]
-	Property double VideoFrame.TimePosition  [NotReplicated]
+	Property bool VideoFrame.Playing [NotReplicated]
+	Property Vector2 VideoFrame.Resolution [ReadOnly]
+	Property double VideoFrame.TimeLength [ReadOnly]
+	Property double VideoFrame.TimePosition [NotReplicated]
 	Property Content VideoFrame.Video
 	Property float VideoFrame.Volume
 	Function void VideoFrame:Pause()
@@ -1125,7 +1125,7 @@ Class BillboardGui : LayerCollector
 	Property bool BillboardGui.Active
 	Property Instance BillboardGui.Adornee
 	Property bool BillboardGui.AlwaysOnTop
-	Property float BillboardGui.CurrentDistance  [ReadOnly] [NotReplicated]
+	Property float BillboardGui.CurrentDistance [ReadOnly]
 	Property float BillboardGui.DistanceLowerLimit
 	Property float BillboardGui.DistanceStep
 	Property float BillboardGui.DistanceUpperLimit
@@ -1149,7 +1149,7 @@ Class PluginGui : LayerCollector [NotCreatable] [NotReplicated]
 	Event PluginGui.WindowFocusReleased() {PluginSecurity}
 	Event PluginGui.WindowFocused() {PluginSecurity}
 Class DockWidgetPluginGui : PluginGui [NotCreatable] [NotReplicated]
-	Property bool DockWidgetPluginGui.HostWidgetWasRestored [<💾> SaveOnly] [ReadOnly] [NotReplicated]
+	Property bool DockWidgetPluginGui.HostWidgetWasRestored [<💾> SaveOnly] [ReadOnly]
 Class QWidgetPluginGui : PluginGui [NotCreatable] [NotReplicated]
 Class ScreenGui : LayerCollector
 	Property bool ScreenGui.OnTopOfCoreBlur {RobloxScriptSecurity} [Hidden]
@@ -1174,14 +1174,14 @@ Class GuiBase3d : GuiBase [NotCreatable]
 	Property float GuiBase3d.Transparency
 	Property bool GuiBase3d.Visible
 Class FloorWire : GuiBase3d [Deprecated]
-	Property Content FloorWire.Texture  [Deprecated]
-	Property Vector2 FloorWire.TextureSize  [Deprecated]
-	Property float FloorWire.CycleOffset  [Deprecated]
-	Property Class<BasePart> FloorWire.From  [Deprecated]
-	Property float FloorWire.StudsBetweenTextures  [Deprecated]
-	Property Class<BasePart> FloorWire.To  [Deprecated]
-	Property float FloorWire.Velocity  [Deprecated]
-	Property float FloorWire.WireRadius  [Deprecated]
+	Property Content FloorWire.Texture [Deprecated]
+	Property Vector2 FloorWire.TextureSize [Deprecated]
+	Property float FloorWire.CycleOffset [Deprecated]
+	Property Class<BasePart> FloorWire.From [Deprecated]
+	Property float FloorWire.StudsBetweenTextures [Deprecated]
+	Property Class<BasePart> FloorWire.To [Deprecated]
+	Property float FloorWire.Velocity [Deprecated]
+	Property float FloorWire.WireRadius [Deprecated]
 Class InstanceAdornment : GuiBase3d [NotCreatable]
 	Property Instance InstanceAdornment.Adornee
 Class SelectionBox : InstanceAdornment
@@ -1253,18 +1253,18 @@ Class SurfaceSelection : PartAdornment
 Class SelectionLasso : GuiBase3d [NotCreatable]
 	Property Class<Humanoid> SelectionLasso.Humanoid
 Class SelectionPartLasso : SelectionLasso [Deprecated]
-	Property Class<BasePart> SelectionPartLasso.Part  [Deprecated]
+	Property Class<BasePart> SelectionPartLasso.Part [Deprecated]
 Class SelectionPointLasso : SelectionLasso [Deprecated]
-	Property Vector3 SelectionPointLasso.Point  [Deprecated]
+	Property Vector3 SelectionPointLasso.Point [Deprecated]
 Class GuiService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property bool GuiService.AutoSelectGuiEnabled
 	Property Class<Folder> GuiService.CoreEffectFolder {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property Class<Folder> GuiService.CoreGuiFolder {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property bool GuiService.CoreGuiNavigationEnabled
 	Property bool GuiService.GuiNavigationEnabled
-	Property bool GuiService.IsModalDialog  [ReadOnly] [NotReplicated] [Deprecated]
-	Property bool GuiService.IsWindows  [ReadOnly] [NotReplicated] [Deprecated]
-	Property bool GuiService.MenuIsOpen [<💾> SaveOnly] [ReadOnly] [NotReplicated]
+	Property bool GuiService.IsModalDialog [ReadOnly] [Deprecated]
+	Property bool GuiService.IsWindows [ReadOnly] [Deprecated]
+	Property bool GuiService.MenuIsOpen [<💾> SaveOnly] [ReadOnly]
 	Property Class<GuiObject> GuiService.SelectedCoreObject {RobloxScriptSecurity} [<📁> LoadOnly] [NotReplicated]
 	Property Class<GuiObject> GuiService.SelectedObject
 	Function void GuiService:AddCenterDialog(Instance dialog, Enum<CenterDialogType> centerDialogType, Function showFunction, Function hideFunction) {RobloxScriptSecurity}
@@ -1372,11 +1372,11 @@ Class Humanoid : Instance
 	Property Enum<HumanoidCollisionType> Humanoid.CollisionType {✏️PluginSecurity}
 	Property bool Humanoid.RequiresNeck
 	Property bool Humanoid.AutoRotate
-	Property Enum<Material> Humanoid.FloorMaterial  [ReadOnly] [NotReplicated]
+	Property Enum<Material> Humanoid.FloorMaterial [ReadOnly]
 	Property bool Humanoid.Jump [<📁> LoadOnly] [NotReplicated]
-	Property Vector3 Humanoid.MoveDirection  [ReadOnly] [NotReplicated]
+	Property Vector3 Humanoid.MoveDirection [ReadOnly]
 	Property bool Humanoid.PlatformStand
-	Property Class<BasePart> Humanoid.SeatPart  [ReadOnly] [NotReplicated]
+	Property Class<BasePart> Humanoid.SeatPart [ReadOnly]
 	Property bool Humanoid.Sit
 	Property Vector3 Humanoid.TargetPoint
 	Property Class<BasePart> Humanoid.WalkToPart
@@ -1391,7 +1391,7 @@ Class Humanoid : Instance
 	Property Enum<NameOcclusion> Humanoid.NameOcclusion
 	Property Enum<HumanoidRigType> Humanoid.RigType
 	Property Class<BasePart> Humanoid.RightLeg [<📁> LoadOnly] [Hidden] [NotReplicated] [Deprecated]
-	Property Class<BasePart> Humanoid.RootPart [<💾> SaveOnly] [ReadOnly] [NotReplicated]
+	Property Class<BasePart> Humanoid.RootPart [<💾> SaveOnly] [ReadOnly]
 	Property Class<BasePart> Humanoid.Torso [<📁> LoadOnly] [Hidden] [NotReplicated] [Deprecated]
 	Property bool Humanoid.AutomaticScalingEnabled
 	Property float Humanoid.Health [<📁> LoadOnly] [NotReplicated]
@@ -1516,8 +1516,8 @@ Class InputObject : Instance [NotCreatable]
 	Property Enum<UserInputState> InputObject.UserInputState
 	Function bool InputObject:IsModifierKeyDown(Enum<ModifierKey> modifierKey)
 Class InsertService : Instance [NotCreatable] [Service]
-	Property bool InsertService.AllowClientInsertModels  [NotScriptable]
-	Property bool InsertService.AllowInsertFreeModels  [NotReplicated] [NotBrowsable] [Deprecated]
+	Property bool InsertService.AllowClientInsertModels [NotScriptable]
+	Property bool InsertService.AllowInsertFreeModels [NotReplicated] [NotBrowsable] [Deprecated]
 	Function void InsertService:ApproveAssetId(int64 assetId) [Deprecated]
 	Function void InsertService:ApproveAssetVersionId(int64 assetVersionId) [Deprecated]
 	Function Instance InsertService:CreateMeshPartAsync(Content meshId, Enum<CollisionFidelity> collisionFidelity, Enum<RenderFidelity> renderFidelity) {PluginSecurity} [Yields]
@@ -1537,7 +1537,7 @@ Class InsertService : Instance [NotCreatable] [Service]
 	Function Objects InsertService:LoadPackageAssetAsync(Content url) {RobloxScriptSecurity} [Yields]
 Class InternalContainer : Instance [NotCreatable] [Service] [NotReplicated]
 Class JointInstance : Instance [NotCreatable]
-	Property bool JointInstance.Active  [ReadOnly] [NotReplicated]
+	Property bool JointInstance.Active [ReadOnly]
 	Property bool JointInstance.Enabled
 	Property CFrame JointInstance.C0
 	Property CFrame JointInstance.C1
@@ -1548,10 +1548,10 @@ Class DynamicRotate : JointInstance [NotCreatable]
 Class RotateP : DynamicRotate
 Class RotateV : DynamicRotate
 Class Glue : JointInstance [Deprecated]
-	Property Vector3 Glue.F0  [Deprecated]
-	Property Vector3 Glue.F1  [Deprecated]
-	Property Vector3 Glue.F2  [Deprecated]
-	Property Vector3 Glue.F3  [Deprecated]
+	Property Vector3 Glue.F0 [Deprecated]
+	Property Vector3 Glue.F1 [Deprecated]
+	Property Vector3 Glue.F2 [Deprecated]
+	Property Vector3 Glue.F3 [Deprecated]
 Class ManualSurfaceJointInstance : JointInstance [NotCreatable]
 Class ManualGlue : ManualSurfaceJointInstance
 Class ManualWeld : ManualSurfaceJointInstance
@@ -1561,9 +1561,9 @@ Class Motor : JointInstance
 	Property float Motor.MaxVelocity
 	Function void Motor:SetDesiredAngle(float value)
 Class Motor6D : Motor
-	Property string Motor6D.ChildName  [ReadOnly] [NotReplicated] [NotScriptable]
-	Property string Motor6D.ParentName  [ReadOnly] [NotReplicated] [NotScriptable]
-	Property CFrame Motor6D.Transform  [Hidden] [NotReplicated]
+	Property string Motor6D.ChildName [ReadOnly] [NotScriptable]
+	Property string Motor6D.ParentName [ReadOnly] [NotScriptable]
+	Property CFrame Motor6D.Transform [Hidden] [NotReplicated]
 Class Rotate : JointInstance
 Class Snap : JointInstance
 Class VelocityMotor : JointInstance
@@ -1629,10 +1629,10 @@ Class Lighting : Instance [NotCreatable] [Service]
 	Property float Lighting.EnvironmentSpecularScale
 	Property bool Lighting.GlobalShadows
 	Property Color3 Lighting.OutdoorAmbient
-	Property bool Lighting.Outlines  [Deprecated]
+	Property bool Lighting.Outlines [Deprecated]
 	Property Color3 Lighting.ShadowColor [<📁> LoadOnly] [NotReplicated] [Deprecated]
 	Property float Lighting.ShadowSoftness
-	Property Enum<Technology> Lighting.Technology  [NotScriptable]
+	Property Enum<Technology> Lighting.Technology [NotScriptable]
 	Property float Lighting.ClockTime [<📁> LoadOnly] [NotReplicated]
 	Property float Lighting.GeographicLatitude
 	Property string Lighting.TimeOfDay
@@ -1661,8 +1661,8 @@ Class LocalizationService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property string LocalizationService.RobloxForcePlayModeGameLocaleId {RobloxScriptSecurity} [<📁> LoadOnly] [NotReplicated]
 	Property string LocalizationService.RobloxForcePlayModeRobloxLocaleId {RobloxScriptSecurity} [<📁> LoadOnly] [NotReplicated]
 	Property bool LocalizationService.IsTextScraperRunning {RobloxScriptSecurity} [Hidden]
-	Property string LocalizationService.RobloxLocaleId  [ReadOnly] [NotReplicated]
-	Property string LocalizationService.SystemLocaleId  [ReadOnly] [NotReplicated]
+	Property string LocalizationService.RobloxLocaleId [ReadOnly]
+	Property string LocalizationService.SystemLocaleId [ReadOnly]
 	Function Objects LocalizationService:GetCorescriptLocalizations()
 	Function string LocalizationService:GetCountryRegionForPlayerAsync(Instance player) [Yields]
 	Function Array LocalizationService:GetTableEntries(Instance instance = nil)
@@ -1678,7 +1678,7 @@ Class LocalizationService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void LocalizationService:StopTextScraper() {RobloxScriptSecurity}
 	Event LocalizationService.AutoTranslateWillRun() {RobloxScriptSecurity}
 Class LocalizationTable : Instance
-	Property Instance LocalizationTable.Root  [Hidden] [NotReplicated] [Deprecated]
+	Property Instance LocalizationTable.Root [Hidden] [NotReplicated] [Deprecated]
 	Property string LocalizationTable.DevelopmentLanguage [<📁> LoadOnly] [Hidden] [NotReplicated] [Deprecated]
 	Property string LocalizationTable.SourceLocaleId
 	Function string LocalizationTable:GetContents() [Deprecated]
@@ -1717,7 +1717,7 @@ Class LoginService : Instance [NotCreatable] [Service]
 	Event LoginService.LoginSucceeded(string username) {RobloxSecurity}
 Class LuaSettings : Instance [NotCreatable] [Settings]
 Class LuaSourceContainer : Instance [NotCreatable] [NotBrowsable]
-	Property Instance LuaSourceContainer.CurrentEditor  [NotScriptable]
+	Property Instance LuaSourceContainer.CurrentEditor [NotScriptable]
 	Property bool LuaSourceContainer.IsDifferentFromFileSystem {RobloxSecurity} [NotReplicated] [NotScriptable]
 Class BaseScript : LuaSourceContainer [NotCreatable]
 	Property bool BaseScript.Disabled
@@ -1796,23 +1796,23 @@ Class MemStorageService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function bool MemStorageService:RemoveItem(string key) {RobloxScriptSecurity}
 	Function void MemStorageService:SetItem(string key, string value = "") {RobloxScriptSecurity}
 Class Message : Instance [Deprecated]
-	Property string Message.Text  [Deprecated]
+	Property string Message.Text [Deprecated]
 Class Hint : Message [Deprecated]
 Class MessagingService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void MessagingService:PublishAsync(string topic, Variant message) [Yields]
 	Function RBXScriptConnection MessagingService:SubscribeAsync(string topic, Function callback) [Yields]
 Class Mouse : Instance [NotCreatable]
-	Property CFrame Mouse.Hit [<💾> SaveOnly] [ReadOnly] [NotReplicated]
+	Property CFrame Mouse.Hit [<💾> SaveOnly] [ReadOnly]
 	Property Content Mouse.Icon
-	Property CFrame Mouse.Origin [<💾> SaveOnly] [ReadOnly] [NotReplicated]
-	Property Class<BasePart> Mouse.Target [<💾> SaveOnly] [ReadOnly] [NotReplicated]
+	Property CFrame Mouse.Origin [<💾> SaveOnly] [ReadOnly]
+	Property Class<BasePart> Mouse.Target [<💾> SaveOnly] [ReadOnly]
 	Property Instance Mouse.TargetFilter
-	Property Enum<NormalId> Mouse.TargetSurface [<💾> SaveOnly] [ReadOnly] [NotReplicated]
-	Property Ray Mouse.UnitRay [<💾> SaveOnly] [ReadOnly] [NotReplicated]
-	Property int Mouse.ViewSizeX [<💾> SaveOnly] [ReadOnly] [NotReplicated]
-	Property int Mouse.ViewSizeY [<💾> SaveOnly] [ReadOnly] [NotReplicated]
-	Property int Mouse.X [<💾> SaveOnly] [ReadOnly] [NotReplicated]
-	Property int Mouse.Y [<💾> SaveOnly] [ReadOnly] [NotReplicated]
+	Property Enum<NormalId> Mouse.TargetSurface [<💾> SaveOnly] [ReadOnly]
+	Property Ray Mouse.UnitRay [<💾> SaveOnly] [ReadOnly]
+	Property int Mouse.ViewSizeX [<💾> SaveOnly] [ReadOnly]
+	Property int Mouse.ViewSizeY [<💾> SaveOnly] [ReadOnly]
+	Property int Mouse.X [<💾> SaveOnly] [ReadOnly]
+	Property int Mouse.Y [<💾> SaveOnly] [ReadOnly]
 	Event Mouse.Button1Down()
 	Event Mouse.Button1Up()
 	Event Mouse.Button2Down()
@@ -1828,7 +1828,7 @@ Class PluginMouse : Mouse [NotCreatable]
 	Event PluginMouse.DragEnter(Objects instances) {PluginSecurity}
 Class MouseService : Instance [NotCreatable] [Service] [NotReplicated]
 Class MultipleDocumentInterfaceInstance : Instance [NotCreatable] [NotReplicated]
-	Property Instance MultipleDocumentInterfaceInstance.FocusedDataModelSession {RobloxScriptSecurity} [ReadOnly] [NotReplicated]
+	Property Instance MultipleDocumentInterfaceInstance.FocusedDataModelSession {RobloxScriptSecurity} [ReadOnly]
 	Event MultipleDocumentInterfaceInstance.DataModelSessionEnded(Instance dataModelSession) {RobloxScriptSecurity}
 	Event MultipleDocumentInterfaceInstance.DataModelSessionStarted(Instance dataModelSession) {RobloxScriptSecurity}
 Class NetworkMarker : Instance [NotCreatable] [NotBrowsable]
@@ -1852,7 +1852,7 @@ Class NetworkSettings : Instance [NotCreatable] [Service] [NotBrowsable]
 	Property bool NetworkSettings.RenderStreamedRegions
 	Property bool NetworkSettings.ShowActiveAnimationAsset
 	Property int NetworkSettings.ExtraMemoryUsed {PluginSecurity} [Hidden] [NotReplicated]
-	Property float NetworkSettings.FreeMemoryMBytes {PluginSecurity} [Hidden] [ReadOnly] [NotReplicated]
+	Property float NetworkSettings.FreeMemoryMBytes {PluginSecurity} [Hidden] [ReadOnly]
 	Property double NetworkSettings.IncomingReplicationLag
 	Property bool NetworkSettings.PrintJoinSizeBreakdown
 	Property bool NetworkSettings.PrintPhysicsErrors
@@ -1866,8 +1866,8 @@ Class NoCollisionConstraint : Instance
 	Property Class<BasePart> NoCollisionConstraint.Part0
 	Property Class<BasePart> NoCollisionConstraint.Part1
 Class NotificationService : Instance [NotCreatable] [Service]
-	Property bool NotificationService.IsLuaChatEnabled {RobloxScriptSecurity} [ReadOnly] [NotReplicated]
-	Property bool NotificationService.IsLuaGameDetailsEnabled {RobloxScriptSecurity} [ReadOnly] [NotReplicated]
+	Property bool NotificationService.IsLuaChatEnabled {RobloxScriptSecurity} [ReadOnly]
+	Property bool NotificationService.IsLuaGameDetailsEnabled {RobloxScriptSecurity} [ReadOnly]
 	Property string NotificationService.SelectedTheme {RobloxScriptSecurity} [<📁> LoadOnly] [NotReplicated]
 	Function void NotificationService:ActionEnabled(Enum<AppShellActionType> actionType) {RobloxScriptSecurity}
 	Function void NotificationService:ActionTaken(Enum<AppShellActionType> actionType) {RobloxScriptSecurity}
@@ -1889,32 +1889,32 @@ Class BasePart : PVInstance [NotCreatable] [NotBrowsable]
 	Property float BasePart.Reflectance
 	Property float BasePart.Transparency
 	Property Vector3 BasePart.AssemblyAngularVelocity [<📁> LoadOnly] [NotReplicated]
-	Property Vector3 BasePart.AssemblyCenterOfMass  [ReadOnly] [NotReplicated]
+	Property Vector3 BasePart.AssemblyCenterOfMass [ReadOnly]
 	Property Vector3 BasePart.AssemblyLinearVelocity [<📁> LoadOnly] [NotReplicated]
-	Property float BasePart.AssemblyMass  [ReadOnly] [NotReplicated]
-	Property Class<BasePart> BasePart.AssemblyRootPart  [ReadOnly] [NotReplicated]
+	Property float BasePart.AssemblyMass [ReadOnly]
+	Property Class<BasePart> BasePart.AssemblyRootPart [ReadOnly]
 	Property bool BasePart.Anchored
 	Property bool BasePart.CanCollide
 	Property bool BasePart.CanTouch
 	Property int BasePart.CollisionGroupId
 	Property bool BasePart.Locked
 	Property bool BasePart.Massless
-	Property int BasePart.ResizeIncrement  [ReadOnly] [NotReplicated]
-	Property Faces BasePart.ResizeableFaces  [ReadOnly] [NotReplicated]
+	Property int BasePart.ResizeIncrement [ReadOnly]
+	Property Faces BasePart.ResizeableFaces [ReadOnly]
 	Property CFrame BasePart.CFrame
-	Property Vector3 BasePart.CenterOfMass  [ReadOnly] [NotReplicated]
-	Property float BasePart.LocalTransparencyModifier  [Hidden] [NotReplicated]
-	Property float BasePart.Mass  [ReadOnly] [NotReplicated]
+	Property Vector3 BasePart.CenterOfMass [ReadOnly]
+	Property float BasePart.LocalTransparencyModifier [Hidden] [NotReplicated]
+	Property float BasePart.Mass [ReadOnly]
 	Property Vector3 BasePart.Orientation [<📁> LoadOnly] [NotReplicated]
 	Property Vector3 BasePart.Position [<📁> LoadOnly] [NotReplicated]
 	Property Vector3 BasePart.RotVelocity
 	Property Vector3 BasePart.Rotation [<📁> LoadOnly] [NotReplicated]
-	Property float BasePart.SpecificGravity  [ReadOnly] [NotReplicated] [Deprecated]
+	Property float BasePart.SpecificGravity [ReadOnly] [Deprecated]
 	Property Vector3 BasePart.Velocity
 	Property PhysicalProperties BasePart.CustomPhysicalProperties
 	Property float BasePart.Elasticity [<📁> LoadOnly] [Hidden] [NotReplicated] [Deprecated]
 	Property float BasePart.Friction [<📁> LoadOnly] [Hidden] [NotReplicated] [Deprecated]
-	Property float BasePart.ReceiveAge  [Hidden] [ReadOnly] [NotReplicated]
+	Property float BasePart.ReceiveAge [Hidden] [ReadOnly]
 	Property int BasePart.RootPriority
 	Property Vector3 BasePart.Size [<📁> LoadOnly] [NotReplicated]
 	Property Enum<SurfaceType> BasePart.BackSurface
@@ -1973,19 +1973,19 @@ Class FormFactorPart : BasePart [NotCreatable] [Deprecated]
 Class Part : FormFactorPart
 	Property Enum<PartType> Part.Shape [<📁> LoadOnly] [NotReplicated]
 Class FlagStand : Part [Deprecated]
-	Property BrickColor FlagStand.TeamColor  [Deprecated]
+	Property BrickColor FlagStand.TeamColor [Deprecated]
 	Event FlagStand.FlagCaptured(Instance player) [Deprecated]
 Class Platform : Part [NotCreatable]
 Class Seat : Part
 	Property bool Seat.Disabled
-	Property Class<Humanoid> Seat.Occupant  [ReadOnly] [NotReplicated]
+	Property Class<Humanoid> Seat.Occupant [ReadOnly]
 	Function void Seat:Sit(Instance humanoid)
 Class SkateboardPlatform : Part [Deprecated]
-	Property Class<SkateboardController> SkateboardPlatform.Controller  [ReadOnly] [NotReplicated] [Deprecated]
-	Property Class<Humanoid> SkateboardPlatform.ControllingHumanoid  [ReadOnly] [NotReplicated] [Deprecated]
-	Property int SkateboardPlatform.Steer  [Deprecated]
-	Property bool SkateboardPlatform.StickyWheels  [Deprecated]
-	Property int SkateboardPlatform.Throttle  [Deprecated]
+	Property Class<SkateboardController> SkateboardPlatform.Controller [ReadOnly] [Deprecated]
+	Property Class<Humanoid> SkateboardPlatform.ControllingHumanoid [ReadOnly] [Deprecated]
+	Property int SkateboardPlatform.Steer [Deprecated]
+	Property bool SkateboardPlatform.StickyWheels [Deprecated]
+	Property int SkateboardPlatform.Throttle [Deprecated]
 	Function void SkateboardPlatform:ApplySpecificImpulse(Vector3 impulseWorld) [Deprecated]
 	Event SkateboardPlatform.Equipped(Instance humanoid, Instance skateboardController) [Deprecated]
 	Event SkateboardPlatform.MoveStateChanged(Enum<MoveState> newState, Enum<MoveState> oldState) [Deprecated]
@@ -1998,15 +1998,15 @@ Class SpawnLocation : Part
 	Property BrickColor SpawnLocation.TeamColor
 Class WedgePart : FormFactorPart
 Class Terrain : BasePart [NotCreatable]
-	Property bool Terrain.Decoration  [NotScriptable]
-	Property BinaryString Terrain.MaterialColors  [NotScriptable]
+	Property bool Terrain.Decoration [NotScriptable]
+	Property BinaryString Terrain.MaterialColors [NotScriptable]
 	Property Color3 Terrain.WaterColor
 	Property float Terrain.WaterReflectance
 	Property float Terrain.WaterTransparency
 	Property float Terrain.WaterWaveSize
 	Property float Terrain.WaterWaveSpeed
-	Property bool Terrain.IsSmooth  [ReadOnly] [NotReplicated] [Deprecated]
-	Property Region3int16 Terrain.MaxExtents  [ReadOnly] [NotReplicated]
+	Property bool Terrain.IsSmooth [ReadOnly] [Deprecated]
+	Property Region3int16 Terrain.MaxExtents [ReadOnly]
 	Function bool Terrain:AutowedgeCell(int x, int y, int z) [Deprecated]
 	Function void Terrain:AutowedgeCells(Region3int16 region) [Deprecated]
 	Function void Terrain:CancelImportHeightmap() {RobloxScriptSecurity}
@@ -2045,28 +2045,28 @@ Class MeshPart : TriangleMeshPart
 	Property bool MeshPart.DoubleSided {✏️PluginSecurity}
 	Property bool MeshPart.HasJointOffset {✏️NotAccessibleSecurity} [Hidden]
 	Property bool MeshPart.HasSkinnedMesh {✏️NotAccessibleSecurity} [Hidden]
-	Property Content MeshPart.MeshID  [NotScriptable] [Deprecated]
+	Property Content MeshPart.MeshID [NotScriptable] [Deprecated]
 	Property Content MeshPart.MeshId {✏️NotAccessibleSecurity}
 	Property Enum<RenderFidelity> MeshPart.RenderFidelity {✏️PluginSecurity}
 	Property Content MeshPart.TextureID
 	Property Vector3 MeshPart.JointOffset {✏️NotAccessibleSecurity} [Hidden]
-	Property Vector3 MeshPart.MeshSize  [ReadOnly] [NotReplicated]
+	Property Vector3 MeshPart.MeshSize [ReadOnly]
 	Function void MeshPart:ApplyMesh(Instance meshPart)
 Class PartOperation : TriangleMeshPart
 	Property Enum<RenderFidelity> PartOperation.RenderFidelity {✏️PluginSecurity}
 	Property float PartOperation.SmoothingAngle {✏️PluginSecurity}
-	Property int PartOperation.TriangleCount [<💾> SaveOnly] [ReadOnly] [NotReplicated]
+	Property int PartOperation.TriangleCount [<💾> SaveOnly] [ReadOnly]
 	Property bool PartOperation.UsePartColor
 Class NegateOperation : PartOperation
 Class UnionOperation : PartOperation
 Class TrussPart : BasePart
 	Property Enum<Style> TrussPart.Style [<📁> LoadOnly] [NotReplicated]
 Class VehicleSeat : BasePart
-	Property int VehicleSeat.AreHingesDetected  [ReadOnly] [NotReplicated]
+	Property int VehicleSeat.AreHingesDetected [ReadOnly]
 	Property bool VehicleSeat.Disabled
 	Property bool VehicleSeat.HeadsUpDisplay
 	Property float VehicleSeat.MaxSpeed
-	Property Class<Humanoid> VehicleSeat.Occupant  [ReadOnly] [NotReplicated]
+	Property Class<Humanoid> VehicleSeat.Occupant [ReadOnly]
 	Property int VehicleSeat.Steer
 	Property float VehicleSeat.SteerFloat
 	Property int VehicleSeat.Throttle
@@ -2107,21 +2107,21 @@ Class WorldRoot : Model [NotCreatable]
 	Function RaycastResult WorldRoot:Raycast(Vector3 origin, Vector3 direction, RaycastParams raycastParams = RaycastParams.new())
 	Function void WorldRoot:SetInsertPoint(Vector3 point, bool ignoreGrid = false) {RobloxScriptSecurity}
 Class Workspace : WorldRoot [NotCreatable] [Service]
-	Property bool Workspace.AllowThirdPartySales  [NotReplicated]
+	Property bool Workspace.AllowThirdPartySales [NotReplicated]
 	Property float Workspace.FallenPartsDestroyHeight {✏️PluginSecurity}
 	Property bool Workspace.FilteringEnabled {✏️PluginSecurity}
 	Property float Workspace.Gravity
 	Property Enum<InterpolationThrottlingMode> Workspace.InterpolationThrottling {✏️PluginSecurity}
-	Property Enum<MeshPartHeads> Workspace.MeshPartHeads  [NotScriptable]
-	Property Enum<PhysicsSimulationRate> Workspace.PhysicsSimulationRate  [Hidden] [NotReplicated]
+	Property Enum<MeshPartHeads> Workspace.MeshPartHeads [NotScriptable]
+	Property Enum<PhysicsSimulationRate> Workspace.PhysicsSimulationRate [Hidden] [NotReplicated]
 	Property bool Workspace.StreamingEnabled {✏️PluginSecurity}
-	Property int Workspace.StreamingMinRadius  [NotScriptable]
-	Property Enum<StreamingPauseMode> Workspace.StreamingPauseMode  [NotScriptable]
-	Property int Workspace.StreamingTargetRadius  [NotScriptable]
-	Property Instance Workspace.Terrain  [ReadOnly] [NotReplicated]
-	Property bool Workspace.TouchesUseCollisionGroups  [NotScriptable]
-	Property Class<Camera> Workspace.CurrentCamera  [NotReplicated]
-	Property double Workspace.DistributedGameTime  [NotReplicated]
+	Property int Workspace.StreamingMinRadius [NotScriptable]
+	Property Enum<StreamingPauseMode> Workspace.StreamingPauseMode [NotScriptable]
+	Property int Workspace.StreamingTargetRadius [NotScriptable]
+	Property Instance Workspace.Terrain [ReadOnly]
+	Property bool Workspace.TouchesUseCollisionGroups [NotScriptable]
+	Property Class<Camera> Workspace.CurrentCamera [NotReplicated]
+	Property double Workspace.DistributedGameTime [NotReplicated]
 	Function void Workspace:BreakJoints(Objects objects) {PluginSecurity}
 	Function float Workspace:CalculateJumpDistance(float gravity, float jumpPower, float walkSpeed) {RobloxScriptSecurity}
 	Function float Workspace:CalculateJumpHeight(float gravity, float jumpPower) {RobloxScriptSecurity}
@@ -2139,13 +2139,13 @@ Class Workspace : WorldRoot [NotCreatable] [Service]
 	Function void Workspace:ZoomToExtents() {PluginSecurity}
 Class WorldModel : WorldRoot
 Class PackageLink : Instance [NotCreatable] [NotBrowsable]
-	Property bool PackageLink.AutoUpdate  [NotScriptable]
-	Property Content PackageLink.PackageId [<💾> SaveOnly] [ReadOnly] [NotReplicated]
-	Property string PackageLink.Status {RobloxScriptSecurity} [ReadOnly] [NotReplicated]
+	Property bool PackageLink.AutoUpdate [NotScriptable]
+	Property Content PackageLink.PackageId [<💾> SaveOnly] [ReadOnly]
+	Property string PackageLink.Status {RobloxScriptSecurity} [ReadOnly]
 	Property int64 PackageLink.VersionNumber {✏️NotAccessibleSecurity} [<📁> LoadOnly] [NotReplicated]
 Class PackageService : Instance [NotCreatable] [Service] [NotReplicated]
 Class Pages : Instance [NotCreatable] [NotReplicated]
-	Property bool Pages.IsFinished  [ReadOnly] [NotReplicated]
+	Property bool Pages.IsFinished [ReadOnly]
 	Function void Pages:AdvanceToNextPageAsync() [Yields]
 	Function Array Pages:GetCurrentPage()
 Class CatalogPages : Pages [NotCreatable] [NotReplicated]
@@ -2181,7 +2181,7 @@ Class ParticleEmitter : Instance
 	Function void ParticleEmitter:Clear()
 	Function void ParticleEmitter:Emit(int particleCount = 16)
 Class Path : Instance [NotCreatable] [NotReplicated]
-	Property Enum<PathStatus> Path.Status [<💾> SaveOnly] [ReadOnly] [NotReplicated]
+	Property Enum<PathStatus> Path.Status [<💾> SaveOnly] [ReadOnly]
 	Function int Path:CheckOcclusionAsync(int start) [Yields]
 	Function void Path:ComputeAsync(Vector3 start, Vector3 finish) [Yields]
 	Function Array Path:GetPointCoordinates() [Deprecated]
@@ -2230,7 +2230,7 @@ Class PhysicsSettings : Instance [NotCreatable] [Settings]
 	Property bool PhysicsSettings.AreUnalignedPartsShown
 	Property bool PhysicsSettings.AreWorldCoordsShown
 	Property bool PhysicsSettings.DisableCSGv2
-	Property bool PhysicsSettings.ForceCSGv2  [Hidden] [NotReplicated]
+	Property bool PhysicsSettings.ForceCSGv2 [Hidden] [NotReplicated]
 	Property bool PhysicsSettings.IsInterpolationThrottleShown
 	Property bool PhysicsSettings.IsReceiveAgeShown
 	Property bool PhysicsSettings.IsTreeShown
@@ -2253,33 +2253,33 @@ Class Player : Instance
 	Property float Player.NameDisplayDistance
 	Property Enum<DevComputerMovementMode> Player.DevComputerMovementMode
 	Property Enum<DevTouchMovementMode> Player.DevTouchMovementMode
-	Property int Player.AccountAge  [ReadOnly] [NotReplicated]
-	Property bool Player.AppearanceDidLoad {RobloxScriptSecurity} [ReadOnly] [NotReplicated] [Deprecated]
+	Property int Player.AccountAge [ReadOnly]
+	Property bool Player.AppearanceDidLoad {RobloxScriptSecurity} [ReadOnly] [Deprecated]
 	Property bool Player.AutoJumpEnabled
 	Property Class<Model> Player.Character
-	Property string Player.CharacterAppearance  [NotBrowsable] [Deprecated]
+	Property string Player.CharacterAppearance [NotBrowsable] [Deprecated]
 	Property int64 Player.CharacterAppearanceId
-	Property Enum<ChatMode> Player.ChatMode {RobloxScriptSecurity} [ReadOnly] [NotReplicated]
-	Property int Player.DataComplexity  [ReadOnly] [NotReplicated] [Deprecated]
+	Property Enum<ChatMode> Player.ChatMode {RobloxScriptSecurity} [ReadOnly]
+	Property int Player.DataComplexity [ReadOnly] [Deprecated]
 	Property int Player.DataComplexityLimit {LocalUserSecurity} [<📁> LoadOnly] [NotReplicated] [Deprecated]
-	Property bool Player.DataReady  [ReadOnly] [NotReplicated] [Deprecated]
+	Property bool Player.DataReady [ReadOnly] [Deprecated]
 	Property string Player.DisplayName
-	Property int64 Player.FollowUserId [<💾> SaveOnly] [ReadOnly] [NotReplicated]
-	Property bool Player.Guest {RobloxScriptSecurity} [ReadOnly] [NotReplicated]
-	Property string Player.LocaleId  [Hidden] [ReadOnly] [NotReplicated]
+	Property int64 Player.FollowUserId [<💾> SaveOnly] [ReadOnly]
+	Property bool Player.Guest {RobloxScriptSecurity} [ReadOnly]
+	Property string Player.LocaleId [Hidden] [ReadOnly]
 	Property float Player.MaximumSimulationRadius {LocalUserSecurity} [<📁> LoadOnly] [NotReplicated]
-	Property Enum<MembershipType> Player.MembershipType  [ReadOnly] [NotReplicated]
+	Property Enum<MembershipType> Player.MembershipType [ReadOnly]
 	Property string Player.OsPlatform {RobloxScriptSecurity} [<📁> LoadOnly] [NotReplicated]
 	Property string Player.PlatformName {RobloxScriptSecurity}
 	Property Instance Player.ReplicationFocus
 	Property Class<SpawnLocation> Player.RespawnLocation
 	Property float Player.SimulationRadius {LocalUserSecurity}
-	Property bool Player.Teleported {RobloxScriptSecurity} [Hidden] [ReadOnly] [NotReplicated]
+	Property bool Player.Teleported {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property bool Player.TeleportedIn {RobloxScriptSecurity}
 	Property int64 Player.UserId
 	Property string Player.VRDevice {RobloxScriptSecurity}
 	Property bool Player.Neutral
-	Property Class<Team> Player.Team  [NotReplicated]
+	Property Class<Team> Player.Team [NotReplicated]
 	Property BrickColor Player.TeamColor
 	Function void Player:AddToBlockList(Array userIds) {RobloxScriptSecurity}
 	Function void Player:ClearCharacterAppearance()
@@ -2358,14 +2358,14 @@ Class PlayerScripts : Instance [NotCreatable] [NotReplicated]
 	Event PlayerScripts.TouchCameraMovementModeRegistered() {RobloxScriptSecurity}
 	Event PlayerScripts.TouchMovementModeRegistered() {RobloxScriptSecurity}
 Class Players : Instance [NotCreatable] [Service]
-	Property bool Players.CharacterAutoLoads  [NotReplicated]
-	Property bool Players.BubbleChat  [ReadOnly] [NotReplicated]
-	Property bool Players.ClassicChat  [ReadOnly] [NotReplicated]
-	Property Class<Player> Players.LocalPlayer  [ReadOnly] [NotReplicated]
-	Property int Players.MaxPlayers  [ReadOnly] [NotReplicated]
+	Property bool Players.CharacterAutoLoads [NotReplicated]
+	Property bool Players.BubbleChat [ReadOnly]
+	Property bool Players.ClassicChat [ReadOnly]
+	Property Class<Player> Players.LocalPlayer [ReadOnly]
+	Property int Players.MaxPlayers [ReadOnly]
 	Property int Players.MaxPlayersInternal {LocalUserSecurity}
-	Property int Players.NumPlayers  [ReadOnly] [NotReplicated] [Deprecated]
-	Property int Players.PreferredPlayers  [ReadOnly] [NotReplicated]
+	Property int Players.NumPlayers [ReadOnly] [Deprecated]
+	Property int Players.PreferredPlayers [ReadOnly]
 	Property int Players.PreferredPlayersInternal {LocalUserSecurity}
 	Property float Players.RespawnTime
 	Function void Players:Chat(string message) {PluginSecurity}
@@ -2401,11 +2401,11 @@ Class Players : Instance [NotCreatable] [Service]
 	Event Players.PlayerRemoving(Instance player)
 Class Plugin : Instance [NotCreatable]
 	Property bool Plugin.UsesAssetInsertionDrag {RobloxScriptSecurity} [<📁> LoadOnly] [NotReplicated]
-	Property bool Plugin.CollisionEnabled  [ReadOnly] [NotReplicated]
-	Property float Plugin.GridSize  [ReadOnly] [NotReplicated]
-	Property Enum<StudioDataModelType> Plugin.HostDataModelType {RobloxScriptSecurity} [ReadOnly] [NotReplicated]
-	Property bool Plugin.HostDataModelTypeIsCurrent {RobloxScriptSecurity} [ReadOnly] [NotReplicated]
-	Property Class<MultipleDocumentInterfaceInstance> Plugin.MultipleDocumentInterfaceInstance {RobloxScriptSecurity} [ReadOnly] [NotReplicated]
+	Property bool Plugin.CollisionEnabled [ReadOnly]
+	Property float Plugin.GridSize [ReadOnly]
+	Property Enum<StudioDataModelType> Plugin.HostDataModelType {RobloxScriptSecurity} [ReadOnly]
+	Property bool Plugin.HostDataModelTypeIsCurrent {RobloxScriptSecurity} [ReadOnly]
+	Property Class<MultipleDocumentInterfaceInstance> Plugin.MultipleDocumentInterfaceInstance {RobloxScriptSecurity} [ReadOnly]
 	Function void Plugin:Activate(bool exclusiveMouse) {PluginSecurity}
 	Function Instance Plugin:CreateDockWidgetPluginGui(string pluginGuiId, DockWidgetPluginGuiInfo dockWidgetPluginGuiInfo) {PluginSecurity} [Yields]
 	Function Instance Plugin:CreatePluginAction(string actionId, string text, string statusTip, string iconName = "", bool allowBinding = true) {PluginSecurity}
@@ -2446,20 +2446,20 @@ Class Plugin : Instance [NotCreatable]
 	Event Plugin.Deactivation() {PluginSecurity}
 	Event Plugin.Unloading() {PluginSecurity}
 Class PluginAction : Instance [NotReplicated]
-	Property string PluginAction.ActionId  [ReadOnly] [NotReplicated]
-	Property bool PluginAction.AllowBinding  [ReadOnly] [NotReplicated]
+	Property string PluginAction.ActionId [ReadOnly]
+	Property bool PluginAction.AllowBinding [ReadOnly]
 	Property bool PluginAction.Checked {RobloxScriptSecurity} [<📁> LoadOnly] [NotReplicated]
 	Property string PluginAction.DefaultShortcut {RobloxScriptSecurity} [<📁> LoadOnly] [NotReplicated]
 	Property bool PluginAction.Enabled {RobloxScriptSecurity} [<📁> LoadOnly] [NotReplicated]
-	Property string PluginAction.StatusTip  [ReadOnly] [NotReplicated]
-	Property string PluginAction.Text  [ReadOnly] [NotReplicated]
+	Property string PluginAction.StatusTip [ReadOnly]
+	Property string PluginAction.Text [ReadOnly]
 	Event PluginAction.Triggered() {PluginSecurity}
 Class PluginDebugService : Instance [NotCreatable] [Service] [NotReplicated]
 Class PluginDragEvent : Instance [NotCreatable] [NotReplicated]
-	Property string PluginDragEvent.Data  [ReadOnly] [NotReplicated]
-	Property string PluginDragEvent.MimeType  [ReadOnly] [NotReplicated]
-	Property Vector2 PluginDragEvent.Position  [ReadOnly] [NotReplicated]
-	Property string PluginDragEvent.Sender  [ReadOnly] [NotReplicated]
+	Property string PluginDragEvent.Data [ReadOnly]
+	Property string PluginDragEvent.MimeType [ReadOnly]
+	Property Vector2 PluginDragEvent.Position [ReadOnly]
+	Property string PluginDragEvent.Sender [ReadOnly]
 Class PluginGuiService : Instance [NotCreatable] [Service] [NotReplicated]
 Class PluginManager : Instance [NotCreatable]
 	Function Instance PluginManager:CreatePlugin() {PluginSecurity} [Deprecated] [CustomLuaState]
@@ -2687,10 +2687,10 @@ Class ScriptContext : Instance [NotCreatable] [Service] [NotReplicated]
 	Event ScriptContext.Error(string message, string stackTrace, Instance script)
 	Event ScriptContext.ErrorDetailed(string message, string stackTrace, Instance script, string details, int securityLevel) {RobloxScriptSecurity}
 Class ScriptDebugger : Instance [NotCreatable]
-	Property int ScriptDebugger.CurrentLine  [ReadOnly] [NotReplicated]
-	Property bool ScriptDebugger.IsDebugging  [ReadOnly] [NotReplicated]
-	Property bool ScriptDebugger.IsPaused  [ReadOnly] [NotReplicated]
-	Property Instance ScriptDebugger.Script  [ReadOnly] [NotReplicated]
+	Property int ScriptDebugger.CurrentLine [ReadOnly]
+	Property bool ScriptDebugger.IsDebugging [ReadOnly]
+	Property bool ScriptDebugger.IsPaused [ReadOnly]
+	Property Instance ScriptDebugger.Script [ReadOnly]
 	Function Instance ScriptDebugger:AddWatch(string expression)
 	Function Objects ScriptDebugger:GetBreakpoints()
 	Function Map ScriptDebugger:GetGlobals(int stackFrame = 0)
@@ -2711,14 +2711,14 @@ Class ScriptDebugger : Instance [NotCreatable]
 	Event ScriptDebugger.WatchRemoved(Instance watch)
 Class ScriptService : Instance [NotCreatable] [Service]
 Class Selection : Instance [NotCreatable] [Service]
-	Property Instance Selection.ActiveInstance {RobloxScriptSecurity} [ReadOnly] [NotReplicated]
+	Property Instance Selection.ActiveInstance {RobloxScriptSecurity} [ReadOnly]
 	Function void Selection:Add(Objects instancesToAdd) {PluginSecurity}
 	Function Objects Selection:Get() {PluginSecurity}
 	Function void Selection:Remove(Objects instancesToRemove) {PluginSecurity}
 	Function void Selection:Set(Objects selection) {PluginSecurity}
 	Event Selection.SelectionChanged()
 Class ServerScriptService : Instance [NotCreatable] [Service] [NotReplicated]
-	Property bool ServerScriptService.LoadStringEnabled  [NotReplicated] [NotScriptable]
+	Property bool ServerScriptService.LoadStringEnabled [NotReplicated] [NotScriptable]
 Class ServerStorage : Instance [NotCreatable] [Service] [NotReplicated]
 Class ServiceProvider : Instance [NotCreatable] [NotBrowsable]
 	Function Instance ServiceProvider:FindService(string className)
@@ -2729,21 +2729,21 @@ Class ServiceProvider : Instance [NotCreatable] [NotBrowsable]
 	Event ServiceProvider.ServiceAdded(Instance service)
 	Event ServiceProvider.ServiceRemoving(Instance service)
 Class DataModel : ServiceProvider [NotCreatable]
-	Property bool DataModel.IsSFFlagsLoaded {RobloxScriptSecurity} [ReadOnly] [NotReplicated]
-	Property string DataModel.PrivateServerId [<💾> SaveOnly] [ReadOnly] [NotReplicated]
-	Property int64 DataModel.PrivateServerOwnerId [<💾> SaveOnly] [ReadOnly] [NotReplicated]
-	Property string DataModel.VIPServerId [<💾> SaveOnly] [Hidden] [ReadOnly] [NotReplicated] [Deprecated]
-	Property int64 DataModel.VIPServerOwnerId [<💾> SaveOnly] [Hidden] [ReadOnly] [NotReplicated] [Deprecated]
-	Property Class<Workspace> DataModel.Workspace  [ReadOnly] [NotReplicated]
-	Property string DataModel.JobId  [ReadOnly] [NotReplicated]
-	Property int64 DataModel.CreatorId  [ReadOnly] [NotReplicated]
-	Property Enum<CreatorType> DataModel.CreatorType  [ReadOnly] [NotReplicated]
-	Property int64 DataModel.GameId  [ReadOnly] [NotReplicated]
-	Property Enum<GearGenreSetting> DataModel.GearGenreSetting  [ReadOnly] [NotReplicated] [Deprecated]
-	Property Enum<Genre> DataModel.Genre  [ReadOnly] [NotReplicated]
-	Property int64 DataModel.PlaceId  [ReadOnly] [NotReplicated]
-	Property int DataModel.PlaceVersion  [ReadOnly] [NotReplicated]
-	Property Instance DataModel.lighting  [ReadOnly] [NotReplicated] [Deprecated]
+	Property bool DataModel.IsSFFlagsLoaded {RobloxScriptSecurity} [ReadOnly]
+	Property string DataModel.PrivateServerId [<💾> SaveOnly] [ReadOnly]
+	Property int64 DataModel.PrivateServerOwnerId [<💾> SaveOnly] [ReadOnly]
+	Property string DataModel.VIPServerId [<💾> SaveOnly] [Hidden] [ReadOnly] [Deprecated]
+	Property int64 DataModel.VIPServerOwnerId [<💾> SaveOnly] [Hidden] [ReadOnly] [Deprecated]
+	Property Class<Workspace> DataModel.Workspace [ReadOnly]
+	Property string DataModel.JobId [ReadOnly]
+	Property int64 DataModel.CreatorId [ReadOnly]
+	Property Enum<CreatorType> DataModel.CreatorType [ReadOnly]
+	Property int64 DataModel.GameId [ReadOnly]
+	Property Enum<GearGenreSetting> DataModel.GearGenreSetting [ReadOnly] [Deprecated]
+	Property Enum<Genre> DataModel.Genre [ReadOnly]
+	Property int64 DataModel.PlaceId [ReadOnly]
+	Property int DataModel.PlaceVersion [ReadOnly]
+	Property Instance DataModel.lighting [ReadOnly] [Deprecated]
 	Function void DataModel:BindToClose(Function function)
 	Function bool DataModel:DefineFastFlag(string name, bool defaultValue) {RobloxScriptSecurity}
 	Function int DataModel:DefineFastInt(string name, int defaultValue) {RobloxScriptSecurity}
@@ -2825,24 +2825,24 @@ Class SocialService : Instance [NotCreatable] [Service] [NotReplicated]
 	Event SocialService.PromptInviteRequested(Instance player) {RobloxScriptSecurity}
 Class Sound : Instance
 	Property bool Sound.PlayOnRemove
-	Property float Sound.EmitterSize  [Deprecated]
-	Property bool Sound.IsLoaded  [ReadOnly] [NotReplicated]
-	Property bool Sound.IsPaused  [ReadOnly] [NotReplicated]
-	Property bool Sound.IsPlaying  [ReadOnly] [NotReplicated]
+	Property float Sound.EmitterSize [Deprecated]
+	Property bool Sound.IsLoaded [ReadOnly]
+	Property bool Sound.IsPaused [ReadOnly]
+	Property bool Sound.IsPlaying [ReadOnly]
 	Property bool Sound.Looped
-	Property float Sound.MaxDistance  [Deprecated]
+	Property float Sound.MaxDistance [Deprecated]
 	Property float Sound.MinDistance [<📁> LoadOnly] [Deprecated]
 	Property float Sound.Pitch [<📁> LoadOnly] [Deprecated]
-	Property double Sound.PlaybackLoudness  [ReadOnly] [NotReplicated]
-	Property float Sound.PlaybackSpeed  [NotReplicated]
-	Property bool Sound.Playing  [NotReplicated]
-	Property float Sound.RollOffMaxDistance  [NotReplicated]
-	Property float Sound.RollOffMinDistance  [NotReplicated]
+	Property double Sound.PlaybackLoudness [ReadOnly]
+	Property float Sound.PlaybackSpeed [NotReplicated]
+	Property bool Sound.Playing [NotReplicated]
+	Property float Sound.RollOffMaxDistance [NotReplicated]
+	Property float Sound.RollOffMinDistance [NotReplicated]
 	Property Enum<RollOffMode> Sound.RollOffMode
 	Property Class<SoundGroup> Sound.SoundGroup
 	Property Content Sound.SoundId
-	Property double Sound.TimeLength  [ReadOnly] [NotReplicated]
-	Property double Sound.TimePosition  [NotReplicated]
+	Property double Sound.TimeLength [ReadOnly]
+	Property double Sound.TimePosition [NotReplicated]
 	Property float Sound.Volume
 	Function void Sound:Pause()
 	Function void Sound:Play()
@@ -2963,16 +2963,16 @@ Class StarterPlayer : Instance [NotCreatable] [Service]
 Class StarterPlayerScripts : Instance [NotCreatable]
 Class StarterCharacterScripts : StarterPlayerScripts [NotCreatable]
 Class Stats : Instance [NotCreatable] [Service]
-	Property int Stats.ContactsCount  [ReadOnly] [NotReplicated]
-	Property float Stats.DataReceiveKbps  [ReadOnly] [NotReplicated]
-	Property float Stats.DataSendKbps  [ReadOnly] [NotReplicated]
-	Property float Stats.HeartbeatTimeMs  [ReadOnly] [NotReplicated]
-	Property int Stats.InstanceCount  [ReadOnly] [NotReplicated]
-	Property int Stats.MovingPrimitivesCount  [ReadOnly] [NotReplicated]
-	Property float Stats.PhysicsReceiveKbps  [ReadOnly] [NotReplicated]
-	Property float Stats.PhysicsSendKbps  [ReadOnly] [NotReplicated]
-	Property float Stats.PhysicsStepTimeMs  [ReadOnly] [NotReplicated]
-	Property int Stats.PrimitivesCount  [ReadOnly] [NotReplicated]
+	Property int Stats.ContactsCount [ReadOnly]
+	Property float Stats.DataReceiveKbps [ReadOnly]
+	Property float Stats.DataSendKbps [ReadOnly]
+	Property float Stats.HeartbeatTimeMs [ReadOnly]
+	Property int Stats.InstanceCount [ReadOnly]
+	Property int Stats.MovingPrimitivesCount [ReadOnly]
+	Property float Stats.PhysicsReceiveKbps [ReadOnly]
+	Property float Stats.PhysicsSendKbps [ReadOnly]
+	Property float Stats.PhysicsStepTimeMs [ReadOnly]
+	Property int Stats.PrimitivesCount [ReadOnly]
 	Function string Stats:GetBrowserTrackerId() {RobloxScriptSecurity}
 	Function float Stats:GetMemoryUsageMbForTag(Enum<DeveloperMemoryTag> tag)
 	Function Dictionary Stats:GetPaginatedMemoryByTexture(Enum<TextureQueryType> queryType, int pageIndex, int pageSize) {RobloxScriptSecurity} [Yields]
@@ -3026,10 +3026,10 @@ Class Studio : Instance [NotCreatable] [Service] [NotReplicated]
 	Property Enum<LanguagePreference> Studio.Language
 	Property int Studio.Render Throttle Percentage
 	Property Instance Studio.Theme
-	Property Enum<UITheme> Studio.UI Theme [<💾> SaveOnly] [Hidden] [ReadOnly] [NotReplicated] [Deprecated]
+	Property Enum<UITheme> Studio.UI Theme [<💾> SaveOnly] [Hidden] [ReadOnly] [Deprecated]
 	Property bool Studio.CommandBarLocalState
 	Property bool Studio.LuaDebuggerEnabled
-	Property bool Studio.LuaDebuggerEnabledAtStartup  [Hidden] [ReadOnly] [NotReplicated]
+	Property bool Studio.LuaDebuggerEnabledAtStartup [Hidden] [ReadOnly]
 	Property bool Studio.PluginDebuggingEnabled
 	Property int Studio.ScriptTimeoutLength
 	Property bool Studio.Clear Output On Start
@@ -3057,37 +3057,37 @@ Class Studio : Instance [NotCreatable] [Service] [NotReplicated]
 	Property bool Studio.Skip Closing Brackets and Quotes
 	Property int Studio.Tab Width
 	Property bool Studio.Text Wrapping
-	Property Color3 Studio."TODO" Color  [NotReplicated]
-	Property Color3 Studio."function" Color  [NotReplicated]
-	Property Color3 Studio."local" Color  [NotReplicated]
-	Property Color3 Studio."nil" Color  [NotReplicated]
-	Property Color3 Studio."self" Color  [NotReplicated]
-	Property Color3 Studio.Background Color  [NotReplicated]
-	Property Color3 Studio.Bool Color  [NotReplicated]
-	Property Color3 Studio.Bracket Color  [NotReplicated]
-	Property Color3 Studio.Built-in Function Color  [NotReplicated]
-	Property Color3 Studio.Comment Color  [NotReplicated]
-	Property Color3 Studio.Current Line Highlight Color  [NotReplicated]
-	Property Color3 Studio.Debugger Current Line Color  [NotReplicated]
-	Property Color3 Studio.Debugger Error Line Color  [NotReplicated]
-	Property Color3 Studio.Error Color  [NotReplicated]
-	Property Color3 Studio.Find Selection Background Color  [NotReplicated]
-	Property Color3 Studio.Function Name Color  [NotReplicated]
-	Property Color3 Studio.Keyword Color  [NotReplicated]
-	Property Color3 Studio.Luau Keyword Color  [NotReplicated]
-	Property Color3 Studio.Matching Word Background Color  [NotReplicated]
-	Property Color3 Studio.Method Color  [NotReplicated]
-	Property Color3 Studio.Number Color  [NotReplicated]
-	Property Color3 Studio.Operator Color  [NotReplicated]
-	Property Color3 Studio.Property Color  [NotReplicated]
-	Property Color3 Studio.Ruler Color  [NotReplicated]
+	Property Color3 Studio."TODO" Color [NotReplicated]
+	Property Color3 Studio."function" Color [NotReplicated]
+	Property Color3 Studio."local" Color [NotReplicated]
+	Property Color3 Studio."nil" Color [NotReplicated]
+	Property Color3 Studio."self" Color [NotReplicated]
+	Property Color3 Studio.Background Color [NotReplicated]
+	Property Color3 Studio.Bool Color [NotReplicated]
+	Property Color3 Studio.Bracket Color [NotReplicated]
+	Property Color3 Studio.Built-in Function Color [NotReplicated]
+	Property Color3 Studio.Comment Color [NotReplicated]
+	Property Color3 Studio.Current Line Highlight Color [NotReplicated]
+	Property Color3 Studio.Debugger Current Line Color [NotReplicated]
+	Property Color3 Studio.Debugger Error Line Color [NotReplicated]
+	Property Color3 Studio.Error Color [NotReplicated]
+	Property Color3 Studio.Find Selection Background Color [NotReplicated]
+	Property Color3 Studio.Function Name Color [NotReplicated]
+	Property Color3 Studio.Keyword Color [NotReplicated]
+	Property Color3 Studio.Luau Keyword Color [NotReplicated]
+	Property Color3 Studio.Matching Word Background Color [NotReplicated]
+	Property Color3 Studio.Method Color [NotReplicated]
+	Property Color3 Studio.Number Color [NotReplicated]
+	Property Color3 Studio.Operator Color [NotReplicated]
+	Property Color3 Studio.Property Color [NotReplicated]
+	Property Color3 Studio.Ruler Color [NotReplicated]
 	Property Enum<StudioScriptEditorColorPresets> Studio.Script Editor Color Preset
-	Property Color3 Studio.Selection Background Color  [NotReplicated]
-	Property Color3 Studio.Selection Color  [NotReplicated]
-	Property Color3 Studio.String Color  [NotReplicated]
-	Property Color3 Studio.Text Color  [NotReplicated]
-	Property Color3 Studio.Warning Color  [NotReplicated]
-	Property Color3 Studio.Whitespace Color  [NotReplicated]
+	Property Color3 Studio.Selection Background Color [NotReplicated]
+	Property Color3 Studio.Selection Color [NotReplicated]
+	Property Color3 Studio.String Color [NotReplicated]
+	Property Color3 Studio.Text Color [NotReplicated]
+	Property Color3 Studio.Warning Color [NotReplicated]
+	Property Color3 Studio.Whitespace Color [NotReplicated]
 	Property Color3 Studio.Active Color
 	Property Color3 Studio.Active Hover Over Color
 	Property bool Studio.Animate Hover Over
@@ -3105,18 +3105,18 @@ Class StudioData : Instance [NotCreatable] [Service]
 	Property int64 StudioData.SrcPlaceId {RobloxSecurity} [Hidden] [NotReplicated]
 	Property int64 StudioData.SrcUniverseId {RobloxSecurity} [Hidden] [NotReplicated]
 Class StudioService : Instance [NotCreatable] [Service] [NotReplicated]
-	Property bool StudioService.AlignDraggedObjects {RobloxScriptSecurity} [ReadOnly] [NotReplicated]
-	Property bool StudioService.DraggerSolveConstraints  [ReadOnly] [NotReplicated]
-	Property bool StudioService.DrawConstraintsOnTop  [ReadOnly] [NotReplicated]
-	Property float StudioService.GridSize  [ReadOnly] [NotReplicated]
+	Property bool StudioService.AlignDraggedObjects {RobloxScriptSecurity} [ReadOnly]
+	Property bool StudioService.DraggerSolveConstraints [ReadOnly]
+	Property bool StudioService.DrawConstraintsOnTop [ReadOnly]
+	Property float StudioService.GridSize [ReadOnly]
 	Property Instance StudioService.HoverInstance {RobloxScriptSecurity} [<📁> LoadOnly] [NotReplicated]
-	Property string StudioService.InstalledPluginData {RobloxScriptSecurity} [ReadOnly] [NotReplicated]
-	Property float StudioService.RotateIncrement  [ReadOnly] [NotReplicated]
+	Property string StudioService.InstalledPluginData {RobloxScriptSecurity} [ReadOnly]
+	Property float StudioService.RotateIncrement [ReadOnly]
 	Property bool StudioService.ShowActiveInstanceHighlight {RobloxScriptSecurity} [<📁> LoadOnly] [NotReplicated]
-	Property bool StudioService.ShowConstraintDetails  [ReadOnly] [NotReplicated]
+	Property bool StudioService.ShowConstraintDetails [ReadOnly]
 	Property bool StudioService.UseLocalSpace [<📁> LoadOnly] [NotReplicated]
-	Property Instance StudioService.ActiveScript  [ReadOnly] [NotReplicated]
-	Property string StudioService.StudioLocaleId  [ReadOnly] [NotReplicated]
+	Property Instance StudioService.ActiveScript [ReadOnly]
+	Property string StudioService.StudioLocaleId [ReadOnly]
 	Function void StudioService:AnimationIdSelected(int64 id) {RobloxScriptSecurity}
 	Function bool StudioService:BaseURLHasChineseHost() {RobloxScriptSecurity}
 	Function void StudioService:ConvertToPackageUpload(string uploadUrl) {RobloxScriptSecurity}
@@ -3174,9 +3174,9 @@ Class SurfaceAppearance : Instance
 	Property Content SurfaceAppearance.TexturePack {RobloxSecurity} [Hidden]
 Class TaskScheduler : Instance [NotCreatable] [Service]
 	Property Enum<ThreadPoolConfig> TaskScheduler.ThreadPoolConfig
-	Property double TaskScheduler.SchedulerDutyCycle [<💾> SaveOnly] [ReadOnly] [NotReplicated]
-	Property double TaskScheduler.SchedulerRate [<💾> SaveOnly] [ReadOnly] [NotReplicated]
-	Property int TaskScheduler.ThreadPoolSize [<💾> SaveOnly] [ReadOnly] [NotReplicated]
+	Property double TaskScheduler.SchedulerDutyCycle [<💾> SaveOnly] [ReadOnly]
+	Property double TaskScheduler.SchedulerRate [<💾> SaveOnly] [ReadOnly]
+	Property int TaskScheduler.ThreadPoolSize [<💾> SaveOnly] [ReadOnly]
 Class Team : Instance
 	Property bool Team.AutoAssignable
 	Property bool Team.AutoColorCharacters [<📁> LoadOnly] [NotReplicated] [Deprecated]
@@ -3190,8 +3190,8 @@ Class Teams : Instance [NotCreatable] [Service]
 	Function Objects Teams:GetTeams()
 	Function void Teams:RebalanceTeams() [Deprecated]
 Class TeleportAsyncResult : Instance [NotCreatable]
-	Property string TeleportAsyncResult.PrivateServerId [<💾> SaveOnly] [ReadOnly] [NotReplicated]
-	Property string TeleportAsyncResult.ReservedServerAccessCode [<💾> SaveOnly] [ReadOnly] [NotReplicated]
+	Property string TeleportAsyncResult.PrivateServerId [<💾> SaveOnly] [ReadOnly]
+	Property string TeleportAsyncResult.ReservedServerAccessCode [<💾> SaveOnly] [ReadOnly]
 Class TeleportOptions : Instance
 	Property string TeleportOptions.ReservedServerAccessCode
 	Property string TeleportOptions.ServerInstanceId
@@ -3217,8 +3217,8 @@ Class TeleportService : Instance [NotCreatable] [Service]
 	Event TeleportService.LocalPlayerArrivedFromTeleport(Instance loadingGui, Variant dataTable)
 	Event TeleportService.TeleportInitFailed(Instance player, Enum<TeleportResult> teleportResult, string errorMessage)
 Class TerrainRegion : Instance
-	Property bool TerrainRegion.IsSmooth  [ReadOnly] [NotReplicated] [Deprecated]
-	Property Vector3 TerrainRegion.SizeInCells  [ReadOnly] [NotReplicated]
+	Property bool TerrainRegion.IsSmooth [ReadOnly] [Deprecated]
+	Property Vector3 TerrainRegion.SizeInCells [ReadOnly]
 	Function void TerrainRegion:ConvertToSmooth() {PluginSecurity} [Deprecated]
 Class TestService : Instance [Service]
 	Property string TestService.Description
@@ -3226,9 +3226,9 @@ Class TestService : Instance [Service]
 	Property bool TestService.Is30FpsThrottleEnabled
 	Property bool TestService.IsPhysicsEnvironmentalThrottled
 	Property bool TestService.IsSleepAllowed
-	Property int TestService.ErrorCount [<💾> SaveOnly] [ReadOnly] [NotReplicated]
-	Property int TestService.TestCount [<💾> SaveOnly] [ReadOnly] [NotReplicated]
-	Property int TestService.WarnCount [<💾> SaveOnly] [ReadOnly] [NotReplicated]
+	Property int TestService.ErrorCount [<💾> SaveOnly] [ReadOnly]
+	Property int TestService.TestCount [<💾> SaveOnly] [ReadOnly]
+	Property int TestService.WarnCount [<💾> SaveOnly] [ReadOnly]
 	Property bool TestService.ExecuteWithStudioRun
 	Property int TestService.NumberOfPlayers
 	Property double TestService.SimulateSecondsLag
@@ -3287,19 +3287,19 @@ Class Trail : Instance
 	Property NumberSequence Trail.WidthScale
 	Function void Trail:Clear()
 Class Translator : Instance [NotCreatable] [NotReplicated]
-	Property string Translator.LocaleId [<💾> SaveOnly] [ReadOnly] [NotReplicated]
+	Property string Translator.LocaleId [<💾> SaveOnly] [ReadOnly]
 	Function string Translator:FormatByKey(string key, Variant args)
 	Function string Translator:RobloxOnlyTranslate(Instance context, string text) {RobloxScriptSecurity}
 	Function string Translator:Translate(Instance context, string text)
 Class TweenBase : Instance [NotCreatable] [NotBrowsable]
-	Property Enum<PlaybackState> TweenBase.PlaybackState [<💾> SaveOnly] [ReadOnly] [NotReplicated]
+	Property Enum<PlaybackState> TweenBase.PlaybackState [<💾> SaveOnly] [ReadOnly]
 	Function void TweenBase:Cancel()
 	Function void TweenBase:Pause()
 	Function void TweenBase:Play()
 	Event TweenBase.Completed(Enum<PlaybackState> playbackState)
 Class Tween : TweenBase
-	Property Instance Tween.Instance  [ReadOnly] [NotReplicated]
-	Property TweenInfo Tween.TweenInfo  [ReadOnly] [NotReplicated]
+	Property Instance Tween.Instance [ReadOnly]
+	Property TweenInfo Tween.TweenInfo [ReadOnly]
 Class TweenService : Instance [NotCreatable] [Service]
 	Function Instance TweenService:Create(Instance instance, TweenInfo tweenInfo, Dictionary propertyTable)
 	Function float TweenService:GetValue(float alpha, Enum<EasingStyle> easingStyle, Enum<EasingDirection> easingDirection)
@@ -3338,7 +3338,7 @@ Class UIGridStyleLayout : UILayout [NotCreatable] [NotBrowsable]
 	Property Enum<HorizontalAlignment> UIGridStyleLayout.HorizontalAlignment
 	Property Enum<SortOrder> UIGridStyleLayout.SortOrder
 	Property Enum<VerticalAlignment> UIGridStyleLayout.VerticalAlignment
-	Property Vector2 UIGridStyleLayout.AbsoluteContentSize  [ReadOnly] [NotReplicated]
+	Property Vector2 UIGridStyleLayout.AbsoluteContentSize [ReadOnly]
 	Function void UIGridStyleLayout:ApplyLayout() [Deprecated]
 	Function void UIGridStyleLayout:SetCustomSortFunction(Function function = nil) [Deprecated]
 Class UIGridLayout : UIGridStyleLayout
@@ -3346,8 +3346,8 @@ Class UIGridLayout : UIGridStyleLayout
 	Property UDim2 UIGridLayout.CellSize
 	Property int UIGridLayout.FillDirectionMaxCells
 	Property Enum<StartCorner> UIGridLayout.StartCorner
-	Property Vector2 UIGridLayout.AbsoluteCellCount  [ReadOnly] [NotReplicated]
-	Property Vector2 UIGridLayout.AbsoluteCellSize  [ReadOnly] [NotReplicated]
+	Property Vector2 UIGridLayout.AbsoluteCellCount [ReadOnly]
+	Property Vector2 UIGridLayout.AbsoluteCellSize [ReadOnly]
 Class UIListLayout : UIGridStyleLayout
 	Property UDim UIListLayout.Padding
 Class UIPageLayout : UIGridStyleLayout
@@ -3357,7 +3357,7 @@ Class UIPageLayout : UIGridStyleLayout
 	Property Enum<EasingStyle> UIPageLayout.EasingStyle
 	Property UDim UIPageLayout.Padding
 	Property float UIPageLayout.TweenTime
-	Property Class<GuiObject> UIPageLayout.CurrentPage [<💾> SaveOnly] [ReadOnly] [NotReplicated]
+	Property Class<GuiObject> UIPageLayout.CurrentPage [<💾> SaveOnly] [ReadOnly]
 	Property bool UIPageLayout.GamepadInputEnabled
 	Property bool UIPageLayout.ScrollWheelInputEnabled
 	Property bool UIPageLayout.TouchInputEnabled
@@ -3400,12 +3400,12 @@ Class UserGameSettings : Instance [NotCreatable] [UserSettings]
 	Property bool UserGameSettings.Fullscreen {RobloxScriptSecurity}
 	Property float UserGameSettings.GamepadCameraSensitivity
 	Property bool UserGameSettings.HasEverUsedVR {RobloxScriptSecurity}
-	Property bool UserGameSettings.IsUsingCameraYInverted {RobloxScriptSecurity} [<💾> SaveOnly] [Hidden] [ReadOnly] [NotReplicated]
-	Property bool UserGameSettings.IsUsingGamepadCameraSensitivity {RobloxScriptSecurity} [<💾> SaveOnly] [Hidden] [ReadOnly] [NotReplicated]
+	Property bool UserGameSettings.IsUsingCameraYInverted {RobloxScriptSecurity} [<💾> SaveOnly] [Hidden] [ReadOnly]
+	Property bool UserGameSettings.IsUsingGamepadCameraSensitivity {RobloxScriptSecurity} [<💾> SaveOnly] [Hidden] [ReadOnly]
 	Property float UserGameSettings.MasterVolume
 	Property bool UserGameSettings.MicroProfilerWebServerEnabled {RobloxScriptSecurity} [Hidden]
-	Property string UserGameSettings.MicroProfilerWebServerIP {RobloxScriptSecurity} [<💾> SaveOnly] [Hidden] [ReadOnly] [NotReplicated]
-	Property int UserGameSettings.MicroProfilerWebServerPort {RobloxScriptSecurity} [<💾> SaveOnly] [Hidden] [ReadOnly] [NotReplicated]
+	Property string UserGameSettings.MicroProfilerWebServerIP {RobloxScriptSecurity} [<💾> SaveOnly] [Hidden] [ReadOnly]
+	Property int UserGameSettings.MicroProfilerWebServerPort {RobloxScriptSecurity} [<💾> SaveOnly] [Hidden] [ReadOnly]
 	Property float UserGameSettings.MouseSensitivity
 	Property Vector2 UserGameSettings.MouseSensitivityFirstPerson {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property Vector2 UserGameSettings.MouseSensitivityThirdPerson {RobloxScriptSecurity} [Hidden] [NotReplicated]
@@ -3438,27 +3438,27 @@ Class UserGameSettings : Instance [NotCreatable] [UserSettings]
 Class UserInputService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property bool UserInputService.LegacyInputEventsEnabled {RobloxScriptSecurity}
 	Property bool UserInputService.ModalEnabled
-	Property bool UserInputService.AccelerometerEnabled [<💾> SaveOnly] [ReadOnly] [NotReplicated]
-	Property Vector2 UserInputService.BottomBarSize {RobloxScriptSecurity} [ReadOnly] [NotReplicated]
-	Property bool UserInputService.GamepadEnabled [<💾> SaveOnly] [ReadOnly] [NotReplicated]
+	Property bool UserInputService.AccelerometerEnabled [<💾> SaveOnly] [ReadOnly]
+	Property Vector2 UserInputService.BottomBarSize {RobloxScriptSecurity} [ReadOnly]
+	Property bool UserInputService.GamepadEnabled [<💾> SaveOnly] [ReadOnly]
 	Property bool UserInputService.GazeSelectionEnabled {RobloxScriptSecurity} [Hidden] [NotReplicated]
-	Property bool UserInputService.GyroscopeEnabled [<💾> SaveOnly] [ReadOnly] [NotReplicated]
-	Property bool UserInputService.KeyboardEnabled [<💾> SaveOnly] [ReadOnly] [NotReplicated]
+	Property bool UserInputService.GyroscopeEnabled [<💾> SaveOnly] [ReadOnly]
+	Property bool UserInputService.KeyboardEnabled [<💾> SaveOnly] [ReadOnly]
 	Property Enum<MouseBehavior> UserInputService.MouseBehavior
 	Property float UserInputService.MouseDeltaSensitivity [<📁> LoadOnly] [NotReplicated]
-	Property bool UserInputService.MouseEnabled [<💾> SaveOnly] [ReadOnly] [NotReplicated]
+	Property bool UserInputService.MouseEnabled [<💾> SaveOnly] [ReadOnly]
 	Property bool UserInputService.MouseIconEnabled
-	Property Vector2 UserInputService.NavBarSize {RobloxScriptSecurity} [ReadOnly] [NotReplicated]
-	Property double UserInputService.OnScreenKeyboardAnimationDuration {RobloxScriptSecurity} [ReadOnly] [NotReplicated]
-	Property Vector2 UserInputService.OnScreenKeyboardPosition  [ReadOnly] [NotReplicated]
-	Property Vector2 UserInputService.OnScreenKeyboardSize  [ReadOnly] [NotReplicated]
-	Property bool UserInputService.OnScreenKeyboardVisible  [ReadOnly] [NotReplicated]
+	Property Vector2 UserInputService.NavBarSize {RobloxScriptSecurity} [ReadOnly]
+	Property double UserInputService.OnScreenKeyboardAnimationDuration {RobloxScriptSecurity} [ReadOnly]
+	Property Vector2 UserInputService.OnScreenKeyboardPosition [ReadOnly]
+	Property Vector2 UserInputService.OnScreenKeyboardSize [ReadOnly]
+	Property bool UserInputService.OnScreenKeyboardVisible [ReadOnly]
 	Property Enum<OverrideMouseIconBehavior> UserInputService.OverrideMouseIconBehavior {RobloxScriptSecurity}
-	Property Vector2 UserInputService.RightBarSize {RobloxScriptSecurity} [ReadOnly] [NotReplicated]
-	Property Vector2 UserInputService.StatusBarSize {RobloxScriptSecurity} [ReadOnly] [NotReplicated]
-	Property bool UserInputService.TouchEnabled [<💾> SaveOnly] [ReadOnly] [NotReplicated]
-	Property CFrame UserInputService.UserHeadCFrame  [ReadOnly] [NotReplicated] [Deprecated]
-	Property bool UserInputService.VREnabled [<💾> SaveOnly] [ReadOnly] [NotReplicated]
+	Property Vector2 UserInputService.RightBarSize {RobloxScriptSecurity} [ReadOnly]
+	Property Vector2 UserInputService.StatusBarSize {RobloxScriptSecurity} [ReadOnly]
+	Property bool UserInputService.TouchEnabled [<💾> SaveOnly] [ReadOnly]
+	Property CFrame UserInputService.UserHeadCFrame [ReadOnly] [Deprecated]
+	Property bool UserInputService.VREnabled [<💾> SaveOnly] [ReadOnly]
 	Function bool UserInputService:GamepadSupports(Enum<UserInputType> gamepadNum, Enum<KeyCode> gamepadKeyCode)
 	Function Array UserInputService:GetConnectedGamepads()
 	Function Instance UserInputService:GetDeviceAcceleration()
@@ -3516,8 +3516,8 @@ Class UserService : Instance [NotCreatable] [Service]
 	Function Array UserService:GetUserInfosByUserIdsAsync(Array userIds) [Yields]
 Class VRService : Instance [NotCreatable] [Service]
 	Property Enum<UserCFrame> VRService.GuiInputUserCFrame
-	Property string VRService.VRDeviceName {RobloxScriptSecurity} [ReadOnly] [NotReplicated]
-	Property bool VRService.VREnabled [<💾> SaveOnly] [ReadOnly] [NotReplicated]
+	Property string VRService.VRDeviceName {RobloxScriptSecurity} [ReadOnly]
+	Property bool VRService.VREnabled [<💾> SaveOnly] [ReadOnly]
 	Function Enum<VRTouchpadMode> VRService:GetTouchpadMode(Enum<VRTouchpad> pad)
 	Function CFrame VRService:GetUserCFrame(Enum<UserCFrame> type)
 	Function bool VRService:GetUserCFrameEnabled(Enum<UserCFrame> type)
@@ -3545,14 +3545,14 @@ Class Color3Value : ValueBase
 	Event Color3Value.Changed(Color3 value)
 Class DoubleConstrainedValue : ValueBase [Deprecated]
 	Property double DoubleConstrainedValue.ConstrainedValue [<📁> LoadOnly] [Hidden] [NotReplicated] [Deprecated]
-	Property double DoubleConstrainedValue.MaxValue  [Deprecated]
-	Property double DoubleConstrainedValue.MinValue  [Deprecated]
+	Property double DoubleConstrainedValue.MaxValue [Deprecated]
+	Property double DoubleConstrainedValue.MinValue [Deprecated]
 	Property double DoubleConstrainedValue.Value [<📁> LoadOnly] [NotReplicated] [Deprecated]
 	Event DoubleConstrainedValue.Changed(double value) [Deprecated]
 Class IntConstrainedValue : ValueBase [Deprecated]
 	Property int64 IntConstrainedValue.ConstrainedValue [<📁> LoadOnly] [Hidden] [NotReplicated] [Deprecated]
-	Property int64 IntConstrainedValue.MaxValue  [Deprecated]
-	Property int64 IntConstrainedValue.MinValue  [Deprecated]
+	Property int64 IntConstrainedValue.MaxValue [Deprecated]
+	Property int64 IntConstrainedValue.MinValue [Deprecated]
 	Property int64 IntConstrainedValue.Value [<📁> LoadOnly] [NotReplicated] [Deprecated]
 	Event IntConstrainedValue.Changed(int64 value) [Deprecated]
 Class IntValue : ValueBase
@@ -3613,7 +3613,7 @@ Class VirtualUser : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void VirtualUser:TypeKey(string key) {LocalUserSecurity}
 Class Visit : Instance [NotCreatable] [Service] [NotReplicated]
 Class WeldConstraint : Instance
-	Property bool WeldConstraint.Active [<💾> SaveOnly] [ReadOnly] [NotReplicated]
+	Property bool WeldConstraint.Active [<💾> SaveOnly] [ReadOnly]
 	Property bool WeldConstraint.Enabled
 	Property Class<BasePart> WeldConstraint.Part0 [<📁> LoadOnly] [NotReplicated]
 	Property Class<BasePart> WeldConstraint.Part1 [<📁> LoadOnly] [NotReplicated]
