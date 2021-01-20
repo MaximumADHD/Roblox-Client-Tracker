@@ -7,8 +7,6 @@ local BindableEventBridge = require(Source.Classes.BindableEventBridge)
 local DebugInterface = require(Source.Classes.DebugInterface)
 local RobloxPluginGuiService = game:GetService("RobloxPluginGuiService")
 
-local ROOT_INSTANCE_TIMEOUT = 10
-
 local PluginDebugInterface = DebugInterface:extend("PluginDebugInterface", function(pluginName: string, plugin, rootInstance: Instance?)
 	local bridge = BindableEventBridge.new(game:GetService("StudioService"))
 	local interface = DebugInterface.new("Plugin", pluginName, {bridge})

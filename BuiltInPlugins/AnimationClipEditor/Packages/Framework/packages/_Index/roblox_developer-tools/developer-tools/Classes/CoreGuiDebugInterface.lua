@@ -7,8 +7,6 @@ local BindableEventBridge = require(Source.Classes.BindableEventBridge)
 local DebugInterface = require(Source.Classes.DebugInterface)
 local CoreGui = game:GetService("CoreGui")
 
-local ROOT_INSTANCE_TIMEOUT = 10
-
 local CoreGuiDebugInterface = DebugInterface:extend("CoreGuiDebugInterface", function(appName: string, guiOptions)
 	local bridge = BindableEventBridge.new(CoreGui)
 	local interface = DebugInterface.new("CoreGui", appName, {bridge})

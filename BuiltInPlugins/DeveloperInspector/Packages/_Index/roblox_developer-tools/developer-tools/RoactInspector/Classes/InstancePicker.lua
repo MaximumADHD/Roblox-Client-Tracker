@@ -10,11 +10,13 @@ local RunService = game:GetService("RunService")
 local Dash = require(Packages.Dash)
 local class = Dash.class
 local format = Dash.format
-local mapFirst = Dash.mapFirst
 local reduce = Dash.reduce
 
 local ZERO_UDIM2 = UDim2.fromScale(0, 0)
 local PICK_DELAY = 0.2
+
+-- Arbitrary number larger than DevFramework FOCUSED_ZINDEX
+local PICKER_ZINDEX = 1100000
 
 local function tweenUDim2(prevValue, nextValue, progress)
 	local scaleX = (prevValue.X.Scale * (1 - progress) + nextValue.X.Scale * progress)
@@ -33,8 +35,7 @@ local function createPickerArea()
 	pickerArea.BorderColor3 = Color3.fromRGB(0, 0, 0)
 	pickerArea.BackgroundColor3 = Color3.fromRGB(220, 230, 255)
 	pickerArea.BackgroundTransparency = 0.2
-	-- Arbitrary number larger than DevFramework FOCUSED_ZINDEX
-	pickerArea.ZIndex = 1100000
+	pickerArea.ZIndex = PICKER_ZINDEX
 	return pickerArea
 end
 
@@ -45,8 +46,7 @@ local function createHighlightArea()
 	highlightArea.BorderColor3 = Color3.fromRGB(0, 0, 0)
 	highlightArea.BackgroundColor3 = Color3.fromRGB(220, 230, 255)
 	highlightArea.BackgroundTransparency = 0.2
-	-- Arbitrary number larger than DevFramework FOCUSED_ZINDEX
-	highlightArea.ZIndex = 1100000
+	highlightArea.ZIndex = PICKER_ZINDEX
 
 	local dimensions = Instance.new("TextLabel")
 	dimensions.Name = "Dimensions"
@@ -56,6 +56,7 @@ local function createHighlightArea()
 	dimensions.BorderSizePixel = 1
 	dimensions.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 	dimensions.BackgroundTransparency = 0.2
+	dimensions.ZIndex = PICKER_ZINDEX + 1
 
 	return highlightArea
 end

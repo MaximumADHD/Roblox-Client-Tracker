@@ -9,7 +9,6 @@ local Packages = Source.Parent
 
 local Dash = require(Packages.Dash)
 local class = Dash.class
-local pretty = Dash.pretty
 local forEach = Dash.forEach
 
 local insert = table.insert
@@ -27,6 +26,7 @@ local DebugInterface = class("DebugInterface", function(sourceKind: string, sour
 		routers = {},
 		targets = {},
 		workers = {},
+		connectionsForListener = {},
 		outboundBridgeForBridgeId = {}
 	}
 end)
@@ -45,6 +45,8 @@ function DebugInterface:addPluginRouter(plugin)
 end
 
 function DebugInterface:_connectTargets()
+	-- Ensure that GetTargets is only connected to once.
+	-- If targets have already been added we don't need to add another listener
 	if #self.targets > 0 then
 		return
 	end
@@ -57,7 +59,7 @@ function DebugInterface:_connectTargets()
 				sourceId = self.sourceId,
 				sourceName = self.sourceName,
 				sourceKind = self.sourceKind,
-				targets = self.targets
+				targets = self.targets,
 			})
 		end
 	})
@@ -84,8 +86,10 @@ function DebugInterface:_connect(listener)
 	if not (game:GetService("StudioService"):HasInternalPermission()) then
 		return
 	end
+	local connections = {}
+	self.connectionsForListener[listener] = connections
 	forEach(self.bridges, function(bridge)
-		bridge:connect(function(message)
+		local newListener = function(message)
 			self.outboundBridgeForBridgeId[message.fromBridgeId] = bridge
 			local matchesEvent = listener.eventName == nil or listener.eventName == message.eventName
 			local matchesBridge = listener.bridgeId == nil or listener.bridgeId == message.toBridgeId
@@ -93,7 +97,16 @@ function DebugInterface:_connect(listener)
 			if matchesEvent and matchesBridge and matchesTarget then
 				listener.onEvent(message)
 			end
-		end)
+		end
+		local connection = bridge:connect(newListener)
+		insert(connections, connection)
+	end)
+end
+
+function DebugInterface:_disconnect(listener)
+	local connections = self.connectionsForListener[listener]
+	forEach(connections, function(connection)
+		connection:Disconnect()
 	end)
 end
 
@@ -113,6 +126,14 @@ function DebugInterface:_addTarget(targetName: string, getWorker)
 			self.workers[id] = worker
 		end
 	})
+end
+
+function DebugInterface:_removeWorker(id)
+	local worker = self.workers[id]
+	if worker then
+		worker:destroy()
+	end
+	self.workers[id] = nil
 end
 
 function DebugInterface:setGuiOptions(guiOptions)

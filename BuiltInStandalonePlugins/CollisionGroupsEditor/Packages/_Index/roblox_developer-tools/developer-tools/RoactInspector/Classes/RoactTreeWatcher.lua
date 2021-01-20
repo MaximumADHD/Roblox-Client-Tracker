@@ -3,8 +3,8 @@
 ]]
 local Source = script.Parent.Parent.Parent
 local Packages = Source.Parent
-
 local getSymbol = require(Source.RoactInspector.Utils.getSymbol)
+local getChildAtKey = require(Source.RoactInspector.Utils.getChildAtKey)
 
 local Dash = require(Packages.Dash)
 local Types = Dash.Types
@@ -12,7 +12,6 @@ local append = Dash.append
 local class = Dash.class
 local collectArray = Dash.collectArray
 local pick = Dash.pick
-local forEach = Dash.forEach
 local keys = Dash.keys
 local last = Dash.last
 local map = Dash.map
@@ -20,7 +19,6 @@ local mapOne = Dash.mapOne
 local reduce = Dash.reduce
 local reverse = Dash.reverse
 local slice = Dash.slice
-local pretty = Dash.pretty
 
 local insert = table.insert
 
@@ -83,7 +81,7 @@ function RoactTreeWatcher:_checkNode(node, cachedNode, path)
 	local hostNode = self:getHostNode(node)
 	cachedNode.childNodes = pick(cachedNode.childNodes, function(cachedChildNode, key)
 		local childPath = append({}, path, {key})
-		local childNode = hostNode.children[key]
+		local childNode = getChildAtKey(hostNode.children, key)
 		if childNode then
 			self:_checkNode(childNode, cachedChildNode, childPath)
 			return true
@@ -100,8 +98,7 @@ function RoactTreeWatcher:getNode(path: Path)
 	-- Walk down the node tree by the path provided
 	return reduce(path, function(node, key: any)
 		if node and node.children then
-			-- Try a string representation of a numeric key if need be
-			local childNode = node.children[key] or node.children[tostring(key)]
+			local childNode = getChildAtKey(node.children, key)
 			return childNode and self:getHostNode(childNode) or nil
 		else
 			return nil
@@ -124,7 +121,7 @@ function RoactTreeWatcher:watchPath(path: Path)
 			childNodes = {}
 		}
 		cachedNode = cachedNode.childNodes[key]
-		local childNode = currentNode.children[key]
+		local childNode = getChildAtKey(currentNode.children, key)
 		if not childNode then
 			return nil
 		end
@@ -232,7 +229,7 @@ function RoactTreeWatcher:getNodes(path: Path)
 	if not node then
 		return nil
 	end
-	local currentChild = node.children[lastKey]
+	local currentChild = getChildAtKey(node.children, lastKey)
 	return self:_getBranchNodes(currentChild)
 end
 
@@ -279,12 +276,17 @@ function RoactTreeWatcher:getNodeIcon(node)
 			return "Pure"
 		else
 			return "Stateful"
-			
 		end
 	end
 end
 
 function RoactTreeWatcher:getPath(instance: Instance)
+	local instancePath = self:_getInstancePath(instance)
+	local fullPath = self:_getFullPath(instancePath)
+	return fullPath
+end
+
+function RoactTreeWatcher:_getInstancePath(instance: Instance)
 	local reversePath = {}
 	while instance and instance ~= self.debugInterface.rootInstance do
 		-- Always prefer a number if there is a representation, as it is easier to convert back
@@ -300,6 +302,53 @@ function RoactTreeWatcher:getPath(instance: Instance)
 		return strippedPath
 	else
 		return fullPath
+	end
+end
+
+-- Returns the full path including virutal nodes given a path
+-- that includes only the nodes with Roblox Instances
+function RoactTreeWatcher:_getFullPath(instancePath: Path)
+	local fullPath = {}
+	local root = self:getRootNode()
+	local hostNode = self:getHostNode(root)
+
+	local found = reduce(instancePath, function(node, key: any)
+		return self:_dfsFindNextChildNode(node, key, fullPath)
+	end, hostNode)
+
+	if found ~= nil then
+		return fullPath
+	else
+		return instancePath
+	end
+end
+
+function RoactTreeWatcher:_dfsFindNextChildNode(node, key: any, fullPath: Path)
+	if node == nil or node.children == nil then
+		return nil
+	end
+
+	local childNode = getChildAtKey(node.children, key)
+	if childNode then
+		local hostNode = self:getHostNode(childNode)
+		if hostNode ~= nil then
+			insert(fullPath, key)
+			return hostNode
+		end
+	end
+
+	for childKey, childNode in pairs(node.children) do
+		local useParentKey = tostring(childKey) == "Symbol(UseParentKey)"
+		if not useParentKey then
+			insert(fullPath, childKey)
+		end
+		local found = self:_dfsFindNextChildNode(childNode, key, fullPath)
+		if found ~= nil then
+			return found
+		end
+		if not useParentKey then
+			table.remove(fullPath)
+		end
 	end
 end
 

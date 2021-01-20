@@ -24,6 +24,11 @@ return function()
 					size = UDim2.new(1, 30, 1, 50),
 					canvasSizeY = UDim.new(2, 0),
 					paddingHorizontal = 12,
+					elasticBehavior = Enum.ElasticBehavior.Always,
+
+					[Roact.Change.CanvasPosition] = function()end,
+					[Roact.Change.CanvasSize] = function()end,
+					[Roact.Ref] = Roact.createRef(),
 				})
 			})
 			local handle = Roact.mount(verticalScrollViewWithStyle)

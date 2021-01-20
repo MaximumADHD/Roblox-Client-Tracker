@@ -10,7 +10,6 @@ local TargetApi = require(Source.Classes.TargetApi)
 
 local Dash = require(Packages.Dash)
 local append = Dash.append
-local pretty = Dash.pretty
 
 local insert = table.insert
 
@@ -36,20 +35,7 @@ function RoactInspectorApi:attach(handlers)
 	self:_connect({
 		eventName = EventName.RoactInspector.ShowFields,
 		onEvent = function(message)
-			local fields = {}
-			local propsHeading = {
-				Name = "Props",
-				IsHeading = true,
-			}
-			local stateHeading = {
-				Name = "State",
-				IsHeading = true,
-			}
-			insert(fields, propsHeading)
-			append(fields, message.props)
-			insert(fields, stateHeading)
-			append(fields, message.state)
-			self.handlers.onUpdateFields(message.path, message.nodeIndex, fields)
+			self.handlers.onUpdateFields(message.path, message.nodeIndex, message.fieldPath, message.fields)
 		end
 	})
 	self:_connect({

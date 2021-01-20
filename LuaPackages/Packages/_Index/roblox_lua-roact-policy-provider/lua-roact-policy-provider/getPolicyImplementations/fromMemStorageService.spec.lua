@@ -37,7 +37,7 @@ return function()
 			end)
 
 			it("SHOULD return a Disconnect-able object when `onPolicyChanged` is invoked", function()
-				local result = fromMemStorageServiceInstance.onPolicyChanged()
+				local result = fromMemStorageServiceInstance.onPolicyChanged(function() end)
 				expect(result).to.be.ok()
 				expect(result.Disconnect).to.be.ok()
 				result:Disconnect()

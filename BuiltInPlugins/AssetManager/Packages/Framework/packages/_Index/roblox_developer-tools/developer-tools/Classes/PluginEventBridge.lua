@@ -11,7 +11,6 @@ local Dash = require(Packages.Dash)
 local class = Dash.class
 local join = Dash.join
 local forEach = Dash.forEach
-local pretty = Dash.pretty
 local insert = table.insert
 
 local PLUGIN_EVENT_NAME = "DeveloperTools"

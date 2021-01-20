@@ -37,10 +37,16 @@ VerticalScrollView.validateProps = t.strictInterface({
 	-- Frame Props
 	size = t.optional(t.UDim2),
 	position = t.optional(t.UDim2),
+	elasticBehavior = t.optional(t.EnumItem),
 
 	-- ScrollingFrame Props
 	canvasSizeY = t.optional(t.UDim),
 	paddingHorizontal = t.optional(t.numberMin(PADDING_HORIZONTAL/2)),
+
+	-- Optional passthrough props for the scrolling frame
+	[Roact.Change.CanvasPosition] = t.optional(t.callback),
+	[Roact.Change.CanvasSize] = t.optional(t.callback),
+	[Roact.Ref] = t.optional(t.table),
 
 	-- Children
 	[Roact.Children] = t.optional(t.table)
@@ -71,6 +77,37 @@ function VerticalScrollView:init()
 		if self.waitToHideSidebarConnection then
 			self.waitToHideSidebarConnection:Disconnect()
 			self.waitToHideSidebarConnection = nil
+		end
+	end
+	self.inputBegan = function(instance, input)
+		if input.UserInputType == Enum.UserInputType.MouseMovement then
+			self.disconnectWaitToHideSidebar()
+			self:setState({
+				scrollBarThickness = MOUSE_SCROLL_BAR_THICKNESS,
+			})
+			self.scrollBarImageTransparencyMotor:setGoal(Otter.instant(0))
+		end
+	end
+	self.inputEnded = function(instance, input)
+		if input.UserInputType == Enum.UserInputType.MouseMovement then
+			self.disconnectWaitToHideSidebar()
+			self.scrollBarImageTransparencyMotor:setGoal(Otter.instant(1))
+		end
+	end
+	self.canvasPosition = function(rbx)
+		self.lastTimeCanvasPositionChanged = tick()
+		if not self.waitToHideSidebarConnection	and
+			UserInputService:GetLastInputType() == Enum.UserInputType.Touch
+		then
+			self.scrollBarImageTransparencyMotor:setGoal(Otter.instant(0))
+			self:setState({
+				scrollBarThickness = TOUCH_OR_CONTROLLER_SCROLL_BAR_THICKNESS,
+			})
+			self.waitToHideSidebarConnection = RunService.Heartbeat:Connect(self.waitToHideSidebar)
+		end
+
+		if self.props[Roact.Change.CanvasPosition] then
+			self.props[Roact.Change.CanvasPosition](rbx)
 		end
 	end
 end
@@ -108,6 +145,7 @@ function VerticalScrollView:render()
 				BackgroundTransparency = 1,
 				BorderSizePixel = 0,
 				Size = UDim2.fromScale(1, 1),
+				ElasticBehavior = self.props.elasticBehavior,
 				-- ScrollingFrame Specific
 				CanvasSize = UDim2.new(CANVAS_SIZE_X, canvasSizeY),
 				ScrollBarImageColor3 = theme.UIEmphasis.Color,
@@ -121,33 +159,11 @@ function VerticalScrollView:render()
 				--		No sure how many users use mouse on a phone
 				-- TODO: 2.) how to handle controller actions - when we do this,
 				--		we should make this part of the code platform specific
-				[Roact.Event.InputBegan] = function(instance, input)
-					if input.UserInputType == Enum.UserInputType.MouseMovement then
-						self.disconnectWaitToHideSidebar()
-						self:setState({
-							scrollBarThickness = MOUSE_SCROLL_BAR_THICKNESS,
-						})
-						self.scrollBarImageTransparencyMotor:setGoal(Otter.instant(0))
-					end
-				end,
-				[Roact.Event.InputEnded] = function(instance, input)
-					if input.UserInputType == Enum.UserInputType.MouseMovement then
-						self.disconnectWaitToHideSidebar()
-						self.scrollBarImageTransparencyMotor:setGoal(Otter.instant(1))
-					end
-				end,
-				[Roact.Change.CanvasPosition] = function()
-					self.lastTimeCanvasPositionChanged = tick()
-					if not self.waitToHideSidebarConnection	and
-						UserInputService:GetLastInputType() == Enum.UserInputType.Touch
-					then
-						self.scrollBarImageTransparencyMotor:setGoal(Otter.instant(0))
-						self:setState({
-							scrollBarThickness = TOUCH_OR_CONTROLLER_SCROLL_BAR_THICKNESS,
-						})
-						self.waitToHideSidebarConnection = RunService.Heartbeat:Connect(self.waitToHideSidebar)
-					end
-				end,
+				[Roact.Event.InputBegan] = self.inputBegan,
+				[Roact.Event.InputEnded] = self.inputEnded,
+				[Roact.Change.CanvasPosition] = self.canvasPosition,
+				[Roact.Change.CanvasSize] = self.props[Roact.Change.CanvasSize],
+				[Roact.Ref] = self.props[Roact.Ref],
 			}, scrollingFrameChildren)
 		})
 	end)

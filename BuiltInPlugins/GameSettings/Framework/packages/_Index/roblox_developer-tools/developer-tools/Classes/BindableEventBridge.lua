@@ -14,7 +14,6 @@ local Packages = Source.Parent
 local Dash = require(Packages.Dash)
 local join = Dash.join
 local class = Dash.class
-local pretty = Dash.pretty
 local forEach = Dash.forEach
 local insert = table.insert
 
@@ -24,7 +23,6 @@ local BindableEventBridge = class("BindableEventBridge", function(parent: Instan
 	local id = HttpService:GenerateGUID()
 	return {
 		id = id,
-		event = event,
 		connections = {},
 		noCreate = noCreate
 	}
@@ -49,7 +47,6 @@ function BindableEventBridge:send(message)
 		fromBridgeId = self.id
 	})
 	if self.event then
-		-- print("[DeveloperTools] Send:", pretty(outMessage))
 		self.event:Fire(outMessage)
 	end
 end 
@@ -63,6 +60,7 @@ function BindableEventBridge:connect(listener)
 	if self.event then
 		local connection = self.event.Event:Connect(onEvent)
 		insert(self.connections, connection)
+		return connection
 	end
 end
 

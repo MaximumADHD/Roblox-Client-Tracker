@@ -5,6 +5,7 @@ local Dash = require(Packages.Dash)
 local freeze = Dash.freeze
 
 return freeze("EventName", {
+	CloseTarget = "CloseTarget",
 	GetTargets = "GetTargets",
 	ShowTargets = "ShowTargets",
 	AttachTarget = "AttachTarget",

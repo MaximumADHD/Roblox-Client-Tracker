@@ -6,6 +6,8 @@
 local Source = script.Parent.Parent.Parent
 local Packages = Source.Parent
 
+local getChildAtKey = require(Source.RoactInspector.Utils.getChildAtKey)
+
 local TargetWorker = require(Source.Classes.TargetWorker)
 local EventName = require(Source.EventName)
 local RoactTreeWatcher = require(Source.RoactInspector.Classes.RoactTreeWatcher)
@@ -16,13 +18,15 @@ local Selection = game:GetService("Selection")
 
 local Dash = require(Packages.Dash)
 local Types = Dash.Types
-local copy = Dash.copy
 local map = Dash.map
 local forEach = Dash.forEach
 local last = Dash.last
 local pretty = Dash.pretty
+local reduce = Dash.reduce
 
 local insert = table.insert
+
+type Path = Types.Array<any>
 
 local RoactInspectorWorker = TargetWorker:extend("RoactInspectorWorker", function(debugInterface, targetId, toBridgeId, tree)
 	local worker = TargetWorker.new(debugInterface, targetId, toBridgeId)
@@ -37,7 +41,7 @@ function RoactInspectorWorker:_init()
 	self.treeWatcher:monitor()
 
 	self.fieldWatcher = FieldWatcher.new(function(changedPaths)
-		self:showFields()
+		self:showFields({})
 	end)
 
 	self.picker = InstancePicker.new(self.debugInterface, function(instance)
@@ -48,29 +52,27 @@ function RoactInspectorWorker:_init()
 end
 
 function RoactInspectorWorker:connectEvents()
+	TargetWorker.connectEvents(self)
 	self:connect({
 		eventName = EventName.RoactInspector.GetChildren,
 		onEvent = function(message)
 			self:showChildren(message.path)
 		end
 	})
-
 	self:connect({
 		eventName = EventName.RoactInspector.GetBranch,
 		onEvent = function(message)
 			self:showBranch(message.path)
 		end
 	})
-
 	self:connect({
 		eventName = EventName.RoactInspector.GetFields,
 		onEvent = function(message)
 			self.currentPath = message.path
 			self.currentNodeIndex = message.nodeIndex
-			self:showFields()
+			self:showFields(message.fieldPath or {})
 		end
 	})
-
 	self:connect({
 		eventName = EventName.RoactInspector.Highlight,
 		onEvent = function(message)
@@ -86,14 +88,12 @@ function RoactInspectorWorker:connectEvents()
 			end
 		end
 	})
-
 	self:connect({
 		eventName = EventName.RoactInspector.Dehighlight,
 		onEvent = function(message)
 			self.picker:dehighlight()
 		end
 	})
-
 	self:connect({
 		eventName = EventName.RoactInspector.SetPicking,
 		onEvent = function(message)
@@ -124,7 +124,6 @@ function RoactInspectorWorker:pickInstance(instance: Instance)
 	self.picker:setActive(false)
 
 	local path = self.treeWatcher:getPath(instance)
-
 	local currentPath = {}
 
 	-- Gather all the children for these instances and update
@@ -179,7 +178,7 @@ function RoactInspectorWorker:showBranch(path)
 	})
 end
 
-function RoactInspectorWorker:showFields()
+function RoactInspectorWorker:showFields(fieldPath: Path)
 	local nodes = self.treeWatcher:getNodes(self.currentPath)
 	if not nodes then
 		return
@@ -191,22 +190,39 @@ function RoactInspectorWorker:showFields()
 	local container = node.instance or node.currentElement
 
 	self.fieldWatcher:setRoot(container)
-	self.fieldWatcher:addPath({"props"})
-	self.fieldWatcher:addPath({"state"})
+	self.fieldWatcher:addPath(fieldPath)
+
+	-- Safely walk through the container to the correct descendant
+	local fieldRoot = reduce(fieldPath, function(table, key)
+		local ok, child = pcall(function()
+			return getChildAtKey(table, key)
+		end)
+		if ok then
+			return child
+		else
+			return nil
+		end
+	end, container)
+
+	if fieldRoot == nil then
+		return
+	end
 
 	self:send({
 		eventName = EventName.RoactInspector.ShowFields,
 		path = self.currentPath,
 		nodeIndex = self.currentNodeIndex,
-		props = self.fieldWatcher:collect(container.props, 2, {"props"}),
-		state = self.fieldWatcher:collect(container.state, 2, {"state"})
+		fieldPath = fieldPath,
+		fields = self.fieldWatcher:collect(fieldRoot, 2, fieldPath)
 	})
 end
 
 function RoactInspectorWorker:destroy()
+	TargetWorker.destroy(self)
 	self.picker:destroy()
 	self.treeWatcher:destroy()
 	self.fieldWatcher:destroy()
+	self.treeWatcher = nil
 end
 
 return RoactInspectorWorker
