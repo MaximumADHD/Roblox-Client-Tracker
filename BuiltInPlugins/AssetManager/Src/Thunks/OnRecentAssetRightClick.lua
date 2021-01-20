@@ -3,20 +3,31 @@ local Plugin = script.Parent.Parent.Parent
 local AssetManagerService = game:GetService("AssetManagerService")
 local StudioService = game:GetService("StudioService")
 
+local FFlagStudioAssetManagerNewMultiselectMeshBehavior = game:getFastFlag("StudioAssetManagerNewMultiselectMeshBehavior")
+
 local Framework = Plugin.Packages.Framework
 local RobloxAPI = require(Framework).RobloxAPI
-
-local FFlagAllowAudioBulkImport = game:GetFastFlag("AllowAudioBulkImport")
 
 local function createImageContextMenu(analytics, apiImpl, assetData, contextMenu, localization, store)
     contextMenu:AddNewAction("Insert", localization:getText("ContextMenu", "Insert")).Triggered:connect(function()
         local state = store:getState()
         local recentAssets = state.AssetManagerReducer.recentAssets
         local selectedAssets = state.AssetManagerReducer.selectedAssets
-        for _, asset in pairs(recentAssets) do
-            local key = asset.key
-            if selectedAssets[key] and asset.assetType == Enum.AssetType.MeshPart then
-                AssetManagerService:InsertMesh("Meshes/".. asset.name, true)
+        if FFlagStudioAssetManagerNewMultiselectMeshBehavior then
+            local selectedMeshes = {}
+            for _, asset in pairs(recentAssets) do
+                local key = asset.key
+                if selectedAssets[key] and asset.assetType == Enum.AssetType.MeshPart then
+                    table.insert(selectedMeshes, "Meshes/".. asset.name)
+                end
+            end
+            AssetManagerService:InsertMeshesWithLocation(selectedMeshes)
+        else
+            for _, asset in pairs(recentAssets) do
+                local key = asset.key
+                if selectedAssets[key] and asset.assetType == Enum.AssetType.MeshPart then
+                    AssetManagerService:InsertMesh("Meshes/".. asset.name, true)
+                end
             end
         end
         AssetManagerService:InsertImage(assetData.id)
@@ -60,10 +71,21 @@ local function createMeshPartContextMenu(analytics, apiImpl, assetData, contextM
     local selectedAssets = state.AssetManagerReducer.selectedAssets
     local textureId = AssetManagerService:GetTextureId("Meshes/".. assetData.name)
     contextMenu:AddNewAction("Insert", localization:getText("ContextMenu", "Insert")).Triggered:connect(function()
-        for _, asset in pairs(recentAssets) do
-            local key = asset.key
-            if selectedAssets[key] and asset.assetType == Enum.AssetType.MeshPart then
-                AssetManagerService:InsertMesh("Meshes/".. asset.name, false)
+        if FFlagStudioAssetManagerNewMultiselectMeshBehavior then
+            local selectedMeshes = {}
+            for _, asset in pairs(recentAssets) do
+                local key = asset.key
+                if selectedAssets[key] and asset.assetType == Enum.AssetType.MeshPart then
+                    table.insert(selectedMeshes, "Meshes/".. asset.name)
+                end
+            end
+            AssetManagerService:InsertMeshesWithLocation(selectedMeshes)
+        else
+            for _, asset in pairs(recentAssets) do
+                local key = asset.key
+                if selectedAssets[key] and asset.assetType == Enum.AssetType.MeshPart then
+                    AssetManagerService:InsertMesh("Meshes/".. asset.name, true)
+                end
             end
         end
         analytics:report("clickContextMenuItem")
@@ -72,11 +94,22 @@ local function createMeshPartContextMenu(analytics, apiImpl, assetData, contextM
             analytics:report("insertAfterSearch")
         end
     end)
-    contextMenu:AddNewAction("InsertWithLocation", localization:getText("ContextMenu", "InsertWithLocation")).Triggered:connect(function()
-        for _, asset in pairs(recentAssets) do
-            local key = asset.key
-            if selectedAssets[key] and asset.assetType == Enum.AssetType.MeshPart then
-                AssetManagerService:InsertMesh("Meshes/".. asset.name, true)
+    contextMenu:AddNewAction("InsertWithLocation", localization:getText("ContextMenu", "InsertWithLocation")).Triggered:connect(function()      
+        if FFlagStudioAssetManagerNewMultiselectMeshBehavior then
+            local selectedMeshes = {}
+            for _, asset in pairs(recentAssets) do
+                local key = asset.key
+                if selectedAssets[key] and asset.assetType == Enum.AssetType.MeshPart then
+                    table.insert(selectedMeshes, "Meshes/".. asset.name)
+                end
+            end
+            AssetManagerService:InsertMeshesWithLocation(selectedMeshes)
+        else
+            for _, asset in pairs(recentAssets) do
+                local key = asset.key
+                if selectedAssets[key] and asset.assetType == Enum.AssetType.MeshPart then
+                    AssetManagerService:InsertMesh("Meshes/".. asset.name, true)
+                end
             end
         end
         analytics:report("clickContextMenuItem")
@@ -106,7 +139,7 @@ local function createAssetContextMenu(analytics, apiImpl, assetData, contextMenu
         createImageContextMenu(analytics, apiImpl, assetData, contextMenu, localization, store)
     elseif assetType == Enum.AssetType.MeshPart then
         createMeshPartContextMenu(analytics, apiImpl, assetData, contextMenu, localization, store)
-    elseif FFlagAllowAudioBulkImport and (not RobloxAPI:baseURLHasChineseHost()) and assetType == Enum.AssetType.Audio then
+    elseif (not RobloxAPI:baseURLHasChineseHost()) and assetType == Enum.AssetType.Audio then
         createAudioContextMenu(analytics, assetData, contextMenu, localization, store)
     end
 end

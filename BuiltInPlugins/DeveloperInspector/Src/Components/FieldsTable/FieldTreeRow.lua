@@ -6,6 +6,9 @@ local main = script.Parent.Parent.Parent.Parent
 local Framework = require(main.Packages.Framework)
 local Roact = require(main.Packages.Roact)
 
+local Dash = require(main.Packages.Dash)
+local mapOne = Dash.mapOne
+
 local FieldTreeRow = Roact.PureComponent:extend("FieldTreeRow")
 
 local UI = Framework.UI
@@ -49,7 +52,7 @@ function FieldTreeRow:render()
 	local row = props.Row
 	
 	local item = row.item
-	local hasChildren = item.Children and #item.Children > 0
+	local hasChildren = item.Children and mapOne(item.Children)
 	local isHeading = item.IsHeading
 
 	local backgroundColor =

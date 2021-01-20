@@ -12,4 +12,6 @@ game:DefineFastFlag("UseFakeFavoriteIncrement", false)
 game:DefineFastFlag("StudioAssetManagerFetchMoreAssets", false)
 game:DefineFastInt("StudioAssetManagerAssetFetchNumber", 50)
 game:DefineFastFlag("StudioAssetManagerShowRootPlaceListView", false)
+game:DefineFastFlag("StudioAssetManagerEnableCopyGameId", false)
+game:DefineFastFlag("StudioAssetManagerNewMultiselectMeshBehavior", false)
 return nil

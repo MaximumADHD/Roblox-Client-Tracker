@@ -9,7 +9,6 @@ local StarterGui = game:GetService("StarterGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
 local FFlagAllowEmotesMenuWhenTopbarIsDisabled = game:DefineFastFlag("AllowEmotesMenuWhenTopbarIsDisabled", false)
-local FFlagCoreScriptLoadEmotesFromWeb = settings():GetFFlag("CoreScriptLoadEmotesFromWeb")
 
 -- Wait for LocalPlayer to exist
 local LocalPlayer = Players.LocalPlayer
@@ -41,7 +40,6 @@ local Constants = require(EmotesModules.Constants)
 local EmotesMenu = require(Components.EmotesMenu)
 local EmotesMenuReducer = require(Reducers.EmotesMenuReducer)
 
-local LoadEmotesFromWeb = require(Thunks.LoadEmotesFromWeb)
 local OpenMenu = require(Thunks.OpenMenu)
 local HideMenu = require(Actions.HideMenu)
 
@@ -149,10 +147,6 @@ function EmotesMenuMaster:_connectApiListeners()
     end)
 end
 
-function EmotesMenuMaster:_loadEmotesFromWeb()
-    self.store:dispatch(LoadEmotesFromWeb())
-end
-
 function EmotesMenuMaster:_onEquippedEmotesChanged(newEquippedEmotes)
     self.store:dispatch(EquippedEmotesChanged(newEquippedEmotes))
 end
@@ -196,12 +190,7 @@ function EmotesMenuMaster:_onHumanoidDescriptionChanged(humanoidDescription)
             self:_onEmotesChanged(newEmotes)
         end)
 
-        if FFlagCoreScriptLoadEmotesFromWeb and next(humanoidDescription:GetEmotes()) == nil
-            and humanoidDescription.NumberEmotesLoaded == -1 then
-            self:_loadEmotesFromWeb()
-        else
-            self:_onEmotesChanged(humanoidDescription:GetEmotes())
-        end
+        self:_onEmotesChanged(humanoidDescription:GetEmotes())
 
         local numberEmotesChangedSignal = humanoidDescription:GetPropertyChangedSignal("NumberEmotesLoaded")
         self.numberEmotesLoadedChangedConn = numberEmotesChangedSignal:Connect(function(newNumberEmotesLoaded)
@@ -242,8 +231,6 @@ function EmotesMenuMaster:_onHumanoidChanged(humanoid)
         local humanoidDescription = humanoid:FindFirstChildOfClass("HumanoidDescription")
         if humanoidDescription then
             self:_onHumanoidDescriptionChanged(humanoidDescription)
-        elseif FFlagCoreScriptLoadEmotesFromWeb then
-            self:_loadEmotesFromWeb()
         end
 
         self.humanoidAncestryChangedConn = humanoid.AncestryChanged:Connect(function(child, parent)

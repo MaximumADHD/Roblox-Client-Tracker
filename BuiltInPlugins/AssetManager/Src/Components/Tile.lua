@@ -28,7 +28,6 @@ local ContentProvider = game:GetService("ContentProvider")
 
 local FFlagBatchThumbnailAddNewThumbnailTypes = game:GetFastFlag("BatchThumbnailAddNewThumbnailTypes")
 local FFlagAssetManagerRemoveAssetFixes = game:GetFastFlag("AssetManagerRemoveAssetFixes")
-local FFlagAllowAudioBulkImport = game:GetFastFlag("AllowAudioBulkImport")
 local FFlagStudioAssetManagerAssetPreviewRequest = game:GetFastFlag("StudioAssetManagerAssetPreviewRequest")
 
 local Tile = Roact.PureComponent:extend("Tile")
@@ -140,7 +139,7 @@ function Tile:init()
             elseif assetData.assetType == Enum.AssetType.Image
             or assetData.assetType == Enum.AssetType.MeshPart
             or assetData.assetType == Enum.AssetType.Image
-            or (FFlagAllowAudioBulkImport and (not RobloxAPI:baseURLHasChineseHost()) and assetData.assetType == Enum.AssetType.Audio) then
+            or ((not RobloxAPI:baseURLHasChineseHost()) and assetData.assetType == Enum.AssetType.Audio) then
                 local prefix
                 -- Setting asset type to same value as Enum.AssetType since it cannot be passed into function
                 if assetData.assetType == Enum.AssetType.Image then
@@ -149,7 +148,7 @@ function Tile:init()
                     prefix = "Meshes/"
                 elseif assetData.assetType == Enum.AssetType.Lua then
                     prefix = "Scripts/"
-                elseif (FFlagAllowAudioBulkImport and (not RobloxAPI:baseURLHasChineseHost()) and assetData.assetType == Enum.AssetType.Audio) then
+                elseif ((not RobloxAPI:baseURLHasChineseHost()) and assetData.assetType == Enum.AssetType.Audio) then
                     prefix = "Audio/"
                 end
                 AssetManagerService:RenameAlias(assetData.assetType.Value, assetData.id, prefix .. assetData.name, prefix .. newName)

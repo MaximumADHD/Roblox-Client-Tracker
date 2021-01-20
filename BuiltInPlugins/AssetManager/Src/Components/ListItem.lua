@@ -30,7 +30,6 @@ local ContentProvider = game:GetService("ContentProvider")
 
 local ListItem = Roact.PureComponent:extend("ListItem")
 
-local FFlagAllowAudioBulkImport = game:GetFastFlag("AllowAudioBulkImport")
 local FFlagBatchThumbnailAddNewThumbnailTypes = game:GetFastFlag("BatchThumbnailAddNewThumbnailTypes")
 local FFlagStudioAssetManagerAssetPreviewRequest = game:GetFastFlag("StudioAssetManagerAssetPreviewRequest")
 local FFlagStudioAssetManagerLinkedScriptIcon = game:GetFastFlag("StudioAssetManagerLinkedScriptIcon")
@@ -60,7 +59,7 @@ local function getClassIcon(assetData)
         return StudioService:GetClassIcon("Decal")
     elseif assetType == Enum.AssetType.MeshPart then
         return StudioService:GetClassIcon("MeshPart")
-    elseif FFlagAllowAudioBulkImport and (not RobloxAPI:baseURLHasChineseHost()) and assetType == Enum.AssetType.Audio then
+    elseif (not RobloxAPI:baseURLHasChineseHost()) and assetType == Enum.AssetType.Audio then
         return StudioService:GetClassIcon("Sound")
     elseif assetType == Enum.AssetType.Lua then
         if FFlagStudioAssetManagerLinkedScriptIcon then
@@ -159,7 +158,7 @@ function ListItem:init()
             elseif assetData.assetType == Enum.AssetType.Image
             or assetData.assetType == Enum.AssetType.MeshPart
             or assetData.assetType == Enum.AssetType.Image
-            or (FFlagAllowAudioBulkImport and (not RobloxAPI:baseURLHasChineseHost()) and assetData.assetType == Enum.AssetType.Audio) then
+            or ((not RobloxAPI:baseURLHasChineseHost()) and assetData.assetType == Enum.AssetType.Audio) then
                 local prefix
                 -- Setting asset type to same value as Enum.AssetType since it cannot be passed into function
                 if assetData.assetType == Enum.AssetType.Image then
@@ -168,7 +167,7 @@ function ListItem:init()
                     prefix = "Meshes/"
                 elseif assetData.assetType == Enum.AssetType.Lua then
                     prefix = "Scripts/"
-                elseif FFlagAllowAudioBulkImport and (not RobloxAPI:baseURLHasChineseHost()) and assetData.assetType == Enum.AssetType.Audio then
+                elseif (not RobloxAPI:baseURLHasChineseHost()) and assetData.assetType == Enum.AssetType.Audio then
                     prefix = "Audio/"
                 end
                 AssetManagerService:RenameAlias(assetData.assetType.Value, assetData.id, prefix .. assetData.name, prefix .. newName)

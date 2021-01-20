@@ -2,7 +2,7 @@ local Library = script.Parent
 
 local Roact = require(Library.Parent.Parent.Roact)
 local Symbol = require(Library.Utils.Symbol)
-local cameraKey = Symbol.named("MarkeplaceCamera")
+local cameraKey = Symbol.named("MarketplaceCamera")
 
 local CameraProvider = Roact.PureComponent:extend("CameraProvider")
 

@@ -1,5 +1,5 @@
--- This script is used to manage camera instance for Markeplace
--- We should have only one camera in the entire Markeplace
+-- This script is used to manage camera instance for Marketplace
+-- We should have only one camera in the entire Marketplace
 -- And it will be created and destroyed by this script.
 
 local Plugin = script.Parent.Parent.Parent
@@ -13,7 +13,7 @@ local CameraProvider = Roact.PureComponent:extend("CameraProvider")
 
 function CameraProvider:init(props)
 	local camera = Instance.new("Camera")
-	camera.Name = "MarkeplaceCamera"
+	camera.Name = "MarketplaceCamera"
 
 	self._context[Keys.camera] = camera
 end

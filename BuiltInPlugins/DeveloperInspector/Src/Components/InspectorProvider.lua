@@ -75,8 +75,8 @@ return RoactRodux.connect(
 			updateBranch = function(path, nodes)
 				dispatch(UpdateBranch(path, nodes))
 			end,
-			updateFields = function(path, nodeIndex, props, state)
-				dispatch(UpdateFields(path, nodeIndex, props, state))
+			updateFields = function(path, nodeIndex, fieldPath, fields)
+				dispatch(UpdateFields(path, nodeIndex, fieldPath, fields))
 			end,
 			pickInstance = function(instancePath)
 				dispatch(PickInstance(instancePath))

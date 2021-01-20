@@ -7,20 +7,11 @@ local gamesTable = {}
 local currentGroup = -1
 local prevPageCursor = nil
 
-local FFlagUXImprovementAddScrollToGamesPage= game:GetFastFlag("UXImprovementAddScrollToGamesPage")
-local FFlagUXImprovementAdaptScrolling = game:DefineFastFlag("UXImprovementAdaptScrolling", false)
-
 return function(type, id, pageCursor)
 	return function(store)
-		if not FFlagUXImprovementAdaptScrolling or (pageCursor ~= prevPageCursor or not pageCursor) then
+		if pageCursor ~= prevPageCursor or not pageCursor then
 			prevPageCursor = pageCursor
-			local limit = 0
-			if not FFlagUXImprovementAddScrollToGamesPage then
-				store:dispatch(SetGameInfo({ games = {} }))
-				limit = 10
-			else
-				limit = 25
-			end
+			local limit = 25
 
 			if id ~= currentGroup then
 				gamesTable = {}
@@ -30,13 +21,11 @@ return function(type, id, pageCursor)
 			local query = ApiFetchGames({type = type, id = id, cursor = pageCursor, limit = limit})
 
 			query:andThen(function(resp)
-				if FFlagUXImprovementAddScrollToGamesPage then
-					for i = 0, #resp.games do 
-						gamesTable[#gamesTable + 1] = resp.games[i]
-					end
-					gamesTable = Cryo.Dictionary.join(gamesTable)
-					resp.games = gamesTable
+				for i = 0, #resp.games do 
+					gamesTable[#gamesTable + 1] = resp.games[i]
 				end
+				gamesTable = Cryo.Dictionary.join(gamesTable)
+				resp.games = gamesTable
 				store:dispatch(SetGameInfo(resp))
 			end, function(err)
 				error("Failed to load games")

@@ -11,8 +11,6 @@ if not settings():GetFFlag("StudioForceDraftsUsageOnRCCSetting") then
    return
 end
 
-local FFlagVersionControlServiceBatchCommit = game:GetFastFlag("VersionControlServiceBatchCommit")
-
 local OverrideLocaleId = settings():GetFVariable("StudioForceLocale")
 local MockDraftsService = require(Plugin.Src.TestHelpers.MockDraftsService)
 local DraftsService = game:GetService("DraftsService")
@@ -138,7 +136,7 @@ local function connectToDraftsService()
 			roduxStore:dispatch(DraftStateChangedAction(draft, DraftState.Outdated, true))
 		elseif status == Enum.DraftStatusCode.OK then
 			roduxStore:dispatch(DraftStateChangedAction(draft, DraftState.Outdated, false))
-		elseif FFlagVersionControlServiceBatchCommit and status == Enum.DraftStatusCode.DraftCommitted then
+		elseif status == Enum.DraftStatusCode.DraftCommitted then
 			-- Draft state should be OK and does not need to be updated, but double check the "dirty" states are not set
 			local state = roduxStore:getState()
 			assert(state.Drafts[draft][DraftState.Outdated] == false,
@@ -147,10 +145,6 @@ local function connectToDraftsService()
 				"Draft '"..draft:GetFullName().."' was committed with dirty Deleted state")
 		elseif status == Enum.DraftStatusCode.ScriptRemoved then
 			-- Do nothing. AncestryChanged event will handle this
-		end
-
-		if not FFlagVersionControlServiceBatchCommit then
-			return status == Enum.DraftStatusCode.OK
 		end
 	end
 
@@ -199,28 +193,12 @@ local function connectToDraftsService()
 		end)
 
 		draftsService.UpdateStatusChanged:connect(function(draft, draftStatus)
-			if FFlagVersionControlServiceBatchCommit then
-				handleStatus(draft, draftStatus)
-			else
-				local success = handleStatus(draft, draftsService:GetDraftStatus(draft))
-				if success then
-					roduxStore:dispatch(DraftStateChangedAction(draft, DraftState.Outdated, false))
-				end
-			end
+			handleStatus(draft, draftStatus)
 		end)
 		draftsService.CommitStatusChanged:connect(function(draft, draftStatus)
-			if FFlagVersionControlServiceBatchCommit then
-				local commitState = (draftStatus == Enum.DraftStatusCode.DraftCommitted) and CommitState.Committed or CommitState.Uncommitted
-				roduxStore:dispatch(DraftStateChangedAction(draft, DraftState.Committed, commitState))
-				handleStatus(draft, draftStatus)
-			else
-				local success = handleStatus(draft, draftStatus)
-				if success then
-					roduxStore:dispatch(DraftStateChangedAction(draft, DraftState.Committed, CommitState.Committed))
-				else
-					roduxStore:dispatch(DraftStateChangedAction(draft, DraftState.Committed, CommitState.Uncommitted))
-				end
-			end
+			local commitState = (draftStatus == Enum.DraftStatusCode.DraftCommitted) and CommitState.Committed or CommitState.Uncommitted
+			roduxStore:dispatch(DraftStateChangedAction(draft, DraftState.Committed, commitState))
+			handleStatus(draft, draftStatus)
 		end)
 
 		setWidgetInitialState(drafts)

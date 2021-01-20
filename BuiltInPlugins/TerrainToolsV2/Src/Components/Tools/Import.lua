@@ -6,7 +6,6 @@
 ]]
 
 local FFlagTerrainToolsRedesignProgressDialog = game:GetFastFlag("TerrainToolsRedesignProgressDialog")
-local FFlagTerrainImportNewYieldMethod = game:GetFastFlag("TerrainImportNewYieldMethod")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -188,8 +187,8 @@ function Import:render()
 			Progress = importProgress,
 			IsPaused = importPaused,
 
-			OnPauseButtonClicked = FFlagTerrainImportNewYieldMethod and self.onPauseRequested or nil,
-			OnCancelButtonClicked = FFlagTerrainImportNewYieldMethod and self.onCancelRequested or nil,
+			OnPauseButtonClicked = self.onPauseRequested,
+			OnCancelButtonClicked = self.onCancelRequested,
 		})),
 	})
 end

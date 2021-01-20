@@ -13,8 +13,6 @@ game:DefineFastFlag("DebugToolboxGetRolesRequest", false)
 game:DefineFastFlag("EnableToolboxAssetNameColorChange", false)
 game:DefineFastFlag("RemoveAudioEndorsedIcon", false)
 
-game:DefineFastFlag("EnableToolboxImpressionAnalytics", false)
-
 game:DefineFastFlag("AssetConfigUseItemConfig", false)
 game:DefineFastFlag("EnableToolboxVideos", false)
 

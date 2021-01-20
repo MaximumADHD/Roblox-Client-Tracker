@@ -5,8 +5,6 @@ local SetScreen = require(Plugin.Src.Actions.SetScreen)
 local Framework = require(Plugin.Packages.Framework)
 local RobloxAPI = Framework.RobloxAPI
 
-local FFlagAllowAudioBulkImport = game:GetFastFlag("AllowAudioBulkImport")
-
 local AssetManagerService = game:GetService("AssetManagerService")
 
 return function(analytics, assetData)
@@ -27,7 +25,7 @@ return function(analytics, assetData)
                 AssetManagerService:InsertMesh("Meshes/".. assetData.name, false)
             elseif assetType == Enum.AssetType.Lua then
                 AssetManagerService:OpenLinkedSource("Scripts/" .. assetData.name)
-            elseif FFlagAllowAudioBulkImport and (not RobloxAPI:baseURLHasChineseHost()) and assetType == Enum.AssetType.Audio then
+            elseif (not RobloxAPI:baseURLHasChineseHost()) and assetType == Enum.AssetType.Audio then
                 AssetManagerService:InsertAudio(assetData.id, assetData.name)
             end
             analytics:report("doubleClickInsert")

@@ -5,13 +5,14 @@
 	previously set overrides will remain on the stack beneath it until removed.
 
 	Example usage:
-		MouseIconOverrideService.push("PurchasePrompt", Enum.OverrideMouseIconBehavior.ForceShow)
-		MouseIconOverrideService.pop("PurchasePrompt")
+		local MOUSE_OVERRIDE_KEY = Symbol.named("PurchasePrompt")
+		MouseIconOverrideService.push(MOUSE_OVERRIDE_KEY, Enum.OverrideMouseIconBehavior.ForceShow)
+		MouseIconOverrideService.pop(MOUSE_OVERRIDE_KEY)
 ]]
 
 local UserInputService = game:GetService("UserInputService")
 
-local FFlagUseCursorOverrideManager = settings():GetFFlag("UseCursorOverrideManager")
+local FFlagUseCursorOverrideManager2 = game:DefineFastFlag("UseCursorOverrideManager2", false)
 
 local cursorOverrideStack = {}
 
@@ -25,43 +26,44 @@ local function update()
 end
 
 return {
-	push = function(name, behavior)
-		if not FFlagUseCursorOverrideManager then
+	push = function(key, behavior)
+		if not FFlagUseCursorOverrideManager2 then
 			UserInputService.OverrideMouseIconBehavior = behavior
 			return
 		end
 
-		assert(type(name) == "string")
+		assert(type(key) == "userdata" or type(key) == "string")
 		assert(typeof(behavior) == "EnumItem")
 		assert(behavior.EnumType == Enum.OverrideMouseIconBehavior)
 
-		for _, entry in ipairs(cursorOverrideStack) do
-			if entry[1] == name then
-				error("Already a cursor override named " .. name, 2)
+		for idx, entry in ipairs(cursorOverrideStack) do
+			if entry[1] == key then
+				table.remove(cursorOverrideStack, idx)
+				break
 			end
 		end
 
-		table.insert(cursorOverrideStack, {name, behavior})
+		table.insert(cursorOverrideStack, {key, behavior})
 		update()
 	end,
-	pop = function(name)
-		if not FFlagUseCursorOverrideManager then
+	pop = function(key)
+		if not FFlagUseCursorOverrideManager2 then
 			UserInputService.OverrideMouseIconBehavior = Enum.OverrideMouseIconBehavior.None
 			return
 		end
 
-		assert(type(name) == "string")
+		assert(type(key) == "userdata" or type(key) == "string")
 
 		local idx
 
 		for testIdx, entry in ipairs(cursorOverrideStack) do
-			if entry[1] == name then
+			if entry[1] == key then
 				idx = testIdx
 				break
 			end
 		end
 
-		assert(idx, "No cursor override named " .. name)
+		assert(idx, "No cursor override named " .. tostring(key))
 
 		table.remove(cursorOverrideStack, idx)
 		update()

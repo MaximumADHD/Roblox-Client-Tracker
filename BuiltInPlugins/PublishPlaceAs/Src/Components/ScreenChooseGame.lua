@@ -27,82 +27,28 @@ local Footer = require(Plugin.Src.Components.Footer)
 local TileGame = require(Plugin.Src.Components.TileGame)
 
 local Localizing = UILibrary.Localizing
-local Spritesheet = UILibrary.Util.Spritesheet
-local createFitToContent = UILibrary.Component.createFitToContent
 local StyledDropDown = UILibrary.Component.StyledDropdown
+local InfiniteScrollingFrame = UILibrary.Component.InfiniteScrollingFrame
+local SearchBar = UILibrary.Component.SearchBar
+local Separator = UILibrary.Component.Separator
+local RoundFrame = UILibrary.Component.RoundFrame
 
-
-local FRAME_BUTTON_SIZE = 32
-local ARROW_SIZE = 12
-local PAGE_PADDING = 115
-
-local arrowSpritesheet = Spritesheet("rbxasset://textures/StudioSharedUI/arrowSpritesheet.png", {
-	SpriteSize = ARROW_SIZE,
-	NumSprites = 4,
-})
-
-local rightArrowProps = arrowSpritesheet[2]
-local leftArrowProps = arrowSpritesheet[4]
-
-local HorizontalContentFit = createFitToContent("Frame", "UIListLayout", {
-	Padding = UDim.new(0, 0),
-	FillDirection = Enum.FillDirection.Horizontal,
-	SortOrder = Enum.SortOrder.LayoutOrder,
-})
 local groupsLoaded = false
 
-local FFlagStudioAddingScrollingToScreenChoosePlace = game:GetFastFlag("StudioAddingScrollingToScreenChoosePlace")
 local FFlagBatchThumbnailAddNewThumbnailTypes = game:GetFastFlag("BatchThumbnailAddNewThumbnailTypes")
 
 local ScreenChooseGame = Roact.PureComponent:extend("ScreenChooseGame")
+local SelectedItemKey = 0
+local SelectedItemType = Constants.SUBJECT_TYPE.USER
+local SelectedItemText = nil
 
 function ScreenChooseGame:init()
 	self.state = {
-		pageNumber = 1,
-		isPreviousButtonHovered = false,
-		isNextButtonHovered = false,
-		--TODO: switch to index when table.indexOf(value) is added
-		selectedItem = nil,
+		searchTerm = ""
 	}
-
-	self.onPreviousPageButtonPress = function()
-		self:setState({
-			pageNumber = self.state.pageNumber - 1,
-		})
-	end
-
-	self.onNextPageButtonPress = function()
-		self:setState({
-			pageNumber = self.state.pageNumber + 1,
-		})
-	end
-
-	self.onPreviousButtonHovered = function()
-		self:setState({
-			isPreviousButtonHovered = true,
-		})
-	end
-
-	self.onPreviousButtonHoverEnded = function()
-		self:setState({
-			isPreviousButtonHovered = false,
-		})
-	end
-
-	self.onNextButtonHovered = function()
-		self:setState({
-			isNextButtonHovered = true,
-		})
-	end
-
-	self.onNextButtonHoverEnded = function()
-		self:setState({
-			isNextButtonHovered = false,
-		})
-	end
-
-	self.props.DispatchLoadExistingGames(Constants.SUBJECT_TYPE.USER, 0)
+	self.props.DispatchLoadExistingGames(SelectedItemType, SelectedItemKey)
 	self.props.DispatchLoadGroups()
+	--self.layoutRef = Roact.createRef()
 end
 
 function ScreenChooseGame:render()
@@ -113,96 +59,61 @@ function ScreenChooseGame:render()
 
 			local games = props.Games
 			local nextPageCursor = props.NextPageCursor
-			local previousPageCursor = props.PreviousPageCursor
 			local groups = props.Groups
 
 			local dispatchLoadExistingGames = props.DispatchLoadExistingGames
 			local openChoosePlacePage = props.OpenChoosePlacePage
 
-			local previousButtonActive = previousPageCursor ~= nil and self.state.pageNumber > 1
-			local previousButtonColor = theme.pageButton.ButtonColor
-			if previousButtonActive then
-				if self.state.isPreviousButtonHovered then
-					previousButtonColor = theme.pageButton.hovered.ButtonColor
-				end
-			else
-				previousButtonColor = theme.pageButton.disabled.ButtonColor
-			end
-
-			local nextButtonColor = theme.pageButton.ButtonColor
-			if self.state.isNextButtonHovered then
-				nextButtonColor = theme.pageButton.hovered.ButtonColor
-			end
-
 			local myGamesText = localization:getText("GroupDropdown", "MyGames")
 
 			local dropdownItems = { { Type = Constants.SUBJECT_TYPE.USER, Key = 0, Text = myGamesText, }, }
-
-			if not self.state.selectedItem then
-				self:setState({
-					selectedItem = dropdownItems[1],
-				})
-			end
 
 			if groups and next(groups) ~= nil then
 				for _, group in pairs(groups) do
 					table.insert(dropdownItems, { Type = Constants.SUBJECT_TYPE.GROUP, Key = group.groupId, Text = group.name, })
 				end
-				if not groupsLoaded then
-					groupsLoaded = true
-					for _, item in ipairs(dropdownItems) do
-						if game.CreatorId == item.Key and game.CreatorType == Enum.CreatorType.Group then
-							self:setState({
-								selectedItem = item,
-							})
-							dispatchLoadExistingGames(item.Type, item.Key)
-						end
-					end
+			end
+
+			local dropdownDisplayText = SelectedItemText or dropdownItems[1].Text
+
+			local components = {
+				Roact.createElement("UIGridLayout", {
+					CellSize = UDim2.new(0, theme.SCREEN_CHOOSE_GAME.ICON_SIZE, 0,
+						theme.SCREEN_CHOOSE_GAME.ICON_SIZE + theme.SCREEN_CHOOSE_GAME.TILE_FOOTER_SIZE),
+					CellPadding = UDim2.new(0, theme.SCREEN_CHOOSE_GAME.CELL_PADDING_X, 0, theme.SCREEN_CHOOSE_GAME.CELL_PADDING_Y),
+					SortOrder = Enum.SortOrder.LayoutOrder,
+					[Roact.Ref] = self.layoutRef,
+				})
+			}
+
+			for _, game in pairs(games) do
+				-- TODO: (smallick) 2020/08/26
+				-- We should query using the endpoint and not manually
+				-- However, as the endpoint does not currently support searching keywords we can filter using string.find
+				if string.find(game.name:lower(), self.state.searchTerm:lower()) then
+					components[#components + 1] = Roact.createElement(TileGame, {
+						Name = game.name,
+						Id = FFlagBatchThumbnailAddNewThumbnailTypes and game.rootPlaceId or game.universeId,
+						State = game.privacyType,
+						LayoutOrder = #components + 1,
+						OnActivated = function()
+							openChoosePlacePage(game)
+						end,
+					})
 				end
 			end
 
-			local dropdownDisplayText = (self.state.selectedItem and self.state.selectedItem or dropdownItems[1]).Text
+			local TILE_HEIGHT = (theme.SCREEN_CHOOSE_GAME.ICON_SIZE + theme.SCREEN_CHOOSE_GAME.TILE_FOOTER_SIZE + theme.SCREEN_CHOOSE_GAME.CELL_PADDING_Y)
 
-			-- TODO (kstephan) 2019/07/29 Use infinite scroller. componentsTop and Bottom
-			--                             is a clunky, temporary solution
-			local componentsTop = {
-				Roact.createElement("UIListLayout", {
-					FillDirection = Enum.FillDirection.Horizontal,
-					HorizontalAlignment = Enum.HorizontalAlignment.Left,
-					SortOrder = Enum.SortOrder.LayoutOrder,
-					Padding = UDim.new(0, 30),
-				}),
-			}
-			local componentsBottom = {
-				Roact.createElement("UIListLayout", {
-					FillDirection = Enum.FillDirection.Horizontal,
-					HorizontalAlignment = Enum.HorizontalAlignment.Left,
-					SortOrder = Enum.SortOrder.LayoutOrder,
-					Padding = UDim.new(0, 30),
-				}),
-			}
-
-			for i,v in pairs(games) do
-				if i <= 5 then
-					componentsTop[v.universeId] = Roact.createElement(TileGame, {
-						Name = v.name,
-						Id = FFlagBatchThumbnailAddNewThumbnailTypes and v.rootPlaceId or v.universeId,
-						State = v.privacyType,
-						LayoutOrder = i,
-						OnActivated = function()
-							openChoosePlacePage(v)
-						end,
-					})
-				else
-					componentsBottom[v.universeId] = Roact.createElement(TileGame, {
-						Name = v.name,
-						Id = FFlagBatchThumbnailAddNewThumbnailTypes and v.rootPlaceId or v.universeId,
-						State = v.privacyType,
-						LayoutOrder = i - 5,
-						OnActivated = function()
-							openChoosePlacePage(v)
-						end,
-					})
+			-- TODO: (smallick) 2020/07/27
+			-- Replace this with layoutRef
+			-- Manually calculating CanvasHeight for now
+			local canvasSize = math.ceil((#components - 1)/5) * TILE_HEIGHT
+			-- Force atleast 3 rows to show up to force scroll to appear. Further search results can be taken care of by InfiniteScrollingFrame
+			-- nextPageFunc
+			if canvasSize < 3 * TILE_HEIGHT then
+				if nextPageCursor and SelectedItemType and SelectedItemKey then
+					dispatchLoadExistingGames(SelectedItemType, SelectedItemKey, nextPageCursor)
 				end
 			end
 
@@ -212,7 +123,7 @@ function ScreenChooseGame:render()
 			}, {
 				ChooseGameText = Roact.createElement("TextLabel", {
 					Text = localization:getText("ScreenHeader", "ChooseGame"),
-					Position = UDim2.new(0, 30, 0, 20),
+					Position = UDim2.new(0, 30, 0, 25),
 					BackgroundTransparency = 1,
 					TextColor3 = theme.header.text,
 					TextXAlignment = Enum.TextXAlignment.Left,
@@ -220,116 +131,73 @@ function ScreenChooseGame:render()
 					TextSize = 18,
 				}),
 
+				Sep1 = Roact.createElement(Separator, {
+					Weight = 2,
+					Padding = 20,
+					Position = UDim2.new(0.5, 0, 0, 50),
+				}),
+
+				SearchBar = Roact.createElement("Frame", {
+					Position = UDim2.new(0.6, 4, 0, 70),
+					Size = UDim2.new(0, theme.DROPDOWN_WIDTH - 10, 0, theme.DROPDOWN_HEIGHT),
+					BackgroundTransparency = 1,
+				}, {
+					Roact.createElement(SearchBar, {
+						Position = UDim2.new(1, 0, 1, 0),
+						Size = UDim2.new(1, 0, 1, 0),
+						Enabled = true,
+						Rounded = true,
+						BackgroundTransparency = 1,
+						FocusDisabled = true,
+						OnSearchRequested = function(submittedSearch)
+							if string.byte(submittedSearch:sub(-1, -1)) == 13 then
+								self:setState({
+									searchTerm = submittedSearch:sub(1, -2)
+								})
+							else
+								self:setState({
+									searchTerm = submittedSearch
+								})
+							end
+						end,
+					}),
+				}),
+
 				GroupDropdown = Roact.createElement(StyledDropDown, {
-					Size = UDim2.new(0, 330, 0, 38),
-					Position = UDim2.new(0, 30, 0, 40),
+					Size = UDim2.new(0, theme.DROPDOWN_WIDTH, 0, theme.DROPDOWN_HEIGHT),
+					Position = UDim2.new(0, 30, 0, 70),
 					ItemHeight = 38,
 					ButtonText = dropdownDisplayText,
 					Items = dropdownItems,
 					MaxItems = 4,
 					TextSize = 18,
-					SelectedItem = (self.state.selectedItem and self.state.selectedItem or dropdownItems[1]).Key,
+					SelectedItem = SelectedItemKey,
 					ShowRibbon = not theme.isDarkerTheme,
 					OnItemClicked = function(item)
-						self:setState({
-							pageNumber = 1,
-							selectedItem = item,
-						})
-						dispatchLoadExistingGames(self.state.selectedItem.Type, self.state.selectedItem.Key)
+						if item.Key ~= SelectedItemKey then
+							SelectedItemKey = item.Key
+							SelectedItemType = item.Type
+							SelectedItemText = item.Text
+							dispatchLoadExistingGames(item.Type, item.Key)
+						end
 					end,
 					ListWidth = 330,
 				}),
 
-				GamesList = Roact.createElement("Frame", {
-					Size = UDim2.new(1, 0, 0.5, Constants.FOOTER_HEIGHT),
-					Position = UDim2.new(0, 0, 0.5, -Constants.FOOTER_HEIGHT * 2),
+				ScrollingFrame = Roact.createElement(InfiniteScrollingFrame, {
+					Position = UDim2.new(0, 30, 0, 115),
+					Size = UDim2.new(0.95, 0, 0.7, 0),
 					BackgroundTransparency = 1,
-				},{
-					-- TODO (kstephan) 2019/07/29 Use infinite scroller instead of componentsTop and Bottom
-					TopRow = Roact.createElement("Frame", {
-						Size = UDim2.new(1, 0, 0.5, 0),
-						Position = UDim2.new(0, 30, 0, 0),
-						AnchorPoint = Vector2.new(0, 0.5),
-						BackgroundTransparency = 1,
-					}, componentsTop),
-
-					BottomRow = Roact.createElement("Frame", {
-						Size = UDim2.new(1, 0, 0.5, 0),
-						Position = UDim2.new(0, 30, 0.5, 20),
-						AnchorPoint = Vector2.new(0, 0.5),
-						BackgroundTransparency = 1,
-					}, componentsBottom),
-				}),
-
-				PageButtons = Roact.createElement(HorizontalContentFit, {
-					BackgroundTransparency = 1,
-					Position = UDim2.new(0.5, 0, 1, -PAGE_PADDING)
-				}, {
-					-- TODO: Change pagination to use infinite scroll instead of next/previous page buttons
-					PreviousButton = Roact.createElement("TextButton", {
-						Size = UDim2.new(0, FRAME_BUTTON_SIZE, 0, FRAME_BUTTON_SIZE),
-						BackgroundColor3 = previousButtonColor,
-						BorderColor3 = theme.pageButton.BorderColor,
-						Active = previousButtonActive,
-						TextTransparency = 1,
-						LayoutOrder = 1,
-
-						[Roact.Event.MouseEnter] = self.onPreviousButtonHovered,
-						[Roact.Event.MouseLeave] = self.onPreviousButtonHoverEnded,
-						[Roact.Event.Activated] = function()
-							if previousPageCursor then
-								dispatchLoadExistingGames(self.state.selectedItem.Type, self.state.selectedItem.Key, previousPageCursor)
-								self.onPreviousPageButtonPress()
-							end
-						end,
-					},{
-						PreviousButtonImage = Roact.createElement("ImageLabel", Cryo.Dictionary.join(leftArrowProps, {
-							AnchorPoint = Vector2.new(0.5, 0.5),
-							Position = UDim2.new(0.5, 0, 0.5, 0),
-							Size = UDim2.new(0, ARROW_SIZE, 0, ARROW_SIZE),
-							BackgroundTransparency = 1,
-							ImageColor3 = previousButtonActive and theme.pageButton.ImageColor or theme.pageButton.disabled.ImageColor,
-						})),
-					}),
-
-					PageNumberText = Roact.createElement("TextLabel", {
-						Size = UDim2.new(0, 30, 1, 0),
-						AnchorPoint = Vector2.new(0.5, 0.5),
-						Text = self.state.pageNumber,
-						BackgroundTransparency = 1,
-						TextColor3 = theme.header.text,
-						TextXAlignment = Enum.TextXAlignment.Center,
-						TextSize = 18,
-						LayoutOrder = 2,
-						Font = theme.pageText.font,
-					}),
-
-					NextButton = Roact.createElement("TextButton", {
-						Size = UDim2.new(0, FRAME_BUTTON_SIZE, 0, FRAME_BUTTON_SIZE),
-						BackgroundColor3 = nextButtonColor,
-						BorderColor3 = theme.pageButton.BorderColor,
-						Active = nextPageCursor ~= nil,
-						TextTransparency = 1,
-						LayoutOrder = 3,
-
-						[Roact.Event.MouseEnter] = self.onNextButtonHovered,
-						[Roact.Event.MouseLeave] = self.onNextButtonHoverEnded,
-						[Roact.Event.Activated] = function()
-							if nextPageCursor then
-								dispatchLoadExistingGames(self.state.selectedItem.Type, self.state.selectedItem.Key, nextPageCursor)
-								self.onNextPageButtonPress()
-							end
-						end,
-					},{
-						NextButton = Roact.createElement("ImageLabel", Cryo.Dictionary.join(rightArrowProps, {
-							AnchorPoint = Vector2.new(0.5, 0.5),
-							Position = UDim2.new(0.5, 0, 0.5, 0),
-							Size = UDim2.new(0, ARROW_SIZE, 0, ARROW_SIZE),
-							BackgroundTransparency = 1,
-							ImageColor3 = theme.pageButton.ImageColor,
-						})),
-					}),
-				}),
+					-- TODO: replace manual calculation with self.layoutRef
+					-- LayoutRef = self.layoutRef,
+					CanvasHeight = canvasSize,
+					NextPageRequestDistance = 100,
+					NextPageFunc = function()
+						if nextPageCursor and SelectedItemType and SelectedItemKey then
+							dispatchLoadExistingGames(SelectedItemType, SelectedItemKey, nextPageCursor)
+						end
+					end,
+				}, components),
 
 				Footer = Roact.createElement(Footer, {
 					MainButton = {
@@ -345,13 +213,16 @@ function ScreenChooseGame:render()
 	end)
 end
 
+function ScreenChooseGame:willUnmount()
+	for key, _ in pairs(self.props.Games) do self.props.Games[key] = nil end
+end
+
 local function mapStateToProps(state, props)
 	local gameInfo = state.ExistingGame.gameInfo
 	local groupInfo = state.GroupsHavePermission.groupInfo
 
 	return {
 		NextPageCursor = gameInfo.nextPageCursor,
-		PreviousPageCursor = gameInfo.previousPageCursor,
 		Games = gameInfo.games,
 		Groups = groupInfo.groups,
 	}
@@ -367,11 +238,7 @@ local function useDispatchForProps(dispatch)
 		end,
 		OpenChoosePlacePage = function(parentGame)
 			dispatch(LoadExistingPlaces(parentGame))
-			if FFlagStudioAddingScrollingToScreenChoosePlace then
-				dispatch(SetScreen(Constants.SCREENS.CHOOSE_PLACE_WITH_SCROLL))
-			else
-				dispatch(SetScreen(Constants.SCREENS.CHOOSE_PLACE))
-			end
+			dispatch(SetScreen(Constants.SCREENS.CHOOSE_PLACE))
 		end,
 	}
 end

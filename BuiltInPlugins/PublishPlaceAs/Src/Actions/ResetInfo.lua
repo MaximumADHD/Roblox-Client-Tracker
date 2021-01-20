@@ -6,13 +6,9 @@ local Action = require(script.Parent.Action)
 
 local FFlagStudioLuaPublishFlowLocalizeUntitledGameText = game:GetFastFlag("StudioLuaPublishFlowLocalizeUntitledGameText")
 local FFlagStudioPublishLuaWorkflow = game:GetFastFlag("StudioPublishLuaWorkflow")
-local FFlagUXImprovementAddScrollToGamesPage = game:GetFastFlag("UXImprovementAddScrollToGamesPage")
 
 return Action(script.Name, function(localizedDefaultname, isOverwritePublish)
     local CHOSEN_SCREEN = Constants.SCREENS.CHOOSE_GAME
-    if FFlagUXImprovementAddScrollToGamesPage then
-        CHOSEN_SCREEN = Constants.SCREENS.CHOOSE_GAME_WITH_SCROLL
-    end
 	return {
 		placeInfo = { places = {}, parentGame = {}, },
         gameInfo = { games = {}, },

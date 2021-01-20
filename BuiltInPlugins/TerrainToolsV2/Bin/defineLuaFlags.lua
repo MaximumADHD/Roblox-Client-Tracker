@@ -22,7 +22,6 @@ handleFlagDependencies("TerrainToolsBetterImportTool", {
 	"TerrainToolsIncludeDevFrameworkTheme",
 	"TerrainToolsFixLabeledElementPairWidth",
 	"TerrainToolsRedesignProgressDialog",
-	"TerrainImportNewYieldMethod",
 })
 
 handleFlagDependencies("TerrainToolsMapSettingsMaxVolume", {

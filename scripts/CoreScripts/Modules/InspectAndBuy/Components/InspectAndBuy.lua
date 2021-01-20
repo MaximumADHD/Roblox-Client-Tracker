@@ -9,6 +9,8 @@ local MouseIconOverrideService = require(CorePackages.InGameServices.MouseIconOv
 local Roact = require(CorePackages.Roact)
 local Rodux = require(CorePackages.Rodux)
 local RoactRodux = require(CorePackages.RoactRodux)
+local Symbol = require(CorePackages.Symbol)
+
 local InspectAndBuyFolder = script.Parent.Parent
 local SetDetailsInformation = require(InspectAndBuyFolder.Actions.SetDetailsInformation)
 local SetTryingOnInfo = require(InspectAndBuyFolder.Actions.SetTryingOnInfo)
@@ -36,7 +38,7 @@ local GetPlayerName = require(InspectAndBuyFolder.Thunks.GetPlayerName)
 local FFlagFixInspectAndBuyPerformFetch = require(InspectAndBuyFolder.Flags.FFlagFixInspectAndBuyPerformFetch)
 
 local COMPACT_VIEW_MAX_WIDTH = 600
-local CURSOR_OVERRIDE_KEY = "OverrideCursorInspectMenu"
+local CURSOR_OVERRIDE_KEY = Symbol.named("OverrideCursorInspectMenu")
 local BACK_BUTTON_KEY = "BackButtonInspectMenu"
 
 local InspectAndBuy = Roact.PureComponent:extend("InspectAndBuy")

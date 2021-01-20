@@ -95,6 +95,12 @@ function MockPlugin:Activate(exclusiveMouse)
 	self._activatedWithExclusiveMouse = exclusiveMouse and true or false
 end
 
+function MockPlugin:CreatePluginAction()
+	return {
+		Triggered = Signal.new()
+	}
+end
+
 function MockPlugin:Deactivate()
 	if not self._activated then
 		return

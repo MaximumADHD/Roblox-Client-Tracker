@@ -23,9 +23,8 @@ local StudioService = game:GetService("StudioService")
 local FFlagStudioPlaceVersionHistoryCorrectPlace = game:GetFastFlag("StudioPlaceVersionHistoryShowCorrectPlace")
 local FFlagCleanupRightClickContextMenuFunctions = game:GetFastFlag("CleanupRightClickContextMenuFunctions")
 local FFlagAssetManagerRemoveAssetFixes = game:GetFastFlag("AssetManagerRemoveAssetFixes")
-local FFlagAllowAudioBulkImport = game:GetFastFlag("AllowAudioBulkImport")
-local FFlagStudioAssetManagerFixPackageBehavior = game:GetFastFlag("StudioAssetManagerFixPackageBehavior")
 local FFlagAssetManagerFixRightClickForAudio = game:GetFastFlag("AssetManagerFixRightClickForAudio")
+local FFlagStudioAssetManagerNewMultiselectMeshBehavior = game:getFastFlag("StudioAssetManagerNewMultiselectMeshBehavior")
 
 local EVENT_ID_OPENASSETCONFIG = "OpenAssetConfiguration"
 
@@ -42,7 +41,7 @@ local function removeAssets(apiImpl, assetData, assets, selectedAssets, store)
                 AssetManagerService:DeleteAlias("Meshes/".. asset.name)
             elseif asset.assetType == Enum.AssetType.Lua then
                 AssetManagerService:DeleteAlias("Scripts/".. asset.name)
-            elseif FFlagAllowAudioBulkImport and (not RobloxAPI:baseURLHasChineseHost()) and asset.assetType == Enum.AssetType.Audio then
+            elseif (not RobloxAPI:baseURLHasChineseHost()) and asset.assetType == Enum.AssetType.Audio then
                 AssetManagerService:DeleteAlias("Audio/".. asset.name)
             end
         end
@@ -97,7 +96,7 @@ local function createFolderContextMenu(analytics, apiImpl, assetData, contextMen
             store:dispatch(LaunchBulkImport(Enum.AssetType.Image.Value))
             analytics:report("clickContextMenuItem")
         end)
-    elseif FFlagAllowAudioBulkImport and (not RobloxAPI:baseURLHasChineseHost()) and assetData.Screen.Key == Screens.AUDIO.Key then
+    elseif (not RobloxAPI:baseURLHasChineseHost()) and assetData.Screen.Key == Screens.AUDIO.Key then
         contextMenu:AddNewAction("AddAudio", localization:getText("ContextMenu", "AddAudio")).Triggered:connect(function()
             if FFlagAssetManagerFixRightClickForAudio then
                 store:dispatch(LaunchBulkImport(Enum.AssetType.Audio.Value))
@@ -195,14 +194,7 @@ local function createPackageContextMenu(analytics, assetData, contextMenu, isAss
             end
         end)
     end
-    if FFlagStudioAssetManagerFixPackageBehavior then
-        if RunService:IsEdit() then
-            contextMenu:AddNewAction("UpdateAll", localization:getText("ContextMenu", "UpdateAll")).Triggered:connect(function()
-                AssetManagerService:UpdateAllPackages(assetData.id)
-                analytics:report("clickContextMenuItem")
-            end)
-        end
-    else
+    if RunService:IsEdit() then
         contextMenu:AddNewAction("UpdateAll", localization:getText("ContextMenu", "UpdateAll")).Triggered:connect(function()
             AssetManagerService:UpdateAllPackages(assetData.id)
             analytics:report("clickContextMenuItem")
@@ -366,10 +358,25 @@ local function createMeshPartContextMenu(analytics, apiImpl, assetData, contextM
         end)
     end
     contextMenu:AddNewAction("InsertWithLocation", localization:getText("ContextMenu", "InsertWithLocation")).Triggered:connect(function()
-        for _, asset in pairs(assets) do
-            local layoutOrder = asset.layoutOrder
-            if selectedAssets[layoutOrder] then
-                AssetManagerService:InsertMesh("Meshes/".. asset.name, true)
+        if FFlagStudioAssetManagerNewMultiselectMeshBehavior then
+            if count == 1 then
+                AssetManagerService:InsertMesh("Meshes/".. assetData.name, false)
+            else
+                local selectedMeshes = {}
+                for _, asset in pairs(assets) do
+                    local layoutOrder = asset.layoutOrder
+                    if selectedAssets[layoutOrder] then
+                        table.insert(selectedMeshes, "Meshes/".. asset.name)
+                    end
+                end
+                AssetManagerService:InsertMeshesWithLocation(selectedMeshes)
+            end
+        else
+            for _, asset in pairs(assets) do
+                local layoutOrder = asset.layoutOrder
+                if selectedAssets[layoutOrder] then
+                    AssetManagerService:InsertMesh("Meshes/".. asset.name, true)
+                end
             end
         end
         analytics:report("clickContextMenuItem")
@@ -493,7 +500,7 @@ local function createAssetContextMenu(analytics, apiImpl, assetData, contextMenu
         createMeshPartContextMenu(analytics, apiImpl, assetData, contextMenu, isAssetPreviewMenu, localization, onOpenAssetPreview, onAssetPreviewClose, store)
     elseif assetType == Enum.AssetType.Lua then
         createLinkedScriptContextMenu(analytics, apiImpl, assetData, contextMenu, isAssetPreviewMenu, localization, onOpenAssetPreview, onAssetPreviewClose, store)
-    elseif FFlagAllowAudioBulkImport and (not RobloxAPI:baseURLHasChineseHost()) and assetType == Enum.AssetType.Audio then
+    elseif (not RobloxAPI:baseURLHasChineseHost()) and assetType == Enum.AssetType.Audio then
         createAudioContextMenu(analytics, apiImpl, assetData, contextMenu, isAssetPreviewMenu, localization, onOpenAssetPreview, onAssetPreviewClose, store)
     end
 end

@@ -32,8 +32,6 @@ local ContextServices = Framework.ContextServices
 local ServiceWrapper = require(Plugin.Src.Components.ServiceWrapper)
 local UILibraryWrapper = ContextServices.UILibraryWrapper
 
-local FFlagAllowAudioBulkImport = game:GetFastFlag("AllowAudioBulkImport")
-
 -- data
 local MainReducer = require(Plugin.Src.Reducers.MainReducer)
 
@@ -144,7 +142,7 @@ local function connectBulkImporterSignals()
 				strippedName = string.gsub(name, "Meshes/", "")
 			elseif assetType == Enum.AssetType.Lua and string.find(name, "Scripts/") then
 				strippedName = string.gsub(name, "Scripts/", "")
-			elseif FFlagAllowAudioBulkImport and (not RobloxAPI:baseURLHasChineseHost()) and assetType == Enum.AssetType.Audio and string.find(name, "Audio/") then
+			elseif (not RobloxAPI:baseURLHasChineseHost()) and assetType == Enum.AssetType.Audio and string.find(name, "Audio/") then
 				strippedName = string.gsub(name, "Audio/", "")
 			end
 			local recentAssets = Cryo.List.join(state.AssetManagerReducer.recentAssets, {

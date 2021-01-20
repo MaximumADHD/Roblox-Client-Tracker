@@ -34,8 +34,6 @@ local SetPublishInfo = require(Plugin.Src.Actions.SetPublishInfo)
 
 local LoadGroups = require(Plugin.Src.Thunks.LoadGroups)
 
-local FFlagUXImprovementAddScrollToGamesPage= game:GetFastFlag("UXImprovementAddScrollToGamesPage")
-
 local MENU_ENTRIES = {
 	"BasicInfo",
 }
@@ -124,7 +122,7 @@ function ScreenCreateNewGame:render(props)
 						end,
 					},
 					OnClose = onClose,
-					NextScreen = FFlagUXImprovementAddScrollToGamesPage and Constants.SCREENS.CHOOSE_GAME_WITH_SCROLL or Constants.SCREENS.CHOOSE_GAME,
+					NextScreen = Constants.SCREENS.CHOOSE_GAME,
 					NextScreenText = "UpdateExistingGame"
 				}),
 			})

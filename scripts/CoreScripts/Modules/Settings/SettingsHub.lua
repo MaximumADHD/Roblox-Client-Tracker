@@ -9,6 +9,8 @@
 
 local AnalyticsService = game:GetService("RbxAnalyticsService")
 local CoreGui = game:GetService("CoreGui")
+local CorePackages = game:GetService("CorePackages")
+local Symbol = require(CorePackages.Symbol)
 local Players = game:GetService("Players")
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
@@ -18,6 +20,7 @@ local isTenFootInterface = require(RobloxGui.Modules.TenFootInterface):IsEnabled
 local utility = require(RobloxGui.Modules.Settings.Utility)
 local VRHub = require(RobloxGui.Modules.VR.VRHub)
 local PolicyService = require(RobloxGui.Modules.Common.PolicyService)
+local MouseIconOverrideService = require(CorePackages.InGameServices.MouseIconOverrideService)
 
 --[[ CONSTANTS ]]
 local SETTINGS_SHIELD_COLOR = Color3.new(41/255,41/255,41/255)
@@ -28,6 +31,8 @@ local SETTINGS_BASE_ZINDEX = 2
 local DEV_CONSOLE_ACTION_NAME = "Open Dev Console"
 local QUICK_PROFILER_ACTION_NAME = "Show Quick Profiler"
 local SETTINGS_HUB_MENU_KEY = "SettingsHub"
+
+local SETTINGS_HUB_MOUSE_OVERRIDE_KEY = Symbol.named("SettingsHubCursorOverride")
 
 local VERSION_BAR_HEIGHT = isTenFootInterface and 32 or (utility:IsSmallTouchScreen() and 24 or 26)
 
@@ -1396,9 +1401,9 @@ local function CreateSettingsHub()
 
 	function setOverrideMouseIconBehavior()
 		if UserInputService:GetLastInputType() == Enum.UserInputType.Gamepad1 or VRService.VREnabled then
-			UserInputService.OverrideMouseIconBehavior = Enum.OverrideMouseIconBehavior.ForceHide
+			MouseIconOverrideService.push(SETTINGS_HUB_MOUSE_OVERRIDE_KEY, Enum.OverrideMouseIconBehavior.ForceHide)
 		else
-			UserInputService.OverrideMouseIconBehavior = Enum.OverrideMouseIconBehavior.ForceShow
+			MouseIconOverrideService.push(SETTINGS_HUB_MOUSE_OVERRIDE_KEY, Enum.OverrideMouseIconBehavior.ForceShow)
 		end
 	end
 
@@ -1470,7 +1475,7 @@ local function CreateSettingsHub()
 			setOverrideMouseIconBehavior()
 			lastInputChangedCon = UserInputService.LastInputTypeChanged:connect(setOverrideMouseIconBehavior)
 			if UserInputService.MouseEnabled and not VRService.VREnabled then
-				UserInputService.OverrideMouseIconBehavior = Enum.OverrideMouseIconBehavior.ForceShow
+				MouseIconOverrideService.push(SETTINGS_HUB_MOUSE_OVERRIDE_KEY, Enum.OverrideMouseIconBehavior.ForceShow)
 			end
 
 			if customStartPage then
@@ -1519,7 +1524,7 @@ local function CreateSettingsHub()
 			end
 
 			if not VRService.VREnabled then
-				UserInputService.OverrideMouseIconBehavior = Enum.OverrideMouseIconBehavior.None
+				MouseIconOverrideService.pop(SETTINGS_HUB_MOUSE_OVERRIDE_KEY)
 			end
 
 			clearMenuStack()

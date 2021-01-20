@@ -9,6 +9,11 @@ local FieldTreeRow = require(script.FieldTreeRow)
 local DeveloperTools = require(main.Packages.DeveloperTools)
 local RoactInspectorApi = DeveloperTools.RoactInspectorApi
 
+local Dash = require(main.Packages.Dash)
+local flat = Dash.flat
+local values = Dash.values
+local sort = table.sort
+
 local ContextServices = Framework.ContextServices
 
 local UI = Framework.UI
@@ -35,8 +40,8 @@ function FieldsTable:init()
 			local inspector = self.props.Inspector:get()
 			local api = inspector:getTargetApi()
 			if RoactInspectorApi.isInstance(api) then
-				-- TODO RIDE-2899: Get the value of the item toggled
-				--api:getFields(props.SelectedPath, props.SelectedNodeIndex, item.Path)
+				-- Get the value of the item toggled
+				api:getFields(self.props.SelectedPath, self.props.SelectedNodeIndex, item.Path)
 			end
 			
 		end
@@ -66,14 +71,53 @@ function FieldsTable:init()
 end
 
 local function getChildren(item)
-	return item.Children or {}
+	local children = values(item.Children or {})
+	-- Sort fields by name
+	sort(children, function(left, right)
+		-- We allow both strings & numbers, but they are not comparable
+		if typeof(left) == typeof(right) then
+			return left.Name < right.Name
+		else
+			-- Fallback to ye oldie string comparison
+			return tostring(left.Name) < tostring(right.Name)
+		end
+	end)
+	return children
 end
 
 function FieldsTable:render()
+	local props = self.props
+	local children = props.Root.Children
+
+	-- Expand the props and state keys inline
+	local fields = flat({
+		{
+			{
+				Name = "Props",
+				IsHeading = true,
+			},
+		},
+		getChildren(children.props),
+		{
+			{
+				Name = "State",
+				IsHeading = true,
+			}
+		},
+		getChildren(children.state),
+		{
+			{
+				Name = "Context",
+				IsHeading = true,
+			}
+		},
+		getChildren(children._context)
+	})
+
 	return Roact.createElement(TreeView, {
 		Size = UDim2.new(1, 0, 1, 0),
 		Expansion = self.props.Expansion,
-		RootItems = self.props.Items,
+		RootItems = fields,
 		RenderRow = self.renderRow,
 		GetChildren = getChildren,
 		ScrollingDirection = Enum.ScrollingDirection.Y
@@ -91,7 +135,7 @@ return RoactRodux.connect(
 		return {
 			SelectedPath = state.RoactInspector.selectedPath,
 			SelectedNodeIndex = state.RoactInspector.selectedNodeIndex,
-			Items = state.RoactInspector.fields,
+			Root = state.RoactInspector.fields,
 			Selection = state.RoactInspector.selectedFields,
 			Expansion = state.RoactInspector.expandedFields
 		}

@@ -25,6 +25,7 @@ local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local Actions = main.Src.Actions
 local CloseTarget = require(Actions.CloseTarget)
 local TogglePicking = require(Actions.RoactInspector.TogglePicking)
+local Reset = require(Actions.RoactInspector.Reset)
 
 local ContextServices = Framework.ContextServices
 
@@ -33,14 +34,17 @@ local RoactInspectorView = Roact.PureComponent:extend("RoactInspectorView")
 function RoactInspectorView:init()
 	self.onTogglePicking = function()
 		local isPicking = not self.props.IsPicking
-
 		local inspector = self.props.Inspector:get()
 		local api = inspector:getTargetApi()
 		if RoactInspectorApi.isInstance(api) then
 			api:setPicking(isPicking)
 		end
-
 		self.props.togglePicking(isPicking)
+	end
+	self.onCloseTarget = function()
+		local inspector = self.props.Inspector:get()
+		inspector:closeTargetApi()
+		self.props.closeTarget()
 	end
 end
 
@@ -160,7 +164,7 @@ function RoactInspectorView:render()
 					BackgroundTransparency = 1,
 					Position = UDim2.new(1, 0, 0, 0),
 					AnchorPoint = Vector2.new(1, 0),
-					[Roact.Event.Activated] = self.props.closeTarget
+					[Roact.Event.Activated] = self.onCloseTarget
 				})
 			})
 		}),
@@ -250,6 +254,7 @@ return RoactRodux.connect(
 			end,
 			closeTarget = function()
 				dispatch(CloseTarget())
+				dispatch(Reset())
 			end
 		}
 	end

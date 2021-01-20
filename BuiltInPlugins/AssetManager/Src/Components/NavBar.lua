@@ -26,7 +26,6 @@ local GetTextSize = UILibrary.Util.GetTextSize
 local Framework = Plugin.Packages.Framework
 local ContextServices = require(Framework.ContextServices)
 local LinkText = require(Framework.UI).LinkText
-local Image = require(Framework.UI).Decoration.Image
 local Util = require(Framework.Util)
 local StyleModifier = Util.StyleModifier
 
@@ -34,6 +33,8 @@ local SetRecentViewToggled = require(Plugin.Src.Actions.SetRecentViewToggled)
 local SetScreen = require(Plugin.Src.Actions.SetScreen)
 
 local Screens = require(Plugin.Src.Util.Screens)
+
+local FFlagStudioAssetManagerEnableCopyGameId = game:GetFastFlag("StudioAssetManagerEnableCopyGameId")
 
 local NavBar = Roact.PureComponent:extend("NavBar")
 
@@ -138,16 +139,32 @@ function NavBar:buildPathComponents(props, theme, localization, dispatch)
             local textExtents = GetTextSize(gameIDText, theme.FontSizeMedium, theme.Font)
             local textDimensions = UDim2.fromOffset(textExtents.X, textExtents.Y)
 
-            pathComponents["UniverseId"] = Roact.createElement("TextLabel", {
-                Size = textDimensions,
-                BackgroundTransparency = 1,
-                Text = gameIDText,
-                TextColor3 = theme.SubTextColor,
-                TextSize = theme.FontSizeSmall,
-                Font = theme.Font,
-                LayoutOrder = layoutIndex:getNextOrder(),
-                TextXAlignment = Enum.TextXAlignment.Left,
-            })
+            if FFlagStudioAssetManagerEnableCopyGameId then
+                pathComponents["UniverseId"] = Roact.createElement("TextBox", {
+                    Size = textDimensions,
+                    LayoutOrder = layoutIndex:getNextOrder(),
+                    BackgroundTransparency = 1,
+
+                    Text = gameIDText,
+                    TextColor3 = theme.SubTextColor,
+                    TextSize = theme.FontSizeSmall,
+                    Font = theme.Font,
+                    TextXAlignment = Enum.TextXAlignment.Left,
+                    TextEditable = false,
+                    ClearTextOnFocus = false,
+                })
+            else
+                pathComponents["UniverseId"] = Roact.createElement("TextLabel", {
+                    Size = textDimensions,
+                    BackgroundTransparency = 1,
+                    Text = gameIDText,
+                    TextColor3 = theme.SubTextColor,
+                    TextSize = theme.FontSizeSmall,
+                    Font = theme.Font,
+                    LayoutOrder = layoutIndex:getNextOrder(),
+                    TextXAlignment = Enum.TextXAlignment.Left,
+                })
+            end
         end
         count = count + 1
     end

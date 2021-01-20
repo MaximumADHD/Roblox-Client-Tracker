@@ -35,7 +35,6 @@ end
 function AssetConfigTheme.new(options)
 	local self = {
 		_externalThemeGetter = options.getTheme or nil,
-		_externalUIThemGetter = (not game:GetFastFlag("StudioPluginsDontUseUITheme")) and options.getUITheme or nil,
 		_externalThemeChangedSignal = options.themeChanged or nil,
 
 		_externalThemeChangedConnection = nil,
@@ -96,14 +95,8 @@ end
 function AssetConfigTheme:_isDarkerTheme()
 	local darkSide = false
 
-	if game:GetFastFlag("StudioPluginsDontUseUITheme") then
-		if self._externalThemeGetter then
-			darkSide = self._externalThemeGetter().Name == "Dark"
-		end
-	else
-		if self._externalUIThemGetter then
-			darkSide = self._externalUIThemGetter().Name == Enum.UITheme.Dark.Name
-		end
+	if self._externalThemeGetter then
+		darkSide = self._externalThemeGetter().Name == "Dark"
 	end
 	
 	return darkSide

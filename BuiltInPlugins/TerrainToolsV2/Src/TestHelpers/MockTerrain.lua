@@ -1,5 +1,4 @@
 local FFlagTerrainImportUseService = game:GetFastFlag("TerrainImportUseService")
-local FFlagTerrainImportNewYieldMethod = game:GetFastFlag("TerrainImportNewYieldMethod")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -41,18 +40,13 @@ function MockTerrain:FillCylinder(center, height, radius, material)
 end
 
 if not FFlagTerrainImportUseService then
-	if FFlagTerrainImportNewYieldMethod then
-		function MockTerrain:ImportHeightmap(region, heightmapAssetId, colormapAssetId, defaultMaterial)
-		end
+	function MockTerrain:ImportHeightmap(region, heightmapAssetId, colormapAssetId, defaultMaterial)
+	end
 
-		function MockTerrain:SetImportHeightmapPaused(paused)
-		end
+	function MockTerrain:SetImportHeightmapPaused(paused)
+	end
 
-		function MockTerrain:CancelImportHeightmap()
-		end
-	else
-		function MockTerrain:ImportHeightMap(heightmapUrl, colormapUrl, region)
-		end
+	function MockTerrain:CancelImportHeightmap()
 	end
 end
 

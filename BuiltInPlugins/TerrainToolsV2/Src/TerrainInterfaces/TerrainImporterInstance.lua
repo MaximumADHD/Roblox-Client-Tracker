@@ -1,5 +1,4 @@
 local FFlagTerrainToolsBetterImportTool = game:GetFastFlag("TerrainToolsBetterImportTool")
-local FFlagTerrainImportNewYieldMethod = game:GetFastFlag("TerrainImportNewYieldMethod")
 local FFlagTerrainImportSupportDefaultMaterial = game:GetFastFlag("TerrainImportSupportDefaultMaterial")
 local FFlagTerrainToolsImportUploadAssets = game:GetFastFlag("TerrainToolsImportUploadAssets")
 local FFlagTerrainImportUseService = game:GetFastFlag("TerrainImportUseService")
@@ -192,7 +191,6 @@ function TerrainImporter:_setImporting(importing)
 end
 
 function TerrainImporter:togglePause()
-	assert(FFlagTerrainImportNewYieldMethod, "TerrainImporter:togglePause() requires FFlagTerrainImportNewYieldMethod")
 	self._isPaused = not self._isPaused
 	if FFlagTerrainImportUseService then
 		self._heightmapImporterService:SetImportHeightmapPaused(self._isPaused)
@@ -203,7 +201,6 @@ function TerrainImporter:togglePause()
 end
 
 function TerrainImporter:cancel()
-	assert(FFlagTerrainImportNewYieldMethod, "TerrainImporter:cancel() requires FFlagTerrainImportNewYieldMethod")
 	if FFlagTerrainImportUseService then
 		self._heightmapImporterService:CancelImportHeightmap()
 	else
@@ -234,11 +231,9 @@ function TerrainImporter:DEPRECATED_startImport()
 
 	local heightUrl = self._importSettings.heightMapUrl
 	local useColorMap = self._importSettings.useColorMap
-	local colorUrl = nil
+	local colorUrl = ""
 	if useColorMap then
 		colorUrl = self._importSettings.colorMapUrl
-	elseif FFlagTerrainImportNewYieldMethod then
-		colorUrl = ""
 	end
 
 	-- Wrap the call to ImportHeightMap in spawn()
@@ -251,14 +246,10 @@ function TerrainImporter:DEPRECATED_startImport()
 		end
 
 		local status, err = pcall(function()
-			if FFlagTerrainImportNewYieldMethod then
-				self._terrain:ImportHeightmap(region, heightUrl, colorUrl, self._importSettings.defaultMaterial)
-			else
-				self._terrain:ImportHeightMap(heightUrl, colorUrl, region)
-			end
+			self._terrain:ImportHeightmap(region, heightUrl, colorUrl, self._importSettings.defaultMaterial)
 		end)
 
-		if FFlagTerrainImportNewYieldMethod and status then
+		if status then
 			-- Import finished successfully
 			self._updateImportProgress(1)
 			self:_setImporting(false)

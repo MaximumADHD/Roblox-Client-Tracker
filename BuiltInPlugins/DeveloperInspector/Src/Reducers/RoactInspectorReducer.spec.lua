@@ -187,20 +187,65 @@ return function()
 	describe("UpdateFields", function()
 		it("should update fields if path matches", function()
 			local store = Rodux.Store.new(RoactInspectorReducer)
-			local list = {1, 2, 3}
-			local state = RoactInspectorReducer(store:getState(), UpdateFields({}, 0, list))
-			expect(state.fields).to.equal(list)
+			local children = {
+				A = {
+					Name = "A"
+				},
+				B = {
+					Name = "B"
+				},
+				C = {
+					Name = "C"
+				}
+			}
+			local state = RoactInspectorReducer(store:getState(), UpdateFields({}, 0, {"props"}, children))
+			local serialized = pretty(state.fields, {multiline = true, depth = 100})
+			expect(serialized).to.equal([[{
+	Children = {
+		_context = {
+			Children = {},
+			Name = "_context",
+			Path = {
+				"_context"
+			}
+		},
+		props = {
+			Children = {
+				A = {
+					Name = "A"
+				},
+				B = {
+					Name = "B"
+				},
+				C = {
+					Name = "C"
+				}
+			},
+			Name = "props",
+			Path = {
+				"props"
+			}
+		},
+		state = {
+			Children = {},
+			Name = "state",
+			Path = {
+				"state"
+			}
+		}
+	}
+}]])
 		end)
 		it("should not update the fields if path does not match", function()
 			local store = Rodux.Store.new(RoactInspectorReducer)
 			local list = {1, 2, 3}
-			local state = RoactInspectorReducer(store:getState(), UpdateFields({"Toolbox"}, 0, list))
+			local state = RoactInspectorReducer(store:getState(), UpdateFields({"Toolbox"}, 0, {}, list))
 			expect(state.fields).never.to.equal(list)
 		end)
 		it("should not update the fields if index does not match", function()
 			local store = Rodux.Store.new(RoactInspectorReducer)
 			local list = {1, 2, 3}
-			local state = RoactInspectorReducer(store:getState(), UpdateFields({}, 10, list))
+			local state = RoactInspectorReducer(store:getState(), UpdateFields({}, 10, {}, list))
 			expect(state.fields).never.to.equal(list)
 		end)
 	end)

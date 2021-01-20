@@ -29,7 +29,6 @@ local getTestVariation = FrameworkUtil.getTestVariation
 
 local Analytics = require(Util.Analytics.Analytics)
 
-local FFlagEnableToolboxImpressionAnalytics = game:GetFastFlag("EnableToolboxImpressionAnalytics")
 -- Be sure to turn off ToolboxShowHideABTest before turning on StudioShowHideABTestV2
 local FFlagToolboxShowHideABTest = game:GetFastFlag("ToolboxShowHideABTest")
 local FFlagStudioShowHideABTestV2 = game:GetFastFlag("StudioShowHideABTestV2")
@@ -79,12 +78,10 @@ function ToolboxPlugin:init(props)
 	self.toolboxButton.Click:connect(function()
 		-- Toggle dock window, update button
 		self.dockWidget.Enabled = not self.dockWidget.Enabled
-		if FFlagEnableToolboxImpressionAnalytics then
-			if self.dockWidget.Enabled then
-				Analytics.onPluginButtonClickOpen()
-			else
-				Analytics.onPluginButtonClickClose()
-			end
+		if self.dockWidget.Enabled then
+			Analytics.onPluginButtonClickOpen()
+		else
+			Analytics.onPluginButtonClickClose()
 		end
 	end)
 
@@ -95,7 +92,7 @@ function ToolboxPlugin:init(props)
 		-- Update Button to match DockWidget
 		self.toolboxButton:SetActive(self.dockWidget.Enabled)
 
-		if FFlagEnableToolboxImpressionAnalytics and self.dockWidget.Enabled then
+		if self.dockWidget.Enabled then
 			Analytics.onToolboxDisplayed()
 		end
 	end

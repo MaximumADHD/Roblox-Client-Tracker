@@ -8,8 +8,6 @@ local Symbol = Util.Symbol
 
 local StudioService = game:GetService("StudioService")
 
-local FFlagStudioAllowNullDescriptions = game:DefineFastFlag("StudioAllowNullDescriptions", false)
-
 local FFlagStudioAssetManagerUpdateGameName = game:GetFastFlag("StudioAssetManagerUpdateGameName")
 
 local GameInfoController = {}
@@ -115,7 +113,7 @@ end
 
 function GameInfoController:getDescription(gameId)
 	local response = self:configurationV2GET(gameId):await()
-	return FFlagStudioAllowNullDescriptions and (response.responseBody.description or "") or response.responseBody.description
+	return response.responseBody.description or ""
 end
 
 function GameInfoController:setDescription(gameId, description)

@@ -37,7 +37,9 @@ function NodeList:init()
 		local inspector = self.props.Inspector:get()
 		local api = inspector:getTargetApi()
 		if RoactInspectorApi.isInstance(api) then
-			api:getFields(self.props.SelectedPath, nodeIndex, {})
+			api:getFields(self.props.SelectedPath, nodeIndex, {"props"})
+			api:getFields(self.props.SelectedPath, nodeIndex, {"state"})
+			api:getFields(self.props.SelectedPath, nodeIndex, {"_context"})
 		end
 	end
 	self.onSelectLink = function(source)

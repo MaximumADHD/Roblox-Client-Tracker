@@ -12,7 +12,6 @@ local SetAssetPreviewData = require(Plugin.Src.Actions.SetAssetPreviewData)
 local SetAssetOwnerName = require(Plugin.Src.Actions.SetAssetOwnerName)
 
 local FFlagStopTryingToFormatTimeInLuaForAssetManager = game:DefineFastFlag("StopTryingToFormatTimeInLuaForAssetManager", false)
-local FFlagAllowAudioBulkImport = game:GetFastFlag("AllowAudioBulkImport")
 
 --[[
     Remove with FFlagStopTryingToFormatTimeInLuaForAssetManager,
@@ -82,7 +81,7 @@ return function(apiImpl, assetIds)
                     assetName = string.gsub(assetData.name, "Meshes/", "")
                 elseif assetTypeId == Enum.AssetType.Lua.Value and string.find(assetData.name, "Scripts/") then
                     assetName = string.gsub(assetData.name, "Scripts/", "")
-                elseif FFlagAllowAudioBulkImport and (not RobloxAPI:baseURLHasChineseHost()) and assetTypeId == Enum.AssetType.Audio.Value
+                elseif (not RobloxAPI:baseURLHasChineseHost()) and assetTypeId == Enum.AssetType.Audio.Value
                     and string.find(assetData.name, "Audio/")
                 then
                     assetName = string.gsub(assetData.name, "Audio/", "")

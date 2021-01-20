@@ -4,9 +4,6 @@ end
 
 -- Fast flags
 local FFlagStudioLuaPublishFlowLocalizeUntitledGameText = game:DefineFastFlag("StudioLuaPublishFlowLocalizeUntitledGameText", false)
-local FFlagStudioAddingScrollingToScreenChoosePlace = game:DefineFastFlag("StudioAddingScrollingToScreenChoosePlace", false)
-local FFlagUXImprovementsPublishSuccessScreenPublishAs = game:DefineFastFlag("UXImprovementsPublishSuccessScreenPublishAs", false)
-local FFlagUXImprovementAddScrollToGamesPage = game:DefineFastFlag("UXImprovementAddScrollToGamesPage", false)
 local FFlagStudioPublishLuaWorkflow = game:GetFastFlag("StudioPublishLuaWorkflow")
 
 -- libraries

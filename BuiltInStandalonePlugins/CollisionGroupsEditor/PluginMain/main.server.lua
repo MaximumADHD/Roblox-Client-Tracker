@@ -91,7 +91,10 @@ local function handleDMSession(dmSession)
 		end)
 		if FFlagEnableRoactInspector and hasInternalPermission then
 			local DeveloperTools = require(Root.Packages.Dev.DeveloperTools)
-			inspector = DeveloperTools.forStandalonePlugin("CollisionGroupsEditor", plugin, Window)
+			inspector = DeveloperTools.forStandalonePlugin("CollisionGroupsEditor", plugin, {
+				rootInstance = Window,
+				rootPrefix = {"CollisionGroupEditorGui"}
+			})
 		end
 		if FFlagCGELocalizeWindowTitle then
 			RoactHandle = Roact.mount(
