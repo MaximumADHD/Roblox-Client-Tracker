@@ -126,6 +126,7 @@ ParticleCustomVS_Soft,Vertex
 ParticleLightingFS,Fragment
 ParticleLightingVS,Vertex
 PassThroughFS,Fragment
+PassThroughNoOpVS,Vertex
 PassThroughPosVS,Vertex
 PassThroughVS,Vertex
 ProcessGuiFS,Fragment
@@ -138,14 +139,10 @@ ShadowBlurMarkVS,Vertex
 SkyFS,Fragment
 SkyLinearFS,Fragment
 SkyVS,Vertex
-SmoothClusterColoredFS,Fragment
-SmoothClusterColoredVS,Vertex
 SmoothClusterDepthFS,Fragment
 SmoothClusterDepthVS,Vertex
-SmoothClusterFS,Fragment
 SmoothClusterFS_Level0,Fragment
 SmoothClusterFS_Level256,Fragment
-SmoothClusterVS,Vertex
 SmoothClusterVS_Level0,Vertex
 SmoothClusterVS_Level256,Vertex
 SmoothWaterFS,Fragment
@@ -174,9 +171,7 @@ UIFS,Fragment
 UIFSAdv,Fragment
 UIFSMdr,Fragment
 UILitFogFS,Fragment
-UILitFS,Fragment
 UITransformedLitFogVS,Vertex
-UITransformedLitVS,Vertex
 UITransformedVS,Vertex
 UIVS,Vertex
 UpSampleTentFS,Fragment

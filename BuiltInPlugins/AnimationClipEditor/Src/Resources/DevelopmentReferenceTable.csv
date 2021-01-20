@@ -107,7 +107,7 @@ Studio.AnimationClipEditor.Title.NewDuration, ,New Duration
 Studio.AnimationClipEditor.Title.NoAnimationExists, ,"No animation exists for {rig}, please create one to start animating"
 Studio.AnimationClipEditor.Title.Parameter, ,Parameter
 Studio.AnimationClipEditor.Title.SaveAsNew, ,Save As New Animation
-Studio.AnimationClipEditor.Title.SelectARig, ,Select a rig to animate
+Studio.AnimationClipEditor.Title.SelectARig, ,Select a rig to animate or create a new rig by selecting Build Rig under the Plugins tab
 Studio.AnimationClipEditor.Toast.AlignNow, ,Align all keys now
 Studio.AnimationClipEditor.Toast.ClippedWarning, ,Warning: An animation cannot exceed 30 seconds in length. Excess keyframes have been removed.
 Studio.AnimationClipEditor.Toast.IgnoreWarning, ,Ignore warning

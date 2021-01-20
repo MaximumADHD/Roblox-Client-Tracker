@@ -1,5 +1,5 @@
-Key,en-us
-Studio.DeveloperInspector.Plugin.Button,Toggle
-Studio.DeveloperInspector.Plugin.Description,Toggles the Developer Tools plugin window.
-Studio.DeveloperInspector.Plugin.Name,Developer Inspector
-Studio.DeveloperInspector.Plugin.Toolbar,Developer Inspector
+Key,Source,en-us
+Studio.DeveloperInspector.Plugin.Name,Developer Inspector,Developer Inspector
+Studio.DeveloperInspector.Plugin.Toolbar,Developer Inspector,Developer Inspector
+Studio.DeveloperInspector.Plugin.Button,Inspect,Inspect
+Studio.DeveloperInspector.Plugin.Description,Opens the Developer Inspector.,Opens the Developer Inspector.

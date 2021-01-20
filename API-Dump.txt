@@ -9,24 +9,24 @@ Class Instance : <<<ROOT>>> [NotCreatable] [NotBrowsable]
 	Function void Instance:ClearAllChildren()
 	Function Instance Instance:Clone()
 	Function void Instance:Destroy()
-	Function Instance Instance:FindFirstAncestor(string name)
-	Function Instance Instance:FindFirstAncestorOfClass(string className)
-	Function Instance Instance:FindFirstAncestorWhichIsA(string className)
-	Function Instance Instance:FindFirstChild(string name, bool recursive = false)
-	Function Instance Instance:FindFirstChildOfClass(string className)
-	Function Instance Instance:FindFirstChildWhichIsA(string className, bool recursive = false)
+	Function Instance Instance:FindFirstAncestor(string name) {🧬Safe}
+	Function Instance Instance:FindFirstAncestorOfClass(string className) {🧬Safe}
+	Function Instance Instance:FindFirstAncestorWhichIsA(string className) {🧬Safe}
+	Function Instance Instance:FindFirstChild(string name, bool recursive = false) {🧬Safe}
+	Function Instance Instance:FindFirstChildOfClass(string className) {🧬Safe}
+	Function Instance Instance:FindFirstChildWhichIsA(string className, bool recursive = false) {🧬Safe}
 	Function Instance Instance:GetActor()
-	Function Variant Instance:GetAttribute(string attribute)
+	Function Variant Instance:GetAttribute(string attribute) {🧬Safe}
 	Function RBXScriptSignal Instance:GetAttributeChangedSignal(string attribute)
-	Function Dictionary Instance:GetAttributes()
-	Function Objects Instance:GetChildren()
+	Function Dictionary Instance:GetAttributes() {🧬Safe}
+	Function Objects Instance:GetChildren() {🧬Safe}
 	Function string Instance:GetDebugId(int scopeLength = 4) {PluginSecurity} [NotBrowsable]
-	Function Array Instance:GetDescendants() [CustomLuaState]
-	Function string Instance:GetFullName()
+	Function Array Instance:GetDescendants() [CustomLuaState] {🧬Safe}
+	Function string Instance:GetFullName() {🧬Safe}
 	Function RBXScriptSignal Instance:GetPropertyChangedSignal(string property)
-	Function bool Instance:IsA(string className) [CustomLuaState]
-	Function bool Instance:IsAncestorOf(Instance descendant)
-	Function bool Instance:IsDescendantOf(Instance ancestor)
+	Function bool Instance:IsA(string className) [CustomLuaState] {🧬Safe}
+	Function bool Instance:IsAncestorOf(Instance descendant) {🧬Safe}
+	Function bool Instance:IsDescendantOf(Instance ancestor) {🧬Safe}
 	Function void Instance:Remove() [Deprecated]
 	Function void Instance:SetAttribute(string attribute, Variant value)
 	Function Instance Instance:WaitForChild(string childName, double timeOut) [CustomLuaState] [CanYield]
@@ -494,9 +494,9 @@ Class CollectionService : Instance [NotCreatable] [Service]
 	Function Objects CollectionService:GetCollection(string class) [Deprecated]
 	Function RBXScriptSignal CollectionService:GetInstanceAddedSignal(string tag)
 	Function RBXScriptSignal CollectionService:GetInstanceRemovedSignal(string tag)
-	Function Objects CollectionService:GetTagged(string tag)
-	Function Array CollectionService:GetTags(Instance instance)
-	Function bool CollectionService:HasTag(Instance instance, string tag)
+	Function Objects CollectionService:GetTagged(string tag) {🧬Safe}
+	Function Array CollectionService:GetTags(Instance instance) {🧬Safe}
+	Function bool CollectionService:HasTag(Instance instance, string tag) {🧬Safe}
 	Function void CollectionService:RemoveTag(Instance instance, string tag)
 	Event CollectionService.ItemAdded(Instance instance) [Deprecated]
 	Event CollectionService.ItemRemoved(Instance instance) [Deprecated]
@@ -612,6 +612,11 @@ Class SpringConstraint : Constraint
 Class Torque : Constraint
 	Property Enum<ActuatorRelativeTo> Torque.RelativeTo
 	Property Vector3 Torque.Torque
+Class UniversalConstraint : Constraint
+	Property float UniversalConstraint.Radius
+	Property float UniversalConstraint.MaxAngle
+	Property float UniversalConstraint.Restitution
+	Property bool UniversalConstraint.LimitsEnabled
 Class VectorForce : Constraint
 	Property bool VectorForce.ApplyAtCenterOfMass
 	Property Vector3 VectorForce.Force
@@ -710,6 +715,12 @@ Class DataModelSession : Instance [NotCreatable]
 	Event DataModelSession.DataModelWillBeDestroyed(Enum<StudioDataModelType> gameStateType) {RobloxScriptSecurity}
 Class DataStoreKeyInfo : Instance [NotCreatable] [NotReplicated]
 	Property string DataStoreKeyInfo.KeyName [<💾> SaveOnly] [ReadOnly]
+Class DataStoreKeyVersionInfo : Instance [NotCreatable] [NotReplicated]
+	Property int64 DataStoreKeyVersionInfo.CreatedTime [<💾> SaveOnly] [ReadOnly]
+	Property int64 DataStoreKeyVersionInfo.UpdatedTime [<💾> SaveOnly] [ReadOnly]
+	Property string DataStoreKeyVersionInfo.Version [<💾> SaveOnly] [ReadOnly]
+	Function Dictionary DataStoreKeyVersionInfo:GetMetadata()
+	Function Array DataStoreKeyVersionInfo:GetUserIds()
 Class DataStoreService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property bool DataStoreService.AutomaticRetry {LocalUserSecurity} [NotReplicated]
 	Property bool DataStoreService.LegacyNamingScheme {LocalUserSecurity} [Deprecated]
@@ -718,6 +729,9 @@ Class DataStoreService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function Instance DataStoreService:GetGlobalDataStore()
 	Function Instance DataStoreService:GetOrderedDataStore(string name, string scope = "global")
 	Function int DataStoreService:GetRequestBudgetForRequestType(Enum<DataStoreRequestType> requestType)
+Class DataStoreSetOptions : Instance [NotCreatable] [NotReplicated]
+	Function Dictionary DataStoreSetOptions:GetMetadata()
+	Function void DataStoreSetOptions:SetMetadata(Dictionary attributes)
 Class Debris : Instance [NotCreatable] [Service]
 	Property int Debris.MaxItems [Deprecated]
 	Function void Debris:AddItem(Instance item, double lifetime = 10)
@@ -869,12 +883,13 @@ Class GamepadService : Instance [NotCreatable] [Service]
 Class Geometry : Instance [NotCreatable] [Service]
 Class GlobalDataStore : Instance [NotCreatable] [NotReplicated]
 	Function Tuple GlobalDataStore:GetAsync(string key) [Yields]
-	Function Variant GlobalDataStore:IncrementAsync(string key, int delta = 1, Array userids = {}, Instance options = nil) [Yields]
+	Function Variant GlobalDataStore:IncrementAsync(string key, int delta = 1, Array userIds = {}, Instance options = nil) [Yields]
 	Function RBXScriptConnection GlobalDataStore:OnUpdate(string key, Function callback) [Deprecated]
 	Function Tuple GlobalDataStore:RemoveAsync(string key) [Yields]
-	Function Variant GlobalDataStore:SetAsync(string key, Variant value, Array userids = {}, Instance options = nil) [Yields]
+	Function Variant GlobalDataStore:SetAsync(string key, Variant value, Array userIds = {}, Instance options = nil) [Yields]
 	Function Tuple GlobalDataStore:UpdateAsync(string key, Function transformFunction) [Yields]
 Class DataStore : GlobalDataStore [NotCreatable] [NotReplicated]
+	Function Tuple DataStore:GetVersionAsync(string key, string version) [Yields]
 	Function Instance DataStore:ListKeysAsync(string prefix = "", int pageSize = 0) [Yields]
 Class OrderedDataStore : GlobalDataStore [NotCreatable] [NotReplicated]
 	Function Instance OrderedDataStore:GetSortedAsync(bool ascending, int pagesize, Variant minValue, Variant maxValue) [Yields]
@@ -886,9 +901,9 @@ Class GroupService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function Array GroupService:GetGroupsAsync(int64 userId) [Yields]
 Class GuiBase : Instance [NotCreatable]
 Class GuiBase2d : GuiBase [NotCreatable] [NotBrowsable]
-	Property Vector2 GuiBase2d.AbsolutePosition [ReadOnly]
-	Property float GuiBase2d.AbsoluteRotation [ReadOnly]
-	Property Vector2 GuiBase2d.AbsoluteSize [ReadOnly]
+	Property Vector2 GuiBase2d.AbsolutePosition [ReadOnly] {🧬Unsafe}
+	Property float GuiBase2d.AbsoluteRotation [ReadOnly] {🧬Unsafe}
+	Property Vector2 GuiBase2d.AbsoluteSize [ReadOnly] {🧬Unsafe}
 	Property Rect GuiBase2d.ClippedRect {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property bool GuiBase2d.IsNotOccluded {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property Rect GuiBase2d.RawRect2D {RobloxScriptSecurity} [Hidden] [ReadOnly]
@@ -1032,7 +1047,7 @@ Class ScrollingFrame : GuiObject
 	Property Rect ScrollingFrame.HorizontalBarRect {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property Vector2 ScrollingFrame.MaxCanvasPosition {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property Rect ScrollingFrame.VerticalBarRect {RobloxScriptSecurity} [Hidden] [ReadOnly]
-	Property Vector2 ScrollingFrame.AbsoluteWindowSize [<💾> SaveOnly] [ReadOnly]
+	Property Vector2 ScrollingFrame.AbsoluteWindowSize [<💾> SaveOnly] [ReadOnly] {🧬Unsafe}
 	Property Enum<AutomaticSize> ScrollingFrame.AutomaticCanvasSize
 	Property Content ScrollingFrame.BottomImage
 	Property Vector2 ScrollingFrame.CanvasPosition
@@ -1947,15 +1962,15 @@ Class BasePart : PVInstance [NotCreatable] [NotBrowsable]
 	Function void BasePart:BreakJoints()
 	Function bool BasePart:CanCollideWith(Instance part)
 	Function Tuple BasePart:CanSetNetworkOwnership()
-	Function Objects BasePart:GetConnectedParts(bool recursive = false)
-	Function Objects BasePart:GetJoints()
-	Function float BasePart:GetMass()
+	Function Objects BasePart:GetConnectedParts(bool recursive = false) {🧬Safe}
+	Function Objects BasePart:GetJoints() {🧬Safe}
+	Function float BasePart:GetMass() {🧬Safe}
 	Function Instance BasePart:GetNetworkOwner()
 	Function bool BasePart:GetNetworkOwnershipAuto()
 	Function CFrame BasePart:GetRenderCFrame() [Deprecated]
-	Function Instance BasePart:GetRootPart()
+	Function Instance BasePart:GetRootPart() {🧬Safe}
 	Function Objects BasePart:GetTouchingParts()
-	Function bool BasePart:IsGrounded()
+	Function bool BasePart:IsGrounded() {🧬Safe}
 	Function void BasePart:MakeJoints()
 	Function bool BasePart:Resize(Enum<NormalId> normalId, int deltaAmount)
 	Function void BasePart:SetNetworkOwner(Instance playerInstance = nil)
@@ -2024,10 +2039,9 @@ Class Terrain : BasePart [NotCreatable]
 	Function Tuple Terrain:GetCell(int x, int y, int z) [Deprecated]
 	Function Color3 Terrain:GetMaterialColor(Enum<Material> material)
 	Function Tuple Terrain:GetWaterCell(int x, int y, int z) [Deprecated]
-	Function void Terrain:ImportHeightMap(string heightMapBinary, string colorMapBinary, Region3 region) {RobloxScriptSecurity} [CustomLuaState]
 	Function void Terrain:ImportHeightmap(Region3 region, Content heightmapAssetId, Content colormapAssetId, Enum<Material> defaultMaterial) {RobloxScriptSecurity} [Yields]
 	Function void Terrain:PasteRegion(Instance region, Vector3int16 corner, bool pasteEmptyCells)
-	Function Tuple Terrain:ReadVoxels(Region3 region, float resolution) [CustomLuaState]
+	Function Tuple Terrain:ReadVoxels(Region3 region, float resolution) [CustomLuaState] {🧬Safe}
 	Function void Terrain:ReplaceMaterial(Region3 region, float resolution, Enum<Material> sourceMaterial, Enum<Material> targetMaterial)
 	Function void Terrain:SetCell(int x, int y, int z, Enum<CellMaterial> material, Enum<CellBlock> block, Enum<CellOrientation> orientation) [Deprecated]
 	Function void Terrain:SetCells(Region3int16 region, Enum<CellMaterial> material, Enum<CellBlock> block, Enum<CellOrientation> orientation) [Deprecated]
@@ -2047,7 +2061,7 @@ Class MeshPart : TriangleMeshPart
 	Property bool MeshPart.HasSkinnedMesh {✏️NotAccessibleSecurity} [Hidden]
 	Property Content MeshPart.MeshID [NotScriptable] [Deprecated]
 	Property Content MeshPart.MeshId {✏️NotAccessibleSecurity}
-	Property Enum<RenderFidelity> MeshPart.RenderFidelity {✏️PluginSecurity}
+	Property Enum<RenderFidelity> MeshPart.RenderFidelity {✏️PluginSecurity} [NotReplicated]
 	Property Content MeshPart.TextureID
 	Property Vector3 MeshPart.JointOffset {✏️NotAccessibleSecurity} [Hidden]
 	Property Vector3 MeshPart.MeshSize [ReadOnly]
@@ -2098,13 +2112,13 @@ Class WorldRoot : Model [NotCreatable]
 	Function Tuple WorldRoot:FindPartOnRay(Ray ray, Instance ignoreDescendantsInstance = nil, bool terrainCellsAreCubes = false, bool ignoreWater = false) [Deprecated]
 	Function Tuple WorldRoot:FindPartOnRayWithIgnoreList(Ray ray, Objects ignoreDescendantsTable, bool terrainCellsAreCubes = false, bool ignoreWater = false) [Deprecated]
 	Function Tuple WorldRoot:FindPartOnRayWithWhitelist(Ray ray, Objects whitelistDescendantsTable, bool ignoreWater = false) [Deprecated]
-	Function Objects WorldRoot:FindPartsInRegion3(Region3 region, Instance ignoreDescendantsInstance = nil, int maxParts = 20)
+	Function Objects WorldRoot:FindPartsInRegion3(Region3 region, Instance ignoreDescendantsInstance = nil, int maxParts = 20) {🧬Safe}
 	Function Objects WorldRoot:FindPartsInRegion3WithIgnoreList(Region3 region, Objects ignoreDescendantsTable, int maxParts = 20)
 	Function Objects WorldRoot:FindPartsInRegion3WithWhiteList(Region3 region, Objects whitelistDescendantsTable, int maxParts = 20)
 	Function void WorldRoot:IKMoveTo(Instance part, CFrame target, float translateStiffness = 0.5, float rotateStiffness = 0.5, Enum<IKCollisionsMode> collisionsMode = "OtherMechanismsAnchored") {PluginSecurity}
 	Function bool WorldRoot:IsRegion3Empty(Region3 region, Instance ignoreDescendentsInstance = nil)
 	Function bool WorldRoot:IsRegion3EmptyWithIgnoreList(Region3 region, Objects ignoreDescendentsTable)
-	Function RaycastResult WorldRoot:Raycast(Vector3 origin, Vector3 direction, RaycastParams raycastParams = RaycastParams.new())
+	Function RaycastResult WorldRoot:Raycast(Vector3 origin, Vector3 direction, RaycastParams raycastParams = RaycastParams.new()) {🧬Safe}
 	Function void WorldRoot:SetInsertPoint(Vector3 point, bool ignoreGrid = false) {RobloxScriptSecurity}
 Class Workspace : WorldRoot [NotCreatable] [Service]
 	Property bool Workspace.AllowThirdPartySales [NotReplicated]
@@ -3338,7 +3352,7 @@ Class UIGridStyleLayout : UILayout [NotCreatable] [NotBrowsable]
 	Property Enum<HorizontalAlignment> UIGridStyleLayout.HorizontalAlignment
 	Property Enum<SortOrder> UIGridStyleLayout.SortOrder
 	Property Enum<VerticalAlignment> UIGridStyleLayout.VerticalAlignment
-	Property Vector2 UIGridStyleLayout.AbsoluteContentSize [ReadOnly]
+	Property Vector2 UIGridStyleLayout.AbsoluteContentSize [ReadOnly] {🧬Unsafe}
 	Function void UIGridStyleLayout:ApplyLayout() [Deprecated]
 	Function void UIGridStyleLayout:SetCustomSortFunction(Function function = nil) [Deprecated]
 Class UIGridLayout : UIGridStyleLayout
@@ -3346,8 +3360,8 @@ Class UIGridLayout : UIGridStyleLayout
 	Property UDim2 UIGridLayout.CellSize
 	Property int UIGridLayout.FillDirectionMaxCells
 	Property Enum<StartCorner> UIGridLayout.StartCorner
-	Property Vector2 UIGridLayout.AbsoluteCellCount [ReadOnly]
-	Property Vector2 UIGridLayout.AbsoluteCellSize [ReadOnly]
+	Property Vector2 UIGridLayout.AbsoluteCellCount [ReadOnly] {🧬Unsafe}
+	Property Vector2 UIGridLayout.AbsoluteCellSize [ReadOnly] {🧬Unsafe}
 Class UIListLayout : UIGridStyleLayout
 	Property UDim UIListLayout.Padding
 Class UIPageLayout : UIGridStyleLayout

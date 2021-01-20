@@ -23,7 +23,7 @@ dependencies = [
     "LuaSocialLibrariesDeps LuaSocialLibrariesDeps b04c5805 git+https://github.com/roblox/lua-social-libraries-deps#master",
     "Lumberyak roblox/lumberyak 76fee23f git+https://github.com/roblox/lumberyak#master",
     "Otter roblox/otter 0.1.3 url+https://github.com/roblox/otter",
-    "PolicyProvider roblox/lua-roact-policy-provider d3341777 git+https://github.com/roblox/lua-roact-policy-provider#master",
+    "PolicyProvider roblox/lua-roact-policy-provider 5f782af8 git+https://github.com/roblox/lua-roact-policy-provider#master",
     "PremiumUpsellDeps PremiumUpsellDeps c51030b7 git+https://github.com/roblox/premium-upsell-deps#master",
     "Promise lua-promise 1bb842c3 git+https://github.com/roblox/lua-promise#master",
     "PurchasePrompt roblox/purchase-prompt 81ce762f git+https://github.com/roblox/purchasepromptscript-roact#master",
@@ -33,12 +33,11 @@ dependencies = [
     "Roact roblox/roact 1.3.1 url+https://github.com/roblox/roact",
     "RoactGamepad roblox/roact-gamepad 0.4.6 url+https://github.com/roblox/roact-gamepad",
     "RoactNavigation roblox/roact-navigation 0.4.1 url+https://github.com/roblox/roact-navigation",
-    "RoactNavigationOld roblox/roact-navigation 0.2.8 url+https://github.com/roblox/roact-navigation",
     "RoactRodux roblox/roact-rodux 0.2.2 url+https://github.com/roblox/roact-rodux",
     "Rodux roblox/rodux 1.0.0 url+https://github.com/roblox/rodux",
     "StringUtilities roblox/string-utilities 1.0.0 url+https://github.com/roblox/string-utilities",
     "TestEZ roblox/testez 0.4.0 url+https://github.com/roblox/testez",
-    "UIBlox UIBlox de6170bc git+https://github.com/roblox/uiblox#master",
+    "UIBlox UIBlox 3a82d9ed git+https://github.com/roblox/uiblox#master",
     "UrlBuilder roblox/url-builder 1.0.4 url+https://github.com/roblox/url-builder",
     "enumerate roblox/enumerate 1.0.0 url+https://github.com/roblox/enumerate",
     "t roblox/t 1.2.5 url+https://github.com/roblox/t",
@@ -53,11 +52,11 @@ source = "git+https://github.com/roblox/in-game-menu-dependencies#master"
 dependencies = [
     "Cryo roblox/cryo 1.0.0 url+https://github.com/roblox/cryo",
     "Otter roblox/otter 0.1.3 url+https://github.com/roblox/otter",
-    "PolicyProvider roblox/lua-roact-policy-provider d3341777 git+https://github.com/roblox/lua-roact-policy-provider#master",
+    "PolicyProvider roblox/lua-roact-policy-provider 5f782af8 git+https://github.com/roblox/lua-roact-policy-provider#master",
     "Roact roblox/roact 1.3.1 url+https://github.com/roblox/roact",
     "RoactRodux roblox/roact-rodux 0.2.2 url+https://github.com/roblox/roact-rodux",
     "Rodux roblox/rodux 1.0.0 url+https://github.com/roblox/rodux",
-    "UIBlox <patched> UIBlox de6170bc git+https://github.com/roblox/uiblox#master",
+    "UIBlox <patched> UIBlox 3a82d9ed git+https://github.com/roblox/uiblox#master",
     "t roblox/t 1.2.5 url+https://github.com/roblox/t",
 ]
 
@@ -71,7 +70,7 @@ dependencies = [
     "InfiniteScroller roblox/infinite-scroller 0.7.3 url+https://github.com/roblox/infinite-scroller",
     "InfiniteScroller71 roblox/infinite-scroller 7286a922 git+https://github.com/roblox/infinite-scroller#v0.7.1",
     "RoduxNetworking rodux-networking 8902a6aa git+https://github.com/roblox/rodux-networking#v1.0.2",
-    "UIBlox UIBlox de6170bc git+https://github.com/roblox/uiblox#master",
+    "UIBlox UIBlox 3a82d9ed git+https://github.com/roblox/uiblox#master",
 ]
 
 [[package]]
@@ -107,7 +106,7 @@ dependencies = ["RoactFitComponents roblox/roact-fit-components 1.2.5 url+https:
 [[package]]
 name = "UIBlox"
 version = "0.1.1"
-commit = "de6170bc2673ce336d602eabe572bfb3c6c9a128"
+commit = "3a82d9edf6c4d9edf5bf34325ed4802c80d759dc"
 source = "git+https://github.com/roblox/uiblox#master"
 dependencies = [
     "Cryo roblox/cryo 1.0.0 url+https://github.com/roblox/cryo",
@@ -159,7 +158,7 @@ source = "git+https://github.com/roblox/asset-card#v1.0.3"
 dependencies = [
     "Roact roblox/roact 1.3.1 url+https://github.com/roblox/roact",
     "Rodux roblox/rodux 1.0.0 url+https://github.com/roblox/rodux",
-    "UIBlox UIBlox de6170bc git+https://github.com/roblox/uiblox#master",
+    "UIBlox UIBlox 3a82d9ed git+https://github.com/roblox/uiblox#master",
     "t roblox/t 1.2.5 url+https://github.com/roblox/t",
 ]
 
@@ -261,7 +260,7 @@ source = "git+https://github.com/roblox/lua-result#master"
 [[package]]
 name = "roblox/lua-roact-policy-provider"
 version = "0.1.0"
-commit = "d334177708655a5629c2b4fefff453cdeba73821"
+commit = "5f782af8bb981d6e9d2b3fa92f69b02bd4f4cf37"
 source = "git+https://github.com/roblox/lua-roact-policy-provider#master"
 dependencies = [
     "Cryo roblox/cryo 1.0.0 url+https://github.com/roblox/cryo",
@@ -311,7 +310,7 @@ dependencies = [
     "Roact roblox/roact 1.3.1 url+https://github.com/roblox/roact",
     "RoactRodux roblox/roact-rodux 0.2.2 url+https://github.com/roblox/roact-rodux",
     "Rodux roblox/rodux 1.0.0 url+https://github.com/roblox/rodux",
-    "UIBlox <patched> UIBlox de6170bc git+https://github.com/roblox/uiblox#master",
+    "UIBlox <patched> UIBlox 3a82d9ed git+https://github.com/roblox/uiblox#master",
     "t roblox/t 1.2.5 url+https://github.com/roblox/t",
 ]
 
@@ -327,7 +326,7 @@ dependencies = [
     "Roact roblox/roact 1.3.1 url+https://github.com/roblox/roact",
     "RoactRodux roblox/roact-rodux 0.2.2 url+https://github.com/roblox/roact-rodux",
     "Rodux roblox/rodux 1.0.0 url+https://github.com/roblox/rodux",
-    "UIBlox <patched> UIBlox de6170bc git+https://github.com/roblox/uiblox#master",
+    "UIBlox <patched> UIBlox 3a82d9ed git+https://github.com/roblox/uiblox#master",
     "t roblox/t 1.2.5 url+https://github.com/roblox/t",
 ]
 
@@ -367,18 +366,6 @@ dependencies = [
 
 [[package]]
 name = "roblox/roact-navigation"
-version = "0.2.8"
-commit = "6b5c6975e75ab68048a12f6f3b84ab4061afe496"
-source = "url+https://github.com/roblox/roact-navigation"
-dependencies = [
-    "Cryo roblox/cryo 1.0.0 url+https://github.com/roblox/cryo",
-    "Otter roblox/otter 0.1.3 url+https://github.com/roblox/otter",
-    "Roact roblox/roact 1.3.1 url+https://github.com/roblox/roact",
-    "StateTable roblox/state-table 0.1.0 url+https://github.com/roblox/state-table",
-]
-
-[[package]]
-name = "roblox/roact-navigation"
 version = "0.4.1"
 commit = "20f4bf21637414c86d4a61965f8a01ae51a81f54"
 source = "url+https://github.com/roblox/roact-navigation"
@@ -403,12 +390,6 @@ name = "roblox/rodux"
 version = "1.0.0"
 commit = "416e8042bd6eac7a385cb0955079501fd44f11e1"
 source = "url+https://github.com/roblox/rodux"
-
-[[package]]
-name = "roblox/state-table"
-version = "0.1.0"
-commit = "aa0641127efcb15fcabb26f5ba46e44815f42d4a"
-source = "url+https://github.com/roblox/state-table"
 
 [[package]]
 name = "roblox/string-utilities"

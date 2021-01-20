@@ -918,6 +918,48 @@
 
     <Item class="ReflectionMetadataClass">
       <Properties>
+        <string name="Name">UniversalConstraint</string>
+        <string name="ClassCategory">Constraints</string>
+        <string name="ExplorerOrder">30</string>
+        <string name="ExplorerImageIndex">123</string>
+        <string name="PreferredParent">BasePart</string>
+      </Properties>
+      <Item class="ReflectionMetadataProperties">
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">LimitsEnabled</string>
+            <string name="summary">Enables the angular limits on rotations around the main axis of Attachment0.</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">MaxAngle</string>
+            <string name="summary"> Maximum angle between main axes of Attchement0 and Attachment1.</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Restitution</string>
+            <string name="summary">Restitution of the two limits, or how elastic they are. Value in [0, 1].</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">CurrentAngle</string>
+            <string name="summary">Current angle between the main axes of Attchement0 and Attachment1.</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Radius</string>
+            <string name="summary">Radius of the in-game visual. Value in [0, inf).</string>
+          </Properties>
+        </Item>
+      </Item>
+    </Item>
+
+      <Item class="ReflectionMetadataClass">
+      <Properties>
         <string name="Name">SlidingBallConstraint</string>
         <string name="ClassCategory">Constraints</string>
         <string name="ExplorerOrder">30</string>

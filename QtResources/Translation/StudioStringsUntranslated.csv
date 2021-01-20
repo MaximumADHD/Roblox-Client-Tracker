@@ -82,7 +82,7 @@ Studio.App.BetaFeatures.AssetManagerDescription,,"Manage your assets in a brand 
 Studio.App.BetaFeatures.AssetManageritle,,Asset Manager,Asset Manager
 Studio.App.BetaFeatures.AsyncPublishDescription,,Keep working in Studio as we publish in the background,Keep working in Studio as we publish in the background
 Studio.App.BetaFeatures.AsyncPublishTitle,,Async Publish Beta,Async Publish Beta
-Studio.App.BetaFeatures.AttributesUIDescription,,Customizable properties on instances,Customizable properties on instances
+Studio.App.BetaFeatures.AttributesUIDescription,,Customize instances with your own data,Customize instances with your own data
 Studio.App.BetaFeatures.AttributesUITitle,,Attributes Beta,Attributes Beta
 Studio.App.BetaFeatures.AutoEnrollmentToggle,,Enroll in Beta Channel,Enroll in Beta Channel
 Studio.App.BetaFeatures.AutoEnrollmentToggleTooltip,,New Beta Features Will Automatically Be Activated,New Beta Features Will Automatically Be Activated
@@ -2213,6 +2213,7 @@ Studio.App.RobloxRibbonMainWindow.CreateRodConstraint,,Create rod constraint,Cre
 Studio.App.RobloxRibbonMainWindow.CreateRopeConstraint,,Create rope constraint,Create rope constraint
 Studio.App.RobloxRibbonMainWindow.CreateSpringConstraint,,Create spring constraint,Create spring constraint
 Studio.App.RobloxRibbonMainWindow.CreateTorque,,Create torque,Create torque
+Studio.App.RobloxRibbonMainWindow.CreateUniversalConstraint,,Create universal constraint,Create universal constraint
 Studio.App.RobloxRibbonMainWindow.CreateVectorForce,,Create vector force,Create vector force
 Studio.App.RobloxRibbonMainWindow.CreateWeldConstraint,,Create weld constraint,Create weld constraint
 Studio.App.RobloxRibbonMainWindow.CurrentClient,,Current: Client,Current: Client
