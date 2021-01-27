@@ -4,25 +4,39 @@
 ]]
 local Source = script.Parent.Parent
 local Packages = Source.Parent
+local EventName= require(Source.EventName)
 
 local Dash = require(Packages.Dash)
 local class = Dash.class
+local forEach = Dash.forEach
 local join = Dash.join
+
+local insert = table.insert
 
 local TargetWorker = class("TargetWorker", function(debugInterface, targetId, toBridgeId)
 	return {
 		targetId = targetId,
 		toBridgeId = toBridgeId,
 		debugInterface = debugInterface,
-		connections = {}
+		listeners = {}
 	}
 end)
+
+function TargetWorker:connectEvents()
+	self:connect({
+		eventName = EventName.CloseTarget,
+		onEvent = function(message)
+			self.debugInterface:_removeWorker(self.targetId)
+		end
+	})
+end
 
 function TargetWorker:connect(listener)
 	local newListener = join(listener, {
 		targetId = self.targetId,
 	})
 	self.debugInterface:_connect(newListener)
+	insert(self.listeners, newListener)
 end
 
 function TargetWorker:send(message)
@@ -34,7 +48,9 @@ function TargetWorker:send(message)
 end
 
 function TargetWorker:destroy()
-	-- NOOP Override with cleanup functionality
+	forEach(self.listeners, function(listener)
+		self.debugInterface:_disconnect(listener)
+	end)
 end
 
 return TargetWorker

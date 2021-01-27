@@ -29,10 +29,10 @@ return {
 		return PluginDebugInterface.new(pluginName, plugin)
 	end,
 	-- Get an inspector instance for a standalone plugin
-	forStandalonePlugin = function(pluginName: string, plugin)
+	forStandalonePlugin = function(pluginName: string, plugin, rootInstance)
 		assert(typeof(pluginName) == "string", helpfulErrorMessage:format(pluginName, "forStandalonePlugin", "forStandalonePlugin"))
 		assert(plugin, "DeveloperTools:forStandalonePlugin() expected plugin for argument #2")
-		return StandalonePluginDebugInterface.new(pluginName, plugin)
+		return StandalonePluginDebugInterface.new(pluginName, plugin, rootInstance)
 	end,
 	-- Get an inspector instance for an interface placed in the CoreGui
 	forCoreGui = function(appName: string, guiOptions: GuiOptions)

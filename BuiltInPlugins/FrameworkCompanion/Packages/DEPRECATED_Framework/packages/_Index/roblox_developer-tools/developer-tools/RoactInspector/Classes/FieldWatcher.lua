@@ -5,13 +5,13 @@
 ]]
 local Source = script.Parent.Parent.Parent
 local Packages = Source.Parent
+local getChildAtKey = require(Source.RoactInspector.Utils.getChildAtKey)
 
 local Dash = require(Packages.Dash)
 local Types = Dash.Types
 local assign = Dash.assign
 local class = Dash.class
 local collect = Dash.collect
-local collectArray = Dash.collectArray
 local copy = Dash.copy
 local keys = Dash.keys
 local pretty = Dash.pretty
@@ -72,7 +72,7 @@ function FieldWatcher:collect(table, depth: number, path)
 	if typeof(table) ~= "table" then
 		return {}
 	end
-	local fields = collectArray(table, function(key, value)
+	local fields = collect(table, function(key, value)
 		-- Permit numbers to preserve numeric ordering of numbers (rather than 1, 10, 11, 2, 3...)
 		local name = typeof(key) == "number" and key or tostring(key)
 		-- The path to a nested value uses number or string representations of the keys indexing
@@ -82,22 +82,12 @@ function FieldWatcher:collect(table, depth: number, path)
 		local childPath = copy(path)
 		insert(childPath, name)
 		local children = typeof(value) == "table" and depth > 0 and self:collect(value, depth - 1, childPath) or {}
-		return {
+		return name, {
 			Name = name,
 			Summary = pretty(value, {depth = 2, arrayLength = true}),
-			Path = path,
+			Path = childPath,
 			Children = children
 		}
-	end)
-	-- Sort fields by name
-	sort(fields, function(left, right)
-		-- We allow both strings & numbers, but they are not comparable
-		if typeof(left) == typeof(right) then
-			return left.Name < right.Name
-		else
-			-- Fallback to ye oldie string comparison
-			return tostring(left.Name) < tostring(right.Name)
-		end
 	end)
 	return fields
 end
@@ -107,11 +97,11 @@ function FieldWatcher:walk(value: Types.Table, path: Path)
 	-- Guard against invalid accesses resulting from stale paths or user-defined assertions.
 	local ok, value = pcall(function()
 		return reduce(path, function(current, key)
-			return current[key]
+			return getChildAtKey(current, key)
 		end, self.root)
 	end)
 	if not ok then
-		warn(value)
+		warn(("Cannot walk path %s: %s "):format(pretty(path), value))
 		value = nil
 	end
 	return value

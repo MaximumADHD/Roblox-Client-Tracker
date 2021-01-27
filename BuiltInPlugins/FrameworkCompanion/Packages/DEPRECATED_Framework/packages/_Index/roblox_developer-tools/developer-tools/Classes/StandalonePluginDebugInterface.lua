@@ -7,12 +7,10 @@ local Packages = Source.Parent
 local PluginEventBridge = require(Source.Classes.PluginEventBridge)
 local DebugInterface = require(Source.Classes.DebugInterface)
 
-local StandalonePluginDebugInterface = DebugInterface:extend("StandalonePluginDebugInterface", function(pluginName: string, plugin, rootInstance: Instance)
+local StandalonePluginDebugInterface = DebugInterface:extend("StandalonePluginDebugInterface", function(pluginName: string, plugin, guiOptions)
 	local bridge = PluginEventBridge.new(plugin)
 	local interface = DebugInterface.new("StandalonePlugin", pluginName, {bridge})
-	interface:setGuiOptions({
-		rootInstance = rootInstance
-	})
+	interface:setGuiOptions(guiOptions)
 	return interface
 end)
 

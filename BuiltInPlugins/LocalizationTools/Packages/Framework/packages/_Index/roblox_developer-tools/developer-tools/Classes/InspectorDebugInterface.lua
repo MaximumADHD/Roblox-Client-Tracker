@@ -26,6 +26,12 @@ function InspectorDebugInterface:getTargetApi()
 	return self.targetApi
 end
 
+function InspectorDebugInterface:closeTargetApi()
+	if self.targetApi then
+		self.targetApi:close()
+	end
+end
+
 function InspectorDebugInterface:_connectInspector()
 	self:_connect({
 		eventName = EventName.ShowTargets,
