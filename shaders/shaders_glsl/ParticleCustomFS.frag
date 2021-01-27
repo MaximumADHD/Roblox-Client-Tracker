@@ -4,7 +4,7 @@
 #include <Globals.h>
 #include <EmitterParams.h>
 uniform vec4 CB0[53];
-uniform vec4 CB1[3];
+uniform vec4 CB1[4];
 uniform sampler2D LightingAtlasTexture;
 uniform sampler2D texTexture;
 

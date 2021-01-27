@@ -1481,7 +1481,7 @@
         <string name="ClassCategory">3D Interfaces</string>
         <string name="summary">Provides a UI for the player to interact with an object when near.</string>
         <string name="ExplorerOrder">30</string>
-        <string name="ExplorerImageIndex">41</string>
+        <string name="ExplorerImageIndex">124</string>
         <string name="PreferredParent">BasePart</string>
       </Properties>
       <Item class="ReflectionMetadataProperties">

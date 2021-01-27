@@ -119,6 +119,8 @@ Studio.App.BetaFeatures.LuauNonStrictByDefaultTitle,,Scripts Are Non-Strict By D
 Studio.App.BetaFeatures.NewFeaturesForChannelUserWarning1,,"New beta features have been automatically enabled above as you are enrolled in Beta Channel. You must restart Studio for them to be activated. <a href=""%1"">Restart Now</a>","New beta features have been automatically enabled above as you are enrolled in Beta Channel. You must restart Studio for them to be activated. <a href=""%1"">Restart Now</a>"
 Studio.App.BetaFeatures.NewScriptFoldStateDescription,,Enables new improved behavior for code folding in the Script Editor.,Enables new improved behavior for code folding in the Script Editor.
 Studio.App.BetaFeatures.NewScriptFoldStateTitle,,Script Editor Folds Behavior Beta,Script Editor Folds Behavior Beta
+Studio.App.BetaFeatures.NonTeamCreateScriptVersionHistoryDescription,,Can right click on a script to view its history.  Will show past published versions of the script and their corresponding place version numbers.,Can right click on a script to view its history.  Will show past published versions of the script and their corresponding place version numbers.
+Studio.App.BetaFeatures.NonTeamCreateScriptVersionHistoryTitle,,Script Version History for Non TeamCreate games,Script Version History for Non TeamCreate games
 Studio.App.BetaFeatures.PackagePermissionsDescription,,"Add any group, user, or role as a user or editor for your packages through the Package Management action in Game Explorer","Add any group, user, or role as a user or editor for your packages through the Package Management action in Game Explorer"
 Studio.App.BetaFeatures.PackagePermissionsTitle,,Packages Permissions,Packages Permissions
 Studio.App.BetaFeatures.PhysicsNewConvexDecompositionDescription,,"Enable the new CollisionFidelity, which uses a method called HACD to generate collision geometry with precise surfaces.","Enable the new CollisionFidelity, which uses a method called HACD to generate collision geometry with precise surfaces."
@@ -282,7 +284,9 @@ Studio.App.CloudEditUserData.FailToRestoreCameraPosition,,Failed to restore came
 Studio.App.ColorPreviewWidget.InvalidArgumentsTooltip,,Invalid arguments to Color3 constructor,Invalid arguments to Color3 constructor
 Studio.App.CommandLine.InvalidArgument2,,Launch Task %1 requires valid %2,Launch Task %1 requires valid %2
 Studio.App.CommitScriptsDialog.CommitButtonText,,Commit,Commit
-Studio.App.CommitScriptsDialog.CommitMessagePlaceHolderText,,Add a comment to describe what changed,Add a comment to describe what changed
+Studio.App.CommitScriptsDialog.CommitMessagePlaceHolderText,,"Add a comment to describe what changed.
+<Ctrl Enter> To commit.","Add a comment to describe what changed.
+<Ctrl Enter> To commit."
 Studio.App.CommitScriptsDialog.ScriptSectionHeader,,Script,Script
 Studio.App.CommitScriptsDialog.Title,,Commit Scripts,Commit Scripts
 Studio.App.ContextMenuDropdown.Archive,Archive a game,Archive,Archive
@@ -1150,7 +1154,7 @@ Studio.App.Property.ClearOutputOnStart,,Clear Output On Start,Clear Output On St
 Studio.App.Property.ClientPhysicsSendRate,,Client Physics Send Rate,Client Physics Send Rate
 Studio.App.Property.CommandBarLocalState,,Command bar operates on local state at breakpoint,Command bar operates on local state at breakpoint
 Studio.App.Property.CommentColor,,Comment Color,Comment Color
-Studio.App.Property.CurrentLineHighlightColor,The highlight color of the line we are currently editing in ScriptTextEditor,Current Line Highlight Color,Current Line Highlight Color
+Studio.App.Property.CurrentLineHighlightColor,The highlight color of the line we are currently editing in script editor,Current Line Highlight Color,Current Line Highlight Color
 Studio.App.Property.DataGCRate,,Data GC Rate,Data GC Rate
 Studio.App.Property.DataModel,,Data Model Count,Data Model Count
 Studio.App.Property.DataMtuAdjust,,Data Mtu Adjust,Data Mtu Adjust
@@ -1183,8 +1187,8 @@ Studio.App.Property.FunctionColor,,"""function"" Color","""function"" Color"
 Studio.App.Property.FunctionNameColor,,Function Name Color,Function Name Color
 Studio.App.Property.GfxCard,,Gfx Card,Gfx Card
 Studio.App.Property.GraphicsMode,,Graphics Mode,Graphics Mode
-Studio.App.Property.HighlightCurrentLine,Should we highlight the line we are currently editing in ScriptTextEditor,Highlight Current Line,Highlight Current Line
-Studio.App.Property.HighlightOccurances,Should we highlight other occurances of the word we have the cursor inside in ScriptTextEditor,Highlight Current Word,Highlight Current Word
+Studio.App.Property.HighlightCurrentLine,Should we highlight the line we are currently editing in script editor,Highlight Current Line,Highlight Current Line
+Studio.App.Property.HighlightOccurances,Should we highlight other occurances of the word under the cursor in script editor,Highlight Current Word,Highlight Current Word
 Studio.App.Property.HoverAnimateSpeed,,Hover Animate Speed,Hover Animate Speed
 Studio.App.Property.HoverOverColor,,Hover Over Color,Hover Over Color
 Studio.App.Property.HttpProxyEnabled,,Proxy Enabled,Proxy Enabled
@@ -1507,8 +1511,6 @@ Studio.App.RBXMainWindow.CloseAllScripts,,Close All Scripts,Close All Scripts
 Studio.App.RBXMainWindow.CloseInstanceDefaultEditorTooltip,,Close the window.,Close the window.
 Studio.App.RBXMainWindow.CollapseAll,,Collapse All,Collapse All
 Studio.App.RBXMainWindow.CollapseAllDiffResults,,Collapse all diff results,Collapse all diff results
-Studio.App.RBXMainWindow.CollapseAllFolds,,Collapse All Folds,Collapse All Folds
-Studio.App.RBXMainWindow.CollapsesAllFolds,,Collapses all folds,Collapses all folds
 Studio.App.RBXMainWindow.CollisionCheck,,Collision Check,Collision Check
 Studio.App.RBXMainWindow.Command,,Command,Command
 Studio.App.RBXMainWindow.CommandBar,,Command Bar,Command Bar
@@ -1561,7 +1563,6 @@ Studio.App.RBXMainWindow.ExecuteScriptElps,,Execute Script...,Execute Script...
 Studio.App.RBXMainWindow.ExpandAll,,Expand All,Expand All
 Studio.App.RBXMainWindow.ExpandAllDiffResults,,Expand all diff results,Expand all diff results
 Studio.App.RBXMainWindow.ExpandAllFolds,,Expand All Folds,Expand All Folds
-Studio.App.RBXMainWindow.ExpandsAllFolds,,Expands all folds,Expands all folds
 Studio.App.RBXMainWindow.Explorer,,Explorer,Explorer
 Studio.App.RBXMainWindow.ExplorerFilter,,Explorer Filter,Explorer Filter
 Studio.App.RBXMainWindow.ExportAsObj,,Export as Obj,Export as Obj
@@ -1577,11 +1578,7 @@ Studio.App.RBXMainWindow.FindResultsWindow,,Find results window,Find results win
 Studio.App.RBXMainWindow.FocusOnCommandBar,,Focus on Command Bar,Focus on Command Bar
 Studio.App.RBXMainWindow.FocusOnCommandBarTooltip,,Set keyboard focus to Command Bar,Set keyboard focus to Command Bar
 Studio.App.RBXMainWindow.Format,,Format,Format
-Studio.App.RBXMainWindow.FormatDocument,,Format Document,Format Document
 Studio.App.RBXMainWindow.FormatDocumentElps,,Format Document...,Format Document...
-Studio.App.RBXMainWindow.FormatSelectedRangeOfDocument,,Format selected range of document,Format selected range of document
-Studio.App.RBXMainWindow.FormatSelection,,Format Selection,Format Selection
-Studio.App.RBXMainWindow.FormatWholeDocument,,Format whole document,Format whole document
 Studio.App.RBXMainWindow.FullScreen,,Full Screen,Full Screen
 Studio.App.RBXMainWindow.Game,,Game,Game
 Studio.App.RBXMainWindow.GameExplorer,,Game Explorer,Game Explorer
@@ -2184,9 +2181,6 @@ Studio.App.RobloxRibbonMainWindow.ClientsAndServers,,Clients and Servers,Clients
 Studio.App.RobloxRibbonMainWindow.Clipboard,,Clipboard,Clipboard
 Studio.App.RobloxRibbonMainWindow.Cobblestone,,Cobblestone,Cobblestone
 Studio.App.RobloxRibbonMainWindow.Collaboration,,Collaboration,Collaboration
-Studio.App.RobloxRibbonMainWindow.CollapseAllCollapsableSection,,Collapse all collapsable sections of scripts,Collapse all collapsable sections of scripts
-Studio.App.RobloxRibbonMainWindow.CollapseAllCollapsableSections,,Collapse all collapsable sections,Collapse all collapsable sections
-Studio.App.RobloxRibbonMainWindow.CollapseAllScripts,,Collapse all scripts,Collapse all scripts
 Studio.App.RobloxRibbonMainWindow.CollisionGroups,,Collision Groups,Collision Groups
 Studio.App.RobloxRibbonMainWindow.Collisions,,Collisions,Collisions
 Studio.App.RobloxRibbonMainWindow.Color,,Color,Color
@@ -2239,8 +2233,6 @@ Studio.App.RobloxRibbonMainWindow.EnableWireframeRendering,,Enable Wireframe Ren
 Studio.App.RobloxRibbonMainWindow.ExecuteLuaCodeFromAFile,,Execute Lua code from a file,Execute Lua code from a file
 Studio.App.RobloxRibbonMainWindow.ExitGame,,Exit Game,Exit Game
 Studio.App.RobloxRibbonMainWindow.ExitTeamTest,,Exit Team Test,Exit Team Test
-Studio.App.RobloxRibbonMainWindow.ExpandAllCollapsedFolds,,Expand all collapsed folds in the script,Expand all collapsed folds in the script
-Studio.App.RobloxRibbonMainWindow.ExpandAllScripts,,Expand all scripts,Expand all scripts
 Studio.App.RobloxRibbonMainWindow.Explosion,,Explosion,Explosion
 Studio.App.RobloxRibbonMainWindow.FindTextAndReplaceWithElps,,Find text and replace with...,Find text and replace with...
 Studio.App.RobloxRibbonMainWindow.FindTextElps,,Find text...,Find text...
@@ -2383,7 +2375,6 @@ Studio.App.RobloxRibbonMainWindow.Test,,Test,Test
 Studio.App.RobloxRibbonMainWindow.TextBox,,Text Box,Text Box
 Studio.App.RobloxRibbonMainWindow.TheRotateGrid,,The grid that rotate tools will snap to,The grid that rotate tools will snap to
 Studio.App.RobloxRibbonMainWindow.TheSnapGrid,,The grid move and resize tools will snap to,The grid move and resize tools will snap to
-Studio.App.RobloxRibbonMainWindow.ToggleCommentSelectedLines,,Toggle the commented status of the selected lines,Toggle the commented status of the selected lines
 Studio.App.RobloxRibbonMainWindow.ToggleGameAudioSounds,,Toggle Game Audio Sounds,Toggle Game Audio Sounds
 Studio.App.RobloxRibbonMainWindow.ToggleSelectionAnchor,,Anchor/Unanchor the selected parts,Anchor/Unanchor the selected parts
 Studio.App.RobloxRibbonMainWindow.TogglesGridSnap,,Toggles move and resize tools snapping to grid,Toggles move and resize tools snapping to grid
@@ -2809,6 +2800,7 @@ Studio.App.Updates.BetaFeatureName,,Safe Studio Updates,Safe Studio Updates
 Studio.App.Updates.ShutdownConfirmationText,,There is a new Studio update available. Shutdown to update?,There is a new Studio update available. Shutdown to update?
 Studio.App.Updates.ShutdownPromptButton,Button name in 'Are you sure you want to shut down Studio for update? [Shutdown] [Cancel]',Shutdown,Shutdown
 Studio.App.Updates.UpdateAvailableToast,,A new version of Studio is available,A new version of Studio is available
+Studio.App.UploadImageRequest.CouldNotOpenFile1,,Could not open file %1,Could not open file %1
 Studio.App.UploadImageRequest.UploadingQuickly1,,Uploading too quickly. Try again in %1 minute(s),Uploading too quickly. Try again in %1 minute(s)
 Studio.App.UploadImageRequest.UploadingQuicklyHour1,,Uploading too quickly. Try again in %1 hour(s),Uploading too quickly. Try again in %1 hour(s)
 Studio.App.UploadImageRequest.UploadingTooQuickly,,Uploading too quickly,Uploading too quickly

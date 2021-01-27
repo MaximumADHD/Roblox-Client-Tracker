@@ -32,10 +32,8 @@ BokehFarCoCFS,Fragment
 BokehNearCoCFS,Fragment
 CheapBokehFS,Fragment
 CheckerboardDepthFS,Fragment
-Clouds2dFoVFixFS,Fragment
 Clouds2dFS,Fragment
 CloudsCompFS,Fragment
-CloudsFoVFixFS,Fragment
 CloudsFS,Fragment
 CloudsVS,Vertex
 CopyGuiVS,Vertex

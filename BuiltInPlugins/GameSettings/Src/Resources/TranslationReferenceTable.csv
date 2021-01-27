@@ -14,7 +14,7 @@ Studio.GameSettings.General.PluginName,Game Settings,Game Settings,게임 설정
 Studio.GameSettings.General.GenreFPS,FPS,FPS,FPS,Шутер от первого лица,FPS
 Studio.GameSettings.General.ThumbnailsModeration,Items will be reviewed by moderators before being made visible to other users.,Items will be reviewed by moderators before being made visible to other users.,아이템은 검열팀의 검토가 끝난 후에 다른 사용자들에게 공개됩니다.,"Элементы будут рассмотрены модераторами, прежде чем их увидят другие пользователи.",项目会在协调员审查后，再对其他用户开放。
 Studio.GameSettings.General.PlayabilityPrivate,Private,Private,비공개,Закрытая игра,私人
-Studio.GameSettings.General.DevSubsDeleteHeader,Are you sure you want to delete this subscription?,Are you sure you want to delete this subscription?, , , 
+Studio.GameSettings.General.DevSubsDeleteHeader,Are you sure you want to delete this subscription?,Are you sure you want to delete this subscription?,이 구독을 정말 삭제할까요?, ,确定要删除此订阅吗？
 Studio.GameSettings.General.PluginDescription,Update settings related to current game,Update settings related to current game,현재 게임과 관련된 설정 업데이트,Обновить настройки текущей игры,更新当前游戏的相关设置
 Studio.GameSettings.General.DevSubsIsNotActive,No,No,아니요,Нет,否
 Studio.GameSettings.General.ReplyNo,No,No,아니요,Нет,否
@@ -55,7 +55,7 @@ Studio.GameSettings.General.ClothingTShirt,T-Shirt ID,T-Shirt ID,티셔츠 ID,ID
 Studio.GameSettings.General.TitlePlayability,Playability,Playability,플레이 가능 여부,Играемость,可玩性
 Studio.GameSettings.General.TitleThumbnails,Screenshots & Videos,Screenshots & Videos,스크린숏 및 비디오,Скриншоты и видео,屏幕截图与视频
 Studio.GameSettings.General.CategoryLocalization,Localization,Localization,로컬리제이션, ,本地化
-Studio.GameSettings.General.TitleGenre,Genre,Genre,장르,Жанр,类别
+Studio.GameSettings.General.TitleGenre,Genre,Genre,장르,Жанр,类型
 Studio.GameSettings.General.GenreSciFi,Sci-Fi,Sci-Fi,SF,Фантастика,科幻
 Studio.GameSettings.General.TitleHttp,Allow HTTP Requests,Allow HTTP Requests,HTTP 요청 허용,Разрешить HTTP-запросы,允许 HTTP 请求
 Studio.GameSettings.General.PlayabilityPublic,Public,Public,공개,Общедоступная,公开
@@ -129,7 +129,7 @@ Studio.GameSettings.General.PartLeftLeg,Left Leg,Left Leg,왼 다리,Левая 
 Studio.GameSettings.General.CancelDialogHeader,Discard Changes,Discard Changes,변경 사항 제거,Отменить изменения,放弃更改
 Studio.GameSettings.General.MultiImageDialogBody,The following file(s) exceed {maxThumbnailSize:int} MB:,The following file(s) exceed {maxThumbnailSize:int} MB:,다음 파일이 {maxThumbnailSize:int} MB를 초과합니다:,Следующие файлы превышают {maxThumbnailSize:int} МБ:,下列文件超过 {maxThumbnailSize:int} MB:
 Studio.GameSettings.General.CancelDialogBody,Would you like to discard all changes?,Would you like to discard all changes?,모든 변경 사항을 제거할까요?,Вы действительно хотите отменить все изменения?,你要放弃所有更改吗?
-Studio.GameSettings.General.DevSubsDuration6Months,6 months,6 months, , , 
+Studio.GameSettings.General.DevSubsDuration6Months,6 months,6 months,6개월, ,6 个月
 Studio.GameSettings.General.PrivateDialogHeader,Make Private,Make Private,비공개 설정,Закрытая игра,设为私人
 Studio.GameSettings.General.DevSubsDiscontinueTitle,Discontinue Subscription,Discontinue Subscription,구독 해지,Прекратить подписку,取消订阅
 Studio.GameSettings.General.PrivateDialogPrompt,Are you sure you want to make this game private?,Are you sure you want to make this game private?,이 게임을 비공개로 설정할까요?,Вы действительно хотите сделать эту игру закрытой?,确定要将此游戏设为私人吗?
@@ -193,15 +193,15 @@ Studio.GameSettings.AccessPermissions.PublishRequiredForCollaborators,adding col
 Studio.GameSettings.General.AvatarOverrideId,ID Number,ID Number,ID 번호,Идентификационный номер,ID码
 Studio.GameSettings.General.ErrorOverrideEmpty,ID Number cannot be empty,ID Number cannot be empty,ID 번호는 비워두면 안 돼요,Номер не может быть пустым,ID码不能为空
 Studio.GameSettings.General.CategoryDeveloperSubscriptions,Subscriptions,Subscriptions,구독,Подписки,订阅
-Studio.GameSettings.General.DevSubsListHeader,Subscriptions,Subscriptions,개발자 구독,Подписки разработчика,开发者订阅
+Studio.GameSettings.General.DevSubsListHeader,Subscriptions,Subscriptions,구독,Подписки разработчика,订阅
 Studio.GameSettings.General.SettingsInsufficientPermission,Only the game owner can edit these settings,Only the game owner can edit these settings,게임 소유자만 이 설정을 편집할 수 있습니다, ,只有游戏所有者才能对这些设置进行编辑
 Studio.GameSettings.General.CategoryAccessPermissions,Permissions,Permissions,권한,Разрешения,许可
 Studio.GameSettings.General.TitleGameOwner,Game Owner,Game Owner,게임 소유자,Владелец игры,游戏所有者
-Studio.GameSettings.General.DevSubsEditHeader,Edit Subscription,Edit Subscription,개발자 구독 수정,Изменить подписку разработчика,编辑开发者订阅
+Studio.GameSettings.General.DevSubsEditHeader,Edit Subscription,Edit Subscription,구독 편집,Изменить подписку разработчика,编辑订阅
 Studio.GameSettings.General.DevSubsPrice,Price,Price,가격,Цена,价格
 Studio.GameSettings.Monetization.PriceTitle,Price,Price,가격, ,价格
 Studio.GameSettings.General.DevSubsImage,Image,Image,이미지,Изображение,图片
-Studio.GameSettings.General.DevSubsDuration,Pre-paid,Pre-paid,기간,Продолжительность,长度
+Studio.GameSettings.General.DevSubsDuration,Pre-paid,Pre-paid,선불,Продолжительность,预付费
 Studio.GameSettings.General.CategoryMonetization,Monetization,Monetization,수익 창출, ,盈利
 Studio.GameSettings.General.DevSubsId,Id,Id,ID,Id,ID
 Studio.GameSettings.Places.VersionHistory,Version History,Version History,버전 기록, ,版本历史记录
@@ -212,7 +212,7 @@ Studio.GameSettings.General.DevSubsDiscontinueAction,Discontinue,Discontinue,해
 Studio.GameSettings.General.DevSubsDiscontinueConfirm,Discontinue,Discontinue,해지,Прекратить,取消
 Studio.GameSettings.General.DevSubsUnsaved,Unsaved,Unsaved,저장되지 않음,Несохраненная,未保存
 Studio.GameSettings.General.DevSubsDiscontinueDescription,This will cancel all renewing payments. You must maintain benefits until no subscribers remain.,This will cancel all renewing payments. You must maintain benefits until no subscribers remain.,정기 결제가 모두 해지됩니다. 가입자가 없을 때까지 혜택을 유지해야 합니다.,"Это отменит продление платежей. Вы должны сохранять льготы, пока не останется ни одного подписчика.",所有例行付款将会取消，你必须维持福利，直到没有订阅者为止。
-Studio.GameSettings.General.DevSubsCreationDate,Creation Date,Creation Date, , , 
+Studio.GameSettings.General.DevSubsCreationDate,Creation Date,Creation Date,생성일, ,创建时间
 Studio.GameSettings.Places.PlaceVersion,Place Version,Place Version,플레이스 버전, ,场景版本
 Studio.GameSettings.AccessPermissions.NoAccessLabel,No Access,No Access,접근 불가,Нет доступа,无法访问
 Studio.GameSettings.Monetization.PrivateServerSubscriptions,There are currently {numOfSubscriptions:int} Private Server Subscriptions active for this place.,There are currently {numOfSubscriptions:int} Private Server Subscriptions active for this place.,현재 이 플레이스에는 {numOfSubscriptions:int}건의 활성화된 비공개 서버 구독이 있습니다., ,当前场景目前拥有 {numOfSubscriptions:int} 个活跃私人服务器订阅。
@@ -242,10 +242,10 @@ Studio.GameSettings.General.ErrorImageRequired,You must provide an image,You mus
 Studio.GameSettings.General.ScaleSliderLabel,{number}%,{number}%,{number}%,{number}%,{number}%
 Studio.GameSettings.General.ScaleSliderUnits,%,%,%,%,%
 Studio.GameSettings.General.PublishingHintLinkExplanation, is required for changing Avatar game settings, is required for changing Avatar game settings,은(는) 아바타 게임 설정을 변경하는 데 필요합니다,требуется для изменения игровых настроек аватара,是更改虚拟形象游戏设置所必需的
-Studio.GameSettings.General.DevSubsNewHeader,New Subscription,New Subscription,새로운 개발자 구독,Новая подписка разработчика,新的开发者订阅
+Studio.GameSettings.General.DevSubsNewHeader,New Subscription,New Subscription,새 구독,Новая подписка разработчика,新订阅
 Studio.GameSettings.General.DevSubsDiscontinuedHeader,Discontinued Developer Subscription,Discontinued Developer Subscription,중단된 개발자 구독,Не продленная подписка разработчика,取消的开发者订阅
 Studio.GameSettings.General.DevSubsDeleteAction,Delete,Delete,삭제,Удалить,删除
-Studio.GameSettings.General.DevSubsDeleteConfirm,Delete,Delete, , , 
+Studio.GameSettings.General.DevSubsDeleteConfirm,Delete,Delete,삭제, ,删除
 Studio.GameSettings.General.WorldPresetsClassic,Classic,Classic,클래식,Классический,经典
 Studio.GameSettings.Security.EnableThirdPartyTeleports,Allow Third Party Teleports,Allow Third Party Teleports,타사 텔레포트 허용, ,允许第三方传送
 Studio.GameSettings.General.WorldPresetsRealistic,Realistic,Realistic,현실적,Реалистичный,现实
@@ -276,7 +276,7 @@ Studio.GameSettings.Monetization.TotalVIPServers,Total: {totalVipServers:int},To
 Studio.GameSettings.General.LocalizationSettingsNonLinkText, to further manage the cloud localization table for this game., to further manage the cloud localization table for this game., 이 게임의 클라우드 로컬리제이션 테이블을 추가로 관리할 수 있습니다., , 进一步管理此游戏的云本地化表格。
 Studio.GameSettings.General.LocalizationSettingsPublishMessageNonLinkText, to activate Localization options., to activate Localization options., 그러면 로컬리제이션 옵션을 활성화할 수 있습니다., , 方可启用本地化选项。
 Studio.GameSettings.General.CategoryPlaces,Places,Places,플레이스, ,场景
-Studio.GameSettings.General.ButtonView,View,View,보기, ,查看
+Studio.GameSettings.General.ButtonView,View,View,보기, ,视图
 Studio.GameSettings.General.UnitsMeters1,({1} meters),({1} meters),({1}미터), ,（{1} 米）
 Studio.GameSettings.Security.EnableThirdPartyPurchases,Allow Third Party Sales,Allow Third Party Sales,타사 판매 허용, ,允许第三方销售
 Studio.GameSettings.Places.PlaceName,Place Name,Place Name,플레이스 이름, ,场景名称
@@ -284,7 +284,7 @@ Studio.GameSettings.Places.MaxPlayers,Max Players,Max Players,최대 플레이�
 Studio.GameSettings.Places.MaxPlayersSubText,Maximum number of players allowed in a single instance of the game.,Maximum number of players allowed in a single instance of the game.,하나의 게임 인스턴스에서 허용되는 최대 플레이어 수., ,游戏的每个实例中所允许的玩家数量上限。
 Studio.GameSettings.Places.OptimizedTitle,Roblox Optimized,Roblox Optimized,Roblox 최적화됨, ,Roblox 优化
 Studio.GameSettings.Places.OptimizedDescription,Fills your server to optimize for the best social gameplay experience.,Fills your server to optimize for the best social gameplay experience.,최고의 소셜 게임 플레이 경험을 위해 서버를 채워 최적화합니다., ,Roblox 将自动优化服务器的填充方式以获得最佳社交游戏体验。
-Studio.GameSettings.General.DevSubsDeleteTitle,Delete Subscription,Delete Subscription, , , 
+Studio.GameSettings.General.DevSubsDeleteTitle,Delete Subscription,Delete Subscription,구독 삭제, ,删除订阅
 Studio.GameSettings.Places.MaximumWarning,Choosing this option could cause you to lose out on gameplay time and Robux earned.,Choosing this option could cause you to lose out on gameplay time and Robux earned.,이 옵션을 선택하면 게임 플레이 시간 및 Robux 수익이 감소할 수 있습니다., ,选择该选项后可能会导致产品的游戏时间与 Robux 收入下降。
 Studio.GameSettings.Places.CustomizeSlotsTitle,Customize Reserved Server Slots,Customize Reserved Server Slots,예약 서버 슬롯 사용자 정의, ,自定义服务器留位数量
 Studio.GameSettings.Places.CustomizeSlotsDescription,Friends are more likely to join players in your game if you reserve slots.,Friends are more likely to join players in your game if you reserve slots.,슬롯을 예약하면 플레이어가 내 게임에서 친구와 합류할 수 있는 가능성이 높아집니다., ,如果在服务器上预留位置，玩家更有可能在游戏中加入其好友。
@@ -321,7 +321,7 @@ Studio.GameSettings.Monetization.PrivateServersActive,There are currently {total
 Studio.GameSettings.Monetization.OverVIPServerSubscriptions,There are currently over {numOfSubscriptions:int} VIP Server Subscriptions active for this place.,There are currently over {numOfSubscriptions:int} VIP Server Subscriptions active for this place.,현재 이 플레이스에는 {numOfSubscriptions:int}건 이상의 활성화된 VIP 서버 구독이 있습니다., ,当前场景目前拥有超过 {numOfSubscriptions:int} 个以上的活跃 VIP 服务器订阅。
 Studio.GameSettings.Monetization.VIPServerSubscriptions,There are currently {numOfSubscriptions:int} VIP Server Subscriptions active for this place.,There are currently {numOfSubscriptions:int} VIP Server Subscriptions active for this place.,현재 이 플레이스에는 {numOfSubscriptions:int}건의 활성화된 VIP 서버 구독이 있습니다., ,当前场景目前拥有 {numOfSubscriptions:int} 个活跃 VIP 服务器订阅。
 Studio.GameSettings.Security.EnableThirdPartyPurchasesDescription,"By enabling, players can purchase items provided by third parties.","By enabling, players can purchase items provided by third parties.",이 옵션을 활성화하면 플레이어가 타사 판매 아이템을 구매할 수 있습니다., ,启用此选项后，玩家将可以购买第三方销售物品。
-Studio.GameSettings.General.DevSubsPlanID,Plan ID,Plan ID, , , 
-Studio.GameSettings.General.DevSubsPendingEarning,Pending Earning,Pending Earning, , , 
-Studio.GameSettings.General.DevSubsDeleteDescription,"You will lose pending payments for this subscription, including the current month.","You will lose pending payments for this subscription, including the current month.", , , 
-Studio.GameSettings.General.DevSubsDuration12Months,12 months,12 months, , , 
+Studio.GameSettings.General.DevSubsPlanID,Plan ID,Plan ID,플랜 ID, ,计划 ID
+Studio.GameSettings.General.DevSubsPendingEarning,Pending Earning,Pending Earning,대기 중인 수익, ,预定收入
+Studio.GameSettings.General.DevSubsDeleteDescription,"You will lose pending payments for this subscription, including the current month.","You will lose pending payments for this subscription, including the current month.","이번 달을 포함해, 이 구독의 대기 중인 수익을 잃게 됩니다.", ,你将失去此订阅的预定收入，包括本月的。
+Studio.GameSettings.General.DevSubsDuration12Months,12 months,12 months,12개월, ,12 个月

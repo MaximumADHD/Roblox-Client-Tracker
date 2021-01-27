@@ -19,7 +19,7 @@ Studio.AnimationClipEditor.ContextMenu.PasteKeyframes,Paste Keyframes,Paste Keyf
 Studio.AnimationClipEditor.ContextMenu.CopyEvents,Copy Selected,Copy Selected,선택 항목 복사,Копировать выбранное,复制选定项
 Studio.AnimationClipEditor.ContextMenu.CopySelected,Copy Selected,Copy Selected,선택 항목 복사,Копировать выбранное,复制选定项
 Studio.AnimationClipEditor.Menu.CreateNew,Create New,Create New,새로 만들기,Создать,新建
-Studio.AnimationClipEditor.Dialog.SaveLocation,Animation will be saved to Rig > AnimSaves in Explorer,Animation will be saved to Rig > AnimSaves in Explorer,애니메이션은 탐색기의 리그 > AnimSaves에 저장됩니다,Путь сохранения анимации: Скелетная анимация > AnimSaves в проводнике,动画将保存到“骨架” > 资源管理器中的“AnimSaves”
+Studio.AnimationClipEditor.Dialog.SaveLocation,Animation will be saved to Rig > AnimSaves in Explorer,Animation will be saved to Rig > AnimSaves in Explorer,애니메이션은 탐색기의 리그 > AnimSaves에 저장됩니다,Путь сохранения анимации: Скелетная анимация > AnimSaves в проводнике,动画将保存到“骨架” > 管理器中的“AnimSaves”
 Studio.AnimationClipEditor.ContextMenu.DeleteEvents,Delete Selected,Delete Selected,선택 항목 삭제,Удалить выбранное,删除选定项
 Studio.AnimationClipEditor.ContextMenu.DeleteSelected,Delete Selected,Delete Selected,선택 항목 삭제,Удалить выбранное,删除选定项
 Studio.AnimationClipEditor.ContextMenu.ResetSelected,Reset Selected,Reset Selected,선택 항목 재설정,Сбросить выбранное,重置选定项
@@ -39,7 +39,7 @@ Studio.AnimationClipEditor.ContextMenu.Undo,Undo,Undo,실행 취소,Отмени
 Studio.AnimationClipEditor.Dialog.Confirm,Confirm,Confirm,확인,Подтвердить,确认
 Studio.AnimationClipEditor.Settings.Frames,Frames,Frames,프레임,Кадры,帧
 Studio.AnimationClipEditor.ContextMenu.SelectAll,Select All,Select All,모두 선택,Выбрать все,全选
-Studio.AnimationClipEditor.ContextMenu.ToggleBoneVis,Toggle Microbone Visibility,Toggle Microbone Visibility, , , 
+Studio.AnimationClipEditor.ContextMenu.ToggleBoneVis,Toggle Microbone Visibility,Toggle Microbone Visibility,Microbone 표시 여부 토글, ,切换 Microbone 可视性
 Studio.AnimationClipEditor.ContextMenu.DeselectAll,Deselect All,Deselect All,모두 선택 취소,Отменить выбор всех объектов,取消全选
 Studio.AnimationClipEditor.Dialog.Save,Save,Save,저장,Сохранить,保存
 Studio.AnimationClipEditor.Menu.Save,Save,Save,저장,Сохранить,保存
@@ -60,7 +60,7 @@ Studio.AnimationClipEditor.IKMenu.ShowTreeview,Show Treeview,Show Treeview,트�
 Studio.AnimationClipEditor.IKMenu.Prompt,Enable IK to start animating with IK constraints,Enable IK to start animating with IK constraints,IK를 활성화하여 IK 제약으로 애니메이션화 시작,"Включить обратную кинематику, чтобы начать анимацию с ограничениями ОК",启用 IK 以开始创建使用 IK 约束的动画
 Studio.AnimationClipEditor.DropdownMenu.CreateNewClip,Create New Clip,Create New Clip,새 클립 만들기,Создать новый клип,创建新片段
 Studio.AnimationClipEditor.Title.AnimationEvents,Animation Events,Animation Events,애니메이션 이벤트,События анимации,动画事件
-Studio.AnimationClipEditor.Menu.Movement,Movement,Movement, , , 
+Studio.AnimationClipEditor.Menu.Movement,Movement,Movement,움직임, ,移动
 Studio.AnimationClipEditor.Title.EditEvents,Edit Animation Events,Edit Animation Events,애니메이션 이벤트 편집,Изменить события анимации,编辑动画事件
 Studio.AnimationClipEditor.Title.ManageIK,Manage IK,Manage IK,IK 관리,Управление ОК,管理 IK
 Studio.AnimationClipEditor.Title.EventName,Event Name,Event Name,이벤트 이름,Название события,事件名称
@@ -124,6 +124,6 @@ Studio.AnimationClipEditor.Tooltip.AddTrackButton,Add a new animation track,Add 
 Studio.AnimationClipEditor.Dialog.EditorErrorsHeader,Editor Error Detected,Editor Error Detected,편집기 오류가 감지됨, ,检测到编辑器错误
 Studio.AnimationClipEditor.EditorErrors.OpenedWhileRunning,Animation Editor cannot be used while game is running!,Animation Editor cannot be used while game is running!,게임 실행 중에는 애니메이션 편집기를 사용할 수 없습니다!, ,游戏运行时无法使用动画编辑器！
 Studio.AnimationClipEditor.EditorErrors.BigAnimation,"Animation is larger than 30 seconds. It cannot be edited, but you can play it back and export it.","Animation is larger than 30 seconds. It cannot be edited, but you can play it back and export it.",애니메이션의 길이가 30초를 초과합니다. 편집할 수는 없지만 재생하고 내보낼 수는 있습니다., ,动画长度超过 30 秒，无法被编辑，但可以播放和导出。
-Studio.AnimationClipEditor.Menu.Core,Core,Core, , , 
-Studio.AnimationClipEditor.Menu.Idle,Idle,Idle, , , 
-Studio.AnimationClipEditor.Menu.Action,Action,Action, , , 
+Studio.AnimationClipEditor.Menu.Core,Core,Core,핵심, ,核心
+Studio.AnimationClipEditor.Menu.Idle,Idle,Idle,대기, ,待机
+Studio.AnimationClipEditor.Menu.Action,Action,Action,동작, ,动作

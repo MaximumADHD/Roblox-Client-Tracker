@@ -2,10 +2,10 @@ Key,Source,en-us,ko,zh-cn
 Studio.AlignmentTool.MainView.AlignButton,Align,Align,정렬,对齐
 Studio.AlignmentTool.Plugin.Toolbar,Alignment,Alignment,정렬,对齐
 Studio.AlignmentTool.ModeSection.Center,Center,Center,중간,中央
-Studio.AlignmentTool.Plugin.Button,Align Tool,Align Tool,개체 정렬,对齐对象
-Studio.AlignmentTool.Plugin.WindowTitle,Align Tool,Align Tool,개체 정렬,对齐对象
+Studio.AlignmentTool.Plugin.Button,Align Tool,Align Tool,정렬 도구,对齐工具
+Studio.AlignmentTool.Plugin.WindowTitle,Align Tool,Align Tool,정렬 도구,对齐工具
 Studio.AlignmentTool.AxesSection.WorldX,World X,World X,월드 X축,世界 X 轴
-Studio.AlignmentTool.AxesSettingsFragment.World,World,World, , 
+Studio.AlignmentTool.AxesSettingsFragment.World,World,World,월드,世界
 Studio.AlignmentTool.Plugin.Description,Align selected objects.,Align selected objects.,선택한 개체를 정렬합니다.,对齐选中的对象。
 Studio.AlignmentTool.ModeSection.Min,Min,Min,최소,最小
 Studio.AlignmentTool.ModeSection.Max,Max,Max,최대,最大
@@ -15,9 +15,9 @@ Studio.AlignmentTool.AxesSection.WorldZ,World Z,World Z,월드 Z축,世界 Z 轴
 Studio.AlignmentTool.RelativeToSection.Title,Relative To,Relative To,기준:,相对于
 Studio.AlignmentTool.RelativeToSection.Selection,Selection Bounds,Selection Bounds,선택 범위,选择范围
 Studio.AlignmentTool.RelativeToSection.Active,Active Object,Active Object,활성 개체,活跃对象
-Studio.AlignmentTool.ErrorMessages.InvalidActiveObject,Align to {name} is not supported.,Align to {name} is not supported., , 
-Studio.AlignmentTool.AxesSettingsFragment.Local,Local,Local, , 
-Studio.AlignmentTool.AxesSettingsFragment.X,X,X, , 
-Studio.AlignmentTool.AxesSettingsFragment.Y,Y,Y, , 
-Studio.AlignmentTool.AxesSettingsFragment.Z,Z,Z, , 
-Studio.AlignmentTool.RelativeToSection.ActiveObjectTooltip,Align objects relative to the most recently selected object. Click on a selected object to switch the active object.,Align objects relative to the most recently selected object. Click on a selected object to switch the active object., , 
+Studio.AlignmentTool.ErrorMessages.InvalidActiveObject,Align to {name} is not supported.,Align to {name} is not supported.,{name}에 대한 정렬은 지원되지 않습니다.,不支持与 {name} 对齐。
+Studio.AlignmentTool.AxesSettingsFragment.Local,Local,Local,로컬,本地
+Studio.AlignmentTool.AxesSettingsFragment.X,X,X,X,X
+Studio.AlignmentTool.AxesSettingsFragment.Y,Y,Y,Y,Y
+Studio.AlignmentTool.AxesSettingsFragment.Z,Z,Z,Z,Z
+Studio.AlignmentTool.RelativeToSection.ActiveObjectTooltip,Align objects relative to the most recently selected object. Click on a selected object to switch the active object.,Align objects relative to the most recently selected object. Click on a selected object to switch the active object.,가장 최근에 선택한 개체를 기준으로 개체를 정렬합니다. 선택한 개체를 클릭해 활성 개체를 전환합니다.,根据最近选择的对象来对齐对象。点击选中的对象来切换活动对象。

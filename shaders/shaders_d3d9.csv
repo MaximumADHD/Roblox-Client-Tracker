@@ -28,7 +28,6 @@ Blur1FS,Fragment
 Blur3FS,Fragment
 Blur5FS,Fragment
 Blur7FS,Fragment
-Clouds2dFoVFixFS,Fragment
 Clouds2dFS,Fragment
 CloudsCompFS,Fragment
 CloudsVS,Vertex

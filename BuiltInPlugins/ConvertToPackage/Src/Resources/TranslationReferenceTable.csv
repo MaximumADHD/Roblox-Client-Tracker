@@ -6,11 +6,11 @@ Studio.ConvertToPackage.General.Title,Title,Title,제목,Название,标题
 Studio.ConvertToPackage.Action.Submit,Submit,Submit,제출,Завершить,提交
 Studio.ConvertToPackage.General.Submit,Submit,Submit,제출,Завершить,提交
 Studio.ConvertToPackage.General.Comments,Allow Comments,Allow Comments,코멘트 허용,Разрешить комментарии,允许评论
-Studio.ConvertToPackage.General.ConvertToPackageFailed,Convert to package failed,Convert to package failed,패키지 전환 실패,Преобразование в пакет не удалось,打包转换失败
+Studio.ConvertToPackage.General.ConvertToPackageFailed,Convert to package failed,Convert to package failed,패키지 전환 실패,Преобразование в пакет не удалось,转换为包失败
 Studio.ConvertToPackage.General.Ownership,Ownership,Ownership,소유권,Владелец,所有权
 Studio.ConvertToPackage.General.Me,Me,Me,나,Я,我
 Studio.ConvertToPackage.General.YouMayFindPackagesInToolbox,You may find your packages in Toolbox.,You may find your packages in Toolbox.,패키지는 도구 상자에서 찾을 수 있습니다.,Пакет находится в разделе «Панель инструментов».,你可以在工具箱中找到所有包。
-Studio.ConvertToPackage.General.InstanceFail,Convert to Package failed due to invalid objects,Convert to Package failed due to invalid objects,개체가 유효하지 않아 패키지로 전환하지 못했습니다,Преобразование в пакет не удалось: неверные объекты,由于对象无效，打包转换失败
+Studio.ConvertToPackage.General.InstanceFail,Convert to Package failed due to invalid objects,Convert to Package failed due to invalid objects,개체가 유효하지 않아 패키지로 전환하지 못했습니다,Преобразование в пакет не удалось: неверные объекты,由于对象无效，转换为包失败
 Studio.ConvertToPackage.General.ChooseOne,Choose One,Choose One,하나 선택,Выберите один,选择一个
 Studio.ConvertToPackage.General.OK,OK,OK,확인,ОК,确认
 Studio.ConvertToPackage.General.DiscardMessage,Would you like to discard all changes?,Would you like to discard all changes?,모든 변경 사항을 제거할까요?,Отменить все изменения?,确定放弃所有更改吗?

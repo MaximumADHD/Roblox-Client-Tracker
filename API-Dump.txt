@@ -713,6 +713,10 @@ Class DataModelSession : Instance [NotCreatable]
 	Event DataModelSession.CurrentDataModelTypeChanged() {RobloxScriptSecurity}
 	Event DataModelSession.DataModelCreated(Enum<StudioDataModelType> gameStateType) {RobloxScriptSecurity}
 	Event DataModelSession.DataModelWillBeDestroyed(Enum<StudioDataModelType> gameStateType) {RobloxScriptSecurity}
+Class DataStoreInfo : Instance [NotCreatable] [NotReplicated]
+	Property int64 DataStoreInfo.CreatedTime [ReadOnly]
+	Property string DataStoreInfo.DataStoreName [ReadOnly]
+	Property int64 DataStoreInfo.UpdatedTime [ReadOnly]
 Class DataStoreKeyInfo : Instance [NotCreatable] [NotReplicated]
 	Property string DataStoreKeyInfo.KeyName [ReadOnly]
 Class DataStoreKeyVersionInfo : Instance [NotCreatable] [NotReplicated]
@@ -725,10 +729,11 @@ Class DataStoreService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property bool DataStoreService.AutomaticRetry {LocalUserSecurity} [NotReplicated]
 	Property bool DataStoreService.LegacyNamingScheme {LocalUserSecurity} [Deprecated]
 	Function Variant DataStoreService:GetDataFromEmptyScopeDataStoreAsyncTemporary(string name, string key) [Yields] [Deprecated]
-	Function Instance DataStoreService:GetDataStore(string name, string scope = "global")
+	Function Instance DataStoreService:GetDataStore(string name, string scope = "global", Instance options = nil)
 	Function Instance DataStoreService:GetGlobalDataStore()
 	Function Instance DataStoreService:GetOrderedDataStore(string name, string scope = "global")
 	Function int DataStoreService:GetRequestBudgetForRequestType(Enum<DataStoreRequestType> requestType)
+	Function Instance DataStoreService:ListDataStoresAsync(string prefix = "", int pageSize = 0) [Yields]
 Class DataStoreSetOptions : Instance [NotCreatable] [NotReplicated]
 	Function Dictionary DataStoreSetOptions:GetMetadata()
 	Function void DataStoreSetOptions:SetMetadata(Dictionary attributes)
@@ -891,6 +896,8 @@ Class GlobalDataStore : Instance [NotCreatable] [NotReplicated]
 Class DataStore : GlobalDataStore [NotCreatable] [NotReplicated]
 	Function Tuple DataStore:GetVersionAsync(string key, string version) [Yields]
 	Function Instance DataStore:ListKeysAsync(string prefix = "", int pageSize = 0) [Yields]
+	Function Instance DataStore:ListVersionsAsync(string key, Enum<SortDirection> sortDirection = "Ascending", int64 minDate = 0, int64 maxDate = 0, int pageSize = 0) [Yields]
+	Function void DataStore:RemoveVersionAsync(string key, string version) [Yields]
 Class OrderedDataStore : GlobalDataStore [NotCreatable] [NotReplicated]
 	Function Instance OrderedDataStore:GetSortedAsync(bool ascending, int pagesize, Variant minValue, Variant maxValue) [Yields]
 Class GoogleAnalyticsConfiguration : Instance [NotCreatable] [Service]
@@ -1443,7 +1450,6 @@ Class Humanoid : Instance
 	Function void Humanoid:MoveTo(Vector3 location, Instance part = nil)
 	Function bool Humanoid:PlayEmote(string emoteName) [Yields]
 	Function Tuple Humanoid:PlayEmoteAndGetAnimTrackById(int64 emoteId) {RobloxScriptSecurity} [Yields]
-	Function bool Humanoid:PlayEmoteById(string emoteName, int64 emoteId) {RobloxScriptSecurity} [Yields]
 	Function void Humanoid:RemoveAccessories()
 	Function bool Humanoid:RemoveCustomStatus(string status) [Deprecated]
 	Function bool Humanoid:RemoveStatus(Enum<Status> status = "Poison") [Deprecated]
@@ -1523,6 +1529,16 @@ Class HumanoidDescription : Instance
 	Event HumanoidDescription.EquippedEmotesChanged(Array newEquippedEmotes)
 Class ILegacyStudioBridge : Instance [NotCreatable] [Service]
 Class LegacyStudioBridge : ILegacyStudioBridge [NotCreatable] [Service] [NotReplicated]
+Class IXPService : Instance [NotCreatable] [Service] [NotReplicated]
+	Function void IXPService:ClearUserLayers() {LocalUserSecurity}
+	Function Enum<IXPLoadingStatus> IXPService:GetBrowserTrackerLayerLoadingStatus() {LocalUserSecurity}
+	Function Dictionary IXPService:GetBrowserTrackerLayerVariables(string layerName) {LocalUserSecurity}
+	Function Enum<IXPLoadingStatus> IXPService:GetUserLayerLoadingStatus() {LocalUserSecurity}
+	Function Dictionary IXPService:GetUserLayerVariables(string layerName) {LocalUserSecurity}
+	Function void IXPService:InitializeUserLayers(int64 userId) {LocalUserSecurity}
+	Function void IXPService:RegisterUserLayers(Variant userLayers) {LocalUserSecurity}
+	Event IXPService.OnBrowserTrackerLayerLoadingStatusChanged(Enum<IXPLoadingStatus> status) {LocalUserSecurity}
+	Event IXPService.OnUserLayerLoadingStatusChanged(Enum<IXPLoadingStatus> status) {LocalUserSecurity}
 Class InputObject : Instance [NotCreatable]
 	Property Vector3 InputObject.Delta
 	Property Enum<KeyCode> InputObject.KeyCode
@@ -1895,6 +1911,10 @@ Class NotificationService : Instance [NotCreatable] [Service]
 	Event NotificationService.Roblox17sEventReceived(Map eventData)
 	Event NotificationService.RobloxConnectionChanged(string connectionName, Enum<ConnectionState> connectionState, string sequenceNumber, string namespaceSequenceNumbers) {RobloxScriptSecurity}
 	Event NotificationService.RobloxEventReceived(Map eventData) {RobloxScriptSecurity}
+Class ObjectVersionInfo : Instance [NotCreatable] [NotReplicated]
+	Property int64 ObjectVersionInfo.CreatedTime [ReadOnly]
+	Property bool ObjectVersionInfo.IsDeleted [ReadOnly]
+	Property string ObjectVersionInfo.Version [ReadOnly]
 Class PVInstance : Instance [NotCreatable] [NotBrowsable]
 Class BasePart : PVInstance [NotCreatable] [NotBrowsable]
 	Property BrickColor BasePart.BrickColor [<📁> LoadOnly] [NotReplicated]
@@ -2163,8 +2183,10 @@ Class Pages : Instance [NotCreatable] [NotReplicated]
 	Function void Pages:AdvanceToNextPageAsync() [Yields]
 	Function Array Pages:GetCurrentPage()
 Class CatalogPages : Pages [NotCreatable] [NotReplicated]
+Class DataStoreEnumerationPages : Pages [NotCreatable] [NotReplicated]
 Class DataStoreKeyPages : Pages [NotCreatable] [NotReplicated]
 Class DataStorePages : Pages [NotCreatable] [NotReplicated]
+Class DataStoreVersionPages : Pages [NotCreatable] [NotReplicated]
 Class FriendPages : Pages [NotCreatable] [NotReplicated]
 Class InventoryPages : Pages [NotCreatable] [NotReplicated]
 Class EmotesPages : InventoryPages [NotCreatable] [NotReplicated]
@@ -2175,6 +2197,7 @@ Class ParticleEmitter : Instance
 	Property ColorSequence ParticleEmitter.Color
 	Property float ParticleEmitter.LightEmission
 	Property float ParticleEmitter.LightInfluence
+	Property Enum<ParticleOrientation> ParticleEmitter.Orientation
 	Property NumberSequence ParticleEmitter.Size
 	Property Content ParticleEmitter.Texture
 	Property NumberSequence ParticleEmitter.Transparency
@@ -4399,6 +4422,15 @@ Enum IKCollisionsMode
 	EnumItem IKCollisionsMode.NoCollisions : 0
 	EnumItem IKCollisionsMode.OtherMechanismsAnchored : 1
 	EnumItem IKCollisionsMode.IncludeContactedMechanisms : 2
+Enum IXPLoadingStatus
+	EnumItem IXPLoadingStatus.None : 0
+	EnumItem IXPLoadingStatus.Pending : 1
+	EnumItem IXPLoadingStatus.Initialized : 2
+	EnumItem IXPLoadingStatus.ShutOff : 3
+	EnumItem IXPLoadingStatus.ErrorInvalidUser : 4
+	EnumItem IXPLoadingStatus.ErrorConnection : 5
+	EnumItem IXPLoadingStatus.ErrorJsonParse : 6
+	EnumItem IXPLoadingStatus.ErrorTimedOut : 7
 Enum InOut
 	EnumItem InOut.Edge : 0
 	EnumItem InOut.Inset : 1
@@ -4838,6 +4870,11 @@ Enum PartType
 	EnumItem PartType.Ball : 0
 	EnumItem PartType.Block : 1
 	EnumItem PartType.Cylinder : 2
+Enum ParticleOrientation
+	EnumItem ParticleOrientation.FacingCamera : 0
+	EnumItem ParticleOrientation.FacingCameraWorldUp : 1
+	EnumItem ParticleOrientation.VelocityParallel : 2
+	EnumItem ParticleOrientation.VelocityPerpendicular : 3
 Enum PathStatus
 	EnumItem PathStatus.Success : 0
 	EnumItem PathStatus.ClosestNoPath : 1 [Deprecated]
@@ -5067,6 +5104,9 @@ Enum SizeConstraint
 	EnumItem SizeConstraint.RelativeXY : 0
 	EnumItem SizeConstraint.RelativeXX : 1
 	EnumItem SizeConstraint.RelativeYY : 2
+Enum SortDirection
+	EnumItem SortDirection.Ascending : 0
+	EnumItem SortDirection.Descending : 1
 Enum SortOrder
 	EnumItem SortOrder.Name : 0
 	EnumItem SortOrder.Custom : 1 [Deprecated]

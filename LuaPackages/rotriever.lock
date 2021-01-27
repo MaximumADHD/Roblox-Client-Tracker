@@ -16,7 +16,7 @@ version = "0.1.0"
 dependencies = [
     "AvatarExperienceDeps AvatarExperienceDeps 5a31b418 git+https://github.com/roblox/avatar-experience-deps#master",
     "Cryo roblox/cryo 1.0.0 url+https://github.com/roblox/cryo",
-    "DeveloperTools roblox/developer-tools 0.1.2 url+https://github.com/roblox/developer-tools",
+    "DeveloperTools roblox/developer-tools 0.1.4 url+https://github.com/roblox/developer-tools",
     "InGameMenuDependencies InGameMenuDependencies aecc56c1 git+https://github.com/roblox/in-game-menu-dependencies#master",
     "LuaChatDeps LuaChatDeps f16c0046 git+https://github.com/roblox/lua-chat-deps#master",
     "LuaDiscussionsDeps LuaDiscussionsDeps 149f4695 git+https://github.com/roblox/lua-discussions-deps#master",
@@ -176,8 +176,8 @@ source = "url+https://github.com/roblox/dash"
 
 [[package]]
 name = "roblox/developer-tools"
-version = "0.1.2"
-commit = "c825df3a10a9923f025a3daa0f65725a7fbef84a"
+version = "0.1.4"
+commit = "90266d909da3b9264eb893a3761d80d97d2d3f4f"
 source = "url+https://github.com/roblox/developer-tools"
 dependencies = ["Dash roblox/dash 0.1.7 url+https://github.com/roblox/dash"]
 
