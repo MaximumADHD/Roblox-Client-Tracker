@@ -14,9 +14,11 @@
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
-local ContextServices = require(Plugin.Packages.Framework.ContextServices)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
-local Cryo = require(Plugin.Packages.Cryo)
+
+local Framework = require(Plugin.Packages.Framework)
+local THEME_REFACTOR = Framework.Util.RefactorFlags.THEME_REFACTOR
+local ContextServices = Framework.ContextServices
 
 local Components = Plugin.Src.Components
 local ButtonArray = require(Components.ButtonArray)
@@ -33,7 +35,7 @@ local ROUTES = Constants.ROUTES.MemStorage
 local OPERATION_SUCCESSFUL = Constants.OPERATION_SUCCESSFUL
 local VIEW_ID = Constants.VIEW_ID.MemStorage
 
-local UI = require(Plugin.Packages.Framework.UI)
+local UI = Framework.UI
 local RadioButtonList = UI.RadioButtonList
 
 local Operations = Plugin.Src.Operations
@@ -111,8 +113,15 @@ function MemStorageEventView:render()
 	local props = self.props
 	local kvPair = props.KeyValuePair
 
-	local theme = self.props.Theme
-	local layout = theme:get("Layout")
+	local theme, layout
+	if THEME_REFACTOR then
+		theme = props.Stylizer
+		layout = theme.Layout
+	else
+		theme = props.Theme
+		layout = theme:get("Layout")
+	end
+	
 
 	return Roact.createElement("Frame", {
 		ZIndex = -5,
@@ -152,7 +161,8 @@ function MemStorageEventView:render()
 end
 
 ContextServices.mapToProps(MemStorageEventView, {
-	Theme = ContextServices.Theme,
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
 })
 
 return RoactRodux.connect(

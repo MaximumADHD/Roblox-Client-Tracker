@@ -1,5 +1,4 @@
 local FFlagCGELocalizeWindowTitle = game:GetFastFlag("CGELocalizeWindowTitle")
-local FFlagFixCGECursor = game:GetFastFlag("FixCGECursor")
 
 local Roact = require(script.Parent.Parent.Parent.modules.Roact)
 local UILibrary = require(script.Parent.Parent.Parent.modules.UILibrary)
@@ -131,7 +130,7 @@ function Gui:render()
 		Roact.createElement("Frame", {
 			Size = UDim2.new(1, 0, 1, 0),
 			BackgroundColor3 = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.MainBackground),
-			[Roact.Event.MouseEnter] = FFlagFixCGECursor and function()
+			[Roact.Event.MouseEnter] = function()
 				-- Push the arrow icon back to the top of the icon stack
 				plugin:GetMouse().Icon = ""
 				plugin:GetMouse().Icon = "rbxasset://SystemCursors/Arrow"

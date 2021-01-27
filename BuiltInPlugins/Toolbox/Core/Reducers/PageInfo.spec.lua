@@ -93,7 +93,7 @@ return function()
 			local state = PageInfo(nil, {})
 
 			-- SetCategories is removed, but this test is skipped anyway.
-			local SetCategories -- Silence warning caused by roblox-cli. Delete this line along with the fix for this unit test.
+			local SetCategories = nil -- Silence warning caused by roblox-cli. Delete this line along with the fix for this unit test.
 			state = PageInfo(state, SetCategories(Category.INVENTORY_KEY, Category.INVENTORY))
 			expect(state.categories).to.equal(Category.INVENTORY)
 			expect(state.groupIndex).to.equal(0)

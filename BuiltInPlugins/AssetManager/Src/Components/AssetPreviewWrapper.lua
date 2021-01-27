@@ -46,7 +46,7 @@ function AssetPreviewWrapper:init()
         local analytics = props.Analytics
         local assetData = props.AssetData
 
-        props.dispatchOnAssetDoubleClick(analytics, assetData)
+        props.dispatchOnAssetDoubleClick(analytics, assetData, true)
     end
 
     self.requestFavoriteCounts = function()
@@ -193,8 +193,8 @@ ContextServices.mapToProps(AssetPreviewWrapper, {
 
 local function mapDispatchToProps(dispatch)
 	return {
-        dispatchOnAssetDoubleClick = function(analytics, assetData)
-            dispatch(OnAssetDoubleClick(analytics, assetData))
+        dispatchOnAssetDoubleClick = function(analytics, assetData, isAssetPreviewInsertButton)
+            dispatch(OnAssetDoubleClick(analytics, assetData, isAssetPreviewInsertButton))
         end,
         dispatchOnAssetRightClick = function(props)
             props.IsAssetPreviewMenu = true

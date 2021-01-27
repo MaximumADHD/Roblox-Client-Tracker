@@ -7,8 +7,14 @@ if not (game:GetService("StudioService"):HasInternalPermission()) then
 	return
 end
 
+require(script.Parent.defineLuaFlags)
+local FFlagEnableEventEmulatorStylizer = game:GetFastFlag("EnableEventEmulatorStylizer")
+
 local main = script.Parent.Parent
 local Roact = require(main.Packages.Roact)
+
+local RefactorFlags = require(main.Packages.Framework.Util.RefactorFlags)
+RefactorFlags.THEME_REFACTOR = FFlagEnableEventEmulatorStylizer
 
 local MainPlugin = require(main.Src.MainPlugin)
 local handle

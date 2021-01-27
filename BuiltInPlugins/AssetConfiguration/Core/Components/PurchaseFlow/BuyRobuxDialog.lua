@@ -24,6 +24,8 @@ local PurchaseDialog = require(Plugin.Core.Components.PurchaseFlow.PurchaseDialo
 local ContextHelper = require(Plugin.Core.Util.ContextHelper)
 local withLocalization = ContextHelper.withLocalization
 
+local FFlagToolboxUseDevFrameworkDialogs = game:GetFastFlag("ToolboxUseDevFrameworkDialogs")
+
 local BuyRobuxDialog = Roact.PureComponent:extend("BuyRobuxDialog")
 
 function BuyRobuxDialog:render()
@@ -38,11 +40,12 @@ function BuyRobuxDialog:render()
 		local balance = props.Balance
 
 		local robuxNeeded = cost - balance
+		local primaryString = FFlagToolboxUseDevFrameworkDialogs and "RoundPrimary" or "Primary"
 
 		return Roact.createElement(PurchaseDialog, {
 			Buttons = {
 				{Key = false, Text = localizedContent.PurchaseFlow.Cancel},
-				{Key = true, Text = localizedContent.PurchaseFlow.BuyRobux, Style = "Primary"},
+				{Key = true, Text = localizedContent.PurchaseFlow.BuyRobux, Style = primaryString},
 			},
 			OnButtonClicked = onButtonClicked,
 			OnClose = onClose,

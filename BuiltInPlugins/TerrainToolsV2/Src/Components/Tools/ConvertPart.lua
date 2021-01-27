@@ -1,5 +1,3 @@
-local FFlagTerrainToolsRedesignProgressDialog = game:GetFastFlag("TerrainToolsRedesignProgressDialog")
-
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
@@ -19,7 +17,6 @@ local OtherGenerateSettings = require(ToolParts.OtherGenerateSettings)
 local Panel = require(ToolParts.Panel)
 local SingleSelectButtonGroup = require(ToolParts.SingleSelectButtonGroup)
 
-local DEPRECATED_ConvertProgressFrame = require(Plugin.Src.Components.DEPRECATED_ConvertProgressFrame)
 local ProgressDialog = require(Plugin.Src.Components.ProgressDialog)
 
 local TerrainEnums = require(Plugin.Src.Util.TerrainEnums)
@@ -356,17 +353,7 @@ function ConvertPart:render()
 			}
 		}),
 
-		DEPRECATED_ConvertProgressFrame = not FFlagTerrainToolsRedesignProgressDialog and (isRunning
-		and Roact.createElement(DEPRECATED_ConvertProgressFrame, {
-			Progress = progress,
-			IsPaused = isPaused,
-
-			Title = localizedConvertState,
-			OnPauseRequested = self.onPauseClicked,
-			OnCancelRequested = self.onCancelClicked,
-		})),
-
-		ProgressDialog = FFlagTerrainToolsRedesignProgressDialog and (isRunning and Roact.createElement(ProgressDialog, {
+		ProgressDialog = isRunning and Roact.createElement(ProgressDialog, {
 			Title = localization:getText("ConvertPart", "ConvertProgressTitle"),
 			SubText = localizedConvertState,
 
@@ -375,7 +362,7 @@ function ConvertPart:render()
 
 			OnPauseButtonClicked = self.onPauseClicked,
 			OnCancelButtonClicked = self.onCancelClicked,
-		})),
+		}),
 	})
 end
 

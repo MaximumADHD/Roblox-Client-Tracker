@@ -17,7 +17,7 @@ local RoactRodux = require(Plugin.Packages.RoactRodux)
 local ContextServices = Framework.ContextServices
 local ContextItems = require(Plugin.Src.ContextItems)
 
-local ErrorDialog = require(Plugin.Src.Components.ErrorDialog)
+local InfoDialog = require(Plugin.Src.Components.InfoDialog)
 
 local ToolParts = script.Parent.ToolParts
 local ButtonGroup = require(ToolParts.ButtonGroup)
@@ -485,10 +485,11 @@ function ImportLocal:render()
 			OnCancelButtonClicked = self.onCancelRequested,
 		}),
 
-		ErrorDialog = self.state.hasError and Roact.createElement(ErrorDialog, {
+		ErrorDialog = self.state.hasError and Roact.createElement(InfoDialog, {
 			Title = "Roblox Studio",
 			MainText = errorMainText,
 			SubText = errorSubText,
+			Image = "rbxasset://textures/ui/ErrorIcon.png",
 			OnClose = self.clearErrorMessage,
 		}),
 	})

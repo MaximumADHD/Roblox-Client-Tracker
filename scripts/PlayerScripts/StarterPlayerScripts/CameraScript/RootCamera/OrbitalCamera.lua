@@ -27,7 +27,6 @@ externalProperties["CWAzimuthTravel"] 	= 90	-- How many degrees the camera is al
 externalProperties["CCWAzimuthTravel"] 	= 90	-- How many degrees the camera is allowed to rotate from the reference position, CCW as seen from above
 externalProperties["UseAzimuthLimits"] 	= false -- Full rotation around Y axis available by default
 
-local refAzimuthRad
 local curAzimuthRad
 local minAzimuthAbsoluteRad
 local maxAzimuthAbsoluteRad

@@ -7,7 +7,9 @@ local RobloxAPI = Framework.RobloxAPI
 
 local AssetManagerService = game:GetService("AssetManagerService")
 
-return function(analytics, assetData)
+local FFlagStudioAssetManagerFixLinkedScripts = game:GetFastFlag("StudioAssetManagerFixLinkedScripts")
+
+return function(analytics, assetData, isAssetPreviewInsertButton)
     return function(store)
         local isFolder = assetData.ClassName == "Folder"
         if isFolder then
@@ -24,7 +26,15 @@ return function(analytics, assetData)
             elseif assetType == Enum.AssetType.MeshPart then
                 AssetManagerService:InsertMesh("Meshes/".. assetData.name, false)
             elseif assetType == Enum.AssetType.Lua then
-                AssetManagerService:OpenLinkedSource("Scripts/" .. assetData.name)
+                if FFlagStudioAssetManagerFixLinkedScripts then
+                    if isAssetPreviewInsertButton then
+                        AssetManagerService:InsertLinkedSourceAsScript("Scripts/".. assetData.name)
+                    else
+                        AssetManagerService:OpenLinkedSource("Scripts/" .. assetData.name)
+                    end
+                else
+                    AssetManagerService:OpenLinkedSource("Scripts/" .. assetData.name)
+                end
             elseif (not RobloxAPI:baseURLHasChineseHost()) and assetType == Enum.AssetType.Audio then
                 AssetManagerService:InsertAudio(assetData.id, assetData.name)
             end

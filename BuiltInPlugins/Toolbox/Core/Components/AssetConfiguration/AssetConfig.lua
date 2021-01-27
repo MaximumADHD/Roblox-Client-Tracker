@@ -350,8 +350,7 @@ function AssetConfig:init(props)
 	self.tryCloseAssetConfig = function(index, action)
 		if action == "yes" then
 			-- Close the assetConfig
-			local _, pluginGui
-			pluginGui = self.props.Focus:getTarget()
+			local pluginGui = self.props.Focus:getTarget()
 
 			-- And we will let AssetConfigWrapper to handle the onClose and unMount.
 			pluginGui.Enabled = false

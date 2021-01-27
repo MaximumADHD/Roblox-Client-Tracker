@@ -25,6 +25,8 @@ local FFlagCleanupRightClickContextMenuFunctions = game:GetFastFlag("CleanupRigh
 local FFlagAssetManagerRemoveAssetFixes = game:GetFastFlag("AssetManagerRemoveAssetFixes")
 local FFlagAssetManagerFixRightClickForAudio = game:GetFastFlag("AssetManagerFixRightClickForAudio")
 local FFlagStudioAssetManagerNewMultiselectMeshBehavior = game:getFastFlag("StudioAssetManagerNewMultiselectMeshBehavior")
+local FFlagStudioAssetManagerUseNewPackagesEndpoint = game:GetFastFlag("StudioAssetManagerUseNewPackagesEndpoint")
+local FFlagStudioAssetManagerFixMeshContextMenu = game:GetFastFlag("StudioAssetManagerFixMeshContextMenu")
 
 local EVENT_ID_OPENASSETCONFIG = "OpenAssetConfiguration"
 
@@ -194,11 +196,20 @@ local function createPackageContextMenu(analytics, assetData, contextMenu, isAss
             end
         end)
     end
-    if RunService:IsEdit() then
-        contextMenu:AddNewAction("UpdateAll", localization:getText("ContextMenu", "UpdateAll")).Triggered:connect(function()
-            AssetManagerService:UpdateAllPackages(assetData.id)
-            analytics:report("clickContextMenuItem")
-        end)
+    if FFlagStudioAssetManagerUseNewPackagesEndpoint then
+        if RunService:IsEdit() and (assetData.action == "Edit" or assetData.action == "Own") then
+            contextMenu:AddNewAction("UpdateAll", localization:getText("ContextMenu", "UpdateAll")).Triggered:connect(function()
+                AssetManagerService:UpdateAllPackages(assetData.id)
+                analytics:report("clickContextMenuItem")
+            end)
+        end
+    else
+        if RunService:IsEdit() then
+            contextMenu:AddNewAction("UpdateAll", localization:getText("ContextMenu", "UpdateAll")).Triggered:connect(function()
+                AssetManagerService:UpdateAllPackages(assetData.id)
+                analytics:report("clickContextMenuItem")
+            end)
+        end
     end
     contextMenu:AddNewAction("ViewOnWebsite", localization:getText("ContextMenu", "ViewOnWebsite")).Triggered:connect(function()
         AssetManagerService:ViewPackageOnWebsite(assetData.id)
@@ -316,14 +327,26 @@ local function createMeshPartContextMenu(analytics, apiImpl, assetData, contextM
     end
     local textureId = AssetManagerService:GetTextureId("Meshes/".. assetData.name)
     local view = state.AssetManagerReducer.view
-    if view.Key == View.LIST.Key then
-        contextMenu:AddNewAction("AssetPreview", localization:getText("ContextMenu", "AssetPreview")).Triggered:connect(function()
-            if FFlagAssetManagerRemoveAssetFixes then
-                -- when opening asset preview, set selected assets to that asset only
-                store:dispatch(SetSelectedAssets({ [assetData.key] = true }))
-            end
-            onOpenAssetPreview(assetData)
-        end)
+    if FFlagStudioAssetManagerFixMeshContextMenu then
+        if view.Key == View.LIST.Key and not isAssetPreviewMenu then
+            contextMenu:AddNewAction("AssetPreview", localization:getText("ContextMenu", "AssetPreview")).Triggered:connect(function()
+                if FFlagAssetManagerRemoveAssetFixes then
+                    -- when opening asset preview, set selected assets to that asset only
+                    store:dispatch(SetSelectedAssets({ [assetData.key] = true }))
+                end
+                onOpenAssetPreview(assetData)
+            end)
+        end
+    else
+        if view.Key == View.LIST.Key then
+            contextMenu:AddNewAction("AssetPreview", localization:getText("ContextMenu", "AssetPreview")).Triggered:connect(function()
+                if FFlagAssetManagerRemoveAssetFixes then
+                    -- when opening asset preview, set selected assets to that asset only
+                    store:dispatch(SetSelectedAssets({ [assetData.key] = true }))
+                end
+                onOpenAssetPreview(assetData)
+            end)
+        end
     end
     if FFlagCleanupRightClickContextMenuFunctions then
         addEditAssetContextItem(contextMenu, analytics, assetData, localization, Enum.AssetType.MeshPart.Value)

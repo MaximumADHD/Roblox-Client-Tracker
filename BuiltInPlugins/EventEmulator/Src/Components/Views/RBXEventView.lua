@@ -16,8 +16,11 @@
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
-local ContextServices = require(Plugin.Packages.Framework.ContextServices)
 local Cryo = require(Plugin.Packages.Cryo)
+
+local Framework = require(Plugin.Packages.Framework)
+local THEME_REFACTOR = Framework.Util.RefactorFlags.THEME_REFACTOR
+local ContextServices = Framework.ContextServices
 
 local Actions = Plugin.Src.Actions
 local SetRBXParameters = require(Actions.SetRBXParameters)
@@ -87,8 +90,14 @@ function RBXEventView:init()
 		local props = self.props
 		local params = props.Parameters
 
-		local theme = self.props.Theme
-		local layout = theme:get("Layout")
+		local theme, layout
+		if THEME_REFACTOR then
+			theme = props.Stylizer
+			layout = theme.Layout
+		else
+			theme = props.Theme
+			layout = theme:get("Layout")
+		end
 
 		local children = {
 			Layout = Roact.createElement("UIListLayout", layout.Vertical),
@@ -131,7 +140,8 @@ function RBXEventView:render()
 end
 
 ContextServices.mapToProps(RBXEventView,{
-	Theme = ContextServices.Theme,
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
 })
 
 return RoactRodux.connect(

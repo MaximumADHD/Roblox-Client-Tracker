@@ -2,14 +2,14 @@ local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 
-local Framework = Plugin.Packages.Framework
-local ContextServices = require(Framework.ContextServices)
+local Framework = require(Plugin.Packages.Framework)
+local THEME_REFACTOR = Framework.Util.RefactorFlags.THEME_REFACTOR
+local ContextServices = Framework.ContextServices
 
-local UI = require(Plugin.Packages.Framework.UI)
+local UI = Framework.UI
 local Container = UI.Container
 local Decoration = UI.Decoration
 local Button = UI.Button
-local TextInput = UI.TextInput
 
 local Actions = Plugin.Src.Actions
 local RemoveHistoryItem = require(Actions.RemoveHistoryItem)
@@ -52,10 +52,18 @@ function RepopulatableHistoryItem:render()
 	local name = props.Name
 	local view = props.View
 
-	local theme = props.Theme
-	local sizes = theme:get("Sizes")
-	local layout = theme:get("Layout")
-	local textStyle = theme:get("Text")
+	local theme, sizes, layout, textStyle
+	if THEME_REFACTOR then
+		theme = props.Stylizer
+		sizes = theme.Sizes
+		layout = theme.Layout
+		textStyle = theme.Text
+	else
+		theme = props.Theme
+		sizes = theme:get("Sizes")
+		layout = theme:get("Layout")
+		textStyle = theme:get("Text")
+	end
 
 	return Roact.createElement(Container, {
 		Background = Decoration.Box,
@@ -88,7 +96,8 @@ function RepopulatableHistoryItem:render()
 end
 
 ContextServices.mapToProps(RepopulatableHistoryItem,{
-	Theme = ContextServices.Theme,
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
 })
 
 return RoactRodux.connect(

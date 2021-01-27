@@ -7,17 +7,20 @@
 		table ViewData: table of data to display child nodes
 		function focusLost: A function that passes an identifier and new usr input to the parent
 	Optional Props:
-		
+
 	Style Values:
 ]]
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
-local ContextServices = require(Plugin.Packages.Framework.ContextServices)
+
+local Framework = require(Plugin.Packages.Framework)
+local THEME_REFACTOR = Framework.Util.RefactorFlags.THEME_REFACTOR
+local ContextServices = Framework.ContextServices
 
 local Components = Plugin.Src.Components
 local TextInput = require(Components.TextInput)
 
-local UI = require(Plugin.Packages.Framework.UI)
+local UI = Framework.UI
 local RadioButtonList = UI.RadioButtonList
 
 local Constants = require(Plugin.Src.Util.Constants)
@@ -63,10 +66,17 @@ end
 
 function ThemeView:render()
 	local state = self.state
+	local props = self.props
 	local selectedKey = state.SelectedKey
 
-	local theme = self.props.Theme
-	local layout = theme:get("Layout")
+	local theme, layout
+	if THEME_REFACTOR then
+		theme = props.Stylizer
+		layout = theme.Layoutr
+	else
+		theme = props.Theme
+		layout = theme:get("Layout")
+	end
 
 	return Roact.createElement("Frame", {
 		Size = UDim2.new(1, 0, 1, 0),
@@ -91,7 +101,8 @@ function ThemeView:render()
 end
 
 ContextServices.mapToProps(ThemeView, {
-	Theme = ContextServices.Theme,
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
 })
 
 return ThemeView

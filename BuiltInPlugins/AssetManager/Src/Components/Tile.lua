@@ -1,5 +1,7 @@
 local Plugin = script.Parent.Parent.Parent
 
+local FFlagStudioAssetManagerConvertToDevFrameworkTooltips = game:GetFastFlag("StudioAssetManagerConvertToDevFrameworkTooltips")
+
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 
@@ -9,9 +11,11 @@ local Util = require(Framework.Util)
 local StyleModifier = Util.StyleModifier
 local RobloxAPI = require(Framework).RobloxAPI
 
+local UI = require(Framework.UI)
+
 local UILibrary = require(Plugin.Packages.UILibrary)
 local GetTextSize = UILibrary.Util.GetTextSize
-local Tooltip = UILibrary.Component.Tooltip
+local Tooltip = FFlagStudioAssetManagerConvertToDevFrameworkTooltips and UI.Tooltip or UILibrary.Component.Tooltip
 
 local PopUpButton = require(Plugin.Src.Components.PopUpButton)
 
@@ -29,6 +33,8 @@ local ContentProvider = game:GetService("ContentProvider")
 local FFlagBatchThumbnailAddNewThumbnailTypes = game:GetFastFlag("BatchThumbnailAddNewThumbnailTypes")
 local FFlagAssetManagerRemoveAssetFixes = game:GetFastFlag("AssetManagerRemoveAssetFixes")
 local FFlagStudioAssetManagerAssetPreviewRequest = game:GetFastFlag("StudioAssetManagerAssetPreviewRequest")
+local FFlagStudioAssetManagerFixLinkedScripts = game:GetFastFlag("StudioAssetManagerFixLinkedScripts")
+local FFlagStudioAssetManagerTileAssetPreviewRequest = game:GetFastFlag("StudioAssetManagerTileAssetPreviewRequest")
 
 local Tile = Roact.PureComponent:extend("Tile")
 
@@ -63,6 +69,14 @@ function Tile:init()
         self:setState({
             assetPreviewButtonHovered = true,
         })
+        if FFlagStudioAssetManagerTileAssetPreviewRequest then
+            local assetData = self.props.AssetData
+            local isFolder = assetData.ClassName == "Folder"
+            local isPlace = assetData.assetType == Enum.AssetType.Place
+            if not isFolder and not isPlace then
+                self.props.dispatchGetAssetPreviewData(self.props.API:get(), {assetData.id})
+            end
+        end
     end
 
     self.onMouseLeave = function()
@@ -110,8 +124,10 @@ function Tile:init()
 
     self.openAssetPreview = function()
         local assetData = self.props.AssetData
-        if FFlagStudioAssetManagerAssetPreviewRequest then
-            self.props.dispatchGetAssetPreviewData(self.props.API:get(), {assetData.id})
+        if not FFlagStudioAssetManagerTileAssetPreviewRequest then
+            if FFlagStudioAssetManagerAssetPreviewRequest then
+                self.props.dispatchGetAssetPreviewData(self.props.API:get(), {assetData.id})
+            end
         end
         if FFlagAssetManagerRemoveAssetFixes then
             -- when opening asset preview, set selected assets to that asset only
@@ -138,7 +154,7 @@ function Tile:init()
                 AssetManagerService:RenamePlace(assetData.id, newName)
             elseif assetData.assetType == Enum.AssetType.Image
             or assetData.assetType == Enum.AssetType.MeshPart
-            or assetData.assetType == Enum.AssetType.Image
+            or (FFlagStudioAssetManagerFixLinkedScripts and assetData.assetType == Enum.AssetType.Lua)
             or ((not RobloxAPI:baseURLHasChineseHost()) and assetData.assetType == Enum.AssetType.Audio) then
                 local prefix
                 -- Setting asset type to same value as Enum.AssetType since it cannot be passed into function

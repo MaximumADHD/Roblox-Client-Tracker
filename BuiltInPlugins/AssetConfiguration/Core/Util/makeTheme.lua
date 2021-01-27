@@ -1,3 +1,5 @@
+local FFlagToolboxUseDevFrameworkDialogs = game:GetFastFlag("ToolboxUseDevFrameworkDialogs")
+
 local Plugin = script.Parent.Parent.Parent
 
 local Libs = Plugin.Libs
@@ -22,10 +24,8 @@ local FrameworkStyle = Framework.Style
 local StudioTheme = FrameworkStyle.Themes.StudioTheme
 local StyleKey = FrameworkStyle.StyleKey
 
-local ToolboxTheme = {}
-ToolboxTheme.__index = ToolboxTheme
-
 local makeTheme
+
 if THEME_REFACTOR then
 	local function getUILibraryTheme(styleRoot, overrides)
 		local theme = settings().Studio.Theme
@@ -36,7 +36,6 @@ if THEME_REFACTOR then
 
 		local styleKeysTable = Stylizer:getStyleKeysTable(styleRoot)
 		overrides = Stylizer:convertStyleKeys(overrides or {}, nil, nil, styleKeysTable)
-		-- TODO: Move colors from ToolboxTheme to here
 
 		return createTheme(styleGuide, overrides)
 	end
@@ -44,8 +43,14 @@ if THEME_REFACTOR then
 	makeTheme = function(uiLibraryDeprecatedTheme)
 		local styleRoot = StudioTheme.new()
 		styleRoot:extend({
+			-- TODO: Move colors from ToolboxTheme to here
 			backgroundColor = StyleKey.InputFieldBackground,
 			progressBarColor = Colors.BLUE_PRIMARY,
+
+			purchaseDialog = FFlagToolboxUseDevFrameworkDialogs and {
+				promptText = StyleKey.MainText,
+				balanceText = StyleKey.DimmedText,
+			} or nil,
 		})
 		function styleRoot:getUILibraryTheme()
 			return getUILibraryTheme(styleRoot, uiLibraryDeprecatedTheme)
@@ -64,18 +69,20 @@ else
 			return theme:GetColor(...)
 		end, c, m)
 
-		-- TODO: Move colors from ToolboxTheme to here
-
 		return createTheme(styleGuide, overrides)
 	end
 
 	local function createValues(theme, getColor)
-		local studioStyleGuideColor = Enum.StudioStyleGuideColor
+		local c = Enum.StudioStyleGuideColor
 
 		return {
 			Plugin = {
-				backgroundColor = theme:GetColor(studioStyleGuideColor.InputFieldBackground),
+				backgroundColor = theme:GetColor(c.InputFieldBackground),
 				progressBarColor = Colors.BLUE_PRIMARY,
+				purchaseDialog = FFlagToolboxUseDevFrameworkDialogs and {
+					promptText = theme:GetColor(c.MainText),
+					balanceText = theme:GetColor(c.DimmedText),
+				} or nil,
 			},
 			Framework = StudioFrameworkStyles.new(theme, getColor),
 		}

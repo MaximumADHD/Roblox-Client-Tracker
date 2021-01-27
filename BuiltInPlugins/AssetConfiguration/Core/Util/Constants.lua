@@ -12,6 +12,7 @@ local FFlagSmallerToolboxMinWidth = game:DefineFastFlag("SmallerToolboxMinWidth"
 local FFlagUseCategoryNameInToolbox = game:GetFastFlag("UseCategoryNameInToolbox")
 local FFlagToolboxDisableMarketplaceAndRecentsForLuobu = game:GetFastFlag("ToolboxDisableMarketplaceAndRecentsForLuobu")
 local FFlagToolboxShowRobloxCreatedAssetsForLuobu = game:GetFastFlag("ToolboxShowRobloxCreatedAssetsForLuobu")
+local FFlagToolboxUseDevFrameworkDialogs = game:GetFastFlag("ToolboxUseDevFrameworkDialogs")
 
 local FIntLuobuToolboxMaxAudioLength = game:GetFastInt("LuobuToolboxMaxAudioLength")
 
@@ -250,7 +251,7 @@ Constants.Dialog = {
 	SIZE = Vector2.new(400, 186),
 	BUTTON_SIZE = Vector2.new(120, 32),
 	BUTTON_PADDING = 20,
-	BORDER_PADDING = 24,
+	BORDER_PADDING = (not FFlagToolboxUseDevFrameworkDialogs and 24) or nil,
 
 	IMAGE_SIZE = UDim2.fromOffset(80, 80),
 	PROMPT_SIZE = UDim2.fromOffset(260, 60),

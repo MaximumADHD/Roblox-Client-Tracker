@@ -38,8 +38,6 @@ local TopLevelContentFit = createFitToContent("ImageButton", "UIListLayout", {
 	FillDirection = Enum.FillDirection.Horizontal,
 })
 
-local TopLevelItem
-
 function ExpandableList:init()
 	self.state = {
 		isButtonHovered = false,

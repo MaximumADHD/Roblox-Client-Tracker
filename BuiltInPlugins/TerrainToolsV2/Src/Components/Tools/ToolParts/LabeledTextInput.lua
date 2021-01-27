@@ -57,8 +57,6 @@
 	})
 --]]
 
-local FFlagTerrainToolsFixLabeledElementPairWidth = game:GetFastFlag("TerrainToolsFixLabeledElementPairWidth")
-
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
@@ -86,11 +84,9 @@ local ROUNDED_FRAME_SLICE = Rect.new(3, 3, 13, 13)
 
 local LabeledTextInput = Roact.PureComponent:extend(script.Name)
 
-if FFlagTerrainToolsFixLabeledElementPairWidth then
-	LabeledTextInput.defaultProps = {
-		Width = UDim.new(0, Constants.SECOND_COLUMN_WIDTH),
-	}
-end
+LabeledTextInput.defaultProps = {
+	Width = UDim.new(0, Constants.SECOND_COLUMN_WIDTH),
+}
 
 function LabeledTextInput:init()
 	self.state = {

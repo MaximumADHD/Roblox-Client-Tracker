@@ -1,5 +1,7 @@
 local Plugin = script.Parent.Parent.Parent
 
+local FFlagTerrainToolsBrushInteractOnlyWithTerrain = game:GetFastFlag("TerrainToolsBrushInteractOnlyWithTerrain")
+
 local Constants = require(Plugin.Src.Util.Constants)
 local TerrainEnums = require(Plugin.Src.Util.TerrainEnums)
 local BrushShape = TerrainEnums.BrushShape
@@ -42,10 +44,13 @@ TerrainBrushCursor.__index = TerrainBrushCursor
 function TerrainBrushCursor.new(terrain)
 	local self = setmetatable({
 		_terrain = terrain,
-		_cursorPart = nil
+		_cursorPart = nil,
+		_cursorFolder = nil
 	}, TerrainBrushCursor)
 
-	assert(self._terrain, "TerrainBrushCursor needs a terrain instance")
+	if not FFlagTerrainToolsBrushInteractOnlyWithTerrain then
+		assert(self._terrain, "TerrainBrushCursor needs a terrain instance")
+	end
 
 	return self
 end
@@ -66,6 +71,11 @@ function TerrainBrushCursor:destroy()
 		self._cursorPart:Destroy()
 		self._cursorPart = nil
 	end
+
+	if self._cursorFolder then
+		self._cursorFolder:Destroy()
+		self._cursorFolder = nil
+	end
 end
 
 function TerrainBrushCursor:hide()
@@ -76,12 +86,23 @@ end
 
 -- If the cursor does not exist or is not visible, creates a new one and makes it visible
 function TerrainBrushCursor:maybeCreate()
+	if not self._cursorFolder then
+		self._cursorFolder = Instance.new("Folder")
+		self._cursorFolder.Name = "TerrainCursorPart"
+	end
+
+	if not self._cursorFolder.Parent then
+		self._cursorFolder.Parent = game:GetService("Workspace")
+	end
+
 	if not self._cursorPart then
 		self._cursorPart = createCursorPart()
 	end
 
 	if not self._cursorPart.Parent then
-		self._cursorPart.Parent = self._terrain
+		self._cursorPart.Parent = FFlagTerrainToolsBrushInteractOnlyWithTerrain 
+			and self._cursorFolder
+			or self._terrain
 	end
 end
 

@@ -9,6 +9,8 @@
 
 local Plugin = script.Parent.Parent.Parent
 
+local FFlagStudioAssetManagerConvertToDevFrameworkTooltips = game:GetFastFlag("StudioAssetManagerConvertToDevFrameworkTooltips")
+
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 local Framework = Plugin.Packages.Framework
@@ -27,7 +29,7 @@ local SearchBar = UILibrary.Component.SearchBar
 local LayoutOrderIterator = UILibrary.Util.LayoutOrderIterator
 local StyledTooltip = UILibrary.Component.StyledTooltip
 local GetTextSize = UILibrary.Util.GetTextSize
-local Tooltip = UILibrary.Component.Tooltip
+local Tooltip = FFlagStudioAssetManagerConvertToDevFrameworkTooltips and UI.Tooltip or UILibrary.Component.Tooltip
 
 local SetRecentViewToggled = require(Plugin.Src.Actions.SetRecentViewToggled)
 local SetSearchTerm = require(Plugin.Src.Actions.SetSearchTerm)

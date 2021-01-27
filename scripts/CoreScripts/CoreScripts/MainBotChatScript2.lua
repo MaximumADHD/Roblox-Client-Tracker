@@ -67,7 +67,6 @@ local lastChoice
 local choiceMap = {}
 local currentConversationDialog
 local currentConversationPartner
-local currentAbortDialogScript
 
 local coroutineMap = {}
 local currentDialogTimeoutCoroutine = nil
@@ -87,12 +86,8 @@ local setDialogInUseEvent = RobloxReplicatedStorage:WaitForChild("SetDialogInUse
 local FFlagFixDialogServerWait = require(RobloxGui.Modules.Common.Flags.GetFFlagFixDialogServerWait)()
 local FFlagFixDialogScriptNilChecks = game:DefineFastFlag("FixDialogScriptNilChecks", false)
 
-local player
-local screenGui
 local chatNotificationGui
 local messageDialog
-local timeoutScript
-local reenableDialogScript
 local dialogMap = {}
 local dialogConnections = {}
 local touchControlGui = nil
@@ -632,7 +627,7 @@ function addDialog(dialog)
 						chatGui.Enabled = (currentConversationDialog ~= dialog)
 					end
 
-					if not dialog.InUse and not isDialogMultiplePlayers(player) and dialog == currentConversationDialog then
+					if not dialog.InUse and not isDialogMultiplePlayers(dialog) and dialog == currentConversationDialog then
 						timeoutDialog()
 					end
 				elseif prop == "Tone" or prop == "Purpose" then

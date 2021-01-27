@@ -9,12 +9,23 @@
 		function OnClose = A callback for when the dialog is closed.
 ]]
 
+local FFlagToolboxUseDevFrameworkDialogs = game:GetFastFlag("ToolboxUseDevFrameworkDialogs")
+
 local Plugin = script.Parent.Parent.Parent.Parent
 local Libs = Plugin.Libs
-
 local Roact = require(Libs.Roact)
-local UILibrary = require(Libs.UILibrary)
-local StyledDialog = UILibrary.Component.StyledDialog
+
+local ContextServices = require(Libs.Framework).ContextServices
+local THEME_REFACTOR = require(Libs.Framework.Util.RefactorFlags).THEME_REFACTOR
+
+local StyledDialog
+if FFlagToolboxUseDevFrameworkDialogs then
+	local StudioUI = require(Libs.Framework).StudioUI
+	StyledDialog = StudioUI.StyledDialog
+else
+	local UILibrary = require(Libs.UILibrary)
+	StyledDialog = UILibrary.Component.StyledDialog
+end
 
 local ContextHelper = require(Plugin.Core.Util.ContextHelper)
 local Constants = require(Plugin.Core.Util.Constants)
@@ -25,38 +36,65 @@ local withLocalization = ContextHelper.withLocalization
 
 local PurchaseDialog = Roact.PureComponent:extend("PurchaseDialog")
 
-local function composedRender(renderFunc)
+function PurchaseDialog:render()
 	return withLocalization(function(localization, localizedContent)
-		return withTheme(function(theme)
-			return renderFunc(theme, localization, localizedContent)
-		end)
+		if FFlagToolboxUseDevFrameworkDialogs then
+			return self:renderContent(nil, localization, localizedContent)
+		else
+			return withTheme(function(theme)
+				return self:renderContent(theme, localization, localizedContent)
+			end)
+		end
 	end)
 end
 
-function PurchaseDialog:render()
-	return composedRender(function(theme, localization, localizedContent)
+function PurchaseDialog:renderContent(theme, localization, localizedContent)
 		local props = self.props
 		local onButtonClicked = props.OnButtonClicked
 		local onClose = props.OnClose
 		local name = props.Name
 
-		return Roact.createElement(StyledDialog, {
-			Buttons = {
-				{Key = false, Text = localizedContent.PurchaseFlow.Cancel},
-				{Key = true, Text = localizedContent.PurchaseFlow.Retry, Style = "Primary"},
-			},
-			OnButtonClicked = onButtonClicked,
-			OnClose = onClose,
-			Size = Dialog.SIZE,
-			Resizable = false,
-			BorderPadding = Dialog.BORDER_PADDING,
-			ButtonHeight = Dialog.BUTTON_SIZE.Y,
-			ButtonWidth = Dialog.BUTTON_SIZE.X,
-			ButtonPadding = Dialog.BUTTON_PADDING,
-			TextSize = Constants.FONT_SIZE_LARGE,
-			Title = localizedContent.PurchaseFlow.BuyTitle,
-			Modal = false,
-		}, {
+		if FFlagToolboxUseDevFrameworkDialogs then
+			if THEME_REFACTOR then
+				theme = self.props.Stylizer
+			else
+				theme = self.props.Theme:get("Plugin")
+			end
+		end
+
+		local styledDialogProps
+		if FFlagToolboxUseDevFrameworkDialogs then
+			styledDialogProps = {
+				Title = localizedContent.PurchaseFlow.BuyTitle,
+				MinContentSize = Vector2.new(Dialog.PROMPT_SIZE.X.Offset, Dialog.DETAILS_SIZE.Y.Offset),
+				Buttons = {
+					{Key = false, Text = localizedContent.PurchaseFlow.Cancel},
+					{Key = true, Text = localizedContent.PurchaseFlow.Retry, Style = "RoundPrimary"},
+				},
+				OnButtonPressed = onButtonClicked,
+				OnClose = onClose,
+			}
+		else
+			styledDialogProps = {
+				Buttons = {
+					{Key = false, Text = localizedContent.PurchaseFlow.Cancel},
+					{Key = true, Text = localizedContent.PurchaseFlow.Retry, Style = "Primary"},
+				},
+				OnButtonClicked = onButtonClicked,
+				OnClose = onClose,
+				Size = Dialog.SIZE,
+				Resizable = false,
+				BorderPadding = Dialog.BORDER_PADDING,
+				ButtonHeight = Dialog.BUTTON_SIZE.Y,
+				ButtonWidth = Dialog.BUTTON_SIZE.X,
+				ButtonPadding = Dialog.BUTTON_PADDING,
+				TextSize = Constants.FONT_SIZE_LARGE,
+				Title = localizedContent.PurchaseFlow.BuyTitle,
+				Modal = false,
+			}
+		end
+
+		return Roact.createElement(StyledDialog, styledDialogProps, {
 			Header = Roact.createElement("TextLabel", {
 				Size = Dialog.HEADER_SIZE,
 				BackgroundTransparency = 1,
@@ -83,7 +121,13 @@ function PurchaseDialog:render()
 				TextWrapped = true,
 			}),
 		})
-	end)
+end
+
+if FFlagToolboxUseDevFrameworkDialogs then
+	ContextServices.mapToProps(PurchaseDialog, {
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	})
 end
 
 return PurchaseDialog

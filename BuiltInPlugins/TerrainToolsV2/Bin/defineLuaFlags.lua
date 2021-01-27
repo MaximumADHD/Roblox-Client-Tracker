@@ -5,6 +5,7 @@
 game:DefineFastFlag("TerrainOpenCloseMetrics", false)
 game:DefineFastFlag("TerrainEnableErrorReporting", false)
 game:DefineFastFlag("TerrainToolsImportUploadAssets", false)
+game:DefineFastFlag("TerrainToolsBrushInteractOnlyWithTerrain", false)
 game:DefineFastFlag("EnableTerrainToolsStylizer", false)
 
 local function handleFlagDependencies(flag, requiredFlags)
@@ -18,18 +19,8 @@ local function handleFlagDependencies(flag, requiredFlags)
 	end
 end
 
-handleFlagDependencies("TerrainToolsBetterImportTool", {
-	"TerrainToolsIncludeDevFrameworkTheme",
-	"TerrainToolsFixLabeledElementPairWidth",
-	"TerrainToolsRedesignProgressDialog",
-})
-
 handleFlagDependencies("TerrainToolsMapSettingsMaxVolume", {
 	"TerrainToolsLabeledElementPairIcons",
-})
-
-handleFlagDependencies("TerrainToolsRedesignProgressDialog", {
-	"TerrainToolsIncludeDevFrameworkTheme",
 })
 
 -- Need to explicitly return something from a module

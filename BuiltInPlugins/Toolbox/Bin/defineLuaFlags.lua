@@ -55,4 +55,6 @@ game:DefineFastFlag("ToolboxStopAudioFromPlayingOnCloseAndCategorySwitch", false
 
 game:DefineFastFlag("ToolboxUseTranslationDevelopmentTable", false)
 
+game:DefineFastFlag("ToolboxUseDevFrameworkDialogs", false)
+
 return nil

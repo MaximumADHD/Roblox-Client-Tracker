@@ -5,8 +5,6 @@
 game:DefineFastFlag("TerrainToolsReplaceUseModeSelector", false)
 
 local FFlagTerrainToolsReplaceUseModeSelector = game:GetFastFlag("TerrainToolsReplaceUseModeSelector")
-local FFlagTerrainToolsRedesignProgressDialog = game:GetFastFlag("TerrainToolsRedesignProgressDialog")
-
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
@@ -38,7 +36,6 @@ local ButtonGroup = require(ToolParts.ButtonGroup)
 local Panel = require(ToolParts.Panel)
 local MapSettingsWithPreview = require(ToolParts.MapSettingsWithPreview)
 local MaterialSelector = require(ToolParts.MaterialSelector)
-local DEPRECATED_ProgressFrame = require(script.Parent.Parent.DEPRECATED_ProgressFrame)
 local ProgressDialog = require(Plugin.Src.Components.ProgressDialog)
 local ModeSelector = require(ToolParts.ModeSelector)
 
@@ -46,8 +43,6 @@ local BaseBrush = require(Plugin.Src.Components.Tools.BaseBrush)
 
 local TerrainEnums = require(Plugin.Src.Util.TerrainEnums)
 local ReplaceMode = TerrainEnums.ReplaceMode
-
-local CoreGui = game:GetService("CoreGui")
 
 local REDUCER_KEY = "ReplaceTool"
 
@@ -240,31 +235,16 @@ function Replace:render()
 					},
 				}
 			}),
-
-			DEPRECATED_ProgressBar = not FFlagTerrainToolsRedesignProgressDialog and (isReplacing
-				and Roact.createElement(Roact.Portal, {
-				target = CoreGui,
-			}, {
-				ReplaceProgressScreenGui = Roact.createElement("ScreenGui", {}, {
-					Roact.createElement(DEPRECATED_ProgressFrame, {
-						AnchorPoint = Vector2.new(0.5, 0),
-						Position = UDim2.new(0.5, 0, 0, 0),
-						Progress = progress,
-						OnCancelButtonClicked = self.cancel,
-					})
-				})
-			})),
 		}),
 
-		ProgressDialog = FFlagTerrainToolsRedesignProgressDialog and (isReplacing
-			and Roact.createElement(ProgressDialog, {
+		ProgressDialog = isReplacing and Roact.createElement(ProgressDialog, {
 			Title = localization:getText("Replace", "ReplaceProgressTitle"),
 			SubText = localization:getText("Replace", "Replacing"),
 
 			Progress = progress,
 
 			OnCancelButtonClicked = self.cancel,
-		})),
+		}),
 	})
 end
 

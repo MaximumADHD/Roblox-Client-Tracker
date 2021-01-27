@@ -2047,8 +2047,6 @@ function movePart(delta, collision)
 				dragVector = Vector3.new(0,0,0)
 			end
 
-			local collidedPart, collidedLocation
-
 			local partNormalTable = {}
 
 			safeMoveWrapper(dragPart, 0.0002, selection, dragVector * -1)
@@ -2105,9 +2103,6 @@ function movePart(delta, collision)
 			local finalPositionTable = {}
 
 			local localFaceNormalTable = {}
-			local tick1 --= tick()
-			local tick2 --= tick()
-			local tick3 --= tick()
 			for _,v in pairs(partNormalTable) do
 
 				dragPart.CFrame = initialPos

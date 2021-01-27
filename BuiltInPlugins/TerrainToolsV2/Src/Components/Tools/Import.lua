@@ -5,8 +5,6 @@
 	Displays panels associated with the import tool
 ]]
 
-local FFlagTerrainToolsRedesignProgressDialog = game:GetFastFlag("TerrainToolsRedesignProgressDialog")
-
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
@@ -19,7 +17,6 @@ local ContextItems = require(Plugin.Src.ContextItems)
 local ToolParts = script.Parent.ToolParts
 local AssetIdSelector = require(ToolParts.AssetIdSelector)
 local ButtonGroup = require(ToolParts.ButtonGroup)
-local DEPRECATED_ImportProgressFrame = require(Plugin.Src.Components.DEPRECATED_ImportProgressFrame)
 local LabeledToggle = require(ToolParts.LabeledToggle)
 local MapSettingsWithPreviewFragment = require(ToolParts.MapSettingsWithPreviewFragment)
 local Panel = require(ToolParts.Panel)
@@ -174,13 +171,7 @@ function Import:render()
 			}
 		}),
 
-		DEPRECATED_ImportProgressFrame = not FFlagTerrainToolsRedesignProgressDialog and (importInProgress
-			and Roact.createElement(DEPRECATED_ImportProgressFrame, {
-			ImportProgress = importProgress,
-		})),
-
-		ProgressDialog = FFlagTerrainToolsRedesignProgressDialog and (importInProgress
-			and Roact.createElement(ProgressDialog, {
+		ProgressDialog = importInProgress and Roact.createElement(ProgressDialog, {
 			Title = localization:getText("Generate", "GenerateProgressTitle"),
 			SubText = localization:getText("Generate", "GenerateVoxels"),
 
@@ -189,7 +180,7 @@ function Import:render()
 
 			OnPauseButtonClicked = self.onPauseRequested,
 			OnCancelButtonClicked = self.onCancelRequested,
-		})),
+		}),
 	})
 end
 

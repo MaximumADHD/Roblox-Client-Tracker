@@ -1,5 +1,3 @@
-local FFlagTerrainToolsRedesignProgressDialog = game:GetFastFlag("TerrainToolsRedesignProgressDialog")
-
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
@@ -14,7 +12,6 @@ local TerrainEnums = require(Plugin.Src.Util.TerrainEnums)
 local ToolParts = script.Parent.ToolParts
 local BiomeSettingsFragment = require(ToolParts.BiomeSettingsFragment)
 local ButtonGroup = require(ToolParts.ButtonGroup)
-local DEPRECATED_GenerateProgressFrame = require(Plugin.Src.Components.DEPRECATED_GenerateProgressFrame)
 local MapSettingsWithPreview = require(ToolParts.MapSettingsWithPreview)
 local OtherGenerateSettings = require(ToolParts.OtherGenerateSettings)
 local Panel = require(ToolParts.Panel)
@@ -177,16 +174,7 @@ function Generate:render()
 			},
 		}),
 
-		DEPRECATED_GenerateProgressFrame = not FFlagTerrainToolsRedesignProgressDialog and (generateInProgress
-			and Roact.createElement(DEPRECATED_GenerateProgressFrame, {
-			GenerateProgress = generateProgress,
-			IsPaused = generatePaused,
-			OnPauseRequested = self.onGenerationPauseRequested,
-			OnCancelRequested = self.onGenerationCancelRequested,
-		})),
-
-		ProgressDialog = FFlagTerrainToolsRedesignProgressDialog and (generateInProgress
-			and Roact.createElement(ProgressDialog, {
+		ProgressDialog = generateInProgress and Roact.createElement(ProgressDialog, {
 			Title = localization:getText("Generate", "GenerateProgressTitle"),
 			SubText = localization:getText("Generate", "GenerateVoxels"),
 
@@ -195,7 +183,7 @@ function Generate:render()
 
 			OnPauseButtonClicked = self.onGenerationPauseRequested,
 			OnCancelButtonClicked = self.onGenerationCancelRequested,
-		})),
+		}),
 	})
 end
 

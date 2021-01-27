@@ -38,7 +38,6 @@ local PageInfoHelper = require(Util.PageInfoHelper)
 local Types = Plugin.Core.Types
 local Category = require(Types.Category)
 
-local AssetRenderUtil
 local AssetType
 if not FlagsList:get("FFlagToolboxUseDevFrameworkAssetPreview") then
 	AssetType = UILibrary.Util.AssetType

@@ -1,14 +1,14 @@
 game:DefineFastFlag("TerrainToolsBrushUseIsKeyDown", false)
 
 local FFlagTerrainToolsBrushUseIsKeyDown = game:GetFastFlag("TerrainToolsBrushUseIsKeyDown")
-
+local FFlagTerrainToolsBrushInteractOnlyWithTerrain = game:GetFastFlag("TerrainToolsBrushInteractOnlyWithTerrain")
 local Plugin = script.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
 local Cryo = require(Plugin.Packages.Cryo)
 
 local FrameworkUtil = Framework.Util
-local Signal = FrameworkUtil.Signal
+local Signal = FrameworkUtil.Signal 
 
 local Constants = require(Plugin.Src.Util.Constants)
 local TerrainEnums = require(Plugin.Src.Util.TerrainEnums)
@@ -159,7 +159,11 @@ function TerrainBrush.new(options)
 		"TerrainBrush needs a tool passed to constructor")
 
 	self._raycastParams = RaycastParams.new()
-	self._raycastParams.FilterType = Enum.RaycastFilterType.Blacklist
+	if FFlagTerrainToolsBrushInteractOnlyWithTerrain then
+		self._raycastParams.FilterType = Enum.RaycastFilterType.Whitelist
+	else
+		self._raycastParams.FilterType = Enum.RaycastFilterType.Blacklist
+	end 
 
 	return self
 end
@@ -402,16 +406,23 @@ function TerrainBrush:_run()
 
 		-- Why is mouse used for camera?
 		local cameraPos = self._mouse.Origin.p
-
-		local ignoreList = {self._cursor:getCursorPart()}
-		if Players.LocalPlayer and Players.LocalPlayer.Character then
-			table.insert(ignoreList, Players.LocalPlayer.Character)
-		end
+		if FFlagTerrainToolsBrushInteractOnlyWithTerrain then
+			local acceptList = {self._terrain} 
+			if Workspace:FindFirstChild("Baseplate") then
+				table.insert(acceptList, Workspace:FindFirstChild("Baseplate"))
+			end 
+			self._raycastParams.FilterDescendantsInstances = acceptList
+		else 
+			local ignoreList = {self._cursor:getCursorPart()}
+			if Players.LocalPlayer and Players.LocalPlayer.Character then
+				table.insert(ignoreList, Players.LocalPlayer.Character)
+			end
+			self._raycastParams.FilterDescendantsInstances = ignoreList
+		end 
 
 		local unitRay = self._mouse.UnitRay.Direction
 		local rayHit, mainPoint, hitMaterial
 
-		self._raycastParams.FilterDescendantsInstances = ignoreList
 		self._raycastParams.IgnoreWater = ignoreWater
 
 		local raycastResult = Workspace:Raycast(cameraPos, unitRay * 10000, self._raycastParams)
@@ -421,9 +432,20 @@ function TerrainBrush:_run()
 			mainPoint = raycastResult.Position
 			hitMaterial = raycastResult.Material
 		else
-			--raycast returns nil if it does not encounter anything, this will esentially cap the ray and prevent breaking
+			--raycast returns nil if it does not encounter anything, this will essentially cap the ray and prevent breaking
 			rayHit, hitMaterial = nil, nil
-			mainPoint = cameraPos + unitRay * 10000
+			
+			if FFlagTerrainToolsBrushInteractOnlyWithTerrain then
+				local hit = lineToPlaneIntersection(cameraPos, unitRay, Vector3.new(0, 0, 0), Vector3.new(0, 1, 0))
+				-- set the default Y axis for brush to be intersection of the ray and XZplane with Y = 0
+				if hit ~= cameraPos then
+					mainPoint = hit
+				else
+					mainPoint = cameraPos + unitRay * 10000
+				end
+			else
+				mainPoint = cameraPos + unitRay * 10000
+			end
 		end
 
 		if currentTool == ToolId.Add then

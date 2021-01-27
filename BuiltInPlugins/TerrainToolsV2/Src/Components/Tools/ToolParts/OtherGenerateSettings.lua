@@ -1,5 +1,3 @@
-local FFlagTerrainToolsFixLabeledElementPairWidth = game:GetFastFlag("TerrainToolsFixLabeledElementPairWidth")
-
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
@@ -34,7 +32,6 @@ function OtherGenerateSettings:render()
 			SizeToContent = true,
 		}, {
 			SeedTextBox = Roact.createElement(LabeledTextInput, {
-				Width = not FFlagTerrainToolsFixLabeledElementPairWidth and UDim.new(0, 136) or nil,
 				MaxGraphemes = 12,
 				IgnoreNumFormatting = true,
 				Text = self.props.seed,

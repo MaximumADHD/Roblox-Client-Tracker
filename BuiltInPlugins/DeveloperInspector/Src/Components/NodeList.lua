@@ -21,6 +21,7 @@ local find = Dash.find
 local shallowEqual = Dash.shallowEqual
 
 local NodeListRow = require(script.NodeListRow)
+local traceSource = require(main.Src.Util.traceSource)
 
 local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 
@@ -42,10 +43,6 @@ function NodeList:init()
 			api:getFields(self.props.SelectedPath, nodeIndex, {"_context"})
 		end
 	end
-	self.onSelectLink = function(source)
-		-- TODO RIDE-2584
-		print("Open file", source)
-	end
 end
 
 function NodeList:getFlash()
@@ -59,6 +56,14 @@ function NodeList:getFlash()
 		end
 	end
 	return nil
+end
+
+function NodeList:onSelectLink(source)
+	local Plugin = self.props.Plugin:get()
+	local instance, lineNumber = traceSource(source)
+	if instance then
+		Plugin:OpenScript(instance, lineNumber)
+	end
 end
 
 function NodeList:render()
@@ -84,7 +89,7 @@ function NodeList:render()
 			IsSelected = index == props.SelectedIndex,
 			OnSelect = self.onSelectNode,
 			OnClickLink = function()
-				self.onSelectLink(item.Source)
+				self:onSelectLink(item.Source)
 			end,
 			Style = style
 		})

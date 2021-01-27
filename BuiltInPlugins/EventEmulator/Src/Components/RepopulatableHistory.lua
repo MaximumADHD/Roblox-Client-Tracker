@@ -1,14 +1,15 @@
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
-local RoactRodux = require(Plugin.Packages.RoactRodux)
+local RoactRodux = require(Plugin.Packages.RoactRodux) 
 
-local Framework = Plugin.Packages.Framework
-local ContextServices = require(Framework.ContextServices)
+local Framework = require(Plugin.Packages.Framework)
+local ContextServices = Framework.ContextServices
+local THEME_REFACTOR = Framework.Util.RefactorFlags.THEME_REFACTOR
 
 local Components = Plugin.Src.Components
 local RepopulatableHistoryItem = require(Components.RepopulatableHistoryItem)
 
-local UI = require(Plugin.Packages.Framework.UI)
+local UI = Framework.UI
 local Container = UI.Container
 local Decoration = UI.Decoration
 local ScrollingFrame = UI.ScrollingFrame
@@ -19,13 +20,20 @@ function RepopulatableHistory:init()
 	self.createChildren = function()
 		local props = self.props
 		local items = props.HistoryItems
-		local theme = self.props.Theme
-		local layout = theme:get("Layout")
+
+		local theme, layout
+		if THEME_REFACTOR then
+			theme = props.Stylizer
+			layout = theme.Layout.Vertical
+		else
+			theme = props.Theme
+			layout = theme:get("Layout").Vertical
+		end
 
 		local children = {
 			Layout = Roact.createElement("UIListLayout", layout.Vertical),
 		}
-		
+
 		for _, value in pairs(items) do
 			table.insert(children, 0, Roact.createElement(RepopulatableHistoryItem, {
 				View = value.View,
@@ -37,11 +45,19 @@ function RepopulatableHistory:init()
 	end
 end
 
-
 function RepopulatableHistory:render()
-	local theme = self.props.Theme
-	local textStyle = theme:get("Text")
-	local sizes = theme:get("Sizes")
+	local props = self.props
+
+	local theme, textStyle, sizes
+	if THEME_REFACTOR then
+		theme = props.Stylizer
+		textStyle = theme.Text
+		sizes = theme.Size
+	else
+		theme = props.Theme
+		textStyle = theme:get("Text")
+		sizes = theme:get("Sizes")
+	end
 
 	return Roact.createElement(Container, {
 		Background = Decoration.Box,
@@ -64,7 +80,8 @@ function RepopulatableHistory:render()
 end
 
 ContextServices.mapToProps(RepopulatableHistory,{
-	Theme = ContextServices.Theme,
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
 })
 
 return RoactRodux.connect(

@@ -1,5 +1,7 @@
 local Plugin = script.Parent.Parent.Parent
 
+local FFlagStudioAssetManagerConvertToDevFrameworkTooltips = game:GetFastFlag("StudioAssetManagerConvertToDevFrameworkTooltips")
+
 local Cryo = require(Plugin.Packages.Cryo)
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
@@ -8,13 +10,15 @@ local Framework = Plugin.Packages.Framework
 local ContextServices = require(Framework.ContextServices)
 local RobloxAPI = require(Framework).RobloxAPI
 
+local UI = require(Framework.UI)
+
 local Util = require(Framework.Util)
 local StyleModifier = Util.StyleModifier
 local FitFrameOnAxis = Util.FitFrame.FitFrameOnAxis
 
 local UILibrary = require(Plugin.Packages.UILibrary)
 local GetTextSize = UILibrary.Util.GetTextSize
-local Tooltip = UILibrary.Component.Tooltip
+local Tooltip = FFlagStudioAssetManagerConvertToDevFrameworkTooltips and UI.Tooltip or UILibrary.Component.Tooltip
 local LayoutOrderIterator = UILibrary.Util.LayoutOrderIterator
 
 local SetEditingAssets = require(Plugin.Src.Actions.SetEditingAssets)
@@ -34,6 +38,7 @@ local FFlagBatchThumbnailAddNewThumbnailTypes = game:GetFastFlag("BatchThumbnail
 local FFlagStudioAssetManagerAssetPreviewRequest = game:GetFastFlag("StudioAssetManagerAssetPreviewRequest")
 local FFlagStudioAssetManagerLinkedScriptIcon = game:GetFastFlag("StudioAssetManagerLinkedScriptIcon")
 local FFlagStudioAssetManagerShowRootPlaceListView = game:GetFastFlag("StudioAssetManagerShowRootPlaceListView")
+local FFlagStudioAssetManagerFixLinkedScripts = game:GetFastFlag("StudioAssetManagerFixLinkedScripts")
 
 local ICON_SIZE = 150
 
@@ -157,7 +162,7 @@ function ListItem:init()
                 AssetManagerService:RenamePlace(assetData.id, newName)
             elseif assetData.assetType == Enum.AssetType.Image
             or assetData.assetType == Enum.AssetType.MeshPart
-            or assetData.assetType == Enum.AssetType.Image
+            or (FFlagStudioAssetManagerFixLinkedScripts and assetData.assetType == Enum.AssetType.Lua)
             or ((not RobloxAPI:baseURLHasChineseHost()) and assetData.assetType == Enum.AssetType.Audio) then
                 local prefix
                 -- Setting asset type to same value as Enum.AssetType since it cannot be passed into function

@@ -1,6 +1,6 @@
 --[[
 	Public interface to access renderable component examples.
-	The primary consumer of these examples is the DevFramework Companion,
+	The primary consumer of these examples is the Developer Storybook,
 	which uses these to display inline examples of components along with
 	their documentation.
 ]]

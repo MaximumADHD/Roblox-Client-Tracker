@@ -5,9 +5,12 @@
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
-local ContextServices = require(Plugin.Packages.Framework.ContextServices)
 
-local UI = require(Plugin.Packages.Framework.UI)
+local Framework = require(Plugin.Packages.Framework)
+local THEME_REFACTOR = Framework.Util.RefactorFlags.THEME_REFACTOR
+local ContextServices = Framework.ContextServices
+
+local UI = Framework.UI
 local Container = UI.Container
 local Decoration = UI.Decoration
 
@@ -46,16 +49,24 @@ end
 
 function InputPane:render()
 	local props = self.props
-	local theme = props.Theme
-	local sizes = theme:get("Sizes")
-	local layout = theme:get("Layout")
+
+	local theme, sizes, layout
+	if THEME_REFACTOR then
+		theme = props.Stylizer
+		sizes = theme.Sizes
+		layout = theme.Layout.Vertical
+	else
+		theme = props.Theme
+		sizes = theme:get("Sizes")
+		layout = theme:get("Layout").Vertical
+	end
 
 	return Roact.createElement(Container, {
 		Size = UDim2.new(1, 0, 0, sizes.InputPaneLength),
 		Background = Decoration.Box,
 		LayoutOrder = ORDER.InputPane
 	}, {
-		Layout = Roact.createElement("UIListLayout", layout.Vertical),
+		Layout = Roact.createElement("UIListLayout", layout),
 		Dropdown = Roact.createElement(Dropdown),
 		Name = Roact.createElement(NameBox),
 		View = self.getView(),
@@ -63,7 +74,8 @@ function InputPane:render()
 end
 
 ContextServices.mapToProps(InputPane, {
-	Theme = ContextServices.Theme,
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
 })
 
 return RoactRodux.connect(

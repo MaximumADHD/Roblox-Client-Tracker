@@ -2,10 +2,11 @@ local Plugin = script.Parent.Parent.Parent
 
 local Roact = require(Plugin.Packages.Roact)
 
-local Framework = Plugin.Packages.Framework
-local ContextServices = require(Framework.ContextServices)
+local Framework = require(Plugin.Packages.Framework)
+local THEME_REFACTOR = Framework.Util.RefactorFlags.THEME_REFACTOR
+local ContextServices = Framework.ContextServices
 
-local UI = require(Plugin.Packages.Framework.UI)
+local UI = Framework.UI
 local DF_TextInput = UI.TextInput
 
 local Components = Plugin.Src.Components
@@ -21,9 +22,16 @@ function TextInput:render()
 	local layoutOrder = props.LayoutOrder
 	local onChange = props.OnChange
 
-	local theme = props.Theme
-	local sizes = theme:get("Sizes")
-	local textStyle = theme:get("Text")
+	local theme, sizes, textStyle
+	if THEME_REFACTOR then
+		theme = props.Stylizer
+		sizes = theme.Sizes
+		textStyle = theme.Text
+	else
+		theme = props.Theme
+		sizes = theme:get("Sizes")
+		textStyle = theme:get("Text")
+	end
 
 	return Roact.createElement(LabeledElementPair, {
 		Size = UDim2.new(1, 0, 0, 60),
@@ -42,7 +50,8 @@ function TextInput:render()
 end
 
 ContextServices.mapToProps(TextInput,{
-	Theme = ContextServices.Theme,
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
 })
 
 return TextInput

@@ -11,6 +11,7 @@ local FFlagProximityPromptNoButtonDrag = game:DefineFastFlag("ProximityPromptNoB
 local FFlagProximityPromptLiveChanges = game:DefineFastFlag("ProximityPromptLiveChanges", false)
 local FFlagProximityPromptMoreKeyCodes = game:DefineFastFlag("ProximityPromptMoreKeyCodes", false)
 local FFlagProximityPromptsFadeIn = game:DefineFastFlag("ProximityPromptsFadeIn", false)
+local FFlagProximityPromptMoreKeyCodes2 = game:DefineFastFlag("ProximityPromptMoreKeyCodes2", false)
 
 local PlayerGui
 
@@ -48,12 +49,21 @@ local KeyboardButtonImage = {
 
 -- This is only available in Core Scripts, so this block must be removed
 -- when copying this code as an example for customization in developer scripts
-if UserInputService:GetPlatform() == Enum.Platform.OSX then
-	KeyboardButtonImage[Enum.KeyCode.LeftControl] = "rbxasset://textures/ui/Controls/command.png"
-	KeyboardButtonImage[Enum.KeyCode.RightControl] = "rbxasset://textures/ui/Controls/command.png"
-	KeyboardButtonImage[Enum.KeyCode.LeftAlt] = "rbxasset://textures/ui/Controls/option.png"
-	KeyboardButtonImage[Enum.KeyCode.RightAlt] = "rbxasset://textures/ui/Controls/option.png"
-end 
+if FFlagProximityPromptMoreKeyCodes2 then
+	if UserInputService:GetPlatform() == Enum.Platform.OSX then
+		KeyboardButtonImage[Enum.KeyCode.LeftMeta] = "rbxasset://textures/ui/Controls/command.png"
+		KeyboardButtonImage[Enum.KeyCode.RightMeta] = "rbxasset://textures/ui/Controls/command.png"
+		KeyboardButtonImage[Enum.KeyCode.LeftAlt] = "rbxasset://textures/ui/Controls/option.png"
+		KeyboardButtonImage[Enum.KeyCode.RightAlt] = "rbxasset://textures/ui/Controls/option.png"
+	end 
+else
+	if UserInputService:GetPlatform() == Enum.Platform.OSX then
+		KeyboardButtonImage[Enum.KeyCode.LeftControl] = "rbxasset://textures/ui/Controls/command.png"
+		KeyboardButtonImage[Enum.KeyCode.RightControl] = "rbxasset://textures/ui/Controls/command.png"
+		KeyboardButtonImage[Enum.KeyCode.LeftAlt] = "rbxasset://textures/ui/Controls/option.png"
+		KeyboardButtonImage[Enum.KeyCode.RightAlt] = "rbxasset://textures/ui/Controls/option.png"
+	end 
+end
 
 local KeyboardButtonIconMapping = {
 	["'"] = "rbxasset://textures/ui/Controls/apostrophe.png",
@@ -80,6 +90,31 @@ local KeyCodeToTextMapping = {
 	[Enum.KeyCode.F10] = "F10",
 	[Enum.KeyCode.F11] = "F11",
 	[Enum.KeyCode.F12] = "F12",
+}
+
+if FFlagProximityPromptMoreKeyCodes2 then
+	KeyCodeToTextMapping[Enum.KeyCode.PageUp] = "PgUp"
+	KeyCodeToTextMapping[Enum.KeyCode.PageDown] = "PgDn"
+	KeyCodeToTextMapping[Enum.KeyCode.Home] = "Home"
+	KeyCodeToTextMapping[Enum.KeyCode.End] = "End"
+	KeyCodeToTextMapping[Enum.KeyCode.Insert] = "Ins"
+	KeyCodeToTextMapping[Enum.KeyCode.Delete] = "Del"
+end
+
+local KeyCodeToFontSize = {
+	[Enum.KeyCode.LeftControl] = 12,
+	[Enum.KeyCode.RightControl] = 12,
+	[Enum.KeyCode.LeftAlt] = 12,
+	[Enum.KeyCode.RightAlt] = 12,
+	[Enum.KeyCode.F10] = 12,
+	[Enum.KeyCode.F11] = 12,
+	[Enum.KeyCode.F12] = 12,
+	[Enum.KeyCode.PageUp] = 8,
+	[Enum.KeyCode.PageDown] = 8,
+	[Enum.KeyCode.Home] = 8,
+	[Enum.KeyCode.End] = 10,
+	[Enum.KeyCode.Insert] = 10,
+	[Enum.KeyCode.Delete] = 10,
 }
 
 local function createMainFrame_DEPRECATED()
@@ -570,10 +605,20 @@ local function createPrompt(prompt, inputType, gui)
 				buttonText.Position = UDim2.fromOffset(0, -1)
 				buttonText.Size = UDim2.fromScale(1, 1)
 				buttonText.Font = Enum.Font.GothamSemibold
-				buttonText.TextSize = 14
-				if string.len(buttonTextString) > 2 then
-					buttonText.TextSize = 12
+
+				if FFlagProximityPromptMoreKeyCodes2 then
+					local buttonTextSize = KeyCodeToFontSize[prompt.KeyboardKeyCode]
+					if buttonTextSize == nil then
+						buttonTextSize = 14
+					end
+					buttonText.TextSize = buttonTextSize
+				else
+					buttonText.TextSize = 14
+					if string.len(buttonTextString) > 2 then
+						buttonText.TextSize = 12
+					end
 				end
+
 				buttonText.BackgroundTransparency = 1
 				if FFlagProximityPromptsFadeIn then
 					buttonText.TextTransparency = 1

@@ -6,6 +6,7 @@ local Plugin = script.Parent.Parent
 
 require(script.Parent.defineLuaFlags)
 local FFlagDebugEnableDevFrameworkCompanion = game:GetFastFlag("DebugEnableDevFrameworkCompanion")
+local FFlagEnableDeveloperStorybook = game:GetFastFlag("EnableDeveloperStorybook")
 
 local DebugFlags = require(Plugin.Src.Util.DebugFlags)
 if DebugFlags.RunningUnderCLI() then
@@ -13,6 +14,10 @@ if DebugFlags.RunningUnderCLI() then
 end
 
 if not game:GetService("StudioService"):HasInternalPermission() and not FFlagDebugEnableDevFrameworkCompanion then
+	return
+end
+if FFlagEnableDeveloperStorybook then
+	-- The Storybook plugin deprecates FrameworkCompanion
 	return
 end
 

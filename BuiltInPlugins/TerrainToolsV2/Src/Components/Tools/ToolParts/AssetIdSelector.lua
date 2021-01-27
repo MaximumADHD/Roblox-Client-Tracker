@@ -2,8 +2,6 @@
 	used to select images for file import in the terrain editor
 ]]
 
-local FFlagTerrainToolsFixLabeledElementPairWidth = game:GetFastFlag("TerrainToolsFixLabeledElementPairWidth")
-
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
@@ -338,7 +336,6 @@ function AssetIdSelector:render()
 			SizeToContent = true,
 		}, {
 			Input = Roact.createElement(LabeledTextInput, {
-				Width = not FFlagTerrainToolsFixLabeledElementPairWidth and UDim.new(0, 136) or nil,
 				Text = text,
 				PlaceholderText = localization:getText("AssetIdSelector", "PlaceHolderText"),
 				WarningOverride = warningMessageToDisplay,

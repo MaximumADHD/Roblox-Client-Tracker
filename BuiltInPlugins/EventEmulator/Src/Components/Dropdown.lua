@@ -13,7 +13,10 @@
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
-local ContextServices = require(Plugin.Packages.Framework.ContextServices)
+
+local Framework = require(Plugin.Packages.Framework)
+local ContextServices = Framework.ContextServices
+local THEME_REFACTOR = Framework.Util.RefactorFlags.THEME_REFACTOR
 
 local Actions = Plugin.Src.Actions
 local SetView = require(Actions.SetView)
@@ -22,7 +25,7 @@ local ChangeCurrentEventName = require(Actions.ChangeCurrentEventName)
 local Constants = require(Plugin.Src.Util.Constants)
 local VIEW_ID = Constants.VIEW_ID
 
-local UI = require(Plugin.Packages.Framework.UI)
+local UI = Framework.UI
 local SelectInput = UI.SelectInput
 
 local Dropdown = Roact.PureComponent:extend("Dropdown")
@@ -61,7 +64,8 @@ function Dropdown:render()
 end
 
 ContextServices.mapToProps(Dropdown, {
-	Theme = ContextServices.Theme,
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
 })
 
 return RoactRodux.connect(

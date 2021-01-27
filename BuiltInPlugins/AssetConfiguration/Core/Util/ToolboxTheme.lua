@@ -1,3 +1,4 @@
+local FFlagToolboxUseDevFrameworkDialogs = game:GetFastFlag("ToolboxUseDevFrameworkDialogs")
 local FFlagEnableToolboxAssetNameColorChange = game:GetFastFlag("EnableToolboxAssetNameColorChange")
 local Plugin = script.Parent.Parent.Parent
 
@@ -446,10 +447,10 @@ function ToolboxTheme:_recalculateTheme()
 			selectedColor = isDark and Colors.WHITE or Colors.BLUE_PRIMARY,
 		},
 
-		purchaseDialog = {
+		purchaseDialog = (not FFlagToolboxUseDevFrameworkDialogs and {
 			promptText = color(c.MainText),
 			balanceText = color(c.DimmedText),
-		},
+		}) or nil,
 	})
 
 	-- Need more color for the style

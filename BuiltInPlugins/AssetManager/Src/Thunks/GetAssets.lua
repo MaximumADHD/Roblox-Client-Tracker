@@ -10,6 +10,7 @@ local SetIsFetchingAssets = require(Plugin.Src.Actions.SetIsFetchingAssets)
 local SetHasLinkedScripts = require(Plugin.Src.Actions.SetHasLinkedScripts)
 
 local FFlagStudioAssetManagerFetchMoreAssets = game:GetFastFlag("StudioAssetManagerFetchMoreAssets")
+local FFlagStudioAssetManagerUseNewPackagesEndpoint = game:GetFastFlag("StudioAssetManagerUseNewPackagesEndpoint")
 
 local FIntStudioAssetManagerAssetFetchNumber = game:GetFastInt("StudioAssetManagerAssetFetchNumber")
 
@@ -48,13 +49,23 @@ return function(apiImpl, assetType, pageCursor, pageNumber, showLoadingIndicator
                 error("Failed to load places")
             end)
         elseif assetType == Enum.AssetType.Package then
-            requestPromise = apiImpl.Develop.V2.Universes.symbolicLinks(game.GameId, pageCursor, numberOfAssetsToFetch):makeRequest()
-            :andThen(function(response)
-                return response
-            end, function()
-                store:dispatch(SetIsFetchingAssets(false))
-                error("Failed to load packages")
-            end)
+            if FFlagStudioAssetManagerUseNewPackagesEndpoint then
+                requestPromise = apiImpl.Develop.V1.Universes.packages(game.GameId, pageCursor, numberOfAssetsToFetch):makeRequest()
+                :andThen(function(response)
+                    return response
+                end, function()
+                    store:dispatch(SetIsFetchingAssets(false))
+                    error("Failed to load packages")
+                end)
+            else
+                requestPromise = apiImpl.Develop.V2.Universes.symbolicLinks(game.GameId, pageCursor, numberOfAssetsToFetch):makeRequest()
+                :andThen(function(response)
+                    return response
+                end, function()
+                    store:dispatch(SetIsFetchingAssets(false))
+                    error("Failed to load packages")
+                end)
+            end
         elseif assetType == Enum.AssetType.Image
         or assetType == Enum.AssetType.MeshPart
         or assetType == Enum.AssetType.Lua
@@ -133,9 +144,9 @@ return function(apiImpl, assetType, pageCursor, pageNumber, showLoadingIndicator
                 for _, asset in pairs(body.data) do
                     local newAsset = asset
                     newAsset.assetType = assetType
-                    -- make sure packages have similar keys in table
-                    if assetType == Enum.AssetType.Package then
-                            local sAssetId = tostring(asset.assetId)
+                    if not FFlagStudioAssetManagerUseNewPackagesEndpoint and assetType == Enum.AssetType.Package then
+                        -- make sure packages have similar keys in table    
+                        local sAssetId = tostring(asset.assetId)
                             newAsset.name = asset.assetName
                             newAsset.id = asset.assetId
                             newAsset.assetName = nil

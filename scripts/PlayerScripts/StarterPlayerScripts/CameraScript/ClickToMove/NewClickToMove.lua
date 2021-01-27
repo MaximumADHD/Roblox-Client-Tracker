@@ -717,7 +717,6 @@ local function OnTap(tapPositions, goToPoint)
 								if myHumanoid.Sit then
 									myHumanoid.Jump = true
 								end
-								local currentPosition
 								myHumanoid:MoveTo(hitPt)
 								foundDirectPath = true
 							end

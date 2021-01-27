@@ -156,7 +156,6 @@ function TerrainTools:render()
 		mouse,
 		store,
 		theme,
-		-- devFrameworkThemeItem is nil if FFlagTerrainToolsIncludeDevFrameworkTheme is false
 		devFrameworkThemeItem,
 		localization,
 		analytics,

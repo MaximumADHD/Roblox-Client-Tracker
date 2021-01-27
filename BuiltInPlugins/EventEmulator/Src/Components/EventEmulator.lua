@@ -1,9 +1,13 @@
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
-local ContextServices = require(Plugin.Packages.Framework.ContextServices)
 
-local UI = require(Plugin.Packages.Framework.UI)
+local Framework = require(Plugin.Packages.Framework)
+local ContextServices = Framework.ContextServices
+local THEME_REFACTOR = Framework.Util.RefactorFlags.THEME_REFACTOR
+
+
+local UI = Framework.UI
 local Container = UI.Container
 local Decoration = UI.Decoration
 
@@ -13,22 +17,31 @@ local RepopulatableHistory = require(Components.RepopulatableHistory)
 
 local EventEmulator = Roact.PureComponent:extend("EventEmulator")
 
-
 function EventEmulator:render()
-	local layout = self.props.Theme:get("Layout")
+	local props = self.props
+
+	local theme, layout
+	if THEME_REFACTOR then
+		theme = props.Stylizer
+		layout = theme.Layout.Vertical
+	else
+		theme = props.Theme
+		layout = theme:get("Layout").Vertical
+	end
 
 	return Roact.createElement(Container, {
 		Size = UDim2.new(1, 0, 1, 0),
 		Background = Decoration.Box,
 	},{
-		Layout = Roact.createElement("UIListLayout", layout.Vertical),
+		Layout = Roact.createElement("UIListLayout", layout),
 		InputPane = Roact.createElement(InputPane),
 		History = Roact.createElement(RepopulatableHistory)
 	})
 end
 
 ContextServices.mapToProps(EventEmulator, {
-	Theme = ContextServices.Theme,
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
 })
 
 return RoactRodux.connect(

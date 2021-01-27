@@ -18,7 +18,6 @@ RefactorFlags.THEME_REFACTOR = FFlagEnableTerrainToolsStylizer
 
 local FFlagTerrainToolsBetterImportTool = game:GetFastFlag("TerrainToolsBetterImportTool")
 local FFlagTerrainToolsImportUploadAssets = game:GetFastFlag("TerrainToolsImportUploadAssets")
-local FFlagTerrainToolsIncludeDevFrameworkTheme = game:GetFastFlag("TerrainToolsIncludeDevFrameworkTheme")
 
 -- Libraries
 local Framework = require(Plugin.Packages.Framework)
@@ -122,10 +121,7 @@ local function createTerrainContextItems()
 		})
 	end
 
-	local devFrameworkThemeItem = nil
-	if FFlagTerrainToolsIncludeDevFrameworkTheme then
-		devFrameworkThemeItem = makeTheme()
-	end
+	local devFrameworkThemeItem = makeTheme()
 
 	return {
 		plugin = pluginItem,

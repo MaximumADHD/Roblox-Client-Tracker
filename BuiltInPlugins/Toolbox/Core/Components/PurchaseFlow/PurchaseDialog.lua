@@ -13,12 +13,23 @@
 		function OnClose = A callback for when the dialog is closed.
 ]]
 
+local FFlagToolboxUseDevFrameworkDialogs = game:GetFastFlag("ToolboxUseDevFrameworkDialogs")
+
 local Plugin = script.Parent.Parent.Parent.Parent
 local Libs = Plugin.Libs
-
 local Roact = require(Libs.Roact)
-local UILibrary = require(Libs.UILibrary)
-local StyledDialog = UILibrary.Component.StyledDialog
+
+local ContextServices = require(Libs.Framework).ContextServices
+local THEME_REFACTOR = require(Libs.Framework.Util.RefactorFlags).THEME_REFACTOR
+
+local StyledDialog
+if FFlagToolboxUseDevFrameworkDialogs then
+	local StudioUI = require(Libs.Framework).StudioUI
+	StyledDialog = StudioUI.StyledDialog
+else
+	local UILibrary = require(Libs.UILibrary)
+	StyledDialog = UILibrary.Component.StyledDialog
+end
 
 local ContextHelper = require(Plugin.Core.Util.ContextHelper)
 local Images = require(Plugin.Core.Util.Images)
@@ -30,16 +41,19 @@ local withLocalization = ContextHelper.withLocalization
 
 local PurchaseDialog = Roact.PureComponent:extend("PurchaseDialog")
 
-local function composedRender(renderFunc)
+function PurchaseDialog:render()
 	return withLocalization(function(_, localizedContent)
-		return withTheme(function(theme)
-			return renderFunc(theme, localizedContent)
-		end)
+		if FFlagToolboxUseDevFrameworkDialogs then
+			return self:renderContent(nil, localizedContent)
+		else
+			return withTheme(function(theme)
+				return self:renderContent(theme, localizedContent)
+			end)
+		end
 	end)
 end
 
-function PurchaseDialog:render()
-	return composedRender(function(theme, localizedContent)
+function PurchaseDialog:renderContent(theme, localizedContent)
 		local props = self.props
 		local buttons = props.Buttons
 		local onButtonClicked = props.OnButtonClicked
@@ -49,22 +63,43 @@ function PurchaseDialog:render()
 		local thumbnail = props.Thumbnail
 		local balance = props.Balance
 
+		if FFlagToolboxUseDevFrameworkDialogs then
+			if THEME_REFACTOR then
+				theme = self.props.Stylizer
+			else
+				theme = self.props.Theme:get("Plugin")
+			end
+		end
+
 		local textWidth = Constants.getTextSize(localizedContent.PurchaseFlow.CurrentBalance,
 			Constants.FONT_SIZE_MEDIUM).X
 
-		return Roact.createElement(StyledDialog, {
-			Buttons = buttons,
-			OnButtonClicked = onButtonClicked,
-			OnClose = onClose,
-			Size = Dialog.SIZE,
-			Resizable = false,
-			BorderPadding = Dialog.BORDER_PADDING,
-			ButtonHeight = Dialog.BUTTON_SIZE.Y,
-			ButtonWidth = Dialog.BUTTON_SIZE.X,
-			ButtonPadding = Dialog.BUTTON_PADDING,
-			TextSize = Constants.FONT_SIZE_LARGE,
-			Title = title,
-		}, {
+		local styledDialogProps
+		if FFlagToolboxUseDevFrameworkDialogs then
+			styledDialogProps = {
+				Title = title,
+				MinContentSize = Vector2.new(Dialog.PROMPT_SIZE.X.Offset, Dialog.PROMPT_SIZE.Y.Offset + Dialog.BALANCE_PADDING.Offset * 3),
+				Buttons = buttons,
+				OnButtonPressed = onButtonClicked,
+				OnClose = onClose,
+			}
+		else
+			styledDialogProps = {
+				Buttons = buttons,
+				OnButtonClicked = onButtonClicked,
+				OnClose = onClose,
+				Size = Dialog.SIZE,
+				Resizable = false,
+				BorderPadding = Dialog.BORDER_PADDING,
+				ButtonHeight = Dialog.BUTTON_SIZE.Y,
+				ButtonWidth = Dialog.BUTTON_SIZE.X,
+				ButtonPadding = Dialog.BUTTON_PADDING,
+				TextSize = Constants.FONT_SIZE_LARGE,
+				Title = title,
+			}
+		end
+
+		return Roact.createElement(StyledDialog, styledDialogProps, {
 			Thumbnail = Roact.createElement("ImageLabel", {
 				Size = Dialog.IMAGE_SIZE,
 				BackgroundTransparency = 1,
@@ -131,7 +166,13 @@ function PurchaseDialog:render()
 				}),
 			}),
 		})
-	end)
+end
+
+if FFlagToolboxUseDevFrameworkDialogs then
+	ContextServices.mapToProps(PurchaseDialog, {
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	})
 end
 
 return PurchaseDialog
