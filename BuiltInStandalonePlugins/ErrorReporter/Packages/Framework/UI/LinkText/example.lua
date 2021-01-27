@@ -10,20 +10,30 @@ return function(plugin)
 	local Dialog = StudioUI.Dialog
 	local StudioFrameworkStyles = StudioUI.StudioFrameworkStyles
 
+	local StudioTheme = require(Framework.Style.Themes.StudioTheme)
+
 	local UI = require(Framework.UI)
 	local Container = UI.Container
 	local LinkText = UI.LinkText
 	local Decoration = UI.Decoration
 
+	local Util = require(Framework.Util)
+	local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
+
 	local pluginItem = Plugin.new(plugin)
 	local mouse = Mouse.new(plugin:GetMouse())
 
-	local theme = Theme.new(function(theme, getColor)
-		local studioStyles = StudioFrameworkStyles.new(theme, getColor)
-		return {
-			Framework = studioStyles,
-		}
-	end)
+	local theme
+	if THEME_REFACTOR then
+		theme = StudioTheme.new()
+	else
+		theme = Theme.new(function(theme, getColor)
+			local studioStyles = StudioFrameworkStyles.new(theme, getColor)
+			return {
+				Framework = studioStyles,
+			}
+		end)
+	end
 
 	-- Mount and display a dialog
 	local ExampleLinkText = Roact.PureComponent:extend("ExampleLinkText")

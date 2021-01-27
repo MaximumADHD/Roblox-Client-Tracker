@@ -6,16 +6,33 @@ return function()
 	local provide = ContextServices.provide
 	local FrameworkStyles = require(Framework.UI.FrameworkStyles)
 	local Box = require(script.Parent)
+	local TestHelpers = require(Framework.TestHelpers)
+
+	local StudioTheme = require(Framework.Style.Themes.StudioTheme)
+
+	local Util = require(Framework.Util)
+	local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 
 	local function createTestBoxDecoration()
-		local theme = Theme.new(function()
-			return {
-				Framework = FrameworkStyles.new(),
-			}
-		end)
-		return provide({theme}, {
-			BoxDecoration = Roact.createElement(Box),
-		})
+		if THEME_REFACTOR then
+			return TestHelpers.provideMockContext(nil, {
+				BoxDecoration = Roact.createElement(Box),
+			})
+		else
+			local theme
+			if THEME_REFACTOR then
+				theme = StudioTheme.mock()
+			else
+				theme = Theme.new(function()
+					return {
+						Framework = FrameworkStyles.new(),
+					}
+				end)
+			end
+			return provide({theme}, {
+				BoxDecoration = Roact.createElement(Box),
+			})
+		end
 	end
 
 	it("should create and destroy without errors", function()

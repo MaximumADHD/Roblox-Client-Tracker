@@ -8,10 +8,9 @@
 		callback OnClose: A function which is fired when the X button attached
 			to the widget.
 		callback OnButtonPressed: A function which is called when any of the buttons
-			are pressed. 
-		Theme Theme: A Theme ContextItem, which is provided via mapToProps.
+			are pressed.
 		string Title: The title text displayed at the top of the widget.
-		
+
 	Optional Props:
 		boolean Enabled: Whether the widget is currently visible.
 		Vector2 MinSize: The minimum size of the widget, in pixels.
@@ -20,16 +19,17 @@
 		boolean Resizable: Whether the widget can be resized.
 		Style Style: a predefined kind of dialog to use.
 		Enum.ZIndexBehavior ZIndexBehavior: The ZIndexBehavior of the widget.
+		Stylizer Stylizer: A Stylizer ContextItem, which is provided via mapToProps.
+		Theme Theme: A Theme ContextItem, which is provided via mapToProps.
 
-		
 	Style Values:
 		Color3 BackgroundColor3: Background color of the dialog.
 ]]
-
 local Framework = script.Parent.Parent
 local ContextServices = require(Framework.ContextServices)
 local Roact = require(Framework.Parent.Roact)
 local Util = require(Framework.Util)
+local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 
 local Button =  require(Framework.UI.Button)
 local Container = require(Framework.UI.Container)
@@ -42,7 +42,6 @@ local BUTTON_WIDTH = 120
 local BUTTON_PADDING = 24
 local BUTTON_EDGE_PADDING = 70
 local CONTENT_PADDING = 24
-
 
 local StyledDialog = Roact.PureComponent:extend("StyledDialog")
 
@@ -105,7 +104,12 @@ end
 
 function StyledDialog:render()
 	local theme = self.props.Theme
-	local style = theme:getStyle("Framework", self)
+	local style
+	if THEME_REFACTOR then
+		style = self.props.Stylizer
+	else
+		style = theme:getStyle("Framework", self)
+	end
 
 	local backgroundColor = prioritize(self.props.BackgroundColor3, style.Background)
 	local isEnabled = self.props.Enabled
@@ -141,8 +145,10 @@ function StyledDialog:render()
 	})
 end
 ContextServices.mapToProps(StyledDialog, {
-	Theme = ContextServices.Theme,
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
 })
+
 Typecheck.wrap(StyledDialog, script)
 
 return StyledDialog

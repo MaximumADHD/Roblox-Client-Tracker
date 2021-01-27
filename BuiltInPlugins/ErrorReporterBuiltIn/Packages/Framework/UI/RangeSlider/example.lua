@@ -19,6 +19,11 @@ return function(plugin)
 
 	local ExampleRangeSlider = Roact.PureComponent:extend("ExampleRangeSlider")
 
+	local Util = require(Framework.Util)
+	local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
+
+	local StudioTheme = require(Framework.Style.Themes.StudioTheme)
+
 	local pluginItem = Plugin.new(plugin)
 	local mouse = Mouse.new(plugin:GetMouse())
 
@@ -38,11 +43,16 @@ return function(plugin)
 			})
 		end
 
-		self.theme = Theme.new(function(theme, getColor)
-			return {
-				Framework = StudioFrameworkStyles.new(theme, getColor)
-			}
-		end)
+		self.theme = nil
+		if THEME_REFACTOR then
+			self.theme = StudioTheme.new()
+		else
+			self.theme = Theme.new(function(theme, getColor)
+				return {
+					Framework = StudioFrameworkStyles.new(theme, getColor)
+				}
+			end)
+		end
 
 		self.setValues = function(lowerValue, upperValue)
 			self:setState({
@@ -95,13 +105,14 @@ return function(plugin)
 						UpperRangeValue = 3,
 						Min = MIN_VALUE,
 						Max = MAX_VALUE,
+						OnValuesChanged = function() end,
 						Position = UDim2.new(0.5, 0, 0.5, 0),
 						Size = UDim2.new(0, 200, 0, 20),
 					}),
 					RangeSliderNoLower = Roact.createElement(RangeSlider, {
 						AnchorPoint = Vector2.new(0.5, 0.5),
 						Disabled = false,
-						HideLower = true,
+						HideLowerKnob = true,
 						LowerRangeValue = self.state.currentMin,
 						UpperRangeValue = self.state.currentMax,
 						Min = MIN_VALUE,

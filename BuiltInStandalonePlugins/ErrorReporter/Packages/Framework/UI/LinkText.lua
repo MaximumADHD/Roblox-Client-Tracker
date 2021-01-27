@@ -4,24 +4,28 @@
 
 	Required Props:
 		callback OnClick: A callback for when the user clicks this link.
-		Theme Theme: A Theme ContextItem, which is provided via mapToProps.
 
 	Optional Props:
+		Theme Theme: A Theme ContextItem, which is provided via mapToProps.
+		Stylizer Stylizer: A Stylizer ContextItem, which is provided via mapToProps.
 		string Text: The text to display in this link.
 		Style Style: The style with which to render this component.
 		StyleModifier StyleModifier: The StyleModifier index into Style.
 		UDim2 Position: The position of this component.
+		UDim2 Size: The fixed size of this component.
 		Vector2 AnchorPoint: The pivot point of this component's Position prop.
 		number ZIndex: The render index of this component.
+		Enum.TextTruncate TextTruncate: Sets text truncated.
+		UDim2 Size: The size of this component.
 		number LayoutOrder: The layout order of this component in a list.
+		Enum.TextXAlignment TextXAlignment: The TextXAlignment of this link.
+		Enum.TextYAlignment TextYAlignment: The TextYAlignment of this link.
 
 	Style Values:
 		Enum.Font Font: The font used to render the text in this link.
 		number TextSize: The font size of the text in this link.
 		Color3 TextColor: The color of the text and underline in this link.
 ]]
-local FFlagAssetManagerLuaCleanup1 = settings():GetFFlag("AssetManagerLuaCleanup1")
-local FFlagTruncateDevFrameworkHyperlinkText = game:GetFastFlag("TruncateDevFrameworkHyperlinkText")
 local FFlagWrappedDevFrameworkLinkText = game:GetFastFlag("WrappedDevFrameworkLinkText")
 
 local TextService = game:GetService("TextService")
@@ -30,9 +34,11 @@ local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
 local ContextServices = require(Framework.ContextServices)
 local HoverArea = require(Framework.UI.HoverArea)
+
 local Util = require(Framework.Util)
 local StyleModifier = Util.StyleModifier
 local Typecheck = Util.Typecheck
+local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 
 local Button = require(Framework.UI.Button)
 
@@ -40,13 +46,12 @@ local LinkText = Roact.PureComponent:extend("LinkText")
 Typecheck.wrap(LinkText, script)
 
 function LinkText:init(props)
-	assert(type(props.OnClick) == "function", "LinkText expects an 'OnClick' function.")
 
 	if FFlagWrappedDevFrameworkLinkText then
 		assert(props.Size or (not props.TextWrapped), "Size prop is required to use the TextWrapped prop")
 	end
 
-	if FFlagTruncateDevFrameworkHyperlinkText and props.TextTruncate then
+	if props.TextTruncate then
 		assert(props.Size ~= nil and typeof(props.Size) == "UDim2", "LinkText expects a UDim2 'Size' if the 'TextTruncate' prop passed in.")
 	end
 
@@ -73,7 +78,12 @@ function LinkText:render()
 	local state = self.state
 	local theme = props.Theme
 	local styleModifier = state.StyleModifier
-	local style = theme:getStyle("Framework", self)
+	local style
+	if THEME_REFACTOR then
+		style = props.Stylizer
+	else
+		style = theme:getStyle("Framework", self)
+	end
 
 	local size = props.Size
 
@@ -81,14 +91,14 @@ function LinkText:render()
 	local textSize = style.TextSize
 	local textColor = style.TextColor
 	local text = props.Text or ""
-	local textTruncate = FFlagTruncateDevFrameworkHyperlinkText and props.TextTruncate or nil
+	local textTruncate = props.TextTruncate
 	local textWrapped = FFlagWrappedDevFrameworkLinkText and props.TextWrapped or nil
 	local textXAlignment = FFlagWrappedDevFrameworkLinkText and props.TextXAlignment or nil
 	local textYAlignment = FFlagWrappedDevFrameworkLinkText and props.TextYAlignment or nil
 
 	local isMultiline = false
 	local textDimensions
-	if FFlagTruncateDevFrameworkHyperlinkText and textTruncate then
+	if textTruncate then
 		textDimensions = size
 	else
 		if font then
@@ -114,12 +124,8 @@ function LinkText:render()
 
 	local hovered = styleModifier == StyleModifier.Hover
 
-	local enableHover = true
-	local showUnderline = true
-	if FFlagAssetManagerLuaCleanup1 then
-		enableHover = (style.EnableHover == nil) and true or style.EnableHover
-		showUnderline = (style.ShowUnderline == nil) and true or style.ShowUnderline
-	end
+	local enableHover = (style.EnableHover == nil) and true or style.EnableHover
+	local showUnderline = (style.ShowUnderline == nil) and true or style.ShowUnderline
 
 	return Roact.createElement(Button, {
 		Style = {
@@ -166,7 +172,8 @@ function LinkText:render()
 end
 
 ContextServices.mapToProps(LinkText, {
-	Theme = ContextServices.Theme,
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
 })
 
 return LinkText

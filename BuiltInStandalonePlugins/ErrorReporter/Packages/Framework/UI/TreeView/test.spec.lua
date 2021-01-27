@@ -8,6 +8,11 @@ return function()
 	local TreeView = require(script.Parent)
 	local TextLabel = require(Framework.UI.TextLabel)
 
+	local StudioTheme = require(Framework.Style.Themes.StudioTheme)
+
+	local Util = require(Framework.Util)
+	local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
+
 	local items = {
 		{
 			name = "Workspace",
@@ -54,11 +59,16 @@ return function()
 	}
 
 	local function createTreeView()
-		local theme = Theme.new(function()
-			return {
-				Framework = FrameworkStyles.new(),
-			}
-		end)
+		local theme
+		if THEME_REFACTOR then
+			theme = StudioTheme.mock()
+		else
+			theme = Theme.new(function()
+				return {
+					Framework = FrameworkStyles.new(),
+				}
+			end)
+		end
 		return provide({theme}, {
 			TreeView = Roact.createElement(TreeView, {
 				RootItems = items,

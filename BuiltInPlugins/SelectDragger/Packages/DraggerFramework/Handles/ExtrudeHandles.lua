@@ -14,6 +14,7 @@ local StandaloneSelectionBox = require(DraggerFramework.Components.StandaloneSel
 local ScaleHandleView = require(DraggerFramework.Components.ScaleHandleView)
 
 local EngineFeatureEditPivot = require(DraggerFramework.Flags.getEngineFeatureEditPivot)()
+local getFFlagNoSnapLimit = require(DraggerFramework.Flags.getFFlagNoSnapLimit)
 
 local ExtrudeHandle = {}
 ExtrudeHandle.__index = ExtrudeHandle
@@ -58,6 +59,7 @@ local ScaleHandleDefinitions = {
 }
 
 local function snapToGrid(distance, gridSize)
+	assert(not getFFlagNoSnapLimit())
 	return math.floor(distance / gridSize + 0.5) * gridSize
 end
 
@@ -312,7 +314,12 @@ function ExtrudeHandle:mouseDrag(mouseRay)
 		return
 	end
 
-	local delta = snapToGrid(distance - self._startDistance, self._draggerContext:getGridSize())
+	local delta
+	if getFFlagNoSnapLimit() then
+		delta = self._draggerContext:snapToGridSize(distance - self._startDistance)
+	else
+		delta = snapToGrid(distance - self._startDistance, self._draggerContext:getGridSize())
+	end
 	local handleProps = self._handles[self._draggingHandleId]
 	local normalId = handleProps.NormalId
 	local axis = handleProps.Axis

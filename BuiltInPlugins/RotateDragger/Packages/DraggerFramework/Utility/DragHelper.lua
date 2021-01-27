@@ -7,6 +7,7 @@ local roundRotation = require(DraggerFramework.Utility.roundRotation)
 
 local getFFlagDragFaceInstances = require(DraggerFramework.Flags.getFFlagDragFaceInstances)
 local getFFlagNoSnapLimit = require(DraggerFramework.Flags.getFFlagNoSnapLimit)
+local getFFlagDragDecalOntoTerrain = require(DraggerFramework.Flags.getFFlagDragDecalOntoTerrain)
 
 local PrimaryDirections = {
 	Vector3.new(1, 0, 0),
@@ -141,6 +142,11 @@ end
 
 function DragHelper.getPartAndSurface(mouseRay)
 	local part, mouseWorld = Workspace:FindPartOnRay(mouseRay)
+	if getFFlagDragDecalOntoTerrain() and part:IsA("Terrain") then
+		-- Terrain doesn't have Primary Axis based surfaces to return
+		return part, nil
+	end
+
 	local closestFace, _
 	if part then
 		closestFace, _ = DragHelper.getClosestFace(part, mouseWorld)

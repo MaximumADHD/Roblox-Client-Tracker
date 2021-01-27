@@ -34,9 +34,6 @@ local Util = require(DevFrameworkRoot.Util)
 local Resources = require(DevFrameworkRoot.Resources)
 
 local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
-local FlagsList = Util.Flags.new({
-	FFlagDevFrameworkLocalizationLibraries = {"DevFrameworkLocalizationLibraries"},
-})
 
 -- contextItemsList : (table, optional) a list of ContextItems to include in the stack. Will override any duplicates.
 -- children : (table, required) a map of children like you would pass into Roact.createElement's children
@@ -62,14 +59,14 @@ return function(contextItemsList, children)
 	table.insert(contextItems, focus)
 
 	-- Localization
-	local localization = ContextServices.Localization.mock(FlagsList:get("FFlagDevFrameworkLocalizationLibraries") and {
+	local localization = ContextServices.Localization.mock({
 		libraries = {
 			[Resources.LOCALIZATION_PROJECT_NAME] = {
 				stringResourceTable = Resources.TranslationDevelopmentTable,
 				translationResourceTable = Resources.TranslationReferenceTable,
 			},
 		},
-	} or nil)
+	})
 	table.insert(contextItems, localization)
 
 	-- Mouse

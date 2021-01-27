@@ -14,6 +14,7 @@ return function()
 
 		local element = ContextServices.provide({plugin}, {
 			Widget = Roact.createElement(widget, {
+				CreateWidgetImmediately = true,
 				OnClose = function()
 				end,
 			})
@@ -34,6 +35,7 @@ return function()
 		end)
 		local element = ContextServices.provide({plugin}, {
 			Widget = Roact.createElement(widget, {
+				CreateWidgetImmediately = true,
 				OnClose = function()
 				end,
 			})
@@ -52,6 +54,7 @@ return function()
 			return Instance.new("ScreenGui")
 		end)
 		local element = Roact.createElement(widget, {
+			CreateWidgetImmediately = true,
 			OnClose = function()
 			end,
 		})
@@ -69,7 +72,9 @@ return function()
 			return Instance.new("ScreenGui")
 		end)
 		local element = ContextServices.provide({plugin}, {
-			Widget = Roact.createElement(widget)
+			Widget = Roact.createElement(widget, {
+				CreateWidgetImmediately = true,
+			})
 		})
 
 		expect(function()
@@ -89,6 +94,7 @@ return function()
 		end)
 		local element = ContextServices.provide({plugin}, {
 			Widget = Roact.createElement(widget, {
+				CreateWidgetImmediately = true,
 				Title = "TestTitle",
 				ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
 				OnClose = function()
@@ -115,6 +121,7 @@ return function()
 		end)
 		local element = ContextServices.provide({plugin}, {
 			Widget = Roact.createElement(widget, {
+				CreateWidgetImmediately = true,
 				OnClose = function()
 				end,
 			}, {
@@ -140,6 +147,7 @@ return function()
 		end)
 		local element = ContextServices.provide({plugin}, {
 			Widget = Roact.createElement(widget, {
+				CreateWidgetImmediately = true,
 				OnClose = function()
 				end,
 			})
@@ -162,6 +170,7 @@ return function()
 		end)
 		local element = ContextServices.provide({plugin}, {
 			Widget = Roact.createElement(widget, {
+				CreateWidgetImmediately = true,
 				OnClose = function()
 				end,
 			}, {

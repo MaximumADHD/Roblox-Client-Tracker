@@ -10,7 +10,6 @@
 local DraggerSchemaCore = script.Parent
 local Packages = DraggerSchemaCore.Parent
 local DraggerFramework = Packages.DraggerFramework
-local getFFlagDraggerMiscFixes = require(DraggerFramework.Flags.getFFlagDraggerMiscFixes)
 
 local HoverEscapeDetector = {}
 HoverEscapeDetector.__index = HoverEscapeDetector
@@ -31,7 +30,7 @@ function HoverEscapeDetector.new(draggerContext, hoveredItem, onEscaped)
 			-- signal to fire, then we can be sure the physics state
 			-- updates have already ocurred.
 			child:GetPropertyChangedSignal("Parent"):Wait()
-			if not getFFlagDraggerMiscFixes() or not self._destroyed then
+			if not self._destroyed then
 				onEscaped()
 			end
 		end)
@@ -44,7 +43,7 @@ function HoverEscapeDetector.new(draggerContext, hoveredItem, onEscaped)
 			-- movement weld being removed from under it.
 			if descendant:IsA("BasePart") or descendant:IsA("Attachment") then
 				descendant:GetPropertyChangedSignal("Parent"):Wait()
-				if not getFFlagDraggerMiscFixes() or not self._destroyed then
+				if not self._destroyed then
 					onEscaped()
 				end
 			end

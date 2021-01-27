@@ -27,20 +27,28 @@
 local DevFrameworkRoot = script.Parent.Parent
 local ContextServices = require(DevFrameworkRoot.ContextServices)
 local StudioFrameworkStyles = require(DevFrameworkRoot.StudioUI).StudioFrameworkStyles
-local mockPlugin = require(DevFrameworkRoot.TestHelpers.Services.mockPlugin)
+local MockPlugin = require(DevFrameworkRoot.TestHelpers.Instances.MockPlugin)
 local Rodux = require(DevFrameworkRoot.Parent.Rodux)
+local StudioTheme = require(DevFrameworkRoot.Style.Themes.StudioTheme)
+local Util = require(DevFrameworkRoot.Util)
+local Resources = require(DevFrameworkRoot.Resources)
 
+local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 
 -- contextItemsList : (table, optional) a list of ContextItems to include in the stack. Will override any duplicates.
 -- children : (table, required) a map of children like you would pass into Roact.createElement's children
 return function(contextItemsList, children)
 	if contextItemsList then
 		assert(type(contextItemsList) == "table", "Expected contextItemsList to be a table.")
-		assert(type(next(contextItemsList)) == "number" or type(next(contextItemsList)) == "nil",
+		assert(type((next(contextItemsList))) == "number" or type((next(contextItemsList))) == "nil",
 			"Expected contextItemsList to be an array.")
 	end
 	assert(type(children) == "table", "Expected children to be a table.")
-	assert(type(next(children)) == "string", "Expected children to be a map of components.")
+	assert(type((next(children))) == "string", "Expected children to be a map of components.")
+
+	-- Multiple items use the plugin in some way
+	-- Create 1 mock plugin and use it in each
+	local mockPlugin = MockPlugin.new()
 
 	-- create a list of default mocks
 	local contextItems = {}
@@ -51,13 +59,18 @@ return function(contextItemsList, children)
 	table.insert(contextItems, focus)
 
 	-- Localization
-	local localization = ContextServices.Localization.mock()
+	local localization = ContextServices.Localization.mock({
+		libraries = {
+			[Resources.LOCALIZATION_PROJECT_NAME] = {
+				stringResourceTable = Resources.TranslationDevelopmentTable,
+				translationResourceTable = Resources.TranslationReferenceTable,
+			},
+		},
+	})
 	table.insert(contextItems, localization)
 
 	-- Mouse
-	local mouse = ContextServices.Mouse.new({
-		Icon = "rbxasset://SystemCursors/Arrow",
-	})
+	local mouse = ContextServices.Mouse.new(mockPlugin:GetMouse())
 	table.insert(contextItems, mouse)
 
 	-- Navigation
@@ -69,11 +82,11 @@ return function(contextItemsList, children)
 	table.insert(contextItems, analytics)
 
 	-- Plugin
-	local plugin = ContextServices.Plugin.new(mockPlugin.new())
+	local plugin = ContextServices.Plugin.new(mockPlugin)
 	table.insert(contextItems, plugin)
 
 	-- PluginActions
-	local pluginActions = ContextServices.PluginActions.new(mockPlugin.new(), {})
+	local pluginActions = ContextServices.PluginActions.new(mockPlugin, {})
 	table.insert(contextItems, pluginActions)
 
 	-- Store
@@ -83,19 +96,24 @@ return function(contextItemsList, children)
 	table.insert(contextItems, store)
 
 	-- Theme
-	local theme = ContextServices.Theme.mock(function(theme, getColor)
-		return {
-			Framework = StudioFrameworkStyles.new(theme, getColor),
-		}
-	end, function()
-		return {
-			Name = Enum.UITheme.Light.Name,
+	local theme
+	if THEME_REFACTOR then
+		theme = StudioTheme.mock()
+	else
+		theme = ContextServices.Theme.mock(function(theme, getColor)
+			return {
+				Framework = StudioFrameworkStyles.new(theme, getColor),
+			}
+		end, function()
+			return {
+				Name = "Light",
 
-			GetColor = function(_, _)
-				return Color3.new()
-			end,
-		}
-	end)
+				GetColor = function(_, _)
+					return Color3.new()
+				end,
+			}
+		end)
+	end
 	table.insert(contextItems, theme)
 
 

@@ -31,7 +31,7 @@ return function()
 
 			Roact.update(instance, createTestBulletList({
 				Items = {"one", "two", "three", "four"}
-			}, container))
+			}))
 
 			local size2 = container:FindFirstChild("BulletList", true).Size
 
@@ -51,7 +51,7 @@ return function()
 
 			Roact.update(instance, createTestBulletList({
 				Items = {"one", "two"}
-			}, container))
+			}))
 
 			local size2 = container:FindFirstChild("BulletList", true).Size
 

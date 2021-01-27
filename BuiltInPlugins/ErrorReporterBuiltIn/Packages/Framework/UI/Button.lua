@@ -4,19 +4,22 @@
 
 	Required Props:
 		callback OnClick: A callback for when the user clicks this button.
-		Theme Theme: A Theme ContextItem, which is provided via mapToProps.
 
 	Optional Props:
 		string Text: The text to display in this button.
 		Style Style: The style with which to render this component.
 		StyleModifier StyleModifier: The StyleModifier index into Style.
 		UDim2 Size: The size of this component.
+		Enum.SizeConstraint SizeConstraint: the direction(s) that the container can be resized in.
 		UDim2 Position: The position of this component.
 		Vector2 AnchorPoint: The pivot point of this component's Position prop.
 		number ZIndex: The render index of this component.
 		number LayoutOrder: The layout order of this component in a list.
+		Stylizer Stylizer: A Stylizer ContextItem, which is provided via mapToProps.
+		Theme Theme: A Theme ContextItem, which is provided via mapToProps.
 
 	Style Values:
+		UDim2 Size: The size of this component.
 		Component Background: The background to render for this Button.
 		Style BackgroundStyle: The style with which to render the background.
 		Component Foreground: The foreground to render for this Button.
@@ -26,9 +29,7 @@
 		number TextSize: The size of the text in this button.
 		Color3 TextColor: The color of the text in this button.
 ]]
-local FFlagAssetManagerLuaCleanup1 = settings():GetFFlag("AssetManagerLuaCleanup1")
 local FFlagStudioFixTreeViewForSquish = settings():GetFFlag("StudioFixTreeViewForSquish")
-local FFlagTruncateDevFrameworkHyperlinkText = game:GetFastFlag("TruncateDevFrameworkHyperlinkText")
 local FFlagWrappedDevFrameworkLinkText = game:GetFastFlag("WrappedDevFrameworkLinkText")
 
 local Framework = script.Parent.Parent
@@ -37,7 +38,10 @@ local ContextServices = require(Framework.ContextServices)
 local Container = require(Framework.UI.Container)
 local Util = require(Framework.Util)
 local StyleModifier = Util.StyleModifier
+local prioritize = Util.prioritize
 local Typecheck = Util.Typecheck
+
+local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 
 local Button = Roact.PureComponent:extend("Button")
 Typecheck.wrap(Button, script)
@@ -66,7 +70,12 @@ function Button:render()
 	local theme = props.Theme
 	local styleModifier = props.StyleModifier or state.StyleModifier
 
-	local style = theme:getStyle("Framework", self)
+	local style
+	if THEME_REFACTOR then
+		style = props.Stylizer
+	else
+		style = theme:getStyle("Framework", self)
+	end
 	local background = style.Background
 	local backgroundStyle = style.BackgroundStyle
 	local foreground = style.Foreground
@@ -75,21 +84,21 @@ function Button:render()
 
 	local text = props.Text or ""
 	local onClick = props.OnClick
-	local size = props.Size
+	local size = prioritize(style.Size, props.Size)
 	local position = props.Position
+	local sizeConstraint = props.SizeConstraint
 	local anchorPoint = props.AnchorPoint
 	local zIndex = props.ZIndex
 	local layoutOrder = props.LayoutOrder
 
-	if FFlagAssetManagerLuaCleanup1 then
-		assert(typeof(onClick) == "function", string.format("Button requires OnClick to be of type string not %s", typeof(onClick)))
-	end
+	assert(typeof(onClick) == "function", string.format("Button requires OnClick to be of type function, not %s", typeof(onClick)))
 
 	return Roact.createElement(Container, {
 		Background = background,
 		BackgroundStyle = backgroundStyle,
 		BackgroundStyleModifier = styleModifier,
 		Size = size,
+		SizeConstraint = sizeConstraint,
 		Position = position,
 		AnchorPoint = anchorPoint,
 		ZIndex = zIndex,
@@ -109,7 +118,7 @@ function Button:render()
 			Font = style.Font,
 			TextSize = style.TextSize,
 			TextColor3 = style.TextColor,
-			TextTruncate = FFlagTruncateDevFrameworkHyperlinkText and style.TextTruncate or nil,
+			TextTruncate = style.TextTruncate,
 			TextWrapped = FFlagWrappedDevFrameworkLinkText and style.TextWrapped or nil,
 			TextXAlignment = FFlagStudioFixTreeViewForSquish and style.TextXAlignment or nil,
 			TextYAlignment = FFlagStudioFixTreeViewForSquish and style.TextYAlignment or nil,
@@ -124,7 +133,8 @@ function Button:render()
 end
 
 ContextServices.mapToProps(Button, {
-	Theme = ContextServices.Theme,
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
 })
 
 return Button

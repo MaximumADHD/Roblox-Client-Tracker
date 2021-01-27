@@ -1,9 +1,5 @@
 return function()
-	local Framework = script.Parent.Parent
-
 	local Promise = require(script.Parent.Promise)
-
-	local FFlagDevFrameworkUnhandledPromiseRejections = game:GetFastFlag("DevFrameworkUnhandledPromiseRejections")
 
 	describe("Promise.new", function()
 		it("should instantiate with a callback", function()
@@ -285,10 +281,6 @@ return function()
 	-- onUnhandledRejection callback.
 	describe("unhandled rejections", function()
 
-		if not FFlagDevFrameworkUnhandledPromiseRejections then
-			return
-		end
-
 		local calls
 		local originalOnUnhandledRejection
 
@@ -359,10 +351,8 @@ return function()
 
 				expect(promise._unhandledRejection).to.equal(true)
 
-				local caught = false
 				promise:catch(function(err)
 					expect(err:find("it did not work")).to.be.ok()
-					caught = true
 				end)
 
 				waitUntilNextTick()

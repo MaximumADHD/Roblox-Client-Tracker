@@ -1,5 +1,13 @@
 return function()
-	local Palette = require(script.Parent.Palette)
+
+	local Util = script.Parent
+	local THEME_REFACTOR = require(Util.RefactorFlags).THEME_REFACTOR
+
+	if THEME_REFACTOR then
+		return
+	end
+
+	local Palette = require(Util.Palette)
 
 	it("should be a table of color StyleValues", function()
 		expect(Palette).to.be.ok()

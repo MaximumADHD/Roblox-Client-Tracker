@@ -1,5 +1,3 @@
-local RobloxPluginGuiService = game:GetService("RobloxPluginGuiService")
-
 local Framework = script.Parent.Parent
 local CrossPluginCommunication = require(Framework.Util.CrossPluginCommunication)
 
@@ -8,8 +6,10 @@ return function()
 
 	-- TODO DEVTOOLS-4397: Move cleanup to afterEach hook after the dependency structure is fixed
 
+	local hostService = workspace
+
 	local function createTestComms()
-		return CrossPluginCommunication.new(TEST_NAMESPACE)
+		return CrossPluginCommunication.new(TEST_NAMESPACE, hostService)
 	end
 
 	describe("Invoke", function()
@@ -32,7 +32,7 @@ return function()
 
 			comms:OnInvoke("blah", function() end)
 
-			local namespace = RobloxPluginGuiService:FindFirstChild(CrossPluginCommunication.BASE_FOLDER_NAME):FindFirstChild(TEST_NAMESPACE)
+			local namespace = hostService:FindFirstChild(CrossPluginCommunication.BASE_FOLDER_NAME):FindFirstChild(TEST_NAMESPACE)
 
 			assert(namespace)
 

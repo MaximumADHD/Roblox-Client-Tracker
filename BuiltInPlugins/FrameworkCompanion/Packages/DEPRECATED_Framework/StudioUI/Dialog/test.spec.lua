@@ -17,6 +17,7 @@ return function()
 	it("should create and destroy without errors", function()
 		local element = ContextServices.provide({mockPlugin()}, {
 			Dialog = Roact.createElement(Dialog, {
+				CreateWidgetImmediately = true,
 				Title = "Test",
 				Size = Vector2.new(),
 				OnClose = function()
@@ -30,7 +31,9 @@ return function()
 
 	it("should expect an OnClose prop", function()
 		local element = ContextServices.provide({mockPlugin()}, {
-			Dialog = Roact.createElement(Dialog),
+			Dialog = Roact.createElement(Dialog, {
+				CreateWidgetImmediately = true,
+			}),
 		})
 
 		expect(function()

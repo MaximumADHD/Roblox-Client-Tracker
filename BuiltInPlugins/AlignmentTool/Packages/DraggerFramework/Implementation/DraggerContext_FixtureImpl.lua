@@ -12,8 +12,6 @@ local DraggerFramework = script.Parent.Parent
 
 local MockAnalytics = require(DraggerFramework.Utility.MockAnalytics)
 
-local getEngineFeatureActiveInstanceHighlight = require(DraggerFramework.Flags.getEngineFeatureActiveInstanceHighlight)
-
 local DraggerContext = {}
 DraggerContext.__index = DraggerContext
 
@@ -128,10 +126,6 @@ function DraggerContext:getHoverAnimationSpeedInSeconds()
 end
 
 function DraggerContext:getHoverBoxColor(isActive)
-	if not getEngineFeatureActiveInstanceHighlight() then
-		assert(isActive == nil)
-	end
-
 	return Color3.new()
 end
 
@@ -140,10 +134,6 @@ function DraggerContext:getHoverLineThickness()
 end
 
 function DraggerContext:getSelectionBoxColor(isActive)
-	if not getEngineFeatureActiveInstanceHighlight() then
-		assert(isActive == nil)
-	end
-
 	return Color3.new()
 end
 
@@ -294,7 +284,6 @@ function DraggerContext:expectInsertPoint(location)
 end
 
 function DraggerContext:shouldShowActiveInstanceHighlight()
-	assert(getEngineFeatureActiveInstanceHighlight())
 	return true
 end
 

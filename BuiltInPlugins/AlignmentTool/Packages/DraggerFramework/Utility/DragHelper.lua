@@ -6,8 +6,8 @@ local getGeometry = require(DraggerFramework.Utility.getGeometry)
 local roundRotation = require(DraggerFramework.Utility.roundRotation)
 
 local getFFlagDragFaceInstances = require(DraggerFramework.Flags.getFFlagDragFaceInstances)
-local getFFlagDraggerMiscFixes = require(DraggerFramework.Flags.getFFlagDraggerMiscFixes)
 local getFFlagNoSnapLimit = require(DraggerFramework.Flags.getFFlagNoSnapLimit)
+local getFFlagDragDecalOntoTerrain = require(DraggerFramework.Flags.getFFlagDragDecalOntoTerrain)
 
 local PrimaryDirections = {
 	Vector3.new(1, 0, 0),
@@ -142,6 +142,11 @@ end
 
 function DragHelper.getPartAndSurface(mouseRay)
 	local part, mouseWorld = Workspace:FindPartOnRay(mouseRay)
+	if getFFlagDragDecalOntoTerrain() and part:IsA("Terrain") then
+		-- Terrain doesn't have Primary Axis based surfaces to return
+		return part, nil
+	end
+
 	local closestFace, _
 	if part then
 		closestFace, _ = DragHelper.getClosestFace(part, mouseWorld)
@@ -307,10 +312,8 @@ function DragHelper.updateTiltRotate(cameraCFrame, mouseRay, selection, mainCFra
 		end
 	end
 
-	if getFFlagDraggerMiscFixes() then
-		-- If we somehow had NaNs in our CFrame then closestAxis may still be nil
-		closestAxis = closestAxis or Vector3.new(0, 1, 0)
-	end
+	-- If we somehow had NaNs in our CFrame then closestAxis may still be nil
+	closestAxis = closestAxis or Vector3.new(0, 1, 0)
 
 	-- Could be written without the need for rounding by permuting the
 	-- components of closestAxis, but this is more understandable.

@@ -26,7 +26,6 @@
 		number TextSize: The font size of the text in this link.
 		Color3 TextColor: The color of the text and underline in this link.
 ]]
-local FFlagTruncateDevFrameworkHyperlinkText = game:GetFastFlag("TruncateDevFrameworkHyperlinkText")
 local FFlagWrappedDevFrameworkLinkText = game:GetFastFlag("WrappedDevFrameworkLinkText")
 
 local TextService = game:GetService("TextService")
@@ -52,7 +51,7 @@ function LinkText:init(props)
 		assert(props.Size or (not props.TextWrapped), "Size prop is required to use the TextWrapped prop")
 	end
 
-	if FFlagTruncateDevFrameworkHyperlinkText and props.TextTruncate then
+	if props.TextTruncate then
 		assert(props.Size ~= nil and typeof(props.Size) == "UDim2", "LinkText expects a UDim2 'Size' if the 'TextTruncate' prop passed in.")
 	end
 
@@ -92,14 +91,14 @@ function LinkText:render()
 	local textSize = style.TextSize
 	local textColor = style.TextColor
 	local text = props.Text or ""
-	local textTruncate = FFlagTruncateDevFrameworkHyperlinkText and props.TextTruncate or nil
+	local textTruncate = props.TextTruncate
 	local textWrapped = FFlagWrappedDevFrameworkLinkText and props.TextWrapped or nil
 	local textXAlignment = FFlagWrappedDevFrameworkLinkText and props.TextXAlignment or nil
 	local textYAlignment = FFlagWrappedDevFrameworkLinkText and props.TextYAlignment or nil
 
 	local isMultiline = false
 	local textDimensions
-	if FFlagTruncateDevFrameworkHyperlinkText and textTruncate then
+	if textTruncate then
 		textDimensions = size
 	else
 		if font then

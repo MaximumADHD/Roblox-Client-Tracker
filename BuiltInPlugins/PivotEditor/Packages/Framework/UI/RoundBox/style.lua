@@ -4,17 +4,13 @@ local StyleKey = require(Framework.Style.StyleKey)
 
 local Util = require(Framework.Util)
 local Style = Util.Style
-local FlagsList = Util.Flags.new({
-	FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
-})
+local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 
 local StudioFrameworkStyles = Framework.StudioUI.StudioFrameworkStyles
 local Common = require(StudioFrameworkStyles.Common)
 
-local export: any
-
-if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
-	export = {
+if THEME_REFACTOR then
+	return {
 		Color = StyleKey.MainBackground,
 		BorderColor = StyleKey.Border,
 		Transparency = 0,
@@ -24,7 +20,7 @@ if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
 		SliceCenter = Rect.new(3, 3, 13, 13),
 	}
 else
-	export = function(theme, getColor)
+	return function(theme, getColor)
 		local common = Common(theme, getColor)
 
 		local Default = Style.extend(common.Background, common.Border, {
@@ -40,5 +36,3 @@ else
 		}
 	end
 end
-
-return export

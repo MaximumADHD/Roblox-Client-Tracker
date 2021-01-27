@@ -14,6 +14,7 @@ function MockMouse.new()
 
 		WheelForward = Signal.new(),
 		WheelBackward = Signal.new(),
+		Button1Down = Signal.new()
 	}, MockMouse)
 end
 

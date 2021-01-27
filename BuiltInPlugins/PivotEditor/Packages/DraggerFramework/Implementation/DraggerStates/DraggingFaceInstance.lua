@@ -8,6 +8,8 @@ local DraggerStateType = require(DraggerFramework.Implementation.DraggerStateTyp
 local DragHelper = require(DraggerFramework.Utility.DragHelper)
 local StandardCursor = require(DraggerFramework.Utility.StandardCursor)
 
+local getFFlagDragDecalOntoTerrain = require(DraggerFramework.Flags.getFFlagDragDecalOntoTerrain)
+
 local SURFACE_TO_FACE = {
 	["TopSurface"] = "Top",
 	["BottomSurface"] = "Bottom",
@@ -56,11 +58,18 @@ function DraggingFaceInstance:processViewChanged()
 
 	if configurableFaces then
 		for _, instance in pairs(configurableFaces) do
-			if part then
-				instance.Parent = part
-			end
-			if surface then
-				instance.Face = SURFACE_TO_FACE[surface]
+			if getFFlagDragDecalOntoTerrain() then
+				if part and surface then
+					instance.Parent = part
+					instance.Face = SURFACE_TO_FACE[surface]
+				end
+			else
+				if part then
+					instance.Parent = part
+				end
+				if surface then
+					instance.Face = SURFACE_TO_FACE[surface]
+				end
 			end
 		end
 	end

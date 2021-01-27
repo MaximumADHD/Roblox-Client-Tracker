@@ -41,8 +41,7 @@
 	function Networking:handleRetry(Promise requestPromise, optional number numRetries, optional bool disableBackoff)
 		Given a Promise that resolves to an HttpResponse, this function will automatically retry the request if
 		the request fails for an unexpected server reason. It will not retry if there was a problem with the request
-		itself, or if it was a POST request.
-		
+		itself, or if it was a POST or PATCH (non-idempotent) request.
 
 	Example Usage:
 		-- get some information about game universes
@@ -65,7 +64,6 @@ local HttpResponse = require(script.Parent.HttpResponse)
 local StatusCodes = require(script.Parent.StatusCodes)
 
 local FFlagStudioFixFrameworkJsonParsing = game:DefineFastFlag("StudioFixFrameworkJsonParsing", true)
-local FFlagStudioFixFrameworkClientErrorRetries = game:DefineFastFlag("StudioFixFrameworkClientErrorRetries", false)
 
 local LOGGING_CHANNELS = {
 	NONE = 0,
@@ -444,15 +442,22 @@ function Networking:handleRetry(requestPromise, numRetries, disableBackoff)
 					return
 				end
 
-				if FFlagStudioFixFrameworkClientErrorRetries then
-					-- Do not retry on HTTP 4xx (client) errors
-					if errResponse.responseCode >= 400 and errResponse.responseCode < 500 then
-						if self:_isLoggingEnabled(LOGGING_CHANNELS.RESPONSES) then
-							print("4xx error response. Rejecting request.")
-						end
-						reject(errResponse)
-						return
+				-- Do not retry on HTTP 4xx (client) errors
+				if errResponse.responseCode >= 400 and errResponse.responseCode < 500 then
+					if self:_isLoggingEnabled(LOGGING_CHANNELS.RESPONSES) then
+						print("4xx error response. Rejecting request.")
 					end
+					reject(errResponse)
+					return
+				end
+
+				local method = err.requestOptions["Method"]
+				if method == "POST" or method == "PATCH" then
+					if self:_isLoggingEnabled(LOGGING_CHANNELS.RESPONSES) then
+						print("Error response to " .. method .. " request. Rejecting request.")
+					end
+					reject(errResponse)
+					return
 				end
 
 				if self:_isLoggingEnabled(LOGGING_CHANNELS.DEBUG) then

@@ -21,7 +21,15 @@
 		callback OnWidgetRestored: A callback for when the widget
 			is restored to its previous position and enabled state. Passes the
 			new enabled state as a parameter.
+
+		boolean CreateWidgetImmediately: C++ method for creating a widget yields, which can cause issues with Roact/Rodux.
+			That method is run in its own thread, but that means creation of the widget is delayed.
+			Set this to true to create the widget immediately instead. Mostly useful for unit tests.
 ]]
+
+game:DefineFastFlag("FixDevFrameworkDockWidgetMinSize", false)
+
+local FFlagFixDevFrameworkDockWidgetMinSize = game:GetFastFlag("FixDevFrameworkDockWidgetMinSize")
 
 local expectsRestoredMessage = [[
 DockWidget expects an OnWidgetRestored function if ShouldRestore is true.
@@ -33,7 +41,14 @@ local createPluginWidget = require(Framework.StudioUI.createPluginWidget)
 
 local DockWidget = createPluginWidget("DockWidget", function(props)
 	local plugin = props.Plugin:get()
-	local minSize = props.Size or props.MinSize
+
+	local minSize
+	if FFlagFixDevFrameworkDockWidgetMinSize then
+		minSize = props.MinSize or Vector2.new(0, 0)
+	else
+		minSize = props.Size or props.MinSize
+	end
+
 	local shouldRestore = props.ShouldRestore or false
 
 	if shouldRestore then

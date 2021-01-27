@@ -7,10 +7,9 @@ local Plugin = DraggerFramework.Parent.Parent
 local Math = require(DraggerFramework.Utility.Math)
 local Roact = require(Plugin.Packages.Roact)
 
-local getEngineFeatureAdornCullingMode = require(DraggerFramework.Flags.getEngineFeatureAdornCullingMode)
 local getEngineFeatureEditPivot = require(DraggerFramework.Flags.getEngineFeatureEditPivot)
 
-local CULLING_MODE = getEngineFeatureAdornCullingMode() and Enum.AdornCullingMode.Never or nil
+local CULLING_MODE = Enum.AdornCullingMode.Never
 
 local MoveHandleView = Roact.PureComponent:extend("MoveHandleView")
 
@@ -31,19 +30,6 @@ end
 
 function MoveHandleView:render()
 	local scale = self.props.Scale
-
-	-- TODO: Debug code so that the designers can play with the handle size,
-	-- remove before shipping.
-	if Workspace:FindFirstChild("MoveHandleRadius") and Workspace.MoveHandleRadius.Value ~= 0 then
-		BASE_HANDLE_RADIUS = 0.07 * Workspace.MoveHandleRadius.Value
-		BASE_HANDLE_HITTEST_RADIUS = BASE_HANDLE_RADIUS * 3
-	end
-	if Workspace:FindFirstChild("MoveHandleLength") and Workspace.MoveHandleLength.Value ~= 0 then
-		BASE_HANDLE_LENGTH = 3.00 * Workspace.MoveHandleLength.Value
-	end
-	if Workspace:FindFirstChild("MoveHandleTransparency") and Workspace.MoveHandleTransparency.Value ~= 0 then
-		HANDLE_DIM_TRANSPARENCY = 0.7 * Workspace.MoveHandleTransparency.Value
-	end
 
 	local length = scale * BASE_HANDLE_LENGTH
 	local radius = scale * BASE_HANDLE_RADIUS

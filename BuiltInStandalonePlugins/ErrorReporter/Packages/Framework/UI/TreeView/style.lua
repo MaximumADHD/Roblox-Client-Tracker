@@ -8,18 +8,29 @@ local UIFolderData = require(Framework.UI.UIFolderData)
 local ScrollingFrame = require(UIFolderData.ScrollingFrame.style)
 local RoundBox = require(UIFolderData.RoundBox.style)
 
-return function(theme, getColor)
-	local roundBox = RoundBox(theme, getColor)
-	local scrollingFrame = ScrollingFrame(theme, getColor)
+local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 
-	local Default = Style.new({
-		Background = Decoration.RoundBox,
-		BackgroundStyle = roundBox.Default,
-		ScrollingFrame = Style.extend(scrollingFrame.Default, {}),
-		Padding = 1
-	})
-
+if THEME_REFACTOR then
 	return {
-		Default = Default,
+		Background = Decoration.RoundBox,
+		BackgroundStyle = RoundBox,
+		ScrollingFrame = ScrollingFrame,
+		Padding = 1
 	}
+else
+	return function(theme, getColor)
+		local roundBox = RoundBox(theme, getColor)
+		local scrollingFrame = ScrollingFrame(theme, getColor)
+
+		local Default = Style.new({
+			Background = Decoration.RoundBox,
+			BackgroundStyle = roundBox.Default,
+			ScrollingFrame = Style.extend(scrollingFrame.Default, {}),
+			Padding = 1
+		})
+
+		return {
+			Default = Default,
+		}
+	end
 end

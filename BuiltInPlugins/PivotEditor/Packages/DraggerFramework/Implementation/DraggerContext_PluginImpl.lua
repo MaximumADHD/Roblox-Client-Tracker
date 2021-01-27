@@ -10,8 +10,6 @@ local DraggerFramework = script.Parent.Parent
 local Analytics = require(DraggerFramework.Utility.Analytics)
 local setInsertPoint = require(DraggerFramework.Utility.setInsertPoint)
 
-local getEngineFeatureActiveInstanceHighlight = require(DraggerFramework.Flags.getEngineFeatureActiveInstanceHighlight)
-
 local DraggerContext = {}
 DraggerContext.__index = DraggerContext
 
@@ -92,10 +90,6 @@ function DraggerContext:getHoverAnimationSpeedInSeconds()
 end
 
 function DraggerContext:getHoverBoxColor(isActive)
-	if not getEngineFeatureActiveInstanceHighlight() then
-		assert(isActive == nil)
-		return self._studioSettings["Hover Over Color"]
-	end
 	if isActive then
 		return self._studioSettings["Active Hover Over Color"]
 	else
@@ -109,10 +103,6 @@ function DraggerContext:getHoverLineThickness()
 end
 
 function DraggerContext:getSelectionBoxColor(isActive)
-	if not getEngineFeatureActiveInstanceHighlight() then
-		assert(isActive == nil)
-		return self._studioSettings["Select Color"]
-	end
 	if isActive then
 		return self._studioSettings["Active Color"]
 	else
@@ -188,6 +178,21 @@ function DraggerContext:getGridSize()
 	return self._studioService.GridSize
 end
 
+-- Wrapped in a function because of the awkward situation where there's no
+-- explicit way to determine whether grid snapping is on or off right now, and
+-- the implementation of this may change once there is.
+-- Currently DISABLED_GRID_SIZE is what StudioService returns when grid snapping
+-- is disabled, so detect based on that.
+local DISABLED_GRID_SIZE = 0.01
+function DraggerContext:snapToGridSize(distance)
+	local gridSize = self._studioService.GridSize
+	if math.abs(gridSize - DISABLED_GRID_SIZE) < 0.001 then
+		return distance
+	else
+		return math.floor(distance / gridSize + 0.5) * gridSize
+	end
+end
+
 function DraggerContext:getRotateIncrement()
 	return self._studioService.RotateIncrement
 end
@@ -205,7 +210,6 @@ function DraggerContext:setInsertPoint(location)
 end
 
 function DraggerContext:shouldShowActiveInstanceHighlight()
-	assert(getEngineFeatureActiveInstanceHighlight())
 	return self._studioService.ShowActiveInstanceHighlight
 end
 

@@ -14,10 +14,6 @@ return function(networkingImpl, baseUrl)
 			baseUrl.GAMES_INTERNATIONALIZATION_URL,
 				string.format("v1/localizationtable/games/%d/assets-generation-request", gameId))
 
-		local headers = {
-			["Content-Type"] = "application/json"
-		}
-
 		return {
 			getUrl = function()
 				return url

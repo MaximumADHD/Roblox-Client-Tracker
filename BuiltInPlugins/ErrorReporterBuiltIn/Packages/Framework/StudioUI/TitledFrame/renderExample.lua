@@ -4,6 +4,9 @@ local Roact = require(Framework.Parent.Roact)
 local StudioUI = require(Framework.StudioUI)
 local TitledFrame = StudioUI.TitledFrame
 
+local Util = require(Framework.Util)
+local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
+
 local Example = Roact.PureComponent:extend("StyledDialogExample")
 
 function Example:render()
@@ -22,7 +25,8 @@ end
 
 ContextServices.mapToProps(Example, {
 	Plugin = ContextServices.Plugin,
-	Theme = ContextServices.Theme,
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
 })
 
 return Example

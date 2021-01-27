@@ -4,7 +4,6 @@ return function()
 	local mapToProps = require(Framework.ContextServices.mapToProps)
 	local provide = require(Framework.ContextServices.provide)
 
-	local Flags = require(Framework.Util).Flags
 	local FastFlags = require(script.Parent.FastFlags)
 
 	it("should construct just fine with no arguments", function()

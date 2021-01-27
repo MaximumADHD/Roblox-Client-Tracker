@@ -8,6 +8,9 @@ return function()
 	local Localization = require(script.Parent.Localization)
 	local TestDevStrings = script.Parent.TestDevStrings
 	local TestTranslationStrings = script.Parent.TestTranslationStrings
+	local TestLibraryDevStrings = script.Parent.TestLibraryDevStrings
+	local TestLibraryTranslationStrings = script.Parent.TestLibraryTranslationStrings
+	local LIBRARY_PROJECT = "MyLibrary"
 
 	describe("Localization", function()
 		local function runTestWithLocalization(props, runTest)
@@ -15,6 +18,12 @@ return function()
 				stringResourceTable = TestDevStrings,
 				translationResourceTable = TestTranslationStrings,
 				pluginName = "Framework",
+				libraries = {
+					[LIBRARY_PROJECT] = {
+						stringResourceTable = TestLibraryDevStrings,
+						translationResourceTable = TestLibraryTranslationStrings,
+					}
+				},
 				overrideLocaleChangedSignal = TestLocalizationChangedSignal,
 				overrideLocaleId = props.localeId or "en-us",
 				getLocale = props.getLocale,
@@ -38,6 +47,34 @@ return function()
 
 			expect(function()
 				Localization.new({})
+			end).to.throw()
+
+			expect(function()
+				Localization.new({ 
+					libraries = {
+						MyBadlySpecifiedLibrary = {},
+					}
+				})
+			end).to.throw()
+
+			expect(function()
+				Localization.new({ 
+					libraries = {
+						MyBadlySpecifiedLibrary = {
+							stringResourceTable = TestDevStrings
+						},
+					},
+				})
+			end).to.throw()
+
+			expect(function()
+				Localization.new({ 
+					libraries = {
+						MyBadlySpecifiedLibrary = {
+							translationResourceTable = TestTranslationStrings
+						},
+					},
+				})
 			end).to.throw()
 
 			expect(function()
@@ -67,6 +104,12 @@ return function()
 			runTestWithLocalization({}, function(localization)
 				local greeting = localization:getText("Spec", "greeting_formal")
 				expect(greeting).to.equal("Hello")
+
+				greeting = localization:getProjectText("Framework", "Spec", "greeting_formal")
+				expect(greeting).to.equal("Hello")
+
+				local farewell = localization:getProjectText(LIBRARY_PROJECT, "Spec", "farewell_formal")
+				expect(farewell).to.equal("Goodbye")
 			end)
 		end)
 
@@ -95,6 +138,9 @@ return function()
 
 				local surprise = localization:getText("Spec", "greeting_surprise")
 				expect(surprise).to.equal("No one expects the Spanish Inquisition!")
+
+				local farewell = localization:getProjectText(LIBRARY_PROJECT, "Spec", "farewell_surprise")
+				expect(farewell).to.equal("Fare thee well!")
 			end)
 		end)
 
@@ -102,6 +148,17 @@ return function()
 			runTestWithLocalization({}, function(localization)
 				local greeting = localization:getText("Spec", "greeting_serious")
 				expect(greeting).to.equal("Studio.Framework.Spec.greeting_serious")
+
+				local farewell = localization:getProjectText(LIBRARY_PROJECT, "Spec", "oops")
+				expect(farewell).to.equal("Studio.MyLibrary.Spec.oops")
+			end)
+		end)
+
+		it("should throw if project is missing", function()
+			runTestWithLocalization({}, function(localization)
+				expect(function()
+					localization:getProjectText("missingProject", "Spec", "farewell_formal")
+				end).to.throw()
 			end)
 		end)
 
@@ -117,12 +174,18 @@ return function()
 				local greeting = localization:getText("Spec", "greeting_formal")
 				expect(greeting).to.equal("Hello")
 
+				local farewell = localization:getProjectText(LIBRARY_PROJECT, "Spec", "farewell_formal")
+				expect(farewell).to.equal("Goodbye")
+
 				-- trigger a locale change
 				currentLocale = "es-es"
 				TestLocalizationChangedSignal:Fire()
 
 				greeting = localization:getText("Spec", "greeting_formal")
 				expect(greeting).to.equal("Hola")
+
+				local farewell = localization:getProjectText(LIBRARY_PROJECT, "Spec", "farewell_formal")
+				expect(farewell).to.equal("Adios")
 			end)
 		end)
 
@@ -167,6 +230,9 @@ return function()
 			}, function(localization)
 				local greeting = localization:getText("Spec", "greeting_formal")
 				expect(greeting).to.equal("Hola")
+
+				local farewell = localization:getProjectText(LIBRARY_PROJECT, "Spec", "farewell_formal")
+				expect(farewell).to.equal("Adios")
 			end)
 		end)
 	end)

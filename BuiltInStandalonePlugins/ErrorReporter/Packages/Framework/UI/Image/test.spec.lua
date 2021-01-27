@@ -7,12 +7,22 @@ return function()
 	local FrameworkStyles = require(Framework.UI.FrameworkStyles)
 	local Image = require(script.Parent)
 
+	local StudioTheme = require(Framework.Style.Themes.StudioTheme)
+
+	local Util = require(Framework.Util)
+	local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
+
 	local function createTestImageDecoration()
-		local theme = Theme.new(function()
-			return {
-				Framework = FrameworkStyles.new(),
-			}
-		end)
+		local theme
+		if THEME_REFACTOR then
+			theme = StudioTheme.mock()
+		else
+			theme = Theme.new(function()
+				return {
+					Framework = FrameworkStyles.new(),
+				}
+			end)
+		end
 		return provide({theme}, {
 			Image = Roact.createElement(Image),
 		})

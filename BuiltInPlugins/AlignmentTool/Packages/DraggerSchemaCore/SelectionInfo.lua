@@ -9,7 +9,6 @@ local shouldDragAsFace = require(DraggerFramework.Utility.shouldDragAsFace)
 
 local getFFlagDragFaceInstances = require(DraggerFramework.Flags.getFFlagDragFaceInstances)
 local EngineFeatureEditPivot = require(DraggerFramework.Flags.getEngineFeatureEditPivot)()
-local getFFlagImproveDragOrientation = require(DraggerFramework.Flags.getFFlagImproveDragOrientation)
 
 local function computeBoundingBox(basisCFrame, allParts, allAttachments)
 	local inverseBasis = basisCFrame:Inverse()
@@ -220,26 +219,18 @@ local function computeInfo(draggerContext, selectedObjects)
 	local basisCFrame = nil
 	local terrain = Workspace.Terrain
 
-	local FFlagImproveDragOrientation = getFFlagImproveDragOrientation()
-
 	for _, instance in ipairs(selectedObjects) do
 		if instance:IsA("Model") then
-			if not basisCFrame or FFlagImproveDragOrientation then
-				local boundingBoxCFrame, boundingBoxSize =
-					instance:GetBoundingBox()
-				if boundingBoxSize ~= Vector3.new() then
-					basisCFrame = boundingBoxCFrame
-				end
+			local boundingBoxCFrame, boundingBoxSize =
+				instance:GetBoundingBox()
+			if boundingBoxSize ~= Vector3.new() then
+				basisCFrame = boundingBoxCFrame
 			end
 		elseif instance:IsA("BasePart") then
 			if not allPartSet[instance] and instance ~= terrain then
 				table.insert(allParts, instance)
 				allPartSet[instance] = true
-				if FFlagImproveDragOrientation then
-					basisCFrame = instance.CFrame
-				else
-					basisCFrame = basisCFrame or instance.CFrame
-				end
+				basisCFrame = instance.CFrame
 			end
 		elseif getFFlagDragFaceInstances() and shouldDragAsFace(instance) then
 			table.insert(allInstancesWithConfigurableFace, instance)

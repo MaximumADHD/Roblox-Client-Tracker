@@ -18,7 +18,7 @@
 		boolean ClickableWhenViewportHidden: Whether the button is enabled
 			when the main window is not active
 ]]
-local FFlagAssetManagerLuaCleanup1 = settings():GetFFlag("AssetManagerLuaCleanup1")
+local FFlagSupportOneShotButtons = game:DefineFastFlag("SupportOneShotButtons", false)
 
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
@@ -36,15 +36,28 @@ function PluginButton:createButton()
 	local onClick = props.OnClick
 
 
-	if FFlagAssetManagerLuaCleanup1 then
-		assert(typeof(title) == "string", string.format("PluginButton requires Title to be of type string not %s", typeof(title)))
-	end
+	assert(typeof(title) == "string", string.format("PluginButton requires Title to be of type string not %s", typeof(title)))
 
 	self.button = toolbar:CreateButton(title, tooltip, icon)
 
 	self.button.ClickableWhenViewportHidden = (props.ClickableWhenViewportHidden == nil) and true or props.ClickableWhenViewportHidden
 
-	self.button.Click:Connect(onClick)
+	if FFlagSupportOneShotButtons then
+		self.button.Click:Connect(function()
+			onClick()
+
+			-- We need to call this here because when the user clicks a button,
+			-- the engine automagically toggles the activate state of the
+			-- button. This call will force the activated state back to what our
+			-- props specify it should be.
+			-- The case where this matters is one-shot action buttons which have
+			-- the active prop hardcoded to false. These should not become
+			-- activated after being clicked.
+			self:updateButton()
+		end)
+	else
+		self.button.Click:Connect(onClick)
+	end
 end
 
 function PluginButton:updateButton()

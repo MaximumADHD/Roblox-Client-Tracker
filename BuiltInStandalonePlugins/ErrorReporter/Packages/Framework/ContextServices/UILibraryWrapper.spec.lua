@@ -2,6 +2,8 @@ return function()
 	local Framework = script.Parent.Parent
 
 	local Util = require(Framework.Util)
+	local Signal = Util.Signal
+	local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 	local FlagsList = Util.Flags.new({
 		FFlagStudioDevFrameworkPackage = {"StudioDevFrameworkPackage"},
 	})
@@ -18,6 +20,7 @@ return function()
 	local Focus = require(Framework.ContextServices.Focus)
 	local Theme = require(Framework.ContextServices.Theme)
 	local UILibraryWrapper = require(script.Parent.UILibraryWrapper)
+	local StudioTheme = require(Framework.Style.Themes.StudioTheme)
 
 	local WrapperStub = Roact.PureComponent:extend("UILibraryWrapper")
 
@@ -29,12 +32,26 @@ return function()
 		Wrapper = WrapperStub
 	}
 
+	local function createThemeMock()
+
+		if THEME_REFACTOR then
+			return StudioTheme.mock()
+		else
+			local createStyles = function()
+				return {}
+			end
+			local getTheme = function()
+				return "Light"
+			end
+			local themeChanged = Signal.new()
+			return Theme.mock(createStyles, getTheme, themeChanged)
+		end
+	end
+
 	it("should expect a Plugin ContextItem provided above", function()
 		local focus = Focus.new(Instance.new("ScreenGui"))
 		local wrapper = UILibraryWrapper.new(UILibraryStub)
-		local theme = Theme.new(function()
-			return {}
-		end)
+		local theme = createThemeMock()
 		function theme:getUILibraryTheme()
 			return {}
 		end
@@ -55,9 +72,7 @@ return function()
 	it("should expect a Focus ContextItem provided above", function()
 		local plugin = Plugin.new({})
 		local wrapper = UILibraryWrapper.new(UILibraryStub)
-		local theme = Theme.new(function()
-			return {}
-		end)
+		local theme = createThemeMock()
 		function theme:getUILibraryTheme()
 			return {}
 		end
@@ -97,9 +112,7 @@ return function()
 		local plugin = Plugin.new({})
 		local focus = Focus.new(Instance.new("ScreenGui"))
 		local wrapper = UILibraryWrapper.new(UILibraryStub)
-		local theme = Theme.new(function()
-			return {}
-		end)
+		local theme = createThemeMock()
 
 		local element = provide({
 			plugin,
@@ -119,9 +132,7 @@ return function()
 		local plugin = Plugin.new({})
 		local focus = Focus.new(Instance.new("ScreenGui"))
 		local wrapper = UILibraryWrapper.new(UILibraryStub)
-		local theme = Theme.new(function()
-			return {}
-		end)
+		local theme = createThemeMock()
 		function theme:getUILibraryTheme()
 			return {}
 		end

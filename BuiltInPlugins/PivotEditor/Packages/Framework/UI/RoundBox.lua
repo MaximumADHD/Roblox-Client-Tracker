@@ -24,9 +24,7 @@ local ContextServices = require(Framework.ContextServices)
 
 local Util = require(Framework.Util)
 local Typecheck = Util.Typecheck
-local FlagsList = Util.Flags.new({
-	FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
-})
+local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 
 local RoundBox = Roact.PureComponent:extend("RoundBox")
 Typecheck.wrap(RoundBox, script)
@@ -35,7 +33,7 @@ function RoundBox:render()
 	local props = self.props
 	local theme = props.Theme
 	local style
-	if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+	if THEME_REFACTOR then
 		style = props.Stylizer
 	else
 		style = theme:getStyle("Framework", self)
@@ -75,8 +73,8 @@ function RoundBox:render()
 end
 
 ContextServices.mapToProps(RoundBox, {
-	Stylizer = FlagsList:get("FFlagRefactorDevFrameworkTheme") and ContextServices.Stylizer or nil,
-	Theme = (not FlagsList:get("FFlagRefactorDevFrameworkTheme")) and ContextServices.Theme or nil,
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
 })
 
 return RoundBox

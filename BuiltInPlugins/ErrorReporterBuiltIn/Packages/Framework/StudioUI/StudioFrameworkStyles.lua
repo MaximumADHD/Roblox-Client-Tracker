@@ -35,12 +35,19 @@ local UIFolderData = require(Framework.UI.UIFolderData)
 local StudioUIFolderData = require(Framework.StudioUI.StudioUIFolderData)
 local Util = require(Framework.Util)
 
+local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
+
 local FrameworkStyles = UI.FrameworkStyles
 local StyleTable = Util.StyleTable
 
 local StudioFrameworkStyles = {}
 
+
 function StudioFrameworkStyles.new(theme, getColor)
+	if THEME_REFACTOR then
+		return {}
+	end
+
 	assert(theme, "StudioFrameworkStyles.new expects a 'theme' parameter.")
 	assert(type(getColor) == "function", "StudioFrameworkStyles.new expects a 'getColor' function.")
 	local frameworkStyles = FrameworkStyles.new()

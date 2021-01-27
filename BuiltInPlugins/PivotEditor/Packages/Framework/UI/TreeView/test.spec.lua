@@ -11,9 +11,7 @@ return function()
 	local StudioTheme = require(Framework.Style.Themes.StudioTheme)
 
 	local Util = require(Framework.Util)
-	local FlagsList = Util.Flags.new({
-		FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
-	})
+	local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 
 	local items = {
 		{
@@ -62,7 +60,7 @@ return function()
 
 	local function createTreeView()
 		local theme
-		if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+		if THEME_REFACTOR then
 			theme = StudioTheme.mock()
 		else
 			theme = Theme.new(function()

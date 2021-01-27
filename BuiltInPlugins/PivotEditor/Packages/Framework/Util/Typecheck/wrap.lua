@@ -22,9 +22,7 @@
 	For more info, see: https://github.com/osyrisrblx/t
 ]]
 local Util = script.Parent.Parent
-local FlagsList = require(Util.Flags).new({
-	FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
-})
+local THEME_REFACTOR = require(Util.RefactorFlags).THEME_REFACTOR
 local DocParser = require(script.Parent.DocParser)
 
 local propsTraceback = [[%s
@@ -56,7 +54,7 @@ local function validate(component, propsInterface, styleInterface)
 				if success then
 					if styleInterface then
 						local style
-						if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
+						if THEME_REFACTOR then
 							style = self.props.Stylizer
 						else
 							style = self.props.Theme:getStyle("Framework", self)

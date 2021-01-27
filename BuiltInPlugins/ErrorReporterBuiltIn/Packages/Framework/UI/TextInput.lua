@@ -5,9 +5,6 @@
 	It does not handle labels, error messages or tooltips. They should be implemented by higher order wrappers.
 	Descended from TextEntry in UILibrary and LabeledTextInput in TerrainTools.
 
-	Required Props:
-		Theme Theme: A Theme ContextItem, which is provided via mapToProps.
-
 	Optional Props:
 		boolean Enabled: Whether the input is editable. Defaults to true.
 		number LayoutOrder: The layout order of this component in a list.
@@ -17,6 +14,8 @@
 		string PlaceholderText: Placeholder text to show when the input is empty.
 		string Text: Text to populate the input with.
 		Style Style: The style with which to render this component.
+		Stylizer Stylizer: A Stylizer ContextItem, which is provided via mapToProps.
+		Theme Theme: A Theme ContextItem, which is provided via mapToProps.
 		StyleModifier StyleModifier: The StyleModifier index into Style.
 		boolean ShouldFocus: Set focus onto the box so that the user can start typing.
 		UDim2 Position: The position of this component.
@@ -31,12 +30,15 @@
 		number TextSize: The font size of the text.
 		Color3 TextColor: The color of the search term text.
 ]]
-
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
 
 local ContextServices = require(Framework.ContextServices)
-local Typecheck = require(Framework.Util).Typecheck
+
+local Util = require(Framework.Util)
+local Typecheck = Util.Typecheck
+local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
+
 local Container = require(Framework.UI.Container)
 local RoundBox = require(Framework.UI.RoundBox)
 local StyleModifier = require(Framework.Util.StyleModifier)
@@ -98,7 +100,13 @@ function TextInput:render()
 	local position = props.Position
 
 	local theme = props.Theme
-	local style = theme:getStyle("Framework", self)
+	local style
+	if THEME_REFACTOR then
+		style = props.Stylizer
+	else
+		style = theme:getStyle("Framework", self)
+	end
+
 	local font = style.Font
 	local textSize = style.TextSize
 	local textColor = style.TextColor
@@ -179,7 +187,8 @@ function TextInput:render()
 end
 
 ContextServices.mapToProps(TextInput, {
-	Theme = ContextServices.Theme,
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
 })
 
 return TextInput

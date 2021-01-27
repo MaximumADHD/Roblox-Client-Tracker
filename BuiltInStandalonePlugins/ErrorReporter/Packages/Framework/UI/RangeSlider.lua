@@ -8,7 +8,6 @@
 		number UpperRangeValue: Current value for the upper range knob
 		callback OnValuesChanged: The callback is called whenever the min or max value changes - OnValuesChanged(minValue: number, maxValue: number)
 		Mouse Mouse: A Mouse ContextItem, which is provided via mapToProps.
-		Theme Theme: A Theme ContextItem, which is provided via mapToProps.
 
 	Optional Props:
 		Vector2 AnchorPoint: The anchorPoint of the component
@@ -22,15 +21,18 @@
 		StyleModifier StyleModifier: The StyleModifier index into Style.
 		number SnapIncrement: Incremental points that the slider's knob will snap to. A "0" snap increment means no snapping.
 		number VerticalDragTolerance: A vertical pixel height for allowing a mouse button press to drag knobs on outside the component's size.
+		Theme Theme: A Theme ContextItem, which is provided via mapToProps.
+		Stylizer Stylizer: A Stylizer ContextItem, which is provided via mapToProps.
 ]]
-
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
 local ContextServices = require(Framework.ContextServices)
 
 local Util = require(Framework.Util)
 local Typecheck = Util.Typecheck
+local prioritize = Util.prioritize
 local StyleModifier = Util.StyleModifier
+local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 
 local UI = Framework.UI
 local Container = require(UI.Container)
@@ -41,7 +43,6 @@ Typecheck.wrap(RangeSlider, script)
 
 RangeSlider.defaultProps = {
 	Disabled = false,
-	Size = UDim2.new(1, 0, 1, 0),
 	SnapIncrement = 0,
 	VerticalDragTolerance = 300,
 }
@@ -158,19 +159,25 @@ function RangeSlider:init()
 end
 
 function RangeSlider:render()
-	local theme = self.props.Theme
-	local style = theme:getStyle("Framework", self)
+	local props = self.props
+	local theme = props.Theme
+	local style
+	if THEME_REFACTOR then
+		style = props.Stylizer
+	else
+		style = theme:getStyle("Framework", self)
+	end
 
-	local anchorPoint = self.props.AnchorPoint
-	local isDisabled = self.props.Disabled
-	local min = self.props.Min
-	local layoutOrder = self.props.LayoutOrder
-	local lowerRangeValue = self.props.LowerRangeValue
-	local position = self.props.Position
-	local upperRangeValue = self.props.UpperRangeValue
-	local size = self.props.Size
-	local verticalDragBuffer = self.props.VerticalDragTolerance
-	local hideLowerKnob = self.props.HideLowerKnob
+	local anchorPoint = props.AnchorPoint
+	local isDisabled = props.Disabled
+	local min = props.Min
+	local layoutOrder = props.LayoutOrder
+	local lowerRangeValue = props.LowerRangeValue
+	local position = props.Position
+	local upperRangeValue = props.UpperRangeValue
+	local size = prioritize(props.Size, style.Size, UDim2.new(1, 0, 1, 0))
+	local verticalDragBuffer = props.VerticalDragTolerance
+	local hideLowerKnob = props.HideLowerKnob
 
 	local background = style.Background
 	local backgroundStyle = style.BackgroundStyle
@@ -252,7 +259,8 @@ end
 
 ContextServices.mapToProps(RangeSlider, {
 	Mouse = ContextServices.Mouse,
-	Theme = ContextServices.Theme,
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
 })
 
 return RangeSlider

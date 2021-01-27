@@ -9,7 +9,6 @@ local t = require(script.Parent.t)
 local FrameworkTypes = {}
 local Flags = require(Framework.Util.Flags)
 local FlagsList = Flags.new({
-	FFlagDevFrameworkEnumUtility = "DevFrameworkEnumUtility",
 	FFlagRefactorDevFrameworkContextItems = {"RefactorDevFrameworkContextItems"},
 })
 
@@ -32,6 +31,14 @@ end
 function FrameworkTypes.Theme(value)
 	local errMsg = "Theme expected, got %s."
 	if not t.table(value) or not t.callback(value.getStyle) then
+		return false, errMsg:format(type(value))
+	end
+	return true
+end
+
+function FrameworkTypes.Stylizer(value)
+	local errMsg = "Stylizer expected, got %s."
+	if not t.table(value) or not t.callback(value.getConsumerItem) then
 		return false, errMsg:format(type(value))
 	end
 	return true
@@ -81,16 +88,8 @@ end
 function FrameworkTypes.StyleModifier(value)
 	local errMsg = "StyleModifier expected, got %s."
 
-	if FlagsList:get("FFlagDevFrameworkEnumUtility")  then
-		if StyleModifier.isEnumValue(value) then
-			return true
-		end
-	else
-		for _, v in pairs(StyleModifier) do
-			if value == v then
-				return true
-			end
-		end
+	if StyleModifier.isEnumValue(value) then
+		return true
 	end
 
 	return false, errMsg:format(type(value))
@@ -104,6 +103,15 @@ end
 local instanceOrTable = t.union(t.Instance, t.table)
 function FrameworkTypes.Instance(value)
 	return instanceOrTable(value)
+end
+
+function FrameworkTypes.Voting(value)
+	return t.strictInterface({
+		UpVotes = t.integer,
+		DownVotes = t.integer,
+		CanVote = t.optional(t.boolean),
+		UserVote = t.optional(t.boolean),
+	})
 end
 
 return FrameworkTypes

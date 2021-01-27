@@ -31,11 +31,14 @@
 local DevFrameworkRoot = script.Parent
 local Url = require(script.Url)
 local Networking = require(DevFrameworkRoot.Http).Networking
+local StudioService = game:GetService("StudioService")
+
+local strict = require(DevFrameworkRoot.Util.strict)
 
 -- helper functions
 -- dir : (Instance) a Folder to dig through
 -- ... : (Variant) any number of arguments to initialize the children with
-local function initDirectoryWithArgs(dir, ...)
+local function initDirectoryWithArgs(dir, networkingImpl, baseUrl)
 	--[[
 		When pointed at an Instance, will recurse through the children to initialize
 		all of the required elements with the arguments supplied to this function.
@@ -46,11 +49,11 @@ local function initDirectoryWithArgs(dir, ...)
 	local childrenMap = {}
 	for _, child in ipairs(dir:GetChildren()) do
 		if child.ClassName == "Folder" then
-			childrenMap[child.Name] = initDirectoryWithArgs(child, ...)
+			childrenMap[child.Name] = initDirectoryWithArgs(child, networkingImpl, baseUrl)
 
 		elseif child.ClassName == "ModuleScript" then
 			local targetFunction = require(child)
-			childrenMap[child.Name] = targetFunction(...)
+			childrenMap[child.Name] = targetFunction(networkingImpl, baseUrl)
 
 		else
 			warn(string.format("Unexpected object found when constructing children table : %s", child:GetFullName()))
@@ -61,7 +64,7 @@ local function initDirectoryWithArgs(dir, ...)
 		warn(string.format("Could not find any children for %s", dir:GetFullName()))
 	end
 
-	return childrenMap
+	return strict(childrenMap)
 end
 
 local RobloxAPI = {}
@@ -101,11 +104,16 @@ function RobloxAPI.new(props)
 		Develop = initDirectoryWithArgs(script.Develop, networkingImpl, baseUrl),
 		TranslationRoles = initDirectoryWithArgs(script.TranslationRoles, networkingImpl, baseUrl),
 		WWW = initDirectoryWithArgs(script.WWW, networkingImpl, baseUrl),
+		ToolboxService = initDirectoryWithArgs(script.ToolboxService, networkingImpl, baseUrl),
 		-- add more endpoint domains here
 	}
 	setmetatable(robloxApi, RobloxAPI)
 
 	return robloxApi
+end
+
+function RobloxAPI:baseURLHasChineseHost()
+	return StudioService:BaseURLHasChineseHost()
 end
 
 return RobloxAPI

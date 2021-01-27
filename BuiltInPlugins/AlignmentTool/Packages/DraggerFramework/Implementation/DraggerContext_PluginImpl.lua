@@ -10,8 +10,6 @@ local DraggerFramework = script.Parent.Parent
 local Analytics = require(DraggerFramework.Utility.Analytics)
 local setInsertPoint = require(DraggerFramework.Utility.setInsertPoint)
 
-local getEngineFeatureActiveInstanceHighlight = require(DraggerFramework.Flags.getEngineFeatureActiveInstanceHighlight)
-
 local DraggerContext = {}
 DraggerContext.__index = DraggerContext
 
@@ -92,10 +90,6 @@ function DraggerContext:getHoverAnimationSpeedInSeconds()
 end
 
 function DraggerContext:getHoverBoxColor(isActive)
-	if not getEngineFeatureActiveInstanceHighlight() then
-		assert(isActive == nil)
-		return self._studioSettings["Hover Over Color"]
-	end
 	if isActive then
 		return self._studioSettings["Active Hover Over Color"]
 	else
@@ -109,10 +103,6 @@ function DraggerContext:getHoverLineThickness()
 end
 
 function DraggerContext:getSelectionBoxColor(isActive)
-	if not getEngineFeatureActiveInstanceHighlight() then
-		assert(isActive == nil)
-		return self._studioSettings["Select Color"]
-	end
 	if isActive then
 		return self._studioSettings["Active Color"]
 	else
@@ -220,7 +210,6 @@ function DraggerContext:setInsertPoint(location)
 end
 
 function DraggerContext:shouldShowActiveInstanceHighlight()
-	assert(getEngineFeatureActiveInstanceHighlight())
 	return self._studioService.ShowActiveInstanceHighlight
 end
 

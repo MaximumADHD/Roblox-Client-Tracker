@@ -21,6 +21,10 @@
 		callback OnWidgetRestored: A callback for when the widget
 			is restored to its previous position and enabled state. Passes the
 			new enabled state as a parameter.
+
+		boolean CreateWidgetImmediately: C++ method for creating a widget yields, which can cause issues with Roact/Rodux.
+			That method is run in its own thread, but that means creation of the widget is delayed.
+			Set this to true to create the widget immediately instead. Mostly useful for unit tests.
 ]]
 
 game:DefineFastFlag("FixDevFrameworkDockWidgetMinSize", false)

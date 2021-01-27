@@ -56,6 +56,7 @@
 ]]
 
 game:DefineFastFlag("FixStudioLocalizationLocaleId", false)
+local FFlagDevFrameworkFilterTranslationErrors = game:DefineFastFlag("DevFrameworkFilterTranslationErrors", false)
 
 -- services
 local LocalizationService = game:GetService("LocalizationService")
@@ -66,9 +67,12 @@ local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
 local ContextItem = require(Framework.ContextServices.ContextItem)
 local Provider = require(Framework.ContextServices.Provider)
-local Signal = require(Framework.Util).Signal
+local Util = require(Framework.Util)
+local Signal = Util.Signal
+local Cryo = Util.Cryo
 
 -- constants
+local MOCK_PLUGIN_NAME = "Test"
 local FALLBACK_LOCALE = "en-us"
 
 local Localization = ContextItem:extend("Localization")
@@ -78,6 +82,16 @@ function Localization.new(props)
 	assert(props.stringResourceTable ~= nil, "Localization must have a .csv string resource table for English strings")
 	assert(props.translationResourceTable ~= nil, "Localization must have a .csv string resource table of translations")
 	assert(type(props.pluginName) == "string", "Please specify the plugin's name")
+
+	if props.libraries ~= nil then
+		assert(type(props.libraries) == "table", "Localization libraries prop must be a table or nil")
+		for key, value in pairs(props.libraries) do
+			assert(type(key) == "string", "Localization libraries key must be a string")
+			assert(type(value) == "table", "Localization libraries value must be a table")
+			assert(value.stringResourceTable ~= nil, string.format("Localization table %s must have a .csv string resource table for English strings", key))
+			assert(value.translationResourceTable ~= nil, string.format("Localization table %s must have a .csv string resource table of translations", key))
+		end
+	end
 
 	local stringResourceTable = props.stringResourceTable
 	local translationResourceTable = props.translationResourceTable
@@ -143,20 +157,17 @@ function Localization.new(props)
 		-- getLocale : (function<string>())
 		--  gets the current locale string
 		getLocale = getLocale,
-
-		-- stringResourceTable : a CSV file containing all of the English strings
-		--  this is converted into a proper resource by Rojo
-		stringResourceTable = stringResourceTable,
-
-		-- translationResourceTable : a CSV file containing all of the translated strings
-		--  this is converted into a proper resource by Rojo
-		translationResourceTable = translationResourceTable,
-
-		-- translator & fallbackTranslator : (Translator)
-		--  objects that handle the string formatting from the current stringResourceTable
-		translator = nil,
-		fallbackTranslator = nil
 	}
+
+	self.projects = Cryo.Dictionary.join(props.libraries or {}, {
+		[self.keyPluginName] = {
+			stringResourceTable = stringResourceTable,
+			translationResourceTable = translationResourceTable,
+		},
+	})
+	self.translators = {}
+	self.fallbackTranslators = {}
+
 	setmetatable(self, Localization)
 
 	-- listen to changes to the locale to alert all listeners of the change
@@ -182,10 +193,20 @@ end
 -- key : (string) the id of the string in the resource table
 -- args : (optional, map<string,variant>) values used to format a string
 function Localization:getText(scope, key, args)
+	return self:getProjectText(self.keyPluginName, scope, key, args)
+end
+
+-- project : (string) the 2nd level group that the key belongs to (plugin name or library name)
+-- scope : (string) the general group of data that the key belongs to
+-- key : (string) the id of the string in the resource table
+-- args : (optional, map<string,variant>) values used to format a string
+function Localization:getProjectText(project, scope, key, args)
+	assert(type(project) == "string", "Cannot fetch the string without a project")
 	assert(type(scope) == "string", "Cannot fetch the string without a scope")
 	assert(type(key) == "string", "Cannot fetch a string without the key")
+	assert(self.projects[project] ~= nil, string.format("Project %s is not available", project))
 
-	local stringKey = string.format("%s.%s.%s.%s", self.keyNamespace, self.keyPluginName, scope, key)
+	local stringKey = string.format("%s.%s.%s.%s", self.keyNamespace, project, scope, key)
 
 	local function getTranslation(translator)
 		if not translator then
@@ -198,28 +219,38 @@ function Localization:getText(scope, key, args)
 		return success, result
 	end
 
+	local translator = self.translators[project]
+	local fallbackTranslator = self.fallbackTranslators[project]
+
 	-- optimize for one lookup when the locale is English
 	local success
 	local translated
 	if self.locale == FALLBACK_LOCALE then
 		-- English strings are only written into the development string table,
 		--  so don't bother looking up the key in the localization table.
-		success, translated = getTranslation(self.fallbackTranslator)
+		success, translated = getTranslation(fallbackTranslator)
 		if success then
 			return translated
 		end
 
 	else
 		-- try to find a translation in our translation file
-		success, translated = getTranslation(self.translator)
+		success, translated = getTranslation(translator)
 		if success then
 			return translated
 		end
 
 		-- If no translation exists for this locale id, fall back to default (English)
-		success, translated = getTranslation(self.fallbackTranslator)
+		success, translated = getTranslation(fallbackTranslator)
 		if success then
 			return translated
+		end
+	end
+	
+	if FFlagDevFrameworkFilterTranslationErrors then
+		if self.keyPluginName ~= MOCK_PLUGIN_NAME and not success and not string.find(translated, "LocalizationTable or parent tables do not contain a translation") then
+			-- TODO DEVTOOLS-4532: Use logger contextItem for this
+			warn(translated, debug.traceback())
 		end
 	end
 
@@ -237,11 +268,13 @@ end
 function Localization:updateLocaleAndTranslator()
 	-- the locale has changed, update the translators
 	self.locale = self.getLocale()
-	self.translator = self.translationResourceTable:GetTranslator(self.locale)
-	self.fallbackTranslator = self.stringResourceTable:GetTranslator(FALLBACK_LOCALE)
+	for key, project in pairs(self.projects) do
+		self.translators[key] = project.translationResourceTable:GetTranslator(self.locale)
+		self.fallbackTranslators[key] = project.stringResourceTable:GetTranslator(FALLBACK_LOCALE)
+	end
 end
 
-function Localization.mock()
+function Localization.mock(props)
 	local mockResourceTable = {
 		GetTranslator = function()
 			local translator = {
@@ -268,17 +301,26 @@ function Localization.mock()
 		end
 	}
 
+	local currentLocaleIndex = 0
+	local localeIDs = {"en-us", "es-es", "ko-kr", "ja-jp"}
+	local function getLocale()
+		currentLocaleIndex = math.max((currentLocaleIndex + 1) % #localeIDs, 1)
+		local nextLocale = localeIDs[currentLocaleIndex]
+		return nextLocale
+	end
+
 	-- create a mock localization object for tests
-	return Localization.new({
+	return Localization.new(Cryo.Dictionary.join({
 		-- create a mock resource file that mimics the real thing
 		stringResourceTable = mockResourceTable,
 		translationResourceTable = mockResourceTable,
 
-		pluginName = "Test",
+		pluginName = MOCK_PLUGIN_NAME,
 
 		-- for tests, don't connect to any system signals to ensure stuff doesn't change mid test
 		overrideLocaleChangedSignal = Signal.new(),
-	})
+		getLocale = getLocale,
+	}, props or {}))
 end
 
 

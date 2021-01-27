@@ -6,7 +6,6 @@ return function(plugin)
 	local Theme = ContextServices.Theme
 
 	local UI = require(Framework.UI)
-	local Container = UI.Container
 	local ScrollingFrame = UI.ScrollingFrame
 
 	local StudioUI = require(Framework.StudioUI)
@@ -16,15 +15,19 @@ return function(plugin)
 	local pluginItem = Plugin.new(plugin)
 
 	local Util = require(Framework.Util)
-	local StyleTable = Util.StyleTable
-	local Style = Util.Style
-	local StyleModifier = Util.StyleModifier
+	local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
+	local StudioTheme = require(Framework.Style.Themes.StudioTheme)
 
-	local theme = Theme.new(function(theme, getColor)
-		return {
-			Framework = StudioFrameworkStyles.new(theme, getColor)
-		}
-	end)
+	local theme
+	if THEME_REFACTOR then
+		theme = StudioTheme.new()
+	else
+		theme = Theme.new(function(theme, getColor)
+			return {
+				Framework = StudioFrameworkStyles.new(theme, getColor)
+			}
+		end)
+	end
 
 	local ExampleButton = Roact.PureComponent:extend("ExampleButton")
 
@@ -56,10 +59,9 @@ return function(plugin)
 			})
 		end
 
-
 		return ContextServices.provide({pluginItem, theme}, {
 			Main = Roact.createElement(Dialog, {
-				Enabled = enabled,
+				Enabled = self.state.enabled,
 				Title = "ToggleButton Example",
 				Size = Vector2.new(200, 200),
 				Resizable = false,

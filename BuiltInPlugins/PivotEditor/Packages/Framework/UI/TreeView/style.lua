@@ -8,21 +8,17 @@ local UIFolderData = require(Framework.UI.UIFolderData)
 local ScrollingFrame = require(UIFolderData.ScrollingFrame.style)
 local RoundBox = require(UIFolderData.RoundBox.style)
 
-local FlagsList = Util.Flags.new({
-	FFlagRefactorDevFrameworkTheme = {"RefactorDevFrameworkTheme"},
-})
+local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 
-local export: any
-
-if FlagsList:get("FFlagRefactorDevFrameworkTheme") then
-	export = {
+if THEME_REFACTOR then
+	return {
 		Background = Decoration.RoundBox,
 		BackgroundStyle = RoundBox,
 		ScrollingFrame = ScrollingFrame,
 		Padding = 1
 	}
 else
-	export = function(theme, getColor)
+	return function(theme, getColor)
 		local roundBox = RoundBox(theme, getColor)
 		local scrollingFrame = ScrollingFrame(theme, getColor)
 
@@ -38,5 +34,3 @@ else
 		}
 	end
 end
-
-return export

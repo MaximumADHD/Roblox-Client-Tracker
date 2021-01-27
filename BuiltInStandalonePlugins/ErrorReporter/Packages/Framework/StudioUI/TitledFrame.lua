@@ -4,12 +4,13 @@
 
 	Required Props:
 		string Title: The title to the left of the content
-		Theme Theme: A Theme ContextItem, which is provided via mapToProps.
 
 	Optional Props:
 		number TitleWidth: The pixel pize of the padding between the title and content
 		Enum.FillDirection FillDirection: The direction in which the content is filled.
 		number LayoutOrder: The layoutOrder of this component.
+		Stylizer Stylizer: A Stylizer ContextItem, which is provided via mapToProps.
+		Theme Theme: A Theme ContextItem, which is provided via mapToProps.
 		number ZIndex: The render index of this component.
 ]]
 local Framework = script.Parent.Parent
@@ -18,6 +19,7 @@ local ContextServices = require(Framework.ContextServices)
 
 local Util = require(Framework.Util)
 local Typecheck = Util.Typecheck
+local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 
 local FitFrame = require(Framework.Util.FitFrame)
 local FitFrameVertical = FitFrame.FitFrameVertical
@@ -34,7 +36,12 @@ TitledFrame.defaultProps = {
 function TitledFrame:render()
 	local props = self.props
 	local theme = props.Theme
-	local style = theme:getStyle("Framework", self)
+	local style
+	if THEME_REFACTOR then
+		style = props.Stylizer
+	else
+		style = theme:getStyle("Framework", self)
+	end
 
 	local font = style.Font
 	local padding = style.Padding
@@ -82,7 +89,8 @@ function TitledFrame:render()
 end
 
 ContextServices.mapToProps(TitledFrame, {
-	Theme = ContextServices.Theme,
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
 })
 
 return TitledFrame
