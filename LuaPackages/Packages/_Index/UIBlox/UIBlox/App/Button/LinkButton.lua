@@ -22,13 +22,13 @@ local HoverButtonBackground = require(Core.Button.HoverButtonBackground)
 local VERTICAL_PADDING = 8
 local HORIZONTAL_PADDING = 11
 
-local TextButton = Roact.PureComponent:extend("TextButton")
-TextButton.debugProps = enumerate("debugProps", {
+local LinkButton = Roact.PureComponent:extend("LinkButton")
+LinkButton.debugProps = enumerate("debugProps", {
 	"getTextSize",
 	"controlState",
 })
 
-TextButton.validateProps = t.strictInterface({
+LinkButton.validateProps = t.strictInterface({
 	-- The state change callback for the button
 	onStateChanged = t.optional(t.callback),
 
@@ -54,13 +54,13 @@ TextButton.validateProps = t.strictInterface({
 	text = t.optional(t.string),
 
 	-- A callback that replaces getTextSize implementation
-	[TextButton.debugProps.getTextSize] = t.optional(t.callback),
+	[LinkButton.debugProps.getTextSize] = t.optional(t.callback),
 
 	-- Override the default controlState
-	[TextButton.debugProps.controlState] = t.optional(enumerateValidator(ControlState)),
+	[LinkButton.debugProps.controlState] = t.optional(enumerateValidator(ControlState)),
 })
 
-TextButton.defaultProps = {
+LinkButton.defaultProps = {
 	anchorPoint = Vector2.new(0, 0),
 	layoutOrder = 0,
 	position = UDim2.new(0, 0, 0, 0),
@@ -68,22 +68,26 @@ TextButton.defaultProps = {
 	text = "",
 
 	fontStyle = "Header2",
-	colorStyleDefault = "SystemPrimaryDefault",
-	colorStyleHover = "SystemPrimaryDefault",
-	hoverBackgroundEnabled = true,
-	richText = false,
+	colorStyleDefault = "TextLink",
+	colorStyleHover = "TextLink",
+	hoverBackgroundEnabled = false,
+	richText = true,
 
 	isDisabled = false,
 	userInteractionEnabled = true,
 
-	[TextButton.debugProps.getTextSize] = GetTextSize,
-	[TextButton.debugProps.controlState] = nil,
+	[LinkButton.debugProps.getTextSize] = GetTextSize,
+	[LinkButton.debugProps.controlState] = nil,
 }
 
-function TextButton:init()
+function LinkButton:init()
 	self:setState({
 		controlState = ControlState.Initialize
 	})
+
+	self.applyRichTextUnderline = function(text)
+		return "<u>" .. text .. "</u>"
+	end
 
 	self.onStateChanged = function(oldState, newState)
 		self:setState({
@@ -95,23 +99,28 @@ function TextButton:init()
 	end
 end
 
-function TextButton:render()
+function LinkButton:render()
 	return withStyle(function(style)
-		local currentState = self.props[TextButton.debugProps.controlState] or self.state.controlState
+		local currentState = self.props[LinkButton.debugProps.controlState] or self.state.controlState
 
 		local textStateColorMap = {
 			[ControlState.Default] = self.props.colorStyleDefault,
 			[ControlState.Hover] = self.props.colorStyleHover,
-		}
+        }
 
 		local textStyle = getContentStyle(textStateColorMap, currentState, style)
 		local fontStyle = style.Font[self.props.fontStyle]
 
 		local fontSize = fontStyle.RelativeSize * style.Font.BaseSize
-		local getTextSize = self.props[TextButton.debugProps.getTextSize]
+		local getTextSize = self.props[LinkButton.debugProps.getTextSize]
 
 		local manipulatedText = self.props.richText and cleanRichTextTags(self.props.text) or self.props.text
 		local textWidth = getTextSize(manipulatedText, fontSize, fontStyle.Font, Vector2.new(10000, 0)).X
+
+        manipulatedText = self.props.text
+        if self.props.richText and currentState == ControlState.Hover or currentState == ControlState.Pressed then
+            manipulatedText = self.applyRichTextUnderline(self.props.text)
+        end
 
 		return Roact.createElement(Interactable, {
 			AnchorPoint = self.props.anchorPoint,
@@ -134,15 +143,15 @@ function TextButton:render()
 				AnchorPoint = Vector2.new(0.5, 0.5),
 				Position = UDim2.fromScale(0.5, 0.5),
 				BackgroundTransparency = 1,
-				Text = self.props.text,
+				Text = manipulatedText,
 				fontStyle = fontStyle,
 				colorStyle = textStyle,
 				RichText = self.props.richText,
 			}),
 			background = self.props.hoverBackgroundEnabled and currentState == ControlState.Hover
-				and Roact.createElement(HoverButtonBackground)
+				and Roact.createElement(HoverButtonBackground),
 		})
 	end)
 end
 
-return TextButton
+return LinkButton
