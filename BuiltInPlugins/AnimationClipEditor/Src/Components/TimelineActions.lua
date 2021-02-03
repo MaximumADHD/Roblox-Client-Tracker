@@ -31,7 +31,6 @@ local RoactRodux = require(Plugin.Packages.RoactRodux)
 local Cryo = require(Plugin.Packages.Cryo)
 local isEmpty = require(Plugin.Src.Util.isEmpty)
 local Constants = require(Plugin.Src.Util.Constants)
-local SignalsContext = require(Plugin.Src.Context.Signals)
 
 local ContextMenu = require(Plugin.Src.Components.ContextMenu)
 
@@ -279,15 +278,11 @@ function TimelineActions:didMount()
 	end)
 
 	local function togglePlayWrapper()
-		return self.props.TogglePlay(self.props.Analytics)
+		return self.props.TogglePlay(props.Analytics)
 	end
 
 	local function deleteSelectedKeyframesWrapper()
-		return self.props.DeleteSelectedKeyframes(self.props.Analytics)
-	end
-
-	local function undoWrapper()
-		return self.props.Undo(self.props.Signals)
+		return self.props.DeleteSelectedKeyframes(props.Analytics)
 	end
 		
 
@@ -301,7 +296,7 @@ function TimelineActions:didMount()
 	self:addAction(actions:get("DeselectAll"), self.props.DeselectAllKeyframes)
 	self:addAction(actions:get("ChangeDuration"), self.props.OnChangeDuration)
 
-	self:addAction(actions:get("Undo"), undoWrapper)
+	self:addAction(actions:get("Undo"), self.props.Undo)
 	self:addAction(actions:get("Redo"), self.props.Redo)
 
 	self:addAction(actions:get("TogglePlay"), togglePlayWrapper)
@@ -397,7 +392,6 @@ ContextServices.mapToProps(TimelineActions, {
 	Localization = ContextServices.Localization,
 	PluginActions = ContextServices.PluginActions,
 	Analytics = ContextServices.Analytics,
-	Signals = SignalsContext,
 })
 
 local function mapStateToProps(state, props)
@@ -471,8 +465,8 @@ local function mapDispatchToProps(dispatch)
 			dispatch(SetEventEditingFrame(frame))
 		end,
 
-		Undo = function(signals)
-			dispatch(Undo(signals))
+		Undo = function()
+			dispatch(Undo())
 		end,
 
 		Redo = function()

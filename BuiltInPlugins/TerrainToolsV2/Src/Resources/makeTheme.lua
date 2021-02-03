@@ -1,5 +1,3 @@
-local FFlagTerrainToolsHeightmapUseLoadingImage = game:GetFastFlag("TerrainToolsHeightmapUseLoadingImage")
-
 local Plugin = script.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
@@ -31,22 +29,6 @@ local function makeTerrainToolsTheme()
 		[ui.Tooltip] = Cryo.Dictionary.join(BaseTheme[ui.Tooltip], {
 			MaxWidth = 1000,
 		}),
-
-		Spinner = FFlagTerrainToolsHeightmapUseLoadingImage and {
-			TimeBetweenBlocks = 0.05,
-			Colors = {
-				Color3.fromRGB(172, 172, 172),
-				Color3.fromRGB(172, 172, 172),
-				Color3.fromRGB(159, 159, 159),
-				Color3.fromRGB(140, 140, 140),
-				Color3.fromRGB(122, 122, 122),
-				Color3.fromRGB(103, 103, 103),
-				Color3.fromRGB( 84,  84,  84),
-				Color3.fromRGB( 65,  65,  65),
-			},
-			BlockWidth = 2,
-			InnerRadius = 7,
-		} or nil,
 	}
 end
 
@@ -73,37 +55,11 @@ local function DEPRECATED_makeTerrainToolsTheme(theme, getColor)
 		}
 	end)
 
-	local spinner = FFlagTerrainToolsHeightmapUseLoadingImage and StyleTable.new("Spinner", function()
-		local Default = Style.new({
-			TimeBetweenBlocks = 0.05,
-			Colors = {
-				Color3.fromRGB(172, 172, 172),
-				Color3.fromRGB(172, 172, 172),
-				Color3.fromRGB(159, 159, 159),
-				Color3.fromRGB(140, 140, 140),
-				Color3.fromRGB(122, 122, 122),
-				Color3.fromRGB(103, 103, 103),
-				Color3.fromRGB( 84,  84,  84),
-				Color3.fromRGB( 65,  65,  65),
-			},
-			BlockWidth = 2,
-			InnerRadius = 7,
-		})
-
-		return {
-			Default = Default,
-		}
-	end) or nil
-
 	return {
 		Framework = StyleTable.extend(studioFrameworkStyles, {
 			Tooltip = tooltip,
 			LoadingBar = loadingBar,
 		}),
-
-		TerrainTools = {
-			Spinner = spinner,
-		},
 	}
 end
 

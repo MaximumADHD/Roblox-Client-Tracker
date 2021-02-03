@@ -4,6 +4,7 @@
 	Provides an interface between real Networking implementation and Mock one for production and test
 ]]--
 
+local FFlagToolboxMicroserviceSearch = game:GetFastFlag("ToolboxMicroserviceSearch")
 local FFlagToolboxUseGetItemDetails = game:GetFastFlag("ToolboxUseGetItemDetails")
 local FFlagUseCategoryNameInToolbox = game:GetFastFlag("UseCategoryNameInToolbox")
 
@@ -17,8 +18,6 @@ local Urls = require(Plugin.Core.Util.Urls)
 local Constants = require(Plugin.Core.Util.Constants)
 
 local Category = require(Plugin.Core.Types.Category)
-
-local getToolboxMicroserviceSearch = require(Plugin.Core.Rollouts.getToolboxMicroserviceSearch)
 
 local NetworkInterface = {}
 NetworkInterface.__index = NetworkInterface
@@ -91,7 +90,7 @@ keyword, cursor, limit)
 
 	local useCreatorWhitelist = nil
 
-	if getToolboxMicroserviceSearch() and category == Category.API_NAMES[Category.WHITELISTED_PLUGINS.name] then
+	if FFlagToolboxMicroserviceSearch and category == Category.API_NAMES[Category.WHITELISTED_PLUGINS.name] then
 		useCreatorWhitelist = true
 	end
 

@@ -36,15 +36,12 @@ local PlayerEmulatorService = game:GetService("PlayerEmulatorService")
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
-local Framework = require(Plugin.Packages.Framework)
-local ContextServices = Framework.ContextServices
+local ContextServices = require(Plugin.Packages.Framework.ContextServices)
 local NetworkingContext = require(Plugin.Src.ContextServices.NetworkingContext)
 local Constants = require(Plugin.Src.Util.Constants)
 
 local DropdownModule = require(Plugin.Src.Components.DropdownModule)
 local GetLanguages = require(Plugin.Src.Networking.Requests.GetLanguages)
-
-local THEME_REFACTOR = Framework.Util.RefactorFlags.THEME_REFACTOR
 
 local function GetLocaleId()
 	if FFlagPlayerEmulatorSerializeIntoDM2 then
@@ -204,12 +201,7 @@ function LanguageSection:render()
 	local localeId = state.localeId
 	local languagesList = props.languagesList
 
-	local theme
-	if THEME_REFACTOR then
-	    theme = props.Stylizer
-	else
-	    theme = props.Theme:get("Plugin")
-	end
+	local theme = props.Theme:get("Plugin")
 	local localization = props.Localization
 	local layoutOrder = props.LayoutOrder
 
@@ -311,8 +303,7 @@ function LanguageSection:render()
 end
 
 ContextServices.mapToProps(LanguageSection, {
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	Theme = ContextServices.Theme,
 	Localization = ContextServices.Localization,
 	Networking = NetworkingContext,
 	Plugin = ContextServices.Plugin,

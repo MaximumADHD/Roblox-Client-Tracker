@@ -1,7 +1,6 @@
-local FFlagImproveAssetCreationsPageFetching2 = game:GetFastFlag("ImproveAssetCreationsPageFetching2")
+local FFlagImproveAssetCreationsPageFetching = game:GetFastFlag("ImproveAssetCreationsPageFetching")
 local FFlagUseCategoryNameInToolbox = game:GetFastFlag("UseCategoryNameInToolbox")
 local FFlagEnableToolboxVideos = game:GetFastFlag("EnableToolboxVideos")
-local FFlagToolboxCreationsFreshChecks = game:GetFastFlag("ToolboxCreationsFreshChecks")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -58,9 +57,6 @@ local function dispatchCreatorInfo(store, id, name, type)
 end
 
 local function dispatchGetAssets(store, pageInfo, creationDetailsTable, creatorName, nextCursor, creatorType)
-	if FFlagToolboxCreationsFreshChecks and PageInfoHelper.isPageInfoStale(pageInfo, store) then
-		return
-	end
 	local assetType = PageInfoHelper.getEngineAssetTypeForPageInfoCategory(pageInfo)
 	local assetResults = convertCreationsDetailsToResultsFormat(creationDetailsTable, assetType, creatorName, creatorType)
 
@@ -73,7 +69,7 @@ end
 
 local function dispatchGetAssetsWarning(store, errorText, nextCursor)
 	if DebugFlags.shouldDebugWarnings() then
-		if FFlagImproveAssetCreationsPageFetching2 then
+		if FFlagImproveAssetCreationsPageFetching then
 			if errorText then
 				warn(errorText)
 			end
@@ -185,7 +181,7 @@ return function(networkInterface, pageInfoOnStart)
 						-- it filters out packages from the list AFTER applying pagination. So this should not be a warning
 						-- See MKTPL-1416 for more information. This is planned to be fixed on the backend, so just nil out
 						-- the warning for now.
-						if FFlagImproveAssetCreationsPageFetching2 then
+						if FFlagImproveAssetCreationsPageFetching then
 							dispatchGetAssetsWarning(store, nil, nextCursor)
 						else
 							dispatchGetAssetsWarning(store, "getAssetCreations() did not return any assets for cursor", nextCursor)

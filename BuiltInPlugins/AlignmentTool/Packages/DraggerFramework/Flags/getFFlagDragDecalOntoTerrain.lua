@@ -1,5 +1,5 @@
-game:DefineFastFlag("DragDecalOntoTerrain2", false)
+game:DefineFastFlag("DragDecalOntoTerrain", false)
 
 return function()
-    return game:GetFastFlag("DragDecalOntoTerrain2")
+    return game:GetFastFlag("DragDecalOntoTerrain")
 end

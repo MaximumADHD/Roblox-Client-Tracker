@@ -1,5 +1,5 @@
 return function()
-	local FFlagImproveAssetCreationsPageFetching2 = game:GetFastFlag("ImproveAssetCreationsPageFetching2")
+	local FFlagImproveAssetCreationsPageFetching = game:GetFastFlag("ImproveAssetCreationsPageFetching")
 
 	local Plugin = script.Parent.Parent.Parent
 	local Cryo = require(Plugin.Libs.Cryo)
@@ -222,7 +222,7 @@ return function()
 			expect(state.idToAssetMap[3].Context.pagePosition).to.equal(1)
 		end)
 
-		if FFlagImproveAssetCreationsPageFetching2 then
+		if FFlagImproveAssetCreationsPageFetching then
 			it("should continue to fetch further pages if an empty page is returned", function()
 				local state = Assets(nil, {})
 				local total = 6

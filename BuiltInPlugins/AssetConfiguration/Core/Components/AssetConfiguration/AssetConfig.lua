@@ -12,8 +12,6 @@ local FFlagShowAssetConfigReasons2 = game:GetFastFlag("ShowAssetConfigReasons2")
 local FFlagAssetConfigUseItemConfig = game:GetFastFlag("AssetConfigUseItemConfig")
 local FFlagAssetConfigEnforceNonEmptyDescription = game:DefineFastFlag("AssetConfigEnforceNonEmptyDescription", false)
 local FFlagCMSUploadFees = game:GetFastFlag("CMSUploadFees")
-local FFlagAssetConfigFixRoactTypeChecks = game:GetFastFlag("AssetConfigFixRoactTypeChecks")
-local FFlagAssetConfigNonCatalogOptionalDescription = game:GetFastFlag("AssetConfigNonCatalogOptionalDescription")
 
 local StudioService = game:GetService("StudioService")
 
@@ -626,7 +624,7 @@ local function validatePrice(text, minPrice, maxPrice, assetStatus)
 end
 
 local function checkCanSave(changeTable, name, description, price, minPrice, maxPrice,
-	assetStatus, currentTab, screenFlowType, assetTypeEnum)
+	assetStatus, currentTab, screenFlowType)
 
 	if ConfigTypes:isOverride(currentTab) then
 		-- Overwriting an existing asset is a separate flow, we can only save if an asset is selected
@@ -640,9 +638,7 @@ local function checkCanSave(changeTable, name, description, price, minPrice, max
 		local nameDataIsOk = (#name <= AssetConfigConstants.NAME_CHARACTER_LIMIT) and (tostring(name) ~= "")
 		local descriptionDataIsOk = #description <= AssetConfigConstants.DESCRIPTION_CHARACTER_LIMIT
 		if FFlagAssetConfigEnforceNonEmptyDescription then
-			if not FFlagAssetConfigNonCatalogOptionalDescription or AssetConfigUtil.isCatalogAsset(assetTypeEnum) then
-				descriptionDataIsOk = descriptionDataIsOk and (tostring(description) ~= "")
-			end
+			descriptionDataIsOk = descriptionDataIsOk and (tostring(description) ~= "")
 		end
 		local priceDataIsOk = validatePrice(price, minPrice, maxPrice, assetStatus)
 
@@ -667,7 +663,7 @@ end
 -- And replace the MessageBox's props based on the networkError.
 local function getMessageBoxProps(getAssetFailed, localizedContent, cancelFunc, closeFunc)
 	local messageProps = {
-		Name = (not FFlagAssetConfigFixRoactTypeChecks) and "AssetConfigMessageBox" or nil,
+		Name = "AssetConfigMessageBox",
 		TextSize = Constants.FONT_SIZE_MEDIUM,
 		Font = Constants.FONT,
 		Icon = Images.INFO_ICON,
@@ -777,7 +773,7 @@ function AssetConfig:render()
 				local isLoading = self:isLoading()
 
 				local canSave = checkCanSave(changeTable, name, description, price, minPrice, maxPrice,
-					newAssetStatus, currentTab, screenFlowType, assetTypeEnum) and not isLoading
+					newAssetStatus, currentTab, screenFlowType) and not isLoading
 
 				return Roact.createElement("Frame", {
 					Size = Size,

@@ -8,8 +8,9 @@ local FFlagFixGroupPackagesCategoryInToolbox = game:DefineFastFlag("FixGroupPack
 local FFlagToolboxDisableMarketplaceAndRecentsForLuobu = game:GetFastFlag("ToolboxDisableMarketplaceAndRecentsForLuobu")
 local FFlagToolboxShowRobloxCreatedAssetsForLuobu = game:GetFastFlag("ToolboxShowRobloxCreatedAssetsForLuobu")
 local FFlagFixAudioAssetsForLuoBu = game:DefineFastFlag("FixAudioAssetsForLuoBu", false)
+local FFlagToolboxMicroserviceSearch = game:GetFastFlag("ToolboxMicroserviceSearch")
+local FFlagToolboxModelsMicroserviceSearch = game:GetFastFlag("ToolboxModelsMicroserviceSearch")
 local FFlagMakeLuobuDisabledMarketplaceCategoriesIndependent = game:DefineFastFlag("MakeLuobuDisabledMarketplaceCategoriesIndependent", false)
-local FFlagToolboxCreationsFreshChecks = game:GetFastFlag("ToolboxCreationsFreshChecks")
 
 local Plugin = script.Parent.Parent.Parent
 local CreatorInfoHelper = require(Plugin.Core.Util.CreatorInfoHelper)
@@ -18,9 +19,6 @@ local AssetConfigUtil = require(Plugin.Core.Util.AssetConfigUtil)
 local Cryo = require(Plugin.Libs.Cryo)
 
 local RobloxAPI = require(Plugin.Libs.Framework).RobloxAPI
-
-local getToolboxMicroserviceSearch = require(Plugin.Core.Rollouts.getToolboxMicroserviceSearch)
-local getToolboxModelsMicroserviceSearch = require(Plugin.Core.Rollouts.getToolboxModelsMicroserviceSearch)
 
 local FStringLuobuMarketplaceDisabledCategories = game:GetFastString("LuobuMarketplaceDisabledCategories")
 
@@ -136,48 +134,48 @@ Category.GROUP_PACKAGES = {name = "GroupPackages", category = "GroupPackages",
 	ownershipType = Category.OwnershipType.GROUP, assetType = Category.AssetType.PACKAGE}
 
 Category.CREATIONS_DEVELOPMENT_SECTION_DIVIDER = {name = "CreationsDevelopmentSectionDivider", selectable=false}
-Category.CREATIONS_MODELS = {name = "CreationsModels", category = FFlagToolboxCreationsFreshChecks and "CreationsModels" or nil, assetType = Category.AssetType.MODEL,
+Category.CREATIONS_MODELS = {name = "CreationsModels", assetType = Category.AssetType.MODEL,
 	ownershipType = Category.OwnershipType.MY,}
-Category.CREATIONS_DECALS = {name = "CreationsDecals", category = FFlagToolboxCreationsFreshChecks and "CreationsDecals" or nil, assetType = Category.AssetType.DECAL,
+Category.CREATIONS_DECALS = {name = "CreationsDecals", assetType = Category.AssetType.DECAL,
 	ownershipType = Category.OwnershipType.MY,}
-Category.CREATIONS_AUDIO = {name = "CreationsAudio", category = FFlagToolboxCreationsFreshChecks and "CreationsAudio" or nil, assetType = Category.AssetType.AUDIO,
+Category.CREATIONS_AUDIO = {name = "CreationsAudio", assetType = Category.AssetType.AUDIO,
 	ownershipType = Category.OwnershipType.MY,}
-Category.CREATIONS_MESHES = {name = "CreationsMeshes", category = FFlagToolboxCreationsFreshChecks and "CreationsMeshes" or nil, assetType = Category.AssetType.MESHPART,
+Category.CREATIONS_MESHES = {name = "CreationsMeshes", assetType = Category.AssetType.MESHPART,
 	ownershipType = Category.OwnershipType.MY,}
-Category.CREATIONS_PLUGIN = {name = "CreationsPlugins", category = FFlagToolboxCreationsFreshChecks and "CreationsPlugins" or nil, assetType = Category.AssetType.PLUGIN,
+Category.CREATIONS_PLUGIN = {name = "CreationsPlugins", assetType = Category.AssetType.PLUGIN,
 	ownershipType = Category.OwnershipType.MY,}
-Category.CREATIONS_GROUP_MODELS = {name = "CreationsGroupModels", category = FFlagToolboxCreationsFreshChecks and "CreationsGroupModels" or nil, assetType = Category.AssetType.MODEL,
+Category.CREATIONS_GROUP_MODELS = {name = "CreationsGroupModels", assetType = Category.AssetType.MODEL,
 	ownershipType = Category.OwnershipType.GROUP,}
-Category.CREATIONS_GROUP_DECALS = {name = "CreationsGroupDecals", category = FFlagToolboxCreationsFreshChecks and "CreationsGroupDecals" or nil, assetType = Category.AssetType.DECAL,
+Category.CREATIONS_GROUP_DECALS = {name = "CreationsGroupDecals", assetType = Category.AssetType.DECAL,
 	ownershipType = Category.OwnershipType.GROUP,}
-Category.CREATIONS_GROUP_AUDIO = {name = "CreationsGroupAudio", category = FFlagToolboxCreationsFreshChecks and "CreationsGroupAudio" or nil, assetType = Category.AssetType.AUDIO,
+Category.CREATIONS_GROUP_AUDIO = {name = "CreationsGroupAudio", assetType = Category.AssetType.AUDIO,
 	ownershipType = Category.OwnershipType.GROUP,}
-Category.CREATIONS_GROUP_MESHES = {name = "CreationsGroupMeshes", category = FFlagToolboxCreationsFreshChecks and "CreationsGroupMeshes" or nil, assetType = Category.AssetType.MESHPART,
+Category.CREATIONS_GROUP_MESHES = {name = "CreationsGroupMeshes", assetType = Category.AssetType.MESHPART,
 	ownershipType = Category.OwnershipType.GROUP,}
-Category.CREATIONS_GROUP_PLUGIN = {name = "CreationsGroupPlugins", category = FFlagToolboxCreationsFreshChecks and "CreationsGroupPlugins" or nil, assetType = Category.AssetType.PLUGIN,
+Category.CREATIONS_GROUP_PLUGIN = {name = "CreationsGroupPlugins", assetType = Category.AssetType.PLUGIN,
 	ownershipType = Category.OwnershipType.GROUP,}
 Category.CREATIONS_CATALOG_SECTION_DIVIDER = {name = "CreationsCatalogSectionDivider", selectable=false}
-Category.CREATIONS_HATS = {name = "CreationsHats", category = FFlagToolboxCreationsFreshChecks and "CreationsHats" or nil, assetType = Category.AssetType.HAT,
+Category.CREATIONS_HATS = {name = "CreationsHats", assetType = Category.AssetType.HAT,
 	ownershipType = Category.OwnershipType.MY,}
-Category.CREATIONS_TEE_SHIRT = {name = "CreationsTeeShirts", category = FFlagToolboxCreationsFreshChecks and "CreationsTeeShirts" or nil, assetType = Category.AssetType.TEE_SHIRT,
+Category.CREATIONS_TEE_SHIRT = {name = "CreationsTeeShirts", assetType = Category.AssetType.TEE_SHIRT,
 	ownershipType = Category.OwnershipType.MY,}
-Category.CREATIONS_SHIRT = {name = "CreationsShirts", category = FFlagToolboxCreationsFreshChecks and "CreationsShirts" or nil, assetType = Category.AssetType.SHIRT,
+Category.CREATIONS_SHIRT = {name = "CreationsShirts", assetType = Category.AssetType.SHIRT,
 	ownershipType = Category.OwnershipType.MY,}
-Category.CREATIONS_PANTS = {name = "CreationsPants", category = FFlagToolboxCreationsFreshChecks and "CreationsPants" or nil, assetType = Category.AssetType.PANTS,
+Category.CREATIONS_PANTS = {name = "CreationsPants", assetType = Category.AssetType.PANTS,
 	ownershipType = Category.OwnershipType.MY,}
-Category.CREATIONS_HAIR = {name = "CreationsHair", category = FFlagToolboxCreationsFreshChecks and "CreationsHair" or nil, assetType = Category.AssetType.HAIR_ACCESSORY,
+Category.CREATIONS_HAIR = {name = "CreationsHair", assetType = Category.AssetType.HAIR_ACCESSORY,
 	ownershipType = Category.OwnershipType.MY,}
-Category.CREATIONS_FACE_ACCESSORIES = {name = "CreationsFaceAccessories", category = FFlagToolboxCreationsFreshChecks and "CreationsFaceAccessories" or nil, assetType = Category.AssetType.FACE_ACCESSORY,
+Category.CREATIONS_FACE_ACCESSORIES = {name = "CreationsFaceAccessories", assetType = Category.AssetType.FACE_ACCESSORY,
 	ownershipType = Category.OwnershipType.MY,}
-Category.CREATIONS_NECK_ACCESSORIES = {name = "CreationsNeckAccessories", category = FFlagToolboxCreationsFreshChecks and "CreationsNeckAccessories" or nil, assetType = Category.AssetType.NECK_ACCESSORY,
+Category.CREATIONS_NECK_ACCESSORIES = {name = "CreationsNeckAccessories", assetType = Category.AssetType.NECK_ACCESSORY,
 	ownershipType = Category.OwnershipType.MY,}
-Category.CREATIONS_SHOULDER_ACCESSORIES = {name = "CreationsShoulderAccessories", category = FFlagToolboxCreationsFreshChecks and "CreationsShoulderAccessories" or nil, assetType = Category.AssetType.SHOULDER_ACCESSORY,
+Category.CREATIONS_SHOULDER_ACCESSORIES = {name = "CreationsShoulderAccessories", assetType = Category.AssetType.SHOULDER_ACCESSORY,
 	ownershipType = Category.OwnershipType.MY,}
-Category.CREATIONS_FRONT_ACCESSORIES = {name = "CreationsFrontAccessories", category = FFlagToolboxCreationsFreshChecks and "CreationsFrontAccessories" or nil, assetType = Category.AssetType.FRONT_ACCESSORY,
+Category.CREATIONS_FRONT_ACCESSORIES = {name = "CreationsFrontAccessories", assetType = Category.AssetType.FRONT_ACCESSORY,
 	ownershipType = Category.OwnershipType.MY,}
-Category.CREATIONS_BACK_ACCESSORIES = {name = "CreationsBackAccessories", category = FFlagToolboxCreationsFreshChecks and "CreationsBackAccessories" or nil, assetType = Category.AssetType.BACK_ACCESSORY,
+Category.CREATIONS_BACK_ACCESSORIES = {name = "CreationsBackAccessories", assetType = Category.AssetType.BACK_ACCESSORY,
 	ownershipType = Category.OwnershipType.MY,}
-Category.CREATIONS_WAIST_ACCESSORIES = {name = "CreationsWaistAccessories", category = FFlagToolboxCreationsFreshChecks and "CreationsWaistAccessories" or nil, assetType = Category.AssetType.WAIST_ACCESSORY,
+Category.CREATIONS_WAIST_ACCESSORIES = {name = "CreationsWaistAccessories", assetType = Category.AssetType.WAIST_ACCESSORY,
 	ownershipType = Category.OwnershipType.MY,}
 
 -- Category sets used for splitting inventory/shop
@@ -254,7 +252,7 @@ Category.API_NAMES = {
 	[Category.FREE_AUDIO.name] = "Audio",
 	[Category.WHITELISTED_PLUGINS.name] = "Plugins",
 }
-if getToolboxMicroserviceSearch() then
+if FFlagToolboxMicroserviceSearch then
 	Category.API_NAMES = Cryo.Dictionary.join(Category.API_NAMES, {
 		[Category.FREE_MESHES.name] = "Meshes",
 		[Category.FREE_DECALS.name] = "Decals",
@@ -264,7 +262,7 @@ if getToolboxMicroserviceSearch() then
 		Category.API_NAMES[Category.MARKETPLACE_VIDEOS.name] = "Videos"
 	end
 
-	if getToolboxModelsMicroserviceSearch() then
+	if FFlagToolboxModelsMicroserviceSearch then
 		Category.API_NAMES[Category.FREE_MODELS.name] = "Models"
 	end
 end

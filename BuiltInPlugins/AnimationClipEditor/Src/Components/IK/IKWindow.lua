@@ -169,7 +169,7 @@ function IKWindow:render()
 				Chain = props.Chain,
 				IKMode = ikMode,
 				TreeArray = self.state.treeArray,
-				OnTreeUpdated = self.onTreeUpdated,
+				onTreeUpdated = self.onTreeUpdated,
 			}),
 
 			EnableIKPrompt = not ikEnabled and Roact.createElement("TextLabel", {

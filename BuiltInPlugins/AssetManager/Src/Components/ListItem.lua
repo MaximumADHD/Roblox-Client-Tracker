@@ -39,7 +39,6 @@ local FFlagStudioAssetManagerAssetPreviewRequest = game:GetFastFlag("StudioAsset
 local FFlagStudioAssetManagerLinkedScriptIcon = game:GetFastFlag("StudioAssetManagerLinkedScriptIcon")
 local FFlagStudioAssetManagerShowRootPlaceListView = game:GetFastFlag("StudioAssetManagerShowRootPlaceListView")
 local FFlagStudioAssetManagerFixLinkedScripts = game:GetFastFlag("StudioAssetManagerFixLinkedScripts")
-local FFlagStudioAssetManagerFixAssetPreviewRequest = game:GetFastFlag("StudioAssetManagerFixAssetPreviewRequest")
 
 local ICON_SIZE = 150
 
@@ -94,14 +93,6 @@ function ListItem:init()
                 StyleModifier = StyleModifier.Hover,
             })
         end
-        if FFlagStudioAssetManagerFixAssetPreviewRequest then
-            local assetData = self.props.AssetData
-            local isFolder = assetData.ClassName == "Folder"
-            local isPlace = assetData.assetType == Enum.AssetType.Place
-            if not isFolder and not isPlace then
-                self.props.dispatchGetAssetPreviewData(self.props.API:get(), {assetData.id})
-            end
-        end
     end
 
     self.onMouseLeave = function()
@@ -144,11 +135,9 @@ function ListItem:init()
         if props.RecentListItem then
             props.dispatchOnRecentAssetRightClick(props)
         else
-            if not FFlagStudioAssetManagerFixAssetPreviewRequest then
-                if FFlagStudioAssetManagerAssetPreviewRequest then
-                    if assetData.assetType ~= Enum.AssetType.Place and not isFolder then
-                        self.props.dispatchGetAssetPreviewData(props.API:get(), {assetData.id})
-                    end
+            if FFlagStudioAssetManagerAssetPreviewRequest then
+                if assetData.assetType ~= Enum.AssetType.Place and not isFolder then
+                    self.props.dispatchGetAssetPreviewData(props.API:get(), {assetData.id})
                 end
             end
             props.dispatchOnAssetRightClick(props)

@@ -49,13 +49,4 @@ function Input.isRight(keyCode)
 	return keyCode == Enum.KeyCode.Right
 end
 
-function Input.isLeftBracket(keyCode)
-	return keyCode == Enum.KeyCode.LeftBracket
-end
-
-function Input.isRightBracket(keyCode)
-	return keyCode == Enum.KeyCode.RightBracket
-end
-
-
 return Input

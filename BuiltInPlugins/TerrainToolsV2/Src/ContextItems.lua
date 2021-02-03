@@ -38,6 +38,4 @@ return {
 	TerrainImporter = require(TerrainInterfaces.TerrainImporterInstance),
 	SeaLevel = require(TerrainInterfaces.TerrainSeaLevel),
 	PartConverter = require(TerrainInterfaces.PartConverter),
-
-	ImageLoader = require(script.Parent.Util.ImageLoader),
 }

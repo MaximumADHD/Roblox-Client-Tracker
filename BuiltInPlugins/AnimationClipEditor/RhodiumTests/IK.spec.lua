@@ -3,7 +3,7 @@ return function()
 	local UILibrary = require(Plugin.UILibrary)
 
 	local GetFFlagMigrateIkSolve = require(Plugin.LuaFlags.GetFFlagMigrateIkSolve)
-	local GetFFlagUseLuaDraggers = require(Plugin.LuaFlags.GetFFlagUseLuaDraggers)
+
 	local Workspace = game:GetService("Workspace")
 	local PhysicsService = game:GetService("PhysicsService")
 	if GetFFlagMigrateIkSolve() then
@@ -221,84 +221,82 @@ return function()
 		end)
 	end)
 
-	if not GetFFlagUseLuaDraggers() then 
-		it("should manipulate proper chains for BodyPart mode", function()
-			runTest(function(test)
-				local store = test:getStore()
-				local analytics = Analytics.mock()
+	it("should manipulate proper chains for BodyPart mode", function()
+		runTest(function(test)
+			local store = test:getStore()
+			local analytics = Analytics.mock()
 
 
-				local dummy = Workspace.Dummy
-				TestHelpers.loadAnimation(store, AnimationData.newRigAnimation("Test"))
+			local dummy = Workspace.Dummy
+			TestHelpers.loadAnimation(store, AnimationData.newRigAnimation("Test"))
 
-				store:dispatch(ToggleIKEnabled(analytics))
-				TestHelpers.delay()
+			store:dispatch(ToggleIKEnabled(analytics))
+			TestHelpers.delay()
 
-				store:dispatch(SetIKMode(Constants.IK_MODE.BodyPart))
-				TestHelpers.delay()
+			store:dispatch(SetIKMode(Constants.IK_MODE.BodyPart))
+			TestHelpers.delay()
 
-				store:dispatch(SetSelectedTracks({"LeftHand"}))
-				TestHelpers.delay()
+			store:dispatch(SetSelectedTracks({"LeftHand"}))
+			TestHelpers.delay()
 
-				store:dispatch(SetMotorData(RigUtils.ikDragStart(dummy, dummy.LeftHand, true)))
-				TestHelpers.delay()
+			store:dispatch(SetMotorData(RigUtils.ikDragStart(dummy, dummy.LeftHand, true)))
+			TestHelpers.delay()
 
-				expect(game:GetService("CoreGui"):FindFirstChild("Adornee")).to.be.ok()
+			expect(game:GetService("CoreGui"):FindFirstChild("Adornee")).to.be.ok()
 
-				local status = store:getState().Status
-				local motorData = status.MotorData
+			local status = store:getState().Status
+			local motorData = status.MotorData
 
-				for _, child in ipairs(dummy:GetChildren()) do
-					if child:IsA("Part") then
-						if child.Name == "HumanoidRootPart" or child.Name == "UpperTorso" or child.Name == "LowerTorso" then
-							expect(child.Anchored).to.equal(true)
-						else
-							expect(child.Anchored).to.equal(false)
-						end
+			for _, child in ipairs(dummy:GetChildren()) do
+				if child:IsA("Part") then
+					if child.Name == "HumanoidRootPart" or child.Name == "UpperTorso" or child.Name == "LowerTorso" then
+						expect(child.Anchored).to.equal(true)
+					else
+						expect(child.Anchored).to.equal(false)
 					end
 				end
+			end
 
-				if GetFFlagMigrateIkSolve() then
-					Workspace:IKMoveTo(dummy.LeftHand, CFrame.new(), 0.5, 0.5, Enum.IKCollisionsMode.NoCollisions)
-				else
-					PhysicsService:ikSolve(dummy.LeftHand, CFrame.new(), 0.5, 0.5)
-				end
-				TestHelpers.delay()
+			if GetFFlagMigrateIkSolve() then
+				Workspace:IKMoveTo(dummy.LeftHand, CFrame.new(), 0.5, 0.5, Enum.IKCollisionsMode.NoCollisions)
+			else
+				PhysicsService:ikSolve(dummy.LeftHand, CFrame.new(), 0.5, 0.5)
+			end
+			TestHelpers.delay()
 
-				RigUtils.ikDragEnd(dummy, motorData)
-				TestHelpers.delay()
+			RigUtils.ikDragEnd(dummy, motorData)
+			TestHelpers.delay()
 
-				store:dispatch(SetSelectedTracks({"LowerTorso"}))
-				TestHelpers.delay()
+			store:dispatch(SetSelectedTracks({"LowerTorso"}))
+			TestHelpers.delay()
 
-				store:dispatch(SetMotorData(RigUtils.ikDragStart(dummy, dummy.LowerTorso, true)))
-				TestHelpers.delay()
+			store:dispatch(SetMotorData(RigUtils.ikDragStart(dummy, dummy.LowerTorso, true)))
+			TestHelpers.delay()
 
-				status = store:getState().Status
-				motorData = status.MotorData
+			status = store:getState().Status
+			motorData = status.MotorData
 
-				for _, child in ipairs(dummy:GetChildren()) do
-					if child:IsA("Part") then
-						if child.Name == "HumanoidRootPart" or child.Name == "LeftFoot" or child.Name == "RightFoot" then
-							expect(child.Anchored).to.equal(true)
-						else
-							expect(child.Anchored).to.equal(false)
-						end
+			for _, child in ipairs(dummy:GetChildren()) do
+				if child:IsA("Part") then
+					if child.Name == "HumanoidRootPart" or child.Name == "LeftFoot" or child.Name == "RightFoot" then
+						expect(child.Anchored).to.equal(true)
+					else
+						expect(child.Anchored).to.equal(false)
 					end
 				end
+			end
 
-				if GetFFlagMigrateIkSolve() then
-					Workspace:IKMoveTo(dummy.LowerTorso, CFrame.new(), 0.5, 0.5, Enum.IKCollisionsMode.NoCollisions)
-				else
-					PhysicsService:ikSolve(dummy.LowerTorso, CFrame.new(), 0.5, 0.5)
-				end
-				TestHelpers.delay()
+			if GetFFlagMigrateIkSolve() then
+				Workspace:IKMoveTo(dummy.LowerTorso, CFrame.new(), 0.5, 0.5, Enum.IKCollisionsMode.NoCollisions)
+			else
+				PhysicsService:ikSolve(dummy.LowerTorso, CFrame.new(), 0.5, 0.5)
+			end
+			TestHelpers.delay()
 
-				RigUtils.ikDragEnd(dummy, motorData)
-				TestHelpers.delay()
-			end)
+			RigUtils.ikDragEnd(dummy, motorData)
+			TestHelpers.delay()
 		end)
-	end
+	end)
 
 	it("StartingPose should be saved for an R15", function()
 		runTest(function(test)

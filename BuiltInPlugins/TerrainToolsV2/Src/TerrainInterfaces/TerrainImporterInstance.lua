@@ -3,8 +3,6 @@ local FFlagTerrainImportSupportDefaultMaterial = game:GetFastFlag("TerrainImport
 local FFlagTerrainToolsImportUploadAssets = game:GetFastFlag("TerrainToolsImportUploadAssets")
 local FFlagTerrainImportUseService = game:GetFastFlag("TerrainImportUseService")
 local FFlagTerrainToolsReportBetterImport = game:GetFastFlag("TerrainToolsReportBetterImport")
-local FFlagTerrainDialogPoorColormapImport = game:GetFastFlag("TerrainDialogPoorColormapImport")
-local FFlagTerrainImportUseDetailedProgressBar = game:GetFastFlag("TerrainImportUseDetailedProgressBar")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -101,14 +99,11 @@ function TerrainImporter.new(options)
 
 		_importing = false,
 		_importProgress = 0,
-		_importOperation = "",
 
 		_isPaused = false,
-		_hasPixelWarning = false,
 
 		_updateSignal = Signal.new(),
 		_errorSignal = Signal.new(),
-		_importFinishSignal = Signal.new(),
 
 	}, TerrainImporter)
 
@@ -123,11 +118,8 @@ function TerrainImporter.new(options)
 		self._importSettings.guid = nil
 	end
 
-	self._updateImportProgress = function(completionPercent, operation)
+	self._updateImportProgress = function(completionPercent)
 		self._importProgress = completionPercent
-		if FFlagTerrainImportUseDetailedProgressBar then
-			self._importOperation = operation
-		end
 		self._updateSignal:Fire()
 		if not FFlagTerrainToolsBetterImportTool then
 			if completionPercent >= 1 then
@@ -143,12 +135,6 @@ function TerrainImporter.new(options)
 		self._terrainProgressUpdateConnection = self._terrain.TerrainProgressUpdate:Connect(self._updateImportProgress)
 	end
 
-	if FFlagTerrainImportUseService then
-		self._heightmapImporterService.ColormapHasUnknownPixels:Connect(function()
-			self._hasPixelWarning = true
-		end)
-	end
-
 	return self
 end
 
@@ -159,28 +145,12 @@ function TerrainImporter:createProvider(root)
 	}, {root})
 end
 
-function TerrainImporter:subscribeToImportFinish(callback)
-	return self._importFinishSignal:Connect(callback)
-end
-
 function TerrainImporter:subscribeToErrors(callback)
 	return self._errorSignal:Connect(callback)
 end
 
-function TerrainImporter:getHasPixelWarning()
-	return self._hasPixelWarning
-end
-
-function TerrainImporter:clearHasPixelWarning()
-	self._hasPixelWarning = false
-end
-
 function TerrainImporter:getImportProgress()
 	return self._importProgress
-end
-
-function TerrainImporter:getImportOperation()
-	return self._importOperation
 end
 
 function TerrainImporter:isImporting()
@@ -236,7 +206,6 @@ function TerrainImporter:cancel()
 	else
 		self._terrain:CancelImportHeightmap()
 	end
-	self._hasPixelWarning = false
 end
 
 function TerrainImporter:DEPRECATED_startImport()
@@ -248,11 +217,7 @@ function TerrainImporter:DEPRECATED_startImport()
 		return
 	end
 
-	if FFlagTerrainImportUseDetailedProgressBar then
-		self._updateImportProgress(0, "")
-	else
-		self._updateImportProgress(0)
-	end
+	self._updateImportProgress(0)
 	self:_setImporting(true)
 
 	local size = self._importSettings.size
@@ -286,11 +251,7 @@ function TerrainImporter:DEPRECATED_startImport()
 
 		if status then
 			-- Import finished successfully
-			if FFlagTerrainImportUseDetailedProgressBar then
-				self._updateImportProgress(1, "")
-			else
-				self._updateImportProgress(1)
-			end
+			self._updateImportProgress(1)
 			self:_setImporting(false)
 
 		elseif not status then
@@ -298,11 +259,7 @@ function TerrainImporter:DEPRECATED_startImport()
 
 			-- Force the import to appear as completed
 			-- Otherwise the UI wouldn't update as TerrainProgressUpdate won't fire
-			if FFlagTerrainImportUseDetailedProgressBar then
-				self._updateImportProgress(1, "")
-			else
-				self._updateImportProgress(1)
-			end
+			self._updateImportProgress(1)
 			self:_setImporting(false)
 		end
 	end)
@@ -427,27 +384,13 @@ function TerrainImporter:startImport()
 	end
 
 	local function beginImport()
-
-		self._hasPixelWarning = false
-
-		if FFlagTerrainImportUseDetailedProgressBar then
-			self._updateImportProgress(0, "Starting")
-		else
-			self._updateImportProgress(0)
-		end
+		self._updateImportProgress(0)
 		self:_setImporting(true)
 	end
 
 	local function finishImport()
-		if FFlagTerrainImportUseDetailedProgressBar then
-			self._updateImportProgress(1, "")
-		else
-			self._updateImportProgress(1)
-		end
+		self._updateImportProgress(1)
 		self:_setImporting(false)
-		if FFlagTerrainDialogPoorColormapImport then
-			self._importFinishSignal:Fire()
-		end
 	end
 
 	local function handleFailure(message)

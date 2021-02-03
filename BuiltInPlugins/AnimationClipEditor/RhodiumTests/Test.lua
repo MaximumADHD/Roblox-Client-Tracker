@@ -22,7 +22,6 @@ local Plugin = script.Parent.Parent
 local Framework = Plugin.Packages.Framework
 local Signal = require(Plugin.Packages.Framework.Util.Signal)
 local MockPlugin = require(Plugin.Packages.Framework.TestHelpers.Instances.MockPlugin)
-local Signals = require(Plugin.Src.Context.Signals)
 
 local ContextServices = require(Framework.ContextServices)
 local Roact = require(Plugin.Packages.Roact)
@@ -154,7 +153,7 @@ function Test.new(plugin)
 	self.container = self:makeContainer()
 	self.analytics = ContextServices.Analytics.mock()
 	self.pluginActions = ContextServices.PluginActions.new(self.mockPlugin, MakePluginActions(self.mockPlugin, self.localization))
-	self.signals = Signals.new(Constants.SIGNAL_KEYS)
+
 	return self
 end
 
@@ -168,7 +167,6 @@ function Test:run(testRunner)
 		pluginActions = self.pluginActions,
 		mouse = self.mockPlugin:GetMouse(),
 		analytics = self.analytics,
-		signals = self.signals
 	}, {
 		AnimationClipEditor = Roact.createElement(AnimationClipEditor),
 	})

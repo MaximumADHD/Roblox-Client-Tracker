@@ -17,14 +17,11 @@
 local Plugin = script.Parent.Parent.Parent
 local Cryo = require(Plugin.Packages.Cryo)
 local Roact = require(Plugin.Packages.Roact)
-local Framework = require(Plugin.Packages.Framework)
-local ContextServices = Framework.ContextServices
+local ContextServices = require(Plugin.Packages.Framework.ContextServices)
 local UILibrary = require(Plugin.Packages.UILibrary)
 local ExpandableList = UILibrary.Component.ExpandableList
 
 local CheckBoxModule = require(Plugin.Src.Components.CheckBoxModule)
-
-local THEME_REFACTOR = Framework.Util.RefactorFlags.THEME_REFACTOR
 
 local ListItemsModule = Roact.PureComponent:extend("ListItemsModule")
 
@@ -52,12 +49,7 @@ function ListItemsModule:render()
 	local expanded = state.expanded
 	local labelText = props.LabelText
 	local items = props.Items or {}
-	local theme
-	if THEME_REFACTOR then
-	    theme = props.Stylizer
-	else
-	    theme = props.Theme:get("Plugin")
-	end
+	local theme = props.Theme:get("Plugin")
 	local listStatus = props.ListStatus
 
 	local itemElements = {}
@@ -104,8 +96,7 @@ end
 
 ContextServices.mapToProps(ListItemsModule, {
 	Plugin = ContextServices.Plugin,
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	Theme = ContextServices.Theme,
 })
 
 return ListItemsModule

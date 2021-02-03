@@ -22,7 +22,7 @@
 
 local FFlagRemoveAudioEndorsedIcon = game:GetFastFlag("RemoveAudioEndorsedIcon")
 local FFlagUseCategoryNameInToolbox = game:GetFastFlag("UseCategoryNameInToolbox")
-local FFlagToolboxFixShowNilCreationStatus2 = game:DefineFastFlag("ToolboxFixShowNilCreationStatus2", false)
+local FFlagToolboxFixShowNilCreationStatus = game:DefineFastFlag("ToolboxFixShowNilCreationStatus", false)
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -193,10 +193,11 @@ function Asset:render()
 			end
 
 			local showStatus
-			if FFlagToolboxFixShowNilCreationStatus2 then
+			if FFlagToolboxFixShowNilCreationStatus then
 				showStatus = isCurrentlyCreationsTab
 
 				if showStatus and status == nil then
+					warn("Status is nil for asset", assetId)
 					showStatus = false
 				end
 			else

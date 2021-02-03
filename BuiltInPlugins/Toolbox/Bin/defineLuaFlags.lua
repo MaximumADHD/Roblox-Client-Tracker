@@ -5,7 +5,6 @@
 game:DefineFastFlag("FixAssetConfigManageableGroups", false)
 game:DefineFastFlag("ShowAssetConfigReasons2", false)
 game:DefineFastFlag("DebugAssetConfigNetworkError", false)
-game:DefineFastFlag("AssetConfigFixRoactTypeChecks", false)
 
 game:DefineFastFlag("EnableDefaultSortFix2", false)
 game:DefineFastFlag("UseCategoryNameInToolbox", false)
@@ -42,8 +41,10 @@ game:DefineFastFlag("ToolboxUseDevFrameworkAssetPreview", false)
 
 game:DefineFastFlag("CMSUploadFees", false)
 
-game:DefineFastFlag("ImproveAssetCreationsPageFetching2", false)
+game:DefineFastFlag("ImproveAssetCreationsPageFetching", false)
 
+game:DefineFastFlag("ToolboxMicroserviceSearch", false)
+game:DefineFastFlag("ToolboxModelsMicroserviceSearch", false)
 game:DefineFastFlag("ToolboxUseGetItemDetails", false)
 
 game:DefineFastFlag("EnableToolboxStylizer", false)
@@ -54,12 +55,6 @@ game:DefineFastFlag("ToolboxStopAudioFromPlayingOnCloseAndCategorySwitch", false
 
 game:DefineFastFlag("ToolboxUseTranslationDevelopmentTable", false)
 
-game:DefineFastFlag("ToolboxCreationsFreshChecks", false)
-
 game:DefineFastFlag("ToolboxUseDevFrameworkDialogs", false)
-
-game:DefineFastFlag("ToolboxNewResponseFreshChecks", false)
-
-game:DefineFastFlag("AssetConfigNonCatalogOptionalDescription", false)
 
 return nil

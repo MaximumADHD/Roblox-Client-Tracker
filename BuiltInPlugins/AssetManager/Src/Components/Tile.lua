@@ -34,7 +34,7 @@ local FFlagBatchThumbnailAddNewThumbnailTypes = game:GetFastFlag("BatchThumbnail
 local FFlagAssetManagerRemoveAssetFixes = game:GetFastFlag("AssetManagerRemoveAssetFixes")
 local FFlagStudioAssetManagerAssetPreviewRequest = game:GetFastFlag("StudioAssetManagerAssetPreviewRequest")
 local FFlagStudioAssetManagerFixLinkedScripts = game:GetFastFlag("StudioAssetManagerFixLinkedScripts")
-local FFlagStudioAssetManagerFixAssetPreviewRequest = game:GetFastFlag("StudioAssetManagerFixAssetPreviewRequest")
+local FFlagStudioAssetManagerTileAssetPreviewRequest = game:GetFastFlag("StudioAssetManagerTileAssetPreviewRequest")
 
 local Tile = Roact.PureComponent:extend("Tile")
 
@@ -69,7 +69,7 @@ function Tile:init()
         self:setState({
             assetPreviewButtonHovered = true,
         })
-        if FFlagStudioAssetManagerFixAssetPreviewRequest then
+        if FFlagStudioAssetManagerTileAssetPreviewRequest then
             local assetData = self.props.AssetData
             local isFolder = assetData.ClassName == "Folder"
             local isPlace = assetData.assetType == Enum.AssetType.Place
@@ -124,7 +124,7 @@ function Tile:init()
 
     self.openAssetPreview = function()
         local assetData = self.props.AssetData
-        if not FFlagStudioAssetManagerFixAssetPreviewRequest then
+        if not FFlagStudioAssetManagerTileAssetPreviewRequest then
             if FFlagStudioAssetManagerAssetPreviewRequest then
                 self.props.dispatchGetAssetPreviewData(self.props.API:get(), {assetData.id})
             end

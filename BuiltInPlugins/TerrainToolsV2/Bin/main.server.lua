@@ -18,7 +18,6 @@ RefactorFlags.THEME_REFACTOR = FFlagEnableTerrainToolsStylizer
 
 local FFlagTerrainToolsBetterImportTool = game:GetFastFlag("TerrainToolsBetterImportTool")
 local FFlagTerrainToolsImportUploadAssets = game:GetFastFlag("TerrainToolsImportUploadAssets")
-local FFlagTerrainToolsHeightmapUseLoadingImage = game:GetFastFlag("TerrainToolsHeightmapUseLoadingImage")
 
 -- Libraries
 local Framework = require(Plugin.Packages.Framework)
@@ -58,7 +57,6 @@ local TerrainSeaLevel = require(Plugin.Src.TerrainInterfaces.TerrainSeaLevel)
 local PartConverter = require(Plugin.Src.TerrainInterfaces.PartConverter)
 
 local ImageUploader = require(Plugin.Src.Util.ImageUploader)
-local ImageLoader = require(Plugin.Src.Util.ImageLoader)
 
 -- Top Level Component
 local TerrainTools = require(Plugin.Src.Components.TerrainTools)
@@ -125,11 +123,6 @@ local function createTerrainContextItems()
 
 	local devFrameworkThemeItem = makeTheme()
 
-	local imageLoader
-	if FFlagTerrainToolsHeightmapUseLoadingImage then
-		imageLoader = ImageLoader.new()
-	end
-
 	return {
 		plugin = pluginItem,
 		mouse = mouse,
@@ -140,7 +133,6 @@ local function createTerrainContextItems()
 		analytics = analytics,
 		networking = networking,
 		imageUploader = imageUploader,
-		imageLoader = imageLoader,
 		terrain = terrainItem,
 		pluginActivationController = pluginActivationController,
 		terrainImporter = terrainImporter,

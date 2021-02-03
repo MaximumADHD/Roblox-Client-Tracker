@@ -16,12 +16,9 @@
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
-local Framework = require(Plugin.Packages.Framework)
-local ContextServices = Framework.ContextServices
+local ContextServices = require(Plugin.Packages.Framework.ContextServices)
 local UILibrary = require(Plugin.Packages.UILibrary)
 local CheckBox = UILibrary.Component.CheckBox
-
-local THEME_REFACTOR = Framework.Util.RefactorFlags.THEME_REFACTOR
 
 local CheckBoxModule = Roact.PureComponent:extend("CheckBoxModule")
 
@@ -33,12 +30,7 @@ end
 
 function CheckBoxModule:render()
 	local props = self.props
-	local theme
-	if THEME_REFACTOR then
-	    theme = props.Stylizer
-	else
-	    theme = props.Theme:get("Plugin")
-	end
+	local theme = props.Theme:get("Plugin")
 
 	local enabled = props.Enabled
 	local itemKey = props.ItemKey
@@ -67,8 +59,7 @@ function CheckBoxModule:render()
 end
 
 ContextServices.mapToProps(CheckBoxModule, {
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	Theme = ContextServices.Theme,
 })
 
 return CheckBoxModule

@@ -4,7 +4,6 @@ local Colors = {
 	White = Color3.fromRGB(255, 255, 255),
 	Green = Color3.fromRGB(0, 176, 111),
 	Red = Color3.fromRGB(247, 75, 82),
-	Blue = Color3.fromRGB(82, 173, 244),
 
 	--Dark theme colors
 	Carbon = Color3.fromRGB(31, 33, 35),

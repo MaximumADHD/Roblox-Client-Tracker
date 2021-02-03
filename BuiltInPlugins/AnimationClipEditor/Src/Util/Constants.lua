@@ -190,10 +190,6 @@ local Constants = {
 		FullBody = "FullBody",
 	},
 
-	SIGNAL_KEYS = {
-		SelectionChanged = "SelectionChanged",
-	},
-
 	R15_PARTS = {
 		UpperTorso = "UpperTorso",
 		LowerTorso = "LowerTorso",

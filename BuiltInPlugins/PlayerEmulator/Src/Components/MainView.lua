@@ -5,8 +5,7 @@
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
-local Framework = require(Plugin.Packages.Framework)
-local ContextServices = Framework.ContextServices
+local ContextServices = require(Plugin.Packages.Framework.ContextServices)
 local UILibrary = require(Plugin.Packages.UILibrary)
 local Separator = UILibrary.Component.Separator
 local LayoutOrderIterator = UILibrary.Util.LayoutOrderIterator
@@ -16,20 +15,13 @@ local LanguageSection = require(Plugin.Src.Components.LanguageSection)
 local CountryRegionSection = require(Plugin.Src.Components.CountryRegionSection)
 local PolicySection = require(Plugin.Src.Components.PolicySection)
 
-local THEME_REFACTOR = Framework.Util.RefactorFlags.THEME_REFACTOR
-
 local MainView = Roact.PureComponent:extend("MainView")
 
 function MainView:render()
 	local layoutIndex = LayoutOrderIterator.new()
 
 	local props = self.props
-	local theme
-	if THEME_REFACTOR then
-	    theme = props.Stylizer
-	else
-	    theme = props.Theme:get("Plugin")
-	end
+	local theme = props.Theme:get("Plugin")
 
 	return Roact.createElement("Frame", {
 		Size = UDim2.new(1,0,1,0),
@@ -66,8 +58,7 @@ function MainView:render()
 end
 
 ContextServices.mapToProps(MainView, {
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	Theme = ContextServices.Theme,
 })
 
 return MainView

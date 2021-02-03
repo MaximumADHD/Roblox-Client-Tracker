@@ -5,8 +5,6 @@
 local FFlagTerrainImportSupportDefaultMaterial = game:GetFastFlag("TerrainImportSupportDefaultMaterial")
 local FFlagTerrainImportGreyscale2 = game:GetFastFlag("TerrainImportGreyscale2")
 local FFlagTerrainToolsMapSettingsMaxVolume = game:GetFastFlag("TerrainToolsMapSettingsMaxVolume")
-local FFlagTerrainDialogPoorColormapImport = game:GetFastFlag("TerrainDialogPoorColormapImport")
-local FFlagTerrainImportUseDetailedProgressBar = game:GetFastFlag("TerrainImportUseDetailedProgressBar")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -48,7 +46,6 @@ local TerrainEnums = require(Plugin.Src.Util.TerrainEnums)
 local ImportMaterialMode = TerrainEnums.ImportMaterialMode
 
 local HeightmapImporterService = game:GetService("HeightmapImporterService")
-local BrowserService = game:GetService("BrowserService")
 
 local REDUCER_KEY = "ImportLocalTool"
 
@@ -111,27 +108,13 @@ end
 local ImportLocal = Roact.PureComponent:extend(script.Name)
 
 function ImportLocal:init()
-	if FFlagTerrainDialogPoorColormapImport then
-		self.state = {
-			mapSettingsValid = true,
+	self.state = {
+		mapSettingsValid = true,
 
-			hasError = false,
-			errorMainText = "",
-			errorSubText = "",
-
-			hasWarning = false,  -- state to show Warning message after finished terrain import
-			warningMainText = "",
-			warningSubText = "",
-			warningLinkText = "",
-		}
-	else
-		self.state = {
-			mapSettingsValid = true,
-			hasError = false,
-			errorMainText = "",
-			errorSubText = "",
-		}
-	end
+		hasError = false,
+		errorMainText = "",
+		errorSubText = "",
+	}
 
 	self.onImportButtonClicked = function()
 		-- TODO MOD-46, MOD-49: Handle registering asset usage and uploading local files to get real asset ids
@@ -284,17 +267,6 @@ function ImportLocal:init()
 		self.setErrorMessage(nil)
 	end
 
-	if FFlagTerrainDialogPoorColormapImport then
-		self.clearWarningMessage = function()
-			self:setState({
-				hasWarning = false,
-				warningMainText = "",
-				warningSubText = "",
-				warningLinkText = "",
-			})
-		end
-	end
-
 	self.onUserChangedSize = function(size)
 		if tonumber(size.X) ~= self.props.size.X
 			or tonumber(size.Y) ~= self.props.size.Y
@@ -330,23 +302,6 @@ function ImportLocal:didMount()
 	self._onImportErrorConnection = self.props.TerrainImporter:subscribeToErrors(function(message)
 		self.setErrorMessage("ImportFailed", message)
 	end)
-	
-	self._isMounted = true
-
-	if FFlagTerrainDialogPoorColormapImport then
-		self._onImportFinishConnection = self.props.TerrainImporter:subscribeToImportFinish(function()
-			local localization = self.props.Localization:get()
-			if self.props.TerrainImporter:getHasPixelWarning() and self._isMounted then
-				self:setState({
-					hasWarning = true,
-					warningMainText = localization:getText("ImportWarning", "MainTextColormapRGBOutOfRange"),
-					warningSubText = localization:getText("ImportWarning", "SubTextColormapRGBOutOfRange"),
-					warningLinkText = localization:getText("Action", "LearnMore"),
-				})
-				self.props.TerrainImporter:clearHasPixelWarning()
-			end
-		end)
-	end
 end
 
 function ImportLocal:didUpdate()
@@ -354,16 +309,9 @@ function ImportLocal:didUpdate()
 end
 
 function ImportLocal:willUnmount()
-	self._isMounted = false
 	if self._onImportErrorConnection then
 		self._onImportErrorConnection:Disconnect()
 		self._onImportErrorConnection = nil
-	end
-	if FFlagTerrainDialogPoorColormapImport then
-		if self._onImportFinishConnection then
-			self._onImportFinishConnection:Disconnect()
-			self._onImportFinishConnection = nil
-		end
 	end
 end
 
@@ -373,10 +321,6 @@ function ImportLocal:render()
 	local importPaused = self.props.TerrainImporter:isPaused()
 	local importInProgress = self.props.TerrainImporter:isImporting()
 	local importProgress = importInProgress and self.props.TerrainImporter:getImportProgress() or 0
-	local importOperation
-	if FFlagTerrainImportUseDetailedProgressBar then
-		importOperation = importInProgress and self.props.TerrainImporter:getImportOperation() or ""
-	end
 
 	local canImport = not importInProgress
 		and self.state.mapSettingsValid
@@ -417,27 +361,8 @@ function ImportLocal:render()
 		heightmapMessages.Info = localization:getText("ImportInfo", "ChannelsWereDiscarded")
 	end
 
-	local progressBarSubtext
-
-	if FFlagTerrainImportUseDetailedProgressBar then
-		-- The import operation string comes directly from hardcoded cpp, be sure that any changes get replicated to the localization keys
-		progressBarSubtext = localization:getText("Generate", importOperation)
-	else
-		progressBarSubtext = localization:getText("Generate", "GenerateVoxels")
-	end
-
 	local errorMainText = self.state.errorMainText
 	local errorSubText = self.state.errorSubText
-
-	local warningMainText = ""
-	local warningSubText = ""
-	local warningLinkText = ""
-
-	if FFlagTerrainDialogPoorColormapImport then
-		warningMainText = self.state.warningMainText
-		warningSubText = self.state.warningSubText
-		warningLinkText = self.state.warningLinkText
-	end
 
 	return Roact.createFragment({
 		MapSettings = Roact.createElement(Panel, {
@@ -551,7 +476,7 @@ function ImportLocal:render()
 		ProgressDialog = importInProgress
 			and Roact.createElement(ProgressDialog, {
 			Title = localization:getText("Generate", "GenerateProgressTitle"),
-			SubText = progressBarSubtext,
+			SubText = localization:getText("Generate", "GenerateVoxels"),
 
 			Progress = importProgress,
 			IsPaused = importPaused,
@@ -566,20 +491,6 @@ function ImportLocal:render()
 			SubText = errorSubText,
 			Image = "rbxasset://textures/ui/ErrorIcon.png",
 			OnClose = self.clearErrorMessage,
-		}),
-
-		WarningDialog = (FFlagTerrainDialogPoorColormapImport and self.state.hasWarning and not self.state.hasError) and Roact.createElement(InfoDialog, {
-			Title = "Roblox Studio",
-			MainText = warningMainText,
-			SubText = warningSubText,
-			Image = "rbxasset://textures/ui/WarningIcon.png",
-			OnClose = self.clearWarningMessage,
-			LinkInfo = {
-				Text = warningLinkText,
-				OnClick = function()
-					BrowserService:OpenBrowserWindow("https://developer.roblox.com/en-us/articles/importing-terrain-data")
-				end
-			},
 		}),
 	})
 end

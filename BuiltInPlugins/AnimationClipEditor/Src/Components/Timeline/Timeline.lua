@@ -38,13 +38,7 @@ local DragTarget = Framework.UI.DragListener
 
 local ContextServices = Framework.ContextServices
 
-local Constants = require(Plugin.Src.Util.Constants)
-
 local TimelineTick = require(Plugin.Src.Components.Timeline.TimelineTick)
-
-local StringUtils = require(Plugin.Src.Util.StringUtils)
-
-local DisplaySecondsOnTimeline = require(Plugin.LuaFlags.GetFFlagDisplaySecondsOnTimeline)
 
 local Timeline = Roact.PureComponent:extend("Timeline")
 
@@ -135,8 +129,6 @@ function Timeline:render()
 		local tickHeightScale = props.TickHeightScale
 		local smallTickHeightScale = props.SmallTickHeightScale
 		local showAsTime = props.ShowAsTime
-		local animationData = props.AnimationData
-		local frameRate = animationData and animationData.Metadata.FrameRate or Constants.DEFAULT_FRAMERATE
 
 		endFrame = math.max(endFrame, startFrame + majorInterval)
 
@@ -165,7 +157,6 @@ function Timeline:render()
 				TickHeightScale = onInterval and tickHeightScale or smallTickHeightScale,
 				ShowTime = onInterval,
 				PastEnd = frameNo > lastFrame,
-				TimeInSeconds = DisplaySecondsOnTimeline() and StringUtils.formatTimeInSeconds(frames, frameRate)
 			})
 		end
 

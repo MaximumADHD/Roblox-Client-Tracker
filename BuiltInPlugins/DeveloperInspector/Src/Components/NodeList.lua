@@ -115,7 +115,6 @@ end
 ContextServices.mapToProps(NodeList, {
 	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
 	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	Plugin = ContextServices.Plugin,
 	Inspector = InspectorContext
 })
 

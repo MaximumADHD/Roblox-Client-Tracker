@@ -7,6 +7,7 @@ return function()
 	local FlagsList = Flags.new({
 		FFlagEnablePluginPermissionsPage = {
 			"EnablePluginPermissionsPage2",
+			"StudioPermissionsServiceEnabled",
 		},
 	})
 

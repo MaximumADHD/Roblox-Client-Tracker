@@ -16,12 +16,9 @@
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
-local Framework = require(Plugin.Packages.Framework)
-local ContextServices = Framework.ContextServices
+local ContextServices = require(Plugin.Packages.Framework.ContextServices)
 local UILibrary = require(Plugin.Packages.UILibrary)
 local DropdownMenu = UILibrary.Component.DropdownMenu
-
-local THEME_REFACTOR = Framework.Util.RefactorFlags.THEME_REFACTOR
 
 local DropdownModule = Roact.PureComponent:extend("DropdownModule")
 
@@ -65,12 +62,7 @@ function DropdownModule:render()
 	local currentSelected = props.CurrentSelected
 	local onItemClicked = props.OnItemClicked
 
-	local theme
-	if THEME_REFACTOR then
-	    theme = props.Stylizer
-	else
-	    theme = props.Theme:get("Plugin")
-	end
+	local theme = props.Theme:get("Plugin")
 	local localization = props.Localization
 	local layoutOrder = props.LayoutOrder
 
@@ -160,8 +152,7 @@ function DropdownModule:render()
 end
 
 ContextServices.mapToProps(DropdownModule, {
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	Theme = ContextServices.Theme,
 	Localization = ContextServices.Localization,
 })
 

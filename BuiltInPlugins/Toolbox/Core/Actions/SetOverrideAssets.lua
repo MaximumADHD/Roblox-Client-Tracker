@@ -4,9 +4,9 @@ local Libs = Plugin.Libs
 local Util = require(Libs.Framework.Util)
 local Action = Util.Action
 
-local FFlagImproveAssetCreationsPageFetching2 = game:GetFastFlag("ImproveAssetCreationsPageFetching2")
+local FFlagImproveAssetCreationsPageFetching = game:GetFastFlag("ImproveAssetCreationsPageFetching")
 
-if FFlagImproveAssetCreationsPageFetching2 then
+if FFlagImproveAssetCreationsPageFetching then
 	return Action(script.Name, function(resultsArray)
 		assert(typeof(resultsArray) == "table", "SetOverrideAssets resultsArray must be a table")
 		return {

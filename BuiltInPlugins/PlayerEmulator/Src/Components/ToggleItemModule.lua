@@ -15,12 +15,9 @@
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
-local Framework = require(Plugin.Packages.Framework)
-local ContextServices = Framework.ContextServices
+local ContextServices = require(Plugin.Packages.Framework.ContextServices)
 local UILibrary = require(Plugin.Packages.UILibrary)
 local ToggleButton = UILibrary.Component.ToggleButton
-
-local THEME_REFACTOR = Framework.Util.RefactorFlags.THEME_REFACTOR
 
 local ToggleItemModule = Roact.PureComponent:extend("ToggleItemModule")
 
@@ -36,12 +33,8 @@ end
 
 function ToggleItemModule:render()
 	local props = self.props
-	local theme
-	if THEME_REFACTOR then
-	    theme = props.Stylizer
-	else
-	    theme = props.Theme:get("Plugin")
-	end
+	local theme = props.Theme:get("Plugin")
+
 	local key = props.Key
 	local isOn = props.IsOn
 	local enabled = props.Enabled
@@ -71,8 +64,7 @@ end
 
 ContextServices.mapToProps(ToggleItemModule, {
 	Plugin = ContextServices.Plugin,
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	Theme = ContextServices.Theme,
 })
 
 return ToggleItemModule

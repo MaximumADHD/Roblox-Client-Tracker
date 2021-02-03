@@ -45,7 +45,7 @@ local Constants = {
 	},
 
 	HumanoidDescriptionIdToName = {
-		["2"]  = "GraphicTShirt",
+		["2"]  = "Shirt",
 		["8"]  = "HatAccessory",
 		["41"] = "HairAccessory",
 		["42"] = "FaceAccessory",

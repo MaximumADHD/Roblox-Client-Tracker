@@ -17,15 +17,12 @@ local PlayerEmulatorService = game:GetService("PlayerEmulatorService")
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
-local Framework = require(Plugin.Packages.Framework)
-local ContextServices = Framework.ContextServices
+local ContextServices = require(Plugin.Packages.Framework.ContextServices)
 local UILibrary = require(Plugin.Packages.UILibrary)
 local ToggleButton = UILibrary.Component.ToggleButton
 
 local Constants = require(Plugin.Src.Util.Constants)
 local OnPlayerEmulationEnabledChanged = require(Plugin.Src.Actions.OnPlayerEmulationEnabledChanged)
-
-local THEME_REFACTOR = Framework.Util.RefactorFlags.THEME_REFACTOR
 
 local function GetMainSwitchEnabled()
 	return PlayerEmulatorService.PlayerEmulationEnabled
@@ -84,12 +81,7 @@ end
 
 function MainSwitchSection:render()
 	local props = self.props
-	local theme
-	if THEME_REFACTOR then
-	    theme = props.Stylizer
-	else
-	    theme = props.Theme:get("Plugin")
-	end
+	local theme = props.Theme:get("Plugin")
 	local localization = props.Localization
 	local layoutOrder = props.LayoutOrder
 	local isOn = props.mainSwitchEnabled
@@ -123,8 +115,7 @@ end
 
 ContextServices.mapToProps(MainSwitchSection, {
 	Plugin = ContextServices.Plugin,
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	Theme = ContextServices.Theme,
 	Localization = ContextServices.Localization,
 })
 

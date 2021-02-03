@@ -14,8 +14,6 @@ local PluginTheme = require(Plugin.Src.Util.Theme)
 local MainReducer = require(Plugin.Src.Reducers.MainReducer)
 local UILibraryWrapper = require(Plugin.Packages.Framework.ContextServices.UILibraryWrapper)
 local Localization = ContextServices.Localization
-local Signals = require(Plugin.Src.Context.Signals)
-local Constants = require(Plugin.Src.Util.Constants)
 
 local MockWrapper = Roact.Component:extend("MockWrapper")
 
@@ -65,8 +63,6 @@ function MockWrapper.getMockGlobals(props)
 		}
 	})
 
-	local signals = Signals.new(Constants.SIGNAL_KEYS)
-
 	local analytics = ContextServices.Analytics.mock()
 
 	return {
@@ -77,8 +73,7 @@ function MockWrapper.getMockGlobals(props)
 		mouse = mouse,
 		store = store,
 		analytics = analytics,
-		pluginActions = pluginActions,
-		signals = signals
+		pluginActions = pluginActions
 	}
 end
 

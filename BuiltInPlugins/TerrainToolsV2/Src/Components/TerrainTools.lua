@@ -151,8 +151,6 @@ function TerrainTools:render()
 	local seaLevel = self.props.seaLevel
 	local partConverter = self.props.partConverter
 
-	local imageLoader = self.props.imageLoader
-
 	return ContextServices.provide({
 		plugin,
 		mouse,
@@ -168,8 +166,6 @@ function TerrainTools:render()
 		seaLevel,
 		-- partConverter will be nil if FFlagTerrainToolsConvertPartTool is false
 		partConverter,
-		-- imageLoader will be nil if FFlagTerrainToolsHeightmapUseLoadingImage is false
-		imageLoader,
 	}, {
 		Toolbar = Roact.createElement(PluginToolbar, {
 			Title = TOOLBAR_NAME,

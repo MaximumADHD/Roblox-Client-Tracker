@@ -4,8 +4,7 @@ local RunService = game:GetService("RunService")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
-local Framework = require(Plugin.Packages.Framework)
-local ContextServices = Framework.ContextServices
+local ContextServices = require(Plugin.Packages.Framework.ContextServices)
 local StudioUI = require(Plugin.Packages.Framework.StudioUI)
 local PluginToolbar = StudioUI.PluginToolbar
 local DockWidget = StudioUI.DockWidget
@@ -16,9 +15,6 @@ local globals = require(Plugin.Src.Util.CreatePluginGlobals)
 local Constants = require(Plugin.Src.Util.Constants)
 
 local PlayerEmulatorPlugin = Roact.PureComponent:extend("PlayerEmulatorPlugin")
-
-local TOOLBAR_ICON_PATH = "rbxasset://textures/StudioPlayerEmulator/player_emulator_32.png"
-local PLUGIN_WINDOW_SIZE = Vector2.new(320, 330)
 
 function PlayerEmulatorPlugin:updateToolbarButtonActiveState()
 	local active = self.state.active
@@ -89,6 +85,7 @@ function PlayerEmulatorPlugin:render()
 
 	local active = state.active
 	local plugin = props.plugin
+	local theme = globals.theme:get("Plugin")
 
 	local enabled = RunService:IsEdit()
 
@@ -98,7 +95,7 @@ function PlayerEmulatorPlugin:render()
 		Toolbar = Roact.createElement(PluginToolbar, {
 			Title = "luaPlayerEmulatorToolbar",
 			RenderButtons = function(toolbar)
-				return self:renderButton(toolbar, TOOLBAR_ICON_PATH, enabled)
+				return self:renderButton(toolbar, theme.TOOLBAR_ICON_PATH, enabled)
 			end,
 		}),
 		MainWidget = enabled and Roact.createElement(DockWidget, {
@@ -106,8 +103,8 @@ function PlayerEmulatorPlugin:render()
 			Title = globals.localization:getText("Meta", "PluginTitle"),
 			ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
 			InitialDockState = Enum.InitialDockState.Left,
-			Size = PLUGIN_WINDOW_SIZE,
-			MinSize = PLUGIN_WINDOW_SIZE,
+			Size = theme.PLUGIN_WINDOW_SIZE,
+			MinSize = theme.PLUGIN_WINDOW_SIZE_MIN,
 			OnClose = self.onClose,
 			ShouldRestore = false,
 		}, {

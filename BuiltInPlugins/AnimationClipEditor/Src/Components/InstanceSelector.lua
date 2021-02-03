@@ -187,7 +187,7 @@ ContextServices.mapToProps(InstanceSelector, {
 })
 
 local function mapStateToProps(state, props)
-	return {
+	return{
 		RootInstance = state.Status.RootInstance,
 	}
 end

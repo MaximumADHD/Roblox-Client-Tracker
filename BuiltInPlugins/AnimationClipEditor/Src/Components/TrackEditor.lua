@@ -31,7 +31,6 @@ local DopeSheetController = require(Plugin.Src.Components.DopeSheetController)
 local TimelineContainer = require(Plugin.Src.Components.TimelineContainer)
 local ZoomBar = require(Plugin.Src.Components.ZoomBar)
 local Scrubber = require(Plugin.Src.Components.Timeline.Scrubber)
-local DisplaySecondsOnTimeline = require(Plugin.LuaFlags.GetFFlagDisplaySecondsOnTimeline)
 
 local SetScrollZoom = require(Plugin.Src.Actions.SetScrollZoom)
 local StepAnimation = require(Plugin.Src.Thunks.Playback.StepAnimation)
@@ -178,8 +177,6 @@ function TrackEditor:render()
 			ParentPosition = absolutePosition,
 			StepAnimation = self.stepAnimation,
 			SnapToNearestKeyframe = snapToNearestKeyframe,
-			AnimationData = props.AnimationData,
-			Playhead = playhead,
 		}),
 
 		DopeSheetController = Roact.createElement(DopeSheetController, {
@@ -241,7 +238,6 @@ local function mapStateToProps(state, props)
 	return {
 		IsPlaying = state.Status.IsPlaying,
 		SnapToKeys = state.Status.SnapToKeys,
-		AnimationData = DisplaySecondsOnTimeline() and state.AnimationData,
 	}
 end
 

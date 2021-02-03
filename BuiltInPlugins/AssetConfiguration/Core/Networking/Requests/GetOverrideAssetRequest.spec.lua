@@ -1,7 +1,7 @@
 return function()
-	local FFlagImproveAssetCreationsPageFetching2 = game:GetFastFlag("ImproveAssetCreationsPageFetching2")
+	local FFlagImproveAssetCreationsPageFetching = game:GetFastFlag("ImproveAssetCreationsPageFetching")
 
-	if not FFlagImproveAssetCreationsPageFetching2 then
+	if not FFlagImproveAssetCreationsPageFetching then
 		return
 	end
 

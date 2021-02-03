@@ -68,10 +68,6 @@ function DebugFlags.shouldUseTestRealLocale()
 	return getDebugFlagValue("ToolboxUseTestRealLocaleId")
 end
 
-function DebugFlags.shouldDebugOverrideAssetLoading()
-	return getDebugFlagValue("ToolboxDebugOverrideAssetLoading")
-end
-
 function DebugFlags.getOrCreateTestCustomLocale()
 	local debugFlagsFolder = findOrCreateDebugFlagsFolder()
 
