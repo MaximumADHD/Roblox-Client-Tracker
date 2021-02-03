@@ -3,5 +3,6 @@
 -- And then error when trying to use flags that aren't yet defined
 
 game:DefineFastFlag("PlayerEmulatorPluginWidgetStateOnCLoseFix", false)
+game:DefineFastFlag("EnablePlayerEmulatorStylizer", false)
 
 return nil

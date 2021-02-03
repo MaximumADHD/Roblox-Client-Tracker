@@ -31,6 +31,7 @@ function MainProvider:render()
 	local store = self.props.store and ContextServices.Store.new(self.props.store)
 	local theme = self.props.theme
 	local actions = self.props.pluginActions
+	local signals = self.props.signals
 
 	return ContextServices.provide({
 		analytics,
@@ -41,6 +42,7 @@ function MainProvider:render()
 		store,
 		mouse,
 		actions,
+		signals,
 	}, children)
 end
 

@@ -30,7 +30,6 @@ local Flags = require(Plugin.Packages.Framework.Util.Flags)
 local FlagsList = Flags.new({
 	FFlagEnablePluginPermissionsPage = {
 		"EnablePluginPermissionsPage2",
-		"StudioPermissionsServiceEnabled",
 	},
 })
 local FFlagPluginManagementFixWhiteScreen = game:DefineFastFlag("PluginManagementFixWhiteScreen", false)

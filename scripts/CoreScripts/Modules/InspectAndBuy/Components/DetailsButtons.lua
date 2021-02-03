@@ -121,6 +121,9 @@ function DetailsButtons:render()
 		end
 
 		showTryOn = not isAnimationAsset(assetInfo.assetTypeId)
+		if Constants.HumanoidDescriptionIdToName[assetInfo.assetTypeId] == nil then
+			showTryOn = false
+		end
 	end
 
 	return Roact.createElement("Frame", {

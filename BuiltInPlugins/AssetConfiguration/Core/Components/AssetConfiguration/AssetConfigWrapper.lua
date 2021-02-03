@@ -14,6 +14,7 @@
 	plugin = A plugin object to be used by a PluginProvider.
 ]]
 local FFlagStudioAssetConfigurationPlugin = game:GetFastFlag("StudioAssetConfigurationPlugin")
+local FFlagAssetConfigFixRoactTypeChecks = game:GetFastFlag("AssetConfigFixRoactTypeChecks")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -88,7 +89,7 @@ function AssetConfigWrapper:render()
 	local plugin = props.plugin
 
 	return Roact.createElement(Dialog, {
-		Name = "AssetConfig",
+		Name = (not FFlagAssetConfigFixRoactTypeChecks) and "AssetConfig" or nil,
 		Title = "Asset Configuration",
 
 		Resizable = true,

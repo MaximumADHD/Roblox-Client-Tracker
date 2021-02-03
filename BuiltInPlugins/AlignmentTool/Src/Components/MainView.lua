@@ -10,6 +10,7 @@ local Plugin = script.Parent.Parent.Parent
 local getFFlagBoundingBoxRefactor = require(Plugin.Src.Flags.getFFlagBoundingBoxRefactor)
 local getFFlagAlignInLocalSpace = require(Plugin.Src.Flags.getFFlagAlignInLocalSpace)
 local getFFlagAlignToolNarrowUI = require(Plugin.Src.Flags.getFFlagAlignToolNarrowUI)
+local getFFlagAlignToolUseScrollingFrame = require(Plugin.Src.Flags.getFFlagAlignToolUseScrollingFrame)
 
 local DraggerFramework = Plugin.Packages.DraggerFramework
 local BoundingBox = require(DraggerFramework.Utility.BoundingBox)
@@ -22,10 +23,13 @@ local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 local ContextServices = require(Plugin.Packages.Framework.ContextServices)
 
+local FitFrameVertical = require(Plugin.Packages.FitFrame).FitFrameVertical
+
 local UI = require(Plugin.Packages.Framework.UI)
 local Button = UI.Button
 local Container = UI.Container
 local Decoration = UI.Decoration
+local ScrollingFrame = UI.ScrollingFrame
 
 local Util = require(Plugin.Packages.Framework.Util)
 local LayoutOrderIterator = Util.LayoutOrderIterator
@@ -88,68 +92,137 @@ function MainView:render()
 		end
 	end
 
-	return Roact.createElement(Container, {
-		Background = Decoration.Box,
-		Padding = theme.MainView.Padding,
-	}, {
-		Layout = Roact.createElement("UIListLayout", {
-			FillDirection = Enum.FillDirection.Vertical,
-			Padding = theme.MainView.ListItemPadding,
-			SortOrder = Enum.SortOrder.LayoutOrder,
-		}),
+	if getFFlagAlignToolUseScrollingFrame() then
+		assert(getFFlagAlignToolNarrowUI())
 
-		AlignmentSettings = getFFlagAlignToolNarrowUI() and Roact.createElement(AlignmentSettings, {
-			LayoutOrder = layoutOrderIterator:getNextOrder(),
-		}) or nil,
+		local padding = UDim.new(0, theme.MainView.Padding)
 
-		ModeSection = not getFFlagAlignToolNarrowUI() and Roact.createElement(ModeSection, {
-			LayoutOrder = layoutOrderIterator:getNextOrder(),
-		}) or nil,
-
-		AxesSection = not getFFlagAlignToolNarrowUI() and Roact.createElement(AxesSection, {
-			LayoutOrder = layoutOrderIterator:getNextOrder(),
-		}) or nil,
-
-		RelativeToSection = not getFFlagAlignToolNarrowUI() and Roact.createElement(RelativeToSection, {
-			LayoutOrder = layoutOrderIterator:getNextOrder(),
-		}) or nil,
-
-		InfoLabel = Roact.createElement(InfoLabel, {
-			LayoutOrder = layoutOrderIterator:getNextOrder(),
-			Text = errorText,
-			Type = InfoLabel.Error,
-		}),
-
-		ButtonContainer = Roact.createElement(Container, {
-			LayoutOrder = layoutOrderIterator:getNextOrder(),
-			Padding = not getFFlagAlignToolNarrowUI() and theme.MainView.ButtonContainerPadding or nil,
-			Size = getFFlagAlignToolNarrowUI() and UDim2.new(1, 0, 0, theme.MainView.PrimaryButtonSize.Y.Offset)
-				or UDim2.new(1, 0, 0, 22)
+		return Roact.createElement(Container, {
+			Background = Decoration.Box,
 		}, {
-			Button = Roact.createElement(Button, {
-				AnchorPoint = Vector2.new(0.5, 0),
-				Position = UDim2.new(0.5, 0, 0, 0),
-				Size = getFFlagAlignToolNarrowUI() and UDim2.new(0, theme.MainView.PrimaryButtonSize.X.Offset, 1, 0)
-					or theme.MainView.PrimaryButtonSize,
-				Style = "RoundPrimary",
-				StyleModifier = not enabled and StyleModifier.Disabled,
-				Text = localization:getText("MainView", "AlignButton"),
-				OnClick = function()
-					if enabled then
-						updateAlignment(analytics)
-					end
-				end,
+			Scroller = Roact.createElement(ScrollingFrame, {
+				AutoSizeCanvas = true,
+				AutoSizeLayoutOptions = {
+					Padding = theme.MainView.ListItemPadding,
+				},
+			}, {
+				Padding = Roact.createElement("UIPadding", {
+					PaddingLeft = padding,
+					PaddingTop = padding,
+					-- PaddingRight omitted to prevent the layout from collapsing prematurely.
+					PaddingBottom = padding,
+				}),
+
+				AlignmentSettings = Roact.createElement(AlignmentSettings, {
+					LayoutOrder = layoutOrderIterator:getNextOrder(),
+				}),
+
+				InfoLabel = Roact.createElement(InfoLabel, {
+					LayoutOrder = layoutOrderIterator:getNextOrder(),
+					Text = errorText,
+					Type = InfoLabel.Error,
+				}),
+
+				ButtonContainer = Roact.createElement(FitFrameVertical, {
+					-- TODO: cleanup margin syntax (see https://github.com/Roblox/roact-fit-components/issues/11)
+					margin = {
+						left = 0,
+						top = theme.MainView.Padding,
+						right = 0,
+						bottom = 0,
+					},
+					width = UDim.new(1, 0),
+					BackgroundTransparency = 1,
+					HorizontalAlignment = Enum.HorizontalAlignment.Center,
+					LayoutOrder = layoutOrderIterator:getNextOrder(),
+
+				}, {
+					Button = Roact.createElement(Button, {
+						Size = theme.MainView.PrimaryButtonSize,
+						Style = "RoundPrimary",
+						StyleModifier = not enabled and StyleModifier.Disabled,
+						Text = localization:getText("MainView", "AlignButton"),
+						OnClick = function()
+							if enabled then
+								updateAlignment(analytics)
+							end
+						end,
+					}),
+				}),
 			}),
-		}),
 
-		AlignObjectsPreview = props.previewVisible and Roact.createElement(AlignObjectsPreview) or nil,
+			AlignObjectsPreview = props.previewVisible and Roact.createElement(AlignObjectsPreview) or nil,
 
-		DebugView = shouldShowDebugView() and Roact.createElement(DebugView, {
-			BoundingBoxOffset = debugState.boundingBoxOffset,
-			BoundingBoxSize = debugState.boundingBoxSize,
-			ObjectBoundingBoxMap = debugState.objectBoundingBoxMap,
-		}),
-	})
+			DebugView = shouldShowDebugView() and Roact.createElement(DebugView, {
+				BoundingBoxOffset = debugState.boundingBoxOffset,
+				BoundingBoxSize = debugState.boundingBoxSize,
+				ObjectBoundingBoxMap = debugState.objectBoundingBoxMap,
+			}),
+		})
+	else
+		return Roact.createElement(Container, {
+			Background = Decoration.Box,
+			Padding = theme.MainView.Padding,
+		}, {
+			Layout = Roact.createElement("UIListLayout", {
+				FillDirection = Enum.FillDirection.Vertical,
+				Padding = theme.MainView.ListItemPadding,
+				SortOrder = Enum.SortOrder.LayoutOrder,
+			}),
+
+			AlignmentSettings = getFFlagAlignToolNarrowUI() and Roact.createElement(AlignmentSettings, {
+				LayoutOrder = layoutOrderIterator:getNextOrder(),
+			}) or nil,
+
+			ModeSection = not getFFlagAlignToolNarrowUI() and Roact.createElement(ModeSection, {
+				LayoutOrder = layoutOrderIterator:getNextOrder(),
+			}) or nil,
+
+			AxesSection = not getFFlagAlignToolNarrowUI() and Roact.createElement(AxesSection, {
+				LayoutOrder = layoutOrderIterator:getNextOrder(),
+			}) or nil,
+
+			RelativeToSection = not getFFlagAlignToolNarrowUI() and Roact.createElement(RelativeToSection, {
+				LayoutOrder = layoutOrderIterator:getNextOrder(),
+			}) or nil,
+
+			InfoLabel = Roact.createElement(InfoLabel, {
+				LayoutOrder = layoutOrderIterator:getNextOrder(),
+				Text = errorText,
+				Type = InfoLabel.Error,
+			}),
+
+			ButtonContainer = Roact.createElement(Container, {
+				LayoutOrder = layoutOrderIterator:getNextOrder(),
+				Padding = not getFFlagAlignToolNarrowUI() and theme.MainView.ButtonContainerPadding or nil,
+				Size = getFFlagAlignToolNarrowUI() and UDim2.new(1, 0, 0, theme.MainView.PrimaryButtonSize.Y.Offset)
+					or UDim2.new(1, 0, 0, 22)
+			}, {
+				Button = Roact.createElement(Button, {
+					AnchorPoint = Vector2.new(0.5, 0),
+					Position = UDim2.new(0.5, 0, 0, 0),
+					Size = getFFlagAlignToolNarrowUI() and UDim2.new(0, theme.MainView.PrimaryButtonSize.X.Offset, 1, 0)
+						or theme.MainView.PrimaryButtonSize,
+					Style = "RoundPrimary",
+					StyleModifier = not enabled and StyleModifier.Disabled,
+					Text = localization:getText("MainView", "AlignButton"),
+					OnClick = function()
+						if enabled then
+							updateAlignment(analytics)
+						end
+					end,
+				}),
+			}),
+
+			AlignObjectsPreview = props.previewVisible and Roact.createElement(AlignObjectsPreview) or nil,
+
+			DebugView = shouldShowDebugView() and Roact.createElement(DebugView, {
+				BoundingBoxOffset = debugState.boundingBoxOffset,
+				BoundingBoxSize = debugState.boundingBoxSize,
+				ObjectBoundingBoxMap = debugState.objectBoundingBoxMap,
+			}),
+		})
+	end
 end
 
 function MainView:_updateSelectionInfo()

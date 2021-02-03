@@ -109,6 +109,10 @@ local theme = {
 		Color = Colors.White,
 		Transparency = 0.3, -- 0.7 Alpha
 	},
+	TextLink = {
+		Color = Colors.Blue,
+		Transparency = 0,
+	},
 
 	Divider = {
 		Color = Colors.White,

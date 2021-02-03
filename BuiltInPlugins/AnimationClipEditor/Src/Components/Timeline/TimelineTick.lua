@@ -18,7 +18,9 @@ local Roact = require(Plugin.Packages.Roact)
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
 local TimelineTick = Roact.PureComponent:extend("TimelineTick")
-
+local Tooltip = require(Plugin.Src.Components.Tooltip)
+local DisplaySecondsOnTimeline = require(Plugin.LuaFlags.GetFFlagDisplaySecondsOnTimeline)
+local StringUtils = require(Plugin.Src.Util.StringUtils)
 local LABEL_SIZE = UDim2.new(0, 25, 0, 15)
 local LABEL_POSITION = UDim2.new(0, 5, 0, 0)
 local TICK_HEIGHT_SCALE = 0.7
@@ -37,6 +39,8 @@ function TimelineTick:render()
 		local showTime = props.ShowTime
 		local highlight = props.Highlight
 		local pastEnd = props.PastEnd
+		local timeInSeconds = props.TimeInSeconds
+		local shouldShowToolTip = DisplaySecondsOnTimeline() and timeInSeconds
 
 		return Roact.createElement("Frame", {
 			Size = UDim2.new(0, height, 0, height),
@@ -64,6 +68,11 @@ function TimelineTick:render()
 				Size = UDim2.new(0, 1, tickHeightScale, 0),
 				BorderSizePixel = 0,
 				BackgroundColor3 = pastEnd and timelineTheme.dimmedColor or timelineTheme.lineColor,
+			}, { 
+				Tooltip = shouldShowToolTip and Roact.createElement(Tooltip, {
+					Text = timeInSeconds,
+					ShowDelay = 0,
+				})
 			}),
 
 			LowerTick = Roact.createElement("Frame", {

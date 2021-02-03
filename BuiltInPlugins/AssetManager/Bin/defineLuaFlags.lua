@@ -18,5 +18,6 @@ game:DefineFastFlag("StudioAssetManagerUseNewPackagesEndpoint", false)
 game:DefineFastFlag("StudioAssetManagerFixLinkedScripts", false)
 game:DefineFastFlag("StudioAssetManagerConvertToDevFrameworkTooltips", false)
 game:DefineFastFlag("StudioAssetManagerFixMeshContextMenu", false)
-game:DefineFastFlag("StudioAssetManagerTileAssetPreviewRequest", false)
+game:DefineFastFlag("StudioAssetManagerFixAssetPreviewRequest", false)
+game:DefineFastFlag("StudioAssetManagerFixRecentAssetInsert", false)
 return nil

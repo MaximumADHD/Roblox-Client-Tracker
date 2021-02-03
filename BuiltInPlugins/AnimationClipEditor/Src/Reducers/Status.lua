@@ -127,6 +127,12 @@ return Rodux.createReducer({
 		})
 	end,
 
+	SetSelectedTrackInstances = function(state, action)
+		return Cryo.Dictionary.join(state, {
+			SelectedTrackInstances = action.selectedTrackInstances or Cryo.None,
+		})
+	end,
+
 	SetEditingLength = function(state, action)
 		return Cryo.Dictionary.join(state, {
 			EditingLength = action.editingLength,

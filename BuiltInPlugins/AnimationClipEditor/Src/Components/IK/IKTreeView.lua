@@ -15,6 +15,7 @@
 
 		function TogglePinnedPart = toggles if a joint is pinned for IK manipulation or not
 		function SetSelectedTracks(string) = sets currently selected joint to given string
+		function OnTreeUpdated = callback for when the nodes of the tree are updated
 ]]
 
 local Plugin = script.Parent.Parent.Parent.Parent
@@ -125,6 +126,7 @@ function IKTreeView:init()
 		self:setState({
 			treeArray = rows
 		})
+		self.props.OnTreeUpdated(rows)
 	end
 end
 

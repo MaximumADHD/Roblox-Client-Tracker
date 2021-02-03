@@ -48,7 +48,7 @@ local SetUploadFee = require(Actions.SetUploadFee)
 
 local ConfigTypes = require(Plugin.Core.Types.ConfigTypes)
 
-local FFlagImproveAssetCreationsPageFetching = game:GetFastFlag("ImproveAssetCreationsPageFetching")
+local FFlagImproveAssetCreationsPageFetching2 = game:GetFastFlag("ImproveAssetCreationsPageFetching2")
 local FFlagShowAssetConfigReasons2 = game:GetFastFlag("ShowAssetConfigReasons2")
 
 return Rodux.createReducer({
@@ -81,9 +81,9 @@ return Rodux.createReducer({
 
 	currentTab = nil,
 
-	totalResults = 0, -- Remove with FFlagImproveAssetCreationsPageFetching
+	totalResults = 0, -- Remove with FFlagImproveAssetCreationsPageFetching2
 	resultsArray = {},
-	filteredResultsArray = {}, -- Remove with FFlagImproveAssetCreationsPageFetching
+	filteredResultsArray = {}, -- Remove with FFlagImproveAssetCreationsPageFetching2
 
 	manageableGroups = {},
 
@@ -242,7 +242,7 @@ return Rodux.createReducer({
 	end,
 
 	[SetOverrideAssets.name] = function(state, action)
-		if FFlagImproveAssetCreationsPageFetching then
+		if FFlagImproveAssetCreationsPageFetching2 then
 			return Cryo.Dictionary.join(state, {
 				resultsArray = action.resultsArray,
 				fetchedAll = Cryo.None,
@@ -257,7 +257,7 @@ return Rodux.createReducer({
 	end,
 
 	[UpdateOverrideAssetData.name] = function(state, action)
-		if FFlagImproveAssetCreationsPageFetching then
+		if FFlagImproveAssetCreationsPageFetching2 then
 			return Cryo.Dictionary.join(state, {
 				resultsArray = Cryo.List.join(state.resultsArray, action.resultsArray),
 				fetchedAll = action.fetchedAll,
@@ -291,7 +291,6 @@ return Rodux.createReducer({
 	end,
 
 	[SetCurrentPage.name] = function(state, action)
-		assert(not FFlagImproveAssetCreationsPageFetching, "AssetConfig reducer SetCurrentPage is deprecated with FFlagImproveAssetCreationsPageFetching")
 		return Cryo.Dictionary.join(state, {
 			currentPage = action.currentPage,
 		})

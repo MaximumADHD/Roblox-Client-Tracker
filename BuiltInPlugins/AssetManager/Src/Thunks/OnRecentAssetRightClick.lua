@@ -4,6 +4,7 @@ local AssetManagerService = game:GetService("AssetManagerService")
 local StudioService = game:GetService("StudioService")
 
 local FFlagStudioAssetManagerNewMultiselectMeshBehavior = game:getFastFlag("StudioAssetManagerNewMultiselectMeshBehavior")
+local FFlagStudioAssetManagerFixRecentAssetInsert = game:getFastFlag("StudioAssetManagerFixRecentAssetInsert")
 
 local Framework = Plugin.Packages.Framework
 local RobloxAPI = require(Framework).RobloxAPI
@@ -21,7 +22,13 @@ local function createImageContextMenu(analytics, apiImpl, assetData, contextMenu
                     table.insert(selectedMeshes, "Meshes/".. asset.name)
                 end
             end
-            AssetManagerService:InsertMeshesWithLocation(selectedMeshes)
+            if FFlagStudioAssetManagerFixRecentAssetInsert then
+                if next(selectedMeshes) ~= nil then
+                    AssetManagerService:InsertMeshesWithLocation(selectedMeshes)
+                end
+            else
+                AssetManagerService:InsertMeshesWithLocation(selectedMeshes)
+            end
         else
             for _, asset in pairs(recentAssets) do
                 local key = asset.key
@@ -49,6 +56,20 @@ end
 local function createAudioContextMenu(analytics, assetData, contextMenu, localization, store)
     contextMenu:AddNewAction("Insert", localization:getText("ContextMenu", "Insert")).Triggered:connect(function()
         local state = store:getState()
+        if FFlagStudioAssetManagerFixRecentAssetInsert then
+            local recentAssets = state.AssetManagerReducer.recentAssets
+            local selectedAssets = state.AssetManagerReducer.selectedAssets
+            local selectedMeshes = {}
+            for _, asset in pairs(recentAssets) do
+                local key = asset.key
+                if selectedAssets[key] and asset.assetType == Enum.AssetType.MeshPart then
+                    table.insert(selectedMeshes, "Meshes/".. asset.name)
+                end
+            end
+            if next(selectedMeshes) ~= nil then
+                AssetManagerService:InsertMeshesWithLocation(selectedMeshes)
+            end
+        end
         AssetManagerService:InsertAudio(assetData.id, assetData.name)
         analytics:report("clickContextMenuItem")
         local searchTerm = state.AssetManagerReducer.searchTerm
@@ -79,7 +100,13 @@ local function createMeshPartContextMenu(analytics, apiImpl, assetData, contextM
                     table.insert(selectedMeshes, "Meshes/".. asset.name)
                 end
             end
-            AssetManagerService:InsertMeshesWithLocation(selectedMeshes)
+            if FFlagStudioAssetManagerFixRecentAssetInsert then
+                if next(selectedMeshes) ~= nil then
+                    AssetManagerService:InsertMeshesWithLocation(selectedMeshes)
+                end
+            else
+                AssetManagerService:InsertMeshesWithLocation(selectedMeshes)
+            end
         else
             for _, asset in pairs(recentAssets) do
                 local key = asset.key
@@ -103,7 +130,13 @@ local function createMeshPartContextMenu(analytics, apiImpl, assetData, contextM
                     table.insert(selectedMeshes, "Meshes/".. asset.name)
                 end
             end
-            AssetManagerService:InsertMeshesWithLocation(selectedMeshes)
+            if FFlagStudioAssetManagerFixRecentAssetInsert then
+                if next(selectedMeshes) ~= nil then
+                    AssetManagerService:InsertMeshesWithLocation(selectedMeshes)
+                end
+            else
+                AssetManagerService:InsertMeshesWithLocation(selectedMeshes)
+            end
         else
             for _, asset in pairs(recentAssets) do
                 local key = asset.key
