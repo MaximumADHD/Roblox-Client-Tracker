@@ -1,4 +1,7 @@
 local TextService = game:GetService("TextService")
+local Plugin = script.Parent.Parent.Parent
+
+local MathUtils = require(Plugin.Src.Util.MathUtils)
 
 local StringUtils = {}
 
@@ -49,6 +52,14 @@ function StringUtils.formatTime(frame, frameRate)
 	local seconds = math.floor(frame / frameRate)
 	local remainingFrames = frame - (seconds * frameRate)
 	return tostring(seconds ..":" ..string.format("%02d", remainingFrames))
+end
+
+function StringUtils.formatTimeInSeconds(frame, frameRate)
+	if frameRate == 0 then
+		return tostring("0s")
+	end
+	local seconds = MathUtils:round(frame / frameRate, 2)
+	return tostring(seconds .."s")
 end
 
 function StringUtils.getMaxTextWidth(items, textSize, font)

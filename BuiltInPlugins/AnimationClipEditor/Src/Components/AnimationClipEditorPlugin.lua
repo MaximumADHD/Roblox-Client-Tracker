@@ -22,6 +22,9 @@ local DockWidget = require(Plugin.Src.Components.PluginWidget.DockWidget)
 local ErrorDialogContents = require(Plugin.Src.Components.BlockingDialog.ErrorDialogContents)
 
 local MainProvider = require(Plugin.Src.Context.MainProvider)
+local Signals = require(Plugin.Src.Context.Signals)
+local Constants = require(Plugin.Src.Util.Constants)
+
 local Theme = require(Plugin.Src.Util.Theme)
 local MainReducer = require(Plugin.Src.Reducers.MainReducer)
 local Localization = ContextServices.Localization
@@ -38,6 +41,9 @@ local ReleaseEditor = require(Plugin.Src.Thunks.ReleaseEditor)
 local SetSnapToKeys = require(Plugin.Src.Actions.SetSnapToKeys)
 local SetShowAsSeconds = require(Plugin.Src.Actions.SetShowAsSeconds)
 local SetTool = require(Plugin.Src.Actions.SetTool)
+
+local UseLuaDraggers = require(Plugin.LuaFlags.GetFFlagUseLuaDraggers)
+local DraggerWrapper = require(Plugin.Src.Components.Draggers.DraggerWrapper)
 
 -- analytics
 local AnalyticsHandlers = require(Plugin.Src.Resources.AnalyticsHandlers)
@@ -71,6 +77,8 @@ function AnimationClipEditorPlugin:init(initialProps)
 		enabled = true,
 		pluginGui = nil,
 	}
+
+	self.signals = Signals.new(Constants.SIGNAL_KEYS)
 
 	self.analytics = ContextServices.Analytics.new(AnalyticsHandlers)
 
@@ -136,7 +144,7 @@ function AnimationClipEditorPlugin:init(initialProps)
 	self.deactivationListener = self.props.plugin.Deactivation:Connect(function()
 		local plugin = initialProps.plugin
 		local tool = plugin:GetSelectedRibbonTool()
-		if tool ~= Enum.RibbonTool.None and isEmpty(Selection:Get()) then
+		if tool ~= Enum.RibbonTool.None then
 			if self.onToolSelected(tool) then
 				return
 			end
@@ -234,8 +242,10 @@ function AnimationClipEditorPlugin:render()
 			pluginActions = actions,
 			mouse = mouse,
 			analytics = analytics,
+			signals = self.signals,
 		}, {
 			AnimationClipEditor = Roact.createElement(AnimationClipEditor),
+			Dragger = UseLuaDraggers() and Roact.createElement(DraggerWrapper),
 		})
 	})
 end

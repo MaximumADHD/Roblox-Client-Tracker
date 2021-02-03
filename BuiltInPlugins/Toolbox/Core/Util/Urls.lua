@@ -4,8 +4,9 @@ local Url = require(Plugin.Libs.Http.Url)
 
 local wrapStrictTable = require(Plugin.Core.Util.wrapStrictTable)
 
+local getToolboxMicroserviceSearch = require(Plugin.Core.Rollouts.getToolboxMicroserviceSearch)
+
 local FFlagToolboxUseGetItemDetails = game:GetFastFlag("ToolboxUseGetItemDetails")
-local FFlagToolboxMicroserviceSearch = game:GetFastFlag("ToolboxMicroserviceSearch")
 local FFlagDragFaceInstances = game:GetFastFlag("DragFaceInstances")
 
 local Urls = {}
@@ -85,7 +86,7 @@ local DELETE_ITEM_TAG = Url.ITEM_CONFIGURATION_URL .. "v1/item-tags/%s"
 
 local GET_TOOLBOX_ITEMS = Url.APIS_URL .. "toolbox-service/v1/%s?"
 local GET_ITEM_DETAILS
-if FFlagToolboxMicroserviceSearch then
+if getToolboxMicroserviceSearch() then
 	GET_ITEM_DETAILS = Url.APIS_URL .. "toolbox-service/v1/items/details?"
 else
 	GET_ITEM_DETAILS = Url.APIS_URL .. "toolbox-service/v1/items/details"
@@ -123,7 +124,7 @@ function Urls.constructGetToolboxItemsUrl(category, sortType, creatorType, minDu
 keyword, cursor, limit, useCreatorWhitelist)
 	local targetUrl = string.format(GET_TOOLBOX_ITEMS, category)
 	local query
-	if FFlagToolboxMicroserviceSearch then
+	if getToolboxMicroserviceSearch() then
 		query = {
 			creatorType = creatorType,
 			minDuration = minDuration,

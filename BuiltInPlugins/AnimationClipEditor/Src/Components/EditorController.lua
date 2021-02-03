@@ -20,6 +20,7 @@ local Input = require(Plugin.Src.Util.Input)
 local Constants = require(Plugin.Src.Util.Constants)
 local TrackUtils = require(Plugin.Src.Util.TrackUtils)
 local AnimationData = require(Plugin.Src.Util.AnimationData)
+local UseLuaDraggers = require(Plugin.LuaFlags.GetFFlagUseLuaDraggers)
 
 local KeyboardListener = Framework.UI.KeyboardListener
 local InactiveCover = require(Plugin.Src.Components.InactiveCover)
@@ -34,11 +35,15 @@ local StartScreen = require(Plugin.Src.Components.StartScreen)
 local BigAnimationScreen = require(Plugin.Src.Components.BigAnimationScreen)
 local FloorGrid = require(Plugin.Src.Components.FloorGrid)
 local ChangeFPSPrompt = require(Plugin.Src.Components.ChangeFPSPrompt)
+local RigUtils = require(Plugin.Src.Util.RigUtils)
+local IsMicroboneSupportEnabled = require(Plugin.LuaFlags.GetFFlagAnimationEditorMicroboneSupport)
+
 
 local SettingsButton = require(Plugin.Src.Components.SettingsButton)
 
 local AddTrack = require(Plugin.Src.Thunks.AddTrack)
 local SetTracksExpanded = require(Plugin.Src.Actions.SetTracksExpanded)
+local SetSelectedTrackInstances = require(Plugin.Src.Actions.SetSelectedTrackInstances)
 local SetSelectedTracks = require(Plugin.Src.Actions.SetSelectedTracks)
 local MoveSelectedTrack = require(Plugin.Src.Thunks.MoveSelectedTrack)
 local SetRightClickContextInfo = require(Plugin.Src.Actions.SetRightClickContextInfo)
@@ -72,6 +77,8 @@ function EditorController:init()
 		showContextMenu = false,
 		showChangeFPSPrompt = false,
 	}
+
+	self.nameToPart = {}
 
 	if UseCustomFPS() then
 		self.showChangeFPSPrompt = function()
@@ -176,6 +183,30 @@ function EditorController:init()
 		end
 	end
 
+	self.findCurrentParts = function(selectedTracks, rootInstance)
+		local currentParts = {}
+		self.KinematicParts, self.PartsToMotors = RigUtils.getRigInfo(rootInstance)
+		if selectedTracks and rootInstance and self.KinematicParts and #self.KinematicParts > 0 then
+			for _, track in ipairs(selectedTracks) do
+				if IsMicroboneSupportEnabled() then
+					local bone = RigUtils.getBoneByName(rootInstance, track)
+					if bone then
+						table.insert(currentParts, bone)
+					else
+						table.insert(currentParts, self.nameToPart[track])
+					end
+				else
+					table.insert(currentParts, self.nameToPart[track])
+				end
+			end
+		end
+		local props = self.props
+		local setSelectedTrackInstances = props.SetSelectedTrackInstances
+		if (#currentParts > 0) and currentParts then 
+			setSelectedTrackInstances(currentParts)
+		end
+	end
+
 	self.onTrackSelected = function(trackName)
 		local props = self.props
 		local setSelectedTracks = props.SetSelectedTracks
@@ -187,6 +218,9 @@ function EditorController:init()
 		else
 			self.lastSelected = trackName
 			setSelectedTracks({trackName})
+		end
+		if UseLuaDraggers() then
+			self.findCurrentParts({trackName}, props.RootInstance)
 		end
 		props.Analytics:report("onTrackSelected", trackName, "TrackList")
 	end
@@ -225,6 +259,21 @@ function EditorController:init()
 	end
 end
 
+if UseLuaDraggers() then 
+	function EditorController:willUpdate(nextProps)
+		if nextProps.RootInstance ~= self.props.RootInstance then 
+			self.KinematicParts, self.PartsToMotors = RigUtils.getRigInfo(nextProps.RootInstance)
+			for _, part in ipairs(self.KinematicParts) do
+				self.nameToPart[part.Name] = part
+			end
+		end
+		-- if the selected tracks has changed, update the selected track instances
+		if nextProps.SelectedTracks ~= self.props.SelectedTracks then
+			self.findCurrentParts(nextProps.SelectedTracks, nextProps.RootInstance)
+		end
+	end
+end
+
 function EditorController:render()
 	local props = self.props
 	local state = self.state
@@ -258,6 +307,7 @@ function EditorController:render()
 	end
 
 	local showEditor = animationData ~= nil
+	local useJointSelector = not UseLuaDraggers()
 	local bigAnimation = false
 	if animationData and GetFFlagExtendAnimationLimit() then
 		local length = animationData.Metadata.EndFrame / animationData.Metadata.FrameRate
@@ -437,7 +487,7 @@ function EditorController:render()
 		Playback = active and showEditor and Roact.createElement(Playback),
 		InstanceSelector = active and Roact.createElement(InstanceSelector),
 
-		JointSelector = active and showEditor and Roact.createElement(JointSelector, {
+		JointSelector = active and showEditor and useJointSelector and Roact.createElement(JointSelector, {
 			RootInstance = props.RootInstance,
 			IKEnabled = props.IKEnabled,
 			IKMode = props.IKMode,
@@ -532,6 +582,10 @@ local function mapDispatchToProps(dispatch)
 	local dispatchToProps = {
 		SetTracksExpanded = function(tracks, expanded)
 			dispatch(SetTracksExpanded(tracks, expanded))
+		end,
+
+		SetSelectedTrackInstances = function(trackInstances)
+			dispatch(SetSelectedTrackInstances(trackInstances))
 		end,
 
 		SetSelectedTracks = function(tracks)

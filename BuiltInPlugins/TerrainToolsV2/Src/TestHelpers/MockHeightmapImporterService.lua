@@ -11,6 +11,7 @@ MockHeightmapImporterService.__index = MockHeightmapImporterService
 function MockHeightmapImporterService.new()
 	return setmetatable({
 		ProgressUpdate = Signal.new(),
+		ColormapHasUnknownPixels = Signal.new(),
 	}, MockHeightmapImporterService)
 end
 

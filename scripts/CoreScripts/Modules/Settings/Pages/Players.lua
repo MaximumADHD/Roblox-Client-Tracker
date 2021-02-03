@@ -59,6 +59,8 @@ local FFlagUpdateSettingsHubGameText = require(RobloxGui.Modules.Flags.FFlagUpda
 local FFlagShowInGameReportingLuobu = require(RobloxGui.Modules.Flags.FFlagShowInGameReportingLuobu)
 local FFlagInspectMenuSubjectToPolicy = require(RobloxGui.Modules.Flags.FFlagInspectMenuSubjectToPolicy)
 
+local GetFFlagUseThumbnailUrl = require(RobloxGui.Modules.Common.Flags.GetFFlagUseThumbnailUrl)
+
 ----------- CLASS DECLARATION --------------
 local function Initialize()
 	local settingsPageFactory = require(RobloxGui.Modules.Settings.SettingsPageFactory)
@@ -672,15 +674,21 @@ local function Initialize()
 				end
 				frame.Name = "PlayerLabel" ..player.Name
 
-                -- Immediately assign the image to an image that isn't guaranteed to be generated
-                frame.Icon.Image = SocialUtil.GetFallbackPlayerImageUrl(math.max(1, player.UserId), Enum.ThumbnailSize.Size100x100, Enum.ThumbnailType.AvatarThumbnail)
-                -- Spawn a function to get the generated image
-                spawn(function()
-                    local imageUrl = SocialUtil.GetPlayerImage(math.max(1, player.UserId), Enum.ThumbnailSize.Size100x100, Enum.ThumbnailType.AvatarThumbnail)
-                    if frame and frame.Parent and frame.Parent == this.Page then
-                        frame.Icon.Image = imageUrl
-                    end
-                end)
+				if GetFFlagUseThumbnailUrl() then
+					local imageUrl = SocialUtil.GetPlayerImage(
+						math.max(1, player.UserId), Enum.ThumbnailSize.Size100x100, Enum.ThumbnailType.AvatarThumbnail)
+					frame.Icon.Image = imageUrl
+				else
+					-- Immediately assign the image to an image that isn't guaranteed to be generated
+					frame.Icon.Image = SocialUtil.GetFallbackPlayerImageUrl(math.max(1, player.UserId), Enum.ThumbnailSize.Size100x100, Enum.ThumbnailType.AvatarThumbnail)
+					-- Spawn a function to get the generated image
+					spawn(function()
+						local imageUrl = SocialUtil.GetPlayerImage(math.max(1, player.UserId), Enum.ThumbnailSize.Size100x100, Enum.ThumbnailType.AvatarThumbnail)
+						if frame and frame.Parent and frame.Parent == this.Page then
+							frame.Icon.Image = imageUrl
+						end
+					end)
+				end
 
 				if UsePlayerDisplayName() then
 					frame.DisplayNameLabel.Text = player.DisplayName

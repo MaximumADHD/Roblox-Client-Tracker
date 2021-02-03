@@ -2,8 +2,6 @@ local CorePackages = game:GetService("CorePackages")
 
 local MockId = require(CorePackages.AppTempCommon.LuaApp.MockId)
 
-local FFlagLuaAppConvertUniverseIdToString = settings():GetFFlag("LuaAppConvertUniverseIdToStringV364")
-
 local PlaceInfoModel = {}
 
 function PlaceInfoModel.new()
@@ -34,11 +32,7 @@ end
 function PlaceInfoModel.fromWeb(data)
 	local self = data or {}
 	self.placeId = tostring(self.placeId)
-
-	if FFlagLuaAppConvertUniverseIdToString then
-		self.universeId = tostring(self.universeId)
-	end
-
+	self.universeId = tostring(self.universeId)
 	return self
 end
 

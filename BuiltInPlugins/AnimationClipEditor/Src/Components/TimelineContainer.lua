@@ -9,6 +9,7 @@
 		int FrameRate = the rate (frames per second) of the animation
 		int LayoutOrder = The layout order of the frame, if in a Layout.
 		Vector2 ParentSize = size of the frame this frame is parented to
+		int Playhead = current frame the scrubber is on
 ]]
 
 local Plugin = script.Parent.Parent.Parent
@@ -18,6 +19,9 @@ local TrackUtils = require(Plugin.Src.Util.TrackUtils)
 local Constants = require(Plugin.Src.Util.Constants)
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
+local KeyboardListener = Framework.UI.KeyboardListener
+local Input = require(Plugin.Src.Util.Input)
+local GetFFlagHotKeysToScrubTimeline = require(Plugin.LuaFlags.GetFFlagHotKeysToScrubTimeline)
 
 local Timeline = require(Plugin.Src.Components.Timeline.Timeline)
 
@@ -68,6 +72,27 @@ function TimelineContainer:init()
 			self.onScrubberMoved(input)
 		end
 	end
+
+	self.moveScrubberForward = function()
+		local frame = self.props.Playhead + 5
+		frame = math.clamp(frame, self.props.StartFrame, self.props.EndFrame)
+		if self.props.SnapToKeys then
+			self.props.SnapToNearestKeyframe(frame, self.props.ParentSize.X - Constants.TRACK_PADDING)
+		else
+			self.props.StepAnimation(frame)
+		end
+	end
+
+	self.moveScrubberBackward= function()
+		local frame = self.props.Playhead - 5
+		frame = math.clamp(frame, self.props.StartFrame, self.props.EndFrame)
+		if self.props.SnapToKeys then
+			self.props.SnapToNearestKeyframe(frame, self.props.ParentSize.X - Constants.TRACK_PADDING)
+		else
+			self.props.StepAnimation(frame)
+		end
+	end
+
 end
 
 function TimelineContainer:render()
@@ -80,6 +105,7 @@ function TimelineContainer:render()
 		local showAsSeconds = props.ShowAsSeconds
 		local layoutOrder = props.LayoutOrder
 		local parentSize = props.ParentSize
+		local animationData = props.AnimationData
 
 		local majorInterval, minorInterval = calculateIntervals(
 			parentSize.X - Constants.TRACK_PADDING,
@@ -109,6 +135,17 @@ function TimelineContainer:render()
 				ShowAsTime = showAsSeconds,
 				OnInputBegan = self.onTimelineClicked,
 				OnDragMoved = self.onScrubberMoved,
+				AnimationData = animationData
+			}),
+			KeyboardListener = GetFFlagHotKeysToScrubTimeline() and Roact.createElement(KeyboardListener, {
+				OnKeyPressed = function(input)
+					if Input.isLeftBracket(input.KeyCode) then
+						self.moveScrubberBackward()
+					end
+					if Input.isRightBracket(input.KeyCode) then
+						self.moveScrubberForward()
+					end
+				end,
 			}),
 		})
 end

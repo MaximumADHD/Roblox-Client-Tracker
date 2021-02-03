@@ -11,6 +11,9 @@ local Util = Plugin.Core.Util
 local PagedRequestCursor = require(Util.PagedRequestCursor)
 local Constants = require(Util.Constants)
 local CreatorInfoHelper = require(Util.CreatorInfoHelper)
+local PageInfoHelper = require(Util.PageInfoHelper)
+
+local FFlagToolboxNewResponseFreshChecks = game:GetFastFlag("ToolboxNewResponseFreshChecks")
 
 return function(networkInterface, category, audioSearchInfo, pageInfo, settings, nextPageCursor)
 	return function(store)
@@ -49,6 +52,9 @@ return function(networkInterface, category, audioSearchInfo, pageInfo, settings,
 				Constants.TOOLBOX_ITEM_SEARCH_LIMIT
 			):andThen(
 				function(result)
+					if FFlagToolboxNewResponseFreshChecks and PageInfoHelper.isPageInfoStale(pageInfo, store) then
+						return
+					end
 					store:dispatch(SetLoading(false))
 
 					local data = result.responseBody

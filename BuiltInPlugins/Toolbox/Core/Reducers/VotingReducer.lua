@@ -9,6 +9,8 @@ local PostInsertAsset = require(Plugin.Core.Actions.PostInsertAsset)
 local PostUnvote = require(Plugin.Core.Actions.PostUnvote)
 local PostVote = require(Plugin.Core.Actions.PostVote)
 
+local FFlagToolboxFixShowVotingAfterInsert = game:DefineFastFlag("ToolboxFixShowVotingAfterInsert", false)
+
 local function handleVoting(state, assetId, voteDirection)
 	local currentVoting = state[assetId]
 	local newVoteUp = currentVoting.UpVotes
@@ -61,8 +63,12 @@ local function handleUnvoting(state, assetId)
 end
 
 local function setShowVoteButtons(state, assetId)
+	local prevAssetState = state[assetId]
+	if FFlagToolboxFixShowVotingAfterInsert then
+		prevAssetState = prevAssetState or {}
+	end
 	return Cryo.Dictionary.join(state, {
-		[assetId] = Cryo.Dictionary.join(state[assetId], {
+		[assetId] = Cryo.Dictionary.join(prevAssetState, {
 			-- Needed for the old Toolbox to show voteButtons after an asset
 			-- is being inserted.
 			showVoteButtons = true,

@@ -20,7 +20,6 @@ local MemStorageService = game:GetService("MemStorageService")
 local RunService = game:GetService("RunService")
 local StudioService = game:GetService("StudioService")
 
-local FFlagStudioPlaceVersionHistoryCorrectPlace = game:GetFastFlag("StudioPlaceVersionHistoryShowCorrectPlace")
 local FFlagCleanupRightClickContextMenuFunctions = game:GetFastFlag("CleanupRightClickContextMenuFunctions")
 local FFlagAssetManagerRemoveAssetFixes = game:GetFastFlag("AssetManagerRemoveAssetFixes")
 local FFlagAssetManagerFixRightClickForAudio = game:GetFastFlag("AssetManagerFixRightClickForAudio")
@@ -155,11 +154,7 @@ local function createPlaceContextMenu(analytics, apiImpl, assetData, contextMenu
         analytics:report("clickContextMenuItem")
     end)
     contextMenu:AddNewAction("ViewPlaceHistory", localization:getText("ContextMenu", "ViewPlaceHistory")).Triggered:connect(function()
-        if FFlagStudioPlaceVersionHistoryCorrectPlace then
-            StudioService:ShowPlaceVersionHistoryDialog(assetData.id)
-        else
-            StudioService:DEPRECATED_ShowPlaceVersionHistoryDialog()
-        end
+        StudioService:ShowPlaceVersionHistoryDialog(assetData.id)
         analytics:report("clickContextMenuItem")
     end)
     if not assetData.isRootPlace then

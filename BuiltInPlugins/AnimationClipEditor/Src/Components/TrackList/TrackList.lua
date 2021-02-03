@@ -31,6 +31,7 @@ local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local TrackUtils = require(Plugin.Src.Util.TrackUtils)
 local StringUtils = require(Plugin.Src.Util.StringUtils)
+local SignalsContext = require(Plugin.Src.Context.Signals)
 
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
@@ -104,6 +105,8 @@ function TrackList:init()
 	self.onValueChanged = function(instanceName, trackName, frame, value, analytics)
 		if self.props.OnValueChanged then
 			self.props.OnValueChanged(instanceName, trackName, frame, value, analytics)
+			local selectionSignal = self.props.Signals:get(Constants.SIGNAL_KEYS.SelectionChanged)
+			selectionSignal:Fire()
 		end
 	end
 
@@ -305,7 +308,8 @@ end
 
 ContextServices.mapToProps(TrackList, {
 	Theme = ContextServices.Theme,
-	Analytics = ContextServices.Analytics
+	Analytics = ContextServices.Analytics,
+	Signals = SignalsContext,
 })
 
 return TrackList

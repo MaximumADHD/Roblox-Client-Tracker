@@ -60,6 +60,7 @@ local FFlagDeveloperSubscriptionsEnabled = game:GetFastFlag("DeveloperSubscripti
 local FFlagStudioFixGameManagementIndexNil = game:getFastFlag("StudioFixGameManagementIndexNil")
 local FFlagStudioFixMissingMonetizationHeader = game:DefineFastFlag("StudioFixMissingMonetizationHeader", false)
 local FVariableMaxRobuxPrice = game:DefineFastInt("DeveloperSubscriptionsMaxRobuxPrice", 2000)
+local FFlagFixDeveloperProductsEditFailure = game:DefineFastFlag("FixDeveloperProductsEditFailure", false)
 
 local priceErrors = {
     BelowMin = "ErrorPriceBelowMin",
@@ -463,7 +464,7 @@ local function combineUnsavedAndSavedDevProducts(unsaved, saved)
 
     local result = {}
 
-    local appendIndex = 2
+    local appendIndex = FFlagFixDeveloperProductsEditFailure and 1 or 2
     for _,product in pairs(unsaved) do
         table.insert(result, appendIndex, product)
         appendIndex = appendIndex + 1
