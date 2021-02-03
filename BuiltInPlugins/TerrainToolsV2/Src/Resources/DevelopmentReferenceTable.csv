@@ -19,7 +19,6 @@ Studio.TerrainToolsV2.Action.Help, ,Help
 Studio.TerrainToolsV2.Action.Home, ,Home
 Studio.TerrainToolsV2.Action.Ignore, ,Ignore
 Studio.TerrainToolsV2.Action.Insert, ,Insert
-Studio.TerrainToolsV2.Action.LearnMore, ,Learn more
 Studio.TerrainToolsV2.Action.New, ,New
 Studio.TerrainToolsV2.Action.Next, ,Next
 Studio.TerrainToolsV2.Action.No, ,No
@@ -85,7 +84,6 @@ Studio.TerrainToolsV2.ConvertPart.UpdateInstanceVisuals, ,Hiding parts
 Studio.TerrainToolsV2.EditSettings.EditSettings, ,Edit Settings
 Studio.TerrainToolsV2.EditSettings.MergeEmpty, ,Merge Empty
 Studio.TerrainToolsV2.Example.ErrorAnUnexpectedThing, ,"An unexpected thing happened, try again"
-Studio.TerrainToolsV2.Generate.AssigningColormap, ,Assigning Colormap...
 Studio.TerrainToolsV2.Generate.BaseLevel, ,Base Level
 Studio.TerrainToolsV2.Generate.BiomeArctic, ,Arctic
 Studio.TerrainToolsV2.Generate.BiomeCanyons, ,Canyons
@@ -106,12 +104,8 @@ Studio.TerrainToolsV2.Generate.GenerateVoxels, ,Generating voxels...
 Studio.TerrainToolsV2.Generate.GenerationFinished, ,Generation finished: {1} seconds
 Studio.TerrainToolsV2.Generate.MapSize, ,Map Size
 Studio.TerrainToolsV2.Generate.OtherSettings, ,Other Settings
-Studio.TerrainToolsV2.Generate.Preprocessing, ,Preprocessing...
-Studio.TerrainToolsV2.Generate.ReadingColormap, ,Reading Colormap...
-Studio.TerrainToolsV2.Generate.Sampling, ,Sampling...
 Studio.TerrainToolsV2.Generate.Seed, ,Seed
 Studio.TerrainToolsV2.Generate.StartGeneration, ,Generating with size ({1}) at position ({2}) using seed {3} and biomes: {4}
-Studio.TerrainToolsV2.Generate.Starting, ,Starting...
 Studio.TerrainToolsV2.Import.ButtonImport, ,Generate
 Studio.TerrainToolsV2.Import.Colormap, ,Colormap
 Studio.TerrainToolsV2.Import.ColormapPreview, ,Colormap Preview
@@ -143,8 +137,6 @@ Studio.TerrainToolsV2.ImportMaterialMode.Colormap, ,Colormap
 Studio.TerrainToolsV2.ImportMaterialMode.DefaultMaterial, ,Material
 Studio.TerrainToolsV2.ImportWarning.AspectRatio, ,"Image aspect ratio ({1}) is not compatible with Size values (X {2:int}, Z {3:int}). For best results, adjust the Size or import a new image"
 Studio.TerrainToolsV2.ImportWarning.ImageTooSmall, ,"Image resolution ({1:int}x{2:int}) is too low for the target Size values (X {3:int}, Z {4:int}). For best results, decrease the size or import a new Heightmap."
-Studio.TerrainToolsV2.ImportWarning.MainTextColormapRGBOutOfRange, ,Colormap RGB values are out of range.
-Studio.TerrainToolsV2.ImportWarning.SubTextColormapRGBOutOfRange, ,The imported colormap contains RGB values that do not match the Colormap Index. The generated materials might not be correct. Please ensure you’re using the sRGB colorspace for best results.
 Studio.TerrainToolsV2.LocalImageSelector.NoImageSelected, ,No image selected
 Studio.TerrainToolsV2.Main.Title, ,Terrain Editor
 Studio.TerrainToolsV2.Main.ToolbarButton, ,Editor

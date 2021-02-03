@@ -25,7 +25,7 @@ void main()
 {
     float f0 = length(VARYING4.xyz);
     vec3 f1 = VARYING4.xyz / vec3(f0);
-    vec3 f2 = normalize(VARYING5.xyz) * (gl_FrontFacing ? 1.0 : (-1.0));
+    vec3 f2 = normalize(VARYING5.xyz);
     vec3 f3 = -CB0[11].xyz;
     float f4 = dot(f2, f3);
     vec3 f5 = (texture(DiffuseMapTexture, VARYING0) * VARYING2).xyz;
