@@ -713,6 +713,9 @@ Class DataModelSession : Instance [NotCreatable]
 	Event DataModelSession.CurrentDataModelTypeChanged() {RobloxScriptSecurity}
 	Event DataModelSession.DataModelCreated(Enum<StudioDataModelType> gameStateType) {RobloxScriptSecurity}
 	Event DataModelSession.DataModelWillBeDestroyed(Enum<StudioDataModelType> gameStateType) {RobloxScriptSecurity}
+Class DataStoreIncrementOptions : Instance [NotReplicated]
+	Function Dictionary DataStoreIncrementOptions:GetMetadata()
+	Function void DataStoreIncrementOptions:SetMetadata(Dictionary attributes)
 Class DataStoreInfo : Instance [NotCreatable] [NotReplicated]
 	Property int64 DataStoreInfo.CreatedTime [ReadOnly]
 	Property string DataStoreInfo.DataStoreName [ReadOnly]
@@ -734,7 +737,7 @@ Class DataStoreService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function Instance DataStoreService:GetOrderedDataStore(string name, string scope = "global")
 	Function int DataStoreService:GetRequestBudgetForRequestType(Enum<DataStoreRequestType> requestType)
 	Function Instance DataStoreService:ListDataStoresAsync(string prefix = "", int pageSize = 0) [Yields]
-Class DataStoreSetOptions : Instance [NotCreatable] [NotReplicated]
+Class DataStoreSetOptions : Instance [NotReplicated]
 	Function Dictionary DataStoreSetOptions:GetMetadata()
 	Function void DataStoreSetOptions:SetMetadata(Dictionary attributes)
 Class Debris : Instance [NotCreatable] [Service]
@@ -886,6 +889,9 @@ Class GamepadService : Instance [NotCreatable] [Service]
 	Function Vector2 GamepadService:GetGamepadCursorPosition() {RobloxScriptSecurity}
 	Function void GamepadService:SetGamepadCursorPosition(Vector2 position) {RobloxScriptSecurity}
 Class Geometry : Instance [NotCreatable] [Service]
+Class GetDataStoreOptions : Instance [NotReplicated]
+	Property bool GetDataStoreOptions.AllScopes
+	Function void GetDataStoreOptions:SetExperimentalFeatures(Dictionary experimentalFeatures)
 Class GlobalDataStore : Instance [NotCreatable] [NotReplicated]
 	Function Tuple GlobalDataStore:GetAsync(string key) [Yields]
 	Function Variant GlobalDataStore:IncrementAsync(string key, int delta = 1, Array userIds = {}, Instance options = nil) [Yields]
@@ -1363,7 +1369,8 @@ Class HeightmapImporterService : Instance [Service] [NotReplicated]
 	Function Tuple HeightmapImporterService:IsValidColormap(Content colormapAssetId) {RobloxScriptSecurity}
 	Function Tuple HeightmapImporterService:IsValidHeightmap(Content heightmapAssetId) {RobloxScriptSecurity}
 	Function void HeightmapImporterService:SetImportHeightmapPaused(bool paused) {RobloxScriptSecurity}
-	Event HeightmapImporterService.ProgressUpdate(float progressRatio) {RobloxScriptSecurity}
+	Event HeightmapImporterService.ColormapHasUnknownPixels() {RobloxScriptSecurity}
+	Event HeightmapImporterService.ProgressUpdate(float progressRatio, string operation) {RobloxScriptSecurity}
 Class Hopper : Instance [NotCreatable] [Service] [Deprecated]
 Class HttpRbxApiService : Instance [NotCreatable] [Service]
 	Function string HttpRbxApiService:GetAsync(string apiUrlPath, Enum<ThrottlingPriority> priority = "Default", Enum<HttpRequestType> httpRequestType = "Default") {RobloxScriptSecurity} [Yields]
@@ -1880,6 +1887,7 @@ Class ClientReplicator : NetworkReplicator [NotCreatable] [NotReplicated]
 	Event ClientReplicator.StatsReceived(Dictionary stats) {RobloxScriptSecurity}
 Class ServerReplicator : NetworkReplicator [NotCreatable] [NotReplicated]
 Class NetworkSettings : Instance [NotCreatable] [Service] [NotBrowsable]
+	Property bool NetworkSettings.RandomizeJoinInstanceOrder
 	Property bool NetworkSettings.RenderStreamedRegions
 	Property bool NetworkSettings.ShowActiveAnimationAsset
 	Property int NetworkSettings.ExtraMemoryUsed {PluginSecurity} [Hidden] [NotReplicated]
@@ -1942,10 +1950,10 @@ Class BasePart : PVInstance [NotCreatable] [NotBrowsable]
 	Property float BasePart.Mass [ReadOnly]
 	Property Vector3 BasePart.Orientation [<📁> LoadOnly] [NotReplicated]
 	Property Vector3 BasePart.Position [<📁> LoadOnly] [NotReplicated]
-	Property Vector3 BasePart.RotVelocity
+	Property Vector3 BasePart.RotVelocity [Hidden] [Deprecated]
 	Property Vector3 BasePart.Rotation [<📁> LoadOnly] [NotReplicated]
 	Property float BasePart.SpecificGravity [ReadOnly] [Deprecated]
-	Property Vector3 BasePart.Velocity
+	Property Vector3 BasePart.Velocity [Hidden] [Deprecated]
 	Property PhysicalProperties BasePart.CustomPhysicalProperties
 	Property float BasePart.Elasticity [<📁> LoadOnly] [Hidden] [NotReplicated] [Deprecated]
 	Property float BasePart.Friction [<📁> LoadOnly] [Hidden] [NotReplicated] [Deprecated]
@@ -1990,6 +1998,7 @@ Class BasePart : PVInstance [NotCreatable] [NotBrowsable]
 	Function CFrame BasePart:GetRenderCFrame() [Deprecated]
 	Function Instance BasePart:GetRootPart() {🧬Safe}
 	Function Objects BasePart:GetTouchingParts()
+	Function Vector3 BasePart:GetVelocityAtPosition(Vector3 position)
 	Function bool BasePart:IsGrounded() {🧬Safe}
 	Function void BasePart:MakeJoints()
 	Function bool BasePart:Resize(Enum<NormalId> normalId, int deltaAmount)
@@ -2148,6 +2157,7 @@ Class Workspace : WorldRoot [NotCreatable] [Service]
 	Property Enum<InterpolationThrottlingMode> Workspace.InterpolationThrottling {✏️PluginSecurity}
 	Property Enum<MeshPartHeads> Workspace.MeshPartHeads [NotScriptable]
 	Property Enum<PhysicsSimulationRate> Workspace.PhysicsSimulationRate [Hidden] [NotReplicated]
+	Property Enum<PhysicsSteppingMethod> Workspace.PhysicsSteppingMethod [NotScriptable]
 	Property bool Workspace.StreamingEnabled {✏️PluginSecurity}
 	Property int Workspace.StreamingMinRadius [NotScriptable]
 	Property Enum<StreamingPauseMode> Workspace.StreamingPauseMode [NotScriptable]
@@ -2214,6 +2224,7 @@ Class ParticleEmitter : Instance
 	Property Vector3 ParticleEmitter.Acceleration
 	Property float ParticleEmitter.Drag
 	Property bool ParticleEmitter.LockedToPart
+	Property float ParticleEmitter.TimeScale
 	Property float ParticleEmitter.VelocityInheritance
 	Function void ParticleEmitter:Clear()
 	Function void ParticleEmitter:Emit(int particleCount = 16)
@@ -2264,6 +2275,7 @@ Class PhysicsSettings : Instance [NotCreatable] [Settings]
 	Property bool PhysicsSettings.ArePartCoordsShown
 	Property bool PhysicsSettings.AreRegionsShown
 	Property bool PhysicsSettings.AreTerrainReplicationRegionsShown
+	Property bool PhysicsSettings.AreTimestepsShown {RobloxScriptSecurity}
 	Property bool PhysicsSettings.AreUnalignedPartsShown
 	Property bool PhysicsSettings.AreWorldCoordsShown
 	Property bool PhysicsSettings.DisableCSGv2
@@ -2627,6 +2639,7 @@ Class ReflectionMetadataItem : Instance [NotCreatable]
 	Property bool ReflectionMetadataItem.Deprecated
 	Property bool ReflectionMetadataItem.EditingDisabled
 	Property bool ReflectionMetadataItem.IsBackend
+	Property int ReflectionMetadataItem.PropertyOrder
 	Property string ReflectionMetadataItem.ScriptContext
 	Property bool ReflectionMetadataItem.ServerOnly
 	Property double ReflectionMetadataItem.UIMaximum
@@ -3060,7 +3073,8 @@ Class Studio : Instance [NotCreatable] [Service] [NotReplicated]
 	Property bool Studio.Show plus button on hover in Explorer
 	Property bool Studio.Always Save Script Changes
 	Property Enum<ListDisplayMode> Studio.Basic Objects Display Mode
-	Property Enum<LanguagePreference> Studio.Language
+	Property string Studio.DisplayLanguage {RobloxScriptSecurity}
+	Property Enum<LanguagePreference> Studio.Language [Deprecated]
 	Property int Studio.Render Throttle Percentage
 	Property Instance Studio.Theme
 	Property Enum<UITheme> Studio.UI Theme [Hidden] [ReadOnly] [Deprecated]
@@ -3158,7 +3172,6 @@ Class StudioService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function bool StudioService:BaseURLHasChineseHost() {RobloxScriptSecurity}
 	Function void StudioService:ConvertToPackageUpload(string uploadUrl) {RobloxScriptSecurity}
 	Function void StudioService:CopyToClipboard(string stringToCopy) {RobloxScriptSecurity}
-	Function void StudioService:DEPRECATED_ShowPlaceVersionHistoryDialog() {RobloxScriptSecurity}
 	Function void StudioService:EmitPlacePublishedSignal() {RobloxScriptSecurity}
 	Function Dictionary StudioService:GetClassIcon(string className) {PluginSecurity}
 	Function Dictionary StudioService:GetResourceByCategory(string category) {RobloxScriptSecurity}
@@ -4895,6 +4908,10 @@ Enum PhysicsSimulationRate
 	EnumItem PhysicsSimulationRate.Fixed240Hz : 0
 	EnumItem PhysicsSimulationRate.Fixed120Hz : 1
 	EnumItem PhysicsSimulationRate.Fixed60Hz : 2
+Enum PhysicsSteppingMethod
+	EnumItem PhysicsSteppingMethod.Default : 0
+	EnumItem PhysicsSteppingMethod.Fixed : 1
+	EnumItem PhysicsSteppingMethod.Adaptive : 2
 Enum Platform
 	EnumItem Platform.Windows : 0
 	EnumItem Platform.OSX : 1

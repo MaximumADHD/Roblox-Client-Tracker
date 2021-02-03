@@ -13359,6 +13359,47 @@
         {
             "Members": [
                 {
+                    "MemberType": "Function",
+                    "Name": "GetMetadata",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Dictionary"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "SetMetadata",
+                    "Parameters": [
+                        {
+                            "Name": "attributes",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Dictionary"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "DataStoreIncrementOptions",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotReplicated"
+            ]
+        },
+        {
+            "Members": [
+                {
                     "Category": "Data",
                     "MemberType": "Property",
                     "Name": "CreatedTime",
@@ -13813,7 +13854,6 @@
             "Name": "DataStoreSetOptions",
             "Superclass": "Instance",
             "Tags": [
-                "NotCreatable",
                 "NotReplicated"
             ]
         },
@@ -16447,6 +16487,53 @@
             "Tags": [
                 "NotCreatable",
                 "Service"
+            ]
+        },
+        {
+            "Members": [
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "AllScopes",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadOnly",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "SetExperimentalFeatures",
+                    "Parameters": [
+                        {
+                            "Name": "experimentalFeatures",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Dictionary"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "GetDataStoreOptions",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotReplicated"
             ]
         },
         {
@@ -25081,6 +25168,14 @@
                 },
                 {
                     "MemberType": "Event",
+                    "Name": "ColormapHasUnknownPixels",
+                    "Parameters": [
+                    ],
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Event",
                     "Name": "ProgressUpdate",
                     "Parameters": [
                         {
@@ -25088,6 +25183,13 @@
                             "Type": {
                                 "Category": "Primitive",
                                 "Name": "float"
+                            }
+                        },
+                        {
+                            "Name": "operation",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
                             }
                         }
                     ],
@@ -35115,6 +35217,24 @@
                     }
                 },
                 {
+                    "Category": "Advanced",
+                    "MemberType": "Property",
+                    "Name": "RandomizeJoinInstanceOrder",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadOnly",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
                     "Category": "Appearance",
                     "MemberType": "Property",
                     "Name": "RenderStreamedRegions",
@@ -36641,6 +36761,10 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
+                    "Tags": [
+                        "Hidden",
+                        "Deprecated"
+                    ],
                     "ThreadSafety": "ReadOnly",
                     "ValueType": {
                         "Category": "DataType",
@@ -36814,6 +36938,10 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
+                    "Tags": [
+                        "Hidden",
+                        "Deprecated"
+                    ],
                     "ThreadSafety": "ReadOnly",
                     "ValueType": {
                         "Category": "DataType",
@@ -37052,6 +37180,25 @@
                     "ReturnType": {
                         "Category": "DataType",
                         "Name": "Objects"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetVelocityAtPosition",
+                    "Parameters": [
+                        {
+                            "Name": "position",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "Vector3"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "DataType",
+                        "Name": "Vector3"
                     },
                     "Security": "None",
                     "ThreadSafety": "Unsafe"
@@ -40674,6 +40821,27 @@
                 {
                     "Category": "Behavior",
                     "MemberType": "Property",
+                    "Name": "PhysicsSteppingMethod",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "NotScriptable"
+                    ],
+                    "ThreadSafety": "ReadOnly",
+                    "ValueType": {
+                        "Category": "Enum",
+                        "Name": "PhysicsSteppingMethod"
+                    }
+                },
+                {
+                    "Category": "Behavior",
+                    "MemberType": "Property",
                     "Name": "StreamingEnabled",
                     "Security": {
                         "Read": "None",
@@ -41681,6 +41849,24 @@
                     "ValueType": {
                         "Category": "DataType",
                         "Name": "Content"
+                    }
+                },
+                {
+                    "Category": "Particles",
+                    "MemberType": "Property",
+                    "Name": "TimeScale",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadOnly",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
                     }
                 },
                 {
@@ -42742,6 +42928,24 @@
                     "Security": {
                         "Read": "None",
                         "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadOnly",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Display",
+                    "MemberType": "Property",
+                    "Name": "AreTimestepsShown",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
@@ -49942,6 +50146,24 @@
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Reflection",
+                    "MemberType": "Property",
+                    "Name": "PropertyOrder",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadOnly",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "int"
                     }
                 },
                 {
@@ -57672,6 +57894,24 @@
                     }
                 },
                 {
+                    "Category": "General",
+                    "MemberType": "Property",
+                    "Name": "DisplayLanguage",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadOnly",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "string"
+                    }
+                },
+                {
                     "Category": "Advanced",
                     "MemberType": "Property",
                     "Name": "Drag Multiple Parts As Single Part",
@@ -58055,6 +58295,9 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
+                    "Tags": [
+                        "Deprecated"
+                    ],
                     "ThreadSafety": "ReadOnly",
                     "ValueType": {
                         "Category": "Enum",
@@ -59516,18 +59759,6 @@
                                 "Name": "string"
                             }
                         }
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "void"
-                    },
-                    "Security": "RobloxScriptSecurity",
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Function",
-                    "Name": "DEPRECATED_ShowPlaceVersionHistoryDialog",
-                    "Parameters": [
                     ],
                     "ReturnType": {
                         "Category": "Primitive",
@@ -74429,6 +74660,23 @@
                 }
             ],
             "Name": "PhysicsSimulationRate"
+        },
+        {
+            "Items": [
+                {
+                    "Name": "Default",
+                    "Value": 0
+                },
+                {
+                    "Name": "Fixed",
+                    "Value": 1
+                },
+                {
+                    "Name": "Adaptive",
+                    "Value": 2
+                }
+            ],
+            "Name": "PhysicsSteppingMethod"
         },
         {
             "Items": [

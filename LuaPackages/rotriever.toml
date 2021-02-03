@@ -25,6 +25,7 @@ PolicyProvider = { git = "https://github.com/Roblox/lua-roact-policy-provider", 
 Lumberyak = { git = "https://github.com/Roblox/lumberyak" }
 StringUtilities = "github.com/Roblox/string-utilities@1.0.0"
 UrlBuilder = "github.com/Roblox/url-builder@1.0.4"
+FitFrame = "github.com/roblox/roact-fit-components@1.2.5"
 
 # The following packages were ported from AppTempCommon
 Promise = { git = "https://github.com/Roblox/lua-promise" }

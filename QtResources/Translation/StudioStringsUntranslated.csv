@@ -74,7 +74,9 @@ Studio.App.AutoSaveDialog.Title,,Auto-Recovery,Auto-Recovery
 Studio.App.AutoSaveDialog.WantToLoad,,Do you want to load the auto-recovered file?,Do you want to load the auto-recovered file?
 Studio.App.AutocompleteMenu.MoreChildrenItemTextFmt1,,%1 more children...,%1 more children...
 Studio.App.AutocompleteTooltip.FunctionNumberLabelTextFmt2,,%1 of %2,%1 of %2
-Studio.App.BetaFeatures.AlignToolImprovementsDescription,,Adds support for aligning in local space to the Align Tool and shows a preview UI displaying how the selected objects will be aligned.,Adds support for aligning in local space to the Align Tool and shows a preview UI displaying how the selected objects will be aligned.
+Studio.App.BetaFeatures.AdaptiveTimesteppingDescription,,Adaptively take larger timesteps for individual solver islands when possible.,Adaptively take larger timesteps for individual solver islands when possible.
+Studio.App.BetaFeatures.AdaptiveTimesteppingTitle,,Adaptive timestepping,Adaptive timestepping
+Studio.App.BetaFeatures.AlignToolImprovementsDescription,,"Show the Align Tool in the “Model” tab, and enable UI improvements so all controls are usable at narrow widths.","Show the Align Tool in the “Model” tab, and enable UI improvements so all controls are usable at narrow widths."
 Studio.App.BetaFeatures.AlignToolImprovementsTitle,,Align Tool Improvements,Align Tool Improvements
 Studio.App.BetaFeatures.AnimationEditorDescription,,Enables the new Beta version of the Animation Editor.,Enables the new Beta version of the Animation Editor.
 Studio.App.BetaFeatures.AnimationEditorTitle,,Animation Editor Beta,Animation Editor Beta
@@ -436,6 +438,13 @@ Studio.App.EmulatorMainWidget.XBox360,,XBox360,XBox360
 Studio.App.EmulatorMainWidget.XBoxOne,,XBoxOne,XBoxOne
 Studio.App.EmulatorMainWidget.iOS,,iOS,iOS
 Studio.App.EntityProperties.NetworkFailedOperation,,"Operation failed. Please check your network connection and try again. If the error persists, contact Customer Support","Operation failed. Please check your network connection and try again. If the error persists, contact Customer Support"
+Studio.App.ExternalLoginDialog.FatalErrorMessage,,Failed to login. Please restart Studio or contact support if the problem persists.,Failed to login. Please restart Studio or contact support if the problem persists.
+Studio.App.ExternalLoginDialog.GenericErrorMessage,,Failed to login. Please try again or contact support if problem persists.,Failed to login. Please try again or contact support if problem persists.
+Studio.App.ExternalLoginDialog.MessageOnDialogClose,,Are you sure you want to close this window? This will close Roblox Studio.,Are you sure you want to close this window? This will close Roblox Studio.
+Studio.App.ExternalLoginDialog.NoNetworkMessage,,Please check that you are connected to the internet and try again. Please contact support if the problem persists.,Please check that you are connected to the internet and try again. Please contact support if the problem persists.
+Studio.App.ExternalLoginDialog.ReloadLoginPage,,Refresh,Refresh
+Studio.App.ExternalLoginDialog.RobloxLogin,,Roblox login,Roblox login
+Studio.App.ExternalLoginDialog.WindowTitle,,Log In,Log In
 Studio.App.FBXMeshImporter.ContainsRiggingData,Warning message that displays if a user tries to import a 3D mesh that contains animation data.,Animation data detected! Studio does not support animation data. You may experience issues if the mesh is dependent on the initial position of the animation data.,Animation data detected! Studio does not support animation data. You may experience issues if the mesh is dependent on the initial position of the animation data.
 Studio.App.FBXMeshImporter.MeshHasNoVertices,Error message that displays if a user tries to import a 3D mesh that has no vertices.,Your mesh has no vertices! Please check the validity of your mesh and try again.,Your mesh has no vertices! Please check the validity of your mesh and try again.
 Studio.App.FBXMeshImporter.MeshHasTooManyTriangles2,"Error message that displays if a user tries to import a 3D mesh that has too many faces (aka triangles). First argument is the max limit of triangles, second argument is the amount of triangles that were in the uploaded mesh.",Your mesh has too many triangles! Limit is %1. Your mesh has %2.,Your mesh has too many triangles! Limit is %1. Your mesh has %2.
@@ -1126,6 +1135,7 @@ Studio.App.Property.ArePartCoordsShown,,Are Part Coords Shown,Are Part Coords Sh
 Studio.App.Property.ArePhysicsRejectionsReported,,Are Physics Rejections Reported,Are Physics Rejections Reported
 Studio.App.Property.AreRegionsShown,,Are Regions Shown,Are Regions Shown
 Studio.App.Property.AreTerrainReplicationRegionsShown,,Are Terrain Replication Regions Shown,Are Terrain Replication Regions Shown
+Studio.App.Property.AreTimestepsShown,,Are Timesteps Shown,Are Timesteps Shown
 Studio.App.Property.AreUnalignedPartsShown,,Are Unaligned Parts Shown,Are Unaligned Parts Shown
 Studio.App.Property.AreWorldCoordsShown,,Are World Coords Shown,Are World Coords Shown
 Studio.App.Property.AttachDebuggerTo,,Attach Debugger To,Attach Debugger To
@@ -1165,6 +1175,7 @@ Studio.App.Property.DefaultScriptFileDir,,Default Script File Dir,Default Script
 Studio.App.Property.DeprecatedObjectsShown,,Deprecated Objects Shown,Deprecated Objects Shown
 Studio.App.Property.DisableAccuratePlaySolo,,Disable Accurate Play Solo,Disable Accurate Play Solo
 Studio.App.Property.DisableCSGv2,,Enable Legacy CSG,Enable Legacy CSG
+Studio.App.Property.DisplayLanguage,,Language,Language
 Studio.App.Property.DragMultiplePartsAsSinglePart,,Drag Multiple Parts As Single Part,Drag Multiple Parts As Single Part
 Studio.App.Property.EagerBulkExecution,,Eager Bulk Execution,Eager Bulk Execution
 Studio.App.Property.EditQualityLevel,,Edit Quality Level,Edit Quality Level
@@ -1249,6 +1260,7 @@ Studio.App.Property.PrintSplitMessage,,Print Split Message,Print Split Message
 Studio.App.Property.PrintStreamInstanceQuota,,Print Stream Instance Quota,Print Stream Instance Quota
 Studio.App.Property.PropertyColor,,Local Property Color,Local Property Color
 Studio.App.Property.QualityLevel,,Quality Level,Quality Level
+Studio.App.Property.RandomizeJoinInstanceOrder,,Randomize Test Join Order,Randomize Test Join Order
 Studio.App.Property.ReceiveRate,,Receive Rate,Receive Rate
 Studio.App.Property.ReloadAssets,,ReloadAssets,ReloadAssets
 Studio.App.Property.RenderCSGTrianglesDebug,,Render CSG Triangles Debug,Render CSG Triangles Debug
@@ -1441,6 +1453,7 @@ Studio.App.PropertyTooltip.Font,,"Change the text font family, typeface, and siz
 Studio.App.PropertyTooltip.FormatOnPaste,,Automatically format the code after pasting.,Automatically format the code after pasting.
 Studio.App.PropertyTooltip.FormatOnType,,Automatically format the code after typing.,Automatically format the code after typing.
 Studio.App.PropertyTooltip.IndentUsingSpaces,,Prefer indent with spaces over tabs. This will affect Auto Indent and pressing Tab behavior.,Prefer indent with spaces over tabs. This will affect Auto Indent and pressing Tab behavior.
+Studio.App.PropertyTooltip.RandomizeJoinInstanceOrder,,"Randomize instance order during join for test clients. This helps uncover bugs by approximating the behavior of real clients & servers, where the order of instances will change over time as more players join. Randomization may slightly increase join time bandwidth usage compared to real client-server joins.","Randomize instance order during join for test clients. This helps uncover bugs by approximating the behavior of real clients & servers, where the order of instances will change over time as more players join. Randomization may slightly increase join time bandwidth usage compared to real client-server joins."
 Studio.App.PropertyTooltip.Rulers,,Vertical lines drawn at the specified column numbers. These can be used as a guide to code length limits.,Vertical lines drawn at the specified column numbers. These can be used as a guide to code length limits.
 Studio.App.PropertyTooltip.ScrollPastLastLine,,Allow script editor to scroll past the last line.,Allow script editor to scroll past the last line.
 Studio.App.PropertyTooltip.ShowWhitespace,,Visibly display spaces and tabs.,Visibly display spaces and tabs.
@@ -2073,7 +2086,12 @@ Studio.App.RobloxKeyboardConfigWidget.Description,,Description,Description
 Studio.App.RobloxKeyboardConfigWidget.Name,,Name,Name
 Studio.App.RobloxKeyboardConfigWidget.SearchActions,,Search Actions,Search Actions
 Studio.App.RobloxKeyboardConfigWidget.Shortcut,,Shortcut,Shortcut
+Studio.App.RobloxMainWindow.ChooseAPlaceInGameExplorer1,,"Choose an instance as parent in game explorer to save %1 
+","Choose an instance as parent in game explorer to save %1 
+"
 Studio.App.RobloxMainWindow.Configure,,Configure,Configure
+Studio.App.RobloxMainWindow.NewScriptTab,,New Script Tab,New Script Tab
+Studio.App.RobloxMainWindow.OnlySaveToEditDM,,Can only save in Edit Mode,Can only save in Edit Mode
 Studio.App.RobloxMainWindow.OpenAllFilesPattern,"NOTE TO LOCALIZERS: Do not translate the parentheses (), whatever is inside the parentheses, or any other special characters, use ASCII instead.",All Files (*.*),All Files (*.*)
 Studio.App.RobloxMainWindow.OpenMeshFile,,Open Mesh File,Open Mesh File
 Studio.App.RobloxMainWindow.OpenMeshFilesPattern,"NOTE TO LOCALIZERS: Do not translate the parentheses (), whatever is inside the parentheses, or any other special characters, use ASCII instead.",Mesh Files (*.fbx *.obj),Mesh Files (*.fbx *.obj)
@@ -2081,6 +2099,12 @@ Studio.App.RobloxMainWindow.OpenScriptFile,,Open Script File,Open Script File
 Studio.App.RobloxMainWindow.OpenScriptsPattern,"NOTE TO LOCALIZERS: Do not translate the parentheses (), whatever is inside the parentheses, or any other special characters, use ASCII instead.",Scripts (*.rbxs *.lua *.txt),Scripts (*.rbxs *.lua *.txt)
 Studio.App.RobloxMainWindow.PluginInstallation,,Plugin Installation,Plugin Installation
 Studio.App.RobloxMainWindow.SaveAs,,Save As,Save As
+Studio.App.RobloxMainWindow.SaveCurrentScriptTab,,Save Current Script Tab,Save Current Script Tab
+Studio.App.RobloxMainWindow.SaveScript,,Save Script,Save Script
+Studio.App.RobloxMainWindow.SaveScript1,,Save Script %1 ?,Save Script %1 ?
+Studio.App.RobloxMainWindow.SelectOneInstance,,Please select only one instance,Please select only one instance
+Studio.App.RobloxMainWindow.UnableToSave,,Unable To Save,Unable To Save
+Studio.App.RobloxMainWindow.UnsavedScripts,,Unsaved Scripts,Unsaved Scripts
 Studio.App.RobloxMouseConfig.ContextMenu,,Context Menu,Context Menu
 Studio.App.RobloxMouseConfig.RightClick,,Right Click,Right Click
 Studio.App.RobloxMouseConfig.RightClickAlt,,Right Click + Alt,Right Click + Alt
@@ -2221,6 +2245,8 @@ Studio.App.RobloxRibbonMainWindow.DiamondPlate,,Diamond Plate,Diamond Plate
 Studio.App.RobloxRibbonMainWindow.DiffMenu,,Diff Menu,Diff Menu
 Studio.App.RobloxRibbonMainWindow.DisplayAxis,,Display Axis,Display Axis
 Studio.App.RobloxRibbonMainWindow.DisplayGridMaterialOnParts,,Display grid material on Parts,Display grid material on Parts
+Studio.App.RobloxRibbonMainWindow.DocHistoryBackwards,,Step backwards through tab history,Step backwards through tab history
+Studio.App.RobloxRibbonMainWindow.DocHistoryForwards,,Step forwards through tab history,Step forwards through tab history
 Studio.App.RobloxRibbonMainWindow.DrawConstraintsAttWeldsTop,,"Draw constraints, attachments and welds on top","Draw constraints, attachments and welds on top"
 Studio.App.RobloxRibbonMainWindow.DrawOnTop,,Draw On Top,Draw On Top
 Studio.App.RobloxRibbonMainWindow.EditCollisionGroups,,Edit collision groups,Edit collision groups
@@ -2267,6 +2293,16 @@ Studio.App.RobloxRibbonMainWindow.InsertObjectToolTip,,View list of insertable o
 Studio.App.RobloxRibbonMainWindow.InsertScriptsAndOtherAdvance,,Insert scripts and other advanced objects into the game,Insert scripts and other advanced objects into the game
 Studio.App.RobloxRibbonMainWindow.InsertSpherePart,,Insert sphere part,Insert sphere part
 Studio.App.RobloxRibbonMainWindow.InsertWedgePart,,Insert wedge part,Insert wedge part
+Studio.App.RobloxRibbonMainWindow.InternalBetaFeatures,,Roblox Internal – Beta,Roblox Internal – Beta
+Studio.App.RobloxRibbonMainWindow.InternalFeatures,,Roblox Internal,Roblox Internal
+Studio.App.RobloxRibbonMainWindow.InternalFeaturesAreEnabled,,Internal Features are enabled,Internal Features are enabled
+Studio.App.RobloxRibbonMainWindow.InternalFeaturesMessageBoxContent,,"Your account is associated with an @roblox.com email address or has Soothsayer permissions. You also have internal-only features turned on.
+Do you want to disable Internal Features? This will make your Studio experience identical to developers.
+You can go to Settings > Studio > Advanced to re-enable Internal Features.","Your account is associated with an @roblox.com email address or has Soothsayer permissions. You also have internal-only features turned on.
+Do you want to disable Internal Features? This will make your Studio experience identical to developers.
+You can go to Settings > Studio > Advanced to re-enable Internal Features."
+Studio.App.RobloxRibbonMainWindow.InternalFeaturesRestart,,Restart Roblox Studio,Restart Roblox Studio
+Studio.App.RobloxRibbonMainWindow.InternalFeaturesRestartDetails,,Roblox Studio need to restart to disable Internal Features,Roblox Studio need to restart to disable Internal Features
 Studio.App.RobloxRibbonMainWindow.Join,Join,Join,Join
 Studio.App.RobloxRibbonMainWindow.JoinSurfaces,,Join Surfaces,Join Surfaces
 Studio.App.RobloxRibbonMainWindow.JoinSurfacesTooltip,,Make parts join together at touching surfaces,Make parts join together at touching surfaces
@@ -2588,6 +2624,7 @@ Studio.App.SettingsCategory.DiagnosticsPerformance,,Performance,Performance
 Studio.App.SettingsCategory.DiagnosticsProfile,,Profile,Profile
 Studio.App.SettingsCategory.GameOptionsInternal,,Internal,Internal
 Studio.App.SettingsCategory.General,,General,General
+Studio.App.SettingsCategory.NetworkAdvanced,,Advanced,Advanced
 Studio.App.SettingsCategory.NetworkAppearance,,Appearance,Appearance
 Studio.App.SettingsCategory.NetworkDiagnostics,,Diagnostics,Diagnostics
 Studio.App.SettingsCategory.NetworkProxy,,Proxy,Proxy
@@ -2722,6 +2759,11 @@ Studio.App.StudioPluginHost.FinishedInstallingPlugin,,Finished installing plugin
 Studio.App.StudioPluginHost.PluginMetadataFileIsCorrupted,,Plugin metadata file is corrupted. Version information for your plugins may have been lost.,Plugin metadata file is corrupted. Version information for your plugins may have been lost.
 Studio.App.StudioPluginHost.UnableToCreatePluginFile,,Unable to create plugin file.,Unable to create plugin file.
 Studio.App.StudioPluginHost.UnableToWritePluginMetadata,,Unable to write plugin metadata. Version information for your plugins may be lost.,Unable to write plugin metadata. Version information for your plugins may be lost.
+Studio.App.StudioProjectConfig.UnexpectedFieldWarning2,,"The Project File has unexpected fields, they will be ignored. 
+%1 
+%2","The Project File has unexpected fields, they will be ignored. 
+%1 
+%2"
 Studio.App.StudioSerializerHelper.ErrorSavingFile2,,Error saving file '%1' - %2,Error saving file '%1' - %2
 Studio.App.StudioServiceHost.ConvertToPackageFailed,,Convert to package failed.,Convert to package failed.
 Studio.App.StudioUtilities.LogInRequired,,Log in required,Log in required
@@ -2933,38 +2975,3 @@ Studio.Common.Action.Value,,Value,Value
 Studio.Common.Action.Warning,,Warning,Warning
 Studio.Common.Action.Width,,Width,Width
 Studio.Common.Action.Yes,,Yes,Yes
-Studio.Internal.ExternalLoginDialog.FatalErrorMessage,,Failed to login. Please restart Studio or contact support if the problem persists.,Failed to login. Please restart Studio or contact support if the problem persists.
-Studio.Internal.ExternalLoginDialog.GenericErrorMessage,,Failed to login. Please try again or contact support if problem persists.,Failed to login. Please try again or contact support if problem persists.
-Studio.Internal.ExternalLoginDialog.MessageOnDialogClose,,Are you sure you want to close this window? This will close Roblox Studio.,Are you sure you want to close this window? This will close Roblox Studio.
-Studio.Internal.ExternalLoginDialog.NoNetworkMessage,,Please check that you are connected to the internet and try again. Please contact support if the problem persists.,Please check that you are connected to the internet and try again. Please contact support if the problem persists.
-Studio.Internal.ExternalLoginDialog.ReloadLoginPage,,Refresh,Refresh
-Studio.Internal.ExternalLoginDialog.RobloxLogin,,Roblox login,Roblox login
-Studio.Internal.ExternalLoginDialog.WindowTitle,,Log In,Log In
-Studio.Internal.RobloxMainWindow.ChooseAPlaceInGameExplorer1,,"Choose an instance as parent in game explorer to save %1 
-","Choose an instance as parent in game explorer to save %1 
-"
-Studio.Internal.RobloxMainWindow.NewScriptTab,,New Script Tab,New Script Tab
-Studio.Internal.RobloxMainWindow.OnlySaveToEditDM,,Can only save in Edit Mode,Can only save in Edit Mode
-Studio.Internal.RobloxMainWindow.SaveCurrentScriptTab,,Save Current Script Tab,Save Current Script Tab
-Studio.Internal.RobloxMainWindow.SaveScript,,Save Script,Save Script
-Studio.Internal.RobloxMainWindow.SaveScript1,,Save Script %1 ?,Save Script %1 ?
-Studio.Internal.RobloxMainWindow.SelectOneInstance,,Please select only one instance,Please select only one instance
-Studio.Internal.RobloxMainWindow.UnableToSave,,Unable To Save,Unable To Save
-Studio.Internal.RobloxMainWindow.UnsavedScripts,,Unsaved Scripts,Unsaved Scripts
-Studio.Internal.RobloxRibbonMainWindow.DocHistoryBackwards,,Step backwards through tab history,Step backwards through tab history
-Studio.Internal.RobloxRibbonMainWindow.DocHistoryForwards,,Step forwards through tab history,Step forwards through tab history
-Studio.Internal.RobloxRibbonMainWindow.InternalBetaFeatures,,Roblox Internal – Beta,Roblox Internal – Beta
-Studio.Internal.RobloxRibbonMainWindow.InternalFeatures,,Roblox Internal,Roblox Internal
-Studio.Internal.RobloxRibbonMainWindow.InternalFeaturesAreEnabled,,Internal Features are enabled,Internal Features are enabled
-Studio.Internal.RobloxRibbonMainWindow.InternalFeaturesMessageBoxContent,,"Your account is associated with an @roblox.com email address or has Soothsayer permissions. You also have internal-only features turned on.
-Do you want to disable Internal Features? This will make your Studio experience identical to developers.
-You can go to Settings > Studio > Advanced to re-enable Internal Features.","Your account is associated with an @roblox.com email address or has Soothsayer permissions. You also have internal-only features turned on.
-Do you want to disable Internal Features? This will make your Studio experience identical to developers.
-You can go to Settings > Studio > Advanced to re-enable Internal Features."
-Studio.Internal.RobloxRibbonMainWindow.InternalFeaturesRestart,,Restart Roblox Studio,Restart Roblox Studio
-Studio.Internal.RobloxRibbonMainWindow.InternalFeaturesRestartDetails,,Roblox Studio need to restart to disable Internal Features,Roblox Studio need to restart to disable Internal Features
-Studio.Internal.StudioProjectConfig.UnexpectedFieldWarning2,,"The Project File has unexpected fields, they will be ignored. 
-%1 
-%2","The Project File has unexpected fields, they will be ignored. 
-%1 
-%2"
