@@ -1896,6 +1896,14 @@
         </Item>
         <Item class="ReflectionMetadataMember">
           <Properties>
+            <string name="Name">TimeScale</string>
+            <string name="summary">Slows down the particle simulation speed. 1 is normal speed (behaves as before), 0.5 is half-rate, and 0 means all particles will stop moving.</string>
+            <double name="UIMinimum">0</double>
+            <double name="UIMaximum">1</double>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
             <string name="Name">VelocityInheritance</string>
             <double name="UIMinimum">0</double>
             <double name="UIMaximum">1</double>
@@ -6222,17 +6230,19 @@
           <Properties>
             <string name="Name">AssemblyLinearVelocity</string>
             <string name="summary">The linear velocity of this part's assembly - collection of parts connected by welds or animated joints.</string>
+            <string name="PropertyOrder">1000</string>
           </Properties>
         </Item>
         <Item class="ReflectionMetadataMember">
           <Properties>
             <string name="Name">AssemblyAngularVelocity</string>
             <string name="summary">The angular velocity of this part's rigid body - collection of parts connected by welds or animated joints.</string>
+            <string name="PropertyOrder">1010</string>
           </Properties>
         </Item>
         <Item class="ReflectionMetadataMember">
           <Properties>
-            <string name="Name">AssemblyRootParty</string>
+            <string name="Name">AssemblyRootPart</string>
             <string name="summary">The root part of this part's assembly - can be changed with RootPriority or Anchored property.</string>
           </Properties>
         </Item>

@@ -33,7 +33,7 @@
         <addaction name="fileOpenAutoSavesAction"/>
         <addaction name="exportPlaceAction"/>
         <addaction name="shortcutHelpAction"/>
-        <addaction name="fastLogDumpAction"/>
+        <addaction fflag="!StudioRemoveDerilectCrashLogAction" name="fastLogDumpAction"/>
         <addaction name="managePluginsAction"/>
         <addaction fflag ="StudioAddResetDefaultInstanceProperties" name="resetDefaultInstancePropertiesAction"/>
         <addaction name="flagEditorAction"/>
@@ -541,6 +541,7 @@
       </Group>
       <Group debugOnly="true" fflag="LuaDebuggerBreakOnError" name="Debug Errors" text="Studio.App.RobloxRibbonMainWindow.DebugErrors">
         <addaction type="radio" name="neverBreakOnScriptErrorsAction" style="textbesideicon" text="Studio.App.RBXMainWindow.Never" tooltip="Studio.App.RBXMainWindow.NeverBreakErrorsIntoDebugger"/>
+        <addaction fflag="LuaDebugBreakOnAllExceptions" type="radio" name="breakOnAllScriptErrorsAction" style="textbesideicon" text="Studio.App.RBXMainWindow.OnAllExceptions" tooltip="Studio.App.RBXMainWindow.BreakAllExceptionsDebugger"/>
         <addaction type="radio" name="breakOnUnhandledScriptErrorsAction" style="textbesideicon" text="Studio.App.RBXMainWindow.OnUnhandledExceptions" tooltip="Studio.App.RBXMainWindow.ExceptionsInDebugger"/>
       </Group>
       <Group name="Script Actions" text="Studio.App.RobloxRibbonMainWindow.Actions">

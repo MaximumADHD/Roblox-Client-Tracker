@@ -17,6 +17,7 @@ dependencies = [
     "AvatarExperienceDeps AvatarExperienceDeps 5a31b418 git+https://github.com/roblox/avatar-experience-deps#master",
     "Cryo roblox/cryo 1.0.0 url+https://github.com/roblox/cryo",
     "DeveloperTools roblox/developer-tools 0.1.4 url+https://github.com/roblox/developer-tools",
+    "FitFrame roblox/roact-fit-components 1.2.5 url+https://github.com/roblox/roact-fit-components",
     "InGameMenuDependencies InGameMenuDependencies aecc56c1 git+https://github.com/roblox/in-game-menu-dependencies#master",
     "LuaChatDeps LuaChatDeps f16c0046 git+https://github.com/roblox/lua-chat-deps#master",
     "LuaDiscussionsDeps LuaDiscussionsDeps 149f4695 git+https://github.com/roblox/lua-discussions-deps#master",
@@ -37,7 +38,7 @@ dependencies = [
     "Rodux roblox/rodux 1.0.0 url+https://github.com/roblox/rodux",
     "StringUtilities roblox/string-utilities 1.0.0 url+https://github.com/roblox/string-utilities",
     "TestEZ roblox/testez 0.4.0 url+https://github.com/roblox/testez",
-    "UIBlox UIBlox 3a82d9ed git+https://github.com/roblox/uiblox#master",
+    "UIBlox UIBlox 8c44e27d git+https://github.com/roblox/uiblox#master",
     "UrlBuilder roblox/url-builder 1.0.4 url+https://github.com/roblox/url-builder",
     "enumerate roblox/enumerate 1.0.0 url+https://github.com/roblox/enumerate",
     "t roblox/t 1.2.5 url+https://github.com/roblox/t",
@@ -56,7 +57,7 @@ dependencies = [
     "Roact roblox/roact 1.3.1 url+https://github.com/roblox/roact",
     "RoactRodux roblox/roact-rodux 0.2.2 url+https://github.com/roblox/roact-rodux",
     "Rodux roblox/rodux 1.0.0 url+https://github.com/roblox/rodux",
-    "UIBlox <patched> UIBlox 3a82d9ed git+https://github.com/roblox/uiblox#master",
+    "UIBlox <patched> UIBlox 8c44e27d git+https://github.com/roblox/uiblox#master",
     "t roblox/t 1.2.5 url+https://github.com/roblox/t",
 ]
 
@@ -70,7 +71,7 @@ dependencies = [
     "InfiniteScroller roblox/infinite-scroller 0.7.3 url+https://github.com/roblox/infinite-scroller",
     "InfiniteScroller71 roblox/infinite-scroller 7286a922 git+https://github.com/roblox/infinite-scroller#v0.7.1",
     "RoduxNetworking rodux-networking 8902a6aa git+https://github.com/roblox/rodux-networking#v1.0.2",
-    "UIBlox UIBlox 3a82d9ed git+https://github.com/roblox/uiblox#master",
+    "UIBlox UIBlox 8c44e27d git+https://github.com/roblox/uiblox#master",
 ]
 
 [[package]]
@@ -106,7 +107,7 @@ dependencies = ["RoactFitComponents roblox/roact-fit-components 1.2.5 url+https:
 [[package]]
 name = "UIBlox"
 version = "0.1.1"
-commit = "3a82d9edf6c4d9edf5bf34325ed4802c80d759dc"
+commit = "8c44e27dfe5d776857846178a5ad3176c4f6b7c6"
 source = "git+https://github.com/roblox/uiblox#master"
 dependencies = [
     "Cryo roblox/cryo 1.0.0 url+https://github.com/roblox/cryo",
@@ -158,7 +159,7 @@ source = "git+https://github.com/roblox/asset-card#v1.0.3"
 dependencies = [
     "Roact roblox/roact 1.3.1 url+https://github.com/roblox/roact",
     "Rodux roblox/rodux 1.0.0 url+https://github.com/roblox/rodux",
-    "UIBlox UIBlox 3a82d9ed git+https://github.com/roblox/uiblox#master",
+    "UIBlox UIBlox 8c44e27d git+https://github.com/roblox/uiblox#master",
     "t roblox/t 1.2.5 url+https://github.com/roblox/t",
 ]
 
@@ -310,7 +311,7 @@ dependencies = [
     "Roact roblox/roact 1.3.1 url+https://github.com/roblox/roact",
     "RoactRodux roblox/roact-rodux 0.2.2 url+https://github.com/roblox/roact-rodux",
     "Rodux roblox/rodux 1.0.0 url+https://github.com/roblox/rodux",
-    "UIBlox <patched> UIBlox 3a82d9ed git+https://github.com/roblox/uiblox#master",
+    "UIBlox <patched> UIBlox 8c44e27d git+https://github.com/roblox/uiblox#master",
     "t roblox/t 1.2.5 url+https://github.com/roblox/t",
 ]
 
@@ -326,7 +327,7 @@ dependencies = [
     "Roact roblox/roact 1.3.1 url+https://github.com/roblox/roact",
     "RoactRodux roblox/roact-rodux 0.2.2 url+https://github.com/roblox/roact-rodux",
     "Rodux roblox/rodux 1.0.0 url+https://github.com/roblox/rodux",
-    "UIBlox <patched> UIBlox 3a82d9ed git+https://github.com/roblox/uiblox#master",
+    "UIBlox <patched> UIBlox 8c44e27d git+https://github.com/roblox/uiblox#master",
     "t roblox/t 1.2.5 url+https://github.com/roblox/t",
 ]
 
