@@ -37,7 +37,6 @@ local ThemePalette = t.strictInterface({
 	TextEmphasis = Color,
 	TextDefault = Color,
 	TextMuted = Color,
-	TextLink = Color,
 
 	Divider = Color,
 	Overlay = Color,

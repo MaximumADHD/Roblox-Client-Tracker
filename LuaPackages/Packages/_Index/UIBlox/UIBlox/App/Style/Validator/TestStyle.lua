@@ -28,7 +28,6 @@ local testTheme = {
 	TextEmphasis = color,
 	TextDefault = color,
 	TextMuted = color,
-	TextLink = color,
 	Divider = color,
 	Overlay = color,
 	DropShadow = color,

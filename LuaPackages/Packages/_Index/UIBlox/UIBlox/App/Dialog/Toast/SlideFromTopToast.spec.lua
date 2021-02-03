@@ -66,10 +66,7 @@ return function()
 		Roact.unmount(instance)
 	end)
 
-	-- FIXME: This test sometimes fails. I think it's because having a
-	-- high spring frequency does not guarantee an opening in 1 frame.
-	-- TODO: https://jira.rbx.com/browse/UIBLOX-181
-	itSKIP("should consistently close immediately after opening when provided a duration of 0", function()
+	it("should consistently close immediately after opening when provided a duration of 0", function()
 		-- Run test 10 times to confirm it is not flaky
 		for _ = 1, 10 do
 			local appeared = false

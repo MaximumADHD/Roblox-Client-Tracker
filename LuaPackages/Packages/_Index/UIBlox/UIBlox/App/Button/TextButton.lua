@@ -12,7 +12,6 @@ local Interactable = require(Core.Control.Interactable)
 local ControlState = require(Core.Control.Enum.ControlState)
 local getContentStyle = require(Core.Button.getContentStyle)
 local GetTextSize = require(Core.Text.GetTextSize)
-local cleanRichTextTags = require(Core.Text.CleanRichTextTags)
 local enumerateValidator = require(UIBlox.Utility.enumerateValidator)
 
 local withStyle = require(Core.Style.withStyle)
@@ -109,9 +108,7 @@ function TextButton:render()
 
 		local fontSize = fontStyle.RelativeSize * style.Font.BaseSize
 		local getTextSize = self.props[TextButton.debugProps.getTextSize]
-
-		local manipulatedText = self.props.richText and cleanRichTextTags(self.props.text) or self.props.text
-		local textWidth = getTextSize(manipulatedText, fontSize, fontStyle.Font, Vector2.new(10000, 0)).X
+		local textWidth = getTextSize(self.props.text, fontSize, fontStyle.Font, Vector2.new(10000, 0)).X
 
 		return Roact.createElement(Interactable, {
 			AnchorPoint = self.props.anchorPoint,

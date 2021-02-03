@@ -88,7 +88,6 @@ local function initializeLibrary()
 			AlertButton = require(script.App.Button.AlertButton),
 			ButtonStack = require(script.App.Button.ButtonStack),
 			TextButton = require(script.App.Button.TextButton),
-			LinkButton = require(script.App.Button.LinkButton),
 			IconButton = require(script.App.Button.IconButton),
 			ActionBar = require(script.App.Button.ActionBar)
 		}),
