@@ -3,7 +3,7 @@
 ]]
 local PackageIndex = script.Parent.Parent
 
-local package = PackageIndex["rodux-networking-e2ed13e9-8902a6aa"]["rodux-networking"]
+local package = PackageIndex["lua-promise"]["lua-promise"]
 
 if package.ClassName == "ModuleScript" then
 	return require(package)

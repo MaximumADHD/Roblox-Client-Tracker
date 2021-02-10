@@ -3,7 +3,7 @@
 ]]
 local PackageIndex = script.Parent.Parent
 
-local package = PackageIndex["rodux-networking-e2ed13e9-8902a6aa"]["rodux-networking"]
+local package = PackageIndex["rodux-networking-0bf501c2-f322c986"]["rodux-networking"]
 
 if package.ClassName == "ModuleScript" then
 	return require(package)

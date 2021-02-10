@@ -3,7 +3,7 @@
 ]]
 local PackageIndex = script.Parent.Parent
 
-local package = PackageIndex["jtaylor_mock"]["mock"]
+local package = PackageIndex["mock"]["mock"]
 
 if package.ClassName == "ModuleScript" then
 	return require(package)
