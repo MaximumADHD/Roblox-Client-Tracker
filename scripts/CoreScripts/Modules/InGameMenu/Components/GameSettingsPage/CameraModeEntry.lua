@@ -4,8 +4,12 @@ local UserGameSettings = UserSettings():GetService("UserGameSettings")
 
 local ComputerCameraMovementModeChanged = UserGameSettings:GetPropertyChangedSignal("ComputerCameraMovementMode")
 
+local CoreGui = game:GetService("CoreGui")
+local RobloxGui = CoreGui:WaitForChild("RobloxGui")
+local CoreUtility = require(RobloxGui.Modules.CoreUtility)
+
 local localPlayer = Players.LocalPlayer
-local playerScripts = localPlayer:WaitForChild("PlayerScripts")
+local playerScripts = CoreUtility.waitForChildOfClass(localPlayer, "PlayerScripts")
 local DevComputerMovementModeChanged = localPlayer:GetPropertyChangedSignal("DevComputerMovementMode")
 
 local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)

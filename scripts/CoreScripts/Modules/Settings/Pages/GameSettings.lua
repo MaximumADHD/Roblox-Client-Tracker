@@ -70,6 +70,8 @@ if FFlagCollectAnalyticsForSystemMenu then
 	Constants = require(RobloxGui:WaitForChild("Modules"):WaitForChild("InGameMenu"):WaitForChild("Resources"):WaitForChild("Constants"))
 end
 
+local CoreUtility = require(RobloxGui.Modules.CoreUtility)
+
 ------------ Variables -------------------
 RobloxGui:WaitForChild("Modules"):WaitForChild("TenFootInterface")
 RobloxGui:WaitForChild("Modules"):WaitForChild("Settings"):WaitForChild("SettingsHub")
@@ -809,7 +811,7 @@ local function Initialize()
 		end
 
 		do
-			local PlayerScripts = LocalPlayer:WaitForChild("PlayerScripts")
+			local PlayerScripts = CoreUtility.waitForChildOfClass(LocalPlayer, "PlayerScripts")
 
 			local cameraEnumNames = {}
 			local cameraEnumNameToItem = {}
@@ -1007,7 +1009,7 @@ local function Initialize()
 			local movementEnumNames = {}
 			local movementEnumNameToItem = {}
 
-			local PlayerScripts = LocalPlayer:WaitForChild("PlayerScripts")
+			local PlayerScripts = CoreUtility.waitForChildOfClass(LocalPlayer, "PlayerScripts")
 
 			local function getDisplayName(name)
 				local displayName = name

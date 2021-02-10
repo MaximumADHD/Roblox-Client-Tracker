@@ -35,13 +35,17 @@ local maxButtons = #buttonPositionTable
 game:GetService("ContentProvider"):Preload(ContextDownImage)
 game:GetService("ContentProvider"):Preload(ContextUpImage)
 
+local CoreGui = game:GetService("CoreGui")
+local RobloxGui = CoreGui:WaitForChild("RobloxGui")
+local CoreUtility = require(RobloxGui.Modules.CoreUtility)
+
 local localPlayer = playersService.LocalPlayer
 while not localPlayer do
 	playersService.ChildAdded:wait()
 	localPlayer = playersService.LocalPlayer
 end
 
-local playerGui = localPlayer:WaitForChild("PlayerGui")
+local playerGui = CoreUtility.waitForChildOfClass(localPlayer, "PlayerGui")
 
 function createContextActionGui()
 	if not buttonScreenGui and isTouchDevice then

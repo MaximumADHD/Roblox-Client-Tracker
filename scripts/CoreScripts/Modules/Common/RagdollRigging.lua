@@ -1,5 +1,7 @@
 local RunService = game:GetService("RunService")
 
+local FFlagOnlyRemoveMotorsForRiggedRagdolls = game:DefineFastFlag("OnlyRemoveMotorsForRiggedRagdolls", false)
+
 local Rigging = {}
 
 -- Gravity that joint friction values were tuned under.
@@ -357,6 +359,57 @@ local function createNoCollides(parts, noCollides)
 	end
 end
 
+local function isAttachmetInPart(attachment, part)
+	return attachment and attachment.Parent == part or false
+end
+
+local function checkValidAttachment(part0, part1, attachment0, attachment1)
+	if isAttachmetInPart(attachment0, part0) and isAttachmetInPart(attachment1, part1) then
+		return true
+	end
+
+	if isAttachmetInPart(attachment0, part1) and isAttachmetInPart(attachment1, part0) then
+		return true
+	end
+
+	return false
+end
+
+local function hasValidConstraint(part0, part1)
+	for _, child in ipairs(part1:GetChildren()) do
+		if child:IsA("BallSocketConstraint") then
+			local attachment0 = child.Attachment0
+			local attachment1 = child.Attachment1
+
+			if checkValidAttachment(part0, part1, attachment0, attachment1) then
+				return true
+			end
+		end
+	end
+
+	return false
+end
+
+local function hasRagdollJoint(motor)
+	if not FFlagOnlyRemoveMotorsForRiggedRagdolls then
+		return true
+	end
+
+	local part0 = motor.Part0
+	local part1 = motor.Part1
+
+	if hasValidConstraint(part0, part1) then
+		return true
+	end
+
+	-- Don't enforce ordering for developer created ragdolls
+	if hasValidConstraint(part1, part0) then
+		return true
+	end
+
+	return false
+end
+
 local function disableMotorSet(model, motorSet)
 	local motors = {}
 	-- Destroy all regular joints:
@@ -364,7 +417,7 @@ local function disableMotorSet(model, motorSet)
 		local part = model:FindFirstChild(params[2])
 		if part then
 			local motor = part:FindFirstChild(params[1])
-			if motor and motor:IsA("Motor6D") then
+			if motor and motor:IsA("Motor6D") and hasRagdollJoint(motor) then
 				table.insert(motors, motor)
 				motor.Enabled = false
 			end

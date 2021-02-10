@@ -149,10 +149,10 @@ return{
 	["CoreScripts.PurchasePrompt.PurchaseFailed.NotEnoughRobuxNoUpsell"] = [[아이템 구매에 충분한 Robux를 보유하고 있지 않습니다.]],
 	["CoreScripts.PurchasePrompt.Button.PremiumOnly"] = [[Premium 전용]],
 	["CoreScripts.PurchasePrompt.PurchaseFailed.PremiumOnly"] = [[이 아이템을 구매하려면 Roblox Premium 회원이어야 해요.]],
-	["CoreScripts.PurchasePrompt.PurchaseDetails.AgeLegalText"] = [[이 구매는 실물 화폐 교환으로 이루어집니다. 본인은 18세 이상이며 계정 소유자의 부모 또는 법적 보호자임에 동의합니다. 또한 이 구매를 승인하고 서비스 약관에 동의합니다.]],
+	["CoreScripts.PurchasePrompt.PurchaseDetails.AgeLegalText"] = [[이 구매는 실물 화폐 교환으로 이루어집니다. 본인은 18세 이상이며 계정 소유자의 부모 또는 법적 보호자임에 동의합니다. 또한 이 구매를 허용하고 이용 약관에 동의합니다.]],
 	["CoreScripts.PurchasePrompt.PurchaseDetails.ScaryModalOne"] = [[이 구매는 실물 화폐 교환으로 이루어집니다. 
 
-본인은 18세 이상이며 계정 소유자의 부모 또는 법적 보호자임에 동의합니다. 또한 이 구매를 승인하고 서비스 약관에 동의합니다.]],
+본인은 18세 이상이며 계정 소유자의 부모 또는 법적 보호자임에 동의합니다. 또한 이 구매를 허용하고 이용 약관에 동의합니다.]],
 	["CoreScripts.PurchasePrompt.PurchaseDetails.ScaryModalTwo"] = [[회원님은 이번 달에 Roblox에서 상당히 많은 구매를 하셨습니다. 그래도 계속 진행할까요? 이 구매는 실물 화폐 교환으로 이루어집니다. 이 구매를 승인하려면 회원님이 계정 소유자의 부모 또는 법적 보호자여야 합니다.]],
 	["CoreScripts.PurchasePrompt.PurchaseDetails.ScaryModalParental"] = [[회원님은 이번 달에 Roblox에서 상당히 많은 구매를 하셨습니다. 이 구매 및 이후 모든 구매에 대한 영수증은 이 계정의 인증된 보호자 이메일로 전송됩니다. ]],
 }

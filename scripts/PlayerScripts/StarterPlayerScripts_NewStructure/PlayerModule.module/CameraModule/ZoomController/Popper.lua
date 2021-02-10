@@ -3,6 +3,13 @@
 -- Prevents your camera from clipping through walls.
 --------------------------------------------------------------------------------
 
+local FFlagUserPoppercamCapRaycasts do
+	local success, result = pcall(function()
+		return UserSettings():IsUserFeatureEnabled("UserPoppercamCapRaycasts")
+	end)
+	FFlagUserPoppercamCapRaycasts = success and result
+end
+
 local Players = game:GetService("Players")
 
 local camera = game.Workspace.CurrentCamera
@@ -140,6 +147,9 @@ local SCAN_SAMPLE_OFFSETS = {
 	Vector2.new( 0.0, 0.2),
 }
 
+-- Maximum number of rays that can be cast 
+local QUERY_POINT_CAST_LIMIT = 64
+
 --------------------------------------------------------------------------------
 -- Piercing raycasts
 
@@ -176,18 +186,24 @@ local function queryPoint(origin, unitDir, dist, lastPos)
 	local softLimit = inf
 	local hardLimit = inf
 	local movingOrigin = origin
+	
+	local numPierced = 0
 
 	repeat
 		local entryPart, entryPos = workspace:FindPartOnRayWithIgnoreList(ray(movingOrigin, target - movingOrigin), blacklist, false, true)
+		numPierced += 1
 
 		if entryPart then
-			if canOcclude(entryPart) then
+			-- forces the current iteration into a hard limit to cap the number of raycasts
+			local earlyAbort = FFlagUserPoppercamCapRaycasts and (numPierced >= QUERY_POINT_CAST_LIMIT) or false
+			
+			if canOcclude(entryPart) or earlyAbort then
 				local wl = {entryPart}
 				local exitPart = workspace:FindPartOnRayWithWhitelist(ray(target, entryPos - target), wl, true)
 
 				local lim = (entryPos - origin).Magnitude
 
-				if exitPart then
+				if exitPart and not earlyAbort then
 					local promote = false
 					if lastPos then
 						promote =

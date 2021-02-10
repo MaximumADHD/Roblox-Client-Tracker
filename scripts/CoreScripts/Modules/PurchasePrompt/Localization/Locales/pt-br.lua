@@ -149,10 +149,10 @@ return{
 	["CoreScripts.PurchasePrompt.PurchaseFailed.NotEnoughRobuxNoUpsell"] = [[Você não tem Robux suficientes para comprar este item. ]],
 	["CoreScripts.PurchasePrompt.Button.PremiumOnly"] = [[Somente Premium]],
 	["CoreScripts.PurchasePrompt.PurchaseFailed.PremiumOnly"] = [[Você precisa ter Roblox Premium para comprar este item.]],
-	["CoreScripts.PurchasePrompt.PurchaseDetails.AgeLegalText"] = [[Esta compra envolve a utilização de dinheiro real. Eu afirmo ter mais de 18 anos e sou pai/mãe ou responsável legal do dono da conta. Autorizo esta compra e concordo com os Termos de Serviço.]],
+	["CoreScripts.PurchasePrompt.PurchaseDetails.AgeLegalText"] = [[Esta compra envolve a utilização de dinheiro real. Eu afirmo ter mais de 18 anos e/ou sou pai/mãe ou responsável legal do dono da conta. Autorizo esta compra e concordo com os Termos de Uso.]],
 	["CoreScripts.PurchasePrompt.PurchaseDetails.ScaryModalOne"] = [[Esta compra envolve a utilização de dinheiro real.
 
-Eu afirmo ter mais de 18 anos e/ou sou pai/mãe ou responsável legal do dono da conta. Autorizo esta compra e concordo com os Termos de Serviço.]],
+Eu afirmo ter mais de 18 anos e/ou sou pai/mãe ou responsável legal do dono da conta. Autorizo esta compra e concordo com os Termos de Uso.]],
 	["CoreScripts.PurchasePrompt.PurchaseDetails.ScaryModalTwo"] = [[Você gastou bastante na Roblox este mês. Tem certeza de que deseja continuar? Esta compra envolve o uso de dinheiro real. Você deve ser um dos pais ou responsável legal do dono da conta para autorizar esta compra.]],
 	["CoreScripts.PurchasePrompt.PurchaseDetails.ScaryModalParental"] = [[Você gastou bastante na Roblox este mês. Os recibos serão enviados para o e-mail verificado do responsável por esta conta para esta e todas as compras subsequentes. ]],
 }

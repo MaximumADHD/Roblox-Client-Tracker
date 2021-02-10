@@ -3,24 +3,34 @@
 --- the ChatScripts in a users PlayerScripts and clones them from 
 --- StarterPlayerScripts if they do not already exist. 
 
-local PlayersService = game:GetService("Players")
-local LocalPlayer = PlayersService.LocalPlayer
-local PlayerScripts = LocalPlayer:WaitForChild("PlayerScripts")
-local StarterPlayerScripts = game:GetService("StarterPlayer"):WaitForChild("StarterPlayerScripts")
+local Players = game:GetService("Players")
+local StarterPlayer = game:GetService("StarterPlayer")
 
-function VerifyScriptExistance()
-  local scriptToVerifyValue = script:WaitForChild("ScriptToVerify")
-  local scriptToVerifyName = scriptToVerifyValue.Value
-  if not PlayerScripts:FindFirstChild(scriptToVerifyName) then
-    local scriptToClone = StarterPlayerScripts:FindFirstChild(scriptToVerifyName)
-    if scriptToClone then
-      local lastArchivable = scriptToClone.Archivable
-      scriptToClone.Archivable = true
-      scriptToClone:Clone().Parent = PlayerScripts
-      scriptToClone.Archivable = lastArchivable
-    end
-  end
+local function waitForChildOfClass(parent, className)
+	local child = parent:FindFirstChildOfClass(className)
+	while not child or child.ClassName ~= className do
+		child = parent.ChildAdded:Wait()
+	end
+	return child
 end
 
-VerifyScriptExistance()
+local LocalPlayer = Players.LocalPlayer
+local PlayerScripts = waitForChildOfClass(LocalPlayer, "PlayerScripts")
+local StarterPlayerScripts = waitForChildOfClass(LocalPlayer, "StarterPlayerScripts")
+
+function VerifyScriptExistence()
+	local scriptToVerifyValue = script:WaitForChild("ScriptToVerify")
+	local scriptToVerifyName = scriptToVerifyValue.Value
+	if not PlayerScripts:FindFirstChild(scriptToVerifyName) then
+		local scriptToClone = StarterPlayerScripts:FindFirstChild(scriptToVerifyName)
+		if scriptToClone then
+			local lastArchivable = scriptToClone.Archivable
+			scriptToClone.Archivable = true
+			scriptToClone:Clone().Parent = PlayerScripts
+			scriptToClone.Archivable = lastArchivable
+		end
+	end
+end
+
+VerifyScriptExistence()
 script:Destroy()

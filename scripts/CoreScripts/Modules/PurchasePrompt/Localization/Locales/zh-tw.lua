@@ -149,10 +149,10 @@ return{
 	["CoreScripts.PurchasePrompt.PurchaseFailed.NotEnoughRobuxNoUpsell"] = [[您的 Robux 不足，無法購買此道具。]],
 	["CoreScripts.PurchasePrompt.Button.PremiumOnly"] = [[Premium 限定]],
 	["CoreScripts.PurchasePrompt.PurchaseFailed.PremiumOnly"] = [[若要購買此道具，請訂閱 Roblox Premium。]],
-	["CoreScripts.PurchasePrompt.PurchaseDetails.AgeLegalText"] = [[此購買將會涉及到真實金錢交易。我同意我滿 18 歲，並是帳號主人的家長或法定監護人。我批准此筆購買並同意服務條款。]],
+	["CoreScripts.PurchasePrompt.PurchaseDetails.AgeLegalText"] = [[此購買將會涉及到真實金錢交易。我同意我滿 18 歲，並是帳號所有人的家長或法定監護人。我批准此筆購買並同意服務條款。]],
 	["CoreScripts.PurchasePrompt.PurchaseDetails.ScaryModalOne"] = [[此購買將會涉及到真實金錢交易。
 
-我同意我滿 18 歲，並是帳號主人的家長或法定監護人。我批准此筆購買並同意服務條款。]],
+我同意我滿 18 歲，並是帳號所有人的家長或法定監護人。我批准此筆購買並同意服務條款。]],
 	["CoreScripts.PurchasePrompt.PurchaseDetails.ScaryModalTwo"] = [[您本月已在 Roblox 消費大量金錢，確定繼續？此購買將會涉及到真實金錢交易。您必須是帳號主人的家長或法定監護人才可批准此筆購買。]],
 	["CoreScripts.PurchasePrompt.PurchaseDetails.ScaryModalParental"] = [[您本月已在 Roblox 消費大量金錢。此筆購買和日後購賣的收據將會傳送到此帳號經驗證的家長電子郵件地址。]],
 }

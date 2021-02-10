@@ -149,10 +149,10 @@ return{
 	["CoreScripts.PurchasePrompt.PurchaseFailed.NotEnoughRobuxNoUpsell"] = [[Cette objet coûte plus de Robux que vous n'en avez. ]],
 	["CoreScripts.PurchasePrompt.Button.PremiumOnly"] = [[Premium uniquement]],
 	["CoreScripts.PurchasePrompt.PurchaseFailed.PremiumOnly"] = [[Tu dois avoir Roblox Premium pour acheter cet article.]],
-	["CoreScripts.PurchasePrompt.PurchaseDetails.AgeLegalText"] = [[Cet achat implique l'échange d'argent réel. Je certifie avoir au moins 18 ans et être le parent ou le tuteur légal du propriétaire du compte. J'autorise cet achat et j'accepte les conditions de service.]],
+	["CoreScripts.PurchasePrompt.PurchaseDetails.AgeLegalText"] = [[Cet achat implique l'échange d'argent réel. Je certifie avoir au moins 18 ans et être le parent ou le tuteur légal du propriétaire du compte. J'autorise cet achat et j'accepte les conditions d'utilisation.]],
 	["CoreScripts.PurchasePrompt.PurchaseDetails.ScaryModalOne"] = [[Cet achat implique l'échange d'argent réel. 
 
-Je certifie avoir au moins 18 ans et être le parent ou le tuteur légal du propriétaire du compte. J'autorise cet achat et j'accepte les conditions de service.]],
+Je certifie avoir au moins 18 ans et être le parent ou le tuteur légal du propriétaire du compte. J'autorise cet achat et j'accepte les conditions d'utilisation.]],
 	["CoreScripts.PurchasePrompt.PurchaseDetails.ScaryModalTwo"] = [[Vous avez beaucoup dépensé sur Roblox ce mois-ci. Voulez-vous continuer ? Cet achat implique l'échange d'argent réel. Vous devez être le parent ou le tuteur légal du propriétaire du compte pour autoriser cet achat.]],
 	["CoreScripts.PurchasePrompt.PurchaseDetails.ScaryModalParental"] = [[Vous avez beaucoup dépensé sur Roblox ce mois-ci. Des reçus seront envoyés à l'adresse électronique parentale vérifiée sur ce compte pour cet achat et tous les achats ultérieurs. ]],
 }

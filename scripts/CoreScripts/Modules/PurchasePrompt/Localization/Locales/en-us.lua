@@ -149,8 +149,9 @@ return{
 	["CoreScripts.PurchasePrompt.PurchaseFailed.NotEnoughRobuxNoUpsell"] = [[This item cost more Robux than you have available. ]],
 	["CoreScripts.PurchasePrompt.Button.PremiumOnly"] = [[Premium Only]],
 	["CoreScripts.PurchasePrompt.PurchaseFailed.PremiumOnly"] = [[You need to have Roblox Premium in order to purchase this item.]],
-	["CoreScripts.PurchasePrompt.PurchaseDetails.AgeLegalText"] = [[This purchase involves the exchange of real money. I agree that I am at least 18 years of age, and am the parent or legal guardian of the account owner. I authorize this purchase and agree to the Terms of Service.]],
-	["CoreScripts.PurchasePrompt.PurchaseDetails.ScaryModalOne"] = [[This purchase involves the exchange of real money. I agree that I am at least 18 years of age, and am the parent or legal guardian of the account owner. I authorize this purchase and agree to the Terms of Service.]],
+	["CoreScripts.PurchasePrompt.PurchaseDetails.AgeLegalText"] = [[This purchase involves the exchange of real money. I agree that I am at least 18 years of age, and am the parent or legal guardian of the account owner. I authorize this purchase and agree to the Terms of Use.]],
+	["CoreScripts.PurchasePrompt.PurchaseDetails.ScaryModalOne"] = [[This purchase involves the exchange of real money. I agree that I am at least 18 years of age, and am the parent or legal guardian of the account owner. I authorize this purchase and agree to the Terms of Use.]],
 	["CoreScripts.PurchasePrompt.PurchaseDetails.ScaryModalTwo"] = [[You've spent a lot on Roblox this month. Do you want to proceed? This purchase involves the exchange of real money. You must be the parent or legal guardian of the account owner to authorize this purchase.]],
 	["CoreScripts.PurchasePrompt.PurchaseDetails.ScaryModalParental"] = [[You've spent a lot on Roblox this month. Receipts will be sent to the verified parental email on this account for this and all subsequent purchases. ]],
+	["CoreScripts.PurchasePrompt.PurchaseFailed.NotForSaleHere"] = [[This item can not be sold in this game. Your account has not been charged.]],
 }

@@ -144,7 +144,7 @@ local function Install()
 		for _, player in pairs(currentPlayers) do
 			-- These players were created before we added the ChatScript to StarterPlayerScripts
 			-- This only happens in studio.
-			if player:FindFirstChild("PlayerGui") then
+			if player:FindFirstChildOfClass("PlayerGui") then
 				-- We need to put this script in the PlayerGui as we can't access the PlayerScripts on the server.
 				local installVerifier = LoadLocalScript(script.Parent, "ChatInstallVerifier", player.PlayerGui)
 				local scriptToVerify = Instance.new("StringValue")
@@ -164,7 +164,7 @@ local function Install()
 
 		local currentPlayers = PlayersService:GetPlayers()
 		for _, player in pairs(currentPlayers) do
-			if player:FindFirstChild("PlayerGui") then
+			if player:FindFirstChildOfClass("PlayerGui") then
 				local installVerifier = LoadLocalScript(script.Parent, "ChatInstallVerifier", player.PlayerGui)
 				local scriptToVerify = Instance.new("StringValue")
 				scriptToVerify.Name = "ScriptToVerify"

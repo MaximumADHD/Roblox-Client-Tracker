@@ -6,12 +6,15 @@ local TextService = game:GetService("TextService")
 local Players = game:GetService("Players")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
+local CoreUtility = require(RobloxGui.Modules.CoreUtility)
+
 local FFlagProximityPromptLocalization = game:DefineFastFlag("ProximityPromptLocalization", false)
 local FFlagProximityPromptNoButtonDrag = game:DefineFastFlag("ProximityPromptNoButtonDrag", false)
 local FFlagProximityPromptLiveChanges = game:DefineFastFlag("ProximityPromptLiveChanges", false)
 local FFlagProximityPromptMoreKeyCodes = game:DefineFastFlag("ProximityPromptMoreKeyCodes", false)
 local FFlagProximityPromptsFadeIn = game:DefineFastFlag("ProximityPromptsFadeIn", false)
 local FFlagProximityPromptMoreKeyCodes2 = game:DefineFastFlag("ProximityPromptMoreKeyCodes2", false)
+local FFlagProximityPromptFixFade = game:DefineFastFlag("ProximityPromptFixFade", false)
 
 local PlayerGui
 
@@ -22,7 +25,7 @@ if FFlagProximityPromptLocalization then
 		LocalPlayer = Players.LocalPlayer
 	end
 
-	PlayerGui = LocalPlayer:WaitForChild("PlayerGui")
+	PlayerGui = CoreUtility.waitForChildOfClass(LocalPlayer, "PlayerGui")
 end
 
 local GamepadButtonImage = {
@@ -138,7 +141,7 @@ local function getScreenGui()
 	return screenGui
 end
 
-local function createProgressBarGradient(parent, leftSide)
+local function createProgressBarGradient(parent, leftSide, tweensForFadeOut, tweensForFadeIn)
 	local frame = Instance.new("Frame")
 	frame.Size = UDim2.fromScale(0.5, 1)
 	frame.Position = UDim2.fromScale(leftSide and 0 or 0.5, 0)
@@ -163,10 +166,16 @@ local function createProgressBarGradient(parent, leftSide)
 	gradient.Rotation = leftSide and 180 or 0
 	gradient.Parent = image
 
+	if FFlagProximityPromptFixFade then
+		local tweenInfoQuick = TweenInfo.new(0.06, Enum.EasingStyle.Linear, Enum.EasingDirection.Out)
+		table.insert(tweensForFadeOut, TweenService:Create(image, tweenInfoQuick, { ImageTransparency = 1 }))
+		table.insert(tweensForFadeIn, TweenService:Create(image, tweenInfoQuick, { ImageTransparency = 0 }))
+	end
+
 	return gradient
 end
 
-local function createCircularProgressBar()
+local function createCircularProgressBar(tweensForFadeOut, tweensForFadeIn)
 	local bar = Instance.new("Frame")
 	bar.Name = "CircularProgressBar"
 	bar.Size = UDim2.fromOffset(58, 58)
@@ -174,8 +183,8 @@ local function createCircularProgressBar()
 	bar.Position = UDim2.fromScale(0.5, 0.5)
 	bar.BackgroundTransparency = 1
 
-	local gradient1 = createProgressBarGradient(bar, true)
-	local gradient2 = createProgressBarGradient(bar, false)
+	local gradient1 = createProgressBarGradient(bar, true, tweensForFadeOut, tweensForFadeIn)
+	local gradient2 = createProgressBarGradient(bar, false, tweensForFadeOut, tweensForFadeIn)
 
 	local progress = Instance.new("NumberValue")
 	progress.Name = "Progress"
@@ -414,7 +423,7 @@ local function createPrompt_DEPRECATED(prompt, inputType)
 	end
 
 	if prompt.HoldDuration > 0 then
-		local circleBar = createCircularProgressBar()
+		local circleBar = createCircularProgressBar(tweensForFadeOut, tweensForFadeIn)
 		circleBar.Parent = resizeableInputFrame
 		table.insert(tweensForButtonHoldBegin, TweenService:Create(circleBar.Progress, tweenInfoInFullDuration, { Value = 1 }))
 		table.insert(tweensForButtonHoldEnd, TweenService:Create(circleBar.Progress, tweenInfoOutHalfSecond, { Value = 0 }))
@@ -695,7 +704,7 @@ local function createPrompt(prompt, inputType, gui)
 	end
 
 	if prompt.HoldDuration > 0 then
-		local circleBar = createCircularProgressBar()
+		local circleBar = createCircularProgressBar(tweensForFadeOut, tweensForFadeIn)
 		circleBar.Parent = resizeableInputFrame
 		table.insert(tweensForButtonHoldBegin, TweenService:Create(circleBar.Progress, tweenInfoInFullDuration, { Value = 1 }))
 		table.insert(tweensForButtonHoldEnd, TweenService:Create(circleBar.Progress, tweenInfoOutHalfSecond, { Value = 0 }))

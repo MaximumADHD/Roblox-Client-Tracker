@@ -5,9 +5,16 @@ local pose = "Standing"
 local userNoUpdateOnLoopSuccess, userNoUpdateOnLoopValue = pcall(function() return UserSettings():IsUserFeatureEnabled("UserNoUpdateOnLoop") end)
 local userNoUpdateOnLoop = userNoUpdateOnLoopSuccess and userNoUpdateOnLoopValue
 
+local userEmoteToRunThresholdChange do
+	local success, value = pcall(function()
+		return UserSettings():IsUserFeatureEnabled("UserEmoteToRunThresholdChange")
+	end)
+	userEmoteToRunThresholdChange = success and value
+end
+
 local userPlayEmoteByIdAnimTrackReturn do
 	local success, value = pcall(function()
-		return UserSettings():IsUserFeatureEnabled("UserPlayEmoteByIdAnimTrackReturn")
+		return UserSettings():IsUserFeatureEnabled("UserPlayEmoteByIdAnimTrackReturn2")
 	end)
 	userPlayEmoteByIdAnimTrackReturn = success and value
 end
@@ -568,8 +575,11 @@ end
 -------------------------------------------------------------------------------------------
 -- STATE CHANGE HANDLERS
 
-function onRunning(speed)	
-	if speed > 0.75 then
+function onRunning(speed)
+	local movedDuringEmote =
+		userEmoteToRunThresholdChange and currentlyPlayingEmote and Humanoid.MoveDirection == Vector3.new(0, 0, 0)
+	local speedThreshold = movedDuringEmote and Humanoid.WalkSpeed or 0.75
+	if speed > speedThreshold then
 		local scale = 16.0
 		playAnimation("walk", 0.2, Humanoid)
 		setAnimationSpeed(speed / scale)
