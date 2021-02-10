@@ -450,8 +450,8 @@ Studio.App.RBXMainWindow.ExpandAll,,,Expand All,Expand All,모두 확장,Раз�
 Studio.App.RBXMainWindow.ExpandAllDiffResults,,,Expand all diff results,Expand all diff results,차이 결과 모두 확장,Развернуть все различия,扩展所有差异结果
 Studio.App.RBXMainWindow.ExpandAllFolds,,,Expand All Folds,Expand All Folds,모든 접기 확장,Развернуть все складки,扩展所有折叠项
 Studio.App.RBXMainWindow.ExpandsAllFolds,,,Expands all folds,Expands all folds,모든 접기 확장,Развернуть все складки,扩展所有折叠项
-Studio.App.RBXMainWindow.Explorer,,,Explorer,Explorer,탐색기,Проводник,管理器
-Studio.App.RBXMainWindow.ExplorerFilter,,,Explorer Filter,Explorer Filter,탐색기 필터,Фильтр проводника,管理器筛选
+Studio.App.RBXMainWindow.Explorer,,,Explorer,Explorer,탐색기,Проводник,项目管理器
+Studio.App.RBXMainWindow.ExplorerFilter,,,Explorer Filter,Explorer Filter,탐색기 필터,Фильтр проводника,项目管理器筛选
 Studio.App.RBXMainWindow.ExportAsObj,,,Export as Obj,Export as Obj,개체로 내보내기,Экспортировать в виде Obj,导出为 Obj
 Studio.App.RBXMainWindow.ExportSelection,,,Export Selection,Export Selection,선택 항목 내보내기,Экспортировать выбранное,导出选中内容
 Studio.App.RBXMainWindow.ExportSelectionElps,,,Export Selection...,Export Selection...,선택 항목 내보내기...,Экспортировать выбранное...,导出选中内容...
@@ -491,7 +491,7 @@ Studio.App.RBXMainWindow.InsertFromFileElps,,,Insert from File...,Insert from Fi
 Studio.App.RBXMainWindow.InsertModels,,,Insert Models,Insert Models,모델 삽입,Вставить модели,插入模型
 Studio.App.RBXMainWindow.InsertObject,,,Insert Object,Insert Object,개체 삽입,Вставить объект,插入对象
 Studio.App.RBXMainWindow.InsertObjectsFromWeb,,,Insert Objects from Web,Insert Objects from Web,웹에서 개체 삽입,Вставить объекты из Интернета,从网页插入对象
-Studio.App.RBXMainWindow.InsertObjectsWidgetExplorer,,,Open insert objects widget in explorer,Open insert objects widget in explorer,탐색기에서 개체 삽입 위젯 열기,Открыть виджет вставки объектов в проводнике,在管理器中打开插入对象控件
+Studio.App.RBXMainWindow.InsertObjectsWidgetExplorer,,,Open insert objects widget in explorer,Open insert objects widget in explorer,탐색기에서 개체 삽입 위젯 열기,Открыть виджет вставки объектов в проводнике,在项目管理器中打开插入对象控件
 Studio.App.RBXMainWindow.InsertServices,,,Insert Services.,Insert Services.,서비스 삽입.,Вставка услуг.,插入服务。
 Studio.App.RBXMainWindow.InstanceDump,,,Instance Dump,Instance Dump,인스턴스 덤프,Дамп экземпляра,实例转储
 Studio.App.RBXMainWindow.JumpsToFunction,,,Jumps to the function after filter,Jumps to the function after filter,필터링 후 해당 함수로 이동,Переход к функции после фильтрации,跳转至筛选后函数
@@ -811,7 +811,7 @@ Studio.App.RobloxRibbonMainWindow.ExpandAllScripts,,,Expand all scripts,Expand a
 Studio.App.RobloxRibbonMainWindow.Explosion,,,Explosion,Explosion,폭발,Разнесение,爆炸
 Studio.App.RobloxRibbonMainWindow.FindTextAndReplaceWithElps,,,Find text and replace with...,Find text and replace with...,텍스트를 찾아 다음으로 바꾸기...,Найти текст и заменить его на...,查找文本并替换为...
 Studio.App.RobloxRibbonMainWindow.FindTextElps,,,Find text...,Find text...,텍스트 찾기...,Найти текст...,查找文本...
-Studio.App.RobloxRibbonMainWindow.FocusViewOnScriptError,,,Focus view on script error,Focus view on script error,스크립트 오류 포커스 보기,Переместить фокус на ошибку скрипта,发生脚本错误时聚焦视图
+Studio.App.RobloxRibbonMainWindow.FocusViewOnScriptError,,,Focus view on script error,Focus view on script error,스크립트 오류 포커스 보기,Переместить фокус на ошибку скрипта,聚焦脚本错误
 Studio.App.RobloxRibbonMainWindow.Frame,,,Frame,Frame,프레임,Кадр,帧
 Studio.App.RobloxRibbonMainWindow.FusePartsTogether,,,Fuse parts together to make a single part,Fuse parts together to make a single part,파트를 융합해 단일 파트로 만들기,Объедините отдельные детали в единую деталь,将几个部件组合为一个部件
 Studio.App.RobloxRibbonMainWindow.Fwd,,,Fwd,Fwd,전달,Далее,向前
@@ -1014,7 +1014,7 @@ Studio.App.StartPageLogin.NotAMemberYet,,,Not a member yet?,Not a member yet?,�
 Studio.App.StartPageLogin.OpeningPlaceElps,,,Opening place...,Opening place...,플레이스 여는 중...,Открывается место...,正在打开场景...
 Studio.App.StartPageLogin.Password,,,Password,Password,비밀번호,Пароль,密码
 Studio.App.StartPageLogin.SignUp,,,Sign up,Sign up,가입,Зарегистрироваться,注册
-Studio.App.StartPageLogin.StartCreatingOwnGames,,,Start creating your own games with Roblox Studio!,Start creating your own games with Roblox Studio!,Roblox Studio에서 게임을 직접 만들어 보세요!,Начните создавать свои собственные игры с Roblox Studio!,开始用 Roblox Studio 创建你自己的游戏吧！
+Studio.App.StartPageLogin.StartCreatingOwnGames,,,Start creating your own games!,Start creating your own games!,Roblox Studio에서 게임을 직접 만들어 보세요!,Начните создавать свои собственные игры с Roblox Studio!,开始用 Roblox Studio 创建你自己的游戏吧！
 Studio.App.StartPageLogin.Username,,,Username,Username,사용자 이름,Имя пользователя,用户名
 Studio.App.StartPage.Activating,,,activating,activating,활성화 중,активирование,激活中
 Studio.App.StartPage.Archive,,,Archive,Archive,보관,Архив ,归档
@@ -1089,7 +1089,7 @@ Studio.App.Category.Diagnostics,,,Diagnostics,Diagnostics,진단,Диагнос�
 Studio.App.Category.Directories,,,Directories,Directories,디렉터리,Каталоги,目录
 Studio.App.Category.Display,,,Display,Display,표시,Отображение,显示
 Studio.App.Category.Errors,,,Errors,Errors,오류,Ошибки,错误
-Studio.App.Category.Explorer,,,Explorer,Explorer,탐색기,Проводник,管理器
+Studio.App.Category.Explorer,,,Explorer,Explorer,탐색기,Проводник,项目管理器
 Studio.App.Category.GarbageCollection,,,Garbage Collection,Garbage Collection,가비지 수집,Сборка мусора (GC),垃圾收集
 Studio.App.Category.General,,,General,General,일반,Общие,通用
 Studio.App.Category.Input,,,Input,Input,입력,Вход,输入
@@ -1140,7 +1140,7 @@ Studio.App.GamesPageController.MakePrivateFail,,,Failed to make game private,Fai
 Studio.App.GamesPageController.MakePublicFail,,,Failed to make game public,Failed to make game public,게임 공개 설정 실패,Не удалось сделать игру общедоступной,将游戏设为公开失败
 Studio.App.GamesPageController.MakingGamePrivate,,,Making game private,Making game private,게임을 비공개로 설정,Игра становится закрытой,正在将游戏设为私人
 Studio.App.GamesPageController.RemoveTeamCreateConfirm,,,Are you sure you want to remove yourself from this game? You will no longer be able to edit it.,Are you sure you want to remove yourself from this game? You will no longer be able to edit it.,이 게임에서 정말로 자신을 제거하시겠어요? 제거하는 경우 이 게임을 더 이상 편집할 수 없습니다.,Вы действительно хотите удалить себя из этой игры? Вы не сможете ее редактировать.,确定要把自己从此游戏移除吗? 你将无法再编辑此游戏。
-Studio.App.GamesPageController.RemoveTeamCreateGame,,,Remove Team Create Game,Remove Team Create Game,팀 만들기 게임 제거,Удалить результат совместной разработки,删除组队创作游戏
+Studio.App.GamesPageController.RemoveTeamCreateGame,,,Remove Team Create Game,Remove Team Create Game,팀 만들기 게임 제거,Удалить результат совместной разработки,移除组队创作游戏
 Studio.App.GamesPageController.RestoreGameFail,,,Failed to restore game,Failed to restore game,게임 복원 실패,Не удалось восстановить игру,还原游戏失败
 Studio.App.GamesPageController.RestoredFile1,,,Restored %1,Restored %1,%1 복원함,Восстановлено: %1,已还原 %1
 Studio.App.GamesPageController.UndoArchiveGameFail,,,Failed to undo archived game,Failed to undo archived game,게임 보관 실행 취소 실패,Не удалось отменить архивирование игры,撤消已归档的游戏失败
@@ -1366,7 +1366,7 @@ Studio.App.Property.OutputLayoutMode,,,Output Layout Mode,Output Layout Mode,출
 Studio.App.Property.OverrideCoreScripts,,,Override Core Scripts,Override Core Scripts,코어 스크립트 재정의,Переопределить основные скрипты,覆盖核心脚本
 Studio.App.Property.OverrideCoreScriptsDir,,,Override Core Scripts Dir,Override Core Scripts Dir,코어 스크립트 디렉터리 재정의,Переопределить основные скрипты Dir,覆盖核心脚本目录
 Studio.App.Property.OverrideStarterScript,,,Override Starter Script,Override Starter Script,시작 스크립트 재정의,Переопределить стартовый скрипт,覆盖起始脚本
-Studio.App.Property.PermissionLevelShown,,,Permission Level Shown,Permission Level Shown,권한 수준 표시,Показывать уровень разрешения,显示许可等级
+Studio.App.Property.PermissionLevelShown,,,Permission Level Shown,Permission Level Shown,권한 수준 표시,Показывать уровень разрешения,显示权限等级
 Studio.App.Property.PhysicsEnvironmentalThrottle,,,Physics Environmental Throttle,Physics Environmental Throttle,물리 환경 스로틀,Регулировка внешней физики,物理环境节流
 Studio.App.Property.PhysicsMtuAdjust,,,Physics Mtu Adjust,Physics Mtu Adjust,물리 Mtu 조정,Регулировка MTU физики  ,物理Mtu调整
 Studio.App.Property.PhysicsSendRate,,,Physics Send Rate,Physics Send Rate,물리 전송 속도,Скорость отправки физики,物理发送速率
@@ -1409,21 +1409,21 @@ Studio.App.Property.SelectionColor,,,Selection Color,Selection Color,선택 사�
 Studio.App.Property.ServerAudioBehavior,,,Server Audio Behavior,Server Audio Behavior,서버 오디오 동작,Воспроизведение звуков сервера,服务器音频行为
 Studio.App.Property.ShowActiveAnimationAsset,,,Show Active Animation Asset,Show Active Animation Asset,활성 애니메이션 애셋 표시,Показать активный анимационный ресурс,显示活跃动画素材
 Studio.App.Property.ShowBoundingBoxes,,,Show Bounding Boxes,Show Bounding Boxes,경계 상자 표시,Показывать охватывающие контуры,显示边界框
-Studio.App.Property.ShowCoreGUIInExplorerWhilePlaying,,,Show Core GUI in Explorer while Playing,Show Core GUI in Explorer while Playing,플레이 중 탐색기에서 코어 GUI 표시,Показывать графический интерфейс ядра в проводнике во время игры,游戏时在管理器中显示核心 GUI
+Studio.App.Property.ShowCoreGUIInExplorerWhilePlaying,,,Show Core GUI in Explorer while Playing,Show Core GUI in Explorer while Playing,플레이 중 탐색기에서 코어 GUI 표시,Показывать графический интерфейс ядра в проводнике во время игры,游戏时在项目管理器中显示核心 GUI
 Studio.App.Property.ShowDecompositionGeometry,,,Show Decomposition Geometry,Show Decomposition Geometry,분해 지오메트리 표시,Показывать геометрию декомпозиции,显示分解几何
 Studio.App.Property.ShowDiagnosticsBar,,,Show Diagnostics Bar,Show Diagnostics Bar,진단 막대 표시,Показывать строку диагностики,显示诊断栏
-Studio.App.Property.ShowHiddenObjectsInExplorer,,,Show Hidden Objects in Explorer,Show Hidden Objects in Explorer,탐색기에서 숨겨진 개체 표시,Показывать скрытые объекты в проводнике,在管理器中显示隐藏对象
+Studio.App.Property.ShowHiddenObjectsInExplorer,,,Show Hidden Objects in Explorer,Show Hidden Objects in Explorer,탐색기에서 숨겨진 개체 표시,Показывать скрытые объекты в проводнике,在项目管理器中显示隐藏对象
 Studio.App.Property.ShowHoverOver,,,Show Hover Over,Show Hover Over,커서 올리기 표시,Показывать наведение курсора,显示鼠标悬停选项框
 Studio.App.Property.ShowNavigationMesh,,,Show Navigation Mesh,Show Navigation Mesh,탐색 메시 표시,Показывать навигационную сетку,显示导航网格
-Studio.App.Property.ShowPluginGUIServiceInExplorer,,,Show Plugin GUI Service in Explorer,Show Plugin GUI Service in Explorer,탐색기에서 플러그인 GUI 서비스 표시,Показать службу плагина графического интерфейса в проводнике,在管理器中显示插件 GUI 服务
-Studio.App.Property.ShowPlusButtonOnHoverInExplorer,,,Show plus button on hover in Explorer,Show plus button on hover in Explorer,탐색기에서 커서 올릴 때 더하기 버튼 표시,"Показывать кнопку ""плюс"" при наведении на объект в проводнике",在管理器中悬停时显示加号
+Studio.App.Property.ShowPluginGUIServiceInExplorer,,,Show Plugin GUI Service in Explorer,Show Plugin GUI Service in Explorer,탐색기에서 플러그인 GUI 서비스 표시,Показать службу плагина графического интерфейса в проводнике,在项目管理器中显示插件 GUI 服务
+Studio.App.Property.ShowPlusButtonOnHoverInExplorer,,,Show plus button on hover in Explorer,Show plus button on hover in Explorer,탐색기에서 커서 올릴 때 더하기 버튼 표시,"Показывать кнопку ""плюс"" при наведении на объект в проводнике",在项目管理器中悬停时显示加号
 Studio.App.Property.ShowQTWarningsInOutput,,,Show QT warnings in output,Show QT warnings in output,출력에 QT 경고 표시,Показывать предупреждения QT при выводе,在输出中显示 QT 警告
 Studio.App.Property.SoftwareSound,,,Software Sound,Software Sound,소프트웨어 사운드,Программный звук,软件音效
 Studio.App.Property.StringColor,,,String Color,String Color,문자열 색,Цвет строк,字符串颜色
 Studio.App.Property.SystemProductName,,,System Product Name,System Product Name,시스템 제품 이름,Системное имя продукта,系统产品名称
 Studio.App.Property.TabWidth,,,Tab Width,Tab Width,탭 넓이,Ширина вкладки,标签页宽度
 Studio.App.Property.TextColor,,,Text Color,Text Color,텍스트 색,Цвет текста,文字颜色
-Studio.App.Property.TextWrapping,,,Text Wrapping,Text Wrapping,텍스트 배치,Обтекание текстом,文字环绕
+Studio.App.Property.TextWrapping,,,Text Wrapping,Text Wrapping,텍스트 배치,Обтекание текстом,文字换行
 Studio.App.Property.ThreadPoolConfig,,,Thread Pool Config,Thread Pool Config,스레드 풀 구성,Конфигурация пула потока,线程池配置
 Studio.App.Property.ThreadPoolSize,,,Thread Pool Size,Thread Pool Size,스레드 풀 크기,Размер пула потока,线程池大小
 Studio.App.Property.ThrottleAdjustTime,,,Throttle Adjust Time,Throttle Adjust Time,스로틀 조정 시간,Регулировка изменения времени,节流调整时间
@@ -1502,7 +1502,7 @@ Studio.App.LocalizationPlugin.ErrorReading1Csv2,,,Error reading %1.csv: %2,Error
 Studio.App.LocalizationPlugin.ErrorWritingToFile1,,,Error writing to file %1,Error writing to file %1,%1 파일에 쓰는 중에 오류가 발생했어요,Ошибка записи в файл %1,无法写入文件 %1
 Studio.App.LocalizationPlugin.NoFileSelected,,,No file selected,No file selected,선택된 파일 없음,Файл не выбран,未选择文件
 Studio.App.Property.EnableCoreScriptDebugger,,,Enable CoreScript Debugger,Enable CoreScript Debugger,CoreScript 디버거 활성화,Включить отладчик CoreScript,启用 CoreScript 调试器
-Studio.App.Property.ShowRobloxPluginGUIServiceInExplorer,,,Show Roblox Plugin GUI Service in Explorer,Show Roblox Plugin GUI Service in Explorer,탐색기에서 Roblox 플러그인 GUI 서비스 표시,Показать службу плагина графического интерфейса Roblox в проводнике,在管理器中显示插件 GUI 服务
+Studio.App.Property.ShowRobloxPluginGUIServiceInExplorer,,,Show Roblox Plugin GUI Service in Explorer,Show Roblox Plugin GUI Service in Explorer,탐색기에서 Roblox 플러그인 GUI 서비스 표시,Показать службу плагина графического интерфейса Roblox в проводнике,在项目管理器中显示插件 GUI 服务
 Studio.App.RBXMainWindow.Sandbox,,,Sandbox,Sandbox,샌드박스,Песочница,沙盒
 Studio.App.RBXMainWindow.SaveActiveDocumentToRobloxAs,,,Save Active Document to Roblox As,Save Active Document to Roblox As,활성 문서를 다음으로 Roblox에 저장,Сохранить активный документ в Roblox как,将活跃文档保存至 Roblox 并重命名
 Studio.App.RBXMainWindow.SaveToRobloxAsElps,,,Save to Roblox As...,Save to Roblox As...,다음으로 Roblox에 저장...,Сохранить в Roblox как....,保存至 Roblox 为...
@@ -1657,7 +1657,7 @@ Studio.App.OnPublishDialog.Name,,,Name:,Name:,이름:,Имя:,名称:
 Studio.App.OnPublishDialog.Privacy,,,Privacy:,Privacy:,개인정보 보호:,Конфиденциальность:,隐私政策:
 Studio.App.OnPublishDialog.Title,,,Publish,Publish,게시,Опубликовать,发布
 Studio.App.PackageUtilities.ErrorMessageForModifiedPackageInDM,,,Error: Cannot save place to Roblox while there are packages with unpublished changes.,Error: Cannot save place to Roblox while there are packages with unpublished changes.,오류: 변경 사항이 게시되지 않은 패키지가 있어 플레이스를 Roblox에 저장할 수 없습니다.,"Ошибка: место не может быть сохранено в Roblox, пока есть пакеты с неопубликованными изменениями.",错误：包有未发布的更改，无法将场景保存至 Roblox。
-Studio.App.PackageUtilities.SelectInExplorer,,,Select in Explorer,Select in Explorer,탐색기에서 선택,Выберите в проводнике,在管理器中选择
+Studio.App.PackageUtilities.SelectInExplorer,,,Select in Explorer,Select in Explorer,탐색기에서 선택,Выберите в проводнике,在项目管理器中选择
 Studio.App.PlaceResourceController.AddingPlace,,,Adding Place...,Adding Place...,플레이스 추가 중...,Добавление места...,正在添加场景...
 Studio.App.PlaceResourceController.CantRemoveStartPlace,,,You cannot remove the start place from a game.,You cannot remove the start place from a game.,시작 플레이스는 게임에서 삭제할 수 없습니다.,Вы не можете удалить стартовое место из игры.,无法从游戏中移除开始场景。
 Studio.App.PlaceResourceController.ErrorWhileAddingPlace,,,Error while adding place. See Output window for details.,Error while adding place. See Output window for details.,플레이스 추가 중 오류 발생. 자세한 내용은 출력 창에서 확인하세요.,Ошибка при добавлении места. Более подробно см. в окне вывода.,添加场景时发生错误。
@@ -2132,7 +2132,7 @@ Studio.App.Property.Theme,,,Theme,Theme,테마,Тема,主题
 Studio.App.RBXMainWindow.TogglePlayerEmulator,,,Toggle Player Emulator,Toggle Player Emulator,플레이어 에뮬레이터 토글,Переключить эмулятор игрока,切换玩家模拟器
 Studio.App.RobloxRibbonMainWindow.DeviceEmulator,,,Device,Device,기기,Устройство,设备
 Studio.App.RobloxRibbonMainWindow.PlayerEmulator,,,Player,Player,플레이어,Игрок,玩家
-Studio.App.RobloxStudioVerbs.RevealInExplorer,,,Reveal In Explorer/Finder,Reveal In Explorer/Finder,탐색기/Finder에 표시,Открыть в проводнике/поисковике,在管理器/查找器中显示
+Studio.App.RobloxStudioVerbs.RevealInExplorer,,,Reveal In Explorer/Finder,Reveal In Explorer/Finder,탐색기/Finder에 표시,Открыть в проводнике/поисковике,在项目管理器/查找器中显示
 Studio.App.StartPageLogin.TwoStepVerificationEmailInstruction,,,Enter the code we just sent to you via email,Enter the code we just sent to you via email,이메일로 방금 전송한 코드를 입력하세요.,"Введите код, отправленный вам по email",请输入刚刚通过电子邮件发送给你的验证码
 Studio.App.StartPageLogin.TwoStepVerificationSmsInstruction,,,Enter the code we just sent to you via sms,Enter the code we just sent to you via sms,SMS로 방금 전송한 코드를 입력하세요.,"Введите код, отправленный вам по sms",输入刚刚通过短信发送给你的验证码
 Studio.App.StartPageLogin.TwoStepVerificationTitle,,,2-Step Verification,2-Step Verification,2단계 인증,Двухэтапная проверка,两步验证
@@ -2171,7 +2171,7 @@ Studio.App.RobloxMainWindow.OpenMeshFile,,,Open Mesh File,Open Mesh File,메시 
 Studio.App.RobloxMainWindow.OpenMeshFilesPattern,,,Mesh Files (*.fbx *.obj),Mesh Files (*.fbx *.obj),메시 파일(*.fbx *.obj),Файлы сетки (*.fbx *.obj),网格文件 (*.fbx *.obj)
 Studio.App.RobloxScriptDoc.CloseOtherScripts,,,Close Other Scripts,Close Other Scripts,다른 스크립트 닫기,Закрыть другие скрипты,关闭其它脚本
 Studio.App.RobloxScriptDoc.CloseScript,,,Close Script,Close Script,스크립트 닫기,Закрыть скрипт,关闭脚本
-Studio.App.RobloxScriptDoc.ShowInExplorer,,,Show in Explorer,Show in Explorer,탐색기에서 보기,Показать в проводнике,在管理器中显示
+Studio.App.RobloxScriptDoc.ShowInExplorer,,,Show in Explorer,Show in Explorer,탐색기에서 보기,Показать в проводнике,在项目管理器中显示
 Studio.App.RobloxStudioVerbs.NegationFailed,,,Negation failed,Negation failed,탐색 실패,Инвертировать не удалось,镂空失败
 Studio.App.RobloxStudioVerbs.RobloxLuaScripts,,,Roblox Lua Scripts (*.lua),Roblox Lua Scripts (*.lua),Roblox Lua 스크립트(*.lua),Скрипты Lua Roblox (*.lua),Roblox Lua 脚本 (*.lua)
 Studio.App.RobloxStudioVerbs.RobloxModelFiles,,,Roblox Model Files (*.rbxm),Roblox Model Files (*.rbxm),Roblox 모델 파일(*.rbxm),Файлы моделей Roblox (*.rbxm),Roblox 模型文件 (*.rbxm)
@@ -2218,7 +2218,9 @@ Studio.App.BreakpointsTreeWidget.HeaderLabelLine,,,Line,Line,줄,Строка,�
 Studio.App.BreakpointsTreeWidget.HeaderLabelScriptName,,,Script Name,Script Name,스크립트 이름,Имя скрипта,脚本名称
 Studio.App.BreakpointsTreeWidget.HeaderLabelSourceLine,,,Source Line,Source Line,소스 줄,Строка исходника,源行
 Studio.App.CommitScriptsDialog.CommitButtonText,,,Commit,Commit,커밋,Зафиксировать,提交
-Studio.App.CommitScriptsDialog.CommitMessagePlaceHolderText,,,Add a comment to describe what changed,Add a comment to describe what changed,변경된 내용을 설명하기 위한 코멘트 추가,Добавьте комментарий с описанием изменений,添加描述更改内容的注释
+Studio.App.CommitScriptsDialog.CommitMessagePlaceHolderText,,,"Add a comment to describe what changed.
+<Ctrl Enter> To commit.","Add a comment to describe what changed.
+<Ctrl Enter> To commit.",변경된 내용을 설명하기 위한 코멘트 추가,Добавьте комментарий с описанием изменений,添加描述更改内容的注释
 Studio.App.CommitScriptsDialog.ScriptSectionHeader,,,Script,Script,스크립트,Скрипт,脚本
 Studio.App.CommitScriptsDialog.Title,,,Commit Scripts,Commit Scripts,스크립트 커밋,Зафиксировать скрипты,提交脚本
 Studio.App.DraftsServiceHost.CommitRejected,,,"Some of the scripts cannot be committed.
@@ -2599,7 +2601,7 @@ Studio.App.Property.AutoIndentRule,,,Auto Indent Rule,Auto Indent Rule,자동 �
 Studio.App.BetaFeatures.CSGv2SmoothingTitle,,,Normal smoothing Beta,Normal smoothing Beta,일반 다듬기 (베타),,自动平滑化 Beta 测试版
 Studio.App.AssetManagerService.AliasNameInvalid,,,Alias name is invalid,Alias name is invalid,유효하지 않은 닉네임입니다,,别名名称无效
 Studio.App.BetaFeatures.CSGv2SmoothingDescription,,,Use the SmoothAngle property on CSG part to define threshold angle and smooth normals.,Use the SmoothAngle property on CSG part to define threshold angle and smooth normals.,CSG 파트의 SmoothAngle 속성을 사용하여 임계각과 부드러운 법선을 정의합니다.,,使用 CSG 部件的 SmoothAngle 属性定义阈值角度并平滑法线。
-Studio.App.BetaFeatures.SupportPluginDebuggingDescription,,,Set `Plugin Debugging Enabled` to true and you can debug local plugins under the PluginDebugService in Explorer,Set `Plugin Debugging Enabled` to true and you can debug local plugins under the PluginDebugService in Explorer,'Plugin Debugging Enabled'를 True로 설정한 후 탐색기의 PluginDebugService에서 로컬 플러그인을 디버그할 수 있습니다,,将 `Plugin Debugging Enabled （插件调试已启用）`设为 true 后，可以在管理器的 PluginDebugService 中调试本地插件
+Studio.App.BetaFeatures.SupportPluginDebuggingDescription,,,Set `Plugin Debugging Enabled` to true and you can debug local plugins under the PluginDebugService in Explorer,Set `Plugin Debugging Enabled` to true and you can debug local plugins under the PluginDebugService in Explorer,'Plugin Debugging Enabled'를 True로 설정한 후 탐색기의 PluginDebugService에서 로컬 플러그인을 디버그할 수 있습니다,,将 `Plugin Debugging Enabled （插件调试已启用）`设为 true 后，可以在项目管理器的 PluginDebugService 中调试本地插件
 Studio.App.BetaFeatures.SupportPluginDebuggingTitle,,,Plugin Debugging,Plugin Debugging,플러그인 디버깅,,插件调试
 Studio.App.InsertObjectCategory.3DInterfaces,,,3D Interfaces,3D Interfaces,3D 인터페이스,,3D界面
 Studio.App.InsertObjectCategory.Adornments,,,Adornments,Adornments,도구 영역,,装饰
@@ -2726,7 +2728,7 @@ Studio.App.FileType.ScriptFiles,,,Script Files,Script Files,스크립트 파일,
 Studio.App.GamesPageController.NotAuthorizedToConfigureGame,,,You are not authorized to configure this game.,You are not authorized to configure this game.,이 게임을 구성할 권한이 없습니다.,,权限不足，无法对此游戏进行配置。
 Studio.App.InsertObjectCategory.World,,,World,World,월드,,世界
 Studio.App.PropertyEnum.DistanceBased,,,DistanceBased,DistanceBased,DistanceBased,,DistanceBased
-Studio.App.PropertyItems.BrickColorPropertyCannotBeEdited,,,BrickColor property cannot be edited. Please make sure debugger is not paused.,BrickColor property cannot be edited. Please make sure debugger is not paused.,BrickColor 속성은 편집할 수 없습니다. 디버거가 일시 중지되지 않았는지 확인하세요.,,无法编辑 BrickColor 属性。请确保错误排查工具未被暂停。
+Studio.App.PropertyItems.BrickColorPropertyCannotBeEdited,,,BrickColor property cannot be edited. Please make sure debugger is not paused.,BrickColor property cannot be edited. Please make sure debugger is not paused.,BrickColor 속성은 편집할 수 없습니다. 디버거가 일시 중지되지 않았는지 확인하세요.,,无法编辑 BrickColor 属性。请确保没有在调试状态。
 Studio.App.PropertyItems.ClickToExpand,,,[Click to expand],[Click to expand],[확장하려면 클릭],,[单击进行扩展]
 Studio.App.PropertyItems.Color,,,Color,Color,색,,颜色
 Studio.App.PropertyItems.CouldNotFindTexture1,,,"Could not find texture %1. Please verify that the texture is located at that location, or in the same folder as the FBX/OBJ file","Could not find texture %1. Please verify that the texture is located at that location, or in the same folder as the FBX/OBJ file","텍스처 %1을(를) 찾을 수 없습니다. 텍스처가 해당 위치에 있는지, 또는 동일한 폴더에 FBX 또는 OBJ 파일로 존재하는지 확인하세요",,无法找到纹理 %1，请验证纹理是否处于相应位置，或者在同一文件夹中以 FBX 或 OBJ 文件形式存在
@@ -2782,8 +2784,8 @@ Studio.App.RBXMainWindow.MoveLinesDownToolTip,,,Move selected line(s) downwards,
 Studio.App.RBXMainWindow.MoveLinesUp,,,Move Lines Up,Move Lines Up,줄을 위로 이동,,上移行列
 Studio.App.RBXMainWindow.MoveLinesUpToolTip,,,Move selected line(s) upwards,Move selected line(s) upwards,선택한 줄을 위쪽으로 이동합니다,,上移选中行列
 Studio.App.RBXMainWindow.SaveNormalizedPackageToXML,,,Save Normalized Package[Internal Feature],Save Normalized Package[Internal Feature],정규화된 패키지 저장 [내부 기능],,保存标准化包[内部功能]
-Studio.App.RBXMainWindow.ShowScriptInExplorer,,,Show in Explorer,Show in Explorer,탐색기에서 보기,,在管理器中显示
-Studio.App.RBXMainWindow.ShowScriptInExplorerTooltip,,,Select this script in the explorer,Select this script in the explorer,탐색기에서 이 스크립트를 선택합니다,,在管理器中选中该脚本
+Studio.App.RBXMainWindow.ShowScriptInExplorer,,,Show in Explorer,Show in Explorer,탐색기에서 보기,,在项目管理器中显示
+Studio.App.RBXMainWindow.ShowScriptInExplorerTooltip,,,Select this script in the explorer,Select this script in the explorer,탐색기에서 이 스크립트를 선택합니다,,在项目管理器中选中该脚本
 Studio.App.RBXMainWindow.ToggleAlignDraggedObjectsText,,,Align Dragged Objects,Align Dragged Objects,드래그한 개체 정렬,,对齐拖拽对象
 Studio.App.RBXMainWindow.ToggleAlignDraggedObjectsTooltip,,,Do dragged objects rotate to align with the target surface,Do dragged objects rotate to align with the target surface,드래그한 개체가 대상 표면과 정렬되도록 회전하는지 여부,,拖拽对象是否会进行旋转，以保证其与目标表面对齐
 Studio.App.RobloxOutputRibbonDropdown.AllContexts,,,All Contexts,All Contexts,모든 콘텍스트,,所有语境
@@ -2922,7 +2924,7 @@ Studio.App.SettingsCategory.StudioBrowsing,,,Browsing,Browsing,둘러보기,,浏
 Studio.App.SettingsCategory.StudioCamera,,,Camera,Camera,카메라,,镜头
 Studio.App.SettingsCategory.StudioDebugger,,,Debugger,Debugger,디버거,,调试器
 Studio.App.SettingsCategory.StudioDirectories,,,Directories,Directories,디렉터리,,目录
-Studio.App.SettingsCategory.StudioExplorer,,,Explorer,Explorer,탐색기,,管理器
+Studio.App.SettingsCategory.StudioExplorer,,,Explorer,Explorer,탐색기,,项目管理器
 Studio.App.SettingsCategory.StudioGeneral,,,General,General,일반,,通用
 Studio.App.SettingsCategory.StudioOutput,,,Output,Output,출력,,输出
 Studio.App.SettingsCategory.StudioPrimaryPart,,,PrimaryPart,PrimaryPart,PrimaryPart,,PrimaryPart
@@ -3055,7 +3057,7 @@ Studio.App.AboutStudioDialog.PrivacyPolicy,,,Privacy Policy,Privacy Policy,개�
 Studio.App.AudioImportOptionsDialog.ConfirmAudioImport,,,Confirm Audio Import,Confirm Audio Import,오디오 가져오기 확인,,确认音频导入
 Studio.App.AudioImportConfirmationDialog.NoFilesAvailable,,,No files available,No files available,사용 가능한 파일이 없습니다,,无可用文件
 Studio.App.AudioResourceController.AudioReferencedByName,,,"Audio files are referenced by name, so any references to this asset will fail to load. Are you sure you want to remove it?","Audio files are referenced by name, so any references to this asset will fail to load. Are you sure you want to remove it?","오디오 파일은 이름으로 참조되어 있으므로, 이 애셋의 모든 참조는 불러올 수 없습니다. 그래도 제거할까요?",,音频文件由名称引用，因此对此素材的任何引用都将无法加载。确定要删除它吗？
-Studio.App.BetaFeatures.AttributesUIDescription,,,Customizable properties on instances,Customizable properties on instances,인스턴스의 사용자 정의 가능한 속성,,实例中可自定义的属性
+Studio.App.BetaFeatures.AttributesUIDescription,,,Customize instances with your own data,Customize instances with your own data,자체 데이터로 인스턴스 사용자 지정,,用你自己的数据自定义实例
 Studio.App.BetaFeatures.AttributesUITitle,,,Attributes Beta,Attributes Beta,속성 (베타),,特性 Beta 测试版
 Studio.App.BetaFeatures.LuauNonStrictByDefaultDescription,,,"Script analysis uses non-strict mode for all scripts by default. Use --!strict, --!nonstrict or --!nocheck to override mode on a per script basis.","Script analysis uses non-strict mode for all scripts by default. Use --!strict, --!nonstrict or --!nocheck to override mode on a per script basis.","스크립트 분석은 기본적으로 모든 스크립트에 대해 비엄격 모드를 적용합니다. 스크립트별로 모드를 재정의하려면 --!strict, --!nonstrict 또는 --!nocheck를 사용하세요.",,脚本分析默认对所有脚本使用非严格模式。请使用 --!strict、--!nonstrict 或 --!nocheck 改写单个脚本的模式。
 Studio.App.BetaFeatures.LuauNonStrictByDefaultTitle,,,Scripts Are Non-Strict By Default,Scripts Are Non-Strict By Default,스크립트에 기본적으로 비엄격 모드 적용,,脚本默认使用非严格模式
@@ -3134,7 +3136,7 @@ Studio.App.PackagesBlockingPublishDialog.PackageInstance,,,Package Instance Name
 Studio.App.PackagesBlockingPublishDialog.PackageInstanceName,,,Package Instance Name,Package Instance Name,패키지 인스턴스 이름,,包实例名称
 Studio.App.PackagesBlockingPublishDialog.PackageIsModified,,,Package is modified,Package is modified,패키지가 수정되었습니다,,包已被修改
 Studio.App.PackagesBlockingPublishDialog.Permission,,,Permission Status,Permission Status,권한 상태,,权限状态
-Studio.App.PackagesBlockingPublishDialog.SelectPackages,,,Select All in Explorer,Select All in Explorer,탐색기에서 모두 선택,,在管理器中全选
+Studio.App.PackagesBlockingPublishDialog.SelectPackages,,,Select All in Explorer,Select All in Explorer,탐색기에서 모두 선택,,在项目管理器中全选
 Studio.App.PackagesBlockingPublishDialog.Warning,,,The following packages are preventing this place from being published:,The following packages are preventing this place from being published:,다음 패키지로 인해 이 플레이스를 게시할 수 없습니다:,,下列包正在阻止此场景被发布：
 Studio.App.PluginLoader.CloudLoadPermissionsFailedFmt1,,,Failed to load plugin permissions from cloud: %1,Failed to load plugin permissions from cloud: %1,클라우드에서 플러그인 권한을 불러오지 못했습니다: %1,,从云端加载插件权限失败：%1
 Studio.App.PluginLoader.CloudWritePermissionsFailedFmt1,,,Failed to write plugin permissions to cloud: %1,Failed to write plugin permissions to cloud: %1,클라우드에 플러그인 권한을 쓰지 못했습니다: %1,,向云端写入插件权限失败：%1
@@ -3213,9 +3215,9 @@ Studio.App.AttributeRenameDialog.AttributeNameCantBeEmpty,,,Attribute name canno
 Studio.App.AttributeRenameDialog.AttributeNameCantStartWithRBX,,,Attribute name can't start with 'RBX'.,Attribute name can't start with 'RBX'.,속성 이름은 'RBX'로 시작할 수 없습니다.,,特性名称无法以 ‘RBX’ 开头。
 Studio.App.AttributeRenameDialog.AttributeNameExceeds1,,,Attribute name exceeds %1 characters.,Attribute name exceeds %1 characters.,속성 이름이 %1자를 초과합니다.,,特性名称超过 %1 个字符。
 Studio.App.AttributeRenameDialog.AttributeTryDifferentName,,,Try to use a different name.,Try to use a different name.,다른 이름을 입력하세요.,,请尝试换一个名字。
-Studio.App.BetaFeatures.AlignToolImprovementsDescription,,,Adds support for aligning in local space to the Align Tool and shows a preview UI displaying how the selected objects will be aligned.,Adds support for aligning in local space to the Align Tool and shows a preview UI displaying how the selected objects will be aligned.,"정렬 도구에 로컬 공간 정렬 지원을 추가하고, 선택한 개체가 정렬되는 방식을 나타내는 미리보기 UI를 표시합니다.",,为对齐工具添加了对本地空间对齐的支持，并以预览 UI 显示所选对象将如何对齐。
+Studio.App.BetaFeatures.AlignToolImprovementsDescription,,,"Show the Align Tool in the “Model” tab, and enable UI improvements so all controls are usable at narrow widths.","Show the Align Tool in the “Model” tab, and enable UI improvements so all controls are usable at narrow widths.","정렬 도구에 로컬 공간 정렬에 대한 지원을 추가하고, 선택한 개체의 정렬 상태를 보여주는 미리보기 UI를 표시합니다.",,为对齐工具添加了对本地空间对齐的支持，并以预览 UI 显示所选对象将如何对齐。
 Studio.App.BetaFeatures.AlignToolImprovementsTitle,,,Align Tool Improvements,Align Tool Improvements,정렬 도구 개선,,对齐工具改进
-Studio.App.BetaFeatures.TerrainHeightmapImporterDescription,,,Instantly generate heightmaps from high-res (up to 4k) and high-bit-depth (16-bit) PNGs,Instantly generate heightmaps from high-res (up to 4k) and high-bit-depth (16-bit) PNGs,고해상도(최대 4k) 및 고비트 깊이(16비트) PNG 파일에서 Heightmap을 즉시 생성합니다,,立即从高分辨率（最高 4k）和高比特深度（16 位）PNG 文件生成 heightmap
+Studio.App.BetaFeatures.TerrainHeightmapImporterDescription,,,Instantly generate heightmaps from high-res (up to 4k) and high-bit-depth (16-bit) PNGs,Instantly generate heightmaps from high-res (up to 4k) and high-bit-depth (16-bit) PNGs,고해상도(최대 4k) 및 고비트 심도(16비트) PNG 파일에서 Heightmap을 즉시 생성합니다,,立即从高分辨率（最高 4k）和高比特深度（16 位）PNG 文件生成 heightmap
 Studio.App.BetaFeatures.TerrainHeightmapImporterTitle,,,Heightmaps 2,Heightmaps 2,Heightmaps 2,,Heightmaps 2
 Studio.App.DocTabManager.CloseTab,,,Close Tab,Close Tab,탭 닫기,,关闭选项卡
 Studio.App.DocTabManager.CloseTabsOther,,,Close Other Tabs,Close Other Tabs,다른 탭 닫기,,关闭其他选项卡
@@ -3229,13 +3231,13 @@ Studio.App.LockedScriptsCommitProgressDialog.ScriptNameColumn,,,Script Name,Scri
 Studio.App.LockedScriptsCommitProgressDialog.ScriptStatusColumn,,,Status,Status,상태,,状态
 Studio.App.LockedScriptsCommitProgressDialog.Title,,,Apply Edits Progress,Apply Edits Progress,편집 적용 진행,,应用编辑进度
 Studio.App.LockedScriptsVersionHistory.ApplyingEditsBatchNotification1,,,Applying edits from %1 scripts...,Applying edits from %1 scripts...,%1 스크립트의 편집 내용을 적용하는 중...,,正在应用 %1 脚本的编辑…
-Studio.App.LockedScriptsVersionHistory.ApplyingEditsBatchNotification2,,,Applying edits from %1 and %2 more scripts...,Applying edits from %1 and %2 more scripts...,추가 %1 및 %2 스크립트의 편집 내용을 적용하는 중...,,正在应用 %1 以及 %2 个脚本的编辑…
+Studio.App.LockedScriptsVersionHistory.ApplyingEditsBatchNotification2,,,Applying edits from %1 and %2 more scripts...,Applying edits from %1 and %2 more scripts...,추가 %1 및 %2 기타 스크립트의 편집 내용을 적용하는 중...,,正在应用 %1 以及 %2 个脚本的编辑…
 Studio.App.LockedScriptsVersionHistory.ApplyingEditsNotification1,,,Applying edits from %1...,Applying edits from %1...,%1의 편집 내용을 적용하는 중...,,正在应用 %1 的编辑…
 Studio.App.LockedScriptsVersionHistory.ApplyingEditsOnPlaceClose,,,Applying script changes. Studio will close automatically when complete,Applying script changes. Studio will close automatically when complete,스크립트 변경 사항을 적용 중입니다. 완료되면 Studio가 자동으로 닫힙니다,,正在应用脚本变更，完成后将会自动关闭 Studio
 Studio.App.RemoteDebugger.AddRow,,,Add Row,Add Row,행 추가,,添加列
 Studio.App.RemoteDebugger.AssetProxy,,,Asset Proxy:,Asset Proxy:,애셋 프록시:,,素材代理：
 Studio.App.RemoteDebugger.AssetProxyError,,,Error starting server,Error starting server,서버 시작 오류,,启动服务器时出错
-Studio.App.RemoteDebugger.AssetProxyRunning2,,,Asset Proxy running at %1:%2,Asset Proxy running at %1:%2,애셋 프록시가 %1:%2에서 실행 중입니다.,,素材代理运行于 %1:%2
+Studio.App.RemoteDebugger.AssetProxyRunning2,,,Asset Proxy running at %1:%2,Asset Proxy running at %1:%2,애셋 프록시가 %1:%2에서 실행됩니다.,,素材代理运行于 %1:%2
 Studio.App.RemoteDebugger.AssetProxyStopped,,,Asset Proxy stopped,Asset Proxy stopped,애셋 프록시가 중지되었습니다,,素材代理已停止
 Studio.App.RemoteDebugger.ColumnAssetId,,,Asset Id,Asset Id,애셋 ID,,素材 Id
 Studio.App.RemoteDebugger.ColumnPath,,,Path,Path,경로,,路径
@@ -3250,23 +3252,72 @@ Studio.App.RemoteDebugger.Stop,,,Stop,Stop,중지,,停止
 Studio.App.RemoteDebugger.TabAssetOverrides,,,Asset Overrides,Asset Overrides,애셋 재정의,,素材覆盖
 Studio.App.RemoteDebugger.TabServerStatus,,,Server Status,Server Status,서버 상태,,服务器状态
 Studio.App.RemoteDebugger.Title,,,Remote Debugging,Remote Debugging,원격 디버깅,,远程调试
-Studio.App.QuickOpenDialog.TypeLineNumber2,,,Type a line number between %1 and %2 to navigate.,Type a line number between %1 and %2 to navigate.,탐색하려면 %1에서 %2 사이의 줄 번호를 입력하세요.,,输入 %1 到 %2 之间的行数以导航。
+Studio.App.QuickOpenDialog.TypeLineNumber2,,,Type a line number between %1 and %2 to navigate.,Type a line number between %1 and %2 to navigate.,탐색할 %1에서 %2 사이의 줄 번호를 입력하세요.,,输入 %1 到 %2 之间的行数以导航。
 Studio.App.Properties.UnknownAttribute,,,Unknown attributes runtime error.,Unknown attributes runtime error.,알 수 없는 속성 런타임 오류입니다.,,未知特性运行时错误。
-Studio.App.Property.BracketColor,,,Script Bracket Color,Script Bracket Color,스크립트 대괄호 색,,脚本括号颜色
+Studio.App.Property.BracketColor,,,Script Bracket Color,Script Bracket Color,스크립트 괄호 색,,脚本括号颜色
 Studio.App.Property.EnableTemporaryTabs,,,Enable Temporary Script Tabs,Enable Temporary Script Tabs,임시 스크립트 탭 활성화,,启用临时脚本选项卡
-Studio.App.Property.EnableTemporaryTabsInExplorer,,,Enable Temporary Script Tabs In Explorer,Enable Temporary Script Tabs In Explorer,탐색기에서 임시 스크립트 탭 활성화,,在管理器中启用临时脚本选项卡
+Studio.App.Property.EnableTemporaryTabsInExplorer,,,Enable Temporary Script Tabs In Explorer,Enable Temporary Script Tabs In Explorer,탐색기에서 임시 스크립트 탭 활성화,,在项目管理器中启用临时脚本选项卡
 Studio.App.QuickOpenDialog.EmptyScript,,,This is an empty Script,This is an empty Script,빈 스크립트입니다,,这是一个空脚本
 Studio.App.QuickOpenDialog.GotoLine,,,GotoLine,GotoLine,GotoLine,,GotoLine
-Studio.App.QuickOpenDialog.GotoLine1,,,Goto line %1,Goto line %1,%1행으로 이동,,前往行 %1
-Studio.App.QuickOpenDialog.OpenScriptFirst,,,Open a Script first to go to line,Open a Script first to go to line,먼저 스크립트를 열어 줄로 이동합니다,,请先打开脚本再使用前往行
+Studio.App.QuickOpenDialog.GotoLine1,,,Goto line %1,Goto line %1,%1줄로 이동,,前往行 %1
+Studio.App.QuickOpenDialog.OpenScriptFirst,,,Open a Script first to go to line,Open a Script first to go to line,줄로 이동하려면 스크립트를 엽니다.,,请先打开脚本再使用前往行
 Studio.App.Property.TODColor,,,TOD Color,TOD Color,TOD 색,,TOD 颜色
 Studio.App.Property.TODO,,,TODO,TODO,TODO,,TODO
 Studio.App.Property.TODOThing,,,foo,foo,foo,,foo
 Studio.App.Property.TODOColo,,,foo,foo,foo,,foo
-Studio.App.RobloxRibbonMainWindow.CreateUniversalConstraint,,,Create universal constraint,Create universal constraint,,,
-Studio.App.SettingsCategory.General,,,General,General,,,
-Studio.App.SettingsCategory.Theme,,,Theme,Theme,,,
-Studio.App.SettingsHeader.ScriptEditor,,,Script Editor,Script Editor,,,
+Studio.App.RobloxRibbonMainWindow.CreateUniversalConstraint,,,Create universal constraint,Create universal constraint,범용 제약 생성,,创建通用约束
+Studio.App.SettingsCategory.General,,,General,General,일반,,通用
+Studio.App.SettingsCategory.Theme,,,Theme,Theme,테마,,主题
+Studio.App.SettingsHeader.ScriptEditor,,,Script Editor,Script Editor,스크립트 편집기,,脚本编辑器
+Studio.App.BetaFeatures.AdaptiveTimesteppingDescription,,,Adaptively take larger timesteps for individual solver islands when possible.,Adaptively take larger timesteps for individual solver islands when possible.,"가능한 경우, 개별 솔버 아일랜드에 대해 더 큰 타임스텝을 적절히 수행합니다.",,在可能的情况下，为单个解决器岛适应性地采用更大的时步。
+Studio.App.BetaFeatures.AdaptiveTimesteppingTitle,,,Adaptive timestepping,Adaptive timestepping,적응형 타임스텝,,适应性时步
+Studio.App.BetaFeatures.CloudsPhase1Description,,,Volumetric clouds integrated with sky box with initial minimal density and cover controls for phase 1a-b of dynamic skies.,Volumetric clouds integrated with sky box with initial minimal density and cover controls for phase 1a-b of dynamic skies.,,,体积云与天空盒整合，具有动态天空 1a-b 阶段的初始最小密度和覆盖控制。
+Studio.App.BetaFeatures.CloudsPhase1Title,,,Dynamic Skies: Clouds Initial Phase 1,Dynamic Skies: Clouds Initial Phase 1,동적 하늘: 구름 초기 단계 1,,动态天空：云朵初期阶段 1
+Studio.App.BetaFeatures.NonTeamCreateScriptVersionHistoryDescription,,,Can right click on a script to view its history.  Will show past published versions of the script and their corresponding place version numbers.,Can right click on a script to view its history.  Will show past published versions of the script and their corresponding place version numbers.,스크립트의 마우스 오른쪽 버튼을 클릭해 기록을 볼 수 있습니다. 스크립트의 이전 게시 버전과 해당 플레이스 버전 번호가 표시됩니다.,,可右键点击脚本查看其历史记录。将会显示脚本过去发布的版本，及其对应的场景版本号。
+Studio.App.BetaFeatures.NonTeamCreateScriptVersionHistoryTitle,,,Script Version History for Non TeamCreate games,Script Version History for Non TeamCreate games,팀 만들기가 아닌 게임의 스크립트 버전 기록,,非 TeamCreate 游戏的脚本历史记录
+Studio.App.BetaFeatures.ParallelLuaDescription,,,Allows writing scripts that can execute in parallel to improve throughput.,Allows writing scripts that can execute in parallel to improve throughput.,,,
+Studio.App.BetaFeatures.ParallelLuaTitle,,,Parallel Lua,Parallel Lua,,,
+Studio.App.ExternalLoginDialog.FatalErrorMessage,,,Failed to login. Please restart Studio or contact support if the problem persists.,Failed to login. Please restart Studio or contact support if the problem persists.,,,
+Studio.App.ExternalLoginDialog.GenericErrorMessage,,,Failed to login. Please try again or contact support if problem persists.,Failed to login. Please try again or contact support if problem persists.,,,
+Studio.App.ExternalLoginDialog.MessageOnDialogClose,,,Are you sure you want to close this window? This will close Roblox Studio.,Are you sure you want to close this window? This will close Roblox Studio.,,,
+Studio.App.ExternalLoginDialog.NoNetworkMessage,,,Please check that you are connected to the internet and try again. Please contact support if the problem persists.,Please check that you are connected to the internet and try again. Please contact support if the problem persists.,,,
+Studio.App.ExternalLoginDialog.ReloadLoginPage,,,Refresh,Refresh,,,
+Studio.App.ExternalLoginDialog.RobloxLogin,,,Roblox login,Roblox login,,,
+Studio.App.ExternalLoginDialog.WindowTitle,,,Log In,Log In,,,
+Studio.App.PropertyTooltip.RandomizeJoinInstanceOrder,,,"Randomize instance order during join for test clients. This helps uncover bugs by approximating the behavior of real clients & servers, where the order of instances will change over time as more players join. Randomization may slightly increase join time bandwidth usage compared to real client-server joins.","Randomize instance order during join for test clients. This helps uncover bugs by approximating the behavior of real clients & servers, where the order of instances will change over time as more players join. Randomization may slightly increase join time bandwidth usage compared to real client-server joins.",,,
+Studio.App.Property.AreTimestepsShown,,,Are Timesteps Shown,Are Timesteps Shown,,,
+Studio.App.Property.DisplayLanguage,,,Language,Language,,,
+Studio.App.Property.RandomizeJoinInstanceOrder,,,Randomize Test Join Order,Randomize Test Join Order,,,
+Studio.App.RobloxMainWindow.ChooseAPlaceInGameExplorer1,,,"Choose an instance as parent in game explorer to save %1 
+","Choose an instance as parent in game explorer to save %1 
+",,,
+Studio.App.RobloxRibbonMainWindow.DocHistoryBackwards,,,Step backwards through tab history,Step backwards through tab history,,,
+Studio.App.RobloxRibbonMainWindow.DocHistoryForwards,,,Step forwards through tab history,Step forwards through tab history,,,
+Studio.App.RobloxRibbonMainWindow.InternalFeaturesMessageBoxContent,,,"Your account is associated with an @roblox.com email address or has Soothsayer permissions. You also have internal-only features turned on.
+Do you want to disable Internal Features? This will make your Studio experience identical to developers.
+You can go to Settings > Studio > Advanced to re-enable Internal Features.","Your account is associated with an @roblox.com email address or has Soothsayer permissions. You also have internal-only features turned on.
+Do you want to disable Internal Features? This will make your Studio experience identical to developers.
+You can go to Settings > Studio > Advanced to re-enable Internal Features.",,,
+Studio.App.RobloxRibbonMainWindow.InternalFeaturesRestart,,,Restart Roblox Studio,Restart Roblox Studio,,,
+Studio.App.RobloxRibbonMainWindow.InternalFeaturesRestartDetails,,,Roblox Studio need to restart to disable Internal Features,Roblox Studio need to restart to disable Internal Features,,,
+Studio.App.RobloxMainWindow.NewScriptTab,,,New Script Tab,New Script Tab,,,
+Studio.App.RobloxMainWindow.OnlySaveToEditDM,,,Can only save in Edit Mode,Can only save in Edit Mode,,,
+Studio.App.RobloxMainWindow.SaveCurrentScriptTab,,,Save Current Script Tab,Save Current Script Tab,,,
+Studio.App.RobloxMainWindow.SaveScript,,,Save Script,Save Script,,,
+Studio.App.RobloxMainWindow.SaveScript1,,,Save Script %1 ?,Save Script %1 ?,,,
+Studio.App.RobloxMainWindow.SelectOneInstance,,,Please select only one instance,Please select only one instance,,,
+Studio.App.RobloxMainWindow.UnableToSave,,,Unable To Save,Unable To Save,,,
+Studio.App.RobloxMainWindow.UnsavedScripts,,,Unsaved Scripts,Unsaved Scripts,,,
+Studio.App.RobloxRibbonMainWindow.InternalBetaFeatures,,,Roblox Internal – Beta,Roblox Internal – Beta,,,
+Studio.App.RobloxRibbonMainWindow.InternalFeatures,,,Roblox Internal,Roblox Internal,,,
+Studio.App.RobloxRibbonMainWindow.InternalFeaturesAreEnabled,,,Internal Features are enabled,Internal Features are enabled,,,
+Studio.App.SettingsCategory.NetworkAdvanced,,,Advanced,Advanced,,,
+Studio.App.StudioProjectConfig.UnexpectedFieldWarning2,,,"The Project File has unexpected fields, they will be ignored. 
+%1 
+%2","The Project File has unexpected fields, they will be ignored. 
+%1 
+%2",,,
+Studio.App.UploadImageRequest.CouldNotOpenFile1,,,Could not open file %1,Could not open file %1,,,
 Studio.Common.Action.Apply,,,Apply,Apply,적용,Применить,应用
 Studio.Common.Action.Back,,,Back,Back,뒤로,Назад,返回
 Studio.Common.Action.Cancel,,,Cancel,Cancel,취소,Отмена,取消
@@ -3295,7 +3346,7 @@ Studio.Common.Action.Pause,,,Pause,Pause,일시 중지,Пауза,暂停
 Studio.Common.Action.Play,,,Play,Play,플레이,Воспроизвести,开始游戏
 Studio.Common.Action.Previous,,,Previous,Previous,이전,Предыдущий,上一个
 Studio.Common.Action.Reload,,,Reload,Reload,다시 불러오기,Перезагрузить,重新加载
-Studio.Common.Action.Remove,,,Remove,Remove,제거,Удалить,删除
+Studio.Common.Action.Remove,,,Remove,Remove,제거,Удалить,移除
 Studio.Common.Action.Rename,,,Rename,Rename,이름 변경,Переименовать,重命名
 Studio.Common.Action.Replace,,,Replace,Replace,바꾸기,Заменить,替换
 Studio.Common.Action.Resize,,,Resize,Resize,크기 조정,Изменить размер,缩放

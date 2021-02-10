@@ -125,6 +125,8 @@ Studio.App.BetaFeatures.NonTeamCreateScriptVersionHistoryDescription,,Can right 
 Studio.App.BetaFeatures.NonTeamCreateScriptVersionHistoryTitle,,Script Version History for Non TeamCreate games,Script Version History for Non TeamCreate games
 Studio.App.BetaFeatures.PackagePermissionsDescription,,"Add any group, user, or role as a user or editor for your packages through the Package Management action in Game Explorer","Add any group, user, or role as a user or editor for your packages through the Package Management action in Game Explorer"
 Studio.App.BetaFeatures.PackagePermissionsTitle,,Packages Permissions,Packages Permissions
+Studio.App.BetaFeatures.ParallelLuaDescription,,Allows writing scripts that can execute in parallel to improve throughput.,Allows writing scripts that can execute in parallel to improve throughput.
+Studio.App.BetaFeatures.ParallelLuaTitle,,Parallel Lua,Parallel Lua
 Studio.App.BetaFeatures.PhysicsNewConvexDecompositionDescription,,"Enable the new CollisionFidelity, which uses a method called HACD to generate collision geometry with precise surfaces.","Enable the new CollisionFidelity, which uses a method called HACD to generate collision geometry with precise surfaces."
 Studio.App.BetaFeatures.PhysicsNewConvexDecompositionTitle,,Enable CollisionFidelity.PreciseConvexDecomposition.,Enable CollisionFidelity.PreciseConvexDecomposition.
 Studio.App.BetaFeatures.PhysicsSleepImprovementsDescription,,Set of changes that should make simulated parts awake and fall asleep more reliably.,Set of changes that should make simulated parts awake and fall asleep more reliably.
@@ -827,9 +829,15 @@ Studio.App.LoginManager.ToSMessage3,,"By clicking ""%1"", you are agreeing to th
 Studio.App.LoginManager.ToSTitle,,Roblox Terms of Service,Roblox Terms of Service
 Studio.App.LoginManager.UserAgreementsAcceptanceCancel,,Are you sure you want to cancel? This will log you out and close all other running instances of Studio.,Are you sure you want to cancel? This will log you out and close all other running instances of Studio.
 Studio.App.LoginManager.UserAgreementsAcceptanceFailure,,Failed to accept user agreements. Please try to login again or contact support if problem persists.,Failed to accept user agreements. Please try to login again or contact support if problem persists.
+Studio.App.LoginRequest.CaptchaError,Start page login,Please complete the Captcha in order to log in.,Please complete the Captcha in order to log in.
 Studio.App.LoginRequest.InternalServerError,Start page login,Our servers are having problems right now. Please try again later.,Our servers are having problems right now. Please try again later.
 Studio.App.LoginRequest.NetworkConnection,Start page login,Could not connect to the server. Please check your internet connection and try again later.,Could not connect to the server. Please check your internet connection and try again later.
+Studio.App.LoginRequest.NullPasswordError,Start page login,Unable to log in via username / password. Please use your WeChat / QQ account to log in.,Unable to log in via username / password. Please use your WeChat / QQ account to log in.
 Studio.App.LoginRequest.ParseError,Start page login,Could not read response from server. Please try again later.,Could not read response from server. Please try again later.
+Studio.App.LoginRequest.PasswordResetRequiredError,Start page login,Account has been locked. Please request a password reset.,Account has been locked. Please request a password reset.
+Studio.App.LoginRequest.TwoStepVerificationFailureError,Start page login,Account issue encountered. Please contact <a href='https://www.roblox.com/support'>support</a>,Account issue encountered. Please contact <a href='https://www.roblox.com/support'>support</a>
+Studio.App.LoginRequest.TwoStepVerificationFloodedError,Start page login,Too many attempts. Please try again later.,Too many attempts. Please try again later.
+Studio.App.LoginRequest.UnknownError,Start page login,"Something went wrong. Please try again later, or contact <a href='https://www.roblox.com/support'>support</a>","Something went wrong. Please try again later, or contact <a href='https://www.roblox.com/support'>support</a>"
 Studio.App.MainWindow.32BitParens,Main Window, (32bit), (32bit)
 Studio.App.MainWindow.64BitParens,Main Window, (64bit), (64bit)
 Studio.App.MainWindow.AboutRobloxStudio,Main Window,About Roblox Studio,About Roblox Studio
@@ -2586,6 +2594,8 @@ Studio.App.ScriptingCmd.FORMATALL,,Format Document,Format Document
 Studio.App.ScriptingCmd.FORMATALLTooltip,,Format whole document,Format whole document
 Studio.App.ScriptingCmd.FORMATSEL,,Format Selection,Format Selection
 Studio.App.ScriptingCmd.FORMATSELTooltip,,Format selected range of document,Format selected range of document
+Studio.App.ScriptingCmd.GOTODECL,,Go To Declaration,Go To Declaration
+Studio.App.ScriptingCmd.GOTODECLTooltip,,Go to variable declaration,Go to variable declaration
 Studio.App.ScriptingCmd.GOTOPOS,,Go to line...,Go to line...
 Studio.App.ScriptingCmd.GOTOPOSTooltip,,Go to line...,Go to line...
 Studio.App.ScriptingCmd.INDENT,,Indent,Indent
@@ -2704,7 +2714,7 @@ Studio.App.StartPageLogin.OpeningPlaceElps,,Opening place...,Opening place...
 Studio.App.StartPageLogin.Password,,Password,Password
 Studio.App.StartPageLogin.PrivacyPolicy,,Privacy Policy,Privacy Policy
 Studio.App.StartPageLogin.SignUp,,Sign up,Sign up
-Studio.App.StartPageLogin.StartCreatingOwnGames,,Start creating your own games with Roblox Studio!,Start creating your own games with Roblox Studio!
+Studio.App.StartPageLogin.StartCreatingOwnGames,,Start creating your own games!,Start creating your own games!
 Studio.App.StartPageLogin.TwoStepVerificationEmailInstruction,,Enter the code we just sent to you via email,Enter the code we just sent to you via email
 Studio.App.StartPageLogin.TwoStepVerificationSmsInstruction,,Enter the code we just sent to you via sms,Enter the code we just sent to you via sms
 Studio.App.StartPageLogin.TwoStepVerificationTitle,,2-Step Verification,2-Step Verification
@@ -2832,10 +2842,12 @@ Studio.App.UniverseController.CanAddToGame,,This place does not belong to a game
 Studio.App.UniverseController.FailedToLoadGameAssets,,"Failed to load game assets, some Studio features have been disabled.","Failed to load game assets, some Studio features have been disabled."
 Studio.App.UniverseController.ThisPlaceDoesNotBelongToAGame,,This place does not belong to a game.,This place does not belong to a game.
 Studio.App.UpdateUIManager.Chat,,Chat,Chat
+Studio.App.UpdateUIManager.Cores,CPU Core Count,Cores,Cores
 Studio.App.UpdateUIManager.PublishTcDocToDiffSlot,,Publish Team Create Document to a different slot,Publish Team Create Document to a different slot
 Studio.App.UpdateUIManager.PublishToRobloxToElps,,Publish to Roblox To...,Publish to Roblox To...
 Studio.App.UpdateUIManager.SaveTcDocToDiffSlot,,Save Team Create Document to a different slot,Save Team Create Document to a different slot
 Studio.App.UpdateUIManager.SaveToRobloxToElps,,Save to Roblox To...,Save to Roblox To...
+Studio.App.UpdateUIManager.Scheduler,Object used to schedule jobs,Scheduler,Scheduler
 Studio.App.UpdateUIManager.ViewChatWindow,,View Chat Window,View Chat Window
 Studio.App.Updates.BetaFeatureDescription,,"Instead of blocking the opening of new Studio windows and test sessions when an update is available, cancellable prompts will periodically appear offering to update Studio","Instead of blocking the opening of new Studio windows and test sessions when an update is available, cancellable prompts will periodically appear offering to update Studio"
 Studio.App.Updates.BetaFeatureName,,Safe Studio Updates,Safe Studio Updates

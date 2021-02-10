@@ -510,6 +510,7 @@ boost::detail::sp_counted_impl_p<struct boost::filesystem::detail::dir_itr_imp>
 boost::detail::sp_counted_impl_p<struct boost::filesystem::filesystem_error::m_imp>
 boost::detail::sp_counted_impl_pd<class std::basic_istream<char,struct std::char_traits<char> > * ptr64,struct boost::program_options::detail::null_deleter>
 boost::detail::sp_counted_impl_pd<struct boost::thread_specific_ptr<class RBX::DataModel::GenericJob * ptr64>::delete_data * ptr64,struct boost::detail::do_heap_delete<struct boost::thread_specific_ptr<class RBX::DataModel::GenericJob * ptr64>::delete_data> >
+boost::detail::sp_counted_impl_pd<struct boost::thread_specific_ptr<class std::string >::delete_data * ptr64,struct boost::detail::do_heap_delete<struct boost::thread_specific_ptr<class std::string >::delete_data> >
 boost::detail::sp_counted_impl_pd<struct boost::thread_specific_ptr<class std::vector<struct RBX::Profiler::ActiveRegion,class std::allocator<struct RBX::Profiler::ActiveRegion> > >::delete_data * ptr64,struct boost::detail::do_heap_delete<struct boost::thread_specific_ptr<class std::vector<struct RBX::Profiler::ActiveRegion,class std::allocator<struct RBX::Profiler::ActiveRegion> > >::delete_data> >
 boost::detail::sp_counted_impl_pd<struct boost::thread_specific_ptr<int>::delete_data * ptr64,struct boost::detail::do_heap_delete<struct boost::thread_specific_ptr<int>::delete_data> >
 boost::detail::sp_counted_impl_pd<struct RBX::DecompConvexExtents * ptr64,struct boost::checked_array_deleter<struct RBX::DecompConvexExtents> >
@@ -887,6 +888,8 @@ DEPRECATED_ConnectionIndicator
 DEPRECATED_LinkEnabledPlainTextEdit
 DEPRECATED_RobloxOutputPlainTextEdit
 DEPRECATED_RobloxTextOutputWidget
+DEPRECATED_TwoStepVerificationRequest
+DEPRECATED_TwoStepVerificationRequestAuth
 DetailsTableComponent
 DeveloperProductWebFactory
 DeviceListModel
@@ -1164,7 +1167,6 @@ LuaSourceBuffer
 LuaSourceBufferBasic
 Luau::AstErrorTypeAnnotation
 Luau::AstExpr
-Luau::AstExprAs
 Luau::AstExprBinary
 Luau::AstExprCall
 Luau::AstExprConstantBool
@@ -1179,6 +1181,7 @@ Luau::AstExprIndexExpr
 Luau::AstExprIndexName
 Luau::AstExprLocal
 Luau::AstExprTable
+Luau::AstExprTypeAssertion
 Luau::AstExprUnary
 Luau::AstExprVarargs
 Luau::AstFunctionTypeAnnotation
@@ -3132,12 +3135,17 @@ RBX::LRUCache<class std::string,struct RBX::ScriptAnalyzer::Result,struct boost:
 RBX::LRUCache<struct RBX::ChatService::MessageAndSenderId,struct RBX::TextFilterResult,struct boost::hash<struct RBX::ChatService::MessageAndSenderId> >
 RBX::LRUCache<struct RBX::HttpTarget,struct RBX::LuaWebService::CachedLuaWebServiceInfo,struct RBX::HttpTargetHasher>
 RBX::LRUCache<struct RBX::HttpTarget,struct RBX::LuaWebService::CachedRawLuaWebServiceInfo,struct RBX::HttpTargetHasher>
+RBX::LSP::FragmentScript
 RBX::LSP::IHostAppServices
 RBX::LSP::ILanguageClient
 RBX::LSP::ILanguageServer
+RBX::LSP::ILSPRbxWorkspace
+RBX::LSP::InstanceScript
 RBX::LSP::IServerThreadDelegate
 RBX::LSP::ISocket
 RBX::LSP::ISocketDelegate
+RBX::LSP::IWorkspaceConnection
+RBX::LSP::IWorkspaceScript
 RBX::LSP::LanguageClientBase
 RBX::LSP::LanguageServerBase
 RBX::LSP::LSPJsonParseError
@@ -3148,6 +3156,8 @@ RBX::LSP::LuauLanguageServerExt
 RBX::LSP::LuauScriptHighlighter
 RBX::LSP::LuauScriptTextProvider
 RBX::LSP::LuauSemanticHighlighter
+RBX::LSP::ScriptWorkspace
+RBX::LSP::ScriptWorkspaceConnection
 RBX::LSP::TextDocument
 RBX::Lua::EventSignalWrapper<void cdecl(class std::shared_ptr<class RBX::Instance>),class rbx::signal<void cdecl(class std::shared_ptr<class RBX::Instance>)> >
 RBX::Lua::EventSignalWrapper<void cdecl(class std::string),class rbx::signal<void cdecl(class std::string)> >
@@ -3304,6 +3314,7 @@ RBX::Network::ResolveNewInstanceAtomicTreeItem
 RBX::Network::RomarkPhaseTrackingJob
 RBX::Network::Rupp::Ipv4Tlv
 RBX::Network::Rupp::Ipv6Tlv
+RBX::Network::Rupp::TokenTlv
 RBX::Network::Rupp::TypeLengthValue
 RBX::Network::Server
 RBX::Network::ServerReplicator
@@ -6726,6 +6737,7 @@ RBX::Reflection::PropDescriptor<class RBX::TextBox,class G3D::Vector2>::GetImpl<
 RBX::Reflection::PropDescriptor<class RBX::TextBox,class RBX::BrickColor>
 RBX::Reflection::PropDescriptor<class RBX::TextBox,class RBX::BrickColor>::GetSetImpl<class RBX::BrickColor (cdecl RBX::GuiTextMixin<class RBX::TextBox,class RBX::DescribedCreatable<class RBX::TextBox,class RBX::GuiObject> >::*)(void)const ptr64,void (cdecl RBX::GuiTextMixin<class RBX::TextBox,class RBX::DescribedCreatable<class RBX::TextBox,class RBX::GuiObject> >::*)(class RBX::BrickColor) ptr64>
 RBX::Reflection::PropDescriptor<class RBX::TextBox,class std::string >
+RBX::Reflection::PropDescriptor<class RBX::TextBox,class std::string >::GetImpl<class std::string const & ptr64 (cdecl RBX::GuiTextMixin<class RBX::TextBox,class RBX::DescribedCreatable<class RBX::TextBox,class RBX::GuiObject> >::*)(void)const ptr64>
 RBX::Reflection::PropDescriptor<class RBX::TextBox,class std::string >::GetSetImpl<class std::string const & ptr64 (cdecl RBX::GuiTextMixin<class RBX::TextBox,class RBX::DescribedCreatable<class RBX::TextBox,class RBX::GuiObject> >::*)(void)const ptr64,void (cdecl RBX::GuiTextMixin<class RBX::TextBox,class RBX::DescribedCreatable<class RBX::TextBox,class RBX::GuiObject> >::*)(class std::string) ptr64>
 RBX::Reflection::PropDescriptor<class RBX::TextBox,class std::string >::GetSetImpl<class std::string const & ptr64 (cdecl RBX::TextBox::*)(void)const ptr64,void (cdecl RBX::TextBox::*)(class std::string) ptr64>
 RBX::Reflection::PropDescriptor<class RBX::TextBox,enum RBX::Text::Font>::GetSetImpl<enum RBX::Text::Font (cdecl RBX::GuiTextMixin<class RBX::TextBox,class RBX::DescribedCreatable<class RBX::TextBox,class RBX::GuiObject> >::*)(void)const ptr64,void (cdecl RBX::GuiTextMixin<class RBX::TextBox,class RBX::DescribedCreatable<class RBX::TextBox,class RBX::GuiObject> >::*)(enum RBX::Text::Font) ptr64>
@@ -7544,6 +7556,7 @@ RBX::ScriptEditor::CmdDocumentFormatting
 RBX::ScriptEditor::CmdDuplicateSelection
 RBX::ScriptEditor::CmdFoldAll
 RBX::ScriptEditor::CmdFoldToggle
+RBX::ScriptEditor::CmdGoToDeclaration
 RBX::ScriptEditor::CmdGotoPosition
 RBX::ScriptEditor::CmdIndentSelection
 RBX::ScriptEditor::CmdInsertText
@@ -7687,7 +7700,6 @@ RBX::Soundscape::DistortionSoundEffect
 RBX::Soundscape::EchoSoundEffect
 RBX::Soundscape::EqualizerSoundEffect
 RBX::Soundscape::FlangeSoundEffect
-RBX::Soundscape::FMODPlaybackChannel::OnFMODChannelCreatedListener_DEPRECATED
 RBX::Soundscape::PitchShiftSoundEffect
 RBX::Soundscape::PlaybackChannelOwner
 RBX::Soundscape::ReverbSoundEffect
@@ -8309,6 +8321,7 @@ std::_Func_base<void,class LuaSourceBuffer>
 std::_Func_base<void,class QJsonDocument const & ptr64,struct HttpResponseProxy const & ptr64>
 std::_Func_base<void,class QJsonObject const & ptr64,struct HttpResponseProxy const & ptr64>
 std::_Func_base<void,class QJsonObject const & ptr64>
+std::_Func_base<void,class QList<class QAction * ptr64>,class QList<class QAction * ptr64> & ptr64>
 std::_Func_base<void,class QMap<class QString,struct IGameIconsStore::GameIconDescription> >
 std::_Func_base<void,class QNetworkReply * ptr64>
 std::_Func_base<void,class QPointer<class QNetworkReply> >
@@ -8322,6 +8335,7 @@ std::_Func_base<void,class QVector<class StudioUserPresence> >
 std::_Func_base<void,class QVector<struct RobloxApiGame>,class QString>
 std::_Func_base<void,class QWidgetAction * ptr64>
 std::_Func_base<void,class RBX::DataModel * ptr64,class std::shared_ptr<class RBX::LSP::IWorkspaceScript> >
+std::_Func_base<void,class RBX::DataModel * ptr64>
 std::_Func_base<void,class RBX::FileSyncItem * ptr64>
 std::_Func_base<void,class RBX::HttpClient & ptr64,class RBX::HttpRequest & ptr64>
 std::_Func_base<void,class RBX::HttpIncomingMessage & ptr64,class RBX::HttpServerResponse & ptr64>
@@ -8356,6 +8370,7 @@ std::_Func_base<void,class std::shared_ptr<class StudioCmdBase> const & ptr64>
 std::_Func_base<void,class std::shared_ptr<struct RBX::GroupService::GroupRolesResult const > >
 std::_Func_base<void,class std::shared_ptr<struct RBX::LocalizationTable::Entry>,class std::vector<struct RBX::Localization::Capture,class std::allocator<struct RBX::Localization::Capture> > const & ptr64>
 std::_Func_base<void,class std::shared_ptr<struct RBX::LSP::CompletionResponse> const & ptr64>
+std::_Func_base<void,class std::shared_ptr<struct RBX::LSP::DeclarationResponse> const & ptr64>
 std::_Func_base<void,class std::shared_ptr<struct RBX::LSP::InitializeResponse> const & ptr64>
 std::_Func_base<void,class std::shared_ptr<struct RBX::LSP::Response> const & ptr64>
 std::_Func_base<void,class std::shared_ptr<struct RBX::LSP::RobloxFindColor3ConstructorResponse> const & ptr64>
@@ -8483,6 +8498,7 @@ std::_Func_impl_no_alloc<class std::_Binder<struct std::_Unforced,void (cdecl we
 std::_Func_impl_no_alloc<class std::_Fake_no_copy_callable_adapter<unsigned int (cdecl Etc::Image::*)(unsigned int,unsigned int,unsigned int) ptr64,class Etc::Image * ptr64,unsigned int & ptr64,int & ptr64,unsigned int & ptr64>,unsigned int>
 std::_Func_impl_no_alloc<class std::_Fake_no_copy_callable_adapter<void (cdecl Etc::Image::*)(unsigned int,unsigned int) ptr64,class Etc::Image * ptr64,int & ptr64,unsigned int & ptr64>,void>
 std::_Func_impl_no_alloc<class std::function<void cdecl(class std::shared_ptr<struct RBX::LSP::Response> const & ptr64)>,void,class std::shared_ptr<struct RBX::LSP::CompletionResponse> const & ptr64>
+std::_Func_impl_no_alloc<class std::function<void cdecl(class std::shared_ptr<struct RBX::LSP::Response> const & ptr64)>,void,class std::shared_ptr<struct RBX::LSP::DeclarationResponse> const & ptr64>
 std::_Func_impl_no_alloc<class std::function<void cdecl(class std::shared_ptr<struct RBX::LSP::Response> const & ptr64)>,void,class std::shared_ptr<struct RBX::LSP::InitializeResponse> const & ptr64>
 std::_Func_impl_no_alloc<class std::function<void cdecl(class std::shared_ptr<struct RBX::LSP::Response> const & ptr64)>,void,class std::shared_ptr<struct RBX::LSP::RobloxFindColor3ConstructorResponse> const & ptr64>
 std::_Func_impl_no_alloc<class std::function<void cdecl(class std::shared_ptr<struct RBX::LSP::Response> const & ptr64)>,void,class std::shared_ptr<struct RBX::LSP::RobloxFindExecutablePositionResponse> const & ptr64>
@@ -8704,6 +8720,8 @@ std::_Ref_count_obj<class RBX::LMS::Target>
 std::_Ref_count_obj<class RBX::Localization::Expression>
 std::_Ref_count_obj<class RBX::LocalizationServiceStatReporter>
 std::_Ref_count_obj<class RBX::LocalizationTable::EntryIndex>
+std::_Ref_count_obj<class RBX::LSP::FragmentScript>
+std::_Ref_count_obj<class RBX::LSP::InstanceScript>
 std::_Ref_count_obj<class RBX::LSP::LSPSocket>
 std::_Ref_count_obj<class RBX::LSP::LuauDataModelSync>
 std::_Ref_count_obj<class RBX::LSP::LuauLanguageServerExt>
@@ -8718,10 +8736,12 @@ std::_Ref_count_obj<class RBX::MemoryPrioritizationJob>
 std::_Ref_count_obj<class RBX::MemStorageConnection>
 std::_Ref_count_obj<class RBX::MessagingServiceAnalysisJob>
 std::_Ref_count_obj<class RBX::ModelMeshJob>
+std::_Ref_count_obj<class RBX::Motion::ModelSkinning>
 std::_Ref_count_obj<class RBX::NavigationPath>
 std::_Ref_count_obj<class RBX::NavigationService>
 std::_Ref_count_obj<class RBX::Network::DeserializedChangeAttributeItem>
 std::_Ref_count_obj<class RBX::Network::NetworkStream>
+std::_Ref_count_obj<class RBX::Network::Rupp::Rupp>
 std::_Ref_count_obj<class RBX::Network::StreamingObserver::ResizeJob>
 std::_Ref_count_obj<class RBX::PackageAssetModel>
 std::_Ref_count_obj<class RBX::PackageHashCache>
@@ -8747,6 +8767,7 @@ std::_Ref_count_obj<class RBX::ScriptEditor::CmdDocumentFormatting>
 std::_Ref_count_obj<class RBX::ScriptEditor::CmdDuplicateSelection>
 std::_Ref_count_obj<class RBX::ScriptEditor::CmdFoldAll>
 std::_Ref_count_obj<class RBX::ScriptEditor::CmdFoldToggle>
+std::_Ref_count_obj<class RBX::ScriptEditor::CmdGoToDeclaration>
 std::_Ref_count_obj<class RBX::ScriptEditor::CmdGotoPosition>
 std::_Ref_count_obj<class RBX::ScriptEditor::CmdIndentSelection>
 std::_Ref_count_obj<class RBX::ScriptEditor::CmdInsertText>
@@ -8903,7 +8924,6 @@ std::_Ref_count_obj<struct Concurrency::streams::basic_istream<unsigned char>::_
 std::_Ref_count_obj<struct HttpResponseProxy>
 std::_Ref_count_obj<struct InstancesQuickOpenProviderSharedState>
 std::_Ref_count_obj<struct Luau::Scope>
-std::_Ref_count_obj<struct Luau::SourceModule>
 std::_Ref_count_obj<struct MassUpdateModel::PackageInfo>
 std::_Ref_count_obj<struct MassUpdateModel::PlaceInfo>
 std::_Ref_count_obj<struct MemStorage::Context>
@@ -8934,6 +8954,9 @@ std::_Ref_count_obj<struct RBX::LocalizationTable::Entry>
 std::_Ref_count_obj<struct RBX::LSP::CancelRequest>
 std::_Ref_count_obj<struct RBX::LSP::CompletionRequest>
 std::_Ref_count_obj<struct RBX::LSP::CompletionResponse>
+std::_Ref_count_obj<struct RBX::LSP::ConnectionState>
+std::_Ref_count_obj<struct RBX::LSP::DeclarationRequest>
+std::_Ref_count_obj<struct RBX::LSP::DeclarationResponse>
 std::_Ref_count_obj<struct RBX::LSP::GeneralResponse>
 std::_Ref_count_obj<struct RBX::LSP::InitializedNotification>
 std::_Ref_count_obj<struct RBX::LSP::InitializeRequest>
@@ -9670,7 +9693,6 @@ std::_Ref_count<class RBX::Network::Replicator::SendDataJob>
 std::_Ref_count<class RBX::Network::Replicator::SendStatsJob>
 std::_Ref_count<class RBX::Network::Replicator::StreamJob>
 std::_Ref_count<class RBX::Network::RomarkPhaseTrackingJob>
-std::_Ref_count<class RBX::Network::Rupp::Rupp>
 std::_Ref_count<class RBX::NonTeamCreateScriptTracker>
 std::_Ref_count<class RBX::PersistentDataStore>
 std::_Ref_count<class RBX::PhysicsJob>
@@ -9965,8 +9987,6 @@ ToolButtonProxyMenu
 TotalCountTimeIntervalItem
 TreeWidgetDelegate
 TSJobItem
-TwoStepVerificationRequest
-TwoStepVerificationRequestAuth
 type_info
 Ui::RBXMainWindow
 Ui::TeamCreate

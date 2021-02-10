@@ -57,8 +57,8 @@ Rectangle {
         height: 205
         transformOrigin: Item.Center
         fillMode: Image.PreserveAspectCrop
-        source: RobloxStyle.getResource("../images/StartPage/img_venetia-1920x1080.jpg")
-
+        source: RobloxStyle.getResource("../images/StartPage/header_background.png")
+        
         Rectangle {
             // Sits on top of the banner image
             id: overlayShadow
@@ -68,25 +68,34 @@ Rectangle {
             height: parent.height
             color: "#a6000000"
             border.color: "#00000000"
-
+            
             Image {
-                id: logo
+                id: glow
                 anchors.top: parent.top
                 anchors.horizontalCenter: parent.horizontalCenter
-                anchors.topMargin: 36
-                width: 90
-                height: 90
+                anchors.topMargin: 0
                 smooth: true
                 mipmap: true
                 fillMode: Image.PreserveAspectFit
-                source: RobloxStyle.getResource("../images/StartPage/RobloxStudio.png")
+                source: RobloxStyle.getResource("../images/StartPage/header_glow.png")
+                
+                Image {
+                    id: logo
+                    anchors.top: parent.top
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    anchors.topMargin: 53
+                    smooth: true
+                    mipmap: true
+                    fillMode: Image.Pad
+                    source: RobloxStyle.getResource("../images/StartPage/roblox_studio_letterfrom_logo.png")
+                }
             }
-
+            
             PlainText {
                 id: bannerTitle
                 anchors.horizontalCenter: parent.horizontalCenter
                 anchors.bottom: parent.bottom
-                anchors.bottomMargin: 36
+                anchors.bottomMargin: 53
                 verticalAlignment: Text.AlignBottom
                 text: qsTr("Studio.App.StartPageLogin.StartCreatingOwnGames")
                 font.pixelSize: 21
@@ -336,6 +345,10 @@ Rectangle {
                 target: loginButton
                 visible: false
             }
+            PropertyChanges {
+                target: externalLoginLink
+                visible: !loginManager.externalLoginLinkCheck() && loginManager.showExternalLoginLink()
+            }
         },
         State {
             name: "STATE_EMPTY_USERNAME_AND_PASSWORD_ERROR"
@@ -403,6 +416,10 @@ Rectangle {
                 target: loginButton
                 visible: false
             }
+            PropertyChanges {
+                target: externalLoginLink
+                visible: !loginManager.externalLoginLinkCheck() && loginManager.showExternalLoginLink()
+            }
         },
         State {
             name: "STATE_LOGGING_OUT"
@@ -449,6 +466,10 @@ Rectangle {
             PropertyChanges {
                 target: privacyPolicyLink
                 visible: false
+            }
+            PropertyChanges {
+                target: externalLoginLink
+                visible: !loginManager.externalLoginLinkCheck() && loginManager.showExternalLoginLink()
             }
         },
         State {
@@ -502,6 +523,10 @@ Rectangle {
                 target: privacyPolicyLink
                 visible: false
             }
+            PropertyChanges {
+                target: externalLoginLink
+                visible: !loginManager.externalLoginLinkCheck() && loginManager.showExternalLoginLink()
+            }
         },
         State {
             // We automatically try to authenticate you in the background when
@@ -554,6 +579,10 @@ Rectangle {
                 target: privacyPolicyLink
                 visible: false
             }
+            PropertyChanges {
+                target: externalLoginLink
+                visible: !loginManager.externalLoginLinkCheck() && loginManager.showExternalLoginLink()
+            }
         },
         State {
             name: "STATE_LOGGED_OUT"
@@ -589,6 +618,10 @@ Rectangle {
             PropertyChanges {
                 target: privacyPolicyLink
                 visible: false
+            }
+            PropertyChanges {
+                target: externalLoginLink
+                visible: !loginManager.externalLoginLinkCheck() && loginManager.showExternalLoginLink()
             }
         },
         State {
@@ -635,6 +668,10 @@ Rectangle {
             PropertyChanges {
                 target: privacyPolicyLink
                 visible: false
+            }
+            PropertyChanges {
+                target: externalLoginLink
+                visible: !loginManager.externalLoginLinkCheck() && loginManager.showExternalLoginLink()
             }
         }
     ]
@@ -712,7 +749,12 @@ Rectangle {
             }
         }
         onOpenRobloxLogin: {
-            loginPage.state = kDefaultState;
+            if (loginManager.clearLoginFieldsCheck()) {
+                resetLoginData();
+            }
+            else {
+                loginPage.state = kDefaultState;
+            }
         }
     }
 }

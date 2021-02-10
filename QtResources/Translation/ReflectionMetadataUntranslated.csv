@@ -660,10 +660,13 @@ Studio.ReflectionMetadata.ReflectionMetadata.TerrainGetCell,,,"Returns CellMater
 Studio.ReflectionMetadata.ReflectionMetadata.TerrainGetWaterCell,,,"Returns hasAnyWater, WaterForce, WaterDirection","Returns hasAnyWater, WaterForce, WaterDirection"
 Studio.ReflectionMetadata.ReflectionMetadata.TerrainRegion,,,Object representing a snapshot of the region of terrain,Object representing a snapshot of the region of terrain
 Studio.ReflectionMetadata.ReflectionMetadata.TextBox,,,A text entry box,A text entry box
+Studio.ReflectionMetadata.ReflectionMetadata.TextBoxContent,,,Raw string without format information that will be displayed.,Raw string without format information that will be displayed.
 Studio.ReflectionMetadata.ReflectionMetadata.TextBoxTextColor,,,Deprecated. Use TextColor3 instead,Deprecated. Use TextColor3 instead
 Studio.ReflectionMetadata.ReflectionMetadata.TextButton,,,A GUI button containing text,A GUI button containing text
+Studio.ReflectionMetadata.ReflectionMetadata.TextButtonContent,,,Raw string without format information that will be displayed.,Raw string without format information that will be displayed.
 Studio.ReflectionMetadata.ReflectionMetadata.TextButtonTextColor,,,Deprecated. Use TextColor3 instead,Deprecated. Use TextColor3 instead
 Studio.ReflectionMetadata.ReflectionMetadata.TextLabel,,,A GUI object containing text,A GUI object containing text
+Studio.ReflectionMetadata.ReflectionMetadata.TextLabelContent,,,Raw string without format information that will be displayed.,Raw string without format information that will be displayed.
 Studio.ReflectionMetadata.ReflectionMetadata.TextLabelTextColor,,,Deprecated. Use TextColor3 instead,Deprecated. Use TextColor3 instead
 Studio.ReflectionMetadata.ReflectionMetadata.TouchTransmitter,,,Used by networking and replication code to transmit touch events - no other purpose,Used by networking and replication code to transmit touch events - no other purpose
 Studio.ReflectionMetadata.ReflectionMetadata.Trail,,,Makes two attachments emit trail when moving,Makes two attachments emit trail when moving

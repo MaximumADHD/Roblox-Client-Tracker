@@ -7034,6 +7034,12 @@
             <string name="summary">Deprecated. Use TextColor3 instead</string>
           </Properties>
         </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Content</string>
+            <string name="summary">Raw string without format information that will be displayed.</string>
+          </Properties>
+        </Item>
       </Item>
     </Item>
     <Item class="ReflectionMetadataClass">
@@ -7053,6 +7059,12 @@
             <string name="summary">Deprecated. Use TextColor3 instead</string>
           </Properties>
         </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Content</string>
+            <string name="summary">Raw string without format information that will be displayed.</string>
+          </Properties>
+        </Item>
       </Item>
     </Item>
     <Item class="ReflectionMetadataClass">
@@ -7070,6 +7082,12 @@
             <string name="Name">TextColor</string>
             <bool name="Deprecated">true</bool>
             <string name="summary">Deprecated. Use TextColor3 instead</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Content</string>
+            <string name="summary">Raw string without format information that will be displayed.</string>
           </Properties>
         </Item>
       </Item>
