@@ -123,7 +123,7 @@ Studio.TerrainToolsV2.ImportError.DataModelPreprocessNullptr, ,An internal error
 Studio.TerrainToolsV2.ImportError.DataModelWorkerNullptr, ,An internal error has occurred.
 Studio.TerrainToolsV2.ImportError.FailedToFindInContentProvider, ,Image could not be found.
 Studio.TerrainToolsV2.ImportError.FailedToGenerateHeightmapPreview, ,An internal error has occurred.
-Studio.TerrainToolsV2.ImportError.FailedToGenerateHeightmapPreviewTitle, ,Failed to generate preview image
+Studio.TerrainToolsV2.ImportError.FailedToGenerateHeightmapPreviewTitle, ,Failed to generate preview image.
 Studio.TerrainToolsV2.ImportError.FailedToLoadColormap, ,Failed to load colormap
 Studio.TerrainToolsV2.ImportError.FailedToLoadHeightmap, ,Failed to load heightmap
 Studio.TerrainToolsV2.ImportError.FailedToReadImage, ,Image is not a valid PNG file.
@@ -141,7 +141,8 @@ Studio.TerrainToolsV2.ImportError.TerrainWriteNullptr, ,An internal error has oc
 Studio.TerrainToolsV2.ImportInfo.ChannelsWereDiscarded, ,"When you import a color image, the importer only reads the red channel to create a greyscale heightmap. The other channels have been discarded."
 Studio.TerrainToolsV2.ImportMaterialMode.Colormap, ,Colormap
 Studio.TerrainToolsV2.ImportMaterialMode.DefaultMaterial, ,Material
-Studio.TerrainToolsV2.ImportWarning.AspectRatio, ,"Image aspect ratio ({1}) is not compatible with Size values (X {2:int}, Z {3:int}). For best results, adjust the Size or import a new image"
+Studio.TerrainToolsV2.ImportWarning.AspectRatio, ,"Image aspect ratio ({1}) is not compatible with Size values (X {2:int}, Z {3:int}). For best results, adjust the Size or import a new image."
+Studio.TerrainToolsV2.ImportWarning.ColorMapOutOfRangeIconTooltip, ,The imported colormap contains RGB values that do not match the Colormap Index.
 Studio.TerrainToolsV2.ImportWarning.ImageTooSmall, ,"Image resolution ({1:int}x{2:int}) is too low for the target Size values (X {3:int}, Z {4:int}). For best results, decrease the size or import a new Heightmap."
 Studio.TerrainToolsV2.ImportWarning.MainTextColormapRGBOutOfRange, ,Colormap RGB values are out of range.
 Studio.TerrainToolsV2.ImportWarning.SubTextColormapRGBOutOfRange, ,The imported colormap contains RGB values that do not match the Colormap Index. The generated materials might not be correct. Please ensure you’re using the sRGB colorspace for best results.

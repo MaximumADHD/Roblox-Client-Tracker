@@ -49,7 +49,6 @@ Studio.TerrainToolsV2.Action.Next,Next,Next,다음,Далее,下一个
 Studio.TerrainToolsV2.Action.Save,Save,Save,저장,Сохранить,保存
 Studio.TerrainToolsV2.Action.OK,OK,OK,확인,ОК,确认
 Studio.TerrainToolsV2.Action.Redo,Redo,Redo,다시 실행,Вернуть,重做
-Studio.TerrainToolsV2.ImportWarning.AspectRatio,"Image aspect ratio ({1}) is not compatible with Size values (X {2:int}, Z {3:int}). For best results, adjust the Size or import a new image","Image aspect ratio ({1}) is not compatible with Size values (X {2:int}, Z {3:int}). For best results, adjust the Size or import a new image","이미지의 가로 세로 비율({1})이(가) 크기 값(X {2:int}, Z {3:int})와(과) 호환되지 않습니다. 최상의 결과를 얻으려면 크기를 조정하거나 새 이미지를 가져오세요.", ,图像的高宽比（{1}）与 Size（尺寸）值（X {2:int}，Z {3:int}）不兼容。要获得最佳效果，请调整 Size 或导入新图像
 Studio.TerrainToolsV2.Action.Open,Open,Open,열기,Открыть,打开
 Studio.TerrainToolsV2.ImportError.RegionExceedsMaxVoxelCount,Target region is too large.,Target region is too large.,대상 영역이 너무 큽니다., ,目标区域过大。
 Studio.TerrainToolsV2.ToolName.Flatten,Flatten,Flatten,평탄화,Сгладить,展平
@@ -130,6 +129,7 @@ Studio.TerrainToolsV2.MainButtons.PaintTooltip,Paint the material of the terrain
 Studio.TerrainToolsV2.MainButtons.RegionsTooltip,Manipulate regions of smooth terrain.,Manipulate regions of smooth terrain.,부드러운 지형의 범위를 조절하세요.,Манипулировать участками рельефа.,对平滑的地形区域进行操作。
 Studio.TerrainToolsV2.ToolName.Smooth,Smooth,Smooth,다듬기,Сгладить,平滑
 Studio.TerrainToolsV2.MainButtons.SmoothTooltip,Brush to smooth out rough or jagged terrain.,Brush to smooth out rough or jagged terrain.,울퉁불퉁한 지형을 부드럽게 깎아냅니다.,Кисть для сглаживания неровной поверхности.,用笔刷平滑参差不平的地形。
+Studio.TerrainToolsV2.ImportError.FailedToGenerateHeightmapPreviewTitle,Failed to generate preview image.,Failed to generate preview image.,미리보기 이미지를 생성하지 못했습니다., ,生成预览图失败。
 Studio.TerrainToolsV2.ConvertPart.HasOtherInstance,"Only Parts can be converted, other objects will be skipped","Only Parts can be converted, other objects will be skipped",파트만 변환할 수 있으며 다른 개체는 건너뜁니다, ,只有部件可被转换，其他对象将被跳过
 Studio.TerrainToolsV2.MainButtons.SubtractTooltip,Click and hold to remove terrain.,Click and hold to remove terrain.,길게 클릭해 지형을 제거합니다.,"Удерживайте кнопку мыши, чтобы удалить рельеф.",单击并按住以移除地形。
 Studio.TerrainToolsV2.ConvertPart.UpdateInstanceVisuals,Hiding parts,Hiding parts,파트를 숨기는 중, ,正在隐藏部件
@@ -237,8 +237,6 @@ Studio.TerrainToolsV2.Generate.GenerateVoxels,Generating voxels...,Generating vo
 Studio.TerrainToolsV2.Import.DefaultMaterial,Default Material,Default Material,기본 재질, ,默认材质
 Studio.TerrainToolsV2.ImportError.FailedToLoadHeightmap,Failed to load heightmap,Failed to load heightmap,Heightmap을 불러오지 못했습니다, ,加载 heightmap 失败
 Studio.TerrainToolsV2.ImportError.FailedToLoadColormap,Failed to load colormap,Failed to load colormap,Colormap을 불러오지 못했습니다, ,加载 colormap 失败
-Studio.TerrainToolsV2.ImportError.RegionIsEmpty,Target region is empty.,Target region is empty.,대상 영역이 비어 있습니다., ,目标区域为空。
-Studio.TerrainToolsV2.ImportError.FailedToGenerateHeightmapPreviewTitle,Failed to generate preview image,Failed to generate preview image,미리보기 이미지를 생성하지 못했습니다, ,生成预览图失败
 Studio.TerrainToolsV2.ImportError.DataModelPreprocessNullptr,An internal error has occurred.,An internal error has occurred.,내부 오류가 발생했습니다., ,发生内部错误。
 Studio.TerrainToolsV2.ImportError.DataModelWorkerNullptr,An internal error has occurred.,An internal error has occurred.,내부 오류가 발생했습니다., ,发生内部错误。
 Studio.TerrainToolsV2.ImportError.FailedToGenerateHeightmapPreview,An internal error has occurred.,An internal error has occurred.,내부 오류가 발생했습니다., ,发生内部错误。
@@ -252,7 +250,9 @@ Studio.TerrainToolsV2.ImportError.FailedToSelectFile,Failed to open file dialog.
 Studio.TerrainToolsV2.ImportError.ImportFailed,Import failed,Import failed,가져오기 실패, ,导入失败
 Studio.TerrainToolsV2.Replace.ReplaceProgressTitle,Replace Terrain,Replace Terrain,지형 교체, ,替换地形
 Studio.TerrainToolsV2.ImportError.ImportInProgress,An import operation is already in progress.,An import operation is already in progress.,가져오기 작업이 이미 진행 중입니다., ,导入操作正在进行中。
+Studio.TerrainToolsV2.ImportError.RegionIsEmpty,Target region is empty.,Target region is empty.,대상 영역이 비어 있습니다., ,目标区域为空。
 Studio.TerrainToolsV2.ImportInfo.ChannelsWereDiscarded,"When you import a color image, the importer only reads the red channel to create a greyscale heightmap. The other channels have been discarded.","When you import a color image, the importer only reads the red channel to create a greyscale heightmap. The other channels have been discarded.","컬러 이미지를 가져올 때, 가져오기 도구는 빨간색 채널만 읽어와 회색조 Heightmap을 생성합니다. 다른 채널은 무시됩니다.", ,当导入彩色图像时，导入程序只会读取红色通道以创建灰度 heightmap。其他通道将被忽略。
+Studio.TerrainToolsV2.ImportWarning.AspectRatio,"Image aspect ratio ({1}) is not compatible with Size values (X {2:int}, Z {3:int}). For best results, adjust the Size or import a new image.","Image aspect ratio ({1}) is not compatible with Size values (X {2:int}, Z {3:int}). For best results, adjust the Size or import a new image.","이미지의 가로 세로 비율({1})이(가) 크기 값(X {2:int}, Z {3:int})와(과) 호환되지 않습니다. 최상의 결과를 얻으려면 크기를 조정하거나 새 이미지를 가져오세요.", ,图像的高宽比（{1}）与 Size（尺寸）值（X {2:int}，Z {3:int}）不兼容。要获得最佳效果，请调整 Size 或导入新图像。
 Studio.TerrainToolsV2.ImportWarning.ImageTooSmall,"Image resolution ({1:int}x{2:int}) is too low for the target Size values (X {3:int}, Z {4:int}). For best results, decrease the size or import a new Heightmap.","Image resolution ({1:int}x{2:int}) is too low for the target Size values (X {3:int}, Z {4:int}). For best results, decrease the size or import a new Heightmap.","이미지 해상도({1:int}x{2:int})가 대상 크기 값(X {3:int}, Z {4:int})에 비해 너무 낮습니다. 최상의 결과를 얻으려면 크기를 줄이거나 새 Heightmap을 가져오세요.", ,图像的分辨率（{1:int}x{2:int}）与目标 Size（尺寸）值（X {3:int}，Z {4:int}）相比过小。要获得最佳效果，请缩小 Size 或导入新 Heightmap。
 Studio.TerrainToolsV2.Warning.NoColormapProvided,No colormap was provided.,No colormap was provided.,Colormap이 제공되지 않았습니다., ,未提供 colormap 。
 Studio.TerrainToolsV2.Warning.VolumeTooLarge,Terrain volume is too large.,Terrain volume is too large.,지형이 너무 큽니다., ,地形体积过大。

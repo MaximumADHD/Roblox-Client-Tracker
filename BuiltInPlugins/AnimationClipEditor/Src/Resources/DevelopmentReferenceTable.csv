@@ -79,6 +79,10 @@ Studio.AnimationClipEditor.RigErrors.NameCollision, ,This rig contains multiple 
 Studio.AnimationClipEditor.RigErrors.NoAnimationController, ,This rig does not have an animation controller or humanoid. Please create one.
 Studio.AnimationClipEditor.RigErrors.NoMotors, ,A model needs to have its parts joined together by Motor6Ds to properly animate.
 Studio.AnimationClipEditor.RigErrors.PartsAnchored, ,"All of the parts on this model are anchored, making it non-animatable. Please un-anchor the parts on this model."
+Studio.AnimationClipEditor.Settings.120FPS, ,120 fps
+Studio.AnimationClipEditor.Settings.24FPS, ,24 fps
+Studio.AnimationClipEditor.Settings.30FPS, ,30 fps
+Studio.AnimationClipEditor.Settings.60FPS, ,60 fps
 Studio.AnimationClipEditor.Settings.CustomFPS, ,Custom
 Studio.AnimationClipEditor.Settings.FrameRate, ,Frame Rate
 Studio.AnimationClipEditor.Settings.Frames, ,Frames
@@ -96,6 +100,7 @@ Studio.AnimationClipEditor.Title.CreateNew, ,Create New Animation
 Studio.AnimationClipEditor.Title.CreateToStart, ,Create an animation to start
 Studio.AnimationClipEditor.Title.CurrentDuration, ,Current duration is {currentDuration} frames
 Studio.AnimationClipEditor.Title.CustomFPS, ,Custom Frame Rate [FPS]
+Studio.AnimationClipEditor.Title.DefaultAnimationName, ,Untitled Animation Clip
 Studio.AnimationClipEditor.Title.EditEvents, ,Edit Animation Events
 Studio.AnimationClipEditor.Title.Error, ,Error
 Studio.AnimationClipEditor.Title.EventName, ,Event Name
