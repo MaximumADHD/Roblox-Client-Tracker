@@ -240,7 +240,7 @@ function AnimationClipDropdown:render()
 		CreateNewPrompt = showCreateNewPrompt and Roact.createElement(TextEntryPrompt, {
 			PromptText = localization:getText("Title", "CreateNew"),
 			InputText = localization:getText("Dialog", "AnimationName"),
-			Text = Constants.DEFAULT_ANIMATION_NAME,
+			Text = localization:getText("Title", "DefaultAnimationName"),
 			Buttons = {
 				{Key = false, Text = localization:getText("Dialog", "Cancel")},
 				{Key = true, Text = localization:getText("Dialog", "Create"), Style = style.Primary},

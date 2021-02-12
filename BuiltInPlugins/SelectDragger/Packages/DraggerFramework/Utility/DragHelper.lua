@@ -142,13 +142,14 @@ end
 
 function DragHelper.getPartAndSurface(mouseRay)
 	local part, mouseWorld = Workspace:FindPartOnRay(mouseRay)
-	if getFFlagDragDecalOntoTerrain() and part:IsA("Terrain") then
-		-- Terrain doesn't have Primary Axis based surfaces to return
-		return part, nil
-	end
-
+	
 	local closestFace, _
 	if part then
+		if getFFlagDragDecalOntoTerrain() and part:IsA("Terrain") then
+			-- Terrain doesn't have Primary Axis based surfaces to return
+			return part, nil
+		end
+
 		closestFace, _ = DragHelper.getClosestFace(part, mouseWorld)
 	end
 

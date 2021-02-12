@@ -57,6 +57,8 @@
 	})
 --]]
 
+local FFlagTerrainEditorUpdateFontToSourceSans = game:GetFastFlag("TerrainEditorUpdateFontToSourceSans")
+
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
@@ -71,6 +73,7 @@ local TextService = game:GetService("TextService")
 
 -- These values should be replaced with theme if this component is
 -- put into DeveloperFramework
+-- Remove FONT and FONT_SIZE when FFlagTerrainEditorUpdateFontToSourceSans is flipped
 local FONT = Enum.Font.SourceSans
 local FONT_SIZE = 14
 local PADDING = 4
@@ -107,10 +110,13 @@ function LabeledTextInput:init()
 			return
 		end
 
+		local font = FFlagTerrainEditorUpdateFontToSourceSans and textBox.font or FONT
+		local textSize = FFlagTerrainEditorUpdateFontToSourceSans and textBox.textSize or FONT_SIZE
+
 		local textBoxWidth = textFrame.AbsoluteSize.X
 		local textbehindCursor = string.sub(textBox.Text, 1, textBox.CursorPosition - 1)
-		local cursorPos = TextService:GetTextSize(textbehindCursor, FONT_SIZE, FONT, Vector2.new(0, 0)).x
-		local endTextPos = TextService:GetTextSize(textBox.Text, FONT_SIZE, FONT, Vector2.new(0, 0)).x
+		local cursorPos = TextService:GetTextSize(textbehindCursor, textSize, font, Vector2.new(0, 0)).x
+		local endTextPos = TextService:GetTextSize(textBox.Text, textSize, font, Vector2.new(0, 0)).x
 
 		-- position of the textbox so it's clipped correctly with padding
 		local offset = textBox.Position.X.Offset
@@ -232,7 +238,7 @@ function LabeledTextInput:render()
 
 	local labelWidth = 0
 	if utf8.len(label) > 0 then
-		labelWidth = TextService:GetTextSize(label, FONT_SIZE, FONT, Vector2.new()).X + (2 * PADDING)
+		labelWidth = TextService:GetTextSize(label, theme.textSize, theme.font, Vector2.new()).X + (2 * PADDING)
 	end
 	local warningMessage = self.state.warningMessage
 
@@ -283,8 +289,8 @@ function LabeledTextInput:render()
 
 				BorderSizePixel = 0,
 				Text = label,
-				Font = FONT,
-				TextSize = FONT_SIZE,
+				Font = FFlagTerrainEditorUpdateFontToSourceSans and theme.font or FONT,
+				TextSize = FFlagTerrainEditorUpdateFontToSourceSans and theme.textSize or FONT_SIZE,
 				TextColor3 = theme.textColor,
 				TextXAlignment = Enum.TextXAlignment.Center,
 			}),
@@ -304,8 +310,8 @@ function LabeledTextInput:render()
 					BackgroundTransparency = 1,
 
 					Text = text,
-					Font = FONT,
-					TextSize = FONT_SIZE,
+					Font = FFlagTerrainEditorUpdateFontToSourceSans and theme.font or FONT,
+					TextSize = FFlagTerrainEditorUpdateFontToSourceSans and theme.textSize or FONT_SIZE,
 					TextColor3 = theme.textColor,
 					TextXAlignment = Enum.TextXAlignment.Left,
 					ClearTextOnFocus = clearTextOnFocus,
@@ -326,8 +332,8 @@ function LabeledTextInput:render()
 			Position = UDim2.new(0, 0, 0, TEXTBOX_HEIGHT),
 
 			Text = warningMessage,
-			Font = FONT,
-			TextSize = FONT_SIZE,
+			Font = FFlagTerrainEditorUpdateFontToSourceSans and theme.font or FONT,
+			TextSize = FFlagTerrainEditorUpdateFontToSourceSans and theme.textSize or FONT_SIZE,
 			TextColor3 = theme.errorColor,
 			TextXAlignment = Enum.TextXAlignment.Left,
 

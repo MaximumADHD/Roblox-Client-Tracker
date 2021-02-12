@@ -4,7 +4,7 @@ local Framework = script.Parent.Parent
 	own dev dependencies because they will not be installed by Rotriever, so
 	dependency inject TestEZ here.
 
-	FrameworkCompanion should be the only plugin that needs to run
+	Developer Storybook should be the only plugin that needs to run
 	DeveloperFramework tests.
 ]]
 local runFrameworkTests

@@ -9,7 +9,6 @@ local TemporaryTransparency = require(DraggerFramework.Utility.TemporaryTranspar
 local PivotImplementation = require(DraggerFramework.Utility.PivotImplementation)
 
 local EngineFeatureEditPivot = require(DraggerFramework.Flags.getEngineFeatureEditPivot)()
-local getFFlagDraggerScaleBones = require(DraggerFramework.Flags.getFFlagDraggerScaleBones)
 
 local ExtrudeHandlesImplementation = {}
 ExtrudeHandlesImplementation.__index = ExtrudeHandlesImplementation
@@ -367,17 +366,16 @@ function ExtrudeHandlesImplementation:_recordItemsToFixup(parts)
 	if EngineFeatureEditPivot then
 		self._fixupPivot = {}
 	end
-	local FFlagDraggerScaleBones = getFFlagDraggerScaleBones()
 	for _, part in ipairs(parts) do
 		if EngineFeatureEditPivot then
 			if PivotImplementation.hasPivot(part) then
 				self._fixupPivot[part] = part.CFrame:Inverse() * PivotImplementation.getPivot(part)
 			end
 		end
-		local inverseCFrame = FFlagDraggerScaleBones and part.CFrame:Inverse()
+		local inverseCFrame = part.CFrame:Inverse()
 		for _, descendant in ipairs(part:GetDescendants()) do
 			if descendant:IsA("Attachment") then
-				if FFlagDraggerScaleBones and descendant.Parent ~= part then
+				if descendant.Parent ~= part then
 					-- Note: We need this for bones, which may be under another
 					-- bone rather than directly under the part.
 					local cframeRelativeToPart = inverseCFrame * descendant.WorldCFrame
@@ -407,17 +405,16 @@ function ExtrudeHandlesImplementation:_applyFixup(scaledBy)
 	for attachment, position in pairs(self._fixupAttachments) do
 		attachment.Position = position * scaledBy
 	end
-	local FFlagDraggerScaleBones = getFFlagDraggerScaleBones()
-	if FFlagDraggerScaleBones then
-		-- Note: The forwards iteration is important here. Parents must have
-		-- their CFrames updated first for things to work out as intended, as
-		-- we're assigning WorldCFrame, which has a dependency on the CFrames
-		-- of the ancestor attachments.
-		for _, data in ipairs(self._fixupNontrivialAttachments) do
-			data.Attachment.WorldCFrame = 
-				(data.RelativeTo.CFrame * data.LocalRotation) + data.LocalPosition * scaledBy
-		end
+
+	-- Note: The forwards iteration is important here. Parents must have
+	-- their CFrames updated first for things to work out as intended, as
+	-- we're assigning WorldCFrame, which has a dependency on the CFrames
+	-- of the ancestor attachments.
+	for _, data in ipairs(self._fixupNontrivialAttachments) do
+		data.Attachment.WorldCFrame = 
+			(data.RelativeTo.CFrame * data.LocalRotation) + data.LocalPosition * scaledBy
 	end
+	
 	for offsetItem, offset in pairs(self._fixupOffsets) do
 		offsetItem.Offset = offset * scaledBy
 	end

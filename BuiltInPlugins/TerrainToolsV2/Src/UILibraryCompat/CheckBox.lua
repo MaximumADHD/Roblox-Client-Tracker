@@ -3,6 +3,8 @@
 	And updated font/text size handling
 ]]
 
+local FFlagTerrainEditorUpdateFontToSourceSans = game:GetFastFlag("TerrainEditorUpdateFontToSourceSans")
+
 local Plugin = script.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
@@ -32,8 +34,8 @@ function CheckBox:render()
 	local enabled = props.Enabled
 	local layoutOrder = props.LayoutOrder
 	local selected = props.Selected
-	local textSize = theme.checkBox.textSize
-	local textFont = theme.checkBox.font
+	local textSize = FFlagTerrainEditorUpdateFontToSourceSans and theme.textSize or 8
+	local textFont = FFlagTerrainEditorUpdateFontToSourceSans and theme.font or Enum.Font.Legacy
 	local titlePadding = props.TitlePadding or 5
 
 	local titleSize = TextService:GetTextSize(

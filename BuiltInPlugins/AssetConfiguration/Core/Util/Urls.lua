@@ -8,6 +8,7 @@ local getToolboxMicroserviceSearch = require(Plugin.Core.Rollouts.getToolboxMicr
 
 local FFlagToolboxUseGetItemDetails = game:GetFastFlag("ToolboxUseGetItemDetails")
 local FFlagDragFaceInstances = game:GetFastFlag("DragFaceInstances")
+local FFlagToolboxUseNewGroupsApi = game:DefineFastFlag("ToolboxUseNewGroupsApi", false)
 
 local Urls = {}
 
@@ -16,7 +17,12 @@ local GET_ASSETS_DEVELOPER = Url.DEVELOP_URL .. "v1/toolbox/items?"
 local GET_ASSETS_CREATIONS = Url.ITEM_CONFIGURATION_URL .. "v1/creations/get-assets?"
 local GET_ASSETS_CREATION_DETAILS = Url.ITEM_CONFIGURATION_URL .. "v1/creations/get-asset-details"
 local GET_USER = Url.API_URL .. "users/%d"
-local GET_GROUP = Url.API_URL .. "groups/%d"
+local GET_GROUP
+if FFlagToolboxUseNewGroupsApi then
+	GET_GROUP = Url.GROUP_URL .. "v0/groups/%d"
+else
+	GET_GROUP = Url.API_URL .. "groups/%d"
+end
 local GET_METADATA = Url.ITEM_CONFIGURATION_URL .. "v1/metadata"
 local GET_UPLOAD_CATALOG_ITEM = Url.PUBLISH_URL .. "v1/assets/upload"
 local POST_UPLOAD_ASSET_THUMBNAIL =  Url.PUBLISH_URL .. "v1/assets/%d/thumbnail"

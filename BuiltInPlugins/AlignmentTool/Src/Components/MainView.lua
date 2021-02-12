@@ -11,6 +11,7 @@ local getFFlagBoundingBoxRefactor = require(Plugin.Src.Flags.getFFlagBoundingBox
 local getFFlagAlignInLocalSpace = require(Plugin.Src.Flags.getFFlagAlignInLocalSpace)
 local getFFlagAlignToolNarrowUI = require(Plugin.Src.Flags.getFFlagAlignToolNarrowUI)
 local getFFlagAlignToolUseScrollingFrame = require(Plugin.Src.Flags.getFFlagAlignToolUseScrollingFrame)
+local getFFlagAlignToolDisabledFix = require(Plugin.Src.Flags.getFFlagAlignToolDisabledFix)
 
 local DraggerFramework = Plugin.Packages.DraggerFramework
 local BoundingBox = require(DraggerFramework.Utility.BoundingBox)
@@ -92,6 +93,16 @@ function MainView:render()
 		end
 	end
 
+	-- Render the preview when it's a candidate for visibility thanks to the
+	-- cursor being over the UI (previewVisible) and an alignment operation is
+	-- currently possible (alignEnabled).
+	local shouldRenderPreview
+	if getFFlagAlignToolDisabledFix() then
+		shouldRenderPreview = props.previewVisible and props.alignEnabled
+	else
+		shouldRenderPreview = props.previewVisible
+	end
+
 	if getFFlagAlignToolUseScrollingFrame() then
 		assert(getFFlagAlignToolNarrowUI())
 
@@ -151,7 +162,7 @@ function MainView:render()
 				}),
 			}),
 
-			AlignObjectsPreview = props.previewVisible and Roact.createElement(AlignObjectsPreview) or nil,
+			AlignObjectsPreview = shouldRenderPreview and Roact.createElement(AlignObjectsPreview) or nil,
 
 			DebugView = shouldShowDebugView() and Roact.createElement(DebugView, {
 				BoundingBoxOffset = debugState.boundingBoxOffset,

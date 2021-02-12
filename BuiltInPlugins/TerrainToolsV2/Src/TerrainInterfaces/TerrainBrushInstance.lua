@@ -1,14 +1,17 @@
 game:DefineFastFlag("TerrainToolsBrushUseIsKeyDown", false)
+game:DefineFastFlag("TerrainToolsFixBrushNearCamera", false)
 
 local FFlagTerrainToolsBrushUseIsKeyDown = game:GetFastFlag("TerrainToolsBrushUseIsKeyDown")
 local FFlagTerrainToolsBrushInteractOnlyWithTerrain = game:GetFastFlag("TerrainToolsBrushInteractOnlyWithTerrain")
+local FFlagTerrainToolsFixBrushNearCamera = game:GetFastFlag("TerrainToolsFixBrushNearCamera")
+
 local Plugin = script.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
 local Cryo = require(Plugin.Packages.Cryo)
 
 local FrameworkUtil = Framework.Util
-local Signal = FrameworkUtil.Signal 
+local Signal = FrameworkUtil.Signal
 
 local Constants = require(Plugin.Src.Util.Constants)
 local TerrainEnums = require(Plugin.Src.Util.TerrainEnums)
@@ -31,13 +34,22 @@ local Workspace = game:GetService("Workspace")
 
 local CLICK_THRESHOLD = 0.1
 
+--[[
+Returns:
+	Vector3? point of intersection
+	number? distance from linePoint to plane. Can be negative or nil.
+]]
 local function lineToPlaneIntersection(linePoint, lineDirection, planePoint, planeNormal)
 	local denominator = lineDirection:Dot(planeNormal)
 	if denominator == 0 then
-		return linePoint
+		if FFlagTerrainToolsFixBrushNearCamera then
+			return nil, nil
+		else
+			return linePoint, nil
+		end
 	end
 	local distance = (planePoint - linePoint):Dot(planeNormal) / denominator
-	return linePoint + lineDirection * distance
+	return linePoint + lineDirection * distance, distance
 end
 
 local function round(n)
@@ -163,7 +175,7 @@ function TerrainBrush.new(options)
 		self._raycastParams.FilterType = Enum.RaycastFilterType.Whitelist
 	else
 		self._raycastParams.FilterType = Enum.RaycastFilterType.Blacklist
-	end 
+	end
 
 	return self
 end
@@ -377,6 +389,7 @@ end
 function TerrainBrush:_run()
 	self._isRunning = true
 
+	-- TODO: Remove lastCursorDistance when removing FFlagTerrainToolsFixBrushNearCamera
 	local lastCursorDistance = 300
 	local lastPlanePoint = Vector3.new(0, 0, 0)
 	local lastNormal = Vector3.new(0, 1, 0)
@@ -407,18 +420,18 @@ function TerrainBrush:_run()
 		-- Why is mouse used for camera?
 		local cameraPos = self._mouse.Origin.p
 		if FFlagTerrainToolsBrushInteractOnlyWithTerrain then
-			local acceptList = {self._terrain} 
+			local acceptList = {self._terrain}
 			if Workspace:FindFirstChild("Baseplate") then
 				table.insert(acceptList, Workspace:FindFirstChild("Baseplate"))
-			end 
+			end
 			self._raycastParams.FilterDescendantsInstances = acceptList
-		else 
+		else
 			local ignoreList = {self._cursor:getCursorPart()}
 			if Players.LocalPlayer and Players.LocalPlayer.Character then
 				table.insert(ignoreList, Players.LocalPlayer.Character)
 			end
 			self._raycastParams.FilterDescendantsInstances = ignoreList
-		end 
+		end
 
 		local unitRay = self._mouse.UnitRay.Direction
 		local rayHit, mainPoint, hitMaterial
@@ -432,18 +445,27 @@ function TerrainBrush:_run()
 			mainPoint = raycastResult.Position
 			hitMaterial = raycastResult.Material
 		else
-			--raycast returns nil if it does not encounter anything, this will essentially cap the ray and prevent breaking
 			rayHit, hitMaterial = nil, nil
-			
+
 			if FFlagTerrainToolsBrushInteractOnlyWithTerrain then
-				local hit = lineToPlaneIntersection(cameraPos, unitRay, Vector3.new(0, 0, 0), Vector3.new(0, 1, 0))
-				-- set the default Y axis for brush to be intersection of the ray and XZplane with Y = 0
-				if hit ~= cameraPos then
+				local hit, distance = lineToPlaneIntersection(cameraPos, unitRay, Vector3.new(0, 0, 0), Vector3.new(0, 1, 0))
+				-- Set the default Y axis for brush to be intersection of the ray and XZplane with Y = 0
+
+				local useHitPoint
+				if FFlagTerrainToolsFixBrushNearCamera then
+					-- Check we hit the plane, and that it's in front of us
+					useHitPoint = hit and distance and distance >= 0
+				else
+					useHitPoint = hit ~= cameraPos
+				end
+
+				if useHitPoint then
 					mainPoint = hit
 				else
 					mainPoint = cameraPos + unitRay * 10000
 				end
 			else
+				-- Raycast returns nil if it does not encounter anything, this will essentially cap the ray and prevent breaking
 				mainPoint = cameraPos + unitRay * 10000
 			end
 		end
@@ -458,8 +480,10 @@ function TerrainBrush:_run()
 			self._planePositionYChanged:Fire(snapToGrid and snapToVoxelGrid(mainPoint, radius).y or (mainPoint.y - 1))
 		end
 
-		if not self._mouse.Target then
-			mainPoint = cameraPos + unitRay * lastCursorDistance
+		if not FFlagTerrainToolsFixBrushNearCamera then
+			if not self._mouse.Target then
+				mainPoint = cameraPos + unitRay * lastCursorDistance
+			end
 		end
 
 		local shiftDown
@@ -491,6 +515,12 @@ function TerrainBrush:_run()
 		end
 
 		local mainPointOnPlane = lineToPlaneIntersection(cameraPos, unitRay, lastPlanePoint, lastNormal)
+		if FFlagTerrainToolsFixBrushNearCamera then
+			if not mainPointOnPlane then
+				-- lineToPlaneIntersection can return nil, so just fallback to camera
+				mainPointOnPlane = cameraPos
+			end
+		end
 
 		if snapToGrid then
 			mainPoint = snapToVoxelGrid(mainPoint, radius)
@@ -570,8 +600,10 @@ function TerrainBrush:_run()
 
 		self:_updateCursor()
 
-		lastCursorDistance = math.max(20 + (self._operationSettings.cursorSize * Constants.VOXEL_RESOLUTION * 1.5),
-			(mainPoint - cameraPos).magnitude)
+		if not FFlagTerrainToolsFixBrushNearCamera then
+			lastCursorDistance = math.max(20 + (self._operationSettings.cursorSize * Constants.VOXEL_RESOLUTION * 1.5),
+				(mainPoint - cameraPos).magnitude)
+		end
 
 		quickWait()
 	end

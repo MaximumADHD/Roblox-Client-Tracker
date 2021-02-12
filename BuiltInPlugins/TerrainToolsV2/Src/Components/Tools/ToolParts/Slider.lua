@@ -7,7 +7,6 @@
 		double Max = Maximum value
 		double SnapIncrement = How much the slider value change on each increase or decrease
 		bool Enable = False to disable this component (default true)
-		bool ShowRange = True to display range labels (default false)
 		bool ShowInput = True to display input box (default false)
 		UDim2 Size = Total size of the component
 		UDim2 SliderSize = Size of the slider bar
@@ -19,6 +18,7 @@
 
 		function SetValue(value) = Callback to tell parent that value has changed.
 ]]
+local FFlagTerrainEditorUpdateFontToSourceSans = game:GetFastFlag("TerrainEditorUpdateFontToSourceSans")
 
 --TODO: FIX THE THEME
 local BACKGROUND_BAR_IMAGE_LIGHT = "rbxasset://textures/RoactStudioWidgets/slider_bar_background_light.png"
@@ -183,7 +183,8 @@ function Slider:render()
 	local min = self.props.Min or MIN_VAL
 	local max = self.props.Max or MAX_VAL
 	local enabled = self.isEnabled()
-	local showRange = self.props.ShowRange or false
+	-- no sliders use showRange anymore, so this will be removed along with fonts being updated
+	local showRange = not FFlagTerrainEditorUpdateFontToSourceSans and self.props.ShowRange or false
 	local showInput = self.props.ShowInput
 	if showInput == nil then
 		showInput = true
@@ -271,8 +272,8 @@ function Slider:render()
 			OnFocusLost = self.onInputFocusLost,
 			ValidateText = self.validateInputText,
 		}),
-
-		LowerLabel = showRange and Roact.createElement("TextLabel", {
+		
+		LowerLabel = (not FFlagTerrainEditorUpdateFontToSourceSans and showRange) and Roact.createElement("TextLabel", {
 			BackgroundTransparency = 0,
 			BorderSizePixel = 0,
 			Size = UDim2.new(0, 0, 0, textLabelHeight),
@@ -284,9 +285,9 @@ function Slider:render()
 			TextYAlignment = Enum.TextYAlignment.Bottom,
 			Position = UDim2.new(0, 0, 0, labelOffset),
 			Text = tostring(min),
-		}),
+		}) or nil,
 
-		UpperLabel = showRange and Roact.createElement("TextLabel", {
+		UpperLabel = (not FFlagTerrainEditorUpdateFontToSourceSans and showRange) and Roact.createElement("TextLabel", {
 			BackgroundTransparency = 1,
 			BorderSizePixel = 0,
 			Size = UDim2.new(0, 0, 0, textLabelHeight),
@@ -298,7 +299,7 @@ function Slider:render()
 			TextYAlignment = Enum.TextYAlignment.Bottom,
 			Position = UDim2.new(0, sliderSize.Width.Offset, 0, labelOffset),
 			Text = tostring(max),
-		}),
+		}) or nil,
 	})
 end
 

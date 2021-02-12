@@ -430,6 +430,10 @@ local function mapDispatchToProps(dispatch)
 	}
 end
 
+ContextServices.mapToProps(EventsController, {
+	Analytics = ContextServices.Analytics,
+})
+
 EventsController = RoactRodux.connect(mapStateToProps,
 	mapDispatchToProps)(EventsController)
 

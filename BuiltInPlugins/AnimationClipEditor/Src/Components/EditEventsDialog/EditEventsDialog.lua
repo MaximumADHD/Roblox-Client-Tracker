@@ -406,7 +406,7 @@ function EditEventsDialog:render()
 		TextSize = dialogTheme.textSize,
 		Resizable = true,
 		Buttons = buttons,
-		OnButtonClicked = self.onButtonClicked,
+		OnButtonPressed = self.onButtonClicked,
 		OnClose = props.OnClose,
 		BorderPadding = BORDER_PADDING,
 		ButtonPadding = Constants.PROMPT_BUTTON_PADDING,

@@ -7,6 +7,7 @@ game:DefineFastFlag("TerrainEnableErrorReporting", false)
 game:DefineFastFlag("TerrainToolsImportUploadAssets", false)
 game:DefineFastFlag("TerrainToolsBrushInteractOnlyWithTerrain", false)
 game:DefineFastFlag("EnableTerrainToolsStylizer", false)
+game:DefineFastFlag("TerrainEditorUpdateFontToSourceSans", false)
 
 local function handleFlagDependencies(flag, requiredFlags)
 	if not game:GetFastFlag(flag) then
@@ -20,7 +21,7 @@ local function handleFlagDependencies(flag, requiredFlags)
 end
 
 handleFlagDependencies("TerrainToolsMapSettingsMaxVolume", {
-	"TerrainToolsLabeledElementPairIcons",
+	"TerrainToolsLabeledElementPairIcons2",
 })
 
 -- Need to explicitly return something from a module

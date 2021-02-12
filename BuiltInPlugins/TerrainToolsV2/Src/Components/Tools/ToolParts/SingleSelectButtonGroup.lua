@@ -1,4 +1,5 @@
 local FFlagTerrainToolsSingleSelectUseHover = game:GetFastFlag("TerrainToolsSingleSelectUseHover")
+local FFlagTerrainEditorUpdateFontToSourceSans = game:GetFastFlag("TerrainEditorUpdateFontToSourceSans")
 
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
@@ -122,6 +123,8 @@ if FFlagTerrainToolsSingleSelectUseHover then
 				BackgroundTransparency = 1,
 				BorderSizePixel = 0,
 				Text = text,
+				TextSize = FFlagTerrainEditorUpdateFontToSourceSans and theme.textSize or nil,
+				Font = FFlagTerrainEditorUpdateFontToSourceSans and theme.font or nil,
 				TextColor3 = theme.textColor,
 				ZIndex = 3,
 			}),
@@ -236,6 +239,8 @@ function SingleSelectButtonGroup:render()
 					BackgroundTransparency = 1,
 					BorderSizePixel = 0,
 					Text = option.Text,
+					TextSize = FFlagTerrainEditorUpdateFontToSourceSans and theme.textSize or nil,
+					Font = FFlagTerrainEditorUpdateFontToSourceSans and theme.font or nil,
 					TextColor3 = theme.textColor,
 					ZIndex = 3,
 				}),

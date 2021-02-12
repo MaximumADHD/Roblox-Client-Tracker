@@ -11,7 +11,8 @@
 		FillDirection - UIListLayout fill direction
 ]]
 
-local FFlagTerrainToolsLabeledElementPairIcons = game:GetFastFlag("TerrainToolsLabeledElementPairIcons")
+local FFlagTerrainToolsLabeledElementPairIcons2 = game:GetFastFlag("TerrainToolsLabeledElementPairIcons2")
+local FFlagTerrainEditorUpdateFontToSourceSans = game:GetFastFlag("TerrainEditorUpdateFontToSourceSans")
 
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
@@ -39,7 +40,7 @@ function LabeledElementPair:init()
 	self.contentLayoutRef = Roact.createRef()
 
 	self.resizeToContent = function()
-		if FFlagTerrainToolsLabeledElementPairIcons then
+		if FFlagTerrainToolsLabeledElementPairIcons2 then
 			local mainFrame = self.mainFrameRef.current
 
 			if mainFrame then
@@ -51,7 +52,7 @@ function LabeledElementPair:init()
 					height = labelLayout.AbsoluteContentSize.Y
 				end
 				if contentLayout then
-					height = math.max(height, contentLayout.AbsoluteContentSize.Y)
+					height = math.max(height or 0, contentLayout.AbsoluteContentSize.Y)
 				end
 
 				if height then
@@ -98,31 +99,103 @@ function LabeledElementPair:render()
 		})
 	end
 
-	if FFlagTerrainToolsLabeledElementPairIcons then
+	if FFlagTerrainToolsLabeledElementPairIcons2 then
 		local showStatusIcon = self.props.ErrorMessage or self.props.WarningMessage or self.props.InfoMessage
 
-		-- Remove this when changing whole plugin to SourceSans, use theme.textSize+theme.font instead
-		local textSize = 8
-		local font = Enum.Font.Legacy
+		local textSize = FFlagTerrainEditorUpdateFontToSourceSans and theme.textSize or 8
+		local font = FFlagTerrainEditorUpdateFontToSourceSans and theme.font or Enum.Font.Legacy
 
-		local textDimensions = TextService:GetTextSize(text, textSize, font,
-			Vector2.new(Constants.FIRST_COLUMN_WIDTH, math.huge))
+		local labelSection = {}
 
-		local labelWidth = textDimensions.x
-		local labelHeight = textDimensions.y
+		if showStatusIcon then
+			local textDimensions = TextService:GetTextSize(text, textSize, font,
+				Vector2.new(Constants.FIRST_COLUMN_WIDTH, math.huge))
 
-		local iconWidth = 18 -- TODO: Get from somewhere
-		local labelTopPadding = 4
-		local textIconPadding = 4
+			-- Sometimes the last letter of the text gets clipped on mac
+			-- Just give it a few more pixels to be sure the text will fit
+			local labelWidth = math.min(textDimensions.x + 2, Constants.FIRST_COLUMN_WIDTH)
+			local labelHeight = textDimensions.y
 
-		local iconSameRow
-		local iconTopPadding
-		if labelWidth + textIconPadding + iconWidth <= Constants.FIRST_COLUMN_WIDTH then
-			iconSameRow = true
-			iconTopPadding = 1
+			local iconWidth = 18
+			local labelTopPadding = 4
+			local textIconPadding = 4
+
+			local iconSameRow
+			local iconTopPadding
+			if labelWidth + textIconPadding + iconWidth <= Constants.FIRST_COLUMN_WIDTH then
+				iconSameRow = true
+				iconTopPadding = 1
+			else
+				iconSameRow = false
+				iconTopPadding = 0
+			end
+
+			labelSection.UIListLayout = Roact.createElement("UIListLayout", {
+				Padding = UDim.new(0, textIconPadding),
+				SortOrder = Enum.SortOrder.LayoutOrder,
+				FillDirection = iconSameRow and Enum.FillDirection.Horizontal or Enum.FillDirection.Vertical,
+				[Roact.Change.AbsoluteContentSize] = self.resizeToContent,
+				[Roact.Ref] = self.labelLayoutRef,
+			})
+
+			-- Container frames are used to position the text and icon vertically in their row
+			labelSection.LabelContainer = Roact.createElement("Frame", {
+				LayoutOrder = 1,
+				Size = UDim2.new(0, labelWidth, 0, labelHeight + labelTopPadding),
+				BackgroundTransparency = 1,
+			}, {
+				Label = Roact.createElement("TextLabel", {
+					Size = UDim2.new(1, 0, 1, 0),
+					BackgroundTransparency = 1,
+
+					Text = text,
+					TextSize = textSize,
+					Font = font,
+
+					TextWrapped = true,
+					TextColor3 = theme.textColor,
+					TextXAlignment = Enum.TextXAlignment.Left,
+					TextYAlignment = Enum.TextYAlignment.Bottom,
+				}),
+			})
+
+			labelSection.StatusIconContainer = Roact.createElement("Frame", {
+				LayoutOrder = 2,
+				Size = UDim2.new(0, iconWidth, 0, iconWidth + iconTopPadding),
+				BackgroundTransparency = 1,
+			}, {
+				StatusIcon = Roact.createElement(StatusIcon, {
+					AnchorPoint = Vector2.new(0, 1),
+					Position = UDim2.new(0, 0, 1, 0),
+					ErrorMessage = self.props.ErrorMessage,
+					WarningMessage = self.props.WarningMessage,
+					InfoMessage = self.props.InfoMessage,
+				}),
+			})
 		else
-			iconSameRow = false
-			iconTopPadding = 0
+			labelSection.LabelContainer = Roact.createElement("Frame", {
+				LayoutOrder = 1,
+				Size = UDim2.new(1, 0, 1, 0),
+				BackgroundTransparency = 1,
+			}, {
+				Label = Roact.createElement("TextLabel", {
+					-- Add a few pixels gap between top of text and top of the "row"
+					-- Matches where the text appears if there's an icon
+					-- So toggling icon visible doesn't move the text around
+					Position = UDim2.new(0, 0, 0, 4),
+					Size = UDim2.new(1, 0, 1, -4),
+					BackgroundTransparency = 1,
+
+					Text = text,
+					TextSize = textSize,
+					Font = font,
+
+					TextWrapped = true,
+					TextColor3 = theme.textColor,
+					TextXAlignment = Enum.TextXAlignment.Left,
+					TextYAlignment = Enum.TextYAlignment.Top,
+				}),
+			})
 		end
 
 		return Roact.createElement("Frame", {
@@ -137,51 +210,7 @@ function LabeledElementPair:render()
 				BackgroundTransparency = 1,
 				Position = UDim2.new(0, Constants.SIDE_PADDING, 0, 0),
 				Size = UDim2.new(0, Constants.FIRST_COLUMN_WIDTH, 1, 0),
-			}, {
-				UIListLayout = Roact.createElement("UIListLayout", {
-					Padding = UDim.new(0, textIconPadding),
-					SortOrder = Enum.SortOrder.LayoutOrder,
-					FillDirection = iconSameRow and Enum.FillDirection.Horizontal or Enum.FillDirection.Vertical,
-					[Roact.Change.AbsoluteContentSize] = self.resizeToContent,
-					[Roact.Ref] = self.labelLayoutRef,
-				}),
-
-				-- Container frames are used to position the text and icon vertically in their row
-
-				LabelContainer = Roact.createElement("Frame", {
-					LayoutOrder = 1,
-					Size = UDim2.new(0, labelWidth, 0, labelHeight + labelTopPadding),
-					BackgroundTransparency = 1,
-				}, {
-					Label = Roact.createElement("TextLabel", {
-						Size = UDim2.new(1, 0, 1, 0),
-						BackgroundTransparency = 1,
-
-						Text = text,
-						TextSize = textSize,
-						Font = font,
-
-						TextWrapped = true,
-						TextColor3 = theme.textColor,
-						TextXAlignment = Enum.TextXAlignment.Left,
-						TextYAlignment = Enum.TextYAlignment.Bottom,
-					}),
-				}),
-
-				StatusIconContainer = showStatusIcon and Roact.createElement("Frame", {
-					LayoutOrder = 2,
-					Size = UDim2.new(0, iconWidth, 0, iconWidth + iconTopPadding),
-					BackgroundTransparency = 1,
-				}, {
-					StatusIcon = Roact.createElement(StatusIcon, {
-						AnchorPoint = Vector2.new(0, 1),
-						Position = UDim2.new(0, 0, 1, 0),
-						ErrorMessage = self.props.ErrorMessage,
-						WarningMessage = self.props.WarningMessage,
-						InfoMessage = self.props.InfoMessage,
-					}),
-				}),
-			}),
+			}, labelSection),
 
 			-- Right Side
 			ContentColumn = Roact.createElement("Frame", {
@@ -201,6 +230,8 @@ function LabeledElementPair:render()
 		}, {
 			Label = Roact.createElement("TextLabel", {
 				Text = text,
+				Font = FFlagTerrainEditorUpdateFontToSourceSans and theme.font or nil,
+				TextSize = FFlagTerrainEditorUpdateFontToSourceSans and theme.textSize or nil,
 				TextColor3 = theme.textColor,
 				TextXAlignment = Enum.TextXAlignment.Left,
 				TextYAlignment = Enum.TextYAlignment.Bottom,

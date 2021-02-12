@@ -123,6 +123,8 @@ function ImportLocal:init()
 			warningMainText = "",
 			warningSubText = "",
 			warningLinkText = "",
+
+			colormapPickerHasRangeWarning = false,
 		}
 	else
 		self.state = {
@@ -255,6 +257,9 @@ function ImportLocal:init()
 
 	self.clearColormap = function()
 		self.props.dispatchSelectColormap(nil)
+		self:setState({
+			colormapPickerHasRangeWarning = false
+		})
 	end
 
 	self.setErrorMessage = function(errorTitle, errorBody)
@@ -342,6 +347,7 @@ function ImportLocal:didMount()
 					warningMainText = localization:getText("ImportWarning", "MainTextColormapRGBOutOfRange"),
 					warningSubText = localization:getText("ImportWarning", "SubTextColormapRGBOutOfRange"),
 					warningLinkText = localization:getText("Action", "LearnMore"),
+					colormapPickerHasRangeWarning = true,
 				})
 				self.props.TerrainImporter:clearHasPixelWarning()
 			end
@@ -413,6 +419,10 @@ function ImportLocal:render()
 	local heightmapMessages = getMessagesForImage(self.props.heightmap, self.props.size, localization)
 	local colormapMessages = getMessagesForImage(self.props.colormap, self.props.size, localization)
 
+	if (not colormapMessages.Warning and self.state.colormapPickerHasRangeWarning) then
+		colormapMessages.Warning = localization:getText("ImportWarning", "ColorMapOutOfRangeIconTooltip")
+	end
+
 	if FFlagTerrainImportGreyscale2 and canImport and self.props.heightmap.channelsWereDiscarded then
 		heightmapMessages.Info = localization:getText("ImportInfo", "ChannelsWereDiscarded")
 	end
@@ -450,16 +460,16 @@ function ImportLocal:render()
 				Size = UDim2.new(1, 0, 0, 60),
 				LayoutOrder = 1,
 				SizeToContent = true,
+
+				ErrorMessage = heightmapMessages.Error,
+				WarningMessage = heightmapMessages.Warning,
+				InfoMessage = heightmapMessages.Info,
 			}, {
 				LocalImageSelector = Roact.createElement(LocalImageSelector, {
 					CurrentFile = self.props.heightmap,
 					SelectFile = self.selectHeightmap,
 					ClearSelection = self.clearHeightmap,
 					PreviewTitle = localization:getText("Import", "HeightmapPreview"),
-
-					ErrorMessage = heightmapMessages.Error,
-					WarningMessage = heightmapMessages.Warning,
-					InfoMessage = heightmapMessages.Info,
 				}),
 			}),
 
@@ -522,16 +532,16 @@ function ImportLocal:render()
 					or "",
 				Size = UDim2.new(1, 0, 0, 60),
 				SizeToContent = true,
+
+				ErrorMessage = colormapMessages.Error,
+				WarningMessage = colormapMessages.Warning,
+				InfoMessage = colormapMessages.Info,
 			}, {
 				LocalImageSelector = Roact.createElement(LocalImageSelector, {
 					CurrentFile = self.props.colormap,
 					SelectFile = self.selectColormap,
 					ClearSelection = self.clearColormap,
 					PreviewTitle = localization:getText("Import", "ColormapPreview"),
-
-					ErrorMessage = colormapMessages.Error,
-					WarningMessage = colormapMessages.Warning,
-					InfoMessage = colormapMessages.Info,
 				}),
 			}),
 		}),

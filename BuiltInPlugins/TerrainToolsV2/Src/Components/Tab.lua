@@ -2,6 +2,8 @@
 	Renders the top tab which allows switching tab-view by clicking
 ]]
 
+local FFlagTerrainEditorUpdateFontToSourceSans = game:GetFastFlag("TerrainEditorUpdateFontToSourceSans")
+
 local Plugin = script.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
@@ -46,6 +48,8 @@ function Tab:render()
 	}, {
 		TabButton = Roact.createElement("TextButton", {
 			Text = text,
+			Font = FFlagTerrainEditorUpdateFontToSourceSans and theme.font or nil,
+			TextSize = FFlagTerrainEditorUpdateFontToSourceSans and theme.textSize or nil,
 			TextColor3 = theme.textColor,
 			Size = buttonSize,
 			Position = buttonPos,

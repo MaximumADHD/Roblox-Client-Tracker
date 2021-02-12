@@ -86,7 +86,6 @@ local Constants = {
 
 	TEMPORARY_CONSTRAINTS = "ROBLOX_R15_IK_CONSTRAINTS",
 
-	DEFAULT_ANIMATION_NAME = "Untitled Animation Clip",
 	DEFAULT_IMPORTED_NAME = "Imported Animation Clip",
 	DEFAULT_AUTOSAVE_NAME = "Automatic Save",
 	DEFAULT_KEYFRAME_NAME = "Keyframe",

@@ -56,7 +56,7 @@ function StartScreen:render()
 			PromptText = localization:getText("Title", "CreateToStart"),
 			NoticeText = localization:getText("Title", "NoAnimationExists", {rig = rootInstance.Name}),
 			InputText = localization:getText("Dialog", "AnimationName"),
-			Text = Constants.DEFAULT_ANIMATION_NAME,
+			Text = localization:getText("Title", "DefaultAnimationName"),
 			Buttons = {
 				{Key = true, Text = localization:getText("Dialog", "Create"), Style = style.Primary},
 			},

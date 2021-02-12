@@ -27,6 +27,8 @@ local ICON_SIZE = 150
 local BUTTON_WIDTH = 150
 local BUTTON_HEIGHT = 40
 
+local FFlagStudioPublishPlaceFixRetryPublish = game:DefineFastFlag("StudioPublishPlaceFixRetryPublish", false)
+
 local ScreenPublishFail = Roact.PureComponent:extend("ScreenPublishFail")
 
 function ScreenPublishFail:init()
@@ -129,7 +131,13 @@ function ScreenPublishFail:render()
 							if parentGameId == 0 then
 								SettingsImpl.saveAll(settings, localization)
 							else
-								StudioService:publishAs(parentGameId, id)
+								-- groupId is unused in existing game/place publish, only new game publish 
+								-- which is in the if block
+								if FFlagStudioPublishPlaceFixRetryPublish then
+									StudioService:publishAs(parentGameId, id, 0)
+								else
+									StudioService:publishAs(parentGameId, id)
+								end
 							end
 						end
 						dispatchSetIsPublishing(true)

@@ -2,7 +2,6 @@ local Plugin = script.Parent.Parent.Parent
 
 local getFFlagAlignInLocalSpace = require(Plugin.Src.Flags.getFFlagAlignInLocalSpace)
 local getFFlagAlignShowPreview = require(Plugin.Src.Flags.getFFlagAlignShowPreview)
-local getFFlagAlignHidePreviewIfDisabled = require(Plugin.Src.Flags.getFFlagAlignHidePreviewIfDisabled)
 
 local Cryo = require(Plugin.Packages.Cryo)
 local Rodux = require(Plugin.Packages.Rodux)
@@ -79,15 +78,9 @@ local MainReducer = Rodux.createReducer(initialState, {
 	end,
 
 	SetPreviewVisible = getFFlagAlignShowPreview() and function(state, action)
-		if getFFlagAlignHidePreviewIfDisabled() then
-			return Cryo.Dictionary.join(state, {
-				previewVisible = action.visible and state.alignEnabled,
-			})
-		else
-			return Cryo.Dictionary.join(state, {
-				previewVisible = action.visible,
-			})
-		end
+		return Cryo.Dictionary.join(state, {
+			previewVisible = action.visible,
+		})
 	end or nil,
 })
 

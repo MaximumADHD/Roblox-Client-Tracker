@@ -15,8 +15,6 @@ local CULLING_MODE = Enum.AdornCullingMode.Never
 
 local RotateHandleView = Roact.PureComponent:extend("RotateHandleView")
 
-local getFFlagShowStartAngle = require(DraggerFramework.Flags.getFFlagShowStartAngle)
-
 local HANDLE_SEGMENTS = 32
 local HANDLE_RADIUS = 4.5
 local HANDLE_THICKNESS = 0.15
@@ -185,9 +183,6 @@ function RotateHandleView:render()
 			})
 		end
 		children.EndAngleElement = createAngleDisplay(self.props.EndAngle)
-		if getFFlagShowStartAngle() then
-			children.StartAngleElement = createAngleDisplay(self.props.StartAngle)
-		end
 	end
 
 	return Roact.createFragment(children)

@@ -5,6 +5,8 @@
 	New components should prefer to use makeTheme.lua where possible instead.
 ]]
 
+local FFlagTerrainEditorUpdateFontToSourceSans = game:GetFastFlag("TerrainEditorUpdateFontToSourceSans")
+
 local Plugin = script.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
@@ -121,6 +123,8 @@ function Theme.createValues(getColor, c, m)
 		closeIcon = "rbxasset://textures/TerrainTools/button_arrow.png",
 		openIcon = "rbxasset://textures/TerrainTools/button_arrow_down.png",
 		panelColor = ColorSheet.panelColor,
+		font = Enum.Font.SourceSansBold,
+		textSize = 18,
 	},{
 		Dark = {
 			panelColor = ColorSheet.panelColor_dark,
@@ -137,7 +141,7 @@ function Theme.createValues(getColor, c, m)
 			BorderColor = UILibraryStylePalette.borderColor,
 		},
 
-		textSize = 14,
+		textSize = FFlagTerrainEditorUpdateFontToSourceSans and 16 or 14,
 		textBoxColor = UILibraryStylePalette.backgroundColor,
 	}, {
 		Dark = {
@@ -267,10 +271,7 @@ function Theme.createValues(getColor, c, m)
 		backgroundColor = Color3.fromRGB(182, 182, 182),
 		titleColor = getColor(c.MainText, m.Default),
 
-		-- Previously this used Arial
-		-- The whole plugin should use SourceSans
-		-- But currently uses Legacy
-		-- For now, keep this consistent and fix later with the rest of the plugin
+		-- remove font and textSize when FFlagTerrainEditorUpdateFontToSourceSans is flipped
 		font = Enum.Font.Legacy,
 		textSize = 8,
 
@@ -323,7 +324,7 @@ function Theme.createValues(getColor, c, m)
 
 
 	local pluginTheme = deepJoin(UILibraryStylePalette, {
-		textSize = 14,
+		textSize = FFlagTerrainEditorUpdateFontToSourceSans and 16 or 14,
 		padding = 4,
 		font = Enum.Font.SourceSans,
 

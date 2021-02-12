@@ -566,7 +566,7 @@ function Category.getCategories(tabName, roles)
 	elseif Category.MARKETPLACE_KEY == tabName then
 		return Category.MARKETPLACE
 	elseif Category.INVENTORY_KEY == tabName then
-		return Category.INVENTORY
+		return FFlagUseCategoryNameInToolbox and Category.INVENTORY_WITH_GROUPS or Category.INVENTORY
 	elseif Category.RECENT_KEY == tabName then
 		return Category.RECENT
 	end

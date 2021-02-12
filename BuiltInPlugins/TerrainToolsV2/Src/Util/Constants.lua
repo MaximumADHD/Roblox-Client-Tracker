@@ -1,4 +1,4 @@
-local FFlagTerrainToolsLabeledElementPairIcons = game:GetFastFlag("TerrainToolsLabeledElementPairIcons")
+local FFlagTerrainToolsLabeledElementPairIcons2 = game:GetFastFlag("TerrainToolsLabeledElementPairIcons2")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -90,7 +90,7 @@ Constants.BiomeToLocalizationKey = {
 	[Biome.Arctic] = "BiomeArctic",
 }
 
-if FFlagTerrainToolsLabeledElementPairIcons then
+if FFlagTerrainToolsLabeledElementPairIcons2 then
 	Constants.FIRST_COLUMN_WIDTH = 82
 	Constants.MIDDLE_PADDING = 8
 	Constants.SIDE_PADDING = 20

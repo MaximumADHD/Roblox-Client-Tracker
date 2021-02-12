@@ -3,6 +3,7 @@ local Plugin = script.Parent.Parent.Parent
 local getEngineFeatureActiveInstanceHighlight = require(Plugin.Src.Flags.getEngineFeatureActiveInstanceHighlight)
 local getFFlagAlignInLocalSpace = require(Plugin.Src.Flags.getFFlagAlignInLocalSpace)
 local getFFlagAlignToolNarrowUI = require(Plugin.Src.Flags.getFFlagAlignToolNarrowUI)
+local getFFlagAlignToolDisabledFix = require(Plugin.Src.Flags.getFFlagAlignToolDisabledFix)
 
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
@@ -89,6 +90,9 @@ local function mapDispatchToProps(dispatch)
 		end,
 		setAlignmentSpace = getFFlagAlignInLocalSpace() and function(alignmentSpace)
 			dispatch(SetAlignmentSpace(alignmentSpace))
+			if getFFlagAlignToolDisabledFix() then
+				dispatch(UpdateAlignEnabled())
+			end
 		end or nil,
 		setEnabledAxes = function(axes)
 			dispatch(SetEnabledAxes(axes))

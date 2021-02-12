@@ -11,12 +11,10 @@
 game:DefineFastFlag("FixDevFrameworkDockWidgetRestore", false)
 game:DefineFastFlag("DevFrameworkPluginWidgetEnabledEvent2", false)
 game:DefineFastFlag("DevFrameworkPluginWidgetUseSiblingZIndex", false)
-game:DefineFastFlag("DevFrameworkFixCreatePluginWidget", false)
 
 local FFlagFixDevFrameworkDockWidgetRestore = game:GetFastFlag("FixDevFrameworkDockWidgetRestore")
 local FFlagDevFrameworkPluginWidgetEnabledEvent2 = game:GetFastFlag("DevFrameworkPluginWidgetEnabledEvent2")
 local FFlagDevFrameworkPluginWidgetUseSiblingZIndex = game:GetFastFlag("DevFrameworkPluginWidgetUseSiblingZIndex")
-local FFlagDevFrameworkFixCreatePluginWidget = game:GetFastFlag("DevFrameworkFixCreatePluginWidget")
 
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
@@ -27,10 +25,8 @@ local function createPluginWidget(componentName, createWidgetFunc)
 	local PluginWidget = Roact.PureComponent:extend(componentName)
 
 	function PluginWidget:createWidget()
-		if FFlagDevFrameworkFixCreatePluginWidget then
-			if self.widget or not self.isMounted then
-				return
-			end
+		if self.widget or not self.isMounted then
+			return
 		end
 
 		local props = self.props
@@ -41,12 +37,10 @@ local function createPluginWidget(componentName, createWidgetFunc)
 
 		local widget = createWidgetFunc(props)
 
-		if FFlagDevFrameworkFixCreatePluginWidget then
-			-- createWidgetFunc can yield, so check we're still alive before continuing
-			if not self.isMounted then
-				widget:Destroy()
-				return
-			end
+		-- createWidgetFunc can yield, so check we're still alive before continuing
+		if not self.isMounted then
+			widget:Destroy()
+			return
 		end
 
 		widget.Name = title or ""
@@ -104,12 +98,10 @@ local function createPluginWidget(componentName, createWidgetFunc)
 		self.focus = Focus.new(widget)
 		self.widget = widget
 
-		if FFlagDevFrameworkFixCreatePluginWidget then
-			-- Force a rerender now that we have the widget
-			self:setState({
-				_widgetReady = true,
-			})
-		end
+		-- Force a rerender now that we have the widget
+		self:setState({
+			_widgetReady = true,
+		})
 	end
 
 	function PluginWidget:updateWidget()
@@ -130,18 +122,14 @@ local function createPluginWidget(componentName, createWidgetFunc)
 	end
 
 	function PluginWidget:didMount()
-		if FFlagDevFrameworkFixCreatePluginWidget then
-			self.isMounted = true
+		self.isMounted = true
 
-			if self.props.CreateWidgetImmediately then
-				self:createWidget()
-			else
-				spawn(function()
-					self:createWidget()
-				end)
-			end
+		if self.props.CreateWidgetImmediately then
+			self:createWidget()
 		else
-			self:updateWidget()
+			spawn(function()
+				self:createWidget()
+			end)
 		end
 	end
 
@@ -150,15 +138,9 @@ local function createPluginWidget(componentName, createWidgetFunc)
 	end
 
 	function PluginWidget:render()
-		if FFlagDevFrameworkFixCreatePluginWidget then
-			if not self.widget or not self.focus then
-				-- Nothing we can do until the widget is ready to use
-				return nil
-			end
-		else
-			if not self.widget then
-				self:createWidget()
-			end
+		if not self.widget or not self.focus then
+			-- Nothing we can do until the widget is ready to use
+			return nil
 		end
 
 		return self.focus:createProvider(Roact.createElement(Roact.Portal, {
@@ -167,9 +149,7 @@ local function createPluginWidget(componentName, createWidgetFunc)
 	end
 
 	function PluginWidget:willUnmount()
-		if FFlagDevFrameworkFixCreatePluginWidget then
-			self.isMounted = false
-		end
+		self.isMounted = false
 
 		if self.widgetEnabledChangedConnection then
 			self.widgetEnabledChangedConnection:Disconnect()

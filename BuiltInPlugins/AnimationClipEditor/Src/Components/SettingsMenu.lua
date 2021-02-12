@@ -62,10 +62,10 @@ function SettingsMenu:makeFrameRateMenu(localization)
 	return {
 		Name = localization:getText("Settings", "FrameRate") ..": " ..currentFPS .." fps",
 		Items = {
-			{Name = "24 fps", Value = Constants.FRAMERATES.FPS_24},
-			{Name = "30 fps", Value = Constants.FRAMERATES.FPS_30},
-			{Name = "60 fps", Value = Constants.FRAMERATES.FPS_60},
-			{Name = "120 fps", Value = Constants.FRAMERATES.FPS_120},
+			{Name = localization:getText("Settings", "24FPS"), Value = Constants.FRAMERATES.FPS_24},
+			{Name = localization:getText("Settings", "30FPS"), Value = Constants.FRAMERATES.FPS_30},
+			{Name = localization:getText("Settings", "60FPS"), Value = Constants.FRAMERATES.FPS_60},
+			{Name = localization:getText("Settings", "120FPS"), Value = Constants.FRAMERATES.FPS_120},
 			{Name = localization:getText("Settings", "CustomFPS") .."...", Value = Constants.FRAMERATES.CUSTOM},
 		},
 

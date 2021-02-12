@@ -310,7 +310,7 @@ local function dispatchChanges(setValue, dispatch)
 
 		NameChanged = function(text)
 			dispatch(AddChange("name", text))
-			local nameLength = string.len(text)
+			local nameLength = utf8.len(text)
 			if nameLength == 0 or string.len((string.gsub(text, " ", ""))) == 0 then
 				dispatch(AddErrors({name = "Empty"}))
 			elseif nameLength > MAX_NAME_LENGTH then

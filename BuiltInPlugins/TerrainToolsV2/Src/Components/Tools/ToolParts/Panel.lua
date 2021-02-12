@@ -2,6 +2,8 @@
 	Children of this component should not have a UiListLayout Sibling
 --]]
 
+local FFlagTerrainEditorUpdateFontToSourceSans = game:GetFastFlag("TerrainEditorUpdateFontToSourceSans")
+
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
@@ -117,8 +119,10 @@ function Panel:render()
 				TextXAlignment = Enum.TextXAlignment.Left,
 				TextYAlignment = Enum.TextYAlignment.Center,
 				TextColor3 = theme.textColor,
-				Font = Enum.Font.SourceSansBold,
-				FontSize = 6,
+				Font = FFlagTerrainEditorUpdateFontToSourceSans and theme.panelTheme.font or Enum.Font.SourceSansBold,
+				-- FontSize is legacy version, remove when flag is flipped
+				FontSize = (not FFlagTerrainEditorUpdateFontToSourceSans) and 6 or nil, 
+				TextSize = FFlagTerrainEditorUpdateFontToSourceSans and theme.panelTheme.textSize or nil,
 			}),
 		}),
 
