@@ -35,7 +35,6 @@ local FFlagAssetManagerRemoveAssetFixes = game:GetFastFlag("AssetManagerRemoveAs
 local FFlagStudioAssetManagerAssetPreviewRequest = game:GetFastFlag("StudioAssetManagerAssetPreviewRequest")
 local FFlagStudioAssetManagerFixLinkedScripts = game:GetFastFlag("StudioAssetManagerFixLinkedScripts")
 local FFlagStudioAssetManagerFixAssetPreviewRequest = game:GetFastFlag("StudioAssetManagerFixAssetPreviewRequest")
-local FFlagStudioAssetManagerNewFolderIcons = game:GetFastFlag("StudioAssetManagerNewFolderIcons")
 
 local Tile = Roact.PureComponent:extend("Tile")
 
@@ -285,11 +284,7 @@ function Tile:render()
 
     local image
     if isFolder then
-        if FFlagStudioAssetManagerNewFolderIcons then
-            image = assetData.Screen.Image
-        else
-            image = tileStyle.Image.Folder
-        end
+        image = tileStyle.Image.Folder
     else
         image = self.state.assetFetchStatus == Enum.AssetFetchStatus.Success and self.thumbnailUrl
             or tileStyle.Image.PlaceHolder

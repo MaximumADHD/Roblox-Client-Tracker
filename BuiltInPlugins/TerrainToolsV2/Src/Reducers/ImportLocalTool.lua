@@ -30,7 +30,6 @@ local ImportLocalTool = Rodux.createReducer({
 	]]
 	heightmap = {},
 	colormap = {},
-	colormapWarningId = nil,
 
 	-- TODO: Remove useColorMap when removing FFlagTerrainImportSupportDefaultMaterial
 	useColorMap = false,
@@ -78,12 +77,6 @@ local ImportLocalTool = Rodux.createReducer({
 	SelectColormap = function(state, action)
 		return Cryo.Dictionary.join(state, {
 			colormap = action.colormap or {},
-		})
-	end,
-
-	SetColormapWarningId = function(state, action)
-		return Cryo.Dictionary.join(state, {
-			colormapWarningId = action.colormapWarningId or Cryo.None,
 		})
 	end,
 

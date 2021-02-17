@@ -15,8 +15,6 @@
     Optional props:
         LayoutOrder = number, order in which this component should appear under its parent.
 ]]
-local FFlagStudioFixMonetizationErrorText = game:DefineFastFlag("StudioFixMonetizationErrorText", false)
-
 local PLACEHOLDER_TAX_RATE = 0.90
 
 local Plugin = script.Parent.Parent.Parent.Parent
@@ -120,17 +118,7 @@ function RobuxFeeBase:render()
             end,
         }))
     end
-    
-    local shouldDisplayFeeAndEarn
-    
-    if FFlagStudioFixMonetizationErrorText then
-        -- Don't display the Marketplace Fee and Earning fields if there is an error
-        -- Except if the error is a price change warning, in which case the fields are valid
-        shouldDisplayFeeAndEarn = not subText or props.ShowPriceChangeWarning
-    else
-        shouldDisplayFeeAndEarn = true
-    end
-    
+
     return Roact.createElement(FitFrameOnAxis, {
         axis = FitFrameOnAxis.Axis.Vertical,
         minimumSize = UDim2.new(1, 0, 0, 0),
@@ -176,7 +164,7 @@ function RobuxFeeBase:render()
                 PriceTextBox = priceBoxComponent,
             }),
 
-            SubText = (FFlagStudioFixMonetizationErrorText and subText or hasPriceChanged) and Roact.createElement("TextLabel", Cryo.Dictionary.join(subTextTheme, {
+            SubText = hasPriceChanged and Roact.createElement("TextLabel", Cryo.Dictionary.join(subTextTheme, {
                 Size = UDim2.new(0, math.ceil(subTextSize.X), 0, subTextSize.Y),
 
                 BackgroundTransparency = 1,
@@ -191,7 +179,7 @@ function RobuxFeeBase:render()
                 LayoutOrder = layoutIndex:getNextOrder(),
             })),
 
-            FeeFrame = shouldDisplayFeeAndEarn and Roact.createElement("Frame", {
+            FeeFrame = Roact.createElement("Frame", {
                 Size = UDim2.new(1, 0, 0, theme.rowHeight),
 
                 BackgroundTransparency = 1,
@@ -245,7 +233,7 @@ function RobuxFeeBase:render()
                 }))
             }),
 
-            FeeSubText = shouldDisplayFeeAndEarn and Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Subtext, {
+            FeeSubText = Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Subtext, {
                 Size = UDim2.new(0, math.ceil(feeSubTextSize.X), 0, feeSubTextSize.Y),
 
                 BackgroundTransparency = 1,
@@ -260,7 +248,7 @@ function RobuxFeeBase:render()
                 LayoutOrder = layoutIndex:getNextOrder(),
             })),
 
-            EarnFrame = shouldDisplayFeeAndEarn and Roact.createElement("Frame", {
+            EarnFrame = Roact.createElement("Frame", {
                 Size = UDim2.new(1, 0, 0, theme.rowHeight),
                 BackgroundTransparency = 1,
                 LayoutOrder = layoutIndex:getNextOrder(),

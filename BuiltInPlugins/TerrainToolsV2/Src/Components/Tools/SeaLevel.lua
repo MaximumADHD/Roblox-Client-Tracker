@@ -32,14 +32,14 @@ function SeaLevel:init()
 		local position = Vector3.new(self.props.Position.X,self.props.Position.Y,self.props.Position.Z)
 		local size = Vector3.new(self.props.Size.X,self.props.Size.Y,self.props.Size.Z)
 
-		self.props.SeaLevel:replaceMaterial(position, size, Enum.Material.Air, Enum.Material.Water, self.props.toolName)
+		self.props.SeaLevel:replaceMaterial(position, size, Enum.Material.Air, Enum.Material.Water)
 	end
 
 	self.tryEvaporateSeaLevel = function()
 		local position = Vector3.new(self.props.Position.X,self.props.Position.Y,self.props.Position.Z)
 		local size = Vector3.new(self.props.Size.X,self.props.Size.Y,self.props.Size.Z)
 
-		self.props.SeaLevel:replaceMaterial(position, size, Enum.Material.Water, Enum.Material.Air, self.props.toolName)
+		self.props.SeaLevel:replaceMaterial(position, size, Enum.Material.Water, Enum.Material.Air)
 	end
 
 	self.cancel = function()

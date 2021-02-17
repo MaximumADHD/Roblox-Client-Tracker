@@ -13,8 +13,6 @@
 
 local FFlagTerrainToolsLabeledElementPairIcons2 = game:GetFastFlag("TerrainToolsLabeledElementPairIcons2")
 local FFlagTerrainEditorUpdateFontToSourceSans = game:GetFastFlag("TerrainEditorUpdateFontToSourceSans")
-local FFlagTerrainToolsFixLabeledElementPair = game:GetFastFlag("TerrainToolsFixLabeledElementPair")
-local FFlagTerrainToolsColormapCallout = game:GetFastFlag("TerrainToolsColormapCallout")
 
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
@@ -76,14 +74,6 @@ function LabeledElementPair:init()
 	end
 end
 
-if FFlagTerrainToolsColormapCallout then
-	function LabeledElementPair:didMount()
-		if self.props.SizeToContent then
-			self.resizeToContent()
-		end
-	end
-end
-
 function LabeledElementPair:render()
 	local theme = self.props.Theme:get()
 
@@ -117,45 +107,27 @@ function LabeledElementPair:render()
 
 		local labelSection = {}
 
-		-- Add a few pixels gap between top of text and top of the "row"
-		local labelTopPadding = FFlagTerrainToolsFixLabeledElementPair and 2 or 4
-
-		local labelSize = UDim2.new(1, 0, 1, 0)
-
 		if showStatusIcon then
 			local textDimensions = TextService:GetTextSize(text, textSize, font,
 				Vector2.new(Constants.FIRST_COLUMN_WIDTH, math.huge))
 
 			-- Sometimes the last letter of the text gets clipped on mac
 			-- Just give it a few more pixels to be sure the text will fit
-			local labelWidth
-			local labelHeight
-			if FFlagTerrainToolsFixLabeledElementPair then
-				labelWidth = math.min(math.ceil(textDimensions.x) + 2, Constants.FIRST_COLUMN_WIDTH)
-				labelHeight = math.ceil(textDimensions.y)
-				labelSize = UDim2.new(0, labelWidth, 0, labelHeight + labelTopPadding)
-			else
-				labelWidth = math.min(textDimensions.x + 2, Constants.FIRST_COLUMN_WIDTH)
-				labelHeight = textDimensions.y
-			end
+			local labelWidth = math.min(textDimensions.x + 2, Constants.FIRST_COLUMN_WIDTH)
+			local labelHeight = textDimensions.y
 
 			local iconWidth = 18
+			local labelTopPadding = 4
 			local textIconPadding = 4
 
 			local iconSameRow
 			local iconTopPadding
-			if FFlagTerrainToolsFixLabeledElementPair then
-				iconSameRow = labelWidth + textIconPadding + iconWidth <= Constants.FIRST_COLUMN_WIDTH
-				-- Lower the icon so it lines up with the text
-				iconTopPadding = iconSameRow and 2 or 0
+			if labelWidth + textIconPadding + iconWidth <= Constants.FIRST_COLUMN_WIDTH then
+				iconSameRow = true
+				iconTopPadding = 1
 			else
-				if labelWidth + textIconPadding + iconWidth <= Constants.FIRST_COLUMN_WIDTH then
-					iconSameRow = true
-					iconTopPadding = 1
-				else
-					iconSameRow = false
-					iconTopPadding = 0
-				end
+				iconSameRow = false
+				iconTopPadding = 0
 			end
 
 			labelSection.UIListLayout = Roact.createElement("UIListLayout", {
@@ -166,27 +138,26 @@ function LabeledElementPair:render()
 				[Roact.Ref] = self.labelLayoutRef,
 			})
 
-			if not FFlagTerrainToolsFixLabeledElementPair then
-				labelSection.LabelContainer = Roact.createElement("Frame", {
-					LayoutOrder = 1,
-					Size = UDim2.new(0, labelWidth, 0, labelHeight + labelTopPadding),
+			-- Container frames are used to position the text and icon vertically in their row
+			labelSection.LabelContainer = Roact.createElement("Frame", {
+				LayoutOrder = 1,
+				Size = UDim2.new(0, labelWidth, 0, labelHeight + labelTopPadding),
+				BackgroundTransparency = 1,
+			}, {
+				Label = Roact.createElement("TextLabel", {
+					Size = UDim2.new(1, 0, 1, 0),
 					BackgroundTransparency = 1,
-				}, {
-					Label = Roact.createElement("TextLabel", {
-						Size = UDim2.new(1, 0, 1, 0),
-						BackgroundTransparency = 1,
 
-						Text = text,
-						TextSize = textSize,
-						Font = font,
+					Text = text,
+					TextSize = textSize,
+					Font = font,
 
-						TextWrapped = true,
-						TextColor3 = theme.textColor,
-						TextXAlignment = Enum.TextXAlignment.Left,
-						TextYAlignment = Enum.TextYAlignment.Bottom,
-					}),
-				})
-			end
+					TextWrapped = true,
+					TextColor3 = theme.textColor,
+					TextXAlignment = Enum.TextXAlignment.Left,
+					TextYAlignment = Enum.TextYAlignment.Bottom,
+				}),
+			})
 
 			labelSection.StatusIconContainer = Roact.createElement("Frame", {
 				LayoutOrder = 2,
@@ -201,7 +172,7 @@ function LabeledElementPair:render()
 					InfoMessage = self.props.InfoMessage,
 				}),
 			})
-		elseif not FFlagTerrainToolsFixLabeledElementPair then
+		else
 			labelSection.LabelContainer = Roact.createElement("Frame", {
 				LayoutOrder = 1,
 				Size = UDim2.new(1, 0, 1, 0),
@@ -213,29 +184,6 @@ function LabeledElementPair:render()
 					-- So toggling icon visible doesn't move the text around
 					Position = UDim2.new(0, 0, 0, 4),
 					Size = UDim2.new(1, 0, 1, -4),
-					BackgroundTransparency = 1,
-
-					Text = text,
-					TextSize = textSize,
-					Font = font,
-
-					TextWrapped = true,
-					TextColor3 = theme.textColor,
-					TextXAlignment = Enum.TextXAlignment.Left,
-					TextYAlignment = Enum.TextYAlignment.Top,
-				}),
-			})
-		end
-
-		if FFlagTerrainToolsFixLabeledElementPair then
-			labelSection.LabelContainer = Roact.createElement("Frame", {
-				LayoutOrder = 1,
-				Size = labelSize,
-				BackgroundTransparency = 1,
-			}, {
-				Label = Roact.createElement("TextLabel", {
-					Position = UDim2.new(0, 0, 0, labelTopPadding),
-					Size = UDim2.new(1, 0, 1, -labelTopPadding),
 					BackgroundTransparency = 1,
 
 					Text = text,

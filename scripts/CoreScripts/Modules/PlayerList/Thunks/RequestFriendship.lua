@@ -16,6 +16,7 @@ local function RequestFriendship(player, isAcceptRequest)
 		coroutine.wrap(function()
 			local theirFriendCount = FriendingUtility:GetFriendCountAsync(player.UserId)
 			local myFriendCount = FriendingUtility:GetFriendCountAsync(LocalPlayer.UserId)
+
 			if not myFriendCount or not theirFriendCount then
 				return
 			end
@@ -27,14 +28,14 @@ local function RequestFriendship(player, isAcceptRequest)
 					LocalPlayer:RequestFriendship(player)
 				end
 			elseif myFriendCount >= MAX_FRIEND_COUNT then
-				local title = isAcceptRequest and "Cannot accept friend request" or "Cannot send friend request"
+				local title = isAcceptRequest and "Cannot send friend request" or "Cannot accept friend request"
 				SendNotification:Fire({
 					Title = title,
 					Text = "You are at the max friends limit.",
 					Duration = 5,
 				})
 			elseif theirFriendCount >= MAX_FRIEND_COUNT then
-				local title = isAcceptRequest and "Cannot accept friend request" or "Cannot send friend request"
+				local title = isAcceptRequest and "Cannot send friend request" or "Cannot accept friend request"
 				local text = RobloxTranslator:FormatByKey(
 					"PlayerDropDown.OtherPlayerFriendLimit",
 					{RBX_NAME = player.Name}

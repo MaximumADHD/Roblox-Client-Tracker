@@ -1,5 +1,3 @@
-local FFlagTerrainTrackAcquisitionMethod = game:GetFastFlag("TerrainTrackAcquisitionMethod")
-
 local Plugin = script.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
@@ -12,8 +10,6 @@ local FrameworkUtil = Framework.Util
 local Signal = FrameworkUtil.Signal
 
 local Constants = require(Plugin.Src.Util.Constants)
-local TerrainEnums = require(Plugin.Src.Util.TerrainEnums)
-local ToolId = TerrainEnums.ToolId
 
 local ChangeHistoryService = game:GetService('ChangeHistoryService')
 
@@ -106,7 +102,7 @@ end
 -- seaLevel is the y plane position to set the sea level
 --   within the targetRegion
 -- Note all args are expected in studs
-function TerrainSeaLevel:replaceMaterial(position, size, sourceMaterial, targetMaterial, toolId)
+function TerrainSeaLevel:replaceMaterial(position, size, sourceMaterial, targetMaterial)
 	if self._replacing then
 		self:localizedWarn("Warning", "AlreadyGeneratingTerrain")
 		return
@@ -165,14 +161,6 @@ function TerrainSeaLevel:replaceMaterial(position, size, sourceMaterial, targetM
 	local maxSliceX = maxExtent.x * Constants.VOXEL_RESOLUTION
 	local minSliceX = minExtent.x * Constants.VOXEL_RESOLUTION
 
-	if FFlagTerrainTrackAcquisitionMethod then
-		if toolId == ToolId.SeaLevel then
-			terrain.LastUsedModificationMethod = Enum.TerrainAcquisitionMethod.EditSeaLevelTool
-		elseif toolId == ToolId.Replace then
-			terrain.LastUsedModificationMethod = Enum.TerrainAcquisitionMethod.EditReplaceTool
-		end
-	end
-	
 	while minSliceExtent.x <= (maxSliceX) and self._replacing do
 		-- output progress metric
 		self._updateReplaceProgress(1 - ((maxSliceX - minSliceExtent.X) / (maxSliceX-minSliceX)))

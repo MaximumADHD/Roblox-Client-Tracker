@@ -83,9 +83,6 @@ end
 local function setupImportedAvatar(avatar, avatarType)
 	local humanoid = avatar:FindFirstChildOfClass("Humanoid")
 	if not humanoid then
-		if game:GetFastFlag("ImportCustomAvatarsInFrontOfCamera") then 
-			avatar:MoveTo(setCameraFocusToFirstHit(10))
-		end
 		return
 	end
 

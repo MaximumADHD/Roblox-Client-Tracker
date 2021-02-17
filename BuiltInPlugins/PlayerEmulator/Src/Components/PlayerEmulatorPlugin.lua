@@ -1,3 +1,5 @@
+local FFlagPlayerEmulatorPluginWidgetStateOnCLoseFix = game:GetFastFlag("PlayerEmulatorPluginWidgetStateOnCLoseFix")
+
 local RunService = game:GetService("RunService")
 
 local Plugin = script.Parent.Parent.Parent
@@ -59,8 +61,10 @@ function PlayerEmulatorPlugin:init()
 		self:setState({
 			active = false,
 		})
-		local plugin = self.props.plugin
-		plugin:SetSetting(Constants.PLUGIN_WIDGET_STATE, false)
+		if FFlagPlayerEmulatorPluginWidgetStateOnCLoseFix then
+			local plugin = self.props.plugin
+			plugin:SetSetting(Constants.PLUGIN_WIDGET_STATE, false)
+		end
 	end
 
 	self.onAncestryChanged = function(_, _, parent)

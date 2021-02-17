@@ -1,5 +1,3 @@
-local FFlagTerrainTrackAcquisitionMethod = game:GetFastFlag("TerrainTrackAcquisitionMethod")
-
 local Plugin = script.Parent.Parent.Parent
 
 local Constants = require(Plugin.Src.Util.Constants)
@@ -76,12 +74,6 @@ local function performOperation(terrain, opSet)
 		OperationHelper.clampUpToVoxel(centerPoint.x + radius),
 		OperationHelper.clampUpToVoxel(centerPoint.y + (height * 0.5)),
 		OperationHelper.clampUpToVoxel(centerPoint.z + radius))
-
-	if (FFlagTerrainTrackAcquisitionMethod and tool == ToolId.Add) then
-		terrain.LastUsedModificationMethod = Enum.TerrainAcquisitionMethod.EditAddTool
-	elseif (FFlagTerrainTrackAcquisitionMethod and tool == ToolId.Replace) then
-		terrain.LastUsedModificationMethod = Enum.TerrainAcquisitionMethod.EditReplaceTool
-	end
 
 	-- Might be able to do a quick operation through an API call
 	if (tool == ToolId.Add or (tool == ToolId.Subtract and not ignoreWater)) and not autoMaterial then

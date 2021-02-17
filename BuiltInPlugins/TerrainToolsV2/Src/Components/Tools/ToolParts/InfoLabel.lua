@@ -7,7 +7,6 @@ Props
 	Type : String = "Info" - What information is the label showing? i.e. information, warnings or errors
 	                         Use InfoLabel.Info, .Warning and .Error
 ]]
-local FFlagTerrainEditorUpdateFontToSourceSans = game:GetFastFlag("TerrainEditorUpdateFontToSourceSans")
 
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
@@ -82,8 +81,6 @@ function InfoLabel:render()
 			BackgroundTransparency = 1,
 
 			Text = text,
-			TextSize = FFlagTerrainEditorUpdateFontToSourceSans and theme.textSize or nil,
-			Font = FFlagTerrainEditorUpdateFontToSourceSans and theme.font or nil,
 			TextWrapped = true,
 			TextColor3 = textColor,
 			TextXAlignment = Enum.TextXAlignment.Left,

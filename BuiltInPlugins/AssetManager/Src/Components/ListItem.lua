@@ -40,7 +40,6 @@ local FFlagStudioAssetManagerLinkedScriptIcon = game:GetFastFlag("StudioAssetMan
 local FFlagStudioAssetManagerShowRootPlaceListView = game:GetFastFlag("StudioAssetManagerShowRootPlaceListView")
 local FFlagStudioAssetManagerFixLinkedScripts = game:GetFastFlag("StudioAssetManagerFixLinkedScripts")
 local FFlagStudioAssetManagerFixAssetPreviewRequest = game:GetFastFlag("StudioAssetManagerFixAssetPreviewRequest")
-local FFlagStudioAssetManagerNewFolderIcons = game:GetFastFlag("StudioAssetManagerNewFolderIcons")
 
 local ICON_SIZE = 150
 
@@ -265,11 +264,7 @@ function ListItem:render()
     local imageInfo = {}
     local isFolder = assetData.ClassName == "Folder"
     if isFolder then
-        if FFlagStudioAssetManagerNewFolderIcons then
-            imageInfo.Image = assetData.Screen.Image
-        else
-            imageInfo.Image = listItemStyle.Image.Folder
-        end
+        imageInfo.Image = listItemStyle.Image.Folder
     else
         if self.state.assetFetchStatus == Enum.AssetFetchStatus.Success then
             if FFlagStudioAssetManagerShowRootPlaceListView then

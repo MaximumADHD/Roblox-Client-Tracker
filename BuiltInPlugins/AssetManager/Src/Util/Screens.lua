@@ -2,8 +2,6 @@ local Plugin = script.Parent.Parent.Parent
 local Framework = require(Plugin.Packages.Framework)
 local RobloxAPI = Framework.RobloxAPI
 
-local FFlagStudioAssetManagerNewFolderIcons = game:GetFastFlag("StudioAssetManagerNewFolderIcons")
-
 local Screens = {
     MAIN = {
 		Key = "MAIN",
@@ -48,14 +46,5 @@ Screens.MESHES.LayoutOrder = 3
 Screens.PACKAGES.LayoutOrder = 4
 Screens.SCRIPTS.LayoutOrder = 5
 Screens.AUDIO.LayoutOrder = 6
-
-if FFlagStudioAssetManagerNewFolderIcons then
-	Screens.PLACES.Image = "rbxasset://textures/StudioSharedUI/places.png"
-	Screens.IMAGES.Image = "rbxasset://textures/StudioSharedUI/images.png"
-	Screens.MESHES.Image = "rbxasset://textures/StudioSharedUI/meshes.png"
-	Screens.PACKAGES.Image = "rbxasset://textures/StudioSharedUI/packages.png"
-	Screens.SCRIPTS.Image = "rbxasset://textures/StudioSharedUI/scripts.png"
-	Screens.AUDIO.Image = "rbxasset://textures/StudioSharedUI/audio.png"
-end
 
 return Screens

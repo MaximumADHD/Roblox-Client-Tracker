@@ -12,7 +12,6 @@ local getFFlagAlignInLocalSpace = require(Plugin.Src.Flags.getFFlagAlignInLocalS
 local getFFlagAlignToolNarrowUI = require(Plugin.Src.Flags.getFFlagAlignToolNarrowUI)
 local getFFlagAlignToolUseScrollingFrame = require(Plugin.Src.Flags.getFFlagAlignToolUseScrollingFrame)
 local getFFlagAlignToolDisabledFix = require(Plugin.Src.Flags.getFFlagAlignToolDisabledFix)
-local getFFlagAlignToolTeachingCallout = require(Plugin.Src.Flags.getFFlagAlignToolTeachingCallout)
 
 local DraggerFramework = Plugin.Packages.DraggerFramework
 local BoundingBox = require(DraggerFramework.Utility.BoundingBox)
@@ -47,7 +46,6 @@ local AlignObjectsPreview = require(Plugin.Src.Components.AlignObjectsPreview)
 local RelativeToSection = require(Plugin.Src.Components.RelativeToSection) -- TODO: Remove component with FFlagAlignToolNarrowUI
 local UpdateAlignEnabled = require(Plugin.Src.Thunks.UpdateAlignEnabled)
 local UpdateAlignment = require(Plugin.Src.Thunks.UpdateAlignment)
-local TeachingCallout = require(script.Parent.TeachingCallout)
 
 local AlignToolError = require(Plugin.Src.Utility.AlignToolError)
 local getAlignableObjects = require(Plugin.Src.Utility.getAlignableObjects)
@@ -160,12 +158,6 @@ function MainView:render()
 								updateAlignment(analytics)
 							end
 						end,
-					}, {
-						TeachingCallout = getFFlagAlignToolTeachingCallout() and Roact.createElement(TeachingCallout, {
-							Offset = Vector2.new(0, 6),
-							DefinitionId = "AlignToolCallout",
-							LocationId = "AlignButton",
-						})
 					}),
 				}),
 			}),
@@ -230,12 +222,6 @@ function MainView:render()
 							updateAlignment(analytics)
 						end
 					end,
-				}, {
-					TeachingCallout = getFFlagAlignToolTeachingCallout() and Roact.createElement(TeachingCallout, {
-						Offset = Vector2.new(0, 6),
-						DefinitionId = "AlignToolCallout",
-						LocationId = "AlignButton",
-					})
 				}),
 			}),
 

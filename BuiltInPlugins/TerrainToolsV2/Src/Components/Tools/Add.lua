@@ -18,20 +18,13 @@ local SetAutoMaterial = require(Actions.SetAutoMaterial)
 local SetBaseSizeHeightLocked = require(Actions.SetBaseSizeHeightLocked)
 local SetIgnoreWater = require(Actions.SetIgnoreWater)
 local SetMaterial = require(Actions.SetMaterial)
-local SetPlaneLock = require(Actions.SetPlaneLock)
 local SetSnapToGrid = require(Actions.SetSnapToGrid)
 
 local TerrainEnums = require(Plugin.Src.Util.TerrainEnums)
 
-local FFlagTerrainToolsAddHasPlaneLock = game:GetFastFlag("TerrainToolsAddHasPlaneLock")
-
 local REDUCER_KEY = "AddTool"
 
 local function mapStateToProps(state, props)
-	local planeLock = nil
-	if FFlagTerrainToolsAddHasPlaneLock then
-		planeLock = state[REDUCER_KEY].planeLock
-	end
 	return {
 		toolName = TerrainEnums.ToolId.Add,
 
@@ -43,7 +36,6 @@ local function mapStateToProps(state, props)
 		ignoreWater = state[REDUCER_KEY].ignoreWater,
 		material = state[REDUCER_KEY].material,
 		pivot = state[REDUCER_KEY].pivot,
-		planeLock = planeLock,
 		snapToGrid = state[REDUCER_KEY].snapToGrid,
 	}
 end
@@ -52,6 +44,7 @@ local function mapDispatchToProps(dispatch)
 	local dispatchToAdd = function(action)
 		dispatch(ApplyToolAction(REDUCER_KEY, action))
 	end
+
 	return {
 		dispatchSetAutoMaterial = function (autoMaterial)
 			dispatchToAdd(SetAutoMaterial(autoMaterial))
@@ -77,9 +70,6 @@ local function mapDispatchToProps(dispatch)
 		dispatchChangePivot = function (pivot)
 			dispatchToAdd(ChangePivot(pivot))
 		end,
-		dispatchSetPlaneLock = FFlagTerrainToolsAddHasPlaneLock and function(planeLock)
-			dispatchToAdd(SetPlaneLock(planeLock))
-		end or nil,
 		dispatchSetSnapToGrid = function (snapToGrid)
 			dispatchToAdd(SetSnapToGrid(snapToGrid))
 		end,

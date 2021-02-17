@@ -4,7 +4,4 @@
 
 game:DefineFastFlag("FixImporterCustomConfigurer", false)
 
-game:DefineFastFlag("ImportCustomAvatarsInFrontOfCamera", false)
-
-
 return nil

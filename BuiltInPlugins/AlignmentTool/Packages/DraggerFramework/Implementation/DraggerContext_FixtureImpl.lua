@@ -121,10 +121,6 @@ function DraggerContext:shouldAnimateHover()
 	return true
 end
 
-function DraggerContext:shouldSelectScopeByDefault()
-	return true
-end
-
 function DraggerContext:getHoverAnimationSpeedInSeconds()
 	return 0.5
 end

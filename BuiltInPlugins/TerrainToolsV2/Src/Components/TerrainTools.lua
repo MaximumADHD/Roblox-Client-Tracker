@@ -153,8 +153,6 @@ function TerrainTools:render()
 
 	local imageLoader = self.props.imageLoader
 
-	local calloutController = self.props.calloutController
-
 	return ContextServices.provide({
 		plugin,
 		mouse,
@@ -172,8 +170,6 @@ function TerrainTools:render()
 		partConverter,
 		-- imageLoader will be nil if FFlagTerrainToolsHeightmapUseLoadingImage is false
 		imageLoader,
-		-- calloutController will be nil if FFlagTerrainToolsColormapCallout is false
-		calloutController,
 	}, {
 		Toolbar = Roact.createElement(PluginToolbar, {
 			Title = TOOLBAR_NAME,

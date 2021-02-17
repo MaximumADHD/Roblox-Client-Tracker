@@ -1,5 +1,4 @@
 local FFlagTerrainEditorUpdateFontToSourceSans = game:GetFastFlag("TerrainEditorUpdateFontToSourceSans")
-local FFlagTerrainToolsFixLabeledElementPair = game:GetFastFlag("TerrainToolsFixLabeledElementPair")
 
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -25,9 +24,7 @@ local function LabeledToggle(props)
 			IsOn = isOn,
 			SetIsOn = setIsOn,
 			Disabled = disabled,
-			Position = FFlagTerrainEditorUpdateFontToSourceSans and
-				UDim2.new(0, 0, 0, FFlagTerrainToolsFixLabeledElementPair and 3 or 6)
-				or nil
+			Position = FFlagTerrainEditorUpdateFontToSourceSans and UDim2.new(0, 0, 0, 6) or nil
 		}),
 	})
 end

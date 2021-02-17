@@ -11,7 +11,6 @@ local StudioSettings = {
 	ShowHoverOver = Studio["Show Hover Over"],
 	ActiveColor = Studio["Active Color"],
 	ActiveHoverOverColor = Studio["Active Hover Over Color"],
-	PhysicalDraggersSelectScopeByDefault = Studio["Physical Draggers Select Scope By Default"]
 }
 
 function StudioSettings.getHoverAnimateSpeedSeconds(speed)

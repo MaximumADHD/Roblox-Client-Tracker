@@ -122,14 +122,12 @@ function VIPServers:render()
     local subText
     local toggleSubText
     local priceError = props.PriceError
-    local showPriceChangeWarning
 
     if FFlagVIPServersRebrandToPrivateServers then
         if enabled and priceError then
             subText = priceError
         elseif hasPriceChanged then
             subText = localization:getText("Monetization", "PrivateServersPriceChangeWarning")
-            showPriceChangeWarning = true
         end
 
         toggleSubText = localization:getText("Monetization", "PrivateServersHint")
@@ -141,7 +139,6 @@ function VIPServers:render()
             subText = priceError
         elseif hasPriceChanged then
             subText = localization:getText("Monetization", "VIPServersPriceChangeWarning")
-            showPriceChangeWarning = true
         end
 
         toggleSubText = localization:getText("Monetization", "DEPRECATED_VIPServersHint")
@@ -180,7 +177,6 @@ function VIPServers:render()
                     HasPriceChanged = hasPriceChanged,
 
                     LayoutOrder = layoutIndex:getNextOrder(),
-                    ShowPriceChangeWarning = showPriceChangeWarning
                 }),
             }
         }

@@ -2,7 +2,6 @@ local CorePackages = game:GetService("CorePackages")
 local Players = game:GetService("Players")
 
 local MockId = require(CorePackages.AppTempCommon.LuaApp.MockId)
-local FFlagAddDisplayNameToUserModel = game:DefineFastFlag("AddDisplayNameToUserModel", false)
 
 local User = {}
 
@@ -52,9 +51,6 @@ function User.fromData(id, name, isFriend)
 	self.isFriend = isFriend
 	self.lastLocation = nil
 	self.name = name
-	if FFlagAddDisplayNameToUserModel then
-		self.displayName = name
-	end
 	self.universeId = nil
 	self.placeId = nil
 	self.rootPlaceId = nil

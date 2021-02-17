@@ -16,13 +16,9 @@ local FFlagEnableTerrainToolsStylizer = game:GetFastFlag("EnableTerrainToolsStyl
 local RefactorFlags = require(Plugin.Packages.Framework.Util.RefactorFlags)
 RefactorFlags.THEME_REFACTOR = FFlagEnableTerrainToolsStylizer
 
-game:DefineFastFlag("TerrainToolsRoactInspector", false)
-
 local FFlagTerrainToolsBetterImportTool = game:GetFastFlag("TerrainToolsBetterImportTool")
 local FFlagTerrainToolsImportUploadAssets = game:GetFastFlag("TerrainToolsImportUploadAssets")
 local FFlagTerrainToolsHeightmapUseLoadingImage = game:GetFastFlag("TerrainToolsHeightmapUseLoadingImage")
-local FFlagTerrainToolsRoactInspector = game:GetFastFlag("TerrainToolsRoactInspector")
-local FFlagTerrainToolsColormapCallout = game:GetFastFlag("TerrainToolsColormapCallout")
 
 -- Libraries
 local Framework = require(Plugin.Packages.Framework)
@@ -134,19 +130,6 @@ local function createTerrainContextItems()
 		imageLoader = ImageLoader.new()
 	end
 
-	local calloutController
-	if FFlagTerrainToolsColormapCallout then
-		calloutController = ContextItems.CalloutController.new()
-
-		local definitionId = "TerrainToolsColormapCallout"
-
-		local title = localization:getText("ColormapCallout", "Title")
-		local description = localization:getText("ColormapCallout", "Description")
-		local learnMoreUrl = "https://developer.roblox.com/en-us/articles/importing-terrain-data"
-
-		calloutController:defineCallout(definitionId, title, description, learnMoreUrl)
-	end
-
 	return {
 		plugin = pluginItem,
 		mouse = mouse,
@@ -164,7 +147,6 @@ local function createTerrainContextItems()
 		terrainGeneration = terrainGeneration,
 		seaLevel = seaLevel,
 		partConverter = partConverter,
-		calloutController = calloutController,
 	}
 end
 
@@ -181,28 +163,10 @@ local function main()
 
 	local roactHandle = Roact.mount(Roact.createElement(TerrainTools, contextItems))
 
-	local inspector
-	if FFlagTerrainToolsRoactInspector then
-		-- StudioService isn't always available, so ignore if an error is thrown trying to access
-		local ok, hasInternalPermission = pcall(function()
-			return game:GetService("StudioService"):HasInternalPermission()
-		end)
-
-		if ok and hasInternalPermission then
-			local inspector = Framework.DeveloperTools.forPlugin("Terrain Editor", plugin)
-			inspector:addRoactTree("Roact tree", roactHandle)
-		end
-	end
-
 	plugin.Unloading:Connect(function()
 		if roactHandle then
 			Roact.unmount(roactHandle)
 			roactHandle = nil
-		end
-
-		if FFlagTerrainToolsRoactInspector and inspector then
-			inspector:destroy()
-			inspector = nil
 		end
 
 		cleanupTerrainContextItems(contextItems)

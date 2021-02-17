@@ -1,5 +1,3 @@
-local FFlagTerrainTrackAcquisitionMethod = game:GetFastFlag("TerrainTrackAcquisitionMethod")
-
 local Plugin = script.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
@@ -762,10 +760,6 @@ return function(terrain, generateSettings, analytics)
 
 			-- Apply our changes to the terrain
 			local success, msg = pcall(function()
-				if FFlagTerrainTrackAcquisitionMethod then
-					terrain.LastUsedModificationMethod = Enum.TerrainAcquisitionMethod.Generate
-				end
-
 				terrain:WriteVoxels(sliceRegion, Constants.VOXEL_RESOLUTION, materialMap, occupancyMap)
 			end)
 
