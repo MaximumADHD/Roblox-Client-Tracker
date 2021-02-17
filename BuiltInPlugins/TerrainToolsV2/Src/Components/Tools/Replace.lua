@@ -53,7 +53,7 @@ function Replace:init()
 		local position = Vector3.new(self.props.Position.X,self.props.Position.Y,self.props.Position.Z)
 		local size = Vector3.new(self.props.Size.X,self.props.Size.Y,self.props.Size.Z)
 
-		self.props.Replace:replaceMaterial(position, size, self.props.Source, self.props.Target)
+		self.props.Replace:replaceMaterial(position, size, self.props.Source, self.props.Target, self.props.toolName)
 	end
 
 	self.setSourceMaterial = function(material)

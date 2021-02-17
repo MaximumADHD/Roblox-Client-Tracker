@@ -48,11 +48,13 @@ local LOCALIZATION_ID = "Monetization"
 --[[
     TODO 7/16/2020 Fetch these values from the BE so we don't need to keep syncing with BE whenever they change
 ]]
-local MAX_NAME_LENGTH = 50
-local PAID_ACCESS_MIN_PRICE = 25
-local PAID_ACCESS_MAX_PRICE = 1000
-local VIP_SERVERS_MIN_PRICE = 10
-local DEV_PRODUCTS_MIN_PRICE = 1
+
+local FIntMaxNameLength = game:DefineFastInt("MaxNameLength", 50)
+local FIntPaidAccessMinPrice = game:DefineFastInt("PaidAccessMinPrice", 25)
+local FIntPaidAccessMaxPrice = game:DefineFastInt("PaidAccessMaxPrice", 1000)
+local FIntPrivateServersMinPrice = game:DefineFastInt("PrivateServersMinPrice", 10)
+local FIntDevProductsMinPrice = game:DefineFastInt("DevProductsMinPrice", 1)
+local FIntDevProductsMaxPrice = game:DefineFastInt("DevProductsMaxPrice", 1000000000)
 
 local FFlagSupportFreePrivateServers = game:GetFastFlag("SupportFreePrivateServers")
 local FFlagEnableDevProductsInGameSettings = game:GetFastFlag("EnableDevProductsInGameSettings")
@@ -61,12 +63,17 @@ local FFlagStudioFixGameManagementIndexNil = game:getFastFlag("StudioFixGameMana
 local FFlagStudioFixMissingMonetizationHeader = game:DefineFastFlag("StudioFixMissingMonetizationHeader", false)
 local FVariableMaxRobuxPrice = game:DefineFastInt("DeveloperSubscriptionsMaxRobuxPrice", 2000)
 local FFlagFixDeveloperProductsEditFailure = game:DefineFastFlag("FixDeveloperProductsEditFailure", false)
+local FFlagStudioDevProductsMaxPriceEnabled = game:DefineFastFlag("StudioDevProductsMaxPriceEnabled", false)
 
 local priceErrors = {
     BelowMin = "ErrorPriceBelowMin",
     AboveMax = "ErrorPriceAboveMax",
     Invalid = "ErrorPriceInvalid",
 }
+
+local BELOW_MIN = "BelowMin"
+local ABOVE_MAX = "AboveMax"
+local INVALID = "Invalid"
 
 local nameErrors = {
     Empty = "ErrorNameEmpty",
@@ -299,7 +306,7 @@ end
 local function dispatchChanges(setValue, dispatch)
     local dispatchFuncs = {
         PaidAccessToggled = function(value, initialPrice)
-            -- on toggle, reset the price to what it was before or PAID_ACCESS_MIN_PRICE, whichever is larger.
+            -- on toggle, reset the price to what it was before or FIntPaidAccessMinPrice, whichever is larger.
             -- on toggle off, this will reset any changes to price that have been made,
             -- on toggle on for the first time, this will set the price to 25 (lowest valid price) as default.
             dispatch(AddChange("price", initialPrice))
@@ -314,16 +321,16 @@ local function dispatchChanges(setValue, dispatch)
             dispatch(DiscardError("monetizationPrice"))
 
             if not numberValue then
-                dispatch(AddErrors({monetizationPrice = "Invalid"}))
-            elseif numberValue < PAID_ACCESS_MIN_PRICE then
-                dispatch(AddErrors({monetizationPrice = "BelowMin"}))
-            elseif numberValue > PAID_ACCESS_MAX_PRICE then
-                dispatch(AddErrors({monetizationPrice = "AboveMax"}))
+                dispatch(AddErrors({monetizationPrice = INVALID}))
+            elseif numberValue < FIntPaidAccessMinPrice then
+                dispatch(AddErrors({monetizationPrice = BELOW_MIN}))
+            elseif numberValue > FIntPaidAccessMaxPrice then
+                dispatch(AddErrors({monetizationPrice = ABOVE_MAX}))
             end
         end,
 
         VIPServersToggled = function(value, initialPrice)
-            -- on toggle, reset the price to what it was before or VIP_SERVERS_MIN_PRICE, whichever is larger.
+            -- on toggle, reset the price to what it was before or FIntPrivateServersMinPrice, whichever is larger.
             -- on toggle off, this will reset any changes to price that have been made,
             -- on toggle on for the first time, this will set the price to 10 (lowest valid price) as default.
             dispatch(AddChange("vipServersPrice", initialPrice))
@@ -339,15 +346,15 @@ local function dispatchChanges(setValue, dispatch)
 
             if FFlagSupportFreePrivateServers then
                 if not numberValue then
-                    dispatch(AddErrors({monetizationPrice = "Invalid"}))
-                elseif numberValue ~= 0 and numberValue < VIP_SERVERS_MIN_PRICE then
-                    dispatch(AddErrors({monetizationPrice = "BelowMin"}))
+                    dispatch(AddErrors({monetizationPrice = INVALID}))
+                elseif numberValue ~= 0 and numberValue < FIntPrivateServersMinPrice then
+                    dispatch(AddErrors({monetizationPrice = BELOW_MIN}))
                 end
             else
                 if not numberValue then
-                    dispatch(AddErrors({monetizationPrice = "Invalid"}))
-                elseif numberValue < VIP_SERVERS_MIN_PRICE then
-                    dispatch(AddErrors({monetizationPrice = "BelowMin"}))
+                    dispatch(AddErrors({monetizationPrice = INVALID}))
+                elseif numberValue < FIntPrivateServersMinPrice then
+                    dispatch(AddErrors({monetizationPrice = BELOW_MIN}))
                 end
             end
         end,
@@ -482,19 +489,26 @@ local function getPriceErrorText(error, vipServersEnabled, paidAccessEnabled, lo
     if not error then return nil end
 
     local priceError
+
     if priceErrors[error] then
         local errorValue
-        if error == "BelowMin" then
+
+        if error == BELOW_MIN then
             if vipServersEnabled then
-                errorValue = string.format("%.f", VIP_SERVERS_MIN_PRICE)
+                errorValue = string.format("%.f", FIntPrivateServersMinPrice)
             elseif paidAccessEnabled then
-                errorValue = string.format("%.f", PAID_ACCESS_MIN_PRICE)
+                errorValue = string.format("%.f", FIntPaidAccessMinPrice)
             else
-                errorValue = string.format("%.f", DEV_PRODUCTS_MIN_PRICE)
+                errorValue = string.format("%.f", FIntDevProductsMinPrice)
             end
-        elseif error == "AboveMax" and paidAccessEnabled then
-            errorValue = string.format("%.f", PAID_ACCESS_MAX_PRICE)
+        elseif error == ABOVE_MAX then
+            if paidAccessEnabled then
+                errorValue = string.format("%.f", FIntPaidAccessMaxPrice)
+            elseif FFlagStudioDevProductsMaxPriceEnabled then
+                errorValue = string.format("%.f", FIntDevProductsMaxPrice)
+            end
         end
+
         priceError = localization:getText("Errors", priceErrors[error], {errorValue})
     end
 
@@ -520,7 +534,7 @@ local function sanitizeCurrentDevProduct(devProduct, initialName)
     local nameLength = utf8.len(name)
     local price = tonumber(devProduct.price)
 
-    if nameLength < 1 or nameLength > MAX_NAME_LENGTH then
+    if nameLength < 1 or nameLength > FIntMaxNameLength then
         devProduct = Cryo.Dictionary.join(devProduct, {
             name = initialName
         })
@@ -592,7 +606,7 @@ local function displayMonetizationPage(props)
             Selected = paidAccessEnabled,
 
             OnPaidAccessToggle = function(button)
-                local initialPrice = math.max(props.PaidAccess.initialPrice, PAID_ACCESS_MIN_PRICE)
+                local initialPrice = math.max(props.PaidAccess.initialPrice, FIntPaidAccessMinPrice)
                 return paidAccessToggled(button, initialPrice)
             end,
             OnPaidAccessPriceChanged = paidAccessPriceChanged,
@@ -609,7 +623,7 @@ local function displayMonetizationPage(props)
             Enabled = paidAccessEnabled == false,
 
             OnVipServersToggled = function(button)
-                local initialPrice = math.max(props.VIPServers.initialPrice, VIP_SERVERS_MIN_PRICE)
+                local initialPrice = math.max(props.VIPServers.initialPrice, FIntPrivateServersMinPrice)
                 return vipServersToggled(button, initialPrice)
             end,
             OnVipServersPriceChanged = vipServersPriceChanged,
@@ -746,7 +760,7 @@ local function displayEditDevProductsPage(props)
         }, {
             TextBox = Roact.createElement(RoundTextBox, {
                 Active = true,
-                MaxLength = MAX_NAME_LENGTH,
+                MaxLength = FIntMaxNameLength,
                 Text = productTitle,
                 TextSize = theme.fontStyle.Normal.TextSize,
 
@@ -831,9 +845,11 @@ local function displayEditDevProductsPage(props)
                         local errorKey = "devProductPrice"
                         local errorValue
                         if not numberValue then
-                            errorValue = "Invalid"
-                        elseif numberValue < DEV_PRODUCTS_MIN_PRICE then
-                            errorValue = "BelowMin"
+                            errorValue = INVALID
+                        elseif numberValue < FIntDevProductsMinPrice then
+                            errorValue = BELOW_MIN
+                        elseif FFlagStudioDevProductsMaxPriceEnabled and numberValue > FIntDevProductsMaxPrice then
+                            errorValue = ABOVE_MAX
                         end
 
                         currentDevProduct = Cryo.Dictionary.join(currentDevProduct, {

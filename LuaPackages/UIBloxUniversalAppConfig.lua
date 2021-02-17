@@ -12,4 +12,5 @@ return {
 	fixItemTilePremiumIcon = GetFFlagLuaFixItemTilePremiumIcon(),
 	enableExperimentalGamepadSupport = GetFFlagLuaUIBloxGamepadSupport(),
 	genericSliderFilterOldTouchInputs = FFlagUIBloxSlidersFilterOldTouchInputs,
+	allowSystemBarToAcceptString = game:DefineFastFlag("UIBloxAllowSystemBarToAcceptString", false),
 }

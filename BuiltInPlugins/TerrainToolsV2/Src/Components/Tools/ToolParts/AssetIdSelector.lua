@@ -352,6 +352,8 @@ function AssetIdSelector:render()
 				WarningOverride = warningMessageToDisplay,
 				EditingDisabled = true,
 				OnFocused = self.onFocused,
+				-- remove when new heightmaps is out of beta, as specific text size handling won't be needed
+				TextSize = 13,
 			})
 		}),
 

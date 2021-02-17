@@ -7,6 +7,8 @@ local Signal = FrameworkUtil.Signal
 
 local AxisLockedDragger = require(script.Parent.AxisLockedDragger)
 
+local FFlagTerrainRegionPreview = game:GetFastFlag("TerrainRegionPreview")
+
 local MAX_DRAG = 16000
 local MIN_DRAG = 4
 
@@ -102,15 +104,28 @@ function LargeVoxelRegionPreview:getOnSizeChanged()
 end
 
 function LargeVoxelRegionPreview:destroy()
-	if self._rootPart then
-		self._rootPart:Destroy()
-		self._rootPart = nil
+	if FFlagTerrainRegionPreview then
+		if self._rootModel then
+			self._rootModel:Destroy()
+			self._rootModel = nil
+		end
+
+		if self._centerPart then
+			self._centerPart:Destroy()
+			self._centerPart = nil
+		end
+	else
+		if self._rootPart then
+			self._rootPart:Destroy()
+			self._rootPart = nil
+		end
 	end
 
 	if self._blockMesh then
 		self._blockMesh:Destroy()
 		self._blockMesh = nil
 	end
+
 	for _, adorn in pairs(self._adorns) do
 		adorn:destroy()
 	end
@@ -123,8 +138,14 @@ function LargeVoxelRegionPreview:destroy()
 end
 
 function LargeVoxelRegionPreview:updateVisibility(isVisible)
-	if self._rootPart then
-		self._rootPart.Transparency = isVisible and .9 or 1
+	if FFlagTerrainRegionPreview then
+		if self._centerPart then
+			self._centerPart.Transparency = isVisible and .9 or 1
+		end
+	else
+		if self._rootPart then
+			self._rootPart.Transparency = isVisible and .9 or 1
+		end
 	end
 
 	for _, border in pairs(self._borders) do
@@ -138,31 +159,69 @@ end
 
 -- creates and updates existing tiles
 function LargeVoxelRegionPreview:updateBlockMesh(isVisible)
-	if not self._rootPart then
-		local rootPart = Instance.new("Part")
-		rootPart.Name = "RegionPreview"
-		rootPart.Size = Vector3.new(1, 1, 1)
-		rootPart.TopSurface = 'Smooth'
-		rootPart.BottomSurface = 'Smooth'
-		rootPart.CastShadow = false
-		rootPart.Locked = true
-		rootPart.Anchored = true
-		rootPart.CanCollide = false
-		rootPart.BrickColor = BrickColor.new('Toothpaste')
-		rootPart.Material = Enum.Material.Neon
-		rootPart.Archivable = false
-		rootPart.Transparency = 1
+	if FFlagTerrainRegionPreview then
+		if not self._rootModel then
+			local rootModel = Instance.new("Model")
+			rootModel.Name = "RegionPreview"
+			rootModel.Archivable = false
+			self._rootModel = rootModel
+			self._rootModel.Parent = self._target
+		end
 
-		local blockMesh = Instance.new("BlockMesh")
-		blockMesh.Scale = Vector3.new(1,1,1)
-		blockMesh.Parent = rootPart
+		if not self._centerPart then
+			local centerPart = Instance.new("Part")
+			centerPart.Name = "RegionCenter"
+			centerPart.Size = Vector3.new(1, 1, 1)
+			centerPart.TopSurface = 'Smooth'
+			centerPart.BottomSurface = 'Smooth'
+			centerPart.CastShadow = false
+			centerPart.Locked = true
+			centerPart.Anchored = true
+			centerPart.CanCollide = false
+			centerPart.BrickColor = BrickColor.new('Toothpaste')
+			centerPart.Material = Enum.Material.Neon
+			centerPart.Archivable = false
+			centerPart.Transparency = 1
 
-		self._blockMesh = blockMesh
-		self._rootPart = rootPart
+			local blockMesh = Instance.new("BlockMesh")
+			blockMesh.Scale = Vector3.new(1,1,1)
+			blockMesh.Parent = centerPart
+
+			self._blockMesh = blockMesh
+			self._centerPart = centerPart
+		end
+	else
+		if not self._rootPart then
+			local rootPart = Instance.new("Part")
+			rootPart.Name = "RegionPreview"
+			rootPart.Size = Vector3.new(1, 1, 1)
+			rootPart.TopSurface = 'Smooth'
+			rootPart.BottomSurface = 'Smooth'
+			rootPart.CastShadow = false
+			rootPart.Locked = true
+			rootPart.Anchored = true
+			rootPart.CanCollide = false
+			rootPart.BrickColor = BrickColor.new('Toothpaste')
+			rootPart.Material = Enum.Material.Neon
+			rootPart.Archivable = false
+			rootPart.Transparency = 1
+
+			local blockMesh = Instance.new("BlockMesh")
+			blockMesh.Scale = Vector3.new(1,1,1)
+			blockMesh.Parent = rootPart
+
+			self._blockMesh = blockMesh
+			self._rootPart = rootPart
+		end
 	end
 
-	self._rootPart.Position = self._position
-	self._rootPart.Parent = self._target
+	if FFlagTerrainRegionPreview then
+		self._centerPart.Position = self._position
+		self._centerPart.Parent = self._rootModel
+	else
+		self._rootPart.Position = self._position
+		self._rootPart.Parent = self._target
+	end
 	self._blockMesh.Scale = self._size
 end
 
@@ -211,7 +270,12 @@ function LargeVoxelRegionPreview:updateBorder(normID1, normID2)
 		borderRoot.Archivable = false
 		borderRoot.Transparency = 1
 		borderRoot.CastShadow = false
-		borderRoot.Parent = self._rootPart
+
+		if FFlagTerrainRegionPreview then
+			borderRoot.Parent = self._rootModel
+		else
+			borderRoot.Parent = self._rootPart
+		end
 		self._borders[key] = borderRoot
 
 		local border = Instance.new("BlockMesh")
@@ -225,8 +289,14 @@ end
 
 -- should be called after adorn positions have been updated
 function LargeVoxelRegionPreview:updateBorders()
-	if not self._rootPart then
-		self:updateBlockMesh()
+	if FFlagTerrainRegionPreview then
+		if not self._centerPart then
+			self:updateBlockMesh()
+		end
+	else
+		if not self._rootPart then
+			self:updateBlockMesh()
+		end
 	end
 
 	-- iterate through permutations of normals to get

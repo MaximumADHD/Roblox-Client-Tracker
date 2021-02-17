@@ -1,4 +1,5 @@
 local FFlagCGELocalizeWindowTitle = game:DefineFastFlag("CGELocalizeWindowTitle", false)
+local FFlagCGEDebounceInit = game:DefineFastFlag("CGEDebounceInit", false)
 
 local Root = script.Parent.Parent
 local Roact = require(Root.modules.Roact)
@@ -63,7 +64,7 @@ local Window = nil
 local RoactHandle = nil
 local inspector
 
-local function handleDMSession(dmSession)
+local function handleDMSessionDebounced(dmSession)
 	if (Window == nil) then 
 		-- Set the initial icon to show while over this plugin's dock widget.
 		-- Without this, the cursor will be the odd plugin cursor for a
@@ -123,6 +124,27 @@ local function handleDMSession(dmSession)
 	-- note: I don't know if this works, but it should
 	if Window.Enabled then
 		reportOpening()
+	end
+end
+
+-- The CreateDockWidgetPluginGui function is yielding and may not complete before a second
+-- event to DataModelSessionStarted is triggered. This debouncer prevents us from triggering
+-- redundant logic that will fail in that case.
+local handleDMSessionDebounce = false
+local function handleDMSession(dmSession)
+	if not FFlagCGEDebounceInit then
+		handleDMSessionDebounced(dmSession)
+		return
+	end
+
+	if handleDMSessionDebounce then
+		return
+	end
+	handleDMSessionDebounce = true
+	local success, err = pcall(handleDMSessionDebounced, dmSession)
+	handleDMSessionDebounce = false
+	if not success then
+		error(err)
 	end
 end
 

@@ -272,7 +272,7 @@ function AnimationClipDropdown:render()
 		}),
 
 		OverwritePrompt = overwriteName and Roact.createElement(FocusedPrompt, {
-			PromptText = localization:getText("Menu", "Overwrite", {overwriteName = overwriteName}),
+			PromptText = localization:getText("Menu", "Overwrite_Migrated", {overwriteName = overwriteName}),
 			Buttons = {
 				{Key = false, Text = localization:getText("Dialog", "No")},
 				{Key = true, Text = localization:getText("Dialog", "Yes"), Style = style.Primary},

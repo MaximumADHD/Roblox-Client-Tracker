@@ -7,6 +7,7 @@ local FFlagTerrainImportGreyscale2 = game:GetFastFlag("TerrainImportGreyscale2")
 local FFlagTerrainToolsMapSettingsMaxVolume = game:GetFastFlag("TerrainToolsMapSettingsMaxVolume")
 local FFlagTerrainDialogPoorColormapImport = game:GetFastFlag("TerrainDialogPoorColormapImport")
 local FFlagTerrainImportUseDetailedProgressBar = game:GetFastFlag("TerrainImportUseDetailedProgressBar")
+local FFlagTerrainToolsColormapCallout = game:GetFastFlag("TerrainToolsColormapCallout")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -31,12 +32,14 @@ local Panel = require(ToolParts.Panel)
 local MaterialSelector = require(ToolParts.MaterialSelector)
 local ModeSelector = require(ToolParts.ModeSelector)
 local ProgressDialog = require(Plugin.Src.Components.ProgressDialog)
+local TeachingCallout = require(Plugin.Src.Components.TeachingCallout)
 
 local Actions = Plugin.Src.Actions
 local ApplyToolAction = require(Actions.ApplyToolAction)
 local ChangePosition = require(Actions.ChangePosition)
 local ChangeSize = require(Actions.ChangeSize)
 local SelectColormap = require(Actions.SelectColormap)
+local SetColormapWarningId = require(Actions.SetColormapWarningId)
 local SelectHeightmap = require(Actions.SelectHeightmap)
 local SetUseColorMap = require(Actions.SetUseColorMap)
 local SetDefaultMaterial = require(Actions.SetDefaultMaterial)
@@ -123,8 +126,6 @@ function ImportLocal:init()
 			warningMainText = "",
 			warningSubText = "",
 			warningLinkText = "",
-
-			colormapPickerHasRangeWarning = false,
 		}
 	else
 		self.state = {
@@ -257,9 +258,6 @@ function ImportLocal:init()
 
 	self.clearColormap = function()
 		self.props.dispatchSelectColormap(nil)
-		self:setState({
-			colormapPickerHasRangeWarning = false
-		})
 	end
 
 	self.setErrorMessage = function(errorTitle, errorBody)
@@ -335,7 +333,7 @@ function ImportLocal:didMount()
 	self._onImportErrorConnection = self.props.TerrainImporter:subscribeToErrors(function(message)
 		self.setErrorMessage("ImportFailed", message)
 	end)
-	
+
 	self._isMounted = true
 
 	if FFlagTerrainDialogPoorColormapImport then
@@ -347,8 +345,8 @@ function ImportLocal:didMount()
 					warningMainText = localization:getText("ImportWarning", "MainTextColormapRGBOutOfRange"),
 					warningSubText = localization:getText("ImportWarning", "SubTextColormapRGBOutOfRange"),
 					warningLinkText = localization:getText("Action", "LearnMore"),
-					colormapPickerHasRangeWarning = true,
 				})
+				self.props.dispatchSetColormapWarningId(self.props.colormap.file and self.props.colormap.file:GetTemporaryId() or nil)
 				self.props.TerrainImporter:clearHasPixelWarning()
 			end
 		end)
@@ -419,7 +417,8 @@ function ImportLocal:render()
 	local heightmapMessages = getMessagesForImage(self.props.heightmap, self.props.size, localization)
 	local colormapMessages = getMessagesForImage(self.props.colormap, self.props.size, localization)
 
-	if (not colormapMessages.Warning and self.state.colormapPickerHasRangeWarning) then
+	local colormapPickerHasRangeWarning = self.props.colormap.file and self.props.colormap.file:GetTemporaryId() == self.props.colormapWarningId
+	if (not colormapMessages.Warning and colormapPickerHasRangeWarning) then
 		colormapMessages.Warning = localization:getText("ImportWarning", "ColorMapOutOfRangeIconTooltip")
 	end
 
@@ -543,6 +542,18 @@ function ImportLocal:render()
 					ClearSelection = self.clearColormap,
 					PreviewTitle = localization:getText("Import", "ColormapPreview"),
 				}),
+
+				CalloutContainer = FFlagTerrainToolsColormapCallout and Roact.createElement("Frame", {
+					-- Same width as the image preview above so we center the callout
+					Size = UDim2.new(0, 88, 0, 0),
+					BackgroundTransparency = 1,
+					LayoutOrder = 2,
+				}, {
+					TeachingCallout = Roact.createElement(TeachingCallout, {
+						DefinitionId = "TerrainToolsColormapCallout",
+						LocationId = "TerrainImportColormapSelector",
+					}),
+				}) or nil,
 			}),
 		}),
 
@@ -607,6 +618,7 @@ local function mapStateToProps(state, props)
 
 		heightmap = state[REDUCER_KEY].heightmap or {},
 		colormap = state[REDUCER_KEY].colormap or {},
+		colormapWarningId = state[REDUCER_KEY].colormapWarningId or nil,
 
 		-- TODO: Remove useColorMap when removing FFlagTerrainImportSupportDefaultMaterial
 		useColorMap = state[REDUCER_KEY].useColorMap,
@@ -635,6 +647,9 @@ local function mapDispatchToProps(dispatch)
 		end,
 		dispatchSelectColormap = function(colormap)
 			dispatchToImportLocal(SelectColormap(colormap))
+		end,
+		dispatchSetColormapWarningId = function(colormapWarningId)
+			dispatchToImportLocal(SetColormapWarningId(colormapWarningId))
 		end,
 		-- TODO: Remove dispatchSetUseColorMap when removing FFlagTerrainImportSupportDefaultMaterial
 		dispatchSetUseColorMap = function(useColorMap)

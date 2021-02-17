@@ -29,6 +29,8 @@ local LargeVoxelRegionPreview = require(Plugin.Src.TerrainWorldUI.LargeVoxelRegi
 local ToolParts = script.Parent
 local MapSettingsFragment = require(ToolParts.MapSettingsFragment)
 
+local FFlagTerrainRegionPreview = game:GetFastFlag("TerrainRegionPreview")
+
 local MapSettingsWithPreviewFragment = Roact.PureComponent:extend(script.Name)
 
 function MapSettingsWithPreviewFragment:init()
@@ -83,7 +85,11 @@ function MapSettingsWithPreviewFragment:didMount()
 	local terrain = self.props.Terrain:get()
 
 	assert(not self.preview, "MapSettingsWithPreviewFragment preview already exists")
-	self.preview = LargeVoxelRegionPreview.new(mouse, terrain)
+	if FFlagTerrainRegionPreview then
+		self.preview = LargeVoxelRegionPreview.new(mouse, game.Workspace.CurrentCamera)
+	else
+		self.preview = LargeVoxelRegionPreview.new(mouse, terrain)
+	end
 	self:updatePreview()
 	self.preview:updateVisibility(true)
 
