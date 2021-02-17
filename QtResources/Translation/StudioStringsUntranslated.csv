@@ -111,6 +111,8 @@ Studio.App.BetaFeatures.CouldBeUnstable,,Note: Beta features could be unstable r
 Studio.App.BetaFeatures.Details,,Details,Details
 Studio.App.BetaFeatures.EnableLuauTypeCheckingDescription,,Enables new script analysis features,Enables new script analysis features
 Studio.App.BetaFeatures.EnableLuauTypeCheckingTitle,,Enable New Lua Script Analysis,Enable New Lua Script Analysis
+Studio.App.BetaFeatures.FindReplaceViewDescription,,"Overhaul of find and replace functionality to make working with large codebases easier. Streamlined interface, addition of search filters and Replace All functionality, and improved performance.","Overhaul of find and replace functionality to make working with large codebases easier. Streamlined interface, addition of search filters and Replace All functionality, and improved performance."
+Studio.App.BetaFeatures.FindReplaceViewTitle,,Find All / Replace All,Find All / Replace All
 Studio.App.BetaFeatures.GameManagementDescription,,Enable game management features in Game Settings. Find Game Settings on the “Home” tab.,Enable game management features in Game Settings. Find Game Settings on the “Home” tab.
 Studio.App.BetaFeatures.GameManagementTitle,,Game Management,Game Management
 Studio.App.BetaFeatures.InsertObjectStreamliningDescription,,Enables a new unified workflow for inserting objects.,Enables a new unified workflow for inserting objects.
@@ -155,6 +157,8 @@ Studio.App.BetaFeatures.TexturePacksDescription,,Unlocks PBR texture properties 
 Studio.App.BetaFeatures.TexturePacksTitle,,Advanced SurfaceAppearance Textures,Advanced SurfaceAppearance Textures
 Studio.App.BetaFeatures.TryCoolFeatures,,Try out cool new Studio features! Your feedback is invaluable to us as we move forward towards building a powerful imagination platform.,Try out cool new Studio features! Your feedback is invaluable to us as we move forward towards building a powerful imagination platform.
 Studio.App.BetaFeatures.TryCoolFeaturesWithWarning,,Try out cool new Studio features before they are released to everyone! Please be aware that Beta features could be unstable. Your feedback is invaluable to us as we move towards building the imagination platform.,Try out cool new Studio features before they are released to everyone! Please be aware that Beta features could be unstable. Your feedback is invaluable to us as we move towards building the imagination platform.
+Studio.App.BetaFeatures.UIStrokeDescription,,"Enables the UIStroke instance, which adds highly customizable borders around the edges of text and UI objects.","Enables the UIStroke instance, which adds highly customizable borders around the edges of text and UI objects."
+Studio.App.BetaFeatures.UIStrokeTitle,,UIStroke Component,UIStroke Component
 Studio.App.BetaFeatures.WhatsNewWindowDescription,,Open up a scrolling window that shows all of the recent updates to Roblox Studio,Open up a scrolling window that shows all of the recent updates to Roblox Studio
 Studio.App.BetaFeatures.WhatsNewWindowTitle,,New Updates Window,New Updates Window
 Studio.App.BreakpointConditionEditDialog.BreakpointCondition,,Breakpoint Condition,Breakpoint Condition
@@ -238,6 +242,10 @@ Studio.App.CalloutController.AssetManagerCalloutDescription,Description that app
 Studio.App.CalloutController.AssetManagerCalloutTitle,Name of the new Asset Manager built-in plugin that displays as a title for a Teaching Callout that points to the button for the plugin.,Asset Manager,Asset Manager
 Studio.App.CalloutController.DraggerModeCalloutDescription,,Leverages the physics engine and constraints solver to simulate real-world behavior when moving objects. It adjusts some settings to work properly.,Leverages the physics engine and constraints solver to simulate real-world behavior when moving objects. It adjusts some settings to work properly.
 Studio.App.CalloutController.DraggerModeCalloutTitle,,Drag Mode,Drag Mode
+Studio.App.CalloutService.InvalidLayerCollector,,Not a valid type of LayerCollector,Not a valid type of LayerCollector
+Studio.App.CalloutService.NoLayerCollector,,Could not find a LayerCollector for target,Could not find a LayerCollector for target
+Studio.App.CalloutService.NotAvailable,,CalloutService is not available when either FFlagStudioEnableTeachingCallouts or FFlagStudioCalloutsInLua are false,CalloutService is not available when either FFlagStudioEnableTeachingCallouts or FFlagStudioCalloutsInLua are false
+Studio.App.CalloutService.TargetNotGuiBase2d,,Target is not a GuiBase2d,Target is not a GuiBase2d
 Studio.App.Category.Advanced,,Advanced,Advanced
 Studio.App.Category.Appearance,,Appearance,Appearance
 Studio.App.Category.Audio,,Audio,Audio
@@ -830,6 +838,7 @@ Studio.App.LoginManager.ToSTitle,,Roblox Terms of Service,Roblox Terms of Servic
 Studio.App.LoginManager.UserAgreementsAcceptanceCancel,,Are you sure you want to cancel? This will log you out and close all other running instances of Studio.,Are you sure you want to cancel? This will log you out and close all other running instances of Studio.
 Studio.App.LoginManager.UserAgreementsAcceptanceFailure,,Failed to accept user agreements. Please try to login again or contact support if problem persists.,Failed to accept user agreements. Please try to login again or contact support if problem persists.
 Studio.App.LoginRequest.CaptchaError,Start page login,Please complete the Captcha in order to log in.,Please complete the Captcha in order to log in.
+Studio.App.LoginRequest.ErrorResponseParseError,Start page login,Could not parse error response from server.,Could not parse error response from server.
 Studio.App.LoginRequest.InternalServerError,Start page login,Our servers are having problems right now. Please try again later.,Our servers are having problems right now. Please try again later.
 Studio.App.LoginRequest.NetworkConnection,Start page login,Could not connect to the server. Please check your internet connection and try again later.,Could not connect to the server. Please check your internet connection and try again later.
 Studio.App.LoginRequest.NullPasswordError,Start page login,Unable to log in via username / password. Please use your WeChat / QQ account to log in.,Unable to log in via username / password. Please use your WeChat / QQ account to log in.
@@ -838,6 +847,7 @@ Studio.App.LoginRequest.PasswordResetRequiredError,Start page login,Account has 
 Studio.App.LoginRequest.TwoStepVerificationFailureError,Start page login,Account issue encountered. Please contact <a href='https://www.roblox.com/support'>support</a>,Account issue encountered. Please contact <a href='https://www.roblox.com/support'>support</a>
 Studio.App.LoginRequest.TwoStepVerificationFloodedError,Start page login,Too many attempts. Please try again later.,Too many attempts. Please try again later.
 Studio.App.LoginRequest.UnknownError,Start page login,"Something went wrong. Please try again later, or contact <a href='https://www.roblox.com/support'>support</a>","Something went wrong. Please try again later, or contact <a href='https://www.roblox.com/support'>support</a>"
+Studio.App.LoginRequest.UsernameError,Start page login,Could not get username from server.,Could not get username from server.
 Studio.App.MainWindow.32BitParens,Main Window, (32bit), (32bit)
 Studio.App.MainWindow.64BitParens,Main Window, (64bit), (64bit)
 Studio.App.MainWindow.AboutRobloxStudio,Main Window,About Roblox Studio,About Roblox Studio
@@ -1250,6 +1260,7 @@ Studio.App.Property.OverrideCoreScripts,,Override Core Scripts,Override Core Scr
 Studio.App.Property.OverrideCoreScriptsDir,,Override Core Scripts Dir,Override Core Scripts Dir
 Studio.App.Property.OverrideStarterScript,,Override Starter Script,Override Starter Script
 Studio.App.Property.PermissionLevelShown,,Permission Level Shown,Permission Level Shown
+Studio.App.Property.PhysicalDraggersSelectScopeByDefault,,Physical Draggers Select Scope (Alt-click) By Default,Physical Draggers Select Scope (Alt-click) By Default
 Studio.App.Property.PhysicsEnvironmentalThrottle,,Physics Environmental Throttle,Physics Environmental Throttle
 Studio.App.Property.PhysicsMtuAdjust,,Physics Mtu Adjust,Physics Mtu Adjust
 Studio.App.Property.PhysicsSendRate,,Physics Send Rate,Physics Send Rate
@@ -1461,6 +1472,7 @@ Studio.App.PropertyTooltip.Font,,"Change the text font family, typeface, and siz
 Studio.App.PropertyTooltip.FormatOnPaste,,Automatically format the code after pasting.,Automatically format the code after pasting.
 Studio.App.PropertyTooltip.FormatOnType,,Automatically format the code after typing.,Automatically format the code after typing.
 Studio.App.PropertyTooltip.IndentUsingSpaces,,Prefer indent with spaces over tabs. This will affect Auto Indent and pressing Tab behavior.,Prefer indent with spaces over tabs. This will affect Auto Indent and pressing Tab behavior.
+Studio.App.PropertyTooltip.PhysicalDraggersSelectScopeByDefault,,"When using the Physical draggers, toggle if a single click selects the Model or a scope by default.  Alt-click to toggle behavior.","When using the Physical draggers, toggle if a single click selects the Model or a scope by default.  Alt-click to toggle behavior."
 Studio.App.PropertyTooltip.RandomizeJoinInstanceOrder,,"Randomize instance order during join for test clients. This helps uncover bugs by approximating the behavior of real clients & servers, where the order of instances will change over time as more players join. Randomization may slightly increase join time bandwidth usage compared to real client-server joins.","Randomize instance order during join for test clients. This helps uncover bugs by approximating the behavior of real clients & servers, where the order of instances will change over time as more players join. Randomization may slightly increase join time bandwidth usage compared to real client-server joins."
 Studio.App.PropertyTooltip.Rulers,,Vertical lines drawn at the specified column numbers. These can be used as a guide to code length limits.,Vertical lines drawn at the specified column numbers. These can be used as a guide to code length limits.
 Studio.App.PropertyTooltip.ScrollPastLastLine,,Allow script editor to scroll past the last line.,Allow script editor to scroll past the last line.
@@ -1480,6 +1492,7 @@ Studio.App.QtUtilities.DisabledDuringTesting,,Disabled during testing,Disabled d
 Studio.App.QtUtilities.DontAskMeAgain,,Don't ask me again,Don't ask me again
 Studio.App.QuickOpenDialog.Actions,,Actions,Actions
 Studio.App.QuickOpenDialog.EmptyScript,,This is an empty Script,This is an empty Script
+Studio.App.QuickOpenDialog.FuzzySearch,,Fuzzy Search for Instances,Fuzzy Search for Instances
 Studio.App.QuickOpenDialog.GotoLine,,GotoLine,GotoLine
 Studio.App.QuickOpenDialog.GotoLine1,,Goto line %1,Goto line %1
 Studio.App.QuickOpenDialog.Instance,,Instance,Instance
@@ -2602,6 +2615,7 @@ Studio.App.ScriptingCmd.INDENT,,Indent,Indent
 Studio.App.ScriptingCmd.INDENTTooltip,,Indent selected line(s),Indent selected line(s)
 Studio.App.ScriptingCmd.INSERT,,Insert text...,Insert text...
 Studio.App.ScriptingCmd.INVOKECOMPLETIONS,,Invoke Autocomplete,Invoke Autocomplete
+Studio.App.ScriptingCmd.INVOKEHOVER,,Invoke Hover,Invoke Hover
 Studio.App.ScriptingCmd.MOVELINESDOWN,,Move Lines Down,Move Lines Down
 Studio.App.ScriptingCmd.MOVELINESDOWNTooltip,,Move selected line(s) downwards,Move selected line(s) downwards
 Studio.App.ScriptingCmd.MOVELINESUP,,Move Lines Up,Move Lines Up
@@ -2970,6 +2984,7 @@ Studio.Common.Action.Reload,,Reload,Reload
 Studio.Common.Action.Remove,,Remove,Remove
 Studio.Common.Action.Rename,,Rename,Rename
 Studio.Common.Action.Replace,,Replace,Replace
+Studio.Common.Action.ReportBug,,Report Bug,Report Bug
 Studio.Common.Action.Reset,,Reset,Reset
 Studio.Common.Action.Resize,,Resize,Resize
 Studio.Common.Action.Resume,,Resume,Resume

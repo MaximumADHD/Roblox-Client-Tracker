@@ -3431,6 +3431,66 @@
     </Item>
 
     <Item class="ReflectionMetadataClass">
+      <Properties>
+        <string name="Name">UIStroke</string>
+        <string name="ExplorerOrder">30</string>
+        <string name="ExplorerImageIndex">26</string>
+        <string name="ClassCategory">GUI</string>
+        <string name="summary">Applies an outline around a UI object. This can be used on both borders and text.</string>
+        <string name="PreferredParent">GuiBase2d</string>
+      </Properties>
+
+      <Item class="ReflectionMetadataProperties">
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Color</string>
+            <string name="summary">The color used for the outline.</string>
+          </Properties>
+        </Item>
+
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Transparency</string>
+            <string name="summary">The transparency of the outline from 0 to 1.</string>
+            <double name="UIMinimum">0</double>
+            <double name="UIMaximum">1</double>
+          </Properties>
+        </Item>
+
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Thickness</string>
+            <string name="summary">The thickness of the outline in pixels.</string>
+            <double name="UIMinimum">0</double>
+            <double name="UIMaximum">25</double>
+            <double name="UINumTicks">250</double>
+          </Properties>
+        </Item>
+
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Enabled</string>
+            <string name="summary">Allows disabling the object's effect temporarily.</string>
+          </Properties>
+        </Item>
+
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">LineJoinMode</string>
+            <string name="summary">Controls how sharp corners are connected together for the outline.</string>
+          </Properties>
+        </Item>
+
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">ApplyStrokeMode</string>
+            <string name="summary">Allows controlling whether this object should be applied to borders or to text. This allows for two stroke objects to be used for different tasks on the same text object.</string>
+          </Properties>
+        </Item>
+      </Item>
+    </Item>
+
+    <Item class="ReflectionMetadataClass">
         <Properties>
             <string name="Name">TweenBase</string>
             <string name="Browsable">false</string>
@@ -7034,12 +7094,6 @@
             <string name="summary">Deprecated. Use TextColor3 instead</string>
           </Properties>
         </Item>
-        <Item class="ReflectionMetadataMember">
-          <Properties>
-            <string name="Name">Content</string>
-            <string name="summary">Raw string without format information that will be displayed.</string>
-          </Properties>
-        </Item>
       </Item>
     </Item>
     <Item class="ReflectionMetadataClass">
@@ -7059,12 +7113,6 @@
             <string name="summary">Deprecated. Use TextColor3 instead</string>
           </Properties>
         </Item>
-        <Item class="ReflectionMetadataMember">
-          <Properties>
-            <string name="Name">Content</string>
-            <string name="summary">Raw string without format information that will be displayed.</string>
-          </Properties>
-        </Item>
       </Item>
     </Item>
     <Item class="ReflectionMetadataClass">
@@ -7082,12 +7130,6 @@
             <string name="Name">TextColor</string>
             <bool name="Deprecated">true</bool>
             <string name="summary">Deprecated. Use TextColor3 instead</string>
-          </Properties>
-        </Item>
-        <Item class="ReflectionMetadataMember">
-          <Properties>
-            <string name="Name">Content</string>
-            <string name="summary">Raw string without format information that will be displayed.</string>
           </Properties>
         </Item>
       </Item>

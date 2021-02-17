@@ -8,6 +8,8 @@ Studio.AlignmentTool.AxesSettingsFragment.World,World
 Studio.AlignmentTool.AxesSettingsFragment.X,X
 Studio.AlignmentTool.AxesSettingsFragment.Y,Y
 Studio.AlignmentTool.AxesSettingsFragment.Z,Z
+Studio.AlignmentTool.Callout.Description,"Choose Min, Center or Max mode with Align In and Relative To options, then click Align button to align selected objects. Use View Selector to check World X/Y/Z."
+Studio.AlignmentTool.Callout.Title,Align Objects with Align Tool
 Studio.AlignmentTool.ErrorMessages.InvalidActiveObject,Align to {name} is not supported.
 Studio.AlignmentTool.MainView.AlignButton,Align
 Studio.AlignmentTool.ModeSection.Center,Center

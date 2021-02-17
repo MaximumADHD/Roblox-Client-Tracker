@@ -65,6 +65,8 @@ Studio.TerrainToolsV2.BrushSettings.Strength, ,Strength
 Studio.TerrainToolsV2.BrushSettings.TopPivot, ,Top
 Studio.TerrainToolsV2.ClearTool.ConfirmationMessage, ,Do you want to clear all terrain?
 Studio.TerrainToolsV2.ClearTool.ConfirmationTitle, ,Clear Terrain
+Studio.TerrainToolsV2.ColormapCallout.Description, ,Colormaps convert image colors to terrain materials using Roblox Studio's color key.
+Studio.TerrainToolsV2.ColormapCallout.Title, ,Colormaps
 Studio.TerrainToolsV2.Confirmation.No, ,No
 Studio.TerrainToolsV2.Confirmation.Yes, ,Yes
 Studio.TerrainToolsV2.ConvertMode.Biome, ,Biome
@@ -126,12 +128,12 @@ Studio.TerrainToolsV2.ImportError.FailedToGenerateHeightmapPreview, ,An internal
 Studio.TerrainToolsV2.ImportError.FailedToGenerateHeightmapPreviewTitle, ,Failed to generate preview image.
 Studio.TerrainToolsV2.ImportError.FailedToLoadColormap, ,Failed to load colormap
 Studio.TerrainToolsV2.ImportError.FailedToLoadHeightmap, ,Failed to load heightmap
-Studio.TerrainToolsV2.ImportError.FailedToReadImage, ,Image is not a valid PNG file.
+Studio.TerrainToolsV2.ImportError.FailedToReadImage, ,Image is not a valid file.
 Studio.TerrainToolsV2.ImportError.FailedToSelectFile, ,Failed to open file dialog.
 Studio.TerrainToolsV2.ImportError.HeightmapImporterServiceCantFindTerrain, ,An internal error has occurred.
 Studio.TerrainToolsV2.ImportError.ImportFailed, ,Import failed
 Studio.TerrainToolsV2.ImportError.ImportInProgress, ,An import operation is already in progress.
-Studio.TerrainToolsV2.ImportError.InvalidBytesPerChannel, ,Only 8 bit PNGs are supported.
+Studio.TerrainToolsV2.ImportError.InvalidBytesPerChannel, ,Only 8 bit and 16 bit PNGs are supported.
 Studio.TerrainToolsV2.ImportError.InvalidChannelCount, ,Image has invalid number of channels.
 Studio.TerrainToolsV2.ImportError.RegionExceedsMaxVoxelCount, ,Target region is too large.
 Studio.TerrainToolsV2.ImportError.RegionIsEmpty, ,Target region is empty.
