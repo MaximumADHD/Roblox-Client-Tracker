@@ -511,7 +511,7 @@
         <!--<addaction name="deleteSelectedAction" text="Studio.Common.Action.Delete" style="textundericon" icon=":/RibbonBar/images/RibbonIcons/Home/Delete.png" width="32" height="32" />-->
       </Group>
       <Group name="Format" text="Studio.App.RBXMainWindow.Format">
-        <MenuButton name="formatSelectionActionMenu" text="Studio.App.ScriptingCmd.FORMATSEL" tooltip="Studio.App.ScriptingCmd.FORMATSELTooltip" style="textundericon" icon=":/RibbonBar/images/RibbonIcons/Home/FormatSelection.png" width="32" height="32" >
+        <MenuButton name="formatSelectionActionMenu" text="Studio.App.ScriptEditorCmdBase.FORMATSEL" tooltip="Studio.App.RBXMainWindow.FormatDocumentElps" style="textundericon" icon=":/RibbonBar/images/RibbonIcons/Home/FormatSelection.png" width="32" height="32" >
           <addaction name="FORMATSEL_ScriptingCmd" style="textundericon" width="16" height="16" />
           <addaction name="FORMATALL_ScriptingCmd" style="textundericon" width="16" height="16" />
         </MenuButton>
@@ -563,9 +563,9 @@
           icon=":/RibbonBar/images/RibbonIcons/Home/NavigateFwd.png" width="32" height="32" />
       </Group>
       <Group name="View" text="Studio.App.RobloxRibbonMainWindow.View">
-        <addaction name="expandAllDiffAction" text="Studio.App.RBXMainWindow.ExpandAll" style="textundericon" tooltip="Studio.App.ScriptingCmd.UNFOLDALLTooltip"
+        <addaction name="expandAllDiffAction" text="Studio.App.RBXMainWindow.ExpandAll" style="textundericon" tooltip="Studio.App.RobloxRibbonMainWindow.ExpandAllScripts"
           icon=":/RibbonBar/images/RibbonIcons/Diff/ExpandAll.png" width="32" height="32" />
-        <addaction name="collapseAllDiffAction" text="Studio.App.ScriptingCmd.FOLDALL" style="textundericon" tooltip="Studio.App.ScriptingCmd.FOLDALLTooltip"
+        <addaction name="collapseAllDiffAction" text="Studio.App.RBXMainWindow.CollapseAll" style="textundericon" tooltip="Studio.App.RobloxRibbonMainWindow.CollapseAllScripts"
           icon=":/RibbonBar/images/RibbonIcons/Diff/CollapseAll.png" width="32" height="32" />
       </Group>
     </TabPage>

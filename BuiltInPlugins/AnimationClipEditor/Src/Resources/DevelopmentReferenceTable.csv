@@ -33,12 +33,12 @@ Studio.AnimationClipEditor.Dialog.ChangeThis, ,Change This
 Studio.AnimationClipEditor.Dialog.Confirm, ,Confirm
 Studio.AnimationClipEditor.Dialog.Create, ,Create
 Studio.AnimationClipEditor.Dialog.Delete, ,Delete
-Studio.AnimationClipEditor.Dialog.DeleteAllPrompt_Migrated, ,Do you want to delete all {name} from this animation?
+Studio.AnimationClipEditor.Dialog.DeleteAllPrompt, ,Do you want to delete all {name} from this animation?
 Studio.AnimationClipEditor.Dialog.EditorErrorsHeader, ,Editor Error Detected
 Studio.AnimationClipEditor.Dialog.ErrorsHeader, ,Rig Error(s) Detected
 Studio.AnimationClipEditor.Dialog.No, ,No
 Studio.AnimationClipEditor.Dialog.Ok, ,OK
-Studio.AnimationClipEditor.Dialog.RenameAllPrompt_Migrated, ,Do you want to change all {name} to {newName}?
+Studio.AnimationClipEditor.Dialog.RenameAllPrompt, ,Do you want to change all {name} to {newName}?
 Studio.AnimationClipEditor.Dialog.Save, ,Save
 Studio.AnimationClipEditor.Dialog.SaveLocation, ,Animation will be saved to Rig > AnimSaves in Explorer
 Studio.AnimationClipEditor.Dialog.Yes, ,Yes
@@ -64,7 +64,7 @@ Studio.AnimationClipEditor.Menu.Import, ,Import
 Studio.AnimationClipEditor.Menu.Load, ,Load
 Studio.AnimationClipEditor.Menu.Movement, ,Movement
 Studio.AnimationClipEditor.Menu.New, ,New...
-Studio.AnimationClipEditor.Menu.Overwrite_Migrated, ,Do you want to overwrite existing animation {overwriteName}?
+Studio.AnimationClipEditor.Menu.Overwrite, ,Do you want to overwrite existing animation {overwriteName}?
 Studio.AnimationClipEditor.Menu.RenameKeyframePrompt, ,New Keyframe Name
 Studio.AnimationClipEditor.Menu.RenamePrompt, ,New Animation Name:
 Studio.AnimationClipEditor.Menu.Save, ,Save
@@ -98,7 +98,7 @@ Studio.AnimationClipEditor.Title.ClickToContinue, ,Click here to continue using 
 Studio.AnimationClipEditor.Title.ConfirmSave, ,Do you want to save this animation file?
 Studio.AnimationClipEditor.Title.CreateNew, ,Create New Animation
 Studio.AnimationClipEditor.Title.CreateToStart, ,Create an animation to start
-Studio.AnimationClipEditor.Title.CurrentDuration_Migrated, ,Current duration is {currentDuration} frames
+Studio.AnimationClipEditor.Title.CurrentDuration, ,Current duration is {currentDuration} frames
 Studio.AnimationClipEditor.Title.CustomFPS, ,Custom Frame Rate [FPS]
 Studio.AnimationClipEditor.Title.DefaultAnimationName, ,Untitled Animation Clip
 Studio.AnimationClipEditor.Title.EditEvents, ,Edit Animation Events
@@ -109,7 +109,7 @@ Studio.AnimationClipEditor.Title.ManageIK, ,Manage IK
 Studio.AnimationClipEditor.Title.MaxFPS, ,Maximum frame rate is 120 fps
 Studio.AnimationClipEditor.Title.MinFPS, ,Minimum frame rate is 1 fps
 Studio.AnimationClipEditor.Title.NewDuration, ,New Duration
-Studio.AnimationClipEditor.Title.NoAnimationExists_Migrated, ,"No animation exists for {rig}, please create one to start animating"
+Studio.AnimationClipEditor.Title.NoAnimationExists, ,"No animation exists for {rig}, please create one to start animating"
 Studio.AnimationClipEditor.Title.Parameter, ,Parameter
 Studio.AnimationClipEditor.Title.SaveAsNew, ,Save As New Animation
 Studio.AnimationClipEditor.Title.SelectARig, ,Select a rig to animate or create a new rig by selecting Build Rig under the Plugins tab
@@ -117,10 +117,10 @@ Studio.AnimationClipEditor.Toast.AlignNow, ,Align all keys now
 Studio.AnimationClipEditor.Toast.ClippedWarning, ,Warning: An animation cannot exceed 30 seconds in length. Excess keyframes have been removed.
 Studio.AnimationClipEditor.Toast.IgnoreWarning, ,Ignore warning
 Studio.AnimationClipEditor.Toast.InvalidAnimation, ,Animation was not imported. You do not have ownership of animation with the selected ID.
-Studio.AnimationClipEditor.Toast.Loaded_Migrated, ,Loaded animation {loadedAnimName}
+Studio.AnimationClipEditor.Toast.Loaded, ,Loaded animation {loadedAnimName}
 Studio.AnimationClipEditor.Toast.MaxFramerateWarning, ,"Warning: This animation exceeds the maximum 120 fps frame rate. Some keys are not aligned to frames, they will snap to frames when you edit them."
 Studio.AnimationClipEditor.Toast.QuantizeWarning, ,"Warning: Some keys of your animation are not aligned to frames, they will snap to frames when you edit them."
-Studio.AnimationClipEditor.Toast.Saved_Migrated, ,Saved animation {savedAnimName}
+Studio.AnimationClipEditor.Toast.Saved, ,Saved animation {savedAnimName}
 Studio.AnimationClipEditor.Tooltip.AddTrackButton, ,Add a new animation track
 Studio.AnimationClipEditor.Tooltip.CurrentFrameBox, ,Change scrubber time
 Studio.AnimationClipEditor.Tooltip.EndFrameBox, ,Change timeline length

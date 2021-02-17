@@ -660,10 +660,13 @@ Studio.ReflectionMetadata.ReflectionMetadata.TerrainGetCell,,,"Returns CellMater
 Studio.ReflectionMetadata.ReflectionMetadata.TerrainGetWaterCell,,,"Returns hasAnyWater, WaterForce, WaterDirection","Returns hasAnyWater, WaterForce, WaterDirection"
 Studio.ReflectionMetadata.ReflectionMetadata.TerrainRegion,,,Object representing a snapshot of the region of terrain,Object representing a snapshot of the region of terrain
 Studio.ReflectionMetadata.ReflectionMetadata.TextBox,,,A text entry box,A text entry box
+Studio.ReflectionMetadata.ReflectionMetadata.TextBoxContent,,,Raw string without format information that will be displayed.,Raw string without format information that will be displayed.
 Studio.ReflectionMetadata.ReflectionMetadata.TextBoxTextColor,,,Deprecated. Use TextColor3 instead,Deprecated. Use TextColor3 instead
 Studio.ReflectionMetadata.ReflectionMetadata.TextButton,,,A GUI button containing text,A GUI button containing text
+Studio.ReflectionMetadata.ReflectionMetadata.TextButtonContent,,,Raw string without format information that will be displayed.,Raw string without format information that will be displayed.
 Studio.ReflectionMetadata.ReflectionMetadata.TextButtonTextColor,,,Deprecated. Use TextColor3 instead,Deprecated. Use TextColor3 instead
 Studio.ReflectionMetadata.ReflectionMetadata.TextLabel,,,A GUI object containing text,A GUI object containing text
+Studio.ReflectionMetadata.ReflectionMetadata.TextLabelContent,,,Raw string without format information that will be displayed.,Raw string without format information that will be displayed.
 Studio.ReflectionMetadata.ReflectionMetadata.TextLabelTextColor,,,Deprecated. Use TextColor3 instead,Deprecated. Use TextColor3 instead
 Studio.ReflectionMetadata.ReflectionMetadata.TouchTransmitter,,,Used by networking and replication code to transmit touch events - no other purpose,Used by networking and replication code to transmit touch events - no other purpose
 Studio.ReflectionMetadata.ReflectionMetadata.Trail,,,Makes two attachments emit trail when moving,Makes two attachments emit trail when moving
@@ -729,13 +732,6 @@ Studio.ReflectionMetadata.ReflectionMetadata.UIScaleScale,,,The scale factor to 
 Studio.ReflectionMetadata.ReflectionMetadata.UISizeConstraint,,,"Ensures a GuiObject does not become smaller or larger than the min and max size. If an element with a constraint is under the control of a layout, the constraint takes precedence in determining the element’s size, but not position. You can use a Constraint by parenting it to the element you wish to constrain.","Ensures a GuiObject does not become smaller or larger than the min and max size. If an element with a constraint is under the control of a layout, the constraint takes precedence in determining the element’s size, but not position. You can use a Constraint by parenting it to the element you wish to constrain."
 Studio.ReflectionMetadata.ReflectionMetadata.UISizeConstraintMaxSize,,,The biggest size the GuiObject is allowed to be.,The biggest size the GuiObject is allowed to be.
 Studio.ReflectionMetadata.ReflectionMetadata.UISizeConstraintMinSize,,,The smallest size the GuiObject is allowed to be.,The smallest size the GuiObject is allowed to be.
-Studio.ReflectionMetadata.ReflectionMetadata.UIStroke,,,Applies an outline around a UI object. This can be used on both borders and text.,Applies an outline around a UI object. This can be used on both borders and text.
-Studio.ReflectionMetadata.ReflectionMetadata.UIStrokeApplyStrokeMode,,,Allows controlling whether this object should be applied to borders or to text. This allows for two stroke objects to be used for different tasks on the same text object.,Allows controlling whether this object should be applied to borders or to text. This allows for two stroke objects to be used for different tasks on the same text object.
-Studio.ReflectionMetadata.ReflectionMetadata.UIStrokeColor,,,The color used for the outline.,The color used for the outline.
-Studio.ReflectionMetadata.ReflectionMetadata.UIStrokeEnabled,,,Allows disabling the object's effect temporarily.,Allows disabling the object's effect temporarily.
-Studio.ReflectionMetadata.ReflectionMetadata.UIStrokeLineJoinMode,,,Controls how sharp corners are connected together for the outline.,Controls how sharp corners are connected together for the outline.
-Studio.ReflectionMetadata.ReflectionMetadata.UIStrokeThickness,,,The thickness of the outline in pixels.,The thickness of the outline in pixels.
-Studio.ReflectionMetadata.ReflectionMetadata.UIStrokeTransparency,,,The transparency of the outline from 0 to 1.,The transparency of the outline from 0 to 1.
 Studio.ReflectionMetadata.ReflectionMetadata.UITableLayout,,,Provides a layout of rows and columns that are sized based on the cells in them.,Provides a layout of rows and columns that are sized based on the cells in them.
 Studio.ReflectionMetadata.ReflectionMetadata.UITableLayoutFillEmptySpaceColumns,,,"Whether the table should expand to fill the available space of its container, column-wise.","Whether the table should expand to fill the available space of its container, column-wise."
 Studio.ReflectionMetadata.ReflectionMetadata.UITableLayoutFillEmptySpaceRows,,,"Whether the table should expand to fill the available space of its container, row-wise.","Whether the table should expand to fill the available space of its container, row-wise."
