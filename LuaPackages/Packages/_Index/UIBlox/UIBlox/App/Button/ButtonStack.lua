@@ -62,6 +62,7 @@ function ButtonStack:render()
 
 		local isButtonStacked = false
 		local fillDirection
+		local defaultChildIndex
 		if self.props.forcedFillDirection then
 			isButtonStacked = self.props.forcedFillDirection == Enum.FillDirection.Vertical
 			fillDirection = self.props.forcedFillDirection
@@ -104,6 +105,10 @@ function ButtonStack:render()
 			end
 
 			if UIBloxConfig.enableExperimentalGamepadSupport then
+				if button.isDefaultChild then
+					defaultChildIndex = colIndex
+				end
+
 				local gamepadProps = {
 					[Roact.Ref] = self.buttonRefs[colIndex],
 					NextSelectionUp = (isButtonStacked and colIndex > 1) and self.buttonRefs[colIndex - 1] or nil,
@@ -133,6 +138,7 @@ function ButtonStack:render()
 			NextSelectionRight = self.props.NextSelectionRight,
 			NextSelectionUp = self.props.NextSelectionUp,
 			NextSelectionDown = self.props.NextSelectionDown,
+			defaultChild = defaultChildIndex and self.buttonRefs[defaultChildIndex] or nil,
 		},
 			buttonTable
 		)

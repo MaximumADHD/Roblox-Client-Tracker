@@ -121,6 +121,8 @@ return function()
 			expect(#events).to.equal(4)
 			expect(events[3]).to.equal("execute a")
 			expect(events[4]).to.equal("execute b")
+
+			store:destruct()
 		end)
 
 		it("should send an initial action with a 'type' field", function()

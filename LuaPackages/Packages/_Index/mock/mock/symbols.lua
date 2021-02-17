@@ -18,4 +18,7 @@ return {
 	Spec = newSymbol("Spec"),
 	SideEffect = newSymbol("SideEffect"),
 	isSpy = newSymbol("isSpy"),
+	isTuple = newSymbol("isTuple"),
+	isMagicMock = newSymbol("isMagicMock"),
+	isPredicate = newSymbol("isPredicate"),
 }

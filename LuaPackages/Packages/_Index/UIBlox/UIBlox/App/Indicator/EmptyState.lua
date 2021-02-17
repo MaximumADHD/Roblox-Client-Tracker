@@ -5,7 +5,9 @@ local Packages = UIBlox.Parent
 
 local Roact = require(Packages.Roact)
 local t = require(Packages.t)
+local RoactGamepad = require(Packages.RoactGamepad)
 
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
 local GenericTextLabel = require(UIBlox.Core.Text.GenericTextLabel.GenericTextLabel)
 local ImageSetComponent = require(UIBlox.Core.ImageSet.ImageSetComponent)
 local validateImage = require(UIBlox.Core.ImageSet.Validator.validateImage)
@@ -33,6 +35,11 @@ EmptyState.validateProps = t.strictInterface({
 	anchorPoint = t.optional(t.Vector2),
 	buttonIcon = t.optional(validateImage),
 	onActivated = t.optional(t.callback),
+	[Roact.Ref] = t.optional(t.table),
+	NextSelectionUp = t.optional(t.table),
+	NextSelectionDown = t.optional(t.table),
+	NextSelectionLeft = t.optional(t.table),
+	NextSelectionRight = t.optional(t.table),
 })
 
 EmptyState.defaultProps = {
@@ -52,16 +59,25 @@ function EmptyState:init()
 			absoluteSize = frame.AbsoluteSize,
 		})
 	end
+
+	self.buttonRef = Roact.createRef()
 end
 
 function EmptyState:render()
 	return withStyle(function(style)
-		return Roact.createElement("Frame", {
+		return Roact.createElement(UIBloxConfig.emptyStateControllerSupport and
+		RoactGamepad.Focusable.Frame or "Frame", {
 			[Roact.Change.AbsoluteSize] = self.onAbsoluteSizeChange,
 			Size = self.props.size,
 			Position = self.props.position,
 			AnchorPoint = self.props.anchorPoint,
 			BackgroundTransparency = 1,
+			[Roact.Ref] = UIBloxConfig.emptyStateControllerSupport and self.props[Roact.Ref] or nil,
+			NextSelectionUp = UIBloxConfig.emptyStateControllerSupport and self.props.NextSelectionUp or nil,
+			NextSelectionDown = UIBloxConfig.emptyStateControllerSupport and self.props.NextSelectionDown or nil,
+			NextSelectionULeft = UIBloxConfig.emptyStateControllerSupport and self.props.NextSelectionLeft or nil,
+			NextSelectionRight = UIBloxConfig.emptyStateControllerSupport and self.props.NextSelectionRight or nil,
+			defaultChild = UIBloxConfig.emptyStateControllerSupport and self.buttonRef or nil,
 		}, {
 			Content = Roact.createElement("Frame", {
 				Size = UDim2.new(1, 0, 0, 187),
@@ -120,7 +136,8 @@ function EmptyState:render()
 						position = UDim2.fromScale(0.5, 0.5),
 						anchorPoint = Vector2.new(0.5, 0.5),
 						onActivated = self.props.onActivated,
-						icon = self.props.buttonIcon
+						icon = self.props.buttonIcon,
+						[Roact.Ref] = self.buttonRef,
 					})
 				})
 			})

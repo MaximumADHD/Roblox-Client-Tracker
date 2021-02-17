@@ -20,6 +20,8 @@ local withAnimation = require(UIBlox.Core.Animation.withAnimation)
 
 local Placement = require(script.Parent.Enum.Placement)
 
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
+
 local SPRING_OPTIONS = {
 	frequency = 3,
 }
@@ -73,7 +75,7 @@ SystemBar.validateProps = t.strictInterface({
 		-- action when clicking on this item
 		onActivated = t.callback,
 		-- number to display as badge next to the icon
-		badgeValue = t.optional(t.integer),
+		badgeValue = t.optional(t.union(t.integer, t.string)),
 	})),
 	-- index of the currently selected item
 	selection = t.optional(t.integer),
@@ -108,7 +110,16 @@ end
 function SystemBar:renderItem(item, state, selected)
 	local pressed = state == ControlState.Pressed
 	local hovered = pressed or state == ControlState.Hover
-	local hasBadge = item.badgeValue and item.badgeValue > 0
+	local hasBadge
+	if UIBloxConfig.allowSystemBarToAcceptString then
+		if item.badgeValue then
+			hasBadge = (t.string(item.badgeValue) and true) or item.badgeValue > 0
+		else
+			hasBadge = false
+		end
+	else
+		hasBadge = item.badgeValue and item.badgeValue > 0
+	end
 
 	local positionX = ICON_POSITION_X
 	local positionY = ICON_POSITION_Y
