@@ -113,7 +113,7 @@ function TooltipContainer:render()
 		end)
 
 		local backgroundTransparency = self.progress:map(function(value)
-			local baseTransparency = theme.BackgroundMuted.Transparency
+			local baseTransparency = theme.UIMuted.Transparency
 			local transparencyDivisor = 1
 			return lerp(1, divideTransparency(baseTransparency, transparencyDivisor), value)
 		end)
@@ -150,7 +150,7 @@ function TooltipContainer:render()
 					AnchorPoint = positionInfo.caretAnchorPoint,
 					Size = positionInfo.caretImageSize,
 					Image = TriangleImages[positionInfo.updatedOrientation],
-					ImageColor3 = theme.BackgroundMuted.Color,
+					ImageColor3 = theme.UIMuted.Color,
 					ImageTransparency = backgroundTransparency,
 					[Roact.Ref] = self.caretRef,
 				}),
@@ -159,7 +159,7 @@ function TooltipContainer:render()
 				AutoButtonColor = false,
 				Text = "",
 				Size = UDim2.fromOffset(frameWidth, frameHeight),
-				BackgroundColor3 = theme.BackgroundMuted.Color,
+				BackgroundColor3 = theme.UIMuted.Color,
 				BackgroundTransparency = backgroundTransparency,
 				BorderSizePixel = 0,
 				LayoutOrder = positionInfo.contentLayoutOrder,

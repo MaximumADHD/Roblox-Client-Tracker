@@ -21,11 +21,4 @@ return {
 	-- genericSliderFilterOldTouchInputs: Filters inputObjects that trigger inputBegan with a
 	-- non Enum.UserInputState.Begin UserInputState in the GenericSlider component
 	genericSliderFilterOldTouchInputs = false,
-
-	--allowSystemBarToAcceptString: Allows you to pass a string as the value for 'badgeValue'. Passing a
-	--string will show the badge even if the string is empty.
-	allowSystemBarToAcceptString = false,
-
-	-- emptyStateControllerSupport: Enables controller support for the EmptyState component.
-	emptyStateControllerSupport = false,
 }

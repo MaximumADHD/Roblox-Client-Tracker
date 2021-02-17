@@ -5,7 +5,6 @@ return function()
 	local Roact = require(UIBloxRoot.Parent.Roact)
 	local mockStyleComponent = require(UIBloxRoot.Utility.mockStyleComponent)
 	local Images = require(App.ImageSet.Images)
-	local UIBloxConfig = require(UIBloxRoot.UIBloxConfig)
 
 	local SystemBar = require(script.Parent.SystemBar)
 	local Placement = require(script.Parent.Enum.Placement)
@@ -42,34 +41,5 @@ return function()
 		})
 		local instance = Roact.mount(element)
 		Roact.unmount(instance)
-	end)
-
-	it("should create and destroy with a string badge value without errors", function()
-		local originalConfig = UIBloxConfig.allowSystemBarToAcceptString
-		UIBloxConfig.allowSystemBarToAcceptString = true
-
-		local element = mockStyleComponent({
-			Roact.createElement(SystemBar, {
-				itemList = {{
-					iconOn = Images["icons/actions/favoriteOn"],
-					iconOff = Images["icons/actions/favoriteOff"],
-					onActivated = function() end,
-					badgeValue = "Hi",
-				}},
-				selection = 1,
-				placement = Placement.Left,
-				hidden = false,
-				onSafeAreaChanged = function() end,
-				size = UDim2.new(),
-				position = UDim2.new(),
-				layoutOrder = 1,
-			}, {
-				Contents = Roact.createElement("Frame", {}, {})
-			}),
-		})
-		local instance = Roact.mount(element)
-		Roact.unmount(instance)
-
-		UIBloxConfig.allowSystemBarToAcceptString = originalConfig
 	end)
 end

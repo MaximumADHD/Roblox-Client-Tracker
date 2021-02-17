@@ -18,8 +18,6 @@ local function isKeyInSpec(meta, key)
 end
 
 local MagicMock = {}
-MagicMock.is = require(script.Parent.isAMagicMock)
-
 local MetaMock = {}
 function MetaMock:__tostring()
 	local meta = getmetatable(self)
@@ -75,12 +73,6 @@ function MetaMock:__newindex(key, value)
 	end
 end
 
-local function isTuple(object)
-	if type(object) == "table" and object[symbols.isTuple] then
-		return not MagicMock.is(object)
-	end
-end
-
 local function getReturnValue(meta, ...)
 	if meta[symbols.ReturnValue] then
 		return meta[symbols.ReturnValue]
@@ -93,14 +85,7 @@ local function getReturnValue(meta, ...)
 			return { sideEffect.value(...) }
 		elseif type(sideEffect.value) == "table" then
 			local timesCalled = sideEffect.calls
-			local returnValue
-			if isTuple(sideEffect.value) then
-				local tuple = sideEffect.value
-				returnValue = tuple.values[timesCalled]
-			else
-				returnValue = sideEffect.value[timesCalled]
-			end
-
+			local returnValue = sideEffect.value[timesCalled]
 			if returnValue then
 				return { returnValue }
 			else
@@ -129,12 +114,6 @@ function MetaMock:__call(...)
 		meta[symbols.ReturnValue] = call.result
 	elseif call.result == symbols.None then
 		call.result = { n=1 }
-	else
-		local result = call.result[1]
-		if isTuple(result) then
-			local tuple = call.result[1]
-			call.result = tuple.values
-		end
 	end
 
 	table.insert(meta[symbols.Calls], call)
@@ -188,7 +167,6 @@ function MagicMock.new(properties)
 
 	local self = {}
 	local mock = {
-		[symbols.isMagicMock] = true,
 		[symbols.Address] = tostring(self),
 		[symbols.Name] = getName(),
 		[symbols.Operations] = {},
@@ -213,15 +191,6 @@ function MagicMock.new(properties)
 	end
 
 	return magicMock
-end
-
-function MagicMock.is(object)
-	local meta = getmetatable(object)
-	if meta then
-		return meta[symbols.isMagicMock] ~= nil
-	end
-
-	return false
 end
 
 return MagicMock

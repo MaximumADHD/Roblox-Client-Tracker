@@ -7,6 +7,6 @@ dependencies = [
     "Cryo roblox/cryo 1.0.0 url+https://github.com/roblox/cryo",
     "Freeze freeze ef89f9d0 git+https://github.com/roblox/freeze#master",
     "Promise lua-promise 1bb842c3 git+https://github.com/roblox/lua-promise#master",
-    "Rodux roblox/rodux 1.1.0 url+https://github.com/roblox/rodux",
+    "Rodux roblox/rodux 1.0.0 url+https://github.com/roblox/rodux",
     "tutils tutils 937da4f7 git+https://github.com/roblox/tutils#master",
 ]

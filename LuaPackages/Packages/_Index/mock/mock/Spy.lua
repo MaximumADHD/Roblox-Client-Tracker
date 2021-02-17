@@ -2,7 +2,6 @@
 -- with.
 
 local symbols = require(script.Parent.symbols)
-local isAMagicMock = require(script.Parent.isAMagicMock)
 
 local Spy = {}
 Spy.__index = Spy
@@ -40,11 +39,7 @@ function Spy.lookup(wrapper)
 end
 
 function Spy.is(object)
-	if not isAMagicMock(object) then
-		return type(object) == "table" and object[symbols.isSpy] ~= nil
-	end
-
-	return false
+	return type(object) == "table" and object[symbols.isSpy]
 end
 
 return Spy

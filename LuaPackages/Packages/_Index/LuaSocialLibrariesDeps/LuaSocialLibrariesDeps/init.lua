@@ -5,8 +5,4 @@ return {
 	RoactFitComponents = require(LuaSocialLibrariesDeps.RoactFitComponents),
 	Mock = require(LuaSocialLibrariesDeps.Mock),
 	RoduxNetworking = require(LuaSocialLibrariesDeps.RoduxNetworking),
-	llama = require(LuaSocialLibrariesDeps.llama),
-	RoduxUsers = require(LuaSocialLibrariesDeps.RoduxUsers),
-	RoduxFriends = require(LuaSocialLibrariesDeps.RoduxFriends),
-	RoduxPresence = require(LuaSocialLibrariesDeps.RoduxPresence),
 }
