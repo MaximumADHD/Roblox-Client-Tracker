@@ -16,9 +16,11 @@ return t.strictInterface({
 	-- buttons: A table of button tables that contain props that PrimaryContextualButton,
 	-- AlertButton, PrimarySystemButton, or SecondaryButton allow. Also contains a prop "buttonType"
 	-- to determine which of these button types to use.
+	-- isDefaultChild: Default gamepad focus to this button if true.
 	buttons = t.array(t.strictInterface({
 		buttonType = t.optional(enumerateValidator(ButtonType)),
 		props = validateButtonProps,
+		isDefaultChild = t.optional(t.boolean),
 	})),
 
 	buttonHeight = t.optional(t.numberMin(0)),
