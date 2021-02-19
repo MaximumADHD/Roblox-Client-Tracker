@@ -1,6 +1,0 @@
-{
-	"lint": {
-		"FunctionUnused": "fatal",
-		"ImportUnused": "fatal"
-	}
-}

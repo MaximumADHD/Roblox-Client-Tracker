@@ -1,5 +1,0 @@
-{
-	"lint": {
-		"SameLineStatement": "fatal"
-	}
-}

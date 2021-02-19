@@ -1,7 +1,0 @@
-{
-	"lint": {
-		"LocalShadow": "fatal",
-		"FunctionUnused": "fatal",
-		"ImportUnused": "fatal"
-	}
-}

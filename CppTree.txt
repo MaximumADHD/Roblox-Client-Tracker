@@ -2,6 +2,7 @@ _com_error
 `anonymous namespace'::codecvt_error_cat
 `anonymous namespace'::OnDemandFolderInstance
 `anonymous namespace'::ScrollAreaWithMargins
+`anonymous namespace'::TracingTransport
 AboutStudioDialog
 ActionItem
 ActionItemDelegate
@@ -877,6 +878,7 @@ CustomQSlider
 CutVerb
 DebuggerClientManager
 DebuggerController
+DebuggerSessionManager
 DebuggerToolTipDelegate
 DebuggerToolTipView
 DebuggerTreeWidget
@@ -1080,6 +1082,7 @@ ICloudEditConnectionModel
 ICloudEditModel
 ICustomCrashDetails
 IDebuggerController
+IDebuggerSessionManager
 IDiffDataProvider
 IFileSyncStudioDependence
 IFindListener
@@ -1087,6 +1090,7 @@ IGameIconsStore
 IHttpRequestWithQtContext
 ILoggedInUser
 ILoginManager
+ILuaCalloutTarget
 ImagePickerModel
 ImagePickerPopup
 ImagePickerWidget
@@ -1146,6 +1150,7 @@ KeyPressFinishedEvent
 KeySequenceEdit
 LaunchHelpForSelectionVerb
 LeaveGameVerb
+LineResultIdentifier
 LinkEnabledPlainTextEdit
 ListModelBase
 LoadingScreenComponent
@@ -1163,6 +1168,7 @@ LoginRequest
 LoginRequestAuth
 LogOutMenu
 lua_exception
+LuaCalloutTarget
 LuaSourceBuffer
 LuaSourceBufferBasic
 Luau::AstErrorTypeAnnotation
@@ -1315,6 +1321,7 @@ ParallelLSCSearcher
 ParallelLSCSearcher::CancelledException
 ParallelOperationsNamespace::BufferedEmitter
 ParallelOperationsNamespace::Emitter
+ParallelOperationsNamespace::ParallelOperationResult
 ParallelOperationsNamespace::ResultEmitter
 ParallelOperationsNamespace::SearchResult
 ParallelOperationsNamespace::ThreadPool
@@ -2108,6 +2115,7 @@ RBX::Creator<class RBX::UIPadding>
 RBX::Creator<class RBX::UIPageLayout>
 RBX::Creator<class RBX::UIScale>
 RBX::Creator<class RBX::UISizeConstraint>
+RBX::Creator<class RBX::UIStroke>
 RBX::Creator<class RBX::UITableLayout>
 RBX::Creator<class RBX::UITextSizeConstraint>
 RBX::Creator<class RBX::UnionOperation>
@@ -2175,6 +2183,7 @@ RBX::DecalTexture
 RBX::DecalTool
 RBX::DeleteBase
 RBX::DeleteSelectionVerb
+RBX::DEPRECATEDAnalyticsReporter
 RBX::DepthOfFieldEffect
 RBX::Described<class CRenderSettingsItem,class RBX::GlobalAdvancedSettings::Item>
 RBX::Described<class RBX::Analytics::GoogleAnalyticsConfiguration,class RBX::Analytics::Settings::Item>
@@ -2343,6 +2352,7 @@ RBX::Described<class RunningAverageItemDouble,class RunningAverageItem<double> >
 RBX::Described<class RunningAverageItemInt,class RunningAverageItem<int> >
 RBX::Described<class Studio::AssetManagerService,class RBX::ServiceInstance>
 RBX::Described<class Studio::BulkImportService,class RBX::ServiceInstance>
+RBX::Described<class Studio::CalloutService,class RBX::ServiceInstance>
 RBX::Described<class StudioUserPreferences,class RBX::GlobalAdvancedSettings::Item>
 RBX::Described<class Theme,class RBX::Instance>
 RBX::Described<class TotalCountTimeIntervalItem,class RBX::Stats::Item>
@@ -2618,6 +2628,7 @@ RBX::DescribedCreatable<class RBX::UIPadding,class RBX::UIComponent>
 RBX::DescribedCreatable<class RBX::UIPageLayout,class RBX::UIGridStyleLayout>
 RBX::DescribedCreatable<class RBX::UIScale,class RBX::UIComponent>
 RBX::DescribedCreatable<class RBX::UISizeConstraint,class RBX::UIConstraint>
+RBX::DescribedCreatable<class RBX::UIStroke,class RBX::UIComponent>
 RBX::DescribedCreatable<class RBX::UITableLayout,class RBX::UIGridStyleLayout>
 RBX::DescribedCreatable<class RBX::UITextSizeConstraint,class RBX::UIConstraint>
 RBX::DescribedCreatable<class RBX::UnionOperation,class RBX::PartOperation>
@@ -3016,6 +3027,7 @@ RBX::IGuiText
 RBX::IHasLocation
 RBX::IHostNotifier
 RBX::IHttpClientStdout
+RBX::IHttpTracingHelper
 RBX::IIDREF
 RBX::IJointOwner
 RBX::ILegacyStudioBridge
@@ -3145,6 +3157,7 @@ RBX::LSP::IServerThreadDelegate
 RBX::LSP::ISocket
 RBX::LSP::ISocketDelegate
 RBX::LSP::IWorkspaceConnection
+RBX::LSP::IWorkspaceFolder
 RBX::LSP::IWorkspaceScript
 RBX::LSP::LanguageClientBase
 RBX::LSP::LanguageServerBase
@@ -3158,6 +3171,7 @@ RBX::LSP::LuauScriptTextProvider
 RBX::LSP::LuauSemanticHighlighter
 RBX::LSP::ScriptWorkspace
 RBX::LSP::ScriptWorkspaceConnection
+RBX::LSP::ScriptWorkspaceFolder
 RBX::LSP::TextDocument
 RBX::Lua::EventSignalWrapper<void cdecl(class std::shared_ptr<class RBX::Instance>),class rbx::signal<void cdecl(class std::shared_ptr<class RBX::Instance>)> >
 RBX::Lua::EventSignalWrapper<void cdecl(class std::string),class rbx::signal<void cdecl(class std::string)> >
@@ -3453,6 +3467,7 @@ RBX::Reflection::BoundFuncDesc<class RBX::Animator,void cdecl(class RBX::Reflect
 RBX::Reflection::BoundFuncDesc<class RBX::Animator,void cdecl(float),1>
 RBX::Reflection::BoundFuncDesc<class RBX::AppUpdateService,bool cdecl(void),0>
 RBX::Reflection::BoundFuncDesc<class RBX::AppUpdateService,void cdecl(class RBX::Lua::WeakFunctionRef),1>
+RBX::Reflection::BoundFuncDesc<class RBX::AppUpdateService,void cdecl(void),0>
 RBX::Reflection::BoundFuncDesc<class RBX::AssetService,class std::shared_ptr<class boost::unordered::unordered_map<class std::string,class RBX::Reflection::Variant,struct boost::hash<class std::string >,struct std::equal_to<class std::string >,class std::allocator<struct std::pair<class std::string const ,class RBX::Reflection::Variant> > > const > cdecl(__int64),1>
 RBX::Reflection::BoundFuncDesc<class RBX::Attachment,void cdecl(class G3D::Vector3),1>
 RBX::Reflection::BoundFuncDesc<class RBX::AvatarEditorService,void cdecl(__int64,enum RBX::AvatarItemType,bool),3>
@@ -4091,7 +4106,7 @@ RBX::Reflection::BoundFuncDesc<class RBX::Workspace,int cdecl(void),0>
 RBX::Reflection::BoundFuncDesc<class RBX::Workspace,void cdecl(bool),1>
 RBX::Reflection::BoundFuncDesc<class RBX::Workspace,void cdecl(class std::shared_ptr<class std::vector<class std::shared_ptr<class RBX::Instance>,class std::allocator<class std::shared_ptr<class RBX::Instance> > > const >),1>
 RBX::Reflection::BoundFuncDesc<class RBX::Workspace,void cdecl(class std::shared_ptr<class std::vector<class std::shared_ptr<class RBX::Instance>,class std::allocator<class std::shared_ptr<class RBX::Instance> > > const >,enum RBX::AdvArrowToolJointCreationMode),2>
-RBX::Reflection::BoundFuncDesc<class RBX::Workspace,void cdecl(enum RBX::Workspace::MeshPartHeads),1>
+RBX::Reflection::BoundFuncDesc<class RBX::Workspace,void cdecl(enum RBX::Workspace::MeshPartHeadsAndAccessories),1>
 RBX::Reflection::BoundFuncDesc<class RBX::Workspace,void cdecl(void),0>
 RBX::Reflection::BoundFuncDesc<class RBX::WorldRoot,bool cdecl(class RBX::Region3,class std::shared_ptr<class RBX::Instance>),2>
 RBX::Reflection::BoundFuncDesc<class RBX::WorldRoot,bool cdecl(class RBX::Region3,class std::shared_ptr<class std::vector<class std::shared_ptr<class RBX::Instance>,class std::allocator<class std::shared_ptr<class RBX::Instance> > > const >),2>
@@ -4114,6 +4129,9 @@ RBX::Reflection::BoundFuncDesc<class Studio::AssetManagerService,void cdecl(clas
 RBX::Reflection::BoundFuncDesc<class Studio::AssetManagerService,void cdecl(class std::string,bool),2>
 RBX::Reflection::BoundFuncDesc<class Studio::BulkImportService,void cdecl(int),1>
 RBX::Reflection::BoundFuncDesc<class Studio::BulkImportService,void cdecl(void),0>
+RBX::Reflection::BoundFuncDesc<class Studio::CalloutService,void cdecl(class std::string const & ptr64),1>
+RBX::Reflection::BoundFuncDesc<class Studio::CalloutService,void cdecl(class std::string const & ptr64,class std::string const & ptr64,class std::shared_ptr<class RBX::Instance> const & ptr64),3>
+RBX::Reflection::BoundFuncDesc<class Studio::CalloutService,void cdecl(class std::string const & ptr64,class std::string const & ptr64,class std::string const & ptr64,class std::string const & ptr64),4>
 RBX::Reflection::BoundFuncDesc<class StudioUserPreferences,class std::shared_ptr<class std::vector<class RBX::Reflection::Variant,class std::allocator<class RBX::Reflection::Variant> > const > cdecl(void),0>
 RBX::Reflection::BoundFuncDesc<class Theme,class G3D::Color3 cdecl(enum StudioTheme::StyleGuideColor,enum StudioTheme::StyleGuideModifier),2>
 RBX::Reflection::BoundFuncDesc<class Theme,class std::string cdecl(class std::string const & ptr64,enum StudioTheme::StyleGuideModifier),2>
@@ -4502,6 +4520,7 @@ RBX::Reflection::EnumDesc<enum RBX::LSP::FormattingOptions::AutoIndent>
 RBX::Reflection::EnumDesc<enum RBX::MarketplaceService::CurrencyType>
 RBX::Reflection::EnumDesc<enum RBX::MarketplaceService::InfoType>
 RBX::Reflection::EnumDesc<enum RBX::MarketplaceService::ProductPurchaseDecision>
+RBX::Reflection::EnumDesc<enum RBX::MegaClusterInstance::TerrainAcquisitionMethod>
 RBX::Reflection::EnumDesc<enum RBX::MembershipType>
 RBX::Reflection::EnumDesc<enum RBX::Memory::DeveloperTag>
 RBX::Reflection::EnumDesc<enum RBX::MessageType>
@@ -4570,6 +4589,7 @@ RBX::Reflection::EnumDesc<enum RBX::TeleportService_TeleportMethod>
 RBX::Reflection::EnumDesc<enum RBX::TeleportService_TeleportState>
 RBX::Reflection::EnumDesc<enum RBX::TeleportService_TeleportType>
 RBX::Reflection::EnumDesc<enum RBX::Text::Font>
+RBX::Reflection::EnumDesc<enum RBX::Text::LineJoinMode>
 RBX::Reflection::EnumDesc<enum RBX::TextBox::ReturnKeyType>
 RBX::Reflection::EnumDesc<enum RBX::TextBox::TextInputType>
 RBX::Reflection::EnumDesc<enum RBX::TextService::FontSize>
@@ -4590,6 +4610,7 @@ RBX::Reflection::EnumDesc<enum RBX::UIGridStyleLayout::FillDirection>
 RBX::Reflection::EnumDesc<enum RBX::UIGridStyleLayout::HorizontalAlignment>
 RBX::Reflection::EnumDesc<enum RBX::UIGridStyleLayout::SortOrder>
 RBX::Reflection::EnumDesc<enum RBX::UIGridStyleLayout::VerticalAlignment>
+RBX::Reflection::EnumDesc<enum RBX::UIStroke::ApplyStrokeMode>
 RBX::Reflection::EnumDesc<enum RBX::UITableLayout::TableMajorAxis>
 RBX::Reflection::EnumDesc<enum RBX::VirtualInputManager::VirtualInputMode>
 RBX::Reflection::EnumDesc<enum RBX::Voxel::CellBlock>
@@ -4601,7 +4622,7 @@ RBX::Reflection::EnumDesc<enum RBX::VRService::UserCFrame>
 RBX::Reflection::EnumDesc<enum RBX::VRService::VRTouchpad>
 RBX::Reflection::EnumDesc<enum RBX::VRService::VRTouchpadMode>
 RBX::Reflection::EnumDesc<enum RBX::Workspace::InterpolationThrottlingMode>
-RBX::Reflection::EnumDesc<enum RBX::Workspace::MeshPartHeads>
+RBX::Reflection::EnumDesc<enum RBX::Workspace::MeshPartHeadsAndAccessories>
 RBX::Reflection::EnumDesc<enum RBX::Workspace::PhysicsSteppingMethod>
 RBX::Reflection::EnumDesc<enum RBX::Workspace::StreamingPauseMode>
 RBX::Reflection::EnumDesc<enum RBX::WrapLayerDebugMode>
@@ -4693,6 +4714,7 @@ RBX::Reflection::EnumPropDescriptor<class RBX::InputObject,enum RBX::InputObject
 RBX::Reflection::EnumPropDescriptor<class RBX::InputObject,enum RBX::KeyCode>
 RBX::Reflection::EnumPropDescriptor<class RBX::KeyframeSequence,enum RBX::KeyframeSequence::Priority>
 RBX::Reflection::EnumPropDescriptor<class RBX::Lighting,enum RBX::LightingTechnology>
+RBX::Reflection::EnumPropDescriptor<class RBX::MegaClusterInstance,enum RBX::MegaClusterInstance::TerrainAcquisitionMethod>
 RBX::Reflection::EnumPropDescriptor<class RBX::MeshPart,enum RBX::RenderFidelity>
 RBX::Reflection::EnumPropDescriptor<class RBX::ModelInstance,enum RBX::ModelLevelOfDetail>
 RBX::Reflection::EnumPropDescriptor<class RBX::Mouse,enum RBX::NormalId>
@@ -4769,13 +4791,15 @@ RBX::Reflection::EnumPropDescriptor<class RBX::UIGridStyleLayout,enum RBX::UIGri
 RBX::Reflection::EnumPropDescriptor<class RBX::UIGridStyleLayout,enum RBX::UIGridStyleLayout::VerticalAlignment>
 RBX::Reflection::EnumPropDescriptor<class RBX::UIPageLayout,enum RBX::TweenInfo::TweenEasingDirection>
 RBX::Reflection::EnumPropDescriptor<class RBX::UIPageLayout,enum RBX::TweenInfo::TweenEasingStyle>
+RBX::Reflection::EnumPropDescriptor<class RBX::UIStroke,enum RBX::Text::LineJoinMode>
+RBX::Reflection::EnumPropDescriptor<class RBX::UIStroke,enum RBX::UIStroke::ApplyStrokeMode>
 RBX::Reflection::EnumPropDescriptor<class RBX::UITableLayout,enum RBX::UITableLayout::TableMajorAxis>
 RBX::Reflection::EnumPropDescriptor<class RBX::UserInputService,enum RBX::MouseService::MouseType>
 RBX::Reflection::EnumPropDescriptor<class RBX::UserInputService,enum RBX::MouseService::OverrideMouseIconBehavior>
 RBX::Reflection::EnumPropDescriptor<class RBX::VRService,enum RBX::VRService::UserCFrame>
 RBX::Reflection::EnumPropDescriptor<class RBX::Workspace,enum RBX::PhysicsSimulationRate>
 RBX::Reflection::EnumPropDescriptor<class RBX::Workspace,enum RBX::Workspace::InterpolationThrottlingMode>
-RBX::Reflection::EnumPropDescriptor<class RBX::Workspace,enum RBX::Workspace::MeshPartHeads>
+RBX::Reflection::EnumPropDescriptor<class RBX::Workspace,enum RBX::Workspace::MeshPartHeadsAndAccessories>
 RBX::Reflection::EnumPropDescriptor<class RBX::Workspace,enum RBX::Workspace::PhysicsSteppingMethod>
 RBX::Reflection::EnumPropDescriptor<class RBX::Workspace,enum RBX::Workspace::StreamingPauseMode>
 RBX::Reflection::EnumPropDescriptor<class RBX::WrapLayer,enum RBX::WrapLayerDebugMode>
@@ -5570,6 +5594,7 @@ RBX::Reflection::FuncDesc<class RBX::Workspace>
 RBX::Reflection::FuncDesc<class RBX::WorldRoot>
 RBX::Reflection::FuncDesc<class Studio::AssetManagerService>
 RBX::Reflection::FuncDesc<class Studio::BulkImportService>
+RBX::Reflection::FuncDesc<class Studio::CalloutService>
 RBX::Reflection::FuncDesc<class StudioUserPreferences>
 RBX::Reflection::FuncDesc<class Theme>
 RBX::Reflection::FunctionDescriptor
@@ -6241,6 +6266,7 @@ RBX::Reflection::PropDescriptor<class RBX::MegaClusterInstance,class RBX::Region
 RBX::Reflection::PropDescriptor<class RBX::MegaClusterInstance,class RBX::Region3int16>::GetImpl<class RBX::Region3int16 const (cdecl RBX::MegaClusterInstance::*)(void)const ptr64>
 RBX::Reflection::PropDescriptor<class RBX::MegaClusterInstance,class std::string >
 RBX::Reflection::PropDescriptor<class RBX::MegaClusterInstance,class std::string >::SetImpl<void (cdecl RBX::MegaClusterInstance::*)(class std::string const & ptr64) ptr64>
+RBX::Reflection::PropDescriptor<class RBX::MegaClusterInstance,enum RBX::MegaClusterInstance::TerrainAcquisitionMethod>::GetSetImpl<enum RBX::MegaClusterInstance::TerrainAcquisitionMethod (cdecl RBX::MegaClusterInstance::*)(void)const ptr64,void (cdecl RBX::MegaClusterInstance::*)(enum RBX::MegaClusterInstance::TerrainAcquisitionMethod const & ptr64) ptr64>
 RBX::Reflection::PropDescriptor<class RBX::MegaClusterInstance,float>
 RBX::Reflection::PropDescriptor<class RBX::MegaClusterInstance,float>::GetSetImpl<float (cdecl RBX::MegaClusterInstance::*)(void)const ptr64,void (cdecl RBX::MegaClusterInstance::*)(float) ptr64>
 RBX::Reflection::PropDescriptor<class RBX::MeshPart,bool>
@@ -6436,6 +6462,8 @@ RBX::Reflection::PropDescriptor<class RBX::Players,bool>
 RBX::Reflection::PropDescriptor<class RBX::Players,bool>::GetImpl<bool (cdecl RBX::Players::*)(void)const ptr64>
 RBX::Reflection::PropDescriptor<class RBX::Players,bool>::GetSetImpl<bool (cdecl RBX::Players::*)(void)const ptr64,void (cdecl RBX::Players::*)(bool) ptr64>
 RBX::Reflection::PropDescriptor<class RBX::Players,class RBX::Player * ptr64>::GetImpl<class RBX::Player * ptr64 (cdecl RBX::Players::*)(void)const ptr64>
+RBX::Reflection::PropDescriptor<class RBX::Players,class std::string >
+RBX::Reflection::PropDescriptor<class RBX::Players,class std::string >::GetSetImpl<class std::string (cdecl RBX::Players::*)(void)const ptr64,void (cdecl RBX::Players::*)(class std::string const & ptr64) ptr64>
 RBX::Reflection::PropDescriptor<class RBX::Players,float>
 RBX::Reflection::PropDescriptor<class RBX::Players,float>::GetSetImpl<float (cdecl RBX::Players::*)(void)const ptr64,void (cdecl RBX::Players::*)(float) ptr64>
 RBX::Reflection::PropDescriptor<class RBX::Players,int>
@@ -6737,7 +6765,6 @@ RBX::Reflection::PropDescriptor<class RBX::TextBox,class G3D::Vector2>::GetImpl<
 RBX::Reflection::PropDescriptor<class RBX::TextBox,class RBX::BrickColor>
 RBX::Reflection::PropDescriptor<class RBX::TextBox,class RBX::BrickColor>::GetSetImpl<class RBX::BrickColor (cdecl RBX::GuiTextMixin<class RBX::TextBox,class RBX::DescribedCreatable<class RBX::TextBox,class RBX::GuiObject> >::*)(void)const ptr64,void (cdecl RBX::GuiTextMixin<class RBX::TextBox,class RBX::DescribedCreatable<class RBX::TextBox,class RBX::GuiObject> >::*)(class RBX::BrickColor) ptr64>
 RBX::Reflection::PropDescriptor<class RBX::TextBox,class std::string >
-RBX::Reflection::PropDescriptor<class RBX::TextBox,class std::string >::GetImpl<class std::string const & ptr64 (cdecl RBX::GuiTextMixin<class RBX::TextBox,class RBX::DescribedCreatable<class RBX::TextBox,class RBX::GuiObject> >::*)(void)const ptr64>
 RBX::Reflection::PropDescriptor<class RBX::TextBox,class std::string >::GetSetImpl<class std::string const & ptr64 (cdecl RBX::GuiTextMixin<class RBX::TextBox,class RBX::DescribedCreatable<class RBX::TextBox,class RBX::GuiObject> >::*)(void)const ptr64,void (cdecl RBX::GuiTextMixin<class RBX::TextBox,class RBX::DescribedCreatable<class RBX::TextBox,class RBX::GuiObject> >::*)(class std::string) ptr64>
 RBX::Reflection::PropDescriptor<class RBX::TextBox,class std::string >::GetSetImpl<class std::string const & ptr64 (cdecl RBX::TextBox::*)(void)const ptr64,void (cdecl RBX::TextBox::*)(class std::string) ptr64>
 RBX::Reflection::PropDescriptor<class RBX::TextBox,enum RBX::Text::Font>::GetSetImpl<enum RBX::Text::Font (cdecl RBX::GuiTextMixin<class RBX::TextBox,class RBX::DescribedCreatable<class RBX::TextBox,class RBX::GuiObject> >::*)(void)const ptr64,void (cdecl RBX::GuiTextMixin<class RBX::TextBox,class RBX::DescribedCreatable<class RBX::TextBox,class RBX::GuiObject> >::*)(enum RBX::Text::Font) ptr64>
@@ -6847,6 +6874,14 @@ RBX::Reflection::PropDescriptor<class RBX::UIScale,float>
 RBX::Reflection::PropDescriptor<class RBX::UIScale,float>::GetSetImpl<float (cdecl RBX::UIScale::*)(void)const ptr64,void (cdecl RBX::UIScale::*)(float) ptr64>
 RBX::Reflection::PropDescriptor<class RBX::UISizeConstraint,class G3D::Vector2>
 RBX::Reflection::PropDescriptor<class RBX::UISizeConstraint,class G3D::Vector2>::GetSetImpl<class G3D::Vector2 (cdecl RBX::UISizeConstraint::*)(void)const ptr64,void (cdecl RBX::UISizeConstraint::*)(class G3D::Vector2) ptr64>
+RBX::Reflection::PropDescriptor<class RBX::UIStroke,bool>
+RBX::Reflection::PropDescriptor<class RBX::UIStroke,bool>::GetSetImpl<bool (cdecl RBX::UIStroke::*)(void)const ptr64,void (cdecl RBX::UIStroke::*)(bool) ptr64>
+RBX::Reflection::PropDescriptor<class RBX::UIStroke,class G3D::Color3>
+RBX::Reflection::PropDescriptor<class RBX::UIStroke,class G3D::Color3>::GetSetImpl<class G3D::Color3 (cdecl RBX::UIStroke::*)(void)const ptr64,void (cdecl RBX::UIStroke::*)(class G3D::Color3) ptr64>
+RBX::Reflection::PropDescriptor<class RBX::UIStroke,enum RBX::Text::LineJoinMode>::GetSetImpl<enum RBX::Text::LineJoinMode (cdecl RBX::UIStroke::*)(void)const ptr64,void (cdecl RBX::UIStroke::*)(enum RBX::Text::LineJoinMode) ptr64>
+RBX::Reflection::PropDescriptor<class RBX::UIStroke,enum RBX::UIStroke::ApplyStrokeMode>::GetSetImpl<enum RBX::UIStroke::ApplyStrokeMode (cdecl RBX::UIStroke::*)(void)const ptr64,void (cdecl RBX::UIStroke::*)(enum RBX::UIStroke::ApplyStrokeMode) ptr64>
+RBX::Reflection::PropDescriptor<class RBX::UIStroke,float>
+RBX::Reflection::PropDescriptor<class RBX::UIStroke,float>::GetSetImpl<float (cdecl RBX::UIStroke::*)(void)const ptr64,void (cdecl RBX::UIStroke::*)(float) ptr64>
 RBX::Reflection::PropDescriptor<class RBX::UITableLayout,bool>
 RBX::Reflection::PropDescriptor<class RBX::UITableLayout,bool>::GetSetImpl<bool (cdecl RBX::UITableLayout::*)(void)const ptr64,void (cdecl RBX::UITableLayout::*)(bool) ptr64>
 RBX::Reflection::PropDescriptor<class RBX::UITableLayout,class RBX::UDim2>
@@ -6922,7 +6957,7 @@ RBX::Reflection::PropDescriptor<class RBX::Workspace,double>
 RBX::Reflection::PropDescriptor<class RBX::Workspace,double>::GetSetImpl<double (cdecl RBX::Workspace::*)(void)const ptr64,void (cdecl RBX::Workspace::*)(double) ptr64>
 RBX::Reflection::PropDescriptor<class RBX::Workspace,enum RBX::PhysicsSimulationRate>::GetSetImpl<enum RBX::PhysicsSimulationRate (cdecl RBX::Workspace::*)(void)const ptr64,void (cdecl RBX::Workspace::*)(enum RBX::PhysicsSimulationRate) ptr64>
 RBX::Reflection::PropDescriptor<class RBX::Workspace,enum RBX::Workspace::InterpolationThrottlingMode>::GetSetImpl<enum RBX::Workspace::InterpolationThrottlingMode (cdecl RBX::Workspace::*)(void)const ptr64,void (cdecl RBX::Workspace::*)(enum RBX::Workspace::InterpolationThrottlingMode) ptr64>
-RBX::Reflection::PropDescriptor<class RBX::Workspace,enum RBX::Workspace::MeshPartHeads>::GetSetImpl<enum RBX::Workspace::MeshPartHeads (cdecl RBX::Workspace::*)(void)const ptr64,void (cdecl RBX::Workspace::*)(enum RBX::Workspace::MeshPartHeads) ptr64>
+RBX::Reflection::PropDescriptor<class RBX::Workspace,enum RBX::Workspace::MeshPartHeadsAndAccessories>::GetSetImpl<enum RBX::Workspace::MeshPartHeadsAndAccessories (cdecl RBX::Workspace::*)(void)const ptr64,void (cdecl RBX::Workspace::*)(enum RBX::Workspace::MeshPartHeadsAndAccessories) ptr64>
 RBX::Reflection::PropDescriptor<class RBX::Workspace,enum RBX::Workspace::PhysicsSteppingMethod>::GetSetImpl<enum RBX::Workspace::PhysicsSteppingMethod (cdecl RBX::Workspace::*)(void)const ptr64,void (cdecl RBX::Workspace::*)(enum RBX::Workspace::PhysicsSteppingMethod) ptr64>
 RBX::Reflection::PropDescriptor<class RBX::Workspace,enum RBX::Workspace::StreamingPauseMode>::GetSetImpl<enum RBX::Workspace::StreamingPauseMode (cdecl RBX::Workspace::*)(void)const ptr64,void (cdecl RBX::Workspace::*)(enum RBX::Workspace::StreamingPauseMode) ptr64>
 RBX::Reflection::PropDescriptor<class RBX::Workspace,float>
@@ -7376,6 +7411,7 @@ RBX::Reflection::TypedPropertyDescriptor<enum RBX::KeyframeSequence::Priority>::
 RBX::Reflection::TypedPropertyDescriptor<enum RBX::LegacyController::InputType>::GetSet
 RBX::Reflection::TypedPropertyDescriptor<enum RBX::LightingTechnology>::GetSet
 RBX::Reflection::TypedPropertyDescriptor<enum RBX::LSP::FormattingOptions::AutoIndent>::GetSet
+RBX::Reflection::TypedPropertyDescriptor<enum RBX::MegaClusterInstance::TerrainAcquisitionMethod>::GetSet
 RBX::Reflection::TypedPropertyDescriptor<enum RBX::MembershipType>::GetSet
 RBX::Reflection::TypedPropertyDescriptor<enum RBX::ModelLevelOfDetail>::GetSet
 RBX::Reflection::TypedPropertyDescriptor<enum RBX::MouseService::MouseType>::GetSet
@@ -7417,6 +7453,7 @@ RBX::Reflection::TypedPropertyDescriptor<enum RBX::SurfaceGui::SizingMode>::GetS
 RBX::Reflection::TypedPropertyDescriptor<enum RBX::SurfaceType>::GetSet
 RBX::Reflection::TypedPropertyDescriptor<enum RBX::TaskScheduler::ThreadPoolConfig>::GetSet
 RBX::Reflection::TypedPropertyDescriptor<enum RBX::Text::Font>::GetSet
+RBX::Reflection::TypedPropertyDescriptor<enum RBX::Text::LineJoinMode>::GetSet
 RBX::Reflection::TypedPropertyDescriptor<enum RBX::TextBox::ReturnKeyType>::GetSet
 RBX::Reflection::TypedPropertyDescriptor<enum RBX::TextBox::TextInputType>::GetSet
 RBX::Reflection::TypedPropertyDescriptor<enum RBX::TextService::FontSize>::GetSet
@@ -7435,10 +7472,11 @@ RBX::Reflection::TypedPropertyDescriptor<enum RBX::UIGridStyleLayout::FillDirect
 RBX::Reflection::TypedPropertyDescriptor<enum RBX::UIGridStyleLayout::HorizontalAlignment>::GetSet
 RBX::Reflection::TypedPropertyDescriptor<enum RBX::UIGridStyleLayout::SortOrder>::GetSet
 RBX::Reflection::TypedPropertyDescriptor<enum RBX::UIGridStyleLayout::VerticalAlignment>::GetSet
+RBX::Reflection::TypedPropertyDescriptor<enum RBX::UIStroke::ApplyStrokeMode>::GetSet
 RBX::Reflection::TypedPropertyDescriptor<enum RBX::UITableLayout::TableMajorAxis>::GetSet
 RBX::Reflection::TypedPropertyDescriptor<enum RBX::VRService::UserCFrame>::GetSet
 RBX::Reflection::TypedPropertyDescriptor<enum RBX::Workspace::InterpolationThrottlingMode>::GetSet
-RBX::Reflection::TypedPropertyDescriptor<enum RBX::Workspace::MeshPartHeads>::GetSet
+RBX::Reflection::TypedPropertyDescriptor<enum RBX::Workspace::MeshPartHeadsAndAccessories>::GetSet
 RBX::Reflection::TypedPropertyDescriptor<enum RBX::Workspace::PhysicsSteppingMethod>::GetSet
 RBX::Reflection::TypedPropertyDescriptor<enum RBX::Workspace::StreamingPauseMode>::GetSet
 RBX::Reflection::TypedPropertyDescriptor<enum RBX::WrapLayerDebugMode>::GetSet
@@ -7561,6 +7599,7 @@ RBX::ScriptEditor::CmdGotoPosition
 RBX::ScriptEditor::CmdIndentSelection
 RBX::ScriptEditor::CmdInsertText
 RBX::ScriptEditor::CmdInvokeCompletions
+RBX::ScriptEditor::CmdInvokeHover
 RBX::ScriptEditor::CmdMoveLinesDown
 RBX::ScriptEditor::CmdMoveLinesUp
 RBX::ScriptEditor::CmdNewlineAbove
@@ -7848,7 +7887,11 @@ RBX::TouchInputService
 RBX::TouchTransmitter
 RBX::TracerService
 RBX::Tracing::AnalyticsReporter
+RBX::Tracing::HttpTracingHelper
+RBX::Tracing::IDEPRECATEDReporterCallback
+RBX::Tracing::LightstepReporter
 RBX::Tracing::Reporter
+RBX::Tracing::TracingTransport
 RBX::Trail
 RBX::TranslatorInstance
 RBX::TranslucentVerb
@@ -7901,6 +7944,7 @@ RBX::UIPageLayout
 RBX::UIRelayoutRecursionOverflowException
 RBX::UIScale
 RBX::UISizeConstraint
+RBX::UIStroke
 RBX::UITableLayout
 RBX::UITextSizeConstraint
 RBX::UnionOperation
@@ -8030,6 +8074,7 @@ RuiDialogButtonWatcher
 RuiHyperlink
 RuiImageButtonHoverWatcher
 RuiLoadingAnimation
+RuiReportBugLink
 RuiSecondaryButton
 RuiStripedTableWidget
 RuiToggle
@@ -8134,6 +8179,7 @@ signalr::websocket_transport
 SimpleJSON
 SingletonTemplate<class BetaFeaturesController>
 SingletonTemplate<class DebuggerController>
+SingletonTemplate<class DebuggerSessionManager>
 SingletonTemplate<class FileSyncManagerListener>
 SingletonTemplate<class FileWatcherSingleton>
 SingletonTemplate<class HttpRequestWithQtContext>
@@ -8226,7 +8272,6 @@ std::_Func_base<bool,class RBX::Instance * ptr64>
 std::_Func_base<bool,class RBX::StringView>
 std::_Func_base<bool,class std::shared_ptr<class RBX::HttpResponse> >
 std::_Func_base<bool,class std::shared_ptr<class RBX::Instance> >
-std::_Func_base<bool,class std::string const & ptr64,class std::string const & ptr64,class std::function<void cdecl(class RBX::DataModel * ptr64,class std::shared_ptr<class RBX::LSP::IWorkspaceScript>)> >
 std::_Func_base<bool,class std::string const & ptr64>
 std::_Func_base<bool,int>
 std::_Func_base<bool,long>
@@ -8264,6 +8309,7 @@ std::_Func_base<class std::string,unsigned __int64>
 std::_Func_base<double,class RBX::HttpResponse & ptr64,unsigned int>
 std::_Func_base<double>
 std::_Func_base<float,int,int>
+std::_Func_base<int,class RakNet::BitStream & ptr64>
 std::_Func_base<int,struct _iobuf * ptr64>
 std::_Func_base<struct _iobuf * ptr64,class boost::filesystem::path const & ptr64>
 std::_Func_base<struct Luau::TypeVar * ptr64>
@@ -8371,6 +8417,7 @@ std::_Func_base<void,class std::shared_ptr<struct RBX::GroupService::GroupRolesR
 std::_Func_base<void,class std::shared_ptr<struct RBX::LocalizationTable::Entry>,class std::vector<struct RBX::Localization::Capture,class std::allocator<struct RBX::Localization::Capture> > const & ptr64>
 std::_Func_base<void,class std::shared_ptr<struct RBX::LSP::CompletionResponse> const & ptr64>
 std::_Func_base<void,class std::shared_ptr<struct RBX::LSP::DeclarationResponse> const & ptr64>
+std::_Func_base<void,class std::shared_ptr<struct RBX::LSP::HoverResponse> const & ptr64>
 std::_Func_base<void,class std::shared_ptr<struct RBX::LSP::InitializeResponse> const & ptr64>
 std::_Func_base<void,class std::shared_ptr<struct RBX::LSP::Response> const & ptr64>
 std::_Func_base<void,class std::shared_ptr<struct RBX::LSP::RobloxFindColor3ConstructorResponse> const & ptr64>
@@ -8452,6 +8499,7 @@ std::_Func_base<void,struct RBX::LSP::TextPosition>
 std::_Func_base<void,struct RBX::Network::ConnectionStats const & ptr64>
 std::_Func_base<void,unsigned __int64>
 std::_Func_base<void,unsigned char>
+std::_Func_base<void,unsigned int>
 std::_Func_base<void,unsigned long,class std::string const & ptr64,class std::string const & ptr64,enum FW::Action>
 std::_Func_base<void,void * ptr64>
 std::_Func_base<void>
@@ -8499,6 +8547,7 @@ std::_Func_impl_no_alloc<class std::_Fake_no_copy_callable_adapter<unsigned int 
 std::_Func_impl_no_alloc<class std::_Fake_no_copy_callable_adapter<void (cdecl Etc::Image::*)(unsigned int,unsigned int) ptr64,class Etc::Image * ptr64,int & ptr64,unsigned int & ptr64>,void>
 std::_Func_impl_no_alloc<class std::function<void cdecl(class std::shared_ptr<struct RBX::LSP::Response> const & ptr64)>,void,class std::shared_ptr<struct RBX::LSP::CompletionResponse> const & ptr64>
 std::_Func_impl_no_alloc<class std::function<void cdecl(class std::shared_ptr<struct RBX::LSP::Response> const & ptr64)>,void,class std::shared_ptr<struct RBX::LSP::DeclarationResponse> const & ptr64>
+std::_Func_impl_no_alloc<class std::function<void cdecl(class std::shared_ptr<struct RBX::LSP::Response> const & ptr64)>,void,class std::shared_ptr<struct RBX::LSP::HoverResponse> const & ptr64>
 std::_Func_impl_no_alloc<class std::function<void cdecl(class std::shared_ptr<struct RBX::LSP::Response> const & ptr64)>,void,class std::shared_ptr<struct RBX::LSP::InitializeResponse> const & ptr64>
 std::_Func_impl_no_alloc<class std::function<void cdecl(class std::shared_ptr<struct RBX::LSP::Response> const & ptr64)>,void,class std::shared_ptr<struct RBX::LSP::RobloxFindColor3ConstructorResponse> const & ptr64>
 std::_Func_impl_no_alloc<class std::function<void cdecl(class std::shared_ptr<struct RBX::LSP::Response> const & ptr64)>,void,class std::shared_ptr<struct RBX::LSP::RobloxFindExecutablePositionResponse> const & ptr64>
@@ -8609,6 +8658,7 @@ std::_Ref_count_obj<class InstanceSearchContextHandler>
 std::_Ref_count_obj<class InstancesQuickOpenProvider>
 std::_Ref_count_obj<class InstancesQuickOpenProviderWorker>
 std::_Ref_count_obj<class InstancesSearchResult>
+std::_Ref_count_obj<class LineResultIdentifier>
 std::_Ref_count_obj<class LocalPlacePublishRequestMediator>
 std::_Ref_count_obj<class MassPackageUpdater::UpdateTask>
 std::_Ref_count_obj<class MassPackageUpdater>
@@ -8665,6 +8715,7 @@ std::_Ref_count_obj<class RBX::DataStore::CachedRecord>
 std::_Ref_count_obj<class RBX::DataStore2::CachedRecordV2>
 std::_Ref_count_obj<class RBX::DateHandler>
 std::_Ref_count_obj<class RBX::DatetimeHandler>
+std::_Ref_count_obj<class RBX::DEPRECATEDAnalyticsReporter>
 std::_Ref_count_obj<class RBX::EquationDisplay>
 std::_Ref_count_obj<class RBX::FocusedPromptData>
 std::_Ref_count_obj<class RBX::GcJob>
@@ -8684,6 +8735,7 @@ std::_Ref_count_obj<class RBX::Graphics::Material>
 std::_Ref_count_obj<class RBX::Graphics::VertexBufferD3D9>
 std::_Ref_count_obj<class RBX::GuiRoot>
 std::_Ref_count_obj<class RBX::HeightmapImporter>
+std::_Ref_count_obj<class RBX::HLSParser::InitializationSegment>
 std::_Ref_count_obj<class RBX::http_status_error>
 std::_Ref_count_obj<class RBX::Http>
 std::_Ref_count_obj<class RBX::HttpCache::HttpCacheAsyncWriter>
@@ -8726,6 +8778,7 @@ std::_Ref_count_obj<class RBX::LSP::LSPSocket>
 std::_Ref_count_obj<class RBX::LSP::LuauDataModelSync>
 std::_Ref_count_obj<class RBX::LSP::LuauLanguageServerExt>
 std::_Ref_count_obj<class RBX::LSP::LuauScriptAnalyzer>
+std::_Ref_count_obj<class RBX::LSP::ScriptWorkspaceFolder>
 std::_Ref_count_obj<class RBX::LSP::TaskCounter>
 std::_Ref_count_obj<class RBX::Lua::EventSignalWrapper<void cdecl(class std::shared_ptr<class RBX::Instance>),class rbx::signal<void cdecl(class std::shared_ptr<class RBX::Instance>)> > >
 std::_Ref_count_obj<class RBX::Lua::EventSignalWrapper<void cdecl(class std::string),class rbx::signal<void cdecl(class std::string)> > >
@@ -8772,6 +8825,7 @@ std::_Ref_count_obj<class RBX::ScriptEditor::CmdGotoPosition>
 std::_Ref_count_obj<class RBX::ScriptEditor::CmdIndentSelection>
 std::_Ref_count_obj<class RBX::ScriptEditor::CmdInsertText>
 std::_Ref_count_obj<class RBX::ScriptEditor::CmdInvokeCompletions>
+std::_Ref_count_obj<class RBX::ScriptEditor::CmdInvokeHover>
 std::_Ref_count_obj<class RBX::ScriptEditor::CmdMoveLinesDown>
 std::_Ref_count_obj<class RBX::ScriptEditor::CmdMoveLinesUp>
 std::_Ref_count_obj<class RBX::ScriptEditor::CmdNewlineAbove>
@@ -8812,8 +8866,9 @@ std::_Ref_count_obj<class RBX::TimeHandler>
 std::_Ref_count_obj<class RBX::Timer<0> >
 std::_Ref_count_obj<class RBX::TimerTickerJob>
 std::_Ref_count_obj<class RBX::Tracing::AnalyticsReporter>
+std::_Ref_count_obj<class RBX::Tracing::HttpTracingHelper>
+std::_Ref_count_obj<class RBX::Tracing::LightstepReporter>
 std::_Ref_count_obj<class RBX::Tracing::Span>
-std::_Ref_count_obj<class RBX::Tracing::Tracer>
 std::_Ref_count_obj<class RBX::Typesetter>
 std::_Ref_count_obj<class RBX::UploadComponentsToCloudJob>
 std::_Ref_count_obj<class RBX::UsernameHandler>
@@ -8927,7 +8982,7 @@ std::_Ref_count_obj<struct Luau::Scope>
 std::_Ref_count_obj<struct MassUpdateModel::PackageInfo>
 std::_Ref_count_obj<struct MassUpdateModel::PlaceInfo>
 std::_Ref_count_obj<struct MemStorage::Context>
-std::_Ref_count_obj<struct ParallelOperationsNamespace::SearchResult::ResultDetail>
+std::_Ref_count_obj<struct ParallelOperationsNamespace::ResultDetail>
 std::_Ref_count_obj<struct ParallelOperationsNamespace::SharedState>
 std::_Ref_count_obj<struct RBX::Analytics::NS1::`anonymous namespace'::ProbeState>
 std::_Ref_count_obj<struct RBX::AsyncHttpQueue::Request>
@@ -8958,6 +9013,8 @@ std::_Ref_count_obj<struct RBX::LSP::ConnectionState>
 std::_Ref_count_obj<struct RBX::LSP::DeclarationRequest>
 std::_Ref_count_obj<struct RBX::LSP::DeclarationResponse>
 std::_Ref_count_obj<struct RBX::LSP::GeneralResponse>
+std::_Ref_count_obj<struct RBX::LSP::HoverRequest>
+std::_Ref_count_obj<struct RBX::LSP::HoverResponse>
 std::_Ref_count_obj<struct RBX::LSP::InitializedNotification>
 std::_Ref_count_obj<struct RBX::LSP::InitializeRequest>
 std::_Ref_count_obj<struct RBX::LSP::InitializeResponse>
@@ -8975,6 +9032,7 @@ std::_Ref_count_obj<struct RBX::LSP::RobloxSuggestExtraSelectionsResponse>
 std::_Ref_count_obj<struct RBX::LSP::RobloxSyntaxHighlightNotification>
 std::_Ref_count_obj<struct RBX::LSP::ShutdownRequest>
 std::_Ref_count_obj<struct RBX::LSP::ShutdownResponse>
+std::_Ref_count_obj<struct RBX::LSP::SignalQuiescenceCallBack>
 std::_Ref_count_obj<struct RBX::LSP::TextDocumentDidChangeNotification>
 std::_Ref_count_obj<struct RBX::LSP::TextDocumentDidCloseNotification>
 std::_Ref_count_obj<struct RBX::LSP::TextDocumentDidOpenNotification>
@@ -9467,6 +9525,7 @@ std::_Ref_count_resource<class RBX::UIPadding * ptr64,class RBX::Creatable<class
 std::_Ref_count_resource<class RBX::UIPageLayout * ptr64,class RBX::Creatable<class RBX::Instance>::Deleter>
 std::_Ref_count_resource<class RBX::UIScale * ptr64,class RBX::Creatable<class RBX::Instance>::Deleter>
 std::_Ref_count_resource<class RBX::UISizeConstraint * ptr64,class RBX::Creatable<class RBX::Instance>::Deleter>
+std::_Ref_count_resource<class RBX::UIStroke * ptr64,class RBX::Creatable<class RBX::Instance>::Deleter>
 std::_Ref_count_resource<class RBX::UITableLayout * ptr64,class RBX::Creatable<class RBX::Instance>::Deleter>
 std::_Ref_count_resource<class RBX::UITextSizeConstraint * ptr64,class RBX::Creatable<class RBX::Instance>::Deleter>
 std::_Ref_count_resource<class RBX::UnionOperation * ptr64,class RBX::Creatable<class RBX::Instance>::Deleter>
@@ -9506,6 +9565,7 @@ std::_Ref_count_resource<class RunningAverageItemDouble * ptr64,class RBX::Creat
 std::_Ref_count_resource<class RunningAverageItemInt * ptr64,class RBX::Creatable<class RBX::Instance>::Deleter>
 std::_Ref_count_resource<class Studio::AssetManagerService * ptr64,class RBX::Creatable<class RBX::Instance>::Deleter>
 std::_Ref_count_resource<class Studio::BulkImportService * ptr64,class RBX::Creatable<class RBX::Instance>::Deleter>
+std::_Ref_count_resource<class Studio::CalloutService * ptr64,class RBX::Creatable<class RBX::Instance>::Deleter>
 std::_Ref_count_resource<class StudioUserPreferences * ptr64,class RBX::Creatable<class RBX::Instance>::Deleter>
 std::_Ref_count_resource<class Theme * ptr64,class RBX::Creatable<class RBX::Instance>::Deleter>
 std::_Ref_count_resource<class TotalCountTimeIntervalItem * ptr64,class RBX::Creatable<class RBX::Instance>::Deleter>
@@ -9535,6 +9595,7 @@ std::_Ref_count<class CreateGameRequest>
 std::_Ref_count<class CreatePlaceInGameRequest>
 std::_Ref_count<class CSGAssetFetchContinuator>
 std::_Ref_count<class DebuggerController>
+std::_Ref_count<class DebuggerSessionManager>
 std::_Ref_count<class DEPRECATED_DataModelPackageManager>
 std::_Ref_count<class DuplicateRowData>
 std::_Ref_count<class EntityProperties>
@@ -9720,6 +9781,7 @@ std::_Ref_count<class RBX::StandardEventIngest>
 std::_Ref_count<class RBX::TaskQueue>
 std::_Ref_count<class RBX::TaskQueueJob>
 std::_Ref_count<class RBX::ThreadPool>
+std::_Ref_count<class RBX::Tracing::Tracer>
 std::_Ref_count<class RBX::Tween>
 std::_Ref_count<class RBX::Typesetter>
 std::_Ref_count<class RBX::UnsecuredStudioGame>
@@ -9865,6 +9927,7 @@ std::enable_shared_from_this<class PluginUIElementRelay>
 std::enable_shared_from_this<class RBX::AnalyticsProviderBase>
 std::enable_shared_from_this<class RBX::AsyncHttpQueue>
 std::enable_shared_from_this<class RBX::CloudLocalization::IAssetFetcher>
+std::enable_shared_from_this<class RBX::DEPRECATEDAnalyticsReporter>
 std::enable_shared_from_this<class RBX::GameConfigurer>
 std::enable_shared_from_this<class RBX::GuiItem>
 std::enable_shared_from_this<class RBX::HttpRequest>
@@ -9890,6 +9953,7 @@ std::enable_shared_from_this<class web::http::http_pipeline_stage>
 std::enable_shared_from_this<class web::websockets::client::details::wspp_callback_client>
 std::error_category
 std::exception
+std::function<void cdecl(class RBX::DataModel * ptr64)>
 std::function<void cdecl(class std::shared_ptr<class RBX::Instance>)>
 std::function<void cdecl(class std::shared_ptr<struct RBX::LSP::Response> const & ptr64)>
 std::function<void cdecl(class std::shared_ptr<struct RBX::Reflection::Tuple const >)>
@@ -9924,6 +9988,7 @@ Studio::AutocompleteTooltip
 Studio::AutocompleteUserController
 Studio::BrowserTrackerUtilities
 Studio::BulkImportService
+Studio::CalloutService
 Studio::IBrowserTrackerUtilities
 Studio::InternalBetaFeaturesController
 Studio::IUISink

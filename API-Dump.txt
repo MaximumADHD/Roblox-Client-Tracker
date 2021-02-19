@@ -101,6 +101,7 @@ Class Animator : Instance
 	Event Animator.AnimationPlayed(Instance animationTrack)
 Class AppUpdateService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void AppUpdateService:CheckForUpdate(Function handler = nil) {RobloxScriptSecurity}
+	Function void AppUpdateService:DisableDUAR() {RobloxScriptSecurity}
 	Function bool AppUpdateService:PerformManagedUpdate() {RobloxScriptSecurity}
 Class AssetCounterService : Instance [NotCreatable] [Service] [NotReplicated]
 Class AssetDeliveryProxy : Instance [NotCreatable] [Service] [NotReplicated]
@@ -389,6 +390,10 @@ Class CacheableContentProvider : Instance [NotCreatable] [Service] [NotReplicate
 Class MeshContentProvider : CacheableContentProvider [NotCreatable] [Service] [NotReplicated]
 	Function Dictionary MeshContentProvider:GetContentMemoryData() {RobloxScriptSecurity}
 Class SolidModelContentProvider : CacheableContentProvider [NotCreatable] [Service] [NotReplicated]
+Class CalloutService : Instance [NotCreatable] [Service] [NotReplicated]
+	Function void CalloutService:AttachCallout(string definitionId, string locationId, Instance target) {RobloxScriptSecurity}
+	Function void CalloutService:DefineCallout(string definitionId, string title, string description, string learnMoreURL) {RobloxScriptSecurity}
+	Function void CalloutService:DetachCalloutsByDefinitionId(string definitionId) {RobloxScriptSecurity}
 Class Camera : Instance [NotReplicated]
 	Property Instance Camera.CameraSubject
 	Property Enum<CameraType> Camera.CameraType
@@ -1001,7 +1006,6 @@ Class ImageButton : GuiButton
 	Property UDim2 ImageButton.TileSize
 Class TextButton : GuiButton
 	Property string TextButton.LocalizedText [Hidden] [ReadOnly]
-	Property string TextButton.Content [ReadOnly]
 	Property Enum<Font> TextButton.Font
 	Property Enum<FontSize> TextButton.FontSize [<📁> LoadOnly] [NotReplicated] [Deprecated]
 	Property float TextButton.LineHeight
@@ -1036,7 +1040,6 @@ Class ImageLabel : GuiLabel
 	Property UDim2 ImageLabel.TileSize
 Class TextLabel : GuiLabel
 	Property string TextLabel.LocalizedText [Hidden] [ReadOnly]
-	Property string TextLabel.Content [ReadOnly]
 	Property Enum<Font> TextLabel.Font
 	Property Enum<FontSize> TextLabel.FontSize [<📁> LoadOnly] [NotReplicated] [Deprecated]
 	Property float TextLabel.LineHeight
@@ -1092,7 +1095,6 @@ Class TextBox : GuiObject
 	Property bool TextBox.ShowNativeInput
 	Property bool TextBox.TextEditable
 	Property Enum<TextInputType> TextBox.TextInputType {RobloxScriptSecurity} [<📁> LoadOnly] [NotReplicated]
-	Property string TextBox.Content [ReadOnly]
 	Property bool TextBox.EnableRealtimeFilteringHints {RobloxScriptSecurity} [<📁> LoadOnly] [NotReplicated]
 	Property Enum<Font> TextBox.Font
 	Property Enum<FontSize> TextBox.FontSize [<📁> LoadOnly] [NotReplicated] [Deprecated]
@@ -2053,6 +2055,7 @@ Class Terrain : BasePart [NotCreatable]
 	Property float Terrain.WaterWaveSize
 	Property float Terrain.WaterWaveSpeed
 	Property bool Terrain.IsSmooth [ReadOnly] [Deprecated]
+	Property Enum<TerrainAcquisitionMethod> Terrain.LastUsedModificationMethod {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property Region3int16 Terrain.MaxExtents [ReadOnly]
 	Function bool Terrain:AutowedgeCell(int x, int y, int z) [Deprecated]
 	Function void Terrain:AutowedgeCells(Region3int16 region) [Deprecated]
@@ -2158,7 +2161,7 @@ Class Workspace : WorldRoot [NotCreatable] [Service]
 	Property bool Workspace.FilteringEnabled {✏️PluginSecurity}
 	Property float Workspace.Gravity
 	Property Enum<InterpolationThrottlingMode> Workspace.InterpolationThrottling {✏️PluginSecurity}
-	Property Enum<MeshPartHeads> Workspace.MeshPartHeads [NotScriptable]
+	Property Enum<MeshPartHeadsAndAccessories> Workspace.MeshPartHeadsAndAccessories [NotScriptable]
 	Property Enum<PhysicsSimulationRate> Workspace.PhysicsSimulationRate [Hidden] [NotReplicated]
 	Property Enum<PhysicsSteppingMethod> Workspace.PhysicsSteppingMethod [NotScriptable]
 	Property bool Workspace.StreamingEnabled {✏️PluginSecurity}
@@ -2180,7 +2183,7 @@ Class Workspace : WorldRoot [NotCreatable] [Service]
 	Function void Workspace:JoinToOutsiders(Objects objects, Enum<JointCreationMode> jointType)
 	Function void Workspace:MakeJoints(Objects objects) {PluginSecurity}
 	Function bool Workspace:PGSIsEnabled()
-	Function void Workspace:SetMeshPartHeads(Enum<MeshPartHeads> value) {RobloxScriptSecurity}
+	Function void Workspace:SetMeshPartHeadsAndAccessories(Enum<MeshPartHeadsAndAccessories> value) {RobloxScriptSecurity}
 	Function void Workspace:SetPhysicsThrottleEnabled(bool value) {LocalUserSecurity}
 	Function void Workspace:UnjoinFromOutsiders(Objects objects)
 	Function void Workspace:ZoomToExtents() {PluginSecurity}
@@ -2728,9 +2731,13 @@ Class RunService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void RunService:Stop() {PluginSecurity}
 	Function void RunService:UnbindFromRenderStep(string name)
 	Function void RunService:setThrottleFramerateEnabled(bool enable) {RobloxScriptSecurity}
-	Event RunService.Heartbeat(double step)
-	Event RunService.RenderStepped(double step)
-	Event RunService.Stepped(double time, double step)
+	Event RunService.Heartbeat(double deltaTime) [Deprecated]
+	Event RunService.PostSimulation(double deltaTime)
+	Event RunService.PreAnimation(double deltaTime)
+	Event RunService.PreRender(double deltaTime)
+	Event RunService.PreSimulation(double deltaTime)
+	Event RunService.RenderStepped(double deltaTime) [Deprecated]
+	Event RunService.Stepped(double time, double deltaTime) [Deprecated]
 Class RuntimeScriptService : Instance [NotCreatable] [Service] [NotReplicated]
 Class ScriptContext : Instance [NotCreatable] [Service] [NotReplicated]
 	Property bool ScriptContext.ScriptsDisabled {LocalUserSecurity} [<📁> LoadOnly] [NotReplicated]
@@ -3147,6 +3154,7 @@ Class Studio : Instance [NotCreatable] [Service] [NotReplicated]
 	Property bool Studio.Animate Hover Over
 	Property Enum<HoverAnimateSpeed> Studio.Hover Animate Speed
 	Property Color3 Studio.Hover Over Color
+	Property bool Studio.Physical Draggers Select Scope By Default {RobloxScriptSecurity}
 	Property Color3 Studio.Select Color
 	Property bool Studio.Show Hover Over
 	Property Enum<RuntimeUndoBehavior> Studio.RuntimeUndoBehavior
@@ -3433,6 +3441,13 @@ Class UIPadding : UIComponent
 	Property UDim UIPadding.PaddingTop
 Class UIScale : UIComponent
 	Property float UIScale.Scale
+Class UIStroke : UIComponent
+	Property Enum<ApplyStrokeMode> UIStroke.ApplyStrokeMode
+	Property Color3 UIStroke.Color
+	Property Enum<LineJoinMode> UIStroke.LineJoinMode
+	Property float UIStroke.Thickness
+	Property float UIStroke.Transparency
+	Property bool UIStroke.Enabled
 Class UnvalidatedAssetService : Instance [NotCreatable] [Service]
 	Function void UnvalidatedAssetService:AppendTempAssetId(int64 userId, int64 id, Vector3 lookAt, Vector3 camPos, string usage) {RobloxScriptSecurity}
 	Function bool UnvalidatedAssetService:AppendVantagePoint(int64 userId, int64 id, Vector3 lookAt, Vector3 camPos) {RobloxScriptSecurity}
@@ -3748,6 +3763,9 @@ Enum AppUpdateStatus
 	EnumItem AppUpdateStatus.Failed : 2
 	EnumItem AppUpdateStatus.NotAvailable : 3
 	EnumItem AppUpdateStatus.Available : 4
+Enum ApplyStrokeMode
+	EnumItem ApplyStrokeMode.Contextual : 0
+	EnumItem ApplyStrokeMode.Border : 1
 Enum AspectType
 	EnumItem AspectType.FitWithinMaxSize : 0
 	EnumItem AspectType.ScaleWithParentSize : 1
@@ -4756,6 +4774,10 @@ Enum Limb
 	EnumItem Limb.LeftLeg : 4
 	EnumItem Limb.RightLeg : 5
 	EnumItem Limb.Unknown : 6
+Enum LineJoinMode
+	EnumItem LineJoinMode.Round : 0
+	EnumItem LineJoinMode.Bevel : 1
+	EnumItem LineJoinMode.Miter : 2
 Enum ListDisplayMode
 	EnumItem ListDisplayMode.Horizontal : 0
 	EnumItem ListDisplayMode.Vertical : 1
@@ -4814,10 +4836,10 @@ Enum MeshPartDetailLevel
 	EnumItem MeshPartDetailLevel.Level02 : 2
 	EnumItem MeshPartDetailLevel.Level03 : 3
 	EnumItem MeshPartDetailLevel.Level04 : 4
-Enum MeshPartHeads
-	EnumItem MeshPartHeads.Default : 0
-	EnumItem MeshPartHeads.Disabled : 1
-	EnumItem MeshPartHeads.Enabled : 2
+Enum MeshPartHeadsAndAccessories
+	EnumItem MeshPartHeadsAndAccessories.Default : 0
+	EnumItem MeshPartHeadsAndAccessories.Disabled : 1
+	EnumItem MeshPartHeadsAndAccessories.Enabled : 2
 Enum MeshType
 	EnumItem MeshType.Head : 0
 	EnumItem MeshType.Torso : 1
@@ -5389,6 +5411,19 @@ Enum TeleportType
 	EnumItem TeleportType.ToPlace : 0
 	EnumItem TeleportType.ToInstance : 1
 	EnumItem TeleportType.ToReservedServer : 2
+Enum TerrainAcquisitionMethod
+	EnumItem TerrainAcquisitionMethod.None : 0
+	EnumItem TerrainAcquisitionMethod.Legacy : 1
+	EnumItem TerrainAcquisitionMethod.Template : 2
+	EnumItem TerrainAcquisitionMethod.Generate : 3
+	EnumItem TerrainAcquisitionMethod.Import : 4
+	EnumItem TerrainAcquisitionMethod.Convert : 5
+	EnumItem TerrainAcquisitionMethod.EditAddTool : 6
+	EnumItem TerrainAcquisitionMethod.EditSeaLevelTool : 7
+	EnumItem TerrainAcquisitionMethod.EditReplaceTool : 8
+	EnumItem TerrainAcquisitionMethod.RegionFillTool : 9
+	EnumItem TerrainAcquisitionMethod.RegionPasteTool : 10
+	EnumItem TerrainAcquisitionMethod.Other : 11
 Enum TextFilterContext
 	EnumItem TextFilterContext.PublicChat : 1
 	EnumItem TextFilterContext.PrivateChat : 2

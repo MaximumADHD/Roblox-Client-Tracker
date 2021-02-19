@@ -1,6 +1,0 @@
-{
-	"lint": {
-		"SameLineStatement": "fatal",
-		"LocalShadow": "fatal"
-	}
-}

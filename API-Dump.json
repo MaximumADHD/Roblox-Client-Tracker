@@ -2097,6 +2097,18 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "DisableDUAR",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "PerformManagedUpdate",
                     "Parameters": [
                     ],
@@ -7497,6 +7509,110 @@
             "MemoryCategory": "Instances",
             "Name": "SolidModelContentProvider",
             "Superclass": "CacheableContentProvider",
+            "Tags": [
+                "NotCreatable",
+                "Service",
+                "NotReplicated"
+            ]
+        },
+        {
+            "Members": [
+                {
+                    "MemberType": "Function",
+                    "Name": "AttachCallout",
+                    "Parameters": [
+                        {
+                            "Name": "definitionId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Name": "locationId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Name": "target",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "Instance"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "DefineCallout",
+                    "Parameters": [
+                        {
+                            "Name": "definitionId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Name": "title",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Name": "description",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Name": "learnMoreURL",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "DetachCalloutsByDefinitionId",
+                    "Parameters": [
+                        {
+                            "Name": "definitionId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "CalloutService",
+            "Superclass": "Instance",
             "Tags": [
                 "NotCreatable",
                 "Service",
@@ -18824,28 +18940,6 @@
                 {
                     "Category": "Text",
                     "MemberType": "Property",
-                    "Name": "Content",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": false,
-                        "CanSave": false
-                    },
-                    "Tags": [
-                        "ReadOnly",
-                        "NotReplicated"
-                    ],
-                    "ThreadSafety": "ReadOnly",
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "string"
-                    }
-                },
-                {
-                    "Category": "Text",
-                    "MemberType": "Property",
                     "Name": "Font",
                     "Security": {
                         "Read": "None",
@@ -19456,28 +19550,6 @@
         },
         {
             "Members": [
-                {
-                    "Category": "Text",
-                    "MemberType": "Property",
-                    "Name": "Content",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": false,
-                        "CanSave": false
-                    },
-                    "Tags": [
-                        "ReadOnly",
-                        "NotReplicated"
-                    ],
-                    "ThreadSafety": "ReadOnly",
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "string"
-                    }
-                },
                 {
                     "Category": "Text",
                     "MemberType": "Property",
@@ -20333,28 +20405,6 @@
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "bool"
-                    }
-                },
-                {
-                    "Category": "Text",
-                    "MemberType": "Property",
-                    "Name": "Content",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": false,
-                        "CanSave": false
-                    },
-                    "Tags": [
-                        "ReadOnly",
-                        "NotReplicated"
-                    ],
-                    "ThreadSafety": "ReadOnly",
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "string"
                     }
                 },
                 {
@@ -38194,6 +38244,28 @@
                     }
                 },
                 {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "LastUsedModificationMethod",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "Hidden",
+                        "NotReplicated"
+                    ],
+                    "ThreadSafety": "ReadOnly",
+                    "ValueType": {
+                        "Category": "Enum",
+                        "Name": "TerrainAcquisitionMethod"
+                    }
+                },
+                {
                     "Category": "Appearance",
                     "MemberType": "Property",
                     "Name": "MaterialColors",
@@ -40844,7 +40916,7 @@
                 {
                     "Category": "Behavior",
                     "MemberType": "Property",
-                    "Name": "MeshPartHeads",
+                    "Name": "MeshPartHeadsAndAccessories",
                     "Security": {
                         "Read": "None",
                         "Write": "None"
@@ -40859,7 +40931,7 @@
                     "ThreadSafety": "ReadOnly",
                     "ValueType": {
                         "Category": "Enum",
-                        "Name": "MeshPartHeads"
+                        "Name": "MeshPartHeadsAndAccessories"
                     }
                 },
                 {
@@ -41240,13 +41312,13 @@
                 },
                 {
                     "MemberType": "Function",
-                    "Name": "SetMeshPartHeads",
+                    "Name": "SetMeshPartHeadsAndAccessories",
                     "Parameters": [
                         {
                             "Name": "value",
                             "Type": {
                                 "Category": "Enum",
-                                "Name": "MeshPartHeads"
+                                "Name": "MeshPartHeadsAndAccessories"
                             }
                         }
                     ],
@@ -51550,7 +51622,70 @@
                     "Name": "Heartbeat",
                     "Parameters": [
                         {
-                            "Name": "step",
+                            "Name": "deltaTime",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "double"
+                            }
+                        }
+                    ],
+                    "Security": "None",
+                    "Tags": [
+                        "Deprecated"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "PostSimulation",
+                    "Parameters": [
+                        {
+                            "Name": "deltaTime",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "double"
+                            }
+                        }
+                    ],
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "PreAnimation",
+                    "Parameters": [
+                        {
+                            "Name": "deltaTime",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "double"
+                            }
+                        }
+                    ],
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "PreRender",
+                    "Parameters": [
+                        {
+                            "Name": "deltaTime",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "double"
+                            }
+                        }
+                    ],
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "PreSimulation",
+                    "Parameters": [
+                        {
+                            "Name": "deltaTime",
                             "Type": {
                                 "Category": "Primitive",
                                 "Name": "double"
@@ -51565,7 +51700,7 @@
                     "Name": "RenderStepped",
                     "Parameters": [
                         {
-                            "Name": "step",
+                            "Name": "deltaTime",
                             "Type": {
                                 "Category": "Primitive",
                                 "Name": "double"
@@ -51573,6 +51708,9 @@
                         }
                     ],
                     "Security": "None",
+                    "Tags": [
+                        "Deprecated"
+                    ],
                     "ThreadSafety": "Unsafe"
                 },
                 {
@@ -51587,7 +51725,7 @@
                             }
                         },
                         {
-                            "Name": "step",
+                            "Name": "deltaTime",
                             "Type": {
                                 "Category": "Primitive",
                                 "Name": "double"
@@ -51595,6 +51733,9 @@
                         }
                     ],
                     "Security": "None",
+                    "Tags": [
+                        "Deprecated"
+                    ],
                     "ThreadSafety": "Unsafe"
                 }
             ],
@@ -58679,6 +58820,24 @@
                     }
                 },
                 {
+                    "Category": "Tools",
+                    "MemberType": "Property",
+                    "Name": "Physical Draggers Select Scope By Default",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadOnly",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
                     "Category": "Lua Debugger",
                     "MemberType": "Property",
                     "Name": "PluginDebuggingEnabled",
@@ -64636,6 +64795,121 @@
         {
             "Members": [
                 {
+                    "Category": "Appearance",
+                    "MemberType": "Property",
+                    "Name": "ApplyStrokeMode",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadOnly",
+                    "ValueType": {
+                        "Category": "Enum",
+                        "Name": "ApplyStrokeMode"
+                    }
+                },
+                {
+                    "Category": "Appearance",
+                    "MemberType": "Property",
+                    "Name": "Color",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadOnly",
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "Color3"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "Enabled",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadOnly",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Appearance",
+                    "MemberType": "Property",
+                    "Name": "LineJoinMode",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadOnly",
+                    "ValueType": {
+                        "Category": "Enum",
+                        "Name": "LineJoinMode"
+                    }
+                },
+                {
+                    "Category": "Appearance",
+                    "MemberType": "Property",
+                    "Name": "Thickness",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadOnly",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    }
+                },
+                {
+                    "Category": "Appearance",
+                    "MemberType": "Property",
+                    "Name": "Transparency",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadOnly",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    }
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "UIStroke",
+            "Superclass": "UIComponent"
+        },
+        {
+            "Members": [
+                {
                     "MemberType": "Function",
                     "Name": "AppendTempAssetId",
                     "Parameters": [
@@ -69757,6 +70031,19 @@
         {
             "Items": [
                 {
+                    "Name": "Contextual",
+                    "Value": 0
+                },
+                {
+                    "Name": "Border",
+                    "Value": 1
+                }
+            ],
+            "Name": "ApplyStrokeMode"
+        },
+        {
+            "Items": [
+                {
                     "Name": "FitWithinMaxSize",
                     "Value": 0
                 },
@@ -74014,6 +74301,23 @@
         {
             "Items": [
                 {
+                    "Name": "Round",
+                    "Value": 0
+                },
+                {
+                    "Name": "Bevel",
+                    "Value": 1
+                },
+                {
+                    "Name": "Miter",
+                    "Value": 2
+                }
+            ],
+            "Name": "LineJoinMode"
+        },
+        {
+            "Items": [
+                {
                     "Name": "Horizontal",
                     "Value": 0
                 },
@@ -74308,7 +74612,7 @@
                     "Value": 2
                 }
             ],
-            "Name": "MeshPartHeads"
+            "Name": "MeshPartHeadsAndAccessories"
         },
         {
             "Items": [
@@ -76717,6 +77021,59 @@
                 }
             ],
             "Name": "TeleportType"
+        },
+        {
+            "Items": [
+                {
+                    "Name": "None",
+                    "Value": 0
+                },
+                {
+                    "Name": "Legacy",
+                    "Value": 1
+                },
+                {
+                    "Name": "Template",
+                    "Value": 2
+                },
+                {
+                    "Name": "Generate",
+                    "Value": 3
+                },
+                {
+                    "Name": "Import",
+                    "Value": 4
+                },
+                {
+                    "Name": "Convert",
+                    "Value": 5
+                },
+                {
+                    "Name": "EditAddTool",
+                    "Value": 6
+                },
+                {
+                    "Name": "EditSeaLevelTool",
+                    "Value": 7
+                },
+                {
+                    "Name": "EditReplaceTool",
+                    "Value": 8
+                },
+                {
+                    "Name": "RegionFillTool",
+                    "Value": 9
+                },
+                {
+                    "Name": "RegionPasteTool",
+                    "Value": 10
+                },
+                {
+                    "Name": "Other",
+                    "Value": 11
+                }
+            ],
+            "Name": "TerrainAcquisitionMethod"
         },
         {
             "Items": [
