@@ -2,6 +2,8 @@ local ThemesRoot = script.Parent
 local StylesRoot = ThemesRoot.Parent
 
 local Colors = require(StylesRoot.Colors)
+local CorePackages = game:GetService("CorePackages")
+local GetFFlagLuaAppNewDividerColor = require(CorePackages.AppTempCommon.LuaApp.Flags.GetFFlagLuaAppNewDividerColor)
 
 local theme = {
 	BackgroundDefault = {
@@ -116,8 +118,8 @@ local theme = {
 	},
 
 	Divider = {
-		Color = Colors.Pumice,
-		Transparency = 0,
+		Color = (GetFFlagLuaAppNewDividerColor() and Colors.Flint or Colors.Pumice),
+		Transparency = (GetFFlagLuaAppNewDividerColor() and 0.9 or 0), -- 0.1, or 1 Alpha
 	},
 	Overlay = {
 		Color = Colors.Black,

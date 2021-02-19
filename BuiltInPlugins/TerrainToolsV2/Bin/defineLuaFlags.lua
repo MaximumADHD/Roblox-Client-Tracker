@@ -6,8 +6,11 @@ game:DefineFastFlag("TerrainOpenCloseMetrics", false)
 game:DefineFastFlag("TerrainEnableErrorReporting", false)
 game:DefineFastFlag("TerrainToolsImportUploadAssets", false)
 game:DefineFastFlag("TerrainToolsBrushInteractOnlyWithTerrain", false)
+game:DefineFastFlag("TerrainToolsAddHasPlaneLock", false)
 game:DefineFastFlag("EnableTerrainToolsStylizer", false)
 game:DefineFastFlag("TerrainEditorUpdateFontToSourceSans", false)
+game:DefineFastFlag("TerrainToolsFixLabeledElementPair", false)
+game:DefineFastFlag("TerrainToolsColormapCallout", false)
 
 local function handleFlagDependencies(flag, requiredFlags)
 	if not game:GetFastFlag(flag) then

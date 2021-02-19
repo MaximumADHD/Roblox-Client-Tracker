@@ -10,6 +10,8 @@ require(script.Parent.defineLuaFlags)
 local FFlagGameSettingsPlaceSettings = game:GetFastFlag("GameSettingsPlaceSettings")
 local FFlagDeveloperSubscriptionsEnabled = game:GetFastFlag("DeveloperSubscriptionsEnabled")
 
+local FFlagGameSettingsRoactInspector = game:DefineFastFlag("GameSettingsRoactInspector", false)
+
 --Turn this on when debugging the store and actions
 local LOG_STORE_STATE_AND_EVENTS = false
 
@@ -22,8 +24,9 @@ local Rodux = require(Plugin.Rodux)
 local Cryo = require(Plugin.Cryo)
 local Promise = require(Plugin.Promise)
 
-local ContextServices = require(Plugin.Framework.ContextServices)
-local FrameworkUtil = require(Plugin.Framework.Util)
+local Framework = require(Plugin.Framework)
+local ContextServices = Framework.ContextServices
+local FrameworkUtil = Framework.Util
 
 local MainView = require(Plugin.Src.Components.MainView)
 local SimpleDialog = require(Plugin.Src.Components.Dialog.SimpleDialog)
@@ -59,6 +62,7 @@ local Analytics = require(Plugin.Src.Util.Analytics)
 local gameSettingsHandle
 local pluginGui
 local openedTimestamp
+local inspector
 
 local worldRootPhysics = WorldRootPhysics.new()
 
@@ -212,6 +216,10 @@ local function closeGameSettings(userPressedSave)
 					pluginGui.Enabled = false
 					Roact.unmount(gameSettingsHandle)
 
+					if FFlagGameSettingsRoactInspector and inspector then
+						inspector:destroy()
+					end
+
 					closeAnalytics(userPressedSave)
 				else
 					--Return to game settings window without modifying state,
@@ -225,6 +233,10 @@ local function closeGameSettings(userPressedSave)
 				settingsStore:dispatch(SetCurrentStatus(CurrentStatus.Closed))
 				pluginGui.Enabled = false
 				Roact.unmount(gameSettingsHandle)
+
+				if FFlagGameSettingsRoactInspector and inspector then
+					inspector:destroy()
+				end
 
 				closeAnalytics(userPressedSave)
 			end
@@ -283,6 +295,13 @@ local function openGameSettings(gameId, dataModel, firstSelectedId)
 
 	gameSettingsHandle = Roact.mount(servicesProvider, pluginGui)
 	pluginGui.Enabled = true
+
+	if FFlagGameSettingsRoactInspector then
+		if game:GetService("StudioService"):HasInternalPermission() then
+			inspector = Framework.DeveloperTools.forPlugin("Game Settings", plugin)
+			inspector:addRoactTree("Roact tree", gameSettingsHandle)
+		end
+	end
 
 	Analytics.onOpenEvent(plugin:GetStudioUserId(), gameId)
 	openedTimestamp = tick()

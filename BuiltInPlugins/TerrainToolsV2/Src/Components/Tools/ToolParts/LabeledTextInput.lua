@@ -229,6 +229,9 @@ function LabeledTextInput:render()
 
 	local label = self.props.Label or ""
 	local text = self.props.Text or ""
+	-- remove when new heightmaps is out of beta, as specific text size handling won't be needed
+	local textSize
+	textSize = FFlagTerrainEditorUpdateFontToSourceSans and self.props.TextSize or theme.textSize
 
 	local editingDisabled = self.props.EditingDisabled
 
@@ -311,7 +314,7 @@ function LabeledTextInput:render()
 
 					Text = text,
 					Font = FFlagTerrainEditorUpdateFontToSourceSans and theme.font or FONT,
-					TextSize = FFlagTerrainEditorUpdateFontToSourceSans and theme.textSize or FONT_SIZE,
+					TextSize = FFlagTerrainEditorUpdateFontToSourceSans and textSize or FONT_SIZE,
 					TextColor3 = theme.textColor,
 					TextXAlignment = Enum.TextXAlignment.Left,
 					ClearTextOnFocus = clearTextOnFocus,

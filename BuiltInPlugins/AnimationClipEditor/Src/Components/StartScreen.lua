@@ -54,7 +54,7 @@ function StartScreen:render()
 
 		CreateNewPrompt = rootInstance ~= nil and Roact.createElement(TextEntryPrompt, {
 			PromptText = localization:getText("Title", "CreateToStart"),
-			NoticeText = localization:getText("Title", "NoAnimationExists", {rig = rootInstance.Name}),
+			NoticeText = localization:getText("Title", "NoAnimationExists_Migrated", {rig = rootInstance.Name}),
 			InputText = localization:getText("Dialog", "AnimationName"),
 			Text = localization:getText("Title", "DefaultAnimationName"),
 			Buttons = {

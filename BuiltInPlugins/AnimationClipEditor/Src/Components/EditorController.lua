@@ -185,6 +185,9 @@ function EditorController:init()
 
 	self.findCurrentParts = function(selectedTracks, rootInstance)
 		local currentParts = {}
+		if rootInstance == nil then 
+			return 
+		end
 		self.KinematicParts, self.PartsToMotors = RigUtils.getRigInfo(rootInstance)
 		if selectedTracks and rootInstance and self.KinematicParts and #self.KinematicParts > 0 then
 			for _, track in ipairs(selectedTracks) do
@@ -261,7 +264,7 @@ end
 
 if UseLuaDraggers() then 
 	function EditorController:willUpdate(nextProps)
-		if nextProps.RootInstance ~= self.props.RootInstance then 
+		if nextProps.RootInstance ~= self.props.RootInstance and nextProps.RootInstance ~= nil then 
 			self.KinematicParts, self.PartsToMotors = RigUtils.getRigInfo(nextProps.RootInstance)
 			for _, part in ipairs(self.KinematicParts) do
 				self.nameToPart[part.Name] = part

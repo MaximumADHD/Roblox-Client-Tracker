@@ -29,7 +29,7 @@ local function resolvePromptState(productInfo, accountInfo, alreadyOwned, isRobl
 		store:dispatch(AccountInfoReceived(accountInfo))
 
 		local restrictThirdParty =
-			(not externalSettings.getFlagBypassThirdPartySettingForRobloxPurchase or not isRobloxPurchase)
+			(not externalSettings.getFlagBypassThirdPartySettingForRobloxPurchase() or not isRobloxPurchase)
 			and (externalSettings.getLuaUseThirdPartyPermissions() or externalSettings.getFlagRestrictSales2())
 
 		local canPurchase, failureReason = meetsPrerequisites(productInfo, alreadyOwned, restrictThirdParty, externalSettings)

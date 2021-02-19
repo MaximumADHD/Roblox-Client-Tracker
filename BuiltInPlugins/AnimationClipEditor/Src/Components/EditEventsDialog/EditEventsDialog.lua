@@ -331,7 +331,7 @@ function EditEventsDialog:renderDeleteAllPrompt(theme, localization)
 			{Key = false, Text = localization:getText("Dialog", "No")},
 			{Key = true, Text = localization:getText("Dialog", "Yes"), Style = style.Primary},
 		},
-		PromptText = localization:getText("Dialog", "DeleteAllPrompt", {name = name}),
+		PromptText = localization:getText("Dialog", "DeleteAllPrompt_Migrated", {name = name}),
 		OnButtonClicked = function(doDeleteAll)
 			if doDeleteAll then
 				self.onDeleteAllEvents(name)
@@ -352,7 +352,7 @@ function EditEventsDialog:renderRenameAllPrompt(theme, localization)
 			{Key = false, Text = localization:getText("Dialog", "ChangeThis")},
 			{Key = true, Text = localization:getText("Dialog", "ChangeAll")},
 		},
-		PromptText = localization:getText("Dialog", "RenameAllPrompt", {name = name}, {newName = newName}),
+		PromptText = localization:getText("Dialog", "RenameAllPrompt_Migrated", {name = name}, {newName = newName}),
 		OnButtonClicked = function(doRenameAll)
 			if doRenameAll then
 				self.onRenameAllEvents(name, newName)

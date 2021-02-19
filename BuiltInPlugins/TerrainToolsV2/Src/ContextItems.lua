@@ -40,4 +40,5 @@ return {
 	PartConverter = require(TerrainInterfaces.PartConverter),
 
 	ImageLoader = require(script.Parent.Util.ImageLoader),
+	CalloutController =  require(script.Parent.Util.CalloutController),
 }

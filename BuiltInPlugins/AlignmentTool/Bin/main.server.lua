@@ -9,6 +9,8 @@ local getFFlagEnableAlignToolStylizer = require(Plugin.Src.Flags.getFFlagEnableA
 local RefactorFlags = require(Plugin.Packages.Framework.Util.RefactorFlags)
 RefactorFlags.THEME_REFACTOR = getFFlagEnableAlignToolStylizer()
 
+local getFFlagAlignToolTeachingCallout = require(Plugin.Src.Flags.getFFlagAlignToolTeachingCallout)
+
 local Roact = require(Plugin.Packages.Roact)
 local Rodux = require(Plugin.Packages.Rodux)
 local ContextServices = require(Plugin.Packages.Framework.ContextServices)
@@ -16,7 +18,6 @@ local Analytics = ContextServices.Analytics
 local Localization = ContextServices.Localization
 local Mouse = ContextServices.Mouse
 local Store = ContextServices.Store
-local Theme = ContextServices.Theme
 
 local AlignmentToolPlugin = require(Plugin.Src.Components.AlignmentToolPlugin)
 
@@ -35,6 +36,20 @@ local localization = Localization.new({
 
 local store = Rodux.Store.new(MainReducer, nil, { Rodux.thunkMiddleware })
 
+local calloutController
+if getFFlagAlignToolTeachingCallout() then
+	local CalloutController = require(Plugin.Src.Utility.CalloutController)
+	calloutController = CalloutController.new()
+
+	local definitionId = "AlignToolCallout"
+
+	local title = localization:getText("Callout", "Title")
+	local description = localization:getText("Callout", "Description")
+	local learnMoreUrl = "https://developer.roblox.com/en-us/resources/studio/Align-Tool"
+
+	calloutController:defineCallout(definitionId, title, description, learnMoreUrl)
+end
+
 local function main()
 	local pluginHandle = nil
 
@@ -52,6 +67,7 @@ local function main()
 		Mouse.new(plugin:GetMouse()),
 		Store.new(store),
 		Analytics.new(analyticsHandlers),
+		calloutController, -- nil if FFlagAlignToolTeachingCallout is false
 	}, {
 		AlignTool = Roact.createElement(AlignmentToolPlugin),
 	})

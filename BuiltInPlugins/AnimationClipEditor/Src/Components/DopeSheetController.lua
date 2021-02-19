@@ -658,7 +658,7 @@ function DopeSheetController:render()
 					ChangeDurationPrompt = currentDuration and Roact.createElement(TextEntryPrompt, {
 						PromptText = localization:getText("Title", "ChangeDuration"),
 						InputText = localization:getText("Title", "NewDuration"),
-						NoticeText = localization:getText("Title", "CurrentDuration", {currentDuration = currentDuration}),
+						NoticeText = localization:getText("Title", "CurrentDuration_Migrated", {currentDuration = currentDuration}),
 						Text = currentDuration,
 						Buttons = {
 							{Key = false, Text = localization:getText("Dialog", "Cancel")},
@@ -690,12 +690,12 @@ function DopeSheetController:render()
 					}),
 
 					SavedToast = savedAnimName and Roact.createElement(NoticeToast, {
-						Text = localization:getText("Toast", "Saved", {savedAnimName = savedAnimName}),
+						Text = localization:getText("Toast", "Saved_Migrated", {savedAnimName = savedAnimName}),
 						OnClose = props.CloseSavedToast,
 					}),
 
 					LoadedToast = showLoadToast and loadedAnimName and Roact.createElement(NoticeToast, {
-						Text = localization:getText("Toast", "Loaded", {loadedAnimName = loadedAnimName}),
+						Text = localization:getText("Toast", "Loaded_Migrated", {loadedAnimName = loadedAnimName}),
 						OnClose = props.CloseLoadedToast,
 					}),
 
