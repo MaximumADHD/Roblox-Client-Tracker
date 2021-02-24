@@ -248,6 +248,19 @@ return function()
 			cleanup()
 		end)
 
+		it("SHOULD render ControlState.Default when permanently underlined with no issues", function()
+			local folder, cleanup = runTest({
+				[LinkButton.debugProps.controlState] = ControlState.Default,
+				underlineAlwaysEnabled = true,
+			})
+
+			expect(isShowingBackground(folder)).to.equal(false)
+            expect(isTextTransparent(folder)).to.equal(false)
+            expect(isUnderlined(folder)).to.equal(true)
+
+			cleanup()
+		end)
+
 		it("SHOULD render ControlState.Hover when background enabled with no issues", function()
 			local folder, cleanup = runTest({
                 [LinkButton.debugProps.controlState] = ControlState.Hover,

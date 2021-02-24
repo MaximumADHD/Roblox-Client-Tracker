@@ -1,0 +1,7 @@
+{
+	"lint": {
+		"LocalShadow": "fatal",
+		"LocalUnused": "fatal",
+		"ImportUnused": "fatal"
+	}
+}

@@ -39,7 +39,7 @@ LinkButton.validateProps = t.strictInterface({
 	colorStyleDefault = t.optional(t.string),
 	colorStyleHover = t.optional(t.string),
 	hoverBackgroundEnabled = t.optional(t.boolean),
-	richText = t.optional(t.boolean),
+	underlineAlwaysEnabled = t.optional(t.boolean),
 
 	--A Boolean value that determines whether user events are ignored and sink input
 	userInteractionEnabled = t.optional(t.boolean),
@@ -71,7 +71,7 @@ LinkButton.defaultProps = {
 	colorStyleDefault = "TextLink",
 	colorStyleHover = "TextLink",
 	hoverBackgroundEnabled = false,
-	richText = true,
+	underlineAlwaysEnabled = false,
 
 	isDisabled = false,
 	userInteractionEnabled = true,
@@ -114,11 +114,12 @@ function LinkButton:render()
 		local fontSize = fontStyle.RelativeSize * style.Font.BaseSize
 		local getTextSize = self.props[LinkButton.debugProps.getTextSize]
 
-		local manipulatedText = self.props.richText and cleanRichTextTags(self.props.text) or self.props.text
+		local manipulatedText = cleanRichTextTags(self.props.text)
 		local textWidth = getTextSize(manipulatedText, fontSize, fontStyle.Font, Vector2.new(10000, 0)).X
 
         manipulatedText = self.props.text
-        if self.props.richText and currentState == ControlState.Hover or currentState == ControlState.Pressed then
+        if self.props.underlineAlwaysEnabled or currentState == ControlState.Hover or
+			currentState == ControlState.Pressed then
             manipulatedText = self.applyRichTextUnderline(self.props.text)
         end
 
@@ -146,7 +147,7 @@ function LinkButton:render()
 				Text = manipulatedText,
 				fontStyle = fontStyle,
 				colorStyle = textStyle,
-				RichText = self.props.richText,
+				RichText = true,
 			}),
 			background = self.props.hoverBackgroundEnabled and currentState == ControlState.Hover
 				and Roact.createElement(HoverButtonBackground),

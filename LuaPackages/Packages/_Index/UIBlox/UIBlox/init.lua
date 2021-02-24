@@ -131,6 +131,7 @@ local function initializeLibrary()
 			VerticalScrollView = require(script.App.Container.VerticalScrollView),
 			getPageMargin = require(script.App.Container.getPageMargin),
 			LoadingStateContainer = require(script.App.Container.LoadingStateContainer),
+			HorizontalPageMargin = require(script.App.Container.HorizontalPageMargin),
 		}),
 
 		Slider = strict({
