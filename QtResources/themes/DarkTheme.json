@@ -806,6 +806,16 @@
       "StatusSuccessIcon": {
         "Default": ":/images/statusSuccess.png"
       }
+    },
+    {
+      "WarningIcon": {
+        "Default": ":/images/warning_icon_52px.png"
+      }
+    },
+    {
+      "AlertIcon": {
+        "Default": ":/images/alert_icon_56px.png"
+      }
     }
   ],
     "Package": {

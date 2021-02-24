@@ -19,7 +19,7 @@ Studio.AnimationClipEditor.ContextMenu.PasteKeyframes,Paste Keyframes,Paste Keyf
 Studio.AnimationClipEditor.ContextMenu.CopyEvents,Copy Selected,Copy Selected,선택 항목 복사,Копировать выбранное,复制选定项
 Studio.AnimationClipEditor.ContextMenu.CopySelected,Copy Selected,Copy Selected,선택 항목 복사,Копировать выбранное,复制选定项
 Studio.AnimationClipEditor.Menu.CreateNew,Create New,Create New,새로 만들기,Создать,新建
-Studio.AnimationClipEditor.Dialog.SaveLocation,Animation will be saved to Rig > AnimSaves in Explorer,Animation will be saved to Rig > AnimSaves in Explorer,애니메이션은 탐색기의 리그 > AnimSaves에 저장됩니다,Путь сохранения анимации: Скелетная анимация > AnimSaves в проводнике,动画将保存到“骨架” > 管理器中的“AnimSaves”
+Studio.AnimationClipEditor.Dialog.SaveLocation,Animation will be saved to Rig > AnimSaves in Explorer,Animation will be saved to Rig > AnimSaves in Explorer,애니메이션은 탐색기의 리그 > AnimSaves에 저장됩니다,Путь сохранения анимации: Скелетная анимация > AnimSaves в проводнике,动画将保存到“骨架” > 项目管理器中的“AnimSaves”
 Studio.AnimationClipEditor.ContextMenu.DeleteEvents,Delete Selected,Delete Selected,선택 항목 삭제,Удалить выбранное,删除选定项
 Studio.AnimationClipEditor.ContextMenu.DeleteSelected,Delete Selected,Delete Selected,선택 항목 삭제,Удалить выбранное,删除选定项
 Studio.AnimationClipEditor.ContextMenu.ResetSelected,Reset Selected,Reset Selected,선택 항목 재설정,Сбросить выбранное,重置选定项
@@ -38,6 +38,7 @@ Studio.AnimationClipEditor.ContextMenu.DeleteTrack,Delete Track,Delete Track,트
 Studio.AnimationClipEditor.ContextMenu.Undo,Undo,Undo,실행 취소,Отменить,撤消
 Studio.AnimationClipEditor.Dialog.Confirm,Confirm,Confirm,확인,Подтвердить,确认
 Studio.AnimationClipEditor.Settings.Frames,Frames,Frames,프레임,Кадры,帧
+Studio.AnimationClipEditor.Title.SelectARig,Select a rig to animate or create a new rig by selecting Build Rig under the Plugins tab,Select a rig to animate or create a new rig by selecting Build Rig under the Plugins tab,애니메이션화할 리그를 선택하세요,Выберите скелетную анимацию,选择骨架创作动画
 Studio.AnimationClipEditor.ContextMenu.SelectAll,Select All,Select All,모두 선택,Выбрать все,全选
 Studio.AnimationClipEditor.ContextMenu.ToggleBoneVis,Toggle Microbone Visibility,Toggle Microbone Visibility,Microbone 표시 여부 토글, ,切换 Microbone 可视性
 Studio.AnimationClipEditor.ContextMenu.DeselectAll,Deselect All,Deselect All,모두 선택 취소,Отменить выбор всех объектов,取消全选
@@ -60,7 +61,7 @@ Studio.AnimationClipEditor.IKMenu.ShowTreeview,Show Treeview,Show Treeview,트�
 Studio.AnimationClipEditor.IKMenu.Prompt,Enable IK to start animating with IK constraints,Enable IK to start animating with IK constraints,IK를 활성화하여 IK 제약으로 애니메이션화 시작,"Включить обратную кинематику, чтобы начать анимацию с ограничениями ОК",启用 IK 以开始创建使用 IK 约束的动画
 Studio.AnimationClipEditor.DropdownMenu.CreateNewClip,Create New Clip,Create New Clip,새 클립 만들기,Создать новый клип,创建新片段
 Studio.AnimationClipEditor.Title.AnimationEvents,Animation Events,Animation Events,애니메이션 이벤트,События анимации,动画事件
-Studio.AnimationClipEditor.Menu.Movement,Movement,Movement,움직임, ,移动
+Studio.AnimationClipEditor.Menu.Movement,Movement,Movement,이동, ,移动
 Studio.AnimationClipEditor.Title.EditEvents,Edit Animation Events,Edit Animation Events,애니메이션 이벤트 편집,Изменить события анимации,编辑动画事件
 Studio.AnimationClipEditor.Title.ManageIK,Manage IK,Manage IK,IK 관리,Управление ОК,管理 IK
 Studio.AnimationClipEditor.Title.EventName,Event Name,Event Name,이벤트 이름,Название события,事件名称
@@ -68,16 +69,16 @@ Studio.AnimationClipEditor.Menu.Import,Import,Import,가져오기,Импорт,�
 Studio.AnimationClipEditor.Title.MinFPS,Minimum frame rate is 1 fps,Minimum frame rate is 1 fps,최소 프레임 속도는 1fps입니다,Минимальная частота - 1 fps,最小帧速率为1 fps
 Studio.AnimationClipEditor.Title.AddEvent,Add Event,Add Event,이벤트 추가,Добавить событие,添加事件
 Studio.AnimationClipEditor.Title.Error,Error,Error,오류,Ошибка,错误
-Studio.AnimationClipEditor.Title.CurrentDuration,Current duration is {1:int} frames,Current duration is {1:int} frames,현재 지속 시간은 {1:int} 프레임입니다,Текущая продолжительность - {1:int} кадров,当前时长为 {1:int} 帧
-Studio.AnimationClipEditor.Title.SelectARig,Select a rig to animate,Select a rig to animate,애니메이션화할 리그를 선택하세요,Выберите скелетную анимацию,选择骨架创作动画
 Studio.AnimationClipEditor.ContextMenu.AddKeyframeAtScrubber,Add Keyframe At Scrubber,Add Keyframe At Scrubber,스크러버에 키프레임 추가, ,在进度条位置添加关键帧
 Studio.AnimationClipEditor.Menu.SetPriority,Set Animation Priority,Set Animation Priority,애니메이션 우선순위 설정,Установить приоритет анимации,设置动画优先级
 Studio.AnimationClipEditor.Title.CreateToStart,Create an animation to start,Create an animation to start,시작할 애니메이션을 만드세요,"Чтобы начать, создайте анимацию",创建动画后即可开始
+Studio.AnimationClipEditor.Settings.30FPS,30 fps,30 fps, , , 
 Studio.AnimationClipEditor.Title.ClickToContinue,Click here to continue using the Animation Editor,Click here to continue using the Animation Editor,애니메이션 편집기를 계속 사용하려면 여기를 클릭하세요,"Щелкните здесь, чтобы продолжить использовать Редактор анимации",单击此处以继续使用动画编辑器
 Studio.AnimationClipEditor.Menu.FromFBX,From FBX Animation,From FBX Animation,FBX 애니메이션에서,Из FBX Animation,从 FBX 动画
 Studio.AnimationClipEditor.Settings.ShowEvents,Show Animation Events,Show Animation Events,애니메이션 이벤트 표시,Показать события анимации,显示动画事件
 Studio.AnimationClipEditor.Title.NoAnimationExists,"No animation exists for {1}, please create one to start animating","No animation exists for {1}, please create one to start animating",{1}에 대한 애니메이션이 없습니다. 애니메이션화하려면 새로 만드세요,"{1}: анимации не существует, для воспроизведения создайте новую",不存在可用于 {1} 的动画，请为其创建新的动画
 Studio.AnimationClipEditor.Title.NewDuration,New Duration,New Duration,새 지속 시간,Новая продолжительность,新的时长
+Studio.AnimationClipEditor.Title.CurrentDuration,Current duration is {1:int} frames,Current duration is {1:int} frames,현재 지속 시간은 {1:int} 프레임입니다,Текущая продолжительность - {1:int} кадров,当前时长为 {1:int} 帧
 Studio.AnimationClipEditor.Title.CustomFPS,Custom Frame Rate [FPS],Custom Frame Rate [FPS],사용자 정의 프레임 속도 [FPS],Пользовательская частота кадров [FPS],自定义帧速率 [FPS]
 Studio.AnimationClipEditor.Settings.SnapToKeys,Snap To Keys,Snap To Keys,키에 맞추기,Привязать к ключам,对齐至关键点
 Studio.AnimationClipEditor.Dialog.Yes,Yes,Yes,예,Да,是
@@ -114,6 +115,7 @@ Studio.AnimationClipEditor.Toast.ClippedWarning,Warning: An animation cannot exc
 Studio.AnimationClipEditor.Toast.MaxFramerateWarning,"Warning: This animation exceeds the maximum 120 fps frame rate. Some keys are not aligned to frames, they will snap to frames when you edit them.","Warning: This animation exceeds the maximum 120 fps frame rate. Some keys are not aligned to frames, they will snap to frames when you edit them.","경고: 이 애니메이션은 최대 프레임 속도 120fps를 초과합니다. 일부 키가 프레임에 맞게 정렬되지 않았으며, 이러한 키는 편집 시 프레임에 맞춰집니다.",Внимание! Частота кадров этой анимации превышает 120 fps. Некоторые ключи не совпадают с кадрами и будут выровнены при редактировании.,警告：当前动画超过了 120 fps 的最高帧速率。某些关键点尚未与帧对齐，进行编辑时，将会自动与帧对齐。
 Studio.AnimationClipEditor.Toast.QuantizeWarning,"Warning: Some keys of your animation are not aligned to frames, they will snap to frames when you edit them.","Warning: Some keys of your animation are not aligned to frames, they will snap to frames when you edit them.","경고: 일부 키가 프레임에 맞게 정렬되지 않았으며, 이러한 키는 편집 시 프레임에 맞춰집니다.",Внимание! Некоторые ключи не совпадают с кадрами и будут выровнены при редактировании.,警告：动画的某些关键点尚未与帧对齐，进行编辑时，将会自动与帧对齐。
 Studio.AnimationClipEditor.Toast.IgnoreWarning,Ignore warning,Ignore warning,경고 무시,Игнорировать предупреждение,忽略警告
+Studio.AnimationClipEditor.Menu.Overwrite_Migrated,Do you want to overwrite existing animation {overwriteName}?,Do you want to overwrite existing animation {overwriteName}?, , , 
 Studio.AnimationClipEditor.Toast.Saved,Saved animation {1},Saved animation {1},저장된 애니메이션 {1},Сохранена анимация {1},已保存动画 {1}
 Studio.AnimationClipEditor.Toast.Loaded,Loaded animation {1},Loaded animation {1},불러온 애니메이션 {1},Загружена анимация {1},已加载动画 {1}
 Studio.AnimationClipEditor.RigErrors.NameCollision,This rig contains multiple parts which share the same name. Please give unique names to all parts.,This rig contains multiple parts which share the same name. Please give unique names to all parts.,이 리그에는 이름이 동일한 파트가 여러 개 있습니다. 모든 파트에 고유한 이름을 지정해 주세요.,Эта скелетная анимация содержит несколько анимированных фрагментов с одним и тем же именем. Назначьте уникальные имена всем анимированным фрагментам.,此骨架包含共用相同名称的多个部件。请为每个部件都指定唯一名称。
@@ -127,3 +129,13 @@ Studio.AnimationClipEditor.EditorErrors.BigAnimation,"Animation is larger than 3
 Studio.AnimationClipEditor.Menu.Core,Core,Core,핵심, ,核心
 Studio.AnimationClipEditor.Menu.Idle,Idle,Idle,대기, ,待机
 Studio.AnimationClipEditor.Menu.Action,Action,Action,동작, ,动作
+Studio.AnimationClipEditor.Title.NoAnimationExists_Migrated,"No animation exists for {rig}, please create one to start animating","No animation exists for {rig}, please create one to start animating", , , 
+Studio.AnimationClipEditor.Title.CurrentDuration_Migrated,Current duration is {currentDuration} frames,Current duration is {currentDuration} frames, , , 
+Studio.AnimationClipEditor.Title.DefaultAnimationName,Untitled Animation Clip,Untitled Animation Clip, , , 
+Studio.AnimationClipEditor.Settings.24FPS,24 fps,24 fps, , , 
+Studio.AnimationClipEditor.Settings.60FPS,60 fps,60 fps, , , 
+Studio.AnimationClipEditor.Settings.120FPS,120 fps,120 fps, , , 
+Studio.AnimationClipEditor.Dialog.DeleteAllPrompt_Migrated,Do you want to delete all {name} from this animation?,Do you want to delete all {name} from this animation?, , , 
+Studio.AnimationClipEditor.Dialog.RenameAllPrompt_Migrated,Do you want to change all {name} to {newName}?,Do you want to change all {name} to {newName}?, , , 
+Studio.AnimationClipEditor.Toast.Saved_Migrated,Saved animation {savedAnimName},Saved animation {savedAnimName}, , , 
+Studio.AnimationClipEditor.Toast.Loaded_Migrated,Loaded animation {loadedAnimName},Loaded animation {loadedAnimName}, , , 

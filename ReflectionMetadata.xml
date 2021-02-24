@@ -709,6 +709,24 @@
             <string name="summary">The thickness of the in-game visual (diameter). Value in [0, inf).</string>
           </Properties>
         </Item>
+		<Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">LimitAngle0</string>
+            <string name="summary">The angle of the cone limit formed along attachment point 0. Value in [0, 180].</string>
+          </Properties>
+        </Item>
+		<Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">LimitAngle1</string>
+            <string name="summary">The angle of the cone limit formed along attachment point 1. Value in [0, 180].</string>
+          </Properties>
+        </Item>
+		<Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">LimitsEnabled</string>
+            <string name="summary">Toggles the cone limits for this constraint.</string>
+          </Properties>
+        </Item>
       </Item>
     </Item>
 

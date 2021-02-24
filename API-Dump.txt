@@ -565,7 +565,10 @@ Class LineForce : Constraint
 Class RodConstraint : Constraint
 	Property float RodConstraint.Thickness
 	Property float RodConstraint.CurrentDistance [ReadOnly]
+	Property float RodConstraint.LimitAngle0
+	Property float RodConstraint.LimitAngle1
 	Property float RodConstraint.Length
+	Property bool RodConstraint.LimitsEnabled
 Class RopeConstraint : Constraint
 	Property float RopeConstraint.Thickness
 	Property float RopeConstraint.CurrentDistance [ReadOnly]
@@ -2967,11 +2970,14 @@ Class SoundService : Instance [NotCreatable] [Service]
 	Function bool SoundService:BeginRecording() {RobloxScriptSecurity}
 	Function Dictionary SoundService:EndRecording() {RobloxScriptSecurity} [Yields]
 	Function Tuple SoundService:GetListener()
+	Function Tuple SoundService:GetOutputDevice() {RobloxScriptSecurity}
+	Function Tuple SoundService:GetOutputDevices() {RobloxScriptSecurity}
 	Function Dictionary SoundService:GetRecordingDevices() {RobloxScriptSecurity} [Yields]
 	Function Dictionary SoundService:GetSoundMemoryData() {RobloxScriptSecurity}
 	Function void SoundService:PlayLocalSound(Instance sound)
 	Function void SoundService:PlayStockSound(Enum<SoundType> sound) {RobloxScriptSecurity}
 	Function void SoundService:SetListener(Enum<ListenerType> listenerType, Tuple listener)
+	Function void SoundService:SetOutputDevice(string name, string guid) {RobloxScriptSecurity}
 	Function bool SoundService:SetRecordingDevice(int deviceIndex) {RobloxScriptSecurity}
 Class Sparkles : Instance
 	Property Color3 Sparkles.Color [<📁> LoadOnly] [Hidden] [NotReplicated]
@@ -3365,6 +3371,7 @@ Class TweenService : Instance [NotCreatable] [Service]
 	Function Instance TweenService:Create(Instance instance, TweenInfo tweenInfo, Dictionary propertyTable)
 	Function float TweenService:GetValue(float alpha, Enum<EasingStyle> easingStyle, Enum<EasingDirection> easingDirection)
 Class UGCValidationService : Instance [NotCreatable] [Service] [NotReplicated]
+	Function Objects UGCValidationService:FetchAssetWithFormat(Content url, string assetFormat) {RobloxScriptSecurity} [Yields]
 	Function int UGCValidationService:GetMeshTriCount(string meshId) {RobloxScriptSecurity} [Yields]
 	Function int UGCValidationService:GetMeshTriCountSync(string meshId) {RobloxScriptSecurity}
 	Function Array UGCValidationService:GetMeshVerts(string meshId) {RobloxScriptSecurity} [Yields]

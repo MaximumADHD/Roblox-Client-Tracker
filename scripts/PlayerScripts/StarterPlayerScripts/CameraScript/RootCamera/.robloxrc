@@ -1,0 +1,6 @@
+{
+	"lint": {
+		"LocalShadow": "fatal",
+		"ImplicitReturn": "fatal"
+	}
+}

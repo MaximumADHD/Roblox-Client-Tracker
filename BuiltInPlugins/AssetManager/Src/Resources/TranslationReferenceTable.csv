@@ -6,7 +6,7 @@ Studio.AssetManager.Main.ToolbarButton,Asset Manager,Asset Manager,애셋 관리
 Studio.AssetManager.Meta.ToolbarName,Asset Manager,Asset Manager,애셋 관리자,素材管理器
 Studio.AssetManager.BulkImport.BulkImportShowLink,Check current status,Check current status,현재 상태 확인,检查当前状态
 Studio.AssetManager.TopBar.GridViewButton,Grid View,Grid View,그리드 뷰,栅格视图
-Studio.AssetManager.TopBar.ExplorerOverlayButton,Explorer Overlay,Explorer Overlay,탐색기 오버레이,管理器覆盖
+Studio.AssetManager.TopBar.ExplorerOverlayButton,Explorer Overlay,Explorer Overlay,탐색기 오버레이,项目管理器覆盖
 Studio.AssetManager.Main.Tooltip,"Add, remove, and modify assets","Add, remove, and modify assets","애셋 추가, 제거, 수정",添加、移除和修改素材
 Studio.AssetManager.TopBar.ForwardButton,Forward,Forward,앞으로,前进
 Studio.AssetManager.ContextMenu.RevertToLastPublishedVersion,Revert To Last Published Version,Revert To Last Published Version,마지막 게시 버전으로 되돌리기,还原至上次发布版本

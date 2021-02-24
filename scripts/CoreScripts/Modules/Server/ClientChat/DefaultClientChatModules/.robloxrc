@@ -1,0 +1,6 @@
+{
+	"lint": {
+		"FunctionUnused": "fatal",
+		"ImplicitReturn": "fatal"
+	}
+}

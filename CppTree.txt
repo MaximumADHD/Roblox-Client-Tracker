@@ -508,6 +508,7 @@ boost::detail::sp_counted_impl_p<struct boost::detail::shared_state<class std::s
 boost::detail::sp_counted_impl_p<struct boost::detail::shared_state<class std::string > >
 boost::detail::sp_counted_impl_p<struct boost::detail::shared_state<void> >
 boost::detail::sp_counted_impl_p<struct boost::filesystem::detail::dir_itr_imp>
+boost::detail::sp_counted_impl_p<struct boost::filesystem::detail::recur_dir_itr_imp>
 boost::detail::sp_counted_impl_p<struct boost::filesystem::filesystem_error::m_imp>
 boost::detail::sp_counted_impl_pd<class std::basic_istream<char,struct std::char_traits<char> > * ptr64,struct boost::program_options::detail::null_deleter>
 boost::detail::sp_counted_impl_pd<struct boost::thread_specific_ptr<class RBX::DataModel::GenericJob * ptr64>::delete_data * ptr64,struct boost::detail::do_heap_delete<struct boost::thread_specific_ptr<class RBX::DataModel::GenericJob * ptr64>::delete_data> >
@@ -1462,11 +1463,8 @@ QEventLoop
 QException
 QFormLayout
 QFrame
-QFutureInterface<bool>
 QFutureInterface<void>
 QFutureInterfaceBase
-QFutureWatcher<bool>
-QFutureWatcherBase
 QGraphicsDropShadowEffect
 QGraphicsEffect
 QGraphicsItem
@@ -1549,12 +1547,8 @@ QTableView
 QTableWidget
 QTableWidgetItem
 QTabWidget
-QtConcurrent::RunFunctionTask<bool>
 QtConcurrent::RunFunctionTask<void>
-QtConcurrent::RunFunctionTaskBase<bool>
 QtConcurrent::RunFunctionTaskBase<void>
-QtConcurrent::StoredMemberFunctionPointerCall0<bool,class AuthenticationHelper>
-QtConcurrent::StoredMemberFunctionPointerCall1<bool,class AuthenticationHelper,class QString const & ptr64,class QString>
 QtConcurrent::VoidStoredMemberFunctionPointerCall2<void,class RobloxMainWindow,class std::string const & ptr64,class std::string,class std::string const & ptr64,class std::string >
 QTextBlockUserData
 QTextBrowser
@@ -3971,7 +3965,9 @@ RBX::Reflection::BoundFuncDesc<class RBX::Soundscape::SoundService,bool cdecl(in
 RBX::Reflection::BoundFuncDesc<class RBX::Soundscape::SoundService,bool cdecl(void),0>
 RBX::Reflection::BoundFuncDesc<class RBX::Soundscape::SoundService,class std::shared_ptr<class boost::unordered::unordered_map<class std::string,class RBX::Reflection::Variant,struct boost::hash<class std::string >,struct std::equal_to<class std::string >,class std::allocator<struct std::pair<class std::string const ,class RBX::Reflection::Variant> > > const > cdecl(void),0>
 RBX::Reflection::BoundFuncDesc<class RBX::Soundscape::SoundService,class std::shared_ptr<struct RBX::Reflection::Tuple const > cdecl(void),0>
+RBX::Reflection::BoundFuncDesc<class RBX::Soundscape::SoundService,class std::shared_ptr<struct RBX::Reflection::Tuple const > cdecl(void)const ptr64,0>
 RBX::Reflection::BoundFuncDesc<class RBX::Soundscape::SoundService,void cdecl(class std::shared_ptr<class RBX::Instance>),1>
+RBX::Reflection::BoundFuncDesc<class RBX::Soundscape::SoundService,void cdecl(class std::string const & ptr64,class std::string const & ptr64),2>
 RBX::Reflection::BoundFuncDesc<class RBX::Soundscape::SoundService,void cdecl(enum RBX::Soundscape::ListenerType,class std::shared_ptr<struct RBX::Reflection::Tuple const >),2>
 RBX::Reflection::BoundFuncDesc<class RBX::Soundscape::SoundService,void cdecl(enum RBX::SoundType),1>
 RBX::Reflection::BoundFuncDesc<class RBX::StarterGuiService,bool cdecl(enum RBX::StarterGuiService::CoreGuiType),1>
@@ -4381,6 +4377,7 @@ RBX::Reflection::BoundYieldFuncDesc<class RBX::TextService,class std::shared_ptr
 RBX::Reflection::BoundYieldFuncDesc<class RBX::ThirdPartyUserService,int cdecl(enum RBX::InputObject::UserInputType),1>
 RBX::Reflection::BoundYieldFuncDesc<class RBX::UGCValidationService,class G3D::Vector2 cdecl(class std::string),1>
 RBX::Reflection::BoundYieldFuncDesc<class RBX::UGCValidationService,class std::shared_ptr<class std::vector<class RBX::Reflection::Variant,class std::allocator<class RBX::Reflection::Variant> > const > cdecl(class std::string),1>
+RBX::Reflection::BoundYieldFuncDesc<class RBX::UGCValidationService,class std::shared_ptr<class std::vector<class std::shared_ptr<class RBX::Instance>,class std::allocator<class std::shared_ptr<class RBX::Instance> > > const > cdecl(class RBX::ContentId,class std::string),2>
 RBX::Reflection::BoundYieldFuncDesc<class RBX::UGCValidationService,int cdecl(class std::string),1>
 RBX::Reflection::BoundYieldFuncDesc<class RBX::UserService,class std::shared_ptr<class std::vector<class RBX::Reflection::Variant,class std::allocator<class RBX::Reflection::Variant> > const > cdecl(class std::shared_ptr<class std::vector<class RBX::Reflection::Variant,class std::allocator<class RBX::Reflection::Variant> > const >),1>
 RBX::Reflection::BoundYieldFuncDesc<class Studio::AssetManagerService,__int64 cdecl(void),0>
@@ -5809,6 +5806,8 @@ RBX::Reflection::PropDescriptor<class RBX::Constraints::OrientationConstraint,bo
 RBX::Reflection::PropDescriptor<class RBX::Constraints::OrientationConstraint,enum RBX::Constraints::AlignType>::GetSetImpl<enum RBX::Constraints::AlignType (cdecl RBX::Constraints::OrientationConstraint::*)(void)const ptr64,void (cdecl RBX::Constraints::OrientationConstraint::*)(enum RBX::Constraints::AlignType) ptr64>
 RBX::Reflection::PropDescriptor<class RBX::Constraints::OrientationConstraint,float>
 RBX::Reflection::PropDescriptor<class RBX::Constraints::OrientationConstraint,float>::GetSetImpl<float (cdecl RBX::Constraints::OrientationConstraint::*)(void)const ptr64,void (cdecl RBX::Constraints::OrientationConstraint::*)(float) ptr64>
+RBX::Reflection::PropDescriptor<class RBX::Constraints::RodConstraint,bool>
+RBX::Reflection::PropDescriptor<class RBX::Constraints::RodConstraint,bool>::GetSetImpl<bool (cdecl RBX::Constraints::RodConstraint::*)(void)const ptr64,void (cdecl RBX::Constraints::RodConstraint::*)(bool) ptr64>
 RBX::Reflection::PropDescriptor<class RBX::Constraints::RodConstraint,float>
 RBX::Reflection::PropDescriptor<class RBX::Constraints::RodConstraint,float>::GetImpl<float (cdecl RBX::Constraints::RodConstraint::*)(void)const ptr64>
 RBX::Reflection::PropDescriptor<class RBX::Constraints::RodConstraint,float>::GetSetImpl<float (cdecl RBX::Constraints::RodConstraint::*)(void)const ptr64,void (cdecl RBX::Constraints::RodConstraint::*)(float) ptr64>
@@ -7720,6 +7719,7 @@ RBX::Solver::ConstraintOrientation
 RBX::Solver::ConstraintOrientationVirtual
 RBX::Solver::ConstraintPerp2Axes
 RBX::Solver::ConstraintPerp2AxesVirtual
+RBX::Solver::ConstraintPositionalCones
 RBX::Solver::ConstraintServoMotor
 RBX::Solver::ConstraintSingleAxisLinearVelocity
 RBX::Solver::ConstraintSingleAxisSpring
@@ -10052,6 +10052,8 @@ ToolButtonProxyMenu
 TotalCountTimeIntervalItem
 TreeWidgetDelegate
 TSJobItem
+TwoStepVerificationRequestLogin
+TwoStepVerificationRequestVerify
 type_info
 Ui::RBXMainWindow
 Ui::TeamCreate

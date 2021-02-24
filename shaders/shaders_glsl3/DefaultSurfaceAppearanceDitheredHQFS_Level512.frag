@@ -32,7 +32,7 @@ void main()
     vec4 f3 = texture(DiffuseMapTexture, VARYING0);
     float f4 = f3.w;
     float f5 = fract(52.98291778564453125 * fract(dot(gl_FragCoord.xy, vec2(0.067110560834407806396484375, 0.005837149918079376220703125))));
-    if (smoothstep(0.0, 1.0, f4) < (f5 + ((fract(CB0[47].z) - f5) * clamp((0.001000000047497451305389404296875 * floor(CB0[47].z)) * VARYING4.w, 0.0, 1.0))))
+    if (smoothstep(0.0, 1.0, f4) < (f5 * CB0[47].z))
     {
         discard;
     }

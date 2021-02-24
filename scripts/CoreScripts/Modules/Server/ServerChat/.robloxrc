@@ -1,0 +1,6 @@
+{
+	"lint": {
+		"SameLineStatement": "fatal",
+		"FunctionUnused": "fatal"
+	}
+}

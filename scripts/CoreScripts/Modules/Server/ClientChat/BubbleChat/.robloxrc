@@ -1,0 +1,7 @@
+{
+	"lint": {
+		"SameLineStatement": "fatal",
+		"LocalUnused": "fatal",
+		"ImportUnused": "fatal"
+	}
+}

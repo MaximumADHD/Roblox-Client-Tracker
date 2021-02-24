@@ -1,0 +1,10 @@
+{
+	"lint": {
+		"SameLineStatement": "fatal",
+		//"LocalShadow": "fatal",
+		"LocalUnused": "fatal",
+		"FunctionUnused": "fatal",
+		"ImportUnused": "fatal",
+		"ImplicitReturn": "fatal"
+	}
+}

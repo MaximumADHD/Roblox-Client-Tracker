@@ -1,0 +1,9 @@
+{
+	"lint": {
+		"LocalShadow": "fatal",
+		"LocalUnused": "fatal",
+		"ImportUnused": "fatal",
+		"ImplicitReturn": "fatal",
+		"DeprecatedGlobal": "fatal"
+	}
+}
