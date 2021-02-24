@@ -16,19 +16,13 @@ local Common = require(Framework.StudioUI.StudioFrameworkStyles.Common)
 local UIFolderData = require(Framework.UI.UIFolderData)
 local RoundBox = require(UIFolderData.RoundBox.style)
 
-local FFlagDevFrameworkTextInputContainer = game:GetFastFlag("DevFrameworkTextInputContainer")
-
 local function buttonStyle(image, hoverImage, theme)
 	local hoverStyle
 
-	if FFlagDevFrameworkTextInputContainer then
-		if THEME_REFACTOR then
-			hoverStyle = StyleKey.DialogMainButton
-		else
-			hoverStyle = theme:GetColor("DialogMainButton")
-		end
+	if THEME_REFACTOR then
+		hoverStyle = StyleKey.DialogMainButton
 	else
-		hoverStyle = Color3.fromRGB(0, 162, 255)
+		hoverStyle = theme:GetColor("DialogMainButton")
 	end
 
 	local foregroundStyle = {
@@ -63,15 +57,10 @@ if THEME_REFACTOR then
 	return {
 		BackgroundColor = StyleKey.MainBackground,
 		BackgroundStyle = roundBox,
-		Padding = FFlagDevFrameworkTextInputContainer and {
+		Padding = {
 			Top = 5,
 			Left = 10,
 			Bottom = 5,
-			Right = 10
-		} or {
-			Top = 0,
-			Left = 10,
-			Bottom = 0,
 			Right = 10
 		},
 
@@ -93,15 +82,10 @@ else
 		local Default = Style.extend(common.MainText, common.Border, {
 			BackgroundColor = common.Background.Color,
 			BackgroundStyle = roundBox.Default,
-			Padding = FFlagDevFrameworkTextInputContainer and {
+			Padding = {
 				Top = 5,
 				Left = 10,
 				Bottom = 5,
-				Right = 10
-			} or {
-				Top = 0,
-				Left = 10,
-				Bottom = 0,
 				Right = 10
 			},
 			[StyleModifier.Hover] = {

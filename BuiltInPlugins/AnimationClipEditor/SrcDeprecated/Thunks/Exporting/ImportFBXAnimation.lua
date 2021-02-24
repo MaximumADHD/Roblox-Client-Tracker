@@ -10,6 +10,7 @@ local LoadAnimationData = require(Plugin.SrcDeprecated.Thunks.LoadAnimationData)
 local SetIsDirty = require(Plugin.SrcDeprecated.Actions.SetIsDirty)
 
 local UseCustomFPS = require(Plugin.LuaFlags.GetFFlagAnimEditorUseCustomFPS)
+local SetR15 = require(Plugin.LuaFlags.GetFFlagSetR15WhenImportingAnimation)
 
 return function(plugin)
 	return function(store)
@@ -20,7 +21,12 @@ return function(plugin)
 		end
 
 		local success, result = pcall(function()
-			return plugin:ImportFbxAnimation(rootInstance)
+			if SetR15() then 
+				local _, isR15 = RigUtils.canUseIK(rootInstance)
+				return plugin:ImportFbxAnimation(rootInstance, isR15)
+			else 
+				return plugin:ImportFbxAnimation(rootInstance)
+			end
 		end)
 
 		if success then

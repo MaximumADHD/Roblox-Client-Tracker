@@ -3,8 +3,6 @@
 	Displays the docs for the currently selected component.
 	No required props, all props are injected from mapToProps or RoactRodux:connect.
 ]]
-local TextService = game:GetService("TextService")
-
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
@@ -19,6 +17,7 @@ local Container = UI.Container
 local Decoration = UI.Decoration
 local Button = UI.Button
 local HoverArea = UI.HoverArea
+local TextLabel = Decoration.TextLabel
 
 local PanelEntry = require(Plugin.Src.Components.PanelEntry)
 local PropsList = require(Plugin.Src.Components.PropsList)
@@ -68,17 +67,13 @@ end
 
 function InfoPanel:render()
 	local props = self.props
-	local state = self.state
 	local scrollbar
-	local text
 	local sizes
 	local style = props.Stylizer
 	if THEME_REFACTOR and style then
-		text = style.Text
 		sizes = style.Sizes
 		scrollbar = style.Scrollbar
 	else
-		text = props.Theme:get("Text")
 		sizes = props.Theme:get("Sizes")
 		scrollbar = props.Theme:get("Scrollbar")
 	end
@@ -90,7 +85,6 @@ function InfoPanel:render()
 		return order
 	end
 
-	local extents = state.extents
 	local name = props.CurrentItem
 	local docs = props.Components
 		and (props.Components.UI and props.Components.UI[name])
@@ -107,21 +101,15 @@ function InfoPanel:render()
 			Background = Decoration.Box,
 			BackgroundStyle = "__Item",
 		}, {
-			Prompt = Roact.createElement("TextLabel", {
+			Prompt = Roact.createElement(TextLabel, {
 				Size = UDim2.new(1, 0, 1, 0),
 				Text = "Select a component to see its documentation.",
-				Font = Enum.Font.SourceSans,
-				TextSize = text.Body.Size,
-				TextColor3 = text.Body.Color,
-				BackgroundTransparency = 1,
 			}),
 		})
 	end
 
 	local summary = docs.Summary or ""
-	local summarySize = TextService:GetTextSize(summary, text.Body.Size,
-		Enum.Font.SourceSans, Vector2.new(extents.X - (sizes.OuterPadding * 2), 10000))
-
+	
 	return Roact.createElement(Container, {
 		Size = UDim2.new(1, -sizes.Gutter, 1, -sizes.Footer),
 		Position = UDim2.fromScale(1, 0),
@@ -137,7 +125,7 @@ function InfoPanel:render()
 	}, {
 		ScrollingFrame = Roact.createElement("ScrollingFrame", {
 			Size = UDim2.fromScale(1, 1),
-			CanvasSize = UDim2.new(0, 0, 0, extents.Y),
+			AutomaticCanvasSize = Enum.AutomaticSize.Y,
 			CanvasPosition = Vector2.new(),
 			TopImage = scrollbar.TopImage,
 			MidImage = scrollbar.MidImage,
@@ -158,24 +146,17 @@ function InfoPanel:render()
 				FillDirection = Enum.FillDirection.Vertical,
 				HorizontalAlignment = Enum.HorizontalAlignment.Center,
 				Padding = UDim.new(0, sizes.InnerPadding),
-				[Roact.Change.AbsoluteContentSize] = function(rbx)
-					self.updateExtents(rbx.AbsoluteContentSize)
-				end,
 			}),
 
 			Header = Roact.createElement(PanelEntry, {
 				Header = name,
 				LayoutOrder = nextOrder(),
 			}, {
-				Summary = Roact.createElement("TextLabel", {
-					Size = UDim2.new(1, 0, 0, summarySize.Y),
-					Position = UDim2.fromScale(0, 1),
-					AnchorPoint = Vector2.new(0, 1),
+				Summary = Roact.createElement(TextLabel, {
+					LayoutOrder = 2,
+					AutomaticSize = Enum.AutomaticSize.Y,
+					Size = UDim2.new(1, 0, 0, 0),
 					Text = summary,
-					Font = Enum.Font.SourceSans,
-					TextSize = text.Body.Size,
-					TextColor3 = text.Body.Color,
-					BackgroundTransparency = 1,
 					TextXAlignment = Enum.TextXAlignment.Left,
 					TextWrapped = true,
 				}),

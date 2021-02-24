@@ -13,19 +13,28 @@ local function getComponentsFromDirectory(directory, scripts, tests)
 				local component = require(componentScript)
 				local isImmutable = getmetatable(component) ~= nil and getmetatable(component).__newindex ~= nil
 				local isComponent = type(component) == "table" and not isImmutable and component.render ~= nil
-				if isComponent and component.validateProps ~= nil then
-					local docs = DocParser.new(component, componentScript):parse()
-					docs.Summary = docs.Summary:gsub("\n", " ")
-					for propName, prop in ipairs(docs.Required) do
-						docs.Required[propName].Comment = prop.Comment:gsub("\n", " ")
+				if isComponent then
+					if component.validateProps ~= nil then
+						local docs = DocParser.new(component, componentScript):parse()
+						docs.Summary = docs.Summary:gsub("\n", " ")
+						for propName, prop in ipairs(docs.Required) do
+							docs.Required[propName].Comment = prop.Comment:gsub("\n", " ")
+						end
+						for propName, prop in ipairs(docs.Optional) do
+							docs.Optional[propName].Comment = prop.Comment:gsub("\n", " ")
+						end
+						for propName, prop in ipairs(docs.Style) do
+							docs.Style[propName].Comment = prop.Comment:gsub("\n", " ")
+						end
+						components[name] = docs
+					else
+						components[name] = {
+							Summary = "This component is not type-checked using DocParser",
+							Required = {},
+							Optional = {},
+							Style = {}
+						}
 					end
-					for propName, prop in ipairs(docs.Optional) do
-						docs.Optional[propName].Comment = prop.Comment:gsub("\n", " ")
-					end
-					for propName, prop in ipairs(docs.Style) do
-						docs.Style[propName].Comment = prop.Comment:gsub("\n", " ")
-					end
-					components[name] = docs
 					scripts[name] = componentScript
 					tests[name] = componentScript:FindFirstChild("test.spec")
 				end

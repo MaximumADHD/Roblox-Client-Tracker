@@ -16,7 +16,7 @@ local InGameMenuPolicy = require(InGameMenu.InGameMenuPolicy)
 local UserLocalStore = require(InGameMenu.Utility.UserLocalStore)
 
 local GetFFlagPlayerSpecificPopupCounter = require(InGameMenu.Flags.GetFFlagPlayerSpecificPopupCounter)
-local FFlagInGameMenuUseOpenEduPopupThunk = game:DefineFastFlag("FFlagInGameMenuUseOpenEduPopupThunk", false)
+local FFlagInGameMenuUseOpenEduPopupThunk = game:DefineFastFlag("InGameMenuUseOpenEduPopupThunk", false)
 
 local LOCAL_STORAGE_KEY_NATIVE_CLOSE = "NativeCloseLuaPromptDisplayCount"
 local notificationTypes = GuiService:GetNotificationTypeList()

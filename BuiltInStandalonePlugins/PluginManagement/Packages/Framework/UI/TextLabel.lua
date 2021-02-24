@@ -23,8 +23,10 @@
 		number FitMaxWidth: Max width in pixels to use with FitTextLabel.
 		Color3 TextColor: The color of the label.
 		number TextTransparency: The transparency of this text.
+		Enum.AutomaticSize AutomaticSize: The automatic size of this text.
 		Enum.TextTruncate TextTruncate: The text truncation of this text.
 		Enum.Font Font: The font of this text.
+		number TextSize: The size of this text.
 		Enum.TextXAlignment TextXAlignment: The x alignment of this text.
 		Enum.TextYAlignment TextYAlignment: The y alignment of this text.
 
@@ -47,6 +49,7 @@ local FitTextLabel = Util.FitFrame.FitTextLabel
 local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 
 local FFlagDevFrameworkClampTextLabelMaxWidth = game:DefineFastFlag("DevFrameworkClampTextLabelMaxWidth", false)
+local FFlagEnableDevFrameworkAutomaticSize = game:GetFastFlag("EnableDevFrameworkAutomaticSize")
 
 local TextLabel = Roact.PureComponent:extend("TextLabel")
 Typecheck.wrap(TextLabel, script)
@@ -77,9 +80,11 @@ function TextLabel:render()
 	local textYAlignment = prioritize(self.props.TextYAlignment, style.TextYAlignment)
 	local textTruncate = self.props.TextTruncate
 	local textWrapped = self.props.TextWrapped
+	local automaticSize = self.props.AutomaticSize
 
 	local textLabelProps = {
 		AnchorPoint = anchorPoint,
+		AutomaticSize = FFlagEnableDevFrameworkAutomaticSize and automaticSize or nil,
 		Position = position,
 		BackgroundTransparency = backgroundTransparency,
 		Font = font,

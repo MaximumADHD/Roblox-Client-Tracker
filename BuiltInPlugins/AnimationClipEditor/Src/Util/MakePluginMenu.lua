@@ -95,6 +95,10 @@ local function makePluginMenu(plugin, name, entries)
 			else
 				local action = menu:AddNewAction(newId(), entry.Name)
 				action.Checked = entry.IsEnabled
+				-- Confusing naming. Checked means its the selected option. Enabled means the user can click on it. 
+				if entry.IsAvailable ~= nil then 
+					action.Enabled = entry.IsAvailable
+				end
 				connectAction(connections, action, entry, entry.Name)
 			end
 

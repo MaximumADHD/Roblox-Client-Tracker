@@ -3,10 +3,10 @@
 --[[
 MessageBus is a common, global, message-passing service, where any MessageBus.Subscriber instance can listen to any message sent.
 
-The function subscribe() registers a listener callback for messages of a particular type determined by an id-string.
+The function subscribe() registers a listener callback for messages of a particular type determined by an id-string and a parameter validation function.
 For example, to listen to messages of type "my-message-id", do this:
 
-myMessageBusSubscriber:subscribe("my-message-type-id", function(params)
+myMessageBusSubscriber:subscribe({ "my-message-id", validateParams, }, function(params)
     -- ... respond to message...
 end);
 
@@ -14,12 +14,16 @@ Use MessageBus.publish() to send a message of that same type.
 
 For example: a different system can send a message of type "my-message-id" by doing this:
 
-MessageBus.publish("my-message-id", params);
+MessageBus.publish({ "my-message-id", validateParams, }, params);
 
 The call to MessageBus.publish() immediately calls the callback that myMessageBusSubscriber registered with subscribe().
 ]]--
 
 export type Table = { [string]: any }
+export type MessageDescriptor = {
+	mid: string,
+	validateParams: (Table) -> (boolean, string?)
+}
 
 local HttpService = game:GetService("HttpService")
 local MemStorageService = game:GetService("MemStorageService")
@@ -27,8 +31,9 @@ local MemStorageService = game:GetService("MemStorageService")
 local MessageBus = {}
 MessageBus.__index = MessageBus
 
-function MessageBus.publish(mid: string, params: Table): ()
-	MemStorageService:SetItem(mid, MessageBus.serializeMessageParams(params))
+function MessageBus.publish(desc: MessageDescriptor, params: Table): ()
+	assert(desc.validateParams(params))
+	MemStorageService:SetItem(desc.mid, MessageBus.serializeMessageParams(params))
 end
 
 function MessageBus.getMessageId(domainName: string, messageName: string): string
@@ -61,25 +66,27 @@ function Subscriber:getSubscriptionCount(): number
 	return count
 end
 
-function Subscriber:subscribe(mid: string, callback: (Table) -> ())
+function Subscriber:subscribe(desc: MessageDescriptor, callback: (Table) -> ())
+	local mid = desc.mid
 	local existingConnection = self.connections[mid]
 	if existingConnection ~= nil then
-		self:unsubscribe(mid)
+		self:unsubscribe(desc)
 	end
 	self.connections[mid] = MemStorageService:BindAndFire(mid, function(message)
 		-- Consume message
 		MemStorageService:RemoveItem(mid)
 		local params = MessageBus.deserializeMessageParams(message)
+		assert(desc.validateParams(params))
 		callback(params)
 	end)
 end
 
-function Subscriber:unsubscribe(mid: string): ()
-	local connection = self.connections[mid]
+function Subscriber:unsubscribe(desc: MessageDescriptor): ()
+	local connection = self.connections[desc.mid]
 	if connection == nil then
-		error("unsubscribing from a message id not subscribed to: " .. mid)
+		error("unsubscribing from a message id not subscribed to: " .. desc.mid)
 	end
-	self.connections[mid] = nil
+	self.connections[desc.mid] = nil
 	connection:Disconnect()
 end
 

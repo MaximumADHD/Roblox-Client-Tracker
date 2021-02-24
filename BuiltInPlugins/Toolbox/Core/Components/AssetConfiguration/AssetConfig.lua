@@ -9,7 +9,6 @@
 local FFlagAssetConfigOverrideFromAnyScreen = game:DefineFastFlag("AssetConfigOverrideFromAnyScreen", false)
 local FFlagCanPublishDefaultAsset = game:DefineFastFlag("CanPublishDefaultAsset", false)
 local FFlagShowAssetConfigReasons2 = game:GetFastFlag("ShowAssetConfigReasons2")
-local FFlagAssetConfigUseItemConfig = game:GetFastFlag("AssetConfigUseItemConfig")
 local FFlagAssetConfigEnforceNonEmptyDescription = game:DefineFastFlag("AssetConfigEnforceNonEmptyDescription", false)
 local FFlagCMSUploadFees = game:GetFastFlag("CMSUploadFees")
 local FFlagAssetConfigFixRoactTypeChecks = game:GetFastFlag("AssetConfigFixRoactTypeChecks")
@@ -54,7 +53,6 @@ local MakeChangeRequest = require(Plugin.Core.Networking.Requests.MakeChangeRequ
 local ConfigTypes = require(Plugin.Core.Types.ConfigTypes)
 
 local Requests = Plugin.Core.Networking.Requests
-local GetAssetConfigDataRequest = require(Requests.GetAssetConfigDataRequest)
 local UploadCatalogItemRequest = require(Requests.UploadCatalogItemRequest)
 local ConfigureCatalogItemRequest = require(Requests.ConfigureCatalogItemRequest)
 local GetAssetDetailsRequest = require(Requests.GetAssetDetailsRequest)
@@ -663,7 +661,7 @@ local function checkCanSave(changeTable, name, description, price, minPrice, max
 	end
 end
 
--- Check if the networkError contains Error for GetAssetConfigDataRequest
+-- Check if the networkError contains Error for GetMarketplaceInfoRequest
 -- And replace the MessageBox's props based on the networkError.
 local function getMessageBoxProps(getAssetFailed, localizedContent, cancelFunc, closeFunc)
 	local messageProps = {
@@ -989,11 +987,7 @@ end
 local function mapDispatchToProps(dispatch)
 	local dispatchToProps = {
 		getAssetConfigData = function(networkInterface, assetId)
-			if FFlagAssetConfigUseItemConfig then
-				dispatch(GetMarketplaceInfoRequest(networkInterface, assetId))
-			else
-				dispatch(GetAssetConfigDataRequest(networkInterface, assetId))
-			end
+			dispatch(GetMarketplaceInfoRequest(networkInterface, assetId))
 		end,
 
 		getAssetDetails = function(networkInterface, assetId, isMarketBuy)

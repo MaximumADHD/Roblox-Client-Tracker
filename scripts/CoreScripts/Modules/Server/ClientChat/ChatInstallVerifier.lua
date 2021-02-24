@@ -16,7 +16,7 @@ end
 
 local LocalPlayer = Players.LocalPlayer
 local PlayerScripts = waitForChildOfClass(LocalPlayer, "PlayerScripts")
-local StarterPlayerScripts = waitForChildOfClass(LocalPlayer, "StarterPlayerScripts")
+local StarterPlayerScripts = waitForChildOfClass(StarterPlayer, "StarterPlayerScripts")
 
 function VerifyScriptExistence()
 	local scriptToVerifyValue = script:WaitForChild("ScriptToVerify")

@@ -20,8 +20,7 @@ local ContextServices = Framework.ContextServices
 local Util = Framework.Util
 local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local UI = Framework.UI
-local Container = UI.Container
-local Decoration = UI.Decoration
+local Pane = UI.Pane
 
 local PanelEntry = require(Plugin.Src.Components.PanelEntry)
 
@@ -41,15 +40,8 @@ local RenderExample = Roact.PureComponent:extend("RenderExample")
 function RenderExample:init()
 	self.containerRef = Roact.createRef()
 	self.state = {
-		extents = Vector2.new(),
 		ExampleComponent = nil,
 	}
-
-	self.updateExtents = function(extents)
-		self:setState({
-			extents = extents,
-		})
-	end
 end
 
 function RenderExample:loadExampleComponent()
@@ -81,7 +73,6 @@ function RenderExample:render()
 	local props = self.props
 	local state = self.state
 
-	local extents = state.extents
 	local ExampleComponent = state.ExampleComponent
 
 	local layoutOrder = props.LayoutOrder
@@ -100,26 +91,16 @@ function RenderExample:render()
 		Header = "Example",
 		LayoutOrder = layoutOrder,
 	}, {
-		Container = Roact.createElement(Container, {
-			Size = UDim2.new(1, 0, 0, extents.Y + (sizes.OuterPadding * 2)),
-			Background = Decoration.RoundBox,
-			BackgroundStyle = "__Example",
+		Pane = Roact.createElement(Pane, {
+			LayoutOrder = 2,
 			Padding = sizes.OuterPadding,
+			Layout = Enum.FillDirection.Vertical,
+			AutomaticSize = Enum.AutomaticSize.Y,
 			[Roact.Ref] = self.containerRef
 		}, {
-			Layout = Roact.createElement("UIListLayout", {
-				SortOrder = Enum.SortOrder.LayoutOrder,
-				FillDirection = Enum.FillDirection.Vertical,
-				HorizontalAlignment = Enum.HorizontalAlignment.Center,
-				VerticalAlignment = Enum.VerticalAlignment.Center,
-				[Roact.Change.AbsoluteContentSize] = function(rbx)
-					self.updateExtents(rbx.AbsoluteContentSize)
-				end,
-			}),
-
 			Example = Roact.createElement(PureWrapper, {
 				Component = ExampleComponent,
-			}),
+			})
 		})
 	})
 end

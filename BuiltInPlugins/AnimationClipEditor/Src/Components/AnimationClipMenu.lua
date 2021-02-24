@@ -26,12 +26,16 @@ local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 local Framework = require(Plugin.Packages.Framework)
 local RigUtils = require(Plugin.Src.Util.RigUtils)
+local Constants = require(Plugin.Src.Util.Constants)
 
 local ContextServices = Framework.ContextServices
 local Localization = ContextServices.Localization
 
+local GetFFlagUseAnimationClipEditorConstantsSeparator = require(Plugin.LuaFlags.GetFFlagUseAnimationClipEditorConstantsSeparator)
+
 local ContextMenu = require(Plugin.Src.Components.ContextMenu)
-local Separator = ContextMenu.Separator
+
+local Separator = GetFFlagUseAnimationClipEditorConstantsSeparator() and Constants.MENU_SEPARATOR or ContextMenu.Separator
 
 local SaveKeyframeSequence = require(Plugin.Src.Thunks.Exporting.SaveKeyframeSequence)
 local ExportKeyframeSequence = require(Plugin.Src.Thunks.Exporting.ExportKeyframeSequence)
@@ -45,8 +49,6 @@ function AnimationClipMenu:makeLoadMenu(localization, current)
 	local onLoadRequested = props.OnLoadRequested
 	local saves = RigUtils.getAnimSaves(props.RootInstance)
 	local items = {
-		Name = localization:getText("Menu", "Load"),
-		CurrentKey = current,
 	}
 
 	if #saves > 0 then
@@ -59,11 +61,19 @@ function AnimationClipMenu:makeLoadMenu(localization, current)
 				end,
 			})
 		end
-	else
-		items.Enabled = false
+		return {
+			Name = localization:getText("Menu", "Load"),
+			CurrentKey = current,
+			Items = items,
+			IsAvailable = true,
+		}
 	end
 
-	return items
+	return {
+		Name = localization:getText("Menu", "Load"),
+		CurrentKey = current,
+		IsAvailable = false,
+	}
 end
 
 function AnimationClipMenu:makeSaveAsMenu(localization, current)
@@ -72,8 +82,6 @@ function AnimationClipMenu:makeSaveAsMenu(localization, current)
 	local onSaveAsRequested = props.OnSaveAsRequested
 	local saves = RigUtils.getAnimSaves(props.RootInstance)
 	local items = {
-		Name = localization:getText("Menu", "SaveAs"),
-		CurrentKey = current,
 		{
 			Name = localization:getText("Menu", "New"),
 			ItemSelected = onSaveAsRequested,
@@ -94,7 +102,11 @@ function AnimationClipMenu:makeSaveAsMenu(localization, current)
 		})
 	end
 
-	return items
+	return {
+		Name = localization:getText("Menu", "SaveAs"),
+		CurrentKey = current,
+		Items = items,
+	}
 end
 
 -- Creates a submenu for selecting an enum item.
@@ -106,10 +118,12 @@ function AnimationClipMenu:makePrioritySubMenu(localization, current)
 	return {
 		Name = localization:getText("Menu", "SetPriority"),
 		CurrentKey = current,
-		{Name = localization:getText("Menu", priority.Core.Name), Key = priority.Core, ItemSelected = setPriority},
-		{Name = localization:getText("Menu", priority.Idle.Name), Key = priority.Idle, ItemSelected = setPriority},
-		{Name = localization:getText("Menu", priority.Movement.Name), Key = priority.Movement, ItemSelected = setPriority},
-		{Name = localization:getText("Menu", priority.Action.Name), Key = priority.Action, ItemSelected = setPriority},
+		Items = {
+			{Name = localization:getText("Menu", priority.Core.Name), Key = priority.Core, ItemSelected = setPriority},
+			{Name = localization:getText("Menu", priority.Idle.Name), Key = priority.Idle, ItemSelected = setPriority},
+			{Name = localization:getText("Menu", priority.Movement.Name), Key = priority.Movement, ItemSelected = setPriority},
+			{Name = localization:getText("Menu", priority.Action.Name), Key = priority.Action, ItemSelected = setPriority},
+		}
 	}
 end
 
@@ -135,14 +149,16 @@ function AnimationClipMenu:makeMenuActions(localization)
 	table.insert(actions, Separator)
 	table.insert(actions, {
 		Name = localization:getText("Menu", "Import"),
-		{
-			Name = localization:getText("Menu", "FromRoblox"),
-			ItemSelected = props.OnImportRequested,
-		},
-		{
-			Name = localization:getText("Menu", "FromFBX"),
-			ItemSelected = props.OnImportFbxRequested,
-		},
+		Items = {
+			{
+				Name = localization:getText("Menu", "FromRoblox"),
+				ItemSelected = props.OnImportRequested,
+			},
+			{
+				Name = localization:getText("Menu", "FromFBX"),
+				ItemSelected = props.OnImportFbxRequested,
+			},
+		}
 	})
 	table.insert(actions, {
 		Name = localization:getText("Menu", "Export"),
@@ -167,6 +183,7 @@ function AnimationClipMenu:render()
 	local localization = self.props.Localization
 	local props = self.props
 	local showMenu = props.ShowMenu
+
 	return showMenu and Roact.createElement(ContextMenu, {
 		Actions = self:makeMenuActions(localization),
 		OnMenuOpened = props.OnMenuOpened,

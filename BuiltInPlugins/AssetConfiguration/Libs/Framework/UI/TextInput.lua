@@ -46,8 +46,6 @@ local StyleModifier = require(Framework.Util.StyleModifier)
 local TextInput = Roact.PureComponent:extend("TextInput")
 Typecheck.wrap(TextInput, script)
 
-local FFlagDevFrameworkTextInputContainer = game:DefineFastFlag("DevFrameworkTextInputContainer", false)
-
 function TextInput:init()
 	self.textBoxRef = Roact.createRef()
 	self.onTextChanged = function(rbx)
@@ -112,20 +110,16 @@ function TextInput:render()
 	local textColor = style.TextColor
 	local placeholderTextColor = style.PlaceholderTextColor
 
-	if FFlagDevFrameworkTextInputContainer then
+	self.mouseEnter = function()
+		self:setState({
+			StyleModifier = StyleModifier.Hover
+		})
+	end
 
-		self.mouseEnter = function()
-			self:setState({
-				StyleModifier = StyleModifier.Hover
-			})
-		end
-
-		self.mouseLeave = function()
-			self:setState({
-				StyleModifier = Roact.None
-			})
-		end
-
+	self.mouseLeave = function()
+		self:setState({
+			StyleModifier = Roact.None
+		})
 	end
 
 	local textBox = Roact.createElement("TextBox", {
@@ -150,40 +144,24 @@ function TextInput:render()
 		[Roact.Event.Focused] = self.props.OnFocusGained,
 		[Roact.Event.FocusLost] = self.onFocusLost,
 		[Roact.Change.Text] = self.onTextChanged,
-		[Roact.Event.MouseEnter] = FFlagDevFrameworkTextInputContainer and self.mouseEnter or nil,
-		[Roact.Event.MouseLeave] = FFlagDevFrameworkTextInputContainer and self.mouseLeave or nil,
+		[Roact.Event.MouseEnter] = self.mouseEnter,
+		[Roact.Event.MouseLeave] = self.mouseLeave,
 	})
 
-	if FFlagDevFrameworkTextInputContainer then
+	local backgroundStyle = style.BackgroundStyle
+	local padding = style.Padding
 
-		local backgroundStyle = style.BackgroundStyle
-		local padding = style.Padding
-
-		return Roact.createElement(Container, {
-			AnchorPoint = props.AnchorPoint,
-			Position = position,
-			Padding = padding,
-			Size = size,
-			Background = RoundBox,
-			BackgroundStyle = backgroundStyle,
-		}, {
-			TextBox = textBox
-		})
-
-	else
-
-		return Roact.createElement("Frame", {
-			Size = size,
-			Position = position,
-			AnchorPoint = props.AnchorPoint,
-			BackgroundTransparency = 1,
-			ClipsDescendants = true,
-			LayoutOrder = layoutOrder,
-		}, {
-			TextBox = textBox
-		})
-
-	end
+	return Roact.createElement(Container, {
+		AnchorPoint = props.AnchorPoint,
+		Position = position,
+		Padding = padding,
+		Size = size,
+		Background = RoundBox,
+		BackgroundStyle = backgroundStyle,
+		LayoutOrder = layoutOrder,
+	}, {
+		TextBox = textBox
+	})
 end
 
 ContextServices.mapToProps(TextInput, {

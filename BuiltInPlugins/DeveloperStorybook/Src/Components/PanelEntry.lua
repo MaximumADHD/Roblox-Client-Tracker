@@ -9,104 +9,60 @@
 		number LayoutOrder: The sort order of this component.
 ]]
 
-local TextService = game:GetService("TextService")
-
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
-local Cryo = require(Plugin.Packages.Cryo)
 
 local Framework = require(Plugin.Packages.Framework)
+
+local Dash = Framework.Dash
+local join = Dash.join
+
 local ContextServices = Framework.ContextServices
-local Util = Framework.Util
-local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local UI = Framework.UI
-local Container = UI.Container
-local Decoration = UI.Decoration
+local Pane = UI.Pane
+local TextLabel = UI.Decoration.TextLabel
 
 local PanelEntry = Roact.PureComponent:extend("InfoPanel")
 
-function PanelEntry:init()
-	self.state = {
-		extents = Vector2.new(),
-	}
-
-	self.updateExtents = function(extents)
-		self:setState({
-			extents = extents,
-		})
-	end
-end
-
 function PanelEntry:render()
 	local props = self.props
-	local state = self.state
-	local text
-	local sizes
 	local style = props.Stylizer
-	if THEME_REFACTOR and style then
-		text = style.Text
-		sizes = style.Sizes
-	else
-		text = props.Theme:get("Text")
-		sizes = props.Theme:get("Sizes")
-	end
+	local text = style.Text
+	local sizes = style.Sizes
 	local header = props.Header
 	local description = props.Description
 	local layoutOrder = props.LayoutOrder
-	local extents = state.extents
-
-	local descriptionSize
-	if description then
-		descriptionSize = TextService:GetTextSize(description, text.Body.Size,
-			Enum.Font.SourceSans, Vector2.new(extents.X, 10000))
-	end
 
 	local children = {
-		Layout = Roact.createElement("UIListLayout", {
-			SortOrder = Enum.SortOrder.LayoutOrder,
-			FillDirection = Enum.FillDirection.Vertical,
-			HorizontalAlignment = Enum.HorizontalAlignment.Center,
-			Padding = UDim.new(0, sizes.InnerPadding),
-			[Roact.Change.AbsoluteContentSize] = function(rbx)
-				self.updateExtents(rbx.AbsoluteContentSize)
-			end,
-		}),
-
-		Name = Roact.createElement("TextLabel", {
-			LayoutOrder = 0,
-			Size = UDim2.new(1, 0, 0, text.Header.Size),
-			Text = header,
-			Font = Enum.Font.SourceSans,
-			TextSize = text.Header.Size,
-			TextColor3 = text.Header.Color,
-			BackgroundTransparency = 1,
-			TextXAlignment = Enum.TextXAlignment.Left,
-		}),
-
-		Description = description and Roact.createElement("TextLabel", {
+		Name = Roact.createElement(TextLabel, {
 			LayoutOrder = 1,
-			Size = UDim2.new(1, 0, 0, descriptionSize.Y),
-			Text = description,
-			Font = Enum.Font.SourceSans,
-			TextSize = text.Body.Size,
-			TextColor3 = text.Body.Color,
-			BackgroundTransparency = 1,
 			TextXAlignment = Enum.TextXAlignment.Left,
+			AutomaticSize = Enum.AutomaticSize.Y,
+			Size = UDim2.new(1, 0, 0, 0),
+			Text = header,
+			TextSize = text.Header.Size,
+			TextColor = text.Header.Color,
+		}),
+		Description = description and Roact.createElement(TextLabel, {
+			LayoutOrder = 2,
+			TextXAlignment = Enum.TextXAlignment.Left,
+			AutomaticSize = Enum.AutomaticSize.Y,
+			Size = UDim2.new(1, 0, 0, 0),
+			Text = description,
 			TextWrapped = true,
 		}),
 	}
-
-	return Roact.createElement(Container, {
-		Background = Decoration.RoundBox,
-		Size = UDim2.new(1, 0, 0, extents.Y + (sizes.OuterPadding * 2)),
+	return Roact.createElement(Pane, {
+		Style = "BorderBox",
 		Padding = sizes.OuterPadding,
+		Layout = Enum.FillDirection.Vertical,
 		LayoutOrder = layoutOrder,
-	}, Cryo.Dictionary.join(children, self.props[Roact.Children] or {}))
+		AutomaticSize = Enum.AutomaticSize.Y,
+	}, join(children, self.props[Roact.Children]))
 end
 
 ContextServices.mapToProps(PanelEntry, {
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	Stylizer = ContextServices.Stylizer
 })
 
 return PanelEntry

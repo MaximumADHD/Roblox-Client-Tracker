@@ -13,8 +13,9 @@ local validateMeshBounds = require(root.validation.validateMeshBounds)
 local validateTextureSize = require(root.validation.validateTextureSize)
 local validateHandleSize = require(root.validation.validateHandleSize)
 local validateProperties = require(root.validation.validateProperties)
+local validateMeshPartAccessory = require(root.validation.validateMeshPartAccessory)
 
-local function validateInternal(isAsync, instances, assetTypeEnum, noModeration)
+local function validateInternal(isAsync, instances, assetTypeEnum, isServer)
 	-- validate that only one instance was selected
 	if #instances == 0 then
 		return false, { "No instances selected" }
@@ -70,7 +71,7 @@ local function validateInternal(isAsync, instances, assetTypeEnum, noModeration)
 		return false, reasons
 	end
 
-	if not noModeration then
+	if not isServer then
 		success, reasons = validateModeration(isAsync, instance)
 		if not success then
 			return false, reasons
@@ -82,15 +83,27 @@ end
 
 local UGCValidation = {}
 
-function UGCValidation.validate(instances, assetTypeEnum, noModeration)
-	local success, reasons = validateInternal(--[[ isAsync = ]] false, instances, assetTypeEnum, noModeration)
+function UGCValidation.validate(instances, assetTypeEnum, isServer)
+	local success, reasons = validateInternal(--[[ isAsync = ]] false, instances, assetTypeEnum, isServer)
 	return success, reasons
 end
 
-function UGCValidation.validateAsync(instances, assetTypeEnum, callback, noModeration)
+function UGCValidation.validateAsync(instances, assetTypeEnum, callback, isServer)
 	coroutine.wrap(function()
-		callback(validateInternal(--[[ isAsync = ]] true, instances, assetTypeEnum, noModeration))
+		callback(validateInternal(--[[ isAsync = ]] true, instances, assetTypeEnum, isServer))
 	end)()
+end
+
+-- assumes specialMeshAccessory has already passed through UGCValidation.validate()
+function UGCValidation.validateMeshPartAssetFormat(specialMeshAccessory, meshPartAccessory)
+	local success, reasons
+
+	success, reasons = validateMeshPartAccessory(specialMeshAccessory, meshPartAccessory)
+	if not success then
+		return false, reasons
+	end
+
+	return true
 end
 
 return UGCValidation
