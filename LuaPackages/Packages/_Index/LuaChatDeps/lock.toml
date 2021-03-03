@@ -8,5 +8,5 @@ dependencies = [
     "InfiniteScroller roblox/infinite-scroller 0.7.3 url+https://github.com/roblox/infinite-scroller",
     "InfiniteScroller71 roblox/infinite-scroller 7286a922 git+https://github.com/roblox/infinite-scroller#v0.7.1",
     "RoduxNetworking rodux-networking 8902a6aa git+https://github.com/roblox/rodux-networking#v1.0.2",
-    "UIBlox UIBlox 4e7e257e git+https://github.com/roblox/uiblox#master",
+    "UIBlox UIBlox 791a7e53 git+https://github.com/roblox/uiblox#master",
 ]
