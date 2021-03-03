@@ -28772,6 +28772,18 @@
         },
         {
             "Members": [
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "IncrementalPatchBuilder",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotCreatable",
+                "Service",
+                "NotReplicated"
+            ]
+        },
+        {
+            "Members": [
                 {
                     "Category": "Data",
                     "MemberType": "Property",
@@ -51825,11 +51837,11 @@
                         "Write": "LocalUserSecurity"
                     },
                     "Serialization": {
-                        "CanLoad": true,
+                        "CanLoad": false,
                         "CanSave": false
                     },
                     "Tags": [
-                        "NotReplicated"
+                        "Hidden"
                     ],
                     "ThreadSafety": "ReadOnly",
                     "ValueType": {
@@ -58592,27 +58604,6 @@
                     "ValueType": {
                         "Category": "DataType",
                         "Name": "Color3"
-                    }
-                },
-                {
-                    "Category": "General",
-                    "MemberType": "Property",
-                    "Name": "Language",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "Tags": [
-                        "Deprecated"
-                    ],
-                    "ThreadSafety": "ReadOnly",
-                    "ValueType": {
-                        "Category": "Enum",
-                        "Name": "LanguagePreference"
                     }
                 },
                 {
@@ -69778,8 +69769,11 @@
                     },
                     "Serialization": {
                         "CanLoad": true,
-                        "CanSave": true
+                        "CanSave": false
                     },
+                    "Tags": [
+                        "NotReplicated"
+                    ],
                     "ThreadSafety": "ReadOnly",
                     "ValueType": {
                         "Category": "Primitive",
@@ -74342,27 +74336,6 @@
                 }
             ],
             "Name": "Language"
-        },
-        {
-            "Items": [
-                {
-                    "Name": "SystemDefault",
-                    "Value": 0
-                },
-                {
-                    "Name": "English",
-                    "Value": 1
-                },
-                {
-                    "Name": "SimplifiedChinese",
-                    "Value": 2
-                },
-                {
-                    "Name": "Korean",
-                    "Value": 3
-                }
-            ],
-            "Name": "LanguagePreference"
         },
         {
             "Items": [

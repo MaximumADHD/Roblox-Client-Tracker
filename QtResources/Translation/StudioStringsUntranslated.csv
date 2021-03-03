@@ -860,6 +860,7 @@ Studio.App.MainWindow.AmongRegisteredTrademarks2,Replacement of Studio.App.MainW
 Studio.App.MainWindow.ArgumentsBreak,Main Window,Arguments:<br>,Arguments:<br>
 Studio.App.MainWindow.BreakPathSpace,Main Window,<br>Path: ,<br>Path: 
 Studio.App.MainWindow.BuildTypeSpace1,Main Window,Build Type: %1,Build Type: %1
+Studio.App.MainWindow.ClearTerrain,Main Window,The Terrain object persists in your workspace and can’t be removed. Deleting it will clear existing terrain.,The Terrain object persists in your workspace and can’t be removed. Deleting it will clear existing terrain.
 Studio.App.MainWindow.CloseFile,Main Window,Close File,Close File
 Studio.App.MainWindow.CloseFileStatusTip,Main Window,Close the open file,Close the open file
 Studio.App.MainWindow.CloseStudio,Main Window,Close Studio,Close Studio
@@ -2550,8 +2551,6 @@ Studio.App.RobloxTextOutputWidget.SelectAll,,Select All,Select All
 Studio.App.RobloxTextOutputWidget.TableOutputBetaFeatureDescription,,"Output gets an upgrade — expressive UI, filter/search, and copy/paste becomes easier.","Output gets an upgrade — expressive UI, filter/search, and copy/paste becomes easier."
 Studio.App.RobloxTextOutputWidget.TableOutputBetaFeatureTitle,,Expressive Output Window,Expressive Output Window
 Studio.App.RobloxTextOutputWidget.Timestamp,,Timestamp,Timestamp
-Studio.App.RobloxTutorials.CopyText,,Build amazing games with Roblox Studio. No experience necessary!,Build amazing games with Roblox Studio. No experience necessary!
-Studio.App.RobloxTutorials.LearnNow,,Learn now,Learn now
 Studio.App.RobloxViewStudio.ExitUiLayer,,Exit UI Layer,Exit UI Layer
 Studio.App.RobloxViewStudio.SelectUILayer1,,"Select UI Layer ""%1""","Select UI Layer ""%1"""
 Studio.App.RobloxViewStudio.SelectUiLayer,,Select UI Layer,Select UI Layer

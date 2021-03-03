@@ -32,8 +32,6 @@ Promise = { git = "https://github.com/Roblox/lua-promise" }
 Result = { git = "https://github.com/Roblox/lua-result" }
 tutils = { git = "https://github.com/Roblox/tutils" }
 
-PurchasePrompt = { git = "https://github.com/Roblox/PurchasePromptScript-Roact", rev = "master" }
-
 InGameMenuDependencies = { git = "https://github.com/Roblox/in-game-menu-dependencies", rev = "master" }
 
 RoactGamepad = "github.com/roblox/roact-gamepad@0.4.6"

@@ -47,6 +47,8 @@ Studio.LocalizationTools.UploadDialogContent.ConfirmButton,Confirm
 Studio.LocalizationTools.UploadDialogContent.ConfirmUploadDialogTitle,Comfirm Upload
 Studio.LocalizationTools.UploadDialogContent.DeleteEntriesPretext,Delete entries:
 Studio.LocalizationTools.UploadDialogContent.DeleteTranslationsPretext,Delete translations:
+Studio.LocalizationTools.UploadDialogContent.InvalidIdentifier,Entries with invalid identifier:
+Studio.LocalizationTools.UploadDialogContent.InvalidTranslation,Invalid translations:
 Studio.LocalizationTools.UploadDialogContent.PatchContainsLabel,This patch contains: 
 Studio.LocalizationTools.UploadDialogContent.PatchEmptyMessage,Patch empty. Upload anyway?
 Studio.LocalizationTools.UploadDialogContent.PatchInvalidLanguagesLabel,Invalid columns:
@@ -54,6 +56,7 @@ Studio.LocalizationTools.UploadDialogContent.PatchLanguagesLabel,Languages:
 Studio.LocalizationTools.UploadDialogContent.PatchTotalRowsLabel,Total rows:
 Studio.LocalizationTools.UploadDialogContent.PatchTotalTranslationsLabel,Total translations:
 Studio.LocalizationTools.UploadDialogContent.PatchWillLabel,This patch will:
+Studio.LocalizationTools.UploadDialogContent.UploadCompleteWithInvalidEntries,Upload complete with invalid entries: 
 Studio.LocalizationTools.UploadDialogContent.UploadPatchMessage,Upload patch?
 Studio.LocalizationTools.UploadTable.GetSupportedLanguagesFailedMessage,Localization Tools failed to request supported langauges.
 Studio.LocalizationTools.UploadTable.PatchCloudTableFailed,Localization Tools failed to upload cloud table.

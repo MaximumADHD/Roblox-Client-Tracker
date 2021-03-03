@@ -1554,6 +1554,7 @@ Class IXPService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void IXPService:RegisterUserLayers(Variant userLayers) {LocalUserSecurity}
 	Event IXPService.OnBrowserTrackerLayerLoadingStatusChanged(Enum<IXPLoadingStatus> status) {LocalUserSecurity}
 	Event IXPService.OnUserLayerLoadingStatusChanged(Enum<IXPLoadingStatus> status) {LocalUserSecurity}
+Class IncrementalPatchBuilder : Instance [NotCreatable] [Service] [NotReplicated]
 Class InputObject : Instance [NotCreatable]
 	Property Vector3 InputObject.Delta
 	Property Enum<KeyCode> InputObject.KeyCode
@@ -2743,7 +2744,7 @@ Class RunService : Instance [NotCreatable] [Service] [NotReplicated]
 	Event RunService.Stepped(double time, double deltaTime) [Deprecated]
 Class RuntimeScriptService : Instance [NotCreatable] [Service] [NotReplicated]
 Class ScriptContext : Instance [NotCreatable] [Service] [NotReplicated]
-	Property bool ScriptContext.ScriptsDisabled {LocalUserSecurity} [<📁> LoadOnly] [NotReplicated]
+	Property bool ScriptContext.ScriptsDisabled {LocalUserSecurity} [Hidden]
 	Function void ScriptContext:AddCoreScriptLocal(string name, Instance parent) {RobloxScriptSecurity}
 	Function Array ScriptContext:GetCoverageStats() {RobloxScriptSecurity}
 	Function void ScriptContext:SetTimeout(double seconds) {PluginSecurity}
@@ -3090,7 +3091,6 @@ Class Studio : Instance [NotCreatable] [Service] [NotReplicated]
 	Property bool Studio.Always Save Script Changes
 	Property Enum<ListDisplayMode> Studio.Basic Objects Display Mode
 	Property string Studio.DisplayLanguage {RobloxScriptSecurity}
-	Property Enum<LanguagePreference> Studio.Language [Deprecated]
 	Property int Studio.Render Throttle Percentage
 	Property Instance Studio.Theme
 	Property Enum<UITheme> Studio.UI Theme [Hidden] [ReadOnly] [Deprecated]
@@ -3689,7 +3689,7 @@ Class VirtualUser : Instance [NotCreatable] [Service] [NotReplicated]
 Class Visit : Instance [NotCreatable] [Service] [NotReplicated]
 Class WeldConstraint : Instance
 	Property bool WeldConstraint.Active [ReadOnly]
-	Property bool WeldConstraint.Enabled
+	Property bool WeldConstraint.Enabled [<📁> LoadOnly] [NotReplicated]
 	Property Class<BasePart> WeldConstraint.Part0 [<📁> LoadOnly] [NotReplicated]
 	Property Class<BasePart> WeldConstraint.Part1 [<📁> LoadOnly] [NotReplicated]
 Enum ABTestLoadingStatus
@@ -4760,11 +4760,6 @@ Enum KeywordFilterType
 	EnumItem KeywordFilterType.Exclude : 1
 Enum Language
 	EnumItem Language.Default : 0
-Enum LanguagePreference
-	EnumItem LanguagePreference.SystemDefault : 0
-	EnumItem LanguagePreference.English : 1
-	EnumItem LanguagePreference.SimplifiedChinese : 2
-	EnumItem LanguagePreference.Korean : 3
 Enum LeftRight
 	EnumItem LeftRight.Left : 0
 	EnumItem LeftRight.Center : 1
