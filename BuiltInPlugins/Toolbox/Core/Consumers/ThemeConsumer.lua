@@ -9,8 +9,6 @@ local ContextGetter = require(Plugin.Core.Util.ContextGetter)
 
 local getTheme = ContextGetter.getTheme
 
-local FFlagToolboxThemeConsumerPreventDuplicateDisconnection = game:DefineFastFlag("ToolboxThemeConsumerPreventDuplicateDisconnection", false)
-
 local ThemeConsumer = Roact.PureComponent:extend("ThemeConsumer")
 
 function ThemeConsumer:init()
@@ -37,9 +35,7 @@ end
 function ThemeConsumer:willUnmount()
 	if self.disconnectThemeListener then
 		self.disconnectThemeListener()
-		if FFlagToolboxThemeConsumerPreventDuplicateDisconnection then
-			self.disconnectThemeListener = nil
-		end
+		self.disconnectThemeListener = nil
 	end
 end
 

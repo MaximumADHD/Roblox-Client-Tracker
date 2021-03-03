@@ -44,4 +44,13 @@ return {
 	MinimizeDistance = 40,
 	-- The max distance (from the camera) that bubbles are shown at
 	MaxDistance = 100,
+
+	-- This is a table where the keys are user IDs and the values are settings tables.
+	-- For a given user ID, the associated settings table will override the settings defined above.
+	-- Example: UserSpecificSettings = {[12345] = {BackgroundColor3 = Color3.fromRGB(255, 0, 0)}}
+	-- This will make only the player with user ID 12345 have his bubbles with a red background.
+	-- For NPCs (parts that "talk" using the Chat:Chat(part, message) function), use the full name of the part
+	-- that you passed as the first argument to Chat:Chat instead of the user ID. Example:
+	-- UserSpecificSettings = {[workspace.NPC.Head:GetFullName()] = {BackgroundColor3 = Color3.fromRGB(255, 0, 0)}}
+	UserSpecificSettings = {}
 }

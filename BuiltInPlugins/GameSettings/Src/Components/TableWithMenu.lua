@@ -13,6 +13,9 @@
         function OnItemClicked(item) = A callback when the user selects an item in the dropdown.
 			Returns the item as it was defined in the Items array.
         int LayoutOrder = Order of element in layout
+    Optional Props:
+        function MenuItemsFilterFunc(row, menuItems) = A callback that filters the menu items based on row data. 
+                                                       No return value - just remove unecessary items from menuItems. Don't modify row
 ]]
 
 local Plugin = script.Parent.Parent.Parent
@@ -31,6 +34,7 @@ local TableWithMenuItem = require(Plugin.Src.Components.TableWithMenuItem)
 local TableWithMenu = Roact.PureComponent:extend("TableWithMenu")
 
 local FFlagFixRadioButtonSeAndTableHeadertForTesting = game:getFastFlag("FixRadioButtonSeAndTableHeadertForTesting")
+local FFlagStudioDevProductCopyIdToClipboard = game:getFastFlag("StudioDevProductCopyIdToClipboard")
 
 function TableWithMenu:createHeaderLabels(theme, headers)
     local headerLabels = {
@@ -70,7 +74,7 @@ function TableWithMenu:createHeaderLabels(theme, headers)
     return headerLabels
 end
 
-function TableWithMenu:createDataLabels(data, menuItems, onItemClicked)
+function TableWithMenu:createDataLabels(data, menuItems, onItemClicked, menuItemsFilterFunc)
     local dataRows = {
         ListLayout = Roact.createElement("UIListLayout", {
             FillDirection = Enum.FillDirection.Vertical,
@@ -82,9 +86,20 @@ function TableWithMenu:createDataLabels(data, menuItems, onItemClicked)
         })
     }
     for id, rowData in pairs(data) do
+        local filteredMenuItems
+        
+        if menuItemsFilterFunc then
+            assert(FFlagStudioDevProductCopyIdToClipboard)
+            
+            filteredMenuItems = {unpack(menuItems)}
+            menuItemsFilterFunc(rowData, filteredMenuItems)
+        else
+            filteredMenuItems = menuItems
+        end
+
         local rowComponent = Roact.createElement(TableWithMenuItem, {
             RowData = rowData.row,
-            MenuItems = menuItems,
+            MenuItems = filteredMenuItems,
             OnItemClicked = function(key)
                 onItemClicked(key, id)
             end,
@@ -110,9 +125,10 @@ function TableWithMenu:render()
     local onItemClicked = props.OnItemClicked
     local layoutOrder = props.LayoutOrder
     local nextPageFunc = props.NextPageFunc
+    local MenuItemsFilterFunc = FFlagStudioDevProductCopyIdToClipboard and props.MenuItemsFilterFunc or nil
 
     local headerContent = self:createHeaderLabels(theme, headers)
-    local dataContent = self:createDataLabels(data, menuItems, onItemClicked)
+    local dataContent = self:createDataLabels(data, menuItems, onItemClicked, MenuItemsFilterFunc)
 
     return Roact.createElement("Frame", {
         Size = UDim2.new(1, 0, 0, theme.table.height),

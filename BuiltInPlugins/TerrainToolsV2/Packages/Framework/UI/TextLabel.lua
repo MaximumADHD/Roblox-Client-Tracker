@@ -48,7 +48,6 @@ local prioritize = Util.prioritize
 local FitTextLabel = Util.FitFrame.FitTextLabel
 local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 
-local FFlagDevFrameworkClampTextLabelMaxWidth = game:DefineFastFlag("DevFrameworkClampTextLabelMaxWidth", false)
 local FFlagEnableDevFrameworkAutomaticSize = game:GetFastFlag("EnableDevFrameworkAutomaticSize")
 
 local TextLabel = Roact.PureComponent:extend("TextLabel")
@@ -103,12 +102,8 @@ function TextLabel:render()
 
 	if fitWidth then
 		local maximumWidth
-		if FFlagDevFrameworkClampTextLabelMaxWidth then
-			if self.props.FitMaxWidth ~= nil then
-				maximumWidth = math.max(0, self.props.FitMaxWidth)
-			end
-		else
-			maximumWidth = self.props.FitMaxWidth
+		if self.props.FitMaxWidth ~= nil then
+			maximumWidth = math.max(0, self.props.FitMaxWidth)
 		end
 
 		return Roact.createElement(

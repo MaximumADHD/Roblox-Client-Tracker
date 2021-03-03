@@ -9,9 +9,7 @@ local CorePackages = game:GetService("CorePackages")
 
 local Otter = require(CorePackages.Packages.Otter)
 local Roact = require(CorePackages.Packages.Roact)
-local RoactRodux = require(CorePackages.Packages.RoactRodux)
 local t = require(CorePackages.Packages.t)
-local Constants = require(script.Parent.Parent.Constants)
 local Types = require(script.Parent.Parent.Types)
 
 local ChatBubbleDistant = Roact.Component:extend("ChatBubbleDistannt")
@@ -26,7 +24,6 @@ ChatBubbleDistant.validateProps = t.strictInterface({
 	height = t.optional(t.number),
 	fadingOut = t.optional(t.boolean),
 	onFadeOut = t.optional(t.callback),
-
 	chatSettings = Types.IChatSettings,
 })
 
@@ -146,11 +143,5 @@ function ChatBubbleDistant:willUnmount()
 	self.widthMotor:destroy()
 end
 
-local function mapStateToProps(state)
-	return {
-		chatSettings = state.chatSettings,
-	}
-end
-
-return RoactRodux.connect(mapStateToProps)(ChatBubbleDistant)
+return ChatBubbleDistant
 

@@ -5,6 +5,7 @@
 game:DefineFastFlag("TerrainToolsReplaceUseModeSelector", false)
 
 local FFlagTerrainToolsReplaceUseModeSelector = game:GetFastFlag("TerrainToolsReplaceUseModeSelector")
+local FFlagTerrainToolsReplaceBoxHotkey = game:GetFastFlag("TerrainToolsReplaceBoxHotkey")
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
@@ -38,6 +39,7 @@ local MapSettingsWithPreview = require(ToolParts.MapSettingsWithPreview)
 local MaterialSelector = require(ToolParts.MaterialSelector)
 local ProgressDialog = require(Plugin.Src.Components.ProgressDialog)
 local ModeSelector = require(ToolParts.ModeSelector)
+local MouseListener = require(ToolParts.MouseListener)
 
 local BaseBrush = require(Plugin.Src.Components.Tools.BaseBrush)
 
@@ -186,6 +188,11 @@ function Replace:render()
 				dispatchSetTargetMaterial = self.props.dispatchSetTargetMaterial,
 				disablePlaneLock = self.props.Source == Enum.Material.Air,
 				disableIgnoreWater = self.props.Source == Enum.Material.Water,
+			}),
+
+			MouseListener = (FFlagTerrainToolsReplaceBoxHotkey and self.props.Mode == ReplaceMode.Box) and Roact.createElement(MouseListener, {
+				dispatchSetSourceMaterial = self.props.dispatchSetSourceMaterial,
+				dispatchSetTargetMaterial = self.props.dispatchSetTargetMaterial,
 			}),
 
 			MapSettingsWithPreview = self.props.Mode == ReplaceMode.Box and Roact.createElement(MapSettingsWithPreview, {

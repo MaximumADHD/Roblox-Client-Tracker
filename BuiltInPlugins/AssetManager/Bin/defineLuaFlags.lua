@@ -21,4 +21,5 @@ game:DefineFastFlag("StudioAssetManagerFixMeshContextMenu", false)
 game:DefineFastFlag("StudioAssetManagerFixAssetPreviewRequest", false)
 game:DefineFastFlag("StudioAssetManagerFixRecentAssetInsert", false)
 game:DefineFastFlag("StudioAssetManagerNewFolderIcons", false)
+game:DefineFastFlag("StudioAssetManagerHideAudioForLuobu", false)
 return nil

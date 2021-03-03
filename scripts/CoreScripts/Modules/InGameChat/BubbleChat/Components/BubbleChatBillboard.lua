@@ -17,6 +17,7 @@ local BubbleChatList = require(script.Parent.BubbleChatList)
 local ChatBubbleDistant = require(script.Parent.ChatBubbleDistant)
 local Types = require(script.Parent.Parent.Types)
 local Constants = require(script.Parent.Parent.Constants)
+local getSettingsForMessage = require(script.Parent.Parent.Helpers.getSettingsForMessage)
 
 local BubbleChatBillboard = Roact.PureComponent:extend("BubbleChatBillboard")
 
@@ -219,7 +220,7 @@ end
 function BubbleChatBillboard:render()
 	local adorneePart = self:getAdorneePart()
 	local isLocalPlayer = self.props.userId == tostring(Players.LocalPlayer.UserId)
-	local settings = self.props.chatSettings
+	local chatSettings = self.state.savedChatSettings
 
 	if not adorneePart then
 		return
@@ -240,19 +241,21 @@ function BubbleChatBillboard:render()
 		-- For other players, increase vertical offset by 1 to prevent overlaps with the name display
 		-- For the local player, increase Z offset to prevent the character from overlapping his bubbles when jumping/emoting
 		-- This behavior is the same as the old bubble chat
-		StudsOffset = Vector3.new(0, (isLocalPlayer and 0 or 1) + settings.VerticalStudsOffset, isLocalPlayer and 2 or 0.1),
+		StudsOffset = Vector3.new(0, (isLocalPlayer and 0 or 1) + chatSettings.VerticalStudsOffset, isLocalPlayer and 2 or 0.1),
 		StudsOffsetWorldSpace = self.offset,
 		ResetOnSpawn = false,
 	}, {
 		DistantBubble = not self.state.isInsideMaximizeDistance and Roact.createElement(ChatBubbleDistant, {
 			fadingOut = not self.props.messageIds or #self.props.messageIds == 0,
 			onFadeOut = self.onLastBubbleFadeOut,
+			chatSettings = chatSettings,
 		}),
 
 		BubbleChatList = self.state.isInsideMaximizeDistance and Roact.createElement(BubbleChatList, {
 			userId = self.props.userId,
 			isVisible = self.state.isInsideMaximizeDistance,
 			onLastBubbleFadeOut = self.onLastBubbleFadeOut,
+			chatSettings = chatSettings,
 		})
 	})
 
@@ -266,13 +269,23 @@ function BubbleChatBillboard:didUpdate()
 	end
 end
 
+function BubbleChatBillboard.getDerivedStateFromProps(nextProps)
+	-- Need to save the latest chat settings to the state because when the billboard does the fade out animation,
+	-- there is no message (nextProps.lastMessage == nil), so no way to get the user ID, which is needed to get
+	-- user specific settings.
+	return {
+		savedChatSettings = nextProps.lastMessage and nextProps.chatSettings
+	}
+end
+
 local function mapStateToProps(state, props)
 	local messageIds = state.userMessages[props.userId]
 	local lastMessageId = messageIds and #messageIds >= 1 and messageIds[#messageIds]
+	local lastMessage = lastMessageId and state.messages[lastMessageId]
 	return {
-		chatSettings = state.chatSettings,
+		chatSettings = getSettingsForMessage(state.chatSettings, lastMessage),
 		messageIds = messageIds,
-		lastMessage = lastMessageId and state.messages[lastMessageId]
+		lastMessage = lastMessage
 	}
 end
 

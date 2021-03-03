@@ -64,13 +64,13 @@ function RobuxFeeBase:render()
         Vector2.new(theme.robuxFeeBase.subText.width, math.huge))
 
     local feeVal = math.max(minimumFee, math.ceil(priceVal * taxRate))
-    local feeAmount = string.format("%.f", tostring(feeVal))
+    local feeAmount = string.format("%.f", feeVal)
 
     local earnText = localization:getText("Monetization", "EarnLabel")
     local earnTextSize = GetTextSize(earnText, theme.fontStyle.Normal.TextSize, theme.fontStyle.Normal.Font)
 
     local earnVal = (priceVal - feeVal > 0) and priceVal - feeVal or 0
-    local earnAmount = string.format("%.f", tostring(earnVal))
+    local earnAmount = string.format("%.f", earnVal)
 
     local subTextSize
     if subText then

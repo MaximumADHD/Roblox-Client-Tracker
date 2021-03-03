@@ -50,4 +50,35 @@ return function()
 		expect(state.BubbleDuration).to.equal(ChatSettings.BubbleDuration)
 		expect(state.MaxDistance).to.never.equal(ChatSettings.MaxDistance)
 	end)
+
+	it("should fill missing keys with their defaults in provided user specific settings", function()
+		local userSettings = {
+				["1234"] = {
+					BubbleDuration = ChatSettings.BubbleDuration * 2
+				},
+				["5678"] = {
+					MinimizeDistance = ChatSettings.MinimizeDistance * 2,
+					MaxDistance = ChatSettings.MaxDistance * 2
+				}
+		}
+
+		local store = Rodux.Store.new(chatSettings)
+		store:dispatch(UpdateChatSettings({
+			UserSpecificSettings = userSettings
+		}))
+		local state = store:getState()
+		local newUserSettings = state.UserSpecificSettings
+
+		expect(newUserSettings["1234"]).to.be.ok()
+		expect(newUserSettings["1234"].BubbleDuration).to.equal(userSettings["1234"].BubbleDuration)
+		expect(newUserSettings["1234"].MinimizeDistance).to.equal(ChatSettings.MinimizeDistance)
+		expect(newUserSettings["1234"].MaxDistance).to.equal(ChatSettings.MaxDistance)
+		expect(newUserSettings["1234"].Transparency).to.equal(ChatSettings.Transparency)
+
+		expect(newUserSettings["5678"]).to.be.ok()
+		expect(newUserSettings["5678"].BubbleDuration).to.equal(ChatSettings.BubbleDuration)
+		expect(newUserSettings["5678"].MinimizeDistance).to.equal(userSettings["5678"].MinimizeDistance)
+		expect(newUserSettings["5678"].MaxDistance).to.equal(userSettings["5678"].MaxDistance)
+		expect(newUserSettings["5678"].Transparency).to.equal(ChatSettings.Transparency)
+	end)
 end

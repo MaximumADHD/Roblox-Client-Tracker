@@ -30,6 +30,7 @@ function FrameworkStyles.new()
 		LinkText = newDefaults(),
 		LoadingBar = newDefaults(),
 		LoadingIndicator = newDefaults(),
+		Pane = newDefaults(),
 		RadioButton = newDefaults(),
 		RadioButtonList = newDefaults(),
 		RangeSlider = newDefaults(),

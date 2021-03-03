@@ -29,7 +29,7 @@ Types.IMessageData = t.interface({
 -- Type for the settings object. Keep backward compatibility in mind when modifying
 -- this: any change might break calls to Chat:SetBubbleChatSettings (see type
 -- assertion in InGameChat.lua)
-Types.IChatSettings = t.strictInterface({
+local chatSettings = {
 	BubbleDuration = t.optional(t.number),
 	MaxBubbles = t.optional(t.number),
 
@@ -49,6 +49,15 @@ Types.IChatSettings = t.strictInterface({
 
 	MinimizeDistance = t.optional(t.number),
 	MaxDistance = t.optional(t.number),
-})
+}
+
+-- chatSettings.UserSpecificSettings is a table that associates userIds (as strings) to a settings table
+local settings = {}
+for key, value in pairs(chatSettings) do
+	settings[key] = value
+end
+chatSettings.UserSpecificSettings = t.optional(t.map(t.string, t.strictInterface(settings)))
+
+Types.IChatSettings = t.strictInterface(chatSettings)
 
 return Types

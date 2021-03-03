@@ -1,8 +1,8 @@
 local Plugin = script.Parent.Parent.Parent
 local Rodux = require(Plugin.Packages.Rodux)
 
-local ExampleReducer = require(script.Parent.ExampleReducer)
+local TestCache = require(script.Parent.TestCache)
 
 return Rodux.combineReducers({
-	ExampleReducer = ExampleReducer,
+	TestCache = TestCache,
 })

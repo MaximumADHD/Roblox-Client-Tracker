@@ -32,7 +32,6 @@
 ]]
 
 local FFlagDevFrameworkDestroyAssetPreviewVideo = game:DefineFastFlag("DevFrameworkDestroyAssetPreviewVideo", false)
-local FFlagAssetPreviewDescriptionFallback = game:GetFastFlag("AssetPreviewDescriptionFallback")
 
 local TextService = game:GetService("TextService")
 
@@ -268,12 +267,7 @@ function AssetPreview:render()
 	local assetData = props.AssetData
 	local assetId = assetData.Asset.Id
 	local assetGenres = assetData.Asset.AssetGenres
-	local assetDescription
-	if FFlagAssetPreviewDescriptionFallback then
-		assetDescription = assetData.Asset.Description or ""
-	else
-		assetDescription = assetData.Asset.Description
-	end
+	local assetDescription = assetData.Asset.Description or ""
 
 	local localization = props.Localization
 

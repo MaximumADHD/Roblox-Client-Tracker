@@ -10,6 +10,8 @@ local PivotImplementation = require(DraggerFramework.Utility.PivotImplementation
 
 local EngineFeatureEditPivot = require(DraggerFramework.Flags.getEngineFeatureEditPivot)()
 
+local getFFlagFixRotatedBoneScaling = require(DraggerFramework.Flags.getFFlagFixRotatedBoneScaling)
+
 local ExtrudeHandlesImplementation = {}
 ExtrudeHandlesImplementation.__index = ExtrudeHandlesImplementation
 
@@ -410,9 +412,15 @@ function ExtrudeHandlesImplementation:_applyFixup(scaledBy)
 	-- their CFrames updated first for things to work out as intended, as
 	-- we're assigning WorldCFrame, which has a dependency on the CFrames
 	-- of the ancestor attachments.
+	local FFlagFixRotatedBoneScaling = getFFlagFixRotatedBoneScaling()
 	for _, data in ipairs(self._fixupNontrivialAttachments) do
-		data.Attachment.WorldCFrame = 
-			(data.RelativeTo.CFrame * data.LocalRotation) + data.LocalPosition * scaledBy
+		if FFlagFixRotatedBoneScaling then
+			data.Attachment.WorldCFrame =
+				data.RelativeTo.CFrame * CFrame.new(data.LocalPosition * scaledBy) * data.LocalRotation
+		else
+			data.Attachment.WorldCFrame = 
+				(data.RelativeTo.CFrame * data.LocalRotation) + data.LocalPosition * scaledBy
+		end
 	end
 	
 	for offsetItem, offset in pairs(self._fixupOffsets) do

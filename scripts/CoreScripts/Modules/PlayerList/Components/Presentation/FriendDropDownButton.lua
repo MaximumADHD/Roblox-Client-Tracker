@@ -57,7 +57,6 @@ function FriendDropDownButton:render()
 	local playerRelationship = self.props.playerRelationship
 	local selectedPlayer = self.props.selectedPlayer
 	local onActivated
-
 	if playerRelationship.friendStatus == Enum.FriendStatus.Friend and not self.state.unfriendConfirm then
 		onActivated = function()
 			self:setState({

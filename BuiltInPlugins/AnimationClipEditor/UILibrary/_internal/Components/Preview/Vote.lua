@@ -257,7 +257,7 @@ function Vote:render()
 					BackgroundTransparency = 1,
 					BorderSizePixel = 0,
 
-					Text = ("%d VOTES"):format(tostring(totalVotes)),
+					Text = ("%d VOTES"):format(totalVotes),
 					TextSize = theme.assetPreview.textSize,
 					Font = theme.assetPreview.font,
 					TextColor3 = voteTheme.subTextColor,

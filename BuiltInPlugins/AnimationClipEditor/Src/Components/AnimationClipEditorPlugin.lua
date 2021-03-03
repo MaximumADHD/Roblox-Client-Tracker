@@ -6,6 +6,7 @@
 ]]
 
 game:DefineFastFlag("StopAnimationEditorWhileGameRunning", false)
+game:DefineFastFlag("AnimationEditorDisableOnClosing", false)
 
 local Selection = game:GetService("Selection")
 local RunService = game:GetService("RunService")
@@ -157,11 +158,15 @@ function AnimationClipEditorPlugin:init(initialProps)
 	self.mouse = self.props.plugin:GetMouse()
 
 	self.theme = Theme.new()
-
 	self.closeWidget = function()
-		self:setState({
-			enabled = enabled,
-		})
+		if game:GetFastFlag("AnimationEditorDisableOnClosing") then
+			self:setState({
+				enabled = false,
+			})
+		else
+			self:setState({
+			})
+		end
 	end
 end
 

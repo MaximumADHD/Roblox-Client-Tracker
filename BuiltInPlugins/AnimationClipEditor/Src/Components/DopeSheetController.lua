@@ -323,7 +323,7 @@ function DopeSheetController:handleTimelineInputBegan(input, keysHeld)
 			-- Start multi selecting on ctrl hold
 			self.isMultiSelecting = true
 		elseif Input.isDeleteKey(input.KeyCode) then
-			self.props.DeleteSelectedKeyframes(props.Analytics)
+			self.props.DeleteSelectedKeyframes(self.props.Analytics)
 		end
 	elseif input.UserInputType == Enum.UserInputType.MouseButton1 then
 		self.props.DeselectAllKeyframes()
