@@ -49,6 +49,7 @@ Studio.GameSettings.AccessPermissions.EditLabel,Edit,Edit
 Studio.GameSettings.General.ButtonEdit,Edit,Edit
 Studio.GameSettings.General.ButtonView,View,View
 Studio.GameSettings.General.ButtonShutdownAllServers,Shutdown,Shutdown
+Studio.GameSettings.General.GenreMilitary,Military,Military
 Studio.GameSettings.General.GameIconTutorial,New to making icons? Check out the Icon Tutorial.,New to making icons? Check out the Icon Tutorial.
 Studio.GameSettings.General.GameIconHint,Acceptable files: {fileTypes}{newline}Recommended resolution: 512 x 512,Acceptable files: {fileTypes}{newline}Recommended resolution: 512 x 512
 Studio.GameSettings.General.SettingsFailedToLoad,Failed to load settings for page,Failed to load settings for page
@@ -58,7 +59,6 @@ Studio.GameSettings.General.SettingsInsufficientPermission,Only the game owner c
 Studio.GameSettings.General.GenreAll,All,All
 Studio.GameSettings.General.CategoryAvatar,Avatar,Avatar
 Studio.GameSettings.General.CategorySecurity,Security,Security
-Studio.GameSettings.General.ThumbnailsLimitLuobu,You can set up to {maxThumbnails:int} screenshots for a game.,You can set up to {maxThumbnails:int} screenshots for a game.
 Studio.GameSettings.General.CategoryWorld,World,World
 Studio.GameSettings.General.CategoryOptions,Options,Options
 Studio.GameSettings.General.LocalizationSettingsPublishMessageLinkText,Publishing a game is required,Publishing a game is required
@@ -112,7 +112,6 @@ Studio.GameSettings.General.GenreBuilding,Building,Building
 Studio.GameSettings.General.PublishIsRequiredHyperlink,Publishing the game to Roblox,Publishing the game to Roblox
 Studio.GameSettings.General.PublishingHintLink,Publishing the game to Roblox,Publishing the game to Roblox
 Studio.GameSettings.General.GenreComedy,Comedy,Comedy
-Studio.GameSettings.General.GenreMilitary,Military,Military
 Studio.GameSettings.General.WorldPresetsAction,Action,Action
 Studio.GameSettings.General.GenreNaval,Naval,Naval
 Studio.GameSettings.General.GenreRPG,RPG,RPG
@@ -139,7 +138,6 @@ Studio.GameSettings.General.ContentDialogBody,Do you agree that your game is con
 Studio.GameSettings.General.ContentDialogItem1,Blood or Gore,Blood or Gore
 Studio.GameSettings.General.PresetRthro,Rthro,Rthro
 Studio.GameSettings.General.ContentDialogItem2,Intense Violence,Intense Violence
-Studio.GameSettings.Monetization.PaidAccessHintLuobu,The game must be public to enable Paid Access.,The game must be public to enable Paid Access.
 Studio.GameSettings.General.ContentDialogItem3,Strong Language (Swearing),Strong Language (Swearing)
 Studio.GameSettings.General.UnitsMetersPerSecondSquared1,({1} meters/second^2),({1} meters/second^2)
 Studio.GameSettings.General.ContentDialogItem4,Robux Gambling,Robux Gambling
@@ -234,7 +232,6 @@ Studio.GameSettings.General.DevSubsDeleteDescription,"You will lose pending paym
 Studio.GameSettings.General.DevSubsDeleteAction,Delete,Delete
 Studio.GameSettings.General.DevSubsDeleteConfirm,Delete,Delete
 Studio.GameSettings.General.DevSubsDuration12Months,12 months,12 months
-Studio.GameSettings.General.CopyIDToClipboard,Copy ID to Clipboard,Copy ID to Clipboard
 Studio.GameSettings.Monetization.PrivateServerSubscriptions,There are currently {numOfSubscriptions:int} Private Server Subscriptions active for this place.,There are currently {numOfSubscriptions:int} Private Server Subscriptions active for this place.
 Studio.GameSettings.AccessPermissions.PlayLabel,Play,Play
 Studio.GameSettings.General.JumpHeight,Jump Height:,Jump Height:

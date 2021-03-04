@@ -164,19 +164,9 @@ Item {
         shareModalListModel.append({"text": qsTr("Studio.App.ShareModal.CopyLink"), "icon": RobloxStyle.getResource("../images/StartPage/icon_copylink.png"),
                                        "clickedIcon": RobloxStyle.getResource("../images/StartPage/icon_linkcopied.png"), "subText": shareContainer.gameLinkWithGameName, "action": "copy"});
 
-        if (loginManager.removeBannedWebsitesCheck())
-        {
-            if (!loginManager.getLoggedInUser().getIsUnder13() && !loginManager.showExternalLoginLink()) {
-                shareModalListModel.append({"text": qsTr("Studio.App.StartPage.ShareOnTwitter"), "icon": RobloxStyle.getResource("../images/StartPage/icon_twitter.png"), "action": "twitter", "url": shareModalController.getTwitterShareUrl(shareContainer.gameModel.name, gameLink)});
-                shareModalListModel.append({"text": qsTr("Studio.App.StartPage.ShareOnFacebook"), "icon": RobloxStyle.getResource("../images/StartPage/icon_fb.png"), "action": "facebook", "url": shareModalController.getFacebookShareUrl(shareContainer.gameLink)});
-            }
-        }
-        else
-        {
-            if (!loginManager.getLoggedInUser().getIsUnder13()) {
-                shareModalListModel.append({"text": qsTr("Studio.App.StartPage.ShareOnTwitter"), "icon": RobloxStyle.getResource("../images/StartPage/icon_twitter.png"), "action": "twitter", "url": shareModalController.getTwitterShareUrl(shareContainer.gameModel.name, gameLink)});
-                shareModalListModel.append({"text": qsTr("Studio.App.StartPage.ShareOnFacebook"), "icon": RobloxStyle.getResource("../images/StartPage/icon_fb.png"), "action": "facebook", "url": shareModalController.getFacebookShareUrl(shareContainer.gameLink)});
-            }
+        if (!loginManager.getLoggedInUser().getIsUnder13()) {
+            shareModalListModel.append({"text": qsTr("Studio.App.StartPage.ShareOnTwitter"), "icon": RobloxStyle.getResource("../images/StartPage/icon_twitter.png"), "action": "twitter", "url": shareModalController.getTwitterShareUrl(shareContainer.gameModel.name, gameLink)});
+            shareModalListModel.append({"text": qsTr("Studio.App.StartPage.ShareOnFacebook"), "icon": RobloxStyle.getResource("../images/StartPage/icon_fb.png"), "action": "facebook", "url": shareModalController.getFacebookShareUrl(shareContainer.gameLink)});
         }
 
         if (startPage) {
