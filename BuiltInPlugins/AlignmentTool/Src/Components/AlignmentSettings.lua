@@ -63,7 +63,7 @@ function AlignmentSettings:render()
 	return Roact.createElement(LabeledElementList, {
 		Collapsible = true,
 		Items = items,
-		LayoutOrder = props.LayoutOrder,
+		LayoutOrder = layoutOrder,
 		MaximumLabelWidth = theme.MaximumLabelWidth,
 	})
 end

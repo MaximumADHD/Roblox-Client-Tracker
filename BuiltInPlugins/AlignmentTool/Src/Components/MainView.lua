@@ -261,7 +261,7 @@ function MainView:_updateSelectionInfo()
 	if shouldShowDebugView() then
 		local offset, size, boundingBoxMap
 		if getFFlagBoundingBoxRefactor() then
-			offset, size, boundingBoxMap = BoundingBox.fromObjectsComputeAll(alignableObjects)
+			offset, size, boundingBoxMap = BoundingBox.fromObjectsIncludeAll(alignableObjects)
 		else
 			offset, size, boundingBoxMap = getBoundingBoxes(alignableObjects)
 		end

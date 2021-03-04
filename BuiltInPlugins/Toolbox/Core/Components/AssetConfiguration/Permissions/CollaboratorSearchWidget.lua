@@ -42,9 +42,6 @@ local CollaboratorThumbnail = require(PermissionsDirectory.CollaboratorThumbnail
 local DEFAULT_ADD_ACTION = PermissionsConstants.UseViewKey
 local ELEMENT_PADDING = 24
 
--- TODO: enable friends option
-local MY_FRIENDS_KEY = nil
-
 local FitToContent = createFitToContent("Frame", "UIListLayout", {
 	SortOrder = Enum.SortOrder.LayoutOrder,
 	Padding = UDim.new(0, ELEMENT_PADDING),

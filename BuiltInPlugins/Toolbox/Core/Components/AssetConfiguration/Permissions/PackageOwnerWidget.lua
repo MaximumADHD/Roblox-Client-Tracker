@@ -94,7 +94,7 @@ function PackageOwnerWidget:render()
 					Action =  localized.PackagePermissions.ActionDropdown.OwnerLabel,
 					Enabled = props.Enabled,
 					
-					Items = getUserOwnerPermissions(),
+					Items = getUserOwnerPermissions(props),
 					RolePermissionChanged = nil, -- Owner permissions can't be changed
 				})
 			else

@@ -24,7 +24,9 @@ local MakeTheme = require(main.Src.Resources.MakeTheme)
 local TranslationDevelopmentTable = main.Src.Resources.Localization.TranslationDevelopmentTable
 local TranslationReferenceTable = main.Src.Resources.Localization.TranslationReferenceTable
 
-local MainView = require(main.Src.Components.MainView)
+local Components = main.Src.Components
+local ExampleComponent = require(Components.ExampleComponent)
+local ExampleRoactRoduxComponent = require(Components.ExampleRoactRoduxComponent)
 
 local MainPlugin = Roact.PureComponent:extend("MainPlugin")
 
@@ -109,14 +111,16 @@ function MainPlugin:render()
 			Enabled = enabled,
 			Title = self.localization:getText("Plugin", "Name"),
 			ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
-			InitialDockState = Enum.InitialDockState.Bottom,
+			InitialDockState = Enum.InitialDockState.Float,
 			Size = Vector2.new(640, 480),
 			MinSize = Vector2.new(250, 200),
 			OnClose = self.onClose,
 			ShouldRestore = true,
 			OnWidgetRestored = self.onRestore,
 		}, {
-			Toolbar = Roact.createElement(MainView),
+			-- Plugin contents are mounted here
+			ExampleComponent = Roact.createElement(ExampleComponent),
+			ExampleRoactRoduxComponent = Roact.createElement(ExampleRoactRoduxComponent),
 		}),
 	})
 end

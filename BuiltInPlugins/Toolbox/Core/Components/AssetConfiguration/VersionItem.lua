@@ -13,6 +13,8 @@
 	LayoutOrder, number, will be used by the internal layouter. So Position will be overrode.
 ]]
 
+local FFlagAssetConfigVersionShowLocalTime = game:DefineFastFlag("AssetConfigVersionShowLocalTime", false)
+
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Libs = Plugin.Libs
@@ -115,7 +117,7 @@ function VersionItem:render()
 				Position = UDim2.new(0, 120, 0, 15 + IITEM_CONTENT_HEIGHT),
 				Size = UDim2.new(1, -67, 0, IITEM_CONTENT_HEIGHT),
 
-				Text = formatLocalDateTime(ItemInfo.created, "L LTS", self.props.Localization:getLocale()),
+				Text = FFlagAssetConfigVersionShowLocalTime and formatLocalDateTime(ItemInfo.created, "L LTS", self.props.Localization:getLocale()) or tostring(ItemInfo.created),
 				TextColor3 = versionsTheme.textColor,
 				Font = Constants.FONT,
 				TextSize = Constants.FONT_SIZE_MEDIUM,
@@ -156,8 +158,10 @@ function VersionItem:render()
 	end)
 end
 
-ContextServices.mapToProps(VersionItem, {
-	Localization = ContextServices.Localization,
-})
+if FFlagAssetConfigVersionShowLocalTime then
+	ContextServices.mapToProps(VersionItem, {
+		Localization = ContextServices.Localization,
+	})
+end
 
 return VersionItem

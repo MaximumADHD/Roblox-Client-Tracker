@@ -37,9 +37,6 @@ local DragGhostThumbnail = require(Page.Components.Thumbnails.DragGhostThumbnail
 local BulletPoint = UILibrary.Component.BulletPoint
 local createFitToContent = UILibrary.Component.createFitToContent
 
-local FFlagRemoveYoutubeFacebookTwitterForLuobu = game:GetFastFlag("RemoveYoutubeFacebookTwitterForLuobu")
-local StudioService = game:GetService("StudioService")
-
 local ThumbnailWidget = Roact.PureComponent:extend("ThumbnailWidget")
 
 local FitToContent = createFitToContent("Frame", "UIListLayout", {
@@ -191,10 +188,7 @@ function ThumbnailWidget:render()
 			}),
 			LimitHint = Roact.createElement(BulletPoint, {
 				LayoutOrder = 1,
-				Text = (not FFlagRemoveYoutubeFacebookTwitterForLuobu or not StudioService:BaseURLHasChineseHost()) and localization:getText("General", "ThumbnailsLimit", {
-					maxThumbnails = DEPRECATED_Constants.MAX_THUMBNAILS,
-				})
-				or localization:getText("General", "ThumbnailsLimitLuobu", {
+				Text = localization:getText("General", "ThumbnailsLimit", {
 					maxThumbnails = DEPRECATED_Constants.MAX_THUMBNAILS,
 				}),
 			}),

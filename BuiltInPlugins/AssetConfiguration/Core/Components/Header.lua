@@ -315,7 +315,8 @@ function Header:checkRecentAssetInsertion()
 		-- No asset has been added
 		Analytics.onTermSearchedWithoutInsertion(
 			PageInfoHelper.getCategory(self.props.categories, self.props.categoryIndex),
-			self.props.searchTerm
+			self.props.searchTerm,
+			creatorId
 		)
 	end
 end

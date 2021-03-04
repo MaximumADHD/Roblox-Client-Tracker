@@ -15,6 +15,7 @@ local FFlagEnableRoactInspector = game:GetFastFlag("EnableRoactInspector")
 
 local hasInternalPermission = game:GetService("StudioService"):HasInternalPermission()
 local FFlagEnableToolboxStylizer = game:GetFastFlag("EnableToolboxStylizer")
+local FFlagToolboxUseTranslationDevelopmentTable = game:GetFastFlag("ToolboxUseTranslationDevelopmentTable")
 
 local Plugin = script.Parent.Parent
 local Libs = Plugin.Libs
@@ -93,7 +94,7 @@ if FFlagToolboxDisableForLuobu then
 end
 
 local localization2 = ContextServices.Localization.new({
-	stringResourceTable = TranslationDevelopmentTable,
+	stringResourceTable = FFlagToolboxUseTranslationDevelopmentTable and TranslationDevelopmentTable or TranslationReferenceTable,
 	translationResourceTable = TranslationReferenceTable,
 	pluginName = "Toolbox",
 	libraries = {
@@ -150,9 +151,9 @@ local function createLocalization()
         getTranslator = function(localeId)
             return translationReferenceTable:GetTranslator(localeId)
 		end,
-		getFallbackTranslator = function(localeId)
+		getFallbackTranslator = FFlagToolboxUseTranslationDevelopmentTable and function(localeId)
             return translationDevelopmentTable:GetTranslator(localeId)
-        end,
+        end or nil,
         localeIdChanged = StudioService:GetPropertyChangedSignal("StudioLocaleId")
     })
 end

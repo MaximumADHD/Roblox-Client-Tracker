@@ -32,7 +32,6 @@ local Framework = Plugin.Framework
 local FitFrameOnAxis = require(Framework.Util).FitFrame.FitFrameOnAxis
 
 local ContextServices = require(Plugin.Framework.ContextServices)
-local StudioService = game:GetService("StudioService")
 
 local UILibrary = require(Plugin.UILibrary)
 local GetTextSize = UILibrary.Util.GetTextSize
@@ -44,7 +43,6 @@ local RobuxFeeBase = require(Page.Components.RobuxFeeBase)
 local PaidAccess = Roact.PureComponent:extend("PaidAccess")
 
 local FFlagVIPServersRebrandToPrivateServers = game:GetFastFlag("VIPServersRebrandToPrivateServers")
-local FFlagStudioDisablePrivateServersForLuobu = game:GetFastFlag("StudioDisablePrivateServersForLuobu")
 
 function PaidAccess:render()
     local props = self.props
@@ -73,8 +71,7 @@ function PaidAccess:render()
 
     local offSubtext
     if FFlagVIPServersRebrandToPrivateServers then
-        offSubtext = (FFlagStudioDisablePrivateServersForLuobu and StudioService:BaseURLHasChineseHost()) and 
-        localization:getText("Monetization", "PaidAccessHintLuobu") or localization:getText("Monetization", "PaidAccessHint")
+        offSubtext = localization:getText("Monetization", "PaidAccessHint")
     else
         offSubtext = localization:getText("Monetization", "DEPRECATED_PaidAccessHint")
     end

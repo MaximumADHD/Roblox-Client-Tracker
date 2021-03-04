@@ -40,6 +40,8 @@ local GetFFlagRoactBubbleChat = require(RobloxGui.Modules.Common.Flags.GetFFlagR
 local isNewGamepadMenuEnabled = require(RobloxGui.Modules.Flags.isNewGamepadMenuEnabled)
 local GetFFlagScreenTime = require(CorePackages.Regulations.ScreenTime.GetFFlagScreenTime)
 
+local FFlagPurchasePromptCorescripts = game:DefineFastFlag("PurchasePromptCorescripts", false)
+
 -- The Rotriever index, as well as the in-game menu code itself, relies on
 -- the init.lua convention, so we have to run initify over the module.
 -- We do this explicitly because the LocalPlayer hasn't been created at this
@@ -146,8 +148,13 @@ end
 
 -- Purchase Prompt Script
 coroutine.wrap(function()
-	initify(CoreGuiModules.PurchasePrompt)
-	local PurchasePrompt = safeRequire(CoreGuiModules.PurchasePrompt)
+	local PurchasePrompt = nil
+	if FFlagPurchasePromptCorescripts then
+		initify(CoreGuiModules.PurchasePrompt)
+		PurchasePrompt = safeRequire(CoreGuiModules.PurchasePrompt)
+	else
+		PurchasePrompt = safeRequire(CorePackages.PurchasePrompt)
+	end
 
 	if PurchasePrompt then
 		PurchasePrompt.mountPurchasePrompt()

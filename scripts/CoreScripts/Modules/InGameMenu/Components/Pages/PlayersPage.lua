@@ -202,8 +202,6 @@ function PlayersPage:getMoreActions(localized)
 				friendActionText = localized.cancelFriend
 				friendActionIcon = FFlagFixMenuIcons and Images["icons/actions/friends/friendRemove"]
 					or Assets.Images.CancelFriendRequest
-			elseif friendStatus == Enum.FriendStatus.FriendRequestReceived then
-				friendActionText = localized.acceptFriend
 			end
 
 			table.insert(moreActions, {
@@ -350,7 +348,6 @@ end
 function PlayersPage:render()
 	return withLocalization({
 		addFriend = "CoreScripts.InGameMenu.Actions.AddFriend",
-		acceptFriend = "CoreScripts.InGameMenu.Actions.AcceptFriend",
 		unfriend = "CoreScripts.InGameMenu.Actions.Unfriend",
 		cancelFriend = "CoreScripts.InGameMenu.Actions.CancelFriend",
 		viewAvatar = "CoreScripts.InGameMenu.Actions.ViewAvatar",

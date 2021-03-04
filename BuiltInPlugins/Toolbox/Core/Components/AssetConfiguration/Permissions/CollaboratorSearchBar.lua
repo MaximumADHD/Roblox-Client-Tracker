@@ -154,7 +154,7 @@ function CollaboratorSearchBar:init()
 				end
 			end)
 
-			local textBound = TextService:GetTextSize(text, textBox.TextSize, textBox.Font, Vector2.new(math.huge, math.huge))
+			local textBound = TextService:GetTextSize(text, textBox.TextSize, textBox.Font, Vector2.new(maxWidth, math.huge))
 			if textBound.x > textBox.AbsoluteSize.x then
 				textBox.TextXAlignment = Enum.TextXAlignment.Right 
 			else
@@ -438,6 +438,15 @@ function CollaboratorSearchBar:render()
 						[Roact.Event.MouseLeave] = self.onClearButtonHoverEnded,
 						[Roact.Event.MouseButton1Down] = self.onClearButtonClicked,
 					}),
+				}),
+
+				-- Thin dividing line between the text box
+				Line = showSearchButton and Roact.createElement("Frame", {
+					LayoutOrder = orderIterator:getNextOrder(),
+					AnchorPoint = Vector2.new(0, 0),
+					Size = UDim2.new(0, 1, 1, -2),
+					BackgroundColor3 = borderColor,
+					BorderSizePixel = 0,
 				}),
 
 				ImageFrame = Roact.createElement("Frame", {

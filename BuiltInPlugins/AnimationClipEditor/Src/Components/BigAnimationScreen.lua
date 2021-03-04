@@ -19,12 +19,10 @@ local TimelineActions = require(Plugin.Src.Components.TimelineActions)
 local BigAnimationScreen = Roact.PureComponent:extend("BigAnimationScreen")
 
 function BigAnimationScreen:render()
-	local theme = self.props.Theme:get("PluginTheme")
 	local startScreenTheme = theme.startScreenTheme
 	local props = self.props
 	local size = props.Size
 	local layoutOrder = props.LayoutOrder
-	local localization = props.localization
 
 	local emptyFunc = function() end
 

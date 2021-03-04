@@ -4,11 +4,6 @@
 	-- 2018 PlayerScripts Update - AllYourBlox
 --]]
 
---[[ Flags ]]
-local FFlagUserExcludeNonCollidableForPathfindingSuccess, FFlagUserExcludeNonCollidableForPathfindingResult =
-    pcall(function() return UserSettings():IsUserFeatureEnabled("UserExcludeNonCollidableForPathfinding") end)
-local FFlagUserExcludeNonCollidableForPathfinding = FFlagUserExcludeNonCollidableForPathfindingSuccess and FFlagUserExcludeNonCollidableForPathfindingResult
-
 --[[ Roblox Services ]]--
 local UserInputService = game:GetService("UserInputService")
 local PathfindingService = game:GetService("PathfindingService")
@@ -154,43 +149,6 @@ local function getIgnoreList()
 	return CurrentIgnoreList
 end
 
-local function minV(a, b)
-	return Vector3.new(math.min(a.X, b.X), math.min(a.Y, b.Y), math.min(a.Z, b.Z))
-end
-local function maxV(a, b)
-	return Vector3.new(math.max(a.X, b.X), math.max(a.Y, b.Y), math.max(a.Z, b.Z))
-end
-local function getCollidableExtentsSize(character)
-	if character == nil or character.PrimaryPart == nil then return end
-	local toLocalCFrame = character.PrimaryPart.CFrame:inverse()
-	local min = Vector3.new(math.huge, math.huge, math.huge)
-	local max = Vector3.new(-math.huge, -math.huge, -math.huge)
-	for _,descendant in pairs(character:GetDescendants()) do
-		if descendant:IsA('BasePart') and descendant.CanCollide then
-			local localCFrame = toLocalCFrame * descendant.CFrame
-			local size = Vector3.new(descendant.Size.X / 2, descendant.Size.Y / 2, descendant.Size.Z / 2)
-			local vertices = {
-				Vector3.new( size.X,  size.Y,  size.Z),
-				Vector3.new( size.X,  size.Y, -size.Z),
-				Vector3.new( size.X, -size.Y,  size.Z),
-				Vector3.new( size.X, -size.Y, -size.Z),
-				Vector3.new(-size.X,  size.Y,  size.Z),
-				Vector3.new(-size.X,  size.Y, -size.Z),
-				Vector3.new(-size.X, -size.Y,  size.Z),
-				Vector3.new(-size.X, -size.Y, -size.Z)
-			}
-			for _,vertex in ipairs(vertices) do
-				local v = localCFrame * vertex
-				min = minV(min, v)
-				max = maxV(max, v)
-			end
-		end
-	end
-	local r = max - min
-	if r.X < 0 or r.Y < 0 or r.Z < 0 then return nil end
-	return r
-end
-
 -----------------------------------PATHER--------------------------------------
 
 local function Pather(endPoint, surfaceNormal, overrideUseDirectPath)
@@ -280,16 +238,7 @@ local function Pather(endPoint, surfaceNormal, overrideUseDirectPath)
 				vehicle.PrimaryPart = tempPrimaryPart
 			end
 		else
-			local extents
-			if FFlagUserExcludeNonCollidableForPathfinding then
-				local character = GetCharacter()
-				if character ~= nil then
-					extents = getCollidableExtentsSize(character)
-				end
-			end
-			if extents == nil then
-				extents = GetCharacter():GetExtentsSize()
-			end
+			local extents = GetCharacter():GetExtentsSize()
 			agentRadius = AgentSizeIncreaseFactor * 0.5 * math.sqrt(extents.X * extents.X + extents.Z * extents.Z)
 			agentHeight = AgentSizeIncreaseFactor * extents.Y
 			agentCanJump = (this.Humanoid.JumpPower > 0)

@@ -164,7 +164,7 @@ function IKTreeView:renderPinButton(theme, elementProps, selected)
 				BorderSizePixel = 0,
 				Size = UDim2.new(1, 0, 1, 0),
 				Image = theme.ikTheme.pinImage,
-				ImageColor3 = pinned and theme.ikTheme.pinHover or theme.ikTheme.iconColor,
+				ImageColor3 = (hover or pinned) and theme.ikTheme.pinHover or theme.ikTheme.iconColor,
 			}),
 	})
 end

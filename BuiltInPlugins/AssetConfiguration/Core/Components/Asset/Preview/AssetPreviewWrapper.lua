@@ -12,6 +12,7 @@
 ]]
 local FFlagEnableDefaultSortFix2 = game:GetFastFlag("EnableDefaultSortFix2")
 local FFlagUseCategoryNameInToolbox = game:GetFastFlag("UseCategoryNameInToolbox")
+local FFlagToolboxDontFetchPluginPreviewModel = game:DefineFastFlag("ToolboxDontFetchPluginPreviewModel", false)
 
 local StudioService = game:GetService("StudioService")
 
@@ -445,10 +446,17 @@ function AssetPreviewWrapper:init(props)
 end
 
 function AssetPreviewWrapper:didMount()
-	if self.props.assetData.Asset.TypeId == Enum.AssetType.Plugin.Value then
-		self.props.getPluginInfo(getNetwork(self), self.props.assetData.Asset.Id)
+	if FFlagToolboxDontFetchPluginPreviewModel then
+		if self.props.assetData.Asset.TypeId == Enum.AssetType.Plugin.Value then
+			self.props.getPluginInfo(getNetwork(self), self.props.assetData.Asset.Id)
+		else
+			self.props.getPreviewInstance(self.props.assetData.Asset.Id, self.props.assetData.Asset.TypeId)	
+		end
 	else
-		self.props.getPreviewInstance(self.props.assetData.Asset.Id, self.props.assetData.Asset.TypeId)	
+		self.props.getPreviewInstance(self.props.assetData.Asset.Id, self.props.assetData.Asset.TypeId)
+		if self.props.assetData.Asset.TypeId == Enum.AssetType.Plugin.Value then
+			self.props.getPluginInfo(getNetwork(self), self.props.assetData.Asset.Id)
+		end
 	end
 
 	local assetData = self.props.assetData

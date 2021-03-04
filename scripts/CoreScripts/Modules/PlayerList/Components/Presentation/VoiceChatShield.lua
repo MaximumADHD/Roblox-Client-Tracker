@@ -56,16 +56,6 @@ function VoiceChatShield:render()
 	end)
 end
 
-local function getVoiceChatServiceXbox()
-	for _, name in ipairs({"VoiceChatServiceXbox", "VoiceChatService"}) do
-		local service = game:GetService(name)
-		if service then
-			return service
-		end
-	end
-	return nil
-end
-
 function VoiceChatShield:bindAction()
 	self.xboxToggleVoiceHotkey:BindAction(function(actionName, inputState, inputObject)
 			if inputState == Enum.UserInputState.Begin then
@@ -74,9 +64,8 @@ function VoiceChatShield:bindAction()
 				self:setState({
 					xboxMuteAllState = not self.state.xboxMuteAllState
 				})
-				-- TODO: remove getVoiceChatServiceXbox and replace with game:GetService("VoiceChatServiceXbox")
-				local VoiceChatServiceXbox = getVoiceChatServiceXbox()
-				VoiceChatServiceXbox:VoiceChatSetMuteAllState(self.state.xboxMuteAllState)
+				local VoiceChatService = game:GetService("VoiceChatService")
+				VoiceChatService:VoiceChatSetMuteAllState(self.state.xboxMuteAllState)
 				self.xboxToggleVoiceHotkey:SetText(self:getVoiceEnabledString())
 				self.seenYButtonPressed = false
 

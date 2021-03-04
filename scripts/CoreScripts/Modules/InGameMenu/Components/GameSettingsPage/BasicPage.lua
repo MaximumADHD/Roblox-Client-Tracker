@@ -32,7 +32,6 @@ local AutoPropertyToggleEntry = require(script.Parent.AutoPropertyToggleEntry)
 local CameraModeEntry = require(script.Parent.CameraModeEntry)
 local CameraSensitivityEntry = require(script.Parent.CameraSensitivityEntry)
 local CategoryHeader = require(script.Parent.CategoryHeader)
-local DeviceSelectionEntry = require(script.Parent.DeviceSelectionEntry)
 local GraphicsQualityEntry = require(script.Parent.GraphicsQualityEntry)
 local MovementModeEntry = require(script.Parent.MovementModeEntry)
 local ToggleEntry = require(script.Parent.ToggleEntry)
@@ -46,18 +45,9 @@ local ImageSetLabel = UIBlox.Core.ImageSet.Label
 local FFlagInGameMenuVRToggle = game:DefineFastFlag("InGameMenuVRToggle", false)
 
 local GetFFlagFullscreenAnalytics = require(RobloxGui.Modules.Flags.GetFFlagFullscreenAnalytics)
-local GetFFlagEnableVoiceChatOptions = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceChatOptions)
 
 local VRAvailableChanged = VRService:GetPropertyChangedSignal("VREnabled")
 local VREnabledChanged = UserGameSettings:GetPropertyChangedSignal("VREnabled")
-
-local VOICE_CHAT_AVAILABILITY = {
-	PlaceNotAvailable = -1,
-	UserNotAvailable = 0,
-	Checking = 1,
-	Available = 2,
-}
-local MIN_VOICE_CHAT_API_VERSION = 3
 
 local BasicPage = Roact.PureComponent:extend("BasicPage")
 BasicPage.validateProps = t.strictInterface({
@@ -74,7 +64,6 @@ function BasicPage:init()
 		invertedCameraEnabled = UserGameSettings.IsUsingCameraYInverted,
 		vrAvailable = VRService.VREnabled,
 		vrEnabled = UserGameSettings.VREnabled,
-		voiceChatEnabled = false,
 	})
 
 	self.pageSize, self.setPageSize = Roact.createBinding(UDim2.new(0, 0, 0, 0))
@@ -82,7 +71,6 @@ end
 
 function BasicPage:render()
 	local shouldSettingsDisabledInVRBeShown = not (FFlagInGameMenuVRToggle and self.state.vrEnabled and self.state.vrAvailable)
-	local showVoiceChatOptions = GetFFlagEnableVoiceChatOptions() and self.state.voiceChatEnabled
 
 	return Roact.createElement(Page, {
 		pageTitle = self.props.pageTitle,
@@ -144,30 +132,20 @@ function BasicPage:render()
 			VolumeEntry = Roact.createElement(VolumeEntry, {
 				LayoutOrder = 9,
 			}),
-			InputDevice = showVoiceChatOptions and Roact.createElement(DeviceSelectionEntry, {
-				LayoutOrder = 10,
-				deviceType = DeviceSelectionEntry.DeviceType.Input,
-				isMenuOpen = self.props.isMenuOpen,
-			}),
-			OutputDevice = showVoiceChatOptions and Roact.createElement(DeviceSelectionEntry, {
-				LayoutOrder = 11,
-				deviceType = DeviceSelectionEntry.DeviceType.Output,
-				isMenuOpen = self.props.isMenuOpen,
-			}),
 			ControlsDivider = Roact.createElement(Divider, {
-				LayoutOrder = 12,
+				LayoutOrder = 10,
 				Size = UDim2.new(1, -24, 0, 1),
 			}),
 
 			GraphicsHeader = Roact.createElement(CategoryHeader, {
-				LayoutOrder = 13,
+				LayoutOrder = 11,
 				localizationKey = "CoreScripts.InGameMenu.GameSettings.GraphicsTitle",
 			}),
 			GraphicsQualityEntry = Roact.createElement(GraphicsQualityEntry, {
-				LayoutOrder = 14,
+				LayoutOrder = 12,
 			}),
 			FullScreen = shouldSettingsDisabledInVRBeShown and Roact.createElement(ToggleEntry, {
-				LayoutOrder = 15,
+				LayoutOrder = 13,
 				labelKey = "CoreScripts.InGameMenu.GameSettings.FullScreen",
 				checked = self.state.fullScreenEnabled,
 				onToggled = function()
@@ -176,7 +154,7 @@ function BasicPage:render()
 				end,
 			}),
 			VRMode = FFlagInGameMenuVRToggle and self.state.vrAvailable and Roact.createElement(AutoPropertyToggleEntry, {
-				LayoutOrder = 16,
+				LayoutOrder = 14,
 				labelKey = "CoreScripts.InGameMenu.GameSettings.VREnabled",
 				instance = UserGameSettings,
 				key = "VREnabled",
@@ -184,11 +162,11 @@ function BasicPage:render()
 				subtextKey = "CoreScripts.InGameMenu.GameSettings.RestartPending",
 			}),
 			GraphicsDivider = Roact.createElement(Divider, {
-				LayoutOrder = 17,
+				LayoutOrder = 15,
 				Size = UDim2.new(1, -24, 0, 1),
 			}),
 			AdvancedSettings = Roact.createElement("TextButton", {
-				LayoutOrder = 18,
+				LayoutOrder = 16,
 				BackgroundTransparency = 1,
 				Size = UDim2.new(1, 0, 0, 54),
 				Text = "",
@@ -216,7 +194,7 @@ function BasicPage:render()
 				}),
 			}),
 			AdvancedDivider = Roact.createElement(Divider, {
-				LayoutOrder = 19,
+				LayoutOrder = 17,
 				Size = UDim2.new(1, -24, 0, 1),
 			}),
 
@@ -270,43 +248,7 @@ function BasicPage:render()
 	})
 end
 
-function BasicPage:didMount()
-	if GetFFlagEnableVoiceChatOptions() then
-		spawn(function()
-			-- Check if voice chat is enabled
-			-- TODO: Clean up when API gets simplified
-			local voiceChatService2 = nil
-			local voiceChatAvailable = nil
-			local voiceChatApiVersion = nil
-			pcall(function()
-				voiceChatService2 = game:GetService("VoiceChatService2")
-				if voiceChatService2 then
-					voiceChatApiVersion = voiceChatService2:GetVoiceChatApiVersion()
-					if voiceChatApiVersion >= MIN_VOICE_CHAT_API_VERSION then
-						voiceChatAvailable = voiceChatService2:GetVoiceChatAvailable()
-						while voiceChatAvailable == VOICE_CHAT_AVAILABILITY.Checking do
-							wait(1)
-							voiceChatAvailable = voiceChatService2:GetVoiceChatAvailable()
-						end
-					end
-				end
-			end)
-
-			if voiceChatService2 and voiceChatApiVersion >= MIN_VOICE_CHAT_API_VERSION and
-				voiceChatAvailable == VOICE_CHAT_AVAILABILITY.Available then
-				self:setState({
-					voiceChatEnabled = true,
-				})
-			end
-		end)
-	end
-end
-
-return RoactRodux.UNSTABLE_connect2(function(state)
-	return {
-		isMenuOpen = state.isMenuOpen,
-	}
-end, function(dispatch)
+return RoactRodux.UNSTABLE_connect2(nil, function(dispatch)
 	return {
 		switchToAdvancedPage = function()
 			dispatch(SetCurrentPage(Constants.advancedSettingsPageKey))

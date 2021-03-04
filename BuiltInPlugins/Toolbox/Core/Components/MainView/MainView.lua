@@ -261,7 +261,7 @@ function MainView:render()
 		end
 
 		local headerHeight, headerToBodyPadding = Layouter.calculateMainViewHeaderHeight(showTags,
-			suggestionIntro, suggestions, containerWidth)
+			suggestionIntro, suggestions, containerWidth, props.creator)
 
 		local fullInnerHeight = headerHeight + allAssetsHeight + headerToBodyPadding
 		local canvasHeight = fullInnerHeight + (2 * Constants.MAIN_VIEW_PADDING)

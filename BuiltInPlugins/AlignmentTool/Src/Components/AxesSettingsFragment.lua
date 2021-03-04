@@ -71,7 +71,8 @@ function AxesSettingsFragment:render()
 	local axesCheckboxComponents = {
 		Layout = not getFFlagAlignToolNarrowUI() and Roact.createElement("UIListLayout", {
 			FillDirection = Enum.FillDirection.Horizontal,
-			Padding = theme.AxesSettingsFragment.CheckboxListItemPadding,
+			Padding = getAlignToolNarrowUI() and theme.SectionContentPadding
+				or theme.AxesSettingsFragment.CheckboxListItemPadding,
 			SortOrder = Enum.SortOrder.LayoutOrder,
 		}) or nil,
 	}

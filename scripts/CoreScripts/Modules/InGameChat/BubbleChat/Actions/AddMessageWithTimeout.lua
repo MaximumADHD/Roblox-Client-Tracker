@@ -1,23 +1,20 @@
 local AnalyticsService = game:GetService("RbxAnalyticsService")
-local CorePackages = game:GetService("CorePackages")
 
-local Cryo = require(CorePackages.Packages.Cryo)
 local Types = require(script.Parent.Parent.Types)
 local maybeAssert = require(script.Parent.Parent.Helpers.maybeAssert)
 local AddMessage = require(script.Parent.AddMessage)
 local RemoveMessage = require(script.Parent.RemoveMessage)
-local getSettingsForMessage = require(script.Parent.Parent.Helpers.getSettingsForMessage)
 
 local function addMessageWithTimeout(message)
-	maybeAssert(Types.IMessage(message))
+	maybeAssert(Types.IMessageData(message))
 
 	return function(store)
 		store:dispatch(AddMessage(message))
 
-		local chatSettings = getSettingsForMessage(store:getState().chatSettings, message)
+		local settings = store:getState().chatSettings
 		local userMessages = store:getState().userMessages[message.userId]
 		local messages = store:getState().messages
-		for i = 1, #userMessages - chatSettings.MaxBubbles do
+		for i = 1, #userMessages - settings.MaxBubbles do
 			store:dispatch(RemoveMessage(messages[userMessages[i]]))
 		end
 
@@ -26,8 +23,8 @@ local function addMessageWithTimeout(message)
 			placeId = game.PlaceId,
 			userId = message.userId,
 		})
-
-		wait(chatSettings.BubbleDuration)
+		
+		wait(settings.BubbleDuration)
 
 		store:dispatch(RemoveMessage(message))
 	end

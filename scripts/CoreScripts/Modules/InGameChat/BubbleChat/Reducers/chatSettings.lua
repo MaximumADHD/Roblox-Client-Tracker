@@ -7,15 +7,7 @@ local ChatSettings = require(script.Parent.Parent.ChatSettings)
 
 local chatSettings = Rodux.createReducer(ChatSettings, {
 	[UpdateChatSettings.name] = function(_, action)
-		local result = Cryo.Dictionary.join(ChatSettings, action.settings)
-
-		-- Fill missing keys from user specific settings with their default values
-		for key, specificSettings in pairs(result.UserSpecificSettings) do
-			result.UserSpecificSettings[key] = Cryo.Dictionary.join(ChatSettings, specificSettings,
-							{UserSpecificSettings = Cryo.None})
-		end
-
-		return result
+		return Cryo.Dictionary.join(ChatSettings, action.settings)
 	end,
 })
 

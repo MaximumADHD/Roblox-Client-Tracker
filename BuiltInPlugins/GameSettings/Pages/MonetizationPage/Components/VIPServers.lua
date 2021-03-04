@@ -40,7 +40,6 @@ local Roact = require(Plugin.Roact)
 local Framework = Plugin.Framework
 local FitFrameOnAxis = require(Framework.Util).FitFrame.FitFrameOnAxis
 local LayoutOrderIterator = require(Framework.Util.LayoutOrderIterator)
-local StudioService = game:GetService("StudioService")
 
 local ContextServices = require(Plugin.Framework.ContextServices)
 
@@ -55,18 +54,12 @@ local VIPServers = Roact.PureComponent:extend("VIPServers")
 
 local FFlagSupportFreePrivateServers = game:GetFastFlag("SupportFreePrivateServers")
 local FFlagVIPServersRebrandToPrivateServers = game:GetFastFlag("VIPServersRebrandToPrivateServers")
-local FFlagStudioDisablePrivateServersForLuobu = game:GetFastFlag("StudioDisablePrivateServersForLuobu")
 
 function VIPServers:init()
     self.lastNonFreePrice = 10
 end
 
 function VIPServers:render()
-    -- Remove this block once economy team enables the private servers flow (see STUDIOCORE-24488)
-    if FFlagStudioDisablePrivateServersForLuobu and StudioService:BaseURLHasChineseHost() then
-        return nil
-    end
-
     local props = self.props
     local localization = props.Localization
     local theme = props.Theme:get("Plugin")

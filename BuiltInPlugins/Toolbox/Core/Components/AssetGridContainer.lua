@@ -19,6 +19,7 @@ local StudioService = game:GetService("StudioService")
 local FFlagUseCategoryNameInToolbox = game:GetFastFlag("UseCategoryNameInToolbox")
 local FFlagFixGroupPackagesCategoryInToolbox = game:GetFastFlag("FixGroupPackagesCategoryInToolbox")
 local FFlagEnableDefaultSortFix2 = game:GetFastFlag("EnableDefaultSortFix2")
+local FFlagToolboxViewInBrowserUtmAttributes = game:GetFastFlag("ToolboxViewInBrowserUtmAttributes")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -239,32 +240,36 @@ function AssetGridContainer:init(props)
 			showEditOption = canEditPackage
 		end
 
-		local context = assetData.Context
-		local creatorTypeEnumValue
+		if FFlagToolboxViewInBrowserUtmAttributes then
+			local context = assetData.Context
+			local creatorTypeEnumValue
 
-		-- TODO STM-406: Refactor creator types to be stored as Enum.CreatorType in Toolbox Rodux 
-		-- The data for Creations is stored as Enum.CreatorType Values, whereas for other tabs
-		-- it is stored as backend enum values with range [1, 2] instead of [0, 1]
-		-- We can address this by storing Enum.CreatorType instead of numeric Values and converting to/from backend [1, 2]
-		-- values in the network interfacing code.
-		if context.toolboxTab == Category.CREATIONS_KEY then
-			creatorTypeEnumValue = assetData.Creator.Type
+			-- TODO STM-406: Refactor creator types to be stored as Enum.CreatorType in Toolbox Rodux 
+			-- The data for Creations is stored as Enum.CreatorType Values, whereas for other tabs
+			-- it is stored as backend enum values with range [1, 2] instead of [0, 1]
+			-- We can address this by storing Enum.CreatorType instead of numeric Values and converting to/from backend [1, 2]
+			-- values in the network interfacing code.
+			if context.toolboxTab == Category.CREATIONS_KEY then
+				creatorTypeEnumValue = assetData.Creator.Type
+			else
+				creatorTypeEnumValue = CreatorInfoHelper.backendToClient(assetData.Creator.Type)
+			end
+
+			local trackingAttributes = {
+				Category = nameForValueInEnum(Enum.AssetType, assetTypeId),
+				SortType = context.sort,
+				CreatorId = assetData.Creator.Id,
+				CreatorType = nameForValueInEnum(Enum.CreatorType, creatorTypeEnumValue),
+				SearchKeyword = context.searchKeyword,
+				Position = context.position,
+				SearchId = context.searchId,
+				ViewInBrowser = true,
+			}
+
+			ContextMenuHelper.tryCreateContextMenu(plugin, assetId, assetTypeId, showEditOption, localizedContent, props.tryOpenAssetConfig, isPackageAsset, trackingAttributes)
 		else
-			creatorTypeEnumValue = CreatorInfoHelper.backendToClient(assetData.Creator.Type)
+			ContextMenuHelper.tryCreateContextMenu(plugin, assetId, assetTypeId, showEditOption, localizedContent, props.tryOpenAssetConfig, isPackageAsset)
 		end
-
-		local trackingAttributes = {
-			Category = nameForValueInEnum(Enum.AssetType, assetTypeId),
-			SortType = context.sort,
-			CreatorId = assetData.Creator.Id,
-			CreatorType = nameForValueInEnum(Enum.CreatorType, creatorTypeEnumValue),
-			SearchKeyword = context.searchKeyword,
-			Position = context.position,
-			SearchId = context.searchId,
-			ViewInBrowser = true,
-		}
-
-		ContextMenuHelper.tryCreateContextMenu(plugin, assetId, assetTypeId, showEditOption, localizedContent, props.tryOpenAssetConfig, isPackageAsset, trackingAttributes)
 	end
 
 	self.tryInsert = function(assetData, assetWasDragged, insertionMethod)
@@ -455,7 +460,7 @@ function AssetGridContainer:render()
 				isPackages = Category.categoryIsPackage(props.categoryName)
 			else
 				local categoryIndex = props.categoryIndex
-				isPackages = Category.categoryIsPackage(categoryIndex, FFlagFixGroupPackagesCategoryInToolbox and currentTab or nil)
+				isPackages = Category.categoryIsPackage(categoryIndex, FFlagFixGroupPackagesCategoryInToolbox and currentTab or categoryIsPackage)
 			end
 
 			local hoveredAssetId = modalStatus:canHoverAsset() and state.hoveredAssetId or 0

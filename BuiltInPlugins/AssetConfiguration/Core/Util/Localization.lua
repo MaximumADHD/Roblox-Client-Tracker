@@ -1,6 +1,7 @@
 --[[
 	This script contains all the strings that needs to be localized in the toolbox.
 ]]
+local FFlagToolboxUseTranslationDevelopmentTable = game:GetFastFlag("ToolboxUseTranslationDevelopmentTable")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -25,7 +26,7 @@ function Localization.new(options)
 	local self = {
 		_externalLocaleIdGetter = options.getLocaleId or nil,
 		_externalTranslatorGetter = options.getTranslator or nil,
-		_externalFallbackTranslatorGetter = options.getFallbackTranslator or nil,
+		_externalFallbackTranslatorGetter = FFlagToolboxUseTranslationDevelopmentTable and options.getFallbackTranslator or nil,
 		_externalLocaleIdChangedSignal = options.localeIdChanged,
 
 		_externalLocaleIdChangedConnection = nil,
@@ -274,11 +275,13 @@ function Localization:_getTranslator(localeId)
 	return nil
 end
 
-function Localization:_getFallbackTranslator()
-	if self._externalTranslatorGetter then
-		return self._externalTranslatorGetter(self:_getDefaultLocaleId())
+if FFlagToolboxUseTranslationDevelopmentTable then
+	function Localization:_getFallbackTranslator()
+		if self._externalTranslatorGetter then
+			return self._externalTranslatorGetter(self:_getDefaultLocaleId())
+		end
+		return nil
 	end
-	return nil
 end
 
 function Localization:_getDefaultTranslator()
@@ -335,15 +338,17 @@ function Localization:_safeLocalize(key, args)
 			end
 		end
 
-		local fallbackTranslator = self:_getFallbackTranslator()
-		local fallbackTranslation
-		success, fallbackTranslation = self:_safeLocalizeInner(fallbackTranslator, key, args)
+		if FFlagToolboxUseTranslationDevelopmentTable then
+			local fallbackTranslator = self:_getFallbackTranslator()
+			local fallbackTranslation
+			success, fallbackTranslation = self:_safeLocalizeInner(fallbackTranslator, key, args)
 
-		if success then
-			translated = fallbackTranslation
-		else
-			if DebugFlags.shouldDebugWarnings() then
-				warn(("\tToolbox error in localizing key \"%s\" using fallback table"):format(key))
+			if success then
+				translated = fallbackTranslation
+			else
+				if DebugFlags.shouldDebugWarnings() then
+					warn(("\tToolbox error in localizing key \"%s\" using fallback table"):format(key))
+				end
 			end
 		end
 	end

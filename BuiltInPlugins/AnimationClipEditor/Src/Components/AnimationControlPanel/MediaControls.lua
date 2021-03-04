@@ -97,7 +97,7 @@ function MediaControls:render()
 
 		local playbackTheme = theme.playbackTheme
 
-		self.layoutOrderIterator = LayoutOrderIterator.new()
+		self.layoutOrderIterator = LayoutOrderIterator:new()
 
 		return Roact.createElement("Frame", {
 			BackgroundTransparency = 1,

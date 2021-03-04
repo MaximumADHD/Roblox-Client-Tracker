@@ -99,8 +99,6 @@ end
 
 local shouldLocalize = PolicyService:IsSubjectToChinaPolicies()
 
-local GetFFlagEnableVoiceChatOptions = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceChatOptions)
-
 --[[ Localization Fixes for Version Labels]]
 local shouldTryLocalizeVersionLabels = FFlagLocalizeVersionLabels or shouldLocalize
 local RobloxTranslator = nil
@@ -1498,10 +1496,6 @@ local function CreateSettingsHub()
 			if backpack.IsOpen then
 				backpack:OpenClose()
 			end
-
-			if GetFFlagEnableVoiceChatOptions() then
-				this.GameSettingsPage:OpenSettingsPage()
-			end
 		else
 			if noAnimation then
 				this.Shield.Position = SETTINGS_SHIELD_INACTIVE_POSITION
@@ -1540,10 +1534,6 @@ local function CreateSettingsHub()
 			removeBottomBarBindings(0.4)
 
 			GuiService.SelectedCoreObject = nil
-
-			if GetFFlagEnableVoiceChatOptions() then
-				this.GameSettingsPage:CloseSettingsPage()
-			end
 		end
 
 		if FFlagCollectAnalyticsForSystemMenu then

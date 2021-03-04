@@ -43,8 +43,6 @@ local INPUT_BOX_WIDTH = 200
 
 local PriceComponent = Roact.PureComponent:extend("PriceComponent")
 
-local FFlagPriceComponentTextSize = game:DefineFastFlag("PriceComponentTextSize", false)
-
 function PriceComponent:init(props)
 	self.state = {
 	}
@@ -89,10 +87,8 @@ function PriceComponent:render(order)
 			fee = math.floor(math.min(fee or 0, feePercent * maxPrice))
 			finalPrice = math.floor(math.min(finalPrice, earnPercent * maxPrice))
 
-			local UntypedVector2 = Vector2
-			local inputBoxSize = FFlagPriceComponentTextSize and Vector2.new(INPUT_BOX_WIDTH, ROW_HEIGHT) or UntypedVector2.new(0, INPUT_BOX_WIDTH, 0, ROW_HEIGHT)
-			local feeVector = Constants.getTextSize(fee, Constants.FONT_SIZE_MEDIUM, Constants.FONT, inputBoxSize)
-			local earnVector = Constants.getTextSize(finalPrice, Constants.FONT_SIZE_MEDIUM, Constants.FONT, inputBoxSize)
+			local feeVector = Constants.getTextSize(fee, Constants.FONT_SIZE_MEDIUM, Constants.FONT, Vector2.new(0, INPUT_BOX_WIDTH, 0, ROW_HEIGHT))
+			local earnVector = Constants.getTextSize(finalPrice, Constants.FONT_SIZE_MEDIUM, Constants.FONT, Vector2.new(0, INPUT_BOX_WIDTH, 0, ROW_HEIGHT))
 
 			return Roact.createElement(TitledFrame, {
 				Title = localizedContent.Sales.Price,

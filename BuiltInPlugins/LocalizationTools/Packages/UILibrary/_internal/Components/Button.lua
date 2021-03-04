@@ -36,8 +36,6 @@ local RoundFrame = require(Library.Components.RoundFrame)
 
 local Button = Roact.PureComponent:extend("Button")
 
-local FFlagUILibraryButtonRenderPressed = game:DefineFastFlag("UILibraryButtonRenderPressed", false)
-
 function Button:init(initialProps)
 	self.state = {
 		hovered = false,
@@ -81,7 +79,6 @@ function Button:render()
 	return withTheme(function(theme)
 		local props = self.props
 		local state = self.state
-		local pressed = FFlagUILibraryButtonRenderPressed and state.pressed or nil
 		local hovered = state.hovered
 		local style = props.Style
 		local styleState = props.StyleState

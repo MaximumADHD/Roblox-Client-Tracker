@@ -47,9 +47,11 @@ game:DefineFastFlag("ToolboxUseGetItemDetails", false)
 
 game:DefineFastFlag("EnableToolboxStylizer", false)
 
+game:DefineFastFlag("ToolboxViewInBrowserUtmAttributes", false)
 game:DefineFastFlag("ToolboxPreventCameraMoveForScripts", false)
 game:DefineFastFlag("ToolboxStopAudioFromPlayingOnCloseAndCategorySwitch", false)
 
+game:DefineFastFlag("ToolboxUseTranslationDevelopmentTable", false)
 
 game:DefineFastFlag("ToolboxCreationsFreshChecks", false)
 

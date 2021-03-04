@@ -130,7 +130,7 @@ function ModelPreview:init()
 		end
 
 		local cameraDistAway = size.magnitude * INSERT_CAMERA_DIST_MULT
-		local dir = Vector3.new(1, 1, 1).Unit
+		local dir = Vector3.new(1, 1, 1).unit
 		camera.Focus = CFrame.new()
 		camera.CFrame = CFrame.new(cameraDistAway * dir, camera.Focus.p)
 	end

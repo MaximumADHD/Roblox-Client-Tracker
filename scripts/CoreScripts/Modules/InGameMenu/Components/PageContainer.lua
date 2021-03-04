@@ -15,8 +15,6 @@ local FFlagFixMakeFriendsNavCrash = require(InGameMenu.Flags.FFlagFixMakeFriends
 
 local FFlagFixInGameNavTreeCrash = require(InGameMenu.Flags.FFlagFixInGameNavTreeCrash)
 
-local GetFFlagFixInGameMenuAnimationDirection = require(InGameMenu.Flags.GetFFlagFixInGameMenuAnimationDirection)
-
 local pageComponents = {}
 for key, pageInfo in pairs(Pages.pagesByKey) do
 	pageComponents[key] = require(pageInfo.component)
@@ -39,15 +37,9 @@ function PageContainer:init(props)
 		pageBindings[key], pageBindingUpdaters[key] = Roact.createBinding(defaultValue)
 		motorDefaults[key] = defaultValue
 
-		if GetFFlagFixInGameMenuAnimationDirection() then
-			self.pagePositions[key] = pageBindings[key]:map(function(value)
-				return UDim2.new(value - 1, 0, 0, 0)
-			end)
-		else
-			self.pagePositions[key] = pageBindings[key]:map(function(value)
-				return UDim2.new(1 - value, 0, 0, 0)
-			end)
-		end
+		self.pagePositions[key] = pageBindings[key]:map(function(value)
+			return UDim2.new(1 - value, 0, 0, 0)
+		end)
 	end
 
 	self.pageMotor = Otter.createGroupMotor(motorDefaults)

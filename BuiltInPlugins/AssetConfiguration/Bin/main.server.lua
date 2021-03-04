@@ -8,6 +8,7 @@ local PluginRoot = script.Parent.Parent
 require(PluginRoot.ToolboxFFlags)
 local FFlagStudioAssetConfigurationPlugin = game:GetFastFlag("StudioAssetConfigurationPlugin")
 local FFlagDebugAssetConfigurationEnableRoactChecks = game:DefineFastFlag("DebugAssetConfigurationEnableRoactChecks", false)
+local FFlagToolboxUseTranslationDevelopmentTable = game:GetFastFlag("ToolboxUseTranslationDevelopmentTable")
 
 if not FFlagStudioAssetConfigurationPlugin then
 	return
@@ -53,7 +54,7 @@ local StudioService = game:GetService("StudioService")
 
 local localization2
 localization2 = ContextServices.Localization.new({
-	stringResourceTable = TranslationDevelopmentTable,
+	stringResourceTable =  FFlagToolboxUseTranslationDevelopmentTable and TranslationDevelopmentTable or TranslationReferenceTable,
 	translationResourceTable = TranslationReferenceTable,
 	pluginName = "Toolbox",
 })
@@ -90,9 +91,9 @@ local function createLocalization()
         getTranslator = function(localeId)
             return translationReferenceTable:GetTranslator(localeId)
 		end,
-		getFallbackTranslator = function(localeId)
+		getFallbackTranslator = FFlagToolboxUseTranslationDevelopmentTable and function(localeId)
             return translationDevelopmentTable:GetTranslator(localeId)
-        end,		
+        end or nil,		
         localeIdChanged = StudioService:GetPropertyChangedSignal("StudioLocaleId")
     })
 end

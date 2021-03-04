@@ -1,3 +1,5 @@
+local FFlagAssetPreviewDescriptionFallback = game:GetFastFlag("AssetPreviewDescriptionFallback")
+
 local Framework = script.Parent.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
 
@@ -65,7 +67,7 @@ return function()
 			}))
 		}),
 
-		BasicNoDescription = Roact.createElement(Container, {
+		BasicNoDescription = FFlagAssetPreviewDescriptionFallback and Roact.createElement(Container, {
 			Size = UDim2.new(0, 368, 0, 700)
 		}, {
 			Roact.createElement(AssetPreview, Cryo.Dictionary.join(props, {
@@ -76,7 +78,7 @@ return function()
 					})
 				}),
 			}))
-		}),
+		}) or nil,
 
 		BasicVideo = Roact.createElement(Container, {
 			Size = UDim2.new(0, 368, 0, 700)
