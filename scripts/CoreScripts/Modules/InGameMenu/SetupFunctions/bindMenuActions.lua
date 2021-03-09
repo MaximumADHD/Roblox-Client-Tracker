@@ -1,4 +1,5 @@
 local CoreGui = game:GetService("CoreGui")
+local RobloxGui = game:GetService("CoreGui"):WaitForChild("RobloxGui")
 local ContextActionService = game:GetService("ContextActionService")
 local UserInputService = game:GetService("UserInputService")
 
@@ -8,7 +9,6 @@ local DevConsoleMaster = require(CoreGui.RobloxGui.Modules.DevConsoleMaster)
 
 local InGameMenu = script.Parent.Parent
 
-local OpenMenu = require(InGameMenu.Thunks.OpenMenu)
 local OpenSystemMenu = require(InGameMenu.Thunks.OpenSystemMenu)
 local CloseMenu = require(InGameMenu.Thunks.CloseMenu)
 local SetRespawning = require(InGameMenu.Actions.SetRespawning)
@@ -19,7 +19,8 @@ local Pages = require(InGameMenu.Components.Pages)
 local Constants = require(InGameMenu.Resources.Constants)
 
 local GetFFlagUseNewLeaveGamePrompt = require(InGameMenu.Flags.GetFFlagUseNewLeaveGamePrompt)
-local GetFFlagInGameOpenSystemMenuFix = require(InGameMenu.Flags.GetFFlagInGameOpenSystemMenuFix)
+local GetFFlagInGameFixMenuIconHoverEatKeyboard =
+	require(RobloxGui.Modules.Flags.GetFFlagInGameFixMenuIconHoverEatKeyboard)
 
 local TOGGLE_DEVELOPER_CONSOLE_ACTION_NAME = "ToggleDeveloperConsole"
 local TOGGLE_PERFORMANCE_STATS_ACTION_NAME = "TogglePerformanceStats"
@@ -42,13 +43,13 @@ local function bindMenuActions(store)
 			store:dispatch(SetCurrentPage(Constants.defaultPageKey))
 		else
 			if isMenuOpen then
-				store:dispatch(CloseMenu)
-			else
-				if GetFFlagInGameOpenSystemMenuFix() then
+				if GetFFlagInGameFixMenuIconHoverEatKeyboard() and state.menuPage == Constants.InitalPageKey then
 					store:dispatch(OpenSystemMenu(Constants.AnalyticsMenuOpenTypes.Keyboard))
 				else
-					store:dispatch(OpenMenu(Constants.AnalyticsMenuOpenTypes.Keyboard))
+					store:dispatch(CloseMenu)
 				end
+			else
+				store:dispatch(OpenSystemMenu(Constants.AnalyticsMenuOpenTypes.Keyboard))
 			end
 		end
 	end
@@ -96,6 +97,10 @@ local function bindMenuActions(store)
 			return Enum.ContextActionResult.Pass
 		end
 
+		if GetFFlagInGameFixMenuIconHoverEatKeyboard() and state.menuPage == Constants.InitalPageKey then
+			return Enum.ContextActionResult.Pass
+		end
+
 		if GetFFlagUseNewLeaveGamePrompt() then
 			store:dispatch(SetCurrentPage(Constants.LeaveGamePromptPageKey))
 		else
@@ -118,6 +123,10 @@ local function bindMenuActions(store)
 		end
 
 		if Pages.pagesByKey[state.menuPage].isModal then
+			return Enum.ContextActionResult.Pass
+		end
+
+		if GetFFlagInGameFixMenuIconHoverEatKeyboard() and state.menuPage == Constants.InitalPageKey then
 			return Enum.ContextActionResult.Pass
 		end
 

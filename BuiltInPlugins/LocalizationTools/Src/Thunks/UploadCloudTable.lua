@@ -18,6 +18,9 @@ local RbxEntriesToWebEntries = require(Plugin.Src.Util.RbxEntriesToWebEntries)
 local PatchInfo = require(Plugin.Src.Util.PatchInfo)
 local isEmpty = require(Plugin.Src.Util.isEmpty)
 
+local FFlagLocalizationToolsPluginInvalidEntryIdentifierMessageEnabled
+	= game:GetFastFlag("LocalizationToolsPluginInvalidEntryIdentifierMessageEnabled")
+
 local function makeDispatchErrorMessageFunc(store, localization)
 	return function()
 		store:dispatch(SetIsBusy(false))
@@ -70,7 +73,33 @@ local function patchSupportedLanguages(api, gameId, languagesList)
 	return success
 end
 
-local function patchCloudTable(api, tableId, gameId, patchInfo)
+local uploadErrorHandlerTable = {
+	["38"] = function(item, output)
+		if item.identifier == nil then
+			return
+		end
+
+		if output["38"] == nil then
+			output["38"] = {}
+		end
+
+		table.insert(output["38"], item.identifier)
+	end,
+	["43"] = function(item, output)
+		if item.translations == nil then
+			return
+		end
+
+		if output["43"] == nil then
+			output["43"] = {}
+		end
+		for _, translation in pairs(item.translations) do
+			table.insert(output["43"], translation)
+		end
+	end,
+}
+
+local function patchCloudTable(api, tableId, gameId, patchInfo, localization)
 	local patchChunks = PatchInfo.SplitByLimits(
 		patchInfo.makePatch(),
 		game:GetFastInt("LocalizationTableUploadRowMax"),
@@ -87,7 +116,36 @@ local function patchCloudTable(api, tableId, gameId, patchInfo)
 	end
 
 	return Promise.all(requests):andThen(
-		function()
+		function(responses)
+			if FFlagLocalizationToolsPluginInvalidEntryIdentifierMessageEnabled then
+				local invalidEntries = {}
+				for _, res in pairs(responses) do
+					if res.responseBody ~= nil and next(res.responseBody) ~= nil
+						and res.responseBody.failedEntriesAndTranslations ~= nil
+						and next(res.responseBody.failedEntriesAndTranslations) then
+
+						for _, item in pairs(res.responseBody.failedEntriesAndTranslations) do
+							if item.error then
+								local errorHandler = uploadErrorHandlerTable[tostring(item.error.errorCode)]
+								if errorHandler then
+									errorHandler(item, invalidEntries)
+								end
+							end
+						end
+					end
+				end
+				if next(invalidEntries) then
+					local errorMessageMap = {
+						["38"] = localization:getText("UploadDialogContent", "InvalidIdentifier"),
+						["43"] = localization:getText("UploadDialogContent", "InvalidTranslation"),
+					}
+					warn(localization:getText("UploadDialogContent", "InvalidEntryIdentify"))
+					for key, value in pairs(invalidEntries) do
+						print(errorMessageMap[key])
+						print(value)
+					end
+				end
+			end
 			return true
 		end,
 		function()
@@ -200,7 +258,7 @@ return function(api, localization, analytics, showDialog, isReplace)
 			end
 		end
 		-- 4.2 patch cloud table
-		local patchCloudTableSuccess = patchCloudTable(api, curTableId, game.GameId, patchInfo)
+		local patchCloudTableSuccess = patchCloudTable(api, curTableId, game.GameId, patchInfo, localization)
 		if not patchCloudTableSuccess then
 			dispatchErrorMessage()
 			warn(localization:getText("UploadTable", "PatchCloudTableFailed"))

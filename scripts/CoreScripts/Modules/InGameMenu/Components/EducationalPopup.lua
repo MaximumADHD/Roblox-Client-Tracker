@@ -1,6 +1,5 @@
 local GuiService = game:GetService("GuiService")
 local CorePackages = game:GetService("CorePackages")
-local CoreGui = game:GetService("CoreGui")
 local RbxAnalyticsService = game:GetService("RbxAnalyticsService")
 local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 local Roact = InGameMenuDependencies.Roact
@@ -11,17 +10,12 @@ local Images = UIBlox.App.ImageSet.Images
 
 local InGameMenu = script.Parent.Parent
 local withLocalization = require(InGameMenu.Localization.withLocalization)
-local Constants = require(InGameMenu.Resources.Constants)
 local CloseNativeClosePrompt = require(InGameMenu.Actions.CloseNativeClosePrompt)
 local SetMenuIconTooltipOpen = require(InGameMenu.Actions.SetMenuIconTooltipOpen)
-local OpenMenu = require(InGameMenu.Thunks.OpenMenu)
 
 local EducationalPopupDialog = require(script.Parent.EducationalPopupDialog)
 
 local SendAnalytics = require(InGameMenu.Utility.SendAnalytics)
-
-local RobloxGui = CoreGui:WaitForChild("RobloxGui")
-local GetFFlagInGameMenuIconTooltip = require(RobloxGui.Modules.Flags.GetFFlagInGameMenuIconTooltip)
 
 local NotificationType = GuiService:GetNotificationTypeList()
 
@@ -109,12 +103,7 @@ end, function(dispatch)
 		end,
 		onConfirm = function()
 			dispatch(CloseNativeClosePrompt())
-
-			if GetFFlagInGameMenuIconTooltip() then
-				dispatch(SetMenuIconTooltipOpen(true))
-			else
-				dispatch(OpenMenu(Constants.AnalyticsMenuOpenTypes.EducationalMenuTriggered))
-			end
+			dispatch(SetMenuIconTooltipOpen(true))
 
 			RbxAnalyticsService:ReportCounter("EducationalPopup_Confirm", 1)
 			SendAnalytics(EducationalAnalytics.EventContext, EducationalAnalytics.ConfirmName, {})

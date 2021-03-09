@@ -17,7 +17,8 @@ end
 local IconButton = require(script.Parent.IconButton)
 
 local GetFFlagInGameMenuOpenOnHover = require(RobloxGui.Modules.Flags.GetFFlagInGameMenuOpenOnHover)
-local GetFFlagInGameMenuIconTooltip = require(RobloxGui.Modules.Flags.GetFFlagInGameMenuIconTooltip)
+local GetFFlagInGameFixMenuIconHoverEatKeyboard =
+	require(RobloxGui.Modules.Flags.GetFFlagInGameFixMenuIconHoverEatKeyboard)
 
 local MenuIcon = Roact.PureComponent:extend("MenuIcon")
 
@@ -31,7 +32,11 @@ MenuIcon.validateProps = t.strictInterface({
 function MenuIcon:init()
 	self.menuIconActivated = function()
 		if isNewInGameMenuEnabled() then
-			InGameMenu.openInGameMenu()
+			if GetFFlagInGameFixMenuIconHoverEatKeyboard() then
+				InGameMenu.openInGameMenu(InGameMenuConstants.MainPagePageKey)
+			else
+				InGameMenu.openInGameMenu()
+			end
 		else
 			local SettingsHub = require(RobloxGui.Modules.Settings.SettingsHub)
 			SettingsHub:ToggleVisibility(InGameMenuConstants.AnalyticsMenuOpenTypes.TopbarButton)
@@ -39,10 +44,13 @@ function MenuIcon:init()
 	end
 	self.menuIconOnHover = function()
 		if isNewInGameMenuEnabled() then
-			InGameMenu.openInGameMenu()
-			if GetFFlagInGameMenuIconTooltip() then
-				InGameMenu.setMenuIconTooltipOpen(false)
+			if GetFFlagInGameFixMenuIconHoverEatKeyboard() then
+				InGameMenu.openInGameMenu(InGameMenuConstants.InitalPageKey)
+			else
+				InGameMenu.openInGameMenu()
 			end
+
+			InGameMenu.setMenuIconTooltipOpen(false)
 		end
 	end
 end

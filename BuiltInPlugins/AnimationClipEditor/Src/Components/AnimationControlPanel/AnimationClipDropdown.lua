@@ -123,7 +123,7 @@ function AnimationClipDropdown:init()
 			self.showLoadNewPrompt(IMPORT_KEY)
 		else
 			local plugin = self.props.Plugin
-			self.props.ImportKeyframeSequence(plugin, props.Analytics)
+			self.props.ImportKeyframeSequence(plugin, self.props.Analytics)
 		end
 	end
 
@@ -132,7 +132,7 @@ function AnimationClipDropdown:init()
 			self.showLoadNewPrompt(IMPORT_FBX_KEY)
 		else
 			local plugin = self.props.Plugin
-			self.props.ImportFBXAnimation(plugin, props.Analytics)
+			self.props.ImportFBXAnimation(plugin, self.props.Analytics)
 		end
 	end
 

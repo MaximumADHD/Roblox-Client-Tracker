@@ -64,8 +64,8 @@ function VoiceChatShield:bindAction()
 				self:setState({
 					xboxMuteAllState = not self.state.xboxMuteAllState
 				})
-				local VoiceChatService = game:GetService("VoiceChatService")
-				VoiceChatService:VoiceChatSetMuteAllState(self.state.xboxMuteAllState)
+				local VoiceChatServiceXbox = game:GetService("VoiceChatServiceXbox")
+				VoiceChatServiceXbox:VoiceChatSetMuteAllState(self.state.xboxMuteAllState)
 				self.xboxToggleVoiceHotkey:SetText(self:getVoiceEnabledString())
 				self.seenYButtonPressed = false
 

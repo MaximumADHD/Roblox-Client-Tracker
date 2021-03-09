@@ -17,6 +17,7 @@ local BubbleChatList = require(script.Parent.BubbleChatList)
 local ChatBubbleDistant = require(script.Parent.ChatBubbleDistant)
 local Types = require(script.Parent.Parent.Types)
 local Constants = require(script.Parent.Parent.Constants)
+local getSettingsForMessage = require(script.Parent.Parent.Helpers.getSettingsForMessage)
 
 local BubbleChatBillboard = Roact.PureComponent:extend("BubbleChatBillboard")
 
@@ -40,6 +41,7 @@ function BubbleChatBillboard:init()
 		adornee = nil,
 		isInsideRenderDistance = false,
 		isInsideMaximizeDistance = false,
+		savedChatSettings = self.props.chatSettings,
 	})
 
 	self.isMounted = false
@@ -51,7 +53,8 @@ function BubbleChatBillboard:init()
 	self.offsetGoal = 0
 
 	self.onLastBubbleFadeOut = function()
-		if self.props.onFadeOut then
+		if self.props.onFadeOut and not self.isFadingOut then
+			self.isFadingOut = true
 			self.props.onFadeOut(self.props.userId)
 		end
 	end
@@ -83,11 +86,12 @@ function BubbleChatBillboard:didMount()
 
 	-- Need to use a loop because property changed signals don't work on Position
 	self.heartbeatConn = RunService.Heartbeat:Connect(function()
-		local adorneePart = self:getAdorneePart()
-		if workspace.CurrentCamera and adorneePart then
-			local distance = (workspace.CurrentCamera.CFrame.Position - adorneePart.Position).Magnitude
-			local isInsideRenderDistance = distance < self.props.chatSettings.MaxDistance
-			local isInsideMaximizeDistance = distance < self.props.chatSettings.MinimizeDistance
+		local adorneeInstance = self:getAdorneeInstance(self.state.adornee) -- Can be a BasePart or Attachment or nil
+		if workspace.CurrentCamera and adorneeInstance then
+			local position = adorneeInstance:IsA("Attachment") and adorneeInstance.WorldPosition or adorneeInstance.Position
+			local distance = (workspace.CurrentCamera.CFrame.Position - position).Magnitude
+			local isInsideRenderDistance = distance < self.state.savedChatSettings.MaxDistance
+			local isInsideMaximizeDistance = distance < self.state.savedChatSettings.MinimizeDistance
 			if isInsideMaximizeDistance ~= self.state.isInsideMaximizeDistance or isInsideRenderDistance ~= self.state.isInsideRenderDistance then
 				self:setState({
 					isInsideRenderDistance = isInsideRenderDistance,
@@ -191,37 +195,46 @@ end
 -- Offsets the billboard so it will align properly with the top of the
 -- character, regardless of what assets they're wearing.
 function BubbleChatBillboard:getVerticalOffset(adornee)
-	if not adornee then
+	if not adornee or adornee:IsA("Attachment") then
 		return 0
 	elseif adornee:IsA("Model") then
-		-- Billboard is adornee'd to the PrimaryPart -> need to calculate the distance between it and the top of the
+		-- Billboard is adornee'd to a child part -> need to calculate the distance between it and the top of the
 		-- bounding box
 		local orientation, size = adornee:GetBoundingBox()
-		if adornee.PrimaryPart then
-			local relative = orientation:PointToObjectSpace(adornee.PrimaryPart.Position)
+		local adorneeInstance = self:getAdorneeInstance(adornee)
+		if not adorneeInstance then
+			return size.Y / 2
+		elseif adorneeInstance:IsA("BasePart") then
+			local relative = orientation:PointToObjectSpace(adorneeInstance.Position)
 			return size.Y / 2 - relative.Y
 		end
-		return size.Y / 2
+		return 0
 	elseif adornee:IsA("BasePart") then
 		return adornee.Size.Y / 2
 	end
 end
 
-function BubbleChatBillboard:getAdorneePart()
-	local adornee = self.state.adornee
-	if adornee and adornee:IsA("Model") then
-		return adornee.PrimaryPart
-	else
+-- From a given adornee object, which can be either a model, a part, an attachment, or nil, returns which part
+-- (or attachment) (or nil) the billboard should attach itself to
+function BubbleChatBillboard:getAdorneeInstance(adornee)
+	if not adornee then
+		return
+	elseif adornee:IsA("Model") then
+		local adorneePart = adornee:FindFirstChild(self.state.savedChatSettings.AdorneeName, true)
+		if not adorneePart or adorneePart:IsA("BasePart") or adorneePart:IsA("Attachment") then
+			return adorneePart
+		end
+	elseif adornee:IsA("BasePart") or adornee:IsA("Attachment") then
 		return adornee
 	end
 end
 
 function BubbleChatBillboard:render()
-	local adorneePart = self:getAdorneePart()
+	local adorneeInstance = self:getAdorneeInstance(self.state.adornee)
 	local isLocalPlayer = self.props.userId == tostring(Players.LocalPlayer.UserId)
-	local settings = self.props.chatSettings
+	local chatSettings = self.state.savedChatSettings
 
-	if not adorneePart then
+	if not adorneeInstance then
 		return
 	end
 
@@ -233,26 +246,30 @@ function BubbleChatBillboard:render()
 		return
 	end
 
+	-- For other players, increase vertical offset by 1 to prevent overlaps with the name display
+	-- For the local player, increase Z offset to prevent the character from overlapping his bubbles when jumping/emoting
+	-- (see default value of settings.LocalPlayerStudsOffset in ChatSettings.lua)
+	-- This behavior is the same as the old bubble chat
+	local studsOffset = isLocalPlayer and chatSettings.LocalPlayerStudsOffset or Vector3.new(0, 1, .1)
 	return Roact.createElement("BillboardGui", {
-		Adornee = adorneePart,
+		Adornee = adorneeInstance,
 		Size = UDim2.fromOffset(500, 200),
 		SizeOffset = Vector2.new(0, 0.5),
-		-- For other players, increase vertical offset by 1 to prevent overlaps with the name display
-		-- For the local player, increase Z offset to prevent the character from overlapping his bubbles when jumping/emoting
-		-- This behavior is the same as the old bubble chat
-		StudsOffset = Vector3.new(0, (isLocalPlayer and 0 or 1) + settings.VerticalStudsOffset, isLocalPlayer and 2 or 0.1),
+		StudsOffset = studsOffset + Vector3.new(0, chatSettings.VerticalStudsOffset, 0),
 		StudsOffsetWorldSpace = self.offset,
 		ResetOnSpawn = false,
 	}, {
 		DistantBubble = not self.state.isInsideMaximizeDistance and Roact.createElement(ChatBubbleDistant, {
 			fadingOut = not self.props.messageIds or #self.props.messageIds == 0,
 			onFadeOut = self.onLastBubbleFadeOut,
+			chatSettings = chatSettings,
 		}),
 
 		BubbleChatList = self.state.isInsideMaximizeDistance and Roact.createElement(BubbleChatList, {
 			userId = self.props.userId,
 			isVisible = self.state.isInsideMaximizeDistance,
 			onLastBubbleFadeOut = self.onLastBubbleFadeOut,
+			chatSettings = chatSettings,
 		})
 	})
 
@@ -266,13 +283,23 @@ function BubbleChatBillboard:didUpdate()
 	end
 end
 
+function BubbleChatBillboard.getDerivedStateFromProps(nextProps)
+	-- Need to save the latest chat settings to the state because when the billboard does the fade out animation,
+	-- there is no message (nextProps.lastMessage == nil), so no way to get the user ID, which is needed to get
+	-- user specific settings.
+	return {
+		savedChatSettings = nextProps.lastMessage and nextProps.chatSettings
+	}
+end
+
 local function mapStateToProps(state, props)
 	local messageIds = state.userMessages[props.userId]
 	local lastMessageId = messageIds and #messageIds >= 1 and messageIds[#messageIds]
+	local lastMessage = lastMessageId and state.messages[lastMessageId]
 	return {
-		chatSettings = state.chatSettings,
+		chatSettings = getSettingsForMessage(state.chatSettings, lastMessage),
 		messageIds = messageIds,
-		lastMessage = lastMessageId and state.messages[lastMessageId]
+		lastMessage = lastMessage
 	}
 end
 

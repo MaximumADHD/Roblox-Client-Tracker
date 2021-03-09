@@ -14,9 +14,9 @@ BubbleChatList.validateProps = t.strictInterface({
 	isVisible = t.optional(t.boolean),
 	theme = t.optional(t.string),
 	onLastBubbleFadeOut = t.optional(t.callback),
+	chatSettings = Types.IChatSettings,
 
 	-- RoactRodux
-	chatSettings = Types.IChatSettings,
 	messageIds = t.array(t.string),
 })
 
@@ -77,18 +77,18 @@ end
 
 function BubbleChatList:render()
 	local children = {}
-	local settings = self.props.chatSettings
+	local chatSettings = self.props.chatSettings
 
 	children.Layout = Roact.createElement("UIListLayout", {
 		SortOrder = Enum.SortOrder.LayoutOrder,
 		HorizontalAlignment = Enum.HorizontalAlignment.Center,
 		VerticalAlignment = Enum.VerticalAlignment.Bottom,
-		Padding = UDim.new(0, settings.BubblesSpacing),
+		Padding = UDim.new(0, chatSettings.BubblesSpacing),
 	})
 
 	-- This padding pushes up the UI a bit so the first message's
 	-- caret shows up.
-	children.CaretPadding = settings.TailVisible and Roact.createElement("UIPadding", {
+	children.CaretPadding = chatSettings.TailVisible and Roact.createElement("UIPadding", {
 		PaddingBottom = UDim.new(0, 8),
 	})
 
@@ -98,7 +98,8 @@ function BubbleChatList:render()
 			isMostRecent = index == #self.state.bubbles,
 			theme = self.props.theme,
 			fadingOut = bubble.fadingOut,
-			onFadeOut = self.onBubbleFadeOut
+			onFadeOut = self.onBubbleFadeOut,
+			chatSettings = chatSettings,
 		})
 	end
 
@@ -111,7 +112,6 @@ end
 
 local function mapStateToProps(state, props)
 	return {
-		chatSettings = state.chatSettings,
 		messageIds = state.userMessages[props.userId] or {},
 	}
 end

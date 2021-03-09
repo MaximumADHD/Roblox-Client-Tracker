@@ -12,7 +12,7 @@
 
 local UserInputService = game:GetService("UserInputService")
 
-local FFlagUseCursorOverrideManager2 = game:DefineFastFlag("UseCursorOverrideManager2", false)
+local FFlagUseCursorOverrideManager3 = game:DefineFastFlag("UseCursorOverrideManager3", false)
 
 local cursorOverrideStack = {}
 
@@ -27,7 +27,7 @@ end
 
 return {
 	push = function(key, behavior)
-		if not FFlagUseCursorOverrideManager2 then
+		if not FFlagUseCursorOverrideManager3 then
 			UserInputService.OverrideMouseIconBehavior = behavior
 			return
 		end
@@ -47,7 +47,7 @@ return {
 		update()
 	end,
 	pop = function(key)
-		if not FFlagUseCursorOverrideManager2 then
+		if not FFlagUseCursorOverrideManager3 then
 			UserInputService.OverrideMouseIconBehavior = Enum.OverrideMouseIconBehavior.None
 			return
 		end
@@ -63,9 +63,10 @@ return {
 			end
 		end
 
-		assert(idx, "No cursor override named " .. tostring(key))
+		if idx then
+			table.remove(cursorOverrideStack, idx)
+		end
 
-		table.remove(cursorOverrideStack, idx)
 		update()
 	end,
 }

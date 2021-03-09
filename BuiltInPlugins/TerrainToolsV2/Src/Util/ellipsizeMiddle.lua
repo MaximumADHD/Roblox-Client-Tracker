@@ -46,7 +46,7 @@ return function(text, maxWidth, getTextWidth, suffixLength)
 	end
 
 	-- We only want to select the prefix from the substring that wasn't used for the suffix
-	local remainingText = text:sub(1, -utf8.len(suffix))
+	local remainingText = text:sub(1, -(utf8.len(suffix) or 0))
 	local remainingTextLength = #remainingText
 
 	-- Advance through remainingText, looking for how much we can take from it and still fit within remainingWidth

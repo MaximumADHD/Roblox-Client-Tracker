@@ -38,6 +38,7 @@ end
 
 -- FLAGS
 local GetFFlagUseThumbnailUrl = require(CoreGuiModules.Common.Flags.GetFFlagUseThumbnailUrl)
+local isPackInGameJoinDataEnabledClient = require(CoreGuiModules.Flags.isPackInGameJoinDataEnabledClient)
 
 local ContextMenuUtil = {}
 ContextMenuUtil.__index = ContextMenuUtil
@@ -146,9 +147,28 @@ end
 local CanChatWithMap = {}
 coroutine.wrap(function()
 	local RemoteEvent_CanChatWith = RobloxReplicatedStorage:WaitForChild("CanChatWith", math.huge)
-	RemoteEvent_CanChatWith.OnClientEvent:Connect(function(userId, canChat)
-		CanChatWithMap[userId] = canChat
-	end)
+
+	if isPackInGameJoinDataEnabledClient() then
+		RemoteEvent_CanChatWith.OnClientEvent:Connect(function(...)
+			local remoteArguments = {...}
+
+			if #remoteArguments == 1 then --Only one parameter, so it should be the data dictionary
+				local canChatData = remoteArguments[1]
+
+				for userId, canChat in pairs(canChatData) do
+					CanChatWithMap[userId] = canChat
+				end
+			elseif #remoteArguments == 2 then --More arguments, server flag isn't enabled yet
+				local userId = remoteArguments[1]
+				local canChat = remoteArguments[2]
+				CanChatWithMap[userId] = canChat
+			end
+		end)
+	else
+		RemoteEvent_CanChatWith.OnClientEvent:Connect(function(userId, canChat)
+			CanChatWithMap[userId] = canChat
+		end)
+	end
 end)()
 function ContextMenuUtil:GetCanChatWith(otherPlayer)
 	if BlockingUtility:IsPlayerBlockedByUserId(otherPlayer.UserId) then

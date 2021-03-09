@@ -23,9 +23,9 @@ return function(plugin, analytics)
 		local success, result = pcall(function()
 			if SetR15() then 
 				local _, isR15 = RigUtils.canUseIK(rootInstance)
-				return plugin:ImportFbxAnimation(rootInstance, isR15)
+				return plugin:get():ImportFbxAnimation(rootInstance, isR15)
 			else 
-				return plugin:ImportFbxAnimation(rootInstance)
+				return plugin:get():ImportFbxAnimation(rootInstance)
 			end
 		end)
 

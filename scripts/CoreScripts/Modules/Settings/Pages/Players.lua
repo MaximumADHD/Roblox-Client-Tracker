@@ -59,6 +59,8 @@ local FFlagUpdateSettingsHubGameText = require(RobloxGui.Modules.Flags.FFlagUpda
 local FFlagShowInGameReportingLuobu = require(RobloxGui.Modules.Flags.FFlagShowInGameReportingLuobu)
 local FFlagInspectMenuSubjectToPolicy = require(RobloxGui.Modules.Flags.FFlagInspectMenuSubjectToPolicy)
 
+local isEngineTruncationEnabledForIngameSettings = require(RobloxGui.Modules.Flags.isEngineTruncationEnabledForIngameSettings)
+
 local GetFFlagUseThumbnailUrl = require(RobloxGui.Modules.Common.Flags.GetFFlagUseThumbnailUrl)
 
 ----------- CLASS DECLARATION --------------
@@ -559,27 +561,39 @@ local function Initialize()
 		local function reportFlagChanged(reportFlag, prop)
 			if prop == "AbsolutePosition" and wasIsPortrait then
 				local maxPlayerNameSize = reportFlag.AbsolutePosition.X - 20 - frame.NameLabel.AbsolutePosition.X
-				if UsePlayerDisplayName() then
-					frame.NameLabel.Text = "@" .. player.Name
-					frame.DisplayNameLabel.Text = player.DisplayName
-				else
-					frame.NameLabel.Text = player.Name
-				end
-
-				if UsePlayerDisplayName() then
-					local newDisplayNameLength = utf8.len(player.DisplayName)
-					while frame.NameLabel.TextBounds.X > maxPlayerNameSize and newDisplayNameLength > 0 do
-						local offset = utf8.offset(player.DisplayName, newDisplayNameLength)
-						frame.NameLabel.Text = string.sub(player.DisplayName, 1, offset) .. "..."
-						newDisplayNameLength = newDisplayNameLength - 1
+				if isEngineTruncationEnabledForIngameSettings() then
+					if UsePlayerDisplayName() then
+						frame.NameLabel.Size = UDim2.new(0, maxPlayerNameSize, 0, 0)
+						frame.DisplayNameLabel.Size = UDim2.new(0, maxPlayerNameSize, 0, 0)
+						frame.NameLabel.Text = "@" .. player.Name
+						frame.DisplayNameLabel.Text = player.DisplayName
+					else
+						frame.NameLabel.Size = UDim2.new(0, maxPlayerNameSize, 0, 0)
+						frame.NameLabel.Text = player.Name
 					end
-				end
+				else
+					if UsePlayerDisplayName() then
+						frame.NameLabel.Text = "@" .. player.Name
+						frame.DisplayNameLabel.Text = player.DisplayName
+					else
+						frame.NameLabel.Text = player.Name
+					end
 
-				local playerNameText = UsePlayerDisplayName() and "@" .. player.Name or player.Name
-				local newNameLength = string.len(playerNameText)
-				while frame.NameLabel.TextBounds.X > maxPlayerNameSize and newNameLength > 0 do
-					frame.NameLabel.Text = string.sub(playerNameText, 1, newNameLength) .. "..."
-					newNameLength = newNameLength - 1
+					if UsePlayerDisplayName() then
+						local newDisplayNameLength = utf8.len(player.DisplayName)
+						while frame.NameLabel.TextBounds.X > maxPlayerNameSize and newDisplayNameLength > 0 do
+							local offset = utf8.offset(player.DisplayName, newDisplayNameLength)
+							frame.NameLabel.Text = string.sub(player.DisplayName, 1, offset) .. "..."
+							newDisplayNameLength = newDisplayNameLength - 1
+						end
+					end
+
+					local playerNameText = UsePlayerDisplayName() and "@" .. player.Name or player.Name
+					local newNameLength = string.len(playerNameText)
+					while frame.NameLabel.TextBounds.X > maxPlayerNameSize and newNameLength > 0 do
+						frame.NameLabel.Text = string.sub(playerNameText, 1, newNameLength) .. "..."
+						newNameLength = newNameLength - 1
+					end
 				end
 			end
 		end
@@ -603,6 +617,15 @@ local function Initialize()
 					reportFlagChanged(reportFlag, "AbsolutePosition")
 				end
 			else
+				if isEngineTruncationEnabledForIngameSettings() then
+					local labelInset = frame.NameLabel.AbsolutePosition.X-frame.AbsolutePosition.X
+					frame.NameLabel.Size = UDim2.new(1, -labelInset-20, 0, 0)
+
+					if UsePlayerDisplayName() then
+						frame.DisplayNameLabel.Size = UDim2.new(1, -labelInset-20, 0, 0)
+					end
+				end
+
 				if UsePlayerDisplayName() then
 					frame.NameLabel.Text = "@" .. player.Name
 					frame.DisplayNameLabel.Text = player.DisplayName
@@ -699,6 +722,14 @@ local function Initialize()
 				frame.ImageTransparency = FRAME_DEFAULT_TRANSPARENCY
 				-- extra index room for shareGameButton
 				frame.LayoutOrder = index + 1
+
+				if isEngineTruncationEnabledForIngameSettings() then
+					frame.NameLabel.TextTruncate = Enum.TextTruncate.AtEnd
+
+					if UsePlayerDisplayName() then
+						frame.DisplayNameLabel.TextTruncate = Enum.TextTruncate.AtEnd
+					end
+				end
 
 				managePlayerNameCutoff(frame, player)
 

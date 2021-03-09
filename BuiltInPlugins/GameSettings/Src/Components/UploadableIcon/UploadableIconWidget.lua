@@ -71,7 +71,7 @@ function UploadableIconWidget:render()
 	local localization = self.props.Localization
 
 	local preview
-	if typeof(icon) == "Instance" then
+	if typeof(icon) == "Instance" and icon:IsA("File") then
 		icon = icon:GetTemporaryId()
 		preview = true
 	else

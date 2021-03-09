@@ -1,3 +1,7 @@
+game:DefineFastFlag("TerrainToolsCovertMetricLogs", false)
+
+local FFlagTerrainToolsCovertMetricLogs = game:GetFastFlag("TerrainToolsCovertMetricLogs")
+
 local Plugin = script.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
@@ -127,6 +131,16 @@ function PartConverter:convertInstancesToMaterial(instances, material)
 		return
 	end
 
+	if FFlagTerrainToolsCovertMetricLogs then
+		local partNumber = 0
+		for _ in pairs(instances) do
+			partNumber = partNumber + 1
+		end
+		if partNumber > 0 and self._analytics then
+			self._analytics:report("convertTerrain", partNumber)
+		end
+	end
+
 	local targetInstances = Cryo.Dictionary.join(instances, {})
 
 	self:_createNewVisuals(targetInstances)
@@ -150,6 +164,16 @@ end
 function PartConverter:convertInstancesToBiome(instances, generateSettings)
 	if self:isRunning() then
 		return
+	end
+
+	if FFlagTerrainToolsCovertMetricLogs then
+		local partNumber = 0
+		for _ in pairs(instances) do
+			partNumber = partNumber + 1
+		end
+		if partNumber > 0 and self._analytics then
+			self._analytics:report("convertTerrain", partNumber)
+		end
 	end
 
 	local targetInstances = Cryo.Dictionary.join(instances, {})

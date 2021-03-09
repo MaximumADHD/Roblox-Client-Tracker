@@ -2,6 +2,7 @@ local VirtualCursorFolder = script.Parent
 
 local ContextActionService = game:GetService("ContextActionService")
 local GuiService = game:GetService("GuiService")
+local UserInputService = game:GetService("UserInputService")
 
 local properties = require(VirtualCursorFolder.Properties)
 local Interface = require(VirtualCursorFolder.Interface)
@@ -14,6 +15,7 @@ local currentSensitivity = 1
 local cursorFastModeInputDown = false -- raw state of the fastmode input object
 local cursorFastMode = false -- pressing the thumbstick will toggle fast mode
 local thumbstickVector = Vector2.new()
+local enabled = false
 
 -- private functions
 local function quad(x)
@@ -69,19 +71,31 @@ end
 
 local function onSelectionInput(action, state, iobj)
 	-- called when the selection button (A on xbox) is pressed
-	if state == Enum.UserInputState.Begin then
-		if GuiService.SelectedObject then
-			Interface:PlayCursorTweenActivate()
-			return Enum.ContextActionResult.Pass -- pass to allow actual selection of the button
-		end
-	else
-		Interface:PlayCursorTweenDefault()
-		if GuiService.SelectedObject then
-			return Enum.ContextActionResult.Pass
-		end
+	if GuiService.SelectedObject or GuiService.SelectedCoreObject then
+		return Enum.ContextActionResult.Pass -- pass to allow actual selection of the button
 	end
 	return Enum.ContextActionResult.Sink -- sink to prevent jumping when in virtual cursor mode.
 end
+
+UserInputService.InputBegan:Connect(function(input)
+	if not enabled then return end
+	if input.UserInputType == Enum.UserInputType.Gamepad1 then
+		if input.KeyCode == Enum.KeyCode.ButtonA then
+			if GuiService.SelectedObject or GuiService.SelectedCoreObject then
+			Interface:PlayCursorTweenActivate()
+			end
+		end
+	end
+end)
+
+UserInputService.InputEnded:Connect(function(input)
+	if not enabled then return end
+	if input.UserInputType == Enum.UserInputType.Gamepad1 then
+		if input.KeyCode == Enum.KeyCode.ButtonA then
+			Interface:PlayCursorTweenDefault()
+		end
+	end
+end)
 
 function Input:GetThumbstickVector()
 	return thumbstickVector
@@ -103,9 +117,10 @@ function Input:SetCurrentSensitivity(val)
 end
 
 function Input:EnableInput()
-	ContextActionService:BindCoreActionAtPriority("VirtualCursorThumbstickMovement", onThumbstickInput, false, Enum.ContextActionPriority.Low.Value, Enum.KeyCode.Thumbstick1)
-	ContextActionService:BindCoreActionAtPriority("VirtualCursorSelectionAction", onSelectionInput, false, Enum.ContextActionPriority.Low.Value, Enum.KeyCode.ButtonA)
-	ContextActionService:BindCoreActionAtPriority("VirtualCursorThumbstickAction", onThumbstickPressedInput, false, Enum.ContextActionPriority.Low.Value, Enum.KeyCode.ButtonL3)
+	ContextActionService:BindCoreActionAtPriority("VirtualCursorThumbstickMovement", onThumbstickInput, false, Enum.ContextActionPriority.High.Value, Enum.KeyCode.Thumbstick1)
+	ContextActionService:BindCoreActionAtPriority("VirtualCursorSelectionAction", onSelectionInput, false, Enum.ContextActionPriority.High.Value, Enum.KeyCode.ButtonA)
+	ContextActionService:BindCoreActionAtPriority("VirtualCursorThumbstickAction", onThumbstickPressedInput, false, Enum.ContextActionPriority.High.Value, Enum.KeyCode.ButtonL3)
+	enabled = true
 end
 
 function Input:DisableInput()
@@ -117,6 +132,7 @@ function Input:DisableInput()
 	onSelectionInput("VirtualCursorSelectionAction", Enum.UserInputState.Cancel, nil)
 	onThumbstickInput("VirtualCursorThumbstickMovement", Enum.UserInputState.Cancel, nil)
 	onThumbstickPressedInput("VirtualCursorThumbstickAction", Enum.UserInputState.Cancel, nil)
+	enabled = false
 end
 
 return Input

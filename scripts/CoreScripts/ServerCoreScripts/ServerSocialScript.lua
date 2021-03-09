@@ -45,6 +45,7 @@ local PlayerToGroupDetailsMap = {}
 local PlayerToCanManageMap = {}
 
 game:DefineFastFlag("RemoveInGameFollowingServer", false)
+game:DefineFastFlag("PackInGameJoinDataEnabledServer", false) --FFlagPackInGameJoinDataEnabledClient must be turned on first
 
 --[[ Remotes ]]--
 local RemoteEvent_FollowRelationshipChanged
@@ -273,8 +274,12 @@ if not game:GetFastFlag("RemoveInGameFollowingServer") then
 end
 
 local function sendPlayerAllGroupDetails(player)
-	for userId, groupDetails in pairs(PlayerToGroupDetailsMap) do
-		RemoteEvent_PlayerGroupDetails:FireClient(player, userId, groupDetails)
+	if game:GetFastFlag("PackInGameJoinDataEnabledServer") then
+		RemoteEvent_PlayerGroupDetails:FireClient(player, PlayerToGroupDetailsMap)
+	else
+		for userId, groupDetails in pairs(PlayerToGroupDetailsMap) do
+			RemoteEvent_PlayerGroupDetails:FireClient(player, userId, groupDetails)
+		end
 	end
 end
 
@@ -292,17 +297,42 @@ local function getPlayerGroupDetails(player)
 	if player.Parent then
 		local uidStr = tostring(player.UserId)
 		PlayerToGroupDetailsMap[uidStr] = newGroupDetails
-		RemoteEvent_PlayerGroupDetails:FireAllClients(uidStr, newGroupDetails)
+
+		if game:GetFastFlag("PackInGameJoinDataEnabledServer") then
+			RemoteEvent_PlayerGroupDetails:FireAllClients({
+				[uidStr] = newGroupDetails,
+			})
+		else
+			RemoteEvent_PlayerGroupDetails:FireAllClients(uidStr, newGroupDetails)
+		end
 	end
 end
 
 local function sendCanChatWith(newPlayer)
-	for _, player in ipairs(Players:GetPlayers()) do
-		local success, canChat = pcall(function()
-			return Chat:CanUsersChatAsync(newPlayer.UserId, player.UserId)
-		end)
-		RemoteEvent_CanChatWith:FireClient(newPlayer, player.UserId, success and canChat)
-		RemoteEvent_CanChatWith:FireClient(player, newPlayer.UserId, success and canChat)
+
+	if game:GetFastFlag("PackInGameJoinDataEnabledServer") then
+		local newPlayerCanChatWithPacket = {}
+
+		for _, player in ipairs(Players:GetPlayers()) do
+			local success, canChat = pcall(function()
+				return Chat:CanUsersChatAsync(newPlayer.UserId, player.UserId)
+			end)
+
+			newPlayerCanChatWithPacket[player.userId] = success and canChat
+			RemoteEvent_CanChatWith:FireClient(player, {
+				[newPlayer.userId] = success and canChat,
+			})
+		end
+
+		RemoteEvent_CanChatWith:FireClient(newPlayer, newPlayerCanChatWithPacket)
+	else
+		for _, player in ipairs(Players:GetPlayers()) do
+			local success, canChat = pcall(function()
+				return Chat:CanUsersChatAsync(newPlayer.UserId, player.UserId)
+			end)
+			RemoteEvent_CanChatWith:FireClient(newPlayer, player.UserId, success and canChat)
+			RemoteEvent_CanChatWith:FireClient(player, newPlayer.UserId, success and canChat)
+		end
 	end
 end
 

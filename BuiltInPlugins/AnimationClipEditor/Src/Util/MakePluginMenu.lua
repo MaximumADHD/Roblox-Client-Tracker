@@ -15,6 +15,9 @@ local function connectAction(connections, action, entry, item)
 		end
 		if entry.ItemSelected then
 			entry.ItemSelected(item)
+		-- AnimationClipMenu has selection function for items in the dropdown menus
+		elseif item.ItemSelected then
+			item.ItemSelected(item.Value)
 		end
 	end))
 end

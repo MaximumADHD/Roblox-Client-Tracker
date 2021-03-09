@@ -23,6 +23,11 @@
         ShowTable = boolean, determines if the table should be displayed or not.
 ]]
 
+local KEY_EDIT = "Edit"
+local KEY_COPYID = "CopyID"
+
+local StudioService = game:GetService("StudioService")
+
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Roact = require(Plugin.Roact)
@@ -43,6 +48,7 @@ local TableWithMenu = require(Plugin.Src.Components.TableWithMenu)
 local DevProducts = Roact.PureComponent:extend(script.Name)
 
 local FFlagFixRadioButtonSeAndTableHeadertForTesting = game:getFastFlag("FixRadioButtonSeAndTableHeadertForTesting")
+local FFlagStudioDevProductCopyIdToClipboard = game:getFastFlag("StudioDevProductCopyIdToClipboard")
 
 function DevProducts:render()
     local props = self.props
@@ -82,6 +88,34 @@ function DevProducts:render()
             localization:getText("Monetization", "ProductID"),
             localization:getText("Monetization", "ProductName"),
             localization:getText("Monetization", "PriceTitle"),
+        }
+    end
+    
+    local onItemClicked
+    local menuItems
+    
+    if FFlagStudioDevProductCopyIdToClipboard then
+        onItemClicked = function(key, id)
+            if key == KEY_EDIT then
+                dispatchSetEditDevProductId(id)
+            elseif key == KEY_COPYID then
+                StudioService:CopyToClipboard(id)
+            else
+                error("Invalid Key")
+            end
+        end
+        
+        menuItems = {
+            {Key = KEY_EDIT, Text = localization:getText("General", "ButtonEdit"),},
+            {Key = KEY_COPYID, Text = localization:getText("General", "CopyIDToClipboard"),}
+        }
+    else
+        onItemClicked = function(key, id)
+            dispatchSetEditDevProductId(id)
+        end
+        
+        menuItems = {
+            {Key = "Edit", Text = localization:getText("General", "ButtonEdit"),}
         }
     end
 
@@ -128,13 +162,24 @@ function DevProducts:render()
 
             Data = productsList,
 
-            MenuItems = {
-                {Key = "Edit", Text = localization:getText("General", "ButtonEdit"),}
-            },
+            MenuItems = menuItems,
 
-            OnItemClicked = function(key, id)
-                dispatchSetEditDevProductId(id)
-            end,
+            MenuItemsFilterFunc = FFlagStudioDevProductCopyIdToClipboard and function(rowData, menuItems)
+                local id = rowData.row[1]
+                if not tonumber(id) then
+                    local indexToRemove
+                    for i,v in pairs(menuItems) do
+                        if v.Key == KEY_COPYID then
+                            indexToRemove = i
+                            break
+                        end
+                    end
+
+                    menuItems[indexToRemove] = nil
+                end
+            end or nil,
+
+            OnItemClicked = onItemClicked,
 
             LayoutOrder = 2,
 

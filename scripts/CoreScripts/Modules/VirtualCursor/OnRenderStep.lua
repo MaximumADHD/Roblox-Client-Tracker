@@ -3,6 +3,7 @@ local VirtualCursorFolder = script.Parent
 local GuiService = game:GetService("GuiService")
 local Players = game:GetService("Players")
 local GamepadService = game:GetService("GamepadService")
+local CoreGui = game:GetService("CoreGui")
 
 local Player = Players.LocalPlayer
 local PlayerGui = Player:WaitForChild("PlayerGui")
@@ -31,8 +32,19 @@ local function getNearestButtonInCircle(pos, rad)
 	local topLeftInset = GuiService:GetGuiInset()
 	pos = pos - topLeftInset
 	local guiObjects = PlayerGui:GetGuiObjectsInCircle(pos, rad)
+	local guiObjectsCore = CoreGui:GetGuiObjectsInCircle(pos, rad)	
 	-- this should be layered in zindex order, so might have to take that into account
 	for _, object in ipairs(guiObjects) do
+		if isSelectableButton(object) then
+			local bDist = ((object.AbsolutePosition + object.AbsoluteSize / 2) - pos).Magnitude
+			if bDist < dist then
+				closest = object
+				dist = bDist
+			end
+		end
+	end
+
+	for _, object in ipairs(guiObjectsCore) do
 		if isSelectableButton(object) then
 			local bDist = ((object.AbsolutePosition + object.AbsoluteSize / 2) - pos).Magnitude
 			if bDist < dist then
@@ -72,7 +84,6 @@ end
 
 return function(VirtualCursorMain, dt)
 	local viewportSize = GuiService:GetScreenResolution()
-	local isInitialRun = VirtualCursorMain:InitialRun()
 	local thumbstickVector = Input:GetThumbstickVector()
 	local cursorPosition = VirtualCursorMain.CursorPosition
 	local cursorAccelerationDV = VirtualCursorMain.CursorAccelerationDV
@@ -80,6 +91,10 @@ return function(VirtualCursorMain, dt)
 
 	-- process inputs and rendering of position of cursor
 	local velocityFromInput = Vector2.new()
+
+	if VirtualCursorMain.SelectedObject == nil then
+		velocityTarget = 1
+	end
 
 	if Properties.MovementMode == VirtualCursorEnums.MovementMode.Standard then
 		velocityFromInput = thumbstickVector*getMaxSpeed()
@@ -103,7 +118,6 @@ return function(VirtualCursorMain, dt)
 
 	-- step the position
 	local velocityChanged = cursorVelocity.Magnitude > 0
-	local positionChanged = velocityChanged
 	if velocityChanged then -- not idling
 		local unclampedPosition = cursorPosition + cursorVelocity*dt
 		local cursorPosX = math.clamp(unclampedPosition.x, 0, viewportSize.x)
@@ -112,29 +126,34 @@ return function(VirtualCursorMain, dt)
 	end
 
 	-- set position of cursor
-	if positionChanged or isInitialRun then -- if its the initial run, we should check to see if there's something under our cursor already.
-		Interface:SetCursorPosition(cursorPosition)
-		GamepadService:SetGamepadCursorPosition(cursorPosition)
+	-- Removing this check entirely, run it every frame instead. Perf seems fine ~0.01ms per call
+	Interface:SetCursorPosition(cursorPosition)
+	GamepadService:SetGamepadCursorPosition(cursorPosition)
+	VirtualCursorMain.CursorPosition = cursorPosition
 
-		local newObject = getNearestButtonInCircle(cursorPosition, Properties.SelectionRadius)
-		if newObject ~= lastSelectedObject then
-			lastSelectedObject = newObject
-			Interface:SetCursorHighlight(newObject ~= nil)
-			if newObject then
-				if newObject ~= VirtualCursorMain.SelectedObject then
-					VirtualCursorMain.SelectedObject = newObject
-					velocityTarget = Properties.SpeedAdjustmentTarget
-				end
-			else
-				if VirtualCursorMain.SelectedObject then
-					VirtualCursorMain.SelectedObject = nil
-					velocityTarget = 1
-				end
+	local newObject = getNearestButtonInCircle(cursorPosition, Properties.SelectionRadius)
+
+	if newObject ~= lastSelectedObject then
+		lastSelectedObject = newObject
+		Interface:SetCursorHighlight(newObject ~= nil)
+		if newObject then
+			if newObject ~= VirtualCursorMain.SelectedObject then
+				VirtualCursorMain.SelectedObject = newObject
+				velocityTarget = Properties.SpeedAdjustmentTarget
 			end
+		else
+			VirtualCursorMain.SelectedObject = nil
+			velocityTarget = 1
+		end
+
+		if VirtualCursorMain.SelectedObject == nil then 
+			GuiService.SelectedObject = nil
+			GuiService.SelectedCoreObject = nil
+		elseif VirtualCursorMain.SelectedObject:IsDescendantOf(CoreGui) and
+				GuiService.SelectedCoreObject ~= VirtualCursorMain.SelectedObject then
+			GuiService.SelectedCoreObject = VirtualCursorMain.SelectedObject
+		elseif GuiService.SelectedObject ~= VirtualCursorMain.SelectedObject then
+			GuiService.SelectedObject = VirtualCursorMain.SelectedObject
 		end
 	end
-
-	-- update position
-	VirtualCursorMain.CursorPosition = cursorPosition
-	GuiService.SelectedObject = VirtualCursorMain.SelectedObject
 end

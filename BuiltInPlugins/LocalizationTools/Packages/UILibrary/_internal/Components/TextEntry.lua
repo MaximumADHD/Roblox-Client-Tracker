@@ -17,8 +17,6 @@ local Theming = require(Library.Theming)
 local withTheme = Theming.withTheme
 
 local TextEntry = Roact.PureComponent:extend("TextEntry")
-local FFlagAllowTextEntryToTakeSizeAndPositionProp = game:DefineFastFlag("AllowTextEntryToTakeSizeAndPositionProp", false)
-local FFlagGameSettingsFixNameWhitespace = game:DefineFastFlag("GameSettingsFixNameWhitespace", false)
 local FFlagFixTextChangedFromEmptyForTextEntry = game:DefineFastFlag("FixTextChangedFromEmptyForTextEntry", false)
 
 function TextEntry:init()
@@ -30,20 +28,12 @@ function TextEntry:init()
 			rbx.TextXAlignment = Enum.TextXAlignment.Right
 		end
 		if FFlagFixTextChangedFromEmptyForTextEntry then
-			if FFlagGameSettingsFixNameWhitespace then
-				local processed = string.gsub(rbx.Text, "[\n\r]", " ")
-				self.props.SetText(processed)
-			else
-				self.props.SetText(rbx.Text)
-			end
+			local processed = string.gsub(rbx.Text, "[\n\r]", " ")
+			self.props.SetText(processed)
 		else
 			if rbx.Text ~= self.props.Text then
-				if FFlagGameSettingsFixNameWhitespace then
-					local processed = string.gsub(rbx.Text, "[\n\r]", " ")
-					self.props.SetText(processed)
-				else
-					self.props.SetText(rbx.Text)
-				end
+				local processed = string.gsub(rbx.Text, "[\n\r]", " ")
+				self.props.SetText(processed)
 			end
 		end
 	end
@@ -63,21 +53,10 @@ function TextEntry:render()
 
 		local textEntryTheme = theme.textEntry
 
-		local size
-		local position
-		local textTransparency
-		local enabled
-		if FFlagAllowTextEntryToTakeSizeAndPositionProp then
-			size = self.props.Size and self.props.Size or UDim2.new(1, 0, 1, 0)
-			position = self.props.Position and self.props.Position or nil
-			enabled = (self.props.Enabled == nil) and true or self.props.Enabled
-			textTransparency = enabled and textEntryTheme.textTransparency.enabled or textEntryTheme.textTransparency.disabled 
-		else
-			size = UDim2.new(1, 0, 1, 0)
-			position = nil
-			enabled = nil
-			textTransparency = nil
-		end
+		local size = self.props.Size and self.props.Size or UDim2.new(1, 0, 1, 0)
+		local position = self.props.Position and self.props.Position or nil
+		local enabled = (self.props.Enabled == nil) and true or self.props.Enabled
+		local textTransparency = enabled and textEntryTheme.textTransparency.enabled or textEntryTheme.textTransparency.disabled
 
 		return Roact.createElement("Frame", {
 			Size = size,

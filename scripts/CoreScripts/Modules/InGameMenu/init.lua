@@ -41,8 +41,6 @@ local GlobalConfig = require(script.GlobalConfig)
 local Constants = require(script.Resources.Constants)
 
 local isNewGamepadMenuEnabled = require(RobloxGui.Modules.Flags.isNewGamepadMenuEnabled)
-
-local GetFFlagUseRoactPolicyProvider = require(RobloxGui.Modules.Flags.GetFFlagUseRoactPolicyProvider)
 local FFlagInspectMenuSubjectToPolicy = require(RobloxGui.Modules.Flags.FFlagInspectMenuSubjectToPolicy)
 
 local OpenChangedEvent = Instance.new("BindableEvent")
@@ -120,49 +118,21 @@ return {
 			end)
 		end
 
-		local menuTree
-		if GetFFlagUseRoactPolicyProvider() then
-			menuTree = Roact.createElement("ScreenGui", {
-				ResetOnSpawn = false,
-				IgnoreGuiInset = true,
-				DisplayOrder = 1,
-				ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
-				AutoLocalize = false,
-				[Roact.Change.AbsoluteSize] = function(rbx)
-					menuStore:dispatch(SetScreenSize(rbx.AbsoluteSize))
-				end
+		local menuTree = Roact.createElement("ScreenGui", {
+			ResetOnSpawn = false,
+			IgnoreGuiInset = true,
+			DisplayOrder = 1,
+			ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
+			AutoLocalize = false,
+			[Roact.Change.AbsoluteSize] = function(rbx)
+				menuStore:dispatch(SetScreenSize(rbx.AbsoluteSize))
+			end
+		}, {
+			StoreProvider = Roact.createElement(RoactRodux.StoreProvider, {
+				store = menuStore,
 			}, {
-				StoreProvider = Roact.createElement(RoactRodux.StoreProvider, {
-					store = menuStore,
-				}, {
-					PolicyProvider = Roact.createElement(InGameMenuPolicy.Provider, {
-						policy = { InGameMenuPolicy.Mapper },
-					}, {
-						ThemeProvider = Roact.createElement(UIBlox.Core.Style.Provider, {
-							style = appStyle,
-						}, {
-							LocalizationProvider = Roact.createElement(LocalizationProvider, {
-								localization = localization,
-							}, {
-								InGameMenu = Roact.createElement(App),
-							}),
-						}),
-					}),
-				})
-			})
-		else
-			menuTree = Roact.createElement("ScreenGui", {
-				ResetOnSpawn = false,
-				IgnoreGuiInset = true,
-				DisplayOrder = 1,
-				ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
-				AutoLocalize = false,
-				[Roact.Change.AbsoluteSize] = function(rbx)
-					menuStore:dispatch(SetScreenSize(rbx.AbsoluteSize))
-				end
-			}, {
-				StoreProvider = Roact.createElement(RoactRodux.StoreProvider, {
-					store = menuStore,
+				PolicyProvider = Roact.createElement(InGameMenuPolicy.Provider, {
+					policy = { InGameMenuPolicy.Mapper },
 				}, {
 					ThemeProvider = Roact.createElement(UIBlox.Core.Style.Provider, {
 						style = appStyle,
@@ -173,17 +143,17 @@ return {
 							InGameMenu = Roact.createElement(App),
 						}),
 					}),
-				})
+				}),
 			})
-		end
+		})
 
 		Roact.mount(menuTree, CoreGui, "InGameMenu")
 
 		return
 	end,
 
-	openInGameMenu = function()
-		menuStore:dispatch(OpenMenu(Constants.AnalyticsMenuOpenTypes.TopbarButton))
+	openInGameMenu = function(pageKey)
+		menuStore:dispatch(OpenMenu(Constants.AnalyticsMenuOpenTypes.TopbarButton, pageKey))
 	end,
 
 	openReportDialog = function(player)

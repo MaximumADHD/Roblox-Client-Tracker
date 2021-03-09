@@ -6,12 +6,12 @@ end
 -- flags in NoOpt/Debug. When that is fixed this template should be updated to use it.
 require(script.Parent.defineFlags)
 
-if not game:GetFastFlag("EnableTestHarness") then
+local hasInternalPermission = game:GetService("StudioService"):HasInternalPermission()
+if not game:GetFastFlag("EnableTestHarness") or not hasInternalPermission then
 	return
 end
 
 local FFlagEnableRoactInspector = game:GetFastFlag("EnableRoactInspector")
-local hasInternalPermission = game:GetService("StudioService"):HasInternalPermission()
 
 local commonInit = require(script.Parent.commonInit)
 commonInit()

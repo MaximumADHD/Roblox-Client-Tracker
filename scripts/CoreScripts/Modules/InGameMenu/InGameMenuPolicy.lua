@@ -5,11 +5,9 @@ local PolicyProvider = InGameMenuDependencies.PolicyProvider
 local implementation = PolicyProvider.GetPolicyImplementations.MemStorageService("app-policy")
 local InGameMenuPolicy = PolicyProvider.withGetPolicyImplementation(implementation)
 
-local GetFFlagEducationalPopupOnNativeClose = require(script.Parent.Parent.Flags.GetFFlagEducationalPopupOnNativeClose)
 local GetFIntEducationalPopupDisplayMaxCount = require(
 	script.Parent.Parent.Flags.GetFIntEducationalPopupDisplayMaxCount)
 local GetFFlagInGameHomeIcon = require(script.Parent.Flags.GetFFlagInGameHomeIcon)
-local GetFFlagInGameMenuFullscreenTitleBar = require(script.Parent.Flags.GetFFlagInGameMenuFullscreenTitleBar)
 
 InGameMenuPolicy.Mapper = function(policy)
 	local UniversalAppOnWindows = game:GetEngineFeature("UniversalAppOnWindows")
@@ -20,7 +18,10 @@ InGameMenuPolicy.Mapper = function(policy)
 
 		enableEducationalPopup = function()
 			local isNativeCloseIntercept = game:GetEngineFeature("NativeCloseIntercept")
-			return UniversalAppOnWindows and isNativeCloseIntercept and GetFFlagEducationalPopupOnNativeClose()
+			if UniversalAppOnWindows and isNativeCloseIntercept then
+				return true
+			end
+			return false
 		end,
 
 		educationalPopupMaxDisplayCount = function()
@@ -28,7 +29,10 @@ InGameMenuPolicy.Mapper = function(policy)
 		end,
 
 		enableFullscreenTitleBar = function()
-			return UniversalAppOnWindows and GetFFlagInGameMenuFullscreenTitleBar()
+			if UniversalAppOnWindows then
+				return true
+			end
+			return false
 		end,
 	}
 end

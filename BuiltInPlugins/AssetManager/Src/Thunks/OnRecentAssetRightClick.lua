@@ -5,6 +5,7 @@ local StudioService = game:GetService("StudioService")
 
 local FFlagStudioAssetManagerNewMultiselectMeshBehavior = game:getFastFlag("StudioAssetManagerNewMultiselectMeshBehavior")
 local FFlagStudioAssetManagerFixRecentAssetInsert = game:getFastFlag("StudioAssetManagerFixRecentAssetInsert")
+local FFlagEnableLuobuAudioImport = game:GetFastFlag("EnableLuobuAudioImport")
 
 local Framework = Plugin.Packages.Framework
 local RobloxAPI = require(Framework).RobloxAPI
@@ -172,7 +173,9 @@ local function createAssetContextMenu(analytics, apiImpl, assetData, contextMenu
         createImageContextMenu(analytics, apiImpl, assetData, contextMenu, localization, store)
     elseif assetType == Enum.AssetType.MeshPart then
         createMeshPartContextMenu(analytics, apiImpl, assetData, contextMenu, localization, store)
-    elseif (not RobloxAPI:baseURLHasChineseHost()) and assetType == Enum.AssetType.Audio then
+    elseif ((not FFlagEnableLuobuAudioImport and (not RobloxAPI:baseURLHasChineseHost())) or FFlagEnableLuobuAudioImport)
+        and assetType == Enum.AssetType.Audio
+    then
         createAudioContextMenu(analytics, assetData, contextMenu, localization, store)
     end
 end

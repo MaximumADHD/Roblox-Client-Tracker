@@ -71,6 +71,12 @@ return function(analyticsService)
 			})
 		end,
 
+		convertTerrain = function(_, partNumber)
+			sendEvent("ConvertTerrain", {
+				partNumber = partNumber,
+			})
+		end,
+
 		useBrushTool = function(_, toolName)
 			sendEvent("UseTerrainTool", {
 				toolName = toolName,

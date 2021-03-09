@@ -17,11 +17,6 @@ local Framework = script.Parent.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
 local Typecheck = require(Framework.Util).Typecheck
 
-local Util = require(Framework.Util)
-local FlagsList = Util.Flags.new({
-	FFlagEnableRoactInspector = {"EnableRoactInspector"},
-})
-
 local InstanceTreeRow = Roact.PureComponent:extend("InstanceTreeRow")
 
 local UI = Framework.UI
@@ -71,12 +66,8 @@ function InstanceTreeRow:render()
 	local style = props.style
 	local isSelected = props.isSelected
 	local isExpanded = props.isExpanded
-	local hasChildren
-	if FlagsList:get("FFlagEnableRoactInspector") then
-		hasChildren = #item:GetChildren() > 0
-	else
-		hasChildren = item.children and #item:GetChildren() > 0
-	end
+	local hasChildren = #item:GetChildren() > 0
+	
 	local onToggled = props.onToggled
 	local indent = row.depth * style.Indent
 

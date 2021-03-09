@@ -107,11 +107,10 @@ function InstanceSelector:init()
 		})
 	end
 
-	local plugin = self.props.Plugin
-
 	self.SelectionChangedHandle = Selection.SelectionChanged:Connect(function()
 		local selectedInstance = getSelectedInstance()
 		local rigInstance = getModel(selectedInstance)
+		local plugin = self.props.Plugin
 
 		if isValidRig(rigInstance) and not self:isCurrentRootInstance(rigInstance) then
 			local hasErrors, errorList = RigUtils.rigHasErrors(rigInstance)
@@ -119,11 +118,11 @@ function InstanceSelector:init()
 				self.props.UpdateRootInstance(rigInstance, self.props.Analytics)
 				self.deselect()
 			else
-				plugin:Deactivate()
-				self:showErrorDialogs(plugin, errorList)
+				plugin:get():Deactivate()
+				self:showErrorDialogs(plugin:get(), errorList)
 			end
 		elseif selectedInstance and plugin then
-			plugin:Deactivate()
+			plugin:get():Deactivate()
 		end
 	end)
 end

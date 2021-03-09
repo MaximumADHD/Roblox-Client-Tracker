@@ -31,4 +31,6 @@ return {
 
     SelectedGradient = "rbxasset://textures/ui/Emotes/Small/SelectedGradient.png",
     SelectedGradientImageSize = Vector2.new(138, 106),
+
+    EmotesListPosition = UDim2.new(1, -119, 1, -114),
 }

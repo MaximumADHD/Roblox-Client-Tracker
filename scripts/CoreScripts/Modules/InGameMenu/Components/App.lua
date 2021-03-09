@@ -25,10 +25,7 @@ local EducationalPopup = require(script.Parent.EducationalPopup)
 local MenuIconTooltip = require(script.Parent.MenuIconTooltip)
 local FullscreenTitleBar = require(script.Parent.FullscreenTitleBar)
 
-local GetFFlagEducationalPopupOnNativeClose = require(RobloxGui.Modules.Flags.GetFFlagEducationalPopupOnNativeClose)
 local FFlagLuaMenuPerfImprovements = require(script.Parent.Parent.Flags.FFlagLuaMenuPerfImprovements)
-local GetFFlagInGameMenuIconTooltip = require(RobloxGui.Modules.Flags.GetFFlagInGameMenuIconTooltip)
-local GetFFlagUseRoactPolicyProvider = require(RobloxGui.Modules.Flags.GetFFlagUseRoactPolicyProvider)
 
 local Constants = require(script.Parent.Parent.Resources.Constants)
 
@@ -53,8 +50,8 @@ local function App(props)
 				ControlLayoutSetter = Roact.createElement(ControlLayoutSetter),
 			}) or nil,
 			Connection = Roact.createElement(Connection),
-			EducationalPopup = GetFFlagEducationalPopupOnNativeClose() and Roact.createElement(EducationalPopup) or nil,
-			MenuIconTooltip = GetFFlagInGameMenuIconTooltip() and Roact.createElement(MenuIconTooltip) or nil,
+			EducationalPopup = props.isEducationalPopupEnabled and Roact.createElement(EducationalPopup) or nil,
+			MenuIconTooltip = props.isEducationalPopupEnabled and Roact.createElement(MenuIconTooltip) or nil,
 			FullscreenTitleBar = fullscreenTitleBar,
 		})
 	else
@@ -68,20 +65,19 @@ local function App(props)
 			ReportSentDialog = Roact.createElement(ReportSentDialog),
 			ControlLayoutSetter = Roact.createElement(ControlLayoutSetter),
 			Connection = Roact.createElement(Connection),
-			EducationalPopup = GetFFlagEducationalPopupOnNativeClose() and Roact.createElement(EducationalPopup) or nil,
-			MenuIconTooltip = GetFFlagInGameMenuIconTooltip() and Roact.createElement(MenuIconTooltip) or nil,
+			EducationalPopup = props.isEducationalPopupEnabled and Roact.createElement(EducationalPopup) or nil,
+			MenuIconTooltip = props.isEducationalPopupEnabled and Roact.createElement(MenuIconTooltip) or nil,
 			FullscreenTitleBar = fullscreenTitleBar,
 		})
 	end
 end
 
-if GetFFlagUseRoactPolicyProvider() then
-	App = InGameMenuPolicy.connect(function(appPolicy, props)
-		return {
-			enableFullscreenTitleBar = appPolicy.enableFullscreenTitleBar(),
-		}
-	end)(App)
-end
+App = InGameMenuPolicy.connect(function(appPolicy, props)
+	return {
+		enableFullscreenTitleBar = appPolicy.enableFullscreenTitleBar(),
+		isEducationalPopupEnabled = appPolicy.enableEducationalPopup(),
+	}
+end)(App)
 
 local function mapStateToProps(state, props)
 	return { visible = state.isMenuOpen }

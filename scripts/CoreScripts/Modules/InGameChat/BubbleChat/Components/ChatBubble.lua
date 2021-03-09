@@ -5,12 +5,12 @@ local Otter = require(CorePackages.Packages.Otter)
 local Roact = require(CorePackages.Packages.Roact)
 local RoactRodux = require(CorePackages.Packages.RoactRodux)
 local t = require(CorePackages.Packages.t)
-local Types = require(script.Parent.Parent.Types)
+local Cryo = require(CorePackages.Packages.Cryo)
 
-local SPRING_CONFIG = {
-	dampingRatio = 1,
-	frequency = 2,
-}
+local root = script.Parent.Parent
+local Types = require(root.Types)
+local getSizeSpringFromSettings = require(root.Helpers.getSizeSpringFromSettings)
+local getTransparencySpringFromSettings = require(root.Helpers.getTransparencySpringFromSettings)
 
 local ChatBubble = Roact.PureComponent:extend("ChatBubble")
 
@@ -21,9 +21,9 @@ ChatBubble.validateProps = t.strictInterface({
 	onFadeOut = t.optional(t.callback),
 	isMostRecent = t.optional(t.boolean),
 	theme = t.optional(t.string),
+	chatSettings = Types.IChatSettings,
 
 	-- RoactRodux
-	chatSettings = Types.IChatSettings,
 	text = t.string,
 	timestamp = t.number,
 })
@@ -52,14 +52,14 @@ function ChatBubble:init()
 end
 
 function ChatBubble:getTextBounds()
-	local settings = self.props.chatSettings
-	local padding = Vector2.new(settings.Padding * 4, settings.Padding * 2)
+	local chatSettings = self.props.chatSettings
+	local padding = Vector2.new(chatSettings.Padding * 4, chatSettings.Padding * 2)
 
 	local bounds = TextService:GetTextSize(
 		self.props.text,
-		settings.TextSize,
-		settings.Font,
-		Vector2.new(settings.MaxWidth, 10000)
+		chatSettings.TextSize,
+		chatSettings.Font,
+		Vector2.new(chatSettings.MaxWidth, 10000)
 	)
 
 	return bounds + padding
@@ -67,7 +67,9 @@ end
 
 function ChatBubble:render()
 	local bounds = self:getTextBounds()
-	local settings = self.props.chatSettings
+	local chatSettings = self.props.chatSettings
+	local backgroundImageSettings = chatSettings.BackgroundImage
+	local backgroundGradientSettings = chatSettings.BackgroundGradient
 
 	return Roact.createElement("Frame", {
 		LayoutOrder = self.props.timestamp,
@@ -82,18 +84,19 @@ function ChatBubble:render()
 			Padding = UDim.new(0, -1), --UICorner generates a 1 pixel gap (UISYS-625), this fixes it by moving the carrot up by 1 pixel
 		}),
 
-		Frame = Roact.createElement("Frame", {
+		Frame = Roact.createElement("ImageLabel", Cryo.Dictionary.join(backgroundImageSettings, {
 			LayoutOrder = 1,
-			BackgroundColor3 = settings.BackgroundColor3,
+			BackgroundColor3 = chatSettings.BackgroundColor3,
 			AnchorPoint = Vector2.new(0.5, 0),
 			Size = UDim2.fromScale(1, 1),
 			BorderSizePixel = 0,
 			Position = UDim2.new(0.5, 0, 0, 0),
-			BackgroundTransparency = self.transparency,
+			BackgroundTransparency = backgroundImageSettings.Image ~= "" and 1 or self.transparency,
 			ClipsDescendants = true,
-		}, {
-			UICorner = Roact.createElement("UICorner", {
-				CornerRadius = settings.CornerRadius,
+			ImageTransparency = self.transparency,
+		}), {
+			UICorner = chatSettings.CornerEnabled and Roact.createElement("UICorner", {
+				CornerRadius = chatSettings.CornerRadius,
 			}),
 
 			Text = Roact.createElement("TextLabel", {
@@ -102,28 +105,30 @@ function ChatBubble:render()
 				AnchorPoint = Vector2.new(0.5, 0.5),
 				Position = UDim2.fromScale(0.5, 0.5),
 				BackgroundTransparency = 1,
-				Font = settings.Font,
-				TextColor3 = settings.TextColor3,
-				TextSize = settings.TextSize,
+				Font = chatSettings.Font,
+				TextColor3 = chatSettings.TextColor3,
+				TextSize = chatSettings.TextSize,
 				TextTransparency = self.transparency,
 				TextWrapped = true,
 				AutoLocalize = false,
 			}, {
 				Padding = Roact.createElement("UIPadding", {
-					PaddingTop = UDim.new(0, settings.Padding),
-					PaddingRight = UDim.new(0, settings.Padding),
-					PaddingBottom = UDim.new(0, settings.Padding),
-					PaddingLeft = UDim.new(0, settings.Padding),
+					PaddingTop = UDim.new(0, chatSettings.Padding),
+					PaddingRight = UDim.new(0, chatSettings.Padding),
+					PaddingBottom = UDim.new(0, chatSettings.Padding),
+					PaddingLeft = UDim.new(0, chatSettings.Padding),
 				})
-			})
+			}),
+
+			Gradient = backgroundGradientSettings.Enabled and Roact.createElement("UIGradient", backgroundGradientSettings)
 		}),
 
-		Carat = self.props.isMostRecent and settings.TailVisible and Roact.createElement("ImageLabel", {
+		Carat = self.props.isMostRecent and chatSettings.TailVisible and Roact.createElement("ImageLabel", {
 			LayoutOrder = 2,
 			BackgroundTransparency = 1,
 			Size = UDim2.fromOffset(9, 6),
 			Image = "rbxasset://textures/ui/InGameChat/Caret.png",
-			ImageColor3 = settings.BackgroundColor3,
+			ImageColor3 = chatSettings.BackgroundColor3,
 			ImageTransparency = self.transparency,
 		}),
 	})
@@ -139,7 +144,8 @@ function ChatBubble:fadeOut()
 			end
 		end)
 
-		self.transparencyMotor:setGoal(Otter.spring(1, SPRING_CONFIG))
+		local transparencySpring = getTransparencySpringFromSettings(self.props.chatSettings)
+		self.transparencyMotor:setGoal(transparencySpring(1))
 	end
 end
 
@@ -153,18 +159,21 @@ function ChatBubble:didMount()
 	self.isMounted = true
 
 	local bounds = self:getTextBounds()
+	local chatSettings = self.props.chatSettings
+	local sizeSpring = getSizeSpringFromSettings(chatSettings)
+	local transparencySpring = getTransparencySpringFromSettings(chatSettings)
 
 	if self.props.isMostRecent then
 		-- Chat bubble spawned for the first time
 		self.updateWidth(bounds.X)
-		self.heightMotor:setGoal(Otter.spring(bounds.Y, SPRING_CONFIG))
+		self.heightMotor:setGoal(sizeSpring(bounds.Y))
 	else
 		-- Transition between distant bubble and chat bubble
-		self.heightMotor:setGoal(Otter.spring(bounds.Y, SPRING_CONFIG))
-		self.widthMotor:setGoal(Otter.spring(bounds.X, SPRING_CONFIG))
+		self.heightMotor:setGoal(sizeSpring(bounds.Y))
+		self.widthMotor:setGoal(sizeSpring(bounds.X))
 	end
 
-	self.transparencyMotor:setGoal(Otter.spring(self.props.chatSettings.Transparency, SPRING_CONFIG))
+	self.transparencyMotor:setGoal(transparencySpring(chatSettings.Transparency))
 end
 
 function ChatBubble:willUnmount()
@@ -177,7 +186,6 @@ end
 local function mapStateToProps(state, props)
 	local message = state.messages[props.messageId]
 	return {
-		chatSettings = state.chatSettings,
 		-- We must listen for the message's text from the state rather than get it as a prop from the parent BubbleChatList
 		-- because it can be updated (message done filtering) and that would not trigger a BubbleChatList re-render
 		text = message and message.text or "",

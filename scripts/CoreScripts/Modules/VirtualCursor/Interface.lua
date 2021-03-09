@@ -68,6 +68,8 @@ local function getOrCreateVirtualCursorContainer()
 		virtualCursorContainer = Instance.new("ScreenGui")
 		virtualCursorContainer.Enabled = false
 		virtualCursorContainer.IgnoreGuiInset = true
+		virtualCursorContainer.DisplayOrder = 69
+		virtualCursorContainer.Name = "VirtualCursorGui"
 
 		cursorIndicator = Instance.new("ImageLabel")
 		cursorIndicator.Active = false

@@ -21,6 +21,11 @@ local AnalyticsService = game:GetService("RbxAnalyticsService")
 local Settings = UserSettings()
 local GameSettings = Settings.GameSettings
 
+local VoiceChatService2 = nil
+pcall(function()
+	VoiceChatService2 = game:GetService("VoiceChatService2")
+end)
+
 -------------- CONSTANTS --------------
 -- DEPRECATED Remove with FixGraphicsQuality
 local GRAPHICS_QUALITY_LEVELS = 10
@@ -50,11 +55,21 @@ local TOUCH_CHANGED_PROPS = {
 }
 local CAMERA_MODE_DEFAULT_STRING = UserInputService.TouchEnabled and "Default (Follow)" or "Default (Classic)"
 
+local VOICE_CHAT_AVAILABILITY = {
+	PlaceNotAvailable = -1,
+	UserNotAvailable = 0,
+	Checking = 1,
+	Available = 2,
+}
+local MIN_VOICE_CHAT_API_VERSION = 3
+local VOICE_CHAT_DEVICE_TYPE = {
+	Input = "Input",
+	Output = "Output",
+}
+
 local FFlagGroupEditDevConsoleButton = settings():GetFFlag("GroupEditDevConsoleButton")
 local FFlagMicroProfilerSessionAnalytics = settings():GetFFlag("MicroProfilerSessionAnalytics")
 local FFlagCollectAnalyticsForSystemMenu = settings():GetFFlag("CollectAnalyticsForSystemMenu")
-
-local GetFFlagFullscreenAnalytics = require(RobloxGui.Modules.Flags.GetFFlagFullscreenAnalytics)
 
 local MICROPROFILER_SETTINGS_PRESSED = "MicroprofilerSettingsPressed"
 
@@ -71,6 +86,7 @@ if FFlagCollectAnalyticsForSystemMenu then
 end
 
 local CoreUtility = require(RobloxGui.Modules.CoreUtility)
+local IsDeveloperConsoleEnabled = require(RobloxGui.Modules.DevConsole.IsDeveloperConsoleEnabled)
 
 ------------ Variables -------------------
 RobloxGui:WaitForChild("Modules"):WaitForChild("TenFootInterface")
@@ -107,6 +123,8 @@ local canUseMicroProfiler = not PolicyService:IsSubjectToChinaPolicies()
 local isDesktopClient = (platform == Enum.Platform.Windows) or (platform == Enum.Platform.OSX) or (platform == Enum.Platform.UWP)
 local isMobileClient = (platform == Enum.Platform.IOS) or (platform == Enum.Platform.Android)
 local UseMicroProfiler = (isMobileClient or isDesktopClient) and canUseMicroProfiler
+
+local GetFFlagEnableVoiceChatOptions = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceChatOptions)
 
 local function reportSettingsForAnalytics()
 	if not FFlagCollectAnalyticsForSystemMenu then return end
@@ -189,7 +207,7 @@ local function Initialize()
 
 		this.FullscreenFrame, this.FullscreenLabel, this.FullscreenEnabler =
 			utility:AddNewRow(this, "Fullscreen", "Selector", {"On", "Off"}, fullScreenInit)
-		this.FullscreenFrame.LayoutOrder = 6
+		this.FullscreenFrame.LayoutOrder = 8
 
 		settingsDisabledInVR[this.FullscreenFrame] = true
 
@@ -224,11 +242,9 @@ local function Initialize()
 					end
 				end
 
-				if GetFFlagFullscreenAnalytics() then
-					AnalyticsService:SetRBXEventStream(Constants.AnalyticsTargetName, Constants.AnalyticsInGameMenuName, Constants.AnalyticsFullscreenModeName, {
-						enabled = isFullScreen,
-					})
-				end
+				AnalyticsService:SetRBXEventStream(Constants.AnalyticsTargetName, Constants.AnalyticsInGameMenuName, Constants.AnalyticsFullscreenModeName, {
+					enabled = isFullScreen,
+				})
 			end
 		)
 
@@ -247,7 +263,7 @@ local function Initialize()
 
 		this.GraphicsEnablerFrame, this.GraphicsEnablerLabel, this.GraphicsQualityEnabler =
 			utility:AddNewRow(this, "Graphics Mode", "Selector", {"Automatic", "Manual"}, graphicsEnablerStart)
-		this.GraphicsEnablerFrame.LayoutOrder = 7
+		this.GraphicsEnablerFrame.LayoutOrder = 9
 
 		------------------ Gfx Slider GUI Setup  ------------------
 
@@ -272,7 +288,7 @@ local function Initialize()
                 utility:AddNewRow(this, "Graphics Quality", "Slider", GRAPHICS_QUALITY_LEVELS, 1)
 		end
 
-		this.GraphicsQualityFrame.LayoutOrder = 8
+		this.GraphicsQualityFrame.LayoutOrder = 10
 		this.GraphicsQualitySlider:SetMinStep(1)
 
 		------------------------------------------------------
@@ -571,7 +587,7 @@ local function Initialize()
 
 		this.PerformanceStatsFrame, this.PerformanceStatsLabel, this.PerformanceStatsMode =
 			utility:AddNewRow(this, "Performance Stats", "Selector", {"On", "Off"}, startIndex)
-		this.PerformanceStatsFrame.LayoutOrder = 9
+		this.PerformanceStatsFrame.LayoutOrder = 11
 
 		this.PerformanceStatsOverrideText =
 			utility:Create "TextLabel" {
@@ -723,7 +739,7 @@ local function Initialize()
 
 		this.MicroProfilerFrame, this.MicroProfilerLabel, this.MicroProfilerMode =
 			utility:AddNewRow(this, "Micro Profiler", "Selector", {"On", "Off"}, webServerIndex) -- This can be set to override defualt micro profiler state
-		this.MicroProfilerFrame.LayoutOrder = 10
+		this.MicroProfilerFrame.LayoutOrder = 12
 
 		tryContentLabel()
 
@@ -965,7 +981,7 @@ local function Initialize()
 
 				this.VREnabledFrame, this.VREnabledLabel, this.VREnabledSelector =
 					utility:AddNewRow(this, "VR", "Selector", optionNames, GameSettings.VREnabled and 1 or 2)
-				this.VREnabledFrame.LayoutOrder = 12
+				this.VREnabledFrame.LayoutOrder = 14
 
 				this.VREnabledSelector.IndexChanged:connect(
 					function(newIndex)
@@ -1274,7 +1290,7 @@ local function Initialize()
 
 		this.CameraInvertedFrame, _, this.CameraInvertedSelector =
 			utility:AddNewRow(this, "Camera Inverted", "Selector", {"Off", "On"}, initialIndex)
-		this.CameraInvertedFrame.LayoutOrder = 11
+		this.CameraInvertedFrame.LayoutOrder = 13
 		settingsDisabledInVR[this.CameraInvertedFrame] = true
 
 		this.CameraInvertedSelector.IndexChanged:connect(
@@ -1553,7 +1569,7 @@ local function Initialize()
 			devConsoleText.Font = Enum.Font.SourceSans
 			devConsoleButton.Position = UDim2.new(1, -400, 0, 12)
 			local row = utility:AddNewRowObject(this, "Developer Console", devConsoleButton)
-			row.LayoutOrder = 13
+			row.LayoutOrder = 15
 			setButtonRowRef(row)
 		end
 
@@ -1606,6 +1622,127 @@ local function Initialize()
 				makeDevConsoleOption()
 			end
 		end
+	end
+
+	local function leaveAndRejoinVoiceChatChannel()
+		pcall(function()
+			local groupId = VoiceChatService2:GetGroupId()
+			if groupId and groupId ~= "" then
+				local muted = VoiceChatService2:IsPublishPaused()
+				VoiceChatService2:Leave()
+				VoiceChatService2:JoinByGroupId(groupId, muted)
+			end
+		end)
+	end
+
+	local function createDeviceOptions(deviceType)
+		local selectedIndex = this[deviceType.."DeviceIndex"] or 0
+		local options = this[deviceType.."DeviceNames"] or {}
+
+		this[deviceType.."DeviceFrame"], _, this[deviceType.."DeviceSelector"] =
+			utility:AddNewRow(this, deviceType.." Device", "Selector", options, selectedIndex)
+		this[deviceType.."DeviceFrame"].LayoutOrder = (deviceType == VOICE_CHAT_DEVICE_TYPE.Input) and 6 or 7
+
+		this[deviceType.."DeviceInfo"] = {
+			Name = selectedIndex > 0 and options[selectedIndex] or nil,
+			Guid = selectedIndex > 0 and options[selectedIndex] or nil,
+		}
+
+		this[deviceType.."DeviceSelector"].IndexChanged:connect(
+			function(newIndex)
+				if this[deviceType.."DeviceInfo"].Name == this[deviceType.."DeviceNames"][newIndex] and
+					this[deviceType.."DeviceInfo"].Guid == this[deviceType.."DeviceGuids"][newIndex] then
+					return
+				end
+
+				this[deviceType.."DeviceInfo"] = {
+					Name = this[deviceType.."DeviceNames"][newIndex],
+					Guid = this[deviceType.."DeviceGuids"][newIndex],
+				}
+
+				if deviceType == VOICE_CHAT_DEVICE_TYPE.Input then
+					VoiceChatService2:SetMicDevice(this[deviceType.."DeviceInfo"].Name, this[deviceType.."DeviceInfo"].Guid)
+				else
+					VoiceChatService2:SetSpeakerDevice(this[deviceType.."DeviceInfo"].Name, this[deviceType.."DeviceInfo"].Guid)
+				end
+
+				-- TODO: This will be removed when set device API refactoring is done
+				leaveAndRejoinVoiceChatChannel()
+			end
+		)
+	end
+
+	local function updateVoiceChatDevices(deviceType)
+		if deviceType ~= VOICE_CHAT_DEVICE_TYPE.Input and deviceType ~= VOICE_CHAT_DEVICE_TYPE.Output then
+			warn(deviceType, "is not supported in VoiceChat devices")
+		end
+
+		local success, deviceNames, deviceGuids, selectedIndex = pcall(function()
+			if deviceType == VOICE_CHAT_DEVICE_TYPE.Input then
+				return VoiceChatService2:GetMicDevices()
+			else
+				return VoiceChatService2:GetSpeakerDevices()
+			end
+		end)
+
+		if success and deviceNames and deviceGuids and selectedIndex and
+			#deviceNames > 0 and selectedIndex > 0 and selectedIndex <= #deviceNames and
+			#deviceNames == #deviceGuids then
+			this[deviceType.."DeviceNames"] = deviceNames
+			this[deviceType.."DeviceGuids"] = deviceGuids
+			this[deviceType.."DeviceIndex"] = selectedIndex
+		else
+			warn("Errors in get "..deviceType.." device info")
+			this[deviceType.."DeviceNames"] = {}
+			this[deviceType.."DeviceGuids"] = {}
+			this[deviceType.."DeviceIndex"] = 0
+		end
+
+		if not this[deviceType.."DeviceSelector"] then
+			createDeviceOptions(deviceType)
+		else
+			this[deviceType.."DeviceSelector"]:UpdateOptions(deviceNames)
+			this[deviceType.."DeviceSelector"]:SetSelectionIndex(selectedIndex)
+		end
+	end
+
+	local function updateVoiceChatOptions()
+		updateVoiceChatDevices(VOICE_CHAT_DEVICE_TYPE.Input)
+		updateVoiceChatDevices(VOICE_CHAT_DEVICE_TYPE.Output)
+	end
+
+	-- Check if voice chat is enabled
+	local function checkVoiceChatOptions()
+		local voiceChatAvailable = nil
+		local voiceChatApiVersion = nil
+		pcall(function()
+			if VoiceChatService2 then
+				voiceChatApiVersion = VoiceChatService2:GetVoiceChatApiVersion()
+				if voiceChatApiVersion >= MIN_VOICE_CHAT_API_VERSION then
+					voiceChatAvailable = VoiceChatService2:GetVoiceChatAvailable()
+					while voiceChatAvailable == VOICE_CHAT_AVAILABILITY.Checking do
+						wait(1)
+						voiceChatAvailable = VoiceChatService2:GetVoiceChatAvailable()
+					end
+				end
+			end
+		end)
+
+		if VoiceChatService2 and voiceChatApiVersion >= MIN_VOICE_CHAT_API_VERSION and
+			voiceChatAvailable == VOICE_CHAT_AVAILABILITY.Available then
+			this.VoiceChatOptionsEnabled = true
+			if this.PageOpen then
+				updateVoiceChatOptions()
+			end
+		end
+	end
+
+	this.VoiceChatOptionsEnabled = false
+
+	if GetFFlagEnableVoiceChatOptions() then
+		spawn(function()
+			checkVoiceChatOptions()
+		end)
 	end
 
 	createCameraModeOptions(
@@ -1690,7 +1827,7 @@ local function Initialize()
 		createOverscanOption()
 	end
 
-	local canShowDevConsole = not PolicyService:IsSubjectToChinaPolicies()
+	local canShowDevConsole = IsDeveloperConsoleEnabled()
 
 	if canShowDevConsole then
 		-- dev console option only shows for place/group place owners
@@ -1719,6 +1856,25 @@ local function Initialize()
 
 	if this.PageListLayout then
 		this.PageListLayout.Padding = UDim.new(0, 0)
+	end
+
+	this.PageOpen = false
+
+	this.OpenSettingsPage = function()
+		if GetFFlagEnableVoiceChatOptions() then
+			this.PageOpen = true
+			if this.VoiceChatOptionsEnabled then
+				-- Update device info each time user opens the menu
+				-- TODO: This should be simplified by new API
+				updateVoiceChatOptions()
+			end
+		end
+	end
+
+	this.CloseSettingsPage = function()
+		if GetFFlagEnableVoiceChatOptions() then
+			this.PageOpen = false
+		end
 	end
 
 	return this

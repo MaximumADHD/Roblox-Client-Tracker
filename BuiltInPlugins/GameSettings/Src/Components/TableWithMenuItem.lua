@@ -36,8 +36,6 @@ local TextService = game:GetService("TextService")
 
 local TableWithMenuItem = Roact.PureComponent:extend("TableWithMenuItem")
 
-local FFlagFixTableMenuItemHighlight = game:DefineFastFlag("FixTableMenuItemHighlight", false)
-
 local function createRowLabels(theme, rowData)
 	local rowLabels = { }
 	for col = 1, #rowData do
@@ -105,16 +103,10 @@ function TableWithMenuItem:init()
 	end
 
 	self.hideMenu = function()
-		if FFlagFixTableMenuItemHighlight then
-			self:setState({
-				showMenu = false,
-				menuItem = Roact.None,
-			})
-		else
-			self:setState({
-				showMenu = false,
-			})
-		end
+		self:setState({
+			showMenu = false,
+			menuItem = Roact.None,
+		})
 	end
 
 	self.onMenuItemEnter = function(item)

@@ -156,7 +156,7 @@ function TextInput:render()
 		Position = position,
 		Padding = padding,
 		Size = size,
-		Background = RoundBox,
+		Background = not THEME_REFACTOR and RoundBox or nil,
 		BackgroundStyle = backgroundStyle,
 		LayoutOrder = layoutOrder,
 	}, {

@@ -9,7 +9,6 @@ local AssetConfigConstants = require(Util.AssetConfigConstants)
 local EnumConvert = require(Util.EnumConvert)
 
 local FFlagShowReportOptionInToolbox = game:DefineFastFlag("ShowReportOptionInToolbox", false)
-local FFlagToolboxViewInBrowserUtmAttributes = game:GetFastFlag("ToolboxViewInBrowserUtmAttributes")
 
 local StudioService = game:GetService("StudioService")
 local GuiService = game:GetService("GuiService")
@@ -45,14 +44,9 @@ function ContextMenuHelper.tryCreateContextMenu(plugin, assetId, assetTypeId, sh
 -- add an action to view an asset in browser
 	menu:AddNewAction("OpenInBrowser", localize.RightClickMenu.ViewInBrowser).Triggered:connect(function()
 		local baseUrl = ContentProvider.BaseUrl
-		local targetUrl
-		if FFlagToolboxViewInBrowserUtmAttributes then
-			targetUrl = string.format("%slibrary/%s/asset", baseUrl, HttpService:urlEncode(assetId))
-			if trackingAttributes then
-				targetUrl = targetUrl .. "?" .. Url.makeQueryString(trackingAttributes)
-			end
-		else
-			targetUrl = string.format("%s/library/%s/asset", baseUrl, HttpService:urlEncode(assetId))
+		local targetUrl = string.format("%slibrary/%s/asset", baseUrl, HttpService:urlEncode(assetId))
+		if trackingAttributes then
+			targetUrl = targetUrl .. "?" .. Url.makeQueryString(trackingAttributes)
 		end
 		GuiService:OpenBrowserWindow(targetUrl)
 	end)

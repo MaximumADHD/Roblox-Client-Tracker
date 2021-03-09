@@ -9,6 +9,7 @@ local UIBlox = require(CorePackages.UIBlox)
 
 local OverlayContextualMenu = UIBlox.App.Menu.OverlayContextualMenu
 local MenuDirection = UIBlox.App.Menu.MenuDirection
+local Images = UIBlox.App.ImageSet.Images
 
 local Components = script.Parent.Parent
 local TopBar = Components.Parent
@@ -32,6 +33,8 @@ local PlayerListMaster = require(RobloxGui.Modules.PlayerList.PlayerListManager)
 local EmotesConstants = require(RobloxGui.Modules.EmotesMenu.Constants)
 
 local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
+
+local GetFFlagNewEmotesInGame = require(RobloxGui.Modules.Flags.GetFFlagNewEmotesInGame)
 
 local MORE_BUTTON_SIZE = 32
 local ICON_SIZE = 24
@@ -103,9 +106,11 @@ function MoreMenu:render()
 	end
 
 	if self.props.emotesEnabled then
-		local emotesIcon = "rbxasset://textures/ui/TopBar/emotesOn.png"
+		local emotesIcon = GetFFlagNewEmotesInGame() and Images["icons/controls/emoteOn"]
+			or "rbxasset://textures/ui/TopBar/emotesOn.png"
 		if not self.props.emotesOpen then
-			emotesIcon = "rbxasset://textures/ui/TopBar/emotesOff.png"
+			emotesIcon = GetFFlagNewEmotesInGame() and Images["icons/controls/emoteOff"]
+				or "rbxasset://textures/ui/TopBar/emotesOff.png"
 		end
 
 		local emotesKeybind = EmotesConstants.EmoteMenuOpenKey

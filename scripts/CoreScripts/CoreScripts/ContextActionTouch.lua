@@ -19,6 +19,12 @@ local ContextUpImage = "https://www.roblox.com/asset/?id=97166444"
 local oldTouches = {}
 
 local FFlagCancelButtonTouchEventOnMouseDragOff = game:DefineFastFlag("CancelButtonTouchEventOnMouseDragOff", false)
+local FFlagHandleChangeBoundActionNilValue = game:DefineFastFlag("HandleChangeBoundActionNilValue", false)
+
+local IMAGE = "image"
+local TITLE = "title"
+local POSITION = "position"
+local DESCRIPTION = "description"
 
 local buttonPositionTable = {
 								[1] = UDim2.new(0,123,0,70),
@@ -155,7 +161,6 @@ function createNewButton(actionName, functionInfoTable)
 		ON		currentButtonTouch ~= nil and fingerIsTouchingAwayFromButton == false
 		AWAY		currentButtonTouch ~= nil and fingerIsTouchingAwayFromButton == true
 		AWAY is when the user begins a touch event on the button and drags off, but still maintains contact with the screen
-
 		ContextActionService callbacks are generated for the following transitions between states:
 		OFF -> ON			Enum.UserInputState.Begin
 		ON -> OFF			Enum.UserInputState.End
@@ -353,15 +358,22 @@ end
 contextActionService.BoundActionChanged:connect( function(actionName, changeName, changeTable)
 	if functionTable[actionName] and changeTable then
 		local button = functionTable[actionName]["button"]
+		local changeValue = changeTable[changeName]
+		if FFlagHandleChangeBoundActionNilValue then
+			if not changeValue and (changeName == IMAGE or changeName == TITLE or changeName == DESCRIPTION) then
+				-- user is clearing the field
+				changeValue = ""
+			end
+		end
 		if button then
-			if changeName == "image" then
-				button.ActionIcon.Image = changeTable[changeName]
-			elseif changeName == "title" then
-				button.ActionTitle.Text = changeTable[changeName]
-			elseif changeName == "description" then
+			if changeName == IMAGE then
+				button.ActionIcon.Image = changeValue
+			elseif changeName == TITLE then
+				button.ActionTitle.Text = changeValue
+			elseif changeName == DESCRIPTION then
 				-- todo: add description to menu
-			elseif changeName == "position" then
-				button.Position = changeTable[changeName]
+			elseif changeName == POSITION then
+				button.Position = changeValue
 			end
 		end
 	end

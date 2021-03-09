@@ -1,6 +1,4 @@
 local CorePackages = game:GetService("CorePackages")
-local CoreGui = game:GetService("CoreGui")
-local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
 local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 local Roact = InGameMenuDependencies.Roact
@@ -24,8 +22,6 @@ local HomeButton = require(script.HomeButton)
 local SystemMenuButton = require(script.SystemMenuButton)
 
 local InGameMenuPolicy = require(InGameMenu.InGameMenuPolicy)
-
-local GetFFlagUseRoactPolicyProvider = require(RobloxGui.Modules.Flags.GetFFlagUseRoactPolicyProvider)
 
 local SideNavigation = Roact.PureComponent:extend("SideNavigation")
 
@@ -119,13 +115,11 @@ function SideNavigation:render()
 	return self:oldRender()
 end
 
-if GetFFlagUseRoactPolicyProvider() then
-	SideNavigation = InGameMenuPolicy.connect(function(appPolicy, props)
-		return {
-			enableInGameHomeIcon = appPolicy.enableInGameHomeIcon(),
-		}
-	end)(SideNavigation)
-end
+SideNavigation = InGameMenuPolicy.connect(function(appPolicy, props)
+	return {
+		enableInGameHomeIcon = appPolicy.enableInGameHomeIcon(),
+	}
+end)(SideNavigation)
 
 return RoactRodux.UNSTABLE_connect2(function(state, props)
 	return {

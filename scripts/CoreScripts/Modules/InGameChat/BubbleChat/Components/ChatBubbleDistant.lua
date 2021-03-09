@@ -9,30 +9,27 @@ local CorePackages = game:GetService("CorePackages")
 
 local Otter = require(CorePackages.Packages.Otter)
 local Roact = require(CorePackages.Packages.Roact)
-local RoactRodux = require(CorePackages.Packages.RoactRodux)
 local t = require(CorePackages.Packages.t)
-local Constants = require(script.Parent.Parent.Constants)
-local Types = require(script.Parent.Parent.Types)
+local Cryo = require(CorePackages.Packages.Cryo)
 
-local ChatBubbleDistant = Roact.Component:extend("ChatBubbleDistannt")
+local root = script.Parent.Parent
+local Types = require(root.Types)
+local getSizeSpringFromSettings = require(root.Helpers.getSizeSpringFromSettings)
+local getTransparencySpringFromSettings = require(root.Helpers.getTransparencySpringFromSettings)
 
-local SPRING_CONFIG = {
-	dampingRatio = 1,
-	frequency = 2,
-}
+local ChatBubbleDistant = Roact.PureComponent:extend("ChatBubbleDistant")
 
 ChatBubbleDistant.validateProps = t.strictInterface({
 	width = t.optional(t.number),
 	height = t.optional(t.number),
 	fadingOut = t.optional(t.boolean),
 	onFadeOut = t.optional(t.callback),
-
 	chatSettings = Types.IChatSettings,
 })
 
 ChatBubbleDistant.defaultProps = {
-	width = 48,
-	height = 32,
+	width = 32,
+	height = 16,
 }
 
 function ChatBubbleDistant:init(props)
@@ -41,7 +38,7 @@ function ChatBubbleDistant:init(props)
 	self.widthMotor:onStep(self.updateWidth)
 
 	self.frameSize = self.width:map(function(width)
-		return UDim2.fromOffset(width, self.props.height)
+		return UDim2.fromOffset(width, self.props.height + self.props.chatSettings.Padding * 2)
 	end)
 
 	self.transparency, self.updateTransparency = Roact.createBinding(1)
@@ -56,37 +53,40 @@ function ChatBubbleDistant:init(props)
 end
 
 function ChatBubbleDistant:render()
-	local settings = self.props.chatSettings
+	local chatSettings = self.props.chatSettings
+	local backgroundImageSettings = chatSettings.BackgroundImage
+	local backgroundGradientSettings = chatSettings.BackgroundGradient
 
 	return Roact.createElement("Frame", {
 		AnchorPoint = Vector2.new(0.5, 1),
-		Size = UDim2.new(0, 43, 0, 32),
+		Size = UDim2.fromOffset(self.props.width + chatSettings.Padding * 2, self.props.height + chatSettings.Padding * 2),
 		Position = UDim2.new(0.5, 0, 1, -8),
 		Transparency = 1,
 	}, {
 		Scale = Roact.createElement("UIScale", {
 			Scale = 0.75,
 		}),
-		Carat = settings.TailVisible and Roact.createElement("ImageLabel", {
+		Carat = chatSettings.TailVisible and Roact.createElement("ImageLabel", {
 			AnchorPoint = Vector2.new(0.5, 0),
 			BackgroundTransparency = 1,
 			Position = UDim2.new(0.5, 0, 1, -1), --UICorner generates a 1 pixel gap (UISYS-625), this fixes it by moving the carrot up by 1 pixel
 			Size = UDim2.fromOffset(12, 8),
 			Image = "rbxasset://textures/ui/InGameChat/Caret.png",
-			ImageColor3 = settings.BackgroundColor3,
+			ImageColor3 = chatSettings.BackgroundColor3,
 			ImageTransparency = self.transparency,
 		}),
-		RoundedFrame = 	Roact.createElement("Frame", {
+		RoundedFrame = 	Roact.createElement("ImageLabel", Cryo.Dictionary.join(backgroundImageSettings, {
 			Size = self.frameSize,
-			BackgroundColor3 = settings.BackgroundColor3,
-			BackgroundTransparency = self.transparency,
+			BackgroundColor3 = chatSettings.BackgroundColor3,
+			BackgroundTransparency = backgroundImageSettings.Image == "" and self.transparency or 1,
 			BorderSizePixel = 0,
 			AnchorPoint = Vector2.new(0.5, 0),
 			Position = UDim2.new(0.5, 0, 0, 0),
 			ClipsDescendants = true,
-		}, {
-			UICorner = Roact.createElement("UICorner", {
-				CornerRadius = settings.CornerRadius,
+			ImageTransparency = self.transparency,
+		}), {
+			UICorner = chatSettings.CornerEnabled and Roact.createElement("UICorner", {
+				CornerRadius = chatSettings.CornerRadius,
 			}),
 
 			Contents = Roact.createElement("Frame", {
@@ -94,22 +94,24 @@ function ChatBubbleDistant:render()
 				BackgroundTransparency = 1,
 			}, {
 				Padding = Roact.createElement("UIPadding", {
-					PaddingTop = UDim.new(0, settings.Padding),
-					PaddingRight = UDim.new(0, settings.Padding),
-					PaddingBottom = UDim.new(0, settings.Padding),
-					PaddingLeft = UDim.new(0, settings.Padding),
+					PaddingTop = UDim.new(0, chatSettings.Padding),
+					PaddingRight = UDim.new(0, chatSettings.Padding),
+					PaddingBottom = UDim.new(0, chatSettings.Padding),
+					PaddingLeft = UDim.new(0, chatSettings.Padding),
 				}),
 
 				Icon = Roact.createElement("TextLabel", {
 					BackgroundTransparency = 1,
 					Text = "…",
-					TextColor3 = settings.TextColor3,
+					TextColor3 = chatSettings.TextColor3,
 					TextTransparency = self.transparency,
 					Font = Enum.Font.GothamBlack,
 					TextScaled = true,
 					Size = UDim2.fromScale(1, 1),
 				})
-			})
+			}),
+
+			Gradient = backgroundGradientSettings.Enabled and Roact.createElement("UIGradient", backgroundGradientSettings)
 		})
 	})
 end
@@ -124,7 +126,8 @@ function ChatBubbleDistant:fadeOut()
 			end
 		end)
 
-		self.transparencyMotor:setGoal(Otter.spring(1, SPRING_CONFIG))
+		local transparencySpring = getTransparencySpringFromSettings(self.props.chatSettings)
+		self.transparencyMotor:setGoal(transparencySpring(1))
 	end
 end
 
@@ -136,8 +139,12 @@ end
 
 function ChatBubbleDistant:didMount()
 	if not self.props.fadingOut then
-		self.transparencyMotor:setGoal(Otter.spring(self.props.chatSettings.Transparency, SPRING_CONFIG))
-		self.widthMotor:setGoal(Otter.spring(self.props.width, SPRING_CONFIG))
+		local chatSettings = self.props.chatSettings
+		local sizeSpring = getSizeSpringFromSettings(chatSettings)
+		local transparencySpring = getTransparencySpringFromSettings(chatSettings)
+
+		self.transparencyMotor:setGoal(transparencySpring(self.props.chatSettings.Transparency))
+		self.widthMotor:setGoal(sizeSpring(self.props.width + self.props.chatSettings.Padding * 2))
 	end
 end
 
@@ -146,11 +153,5 @@ function ChatBubbleDistant:willUnmount()
 	self.widthMotor:destroy()
 end
 
-local function mapStateToProps(state)
-	return {
-		chatSettings = state.chatSettings,
-	}
-end
-
-return RoactRodux.connect(mapStateToProps)(ChatBubbleDistant)
+return ChatBubbleDistant
 

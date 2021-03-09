@@ -44,12 +44,17 @@ local OnScreenChange = require(Plugin.Src.Thunks.OnScreenChange)
 local BulkImportService = game:GetService("BulkImportService")
 
 local FFlagStudioAssetManagerAssetPreviewRequest = game:GetFastFlag("StudioAssetManagerAssetPreviewRequest")
+local FFlagEnableLuobuAudioImport = game:GetFastFlag("EnableLuobuAudioImport")
 
 local AssetGridContainer = Roact.Component:extend("AssetGridContainer")
 
 local function isSupportedBulkImportAssetScreen(screen)
-    return screen.Key == Screens.IMAGES.Key or screen.Key == Screens.MESHES.Key
+    if FFlagEnableLuobuAudioImport then
+        return screen.Key == Screens.IMAGES.Key or screen.Key == Screens.MESHES.Key or screen.Key == Screens.AUDIO.Key
+    else
+        return screen.Key == Screens.IMAGES.Key or screen.Key == Screens.MESHES.Key
             or ((not RobloxAPI:baseURLHasChineseHost()) and screen.Key == Screens.AUDIO.Key)
+    end
 end
 
 function AssetGridContainer:init()

@@ -21,6 +21,7 @@ local utility = require(RobloxGui.Modules.Settings.Utility)
 local VRHub = require(RobloxGui.Modules.VR.VRHub)
 local PolicyService = require(RobloxGui.Modules.Common.PolicyService)
 local MouseIconOverrideService = require(CorePackages.InGameServices.MouseIconOverrideService)
+local IsDeveloperConsoleEnabled = require(RobloxGui.Modules.DevConsole.IsDeveloperConsoleEnabled)
 
 --[[ CONSTANTS ]]
 local SETTINGS_SHIELD_COLOR = Color3.new(41/255,41/255,41/255)
@@ -98,6 +99,8 @@ if FFlagCollectAnalyticsForSystemMenu then
 end
 
 local shouldLocalize = PolicyService:IsSubjectToChinaPolicies()
+
+local GetFFlagEnableVoiceChatOptions = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceChatOptions)
 
 --[[ Localization Fixes for Version Labels]]
 local shouldTryLocalizeVersionLabels = FFlagLocalizeVersionLabels or shouldLocalize
@@ -1496,6 +1499,10 @@ local function CreateSettingsHub()
 			if backpack.IsOpen then
 				backpack:OpenClose()
 			end
+
+			if GetFFlagEnableVoiceChatOptions() then
+				this.GameSettingsPage:OpenSettingsPage()
+			end
 		else
 			if noAnimation then
 				this.Shield.Position = SETTINGS_SHIELD_INACTIVE_POSITION
@@ -1534,6 +1541,10 @@ local function CreateSettingsHub()
 			removeBottomBarBindings(0.4)
 
 			GuiService.SelectedCoreObject = nil
+
+			if GetFFlagEnableVoiceChatOptions() then
+				this.GameSettingsPage:CloseSettingsPage()
+			end
 		end
 
 		if FFlagCollectAnalyticsForSystemMenu then
@@ -1772,7 +1783,7 @@ local function CreateSettingsHub()
 		end
 	end)
 
-	local shouldShowDevConsole = not PolicyService:IsSubjectToChinaPolicies()
+	local shouldShowDevConsole = IsDeveloperConsoleEnabled()
 
 	if shouldShowDevConsole then
 		-- Dev Console Connections

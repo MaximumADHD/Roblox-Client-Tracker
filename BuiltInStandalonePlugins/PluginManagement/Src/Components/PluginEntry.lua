@@ -358,7 +358,6 @@ function PluginEntry:render()
 			Position = buttonPosition,
 			Size = LOADING_BAR_SIZE,
 			LoadingTime = LOADING_BAR_TIME,
-			HoldPercent = (not FFlagPluginManagementNewLoadingBar and 1) or nil,
 		}),
 
 		SuccessLabel = isUpdated and state.showSuccessMessage

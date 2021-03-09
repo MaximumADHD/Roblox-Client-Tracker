@@ -14,6 +14,13 @@ if ChatLocalization == nil then ChatLocalization = { Get = function(self, key, f
 
 local LocalPlayer = Players.LocalPlayer
 
+local UserPlayEmoteChatTextUpdates do
+	local success, value = pcall(function()
+		return UserSettings():IsUserFeatureEnabled("UserPlayEmoteChatTextUpdates")
+	end)
+	UserPlayEmoteChatTextUpdates = success and value
+end
+
 local LegacyDefaultEmotes = {
 	wave = true,
 	point = true,
@@ -25,17 +32,21 @@ local LegacyDefaultEmotes = {
 }
 
 local LocalizationKeys = {
-    NotSupported = "InGame.Chat.Response.EmotesNotSupported",
-    R15Only = "InGame.Chat.Response.EmotesWrongAvatarType",
-    NoMatchingEmote = "InGame.Chat.Response.EmoteNotAvailable",
-    TemporarilyUnavailable = "InGame.Chat.Response.EmotesTemporarilyUnavailable",
+	NotSupported = "InGame.Chat.Response.EmotesNotSupported",
+	R15Only = "InGame.Chat.Response.EmotesWrongAvatarType",
+	SwitchToR15 = "InGame.EmotesMenu.ErrorMessageSwitchToR15",
+	NoMatchingEmote = "InGame.Chat.Response.EmoteNotAvailable",
+	TemporarilyUnavailable = "InGame.Chat.Response.EmotesTemporarilyUnavailable",
+	AnimationPlaying = "InGame.EmotesMenu.ErrorMessageAnimationPlaying",
 }
 
 local FallbackStrings = {
 	[LocalizationKeys.NotSupported] = "You can't use Emotes here.",
 	[LocalizationKeys.R15Only] = "Only R15 avatars can use Emotes.",
+	[LocalizationKeys.SwitchToR15] = "Switch to your R15 avatar to play Emote.",
 	[LocalizationKeys.NoMatchingEmote] = "You can't use that Emote.",
 	[LocalizationKeys.TemporarilyUnavailable] = "You can't use Emotes right now.",
+	[LocalizationKeys.AnimationPlaying] = "You cannot play Emotes during this action.",
 }
 
 local ErrorColor = Color3.fromRGB(245, 50, 50)
@@ -100,7 +111,11 @@ local function ProcessMessage(message, ChatWindow, ChatSettings)
 	end
 
 	if humanoid.RigType ~= Enum.HumanoidRigType.R15 then
-		sendErrorMessage(channelObj, LocalizationKeys.R15Only)
+		if UserPlayEmoteChatTextUpdates then
+			sendErrorMessage(channelObj, LocalizationKeys.SwitchToR15)
+		else
+			sendErrorMessage(channelObj, LocalizationKeys.R15Only)
+		end
 		return true
 	end
 
@@ -141,7 +156,11 @@ local function ProcessMessage(message, ChatWindow, ChatSettings)
 		if not ok then
 			sendErrorMessage(channelObj, LocalizationKeys.NotSupported)
 		elseif not didPlay then
-			sendErrorMessage(channelObj, LocalizationKeys.TemporarilyUnavailable)
+			if UserPlayEmoteChatTextUpdates then
+				sendErrorMessage(channelObj, LocalizationKeys.AnimationPlaying)
+			else
+				sendErrorMessage(channelObj, LocalizationKeys.TemporarilyUnavailable)
+			end
 		end
 	end)
 

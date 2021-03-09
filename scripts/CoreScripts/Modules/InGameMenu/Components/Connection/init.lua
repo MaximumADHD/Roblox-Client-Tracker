@@ -12,7 +12,6 @@ local NativeCloseEventConnector = require(script.NativeCloseEventConnector)
 
 local RobloxGui = game:GetService("CoreGui"):WaitForChild("RobloxGui")
 local InGameMenuPolicy = require(RobloxGui.Modules.InGameMenu.InGameMenuPolicy)
-local GetFFlagUseRoactPolicyProvider = require(RobloxGui.Modules.Flags.GetFFlagUseRoactPolicyProvider)
 
 local validateProps = t.strictInterface({
 	isEducationalPopupEnabled = t.optional(t.boolean),
@@ -30,12 +29,9 @@ local function Connection(props)
 	})
 end
 
-if GetFFlagUseRoactPolicyProvider() then
-	Connection = InGameMenuPolicy.connect(function(appPolicy, props)
-		return {
-			isEducationalPopupEnabled = appPolicy.enableEducationalPopup(),
-		}
-	end)(Connection)
-end
 
-return Connection
+return InGameMenuPolicy.connect(function(appPolicy, props)
+	return {
+		isEducationalPopupEnabled = appPolicy.enableEducationalPopup(),
+	}
+end)(Connection)

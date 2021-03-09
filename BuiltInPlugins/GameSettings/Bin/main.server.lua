@@ -7,7 +7,6 @@ end
 require(script.Parent.defineLuaFlags)
 
 -- Fast flags
-local FFlagGameSettingsPlaceSettings = game:GetFastFlag("GameSettingsPlaceSettings")
 local FFlagDeveloperSubscriptionsEnabled = game:GetFastFlag("DeveloperSubscriptionsEnabled")
 
 local FFlagGameSettingsRoactInspector = game:DefineFastFlag("GameSettingsRoactInspector", false)
@@ -79,7 +78,7 @@ local gameOptionsController = GameOptionsController.new(networking:get())
 local universePermissionsController = FFlagQ220PermissionsSettings and SecurityController.new(networking:get()) or nil
 local socialController = SocialController.new(networking:get())
 local universeAvatarController = UniverseAvatarController.new(networking:get())
-local placesController = FFlagGameSettingsPlaceSettings and PlacesController.new(networking:get()) or nil
+local placesController = PlacesController.new(networking:get())
 local localizationPageController = LocalizationPageController.new(networking:get())
 
 thunkContextItems.networking = networking:get()

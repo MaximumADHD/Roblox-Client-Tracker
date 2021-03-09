@@ -1,5 +1,4 @@
 local FFlagQ220PermissionsSettings = settings():GetFFlag("Q220PermissionsSettings")
-local FFlagGameSettingsPlaceSettings = game:GetFastFlag("GameSettingsPlaceSettings")
 
 local Permissions = require(script.Parent.PermissionsPage.Permissions)
 local Avatar = require(script.Parent.AvatarPage.Avatar)
@@ -14,16 +13,12 @@ local LocalizationPage = require(script.Parent.LocalizationPage.LocalizationPage
 local pages = {
 	BasicInfo,
 	Permissions,
+	Monetization,
+	Places,
 	Avatar,
 	World,
 	Options,
 }
-
-table.insert(pages, 3, Monetization)
-
-if FFlagGameSettingsPlaceSettings then
-	table.insert(pages, 4, Places)
-end
 
 if FFlagQ220PermissionsSettings then
 	table.insert(pages, 4, Security)

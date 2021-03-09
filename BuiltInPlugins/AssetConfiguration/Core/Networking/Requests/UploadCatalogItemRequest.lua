@@ -2,7 +2,7 @@ local HttpService = game:GetService("HttpService")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
-local FFlagCMSUploadAccessoryMeshPartFormat = game:GetFastFlag("CMSUploadAccessoryMeshPartFormat")
+local FFlagCMSUploadAccessoryMeshPartFormat2 = game:GetFastFlag("CMSUploadAccessoryMeshPartFormat2")
 local FFlagCMSUploadFees = game:GetFastFlag("CMSUploadFees")
 
 local SetAssetId = require(Plugin.Core.Actions.SetAssetId)
@@ -67,7 +67,7 @@ return function(networkInterface, nameWithoutExtension, extension, description, 
 					return
 				elseif assetDetails.assetId then
 					store:dispatch(SetAssetId(assetDetails.assetId))
-					if FFlagCMSUploadAccessoryMeshPartFormat then
+					if FFlagCMSUploadAccessoryMeshPartFormat2 then
 						store:dispatch(
 							UploadCatalogItemMeshPartFormatRequest(
 								networkInterface,

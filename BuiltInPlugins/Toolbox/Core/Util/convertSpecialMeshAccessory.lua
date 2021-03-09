@@ -23,7 +23,10 @@ local function convertSpecialMeshAccessory(accessory)
 
 	-- copy handle children to new handle
 	for _, child in pairs(handle:GetChildren()) do
-		child:Clone().Parent = meshPart
+		-- do not copy the SpecialMesh, no longer needed
+		if not child:IsA("SpecialMesh") then
+			child:Clone().Parent = meshPart
+		end
 	end
 
 	-- copy ThumbnailConfiguration

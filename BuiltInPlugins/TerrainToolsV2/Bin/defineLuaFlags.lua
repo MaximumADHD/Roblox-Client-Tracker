@@ -11,6 +11,8 @@ game:DefineFastFlag("EnableTerrainToolsStylizer", false)
 game:DefineFastFlag("TerrainEditorUpdateFontToSourceSans", false)
 game:DefineFastFlag("TerrainToolsFixLabeledElementPair", false)
 game:DefineFastFlag("TerrainToolsColormapCallout", false)
+game:DefineFastFlag("TerrainToolsReplaceBoxHotkey", false)
+
 
 local function handleFlagDependencies(flag, requiredFlags)
 	if not game:GetFastFlag(flag) then

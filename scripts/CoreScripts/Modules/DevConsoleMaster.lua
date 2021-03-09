@@ -38,7 +38,7 @@ local SetTabList = require(Actions.SetTabList)
 local MiddleWare = DevConsole.MiddleWare
 local DevConsoleAnalytics = require(MiddleWare.DevConsoleAnalytics)
 
-local PolicyService = require(CoreGui.RobloxGui.Modules.Common.PolicyService)
+local IsDeveloperConsoleEnabled = require(DevConsole.IsDeveloperConsoleEnabled)
 local PlayerPermissionsModule = require(CoreGui.RobloxGui.Modules.PlayerPermissionsModule)
 
 local DFFlagEnableRemoteProfilingForDevConsole = settings():GetFFlag("EnableRemoteProfilingForDevConsole")
@@ -252,7 +252,7 @@ function DevConsoleMaster:Start()
 end
 
 function DevConsoleMaster:ToggleVisibility()
-	if PolicyService:IsSubjectToChinaPolicies() then return end
+	if not IsDeveloperConsoleEnabled() then return end
 
 	if not self.init then
 		master:Start()
@@ -282,7 +282,7 @@ function DevConsoleMaster:SetVisibility(value)
 end
 
 StarterGui:RegisterGetCore("DevConsoleVisible", function()
-	if PolicyService:IsSubjectToChinaPolicies() then return false end
+	if not IsDeveloperConsoleEnabled() then return false end
 
 	return master:GetVisibility()
 end)
@@ -291,7 +291,7 @@ StarterGui:RegisterSetCore("DevConsoleVisible", function(visible)
 	if (type(visible) ~= "boolean") then
 		error("DevConsoleVisible must be given a boolean value.")
 	end
-	if PolicyService:IsSubjectToChinaPolicies() then return end
+	if not IsDeveloperConsoleEnabled() then return end
 
 	master:SetVisibility(visible)
 end)

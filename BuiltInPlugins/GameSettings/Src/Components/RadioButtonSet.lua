@@ -37,7 +37,6 @@ local DEPRECATED_Constants = require(Plugin.Src.Util.DEPRECATED_Constants)
 local RadioButton = require(Plugin.Src.Components.RadioButton)
 local TitledFrame = UILibrary.Component.TitledFrame
 
-local FFlagGameSettingsPlaceSettings = game:GetFastFlag("GameSettingsPlaceSettings")
 local FFlagFixRadioButtonSeAndTableHeadertForTesting = game:GetFastFlag("FixRadioButtonSeAndTableHeadertForTesting")
 
 local LayoutOrderIterator = require(Framework.Util.LayoutOrderIterator)
@@ -102,49 +101,13 @@ function RadioButtonSet:render()
 	end
 
 	for i, button in ipairs(buttons) do
-		if FFlagGameSettingsPlaceSettings then
-			if props.RenderItem then
-				if FFlagFixRadioButtonSeAndTableHeadertForTesting then
-					children = Cryo.Dictionary.join(children, {
-						[button.Id] = props.RenderItem(i, button)
-					})
-				else
-					table.insert(children, props.RenderItem(i, button))
-				end
+		if props.RenderItem then
+			if FFlagFixRadioButtonSeAndTableHeadertForTesting then
+				children = Cryo.Dictionary.join(children, {
+					[button.Id] = props.RenderItem(i, button)
+				})
 			else
-				if FFlagFixRadioButtonSeAndTableHeadertForTesting then
-					children = Cryo.Dictionary.join(children, {
-						[button.Id] = Roact.createElement(RadioButton, {
-							Title = button.Title,
-							Id = button.Id,
-							Description = button.Description,
-							Selected = (button.Id == selected) or (i == selected),
-							Index = i,
-							Enabled = props.Enabled,
-							LayoutOrder = layoutIndex:getNextOrder(),
-							OnClicked = function()
-								props.SelectionChanged(button)
-							end,
-
-							Children = button.Children,
-						})
-					})
-				else
-					table.insert(children, Roact.createElement(RadioButton, {
-						Title = button.Title,
-						Id = button.Id,
-						Description = button.Description,
-						Selected = (button.Id == selected) or (i == selected),
-						Index = i,
-						Enabled = props.Enabled,
-						LayoutOrder = layoutIndex:getNextOrder(),
-						OnClicked = function()
-							props.SelectionChanged(button)
-						end,
-
-						Children = button.Children,
-					}))
-				end
+				table.insert(children, props.RenderItem(i, button))
 			end
 		else
 			if FFlagFixRadioButtonSeAndTableHeadertForTesting then

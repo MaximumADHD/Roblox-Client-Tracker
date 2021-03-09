@@ -35,8 +35,6 @@ local RoundFrame = UILibrary.Component.RoundFrame
 
 local groupsLoaded = false
 
-local FFlagBatchThumbnailAddNewThumbnailTypes = game:GetFastFlag("BatchThumbnailAddNewThumbnailTypes")
-
 local ScreenChooseGame = Roact.PureComponent:extend("ScreenChooseGame")
 local SelectedItemKey = 0
 local SelectedItemType = Constants.SUBJECT_TYPE.USER
@@ -93,7 +91,7 @@ function ScreenChooseGame:render()
 				if string.find(game.name:lower(), self.state.searchTerm:lower()) then
 					components[#components + 1] = Roact.createElement(TileGame, {
 						Name = game.name,
-						Id = FFlagBatchThumbnailAddNewThumbnailTypes and game.rootPlaceId or game.universeId,
+						Id = game.rootPlaceId,
 						State = game.privacyType,
 						LayoutOrder = #components + 1,
 						OnActivated = function()

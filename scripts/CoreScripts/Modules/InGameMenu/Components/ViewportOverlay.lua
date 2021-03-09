@@ -1,4 +1,5 @@
 local CorePackages = game:GetService("CorePackages")
+local RobloxGui = game:GetService("CoreGui"):WaitForChild("RobloxGui")
 
 local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 local Roact = InGameMenuDependencies.Roact
@@ -10,11 +11,16 @@ local withStyle = UIBlox.Core.Style.withStyle
 
 local InGameMenu = script.Parent.Parent
 local sideBarWidth = 64
+local Constants = require(InGameMenu.Resources.Constants)
 
 local GlobalConfig = require(InGameMenu.GlobalConfig)
 local CloseMenu = require(InGameMenu.Thunks.CloseMenu)
 
+local GetFFlagInGameFixMenuIconHoverEatKeyboard =
+	require(RobloxGui.Modules.Flags.GetFFlagInGameFixMenuIconHoverEatKeyboard)
+
 local validateProps = t.strictInterface({
+	currentPage = t.string,
 	open = t.boolean,
 	onActivated = t.callback,
 	occupiedWidth = t.number,
@@ -25,13 +31,18 @@ local function ViewportOverlay(props)
 		assert(validateProps(props))
 	end
 
+	local isInitalPage = false
+	if GetFFlagInGameFixMenuIconHoverEatKeyboard() then
+		isInitalPage = props.currentPage == Constants.InitalPageKey
+	end
+
 	return withStyle(function(style)
 		return Roact.createElement("Frame", {
 			BackgroundColor3 = style.Theme.Overlay.Color,
 			BackgroundTransparency = style.Theme.Overlay.Transparency,
 			BorderSizePixel = 0,
 			Size = UDim2.new(1, 0, 1, 0),
-			Visible = props.open,
+			Visible = not isInitalPage and props.open,
 			ZIndex = 0,
 		}, {
 			InputCapturer = Roact.createElement("TextButton", {
@@ -50,6 +61,7 @@ return RoactRodux.UNSTABLE_connect2(function(state, props)
 	local occupiedWidth = sideBarWidth + 400
 
 	return {
+		currentPage = state.menuPage,
 		open = state.isMenuOpen,
 		occupiedWidth = occupiedWidth,
 	}

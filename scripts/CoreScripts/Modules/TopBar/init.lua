@@ -19,8 +19,6 @@ local isNewInGameMenuEnabled = require(RobloxGui.Modules.isNewInGameMenuEnabled)
 
 local isNewGamepadMenuEnabled = require(RobloxGui.Modules.Flags.isNewGamepadMenuEnabled)
 
-local GetFFlagUseRoactPolicyProvider = require(RobloxGui.Modules.Flags.GetFFlagUseRoactPolicyProvider)
-
 local TopBarApp = require(script.Components.TopBarApp)
 local Reducer = require(script.Reducer)
 local Constants = require(script.Constants)
@@ -82,23 +80,11 @@ function TopBar.new()
 		Font = AppFont,
 	}
 
-	if GetFFlagUseRoactPolicyProvider() then
-		self.root = Roact.createElement(RoactRodux.StoreProvider, {
-			store = self.store,
-		}, {
-			PolicyProvider = Roact.createElement(TopBarAppPolicy.Provider, {
-				policy = { TopBarAppPolicy.Mapper },
-			}, {
-				ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {
-					style = appStyle,
-				}, {
-					TopBarApp = Roact.createElement(TopBarApp)
-				})
-			})
-		})
-	else
-		self.root = Roact.createElement(RoactRodux.StoreProvider, {
-			store = self.store,
+	self.root = Roact.createElement(RoactRodux.StoreProvider, {
+		store = self.store,
+	}, {
+		PolicyProvider = Roact.createElement(TopBarAppPolicy.Provider, {
+			policy = { TopBarAppPolicy.Mapper },
 		}, {
 			ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {
 				style = appStyle,
@@ -106,7 +92,7 @@ function TopBar.new()
 				TopBarApp = Roact.createElement(TopBarApp)
 			})
 		})
-	end
+	})
 
 	self.element = Roact.mount(self.root, CoreGui, "TopBar")
 

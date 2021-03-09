@@ -28,8 +28,8 @@ return function()
 
 	local function fileShouldBeValidated(targetScript)
 		if targetScript:IsA("ModuleScript") then
-			-- is this a test file?
-			if targetScript.Name:find(".spec") then
+			-- is this a test or story file?
+			if targetScript.Name:find(".spec") or targetScript.Name:find(".story") then
 				return false
 			end
 
@@ -79,24 +79,11 @@ return function()
 		end
 	end
 
-	local function checkForTypecheck(targetScript, directory)
-		local value = require(targetScript)
-		local isImmutable = getmetatable(value) ~= nil and getmetatable(value).__newindex ~= nil
-		local isComponent = type(value) == "table" and not isImmutable and value.render ~= nil
-		if isComponent then
-			local wraps = value.validateProps ~= nil
-			assert(wraps, string.format("Component `%s.lua` in %s does not use Typecheck.wrap!",
-				targetScript.Name, directory.Name))
-			expect(wraps).to.equal(true)
-		end
-	end
-
 	local function checkDirectory(directory)
 		local source = directory:GetDescendants()
 		for _, targetScript in ipairs(source) do
 			if fileShouldBeValidated(targetScript) then
 				checkForTests(targetScript, directory)
-				checkForTypecheck(targetScript, directory)
 			end
 		end
 	end

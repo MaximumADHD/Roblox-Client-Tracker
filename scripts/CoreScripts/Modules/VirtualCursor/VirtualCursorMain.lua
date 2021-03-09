@@ -37,7 +37,6 @@ local function enableVirtualCursor(position)
 
 	input:SetCurrentSensitivity(UserSettings.GamepadCameraSensitivity)
 
-	VirtualCursorSingleton.IsInitialRun = true
 	RunService:BindToRenderStep(bindToRenderStepName, Enum.RenderPriority.Input.Value + 1, VirtualCursorSingleton.OnRenderStep)
 
 	lastInputTypeChangedEventConnection = UserInputService.LastInputTypeChanged:Connect(function(inputType)
@@ -65,6 +64,7 @@ local function disableVirtualCursor()
 
 	if VirtualCursorSingleton.SelectedObject then
 		GuiService.SelectedObject = nil -- if we are in hybrid, rely on the engine to handle this
+		GuiService.SelectedCoreObject = nil
 		VirtualCursorSingleton.SelectedObject = nil
 	end
 
@@ -79,20 +79,12 @@ function VirtualCursor:GetEnabled()
 	return self.Enabled
 end
 
-function VirtualCursor:InitialRun() -- so renderstep knows if this is the first run (to override position not being changed)
-	if self.IsInitialRun then
-		self.IsInitialRun = false
-		return true
-	end
-	return false
-end
-
 function VirtualCursor.new()
 	local self = {
 		Enabled = false,
 		CursorPosition = Vector2.new(),
 		SelectedObject = nil,
-		IsInitialRun = false,
+		CursorAccelerationDV = 1,
 	}
 
 	self.OnRenderStep = function(delta)
@@ -125,6 +117,7 @@ UserSettings.Changed:Connect(function(prop)
 		else
 			-- turn off ui navigation selection as well
 			GuiService.SelectedObject = nil
+			GuiService.SelectedCoreObject = nil
 			VirtualCursorSingleton.SelectedObject = nil
 		end
 	elseif prop == "GamepadCameraSensitivity" then

@@ -12,8 +12,17 @@ if DebugFlags.RunningUnderCLI() or DebugFlags.RunTests() then
 	local TestBootstrap = TestEZ.TestBootstrap
 	local TeamCityReporter = TestEZ.Reporters.TeamCityReporter
 	local TextReporter = TestEZ.Reporters.TextReporter
+	local TextReporterQuiet = TestEZ.Reporters.TextReporterQuiet
 
-	local reporter = _G["TEAMCITY"] and TeamCityReporter or TextReporter
+	local reporter
+	if _G["TEAMCITY"] then
+		reporter = TeamCityReporter
+	elseif DebugFlags.LogTestsQuiet() then
+		reporter = TextReporterQuiet
+	else
+		reporter = TextReporter
+	end
+
 	local TestsFolderPlugin = Plugin.Src
 
 	print("----- All " .. Plugin.Name .. " Tests ------")

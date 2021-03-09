@@ -35,7 +35,7 @@ game:DefineFastFlag("AssetConfigFixBadIdVerifyState", false)
 
 game:DefineFastFlag("UseDefaultThumbnailForAnimation", false)
 
-game:DefineFastFlag("CMSUploadAccessoryMeshPartFormat", false)
+game:DefineFastFlag("CMSUploadAccessoryMeshPartFormat2", false)
 
 game:DefineFastFlag("ToolboxUseDevFrameworkAssetPreview", false)
 
@@ -47,11 +47,9 @@ game:DefineFastFlag("ToolboxUseGetItemDetails", false)
 
 game:DefineFastFlag("EnableToolboxStylizer", false)
 
-game:DefineFastFlag("ToolboxViewInBrowserUtmAttributes", false)
 game:DefineFastFlag("ToolboxPreventCameraMoveForScripts", false)
 game:DefineFastFlag("ToolboxStopAudioFromPlayingOnCloseAndCategorySwitch", false)
 
-game:DefineFastFlag("ToolboxUseTranslationDevelopmentTable", false)
 
 game:DefineFastFlag("ToolboxCreationsFreshChecks", false)
 

@@ -26,6 +26,7 @@ local FFlagAssetManagerFixRightClickForAudio = game:GetFastFlag("AssetManagerFix
 local FFlagStudioAssetManagerNewMultiselectMeshBehavior = game:getFastFlag("StudioAssetManagerNewMultiselectMeshBehavior")
 local FFlagStudioAssetManagerUseNewPackagesEndpoint = game:GetFastFlag("StudioAssetManagerUseNewPackagesEndpoint")
 local FFlagStudioAssetManagerFixMeshContextMenu = game:GetFastFlag("StudioAssetManagerFixMeshContextMenu")
+local FFlagEnableLuobuAudioImport = game:GetFastFlag("EnableLuobuAudioImport")
 
 local EVENT_ID_OPENASSETCONFIG = "OpenAssetConfiguration"
 
@@ -42,7 +43,9 @@ local function removeAssets(apiImpl, assetData, assets, selectedAssets, store)
                 AssetManagerService:DeleteAlias("Meshes/".. asset.name)
             elseif asset.assetType == Enum.AssetType.Lua then
                 AssetManagerService:DeleteAlias("Scripts/".. asset.name)
-            elseif (not RobloxAPI:baseURLHasChineseHost()) and asset.assetType == Enum.AssetType.Audio then
+            elseif ((not FFlagEnableLuobuAudioImport and (not RobloxAPI:baseURLHasChineseHost())) or FFlagEnableLuobuAudioImport)
+                and asset.assetType == Enum.AssetType.Audio
+            then
                 AssetManagerService:DeleteAlias("Audio/".. asset.name)
             end
         end
@@ -97,7 +100,9 @@ local function createFolderContextMenu(analytics, apiImpl, assetData, contextMen
             store:dispatch(LaunchBulkImport(Enum.AssetType.Image.Value))
             analytics:report("clickContextMenuItem")
         end)
-    elseif (not RobloxAPI:baseURLHasChineseHost()) and assetData.Screen.Key == Screens.AUDIO.Key then
+    elseif ((not FFlagEnableLuobuAudioImport and (not RobloxAPI:baseURLHasChineseHost())) or FFlagEnableLuobuAudioImport)
+        and assetData.Screen.Key == Screens.AUDIO.Key
+    then
         contextMenu:AddNewAction("AddAudio", localization:getText("ContextMenu", "AddAudio")).Triggered:connect(function()
             if FFlagAssetManagerFixRightClickForAudio then
                 store:dispatch(LaunchBulkImport(Enum.AssetType.Audio.Value))
@@ -518,7 +523,7 @@ local function createAssetContextMenu(analytics, apiImpl, assetData, contextMenu
         createMeshPartContextMenu(analytics, apiImpl, assetData, contextMenu, isAssetPreviewMenu, localization, onOpenAssetPreview, onAssetPreviewClose, store)
     elseif assetType == Enum.AssetType.Lua then
         createLinkedScriptContextMenu(analytics, apiImpl, assetData, contextMenu, isAssetPreviewMenu, localization, onOpenAssetPreview, onAssetPreviewClose, store)
-    elseif (not RobloxAPI:baseURLHasChineseHost()) and assetType == Enum.AssetType.Audio then
+    elseif ((not FFlagEnableLuobuAudioImport and (not RobloxAPI:baseURLHasChineseHost()))or FFlagEnableLuobuAudioImport) and assetType == Enum.AssetType.Audio then
         createAudioContextMenu(analytics, apiImpl, assetData, contextMenu, isAssetPreviewMenu, localization, onOpenAssetPreview, onAssetPreviewClose, store)
     end
 end

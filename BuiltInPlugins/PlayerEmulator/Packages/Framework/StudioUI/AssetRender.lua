@@ -36,6 +36,9 @@ local AssetRenderUtil = Util.AssetRenderUtil
 local AssetRenderType = AssetRenderUtil.AssetRenderType
 local Cryo = Util.Cryo
 
+local Dash = require(Framework.packages.Dash)
+local join = Dash.join
+
 local UI = require(Framework.UI)
 local Button = UI.Button
 local Container = UI.Container
@@ -49,9 +52,6 @@ local AssetRenderImage = require(Framework.StudioUI.AssetRenderImage)
 local AssetRenderModel = require(Framework.StudioUI.AssetRenderModel)
 local AssetRenderThumbnail = require(Framework.StudioUI.AssetRenderThumbnail)
 
-local FlagsList = Util.Flags.new({
-	FFlagEnableRoactInspector = {"EnableRoactInspector"},
-})
 local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 
 local AssetRender = Roact.PureComponent:extend("AssetRender")
@@ -78,18 +78,9 @@ function AssetRender:init()
 	end
 
 	self.onTreeViewExpansionChange = function(expansion)
-		if FlagsList:get("FFlagEnableRoactInspector") then
-			-- TODO FFlagEnableRoactInspector: Move import to top of file
-			local Dash = require(Framework.packages.Dash)
-			local join = Dash.join
-			self:setState({
-				treeViewExpansion = join(self.state.treeViewExpansion, expansion)
-			})
-		else
-			self:setState({
-				treeViewExpansion = expansion
-			})
-		end
+		self:setState({
+			treeViewExpansion = join(self.state.treeViewExpansion, expansion)
+		})
 	end
 
 	self.onTreeViewSelectionChange = function(selection)

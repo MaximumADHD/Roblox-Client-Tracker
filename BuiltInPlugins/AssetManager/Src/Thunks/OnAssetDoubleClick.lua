@@ -8,6 +8,7 @@ local RobloxAPI = Framework.RobloxAPI
 local AssetManagerService = game:GetService("AssetManagerService")
 
 local FFlagStudioAssetManagerFixLinkedScripts = game:GetFastFlag("StudioAssetManagerFixLinkedScripts")
+local FFlagEnableLuobuAudioImport = game:GetFastFlag("EnableLuobuAudioImport")
 
 return function(analytics, assetData, isAssetPreviewInsertButton)
     return function(store)
@@ -35,7 +36,9 @@ return function(analytics, assetData, isAssetPreviewInsertButton)
                 else
                     AssetManagerService:OpenLinkedSource("Scripts/" .. assetData.name)
                 end
-            elseif (not RobloxAPI:baseURLHasChineseHost()) and assetType == Enum.AssetType.Audio then
+            elseif ((not FFlagEnableLuobuAudioImport and (not RobloxAPI:baseURLHasChineseHost())) or FFlagEnableLuobuAudioImport)
+                and assetType == Enum.AssetType.Audio
+            then
                 AssetManagerService:InsertAudio(assetData.id, assetData.name)
             end
             analytics:report("doubleClickInsert")

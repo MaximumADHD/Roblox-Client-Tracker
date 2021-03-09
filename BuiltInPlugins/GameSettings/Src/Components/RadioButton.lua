@@ -29,8 +29,6 @@ local ContextServices = require(Framework.ContextServices)
 
 local DEPRECATED_Constants = require(Plugin.Src.Util.DEPRECATED_Constants)
 
-local FFlagGameSettingsPlaceSettings = game:GetFastFlag("GameSettingsPlaceSettings")
-
 local RadioButton = Roact.PureComponent:extend("RadioButton")
 
 function RadioButton:init(initialProps)
@@ -48,21 +46,6 @@ function RadioButton:init(initialProps)
 
 	local title = initialProps.Title
 	local description = initialProps.Description or ""
-
-	if not (FFlagGameSettingsPlaceSettings) then
-		self.state = {
-			TitleWidth = TextService:GetTextSize(
-				title,
-				TITLE_TEXT_SIZE,
-				Enum.Font.SourceSans,
-				Vector2.new()).X,
-			DescriptionWidth = TextService:GetTextSize(
-				description,
-				DESCRIPTION_TEXT_SIZE,
-				Enum.Font.SourceSans,
-				Vector2.new()).X,
-		}
-	end
 end
 
 function RadioButton:mouseHoverChanged(hovering)
@@ -85,7 +68,7 @@ function RadioButton:render()
 	local titleTextSize = TextService:GetTextSize(title, theme.fontStyle.Subtext.TextSize, theme.fontStyle.Subtext.Font, Vector2.new())
 
 	local descriptionTextSize = props.Description and TextService:GetTextSize(description, theme.fontStyle.Subtext.TextSize, theme.fontStyle.Subtext.Font,
-		FFlagGameSettingsPlaceSettings and Vector2.new(theme.radioButton.descriptionWidth, math.huge) or Vector2.new())
+		Vector2.new(theme.radioButton.descriptionWidth, math.huge))
 
 	local children = props.Children and props.Children or {}
 

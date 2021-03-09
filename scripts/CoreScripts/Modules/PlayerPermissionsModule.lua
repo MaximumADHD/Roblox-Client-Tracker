@@ -1,6 +1,9 @@
 local PlayerPermissionsModule = {}
 
 local PlayersService = game:GetService("Players")
+local CoreGuiService = game:GetService("CoreGui")
+local RobloxGui = CoreGuiService:WaitForChild("RobloxGui")
+local CoreGuiModules = RobloxGui:WaitForChild("Modules")
 
 local PlayerGroupInfoMap = {}
 local PlayerGroupInfoMapChanged = Instance.new("BindableEvent")
@@ -8,16 +11,51 @@ local PlayerGroupInfoMapChanged = Instance.new("BindableEvent")
 local PlayerCanManageInfoMap = {}
 local PlayerCanManageInfoMapChanged = Instance.new("BindableEvent")
 
+local isPackInGameJoinDataEnabledClient = require(CoreGuiModules.Flags.isPackInGameJoinDataEnabledClient)
+
 spawn(function()
 	local RobloxReplicatedStorage = game:GetService("RobloxReplicatedStorage")
 	local RemoveEvent_NewPlayerGroupDetails = RobloxReplicatedStorage:WaitForChild("NewPlayerGroupDetails", math.huge)
-	RemoveEvent_NewPlayerGroupDetails.OnClientEvent:Connect(function(userIdStr, groupDetails)
-		local player = PlayersService:GetPlayerByUserId(tonumber(userIdStr))
-		if player then
-			PlayerGroupInfoMap[player] = groupDetails
-			PlayerGroupInfoMapChanged:Fire()
-		end
-	end)
+
+	if isPackInGameJoinDataEnabledClient() then
+		RemoveEvent_NewPlayerGroupDetails.OnClientEvent:Connect(function(...)
+			local remoteArguments = {...}
+
+			if #remoteArguments == 1 then --Only one parameter, so it should be the data dictionary
+				local groupDetailsPacket = remoteArguments[1]
+				local infoMapWasChanged = false
+
+				for userIdStr, groupDetails in pairs(groupDetailsPacket) do
+					local player = PlayersService:GetPlayerByUserId(tonumber(userIdStr))
+					if player then
+						infoMapWasChanged = true
+						PlayerGroupInfoMap[player] = groupDetails
+					end
+				end
+
+				if infoMapWasChanged then
+					PlayerGroupInfoMapChanged:Fire()
+				end
+			else --More arguments, server flag isn't enabled yet
+				local userIdStr = remoteArguments[1]
+				local groupDetails = remoteArguments[2]
+
+				local player = PlayersService:GetPlayerByUserId(tonumber(userIdStr))
+				if player then
+					PlayerGroupInfoMap[player] = groupDetails
+					PlayerGroupInfoMapChanged:Fire()
+				end
+			end
+		end)
+	else
+		RemoveEvent_NewPlayerGroupDetails.OnClientEvent:Connect(function(userIdStr, groupDetails)
+			local player = PlayersService:GetPlayerByUserId(tonumber(userIdStr))
+			if player then
+				PlayerGroupInfoMap[player] = groupDetails
+				PlayerGroupInfoMapChanged:Fire()
+			end
+		end)
+	end
 end)
 
 coroutine.wrap(function()

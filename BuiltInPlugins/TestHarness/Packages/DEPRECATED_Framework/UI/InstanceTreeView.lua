@@ -27,17 +27,12 @@ local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
 local ContextServices = require(Framework.ContextServices)
 local Typecheck = require(Framework.Util).Typecheck
-local Cryo = require(Framework.Parent.Cryo)
 
 local UI = Framework.UI
 local TreeView = require(UI.TreeView)
 local InstanceTreeRow = require(script.InstanceTreeRow)
 
 local Util = require(Framework.Util)
-local FlagsList = Util.Flags.new({
-	FFlagEnableRoactInspector = {"EnableRoactInspector"},
-})
-
 local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 
 local InstanceTreeView = Roact.PureComponent:extend("InstanceTreeView")
@@ -48,16 +43,9 @@ InstanceTreeView.defaultProps = {}
 function InstanceTreeView:init()
 
 	self.toggleRow = function(row)
-		local newExpansion
-		if FlagsList:get("FFlagEnableRoactInspector") then
-			newExpansion = {
-				[row.item] = not self.props.Expansion[row.item]
-			}
-		else
-			newExpansion = Cryo.Dictionary.join(self.props.Expansion, {
-				[row.item] = not self.props.Expansion[row.item]
-			})
-		end
+		local newExpansion = {
+			[row.item] = not self.props.Expansion[row.item]
+		}
 		self.props.OnExpansionChange(newExpansion)
 	end
 

@@ -55,6 +55,7 @@ function AnimationClipMenu:makeLoadMenu(localization, current)
 		for _, save in ipairs(saves) do
 			table.insert(items, {
 				Name = save.Name,
+				Value = save.Name,
 				Key = save.Name,
 				ItemSelected = function()
 					onLoadRequested(save.Name)
@@ -63,6 +64,7 @@ function AnimationClipMenu:makeLoadMenu(localization, current)
 		end
 		return {
 			Name = localization:getText("Menu", "Load"),
+			Value = localization:getText("Menu", "Load"),
 			CurrentKey = current,
 			Items = items,
 			IsAvailable = true,
@@ -71,6 +73,7 @@ function AnimationClipMenu:makeLoadMenu(localization, current)
 
 	return {
 		Name = localization:getText("Menu", "Load"),
+		Value = localization:getText("Menu", "Load"),
 		CurrentKey = current,
 		IsAvailable = false,
 	}
@@ -84,6 +87,7 @@ function AnimationClipMenu:makeSaveAsMenu(localization, current)
 	local items = {
 		{
 			Name = localization:getText("Menu", "New"),
+			Value = localization:getText("Menu", "New"),
 			ItemSelected = onSaveAsRequested,
 		},
 	}
@@ -95,6 +99,7 @@ function AnimationClipMenu:makeSaveAsMenu(localization, current)
 	for _, save in ipairs(saves) do
 		table.insert(items, {
 			Name = save.Name,
+			Value = save.Name,
 			Key = save.Name,
 			ItemSelected = function()
 				onOverwriteRequested(save.Name)
@@ -104,6 +109,7 @@ function AnimationClipMenu:makeSaveAsMenu(localization, current)
 
 	return {
 		Name = localization:getText("Menu", "SaveAs"),
+		Value = localization:getText("Menu", "SaveAs"),
 		CurrentKey = current,
 		Items = items,
 	}
@@ -117,12 +123,13 @@ function AnimationClipMenu:makePrioritySubMenu(localization, current)
 
 	return {
 		Name = localization:getText("Menu", "SetPriority"),
-		CurrentKey = current,
+		Value = localization:getText("Menu", "SetPriority"),
+		CurrentItem = current,
 		Items = {
-			{Name = localization:getText("Menu", priority.Core.Name), Key = priority.Core, ItemSelected = setPriority},
-			{Name = localization:getText("Menu", priority.Idle.Name), Key = priority.Idle, ItemSelected = setPriority},
-			{Name = localization:getText("Menu", priority.Movement.Name), Key = priority.Movement, ItemSelected = setPriority},
-			{Name = localization:getText("Menu", priority.Action.Name), Key = priority.Action, ItemSelected = setPriority},
+			{Name = localization:getText("Menu", priority.Core.Name), Key = priority.Core, Value = priority.Core, ItemSelected = setPriority},
+			{Name = localization:getText("Menu", priority.Idle.Name), Key = priority.Idle, Value = priority.Idle, ItemSelected = setPriority},
+			{Name = localization:getText("Menu", priority.Movement.Name), Key = priority.Movement, Value = priority.Movement, ItemSelected = setPriority},
+			{Name = localization:getText("Menu", priority.Action.Name), Key = priority.Action, Value = priority.Action, ItemSelected = setPriority},
 		}
 	}
 end
@@ -141,6 +148,7 @@ function AnimationClipMenu:makeMenuActions(localization)
 	table.insert(actions, self:makeLoadMenu(localization, current))
 	table.insert(actions, {
 		Name = localization:getText("Menu", "Save"),
+		Value = localization:getText("Menu", "Save"),
 		ItemSelected = function()
 			props.SaveKeyframeSequence(current, props.Analytics)
 		end,
@@ -149,19 +157,23 @@ function AnimationClipMenu:makeMenuActions(localization)
 	table.insert(actions, Separator)
 	table.insert(actions, {
 		Name = localization:getText("Menu", "Import"),
+		Value = localization:getText("Menu", "Import"),
 		Items = {
 			{
 				Name = localization:getText("Menu", "FromRoblox"),
+				Value = localization:getText("Menu", "FromRoblox"),
 				ItemSelected = props.OnImportRequested,
 			},
 			{
 				Name = localization:getText("Menu", "FromFBX"),
+				Value = localization:getText("Menu", "FromFBX"),
 				ItemSelected = props.OnImportFbxRequested,
 			},
 		}
 	})
 	table.insert(actions, {
 		Name = localization:getText("Menu", "Export"),
+		Value = localization:getText("Menu", "Export"),
 		ItemSelected = function()
 			props.ExportKeyframeSequence(plugin, props.Analytics)
 		end,
@@ -169,6 +181,7 @@ function AnimationClipMenu:makeMenuActions(localization)
 	table.insert(actions, Separator)
 	table.insert(actions, {
 		Name = localization:getText("Menu", "CreateNew"),
+		Value = localization:getText("Menu", "CreateNew"),
 		ItemSelected = function()
 			onCreateNewRequested()
 		end,

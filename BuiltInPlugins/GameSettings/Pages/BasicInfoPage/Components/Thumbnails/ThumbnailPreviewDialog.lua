@@ -27,6 +27,8 @@ local BrowserUtils = require(Plugin.Src.Util.BrowserUtils)
 local RoundArrowButton = require(Page.Components.Thumbnails.RoundArrowButton)
 
 local ThumbnailPreviewDialog = Roact.PureComponent:extend("ThumbnailPreviewDialog")
+local FFlagRemoveYoutubeFacebookTwitterForLuobu = game:GetFastFlag("RemoveYoutubeFacebookTwitterForLuobu")
+local StudioService = game:GetService("StudioService")
 
 function ThumbnailPreviewDialog:init(initialProps)
 	local currentIndex = Cryo.List.find(initialProps.Order, initialProps.StartId)
@@ -171,7 +173,7 @@ function ThumbnailPreviewDialog:render()
 					Size = UDim2.new(1, 0, 0.5, 0),
 					Position = UDim2.new(0, 0, 0.5, 0),
 					BackgroundTransparency = 1,
-					Text = localization:getText("General", "PreviewDialogLink"),
+					Text = (not FFlagRemoveYoutubeFacebookTwitterForLuobu or not StudioService:BaseURLHasChineseHost()) and localization:getText("General", "PreviewDialogLink") or nil,
 					TextColor3 = theme.hyperlink,
 
 					[Roact.Event.Activated] = function()
