@@ -43,7 +43,8 @@ return function()
 		end
 	end
 
-	describe("WHEN screen size is small", testWhen_ScreenSizeAs_ExpectMarginAs(360, 12))
+	describe("WHEN screen size is small", testWhen_ScreenSizeAs_ExpectMarginAs(359, 12))
+	describe("WHEN screen size is small/medium threshold", testWhen_ScreenSizeAs_ExpectMarginAs(360, 24))
 	describe("WHEN screen size is medium", testWhen_ScreenSizeAs_ExpectMarginAs(480, 24))
 	describe("WHEN screen size is large", testWhen_ScreenSizeAs_ExpectMarginAs(600, 48))
 end

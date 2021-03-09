@@ -11,7 +11,7 @@ local Roact = require(Packages.Roact)
 
 local IconSize = require(App.ImageSet.Enum.IconSize)
 local Images = require(App.ImageSet.Images)
-local RootHeaderBar = require(Bar.RootHeaderBar)
+local RootHeaderBar = require(Bar.HeaderBarV2)
 local IconButton = require(App.Button.IconButton)
 local ImageSetComponent = require(UIBlox.Core.ImageSet.ImageSetComponent)
 

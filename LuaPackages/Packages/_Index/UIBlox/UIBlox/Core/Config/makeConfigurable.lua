@@ -28,7 +28,7 @@ return function(initializeLibrary, name, defaultConfig)
 
 		Library.Config = LibraryConfig.get()
 
-		local contents = initializeLibrary()
+		local contents = initializeLibrary(Library.Config)
 		for key, value in pairs(contents) do
 			Library[key] = value
 		end

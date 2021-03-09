@@ -19,6 +19,7 @@ local withStyle = require(Core.Style.withStyle)
 local GenericTextLabel = require(Core.Text.GenericTextLabel.GenericTextLabel)
 local HoverButtonBackground = require(Core.Button.HoverButtonBackground)
 
+local UNDERLINED_HOVER_TRANSPARENCY = 0.3
 local VERTICAL_PADDING = 8
 local HORIZONTAL_PADDING = 11
 
@@ -110,6 +111,11 @@ function LinkButton:render()
 
 		local textStyle = getContentStyle(textStateColorMap, currentState, style)
 		local fontStyle = style.Font[self.props.fontStyle]
+
+		-- Permanently underlined links should indicate Hover state via "semi-pressed" color change
+		if self.props.underlineAlwaysEnabled == true and currentState == ControlState.Hover then
+			textStyle.Transparency = UNDERLINED_HOVER_TRANSPARENCY
+		end
 
 		local fontSize = fontStyle.RelativeSize * style.Font.BaseSize
 		local getTextSize = self.props[LinkButton.debugProps.getTextSize]

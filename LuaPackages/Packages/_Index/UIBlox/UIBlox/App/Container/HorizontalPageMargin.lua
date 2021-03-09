@@ -29,9 +29,11 @@ end
 function PageMargin:render()
 	return Roact.createElement("Frame", {
 		BackgroundColor3 = self.props.backgroundColor3,
+		BorderSizePixel = 0,
 		Size = self.props.size,
 		[Roact.Change.AbsoluteSize] = self.onResize,
 		[Roact.Ref] = self.ref,
+		LayoutOrder = self.props.layoutOrder,
 	}, Cryo.Dictionary.join(self.props[Roact.Children], {
 		padding = Roact.createElement("UIPadding", {
 			PaddingLeft = UDim.new(0, self.state.margin),

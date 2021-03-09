@@ -9,4 +9,5 @@ return {
 	RoduxUsers = require(LuaSocialLibrariesDeps.RoduxUsers),
 	RoduxFriends = require(LuaSocialLibrariesDeps.RoduxFriends),
 	RoduxPresence = require(LuaSocialLibrariesDeps.RoduxPresence),
+	httpRequest = require(LuaSocialLibrariesDeps.httpRequest),
 }

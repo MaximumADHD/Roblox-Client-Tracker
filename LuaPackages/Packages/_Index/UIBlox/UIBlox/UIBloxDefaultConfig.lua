@@ -28,4 +28,7 @@ return {
 
 	-- emptyStateControllerSupport: Enables controller support for the EmptyState component.
 	emptyStateControllerSupport = false,
+
+	-- useHeaderBarV2: Controls the usage of headerBarV2
+	useHeaderBarV2 = false,
 }

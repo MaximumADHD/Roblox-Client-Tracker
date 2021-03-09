@@ -2,7 +2,7 @@ local makeConfigurable = require(script.Core.Config.makeConfigurable)
 local UIBloxDefaultConfig = require(script.UIBloxDefaultConfig)
 local Packages = script.Parent
 
-local function initializeLibrary()
+local function initializeLibrary(configs)
 	local strict = require(script.Utility.strict)
 
 	local UIBlox = {}
@@ -73,8 +73,8 @@ local function initializeLibrary()
 		}),
 
 		Bar = strict({
-			HeaderBar = require(script.App.Bar.HeaderBar),
-			RootHeaderBar = require(script.App.Bar.RootHeaderBar),
+			HeaderBar = configs.useHeaderBarV2 and require(script.App.Bar.HeaderBarV2) or require(script.App.Bar.HeaderBar),
+			RootHeaderBar = configs.useHeaderBarV2 == false and require(script.App.Bar.RootHeaderBar) or nil,
 			FullscreenTitleBar = require(script.App.Bar.FullscreenTitleBar),
 		}),
 

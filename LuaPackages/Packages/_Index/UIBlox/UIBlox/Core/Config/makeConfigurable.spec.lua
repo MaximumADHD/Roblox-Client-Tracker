@@ -4,11 +4,14 @@ return function()
 	local name = "Library"
 
 	-- Function provide by a library that returns the API
-	local function initializeLibrary()
+	local function initializeLibrary(flags)
 		return {
 			someAPI = function()
 				return true
-			end
+			end,
+			flaggedAPI = function()
+				return flags.exampleFlag
+			end,
 		}
 	end
 
@@ -81,5 +84,13 @@ return function()
 
 		expect(typeof(Library.someAPI)).to.equal("function")
 		expect(Library.someAPI()).to.equal(true)
+	end)
+
+	it("should have a loaded API accept flags after calling init", function()
+		local Library = makeConfigurable(initializeLibrary, name, defaultConfig)
+		Library.init(config)
+
+		expect(typeof(Library.someAPI)).to.equal("function")
+		expect(Library.flaggedAPI()).to.equal(config.exampleFlag)
 	end)
 end

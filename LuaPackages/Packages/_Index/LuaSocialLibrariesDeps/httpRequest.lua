@@ -3,7 +3,7 @@
 ]]
 local PackageIndex = script.Parent.Parent
 
-local package = PackageIndex["lua-promise-07b6e77b-1bb842c3"]["lua-promise"]
+local package = PackageIndex["roblox_http-request"]["http-request"]
 
 if package.ClassName == "ModuleScript" then
 	return require(package)

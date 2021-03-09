@@ -11,7 +11,7 @@ local Roact = require(Packages.Roact)
 
 local Images = require(App.ImageSet.Images)
 local IconSize = require(App.ImageSet.Enum.IconSize)
-local HeaderBar = require(Bar.HeaderBar)
+local HeaderBar = require(Bar.HeaderBarV2)
 local IconButton = require(UIBlox.App.Button.IconButton)
 local TextButton = require(UIBlox.App.Button.TextButton)
 local ImageSetComponent = require(UIBlox.Core.ImageSet.ImageSetComponent)
@@ -124,7 +124,6 @@ end
 local function HeaderBarWithRootTitle()
 	return Roact.createElement(HeaderBar, {
 		title = "Avatar",
-		isRootTitle = true,
 		renderRight = renderRightIcons,
 	})
 end
@@ -132,7 +131,6 @@ end
 local function HeaderBarWithRootTitleAndSearchBoxForTablet()
 	return Roact.createElement(HeaderBar, {
 		title = "Discover",
-		isRootTitle = true,
 		renderCenter = function()
 			return Roact.createFragment({
 				searchBoxMock = Roact.createElement(ImageSetComponent.Label, {
@@ -150,6 +148,7 @@ end
 
 local function HeaderBarWithBackButtonAndSearchBoxForTablet()
 	return Roact.createElement(HeaderBar, {
+		title = "",
 		renderLeft = HeaderBar.renderLeft.backButton(function()
 			print("navProps.navigation.pop()")
 		end),
@@ -171,6 +170,7 @@ end
 return function(target)
 	local handle = Roact.mount(Roact.createElement(StoryView, {}, {
 		Story =	Roact.createElement(StoryItem, {
+			backgroundColor3 = Color3.fromRGB(177, 177, 177),
 			size = UDim2.fromScale(1, 1),
 			title = "HeaderBar",
 			subTitle = "App.Bar.HeaderBar",
