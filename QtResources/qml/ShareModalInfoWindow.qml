@@ -206,8 +206,7 @@ MouseArea {
             Image {
                 id: shareButtonIcon
                 visible: true
-                source: ((typeof fflagStudioFixShareIcon !== "undefined") && (fflagStudioFixShareIcon === true)) ? RobloxStyle.getResource("/16x16/images/Studio 2.0 icons/16x16/share.png")
-                                                                                                                 : RobloxStyle.getResource("/16x16/images/Studio 2.0 icons/16x16/DEPRECATED_share.png")
+                source: RobloxStyle.getResource("/16x16/images/Studio 2.0 icons/16x16/share.png")
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.horizontalCenter: parent.horizontalCenter
                 anchors.verticalCenterOffset: -1

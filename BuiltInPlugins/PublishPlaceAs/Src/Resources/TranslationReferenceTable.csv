@@ -16,8 +16,8 @@ Studio.PublishPlaceAs.Genre.TownAndCity,Town and City,Town and City,마을/도�
 Studio.PublishPlaceAs.General.ContentDialogItem1,Blood or Gore,Blood or Gore,피 또는 잔인한 장면,Кровь и увечья,血腥
 Studio.PublishPlaceAs.Error.DescriptionModerated,The description didn't go through our moderation. Please revise it and try again.,The description didn't go through our moderation. Please revise it and try again.,설명이 검열을 통과하지 못했어요. 수정한 후 다시 시도하세요.,"Описание не прошло модерацию. Пожалуйста, измените его и попробуйте еще раз.",此描述没有通过审核。请修改后再试一次。
 Studio.PublishPlaceAs.Devices.Computer,Computer,Computer,컴퓨터,Компьютер,个人电脑
-Studio.PublishPlaceAs.General.ContentDialogItem5,Drug Reference or Use,Drug Reference or Use,마약 언급 또는 사용,Упоминание или употребление наркотиков,提及或使用药物
-Studio.PublishPlaceAs.PageTitle.Genre,Genre,Genre,장르,Жанр,类型
+Studio.PublishPlaceAs.General.ContentDialogItem5,Drug Reference or Use,Drug Reference or Use,마약 언급 또는 사용,Упоминание или употребление наркотиков,提及或使用毒品
+Studio.PublishPlaceAs.PageTitle.Genre,Genre,Genre,장르,Жанр,主题
 Studio.PublishPlaceAs.Devices.Header,Devices,Devices,기기,Устройства,设备
 Studio.PublishPlaceAs.PageTitle.Devices,Devices,Devices,기기,Устройства,设备
 Studio.PublishPlaceAs.General.ContentDialogItem4,Robux Gambling,Robux Gambling,Robux 도박,Азартные игры,以 Robux 进行赌博

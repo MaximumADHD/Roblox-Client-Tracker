@@ -85,7 +85,7 @@ Studio.Toolbox.Purchase.Retry,Retry,Retry,다시 시도,Повтор,重试
 Studio.Common.Action.Share,Share,Share,공유,Поделиться,分享
 Studio.Common.Action.Submit,Submit,Submit,제출,Завершить,提交
 Studio.Common.Action.Stop,Stop,Stop,중지,Остановить,停止
-Studio.Toolbox.General.SortByUpdated,Updated,Updated,업데이트됨,Обновление выполнено,已更新
+Studio.Toolbox.General.SortByUpdated,Updated,Updated,업데이트,Обновление выполнено,已更新
 Studio.Common.Action.Yes,Yes,Yes,예,Да,是
 Studio.Toolbox.General.SuggestionsVehicle,Vehicle,Vehicle,차량,Транспорт,车辆
 Studio.Common.Action.Undo,Undo,Undo,실행 취소,Отменить,撤消
@@ -108,6 +108,7 @@ Studio.Toolbox.General.TabInventory,Inventory,Inventory,인벤토리,Снаря�
 Studio.Common.Action.HideDetails,Hide Details,Hide Details,세부 정보 숨기기, ,隐藏详情
 Studio.Toolbox.General.NoPluginsFound.TextLine2,"For more plugins, try searching in the {link} on our website.","For more plugins, try searching in the {link} on our website.",더 많은 플러그인을 보려면 웹사이트의 {link}에서 검색하세요., ,若想获取更多插件，请在网站{link}中进行搜索。
 Studio.Common.Action.SelectAll,Select All,Select All,모두 선택, ,全选
+Studio.Common.Action.ReportBug,Report Bug,Report Bug,버그 신고, ,回报问题
 Studio.Toolbox.General.ToolboxToolbarName,Toolbox,Toolbox,도구 상자,Панель инструментов,工具箱
 Studio.Toolbox.General.CategoryCreationsModels,Models,Models,모델,Модели,模型
 Studio.Toolbox.General.CategoryModels,Models,Models,모델,Модели,模型

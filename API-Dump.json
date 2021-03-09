@@ -55,6 +55,7 @@
                         "CanSave": false
                     },
                     "Tags": [
+                        "Hidden",
                         "ReadOnly",
                         "NotReplicated",
                         "Deprecated"
@@ -116,6 +117,9 @@
                         "CanLoad": false,
                         "CanSave": false
                     },
+                    "Tags": [
+                        "Hidden"
+                    ],
                     "ThreadSafety": "ReadOnly",
                     "ValueType": {
                         "Category": "Primitive",
@@ -13434,6 +13438,7 @@
                         "CanSave": false
                     },
                     "Tags": [
+                        "Hidden",
                         "ReadOnly",
                         "NotReplicated"
                     ],
@@ -13456,6 +13461,7 @@
                         "CanSave": false
                     },
                     "Tags": [
+                        "Hidden",
                         "ReadOnly",
                         "NotReplicated"
                     ],
@@ -13814,6 +13820,7 @@
                         "CanSave": true
                     },
                     "Tags": [
+                        "Hidden",
                         "Deprecated"
                     ],
                     "ThreadSafety": "ReadOnly",
@@ -14548,6 +14555,7 @@
             "Superclass": "Instance",
             "Tags": [
                 "NotCreatable",
+                "Service",
                 "NotReplicated"
             ]
         },
@@ -19075,6 +19083,24 @@
                 {
                     "Category": "Text",
                     "MemberType": "Property",
+                    "Name": "MaxVisibleGraphemes",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadOnly",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "int"
+                    }
+                },
+                {
+                    "Category": "Text",
+                    "MemberType": "Property",
                     "Name": "RichText",
                     "Security": {
                         "Read": "None",
@@ -19683,6 +19709,24 @@
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "string"
+                    }
+                },
+                {
+                    "Category": "Text",
+                    "MemberType": "Property",
+                    "Name": "MaxVisibleGraphemes",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadOnly",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "int"
                     }
                 },
                 {
@@ -20488,10 +20532,11 @@
                         "Write": "RobloxScriptSecurity"
                     },
                     "Serialization": {
-                        "CanLoad": true,
+                        "CanLoad": false,
                         "CanSave": false
                     },
                     "Tags": [
+                        "Hidden",
                         "NotReplicated"
                     ],
                     "ThreadSafety": "ReadOnly",
@@ -20567,16 +20612,35 @@
                         "Write": "RobloxScriptSecurity"
                     },
                     "Serialization": {
-                        "CanLoad": true,
+                        "CanLoad": false,
                         "CanSave": false
                     },
                     "Tags": [
+                        "Hidden",
                         "NotReplicated"
                     ],
                     "ThreadSafety": "ReadOnly",
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Text",
+                    "MemberType": "Property",
+                    "Name": "MaxVisibleGraphemes",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadOnly",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "int"
                     }
                 },
                 {
@@ -20606,10 +20670,11 @@
                         "Write": "RobloxScriptSecurity"
                     },
                     "Serialization": {
-                        "CanLoad": true,
+                        "CanLoad": false,
                         "CanSave": false
                     },
                     "Tags": [
+                        "Hidden",
                         "NotReplicated"
                     ],
                     "ThreadSafety": "ReadOnly",
@@ -20663,10 +20728,11 @@
                         "Write": "RobloxScriptSecurity"
                     },
                     "Serialization": {
-                        "CanLoad": true,
+                        "CanLoad": false,
                         "CanSave": false
                     },
                     "Tags": [
+                        "Hidden",
                         "NotReplicated"
                     ],
                     "ThreadSafety": "ReadOnly",
@@ -20859,10 +20925,11 @@
                         "Write": "RobloxScriptSecurity"
                     },
                     "Serialization": {
-                        "CanLoad": true,
+                        "CanLoad": false,
                         "CanSave": false
                     },
                     "Tags": [
+                        "Hidden",
                         "NotReplicated"
                     ],
                     "ThreadSafety": "ReadOnly",
@@ -23201,6 +23268,9 @@
                         "CanLoad": false,
                         "CanSave": false
                     },
+                    "Tags": [
+                        "Hidden"
+                    ],
                     "ThreadSafety": "ReadOnly",
                     "ValueType": {
                         "Category": "Primitive",
@@ -23219,6 +23289,9 @@
                         "CanLoad": false,
                         "CanSave": false
                     },
+                    "Tags": [
+                        "Hidden"
+                    ],
                     "ThreadSafety": "ReadOnly",
                     "ValueType": {
                         "Category": "Primitive",
@@ -23237,6 +23310,9 @@
                         "CanLoad": false,
                         "CanSave": false
                     },
+                    "Tags": [
+                        "Hidden"
+                    ],
                     "ThreadSafety": "ReadOnly",
                     "ValueType": {
                         "Category": "Primitive",
@@ -23255,6 +23331,9 @@
                         "CanLoad": false,
                         "CanSave": false
                     },
+                    "Tags": [
+                        "Hidden"
+                    ],
                     "ThreadSafety": "ReadOnly",
                     "ValueType": {
                         "Category": "Primitive",
@@ -23273,6 +23352,9 @@
                         "CanLoad": false,
                         "CanSave": false
                     },
+                    "Tags": [
+                        "Hidden"
+                    ],
                     "ThreadSafety": "ReadOnly",
                     "ValueType": {
                         "Category": "Primitive",
@@ -23932,10 +24014,11 @@
                         "Write": "RobloxScriptSecurity"
                     },
                     "Serialization": {
-                        "CanLoad": true,
+                        "CanLoad": false,
                         "CanSave": false
                     },
                     "Tags": [
+                        "Hidden",
                         "NotReplicated"
                     ],
                     "ThreadSafety": "ReadOnly",
@@ -28772,6 +28855,18 @@
         },
         {
             "Members": [
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "IncrementalPatchBuilder",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotCreatable",
+                "Service",
+                "NotReplicated"
+            ]
+        },
+        {
+            "Members": [
                 {
                     "Category": "Data",
                     "MemberType": "Property",
@@ -30175,6 +30270,9 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
+                    "Tags": [
+                        "Hidden"
+                    ],
                     "ThreadSafety": "ReadOnly",
                     "ValueType": {
                         "Category": "Primitive",
@@ -31308,10 +31406,11 @@
                         "Write": "LocalUserSecurity"
                     },
                     "Serialization": {
-                        "CanLoad": true,
+                        "CanLoad": false,
                         "CanSave": false
                     },
                     "Tags": [
+                        "Hidden",
                         "NotReplicated"
                     ],
                     "ThreadSafety": "ReadOnly",
@@ -31329,10 +31428,11 @@
                         "Write": "LocalUserSecurity"
                     },
                     "Serialization": {
-                        "CanLoad": true,
+                        "CanLoad": false,
                         "CanSave": false
                     },
                     "Tags": [
+                        "Hidden",
                         "NotReplicated"
                     ],
                     "ThreadSafety": "ReadOnly",
@@ -31371,10 +31471,11 @@
                         "Write": "RobloxScriptSecurity"
                     },
                     "Serialization": {
-                        "CanLoad": true,
+                        "CanLoad": false,
                         "CanSave": false
                     },
                     "Tags": [
+                        "Hidden",
                         "NotReplicated"
                     ],
                     "ThreadSafety": "ReadOnly",
@@ -31392,10 +31493,11 @@
                         "Write": "RobloxScriptSecurity"
                     },
                     "Serialization": {
-                        "CanLoad": true,
+                        "CanLoad": false,
                         "CanSave": false
                     },
                     "Tags": [
+                        "Hidden",
                         "NotReplicated"
                     ],
                     "ThreadSafety": "ReadOnly",
@@ -32539,28 +32641,6 @@
                     "ValueType": {
                         "Category": "Class",
                         "Name": "Instance"
-                    }
-                },
-                {
-                    "Category": "Data",
-                    "MemberType": "Property",
-                    "Name": "IsDifferentFromFileSystem",
-                    "Security": {
-                        "Read": "RobloxSecurity",
-                        "Write": "RobloxSecurity"
-                    },
-                    "Serialization": {
-                        "CanLoad": false,
-                        "CanSave": false
-                    },
-                    "Tags": [
-                        "NotReplicated",
-                        "NotScriptable"
-                    ],
-                    "ThreadSafety": "ReadOnly",
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "bool"
                     }
                 }
             ],
@@ -34906,6 +34986,7 @@
                         "CanSave": false
                     },
                     "Tags": [
+                        "Hidden",
                         "ReadOnly",
                         "NotReplicated"
                     ],
@@ -35562,6 +35643,7 @@
                         "CanSave": false
                     },
                     "Tags": [
+                        "Hidden",
                         "ReadOnly",
                         "NotReplicated"
                     ],
@@ -43397,6 +43479,7 @@
                         "CanSave": false
                     },
                     "Tags": [
+                        "Hidden",
                         "ReadOnly",
                         "NotReplicated",
                         "Deprecated"
@@ -43568,6 +43651,7 @@
                         "CanSave": false
                     },
                     "Tags": [
+                        "Hidden",
                         "ReadOnly",
                         "NotReplicated"
                     ],
@@ -43590,6 +43674,7 @@
                         "CanSave": false
                     },
                     "Tags": [
+                        "Hidden",
                         "ReadOnly",
                         "NotReplicated",
                         "Deprecated"
@@ -43609,10 +43694,11 @@
                         "Write": "LocalUserSecurity"
                     },
                     "Serialization": {
-                        "CanLoad": true,
+                        "CanLoad": false,
                         "CanSave": false
                     },
                     "Tags": [
+                        "Hidden",
                         "NotReplicated",
                         "Deprecated"
                     ],
@@ -43635,6 +43721,7 @@
                         "CanSave": false
                     },
                     "Tags": [
+                        "Hidden",
                         "ReadOnly",
                         "NotReplicated",
                         "Deprecated"
@@ -43824,6 +43911,7 @@
                         "CanSave": false
                     },
                     "Tags": [
+                        "Hidden",
                         "ReadOnly",
                         "NotReplicated"
                     ],
@@ -43883,10 +43971,11 @@
                         "Write": "LocalUserSecurity"
                     },
                     "Serialization": {
-                        "CanLoad": true,
+                        "CanLoad": false,
                         "CanSave": false
                     },
                     "Tags": [
+                        "Hidden",
                         "NotReplicated"
                     ],
                     "ThreadSafety": "ReadOnly",
@@ -43962,10 +44051,11 @@
                         "Write": "RobloxScriptSecurity"
                     },
                     "Serialization": {
-                        "CanLoad": true,
+                        "CanLoad": false,
                         "CanSave": false
                     },
                     "Tags": [
+                        "Hidden",
                         "NotReplicated"
                     ],
                     "ThreadSafety": "ReadOnly",
@@ -43986,6 +44076,9 @@
                         "CanLoad": false,
                         "CanSave": false
                     },
+                    "Tags": [
+                        "Hidden"
+                    ],
                     "ThreadSafety": "ReadOnly",
                     "ValueType": {
                         "Category": "Primitive",
@@ -44040,6 +44133,9 @@
                         "CanLoad": false,
                         "CanSave": false
                     },
+                    "Tags": [
+                        "Hidden"
+                    ],
                     "ThreadSafety": "ReadOnly",
                     "ValueType": {
                         "Category": "Primitive",
@@ -44120,6 +44216,9 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
+                    "Tags": [
+                        "Hidden"
+                    ],
                     "ThreadSafety": "ReadOnly",
                     "ValueType": {
                         "Category": "Primitive",
@@ -44156,6 +44255,9 @@
                         "CanLoad": false,
                         "CanSave": false
                     },
+                    "Tags": [
+                        "Hidden"
+                    ],
                     "ThreadSafety": "ReadOnly",
                     "ValueType": {
                         "Category": "Primitive",
@@ -45487,10 +45589,11 @@
                         "Write": "RobloxScriptSecurity"
                     },
                     "Serialization": {
-                        "CanLoad": true,
+                        "CanLoad": false,
                         "CanSave": false
                     },
                     "Tags": [
+                        "Hidden",
                         "NotReplicated"
                     ],
                     "ThreadSafety": "ReadOnly",
@@ -45529,10 +45632,11 @@
                         "Write": "RobloxScriptSecurity"
                     },
                     "Serialization": {
-                        "CanLoad": true,
+                        "CanLoad": false,
                         "CanSave": false
                     },
                     "Tags": [
+                        "Hidden",
                         "NotReplicated"
                     ],
                     "ThreadSafety": "ReadOnly",
@@ -45919,6 +46023,9 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
+                    "Tags": [
+                        "Hidden"
+                    ],
                     "ThreadSafety": "ReadOnly",
                     "ValueType": {
                         "Category": "Primitive",
@@ -45982,6 +46089,9 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
+                    "Tags": [
+                        "Hidden"
+                    ],
                     "ThreadSafety": "ReadOnly",
                     "ValueType": {
                         "Category": "Primitive",
@@ -46841,6 +46951,7 @@
                         "CanSave": false
                     },
                     "Tags": [
+                        "Hidden",
                         "ReadOnly",
                         "NotReplicated"
                     ],
@@ -46863,6 +46974,7 @@
                         "CanSave": false
                     },
                     "Tags": [
+                        "Hidden",
                         "ReadOnly",
                         "NotReplicated"
                     ],
@@ -46885,6 +46997,7 @@
                         "CanSave": false
                     },
                     "Tags": [
+                        "Hidden",
                         "ReadOnly",
                         "NotReplicated"
                     ],
@@ -46903,10 +47016,11 @@
                         "Write": "RobloxScriptSecurity"
                     },
                     "Serialization": {
-                        "CanLoad": true,
+                        "CanLoad": false,
                         "CanSave": false
                     },
                     "Tags": [
+                        "Hidden",
                         "NotReplicated"
                     ],
                     "ThreadSafety": "ReadOnly",
@@ -47790,10 +47904,11 @@
                         "Write": "RobloxScriptSecurity"
                     },
                     "Serialization": {
-                        "CanLoad": true,
+                        "CanLoad": false,
                         "CanSave": false
                     },
                     "Tags": [
+                        "Hidden",
                         "NotReplicated"
                     ],
                     "ThreadSafety": "ReadOnly",
@@ -47811,10 +47926,11 @@
                         "Write": "RobloxScriptSecurity"
                     },
                     "Serialization": {
-                        "CanLoad": true,
+                        "CanLoad": false,
                         "CanSave": false
                     },
                     "Tags": [
+                        "Hidden",
                         "NotReplicated"
                     ],
                     "ThreadSafety": "ReadOnly",
@@ -47832,10 +47948,11 @@
                         "Write": "RobloxScriptSecurity"
                     },
                     "Serialization": {
-                        "CanLoad": true,
+                        "CanLoad": false,
                         "CanSave": false
                     },
                     "Tags": [
+                        "Hidden",
                         "NotReplicated"
                     ],
                     "ThreadSafety": "ReadOnly",
@@ -51684,9 +51801,6 @@
                         }
                     ],
                     "Security": "None",
-                    "Tags": [
-                        "Deprecated"
-                    ],
                     "ThreadSafety": "Unsafe"
                 },
                 {
@@ -51762,9 +51876,6 @@
                         }
                     ],
                     "Security": "None",
-                    "Tags": [
-                        "Deprecated"
-                    ],
                     "ThreadSafety": "Unsafe"
                 },
                 {
@@ -51787,9 +51898,6 @@
                         }
                     ],
                     "Security": "None",
-                    "Tags": [
-                        "Deprecated"
-                    ],
                     "ThreadSafety": "Unsafe"
                 }
             ],
@@ -51825,11 +51933,11 @@
                         "Write": "LocalUserSecurity"
                     },
                     "Serialization": {
-                        "CanLoad": true,
+                        "CanLoad": false,
                         "CanSave": false
                     },
                     "Tags": [
-                        "NotReplicated"
+                        "Hidden"
                     ],
                     "ThreadSafety": "ReadOnly",
                     "ValueType": {
@@ -52451,6 +52559,7 @@
                         "CanSave": false
                     },
                     "Tags": [
+                        "Hidden",
                         "ReadOnly",
                         "NotReplicated"
                     ],
@@ -52857,6 +52966,7 @@
                         "CanSave": false
                     },
                     "Tags": [
+                        "Hidden",
                         "ReadOnly",
                         "NotReplicated"
                     ],
@@ -58595,27 +58705,6 @@
                     }
                 },
                 {
-                    "Category": "General",
-                    "MemberType": "Property",
-                    "Name": "Language",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "Tags": [
-                        "Deprecated"
-                    ],
-                    "ThreadSafety": "ReadOnly",
-                    "ValueType": {
-                        "Category": "Enum",
-                        "Name": "LanguagePreference"
-                    }
-                },
-                {
                     "Category": "Primary Part",
                     "MemberType": "Property",
                     "Name": "Line Thickness",
@@ -59801,6 +59890,7 @@
                         "CanSave": false
                     },
                     "Tags": [
+                        "Hidden",
                         "ReadOnly",
                         "NotReplicated"
                     ],
@@ -59885,10 +59975,11 @@
                         "Write": "RobloxScriptSecurity"
                     },
                     "Serialization": {
-                        "CanLoad": true,
+                        "CanLoad": false,
                         "CanSave": false
                     },
                     "Tags": [
+                        "Hidden",
                         "NotReplicated"
                     ],
                     "ThreadSafety": "ReadOnly",
@@ -59910,6 +60001,7 @@
                         "CanSave": false
                     },
                     "Tags": [
+                        "Hidden",
                         "ReadOnly",
                         "NotReplicated"
                     ],
@@ -59950,10 +60042,11 @@
                         "Write": "RobloxScriptSecurity"
                     },
                     "Serialization": {
-                        "CanLoad": true,
+                        "CanLoad": false,
                         "CanSave": false
                     },
                     "Tags": [
+                        "Hidden",
                         "NotReplicated"
                     ],
                     "ThreadSafety": "ReadOnly",
@@ -66145,6 +66238,7 @@
                         "CanSave": false
                     },
                     "Tags": [
+                        "Hidden",
                         "ReadOnly",
                         "NotReplicated"
                     ],
@@ -66254,6 +66348,9 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
+                    "Tags": [
+                        "Hidden"
+                    ],
                     "ThreadSafety": "ReadOnly",
                     "ValueType": {
                         "Category": "Primitive",
@@ -66370,6 +66467,7 @@
                         "CanSave": false
                     },
                     "Tags": [
+                        "Hidden",
                         "ReadOnly",
                         "NotReplicated"
                     ],
@@ -66392,6 +66490,7 @@
                         "CanSave": false
                     },
                     "Tags": [
+                        "Hidden",
                         "ReadOnly",
                         "NotReplicated"
                     ],
@@ -66479,6 +66578,9 @@
                         "CanLoad": false,
                         "CanSave": false
                     },
+                    "Tags": [
+                        "Hidden"
+                    ],
                     "ThreadSafety": "ReadOnly",
                     "ValueType": {
                         "Category": "Enum",
@@ -66498,6 +66600,7 @@
                         "CanSave": false
                     },
                     "Tags": [
+                        "Hidden",
                         "ReadOnly",
                         "NotReplicated"
                     ],
@@ -66520,6 +66623,7 @@
                         "CanSave": false
                     },
                     "Tags": [
+                        "Hidden",
                         "ReadOnly",
                         "NotReplicated"
                     ],
@@ -67697,6 +67801,7 @@
                         "CanSave": false
                     },
                     "Tags": [
+                        "Hidden",
                         "ReadOnly",
                         "NotReplicated"
                     ],
@@ -68824,10 +68929,11 @@
                         "Write": "RobloxScriptSecurity"
                     },
                     "Serialization": {
-                        "CanLoad": true,
+                        "CanLoad": false,
                         "CanSave": false
                     },
                     "Tags": [
+                        "Hidden",
                         "NotReplicated"
                     ],
                     "ThreadSafety": "ReadOnly",
@@ -69778,8 +69884,11 @@
                     },
                     "Serialization": {
                         "CanLoad": true,
-                        "CanSave": true
+                        "CanSave": false
                     },
+                    "Tags": [
+                        "NotReplicated"
+                    ],
                     "ThreadSafety": "ReadOnly",
                     "ValueType": {
                         "Category": "Primitive",
@@ -72218,177 +72327,102 @@
                 },
                 {
                     "Name": "AmaticSC",
-                    "Tags": [
-                        "Deprecated"
-                    ],
                     "Value": 21
                 },
                 {
                     "Name": "Bangers",
-                    "Tags": [
-                        "Deprecated"
-                    ],
                     "Value": 22
                 },
                 {
                     "Name": "Creepster",
-                    "Tags": [
-                        "Deprecated"
-                    ],
                     "Value": 23
                 },
                 {
                     "Name": "DenkOne",
-                    "Tags": [
-                        "Deprecated"
-                    ],
                     "Value": 24
                 },
                 {
                     "Name": "Fondamento",
-                    "Tags": [
-                        "Deprecated"
-                    ],
                     "Value": 25
                 },
                 {
                     "Name": "FredokaOne",
-                    "Tags": [
-                        "Deprecated"
-                    ],
                     "Value": 26
                 },
                 {
                     "Name": "GrenzeGotisch",
-                    "Tags": [
-                        "Deprecated"
-                    ],
                     "Value": 27
                 },
                 {
                     "Name": "IndieFlower",
-                    "Tags": [
-                        "Deprecated"
-                    ],
                     "Value": 28
                 },
                 {
                     "Name": "JosefinSans",
-                    "Tags": [
-                        "Deprecated"
-                    ],
                     "Value": 29
                 },
                 {
                     "Name": "Jura",
-                    "Tags": [
-                        "Deprecated"
-                    ],
                     "Value": 30
                 },
                 {
                     "Name": "Kalam",
-                    "Tags": [
-                        "Deprecated"
-                    ],
                     "Value": 31
                 },
                 {
                     "Name": "LuckiestGuy",
-                    "Tags": [
-                        "Deprecated"
-                    ],
                     "Value": 32
                 },
                 {
                     "Name": "Merriweather",
-                    "Tags": [
-                        "Deprecated"
-                    ],
                     "Value": 33
                 },
                 {
                     "Name": "Michroma",
-                    "Tags": [
-                        "Deprecated"
-                    ],
                     "Value": 34
                 },
                 {
                     "Name": "Nunito",
-                    "Tags": [
-                        "Deprecated"
-                    ],
                     "Value": 35
                 },
                 {
                     "Name": "Oswald",
-                    "Tags": [
-                        "Deprecated"
-                    ],
                     "Value": 36
                 },
                 {
                     "Name": "PatrickHand",
-                    "Tags": [
-                        "Deprecated"
-                    ],
                     "Value": 37
                 },
                 {
                     "Name": "PermanentMarker",
-                    "Tags": [
-                        "Deprecated"
-                    ],
                     "Value": 38
                 },
                 {
                     "Name": "Roboto",
-                    "Tags": [
-                        "Deprecated"
-                    ],
                     "Value": 39
                 },
                 {
                     "Name": "RobotoCondensed",
-                    "Tags": [
-                        "Deprecated"
-                    ],
                     "Value": 40
                 },
                 {
                     "Name": "RobotoMono",
-                    "Tags": [
-                        "Deprecated"
-                    ],
                     "Value": 41
                 },
                 {
                     "Name": "Sarpanch",
-                    "Tags": [
-                        "Deprecated"
-                    ],
                     "Value": 42
                 },
                 {
                     "Name": "SpecialElite",
-                    "Tags": [
-                        "Deprecated"
-                    ],
                     "Value": 43
                 },
                 {
                     "Name": "TitilliumWeb",
-                    "Tags": [
-                        "Deprecated"
-                    ],
                     "Value": 44
                 },
                 {
                     "Name": "Ubuntu",
-                    "Tags": [
-                        "Deprecated"
-                    ],
                     "Value": 45
                 }
             ],
@@ -74342,27 +74376,6 @@
                 }
             ],
             "Name": "Language"
-        },
-        {
-            "Items": [
-                {
-                    "Name": "SystemDefault",
-                    "Value": 0
-                },
-                {
-                    "Name": "English",
-                    "Value": 1
-                },
-                {
-                    "Name": "SimplifiedChinese",
-                    "Value": 2
-                },
-                {
-                    "Name": "Korean",
-                    "Value": 3
-                }
-            ],
-            "Name": "LanguagePreference"
         },
         {
             "Items": [

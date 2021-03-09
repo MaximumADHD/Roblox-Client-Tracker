@@ -129,13 +129,13 @@ Studio.TerrainToolsV2.MainButtons.PaintTooltip,Paint the material of the terrain
 Studio.TerrainToolsV2.MainButtons.RegionsTooltip,Manipulate regions of smooth terrain.,Manipulate regions of smooth terrain.,부드러운 지형의 범위를 조절하세요.,Манипулировать участками рельефа.,对平滑的地形区域进行操作。
 Studio.TerrainToolsV2.ToolName.Smooth,Smooth,Smooth,다듬기,Сгладить,平滑
 Studio.TerrainToolsV2.MainButtons.SmoothTooltip,Brush to smooth out rough or jagged terrain.,Brush to smooth out rough or jagged terrain.,울퉁불퉁한 지형을 부드럽게 깎아냅니다.,Кисть для сглаживания неровной поверхности.,用笔刷平滑参差不平的地形。
-Studio.TerrainToolsV2.ImportError.FailedToGenerateHeightmapPreviewTitle,Failed to generate preview image.,Failed to generate preview image.,미리보기 이미지를 생성하지 못했습니다, ,生成预览图失败
+Studio.TerrainToolsV2.ImportError.FailedToGenerateHeightmapPreviewTitle,Failed to generate preview image.,Failed to generate preview image.,미리보기 이미지를 생성하지 못했습니다., ,生成预览图失败。
 Studio.TerrainToolsV2.ConvertPart.HasOtherInstance,"Only Parts can be converted, other objects will be skipped","Only Parts can be converted, other objects will be skipped",파트만 변환할 수 있으며 다른 개체는 건너뜁니다, ,只有部件可被转换，其他对象将被跳过
 Studio.TerrainToolsV2.MainButtons.SubtractTooltip,Click and hold to remove terrain.,Click and hold to remove terrain.,길게 클릭해 지형을 제거합니다.,"Удерживайте кнопку мыши, чтобы удалить рельеф.",单击并按住以移除地形。
 Studio.TerrainToolsV2.ConvertPart.UpdateInstanceVisuals,Hiding parts,Hiding parts,파트를 숨기는 중, ,正在隐藏部件
 Studio.TerrainToolsV2.MapSettings.HeightMap,Height Map,Height Map,높이 맵,Поле высот,高度图
 Studio.TerrainToolsV2.MapSettings.MapSettings,Map Settings,Map Settings,맵 설정,Параметры карты,地图设置
-Studio.TerrainToolsV2.ConvertPart.ConvertProgressTitle,Convert Parts,Convert Parts,파트 변환, ,转换路径
+Studio.TerrainToolsV2.ConvertPart.ConvertProgressTitle,Convert Parts,Convert Parts,파트 변환, ,转换部件
 Studio.TerrainToolsV2.MapSettings.Position,Position,Position,위치,Положение,位置
 Studio.TerrainToolsV2.Materials.Asphalt,Asphalt,Asphalt,아스팔트,Асфальт,沥青
 Studio.TerrainToolsV2.ToolName.Copy,Copy,Copy,복사,Копировать,复制
@@ -182,7 +182,7 @@ Studio.TerrainToolsV2.Warning.RequirePublishedForImport,Game must be published b
 Studio.TerrainToolsV2.ToolName.Rotate,Rotate,Rotate,회전,Вращать,旋转
 Studio.TerrainToolsV2.SeaLevel.SeaLevelProgressTitle,Sea Level,Sea Level,해수면, ,海平面
 Studio.TerrainToolsV2.ToolName.SeaLevel,Sea Level,Sea Level,해수면,Уровень моря,海平面
-Studio.TerrainToolsV2.ImportWarning.ColorMapOutOfRangeIconTooltip,The imported colormap contains RGB values that do not match the Colormap Index.,The imported colormap contains RGB values that do not match the Colormap Index., , , 
+Studio.TerrainToolsV2.ImportWarning.ColorMapOutOfRangeIconTooltip,The imported colormap contains RGB values that do not match the Colormap Index.,The imported colormap contains RGB values that do not match the Colormap Index.,가져온 Colormap에 Colormap 인덱스와 일치하지 않는 RGB 값이 포함되어 있습니다., ,导入的 colormap 包含不符合 Colormap 索引的 RGB 值。
 Studio.TerrainToolsV2.ToolName.Select,Select,Select,선택,Выбрать,选择
 Studio.TerrainToolsV2.ToolName.Subtract,Subtract,Subtract,삭제,Вычесть,减少
 Studio.TerrainToolsV2.Warning.AwaitingModeration,Awaiting asset moderation.,Awaiting asset moderation.,애셋 검열을 기다리는 중입니다.,Ожидание модерации ресурса.,正在等候素材审核。
@@ -244,8 +244,8 @@ Studio.TerrainToolsV2.ImportError.TerrainPreprocessNullptr,An internal error has
 Studio.TerrainToolsV2.ImportError.TerrainWorkerNullptr,An internal error has occurred.,An internal error has occurred.,내부 오류가 발생했습니다., ,发生内部错误。
 Studio.TerrainToolsV2.ImportError.TerrainWriteNullptr,An internal error has occurred.,An internal error has occurred.,내부 오류가 발생했습니다., ,发生内部错误。
 Studio.TerrainToolsV2.ImportError.FailedToFindInContentProvider,Image could not be found.,Image could not be found.,이미지를 찾을 수 없습니다., ,无法找到图像。
-Studio.TerrainToolsV2.ImportError.FailedToReadImage,Image is not a valid file.,Image is not a valid file.,이미지가 유효한 PNG 파일이 아닙니다., ,图像不是有效的 PNG 文件。
-Studio.TerrainToolsV2.ImportError.InvalidBytesPerChannel,Only 8 bit and 16 bit PNGs are supported.,Only 8 bit and 16 bit PNGs are supported.,8비트 PNG만 지원됩니다., ,只支持 8 位 PNG 图像。
+Studio.TerrainToolsV2.ImportError.FailedToReadImage,Image is not a valid file.,Image is not a valid file.,이미지가 유효한 파일이 아닙니다., ,图像不是有效的文件。
+Studio.TerrainToolsV2.ImportError.InvalidBytesPerChannel,Only 8 bit and 16 bit PNGs are supported.,Only 8 bit and 16 bit PNGs are supported.,8비트 및 16비트 PNG만 지원됩니다., ,只支持 8 位和 16 位 PNG 图像。
 Studio.TerrainToolsV2.Replace.Replacing,Replacing voxels...,Replacing voxels...,복셀 교체 중..., ,替换体素...
 Studio.TerrainToolsV2.ImportError.FailedToSelectFile,Failed to open file dialog.,Failed to open file dialog.,파일 대화 상자를 열지 못했습니다., ,打开文件会话失败。
 Studio.TerrainToolsV2.ImportError.ImportFailed,Import failed,Import failed,가져오기 실패, ,导入失败
@@ -253,17 +253,17 @@ Studio.TerrainToolsV2.Replace.ReplaceProgressTitle,Replace Terrain,Replace Terra
 Studio.TerrainToolsV2.ImportError.ImportInProgress,An import operation is already in progress.,An import operation is already in progress.,가져오기 작업이 이미 진행 중입니다., ,导入操作正在进行中。
 Studio.TerrainToolsV2.ImportError.RegionIsEmpty,Target region is empty.,Target region is empty.,대상 영역이 비어 있습니다., ,目标区域为空。
 Studio.TerrainToolsV2.ImportInfo.ChannelsWereDiscarded,"When you import a color image, the importer only reads the red channel to create a greyscale heightmap. The other channels have been discarded.","When you import a color image, the importer only reads the red channel to create a greyscale heightmap. The other channels have been discarded.","컬러 이미지를 가져올 때, 가져오기 도구는 빨간색 채널만 읽어와 회색조 Heightmap을 생성합니다. 다른 채널은 무시됩니다.", ,当导入彩色图像时，导入程序只会读取红色通道以创建灰度 heightmap。其他通道将被忽略。
-Studio.TerrainToolsV2.ImportWarning.AspectRatio,"Image aspect ratio ({1}) is not compatible with Size values (X {2:int}, Z {3:int}). For best results, adjust the Size or import a new image.","Image aspect ratio ({1}) is not compatible with Size values (X {2:int}, Z {3:int}). For best results, adjust the Size or import a new image.","이미지의 가로 세로 비율({1})이(가) 크기 값(X {2:int}, Z {3:int})와(과) 호환되지 않습니다. 최상의 결과를 얻으려면 크기를 조정하거나 새 이미지를 가져오세요.", ,图像的高宽比（{1}）与 Size（尺寸）值（X {2:int}，Z {3:int}）不兼容。要获得最佳效果，请调整 Size 或导入新图像
+Studio.TerrainToolsV2.ImportWarning.AspectRatio,"Image aspect ratio ({1}) is not compatible with Size values (X {2:int}, Z {3:int}). For best results, adjust the Size or import a new image.","Image aspect ratio ({1}) is not compatible with Size values (X {2:int}, Z {3:int}). For best results, adjust the Size or import a new image.","이미지의 가로 세로 비율({1})이(가) 크기 값(X {2:int}, Z {3:int})와(과) 호환되지 않습니다. 최상의 결과를 얻으려면 크기를 조정하거나 새 이미지를 가져오세요.", ,图像的高宽比（{1}）与 Size（尺寸）值（X {2:int}，Z {3:int}）不兼容。要获得最佳效果，请调整 Size 或导入新图像.
 Studio.TerrainToolsV2.ImportWarning.ImageTooSmall,"Image resolution ({1:int}x{2:int}) is too low for the target Size values (X {3:int}, Z {4:int}). For best results, decrease the size or import a new Heightmap.","Image resolution ({1:int}x{2:int}) is too low for the target Size values (X {3:int}, Z {4:int}). For best results, decrease the size or import a new Heightmap.","이미지 해상도({1:int}x{2:int})가 대상 크기 값(X {3:int}, Z {4:int})에 비해 너무 낮습니다. 최상의 결과를 얻으려면 크기를 줄이거나 새 Heightmap을 가져오세요.", ,图像的分辨率（{1:int}x{2:int}）与目标 Size（尺寸）值（X {3:int}，Z {4:int}）相比过小。要获得最佳效果，请缩小 Size 或导入新 Heightmap。
 Studio.TerrainToolsV2.Warning.NoColormapProvided,No colormap was provided.,No colormap was provided.,Colormap이 제공되지 않았습니다., ,未提供 colormap 。
 Studio.TerrainToolsV2.Warning.VolumeTooLarge,Terrain volume is too large.,Terrain volume is too large.,지형이 너무 큽니다., ,地形体积过大。
-Studio.TerrainToolsV2.Action.LearnMore,Learn more,Learn more, , , 
-Studio.TerrainToolsV2.ColormapCallout.Title,Colormaps,Colormaps, , , 
-Studio.TerrainToolsV2.ColormapCallout.Description,Colormaps convert image colors to terrain materials using Roblox Studio's color key.,Colormaps convert image colors to terrain materials using Roblox Studio's color key., , , 
-Studio.TerrainToolsV2.Generate.Starting,Starting...,Starting..., , , 
-Studio.TerrainToolsV2.Generate.Preprocessing,Preprocessing...,Preprocessing..., , , 
-Studio.TerrainToolsV2.Generate.ReadingColormap,Reading Colormap...,Reading Colormap..., , , 
-Studio.TerrainToolsV2.Generate.AssigningColormap,Assigning Colormap...,Assigning Colormap..., , , 
-Studio.TerrainToolsV2.Generate.Sampling,Sampling...,Sampling..., , , 
-Studio.TerrainToolsV2.ImportWarning.MainTextColormapRGBOutOfRange,Colormap RGB values are out of range.,Colormap RGB values are out of range., , , 
-Studio.TerrainToolsV2.ImportWarning.SubTextColormapRGBOutOfRange,The imported colormap contains RGB values that do not match the Colormap Index. The generated materials might not be correct. Please ensure you’re using the sRGB colorspace for best results.,The imported colormap contains RGB values that do not match the Colormap Index. The generated materials might not be correct. Please ensure you’re using the sRGB colorspace for best results., , , 
+Studio.TerrainToolsV2.Action.LearnMore,Learn more,Learn more,더 알아보기, ,了解更多
+Studio.TerrainToolsV2.ColormapCallout.Title,Colormaps,Colormaps,Colormaps, ,Colormaps
+Studio.TerrainToolsV2.ColormapCallout.Description,Colormaps convert image colors to terrain materials using Roblox Studio's color key.,Colormaps convert image colors to terrain materials using Roblox Studio's color key.,Colormaps는 Roblox Studio의 색상 키를 사용하여 이미지 색상을 지형 재질로 변환합니다., ,Colormaps 用 Roblox Studio 的色彩键将图像颜色转换为地形材质。
+Studio.TerrainToolsV2.Generate.Starting,Starting...,Starting...,시작 중..., ,正在启动……
+Studio.TerrainToolsV2.Generate.Preprocessing,Preprocessing...,Preprocessing...,사전 처리 중..., ,正在预处理……
+Studio.TerrainToolsV2.Generate.ReadingColormap,Reading Colormap...,Reading Colormap...,Colormap 읽는 중..., ,正在读取 ColorMap……
+Studio.TerrainToolsV2.Generate.AssigningColormap,Assigning Colormap...,Assigning Colormap...,Colormap 할당 중..., ,正在分配 ColorMap……
+Studio.TerrainToolsV2.Generate.Sampling,Sampling...,Sampling...,샘플링 중..., ,正在采样……
+Studio.TerrainToolsV2.ImportWarning.MainTextColormapRGBOutOfRange,Colormap RGB values are out of range.,Colormap RGB values are out of range.,Colormap RGB 값이 범위를 벗어났습니다., ,Colormap RGB 值超出范围。
+Studio.TerrainToolsV2.ImportWarning.SubTextColormapRGBOutOfRange,The imported colormap contains RGB values that do not match the Colormap Index. The generated materials might not be correct. Please ensure you’re using the sRGB colorspace for best results.,The imported colormap contains RGB values that do not match the Colormap Index. The generated materials might not be correct. Please ensure you’re using the sRGB colorspace for best results.,가져온 Colormap에 Colormap 인덱스와 일치하지 않는 RGB 값이 포함되어 있습니다. 생성된 재질이 올바르지 않을 수 있습니다. 최상의 결과를 얻으려면 sRGB 색 공간을 사용하고 있는지 확인하세요., ,导入的 colormap 包含不符合 Colormap 索引的 RGB 值。生成的材质可能不正确。请确保你使用的是 sRGB 色域以获得最佳效果。
