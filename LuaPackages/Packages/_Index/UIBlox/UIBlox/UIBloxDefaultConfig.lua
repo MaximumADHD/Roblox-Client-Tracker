@@ -6,11 +6,6 @@ return {
 	--styleRefactorConfig: switch to use the refactored style system from Core and App.
 	styleRefactorConfig = false,
 
-	-- fixes the premium icon and text placement on item tiles
-	-- when the flag is false, the second line of title text will align with the start of the text.
-	-- when the flag is true, the second line will align with the start of the premium icon.
-	fixItemTilePremiumIcon = false,
-
 	--enableExperimentalGamepadSupport: Enables support of gamepad navigation via the roact-gamepad
 	-- library. This is currently experimental and not yet ready for release.
 	enableExperimentalGamepadSupport = false,
@@ -31,4 +26,8 @@ return {
 
 	-- useHeaderBarV2: Controls the usage of headerBarV2
 	useHeaderBarV2 = false,
+
+	-- tooltipWidthUsesHeaderToo: Turn on fix for tooltip which calculates the width of the tooltip container
+	-- based on the body and title text width.
+	tooltipWidthUsesHeaderToo = false,
 }

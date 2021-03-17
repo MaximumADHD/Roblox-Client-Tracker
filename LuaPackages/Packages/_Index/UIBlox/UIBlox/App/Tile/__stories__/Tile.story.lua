@@ -109,17 +109,18 @@ function TileStoryContainer:render()
 			}),
 		}),
 
-		OverriddenSizedImageTileContainer = Roact.createElement("Frame", {
+		OverriddenImageTileContainer = Roact.createElement("Frame", {
 			BackgroundTransparency = 1,
 			Size = UDim2.new(0, 200, 0, 200 + NAME_HEIGHT),
 			LayoutOrder = 3,
 		}, {
-			OverriddenSizedImagesetTile = Roact.createElement(Tile, {
+			OverriddenImagesetTile = Roact.createElement(Tile, {
 				name = self.state.name,
 				onActivated = function() end,
 				hasRoundedCorners = false,
 				thumbnail = self.state.image,
 				thumbnailSize = UDim2.new(0, 100, 0, 100),
+				thumbnailTransparency = 0.5,
 			}),
 		}),
 

@@ -4,6 +4,7 @@ return function()
 	local App = DialogRoot.Parent
 	local UIBlox = App.Parent
 	local Packages = UIBlox.Parent
+	local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 	local Roact = require(Packages.Roact)
 	local mockStyleComponent = require(UIBlox.Utility.mockStyleComponent)
@@ -58,6 +59,37 @@ return function()
 			local handle = Roact.mount(element)
 			expect(handle).to.be.ok()
 			Roact.unmount(handle)
+		end)
+
+		describe("ConfigSettings",  function()
+			beforeEach(function(context)
+				context.originalConfig = UIBloxConfig.tooltipWidthUsesHeaderToo
+				UIBloxConfig.tooltipWidthUsesHeaderToo = true
+			end)
+
+			afterEach(function(context)
+				UIBloxConfig.tooltipWidthUsesHeaderToo = context.originalConfig
+			end)
+
+			it("should mount and unmount with tooltip that has a longer title than body", function(context)
+				local element = mockStyleComponent({
+					TooltipTest = Roact.createElement(TooltipContainer, {
+						-- required
+						triggerPosition = Vector2.new(0 ,0),
+						triggerSize = Vector2.new(0 ,0),
+						bodyText = "Tooltip body text",
+						-- optional
+						headerText = "Header Text which is longer",
+						screenSize = Vector2.new(300 ,600),
+						position = UDim2.new(0, 0, 0, 0),
+						orientation = TooltipOrientation.Top,
+						isDirectChild = true,
+					})
+				})
+				local handle = Roact.mount(element)
+				expect(handle).to.be.ok()
+				Roact.unmount(handle)
+			end)
 		end)
 	end)
 end

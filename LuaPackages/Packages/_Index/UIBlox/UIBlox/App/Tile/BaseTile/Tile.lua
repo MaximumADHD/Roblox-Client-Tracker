@@ -42,11 +42,17 @@ local tileInterface = t.strictInterface({
 	-- The item thumbnail's size if not UDm2.new(1, 0, 1, 0)
 	thumbnailSize = t.optional(t.UDim2),
 
+	-- The item thumbnail's transparency if not 0
+	thumbnailTransparency = t.optional(t.number),
+
 	-- Optional text to display in the Item Tile banner in place of the footer
 	bannerText = t.optional(t.string),
 
 	-- Whether the tile is selected or not
 	isSelected = t.optional(t.boolean),
+
+	-- Whether the tile is disabled or not
+	isDisabled = t.optional(t.boolean),
 
 	-- Optional boolean indicating whether to create an overlay to round the corners of the image
 	hasRoundedCorners = t.optional(t.boolean),
@@ -80,6 +86,7 @@ Tile.defaultProps = {
 	titleTextLineCount = 2,
 	innerPadding = 8,
 	isSelected = false,
+	isDisabled = false,
 	hasRoundedCorners = true,
 }
 
@@ -108,9 +115,11 @@ function Tile:render()
 	local onActivated = self.props.onActivated
 	local thumbnail = self.props.thumbnail
 	local thumbnailSize = self.props.thumbnailSize
+	local thumbnailTransparency = self.props.thumbnailTransparency
 	local bannerText = self.props.bannerText
 	local hasRoundedCorners = self.props.hasRoundedCorners
 	local isSelected = self.props.isSelected
+	local isDisabled = self.props.isDisabled
 	local titleIcon = self.props.titleIcon
 	local thumbnailOverlayComponents = self.props.thumbnailOverlayComponents
 
@@ -133,7 +142,7 @@ function Tile:render()
 				Size = UDim2.new(1, 0, 1, 0),
 				BackgroundTransparency = 1,
 				Selectable = false,
-				[Roact.Event.Activated] = onActivated,
+				[Roact.Event.Activated] = not isDisabled and onActivated or nil,
 				[Roact.Change.AbsoluteSize] = self.onAbsoluteSizeChange,
 			}, {
 				UIListLayout = Roact.createElement("UIListLayout", {
@@ -154,7 +163,7 @@ function Tile:render()
 					NextSelectionDown = self.props.NextSelectionDown,
 					[Roact.Ref] = self.props[Roact.Ref],
 					SelectionImageObject = getSelectionCursor(CursorKind.RoundedRectNoInset),
-					inputBindings = UIBloxConfig.enableExperimentalGamepadSupport and {
+					inputBindings = (UIBloxConfig.enableExperimentalGamepadSupport and not isDisabled) and {
 						Activate = RoactGamepad.Input.onBegin(Enum.KeyCode.ButtonA, onActivated)
 					} or nil,
 				}, {
@@ -164,6 +173,7 @@ function Tile:render()
 						isSelected = isSelected,
 						overlayComponents = thumbnailOverlayComponents,
 						imageSize = thumbnailSize,
+						imageTransparency = thumbnailTransparency,
 					}),
 				}),
 				Name = (titleTextLineCount > 0 and tileWidth > 0) and Roact.createElement(TileName, {

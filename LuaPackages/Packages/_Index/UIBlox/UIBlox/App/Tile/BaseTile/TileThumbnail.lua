@@ -19,6 +19,7 @@ local TileThumbnail = Roact.PureComponent:extend("TileThumbnail")
 
 TileThumbnail.defaultProps = {
 	imageSize = UDim2.new(1, 0, 1, 0),
+	imageTransparency = 0,
 }
 
 local CORNER_RADIUS = UDim.new(0, 10)
@@ -27,6 +28,7 @@ function TileThumbnail:render()
 	local hasRoundedCorners = self.props.hasRoundedCorners
 	local image = self.props.Image
 	local imageSize = self.props.imageSize
+	local imageTransparency = self.props.imageTransparency
 	local isSelected = self.props.isSelected
 	local overlayComponents = self.props.overlayComponents
 
@@ -63,6 +65,7 @@ function TileThumbnail:render()
 					BackgroundTransparency = 1,
 					Image = image,
 					ImageColor3 = theme.UIEmphasis.Color,
+					ImageTransparency = imageTransparency,
 					Position = UDim2.new(0.5, 0, 0.5, 0),
 					Size = imageSize,
 				}, {

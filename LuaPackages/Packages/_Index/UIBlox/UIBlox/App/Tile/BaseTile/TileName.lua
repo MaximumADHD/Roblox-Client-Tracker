@@ -8,14 +8,9 @@ local Roact = require(Packages.Roact)
 local t = require(Packages.t)
 local withStyle = require(UIBlox.Core.Style.withStyle)
 
-local GetTextSize = require(UIBlox.Core.Text.GetTextSize)
 local Images = require(UIBlox.App.ImageSet.Images)
-local ImageSetComponent = require(UIBlox.Core.ImageSet.ImageSetComponent)
 local ImageTextLabel = require(UIBlox.Core.Text.ImageTextLabel.ImageTextLabel)
 local ShimmerPanel = require(UIBlox.App.Loading.ShimmerPanel)
-
-local UIBloxConfig = require(UIBlox.UIBloxConfig)
-local fixItemTilePremiumIcon = UIBloxConfig.fixItemTilePremiumIcon
 
 local ICON_PADDING = 4
 local LINE_PADDING = 4
@@ -53,68 +48,32 @@ function ItemTileName:render()
 		if name ~= nil then
 			local titleIconSize = titleIcon and titleIcon.ImageRectSize / Images.ImagesResolutionScale or Vector2.new(0, 0)
 
-			if fixItemTilePremiumIcon then
-				return Roact.createElement(ImageTextLabel, {
-					imageProps = titleIcon and {
-						BackgroundTransparency = 1,
-						Image = titleIcon,
-						ImageColor3 = theme.IconEmphasis.Color,
-						ImageTransparency = theme.IconEmphasis.Transparency,
-						Size = UDim2.new(0, titleIconSize.X, 0, titleIconSize.Y),
-						AnchorPoint = Vector2.new(0, 0),
-						Position = UDim2.new(0, 0, 0, 0),
-					} or nil,
+			return Roact.createElement(ImageTextLabel, {
+				imageProps = titleIcon and {
+					BackgroundTransparency = 1,
+					Image = titleIcon,
+					ImageColor3 = theme.IconEmphasis.Color,
+					ImageTransparency = theme.IconEmphasis.Transparency,
+					Size = UDim2.new(0, titleIconSize.X, 0, titleIconSize.Y),
+					AnchorPoint = Vector2.new(0, 0),
+					Position = UDim2.new(0, 0, 0, 0),
+				} or nil,
 
-					genericTextLabelProps = {
-						fontStyle = font.Header2,
-						colorStyle = theme.TextEmphasis,
-						Text = name,
-						TextTruncate = Enum.TextTruncate.AtEnd,
-					},
+				genericTextLabelProps = {
+					fontStyle = font.Header2,
+					colorStyle = theme.TextEmphasis,
+					Text = name,
+					TextTruncate = Enum.TextTruncate.AtEnd,
+				},
 
-					frameProps = {
-						BackgroundTransparency = 1,
-						LayoutOrder = layoutOrder,
-					},
-
-					maxSize = Vector2.new(maxWidth, maxHeight),
-					padding = ICON_PADDING,
-				})
-			else
-				local labelWidth = titleIcon and (maxWidth - titleIconSize.X - ICON_PADDING) or maxWidth
-
-				local labelTextSize = GetTextSize(name, textSize, font.Header2.Font, Vector2.new(labelWidth, maxHeight))
-
-				return Roact.createElement("Frame", {
+				frameProps = {
 					BackgroundTransparency = 1,
 					LayoutOrder = layoutOrder,
-					Size = UDim2.new(0, maxWidth, 0, labelTextSize.Y),
-				}, {
-					Icon = titleIcon and Roact.createElement(ImageSetComponent.Label, {
-						BackgroundTransparency = 1,
-						Image = titleIcon,
-						ImageColor3 = theme.IconEmphasis.Color,
-						ImageTransparency = theme.IconEmphasis.Transparency,
-						Size = UDim2.new(0, titleIconSize.X, 0, titleIconSize.Y),
-					}),
+				},
 
-					Name = Roact.createElement("TextLabel", {
-						AnchorPoint = Vector2.new(1, 0),
-						Position = UDim2.new(1, 0, 0, 0),
-						Size = UDim2.new(0, labelWidth, 1, 0),
-						BackgroundTransparency = 1,
-						TextSize = textSize,
-						TextColor3 = theme.TextEmphasis.Color,
-						TextTransparency = theme.TextEmphasis.Transparency,
-						Font = font.Header2.Font,
-						Text = name,
-						TextTruncate = Enum.TextTruncate.AtEnd,
-						TextXAlignment = Enum.TextXAlignment.Left,
-						TextYAlignment = Enum.TextYAlignment.Top,
-						TextWrapped = true,
-					}),
-				})
-			end
+				maxSize = Vector2.new(maxWidth, maxHeight),
+				padding = ICON_PADDING,
+			})
 		else
 			return Roact.createElement("Frame", {
 				BackgroundTransparency = 1,

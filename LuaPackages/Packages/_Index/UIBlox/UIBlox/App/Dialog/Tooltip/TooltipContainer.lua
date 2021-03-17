@@ -15,6 +15,8 @@ local GenericTextLabel = require(UIBlox.Core.Text.GenericTextLabel.GenericTextLa
 local GetTextSize = require(UIBlox.Core.Text.GetTextSize)
 local GetTextHeight = require(UIBlox.Core.Text.GetTextHeight)
 
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
+
 local enumerateValidator = require(UIBlox.Utility.enumerateValidator)
 local divideTransparency = require(UIBlox.Utility.divideTransparency)
 local lerp = require(UIBlox.Utility.lerp)
@@ -80,6 +82,15 @@ function TooltipContainer:render()
 		local fontSize = font.BaseSize * font.CaptionBody.RelativeSize
 
 		local bodyTextWidth = GetTextSize(self.props.bodyText, fontSize, bodyFont.Font, Vector2.new()).X
+		if UIBloxConfig.tooltipWidthUsesHeaderToo and self.props.headerText then
+			local headerTextWidth = GetTextSize(
+				self.props.headerText,
+				font.BaseSize * headerFont.RelativeSize,
+				headerFont.Font,
+				Vector2.new()
+			).X
+			bodyTextWidth = math.max(bodyTextWidth, headerTextWidth)
+		end
 		local innerWidth = math.min(bodyTextWidth, FRAME_MAX_WIDTH - 2 * MARGIN)
 		local frameWidth = innerWidth + 2 * MARGIN
 
