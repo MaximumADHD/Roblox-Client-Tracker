@@ -553,6 +553,7 @@ Class HingeConstraint : Constraint
 	Property float HingeConstraint.AngularVelocity
 	Property float HingeConstraint.MotorMaxAcceleration
 	Property float HingeConstraint.MotorMaxTorque
+	Property float HingeConstraint.AngularResponsiveness
 	Property float HingeConstraint.AngularSpeed
 	Property float HingeConstraint.ServoMaxTorque
 	Property float HingeConstraint.TargetAngle
@@ -583,6 +584,7 @@ Class SlidingBallConstraint : Constraint [NotCreatable]
 	Property float SlidingBallConstraint.MotorMaxAcceleration
 	Property float SlidingBallConstraint.MotorMaxForce
 	Property float SlidingBallConstraint.Velocity
+	Property float SlidingBallConstraint.LinearResponsiveness
 	Property float SlidingBallConstraint.ServoMaxForce
 	Property float SlidingBallConstraint.Speed
 	Property float SlidingBallConstraint.TargetPosition
@@ -595,6 +597,7 @@ Class CylindricalConstraint : SlidingBallConstraint
 	Property float CylindricalConstraint.AngularVelocity
 	Property float CylindricalConstraint.MotorMaxAngularAcceleration
 	Property float CylindricalConstraint.MotorMaxTorque
+	Property float CylindricalConstraint.AngularResponsiveness
 	Property float CylindricalConstraint.AngularSpeed
 	Property float CylindricalConstraint.ServoMaxTorque
 	Property float CylindricalConstraint.TargetAngle
@@ -620,6 +623,16 @@ Class SpringConstraint : Constraint
 Class Torque : Constraint
 	Property Enum<ActuatorRelativeTo> Torque.RelativeTo
 	Property Vector3 Torque.Torque
+Class TorsionSpringConstraint : Constraint
+	Property float TorsionSpringConstraint.Coils
+	Property float TorsionSpringConstraint.Radius
+	Property float TorsionSpringConstraint.CurrentAngle [ReadOnly]
+	Property float TorsionSpringConstraint.MaxAngle
+	Property float TorsionSpringConstraint.Restitution
+	Property float TorsionSpringConstraint.Damping
+	Property bool TorsionSpringConstraint.LimitEnabled
+	Property float TorsionSpringConstraint.MaxTorque
+	Property float TorsionSpringConstraint.Stiffness
 Class UniversalConstraint : Constraint
 	Property float UniversalConstraint.Radius
 	Property float UniversalConstraint.MaxAngle
@@ -1935,6 +1948,12 @@ Class ObjectVersionInfo : Instance [NotCreatable] [NotReplicated]
 	Property bool ObjectVersionInfo.IsDeleted [ReadOnly]
 	Property string ObjectVersionInfo.Version [ReadOnly]
 Class PVInstance : Instance [NotCreatable] [NotBrowsable]
+	Property Vector3 PVInstance.Pivot Offset Orientation [NotReplicated] [NotScriptable]
+	Property Vector3 PVInstance.Pivot Offset Position [NotReplicated] [NotScriptable]
+	Property Vector3 PVInstance.Origin Orientation [NotReplicated] [NotScriptable]
+	Property Vector3 PVInstance.Origin Position [NotReplicated] [NotScriptable]
+	Function CFrame PVInstance:GetPivot()
+	Function void PVInstance:PivotTo(CFrame targetCFrame)
 Class BasePart : PVInstance [NotCreatable] [NotBrowsable]
 	Property BrickColor BasePart.BrickColor [<📁> LoadOnly] [NotReplicated]
 	Property bool BasePart.CastShadow
@@ -1995,6 +2014,7 @@ Class BasePart : PVInstance [NotCreatable] [NotBrowsable]
 	Property float BasePart.TopParamA
 	Property float BasePart.TopParamB
 	Property Enum<InputType> BasePart.TopSurfaceInput
+	Property CFrame BasePart.PivotOffset
 	Function void BasePart:ApplyAngularImpulse(Vector3 impulse)
 	Function void BasePart:ApplyImpulse(Vector3 impulse)
 	Function void BasePart:ApplyImpulseAtPosition(Vector3 impulse, Vector3 position)
@@ -2132,6 +2152,9 @@ Class VehicleSeat : BasePart
 Class Model : PVInstance
 	Property Enum<ModelLevelOfDetail> Model.LevelOfDetail {PluginSecurity}
 	Property Class<BasePart> Model.PrimaryPart
+	Property Vector3 Model.World Pivot Orientation [NotReplicated] [NotScriptable]
+	Property Vector3 Model.World Pivot Position [NotReplicated] [NotScriptable]
+	Property CFrame Model.WorldPivot
 	Function void Model:BreakJoints()
 	Function Tuple Model:GetBoundingBox()
 	Function Vector3 Model:GetExtentsSize()
@@ -2156,6 +2179,9 @@ Class WorldRoot : Model [NotCreatable]
 	Function Objects WorldRoot:FindPartsInRegion3(Region3 region, Instance ignoreDescendantsInstance = nil, int maxParts = 20) {🧬Safe}
 	Function Objects WorldRoot:FindPartsInRegion3WithIgnoreList(Region3 region, Objects ignoreDescendantsTable, int maxParts = 20)
 	Function Objects WorldRoot:FindPartsInRegion3WithWhiteList(Region3 region, Objects whitelistDescendantsTable, int maxParts = 20)
+	Function Objects WorldRoot:GetPartBoundsInBox(CFrame cframe, Vector3 size, OverlapParams overlapParams = OverlapParams.new())
+	Function Objects WorldRoot:GetPartBoundsInRadius(Vector3 position, float radius, OverlapParams overlapParams = OverlapParams.new())
+	Function Objects WorldRoot:GetPartsInPart(Instance part, OverlapParams overlapParams = OverlapParams.new())
 	Function void WorldRoot:IKMoveTo(Instance part, CFrame target, float translateStiffness = 0.5, float rotateStiffness = 0.5, Enum<IKCollisionsMode> collisionsMode = "OtherMechanismsAnchored") {PluginSecurity}
 	Function bool WorldRoot:IsRegion3Empty(Region3 region, Instance ignoreDescendentsInstance = nil)
 	Function bool WorldRoot:IsRegion3EmptyWithIgnoreList(Region3 region, Objects ignoreDescendentsTable)
@@ -2195,6 +2221,9 @@ Class Workspace : WorldRoot [NotCreatable] [Service]
 	Function void Workspace:ZoomToExtents() {PluginSecurity}
 Class WorldModel : WorldRoot
 Class PackageLink : Instance [NotCreatable] [NotBrowsable]
+	Property string PackageLink.Creator [ReadOnly] [NotScriptable]
+	Property string PackageLink.PackageAssetName [ReadOnly] [NotScriptable]
+	Property Enum<PackagePermission> PackageLink.PermissionLevel [ReadOnly] [NotScriptable]
 	Property bool PackageLink.AutoUpdate [NotScriptable]
 	Property Content PackageLink.PackageId [ReadOnly]
 	Property string PackageLink.Status {RobloxScriptSecurity} [ReadOnly]
@@ -2539,6 +2568,8 @@ Class PluginMenu : Instance [NotCreatable] [NotReplicated]
 	Function void PluginMenu:AddSeparator() {PluginSecurity}
 	Function void PluginMenu:Clear() {PluginSecurity}
 	Function Instance PluginMenu:ShowAsync() {PluginSecurity} [Yields]
+Class PluginPolicyService : Instance [NotCreatable] [Service] [NotReplicated]
+	Function Dictionary PluginPolicyService:GetPluginPolicy(string pluginName) {RobloxScriptSecurity}
 Class PluginToolbar : Instance [NotCreatable]
 	Function Instance PluginToolbar:CreateButton(string buttonId, string tooltip, string iconname, string text = "") {PluginSecurity}
 Class PluginToolbarButton : Instance [NotCreatable]
@@ -2845,6 +2876,7 @@ Class DataModel : ServiceProvider [NotCreatable]
 	Event DataModel.ItemChanged(Instance object, string descriptor) [Deprecated]
 	Event DataModel.Loaded()
 	Event DataModel.ScreenshotReady(string path) {RobloxScriptSecurity}
+	Event DataModel.ScreenshotSavedToAlbum(string filename, bool success, string message) {RobloxScriptSecurity}
 	Callback Tuple DataModel.OnClose() [Deprecated]
 Class GenericSettings : ServiceProvider [NotCreatable]
 Class AnalysticsSettings : GenericSettings [NotCreatable]
@@ -3181,6 +3213,7 @@ Class StudioService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property float StudioService.GridSize [ReadOnly]
 	Property Instance StudioService.HoverInstance {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property string StudioService.InstalledPluginData {RobloxScriptSecurity} [Hidden] [ReadOnly]
+	Property bool StudioService.PivotSnapToGeometry {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property float StudioService.RotateIncrement [ReadOnly]
 	Property bool StudioService.ShowActiveInstanceHighlight {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property bool StudioService.ShowConstraintDetails [ReadOnly]
@@ -3217,7 +3250,6 @@ Class StudioService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void StudioService:TryInstallPlugin(int64 assetId, int64 assetVersionId) {RobloxScriptSecurity} [Yields]
 	Function void StudioService:UninstallPlugin(int64 assetId) {RobloxScriptSecurity}
 	Function void StudioService:UpdatePluginManagement() {RobloxScriptSecurity}
-	Event StudioService.DEPRECATED_OnPublishPlaceToRoblox() {RobloxScriptSecurity}
 	Event StudioService.GameNameUpdated(string name) {RobloxScriptSecurity}
 	Event StudioService.GamePublishFinished(bool success, int64 gameId) {RobloxScriptSecurity}
 	Event StudioService.OnConvertToPackageResult(bool isSuccessful, string errorMessage) {RobloxScriptSecurity}
@@ -4903,6 +4935,13 @@ Enum OverrideMouseIconBehavior
 	EnumItem OverrideMouseIconBehavior.None : 0
 	EnumItem OverrideMouseIconBehavior.ForceShow : 1
 	EnumItem OverrideMouseIconBehavior.ForceHide : 2
+Enum PackagePermission
+	EnumItem PackagePermission.None : 0
+	EnumItem PackagePermission.NoAccess : 1
+	EnumItem PackagePermission.Revoked : 2
+	EnumItem PackagePermission.UseView : 3
+	EnumItem PackagePermission.Edit : 4
+	EnumItem PackagePermission.Own : 5
 Enum PacketPriority
 	EnumItem PacketPriority.IMMEDIATE_PRIORITY : 0
 	EnumItem PacketPriority.HIGH_PRIORITY : 1

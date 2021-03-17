@@ -7,11 +7,16 @@ Rectangle {
     property alias pageNumber: _gameGridViewWithHeader.pageNumber
     property var tabElementId: ["recentGames_RecentGames"]
 
+    readonly property bool fflagStudioRecentGamesPageShowsOwner: recentGamesPageController.getFFlagStudioRecentGamesPageShowsOwner()
+
     id: recentGamesPage
     objectName: "recentGamesPage"
     color: userPreferences.theme.style("StartPage Page background")
 
     signal createNewGameClicked()
+
+    signal searchCleared(string currentTabElementId, bool fromButton)
+    signal searchClicked(string searchTerm, string currentTabElementId, bool fromButton)
 
     GameGridViewWithHeader {
         id: _gameGridViewWithHeader
@@ -25,10 +30,15 @@ Rectangle {
         onClicked: recentGamesPageController.onGameClicked
 
         gameTabBarModel: ListModel { }
-        currentGameWidgetHeight: 228
+        // Overall widget height is
+        // Thumbnail - 150px
+        // Two lines of title/filename - 52px
+        // By-line (small font) - 17px
+        // Local/Private/Public - 26px
+        currentGameWidgetHeight: fflagStudioRecentGamesPageShowsOwner ? 228 + 17 : 228
 
         Component.onCompleted: {
-            gameTabBarModel.append({"text": qsTr("Studio.App.RecentGamesPage.RecentGames"), "elementId": tabElementId[0], "gameWidgetHeight": 228});
+            gameTabBarModel.append({"text": qsTr("Studio.App.RecentGamesPage.RecentGames"), "elementId": tabElementId[0], "gameWidgetHeight": currentGameWidgetHeight});
 
             onTabClicked(startPageTabController.getLastTabOnPageIndex(pageNumber));
         }

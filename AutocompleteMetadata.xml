@@ -307,6 +307,16 @@
   </LuaLibrary>
   
   <LuaLibrary name="debug">
+    <Function name="info" static="true">
+      <parameters>
+        <number name="level"></number>
+        <string name="options"></string>
+      </parameters>
+      <returns>
+        <value name="..."></value>
+      </returns>
+      <description>Returns debug information about a given stack frame or function object based on the options string (that can contain characters nslfa).</description>
+    </Function>
     <Function name="traceback" static="true">
       <returns>
         <string></string>
@@ -2435,6 +2445,27 @@
       <Enum.PartMaterial name="Material">
         The material of the hit surface
       </Enum.PartMaterial>
+    </Properties>
+  </ItemStruct>
+  <ItemStruct name="OverlapParams">
+    <Function name="new" static="true">
+      <returns>
+        <OverlapParams></OverlapParams>
+      </returns>
+      <parameters>
+      </parameters>
+      <description>Creates a new OverlapParams object.</description>
+    </Function>
+    <Properties>
+      <Instances name="FilterDescendantsInstances">
+        Instances to ignore or whitelist while doing a raycast
+      </Instances>
+      <Enum.RaycastFilterType name="FilterType">
+        Whether to use the filters fields of the OverlapParams as a blacklist or as a whitelist
+      </Enum.RaycastFilterType>
+      <string name="CollisionGroup">
+        Parts set to not collide with this group will be ignored by the overlap query
+      </string>
     </Properties>
   </ItemStruct>
 

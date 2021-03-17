@@ -109,6 +109,8 @@ DefaultHQVS_Level542,Vertex,✔,✔,✔,❌,❌,❌,✔
 DefaultModelLodFS,Fragment,✔,✔,✔,❌,❌,✔,✔
 DefaultModelLodVS,Vertex,✔,✔,✔,❌,❌,✔,✔
 DefaultNeonFS,Fragment,✔,✔,✔,✔,✔,✔,✔
+DefaultNeonFS_Level0,Fragment,✔,✔,✔,✔,✔,✔,✔
+DefaultNeonFS_Level2048,Fragment,✔,✔,✔,❌,❌,✔,✔
 DefaultNeonHQFS_Level0,Fragment,✔,✔,✔,❌,✔,✔,✔
 DefaultNeonHQFS_Level8,Fragment,✔,✔,✔,❌,❌,✔,✔
 DefaultNeonHQFS_Level24,Fragment,✔,✔,✔,❌,❌,❌,✔
@@ -140,16 +142,22 @@ DefaultNewShadowVS_Level97,Vertex,❌,❌,❌,❌,❌,❌,✔
 DefaultNewShadowVS_Level98,Vertex,❌,❌,❌,❌,❌,❌,✔
 DefaultNewShadowVS_Level102,Vertex,❌,❌,❌,❌,❌,❌,✔
 DefaultOpaqueFS,Fragment,✔,✔,✔,✔,✔,✔,✔
+DefaultOpaqueFS_Level0,Fragment,✔,✔,✔,✔,✔,✔,✔
+DefaultOpaqueFS_Level2048,Fragment,✔,✔,✔,❌,❌,✔,✔
 DefaultOpaqueHQFS_Level0,Fragment,✔,✔,✔,❌,✔,✔,✔
 DefaultOpaqueHQFS_Level8,Fragment,✔,✔,✔,❌,❌,✔,✔
 DefaultOpaqueHQFS_Level24,Fragment,✔,✔,✔,❌,❌,❌,✔
 DefaultOpaqueHQFS_Level536,Fragment,✔,✔,✔,❌,❌,❌,✔
 DefaultPlasticFS,Fragment,✔,✔,✔,✔,✔,✔,✔
+DefaultPlasticFS_Level0,Fragment,✔,✔,✔,✔,✔,✔,✔
+DefaultPlasticFS_Level2048,Fragment,✔,✔,✔,❌,❌,✔,✔
 DefaultPlasticHQFS_Level0,Fragment,✔,✔,✔,❌,✔,✔,✔
 DefaultPlasticHQFS_Level8,Fragment,✔,✔,✔,❌,❌,✔,✔
 DefaultPlasticHQFS_Level24,Fragment,✔,✔,✔,❌,❌,❌,✔
 DefaultPlasticHQFS_Level536,Fragment,✔,✔,✔,❌,❌,❌,✔
 DefaultPlasticReflectionFS,Fragment,✔,✔,✔,✔,✔,✔,✔
+DefaultPlasticReflectionFS_Level0,Fragment,✔,✔,✔,✔,✔,✔,✔
+DefaultPlasticReflectionFS_Level2048,Fragment,✔,✔,✔,❌,❌,✔,✔
 DefaultReflectionVS_Level0,Vertex,✔,✔,✔,✔,✔,✔,✔
 DefaultReflectionVS_Level1,Vertex,✔,✔,✔,❌,❌,✔,✔
 DefaultReflectionVS_Level2,Vertex,✔,✔,✔,✔,✔,✔,✔
@@ -174,6 +182,8 @@ DefaultSurfaceAppearanceDitheredHQFS_Level8,Fragment,✔,✔,✔,❌,❌,✔,✔
 DefaultSurfaceAppearanceDitheredHQFS_Level24,Fragment,✔,✔,✔,❌,❌,❌,✔
 DefaultSurfaceAppearanceDitheredHQFS_Level536,Fragment,✔,✔,✔,❌,❌,❌,✔
 DefaultSurfaceAppearanceFS,Fragment,✔,✔,✔,✔,✔,✔,✔
+DefaultSurfaceAppearanceFS_Level0,Fragment,✔,✔,✔,✔,✔,✔,✔
+DefaultSurfaceAppearanceFS_Level2048,Fragment,✔,✔,✔,❌,❌,✔,✔
 DefaultSurfaceAppearanceHQFS_Level0,Fragment,✔,✔,✔,❌,✔,✔,✔
 DefaultSurfaceAppearanceHQFS_Level8,Fragment,✔,✔,✔,❌,❌,✔,✔
 DefaultSurfaceAppearanceHQFS_Level24,Fragment,✔,✔,✔,❌,❌,❌,✔
@@ -207,6 +217,8 @@ DefaultTiledHQFS_Level8,Fragment,✔,✔,✔,❌,❌,✔,✔
 DefaultTiledHQFS_Level24,Fragment,✔,✔,✔,❌,❌,❌,✔
 DefaultTiledHQFS_Level536,Fragment,✔,✔,✔,❌,❌,❌,✔
 DefaultTransparentFS,Fragment,✔,✔,✔,✔,✔,✔,✔
+DefaultTransparentFS_Level0,Fragment,✔,✔,✔,✔,✔,✔,✔
+DefaultTransparentFS_Level2048,Fragment,✔,✔,✔,❌,❌,✔,✔
 DefaultTransparentHQFS_Level0,Fragment,✔,✔,✔,❌,✔,✔,✔
 DefaultTransparentHQFS_Level8,Fragment,✔,✔,✔,❌,❌,✔,✔
 DefaultTransparentHQFS_Level24,Fragment,✔,✔,✔,❌,❌,❌,✔
@@ -251,6 +263,9 @@ DownSampleGjoelLinearFS,Fragment,✔,✔,✔,✔,✔,✔,✔
 DownSampleGjoelMipFS,Fragment,✔,✔,✔,✔,✔,✔,✔
 DownSampleGlowTemporal8x8FS,Fragment,✔,✔,✔,✔,✔,✔,✔
 DownSampleGlowTemporalLinear8x8FS,Fragment,✔,✔,✔,✔,✔,✔,✔
+EnvGlassFS,Fragment,✔,✔,✔,❌,❌,✔,✔
+FastConvDownsamplePS,Fragment,✔,✔,✔,❌,❌,✔,✔
+FastConvolutionPS,Fragment,✔,✔,✔,❌,❌,✔,✔
 FixUpCoCFS,Fragment,❌,✔,✔,❌,✔,✔,✔
 FXCompositingFS,Fragment,✔,✔,✔,✔,✔,✔,✔
 FXCompositingLinearFS,Fragment,✔,✔,✔,✔,✔,✔,✔
@@ -316,6 +331,8 @@ ImageProcessLQNeonBlurFS,Fragment,✔,✔,✔,✔,✔,✔,✔
 ImageProcessLQNeonFS,Fragment,✔,✔,✔,✔,✔,✔,✔
 ImGuiFS,Fragment,✔,✔,✔,✔,✔,✔,✔
 ImGuiVS,Vertex,✔,✔,✔,✔,✔,✔,✔
+IrradianceConvFS,Fragment,✔,✔,✔,❌,❌,✔,✔
+IrradianceConvVS,Vertex,✔,✔,✔,❌,❌,✔,✔
 LightGridCullCS,Compute,❌,❌,✔,❌,❌,❌,✔
 LightGridDebugFS,Fragment,✔,✔,✔,❌,❌,✔,✔
 LightGridPointSplatFS,Fragment,✔,✔,✔,✔,✔,✔,✔
@@ -325,6 +342,8 @@ LinearizeDepthBufferFS,Fragment,❌,❌,✔,❌,❌,❌,✔
 LinearizeDepthFS,Fragment,✔,✔,✔,✔,✔,✔,✔
 LowQGlassFS,Fragment,✔,✔,✔,✔,✔,✔,✔
 LowQMaterialFS,Fragment,✔,✔,✔,✔,✔,✔,✔
+LowQMaterialFS_Level0,Fragment,✔,✔,✔,✔,✔,✔,✔
+LowQMaterialFS_Level2048,Fragment,✔,✔,✔,❌,❌,✔,✔
 LowQMaterialWangFallbackFS,Fragment,✔,✔,✔,✔,✔,✔,✔
 LowQMaterialWangFS,Fragment,✔,✔,✔,❌,✔,✔,✔
 OccupancyDebugFS,Fragment,✔,✔,✔,❌,❌,✔,✔
@@ -387,6 +406,8 @@ SmoothClusterDepthFS,Fragment,✔,✔,✔,✔,✔,✔,✔
 SmoothClusterDepthVS,Vertex,✔,✔,✔,✔,✔,✔,✔
 SmoothClusterFS_Level0,Fragment,✔,✔,✔,✔,✔,✔,✔
 SmoothClusterFS_Level256,Fragment,✔,✔,✔,✔,✔,✔,✔
+SmoothClusterFS_Level2048,Fragment,✔,✔,✔,❌,❌,✔,✔
+SmoothClusterFS_Level2304,Fragment,✔,✔,✔,❌,❌,✔,✔
 SmoothClusterHQFS_Level0,Fragment,✔,✔,✔,❌,✔,✔,✔
 SmoothClusterHQFS_Level8,Fragment,✔,✔,✔,❌,❌,✔,✔
 SmoothClusterHQFS_Level24,Fragment,✔,✔,✔,❌,❌,❌,✔
@@ -430,6 +451,8 @@ SmoothClusterSuperHQVS_Level792,Vertex,✔,✔,✔,❌,❌,❌,✔
 SmoothClusterVS_Level0,Vertex,✔,✔,✔,✔,✔,✔,✔
 SmoothClusterVS_Level256,Vertex,✔,✔,✔,✔,✔,✔,✔
 SmoothWaterFS,Fragment,✔,✔,✔,✔,✔,✔,✔
+SmoothWaterFS_Level0,Fragment,✔,✔,✔,✔,✔,✔,✔
+SmoothWaterFS_Level2048,Fragment,✔,✔,✔,❌,❌,✔,✔
 SmoothWaterHQFS_Level0,Fragment,✔,✔,✔,❌,✔,✔,✔
 SmoothWaterHQFS_Level8,Fragment,✔,✔,✔,❌,❌,✔,✔
 SmoothWaterHQFS_Level24,Fragment,✔,✔,✔,❌,❌,❌,✔

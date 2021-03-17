@@ -13,7 +13,7 @@ Item {
     layer.enabled: true
 
     // The game widgets can have different heights depending on if there is an
-    // owner of the game. We show the owner name in the "Shared with Me" tab. The
+    // owner of the game. We show the owner name in the "Shared with Me" and "Recent Games" tab. The
     // code changes the height of the game widgets depending on which tab is shown.
     // And the template game widgets are shorter too.
     property int currentGameWidgetWidth: 150
@@ -33,6 +33,7 @@ Item {
     readonly property bool isRecentGamesPage: gamePageName == "recentGamesPage"
 	readonly property bool isArchivedGamesPage: gamePageName == "archivedGamesPage"
     readonly property bool fflagStudioSaveToCloudV2: groupGamesPageController.getFFlagStudioSaveToCloudV2()
+    readonly property bool fflagStudioRecentGamesPageShowsOwner: recentGamesPageController.getFFlagStudioRecentGamesPageShowsOwner()
 
 	function getGroupGamesPageController() {
         if (fflagStudioSaveToCloudV2) {
@@ -54,6 +55,17 @@ Item {
 		return (currentTabElementId === "myGames_GroupGames" || currentTabElementId == "archivedGames_GroupGames");
 	}
 
+    function getShouldDisplayCreatorName() {
+        if (fflagStudioRecentGamesPageShowsOwner)
+        {
+            return isRecentGamesPage || currentTabElementId === "myGames_SharedWithMe"
+        }
+        else
+        {
+            return currentTabElementId === "myGames_SharedWithMe"
+        }
+    }
+
     readonly property var groupModel: getGroupGamesPageController().getGroupModel()
 
     function calculateShowGroups() {
@@ -67,7 +79,17 @@ Item {
     }
     readonly property bool showGroups: calculateShowGroups()
 
-    readonly property bool showSearch: !isTemplatePage && !isRecentGamesPage
+    function calculateShowSearch() {
+        if (fflagStudioRecentGamesPageShowsOwner)
+        {
+            return !isTemplatePage
+        }
+        else
+        {
+            return !isTemplatePage && !isRecentGamesPage
+        }
+    }
+    readonly property bool showSearch: calculateShowSearch()
     readonly property bool showSort: !isTemplatePage && !isRecentGamesPage
     readonly property bool showGameTabBarLowerRectangle: showGroups || showSearch || showSort
 
@@ -430,7 +452,17 @@ Item {
             SearchWidget {
                 id: _searchWidget
                 z: 7
-				anchors.right: sortOptionsComboBoxContainer.left
+                function calculateAnchorRight() {
+                    if (fflagStudioRecentGamesPageShowsOwner && isRecentGamesPage)
+                    {
+                        return parent.right
+                    }
+                    else
+                    {
+                        return sortOptionsComboBoxContainer.left
+                    }
+                }
+                anchors.right: calculateAnchorRight()
                 anchors.top: parent.top
                 anchors.leftMargin: gameTabBarLowerHorizontalOuterMargins
                 anchors.rightMargin: gameTabBarLowerHorizontalInnerMargins
@@ -746,7 +778,7 @@ Item {
 
             model: gameGridViewWithHeader.model
             controller: gameGridViewWithHeader.controller
-            readonly property bool showCreatorName: currentTabElementId === "myGames_SharedWithMe"
+            readonly property bool showCreatorName: getShouldDisplayCreatorName()
             property var lastPopulatingChangedSignal: null
 
             function populateToFitView() {
@@ -843,7 +875,7 @@ Item {
                 isTemplateWidget: isTemplatePage
                 isMyGameWidget: isMyGamesPage
                 isRecentWidget: isRecentGamesPage
-                showCreatorName: currentTabElementId === "myGames_SharedWithMe"
+                showCreatorName: getShouldDisplayCreatorName()
             }
 
             readonly property int animationTime: 300

@@ -41,10 +41,14 @@ DefaultForceFieldVS_Level1024,Vertex
 DefaultForceFieldVS_Level1026,Vertex
 DefaultForceFieldVS_Level1030,Vertex
 DefaultNeonFS,Fragment
+DefaultNeonFS_Level0,Fragment
 DefaultNeonInGuiFS,Fragment
 DefaultOpaqueFS,Fragment
+DefaultOpaqueFS_Level0,Fragment
 DefaultPlasticFS,Fragment
+DefaultPlasticFS_Level0,Fragment
 DefaultPlasticReflectionFS,Fragment
+DefaultPlasticReflectionFS_Level0,Fragment
 DefaultReflectionVS_Level0,Vertex
 DefaultReflectionVS_Level2,Vertex
 DefaultReflectionVS_Level6,Vertex
@@ -61,7 +65,9 @@ DefaultSurfaceAppearanceDitheredDepthVS_Level2,Vertex
 DefaultSurfaceAppearanceDitheredDepthVS_Level6,Vertex
 DefaultSurfaceAppearanceDitheredFS,Fragment
 DefaultSurfaceAppearanceFS,Fragment
+DefaultSurfaceAppearanceFS_Level0,Fragment
 DefaultTransparentFS,Fragment
+DefaultTransparentFS_Level0,Fragment
 DefaultVS_Level0,Vertex
 DefaultVS_Level2,Vertex
 DefaultVS_Level6,Vertex
@@ -116,6 +122,7 @@ LightGridPointSplatVS,Vertex
 LinearizeDepthFS,Fragment
 LowQGlassFS,Fragment
 LowQMaterialFS,Fragment
+LowQMaterialFS_Level0,Fragment
 LowQMaterialWangFallbackFS,Fragment
 ParticleCurveAddFS,Fragment
 ParticleCurveAddFS_Soft,Fragment
@@ -153,6 +160,7 @@ SmoothClusterFS_Level256,Fragment
 SmoothClusterVS_Level0,Vertex
 SmoothClusterVS_Level256,Vertex
 SmoothWaterFS,Fragment
+SmoothWaterFS_Level0,Fragment
 SmoothWaterVS,Vertex
 SRGBToLinearFS,Fragment
 SSAOCompositFS,Fragment

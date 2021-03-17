@@ -80,6 +80,8 @@ DefaultHQVS_Level14,Vertex
 DefaultModelLodFS,Fragment
 DefaultModelLodVS,Vertex
 DefaultNeonFS,Fragment
+DefaultNeonFS_Level0,Fragment
+DefaultNeonFS_Level2048,Fragment
 DefaultNeonHQFS_Level0,Fragment
 DefaultNeonHQFS_Level8,Fragment
 DefaultNeonHQInGuiFS,Fragment
@@ -97,12 +99,18 @@ DefaultNewShadowVS_Level65,Vertex
 DefaultNewShadowVS_Level66,Vertex
 DefaultNewShadowVS_Level70,Vertex
 DefaultOpaqueFS,Fragment
+DefaultOpaqueFS_Level0,Fragment
+DefaultOpaqueFS_Level2048,Fragment
 DefaultOpaqueHQFS_Level0,Fragment
 DefaultOpaqueHQFS_Level8,Fragment
 DefaultPlasticFS,Fragment
+DefaultPlasticFS_Level0,Fragment
+DefaultPlasticFS_Level2048,Fragment
 DefaultPlasticHQFS_Level0,Fragment
 DefaultPlasticHQFS_Level8,Fragment
 DefaultPlasticReflectionFS,Fragment
+DefaultPlasticReflectionFS_Level0,Fragment
+DefaultPlasticReflectionFS_Level2048,Fragment
 DefaultReflectionVS_Level0,Vertex
 DefaultReflectionVS_Level1,Vertex
 DefaultReflectionVS_Level2,Vertex
@@ -125,6 +133,8 @@ DefaultSurfaceAppearanceDitheredFS,Fragment
 DefaultSurfaceAppearanceDitheredHQFS_Level0,Fragment
 DefaultSurfaceAppearanceDitheredHQFS_Level8,Fragment
 DefaultSurfaceAppearanceFS,Fragment
+DefaultSurfaceAppearanceFS_Level0,Fragment
+DefaultSurfaceAppearanceFS_Level2048,Fragment
 DefaultSurfaceAppearanceHQFS_Level0,Fragment
 DefaultSurfaceAppearanceHQFS_Level8,Fragment
 DefaultSurfaceHQVS_Level0,Vertex
@@ -142,6 +152,8 @@ DefaultTiledHideDiffuseRepHQFS_Level8,Fragment
 DefaultTiledHQFS_Level0,Fragment
 DefaultTiledHQFS_Level8,Fragment
 DefaultTransparentFS,Fragment
+DefaultTransparentFS_Level0,Fragment
+DefaultTransparentFS_Level2048,Fragment
 DefaultTransparentHQFS_Level0,Fragment
 DefaultTransparentHQFS_Level8,Fragment
 DefaultVS_Level0,Vertex
@@ -181,6 +193,9 @@ DownSampleGjoelLinearFS,Fragment
 DownSampleGjoelMipFS,Fragment
 DownSampleGlowTemporal8x8FS,Fragment
 DownSampleGlowTemporalLinear8x8FS,Fragment
+EnvGlassFS,Fragment
+FastConvDownsamplePS,Fragment
+FastConvolutionPS,Fragment
 FixUpCoCFS,Fragment
 FXCompositingFS,Fragment
 FXCompositingLinearFS,Fragment
@@ -230,6 +245,8 @@ ImageProcessLQNeonBlurFS,Fragment
 ImageProcessLQNeonFS,Fragment
 ImGuiFS,Fragment
 ImGuiVS,Vertex
+IrradianceConvFS,Fragment
+IrradianceConvVS,Vertex
 LightGridDebugFS,Fragment
 LightGridPointSplatFS,Fragment
 LightGridPointSplatVS,Vertex
@@ -237,6 +254,8 @@ LinearizeDepthAAFS,Fragment
 LinearizeDepthFS,Fragment
 LowQGlassFS,Fragment
 LowQMaterialFS,Fragment
+LowQMaterialFS_Level0,Fragment
+LowQMaterialFS_Level2048,Fragment
 LowQMaterialWangFallbackFS,Fragment
 LowQMaterialWangFS,Fragment
 OccupancyDebugFS,Fragment
@@ -293,6 +312,8 @@ SmoothClusterDepthFS,Fragment
 SmoothClusterDepthVS,Vertex
 SmoothClusterFS_Level0,Fragment
 SmoothClusterFS_Level256,Fragment
+SmoothClusterFS_Level2048,Fragment
+SmoothClusterFS_Level2304,Fragment
 SmoothClusterHQFS_Level0,Fragment
 SmoothClusterHQFS_Level8,Fragment
 SmoothClusterHQFS_Level256,Fragment
@@ -316,6 +337,8 @@ SmoothClusterSuperHQVS_Level264,Vertex
 SmoothClusterVS_Level0,Vertex
 SmoothClusterVS_Level256,Vertex
 SmoothWaterFS,Fragment
+SmoothWaterFS_Level0,Fragment
+SmoothWaterFS_Level2048,Fragment
 SmoothWaterHQFS_Level0,Fragment
 SmoothWaterHQFS_Level8,Fragment
 SmoothWaterHQVS_Level0,Vertex

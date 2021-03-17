@@ -16,12 +16,13 @@ version = "0.1.0"
 dependencies = [
     "AvatarExperienceDeps AvatarExperienceDeps 5a31b418 git+https://github.com/roblox/avatar-experience-deps#master",
     "Cryo roblox/cryo 1.0.0 url+https://github.com/roblox/cryo",
+    "Dash roblox/dash 0.1.7 url+https://github.com/roblox/dash",
     "DeveloperTools roblox/developer-tools 0.1.4 url+https://github.com/roblox/developer-tools",
     "FitFrame roblox/roact-fit-components 1.2.5 url+https://github.com/roblox/roact-fit-components",
     "InGameMenuDependencies InGameMenuDependencies e14e8f3f git+https://github.com/roblox/in-game-menu-dependencies#master",
     "LuaChatDeps LuaChatDeps f16c0046 git+https://github.com/roblox/lua-chat-deps#master",
     "LuaDiscussionsDeps LuaDiscussionsDeps 149f4695 git+https://github.com/roblox/lua-discussions-deps#master",
-    "LuaSocialLibrariesDeps LuaSocialLibrariesDeps 395c832b git+https://github.com/roblox/lua-social-libraries-deps#master",
+    "LuaSocialLibrariesDeps LuaSocialLibrariesDeps 378857b1 git+https://github.com/roblox/lua-social-libraries-deps#master",
     "Lumberyak roblox/lumberyak 76fee23f git+https://github.com/roblox/lumberyak#master",
     "Otter roblox/otter 0.1.3 url+https://github.com/roblox/otter",
     "PolicyProvider roblox/lua-roact-policy-provider 5f782af8 git+https://github.com/roblox/lua-roact-policy-provider#master",
@@ -37,7 +38,7 @@ dependencies = [
     "Rodux roblox/rodux 1.1.0 url+https://github.com/roblox/rodux",
     "StringUtilities roblox/string-utilities 1.0.0 url+https://github.com/roblox/string-utilities",
     "TestEZ roblox/testez 0.4.0 url+https://github.com/roblox/testez",
-    "UIBlox UIBlox 69c1d3ac git+https://github.com/roblox/uiblox#master",
+    "UIBlox UIBlox 5b6ac28a git+https://github.com/roblox/uiblox#master",
     "UrlBuilder roblox/url-builder 1.0.4 url+https://github.com/roblox/url-builder",
     "enumerate roblox/enumerate 1.0.0 url+https://github.com/roblox/enumerate",
     "t roblox/t 1.2.5 url+https://github.com/roblox/t",
@@ -56,7 +57,7 @@ dependencies = [
     "Roact roblox/roact 1.3.1 url+https://github.com/roblox/roact",
     "RoactRodux roblox/roact-rodux 0.2.2 url+https://github.com/roblox/roact-rodux",
     "Rodux roblox/rodux 1.1.0 url+https://github.com/roblox/rodux",
-    "UIBlox UIBlox 69c1d3ac git+https://github.com/roblox/uiblox#master",
+    "UIBlox UIBlox 5b6ac28a git+https://github.com/roblox/uiblox#master",
     "t roblox/t 1.2.5 url+https://github.com/roblox/t",
 ]
 
@@ -70,7 +71,7 @@ dependencies = [
     "InfiniteScroller roblox/infinite-scroller 0.7.3 url+https://github.com/roblox/infinite-scroller",
     "InfiniteScroller71 roblox/infinite-scroller 7286a922 git+https://github.com/roblox/infinite-scroller#v0.7.1",
     "RoduxNetworking rodux-networking 8902a6aa git+https://github.com/roblox/rodux-networking#v1.0.2",
-    "UIBlox UIBlox 69c1d3ac git+https://github.com/roblox/uiblox#master",
+    "UIBlox UIBlox 5b6ac28a git+https://github.com/roblox/uiblox#master",
 ]
 
 [[package]]
@@ -88,11 +89,12 @@ dependencies = [
 [[package]]
 name = "LuaSocialLibrariesDeps"
 version = "0.5.0"
-commit = "395c832b238ddfb7cd06d29ede847bff8cf4ba02"
+commit = "378857b1b0e9ac4122fe309a25d208110641ae7e"
 source = "git+https://github.com/roblox/lua-social-libraries-deps#master"
 dependencies = [
     "GenericPagination roblox/genericpagination 885168d0 git+https://github.com/roblox/genericpagination#master",
     "Mock mock 2db7a70f git+https://github.com/roblox/mock#v1.1.0",
+    "NetworkingPresence roblox/networking-presence e1b72e1a git+https://github.com/roblox/networking-presence#v1.0.0",
     "RoactFitComponents roblox/roact-fit-components 1.2.5 url+https://github.com/roblox/roact-fit-components",
     "RoduxFriends roblox/rodux-friends a4365b7f git+https://github.com/roblox/rodux-friends#v1.0.1",
     "RoduxNetworking rodux-networking f322c986 git+https://github.com/roblox/rodux-networking#v1.2.1",
@@ -112,7 +114,7 @@ dependencies = ["RoactFitComponents roblox/roact-fit-components 1.2.5 url+https:
 [[package]]
 name = "UIBlox"
 version = "0.1.1"
-commit = "69c1d3acf95cb4c530714062af7df7529a394b8a"
+commit = "5b6ac28a85da18b665c3b22fba442c590fc0829f"
 source = "git+https://github.com/roblox/uiblox#master"
 dependencies = [
     "Cryo roblox/cryo 1.0.0 url+https://github.com/roblox/cryo",
@@ -183,7 +185,7 @@ source = "git+https://github.com/roblox/asset-card#v1.0.3"
 dependencies = [
     "Roact roblox/roact 1.3.1 url+https://github.com/roblox/roact",
     "Rodux roblox/rodux 1.1.0 url+https://github.com/roblox/rodux",
-    "UIBlox UIBlox 69c1d3ac git+https://github.com/roblox/uiblox#master",
+    "UIBlox UIBlox 5b6ac28a git+https://github.com/roblox/uiblox#master",
     "t roblox/t 1.2.5 url+https://github.com/roblox/t",
 ]
 
@@ -363,7 +365,7 @@ dependencies = [
     "Roact roblox/roact 1.3.1 url+https://github.com/roblox/roact",
     "RoactRodux roblox/roact-rodux 0.2.2 url+https://github.com/roblox/roact-rodux",
     "Rodux roblox/rodux 1.1.0 url+https://github.com/roblox/rodux",
-    "UIBlox UIBlox 69c1d3ac git+https://github.com/roblox/uiblox#master",
+    "UIBlox UIBlox 5b6ac28a git+https://github.com/roblox/uiblox#master",
     "t roblox/t 1.2.5 url+https://github.com/roblox/t",
 ]
 

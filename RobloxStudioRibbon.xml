@@ -185,6 +185,12 @@
         <addspinbox type="spinbox" keyboardTracking="true" tooltip="Studio.App.RobloxRibbonMainWindow.TheRotateGrid" name="setRotateIncrementAction" decimals="3" text="" minimum="0" maximum="9999" minumumWidth="100" step="5" suffix=" °"/>
         <addspinbox type="spinbox" keyboardTracking="true" tooltip="Studio.App.RobloxRibbonMainWindow.TheSnapGrid" name="setDragGridIncrementAction" decimals="3" text="" minimum="0" maximum="1024" minumumWidth="100" step="0.2" suffix="Studio.App.MainWindow.StudsSuffix"/>
       </Group>
+      <Group name="Pivot" text="Studio.App.RobloxRibbonMainWindow.PivotGroup" fflag="ModelPivotVisual">
+        <addaction name="editPivotAction" style="textundericon" text="Studio.App.RobloxRibbonMainWindow.EditPivot" tooltip="Studio.App.RobloxRibbonMainWindow.EditPivotTooltip" icon=":/RibbonBar/images/RibbonIcons/Home/PivotEditor.png" width="32" height="32" />
+        <addseparator visible="false"/>
+        <addaction name="clearPivotAction" style="textonly" text="Studio.App.RobloxRibbonMainWindow.ClearPivot" tooltip="Studio.App.RobloxRibbonMainWindow.ClearPivotTooltip" />
+        <addcheckbox name="togglePivotSnapAction" text="Studio.App.RobloxRibbonMainWindow.TogglePivotSnap" tooltip="Studio.App.RobloxRibbonMainWindow.TogglePivotSnapTooltip" />
+      </Group>
       <Group name="Alignment" fflag="StudioAlignTool" text="Studio.App.RobloxRibbonMainWindow.AlignToolGroup">
         <addaction name="alignToolAction" type="plugin" style="textundericon" text="Studio.App.RobloxRibbonMainWindow.AlignTool" icon=":/RibbonBar/images/RibbonIcons/Home/Align.png" tooltip="Studio.App.RobloxRibbonMainWindow.AlignToolTooltip" height="32" width="32"/>
       </Group>
@@ -264,6 +270,7 @@
           <addaction name="createRopeConstraintAction" style="textundericon" iscommonslot="true" text="Studio.App.RobloxRibbonMainWindow.Rope" tooltip="Studio.App.RobloxRibbonMainWindow.CreateRopeConstraint" icon=":/RibbonBar/images/RibbonIcons/Physics/rope-32x32.png" width="32" height="32" />
           <addaction name="createRodConstraintAction" style="textundericon" iscommonslot="true" text="Studio.App.RobloxRibbonMainWindow.Rod" tooltip="Studio.App.RobloxRibbonMainWindow.CreateRodConstraint" icon=":/RibbonBar/images/RibbonIcons/Physics/rod-32x32.png" width="32" height="32" />
           <addaction name="createSpringConstraintAction" style="textundericon" iscommonslot="true" text="Studio.App.RobloxRibbonMainWindow.Spring" tooltip="Studio.App.RobloxRibbonMainWindow.CreateSpringConstraint" icon=":/RibbonBar/images/RibbonIcons/Physics/spring-32x32.png" width="32" height="32" />
+          <addaction fflag="SimSolverTorsionSpringEnabled" name="createTorsionSpringConstraintAction" style="textundericon" iscommonslot="true" text="Studio.App.RobloxRibbonMainWindow.TorsionSpring" tooltip="Studio.App.RobloxRibbonMainWindow.CreateTorsionSpringConstraint" icon=":/RibbonBar/images/RibbonIcons/Physics/torsion-spring-32x32.png" width="32" height="32" />
           <addaction name="createWeldConstraintAction" style="textundericon" iscommonslot="true" text="Studio.App.RobloxRibbonMainWindow.Weld" tooltip="Studio.App.RobloxRibbonMainWindow.CreateWeldConstraint" icon=":/RibbonBar/images/RibbonIcons/Physics/weld-32x32.png" width="32" height="32" />
           <addaction name="createNoCollisionConstraintAction" style="textundericon" iscommonslot="true" text="Studio.App.RobloxRibbonMainWindow.NoCollision" tooltip="Studio.App.RobloxRibbonMainWindow.NoCollisionTooltip" icon=":/RibbonBar/images/RibbonIcons/Physics/no-collision-32x32.png" width="32" height="32" />
           <addseparator visible="true"/>
@@ -301,7 +308,8 @@
         </ActionGroup>
       </Group>
       <Group name="Advanced" text="Studio.App.RobloxRibbonMainWindow.Advanced">
-        <addaction name="actionInsertAdvancedObject" iscommonslot="true" text="Studio.App.RBXMainWindow.InsertObject" tooltip="Studio.App.RobloxRibbonMainWindow.InsertObjectToolTip" ischeckable="true" icon=":/RibbonBar/images/RibbonIcons/Insert/Advanced-Objects.png" style="textundericon" width="32" height="32"/>
+        <addaction fflag ="StudioRemoveDuplicationInsertAction" name="toggleBasicObjectsDockAction" iscommonslot="true" text="Studio.App.RBXMainWindow.InsertObject" tooltip="Studio.App.RobloxRibbonMainWindow.InsertObjectToolTip" ischeckable="true" icon=":/RibbonBar/images/RibbonIcons/Insert/Advanced-Objects.png" style="textundericon" width="32" height="32"/>
+        <addaction fflag ="!StudioRemoveDuplicationInsertAction" name="DEPRECATED_actionInsertAdvancedObject" iscommonslot="true" text="Studio.App.RBXMainWindow.InsertObject" tooltip="Studio.App.RobloxRibbonMainWindow.InsertObjectToolTip" ischeckable="true" icon=":/RibbonBar/images/RibbonIcons/Insert/Advanced-Objects.png" style="textundericon" width="32" height="32"/>
         <addaction name="insertModelAction" style="textundericon" text="Studio.App.RobloxRibbonMainWindow.Model" tooltip="Studio.App.RobloxRibbonMainWindow.InsertAModelFromLocalFiles" icon=":/RibbonBar/images/RibbonIcons/Insert/Import-Model.png" width="32" height="32"/>
         <addaction name="insertServiceAction" style="textundericon" text="Studio.App.RobloxRibbonMainWindow.Service" tooltip="Studio.App.RobloxRibbonMainWindow.InsertFromServiceSelection" icon=":/RibbonBar/images/RibbonIcons/Insert/Service.png" width="32" height="32"/>
         <addaction name="collisionGroupsEditorAction" type="plugin" style="textundericon" text="Studio.App.RobloxRibbonMainWindow.CollisionGroups" tooltip="Studio.App.RobloxRibbonMainWindow.EditCollisionGroups"/>
@@ -362,22 +370,6 @@
       <Group name="Audio" text="Studio.App.RobloxRibbonMainWindow.Audio">
         <addaction name="audioToggleAction" iscommonslot="true" style="textundericon" ischeckable="true" icon=":/RibbonBar/images/RibbonIcons/Test/Audio-Disabled.png" width="32" height="32" text="Studio.App.RobloxRibbonMainWindow.Mute" tooltip="Studio.App.RobloxRibbonMainWindow.ToggleGameAudioSounds"/>
       </Group>
-    </TabPage>
-
-    <!--
-    RIBBON BAR GEOMETRY TAB
-    -->
-    <TabPage name="Geometry" fflag="EditPivot" text="Studio.App.RobloxRibbonMainWindow.GeometryTab">
-        <Group name="Pivot" text="Studio.App.RobloxRibbonMainWindow.PivotGroup">
-            <addaction name="editPivotAction" style="textundericon" text="Studio.App.RobloxRibbonMainWindow.EditPivot" tooltip="Studio.App.RobloxRibbonMainWindow.EditPivotTooltip" icon=":/RibbonBar/images/RibbonIcons/Home/Drag.png" width="32" height="32" />
-            <MenuPopupButton name="setPivotToGeometryAction" style="textonly" popupStyle="instant" text="Studio.App.RobloxRibbonMainWindow.SetPivotMenu" tooltip="Studio.App.RobloxRibbonMainWindow.SetPivotMenuTooltip">
-                <addaction name="setPivotToGeometryAction" style="textonly" text="Studio.App.RobloxRibbonMainWindow.SetPivotToGeometry" tooltip="Studio.App.RobloxRibbonMainWindow.SetPivotToGeometryTooltip" />
-                <addaction name="setPivotToSurfaceAction" style="textonly" text="Studio.App.RobloxRibbonMainWindow.SetPivotToSurface" tooltip="Studio.App.RobloxRibbonMainWindow.SetPivotToSurfaceTooltip" />
-                <addaction name="setPivotToPartAction" style="textonly" text="Studio.App.RobloxRibbonMainWindow.SetPivotToPart" tooltip="Studio.App.RobloxRibbonMainWindow.SetPivotToPartTooltip" />
-                <addaction name="setPivotToModelAction" style="textonly" text="Studio.App.RobloxRibbonMainWindow.SetPivotToModel"  tooltip="Studio.App.RobloxRibbonMainWindow.SetPivotToModelTooltip" />
-            </MenuPopupButton>
-            <addaction name="clearPivotAction" style="textonly" text="Studio.App.RobloxRibbonMainWindow.ClearPivot" tooltip="Studio.App.RobloxRibbonMainWindow.ClearPivotTooltip" />
-        </Group>
     </TabPage>
 
       <!--

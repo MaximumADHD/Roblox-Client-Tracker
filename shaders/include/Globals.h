@@ -24,7 +24,7 @@ struct Globals
     vec4 OutlineBrightness_ShadowInfo;
     vec4 SkyGradientTop_EnvDiffuse;
     vec4 SkyGradientBottom_EnvSpec;
-    vec3 AmbientColorNoIBL;
+    vec4 AmbientColorNoIBL_CubeBlend;
     vec3 SkyAmbientNoIBL;
     vec4 AmbientCube[12];
     vec4 CascadeSphere0;

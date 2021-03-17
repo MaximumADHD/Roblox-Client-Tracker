@@ -810,6 +810,72 @@
 
     <Item class="ReflectionMetadataClass">
       <Properties>
+        <string name="Name">TorsionSpringConstraint</string>
+        <string name="ClassCategory">Constraints</string>
+        <string name="ExplorerOrder">30</string>
+        <string name="ExplorerImageIndex">124</string>
+        <string name="PreferredParent">BasePart</string>
+      </Properties>
+      <Item class="ReflectionMetadataProperties">
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">LimitsEnabled</string>
+            <string name="summary">Enables limits on the angle of the spring.</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Stiffness</string>
+            <string name="summary">The stiffness parameter of the spring. Torque is scaled based on relative angle between secondary axes. The units of this property are torque / angular distance. Value in [0, inf).</string>
+           </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Damping</string>
+            <string name="summary">The damping parameter of the spring. The force is scaled based on relative angular velocity. The units of this property are torque / angular velocity. Value in [0, inf).</string>
+           </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">MaxTorque</string>
+            <string name="summary">The maximum torque that the spring can apply. Useful to prevent instabilities. The units are mass * studs^2 / second^2. Value in [0, inf).</string>
+           </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">MaxAngle</string>
+            <string name="summary">Maximum angle between the attachments' secondary axes. Value in [0, pi).</string>
+           </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Restitution</string>
+            <string name="summary">Restitution of the limit. Value in [0, 1].</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Radius</string>
+            <string name="summary">The radius of spring coil visual. Value in [0, inf).</string>
+           </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Coils</string>
+            <string name="summary">The number of coils in the in-game visual. Value in [0, 8].</string>
+           </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">CurrentAngle</string>
+            <string name="summary">Current angle between the attachments' secondary axes. Value in [0, inf).</string>
+          </Properties>
+        </Item>
+      </Item>
+    </Item>
+
+    <Item class="ReflectionMetadataClass">
+      <Properties>
         <string name="Name">WeldConstraint</string>
         <string name="ClassCategory">Constraints</string>
         <string name="ExplorerOrder">30</string>
@@ -4514,6 +4580,34 @@
             <string name="summary">Deprecated. Use CFrame instead</string>
           </Properties>
         </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Origin Orientation</string>
+            <string name="summary">Rotate the object around its pivot.</string>
+            <string name="PropertyOrder">400</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Origin Position</string>
+            <string name="summary">Translate the object by its pivot.</string>
+            <string name="PropertyOrder">300</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+            <Properties>
+                <string name="Name">Pivot Offset Position</string>
+                <string name="summary">Where the pivot is relative to the object.</string>
+                <string name="PropertyOrder">300</string>
+            </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+            <Properties>
+                <string name="Name">Pivot Offset Orientation</string>
+                <string name="summary">How the pivot is oriented relative to the object.</string>
+                <string name="PropertyOrder">400</string>
+            </Properties>
+        </Item>
       </Item>
     </Item>
     <Item class="ReflectionMetadataClass">
@@ -5269,6 +5363,20 @@
             <string name="Name">LevelOfDetail</string>
             <string name="summary">Automatically generate impostor meshes to be rendered outside of streaming radius.</string>
           </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+            <Properties>
+                <string name="Name">World Pivot Position</string>
+                <string name="summary">Where the pivot is in world space.</string>
+                <string name="PropertyOrder">300</string>
+            </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+            <Properties>
+                <string name="Name">World Pivot Orientation</string>
+                <string name="summary">How the pivot is oriented in world space.</string>
+                <string name="PropertyOrder">400</string>
+            </Properties>
         </Item>
       </Item>
     </Item>
@@ -6265,14 +6373,8 @@
         </Item>
         <Item class="ReflectionMetadataMember">
             <Properties>
-                <string name="Name">PositionLocal</string>
-                <string name="summary">Position relative to parent part, or global space if there is no parent.</string>
-            </Properties>
-        </Item>
-        <Item class="ReflectionMetadataMember">
-            <Properties>
-                <string name="Name">OrientationLocal</string>
-                <string name="summary">Orientation relative to parent part, or global space if there is no parent.</string>
+                <string name="Name">Position</string>
+                <string name="summary">Position of the center of the part in world coordinates.</string>
             </Properties>
         </Item>
         <Item class="ReflectionMetadataMember">

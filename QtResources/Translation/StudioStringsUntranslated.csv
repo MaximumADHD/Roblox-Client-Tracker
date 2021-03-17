@@ -109,12 +109,12 @@ Studio.App.BetaFeatures.ConvertToTerrainDescription,,Enables the Convert Terrain
 Studio.App.BetaFeatures.ConvertToTerrainTitle,,TerrainTools: ConvertTool Beta,TerrainTools: ConvertTool Beta
 Studio.App.BetaFeatures.CouldBeUnstable,,Note: Beta features could be unstable resulting in data loss or game corruption,Note: Beta features could be unstable resulting in data loss or game corruption
 Studio.App.BetaFeatures.Details,,Details,Details
+Studio.App.BetaFeatures.DynamicIndoorEnvMapDescription,,"Enables automatically updated indoor environment map, which can be tuned by Lighting.EnvironmentDiffuseScale/EnvironmentSpecularScale.","Enables automatically updated indoor environment map, which can be tuned by Lighting.EnvironmentDiffuseScale/EnvironmentSpecularScale."
+Studio.App.BetaFeatures.DynamicIndoorEnvMapTitle,,Dynamic Indoor Environment Map,Dynamic Indoor Environment Map
 Studio.App.BetaFeatures.EnableLuauTypeCheckingDescription,,Enables new script analysis features,Enables new script analysis features
 Studio.App.BetaFeatures.EnableLuauTypeCheckingTitle,,Enable New Lua Script Analysis,Enable New Lua Script Analysis
 Studio.App.BetaFeatures.FindReplaceViewDescription,,"Overhaul of find and replace functionality to make working with large codebases easier. Streamlined interface, addition of search filters and Replace All functionality, and improved performance.","Overhaul of find and replace functionality to make working with large codebases easier. Streamlined interface, addition of search filters and Replace All functionality, and improved performance."
 Studio.App.BetaFeatures.FindReplaceViewTitle,,Find All / Replace All,Find All / Replace All
-Studio.App.BetaFeatures.GameManagementDescription,,Enable game management features in Game Settings. Find Game Settings on the “Home” tab.,Enable game management features in Game Settings. Find Game Settings on the “Home” tab.
-Studio.App.BetaFeatures.GameManagementTitle,,Game Management,Game Management
 Studio.App.BetaFeatures.InsertObjectStreamliningDescription,,Enables a new unified workflow for inserting objects.,Enables a new unified workflow for inserting objects.
 Studio.App.BetaFeatures.InsertObjectStreamliningTitle,,Insert Object Streamlining,Insert Object Streamlining
 Studio.App.BetaFeatures.LearnMoreTooltip,,Learn More,Learn More
@@ -522,6 +522,12 @@ This action cannot be undone.","Are you sure you want to replace all?
 This action cannot be undone."
 Studio.App.FindReplaceController.FindReplaceWindow,,Find/Replace Window,Find/Replace Window
 Studio.App.FindReplaceOpenAndLockScriptsDialog.LockingScriptsElps,,Locking Scripts...,Locking Scripts...
+Studio.App.FindReplaceOpenLockedScriptsDialog.Editor,,Editor,Editor
+Studio.App.FindReplaceOpenLockedScriptsDialog.Script,,Script,Script
+Studio.App.FindReplaceOpenLockedScriptsDialog.StringCouldNotBeReplacedInAllScripts,,String could not be replaced in all scripts.,String could not be replaced in all scripts.
+Studio.App.FindReplaceOpenLockedScriptsDialog.UnableToReplaceAll,,"Unable to replace all while one or more Scripts are being blocked by other users. 
+Try again when all scripts are unlocked.","Unable to replace all while one or more Scripts are being blocked by other users. 
+Try again when all scripts are unlocked."
 Studio.App.FindReplaceWindow.AllScripts,,All Scripts,All Scripts
 Studio.App.FindReplaceWindow.ResultsPerFile2,,%1 results in %2 files,%1 results in %2 files
 Studio.App.FindReplaceWindow.WhereToLook,,Where to look,Where to look
@@ -705,9 +711,15 @@ Studio.App.ImportCostVerificationDialog.CostVerificationMainText1,,Would you lik
 Studio.App.ImportCostVerificationDialog.CostVerificationTitle,,File Import Cost,File Import Cost
 Studio.App.ImportCostVerificationDialog.CurrentBalance,,Your current balance:,Your current balance:
 Studio.App.ImportCostVerificationDialog.DetailsCostTitle,,Cost,Cost
+Studio.App.ImportCostVerificationDialog.DetailsErrorTitle,,Error,Error
 Studio.App.ImportCostVerificationDialog.DetailsNameTitle,,Name,Name
 Studio.App.ImportCostVerificationDialog.LoadingFileData,,Loading file data...,Loading file data...
+Studio.App.ImportCostVerificationDialog.LuobuVerificationMainText,,Would you like to import the selected files?,Would you like to import the selected files?
+Studio.App.ImportCostVerificationDialog.LuobuVerificationTitle,,File Import,File Import
 Studio.App.ImportCostVerificationDialog.PurchaseRobux,,Purchase more Robux.,Purchase more Robux.
+Studio.App.ImportCostVerificationErrorDialog.EstimateLuobuErrorDescription,,"Click 'Show Details' to view the files that could not be imported. Try importing a new selection, or resolve conflicts and reattempt.","Click 'Show Details' to view the files that could not be imported. Try importing a new selection, or resolve conflicts and reattempt."
+Studio.App.ImportCostVerificationErrorDialog.EstimateLuobuErrorMainText,,Failed to import the selected files.,Failed to import the selected files.
+Studio.App.ImportCostVerificationErrorDialog.EstimateLuobuErrorTitle,,Import Error,Import Error
 Studio.App.ImportCostVerificationErrorDialog.EstimatedCostErrorDescription,,"Click ‘Show Details’ to view the files that could not be estimated and the import cost of files that were successfully estimated. Try importing a new selection, or resolve conflicts and reattempt.","Click ‘Show Details’ to view the files that could not be estimated and the import cost of files that were successfully estimated. Try importing a new selection, or resolve conflicts and reattempt."
 Studio.App.ImportCostVerificationErrorDialog.EstimatedCostErrorMainText,,Failed to estimate import cost of the selected files.,Failed to estimate import cost of the selected files.
 Studio.App.ImportCostVerificationErrorDialog.EstimatedCostErrorTitle,,Estimated Cost Error,Estimated Cost Error
@@ -2258,6 +2270,7 @@ Studio.App.RobloxRibbonMainWindow.CreateRodConstraint,,Create rod constraint,Cre
 Studio.App.RobloxRibbonMainWindow.CreateRopeConstraint,,Create rope constraint,Create rope constraint
 Studio.App.RobloxRibbonMainWindow.CreateSpringConstraint,,Create spring constraint,Create spring constraint
 Studio.App.RobloxRibbonMainWindow.CreateTorque,,Create torque,Create torque
+Studio.App.RobloxRibbonMainWindow.CreateTorsionSpringConstraint,,Create torsion spring constraint,Create torsion spring constraint
 Studio.App.RobloxRibbonMainWindow.CreateUniversalConstraint,,Create universal constraint,Create universal constraint
 Studio.App.RobloxRibbonMainWindow.CreateVectorForce,,Create vector force,Create vector force
 Studio.App.RobloxRibbonMainWindow.CreateWeldConstraint,,Create weld constraint,Create weld constraint
@@ -2396,16 +2409,6 @@ Studio.App.RobloxRibbonMainWindow.SelectColorAndApplyToParts,,Select color and a
 Studio.App.RobloxRibbonMainWindow.SelectMaterialAndApply,,Select material and apply to parts,Select material and apply to parts
 Studio.App.RobloxRibbonMainWindow.SelectTextElps,,Select text...,Select text...
 Studio.App.RobloxRibbonMainWindow.Service,,Service,Service
-Studio.App.RobloxRibbonMainWindow.SetPivotMenu,,Set pivot to...,Set pivot to...
-Studio.App.RobloxRibbonMainWindow.SetPivotMenuTooltip,,Set the pivot in a specific way,Set the pivot in a specific way
-Studio.App.RobloxRibbonMainWindow.SetPivotToGeometry,,Set to Geometry...,Set to Geometry...
-Studio.App.RobloxRibbonMainWindow.SetPivotToGeometryTooltip,,"Snap the pivot to a face, edge, or vertex","Snap the pivot to a face, edge, or vertex"
-Studio.App.RobloxRibbonMainWindow.SetPivotToModel,,Center on Model,Center on Model
-Studio.App.RobloxRibbonMainWindow.SetPivotToModelTooltip,,Center the pivot on the selected model,Center the pivot on the selected model
-Studio.App.RobloxRibbonMainWindow.SetPivotToPart,,Center on Part...,Center on Part...
-Studio.App.RobloxRibbonMainWindow.SetPivotToPartTooltip,,Center the pivot on the clicked part,Center the pivot on the clicked part
-Studio.App.RobloxRibbonMainWindow.SetPivotToSurface,,Set to Surface...,Set to Surface...
-Studio.App.RobloxRibbonMainWindow.SetPivotToSurfaceTooltip,,Set the pivot to exactly the clicked point,Set the pivot to exactly the clicked point
 Studio.App.RobloxRibbonMainWindow.Settings,,Settings,Settings
 Studio.App.RobloxRibbonMainWindow.Show,,Show,Show
 Studio.App.RobloxRibbonMainWindow.ShowConstraintDetails,,Show constraint details,Show constraint details
@@ -2439,12 +2442,15 @@ Studio.App.RobloxRibbonMainWindow.TextBox,,Text Box,Text Box
 Studio.App.RobloxRibbonMainWindow.TheRotateGrid,,The grid that rotate tools will snap to,The grid that rotate tools will snap to
 Studio.App.RobloxRibbonMainWindow.TheSnapGrid,,The grid move and resize tools will snap to,The grid move and resize tools will snap to
 Studio.App.RobloxRibbonMainWindow.ToggleGameAudioSounds,,Toggle Game Audio Sounds,Toggle Game Audio Sounds
+Studio.App.RobloxRibbonMainWindow.TogglePivotSnap,Whether the pivot tool snaps the pivot to the corners of objects,Snap,Snap
+Studio.App.RobloxRibbonMainWindow.TogglePivotSnapTooltip,,"Does the pivot snap to hotspots (corners, edges, face centers) of the hovered object?","Does the pivot snap to hotspots (corners, edges, face centers) of the hovered object?"
 Studio.App.RobloxRibbonMainWindow.ToggleSelectionAnchor,,Anchor/Unanchor the selected parts,Anchor/Unanchor the selected parts
 Studio.App.RobloxRibbonMainWindow.TogglesGridSnap,,Toggles move and resize tools snapping to grid,Toggles move and resize tools snapping to grid
 Studio.App.RobloxRibbonMainWindow.TogglesMaterialActionAsTool,,Toggles material action as tool,Toggles material action as tool
 Studio.App.RobloxRibbonMainWindow.TogglesRotateSnap,,Toggles rotate tools snapping to grid,Toggles rotate tools snapping to grid
 Studio.App.RobloxRibbonMainWindow.Tools,,Tools,Tools
 Studio.App.RobloxRibbonMainWindow.Torque,,Torque,Torque
+Studio.App.RobloxRibbonMainWindow.TorsionSpring,,Torsion Spring,Torsion Spring
 Studio.App.RobloxRibbonMainWindow.Trail,,Trail,Trail
 Studio.App.RobloxRibbonMainWindow.Transform,,Transform,Transform
 Studio.App.RobloxRibbonMainWindow.UncommentOutTheSelectedText,,Uncomment out the selected text,Uncomment out the selected text

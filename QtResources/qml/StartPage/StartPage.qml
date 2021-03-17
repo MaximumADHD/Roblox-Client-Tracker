@@ -12,6 +12,8 @@ Rectangle {
 
     property int currentPageIndex: startPageTabController.getLastPageIndex()
 
+    readonly property bool fflagStudioRecentGamesPageShowsOwner: recentGamesPageController.getFFlagStudioRecentGamesPageShowsOwner()
+
     signal scrollToTop
     signal scrollToBottom
     signal scrollPageUp
@@ -302,21 +304,32 @@ Rectangle {
             myGamesPage.gameGridViewWithHeader.controller.onSearchClicked(searchTerm, currentTabElementId, fromButton);
         });
 
-		if (archivedGamesPage)
-		{
-			archivedGamesPage.sortOptionChanged.connect(function (index, currentTabElementId) {
-				archivedGamesPage.gameGridViewWithHeader.setFocusTo("");
-				archivedGamesPage.gameGridViewWithHeader.controller.onSortOptionChanged(index, currentTabElementId);
-			});
+        if (archivedGamesPage)
+        {
+            archivedGamesPage.sortOptionChanged.connect(function (index, currentTabElementId) {
+                archivedGamesPage.gameGridViewWithHeader.setFocusTo("");
+                archivedGamesPage.gameGridViewWithHeader.controller.onSortOptionChanged(index, currentTabElementId);
+            });
 
-			archivedGamesPage.searchCleared.connect(function (currentTabElementId, fromButton) {
-				archivedGamesPage.gameGridViewWithHeader.controller.onSearchCleared(currentTabElementId, fromButton);
-			});
+            archivedGamesPage.searchCleared.connect(function (currentTabElementId, fromButton) {
+                archivedGamesPage.gameGridViewWithHeader.controller.onSearchCleared(currentTabElementId, fromButton);
+            });
 
-			archivedGamesPage.searchClicked.connect(function (searchTerm, currentTabElementId, fromButton) {
-				archivedGamesPage.gameGridViewWithHeader.controller.onSearchClicked(searchTerm, currentTabElementId, fromButton);
-			});
-		}
+            archivedGamesPage.searchClicked.connect(function (searchTerm, currentTabElementId, fromButton) {
+                archivedGamesPage.gameGridViewWithHeader.controller.onSearchClicked(searchTerm, currentTabElementId, fromButton);
+            });
+        }
+
+        if (fflagStudioRecentGamesPageShowsOwner && recentGamesPage)
+        {
+            recentGamesPage.searchCleared.connect(function (currentTabElementId, fromButton) {
+                recentGamesPage.gameGridViewWithHeader.controller.onSearchCleared(currentTabElementId, fromButton);
+            });
+
+            recentGamesPage.searchClicked.connect(function (searchTerm, currentTabElementId, fromButton) {
+                recentGamesPage.gameGridViewWithHeader.controller.onSearchClicked(searchTerm, currentTabElementId, fromButton);
+            });
+        }
     }
 
     Keys.onPressed: {

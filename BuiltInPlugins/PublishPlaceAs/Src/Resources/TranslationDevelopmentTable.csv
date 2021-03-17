@@ -25,6 +25,7 @@ Studio.PublishPlaceAs.General.ContentDialogItem3, ,Strong Language (Swearing)
 Studio.PublishPlaceAs.General.ContentDialogItem4, ,Robux Gambling
 Studio.PublishPlaceAs.General.ContentDialogItem5, ,Drug Reference or Use
 Studio.PublishPlaceAs.General.ContentDialogTitle, ,Content Agreement
+Studio.PublishPlaceAs.General.FetchFailed, ,Fetch failed
 Studio.PublishPlaceAs.General.PublishPlace, ,Publish Place
 Studio.PublishPlaceAs.General.UntitledGame, ,Untitled Game
 Studio.PublishPlaceAs.Genre.Adventure, ,Adventure

@@ -15,7 +15,7 @@ Item {
     property bool isTemplateWidget: false
     property bool isMyGameWidget: false
     property bool isRecentWidget: false
-	property alias gameName: gameText.text
+    property alias gameName: gameText.text
 
     signal clicked(int index)
 
@@ -207,7 +207,7 @@ Item {
                 anchors.left: gameText.left
                 anchors.right: gameText.right
                 anchors.bottomMargin: 2
-                text: showCreatorName ? qsTr("Studio.App.StartPage.By1").arg(model.creatorName) : ""
+                text: (showCreatorName && model.creatorName) ? qsTr("Studio.App.StartPage.By1").arg(model.creatorName) : ""
                 font.pixelSize: 14
                 font.family: RobloxStyle.fontSourceSansProLight
                 font.weight: userPreferences.theme.style("CommonStyle fontWeight")
