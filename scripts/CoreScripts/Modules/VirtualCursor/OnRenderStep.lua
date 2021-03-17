@@ -26,20 +26,21 @@ end
 
 local function getNearestButtonInCircle(pos, rad)
 	-- test for objects in circle
-	local closest, dist = nil, math.huge
+	local closest, dist, order = nil, math.huge, -math.huge
 
 	-- gui inset needs to be taken into account here
 	local topLeftInset = GuiService:GetGuiInset()
 	pos = pos - topLeftInset
 	local guiObjects = PlayerGui:GetGuiObjectsInCircle(pos, rad)
 	local guiObjectsCore = CoreGui:GetGuiObjectsInCircle(pos, rad)	
-	-- this should be layered in zindex order, so might have to take that into account
+
 	for _, object in ipairs(guiObjects) do
 		if isSelectableButton(object) then
 			local bDist = ((object.AbsolutePosition + object.AbsoluteSize / 2) - pos).Magnitude
-			if bDist < dist then
+			if bDist < dist and order <= object.ZIndex then
 				closest = object
 				dist = bDist
+				order = closest.ZIndex
 			end
 		end
 	end
@@ -47,9 +48,10 @@ local function getNearestButtonInCircle(pos, rad)
 	for _, object in ipairs(guiObjectsCore) do
 		if isSelectableButton(object) then
 			local bDist = ((object.AbsolutePosition + object.AbsoluteSize / 2) - pos).Magnitude
-			if bDist < dist then
+			if bDist < dist and order <= object.ZIndex then
 				closest = object
 				dist = bDist
+				order = closest.ZIndex
 			end
 		end
 	end

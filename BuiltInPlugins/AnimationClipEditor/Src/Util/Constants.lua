@@ -1,5 +1,7 @@
 local Plugin = script.Parent.Parent.Parent
+local GetFFlagDebugExtendAnimationLimit = require(Plugin.LuaFlags.GetFFlagDebugExtendAnimationLimit)
 local GetFFlagExtendAnimationLimit = require(Plugin.LuaFlags.GetFFlagExtendAnimationLimit)
+
 local FFlagStudioUseAnimationEditorAnalytics2 = game:DefineFastFlag("StudioUseAnimationEditorAnalytics2", false)
 
 local Constants = {
@@ -16,7 +18,7 @@ local Constants = {
 	MIN_FRAMERATE = 1,
 	MAX_FRAMERATE = 120,
 
-	MAX_TIME = GetFFlagExtendAnimationLimit() and 1800 or 30,
+	MAX_TIME = (GetFFlagDebugExtendAnimationLimit() or GetFFlagExtendAnimationLimit())and 1800 or 30,
 	MAX_DISPLAYED_TIME = 30,
 	MIN_TIMELINE_RANGE = 30,
 
@@ -26,7 +28,9 @@ local Constants = {
 	MAX_WAYPOINT_SIZE = 20,
 	MIN_SPACE_BETWEEN_KEYS = 8,
 
-	TRACK_PADDING = 72,
+	TRACK_PADDING_SMALL = 72,
+	TRACK_PADDING_MEDIUM = 84,
+	TRACK_PADDING_LARGE = 96,
 	SUMMARY_TRACK_HEIGHT = 22,
 	TRACK_HEIGHT = 22,
 	EVENT_MARKER_SIZE = UDim2.new(0, 6, 0, 20),

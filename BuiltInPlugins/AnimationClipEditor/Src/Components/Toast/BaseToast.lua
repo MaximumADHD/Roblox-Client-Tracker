@@ -59,7 +59,7 @@ function BaseToast:render()
 		return Roact.createElement(ShowOnTop, {
 			Priority = -1,
 		}, {
-			Container = Roact.createElement(RoundFrame, {
+			Container = Roact.createElement("Frame", {
 				AnchorPoint = anchorPoint,
 				Size = size,
 				Position = UDim2.new(anchorPoint.X, xPadding, anchorPoint.Y, yPadding),
@@ -71,15 +71,14 @@ function BaseToast:render()
 					BackgroundTransparency = transparency,
 					BorderSizePixel = 0,
 					ZIndex = 2,
-				}, props[Roact.Children]),
-
-				Shadow = Roact.createElement(DropShadow, {
-					Size = UDim2.new(1, 0, 1, 0),
-					Transparency = shadowTransparency,
-					Color = toastTheme.shadowColor,
-					SizePixel = toastTheme.shadowSize,
-					ZIndex = 1,
-				}),
+				}, {
+					Shadow = Roact.createElement(DropShadow, {
+						Transparency = shadowTransparency,
+						Color = toastTheme.shadowColor,
+						Radius = toastTheme.shadowSize,
+						Offset = Vector2.new(),
+					}, props[Roact.Children]),
+				})
 			}),
 		})
 end

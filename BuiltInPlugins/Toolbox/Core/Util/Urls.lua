@@ -7,7 +7,6 @@ local wrapStrictTable = require(Plugin.Core.Util.wrapStrictTable)
 local getToolboxMicroserviceSearch = require(Plugin.Core.Rollouts.getToolboxMicroserviceSearch)
 
 local FFlagToolboxUseGetItemDetails = game:GetFastFlag("ToolboxUseGetItemDetails")
-local FFlagDragFaceInstances = game:GetFastFlag("DragFaceInstances")
 local FFlagToolboxUseNewGroupsApi = game:DefineFastFlag("ToolboxUseNewGroupsApi", false)
 
 local Urls = {}
@@ -292,9 +291,6 @@ function Urls.constructAssetConfigGroupDataUrl(groupId)
 end
 
 function Urls.constructAssetGameAssetIdUrl(assetId, assetTypeId, isPackage, assetName)
-	if FFlagDragFaceInstances then
-		assert(assetName ~= nil)
-	end
 	return ASSET_GAME_ASSET_ID
 		.. Url.makeQueryString({
 			id = assetId,

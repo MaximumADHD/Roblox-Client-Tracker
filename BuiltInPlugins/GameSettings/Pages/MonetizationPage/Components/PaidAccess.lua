@@ -44,9 +44,14 @@ local RobuxFeeBase = require(Page.Components.RobuxFeeBase)
 local PaidAccess = Roact.PureComponent:extend("PaidAccess")
 
 local FFlagVIPServersRebrandToPrivateServers = game:GetFastFlag("VIPServersRebrandToPrivateServers")
-local FFlagStudioDisablePrivateServersForLuobu = game:GetFastFlag("StudioDisablePrivateServersForLuobu")
+local FFlagStudioDisablePrivateServersAndPaidAccessForLuobu = game:GetFastFlag("StudioDisablePrivateServersAndPaidAccessForLuobu")
 
 function PaidAccess:render()
+    -- Remove this block once economy team enables the double wallets workflow (see STUDIOCORE-24488 & STUDIOCORE-24576)
+    if FFlagStudioDisablePrivateServersAndPaidAccessForLuobu and StudioService:BaseURLHasChineseHost() then
+        return nil
+    end
+
     local props = self.props
     local localization = props.Localization
     local theme = props.Theme:get("Plugin")
@@ -73,8 +78,7 @@ function PaidAccess:render()
 
     local offSubtext
     if FFlagVIPServersRebrandToPrivateServers then
-        offSubtext = (FFlagStudioDisablePrivateServersForLuobu and StudioService:BaseURLHasChineseHost()) and 
-        localization:getText("Monetization", "PaidAccessHintLuobu") or localization:getText("Monetization", "PaidAccessHint")
+        offSubtext = localization:getText("Monetization", "PaidAccessHint")
     else
         offSubtext = localization:getText("Monetization", "DEPRECATED_PaidAccessHint")
     end

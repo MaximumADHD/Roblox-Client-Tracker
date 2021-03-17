@@ -18,6 +18,7 @@ local SortAndSetTracks = require(Plugin.Src.Thunks.SortAndSetTracks)
 local SetActive = require(Plugin.Src.Actions.SetActive)
 local RigUtils = require(Plugin.Src.Util.RigUtils)
 local IsMicroboneSupportEnabled = require(Plugin.LuaFlags.GetFFlagAnimationEditorMicroboneSupport)
+local DisableRigAutofocus = require(Plugin.LuaFlags.GetFFlagDisableRigAutofocus)
 
 return function(analytics)
 	return function(store)
@@ -43,7 +44,9 @@ return function(analytics)
 			return
 		end
 
-		RigUtils.focusCamera(rootInstance)
+		if not DisableRigAutofocus() then 
+			RigUtils.focusCamera(rootInstance)
+		end
 
 		-- Make sure the tracks are synchronized in case the user renamed a part.
 		local animationData = state.AnimationData

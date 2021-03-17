@@ -11,7 +11,8 @@ local JointPairs = require(DraggerFramework.Utility.JointPairs)
 local JointUtil = require(DraggerFramework.Utility.JointUtil)
 
 local getFFlagEnablePhysicalFreeFormDragger = require(DraggerFramework.Flags.getFFlagEnablePhysicalFreeFormDragger)
-local getFFlagWarnOnIKError = require(DraggerFramework.Flags.getFFlagWarnOnIKError)
+
+local getEngineFeatureModelPivotApi = require(DraggerFramework.Flags.getEngineFeatureModelPivotApi)
 
 local DEFAULT_COLLISION_THRESHOLD = 0.001
 
@@ -52,7 +53,7 @@ function PartMover:getIgnorePart()
 	return self._mainPart
 end
 
-function PartMover:setDragged(parts, originalCFrameMap, breakJoints, customCenter, selection)
+function PartMover:setDragged(parts, originalCFrameMap, breakJoints, customCenter, selection, allModels)
 	-- Separate out the Workspace parts which will be passed to
 	-- Workspace::ArePartsTouchingOthers for collision testing
 	local workspaceParts = table.create(16)
@@ -89,6 +90,14 @@ function PartMover:setDragged(parts, originalCFrameMap, breakJoints, customCente
 	-- setupBulkMove (it cares about assemblies)
 	self:_setupGeometryTracking(self._workspaceParts)
 	self:_setupBulkMove(parts, getSelectedInstanceSet(selection))
+
+	if getEngineFeatureModelPivotApi() then
+		local originalModelPivotMap = {}
+		for _, model in ipairs(allModels) do
+			originalModelPivotMap[model] = model:GetPivot()
+		end
+		self._originalModelPivotMap = originalModelPivotMap
+	end
 
 	self._parts = parts
 	self._hasMovementWelds = false
@@ -332,6 +341,12 @@ function PartMover:computeJointPairs(globalTransform)
 	return jointPairs
 end
 
+function PartMover:_transformModelPivots(globalTransform)
+	for model, originalPivot in pairs(self._originalModelPivotMap) do
+		model.WorldPivot = globalTransform * originalPivot
+	end
+end
+
 function PartMover:_transformToImpl(transform, mode)
 	if self._bulkMoveParts then
 		local targets = self._bulkMoveTargetCFrames
@@ -346,6 +361,9 @@ function PartMover:_transformToImpl(transform, mode)
 			targets[i] = transform * originals[i]
 		end
 		Workspace:BulkMoveTo(self._moveWithCFrameChangeParts, targets, Enum.BulkMoveMode.FireAllEvents)
+	end
+	if getEngineFeatureModelPivotApi() then
+		self:_transformModelPivots(transform)
 	end
 end
 
@@ -375,17 +393,18 @@ function PartMover:transformToWithIk(transform, translateStiffness, rotateStiffn
 
 	local targetCFrame = transform * self._originalMainPartCFrame
 
-	local success, errorMessage = pcall(function()
+	pcall(function()
 		Workspace:IKMoveTo(
 			self._mainPart, targetCFrame,
 			translateStiffness, rotateStiffness,
 			collisionsMode)
 	end)
-	if not success and getFFlagWarnOnIKError() then
-		warn("Error while solving IK: " .. errorMessage)
-	end
 	local actualCFrame = self._mainPart.CFrame
 	local actualGlobalTransform = actualCFrame * self._originalMainPartCFrame:Inverse()
+
+	if getEngineFeatureModelPivotApi() then
+		self:_transformModelPivots(actualGlobalTransform)
+	end
 
 	-- We need to clear all non-dragged parts cached geometry, since we may
 	-- have bumped into and moved other parts as part of the IK move.

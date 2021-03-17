@@ -6,6 +6,7 @@
 	Props:
 		int StartFrame = beginning frame of timeline range
 		int EndFrame = end frame of timeline range
+		int TrackPadding = amount of total padding
 		Vector2 AbsolutePosition = The absolute position of the track.
 		Vector2 AbsoluteSize = The absolute size of the track.
 ]]
@@ -72,8 +73,8 @@ function EventsController:init()
 			position,
 			self.props.StartFrame,
 			self.props.EndFrame,
-			self.props.AbsolutePosition.X + (Constants.TRACK_PADDING / 2),
-			self.props.AbsoluteSize.X - Constants.TRACK_PADDING
+			self.props.AbsolutePosition.X + (self.props.TrackPadding / 2),
+			self.props.AbsoluteSize.X - self.props.TrackPadding
 		)
 	end
 
@@ -129,7 +130,7 @@ function EventsController:init()
 		-- Determine padding for selection
 		local startFrame = self.props.StartFrame
 		local endFrame = self.props.EndFrame
-		local trackWidth = self.props.AbsoluteSize.X - Constants.TRACK_PADDING
+		local trackWidth = self.props.AbsoluteSize.X - self.props.TrackPadding
 		local timelineScale = trackWidth / (endFrame - startFrame)
 		local selectionPadding = Vector2.new(timelineScale / 2, 0)
 		-- Find extents of selection
@@ -320,7 +321,7 @@ function EventsController:render()
 			PreviewEvents = self.Preview and self.Preview.previewEvents,
 			EditingFrame = editingFrame,
 			Size = UDim2.new(1, 0, 0, Constants.TRACK_HEIGHT),
-			Width = absoluteSize.X - Constants.TRACK_PADDING,
+			Width = absoluteSize.X - self.props.TrackPadding,
 			StartFrame = startFrame,
 			EndFrame = endFrame,
 			ShowBackground = true,

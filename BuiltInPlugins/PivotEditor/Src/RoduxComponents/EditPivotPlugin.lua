@@ -12,10 +12,6 @@ local canAcceptEvents = require(Plugin.Src.Utility.canAcceptEvents)
 
 local ButtonToEventMapping = {
 	ClearPivot = "onClearPivot",
-	SetGeometry = "onSelectGeometry",
-	SetSurface = "onSelectSurface",
-	SetPart = "onSelectPart",
-	SetModel = "onSelectModel",
 }
 
 local EditPivotPlugin = Roact.PureComponent:extend("EditPivotPlugin")

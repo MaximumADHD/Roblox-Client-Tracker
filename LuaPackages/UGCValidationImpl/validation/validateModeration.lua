@@ -3,13 +3,63 @@ local root = script.Parent.Parent
 local Constants = require(root.Constants)
 local getAssetCreationDetails = require(root.util.getAssetCreationDetails)
 
+-- rbxassetid://1234
+local function getRbxAssetId(contentId)
+	local id = string.match(contentId, "^rbxassetid://(%d+)$")
+	return id
+end
+
+-- http(s)://www.(sitetest1.)roblox(labs).com/asset/?id=1234
+local function getAssetUrlId(contentId)
+	contentId = string.match(contentId, "^https?://www%.(.+)")
+	if not contentId then return nil end
+	contentId = string.match(contentId, "^sitetest%d%.robloxlabs(.+)") or string.match(contentId, "^roblox(.+)")
+	if not contentId then return nil end
+	local id = string.match(contentId, "^%.com/asset/%?id=(%d+)$")
+	return id
+end
+
+-- http(s)://assetdelivery.(sitetest1.)roblox(labs).com/v1/asset/?id=1234
+local function getAssetDeliveryAssetUrlId(contentId)
+	contentId = string.match(contentId, "^https?://assetdelivery%.(.+)")
+	if not contentId then return nil end
+	contentId = string.match(contentId, "^sitetest%d%.robloxlabs(.+)") or string.match(contentId, "^roblox(.+)")
+	if not contentId then return nil end
+	local id = string.match(contentId, "^%.com/v1/asset/%?id=(%d+)$")
+	return id
+end
+
+-- attempt to extract the asset id out of a valid content id URL
+local function tryGetAssetIdFromContentId(contentId)
+	local id
+
+	id = getRbxAssetId(contentId)
+	if id ~= nil then
+		return id
+	end
+
+	id = getAssetUrlId(contentId)
+	if id ~= nil then
+		return id
+	end
+
+	id = getAssetDeliveryAssetUrlId(contentId)
+	if id ~= nil then
+		return id
+	end
+
+	return nil
+end
+
 local function parseContentId(contentIds, contentIdMap, object, fieldName)
 	local contentId = object[fieldName]
 
-	-- map to ending digits
-	-- rbxassetid://1234 -> 1234
-	-- http://www.roblox.com/asset/?id=1234 -> 1234
-	local id = tonumber(string.match(contentId, "%d+$"))
+	local id
+	if game:GetFastFlag("UGCValidateContentIdStrict") then
+		id = tryGetAssetIdFromContentId(contentId)
+	else
+		id = tonumber(string.match(contentId, "%d+$"))
+	end
 	if id == nil then
 		return false, {
 			"Could not parse ContentId",

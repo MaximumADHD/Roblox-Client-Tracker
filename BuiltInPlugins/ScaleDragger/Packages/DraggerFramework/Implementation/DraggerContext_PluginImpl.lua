@@ -73,6 +73,10 @@ function DraggerContext:shouldAnimateHover()
 	return self._studioSettings["Animate Hover Over"]
 end
 
+function DraggerContext:shouldSelectScopeByDefault()
+	return self._studioSettings["Physical Draggers Select Scope By Default"]
+end
+
 function DraggerContext:getHoverAnimationSpeedInSeconds()
 	local speed = self._studioSettings["Hover Animate Speed"]
 	if speed == Enum.HoverAnimateSpeed.VerySlow then

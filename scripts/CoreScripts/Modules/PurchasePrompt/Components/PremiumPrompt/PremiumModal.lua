@@ -16,6 +16,8 @@ local launchPremiumUpsell = require(Root.Thunks.launchPremiumUpsell)
 local hideWindow = require(Root.Thunks.hideWindow)
 local connectToStore = require(Root.connectToStore)
 
+local GetFFlagPremiumUpsellDisclosurePurchasePrompt = require(Root.Flags.GetFFlagPremiumUpsellDisclosurePurchasePrompt)
+
 local MultiTextLocalizer = require(script.Parent.Parent.Connection.MultiTextLocalizer)
 
 local AutoSizedText = require(script.Parent.AutoSizedText)
@@ -83,6 +85,9 @@ function PremiumModal:render()
 			titleLocalizedText = {
 				key = PREMIUM_MODAL_LOC_KEY:format("Title.PremiumRequired"),
 			},
+			buttonText = {
+				key = "Feature.PremiumUpsell.Action.Subscribe",
+			},
 			monthlyLocalizedText = {
 				key = PREMIUM_MODAL_LOC_KEY:format("Action.PricePerMonth"),
 				params = {
@@ -104,6 +109,13 @@ function PremiumModal:render()
 			bulletPoint3Text = {
 				key = PREMIUM_MODAL_LOC_KEY:format("Body.RobuxDiscount"),
 			},
+			disclosure = {
+				key = "Feature.PremiumUpsell.Label.Disclosure",
+				params = {
+					currencySymbol = premiumProductInfo.currencySymbol,
+					price = tostring(premiumProductInfo.price),
+				}
+			},
 		},
 		render = function(locTextMap)
 			return Roact.createElement(PartialPageModal, {
@@ -116,7 +128,9 @@ function PremiumModal:render()
 							props = {
 								isDisabled = promptState ~= PromptState.PremiumUpsell,
 								onActivated = self.purchasePremium,
-								text = locTextMap.monthlyLocalizedText,
+								text = GetFFlagPremiumUpsellDisclosurePurchasePrompt()
+									and locTextMap.buttonText
+									or locTextMap.monthlyLocalizedText,
 							},
 						},
 					},
@@ -174,6 +188,12 @@ function PremiumModal:render()
 							width = self.contentSize.X,
 							layoutOrder = 3,
 						})
+					}),
+					Disclosure = GetFFlagPremiumUpsellDisclosurePurchasePrompt() and Roact.createElement(AutoSizedText, {
+						layoutOrder = 4,
+						text = locTextMap.disclosure,
+						width = self.contentSize.X,
+						richText = true,
 					}),
 				})
 			})

@@ -55,15 +55,15 @@ local VIPServers = Roact.PureComponent:extend("VIPServers")
 
 local FFlagSupportFreePrivateServers = game:GetFastFlag("SupportFreePrivateServers")
 local FFlagVIPServersRebrandToPrivateServers = game:GetFastFlag("VIPServersRebrandToPrivateServers")
-local FFlagStudioDisablePrivateServersForLuobu = game:GetFastFlag("StudioDisablePrivateServersForLuobu")
+local FFlagStudioDisablePrivateServersAndPaidAccessForLuobu = game:GetFastFlag("StudioDisablePrivateServersAndPaidAccessForLuobu")
 
 function VIPServers:init()
     self.lastNonFreePrice = 10
 end
 
 function VIPServers:render()
-    -- Remove this block once economy team enables the private servers flow (see STUDIOCORE-24488)
-    if FFlagStudioDisablePrivateServersForLuobu and StudioService:BaseURLHasChineseHost() then
+    -- Remove this block once economy team enables the double wallets workflow (see STUDIOCORE-24488 & STUDIOCORE-24576)
+    if FFlagStudioDisablePrivateServersAndPaidAccessForLuobu and StudioService:BaseURLHasChineseHost() then
         return nil
     end
 

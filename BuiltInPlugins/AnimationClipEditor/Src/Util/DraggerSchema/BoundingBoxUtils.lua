@@ -3,10 +3,8 @@ local Workspace = game:GetService("Workspace")
 local Plugin = script.Parent.Parent.Parent.Parent
 local DraggerFramework = Plugin.Packages.DraggerFramework
 local shouldDragAsFace = require(DraggerFramework.Utility.shouldDragAsFace)
-local PivotImplementation = require(DraggerFramework.Utility.PivotImplementation)
 
-local getFFlagDragFaceInstances = require(DraggerFramework.Flags.getFFlagDragFaceInstances)
-local EngineFeatureEditPivot = require(DraggerFramework.Flags.getEngineFeatureEditPivot)()
+local EngineFeatureModelPivotVisual = require(DraggerFramework.Flags.getEngineFeatureModelPivotVisual)()
 
 local BoundingBoxUtils = {}
 
@@ -170,16 +168,6 @@ function BoundingBoxUtils.computeTwoBoundingBoxes(basisCFrame1, allParts, allAtt
 		globalBoundingBoxOffset, globalBoundingBoxSize
 end
 
--- Where (offset, size) specifies a bounding box relative to the origin, return
--- modified (offset, size) such that the bounding box is expanded to include the
--- origin if it was not already included.
-function BoundingBoxUtils.updateBoundingBoxToIncludeOrigin(offset, size)
-	local halfSize = 0.5 * size
-	local max = (offset + halfSize):Max(Vector3.new())
-	local min = (offset - halfSize):Min(Vector3.new())
-	return 0.5 * (max + min), max - min
-end
-
 --[[
 	Find all of the "roots" bones in a list of Bones. One of the bones in the
 	list is a root iff it is not a descendant of any of the other root bones.
@@ -233,7 +221,7 @@ function BoundingBoxUtils.computeInfo(draggerContext, selectedObjects)
 				allPartSet[instance] = true
 				basisCFrame = instance.CFrame
 			end
-		elseif getFFlagDragFaceInstances() and shouldDragAsFace(instance) then
+		elseif shouldDragAsFace(instance) then
 			table.insert(allInstancesWithConfigurableFace, instance)
 		elseif instance:IsA("Attachment") then
 			if instance:IsA("Bone") then
@@ -266,12 +254,12 @@ function BoundingBoxUtils.computeInfo(draggerContext, selectedObjects)
 	end
 
 	-- Look for a pivot
-	if EngineFeatureEditPivot and #selectedObjects == 1 then
+	if EngineFeatureModelPivotVisual and #selectedObjects == 1 then
 		local specialIgnore =
 			draggerContext.ScaleToolSpecialCaseIgnorePivotWithSinglePartSelected and
 			selectedObjects[1]:IsA("BasePart")
 		if not specialIgnore then
-			local pivot = PivotImplementation.getPivot(selectedObjects[1])
+			local pivot = selectedObjects[1]:GetPivot()
 			if pivot then
 				basisCFrame = pivot
 			end
@@ -330,14 +318,6 @@ function BoundingBoxUtils.computeInfo(draggerContext, selectedObjects)
 			BoundingBoxUtils.computeTwoBoundingBoxes(localBasisCFrame, allParts, allAttachments)
 
 		chosenBasisCFrame = CFrame.new(basisCFrame.Position)
-	end
-
-	-- Ensure that the bounding box includes the basis point.
-	if EngineFeatureEditPivot then
-		localBoundingBoxOffset, localBoundingBoxSize =
-			BoundingBoxUtils.updateBoundingBoxToIncludeOrigin(localBoundingBoxOffset, localBoundingBoxSize)
-		chosenBoundingBoxOffset, chosenBoundingBoxSize =
-			BoundingBoxUtils.updateBoundingBoxToIncludeOrigin(chosenBoundingBoxOffset, chosenBoundingBoxSize)
 	end
 
 	return {

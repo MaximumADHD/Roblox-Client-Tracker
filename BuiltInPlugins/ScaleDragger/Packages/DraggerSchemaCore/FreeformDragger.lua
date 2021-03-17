@@ -10,7 +10,6 @@ local PartMover = require(DraggerFramework.Utility.PartMover)
 local AttachmentMover = require(DraggerFramework.Utility.AttachmentMover)
 
 local getFFlagEnablePhysicalFreeFormDragger = require(DraggerFramework.Flags.getFFlagEnablePhysicalFreeFormDragger)
-local getFFlagNoSnapLimit = require(DraggerFramework.Flags.getFFlagNoSnapLimit)
 
 local FreeformDragger = {}
 FreeformDragger.__index = FreeformDragger
@@ -43,14 +42,15 @@ function FreeformDragger:_initMovers()
 		breakJointsToOutsiders = not self._draggerToolModel._draggerContext:areConstraintsEnabled()
 	end
 
-	local partsToMove, attachmentsToMove =
+	local partsToMove, attachmentsToMove, modelsToMove =
 		self._draggerToolModel._selectionInfo:getObjectsToTransform()
 	self._partMover:setDragged(
 		partsToMove,
 		self._draggerToolModel._selectionInfo:getOriginalCFrameMap(),
 		breakJointsToOutsiders,
 		self._draggerToolModel._selectionInfo:getBoundingBox().Position,
-		self._draggerToolModel:getSelectionWrapper():get())
+		self._draggerToolModel:getSelectionWrapper():get(),
+		modelsToMove)
 	self._attachmentMover:setDragged(
 		attachmentsToMove)
 end
@@ -114,7 +114,7 @@ function FreeformDragger:_updateGeometric()
 		self._draggerToolModel._selectionInfo:getLocalBoundingBox()
 	local dragTarget = DragHelper.getDragTarget(
 		self._draggerToolModel._draggerContext:getMouseRay(),
-		getFFlagNoSnapLimit() and snapFunction or self._draggerToolModel._draggerContext:getGridSize(),
+		snapFunction,
 		self._dragInfo.clickPoint,
 		self._raycastFilter,
 		localBoundingBoxCFrame,
@@ -189,7 +189,7 @@ function FreeformDragger:update()
 			self._draggerToolModel._selectionInfo:getLocalBoundingBox()
 		local dragTarget = DragHelper.getDragTarget(
 			self._draggerToolModel._draggerContext:getMouseRay(),
-			getFFlagNoSnapLimit() and snapFunction or self._draggerToolModel._draggerContext:getGridSize(),
+			snapFunction,
 			self._dragInfo.clickPoint,
 			self._raycastFilter,
 			localBoundingBoxCFrame,

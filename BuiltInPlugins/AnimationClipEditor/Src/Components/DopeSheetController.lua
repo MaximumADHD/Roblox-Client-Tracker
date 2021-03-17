@@ -6,6 +6,7 @@
 	Props:
 		int StartFrame = beginning frame of timeline range
 		int EndFrame = end frame of timeline range
+		int TrackPadding = amount of total padding
 		int TopTrackIndex = index of the track that should be displayed at the top of the Dope Sheet
 		bool ShowEvents = Whether to show the AnimationEvents track.
 ]]
@@ -95,8 +96,8 @@ function DopeSheetController:init()
 			position,
 			self.props.StartFrame,
 			self.props.EndFrame,
-			self.state.AbsolutePosition.X + (Constants.TRACK_PADDING / 2),
-			self.state.AbsoluteSize.X - Constants.TRACK_PADDING
+			self.state.AbsolutePosition.X + (self.props.TrackPadding / 2),
+			self.state.AbsoluteSize.X - self.props.TrackPadding
 		)
 	end
 
@@ -194,7 +195,7 @@ function DopeSheetController:init()
 		-- Determine padding for selection
 		local startFrame = props.StartFrame
 		local endFrame = props.EndFrame
-		local trackWidth = self.state.AbsoluteSize.X - Constants.TRACK_PADDING
+		local trackWidth = self.state.AbsoluteSize.X - props.TrackPadding
 		local timelineScale = trackWidth / (endFrame - startFrame)
 		local selectionPadding = Vector2.new(timelineScale / 2, Constants.TRACK_HEIGHT / 2)
 		-- Find extents of selection
@@ -470,6 +471,7 @@ function DopeSheetController:render()
 		local selectedKeyframes = props.SelectedKeyframes
 		local startFrame = props.StartFrame
 		local endFrame = props.EndFrame
+		local trackPadding = props.TrackPadding
 		local topTrackIndex = props.TopTrackIndex
 		local showEvents = props.ShowEvents
 		local localization = self.props.Localization
@@ -522,6 +524,7 @@ function DopeSheetController:render()
 					AnimationData = animationData,
 					StartFrame = startFrame,
 					EndFrame = endFrame,
+					TrackPadding = trackPadding,
 				}),
 
 				DopeSheetContainer = Roact.createElement("Frame", {
@@ -553,7 +556,7 @@ function DopeSheetController:render()
 					DopeSheet = Roact.createElement(DopeSheet, {
 						Size = UDim2.new(1, 0, 1, 0),
 						ParentSize = absoluteSize,
-						Padding = Constants.TRACK_PADDING,
+						Padding = props.TrackPadding,
 						StartFrame = startFrame,
 						EndFrame = endFrame,
 						TopTrackIndex = topTrackIndex,
@@ -622,10 +625,11 @@ function DopeSheetController:render()
 						EndFrame = endFrame,
 						TopTrackIndex = topTrackIndex,
 						Tracks = self.tracks,
+						TrackPadding = trackPadding,
 						Dragging = draggingScale or dragging,
 						ShowAsSeconds = true,
 						FrameRate = animationData and animationData.Metadata and animationData.Metadata.FrameRate,
-						DopeSheetWidth = absoluteSize.X - Constants.TRACK_PADDING,
+						DopeSheetWidth = absoluteSize.X - props.TrackPadding,
 						ZIndex = 2,
 						ShowSelectionArea = true,
 						OnScaleHandleDragStart = self.onScaleHandleDragStarted,
@@ -672,8 +676,8 @@ function DopeSheetController:render()
 						Text = quantizeWarningText,
 						ButtonWidth = Constants.PROMPT_BUTTON_SIZE.X * 1.5,
 						Buttons = {
-							{Key = true, Text = localization:getText("Toast", "AlignNow")},
-							{Key = false, Text = localization:getText("Toast", "IgnoreWarning")},
+							{Key = true, Text = localization:getText("Toast", "AlignNow"), Style = "Round"},
+							{Key = false, Text = localization:getText("Toast", "IgnoreWarning"), Style = "Round"},
 						},
 						OnButtonClicked = function(didQuantize)
 							if didQuantize then

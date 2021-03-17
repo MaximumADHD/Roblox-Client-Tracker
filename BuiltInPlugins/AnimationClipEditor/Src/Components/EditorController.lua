@@ -65,6 +65,7 @@ local AnimationControlPanel = require(Plugin.Src.Components.AnimationControlPane
 local TrackColors = require(Plugin.Src.Components.TrackList.TrackColors)
 
 local UseCustomFPS = require(Plugin.LuaFlags.GetFFlagAnimEditorUseCustomFPS)
+local GetFFlagDebugExtendAnimationLimit = require(Plugin.LuaFlags.GetFFlagDebugExtendAnimationLimit)
 local GetFFlagExtendAnimationLimit = require(Plugin.LuaFlags.GetFFlagExtendAnimationLimit)
 
 local EditorController = Roact.PureComponent:extend("EditorController")
@@ -312,7 +313,7 @@ function EditorController:render()
 	local showEditor = animationData ~= nil
 	local useJointSelector = not UseLuaDraggers()
 	local bigAnimation = false
-	if animationData and GetFFlagExtendAnimationLimit() then
+	if animationData and (GetFFlagDebugExtendAnimationLimit() and not GetFFlagExtendAnimationLimit()) then
 		local length = animationData.Metadata.EndFrame / animationData.Metadata.FrameRate
 		if length >= Constants.MAX_DISPLAYED_TIME then
 			bigAnimation = true

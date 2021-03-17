@@ -176,6 +176,8 @@ end
 local function createPackageContextMenu(analytics, assetData, contextMenu, isAssetPreviewMenu, localization, onOpenAssetPreview, store)
     local state = store:getState()
     local view = state.AssetManagerReducer.view
+    local userHasPermission = assetData.action == "Edit" or assetData.action == "Own"
+    local userCanUpdate = assetData.upToVersion > 1
     if view.Key == View.LIST.Key and not isAssetPreviewMenu then
         contextMenu:AddNewAction("AssetPreview", localization:getText("ContextMenu", "AssetPreview")).Triggered:connect(function()
             if FFlagAssetManagerRemoveAssetFixes then
@@ -197,7 +199,7 @@ local function createPackageContextMenu(analytics, assetData, contextMenu, isAss
         end)
     end
     if FFlagStudioAssetManagerUseNewPackagesEndpoint then
-        if RunService:IsEdit() and (assetData.action == "Edit" or assetData.action == "Own") then
+        if RunService:IsEdit() and userCanUpdate then
             contextMenu:AddNewAction("UpdateAll", localization:getText("ContextMenu", "UpdateAll")).Triggered:connect(function()
                 AssetManagerService:UpdateAllPackages(assetData.id)
                 analytics:report("clickContextMenuItem")
@@ -219,11 +221,20 @@ local function createPackageContextMenu(analytics, assetData, contextMenu, isAss
         StudioService:CopyToClipboard(assetData.id)
         analytics:report("clickContextMenuItem")
     end)
-    if RunService:IsEdit() then
-        contextMenu:AddNewAction("PackageDetails", localization:getText("ContextMenu", "PackageDetails")).Triggered:connect(function()
-            AssetManagerService:ShowPackageDetails(assetData.id)
-            analytics:report("clickContextMenuItem")
-        end)
+    if FFlagStudioAssetManagerUseNewPackagesEndpoint then
+        if RunService:IsEdit() and userHasPermission then
+            contextMenu:AddNewAction("PackageDetails", localization:getText("ContextMenu", "PackageDetails")).Triggered:connect(function()
+                AssetManagerService:ShowPackageDetails(assetData.id)
+                analytics:report("clickContextMenuItem")
+            end)
+        end
+    else
+        if RunService:IsEdit() then
+            contextMenu:AddNewAction("PackageDetails", localization:getText("ContextMenu", "PackageDetails")).Triggered:connect(function()
+                AssetManagerService:ShowPackageDetails(assetData.id)
+                analytics:report("clickContextMenuItem")
+            end)
+        end
     end
 
     contextMenu:ShowAsync()

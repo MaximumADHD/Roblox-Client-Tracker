@@ -17,9 +17,7 @@ local Lighting = game:GetService("Lighting")
 
 local FFlagToolboxFixDecalInsert = settings():GetFFlag("ToolboxFixDecalInsert")
 local FFlagUseCategoryNameInToolbox = game:GetFastFlag("UseCategoryNameInToolbox")
-local FFlagEnableToolboxVideos = game:GetFastFlag("EnableToolboxVideos")
 local FFlagToolboxForceSelectDragger = game:GetFastFlag("ToolboxForceSelectDragger")
-local FFlagDragFaceInstances = game:GetFastFlag("DragFaceInstances")
 local FFlagFixGroupPackagesCategoryInToolbox = game:GetFastFlag("FixGroupPackagesCategoryInToolbox")
 local FFlagEnableDefaultSortFix2 = game:GetFastFlag("EnableDefaultSortFix2")
 local FFlagToolboxPreventCameraMoveForScripts = game:GetFastFlag("ToolboxPreventCameraMoveForScripts", false)
@@ -305,7 +303,7 @@ local function dispatchInsertAsset(options, insertToolPromise)
 		return insertDecal(options.plugin, options.assetId, options.assetName)
 	elseif options.assetTypeId == Enum.AssetType.Plugin.Value then
 		return installPlugin(options.assetId, options.assetVersionId, options.assetName)
-	elseif FFlagEnableToolboxVideos and options.assetTypeId == Enum.AssetType.Video.Value then
+	elseif options.assetTypeId == Enum.AssetType.Video.Value then
 		return insertVideo(options.assetId, options.assetName)
 	else
 		return insertAsset(options.assetId, options.assetName, insertToolPromise)
@@ -419,10 +417,6 @@ function InsertAsset.doDragInsertAsset(options)
 	if assetTypeId == Enum.AssetType.Plugin.Value then
 		-- We should absolutely never allow plugins to be installed via dragging!
 		return
-	elseif (not FFlagDragFaceInstances) and assetTypeId == Enum.AssetType.Video.Value then
-		-- We need draggerFramework and face instance dragging to be on to drag videos
-		insertVideo(assetId, assetName)
-		return
 	end
 
 	if DebugFlags.shouldDebugWarnings() then
@@ -449,7 +443,7 @@ function InsertAsset.doDragInsertAsset(options)
 			assetId,
 			options.assetTypeId,
 			isPackage,
-			FFlagDragFaceInstances and assetName or nil
+			assetName
 		)
 		if DebugFlags.shouldDebugUrls() then
 			print(("Dragging asset url %s"):format(url))

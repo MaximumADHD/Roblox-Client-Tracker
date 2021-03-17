@@ -15,7 +15,12 @@ local validateProps = t.strictInterface({
 	text = t.string,
 	width = t.number,
 	layoutOrder = t.number,
+	richText = t.boolean,
 })
+
+AutoSizedText.defaultProps = {
+	richText = false,
+}
 
 function AutoSizedText:render()
 	assert(validateProps(self.props))
@@ -46,6 +51,7 @@ function AutoSizedText:render()
 			TextXAlignment = Enum.TextXAlignment.Left,
 			TextWrapped = true,
 			LayoutOrder = self.props.layoutOrder,
+			RichText = self.props.richText,
 		})
 	end)
 end

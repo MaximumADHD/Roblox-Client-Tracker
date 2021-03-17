@@ -27,7 +27,7 @@ local SetGroupOwnerId = require(Page.Actions.SetGroupOwnerId)
 local SetGroupOwnerName = require(Page.Actions.SetGroupOwnerName)
 local SetCreatorFriends = require(Plugin.Src.Actions.SetCreatorFriends)
 
-local FFlagUXImprovementsShowUserPermsWhenCollaborator = game:GetFastFlag("UXImprovementsShowUserPermsWhenCollaborator")
+local FFlagUXImprovementsShowUserPermsWhenCollaborator2 = game:GetFastFlag("UXImprovementsShowUserPermsWhenCollaborator2")
 local FFlagStudioUXImprovementsLoosenTCPermissions = game:GetFastFlag("StudioUXImprovementsLoosenTCPermissions")
 local FFlagUXImprovementsNonTCPlacesAllowedPlay = game:GetFastFlag("UXImprovementsNonTCPlacesAllowedPlay")
 
@@ -224,7 +224,7 @@ function Permissions:render()
 		end
 
 		local DEPRECATED_canUserSeeCollaborators = false
-		if not FFlagUXImprovementsShowUserPermsWhenCollaborator then
+		if not FFlagUXImprovementsShowUserPermsWhenCollaborator2 then
 			DEPRECATED_canUserSeeCollaborators = canUserEditCollaborators
 			-- group games show existing individual collaboraters; they can be removed but not edited
 			local DEPRECATED_canUserRemoveCollaborators = self:isLoggedInUserGameOwner() and self:isTeamCreate()
@@ -251,8 +251,8 @@ function Permissions:render()
 		end
 
 		local teamCreateWarningVisible
-		if FFlagUXImprovementsShowUserPermsWhenCollaborator then
-			teamCreateWarningVisible = self:isLoggedInUserGameOwner() and (not canUserEditCollaborators) and (not self:isGroupGame())
+		if FFlagUXImprovementsShowUserPermsWhenCollaborator2 then
+			teamCreateWarningVisible = self:isLoggedInUserGameOwner() and (not self:isTeamCreate()) and (not self:isGroupGame())
 		else
 			teamCreateWarningVisible = (not canUserEditCollaborators) and (not self:isGroupGame())
 		end
@@ -311,9 +311,15 @@ function Permissions:render()
 				Writable = true,
 			}),
 
-			CollaboratorListWidget = (FFlagUXImprovementsShowUserPermsWhenCollaborator or DEPRECATED_canUserSeeCollaborators) and Roact.createElement(CollaboratorsWidget, {
+			CollaboratorListWidget = FFlagUXImprovementsShowUserPermsWhenCollaborator2 and self:isTeamCreate() and Roact.createElement(CollaboratorsWidget, {
 				LayoutOrder = 60,
-				Writable = (FFlagUXImprovementsShowUserPermsWhenCollaborator and canUserEditCollaborators) or (not FFlagUXImprovementsShowUserPermsWhenCollaborator),
+				Writable = canUserEditCollaborators,
+				Editable = canUserEditCollaborators
+			}),
+
+			DEPRECATED_CollaboratorListWidget = not FFlagUXImprovementsShowUserPermsWhenCollaborator2 and DEPRECATED_canUserSeeCollaborators and Roact.createElement(CollaboratorsWidget, {
+				LayoutOrder = 60,
+				Writable = true,
 				Editable = canUserEditCollaborators
 			}),
 		}

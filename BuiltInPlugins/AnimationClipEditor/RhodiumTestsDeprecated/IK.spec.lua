@@ -2,14 +2,7 @@ return function()
 	local Plugin = script.Parent.Parent
 	local UILibrary = require(Plugin.UILibrary)
 
-	local GetFFlagMigrateIkSolve = require(Plugin.LuaFlags.GetFFlagMigrateIkSolve)
-
 	local Workspace = game:GetService("Workspace")
-	local PhysicsService = game:GetService("PhysicsService")
-	if GetFFlagMigrateIkSolve() then
-		-- Enforce that PhysicsService is no longer a dependency
-		PhysicsService = nil
-	end
 
 	local makeSpider = require(Plugin.RhodiumTestsDeprecated.makeSpider)
 	local TestHelpers = require(Plugin.RhodiumTestsDeprecated.TestHelpers)
@@ -252,11 +245,7 @@ return function()
 				end
 			end
 
-			if GetFFlagMigrateIkSolve() then
-				Workspace:IKMoveTo(dummy.LeftHand, CFrame.new(), 0.5, 0.5, Enum.IKCollisionsMode.NoCollisions)
-			else
-				PhysicsService:ikSolve(dummy.LeftHand, CFrame.new(), 0.5, 0.5)
-			end
+			Workspace:IKMoveTo(dummy.LeftHand, CFrame.new(), 0.5, 0.5, Enum.IKCollisionsMode.NoCollisions)
 			TestHelpers.delay()
 
 			RigUtils.ikDragEnd(dummy, motorData)
@@ -281,11 +270,7 @@ return function()
 				end
 			end
 
-			if GetFFlagMigrateIkSolve() then
-				Workspace:IKMoveTo(dummy.LowerTorso, CFrame.new(), 0.5, 0.5, Enum.IKCollisionsMode.NoCollisions)
-			else
-				PhysicsService:ikSolve(dummy.LowerTorso, CFrame.new(), 0.5, 0.5)
-			end
+			Workspace:IKMoveTo(dummy.LowerTorso, CFrame.new(), 0.5, 0.5, Enum.IKCollisionsMode.NoCollisions)
 			TestHelpers.delay()
 
 			RigUtils.ikDragEnd(dummy, motorData)
@@ -421,11 +406,7 @@ return function()
 			local status = store:getState().Status
 			local motorData = status.MotorData
 
-			if GetFFlagMigrateIkSolve() then
-				Workspace:IKMoveTo(spider.Tip3, CFrame.new(), 0.5, 0.5, Enum.IKCollisionsMode.NoCollisions)
-			else
-				PhysicsService:ikSolve(spider.Tip3, CFrame.new(), 0.5, 0.5)
-			end
+			Workspace:IKMoveTo(spider.Tip3, CFrame.new(), 0.5, 0.5, Enum.IKCollisionsMode.NoCollisions)
 			TestHelpers.delay()
 
 			RigUtils.ikDragEnd(spider, motorData)

@@ -12,19 +12,14 @@ local DraggerToolComponent = require(DraggerFramework.DraggerTools.DraggerToolCo
 local DraggerContext_PluginImpl = require(DraggerFramework.Implementation.DraggerContext_PluginImpl)
 local MoveHandles = require(DraggerFramework.Handles.MoveHandles)
 local RotateHandles = require(DraggerFramework.Handles.RotateHandles)
-local PivotImplementation = require(DraggerFramework.Utility.PivotImplementation)
 
 local DraggerSchema = require(Plugin.Src.DraggerSchemaPivot.DraggerSchema)
 local SelectionUpdaterBound = require(Plugin.Src.RoduxComponents.SelectionUpdaterBound)
 local BeginSelectingPivot = require(Plugin.Src.Actions.BeginSelectingPivot)
 local DoneSelectingPivot = require(Plugin.Src.Actions.DoneSelectingPivot)
 
-local SurfaceSelector = require(Plugin.Src.Components.SurfaceSelector)
-local PartSelector = require(Plugin.Src.Components.PartSelector)
-local GeometrySelector = require(Plugin.Src.Components.GeometrySelector)
-
 local EditingMode = require(Plugin.Src.Utility.EditingMode)
-local StatusMessage = require(Plugin.Src.Utility.StatusMessage)
+--local StatusMessage = require(Plugin.Src.Utility.StatusMessage) -- going to need this, commented to silence the code analyzer
 
 local EditPivotSession = Roact.PureComponent:extend("EditPivotSession")
 
@@ -84,28 +79,6 @@ function EditPivotSession:render()
 				HandlesList = self:_getCurrentDraggerHandles(),
 			},
 		})
-	elseif editingMode == EditingMode.SelectSurface then
-		elements.SurfaceSelector = Roact.createElement(SurfaceSelector, {
-			Mouse = self._mouse,
-			onSelected = function(part, cframe)
-				self:_doSetPivot(part, cframe)
-			end,
-		})
-	elseif editingMode == EditingMode.SelectGeometry then
-		elements.PartSelector = Roact.createElement(GeometrySelector, {
-			Mouse = self._mouse,
-			Instance = self.props.targetObject,
-			onSelected = function(part)
-				self:_doSetPivot(nil, part.CFrame)
-			end,
-		})
-	elseif editingMode == EditingMode.SelectPart then
-		elements.PartSelector = Roact.createElement(PartSelector, {
-			Mouse = self._mouse,
-			onSelected = function(part)
-				self:_doSetPivot(part, part.CFrame)
-			end,
-		})
 	end
 
 	elements.SelectionUpdaterBound = Roact.createElement(SelectionUpdaterBound)
@@ -126,18 +99,6 @@ function EditPivotSession:_connectEvents()
 	table.insert(connectionsToBreak, self.props.Events.onClearPivot:Connect(function()
 		self:_onClearPivot()
 	end))
-	table.insert(connectionsToBreak, self.props.Events.onSelectModel:Connect(function()
-		self:_onSetPivotToModelCenter()
-	end))
-	table.insert(connectionsToBreak, self.props.Events.onSelectGeometry:Connect(function()
-		self.props.beginSelectingPivot(EditingMode.SelectGeometry, StatusMessage.ChooseGeometry)
-	end))
-	table.insert(connectionsToBreak, self.props.Events.onSelectSurface:Connect(function()
-		self.props.beginSelectingPivot(EditingMode.SelectSurface, StatusMessage.ChooseSurface)
-	end))
-	table.insert(connectionsToBreak, self.props.Events.onSelectPart:Connect(function()
-		self.props.beginSelectingPivot(EditingMode.SelectPart, StatusMessage.ChoosePart)
-	end))
 	self._connectionsToBreak = connectionsToBreak
 end
 
@@ -148,25 +109,23 @@ function EditPivotSession:_disconnectEvents()
 end
 
 function EditPivotSession:_onClearPivot()
-	PivotImplementation.clearPivot(self.props.targetObject)
-	ChangeHistoryService:SetWaypoint("Cleared Pivot")
-	self:setState({})
-end
-
-function EditPivotSession:_onSetPivotToModelCenter()
-	-- TODO: DEVTOOLS-4100
-end
-
-function EditPivotSession:_doSetPivot(referencePart, newPivotCFrame)
-	-- When setting the pivot if the pivot is being set WRT a reference part,
-	-- and the object we are editing the pivot for is a model, we have to
-	-- update the primary part.
-	if self.props.targetObject:IsA("Model") and referencePart:IsDescendantOf(self.props.targetObject) then
-		self.props.targetObject.PrimaryPart = referencePart
+	local object = self.props.targetObject
+	if object then
+		if object:IsA("BasePart") then
+			object.PivotOffset = CFrame.new()
+		elseif object.PrimaryPart then
+			object.PrimaryPart.PivotOffset = CFrame.new()
+			-- The pivot value is already up to date, but we still need to
+			-- prompt the properties pane to update to update, which we can do
+			-- by setting the WorldPivot.
+			object.WorldPivot = object:GetPivot()
+		else
+			-- Just re-center the pivot within the bounds
+			object.WorldPivot = object:GetBoundingBox()
+		end
+		ChangeHistoryService:SetWaypoint("Cleared Pivot")
+		self:setState({})
 	end
-	PivotImplementation.setPivot(self.props.targetObject, newPivotCFrame)
-	ChangeHistoryService:SetWaypoint("Set Pivot")
-	self.props.doneSelectingPivot()
 end
 
 ContextServices.mapToProps(EditPivotSession, {

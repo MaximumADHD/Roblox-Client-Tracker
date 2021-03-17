@@ -10,9 +10,7 @@ local StandaloneSelectionBox = require(DraggerFramework.Components.StandaloneSel
 
 local MoveHandleView = require(DraggerFramework.Components.MoveHandleView)
 
-local EngineFeatureEditPivot = require(DraggerFramework.Flags.getEngineFeatureEditPivot)()
-
-local getFFlagNoSnapLimit = require(DraggerFramework.Flags.getFFlagNoSnapLimit)
+local getEngineFeatureModelPivotVisual = require(DraggerFramework.Flags.getEngineFeatureModelPivotVisual)
 
 local ALWAYS_ON_TOP = true
 
@@ -45,11 +43,6 @@ local MoveHandleDefinitions = {
 		Color = Colors.X_AXIS,
 	},
 }
-
-local function snapToGridSize(distance, gridSize)
-	assert(not getFFlagNoSnapLimit())
-	return math.floor(distance / gridSize + 0.5) * gridSize
-end
 
 function MoveHandles.new(draggerContext, props, implementation)
 	local self = {}
@@ -97,11 +90,13 @@ end
 function MoveHandles:render(hoveredHandleId)
 	local children = {}
 
+	local EngineFeatureModelPivotVisual = getEngineFeatureModelPivotVisual()
+
 	if self._draggingHandleId and self._handles[self._draggingHandleId] then
 		local handleProps = self._handles[self._draggingHandleId]
 		children[self._draggingHandleId] = Roact.createElement(MoveHandleView, {
 			Axis = handleProps.Axis,
-			AxisOffset = (not EngineFeatureEditPivot) and handleProps.AxisOffset or nil,
+			AxisOffset = (not EngineFeatureModelPivotVisual) and handleProps.AxisOffset or nil,
 			Outset = handleProps.Outset,
 			Color = handleProps.Color,
 			Scale = handleProps.Scale,
@@ -112,7 +107,7 @@ function MoveHandles:render(hoveredHandleId)
 			if otherHandleId ~= self._draggingHandleId then
 				children[otherHandleId] = Roact.createElement(MoveHandleView, {
 					Axis = otherHandleProps.Axis,
-					AxisOffset = (not EngineFeatureEditPivot) and otherHandleProps.AxisOffset or nil,
+					AxisOffset = (not EngineFeatureModelPivotVisual) and otherHandleProps.AxisOffset or nil,
 					Outset = handleProps.Outset,
 					Color = Colors.makeDimmed(otherHandleProps.Color),
 					Scale = otherHandleProps.Scale,
@@ -133,7 +128,7 @@ function MoveHandles:render(hoveredHandleId)
 			end
 			children[handleId] = Roact.createElement(MoveHandleView, {
 				Axis = handleProps.Axis,
-				AxisOffset = (not EngineFeatureEditPivot) and handleProps.AxisOffset or nil,
+				AxisOffset = (not EngineFeatureModelPivotVisual) and handleProps.AxisOffset or nil,
 				Outset = handleProps.Outset,
 				Color = color,
 				Scale = handleProps.Scale,
@@ -167,7 +162,7 @@ function MoveHandles:mouseDown(mouseRay, handleId)
 		local handleProps = self._handles[handleId]
 		local handleOffset, handleLength
 		local offsetDueToBoundingBox
-		if EngineFeatureEditPivot then
+		if getEngineFeatureModelPivotVisual() then
 			handleOffset, handleLength =
 				MoveHandleView.getHandleDimensionForScale(handleProps.Scale, self._props.Outset)
 			offsetDueToBoundingBox = -handleProps.OffsetInHandleSpace.Z
@@ -200,7 +195,7 @@ function MoveHandles:_setMidMoveBoundingBox(newBoundingBoxCFrame)
 end
 
 function MoveHandles:_getDistanceAlongAxis(mouseRay)
-	if EngineFeatureEditPivot then
+	if getEngineFeatureModelPivotVisual() then
 		return Math.intersectRayRay(
 			(self._draggingOriginalBoundingBoxCFrame * self._basisOffset).Position, self._axis,
 			mouseRay.Origin, mouseRay.Direction.Unit)
@@ -226,9 +221,11 @@ end
 	Do this using a binary search over the potential solution space.
 ]]
 function MoveHandles:_solveForAdjustedDistance(unadjustedDistance)
+	local EngineFeatureModelPivotVisual = getEngineFeatureModelPivotVisual()
+
 	local offsetDueToBoundingBox
 	local offsetInHandleSpace
-	if EngineFeatureEditPivot then
+	if EngineFeatureModelPivotVisual then
 		offsetInHandleSpace = self._handles[self._draggingHandleId].OffsetInHandleSpace
 	else
 		offsetDueToBoundingBox = self._handles[self._draggingHandleId].AxisOffset
@@ -240,7 +237,7 @@ function MoveHandles:_solveForAdjustedDistance(unadjustedDistance)
 			self._draggingOriginalBoundingBoxCFrame +
 			self._axis * (distance - self._startDistance)
 		local baseCFrameAtDistance =
-			EngineFeatureEditPivot and
+			EngineFeatureModelPivotVisual and
 			(boundingBoxAtDistance * handleRotation * offsetInHandleSpace) or
 			(boundingBoxAtDistance * handleRotation *
 			CFrame.new(0, 0, -offsetDueToBoundingBox))
@@ -250,14 +247,14 @@ function MoveHandles:_solveForAdjustedDistance(unadjustedDistance)
 	local function getHandleFracForDistance(distance)
 		local scale = getScaleForDistance(distance)
 		local handleOffset, handleLength
-		if EngineFeatureEditPivot then
+		if EngineFeatureModelPivotVisual then
 			handleOffset, handleLength =
 				MoveHandleView.getHandleDimensionForScale(scale, self._props.Outset)
 		else
 			handleOffset, handleLength = MoveHandleView.getHandleDimensionForScale(scale)
 		end
 		local intoDist = unadjustedDistance - distance + self._startDistance
-		if EngineFeatureEditPivot then
+		if EngineFeatureModelPivotVisual then
 			return (intoDist - handleOffset + offsetInHandleSpace.Z) / handleLength
 		else
 			return (intoDist - handleOffset - offsetDueToBoundingBox) / handleLength
@@ -266,7 +263,7 @@ function MoveHandles:_solveForAdjustedDistance(unadjustedDistance)
 
 	local function getHandleLengthForDistance(distance)
 		local _, handleLength
-		if EngineFeatureEditPivot then
+		if EngineFeatureModelPivotVisual then
 			_, handleLength = MoveHandleView.getHandleDimensionForScale(
 				getScaleForDistance(distance), self._props.Outset)
 		else
@@ -319,14 +316,7 @@ function MoveHandles:mouseDrag(mouseRay)
 
 	local delta = self:_solveForAdjustedDistance(distance) - self._startDistance
 
-	-- Apply snapping unconditionally because free axis movement in studio is
-	-- implemented as snapping with grid size = 0.001.
-	local snappedDelta;
-	if getFFlagNoSnapLimit() then
-		snappedDelta = self._draggerContext:snapToGridSize(delta)
-	else
-		snappedDelta = snapToGridSize(delta, self._draggerContext:getGridSize())
-	end
+	local snappedDelta = self._draggerContext:snapToGridSize(delta)
 
 	-- Let the implementation figure out what global transform can actually be
 	-- applied (because there may be collisions / constraints involved)
@@ -350,10 +340,10 @@ function MoveHandles:_updateHandles()
 		self._handles = {}
 	else
 		for handleId, handleDef in pairs(MoveHandleDefinitions) do
-			if EngineFeatureEditPivot then
+			if getEngineFeatureModelPivotVisual() then
 				local inverseHandleCFrame = handleDef.Offset:Inverse()
-				local localSize = inverseHandleCFrame:VectorToWorldSpace(self._boundingBox.Size)
-				local offsetDueToBoundingBox = 0.5 * math.abs(localSize.Z)
+				local localPosition = inverseHandleCFrame:VectorToWorldSpace(self._basisOffset.Position)
+				local offsetDueToBoundingBox = -localPosition.Z
 				local offsetDueToBasisOffset = inverseHandleCFrame:VectorToWorldSpace(self._basisOffset.Position)
 				local offsetInHandleSpace =
 					CFrame.new(offsetDueToBasisOffset.X, offsetDueToBasisOffset.Y, -offsetDueToBoundingBox)

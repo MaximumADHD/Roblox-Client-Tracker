@@ -1,3 +1,5 @@
+require(script.Parent.defineLuaFlags)
+
 local Plugin = script.Parent.Parent
 local TestsFolderPlugin = Plugin.Src
 --local TestsFolderPackages = Plugin.Packages -- Can be used to run package's unit tests

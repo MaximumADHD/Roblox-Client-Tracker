@@ -14,8 +14,6 @@ game:DefineFastFlag("DebugToolboxGetRolesRequest", false)
 game:DefineFastFlag("EnableToolboxAssetNameColorChange", false)
 game:DefineFastFlag("RemoveAudioEndorsedIcon", false)
 
-game:DefineFastFlag("EnableToolboxVideos", false)
-
 game:DefineFastFlag("CMSPremiumBenefitsLink2", false)
 game:DefineFastFlag("CMSFixAssetPreviewForThumbnailConfig", false)
 

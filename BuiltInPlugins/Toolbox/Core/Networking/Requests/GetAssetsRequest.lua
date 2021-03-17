@@ -1,6 +1,5 @@
 local FFlagImproveAssetCreationsPageFetching2 = game:GetFastFlag("ImproveAssetCreationsPageFetching2")
 local FFlagUseCategoryNameInToolbox = game:GetFastFlag("UseCategoryNameInToolbox")
-local FFlagEnableToolboxVideos = game:GetFastFlag("EnableToolboxVideos")
 local FFlagToolboxCreationsFreshChecks = game:GetFastFlag("ToolboxCreationsFreshChecks")
 
 local Plugin = script.Parent.Parent.Parent.Parent
@@ -201,14 +200,10 @@ return function(networkInterface, pageInfoOnStart)
 			local isVideo = false
 			if FFlagUseCategoryNameInToolbox then
 				isAudio = Category.categoryIsAudio(pageInfoOnStart.categoryName)
-				if FFlagEnableToolboxVideos then
-					isVideo = Category.categoryIsVideo(pageInfoOnStart.categoryName)
-				end
+				isVideo = Category.categoryIsVideo(pageInfoOnStart.categoryName)
 			else
 				isAudio = Category.categoryIsAudio(pageInfoOnStart.currentTab, pageInfoOnStart.categoryIndex or 1)
-				if FFlagEnableToolboxVideos then
-					isVideo = Category.categoryIsVideo(pageInfoOnStart.categories, pageInfoOnStart.categoryIndex or 1)
-				end
+				isVideo = Category.categoryIsVideo(pageInfoOnStart.categories, pageInfoOnStart.categoryIndex or 1)
 			end
 
 			if PageInfoHelper.isDeveloperCategory(pageInfoOnStart)

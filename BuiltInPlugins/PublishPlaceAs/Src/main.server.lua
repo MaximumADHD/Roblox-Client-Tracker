@@ -3,8 +3,8 @@ if not plugin then
 end
 
 -- Fast flags
+require(script.Parent.Parent.TestRunner.defineLuaFlags)
 local FFlagStudioLuaPublishFlowLocalizeUntitledGameText = game:DefineFastFlag("StudioLuaPublishFlowLocalizeUntitledGameText", false)
-local FFlagStudioPublishLuaWorkflow = game:GetFastFlag("StudioPublishLuaWorkflow")
 
 -- libraries
 local Plugin = script.Parent.Parent
@@ -84,19 +84,11 @@ local function openPluginWindow(isOverwritePublish)
 		})
 	})
 
-	if FFlagStudioPublishLuaWorkflow then
-		if FFlagStudioLuaPublishFlowLocalizeUntitledGameText then
-			dataStore:dispatch(ResetInfo(localization:getText("General", "UntitledGame"), isOverwritePublish))
-		else
-			dataStore:dispatch(ResetInfo("", isOverwritePublish))
-		end
-	else
-		if FFlagStudioLuaPublishFlowLocalizeUntitledGameText then
-			dataStore:dispatch(ResetInfo(localization:getText("General", "UntitledGame")))
-		else
-			dataStore:dispatch(ResetInfo())
-		end
-	end
+    if FFlagStudioLuaPublishFlowLocalizeUntitledGameText then
+        dataStore:dispatch(ResetInfo(localization:getText("General", "UntitledGame"), isOverwritePublish))
+    else
+        dataStore:dispatch(ResetInfo("", isOverwritePublish))
+    end
 
 	pluginHandle = Roact.mount(servicesProvider, pluginGui)
 	pluginGui.Enabled = true
@@ -106,15 +98,9 @@ local function main()
 	plugin.Name = localization:getText("General", "PublishPlace")
 	makePluginGui()
 
-	if FFlagStudioPublishLuaWorkflow then
-		StudioService.OnPublishPlaceToRoblox:Connect(function(isOverwritePublish)
-			openPluginWindow(isOverwritePublish)	
-		end)
-	else
-		StudioService.DEPRECATED_OnPublishPlaceToRoblox:Connect(function()
-			openPluginWindow(false)	
-		end)
-	end
+    StudioService.OnPublishPlaceToRoblox:Connect(function(isOverwritePublish)
+        openPluginWindow(isOverwritePublish)	
+    end)
 
 	StudioService.GamePublishFinished:connect(function(success)
 		dataStore:dispatch(SetIsPublishing(false))

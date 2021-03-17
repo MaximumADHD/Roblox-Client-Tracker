@@ -32,8 +32,13 @@ local InfiniteScrollingFrame = UILibrary.Component.InfiniteScrollingFrame
 local SearchBar = UILibrary.Component.SearchBar
 local Separator = UILibrary.Component.Separator
 local RoundFrame = UILibrary.Component.RoundFrame
+local RoundTextButton = UILibrary.Component.RoundTextButton
+
+local LoadingIndicator = UILibrary.Component.LoadingIndicator
 
 local groupsLoaded = false
+
+local FFlagFixPublishAsWhenQueryFails = game:GetFastFlag("FixPublishAsWhenQueryFails")
 
 local ScreenChooseGame = Roact.PureComponent:extend("ScreenChooseGame")
 local SelectedItemKey = 0
@@ -84,20 +89,22 @@ function ScreenChooseGame:render()
 				})
 			}
 
-			for _, game in pairs(games) do
-				-- TODO: (smallick) 2020/08/26
-				-- We should query using the endpoint and not manually
-				-- However, as the endpoint does not currently support searching keywords we can filter using string.find
-				if string.find(game.name:lower(), self.state.searchTerm:lower()) then
-					components[#components + 1] = Roact.createElement(TileGame, {
-						Name = game.name,
-						Id = game.rootPlaceId,
-						State = game.privacyType,
-						LayoutOrder = #components + 1,
-						OnActivated = function()
-							openChoosePlacePage(game)
-						end,
-					})
+			if (not FFlagFixPublishAsWhenQueryFails) or props.GamesQueryState == Constants.QUERY_STATE.QUERY_STATE_SUCCESS then
+				for _, game in pairs(games) do
+					-- TODO: (smallick) 2020/08/26
+					-- We should query using the endpoint and not manually
+					-- However, as the endpoint does not currently support searching keywords we can filter using string.find
+					if string.find(game.name:lower(), self.state.searchTerm:lower()) then
+						components[#components + 1] = Roact.createElement(TileGame, {
+							Name = game.name,
+							Id = game.rootPlaceId,
+							State = game.privacyType,
+							LayoutOrder = #components + 1,
+							OnActivated = function()
+								openChoosePlacePage(game)
+							end,
+						})
+					end
 				end
 			end
 
@@ -182,20 +189,81 @@ function ScreenChooseGame:render()
 					ListWidth = 330,
 				}),
 
-				ScrollingFrame = Roact.createElement(InfiniteScrollingFrame, {
-					Position = UDim2.new(0, 30, 0, 115),
-					Size = UDim2.new(0.95, 0, 0.7, 0),
-					BackgroundTransparency = 1,
-					-- TODO: replace manual calculation with self.layoutRef
-					-- LayoutRef = self.layoutRef,
-					CanvasHeight = canvasSize,
-					NextPageRequestDistance = 100,
-					NextPageFunc = function()
-						if nextPageCursor and SelectedItemType and SelectedItemKey then
-							dispatchLoadExistingGames(SelectedItemType, SelectedItemKey, nextPageCursor)
-						end
-					end,
-				}, components),
+				MainContentsSuccess = (FFlagFixPublishAsWhenQueryFails and props.GamesQueryState == Constants.QUERY_STATE.QUERY_STATE_SUCCESS)
+					and Roact.createElement(InfiniteScrollingFrame, {
+						Position = UDim2.new(0, 30, 0, 115),
+						Size = UDim2.new(0.95, 0, 0.7, 0),
+						BackgroundTransparency = 1,
+						-- TODO: replace manual calculation with self.layoutRef
+						-- LayoutRef = self.layoutRef,
+						CanvasHeight = canvasSize,
+						NextPageRequestDistance = 100,
+						NextPageFunc = function()
+							if nextPageCursor and SelectedItemType and SelectedItemKey then
+								dispatchLoadExistingGames(SelectedItemType, SelectedItemKey, nextPageCursor)
+							end
+						end,
+					}, components),
+
+				MainContentsQuerying = (FFlagFixPublishAsWhenQueryFails and props.GamesQueryState == Constants.QUERY_STATE.QUERY_STATE_QUERYING)
+					and Roact.createElement("Frame", {
+						Position = UDim2.new(0, 30, 0, 115),
+						Size = UDim2.new(0.95, 0, 0.7, 0),
+						BackgroundColor3 = theme.backgroundColor,
+					}, {
+						Roact.createElement(LoadingIndicator, {
+							Position = UDim2.new(0.5, -100, 0, 115),
+							Size = UDim2.new(0, 200, 0, 50),
+						})
+					}),
+
+				MainContentsFailed = (FFlagFixPublishAsWhenQueryFails and props.GamesQueryState == Constants.QUERY_STATE.QUERY_STATE_FAILED)
+					and Roact.createElement("Frame", {
+						Position = UDim2.new(0, 30, 0, 115),
+						Size = UDim2.new(0.95, 0, 0.7, 0),
+						BackgroundColor3 = theme.backgroundColor,
+					},
+						{
+							Roact.createElement("TextLabel", {
+								Text = localization:getText("General", "FetchFailed"),
+								Position = UDim2.new(0.5, 0, 0, 50),
+								TextSize = 24,
+								BackgroundTransparency = 1,
+								TextXAlignment = Enum.TextXAlignment.Center,
+								TextColor3 = theme.failText.text,
+								Font = theme.failText.font,
+							}),
+							Roact.createElement(RoundTextButton, {
+								Position = UDim2.new(0.5, 0, 0, 100),
+								AnchorPoint = Vector2.new(0.5, 0.5),
+								Style = theme.defaultButton,
+								Size = UDim2.new(0, 150, 0, 75),
+								Active = true,
+								Name = localization:getText("Button", "Retry"),
+								TextSize = Constants.TEXT_SIZE,
+								OnClicked = function()
+									dispatchLoadExistingGames(SelectedItemType, SelectedItemKey)
+								end}
+						)}
+					),
+
+				-- DEPRECATED delete with FFlagFixPublishAsWhenQueryFails
+				ScrollingFrame = (not FFlagFixPublishAsWhenQueryFails)
+					and Roact.createElement(InfiniteScrollingFrame, {
+						Position = UDim2.new(0, 30, 0, 115),
+						Size = UDim2.new(0.95, 0, 0.7, 0),
+						BackgroundTransparency = 1,
+						-- TODO: replace manual calculation with self.layoutRef
+						-- LayoutRef = self.layoutRef,
+						CanvasHeight = canvasSize,
+						NextPageRequestDistance = 100,
+						NextPageFunc = function()
+							if nextPageCursor and SelectedItemType and SelectedItemKey then
+								dispatchLoadExistingGames(SelectedItemType, SelectedItemKey, nextPageCursor)
+							end
+						end,
+					}, components),
+
 
 				Footer = Roact.createElement(Footer, {
 					MainButton = {
@@ -219,11 +287,20 @@ local function mapStateToProps(state, props)
 	local gameInfo = state.ExistingGame.gameInfo
 	local groupInfo = state.GroupsHavePermission.groupInfo
 
-	return {
-		NextPageCursor = gameInfo.nextPageCursor,
-		Games = gameInfo.games,
-		Groups = groupInfo.groups,
-	}
+	if FFlagFixPublishAsWhenQueryFails then
+		return {
+			NextPageCursor = gameInfo.nextPageCursor,
+			Games = gameInfo.games,
+			Groups = groupInfo.groups,
+			GamesQueryState = gameInfo.queryState,
+		}
+	else
+		return {
+			NextPageCursor = gameInfo.nextPageCursor,
+			Games = gameInfo.games,
+			Groups = groupInfo.groups,
+		}
+	end
 end
 
 local function useDispatchForProps(dispatch)

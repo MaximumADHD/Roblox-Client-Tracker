@@ -9,18 +9,35 @@ local DraggerSchemaCore = script.Parent
 local Packages = DraggerSchemaCore.Parent
 local DraggerFramework = Packages.DraggerFramework
 
+local getEngineFeatureModelPivotVisual = require(DraggerFramework.Flags.getEngineFeatureModelPivotVisual)
+
 local MAX_PARTS_TO_TRACK_BOUNDS_FOR = 1024
 
 local BoundsChangedTracker = {}
 BoundsChangedTracker.__index = BoundsChangedTracker
 
 function BoundsChangedTracker.new(draggerContext, handler)
-	return setmetatable({
-		_handler = handler,
-		_installed = false,
-		_partToEntry = {},
-		_attachmentToEntry = {},
-	}, BoundsChangedTracker)
+	if getEngineFeatureModelPivotVisual() then
+		local self = setmetatable({
+			_handler = handler,
+			_installed = false,
+			_partToEntry = {},
+			_attachmentToEntry = {},
+		}, BoundsChangedTracker)
+
+		self._basisPivotChangedTrampoline = function()
+			handler(self._basisObject)
+		end
+
+		return self
+	else
+		return setmetatable({
+			_handler = handler,
+			_installed = false,
+			_partToEntry = {},
+			_attachmentToEntry = {},
+		}, BoundsChangedTracker)
+	end
 end
 
 local function hookUpConnections(entry)
@@ -50,6 +67,15 @@ local function disconnectAttachmentConnections(entry)
 	entry.CFrameChangedConnection:Disconnect()
 end
 
+function BoundsChangedTracker:_hookupBasisConnection()
+	self._basisPivotChangedConnection = 
+		self._basisPivotChangedSignal:Connect(self._basisPivotChangedTrampoline)
+end
+
+function BoundsChangedTracker:_disconnectBasisConnection()
+	self._basisPivotChangedConnection:Disconnect()
+end
+
 function BoundsChangedTracker:install()
 	assert(not self._installed)
 	self._installed = true
@@ -58,6 +84,11 @@ function BoundsChangedTracker:install()
 	end
 	for _, entry in pairs(self._attachmentToEntry) do
 		hookUpAttachmentConnections(entry)
+	end
+	if getEngineFeatureModelPivotVisual() then
+		if self._basisObject then
+			self:_hookupBasisConnection()
+		end
 	end
 end
 
@@ -70,16 +101,45 @@ function BoundsChangedTracker:uninstall()
 	for _, entry in pairs(self._attachmentToEntry) do
 		disconnectAttachmentConnections(entry)
 	end
+	if getEngineFeatureModelPivotVisual() then
+		if self._basisObject then
+			self:_disconnectBasisConnection()
+		end
+	end
 end
 
 function BoundsChangedTracker:setSelection(selectionInfo)
 	self:_setAttachments(selectionInfo:getAllAttachments())
 	self:_setParts(selectionInfo:getObjectsToTransform())
+	if getEngineFeatureModelPivotVisual() then
+		self:_setBasisObject(selectionInfo:getBasisObject())
+	end
 end
 
 -- Public access for the AlignmentTool, which borrows this class
 function BoundsChangedTracker:setParts(parts)
 	self:_setParts(parts)
+end
+
+function BoundsChangedTracker:_setBasisObject(object)
+	if self._basisObject ~= object then
+		if self._installed and self._basisObject then
+			self:_disconnectBasisConnection()
+		end
+		self._basisObject = object
+		if object then
+			if object:IsA("BasePart") then
+				self._basisPivotChangedSignal = object:GetPropertyChangedSignal("PivotOffset")
+			elseif object:IsA("Model") then
+				self._basisPivotChangedSignal = object:GetPropertyChangedSignal("WorldPivot")
+			else
+				self._basisPivotChangedSignal = nil
+			end
+			if self._installed then
+				self:_hookupBasisConnection()
+			end
+		end
+	end
 end
 
 function BoundsChangedTracker:_setAttachments(attachments)

@@ -21,7 +21,7 @@ local Button = UILibrary.Component.Button
 local PermissionsConstants = require(Page.Util.PermissionsConstants)
 
 local FFlagStudioUXImprovementsLoosenTCPermissions = game:GetFastFlag("StudioUXImprovementsLoosenTCPermissions")
-local FFlagUXImprovementsShowUserPermsWhenCollaborator = game:GetFastFlag("UXImprovementsShowUserPermsWhenCollaborator")
+local FFlagUXImprovementsShowUserPermsWhenCollaborator2 = game:GetFastFlag("UXImprovementsShowUserPermsWhenCollaborator2")
 
 local DeleteButton = Roact.PureComponent:extend("DeleteButton")
 
@@ -178,14 +178,14 @@ function CollaboratorItem:render()
 			})
 		}),
 
-		Delete = FFlagUXImprovementsShowUserPermsWhenCollaborator and writable and removable and Roact.createElement(DeleteButton, {
+		Delete = FFlagUXImprovementsShowUserPermsWhenCollaborator2 and writable and removable and Roact.createElement(DeleteButton, {
 			LayoutOrder = 3,
 			Enabled = writable and not loading,
 
 			OnClicked = onRemoved,
 		}),
 
-		DEPRECATED_Delete = not FFlagUXImprovementsShowUserPermsWhenCollaborator and removable and Roact.createElement(DeleteButton, {
+		DEPRECATED_Delete = not FFlagUXImprovementsShowUserPermsWhenCollaborator2 and removable and Roact.createElement(DeleteButton, {
 			LayoutOrder = 3,
 			Enabled = writable and not loading,
 

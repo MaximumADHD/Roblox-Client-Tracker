@@ -1,5 +1,4 @@
 local FFlagVersionControlServiceScriptCollabEnabled = settings():GetFFlag("VersionControlServiceScriptCollabEnabled")
-local FFlagGameSettingsShutdownAllServersButton = game:GetFastFlag("GameSettingsShutdownAllServersButton")
 
 local Page = script.Parent
 local Plugin = script.Parent.Parent.Parent
@@ -88,8 +87,8 @@ function Options:render()
 
 	local shutdownButtonText = localization:getText("General","ButtonShutdownAllServers")
 	local shutdownButtonFrameSize = Vector2.new(math.huge, theme.button.height)
-	local shutdownButtonTextExtents = FFlagGameSettingsShutdownAllServersButton and GetTextSize(shutdownButtonText,
-		theme.fontStyle.Header.TextSize, theme.fontStyle.Header.Font, shutdownButtonFrameSize)
+	local shutdownButtonTextExtents = GetTextSize(shutdownButtonText, theme.fontStyle.Header.TextSize,
+		theme.fontStyle.Header.Font, shutdownButtonFrameSize)
 	local shutdownButtonButtonWidth = math.max(shutdownButtonTextExtents.X, theme.button.width)
 	local shutdownButtonPaddingY = theme.button.height - shutdownButtonTextExtents.Y
 	local shutDownButtonSize = UDim2.new(0, shutdownButtonButtonWidth,
@@ -124,7 +123,7 @@ function Options:render()
 				},
 			}),
 
-			ShutdownAllServers = FFlagGameSettingsShutdownAllServersButton and Roact.createElement(TitledFrame, {
+			ShutdownAllServers = Roact.createElement(TitledFrame, {
 				Title = localization:getText("General", "TitleShutdownAllServers"),
 				MaxHeight = 60,
 				LayoutOrder = 7,

@@ -43,6 +43,10 @@ function Analytics.new()
 		AnalyticsService:SetRBXEvent("client", "InGamePrompt", "AdultLegalTextShown", { gameID = game.GameId })
 	end
 
+	function service.signalFailedPurchasePostUpsell()
+		AnalyticsService:ReportCounter("PurcahsePromptFailedBalanceCheckPostUpsell", 1)
+	end
+
 	return service
 end
 

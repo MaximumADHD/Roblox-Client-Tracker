@@ -8,6 +8,7 @@
 		table PreviewKeyframes = temporary table of keyframes for when keys are being moved/scaled
 		int StartFrame = starting timeline range in the editor
 		int EndFrame = ending timeline range in the editor
+		int TrackPadding = amount of total padding
 		int TopTrackIndex = index of the track displayed at the top of the track list
 		array Tracks = list of tracks currently present on the DopeSheet
 		bool Dragging = whether or not the user is dragging scale handles
@@ -137,7 +138,7 @@ function ScaleControls:render()
 		return Roact.createElement("Frame", {
 			BackgroundColor3 = theme.selectionBox,
 			BackgroundTransparency = showSelectionArea and 0.8 or 1,
-			Position = UDim2.new(0, (Constants.TRACK_PADDING / 2) + extents.left - (PADDING / 2), 0, extents.top),
+			Position = UDim2.new(0, (props.TrackPadding / 2) + extents.left - (PADDING / 2), 0, extents.top),
 			Size = UDim2.new(0, width, 0, height),
 			ZIndex = zIndex,
 		}, {

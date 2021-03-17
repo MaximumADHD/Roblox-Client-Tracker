@@ -8,6 +8,7 @@ local PromptState = require(Root.Enums.PromptState)
 local RequestType = require(Root.Enums.RequestType)
 local getAccountInfo = require(Root.Network.getAccountInfo)
 local Network = require(Root.Services.Network)
+local Analytics = require(Root.Services.Analytics)
 local ExternalSettings = require(Root.Services.ExternalSettings)
 local completeRequest = require(Root.Thunks.completeRequest)
 local getPlayerPrice = require(Root.Utils.getPlayerPrice)
@@ -15,10 +16,11 @@ local Thunk = require(Root.Thunk)
 
 local purchaseItem = require(script.Parent.purchaseItem)
 
-local MAX_RETRIES = 3
-local RETRY_RATE = 1
+local MAX_RETRIES = game:DefineFastInt("UpsellAccountBalanceRetryAttemps", 3)
+local RETRY_RATE = game:DefineFastInt("UpsellAccountBalanceRetryIntervalSec", 1)
 
 local requiredServices = {
+	Analytics,
 	Network,
 	ExternalSettings,
 }
@@ -27,6 +29,7 @@ local function retryAfterUpsell(retriesRemaining)
 	retriesRemaining = retriesRemaining or MAX_RETRIES
 
 	return Thunk.new(script.Name, requiredServices, function(store, services)
+		local analytics = services[Analytics]
 		local network = services[Network]
 		local externalSettings = services[ExternalSettings]
 		local state = store:getState()
@@ -58,6 +61,7 @@ local function retryAfterUpsell(retriesRemaining)
 								store:dispatch(retryAfterUpsell(retriesRemaining - 1))
 							end)
 						else
+							analytics.signalFailedPurchasePostUpsell()
 							store:dispatch(ErrorOccurred(PurchaseError.InvalidFunds))
 						end
 					else

@@ -12,6 +12,7 @@ function MockAnalytics.new()
 	local signalPremiumUpsellShownPremium = createSpy()
 	local signalPremiumUpsellShownNonPremium = createSpy()
 	local signalAdultLegalTextShown = createSpy()
+	local signalFailedPurchasePostUpsell = createSpy()
 
 	local mockService = {
 		reportRobuxUpsellStarted = reportRobuxUpsellStarted.value,
@@ -19,6 +20,7 @@ function MockAnalytics.new()
 		signalPremiumUpsellShownPremium = signalPremiumUpsellShownPremium.value,
 		signalPremiumUpsellShownNonPremium = signalPremiumUpsellShownNonPremium.value,
 		signalAdultLegalTextShown = signalAdultLegalTextShown.value,
+		signalFailedPurchasePostUpsell = signalFailedPurchasePostUpsell.value,
 	}
 
 	local spies = {
@@ -27,6 +29,7 @@ function MockAnalytics.new()
 		signalPremiumUpsellShownPremium = signalPremiumUpsellShownPremium,
 		signalPremiumUpsellShownNonPremium = signalPremiumUpsellShownNonPremium,
 		signalAdultLegalTextShown = signalAdultLegalTextShown,
+		signalFailedPurchasePostUpsell = signalFailedPurchasePostUpsell,
 	}
 
 	setmetatable(mockService, {

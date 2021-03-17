@@ -36,6 +36,7 @@ local DisplaySecondsOnTimeline = require(Plugin.LuaFlags.GetFFlagDisplaySecondsO
 local SetScrollZoom = require(Plugin.Src.Actions.SetScrollZoom)
 local StepAnimation = require(Plugin.Src.Thunks.Playback.StepAnimation)
 local SnapToNearestKeyframe = require(Plugin.Src.Thunks.SnapToNearestKeyframe)
+local GetFFlagExtendAnimationLimit = require(Plugin.LuaFlags.GetFFlagExtendAnimationLimit)
 
 local TrackEditor = Roact.PureComponent:extend("TrackEditor")
 
@@ -91,11 +92,11 @@ function TrackEditor:init()
 		local props = self.props
 		local absoluteSize = self.state.AbsoluteSize or Vector2.new()
 		local playhead = props.Playhead
-		return (Constants.TRACK_PADDING * 0.5) + TrackUtils.getScaledKeyframePosition(
+		return (self.getTrackPadding() * 0.5) + TrackUtils.getScaledKeyframePosition(
 			playhead,
 			props.StartFrame,
 			props.EndFrame,
-			absoluteSize.X - Constants.TRACK_PADDING)
+			absoluteSize.X - self.getTrackPadding())
 	end
 
 	self.stepAnimation = function(frame)
@@ -117,6 +118,16 @@ function TrackEditor:init()
 			or input.UserInputType == Enum.UserInputType.MouseButton3 then
 			self.props.Mouse:__popCursor()
 			self.stopDragging()
+		end
+	end
+
+	self.getTrackPadding = function()
+		if self.props.LastFrame < 100 then
+			return Constants.TRACK_PADDING_SMALL
+		elseif self.props.LastFrame < 1000 then
+			return Constants.TRACK_PADDING_MEDIUM
+		else 
+			return Constants.TRACK_PADDING_LARGE
 		end
 	end
 end
@@ -145,6 +156,8 @@ function TrackEditor:render()
 	local absoluteSize = state.AbsoluteSize or Vector2.new()
 	local absolutePosition = state.AbsolutePosition or Vector2.new()
 
+	local trackPadding = GetFFlagExtendAnimationLimit() and self.getTrackPadding() or Constants.TRACK_PADDING_SMALL
+
 	local showPlayhead = playhead >= startFrame and playhead <= endFrame
 
 	return Roact.createElement("Frame", {
@@ -171,6 +184,7 @@ function TrackEditor:render()
 			EndFrame = endFrame,
 			LastFrame = lastFrame,
 			SnapToKeys = snapToKeys,
+			TrackPadding = trackPadding,
 			FrameRate = frameRate,
 			ShowAsSeconds = showAsSeconds,
 			LayoutOrder = 0,
@@ -186,6 +200,7 @@ function TrackEditor:render()
 			ShowEvents = showEvents,
 			StartFrame = startFrame,
 			EndFrame = endFrame,
+			TrackPadding = trackPadding,
 			TopTrackIndex = topTrackIndex,
 			Tracks = tracks,
 			Size = UDim2.new(1, 0, 1, -Constants.TIMELINE_HEIGHT - Constants.SCROLL_BAR_SIZE),

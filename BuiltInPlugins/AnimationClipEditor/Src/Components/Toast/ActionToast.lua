@@ -42,17 +42,10 @@ function ActionToast:renderButton(index, button, textSize)
 		Size = UDim2.new(0, buttonWidth, 0, buttonHeight),
 		LayoutOrder = index,
 		Style = button.Style,
-
+		Text = button.Text,
 		OnClick = function()
 			props.OnButtonClicked(button.Key)
-		end,
-		}, {
-				Text = Roact.createElement("TextLabel", {
-					Size = UDim2.new(1, 0, 1, 0),
-					BackgroundTransparency = 1,
-					Text = button.Text,
-					TextSize = textSize,
-				})
+		end
 	})
 end
 

@@ -1,10 +1,7 @@
 local Plugin = script.Parent.Parent.Parent
 
-local orthonormalize = require(Plugin.Src.Utility.orthonormalize)
-
 local Roact = require(Plugin.Packages.Roact)
 local Colors = require(Plugin.Packages.DraggerFramework.Utility.Colors)
-local PivotImplementation = require(Plugin.Packages.DraggerFramework.Utility.PivotImplementation)
 local MoveHandleView = require(Plugin.Packages.DraggerFramework.Components.MoveHandleView)
 
 local MoveHandlesForDisplay = {
@@ -52,11 +49,18 @@ end
 function TransformHandlesImplementation:updateDrag(globalTransform)
 	local newPivot = globalTransform * self._initialPivot
 
-	-- We need to apply orthornormalization, as normally setting part CFrame
-	-- does that for us, but since we're just reading and writing back a
-	-- CFrameValue here, no orthonormalization will automatically happen, so
-	-- error will accumulate and multiply if we do not make this call.
-	PivotImplementation.setPivot(self._primaryObject, orthonormalize(newPivot))
+	local object = self._primaryObject
+	if object:IsA("BasePart") then
+		object.PivotOffset = object.CFrame:ToObjectSpace(newPivot)
+	elseif object:IsA("Model") then
+		if object.PrimaryPart then
+			object.PrimaryPart.PivotOffset = object.PrimaryPart.CFrame:ToObjectSpace(newPivot)
+		end
+		object.WorldPivot = newPivot
+	else
+		error("Unexpected primary object type: " .. object.ClassName)
+	end
+
 	return globalTransform
 end
 

@@ -11,7 +11,7 @@ local roundRotation = require(DraggerFramework.Utility.roundRotation)
 
 local RotateHandleView = require(DraggerFramework.Components.RotateHandleView)
 
-local getEngineFeatureEditPivot = require(DraggerFramework.Flags.getEngineFeatureEditPivot)
+local getEngineFeatureModelPivotVisual = require(DraggerFramework.Flags.getEngineFeatureModelPivotVisual)
 
 -- The minimum rotate increment to display snapping increments for (below this
 -- increment there are so many points that they become visual noise)
@@ -239,7 +239,7 @@ function RotateHandles:mouseDown(mouseRay, handleId)
 
 	-- Check if we can find a starting angle
 	local handleCFrame
-	if getEngineFeatureEditPivot() then
+	if getEngineFeatureModelPivotVisual() then
 		handleCFrame = self._handles[handleId].HandleCFrame
 	else
 		local offset = RotateHandleDefinitions[handleId].Offset
@@ -276,7 +276,7 @@ function RotateHandles:mouseDrag(mouseRay)
 
 	local snappedDelta = snappedAngle - self._startAngle
 	local candidateGlobalTransform = getRotationTransform(
-		getEngineFeatureEditPivot() and self._handleCFrame or self._originalBoundingBoxCFrame,
+		getEngineFeatureModelPivotVisual() and self._handleCFrame or self._originalBoundingBoxCFrame,
 		self._handleCFrame.RightVector,
 		snappedDelta,
 		self._draggerContext:getRotateIncrement())
@@ -312,7 +312,7 @@ function RotateHandles:_updateHandles()
 	else
 		for handleId, handleDefinition in pairs(RotateHandleDefinitions) do
 			self._handles[handleId] = {
-				HandleCFrame = getEngineFeatureEditPivot() and
+				HandleCFrame = getEngineFeatureModelPivotVisual() and
 					(self._boundingBox.CFrame * self._basisOffset * handleDefinition.Offset) or
 					(self._boundingBox.CFrame * handleDefinition.Offset),
 				Color = handleDefinition.Color,

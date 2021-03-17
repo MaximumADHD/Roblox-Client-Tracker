@@ -1,15 +1,13 @@
-local Plugin = script.Parent.Parent.Parent
-local PivotImplementation = require(Plugin.Packages.DraggerFramework.Utility.PivotImplementation)
+local _Plugin = script.Parent.Parent.Parent
 
 local function computeInfo(draggerContext, selectedObjects)
-	assert(#selectedObjects <= 1, "DraggerSchemaPivot should never be invoked with more than one object")
 	local primaryObject = selectedObjects[1]
 
-	if primaryObject and (primaryObject:IsA("Model") or primaryObject:IsA("BasePart")) then
+	if primaryObject and primaryObject:IsA("PVInstance") then
 		return {
 			_primaryObject = primaryObject,
 			_isEmpty = false,
-			_basisCFrame = PivotImplementation.getPivot(primaryObject),
+			_basisCFrame = primaryObject:GetPivot(),
 		}
 	else
 		return {

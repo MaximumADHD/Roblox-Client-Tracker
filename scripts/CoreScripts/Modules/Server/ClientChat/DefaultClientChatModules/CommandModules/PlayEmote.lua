@@ -34,10 +34,10 @@ local LegacyDefaultEmotes = {
 local LocalizationKeys = {
 	NotSupported = "InGame.Chat.Response.EmotesNotSupported",
 	R15Only = "InGame.Chat.Response.EmotesWrongAvatarType",
-	SwitchToR15 = "InGame.EmotesMenu.ErrorMessageSwitchToR15",
+	SwitchToR15 = "InGame.Chat.ErrorMessageSwitchToR15",
 	NoMatchingEmote = "InGame.Chat.Response.EmoteNotAvailable",
 	TemporarilyUnavailable = "InGame.Chat.Response.EmotesTemporarilyUnavailable",
-	AnimationPlaying = "InGame.EmotesMenu.ErrorMessageAnimationPlaying",
+	AnimationPlaying = "InGame.Chat.ErrorMessageAnimationPlaying",
 }
 
 local FallbackStrings = {

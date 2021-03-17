@@ -31,7 +31,6 @@
 
 local RunService = game:GetService("RunService")
 local UserInputService = game:GetService("UserInputService")
-local PhysicsService = game:GetService("PhysicsService")
 local StudioService = game:GetService("StudioService")
 local CoreGui = game:GetService("CoreGui")
 local Workspace = game:GetService("Workspace")
@@ -48,7 +47,6 @@ local RigUtils = require(Plugin.SrcDeprecated.Util.RigUtils)
 local FixManipulators = require(Plugin.LuaFlags.GetFFlagFixAnimEditorManipulators)
 local FixRigUtils = require(Plugin.LuaFlags.GetFFlagFixRigUtils)
 local IsMicroboneSupportEnabled = require(Plugin.LuaFlags.GetFFlagAnimationEditorMicroboneSupport)
-local GetFFlagMigrateIkSolve = require(Plugin.LuaFlags.GetFFlagMigrateIkSolve)
 
 local JointManipulator = Roact.PureComponent:extend("JointManipulator")
 
@@ -195,11 +193,7 @@ function JointManipulator:init()
 			self.effectorCFrame = translation * rotation * translation:inverse() * self.effectorCFrame
 
 			local joint = self.getLastJoint()
-			if GetFFlagMigrateIkSolve() then
-				Workspace:IKMoveTo(joint.Part1, self.effectorCFrame, Constants.TRANSLATION_STIFFNESS, Constants.ROTATION_STIFFNESS, Enum.IKCollisionsMode.NoCollisions)
-			else
-				PhysicsService:ikSolve(joint.Part1, self.effectorCFrame, Constants.TRANSLATION_STIFFNESS, Constants.ROTATION_STIFFNESS)
-			end
+			Workspace:IKMoveTo(joint.Part1, self.effectorCFrame, Constants.TRANSLATION_STIFFNESS, Constants.ROTATION_STIFFNESS, Enum.IKCollisionsMode.NoCollisions)
 		end
 	end
 
@@ -254,11 +248,7 @@ function JointManipulator:init()
 			local effectorInRange = (rootPart.CFrame.p - self.effectorCFrame.p).Magnitude <= Constants.MIN_EFFECTOR_DISTANCE
 			local translationStiffness = effectorInRange and Constants.TRANSLATION_STIFFNESS or Constants.MIN_TRANSLATION_STIFFNESS
 			local rotationStiffness = effectorInRange and Constants.ROTATION_STIFFNESS or Constants.MIN_ROTATION_STIFFNESS
-			if GetFFlagMigrateIkSolve() then
-				Workspace:IKMoveTo(joint.Part1, self.effectorCFrame, translationStiffness, rotationStiffness, Enum.IKCollisionsMode.NoCollisions)
-			else
-				PhysicsService:ikSolve(joint.Part1, self.effectorCFrame, translationStiffness, rotationStiffness)
-			end
+			Workspace:IKMoveTo(joint.Part1, self.effectorCFrame, translationStiffness, rotationStiffness, Enum.IKCollisionsMode.NoCollisions)
 		end
 	end
 

@@ -1,6 +1,5 @@
 return function()
 	local FFlagUseCategoryNameInToolbox = game:GetFastFlag("UseCategoryNameInToolbox")
-	local FFlagEnableToolboxVideos = game:GetFastFlag("EnableToolboxVideos")
 
 	local Plugin = script.Parent.Parent.Parent
 	local Category = require(Plugin.Core.Types.Category)
@@ -10,19 +9,17 @@ return function()
 		-- TODO: DEVTOOLS-4319 - Add unit tests for other functionaility and asset types
 
 		it("should add videos", function()
-			if FFlagEnableToolboxVideos then
-				local options = {
-					assetId = 0,
-					assetName = "UNIT TEST",
-					assetTypeId = Enum.AssetType.Video.Value,
-					onSuccess = function() end,
-					categoryName = FFlagUseCategoryNameInToolbox and Category.MARKETPLACE_VIDEOS.name or nil,
-				}
-				local success, result = pcall(function()
-					return InsertAsset.doInsertAsset(options, nil)
-				end)
-				expect(success).to.equal(true)
-			end
+			local options = {
+				assetId = 0,
+				assetName = "UNIT TEST",
+				assetTypeId = Enum.AssetType.Video.Value,
+				onSuccess = function() end,
+				categoryName = FFlagUseCategoryNameInToolbox and Category.MARKETPLACE_VIDEOS.name or nil,
+			}
+			local success, result = pcall(function()
+				return InsertAsset.doInsertAsset(options, nil)
+			end)
+			expect(success).to.equal(true)
 		end)
 	end)
 end

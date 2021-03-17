@@ -8,13 +8,14 @@
 		Padding: An optional number or table adding a UIPadding instance.
 		Layout: An optional Enum.FillDirection adding a UIListLayout instance.
 		Spacing: An optional number or UDim to space elements out by.
-
+		HorizontalAlignment: Property on UIListLayout
+		VerticalAlignment: Property on UIListLayout
 	Styles:
 		Default: The pane has no background
 		Box: The pane has the current theme's main background.
 		RoundBox: The pane has the current theme's main background with the standard rounded border.
+		BorderBox: The pane has the current theme's main background with square border.
 ]]
-
 local Framework = script.Parent.Parent
 local ContextServices = require(Framework.ContextServices)
 local Roact = require(Framework.Parent.Roact)
@@ -25,6 +26,11 @@ local join = Dash.join
 local omit = Dash.omit
 
 local Pane = Roact.PureComponent:extend("Pane")
+
+Pane.defaultProps = {
+	HorizontalAlignment = Enum.HorizontalAlignment.Center,
+	VerticalAlignment = Enum.VerticalAlignment.Center,
+}
 
 function Pane:render()
 	local props = self.props
@@ -53,7 +59,8 @@ function Pane:render()
 		children.Layout = Roact.createElement("UIListLayout", {
 			SortOrder = Enum.SortOrder.LayoutOrder,
 			FillDirection = props.Layout,
-			HorizontalAlignment = Enum.HorizontalAlignment.Center,
+			HorizontalAlignment = props.HorizontalAlignment,
+			VerticalAlignment = props.VerticalAlignment,
 			Padding = spacing,
 		})
 	end
@@ -113,9 +120,11 @@ function Pane:render()
 		"Layout",
 		"Spacing",
 		"Style",
-		"Stylizer"
+		"Stylizer",
+		"HorizontalAlignment",
+		"VerticalAlignment",
 	})
-	
+
 	return Roact.createElement(className, componentProps, children)
 end
 

@@ -82,7 +82,7 @@ function Subscriber:subscribe(desc: MessageDescriptor, callback: (Table) -> ())
 end
 
 function Subscriber:unsubscribe(desc: MessageDescriptor): ()
-	local connection = self.connections[desc.mid]
+	local connection: any = self.connections[desc.mid]
 	if connection == nil then
 		error("unsubscribing from a message id not subscribed to: " .. desc.mid)
 	end

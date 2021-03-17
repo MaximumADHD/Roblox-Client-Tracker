@@ -30,7 +30,7 @@ end
 	Start dragging the items in initialSelectionInfo.
 ]]
 function TransformHandlesImplementation:beginDrag(selection, initialSelectionInfo)
-	local partsToMove, attachmentsToMove =
+	local partsToMove, attachmentsToMove, modelsToMove =
 		initialSelectionInfo:getObjectsToTransform()
 
 	self._lastGoodGeometricTransform = CFrame.new()
@@ -46,7 +46,8 @@ function TransformHandlesImplementation:beginDrag(selection, initialSelectionInf
 		initialSelectionInfo:getOriginalCFrameMap(),
 		breakJoints,
 		self._centerPoint.Position,
-		selection)
+		selection,
+		modelsToMove)
 	self._attachmentMover:setDragged(
 		attachmentsToMove)
 

@@ -14,7 +14,6 @@ local Stylizer = Framework.Style.Stylizer
 
 local UI = Framework.UI
 local Pane = UI.Pane
-local Decoration = UI.Decoration
 
 local Components = Plugin.Src.Components
 local ProjectHierarchy = require(Components.ProjectHierarchy)
@@ -28,19 +27,20 @@ function MainView:render()
 
 	return Roact.createElement(Pane, {
 		Size = UDim2.fromScale(1, 1),
+		Layout = Enum.FillDirection.Vertical,
 		Style = "Box",
 	}, {
 		Toolbar = Roact.createElement(Toolbar, {
 			Size = UDim2.new(1, 0, 0, toolbarHeight),
+			LayoutOrder = 1,
 		}),
-		--TODO: RIDE-3411 Use SplitPane component
-		Roact.createElement(Pane, {
+		-- TODO: RIDE-3411 Use SplitPane component
+		Contents = Roact.createElement(Pane, {
 			Size = UDim2.new(1, 0, 1, -toolbarHeight),
-			Position = UDim2.fromOffset(0, toolbarHeight),
-			Style = "Box",
+			LayoutOrder = 2,
 		}, {
 			ProjectHierarchy = Roact.createElement(ProjectHierarchy),
-			Results = Roact.createElement(Results),
+			Results = Roact.createElement(Results)
 		})
 	})
 end

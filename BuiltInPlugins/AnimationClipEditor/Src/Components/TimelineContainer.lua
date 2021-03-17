@@ -6,6 +6,7 @@
 		int StartFrame = beginning frame of timeline range
 		int EndFrame = end frame of timeline range
 		int LastFrame = The last frame of the animation
+		int TrackPadding = amount of total padding
 		int FrameRate = the rate (frames per second) of the animation
 		int LayoutOrder = The layout order of the frame, if in a Layout.
 		Vector2 ParentSize = size of the frame this frame is parented to
@@ -55,12 +56,12 @@ function TimelineContainer:init()
 				input.Position,
 				self.props.StartFrame,
 				self.props.EndFrame,
-				self.props.ParentPosition.X + (Constants.TRACK_PADDING / 2),
-				self.props.ParentSize.X - Constants.TRACK_PADDING)
+				self.props.ParentPosition.X + (self.props.TrackPadding / 2),
+				self.props.ParentSize.X - self.props.TrackPadding)
 
 			frame = math.clamp(frame, self.props.StartFrame, self.props.EndFrame)
 			if self.props.SnapToKeys then
-				self.props.SnapToNearestKeyframe(frame, self.props.ParentSize.X - Constants.TRACK_PADDING)
+				self.props.SnapToNearestKeyframe(frame, self.props.ParentSize.X - self.props.TrackPadding)
 			else
 				self.props.StepAnimation(frame)
 			end
@@ -77,7 +78,7 @@ function TimelineContainer:init()
 		local frame = self.props.Playhead + 5
 		frame = math.clamp(frame, self.props.StartFrame, self.props.EndFrame)
 		if self.props.SnapToKeys then
-			self.props.SnapToNearestKeyframe(frame, self.props.ParentSize.X - Constants.TRACK_PADDING)
+			self.props.SnapToNearestKeyframe(frame, self.props.ParentSize.X - self.props.TrackPadding)
 		else
 			self.props.StepAnimation(frame)
 		end
@@ -87,7 +88,7 @@ function TimelineContainer:init()
 		local frame = self.props.Playhead - 5
 		frame = math.clamp(frame, self.props.StartFrame, self.props.EndFrame)
 		if self.props.SnapToKeys then
-			self.props.SnapToNearestKeyframe(frame, self.props.ParentSize.X - Constants.TRACK_PADDING)
+			self.props.SnapToNearestKeyframe(frame, self.props.ParentSize.X - self.props.TrackPadding)
 		else
 			self.props.StepAnimation(frame)
 		end
@@ -108,7 +109,7 @@ function TimelineContainer:render()
 		local animationData = props.AnimationData
 
 		local majorInterval, minorInterval = calculateIntervals(
-			parentSize.X - Constants.TRACK_PADDING,
+			parentSize.X - self.props.TrackPadding,
 			startFrame,
 			endFrame)
 
@@ -126,9 +127,9 @@ function TimelineContainer:render()
 				LastFrame = lastFrame,
 				MajorInterval = majorInterval,
 				MinorInterval = minorInterval,
-				Position = UDim2.new(0, Constants.TRACK_PADDING / 2, 0, 0),
+				Position = UDim2.new(0, self.props.TrackPadding / 2, 0, 0),
 				Height = Constants.TIMELINE_HEIGHT,
-				Width = parentSize.X - Constants.TRACK_PADDING,
+				Width = parentSize.X - self.props.TrackPadding,
 				TickHeightScale = 0.7,
 				SmallTickHeightScale = 0.3,
 				SampleRate = frameRate,

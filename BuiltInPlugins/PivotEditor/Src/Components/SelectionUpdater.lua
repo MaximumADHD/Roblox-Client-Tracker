@@ -12,6 +12,7 @@ local SelectionUpdater = Roact.PureComponent:extend("SelectionUpdater")
 function SelectionUpdater:init()
 	assert(self.props.selectObjectForEditing, "selectObjectForEditing is required")
 	assert(self.props.selectInvalidSelection, "selectInvalidSelection is required")
+	self:_update()
 end
 
 function SelectionUpdater:didMount()

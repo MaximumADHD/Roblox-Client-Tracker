@@ -1,9 +1,12 @@
 local Plugin = script.Parent.Parent.Parent
 local Cryo = require(Plugin.Packages.Cryo)
+local Constants = require(Plugin.Src.Resources.Constants)
 
 local AssertType = require(Plugin.Src.Util.AssertType)
 
 local Action = require(script.Parent.Action)
+
+local FFlagFixPublishAsWhenQueryFails = game:GetFastFlag("FixPublishAsWhenQueryFails")
 
 return Action(script.Name, function(gameInfoArg)
 	AssertType.assertNullableType(gameInfoArg, "table", "SetGameInfo arg")
@@ -17,11 +20,22 @@ return Action(script.Name, function(gameInfoArg)
 	AssertType.assertNullableType(nextPageCursor, "string", "SetGameInfo.nextPageCursor")
 	AssertType.assertNullableType(previousPageCursor, "string", "SetGameInfo.previousPageCursor")
 
-	return {
-		gameInfo = {
-			games = games,
-			nextPageCursor = nextPageCursor or Cryo.None,
-			previousPageCursor = previousPageCursor or Cryo.None,
+	if FFlagFixPublishAsWhenQueryFails then
+		return {
+			gameInfo = {
+				games = games,
+				queryState = Constants.QUERY_STATE.QUERY_STATE_SUCCESS,
+				nextPageCursor = nextPageCursor or Cryo.None,
+				previousPageCursor = previousPageCursor or Cryo.None,
+			}
 		}
-	}
+	else
+		return {
+			gameInfo = {
+				games = games,
+				nextPageCursor = nextPageCursor or Cryo.None,
+				previousPageCursor = previousPageCursor or Cryo.None,
+			}
+		}
+	end
 end)

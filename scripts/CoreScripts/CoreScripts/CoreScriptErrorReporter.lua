@@ -30,6 +30,8 @@ game:DefineFastInt("CoreScriptBacktraceRepeatedErrorRateLimitPeriod", 60)
 -- beyond the settings above.
 game:DefineFastInt("CoreScriptBacktraceRepeatedErrorRateLimitProcessIntervalTenths", 10)
 
+game:DefineFastFlag("CoreScriptBacktraceReportUserAgent", false)
+
 -- We don't have a default for this fast string, so if it's the empty string we
 -- know we're at the default and we can't do error reports.
 if game:GetFastFlag("EnableCoreScriptBacktraceReporting") and game:GetFastString("CoreScriptBacktraceErrorUploadToken") ~= "" then
@@ -38,6 +40,7 @@ if game:GetFastFlag("EnableCoreScriptBacktraceReporting") and game:GetFastString
 		BaseUrl = ContentProvider.BaseUrl,
 		PlaceId = game.PlaceId,
 		Platform = UserInputService:GetPlatform().Name,
+		UserAgent = game:GetFastFlag("CoreScriptBacktraceReportUserAgent") and HttpService:GetUserAgent() or nil,
 	}
 
 	local piiFilter = PiiFilter.new({
@@ -54,19 +57,21 @@ if game:GetFastFlag("EnableCoreScriptBacktraceReporting") and game:GetFastString
 		})
 	end
 
+	local function processReport(report)
+		report:addAttributes(staticAttributes)
+			
+		local playerCount = #Players:GetPlayers()
+		report:addAttributes({
+			PlayerCount = playerCount,
+		})
+
+		return report
+	end
+
 	local reporter = BacktraceReporter.new({
 		httpService = HttpService,
 		token = game:GetFastString("CoreScriptBacktraceErrorUploadToken"),
-		processErrorReportMethod = function(report)
-			report:addAttributes(staticAttributes)
-			
-			local playerCount = #Players:GetPlayers()
-			report:addAttributes({
-				PlayerCount = playerCount,
-			})
-
-			return report
-		end,
+		processErrorReportMethod = processReport,
 	})
 
 	local function handleErrorDetailed(message, stack, offendingScript, details)

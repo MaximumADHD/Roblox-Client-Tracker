@@ -3,7 +3,6 @@
 
 local FFlagFixToolboxPluginScaling = game:DefineFastFlag("FixToolboxPluginScaling", false)
 local FFlagUseCategoryNameInToolbox = game:GetFastFlag("UseCategoryNameInToolbox")
-local FFlagEnableToolboxVideos = game:GetFastFlag("EnableToolboxVideos")
 local FFlagFixGroupPackagesCategoryInToolbox = game:DefineFastFlag("FixGroupPackagesCategoryInToolbox", false)
 local FFlagToolboxDisableMarketplaceAndRecentsForLuobu = game:GetFastFlag("ToolboxDisableMarketplaceAndRecentsForLuobu")
 local FFlagToolboxShowRobloxCreatedAssetsForLuobu = game:GetFastFlag("ToolboxShowRobloxCreatedAssetsForLuobu")
@@ -52,6 +51,7 @@ Category.AssetType = {
 	FRONT_ACCESSORY = 15,
 	BACK_ACCESSORY = 16,
 	WAIST_ACCESSORY = 17,
+	VIDEO = 18
 }
 
 Category.ToolboxAssetTypeToEngine = {
@@ -73,11 +73,8 @@ Category.ToolboxAssetTypeToEngine = {
 	[Category.AssetType.FRONT_ACCESSORY] = Enum.AssetType.FrontAccessory,
 	[Category.AssetType.BACK_ACCESSORY] = Enum.AssetType.BackAccessory,
 	[Category.AssetType.WAIST_ACCESSORY] = Enum.AssetType.WaistAccessory,
+	[Category.AssetType.VIDEO] = Enum.AssetType.Video,
 }
-if FFlagEnableToolboxVideos then
-	Category.AssetType.VIDEO = 18
-	Category.ToolboxAssetTypeToEngine[Category.AssetType.VIDEO] = Enum.AssetType.Video
-end
 
 Category.FREE_MODELS = {name = "FreeModels", category = "FreeModels",
 	ownershipType = Category.OwnershipType.FREE, assetType = Category.AssetType.MODEL}
@@ -101,14 +98,12 @@ Category.MY_AUDIO = {name = "MyAudio", category = "MyAudio",
 Category.MY_PLUGINS = {name = "MyPlugins", category = "MyPlugins",
 	ownershipType = Category.AssetType.PLUGIN, assetType = Category.AssetType.PLUGIN}
 
-if FFlagEnableToolboxVideos then
-	Category.MARKETPLACE_VIDEOS = {name = "FreeVideo", category = "FreeVideo",
-		ownershipType = Category.OwnershipType.FREE, assetType = Category.AssetType.VIDEO}
-	Category.MY_VIDEOS = {name = "MyVideo", category = "MyVideo",
-		ownershipType = Category.AssetType.MY, assetType = Category.AssetType.VIDEO}
-	Category.RECENT_VIDEO = {name = "RecentVideo", category = "RecentVideo",
-		ownershipType = Category.OwnershipType.VIDEO, assetType = Category.AssetType.VIDEO}
-end
+Category.MARKETPLACE_VIDEOS = {name = "FreeVideo", category = "FreeVideo",
+	ownershipType = Category.OwnershipType.FREE, assetType = Category.AssetType.VIDEO}
+Category.MY_VIDEOS = {name = "MyVideo", category = "MyVideo",
+	ownershipType = Category.AssetType.MY, assetType = Category.AssetType.VIDEO}
+Category.RECENT_VIDEO = {name = "RecentVideo", category = "RecentVideo",
+	ownershipType = Category.OwnershipType.VIDEO, assetType = Category.AssetType.VIDEO}
 
 Category.RECENT_MODELS = {name = "RecentModels", category = "RecentModels",
 	ownershipType = Category.OwnershipType.RECENT, assetType = Category.AssetType.MODEL}
@@ -186,6 +181,8 @@ Category.MARKETPLACE = {
 	Category.FREE_DECALS,
 	Category.FREE_MESHES,
 	Category.FREE_AUDIO,
+	Category.MARKETPLACE_VIDEOS,
+	Category.WHITELISTED_PLUGINS,
 }
 
 Category.INVENTORY = {
@@ -194,6 +191,8 @@ Category.INVENTORY = {
 	Category.MY_MESHES,
 	Category.MY_AUDIO,
 	Category.MY_PACKAGES,
+	Category.MY_VIDEOS,
+	Category.MY_PLUGINS,
 }
 
 Category.INVENTORY_WITH_GROUPS = {
@@ -202,6 +201,7 @@ Category.INVENTORY_WITH_GROUPS = {
 	Category.MY_MESHES,
 	Category.MY_AUDIO,
 	Category.MY_PACKAGES,
+	Category.MY_VIDEOS,
 	Category.GROUP_MODELS,
 	Category.GROUP_DECALS,
 	Category.GROUP_MESHES,
@@ -241,14 +241,6 @@ else
 	}
 end
 
--- NOTE: When FFlagEnableToolboxVideos is enabled, remember to move the keys directy into the tables for cleaner code!
-if FFlagEnableToolboxVideos then
-	local insertIndex = Cryo.List.find(Category.INVENTORY_WITH_GROUPS, Category.MY_PACKAGES) + 1
-	table.insert(Category.INVENTORY_WITH_GROUPS, insertIndex, Category.MY_VIDEOS)
-	table.insert(Category.INVENTORY, Category.MY_VIDEOS)
-	table.insert(Category.MARKETPLACE, Category.MARKETPLACE_VIDEOS)
-end
-
 -- Categories which are supported by GetToolboxItems
 Category.API_NAMES = {
 	[Category.FREE_AUDIO.name] = "Audio",
@@ -258,11 +250,8 @@ if getToolboxMicroserviceSearch() then
 	Category.API_NAMES = Cryo.Dictionary.join(Category.API_NAMES, {
 		[Category.FREE_MESHES.name] = "Meshes",
 		[Category.FREE_DECALS.name] = "Decals",
+		[Category.MARKETPLACE_VIDEOS.name] = "Videos",
 	})
-
-	if FFlagEnableToolboxVideos then
-		Category.API_NAMES[Category.MARKETPLACE_VIDEOS.name] = "Videos"
-	end
 
 	if getToolboxModelsMicroserviceSearch() then
 		Category.API_NAMES[Category.FREE_MODELS.name] = "Models"
@@ -297,10 +286,6 @@ Category.MARKETPLACE_KEY = "Marketplace"
 Category.INVENTORY_KEY = "Inventory"
 Category.RECENT_KEY = "Recent"
 Category.CREATIONS_KEY = "Creations"
-
--- TODO: When FFlagEnableToolboxVideos flag is retired please move these inserts into the table definitions
-table.insert(Category.INVENTORY, Category.MY_PLUGINS)
-table.insert(Category.MARKETPLACE, Category.WHITELISTED_PLUGINS)
 
 local insertIndex = Cryo.List.find(Category.INVENTORY_WITH_GROUPS, Category.MY_PACKAGES) + 1
 table.insert(Category.INVENTORY_WITH_GROUPS, insertIndex, Category.MY_PLUGINS)

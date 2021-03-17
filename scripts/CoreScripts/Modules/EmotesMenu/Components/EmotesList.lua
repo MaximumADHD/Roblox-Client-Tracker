@@ -93,7 +93,7 @@ function EmotesList:init()
 	self.character = nil
 	self:setState({
 		focusedBubble = 0,
-		lastInputType = UserInputService:GetLastInputType(),
+		isGamepad = GAMEPAD_INPUT_TYPES[UserInputService:GetLastInputType()],
 		firstElementOnScreen = 1,
 		lastElementOnScreen = NUM_ELEMENTS,
 		viewportSize = getCameraService().ViewportSize,
@@ -253,9 +253,9 @@ function EmotesList:renderEmoteBubbles()
 	local slottedEmotes = {}
 	local equippedEmotes = self.props.currentEmotes
 	local emotesInfoTable = self.props.emotesInfo
+	local isGamepad = self.state.isGamepad
 	local count = 0
 	local y = EmoteBubbleSizes.BubblePadding
-	local isGamepad = GAMEPAD_INPUT_TYPES[self.state.lastInputType]
 
 	for index, emoteName in pairs(equippedEmotes) do
 		local emoteAssetIds = emotesInfoTable[emoteName]
@@ -403,9 +403,12 @@ function EmotesList:render()
 		LastInputChangedListener = Roact.createElement(ExternalEventConnection, {
 			event = UserInputService.LastInputTypeChanged,
 			callback = function(lastInputType)
-				self:setState({
-					lastInputType = lastInputType
-				})
+				local isGamepad = GAMEPAD_INPUT_TYPES[lastInputType]
+				if isGamepad ~= self.state.isGamepad then
+					self:setState({
+						isGamepad = isGamepad
+					})
+				end
 			end,
 		}),
 

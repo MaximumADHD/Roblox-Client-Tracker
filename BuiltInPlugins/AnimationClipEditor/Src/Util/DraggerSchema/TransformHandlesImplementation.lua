@@ -6,9 +6,7 @@ local getBoundingBoxScale = require(DraggerFramework.Utility.getBoundingBoxScale
 local PartMover = require(DraggerFramework.Utility.PartMover)
 local AttachmentMover = require(DraggerFramework.Utility.AttachmentMover)
 local RigUtils = require(Plugin.Src.Util.RigUtils)
-local GetFFlagMigrateIkSolve = require(Plugin.LuaFlags.GetFFlagMigrateIkSolve)
 local Workspace = game:GetService("Workspace")
-local PhysicsService = game:GetService("PhysicsService")
 local TransformHandlesImplementation = {}
 TransformHandlesImplementation.__index = TransformHandlesImplementation
 
@@ -104,11 +102,7 @@ function TransformHandlesImplementation:updateDrag(globalTransform)
 				local effectorInRange = (rootPart.CFrame.p - updatedCFrame.p).Magnitude <= Constants.MIN_EFFECTOR_DISTANCE
 				local translationStiffness = effectorInRange and Constants.MIN_TRANSLATION_STIFFNESS or Constants.MIN_TRANSLATION_STIFFNESS
 				local rotationStiffness = effectorInRange and Constants.MIN_ROTATION_STIFFNESS or Constants.MIN_ROTATION_STIFFNESS
-				if GetFFlagMigrateIkSolve() then
-					Workspace:IKMoveTo(joint.Part1, updatedCFrame, translationStiffness, rotationStiffness, Enum.IKCollisionsMode.NoCollisions)
-				else
-					PhysicsService:ikSolve(joint.Part1, updatedCFrame, translationStiffness, rotationStiffness)
-				end
+				Workspace:IKMoveTo(joint.Part1, updatedCFrame, translationStiffness, rotationStiffness, Enum.IKCollisionsMode.NoCollisions)
 				local actualCFrame = joint.Part1.CFrame
 				local actualGlobalTransform = actualCFrame * self._effectorCFrame:Inverse()
 				return actualGlobalTransform
@@ -120,11 +114,7 @@ function TransformHandlesImplementation:updateDrag(globalTransform)
 				local updatedCFrame = globalTransform * self._effectorCFrame
 	
 				local joint = getLastJoint(self._joints)
-				if GetFFlagMigrateIkSolve() then
-					Workspace:IKMoveTo(joint.Part1, updatedCFrame, Constants.TRANSLATION_STIFFNESS, Constants.ROTATION_STIFFNESS, Enum.IKCollisionsMode.NoCollisions)
-				else
-					PhysicsService:ikSolve(joint.Part1, updatedCFrame, Constants.TRANSLATION_STIFFNESS, Constants.ROTATION_STIFFNESS)
-				end
+				Workspace:IKMoveTo(joint.Part1, updatedCFrame, Constants.TRANSLATION_STIFFNESS, Constants.ROTATION_STIFFNESS, Enum.IKCollisionsMode.NoCollisions)
 				local actualCFrame = joint.Part1.CFrame
 				local actualGlobalTransform = actualCFrame * self._effectorCFrame:Inverse()
 				return actualGlobalTransform

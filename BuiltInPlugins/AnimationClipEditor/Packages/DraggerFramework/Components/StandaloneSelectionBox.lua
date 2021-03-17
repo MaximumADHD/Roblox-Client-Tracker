@@ -14,19 +14,7 @@ local DraggerFramework = script.Parent.Parent
 local Library = DraggerFramework.Parent.Parent
 local Roact = require(Library.Packages.Roact)
 
-local getFFlagRemoveStudioSettingsForCLI = require(DraggerFramework.Flags.getFFlagRemoveStudioSettingsForCLI)
-
 local StandaloneSelectionBox = Roact.PureComponent:extend("StandaloneSelectionBox")
-
-if not getFFlagRemoveStudioSettingsForCLI() then
-	local StudioSettings = require(DraggerFramework.Utility.StudioSettings)
-	StandaloneSelectionBox.defaultProps = {
-		Color = StudioSettings.SelectColor,
-		CFrame = CFrame.new(),
-		Size = Vector3.new(),
-		LineThickness = StudioSettings.LineThickness,
-	}
-end
 
 function StandaloneSelectionBox:init()
 	self._dummyPartRef = Roact.createRef()

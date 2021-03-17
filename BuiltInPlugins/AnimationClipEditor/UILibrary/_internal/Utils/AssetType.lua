@@ -1,6 +1,3 @@
--- TODO DEVTOOLS-4549: Remove in favour of DevFramework
-local FFlagEnableToolboxVideos = game:GetFastFlag("EnableToolboxVideos")
-
 local AssetType = {}
 
 AssetType.TYPES = {
@@ -24,7 +21,7 @@ AssetType.AssetTypesPreviewEnabled = {
 	[Enum.AssetType.Audio.Value] = true,
 	[Enum.AssetType.Lua.Value] = true,
 	[Enum.AssetType.Plugin.Value] = true,
-	[Enum.AssetType.Video.Value] = FFlagEnableToolboxVideos or nil,
+	[Enum.AssetType.Video.Value] = true,
 }
 
 local classTypeMap = {

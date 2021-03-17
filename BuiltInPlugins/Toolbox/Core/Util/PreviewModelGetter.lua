@@ -3,7 +3,6 @@
 -- This is a help object for modelPreview.
 -- This script is responsible for fetching the assetInstance using an assetID.
 -- this script will return a model for preview with all scripts disabled.
-local FFlagEnableToolboxVideos = game:GetFastFlag("EnableToolboxVideos")
 local FFlagHideOneChildTreeviewButton = game:GetFastFlag("HideOneChildTreeviewButton")
 
 local Plugin = script.Parent.Parent.Parent
@@ -70,7 +69,7 @@ return function(assetId, assetTypeId)
 				local soundId = ("rbxassetid://%d"):format(assetId)
 				soundInstance.SoundId = soundId
 				results = soundInstance
-			elseif FFlagEnableToolboxVideos and assetTypeId == Enum.AssetType.Video.Value then
+			elseif assetTypeId == Enum.AssetType.Video.Value then
 				local videoInstance = Instance.new("VideoFrame")
 				videoInstance.Video = Urls.constructAssetIdString(assetId)
 				results = videoInstance

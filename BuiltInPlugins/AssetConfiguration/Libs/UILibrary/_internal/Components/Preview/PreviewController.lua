@@ -21,7 +21,6 @@
 ]]
 local FFlagHideOneChildTreeviewButton = game:GetFastFlag("HideOneChildTreeviewButton")
 local FFlagStudioAssetPreviewTreeFix2 = game:DefineFastFlag("StudioAssetPreviewTreeFix2", false)
-local FFlagEnableToolboxVideos = game:GetFastFlag("EnableToolboxVideos")
 
 local Library = script.Parent.Parent.Parent
 
@@ -199,7 +198,7 @@ function PreviewController:render()
 	local width = props.Width
 	local layoutOrder = props.LayoutOrder
 
-	local isShowVideoPreview = FFlagEnableToolboxVideos and AssetType:isVideo(assetPreviewType)
+	local isShowVideoPreview = AssetType:isVideo(assetPreviewType)
 	local videoId
 	if isShowVideoPreview then
 		videoId = currentPreview.Video

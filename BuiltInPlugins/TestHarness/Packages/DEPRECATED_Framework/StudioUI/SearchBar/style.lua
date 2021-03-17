@@ -69,6 +69,11 @@ if THEME_REFACTOR then
 				BorderColor = StyleKey.DialogMainButton,
 			})
 		},
+
+		Hover = {
+			BorderColor = StyleKey.DialogMainButton,
+		},
+
 		Buttons = {
 			Clear = buttonStyle("rbxasset://textures/StudioSharedUI/clear.png", "rbxasset://textures/StudioSharedUI/clear-hover.png"),
 			Search = buttonStyle("rbxasset://textures/StudioSharedUI/search.png"),
