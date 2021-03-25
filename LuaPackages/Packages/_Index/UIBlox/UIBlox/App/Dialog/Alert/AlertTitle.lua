@@ -11,7 +11,6 @@ local FitFrame = require(Packages.FitFrame)
 local FitFrameOnAxis = FitFrame.FitFrameOnAxis
 
 local GenericTextLabel = require(UIBlox.Core.Text.GenericTextLabel.GenericTextLabel)
-local ImageSetComponent = require(UIBlox.Core.ImageSet.ImageSetComponent)
 local withStyle = require(UIBlox.Core.Style.withStyle)
 
 local MARGIN = 24
@@ -25,10 +24,8 @@ local validateProps = t.strictInterface({
 	minWidth = t.optional(t.number),
 	screenSize = t.Vector2,
 	title = t.string,
-	titleIcon = t.optional(t.union(t.table, t.string)),
-	titleIconSize = t.optional(t.number),
 	titlePadding = t.optional(t.number),
-	titlePaddingWithIcon = t.optional(t.number),
+	titleContent = t.optional(t.callback),
 })
 
 AlertTitle.defaultProps = {
@@ -40,9 +37,7 @@ AlertTitle.defaultProps = {
 	},
 	maxWidth = 400,
 	minWidth = 272,
-	titleIconSize = 48,
 	titlePadding = 12,
-	titlePaddingWithIcon = 24,
 }
 
 function AlertTitle:render()
@@ -51,13 +46,6 @@ function AlertTitle:render()
 	local totalWidth = math.clamp(self.props.screenSize.X - self.props.margin.left - self.props.margin.right,
 		self.props.minWidth, self.props.maxWidth)
 	local innerWidth = totalWidth - self.props.margin.left - self.props.margin.right
-
-	local titleTopMargin
-	if self.props.titleIcon then
-		titleTopMargin = self.props.titlePaddingWithIcon
-	else
-		titleTopMargin = self.props.titlePadding
-	end
 
 	return withStyle(function(stylePalette)
 		local font = stylePalette.Font
@@ -71,24 +59,23 @@ function AlertTitle:render()
 			HorizontalAlignment = Enum.HorizontalAlignment.Center,
 			LayoutOrder = self.props.layoutOrder,
 			margin = {
-				top = titleTopMargin,
+				top = 12,
 				bottom = 0,
 				left = 0,
 				right = 0,
 			},
 			minimumSize = UDim2.new(1, 0, 0, 0),
 		}, {
-			TitleIcon = self.props.titleIcon and Roact.createElement(ImageSetComponent.Label, {
+			TitleContent = self.props.titleContent and Roact.createElement(FitFrameOnAxis, {
 				BackgroundTransparency = 1,
-				Image = self.props.titleIcon,
-				ImageColor3 = theme.IconEmphasis.Color,
-				ImageTransparency = theme.IconEmphasis.Transparency,
 				LayoutOrder = 0,
-				Size = UDim2.new(0, self.props.titleIconSize, 0, self.props.titleIconSize),
+				minimumSize = UDim2.new(1, 0, 0, 0),
+			}, {
+				Content = self.props.titleContent()
 			}),
 			TitleArea = Roact.createElement(FitFrameOnAxis, {
 				BackgroundTransparency = 1,
-				contentPadding = UDim.new(0, self.props.titlePadding),
+				contentPadding = UDim.new(0, 12),
 				HorizontalAlignment = Enum.HorizontalAlignment.Center,
 				LayoutOrder = 1,
 				minimumSize = UDim2.new(1, 0, 0, 0),

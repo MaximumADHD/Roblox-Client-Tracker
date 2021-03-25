@@ -24,8 +24,15 @@ return {
 	-- emptyStateControllerSupport: Enables controller support for the EmptyState component.
 	emptyStateControllerSupport = false,
 
+	-- hideHorizontalCarouselScrollButtonFix: Enables fix to hide the scroll right button for the
+	-- HorizontalCarousel when all items are visible.
+	hideHorizontalCarouselScrollButtonFix = false,
+
 	-- useHeaderBarV2: Controls the usage of headerBarV2
 	useHeaderBarV2 = false,
+
+	-- enableAlertCustomTitleFooterConfig: Enables custom title and footer content for the Alert
+	enableAlertCustomTitleFooterConfig = false,
 
 	-- tooltipWidthUsesHeaderToo: Turn on fix for tooltip which calculates the width of the tooltip container
 	-- based on the body and title text width.

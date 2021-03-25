@@ -11,16 +11,9 @@ local Packages = UIBlox.Parent
 
 local Roact = require(Packages.Roact)
 
-local Images = require(UIBlox.App.ImageSet.Images)
-
-local BACKGROUND_IMAGE = "icons/status/premium_small"
-
 local Alert = require(AlertRoot.Alert)
 local AlertType = require(AlertRoot.Enum.AlertType)
 local ButtonType = require(AppRoot.Button.Enum.ButtonType)
-
-local UIBloxConfig = require(UIBlox.UIBloxConfig)
-local enableAlertTitleIconConfig = UIBloxConfig.enableAlertTitleIconConfig
 
 local function close()
 	print("close")
@@ -47,6 +40,24 @@ function AlertContainer:init()
 		end
 	end
 
+	self.renderTitle = function()
+		return Roact.createElement("Frame", {
+			BorderSizePixel = 0,
+			BackgroundColor3 = Color3.fromRGB(164, 86, 78),
+			LayoutOrder = 3,
+			Size = UDim2.new(1, 0, 0, 60),
+		},{
+			CustomInner = Roact.createElement("TextLabel", {
+				BackgroundTransparency = 1,
+				LayoutOrder = 3,
+				Text = "Put custom title content here if icon is not sufficient",
+				TextSize = 13,
+				TextWrapped = true,
+				Size = UDim2.new(1, 0, 1, 0),
+			}),
+		})
+	end
+
 	self.renderMiddle = function()
 		return Roact.createElement("Frame", {
 			BorderSizePixel = 0,
@@ -58,6 +69,24 @@ function AlertContainer:init()
 				BackgroundTransparency = 1,
 				LayoutOrder = 3,
 				Text = "Put any component you want here.",
+				TextSize = 13,
+				TextWrapped = true,
+				Size = UDim2.new(1, 0, 1, 0),
+			}),
+		})
+	end
+
+	self.renderFooter = function()
+		return Roact.createElement("Frame", {
+			BorderSizePixel = 0,
+			BackgroundColor3 = Color3.fromRGB(164, 86, 78),
+			LayoutOrder = 3,
+			Size = UDim2.new(1, 0, 0, 60),
+		},{
+			CustomInner = Roact.createElement("TextLabel", {
+				BackgroundTransparency = 1,
+				LayoutOrder = 3,
+				Text = "Put custom footer content here if footer text is not sufficient",
 				TextSize = 13,
 				TextWrapped = true,
 				Size = UDim2.new(1, 0, 1, 0),
@@ -84,8 +113,12 @@ function AlertContainer:render()
 			Alert = Roact.createElement(Alert, {
 				anchorPoint = Vector2.new(0.5, 0),
 				alertType = AlertType.Interactive,
-				bodyText = "Body text goes here. Both InformativeAlert and "..
-					"InteractiveAlert use this component.",
+				position = UDim2.new(0.5, 0, 0, 10),
+				screenSize = self.state.screenSize,
+				title = "Alert Component. Title goes up to 2 lines max.",
+				titleContent = self.renderTitle,
+				middleContent = self.renderMiddle,
+				isMiddleContentFocusable = true,
 				buttonStackInfo = {
 					buttons = {
 						{
@@ -105,11 +138,8 @@ function AlertContainer:render()
 						},
 					},
 				},
-				middleContent = self.renderMiddle,
-				position = UDim2.new(0.5, 0, 0, 10),
-				screenSize = self.state.screenSize,
-				title = "Alert Component. Title goes up to 2 lines max.",
-				titleIcon = enableAlertTitleIconConfig and Images[BACKGROUND_IMAGE] or nil,
+				footerContent = self.renderFooter,
+				isFooterContentFocusable = true,
 			})
 		})
 	})

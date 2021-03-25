@@ -14,6 +14,8 @@ local ScrollButton = require(Carousel.ScrollButton)
 local Core = UIBlox.Core
 local Scroller = require(Core.InfiniteScroller).Scroller
 
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
+
 local DEFAULT_ITEM_PADDING = 12
 
 local LEFT_ICON = Images["icons/actions/cycleLeft"]
@@ -68,7 +70,7 @@ HorizontalCarousel.defaultProps = {
 	itemPadding = DEFAULT_ITEM_PADDING,
 }
 
-local function updateScrollState(newIndex, numberOfItemsShown, numOfItems, scrollerFocusLock)
+local function updateScrollState(newIndex, maxNumOfItemsVisible, numOfItems, scrollerFocusLock)
 	if newIndex == nil then
 		return {}
 	end
@@ -85,20 +87,40 @@ local function updateScrollState(newIndex, numberOfItemsShown, numOfItems, scrol
 	local showLeftButton = true
 	local showRightButton = true
 
-	if newIndex <= 1 then
-		-- If scrolling pass the 1st element then reset the target index to the first item
-		targetIndex = 1
-		scrollerFocusLock = scrollerFocusLock + 1
-		showLeftButton = false
-	elseif newIndex > numOfItems then
-		-- If scrolling pass the last element then reset the target index to the last item
-		targetIndex = numOfItems
-		scrollerFocusLock = scrollerFocusLock + 1
-		showRightButton = false
-	elseif newIndex + numberOfItemsShown > numOfItems then
-		-- There is no more items outside of the carousel then hide the scroll button
-		-- There is also no need to update the scrollerFocusLock or target in this case
-		showRightButton = false
+	if UIBloxConfig.hideHorizontalCarouselScrollButtonFix then
+		if targetIndex <= 1 then
+			-- If scrolling past the first element, then reset the target index to the first item
+			targetIndex = 1
+			scrollerFocusLock = scrollerFocusLock + 1
+			showLeftButton = false
+		elseif targetIndex > numOfItems then
+			-- If scrolling past the last element, then reset the target index to the last item
+			targetIndex = numOfItems
+			scrollerFocusLock = scrollerFocusLock + 1
+			showRightButton = false
+		end
+
+		if targetIndex + maxNumOfItemsVisible > numOfItems then
+			-- If there are no more items outside of the visible carousel, then hide the scroll button
+			-- There is also no need to update the scrollerFocusLock or target in this case
+			showRightButton = false
+		end
+	else
+		if newIndex <= 1 then
+			-- If scrolling pass the 1st element then reset the target index to the first item
+			targetIndex = 1
+			scrollerFocusLock = scrollerFocusLock + 1
+			showLeftButton = false
+		elseif newIndex > numOfItems then
+			-- If scrolling pass the last element then reset the target index to the last item
+			targetIndex = numOfItems
+			scrollerFocusLock = scrollerFocusLock + 1
+			showRightButton = false
+		elseif newIndex + maxNumOfItemsVisible > numOfItems then
+			-- There is no more items outside of the carousel then hide the scroll button
+			-- There is also no need to update the scrollerFocusLock or target in this case
+			showRightButton = false
+		end
 	end
 
 	return {
@@ -113,7 +135,7 @@ end
 function HorizontalCarousel.getDerivedStateFromProps(nextProps, lastState)
 	local numOfItems = #nextProps.itemList
 	if lastState.numOfItems ~= numOfItems then
-		return updateScrollState(lastState.index, lastState.numberOfItemsShown, numOfItems, lastState.scrollerFocusLock)
+		return updateScrollState(lastState.index, lastState.maxNumOfItemsVisible, numOfItems, lastState.scrollerFocusLock)
 	end
 	return nil
 end
@@ -128,7 +150,7 @@ function HorizontalCarousel:init()
 		hovering = false,
 		showLeftButton = false,
 		showRightButton = false,
-		numberOfItemsShown = 0,
+		maxNumOfItemsVisible = 0,
 		numOfItems = 0,
 	})
 
@@ -136,7 +158,7 @@ function HorizontalCarousel:init()
 		if input.UserInputType == Enum.UserInputType.MouseMovement then
 			local anchorIndex = carouselMetaData.anchorIndex
 			local newState = updateScrollState(anchorIndex,
-				self.state.numberOfItemsShown,
+				self.state.maxNumOfItemsVisible,
 				self.state.numOfItems,
 				self.state.scrollerFocusLock)
 			newState.hovering = true
@@ -154,9 +176,9 @@ function HorizontalCarousel:init()
 
 	self.onResize = function(rbx)
 		local totalWidth = rbx.AbsoluteSize.X
-		local numberOfItemsShown = math.floor(totalWidth / (self.props.itemSize.X + self.props.itemPadding))
+		local maxNumOfItemsVisible = math.floor(totalWidth / (self.props.itemSize.X + self.props.itemPadding))
 		self:setState({
-			numberOfItemsShown = numberOfItemsShown,
+			maxNumOfItemsVisible = maxNumOfItemsVisible,
 		})
 	end
 
@@ -168,9 +190,9 @@ function HorizontalCarousel:init()
 		if carouselMetaData.animationActive then
 			return
 		end
-		local newIndex = carouselMetaData.anchorIndex - self.state.numberOfItemsShown
+		local newIndex = carouselMetaData.anchorIndex - self.state.maxNumOfItemsVisible
 		self:setState(
-			updateScrollState(newIndex, self.state.numberOfItemsShown, self.state.numOfItems, self.state.scrollerFocusLock + 1)
+			updateScrollState(newIndex, self.state.maxNumOfItemsVisible, self.state.numOfItems, self.state.scrollerFocusLock + 1)
 		)
 	end
 
@@ -178,9 +200,9 @@ function HorizontalCarousel:init()
 		if carouselMetaData.animationActive then
 			return
 		end
-		local newIndex = carouselMetaData.anchorIndex + self.state.numberOfItemsShown
+		local newIndex = carouselMetaData.anchorIndex + self.state.maxNumOfItemsVisible
 		self:setState(
-			updateScrollState(newIndex, self.state.numberOfItemsShown, self.state.numOfItems, self.state.scrollerFocusLock + 1)
+			updateScrollState(newIndex, self.state.maxNumOfItemsVisible, self.state.numOfItems, self.state.scrollerFocusLock + 1)
 		)
 	end
 end
@@ -231,7 +253,7 @@ function HorizontalCarousel:render()
 		},{
 			ScrollLeftButton = scrollLeftButton,
 		}),
-		InfiniteScrollerCarousel = self.state.numberOfItemsShown > 0 and Roact.createElement(Scroller, {
+		InfiniteScrollerCarousel = self.state.maxNumOfItemsVisible > 0 and Roact.createElement(Scroller, {
 			identifier = self.props.identifier,
 			BackgroundTransparency = 1,
 			Size = UDim2.fromScale(1, 1),
@@ -242,7 +264,7 @@ function HorizontalCarousel:render()
 			orientation = Scroller.Orientation.Right,
 			itemList = itemList,
 			loadingBuffer = 1,
-			mountingBuffer = self.state.numberOfItemsShown * 3 * itemSize.X,
+			mountingBuffer = self.state.maxNumOfItemsVisible * 3 * itemSize.X,
 			loadNext = loadNext,
 			loadPrevious = loadPrevious,
 			focusLock = self.state.scrollerFocusLock,

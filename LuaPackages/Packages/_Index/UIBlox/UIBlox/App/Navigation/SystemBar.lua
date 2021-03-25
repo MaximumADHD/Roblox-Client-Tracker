@@ -69,9 +69,11 @@ SystemBar.validateProps = t.strictInterface({
 	-- list of system bar items
 	itemList = t.array(t.strictInterface({
 		-- icon if the item is currently selected
-		iconOn = validateImageSetData,
+		iconOn = t.optional(validateImageSetData),
 		-- icon if the item is not selected
-		iconOff = validateImageSetData,
+		iconOff = t.optional(validateImageSetData),
+		-- icon component to use if not using iconOn or iconOff
+		iconComponent = t.optional(t.union(t.table, t.callback)),
 		-- action when clicking on this item
 		onActivated = t.callback,
 		-- number to display as badge next to the icon
@@ -108,8 +110,29 @@ function SystemBar:isPortrait()
 end
 
 function SystemBar:renderItem(item, state, selected)
+	assert((item.iconOn ~= nil and item.iconOff ~= nil) or item.iconComponent ~= nil,
+		"items must define either iconOn and iconOff or iconComponent")
+
 	local pressed = state == ControlState.Pressed
 	local hovered = pressed or state == ControlState.Hover
+
+	if item.iconComponent then
+		local placement
+		if self:isPortrait() then
+			placement = Placement.Bottom
+		else
+			placement = Placement.Left
+		end
+
+		return Roact.createElement(item.iconComponent, {
+			placement = placement,
+			hovered = hovered,
+			selected = selected,
+			pressed = pressed,
+			badgeValue = item.badgeValue,
+		})
+	end
+
 	local hasBadge
 	if UIBloxConfig.allowSystemBarToAcceptString then
 		if item.badgeValue then
