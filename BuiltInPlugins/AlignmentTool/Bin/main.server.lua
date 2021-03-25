@@ -1,9 +1,4 @@
 local Plugin = script.Parent.Parent
-local getFFlagEnableAlignmentToolPlugin = require(Plugin.Src.Flags.getFFlagEnableAlignmentToolPlugin)
-
-if not getFFlagEnableAlignmentToolPlugin() then
-	return
-end
 
 local getFFlagEnableAlignToolStylizer = require(Plugin.Src.Flags.getFFlagEnableAlignToolStylizer)
 local RefactorFlags = require(Plugin.Packages.Framework.Util.RefactorFlags)

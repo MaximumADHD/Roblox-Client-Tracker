@@ -342,8 +342,10 @@ function PartMover:computeJointPairs(globalTransform)
 end
 
 function PartMover:_transformModelPivots(globalTransform)
-	for model, originalPivot in pairs(self._originalModelPivotMap) do
-		model.WorldPivot = globalTransform * originalPivot
+	if self._originalModelPivotMap then
+		for model, originalPivot in pairs(self._originalModelPivotMap) do
+			model.WorldPivot = globalTransform * originalPivot
+		end
 	end
 end
 

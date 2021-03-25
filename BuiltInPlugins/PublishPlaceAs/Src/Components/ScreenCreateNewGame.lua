@@ -15,6 +15,8 @@ local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 local UILibrary = require(Plugin.Packages.UILibrary)
 
+local StyledScrollingFrame = UILibrary.Component.StyledScrollingFrame
+
 local SettingsImpl = require(Plugin.Src.Network.Requests.SettingsImpl)
 
 local Theming = require(Plugin.Src.ContextServices.Theming)
@@ -34,6 +36,8 @@ local SetPublishInfo = require(Plugin.Src.Actions.SetPublishInfo)
 
 local LoadGroups = require(Plugin.Src.Thunks.LoadGroups)
 
+local FFlagStudioAllowRemoteSaveBeforePublish = game:GetFastFlag("StudioAllowRemoteSaveBeforePublish")
+
 local MENU_ENTRIES = {
 	"BasicInfo",
 }
@@ -52,6 +56,8 @@ function ScreenCreateNewGame:init()
 			selected = index,
 		})
 	end
+
+	self.scrollingFrameRef = Roact.createRef()
 
 	self.props.DispatchLoadGroups()
 end
@@ -83,15 +89,13 @@ function ScreenCreateNewGame:render(props)
 			local readyToSave = props.ReadyToSave
 			local isPublishing = props.IsPublishing
 			local changed = props.Changed
+			local isPublish = props.IsPublish
 
 			local dispatchSetIsPublishing = props.dispatchSetIsPublishing
 
 			local selected = self.state.selected
 
-			return Roact.createElement("Frame", {
-				Size = UDim2.new(1, 0, 1, 0),
-				BackgroundColor3 = theme.backgroundColor,
-			}, {
+			local children = {
 				MenuBar = Roact.createElement(MenuBar, {
 					Entries = MENU_ENTRIES,
 					Selected = selected,
@@ -109,7 +113,9 @@ function ScreenCreateNewGame:render(props)
 					Position = UDim2.new(0, Constants.MENU_BAR_WIDTH, 0, 0),
 					Size = UDim2.new(1, -Constants.MENU_BAR_WIDTH, 1, -Constants.FOOTER_HEIGHT)
 				}, {
-					Roact.createElement(BasicInfo),
+					Roact.createElement(BasicInfo, {
+						IsPublish = isPublish,
+					}),
 				}),
 
 				Footer = Roact.createElement(Footer, {
@@ -125,7 +131,25 @@ function ScreenCreateNewGame:render(props)
 					NextScreen = Constants.SCREENS.CHOOSE_GAME,
 					NextScreenText = "UpdateExistingGame"
 				}),
-			})
+			}
+
+			if FFlagStudioAllowRemoteSaveBeforePublish then
+				children.Page = Roact.createElement(StyledScrollingFrame, {
+					BackgroundTransparency = 1,
+					Position = UDim2.new(0, Constants.MENU_BAR_WIDTH, 0, 0),
+					Size = UDim2.new(1, -Constants.MENU_BAR_WIDTH, 1, -Constants.FOOTER_HEIGHT),
+					[Roact.Ref] = self.scrollingFrameRef,
+				}, {
+					Roact.createElement(BasicInfo, {
+						IsPublish = isPublish,
+					}),
+				})
+			end
+
+			return Roact.createElement("Frame", {
+				Size = UDim2.new(1, 0, 1, 0),
+				BackgroundColor3 = theme.backgroundColor,
+			}, children)
 		end)
 	end)
 end

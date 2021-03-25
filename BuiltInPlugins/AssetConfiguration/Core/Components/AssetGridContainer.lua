@@ -229,7 +229,7 @@ function AssetGridContainer:init(props)
 
 		local isPackageAsset
 		if FFlagUseCategoryNameInToolbox then
-			isPackageAsset = Category.categoryIsPackage(props.categoryName)
+			isPackageAsset = Category.categoryIsPackage(self.props.categoryName)
 		else
 			isPackageAsset = Category.categoryIsPackage(self.props.categoryIndex, self.props.currentTab)
 		end

@@ -10,7 +10,7 @@ return function()
 		AutomaticSize = Enum.AutomaticSize.XY,
 		Padding = 50,
 		Spacing = 10,
-		Layout = Enum.FillDirection.Horizontal
+		Layout = Enum.FillDirection.Vertical
 	}, { 
 		First = Roact.createElement(Pane, {
 			Padding = 10,

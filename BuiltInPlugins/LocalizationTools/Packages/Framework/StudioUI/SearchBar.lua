@@ -24,6 +24,8 @@
 		number TextSize: The font size of the text in this link.
 		Color3 TextColor: The color of the search term text.
 ]]
+local FFlagDevFrameworkFixSearchBarLayoutOrder = game:GetFastFlag("DevFrameworkFixSearchBarLayoutOrder")
+
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
 local ContextServices = require(Framework.ContextServices)
@@ -38,11 +40,20 @@ local Container = UI.Container
 local Decoration = UI.Decoration
 local Separator = UI.Separator
 local TextInput = UI.TextInput
+local Pane = UI.Pane
 
 local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 
 local SearchBar = Roact.PureComponent:extend("SearchBar")
 Typecheck.wrap(SearchBar, script)
+
+SearchBar.defaultProps = FFlagDevFrameworkFixSearchBarLayoutOrder and {
+	Width = 200,
+	ButtonWidth = 24,
+	LayoutOrder = 0,
+	PlaceholderText = "Search",
+	ShowSearchButton = true,
+} or {}
 
 function SearchBar:init()
 	self.state = {
@@ -192,29 +203,42 @@ function SearchBar:render()
 	local props = self.props
 	local state = self.state
 
-	local containerWidth = props.Width or 200
-	local buttonWidth = props.ButtonWidth or 24
-	local layoutOrder = props.LayoutOrder or 0
-	local placeholderText = props.PlaceholderText or "Search"
+	local containerWidth,buttonWidth, layoutOrder, placeholderText, showSearchButton
+	if FFlagDevFrameworkFixSearchBarLayoutOrder then
+		containerWidth = props.Width
+		buttonWidth = props.ButtonWidth
+		layoutOrder = props.LayoutOrder
+		placeholderText = props.PlaceholderText
+		showSearchButton = props.ShowSearchButton
+	else
+		containerWidth = props.Width or 200
+		buttonWidth = props.ButtonWidth or 24
+		layoutOrder = props.LayoutOrder or 0
+		placeholderText = props.PlaceholderText or "Search"
+
+		showSearchButton = self.props.ShowSearchButton == nil
+		if showSearchButton == nil then
+			showSearchButton = true
+		end
+	end
 
 	local shouldFocus = state.shouldFocus
 	local text = state.text
 	local showClearButton = #text > 0
-	local showSearchButton = self.props.ShowSearchButton == nil
-	if showSearchButton == nil then
-		showSearchButton = true
-	end
 
-	local theme = props.Theme
+	local isFocused = state.isFocused
+	local isHovered = state.isHovered
+
 	local style
 	if THEME_REFACTOR then
 		style = props.Stylizer
 	else
-		style = theme:getStyle("Framework", self)
+		style = props.theme:getStyle("Framework", self)
 	end
-	local backgroundStyle = style.BackgroundStyle
 
 	local padding = style.Padding
+	local backgroundStyle = style.BackgroundStyle
+	local borderColor = (isFocused or isHovered) and style.Hover.BorderColor or nil
 
 	local leftPadding = type(padding) == "table" and padding.Left or padding
 	local topPadding = type(padding) == "table" and padding.Top or padding
@@ -222,69 +246,79 @@ function SearchBar:render()
 	local buttonsWidth = (showClearButton and buttonWidth or 0) + (showSearchButton and buttonWidth or 0) + separatorWidth
 	local buttonSize = UDim2.new(0, buttonWidth, 1, 0)
 
-	return Roact.createElement(Container, {
-		Size = UDim2.new(0, containerWidth, 1, 0),
-		Background = Decoration.RoundBox,
-		BackgroundStyle = backgroundStyle,
-	}, {
-		SearchContainer = Roact.createElement("Frame", {
+	local children = {
+		TextInput = Roact.createElement(TextInput, {
+			Position = UDim2.new(0, leftPadding, 0.5, 0),
+			Size = UDim2.new(1, -(buttonsWidth + (leftPadding * 2)), 1, -2*topPadding),
+			AnchorPoint = Vector2.new(0, 0.5),
+			PlaceholderText = placeholderText,
+			Text = text,
+			OnTextChanged = self.onTextChanged,
+			OnFocusGained = self.onTextBoxFocusGained,
+			OnFocusLost = self.onTextBoxFocusLost,
+			ShouldFocus = shouldFocus
+		}),
+
+		Buttons = Roact.createElement(Pane, {
+			AnchorPoint = Vector2.new(1, 0),
+			Position = UDim2.new(1, 0, 0, 0),
+			Size = UDim2.new(0, buttonsWidth, 1, 0),
+			Layout = Enum.FillDirection.Horizontal,
+		}, {
+			ClearButton = showClearButton and Roact.createElement(Button, {
+				Size = buttonSize,
+				LayoutOrder = 1,
+				OnClick = self.onClearButtonClicked,
+				Style = style.Buttons.Clear
+			}),
+
+			-- Thin dividing line between the text box and the search button
+			Separator = showSearchButton and Roact.createElement(Separator, {
+				DominantAxis = Enum.DominantAxis.Height,
+				LayoutOrder = 2,
+				Position = UDim2.new(0, buttonWidth, 0.5, 0)
+			}),
+
+			SearchButton = showSearchButton and Roact.createElement(Button, {
+				Size = buttonSize,
+				LayoutOrder = 3,
+				OnClick = self.requestSearch,
+				Style = style.Buttons.Search
+			}),
+		})
+	}
+
+	if FFlagDevFrameworkFixSearchBarLayoutOrder then
+		return Roact.createElement(Pane, {
+			Size = UDim2.new(0, containerWidth, 1, 0),
 			ClipsDescendants = true,
 			BackgroundTransparency = 1,
 			LayoutOrder = layoutOrder,
-			Size = UDim2.new(1, 0, 1, 0),
+			BorderColor = borderColor,
+			Style = "BorderBox",
 			[Roact.Event.MouseEnter] = self.mouseEnter,
 			[Roact.Event.MouseLeave] = self.mouseLeave,
 			[Roact.Event.InputBegan] = self.onBackgroundInputBegan,
 			[Roact.Event.InputEnded] = self.onBackgroundFocusLost,
+		}, children)
+	else
+		return Roact.createElement(Container, {
+			Size = UDim2.new(0, containerWidth, 1, 0),
+			Background = Decoration.RoundBox,
+			BackgroundStyle = backgroundStyle,
 		}, {
-			TextInput = Roact.createElement(TextInput, {
-				Position = UDim2.new(0, leftPadding, 0.5, 0),
-				Size = UDim2.new(1, -(buttonsWidth + (leftPadding * 2)), 1, -2*topPadding),
-				AnchorPoint = Vector2.new(0, 0.5),
-				PlaceholderText = placeholderText,
-				Text = text,
-				OnTextChanged = self.onTextChanged,
-				OnFocusGained = self.onTextBoxFocusGained,
-				OnFocusLost = self.onTextBoxFocusLost,
-				ShouldFocus = shouldFocus
-			}),
-
-			Buttons = Roact.createElement("Frame", {
-				AnchorPoint = Vector2.new(1, 0),
-				Position = UDim2.new(1, 0, 0, 0),
-				Size = UDim2.new(0, buttonsWidth, 1, 0),
+			SearchContainer = Roact.createElement("Frame", {
+				ClipsDescendants = true,
 				BackgroundTransparency = 1,
-			}, {
-				Layout = Roact.createElement("UIListLayout", {
-					FillDirection = Enum.FillDirection.Horizontal,
-					HorizontalAlignment = Enum.HorizontalAlignment.Right,
-					VerticalAlignment = Enum.VerticalAlignment.Center,
-					SortOrder = Enum.SortOrder.LayoutOrder,
-				}),
-
-				ClearButton = showClearButton and Roact.createElement(Button, {
-					Size = buttonSize,
-					LayoutOrder = 1,
-					OnClick = self.onClearButtonClicked,
-					Style = style.Buttons.Clear
-				}),
-
-				-- Thin dividing line between the text box and the search button
-				Separator = showSearchButton and Roact.createElement(Separator, {
-					DominantAxis = Enum.DominantAxis.Height,
-					LayoutOrder = 2,
-					Position = UDim2.new(0, buttonWidth, 0.5, 0)
-				}),
-
-				SearchButton = showSearchButton and Roact.createElement(Button, {
-					Size = buttonSize,
-					LayoutOrder = 3,
-					OnClick = self.requestSearch,
-					Style = style.Buttons.Search
-				}),
-			})
+				LayoutOrder = layoutOrder,
+				Size = UDim2.new(1, 0, 1, 0),
+				[Roact.Event.MouseEnter] = self.mouseEnter,
+				[Roact.Event.MouseLeave] = self.mouseLeave,
+				[Roact.Event.InputBegan] = self.onBackgroundInputBegan,
+				[Roact.Event.InputEnded] = self.onBackgroundFocusLost,
+			}, children)
 		})
-	})
+	end
 end
 
 ContextServices.mapToProps(SearchBar, {

@@ -7,8 +7,6 @@
 
 local Plugin = script.Parent.Parent.Parent
 
-local getFFlagBoundingBoxRefactor = require(Plugin.Src.Flags.getFFlagBoundingBoxRefactor)
-local getFFlagAlignInLocalSpace = require(Plugin.Src.Flags.getFFlagAlignInLocalSpace)
 local getFFlagAlignToolNarrowUI = require(Plugin.Src.Flags.getFFlagAlignToolNarrowUI)
 local getFFlagAlignToolUseScrollingFrame = require(Plugin.Src.Flags.getFFlagAlignToolUseScrollingFrame)
 local getFFlagAlignToolDisabledFix = require(Plugin.Src.Flags.getFFlagAlignToolDisabledFix)
@@ -51,7 +49,6 @@ local TeachingCallout = require(script.Parent.TeachingCallout)
 
 local AlignToolError = require(Plugin.Src.Utility.AlignToolError)
 local getAlignableObjects = require(Plugin.Src.Utility.getAlignableObjects)
-local getBoundingBoxes = require(Plugin.Src.Utility.getBoundingBoxes) -- TODO: remove when removing FFlagBoundingBoxRefactor
 local getDebugSettingValue = require(Plugin.Src.Utility.getDebugSettingValue)
 
 local SelectionWrapper = Selection.new()
@@ -259,12 +256,7 @@ function MainView:_updateSelectionInfo()
 	self._boundsChangedTracker:setParts(allParts)
 
 	if shouldShowDebugView() then
-		local offset, size, boundingBoxMap
-		if getFFlagBoundingBoxRefactor() then
-			offset, size, boundingBoxMap = BoundingBox.fromObjectsComputeAll(alignableObjects)
-		else
-			offset, size, boundingBoxMap = getBoundingBoxes(alignableObjects)
-		end
+		local offset, size, boundingBoxMap = BoundingBox.fromObjectsComputeAll(alignableObjects)
 
 		self:setState({
 			debug = {
@@ -305,7 +297,7 @@ local function mapStateToProps(state, _)
 		disabledReason = state.disabledReason,
 		alignableObjects = state.alignableObjects,
 		alignmentMode = state.alignmentMode,
-		alignmentSpace = getFFlagAlignInLocalSpace() and state.alignmentSpace or nil,
+		alignmentSpace = state.alignmentSpace,
 		enabledAxes = state.enabledAxes,
 	}
 end

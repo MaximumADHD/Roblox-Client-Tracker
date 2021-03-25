@@ -19,6 +19,7 @@ local ChatLocalization = nil
 pcall(function() ChatLocalization = require(Chat.ClientChatModules.ChatLocalization) end)
 ChatLocalization = ChatLocalization or {}
 
+local MAX_CHANNEL_NAME_LENGTH = ChatSettings.MaxChannelNameLength
 local MAX_MESSAGE_LENGTH = ChatSettings.MaximumMessageLength
 local MAX_BYTES_PER_CODEPOINT = 6
 
@@ -48,6 +49,22 @@ local function validateMessageLength(msg)
     end
 
     if utf8.len(utf8.nfcnormalize(msg)) > MAX_MESSAGE_LENGTH then
+        return false
+    end
+
+    return true
+end
+
+local function validateChannelNameLength(channelName)
+    if channelName:len() > MAX_CHANNEL_NAME_LENGTH*MAX_BYTES_PER_CODEPOINT then
+        return false
+    end
+
+    if utf8.len(channelName) == nil then
+        return false
+    end
+
+    if utf8.len(utf8.nfcnormalize(channelName)) > MAX_CHANNEL_NAME_LENGTH then
         return false
     end
 
@@ -155,6 +172,8 @@ EventFolder.SayMessageRequest.OnServerEvent:connect(function(playerObj, message,
 	end
 
 	if type(channel) ~= "string" then
+		return
+	elseif not validateChannelNameLength(channel) then
 		return
 	end
 

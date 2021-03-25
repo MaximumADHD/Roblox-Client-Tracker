@@ -26,11 +26,6 @@ if THEME_REFACTOR then
 			Background = StyleKey.Border,
 			Image = "rbxasset://textures/StudioToolbox/RoundedBorder.png",
 			SliceCenter = Rect.new(3, 3, 13, 13),
-			Border = {
-				Background = StyleKey.Border,
-				Image = "rbxasset://textures/StudioToolbox/RoundedBorder.png",
-				SliceCenter = Rect.new(3, 3, 13, 13),
-			}
 		}
 	})
 	return {

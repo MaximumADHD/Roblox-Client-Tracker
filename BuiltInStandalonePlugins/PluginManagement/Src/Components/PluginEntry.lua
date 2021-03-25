@@ -1,5 +1,4 @@
 local FFlagEnableStudioServiceOpenBrowser = game:GetFastFlag("EnableStudioServiceOpenBrowser")
-local FFlagPluginManagementPrettifyDesign = game:GetFastFlag("PluginManagementPrettifyDesign2")
 
 local StudioService = game:getService("StudioService")
 local ContentProvider = game:getService("ContentProvider")
@@ -10,14 +9,6 @@ local TextService = game:GetService("TextService")
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
-
-local Flags = require(Plugin.Packages.Framework.Util.Flags)
-local FlagsList = Flags.new({
-	FFlagEnablePluginPermissionsPage = {
-		"EnablePluginPermissionsPage2",
-	},
-	FFlagPluginManagementFixRemovePlugins = { "PluginManagementFixRemovePlugins" },
-})
 
 local FlagsListFile = require(Plugin.Src.Util.FlagsList)
 local THEME_REFACTOR = require(Plugin.Packages.Framework).Util.RefactorFlags.THEME_REFACTOR
@@ -88,9 +79,7 @@ function PluginEntry:init()
 	end
 
 	self.uninstallPlugin = function()
-		if FlagsList:get("FFlagPluginManagementFixRemovePlugins") then
-			self.props.removePluginData(self.props.data.assetId)
-		end
+		self.props.removePluginData(self.props.data.assetId)
 		StudioService:UninstallPlugin(self.props.data.assetId)
 		wait()
 		self.props.onPluginUninstalled()
@@ -209,17 +198,15 @@ function PluginEntry:render()
 	local buttonPosition = UDim2.new(1,Constants.PLUGIN_HORIZONTAL_PADDING*-3 - Constants.PLUGIN_ENABLE_WIDTH
 		- Constants.PLUGIN_CONTEXT_WIDTH,.5,0)
 
-	local hasHttpPermissions = false
+	local hasHttpPermissions = (allowedHttpCount > 0) or (deniedHttpCount > 0)
 	local hasScriptInjectionPermissions = false
-	if FlagsList:get("FFlagEnablePluginPermissionsPage") then
-		hasHttpPermissions = (allowedHttpCount > 0) or (deniedHttpCount > 0)
-	end
+ 
 	if FlagsListFile:get("FFlagPluginManagementQ3ContentSecurity") then
 		hasScriptInjectionPermissions = (allowedScriptInjection ~= nil)
 	end
 	local hasPermissions = hasHttpPermissions or hasScriptInjectionPermissions
 	-- Q3_2020 new design: always show "no permissions" if we have no permissions
-	local showPermissions = FlagsListFile:get("FFlagPluginManagementQ3ContentSecurity") or (FlagsList:get("FFlagEnablePluginPermissionsPage") and hasPermissions)
+	local showPermissions = FlagsListFile:get("FFlagPluginManagementQ3ContentSecurity") or hasPermissions
 
 	return Roact.createElement("Frame", {
 		BackgroundColor3 = theme.BackgroundColor,
@@ -228,8 +215,8 @@ function PluginEntry:render()
 		Size = UDim2.new(1, Constants.SCROLLBAR_WIDTH_ADJUSTMENT, 0, Constants.PLUGIN_ENTRY_HEIGHT),
 	}, {
 		Padding = Roact.createElement("UIPadding", {
-			PaddingTop = UDim.new(0, FFlagPluginManagementPrettifyDesign and Constants.PLUGIN_ENTRY_PADDING or 12),
-			PaddingBottom = UDim.new(0, FFlagPluginManagementPrettifyDesign and Constants.PLUGIN_ENTRY_PADDING or 12),
+			PaddingTop = UDim.new(0, Constants.PLUGIN_ENTRY_PADDING),
+			PaddingBottom = UDim.new(0, Constants.PLUGIN_ENTRY_PADDING),
 		}),
 
 		Thumbnail = Roact.createElement("ImageLabel", {
@@ -258,8 +245,8 @@ function PluginEntry:render()
 				BackgroundTransparency = 1,
 				TextXAlignment = Enum.TextXAlignment.Left,
 				Text = name,
-				TextColor3 = FFlagPluginManagementPrettifyDesign and theme.EmphasisTextColor or theme.TextColor,
-				Font = FFlagPluginManagementPrettifyDesign and Enum.Font.SourceSans or Enum.Font.SourceSansSemibold,
+				TextColor3 = theme.EmphasisTextColor,
+				Font = Enum.Font.SourceSans,
 			}),
 
 			Creator = Roact.createElement("TextButton", {
@@ -269,7 +256,7 @@ function PluginEntry:render()
 				BackgroundTransparency = 1,
 				TextXAlignment = Enum.TextXAlignment.Left,
 				Text = creator,
-				Font = FFlagPluginManagementPrettifyDesign and Enum.Font.SourceSansLight or Enum.Font.SourceSans,
+				Font = Enum.Font.SourceSansLight,
 				TextColor3 = theme.LinkColor,
 				TextSize = 16,
 				BorderSizePixel = 1,
@@ -279,16 +266,14 @@ function PluginEntry:render()
 			Description = Roact.createElement("TextLabel", {
 				LayoutOrder = 2,
 				TextWrapped = true,
-				Size = FlagsList:get("FFlagEnablePluginPermissionsPage")
-					and UDim2.new(1, 0, 0, ONE_LINE_TEXT_HEIGHT * 2)
-					or UDim2.new(1, 0, 1, -42 - Constants.PLUGIN_VERTICAL_PADDING * 2),
+				Size = UDim2.new(1, 0, 0, ONE_LINE_TEXT_HEIGHT * 2),
 				BackgroundTransparency = 1,
 				TextXAlignment = Enum.TextXAlignment.Left,
 				TextYAlignment = Enum.TextYAlignment.Top,
 				Text = description,
-				TextColor3 = FFlagPluginManagementPrettifyDesign and theme.TextColor or theme.TextColor,
+				TextColor3 = theme.TextColor,
 				TextTruncate = Enum.TextTruncate.AtEnd,
-				Font = FFlagPluginManagementPrettifyDesign and Enum.Font.SourceSans or Enum.Font.SourceSansLight,
+				Font = Enum.Font.SourceSans,
 				TextSize = 16,
 			}),
 
@@ -335,7 +320,7 @@ function PluginEntry:render()
 				TextSize = 14,
 				Font = Enum.Font.SourceSans,
 				TextColor3 = theme.TextColor,
-				TextTransparency = FFlagPluginManagementPrettifyDesign and 0 or 0.6,
+				TextTransparency = 0,
 				Text = localization:getText("Entry", "LastUpdatedDate", {
 					date = data.updated,
 				}),
@@ -452,33 +437,21 @@ function PluginEntry:render()
 	})
 end
 
-if FlagsList:get("FFlagEnablePluginPermissionsPage") then
-	ContextServices.mapToProps(PluginEntry, {
-		Navigation = Navigation,
-		Localization = ContextServices.Localization,
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-		API = PluginAPI2,
-	})
-else
-	ContextServices.mapToProps(PluginEntry, {
-		Localization = ContextServices.Localization,
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-		API = PluginAPI2,
-	})
-end
+ContextServices.mapToProps(PluginEntry, {
+	Navigation = Navigation,
+	Localization = ContextServices.Localization,
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	API = PluginAPI2,
+})
 
-local mapStateToProps
-if FlagsList:get("FFlagEnablePluginPermissionsPage") then
-	mapStateToProps = function(state, props)
-		local pluginPermissions = state.PluginPermissions[props.data.assetId]
-		return {
-			allowedHttpCount = pluginPermissions and pluginPermissions.allowedHttpCount or 0,
-			deniedHttpCount = pluginPermissions and pluginPermissions.deniedHttpCount or 0,
-			allowedScriptInjection = pluginPermissions and pluginPermissions.allowedScriptInjection or nil,
-		}
-	end
+local mapStateToProps = function(state, props)
+	local pluginPermissions = state.PluginPermissions[props.data.assetId]
+	return {
+		allowedHttpCount = pluginPermissions and pluginPermissions.allowedHttpCount or 0,
+		deniedHttpCount = pluginPermissions and pluginPermissions.deniedHttpCount or 0,
+		allowedScriptInjection = pluginPermissions and pluginPermissions.allowedScriptInjection or nil,
+	}
 end
 
 local function mapDispatchToProps(dispatch)

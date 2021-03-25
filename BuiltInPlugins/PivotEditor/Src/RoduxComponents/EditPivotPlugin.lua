@@ -1,18 +1,13 @@
+local Selection = game:GetService("Selection")
+local ChangeHistoryService = game:GetService("ChangeHistoryService")
+
 local Plugin = script.Parent.Parent.Parent
 
 local Roact = require(Plugin.Packages.Roact)
-local RoactRodux = require(Plugin.Packages.RoactRodux)
 local StudioUI = require(Plugin.Packages.Framework.StudioUI)
 local ContextServices = require(Plugin.Packages.Framework.ContextServices)
 
-local EditPivotEvents = require(Plugin.Src.Utility.EditPivotEvents)
 local EditPivotSession = require(Plugin.Src.RoduxComponents.EditPivotSession)
-
-local canAcceptEvents = require(Plugin.Src.Utility.canAcceptEvents)
-
-local ButtonToEventMapping = {
-	ClearPivot = "onClearPivot",
-}
 
 local EditPivotPlugin = Roact.PureComponent:extend("EditPivotPlugin")
 
@@ -26,8 +21,6 @@ function EditPivotPlugin:init()
 			active = not self.state.active,
 		})
 	end
-
-	self._editPivotEvents = EditPivotEvents.new()
 end
 
 function EditPivotPlugin:didMount()
@@ -49,6 +42,39 @@ function EditPivotPlugin:willUpdate(nextProps, nextState)
 	end
 end
 
+function EditPivotPlugin:_onClearPivot()
+	local didResetAnyPivot = false
+	for _, object in ipairs(Selection:Get()) do
+		if object:IsA("BasePart") then
+			if object.PivotOffset ~= CFrame.new() then
+				object.PivotOffset = CFrame.new()
+				didResetAnyPivot = true
+			end
+		elseif object:IsA("Model") then
+			if object.PrimaryPart then
+				if object.PrimaryPart.PivotOffset ~= CFrame.new() then
+					object.PrimaryPart.PivotOffset = CFrame.new()
+					-- The pivot value is already up to date, but we still need to
+					-- prompt the properties pane to update, which we can do
+					-- by setting the WorldPivot.
+					object.WorldPivot = object:GetPivot()
+					didResetAnyPivot = true
+				end
+			else
+				-- Just re-center the pivot within the bounds
+				local cframe = object:GetBoundingBox()
+				if object.WorldPivot ~= cframe then
+					object.WorldPivot = cframe
+					didResetAnyPivot = true
+				end
+			end
+		end
+	end
+	if didResetAnyPivot then
+		ChangeHistoryService:SetWaypoint("Clear Pivot")
+	end
+end
+
 function EditPivotPlugin:render()
 	return Roact.createFragment({
 		Toolbar = Roact.createElement(StudioUI.PluginToolbar, {
@@ -57,38 +83,34 @@ function EditPivotPlugin:render()
 				local buttons = {}
 
 				-- Main toggle button
-				buttons.MainButton = Roact.createElement(StudioUI.PluginButton, {
+				buttons.EditPivot = Roact.createElement(StudioUI.PluginButton, {
 					Toolbar = toolbar,
-					Title = "EditPivot",
+					Title = "EditPivot", -- not user visible, no localization
 					Tooltip = "",
 					Icon = "", -- C++ code is source of truth for Tooltip & Icon
 					Active = self.state.active,
 					OnClick = self.toggleActive,
 				})
 
-				-- Other oneshot buttons
-				for buttonIdentifier, eventName in pairs(ButtonToEventMapping) do
-					buttons[buttonIdentifier] =
-						Roact.createElement(StudioUI.PluginButton, {
-							Toolbar = toolbar,
-							Title = buttonIdentifier,
-							Tooltip = "",
-							Icon = "", -- C++ code is source of truth for Tooltip & Icon
-							Active = false,
-							Enabled = self.state.active and self.props.buttonsEnabled,
-							OnClick = function()
-								self._editPivotEvents[eventName]:Fire()
-							end,
-						})
-				end
+				-- Oneshot clear button
+				buttons.ClearPivot = Roact.createElement(StudioUI.PluginButton, {
+					Toolbar = toolbar,
+					Title = "ClearPivot", -- not user visible, no localization
+					Tooltip = "",
+					Icon = "", -- C++ code is source of truth for Tooltip & Icon
+					Active = false,
+					Enabled = true,
+					OnClick = function()
+						self:_onClearPivot()
+					end,
+				})
+
 				return buttons
 			end,
 		}),
 
 		-- The session represents one activation of the plugin
-		Session = self.state.active and Roact.createElement(EditPivotSession, {
-			Events = self._editPivotEvents,
-		}),
+		Session = self.state.active and Roact.createElement(EditPivotSession),
 	})
 end
 
@@ -96,10 +118,4 @@ ContextServices.mapToProps(EditPivotPlugin, {
 	Plugin = ContextServices.Plugin,
 })
 
-local function mapStateToProps(state, _)
-	return {
-		buttonsEnabled = canAcceptEvents(state),
-	}
-end
-
-return RoactRodux.connect(mapStateToProps, nil)(EditPivotPlugin)
+return EditPivotPlugin

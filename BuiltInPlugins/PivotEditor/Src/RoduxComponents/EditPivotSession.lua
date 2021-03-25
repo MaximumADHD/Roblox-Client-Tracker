@@ -1,5 +1,3 @@
-local ChangeHistoryService = game:GetService("ChangeHistoryService")
-
 local Plugin = script.Parent.Parent.Parent
 
 local Roact = require(Plugin.Packages.Roact)
@@ -9,11 +7,12 @@ local DraggerFramework = Plugin.Packages.DraggerFramework
 local ContextServices = require(Plugin.Packages.Framework.ContextServices)
 
 local DraggerToolComponent = require(DraggerFramework.DraggerTools.DraggerToolComponent)
-local DraggerContext_PluginImpl = require(DraggerFramework.Implementation.DraggerContext_PluginImpl)
 local MoveHandles = require(DraggerFramework.Handles.MoveHandles)
 local RotateHandles = require(DraggerFramework.Handles.RotateHandles)
+local PivotHandle = require(Plugin.Src.DraggerSchemaPivot.PivotHandle)
 
 local DraggerSchema = require(Plugin.Src.DraggerSchemaPivot.DraggerSchema)
+local DraggerContext_Pivot = require(Plugin.Src.DraggerSchemaPivot.DraggerContext_Pivot)
 local SelectionUpdaterBound = require(Plugin.Src.RoduxComponents.SelectionUpdaterBound)
 local BeginSelectingPivot = require(Plugin.Src.Actions.BeginSelectingPivot)
 local DoneSelectingPivot = require(Plugin.Src.Actions.DoneSelectingPivot)
@@ -23,30 +22,17 @@ local EditingMode = require(Plugin.Src.Utility.EditingMode)
 
 local EditPivotSession = Roact.PureComponent:extend("EditPivotSession")
 
-function EditPivotSession:init()
-	assert(self.props.Events, "EditPivotSession missing Events prop")
-end
-
-function EditPivotSession:didMount()
-	self:_connectEvents()
-end
-
-function EditPivotSession:willUnmount()
-	self:_disconnectEvents()
-end
-
 function EditPivotSession:_getCurrentDraggerHandles()
 	if self.props.editingMode == EditingMode.Transform then
 		return {
 			MoveHandles.new(self._draggerContext, {
 				Outset = 0.5,
 				ShowBoundingBox = false,
-			}, DraggerSchema.TransformHandlesImplementation.new(
-				self._draggerContext, false)), --false -> needsExtraArrows=false
+			}, DraggerSchema.MoveHandlesImplementation.new(self._draggerContext)),
 			RotateHandles.new(self._draggerContext, {
 				ShowBoundingBox = false,
-			}, DraggerSchema.TransformHandlesImplementation.new(
-				self._draggerContext, true)), --true -> needsExtraArrows=true
+			}, DraggerSchema.RotateHandlesImplementation.new(self._draggerContext)),
+			PivotHandle.new(self._draggerContext),
 		}
 	else
 		-- Only use the DraggerFramework for selecting objects in
@@ -62,7 +48,7 @@ function EditPivotSession:render()
 	local pluginInstance = self.props.Plugin.plugin
 	if not self._draggerContext then
 		self._mouse = pluginInstance:GetMouse()
-		self._draggerContext = DraggerContext_PluginImpl.new(
+		self._draggerContext = DraggerContext_Pivot.new(
 			pluginInstance, game, settings(), DraggerSchema.Selection.new())
 	end
 
@@ -83,49 +69,7 @@ function EditPivotSession:render()
 
 	elements.SelectionUpdaterBound = Roact.createElement(SelectionUpdaterBound)
 
-	elements.DebugPortal = Roact.createElement(Roact.Portal, {
-		target = game.Lighting,
-	}, {
-		DEBUG_EditPivotMode = Roact.createElement("StringValue", {
-			Value = tostring(self.props.editingMode).." - "..tostring(self.props.targetObject),
-		}),
-	})
-
 	return Roact.createFragment(elements)
-end
-
-function EditPivotSession:_connectEvents()
-	local connectionsToBreak = {}
-	table.insert(connectionsToBreak, self.props.Events.onClearPivot:Connect(function()
-		self:_onClearPivot()
-	end))
-	self._connectionsToBreak = connectionsToBreak
-end
-
-function EditPivotSession:_disconnectEvents()
-	for _, connection in pairs(self._connectionsToBreak) do
-		connection:Disconnect()
-	end
-end
-
-function EditPivotSession:_onClearPivot()
-	local object = self.props.targetObject
-	if object then
-		if object:IsA("BasePart") then
-			object.PivotOffset = CFrame.new()
-		elseif object.PrimaryPart then
-			object.PrimaryPart.PivotOffset = CFrame.new()
-			-- The pivot value is already up to date, but we still need to
-			-- prompt the properties pane to update to update, which we can do
-			-- by setting the WorldPivot.
-			object.WorldPivot = object:GetPivot()
-		else
-			-- Just re-center the pivot within the bounds
-			object.WorldPivot = object:GetBoundingBox()
-		end
-		ChangeHistoryService:SetWaypoint("Cleared Pivot")
-		self:setState({})
-	end
 end
 
 ContextServices.mapToProps(EditPivotSession, {

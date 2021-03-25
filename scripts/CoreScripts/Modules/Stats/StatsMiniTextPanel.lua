@@ -49,7 +49,7 @@ function StatsMiniTextPanelClass.new(statType)
   self._frame.Name = "StatsMiniTextPanelClass"
   
   self._frame.BackgroundTransparency = 1.0
-  self._frame.ZIndex = StatsUtils.TextPanelZIndex
+  self._frame.ZIndex = StatsUtils.TextZIndex
   
   self._titleLabel = Instance.new("TextLabel")
   self._titleLabel.Name = "TitleLabel"

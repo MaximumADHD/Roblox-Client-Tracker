@@ -4,6 +4,8 @@ local DraggerFramework = script.Parent.Parent
 
 local SelectionHelper = require(DraggerFramework.Utility.SelectionHelper)
 
+local getEngineFeatureModelPivotVisual = require(DraggerFramework.Flags.getEngineFeatureModelPivotVisual)
+
 -- Minimum distance (pixels) required for a drag to select parts.
 local DRAG_SELECTION_THRESHOLD = 3
 
@@ -22,6 +24,8 @@ function DragSelector.new(selectionWrapper, beginBoxSelect, endBoxSelect)
 		_selectionWrapper = selectionWrapper,
 		_beginBoxSelect = beginBoxSelect,
 		_endBoxSelect = endBoxSelect,
+		_insertionOrder = {},
+		_insertionOrderNext = 1,
 	}
 
 	return setmetatable(self, DragSelector)
@@ -106,6 +110,7 @@ function DragSelector:updateDrag(draggerContext)
 
 	local newSelection = {}
 	local didChangeSelection = false
+	local insertionOrder = self._insertionOrder
 	for _, candidate in ipairs(self._dragCandidates) do
 		local inside = true
 		for _, plane in ipairs(planes) do
@@ -118,6 +123,10 @@ function DragSelector:updateDrag(draggerContext)
 		if inside ~= candidate.Selected then
 			candidate.Selected = inside
 			didChangeSelection = true
+			if getEngineFeatureModelPivotVisual() and inside then
+				insertionOrder[candidate.Selectable] = self._insertionOrderNext
+				self._insertionOrderNext += 1
+			end
 		end
 		if inside then
 			table.insert(newSelection, candidate.Selectable)
@@ -125,6 +134,12 @@ function DragSelector:updateDrag(draggerContext)
 	end
 
 	if didChangeSelection then
+		if getEngineFeatureModelPivotVisual() then
+			table.sort(newSelection, function(a, b)
+				return (insertionOrder[a] or 0) < (insertionOrder[b] or 0)
+			end)
+		end
+
 		newSelection = SelectionHelper.updateSelectionWithMultipleSelectables(
 			newSelection, self._selectionBeforeDrag,
 			shouldXorSelection)

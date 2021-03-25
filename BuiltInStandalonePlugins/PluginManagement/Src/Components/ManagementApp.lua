@@ -26,12 +26,6 @@ local DOCKWIDGET_MIN_HEIGHT = 180
 local DOCKWIDGET_INITIAL_WIDTH = 600
 local DOCKWIDGET_INITIAL_HEIGHT = 560
 
-local Flags = require(Plugin.Packages.Framework.Util.Flags)
-local FlagsList = Flags.new({
-	FFlagEnablePluginPermissionsPage = {
-		"EnablePluginPermissionsPage2",
-	},
-})
 local FFlagPluginManagementFixWhiteScreen = game:DefineFastFlag("PluginManagementFixWhiteScreen", false)
 
 local makeTheme
@@ -154,8 +148,7 @@ function ManagementApp:render()
 				ContextServices.Store.new(store),
 				ContextServices.Mouse.new(plugin:GetMouse()),
 			}, {
-				MainView = FlagsList:get("FFlagEnablePluginPermissionsPage") and Roact.createElement(NavigationContainer)
-					or Roact.createElement(ManagementMainView, { plugin = plugin }),
+				MainView = Roact.createElement(NavigationContainer)
 			}),
 		}),
 	})

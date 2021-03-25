@@ -4,18 +4,6 @@ return function()
 	local MockManagement = require(Plugin.Src.Components.MockManagement)
 	local PermissionInfo = require(Plugin.Src.Models.PermissionInfo)
 	local Constants = require(Plugin.Src.Util.Constants)
-
-	local Flags = require(Plugin.Packages.Framework.Util.Flags)
-	local FlagsList = Flags.new({
-		FFlagEnablePluginPermissionsPage = {
-			"EnablePluginPermissionsPage2",
-		},
-	})
-
-	if not FlagsList:get("FFlagEnablePluginPermissionsPage") then
-		return
-	end
-
 	local PluginDetailsView = require(script.Parent.PluginDetailsView)
 
 	local ASSET_ID = 165687726

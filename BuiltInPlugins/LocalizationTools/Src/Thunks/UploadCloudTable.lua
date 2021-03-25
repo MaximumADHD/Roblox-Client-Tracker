@@ -139,7 +139,7 @@ local function patchCloudTable(api, tableId, gameId, patchInfo, localization)
 						["38"] = localization:getText("UploadDialogContent", "InvalidIdentifier"),
 						["43"] = localization:getText("UploadDialogContent", "InvalidTranslation"),
 					}
-					warn(localization:getText("UploadDialogContent", "InvalidEntryIdentify"))
+					warn(localization:getText("UploadDialogContent", "UploadCompleteWithInvalidEntries"))
 					for key, value in pairs(invalidEntries) do
 						print(errorMessageMap[key])
 						print(value)

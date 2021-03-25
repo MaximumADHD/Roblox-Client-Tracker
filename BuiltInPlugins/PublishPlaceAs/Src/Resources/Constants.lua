@@ -35,6 +35,9 @@ FOOTER_HEIGHT = 65,
 
 TEXT_SIZE = 22,
 
+RADIO_BUTTON_SIZE = 20,
+RADIO_BUTTON_PADDING = 10,
+
 }
 
 return Constants

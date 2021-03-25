@@ -131,7 +131,11 @@ function BoundsChangedTracker:_setBasisObject(object)
 			if object:IsA("BasePart") then
 				self._basisPivotChangedSignal = object:GetPropertyChangedSignal("PivotOffset")
 			elseif object:IsA("Model") then
-				self._basisPivotChangedSignal = object:GetPropertyChangedSignal("WorldPivot")
+				if object.PrimaryPart then
+					self._basisPivotChangedSignal = object.PrimaryPart:GetPropertyChangedSignal("PivotOffset")
+				else
+					self._basisPivotChangedSignal = object:GetPropertyChangedSignal("WorldPivot")
+				end
 			else
 				self._basisPivotChangedSignal = nil
 			end

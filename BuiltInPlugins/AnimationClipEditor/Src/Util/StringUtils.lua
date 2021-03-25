@@ -1,8 +1,9 @@
 local TextService = game:GetService("TextService")
 local Plugin = script.Parent.Parent.Parent
 
-local MathUtils = require(Plugin.Src.Util.MathUtils)
+local Framework = require(Plugin.Packages.Framework)
 
+local MathUtils = Framework.Util.Math
 local StringUtils = {}
 
 local NO_WRAP = Vector2.new(1000000, 50)
@@ -58,7 +59,7 @@ function StringUtils.formatTimeInSeconds(frame, frameRate)
 	if frameRate == 0 then
 		return tostring("0s")
 	end
-	local seconds = MathUtils:round(frame / frameRate, 2)
+	local seconds = MathUtils.round(frame / frameRate, 2)
 	return tostring(seconds .."s")
 end
 

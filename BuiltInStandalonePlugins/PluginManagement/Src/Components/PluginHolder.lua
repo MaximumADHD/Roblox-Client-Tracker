@@ -1,5 +1,4 @@
 local FFlagPluginManagementScrollbarDesign = game:DefineFastFlag("PluginManagementScrollbarDesign", false)
-local FFlagPluginManagementPrettifyDesign = game:GetFastFlag("PluginManagementPrettifyDesign2")
 local FFlagPluginManagementFixHorizontalScrollbar = game:DefineFastFlag("PluginManagementFixHorizontalScrollbar", false)
 
 local StudioService = game:GetService("StudioService")
@@ -37,11 +36,11 @@ end
 function PluginHolder:createLabel(theme, displayText)
 	return Roact.createElement("TextLabel", {
 		Font = Enum.Font.SourceSans,
-		TextColor3 = FFlagPluginManagementPrettifyDesign and theme.SubTitleTextColor or theme.TextColor,
-		TextTransparency = FFlagPluginManagementPrettifyDesign and 0 or 0.7,
-		Size = UDim2.new(1, 0, 0, FFlagPluginManagementPrettifyDesign and
+		TextColor3 = theme.SubTitleTextColor,
+		TextTransparency = 0,
+		Size = UDim2.new(1, 0, 0,
 			Constants.SUBTITLE_PADDING + 16	+ (Constants.SUBTITLE_PADDING - Constants.PLUGIN_ENTRY_PADDING)
-			or 60),
+		),
 		TextSize = 20,
 		TextXAlignment = Enum.TextXAlignment.Left,
 		Text = displayText,
@@ -51,9 +50,9 @@ function PluginHolder:createLabel(theme, displayText)
 		Padding = Roact.createElement("UIPadding", {
 			PaddingLeft = UDim.new(
 				0,
-				FFlagPluginManagementPrettifyDesign and Constants.HEADER_LEFT_PADDING or Constants.PLUGIN_HORIZONTAL_PADDING
+				Constants.HEADER_LEFT_PADDING
 			),
-			PaddingTop = FFlagPluginManagementPrettifyDesign and UDim.new(0, Constants.SUBTITLE_PADDING) or nil,
+			PaddingTop = UDim.new(0, Constants.SUBTITLE_PADDING),
 		})
 	})
 end
@@ -124,29 +123,20 @@ function PluginHolder:render()
 			plugin = plugin,
 			onPluginUninstalled = onPluginUninstalled,
 		})
-		if FFlagPluginManagementPrettifyDesign then
-			pluginEntries[data.assetId .. "_Border"] = Roact.createElement("Frame", {
-				LayoutOrder = self.order:getNextOrder(),
-				Size = UDim2.new(1, 0, 0, 1),
-				BackgroundTransparency = 1,
-			}, {
-				Border = Roact.createElement("Frame", {
-					AnchorPoint = Vector2.new(1, 0.5),
-					BackgroundColor3 = theme.BorderColor,
-					BorderSizePixel = 0,
-					Position = UDim2.new(1, Constants.HEADER_RIGHT_PADDING, 0, 0),
-					Size = UDim2.new(1, leftContentMargin, 0, 1),
-				}),
-			})
-		else
-			pluginEntries[data.assetId .. "_Border"] = Roact.createElement("Frame", {
-				LayoutOrder = self.order:getNextOrder(),
-				Size = UDim2.new(0.8, 0, 0, 1),
-				BorderSizePixel = 0,
+
+		pluginEntries[data.assetId .. "_Border"] = Roact.createElement("Frame", {
+			LayoutOrder = self.order:getNextOrder(),
+			Size = UDim2.new(1, 0, 0, 1),
+			BackgroundTransparency = 1,
+		}, {
+			Border = Roact.createElement("Frame", {
+				AnchorPoint = Vector2.new(1, 0.5),
 				BackgroundColor3 = theme.BorderColor,
-				AnchorPoint = Vector2.new(0.5, 0.5),
-			})
-		end
+				BorderSizePixel = 0,
+				Position = UDim2.new(1, Constants.HEADER_RIGHT_PADDING, 0, 0),
+				Size = UDim2.new(1, leftContentMargin, 0, 1),
+			}),
+		})
 	end
 
 	if showHeaders then
@@ -161,29 +151,20 @@ function PluginHolder:render()
 			plugin = plugin,
 			onPluginUninstalled = onPluginUninstalled,
 		})
-		if FFlagPluginManagementPrettifyDesign then
-			pluginEntries[data.assetId .. "_Border"] = Roact.createElement("Frame", {
-				LayoutOrder = self.order:getNextOrder(),
-				Size = UDim2.new(1, 0, 0, 1),
-				BackgroundTransparency = 1,
-			}, {
-				Border = Roact.createElement("Frame", {
-					AnchorPoint = Vector2.new(1, 0.5),
-					BackgroundColor3 = theme.BorderColor,
-					BorderSizePixel = 0,
-					Position = UDim2.new(1, Constants.HEADER_RIGHT_PADDING, 0, 0),
-					Size = UDim2.new(1, leftContentMargin, 0, 1),
-				}),
-			})
-		else
-			pluginEntries[data.assetId .. "_Border"] = Roact.createElement("Frame", {
-				LayoutOrder = self.order:getNextOrder(),
-				Size = UDim2.new(0.8, 0, 0, 1),
-				BorderSizePixel = 0,
+
+		pluginEntries[data.assetId .. "_Border"] = Roact.createElement("Frame", {
+			LayoutOrder = self.order:getNextOrder(),
+			Size = UDim2.new(1, 0, 0, 1),
+			BackgroundTransparency = 1,
+		}, {
+			Border = Roact.createElement("Frame", {
+				AnchorPoint = Vector2.new(1, 0.5),
 				BackgroundColor3 = theme.BorderColor,
-				AnchorPoint = Vector2.new(0.5, 0.5),
-			})
-		end
+				BorderSizePixel = 0,
+				Position = UDim2.new(1, Constants.HEADER_RIGHT_PADDING, 0, 0),
+				Size = UDim2.new(1, leftContentMargin, 0, 1),
+			}),
+		})
 	end
 
 	return Roact.createElement("ScrollingFrame", {

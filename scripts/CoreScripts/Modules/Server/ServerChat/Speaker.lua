@@ -4,6 +4,7 @@
 
 local module = {}
 
+local RunService = game:GetService("RunService")
 local Chat = game:GetService("Chat")
 local ReplicatedModules = Chat:WaitForChild("ClientChatModules")
 local ChatSettings = require(ReplicatedModules:WaitForChild("ChatSettings"))
@@ -162,7 +163,7 @@ function methods:SendMessage(message, channelName, fromSpeaker, extraData)
 	if (channel) then
 		channel:SendMessageToSpeaker(message, self.Name, fromSpeaker, extraData)
 
-	else
+	elseif RunService:IsStudio() then
 		warn(string.format("Speaker '%s' is not in channel '%s' and cannot receive a message in it.", self.Name, channelName))
 
 	end
@@ -173,7 +174,7 @@ function methods:SendSystemMessage(message, channelName, extraData)
 	if (channel) then
 		channel:SendSystemMessageToSpeaker(message, self.Name, extraData)
 
-	else
+	elseif RunService:IsStudio() then
 		warn(string.format("Speaker '%s' is not in channel '%s' and cannot receive a system message in it.", self.Name, channelName))
 
 	end

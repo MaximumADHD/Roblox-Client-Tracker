@@ -1,5 +1,3 @@
-local FFlagPluginManagementPrettifyDesign = game:GetFastFlag("PluginManagementPrettifyDesign2")
-
 local Plugin = script.Parent.Parent.Parent
 local ContextServices = require(Plugin.Packages.Framework.ContextServices)
 local StudioUI = require(Plugin.Packages.Framework.StudioUI)
@@ -31,7 +29,7 @@ local function createValues(theme, getColor)
 	})
 
 	local toggle = {
-		On = FFlagPluginManagementPrettifyDesign and "rbxasset://textures/RoactStudioWidgets/toggle_on_light.png" or ToggleOn:get(themeName),
+		On = "rbxasset://textures/RoactStudioWidgets/toggle_on_light.png",
 		Off = ToggleOff:get(themeName),
 	}
 

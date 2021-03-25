@@ -18,6 +18,8 @@ local Constants = require(Plugin.Src.Resources.Constants)
 local Rodux = require(Plugin.Packages.Rodux)
 local Cryo = require(Plugin.Packages.Cryo)
 
+local FFlagStudioAllowRemoteSaveBeforePublish = game:GetFastFlag("StudioAllowRemoteSaveBeforePublish")
+
 local function isEqualCheck(left, right)
 	left = left or {}
 	right = right or {}
@@ -48,6 +50,11 @@ local initial = {
 	},
 	errors = {},
 }
+
+if FFlagStudioAllowRemoteSaveBeforePublish then
+	initial.changed.isActive = false
+	initial.changed.isFriendsOnly = false
+end
 
 return Rodux.createReducer(initial, {
 	AddChange = function(state, action)

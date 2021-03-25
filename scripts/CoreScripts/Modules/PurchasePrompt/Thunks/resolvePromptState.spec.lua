@@ -134,10 +134,7 @@ local PurchasePromptDeps = require(CorePackages.PurchasePromptDeps)
 		})
 
 		local state = store:getState()
-
-		if not settings():GetFFlag("ChinaLicensingApp") then
-			expect(state.promptState).to.equal(PromptState.PromptPurchase)
-		end
+		expect(state.promptState).to.equal(PromptState.PromptPurchase)
 	end)
 
 	it("should resolve state to RobuxUpsell if account is short on Robux", function()

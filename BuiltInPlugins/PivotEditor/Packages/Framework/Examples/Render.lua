@@ -12,9 +12,9 @@ local exampleComponents = nil
 
 local function addUIFolderExamples(folderData)
 	for _, folder in pairs(folderData) do
-		local renderExample = folder.renderExample
-		if renderExample then
-			exampleComponents[folder.name] = require(renderExample)
+		local story = folder.story
+		if story then
+			exampleComponents[folder.name] = require(story)
 		end
 	end
 end

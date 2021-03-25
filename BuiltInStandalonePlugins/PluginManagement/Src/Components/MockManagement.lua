@@ -21,12 +21,6 @@ local Navigation = require(Plugin.Src.ContextServices.Navigation)
 
 local THEME_REFACTOR = require(Plugin.Packages.Framework).Util.RefactorFlags.THEME_REFACTOR
 
-local Flags = require(Plugin.Packages.Framework.Util.Flags)
-local FlagsList = Flags.new({
-	FFlagEnablePluginPermissionsPage = {
-		"EnablePluginPermissionsPage2",
-	},
-})
 
 local makeTheme
 if THEME_REFACTOR then
@@ -80,9 +74,7 @@ function MockManagement:render()
 		ContextServices.Store.new(self.store),
 	}
 
-	if FlagsList:get("FFlagEnablePluginPermissionsPage") then
-		table.insert(services, Navigation.new())
-	end
+	table.insert(services, Navigation.new())
 
 	return ContextServices.provide(services, self.props[Roact.Children])
 end

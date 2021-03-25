@@ -5,6 +5,7 @@ end
 -- Fast flags
 require(script.Parent.Parent.TestRunner.defineLuaFlags)
 local FFlagStudioLuaPublishFlowLocalizeUntitledGameText = game:DefineFastFlag("StudioLuaPublishFlowLocalizeUntitledGameText", false)
+local FFlagStudioAllowRemoteSaveBeforePublish = game:GetFastFlag("StudioAllowRemoteSaveBeforePublish")
 
 -- libraries
 local Plugin = script.Parent.Parent
@@ -52,11 +53,16 @@ local function closePlugin()
 	pluginGui.Enabled = false
 end
 
+local initialWindowHeight = 650
+if FFlagStudioAllowRemoteSaveBeforePublish then
+	initialWindowHeight = 720
+end
+
 local function makePluginGui()
 	pluginGui = plugin:CreateQWidgetPluginGui(plugin.Name, {
-		Size = Vector2.new(960, 650),
+		Size = Vector2.new(960, initialWindowHeight),
 		MinSize = Vector2.new(890, 550),
-		MaxSize = Vector2.new(960, 650),
+		MaxSize = Vector2.new(960, 750),
 		Resizable = true,
 		Modal = true,
 		InitialEnabled = false,
@@ -71,7 +77,7 @@ local function makePluginGui()
 end
 
 --Initializes and populates the plugin popup window
-local function openPluginWindow(isOverwritePublish)
+local function openPluginWindow(showGameSelect, isPublish)
 	local servicesProvider = Roact.createElement(ServiceWrapper, {
 		plugin = plugin,
 		localization = localization,
@@ -81,13 +87,14 @@ local function openPluginWindow(isOverwritePublish)
 	}, {
 		Roact.createElement(ScreenSelect, {
 			OnClose = closePlugin,
+			IsPublish = isPublish,
 		})
 	})
 
     if FFlagStudioLuaPublishFlowLocalizeUntitledGameText then
-        dataStore:dispatch(ResetInfo(localization:getText("General", "UntitledGame"), isOverwritePublish))
+        dataStore:dispatch(ResetInfo(localization:getText("General", "UntitledGame"), showGameSelect))
     else
-        dataStore:dispatch(ResetInfo("", isOverwritePublish))
+        dataStore:dispatch(ResetInfo("", showGameSelect))
     end
 
 	pluginHandle = Roact.mount(servicesProvider, pluginGui)
@@ -98,9 +105,15 @@ local function main()
 	plugin.Name = localization:getText("General", "PublishPlace")
 	makePluginGui()
 
-    StudioService.OnPublishPlaceToRoblox:Connect(function(isOverwritePublish)
-        openPluginWindow(isOverwritePublish)	
-    end)
+	if FFlagStudioAllowRemoteSaveBeforePublish then
+		StudioService.OnSaveOrPublishPlaceToRoblox:Connect(function(showGameSelect, isPublish)
+			openPluginWindow(showGameSelect, isPublish)
+		end)
+	else
+		StudioService.OnPublishPlaceToRoblox:Connect(function(isOverwritePublish)
+			openPluginWindow(isOverwritePublish)	
+		end)
+	end
 
 	StudioService.GamePublishFinished:connect(function(success)
 		dataStore:dispatch(SetIsPublishing(false))

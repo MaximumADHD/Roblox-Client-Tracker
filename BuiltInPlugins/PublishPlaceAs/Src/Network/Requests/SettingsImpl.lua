@@ -9,6 +9,7 @@
 ]]
 
 local FFlagStudioAssetManagerUpdateGameName = game:GetFastFlag("StudioAssetManagerUpdateGameName")
+local FFlagStudioAllowRemoteSaveBeforePublish = game:GetFastFlag("StudioAllowRemoteSaveBeforePublish")
 
 local StudioService = game:GetService("StudioService")
 
@@ -17,6 +18,7 @@ local Promise = require(Plugin.Packages.Promise)
 
 local Configuration = require(Plugin.Src.Network.Requests.Configuration)
 local RootPlaceInfo = require(Plugin.Src.Network.Requests.RootPlaceInfo)
+local UniverseActivate = require(Plugin.Src.Network.Requests.UniverseActivate)
 
 --[[
 	Used to save the chosen state of all game settings by saving to web
@@ -25,6 +27,7 @@ local RootPlaceInfo = require(Plugin.Src.Network.Requests.RootPlaceInfo)
 local function saveAll(state, localization)
 	local configuration = {}
 	local rootPlaceInfo = {}
+	local universeActivate = {}
 
 	for setting, value in pairs(state) do
 		-- Add name, genre, and playable devices
@@ -33,6 +36,9 @@ local function saveAll(state, localization)
 		-- Add the game description
 		elseif RootPlaceInfo.AcceptsValue(setting) then
 			rootPlaceInfo[setting] = value
+		-- Set if the game is public or private
+		elseif UniverseActivate.AcceptsValue(setting) then
+			universeActivate[setting] = value
 		end
 	end
 
@@ -46,6 +52,9 @@ local function saveAll(state, localization)
 				Configuration.Set(gameId, configuration),
 				RootPlaceInfo.Set(gameId, rootPlaceInfo),
 			}
+			if FFlagStudioAllowRemoteSaveBeforePublish then
+				table.insert(setRequests, UniverseActivate.Set(gameId, universeActivate))
+			end
 			Promise.all(setRequests):andThen(function()
 				StudioService:SetUniverseDisplayName(configuration.name)
 				if FFlagStudioAssetManagerUpdateGameName then

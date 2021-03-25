@@ -4,11 +4,9 @@ local DraggerSchemaCore = script.Parent
 local Packages = DraggerSchemaCore.Parent
 local DraggerFramework = Packages.DraggerFramework
 
-local PivotImplementation = require(DraggerFramework.Utility.PivotImplementation)
 local shouldDragAsFace = require(DraggerFramework.Utility.shouldDragAsFace)
 
-local getFFlagDragFaceInstances = require(DraggerFramework.Flags.getFFlagDragFaceInstances)
-local EngineFeatureEditPivot = require(DraggerFramework.Flags.getEngineFeatureEditPivot)()
+local getEngineFeatureModelPivotApi = require(DraggerFramework.Flags.getEngineFeatureModelPivotApi)
 
 local function computeBoundingBox(basisCFrame, allParts, allAttachments)
 	local inverseBasis = basisCFrame:Inverse()
@@ -170,17 +168,6 @@ local function computeTwoBoundingBoxes(basisCFrame1, allParts, allAttachments)
 		globalBoundingBoxOffset, globalBoundingBoxSize
 end
 
--- Where (offset, size) specifies a bounding box relative to the origin, return
--- modified (offset, size) such that the bounding box is expanded to include the
--- origin if it was not already included.
-local ZERO = Vector3.new()
-local function updateBoundingBoxToIncludeOrigin(offset, size)
-	local halfSize = 0.5 * size
-	local max = (offset + halfSize):Max(ZERO)
-	local min = (offset - halfSize):Min(ZERO)
-	return 0.5 * (max + min), max - min
-end
-
 --[[
 	Find all of the "roots" bones in a list of Bones. One of the bones in the
 	list is a root iff it is not a descendant of any of the other root bones.
@@ -215,24 +202,37 @@ local function computeInfo(draggerContext, selectedObjects)
 	local allPartSet = {}
 	local allAttachments = {}
 	local allBones = {}
+	local allModels = {}
 	local allInstancesWithConfigurableFace = {}
 	local basisCFrame = nil
+	local basisObject = nil
 	local terrain = Workspace.Terrain
+
+	local EngineFeatureModelPivotApi = getEngineFeatureModelPivotApi()
 
 	for _, instance in ipairs(selectedObjects) do
 		if instance:IsA("Model") then
-			local boundingBoxCFrame, boundingBoxSize =
-				instance:GetBoundingBox()
-			if boundingBoxSize ~= Vector3.new() then
-				basisCFrame = boundingBoxCFrame
+			if EngineFeatureModelPivotApi then
+				table.insert(allModels, instance)
+				basisObject = instance
+			else
+				local boundingBoxCFrame, boundingBoxSize =
+					instance:GetBoundingBox()
+				if boundingBoxSize ~= Vector3.new() then
+					basisCFrame = boundingBoxCFrame
+				end
 			end
 		elseif instance:IsA("BasePart") then
 			if not allPartSet[instance] and instance ~= terrain then
 				table.insert(allParts, instance)
 				allPartSet[instance] = true
-				basisCFrame = instance.CFrame
+				if EngineFeatureModelPivotApi then
+					basisObject = instance
+				else
+					basisCFrame = instance.CFrame
+				end
 			end
-		elseif getFFlagDragFaceInstances() and shouldDragAsFace(instance) then
+		elseif shouldDragAsFace(instance) then
 			table.insert(allInstancesWithConfigurableFace, instance)
 		elseif instance:IsA("Attachment") then
 			if instance:IsA("Bone") then
@@ -246,8 +246,30 @@ local function computeInfo(draggerContext, selectedObjects)
 			if descendant:IsA("BasePart") and not allPartSet[descendant] and descendant ~= terrain then
 				table.insert(allParts, descendant)
 				allPartSet[descendant] = true
-				basisCFrame = basisCFrame or descendant.CFrame
+				-- Note: This is a helpful feature to still allow people to drag
+				-- non-Model objects that still typically have parts inside of
+				-- them like Folders and Tools.
+				if not EngineFeatureModelPivotApi then
+					basisObject = basisObject or descendant
+				else
+					basisCFrame = basisCFrame or descendant.CFrame
+				end
+			elseif EngineFeatureModelPivotApi and descendant:IsA("Model") then
+				table.insert(allModels, descendant)
 			end
+		end
+	end
+
+	-- Look for a pivot
+	if EngineFeatureModelPivotApi and basisObject then
+		local specialIgnore =
+			draggerContext.ScaleToolSpecialCaseIgnorePivotWithSinglePartSelected and
+			#selectedObjects == 1 and
+			selectedObjects[1]:IsA("BasePart")
+		if specialIgnore then
+			basisCFrame = basisObject.CFrame
+		else
+			basisCFrame = basisObject:GetPivot()
 		end
 	end
 
@@ -256,24 +278,19 @@ local function computeInfo(draggerContext, selectedObjects)
 	-- be used as a basis if there aren't any parts to go off of.
 	if not basisCFrame then
 		if #allAttachments > 0 then
-			basisCFrame = allAttachments[1].WorldCFrame
+			if EngineFeatureModelPivotApi then
+				basisCFrame = allAttachments[#allAttachments].WorldCFrame
+			else
+				basisCFrame = allAttachments[1].WorldCFrame
+			end
 		elseif #allBones > 0 then
-			basisCFrame = allBones[1].WorldCFrame
+			if EngineFeatureModelPivotApi then
+				basisCFrame = allBones[#allBones].WorldCFrame
+			else
+				basisCFrame = allBones[1].WorldCFrame
+			end
 		else
 			basisCFrame = CFrame.new()
-		end
-	end
-
-	-- Look for a pivot
-	if EngineFeatureEditPivot and #selectedObjects == 1 then
-		local specialIgnore =
-			draggerContext.ScaleToolSpecialCaseIgnorePivotWithSinglePartSelected and
-			selectedObjects[1]:IsA("BasePart")
-		if not specialIgnore then
-			local pivot = PivotImplementation.getPivot(selectedObjects[1])
-			if pivot then
-				basisCFrame = pivot
-			end
 		end
 	end
 
@@ -365,18 +382,14 @@ local function computeInfo(draggerContext, selectedObjects)
 		chosenBasisCFrame = CFrame.new(basisCFrame.Position)
 	end
 
-	-- Ensure that the bounding box includes the basis point.
-	if EngineFeatureEditPivot then
-		localBoundingBoxOffset, localBoundingBoxSize =
-			updateBoundingBoxToIncludeOrigin(localBoundingBoxOffset, localBoundingBoxSize)
-		chosenBoundingBoxOffset, chosenBoundingBoxSize =
-			updateBoundingBoxToIncludeOrigin(chosenBoundingBoxOffset, chosenBoundingBoxSize)
-	end
-
 	return {
 		-- basisCFrame is the CFrame which the selection will be transformed
 		-- relative to when transforming it.
 		basisCFrame = chosenBasisCFrame,
+
+		-- If a PVInstance is selected, the PVInstance that the pivot was
+		-- read from.
+		basisObject = basisObject,
 
 		-- boundingBoxSize is the size of the bounding box, as oriented around
 		-- the basisCFrame.
@@ -400,6 +413,7 @@ local function computeInfo(draggerContext, selectedObjects)
 		parts = allParts,
 		partSet = allPartSet,
 		attachments = interestingAttachments,
+		models = allModels,
 
 		-- All the attachments, including ones under parts in the list of parts
 		-- to move. We still need these for some edge case behavior.
@@ -459,7 +473,12 @@ end
 
 -- Core schema specific
 function SelectionInfo:getObjectsToTransform()
-	return self.parts, self.attachments
+	return self.parts, self.attachments, self.models
+end
+
+-- Core schema specific
+function SelectionInfo:getBasisObject()
+	return self.basisObject
 end
 
 --[[

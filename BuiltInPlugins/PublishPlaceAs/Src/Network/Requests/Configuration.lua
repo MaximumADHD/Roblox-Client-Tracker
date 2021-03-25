@@ -10,6 +10,8 @@ local Plugin = script.Parent.Parent.Parent.Parent
 local Cryo = require(Plugin.Packages.Cryo)
 local Http = require(Plugin.Src.Network.Http)
 
+local FFlagStudioAllowRemoteSaveBeforePublish = game:GetFastFlag("StudioAllowRemoteSaveBeforePublish")
+
 local REQUEST_URL = "v2/universes/%d/configuration"
 local REQUEST_TYPE = "develop"
 
@@ -18,6 +20,10 @@ local ACCEPTED_KEYS = {
 	genre = true,
 	playableDevices = true,
 }
+
+if FFlagStudioAllowRemoteSaveBeforePublish then
+	ACCEPTED_KEYS.isFriendsOnly = true
+end
 
 local Configuration = {}
 

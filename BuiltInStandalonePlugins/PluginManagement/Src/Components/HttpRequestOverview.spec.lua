@@ -4,13 +4,7 @@ return function()
 	local MockManagement = require(Plugin.Src.Components.MockManagement)
 	local PermissionInfo = require(Plugin.Src.Models.PermissionInfo)
 	local Constants = require(Plugin.Src.Util.Constants)
-	local Flags = require(Plugin.Packages.Framework.Util.Flags)
 	local FlagsList = require(Plugin.Src.Util.FlagsList)
-
-	if not FlagsList:get("FFlagEnablePluginPermissionsPage") then
-		return
-	end
-
 	local HttpRequestOverview = require(script.Parent.HttpRequestOverview)
 
 	local ASSET_ID = 165687726

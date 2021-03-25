@@ -7,18 +7,12 @@ local SetPluginEnabledState = require(Plugin.Src.Actions.SetPluginEnabledState)
 local SetPluginUpdateStatus = require(Plugin.Src.Actions.SetPluginUpdateStatus)
 local SetLoadedPluginData = require(Plugin.Src.Actions.SetLoadedPluginData)
 
-local Flags = require(Plugin.Packages.Framework.Util.Flags)
-local FlagsList = Flags.new({
-	FFlagPluginManagementFixRemovePlugins = { "PluginManagementFixRemovePlugins" },
-})
-
 return function()
 	it("should return a table with the correct members", function()
 		local state = Management(nil, {})
 		expect(type(state)).to.equal("table")
 	end)
 
-	if FlagsList:get("FFlagPluginManagementFixRemovePlugins") then
 		describe("ClearAllPluginData action", function()
 			it("should clear all plugin data", function()
 				local state = Management({
@@ -61,7 +55,6 @@ return function()
 				expect(state.plugins[0].enabled).to.equal(true)
 			end)
 		end)
-	end
 
 	describe("SetLoadedPluginData", function()
 		it("should set data about plugins", function()

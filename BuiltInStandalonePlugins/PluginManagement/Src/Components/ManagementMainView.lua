@@ -2,12 +2,6 @@
 	The main view inside the window that appears when you click on Manage Plugins.
 ]]
 local Plugin = script.Parent.Parent.Parent
-local Flags = require(Plugin.Packages.Framework.Util.Flags)
-local FlagsList = Flags.new({
-	FFlagEnablePluginPermissionsPage = {
-		"EnablePluginPermissionsPage2",
-	},
-})
 
 local FFlagPluginManagementDirectlyOpenToolbox = game:GetFastFlag("PluginManagementDirectlyOpenToolbox")
 
@@ -15,7 +9,6 @@ local THEME_REFACTOR = require(Plugin.Packages.Framework).Util.RefactorFlags.THE
 
 local MemStorageService = game:GetService("MemStorageService")
 local StudioService = game:GetService("StudioService")
-local GuiService = game:GetService("GuiService")
 local MarketplaceService = game:GetService("MarketplaceService")
 
 local PermissionsService = game:GetService("PermissionsService")
@@ -62,9 +55,7 @@ function ManagementMainView:init()
 		local refreshPluginCallback = self.props.dispatchRefreshPlugins
 		refreshPluginCallback(apiImpl)
 
-		if FlagsList:get("FFlagEnablePluginPermissionsPage") then
-			self.getAllPluginPermissions()
-		end
+		self.getAllPluginPermissions()
 	end
 
 	self.getAllPluginPermissions = function()
@@ -131,12 +122,8 @@ function ManagementMainView:render()
 	local props = self.props
 	local state = self.state
 
-	local plugin
-	if FlagsList:get("FFlagEnablePluginPermissionsPage") and props.Plugin then
-		plugin = props.Plugin:get()
-	else
-		plugin = props.plugin
-	end
+	local plugin = props.Plugin:get()
+
 	local pluginList = props.pluginList
 	local updating = state.updating
 	local showingMovedDialog = state.showingMovedDialog

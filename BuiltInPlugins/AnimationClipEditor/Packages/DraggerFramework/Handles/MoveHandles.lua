@@ -304,6 +304,49 @@ function MoveHandles:_solveForAdjustedDistance(unadjustedDistance)
 	return minPossibleDistance
 end
 
+function MoveHandles:_getSnappedDelta(delta)
+	local snapPoints
+	if self._implementation.getSnapPoints then
+		snapPoints = self._implementation:getSnapPoints()
+	end
+	if snapPoints then
+		local basePoint = (self._draggingOriginalBoundingBoxCFrame * self._basisOffset).Position
+		local axis = self._axis
+		local maxDistanceAlongAxis = -math.huge
+		local minDistanceAlongAxis = math.huge
+		local closenessToDelta = math.huge
+		local bestDistanceAlongAxis = math.huge
+		for _, point in ipairs(snapPoints) do
+			local dist = (point.Position - basePoint):Dot(axis)
+			maxDistanceAlongAxis = math.max(maxDistanceAlongAxis, dist)
+			minDistanceAlongAxis = math.min(minDistanceAlongAxis, dist)
+
+			local absDist = math.abs(dist - delta)
+			if absDist < closenessToDelta then
+				closenessToDelta = absDist
+				bestDistanceAlongAxis = dist
+			end
+		end
+		if delta > maxDistanceAlongAxis or delta < minDistanceAlongAxis then
+			-- Point is outside of the bounds of the snap points, use the grid
+			-- snap instead if it is closer than the snap point.
+			local gridSnappedDelta = self._draggerContext:snapToGridSize(delta)
+			local closenessToGrid = math.abs(gridSnappedDelta - delta)
+			if closenessToDelta < closenessToGrid then
+				return bestDistanceAlongAxis
+			else
+				return gridSnappedDelta
+			end
+		else
+			-- Point is within the bounds of the snap points, use the distance
+			-- to the closest snap point.
+			return bestDistanceAlongAxis
+		end
+	else
+		return self._draggerContext:snapToGridSize(delta)
+	end
+end
+
 function MoveHandles:mouseDrag(mouseRay)
 	local hasDistance, distance = self:_getDistanceAlongAxis(mouseRay)
 	if not hasDistance then
@@ -315,8 +358,13 @@ function MoveHandles:mouseDrag(mouseRay)
 	end
 
 	local delta = self:_solveForAdjustedDistance(distance) - self._startDistance
+	local snappedDelta
+	if getEngineFeatureModelPivotVisual() then
+		snappedDelta = self:_getSnappedDelta(delta)
+	else
+		snappedDelta = self._draggerContext:snapToGridSize(delta)
+	end
 
-	local snappedDelta = self._draggerContext:snapToGridSize(delta)
 
 	-- Let the implementation figure out what global transform can actually be
 	-- applied (because there may be collisions / constraints involved)

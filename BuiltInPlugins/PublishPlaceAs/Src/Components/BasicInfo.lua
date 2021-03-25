@@ -39,6 +39,8 @@ local RoundTextBox = UILibrary.Component.RoundTextBox
 local StyledDropDown = UILibrary.Component.StyledDropdown
 local Separator = UILibrary.Component.Separator
 
+local RadioButtonSet = require(Plugin.Src.Components.RadioButtonSet)
+
 local Header = require(Plugin.Src.Components.Header)
 local PlatformSelect = require(Plugin.Src.Components.PlatformSelect)
 
@@ -48,6 +50,8 @@ local Constants = require(Plugin.Src.Resources.Constants)
 local Theming = require(Plugin.Src.ContextServices.Theming)
 
 local createMenuPage = require(Plugin.Src.Components.createMenuPage)
+
+local FFlagStudioAllowRemoteSaveBeforePublish = game:GetFastFlag("StudioAllowRemoteSaveBeforePublish")
 
 local groupsLoaded = false
 --Uses props to display current settings values
@@ -66,6 +70,8 @@ local function displayContents(props, localization)
 	local creatorId = props.CreatorId
 	local groups = props.Groups
 	local creatorChanged = props.CreatorChanged
+	local isFriendsOnlyChanged = props.IsFriendsOnlyChanged
+	local isActiveChanged = props.IsActiveChanged
 
 	local genres = Cryo.List.map(Constants.GENRE_IDS, function(name)
 		return {Key = name, Text = localization:getText("Genre", name)}
@@ -98,7 +104,7 @@ local function displayContents(props, localization)
 	local nameLength = utf8.len(name)
 	local descriptionLength = utf8.len(description)
 
-	return {
+	local displayResult = {
 		Header = Roact.createElement(Header, {
 			Title = localization:getText("MenuItem", "BasicInfo"),
 			LayoutOrder = 0,
@@ -194,12 +200,12 @@ local function displayContents(props, localization)
 			end),
 		}),
 
-		Separator3 = Roact.createElement(Separator, {
-			LayoutOrder = 7,
+		Separator4 = Roact.createElement(Separator, {
+			LayoutOrder = 9,
 		}),
 
 		Devices = Roact.createElement(PlatformSelect, {
-			LayoutOrder = 8,
+			LayoutOrder = 10,
 			Devices = devices,
 			DevicesError = devicesError,
 			DeviceSelected = function(id, selected)
@@ -210,6 +216,71 @@ local function displayContents(props, localization)
 			end,
 		}),
 	}
+
+	if FFlagStudioAllowRemoteSaveBeforePublish then
+		if props.IsPublish then
+			-- Add playability controls
+			displayResult.Separator3 = Roact.createElement(Separator, {
+				LayoutOrder = 7,
+			})
+
+			local playabilityButtons = {
+				{
+					Id = "Public",
+					Title = localization:getText("General", "PlayabilityPublic"),
+					Description = localization:getText("General", "PlayabilityPublicDesc"),
+				}, {
+					Id = "Private",
+					Title = localization:getText("General", "PlayabilityPrivate"),
+					Description = localization:getText("General", "PlayabilityPrivateDesc"),
+				}, {
+					Id = "Friends",
+					Title = localization:getText("General", "PlayabilityFriends"),
+					Description = localization:getText("General", "PlayabilityFriendsDesc"),
+				},
+			}
+
+			local selectedButton = "Private"
+			if props.IsFriendsOnly and props.IsActive then
+				selectedButton = "Friends"
+			elseif props.IsActive then
+				selectedButton = "Public"
+			end
+
+			displayResult.Playability = Theming.withTheme(function(theme)
+				return Roact.createElement(RadioButtonSet, {
+					Title = localization:getText("General", "TitlePlayability"),
+					Description = localization:getText("General", "PlayabilityHeader"),
+					LayoutOrder = 8,
+					Buttons = playabilityButtons,
+					Enabled = true,
+					Selected = selectedButton,
+					SelectionChanged = function(button)
+						if button.Id == "Friends" then
+							isFriendsOnlyChanged(true)
+							isActiveChanged(true)
+						elseif button.Id == "Public" then
+							isFriendsOnlyChanged(false)
+							isActiveChanged(true)
+						elseif button.Id == "Private" then
+							isFriendsOnlyChanged(false)
+							isActiveChanged(false)
+						end
+					end,
+				})
+			end)
+		else
+			-- Dialog is in save mode, not publish mode
+			-- Hide the controls that are only used on publish
+			displayResult.Description = nil
+			displayResult.Separator2 = nil
+			displayResult.Genre = nil
+			displayResult.Separator3 = nil
+			displayResult.Devices = nil
+		end
+	end
+
+	return displayResult
 end
 
 --Loads settings values into props by key
@@ -270,6 +341,9 @@ local function dispatchForProps(setValue, dispatch)
 			end
 			dispatch(AddErrors({playableDevices = "NoDevices"}))
 		end,
+
+		IsFriendsOnlyChanged = setValue("isFriendsOnly"),
+		IsActiveChanged = setValue("isActive"),
 	}
 end
 
@@ -279,6 +353,7 @@ local function BasicInfo(props)
 	return Roact.createElement(basePage, {
 		Content = displayContents,
 		AddLayout = true,
+		IsPublish = props.IsPublish,
 	})
 end
 

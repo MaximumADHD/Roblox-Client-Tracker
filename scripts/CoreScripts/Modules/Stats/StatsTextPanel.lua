@@ -62,7 +62,7 @@ function StatsTextPanelClass.new(statType)
   
   self._frame = Instance.new("Frame")
   self._frame.BackgroundTransparency = 1.0
-  self._frame.ZIndex = StatsUtils.TextPanelZIndex
+  self._frame.ZIndex = StatsUtils.TextZIndex
   
   self._titleLabel = Instance.new("TextLabel")
 

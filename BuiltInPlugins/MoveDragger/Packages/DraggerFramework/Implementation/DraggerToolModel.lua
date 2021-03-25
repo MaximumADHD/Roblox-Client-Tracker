@@ -8,7 +8,6 @@ local Roact = require(Library.Packages.Roact)
 local SelectionDot = require(DraggerFramework.Components.SelectionDot)
 local Math = require(DraggerFramework.Utility.Math)
 local SelectionWrapper = require(DraggerFramework.Utility.SelectionWrapper)
-local DerivedWorldState = require(DraggerFramework.Implementation.DerivedWorldState)
 local SelectionHelper = require(DraggerFramework.Utility.SelectionHelper)
 
 local DraggerToolModel = {}

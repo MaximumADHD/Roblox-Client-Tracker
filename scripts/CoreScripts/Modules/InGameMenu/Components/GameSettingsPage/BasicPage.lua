@@ -272,24 +272,24 @@ function BasicPage:didMount()
 		spawn(function()
 			-- Check if voice chat is enabled
 			-- TODO: Clean up when API gets simplified
-			local voiceChatService2 = nil
+			local voiceChatService = nil
 			local voiceChatAvailable = nil
 			local voiceChatApiVersion = nil
 			pcall(function()
-				voiceChatService2 = game:GetService("VoiceChatService2")
-				if voiceChatService2 then
-					voiceChatApiVersion = voiceChatService2:GetVoiceChatApiVersion()
+				voiceChatService = game:GetService("VoiceChatService")
+				if voiceChatService then
+					voiceChatApiVersion = voiceChatService:GetVoiceChatApiVersion()
 					if voiceChatApiVersion >= MIN_VOICE_CHAT_API_VERSION then
-						voiceChatAvailable = voiceChatService2:GetVoiceChatAvailable()
+						voiceChatAvailable = voiceChatService:GetVoiceChatAvailable()
 						while voiceChatAvailable == VOICE_CHAT_AVAILABILITY.Checking do
 							wait(1)
-							voiceChatAvailable = voiceChatService2:GetVoiceChatAvailable()
+							voiceChatAvailable = voiceChatService:GetVoiceChatAvailable()
 						end
 					end
 				end
 			end)
 
-			if voiceChatService2 and voiceChatApiVersion >= MIN_VOICE_CHAT_API_VERSION and
+			if voiceChatService and voiceChatApiVersion >= MIN_VOICE_CHAT_API_VERSION and
 				voiceChatAvailable == VOICE_CHAT_AVAILABILITY.Available then
 				self:setState({
 					voiceChatEnabled = true,

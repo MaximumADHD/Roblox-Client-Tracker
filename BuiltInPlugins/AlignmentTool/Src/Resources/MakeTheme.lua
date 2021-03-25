@@ -7,9 +7,7 @@
 
 local Plugin = script.Parent.Parent.Parent
 
-local getFFlagAlignInLocalSpace = require(Plugin.Src.Flags.getFFlagAlignInLocalSpace)
 local getFFlagAlignToolFixHelpIconTheming = require(Plugin.Src.Flags.getFFlagAlignToolFixHelpIconTheming)
-local getFFlagUpdateDevFrameworkCheckboxStyle = require(Plugin.Src.Flags.getFFlagUpdateDevFrameworkCheckboxStyle)
 local getFFlagAlignToolNarrowUI = require(Plugin.Src.Flags.getFFlagAlignToolNarrowUI)
 
 local Framework = Plugin.Packages.Framework
@@ -111,8 +109,8 @@ local function makeTheme()
 
 			return {
 				Plugin = Style.new({
-					LabelColumnWidth = not getFFlagAlignToolNarrowUI() and getFFlagAlignInLocalSpace() and 80 or nil,
-					ContentListItemPadding = not getFFlagAlignToolNarrowUI() and getFFlagAlignInLocalSpace() and UDim.new(0, 10) or nil,
+					LabelColumnWidth = not getFFlagAlignToolNarrowUI() and 80 or nil,
+					ContentListItemPadding = not getFFlagAlignToolNarrowUI() and UDim.new(0, 10) or nil,
 
 					-- Size of leading labels "Align In" and "Relative To".
 					-- Once localization is added, we should use the width of the
@@ -145,7 +143,7 @@ local function makeTheme()
 					} or nil,
 
 					AxesSection = not getFFlagAlignToolNarrowUI() and {
-						Height = getFFlagAlignInLocalSpace() and 54 or nil, -- 22 (space row) + 22 (axes row) + 10 (ContentListItemPadding)
+						Height = 54, -- 22 (space row) + 22 (axes row) + 10 (ContentListItemPadding)
 						ListItemPadding = 5,
 						Size = UDim2.new(1, 0, 0, 22),
 					} or nil,
@@ -155,7 +153,7 @@ local function makeTheme()
 						Size = UDim2.new(1, 0, 0, 22),
 					} or nil,
 
-					AxesSettingsFragment = not getFFlagAlignToolNarrowUI() and getFFlagAlignInLocalSpace() and {
+					AxesSettingsFragment = not getFFlagAlignToolNarrowUI() and {
 						CheckboxListItemPadding = UDim.new(0, 10),
 					} or nil,
 
@@ -166,8 +164,7 @@ local function makeTheme()
 					Checkbox = StyleTable.new("Checkbox", function()
 						local Default = Style.extend(common.MainText, {
 							Padding = getFFlagAlignToolNarrowUI() and 6 or 5,
-							ImageSize = getFFlagUpdateDevFrameworkCheckboxStyle() and UDim2.new(0, 16, 0, 16)
-								or UDim2.new(0, 20, 0, 20),
+							ImageSize = UDim2.new(0, 16, 0, 16),
 						})
 
 						return {

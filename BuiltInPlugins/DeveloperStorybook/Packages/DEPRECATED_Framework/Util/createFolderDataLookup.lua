@@ -11,8 +11,7 @@ return function(folderPath)
         if folder ~= script then
             folderDataLookup[folder.Name] = {
                 name = folder.Name,
-                renderExample = folder:FindFirstChild("renderExample"),
-                example = folder:FindFirstChild("example"),
+                story = folder:FindFirstChild(folder.Name .. ".story"),
                 style = folder:FindFirstChild("style"),
                 test = folder:FindFirstChild("test.spec"),
             }

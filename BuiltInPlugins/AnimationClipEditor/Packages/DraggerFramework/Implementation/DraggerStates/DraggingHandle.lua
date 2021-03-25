@@ -2,6 +2,8 @@ local DraggerFramework = script.Parent.Parent.Parent
 local DraggerStateType = require(DraggerFramework.Implementation.DraggerStateType)
 local StandardCursor = require(DraggerFramework.Utility.StandardCursor)
 
+local getEngineFeatureModelPivotVisual = require(DraggerFramework.Flags.getEngineFeatureModelPivotVisual)
+
 local DraggingHandle = {}
 DraggingHandle.__index = DraggingHandle
 
@@ -60,6 +62,9 @@ function DraggingHandle:processKeyDown(keyCode)
 		if self._draggingHandles:keyDown(keyCode) then
 			-- Update the drag
 			self:processViewChanged()
+			if getEngineFeatureModelPivotVisual() then
+				self._draggerToolModel:_scheduleRender()
+			end
 		end
 	end
 end
@@ -69,6 +74,9 @@ function DraggingHandle:processKeyUp(keyCode)
 		if self._draggingHandles:keyUp(keyCode) then
 			-- Update the drag
 			self:processViewChanged()
+			if getEngineFeatureModelPivotVisual() then
+				self._draggerToolModel:_scheduleRender()
+			end
 		end
 	end
 end

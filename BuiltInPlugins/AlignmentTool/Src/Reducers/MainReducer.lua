@@ -1,6 +1,5 @@
 local Plugin = script.Parent.Parent.Parent
 
-local getFFlagAlignInLocalSpace = require(Plugin.Src.Flags.getFFlagAlignInLocalSpace)
 local getFFlagAlignShowPreview = require(Plugin.Src.Flags.getFFlagAlignShowPreview)
 
 local Cryo = require(Plugin.Packages.Cryo)
@@ -18,15 +17,11 @@ local initialState = {
 
 	alignableObjects = {},
 	alignmentMode = AlignmentMode.Center,
-	alignmentSpace = getFFlagAlignInLocalSpace() and AlignmentSpace.World or nil,
-	enabledAxes = getFFlagAlignInLocalSpace() and {
+	alignmentSpace = AlignmentSpace.World,
+	enabledAxes = {
 		X = false,
 		Y = false,
 		Z = false,
-	} or {
-		WorldX = false,
-		WorldY = false,
-		WorldZ = false,
 	},
 	relativeTo = RelativeTo.Selection,
 
@@ -59,11 +54,11 @@ local MainReducer = Rodux.createReducer(initialState, {
 		})
 	end,
 
-	SetAlignmentSpace = getFFlagAlignInLocalSpace() and function(state, action)
+	SetAlignmentSpace = function(state, action)
 		return Cryo.Dictionary.join(state, {
 			alignmentSpace = action.alignmentSpace,
 		})
-	end or nil,
+	end,
 
 	SetEnabledAxes = function(state, action)
 		return Cryo.Dictionary.join(state, {

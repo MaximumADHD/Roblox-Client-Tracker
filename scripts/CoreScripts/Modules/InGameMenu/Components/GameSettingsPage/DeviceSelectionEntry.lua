@@ -1,7 +1,7 @@
 local CorePackages = game:GetService("CorePackages")
-local VoiceChatService2 = nil
+local VoiceChatService = nil
 pcall(function()
-	VoiceChatService2 = game:GetService("VoiceChatService2")
+	VoiceChatService = game:GetService("VoiceChatService")
 end)
 
 local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
@@ -34,7 +34,7 @@ function DeviceSelectionEntry:init()
 end
 
 function DeviceSelectionEntry:render()
-	if VoiceChatService2 == nil or self.state.deviceNames == nil or
+	if VoiceChatService == nil or self.state.deviceNames == nil or
 		#self.state.deviceNames == 0 then
 		return nil
 	end
@@ -70,18 +70,18 @@ function DeviceSelectionEntry:render()
 			localize = false,
 			selectionChanged = function(newIndex)
 				if self.props.deviceType == DeviceSelectionEntry.DeviceType.Input then
-					VoiceChatService2:SetMicDevice(self.state.deviceNames[newIndex], self.state.deviceGuids[newIndex])
+					VoiceChatService:SetMicDevice(self.state.deviceNames[newIndex], self.state.deviceGuids[newIndex])
 				else
-					VoiceChatService2:SetSpeakerDevice(self.state.deviceNames[newIndex], self.state.deviceGuids[newIndex])
+					VoiceChatService:SetSpeakerDevice(self.state.deviceNames[newIndex], self.state.deviceGuids[newIndex])
 				end
 
 				-- TODO: This will be removed when set device API refactoring is done
 				pcall(function()
-					local groupId = VoiceChatService2:GetGroupId()
+					local groupId = VoiceChatService:GetGroupId()
 					if groupId and groupId ~= "" then
-						local muted = VoiceChatService2:IsPublishPaused()
-						VoiceChatService2:Leave()
-						VoiceChatService2:JoinByGroupId(groupId, muted)
+						local muted = VoiceChatService:IsPublishPaused()
+						VoiceChatService:Leave()
+						VoiceChatService:JoinByGroupId(groupId, muted)
 					end
 				end)
 
@@ -100,9 +100,9 @@ function DeviceSelectionEntry:willUpdate(nextProps)
 		spawn(function()
 			local success, deviceNames, deviceGuids, selectedIndex = pcall(function()
 				if nextProps.deviceType == DeviceSelectionEntry.DeviceType.Input then
-					return VoiceChatService2:GetMicDevices()
+					return VoiceChatService:GetMicDevices()
 				else
-					return VoiceChatService2:GetSpeakerDevices()
+					return VoiceChatService:GetSpeakerDevices()
 				end
 			end)
 			if success and deviceNames and deviceGuids and selectedIndex and

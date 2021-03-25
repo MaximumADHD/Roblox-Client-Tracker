@@ -1,44 +1,8 @@
 local Plugin = script.Parent.Parent.Parent
 local StudioService = game:GetService("StudioService")
-local HttpService = game:GetService("HttpService")
 local MultiGetPluginInfoRequest = require(Plugin.Src.Thunks.MultiGetPluginInfoRequest)
 local SetLoadedPluginData = require(Plugin.Src.Actions.SetLoadedPluginData)
-local ClearAllPluginData = require(Plugin.Src.Actions.ClearAllPluginData)
-
-local FFlagEnablePluginPermissionsPage = settings():GetFFlag("EnablePluginPermissionsPage2")
-
-local Flags = require(Plugin.Packages.Framework.Util.Flags)
-local FlagsList = Flags.new({
-	FFlagPluginManagementFixRemovePlugins = { "PluginManagementFixRemovePlugins" },
-})
-
-local extractPluginsFromJsonString
-if FFlagEnablePluginPermissionsPage then
-	extractPluginsFromJsonString = require(Plugin.Src.Util.extractPluginsFromJsonString)
-else
-	extractPluginsFromJsonString = function(json)
-		local success, decoded = xpcall(
-			function()
-				return HttpService:JSONDecode(json)
-			end,
-			function(_)
-				return {}
-			end
-		)
-		if not success then return {} end
-
-		local result = {}
-		for id, data in pairs(decoded) do
-			local newEntry = {}
-			newEntry.assetId = id
-			newEntry.enabled = data.Enabled
-			newEntry.installedVersion = data.AssetVersion
-			newEntry.isModerated = data.Moderated
-			result[#result+1] = newEntry
-		end
-		return result
-	end
-end
+local extractPluginsFromJsonString = require(Plugin.Src.Util.extractPluginsFromJsonString)
 
 return function(apiImpl, marketplaceService)
 	return function(store)
@@ -56,9 +20,6 @@ return function(apiImpl, marketplaceService)
 			end
 		end
 
-		if not FlagsList:get("FFlagPluginManagementFixRemovePlugins") then
-			store:dispatch(ClearAllPluginData())
-		end
 		if #assetIds > 0 then
 			store:dispatch(MultiGetPluginInfoRequest(apiImpl, marketplaceService, assetIds, plugins))
 		else

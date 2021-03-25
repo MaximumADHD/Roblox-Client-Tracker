@@ -142,7 +142,7 @@ local DraggerSchema = {
 	-- .new(draggerContext, onChangedHandler)
 	--     When an item moves, the function onChangedHandler should be called
 	--     with the item which moved.
-	-- :setSelection(derivedWorldState)
+	-- :setSelection(selectionInfo)
 	--     Set the items to track position changes for
 	-- :install()
 	--     Begin tracking bounds changes on the target parts

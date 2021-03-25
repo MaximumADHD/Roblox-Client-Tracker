@@ -21,9 +21,9 @@ local AnalyticsService = game:GetService("RbxAnalyticsService")
 local Settings = UserSettings()
 local GameSettings = Settings.GameSettings
 
-local VoiceChatService2 = nil
+local VoiceChatService = nil
 pcall(function()
-	VoiceChatService2 = game:GetService("VoiceChatService2")
+	VoiceChatService = game:GetService("VoiceChatService")
 end)
 
 -------------- CONSTANTS --------------
@@ -1626,11 +1626,11 @@ local function Initialize()
 
 	local function leaveAndRejoinVoiceChatChannel()
 		pcall(function()
-			local groupId = VoiceChatService2:GetGroupId()
+			local groupId = VoiceChatService:GetGroupId()
 			if groupId and groupId ~= "" then
-				local muted = VoiceChatService2:IsPublishPaused()
-				VoiceChatService2:Leave()
-				VoiceChatService2:JoinByGroupId(groupId, muted)
+				local muted = VoiceChatService:IsPublishPaused()
+				VoiceChatService:Leave()
+				VoiceChatService:JoinByGroupId(groupId, muted)
 			end
 		end)
 	end
@@ -1661,9 +1661,9 @@ local function Initialize()
 				}
 
 				if deviceType == VOICE_CHAT_DEVICE_TYPE.Input then
-					VoiceChatService2:SetMicDevice(this[deviceType.."DeviceInfo"].Name, this[deviceType.."DeviceInfo"].Guid)
+					VoiceChatService:SetMicDevice(this[deviceType.."DeviceInfo"].Name, this[deviceType.."DeviceInfo"].Guid)
 				else
-					VoiceChatService2:SetSpeakerDevice(this[deviceType.."DeviceInfo"].Name, this[deviceType.."DeviceInfo"].Guid)
+					VoiceChatService:SetSpeakerDevice(this[deviceType.."DeviceInfo"].Name, this[deviceType.."DeviceInfo"].Guid)
 				end
 
 				-- TODO: This will be removed when set device API refactoring is done
@@ -1679,9 +1679,9 @@ local function Initialize()
 
 		local success, deviceNames, deviceGuids, selectedIndex = pcall(function()
 			if deviceType == VOICE_CHAT_DEVICE_TYPE.Input then
-				return VoiceChatService2:GetMicDevices()
+				return VoiceChatService:GetMicDevices()
 			else
-				return VoiceChatService2:GetSpeakerDevices()
+				return VoiceChatService:GetSpeakerDevices()
 			end
 		end)
 
@@ -1716,19 +1716,19 @@ local function Initialize()
 		local voiceChatAvailable = nil
 		local voiceChatApiVersion = nil
 		pcall(function()
-			if VoiceChatService2 then
-				voiceChatApiVersion = VoiceChatService2:GetVoiceChatApiVersion()
+			if VoiceChatService then
+				voiceChatApiVersion = VoiceChatService:GetVoiceChatApiVersion()
 				if voiceChatApiVersion >= MIN_VOICE_CHAT_API_VERSION then
-					voiceChatAvailable = VoiceChatService2:GetVoiceChatAvailable()
+					voiceChatAvailable = VoiceChatService:GetVoiceChatAvailable()
 					while voiceChatAvailable == VOICE_CHAT_AVAILABILITY.Checking do
 						wait(1)
-						voiceChatAvailable = VoiceChatService2:GetVoiceChatAvailable()
+						voiceChatAvailable = VoiceChatService:GetVoiceChatAvailable()
 					end
 				end
 			end
 		end)
 
-		if VoiceChatService2 and voiceChatApiVersion >= MIN_VOICE_CHAT_API_VERSION and
+		if VoiceChatService and voiceChatApiVersion >= MIN_VOICE_CHAT_API_VERSION and
 			voiceChatAvailable == VOICE_CHAT_AVAILABILITY.Available then
 			this.VoiceChatOptionsEnabled = true
 			if this.PageOpen then

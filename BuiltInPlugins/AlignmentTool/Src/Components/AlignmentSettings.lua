@@ -1,7 +1,6 @@
 local Plugin = script.Parent.Parent.Parent
 
 local getEngineFeatureActiveInstanceHighlight = require(Plugin.Src.Flags.getEngineFeatureActiveInstanceHighlight)
-local getFFlagAlignInLocalSpace = require(Plugin.Src.Flags.getFFlagAlignInLocalSpace)
 local getFFlagAlignToolNarrowUI = require(Plugin.Src.Flags.getFFlagAlignToolNarrowUI)
 local getFFlagAlignToolDisabledFix = require(Plugin.Src.Flags.getFFlagAlignToolDisabledFix)
 
@@ -45,9 +44,9 @@ function AlignmentSettings:render()
 		{
 			Text = localization:getText("AxesSection", "Title"),
 			Content = Roact.createElement(AxesSettingsFragment, {
-				AlignmentSpace = getFFlagAlignInLocalSpace() and props.alignmentSpace or nil,
+				AlignmentSpace = props.alignmentSpace,
 				EnabledAxes = props.enabledAxes,
-				OnAlignmentSpaceChanged = getFFlagAlignInLocalSpace() and props.setAlignmentSpace or nil,
+				OnAlignmentSpaceChanged = props.setAlignmentSpace,
 				OnEnabledAxesChanged = props.setEnabledAxes,
 			}),
 		},
@@ -76,7 +75,7 @@ ContextServices.mapToProps(AlignmentSettings, {
 local function mapStateToProps(state, _)
 	return {
 		alignmentMode = state.alignmentMode,
-		alignmentSpace = getFFlagAlignInLocalSpace() and state.alignmentSpace or nil,
+		alignmentSpace = state.alignmentSpace,
 		enabledAxes = state.enabledAxes,
 		relativeTo = state.relativeTo,
 	}
@@ -88,12 +87,12 @@ local function mapDispatchToProps(dispatch)
 			dispatch(SetAlignmentMode(mode))
 			dispatch(UpdateAlignEnabled())
 		end,
-		setAlignmentSpace = getFFlagAlignInLocalSpace() and function(alignmentSpace)
+		setAlignmentSpace = function(alignmentSpace)
 			dispatch(SetAlignmentSpace(alignmentSpace))
 			if getFFlagAlignToolDisabledFix() then
 				dispatch(UpdateAlignEnabled())
 			end
-		end or nil,
+		end,
 		setEnabledAxes = function(axes)
 			dispatch(SetEnabledAxes(axes))
 			dispatch(UpdateAlignEnabled())

@@ -1,10 +1,6 @@
 local Plugin = script.Parent.Parent.Parent
 local Cryo = require(Plugin.Packages.Cryo)
 local Rodux = require(Plugin.Packages.Rodux)
-local Flags = require(Plugin.Packages.Framework.Util.Flags)
-local FlagsList = Flags.new({
-	FFlagPluginManagementFixRemovePlugins = { "PluginManagementFixRemovePlugins" },
-})
 
 local function setPluginValues(state, assetId, values)
 	local newPlugins = {}
@@ -22,21 +18,14 @@ return Rodux.createReducer({
 	plugins = nil,
 }, {
 	--[[ fired when the request to fetch plugin data fails and we need to clear out any bad state ]]
-	ClearPluginData = not FlagsList:get("FFlagPluginManagementFixRemovePlugins") and function(state, _)
-		return Cryo.Dictionary.join(state, {
-			plugins = Cryo.None,
-		})
-	end or nil,
-
-	--[[ fired when the request to fetch plugin data fails and we need to clear out any bad state ]]
-	ClearAllPluginData = FlagsList:get("FFlagPluginManagementFixRemovePlugins") and function(state, _)
+	ClearAllPluginData = function(state, _)
 		return Cryo.Dictionary.join(state, {
 			plugins = Cryo.None,
 		})
 	end or nil,
 
 	--[[ fired when uninstalling a plugin ]]
-	RemovePluginData = FlagsList:get("FFlagPluginManagementFixRemovePlugins") and function(state, action)
+	RemovePluginData = function(state, action)
 		return Cryo.Dictionary.join(state, {
 			plugins =  Cryo.Dictionary.join(state.plugins or {}, {
 				[action.pluginId] = Cryo.None,

@@ -23,31 +23,21 @@ local UI = Framework.UI
 local Pane = UI.Pane
 
 local PanelEntry = require(Plugin.Src.Components.PanelEntry)
-
---[[
-	Component examples are often functional components.
-	Those rerender when their parent component does, but we don't want this behaviour.
-	This wrapper ensures that the example only rerenders when it needs to, vs. when RenderExample component changes
-]]
-local PureWrapper = Roact.PureComponent:extend("PureWrapper")
-
-function PureWrapper:render()
-	return Roact.createElement(self.props.Component)
-end
+local StoryHost = require(Plugin.Src.Components.StoryHost)
 
 local RenderExample = Roact.PureComponent:extend("RenderExample")
 
 function RenderExample:init()
 	self.containerRef = Roact.createRef()
 	self.state = {
-		ExampleComponent = nil,
+		story = nil,
 	}
 end
 
 function RenderExample:loadExampleComponent()
 	-- Fallback to None: if there is no Name prop provided, or if there is no result returned from Render
 	self:setState({
-		ExampleComponent = self.props.Name and Render(self.props.Name) or Roact.None
+		story = self.props.Name and Render(self.props.Name) or Roact.None
 	})
 end
 
@@ -73,7 +63,7 @@ function RenderExample:render()
 	local props = self.props
 	local state = self.state
 
-	local ExampleComponent = state.ExampleComponent
+	local story = state.story
 
 	local layoutOrder = props.LayoutOrder
 	local sizes
@@ -83,7 +73,7 @@ function RenderExample:render()
 	else
 		sizes = props.Theme:get("Sizes")
 	end
-	if not ExampleComponent then
+	if not story then
 		return nil
 	end
 
@@ -98,9 +88,9 @@ function RenderExample:render()
 			AutomaticSize = Enum.AutomaticSize.Y,
 			[Roact.Ref] = self.containerRef
 		}, {
-			Example = Roact.createElement(PureWrapper, {
-				Component = ExampleComponent,
-			})
+			Example = Roact.createElement(StoryHost, {
+				Story = story,
+			}),
 		})
 	})
 end

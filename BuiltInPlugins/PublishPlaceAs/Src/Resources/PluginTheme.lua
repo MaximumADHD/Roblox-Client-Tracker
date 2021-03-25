@@ -95,6 +95,11 @@ local function createValues(getColor, c, m)
 		pageText = {
 			font = Enum.Font.SourceSansLight
 		},
+		radioButton = {
+			font = Enum.Font.SourceSans,
+			textColor = getColor(c.MainText),
+			dimTextColor = getColor(c.DimmedText),
+		},
 
 		--Constants used for UI
 		DROPDOWN_WIDTH = 330,

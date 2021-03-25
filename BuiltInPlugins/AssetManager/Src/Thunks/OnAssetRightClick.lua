@@ -176,8 +176,12 @@ end
 local function createPackageContextMenu(analytics, assetData, contextMenu, isAssetPreviewMenu, localization, onOpenAssetPreview, store)
     local state = store:getState()
     local view = state.AssetManagerReducer.view
-    local userHasPermission = assetData.action == "Edit" or assetData.action == "Own"
-    local userCanUpdate = assetData.upToVersion > 1
+    local userHasPermission
+    local userCanUpdate
+    if FFlagStudioAssetManagerUseNewPackagesEndpoint then
+        userHasPermission = assetData.action == "Edit" or assetData.action == "Own"
+        userCanUpdate = assetData.upToVersion > 1
+    end
     if view.Key == View.LIST.Key and not isAssetPreviewMenu then
         contextMenu:AddNewAction("AssetPreview", localization:getText("ContextMenu", "AssetPreview")).Triggered:connect(function()
             if FFlagAssetManagerRemoveAssetFixes then

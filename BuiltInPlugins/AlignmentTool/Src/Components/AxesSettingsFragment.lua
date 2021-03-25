@@ -10,7 +10,6 @@
 
 local Plugin = script.Parent.Parent.Parent
 
-local getFFlagAlignInLocalSpace = require(Plugin.Src.Flags.getFFlagAlignInLocalSpace)
 local getFFlagAlignToolNarrowUI = require(Plugin.Src.Flags.getFFlagAlignToolNarrowUI)
 
 local Cryo = require(Plugin.Packages.Cryo)
@@ -34,8 +33,6 @@ local AlignmentSpace = require(Plugin.Src.Utility.AlignmentSpace)
 local AxesSettingsFragment = Roact.PureComponent:extend("AxesSettingsFragment")
 
 function AxesSettingsFragment:init(initialProps)
-	assert(getFFlagAlignInLocalSpace())
-
 	assert(type(initialProps.AlignmentSpace) == "string", "Missing required property AlignmentSpace.")
 	assert(type(initialProps.EnabledAxes) == "table", "Missing required property EnabledAxes.")
 	assert(type(initialProps.OnAlignmentSpaceChanged) == "function", "Missing required property OnAlignmentSpaceChanged.")

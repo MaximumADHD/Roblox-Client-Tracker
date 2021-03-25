@@ -23,7 +23,6 @@ local requestLocaleInfo = require(script.SetupFunctions.requestLocaleInfo)
 local requestGameNameAndDescription = require(script.SetupFunctions.requestGameNameAndDescription)
 local createStore = require(script.createStore)
 
-local OpenMenuButton = require(script.Components.OpenMenuButton)
 local App = require(script.Components.App)
 
 local Localization = require(script.Localization.Localization)

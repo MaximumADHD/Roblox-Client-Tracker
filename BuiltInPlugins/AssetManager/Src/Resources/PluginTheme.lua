@@ -26,6 +26,8 @@ local FONT_SIZE_SMALL = 14
 local FONT_SIZE_MEDIUM = 16
 local FONT_SIZE_LARGE = 18
 
+local FFlagStudioAssetManagerListItemCompactSize = game:GetFastFlag("StudioAssetManagerListItemCompactSize")
+
 local function createStyles(theme, getColor)
 	local c = Enum.StudioStyleGuideColor
 	local m = Enum.StudioStyleGuideModifier
@@ -298,14 +300,16 @@ local function createStyles(theme, getColor)
 
 	local listItem = StyleTable.new("ListItem", function()
 		local Default = Style.new({
-			Size = UDim2.new(1, 0, 0, 32),
+			Size = UDim2.new(1, 0, 0, FFlagStudioAssetManagerListItemCompactSize and 24 or 32),
 			BackgroundTransparency = 1,
 			BorderSizePixel = 0,
 			Padding = UDim.new(0, 4),
 
 			Image = {
-				FrameSize = UDim2.new(0, 32, 0, 32),
-				ImageSize = UDim2.new(0, 16, 0, 16),
+				FrameSize = UDim2.new(0, FFlagStudioAssetManagerListItemCompactSize and 24 or 32,
+					0, FFlagStudioAssetManagerListItemCompactSize and 24 or 32),
+				ImageSize = UDim2.new(0, FFlagStudioAssetManagerListItemCompactSize and 20 or 16,
+					0, FFlagStudioAssetManagerListItemCompactSize and 20 or 16),
 				ImagePosition = UDim2.new(0.5, 0, 0.5, 0),
 				ImageAnchorPosition = Vector2.new(0.5, 0.5),
 				BackgroundColor = theme:GetColor(c.MainBackground),
@@ -324,7 +328,8 @@ local function createStyles(theme, getColor)
 				BackgroundTransparency = 1,
 
 				Frame = {
-					Size = UDim2.new(1, -32, 0, 32),
+					Size = UDim2.new(1, FFlagStudioAssetManagerListItemCompactSize and -24 or -32, 
+						0, FFlagStudioAssetManagerListItemCompactSize and 24 or 32),
 				},
 			},
 

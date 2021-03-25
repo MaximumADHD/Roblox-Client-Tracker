@@ -186,7 +186,7 @@ function StatsAnnotatedGraphClass:_startListening()
 end
 
 function StatsAnnotatedGraphClass:_shouldBeVisible()
-  if StatsUtils:PerformanceStatsShouldBeVisible() then 
+  if StatsUtils.PerformanceStatsShouldBeVisible() then
     return self._frame.Visible
   else
     return false

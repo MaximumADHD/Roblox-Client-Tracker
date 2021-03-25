@@ -9,18 +9,13 @@ local Workspace = game:GetService("Workspace")
 local Plugin = script.Parent.Parent.Parent
 
 local getEngineFeatureActiveInstanceHighlight = require(Plugin.Src.Flags.getEngineFeatureActiveInstanceHighlight)
-local getFFlagAlignInLocalSpace = require(Plugin.Src.Flags.getFFlagAlignInLocalSpace)
 
 local SetAlignEnabled = require(Plugin.Src.Actions.SetAlignEnabled)
 local AlignToolError = require(Plugin.Src.Utility.AlignToolError)
 local RelativeTo = require(Plugin.Src.Utility.RelativeTo)
 
 local function hasEnabledAxis(axes)
-	if getFFlagAlignInLocalSpace() then
-		return axes.X or axes.Y or axes.Z
-	else
-		return axes.WorldX or axes.WorldY or axes.WorldZ
-	end
+	return axes.X or axes.Y or axes.Z
 end
 
 return function()

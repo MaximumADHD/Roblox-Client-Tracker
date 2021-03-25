@@ -1,5 +1,3 @@
-local FFlagPluginManagementPrettifyDesign = game:GetFastFlag("PluginManagementPrettifyDesign2")
-
 local Constants = {}
 
 Constants.HEADER_TITLE_WIDTH = 250
@@ -9,12 +7,7 @@ Constants.HEADER_RIGHT_PADDING = -22
 Constants.HEADER_TOP_PADDING = 20
 Constants.HEADER_BUTTON_SIZE = 30
 Constants.HEADER_MESSAGE_LINE_HEIGHT = 18
-
-if FFlagPluginManagementPrettifyDesign then
-    Constants.HEADER_HEIGHT = Constants.HEADER_BUTTON_SIZE + Constants.HEADER_TOP_PADDING
-else
-    Constants.HEADER_HEIGHT = 70
-end
+Constants.HEADER_HEIGHT = Constants.HEADER_BUTTON_SIZE + Constants.HEADER_TOP_PADDING
 
 Constants.MOVED_DIALOG_WIDTH = 369
 Constants.MOVED_DIALOG_HEIGHT = 168

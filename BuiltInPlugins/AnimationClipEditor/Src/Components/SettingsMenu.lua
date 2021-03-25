@@ -167,6 +167,7 @@ end
 
 ContextServices.mapToProps(SettingsMenu, {
 	Localization = ContextServices.Localization,
+	Analytics = ContextServices.Analytics
 })
 
 return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(SettingsMenu)

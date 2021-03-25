@@ -81,14 +81,14 @@ end
 local function alignBoneLink(parentPos, childPos)
 	local lookVector = childPos - parentPos
 	local length = lookVector.Magnitude
-	if MathUtils:fuzzyEq(length, 0) then
+	if MathUtils.fuzzyEq(length, 0) then
 		lookVector = Vector3.new(0, 0, 1)
 	else
 		lookVector = lookVector / length
 	end
 	local upVector = Vector3.new(0, 1, 0)
 
-	if MathUtils:fuzzyEq(math.abs(lookVector:Dot(upVector)), 1) then
+	if MathUtils.fuzzyEq(math.abs(lookVector:Dot(upVector)), 1) then
 		upVector = Vector3.new(1, 0, 0)
 	end
 
