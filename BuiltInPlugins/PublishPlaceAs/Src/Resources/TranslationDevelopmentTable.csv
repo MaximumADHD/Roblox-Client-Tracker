@@ -26,7 +26,14 @@ Studio.PublishPlaceAs.General.ContentDialogItem4, ,Robux Gambling
 Studio.PublishPlaceAs.General.ContentDialogItem5, ,Drug Reference or Use
 Studio.PublishPlaceAs.General.ContentDialogTitle, ,Content Agreement
 Studio.PublishPlaceAs.General.FetchFailed, ,Fetch failed
+Studio.PublishPlaceAs.General.PlayabilityFriends, ,Friends
+Studio.PublishPlaceAs.General.PlayabilityFriendsDesc, ,Friends on Roblox
+Studio.PublishPlaceAs.General.PlayabilityPrivate, ,Private
+Studio.PublishPlaceAs.General.PlayabilityPrivateDesc, ,Only developers of this game
+Studio.PublishPlaceAs.General.PlayabilityPublic, ,Public
+Studio.PublishPlaceAs.General.PlayabilityPublicDesc, ,Anyone on Roblox
 Studio.PublishPlaceAs.General.PublishPlace, ,Publish Place
+Studio.PublishPlaceAs.General.TitlePlayability, ,Playability
 Studio.PublishPlaceAs.General.UntitledGame, ,Untitled Game
 Studio.PublishPlaceAs.Genre.Adventure, ,Adventure
 Studio.PublishPlaceAs.Genre.All, ,All

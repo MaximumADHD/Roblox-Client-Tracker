@@ -159,6 +159,8 @@ Studio.App.BetaFeatures.TryCoolFeatures,,Try out cool new Studio features! Your 
 Studio.App.BetaFeatures.TryCoolFeaturesWithWarning,,Try out cool new Studio features before they are released to everyone! Please be aware that Beta features could be unstable. Your feedback is invaluable to us as we move towards building the imagination platform.,Try out cool new Studio features before they are released to everyone! Please be aware that Beta features could be unstable. Your feedback is invaluable to us as we move towards building the imagination platform.
 Studio.App.BetaFeatures.UIStrokeDescription,,"Enables the UIStroke instance, which adds highly customizable borders around the edges of text and UI objects.","Enables the UIStroke instance, which adds highly customizable borders around the edges of text and UI objects."
 Studio.App.BetaFeatures.UIStrokeTitle,,UIStroke Component,UIStroke Component
+Studio.App.BetaFeatures.VirtualCursorDescription,,Enables a mouse-emulation cursor for gamepad input for interaction with UIs not designed for gamepad. Press the view button on gamepad while playing a game to try it out.,Enables a mouse-emulation cursor for gamepad input for interaction with UIs not designed for gamepad. Press the view button on gamepad while playing a game to try it out.
+Studio.App.BetaFeatures.VirtualCursorTitle,,Gamepad Virtual Cursor,Gamepad Virtual Cursor
 Studio.App.BetaFeatures.WhatsNewWindowDescription,,Open up a scrolling window that shows all of the recent updates to Roblox Studio,Open up a scrolling window that shows all of the recent updates to Roblox Studio
 Studio.App.BetaFeatures.WhatsNewWindowTitle,,New Updates Window,New Updates Window
 Studio.App.BreakpointConditionEditDialog.BreakpointCondition,,Breakpoint Condition,Breakpoint Condition
@@ -1099,6 +1101,7 @@ Studio.App.PackageUtilities.UndoChangesError1,,Package undo changes error: %1,Pa
 Studio.App.PackageUtilities.UpdateError1,,Package update error: %1,Package update error: %1
 Studio.App.PackagesBlockingPublishDialog.CannotCheck,Shows when an error is preventing Studio from checking if a package has been modified.,ERROR: Cannot check package for modification,ERROR: Cannot check package for modification
 Studio.App.PackagesBlockingPublishDialog.CheckInProgress,,Modification check is in progress,Modification check is in progress
+Studio.App.PackagesBlockingPublishDialog.Creator,,Creator,Creator
 Studio.App.PackagesBlockingPublishDialog.CreatorTypeGroup,"Used in a list of package owners. Packages can be owned by individual users or by groups, so this label is used to distinguish the names of groups from the names of users.",Group,Group
 Studio.App.PackagesBlockingPublishDialog.Header,Header of dialog window showing packages in a place that are preventing the user from publishing that place,Place could not be published.,Place could not be published.
 Studio.App.PackagesBlockingPublishDialog.InsufficientPermissions,,Insufficient permissions,Insufficient permissions
@@ -1110,12 +1113,11 @@ Studio.App.PackagesBlockingPublishDialog.MessageNoAccessOnPlaceOpen,,You will be
 Studio.App.PackagesBlockingPublishDialog.MessageStillChecking,,Unable to publish this place as Studio is still checking for updates and modifications to the following packages. Please try again later.,Unable to publish this place as Studio is still checking for updates and modifications to the following packages. Please try again later.
 Studio.App.PackagesBlockingPublishDialog.ModificationCheckStatus,,Package Link Status,Package Link Status
 Studio.App.PackagesBlockingPublishDialog.NoAccessHeader,Header of dialog window showing packages that the user does not have access to when opening a place,No access to Package(s),No access to Package(s)
-Studio.App.PackagesBlockingPublishDialog.Owner,,Owner,Owner
 Studio.App.PackagesBlockingPublishDialog.PackageAssetName,,Package Asset Name,Package Asset Name
 Studio.App.PackagesBlockingPublishDialog.PackageInstance,,Package Instance Name,Package Instance Name
 Studio.App.PackagesBlockingPublishDialog.PackageInstanceName,,Package Instance Name,Package Instance Name
 Studio.App.PackagesBlockingPublishDialog.PackageIsModified,,Package is modified,Package is modified
-Studio.App.PackagesBlockingPublishDialog.Permission,,Permission Status,Permission Status
+Studio.App.PackagesBlockingPublishDialog.Permission,,Permission Level,Permission Level
 Studio.App.PackagesBlockingPublishDialog.SelectPackages,,Select All in Explorer,Select All in Explorer
 Studio.App.PackagesBlockingPublishDialog.Warning,,The following packages are preventing this place from being published:,The following packages are preventing this place from being published:
 Studio.App.Parts.Surface,Parts menu,Surface,Surface
@@ -1260,6 +1262,7 @@ Studio.App.Property.LuauKeywordColor,,Luau Keyword Color,Luau Keyword Color
 Studio.App.Property.MatchingWordBackgroundColor,,Matching Word Background Color,Matching Word Background Color
 Studio.App.Property.MaximumOutputLines,,Maximum Output Lines,Maximum Output Lines
 Studio.App.Property.MaximumTableDepth,,Maximum Table Depth,Maximum Table Depth
+Studio.App.Property.MenuItemBackgroundColor,,Menu Item Background,Menu Item Background
 Studio.App.Property.MeshCacheSize,,Mesh Cache Size,Mesh Cache Size
 Studio.App.Property.MeshPartDetailLevel,,Mesh Detail Level,Mesh Detail Level
 Studio.App.Property.MethodColor,,Local Method Color,Local Method Color
@@ -1287,6 +1290,7 @@ Studio.App.Property.PluginDebuggingEnabled,,Plugin Debugging Enabled,Plugin Debu
 Studio.App.Property.PluginsDir,,Plugins Dir,Plugins Dir
 Studio.App.Property.PreferredClientPort,,Preferred Client Port,Preferred Client Port
 Studio.App.Property.PreprocessorColor,,Preprocessor Color,Preprocessor Color
+Studio.App.Property.PrimaryTextColor,,Menu Primary Text Color,Menu Primary Text Color
 Studio.App.Property.PrintBits,,Print Bits,Print Bits
 Studio.App.Property.PrintEvents,,Print Events,Print Events
 Studio.App.Property.PrintInstances,,Print Instances,Print Instances
@@ -1314,11 +1318,16 @@ Studio.App.Property.SIMD,,SIMD,SIMD
 Studio.App.Property.SchedulerDutyCycle,,Scheduler Duty Cycle,Scheduler Duty Cycle
 Studio.App.Property.SchedulerRate,,Scheduler Rate,Scheduler Rate
 Studio.App.Property.ScriptEditorColorPreset,The set of colors used in syntax highlighting in script editor,Script Editor Color Preset,Script Editor Color Preset
+Studio.App.Property.ScriptEditorScrollbarBackgroundColor,,Script Editor Scrollbar Background,Script Editor Scrollbar Background
+Studio.App.Property.ScriptEditorScrollbarHandleColor,,Script Editor Scrollbar Handle,Script Editor Scrollbar Handle
 Studio.App.Property.ScriptTimeoutLength,,Script Timeout Length,Script Timeout Length
 Studio.App.Property.ScrollPastLastLine,,Scroll Past Last Line,Scroll Past Last Line
 Studio.App.Property.SearchContentForCoreScripts,,Search Content For Core Scripts,Search Content For Core Scripts
+Studio.App.Property.SecondaryTextColor,,Menu Secondary Text Color,Menu Secondary Text Color
 Studio.App.Property.SelectColor,,Select Color,Select Color
 Studio.App.Property.SelectHoverColor,,Select/Hover Color,Select/Hover Color
+Studio.App.Property.SelectedMenuItemBackgroundColor,,Selected Menu Item Background,Selected Menu Item Background
+Studio.App.Property.SelectedTextColor,,Menu Selected Text Color,Menu Selected Text Color
 Studio.App.Property.SelectionBackgroundColor,,Selection Background Color,Selection Background Color
 Studio.App.Property.SelectionColor,,Selection Color,Selection Color
 Studio.App.Property.SelfColor,,"""self"" Color","""self"" Color"
@@ -1328,6 +1337,7 @@ Studio.App.Property.ShowBoundingBoxes,,Show Bounding Boxes,Show Bounding Boxes
 Studio.App.Property.ShowCoreGUIInExplorerWhilePlaying,,Show Core GUI in Explorer while Playing,Show Core GUI in Explorer while Playing
 Studio.App.Property.ShowCorePackages,,Show CorePackages,Show CorePackages
 Studio.App.Property.ShowDecompositionGeometry,,Show Decomposition Geometry,Show Decomposition Geometry
+Studio.App.Property.ShowDeploymentWarnings,,Show Deployment Warnings,Show Deployment Warnings
 Studio.App.Property.ShowDiagnosticsBar,,Show Diagnostics Bar,Show Diagnostics Bar
 Studio.App.Property.ShowFileSyncService,,Show FileSyncService,Show FileSyncService
 Studio.App.Property.ShowHiddenObjectsInExplorer,,Show Hidden Objects in Explorer,Show Hidden Objects in Explorer
@@ -1653,6 +1663,7 @@ Studio.App.RBXMainWindow.GridSize2Studs,,Grid Size - 2 studs,Grid Size - 2 studs
 Studio.App.RBXMainWindow.GridSize4Studs,,Grid Size - 4 Studs,Grid Size - 4 Studs
 Studio.App.RBXMainWindow.Group,,Group,Group
 Studio.App.RBXMainWindow.GroupPartsOrModels,,Group parts or models,Group parts or models
+Studio.App.RBXMainWindow.HideOrientationIndicator,,Hide Orientation Indicator,Hide Orientation Indicator
 Studio.App.RBXMainWindow.HingeOnSurface,,Hinge on Surface,Hinge on Surface
 Studio.App.RBXMainWindow.IndentSelection,,Indent,Indent
 Studio.App.RBXMainWindow.IndentSelectionToolTip,,Indent selected line(s),Indent selected line(s)
@@ -1829,6 +1840,8 @@ Studio.App.RBXMainWindow.SetSelectionAsInstanceDefault,,Set the selection as the
 Studio.App.RBXMainWindow.SettingsElps,,Settings...,Settings...
 Studio.App.RBXMainWindow.ShowHelpForSelectedObject,,Show help for selected object,Show help for selected object
 Studio.App.RBXMainWindow.ShowListOfShortcutCommands,,Show list of shortcut commands,Show list of shortcut commands
+Studio.App.RBXMainWindow.ShowOrientationIndicator,,Show Orientation Indicator,Show Orientation Indicator
+Studio.App.RBXMainWindow.ShowOrientationIndicatorTooltip,,Display surface direction information for objects,Display surface direction information for objects
 Studio.App.RBXMainWindow.ShowScriptInExplorer,,Show in Explorer,Show in Explorer
 Studio.App.RBXMainWindow.ShowScriptInExplorerTooltip,,Select this script in the explorer,Select this script in the explorer
 Studio.App.RBXMainWindow.ShowViewSelector,,Show View Selector,Show View Selector
@@ -2557,8 +2570,6 @@ Studio.App.RobloxTextOutputWidget.MaxTableDepthReached,,Max table depth reached,
 Studio.App.RobloxTextOutputWidget.Message,,Message,Message
 Studio.App.RobloxTextOutputWidget.OpenLink,,Open link,Open link
 Studio.App.RobloxTextOutputWidget.SelectAll,,Select All,Select All
-Studio.App.RobloxTextOutputWidget.TableOutputBetaFeatureDescription,,"Output gets an upgrade — expressive UI, filter/search, and copy/paste becomes easier.","Output gets an upgrade — expressive UI, filter/search, and copy/paste becomes easier."
-Studio.App.RobloxTextOutputWidget.TableOutputBetaFeatureTitle,,Expressive Output Window,Expressive Output Window
 Studio.App.RobloxTextOutputWidget.Timestamp,,Timestamp,Timestamp
 Studio.App.RobloxViewStudio.ExitUiLayer,,Exit UI Layer,Exit UI Layer
 Studio.App.RobloxViewStudio.SelectUILayer1,,"Select UI Layer ""%1""","Select UI Layer ""%1"""
@@ -2752,6 +2763,9 @@ Studio.App.StudioDataModelLoadUtil.ErrorCannotOpenTCPlaceDueToConflictLuobu,,Luo
 Studio.App.StudioDataModelLoadUtil.ErrorCannotOpenTCPlaceDueToTimeout,,Failed to open the team create place due to timeout,Failed to open the team create place due to timeout
 Studio.App.StudioDataModelLoadUtil.ErrorCannotOpenTCPlaceGeneral,,"Failed to open the team create place, please try again","Failed to open the team create place, please try again"
 Studio.App.StudioDataModelLoadUtil.ErrorCannotOpenTCPlaceWithErrorCode1,"NOTE TO LOCALIZERS: Do not translate the parentheses (), whatever is inside the parentheses, or any other special characters, use ASCII instead.","Failed to open the team create place, please try again. (Error Code: %1)","Failed to open the team create place, please try again. (Error Code: %1)"
+Studio.App.StudioDeviceEmulatorService.CannotChangeEmulationDevice,,Can't set emulation device in current game state.,Can't set emulation device in current game state.
+Studio.App.StudioDeviceEmulatorService.InvalidOrientation1,,Can't set orientation to '%1'.,Can't set orientation to '%1'.
+Studio.App.StudioDeviceEmulatorService.NonExistantDeviceId1,,Device ID '%1' doesn't exist.,Device ID '%1' doesn't exist.
 Studio.App.StudioFlagEditor.AddButton,Button displayed in the Overrides tab of the Flag Editor (File -> Advanced -> Open Flag Editor). Button is used to add a new entry to the list of flag overrides by opening a new dialog.,Add,Add
 Studio.App.StudioFlagEditor.AddOverrideTitle,Title of Add Override dialog that appears after clicking add button in the Overrides tab of the Flag Editor (File -> Advanced -> Open Flag Editor).,Add Override,Add Override
 Studio.App.StudioFlagEditor.AppliesOverridesImmediately,,Saves and immediately applies overrides to running studio instance (unsafe).,Saves and immediately applies overrides to running studio instance (unsafe).
@@ -2852,6 +2866,7 @@ Studio.App.TeamCreateConnectionDialog.YouHaveLostConnectionToTheServer,,You have
 Studio.App.TemplatePage.Gameplay,,Gameplay,Gameplay
 Studio.App.TemplatePage.Theme,,Theme,Theme
 Studio.App.TemplatesPage.AllTemplates,Templates page tab,All Templates,All Templates
+Studio.App.Theme.InvalidGetThemeApi,"Theme:GetPath api has been removed, so it cannot be used anymore",GetPath is not a valid member of Theme,GetPath is not a valid member of Theme
 Studio.App.Tooltip.GoToSource,,Go to source,Go to source
 Studio.App.TwoStepVerificationPage.Enter6DigitCode,,Enter 6-digit code,Enter 6-digit code
 Studio.App.TwoStepVerificationPage.NeedHelpContact,,Need help? Contact ,Need help? Contact 

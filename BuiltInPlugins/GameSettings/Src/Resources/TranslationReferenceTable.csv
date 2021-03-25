@@ -36,7 +36,7 @@ Studio.GameSettings.General.ButtonCancel,Cancel,Cancel,취소,Отмена,取�
 Studio.GameSettings.General.TitleStudioApiServices,Enable Studio Access to API Services,Enable Studio Access to API Services,Studio의 API 서비스 접근 활성화,Включить доступ к API-службам,允许 Studio 访问 API 服务
 Studio.GameSettings.General.ButtonDiscard,Discard,Discard,제거,Сбросить,丢弃
 Studio.GameSettings.General.CategoryBasicInfo,Basic Info,Basic Info,기본 정보,Основные сведения,基础信息
-Studio.GameSettings.General.GenreAll,All,All,모두,Все,所有
+Studio.GameSettings.General.GenreAll,All,All,전체,Все,所有
 Studio.GameSettings.General.CategoryAvatar,Avatar,Avatar,아바타,Аватар,虚拟形象
 Studio.GameSettings.General.CategoryWorld,World,World,월드,Мир,世界
 Studio.GameSettings.General.CategoryOptions,Options,Options,옵션,Параметры,选项
@@ -267,7 +267,7 @@ Studio.GameSettings.AccessPermissions.CollaboratorSearchbarTooManyText1,You cann
 Studio.GameSettings.AccessPermissions.TeamCreateWarning,"To add collaborators, turn on Team Create","To add collaborators, turn on Team Create",공동 작업자를 추가하려면 공동 제작을 활성화하세요,Для добавления включите совместную разработку,要添加协作者，请打开“组队创作”
 Studio.GameSettings.DraftGames.PublishRequiredToActivatePlayability, to activate Playability options, to activate Playability options, 플레이 가능 옵션 활성화,для активации параметров играемости, 以激活“游戏受众”选项
 Studio.GameSettings.AccessPermissions.DEPRECATED_CollaboratorSearchbarDefaultText,Search by user or group name,Search by user or group name,사용자 또는 그룹 이름으로 검색, ,按用户或群组名称搜索
-Studio.GameSettings.AccessPermissions.PermissionsUpdateMessage, We've updated our permission system!, We've updated our permission system!,권한 시스템을 업데이트했습니다!, , 我们对许可系统进行了更新！
+Studio.GameSettings.AccessPermissions.PermissionsUpdateMessage, We've updated our permission system!, We've updated our permission system!,권한 시스템을 업데이트했습니다!, , 我们对权限系统进行了更新！
 Studio.GameSettings.AccessPermissions.UpdateHyperlinkText, Learn more, Learn more, 더 알아보기, , 了解更多
 Studio.GameSettings.General.SourceLanguageTitle,Source Language,Source Language,소스 언어, ,源语言
 Studio.GameSettings.General.AutoTextCaptureDesc,Automatically capture text from game UI while players play.,Automatically capture text from game UI while players play.,플레이어가 플레이하는 동안 게임 UI에서 텍스트를 자동으로 캡처합니다., ,当玩家进行游戏时自动从游戏界面抓取文本。

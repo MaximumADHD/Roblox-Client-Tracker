@@ -1725,7 +1725,7 @@ Studio.App.RobloxPropertiesWidget.FilterPlaceholder1,,,Filter Properties %1,Filt
 Studio.App.RobloxPropertiesWidget.ItemsCount2,,,%1 - %2 items,%1 - %2 items,%1 - %2 아이템,Позиции %1 - %2,%1 - %2 个项目
 Studio.App.RobloxPropertiesWidget.ItemsCount3,,,"%1 ""%2"" - %3 items","%1 ""%2"" - %3 items","%1 ""%2"" - %3 아이템","Позиции %1 ""%2"" - %3",%1 “%2” - %3 个项目
 Studio.App.RobloxQuickAccessConfig.Add,,,Add >>,Add >>,추가 >>,Добавить >>,添加 >>
-Studio.App.RobloxQuickAccessConfig.AllActions,,,All Actions,All Actions,모든 작업,Все действия,所有动作
+Studio.App.RobloxQuickAccessConfig.AllActions,,,All Actions,All Actions,모든 작업,Все действия,所有操作
 Studio.App.RobloxQuickAccessConfig.AlreadyAvailable,,,"The selected action is already available in Quick Access Bar.
 Please try to add a different action.","The selected action is already available in Quick Access Bar.
 Please try to add a different action.","선택한 작업은 이미 바로가기 표시줄에 있습니다.
@@ -3137,7 +3137,7 @@ Studio.App.PackagesBlockingPublishDialog.PackageAssetName,,,Package Asset Name,P
 Studio.App.PackagesBlockingPublishDialog.PackageInstance,,,Package Instance Name,Package Instance Name,패키지 인스턴스 이름,,包实例名称
 Studio.App.PackagesBlockingPublishDialog.PackageInstanceName,,,Package Instance Name,Package Instance Name,패키지 인스턴스 이름,,包实例名称
 Studio.App.PackagesBlockingPublishDialog.PackageIsModified,,,Package is modified,Package is modified,패키지가 수정되었습니다,,包已被修改
-Studio.App.PackagesBlockingPublishDialog.Permission,,,Permission Status,Permission Status,권한 상태,,权限状态
+Studio.App.PackagesBlockingPublishDialog.Permission,,,Permission Level,Permission Level,권한 상태,,权限状态
 Studio.App.PackagesBlockingPublishDialog.SelectPackages,,,Select All in Explorer,Select All in Explorer,탐색기에서 모두 선택,,在项目管理器中全选
 Studio.App.PackagesBlockingPublishDialog.Warning,,,The following packages are preventing this place from being published:,The following packages are preventing this place from being published:,다음 패키지로 인해 이 플레이스를 게시할 수 없습니다:,,下列包正在阻止此场景被发布：
 Studio.App.PluginLoader.CloudLoadPermissionsFailedFmt1,,,Failed to load plugin permissions from cloud: %1,Failed to load plugin permissions from cloud: %1,클라우드에서 플러그인 권한을 불러오지 못했습니다: %1,,从云端加载插件权限失败：%1
@@ -3330,7 +3330,7 @@ Studio.App.StudioProjectConfig.UnexpectedFieldWarning2,,,"The Project File has u
 %1 
 %2"
 Studio.App.UploadImageRequest.CouldNotOpenFile1,,,Could not open file %1,Could not open file %1,%1 파일을 열 수 없습니다,,无法打开文件 %1
-Studio.App.BetaFeatures.FindReplaceViewDescription,,,"Overhaul of find and replace functionality to make working with large codebases easier. Streamlined interface, addition of search filters and Replace All functionality, and improved performance.","Overhaul of find and replace functionality to make working with large codebases easier. Streamlined interface, addition of search filters and Replace All functionality, and improved performance.","찾기 및 바꾸기 기능을 대폭 개선해 더 큰 코드베이스를 더 쉽게 처리할 수 ​​있도록 합니다.  간소화된 인터페이스, 검색 필터 및 모두 바꾸기 기능 추가, 개선된 성능 제공.",,大幅改进查找与替换功能，以便更轻松地处理较大的代码库。改进了界面，添加了搜索过滤器和替换全部功能，并改善了性能。
+Studio.App.BetaFeatures.FindReplaceViewDescription,,,"Overhaul of find and replace functionality to make working with large codebases easier. Streamlined interface, addition of search filters and Replace All functionality, and improved performance.","Overhaul of find and replace functionality to make working with large codebases easier. Streamlined interface, addition of search filters and Replace All functionality, and improved performance.","찾기 및 바꾸기 기능이 대폭 개선되어 방대한 코드베이스를 더 쉽게 제어할 수 ​​있습니다. 간소화된 인터페이스, 검색 필터 및 모두 바꾸기 기능, 개선된 성능을 제공합니다.",,大幅改进查找与替换功能，以便更轻松地处理较大的代码库。改进了界面，添加了搜索过滤器和替换全部功能，并改善了性能。
 Studio.App.BetaFeatures.FindReplaceViewTitle,,,Find All / Replace All,Find All / Replace All,모두 찾기 / 모두 바꾸기,,查找全部 / 替换全部
 Studio.App.BetaFeatures.UIStrokeDescription,,,"Enables the UIStroke instance, which adds highly customizable borders around the edges of text and UI objects.","Enables the UIStroke instance, which adds highly customizable borders around the edges of text and UI objects.",UIStroke 인스턴스를 활성화하여 텍스트 및 UI 개체의 가장자리 주위에 고도로 사용자 지정 가능한 테두리를 추가합니다.,,启用 UIStroke 实例，在文本和 UI 对象的边缘周围添加可高度自定义的边框。
 Studio.App.BetaFeatures.UIStrokeTitle,,,UIStroke Component,UIStroke Component,UIStroke 구성 요소,,UIStroke 组件
@@ -3346,9 +3346,9 @@ Studio.App.LoginRequest.TwoStepVerificationFailureError,,,Account issue encounte
 Studio.App.LoginRequest.TwoStepVerificationFloodedError,,,Too many attempts. Please try again later.,Too many attempts. Please try again later.,시도 가능 횟수를 초과했습니다. 나중에 다시 시도하세요.,,尝试次数过多。请稍后重试。
 Studio.App.LoginRequest.UnknownError,,,"Something went wrong. Please try again later, or contact <a href='https://www.roblox.com/support'>support</a>","Something went wrong. Please try again later, or contact <a href='https://www.roblox.com/support'>support</a>",오류가 발생했습니다. 나중에 다시 시도하거나 <a href='https://www.roblox.com/support'>지원 센터</a>에 문의하세요.,,发生了问题。请稍后重试，或联系<a href='https://www.roblox.com/support'>技术支持</a>
 Studio.App.LoginRequest.UsernameError,,,Could not get username from server.,Could not get username from server.,서버에서 사용자 이름을 가져올 수 없습니다.,,无法从无服务器获取用户名。
-Studio.App.PropertyTooltip.PhysicalDraggersSelectScopeByDefault,,,"When using the Physical draggers, toggle if a single click selects the Model or a scope by default.  Alt-click to toggle behavior.","When using the Physical draggers, toggle if a single click selects the Model or a scope by default.  Alt-click to toggle behavior.","물리적 드래거를 사용할 때, 한 번의 클릭으로 모델 또는 범위가 기본적으로 선택되도록 설정 또는 해제합니다. Alt 키를 누른 상태에서 클릭하여 수행할 수 있습니다.",,在使用物理拖拽器时，切换单机默认选中模型还是域。按住 Alt 并点击切换行为。
+Studio.App.PropertyTooltip.PhysicalDraggersSelectScopeByDefault,,,"When using the Physical draggers, toggle if a single click selects the Model or a scope by default.  Alt-click to toggle behavior.","When using the Physical draggers, toggle if a single click selects the Model or a scope by default.  Alt-click to toggle behavior.","물리적 드래거를 사용할 때, 마우스 클릭으로 모델 또는 범위가 기본적으로 선택되도록 설정 또는 해제합니다. Alt 키를 누른 상태에서 마우스를 클릭하면 됩니다.",,在使用物理拖拽器时，切换单机默认选中模型还是域。按住 Alt 并点击切换行为。
 Studio.App.Property.PhysicalDraggersSelectScopeByDefault,,,Physical Draggers Select Scope (Alt-click) By Default,Physical Draggers Select Scope (Alt-click) By Default,물리적 드래거가 기본적으로 범위 선택 (Alt+클릭),,物理拖拽器默认选择域（Alt 点击）
-Studio.App.QuickOpenDialog.FuzzySearch,,,Fuzzy Search for Instances,Fuzzy Search for Instances,인스턴스 퍼지 검색,,模糊搜索实例
+Studio.App.QuickOpenDialog.FuzzySearch,,,Fuzzy Search for Instances,Fuzzy Search for Instances,인스턴스에 대한 퍼지 검색,,模糊搜索实例
 Studio.App.ScriptingCmd.GOTODECL,,,Go To Declaration,Go To Declaration,선언으로 이동,,前往声明
 Studio.App.ScriptingCmd.GOTODECLTooltip,,,Go to variable declaration,Go to variable declaration,변수 선언으로 이동,,前往变量声明
 Studio.App.ScriptingCmd.INVOKEHOVER,,,Invoke Hover,Invoke Hover,커서 올리기 호출,,调用悬停
@@ -3356,12 +3356,49 @@ Studio.App.UpdateUIManager.Cores,,,Cores,Cores,코어,,核心
 Studio.App.UpdateUIManager.Scheduler,,,Scheduler,Scheduler,스케줄러,,调度程序
 Studio.App.MainWindow.ClearTerrain,,,The Terrain object persists in your workspace and can’t be removed. Deleting it will clear existing terrain.,The Terrain object persists in your workspace and can’t be removed. Deleting it will clear existing terrain.,지형 개체는 작업 공간에 유지되며 제거할 수 없습니다. 삭제하면 기존 지형이 지워집니다.,,地形对象在你的工作区中持久存在且无法被移除。删除它将清除现有地形。
 Studio.App.PackagesBlockingPublishDialog.MessageNoAccessOnPlaceOpen,,,You will be unable to publish this place as you do not have access to use one or more Packages. Get permission from the Package owner.,You will be unable to publish this place as you do not have access to use one or more Packages. Get permission from the Package owner.,하나 이상의 패키지를 사용할 수 있는 접근 권한이 없으므로 이 플레이스를 게시할 수 없게 됩니다. 패키지 소유자에게 문의해 권한을 받으세요.,,你将无法发布此场景，因为你没有一个或更多包的使用权限。请联系包的所有者并获取权限。
-Studio.App.PackagesBlockingPublishDialog.NoAccessHeader,,,No access to Packages(s),No access to Packages(s),패키지에 대한 액세스 권한이 없습니다,,没有包的访问权限
+Studio.App.PackagesBlockingPublishDialog.NoAccessHeader,,,No access to Package(s),No access to Package(s),패키지에 대한 액세스 권한이 없습니다,,没有包的访问权限
 Studio.App.FindReplaceController.AreYouSureYouWantToReplaceAll,,,"Are you sure you want to replace all? 
 This action cannot be undone.","Are you sure you want to replace all? 
-This action cannot be undone.",,,
-Studio.App.ScriptingCmd.INVOKESYMBOLS,,,Filter Script Functions,Filter Script Functions,,,
-Studio.App.ScriptingCmd.INVOKESYMBOLSTooltip,,,Filter script functions,Filter script functions,,,
+This action cannot be undone.","정말 모두 교체할까요?
+이 작업은 취소할 수 없습니다.",,
+Studio.App.ScriptingCmd.INVOKESYMBOLS,,,Filter Script Functions,Filter Script Functions,스크립트 함수 필터,,
+Studio.App.ScriptingCmd.INVOKESYMBOLSTooltip,,,Filter script functions,Filter script functions,스크립트 함수 필터,,
+Studio.App.BetaFeatures.DynamicIndoorEnvMapDescription,,,"Enables automatically updated indoor environment map, which can be tuned by Lighting.EnvironmentDiffuseScale/EnvironmentSpecularScale.","Enables automatically updated indoor environment map, which can be tuned by Lighting.EnvironmentDiffuseScale/EnvironmentSpecularScale.",,,
+Studio.App.BetaFeatures.DynamicIndoorEnvMapTitle,,,Dynamic Indoor Environment Map,Dynamic Indoor Environment Map,,,
+Studio.App.BetaFeatures.VirtualCursorDescription,,,Enables a mouse-emulation cursor for gamepad input for interaction with UIs not designed for gamepad. Press the view button on gamepad while playing a game to try it out.,Enables a mouse-emulation cursor for gamepad input for interaction with UIs not designed for gamepad. Press the view button on gamepad while playing a game to try it out.,,,
+Studio.App.BetaFeatures.VirtualCursorTitle,,,Gamepad Virtual Cursor,Gamepad Virtual Cursor,,,
+Studio.App.FindReplaceOpenAndLockScriptsDialog.LockingScriptsElps,,,Locking Scripts...,Locking Scripts...,,,
+Studio.App.FindReplaceOpenLockedScriptsDialog.Editor,,,Editor,Editor,,,
+Studio.App.FindReplaceOpenLockedScriptsDialog.Script,,,Script,Script,,,
+Studio.App.FindReplaceOpenLockedScriptsDialog.StringCouldNotBeReplacedInAllScripts,,,String could not be replaced in all scripts.,String could not be replaced in all scripts.,,,
+Studio.App.FindReplaceOpenLockedScriptsDialog.UnableToReplaceAll,,,"Unable to replace all while one or more Scripts are being blocked by other users. 
+Try again when all scripts are unlocked.","Unable to replace all while one or more Scripts are being blocked by other users. 
+Try again when all scripts are unlocked.",,,
+Studio.App.ImportCostVerificationDialog.DetailsErrorTitle,,,Error,Error,,,
+Studio.App.ImportCostVerificationDialog.LuobuVerificationMainText,,,Would you like to import the selected files?,Would you like to import the selected files?,,,
+Studio.App.ImportCostVerificationDialog.LuobuVerificationTitle,,,File Import,File Import,,,
+Studio.App.ImportCostVerificationErrorDialog.EstimateLuobuErrorDescription,,,"Click 'Show Details' to view the files that could not be imported. Try importing a new selection, or resolve conflicts and reattempt.","Click 'Show Details' to view the files that could not be imported. Try importing a new selection, or resolve conflicts and reattempt.",,,
+Studio.App.ImportCostVerificationErrorDialog.EstimateLuobuErrorMainText,,,Failed to import the selected files.,Failed to import the selected files.,,,
+Studio.App.ImportCostVerificationErrorDialog.EstimateLuobuErrorTitle,,,Import Error,Import Error,,,
+Studio.App.PackagesBlockingPublishDialog.Creator,,,Creator,Creator,,,
+Studio.App.Property.MenuItemBackgroundColor,,,Menu Item Background,Menu Item Background,,,
+Studio.App.Property.PrimaryTextColor,,,Menu Primary Text Color,Menu Primary Text Color,,,
+Studio.App.Property.ScriptEditorScrollbarBackgroundColor,,,Script Editor Scrollbar Background,Script Editor Scrollbar Background,,,
+Studio.App.Property.ScriptEditorScrollbarHandleColor,,,Script Editor Scrollbar Handle,Script Editor Scrollbar Handle,,,
+Studio.App.Property.SecondaryTextColor,,,Menu Secondary Text Color,Menu Secondary Text Color,,,
+Studio.App.Property.SelectedMenuItemBackgroundColor,,,Selected Menu Item Background,Selected Menu Item Background,,,
+Studio.App.Property.SelectedTextColor,,,Menu Selected Text Color,Menu Selected Text Color,,,
+Studio.App.RBXMainWindow.HideOrientationIndicator,,,Hide Orientation Indicator,Hide Orientation Indicator,,,
+Studio.App.RBXMainWindow.ShowOrientationIndicator,,,Show Orientation Indicator,Show Orientation Indicator,,,
+Studio.App.RBXMainWindow.ShowOrientationIndicatorTooltip,,,Display surface direction information for objects,Display surface direction information for objects,,,
+Studio.App.RobloxRibbonMainWindow.CreateTorsionSpringConstraint,,,Create torsion spring constraint,Create torsion spring constraint,,,
+Studio.App.RobloxRibbonMainWindow.TogglePivotSnap,,,Snap,Snap,,,
+Studio.App.RobloxRibbonMainWindow.TogglePivotSnapTooltip,,,"Does the pivot snap to hotspots (corners, edges, face centers) of the hovered object?","Does the pivot snap to hotspots (corners, edges, face centers) of the hovered object?",,,
+Studio.App.RobloxRibbonMainWindow.TorsionSpring,,,Torsion Spring,Torsion Spring,,,
+Studio.App.StudioDeviceEmulatorService.CannotChangeEmulationDevice,,,Can't set emulation device in current game state.,Can't set emulation device in current game state.,,,
+Studio.App.StudioDeviceEmulatorService.InvalidOrientation1,,,Can't set orientation to '%1'.,Can't set orientation to '%1'.,,,
+Studio.App.StudioDeviceEmulatorService.NonExistantDeviceId1,,,Device ID '%1' doesn't exist.,Device ID '%1' doesn't exist.,,,
+Studio.App.Theme.InvalidGetThemeApi,,,GetPath is not a valid member of Theme,GetPath is not a valid member of Theme,,,
 Studio.Common.Action.Apply,,,Apply,Apply,적용,Применить,应用
 Studio.Common.Action.Back,,,Back,Back,뒤로,Назад,返回
 Studio.Common.Action.Cancel,,,Cancel,Cancel,취소,Отмена,取消

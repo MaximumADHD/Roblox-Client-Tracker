@@ -31,7 +31,14 @@
             "DebuggerCurrentLine": "#FFFFCC",
             "DebuggerErrorLine": "#FFCCCC",
             "Ruler": "#A6A6A6",
-            "Bracket": "#7F7F00"
+            "Bracket": "#7F7F00",
+            "MenuPrimaryText": "#000000",
+            "MenuSecondaryText": "#B8B8B8",
+            "MenuSelectedText": "#FFFFFF",
+            "MenuBackground": "#FFFFFF",
+            "MenuSelectedBackground": "#265AA9",
+            "MenuScrollbarBackground": "#FFFFFF",
+            "MenuScrollbarHandle": "#B3B3B3"
         },
         "Extra1": {
             "Default": "#000000",
@@ -63,7 +70,14 @@
             "DebuggerCurrentLine": "#FFFFCC",
             "DebuggerErrorLine": "#FFCCCC",
             "Ruler": "#A6A6A6",
-            "Bracket": "#000000"
+            "Bracket": "#000000",
+            "MenuPrimaryText": "#000000",
+            "MenuSecondaryText": "#B8B8B8",
+            "MenuSelectedText": "#FFFFFF",
+            "MenuBackground": "#FFFFFF",
+            "MenuSelectedBackground": "#265AA9",
+            "MenuScrollbarBackground": "#FFFFFF",
+            "MenuScrollbarHandle": "#B3B3B3"
         },
         "Extra2": {
             "Default": "#D8DEE9",
@@ -95,7 +109,14 @@
             "DebuggerCurrentLine": "#FFFFCC",
             "DebuggerErrorLine": "#FFCCCC",
             "Ruler": "#A6A6A6",
-            "Bracket": "#F97B58"
+            "Bracket": "#F97B58",
+            "MenuPrimaryText": "#000000",
+            "MenuSecondaryText": "#B8B8B8",
+            "MenuSelectedText": "#FFFFFF",
+            "MenuBackground": "#FFFFFF",
+            "MenuSelectedBackground": "#265AA9",
+            "MenuScrollbarBackground": "#FFFFFF",
+            "MenuScrollbarHandle": "#B3B3B3"
         },
         "Custom": {
             "Default": "#000000",
@@ -127,7 +148,14 @@
             "DebuggerCurrentLine": "#FFFFCC",
             "DebuggerErrorLine": "#FFCCCC",
             "Ruler": "#A6A6A6",
-            "Bracket": "#7F7F00"
+            "Bracket": "#7F7F00",
+            "MenuPrimaryText": "#000000",
+            "MenuSecondaryText": "#B8B8B8",
+            "MenuSelectedText": "#FFFFFF",
+            "MenuBackground": "#FFFFFF",
+            "MenuSelectedBackground": "#265AA9",
+            "MenuScrollbarBackground": "#FFFFFF",
+            "MenuScrollbarHandle": "#B3B3B3"
         }
     },
     "Colors": [{

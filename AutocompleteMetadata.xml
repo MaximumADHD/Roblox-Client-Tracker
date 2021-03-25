@@ -329,6 +329,12 @@
     <Function name="profileend" static="true">
       <description>Closes the top microprofiler label.</description>
     </Function>
+    <Function name="setmemorycategory" static="true">
+      <description>Sets the memory category tag of the current thread. Future allocations performed by this thread will use this tag.</description>
+    </Function>
+    <Function name="resetmemorycategory" static="true">
+      <description>Resets the memory category tag of the current thread to the default auto-assigned tag that was based on script name.</description>
+    </Function>
   </LuaLibrary>
   
   <LuaLibrary name="string">

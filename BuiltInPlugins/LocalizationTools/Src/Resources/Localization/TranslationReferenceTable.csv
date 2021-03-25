@@ -60,4 +60,4 @@ Studio.LocalizationTools.PluginMetadata.GetOrCreateCloudTableFailedMessage,Local
 Studio.LocalizationTools.PluginMetadata.GetAllLocalesFailed,Localization Tools failed to get all languages info.,Localization Tools failed to get all languages info.,로컬리제이션 도구가 모든 언어 정보를 가져오지 못했습니다.,本地化工具获取全部语言信息失败。
 Studio.LocalizationTools.UploadDialogContent.UploadCompleteWithInvalidEntries,Upload complete with invalid entries: ,Upload complete with invalid entries: ,업로드가 완료되었으며 다음의 일부 항목이 유효하지 않습니다: ,上传已完成，部分条目无效： 
 Studio.LocalizationTools.UploadDialogContent.InvalidIdentifier,Entries with invalid identifier:,Entries with invalid identifier:,유효하지 않은 식별자가 있는 항목:,带有无效标识符的条目：
-Studio.LocalizationTools.UploadDialogContent.InvalidTranslation,Invalid translations:,Invalid translations:, ,无效翻译：
+Studio.LocalizationTools.UploadDialogContent.InvalidTranslation,Invalid translations:,Invalid translations:,유효하지 않은 번역:,无效翻译：

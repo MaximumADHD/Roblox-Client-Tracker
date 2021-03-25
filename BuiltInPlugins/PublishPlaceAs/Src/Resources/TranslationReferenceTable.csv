@@ -60,3 +60,4 @@ Studio.PublishPlaceAs.PublishSuccess.FindInGame,You may find this place in {1},Y
 Studio.PublishPlaceAs.PublishFail.FailConfiguration,Could not publish configuration settings.,Could not publish configuration settings.,구성 설정을 게시하지 못했습니다.,Не удалось опубликовать настройки конфигурации.,无法发布配置设置。
 Studio.PublishPlaceAs.PrivacyType.Public,Public,Public,공개, ,公开
 Studio.PublishPlaceAs.PrivacyType.Private,Private,Private,비공개, ,私人
+Studio.PublishPlaceAs.General.FetchFailed,Fetch failed,Fetch failed, , , 

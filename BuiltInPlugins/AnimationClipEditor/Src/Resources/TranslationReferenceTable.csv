@@ -129,7 +129,7 @@ Studio.AnimationClipEditor.EditorErrors.BigAnimation,"Animation is larger than 3
 Studio.AnimationClipEditor.Menu.Core,Core,Core,코어, ,核心
 Studio.AnimationClipEditor.Menu.Idle,Idle,Idle,대기, ,待机
 Studio.AnimationClipEditor.Menu.Action,Action,Action,동작, ,动作
-Studio.AnimationClipEditor.Title.NoAnimationExists_Migrated,"No animation exists for {rig}, please create one to start animating","No animation exists for {rig}, please create one to start animating",{rig}에 사용 가능한 애니메이션이 없습니다. 새 애니메이션을 만드세요., ,不存在可用于 {rig} 的动画，请为其创建新的动画
+Studio.AnimationClipEditor.Title.NoAnimationExists_Migrated,"No animation exists for {rig}, please create one to start animating","No animation exists for {rig}, please create one to start animating",{rig}에 사용 가능한 애니메이션이 없습니다. 애니메이션화하려면 새로 만드세요, ,不存在可用于 {rig} 的动画，请为其创建新的动画
 Studio.AnimationClipEditor.Title.CurrentDuration_Migrated,Current duration is {currentDuration} frames,Current duration is {currentDuration} frames,현재 지속 시간은 {currentDuration} 프레임입니다, ,当前时长为 {currentDuration} 帧
 Studio.AnimationClipEditor.Title.DefaultAnimationName,Untitled Animation Clip,Untitled Animation Clip,제목 없는 애니메이션 클립, ,无标题动画片段
 Studio.AnimationClipEditor.Settings.24FPS,24 fps,24 fps,24 fps, ,24 fps

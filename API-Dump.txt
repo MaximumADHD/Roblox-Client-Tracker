@@ -1853,7 +1853,6 @@ Class MemStorageService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function Instance MemStorageService:BindAndFire(string key, Function callback) {RobloxScriptSecurity}
 	Function void MemStorageService:Fire(string key, string value = "") {RobloxScriptSecurity}
 	Function string MemStorageService:GetItem(string key, string defaultValue = "") {RobloxScriptSecurity}
-	Function Map MemStorageService:GetTable() {RobloxScriptSecurity}
 	Function bool MemStorageService:HasItem(string key) {RobloxScriptSecurity}
 	Function bool MemStorageService:RemoveItem(string key) {RobloxScriptSecurity}
 	Function void MemStorageService:SetItem(string key, string value = "") {RobloxScriptSecurity}
@@ -3098,6 +3097,7 @@ Class Studio : Instance [NotCreatable] [Service] [NotReplicated]
 	Property bool Studio.Enable Internal Features
 	Property bool Studio.Respect Studio shortcuts when game has focus
 	Property bool Studio.Search Content For Core Scripts
+	Property bool Studio.Show Deployment Warnings
 	Property bool Studio.Show Diagnostics Bar
 	Property bool Studio.Show QT warnings in output
 	Property bool Studio.Only Play Audio from Window in Focus
@@ -3177,12 +3177,19 @@ Class Studio : Instance [NotCreatable] [Service] [NotReplicated]
 	Property Color3 Studio.Keyword Color [NotReplicated]
 	Property Color3 Studio.Luau Keyword Color [NotReplicated]
 	Property Color3 Studio.Matching Word Background Color [NotReplicated]
+	Property Color3 Studio.Menu Item Background Color [NotReplicated]
 	Property Color3 Studio.Method Color [NotReplicated]
 	Property Color3 Studio.Number Color [NotReplicated]
 	Property Color3 Studio.Operator Color [NotReplicated]
+	Property Color3 Studio.Primary Text Color [NotReplicated]
 	Property Color3 Studio.Property Color [NotReplicated]
 	Property Color3 Studio.Ruler Color [NotReplicated]
 	Property Enum<StudioScriptEditorColorPresets> Studio.Script Editor Color Preset
+	Property Color3 Studio.Script Editor Scrollbar Background Color [NotReplicated]
+	Property Color3 Studio.Script Editor Scrollbar Handle Color [NotReplicated]
+	Property Color3 Studio.Secondary Text Color [NotReplicated]
+	Property Color3 Studio.Selected Menu Item Background Color [NotReplicated]
+	Property Color3 Studio.Selected Text Color [NotReplicated]
 	Property Color3 Studio.Selection Background Color [NotReplicated]
 	Property Color3 Studio.Selection Color [NotReplicated]
 	Property Color3 Studio.String Color [NotReplicated]
@@ -3206,6 +3213,15 @@ Class StudioData : Instance [NotCreatable] [Service]
 	Property bool StudioData.EnableScriptCollabOnLoad {RobloxScriptSecurity} [Hidden]
 	Property int64 StudioData.SrcPlaceId {RobloxSecurity} [Hidden] [NotReplicated]
 	Property int64 StudioData.SrcUniverseId {RobloxSecurity} [Hidden] [NotReplicated]
+Class StudioDeviceEmulatorService : Instance [NotCreatable] [Service] [NotReplicated]
+	Function bool StudioDeviceEmulatorService:EmulatePCDeviceWithResolution(string deviceId, Vector2 resolution) {RobloxScriptSecurity} [Yields]
+	Function string StudioDeviceEmulatorService:GetCurrentDeviceId() {RobloxScriptSecurity} [Yields]
+	Function Enum<ScreenOrientation> StudioDeviceEmulatorService:GetCurrentOrientation() {RobloxScriptSecurity} [Yields]
+	Function bool StudioDeviceEmulatorService:HasDeviceWithId(string deviceId) {RobloxScriptSecurity} [Yields]
+	Function void StudioDeviceEmulatorService:SetCurrentDeviceId(string deviceId) {RobloxScriptSecurity} [Yields]
+	Function void StudioDeviceEmulatorService:SetCurrentOrientation(Enum<ScreenOrientation> orientation) {RobloxScriptSecurity} [Yields]
+	Event StudioDeviceEmulatorService.CurrentDeviceIdChanged() {RobloxScriptSecurity}
+	Event StudioDeviceEmulatorService.OrientationChanged() {RobloxScriptSecurity}
 Class StudioService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property bool StudioService.AlignDraggedObjects {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property bool StudioService.DraggerSolveConstraints [ReadOnly]
@@ -3261,6 +3277,7 @@ Class StudioService : Instance [NotCreatable] [Service] [NotReplicated]
 	Event StudioService.OnPluginInstalledFromWeb(string pluginId) {RobloxScriptSecurity}
 	Event StudioService.OnPublishAsPlugin(Objects instances) {RobloxScriptSecurity}
 	Event StudioService.OnPublishPlaceToRoblox(bool isOverwritePublish) {RobloxScriptSecurity}
+	Event StudioService.OnSaveOrPublishPlaceToRoblox(bool showGameSelect, bool isPublish) {RobloxScriptSecurity}
 	Event StudioService.OnSaveToRoblox(Objects instances) {RobloxScriptSecurity}
 	Event StudioService.PromptTransformPluginCheckEnable() {RobloxScriptSecurity}
 Class StudioTheme : Instance [NotCreatable] [NotReplicated]
@@ -5269,6 +5286,13 @@ Enum StudioScriptEditorColorCategories
 	EnumItem StudioScriptEditorColorCategories.DebuggerErrorLine : 27
 	EnumItem StudioScriptEditorColorCategories.Ruler : 28
 	EnumItem StudioScriptEditorColorCategories.Bracket : 29
+	EnumItem StudioScriptEditorColorCategories.MenuPrimaryText : 30
+	EnumItem StudioScriptEditorColorCategories.MenuSecondaryText : 31
+	EnumItem StudioScriptEditorColorCategories.MenuSelectedText : 32
+	EnumItem StudioScriptEditorColorCategories.MenuBackground : 33
+	EnumItem StudioScriptEditorColorCategories.MenuSelectedBackground : 34
+	EnumItem StudioScriptEditorColorCategories.MenuScrollbarBackground : 35
+	EnumItem StudioScriptEditorColorCategories.MenuScrollbarHandle : 36
 Enum StudioScriptEditorColorPresets
 	EnumItem StudioScriptEditorColorPresets.RobloxDefault : 0
 	EnumItem StudioScriptEditorColorPresets.Extra1 : 1
