@@ -2,6 +2,20 @@ local color = {
 	Color = Color3.fromRGB(0, 0, 0),
 	Transparency = 0,
 }
+local selectionCursor = {
+	Color = Color3.new(0.086, 0.678, 0.847),
+	Transparency = 0,
+	AnimatedColor = Color3.new(1,1,1),
+	GradientRotationSpeed = 2,
+	GradientColorSequence = ColorSequence.new({
+		ColorSequenceKeypoint.new(0, Color3.new(0.514, 0.82, 0.992)),
+		ColorSequenceKeypoint.new(1, Color3.new(0.086, 0.678, 0.847))
+	}),
+	GradientTransparencySequence = NumberSequence.new({
+		NumberSequenceKeypoint.new(0, 0),
+		NumberSequenceKeypoint.new(1, 0)
+	}),
+}
 local testTheme = {
 	BackgroundDefault = color,
 	BackgroundContrast = color,
@@ -40,7 +54,7 @@ local testTheme = {
 	Alert = color,
 	Badge = color,
 	BadgeContent = color,
-	SelectionCursor = color,
+	SelectionCursor = selectionCursor,
 }
 
 local font = {

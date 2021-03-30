@@ -2,15 +2,17 @@ local BaseTile = script.Parent
 local Tile = BaseTile.Parent
 local App = Tile.Parent
 local UIBlox = App.Parent
-local Packages = UIBlox.Parent
-
-local Roact = require(Packages.Roact)
-local withStyle = require(UIBlox.Core.Style.withStyle)
-
-local Images = require(UIBlox.App.ImageSet.Images)
 
 local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
+if UIBloxConfig.useTileThumbnailV2 then
+    return require(script.Parent.TileThumbnailV2)
+end
+
+local Packages = UIBlox.Parent
+local Roact = require(Packages.Roact)
+local withStyle = require(UIBlox.Core.Style.withStyle)
+local Images = require(UIBlox.App.ImageSet.Images)
 local ImageSetComponent = require(UIBlox.Core.ImageSet.ImageSetComponent)
 local LoadableImage = require(UIBlox.App.Loading.LoadableImage)
 local TileSelectionOverlay = require(BaseTile.TileSelectionOverlay)

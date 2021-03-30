@@ -7,6 +7,7 @@ local Packages = UIBlox.Parent
 local t = require(Packages.t)
 
 local Color = require(UIBlox.Core.Style.Validator.validateColorInfo)
+local SelectionCursorType = require(UIBlox.Core.Style.Validator.validateSelectionCursorInfo)
 
 local ThemePalette = t.strictInterface({
 	BackgroundDefault = Color,
@@ -56,7 +57,7 @@ local ThemePalette = t.strictInterface({
 	Badge = Color,
 	BadgeContent = Color,
 
-	SelectionCursor = Color,
+	SelectionCursor = SelectionCursorType,
 })
 
 return ThemePalette

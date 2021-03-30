@@ -165,7 +165,17 @@ local theme = {
 	SelectionCursor = {
 		Color = Colors.XboxBlue,
 		Transparency = 0,
-	},
+		AnimatedColor = Colors.White, -- For animated cursors, we use GradientColorSequence * AnimatedColor
+		GradientRotationSpeed = 2,
+		GradientColorSequence = ColorSequence.new({
+			ColorSequenceKeypoint.new(0, Color3.new(0.514, 0.82, 0.992)), -- Color is #83D1FD
+			ColorSequenceKeypoint.new(1, Color3.new(0.086, 0.678, 0.847)) -- #168DD8
+		}),
+		GradientTransparencySequence = NumberSequence.new({
+			NumberSequenceKeypoint.new(0, 0),
+			NumberSequenceKeypoint.new(1, 0)
+		}),
+	}
 }
 
 return theme

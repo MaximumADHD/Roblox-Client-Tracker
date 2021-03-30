@@ -161,6 +161,12 @@ local function initializeLibrary(configs)
 			ItemTile = require(script.App.Tile.ItemTile.ItemTile),
 			ItemTileFooter = require(script.App.Tile.ItemTile.ItemTileFooter),
 			MenuTile = require(script.App.Tile.MenuTile.MenuTile),
+			Experimental = strict({
+				-- BaseTile should not be officially exposed.
+				-- Currently it's used for experimental LuaApp PlayerTile.
+				-- Remove the exposure of BaseTile when the PlayerTile design is firm.
+				BaseTile = require(script.App.Tile.BaseTile.Tile),
+			}),
 		}),
 
 		Dialog = strict({

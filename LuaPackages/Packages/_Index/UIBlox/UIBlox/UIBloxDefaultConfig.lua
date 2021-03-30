@@ -17,6 +17,9 @@ return {
 	-- non Enum.UserInputState.Begin UserInputState in the GenericSlider component
 	genericSliderFilterOldTouchInputs = false,
 
+	-- useAnimatedXboxCursors: Uses the new animated selection cursors when selecting UI elements in xbox
+	useAnimatedXboxCursors = false,
+
 	--allowSystemBarToAcceptString: Allows you to pass a string as the value for 'badgeValue'. Passing a
 	--string will show the badge even if the string is empty.
 	allowSystemBarToAcceptString = false,
@@ -30,6 +33,9 @@ return {
 
 	-- useHeaderBarV2: Controls the usage of headerBarV2
 	useHeaderBarV2 = false,
+
+	-- useTileThumbnailV2: Controls the usage of TileThumbnailV2
+	useTileThumbnailV2 = false,
 
 	-- enableAlertCustomTitleFooterConfig: Enables custom title and footer content for the Alert
 	enableAlertCustomTitleFooterConfig = false,

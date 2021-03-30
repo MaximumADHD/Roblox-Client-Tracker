@@ -48,6 +48,9 @@ local tileInterface = t.strictInterface({
 	-- Optional text to display in the Item Tile banner in place of the footer
 	bannerText = t.optional(t.string),
 
+	-- Optional backgroundImage of the tile
+	backgroundImage = t.optional(t.union(t.string, t.table)),
+
 	-- Whether the tile is selected or not
 	isSelected = t.optional(t.boolean),
 
@@ -122,6 +125,7 @@ function Tile:render()
 	local isDisabled = self.props.isDisabled
 	local titleIcon = self.props.titleIcon
 	local thumbnailOverlayComponents = self.props.thumbnailOverlayComponents
+	local backgroundImage = self.props.backgroundImage
 
 	return withStyle(function(stylePalette)
 		return withSelectionCursorProvider(function(getSelectionCursor)
@@ -174,6 +178,7 @@ function Tile:render()
 						overlayComponents = thumbnailOverlayComponents,
 						imageSize = thumbnailSize,
 						imageTransparency = thumbnailTransparency,
+						backgroundImage = backgroundImage,
 					}),
 				}),
 				Name = (titleTextLineCount > 0 and tileWidth > 0) and Roact.createElement(TileName, {
