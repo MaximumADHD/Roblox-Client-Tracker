@@ -37,13 +37,13 @@ local Libs = Plugin.Libs
 local Roact = require(Libs.Roact)
 local RoactRodux = require(Libs.RoactRodux)
 local Cryo = require(Libs.Cryo)
-local RobloxAPI = require(Libs.Framework).RobloxAPI
 
 local Constants = require(Plugin.Core.Util.Constants)
 local ContextGetter = require(Plugin.Core.Util.ContextGetter)
 local ContextHelper = require(Plugin.Core.Util.ContextHelper)
 local Layouter = require(Plugin.Core.Util.Layouter)
 local Category = require(Plugin.Core.Types.Category)
+local showRobloxCreatedAssets = require(Plugin.Core.Util.ToolboxUtilities).showRobloxCreatedAssets
 
 local getNetwork = ContextGetter.getNetwork
 local getSettings = ContextGetter.getSettings
@@ -256,7 +256,7 @@ function MainView:render()
 		local showTags = (creatorName ~= nil) or (#searchTerm > 0) or (props.audioSearchInfo ~= nil)
 
 		local showCreatorSearch = true
-		if FFlagToolboxShowRobloxCreatedAssetsForLuobu and RobloxAPI:baseURLHasChineseHost() then
+		if FFlagToolboxShowRobloxCreatedAssetsForLuobu and showRobloxCreatedAssets() then
 			showCreatorSearch = false
 		end
 

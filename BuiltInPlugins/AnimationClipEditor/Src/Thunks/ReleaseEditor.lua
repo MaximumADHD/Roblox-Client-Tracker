@@ -12,7 +12,6 @@ local RigUtils = require(Plugin.Src.Util.RigUtils)
 local SetActive = require(Plugin.Src.Actions.SetActive)
 local SetIsPlaying = require(Plugin.Src.Actions.SetIsPlaying)
 local SaveKeyframeSequence = require(Plugin.Src.Thunks.Exporting.SaveKeyframeSequence)
-local IsMicroboneSupportEnabled = require(Plugin.LuaFlags.GetFFlagAnimationEditorMicroboneSupport)
 
 return function(analytics)
 	return function(store)
@@ -44,8 +43,6 @@ return function(analytics)
 			store:dispatch(SaveKeyframeSequence(Constants.DEFAULT_AUTOSAVE_NAME, analytics))
 		end
 
-		if IsMicroboneSupportEnabled() then
-			RigUtils.clearMicrobones()
-		end
+		RigUtils.clearMicrobones()
 	end
 end

@@ -9,6 +9,7 @@ return function()
 	local AssetPreviewWrapper = require(Plugin.Core.Components.Asset.Preview.AssetPreviewWrapper)
 
 	local function createTestWrapper()
+		-- TODO: This causes an unhandled rejection because PreviewModelGetter tries to call real backend APIs on mount
 		local element = Roact.createElement(MockWrapper, {}, {
 			AssetPreviewWrapper = Roact.createElement(AssetPreviewWrapper, {
 				assetData = {
@@ -16,7 +17,7 @@ return function()
 						Id = 1,
 					},
 				},
-				previewFuncs = {},
+				previewFuncs = {}
 			})
 		})
 

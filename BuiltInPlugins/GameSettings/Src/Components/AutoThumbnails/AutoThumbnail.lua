@@ -8,6 +8,8 @@
 		RenderContents function(string contentId, Enum.AssetFetchStatus status) - Callback used to create the
 			thumbnail element. This callback should return a single element whose size is UDim2.new(1, 0, 1, 0)
 ]]
+local FFlagStudioEnableBadgesInMonetizationPage = game:GetFastFlag("StudioEnableBadgesInMonetizationPage")
+
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
 
@@ -76,6 +78,12 @@ local function getRbxthumbUrl(thumbnailType, id, size)
 	return "rbxthumb://type="..thumbnailType.."&id="..id.."&w="..size.X.."&h="..size.Y
 end
 
+local function getAssetThumbnailUrl(id, size)
+    assert(FFlagStudioEnableBadgesInMonetizationPage)
+    
+    return "https://www.roblox.com/asset-thumbnail/image?width="..size.X.."&height="..size.Y.."&format=png&assetId="..id
+end
+
 local AutoThumbnail = Roact.Component:extend(script.Name)
 
 function AutoThumbnail:init()
@@ -93,13 +101,21 @@ function AutoThumbnail:init()
 		local props = self.props
 		local thumbnailType = props.ThumbnailType
 		local id = props.Id
+		local useAssetThumbnailUrl = FFlagStudioEnableBadgesInMonetizationPage and props.UseAssetThumbnailUrl or nil
+
 		local ref = self.ref
 
 		if not ref:getValue() then return end
 
 		local absoluteSize = ref:getValue().AbsoluteSize
 		local thumbnailSize = getRbxthumbSize(thumbnailType, absoluteSize)
-		local contentId = getRbxthumbUrl(thumbnailType, id, thumbnailSize)
+		local contentId
+
+		if FFlagStudioEnableBadgesInMonetizationPage and useAssetThumbnailUrl then
+			contentId = getAssetThumbnailUrl(id, thumbnailSize)
+		else
+			contentId = getRbxthumbUrl(thumbnailType, id, thumbnailSize)
+		end
 
 		if id ~= self.currentId or thumbnailType ~= self.currentThumbnailType then
 			self.currentId = id

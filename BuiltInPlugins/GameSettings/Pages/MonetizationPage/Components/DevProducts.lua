@@ -135,7 +135,7 @@ function DevProducts:render()
             TextSize = theme.fontStyle.Title.TextSize,
         },{
             Padding = Roact.createElement("UIPadding", {
-                PaddingRight = UDim.new(0, 12)
+                PaddingRight = UDim.new(0, theme.devProducts.titlePadding)
             }),
 
             Layout = Roact.createElement("UIListLayout", {

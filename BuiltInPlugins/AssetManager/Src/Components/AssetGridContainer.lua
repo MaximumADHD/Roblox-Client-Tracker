@@ -15,7 +15,6 @@ local Framework = Plugin.Packages.Framework
 local ContextServices = require(Framework.ContextServices)
 local Util = require(Framework.Util)
 local StyleModifier = Util.StyleModifier
-local RobloxAPI = require(Framework).RobloxAPI
 
 local UI = require(Framework.UI)
 local Button = UI.Button
@@ -42,18 +41,25 @@ local OnAssetRightClick = require(Plugin.Src.Thunks.OnAssetRightClick)
 local OnScreenChange = require(Plugin.Src.Thunks.OnScreenChange)
 
 local BulkImportService = game:GetService("BulkImportService")
+local StudioService = game:GetService("StudioService")
 
 local FFlagStudioAssetManagerAssetPreviewRequest = game:GetFastFlag("StudioAssetManagerAssetPreviewRequest")
 local FFlagEnableLuobuAudioImport = game:GetFastFlag("EnableLuobuAudioImport")
+local FFlagStudioCreatePluginPolicyService = game:GetFastFlag("StudioCreatePluginPolicyService")
+
+local shouldEnableAudioImport = require(Plugin.Src.Util.AssetManagerUtilities).shouldEnableAudioImport
 
 local AssetGridContainer = Roact.Component:extend("AssetGridContainer")
 
 local function isSupportedBulkImportAssetScreen(screen)
-    if FFlagEnableLuobuAudioImport then
+    if FFlagStudioCreatePluginPolicyService and FFlagEnableLuobuAudioImport then
+        return screen.Key == Screens.IMAGES.Key or screen.Key == Screens.MESHES.Key
+            or (shouldEnableAudioImport() and screen.Key == Screens.AUDIO.Key)
+    elseif not FFlagStudioCreatePluginPolicyService and FFlagEnableLuobuAudioImport then
         return screen.Key == Screens.IMAGES.Key or screen.Key == Screens.MESHES.Key or screen.Key == Screens.AUDIO.Key
     else
         return screen.Key == Screens.IMAGES.Key or screen.Key == Screens.MESHES.Key
-            or ((not RobloxAPI:baseURLHasChineseHost()) and screen.Key == Screens.AUDIO.Key)
+            or ((not StudioService:BaseURLHasChineseHost()) and screen.Key == Screens.AUDIO.Key)
     end
 end
 

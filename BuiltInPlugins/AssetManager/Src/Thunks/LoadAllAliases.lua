@@ -4,14 +4,11 @@ local Cryo = require(Plugin.Packages.Cryo)
 
 local Promise = require(Plugin.Packages.Framework.Util.Promise)
 
-local Framework = require(Plugin.Packages.Framework)
-local RobloxAPI = Framework.RobloxAPI
+local enableAudioImport = require(Plugin.Src.Util.AssetManagerUtilities).enableAudioImport
 
 local SetAssets = require(Plugin.Src.Actions.SetAssets)
 local SetIsFetchingAssets = require(Plugin.Src.Actions.SetIsFetchingAssets)
 local SetHasLinkedScripts = require(Plugin.Src.Actions.SetHasLinkedScripts)
-
-local FFlagEnableLuobuAudioImport = game:GetFastFlag("EnableLuobuAudioImport")
 
 local function GetAliases(apiImpl, assetType, state)
     local newAssets = {}
@@ -22,8 +19,7 @@ local function GetAliases(apiImpl, assetType, state)
         if assetType == Enum.AssetType.Image
         or assetType == Enum.AssetType.MeshPart
         or assetType == Enum.AssetType.Lua
-        or (((not FFlagEnableLuobuAudioImport and (not RobloxAPI:baseURLHasChineseHost())) or FFlagEnableLuobuAudioImport)
-            and assetType == Enum.AssetType.Audio) then
+        or (enableAudioImport() and assetType == Enum.AssetType.Audio) then
             return apiImpl.API.Universes.getAliases(game.GameId, page):makeRequest()
             :andThen(function(response)
                 local body = response.responseBody
@@ -36,8 +32,7 @@ local function GetAliases(apiImpl, assetType, state)
                     if (assetType == Enum.AssetType.Image and string.find(alias.Name, "Images/"))
                     or (assetType == Enum.AssetType.MeshPart and string.find(alias.Name, "Meshes/"))
                     or (assetType == Enum.AssetType.Lua and string.find(alias.Name, "Scripts/"))
-                    or (((not FFlagEnableLuobuAudioImport and (not RobloxAPI:baseURLHasChineseHost())) or FFlagEnableLuobuAudioImport)
-                        and assetType == Enum.AssetType.Audio and string.find(alias.Name, "Audio/"))
+                    or (enableAudioImport() and assetType == Enum.AssetType.Audio and string.find(alias.Name, "Audio/"))
                     then
                         -- creating new table so keys across all assets are consistent
                         local assetAlias = {}
@@ -52,9 +47,7 @@ local function GetAliases(apiImpl, assetType, state)
                         elseif assetType == Enum.AssetType.Lua and string.find(alias.Name, "Scripts/") then
                             hasLinkedScripts = true
                             assetAlias.name = string.gsub(alias.Name, "Scripts/", "")
-                        elseif ((not FFlagEnableLuobuAudioImport and (not RobloxAPI:baseURLHasChineseHost())) or FFlagEnableLuobuAudioImport)
-                            and assetType == Enum.AssetType.Audio and string.find(alias.Name, "Audio/")
-                        then
+                        elseif enableAudioImport() and assetType == Enum.AssetType.Audio and string.find(alias.Name, "Audio/") then
                             assetAlias.name = string.gsub(alias.Name, "Audio/", "")
                         end
                         assetAlias.layoutOrder = index

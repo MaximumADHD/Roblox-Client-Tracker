@@ -115,7 +115,7 @@ function TreeView:render()
 
 	local children = {}
 	for index, row in ipairs(rows) do
-		local key = props.GetItemKey and props.GetItemKey(row.item) or index
+		local key = props.GetItemKey and props.GetItemKey(row.item, index) or index
 		children[key] = props.RenderRow(row)
 	end
 

@@ -1,5 +1,5 @@
 --[[
-	NetworkingMock
+	NetworkInterfaceMock
 
 	Provide dummy data for testing
 ]]--
@@ -9,58 +9,100 @@ local Plugin = script.Parent.Parent.Parent
 local Promise = require(Plugin.Libs.Framework.Util.Promise)
 
 -- public api
-local NetworkingMock = {}
-NetworkingMock.__index = NetworkingMock
+local NetworkInterfaceMock = {}
+NetworkInterfaceMock.__index = NetworkInterfaceMock
 
-function NetworkingMock.new()
-	return setmetatable({}, NetworkingMock)
+function NetworkInterfaceMock.new()
+	return setmetatable({}, NetworkInterfaceMock)
 end
 
-function NetworkingMock:getAssets(pageInfo)
+local function getFakeAsset(fakeId)
+	return {
+		Asset = {
+			Id = fakeId,
+			Name = "Observation Tower",
+			TypeId = 10,
+			IsEndorsed = true,
+		},
+		Creator = {
+			Id = fakeId,
+			Name = "Quenty",
+			Type = 1,
+		},
+		Thumbnail = {
+			Final = true,
+			Url = "https://t7.rbxcdn.com/25cf9d71d60973993f9c08eb605ffe99",
+			RetryUrl = nil,
+			UserId = 0,
+			EndpointType = "Avatar",
+		},
+		Voting = {
+			ShowVotes = true,
+			UpVotes = 4506,
+			DownVotes = 581,
+			CanVote = true,
+			UserVote = true, -- Vote Up
+			HasVoted = true,
+			ReasonForNotVoteable = "",
+		},
+	}
+end
+
+local ARBITRARY_LARGE_TOTAL_COUNT = 7150107
+
+function NetworkInterfaceMock:getAssets(pageInfo)
 	local fakeItemListContent = {
 		responseBody = {
-			TotalResults = 7150107,
+			TotalResults = ARBITRARY_LARGE_TOTAL_COUNT,
 		}
 	}
 	local Results = {}
 	for i = 1, 100, 1 do
-		Results[i] = {
-			Asset = {
-				Id = i,
-				Name = "Observation Tower",
-				TypeId = 10,
-				IsEndorsed = true,
-			},
-			Creator = {
-				Id = i,
-				Name = "Quenty",
-				Type = 1,
-			},
-			Thumbnail = {
-				Final = true,
-				Url = "https://t7.rbxcdn.com/25cf9d71d60973993f9c08eb605ffe99",
-				RetryUrl = nil,
-				UserId = 0,
-				EndpointType = "Avatar",
-			},
-			Voting = {
-				ShowVotes = true,
-				UpVotes = 4506,
-				DownVotes = 581,
-				CanVote = true,
-				UserVote = true, -- Vote Up
-				HasVoted = true,
-				ReasonForNotVoteable = "",
-			},
-		}
+		Results[i] = getFakeAsset(i)
 	end
 	fakeItemListContent.responseBody.Results = Results
 
 	return Promise.resolve(fakeItemListContent)
 end
 
+-- Intentionally ignoring that the real method has parameters because they are not used in this mock
+function NetworkInterfaceMock:getToolboxItems()
+	local fakeItemListContent = {
+		responseBody = {
+			totalResults = ARBITRARY_LARGE_TOTAL_COUNT,
+		}
+	}
+	local data = {}
+	for i = 1, 100, 1 do
+		data[i] = getFakeAsset(i)
+	end
+	fakeItemListContent.responseBody.data = data
+
+	return Promise.resolve(fakeItemListContent)
+end
+
+function NetworkInterfaceMock:getItemDetails(items)
+	local responseData = {}
+	for _, item in ipairs(items) do
+		local res = getFakeAsset(item.Asset.Id)
+
+		table.insert(responseData, {
+			asset = res.Asset,
+			creator = res.Creator,
+			thumbnail = res.Thumbnail,
+			voting = res.Voting,
+		})
+	end
+
+	return Promise.resolve({
+		responseBody = {
+			data = responseData,
+		},
+	})
+end
+
 -- Pass this a list of assets and it returns a promise with the same data structure as returned from the web
-function NetworkingMock:resolveAssets(assets, totalResults, nextPageCursor)
+function NetworkInterfaceMock:resolveAssets(assets, totalResults, nextPageCursor)
 	return Promise.resolve({
 		responseBody = {
 			TotalResults = totalResults or #assets,
@@ -71,30 +113,30 @@ function NetworkingMock:resolveAssets(assets, totalResults, nextPageCursor)
 end
 
 --para bool, vote up or not
-function NetworkingMock:postVote(assetId, bool)
+function NetworkInterfaceMock:postVote(assetId, bool)
 	return 	{
 		success = true,
 		message = "This is a test message"
 	}
 end
 
-function NetworkingMock:postUnvote(assetId)
+function NetworkInterfaceMock:postUnvote(assetId)
 	return 	{
 		success = true,
 		message = "This is a test message"
 	}
 end
 
-function NetworkingMock:postInsertAsset(assetId)
+function NetworkInterfaceMock:postInsertAsset(assetId)
 	return true
 end
 
-function NetworkingMock:getManageableGroups()
+function NetworkInterfaceMock:getManageableGroups()
 	local fakeGroups = {}
 	return Promise.resolve(fakeGroups)
 end
 
-function NetworkingMock:getCanManageAsset(assetId, myUserId)
+function NetworkInterfaceMock:getCanManageAsset(assetId, myUserId)
 	return Promise.resolve({
 		responseBody = {
 			CanManage = true,
@@ -103,7 +145,7 @@ function NetworkingMock:getCanManageAsset(assetId, myUserId)
 	})
 end
 
-function NetworkingMock:getRobuxBalance(myUserId)
+function NetworkInterfaceMock:getRobuxBalance(myUserId)
 	return Promise.resolve({
 		responseBody = {
 			robux = '0'
@@ -111,7 +153,7 @@ function NetworkingMock:getRobuxBalance(myUserId)
 	})
 end
 
-function NetworkingMock:getFavoriteCounts(assetId)
+function NetworkInterfaceMock:getFavoriteCounts(assetId)
 	return Promise.resolve({
 		responseBody = {
 			assetId = assetId,
@@ -120,7 +162,7 @@ function NetworkingMock:getFavoriteCounts(assetId)
 	})
 end
 
-function NetworkingMock:getFavorited(assetId)
+function NetworkInterfaceMock:getFavorited(assetId)
 	return Promise.resolve({
 		responseBody = {
 			assetId = assetId,
@@ -129,4 +171,12 @@ function NetworkingMock:getFavorited(assetId)
 	})
 end
 
-return NetworkingMock
+function NetworkInterfaceMock:getMetaData()
+	return Promise.resolve({})
+end
+
+function NetworkInterfaceMock:getTagsMetadata()
+	return Promise.resolve({})
+end
+
+return NetworkInterfaceMock

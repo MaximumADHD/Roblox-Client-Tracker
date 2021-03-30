@@ -12,8 +12,10 @@ local FFlagStudioAssetConfigurationPlugin = game:GetFastFlag("StudioAssetConfigu
 local FFlagToolboxDisableForLuobu = game:GetFastFlag("ToolboxDisableForLuobu")
 local FFlagDebugToolboxEnableRoactChecks = game:GetFastFlag("DebugToolboxEnableRoactChecks")
 local FFlagEnableRoactInspector = game:GetFastFlag("EnableRoactInspector")
+local FFlagStudioCreatePluginPolicyService = game:GetFastFlag("StudioCreatePluginPolicyService")
 
-local hasInternalPermission = game:GetService("StudioService"):HasInternalPermission()
+local StudioService = game:GetService("StudioService")
+local hasInternalPermission = StudioService:HasInternalPermission()
 local FFlagEnableToolboxStylizer = game:GetFastFlag("EnableToolboxStylizer")
 
 local Plugin = script.Parent.Parent
@@ -63,6 +65,8 @@ local ConfigTypes = require(Plugin.Core.Types.ConfigTypes)
 
 local ToolboxPlugin = require(Plugin.Core.Components.ToolboxPlugin)
 
+local getToolboxEnabled = require(Plugin.Core.Util.ToolboxUtilities).getToolboxEnabled
+
 local ToolboxReducer = require(Plugin.Core.Reducers.ToolboxReducer)
 local AssetConfigReducer = require(Plugin.Core.Reducers.AssetConfigReducer)
 
@@ -83,13 +87,13 @@ local TranslationReferenceTable = Plugin.LocalizationSource.TranslationReference
 local HttpService = game:GetService("HttpService")
 local MemStorageService = game:GetService("MemStorageService")
 local RobloxPluginGuiService = game:GetService("RobloxPluginGuiService")
-local StudioService = game:GetService("StudioService")
 
-if FFlagToolboxDisableForLuobu then
-	local RobloxAPI = require(Libs.Framework).RobloxAPI
-	if RobloxAPI:baseURLHasChineseHost() then
+if FFlagStudioCreatePluginPolicyService then
+	if not getToolboxEnabled() then
 		return
 	end
+elseif FFlagToolboxDisableForLuobu and StudioService:BaseURLHasChineseHost() then
+	return
 end
 
 local localization2 = ContextServices.Localization.new({

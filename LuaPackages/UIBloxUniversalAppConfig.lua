@@ -6,6 +6,7 @@ local GetFFlagLuaAppUseNewUIBloxRoundedCorners = require(CorePackages.UIBloxFlag
 local GetFFlagUIBloxHideHorizontalCarouselScrollButtonFix = require(CorePackages.UIBloxFlags.GetFFlagUIBloxHideHorizontalCarouselScrollButtonFix)
 local FFlagUIBloxSlidersFilterOldTouchInputs = require(CorePackages.UIBloxFlags.FFlagUIBloxSlidersFilterOldTouchInputs)
 local FFlagUIBloxEmptyStateControllerSupport = require(CorePackages.UIBloxFlags.FFlagUIBloxEmptyStateControllerSupport)
+local FFlagUIBloxUseTileThumbnailV2 = require(CorePackages.UIBloxFlags.FFlagUIBloxUseTileThumbnailV2)
 
 return {
 	useNewUICornerRoundedCorners = GetFFlagLuaAppUseNewUIBloxRoundedCorners(),
@@ -14,7 +15,9 @@ return {
 	allowSystemBarToAcceptString = game:DefineFastFlag("UIBloxAllowSystemBarToAcceptString", false),
 	emptyStateControllerSupport = FFlagUIBloxEmptyStateControllerSupport,
 	useHeaderBarV2 = game:DefineFastFlag("UIBloxUseHeaderBarV2_0", false),
+	useTileThumbnailV2 = FFlagUIBloxUseTileThumbnailV2,
 	tooltipWidthUsesHeaderToo = game:DefineFastFlag("UIBloxTooltipWidthUsesHeaderToo", false),
+	useAnimatedXboxCursors = game:DefineFastFlag("GamepadAnimatedCursor", false),
 	enableAlertCustomTitleFooterConfig = game:DefineFastFlag("UIBloxEnableAlertCustomTitleFooterConfig", false),
 	hideHorizontalCarouselScrollButtonFix = GetFFlagUIBloxHideHorizontalCarouselScrollButtonFix(),
 }

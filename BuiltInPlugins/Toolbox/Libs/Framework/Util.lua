@@ -14,18 +14,21 @@ return strict({
 	-- TODO DEVTOOLS-4459: Remove this export
 	Cryo = require(script.Cryo),
 	CrossPluginCommunication = require(script.CrossPluginCommunication),
+	Embed = require(script.Embed),
 	deepEqual = require(script.deepEqual),
 	deepJoin = require(script.deepJoin),
 	deepCopy = require(script.deepCopy),
+	getDeepFolder = require(script.getDeepFolder),
 
 	-- TODO DEVTOOLS-4459: Remove this export
 	FitFrame = require(script.FitFrame),
-
+	
 	formatDuration = require(script.formatDuration),
 	formatLocalDateTime = require(script.formatLocalDateTime),
 	Flags = require(script.Flags),
 	getTestVariation = require(script.getTestVariation),
 	Immutable = require(script.Immutable),
+	isInputMainPress = require(script.isInputMainPress),
 	LayoutOrderIterator = require(script.LayoutOrderIterator),
 	Math = require(script.Math),
 	Promise = require(script.Promise),

@@ -22,7 +22,7 @@ local MockExternalSettings = {}
 function MockExternalSettings.new(isStudio, isTenFoot, flags, platform)
 	local service = {}
 
-	flags = Cryo.Dictionary.join(DEFAULT_FLAG_STATES, flags)
+	flags = Cryo.Dictionary.join(DEFAULT_FLAG_STATES, flags or {})
 
 	--[[
 	getMockFlag allows you to test both flag states for tests unrelated to your flag. Usage:
@@ -38,11 +38,11 @@ function MockExternalSettings.new(isStudio, isTenFoot, flags, platform)
 	end
 
 	function service.getPlatform()
-		return platform
+		return platform or Enum.Platform.Windows
 	end
 
 	function service.isStudio()
-		return isStudio
+		return isStudio or false
 	end
 
 	function service.isThirdPartyPurchaseAllowed()
@@ -72,6 +72,10 @@ function MockExternalSettings.new(isStudio, isTenFoot, flags, platform)
 
 	function service.isTenFootInterface()
 		return isTenFoot
+	end
+
+	function service.getFFlagDisableRobuxUpsell()
+		return flags.DisableRobuxUpsell
 	end
 
 	return service

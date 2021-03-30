@@ -13,6 +13,8 @@ local RotateHandleView = require(DraggerFramework.Components.RotateHandleView)
 
 local getEngineFeatureModelPivotVisual = require(DraggerFramework.Flags.getEngineFeatureModelPivotVisual)
 
+local getFFlagFoldersOverFragments = require(DraggerFramework.Flags.getFFlagFoldersOverFragments)
+
 -- The minimum rotate increment to display snapping increments for (below this
 -- increment there are so many points that they become visual noise)
 local MIN_ROTATE_INCREMENT = 5.0
@@ -226,7 +228,11 @@ function RotateHandles:render(hoveredHandleId)
 		})
 	end
 
-	return Roact.createFragment(children)
+	if getFFlagFoldersOverFragments() then
+		return Roact.createElement("Folder", {}, children)
+	else
+		return Roact.createFragment(children)
+	end
 end
 
 function RotateHandles:mouseDown(mouseRay, handleId)

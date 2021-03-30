@@ -17,7 +17,6 @@ local AddTrack = require(Plugin.Src.Thunks.AddTrack)
 local SortAndSetTracks = require(Plugin.Src.Thunks.SortAndSetTracks)
 local SetActive = require(Plugin.Src.Actions.SetActive)
 local RigUtils = require(Plugin.Src.Util.RigUtils)
-local IsMicroboneSupportEnabled = require(Plugin.LuaFlags.GetFFlagAnimationEditorMicroboneSupport)
 local DisableRigAutofocus = require(Plugin.LuaFlags.GetFFlagDisableRigAutofocus)
 
 return function(analytics)
@@ -59,11 +58,9 @@ return function(analytics)
 			end
 		end
 
-		if IsMicroboneSupportEnabled() then
-			RigUtils.clearMicrobones()
-			if rootInstance and not animationData then
-				RigUtils.updateMicrobones(rootInstance, visualizeBones)
-			end
+		RigUtils.clearMicrobones()
+		if rootInstance and not animationData then
+			RigUtils.updateMicrobones(rootInstance, visualizeBones)
 		end
 		store:dispatch(StepAnimation(playhead))
 	end

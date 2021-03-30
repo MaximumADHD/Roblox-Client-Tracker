@@ -1,5 +1,3 @@
-local FFlagVersionControlServiceScriptCollabEnabled = settings():GetFFlag("VersionControlServiceScriptCollabEnabled")
-
 local Page = script.Parent
 local Plugin = script.Parent.Parent.Parent
 local Cryo = require(Plugin.Cryo)
@@ -60,7 +58,7 @@ end
 --Loads settings values into props by key
 local function loadValuesToProps(getValue)
 	local loadedProps = {
-		ScriptCollabEnabled = FFlagVersionControlServiceScriptCollabEnabled and getValue("ScriptCollabEnabled"),
+		ScriptCollabEnabled = getValue("ScriptCollabEnabled"),
 	}
 	return loadedProps
 end
@@ -68,7 +66,7 @@ end
 --Implements dispatch functions for when the user changes values
 local function dispatchChanges(setValue, dispatch)
 	local dispatchFuncs = {
-		ScriptCollabEnabledChanged = FFlagVersionControlServiceScriptCollabEnabled and setValue("ScriptCollabEnabled"),
+		ScriptCollabEnabledChanged = setValue("ScriptCollabEnabled"),
 		dispatchShutdownAllServers = function()
 			dispatch(ShutdownAllServers())
 		end,
@@ -102,7 +100,7 @@ function Options:render()
 		local localization = props.Localization
 
 		return {
-			EnableScriptCollab = FFlagVersionControlServiceScriptCollabEnabled and Roact.createElement(RadioButtonSet, {
+			EnableScriptCollab = Roact.createElement(RadioButtonSet, {
 				LayoutOrder = 1,
 				Title = localization:getText("General", "TitleScriptCollab"),
 				Enabled = props.ScriptCollabEnabled ~= nil,

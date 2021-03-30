@@ -2,35 +2,24 @@
 	Mocks our analytics interface so we can make sure certain thunks
 	trigger analytics calls without actually calling the real ones.
 ]]
-local createSpy = require(script.Parent.createSpy)
+local Root = script.Parent.Parent
+
+local createSpy = require(Root.Test.createSpy)
+local Analytics = require(Root.Services.Analytics)
 
 local MockAnalytics = {}
 
 function MockAnalytics.new()
-	local reportRobuxUpsellStarted = createSpy()
-	local signalPurchaseSuccess = createSpy()
-	local signalPremiumUpsellShownPremium = createSpy()
-	local signalPremiumUpsellShownNonPremium = createSpy()
-	local signalAdultLegalTextShown = createSpy()
-	local signalFailedPurchasePostUpsell = createSpy()
+	local analytics = Analytics.new()
 
-	local mockService = {
-		reportRobuxUpsellStarted = reportRobuxUpsellStarted.value,
-		signalPurchaseSuccess = signalPurchaseSuccess.value,
-		signalPremiumUpsellShownPremium = signalPremiumUpsellShownPremium.value,
-		signalPremiumUpsellShownNonPremium = signalPremiumUpsellShownNonPremium.value,
-		signalAdultLegalTextShown = signalAdultLegalTextShown.value,
-		signalFailedPurchasePostUpsell = signalFailedPurchasePostUpsell.value,
-	}
+	local mockService = {}
+	local spies = {}
 
-	local spies = {
-		reportRobuxUpsellStarted = reportRobuxUpsellStarted,
-		signalPurchaseSuccess = signalPurchaseSuccess,
-		signalPremiumUpsellShownPremium = signalPremiumUpsellShownPremium,
-		signalPremiumUpsellShownNonPremium = signalPremiumUpsellShownNonPremium,
-		signalAdultLegalTextShown = signalAdultLegalTextShown,
-		signalFailedPurchasePostUpsell = signalFailedPurchasePostUpsell,
-	}
+	for k, v in pairs(analytics) do
+		local spyFunc = createSpy()
+		mockService[k] = spyFunc.value
+		spies[k] = spyFunc
+	end
 
 	setmetatable(mockService, {
 		__tostring = function()

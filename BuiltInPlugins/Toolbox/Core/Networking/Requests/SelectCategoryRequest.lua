@@ -4,11 +4,12 @@ local Category = require(Plugin.Core.Types.Category)
 local Sort = require(Plugin.Core.Types.Sort)
 local RequestReason = require(Plugin.Core.Types.RequestReason)
 local Cryo = require(Plugin.Libs.Cryo)
-local RobloxAPI = require(Plugin.Libs.Framework).RobloxAPI
 
 local PageInfoHelper = require(Plugin.Core.Util.PageInfoHelper)
 local UpdatePageInfoAndSendRequest = require(Plugin.Core.Networking.Requests.UpdatePageInfoAndSendRequest)
 local StopAllSounds = require(Plugin.Core.Actions.StopAllSounds)
+
+local showRobloxCreatedAssets = require(Plugin.Core.Util.ToolboxUtilities).showRobloxCreatedAssets
 
 local FFlagEnableDefaultSortFix2 = game:GetFastFlag("EnableDefaultSortFix2")
 local FFlagUseCategoryNameInToolbox = game:GetFastFlag("UseCategoryNameInToolbox")
@@ -38,7 +39,7 @@ return function(networkInterface, settings, categoryKey)
 		end
 
 		local creator = nil
-		if FFlagToolboxShowRobloxCreatedAssetsForLuobu and RobloxAPI:baseURLHasChineseHost() then
+		if FFlagToolboxShowRobloxCreatedAssetsForLuobu and showRobloxCreatedAssets() then
 			local currentTab
 			if FFlagFixLuobuVideoCategory then
 				currentTab = PageInfoHelper.getCurrentTab(store:getState().pageInfo)

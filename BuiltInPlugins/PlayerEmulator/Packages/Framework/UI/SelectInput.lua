@@ -7,6 +7,7 @@
 		Focus Focus: a Focus object supplied by mapToProps()
 
 	Optional Props:
+		number Width: The width of the select input
 		string PlaceholderText: A placeholder to display if there is no item selected.
 		callback OnRenderItem: A function used to render a dropdown menu item.
 		number SelectedIndex: The currently selected item index.
@@ -38,6 +39,9 @@ local StyleModifier = Util.StyleModifier
 local SelectInput = Roact.PureComponent:extend("SelectInput")
 Typecheck.wrap(SelectInput, script)
 
+local FFlagDevFrameworkBasicMobileSupport = game:GetFastFlag("DevFrameworkBasicMobileSupport")
+local isInputMainPress = Util.isInputMainPress
+
 local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 
 local BORDER_SIZE = 1
@@ -60,7 +64,13 @@ function SelectInput:init()
 	end
 
 	self.onInputBegan = function(rbx, input)
-		if input.UserInputType == Enum.UserInputType.MouseButton1 then
+		local isMainPress
+		if FFlagDevFrameworkBasicMobileSupport then
+			isMainPress = isInputMainPress(input)
+		else
+			isMainPress = input.UserInputType == Enum.UserInputType.MouseButton1
+		end
+		if isMainPress then
 			self:setState({
 				isOpen = true
 			})
@@ -88,6 +98,9 @@ function SelectInput:render()
 
 	local isOpen = state.isOpen
 	local size = style.Size
+	if props.Width then
+		size = UDim2.new(0, props.Width, size.Y.Scale, size.Y.Offset)
+	end
 
 	local backgroundStyle = style.BackgroundStyle
 	local selectedIndex = props.SelectedIndex
@@ -125,6 +138,7 @@ function SelectInput:render()
 			SelectArrow = SelectArrow,
 		}),
 		Menu = Roact.createElement(DropdownMenu, {
+			Width = props.Width,
 			Hide = not isOpen,
 			Items = items,
 			OnFocusLost = self.focusLost,

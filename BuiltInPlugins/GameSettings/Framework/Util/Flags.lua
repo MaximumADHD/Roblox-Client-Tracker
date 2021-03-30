@@ -51,7 +51,14 @@ local function getOrDefineFastFlag(flagName, defaultValue)
 	if success and value ~= nil then
 		return value
 	else
-		game:DefineFastFlag(flagName, defaultValue)
+		-- If GetFastFlag fails, the DefineFastFlag may also fail.
+		local ok, err = pcall(game.DefineFastFlag, game, flagName, defaultValue)
+		if not ok then
+			-- This isn't breaking, but we should know about it.
+			warn("An error occurred defining the fast flag: " .. flagName)
+			warn(err)
+		end
+		-- Fallback to the defaultValue
 		return defaultValue
 	end
 end

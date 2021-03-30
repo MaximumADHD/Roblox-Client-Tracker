@@ -1,24 +1,24 @@
-local Plugin = script.Parent.Parent
-local commonInit = require(Plugin.Src.Util.commonInit)
+local Main = script.Parent.Parent
+local commonInit = require(Main.Src.Util.commonInit)
 commonInit()
 
-local Framework = require(Plugin.Packages.Framework)
+local Framework = require(Main.Packages.Framework)
 local THEME_REFACTOR = Framework.Util.RefactorFlags.THEME_REFACTOR
-local DebugFlags = require(Plugin.Src.Util.DebugFlags)
+local DebugFlags = require(Main.Src.Util.DebugFlags)
 
 if DebugFlags.RunningUnderCLI() or DebugFlags.RunTests() then
 
 	-- Requiring TestEZ initialises TestService, so we require it under the condition
-	local TestEZ = require(Plugin.Packages.Dev.TestEZ)
+	local TestEZ = require(Main.Packages.Dev.TestEZ)
 	local TestBootstrap = TestEZ.TestBootstrap
 	local TeamCityReporter = TestEZ.Reporters.TeamCityReporter
 	local TextReporter = TestEZ.Reporters.TextReporter
 
 	local reporter = _G["TEAMCITY"] and TeamCityReporter or TextReporter
-	local TestsFolderPlugin = Plugin.Src
+	local TestsFolderPlugin = Main.Src
 
 	if THEME_REFACTOR then
-		print("----- All " .. Plugin.Name .. " Tests ------")
+		print("----- All " .. Main.Name .. " Tests ------")
 		TestBootstrap:run({TestsFolderPlugin}, reporter)
 		print("----------------------------------")
 

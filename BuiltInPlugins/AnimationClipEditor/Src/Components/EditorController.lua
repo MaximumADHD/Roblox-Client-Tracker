@@ -36,8 +36,6 @@ local BigAnimationScreen = require(Plugin.Src.Components.BigAnimationScreen)
 local FloorGrid = require(Plugin.Src.Components.FloorGrid)
 local ChangeFPSPrompt = require(Plugin.Src.Components.ChangeFPSPrompt)
 local RigUtils = require(Plugin.Src.Util.RigUtils)
-local IsMicroboneSupportEnabled = require(Plugin.LuaFlags.GetFFlagAnimationEditorMicroboneSupport)
-
 
 local SettingsButton = require(Plugin.Src.Components.SettingsButton)
 
@@ -192,13 +190,9 @@ function EditorController:init()
 		self.KinematicParts, self.PartsToMotors = RigUtils.getRigInfo(rootInstance)
 		if selectedTracks and rootInstance and self.KinematicParts and #self.KinematicParts > 0 then
 			for _, track in ipairs(selectedTracks) do
-				if IsMicroboneSupportEnabled() then
-					local bone = RigUtils.getBoneByName(rootInstance, track)
-					if bone then
-						table.insert(currentParts, bone)
-					else
-						table.insert(currentParts, self.nameToPart[track])
-					end
+				local bone = RigUtils.getBoneByName(rootInstance, track)
+				if bone then
+					table.insert(currentParts, bone)
 				else
 					table.insert(currentParts, self.nameToPart[track])
 				end

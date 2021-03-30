@@ -4,7 +4,8 @@ local Rodux = require(Plugin.Packages.Rodux)
 local RecursiveEquals = require(Plugin.Src.Util.RecursiveEquals)
 local isEmpty = require(Plugin.Src.Util.isEmpty)
 
-local LoadAllLocales = require(Plugin.Src.Actions.LoadAllLocales)
+local LoadAllLocales = require(Plugin.Src.Actions.DEPRECATED_LoadAllLocales)
+local LoadLanguagesAndLocalesInfo = require(Plugin.Src.Actions.LoadLanguagesAndLocalesInfo)
 local SetCloudTableId = require(Plugin.Src.Actions.SetCloudTableId)
 local LoadManageTranslationPermission =
 	require(Plugin.Src.Actions.LoadManageTranslationPermission)
@@ -18,7 +19,7 @@ return function()
 		expect(state).to.be.ok()
 	end)
 
-	describe("LoadAllLocales", function()
+	describe("DEPRECATED_LoadAllLocales", function()
 		it("should validate input", function()
 			expect(function()
 				LoadAllLocales(nil)
@@ -38,11 +39,47 @@ return function()
 			}
 			local r = Rodux.Store.new(PluginMetadata)
 			local state = r:getState()
-			expect(type(state.AllLanguageCodes)).to.equal("table")
-			expect(isEmpty(state.AllLanguageCodes)).to.equal(true)
+			expect(type(state.DEPRECATED_AllLanguageCodes)).to.equal("table")
+			expect(isEmpty(state.DEPRECATED_AllLanguageCodes)).to.equal(true)
 
 			state = PluginMetadata(state, LoadAllLocales(locales))
-			expect(RecursiveEquals(state.AllLanguageCodes, locales)).to.equal(true)
+			expect(RecursiveEquals(state.DEPRECATED_AllLanguageCodes, locales)).to.equal(true)
+		end)
+	end)
+
+	describe("LoadLanguagesAndLocalesInfo", function()
+		it("should validate input", function()
+			expect(function()
+				LoadLanguagesAndLocalesInfo(nil)
+			end).to.throw()
+			expect(function()
+				LoadLanguagesAndLocalesInfo(true)
+			end).to.throw()
+			expect(function()
+				LoadLanguagesAndLocalesInfo("")
+			end).to.throw()
+		end)
+
+		it("should set state", function()
+			local languages = {
+				en = true,
+				es = true,
+			}
+
+			local localesToLangauges = {
+				["en-us"] = "en",
+				["es-es"] = "es"
+			}
+			local r = Rodux.Store.new(PluginMetadata)
+			local state = r:getState()
+			expect(type(state.AllLanguages)).to.equal("table")
+			expect(isEmpty(state.AllLanguages)).to.equal(true)
+			expect(type(state.LocalesToLanguages)).to.equal("table")
+			expect(isEmpty(state.LocalesToLanguages)).to.equal(true)
+
+			state = PluginMetadata(state, LoadLanguagesAndLocalesInfo(languages, localesToLangauges))
+			expect(RecursiveEquals(state.AllLanguages, languages)).to.equal(true)
+			expect(RecursiveEquals(state.LocalesToLangauges, localesToLangauges)).to.equal(true)
 		end)
 	end)
 

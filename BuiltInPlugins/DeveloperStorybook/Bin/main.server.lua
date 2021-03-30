@@ -2,12 +2,12 @@
 	Developer Storybook main script.
 	Mounts and unmounts the Roact tree.
 ]]
-local Plugin = script.Parent.Parent
+local Main = script.Parent.Parent
 
 require(script.Parent.defineLuaFlags)
 local FFlagEnableDeveloperStorybook = game:GetFastFlag("EnableDeveloperStorybook")
 
-local DebugFlags = require(Plugin.Src.Util.DebugFlags)
+local DebugFlags = require(Main.Src.Util.DebugFlags)
 if DebugFlags.RunningUnderCLI() then
 	return
 end
@@ -19,11 +19,11 @@ if not FFlagEnableDeveloperStorybook then
 	return
 end
 
-local commonInit = require(Plugin.Src.Util.commonInit)
+local commonInit = require(Main.Src.Util.commonInit)
 commonInit()
 
-local Roact = require(Plugin.Packages.Roact)
-local MainPlugin = require(Plugin.Src.MainPlugin)
+local Roact = require(Main.Packages.Roact)
+local MainPlugin = require(Main.Src.MainPlugin)
 local handle
 
 local function init()

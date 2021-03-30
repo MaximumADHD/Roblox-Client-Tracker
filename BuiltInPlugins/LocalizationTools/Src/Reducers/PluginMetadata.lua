@@ -3,13 +3,22 @@ local Cryo = require(Plugin.Packages.Cryo)
 local Rodux = require(Plugin.Packages.Rodux)
 
 return Rodux.createReducer({
-	AllLanguageCodes = {},
+	DEPRECATED_AllLanguageCodes = {},
+	AllLanguages = {},
+	LocalesToLanguages = {},
 	CanManageTranslation = nil,
 	CloudTableId = "",
 }, {
-	LoadAllLocales = function(state, action)
+	DEPRECATED_LoadAllLocales = function(state, action)
 		return Cryo.Dictionary.join(state, {
-			AllLanguageCodes = action.allLanguageCodes,
+			DEPRECATED_AllLanguageCodes = action.allLanguageCodes,
+		})
+	end,
+
+	LoadLanguagesAndLocalesInfo = function(state, action)
+		return Cryo.Dictionary.join(state, {
+			AllLanguages = action.allLanguages,
+			LocalesToLanguages = action.localesToLanguages,
 		})
 	end,
 

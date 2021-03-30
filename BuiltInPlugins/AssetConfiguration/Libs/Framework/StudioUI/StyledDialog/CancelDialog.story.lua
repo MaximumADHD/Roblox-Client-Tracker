@@ -28,6 +28,7 @@ function CancelDialog:render()
 		Dialog = Roact.createElement(StyledDialog, {
 			Style = "AcceptCancel",
 			Enabled = self.state.enabled,
+			Modal = true,
 			Title = "Styled Dialog examples",
 			MinContentSize = Vector2.new(400, 100),
 			Buttons = {

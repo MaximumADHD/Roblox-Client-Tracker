@@ -28,7 +28,7 @@ end
 	unsupportedLocales = a list of all unsupported locales encountered
 		joined with spaces into a string, i.e. "en-gb es-mx"
 ]]
-return function(rbxEntries, allSupportedLanguageSet, gameSupportedLanguageSet)
+return function(rbxEntries, allLanguages, localesToLanguages, gameSupportedLanguages)
 	local entries = {}
 	local totalRows = 0
 	local totalTranslations = 0
@@ -45,26 +45,29 @@ return function(rbxEntries, allSupportedLanguageSet, gameSupportedLanguageSet)
 		get included in the result.
 	]]
 
-	local function IsLanguageSupported(languageCode)
-		return allSupportedLanguageSet[languageCode] or false
+	local function IsLanguageSupported(code)
+		return allLanguages[code] or localesToLanguages[code] ~= nil or false
 	end
 
 	local function RbxEntriesToTranslationEntries(translationMap)
 		local result = {}
 
 		for locale, text in pairs(translationMap) do
-			local languageCode = locale:lower()
-			if IsLanguageSupported(languageCode) then
+			local code = locale:lower()
+			if IsLanguageSupported(code) then
 				table.insert(result, {
 					-- this is actually language instead of locale
-					locale = languageCode,
+					locale = code,
 					translationText = text,
 				})
-				supportedSet[languageCode] = true
+				supportedSet[code] = true
 				totalTranslations = totalTranslations + 1
 
-				if gameSupportedLanguageSet ~= nil and not gameSupportedLanguageSet[languageCode] then
-					newSet[languageCode] = true
+				if gameSupportedLanguages ~= nil then
+					local langauge = localesToLanguages[code] or code
+					if not gameSupportedLanguages[langauge] then
+						newSet[langauge] = true
+					end
 				end
 			else
 				unsupportedSet[locale] = true

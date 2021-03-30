@@ -20,14 +20,14 @@ local SetToolboxManageableGroups = require(Actions.SetToolboxManageableGroups)
 local UpdatePageInfo = require(Actions.UpdatePageInfo)
 local SetCurrentPage = require(Actions.SetCurrentPage)
 
-local RobloxAPI = require(Libs.Framework).RobloxAPI
-
 local FFlagUseCategoryNameInToolbox = game:GetFastFlag("UseCategoryNameInToolbox")
 local FFlagToolboxDisableMarketplaceAndRecentsForLuobu = game:GetFastFlag("ToolboxDisableMarketplaceAndRecentsForLuobu")
 
+local disableMarketplaceAndRecents = require(Plugin.Core.Util.ToolboxUtilities).disableMarketplaceAndRecents
+
 local defaultSorts = Sort.SORT_OPTIONS
 local defaultCategories
-if FFlagToolboxDisableMarketplaceAndRecentsForLuobu and RobloxAPI:baseURLHasChineseHost() then
+if FFlagToolboxDisableMarketplaceAndRecentsForLuobu and disableMarketplaceAndRecents() then
 	defaultCategories = Category.INVENTORY_WITH_GROUPS
 else
 	defaultCategories = Category.MARKETPLACE
@@ -129,7 +129,7 @@ return Rodux.createReducer({
 		if not RequestReason.IsUpdate(newState.requestReason) then
 			-- If we are just changing page, don't generate a new searchId
 			newState.searchId = HttpService:GenerateGUID(false)
-		end		
+		end
 
 		-- Update the plugin settings. Reducers should be pure functions
 		-- but this guarantees that the plugin settings use the most up-
@@ -137,7 +137,6 @@ return Rodux.createReducer({
 		if action.settings then
 			action.settings:updateFromPageInfo(newState)
 		end
-
 		return newState
 	end,
 

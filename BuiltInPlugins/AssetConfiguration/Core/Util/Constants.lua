@@ -2,24 +2,27 @@ local Plugin = script.Parent.Parent.Parent
 
 local wrapStrictTable = require(Plugin.Core.Util.wrapStrictTable)
 local Category = require(Plugin.Core.Types.Category)
+local showRobloxCreatedAssets = require(Plugin.Core.Util.ToolboxUtilities).showRobloxCreatedAssets
+local disableMarketplaceAndRecents = require(Plugin.Core.Util.ToolboxUtilities).disableMarketplaceAndRecents
+local getMaxAudioLength = require(Plugin.Core.Util.ToolboxUtilities).getMaxAudioLength
 
 local TextService = game:GetService("TextService")
-local StudioService  = game:GetService("StudioService")
-
-local RobloxAPI = require(Plugin.Libs.Framework).RobloxAPI
+local StudioService = game:GetService("StudioService")
 
 local FFlagSmallerToolboxMinWidth = game:DefineFastFlag("SmallerToolboxMinWidth", false)
 local FFlagUseCategoryNameInToolbox = game:GetFastFlag("UseCategoryNameInToolbox")
 local FFlagToolboxDisableMarketplaceAndRecentsForLuobu = game:GetFastFlag("ToolboxDisableMarketplaceAndRecentsForLuobu")
 local FFlagToolboxShowRobloxCreatedAssetsForLuobu = game:GetFastFlag("ToolboxShowRobloxCreatedAssetsForLuobu")
 local FFlagToolboxUseDevFrameworkDialogs = game:GetFastFlag("ToolboxUseDevFrameworkDialogs")
+local FFlagStudioCreatePluginPolicyService = game:GetFastFlag("StudioCreatePluginPolicyService")
 
+-- TODO: jbousellam - 3/16/21 - remove with FFlagStudioCreatePluginPolicyService
 local FIntLuobuToolboxMaxAudioLength = game:GetFastInt("LuobuToolboxMaxAudioLength")
 
 local Constants = {}
 
 if not FFlagUseCategoryNameInToolbox then
-	if FFlagToolboxDisableMarketplaceAndRecentsForLuobu and RobloxAPI:baseURLHasChineseHost() then
+	if FFlagToolboxDisableMarketplaceAndRecentsForLuobu and disableMarketplaceAndRecents() then
 		Constants.DEFAULT_TAB = Category.INVENTORY_KEY
 	else
 		Constants.DEFAULT_TAB = Category.MARKETPLACE_KEY
@@ -267,8 +270,12 @@ Constants.Dialog = {
 Constants.MIN_AUDIO_SEARCH_DURATION = 0
 Constants.MAX_AUDIO_SEARCH_DURATION = 420
 
-if FFlagToolboxShowRobloxCreatedAssetsForLuobu and RobloxAPI:baseURLHasChineseHost() then
-	Constants.MAX_AUDIO_SEARCH_DURATION = FIntLuobuToolboxMaxAudioLength
+if FFlagToolboxShowRobloxCreatedAssetsForLuobu and showRobloxCreatedAssets() then
+	if FFlagStudioCreatePluginPolicyService then
+		Constants.MAX_AUDIO_SEARCH_DURATION = getMaxAudioLength()
+	else
+		Constants.MAX_AUDIO_SEARCH_DURATION = FIntLuobuToolboxMaxAudioLength
+	end
 end
 
 Constants.TOOLBOX_ITEM_SEARCH_LIMIT = 30

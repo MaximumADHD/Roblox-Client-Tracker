@@ -3,7 +3,9 @@ local Roact = require(Framework.Parent.Roact)
 local Container = require(Framework.UI.Container)
 local HoverArea = require(Framework.UI.HoverArea)
 
-return Roact.createElement(Container, {}, {
+return Roact.createElement(Container, {
+	Size = UDim2.new(1, 0, 0, 300)
+}, {
 	BottomLabel = Roact.createElement("TextLabel", {
 		Size = UDim2.new(0, 100, 0, 60),
 		Text = "Priority 1\nPointingHand",

@@ -12,17 +12,23 @@ local PurchaseError = require(Root.Enums.PurchaseError)
 local UpsellFlow = require(Root.Enums.UpsellFlow)
 local selectRobuxProduct = require(Root.NativeUpsell.selectRobuxProduct)
 local getUpsellFlow = require(Root.NativeUpsell.getUpsellFlow)
+local Analytics = require(Root.Services.Analytics)
 local ExternalSettings = require(Root.Services.ExternalSettings)
 local meetsPrerequisites = require(Root.Utils.meetsPrerequisites)
 local getPlayerProductInfoPrice = require(Root.Utils.getPlayerProductInfoPrice)
 local Thunk = require(Root.Thunk)
 
+local GetFFlagProductPurchaseAnalytics = require(Root.Flags.GetFFlagProductPurchaseAnalytics)
+
 local requiredServices = {
+	Analytics,
 	ExternalSettings,
 }
 
 local function resolvePromptState(productInfo, accountInfo, alreadyOwned, isRobloxPurchase)
 	return Thunk.new(script.Name, requiredServices, function(store, services)
+		local state = store:getState()
+		local analytics = services[Analytics]
 		local externalSettings = services[ExternalSettings]
 
 		store:dispatch(ProductInfoReceived(productInfo))
@@ -52,7 +58,7 @@ local function resolvePromptState(productInfo, accountInfo, alreadyOwned, isRobl
 
 		if price > accountInfo.RobuxBalance then
 
-			if upsellFlow == UpsellFlow.Unavailable then
+			if externalSettings.getFFlagDisableRobuxUpsell() then
 				return store:dispatch(ErrorOccurred(PurchaseError.NotEnoughRobuxNoUpsell))
 			end
 
@@ -64,7 +70,9 @@ local function resolvePromptState(productInfo, accountInfo, alreadyOwned, isRobl
 
 				return selectRobuxProduct(platform, neededRobux, hasMembership)
 					:andThen(function(product)
-						-- We found a valid upsell product for the current platform
+						if GetFFlagProductPurchaseAnalytics() then
+							analytics.signalProductPurchaseUpsellShown(productInfo.productId, state.requestType, product.productId)
+						end
 						store:dispatch(PromptNativeUpsell(product.productId, product.robuxValue))
 					end, function()
 						-- No upsell item will provide sufficient funds to make this purchase
@@ -75,6 +83,10 @@ local function resolvePromptState(productInfo, accountInfo, alreadyOwned, isRobl
 						end
 					end)
 			end
+		end
+
+		if GetFFlagProductPurchaseAnalytics() then
+			analytics.signalProductPurchaseShown(productInfo.productId, state.requestType)
 		end
 
 		return store:dispatch(SetPromptState(PromptState.PromptPurchase))

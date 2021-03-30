@@ -22,6 +22,7 @@
     Optional props:
         PriceError = string, error message to be shown for this component
 ]]
+local FFlagStudioEnableBadgesInMonetizationPage = game:GetFastFlag("StudioEnableBadgesInMonetizationPage")
 
 local Page = script.Parent.Parent
 local Plugin = script.Parent.Parent.Parent.Parent
@@ -32,7 +33,6 @@ local Framework = Plugin.Framework
 local FitFrameOnAxis = require(Framework.Util).FitFrame.FitFrameOnAxis
 
 local ContextServices = require(Plugin.Framework.ContextServices)
-local StudioService = game:GetService("StudioService")
 
 local UILibrary = require(Plugin.UILibrary)
 local GetTextSize = UILibrary.Util.GetTextSize
@@ -41,6 +41,8 @@ local ToggleButton = UILibrary.Component.ToggleButton
 
 local RobuxFeeBase = require(Page.Components.RobuxFeeBase)
 
+local shouldDisablePrivateServersAndPaidAccess = require(Plugin.Src.Util.GameSettingsUtilities).shouldDisablePrivateServersAndPaidAccess
+
 local PaidAccess = Roact.PureComponent:extend("PaidAccess")
 
 local FFlagVIPServersRebrandToPrivateServers = game:GetFastFlag("VIPServersRebrandToPrivateServers")
@@ -48,7 +50,7 @@ local FFlagStudioDisablePrivateServersAndPaidAccessForLuobu = game:GetFastFlag("
 
 function PaidAccess:render()
     -- Remove this block once economy team enables the double wallets workflow (see STUDIOCORE-24488 & STUDIOCORE-24576)
-    if FFlagStudioDisablePrivateServersAndPaidAccessForLuobu and StudioService:BaseURLHasChineseHost() then
+    if FFlagStudioDisablePrivateServersAndPaidAccessForLuobu and shouldDisablePrivateServersAndPaidAccess() then
         return nil
     end
 
@@ -139,7 +141,7 @@ function PaidAccess:render()
         PriceConfigPaidOnly = selected and Roact.createElement(TitledFrame, {
             Title = priceTitle,
 
-            TextSize = theme.fontStyle.Title.TextSize,
+            TextSize = FFlagStudioEnableBadgesInMonetizationPage and theme.fontStyle.Normal.TextSize or theme.fontStyle.Title.TextSize,
             LayoutOrder = 2,
         },{
             RobuxFeeBase = Roact.createElement(RobuxFeeBase, {

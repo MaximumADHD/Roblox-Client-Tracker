@@ -24,6 +24,7 @@ function FrameworkStyles.new()
 		Button = newDefaults(),
 		DropdownMenu = newDefaults(),
 		DropShadow = newDefaults(),
+		IconButton = newDefaults(),
 		Image = newDefaults(),
 		InfiniteScrollingFrame = newDefaults(),
 		InstanceTreeView = newDefaults(),
@@ -46,17 +47,17 @@ function FrameworkStyles.new()
 		TreeView = newDefaults(),
 
 		-- StudioUI Styles
-		AssetRender = newDefaults(),
 		AssetPreview = newDefaults(),
+		AssetRender = newDefaults(),
 		Favorites = newDefaults(),
 		MediaPlayerControls = newDefaults(),
 		SearchBar = newDefaults(),
-		StyledDialog = newDefaults(),
-		TitledFrame = newDefaults(),
 		StatelessAudioPlayer = newDefaults(),
 		StatelessVideoPlayer = newDefaults(),
-		Votes = newDefaults(),
+		StyledDialog = newDefaults(),
+		TitledFrame = newDefaults(),
 		VoteBar = newDefaults(),
+		Votes = newDefaults(),
 	}
 end
 

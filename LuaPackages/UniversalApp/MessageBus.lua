@@ -24,6 +24,10 @@ export type MessageDescriptor = {
 	mid: string,
 	validateParams: (Table) -> (boolean, string?)
 }
+export type FunctionDescriptor = {
+	fid: string,
+	validateParams: (any) -> (boolean, string?)
+}
 
 local HttpService = game:GetService("HttpService")
 local MemStorageService = game:GetService("MemStorageService")
@@ -46,6 +50,11 @@ end
 
 function MessageBus.serializeMessageParams(params: Table): string
 	return HttpService:JSONEncode(params)
+end
+
+function MessageBus.call(desc: FunctionDescriptor, params: any): any
+	assert(desc.validateParams(params))
+	return MemStorageService:Call(desc.fid, params)
 end
 
 local Subscriber = {}

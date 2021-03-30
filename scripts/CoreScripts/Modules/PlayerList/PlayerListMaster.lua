@@ -6,6 +6,8 @@ local UserInputService = game:GetService("UserInputService")
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
+local FFlagPlayerListRoactInspector = game:DefineFastFlag("PlayerListRoactInspector", false)
+
 local AppDarkTheme = require(CorePackages.AppTempCommon.LuaApp.Style.Themes.DarkTheme)
 local AppFont = require(CorePackages.AppTempCommon.LuaApp.Style.Fonts.Gotham)
 
@@ -126,6 +128,19 @@ function PlayerListMaster.new()
 
 	self.element = Roact.mount(self.root, RobloxGui, "PlayerListMaster")
 
+	if FFlagPlayerListRoactInspector then
+		local hasInternalPermission = game:GetService("RunService"):IsStudio()
+			and game:GetService("StudioService"):HasInternalPermission()
+		if hasInternalPermission then
+			local DeveloperTools = require(CorePackages.DeveloperTools)
+			self.inspector = DeveloperTools.forCoreGui("PlayerList", {
+				rootInstance = RobloxGui:FindFirstChild("PlayerListMaster"),
+				pickerParent = "RobloxGui",
+			})
+			self.inspector:addRoactTree("Roact tree", self.element)
+		end
+	end
+
 	self.topBarEnabled = true
 	self.mounted = true
 	self.coreGuiEnabled = StarterGui:GetCoreGuiEnabled(Enum.CoreGuiType.PlayerList)
@@ -151,6 +166,10 @@ function PlayerListMaster:_updateMounted()
 		elseif not shouldMount and self.mounted then
 			Roact.unmount(self.element)
 			self.mounted = false
+			if self.inspector then
+				self.inspector:destroy()
+				self.inspector = nil
+			end
 		end
 	end
 end

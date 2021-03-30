@@ -2,13 +2,15 @@
 	The main RoactRodux reducer for the plugin.
 ]]
 
-local Plugin = script.Parent.Parent.Parent
-local Rodux = require(Plugin.Packages.Rodux)
+local Main = script.Parent.Parent.Parent
+local Rodux = require(Main.Packages.Rodux)
 
-local Status = require(Plugin.Src.Reducers.Status)
-local Components = require(Plugin.Src.Reducers.Components)
+local Stories = require(Main.Src.Reducers.Stories)
+
+export type State = {
+	Stories: Stories.State
+}
 
 return Rodux.combineReducers({
-	Status = Status,
-	Components = Components,
+	Stories = Stories,
 })

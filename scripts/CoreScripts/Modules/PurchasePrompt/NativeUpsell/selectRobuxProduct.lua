@@ -1,7 +1,10 @@
+local Root = script.Parent.Parent
 local XboxCatalogData = require(script.Parent.XboxCatalogData)
 local NativeProducts = require(script.Parent.NativeProducts)
 
-local Promise = require(script.Parent.Parent.Promise)
+local Promise = require(Root.Promise)
+
+local GetFFlagEnableLuobuInGameUpsell = require(Root.Flags.GetFFlagEnableLuobuInGameUpsell)
 
 local function sortAscending(a, b)
 	return a.robuxValue < b.robuxValue
@@ -35,10 +38,15 @@ local function selectRobuxProduct(platform, neededRobux, userIsSubscribed)
 			or NativeProducts.IOS.PremiumNotSubscribed
 	else -- This product format is standard for other supported platforms (Android, Amazon, and UWP)
 		if platform == Enum.Platform.Android then
-			-- Contains upsell for 4500 and 10000 packages only available on android
-			productOptions = userIsSubscribed
-				and NativeProducts.Standard.PremiumSubscribedLarger
-				or NativeProducts.Standard.PremiumNotSubscribedLarger
+			-- Using a flag for now, working on implementing platform call to get what payment options are available.
+			if GetFFlagEnableLuobuInGameUpsell() then
+				productOptions = NativeProducts.Midas
+			else
+				-- Contains upsell for 4500 and 10000 packages only available on android
+				productOptions = userIsSubscribed
+					and NativeProducts.Standard.PremiumSubscribedLarger
+					or NativeProducts.Standard.PremiumNotSubscribedLarger
+			end
 		else
 			productOptions = userIsSubscribed
 				and NativeProducts.Standard.PremiumSubscribed

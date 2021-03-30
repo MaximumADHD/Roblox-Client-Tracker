@@ -25,12 +25,14 @@
 		Color3 TextColor: The color of the search term text.
 ]]
 local FFlagDevFrameworkFixSearchBarLayoutOrder = game:GetFastFlag("DevFrameworkFixSearchBarLayoutOrder")
+local FFlagDevFrameworkBasicMobileSupport = game:GetFastFlag("DevFrameworkBasicMobileSupport")
 
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
 local ContextServices = require(Framework.ContextServices)
 
 local Util = require(Framework.Util)
+local isInputMainPress = Util.isInputMainPress
 local Typecheck = Util.Typecheck
 local StyleModifier = Util.StyleModifier
 
@@ -84,7 +86,13 @@ function SearchBar:init()
 
 	-- Handle clicking in the small gaps between the TextBox and the buttons or the left edge of the SearchBar
 	self.onBackgroundInputBegan = function(rbx, input)
-		if input.UserInputType == Enum.UserInputType.MouseButton1 then
+		local isMainPress
+		if FFlagDevFrameworkBasicMobileSupport then
+			isMainPress = isInputMainPress(input)
+		else
+			isMainPress = input.UserInputType == Enum.UserInputType.MouseButton1
+		end
+		if isMainPress then
 			self:setState({
 				shouldFocus = true
 			})

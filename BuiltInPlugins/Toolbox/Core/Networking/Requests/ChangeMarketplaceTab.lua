@@ -2,9 +2,10 @@ local FFlagUseCategoryNameInToolbox = game:GetFastFlag("UseCategoryNameInToolbox
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Cryo = require(Plugin.Libs.Cryo)
-local RobloxAPI = require(Plugin.Libs.Framework).RobloxAPI
 
 local RequestReason = require(Plugin.Core.Types.RequestReason)
+
+local showRobloxCreatedAssets = require(Plugin.Core.Util.ToolboxUtilities).showRobloxCreatedAssets
 
 local GetToolboxManageableGroupsRequest = require(Plugin.Core.Networking.Requests.GetToolboxManageableGroupsRequest)
 local UpdatePageInfoAndSendRequest = require(Plugin.Core.Networking.Requests.UpdatePageInfoAndSendRequest)
@@ -21,7 +22,7 @@ return function(networkInterface, tabName, newCategories,  settings, options)
 		local categories = Category.getCategories(tabName, store:getState().roles)
 
 		local creator = Cryo.None
-		if FFlagToolboxShowRobloxCreatedAssetsForLuobu and RobloxAPI:baseURLHasChineseHost() then
+		if FFlagToolboxShowRobloxCreatedAssetsForLuobu and showRobloxCreatedAssets() then
 			creator = options.creator or Cryo.None
 		end
 

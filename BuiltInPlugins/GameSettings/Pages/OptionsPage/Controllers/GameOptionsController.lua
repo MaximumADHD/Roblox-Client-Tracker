@@ -1,6 +1,3 @@
-local FFlagVersionControlServiceScriptCollabEnabledByDefault =
-	settings():GetFFlag("VersionControlServiceScriptCollabEnabledByDefault")
-
 local GameOptionsController = {}
 GameOptionsController.__index = GameOptionsController
 
@@ -28,21 +25,13 @@ end
 function GameOptionsController:getScriptCollaborationEnabled(game)
 	local StudioData = game:GetService("StudioData")
 
-	if FFlagVersionControlServiceScriptCollabEnabledByDefault then
-		return StudioData.EnableScriptCollabByDefaultOnLoad
-	else
-		return StudioData.EnableScriptCollabOnLoad
-	end
+	return StudioData.EnableScriptCollabByDefaultOnLoad
 end
 
 function GameOptionsController:setScriptCollaborationEnabled(game, enabled)
 	local StudioData = game:GetService("StudioData")
 
-	if FFlagVersionControlServiceScriptCollabEnabledByDefault then
-		StudioData.EnableScriptCollabByDefaultOnLoad = enabled
-	else
-		StudioData.EnableScriptCollabOnLoad = enabled
-	end
+	StudioData.EnableScriptCollabByDefaultOnLoad = enabled
 end
 
 function GameOptionsController:shutdownAllServers(gameId)

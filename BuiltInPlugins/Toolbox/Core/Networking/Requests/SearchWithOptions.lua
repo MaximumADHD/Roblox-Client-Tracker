@@ -1,6 +1,5 @@
 local Plugin = script.Parent.Parent.Parent.Parent
 local Cryo = require(Plugin.Libs.Cryo)
-local RobloxAPI = require(Plugin.Libs.Framework).RobloxAPI
 
 local Category = require(Plugin.Core.Types.Category)
 local RequestReason = require(Plugin.Core.Types.RequestReason)
@@ -14,6 +13,8 @@ local StopPreviewSound = require(Plugin.Core.Actions.StopPreviewSound)
 
 local Analytics = require(Plugin.Core.Util.Analytics.Analytics)
 local CreatorInfoHelper = require(Plugin.Core.Util.CreatorInfoHelper)
+
+local showRobloxCreatedAssets = require(Plugin.Core.Util.ToolboxUtilities).showRobloxCreatedAssets
 
 local FFlagToolboxShowRobloxCreatedAssetsForLuobu = game:GetFastFlag("ToolboxShowRobloxCreatedAssetsForLuobu")
 local FFlagFixCreatorTypeParameterForAssetRequest = game:DefineFastFlag("FixCreatorTypeParameterForAssetRequest", false)
@@ -74,7 +75,7 @@ return function(networkInterface, settings, options)
 
 		else
 			local creator = Cryo.None
-			if FFlagToolboxShowRobloxCreatedAssetsForLuobu and RobloxAPI:baseURLHasChineseHost() then
+			if FFlagToolboxShowRobloxCreatedAssetsForLuobu and showRobloxCreatedAssets() then
 				local currentTab = store:getState().pageInfo.currentTab
 				if currentTab == Category.MARKETPLACE_KEY then
 					creator = Category.CREATOR_ROBLOX

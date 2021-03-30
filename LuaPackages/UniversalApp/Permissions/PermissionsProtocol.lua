@@ -13,6 +13,7 @@ local status = {
 	AUTHORIZED = "AUTHORIZED",
 	DENIED = "DENIED",
 	RESTRICTED = "RESTRICTED",
+	UNSUPPORTED = "UNSUPPORTED",
 }
 
 local validatePermissionsList = t.array(t.valueOf(permissions))
@@ -168,6 +169,54 @@ function PermissionsProtocol:supportsPermissions(permissions: Table): Promise
 			return Promise.reject()
 		end
 	end)
+end
+
+--[[
+Check if specific permissions are supported by this device
+If the permissions are supported
+	If we have permissions authorized
+		Return true
+	
+	If we don't have permissions authorized
+		Request the permissions and return the result
+
+Otherwise, return false
+
+@param permissions: list of permissions to verify
+@return promise<boolean>: returns true if all permissions specified are avavailable and authorized,
+ and false otherwise
+]]
+
+function PermissionsProtocol:checkOrRequestPermissions(permissions: Table): Promise
+	assert(validatePermissionsList(permissions))
+
+	return self:supportsPermissions(permissions):andThen(
+		function(success)
+			if not success then
+				return Promise.resolve(PermissionsProtocol.Status.UNSUPPORTED) 
+			end
+			
+			-- Permissions supported, request if necessary
+			self:hasPermissions(permissions):andThen(
+			function(result)
+				-- Permissions already granted before
+				if result.status == PermissionsProtocol.Status.AUTHORIZED then
+					return Promise.resolve(result.status)
+				else
+					-- Requesting permissions now
+					self:requestPermissions(permissions):andThen(
+						function(result)
+							return Promise.resolve(result.status)
+						end
+					)
+				end
+			end)
+		end,
+		function(err)
+			-- Permissions not supported
+			return Promise.resolve(PermissionsProtocol.Status.UNSUPPORTED)
+		end
+	)
 end
 
 PermissionsProtocol.default = PermissionsProtocol.new()

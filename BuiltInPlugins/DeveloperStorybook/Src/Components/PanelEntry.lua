@@ -9,13 +9,12 @@
 		number LayoutOrder: The sort order of this component.
 ]]
 
-local Plugin = script.Parent.Parent.Parent
-local Roact = require(Plugin.Packages.Roact)
-
-local Framework = require(Plugin.Packages.Framework)
+local Main = script.Parent.Parent.Parent
+local Roact = require(Main.Packages.Roact)
+local Framework = require(Main.Packages.Framework)
 
 local Dash = Framework.Dash
-local join = Dash.join
+local mapOne = Dash.mapOne
 
 local ContextServices = Framework.ContextServices
 local UI = Framework.UI
@@ -33,6 +32,10 @@ function PanelEntry:render()
 	local description = props.Description
 	local layoutOrder = props.LayoutOrder
 
+	local contentChildren = props[Roact.Children]
+	local hasChild = contentChildren and mapOne(contentChildren)
+	local hasDescription = typeof(description) == "string" and description ~= ""
+
 	local children = {
 		Name = Roact.createElement(TextLabel, {
 			LayoutOrder = 1,
@@ -43,7 +46,7 @@ function PanelEntry:render()
 			TextSize = text.Header.Size,
 			TextColor = text.Header.Color,
 		}),
-		Description = description and Roact.createElement(TextLabel, {
+		Description = hasDescription and Roact.createElement(TextLabel, {
 			LayoutOrder = 2,
 			TextXAlignment = Enum.TextXAlignment.Left,
 			AutomaticSize = Enum.AutomaticSize.Y,
@@ -51,14 +54,27 @@ function PanelEntry:render()
 			Text = description,
 			TextWrapped = true,
 		}),
+		Content = hasChild and Roact.createElement(Pane, {
+			Size = UDim2.new(1, 0, 0, 0),
+			LayoutOrder = 3,
+			HorizontalAlignment = Enum.HorizontalAlignment.Left,
+			AutomaticSize = Enum.AutomaticSize.Y,
+			Layout = Enum.FillDirection.Vertical,
+			Padding = {
+				Top = sizes.OuterPadding
+			},
+			Spacing = sizes.InnerPadding,
+		}, contentChildren)
 	}
 	return Roact.createElement(Pane, {
 		Style = "BorderBox",
 		Padding = sizes.OuterPadding,
+		Spacing = sizes.InnerPadding,
+		HorizontalAlignment = Enum.HorizontalAlignment.Left,
 		Layout = Enum.FillDirection.Vertical,
 		LayoutOrder = layoutOrder,
 		AutomaticSize = Enum.AutomaticSize.Y,
-	}, join(children, self.props[Roact.Children]))
+	}, children)
 end
 
 ContextServices.mapToProps(PanelEntry, {

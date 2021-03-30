@@ -11,6 +11,8 @@ local SetIsBusy = require(Plugin.Src.Actions.SetIsBusy)
 local SetMessage = require(Plugin.Src.Actions.SetMessage)
 local isEmpty = require(Plugin.Src.Util.isEmpty)
 
+local FFlagLocalizationToolsAllowUploadZhCjv = game:GetFastFlag("LocalizationToolsAllowUploadZhCjv")
+
 local function makeDispatchErrorMessageFunc(store, localization)
 	return function()
 		store:dispatch(SetIsBusy(false))
@@ -114,7 +116,11 @@ local function downloadAndSave(api, localization, analytics, tableId)
 
 		store:dispatch(SetIsBusy(false))
 		store:dispatch(SetMessage(localization:getText("MessageFrame", "TableWrittenToFileMessage")))
-		analytics:reportDownloadTable(cloudTable, "download", curState.PluginMetadata.AllLanguageCodes)
+		if FFlagLocalizationToolsAllowUploadZhCjv then
+			analytics:reportDownloadTable(cloudTable, "download", curState.PluginMetadata.AllLanguages, curState.PluginMetadata.LocalesToLanguages)
+		else
+			analytics:reportDownloadTable(cloudTable, "download", curState.PluginMetadata.DEPRECATED_AllLanguageCodes)
+		end
 		return
 	end
 end

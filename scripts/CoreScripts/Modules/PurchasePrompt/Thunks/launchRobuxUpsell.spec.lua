@@ -2,138 +2,157 @@ return function()
 	local Root = script.Parent.Parent
 
 	local CorePackages = game:GetService("CorePackages")
-local PurchasePromptDeps = require(CorePackages.PurchasePromptDeps)
+	local PurchasePromptDeps = require(CorePackages.PurchasePromptDeps)
 	local Rodux = PurchasePromptDeps.Rodux
 
 	local PromptState = require(Root.Enums.PromptState)
+	local PurchaseError = require(Root.Enums.PurchaseError)
+	local RequestType = require(Root.Enums.RequestType)
 	local Reducer = require(Root.Reducers.Reducer)
 	local Analytics = require(Root.Services.Analytics)
+	local ExternalSettings = require(Root.Services.ExternalSettings)
 	local Network = require(Root.Services.Network)
 	local PlatformInterface = require(Root.Services.PlatformInterface)
 	local MockAnalytics = require(Root.Test.MockAnalytics)
+	local MockExternalSettings = require(Root.Test.MockExternalSettings)
 	local MockNetwork = require(Root.Test.MockNetwork)
 	local MockPlatformInterface = require(Root.Test.MockPlatformInterface)
 	local Constants = require(Root.Misc.Constants)
 	local Thunk = require(Root.Thunk)
 
-	local GetFFlagAdultConfirmationEnabled = require(Root.Flags.GetFFlagAdultConfirmationEnabled)
-	local GetFFlagAdultConfirmationEnabledNew = require(Root.Flags.GetFFlagAdultConfirmationEnabledNew)
-	local GetFFlagDisableRobuxUpsell = require(Root.Flags.GetFFlagDisableRobuxUpsell)
+	local GetFFlagProductPurchaseAnalytics = require(Root.Flags.GetFFlagProductPurchaseAnalytics)
 
 	local launchRobuxUpsell = require(script.Parent.launchRobuxUpsell)
 
-	it("should run without errors", function()
-		local store = Rodux.Store.new(Reducer, {
+	local function getDefaultState()
+		return {
+			productInfo = {
+				productId = 50,
+			},
+			requestType = RequestType.Asset,
 			accountInfo = {
 				AgeBracket = 0,
 			},
-			promptState = PromptState.PromptPurchase,
-		})
+		}
+	end
 
-		local thunk = launchRobuxUpsell()
+	local function checkDesktopUpsell(platform)
+		local store = Rodux.Store.new(Reducer, getDefaultState())
+
 		local analytics = MockAnalytics.new()
-		local network = MockNetwork.new()
 		local platformInterface = MockPlatformInterface.new()
 
-		Thunk.test(thunk, store, {
+		Thunk.test(launchRobuxUpsell(), store, {
 			[Analytics] = analytics.mockService,
-			[Network] = network,
+			[Network] = MockNetwork.new(),
 			[PlatformInterface] = platformInterface.mockService,
+			[ExternalSettings] = MockExternalSettings.new(false, false, {}, platform)
 		})
 
 		local state = store:getState()
 
-		if not GetFFlagDisableRobuxUpsell() then
+		if GetFFlagProductPurchaseAnalytics() then
+			expect(analytics.spies.signalProductPurchaseUpsellConfirmed.callCount).to.equal(1)
+			expect(analytics.spies.reportRobuxUpsellStarted.callCount).to.equal(0)
+		else
 			expect(analytics.spies.reportRobuxUpsellStarted.callCount).to.equal(1)
-			expect(platformInterface.spies.startRobuxUpsellWeb.callCount).to.equal(1)
-			expect(state.promptState).to.equal(PromptState.UpsellInProgress)
 		end
+		expect(platformInterface.spies.startRobuxUpsellWeb.callCount).to.equal(1)
+		expect(state.promptState).to.equal(PromptState.UpsellInProgress)
+	end
+
+	it("should run without errors on Windows", function()
+		checkDesktopUpsell(Enum.Platform.Windows)
 	end)
 
-	if GetFFlagAdultConfirmationEnabledNew() then
-		it("should show adult legal text if under 13", function()
-			local store = Rodux.Store.new(Reducer, {
-				accountInfo = {
-					AgeBracket = 1,
-				},
-				promptState = PromptState.PromptPurchase,
-			})
+	it("should run without errors on OSX", function()
+		checkDesktopUpsell(Enum.Platform.OSX)
+	end)
 
-			local thunk = launchRobuxUpsell()
-			local analytics = MockAnalytics.new()
-			local network = MockNetwork.new()
-			local platformInterface = MockPlatformInterface.new()
+	local function checkMobileUpsell(platform)
+		local store = Rodux.Store.new(Reducer, getDefaultState())
 
-			Thunk.test(thunk, store, {
-				[Analytics] = analytics.mockService,
-				[Network] = network,
-				[PlatformInterface] = platformInterface.mockService,
-			})
+		local analytics = MockAnalytics.new()
+		local platformInterface = MockPlatformInterface.new()
 
-			local state = store:getState()
+		Thunk.test(launchRobuxUpsell(), store, {
+			[Analytics] = analytics.mockService,
+			[Network] = MockNetwork.new(),
+			[PlatformInterface] = platformInterface.mockService,
+			[ExternalSettings] = MockExternalSettings.new(false, false, {}, platform)
+		})
 
-			expect(analytics.spies.signalAdultLegalTextShown.callCount).to.equal(1)
-			expect(state.promptState).to.equal(PromptState.AdultConfirmation)
-		end)
+		local state = store:getState()
+
+		if GetFFlagProductPurchaseAnalytics() then
+			expect(analytics.spies.signalProductPurchaseUpsellConfirmed.callCount).to.equal(1)
+			expect(analytics.spies.reportNativeUpsellStarted.callCount).to.equal(0)
+		else
+			expect(analytics.spies.reportNativeUpsellStarted.callCount).to.equal(1)
+		end
+		expect(platformInterface.spies.promptNativePurchase.callCount).to.equal(1)
+		expect(state.promptState).to.equal(PromptState.UpsellInProgress)
 	end
 
-	if GetFFlagAdultConfirmationEnabled() then
-		it("should show adult legal text if under 13 and part of ab test", function()
-			local store = Rodux.Store.new(Reducer, {
-				accountInfo = {
-					AgeBracket = 1,
-				},
-				promptState = PromptState.PromptPurchase,
-				abVariations = {
-					[Constants.ABTests.ADULT_CONFIRMATION] = "Variation1",
-				}
-			})
+	it("should run without errors on IOS", function()
+		checkMobileUpsell(Enum.Platform.IOS)
+	end)
 
-			local thunk = launchRobuxUpsell()
-			local analytics = MockAnalytics.new()
-			local network = MockNetwork.new()
-			local platformInterface = MockPlatformInterface.new()
+	it("should run without errors on Android", function()
+		checkMobileUpsell(Enum.Platform.Android)
+	end)
 
-			Thunk.test(thunk, store, {
-				[Analytics] = analytics.mockService,
-				[Network] = network,
-				[PlatformInterface] = platformInterface.mockService,
-			})
+	it("should run without errors on UWP", function()
+		checkMobileUpsell(Enum.Platform.UWP)
+	end)
 
-			local state = store:getState()
+	local function checkPlatformUpsells(platform)
+		local store = Rodux.Store.new(Reducer, getDefaultState())
 
-			expect(analytics.spies.signalAdultLegalTextShown.callCount).to.equal(1)
-			expect(state.promptState).to.equal(PromptState.AdultConfirmation)
-		end)
+		local analytics = MockAnalytics.new()
+		local platformInterface = MockPlatformInterface.new()
 
-		it("should continue as normal if under 13 and not apart of ab test", function()
-			local store = Rodux.Store.new(Reducer, {
-				accountInfo = {
-					AgeBracket = 1,
-				},
-				promptState = PromptState.PromptPurchase,
-				abVariations = {
-					[Constants.ABTests.ADULT_CONFIRMATION] = "Control",
-				}
-			})
+		Thunk.test(launchRobuxUpsell(), store, {
+			[Analytics] = analytics.mockService,
+			[Network] = MockNetwork.new(),
+			[PlatformInterface] = platformInterface.mockService,
+			[ExternalSettings] = MockExternalSettings.new(false, false, {}, platform)
+		})
 
-			local thunk = launchRobuxUpsell()
-			local analytics = MockAnalytics.new()
-			local network = MockNetwork.new()
-			local platformInterface = MockPlatformInterface.new()
+		local state = store:getState()
 
-			Thunk.test(thunk, store, {
-				[Analytics] = analytics.mockService,
-				[Network] = network,
-				[PlatformInterface] = platformInterface.mockService,
-			})
-
-			local state = store:getState()
-			if not GetFFlagDisableRobuxUpsell() then
-				expect(analytics.spies.reportRobuxUpsellStarted.callCount).to.equal(1)
-				expect(platformInterface.spies.startRobuxUpsellWeb.callCount).to.equal(1)
-				expect(state.promptState).to.equal(PromptState.UpsellInProgress)
-			end
-		end)
+		if GetFFlagProductPurchaseAnalytics() then
+			expect(analytics.spies.signalProductPurchaseUpsellConfirmed.callCount).to.equal(1)
+			expect(analytics.spies.reportNativeUpsellStarted.callCount).to.equal(0)
+		else
+			expect(analytics.spies.reportNativeUpsellStarted.callCount).to.equal(1)
+		end
+		-- Not working yet, TODO: get working :P
+		--expect(platformInterface.spies.beginPlatformStorePurchase.callCount).to.equal(1)
+		expect(state.promptState).to.equal(PromptState.UpsellInProgress)
 	end
+
+	it("should run without errors on XBoxOne", function()
+		checkPlatformUpsells(Enum.Platform.XBoxOne)
+	end)
+
+	it("should prevent upsells if FFlagDisableRobuxUpsell = true", function()
+		local store = Rodux.Store.new(Reducer, getDefaultState())
+
+		local analytics = MockAnalytics.new()
+		local platformInterface = MockPlatformInterface.new()
+
+		Thunk.test(launchRobuxUpsell(), store, {
+			[Analytics] = analytics.mockService,
+			[Network] = MockNetwork.new(),
+			[PlatformInterface] = platformInterface.mockService,
+			[ExternalSettings] = MockExternalSettings.new(false, false, {
+				DisableRobuxUpsell = true
+			})
+		})
+
+		local state = store:getState()
+		expect(state.promptState).to.equal(PromptState.Error)
+		expect(state.purchaseError).to.equal(PurchaseError.NotEnoughRobuxNoUpsell)
+	end)
 end

@@ -18,8 +18,6 @@ local hasPendingRequest = require(Root.Utils.hasPendingRequest)
 local Promise = require(Root.Promise)
 local Thunk = require(Root.Thunk)
 
-local GetFFlagAdultConfirmationEnabled = require(Root.Flags.GetFFlagAdultConfirmationEnabled)
-
 local resolvePromptState = require(script.Parent.resolvePromptState)
 
 local requiredServices = {
@@ -34,13 +32,6 @@ local function initiatePurchase(id, infoType, equipIfPurchased, isRobloxPurchase
 
 		if hasPendingRequest(store:getState()) then
 			return nil
-		end
-
-		if GetFFlagAdultConfirmationEnabled() then
-			pcall(function()
-				store:dispatch(SetABVariation(Constants.ABTests.ADULT_CONFIRMATION,
-					ABTestService:GetVariant(Constants.ABTests.ADULT_CONFIRMATION)))
-			end)
 		end
 
 		if infoType == Enum.InfoType.Asset then

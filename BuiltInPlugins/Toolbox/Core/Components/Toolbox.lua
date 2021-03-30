@@ -26,6 +26,9 @@ local Roact = require(Libs.Roact)
 local RoactRodux = require(Libs.RoactRodux)
 local Framework = require(Libs.Framework)
 
+local disableMarketplaceAndRecents = require(Plugin.Core.Util.ToolboxUtilities).disableMarketplaceAndRecents
+local showRobloxCreatedAssets = require(Plugin.Core.Util.ToolboxUtilities).showRobloxCreatedAssets
+
 local SharedPluginConstants = require(Plugin.SharedPluginConstants)
 
 local Util = Plugin.Core.Util
@@ -59,8 +62,6 @@ local GetRobuxBalance = require(Requests.GetRobuxBalance)
 
 local ContextServices = Framework.ContextServices
 local Settings = require(Plugin.Core.ContextServices.Settings)
-
-local RobloxAPI = Framework.RobloxAPI
 
 local FFlagStudioToolboxPersistBackgroundColor = game:DefineFastFlag("StudioToolboxPersistsBackgroundColor", false)
 local FFlagUseCategoryNameInToolbox = game:GetFastFlag("UseCategoryNameInToolbox")
@@ -102,7 +103,7 @@ function Toolbox:handleInitialSettings()
 	if FFlagUseCategoryNameInToolbox then
 		pageInfoCategories = Category.getTabForCategoryName(initialSettings.categoryName)
 	else
-		if FFlagToolboxDisableMarketplaceAndRecentsForLuobu and RobloxAPI:baseURLHasChineseHost() then
+		if FFlagToolboxDisableMarketplaceAndRecentsForLuobu and disableMarketplaceAndRecents() then
 			pageInfoCategories = Category.INVENTORY_WITH_GROUPS
 		else
 			pageInfoCategories = Category.MARKETPLACE
@@ -204,7 +205,7 @@ function Toolbox:init(props)
 	end
 
 	local function getCreatorOverrideIfNeeded(tabName)
-		if FFlagToolboxShowRobloxCreatedAssetsForLuobu and RobloxAPI:baseURLHasChineseHost() then
+		if FFlagToolboxShowRobloxCreatedAssetsForLuobu and showRobloxCreatedAssets() then
 			if tabName == Category.MARKETPLACE_KEY then
 				return Category.CREATOR_ROBLOX
 			end

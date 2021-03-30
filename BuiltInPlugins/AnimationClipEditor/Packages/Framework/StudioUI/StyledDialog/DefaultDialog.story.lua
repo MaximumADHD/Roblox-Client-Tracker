@@ -27,6 +27,7 @@ function DefaultDialog:render()
 	}, {
 		Dialog = Roact.createElement(StyledDialog, {
 			Enabled = self.state.enabled,
+			Modal = true,
 			Title = "Styled Dialog examples",
 			MinContentSize = Vector2.new(400, 100),
 			Buttons = {

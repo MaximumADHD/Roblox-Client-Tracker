@@ -2,16 +2,14 @@ local Plugin = script.Parent.Parent.Parent
 
 local Cryo = require(Plugin.Packages.Cryo)
 
-local Framework = require(Plugin.Packages.Framework)
-local RobloxAPI = Framework.RobloxAPI
-
 local SetAssets = require(Plugin.Src.Actions.SetAssets)
 local SetIsFetchingAssets = require(Plugin.Src.Actions.SetIsFetchingAssets)
 local SetHasLinkedScripts = require(Plugin.Src.Actions.SetHasLinkedScripts)
 
+local enableAudioImport = require(Plugin.Src.Util.AssetManagerUtilities).enableAudioImport
+
 local FFlagStudioAssetManagerFetchMoreAssets = game:GetFastFlag("StudioAssetManagerFetchMoreAssets")
 local FFlagStudioAssetManagerUseNewPackagesEndpoint = game:GetFastFlag("StudioAssetManagerUseNewPackagesEndpoint")
-local FFlagEnableLuobuAudioImport = game:GetFastFlag("EnableLuobuAudioImport")
 
 local FIntStudioAssetManagerAssetFetchNumber = game:GetFastInt("StudioAssetManagerAssetFetchNumber")
 
@@ -70,7 +68,7 @@ return function(apiImpl, assetType, pageCursor, pageNumber, showLoadingIndicator
         elseif assetType == Enum.AssetType.Image
         or assetType == Enum.AssetType.MeshPart
         or assetType == Enum.AssetType.Lua
-        or (((not FFlagEnableLuobuAudioImport and (not RobloxAPI:baseURLHasChineseHost())) or FFlagEnableLuobuAudioImport) and assetType == Enum.AssetType.Audio)
+        or (enableAudioImport() and assetType == Enum.AssetType.Audio)
         then
             local page
             if not pageNumber then
@@ -96,8 +94,7 @@ return function(apiImpl, assetType, pageCursor, pageNumber, showLoadingIndicator
                     if (assetType == Enum.AssetType.Image and string.find(alias.Name, "Images/"))
                     or (assetType == Enum.AssetType.MeshPart and string.find(alias.Name, "Meshes/"))
                     or (assetType == Enum.AssetType.Lua and string.find(alias.Name, "Scripts/"))
-                    or (((not FFlagEnableLuobuAudioImport and (not RobloxAPI:baseURLHasChineseHost())) or FFlagEnableLuobuAudioImport)
-                        and (assetType == Enum.AssetType.Audio and string.find(alias.Name, "Audio/")))
+                    or (enableAudioImport() and (assetType == Enum.AssetType.Audio and string.find(alias.Name, "Audio/")))
                     then
                         -- creating new table so keys across all assets are consistent
                         local assetAlias = {}
@@ -112,9 +109,7 @@ return function(apiImpl, assetType, pageCursor, pageNumber, showLoadingIndicator
                         elseif assetType == Enum.AssetType.Lua and string.find(alias.Name, "Scripts/") then
                             hasLinkedScripts = true
                             assetAlias.name = string.gsub(alias.Name, "Scripts/", "")
-                        elseif (((not FFlagEnableLuobuAudioImport and (not RobloxAPI:baseURLHasChineseHost())) or FFlagEnableLuobuAudioImport)
-                            and assetType == Enum.AssetType.Audio and string.find(alias.Name, "Audio/"))
-                        then
+                        elseif (enableAudioImport() and assetType == Enum.AssetType.Audio and string.find(alias.Name, "Audio/")) then
                             hasLinkedScripts = true
                             assetAlias.name = string.gsub(alias.Name, "Audio/", "")
                         end

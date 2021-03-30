@@ -8,7 +8,6 @@ local RoactRodux = require(Plugin.Packages.RoactRodux)
 
 local Framework = Plugin.Packages.Framework
 local ContextServices = require(Framework.ContextServices)
-local RobloxAPI = require(Framework).RobloxAPI
 
 local UI = require(Framework.UI)
 
@@ -31,6 +30,7 @@ local OnRecentAssetRightClick = require(Plugin.Src.Thunks.OnRecentAssetRightClic
 
 local AssetManagerService = game:GetService("AssetManagerService")
 local ContentProvider = game:GetService("ContentProvider")
+local StudioService = game:GetService("StudioService")
 
 local ListItem = Roact.PureComponent:extend("ListItem")
 
@@ -40,7 +40,8 @@ local FFlagStudioAssetManagerShowRootPlaceListView = game:GetFastFlag("StudioAss
 local FFlagStudioAssetManagerFixLinkedScripts = game:GetFastFlag("StudioAssetManagerFixLinkedScripts")
 local FFlagStudioAssetManagerFixAssetPreviewRequest = game:GetFastFlag("StudioAssetManagerFixAssetPreviewRequest")
 local FFlagStudioAssetManagerNewFolderIcons = game:GetFastFlag("StudioAssetManagerNewFolderIcons")
-local FFlagEnableLuobuAudioImport = game:GetFastFlag("EnableLuobuAudioImport")
+
+local enableAudioImport = require(Plugin.Src.Util.AssetManagerUtilities).enableAudioImport
 
 local ICON_SIZE = 150
 
@@ -53,7 +54,6 @@ end
 
 local function getClassIcon(assetData)
     local assetType = assetData.assetType
-	local StudioService  = game:GetService("StudioService")
     if assetType == Enum.AssetType.Place then
         if assetData.isRootPlace then
             return StudioService:GetClassIcon("SpawnLocation")
@@ -66,9 +66,7 @@ local function getClassIcon(assetData)
         return StudioService:GetClassIcon("Decal")
     elseif assetType == Enum.AssetType.MeshPart then
         return StudioService:GetClassIcon("MeshPart")
-    elseif ((not FFlagEnableLuobuAudioImport and (not RobloxAPI:baseURLHasChineseHost())) or FFlagEnableLuobuAudioImport)
-        and assetType == Enum.AssetType.Audio
-    then
+    elseif enableAudioImport() and assetType == Enum.AssetType.Audio then
         return StudioService:GetClassIcon("Sound")
     elseif assetType == Enum.AssetType.Lua then
         if FFlagStudioAssetManagerLinkedScriptIcon then
@@ -177,8 +175,7 @@ function ListItem:init()
             elseif assetData.assetType == Enum.AssetType.Image
             or assetData.assetType == Enum.AssetType.MeshPart
             or (FFlagStudioAssetManagerFixLinkedScripts and assetData.assetType == Enum.AssetType.Lua)
-            or (((not FFlagEnableLuobuAudioImport and (not RobloxAPI:baseURLHasChineseHost())) or FFlagEnableLuobuAudioImport)
-                and assetData.assetType == Enum.AssetType.Audio)
+            or (enableAudioImport() and assetData.assetType == Enum.AssetType.Audio)
             then
                 local prefix
                 -- Setting asset type to same value as Enum.AssetType since it cannot be passed into function
@@ -188,9 +185,7 @@ function ListItem:init()
                     prefix = "Meshes/"
                 elseif assetData.assetType == Enum.AssetType.Lua then
                     prefix = "Scripts/"
-                elseif ((not FFlagEnableLuobuAudioImport and (not RobloxAPI:baseURLHasChineseHost())) or FFlagEnableLuobuAudioImport)
-                    and assetData.assetType == Enum.AssetType.Audio
-                then
+                elseif enableAudioImport() and assetData.assetType == Enum.AssetType.Audio then
                     prefix = "Audio/"
                 end
                 AssetManagerService:RenameAlias(assetData.assetType.Value, assetData.id, prefix .. assetData.name, prefix .. newName)

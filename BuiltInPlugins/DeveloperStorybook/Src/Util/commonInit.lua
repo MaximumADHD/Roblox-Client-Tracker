@@ -9,8 +9,8 @@ return function()
 	end
 	commonInitCalled = true
 
-	local Plugin = script.Parent.Parent.Parent
-	local Roact = require(Plugin.Packages.Roact)
+	local Main = script.Parent.Parent.Parent
+	local Roact = require(Main.Packages.Roact)
 
 	--[[
 		Since the symlink for DeveloperFramework as a path dependency is not
@@ -21,13 +21,13 @@ return function()
 		rotrieve install being ran locally and creating a gitignored symlink.
 	]]
 	local function devFrameworkLoadingPatch()
-		local existingPackage = Plugin.Packages._Index.DeveloperFramework:FindFirstChild("DeveloperFramework")
+		local existingPackage = Main.Packages._Index.DeveloperFramework:FindFirstChild("DeveloperFramework")
 		if existingPackage then
 			existingPackage:Destroy()
 		end
-		local frameworkFolder = Plugin.Packages.DEPRECATED_Framework
+		local frameworkFolder = Main.Packages.DEPRECATED_Framework
 		frameworkFolder.Name = "DeveloperFramework"
-		frameworkFolder.Parent = Plugin.Packages._Index.DeveloperFramework
+		frameworkFolder.Parent = Main.Packages._Index.DeveloperFramework
 		
 		local RefactorFlags = require(frameworkFolder.Util.RefactorFlags)
 		RefactorFlags.THEME_REFACTOR = true

@@ -178,6 +178,33 @@ local NativeProducts = {
 				productId = "com.roblox.robloxmobile.premium10000robux",
 			},
 		},
+	},
+	Midas = {
+		{
+			productId = "com.tencent.roblox.robloxmobile.luobu10robux",
+			robuxValue = 10,
+		}, {
+			productId = "com.tencent.roblox.robloxmobile.luobu68robux",
+			robuxValue = 68,
+		}, {
+			productId = "com.tencent.roblox.robloxmobile.luobu136robux",
+			robuxValue = 136,
+		}, {
+			productId = "com.tencent.roblox.robloxmobile.luobu202robux",
+			robuxValue = 202,
+		}, {
+			productId = "com.tencent.roblox.robloxmobile.luobu282robux",
+			robuxValue = 282,
+		}, {
+			productId = "com.tencent.roblox.robloxmobile.luobu338robux",
+			robuxValue = 338,
+		}, {
+			productId = "com.tencent.roblox.robloxmobile.luobu768robux",
+			robuxValue = 768,
+		}, {
+			productId = "com.tencent.roblox.robloxmobile.luobu1648robux",
+			robuxValue = 1648,
+		}
 	}
 }
 

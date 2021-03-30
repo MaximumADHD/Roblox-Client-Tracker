@@ -12,7 +12,11 @@
 		function OnItemClicked(item) = A callback when the user selects an item in the dropdown.
 			Returns the item as it was defined in the Items array.
 		int LayoutOrder = Order of element in layout
+	Optional Props:
+		thumbnail Icon = Icon to display in first column of row entry
 ]]
+
+local FFlagStudioEnableBadgesInMonetizationPage = game:GetFastFlag("StudioEnableBadgesInMonetizationPage")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
@@ -35,6 +39,64 @@ local Tooltip = UILibrary.Component.Tooltip
 local TextService = game:GetService("TextService")
 
 local TableWithMenuItem = Roact.PureComponent:extend("TableWithMenuItem")
+
+local function createRowLabelsWithIcon(theme, rowData, icon)
+	assert(FFlagStudioEnableBadgesInMonetizationPage)
+
+	local rowLabels = {}
+	local width = 1 / (#rowData + 1) -- +1 because the icon takes a column and is not included in #rowData
+	for col = 0, #rowData do
+		local cellData = rowData[col]
+		local cell
+		if col == 0 then
+			local iconContainer = Roact.createElement("Frame", {
+				Size = UDim2.new(0, theme.table.icon.height, 0, theme.table.icon.height),
+				BackgroundTransparency = 1,
+			}, {
+				Icon = icon,
+			})
+			cell = Roact.createElement("Frame", {
+				LayoutOrder = col,
+				Size = UDim2.new(width, 0, 0, theme.table.icon.height),
+				BackgroundTransparency = 1,
+			}, {
+				Icon = iconContainer,
+			})
+		elseif col ~= #rowData then
+			cell = Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Smaller, {
+				Size = UDim2.new(width, 0, 0, theme.table.item.height),
+				LayoutOrder = col,
+				Text = cellData,
+				BackgroundTransparency = 1,
+				TextXAlignment = Enum.TextXAlignment.Left,
+				TextTruncate = Enum.TextTruncate.AtEnd,
+			}), {
+				Tooltip = Roact.createElement(Tooltip, {
+					Text = cellData,
+					Enabled = true,
+				}),
+			})
+		else
+			-- leave room for button
+			cell = Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Smaller, {
+				Size = UDim2.new(width, -theme.table.menu.buttonSize, 0, theme.table.item.height),
+				LayoutOrder = col,
+				Text = cellData,
+				BackgroundTransparency = 1,
+				TextXAlignment = Enum.TextXAlignment.Left,
+				TextTruncate = Enum.TextTruncate.AtEnd,
+			}), {
+				Tooltip = Roact.createElement(Tooltip, {
+					Text = cellData,
+					Enabled = true,
+				}),
+			})
+		end
+		rowLabels[col] = cell
+	end
+
+	return rowLabels
+end
 
 local function createRowLabels(theme, rowData)
 	local rowLabels = { }
@@ -138,30 +200,30 @@ function TableWithMenuItem:renderMenuItem(item, index, activated, theme, maxWidt
 	end
 
 	return Roact.createElement("ImageButton", {
-			Size = UDim2.new(0, maxWidth, 0, displayTextBound.Y + theme.table.menu.buttonPaddingY),
-			BackgroundColor3 = itemColor,
-			BorderSizePixel = 0,
-			LayoutOrder = index,
-			AutoButtonColor = false,
-			[Roact.Event.Activated] = activated,
-			[Roact.Event.MouseEnter] = function()
-				self.onMenuItemEnter(key)
-			end,
-			[Roact.Event.MouseLeave] = function()
-				self.onMenuItemLeave(key)
-			end,
-		}, {
-			Roact.createElement(HoverArea, {Cursor = "PointingHand"}),
+		Size = UDim2.new(0, maxWidth, 0, displayTextBound.Y + theme.table.menu.buttonPaddingY),
+		BackgroundColor3 = itemColor,
+		BorderSizePixel = 0,
+		LayoutOrder = index,
+		AutoButtonColor = false,
+		[Roact.Event.Activated] = activated,
+		[Roact.Event.MouseEnter] = function()
+			self.onMenuItemEnter(key)
+		end,
+		[Roact.Event.MouseLeave] = function()
+			self.onMenuItemLeave(key)
+		end,
+	}, {
+		Roact.createElement(HoverArea, {Cursor = "PointingHand"}),
 
-			Label = Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Smaller, {
-				Size = UDim2.new(1, 0, 0, displayTextBound.Y),
-				Position = UDim2.new(0, theme.table.textPadding, 0.5, 0),
-				AnchorPoint = Vector2.new(0, 0.5),
-				Text = displayText,
-				TextXAlignment = Enum.TextXAlignment.Left,
-				BackgroundTransparency = 1,
-			})),
-		})
+		Label = Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Smaller, {
+			Size = UDim2.new(1, 0, 0, displayTextBound.Y),
+			Position = UDim2.new(0, theme.table.textPadding, 0.5, 0),
+			AnchorPoint = Vector2.new(0, 0.5),
+			Text = displayText,
+			TextXAlignment = Enum.TextXAlignment.Left,
+			BackgroundTransparency = 1,
+		})),
+	})
 end
 
 function TableWithMenuItem:render()
@@ -172,7 +234,8 @@ function TableWithMenuItem:render()
 	local rowData = props.RowData
 	local layoutOrder = props.LayoutOrder
 
-	local row = createRowLabels(theme, rowData)
+	local icon = FFlagStudioEnableBadgesInMonetizationPage and props.Icon or nil
+	local row = icon and createRowLabelsWithIcon(theme, rowData, icon) or createRowLabels(theme, rowData)
 
 	local showMenu = state.showMenu
 	local buttonRef = self.buttonRef and self.buttonRef.current
@@ -229,15 +292,18 @@ function TableWithMenuItem:render()
 
 			Items = menuItems,
 			RenderItem = function(item, index, activated)
-			   return self:renderMenuItem(item, index, activated, theme, maxWidth)
+				return self:renderMenuItem(item, index, activated, theme, maxWidth)
 			end,
 		}),
 
 		Roact.createElement(HoverArea, {Cursor = "PointingHand"}),
 	})
+	
+	local iconOffset = 10
+	local height = (icon and theme.table.icon.height + iconOffset) or theme.table.item.height
 
 	return Roact.createElement("Frame", {
-		Size = UDim2.new(1, 0, 0, theme.table.item.height),
+		Size = UDim2.new(1, 0, 0, height),
 
 		BackgroundColor3 = theme.table.item.background,
 		BorderSizePixel = 0,

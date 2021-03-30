@@ -9,7 +9,6 @@ local Framework = Plugin.Packages.Framework
 local ContextServices = require(Framework.ContextServices)
 local Util = require(Framework.Util)
 local StyleModifier = Util.StyleModifier
-local RobloxAPI = require(Framework).RobloxAPI
 
 local UI = require(Framework.UI)
 
@@ -18,6 +17,7 @@ local GetTextSize = UILibrary.Util.GetTextSize
 local Tooltip = FFlagStudioAssetManagerConvertToDevFrameworkTooltips and UI.Tooltip or UILibrary.Component.Tooltip
 
 local PopUpButton = require(Plugin.Src.Components.PopUpButton)
+local enableAudioImport = require(Plugin.Src.Util.AssetManagerUtilities).enableAudioImport
 
 local SetEditingAssets = require(Plugin.Src.Actions.SetEditingAssets)
 local SetSelectedAssets = require(Plugin.Src.Actions.SetSelectedAssets)
@@ -35,7 +35,6 @@ local FFlagStudioAssetManagerAssetPreviewRequest = game:GetFastFlag("StudioAsset
 local FFlagStudioAssetManagerFixLinkedScripts = game:GetFastFlag("StudioAssetManagerFixLinkedScripts")
 local FFlagStudioAssetManagerFixAssetPreviewRequest = game:GetFastFlag("StudioAssetManagerFixAssetPreviewRequest")
 local FFlagStudioAssetManagerNewFolderIcons = game:GetFastFlag("StudioAssetManagerNewFolderIcons")
-local FFlagEnableLuobuAudioImport = game:GetFastFlag("EnableLuobuAudioImport")
 
 local Tile = Roact.PureComponent:extend("Tile")
 
@@ -156,8 +155,7 @@ function Tile:init()
             elseif assetData.assetType == Enum.AssetType.Image
             or assetData.assetType == Enum.AssetType.MeshPart
             or (FFlagStudioAssetManagerFixLinkedScripts and assetData.assetType == Enum.AssetType.Lua)
-            or (((not FFlagEnableLuobuAudioImport and (not RobloxAPI:baseURLHasChineseHost())) or FFlagEnableLuobuAudioImport)
-                and assetData.assetType == Enum.AssetType.Audio)
+            or (enableAudioImport() and assetData.assetType == Enum.AssetType.Audio)
             then
                 local prefix
                 -- Setting asset type to same value as Enum.AssetType since it cannot be passed into function
@@ -167,9 +165,7 @@ function Tile:init()
                     prefix = "Meshes/"
                 elseif assetData.assetType == Enum.AssetType.Lua then
                     prefix = "Scripts/"
-                elseif (((not FFlagEnableLuobuAudioImport and (not RobloxAPI:baseURLHasChineseHost())) or FFlagEnableLuobuAudioImport)
-                    and assetData.assetType == Enum.AssetType.Audio)
-                then
+                elseif (enableAudioImport() and assetData.assetType == Enum.AssetType.Audio) then
                     prefix = "Audio/"
                 end
                 AssetManagerService:RenameAlias(assetData.assetType.Value, assetData.id, prefix .. assetData.name, prefix .. newName)

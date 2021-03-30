@@ -1,3 +1,19 @@
+local FIntMaxNameLength = game:DefineFastInt("MaxNameLength", 50)
+local FIntPaidAccessMinPrice = game:DefineFastInt("PaidAccessMinPrice", 25)
+local FIntPaidAccessMaxPrice = game:DefineFastInt("PaidAccessMaxPrice", 1000)
+local FIntPrivateServersMinPrice = game:DefineFastInt("PrivateServersMinPrice", 10)
+local FIntDevProductsMinPrice = game:DefineFastInt("DevProductsMinPrice", 1)
+local FIntDevProductsMaxPrice = game:DefineFastInt("DevProductsMaxPrice", 1000000000)
+
+local FFlagSupportFreePrivateServers = game:GetFastFlag("SupportFreePrivateServers")
+local FFlagEnableDevProductsInGameSettings = game:GetFastFlag("EnableDevProductsInGameSettings")
+local FFlagDeveloperSubscriptionsEnabled = game:GetFastFlag("DeveloperSubscriptionsEnabled")
+local FFlagStudioFixGameManagementIndexNil = game:getFastFlag("StudioFixGameManagementIndexNil")
+local FFlagStudioEnableBadgesInMonetizationPage = game:GetFastFlag("StudioEnableBadgesInMonetizationPage")
+local FFlagStudioFixMissingMonetizationHeader = game:DefineFastFlag("StudioFixMissingMonetizationHeader", false)
+local FVariableMaxRobuxPrice = game:DefineFastInt("DeveloperSubscriptionsMaxRobuxPrice", 2000)
+local FFlagStudioDevProductsMaxPriceEnabled = game:DefineFastFlag("StudioDevProductsMaxPriceEnabled", false)
+
 local Page = script.Parent
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
@@ -13,6 +29,7 @@ local DevProducts = require(Page.Components.DevProducts)
 local SettingsPage = require(Plugin.Src.Components.SettingsPages.SettingsPage)
 local DevSubList = require(Page.Components.DevSubList)
 local DevSubDetails = require(Page.Components.DevSubDetails)
+local Badges =  FFlagStudioEnableBadgesInMonetizationPage and require(Page.Components.Badges) or nil
 
 local FrameworkUI = require(Framework.UI)
 local HoverArea = FrameworkUI.HoverArea
@@ -28,6 +45,8 @@ local RoundTextBox = UILibrary.Component.RoundTextBox
 local RoundFrame = UILibrary.Component.RoundFrame
 local TextEntry = UILibrary.Component.TextEntry
 local GetTextSize = UILibrary.Util.GetTextSize
+local BadgeIconThumbnail = FFlagStudioEnableBadgesInMonetizationPage and require(Plugin.Src.Components.AutoThumbnails.BadgeIconThumbnail) or nil
+local Separator = require(Plugin.Src.Components.Separator)
 
 local AddChange = require(Plugin.Src.Actions.AddChange)
 local AddErrors = require(Plugin.Src.Actions.AddErrors)
@@ -35,9 +54,12 @@ local DiscardError = require(Plugin.Src.Actions.DiscardError)
 local SetEditDevProductId = require(Plugin.Src.Actions.SetEditDevProductId)
 
 local LoadDeveloperProducts = require(Page.Thunks.LoadDeveloperProducts)
+local LoadBadges = FFlagStudioEnableBadgesInMonetizationPage and require(Page.Thunks.LoadBadges) or nil
 local AddDevSubKeyChange = require(Page.Thunks.AddDevSubKeyChange)
 local AddDevSubKeyError = require(Page.Thunks.AddDevSubKeyError)
 local AddDevSubChange = require(Page.Thunks.AddDevSubChange)
+
+local ShouldAllowBadges = require(Plugin.Src.Util.GameSettingsUtilities).shouldAllowBadges
 
 local HttpService = game:GetService("HttpService")
 
@@ -48,21 +70,6 @@ local LOCALIZATION_ID = "Monetization"
 --[[
     TODO 7/16/2020 Fetch these values from the BE so we don't need to keep syncing with BE whenever they change
 ]]
-
-local FIntMaxNameLength = game:DefineFastInt("MaxNameLength", 50)
-local FIntPaidAccessMinPrice = game:DefineFastInt("PaidAccessMinPrice", 25)
-local FIntPaidAccessMaxPrice = game:DefineFastInt("PaidAccessMaxPrice", 1000)
-local FIntPrivateServersMinPrice = game:DefineFastInt("PrivateServersMinPrice", 10)
-local FIntDevProductsMinPrice = game:DefineFastInt("DevProductsMinPrice", 1)
-local FIntDevProductsMaxPrice = game:DefineFastInt("DevProductsMaxPrice", 1000000000)
-
-local FFlagSupportFreePrivateServers = game:GetFastFlag("SupportFreePrivateServers")
-local FFlagEnableDevProductsInGameSettings = game:GetFastFlag("EnableDevProductsInGameSettings")
-local FFlagDeveloperSubscriptionsEnabled = game:GetFastFlag("DeveloperSubscriptionsEnabled")
-local FFlagStudioFixGameManagementIndexNil = game:getFastFlag("StudioFixGameManagementIndexNil")
-local FFlagStudioFixMissingMonetizationHeader = game:DefineFastFlag("StudioFixMissingMonetizationHeader", false)
-local FVariableMaxRobuxPrice = game:DefineFastInt("DeveloperSubscriptionsMaxRobuxPrice", 2000)
-local FFlagStudioDevProductsMaxPriceEnabled = game:DefineFastFlag("StudioDevProductsMaxPriceEnabled", false)
 
 local priceErrors = {
     BelowMin = "ErrorPriceBelowMin",
@@ -86,7 +93,7 @@ local function loadSettings(store, contextItems)
     local monetizationController = contextItems.monetizationController
     local devSubsController = contextItems.devSubsController
 
-    return {
+    local settingsLoadJobs = {
         function(loadedSettings)
             local taxRate = monetizationController:getTaxRate()
 
@@ -145,6 +152,21 @@ local function loadSettings(store, contextItems)
             loadedSettings["DeveloperSubscriptions"] = openDevSubs
         end,
     }
+    
+    if FFlagStudioEnableBadgesInMonetizationPage then
+        table.insert(settingsLoadJobs, function(loadedSettings)
+            assert(FFlagStudioEnableBadgesInMonetizationPage)
+            
+            if ShouldAllowBadges() then
+                local badges, cursor = monetizationController:getBadges(gameId)
+
+                loadedSettings["badges"] = badges
+                loadedSettings["badgesCursor"] = cursor
+            end
+        end)
+    end
+    
+    return settingsLoadJobs
 end
 
 local function saveSettings(store, contextItems)
@@ -275,6 +297,8 @@ local function loadValuesToProps(getValue, state)
 
         isEditingSubscription = getValue("isEditingSubscription"),
         editedSubscriptionKey = getValue("editedSubscriptionKey"),
+
+        Badges = FFlagStudioEnableBadgesInMonetizationPage and state.Settings.Current.badges or nil,
     }
 
     return loadedProps
@@ -397,6 +421,12 @@ local function dispatchChanges(setValue, dispatch)
             dispatch(LoadDeveloperProducts())
         end,
 
+        LoadMoreBadges = FFlagStudioEnableBadgesInMonetizationPage and function()
+            assert(FFlagStudioEnableBadgesInMonetizationPage)
+            
+            dispatch(LoadBadges())
+        end,
+
         SetDevSubKey = function(devSubKey, valueKey, value)
             dispatch(AddDevSubKeyChange(devSubKey, valueKey, value))
             checkChangedDevSubKey(dispatch, devSubKey, valueKey, value)
@@ -436,6 +466,31 @@ local function dispatchChanges(setValue, dispatch)
         end,
     }
     return dispatchFuncs
+end
+
+local function convertBadgesForTable(badges)
+    assert(FFlagStudioEnableBadgesInMonetizationPage)
+    
+    local result = {}
+    local count = 0
+    
+    for index, badge in pairs(badges) do
+        result[badge.id] = {
+            index = index,
+            row = {
+                badge.name,
+                badge.description
+            },
+            icon = Roact.createElement(BadgeIconThumbnail, {
+                Id = badge.iconImageId,
+                Size = UDim2.fromScale(1, 1),
+            })
+        }
+        
+        count = count + 1
+    end
+
+    return result, count
 end
 
 local function convertDeveloperProductsForTable(devProducts, localization)
@@ -581,6 +636,14 @@ local function displayMonetizationPage(props)
     local setEditDevProductId = props.SetEditDevProductId
     local loadMoreDevProducts = props.LoadMoreDevProducts
 
+    local badgesForTable, numberOfBadges, loadMoreBadges
+    local showBadges = FFlagStudioEnableBadgesInMonetizationPage and ShouldAllowBadges()
+
+    if showBadges then
+        badgesForTable, numberOfBadges = convertBadgesForTable(props.Badges)
+        loadMoreBadges = props.LoadMoreBadges
+    end
+
     local developerSubscriptionCreated = props.OnDeveloperSubscriptionCreated
 
     local priceError = getPriceErrorText(props.AccessPriceError, vipServers.isEnabled, paidAccessEnabled, localization)
@@ -593,6 +656,18 @@ local function displayMonetizationPage(props)
     end
 
     return {
+        Badges = showBadges and Roact.createElement(Badges, {
+            BadgeList = badgesForTable,
+            LayoutOrder = layoutIndex:getNextOrder(),
+            OnLoadMoreBadges = loadMoreBadges,
+            ShowTable = numberOfBadges ~= 0
+        }),
+
+        Separator =  showBadges and Roact.createElement(Separator, {
+            LayoutOrder = layoutIndex:getNextOrder(),
+            Size = UDim2.new(1, 0, 0, 1),
+        }),
+        
         PaidAccess = Roact.createElement(PaidAccess, {
             Price = paidAccessPrice,
             TaxRate = taxRate,

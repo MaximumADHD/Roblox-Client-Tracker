@@ -6,6 +6,8 @@ local HEADER_NAMES = Constants.MemoryFormatting.ChartHeaderNames
 local MAX_DATASET_COUNT = tonumber(settings():GetFVariable("NewDevConsoleMaxGraphCount"))
 local BYTES_PER_MB = 1048576.0
 
+local NewScriptMemoryCategories = game:DefineFastFlag("NewScriptMemoryCategories", false)
+
 local SORT_COMPARATOR = {
 	[HEADER_NAMES[1]] = function(a, b)
 		return a.name < b.name
@@ -36,6 +38,14 @@ function ServerMemoryData.new()
 
 	self._placeTreeData = {}
 	self._placeTreeDataSorted = {}
+
+	if NewScriptMemoryCategories then
+		self._placeScriptTreeData = {}
+		self._placeScriptTreeDataSorted = {}
+
+		self._coreScriptTreeData = {}
+		self._coreScriptTreeDataSorted = {}
+	end
 
 	self._treeViewUpdated = Signal.new()
 	self._sortType = HEADER_NAMES[1]
@@ -110,6 +120,23 @@ function ServerMemoryData:updateEntryList(entryList, sortedList, statsItems)
 		self:updateEntry(entryList, sortedList, label, value)
 	end
 
+	if NewScriptMemoryCategories then
+		-- clean-up children that are no longer present
+		for label, _ in pairs(entryList) do
+			if statsItems[label] == nil then
+				entryList[label] = nil
+
+				-- find and remove from sorted array
+				for i, value in ipairs(sortedList) do
+					if label == value.name then
+						table.remove(sortedList, i)
+						break
+					end
+				end
+			end
+		end
+	end
+
 	return totalMB
 end
 
@@ -120,6 +147,16 @@ function ServerMemoryData:updateWithTreeStats(stats)
 		UntrackedMemory = 0,
 	}
 
+	if NewScriptMemoryCategories then
+		update = {
+			PlaceMemory = 0,
+			CoreMemory = 0,
+			UntrackedMemory = 0,
+			PlaceScriptMemory = 0,
+			CoreScriptMemory = 0,
+		}
+	end
+
 	for key, value in pairs(stats) do
 		if key == "totalServerMemory" then
 			self._totalMemory = value / BYTES_PER_MB
@@ -127,6 +164,10 @@ function ServerMemoryData:updateWithTreeStats(stats)
 			update.PlaceMemory = self:updateEntryList(self._placeTreeData, self._placeTreeDataSorted, value)
 		elseif key == "internalCategories" then
 			update.CoreMemory = self:updateEntryList(self._coreTreeData, self._coreTreeDataSorted, value)
+		elseif NewScriptMemoryCategories and key == "placeScriptMemoryCategories" then
+			update.PlaceScriptMemory = self:updateEntryList(self._placeScriptTreeData, self._placeScriptTreeDataSorted, value)
+		elseif NewScriptMemoryCategories and key == "coreScriptMemoryCategories" then
+			update.CoreScriptMemory = self:updateEntryList(self._coreScriptTreeData, self._coreScriptTreeDataSorted, value)
 		end
 	end
 
@@ -158,6 +199,14 @@ function ServerMemoryData:updateWithTreeStats(stats)
 
 		memChildren["CoreMemory"].children = self._coreTreeData
 		memChildren["CoreMemory"].sortedChildren = self._coreTreeDataSorted
+
+		if NewScriptMemoryCategories then
+			memChildren["PlaceScriptMemory"].children = self._placeScriptTreeData
+			memChildren["PlaceScriptMemory"].sortedChildren = self._placeScriptTreeDataSorted
+
+			memChildren["CoreScriptMemory"].children = self._coreScriptTreeData
+			memChildren["CoreScriptMemory"].sortedChildren = self._coreScriptTreeDataSorted
+		end
 
 		self._memoryData["Memory"].children = memChildren
 		self._memoryData["Memory"].sortedChildren = memChildrenSorted

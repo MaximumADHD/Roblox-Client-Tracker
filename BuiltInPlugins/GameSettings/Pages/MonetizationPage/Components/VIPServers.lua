@@ -32,6 +32,8 @@
         PriceError = string, error message to be shown for this component
 ]]
 
+local FFlagStudioEnableBadgesInMonetizationPage = game:GetFastFlag("StudioEnableBadgesInMonetizationPage")
+
 local Page = script.Parent.Parent
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -40,7 +42,6 @@ local Roact = require(Plugin.Roact)
 local Framework = Plugin.Framework
 local FitFrameOnAxis = require(Framework.Util).FitFrame.FitFrameOnAxis
 local LayoutOrderIterator = require(Framework.Util.LayoutOrderIterator)
-local StudioService = game:GetService("StudioService")
 
 local ContextServices = require(Plugin.Framework.ContextServices)
 
@@ -50,6 +51,8 @@ local RadioButtonSet = require(Plugin.Src.Components.RadioButtonSet)
 local RobuxFeeBase = require(Page.Components.RobuxFeeBase)
 local TitledFrame = UILibrary.Component.TitledFrame
 local ToggleButton = UILibrary.Component.ToggleButton
+
+local shouldDisablePrivateServersAndPaidAccess = require(Plugin.Src.Util.GameSettingsUtilities).shouldDisablePrivateServersAndPaidAccess
 
 local VIPServers = Roact.PureComponent:extend("VIPServers")
 
@@ -63,7 +66,7 @@ end
 
 function VIPServers:render()
     -- Remove this block once economy team enables the double wallets workflow (see STUDIOCORE-24488 & STUDIOCORE-24576)
-    if FFlagStudioDisablePrivateServersAndPaidAccessForLuobu and StudioService:BaseURLHasChineseHost() then
+    if FFlagStudioDisablePrivateServersAndPaidAccessForLuobu and shouldDisablePrivateServersAndPaidAccess() then
         return nil
     end
 
@@ -295,7 +298,7 @@ function VIPServers:render()
 
             MaxHeight = maxPriceConfigHeight,
 
-            TextSize = theme.fontStyle.Title.TextSize,
+            TextSize = FFlagStudioEnableBadgesInMonetizationPage and theme.fontStyle.Normal.TextSize or theme.fontStyle.Title.TextSize,
             LayoutOrder = 2,
         },{
             RobuxFeeBase = Roact.createElement(RobuxFeeBase, {

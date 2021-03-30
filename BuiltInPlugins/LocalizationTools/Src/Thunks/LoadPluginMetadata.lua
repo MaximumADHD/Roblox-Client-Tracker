@@ -5,9 +5,12 @@
 local Plugin = script.Parent.Parent.Parent
 local Http = require(Plugin.Packages.Framework.Http)
 
-local LoadAllLocales = require(Plugin.Src.Actions.LoadAllLocales)
+local LoadAllLocales = require(Plugin.Src.Actions.DEPRECATED_LoadAllLocales)
+local LoadLanguagesAndLocalesInfo = require(Plugin.Src.Actions.LoadLanguagesAndLocalesInfo)
 local LoadManageTranslationPermission = require(Plugin.Src.Actions.LoadManageTranslationPermission)
 local SetCloudTableId = require(Plugin.Src.Actions.SetCloudTableId)
+
+local FFlagLocalizationToolsAllowUploadZhCjv = game:GetFastFlag("LocalizationToolsAllowUploadZhCjv")
 
 local ACCEPTED_ROLES = {
 	owner = true,
@@ -28,7 +31,29 @@ local function getAllLanguageCodes(api, localization)
 			function()
 				warn(localization:getText("PluginMetadata", "GetAllLocalesFailed"))
 			end)
+	end
 end
+
+local function getLanguagesAndLocalesInfo(api, localization)
+	return function(store)
+		local request = api.Locale.V1.locales()
+		request:makeRequest():andThen(
+			function(response)
+				local allLanguages = {}
+				local localesToLanguages = {}
+				for _, localeInfo in ipairs(response.responseBody.data) do
+					if localeInfo.isEnabledForInGameUgc then
+						allLanguages[localeInfo.locale.language.languageCode] = true
+					end
+				end
+				-- currently we only wanna add zh-cjv as allowed locale
+				localesToLanguages["zh-cjv"] = "zh-hans"
+				store:dispatch(LoadLanguagesAndLocalesInfo(allLanguages, localesToLanguages))
+			end,
+			function()
+				warn(localization:getText("PluginMetadata", "GetAllLocalesFailed"))
+			end)
+	end
 end
 
 local function getManageTranslationPermission(api, localization)
@@ -83,7 +108,11 @@ end
 
 local function getAll(api, localization)
 	return function(store)
-		store:dispatch(getAllLanguageCodes(api, localization))
+		if FFlagLocalizationToolsAllowUploadZhCjv then
+			store:dispatch(getLanguagesAndLocalesInfo(api, localization))
+		else
+			store:dispatch(getAllLanguageCodes(api, localization))
+		end
 		if game.GameId ~= 0 then
 			store:dispatch(
 				getManageTranslationPermission(api, localization))

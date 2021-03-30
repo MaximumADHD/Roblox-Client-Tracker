@@ -2,8 +2,6 @@ local FFlagUseCategoryNameInToolbox = game:GetFastFlag("UseCategoryNameInToolbox
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
-local RobloxAPI = require(Plugin.Libs.Framework).RobloxAPI
-
 local RequestReason = require(Plugin.Core.Types.RequestReason)
 local GetAssetsRequest = require(Plugin.Core.Networking.Requests.GetAssetsRequest)
 local GetToolboxItems = require(Plugin.Core.Networking.Requests.GetToolboxItems)
@@ -13,6 +11,8 @@ local ClearAssets = require(Plugin.Core.Actions.ClearAssets)
 local UpdatePageInfo = require(Plugin.Core.Actions.UpdatePageInfo)
 
 local Constants = require(Plugin.Core.Util.Constants)
+
+local showRobloxCreatedAssets = require(Plugin.Core.Util.ToolboxUtilities).showRobloxCreatedAssets
 
 local FFlagToolboxShowRobloxCreatedAssetsForLuobu = game:GetFastFlag("ToolboxShowRobloxCreatedAssetsForLuobu")
 
@@ -36,7 +36,7 @@ return function(networkInterface, settings, newPageInfo)
 			categoryName = category and category.name
 		end
 
-		if FFlagToolboxShowRobloxCreatedAssetsForLuobu and RobloxAPI:baseURLHasChineseHost() then
+		if FFlagToolboxShowRobloxCreatedAssetsForLuobu and showRobloxCreatedAssets() then
 			-- For Luobu we limit the length of Audio assets available in the marketplace for moderation reasons
 			if audioSearchInfo == nil then
 				audioSearchInfo = {

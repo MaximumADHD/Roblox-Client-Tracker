@@ -31,6 +31,7 @@
 local DevFrameworkRoot = script.Parent
 local Url = require(script.Url)
 local Networking = require(DevFrameworkRoot.Http).Networking
+-- TODO: jbousellam - 3/16/21 - remove with FFlagStudioCreatePluginPolicyService
 local StudioService = game:GetService("StudioService")
 
 local strict = require(DevFrameworkRoot.Util.strict)
@@ -112,8 +113,9 @@ function RobloxAPI.new(props)
 	return robloxApi
 end
 
+-- TODO: jbousellam - 3/16/21 - remove with FFlagStudioCreatePluginPolicyService
 function RobloxAPI:baseURLHasChineseHost()
-	return StudioService:BaseURLHasChineseHost()
+    return StudioService:BaseURLHasChineseHost()
 end
 
 return RobloxAPI

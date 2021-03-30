@@ -18,11 +18,13 @@ AssetConfigTheme.__index = AssetConfigTheme
 function AssetConfigTheme.createDummyThemeManager()
 	-- Fake the studio theme impl
 	return AssetConfigTheme.new({
-		getTheme = {
-			GetColor = function()
-				return Color3.fromRGB(0, 0, 0)
-			end,
-		},
+		getTheme = function()
+			return {
+				GetColor = function()
+					return Color3.fromRGB(0, 0, 0)
+				end,
+			}
+		end,
 	})
 end
 

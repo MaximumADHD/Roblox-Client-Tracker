@@ -12,6 +12,8 @@ local MoveHandleView = require(DraggerFramework.Components.MoveHandleView)
 
 local getEngineFeatureModelPivotVisual = require(DraggerFramework.Flags.getEngineFeatureModelPivotVisual)
 
+local getFFlagFoldersOverFragments = require(DraggerFramework.Flags.getFFlagFoldersOverFragments)
+
 local ALWAYS_ON_TOP = true
 
 local MoveHandles = {}
@@ -148,7 +150,11 @@ function MoveHandles:render(hoveredHandleId)
 		})
 	end
 
-	return Roact.createFragment(children)
+	if getFFlagFoldersOverFragments() then
+		return Roact.createElement("Folder", {}, children)
+	else
+		return Roact.createFragment(children)
+	end
 end
 
 function MoveHandles:mouseDown(mouseRay, handleId)

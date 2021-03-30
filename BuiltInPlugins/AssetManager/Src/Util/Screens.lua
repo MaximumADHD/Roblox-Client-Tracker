@@ -1,10 +1,12 @@
 local Plugin = script.Parent.Parent.Parent
-local Framework = require(Plugin.Packages.Framework)
-local RobloxAPI = Framework.RobloxAPI
+
+local StudioService = game:GetService("StudioService")
+
+local shouldEnableAudioImport = require(Plugin.Src.Util.AssetManagerUtilities).shouldEnableAudioImport
 
 local FFlagStudioAssetManagerNewFolderIcons = game:GetFastFlag("StudioAssetManagerNewFolderIcons")
-local FFlagStudioAssetManagerHideAudioForLuobu = game:GetFastFlag("StudioAssetManagerHideAudioForLuobu")
 local FFlagEnableLuobuAudioImport = game:GetFastFlag("EnableLuobuAudioImport")
+local FFlagStudioCreatePluginPolicyService = game:GetFastFlag("StudioCreatePluginPolicyService")
 
 local Screens = {
     MAIN = {
@@ -27,8 +29,8 @@ local Screens = {
 	},
 }
 
-if FFlagStudioAssetManagerHideAudioForLuobu and not FFlagEnableLuobuAudioImport then
-	if not RobloxAPI:baseURLHasChineseHost() then
+if not FFlagStudioCreatePluginPolicyService and not FFlagEnableLuobuAudioImport then
+	if not StudioService:BaseURLHasChineseHost() then
 		Screens["AUDIO"] = {
 			Key = "AUDIO",
 		}
@@ -39,7 +41,8 @@ if FFlagStudioAssetManagerHideAudioForLuobu and not FFlagEnableLuobuAudioImport 
 			Screens.AUDIO.Image = "rbxasset://textures/StudioSharedUI/audio.png"
 		end
 	end
-else
+elseif (FFlagStudioCreatePluginPolicyService and shouldEnableAudioImport()) 
+or (not FFlagStudioCreatePluginPolicyService and FFlagEnableLuobuAudioImport) then
 	Screens["AUDIO"] = {
 		Key = "AUDIO",
 	}

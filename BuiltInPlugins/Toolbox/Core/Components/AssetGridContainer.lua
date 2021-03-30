@@ -19,6 +19,7 @@ local StudioService = game:GetService("StudioService")
 local FFlagUseCategoryNameInToolbox = game:GetFastFlag("UseCategoryNameInToolbox")
 local FFlagFixGroupPackagesCategoryInToolbox = game:GetFastFlag("FixGroupPackagesCategoryInToolbox")
 local FFlagEnableDefaultSortFix2 = game:GetFastFlag("EnableDefaultSortFix2")
+local FFlagToolboxAssetGridUseFirstOccurrence = game:GetFastFlag("ToolboxAssetGridUseFirstOccurrence")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -523,6 +524,11 @@ function AssetGridContainer:render()
 				-- If the asset is a group packages, then we want to check only want to show it if we have permission.
 				-- if the category is not group packages, then we always want to show.
 				local showAsset = (isGroupPackageAsset and canEditPackage) or not isGroupPackageAsset
+
+				if FFlagToolboxAssetGridUseFirstOccurrence and assetElements[tostring(assetId)] then
+					-- If the asset is in the grid multiple times, show it in the position of the first occurrence
+					continue
+				end
 
 				assetElements[tostring(assetId)] = showAsset and Roact.createElement(Asset, {
 					assetId = assetId,

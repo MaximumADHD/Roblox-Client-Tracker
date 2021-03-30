@@ -3,16 +3,14 @@ local Plugin = script.Parent.Parent.Parent
 local Players = game:GetService("Players")
 local GroupService = game:GetService("GroupService")
 
-local Framework = require(Plugin.Packages.Framework)
-local RobloxAPI = Framework.RobloxAPI
-
 local GetRootTreeViewInstance = require(Plugin.Src.Thunks.GetRootTreeViewInstance)
 
 local SetAssetPreviewData = require(Plugin.Src.Actions.SetAssetPreviewData)
 local SetAssetOwnerName = require(Plugin.Src.Actions.SetAssetOwnerName)
 
+local enableAudioImport = require(Plugin.Src.Util.AssetManagerUtilities).enableAudioImport
+
 local FFlagStopTryingToFormatTimeInLuaForAssetManager = game:DefineFastFlag("StopTryingToFormatTimeInLuaForAssetManager", false)
-local FFlagEnableLuobuAudioImport = game:GetFastFlag("EnableLuobuAudioImport")
 
 --[[
     Remove with FFlagStopTryingToFormatTimeInLuaForAssetManager,
@@ -82,9 +80,7 @@ return function(apiImpl, assetIds)
                     assetName = string.gsub(assetData.name, "Meshes/", "")
                 elseif assetTypeId == Enum.AssetType.Lua.Value and string.find(assetData.name, "Scripts/") then
                     assetName = string.gsub(assetData.name, "Scripts/", "")
-                elseif ((not FFlagEnableLuobuAudioImport and (not RobloxAPI:baseURLHasChineseHost())) or FFlagEnableLuobuAudioImport)
-                    and assetTypeId == Enum.AssetType.Audio.Value and string.find(assetData.name, "Audio/")
-                then
+                elseif enableAudioImport() and assetTypeId == Enum.AssetType.Audio.Value and string.find(assetData.name, "Audio/") then
                     assetName = string.gsub(assetData.name, "Audio/", "")
                 end
 

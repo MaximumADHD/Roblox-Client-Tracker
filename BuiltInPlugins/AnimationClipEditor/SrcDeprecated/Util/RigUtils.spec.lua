@@ -4,7 +4,6 @@ return function()
 	local Constants = require(script.Parent.Constants)
 	local isEmpty = require(script.Parent.isEmpty)
 	local deepCopy = require(script.Parent.deepCopy)
-	local IsMicroboneSupportEnabled = require(Plugin.LuaFlags.GetFFlagAnimationEditorMicroboneSupport)
 
 	local testRigAnimationData = {
 		Metadata = {
@@ -120,10 +119,8 @@ return function()
 		constraint.Attachment1 = headToUpperTorsoAttach
 
 		Instance.new("AnimationController", model)
-		if IsMicroboneSupportEnabled() then
-			local bone = Instance.new("Bone", head)
-			bone.Name = "Jaw"
-		end
+		local bone = Instance.new("Bone", head)
+		bone.Name = "Jaw"
 
 		return model
 	end
@@ -147,16 +144,10 @@ return function()
 			local unused = RigUtils.getUnusedRigTracks(testRig, tracks)
 
 			expect(unused).to.be.ok()
-			if IsMicroboneSupportEnabled() then
-				expect(#unused).to.equal(3)
-				expect(unused[1].Name).to.equal("Head")
-				expect(unused[2].Name).to.equal("Jaw")
-				expect(unused[3].Name).to.equal("UpperTorso")
-			else
-				expect(#unused).to.equal(2)
-				expect(unused[1].Name).to.equal("Head")
-				expect(unused[2].Name).to.equal("UpperTorso")
-			end
+			expect(#unused).to.equal(3)
+			expect(unused[1].Name).to.equal("Head")
+			expect(unused[2].Name).to.equal("Jaw")
+			expect(unused[3].Name).to.equal("UpperTorso")
 		end)
 	end)
 
@@ -346,23 +337,14 @@ return function()
 			local parts = RigUtils.getRigInfo(testRig)
 
 			expect(parts).to.be.ok()
-			if IsMicroboneSupportEnabled() then
-				expect(#parts).to.equal(3)
-			else
-				expect(#parts).to.equal(2)
-			end
+			expect(#parts).to.equal(3)
 			table.sort(parts, function(p1, p2)
 				return p1.Name < p2.Name
 			end)
 
-			if IsMicroboneSupportEnabled() then
-				expect(parts[1].Name).to.equal("Head")
-				expect(parts[2].Name).to.equal("Jaw")
-				expect(parts[3].Name).to.equal("UpperTorso")
-			else
-				expect(parts[1].Name).to.equal("Head")
-				expect(parts[2].Name).to.equal("UpperTorso")
-			end
+			expect(parts[1].Name).to.equal("Head")
+			expect(parts[2].Name).to.equal("Jaw")
+			expect(parts[3].Name).to.equal("UpperTorso")
 		end)
 
 		it("should return a map of part names to Motor6Ds", function()
@@ -393,23 +375,21 @@ return function()
 		end)
 	end)
 
-	if IsMicroboneSupportEnabled() then
-		describe("getBones", function()
-			it("first bone of test rig should be the Jaw", function()
-				local testRig = buildTestRig()
-				local bones = RigUtils.getBones(testRig)
-				expect(bones[1]).to.be.equal(testRig.Head.Jaw)
-			end)
+	describe("getBones", function()
+		it("first bone of test rig should be the Jaw", function()
+			local testRig = buildTestRig()
+			local bones = RigUtils.getBones(testRig)
+			expect(bones[1]).to.be.equal(testRig.Head.Jaw)
 		end)
+	end)
 
-		describe("getBoneByName", function()
-			it("should return correct bone given its name", function()
-				local testRig = buildTestRig()
-				local bone = RigUtils.getBoneByName(testRig, "Jaw")
-				expect(bone).to.be.equal(testRig.Head.Jaw)
-			end)
+	describe("getBoneByName", function()
+		it("should return correct bone given its name", function()
+			local testRig = buildTestRig()
+			local bone = RigUtils.getBoneByName(testRig, "Jaw")
+			expect(bone).to.be.equal(testRig.Head.Jaw)
 		end)
-	end
+	end)
 
 	describe("findMatchingAttachments", function()
 		it("should return an attachment with a matching name on both parts", function()
@@ -434,9 +414,7 @@ return function()
 			local testRig = buildTestRig()
 			testRig.UpperTorso.Motor6D:Destroy()
 			testRig.Head.Motor6D:Destroy()
-			if IsMicroboneSupportEnabled() then
-				testRig.Head.Jaw:Destroy()
-			end
+			testRig.Head.Jaw:Destroy()
 
 			local result, errorList = RigUtils.rigHasErrors(testRig)
 			expect(result).to.equal(true)
@@ -488,9 +466,7 @@ return function()
 		it("should error if all parts are anchored", function()
 			local testRig = buildTestRig()
 			local result, errorList
-			if IsMicroboneSupportEnabled() then
-				testRig.Head.Jaw:Destroy()
-			end
+			testRig.Head.Jaw:Destroy()
 			result = RigUtils.rigHasErrors(testRig)
 			expect(result).to.equal(false)
 

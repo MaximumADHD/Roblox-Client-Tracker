@@ -6,13 +6,13 @@
 
 return function()
 	local Framework = script.Parent
+
 	local NO_TEST_DIRECTORIES = {
 		Framework.StudioUI.StudioFrameworkStyles,
 	}
 
 	local ignoredFileNamesSiblingToTests = {
 		["example"] = true,
-		["renderExample"] = true,
 		["stories"] = true,
 		["style"] = true,
 	}
@@ -28,8 +28,8 @@ return function()
 
 	local function fileShouldBeValidated(targetScript)
 		if targetScript:IsA("ModuleScript") then
-			-- is this a test or story file?
-			if targetScript.Name:find(".spec") or targetScript.Name:find(".story") then
+			-- Tests, stories and stubs don't require their own tests
+			if targetScript.Name:match("%.spec$") or targetScript.Name:match("%.story$") or targetScript.Name:match("%.stub$") then
 				return false
 			end
 

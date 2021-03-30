@@ -6,6 +6,7 @@ local UserInputService = game:GetService("UserInputService")
 local FFlagBypassThirdPartySettingForRobloxPurchase = require(Root.Flags.FFlagBypassThirdPartySettingForRobloxPurchase)
 local GetFFlagLuaUseThirdPartyPermissions = require(Root.Flags.GetFFlagLuaUseThirdPartyPermissions)
 local GetFFlagHideThirdPartyPurchaseFailure = require(Root.Flags.GetFFlagHideThirdPartyPurchaseFailure)
+local GetFFlagDisableRobuxUpsell = require(Root.Flags.GetFFlagDisableRobuxUpsell)
 
 local ExternalSettings = {}
 
@@ -58,6 +59,10 @@ function ExternalSettings.new()
 
 	function service.isTenFootInterface()
 		return GuiService:IsTenFootInterface()
+	end
+
+	function service.getFFlagDisableRobuxUpsell()
+		return GetFFlagDisableRobuxUpsell()
 	end
 
 	return service

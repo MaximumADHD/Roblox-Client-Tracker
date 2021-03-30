@@ -44,6 +44,10 @@ local MediaPlayerSignal = require(Framework.StudioUI.MediaPlayerWrapper.MediaPla
 
 local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 
+local FFlagDevFrameworkBasicMobileSupport = game:GetFastFlag("DevFrameworkBasicMobileSupport")
+local isInputMainPress = Util.isInputMainPress
+
+-- TODO FFlagDevFrameworkBasicMobileSupport: Remove this helper on retire
 local function isUserInputTypeClick(inputType)
 	return (inputType == Enum.UserInputType.Touch) or (inputType == Enum.UserInputType.MouseButton1)
 end
@@ -124,7 +128,11 @@ function StatelessVideoPlayer:init()
 	end
 
 	self.onInputBegan = function(_, input)
-		if isUserInputTypeClick(input.UserInputType) and self.props.IsLoaded then
+		local isMainPress = isUserInputTypeClick(input.UserInputType)
+		if FFlagDevFrameworkBasicMobileSupport then
+			isMainPress = isInputMainPress(input)
+		end
+		if isMainPress and self.props.IsLoaded then
 			self.togglePlay()
 		end
 	end

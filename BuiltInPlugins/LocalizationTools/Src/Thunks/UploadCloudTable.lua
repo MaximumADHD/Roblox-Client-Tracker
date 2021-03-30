@@ -14,12 +14,15 @@ local SetIsBusy = require(Plugin.Src.Actions.SetIsBusy)
 local SetMessage = require(Plugin.Src.Actions.SetMessage)
 local UploadDialogContent = require(Plugin.Src.Components.UploadDialogContent)
 local DownloadCloudTable = require(Plugin.Src.Thunks.DownloadCloudTable)
+local DEPRECATED_RbxEntriesToWebEntries = require(Plugin.Src.Util.DEPRECATED_RbxEntriesToWebEntries)
 local RbxEntriesToWebEntries = require(Plugin.Src.Util.RbxEntriesToWebEntries)
 local PatchInfo = require(Plugin.Src.Util.PatchInfo)
 local isEmpty = require(Plugin.Src.Util.isEmpty)
 
 local FFlagLocalizationToolsPluginInvalidEntryIdentifierMessageEnabled
 	= game:GetFastFlag("LocalizationToolsPluginInvalidEntryIdentifierMessageEnabled")
+
+local FFlagLocalizationToolsAllowUploadZhCjv = game:GetFastFlag("LocalizationToolsAllowUploadZhCjv")
 
 local function makeDispatchErrorMessageFunc(store, localization)
 	return function()
@@ -45,6 +48,19 @@ local function getGameSupportedLanguages(request)
 		end):await()
 
 	return languageSet
+end
+
+local function getGameSourceLanguage(request)
+	local sourceLanguage
+	request:makeRequest():andThen(
+		function(response)
+			if response and response.responseCode == Http.StatusCodes.OK then
+				sourceLanguage = response.responseBody.languageCode or ""
+			end
+		end,
+		function()
+		end):await()
+	return sourceLanguage
 end
 
 local function patchSupportedLanguages(api, gameId, languagesList)
@@ -155,7 +171,15 @@ end
 
 local function requestGenerateAssets(api, gameId)
 	local request = api.GameInternationalization.V1.LocalizationTable.Games.assetsGenerationRequest(gameId)
-	request:makeRequest():await()
+	if FFlagLocalizationToolsAllowUploadZhCjv then
+		request:makeRequest():andThen(
+			function()
+			end,
+			function()
+			end):await()
+	else
+		request:makeRequest():await()
+	end
 end
 
 local function makeRenderDialogContent(patchInfo)
@@ -197,6 +221,17 @@ return function(api, localization, analytics, showDialog, isReplace)
 		-- 2. compute patch
 		store:dispatch(
 			SetMessage(localization:getText("MessageFrame", "ComputingPatchMessage")))
+		-- 2.0 get game source language
+		local gameSourceLanguage
+		if FFlagLocalizationToolsAllowUploadZhCjv then
+			gameSourceLanguage = getGameSourceLanguage(
+				api.GameInternationalization.V1.SourceLanguage.Games.get(game.GameId))
+			if gameSourceLanguage == nil then
+				dispatchErrorMessage()
+				warn(localization:getText("UploadTable", "GetGameSourceLanguageFailed"))
+				return
+			end
+		end
 		-- 2.1 get game supported languages
 		local gameSupportedLanguages = getGameSupportedLanguages(
 			api.GameInternationalization.V1.SupportedLanguages.Games.get(game.GameId))
@@ -214,16 +249,41 @@ return function(api, localization, analytics, showDialog, isReplace)
 			return
 		end
 		-- 2.3 make patch
-		local allLanguagesCodes = curState.PluginMetadata.AllLanguageCodes
-		local curCloudTableInfo = RbxEntriesToWebEntries(
-			curCloudTable:GetEntries(), allLanguagesCodes)
-		local newTableInfo = RbxEntriesToWebEntries(
-			newTable:GetEntries(), allLanguagesCodes, gameSupportedLanguages)
-		local patchInfo = PatchInfo.DiffTables(
-			"MyLocalizationTable",
-			curCloudTableInfo.entries,
-			newTableInfo.entries,
-			isReplace)
+		local curCloudTableInfo
+		local newTableInfo
+		local patchInfo
+		if FFlagLocalizationToolsAllowUploadZhCjv then
+			local allLanguages = curState.PluginMetadata.AllLanguages
+			local localesToLanguages = curState.PluginMetadata.LocalesToLanguages
+			curCloudTableInfo = RbxEntriesToWebEntries(
+				curCloudTable:GetEntries(), allLanguages, localesToLanguages)
+			newTableInfo = RbxEntriesToWebEntries(
+				newTable:GetEntries(), allLanguages, localesToLanguages, gameSupportedLanguages)
+
+			patchInfo = PatchInfo.DiffTables(
+				"MyLocalizationTable",
+				curCloudTableInfo.entries,
+				newTableInfo.entries,
+				isReplace,
+				gameSourceLanguage,
+				localesToLanguages,
+				localization
+			)
+		else
+			local allLanguagesCodes = curState.PluginMetadata.DEPRECATED_AllLanguageCodes
+			curCloudTableInfo = DEPRECATED_RbxEntriesToWebEntries(
+				curCloudTable:GetEntries(), allLanguagesCodes)
+			newTableInfo = DEPRECATED_RbxEntriesToWebEntries(
+				newTable:GetEntries(), allLanguagesCodes, gameSupportedLanguages)
+
+			patchInfo = PatchInfo.DiffTables(
+				"MyLocalizationTable",
+				curCloudTableInfo.entries,
+				newTableInfo.entries,
+				isReplace
+			)
+		end
+
 		patchInfo.totalRows = newTableInfo.totalRows
 		patchInfo.totalTranslations = newTableInfo.totalTranslations
 		patchInfo.supportedLocales = newTableInfo.supportedLocales

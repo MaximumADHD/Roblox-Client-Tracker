@@ -1,3 +1,5 @@
+local FFlagStudioEnableBadgesInMonetizationPage = game:GetFastFlag("StudioEnableBadgesInMonetizationPage")
+
 local MonetizationController = {}
 
 local Plugin = script.Parent.Parent.Parent.Parent
@@ -68,6 +70,18 @@ function MonetizationController:developerProductsUpdateV1POST(gameId, product)
         Body = {
             name = product.name,
             priceInRobux = product.price,
+        }
+    })
+end
+
+function MonetizationController:badgesV1GET(gameId, cursor)
+    assert(FFlagStudioEnableBadgesInMonetizationPage)
+    
+    local networking = self.__networking
+    return networking:get("badges", "/v1/universes/"..gameId.."/badges", {
+        Params = {
+            sortOrder = "Asc",
+            cursor = cursor
         }
     })
 end
@@ -162,6 +176,28 @@ end
 
 function MonetizationController:updateDevProduct(gameId, product)
     self:developerProductsUpdateV1POST(gameId, product):await()
+end
+
+function MonetizationController:getBadges(gameId, cursor)
+    assert(FFlagStudioEnableBadgesInMonetizationPage)
+
+    local response = self:badgesV1GET(gameId, cursor):await()
+
+    cursor = response.responseBody.nextPageCursor
+    
+    local responseBadges = response.responseBody.data
+    local resultBadges = {}
+    
+    for _,badge in ipairs(responseBadges) do
+        resultBadges[badge.id] = {
+            id = badge.id,
+            name = badge.name,
+            description = badge.description or "",
+            iconImageId = badge.iconImageId
+        }
+    end
+
+    return resultBadges, cursor
 end
 
 return MonetizationController

@@ -2,7 +2,7 @@ return function()
 	local Root = script.Parent.Parent
 
 	local CorePackages = game:GetService("CorePackages")
-local PurchasePromptDeps = require(CorePackages.PurchasePromptDeps)
+	local PurchasePromptDeps = require(CorePackages.PurchasePromptDeps)
 	local Rodux = PurchasePromptDeps.Rodux
 
 	local PromptState = require(Root.Enums.PromptState)
@@ -12,6 +12,8 @@ local PurchasePromptDeps = require(CorePackages.PurchasePromptDeps)
 	local MockNetwork = require(Root.Test.MockNetwork)
 	local MockAnalytics = require(Root.Test.MockAnalytics)
 	local Thunk = require(Root.Thunk)
+
+	local GetFFlagProductPurchaseAnalytics = require(Root.Flags.GetFFlagProductPurchaseAnalytics)
 
 	local purchaseItem = require(script.Parent.purchaseItem)
 
@@ -29,6 +31,9 @@ local PurchasePromptDeps = require(CorePackages.PurchasePromptDeps)
 
 		local state = store:getState()
 
+		if GetFFlagProductPurchaseAnalytics() then
+			expect(analytics.spies.signalProductPurchaseConfirmed.callCount).to.equal(1)
+		end
 		expect(analytics.spies.signalPurchaseSuccess.callCount).to.equal(1)
 		expect(state.promptState).to.equal(PromptState.PurchaseInProgress)
 	end)

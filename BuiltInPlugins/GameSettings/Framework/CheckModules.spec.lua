@@ -28,8 +28,8 @@ return function()
 
 	local function fileShouldBeValidated(targetScript)
 		if targetScript:IsA("ModuleScript") then
-			-- is this a test or story?
-			if targetScript.Name:match("%.spec$") or targetScript.Name:match("%.story$") then
+			-- Tests, stories and stubs don't require their own tests
+			if targetScript.Name:match("%.spec$") or targetScript.Name:match("%.story$") or targetScript.Name:match("%.stub$") then
 				return false
 			end
 

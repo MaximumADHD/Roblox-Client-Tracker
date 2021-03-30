@@ -6,10 +6,11 @@ local Category = require(Plugin.Core.Types.Category)
 local Constants = require(Plugin.Core.Util.Constants)
 local Sort = require(Plugin.Core.Types.Sort)
 
-local RobloxAPI = require(Plugin.Libs.Framework).RobloxAPI
-
 local Settings = {}
 Settings.__index = Settings
+
+local disableMarketplaceAndRecents = require(Plugin.Core.Util.ToolboxUtilities).disableMarketplaceAndRecents
+local showRobloxCreatedAssets = require(Plugin.Core.Util.ToolboxUtilities).showRobloxCreatedAssets
 
 local FFlagEnableDefaultSortFix2 = game:GetFastFlag("EnableDefaultSortFix2")
 local FFlagUseCategoryNameInToolbox = game:GetFastFlag("UseCategoryNameInToolbox")
@@ -81,7 +82,7 @@ end
 if not FFlagUseCategoryNameInToolbox then
 	function Settings:getSelectTab()
 		local currentTabDefault
-		if FFlagToolboxDisableMarketplaceAndRecentsForLuobu and RobloxAPI:baseURLHasChineseHost() then
+		if FFlagToolboxDisableMarketplaceAndRecentsForLuobu and disableMarketplaceAndRecents() then
 			currentTabDefault = Constants.DEFAULT_TAB
 		else
 			currentTabDefault = Category.MARKETPLACE_KEY
@@ -156,7 +157,7 @@ function Settings:loadInitialSettings()
 	initSettings.backgroundIndex = self:getSelectedBackgroundIndex()
 	initSettings.tab = (not FFlagUseCategoryNameInToolbox) and self:getSelectTab()
 	if FFlagUseCategoryNameInToolbox then
-		if FFlagToolboxDisableMarketplaceAndRecentsForLuobu and RobloxAPI:baseURLHasChineseHost() then
+		if FFlagToolboxDisableMarketplaceAndRecentsForLuobu and disableMarketplaceAndRecents() then
 			-- We don't allow Marketplace or Recents for Luobu. We can't risk the loaded setting defaulting to Marketplace.
 			initSettings.categoryName = Category.DEFAULT.name
 		else
@@ -169,7 +170,7 @@ function Settings:loadInitialSettings()
 		end
 	end
 
-	if FFlagToolboxShowRobloxCreatedAssetsForLuobu and RobloxAPI:baseURLHasChineseHost() then
+	if FFlagToolboxShowRobloxCreatedAssetsForLuobu and showRobloxCreatedAssets() then
 		-- Override default settings to only show Roblox created assets for Luobu
 		initSettings.tab = Category.MARKETPLACE_KEY
 		if FFlagUseCategoryNameInToolbox then

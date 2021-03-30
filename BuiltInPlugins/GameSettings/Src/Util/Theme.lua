@@ -233,6 +233,12 @@ function Theme.createValues(theme, getColor)
 
 			devProducts = {
 				headerPadding = 20,
+				titlePadding = 12
+			},
+
+			badges = {
+				headerPadding = 20,
+				titlePadding = 12
 			},
 
 			dropDown = {
@@ -267,7 +273,12 @@ function Theme.createValues(theme, getColor)
 			groupThumbnail = {
 				loadingImage = "rbxasset://textures/StudioSharedUI/default_group.png",
 				loadFailureImage = "rbxasset://textures/GameSettings/ModeratedAsset.jpg",
-			},
+            },
+            
+            badgeIconThumbnail = {
+                loadingImage = "rbxasset://textures/StudioSharedUI/default_badge.png",
+                loadFailureImage = "rbxasset://textures/GameSettings/ModeratedAsset.jpg",
+            },
 
 			thumbnail = {
 				background = theme:getColor(StyleColor.Dark),
@@ -317,6 +328,9 @@ function Theme.createValues(theme, getColor)
 					background = theme:getColor(StyleColor.TableItem),
 					height = 32,
 					padding = 5,
+				},
+				icon = {
+					height = 40
 				},
 				menu = {
 					itemPadding = 30,

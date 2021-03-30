@@ -22,6 +22,8 @@ local fIntPotentialClientTimeout = game:DefineFastInt("PotentialClientTimeoutSec
 
 local LEAVE_GAME_FRAME_WAITS = 2
 
+local noHardcodedStringInLuaKickMessage = game:GetEngineFeature("NoHardcodedStringInLuaKickMessage")
+
 local function safeGetFInt(name, defaultValue)
 	local success, result = pcall(function() return tonumber(settings():GetFVariable(name)) end)
 	return success and result or defaultValue
@@ -390,7 +392,19 @@ local function getErrorString(errorMsg, errorCode, reconnectError)
 	end
 
 	if errorCode == Enum.ConnectionError.DisconnectLuaKick then
-		return errorMsg
+		if noHardcodedStringInLuaKickMessage then
+			-- errorMsg is dev message
+			local success, attemptTranslation = pcall(function()
+				local luaKickMessageKey = "InGame.ConnectionError.DisconnectLuaKickWithMessage"
+				return coreScriptTableTranslator:FormatByKey(luaKickMessageKey, {RBX_STR=errorMsg})
+			end)
+			if success then
+				return attemptTranslation
+			end
+			return errorMsg
+		else
+			return errorMsg
+		end
 	end
 
 	local key = string.gsub(tostring(errorCode), "Enum", "InGame")

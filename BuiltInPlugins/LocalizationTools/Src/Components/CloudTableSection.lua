@@ -25,6 +25,8 @@ local DownloadCloudTable = require(Plugin.Src.Thunks.DownloadCloudTable)
 local UploadCloudTable = require(Plugin.Src.Thunks.UploadCloudTable)
 local THEME_REFACTOR = Framework.Util.RefactorFlags.THEME_REFACTOR
 
+local FFlagLocalizationToolsAllowUploadZhCjv = game:GetFastFlag("LocalizationToolsAllowUploadZhCjv")
+
 local CloudTableSection = Roact.PureComponent:extend("CloudTableSection")
 
 function CloudTableSection:init()
@@ -82,8 +84,11 @@ function CloudTableSection:render()
 	local layoutOrder = props.LayoutOrder
 	local active = not props.IsBusy
 
-	local isReady = not isEmpty(props.AllLanguageCodes)
-		and props.CanManageTranslation and props.CloudTableId ~= ""
+	local isMetaDataReady = (FFlagLocalizationToolsAllowUploadZhCjv and
+		not isEmpty(props.AllLanguages) and not isEmpty(props.LocalesToLanguages)) or
+		not isEmpty(props.DEPRECATED_AllLanguageCodes)
+
+	local isReady = isMetaDataReady and props.CanManageTranslation and props.CloudTableId ~= ""
 
 	local content
 	if isReady then
@@ -189,7 +194,9 @@ ContextServices.mapToProps(CloudTableSection, {
 
 local function mapStateToProps(state, _)
 	return {
-		AllLanguageCodes = state.PluginMetadata.AllLanguageCodes,
+		DEPRECATED_AllLanguageCodes = state.PluginMetadata.DEPRECATED_AllLanguageCodes,
+		AllLanguages = state.PluginMetadata.AllLanguages,
+		LocalesToLanguages = state.PluginMetadata.LocalesToLanguages,
 		CanManageTranslation = state.PluginMetadata.CanManageTranslation,
 		CloudTableId = state.PluginMetadata.CloudTableId,
 		IsBusy = state.CloudTable.IsBusy,

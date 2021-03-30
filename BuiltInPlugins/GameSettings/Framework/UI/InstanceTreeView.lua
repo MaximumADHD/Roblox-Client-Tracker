@@ -81,8 +81,8 @@ function InstanceTreeView:init()
 		return item:GetChildren()
 	end
 
-	self.getItemKey = function(item)
-		return item:GetDebugId()
+	self.getItemKey = function(item, index)
+		return item.Name .. "#" .. tostring(index)
 	end
 end
 

@@ -21,6 +21,7 @@ return function()
 			SalesPage = Roact.createElement(SalesPage, {
 				Size = UDim2.new(1, -150, 1, 0),
 
+				assetId = 1,
 				assetTypeEnum = Enum.AssetType.Hat,
 
 				allowedAssetTypesForRelease = {

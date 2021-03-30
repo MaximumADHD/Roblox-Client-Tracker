@@ -2,13 +2,11 @@ local Plugin = script.Parent.Parent.Parent
 
 local SetScreen = require(Plugin.Src.Actions.SetScreen)
 
-local Framework = require(Plugin.Packages.Framework)
-local RobloxAPI = Framework.RobloxAPI
+local enableAudioImport = require(Plugin.Src.Util.AssetManagerUtilities).enableAudioImport
 
 local AssetManagerService = game:GetService("AssetManagerService")
 
 local FFlagStudioAssetManagerFixLinkedScripts = game:GetFastFlag("StudioAssetManagerFixLinkedScripts")
-local FFlagEnableLuobuAudioImport = game:GetFastFlag("EnableLuobuAudioImport")
 
 return function(analytics, assetData, isAssetPreviewInsertButton)
     return function(store)
@@ -36,9 +34,7 @@ return function(analytics, assetData, isAssetPreviewInsertButton)
                 else
                     AssetManagerService:OpenLinkedSource("Scripts/" .. assetData.name)
                 end
-            elseif ((not FFlagEnableLuobuAudioImport and (not RobloxAPI:baseURLHasChineseHost())) or FFlagEnableLuobuAudioImport)
-                and assetType == Enum.AssetType.Audio
-            then
+            elseif enableAudioImport() and assetType == Enum.AssetType.Audio then
                 AssetManagerService:InsertAudio(assetData.id, assetData.name)
             end
             analytics:report("doubleClickInsert")

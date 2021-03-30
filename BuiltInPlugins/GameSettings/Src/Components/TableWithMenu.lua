@@ -16,7 +16,12 @@
     Optional Props:
         function MenuItemsFilterFunc(row, menuItems) = A callback that filters the menu items based on row data. 
                                                        No return value - just remove unecessary items from menuItems. Don't modify row
+        int TableHeight = Custom table height that will overrule default, which is theme.table.height
 ]]
+
+local FFlagFixRadioButtonSeAndTableHeadertForTesting = game:getFastFlag("FixRadioButtonSeAndTableHeadertForTesting")
+local FFlagStudioDevProductCopyIdToClipboard = game:getFastFlag("StudioDevProductCopyIdToClipboard")
+local FFlagStudioEnableBadgesInMonetizationPage = game:GetFastFlag("StudioEnableBadgesInMonetizationPage")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
@@ -30,11 +35,7 @@ local Framework = Plugin.Framework
 local ContextServices = require(Framework.ContextServices)
 
 local TableWithMenuItem = require(Plugin.Src.Components.TableWithMenuItem)
-
 local TableWithMenu = Roact.PureComponent:extend("TableWithMenu")
-
-local FFlagFixRadioButtonSeAndTableHeadertForTesting = game:getFastFlag("FixRadioButtonSeAndTableHeadertForTesting")
-local FFlagStudioDevProductCopyIdToClipboard = game:getFastFlag("StudioDevProductCopyIdToClipboard")
 
 function TableWithMenu:createHeaderLabels(theme, headers)
     local headerLabels = {
@@ -104,6 +105,7 @@ function TableWithMenu:createDataLabels(data, menuItems, onItemClicked, menuItem
                 onItemClicked(key, id)
             end,
             LayoutOrder = rowData.index,
+            Icon = FFlagStudioEnableBadgesInMonetizationPage and rowData.icon or nil
         })
         dataRows[id] = rowComponent
     end
@@ -127,11 +129,14 @@ function TableWithMenu:render()
     local nextPageFunc = props.NextPageFunc
     local MenuItemsFilterFunc = FFlagStudioDevProductCopyIdToClipboard and props.MenuItemsFilterFunc or nil
 
+    local nextPageRequestDistance = FFlagStudioEnableBadgesInMonetizationPage and props.ScrollingFrameNextPageRequestDistance or nil
+    local tableHeight = FFlagStudioEnableBadgesInMonetizationPage and props.TableHeight or theme.table.height
+
     local headerContent = self:createHeaderLabels(theme, headers)
     local dataContent = self:createDataLabels(data, menuItems, onItemClicked, MenuItemsFilterFunc)
 
     return Roact.createElement("Frame", {
-        Size = UDim2.new(1, 0, 0, theme.table.height),
+        Size = UDim2.new(1, 0, 0, tableHeight),
 
         BackgroundTransparency = 1,
 
@@ -160,7 +165,8 @@ function TableWithMenu:render()
             CanvasHeight = theme.table.height,
 
             NextPageFunc = nextPageFunc,
-
+            NextPageRequestDistance = nextPageRequestDistance,
+            
             LayoutOrder = 2,
         }, dataContent)
     })

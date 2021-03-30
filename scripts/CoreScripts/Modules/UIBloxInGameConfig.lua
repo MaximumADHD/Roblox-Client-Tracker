@@ -3,4 +3,5 @@ local FFlagAESPromptsSupportGamepad = require(Modules.Flags.FFlagAESPromptsSuppo
 
 return {
 	enableExperimentalGamepadSupport = FFlagAESPromptsSupportGamepad,
+	enableAlertCustomTitleFooterConfig = game:DefineFastFlag("UIBloxInGameEnableAlertCustomTitleFooterConfig", false),
 }

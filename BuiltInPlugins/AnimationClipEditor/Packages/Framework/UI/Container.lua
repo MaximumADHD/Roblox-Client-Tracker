@@ -3,6 +3,7 @@
 	Does not have a Style and does not rely on Theme.
 
 	Optional Props:
+		boolean ClipsDescendants: Whether the container ClipsDescendants
 		Component Background: The Decoration to use as this component's background.
 		Style BackgroundStyle: The Style to style the Background decoration with.
 		StyleModifier BackgroundStyleModifier: The Modifier to index into the Background style with.
@@ -28,6 +29,8 @@ local Util = require(Framework.Util)
 local Immutable = Util.Immutable
 local Typecheck = Util.Typecheck
 
+local FFlagDevFrameworkTextInputClipsDescendants = game:GetFastFlag("DevFrameworkTextInputClipsDescendants")
+
 local Container = Roact.PureComponent:extend("Container")
 Typecheck.wrap(Container, script)
 
@@ -49,6 +52,10 @@ function Container:render()
 	local visible = props.Visible
 	local elementOverride = props.ElementOverride
 	local ref = props[Roact.Ref]
+	local clipsDescendants = nil
+	if FFlagDevFrameworkTextInputClipsDescendants then
+		clipsDescendants = props.ClipsDescendants or false
+	end
 
 	local children = props[Roact.Children] or {}
 	if type(padding) == "number" then
@@ -111,6 +118,7 @@ function Container:render()
 		}),
 
 		Contents = Roact.createElement("Frame", {
+			ClipsDescendants = clipsDescendants,
 			BackgroundTransparency = 1,
 			Size = UDim2.new(1, 0, 1, 0),
 			ZIndex = 2,

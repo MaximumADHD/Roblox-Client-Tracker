@@ -44,9 +44,6 @@ local ActionContext = require(Plugin.SrcDeprecated.Context.ActionContext)
 local getActions = ActionContext.getActions
 
 local RigUtils = require(Plugin.SrcDeprecated.Util.RigUtils)
-local FixManipulators = require(Plugin.LuaFlags.GetFFlagFixAnimEditorManipulators)
-local FixRigUtils = require(Plugin.LuaFlags.GetFFlagFixRigUtils)
-local IsMicroboneSupportEnabled = require(Plugin.LuaFlags.GetFFlagAnimationEditorMicroboneSupport)
 
 local JointManipulator = Roact.PureComponent:extend("JointManipulator")
 
@@ -71,7 +68,7 @@ local function getWorldPivot(joint)
 end
 
 local function applyWorldTransform(transform, joint)
-	if IsMicroboneSupportEnabled() and joint.Type == Constants.BONE_CLASS_NAME then
+	if joint.Type == Constants.BONE_CLASS_NAME then
 		local pivot =  getWorldPivot(joint)
 		local partFrame = joint.Bone.TransformedWorldCFrame
 		partFrame = transform * (partFrame - partFrame.Position) + partFrame.Position
@@ -111,18 +108,14 @@ function JointManipulator:init()
 			if self.props.WorldSpace then
 				newValue = applyWorldTransform(transform, joint)
 			else
-				if FixManipulators() then
-					if IsMicroboneSupportEnabled() and joint.Type == Constants.BONE_CLASS_NAME then
-						newValue = applyLocalTransform(joint.Bone.Transform, transform)
-					else
-						local jointTransform = RigUtils.getJointTransform(joint)
-						newValue = applyLocalTransform(jointTransform, transform)
-					end
+				if joint.Type == Constants.BONE_CLASS_NAME then
+					newValue = applyLocalTransform(joint.Bone.Transform, transform)
 				else
-					newValue = applyLocalTransform(joint.Transform, transform)
+					local jointTransform = RigUtils.getJointTransform(joint)
+					newValue = applyLocalTransform(jointTransform, transform)
 				end
 			end
-			if IsMicroboneSupportEnabled() and joint.Type == Constants.BONE_CLASS_NAME then
+			if joint.Type == Constants.BONE_CLASS_NAME then
 				values[joint.Bone.Name] = newValue
 			else
 				values[joint.Part1.Name] = newValue
@@ -134,10 +127,8 @@ function JointManipulator:init()
 
 	self.setMotorData = function()
 		local joint = self.getLastJoint()
-		if self.props.SetMotorData and joint and (not IsMicroboneSupportEnabled() or joint.Type ~= Constants.BONE_CLASS_NAME) then
-			if FixRigUtils() then
-				self.RootPart = RigUtils.findRootPart(self.props.RootInstance)
-			end
+		if self.props.SetMotorData and joint and joint.Type ~= Constants.BONE_CLASS_NAME then
+			self.RootPart = RigUtils.findRootPart(self.props.RootInstance)
 			local motorData = RigUtils.ikDragStart(
 				self.props.RootInstance,
 				joint.Part1,
@@ -217,15 +208,13 @@ function JointManipulator:init()
 			self.baseAngle = interval
 			self.draggingAngle = interval
 
-			if self.props.IKEnabled and (not IsMicroboneSupportEnabled() or joint.Type ~= Constants.BONE_CLASS_NAME) then
+			if self.props.IKEnabled and joint.Type ~= Constants.BONE_CLASS_NAME then
 				self.ikRotate(Vector3.FromAxis(axis), newAngle)
 			else
 				self.manipulateJoint(CFrame.fromAxisAngle(Vector3.FromAxis(axis), newAngle))
 			end
 
-			if IsMicroboneSupportEnabled() then
-				RigUtils.updateMicrobones(self.props.RootInstance, self.props.VisualizeBones)
-			end
+			RigUtils.updateMicrobones(self.props.RootInstance, self.props.VisualizeBones)
 		end
 	end
 
@@ -239,12 +228,7 @@ function JointManipulator:init()
 			end
 			local joint = self.getLastJoint()
 
-			local rootPart
-			if FixRigUtils() then
-				rootPart = self.RootPart
-			else
-				rootPart = RigUtils.findRootPart(self.props.RootInstance)
-			end
+			local rootPart = self.RootPart
 			local effectorInRange = (rootPart.CFrame.p - self.effectorCFrame.p).Magnitude <= Constants.MIN_EFFECTOR_DISTANCE
 			local translationStiffness = effectorInRange and Constants.TRANSLATION_STIFFNESS or Constants.MIN_TRANSLATION_STIFFNESS
 			local rotationStiffness = effectorInRange and Constants.ROTATION_STIFFNESS or Constants.MIN_ROTATION_STIFFNESS
@@ -271,15 +255,13 @@ function JointManipulator:init()
 			self.baseDistance = interval
 
 			local transform = CFrame.new(Vector3.FromNormalId(face) * newDistance)
-			if self.props.IKEnabled and (not IsMicroboneSupportEnabled() or joint.Type ~= Constants.BONE_CLASS_NAME) then
+			if self.props.IKEnabled and joint.Type ~= Constants.BONE_CLASS_NAME then
 				self.ikTranslate(transform)
 			else
 				self.manipulateJoint(transform)
 			end
 
-			if IsMicroboneSupportEnabled() then
-				RigUtils.updateMicrobones(self.props.RootInstance, self.props.VisualizeBones)
-			end
+			RigUtils.updateMicrobones(self.props.RootInstance, self.props.VisualizeBones)
 		end
 	end
 
@@ -299,12 +281,10 @@ function JointManipulator:init()
 
 			local joint = self.getLastJoint()
 			if joint then
-				self.effectorCFrame = not FixManipulators() and joint.Part1.CFrame or nil
+				self.effectorCFrame =  nil
 			end
 
-			if FixRigUtils() then
-				self.RootPart = nil
-			end
+			self.RootPart = nil
 		end
 	end
 
@@ -329,41 +309,27 @@ function JointManipulator:init()
 		if adornee and joint then
 			local pivot
 
-			if (not IsMicroboneSupportEnabled() or joint.Type ~= Constants.BONE_CLASS_NAME) and not self.dragging then
+			if joint.Type ~= Constants.BONE_CLASS_NAME and not self.dragging then
 				self.P0 = joint.Part0.CFrame
 				self.C0 = joint.C0
 			end
 
-			if FixManipulators() then
-				if IsMicroboneSupportEnabled() and joint.Type == Constants.BONE_CLASS_NAME then
-					pivot = RigUtils.getBoneCFrame(joint.Bone)
-				else
-					local jointTransform = RigUtils.getJointTransform(joint)
-					pivot = self.dragging and (self.P0 * self.C0 * jointTransform) or (joint.Part0.CFrame * joint.C0 * jointTransform)
-				end
+			if joint.Type == Constants.BONE_CLASS_NAME then
+				pivot = RigUtils.getBoneCFrame(joint.Bone)
 			else
-				if tool == Enum.RibbonTool.Rotate then
-					pivot = self.dragging and (self.P0 * self.C0 * joint.Transform) or (joint.Part0.CFrame * joint.C0 * joint.Transform)
-				else
-					pivot = part.CFrame
-				end
+				local jointTransform = RigUtils.getJointTransform(joint)
+				pivot = self.dragging and (self.P0 * self.C0 * jointTransform) or (joint.Part0.CFrame * joint.C0 * jointTransform)
 			end
 
 			if not self.dragging then
 				self.startingPosition = pivot.Position
 			end
 
-			if FixManipulators() then
-				if ikEnabled then
-					if self.effectorCFrame then
-						pivot = self.effectorCFrame
-					else
-						pivot = part.CFrame
-					end
-				end
-			else
-				if ikEnabled and self.effectorCFrame then
+			if ikEnabled then
+				if self.effectorCFrame then
 					pivot = self.effectorCFrame
+				else
+					pivot = part.CFrame
 				end
 			end
 
@@ -371,7 +337,7 @@ function JointManipulator:init()
 				-- retain current position, only change rotation
 				if not self.props.WorldSpace then
 					adornee.CFrame = (pivot - pivot.p) + self.startingPosition
-				elseif FixManipulators() then
+				else
 					if rotationAxis then
 						local rotation = CFrame.fromAxisAngle(Vector3.FromAxis(rotationAxis), self.draggingAngle)
 						adornee.CFrame = CFrame.new(self.startingPosition) * rotation
@@ -430,13 +396,6 @@ end
 
 function JointManipulator:didUpdate(prevProps, prevState)
 	self:adornHandles()
-	if not FixManipulators() and prevProps.Joints then
-		local joint = self.getLastJoint()
-		if prevProps.Joints[#prevProps.Joints] ~= joint then
-			self.effectorCFrame = nil
-		end
-	end
-
 end
 
 function JointManipulator:createHandle(face, brickColor, ref)
@@ -461,12 +420,7 @@ function JointManipulator:render()
 	local state = self.state
 	local rotationAxis = state.rotationAxis
 
-	local size = nil
-	if IsMicroboneSupportEnabled() then
-		size = currentPart:IsA("BasePart") and currentPart.Size or Vector3.new()
-	else
-		size = currentPart.Size
-	end
+	local size = currentPart:IsA("BasePart") and currentPart.Size or Vector3.new()
 
 	return Roact.createElement(Roact.Portal, {
 		target = container,

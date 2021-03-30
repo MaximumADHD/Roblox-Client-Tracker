@@ -9,7 +9,10 @@ local StudioService = game:GetService("StudioService")
 local Plugin = script.Parent.Parent.Parent
 local Cryo = require(Plugin.Packages.Cryo)
 
+local DEPRECATED_RbxEntriesToWebEntries = require(Plugin.Src.Util.DEPRECATED_RbxEntriesToWebEntries)
 local RbxEntriesToWebEntries = require(Plugin.Src.Util.RbxEntriesToWebEntries)
+
+local FFlagLocalizationToolsAllowUploadZhCjv = game:GetFastFlag("LocalizationToolsAllowUploadZhCjv")
 
 local Analytics = {}
 Analytics.__index = Analytics
@@ -80,10 +83,15 @@ function Analytics:reportUploadPatch(patchInfo, btnName)
 	self:sendEventDeferred(eventName, args)
 end
 
-function Analytics:reportDownloadTable(table, btnName, allLanguageCodes)
+function Analytics:reportDownloadTable(table, btnName, allLanguages, localesToLanguages)
 	local eventName = "logLocalizationPerfStats"
 
-	local info = RbxEntriesToWebEntries(table:GetEntries(), allLanguageCodes)
+	local info
+	if FFlagLocalizationToolsAllowUploadZhCjv then
+		info = RbxEntriesToWebEntries(table:GetEntries(), allLanguages, localesToLanguages)
+	else
+		info = DEPRECATED_RbxEntriesToWebEntries(table:GetEntries(), allLanguages)
+	end
 
 	local args = {
 		btnName = btnName,

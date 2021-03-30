@@ -1,0 +1,1 @@
+return game:DefineFastFlag("UIBloxUseTileThumbnailV2_0", false)

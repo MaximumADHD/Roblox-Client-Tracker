@@ -1,5 +1,7 @@
 local StudioService = game:GetService("StudioService")
 
+local FFlagStudioCreatePluginPolicyService = game:GetFastFlag("StudioCreatePluginPolicyService")
+
 --[[
 	Settings page for Localization settings.
 		- Source language
@@ -45,6 +47,10 @@ local SettingsPage = require(Plugin.Src.Components.SettingsPages.SettingsPage)
 local AddChange = require(Plugin.Src.Actions.AddChange)
 local ReloadAutoTranslationTargetLanguages = require(Page.Thunks.ReloadAutoTranslationTargetLanguages)
 
+local getAutoTranslationAllowed = require(Plugin.Src.Util.GameSettingsUtilities).getAutoTranslationAllowed
+local getAutoTranslatedLanguages = require(Plugin.Src.Util.GameSettingsUtilities).getAutoTranslatedLanguages
+
+-- TODO: jbousellam - 3/16/21 - remove with FFlagStudioCreatePluginPolicyService
 local isCJV = require(Plugin.Src.Util.isCJV)
 local OpenLocalizationSettings = require(Plugin.Src.Util.BrowserUtils).OpenLocalizationSettings
 
@@ -84,10 +90,17 @@ local function loadSettings(store, contextItems)
 			loadedSettings["SourceLanguage"] = sourceLanguage
 
 			local autoTranslationTargetLanguages
-			if isCJV() and sourceLanguage == "en" then
-				autoTranslationTargetLanguages = {["zh-hans"] = true}
+			if FFlagStudioCreatePluginPolicyService then
+				autoTranslationTargetLanguages = getAutoTranslatedLanguages()[sourceLanguage]
+				if not autoTranslationTargetLanguages then
+					autoTranslationTargetLanguages = localizationPageController:getAutoTranslationTargetLanguages(sourceLanguage)
+				end
 			else
-				autoTranslationTargetLanguages = localizationPageController:getAutoTranslationTargetLanguages(sourceLanguage)
+				if isCJV() and sourceLanguage == "en" then
+					autoTranslationTargetLanguages = {["zh-hans"] = true}
+				else
+					autoTranslationTargetLanguages = localizationPageController:getAutoTranslationTargetLanguages(sourceLanguage)
+				end
 			end
 			loadedSettings["AutoTranslationTargetLanguages"] = autoTranslationTargetLanguages
 		end,
@@ -162,7 +175,7 @@ local function getAutomaticTranslationEntries(props, theme)
 		return
 	end
 
-	if props.IsAutomaticTranslationAllowed or isCJV() then
+	if props.IsAutomaticTranslationAllowed or getAutoTranslationAllowed() then
 		local children = {}
 		local layoutIndex = LayoutOrderIterator.new()
 		for languageCode, autoTranslationEnabled in pairs(targetLanguages) do
@@ -192,11 +205,11 @@ end
 local function displayLocalizationSettingsPage(props, localization, theme)
 	local layoutIndex = LayoutOrderIterator.new()
 	local dropdownLanguages = formatDropdownTable(props.SupportedLanguages, props.LanguageCodeToNames)
-	local showAutoTranslationTitle = isCJV() or props.IsAutomaticTranslationAllowed
+	local showAutoTranslationTitle = props.IsAutomaticTranslationAllowed or getAutoTranslationAllowed()
 	local autoTranslationChildren = getAutomaticTranslationEntries(props, theme)
 	local showAutoTranslationOptions = autoTranslationChildren ~= nil
 	local showAutoTranlsationUnavailable = showAutoTranslationTitle and not showAutoTranslationOptions
-	local showHyperLink = not isCJV()
+	local showHyperLink = not getAutoTranslationAllowed()
 	local gameId = props.GameId
 
 	return {

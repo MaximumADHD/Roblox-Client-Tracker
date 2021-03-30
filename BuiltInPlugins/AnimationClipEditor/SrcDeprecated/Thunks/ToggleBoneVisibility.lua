@@ -6,7 +6,6 @@ local Plugin = script.Parent.Parent.Parent
 
 local SetBoneVisualization = require(Plugin.SrcDeprecated.Actions.SetBoneVisualization)
 local RigUtils = require(Plugin.SrcDeprecated.Util.RigUtils)
-local IsMicroboneSupportEnabled = require(Plugin.LuaFlags.GetFFlagAnimationEditorMicroboneSupport)
 
 return function()
 	return function(store)
@@ -22,9 +21,6 @@ return function()
 
 		store:dispatch(SetBoneVisualization(visualizeBones))
 
-		if IsMicroboneSupportEnabled() then
-			RigUtils.updateMicrobones(targetInstance, visualizeBones)
-		end
-
+		RigUtils.updateMicrobones(targetInstance, visualizeBones)
 	end
 end

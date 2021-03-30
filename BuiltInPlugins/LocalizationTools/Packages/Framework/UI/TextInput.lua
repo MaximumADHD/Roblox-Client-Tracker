@@ -46,6 +46,8 @@ local StyleModifier = require(Framework.Util.StyleModifier)
 local TextInput = Roact.PureComponent:extend("TextInput")
 Typecheck.wrap(TextInput, script)
 
+local FFlagDevFrameworkTextInputClipsDescendants = game:GetFastFlag("DevFrameworkTextInputClipsDescendants")
+
 function TextInput:init()
 	self.textBoxRef = Roact.createRef()
 	self.onTextChanged = function(rbx)
@@ -153,10 +155,11 @@ function TextInput:render()
 
 	return Roact.createElement(Container, {
 		AnchorPoint = props.AnchorPoint,
+		ClipsDescendants = FFlagDevFrameworkTextInputClipsDescendants or nil,
 		Position = position,
 		Padding = padding,
 		Size = size,
-		Background = not THEME_REFACTOR and RoundBox or nil,
+		Background = (not THEME_REFACTOR or props.Style == "RoundedBorder") and RoundBox or nil,
 		BackgroundStyle = backgroundStyle,
 		LayoutOrder = layoutOrder,
 	}, {

@@ -3,6 +3,7 @@
 -- And then error when trying to use flags that aren't yet defined
 game:DefineFastFlag("EnableLocalizationToolsStylizer", false)
 game:DefineFastFlag("LocalizationToolsPluginInvalidEntryIdentifierMessageEnabled", false)
+game:DefineFastFlag("LocalizationToolsAllowUploadZhCjv", false)
 
 -- Overrides THEME_REFACTOR before require
 local main = script.Parent.Parent

@@ -14,6 +14,7 @@ local StandaloneSelectionBox = require(DraggerFramework.Components.StandaloneSel
 local ScaleHandleView = require(DraggerFramework.Components.ScaleHandleView)
 
 local getEngineFeatureModelPivotVisual = require(DraggerFramework.Flags.getEngineFeatureModelPivotVisual)
+local getFFlagFoldersOverFragments = require(DraggerFramework.Flags.getFFlagFoldersOverFragments)
 
 local ExtrudeHandle = {}
 ExtrudeHandle.__index = ExtrudeHandle
@@ -245,7 +246,11 @@ function ExtrudeHandle:render(hoveredHandleId)
 		})
 	end
 
-	return Roact.createFragment(children)
+	if getFFlagFoldersOverFragments() then
+		return Roact.createElement("Folder", {}, children)
+	else
+		return Roact.createFragment(children)
+	end
 end
 
 function ExtrudeHandle:mouseDown(mouseRay, handleId)

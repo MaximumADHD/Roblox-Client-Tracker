@@ -118,7 +118,7 @@ function Stylizer:__getClassStyle(className, currentStyle, componentSymbol)
 	end
 
 	assert(result,
-		("Stylizer:__getClassStyle copuld not find a Style named '%s' for component `%s`")
+		("Stylizer:__getClassStyle could not find a Style named '%s' for component `%s`")
 		:format(className, tostring(componentSymbol))
 	)
 
