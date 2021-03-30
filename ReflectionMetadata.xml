@@ -2561,6 +2561,15 @@
         </Item>
       </Item>
     </Item>
+    
+    <Item class="ReflectionMetadataClass">
+      <Properties>
+        <string name="Name">Speaker</string>
+        <string name="ClassCategory">Sounds</string>
+        <string name="ExplorerOrder">10</string>
+        <string name="ExplorerImageIndex">11</string>
+      </Properties>
+    </Item>
 
     <Item class="ReflectionMetadataClass">
       <Properties>

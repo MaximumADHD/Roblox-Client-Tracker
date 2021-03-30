@@ -61,7 +61,7 @@ void main()
                     vec3 f21 = ((f9 * f15[f20]) + (cross(f1, f9) * f16[f20])) + (f1 * f17[f20]);
                     float f22 = f19[f20] * f7;
                     vec3 f23 = f21 / vec3(max(abs(f21.x), max(abs(f21.y), abs(f21.z))));
-                    float f24 = min(6.0, f18[f20] + (0.75 * log2(dot(f23, f23))));
+                    float f24 = f18[f20] + (0.75 * log2(dot(f23, f23)));
                     vec3 f25 = f11.xyz + (textureLod(envMapTexture, vec4(f23, f24).xyz, f24).xyz * f22);
                     vec4 f26 = vec4(f25.x, f25.y, f25.z, f11.w);
                     f26.w = f11.w + f22;

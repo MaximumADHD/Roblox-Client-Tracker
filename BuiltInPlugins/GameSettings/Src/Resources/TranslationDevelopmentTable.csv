@@ -48,6 +48,7 @@ Studio.GameSettings.General.AvatarDialogBody,Changing the game's Avatar Type to 
 Studio.GameSettings.AccessPermissions.EditLabel,Edit,Edit
 Studio.GameSettings.General.ButtonEdit,Edit,Edit
 Studio.GameSettings.General.ButtonView,View,View
+Studio.GameSettings.General.Configure,Configure,Configure
 Studio.GameSettings.General.ButtonShutdownAllServers,Shutdown,Shutdown
 Studio.GameSettings.General.GameIconTutorial,New to making icons? Check out the Icon Tutorial.,New to making icons? Check out the Icon Tutorial.
 Studio.GameSettings.General.GameIconHint,Acceptable files: {fileTypes}{newline}Recommended resolution: 512 x 512,Acceptable files: {fileTypes}{newline}Recommended resolution: 512 x 512
@@ -62,9 +63,9 @@ Studio.GameSettings.General.ThumbnailsLimitLuobu,You can set up to {maxThumbnail
 Studio.GameSettings.General.CategoryWorld,World,World
 Studio.GameSettings.General.CategoryOptions,Options,Options
 Studio.GameSettings.General.LocalizationSettingsPublishMessageLinkText,Publishing a game is required,Publishing a game is required
+Studio.GameSettings.General.GenreMedieval,Medieval,Medieval
 Studio.GameSettings.General.DevSubsName,Name,Name
 Studio.GameSettings.General.TitleName,Name,Name
-Studio.GameSettings.General.GenreMedieval,Medieval,Medieval
 Studio.GameSettings.General.GenreHorror,Horror,Horror
 Studio.GameSettings.General.SourceLanguageDesc,The source language represents the language that the game has been written in.,The source language represents the language that the game has been written in.
 Studio.GameSettings.General.DevSubsTitle,Title,Title
@@ -108,6 +109,7 @@ Studio.GameSettings.General.PreviewDialogHeader,Preview,Preview
 Studio.GameSettings.Monetization.DEPRECATED_VIPServersHint,Paid Access must not be enabled and the game must be public to enable VIP Servers.,Paid Access must not be enabled and the game must be public to enable VIP Servers.
 Studio.GameSettings.Places.NumberError,Please enter a number betwen {minRange:int} and {maxRange:int}.,Please enter a number betwen {minRange:int} and {maxRange:int}.
 Studio.GameSettings.General.GenreAdventure,Adventure,Adventure
+Studio.GameSettings.Monetization.BadgeImage,Badge Image,Badge Image
 Studio.GameSettings.General.GenreBuilding,Building,Building
 Studio.GameSettings.General.PublishIsRequiredHyperlink,Publishing the game to Roblox,Publishing the game to Roblox
 Studio.GameSettings.General.PublishingHintLink,Publishing the game to Roblox,Publishing the game to Roblox
@@ -212,6 +214,7 @@ Studio.GameSettings.General.CategoryDeveloperSubscriptions,Subscriptions,Subscri
 Studio.GameSettings.General.DevSubsListHeader,Subscriptions,Subscriptions
 Studio.GameSettings.General.TitleGameOwner,Game Owner,Game Owner
 Studio.GameSettings.General.DevSubsEditHeader,Edit Subscription,Edit Subscription
+Studio.GameSettings.Monetization.BadgeName,Badge Name,Badge Name
 Studio.GameSettings.General.DevSubsPlanID,Plan ID,Plan ID
 Studio.GameSettings.Places.PlaceVersion,Place Version,Place Version
 Studio.GameSettings.AccessPermissions.NoAccessLabel,No Access,No Access
@@ -321,3 +324,5 @@ Studio.GameSettings.Monetization.PrivateServersActive,There are currently {total
 Studio.GameSettings.Monetization.OverVIPServerSubscriptions,There are currently over {numOfSubscriptions:int} VIP Server Subscriptions active for this place.,There are currently over {numOfSubscriptions:int} VIP Server Subscriptions active for this place.
 Studio.GameSettings.Monetization.VIPServerSubscriptions,There are currently {numOfSubscriptions:int} VIP Server Subscriptions active for this place.,There are currently {numOfSubscriptions:int} VIP Server Subscriptions active for this place.
 Studio.GameSettings.Security.EnableThirdPartyPurchasesDescription,"By enabling, players can purchase items provided by third parties.","By enabling, players can purchase items provided by third parties."
+Studio.GameSettings.Monetization.Badges,Badges,Badges
+Studio.GameSettings.Monetization.BadgeDescription,Badge Description,Badge Description

@@ -49,6 +49,7 @@ Studio.LocalizationTools.UploadDialogContent.DeleteEntriesPretext,Delete entries
 Studio.LocalizationTools.UploadDialogContent.DeleteTranslationsPretext,Delete translations:
 Studio.LocalizationTools.UploadDialogContent.InvalidIdentifier,Entries with invalid identifier:
 Studio.LocalizationTools.UploadDialogContent.InvalidTranslation,Invalid translations:
+Studio.LocalizationTools.UploadDialogContent.ParentLangaugeTranslationMissing,"{locale} translation requires {language} translation for entry with key: {key},  source: {source},  context: {context}"
 Studio.LocalizationTools.UploadDialogContent.PatchContainsLabel,This patch contains: 
 Studio.LocalizationTools.UploadDialogContent.PatchEmptyMessage,Patch empty. Upload anyway?
 Studio.LocalizationTools.UploadDialogContent.PatchInvalidLanguagesLabel,Invalid columns:
@@ -58,6 +59,7 @@ Studio.LocalizationTools.UploadDialogContent.PatchTotalTranslationsLabel,Total t
 Studio.LocalizationTools.UploadDialogContent.PatchWillLabel,This patch will:
 Studio.LocalizationTools.UploadDialogContent.UploadCompleteWithInvalidEntries,Upload complete with invalid entries: 
 Studio.LocalizationTools.UploadDialogContent.UploadPatchMessage,Upload patch?
+Studio.LocalizationTools.UploadTable.GetGameSourceLanguageFailed,Localization Tools failed to request game source langauge.
 Studio.LocalizationTools.UploadTable.GetSupportedLanguagesFailedMessage,Localization Tools failed to request supported langauges.
 Studio.LocalizationTools.UploadTable.PatchCloudTableFailed,Localization Tools failed to upload cloud table.
 Studio.LocalizationTools.UploadTable.PatchSupportedLangugesFailed,Localization Tools failed to add supported langauges.

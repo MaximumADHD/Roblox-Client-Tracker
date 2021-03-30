@@ -1851,6 +1851,7 @@ Class MemStorageConnection : Instance [NotCreatable] [NotReplicated]
 Class MemStorageService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function Instance MemStorageService:Bind(string key, Function callback) {RobloxScriptSecurity}
 	Function Instance MemStorageService:BindAndFire(string key, Function callback) {RobloxScriptSecurity}
+	Function Variant MemStorageService:Call(string key, Variant input) {RobloxScriptSecurity}
 	Function void MemStorageService:Fire(string key, string value = "") {RobloxScriptSecurity}
 	Function string MemStorageService:GetItem(string key, string defaultValue = "") {RobloxScriptSecurity}
 	Function bool MemStorageService:HasItem(string key) {RobloxScriptSecurity}
@@ -3018,6 +3019,14 @@ Class Sparkles : Instance
 	Property bool Sparkles.Enabled
 	Property Color3 Sparkles.SparkleColor
 Class SpawnerService : Instance [NotCreatable] [Service]
+Class Speaker : Instance [Deprecated]
+	Property double Speaker.PlaybackLoudness [ReadOnly] [Deprecated]
+	Property float Speaker.RollOffMaxDistance [NotReplicated] [Deprecated]
+	Property float Speaker.RollOffMinDistance [NotReplicated] [Deprecated]
+	Property Enum<RollOffMode> Speaker.RollOffMode [Deprecated]
+	Property Class<SoundGroup> Speaker.SoundGroup [Deprecated]
+	Property Instance Speaker.Source [Deprecated]
+	Property float Speaker.Volume [Deprecated]
 Class StandalonePluginScripts : Instance
 Class StarterGear : Instance
 Class StarterPack : Instance [NotCreatable] [Service]
@@ -3210,7 +3219,6 @@ Class Studio : Instance [NotCreatable] [Service] [NotReplicated]
 	Event Studio.ThemeChanged() {PluginSecurity}
 Class StudioData : Instance [NotCreatable] [Service]
 	Property bool StudioData.EnableScriptCollabByDefaultOnLoad {RobloxScriptSecurity} [Hidden]
-	Property bool StudioData.EnableScriptCollabOnLoad {RobloxScriptSecurity} [Hidden]
 	Property int64 StudioData.SrcPlaceId {RobloxSecurity} [Hidden] [NotReplicated]
 	Property int64 StudioData.SrcUniverseId {RobloxSecurity} [Hidden] [NotReplicated]
 Class StudioDeviceEmulatorService : Instance [NotCreatable] [Service] [NotReplicated]
@@ -3241,6 +3249,8 @@ Class StudioService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void StudioService:ConvertToPackageUpload(string uploadUrl) {RobloxScriptSecurity}
 	Function void StudioService:CopyToClipboard(string stringToCopy) {RobloxScriptSecurity}
 	Function void StudioService:EmitPlacePublishedSignal() {RobloxScriptSecurity}
+	Function string StudioService:GetBadgeConfigureUrl(int64 badgeId) {RobloxScriptSecurity}
+	Function string StudioService:GetBadgeUploadUrl() {RobloxScriptSecurity}
 	Function Dictionary StudioService:GetClassIcon(string className) {PluginSecurity}
 	Function Dictionary StudioService:GetResourceByCategory(string category) {RobloxScriptSecurity}
 	Function string StudioService:GetStartupAssetId() {RobloxScriptSecurity}

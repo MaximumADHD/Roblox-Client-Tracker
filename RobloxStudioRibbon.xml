@@ -487,7 +487,8 @@
           <addaction name="GOTOPOS_ScriptingCmd" icon=":/16x16/images/Studio 2.0 icons/16x16/goToLine.png" />
           <addaction name="quickOpenAction" icon=":/16x16/images/Studio 2.0 icons/16x16/find.png" />
           <addaction name="quickOpenActionsAction" icon=":/16x16/images/Studio 2.0 icons/16x16/find.png" />
-          <addaction name="filterScriptFunctionsAction" icon=":/16x16/images/Studio 2.0 icons/16x16/find.png" />
+          <addaction fflag="!ScriptEditorNewFunctionFilter" name="filterScriptFunctionsAction" icon=":/16x16/images/Studio 2.0 icons/16x16/find.png" />
+          <addaction fflag="ScriptEditorNewFunctionFilter" name="INVOKESYMBOLS_ScriptingCmd" icon=":/16x16/images/Studio 2.0 icons/16x16/find.png" />
         </MenuButton>
         <addaction fflag="!StudioReplaceAll" name="replaceAction" text="Studio.Common.Action.Replace" style="textundericon" tooltip="Studio.App.RobloxRibbonMainWindow.FindTextAndReplaceWithElps" icon=":/RibbonBar/images/RibbonIcons/Home/Replace.png" width="32" height="32" />
         <MenuButton fflag="StudioReplaceAll" name="actionReplaceMenu" style ="textundericon" text="Studio.Common.Action.Replace" icon=":/RibbonBar/images/RibbonIcons/Home/Replace.png" tooltip="Studio.App.RobloxRibbonMainWindow.FindTextAndReplaceWithElps" width="32" height="32">
@@ -535,7 +536,8 @@
         <addaction type="radio" name="breakOnUnhandledScriptErrorsAction" style="textbesideicon" text="Studio.App.RBXMainWindow.OnUnhandledExceptions" tooltip="Studio.App.RBXMainWindow.ExceptionsInDebugger"/>
       </Group>
       <Group name="Script Actions" text="Studio.App.RobloxRibbonMainWindow.Actions">
-        <addaction name="goToScriptErrorAction" tooltip="Studio.App.RobloxRibbonMainWindow.FocusViewOnScriptError" style="textbesideicon"/>
+        <addaction fflag="!LSPLinting_preAlpha" name="DEPRECATED_goToScriptErrorAction" tooltip="Studio.App.RobloxRibbonMainWindow.FocusViewOnScriptError" style="textbesideicon"/>
+        <addaction fflag="LSPLinting_preAlpha" name="GOTOERR_ScriptingCmd" style="textbesideicon"/>
         <addaction name="reloadScriptAction" tooltip="Studio.App.RobloxRibbonMainWindow.ReloadScriptAfterMod" style="textbesideicon"/>
         <addAction name="applyScriptEditsAction" tooltip="Studio.App.RobloxRibbonMainWindow.PushScriptTCServer" style="textbesideicon"/>
         <addAction name="commitScriptAction" tooltip="Studio.App.RobloxRibbonMainWindow.PushScriptTCServer" style="textbesideicon"/>
