@@ -18,6 +18,8 @@ local Stylizer = ContextServices.Stylizer
 
 local Util = Plugin.Core.Util
 local Colors = require(Util.Colors)
+local isCli = require(Util.isCli)
+local TestHelpers = require(Util.Test.TestHelpers)
 local THEME_REFACTOR = Framework.Util.RefactorFlags.THEME_REFACTOR
 
 local FrameworkStyle = Framework.Style
@@ -41,7 +43,13 @@ if THEME_REFACTOR then
 	end
 
 	makeTheme = function(uiLibraryDeprecatedTheme)
-		local styleRoot = StudioTheme.new()
+		local styleRoot
+		if isCli() then
+			styleRoot = StudioTheme.mock()
+		else
+			styleRoot = StudioTheme.new()
+		end
+
 		styleRoot:extend({
 			-- TODO: Move colors from ToolboxTheme to here
 			backgroundColor = StyleKey.InputFieldBackground,
@@ -52,9 +60,25 @@ if THEME_REFACTOR then
 				balanceText = StyleKey.DimmedText,
 			} or nil,
 		})
-		function styleRoot:getUILibraryTheme()
-			return getUILibraryTheme(styleRoot, uiLibraryDeprecatedTheme)
+
+		if isCli() then
+			function styleRoot:getUILibraryTheme()
+				local styleGuide = StudioStyle.new(
+					function(...)
+						return Color3.new()
+					end,
+					TestHelpers.createMockStudioStyleGuideColor(), 
+					TestHelpers.createMockStudioStyleGuideModifier()
+				)
+		
+				return createTheme(styleGuide, {})
+			end
+		else
+			function styleRoot:getUILibraryTheme()
+				return getUILibraryTheme(styleRoot, uiLibraryDeprecatedTheme)
+			end
 		end
+
 		return styleRoot
 	end
 
@@ -89,12 +113,42 @@ else
 	end
 
 	makeTheme = function(uiLibraryDeprecatedTheme)
-		local theme = Theme.new(createValues)
-		function theme:getUILibraryTheme()
-			return getUILibraryTheme(uiLibraryDeprecatedTheme)
-		end
+		if isCli() then
+			local function GetColor(_, _)
+				return Color3.new()
+			end
+			local mockInnerTheme = StudioTheme.mock()
+			mockInnerTheme.GetColor = GetColor
 
-		return theme
+			local theme = Theme.mock(function(theme, getColor)
+				local studioFrameworkStyles = StudioFrameworkStyles.new(theme, getColor)
+				return {
+					Plugin = {},
+					Framework = studioFrameworkStyles,
+				}
+			end, function()
+				return mockInnerTheme
+			end)
+			function theme:getUILibraryTheme()
+				local styleGuide = StudioStyle.new(
+					function(...)
+						return mockInnerTheme:GetColor(...)
+					end, 
+					TestHelpers.createMockStudioStyleGuideColor(), 
+					TestHelpers.createMockStudioStyleGuideModifier()
+				)
+		
+				return createTheme(styleGuide, {})
+			end
+			return theme
+		else
+			local theme = Theme.new(createValues)
+			function theme:getUILibraryTheme()
+				return getUILibraryTheme(uiLibraryDeprecatedTheme)
+			end
+
+			return theme
+		end
 	end
 end
 

@@ -91,4 +91,4 @@ local function mapDispatchToProps(dispatch)
 	}
 end
 
-return RoactRodux.UNSTABLE_connect2(nil, mapDispatchToProps)(SocialConnector)
+return RoactRodux.connect(nil, mapDispatchToProps)(SocialConnector)

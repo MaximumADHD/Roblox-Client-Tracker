@@ -1,8 +1,31 @@
 --Startup
 local InsertService = game:GetService("InsertService")
+local Plugin = script.Parent
+local ContextServices = require(Plugin.Packages.Framework.ContextServices)
 
-local toolbar = plugin:CreateToolbar("Rig Builder")
-local button = toolbar:CreateButton(
+game:DefineFastFlag("RigBuilderLocalized", false)
+
+
+local Localization = ContextServices.Localization
+
+local TranslationDevelopmentTable = Plugin.Localization.TranslationDevelopmentTable
+local TranslationReferenceTable = Plugin.Localization.TranslationReferenceTable
+
+local localization = Localization.new({
+	pluginName = "RigBuilder",
+	stringResourceTable = TranslationDevelopmentTable,
+	translationResourceTable = TranslationReferenceTable,
+})
+
+local RigBuilderLocalized = game:GetFastFlag("RigBuilderLocalized")
+
+
+local toolbar = RigBuilderLocalized and plugin:CreateToolbar(localization:getText("Plugin", "Toolbar")) or  plugin:CreateToolbar("Rig Builder")
+local button = RigBuilderLocalized and toolbar:CreateButton(
+	localization:getText("Plugin", "Button"), -- The text next to the icon. Leave this blank if the icon is sufficient.
+	localization:getText("Plugin", "Description"), -- hover text
+	"rbxasset://textures/AnimationEditor/rigbuilder_blue.png"
+) or toolbar:CreateButton(
 	"Build Rig", -- The text next to the icon. Leave this blank if the icon is sufficient.
 	"Insert rigs to animate", -- hover text
 	"rbxasset://textures/AnimationEditor/rigbuilder_blue.png"
@@ -19,8 +42,8 @@ local RIG_COLOR = BrickColor.new("Medium stone grey")
 local gui = nil
 local open = false
 local mode = "R15"
-local options = {"Block Rig", "Mesh Rig", "Man Rig", "Woman Rig"}
-local r15OnlyOptions = {"Rthro Normal", "Rthro Slender"}
+local options = RigBuilderLocalized and {localization:getText("RigOption", "BlockRig"), localization:getText("RigOption", "MeshRig"), localization:getText("RigOption", "ManRig"), localization:getText("RigOption", "WomanRig")} or {"Block Rig", "Mesh Rig", "Man Rig", "Woman Rig"}
+local r15OnlyOptions = RigBuilderLocalized and {localization:getText("R15RigOption", "RthroNormal"), localization:getText("R15RigOption", "RthroSlender")} or {"Rthro Normal", "Rthro Slender"}
 
 --Functions
 local function getCameraLookat(maxRange)
@@ -50,27 +73,27 @@ local function insertRig(name)
 
 	local rig
 	if mode == "R6" then
-		if name == "Block Rig" then
+		if name == RigBuilderLocalized and localization:getText("RigOption", "BlockRig") or "Block Rig" then
 			rig = rigModule.CreateR6Rig()
-		elseif name == "Mesh Rig" then
+		elseif name == RigBuilderLocalized and localization:getText("RigOption", "MeshRig") or "Mesh Rig" then
 			rig = rigModule.CreateR6MeshRig()
-		elseif name == "Man Rig" then
+		elseif name == RigBuilderLocalized and localization:getText("RigOption", "ManRig") or "Man Rig" then
 			rig = rigModule.CreateR6MeshBoyRig()
-		elseif name == "Woman Rig" then
+		elseif name == RigBuilderLocalized and localization:getText("RigOption", "WomanRig") or "Woman Rig" then
 			rig = rigModule.CreateR6MeshGirlRig()
 		end
 	elseif mode == "R15" then
-		if name == "Block Rig" then
+		if name == RigBuilderLocalized and localization:getText("RigOption", "BlockRig") or "Block Rig" then
 			rig = rigModule.BuildR15Rig()
-		elseif name == "Man Rig" then
+		elseif name == RigBuilderLocalized and localization:getText("RigOption", "ManRig") or "Man Rig" then
 			rig = rigModule.BuildR15Rig(86500185)
-		elseif name == "Woman Rig" then
+		elseif name == RigBuilderLocalized and localization:getText("RigOption", "WomanRig") or "Woman Rig" then
 			rig = rigModule.BuildR15Rig(86499905)
-		elseif name == "Mesh Rig" then
+		elseif name == RigBuilderLocalized and localization:getText("RigOption", "MeshRig") or "Mesh Rig" then
 			rig = rigModule.BuildR15Rig(27112438)
-		elseif name == "Rthro Normal" then
+		elseif name == RigBuilderLocalized and localization:getText("R15RigOption", "RthroNormal") or "Rthro Normal" then
 			rig = rigModule.BuildAnthroRig("AnthroNormal")
-		elseif name == "Rthro Slender" then
+		elseif name == RigBuilderLocalized and localization:getText("R15RigOption", "RthroSlender") or "Rthro Slender" then
 			rig = rigModule.BuildAnthroRig("AnthroSlender")
 		end
 	end
@@ -130,6 +153,10 @@ local function openGui()
 
 	local guiFrameSize = gui.Frame.Size
 	local optionsFrameSize = gui.Frame.Options.Size
+
+	if RigBuilderLocalized then 
+		gui.Frame.Title.Text = localization:getText("Plugin", "Title")
+	end
 
 	rebuildOptions(guiFrameSize, optionsFrameSize)
 

@@ -18,8 +18,6 @@ local getNetwork = ContextGetter.getNetwork
 local getSettings = ContextGetter.getSettings
 local withLocalization = ContextHelper.withLocalization
 
-local FFlagUseCategoryNameInToolbox = game:GetFastFlag("UseCategoryNameInToolbox")
-
 local SearchWithOptions = require(Plugin.Core.Networking.Requests.SearchWithOptions)
 
 local MainViewHeader = Roact.PureComponent:extend("MainViewHeader")
@@ -133,9 +131,7 @@ local function mapStateToProps(state, props)
 	return {
 		audioSearchInfo = pageInfo.audioSearchInfo,
 		creator = pageInfo.creator,
-		categories = pageInfo.categories or {},
-		categoryIndex = (not FFlagUseCategoryNameInToolbox) and (pageInfo.categoryIndex or 1),
-		categoryName = FFlagUseCategoryNameInToolbox and (pageInfo.categoryName or Category.DEFAULT.name) or nil,
+		categoryName = pageInfo.categoryName or Category.DEFAULT.name,
 
 		searchTerm = pageInfo.searchTerm or "",
 		creatorFilter = pageInfo.creator or {},

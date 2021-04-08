@@ -22,13 +22,14 @@ local UIBlox = require(CorePackages.UIBlox)
 
 local PlayerList = script.Parent
 
-local PlayerListApp = require(PlayerList.Components.PlayerListApp)
+local PlayerListApp = require(PlayerList.Components.Presentation.PlayerListApp)
 local Reducer = require(PlayerList.Reducers.Reducer)
 local GlobalConfig = require(PlayerList.GlobalConfig)
 local CreateLayoutValues = require(PlayerList.CreateLayoutValues)
 local Connection = PlayerList.Components.Connection
 local LayoutValues = require(Connection.LayoutValues)
 local LayoutValuesProvider = LayoutValues.Provider
+local PlayerListSwitcher = require(PlayerList.PlayerListSwitcher)
 
 -- Actions
 local SetPlayerListEnabled = require(PlayerList.Actions.SetPlayerListEnabled)
@@ -41,6 +42,8 @@ local SetHasPermissionToVoiceChat = require(PlayerList.Actions.SetHasPermissionT
 local SetMinimized = require(PlayerList.Actions.SetMinimized)
 local SetSubjectToChinaPolicies = require(PlayerList.Actions.SetSubjectToChinaPolicies)
 
+local FFlagMobilePlayerList = require(RobloxGui.Modules.Flags.FFlagMobilePlayerList)
+
 if not Players.LocalPlayer then
 	Players:GetPropertyChangedSignal("LocalPlayer"):Wait()
 end
@@ -52,6 +55,16 @@ local function isSmallTouchScreen()
 		return false
 	end
 	return SettingsUtil.IsSmallTouchScreen()
+end
+
+local layerCollector
+if FFlagMobilePlayerList then
+	layerCollector = Instance.new("ScreenGui")
+	layerCollector.Parent = CoreGui
+	layerCollector.Name = "PlayerList"
+	layerCollector.DisplayOrder = 1
+	layerCollector.IgnoreGuiInset = true
+	layerCollector.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 end
 
 local PlayerListMaster = {}
@@ -112,21 +125,33 @@ function PlayerListMaster.new()
 		Font = AppFont,
 	}
 
-	self.root = Roact.createElement(RoactRodux.StoreProvider, {
-		store = self.store,
-	}, {
-		LayoutValuesProvider = Roact.createElement(LayoutValuesProvider, {
-			layoutValues = CreateLayoutValues(TenFootInterface:IsEnabled())
+	if FFlagMobilePlayerList then
+		self.root = Roact.createElement(RoactRodux.StoreProvider, {
+			store = self.store,
 		}, {
-			ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {
-				style = appStyle,
-			}, {
-				PlayerListApp = Roact.createElement(PlayerListApp)
+			Roact.createElement(PlayerListSwitcher, {
+				appStyle = appStyle,
 			})
 		})
-	})
+		self.element = Roact.mount(self.root, layerCollector, "PlayerListMaster")
 
-	self.element = Roact.mount(self.root, RobloxGui, "PlayerListMaster")
+	else
+		self.root = Roact.createElement(RoactRodux.StoreProvider, {
+			store = self.store,
+		}, {
+			LayoutValuesProvider = Roact.createElement(LayoutValuesProvider, {
+				layoutValues = CreateLayoutValues(TenFootInterface:IsEnabled())
+			}, {
+				ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {
+					style = appStyle,
+				}, {
+					PlayerListApp = Roact.createElement(PlayerListApp)
+				})
+			})
+		})
+		
+		self.element = Roact.mount(self.root, RobloxGui, "PlayerListMaster")
+	end
 
 	if FFlagPlayerListRoactInspector then
 		local hasInternalPermission = game:GetService("RunService"):IsStudio()
@@ -161,7 +186,8 @@ function PlayerListMaster:_updateMounted()
 	if not TenFootInterface:IsEnabled() then
 		local shouldMount = self.coreGuiEnabled and self.topBarEnabled
 		if shouldMount and not self.mounted then
-			self.element = Roact.mount(self.root, RobloxGui, "PlayerListMaster")
+			local root = FFlagMobilePlayerList and layerCollector or RobloxGui
+			self.element = Roact.mount(self.root, root, "PlayerListMaster")
 			self.mounted = true
 		elseif not shouldMount and self.mounted then
 			Roact.unmount(self.element)

@@ -17,6 +17,7 @@ local RunService = game:GetService("RunService")
 local ContextActionService = game:GetService("ContextActionService")
 local Players = game:GetService("Players")
 local VRService = game:GetService("VRService")
+local SoundService = game:GetService("SoundService")
 local AnalyticsService = game:GetService("RbxAnalyticsService")
 local Settings = UserSettings()
 local GameSettings = Settings.GameSettings
@@ -125,6 +126,7 @@ local isMobileClient = (platform == Enum.Platform.IOS) or (platform == Enum.Plat
 local UseMicroProfiler = (isMobileClient or isDesktopClient) and canUseMicroProfiler
 
 local GetFFlagEnableVoiceChatOptions = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceChatOptions)
+local GetFFlagEnableVoiceChatOptionsDualServiceOutputs = require(RobloxGui.Modules.Flags.getFFlagEnableVoiceChatOptionsDualServiceOutputs)
 
 local function reportSettingsForAnalytics()
 	if not FFlagCollectAnalyticsForSystemMenu then return end
@@ -1635,6 +1637,57 @@ local function Initialize()
 		end)
 	end
 
+	local function isValidDeviceList(deviceNames, deviceGuids, index)
+		return deviceNames and deviceGuids and index and #deviceNames > 0 and index > 0
+			and index <= #deviceNames and #deviceNames == #deviceGuids
+	end
+
+	local function setVCSOutput(soundServiceOutputName)
+		local VCSSuccess, VCSDeviceNames, VCSDeviceGuids, VCSIndex = pcall(function ()
+			return VoiceChatService:GetSpeakerDevices()
+		end)
+
+		if VCSSuccess
+			and isValidDeviceList(VCSDeviceNames, VCSDeviceGuids, VCSIndex) then
+
+			-- Find the matching VCS Device
+			local VCSDeviceIndex = 0
+			for deviceIndex, deviceName in ipairs(VCSDeviceNames) do
+				if deviceName == soundServiceOutputName then
+					VCSDeviceIndex = deviceIndex
+				end
+			end
+
+			if VCSDeviceIndex > 0 then
+				print(
+					'[OutputDeviceSelection] Setting VCS Speaker Device To ',
+					VCSDeviceNames[VCSDeviceIndex],
+					VCSDeviceGuids[VCSDeviceIndex]
+				)
+				VoiceChatService:SetSpeakerDevice(
+					VCSDeviceNames[VCSDeviceIndex],
+					VCSDeviceGuids[VCSDeviceIndex]
+				)
+			else
+				warn('Could not find equivalent VoiceChatService Device')
+			end
+		else
+			warn("Could not connect to Voice Chat Service to change Output Device")
+		end
+	end
+
+	-- TODO: Remove this when voice chat is unified with sound service.
+	local function syncSoundOutputs()
+		local success, deviceNames, deviceGuids, selectedIndex = pcall(function()
+			return SoundService:GetOutputDevices()
+		end)
+		if success and isValidDeviceList(deviceNames, deviceGuids, selectedIndex) then
+			setVCSOutput(deviceNames[selectedIndex])
+		else
+			warn("Could not connect to Voice Chat Service to change Output Device")
+		end
+	end
+
 	local function createDeviceOptions(deviceType)
 		local selectedIndex = this[deviceType.."DeviceIndex"] or 0
 		local options = this[deviceType.."DeviceNames"] or {}
@@ -1660,14 +1713,24 @@ local function Initialize()
 					Guid = this[deviceType.."DeviceGuids"][newIndex],
 				}
 
-				if deviceType == VOICE_CHAT_DEVICE_TYPE.Input then
-					VoiceChatService:SetMicDevice(this[deviceType.."DeviceInfo"].Name, this[deviceType.."DeviceInfo"].Guid)
-				else
-					VoiceChatService:SetSpeakerDevice(this[deviceType.."DeviceInfo"].Name, this[deviceType.."DeviceInfo"].Guid)
-				end
+				local deviceName = this[deviceType.."DeviceInfo"].Name
+				local deviceGuid = this[deviceType.."DeviceInfo"].Guid
 
-				-- TODO: This will be removed when set device API refactoring is done
-				leaveAndRejoinVoiceChatChannel()
+				if deviceType == VOICE_CHAT_DEVICE_TYPE.Input then
+					VoiceChatService:SetMicDevice(deviceName, deviceGuid)
+					-- TODO: This will be removed when set device API refactoring is done
+					leaveAndRejoinVoiceChatChannel()
+				else
+					SoundService:SetOutputDevice(deviceName, deviceGuid)
+					print(
+						'[OutputDeviceSelection] Setting SS Speaker Device To ',
+						deviceName,
+						deviceGuid
+					)
+					if GetFFlagEnableVoiceChatOptionsDualServiceOutputs() then
+						setVCSOutput(deviceName)
+					end
+				end
 			end
 		)
 	end
@@ -1681,20 +1744,32 @@ local function Initialize()
 			if deviceType == VOICE_CHAT_DEVICE_TYPE.Input then
 				return VoiceChatService:GetMicDevices()
 			else
-				return VoiceChatService:GetSpeakerDevices()
+				return SoundService:GetOutputDevices()
 			end
 		end)
 
-		if success and deviceNames and deviceGuids and selectedIndex and
-			#deviceNames > 0 and selectedIndex > 0 and selectedIndex <= #deviceNames and
-			#deviceNames == #deviceGuids then
+		local VCSSuccess, VCSDeviceNames, VCSDeviceGuids, VCSIndex = pcall(function ()
+			if GetFFlagEnableVoiceChatOptionsDualServiceOutputs() then
+				return VoiceChatService:GetSpeakerDevices()
+			else
+				-- We're returning these, but because the flag is off they will never be used outside of the below check
+				return success, deviceNames, deviceGuids, selectedIndex
+			end
+		end)
+
+		if success and VCSSuccess and isValidDeviceList(deviceNames, deviceGuids, selectedIndex)
+			and isValidDeviceList(VCSDeviceNames, VCSDeviceGuids, VCSIndex) then
 			this[deviceType.."DeviceNames"] = deviceNames
+			this[deviceType.."VCSDeviceNames"] = VCSDeviceNames
+			this[deviceType.."VCSDeviceGuids"] = VCSDeviceGuids
 			this[deviceType.."DeviceGuids"] = deviceGuids
 			this[deviceType.."DeviceIndex"] = selectedIndex
 		else
 			warn("Errors in get "..deviceType.." device info")
 			this[deviceType.."DeviceNames"] = {}
 			this[deviceType.."DeviceGuids"] = {}
+			this[deviceType.."VCSDeviceNames"] = {}
+			this[deviceType.."VCSDeviceGuids"] = {}
 			this[deviceType.."DeviceIndex"] = 0
 		end
 
@@ -1731,6 +1806,9 @@ local function Initialize()
 		if VoiceChatService and voiceChatApiVersion >= MIN_VOICE_CHAT_API_VERSION and
 			voiceChatAvailable == VOICE_CHAT_AVAILABILITY.Available then
 			this.VoiceChatOptionsEnabled = true
+			if GetFFlagEnableVoiceChatOptionsDualServiceOutputs() then
+				syncSoundOutputs()
+			end
 			if this.PageOpen then
 				updateVoiceChatOptions()
 			end

@@ -59,6 +59,10 @@ function PivotHandle:_selectedIsActive()
 end
 
 function PivotHandle:_renderPivotAdorn(hovered: boolean)
+	if not self._pivotOwner then
+		return
+	end
+
 	local image: string
 	local tint: Color3
 	if hovered then

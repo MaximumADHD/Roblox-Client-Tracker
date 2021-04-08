@@ -194,4 +194,23 @@ return function()
 			expect(isValid).to.equal(true)
 		end)
 	end)
+
+	describe(".fromDetails", function()
+		it("should return a valid report", function()
+			local report = BacktraceReport.fromDetails({
+				message = "index nil",
+				stacks = {
+					"Script 'Workspace.Script', Line 3",
+					"Script 'Workspace.Script', Line 3",
+				},
+				annotations = {
+					SomeProperty = true,
+					SomeOtherProperty = "false",
+				},
+			})
+			local isValid = report:validate()
+
+			expect(isValid).to.equal(true)
+		end)
+	end)
 end

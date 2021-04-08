@@ -13,7 +13,6 @@
 		Url.composeUrl(string base, string apiPath, optional table args):
 			Constructs a url given the supplied pieces.
 
-
 	Example Usage:
 		local url = Url.new()
 		local targetUrl = url.composeUrl(url.BASE_URL, "games", {
@@ -22,8 +21,12 @@
 		}
 		print(targetUrl) -- https://www.roblox.com/games?SortFilter=default&TimeFilter=0
 ]]
+game:DefineFastFlag("FixDevFrameworkComposeUrl", false)
+
+local FFlagFixDevFrameworkComposeUrl = game:GetFastFlag("FixDevFrameworkComposeUrl")
 
 local ContentProvider = game:GetService("ContentProvider")
+local HttpService = game:GetService("HttpService")
 
 -- helper functions
 local function parseBaseUrlInformation(baseUrl)
@@ -118,10 +121,20 @@ function Url.composeUrl(base, path, args)
 					error(string.format("Empty arrays are not supported. Please update argument : %s", key))
 				else
 					-- THIS IS NOT SUPPORTED ON ALL BACKEND SYSTEMS. BE VERY CAREFUL WHEN PASSING IN ARRAYS
-					table.insert(argList, string.format("%s=%s", key, table.concat(argument,",")))
+					local processedArgs = {}
+					if FFlagFixDevFrameworkComposeUrl then
+						for _, arg in ipairs(argument) do
+							table.insert(processedArgs, HttpService:UrlEncode(arg))
+						end
+					else
+						processedArgs = argument
+					end
+					table.insert(argList, string.format("%s=%s", key, table.concat(processedArgs, ",")))
 				end
 			else
-
+				if FFlagFixDevFrameworkComposeUrl then
+					argument = HttpService:UrlEncode(argument)
+				end
 				table.insert(argList, string.format("%s=%s", key, tostring(argument)))
 			end
 		end

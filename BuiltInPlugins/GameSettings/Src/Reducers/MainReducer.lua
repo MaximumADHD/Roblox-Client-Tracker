@@ -2,6 +2,8 @@
 --[[
 	Reducer that combines the Settings and Status reducers.
 ]]
+local FFlagStudioEnableBadgesInMonetizationPage = game:GetFastFlag("StudioEnableBadgesInMonetizationPage")
+
 
 local Plugin = script.Parent.Parent.Parent
 local Rodux = require(Plugin.Rodux)
@@ -12,6 +14,7 @@ local PageLoadState = require(Plugin.Src.Reducers.PageLoadState)
 local PageSaveState = require(Plugin.Src.Reducers.PageSaveState)
 local Settings = require(Plugin.Src.Reducers.Settings)
 local Status = require(Plugin.Src.Reducers.Status)
+local ComponentLoadState = FFlagStudioEnableBadgesInMonetizationPage and require(Plugin.Src.Reducers.ComponentLoadState) or nil
 
 local EditAsset = require(Plugin.Src.Reducers.EditAsset)
 
@@ -27,5 +30,6 @@ return Rodux.combineReducers({
 	PageSaveState = PageSaveState,
 	Metadata = GameMetadata,
     GameOwnerMetadata = GameOwnerMetadata,
-	EditAsset = EditAsset,
+    EditAsset = EditAsset,
+    ComponentLoadState = ComponentLoadState,
 })

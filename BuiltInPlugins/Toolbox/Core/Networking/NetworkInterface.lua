@@ -5,7 +5,6 @@
 ]]--
 
 local FFlagToolboxUseGetItemDetails = game:GetFastFlag("ToolboxUseGetItemDetails")
-local FFlagUseCategoryNameInToolbox = game:GetFastFlag("UseCategoryNameInToolbox")
 
 local Plugin = script.Parent.Parent.Parent
 local Networking = require(Plugin.Libs.Http.Networking)
@@ -163,13 +162,8 @@ function NetworkInterface:getAssetCreations(pageInfo, cursor, assetTypeOverride,
 	if pageInfo then
 		assetTypeName = PageInfoHelper.getBackendNameForPageInfoCategory(pageInfo)
 
-		local categoryIsGroup
-		if FFlagUseCategoryNameInToolbox then
-			categoryIsGroup = Category.categoryIsGroupAsset(pageInfo.categoryName)
-		else
-			categoryIsGroup = Category.categoryIsGroupAsset(pageInfo.currentTab, pageInfo.categoryIndex)
-		end
-
+		local categoryIsGroup = Category.categoryIsGroupAsset(pageInfo.categoryName)
+		
 		groupId = categoryIsGroup
 			and PageInfoHelper.getGroupIdForPageInfo(pageInfo)
 			or nil

@@ -40,6 +40,8 @@ local GetFFlagRoactBubbleChat = require(RobloxGui.Modules.Common.Flags.GetFFlagR
 local isNewGamepadMenuEnabled = require(RobloxGui.Modules.Flags.isNewGamepadMenuEnabled)
 local GetFFlagScreenTime = require(CorePackages.Regulations.ScreenTime.GetFFlagScreenTime)
 
+local GetFFlagEnableCaptureMode = require(RobloxGui.Modules.Flags.GetFFlagEnableCaptureMode)
+
 -- The Rotriever index, as well as the in-game menu code itself, relies on
 -- the init.lua convention, so we have to run initify over the module.
 -- We do this explicitly because the LocalPlayer hasn't been created at this
@@ -207,3 +209,7 @@ coroutine.wrap(function()
 end)()
 
 ScriptContext:AddCoreScriptLocal("CoreScripts/NetworkPause", RobloxGui)
+
+if GetFFlagEnableCaptureMode() and not PolicyService:IsSubjectToChinaPolicies() then
+	ScriptContext:AddCoreScriptLocal("CoreScripts/CaptureHud", RobloxGui)
+end

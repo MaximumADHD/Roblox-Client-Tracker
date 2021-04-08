@@ -151,7 +151,8 @@ function PremiumModal:render()
 						self.updateContentSizes()
 					end
 				}, {
-					Icon = Roact.createElement("ImageLabel", Cryo.Dictionary.join(Images[PREMIUM_ICON], {
+					Icon = (not GetFFlagPremiumUpsellDisclosurePurchasePrompt() or not self.isCondensed)
+							and Roact.createElement("ImageLabel", Cryo.Dictionary.join(Images[PREMIUM_ICON], {
 						AnchorPoint = Vector2.new(0.5, 0.5),
 						Size = self.contentSizes:map(function(values)
 							return values.iconSize

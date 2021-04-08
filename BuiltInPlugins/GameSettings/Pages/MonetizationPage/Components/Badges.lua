@@ -28,7 +28,7 @@ local ShouldAllowBadges = require(Plugin.Src.Util.GameSettingsUtilities).shouldA
 
 function Badges:render()
     assert(FFlagStudioEnableBadgesInMonetizationPage)
-    
+
     if not ShouldAllowBadges() then 
         return nil
     end
@@ -38,8 +38,9 @@ function Badges:render()
     local localization = props.Localization
 
     local badgeList = props.BadgeList
-    local showTable = props.ShowTable
     local dispatchOnLoadMoreBadges = props.OnLoadMoreBadges
+    local dispatchRefreshBadges = props.RefreshBadges
+   
     local layoutOrder = props.LayoutOrder
 
     local buttonText = localization:getText("General", "ButtonCreate")
@@ -51,14 +52,15 @@ function Badges:render()
         localization:getText("Monetization", "BadgeName"),
         localization:getText("Monetization", "BadgeDescription"),
     }
+    
+    -- Text to display on table if theres no badges
+    local emptyText = localization:getText("Monetization", "NoBadges")
 
     return Roact.createElement(FitFrameOnAxis, {
         axis = FitFrameOnAxis.Axis.Vertical,
         minimumSize = UDim2.new(1, 0, 0, 0),
         contentPadding = UDim.new(0, theme.badges.headerPadding),
-
         BackgroundTransparency = 1,
-
         LayoutOrder = layoutOrder,
     }, {
         BadgesTitle = Roact.createElement(TitledFrame,{
@@ -94,10 +96,16 @@ function Badges:render()
             }),
         }),
 
-        BadgesTable = showTable and Roact.createElement(TableWithMenu, {
+        BadgesTable =  Roact.createElement(TableWithMenu, {
             Headers = headers,
             Data = badgeList,
             TableHeight = theme.table.height/2,
+            LayoutOrder = 2,
+            NextPageFunc = dispatchOnLoadMoreBadges,
+            ScrollingFrameNextPageRequestDistance = 200,
+            EmptyText = emptyText,
+            ShowTableBackground = true,
+
 
             MenuItems = {
                 {Key = GetCopyIdKeyName(), Text = localization:getText("General", GetCopyIdKeyName())},
@@ -119,10 +127,16 @@ function Badges:render()
                 end
             end,
 
-            LayoutOrder = 2,
-
-            NextPageFunc = dispatchOnLoadMoreBadges,
-            ScrollingFrameNextPageRequestDistance = 200
+            HeaderButton = Roact.createElement("ImageButton", {
+                BackgroundTransparency = 1,
+                Image = theme.badges.refreshButton.icon,
+                Size = UDim2.new( 0, theme.badges.refreshButton.size, 0, theme.badges.refreshButton.size),
+                Position = UDim2.new(.5, theme.badges.refreshButton.offset.x, .5, 0),
+                AnchorPoint = Vector2.new(.5, .5),
+                [Roact.Event.Activated] = dispatchRefreshBadges,
+            }, { 
+                Roact.createElement(HoverArea, {Cursor = "PointingHand"}),
+            })
         })
     })
 end

@@ -11,6 +11,9 @@ local Colors = require(Util.Colors)
 local createSignal = require(Util.createSignal)
 local wrapStrictTable = require(Util.wrapStrictTable)
 local Images = require(Util.Images)
+local TestHelpers = require(Util.Test.TestHelpers)
+
+local FFlagFixToolboxInCli = game:GetFastFlag("FixToolboxInCli")
 
 local AssetConfigTheme = {}
 AssetConfigTheme.__index = AssetConfigTheme
@@ -25,6 +28,8 @@ function AssetConfigTheme.createDummyThemeManager()
 				end,
 			}
 		end,
+		studioStyleGuideColor = TestHelpers.createMockStudioStyleGuideColor(),
+		studioStyleGuideModifier = TestHelpers.createMockStudioStyleGuideModifier(),
 	})
 end
 
@@ -40,6 +45,9 @@ function AssetConfigTheme.new(options)
 		_externalThemeChangedSignal = options.themeChanged or nil,
 
 		_externalThemeChangedConnection = nil,
+
+		_studioStyleGuideColor = FFlagFixToolboxInCli and (options.studioStyleGuideColor or Enum.StudioStyleGuideColor) or nil,
+		_studioStyleGuideModifier = FFlagFixToolboxInCli and (options.studioStyleGuideModifier or Enum.StudioStyleGuideModifier) or nil,
 
 		_values = {},
 
@@ -109,8 +117,16 @@ function AssetConfigTheme:_recalculateTheme()
 	local isDark = self:_isDarkerTheme()
 
 	-- Shorthands for getting a color
-	local c = Enum.StudioStyleGuideColor
-	local m = Enum.StudioStyleGuideModifier
+	local c
+	local m
+
+	if FFlagFixToolboxInCli then
+		c = self._studioStyleGuideColor
+		m = self._studioStyleGuideModifier
+	else
+		c = Enum.StudioStyleGuideColor
+		m = Enum.StudioStyleGuideModifier
+	end
 
 	local function color(...)
 		return externalTheme:GetColor(...)

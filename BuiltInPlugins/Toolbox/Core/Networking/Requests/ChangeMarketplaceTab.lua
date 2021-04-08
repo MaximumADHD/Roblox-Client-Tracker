@@ -1,5 +1,3 @@
-local FFlagUseCategoryNameInToolbox = game:GetFastFlag("UseCategoryNameInToolbox")
-
 local Plugin = script.Parent.Parent.Parent.Parent
 local Cryo = require(Plugin.Libs.Cryo)
 
@@ -32,7 +30,6 @@ return function(networkInterface, tabName, newCategories,  settings, options)
 			currentTab = tabName,
 			categories = categories,
 			requestReason = RequestReason.ChangeTabs,
-			categoryIndex = (not FFlagUseCategoryNameInToolbox) and (options.categoryIndex),
 			categoryName = options.categoryName,
 			searchTerm = options.searchTerm,
 			sortIndex = options.sortIndex,

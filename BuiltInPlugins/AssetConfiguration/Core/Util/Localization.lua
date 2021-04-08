@@ -11,6 +11,7 @@ local createSignal = require(Plugin.Core.Util.createSignal)
 local DebugFlags = require(Plugin.Core.Util.DebugFlags)
 local wrapStrictTable = require(Plugin.Core.Util.wrapStrictTable)
 local AssetConfigConstants = require(Plugin.Core.Util.AssetConfigConstants)
+local isCli = require(Plugin.Core.Util.isCli)
 local Localization = {}
 Localization.__index = Localization
 
@@ -252,7 +253,7 @@ end
 
 function Localization:_getLocaleId()
 	-- First we will see if studio want to override the Toolbox localization.
-	local studioForceLocaleId = settings():GetFVariable("StudioForceLocale")
+	local studioForceLocaleId = isCli() and "" or settings():GetFVariable("StudioForceLocale")
 	if not (#studioForceLocaleId == 0) then
 		return studioForceLocaleId
 	end

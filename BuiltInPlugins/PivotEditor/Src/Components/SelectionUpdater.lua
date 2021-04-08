@@ -36,8 +36,9 @@ function SelectionUpdater:_update()
 		if self.props.targetObject ~= targetObject then
 			self.props.selectObjectForEditing(targetObject)
 		end
+	elseif #selection > 1 then
+		self.props.selectInvalidSelection(StatusMessage.MultipleSelection)
 	else
-		-- TODO: Right status message as part of DEVTOOLS-4096
 		self.props.selectInvalidSelection(StatusMessage.NoSelection)
 	end
 end

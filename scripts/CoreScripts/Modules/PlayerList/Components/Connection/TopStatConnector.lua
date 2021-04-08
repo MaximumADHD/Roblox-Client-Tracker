@@ -30,4 +30,4 @@ local function mapStateToProps(state)
 	}
 end
 
-return RoactRodux.UNSTABLE_connect2(mapStateToProps, nil)(TopStatConnector)
+return RoactRodux.connect(mapStateToProps, nil)(TopStatConnector)

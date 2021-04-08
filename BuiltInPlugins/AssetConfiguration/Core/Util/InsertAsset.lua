@@ -15,13 +15,6 @@ local Workspace = game:GetService("Workspace")
 local StudioService = game:GetService("StudioService")
 local Lighting = game:GetService("Lighting")
 
-local FFlagToolboxFixDecalInsert = settings():GetFFlag("ToolboxFixDecalInsert")
-local FFlagUseCategoryNameInToolbox = game:GetFastFlag("UseCategoryNameInToolbox")
-local FFlagToolboxForceSelectDragger = game:GetFastFlag("ToolboxForceSelectDragger")
-local FFlagFixGroupPackagesCategoryInToolbox = game:GetFastFlag("FixGroupPackagesCategoryInToolbox")
-local FFlagEnableDefaultSortFix2 = game:GetFastFlag("EnableDefaultSortFix2")
-local FFlagToolboxPreventCameraMoveForScripts = game:GetFastFlag("ToolboxPreventCameraMoveForScripts", false)
-
 local INSERT_MAX_SEARCH_DEPTH = 2048
 local INSERT_MAX_DISTANCE_AWAY = 64
 local INSERT_CAMERA_DIST_MULT = 1.2
@@ -119,53 +112,29 @@ local function insertAsset(assetId, assetName, insertToolPromise)
 
 			newSelection[#newSelection + 1] = o
 		end
-		if FFlagToolboxPreventCameraMoveForScripts then
-			if model then
-				if #model:GetChildren() > 0 then
-					model:MoveTo(insertPosition)
-					local modelCf, size = model:GetBoundingBox()
-
-					if size.Magnitude > 0 then
-
-						local camera = Workspace.CurrentCamera
-						local cameraCf = camera.CFrame
-
-						local cameraDistAway = size.Magnitude * INSERT_CAMERA_DIST_MULT
-						local dir = (cameraCf.p - modelCf.p).unit
-
-						camera.CFrame = CFrame.new(modelCf.p + (cameraDistAway * dir))
-						camera.Focus = CFrame.new(modelCf.p)
-					end
-
-					for _, o in ipairs(model:GetChildren()) do
-						o.Parent = model.Parent
-					end
-				end
-
-				model:Destroy()
-			end
-		else
-			if model and #model:GetChildren() > 0 then
+		if model then
+			if #model:GetChildren() > 0 then
 				model:MoveTo(insertPosition)
-
-				local camera = Workspace.CurrentCamera
-				local cameraCf = camera.CFrame
 				local modelCf, size = model:GetBoundingBox()
 
-				local cameraDistAway = size.magnitude * INSERT_CAMERA_DIST_MULT
-				local dir = (cameraCf.p - modelCf.p).unit
+				if size.Magnitude > 0 then
 
-				camera.CFrame = CFrame.new(modelCf.p + (cameraDistAway * dir))
-				camera.Focus = CFrame.new(modelCf.p)
+					local camera = Workspace.CurrentCamera
+					local cameraCf = camera.CFrame
+
+					local cameraDistAway = size.Magnitude * INSERT_CAMERA_DIST_MULT
+					local dir = (cameraCf.p - modelCf.p).unit
+
+					camera.CFrame = CFrame.new(modelCf.p + (cameraDistAway * dir))
+					camera.Focus = CFrame.new(modelCf.p)
+				end
 
 				for _, o in ipairs(model:GetChildren()) do
 					o.Parent = model.Parent
 				end
 			end
 
-			if model then
-				model:Destroy()
-			end
+			model:Destroy()
 		end
 
 		Selection:Set(newSelection)
@@ -190,20 +159,8 @@ local function insertDecal(plugin, assetId, assetName)
 		local decal = tbl[1]
 		decal.Name = assetName
 		decal.SourceAssetId = assetId
-
-		if FFlagToolboxFixDecalInsert then
-			decal.Parent = (Selection:Get() or {})[1] or Workspace
-			Selection:Set({decal})
-		else
-			local dragSuccess = pcall(function()
-				plugin:StartDecalDrag(decal)
-			end)
-
-			if not dragSuccess then
-				decal.Parent = (Selection:Get() or {})[1] or Workspace
-				Selection:Set({decal})
-			end
-		end
+		decal.Parent = (Selection:Get() or {})[1] or Workspace
+		Selection:Set({decal})
 
 		return decal
 	else
@@ -282,19 +239,7 @@ local function assetTypeIdToString(assetTypeId)
 end
 
 local function dispatchInsertAsset(options, insertToolPromise)
-	local isPackage
-	local categoryKey
-	if FFlagUseCategoryNameInToolbox then
-		isPackage = Category.categoryIsPackage(options.categoryName)
-	else
-		if FFlagEnableDefaultSortFix2 then
-			categoryKey = options.currentTab
-		else
-			categoryKey = FFlagFixGroupPackagesCategoryInToolbox and Category.INVENTORY_KEY or Category.MARKETPLACE_KEY
-		end
-		isPackage = Category.categoryIsPackage(options.categoryIndex, categoryKey)
-	end
-
+	local isPackage = Category.categoryIsPackage(options.categoryName)
 	if isPackage then
 		return insertPackage(options.assetId)
 	elseif options.assetTypeId == Enum.AssetType.Audio.Value then
@@ -315,13 +260,7 @@ local function sendInsertionAnalytics(options, assetWasDragged)
 	Analytics.incrementAssetInsertCollector()
 	Analytics.incrementToolboxInsertCounter(assetTypeIdToString(options.assetTypeId))
 
-	local categoryName
-	if FFlagUseCategoryNameInToolbox then
-		categoryName = options.categoryName
-	else
-		categoryName = options.currentCategoryName
-	end
-
+	local categoryName = options.categoryName
 	if not assetWasDragged then
 		Analytics.onAssetInserted(options.assetId, options.searchTerm, options.assetIndex, categoryName)
 	else
@@ -346,7 +285,6 @@ Options table format:
 	assetTypeId = AssetType,
 	onSuccess = function,
 	categoryName = string,
-	currentCategoryName = string, TODO: Remove when FFlagUseCategoryNameInToolbox is retired
 	searchTerm = string,
 	assetIndex = number,
 }
@@ -356,11 +294,9 @@ Options table format:
 -- insertToolPromise can be nil if dragged.
 function InsertAsset.tryInsert(options, insertToolPromise, assetWasDragged)
 	if assetWasDragged then
-		if FFlagToolboxForceSelectDragger then
-			local selectedRibbonTool = options.plugin:GetSelectedRibbonTool()
-			if not RIBBON_DRAGGER_TOOLS[selectedRibbonTool] then
-				options.plugin:SelectRibbonTool(Enum.RibbonTool.Select, UDim2.new())
-			end
+		local selectedRibbonTool = options.plugin:GetSelectedRibbonTool()
+		if not RIBBON_DRAGGER_TOOLS[selectedRibbonTool] then
+			options.plugin:SelectRibbonTool(Enum.RibbonTool.Select, UDim2.new())
 		end
 		InsertAsset.doDragInsertAsset(options)
 	else
@@ -393,14 +329,6 @@ function InsertAsset.doInsertAsset(options, insertToolPromise)
 	elseif asset then
 		ChangeHistoryService:SetWaypoint(("After insert asset %d"):format(assetId))
 		sendInsertionAnalytics(options, false)
-
-		local categoryName
-		if FFlagUseCategoryNameInToolbox then
-			categoryName = options.categoryName
-		else
-			categoryName = options.currentCategoryName
-		end
-
 		if options.onSuccess then
 			options.onSuccess(assetId, asset)
 		end
@@ -430,14 +358,8 @@ function InsertAsset.doDragInsertAsset(options)
 		-- That will insert the given asset and drag it in the 3d view
 		options.plugin.UsesAssetInsertionDrag = true
 
-		local isPackage
-		if FFlagUseCategoryNameInToolbox then
-			isPackage = Category.categoryIsPackage(options.categoryName)
-		else
-			local categoryKey = FFlagFixGroupPackagesCategoryInToolbox and Category.INVENTORY_KEY or Category.MARKETPLACE_KEY
-			isPackage = Category.categoryIsPackage(options.categoryIndex, categoryKey)
-		end
-
+		local isPackage = Category.categoryIsPackage(options.categoryName)
+		
 		-- TODO CLIDEVSRVS-1246: This should use uri list or something
 		local url = Urls.constructAssetGameAssetIdUrl(
 			assetId,

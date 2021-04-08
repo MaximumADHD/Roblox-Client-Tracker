@@ -104,6 +104,7 @@ function PlayerDropDown:createFriendButton(playerRelationship)
 		selectedPlayer = selectedPlayer,
 		dropDownOpen = self.props.isVisible,
 		requestFriendship = self.props.requestFriendship,
+		contentVisible = true,
 	})
 end
 

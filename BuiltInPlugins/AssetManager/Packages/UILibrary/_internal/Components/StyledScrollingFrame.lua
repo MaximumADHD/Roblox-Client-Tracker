@@ -15,7 +15,10 @@
 		int ScrollBarThickness = The horizontal width of the scrollbar.
 
 		function OnScroll(Vector2 CanvasPosition) = A callback for when the CanvasPosition changes.
+	Optional Props:
+		Color3 BackgroundColor: If provided, we set BackgroundTransparency to 0 and show the provided color as background and border
 ]]
+local FFlagStudioEnableBadgesInMonetizationPage = game:GetFastFlag("StudioEnableBadgesInMonetizationPage")
 
 local DEFAULT_SCROLLBAR_THICKNESS = 8
 local DEFAULT_SCROLLBAR_PADDING = 2
@@ -51,6 +54,7 @@ function StyledScrollingFrame:render()
 		local scrollBarThickness = props.ScrollBarThickness or DEFAULT_SCROLLBAR_THICKNESS
 
 		local backgroundThickness = scrollBarThickness + (padding * 2)
+		local backgroundColor = FFlagStudioEnableBadgesInMonetizationPage and props.BackgroundColor or nil
 
 		local ref = props[Roact.Ref]
 		local children = props[Roact.Children]
@@ -60,7 +64,9 @@ function StyledScrollingFrame:render()
 			Size = size,
 			LayoutOrder = layoutOrder,
 			ZIndex = zindex,
-			BackgroundTransparency = 1,
+			BackgroundTransparency = backgroundColor and 0 or 1,
+			BackgroundColor3 = backgroundColor,
+			BorderColor3 = backgroundColor,
 		}, {
 			ScrollBarBackground = Roact.createElement("Frame", {
 				Position = UDim2.new(1, 0, 0, 0),

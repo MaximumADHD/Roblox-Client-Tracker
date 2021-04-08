@@ -1,5 +1,3 @@
-local FFlagUseCategoryNameInToolbox = game:GetFastFlag("UseCategoryNameInToolbox")
-
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local RequestReason = require(Plugin.Core.Types.RequestReason)
@@ -28,14 +26,8 @@ return function(networkInterface, settings, newPageInfo)
 
 		local pageInfo = store:getState().pageInfo
 		local audioSearchInfo = pageInfo.audioSearchInfo -- or store:getState().assets.audioSearchInfo
-		local categoryName
-		if FFlagUseCategoryNameInToolbox then
-			categoryName = pageInfo.categoryName
-		else
-			local category = pageInfo.categories[pageInfo.categoryIndex]
-			categoryName = category and category.name
-		end
-
+		local categoryName = pageInfo.categoryName
+		
 		if FFlagToolboxShowRobloxCreatedAssetsForLuobu and showRobloxCreatedAssets() then
 			-- For Luobu we limit the length of Audio assets available in the marketplace for moderation reasons
 			if audioSearchInfo == nil then

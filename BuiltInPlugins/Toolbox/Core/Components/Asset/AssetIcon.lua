@@ -15,8 +15,6 @@
 		callback onPreviewAudioButtonClicked()
 ]]
 
-local FFlagUseCategoryNameInToolbox = game:GetFastFlag("UseCategoryNameInToolbox")
-
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Libs = Plugin.Libs
@@ -33,7 +31,6 @@ local ContextGetter = require(Util.ContextGetter)
 local ContextHelper = require(Util.ContextHelper)
 local Urls = require(Util.Urls)
 local FlagsList = require(Util.FlagsList)
-local PageInfoHelper = require(Util.PageInfoHelper)
 
 local Types = Plugin.Core.Types
 local Category = require(Types.Category)
@@ -122,13 +119,9 @@ function AssetIcon:render()
 		end
 
 		-- Asset Data is missing for AssetPreview in the creation tab.
-		if FFlagUseCategoryNameInToolbox then
-			local isCurrentlyCreationsTab = Category.getTabForCategoryName(props.categoryName) == Category.CREATIONS
-			showAssetPreview = showAssetPreview and not isCurrentlyCreationsTab
-		else
-			showAssetPreview = showAssetPreview and props.currentTab ~= Category.CREATIONS_KEY
-		end
-
+		local isCurrentlyCreationsTab = Category.getTabForCategoryName(props.categoryName) == Category.CREATIONS
+		showAssetPreview = showAssetPreview and not isCurrentlyCreationsTab
+		
 		local children = {
 			AssetImage = Roact.createElement(ImageWithDefault, {
 				BackgroundTransparency = 1,
@@ -209,12 +202,11 @@ local function mapStateToProps(state, props)
 	local pageInfo = state.pageInfo or {}
 	local selectedBackgroundIndex = pageInfo.selectedBackgroundIndex or 1
 	local hoveredBackgroundIndex = pageInfo.hoveredBackgroundIndex or 0
-	local categoryName = FFlagUseCategoryNameInToolbox and (pageInfo.categoryName or Category.DEFAULT.name) or nil
+	local categoryName = pageInfo.categoryName or Category.DEFAULT.name
 
 	return {
 		backgroundIndex = hoveredBackgroundIndex ~= 0 and hoveredBackgroundIndex or selectedBackgroundIndex,
-		currentTab = PageInfoHelper.getCurrentTab(pageInfo),
-		categoryName = (FFlagUseCategoryNameInToolbox and categoryName or nil),
+		categoryName = categoryName,
 		elapsedTime = sound.elapsedTime or 0,
 		totalTime = sound.totalTime or 0,
 	}

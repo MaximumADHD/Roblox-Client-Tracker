@@ -1,4 +1,4 @@
-local FFlagAssetConfigOverrideFromAnyScreen = game:GetFastFlag("AssetConfigOverrideFromAnyScreen", false)
+local FFlagAssetConfigOverrideFromAnyScreen = game:GetFastFlag("AssetConfigOverrideFromAnyScreen")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 

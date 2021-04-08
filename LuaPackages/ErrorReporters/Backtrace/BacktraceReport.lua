@@ -229,4 +229,30 @@ function BacktraceReport.fromMessageAndStack(errorMessage, errorStack)
 	return report
 end
 
+function BacktraceReport.fromDetails(details)
+	local report = BacktraceReport.new()
+
+	report:addAttributes({
+		["error.message"] = details.message,
+	})
+
+	report.sourceCode = {}
+
+	local lastNumOfSourceCode = 0
+	for i, errorStack in ipairs(details.stacks) do
+		local stack, sourceCode, numOfSourceCode = ProcessErrorStack(errorStack, lastNumOfSourceCode)
+		if i == 1 then
+			report:addStackToMainThread(stack)
+		else
+			report:addStackToThread(stack, "stack" .. i)
+		end
+		report.sourceCode = Cryo.Dictionary.join(report.sourceCode, sourceCode)
+		lastNumOfSourceCode = numOfSourceCode
+	end
+
+	report:addAnnotations(details.annotations)
+
+	return report
+end
+
 return BacktraceReport

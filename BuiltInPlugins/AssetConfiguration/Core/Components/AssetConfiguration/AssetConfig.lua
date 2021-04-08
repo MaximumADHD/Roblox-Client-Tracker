@@ -6,7 +6,7 @@
 	assetId, number, will be used to request assetData on didMount.
 ]]
 
-local FFlagAssetConfigOverrideFromAnyScreen = game:DefineFastFlag("AssetConfigOverrideFromAnyScreen", false)
+local FFlagAssetConfigOverrideFromAnyScreen = game:GetFastFlag("AssetConfigOverrideFromAnyScreen")
 local FFlagCanPublishDefaultAsset = game:DefineFastFlag("CanPublishDefaultAsset", false)
 local FFlagShowAssetConfigReasons2 = game:GetFastFlag("ShowAssetConfigReasons2")
 local FFlagAssetConfigEnforceNonEmptyDescription = game:DefineFastFlag("AssetConfigEnforceNonEmptyDescription", false)

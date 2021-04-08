@@ -42,10 +42,13 @@ local function findFileNameFromPath(pathStr)
 	return string.match(pathStr, "([^.]*)$")
 end
 
-local function ProcessErrorStack(errorStack)
+local function ProcessErrorStack(errorStack, numOfSourceCode)
 	local stack = {}
 	local sourceCodeDict = {}
-	local numOfSourceCode = 0
+
+	if not numOfSourceCode then
+		numOfSourceCode = 0
+	end
 
 	if type(errorStack) ~= "string" then
 		return stack, sourceCodeDict
@@ -95,7 +98,7 @@ local function ProcessErrorStack(errorStack)
 		}
 	end
 
-	return stack, sourceCodeOutput
+	return stack, sourceCodeOutput, numOfSourceCode
 end
 
 return ProcessErrorStack

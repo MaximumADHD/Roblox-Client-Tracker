@@ -23,8 +23,10 @@ local InputType = Constants.InputType
 local IconButton = require(script.Parent.IconButton)
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
+local PolicyService = require(RobloxGui.Modules.Common.PolicyService)
 local TenFootInterface = require(RobloxGui.Modules.TenFootInterface)
 
+local CaptureMaster = require(RobloxGui.Modules.CaptureMaster)
 local EmotesMenuMaster = require(RobloxGui.Modules.EmotesMenu.EmotesMenuMaster)
 local BackpackModule = require(RobloxGui.Modules.BackpackScript)
 local ChatSelector = require(RobloxGui.Modules.ChatSelector)
@@ -34,7 +36,9 @@ local EmotesConstants = require(RobloxGui.Modules.EmotesMenu.Constants)
 
 local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 
+local FFlagMobilePlayerList = require(RobloxGui.Modules.Flags.FFlagMobilePlayerList)
 local GetFFlagNewEmotesInGame = require(RobloxGui.Modules.Flags.GetFFlagNewEmotesInGame)
+local GetFFlagEnableCaptureMode = require(RobloxGui.Modules.Flags.GetFFlagEnableCaptureMode)
 
 local MORE_BUTTON_SIZE = 32
 local ICON_SIZE = 24
@@ -48,6 +52,15 @@ local MENU_FULLSCREEN_THRESHOLD = 450
 local CHAT_HIDE_THRESHOLD = 600
 
 local ESCAPE_CLOSE_MENU_ACTION = "CloseMoreMenuAction"
+
+local LEADERBOARD_ICON_ON = "rbxasset://textures/ui/TopBar/leaderboardOn.png"
+local LEADERBOARD_ICON_OFF = "rbxasset://textures/ui/TopBar/leaderboardOff.png"
+
+local BACKPACK_ICON_ON = "rbxasset://textures/ui/TopBar/inventoryOn.png"
+local BACKPACK_ICON_OFF = "rbxasset://textures/ui/TopBar/inventoryOff.png"
+
+local MORE_ICON_ON = "rbxasset://textures/ui/TopBar/moreOn.png"
+local MORE_ICON_OFF = "rbxasset://textures/ui/TopBar/moreOff.png"
 
 local MoreMenu = Roact.PureComponent:extend("MoreMenu")
 
@@ -87,10 +100,15 @@ function MoreMenu:render()
 
 	local isUsingKeyBoard = self.props.inputType == InputType.MouseAndKeyBoard
 
-	if self.props.leaderboardEnabled and not self.props.isSmallTouchDevice then
-		local leaderboardIcon = "rbxasset://textures/ui/TopBar/leaderboardOn.png"
+	local enableLeaderboardButton = self.props.leaderboardEnabled and not self.props.isSmallTouchDevice
+	if FFlagMobilePlayerList then
+		enableLeaderboardButton = self.props.leaderboardEnabled
+	end
+
+	if enableLeaderboardButton then
+		local leaderboardIcon = LEADERBOARD_ICON_ON
 		if not self.props.leaderboardOpen then
-			leaderboardIcon = "rbxasset://textures/ui/TopBar/leaderboardOff.png"
+			leaderboardIcon = LEADERBOARD_ICON_OFF
 		end
 
 		table.insert(menuOptions, {
@@ -132,9 +150,9 @@ function MoreMenu:render()
 	end
 
 	if self.props.backpackEnabled then
-		local backpackIcon =  "rbxasset://textures/ui/TopBar/inventoryOn.png"
+		local backpackIcon = BACKPACK_ICON_ON
 		if not self.props.backpackOpen then
-			backpackIcon = "rbxasset://textures/ui/TopBar/inventoryOff.png"
+			backpackIcon = BACKPACK_ICON_OFF
 		end
 
 		table.insert(menuOptions, {
@@ -149,14 +167,27 @@ function MoreMenu:render()
 		hasOptions = true
 	end
 
+	local shouldShowCapture = GetFFlagEnableCaptureMode() and not PolicyService:IsSubjectToChinaPolicies()
+	if shouldShowCapture then
+		table.insert(menuOptions, {
+			icon = Images["icons/controls/screenshot"],
+			text = RobloxTranslator:FormatByKey("CoreScripts.TopBar.Screenshot"),
+			onActivated = function()
+				self.props.setMoreMenuOpen(false)
+				CaptureMaster:Capture()
+			end,
+		})
+		hasOptions = true
+	end
+
 	local moreMenuSize = UDim2.new(0, MENU_DEFAULT_SIZE + CONTEXT_MENU_DEFAULT_PADDING * 2, 0, self.props.screenSize.Y)
 	if self.props.screenSize.X < MENU_FULLSCREEN_THRESHOLD then
 		moreMenuSize =  UDim2.new(0, self.props.screenSize.X - (MENU_EXTRA_PADDING * 2), 0, self.props.screenSize.Y)
 	end
 
-	local moreIcon = "rbxasset://textures/ui/TopBar/moreOn.png"
+	local moreIcon = MORE_ICON_ON
 	if not self.props.moreMenuOpen then
-		moreIcon = "rbxasset://textures/ui/TopBar/moreOff.png"
+		moreIcon = MORE_ICON_OFF
 	end
 
 	local moreButtonVisible = not TenFootInterface:IsEnabled() and self.props.topBarEnabled and hasOptions

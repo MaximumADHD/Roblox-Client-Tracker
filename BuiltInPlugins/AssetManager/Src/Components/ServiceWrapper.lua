@@ -35,6 +35,7 @@ function ServiceWrapper:render()
 	local store = self.props.store
 	local theme = self.props.theme
 	local uiLibraryWrapper = self.props.uiLibWrapper
+	local calloutController = self.props.calloutController
 
 	-- the order of these providers should be read as bottom up,
 	-- things most likely to change or trigger updates should be near the top of the list
@@ -48,6 +49,7 @@ function ServiceWrapper:render()
 		ContextServices.Store.new(store),
 		ContextServices.API.new(),
 		ContextServices.Mouse.new(mouse),
+		calloutController
 	}, children)
 end
 

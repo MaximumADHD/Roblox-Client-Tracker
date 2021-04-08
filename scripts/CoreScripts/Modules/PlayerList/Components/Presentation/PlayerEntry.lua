@@ -15,7 +15,7 @@ local LayoutValues = require(Connection.LayoutValues)
 local WithLayoutValues = LayoutValues.WithLayoutValues
 
 local EntryFrame = require(script.Parent.EntryFrame)
-local PlayerIcon = require(script.Parent.PlayerIcon)
+local PlayerIcon = require(Components.PresentationCommon.PlayerIcon)
 local PlayerNameTag = require(script.Parent.PlayerNameTag)
 local StatEntry = require(script.Parent.StatEntry)
 local CellExtender = require(script.Parent.CellExtender)

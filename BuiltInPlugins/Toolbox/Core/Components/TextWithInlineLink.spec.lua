@@ -7,6 +7,12 @@ return function()
 	local t = require(Libs.Framework.Util.Typecheck.t)
 
 	local MockWrapper = require(Plugin.Core.Util.MockWrapper)
+	local isCli = require(Plugin.Core.Util.isCli)
+
+	if isCli() then
+		-- This test suite is not useful in CLI because TextService:GetTextSize() always returns 0
+		return
+	end
 
 	local TextWithInlineLink = require(Plugin.Core.Components.TextWithInlineLink)
 

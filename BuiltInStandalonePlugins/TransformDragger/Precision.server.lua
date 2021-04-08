@@ -3,6 +3,8 @@
 
 local plugin, settings = plugin, settings
 
+local EngineFeatureModelPivotApi = game:GetEngineFeature("ModelPivotApi")
+
 -----------------------------------
 -----------MODULE SCRIPTS----------
 -----------------------------------
@@ -992,7 +994,7 @@ function getShapeRenderSize(shape, size)
 	return size
 end
 
-function updateChildAttachments(part, initialSize, finalSize)
+function updatePivotAndChildAttachments(part, initialSize, finalSize)
 	if (not part:IsA("BasePart")) then return end
 
 	local children = part:GetChildren()
@@ -1007,6 +1009,10 @@ function updateChildAttachments(part, initialSize, finalSize)
 		if (child:IsA("Attachment")) then
 			child.Position = (child.Position / initialSize) * finalSize
 		end
+	end
+	
+	if EngineFeatureModelPivotApi then
+		part:UpdatePivot(initialSize, finalSize)
 	end
 end
 
@@ -1576,7 +1582,7 @@ function updatePart()
 	end
 
 	if (selectedPart) then
-		updateChildAttachments(selectedPart, preActionSize, selectedPart.Size)
+		updatePivotAndChildAttachments(selectedPart, preActionSize, selectedPart.Size)
 	end
 
 	if allowAdornUpdate then
@@ -3078,12 +3084,14 @@ function selectionChanged()
 	recreateAdornment()
 	--updateInvisiblePart()
 
-	for i,v in ipairs(currentSelection) do
-		if v:IsA("BasePart") then
-			if shouldBreakJoints then
+	if not EngineFeatureModelPivotApi then
+		for i,v in ipairs(currentSelection) do
+			if v:IsA("BasePart") then
+				if shouldBreakJoints then
+				end
+			elseif v:IsA("Model") and not v:IsA("Workspace") then
+				Metapart.forcePrimaryPart(v)
 			end
-		elseif v:IsA("Model") and not v:IsA("Workspace") then
-			Metapart.forcePrimaryPart(v)
 		end
 	end
 end

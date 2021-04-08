@@ -6,8 +6,6 @@
 
 local Plugin = script.Parent.Parent.Parent
 
-local getFFlagStudioAlignTool = require(Plugin.Src.Flags.getFFlagStudioAlignTool)
-
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 local ContextServices = require(Plugin.Packages.Framework.ContextServices)
@@ -25,7 +23,6 @@ local HoverPreviewEnabler = require(Plugin.Src.Components.HoverPreviewEnabler)
 local getEngineFeatureActiveInstanceHighlight = require(Plugin.Src.Flags.getEngineFeatureActiveInstanceHighlight)
 local getFFlagAlignShowPreview = require(Plugin.Src.Flags.getFFlagAlignShowPreview)
 
-local TOOLBAR_BUTTON_ICON = "rbxasset://textures/AlignTool/AlignTool.png"
 local INITIAL_WINDOW_SIZE = Vector2.new(300, 250)
 local MINIMUM_WINDOW_SIZE = Vector2.new(175, 250)
 
@@ -55,33 +52,18 @@ function AlignmentToolPlugin:init()
 
 	self.renderButtons = function(toolbar)
 		local props = self.props
-
-		local localization = props.Localization
 		local enabled = props.toolEnabled
 
-		if getFFlagStudioAlignTool() then
-			return {
-				Toggle = Roact.createElement(PluginButton, {
-					Toolbar = toolbar,
-					Active = enabled,
-					Title = STUDIO_RELAY_PLUGIN_BUTTON,
-					Tooltip = "",
-					Icon = "", -- C++ code is source of truth for Tooltip & Icon
-					OnClick = self.toggleState,
-				})
-			}
-		else
-			return {
-				Toggle = Roact.createElement(PluginButton, {
-					Toolbar = toolbar,
-					Active = enabled,
-					Title = localization:getText("Plugin", "Button"),
-					Tooltip = localization:getText("Plugin", "Description"),
-					Icon = TOOLBAR_BUTTON_ICON,
-					OnClick = self.toggleState,
-				})
-			}
-		end
+		return {
+			Toggle = Roact.createElement(PluginButton, {
+				Toolbar = toolbar,
+				Active = enabled,
+				Title = STUDIO_RELAY_PLUGIN_BUTTON,
+				Tooltip = "",
+				Icon = "", -- C++ code is source of truth for Tooltip & Icon
+				OnClick = self.toggleState,
+			})
+		}
 	end
 
 	self.setToolEnabled = function(enabled, initiatedByUser)
@@ -127,8 +109,7 @@ function AlignmentToolPlugin:render()
 
 	return Roact.createFragment({
 		Toolbar = Roact.createElement(PluginToolbar, {
-			Title = getFFlagStudioAlignTool() and STUDIO_RELAY_PLUGIN_TOOLBAR
-				or localization:getText("Plugin", "Toolbar"),
+			Title = STUDIO_RELAY_PLUGIN_TOOLBAR,
 			RenderButtons = self.renderButtons,
 		}),
 

@@ -42,6 +42,12 @@ end
 local Rodux = require(Libs.Rodux)
 
 local Util = Plugin.Core.Util
+local isCli = require(Util.isCli)
+
+if isCli() then
+	return
+end
+
 local Analytics = require(Util.Analytics.Analytics)
 local AssetAnalyticsContextItem = require(Util.Analytics.AssetAnalyticsContextItem)
 local DebugFlags = require(Util.DebugFlags)

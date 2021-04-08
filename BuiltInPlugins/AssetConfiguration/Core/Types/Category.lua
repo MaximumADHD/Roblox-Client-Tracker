@@ -1,9 +1,4 @@
---!nocheck
---^ Remove this hot comment with FFlagUseCategoryNameInToolbox.
-
 local FFlagFixToolboxPluginScaling = game:DefineFastFlag("FixToolboxPluginScaling", false)
-local FFlagUseCategoryNameInToolbox = game:GetFastFlag("UseCategoryNameInToolbox")
-local FFlagFixGroupPackagesCategoryInToolbox = game:DefineFastFlag("FixGroupPackagesCategoryInToolbox", false)
 local FFlagToolboxDisableMarketplaceAndRecentsForLuobu = game:GetFastFlag("ToolboxDisableMarketplaceAndRecentsForLuobu")
 local FFlagToolboxShowRobloxCreatedAssetsForLuobu = game:GetFastFlag("ToolboxShowRobloxCreatedAssetsForLuobu")
 local FFlagFixAudioAssetsForLuoBu = game:DefineFastFlag("FixAudioAssetsForLuoBu", false)
@@ -318,198 +313,137 @@ for _, categoryName in pairs(disabledCategories) do
 		table.remove(Category.MARKETPLACE, categoryIndex)
 	end
 end
+local tabForCategoryName = {}
+local tabKeyForCategoryName = {}
+local categoryByName = {}
 
-if FFlagUseCategoryNameInToolbox then
-	local tabForCategoryName = {}
-	local tabKeyForCategoryName = {}
-	local categoryByName = {}
-
-	for _, category in pairs(Category) do
-		if category.name then
-			categoryByName[category.name] = category
-		end
-	end
-
-	Category.CREATIONS = getCreationCategories()
-
-	local tabs
-	local tabKeys
-	if FFlagToolboxDisableMarketplaceAndRecentsForLuobu and disableMarketplaceAndRecents() then
-		tabs = {
-			Category.INVENTORY_WITH_GROUPS,
-			Category.CREATIONS,
-		}
-		tabKeys = {
-			Category.INVENTORY_KEY,
-			Category.CREATIONS_KEY,
-		}
-	elseif FFlagToolboxShowRobloxCreatedAssetsForLuobu and showRobloxCreatedAssets() then
-		tabs = {
-			Category.MARKETPLACE,
-			Category.INVENTORY_WITH_GROUPS,
-			Category.CREATIONS,
-		}
-		tabKeys = {
-			Category.MARKETPLACE_KEY,
-			Category.INVENTORY_KEY,
-			Category.CREATIONS_KEY,
-		}
-	else
-		tabs = {
-			Category.MARKETPLACE,
-			Category.INVENTORY_WITH_GROUPS,
-			Category.RECENT,
-			Category.CREATIONS,
-		}
-		tabKeys = {
-			Category.MARKETPLACE_KEY,
-			Category.INVENTORY_KEY,
-			Category.RECENT_KEY,
-			Category.CREATIONS_KEY,
-		}
-	end
-
-	for index, tab in ipairs(tabs) do
-		for _, category in ipairs(tab) do
-			tabForCategoryName[category.name] = tab
-			tabKeyForCategoryName[category.name] = tabKeys[index]
-		end
-	end
-
-	function Category.getTabForCategoryName(categoryName)
-		return tabForCategoryName[categoryName] or Category.CREATIONS
-	end
-	function Category.getTabKeyForCategoryName(categoryName)
-		return tabKeyForCategoryName[categoryName] or Category.CREATIONS_KEY
-	end
-
-	function Category.getCategoryByName(categoryName)
-		local category = categoryByName[categoryName]
-		if not category and DebugFlags.shouldDebugWarnings() then
-			warn(("Lua Toolbox: no category for name %s"):format(tostring(categoryName)))
-		end
-		return category
-	end
-
-	function Category.getCategoryIndex(categoryName, roles)
-		if categoryName == "" then
-			return 1
-		end
-		local tabKey = Category.getTabKeyForCategoryName(categoryName)
-		local tab = Category.getCategories(tabKey, roles)
-		for index, category in ipairs(tab) do
-			if category.name == categoryName then
-				return index
-			end
-		end
-		if DebugFlags.shouldDebugWarnings() then
-			warn(("Lua Toolbox: no category index for name %s"):format(tostring(categoryName)))
-		end
-		return 1
+for _, category in pairs(Category) do
+	if category.name then
+		categoryByName[category.name] = category
 	end
 end
 
-if FFlagUseCategoryNameInToolbox then
-	function Category.categoryIsPackage(categoryName)
-		local category = Category.getCategoryByName(categoryName)
-		return category.assetType == Category.AssetType.PACKAGE
-	end
+Category.CREATIONS = getCreationCategories()
 
-	function Category.categoryIsFreeAsset(categoryName)
-		local category = Category.getCategoryByName(categoryName)
-		return category.ownershipType == Category.OwnershipType.FREE
-	end
-
-	function Category.categoryIsGroupAsset(categoryName)
-		local category = Category.getCategoryByName(categoryName)
-		return category.ownershipType == Category.OwnershipType.GROUP
-	end
-
-	function Category.categoryIsAudio(categoryName)
-		local category = Category.getCategoryByName(categoryName)
-		return category.assetType == Category.AssetType.AUDIO
-	end
-
-	function Category.categoryIsVideo(categoryName)
-		local category = Category.getCategoryByName(categoryName)
-		return category.assetType == Category.AssetType.VIDEO
-	end
-
-	function Category.categoryIsGroupPackages(categoryName)
-		local category = Category.getCategoryByName(categoryName)
-		return category.assetType == Category.AssetType.GROUP_PACKAGES
-	end
-
-	function Category.categoryIsPlugin(categoryName)
-		local category = Category.getCategoryByName(categoryName)
-		return category.assetType == Category.AssetType.PLUGIN
-	end
-
-	function Category.shouldShowPrices(categoryName)
-		if FFlagFixToolboxPluginScaling then
-			local isPlugins = Category.categoryIsPlugin(categoryName)
-			local tab = Category.getTabForCategoryName(categoryName)
-			local showPrices = isPlugins and tab == Category.MARKETPLACE
-			return showPrices
-		else
-			return Category.categoryIsPlugin(categoryName)
-		end
-	end
+local tabs
+local tabKeys
+if FFlagToolboxDisableMarketplaceAndRecentsForLuobu and disableMarketplaceAndRecents() then
+	tabs = {
+		Category.INVENTORY_WITH_GROUPS,
+		Category.CREATIONS,
+	}
+	tabKeys = {
+		Category.INVENTORY_KEY,
+		Category.CREATIONS_KEY,
+	}
+elseif FFlagToolboxShowRobloxCreatedAssetsForLuobu and showRobloxCreatedAssets() then
+	tabs = {
+		Category.MARKETPLACE,
+		Category.INVENTORY_WITH_GROUPS,
+		Category.CREATIONS,
+	}
+	tabKeys = {
+		Category.MARKETPLACE_KEY,
+		Category.INVENTORY_KEY,
+		Category.CREATIONS_KEY,
+	}
 else
-	local function checkBounds(index)
-		return index and index >= 1 and index <= #Category.INVENTORY_WITH_GROUPS
-	end
+	tabs = {
+		Category.MARKETPLACE,
+		Category.INVENTORY_WITH_GROUPS,
+		Category.RECENT,
+		Category.CREATIONS,
+	}
+	tabKeys = {
+		Category.MARKETPLACE_KEY,
+		Category.INVENTORY_KEY,
+		Category.RECENT_KEY,
+		Category.CREATIONS_KEY,
+	}
+end
 
-	function Category.categoryIsPackage(index, currentTab)
-		local categoryKey = FFlagFixGroupPackagesCategoryInToolbox and Category.INVENTORY_KEY or Category.MARKETPLACE_KEY
-		return checkBounds(index) and currentTab == categoryKey and
-			Category.INVENTORY_WITH_GROUPS[index].assetType == Category.AssetType.PACKAGE
+for index, tab in ipairs(tabs) do
+	for _, category in ipairs(tab) do
+		tabForCategoryName[category.name] = tab
+		tabKeyForCategoryName[category.name] = tabKeys[index]
 	end
+end
 
-	function Category.categoryIsFreeAsset(index)
-		return checkBounds(index) and Category.INVENTORY_WITH_GROUPS[index].ownershipType == Category.OwnershipType.FREE
+function Category.getTabForCategoryName(categoryName)
+	return tabForCategoryName[categoryName] or Category.CREATIONS
+end
+function Category.getTabKeyForCategoryName(categoryName)
+	return tabKeyForCategoryName[categoryName] or Category.CREATIONS_KEY
+end
+
+function Category.getCategoryByName(categoryName)
+	local category = categoryByName[categoryName]
+	if not category and DebugFlags.shouldDebugWarnings() then
+		warn(("Lua Toolbox: no category for name %s"):format(tostring(categoryName)))
 	end
+	return category
+end
 
-	function Category.categoryIsGroupAsset(currentTab, index)
-		if currentTab == Category.CREATIONS_KEY then
-			local categories = Category.getCategories(currentTab, {})
-			if categories[index] == nil then
-				return false
-			end
-			return categories[index].ownershipType == Category.OwnershipType.GROUP
+function Category.getCategoryIndex(categoryName, roles)
+	if categoryName == "" then
+		return 1
+	end
+	local tabKey = Category.getTabKeyForCategoryName(categoryName)
+	local tab = Category.getCategories(tabKey, roles)
+	for index, category in ipairs(tab) do
+		if category.name == categoryName then
+			return index
 		end
-		return checkBounds(index) and
-			Category.INVENTORY_WITH_GROUPS[index].ownershipType == Category.OwnershipType.GROUP
 	end
-
-	function Category.categoryIsAudio(currentTab, index)
-		if currentTab == Category.MARKETPLACE_KEY then
-			return checkBounds(index) and Category.MARKETPLACE[index].assetType == Category.AssetType.AUDIO
-		else
-			return checkBounds(index) and Category.INVENTORY_WITH_GROUPS[index].assetType == Category.AssetType.AUDIO
-		end
+	if DebugFlags.shouldDebugWarnings() then
+		warn(("Lua Toolbox: no category index for name %s"):format(tostring(categoryName)))
 	end
+	return 1
+end
 
-	function Category.categoryIsPlugin(currentTab, index)
-		if currentTab == Category.MARKETPLACE_KEY then
-			return checkBounds(index) and Category.MARKETPLACE[index].assetType == Category.AssetType.PLUGIN
-		else
-			return checkBounds(index) and Category.INVENTORY_WITH_GROUPS[index].assetType == Category.AssetType.PLUGIN
-		end
-	end
+function Category.categoryIsPackage(categoryName)
+	local category = Category.getCategoryByName(categoryName)
+	return category.assetType == Category.AssetType.PACKAGE
+end
 
-	function Category.categoryIsVideo(category, index)
-		return category and category[index] and category[index].assetType == Category.AssetType.VIDEO
-	end
+function Category.categoryIsFreeAsset(categoryName)
+	local category = Category.getCategoryByName(categoryName)
+	return category.ownershipType == Category.OwnershipType.FREE
+end
 
-	function Category.shouldShowPrices(currentTab, index)
-		if FFlagFixToolboxPluginScaling then
-			local isPlugins = Category.categoryIsPlugin(currentTab, index)
-			local showPrices = isPlugins and currentTab == Category.MARKETPLACE_KEY
-			return showPrices
-		else
-			return Category.categoryIsPlugin(currentTab, index)
-		end
+function Category.categoryIsGroupAsset(categoryName)
+	local category = Category.getCategoryByName(categoryName)
+	return category.ownershipType == Category.OwnershipType.GROUP
+end
+
+function Category.categoryIsAudio(categoryName)
+	local category = Category.getCategoryByName(categoryName)
+	return category.assetType == Category.AssetType.AUDIO
+end
+
+function Category.categoryIsVideo(categoryName)
+	local category = Category.getCategoryByName(categoryName)
+	return category.assetType == Category.AssetType.VIDEO
+end
+
+function Category.categoryIsGroupPackages(categoryName)
+	local category = Category.getCategoryByName(categoryName)
+	return category.assetType == Category.AssetType.GROUP_PACKAGES
+end
+
+function Category.categoryIsPlugin(categoryName)
+	local category = Category.getCategoryByName(categoryName)
+	return category.assetType == Category.AssetType.PLUGIN
+end
+
+function Category.shouldShowPrices(categoryName)
+	if FFlagFixToolboxPluginScaling then
+		local isPlugins = Category.categoryIsPlugin(categoryName)
+		local tab = Category.getTabForCategoryName(categoryName)
+		local showPrices = isPlugins and tab == Category.MARKETPLACE
+		return showPrices
+	else
+		return Category.categoryIsPlugin(categoryName)
 	end
 end
 
@@ -540,7 +474,7 @@ function Category.getCategories(tabName, roles)
 	elseif Category.MARKETPLACE_KEY == tabName then
 		return Category.MARKETPLACE
 	elseif Category.INVENTORY_KEY == tabName then
-		return FFlagUseCategoryNameInToolbox and Category.INVENTORY_WITH_GROUPS or Category.INVENTORY
+		return Category.INVENTORY_WITH_GROUPS
 	elseif Category.RECENT_KEY == tabName then
 		return Category.RECENT
 	end

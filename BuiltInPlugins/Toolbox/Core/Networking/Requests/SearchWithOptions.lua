@@ -4,6 +4,7 @@ local Cryo = require(Plugin.Libs.Cryo)
 local Category = require(Plugin.Core.Types.Category)
 local RequestReason = require(Plugin.Core.Types.RequestReason)
 
+local PageInfoHelper = require(Plugin.Core.Util.PageInfoHelper)
 local UpdatePageInfoAndSendRequest = require(Plugin.Core.Networking.Requests.UpdatePageInfoAndSendRequest)
 
 local ClearAssets = require(Plugin.Core.Actions.ClearAssets)
@@ -18,14 +19,30 @@ local showRobloxCreatedAssets = require(Plugin.Core.Util.ToolboxUtilities).showR
 
 local FFlagToolboxShowRobloxCreatedAssetsForLuobu = game:GetFastFlag("ToolboxShowRobloxCreatedAssetsForLuobu")
 local FFlagFixCreatorTypeParameterForAssetRequest = game:DefineFastFlag("FixCreatorTypeParameterForAssetRequest", false)
+local FFlagToolboxFixCreatorSearchResults = game:GetFastFlag("ToolboxFixCreatorSearchResults")
 
 local function searchUsers(networkInterface, searchTerm, store)
-	return networkInterface:getUsers(searchTerm, 1):andThen(function(result)
+	-- For some usernames, other accounts might appear above them in the search results, so fetch more results to be safe.
+	-- 3 results corresponds with the number of results returned from the LiveSearchDropdown.
+	local totalToFetch = FFlagToolboxFixCreatorSearchResults and 3 or 1
+
+	return networkInterface:getUsers(searchTerm, totalToFetch):andThen(function(result)
 		local data = result.responseBody
 		if data then
 			local userSearchResults = data.UserSearchResults
 			if userSearchResults and #userSearchResults > 0 then
-				local info = userSearchResults[1]
+				local index = 1
+				if FFlagToolboxFixCreatorSearchResults then
+					local lcaseSearch = string.lower(searchTerm)
+					for i, userInfo in ipairs(userSearchResults) do
+						if string.lower(userInfo.Name) == lcaseSearch then
+							index = i
+							break
+						end
+					end
+				end
+
+				local info = userSearchResults[index]
 				return {
 					Name = info.Name,
 					Id = info.UserId,
@@ -55,28 +72,50 @@ return function(networkInterface, settings, options)
 		end
 
 		if options.Creator and options.Creator ~= "" then
-			searchUsers(networkInterface, options.Creator, store):andThen(
-				function(results)
-					store:dispatch(SetLoading(false))
-					store:dispatch(UpdatePageInfoAndSendRequest(networkInterface, settings, {
-						audioSearchInfo = audioSearchInfo,
-						targetPage = 1,
-						currentPage = 0,
-						creator = results,
-						sortIndex = options.SortIndex or 1, -- defualt to 1
-						requestReason = RequestReason.StartSearch,
-					}))
+			local updateSearchResultsHandler = function(creatorInfo)
+				store:dispatch(SetLoading(false))
+				store:dispatch(UpdatePageInfoAndSendRequest(networkInterface, settings, {
+					audioSearchInfo = audioSearchInfo,
+					targetPage = 1,
+					currentPage = 0,
+					creator = creatorInfo,
+					sortIndex = options.SortIndex or 1, -- defualt to 1
+					requestReason = RequestReason.StartSearch,
+				}))
 
-					Analytics.onCreatorSearched(options.Creator, results.Id)
-				end,
-				function(err)
-					-- We should still handle the error if searchUser fails.
-				end)
+				Analytics.onCreatorSearched(creatorInfo.Name, creatorInfo.Id)
+			end
 
+			if FFlagToolboxFixCreatorSearchResults then
+				if type(options.Creator) == "string" then
+					-- we don't really know who the creator is, so fetch the first result based on their name
+					searchUsers(networkInterface, options.Creator, store):andThen(
+						updateSearchResultsHandler,
+						function(err)
+							-- We should still handle the error if searchUser fails.
+						end)
+
+				elseif type(options.Creator == "table") then
+					-- assume we've gotten the creator details from the dropdown already
+					local details = {
+						Name = options.Creator.Name,
+						Id = options.Creator.Id,
+						Type = FFlagFixCreatorTypeParameterForAssetRequest and CreatorInfoHelper.clientToBackend(Enum.CreatorType.User.Value) or Enum.CreatorType.User.Value,
+					}
+					updateSearchResultsHandler(details)
+				end
+				
+			else
+				searchUsers(networkInterface, options.Creator, store):andThen(
+					updateSearchResultsHandler,
+					function(err)
+						-- We should still handle the error if searchUser fails.
+					end)
+			end
 		else
 			local creator = Cryo.None
 			if FFlagToolboxShowRobloxCreatedAssetsForLuobu and showRobloxCreatedAssets() then
-				local currentTab = store:getState().pageInfo.currentTab
+				local currentTab = PageInfoHelper.getCurrentTab(store:getState().pageInfo)
 				if currentTab == Category.MARKETPLACE_KEY then
 					creator = Category.CREATOR_ROBLOX
 				end

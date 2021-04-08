@@ -17,7 +17,9 @@
 		int NextPageRequestDistance - space left in layout before making request to fetch more elements
 		int CanvasHeight - used to specify height of canvas.
 		Roact ref LayoutRef - used to calculate the height of the canvas.
+		Color3 BackgroundColor - If provided, we show this color as the background of the frame with BackgroundTransparency = 0
 ]]
+local FFlagStudioEnableBadgesInMonetizationPage = game:GetFastFlag("StudioEnableBadgesInMonetizationPage")
 
 local Library = script.Parent.Parent
 local Roact = require(Library.Parent.Parent.Roact)
@@ -103,13 +105,16 @@ function InfiniteScrollingFrame:render()
 	elseif props.CanvasHeight then
 		canvasHeight = props.CanvasHeight
 	end
+	
+	local backgroundColor = FFlagStudioEnableBadgesInMonetizationPage and props.BackgroundColor or nil
 
     return Roact.createElement(StyledScrollingFrame, {
         Position = position,
 		Size = size,
 		LayoutOrder = layoutOrder,
 		CanvasSize = UDim2.new(1, 0, 0, canvasHeight),
-        ZIndex = 1,
+		ZIndex = 1,
+		BackgroundColor = backgroundColor,
 
 		ScrollingEnabled = true,
 

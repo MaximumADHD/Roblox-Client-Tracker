@@ -88,4 +88,4 @@ local function mapDispatchToProps(dispatch)
 	}
 end
 
-return RoactRodux.UNSTABLE_connect2(nil, mapDispatchToProps)(ScreenSizeConnector)
+return RoactRodux.connect(nil, mapDispatchToProps)(ScreenSizeConnector)

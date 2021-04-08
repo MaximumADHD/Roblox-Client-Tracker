@@ -21,7 +21,6 @@
 ]]
 
 local FFlagRemoveAudioEndorsedIcon = game:GetFastFlag("RemoveAudioEndorsedIcon")
-local FFlagUseCategoryNameInToolbox = game:GetFastFlag("UseCategoryNameInToolbox")
 local FFlagToolboxFixShowNilCreationStatus2 = game:DefineFastFlag("ToolboxFixShowNilCreationStatus2", false)
 
 local Plugin = script.Parent.Parent.Parent.Parent
@@ -37,7 +36,6 @@ local ContextHelper = require(Util.ContextHelper)
 local ContextGetter = require(Util.ContextGetter)
 local DebugFlags = require(Util.DebugFlags)
 local getTimeString = require(Util.getTimeString)
-local PageInfoHelper = require(Util.PageInfoHelper)
 local AssetAnalyticsContextItem = require(Util.Analytics.AssetAnalyticsContextItem)
 
 local withTheme = ContextHelper.withTheme
@@ -179,12 +177,7 @@ function Asset:render()
 
 			local votingProps = props.voting or {}
 			local showVotes = votingProps.ShowVotes
-			local isCurrentlyCreationsTab
-			if FFlagUseCategoryNameInToolbox then
-				isCurrentlyCreationsTab = Category.getTabForCategoryName(props.categoryName) == Category.CREATIONS
-			else
-				isCurrentlyCreationsTab = Category.CREATIONS_KEY == props.currentTab
-			end
+			local isCurrentlyCreationsTab = Category.getTabForCategoryName(props.categoryName) == Category.CREATIONS
 			if isCurrentlyCreationsTab then
 				showVotes = false
 			end
@@ -206,13 +199,8 @@ function Asset:render()
 			local layoutOrder = props.LayoutOrder
 			local isHovered = props.isHovered
 
-			local showPrices
-			if FFlagUseCategoryNameInToolbox then
-				showPrices = Category.shouldShowPrices(props.categoryName)
-			else
-				showPrices = Category.shouldShowPrices(props.currentTab, props.categoryIndex)
-			end
-
+			local showPrices = Category.shouldShowPrices(props.categoryName)
+			
 			local assetOutlineHeight = showVotes and Constants.ASSET_OUTLINE_EXTRA_HEIGHT_WITH_VOTING
 				or Constants.ASSET_OUTLINE_EXTRA_HEIGHT
 			if showStatus then
@@ -426,8 +414,7 @@ local function mapStateToProps(state, props)
 	local assetId = props.assetId
 
 	local pageInfo = state.pageInfo or {}
-	local categoryIndex = (not FFlagUseCategoryNameInToolbox) and (pageInfo.categoryIndex or 1)
-	local categoryName = FFlagUseCategoryNameInToolbox and (pageInfo.categoryName or Category.DEFAULT.name) or nil
+	local categoryName = pageInfo.categoryName or Category.DEFAULT.name
 	local searchTerm = pageInfo.searchTerm or ""
 
 	local cachedOwnedAssets = state.purchase.cachedOwnedAssets
@@ -439,10 +426,8 @@ local function mapStateToProps(state, props)
 	return {
 		asset = idToAssetMap[assetId],
 		voting = voting[assetId] or {},
-		categoryIndex = (not FFlagUseCategoryNameInToolbox) and (categoryIndex),
 		categoryName = categoryName,
 		searchTerm = searchTerm,
-		currentTab = PageInfoHelper.getCurrentTab(pageInfo),
 		ownsAsset = ownsAsset,
 		canManage = canManage,
 		isLoading = (sound.currentSoundId == assetId) and sound.isLoading or false,

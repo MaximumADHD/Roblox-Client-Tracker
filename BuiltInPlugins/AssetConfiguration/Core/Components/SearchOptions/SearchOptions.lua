@@ -36,6 +36,8 @@ local AudioSearch = require(Plugin.Core.Components.SearchOptions.AudioSearch)
 local SearchOptionsEntry = require(Plugin.Core.Components.SearchOptions.SearchOptionsEntry)
 local SearchOptionsFooter = require(Plugin.Core.Components.SearchOptions.SearchOptionsFooter)
 
+local FFlagToolboxFixCreatorSearchResults = game:GetFastFlag("ToolboxFixCreatorSearchResults")
+
 local SearchOptions = Roact.PureComponent:extend("SearchOptions")
 
 SearchOptions.defaultProps = {
@@ -54,6 +56,7 @@ function SearchOptions:init(initialProps)
 	self.containerRef = Roact.createRef()
 	self.currentLayout = 0
 	self.searchTerm = initialProps.LiveSearchData.searchTerm
+	self.extraSearchDetails = {}
 
 	local audioSearchInfo = self.props.audioSearchInfo
 	self.state = {
@@ -71,8 +74,10 @@ function SearchOptions:init(initialProps)
 		modal.onSearchOptionsMouse(false)
 	end
 
-	self.updateSearch = function(searchTerm)
+	self.updateSearch = function(searchTerm, extraDetails)
 		self.searchTerm = searchTerm
+		self.extraSearchDetails = extraDetails
+
 		if self.props.updateSearch then
 			self.props.updateSearch(searchTerm)
 		end
@@ -109,6 +114,15 @@ function SearchOptions:init(initialProps)
 				minDuration = self.state.minDuration,
 				maxDuration = self.state.maxDuration,
 			}
+		end
+
+		if FFlagToolboxFixCreatorSearchResults then
+			if self.extraSearchDetails and next(self.extraSearchDetails) ~= nil then
+				options.Creator = {
+					Name = self.extraSearchDetails.Name,
+					Id = self.extraSearchDetails.Id,
+				}
+			end
 		end
 
 		self:setState({

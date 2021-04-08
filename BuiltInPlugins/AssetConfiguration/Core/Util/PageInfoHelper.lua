@@ -1,6 +1,3 @@
---!nocheck
---^ Remove this hot comment with FFlagUseCategoryNameInToolbox
-
 local Plugin = script.Parent.Parent.Parent
 
 local deepEqual = require(Plugin.Libs.Framework.Util.deepEqual)
@@ -10,59 +7,29 @@ local AssetConfigConstants = require(Plugin.Core.Util.AssetConfigConstants)
 local Category = require(Plugin.Core.Types.Category)
 local Constants = require(Plugin.Core.Util.Constants)
 
-local FFlagUseCategoryNameInToolbox = game:GetFastFlag("UseCategoryNameInToolbox")
 local FFlagToolboxDisableMarketplaceAndRecentsForLuobu = game:GetFastFlag("ToolboxDisableMarketplaceAndRecentsForLuobu")
 
 local PageInfoHelper = {}
 
 function PageInfoHelper.getCurrentTab(pageInfo)
-	local currentTab
-	if FFlagUseCategoryNameInToolbox then
-		currentTab = Category.getTabKeyForCategoryName(pageInfo.categoryName)
-	else
-		local currentTabDefault = FFlagToolboxDisableMarketplaceAndRecentsForLuobu and Constants.DEFAULT_TAB or Category.MARKETPLACE_KEY
-		currentTab = pageInfo.currentTab or currentTabDefault
-	end
+	local currentTab = Category.getTabKeyForCategoryName(pageInfo.categoryName)
 	return currentTab
 end
+function PageInfoHelper.getCategory(categoryName)
+	local category = Category.getCategoryByName(categoryName)
 
-if FFlagUseCategoryNameInToolbox then
-
-	function PageInfoHelper.getCategory(categoryName)
-		local category = Category.getCategoryByName(categoryName)
-
-		if not category or not category.category then
-			if DebugFlags.shouldDebugWarnings() then
-				warn(("Lua toolbox: No category for category name %s"):format(tostring(categoryName)))
-			end
-			return ""
+	if not category or not category.category then
+		if DebugFlags.shouldDebugWarnings() then
+			warn(("Lua toolbox: No category for category name %s"):format(tostring(categoryName)))
 		end
-
-		return category.category
+		return ""
 	end
 
-	function PageInfoHelper.getCategoryForPageInfo(pageInfo)
-		return PageInfoHelper.getCategory(pageInfo.categoryName)
-	end
+	return category.category
+end
 
-else
-
-	function PageInfoHelper.getCategory(categories, index)
-		local category = categories[index]
-		if not category or not category.category then
-			if DebugFlags.shouldDebugWarnings() then
-				warn(("Lua toolbox: No category for category index %s"):format(tostring(index)))
-			end
-			return ""
-		end
-
-		return category.category
-	end
-
-	function PageInfoHelper.getCategoryForPageInfo(pageInfo)
-		return PageInfoHelper.getCategory(pageInfo.categories, pageInfo.categoryIndex)
-	end
-
+function PageInfoHelper.getCategoryForPageInfo(pageInfo)
+	return PageInfoHelper.getCategory(pageInfo.categoryName)
 end
 
 function PageInfoHelper.getSortType(sorts, index)
@@ -103,17 +70,11 @@ function PageInfoHelper.getGroupIdForPageInfo(pageInfo)
 end
 
 function PageInfoHelper.getEngineAssetTypeForPageInfoCategory(pageInfo)
-	local category = FFlagUseCategoryNameInToolbox
-		and Category.getCategoryByName(pageInfo.categoryName)
-		or pageInfo.categories[pageInfo.categoryIndex]
+	local category = Category.getCategoryByName(pageInfo.categoryName)
 
 	if not category or not category.assetType then
 		if DebugFlags.shouldDebugWarnings() then
-			if FFlagUseCategoryNameInToolbox then
-				warn(("Lua toolbox: No assetType for category name %s"):format(tostring(pageInfo.categoryName)))
-			else
-				warn(("Lua toolbox: No assetType for category index %s"):format(tostring(pageInfo.categoryIndex)))
-			end
+			warn(("Lua toolbox: No assetType for category name %s"):format(tostring(pageInfo.categoryName)))
 		end
 		return nil
 	end
@@ -142,12 +103,7 @@ function PageInfoHelper.getRequestInfo(pageInfo)
 	local targetPage = pageInfo.targetPage or 1
 	local sortType = PageInfoHelper.getSortTypeForPageInfo(pageInfo) or ""
 
-	local categoryIsGroup
-	if FFlagUseCategoryNameInToolbox then
-		categoryIsGroup = Category.categoryIsGroupAsset(pageInfo.categoryName)
-	else
-		categoryIsGroup = Category.categoryIsGroupAsset(pageInfo.currentTab, pageInfo.categoryIndex)
-	end
+	local categoryIsGroup = Category.categoryIsGroupAsset(pageInfo.categoryName)
 	local groupId = categoryIsGroup
 		and PageInfoHelper.getGroupIdForPageInfo(pageInfo)
 		or 0

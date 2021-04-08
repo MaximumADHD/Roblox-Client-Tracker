@@ -29,6 +29,8 @@ local withLocalization = ContextHelper.withLocalization
 local SearchBar = require(Plugin.Core.Components.SearchBar.SearchBar)
 local LiveSearchDropdown = require(Plugin.Core.Components.SearchOptions.LiveSearchDropdown)
 
+local FFlagToolboxFixCreatorSearchResults = game:GetFastFlag("ToolboxFixCreatorSearchResults")
+
 local LiveSearchBar = Roact.PureComponent:extend("LiveSearchBar")
 
 local DROPDOWN_OFFSET = 26
@@ -37,18 +39,37 @@ function LiveSearchBar:init(initialProps)
 	self.state = {
 		currentText = initialProps.searchTerm or "",
 		showDropdown = false,
+		extraDetails = FFlagToolboxFixCreatorSearchResults and {} or nil,
 	}
 
 	self.frameRef = Roact.createRef()
 
-	self.onTextChanged = function(text)
+	self.onTextChanged = function(text, extraDetails)
 		if text ~= self.state.currentText then
-			self.props.updateSearch(text)
-			self:setState({
-				currentText = text,
-				showDropdown = true,
-			})
+			if FFlagToolboxFixCreatorSearchResults then
+				self:setState({
+					currentText = text,
+					showDropdown = true,
+					extraDetails = extraDetails or Roact.None,
+				})
+
+				self.props.updateSearch(text, self.state.extraDetails)
+			else
+				self.props.updateSearch(text)
+				self:setState({
+					currentText = text,
+					showDropdown = true,
+				})
+			end
 		end
+	end
+
+	self.onDropdownClicked = function(item)
+		local text = item.Name
+		self.onTextChanged(text, item)
+		self:setState({
+			extraDetails = item,
+		})
 	end
 
 	self.onDeleteTag = function()
@@ -74,7 +95,11 @@ function LiveSearchBar:didUpdate()
 	local currentText = self.state.currentText
 
 	if self.props.searchTerm ~= currentText then
-		self.props.updateSearch(currentText)
+		if FFlagToolboxFixCreatorSearchResults then
+			self.props.updateSearch(currentText, self.state.extraDetails)
+		else
+			self.props.updateSearch(currentText)
+		end
 	end
 end
 
@@ -122,7 +147,7 @@ function LiveSearchBar:render()
 				Position = position,
 				Items = results,
 				SearchTerm = currentText,
-				onItemClicked = self.onTextChanged,
+				onItemClicked = FFlagToolboxFixCreatorSearchResults and self.onDropdownClicked or self.onTextChanged,
 				closeDropdown = self.closeDropdown,
 			}),
 		})

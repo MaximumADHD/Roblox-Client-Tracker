@@ -348,4 +348,4 @@ local function mapDispatchToProps(dispatch)
 	}
 end
 
-return RoactRodux.UNSTABLE_connect2(mapStateToProps, mapDispatchToProps)(LeaderstatsConnector)
+return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(LeaderstatsConnector)

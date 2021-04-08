@@ -6,7 +6,6 @@ local Libs = Plugin.Libs
 local Cryo = require(Libs.Cryo)
 local Rodux = require(Libs.Rodux)
 
-local Constants = require(Plugin.Core.Util.Constants)
 local DebugFlags = require(Plugin.Core.Util.DebugFlags)
 local PageInfoHelper = require(Plugin.Core.Util.PageInfoHelper)
 
@@ -20,7 +19,6 @@ local SetToolboxManageableGroups = require(Actions.SetToolboxManageableGroups)
 local UpdatePageInfo = require(Actions.UpdatePageInfo)
 local SetCurrentPage = require(Actions.SetCurrentPage)
 
-local FFlagUseCategoryNameInToolbox = game:GetFastFlag("UseCategoryNameInToolbox")
 local FFlagToolboxDisableMarketplaceAndRecentsForLuobu = game:GetFastFlag("ToolboxDisableMarketplaceAndRecentsForLuobu")
 
 local disableMarketplaceAndRecents = require(Plugin.Core.Util.ToolboxUtilities).disableMarketplaceAndRecents
@@ -46,12 +44,6 @@ local function warnIfUpdatePageInfoChangesInvalid(state, changes)
 		warn("Lua Toolbox: Cannot change groups array through UpdatePageInfo")
 	end
 
-	if not FFlagUseCategoryNameInToolbox then
-		if changes.categoryIndex and (changes.categoryIndex < 1 or changes.categoryIndex > #state.categories) then
-			warn("Lua Toolbox: categoryIndex out of range in UpdatePageInfo")
-		end
-	end
-
 	if changes.sortIndex and (changes.sortIndex < 1 or changes.sortIndex > #state.sorts) then
 		warn("Lua Toolbox: sortIndex out of range in UpdatePageInfo")
 	end
@@ -61,14 +53,6 @@ local function warnIfUpdatePageInfoChangesInvalid(state, changes)
 	if changes.groupIndex and (changes.groupIndex < (#state.groups > 0 and 1 or 0)
 		or changes.groupIndex > #state.groups) then
 		warn("Lua Toolbox: groupIndex out of range in UpdatePageInfo")
-	end
-
-	if not FFlagUseCategoryNameInToolbox then
-
-		if changes.categoryIndex and not state.categories[changes.categoryIndex] then
-			warn("Lua Toolbox: Changing categoryIndex but category is not valid in UpdatePageInfo")
-		end
-
 	end
 
 	if changes.sortIndex and not state.sorts[changes.sortIndex] then
@@ -89,7 +73,6 @@ end
 return Rodux.createReducer({
 	audioSearchInfo = nil,
 	categories = defaultCategories,
-	categoryIndex = (not FFlagUseCategoryNameInToolbox) and (1) or nil,
 	categoryName = Category.DEFAULT.name,
 
 	searchTerm = "",
@@ -99,8 +82,6 @@ return Rodux.createReducer({
 
 	groups = {},
 	groupIndex = 0,
-
-	currentTab = (not FFlagUseCategoryNameInToolbox) and (Constants.DEFAULT_TAB),
 
 	-- The page I want to load
 	targetPage = 1,
@@ -214,17 +195,8 @@ return Rodux.createReducer({
 				newState.categories = Category.INVENTORY
 			end
 
-			if FFlagUseCategoryNameInToolbox then
-				if newState.categoryName == "" then
-					newState.categoryName = newState.categories[1].name
-				end
-
-			else
-
-				if newState.categoryIndex > #newState.categories then
-					newState.categoryIndex = 1
-				end
-
+			if newState.categoryName == "" then
+				newState.categoryName = newState.categories[1].name
 			end
 		end
 

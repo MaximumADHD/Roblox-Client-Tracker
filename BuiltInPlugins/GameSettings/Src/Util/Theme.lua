@@ -238,7 +238,15 @@ function Theme.createValues(theme, getColor)
 
 			badges = {
 				headerPadding = 20,
-				titlePadding = 12
+				titlePadding = 12,
+				refreshButton = {
+					icon = isDark and "rbxasset://textures/GameSettings/refresh_dark_theme.png" 
+						or "rbxasset://textures/GameSettings/refresh_light_theme.png",
+					offset = {
+						x = - 10,
+					},
+					size = 18,
+				},
 			},
 
 			dropDown = {

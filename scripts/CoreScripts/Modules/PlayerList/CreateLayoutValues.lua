@@ -129,6 +129,20 @@ return function(isTenFoot)
 		LayoutValues.ScrollBarSize = 8
 	end
 
+	LayoutValues.TopBarOffset = 36
+
+	LayoutValues.PlayerDropDownSizeXMobile = 327
+	LayoutValues.ScrollBarSizeMobile = 2
+	LayoutValues.PlayerNameSizeXMobile = 194
+	LayoutValues.PlayerIconSizeMobile = UDim2.fromOffset(20, 20)
+	LayoutValues.PlayerNameTextSizeMobile = 16
+	LayoutValues.StatTextSizeMobile = 16
+	LayoutValues.PlayerNamePaddingXMobile = 14
+	LayoutValues.TeamEntryTextPadding = 15
+	LayoutValues.TeamEntryTextPaddingMobile = 14
+	LayoutValues.RowHoverColor = Color3.fromRGB(0, 0, 0)
+	LayoutValues.RowDefaultColor = Color3.fromRGB(84, 84, 84)
+
 	LayoutValues.MaxLeaderstats = 4
 	LayoutValues.MaxLeaderstatsSmallScreen = 1
 

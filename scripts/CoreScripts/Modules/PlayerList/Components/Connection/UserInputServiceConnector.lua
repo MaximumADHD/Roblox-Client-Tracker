@@ -51,4 +51,4 @@ local function mapDispatchToProps(dispatch)
 	}
 end
 
-return RoactRodux.UNSTABLE_connect2(nil, mapDispatchToProps)(UserInputServiceConnector)
+return RoactRodux.connect(nil, mapDispatchToProps)(UserInputServiceConnector)

@@ -52,13 +52,18 @@ local AddChange = require(Plugin.Src.Actions.AddChange)
 local AddErrors = require(Plugin.Src.Actions.AddErrors)
 local DiscardError = require(Plugin.Src.Actions.DiscardError)
 local SetEditDevProductId = require(Plugin.Src.Actions.SetEditDevProductId)
+local SetComponentLoadState = require(Plugin.Src.Actions.SetComponentLoadState)
 
 local LoadDeveloperProducts = require(Page.Thunks.LoadDeveloperProducts)
 local LoadBadges = FFlagStudioEnableBadgesInMonetizationPage and require(Page.Thunks.LoadBadges) or nil
+
 local AddDevSubKeyChange = require(Page.Thunks.AddDevSubKeyChange)
 local AddDevSubKeyError = require(Page.Thunks.AddDevSubKeyError)
 local AddDevSubChange = require(Page.Thunks.AddDevSubChange)
 
+local Container = FrameworkUI.Container
+local LoadingIndicator = UILibrary.Component.LoadingIndicator
+local LoadState = require(Plugin.Src.Util.LoadState)
 local ShouldAllowBadges = require(Plugin.Src.Util.GameSettingsUtilities).shouldAllowBadges
 
 local HttpService = game:GetService("HttpService")
@@ -66,6 +71,7 @@ local HttpService = game:GetService("HttpService")
 local Monetization = Roact.PureComponent:extend(script.name)
 
 local LOCALIZATION_ID = "Monetization"
+local BADGES = "Badges"
 
 --[[
     TODO 7/16/2020 Fetch these values from the BE so we don't need to keep syncing with BE whenever they change
@@ -156,7 +162,7 @@ local function loadSettings(store, contextItems)
     if FFlagStudioEnableBadgesInMonetizationPage then
         table.insert(settingsLoadJobs, function(loadedSettings)
             assert(FFlagStudioEnableBadgesInMonetizationPage)
-            
+
             if ShouldAllowBadges() then
                 local badges, cursor = monetizationController:getBadges(gameId)
 
@@ -299,6 +305,7 @@ local function loadValuesToProps(getValue, state)
         editedSubscriptionKey = getValue("editedSubscriptionKey"),
 
         Badges = FFlagStudioEnableBadgesInMonetizationPage and state.Settings.Current.badges or nil,
+        BadgeLoadState = FFlagStudioEnableBadgesInMonetizationPage and state.ComponentLoadState.Badges or nil
     }
 
     return loadedProps
@@ -426,6 +433,14 @@ local function dispatchChanges(setValue, dispatch)
             
             dispatch(LoadBadges())
         end,
+        
+        RefreshBadges = FFlagStudioEnableBadgesInMonetizationPage and function()
+            assert(FFlagStudioEnableBadgesInMonetizationPage)
+            
+            dispatch(SetComponentLoadState(BADGES, LoadState.Loading))
+            dispatch(LoadBadges(true))
+            dispatch(SetComponentLoadState(BADGES, LoadState.Loaded))
+        end or nil,
 
         SetDevSubKey = function(devSubKey, valueKey, value)
             dispatch(AddDevSubKeyChange(devSubKey, valueKey, value))
@@ -608,6 +623,8 @@ end
 --Uses props to display current settings values
 local function displayMonetizationPage(props)
     local localization = props.Localization
+    local theme = props.Theme:get("Plugin")
+    
     local taxRate = props.TaxRate
     local minimumFee = props.MinimumFee
 
@@ -636,12 +653,14 @@ local function displayMonetizationPage(props)
     local setEditDevProductId = props.SetEditDevProductId
     local loadMoreDevProducts = props.LoadMoreDevProducts
 
-    local badgesForTable, numberOfBadges, loadMoreBadges
+    local badgesForTable, numberOfBadges, loadMoreBadges, refreshBadges, badgeLoadState
     local showBadges = FFlagStudioEnableBadgesInMonetizationPage and ShouldAllowBadges()
 
     if showBadges then
         badgesForTable, numberOfBadges = convertBadgesForTable(props.Badges)
         loadMoreBadges = props.LoadMoreBadges
+        refreshBadges = props.RefreshBadges
+        badgeLoadState = props.BadgeLoadState
     end
 
     local developerSubscriptionCreated = props.OnDeveloperSubscriptionCreated
@@ -656,11 +675,20 @@ local function displayMonetizationPage(props)
     end
 
     return {
-        Badges = showBadges and Roact.createElement(Badges, {
+        BadgesLoadingIndicatorContainer = showBadges and badgeLoadState == LoadState.Loading and Roact.createElement(Container, {
+            Size = UDim2.new(1, 0, 0, theme.table.height/2)
+        }, {
+            BadgesLoadingIndicator = Roact.createElement(LoadingIndicator, {
+                AnchorPoint = Vector2.new(0.5, 0.5),
+                Position = UDim2.fromScale(0.5, 0.5),
+            })
+        }),
+        
+        Badges = showBadges and badgeLoadState ~= LoadState.Loading and Roact.createElement(Badges, {
             BadgeList = badgesForTable,
             LayoutOrder = layoutIndex:getNextOrder(),
             OnLoadMoreBadges = loadMoreBadges,
-            ShowTable = numberOfBadges ~= 0
+            RefreshBadges = refreshBadges,
         }),
 
         Separator =  showBadges and Roact.createElement(Separator, {

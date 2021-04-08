@@ -31,6 +31,8 @@ local RoundFrame = require(Plugin.Core.Components.RoundFrame)
 
 local LiveSearchEntry = require(Plugin.Core.Components.SearchOptions.LiveSearchEntry)
 
+local FFlagToolboxFixCreatorSearchResults = game:GetFastFlag("ToolboxFixCreatorSearchResults")
+
 local LiveSearchDropdown = Roact.PureComponent:extend("LiveSearchDropdown")
 
 function LiveSearchDropdown:init(props)
@@ -60,7 +62,11 @@ function LiveSearchDropdown:addEntry(entries, index, data, height)
 		LayoutOrder = index,
 		closeDropdown = self.closeDropdown,
 		onClick = function()
-			self.onItemClicked(itemName)
+			if FFlagToolboxFixCreatorSearchResults then
+				self.onItemClicked(data)
+			else
+				self.onItemClicked(itemName)
+			end
 		end,
 	})
 

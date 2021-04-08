@@ -166,19 +166,17 @@ function MoveHandles:mouseDown(mouseRay, handleId)
 		self:_setupMoveAtCurrentBoundingBox(mouseRay)
 
 		local handleProps = self._handles[handleId]
-		local handleOffset, handleLength
-		local offsetDueToBoundingBox
 		if getEngineFeatureModelPivotVisual() then
-			handleOffset, handleLength =
+			local handleOffset, handleLength =
 				MoveHandleView.getHandleDimensionForScale(handleProps.Scale, self._props.Outset)
-			offsetDueToBoundingBox = -handleProps.OffsetInHandleSpace.Z
+			self._draggingHandleFrac = (self._startDistance - handleOffset) / handleLength
 		else
-			handleOffset, handleLength =
+			local handleOffset, handleLength =
 				MoveHandleView.getHandleDimensionForScale(handleProps.Scale)
-			offsetDueToBoundingBox = handleProps.AxisOffset
+			local offsetDueToBoundingBox = handleProps.AxisOffset
+			self._draggingHandleFrac =
+				(self._startDistance - handleOffset - offsetDueToBoundingBox) / handleLength
 		end
-		self._draggingHandleFrac =
-			(self._startDistance - handleOffset - offsetDueToBoundingBox) / handleLength
 	end
 
 	self._implementation:beginDrag(self._selectionWrapper:get(), self._selectionInfo)
@@ -245,24 +243,23 @@ function MoveHandles:_solveForAdjustedDistance(unadjustedDistance)
 		local baseCFrameAtDistance =
 			EngineFeatureModelPivotVisual and
 			(boundingBoxAtDistance * handleRotation * offsetInHandleSpace) or
-			(boundingBoxAtDistance * handleRotation *
-			CFrame.new(0, 0, -offsetDueToBoundingBox))
+			(boundingBoxAtDistance * handleRotation * CFrame.new(0, 0, -offsetDueToBoundingBox))
 		return self._draggerContext:getHandleScale(baseCFrameAtDistance.Position)
 	end
 
 	local function getHandleFracForDistance(distance)
 		local scale = getScaleForDistance(distance)
-		local handleOffset, handleLength
 		if EngineFeatureModelPivotVisual then
-			handleOffset, handleLength =
+			local handleOffset, handleLength =
 				MoveHandleView.getHandleDimensionForScale(scale, self._props.Outset)
+
+			local movementAmount = distance - self._startDistance
+			local handleTailInAxis = movementAmount + handleOffset
+
+			return (unadjustedDistance - handleTailInAxis) / handleLength
 		else
-			handleOffset, handleLength = MoveHandleView.getHandleDimensionForScale(scale)
-		end
-		local intoDist = unadjustedDistance - distance + self._startDistance
-		if EngineFeatureModelPivotVisual then
-			return (intoDist - handleOffset + offsetInHandleSpace.Z) / handleLength
-		else
+			local handleOffset, handleLength = MoveHandleView.getHandleDimensionForScale(scale)
+			local intoDist = unadjustedDistance - distance + self._startDistance
 			return (intoDist - handleOffset - offsetDueToBoundingBox) / handleLength
 		end
 	end

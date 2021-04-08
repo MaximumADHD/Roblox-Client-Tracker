@@ -33,6 +33,7 @@ return {
 	LeaveGamePromptPageKey = "LeaveGamePrompt",
 	MainPagePageKey = "MainPage",
 	InitalPageKey = "InitalPage",
+	ReportDialogKey = "ReportDialog",
 
 	AnalyticsTargetName = "client",
 	AnalyticsInGameMenuName = "ingame_menu",

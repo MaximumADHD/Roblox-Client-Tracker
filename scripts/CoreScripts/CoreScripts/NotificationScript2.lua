@@ -41,6 +41,8 @@ local GetFFlagRemoveInGameFollowingEvents = require(RobloxGui.Modules.Flags.GetF
 local GetFixGraphicsQuality = require(RobloxGui.Modules.Flags.GetFixGraphicsQuality)
 local isNewGamepadMenuEnabled = require(RobloxGui.Modules.Flags.isNewGamepadMenuEnabled)
 
+local shouldSaveScreenshotToAlbum = require(RobloxGui.Modules.shouldSaveScreenshotToAlbum)
+
 local RobloxTranslator = require(RobloxGui:WaitForChild("Modules"):WaitForChild("RobloxTranslator"))
 
 local function LocalizedGetString(key, rtv)
@@ -797,30 +799,32 @@ end
 local allowScreenshots = not PolicyService:IsSubjectToChinaPolicies()
 
 if allowScreenshots then
-	game.ScreenshotReady:Connect(function(path)
+	-- Otherwise game.ScreenshotSavedToAlbum signal will be fired, handling in CaptureNotification.lua
+	if not shouldSaveScreenshotToAlbum() then
+		game.ScreenshotReady:Connect(function(path)
+			local titleText = "Screenshot Taken"
+			local descriptionText = "Check out your screenshots folder to see it."
+			local buttonText = "Open Folder"
 
-		local titleText = "Screenshot Taken"
-		local descriptionText = "Check out your screenshots folder to see it."
-		local buttonText = "Open Folder"
-
-		if FFlagLocalizeVideoRecordAndScreenshotText then
-			titleText = RobloxTranslator:FormatByKey("NotificationScript2.Screenshot.Title")
-			descriptionText = RobloxTranslator:FormatByKey("NotificationScript2.Screenshot.Description")
-			buttonText = RobloxTranslator:FormatByKey("NotificationScript2.Screenshot.ButtonText")
-		end
-
-		sendNotificationInfo {
-			Title = titleText,
-			Text = descriptionText,
-			Duration = 3.0,
-			Button1Text = buttonText,
-			Callback = function(text)
-				if text == buttonText then
-					game:OpenScreenshotsFolder()
-				end
+			if FFlagLocalizeVideoRecordAndScreenshotText then
+				titleText = RobloxTranslator:FormatByKey("NotificationScript2.Screenshot.Title")
+				descriptionText = RobloxTranslator:FormatByKey("NotificationScript2.Screenshot.Description")
+				buttonText = RobloxTranslator:FormatByKey("NotificationScript2.Screenshot.ButtonText")
 			end
-		}
-	end)
+
+			sendNotificationInfo {
+				Title = titleText,
+				Text = descriptionText,
+				Duration = 3.0,
+				Button1Text = buttonText,
+				Callback = function(text)
+					if text == buttonText then
+						game:OpenScreenshotsFolder()
+					end
+				end
+			}
+		end)
+	end
 
 	settings():GetService("GameSettings").VideoRecordingChangeRequest:Connect(function(value)
 		if not value then

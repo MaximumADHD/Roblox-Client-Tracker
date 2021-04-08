@@ -23,7 +23,17 @@ function Selection:Set(objects)
 end
 
 function Selection:Get()
-	return self.selectedTrackInstances and deepCopy(self.selectedTrackInstances) or SelectionService:Get()
+	local currSelection = SelectionService:Get()
+	local containsNonParts = false
+	for _, selectedObject in pairs(currSelection) do
+		if selectedObject ~= nil and selectedObject:IsA("BasePart") == false then
+			containsNonParts = true
+		end
+	end
+	if containsNonParts then
+		currSelection = {}
+	end
+	return self.selectedTrackInstances and deepCopy(self.selectedTrackInstances) or currSelection
 end
 
 function Selection:GetActiveInstance()

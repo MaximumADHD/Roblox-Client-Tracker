@@ -17,6 +17,9 @@
         function MenuItemsFilterFunc(row, menuItems) = A callback that filters the menu items based on row data. 
                                                        No return value - just remove unecessary items from menuItems. Don't modify row
         int TableHeight = Custom table height that will overrule default, which is theme.table.height
+        string EmptyText = Text to display over the table if there no rows to display
+        ImageButton HeaderButton = Button displayed in the top right corner of the table, e.g. a button to refresh the table
+        bool showTableBackground = If true, we show the table background
 ]]
 
 local FFlagFixRadioButtonSeAndTableHeadertForTesting = game:getFastFlag("FixRadioButtonSeAndTableHeadertForTesting")
@@ -37,7 +40,7 @@ local ContextServices = require(Framework.ContextServices)
 local TableWithMenuItem = require(Plugin.Src.Components.TableWithMenuItem)
 local TableWithMenu = Roact.PureComponent:extend("TableWithMenu")
 
-function TableWithMenu:createHeaderLabels(theme, headers)
+function TableWithMenu:createHeaderLabels(theme, headers, headerButton)
     local headerLabels = {
         HeaderLayout = Roact.createElement("UIListLayout", {
             FillDirection = Enum.FillDirection.Horizontal,
@@ -71,6 +74,16 @@ function TableWithMenu:createHeaderLabels(theme, headers)
             headerLabels[i] = header
         end
     end
+    
+    if FFlagStudioEnableBadgesInMonetizationPage and headerButton then
+        local frame = Roact.createElement("Frame", {
+            BackgroundTransparency = 1,
+            LayoutOrder = #headers + 1,
+            Size = UDim2.new( 0, 0, 1, 0),
+        }, {headerButton})
+
+        headerLabels[#headers + 1] = frame
+    end
 
     return headerLabels
 end
@@ -86,6 +99,8 @@ function TableWithMenu:createDataLabels(data, menuItems, onItemClicked, menuItem
             [Roact.Ref] = self.layoutRef,
         })
     }
+    
+    local dataCount = 0
     for id, rowData in pairs(data) do
         local filteredMenuItems
         
@@ -108,9 +123,17 @@ function TableWithMenu:createDataLabels(data, menuItems, onItemClicked, menuItem
             Icon = FFlagStudioEnableBadgesInMonetizationPage and rowData.icon or nil
         })
         dataRows[id] = rowComponent
+        
+        if FFlagStudioEnableBadgesInMonetizationPage then
+            dataCount = dataCount + 1
+        end
     end
 
-    return dataRows
+    if FFlagStudioEnableBadgesInMonetizationPage then
+        return dataRows, dataCount
+    else
+        return dataRows
+    end
 end
 
 function TableWithMenu:init()
@@ -130,10 +153,18 @@ function TableWithMenu:render()
     local MenuItemsFilterFunc = FFlagStudioDevProductCopyIdToClipboard and props.MenuItemsFilterFunc or nil
 
     local nextPageRequestDistance = FFlagStudioEnableBadgesInMonetizationPage and props.ScrollingFrameNextPageRequestDistance or nil
+    local headerButton = FFlagStudioEnableBadgesInMonetizationPage and props.HeaderButton or nil
     local tableHeight = FFlagStudioEnableBadgesInMonetizationPage and props.TableHeight or theme.table.height
+    local showTableBackground = FFlagStudioEnableBadgesInMonetizationPage and props.ShowTableBackground or nil
 
-    local headerContent = self:createHeaderLabels(theme, headers)
-    local dataContent = self:createDataLabels(data, menuItems, onItemClicked, MenuItemsFilterFunc)
+    local headerContent = self:createHeaderLabels(theme, headers, headerButton)
+    local dataContent, dataCount = self:createDataLabels(data, menuItems, onItemClicked, MenuItemsFilterFunc)
+    
+    local emptyText = (FFlagStudioEnableBadgesInMonetizationPage and dataCount == 0 and props.EmptyText) or nil
+    local backgroundColor = showTableBackground and theme.table.item.background or nil
+
+    -- EmptyTextBox and ScrollingContainer below both use this size
+    local size = UDim2.new(1, 0, 1, -theme.table.header.height)
 
     return Roact.createElement("Frame", {
         Size = UDim2.new(1, 0, 0, tableHeight),
@@ -157,9 +188,10 @@ function TableWithMenu:render()
             LayoutOrder = 1,
         }, headerContent),
 
-        ScrollingContainer = Roact.createElement(InfiniteScrollingFrame, {
-            Size = UDim2.new(1, 0, 1, -theme.table.header.height),
-            BackgroundTransparency = 1,
+        ScrollingContainer = not emptyText and Roact.createElement(InfiniteScrollingFrame, {
+            Size = size,
+            BackgroundTransparency = FFlagStudioEnableBadgesInMonetizationPage and 0 or 1,
+            BackgroundColor = backgroundColor,
 
             LayoutRef = self.layoutRef,
             CanvasHeight = theme.table.height,
@@ -168,7 +200,18 @@ function TableWithMenu:render()
             NextPageRequestDistance = nextPageRequestDistance,
             
             LayoutOrder = 2,
-        }, dataContent)
+        }, dataContent),
+        
+        EmptyTextBox = emptyText and Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Smaller, {
+            Size = size,
+            LayoutOrder = 2,
+            Text = emptyText,
+            BackgroundTransparency = showTableBackground and 0 or 1,
+            BackgroundColor3 = backgroundColor,
+            BorderColor3 = backgroundColor,
+            TextXAlignment = Enum.TextXAlignment.Center,
+            TextTruncate = Enum.TextTruncate.AtEnd,
+        }), {})
     })
 end
 

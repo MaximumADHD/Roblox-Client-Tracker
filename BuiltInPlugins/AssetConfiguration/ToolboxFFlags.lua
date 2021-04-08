@@ -2,13 +2,12 @@
 -- If the flags are defined in main, then it's possible for the tests run first
 -- And then error when trying to use flags that aren't yet defined
 
+game:DefineFastFlag("AssetConfigOverrideFromAnyScreen", false)
 game:DefineFastFlag("FixAssetConfigManageableGroups", false)
 game:DefineFastFlag("ShowAssetConfigReasons2", false)
 game:DefineFastFlag("DebugAssetConfigNetworkError", false)
 game:DefineFastFlag("AssetConfigFixRoactTypeChecks", false)
 
-game:DefineFastFlag("EnableDefaultSortFix2", false)
-game:DefineFastFlag("UseCategoryNameInToolbox", false)
 game:DefineFastFlag("DebugToolboxGetRolesRequest", false)
 
 game:DefineFastFlag("EnableToolboxAssetNameColorChange", false)
@@ -18,7 +17,6 @@ game:DefineFastFlag("CMSPremiumBenefitsLink2", false)
 game:DefineFastFlag("CMSFixAssetPreviewForThumbnailConfig", false)
 
 game:DefineFastFlag("ToolboxFixOneSecondAudioMaxDuration", false)
-game:DefineFastFlag("ToolboxForceSelectDragger", false)
 
 game:DefineFastFlag("DebugToolboxEnableRoactChecks", false)
 
@@ -46,19 +44,16 @@ game:DefineFastFlag("ToolboxUseGetItemDetails", false)
 
 game:DefineFastFlag("EnableToolboxStylizer", false)
 
-game:DefineFastFlag("ToolboxPreventCameraMoveForScripts", false)
 game:DefineFastFlag("ToolboxStopAudioFromPlayingOnCloseAndCategorySwitch", false)
 
-
 game:DefineFastFlag("ToolboxCreationsFreshChecks", false)
-
-game:DefineFastFlag("ToolboxUseDevFrameworkDialogs", false)
 
 game:DefineFastFlag("ToolboxNewResponseFreshChecks", false)
 
 game:DefineFastFlag("ToolboxMarkLoadingInitially", false)
 
 game:DefineFastFlag("AssetConfigNonCatalogOptionalDescription", false)
+game:DefineFastFlag("ToolboxFixCreatorSearchResults", false)
 
 game:DefineFastFlag("ToolboxAssetGridUseFirstOccurrence", false)
 

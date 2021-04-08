@@ -10,8 +10,6 @@
 		function onClose = A callback for when the user clicks outside of the
 			preview to close it.
 ]]
-local FFlagEnableDefaultSortFix2 = game:GetFastFlag("EnableDefaultSortFix2")
-local FFlagUseCategoryNameInToolbox = game:GetFastFlag("UseCategoryNameInToolbox")
 
 local StudioService = game:GetService("StudioService")
 
@@ -336,7 +334,6 @@ function AssetPreviewWrapper:init(props)
 		local assetName = asset.Name
 		local assetTypeId = asset.TypeId
 
-		local categoryIndex = (not FFlagUseCategoryNameInToolbox) and (self.props.categoryIndex)
 		local categoryName = self.props.categoryName
 
 		local owned = self.props.Owned
@@ -352,21 +349,14 @@ function AssetPreviewWrapper:init(props)
 			})
 		end
 
-		local currentCategoryName = nil
-		if FFlagUseCategoryNameInToolbox then
-			currentCategoryName = categoryName
-		else
-			currentCategoryName = PageInfoHelper.getCategory(self.props.categories, categoryIndex)
-		end
-
+		local currentCategoryName = categoryName
+		
 		local success = InsertAsset.tryInsert({
 			assetId = assetId,
 			assetVersionId = assetVersionId,
 			assetName = assetName,
 			assetTypeId = assetTypeId,
-			currentTab = (not FFlagUseCategoryNameInToolbox) and (self.props.currentTab),
-			categoryIndex = (not FFlagUseCategoryNameInToolbox) and (FFlagEnableDefaultSortFix2 and categoryIndex or nil),
-			categoryName = FFlagUseCategoryNameInToolbox and categoryName or nil,
+			categoryName = categoryName,
 			currentCategoryName = currentCategoryName,
 			onSuccess = function()
 				self.props.AssetAnalytics:get():logInsert(assetData, "PreviewClickInsertButton")
@@ -612,11 +602,6 @@ local function mapStateToProps(state, props)
 	local voting = state.voting or {}
 
 	local categories = nil
-	local categoryIndex
-	if not FFlagUseCategoryNameInToolbox then
-		categories = pageInfo.categories or {}
-		categoryIndex = pageInfo.categoryIndex or 1
-	end
 
 	local votingProp
 
@@ -628,10 +613,8 @@ local function mapStateToProps(state, props)
 
 	local stateToProps = {
 		categories = categories,
-		categoryIndex = categoryIndex,
-		categoryName = FFlagUseCategoryNameInToolbox and (pageInfo.categoryName or Category.DEFAULT.name) or nil,
+		categoryName = pageInfo.categoryName or Category.DEFAULT.name,
 		previewModel = previewModel or nil,
-		currentTab = PageInfoHelper.getCurrentTab(pageInfo),
 		canManage = canManage,
 		previewPluginData = assets.previewPluginData,
 		assetId = assetId,

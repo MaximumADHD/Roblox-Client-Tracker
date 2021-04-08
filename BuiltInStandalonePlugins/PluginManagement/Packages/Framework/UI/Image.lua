@@ -2,6 +2,10 @@
 	A Decoration image.
 
 	Optional Props:
+		string Image: The image asset itself.
+		UDim2 Size: size of the image
+		Vector2 AnchorPoint: The anchor point of the image.
+		UDim2 Position: position of the image
 		Theme Theme: A Theme ContextItem, which is provided via mapToProps.
 		Style Style: The style with which to render this component.
 		StyleModifier StyleModifier: The StyleModifier index into Style.
@@ -45,15 +49,15 @@ function Image:render()
 
 	local color = style.Color
 	local transparency = style.Transparency
-	local image = style.Image
+	local image = props.Image or style.Image
 	local imageRectSize = style.ImageRectSize
 	local imageRectOffset = style.ImageRectOffset
 	local scaleType = style.ScaleType
 	local sizeConstraint = props.SizeConstraint
 	local sliceCenter = style.SliceCenter
-	local anchorPoint = style.AnchorPoint
-	local position = style.Position or UDim2.new(0, 0, 0, 0)
-	local size = style.Size or UDim2.new(1, 0, 1, 0)
+	local anchorPoint = props.AnchorPoint or style.AnchorPoint
+	local position = props.Position or style.Position or UDim2.new(0, 0, 0, 0)
+	local size = props.Size or style.Size or UDim2.new(1, 0, 1, 0)
 	local layoutOrder = props.LayoutOrder
 
 	return Roact.createElement("ImageLabel", {

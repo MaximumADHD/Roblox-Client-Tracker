@@ -11,6 +11,7 @@ local FFlagAssetManagerLuaPlugin = settings():GetFFlag("AssetManagerLuaPlugin")
 local FFlagStudioAssetManagerAddRecentlyImportedView = game:GetFastFlag("StudioAssetManagerAddRecentlyImportedView")
 local FFlagStudioShowHideABTestV2 = game:GetFastFlag("StudioShowHideABTestV2")
 local FFlagStudioAssetManagerUpdateGameName = game:GetFastFlag("StudioAssetManagerUpdateGameName")
+local FFlagStudioAssetManagerShowBadgesTeachingCallout = game:GetFastFlag("StudioAssetManagerShowBadgesTeachingCallout")
 
 if not FFlagAssetManagerLuaPlugin then
 	return
@@ -72,6 +73,17 @@ local localization = ContextServices.Localization.new({
 	translationResourceTable = TranslationReferenceTable,
 })
 
+local calloutController
+if FFlagStudioAssetManagerShowBadgesTeachingCallout then
+	local CalloutController = require(Plugin.Src.Util.CalloutController)
+	calloutController = CalloutController.new()
+
+	local definitionId = "AssetManagerBadgesDevProductCallout"
+	local description = localization:getText("Callout", "BadgesDevProductsDescription")
+
+	calloutController:defineCallout(definitionId, "", description, "")
+end
+
 -- Widget Gui Elements
 local pluginHandle
 local pluginGui
@@ -93,6 +105,7 @@ local function openPluginWindow()
 		uiLibWrapper = UILibraryWrapper.new(),
 		store = store,
 		mouse = plugin:getMouse(),
+		calloutController = calloutController,
 	}, {
 		MainView = Roact.createElement(MainView, {}),
 	})
@@ -205,7 +218,7 @@ local function main()
 
 	pluginGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 	pluginGui:GetPropertyChangedSignal("Enabled"):connect(showIfEnabled)
-
+	
 	-- configure the widget and button if its visible
 	showIfEnabled()
 

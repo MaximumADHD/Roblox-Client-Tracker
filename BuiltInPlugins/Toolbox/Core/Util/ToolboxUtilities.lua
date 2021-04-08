@@ -1,7 +1,21 @@
 local FFlagStudioCreatePluginPolicyService = game:GetFastFlag("StudioCreatePluginPolicyService")
 
+local isCli = require(script.Parent.isCli)
+
 local StudioService = game:GetService("StudioService")
-local ToolboxPolicy = FFlagStudioCreatePluginPolicyService and game:GetService("PluginPolicyService"):getPluginPolicy("Toolbox") or nil
+
+local ToolboxPolicy
+if isCli() then
+    -- PluginPolicyService is not available in roblox-cli. So we set a mock policy (which is the current Global Toolbox policy)
+    ToolboxPolicy = {
+        ShowRobloxCreatedAssets = false,
+        DisableMarketplaceAndRecents = false,
+        MarketplaceDisabledCategories = "FreePlugins;PaidPlugins;Plugins;FreeVideo",
+        Enabled = true
+    }
+else
+    ToolboxPolicy = FFlagStudioCreatePluginPolicyService and game:GetService("PluginPolicyService"):getPluginPolicy("Toolbox") or nil
+end
 
 local ToolboxUtilities =  {}
 

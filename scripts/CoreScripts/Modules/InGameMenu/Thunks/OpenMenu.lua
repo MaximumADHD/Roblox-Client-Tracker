@@ -9,6 +9,12 @@ local SetCurrentPage = require(InGameMenu.Actions.SetCurrentPage)
 
 local GetFFlagInGameFixMenuIconHoverEatKeyboard =
 	require(RobloxGui.Modules.Flags.GetFFlagInGameFixMenuIconHoverEatKeyboard)
+local GetFFlagInGameMenuFixReportAbuseOpenSystemMenu =
+	require(InGameMenu.Flags.GetFFlagInGameMenuFixReportAbuseOpenSystemMenu)
+
+local SHOW_MENU_PAGE_KEY_DENYLIST = {
+	Constants.ReportDialogKey,
+}
 
 return function(value, pageKey)
 	return function(store)
@@ -24,7 +30,13 @@ return function(value, pageKey)
 		else
 			GuiService:SetMenuIsOpen(true, "InGameMenu")
 		end
-		store:dispatch(SetMenuOpenAction(true))
+		if GetFFlagInGameMenuFixReportAbuseOpenSystemMenu() then
+			if not table.find(SHOW_MENU_PAGE_KEY_DENYLIST, pageKey) then
+				store:dispatch(SetMenuOpenAction(true))
+			end
+		else
+			store:dispatch(SetMenuOpenAction(true))
+		end
 		store:dispatch(SetCurrentPage(pageKey))
 		SendAnalytics(Constants.AnalyticsMenuOpenName, Constants.AnalyticsMenuActionName, {
 			source = value,

@@ -34,6 +34,8 @@ local Networking = require(DevFrameworkRoot.Http).Networking
 -- TODO: jbousellam - 3/16/21 - remove with FFlagStudioCreatePluginPolicyService
 local StudioService = game:GetService("StudioService")
 
+local FFlagFixToolboxInCli = game:GetFastFlag("FixToolboxInCli")
+
 local strict = require(DevFrameworkRoot.Util.strict)
 
 -- helper functions
@@ -113,9 +115,24 @@ function RobloxAPI.new(props)
 	return robloxApi
 end
 
--- TODO: jbousellam - 3/16/21 - remove with FFlagStudioCreatePluginPolicyService
-function RobloxAPI:baseURLHasChineseHost()
-    return StudioService:BaseURLHasChineseHost()
+if FFlagFixToolboxInCli then
+	local isCli, _ = pcall(function()
+		game:GetService("ProcessService")
+	end)
+
+	-- TODO: jbousellam - 3/16/21 - remove with FFlagStudioCreatePluginPolicyService
+	function RobloxAPI:baseURLHasChineseHost()
+		if isCli then
+			return false
+		else
+			return StudioService:BaseURLHasChineseHost()
+		end
+	end
+else
+	-- TODO: jbousellam - 3/16/21 - remove with FFlagStudioCreatePluginPolicyService
+	function RobloxAPI:baseURLHasChineseHost()
+		return StudioService:BaseURLHasChineseHost()
+	end
 end
 
 return RobloxAPI

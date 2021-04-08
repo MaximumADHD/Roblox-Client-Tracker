@@ -11,49 +11,21 @@ local StopAllSounds = require(Plugin.Core.Actions.StopAllSounds)
 
 local showRobloxCreatedAssets = require(Plugin.Core.Util.ToolboxUtilities).showRobloxCreatedAssets
 
-local FFlagEnableDefaultSortFix2 = game:GetFastFlag("EnableDefaultSortFix2")
-local FFlagUseCategoryNameInToolbox = game:GetFastFlag("UseCategoryNameInToolbox")
 local FFlagToolboxShowRobloxCreatedAssetsForLuobu = game:GetFastFlag("ToolboxShowRobloxCreatedAssetsForLuobu")
 
-local FFlagFixLuobuVideoCategory = game:DefineFastFlag("FixLuobuVideoCategory", false)
-
-local function isVideo(categoryKey, categories)
-	if FFlagUseCategoryNameInToolbox then
-		return Category.categoryIsVideo(categoryKey)
-	else
-		return Category.categoryIsVideo(categories, categoryKey)
-	end
-end
-
--- TODO rename categoryKey to categoryName when FFlagUseCategoryNameInToolbox is retired
-return function(networkInterface, settings, categoryKey)
+return function(networkInterface, settings, categoryName)
 	return function(store)
 		store:dispatch(StopAllSounds())
 
-		local sortIndex
-		if FFlagUseCategoryNameInToolbox then
-			sortIndex = Sort.getDefaultSortForCategory(categoryKey)
-		else
-			local currentTab = store:getState().pageInfo.currentTab
-			sortIndex = Sort.getDefaultSortForCategory(FFlagEnableDefaultSortFix2 and currentTab or nil, categoryKey)
-		end
-
+		local sortIndex = Sort.getDefaultSortForCategory(categoryName)
+		
 		local creator = nil
 		if FFlagToolboxShowRobloxCreatedAssetsForLuobu and showRobloxCreatedAssets() then
-			local currentTab
-			if FFlagFixLuobuVideoCategory then
-				currentTab = PageInfoHelper.getCurrentTab(store:getState().pageInfo)
+			local currentTab = PageInfoHelper.getCurrentTab(store:getState().pageInfo)
+			if currentTab == Category.MARKETPLACE_KEY and Category.categoryIsVideo(categoryName) then
+				creator = Category.CREATOR_ROBLOX_DEVELOP_API
 			else
-				currentTab = store:getState().pageInfo.currentTab
-			end
-			local categories = store:getState().pageInfo.categories
-
-			if currentTab == Category.MARKETPLACE_KEY then
-				if FFlagFixLuobuVideoCategory and isVideo(categoryKey, categories) then
-					creator = Category.CREATOR_ROBLOX_DEVELOP_API
-				else
-					creator = Category.CREATOR_ROBLOX
-				end
+				creator = Category.CREATOR_ROBLOX
 			end
 		end
 
@@ -63,8 +35,7 @@ return function(networkInterface, settings, categoryKey)
 				settings,
 				{
 					audioSearchInfo = Cryo.None,
-					categoryName = categoryKey,
-					categoryIndex = (not FFlagUseCategoryNameInToolbox) and (categoryKey),
+					categoryName = categoryName,
 					creator = creator,
 					searchTerm = "",
 					sortIndex = sortIndex,

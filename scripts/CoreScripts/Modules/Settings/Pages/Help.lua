@@ -10,6 +10,7 @@
 ------------ FFLAGS -------------------
 local success, result = pcall(function() return settings():GetFFlag('UseNotificationsLocalization') end)
 local FFlagUseNotificationsLocalization = success and result
+local FFlagRemoveBlackBoxSystemMenuHelpTab = game:DefineFastFlag("RemoveBlackBoxSystemMenuHelpTab", false)
 
 -------------- CONSTANTS --------------
 local KEYBOARD_MOUSE_TAG = "KeyboardMouse"
@@ -412,7 +413,11 @@ local function Initialize()
 			elseif scheme == Enum.TouchMovementMode.ClickToMove then
 				-- show that dragging on the screen is to pan the camera
 				-- show that tapping is to move
-				hidden = {BottomHalfDisplay = true, MoveImageDTS = true, JumpLabel = true} -- cant manually jump on ctm
+				if FFlagRemoveBlackBoxSystemMenuHelpTab then
+					hidden = {MoveImageDTS = true, JumpLabel = true} -- cant manually jump on ctm
+				else 
+					hidden = {BottomHalfDisplay = true, MoveImageDTS = true, JumpLabel = true} -- cant manually jump on ctm
+				end
 				helpElements["MoveLabel"].Position = isPortrait and UDim2.new(0.25,-helpElements["MoveLabel"].AbsoluteSize.x/2,0.5,0) or UDim2.new(0.25,-helpElements["MoveLabel"].AbsoluteSize.x/2,0.5,40)
 				helpElements["RotateLabel"].Position = isPortrait and UDim2.new(1,-helpElements["RotateLabel"].AbsoluteSize.x-20,0.02,0) or UDim2.new(0.5,-60,0.02,0)
 				helpElements["UseToolLabel"].Position = isPortrait and UDim2.new(0.75,-helpElements["UseToolLabel"].AbsoluteSize.x/2,0.5,0) or UDim2.new(0.85,-60,0.02,0)
@@ -421,7 +426,11 @@ local function Initialize()
 				helpElements["ZoomLabel"].Position = isPortrait and UDim2.new(0,20,0.02,0) or UDim2.new(0.15,-60,0.02,0)
 			else
 				-- keep the default style, but take portrait mode into account
-				hidden = {BottomHalfDisplay = true, MoveImageDTS = true, MoveImageCTM = true, JumpImage = true} -- if theres a jump button we don't need to do touch gestures, same with thumbstick
+				if FFlagRemoveBlackBoxSystemMenuHelpTab then
+					hidden = {MoveImageDTS = true, MoveImageCTM = true, JumpImage = true} -- if theres a jump button we don't need to do touch gestures, same with thumbstick
+				else
+					hidden = {BottomHalfDisplay = true, MoveImageDTS = true, MoveImageCTM = true, JumpImage = true} -- if theres a jump button we don't need to do touch gestures, same with thumbstick
+				end
 				helpElements["MoveLabel"].Position = isPortrait and UDim2.new(0.06,0,1,-120) or UDim2.new(0.06,0,0.58,0)
 				helpElements["JumpLabel"].Position = isPortrait and UDim2.new(0.94,-helpElements["JumpLabel"].AbsoluteSize.x,1,-120) or UDim2.new(0.8,0,0.58,0)
 				helpElements["RotateLabel"].Position = isPortrait and UDim2.new(1,-helpElements["RotateLabel"].AbsoluteSize.x-20,0.02,0) or UDim2.new(0.5,-60,0.02,0)
@@ -442,20 +451,6 @@ local function Initialize()
 		  ySize = GuiService:GetScreenResolution().y - 100
 		end
 		parentFrame.Size = UDim2.new(1,0,0,ySize)
-
-		local function createDisplayFrame(name, position, size, transparency, color, parent)
-			local frame = utility:Create'Frame'
-			{
-			  BackgroundColor3 = color,
-			  Position = position,
-			  Size = size,
-			  BackgroundTransparency = transparency,
-			  Name = name,
-			  ZIndex = 1,
-			  Parent = parent
-			};
-			return frame
-		end
 
 		local function createTouchLabel(text, position, size, parent)
 			local nameFrame = utility:Create'TextLabel'
@@ -526,7 +521,23 @@ local function Initialize()
 		local ySize = 25
 		if smallScreen then xSizeOffset = 0 end
 
-		createdElements["BottomHalfDisplay"] = createDisplayFrame("BottomHalfFrame", UDim2.new(0,0,0.5,-16), UDim2.new(1,0,1,0), 0.35, Color3.new(0,0,0), parentFrame)
+		if not FFlagRemoveBlackBoxSystemMenuHelpTab then
+			local function createDisplayFrame(name, position, size, transparency, color, parent)
+				local frame = utility:Create'Frame'
+				{
+					BackgroundColor3 = color,
+					Position = position,
+					Size = size,
+					BackgroundTransparency = transparency,
+					Name = name,
+					ZIndex = 1,
+					Parent = parent
+				};
+				return frame
+			end
+
+			createdElements["BottomHalfDisplay"] = createDisplayFrame("BottomHalfFrame", UDim2.new(0,0,0.5,-16), UDim2.new(1,0,1,0), 0.35, Color3.new(0,0,0), parentFrame)
+		end
 
 		-- movement stuff
 		createdElements["MoveLabel"] = createTouchLabel("Move", UDim2.new(0.06,0,0.58,0), UDim2.new(0,77 + xSizeOffset,0,ySize), parentFrame)

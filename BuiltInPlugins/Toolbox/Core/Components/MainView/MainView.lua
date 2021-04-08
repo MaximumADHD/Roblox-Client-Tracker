@@ -26,7 +26,6 @@
 ]]
 
 local FFlagFixToolboxEmptyRender = game:DefineFastFlag("FixToolboxEmptyRender", false)
-local FFlagUseCategoryNameInToolbox = game:GetFastFlag("UseCategoryNameInToolbox")
 local FFlagToolboxShowRobloxCreatedAssetsForLuobu = game:GetFastFlag("ToolboxShowRobloxCreatedAssetsForLuobu")
 
 local GuiService = game:GetService("GuiService")
@@ -119,9 +118,9 @@ function MainView:init(props)
 		self.props.nextPage(networkInterface, settings)
 	end
 
-	self.updateSearch = function(searchTerm)
+	self.updateSearch = function(searchTerm, extraDetails)
 		if not self.props.isSearching then
-			self.props.userSearch(networkInterface, searchTerm)
+			self.props.userSearch(networkInterface, searchTerm, extraDetails)
 		end
 	end
 
@@ -158,12 +157,7 @@ end
 
 function MainView:calculateRenderBounds()
 	local props = self.props
-	local showPrices
-	if FFlagUseCategoryNameInToolbox then
-		showPrices = Category.shouldShowPrices(props.categoryName)
-	else
-		showPrices = Category.shouldShowPrices(props.currentTab, props.categoryIndex)
-	end
+	local showPrices = Category.shouldShowPrices(props.categoryName)
 	local lowerBound, upperBound = Layouter.calculateRenderBoundsForScrollingFrame(self.scrollingFrameRef.current,
 		self.containerWidth, self.headerHeight, showPrices)
 
@@ -209,17 +203,11 @@ function MainView:render()
 		local position = props.Position or UDim2.new(0, 0, 0, 0)
 		local size = props.Size or UDim2.new(1, 0, 1, 0)
 
-		local categoryIndex = (not FFlagUseCategoryNameInToolbox) and (props.categoryIndex or 0)
 		local categoryName = props.categoryName
 		local suggestions = localization:getLocalizedSuggestions(props.suggestions) or {}
 
-		local isCategoryAudio
-		if FFlagUseCategoryNameInToolbox then
-			isCategoryAudio = Category.categoryIsAudio(categoryName)
-		else
-			isCategoryAudio = Category.categoryIsAudio(props.currentTab, categoryIndex)
-		end
-
+		local isCategoryAudio = Category.categoryIsAudio(categoryName)
+		
 		local isLoading = props.isLoading or false
 
 		local maxWidth = props.maxWidth or 0
@@ -238,13 +226,8 @@ function MainView:render()
 
 		local containerWidth = maxWidth - (2 * Constants.MAIN_VIEW_PADDING) - Constants.SCROLLBAR_PADDING
 
-		local showPrices
-		if FFlagUseCategoryNameInToolbox then
-			showPrices = Category.shouldShowPrices(props.categoryName)
-		else
-			showPrices = Category.shouldShowPrices(props.currentTab, props.categoryIndex)
-		end
-
+		local showPrices = Category.shouldShowPrices(props.categoryName)
+		
 		-- Add a bit extra to the container so we can see the details of the assets on the last row
 		local allAssetsHeight = Layouter.calculateAssetsHeight(allAssetCount, containerWidth, showPrices)
 			+ Constants.ASSET_OUTLINE_EXTRA_HEIGHT
@@ -277,12 +260,7 @@ function MainView:render()
 
 		local noResultsDetailProps = nil
 
-		local isPlugin
-		if FFlagUseCategoryNameInToolbox then
-			isPlugin = Category.categoryIsPlugin(props.categoryName)
-		else
-			isPlugin = Category.categoryIsPlugin(props.currentTab, categoryIndex)
-		end
+		local isPlugin = Category.categoryIsPlugin(props.categoryName)
 		if showInfoBanner and isPlugin then
 			noResultsDetailProps = {
 				onLinkClicked = function()
@@ -346,7 +324,6 @@ function MainView:render()
 
 					assetIds = assetIds,
 					searchTerm = searchTerm,
-					categoryIndex = (not FFlagUseCategoryNameInToolbox) and (categoryIndex),
 					categoryName = categoryName,
 
 					ZIndex = 1,
@@ -413,12 +390,10 @@ local function mapStateToProps(state, props)
 		networkErrors = state.networkErrors or {},
 
 		audioSearchInfo = pageInfo.audioSearchInfo,
-		categoryIndex = (not FFlagUseCategoryNameInToolbox) and (pageInfo.categoryIndex or 1),
-		categoryName = FFlagUseCategoryNameInToolbox and (pageInfo.categoryName or Category.DEFAULT.name) or nil,
+		categoryName = pageInfo.categoryName or Category.DEFAULT.name,
 		sortIndex = pageInfo.sortIndex or 1,
 		searchTerm = pageInfo.searchTerm or "",
 		creator = pageInfo.creator,
-		currentTab = (not FFlagUseCategoryNameInToolbox) and (pageInfo.currentTab),
 
 		liveSearchData = liveSearchData or {},
 	}

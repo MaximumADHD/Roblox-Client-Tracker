@@ -70,11 +70,10 @@ function TeamServiceConnector:render()
 
 	local teams = self.state.teams
 
-	-- TODO: Clean this up when Fragments are released.
-	return Roact.createElement("Folder", {}, {
-		TeamChangedConnections = Roact.createElement("Folder", {}, teamChangedConnections),
-		PlayerAddedConnections = Roact.createElement("Folder", {}, playerAddedConnections),
-		PlayerRemovedConnections = Roact.createElement("Folder", {}, playerRemovedConnections),
+	return Roact.createFragment({
+		TeamChangedConnections = Roact.createFragment(teamChangedConnections),
+		PlayerAddedConnections = Roact.createFragment(playerAddedConnections),
+		PlayerRemovedConnections = Roact.createFragment(playerRemovedConnections),
 
 		ServiceAddedConnection = not teams and Roact.createElement(EventConnection, {
 			event = game.ChildAdded,
@@ -165,4 +164,4 @@ local function mapDispatchToProps(dispatch)
 	}
 end
 
-return RoactRodux.UNSTABLE_connect2(mapStateToProps, mapDispatchToProps)(TeamServiceConnector)
+return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(TeamServiceConnector)

@@ -15,7 +15,11 @@
 
 local Framework = script.Parent.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
-local Typecheck = require(Framework.Util).Typecheck
+local Util = require(Framework.Util)
+local Typecheck = Util.Typecheck
+
+local FFlagDevFrameworkBasicMobileSupport = game:GetFastFlag("DevFrameworkBasicMobileSupport")
+local isInputMainPress = Util.isInputMainPress
 
 local InstanceTreeRow = Roact.PureComponent:extend("InstanceTreeRow")
 
@@ -24,8 +28,22 @@ local Container = require(UI.Container)
 local TextLabel = require(UI.TextLabel)
 Typecheck.wrap(InstanceTreeRow, script)
 
+local defaultIcon = {
+	Image = "rbxasset://textures/ClassImages.png",
+	ImageRectOffset = Vector2.new(736, 0),
+	ImageRectSize = Vector2.new(16, 16),
+}
+
+local StudioService = game:GetService("StudioService")
+-- Prevent GetClassIcon throwing an error from crashing the UI
+local canUseGetClassIcon = pcall(function()
+	return StudioService:GetClassIcon("Folder")
+end)
+
 local function getClassIcon(instance)
-	local StudioService = game:GetService("StudioService")
+	if not canUseGetClassIcon then
+		return defaultIcon
+	end
 	local className = instance.ClassName
 	if instance.IsA then
 		if instance:IsA("JointInstance") and className == "ManualWeld" or className == "ManualGlue" then
@@ -53,7 +71,11 @@ function InstanceTreeRow:init()
 	end
 
 	self.onInputBegan = function(frame, input)
-		if input.UserInputType == Enum.UserInputType.MouseButton1 then
+		local isMainPress = input.UserInputType == Enum.UserInputType.MouseButton1
+		if FFlagDevFrameworkBasicMobileSupport then
+			isMainPress = isInputMainPress(input)
+		end
+		if isMainPress then
 			self.props.onSelected(self.props.row)
 		end
 	end

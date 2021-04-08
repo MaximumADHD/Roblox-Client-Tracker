@@ -10,6 +10,8 @@ local Math = require(DraggerFramework.Utility.Math)
 local SelectionWrapper = require(DraggerFramework.Utility.SelectionWrapper)
 local SelectionHelper = require(DraggerFramework.Utility.SelectionHelper)
 
+local getFFlagFoldersOverFragments = require(DraggerFramework.Flags.getFFlagFoldersOverFragments)
+
 local DraggerToolModel = {}
 DraggerToolModel.__index = DraggerToolModel
 
@@ -117,14 +119,23 @@ end
 function DraggerToolModel:render()
 	local selection = self._selectionWrapper:get()
 
-	local coreGuiContent = {}
+	
+	if getFFlagFoldersOverFragments() then
+		return Roact.createElement(Roact.Portal, {
+			target = self._draggerContext:getGuiParent(),
+		}, {
+			DraggerUI = Roact.createElement("Folder", {}, self._stateObject:render()),
+		})
+	else
+		local coreGuiContent = {}
 
-	-- State specific rendering code
-	coreGuiContent.StateSpecificUI = self._stateObject:render()
-
-	return Roact.createElement(Roact.Portal, {
-		target = self._draggerContext:getGuiParent(),
-	}, coreGuiContent)
+		-- State specific rendering code
+		coreGuiContent.StateSpecificUI = self._stateObject:render()
+		
+		return Roact.createElement(Roact.Portal, {
+			target = self._draggerContext:getGuiParent(),
+		}, coreGuiContent)
+	end
 end
 
 -- Called every frame on render step

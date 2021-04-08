@@ -1,5 +1,6 @@
 return function()
 	local FFlagImproveAssetCreationsPageFetching2 = game:GetFastFlag("ImproveAssetCreationsPageFetching2")
+	local FFlagToolboxMarkLoadingInitially = game:GetFastFlag("ToolboxMarkLoadingInitially")
 
 	local Plugin = script.Parent.Parent.Parent
 	local Cryo = require(Plugin.Libs.Cryo)
@@ -174,7 +175,6 @@ return function()
 				searchTerm = "abc",
 				targetPage = 1,
 				searchId = "4581e024-c0f4-4d22-a107-18282b426833",
-				categoryIndex = 1,
 				categoryName = "MyModels",
 				categories = {
 					{
@@ -259,7 +259,7 @@ return function()
 	describe("SetLoading action", function()
 		it("should set loading", function()
 			local state = Assets(nil, {})
-			expect(state.isLoading).to.equal(false)
+			expect(state.isLoading).to.equal(FFlagToolboxMarkLoadingInitially)
 
 			state = Assets(state, SetLoading(false))
 			expect(state.isLoading).to.equal(false)

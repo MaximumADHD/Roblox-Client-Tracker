@@ -16,10 +16,18 @@ local RigUtils = require(Plugin.Src.Util.RigUtils)
 local ErrorDialogContents = require(Plugin.Src.Components.BlockingDialog.ErrorDialogContents)
 
 local showBlockingDialog = require(Plugin.Src.Util.showBlockingDialog)
+local AddWaypoint = require(Plugin.Src.Thunks.History.AddWaypoint)
 
 local RunService = game:GetService("RunService")
 local CoreGui = game:GetService("CoreGui")
 local Selection = game:GetService("Selection")
+local Constants = require(Plugin.Src.Util.Constants)
+local SignalsContext = require(Plugin.Src.Context.Signals)
+local SetSelectedTrackInstances = require(Plugin.Src.Actions.SetSelectedTrackInstances)
+local SetSelectedTracks = require(Plugin.Src.Actions.SetSelectedTracks)
+local DeleteTrack = require(Plugin.Src.Thunks.DeleteTrack)
+
+
 local InstanceSelector = Roact.PureComponent:extend("InstanceSelector")
 
 local function getModel(instance)
@@ -62,7 +70,7 @@ function InstanceSelector:selectValidInstance(validFunc, invalidFunc)
 		local model = getModel(target)
 		if model and not self:isCurrentRootInstance(model) and isValidRig(model) then
 			validFunc(model)
-		else
+		elseif invalidFunc then
 			invalidFunc()
 		end
 	end
@@ -93,6 +101,7 @@ function InstanceSelector:init()
 
 	self.deselect = function()
 		Selection:Set({})
+		SetSelectedTrackInstances({})
 	end
 
 	self.highlightInstance = function(instance)
@@ -111,18 +120,63 @@ function InstanceSelector:init()
 		local selectedInstance = getSelectedInstance()
 		local rigInstance = getModel(selectedInstance)
 		local plugin = self.props.Plugin
+		local selectionSignal = self.props.Signals:get(Constants.SIGNAL_KEYS.SelectionChanged)
+
+		-- if the user clicks the selected rig again, do nothing
+		if selectedInstance == self.props.RootInstance then
+			return
+		end
 
 		if isValidRig(rigInstance) and not self:isCurrentRootInstance(rigInstance) then
 			local hasErrors, errorList = RigUtils.rigHasErrors(rigInstance)
 			if not hasErrors then
 				self.props.UpdateRootInstance(rigInstance, self.props.Analytics)
+				if self.descendantRemoving then
+					self.descendantRemoving:Disconnect()
+				end
+				if self.ancestryChanged then
+					self.ancestryChanged:Disconnect()
+				end
+
+				self.descendantRemoving = rigInstance.DescendantRemoving:Connect(function(descendant)
+					-- if a part of the rig is deleted, delete the track and disable the draggers
+					if descendant:IsA("BasePart") then
+						self.props.DeleteTrack(descendant.Name, self.props.Analytics)
+						SetSelectedTrackInstances({})
+						selectionSignal:Fire()
+					end
+					-- if a motor6d is deleted, delete the track and disable the draggers on the respective part
+					if descendant:IsA("Motor6D") then
+						local part = descendant.Parent
+						self.props.DeleteTrack(part.Name, self.props.Analytics)
+						SetSelectedTrackInstances({})
+						selectionSignal:Fire()
+					end
+				end)
+
+				-- if the selected rig is deleted, delete all tracks,  hide the draggers and deactivate the plugin
+				self.ancestryChanged = rigInstance.AncestryChanged:Connect(function(child, newParent)
+					SetSelectedTrackInstances({})
+					selectionSignal:Fire()
+					for _, track in ipairs(self.props.Tracks) do
+						self.props.DeleteTrack(track.Name, self.props.Analytics)
+					end
+					plugin:get():Deactivate()
+				end)
 				self.deselect()
 			else
 				plugin:get():Deactivate()
 				self:showErrorDialogs(plugin:get(), errorList)
 			end
-		elseif selectedInstance and plugin then
-			plugin:get():Deactivate()
+		-- if the user clicks on a part in the hierarchy, it gets selected and the draggers switch to it. otherwise we deselect the previously selected part
+		elseif Selection:Get() ~= self.props.SelectedTrackInstances and selectedInstance ~= nil then
+			if selectedInstance:IsA("BasePart") then
+				SetSelectedTrackInstances(selectedInstance)
+				selectionSignal:Fire()
+			else
+				SetSelectedTrackInstances({})
+				selectionSignal:Fire()
+			end
 		end
 	end)
 end
@@ -138,7 +192,7 @@ function InstanceSelector:didMount()
 		plugin:get():Activate(true)
 
 		self.MouseButtonDown = self.props.Mouse:get().Button1Down:Connect(function()
-			self:selectValidInstance(self.selectInstance, self.deselect)
+			self:selectValidInstance(self.selectInstance)
 		end)
 	end
 end
@@ -177,22 +231,45 @@ function InstanceSelector:willUnmount()
 	if self.props.Plugin then
 		self.props.Plugin:get():Deactivate()
 	end
+
+	if self.descendantRemoving then
+		self.descendantRemoving:Disconnect()
+	end
+
+	if self.ancestryChanged then
+		self.ancestryChanged:Disconnect()
+	end
 end
 
 ContextServices.mapToProps(InstanceSelector, {
 	Plugin = ContextServices.Plugin,
 	Mouse = ContextServices.Mouse,
 	Analytics = ContextServices.Analytics,
+	Signals = SignalsContext,
 })
 
 local function mapStateToProps(state, props)
 	return {
 		RootInstance = state.Status.RootInstance,
+		SelectedTrackInstances = state.Status.SelectedTrackInstances,
+		Tracks = state.Status.Tracks,
 	}
 end
 
 local function mapDispatchToProps(dispatch)
 	return {
+		SetSelectedTrackInstances = function(tracks)
+			local trackNames = {}
+			for index, track in pairs(tracks) do
+				trackNames[index] = track.Name
+			end
+			dispatch(SetSelectedTrackInstances(tracks))
+			dispatch(SetSelectedTracks(trackNames))
+		end,
+		DeleteTrack = function(trackName, analytics)
+			dispatch(AddWaypoint())
+			dispatch(DeleteTrack(trackName, analytics))
+		end,
 		UpdateRootInstance = function(rootInstance, analytics)
 			dispatch(UpdateRootInstance(rootInstance, analytics))
 		end,

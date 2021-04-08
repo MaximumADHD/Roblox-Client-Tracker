@@ -16,6 +16,7 @@ local Constants = require(Plugin.Src.Util.Constants)
 local ValueChanged = require(Plugin.Src.Thunks.ValueChanged)
 local DraggerSchema = require(Plugin.Src.Util.DraggerSchema.DraggerSchema)
 local SetSelectedTrackInstances = require(Plugin.Src.Actions.SetSelectedTrackInstances)
+local SetSelectedTracks = require(Plugin.Src.Actions.SetSelectedTracks)
 local AddWaypoint = require(Plugin.Src.Thunks.History.AddWaypoint)
 
 local DraggerWrapper = Roact.PureComponent:extend("DraggerWrapper")
@@ -29,7 +30,6 @@ end
 function DraggerWrapper:willUpdate(nextProps)
 	local props = self.props
 	if self.selection and props.SelectedTrackInstances ~= nextProps.SelectedTrackInstances then 
-		self.selection.selectedTrackInstances = nextProps.SelectedTrackInstances
 		Selection:Set(nextProps.SelectedTrackInstances)
 		local selectionSignal = self.props.Signals:get(Constants.SIGNAL_KEYS.SelectionChanged)
 		selectionSignal:Fire()
@@ -108,7 +108,12 @@ end
 local function mapDispatchToProps(dispatch)
 	return {
 		SetSelectedTrackInstances = function(tracks)
+			local trackNames = {}
+			for index, track in pairs(tracks) do
+				trackNames[index] = track.Name
+			end
 			dispatch(SetSelectedTrackInstances(tracks))
+			dispatch(SetSelectedTracks(trackNames))
 		end,
 		ValueChanged = function(instanceName, trackName, frame, value, analytics)
 			dispatch(ValueChanged(instanceName, trackName, frame, value, analytics))

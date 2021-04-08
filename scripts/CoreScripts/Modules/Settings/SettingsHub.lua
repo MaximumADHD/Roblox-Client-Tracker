@@ -53,6 +53,8 @@ local isNewGamepadMenuEnabled = require(RobloxGui.Modules.Flags.isNewGamepadMenu
 
 local isNewInGameMenuEnabled = require(RobloxGui.Modules.isNewInGameMenuEnabled)
 
+local GetFFlagEnableCaptureMode = require(RobloxGui.Modules.Flags.GetFFlagEnableCaptureMode)
+
 --[[ SERVICES ]]
 local RobloxReplicatedStorage = game:GetService("RobloxReplicatedStorage")
 local ContentProvider = game:GetService("ContentProvider")
@@ -1706,6 +1708,13 @@ local function CreateSettingsHub()
 	this.GameSettingsPage = require(RobloxGui.Modules.Settings.Pages.GameSettings)
 	this.GameSettingsPage:SetHub(this)
 
+	local shouldShowCapture = GetFFlagEnableCaptureMode() and not PolicyService:IsSubjectToChinaPolicies()
+
+	if shouldShowCapture then
+		this.CapturePage = require(RobloxGui.Modules.Settings.Pages.Capture)
+		this.CapturePage:SetHub(this)
+	end
+
 	local shouldShowReport = not PolicyService:IsSubjectToChinaPolicies() or FFlagShowInGameReportingLuobu
 
 	if shouldShowReport then
@@ -1761,6 +1770,9 @@ local function CreateSettingsHub()
 	this:AddPage(this.ResetCharacterPage)
 	this:AddPage(this.LeaveGamePage)
 	this:AddPage(this.GameSettingsPage)
+	if this.CapturePage then
+		this:AddPage(this.CapturePage)
+	end
 	if this.ReportAbusePage then
 		this:AddPage(this.ReportAbusePage)
 	end

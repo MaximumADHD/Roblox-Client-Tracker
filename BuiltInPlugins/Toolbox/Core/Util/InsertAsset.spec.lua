@@ -1,5 +1,4 @@
 return function()
-	local FFlagUseCategoryNameInToolbox = game:GetFastFlag("UseCategoryNameInToolbox")
 
 	local Plugin = script.Parent.Parent.Parent
 	local Category = require(Plugin.Core.Types.Category)
@@ -14,7 +13,7 @@ return function()
 				assetName = "UNIT TEST",
 				assetTypeId = Enum.AssetType.Video.Value,
 				onSuccess = function() end,
-				categoryName = FFlagUseCategoryNameInToolbox and Category.MARKETPLACE_VIDEOS.name or nil,
+				categoryName = Category.MARKETPLACE_VIDEOS.name
 			}
 			local success, result = pcall(function()
 				return InsertAsset.doInsertAsset(options, nil)

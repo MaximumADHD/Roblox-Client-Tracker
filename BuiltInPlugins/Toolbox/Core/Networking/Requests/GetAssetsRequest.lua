@@ -1,5 +1,4 @@
 local FFlagImproveAssetCreationsPageFetching2 = game:GetFastFlag("ImproveAssetCreationsPageFetching2")
-local FFlagUseCategoryNameInToolbox = game:GetFastFlag("UseCategoryNameInToolbox")
 local FFlagToolboxCreationsFreshChecks = game:GetFastFlag("ToolboxCreationsFreshChecks")
 
 local Plugin = script.Parent.Parent.Parent.Parent
@@ -88,13 +87,8 @@ return function(networkInterface, pageInfoOnStart)
 	return function(store)
 		store:dispatch(SetLoading(true))
 		local isCreatorSearchEmpty = pageInfoOnStart.creator and pageInfoOnStart.creator.Id == -1
-		local isCreationSearch
-		if FFlagUseCategoryNameInToolbox then
-			isCreationSearch = Category.getTabForCategoryName(pageInfoOnStart.categoryName) == Category.CREATIONS
-		else
-			isCreationSearch = Category.CREATIONS_KEY == pageInfoOnStart.currentTab
-		end
-
+		local isCreationSearch = Category.getTabForCategoryName(pageInfoOnStart.categoryName) == Category.CREATIONS
+		
 		local errorFunc = function(result)
 			if PageInfoHelper.isPageInfoStale(pageInfoOnStart, store) then
 				return
@@ -107,19 +101,9 @@ return function(networkInterface, pageInfoOnStart)
 			-- Base on pageInfoOnStart and current pageInfo, we can decide what to do after the asset is loaded
 			local data = result.responseBody
 			local pageInfo = store:getState().pageInfo
-			local categoryOnStart
-			if FFlagUseCategoryNameInToolbox then
-				categoryOnStart = pageInfoOnStart.categoryName
-			else
-				categoryOnStart = pageInfoOnStart.categories[pageInfoOnStart.categoryIndex]
-			end
-			local categoryOnRequestFinish
-			if FFlagUseCategoryNameInToolbox then
-				categoryOnRequestFinish = pageInfo.categoryName
-			else
-				categoryOnRequestFinish = pageInfo.categories[pageInfo.categoryIndex]
-			end
-
+			local categoryOnStart = pageInfoOnStart.categoryName
+			local categoryOnRequestFinish = pageInfo.categoryName
+			
 			local isResponseFresh = not PageInfoHelper.isPageInfoStale(pageInfoOnStart, store)
 
 			if isResponseFresh then
@@ -196,16 +180,9 @@ return function(networkInterface, pageInfoOnStart)
 			-- We check if we are trying to access
 			local useDevelopAssetAPI = false
 
-			local isAudio
-			local isVideo = false
-			if FFlagUseCategoryNameInToolbox then
-				isAudio = Category.categoryIsAudio(pageInfoOnStart.categoryName)
-				isVideo = Category.categoryIsVideo(pageInfoOnStart.categoryName)
-			else
-				isAudio = Category.categoryIsAudio(pageInfoOnStart.currentTab, pageInfoOnStart.categoryIndex or 1)
-				isVideo = Category.categoryIsVideo(pageInfoOnStart.categories, pageInfoOnStart.categoryIndex or 1)
-			end
-
+			local isAudio = Category.categoryIsAudio(pageInfoOnStart.categoryName)
+			local isVideo = Category.categoryIsVideo(pageInfoOnStart.categoryName)
+			
 			if PageInfoHelper.isDeveloperCategory(pageInfoOnStart)
 				or PageInfoHelper.isPackagesCategory(pageInfoOnStart)
 				or isAudio

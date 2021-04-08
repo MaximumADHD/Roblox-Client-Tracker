@@ -41,6 +41,8 @@ local Constants = require(script.Resources.Constants)
 
 local isNewGamepadMenuEnabled = require(RobloxGui.Modules.Flags.isNewGamepadMenuEnabled)
 local FFlagInspectMenuSubjectToPolicy = require(RobloxGui.Modules.Flags.FFlagInspectMenuSubjectToPolicy)
+local GetFFlagInGameMenuFixReportAbuseOpenSystemMenu =
+	require(script.Flags.GetFFlagInGameMenuFixReportAbuseOpenSystemMenu)
 
 local OpenChangedEvent = Instance.new("BindableEvent")
 local RespawnBehaviourChangedEvent = Instance.new("BindableEvent")
@@ -156,7 +158,11 @@ return {
 	end,
 
 	openReportDialog = function(player)
-		menuStore:dispatch(OpenMenu(Constants.AnalyticsMenuOpenTypes.ReportAbuseTriggered))
+		if GetFFlagInGameMenuFixReportAbuseOpenSystemMenu() then
+			menuStore:dispatch(OpenMenu(Constants.AnalyticsMenuOpenTypes.ReportAbuseTriggered, Constants.ReportDialogKey))
+		else
+			menuStore:dispatch(OpenMenu(Constants.AnalyticsMenuOpenTypes.ReportAbuseTriggered))
+		end
 		menuStore:dispatch(OpenReportDialog(player.UserId, player.Name))
 	end,
 

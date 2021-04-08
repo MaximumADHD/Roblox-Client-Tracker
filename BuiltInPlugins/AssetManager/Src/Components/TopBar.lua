@@ -10,6 +10,7 @@
 local Plugin = script.Parent.Parent.Parent
 
 local FFlagStudioAssetManagerConvertToDevFrameworkTooltips = game:GetFastFlag("StudioAssetManagerConvertToDevFrameworkTooltips")
+local FFlagStudioAssetManagerShowBadgesTeachingCallout = game:GetFastFlag("StudioAssetManagerShowBadgesTeachingCallout")
 
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
@@ -45,6 +46,7 @@ local View = require(Plugin.Src.Util.View)
 local BulkImportService = game:GetService("BulkImportService")
 
 local FFlagStudioAssetManagerAddRecentlyImportedView = game:GetFastFlag("StudioAssetManagerAddRecentlyImportedView")
+local TeachingCallout = FFlagStudioAssetManagerShowBadgesTeachingCallout and require(script.Parent.TeachingCallout) or nil
 
 local TopBar = Roact.PureComponent:extend("TopBar")
 
@@ -141,7 +143,7 @@ function TopBar:render()
             PaddingRight = UDim.new(0, topBarTheme.Padding),
         }),
 
-		ExplorerOverlayButton = Roact.createElement(Button, {
+        ExplorerOverlayButton = Roact.createElement(Button, {
             Size = UDim2.new(0, topBarTheme.Button.Size, 0, topBarTheme.Button.Size),
             AnchorPoint = Vector2.new(0.5, 0.5),
             LayoutOrder = layoutIndex:getNextOrder(),
@@ -333,6 +335,11 @@ function TopBar:render()
             Tooltip = enabled and Roact.createElement(Tooltip, {
                 Text = gridListToggleButtonTooltipText,
                 Enabled = true,
+            }),
+
+            TeachingCallout = FFlagStudioAssetManagerShowBadgesTeachingCallout and Roact.createElement(TeachingCallout, {
+                DefinitionId = "AssetManagerBadgesDevProductCallout",
+                LocationId = "GridListToggleButton",
             }),
         }),
 

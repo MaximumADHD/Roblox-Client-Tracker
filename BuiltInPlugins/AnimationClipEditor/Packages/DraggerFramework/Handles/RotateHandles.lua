@@ -136,7 +136,11 @@ function RotateHandles:update(draggerToolModel, selectionInfo)
 		self._selectionInfo = selectionInfo
 		self._selectionWrapper = draggerToolModel:getSelectionWrapper()
 		self._schema = draggerToolModel:getSchema()
-		self._scale = self._draggerContext:getHandleScale(self._boundingBox.CFrame.Position)
+		if getEngineFeatureModelPivotVisual() then
+			self._scale = self._draggerContext:getHandleScale(cframe.Position)
+		else
+			self._scale = self._draggerContext:getHandleScale(self._boundingBox.CFrame.Position)
+		end
 	end
 	self:_updateHandles()
 end

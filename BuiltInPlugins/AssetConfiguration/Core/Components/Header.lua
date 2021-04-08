@@ -18,7 +18,6 @@
 
 local FFlagToolboxHideSearchForMyPlugins = game:DefineFastFlag("ToolboxHideSearchForMyPlugins", false)
 local FFlagToolboxHideInventorySearchWhenEmpty = game:DefineFastFlag("ToolboxHideInventorySearchWhenEmpty", false)
-local FFlagUseCategoryNameInToolbox = game:GetFastFlag("UseCategoryNameInToolbox")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -60,38 +59,18 @@ function Header:init()
 	local networkInterface = getNetwork(self)
 	local settings
 
-	if FFlagUseCategoryNameInToolbox then
-		self.onCategorySelected = function(index)
-			local categoryName = self.props.categories[index].name
-			if self.props.categoryName ~= categoryName then
-				settings = self.props.Settings:get("Plugin")
+	self.onCategorySelected = function(index)
+		local categoryName = self.props.categories[index].name
+		if self.props.categoryName ~= categoryName then
+			settings = self.props.Settings:get("Plugin")
 
-				Analytics.onCategorySelected(
-					self.props.categoryName,
-					categoryName
-				)
+			Analytics.onCategorySelected(
+				self.props.categoryName,
+				categoryName
+			)
 
-				self.props.selectCategory(networkInterface, settings, categoryName)
-			end
+			self.props.selectCategory(networkInterface, settings, categoryName)
 		end
-
-	else
-
-		self.onCategorySelected = function(index)
-			if self.props.categoryIndex ~= index then
-				settings = self.props.Settings:get("Plugin")
-				local newCategory = PageInfoHelper.getCategory(self.props.categories, index)
-				local currentCategory = PageInfoHelper.getCategory(self.props.categories, self.props.categoryIndex)
-
-				Analytics.onCategorySelected(
-					currentCategory,
-					newCategory
-				)
-
-				self.props.selectCategory(networkInterface, settings, index)
-			end
-		end
-
 	end
 
 	self.onGroupSelected = function(index)
@@ -109,12 +88,7 @@ function Header:init()
 		local creator = self.props.creatorFilter
 		local creatorId = creator and creator.Id or nil
 
-		local category
-		if FFlagUseCategoryNameInToolbox then
-			category = PageInfoHelper.getCategory(self.props.categoryName)
-		else
-			category = PageInfoHelper.getCategory(self.props.categories, self.props.categoryIndex)
-        end
+		local category = PageInfoHelper.getCategory(self.props.categoryName)
 
 		Analytics.onTermSearched(
 			category,
@@ -151,14 +125,7 @@ function Header:render()
 
 			local categories = localization:getLocalizedCategories(props.categories)
 			local categoryName = props.categoryName
-			local categoryIndex
-			if FFlagUseCategoryNameInToolbox then
-				categoryIndex = Category.getCategoryIndex(categoryName, props.roles)
-			else
-				categoryIndex = props.categoryIndex or 0
-			end
-			-- TODO remove currentTab when FFlagUseCategoryNameInToolbox is retired
-			local currentTab = props.currentTab
+			local categoryIndex = Category.getCategoryIndex(categoryName, props.roles)
 			local onCategorySelected = self.onCategorySelected
 
 			local searchTerm = props.searchTerm
@@ -170,13 +137,8 @@ function Header:render()
 			local onGroupSelected = self.onGroupSelected
 
 
-			local showSearchOptions
-			if FFlagUseCategoryNameInToolbox then
-				showSearchOptions = Category.getTabForCategoryName(props.categoryName) == Category.MARKETPLACE
-			else
-				showSearchOptions = currentTab == Category.MARKETPLACE_KEY
-			end
-
+			local showSearchOptions = Category.getTabForCategoryName(props.categoryName) == Category.MARKETPLACE
+			
 			local dropdownWidth = showSearchOptions and Constants.HEADER_DROPDOWN_MIN_WIDTH
 				or Constants.HEADER_DROPDOWN_MAX_WIDTH
 			local optionsButtonWidth = showSearchOptions
@@ -191,38 +153,17 @@ function Header:render()
 					- optionsButtonWidth
 					- Constants.HEADER_INNER_PADDING)
 
-			local isGroupCategory
-			if FFlagUseCategoryNameInToolbox then
-				isGroupCategory = Category.categoryIsGroupAsset(categoryName)
-			else
-				isGroupCategory = Category.categoryIsGroupAsset(currentTab, categoryIndex)
-			end
-
+			local isGroupCategory = Category.categoryIsGroupAsset(categoryName)
 			local headerTheme = theme.header
 
-			local isCreationsTab
-			if FFlagUseCategoryNameInToolbox then
-				isCreationsTab = Category.getTabForCategoryName(categoryName) == Category.CREATIONS
-			else
-				isCreationsTab = currentTab == Category.CREATIONS_KEY
-			end
-			local isInventoryTab
-			if FFlagUseCategoryNameInToolbox then
-				isInventoryTab = Category.getTabForCategoryName(categoryName) == Category.INVENTORY
-			else
-				isInventoryTab = currentTab == Category.INVENTORY_KEY
-			end
-
+			local isCreationsTab = Category.getTabForCategoryName(categoryName) == Category.CREATIONS
+			local isInventoryTab = Category.getTabForCategoryName(categoryName) == Category.INVENTORY
+			
 			local fullWidthDropdown = isCreationsTab and not isGroupCategory
 
 			local showSearchBar
 			if FFlagToolboxHideSearchForMyPlugins then
-				local isPlugins
-				if FFlagUseCategoryNameInToolbox then
-					isPlugins = Category.categoryIsPlugin(categoryName)
-				else
-					isPlugins = Category.categoryIsPlugin(currentTab, categoryIndex)
-				end
+				local isPlugins = Category.categoryIsPlugin(categoryName)
 				showSearchBar = not isGroupCategory and not isCreationsTab
 					and not (isInventoryTab and isPlugins)
 			else
@@ -233,12 +174,7 @@ function Header:render()
 				showSearchBar = false
 			end
 
-			local isRecentsTab
-			if FFlagUseCategoryNameInToolbox then
-				isRecentsTab = Category.getTabForCategoryName(categoryName) == Category.RECENT
-			else
-				isRecentsTab = currentTab == Category.RECENT_KEY
-			end
+			local isRecentsTab = Category.getTabForCategoryName(categoryName) == Category.RECENT
 			if isRecentsTab then
 				showSearchBar = false
 				fullWidthDropdown = true
@@ -310,11 +246,9 @@ end
 function Header:checkRecentAssetInsertion()
 	-- Check if an asset has been inserted since the most recent search was entered
 	if (self.mostRecentSearchRequestTime > self.props.mostRecentAssetInsertTime) then
-		local creator = self.props.creatorFilter
-		local creatorId = creator and creator.Id or nil
 		-- No asset has been added
 		Analytics.onTermSearchedWithoutInsertion(
-			PageInfoHelper.getCategory(self.props.categories, self.props.categoryIndex),
+			PageInfoHelper.getCategory(self.props.categoryName),
 			self.props.searchTerm
 		)
 	end
@@ -351,15 +285,10 @@ function Header:addTabRefreshCallback()
 		local theEvent = getOrCreateTabRefreshEvent(self.props.pluginGui)
 		self.tabRefreshConnection = theEvent.Event:connect(function()
 
-			local categoryKey
-			if FFlagUseCategoryNameInToolbox then
-				categoryKey = self.props.categoryName
-			else
-				categoryKey = self.props.categoryIndex
-			end
-
+			local categoryName = self.props.categoryName
+			
 			local settings = self.props.Settings:get("Plugin")
-			self.props.selectCategory(getNetwork(self), settings, categoryKey)
+			self.props.selectCategory(getNetwork(self), settings, categoryName)
 		end)
 	end
 end
@@ -400,12 +329,10 @@ local function mapStateToProps(state, props)
 
 	return {
 		categories = pageInfo.categories or {},
-		currentTab = PageInfoHelper.getCurrentTab(pageInfo),
-		categoryIndex = (not FFlagUseCategoryNameInToolbox) and (pageInfo.categoryIndex or 0),
-		categoryName = FFlagUseCategoryNameInToolbox and (pageInfo.categoryName or Category.DEFAULT.name) or nil,
+		categoryName = pageInfo.categoryName or Category.DEFAULT.name,
 		hasAssetsInCategory = hasAssetsInCategory,
 		searchTerm = pageInfo.searchTerm or "",
-		roles = FFlagUseCategoryNameInToolbox and state.roles or {},
+		roles = state.roles,
 		groups = pageInfo.groups or {},
 		groupIndex = pageInfo.groupIndex or 0,
 		creatorFilter = pageInfo.creator or {},
@@ -414,9 +341,8 @@ end
 
 local function mapDispatchToProps(dispatch)
 	return {
-		-- TODO rename categoryKey to categoryName when FFlagUseCategoryNameInToolbox is retired
-		selectCategory = function(networkInterface, settings, categoryKey)
-			dispatch(SelectCategoryRequest(networkInterface, settings, categoryKey))
+		selectCategory = function(networkInterface, settings, categoryName)
+			dispatch(SelectCategoryRequest(networkInterface, settings, categoryName))
 		end,
 
 		selectGroup = function(networkInterface, groupIndex)

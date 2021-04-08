@@ -1,4 +1,3 @@
-
 -- Fast flags
 require(script.Parent.defineLuaFlags)
 
@@ -11,17 +10,52 @@ local Plugin = script.Parent.Parent
 local RefactorFlags = require(Plugin.Libs.Framework.Util.RefactorFlags)
 RefactorFlags.THEME_REFACTOR = game:GetFastFlag("EnableToolboxStylizer")
 
+local DebugFlags = require(Plugin.Core.Util.DebugFlags)
+
 local TestsFolderPlugin = Plugin.Core
 
-local SHOULD_RUN_TESTS = false -- Do not check in as true!
+-- This ensures that coverage stats include all module scripts within the plugin.
+-- And also that all ModuleScripts can be loaded without error
+local function requireAllModuleScripts()
+	local descendants = Plugin.Core:GetDescendants()
 
-if SHOULD_RUN_TESTS then
-	local TestEZ = require(Plugin.Packages.Dev.TestEZ)
-	local TestBootstrap = TestEZ.TestBootstrap
-	local TextReporter = TestEZ.Reporters.TextReporterQuiet -- Remove Quiet to see output
+	for _, descendant in ipairs(descendants) do
+		if descendant:IsA("ModuleScript") then
+			require(descendant)
+		end
+	end
+end
 
-	print("----- All " ..Plugin.Name.. " Tests ------")
-	TestBootstrap:run({TestsFolderPlugin}, TextReporter)
-	print("----------------------------------")
+if DebugFlags.shouldRunTests() then
+	local isCli, processService = pcall(function()
+		return game:GetService("ProcessService")
+	end)
+
+	local ok, err = pcall(function()
+		requireAllModuleScripts()
+
+		local TestEZ = require(Plugin.Packages.Dev.TestEZ)
+		local TestBootstrap = TestEZ.TestBootstrap
+		local TeamCityReporter = TestEZ.Reporters.TeamCityReporter
+		local reporter = TestEZ.Reporters.TextReporter
+		if DebugFlags.logTestsQuiet() then
+			reporter = TestEZ.Reporters.TextReporterQuiet
+		end
+
+		reporter = _G["TEAMCITY"] and TeamCityReporter or reporter
+
+		print("----- All " ..Plugin.Name.. " Tests ------")
+		TestBootstrap:run({TestsFolderPlugin}, reporter)
+		print("----------------------------------")
+	end)
+
+	if isCli then
+		if not ok then
+			warn(err)
+		end
+		processService:ExitAsync(ok and 0 or 1)
+	elseif not ok then
+		error(err)
+	end
 end
 

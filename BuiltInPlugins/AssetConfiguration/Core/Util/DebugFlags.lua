@@ -31,9 +31,11 @@ end
 local DebugFlags = {}
 
 function DebugFlags.shouldRunTests()
-	-- Have to wait to make sure workSpace is ready.
-	wait(0.3)
-	return getDebugFlagValue("RunToolboxTests")
+	return getDebugFlagValue("RunTests")
+end
+
+function DebugFlags.logTestsQuiet()
+	return getDebugFlagValue("LogTestsQuiet")
 end
 
 function DebugFlags.shouldDisableTooltips()

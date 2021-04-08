@@ -1,7 +1,6 @@
 local Plugin = script.Parent.Parent.Parent
 
 local getEngineFeatureActiveInstanceHighlight = require(Plugin.Src.Flags.getEngineFeatureActiveInstanceHighlight)
-local getFFlagAlignToolNarrowUI = require(Plugin.Src.Flags.getFFlagAlignToolNarrowUI)
 local getFFlagAlignToolDisabledFix = require(Plugin.Src.Flags.getFFlagAlignToolDisabledFix)
 
 local Roact = require(Plugin.Packages.Roact)
@@ -20,10 +19,6 @@ local UpdateActiveInstanceHighlight = require(Plugin.Src.Thunks.UpdateActiveInst
 local UpdateAlignEnabled = require(Plugin.Src.Thunks.UpdateAlignEnabled)
 
 local AlignmentSettings = Roact.PureComponent:extend("AlignmentSettings")
-
-function AlignmentSettings:init()
-	assert(getFFlagAlignToolNarrowUI())
-end
 
 function AlignmentSettings:render()
 	local props = self.props

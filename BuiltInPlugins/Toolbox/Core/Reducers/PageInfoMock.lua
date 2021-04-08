@@ -3,7 +3,6 @@ local Plugin = script.Parent.Parent.Parent
 local Category = require(Plugin.Core.Types.Category)
 local Sort = require(Plugin.Core.Types.Sort)
 
-local defaultTab = Category.MARKETPLACE_KEY
 local defaultSorts = Sort.SORT_OPTIONS
 local defaultCategories = Category.MARKETPLACE
 
@@ -22,9 +21,6 @@ return function(state, action)
 		groups = {},
 		groupIndex = 0,
 		groupId = 0,
-
-		-- TODO remove currentTab when FFlagUseCategoryNameInToolbox is retired
-		currentTab = defaultTab,
 
 		targetPage = 1,
 		curentPage = 0,

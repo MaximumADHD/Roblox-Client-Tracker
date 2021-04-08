@@ -1,18 +1,15 @@
 --!strict
 type Array<T> = {[number]: T};
 
-return function() 
-    local FFlagUseCategoryNameInToolbox = game:GetFastFlag("UseCategoryNameInToolbox")
+return function()
 
     local AssetAnalytics = require(script.Parent.AssetAnalytics)
 
     local function getStubPageInfo()
         return {
-            currentTab = not FFlagUseCategoryNameInToolbox and "Inventory" or nil,
             searchTerm = "abc",
             targetPage = 1,
             searchId = "4581e024-c0f4-4d22-a107-18282b426833",
-            categoryIndex = 1,
             categoryName = "MyModels",
             categories = {
                 {

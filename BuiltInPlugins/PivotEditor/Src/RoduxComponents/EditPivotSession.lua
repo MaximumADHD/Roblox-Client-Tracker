@@ -17,10 +17,24 @@ local SelectionUpdaterBound = require(Plugin.Src.RoduxComponents.SelectionUpdate
 local BeginSelectingPivot = require(Plugin.Src.Actions.BeginSelectingPivot)
 local DoneSelectingPivot = require(Plugin.Src.Actions.DoneSelectingPivot)
 
+local getFFlagStudioToastNotificationsInLua = require(Plugin.Src.Flags.getFFlagStudioToastNotificationsInLua)
+
 local EditingMode = require(Plugin.Src.Utility.EditingMode)
---local StatusMessage = require(Plugin.Src.Utility.StatusMessage) -- going to need this, commented to silence the code analyzer
+local StatusMessage = require(Plugin.Src.Utility.StatusMessage)
+
+local ToastNotification = require(Plugin.Src.Utility.ToastNotification)
 
 local EditPivotSession = Roact.PureComponent:extend("EditPivotSession")
+
+-- Control which StatusMessages are user facing
+local function shouldShowNotification(statusMessage)
+	assert(getFFlagStudioToastNotificationsInLua())
+	if statusMessage == StatusMessage.None or statusMessage == StatusMessage.NoSelection then
+		return false
+	else
+		return true
+	end
+end
 
 function EditPivotSession:_getCurrentDraggerHandles()
 	if self.props.editingMode == EditingMode.Transform then
@@ -72,13 +86,38 @@ function EditPivotSession:render()
 	return Roact.createFragment(elements)
 end
 
+function EditPivotSession:willUpdate(nextProps, nextState)
+	if getFFlagStudioToastNotificationsInLua() then
+		local statusMessage = self.props.statusMessage
+		local nextStatusMessage = nextProps.statusMessage
+
+		if statusMessage ~= nextStatusMessage then
+			-- If the status is being cleared (set to StatusMessage.None), hide the
+			-- last status message when the status is cleared.
+			if statusMessage ~= StatusMessage.None then
+				-- Has no effect if the notification has already disappeared.
+				self.props.ToastNotification:hideNotification(statusMessage)
+			end
+
+			if shouldShowNotification(nextStatusMessage) then
+				local localization = self.props.Localization
+				local message = localization:getText("Notification", nextStatusMessage)
+				self.props.ToastNotification:showNotification(message, nextStatusMessage)
+			end
+		end
+	end
+end
+
 ContextServices.mapToProps(EditPivotSession, {
+	Localization = ContextServices.Localization,
 	Plugin = ContextServices.Plugin,
+	ToastNotification = ToastNotification,
 })
 
 local function mapStateToProps(state, _)
 	return {
 		editingMode = state.editingMode,
+		statusMessage = state.statusMessage,
 		targetObject = state.targetObject,
 	}
 end

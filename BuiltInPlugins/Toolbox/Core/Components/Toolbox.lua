@@ -9,7 +9,6 @@
 		number initialSelectedSortIndex = 1
 
 		Backgrounds backgrounds
-		Categories categories
 		Suggestions suggestions
 		Sorts sorts
 
@@ -64,7 +63,6 @@ local ContextServices = Framework.ContextServices
 local Settings = require(Plugin.Core.ContextServices.Settings)
 
 local FFlagStudioToolboxPersistBackgroundColor = game:DefineFastFlag("StudioToolboxPersistsBackgroundColor", false)
-local FFlagUseCategoryNameInToolbox = game:GetFastFlag("UseCategoryNameInToolbox")
 
 local FFlagDebugToolboxGetRolesRequest = game:GetFastFlag("DebugToolboxGetRolesRequest")
 local FFlagToolboxDisableMarketplaceAndRecentsForLuobu = game:GetFastFlag("ToolboxDisableMarketplaceAndRecentsForLuobu")
@@ -82,57 +80,33 @@ function Toolbox:handleInitialSettings()
 	local settings = self.props.Settings:get("Plugin")
 	local initialSettings = settings:loadInitialSettings()
 
-	local initialTab
-	if not FFlagUseCategoryNameInToolbox then
-		initialTab = FFlagToolboxDisableMarketplaceAndRecentsForLuobu and Constants.DEFAULT_TAB or Category.MARKETPLACE_KEY
-	end
-	-- TODO remove initialSelectedCategoryIndex when FFlagUseCategoryNameInToolbox is retired
-	local initialSelectedCategoryIndex
 	local initialSelectedSortIndex
 	local initialSearchTerm
 	local initialSelectedBackgroundIndex
 	-- We should reset the categoryName and sortIndex since release of tabs.
-	if not FFlagUseCategoryNameInToolbox then
-		initialSelectedCategoryIndex = 1
-	end
 	initialSelectedSortIndex = 1
 	initialSearchTerm = ""
 	initialSelectedBackgroundIndex = initialSettings.backgroundIndex or 1
 
-	local pageInfoCategories
-	if FFlagUseCategoryNameInToolbox then
-		pageInfoCategories = Category.getTabForCategoryName(initialSettings.categoryName)
-	else
-		if FFlagToolboxDisableMarketplaceAndRecentsForLuobu and disableMarketplaceAndRecents() then
-			pageInfoCategories = Category.INVENTORY_WITH_GROUPS
-		else
-			pageInfoCategories = Category.MARKETPLACE
-		end
-	end
+	local pageInfoCategories = Category.getTabForCategoryName(initialSettings.categoryName)
 
 	local newPageInfo = {
-		currentTab = (not FFlagUseCategoryNameInToolbox) and (initialTab),
 		categories = pageInfoCategories,
-		categoryIndex = (not FFlagUseCategoryNameInToolbox) and (initialSelectedCategoryIndex),
 		categoryName = initialSettings.categoryName,
 		creator = initialSettings.creator,
 		searchTerm = initialSearchTerm,
 		sorts = Sort.SORT_OPTIONS,
 		sortIndex = initialSelectedSortIndex,
-		groupIndex = FFlagUseCategoryNameInToolbox and 1 or 0,
+		groupIndex = 1,
 		targetPage = 1,
 		selectedBackgroundIndex = initialSelectedBackgroundIndex,
 		requestReason = RequestReason.InitLoad,
 	}
 
-	if FFlagUseCategoryNameInToolbox or FFlagToolboxDisableMarketplaceAndRecentsForLuobu then
+	if FFlagToolboxDisableMarketplaceAndRecentsForLuobu then
 		local shouldGetGroups = pageInfoCategories == Category.INVENTORY_WITH_GROUPS or pageInfoCategories == Category.INVENTORY or pageInfoCategories == Category.CREATIONS
 		if shouldGetGroups then
-			if FFlagUseCategoryNameInToolbox then
-				self.props.getToolboxManageableGroups(networkInterface, settings, newPageInfo)
-			else
-				self.props.getToolboxManageableGroups(networkInterface)
-			end
+			self.props.getToolboxManageableGroups(networkInterface, settings, newPageInfo)
 		end
 	end
 
@@ -179,19 +153,6 @@ function Toolbox:init(props)
 
 	local networkInterface = getNetwork(self)
 
-	-- TODO remove determineCategoryIndexOnTabChange when FFlagUseCategoryNameInToolbox is retired
-	local function determineCategoryIndexOnTabChange(tabName, newCategories)
-		if Category.CREATIONS_KEY == tabName then
-			for index, data in ipairs(newCategories) do
-				local isSelectable = data and (nil == data.selectable or data.selectable) -- nil for selectable defalts to selectable true
-				if isSelectable then
-					return index
-				end
-			end
-		end
-		return 1
-	end
-
 	local function determineCategoryNameOnTabChange(tabName, newCategories)
 		if Category.CREATIONS_KEY == tabName then
 			for _, category in ipairs(newCategories) do
@@ -215,12 +176,9 @@ function Toolbox:init(props)
 	end
 
 	self.changeMarketplaceTab = function(tabName, optionsOverrides)
-		-- TODO remove newCategoryIndex when FFlagUseCategoryNameInToolbox is retired
-		local newCategoryIndex = 1
 		-- Change tab will always set categoryName to the first category in the new tab.
 		local newCategories = Category.getCategories(tabName, self.props.roles)
 		local options = Cryo.Dictionary.join({
-			categoryIndex = (not FFlagUseCategoryNameInToolbox) and (determineCategoryIndexOnTabChange(tabName, newCategories) or newCategoryIndex),
 			categoryName = determineCategoryNameOnTabChange(tabName, newCategories),
 			creator = getCreatorOverrideIfNeeded(tabName),
 			searchTerm = "",
@@ -231,19 +189,9 @@ function Toolbox:init(props)
 		local mySettings = self.props.Settings:get("Plugin")
 		self.props.changeMarketplaceTab(networkInterface, tabName, newCategories, mySettings, options)
 
-		local currentCategory
-		if FFlagUseCategoryNameInToolbox then
-			currentCategory = PageInfoHelper.getCategory(self.props.categoryName)
-		else
-			currentCategory = PageInfoHelper.getCategory(self.props.categories, self.props.categoryIndex)
-		end
-
-		local newCategory
-		if FFlagUseCategoryNameInToolbox then
-			newCategory = PageInfoHelper.getCategory(options.categoryName)
-		else
-			newCategory = Category.CREATIONS_KEY == tabName and "" or PageInfoHelper.getCategory(newCategories, newCategoryIndex)
-		end
+		local currentCategory = PageInfoHelper.getCategory(self.props.categoryName)
+		
+		local newCategory = PageInfoHelper.getCategory(options.categoryName)
 
 		Analytics.onCategorySelected(
 			currentCategory,
@@ -271,22 +219,9 @@ function Toolbox:didMount()
 
 	if FFlagPluginManagementDirectlyOpenToolbox then
 		self._showPluginsConnection = MemStorageService:Bind(SharedPluginConstants.SHOW_TOOLBOX_PLUGINS_EVENT, function()
-			local categoryIndex
-			local categoryName
-
-			if FFlagUseCategoryNameInToolbox then
-				categoryName = Category.WHITELISTED_PLUGINS.name
-			else
-				categoryIndex = Cryo.List.find(Category.MARKETPLACE, Category.WHITELISTED_PLUGINS)
-
-				if not categoryIndex then
-					warn("Could not find categoryIndex for plugins to show toolbox plugins")
-					return
-				end
-			end
-
+			local categoryName = Category.WHITELISTED_PLUGINS.name
+			
 			self.changeMarketplaceTab(Category.MARKETPLACE_KEY, {
-				categoryIndex = categoryIndex,
 				categoryName = categoryName,
 			})
 
@@ -310,13 +245,8 @@ function Toolbox:render()
 
 	local backgrounds = props.backgrounds
 	local suggestions = props.suggestions or {}
-	local currentTabKey
-	if FFlagUseCategoryNameInToolbox then
-		currentTabKey = Category.getTabKeyForCategoryName(props.categoryName)
-	else
-		currentTabKey = props.currentTab
-	end
-
+	local currentTabKey = Category.getTabKeyForCategoryName(props.categoryName)
+	
 	local tryOpenAssetConfig = props.tryOpenAssetConfig
 	local pluginGui = props.pluginGui
 
@@ -392,10 +322,7 @@ local function mapStateToProps(state, props)
 	local pageInfo = state.pageInfo or {}
 
 	return {
-		categories = pageInfo.categories or {},
-		categoryIndex = (not FFlagUseCategoryNameInToolbox) and (pageInfo.categoryIndex or 0),
-		categoryName = FFlagUseCategoryNameInToolbox and (pageInfo.categoryName or Category.DEFAULT.name) or nil,
-		currentTab = PageInfoHelper.getCurrentTab(pageInfo),
+		categoryName = pageInfo.categoryName or Category.DEFAULT.name,
 		sorts = pageInfo.sorts or {},
 		roles = state.roles or {}
 	}

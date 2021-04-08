@@ -8,7 +8,6 @@
 local Plugin = script.Parent.Parent.Parent
 
 local getFFlagAlignToolFixHelpIconTheming = require(Plugin.Src.Flags.getFFlagAlignToolFixHelpIconTheming)
-local getFFlagAlignToolNarrowUI = require(Plugin.Src.Flags.getFFlagAlignToolNarrowUI)
 
 local Framework = Plugin.Packages.Framework
 local ContextServices = require(Framework.ContextServices)
@@ -109,17 +108,9 @@ local function makeTheme()
 
 			return {
 				Plugin = Style.new({
-					LabelColumnWidth = not getFFlagAlignToolNarrowUI() and 80 or nil,
-					ContentListItemPadding = not getFFlagAlignToolNarrowUI() and UDim.new(0, 10) or nil,
-
-					-- Size of leading labels "Align In" and "Relative To".
-					-- Once localization is added, we should use the width of the
-					-- localized text from TextService, clamped to a range.
-					SectionLabelSize = not getFFlagAlignToolNarrowUI() and UDim2.fromOffset(80, 20) or nil,
-
-					SectionPadding = getFFlagAlignToolNarrowUI() and UDim.new(0, 15) or nil,
-					SectionContentPadding = getFFlagAlignToolNarrowUI() and UDim.new(0, 10) or nil,
-					SectionContentPaddingCompact = getFFlagAlignToolNarrowUI() and UDim.new(0, 6) or nil,
+					SectionPadding = UDim.new(0, 15),
+					SectionContentPadding = UDim.new(0, 10),
+					SectionContentPaddingCompact = UDim.new(0, 6),
 
 					ErrorTextColor = theme:GetColor("ErrorText"),
 					WarningTextColor = theme:GetColor("WarningText"),
@@ -128,42 +119,16 @@ local function makeTheme()
 					MainView = {
 						ListItemPadding = UDim.new(0, 10),
 						Padding = 10,
-						ButtonContainerPadding = not getFFlagAlignToolNarrowUI() and {
-							Top = 10,
-						} or nil,
-						PrimaryButtonSize = getFFlagAlignToolNarrowUI() and UDim2.new(0, 160, 0, 32)
-							or UDim2.new(0, 200, 0, 32),
+						PrimaryButtonSize = UDim2.new(0, 160, 0, 32),
 					},
 
-					ModeSection = not getFFlagAlignToolNarrowUI() and {
-						ButtonContainerSize = UDim2.fromOffset(175, 55),
-						CellPadding = UDim2.fromOffset(5, 0),
-						CellSize = UDim2.new(0, 55, 0, 55),
-						Size = UDim2.new(1, 0, 0, 60),
-					} or nil,
-
-					AxesSection = not getFFlagAlignToolNarrowUI() and {
-						Height = 54, -- 22 (space row) + 22 (axes row) + 10 (ContentListItemPadding)
-						ListItemPadding = 5,
-						Size = UDim2.new(1, 0, 0, 22),
-					} or nil,
-
-					RelativeToSection = not getFFlagAlignToolNarrowUI() and {
-						ListItemPadding = 5,
-						Size = UDim2.new(1, 0, 0, 22),
-					} or nil,
-
-					AxesSettingsFragment = not getFFlagAlignToolNarrowUI() and {
-						CheckboxListItemPadding = UDim.new(0, 10),
-					} or nil,
-
-					RelativeToSetting = getFFlagAlignToolNarrowUI() and {
+					RelativeToSetting = {
 						HelpIconPadding = UDim.new(0, 2),
-					} or nil,
+					},
 
 					Checkbox = StyleTable.new("Checkbox", function()
 						local Default = Style.extend(common.MainText, {
-							Padding = getFFlagAlignToolNarrowUI() and 6 or 5,
+							Padding = 6,
 							ImageSize = UDim2.new(0, 16, 0, 16),
 						})
 
@@ -172,29 +137,7 @@ local function makeTheme()
 						}
 					end),
 
-					ImageButton = not getFFlagAlignToolNarrowUI() and StyleTable.new("ImageButton", function()
-						local Default = Style.extend(common.MainText, {
-							BackgroundTransparency = 1,
-							Padding = 6,
-
-							Image = {
-								Size = UDim2.new(0, 26, 0, 27),
-								AnchorPoint = Vector2.new(0.5, 0),
-								Position = UDim2.new(0.5, 0, 0, 0),
-							},
-
-							Label = {
-								Position = UDim2.new(0, 0, 1, -15),
-								Size = UDim2.new(1, 0, 0, 15),
-							},
-						})
-
-						return {
-							Default = Default,
-						}
-					end) or nil,
-
-					LabeledElementList = getFFlagAlignToolNarrowUI() and StyleTable.new("LabeledElementList", function()
+					LabeledElementList = StyleTable.new("LabeledElementList", function()
 						local Default = Style.extend(common.MainText, {
 							ItemContentPadding = UDim.new(0, 10),
 							ItemPaddingHorizontal = UDim.new(0, 15),
@@ -206,7 +149,7 @@ local function makeTheme()
 						return {
 							Default = Default,
 						}
-					end) or nil,
+					end),
 				}),
 
 				Framework = StyleTable.extend(studioFrameworkStyles, {

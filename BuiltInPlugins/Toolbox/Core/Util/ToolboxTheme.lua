@@ -1,5 +1,6 @@
 local FFlagToolboxUseDevFrameworkDialogs = game:GetFastFlag("ToolboxUseDevFrameworkDialogs")
 local FFlagEnableToolboxAssetNameColorChange = game:GetFastFlag("EnableToolboxAssetNameColorChange")
+local FFlagFixToolboxInCli = game:GetFastFlag("FixToolboxInCli")
 local Plugin = script.Parent.Parent.Parent
 
 local Libs = Plugin.Libs
@@ -15,11 +16,13 @@ local createSignal = require(Util.createSignal)
 local wrapStrictTable = require(Util.wrapStrictTable)
 local Images = require(Util.Images)
 local Constants = require(Util.Constants)
+local TestHelpers = require(Util.Test.TestHelpers)
 
 local ToolboxTheme = {}
 ToolboxTheme.__index = ToolboxTheme
 
 function ToolboxTheme.createDummyThemeManager()
+
 	-- Fake the studio theme impl
 	return ToolboxTheme.new({
 		getTheme = {
@@ -27,6 +30,8 @@ function ToolboxTheme.createDummyThemeManager()
 				return Color3.fromRGB(0, 0, 0)
 			end,
 		},
+		studioStyleGuideColor = TestHelpers.createMockStudioStyleGuideColor(),
+		studioStyleGuideModifier = TestHelpers.createMockStudioStyleGuideModifier(),
 	})
 end
 
@@ -41,6 +46,9 @@ function ToolboxTheme.new(options)
 		_externalThemeGetter = options.getTheme or nil,
 		_isDarkThemeGetter = options.isDarkerTheme or false,
 		_externalThemeChangedSignal = options.themeChanged or nil,
+
+		_studioStyleGuideColor = FFlagFixToolboxInCli and (options.studioStyleGuideColor or Enum.StudioStyleGuideColor) or nil,
+		_studioStyleGuideModifier = FFlagFixToolboxInCli and (options.studioStyleGuideModifier or Enum.StudioStyleGuideModifier) or nil,
 
 		_externalThemeChangedConnection = nil,
 
@@ -112,8 +120,16 @@ function ToolboxTheme:_recalculateTheme()
 	local isDark = self:_isDarkerTheme()
 
 	-- Shorthands for getting a color
-	local c = Enum.StudioStyleGuideColor
-	local m = Enum.StudioStyleGuideModifier
+	local c
+	local m
+
+	if FFlagFixToolboxInCli then
+		c = self._studioStyleGuideColor
+		m = self._studioStyleGuideModifier
+	else
+		c = Enum.StudioStyleGuideColor
+		m = Enum.StudioStyleGuideModifier
+	end
 
 	local function color(...)
 		return externalTheme:GetColor(...)

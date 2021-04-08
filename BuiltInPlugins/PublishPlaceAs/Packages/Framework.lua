@@ -5,7 +5,6 @@ return strict({
 	Dash = require(script.packages.Dash),
 	DeveloperTools = require(script.packages.DeveloperTools),
 	ErrorReporter = require(script.ErrorReporter),
-	Examples = require(script.Examples),
 	Http = require(script.Http),
 	Resources = require(script.Resources),
 	RobloxAPI = require(script.RobloxAPI),
