@@ -2,13 +2,14 @@ return function()
 	beforeAll(function(context)
 		local HorizontalPageMargin = require(script.Parent.HorizontalPageMargin)
 		local Packages = script:FindFirstAncestor("Packages")
+		local Cryo = require(Packages.Cryo)
 		local Roact = require(Packages.Roact)
 
 		context.mount = function(c)
-			local joinedProps = {
+			local joinedProps = Cryo.Dictionary.join({
 				size = UDim2.fromOffset(c.screenSize, c.screenSize),
 				backgroundColor3 = Color3.fromRGB(0, 0, 0),
-			}
+			}, c.props or {})
 
 			local screenGui = Instance.new("ScreenGui", game:GetService("StarterGui"))
 			local tree = Roact.createElement(HorizontalPageMargin, joinedProps, {
@@ -47,4 +48,48 @@ return function()
 	describe("WHEN screen size is small/medium threshold", testWhen_ScreenSizeAs_ExpectMarginAs(360, 24))
 	describe("WHEN screen size is medium", testWhen_ScreenSizeAs_ExpectMarginAs(480, 24))
 	describe("WHEN screen size is large", testWhen_ScreenSizeAs_ExpectMarginAs(600, 48))
+
+	describe("SHOULD respect props", function()
+		beforeAll(function(c)
+			c.props = nil
+		end)
+
+		it("SHOULD respect layoutOrder prop", function(c)
+			c.props = {
+				layoutOrder = 3
+			}
+
+			local screen = c:mount()
+
+			local hpm = screen:FindFirstChild("RoactTree", true)
+			expect(hpm.LayoutOrder).to.equal(3)
+		end)
+
+		it("SHOULD respect backgroundTransparency and backgroundColor3 props", function(c)
+			c.props = {
+				backgroundTransparency = 0.5,
+				backgroundColor3 = Color3.fromRGB(255, 0, 0),
+			}
+
+			local screen = c:mount()
+
+			local hpm = screen:FindFirstChild("RoactTree", true)
+			expect(hpm.BackgroundTransparency).to.equal(0.5)
+			expect(hpm.BackgroundColor3).to.equal(Color3.fromRGB(255, 0, 0))
+		end)
+
+		it("SHOULD respect anchorPoint and position props", function(c)
+			c.props = {
+				anchorPoint = Vector2.new(0.5, 0.5),
+				position = UDim2.fromScale(0.5, 0.5),
+			}
+
+			local screen = c:mount()
+
+			local hpm = screen:FindFirstChild("RoactTree", true)
+			expect(hpm.AnchorPoint).to.equal(Vector2.new(0.5, 0.5))
+			expect(hpm.Position).to.equal(UDim2.fromScale(0.5, 0.5))
+		end)
+	end)
+
 end

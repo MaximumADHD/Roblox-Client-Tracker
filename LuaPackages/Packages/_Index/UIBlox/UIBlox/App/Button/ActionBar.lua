@@ -98,7 +98,8 @@ function ActionBar:render()
 						NextSelectionLeft = iconButtonIndex > 1 and self.buttonRefs[iconButtonIndex - 1] or nil,
 						NextSelectionRight = iconButtonIndex < iconNumber and self.buttonRefs[iconButtonIndex + 1] or nil,
 						inputBindings = {
-							[Enum.KeyCode.ButtonA] = iconButtonProps.onActivated,
+							Activated = iconButtonProps.onActivated
+								and RoactGamepad.Input.onBegin(Enum.KeyCode.ButtonA, iconButtonProps.onActivated) or nil
 						},
 					}
 
@@ -132,7 +133,7 @@ function ActionBar:render()
 					NextSelectionLeft = iconNumber and self.buttonRefs[iconNumber] or nil,
 					NextSelectionRight = nil,
 					inputBindings = {
-						[Enum.KeyCode.ButtonA] = buttonProps.onActivated,
+						Activated = RoactGamepad.Input.onBegin(Enum.KeyCode.ButtonA, buttonProps.onActivated),
 					},
 				}
 

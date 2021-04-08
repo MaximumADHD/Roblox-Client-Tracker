@@ -10,11 +10,12 @@ return function()
 		local StyleProvider = UIBlox.Core.Style.Provider
 		local Images = UIBlox.App.ImageSet.Images
 
+		context.getPageMargin = require(Packages.UIBlox.App.Container.getPageMargin)
 		context.Rhodium = require(Packages.Dev.Rhodium)
 		context.Roact = Roact
 		context.mount = function(c)
 			local joinedProps = {
-				title = c.title or "Title",
+				title = c.title or "",
 				renderCenter = c.renderCenter,
 				renderLeft = c.renderLeft,
 				renderRight = c.renderRight or function()
@@ -298,6 +299,42 @@ return function()
 
 					expect(centerOfTitle.X).to.be.near(centerOfPage.X, 1)
 				end)
+			end)
+		end)
+	end)
+
+	describe("GIVEN ONLY renderCenter", function()
+		beforeAll(function(c)
+			c.renderCenter = function()
+				local Roact = c.Roact
+				return Roact.createFragment({
+					thing = Roact.createElement("Frame", {
+						Size = UDim2.fromScale(1, 1),
+					}),
+				})
+			end
+			c.renderRight = c.Roact.None -- overwriting default renderRight with nil
+			c.pageWidth = 378
+		end)
+
+		describe("WHEN mounted", function()
+			beforeAll(function(c)
+				c.screenGui = c:mount()
+			end)
+
+			it("SHOULD fill the bar to its margins", function(c)
+				local page = c.screenGui:FindFirstChildWhichIsA("GuiObject", true)
+				assert(page, "could not find page")
+
+				local thing = c.screenGui:FindFirstChild("thing", true)
+
+				local _, _ = thing.AbsolutePosition, thing.AbsolutePosition
+
+				local leftEdgeOfCenterRender = thing.AbsolutePosition
+				local rightEdgeOfCenterRender = thing.AbsolutePosition + thing.AbsoluteSize
+
+				expect(leftEdgeOfCenterRender.X).to.equal(c.getPageMargin(c.pageWidth))
+				expect(rightEdgeOfCenterRender.X).to.equal(c.pageWidth-c.getPageMargin(c.pageWidth))
 			end)
 		end)
 	end)

@@ -54,9 +54,6 @@ HeaderBar.validateProps = t.strictInterface({
 -- default values are taken from Abstract
 HeaderBar.defaultProps = {
 	barHeight = 48,
-	renderRight = function()
-		return nil
-	end,
 }
 
 function HeaderBar:init()
@@ -79,7 +76,7 @@ function HeaderBar:render()
 		local font = style.Font
 
 		local renderLeft = self.props.renderLeft
-		local isRoot = renderLeft == nil
+		local isRoot = renderLeft == nil or renderLeft == Roact.None
 		local renderCenter = self.props.renderCenter
 		local renderRight = self.props.renderRight
 		local estimatedCenterWidth = math.huge
