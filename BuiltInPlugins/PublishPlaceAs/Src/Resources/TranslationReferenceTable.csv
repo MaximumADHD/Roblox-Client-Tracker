@@ -4,29 +4,30 @@ Studio.PublishPlaceAs.General.PublishPlace,Publish Place,Publish Place,플레이
 Studio.PublishPlaceAs.General.UntitledGame,Untitled Game,Untitled Game,제목 없는 게임, ,未命名游戏
 Studio.PublishPlaceAs.Genre.Sports,Sports,Sports,스포츠,Спорт,体育
 Studio.PublishPlaceAs.Button.AddNewPlace,Add New,Add New,신규 추가,Добавить новое,新增
+Studio.PublishPlaceAs.General.PlayabilityPublicDesc,Anyone on Roblox,Anyone on Roblox, , , 
 Studio.PublishPlaceAs.General.ContentDialogItem2,Intense Violence,Intense Violence,심각한 폭력,Насилие,激烈暴力
 Studio.PublishPlaceAs.General.ContentDialogTitle,Content Agreement,Content Agreement,콘텐츠 동의,Соглашение на использование контента,内容协议
 Studio.PublishPlaceAs.Devices.Tablet,Tablet,Tablet,태블릿,Планшет,平板电脑
 Studio.PublishPlaceAs.General.ContentDialogItem3,Strong Language (Swearing),Strong Language (Swearing),심한 말(욕설),Грубые выражения,粗暴语言 (脏话)
 Studio.PublishPlaceAs.Button.Retry,Retry,Retry,다시 시도,Повтор,重试
 Studio.PublishPlaceAs.Button.ReplyDisagree,Disagree,Disagree,비동의,Отклонить,不同意
-Studio.PublishPlaceAs.General.ContentDialogHeader,Do you agree that your game is controller compatible and contains NONE of the following?,Do you agree that your game is controller compatible and contains NONE of the following?,이 게임은 컨트롤러가 호환되며 다음과 같은 콘텐츠가 없음에 동의하십니까?,"Подтверждаете ли вы, что ваша игра совместима с контроллером и не содержит следующих элементов?",确认游戏可以兼容控制器，并不包含以下内容吗?
+Studio.PublishPlaceAs.General.ContentDialogHeader,Do you agree that your game is controller compatible and contains NONE of the following?,Do you agree that your game is controller compatible and contains NONE of the following?,"게임이 컨트롤러와 호환되도록 지원하며, 다음과 같은 콘텐츠가 포함되어 있지 않아야 합니다. 동의하시나요?","Подтверждаете ли вы, что ваша игра совместима с контроллером и не содержит следующих элементов?",确认游戏可以兼容控制器，并不包含以下内容吗?
 Studio.PublishPlaceAs.GroupDropdown.Me,Me,Me,나, ,我
 Studio.PublishPlaceAs.Genre.TownAndCity,Town and City,Town and City,마을/도시,Симулятор города,城市建设
 Studio.PublishPlaceAs.General.ContentDialogItem1,Blood or Gore,Blood or Gore,피 또는 잔인한 장면,Кровь и увечья,血腥
+Studio.PublishPlaceAs.General.ContentDialogItem5,Drug Reference or Use,Drug Reference or Use,마약 관련 또는 사용,Упоминание или употребление наркотиков,提及或使用毒品
 Studio.PublishPlaceAs.Error.DescriptionModerated,The description didn't go through our moderation. Please revise it and try again.,The description didn't go through our moderation. Please revise it and try again.,설명이 검열을 통과하지 못했어요. 수정한 후 다시 시도하세요.,"Описание не прошло модерацию. Пожалуйста, измените его и попробуйте еще раз.",此描述没有通过审核。请修改后再试一次。
 Studio.PublishPlaceAs.Devices.Computer,Computer,Computer,컴퓨터,Компьютер,个人电脑
-Studio.PublishPlaceAs.General.ContentDialogItem5,Drug Reference or Use,Drug Reference or Use,마약 언급 또는 사용,Упоминание или употребление наркотиков,提及或使用毒品
-Studio.PublishPlaceAs.PageTitle.Genre,Genre,Genre,장르,Жанр,主题
 Studio.PublishPlaceAs.Devices.Header,Devices,Devices,기기,Устройства,设备
 Studio.PublishPlaceAs.PageTitle.Devices,Devices,Devices,기기,Устройства,设备
+Studio.PublishPlaceAs.PageTitle.Genre,Genre,Genre,장르,Жанр,主题
 Studio.PublishPlaceAs.General.ContentDialogItem4,Robux Gambling,Robux Gambling,Robux 도박,Азартные игры,以 Robux 进行赌博
 Studio.PublishPlaceAs.FooterButton.CreateNewGame,Create new game...,Create new game...,새 게임 만들기...,Создать новую игру...,创建新游戏…
 Studio.PublishPlaceAs.Button.ReplyAgree,Agree,Agree,동의,Принять,同意
 Studio.PublishPlaceAs.Button.Close,Close,Close,닫기,Закрыть,关闭
 Studio.PublishPlaceAs.Error.NoDevices,You must select at least one playable device.,You must select at least one playable device.,플레이 가능한 기기를 최소 1개 선택해야 합니다.,Выберите устройство для воспроизведения.,你必须选择至少一种可玩设备。
-Studio.PublishPlaceAs.Error.NameModerated,The name didn't go through our moderation. Please revise it and try again.,The name didn't go through our moderation. Please revise it and try again.,이름이 검열을 통과하지 못했어요. 수정한 후 다시 시도하세요.,"Имя не прошло модерацию. Пожалуйста, измените его и попробуйте еще раз.",此名称没有通过审核。请修改后再试一次。
 Studio.PublishPlaceAs.FooterButton.UpdateExistingGame,Update existing game...,Update existing game...,기존 게임 업데이트.,Обновление существующей игры...,更新现有游戏…
+Studio.PublishPlaceAs.Error.NameModerated,The name didn't go through our moderation. Please revise it and try again.,The name didn't go through our moderation. Please revise it and try again.,이름이 검열을 통과하지 못했어요. 수정한 후 다시 시도하세요.,"Имя не прошло модерацию. Пожалуйста, измените его и попробуйте еще раз.",此名称没有通过审核。请修改后再试一次。
 Studio.PublishPlaceAs.FooterButton.Create,Create,Create,만들기,Создать,创建
 Studio.PublishPlaceAs.Genre.Funny,Comedy,Comedy,코미디,Комедия,幽默
 Studio.PublishPlaceAs.FooterButton.Overwrite,Overwrite,Overwrite,덮어쓰기,Записать поверх,覆盖
@@ -35,18 +36,20 @@ Studio.PublishPlaceAs.GroupDropdown.MyGames,My Games,My Games,내 게임,Мои 
 Studio.PublishPlaceAs.MenuItem.BasicInfo,Basic Info,Basic Info,기본 정보,Основные сведения,基本信息
 Studio.PublishPlaceAs.Devices.Phone,Phone,Phone,휴대폰,Телефон,手机
 Studio.PublishPlaceAs.Devices.Console,Console,Console,콘솔,Консоль,游戏主机
-Studio.PublishPlaceAs.Genre.Fantasy,Medieval,Medieval,중세,Средневековье,中世纪
 Studio.PublishPlaceAs.PageTitle.Name,Name,Name,이름,Имя,名称
+Studio.PublishPlaceAs.Genre.Fantasy,Medieval,Medieval,중세,Средневековье,中世纪
 Studio.PublishPlaceAs.Genre.Scary,Horror,Horror,공포,Хоррор,恐怖
 Studio.PublishPlaceAs.PageTitle.Description,Description,Description,설명,Описание,描述
 Studio.PublishPlaceAs.ScreenHeader.ChoosePlace,Overwrite or add a new place to {1},Overwrite or add a new place to {1},덮어쓰거나 새 플레이스를 {1}에 추가하세요,Перезаписать или добавить новое место в: {1},覆盖或向 {1} 添加一个新场景
 Studio.PublishPlaceAs.Genre.All,All,All,모두,Все,全部
 Studio.PublishPlaceAs.Genre.WildWest,Western,Western,서부극,Вестерн,西部
 Studio.PublishPlaceAs.Genre.Tutorial,Building,Building,건설,Постройки,建筑
-Studio.PublishPlaceAs.PageTitle.Creator,Creator,Creator,크리에이터, ,创建者
 Studio.PublishPlaceAs.Genre.Ninja,Fighting,Fighting,대전,Файтинг,格斗
+Studio.PublishPlaceAs.General.PlayabilityFriendsDesc,Friends on Roblox,Friends on Roblox, , , 
+Studio.PublishPlaceAs.PageTitle.Creator,Creator,Creator,크리에이터, ,创建者
 Studio.PublishPlaceAs.Genre.FPS,FPS,FPS,FPS,Шутер от первого лица,FPS
 Studio.PublishPlaceAs.Genre.War,Military,Military,군사,Войнушка,军事
+Studio.PublishPlaceAs.General.TitlePlayability,Playability,Playability, , , 
 Studio.PublishPlaceAs.Genre.Pirate,Naval,Naval,해군,Морской флот,海军
 Studio.PublishPlaceAs.Genre.RPG,RPG,RPG,RPG,Ролевая игра,RPG
 Studio.PublishPlaceAs.Genre.SciFi,Sci-Fi,Sci-Fi,SF,Фантастика,科幻
@@ -58,6 +61,10 @@ Studio.PublishPlaceAs.PublishSuccess.Success,Successfully published!,Successfull
 Studio.PublishPlaceAs.PublishFail.Fail,Publish failed,Publish failed,게시 실패,Публикация не выполнена.,发布失败
 Studio.PublishPlaceAs.PublishSuccess.FindInGame,You may find this place in {1},You may find this place in {1},이 플레이스는 {1}에서 찾을 수 있습니다,Место находится в: {1},你可以在 {1} 中找到此场景
 Studio.PublishPlaceAs.PublishFail.FailConfiguration,Could not publish configuration settings.,Could not publish configuration settings.,구성 설정을 게시하지 못했습니다.,Не удалось опубликовать настройки конфигурации.,无法发布配置设置。
+Studio.PublishPlaceAs.General.PlayabilityPublic,Public,Public, , , 
 Studio.PublishPlaceAs.PrivacyType.Public,Public,Public,공개, ,公开
+Studio.PublishPlaceAs.General.PlayabilityPrivate,Private,Private, , , 
 Studio.PublishPlaceAs.PrivacyType.Private,Private,Private,비공개, ,私人
-Studio.PublishPlaceAs.General.FetchFailed,Fetch failed,Fetch failed, , , 
+Studio.PublishPlaceAs.General.FetchFailed,Fetch failed,Fetch failed,가져오기 실패, , 
+Studio.PublishPlaceAs.General.PlayabilityFriends,Friends,Friends, , , 
+Studio.PublishPlaceAs.General.PlayabilityPrivateDesc,Only developers of this game,Only developers of this game, , , 

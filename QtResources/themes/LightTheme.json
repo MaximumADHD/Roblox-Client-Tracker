@@ -200,6 +200,30 @@
                 "Hover": "#E4EEFE"
             }
         }, {
+            "FilterButtonDefault": {
+                "Default": "#FFFFFF"
+            }
+        }, {
+            "FilterButtonHover": {
+                "Default": "#E4EEFE"
+            }
+        }, {
+            "FilterButtonChecked": {
+                "Default": "#DBDBDB"
+            }
+        }, {
+            "FilterButtonAccent": {
+                "Default": "#C9C9C9"
+            }
+        }, {
+            "FilterButtonBorder": {
+                "Default": "#FFFFFF"
+            }
+        }, {
+            "FilterButtonBorderAlt": {
+                "Default": "#DBDBDB"
+            }
+        }, {
             "Separator": {
                 "Default": "#CCCCCC"
             }

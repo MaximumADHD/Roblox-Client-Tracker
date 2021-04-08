@@ -4,6 +4,7 @@ Studio.AssetManager.AssetGrid.NoResults,No {assetType} Found
 Studio.AssetManager.AssetPreview.Insert,Insert
 Studio.AssetManager.BulkImport.BulkImportRunning,You can import other files after the current import is finished.
 Studio.AssetManager.BulkImport.BulkImportShowLink,Check current status
+Studio.AssetManager.Callout.BadgesDevProductsDescription,Badges and Developer Products have moved to Monetization Page in Game Settings
 Studio.AssetManager.ContextMenu.AddAudio,Add Audio
 Studio.AssetManager.ContextMenu.AddImages,Add Images
 Studio.AssetManager.ContextMenu.AddMeshes,Add Meshes

@@ -2154,7 +2154,7 @@ Class Model : PVInstance
 	Property Class<BasePart> Model.PrimaryPart
 	Property Vector3 Model.World Pivot Orientation [NotReplicated] [NotScriptable]
 	Property Vector3 Model.World Pivot Position [NotReplicated] [NotScriptable]
-	Property CFrame Model.WorldPivot
+	Property CFrame Model.WorldPivot [NotReplicated]
 	Function void Model:BreakJoints()
 	Function Tuple Model:GetBoundingBox()
 	Function Vector3 Model:GetExtentsSize()
@@ -2196,6 +2196,7 @@ Class Workspace : WorldRoot [NotCreatable] [Service]
 	Property Enum<MeshPartHeadsAndAccessories> Workspace.MeshPartHeadsAndAccessories [NotScriptable]
 	Property Enum<PhysicsSimulationRate> Workspace.PhysicsSimulationRate [Hidden] [NotReplicated]
 	Property Enum<PhysicsSteppingMethod> Workspace.PhysicsSteppingMethod [NotScriptable]
+	Property Enum<SignalBehavior> Workspace.SignalBehavior [NotScriptable]
 	Property bool Workspace.StreamingEnabled {✏️PluginSecurity}
 	Property int Workspace.StreamingMinRadius [NotScriptable]
 	Property Enum<StreamingPauseMode> Workspace.StreamingPauseMode [NotScriptable]
@@ -3010,7 +3011,6 @@ Class SoundService : Instance [NotCreatable] [Service]
 	Function Dictionary SoundService:GetRecordingDevices() {RobloxScriptSecurity} [Yields]
 	Function Dictionary SoundService:GetSoundMemoryData() {RobloxScriptSecurity}
 	Function void SoundService:PlayLocalSound(Instance sound)
-	Function void SoundService:PlayStockSound(Enum<SoundType> sound) {RobloxScriptSecurity}
 	Function void SoundService:SetListener(Enum<ListenerType> listenerType, Tuple listener)
 	Function void SoundService:SetOutputDevice(string name, string guid) {RobloxScriptSecurity}
 	Function bool SoundService:SetRecordingDevice(int deviceIndex) {RobloxScriptSecurity}
@@ -3392,6 +3392,9 @@ Class ThirdPartyUserService : Instance [NotCreatable] [Service] [NotReplicated]
 	Event ThirdPartyUserService.ActiveGamepadRemoved() {RobloxScriptSecurity}
 	Event ThirdPartyUserService.ActiveUserSignedOut(int signOutStatus) {RobloxScriptSecurity}
 Class TimerService : Instance [NotCreatable] [Service]
+Class ToastNotificationService : Instance [NotCreatable] [Service] [NotReplicated]
+	Function void ToastNotificationService:HideNotification(string notificationId) {RobloxScriptSecurity}
+	Function void ToastNotificationService:ShowNotification(string message, string notificationId) {RobloxScriptSecurity}
 Class TouchInputService : Instance [NotCreatable] [Service]
 Class TouchTransmitter : Instance [NotCreatable] [NotBrowsable]
 Class TracerService : Instance [NotCreatable] [Service] [NotReplicated]
@@ -5212,6 +5215,10 @@ Enum ServerAudioBehavior
 	EnumItem ServerAudioBehavior.Enabled : 0
 	EnumItem ServerAudioBehavior.Muted : 1
 	EnumItem ServerAudioBehavior.OnlineGame : 2
+Enum SignalBehavior
+	EnumItem SignalBehavior.Default : 0
+	EnumItem SignalBehavior.Immediate : 1
+	EnumItem SignalBehavior.Deferred : 2
 Enum SizeConstraint
 	EnumItem SizeConstraint.RelativeXY : 0
 	EnumItem SizeConstraint.RelativeXX : 1
@@ -5318,107 +5325,113 @@ Enum StudioStyleGuideColor
 	EnumItem StudioStyleGuideColor.ScrollBarBackground : 6
 	EnumItem StudioStyleGuideColor.TabBar : 7
 	EnumItem StudioStyleGuideColor.Tab : 8
-	EnumItem StudioStyleGuideColor.RibbonTab : 9
-	EnumItem StudioStyleGuideColor.RibbonTabTopBar : 10
-	EnumItem StudioStyleGuideColor.Button : 11
-	EnumItem StudioStyleGuideColor.MainButton : 12
-	EnumItem StudioStyleGuideColor.RibbonButton : 13
-	EnumItem StudioStyleGuideColor.ViewPortBackground : 14
-	EnumItem StudioStyleGuideColor.InputFieldBackground : 15
-	EnumItem StudioStyleGuideColor.Item : 16
-	EnumItem StudioStyleGuideColor.TableItem : 17
-	EnumItem StudioStyleGuideColor.CategoryItem : 18
-	EnumItem StudioStyleGuideColor.GameSettingsTableItem : 19
-	EnumItem StudioStyleGuideColor.GameSettingsTooltip : 20
-	EnumItem StudioStyleGuideColor.EmulatorBar : 21
-	EnumItem StudioStyleGuideColor.EmulatorDropDown : 22
-	EnumItem StudioStyleGuideColor.ColorPickerFrame : 23
-	EnumItem StudioStyleGuideColor.CurrentMarker : 24
-	EnumItem StudioStyleGuideColor.Border : 25
-	EnumItem StudioStyleGuideColor.Shadow : 26
-	EnumItem StudioStyleGuideColor.Light : 27
-	EnumItem StudioStyleGuideColor.Dark : 28
-	EnumItem StudioStyleGuideColor.Mid : 29
-	EnumItem StudioStyleGuideColor.MainText : 30
-	EnumItem StudioStyleGuideColor.SubText : 31
-	EnumItem StudioStyleGuideColor.TitlebarText : 32
-	EnumItem StudioStyleGuideColor.BrightText : 33
-	EnumItem StudioStyleGuideColor.DimmedText : 34
-	EnumItem StudioStyleGuideColor.LinkText : 35
-	EnumItem StudioStyleGuideColor.WarningText : 36
-	EnumItem StudioStyleGuideColor.ErrorText : 37
-	EnumItem StudioStyleGuideColor.InfoText : 38
-	EnumItem StudioStyleGuideColor.SensitiveText : 39
-	EnumItem StudioStyleGuideColor.ScriptSideWidget : 40
-	EnumItem StudioStyleGuideColor.ScriptBackground : 41
-	EnumItem StudioStyleGuideColor.ScriptText : 42
-	EnumItem StudioStyleGuideColor.ScriptSelectionText : 43
-	EnumItem StudioStyleGuideColor.ScriptSelectionBackground : 44
-	EnumItem StudioStyleGuideColor.ScriptFindSelectionBackground : 45
-	EnumItem StudioStyleGuideColor.ScriptMatchingWordSelectionBackground : 46
-	EnumItem StudioStyleGuideColor.ScriptOperator : 47
-	EnumItem StudioStyleGuideColor.ScriptNumber : 48
-	EnumItem StudioStyleGuideColor.ScriptString : 49
-	EnumItem StudioStyleGuideColor.ScriptComment : 50
-	EnumItem StudioStyleGuideColor.ScriptKeyword : 51
-	EnumItem StudioStyleGuideColor.ScriptBuiltInFunction : 52
-	EnumItem StudioStyleGuideColor.ScriptWarning : 53
-	EnumItem StudioStyleGuideColor.ScriptError : 54
-	EnumItem StudioStyleGuideColor.ScriptWhitespace : 55
-	EnumItem StudioStyleGuideColor.ScriptRuler : 56
-	EnumItem StudioStyleGuideColor.DebuggerCurrentLine : 57
-	EnumItem StudioStyleGuideColor.DebuggerErrorLine : 58
-	EnumItem StudioStyleGuideColor.DiffFilePathText : 59
-	EnumItem StudioStyleGuideColor.DiffTextHunkInfo : 60
-	EnumItem StudioStyleGuideColor.DiffTextNoChange : 61
-	EnumItem StudioStyleGuideColor.DiffTextAddition : 62
-	EnumItem StudioStyleGuideColor.DiffTextDeletion : 63
-	EnumItem StudioStyleGuideColor.DiffTextSeparatorBackground : 64
-	EnumItem StudioStyleGuideColor.DiffTextNoChangeBackground : 65
-	EnumItem StudioStyleGuideColor.DiffTextAdditionBackground : 66
-	EnumItem StudioStyleGuideColor.DiffTextDeletionBackground : 67
-	EnumItem StudioStyleGuideColor.DiffLineNum : 68
-	EnumItem StudioStyleGuideColor.DiffLineNumSeparatorBackground : 69
-	EnumItem StudioStyleGuideColor.DiffLineNumNoChangeBackground : 70
-	EnumItem StudioStyleGuideColor.DiffLineNumAdditionBackground : 71
-	EnumItem StudioStyleGuideColor.DiffLineNumDeletionBackground : 72
-	EnumItem StudioStyleGuideColor.DiffFilePathBackground : 73
-	EnumItem StudioStyleGuideColor.DiffFilePathBorder : 74
-	EnumItem StudioStyleGuideColor.ChatIncomingBgColor : 75
-	EnumItem StudioStyleGuideColor.ChatIncomingTextColor : 76
-	EnumItem StudioStyleGuideColor.ChatOutgoingBgColor : 77
-	EnumItem StudioStyleGuideColor.ChatOutgoingTextColor : 78
-	EnumItem StudioStyleGuideColor.ChatModeratedMessageColor : 79
-	EnumItem StudioStyleGuideColor.Separator : 80
-	EnumItem StudioStyleGuideColor.ButtonBorder : 81
-	EnumItem StudioStyleGuideColor.ButtonText : 82
-	EnumItem StudioStyleGuideColor.InputFieldBorder : 83
-	EnumItem StudioStyleGuideColor.CheckedFieldBackground : 84
-	EnumItem StudioStyleGuideColor.CheckedFieldBorder : 85
-	EnumItem StudioStyleGuideColor.CheckedFieldIndicator : 86
-	EnumItem StudioStyleGuideColor.HeaderSection : 87
-	EnumItem StudioStyleGuideColor.Midlight : 88
-	EnumItem StudioStyleGuideColor.StatusBar : 89
-	EnumItem StudioStyleGuideColor.DialogButton : 90
-	EnumItem StudioStyleGuideColor.DialogButtonText : 91
-	EnumItem StudioStyleGuideColor.DialogButtonBorder : 92
-	EnumItem StudioStyleGuideColor.DialogMainButton : 93
-	EnumItem StudioStyleGuideColor.DialogMainButtonText : 94
-	EnumItem StudioStyleGuideColor.InfoBarWarningBackground : 95
-	EnumItem StudioStyleGuideColor.InfoBarWarningText : 96
-	EnumItem StudioStyleGuideColor.ScriptEditorCurrentLine : 97
-	EnumItem StudioStyleGuideColor.ScriptMethod : 98
-	EnumItem StudioStyleGuideColor.ScriptProperty : 99
-	EnumItem StudioStyleGuideColor.ScriptNil : 100
-	EnumItem StudioStyleGuideColor.ScriptBool : 101
-	EnumItem StudioStyleGuideColor.ScriptFunction : 102
-	EnumItem StudioStyleGuideColor.ScriptLocal : 103
-	EnumItem StudioStyleGuideColor.ScriptSelf : 104
-	EnumItem StudioStyleGuideColor.ScriptLuauKeyword : 105
-	EnumItem StudioStyleGuideColor.ScriptFunctionName : 106
-	EnumItem StudioStyleGuideColor.ScriptTodo : 107
-	EnumItem StudioStyleGuideColor.ScriptBracket : 108
-	EnumItem StudioStyleGuideColor.AttributeCog : 109
+	EnumItem StudioStyleGuideColor.FilterButtonDefault : 9
+	EnumItem StudioStyleGuideColor.FilterButtonHover : 10
+	EnumItem StudioStyleGuideColor.FilterButtonChecked : 11
+	EnumItem StudioStyleGuideColor.FilterButtonAccent : 12
+	EnumItem StudioStyleGuideColor.FilterButtonBorder : 13
+	EnumItem StudioStyleGuideColor.FilterButtonBorderAlt : 14
+	EnumItem StudioStyleGuideColor.RibbonTab : 15
+	EnumItem StudioStyleGuideColor.RibbonTabTopBar : 16
+	EnumItem StudioStyleGuideColor.Button : 17
+	EnumItem StudioStyleGuideColor.MainButton : 18
+	EnumItem StudioStyleGuideColor.RibbonButton : 19
+	EnumItem StudioStyleGuideColor.ViewPortBackground : 20
+	EnumItem StudioStyleGuideColor.InputFieldBackground : 21
+	EnumItem StudioStyleGuideColor.Item : 22
+	EnumItem StudioStyleGuideColor.TableItem : 23
+	EnumItem StudioStyleGuideColor.CategoryItem : 24
+	EnumItem StudioStyleGuideColor.GameSettingsTableItem : 25
+	EnumItem StudioStyleGuideColor.GameSettingsTooltip : 26
+	EnumItem StudioStyleGuideColor.EmulatorBar : 27
+	EnumItem StudioStyleGuideColor.EmulatorDropDown : 28
+	EnumItem StudioStyleGuideColor.ColorPickerFrame : 29
+	EnumItem StudioStyleGuideColor.CurrentMarker : 30
+	EnumItem StudioStyleGuideColor.Border : 31
+	EnumItem StudioStyleGuideColor.Shadow : 32
+	EnumItem StudioStyleGuideColor.Light : 33
+	EnumItem StudioStyleGuideColor.Dark : 34
+	EnumItem StudioStyleGuideColor.Mid : 35
+	EnumItem StudioStyleGuideColor.MainText : 36
+	EnumItem StudioStyleGuideColor.SubText : 37
+	EnumItem StudioStyleGuideColor.TitlebarText : 38
+	EnumItem StudioStyleGuideColor.BrightText : 39
+	EnumItem StudioStyleGuideColor.DimmedText : 40
+	EnumItem StudioStyleGuideColor.LinkText : 41
+	EnumItem StudioStyleGuideColor.WarningText : 42
+	EnumItem StudioStyleGuideColor.ErrorText : 43
+	EnumItem StudioStyleGuideColor.InfoText : 44
+	EnumItem StudioStyleGuideColor.SensitiveText : 45
+	EnumItem StudioStyleGuideColor.ScriptSideWidget : 46
+	EnumItem StudioStyleGuideColor.ScriptBackground : 47
+	EnumItem StudioStyleGuideColor.ScriptText : 48
+	EnumItem StudioStyleGuideColor.ScriptSelectionText : 49
+	EnumItem StudioStyleGuideColor.ScriptSelectionBackground : 50
+	EnumItem StudioStyleGuideColor.ScriptFindSelectionBackground : 51
+	EnumItem StudioStyleGuideColor.ScriptMatchingWordSelectionBackground : 52
+	EnumItem StudioStyleGuideColor.ScriptOperator : 53
+	EnumItem StudioStyleGuideColor.ScriptNumber : 54
+	EnumItem StudioStyleGuideColor.ScriptString : 55
+	EnumItem StudioStyleGuideColor.ScriptComment : 56
+	EnumItem StudioStyleGuideColor.ScriptKeyword : 57
+	EnumItem StudioStyleGuideColor.ScriptBuiltInFunction : 58
+	EnumItem StudioStyleGuideColor.ScriptWarning : 59
+	EnumItem StudioStyleGuideColor.ScriptError : 60
+	EnumItem StudioStyleGuideColor.ScriptWhitespace : 61
+	EnumItem StudioStyleGuideColor.ScriptRuler : 62
+	EnumItem StudioStyleGuideColor.DebuggerCurrentLine : 63
+	EnumItem StudioStyleGuideColor.DebuggerErrorLine : 64
+	EnumItem StudioStyleGuideColor.DiffFilePathText : 65
+	EnumItem StudioStyleGuideColor.DiffTextHunkInfo : 66
+	EnumItem StudioStyleGuideColor.DiffTextNoChange : 67
+	EnumItem StudioStyleGuideColor.DiffTextAddition : 68
+	EnumItem StudioStyleGuideColor.DiffTextDeletion : 69
+	EnumItem StudioStyleGuideColor.DiffTextSeparatorBackground : 70
+	EnumItem StudioStyleGuideColor.DiffTextNoChangeBackground : 71
+	EnumItem StudioStyleGuideColor.DiffTextAdditionBackground : 72
+	EnumItem StudioStyleGuideColor.DiffTextDeletionBackground : 73
+	EnumItem StudioStyleGuideColor.DiffLineNum : 74
+	EnumItem StudioStyleGuideColor.DiffLineNumSeparatorBackground : 75
+	EnumItem StudioStyleGuideColor.DiffLineNumNoChangeBackground : 76
+	EnumItem StudioStyleGuideColor.DiffLineNumAdditionBackground : 77
+	EnumItem StudioStyleGuideColor.DiffLineNumDeletionBackground : 78
+	EnumItem StudioStyleGuideColor.DiffFilePathBackground : 79
+	EnumItem StudioStyleGuideColor.DiffFilePathBorder : 80
+	EnumItem StudioStyleGuideColor.ChatIncomingBgColor : 81
+	EnumItem StudioStyleGuideColor.ChatIncomingTextColor : 82
+	EnumItem StudioStyleGuideColor.ChatOutgoingBgColor : 83
+	EnumItem StudioStyleGuideColor.ChatOutgoingTextColor : 84
+	EnumItem StudioStyleGuideColor.ChatModeratedMessageColor : 85
+	EnumItem StudioStyleGuideColor.Separator : 86
+	EnumItem StudioStyleGuideColor.ButtonBorder : 87
+	EnumItem StudioStyleGuideColor.ButtonText : 88
+	EnumItem StudioStyleGuideColor.InputFieldBorder : 89
+	EnumItem StudioStyleGuideColor.CheckedFieldBackground : 90
+	EnumItem StudioStyleGuideColor.CheckedFieldBorder : 91
+	EnumItem StudioStyleGuideColor.CheckedFieldIndicator : 92
+	EnumItem StudioStyleGuideColor.HeaderSection : 93
+	EnumItem StudioStyleGuideColor.Midlight : 94
+	EnumItem StudioStyleGuideColor.StatusBar : 95
+	EnumItem StudioStyleGuideColor.DialogButton : 96
+	EnumItem StudioStyleGuideColor.DialogButtonText : 97
+	EnumItem StudioStyleGuideColor.DialogButtonBorder : 98
+	EnumItem StudioStyleGuideColor.DialogMainButton : 99
+	EnumItem StudioStyleGuideColor.DialogMainButtonText : 100
+	EnumItem StudioStyleGuideColor.InfoBarWarningBackground : 101
+	EnumItem StudioStyleGuideColor.InfoBarWarningText : 102
+	EnumItem StudioStyleGuideColor.ScriptEditorCurrentLine : 103
+	EnumItem StudioStyleGuideColor.ScriptMethod : 104
+	EnumItem StudioStyleGuideColor.ScriptProperty : 105
+	EnumItem StudioStyleGuideColor.ScriptNil : 106
+	EnumItem StudioStyleGuideColor.ScriptBool : 107
+	EnumItem StudioStyleGuideColor.ScriptFunction : 108
+	EnumItem StudioStyleGuideColor.ScriptLocal : 109
+	EnumItem StudioStyleGuideColor.ScriptSelf : 110
+	EnumItem StudioStyleGuideColor.ScriptLuauKeyword : 111
+	EnumItem StudioStyleGuideColor.ScriptFunctionName : 112
+	EnumItem StudioStyleGuideColor.ScriptTodo : 113
+	EnumItem StudioStyleGuideColor.ScriptBracket : 114
+	EnumItem StudioStyleGuideColor.AttributeCog : 115
 Enum StudioStyleGuideModifier
 	EnumItem StudioStyleGuideModifier.Default : 0
 	EnumItem StudioStyleGuideModifier.Selected : 1
@@ -5670,9 +5683,16 @@ Enum WrapLayerDebugMode
 	EnumItem WrapLayerDebugMode.LayerCage : 2
 	EnumItem WrapLayerDebugMode.BoundCageAndLinks : 3
 	EnumItem WrapLayerDebugMode.Reference : 4
+	EnumItem WrapLayerDebugMode.Rbf : 5
 Enum WrapTargetDebugMode
 	EnumItem WrapTargetDebugMode.None : 0
-	EnumItem WrapTargetDebugMode.TargetCage : 1
+	EnumItem WrapTargetDebugMode.TargetCageOriginal : 1
+	EnumItem WrapTargetDebugMode.TargetCageCompressed : 2
+	EnumItem WrapTargetDebugMode.TargetCageInterface : 3
+	EnumItem WrapTargetDebugMode.TargetLayerCageOriginal : 4
+	EnumItem WrapTargetDebugMode.TargetLayerCageCompressed : 5
+	EnumItem WrapTargetDebugMode.TargetLayerInterface : 6
+	EnumItem WrapTargetDebugMode.Rbf : 7
 Enum ZIndexBehavior
 	EnumItem ZIndexBehavior.Global : 0
 	EnumItem ZIndexBehavior.Sibling : 1

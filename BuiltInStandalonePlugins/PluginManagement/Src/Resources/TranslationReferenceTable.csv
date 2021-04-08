@@ -24,7 +24,7 @@ Studio.PluginInstallation.Toolbar.ManageButtonDescription,Manage plugins install
 Studio.PluginInstallation.Loading.Title,Updating Plugins,Updating Plugins,플러그인 업데이트,Обновляются плагины,正在更新插件
 Studio.PluginInstallation.Main.Title,Plugins,Plugins,플러그인,Плагины,插件
 Studio.PluginInstallation.Main.UpdateAllButton,Update all,Update all,모두 업데이트,Обновить все,全部更新
-Studio.PluginInstallation.Main.NoPluginsMessage,You haven’t installed any plugins yet.,You haven’t installed any plugins yet.,아직 아무 플러그인도 설치하지 않았습니다.,Ни один плагин пока не установлен.,你尚未安装任何插件。
+Studio.PluginInstallation.Main.NoPluginsMessage,You haven’t installed any plugins yet.,You haven’t installed any plugins yet.,설치된 플러그인이 없습니다.,Ни один плагин пока не установлен.,你尚未安装任何插件。
 Studio.PluginInstallation.Main.FindPluginsMessage_Old,Find plugins now,Find plugins now,지금 플러그인 찾기,Найти плагины,立即查找插件
 Studio.PluginInstallation.Main.FindPluginsMessage,"To find more plugins, open Toolbox > Marketplace > Plugins.","To find more plugins, open Toolbox > Marketplace > Plugins.",더 많은 플러그인을 찾으려면 도구 상자 > 마켓플레이스 > 플러그인을 여세요.,Для поиска плагинов откройте раздел «Панель инструментов» > «Магазин» > «Плагины».,要查找更多插件，请打开“工具箱 > 商店 > 插件”。
 Studio.PluginInstallation.Entry.UpdateButton,Update,Update,업데이트,Обновить,更新

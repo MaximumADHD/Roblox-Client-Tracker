@@ -25,6 +25,7 @@
         portrait_keyboard_image_filename="keyboard_tablet_portrait.png"
         safezone_portrait="20,0,0,0"
         safezone_landscape="20,0,0,0"
+        user_agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 13_0_1) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.1 ROBLOX iOS App 1.0.0 Hybrid RobloxApp/1.0.0 (GlobalDist; AppleAppStore) (Studio Emulator)"
         ></Device>
     <Device name="iPad Mini"
         device_id="ipad_mini"
@@ -44,6 +45,7 @@
         portrait_keyboard_image_filename="keyboard_tablet_portrait.png"
         safezone_portrait="20,0,0,0"
         safezone_landscape="20,0,0,0"
+        user_agent="Mozilla/5.0 (iPad; CPU iPhone OS 13_1_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 ROBLOX iOS App 1.0.0 Hybrid RobloxApp/1.0.0 (GlobalDist; AppleAppStore) (Studio Emulator)"
         ></Device>
     <Device name="iPad Pro"
         device_id="ipad_pro"
@@ -63,6 +65,7 @@
         portrait_keyboard_image_filename="keyboard_tablet_portrait.png"
         safezone_portrait="24,20,0,0"
         safezone_landscape="24,20,0,0"
+        user_agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.1 ROBLOX iOS App 1.0.0 Hybrid RobloxApp/1.0.0 (GlobalDist; AppleAppStore) (Studio Emulator)"
         ></Device>
     <Device name="iPhone 4S"
         device_id="iphone_4s"
@@ -82,6 +85,7 @@
         portrait_keyboard_image_filename="keyboard_phone_portrait.png"
         safezone_portrait="20,0,0,0"
         safezone_landscape="20,0,0,0"
+        user_agent="Mozilla/5.0 (iPhone; U; CPU iPhone OS 4_3_5 like Mac OS X; xx) AppleWebKit/533.17.9 (KHTML, like Gecko) Version/5.0.2 Mobile/8J2 ROBLOX iOS App 1.0.0 Hybrid RobloxApp/1.0.0 (GlobalDist; AppleAppStore) (Studio Emulator)"
         ></Device>
     <Device name="iPhone 5"
         device_id="iphone_5"
@@ -101,6 +105,7 @@
         portrait_keyboard_image_filename="keyboard_phone_portrait.png"
         safezone_portrait="20,0,0,0"
         safezone_landscape="20,0,0,0"
+        user_agent="Mozilla/5.0 (iPhone; CPU iPhone OS 5_1 like Mac OS X) AppleWebKit/534.46 (KHTML, like Gecko) Mobile/9B179 ROBLOX iOS App 1.0.0 Hybrid RobloxApp/1.0.0 (GlobalDist; AppleAppStore) (Studio Emulator)"
         ></Device>
     <Device name="iPhone 6"
         device_id="iphone_6"
@@ -120,6 +125,7 @@
         portrait_keyboard_image_filename="keyboard_phone_portrait.png"
         safezone_portrait="20,0,0,0"
         safezone_landscape="20,0,0,0"
+        user_agent="Mozilla/5.0 (iPhone; CPU iPhone OS 6_1_6 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Version/6.0 Mobile/10A523 ROBLOX iOS App 1.0.0 Hybrid RobloxApp/1.0.0 (GlobalDist; AppleAppStore) (Studio Emulator)"
         ></Device>
     <Device name="iPhone 6 Plus"
         device_id="iphone_6_Plus"
@@ -139,6 +145,7 @@
         portrait_keyboard_image_filename="keyboard_phone_portrait.png"
         safezone_portrait="20,0,0,0"
         safezone_landscape="20,0,0,0"
+        user_agent="Mozilla/5.0 (iPhone; CPU iPhone OS 6_1_6 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Version/6.0 Mobile/10A523 ROBLOX iOS App 1.0.0 Hybrid RobloxApp/1.0.0 (GlobalDist; AppleAppStore) (Studio Emulator)"
         ></Device>
     <Device name="iPhone 7"
         device_id="iphone_7"
@@ -158,6 +165,7 @@
         portrait_keyboard_image_filename="keyboard_phone_portrait.png"
         safezone_portrait="20,0,0,0"
         safezone_landscape="20,0,0,0"
+        user_agent="Mozilla/5.0 (iPhone; CPU iPhone OS 7_1_2 like Mac OS X) AppleWebKit/537.51.2 (KHTML, like Gecko) Version/7.0 Mobile/11D257 ROBLOX iOS App 1.0.0 Hybrid RobloxApp/1.0.0 (GlobalDist; AppleAppStore) (Studio Emulator)"
         ></Device>
     <Device name="iPhone 7 Plus"
         device_id="iphone_7_Plus"
@@ -177,6 +185,7 @@
         portrait_keyboard_image_filename="keyboard_phone_portrait.png"
         safezone_portrait="20,0,0,0"
         safezone_landscape="20,0,0,0"
+        user_agent="Mozilla/5.0 (iPhone; CPU iPhone OS 7_1_2 like Mac OS X) AppleWebKit/537.51.2 (KHTML, like Gecko) Version/7.0 Mobile/11D257 ROBLOX iOS App 1.0.0 Hybrid RobloxApp/1.0.0 (GlobalDist; AppleAppStore) (Studio Emulator)"
         ></Device>
   <Device name ="iPhone X"
         device_id="iphone_X_new"
@@ -197,6 +206,7 @@
         special_corners="true"
         safezone_portrait="0,34,0,0"
         safezone_landscape="0,21,0,0"
+        user_agent="Mozilla/5.0 (iPhone; CPU iPhone OS 11_0 like Mac OS X) AppleWebKit/604.1.38 (KHTML, like Gecko) Version/11.0 Mobile/15A372 ROBLOX iOS App 1.0.0 Hybrid RobloxApp/1.0.0 (GlobalDist; AppleAppStore) (Studio Emulator)"
         ></Device>
   <!-- When UniversalApp is run on an iPhone X, iOS native gives special treatments,
    and makes it possible for the App to render in fullscreen mode. The app can draw
@@ -223,6 +233,7 @@
         special_corners="true"
         safezone_portrait="44,34,0,0"
         safezone_landscape="0,21,44,44"
+        user_agent="Mozilla/5.0 (iPhone; CPU iPhone OS 11_0 like Mac OS X) AppleWebKit/604.1.38 (KHTML, like Gecko) Version/11.0 Mobile/15A372 ROBLOX iOS App 1.0.0 Hybrid RobloxApp/1.0.0 (GlobalDist; AppleAppStore) (Studio Emulator)"
         ></Device>
     <Device name="iPod Touch 6th Generation"
         device_id="iPod_Touch_6th_Generation"
@@ -242,6 +253,7 @@
         portrait_keyboard_image_filename="keyboard_phone_portrait.png"
         safezone_portrait="20,0,0,0"
         safezone_landscape="20,0,0,0"
+        user_agent="Mozilla/5.0 (iPod touch; CPU iPhone OS 7_1_1 like Mac OS X) AppleWebKit/537.51.2 (KHTML, like Gecko) Version/7.0 Mobile/11D201 ROBLOX iOS App 1.0.0 Hybrid RobloxApp/1.0.0 (GlobalDist; AppleAppStore) (Studio Emulator)"
         ></Device>
     <Device name="Samsung Tab A"
         device_id="samsung_tab_a"
@@ -261,6 +273,7 @@
         portrait_keyboard_image_filename="keyboard_tablet_portrait.png"
         safezone_portrait="24,48,0,0"
         safezone_landscape="24,48,0,0"
+        user_agent="Mozilla/5.0 (Linux; Android 5.0.2; SAMSUNG SM-T550) AppleWebKit/537.36 (KHTML, like Gecko) ROBLOX Android App 1.0.0 Tablet Hybrid() GooglePlayStore RobloxApp/1.0.0 (GlobalDist; GooglePlayStore) (Studio Emulator)"
         ></Device>
     <Device name="Samsung GT-N5110"
         device_id="samsung_gt_N5110"
@@ -280,6 +293,7 @@
         portrait_keyboard_image_filename="keyboard_tablet_portrait.png"
         safezone_portrait="24,0,0,0"
         safezone_landscape="24,0,0,0"
+        user_agent="Mozilla/5.0 (Linux; Android 4.4.2; GT-N5110) AppleWebKit/537.36 (KHTML, like Gecko) ROBLOX Android App 1.0.0 Tablet Hybrid() GooglePlayStore RobloxApp/1.0.0 (GlobalDist; GooglePlayStore) (Studio Emulator)"
         ></Device>
     <Device name="Samsung Galaxy S3"
         device_id="samsung_galaxy_s3"
@@ -299,6 +313,7 @@
         portrait_keyboard_image_filename="keyboard_phone_portrait.png"
         safezone_portrait="25,0,0,0"
         safezone_landscape="25,0,0,0"
+        user_agent="Mozilla/5.0 (Linux; Android 4.4.4; GT-I9300I Build/KTU84P) AppleWebKit/537.36 (KHTML, like Gecko) ROBLOX Android App 1.0.0 Phone Hybrid() GooglePlayStore RobloxApp/1.0.0 (GlobalDist; GooglePlayStore) (Studio Emulator)"
         ></Device>
     <Device name="Samsung Galaxy S7"
         device_id="samsung_galaxy_s7"
@@ -318,6 +333,7 @@
         portrait_keyboard_image_filename="keyboard_phone_portrait.png"
         safezone_portrait="24,0,0,0"
         safezone_landscape="24,0,0,0"
+        user_agent="Mozilla/5.0 (Linux; Android 7.0; SM-G930V Build/NRD90M) AppleWebKit/537.36 (KHTML, like Gecko) ROBLOX Android App 1.0.0 Phone Hybrid() GooglePlayStore RobloxApp/1.0.0 (GlobalDist; GooglePlayStore) (Studio Emulator)"
         ></Device>
     <Device name="Xbox One"
         device_id="xbox"
@@ -327,6 +343,7 @@
         height="1080"
         device_form="console"
         platform="XBoxOne"
+        user_agent="Roblox/XboxOne ROBLOX Xbox App 1.0.0 RobloxApp/1.0.0 (GlobalDist; MicrosoftAppStore) (Studio Emulator)"
         ></Device>
     <Device name="Average Laptop"
         device_id="average_laptop"
@@ -334,6 +351,7 @@
         memoryMB="8192"
         width="1366"
         height="768"
+        user_agent="Mozilla/5.0 (Windows NT 10.0; Win64) AppleWebKit/538.1 (KHTML, like Gecko) RobloxStudio/1.0.0 Safari/538.1 RobloxApp/1.0.0 (GlobalDist; RobloxDirectDownload) (Studio Emulator)"
         ></Device>
     <Device name="HD 720"
         device_id="hd_720"
@@ -341,6 +359,7 @@
         memoryMB="8192"
         width="1280"
         height="720"
+        user_agent="Mozilla/5.0 (Windows NT 10.0; Win64) AppleWebKit/538.1 (KHTML, like Gecko) RobloxStudio/1.0.0 Safari/538.1 RobloxApp/1.0.0 (GlobalDist; RobloxDirectDownload) (Studio Emulator)"
         ></Device>
     <Device name="HD 1080"
         device_id="hd_1080"
@@ -348,6 +367,7 @@
         memoryMB="8192"
         width="1920"
         height="1080"
+        user_agent="Mozilla/5.0 (Windows NT 10.0; Win64) AppleWebKit/538.1 (KHTML, like Gecko) RobloxStudio/1.0.0 Safari/538.1 RobloxApp/1.0.0 (GlobalDist; RobloxDirectDownload) (Studio Emulator)"
         ></Device>
     <Device name="VGA"
         device_id="vga"
@@ -355,5 +375,6 @@
         memoryMB="8192"
         height="480"
         width="640"
+        user_agent="Mozilla/5.0 (Windows NT 10.0; Win64) AppleWebKit/538.1 (KHTML, like Gecko) RobloxStudio/1.0.0 Safari/538.1 RobloxApp/1.0.0 (GlobalDist; RobloxDirectDownload) (Studio Emulator)"
         ></Device>
 </EmulatedDevices>

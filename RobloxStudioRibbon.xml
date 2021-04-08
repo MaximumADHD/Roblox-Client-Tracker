@@ -187,11 +187,10 @@
       </Group>
       <Group name="Pivot" text="Studio.App.RobloxRibbonMainWindow.PivotGroup" fflag="ModelPivotVisual">
         <addaction name="editPivotAction" style="textundericon" text="Studio.App.RobloxRibbonMainWindow.EditPivot" tooltip="Studio.App.RobloxRibbonMainWindow.EditPivotTooltip" icon=":/RibbonBar/images/RibbonIcons/Home/PivotEditor.png" width="32" height="32" />
-        <addseparator visible="false"/>
-        <addaction name="clearPivotAction" style="textonly" text="Studio.App.RobloxRibbonMainWindow.ClearPivot" tooltip="Studio.App.RobloxRibbonMainWindow.ClearPivotTooltip" />
         <addcheckbox name="togglePivotSnapAction" text="Studio.App.RobloxRibbonMainWindow.TogglePivotSnap" tooltip="Studio.App.RobloxRibbonMainWindow.TogglePivotSnapTooltip" />
+        <addaction name="clearPivotAction" style="textbesideicon" text="Studio.App.RobloxRibbonMainWindow.ClearPivot" tooltip="Studio.App.RobloxRibbonMainWindow.ClearPivotTooltip" icon=":/RibbonBar/images/RibbonIcons/Home/ClearPivot.png" width="16" height="16" />
       </Group>
-      <Group name="Alignment" fflag="StudioAlignTool" text="Studio.App.RobloxRibbonMainWindow.AlignToolGroup">
+      <Group name="Alignment" text="Studio.App.RobloxRibbonMainWindow.AlignToolGroup">
         <addaction name="alignToolAction" type="plugin" style="textundericon" text="Studio.App.RobloxRibbonMainWindow.AlignTool" icon=":/RibbonBar/images/RibbonIcons/Home/Align.png" tooltip="Studio.App.RobloxRibbonMainWindow.AlignToolTooltip" height="32" width="32"/>
       </Group>
       <Group name="UI" text="Studio.App.RBXMainWindow.UI" controlsCentering="true">

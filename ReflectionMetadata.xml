@@ -501,16 +501,6 @@
         <string name="PreferredParents">BasePart</string>
         <string name="PreferredParents">Model</string>
       </Properties>
-      <Item class="ReflectionMetadataProperties">
-        <Item class="ReflectionMetadataMember">
-          <Properties>
-            <string name="Name">Stiffness</string>
-            <double name="UIMinimum">0</double>
-            <double name="UIMaximum">1</double>
-            <double name="UINumTicks">50</double>
-          </Properties>
-        </Item>
-      </Item>
     </Item>
 
     <Item class="ReflectionMetadataClass">
@@ -523,24 +513,6 @@
         <string name="PreferredParents">BasePart</string>
         <string name="PreferredParents">Model</string>
       </Properties>
-      <Item class="ReflectionMetadataProperties">
-        <Item class="ReflectionMetadataMember">
-          <Properties>
-            <string name="Name">Puffiness</string>
-            <double name="UIMinimum">0</double>
-            <double name="UIMaximum">1</double>
-            <double name="UINumTicks">50</double>
-          </Properties>
-        </Item>
-        <Item class="ReflectionMetadataMember">
-          <Properties>
-            <string name="Name">ShrinkFactor</string>
-            <double name="UIMinimum">-1</double>
-            <double name="UIMaximum">1</double>
-            <double name="UINumTicks">80</double>
-          </Properties>
-        </Item>
-      </Item>
     </Item>
 
 

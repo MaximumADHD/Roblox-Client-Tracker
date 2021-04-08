@@ -119,6 +119,7 @@ Studio.GameSettings.General.WorldPresetsAction,Action,Action
 Studio.GameSettings.General.GenreNaval,Naval,Naval
 Studio.GameSettings.General.GenreRPG,RPG,RPG
 Studio.GameSettings.General.GenreSciFi,Sci-Fi,Sci-Fi
+Studio.GameSettings.Monetization.NoBadges,Not seeing badges? Refresh to update,Not seeing badges? Refresh to update
 Studio.GameSettings.General.GenreTownAndCity,Town and City,Town and City
 Studio.GameSettings.General.GenreWestern,Western,Western
 Studio.GameSettings.Errors.ErrorPriceBelowMin,Price must be greater than {1}.,Price must be greater than {1}.

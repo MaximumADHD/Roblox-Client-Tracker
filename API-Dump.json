@@ -40519,9 +40519,12 @@
                         "Write": "None"
                     },
                     "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
+                        "CanLoad": false,
+                        "CanSave": false
                     },
+                    "Tags": [
+                        "NotReplicated"
+                    ],
                     "ThreadSafety": "ReadOnly",
                     "ValueType": {
                         "Category": "DataType",
@@ -41646,6 +41649,27 @@
                     "ValueType": {
                         "Category": "Enum",
                         "Name": "PhysicsSteppingMethod"
+                    }
+                },
+                {
+                    "Category": "Behavior",
+                    "MemberType": "Property",
+                    "Name": "SignalBehavior",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "NotScriptable"
+                    ],
+                    "ThreadSafety": "ReadOnly",
+                    "ValueType": {
+                        "Category": "Enum",
+                        "Name": "SignalBehavior"
                     }
                 },
                 {
@@ -56857,25 +56881,6 @@
                 },
                 {
                     "MemberType": "Function",
-                    "Name": "PlayStockSound",
-                    "Parameters": [
-                        {
-                            "Name": "sound",
-                            "Type": {
-                                "Category": "Enum",
-                                "Name": "SoundType"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "void"
-                    },
-                    "Security": "RobloxScriptSecurity",
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Function",
                     "Name": "SetListener",
                     "Parameters": [
                         {
@@ -64229,6 +64234,63 @@
             "Tags": [
                 "NotCreatable",
                 "Service"
+            ]
+        },
+        {
+            "Members": [
+                {
+                    "MemberType": "Function",
+                    "Name": "HideNotification",
+                    "Parameters": [
+                        {
+                            "Name": "notificationId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "ShowNotification",
+                    "Parameters": [
+                        {
+                            "Name": "message",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Name": "notificationId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "ToastNotificationService",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotCreatable",
+                "Service",
+                "NotReplicated"
             ]
         },
         {
@@ -77257,6 +77319,23 @@
         {
             "Items": [
                 {
+                    "Name": "Default",
+                    "Value": 0
+                },
+                {
+                    "Name": "Immediate",
+                    "Value": 1
+                },
+                {
+                    "Name": "Deferred",
+                    "Value": 2
+                }
+            ],
+            "Name": "SignalBehavior"
+        },
+        {
+            "Items": [
+                {
                     "Name": "RelativeXY",
                     "Value": 0
                 },
@@ -77700,408 +77779,432 @@
                     "Value": 8
                 },
                 {
-                    "Name": "RibbonTab",
+                    "Name": "FilterButtonDefault",
                     "Value": 9
                 },
                 {
-                    "Name": "RibbonTabTopBar",
+                    "Name": "FilterButtonHover",
                     "Value": 10
                 },
                 {
-                    "Name": "Button",
+                    "Name": "FilterButtonChecked",
                     "Value": 11
                 },
                 {
-                    "Name": "MainButton",
+                    "Name": "FilterButtonAccent",
                     "Value": 12
                 },
                 {
-                    "Name": "RibbonButton",
+                    "Name": "FilterButtonBorder",
                     "Value": 13
                 },
                 {
-                    "Name": "ViewPortBackground",
+                    "Name": "FilterButtonBorderAlt",
                     "Value": 14
                 },
                 {
-                    "Name": "InputFieldBackground",
+                    "Name": "RibbonTab",
                     "Value": 15
                 },
                 {
-                    "Name": "Item",
+                    "Name": "RibbonTabTopBar",
                     "Value": 16
                 },
                 {
-                    "Name": "TableItem",
+                    "Name": "Button",
                     "Value": 17
                 },
                 {
-                    "Name": "CategoryItem",
+                    "Name": "MainButton",
                     "Value": 18
                 },
                 {
-                    "Name": "GameSettingsTableItem",
+                    "Name": "RibbonButton",
                     "Value": 19
                 },
                 {
-                    "Name": "GameSettingsTooltip",
+                    "Name": "ViewPortBackground",
                     "Value": 20
                 },
                 {
-                    "Name": "EmulatorBar",
+                    "Name": "InputFieldBackground",
                     "Value": 21
                 },
                 {
-                    "Name": "EmulatorDropDown",
+                    "Name": "Item",
                     "Value": 22
                 },
                 {
-                    "Name": "ColorPickerFrame",
+                    "Name": "TableItem",
                     "Value": 23
                 },
                 {
-                    "Name": "CurrentMarker",
+                    "Name": "CategoryItem",
                     "Value": 24
                 },
                 {
-                    "Name": "Border",
+                    "Name": "GameSettingsTableItem",
                     "Value": 25
                 },
                 {
-                    "Name": "Shadow",
+                    "Name": "GameSettingsTooltip",
                     "Value": 26
                 },
                 {
-                    "Name": "Light",
+                    "Name": "EmulatorBar",
                     "Value": 27
                 },
                 {
-                    "Name": "Dark",
+                    "Name": "EmulatorDropDown",
                     "Value": 28
                 },
                 {
-                    "Name": "Mid",
+                    "Name": "ColorPickerFrame",
                     "Value": 29
                 },
                 {
-                    "Name": "MainText",
+                    "Name": "CurrentMarker",
                     "Value": 30
                 },
                 {
-                    "Name": "SubText",
+                    "Name": "Border",
                     "Value": 31
                 },
                 {
-                    "Name": "TitlebarText",
+                    "Name": "Shadow",
                     "Value": 32
                 },
                 {
-                    "Name": "BrightText",
+                    "Name": "Light",
                     "Value": 33
                 },
                 {
-                    "Name": "DimmedText",
+                    "Name": "Dark",
                     "Value": 34
                 },
                 {
-                    "Name": "LinkText",
+                    "Name": "Mid",
                     "Value": 35
                 },
                 {
-                    "Name": "WarningText",
+                    "Name": "MainText",
                     "Value": 36
                 },
                 {
-                    "Name": "ErrorText",
+                    "Name": "SubText",
                     "Value": 37
                 },
                 {
-                    "Name": "InfoText",
+                    "Name": "TitlebarText",
                     "Value": 38
                 },
                 {
-                    "Name": "SensitiveText",
+                    "Name": "BrightText",
                     "Value": 39
                 },
                 {
-                    "Name": "ScriptSideWidget",
+                    "Name": "DimmedText",
                     "Value": 40
                 },
                 {
-                    "Name": "ScriptBackground",
+                    "Name": "LinkText",
                     "Value": 41
                 },
                 {
-                    "Name": "ScriptText",
+                    "Name": "WarningText",
                     "Value": 42
                 },
                 {
-                    "Name": "ScriptSelectionText",
+                    "Name": "ErrorText",
                     "Value": 43
                 },
                 {
-                    "Name": "ScriptSelectionBackground",
+                    "Name": "InfoText",
                     "Value": 44
                 },
                 {
-                    "Name": "ScriptFindSelectionBackground",
+                    "Name": "SensitiveText",
                     "Value": 45
                 },
                 {
-                    "Name": "ScriptMatchingWordSelectionBackground",
+                    "Name": "ScriptSideWidget",
                     "Value": 46
                 },
                 {
-                    "Name": "ScriptOperator",
+                    "Name": "ScriptBackground",
                     "Value": 47
                 },
                 {
-                    "Name": "ScriptNumber",
+                    "Name": "ScriptText",
                     "Value": 48
                 },
                 {
-                    "Name": "ScriptString",
+                    "Name": "ScriptSelectionText",
                     "Value": 49
                 },
                 {
-                    "Name": "ScriptComment",
+                    "Name": "ScriptSelectionBackground",
                     "Value": 50
                 },
                 {
-                    "Name": "ScriptKeyword",
+                    "Name": "ScriptFindSelectionBackground",
                     "Value": 51
                 },
                 {
-                    "Name": "ScriptBuiltInFunction",
+                    "Name": "ScriptMatchingWordSelectionBackground",
                     "Value": 52
                 },
                 {
-                    "Name": "ScriptWarning",
+                    "Name": "ScriptOperator",
                     "Value": 53
                 },
                 {
-                    "Name": "ScriptError",
+                    "Name": "ScriptNumber",
                     "Value": 54
                 },
                 {
-                    "Name": "ScriptWhitespace",
+                    "Name": "ScriptString",
                     "Value": 55
                 },
                 {
-                    "Name": "ScriptRuler",
+                    "Name": "ScriptComment",
                     "Value": 56
                 },
                 {
-                    "Name": "DebuggerCurrentLine",
+                    "Name": "ScriptKeyword",
                     "Value": 57
                 },
                 {
-                    "Name": "DebuggerErrorLine",
+                    "Name": "ScriptBuiltInFunction",
                     "Value": 58
                 },
                 {
-                    "Name": "ScriptEditorCurrentLine",
-                    "Value": 97
-                },
-                {
-                    "Name": "DiffFilePathText",
+                    "Name": "ScriptWarning",
                     "Value": 59
                 },
                 {
-                    "Name": "DiffTextHunkInfo",
+                    "Name": "ScriptError",
                     "Value": 60
                 },
                 {
-                    "Name": "DiffTextNoChange",
+                    "Name": "ScriptWhitespace",
                     "Value": 61
                 },
                 {
-                    "Name": "DiffTextAddition",
+                    "Name": "ScriptRuler",
                     "Value": 62
                 },
                 {
-                    "Name": "DiffTextDeletion",
+                    "Name": "DebuggerCurrentLine",
                     "Value": 63
                 },
                 {
-                    "Name": "DiffTextSeparatorBackground",
+                    "Name": "DebuggerErrorLine",
                     "Value": 64
                 },
                 {
-                    "Name": "DiffTextNoChangeBackground",
-                    "Value": 65
-                },
-                {
-                    "Name": "DiffTextAdditionBackground",
-                    "Value": 66
-                },
-                {
-                    "Name": "DiffTextDeletionBackground",
-                    "Value": 67
-                },
-                {
-                    "Name": "DiffLineNum",
-                    "Value": 68
-                },
-                {
-                    "Name": "DiffLineNumSeparatorBackground",
-                    "Value": 69
-                },
-                {
-                    "Name": "DiffLineNumNoChangeBackground",
-                    "Value": 70
-                },
-                {
-                    "Name": "DiffLineNumAdditionBackground",
-                    "Value": 71
-                },
-                {
-                    "Name": "DiffLineNumDeletionBackground",
-                    "Value": 72
-                },
-                {
-                    "Name": "DiffFilePathBackground",
-                    "Value": 73
-                },
-                {
-                    "Name": "DiffFilePathBorder",
-                    "Value": 74
-                },
-                {
-                    "Name": "ChatIncomingBgColor",
-                    "Value": 75
-                },
-                {
-                    "Name": "ChatIncomingTextColor",
-                    "Value": 76
-                },
-                {
-                    "Name": "ChatOutgoingBgColor",
-                    "Value": 77
-                },
-                {
-                    "Name": "ChatOutgoingTextColor",
-                    "Value": 78
-                },
-                {
-                    "Name": "ChatModeratedMessageColor",
-                    "Value": 79
-                },
-                {
-                    "Name": "Separator",
-                    "Value": 80
-                },
-                {
-                    "Name": "ButtonBorder",
-                    "Value": 81
-                },
-                {
-                    "Name": "ButtonText",
-                    "Value": 82
-                },
-                {
-                    "Name": "InputFieldBorder",
-                    "Value": 83
-                },
-                {
-                    "Name": "CheckedFieldBackground",
-                    "Value": 84
-                },
-                {
-                    "Name": "CheckedFieldBorder",
-                    "Value": 85
-                },
-                {
-                    "Name": "CheckedFieldIndicator",
-                    "Value": 86
-                },
-                {
-                    "Name": "HeaderSection",
-                    "Value": 87
-                },
-                {
-                    "Name": "Midlight",
-                    "Value": 88
-                },
-                {
-                    "Name": "StatusBar",
-                    "Value": 89
-                },
-                {
-                    "Name": "DialogButton",
-                    "Value": 90
-                },
-                {
-                    "Name": "DialogButtonText",
-                    "Value": 91
-                },
-                {
-                    "Name": "DialogButtonBorder",
-                    "Value": 92
-                },
-                {
-                    "Name": "DialogMainButton",
-                    "Value": 93
-                },
-                {
-                    "Name": "DialogMainButtonText",
-                    "Value": 94
-                },
-                {
-                    "Name": "InfoBarWarningBackground",
-                    "Value": 95
-                },
-                {
-                    "Name": "InfoBarWarningText",
-                    "Value": 96
-                },
-                {
-                    "Name": "ScriptMethod",
-                    "Value": 98
-                },
-                {
-                    "Name": "ScriptProperty",
-                    "Value": 99
-                },
-                {
-                    "Name": "ScriptNil",
-                    "Value": 100
-                },
-                {
-                    "Name": "ScriptBool",
-                    "Value": 101
-                },
-                {
-                    "Name": "ScriptFunction",
-                    "Value": 102
-                },
-                {
-                    "Name": "ScriptLocal",
+                    "Name": "ScriptEditorCurrentLine",
                     "Value": 103
                 },
                 {
-                    "Name": "ScriptSelf",
+                    "Name": "DiffFilePathText",
+                    "Value": 65
+                },
+                {
+                    "Name": "DiffTextHunkInfo",
+                    "Value": 66
+                },
+                {
+                    "Name": "DiffTextNoChange",
+                    "Value": 67
+                },
+                {
+                    "Name": "DiffTextAddition",
+                    "Value": 68
+                },
+                {
+                    "Name": "DiffTextDeletion",
+                    "Value": 69
+                },
+                {
+                    "Name": "DiffTextSeparatorBackground",
+                    "Value": 70
+                },
+                {
+                    "Name": "DiffTextNoChangeBackground",
+                    "Value": 71
+                },
+                {
+                    "Name": "DiffTextAdditionBackground",
+                    "Value": 72
+                },
+                {
+                    "Name": "DiffTextDeletionBackground",
+                    "Value": 73
+                },
+                {
+                    "Name": "DiffLineNum",
+                    "Value": 74
+                },
+                {
+                    "Name": "DiffLineNumSeparatorBackground",
+                    "Value": 75
+                },
+                {
+                    "Name": "DiffLineNumNoChangeBackground",
+                    "Value": 76
+                },
+                {
+                    "Name": "DiffLineNumAdditionBackground",
+                    "Value": 77
+                },
+                {
+                    "Name": "DiffLineNumDeletionBackground",
+                    "Value": 78
+                },
+                {
+                    "Name": "DiffFilePathBackground",
+                    "Value": 79
+                },
+                {
+                    "Name": "DiffFilePathBorder",
+                    "Value": 80
+                },
+                {
+                    "Name": "ChatIncomingBgColor",
+                    "Value": 81
+                },
+                {
+                    "Name": "ChatIncomingTextColor",
+                    "Value": 82
+                },
+                {
+                    "Name": "ChatOutgoingBgColor",
+                    "Value": 83
+                },
+                {
+                    "Name": "ChatOutgoingTextColor",
+                    "Value": 84
+                },
+                {
+                    "Name": "ChatModeratedMessageColor",
+                    "Value": 85
+                },
+                {
+                    "Name": "Separator",
+                    "Value": 86
+                },
+                {
+                    "Name": "ButtonBorder",
+                    "Value": 87
+                },
+                {
+                    "Name": "ButtonText",
+                    "Value": 88
+                },
+                {
+                    "Name": "InputFieldBorder",
+                    "Value": 89
+                },
+                {
+                    "Name": "CheckedFieldBackground",
+                    "Value": 90
+                },
+                {
+                    "Name": "CheckedFieldBorder",
+                    "Value": 91
+                },
+                {
+                    "Name": "CheckedFieldIndicator",
+                    "Value": 92
+                },
+                {
+                    "Name": "HeaderSection",
+                    "Value": 93
+                },
+                {
+                    "Name": "Midlight",
+                    "Value": 94
+                },
+                {
+                    "Name": "StatusBar",
+                    "Value": 95
+                },
+                {
+                    "Name": "DialogButton",
+                    "Value": 96
+                },
+                {
+                    "Name": "DialogButtonText",
+                    "Value": 97
+                },
+                {
+                    "Name": "DialogButtonBorder",
+                    "Value": 98
+                },
+                {
+                    "Name": "DialogMainButton",
+                    "Value": 99
+                },
+                {
+                    "Name": "DialogMainButtonText",
+                    "Value": 100
+                },
+                {
+                    "Name": "InfoBarWarningBackground",
+                    "Value": 101
+                },
+                {
+                    "Name": "InfoBarWarningText",
+                    "Value": 102
+                },
+                {
+                    "Name": "ScriptMethod",
                     "Value": 104
                 },
                 {
-                    "Name": "ScriptLuauKeyword",
+                    "Name": "ScriptProperty",
                     "Value": 105
                 },
                 {
-                    "Name": "ScriptFunctionName",
+                    "Name": "ScriptNil",
                     "Value": 106
                 },
                 {
-                    "Name": "ScriptTodo",
+                    "Name": "ScriptBool",
                     "Value": 107
                 },
                 {
-                    "Name": "ScriptBracket",
+                    "Name": "ScriptFunction",
                     "Value": 108
                 },
                 {
-                    "Name": "AttributeCog",
+                    "Name": "ScriptLocal",
                     "Value": 109
+                },
+                {
+                    "Name": "ScriptSelf",
+                    "Value": 110
+                },
+                {
+                    "Name": "ScriptLuauKeyword",
+                    "Value": 111
+                },
+                {
+                    "Name": "ScriptFunctionName",
+                    "Value": 112
+                },
+                {
+                    "Name": "ScriptTodo",
+                    "Value": 113
+                },
+                {
+                    "Name": "ScriptBracket",
+                    "Value": 114
+                },
+                {
+                    "Name": "AttributeCog",
+                    "Value": 115
                 }
             ],
             "Name": "StudioStyleGuideColor"
@@ -79162,6 +79265,10 @@
                 {
                     "Name": "Reference",
                     "Value": 4
+                },
+                {
+                    "Name": "Rbf",
+                    "Value": 5
                 }
             ],
             "Name": "WrapLayerDebugMode"
@@ -79173,8 +79280,32 @@
                     "Value": 0
                 },
                 {
-                    "Name": "TargetCage",
+                    "Name": "TargetCageOriginal",
                     "Value": 1
+                },
+                {
+                    "Name": "TargetCageCompressed",
+                    "Value": 2
+                },
+                {
+                    "Name": "TargetCageInterface",
+                    "Value": 3
+                },
+                {
+                    "Name": "TargetLayerCageOriginal",
+                    "Value": 4
+                },
+                {
+                    "Name": "TargetLayerCageCompressed",
+                    "Value": 5
+                },
+                {
+                    "Name": "TargetLayerInterface",
+                    "Value": 6
+                },
+                {
+                    "Name": "Rbf",
+                    "Value": 7
                 }
             ],
             "Name": "WrapTargetDebugMode"

@@ -18,13 +18,16 @@ Studio.App.AddEmulationDeviceDialog.KeyboardSettings,,Keyboard Settings,Keyboard
 Studio.App.AddEmulationDeviceDialog.LandscapeKeyboardHeight,,Keyboard Height (Landscape),Keyboard Height (Landscape)
 Studio.App.AddEmulationDeviceDialog.LandscapeSafeZoneOffsets,,SafeZoneOffsets (Landscape),SafeZoneOffsets (Landscape)
 Studio.App.AddEmulationDeviceDialog.LeftSafeZoneOffset,,Left,Left
+Studio.App.AddEmulationDeviceDialog.NameAlreadyInUse1,Error message that is displayed if the user tries to set the name of a new custom emulation device to one that already exists.,"The name ""%1"" is already in use.","The name ""%1"" is already in use."
 Studio.App.AddEmulationDeviceDialog.NameInUse1,,"<nobr><font color=""#ff0000"">The name ""%1"" is already in use.</font></nobr>","<nobr><font color=""#ff0000"">The name ""%1"" is already in use.</font></nobr>"
+Studio.App.AddEmulationDeviceDialog.NameIsReserved1,"Error message that is displayed if the user tries to set the name of a new custom emulation device to one that is used internally, and unavailable for the user. The name is reserved by the system.","The name ""%1"" is reserved.","The name ""%1"" is reserved."
 Studio.App.AddEmulationDeviceDialog.Platform,,Platform,Platform
 Studio.App.AddEmulationDeviceDialog.PortraitKeyboardHeight,,Keyboard Height (Portrait),Keyboard Height (Portrait)
 Studio.App.AddEmulationDeviceDialog.PortraitSafeZoneOffsets,,SafeZoneOffsets (Portrait),SafeZoneOffsets (Portrait)
 Studio.App.AddEmulationDeviceDialog.ResolutionDpi,,Resolution (DPI),Resolution (DPI)
 Studio.App.AddEmulationDeviceDialog.RightSafeZoneOffset,,Right,Right
 Studio.App.AddEmulationDeviceDialog.TopSafeZoneOffset,,Top,Top
+Studio.App.AddEmulationDeviceDialog.userAgentString,,User Agent String,User Agent String
 Studio.App.AddImageDialog.ChooseFile,,Choose File,Choose File
 Studio.App.AddImageDialog.ChooseImageUpload,,Choose image to upload,Choose image to upload
 Studio.App.AddImageDialog.CreateAssetName,,Creating asset name...,Creating asset name...
@@ -76,8 +79,6 @@ Studio.App.AutocompleteMenu.MoreChildrenItemTextFmt1,,%1 more children...,%1 mor
 Studio.App.AutocompleteTooltip.FunctionNumberLabelTextFmt2,,%1 of %2,%1 of %2
 Studio.App.BetaFeatures.AdaptiveTimesteppingDescription,,Adaptively take larger timesteps for individual solver islands when possible.,Adaptively take larger timesteps for individual solver islands when possible.
 Studio.App.BetaFeatures.AdaptiveTimesteppingTitle,,Adaptive timestepping,Adaptive timestepping
-Studio.App.BetaFeatures.AlignToolImprovementsDescription,,"Show the Align Tool in the “Model” tab, and enable UI improvements so all controls are usable at narrow widths.","Show the Align Tool in the “Model” tab, and enable UI improvements so all controls are usable at narrow widths."
-Studio.App.BetaFeatures.AlignToolImprovementsTitle,,Align Tool Improvements,Align Tool Improvements
 Studio.App.BetaFeatures.AnimationEditorDescription,,Enables the new Beta version of the Animation Editor.,Enables the new Beta version of the Animation Editor.
 Studio.App.BetaFeatures.AnimationEditorTitle,,Animation Editor Beta,Animation Editor Beta
 Studio.App.BetaFeatures.AssetManagerDescription,,"Manage your assets in a brand new widget, with new features. This replaces the Game Explorer.","Manage your assets in a brand new widget, with new features. This replaces the Game Explorer."
@@ -128,6 +129,8 @@ Studio.App.BetaFeatures.LayeredClothingBetaTitle,,Cage Mesh Deformer,Cage Mesh D
 Studio.App.BetaFeatures.LearnMoreTooltip,,Learn More,Learn More
 Studio.App.BetaFeatures.LuauNonStrictByDefaultDescription,,"Script analysis uses non-strict mode for all scripts by default. Use --!strict, --!nonstrict or --!nocheck to override mode on a per script basis.","Script analysis uses non-strict mode for all scripts by default. Use --!strict, --!nonstrict or --!nocheck to override mode on a per script basis."
 Studio.App.BetaFeatures.LuauNonStrictByDefaultTitle,,Scripts Are Non-Strict By Default,Scripts Are Non-Strict By Default
+Studio.App.BetaFeatures.MaxWaterFogDistanceDescription,,The maximum underwater fog distance is increased to permit larger underwater place designs with further visibility in the distance.,The maximum underwater fog distance is increased to permit larger underwater place designs with further visibility in the distance.
+Studio.App.BetaFeatures.MaxWaterFogDistanceTitle,,Max Water Fog Distance Increase,Max Water Fog Distance Increase
 Studio.App.BetaFeatures.NewFeaturesForChannelUserWarning1,,"New beta features have been automatically enabled above as you are enrolled in Beta Channel. You must restart Studio for them to be activated. <a href=""%1"">Restart Now</a>","New beta features have been automatically enabled above as you are enrolled in Beta Channel. You must restart Studio for them to be activated. <a href=""%1"">Restart Now</a>"
 Studio.App.BetaFeatures.NewScriptFoldStateDescription,,Enables new improved behavior for code folding in the Script Editor.,Enables new improved behavior for code folding in the Script Editor.
 Studio.App.BetaFeatures.NewScriptFoldStateTitle,,Script Editor Folds Behavior Beta,Script Editor Folds Behavior Beta
@@ -256,6 +259,8 @@ Studio.App.CalloutController.AssetManagerCalloutDescription,Description that app
 Studio.App.CalloutController.AssetManagerCalloutTitle,Name of the new Asset Manager built-in plugin that displays as a title for a Teaching Callout that points to the button for the plugin.,Asset Manager,Asset Manager
 Studio.App.CalloutController.DraggerModeCalloutDescription,,Leverages the physics engine and constraints solver to simulate real-world behavior when moving objects. It adjusts some settings to work properly.,Leverages the physics engine and constraints solver to simulate real-world behavior when moving objects. It adjusts some settings to work properly.
 Studio.App.CalloutController.DraggerModeCalloutTitle,,Drag Mode,Drag Mode
+Studio.App.CalloutController.PivotEditorCalloutDescription,,Change the pivot point around which an object rotates and translates.,Change the pivot point around which an object rotates and translates.
+Studio.App.CalloutController.PivotEditorCalloutTitle,,Pivot Editor,Pivot Editor
 Studio.App.CalloutService.InvalidLayerCollector,,Not a valid type of LayerCollector,Not a valid type of LayerCollector
 Studio.App.CalloutService.NoLayerCollector,,Could not find a LayerCollector for target,Could not find a LayerCollector for target
 Studio.App.CalloutService.NotAvailable,,CalloutService is not available when either FFlagStudioEnableTeachingCallouts or FFlagStudioCalloutsInLua are false,CalloutService is not available when either FFlagStudioEnableTeachingCallouts or FFlagStudioCalloutsInLua are false
@@ -907,6 +912,7 @@ Studio.App.MainWindow.DisconnectFromTeamCreateOutOfDate,Main Window,"Roblox Stud
 Studio.App.MainWindow.FailedConnectRemoteServers,Main Window,"Failed to connect to remote servers, please make sure the device is connected to the Internet. Studio will be running in offline mode.","Failed to connect to remote servers, please make sure the device is connected to the Internet. Studio will be running in offline mode."
 Studio.App.MainWindow.FailedToAutoSave,Main Window,Failed to AutoSave,Failed to AutoSave
 Studio.App.MainWindow.FailedToAutoSaveTemporarilyDisable,Main Window,Failed to AutoSave.  Do you want to temporarily disable AutoSave?,Failed to AutoSave.  Do you want to temporarily disable AutoSave?
+Studio.App.MainWindow.FailedToFetchConfigurationSettings,Main Window,Studio failed to fetch configuration settings.,Studio failed to fetch configuration settings.
 Studio.App.MainWindow.FailedToLoadSettings,Main Window,Failed to load settings,Failed to load settings
 Studio.App.MainWindow.FailedToOpenObjectBrowser,Main Window,"Failed to open Object Browser. Please restart your application and try again. If you continue to encounter this error, please contact customer service.","Failed to open Object Browser. Please restart your application and try again. If you continue to encounter this error, please contact customer service."
 Studio.App.MainWindow.FileNotExistNewLine1,Main Window,"%1
@@ -1291,6 +1297,7 @@ Studio.App.Property.OsPlatformId,,Os Platform Id,Os Platform Id
 Studio.App.Property.OsVer,,Os Ver,Os Ver
 Studio.App.Property.OutputFont,,Output Font,Output Font
 Studio.App.Property.OutputLayoutMode,,Output Layout Mode,Output Layout Mode
+Studio.App.Property.OutputTextEffectsUnsupported,,Text effects are currently unsupported in the Output window.,Text effects are currently unsupported in the Output window.
 Studio.App.Property.OverrideCoreScripts,,Override Core Scripts,Override Core Scripts
 Studio.App.Property.OverrideCoreScriptsDir,,Override Core Scripts Dir,Override Core Scripts Dir
 Studio.App.Property.OverrideStarterScript,,Override Starter Script,Override Starter Script
@@ -1645,6 +1652,7 @@ Studio.App.RBXMainWindow.ExportAsObj,,Export as Obj,Export as Obj
 Studio.App.RBXMainWindow.ExportSelection,,Export Selection,Export Selection
 Studio.App.RBXMainWindow.ExportSelectionElps,,Export Selection...,Export Selection...
 Studio.App.RBXMainWindow.FilterScriptFunctions,,Filter script functions,Filter script functions
+Studio.App.RBXMainWindow.FilterScriptFunctionsNoFunctions,,No functions to filter,No functions to filter
 Studio.App.RBXMainWindow.FindElps,,Find...,Find...
 Studio.App.RBXMainWindow.FindNext,,Find Next,Find Next
 Studio.App.RBXMainWindow.FindPrevious,,Find Previous,Find Previous
@@ -2264,8 +2272,8 @@ Studio.App.RobloxRibbonMainWindow.Block,,Block,Block
 Studio.App.RobloxRibbonMainWindow.Brick,,Brick,Brick
 Studio.App.RobloxRibbonMainWindow.CheckCollisionsDragging,,Check for collisions when dragging,Check for collisions when dragging
 Studio.App.RobloxRibbonMainWindow.Cleanup,,Cleanup,Cleanup
-Studio.App.RobloxRibbonMainWindow.ClearPivot,,Clear Pivot,Clear Pivot
-Studio.App.RobloxRibbonMainWindow.ClearPivotTooltip,,Clear the pivot for the selected object,Clear the pivot for the selected object
+Studio.App.RobloxRibbonMainWindow.ClearPivot,Button to reset the pivot of the selected objects,Reset,Reset
+Studio.App.RobloxRibbonMainWindow.ClearPivotTooltip,,Reset the pivots of the selected objects,Reset the pivots of the selected objects
 Studio.App.RobloxRibbonMainWindow.ClickOnPartsToLockUnlock,,Click on parts to lock/unlock,Click on parts to lock/unlock
 Studio.App.RobloxRibbonMainWindow.ClientsAndServers,,Clients and Servers,Clients and Servers
 Studio.App.RobloxRibbonMainWindow.Clipboard,,Clipboard,Clipboard
@@ -2887,6 +2895,7 @@ Studio.App.TemplatePage.Gameplay,,Gameplay,Gameplay
 Studio.App.TemplatePage.Theme,,Theme,Theme
 Studio.App.TemplatesPage.AllTemplates,Templates page tab,All Templates,All Templates
 Studio.App.Theme.InvalidGetThemeApi,"Theme:GetPath api has been removed, so it cannot be used anymore",GetPath is not a valid member of Theme,GetPath is not a valid member of Theme
+Studio.App.ToastNotificationService.NotAvailable,,ToastNotificationService is not available when FFlagStudioToastNotificationsInLua is false,ToastNotificationService is not available when FFlagStudioToastNotificationsInLua is false
 Studio.App.Tooltip.GoToSource,,Go to source,Go to source
 Studio.App.TwoStepVerificationPage.Enter6DigitCode,,Enter 6-digit code,Enter 6-digit code
 Studio.App.TwoStepVerificationPage.NeedHelpContact,,Need help? Contact ,Need help? Contact 
