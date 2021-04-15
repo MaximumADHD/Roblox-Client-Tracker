@@ -25,4 +25,12 @@ function Math.isNaN(n)
 	return n ~= n
 end
 
+Math.NEAR_ZERO = 0.0001
+
+function Math.fuzzyEq(numOne, numTwo, epsilon)
+	epsilon = epsilon or Math.NEAR_ZERO
+	return math.abs(numOne - numTwo) < epsilon
+end
+
+
 return Math

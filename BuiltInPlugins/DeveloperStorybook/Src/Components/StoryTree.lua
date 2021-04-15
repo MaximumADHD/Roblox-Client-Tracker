@@ -48,7 +48,7 @@ function StoryTree:init()
 		local isExpanded = props.Expansion[row.item]
 		return Roact.createElement(StoryTreeRow, {
 			row = row,
-			style = style.StoryTree,
+			style = style,
 			isSelected = isSelected,
 			isExpanded = isExpanded,
 			onToggled = self.toggleRow,

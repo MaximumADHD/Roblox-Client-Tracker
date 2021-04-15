@@ -51,7 +51,9 @@ local PermissionsProtocol = {
 	},
 	SUPPORTS_PERMISSIONS_REQUEST_DESCRIPTOR = {
 		mid = MessageBus.getMessageId(NAME, "supportsPermissionsRequest"),
-		validateParams = t.strictInterface({}),
+		validateParams = t.strictInterface({
+			includeStatus = t.literal(false),
+		}),
 	},
 	SUPPORTS_PERMISSIONS_RESPONSE_DESCRIPTOR = {
 		mid = MessageBus.getMessageId(NAME, "supportsPermissionsResponse"),
@@ -135,7 +137,9 @@ function PermissionsProtocol:getSupportedPermissionsList(): Promise
 		end)
 	end)
 
-	MessageBus.publish(self.SUPPORTS_PERMISSIONS_REQUEST_DESCRIPTOR, {})
+	MessageBus.publish(self.SUPPORTS_PERMISSIONS_REQUEST_DESCRIPTOR, {
+		includeStatus = false,
+	})
 	return promise
 end
 

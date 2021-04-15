@@ -21,9 +21,6 @@ local ContextServices = Framework.ContextServices
 local UI = Framework.UI
 local TreeView = UI.TreeView
 
-local Util = Framework.Util
-local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
-
 local Actions = main.Src.Actions
 local SelectInstance = require(Actions.RoactInspector.SelectInstance)
 local ToggleInstance = require(Actions.RoactInspector.ToggleInstance)
@@ -81,13 +78,7 @@ function RoactElementTree:init()
 	end
 
 	self.renderRow = function(row)
-		local style
-		if THEME_REFACTOR then
-			style = self.props.Stylizer
-		else
-			local theme = self.props.Theme
-			style = theme:getStyle("Plugin", self)
-		end
+		local style = self.props.Stylizer
 		local flash = mapOne(self.props.Flash, function(flash, path)
 			if shallowEqual(path, row.item.Path) then
 				return flash
@@ -131,8 +122,7 @@ function RoactElementTree:render()
 end
 
 ContextServices.mapToProps(RoactElementTree, {
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	Stylizer = ContextServices.Stylizer,
 	Inspector = InspectorContext
 })
 

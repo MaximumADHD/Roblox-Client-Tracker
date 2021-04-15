@@ -23,7 +23,6 @@
 ]]
 
 local FFlagFixRadioButtonSeAndTableHeadertForTesting = game:getFastFlag("FixRadioButtonSeAndTableHeadertForTesting")
-local FFlagStudioDevProductCopyIdToClipboard = game:getFastFlag("StudioDevProductCopyIdToClipboard")
 local FFlagStudioEnableBadgesInMonetizationPage = game:GetFastFlag("StudioEnableBadgesInMonetizationPage")
 
 local Plugin = script.Parent.Parent.Parent
@@ -105,8 +104,6 @@ function TableWithMenu:createDataLabels(data, menuItems, onItemClicked, menuItem
         local filteredMenuItems
         
         if menuItemsFilterFunc then
-            assert(FFlagStudioDevProductCopyIdToClipboard)
-            
             filteredMenuItems = {unpack(menuItems)}
             menuItemsFilterFunc(rowData, filteredMenuItems)
         else
@@ -150,7 +147,7 @@ function TableWithMenu:render()
     local onItemClicked = props.OnItemClicked
     local layoutOrder = props.LayoutOrder
     local nextPageFunc = props.NextPageFunc
-    local MenuItemsFilterFunc = FFlagStudioDevProductCopyIdToClipboard and props.MenuItemsFilterFunc or nil
+    local MenuItemsFilterFunc = props.MenuItemsFilterFunc or nil
 
     local nextPageRequestDistance = FFlagStudioEnableBadgesInMonetizationPage and props.ScrollingFrameNextPageRequestDistance or nil
     local headerButton = FFlagStudioEnableBadgesInMonetizationPage and props.HeaderButton or nil

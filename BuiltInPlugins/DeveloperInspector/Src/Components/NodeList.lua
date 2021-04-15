@@ -10,7 +10,6 @@ local InspectorContext = require(main.Src.Util.InspectorContext)
 local DeveloperTools = require(main.Packages.DeveloperTools)
 local RoactInspectorApi = DeveloperTools.RoactInspectorApi
 
-local Util = Framework.Util
 local UI = Framework.UI
 local Container = UI.Container
 local ScrollingFrame = UI.ScrollingFrame
@@ -22,8 +21,6 @@ local shallowEqual = Dash.shallowEqual
 
 local NodeListRow = require(script.NodeListRow)
 local traceSource = require(main.Src.Util.traceSource)
-
-local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 
 local Actions = main.Src.Actions
 local SelectNode = require(Actions.RoactInspector.SelectNode)
@@ -68,14 +65,8 @@ end
 
 function NodeList:render()
 	local props = self.props
-	local style
-	if THEME_REFACTOR then
-		style = props.Stylizer
-	else
-		local theme = props.Theme
-		style = theme:getStyle("Plugin", self)
-	end
-
+	local style = props.Stylizer
+	
 	local flash = self:getFlash()
 
 	local children = collect(props.Nodes, function(index: number, item)
@@ -113,8 +104,7 @@ function NodeList:render()
 end
 
 ContextServices.mapToProps(NodeList, {
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	Stylizer = ContextServices.Stylizer,
 	Plugin = ContextServices.Plugin,
 	Inspector = InspectorContext
 })

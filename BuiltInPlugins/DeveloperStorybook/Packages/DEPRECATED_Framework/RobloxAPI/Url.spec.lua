@@ -1,4 +1,6 @@
 return function()
+	local FFlagFixDevFrameworkComposeUrl = game:GetFastFlag("FixDevFrameworkComposeUrl")
+
 	local ContentProvider = game:GetService("ContentProvider")
 	local RobloxAPI = script.Parent
 	local Url = require(RobloxAPI.Url)
@@ -128,6 +130,32 @@ return function()
 			expect(function()
 				Url.composeUrl("https://www.test.com/", "a/b/c", { d = {} })
 			end).to.throw()
+		end)
+
+		it("should return a url which is correctly encoded", function()
+			local encodedURL = "https://www.test.com/a/b/c?d=hello%5Fworld"
+			local url = Url.composeUrl("https://www.test.com/", "a/b/c", {
+				d = "hello_world",
+			})
+			if FFlagFixDevFrameworkComposeUrl then
+				expect(url).to.equal(encodedURL)
+			end
+		end)
+
+		it("should return a url whose array objects are correctly encoded", function()
+			local url = Url.composeUrl("https://www.test.com/", "a/b/c", {
+				d = "hello_world",
+				e = "wow!"
+			})
+
+			-- the order that arguments are added is not deterministic, so check both options
+			local formatA = "https://www.test.com/a/b/c?d=hello%5Fworld&e=wow%21"
+			local formatB = "https://www.test.com/a/b/c?e=wow%21&d=hello%5Fworld"
+
+			local matchesUrl = (url == formatA) or (url == formatB)
+			if FFlagFixDevFrameworkComposeUrl then
+				expect(matchesUrl).to.equal(true)
+			end
 		end)
 	end)
 end

@@ -10,7 +10,6 @@ game:DefineFastFlag("StudioFixGameManagementIndexNil", false)
 game:DefineFastFlag("StudioUXImprovementsLoosenTCPermissions", false)
 game:DefineFastFlag("UXImprovementsShowUserPermsWhenCollaborator2", false)
 game:DefineFastFlag("UXImprovementsNonTCPlacesAllowedPlay", false)
-game:DefineFastFlag("StudioDevProductCopyIdToClipboard", false)
 game:DefineFastFlag("RemoveYoutubeFacebookTwitterForLuobu", false)
 game:DefineFastFlag("StudioDisablePrivateServersAndPaidAccessForLuobu", false)
 

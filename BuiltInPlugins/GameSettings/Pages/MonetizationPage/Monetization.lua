@@ -12,7 +12,6 @@ local FFlagStudioFixGameManagementIndexNil = game:getFastFlag("StudioFixGameMana
 local FFlagStudioEnableBadgesInMonetizationPage = game:GetFastFlag("StudioEnableBadgesInMonetizationPage")
 local FFlagStudioFixMissingMonetizationHeader = game:DefineFastFlag("StudioFixMissingMonetizationHeader", false)
 local FVariableMaxRobuxPrice = game:DefineFastInt("DeveloperSubscriptionsMaxRobuxPrice", 2000)
-local FFlagStudioDevProductsMaxPriceEnabled = game:DefineFastFlag("StudioDevProductsMaxPriceEnabled", false)
 
 local Page = script.Parent
 local Plugin = script.Parent.Parent.Parent
@@ -573,7 +572,7 @@ local function getPriceErrorText(error, vipServersEnabled, paidAccessEnabled, lo
         elseif error == ABOVE_MAX then
             if paidAccessEnabled then
                 errorValue = string.format("%.f", FIntPaidAccessMaxPrice)
-            elseif FFlagStudioDevProductsMaxPriceEnabled then
+            else
                 errorValue = string.format("%.f", FIntDevProductsMaxPrice)
             end
         end
@@ -950,7 +949,7 @@ local function displayEditDevProductsPage(props)
                             errorValue = INVALID
                         elseif numberValue < FIntDevProductsMinPrice then
                             errorValue = BELOW_MIN
-                        elseif FFlagStudioDevProductsMaxPriceEnabled and numberValue > FIntDevProductsMaxPrice then
+                        elseif numberValue > FIntDevProductsMaxPrice then
                             errorValue = ABOVE_MAX
                         end
 

@@ -1660,7 +1660,7 @@ local function Initialize()
 
 			if VCSDeviceIndex > 0 then
 				print(
-					'[OutputDeviceSelection] Setting VCS Speaker Device To ',
+					"[OutputDeviceSelection] Setting VCS Speaker Device To ",
 					VCSDeviceNames[VCSDeviceIndex],
 					VCSDeviceGuids[VCSDeviceIndex]
 				)
@@ -1669,7 +1669,7 @@ local function Initialize()
 					VCSDeviceGuids[VCSDeviceIndex]
 				)
 			else
-				warn('Could not find equivalent VoiceChatService Device')
+				warn("Could not find equivalent VoiceChatService Device")
 			end
 		else
 			warn("Could not connect to Voice Chat Service to change Output Device")
@@ -1723,7 +1723,7 @@ local function Initialize()
 				else
 					SoundService:SetOutputDevice(deviceName, deviceGuid)
 					print(
-						'[OutputDeviceSelection] Setting SS Speaker Device To ',
+						"[OutputDeviceSelection] Setting SS Speaker Device To ",
 						deviceName,
 						deviceGuid
 					)
@@ -1753,7 +1753,7 @@ local function Initialize()
 				return VoiceChatService:GetSpeakerDevices()
 			else
 				-- We're returning these, but because the flag is off they will never be used outside of the below check
-				return success, deviceNames, deviceGuids, selectedIndex
+				return deviceNames, deviceGuids, selectedIndex
 			end
 		end)
 

@@ -27,8 +27,12 @@ return function()
 		local frameworkFolder = Plugin.Packages.DEPRECATED_Framework
 		frameworkFolder.Name = "DeveloperFramework"
 		frameworkFolder.Parent = Plugin.Packages._Index.DeveloperFramework
+
+		local RefactorFlags = require(frameworkFolder.Util.RefactorFlags)
+		RefactorFlags.THEME_REFACTOR = true
 	end
 
 	-- TODO DEVTOOLS-4458: Replace this with Rotriever & Rojo sub-project linking solution
 	devFrameworkLoadingPatch()
+	
 end

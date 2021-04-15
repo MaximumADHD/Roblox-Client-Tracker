@@ -22,6 +22,9 @@ local isEmpty = require(Plugin.Src.Util.isEmpty)
 local FFlagLocalizationToolsPluginInvalidEntryIdentifierMessageEnabled
 	= game:GetFastFlag("LocalizationToolsPluginInvalidEntryIdentifierMessageEnabled")
 
+local FFlagSwitchLocTablesAssetGenerationRequestToLocTablesAPI
+	= game:DefineFastFlag("SwitchLocTablesAssetGenerationRequestToLocTablesAPI", false)
+
 local FFlagLocalizationToolsAllowUploadZhCjv = game:GetFastFlag("LocalizationToolsAllowUploadZhCjv")
 
 local function makeDispatchErrorMessageFunc(store, localization)
@@ -170,7 +173,12 @@ local function patchCloudTable(api, tableId, gameId, patchInfo, localization)
 end
 
 local function requestGenerateAssets(api, gameId)
-	local request = api.GameInternationalization.V1.LocalizationTable.Games.assetsGenerationRequest(gameId)
+	local request
+	if FFlagSwitchLocTablesAssetGenerationRequestToLocTablesAPI then
+		request = api.LocalizationTables.V1.Games.assetsGenerationRequest(gameId)
+	else
+		request = api.GameInternationalization.V1.LocalizationTable.Games.DEPRECATED_assetsGenerationRequest(gameId)
+	end
 	if FFlagLocalizationToolsAllowUploadZhCjv then
 		request:makeRequest():andThen(
 			function()

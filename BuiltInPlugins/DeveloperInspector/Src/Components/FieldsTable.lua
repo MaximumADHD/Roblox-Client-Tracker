@@ -19,9 +19,6 @@ local ContextServices = Framework.ContextServices
 local UI = Framework.UI
 local TreeView = UI.TreeView
 
-local Util = Framework.Util
-local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
-
 local Actions = main.Src.Actions
 local SelectField = require(Actions.RoactInspector.SelectField)
 local ToggleField = require(Actions.RoactInspector.ToggleField)
@@ -52,13 +49,7 @@ function FieldsTable:init()
 	end
 
 	self.renderRow = function(row)
-		local style
-		if THEME_REFACTOR then
-			style = self.props.Stylizer
-		else
-			local theme = self.props.Theme
-			style = theme:getStyle("Plugin", self)
-		end
+		local style = self.props.Stylizer
 		return Roact.createElement(FieldTreeRow, {
 			Row = row,
 			OnSelect = self.onSelectField,
@@ -125,8 +116,7 @@ function FieldsTable:render()
 end
 
 ContextServices.mapToProps(FieldsTable, {
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	Stylizer = ContextServices.Stylizer,
 	Inspector = InspectorContext
 })
 

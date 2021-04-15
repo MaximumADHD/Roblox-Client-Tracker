@@ -1,8 +1,10 @@
 local CorePackages = game:GetService("CorePackages")
 
 local ReceivedUserPresence = require(CorePackages.AppTempCommon.LuaChat.Actions.ReceivedUserPresence)
+local UpdateFriendPresenceCounts = require(CorePackages.AppTempCommon.LuaChat.Actions.UpdateFriendPresenceCounts)
 local WebPresenceMap = require(CorePackages.AppTempCommon.LuaApp.Enum.WebPresenceMap)
 
+local GetFFlagLuaAppAddPresenceCounts = require(CorePackages.AppTempCommon.LuaChat.Flags.GetFFlagLuaAppAddPresenceCounts)
 local FFlagLuaAppConvertUniverseIdToString = settings():GetFFlag("LuaAppConvertUniverseIdToStringV364")
 
 return function(friendsPresence, store)
@@ -28,5 +30,16 @@ return function(friendsPresence, store)
 			universeId,
 			previousUniverseId
 		))
+	end
+
+	if GetFFlagLuaAppAddPresenceCounts() then
+		local presenceCounts = {}
+		for _, userModel in pairs(store:getState().Users) do
+			if userModel.isFriend and userModel.presence then
+				local currentCount = presenceCounts[userModel.presence] or 0
+				presenceCounts[userModel.presence] = currentCount + 1
+			end
+		end
+		store:dispatch(UpdateFriendPresenceCounts(presenceCounts))
 	end
 end

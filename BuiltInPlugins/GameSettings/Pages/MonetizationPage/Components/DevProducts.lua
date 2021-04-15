@@ -48,7 +48,6 @@ local TableWithMenu = require(Plugin.Src.Components.TableWithMenu)
 local DevProducts = Roact.PureComponent:extend(script.Name)
 
 local FFlagFixRadioButtonSeAndTableHeadertForTesting = game:getFastFlag("FixRadioButtonSeAndTableHeadertForTesting")
-local FFlagStudioDevProductCopyIdToClipboard = game:getFastFlag("StudioDevProductCopyIdToClipboard")
 
 function DevProducts:render()
     local props = self.props
@@ -90,34 +89,21 @@ function DevProducts:render()
             localization:getText("Monetization", "PriceTitle"),
         }
     end
-    
-    local onItemClicked
-    local menuItems
-    
-    if FFlagStudioDevProductCopyIdToClipboard then
-        onItemClicked = function(key, id)
-            if key == KEY_EDIT then
-                dispatchSetEditDevProductId(id)
-            elseif key == KEY_COPYID then
-                StudioService:CopyToClipboard(id)
-            else
-                error("Invalid Key")
-            end
-        end
-        
-        menuItems = {
-            {Key = KEY_EDIT, Text = localization:getText("General", "ButtonEdit"),},
-            {Key = KEY_COPYID, Text = localization:getText("General", "CopyIDToClipboard"),}
-        }
-    else
-        onItemClicked = function(key, id)
+
+    local onItemClicked = function(key, id)
+        if key == KEY_EDIT then
             dispatchSetEditDevProductId(id)
+        elseif key == KEY_COPYID then
+            StudioService:CopyToClipboard(id)
+        else
+            error("Invalid Key")
         end
-        
-        menuItems = {
-            {Key = "Edit", Text = localization:getText("General", "ButtonEdit"),}
-        }
     end
+
+    local menuItems = {
+        {Key = KEY_EDIT, Text = localization:getText("General", "ButtonEdit"),},
+        {Key = KEY_COPYID, Text = localization:getText("General", "CopyIDToClipboard"),}
+    }
 
     return Roact.createElement(FitFrameOnAxis, {
         axis = FitFrameOnAxis.Axis.Vertical,
@@ -159,12 +145,10 @@ function DevProducts:render()
 
         DeveloperProductTable = showTable and Roact.createElement(TableWithMenu, {
             Headers = headers,
-
             Data = productsList,
-
             MenuItems = menuItems,
 
-            MenuItemsFilterFunc = FFlagStudioDevProductCopyIdToClipboard and function(rowData, menuItems)
+            MenuItemsFilterFunc = function(rowData, menuItems)
                 local id = rowData.row[1]
                 if not tonumber(id) then
                     local indexToRemove
@@ -180,9 +164,7 @@ function DevProducts:render()
             end or nil,
 
             OnItemClicked = onItemClicked,
-
             LayoutOrder = 2,
-
             NextPageFunc = dispatchOnLoadMoreDevProducts,
         })
     })

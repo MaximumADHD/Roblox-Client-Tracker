@@ -3,7 +3,6 @@ local commonInit = require(Main.Src.Util.commonInit)
 commonInit()
 
 local Framework = require(Main.Packages.Framework)
-local THEME_REFACTOR = Framework.Util.RefactorFlags.THEME_REFACTOR
 local DebugFlags = require(Main.Src.Util.DebugFlags)
 
 if DebugFlags.RunningUnderCLI() or DebugFlags.RunTests() then
@@ -17,23 +16,15 @@ if DebugFlags.RunningUnderCLI() or DebugFlags.RunTests() then
 	local reporter = _G["TEAMCITY"] and TeamCityReporter or TextReporter
 	local TestsFolderPlugin = Main.Src
 
-	if THEME_REFACTOR then
-		print("----- All " .. Main.Name .. " Tests ------")
-		TestBootstrap:run({TestsFolderPlugin}, reporter)
-		print("----------------------------------")
+	print("----- All " .. Main.Name .. " Tests ------")
+	TestBootstrap:run({TestsFolderPlugin}, reporter)
+	print("----------------------------------")
 
-		if DebugFlags.RunDeveloperFrameworkTests() then
-			print("")
-			print("----- All DeveloperFramework Tests ------")
-			Framework.TestHelpers.runFrameworkTests(TestEZ, reporter)
-			print("----------------------------------")
-		end
-	else
-		--[[
-			We do not support mocking the old theme system. Skip tests rather than refactoring it
-			due to its impending removal.
-		]]
-		print("Skipping tests due to run without Developer Framework theme refactor")
+	if DebugFlags.RunDeveloperFrameworkTests() then
+		print("")
+		print("----- All DeveloperFramework Tests ------")
+		Framework.TestHelpers.runFrameworkTests(TestEZ, reporter)
+		print("----------------------------------")
 	end
 end
 

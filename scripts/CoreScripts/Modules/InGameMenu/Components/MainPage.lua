@@ -6,6 +6,7 @@ local RunService = game:GetService("RunService")
 local GameSettings = settings():FindFirstChild("Game Options") or error("Game Options does not exist", 0)
 
 local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
+local VideoProtocol = require(CorePackages.UniversalApp.Video.VideoProtocol)
 local Roact = InGameMenuDependencies.Roact
 local RoactRodux = InGameMenuDependencies.RoactRodux
 local UIBlox = InGameMenuDependencies.UIBlox
@@ -35,6 +36,7 @@ local FFlagRecordRecording = require(InGameMenu.Flags.FFlagRecordRecording)
 local FFlagTakeAScreenshotOfThis = game:DefineFastFlag("TakeAScreenshotOfThis", false)
 local FFlagShowContextMenuWhenButtonsArePresent = game:DefineFastFlag("ShowContextMenuWhenButtonsArePresent", false)
 local GetFFlagUseNewLeaveGamePrompt = require(InGameMenu.Flags.GetFFlagUseNewLeaveGamePrompt)
+local GetFFlagFixInGameMenuRecordingTime = require(InGameMenu.Flags.GetFFlagFixInGameMenuRecordingTime)
 
 local Images = UIBlox.App.ImageSet.Images
 
@@ -136,6 +138,12 @@ MainPage.validateProps = t.strictInterface({
 })
 
 function MainPage:init()
+	-- We return 0 here if our response is nil or if our response doesn't have the key we need
+	self.getRecordingDuration = function()
+		local response = VideoProtocol.default:getRecordingDuration()
+		return response and response.recordingDuration or 0
+	end
+
 	self.state = {
 		modalOpen = false,
 		recordingDuration = 0,
@@ -255,7 +263,9 @@ function MainPage:didUpdate(prevProps)
 		if self.props.recording then
 			if not prevProps.recording then
 				self.recording = true
-				local startTime = tick() -- TODO: Switch to os.clock() when it becomes available
+				-- TODO: Switch to os.clock() when it becomes available
+				local startTime = tick() - (GetFFlagFixInGameMenuRecordingTime()
+					and self.getRecordingDuration() or 0)
 				local function loop()
 					if self.recording then
 						delay(RECORD_UPDATE_STEP, loop)
