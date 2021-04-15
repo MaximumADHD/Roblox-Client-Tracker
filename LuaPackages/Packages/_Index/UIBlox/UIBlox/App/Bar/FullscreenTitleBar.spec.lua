@@ -24,6 +24,7 @@ return function()
 					isTriggered = false,
 					exitFullscreen = function() end,
 					closeRoblox = function() end,
+					onHover = function() end,
 				})
 			})
 			local instance = Roact.mount(element, nil, "FullscreenTitleBar")

@@ -58,6 +58,7 @@ local ThemePalette = t.strictInterface({
 	BadgeContent = Color,
 
 	SelectionCursor = SelectionCursorType,
+	ThumbnailBackground = Color,
 })
 
 return ThemePalette

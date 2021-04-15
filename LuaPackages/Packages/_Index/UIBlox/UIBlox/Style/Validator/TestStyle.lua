@@ -55,6 +55,7 @@ local testTheme = {
 	Badge = color,
 	BadgeContent = color,
 	SelectionCursor = selectionCursor,
+	ThumbnailBackground = color,
 }
 
 local font = {

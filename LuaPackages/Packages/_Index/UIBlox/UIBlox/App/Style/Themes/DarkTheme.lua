@@ -176,6 +176,11 @@ local theme = {
 			NumberSequenceKeypoint.new(1, 0)
 		}),
 	},
+
+	ThumbnailBackground = {
+		Color = Colors.LightGrey,
+		Transparency = 0,
+	},
 }
 
 return theme

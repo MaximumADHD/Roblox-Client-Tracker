@@ -41,6 +41,7 @@ FullscreenTitleBar.validateProps = t.strictInterface({
 	title = t.string,
 	isTriggered = t.optional(t.boolean),
 	onDisappear = t.optional(t.callback),
+	onHover = t.optional(t.callback),
 
 	exitFullscreen = t.optional(t.callback),
 	closeRoblox = t.optional(t.callback),
@@ -166,6 +167,7 @@ function FullscreenTitleBar:render()
 				Position = UDim2.fromOffset(0, 0),
 				Size = UDim2.new(1, 0, 0, TITLE_BAR_HEIGHT),
 				[Roact.Event.MouseLeave] = self.props.onDisappear,
+				[Roact.Event.MouseEnter] = self.props.onHover,
 			}, {
 				ThreeSectionBar = Roact.createElement(ThreeSectionBar, {
 					BackgroundColor3 = backgroundStyle.Color,
