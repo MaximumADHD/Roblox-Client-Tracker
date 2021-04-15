@@ -101,6 +101,7 @@ Studio.GameSettings.General.GenreBuilding,Building,Building,건설,Постро�
 Studio.GameSettings.General.PublishIsRequiredHyperlink,Publishing the game to Roblox,Publishing the game to Roblox,Roblox에 게임 게시,Публикация игры в Roblox,正在将游戏发布到 Roblox
 Studio.GameSettings.General.PublishingHintLink,Publishing the game to Roblox,Publishing the game to Roblox,Roblox에 게임 게시,Публикация игры в Roblox,正在将游戏发布到 Roblox
 Studio.GameSettings.General.GenreComedy,Comedy,Comedy,코미디,Комедия,喜剧
+Studio.GameSettings.Monetization.NoBadges,Not seeing badges? Refresh to update,Not seeing badges? Refresh to update, , , 
 Studio.GameSettings.General.GenreTownAndCity,Town and City,Town and City,마을 및 도시,Симулятор города,城市建设
 Studio.GameSettings.Errors.ErrorPriceBelowMin,Price must be greater than {1}.,Price must be greater than {1}.,가격은 {1}보다 높아야 합니다., ,价格必须大于 {1}。
 Studio.GameSettings.General.DeviceComputer,Computer,Computer,컴퓨터,Компьютер,计算机
@@ -332,3 +333,4 @@ Studio.GameSettings.General.ThumbnailsLimitLuobu,You can set up to {maxThumbnail
 Studio.GameSettings.General.CopyIDToClipboard,Copy ID to Clipboard,Copy ID to Clipboard,ID를 클립보드에 복사, ,复制 ID 到剪贴板
 Studio.GameSettings.Monetization.Badges,Badges,Badges, , , 
 Studio.GameSettings.Monetization.BadgeDescription,Badge Description,Badge Description, , , 
+Studio.GameSettings.General.Configure,Configure,Configure, , , 

@@ -793,7 +793,6 @@ CloudEditController
 CloudEditModel
 CmdOpenScript
 CmdRepeat
-ColorPickerFrame
 ColorPickerPopup
 CommitMessageTextEdit
 CommitScriptsDialog
@@ -1335,7 +1334,6 @@ PatchTeamCreateToggleRequest
 PathFilterWidget
 PBRSynth::MitchellFilter
 PersistentFifoComboBox
-PickerFrame
 PlaceLauncherImpl
 PlaceSessionBoundDialog
 PlaceSessionConfiguration
@@ -1479,11 +1477,9 @@ QGuiApplication
 QHBoxLayout
 QHeaderView
 QImage
-QInputEvent
 QIntValidator
 QIODevice
 QItemDelegate
-QKeyEvent
 QLabel
 QLayout
 QLayoutItem
@@ -1977,6 +1973,7 @@ RBX::Creator<class RBX::ManualGlue>
 RBX::Creator<class RBX::ManualWeld>
 RBX::Creator<class RBX::MarketplaceService>
 RBX::Creator<class RBX::MegaClusterInstance>
+RBX::Creator<class RBX::MemoryStoreService>
 RBX::Creator<class RBX::MemStorageService>
 RBX::Creator<class RBX::MeshPart>
 RBX::Creator<class RBX::Message>
@@ -2271,6 +2268,7 @@ RBX::Described<class RBX::LuaSettings,class RBX::GlobalAdvancedSettings::Item>
 RBX::Described<class RBX::LuaSourceContainer,class RBX::Instance>
 RBX::Described<class RBX::LuaWebService,class RBX::ServiceInstance>
 RBX::Described<class RBX::ManualSurfaceJointInstance,class RBX::JointInstance>
+RBX::Described<class RBX::MemoryStoreQueue,class RBX::Instance>
 RBX::Described<class RBX::MemStorageConnection,class RBX::Instance>
 RBX::Described<class RBX::MeshContentProvider,class RBX::CacheableContentProvider>
 RBX::Described<class RBX::Mouse,class RBX::Instance>
@@ -2496,6 +2494,7 @@ RBX::DescribedCreatable<class RBX::ManualGlue,class RBX::ManualSurfaceJointInsta
 RBX::DescribedCreatable<class RBX::ManualWeld,class RBX::ManualSurfaceJointInstance>
 RBX::DescribedCreatable<class RBX::MarketplaceService,class RBX::ServiceInstance>
 RBX::DescribedCreatable<class RBX::MegaClusterInstance,class RBX::PartInstance>
+RBX::DescribedCreatable<class RBX::MemoryStoreService,class RBX::ServiceInstance>
 RBX::DescribedCreatable<class RBX::MemStorageService,class RBX::ServiceInstance>
 RBX::DescribedCreatable<class RBX::MeshPart,class RBX::TriangleMeshPart>
 RBX::DescribedCreatable<class RBX::Message,class RBX::Instance>
@@ -3229,6 +3228,8 @@ RBX::MemEnforcedLRUCache<class std::string,class std::shared_ptr<class RBX::Cach
 RBX::MemEnforcedLRUCache<class std::string,class std::shared_ptr<class RBX::DataStore::CachedRecord>,struct boost::hash<class std::string > >
 RBX::MemEnforcedLRUCache<class std::string,class std::shared_ptr<class RBX::DataStore2::CachedRecordV2>,struct boost::hash<class std::string > >
 RBX::MemoryPrioritizationJob
+RBX::MemoryStoreQueue
+RBX::MemoryStoreService
 RBX::MemStorageConnection
 RBX::MemStorageService
 RBX::MergeBinder
@@ -3320,9 +3321,7 @@ RBX::Network::ReplicationDataBlob
 RBX::Network::ReplicationDataBlock
 RBX::Network::ReplicationDataPreBlob
 RBX::Network::Replicator
-RBX::Network::Replicator::ChangeAttributeItem
 RBX::Network::Replicator::ChangePropertyItem
-RBX::Network::Replicator::DeleteInstanceItem
 RBX::Network::Replicator::EventInvocationItem
 RBX::Network::Replicator::IdResponseItem
 RBX::Network::Replicator::JoinDataItem
@@ -3796,6 +3795,7 @@ RBX::Reflection::BoundFuncDesc<class RBX::MegaClusterInstance,void cdecl(enum RB
 RBX::Reflection::BoundFuncDesc<class RBX::MegaClusterInstance,void cdecl(int,int,int,enum RBX::Voxel::CellMaterial,enum RBX::Voxel::CellBlock,enum RBX::Voxel::CellOrientation),6>
 RBX::Reflection::BoundFuncDesc<class RBX::MegaClusterInstance,void cdecl(int,int,int,enum RBX::Voxel::WaterCellForce,enum RBX::Voxel::WaterCellDirection),5>
 RBX::Reflection::BoundFuncDesc<class RBX::MegaClusterInstance,void cdecl(void),0>
+RBX::Reflection::BoundFuncDesc<class RBX::MemoryStoreService,class std::shared_ptr<class RBX::Instance> cdecl(class std::string const & ptr64,int),2>
 RBX::Reflection::BoundFuncDesc<class RBX::MemStorageConnection,void cdecl(void),0>
 RBX::Reflection::BoundFuncDesc<class RBX::MemStorageService,bool cdecl(class std::string const & ptr64),1>
 RBX::Reflection::BoundFuncDesc<class RBX::MemStorageService,class RBX::Reflection::Variant cdecl(class std::string const & ptr64,class RBX::Reflection::Variant const & ptr64),2>
@@ -4166,7 +4166,6 @@ RBX::Reflection::BoundFuncDesc<class Studio::ToastNotificationService,void cdecl
 RBX::Reflection::BoundFuncDesc<class Studio::ToastNotificationService,void cdecl(class std::string const & ptr64,class std::string const & ptr64),2>
 RBX::Reflection::BoundFuncDesc<class StudioUserPreferences,class std::shared_ptr<class std::vector<class RBX::Reflection::Variant,class std::allocator<class RBX::Reflection::Variant> > const > cdecl(void),0>
 RBX::Reflection::BoundFuncDesc<class Theme,class RBX::Color3 cdecl(enum StudioTheme::StyleGuideColor,enum StudioTheme::StyleGuideModifier),2>
-RBX::Reflection::BoundFuncDesc<class Theme,class std::string cdecl(class std::string const & ptr64,enum StudioTheme::StyleGuideModifier),2>
 RBX::Reflection::BoundGetterDesc<class RBX::Attachment,class RBX::Vector3>
 RBX::Reflection::BoundProp<__int64,1>
 RBX::Reflection::BoundProp<__int64,1>::BoundPropGetSet<class RBX::CharacterMesh>
@@ -4230,8 +4229,6 @@ RBX::Reflection::BoundProp<class RBX::Vector3,1>
 RBX::Reflection::BoundProp<class RBX::Vector3,1>::BoundPropGetSet<class RBX::Explosion>
 RBX::Reflection::BoundProp<class RBX::Vector3,1>::BoundPropGetSet<class RBX::Rocket>
 RBX::Reflection::BoundProp<class RBX::Vector3,1>::BoundPropGetSet<class RBX::Value<class RBX::Vector3> >
-RBX::Reflection::BoundProp<class std::string,0>
-RBX::Reflection::BoundProp<class std::string,0>::BoundPropGetSet<class RBX::PackageLink>
 RBX::Reflection::BoundProp<class std::string,1>
 RBX::Reflection::BoundProp<class std::string,1>::BoundPropGetSet<class RBX::FunctionalTest>
 RBX::Reflection::BoundProp<class std::string,1>::BoundPropGetSet<class RBX::Player>
@@ -4360,6 +4357,9 @@ RBX::Reflection::BoundYieldFuncDesc<class RBX::MarketplaceService,class std::sha
 RBX::Reflection::BoundYieldFuncDesc<class RBX::MarketplaceService,class std::shared_ptr<class RBX::Instance> cdecl(void),0>
 RBX::Reflection::BoundYieldFuncDesc<class RBX::MarketplaceService,int cdecl(void),0>
 RBX::Reflection::BoundYieldFuncDesc<class RBX::MegaClusterInstance,void cdecl(class RBX::Region3,class RBX::ContentId,class RBX::ContentId,enum RBX::PartMaterial),4>
+RBX::Reflection::BoundYieldFuncDesc<class RBX::MemoryStoreQueue,class std::shared_ptr<struct RBX::Reflection::Tuple const > cdecl(int,bool,int),3>
+RBX::Reflection::BoundYieldFuncDesc<class RBX::MemoryStoreQueue,void cdecl(class RBX::Reflection::Variant,int,int),3>
+RBX::Reflection::BoundYieldFuncDesc<class RBX::MemoryStoreQueue,void cdecl(class std::string const & ptr64),1>
 RBX::Reflection::BoundYieldFuncDesc<class RBX::MessagingService,class rbx::signals::connection cdecl(class std::string,class RBX::Lua::WeakFunctionRef),2>
 RBX::Reflection::BoundYieldFuncDesc<class RBX::MessagingService,void cdecl(class std::string,class RBX::Reflection::Variant),2>
 RBX::Reflection::BoundYieldFuncDesc<class RBX::NotificationService,class std::shared_ptr<class std::vector<class RBX::Reflection::Variant,class std::allocator<class RBX::Reflection::Variant> > const > cdecl(__int64),1>
@@ -5557,6 +5557,7 @@ RBX::Reflection::FuncDesc<class RBX::LogService>
 RBX::Reflection::FuncDesc<class RBX::LuaDragger>
 RBX::Reflection::FuncDesc<class RBX::MarketplaceService>
 RBX::Reflection::FuncDesc<class RBX::MegaClusterInstance>
+RBX::Reflection::FuncDesc<class RBX::MemoryStoreService>
 RBX::Reflection::FuncDesc<class RBX::MemStorageConnection>
 RBX::Reflection::FuncDesc<class RBX::MemStorageService>
 RBX::Reflection::FuncDesc<class RBX::MeshContentProvider>
@@ -7604,6 +7605,7 @@ RBX::Reflection::YieldFuncDesc<class RBX::KeyframeSequenceProvider>
 RBX::Reflection::YieldFuncDesc<class RBX::LocalizationService>
 RBX::Reflection::YieldFuncDesc<class RBX::MarketplaceService>
 RBX::Reflection::YieldFuncDesc<class RBX::MegaClusterInstance>
+RBX::Reflection::YieldFuncDesc<class RBX::MemoryStoreQueue>
 RBX::Reflection::YieldFuncDesc<class RBX::MessagingService>
 RBX::Reflection::YieldFuncDesc<class RBX::NotificationService>
 RBX::Reflection::YieldFuncDesc<class RBX::OrderedDataStore>
@@ -8575,6 +8577,7 @@ std::_Func_base<void,class std::string const & ptr64>
 std::_Func_base<void,class std::string,int,class std::string >
 std::_Func_base<void,class std::unordered_map<class std::string,int,struct std::hash<class std::string >,struct std::equal_to<class std::string >,class std::allocator<struct std::pair<class std::string const ,int> > > const & ptr64,bool>
 std::_Func_base<void,class std::unordered_set<class std::string,struct std::hash<class std::string >,struct std::equal_to<class std::string >,class std::allocator<class std::string > > const & ptr64>
+std::_Func_base<void,class std::vector<class QString,class std::allocator<class QString> > const & ptr64>
 std::_Func_base<void,class std::vector<class RobloxScriptDoc * ptr64,class std::allocator<class RobloxScriptDoc * ptr64> > >
 std::_Func_base<void,class std::vector<class std::shared_ptr<struct RBX::LocalizationTable::Entry>,class std::allocator<class std::shared_ptr<struct RBX::LocalizationTable::Entry> > > >
 std::_Func_base<void,class std::vector<class std::string,class std::allocator<class std::string > > const & ptr64,class std::function<void cdecl(int)> >
@@ -8947,6 +8950,7 @@ std::_Ref_count_obj<class RBX::Lua::EventSignalWrapper<void cdecl(void),class rb
 std::_Ref_count_obj<class RBX::Lua::WeakFunctionRef>
 std::_Ref_count_obj<class RBX::Lua::YieldFunctionStateObject>
 std::_Ref_count_obj<class RBX::MemoryPrioritizationJob>
+std::_Ref_count_obj<class RBX::MemoryStoreQueue>
 std::_Ref_count_obj<class RBX::MemStorageConnection>
 std::_Ref_count_obj<class RBX::MessagingServiceAnalysisJob>
 std::_Ref_count_obj<class RBX::ModelMeshJob>
@@ -9192,7 +9196,7 @@ std::_Ref_count_obj<struct RBX::NavigationService::NavigationRequest>
 std::_Ref_count_obj<struct RBX::NavigationService::PathUpdateJob>
 std::_Ref_count_obj<struct RBX::Network::CachedBitstream>
 std::_Ref_count_obj<struct RBX::Network::ServerSchemaInfo>
-std::_Ref_count_obj<struct RBX::PackageService::PackageAssetData>
+std::_Ref_count_obj<struct RBX::PackageService::DEPRECATED_PackageAssetData>
 std::_Ref_count_obj<struct RBX::PathData>
 std::_Ref_count_obj<struct RBX::PlayerCharacterLoader::CharacterAppearanceAssetInfo>
 std::_Ref_count_obj<struct RBX::PluginDragImpl const >
@@ -9446,6 +9450,7 @@ std::_Ref_count_resource<class RBX::ManualWeld * ptr64,class RBX::Creatable<clas
 std::_Ref_count_resource<class RBX::MarketplaceService * ptr64,class RBX::Creatable<class RBX::Instance>::Deleter>
 std::_Ref_count_resource<class RBX::MaterialTool * ptr64,class RBX::Creatable<class RBX::MouseCommand>::Deleter>
 std::_Ref_count_resource<class RBX::MegaClusterInstance * ptr64,class RBX::Creatable<class RBX::Instance>::Deleter>
+std::_Ref_count_resource<class RBX::MemoryStoreService * ptr64,class RBX::Creatable<class RBX::Instance>::Deleter>
 std::_Ref_count_resource<class RBX::MemStorageService * ptr64,class RBX::Creatable<class RBX::Instance>::Deleter>
 std::_Ref_count_resource<class RBX::MeshContentProvider * ptr64,class RBX::Creatable<class RBX::Instance>::Deleter>
 std::_Ref_count_resource<class RBX::MeshPart * ptr64,class RBX::Creatable<class RBX::Instance>::Deleter>

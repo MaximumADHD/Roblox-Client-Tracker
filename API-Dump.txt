@@ -1857,6 +1857,12 @@ Class MemStorageService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function bool MemStorageService:HasItem(string key) {RobloxScriptSecurity}
 	Function bool MemStorageService:RemoveItem(string key) {RobloxScriptSecurity}
 	Function void MemStorageService:SetItem(string key, string value = "") {RobloxScriptSecurity}
+Class MemoryStoreQueue : Instance [NotCreatable] [NotReplicated]
+	Function void MemoryStoreQueue:AddAsync(Variant value, int priority = 0, int expiration = -1) [Yields]
+	Function Tuple MemoryStoreQueue:ReadAsync(int count, bool allOrNothing = false, int waitTimeout = -1) [Yields]
+	Function void MemoryStoreQueue:RemoveAsync(string id) [Yields]
+Class MemoryStoreService : Instance [Service]
+	Function Instance MemoryStoreService:GetQueue(string name, int invisibilityTimeout = 30)
 Class Message : Instance [Deprecated]
 	Property string Message.Text [Deprecated]
 Class Hint : Message [Deprecated]
@@ -3292,7 +3298,6 @@ Class StudioService : Instance [NotCreatable] [Service] [NotReplicated]
 	Event StudioService.PromptTransformPluginCheckEnable() {RobloxScriptSecurity}
 Class StudioTheme : Instance [NotCreatable] [NotReplicated]
 	Function Color3 StudioTheme:GetColor(Enum<StudioStyleGuideColor> styleguideitem, Enum<StudioStyleGuideModifier> modifier = "Default") {PluginSecurity}
-	Function string StudioTheme:GetPath(string assetid, Enum<StudioStyleGuideModifier> modifier = "Default") {PluginSecurity} [Deprecated]
 Class SurfaceAppearance : Instance
 	Property Enum<AlphaMode> SurfaceAppearance.AlphaMode {LocalUserSecurity}
 	Property Content SurfaceAppearance.ColorMap {LocalUserSecurity}

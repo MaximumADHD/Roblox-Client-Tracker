@@ -127,6 +127,8 @@ Studio.App.BetaFeatures.LSPNewFunctionFilterTitle,,Luau-Powered Script Function 
 Studio.App.BetaFeatures.LayeredClothingBetaDescription,,The WrapTarget and WrapLayer instances can be used to deform meshes without changing their topology using another Mesh (aka CageMesh).,The WrapTarget and WrapLayer instances can be used to deform meshes without changing their topology using another Mesh (aka CageMesh).
 Studio.App.BetaFeatures.LayeredClothingBetaTitle,,Cage Mesh Deformer,Cage Mesh Deformer
 Studio.App.BetaFeatures.LearnMoreTooltip,,Learn More,Learn More
+Studio.App.BetaFeatures.LuauNativeVector3Description,,Enable Luau VM built-in support for Vector3 type to improve script performance.,Enable Luau VM built-in support for Vector3 type to improve script performance.
+Studio.App.BetaFeatures.LuauNativeVector3Title,,Native Vector3 Type,Native Vector3 Type
 Studio.App.BetaFeatures.LuauNonStrictByDefaultDescription,,"Script analysis uses non-strict mode for all scripts by default. Use --!strict, --!nonstrict or --!nocheck to override mode on a per script basis.","Script analysis uses non-strict mode for all scripts by default. Use --!strict, --!nonstrict or --!nocheck to override mode on a per script basis."
 Studio.App.BetaFeatures.LuauNonStrictByDefaultTitle,,Scripts Are Non-Strict By Default,Scripts Are Non-Strict By Default
 Studio.App.BetaFeatures.MaxWaterFogDistanceDescription,,The maximum underwater fog distance is increased to permit larger underwater place designs with further visibility in the distance.,The maximum underwater fog distance is increased to permit larger underwater place designs with further visibility in the distance.
@@ -144,6 +146,8 @@ Studio.App.BetaFeatures.PhysicsNewConvexDecompositionDescription,,"Enable the ne
 Studio.App.BetaFeatures.PhysicsNewConvexDecompositionTitle,,Enable CollisionFidelity.PreciseConvexDecomposition.,Enable CollisionFidelity.PreciseConvexDecomposition.
 Studio.App.BetaFeatures.PhysicsSleepImprovementsDescription,,Set of changes that should make simulated parts awake and fall asleep more reliably.,Set of changes that should make simulated parts awake and fall asleep more reliably.
 Studio.App.BetaFeatures.PhysicsSleepImprovementsTitle,,Physics Sleep Behavior Improvements.,Physics Sleep Behavior Improvements.
+Studio.App.BetaFeatures.PivotEditorDescription,,"Enable the Edit Pivot tool in the Model tab, which allows the origin that defines how parts and models are transformed to be modified.","Enable the Edit Pivot tool in the Model tab, which allows the origin that defines how parts and models are transformed to be modified."
+Studio.App.BetaFeatures.PivotEditorTitle,,Pivot Editor,Pivot Editor
 Studio.App.BetaFeatures.ProximityPromptDescription,,ProximityPrompt is a new instance type used to prompt the user for input so they can interact with an object in the 3D world.,ProximityPrompt is a new instance type used to prompt the user for input so they can interact with an object in the 3D world.
 Studio.App.BetaFeatures.ProximityPromptTitle,,Proximity Prompt Beta,Proximity Prompt Beta
 Studio.App.BetaFeatures.RestartStudioTitle,,Restart Studio,Restart Studio
@@ -2894,7 +2898,6 @@ Studio.App.TeamCreateConnectionDialog.YouHaveLostConnectionToTheServer,,You have
 Studio.App.TemplatePage.Gameplay,,Gameplay,Gameplay
 Studio.App.TemplatePage.Theme,,Theme,Theme
 Studio.App.TemplatesPage.AllTemplates,Templates page tab,All Templates,All Templates
-Studio.App.Theme.InvalidGetThemeApi,"Theme:GetPath api has been removed, so it cannot be used anymore",GetPath is not a valid member of Theme,GetPath is not a valid member of Theme
 Studio.App.ToastNotificationService.NotAvailable,,ToastNotificationService is not available when FFlagStudioToastNotificationsInLua is false,ToastNotificationService is not available when FFlagStudioToastNotificationsInLua is false
 Studio.App.Tooltip.GoToSource,,Go to source,Go to source
 Studio.App.TwoStepVerificationPage.Enter6DigitCode,,Enter 6-digit code,Enter 6-digit code

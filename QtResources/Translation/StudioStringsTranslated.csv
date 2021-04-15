@@ -2825,7 +2825,7 @@ Studio.App.WatchWidget.CopyEntry,,,Copy Entry,Copy Entry,항목 복사,,复制�
 Studio.App.WatchWidget.CopyRow,,,Copy Row,Copy Row,행 복사,,复制行
 Studio.App.RobloxOutputRibbonDropdown.MessageTypes,,,Message Types,Message Types,메시지 유형,,消息类型
 Studio.App.RobloxRibbonMainWindow.ClearPivot,,,Reset,Reset,피벗 지우기,,清除枢轴
-Studio.App.RobloxRibbonMainWindow.ClearPivotTooltip,,,Clear the pivot for the selected object,Clear the pivot for the selected object,선택한 개체의 피벗을 지웁니다,,清除选择的对象的枢轴
+Studio.App.RobloxRibbonMainWindow.ClearPivotTooltip,,,Reset the pivots of the selected objects,Reset the pivots of the selected objects,선택한 개체의 피벗을 지웁니다,,清除选择的对象的枢轴
 Studio.App.RobloxRibbonMainWindow.EditPivot,,,Edit Pivot,Edit Pivot,피벗 편집,,编辑枢轴
 Studio.App.RobloxRibbonMainWindow.EditPivotTooltip,,,Edit the point around which the selected object rotates and translates,Edit the point around which the selected object rotates and translates,선택한 개체가 회전하고 변환되는 지점을 편집합니다,,编辑选择的对象旋转与平移的枢轴点
 Studio.App.RobloxRibbonMainWindow.GeometryTab,,,Geometry,Geometry,지오메트리,,几何
@@ -3423,6 +3423,15 @@ Studio.App.ScriptingCmd.FINDCURRENTWORDBACKWARDSTooltip,,,Find Current Word Back
 Studio.App.ScriptingCmd.FINDCURRENTWORDTooltip,,,Find Current Word,Find Current Word,,,
 Studio.App.ScriptingCmd.GOTOERR,,,Go to Script Error,Go to Script Error,,,
 Studio.App.ScriptingCmd.GOTOERRTooltip,,,Focus view on script error,Focus view on script error,,,
+Studio.App.AddEmulationDeviceDialog.NameAlreadyInUse1,,,"The name ""%1"" is already in use.","The name ""%1"" is already in use.",,,
+Studio.App.AddEmulationDeviceDialog.NameIsReserved1,,,"The name ""%1"" is reserved.","The name ""%1"" is reserved.",,,
+Studio.App.BetaFeatures.MaxWaterFogDistanceDescription,,,The maximum underwater fog distance is increased to permit larger underwater place designs with further visibility in the distance.,The maximum underwater fog distance is increased to permit larger underwater place designs with further visibility in the distance.,,,
+Studio.App.BetaFeatures.MaxWaterFogDistanceTitle,,,Max Water Fog Distance Increase,Max Water Fog Distance Increase,,,
+Studio.App.CalloutController.PivotEditorCalloutDescription,,,Change the pivot point around which an object rotates and translates.,Change the pivot point around which an object rotates and translates.,,,
+Studio.App.CalloutController.PivotEditorCalloutTitle,,,Pivot Editor,Pivot Editor,,,
+Studio.App.MainWindow.FailedToFetchConfigurationSettings,,,Studio failed to fetch configuration settings.,Studio failed to fetch configuration settings.,,,
+Studio.App.Property.OutputTextEffectsUnsupported,,,Text effects are currently unsupported in the Output window.,Text effects are currently unsupported in the Output window.,,,
+Studio.App.ToastNotificationService.NotAvailable,,,ToastNotificationService is not available when FFlagStudioToastNotificationsInLua is false,ToastNotificationService is not available when FFlagStudioToastNotificationsInLua is false,,,
 Studio.Common.Action.Apply,,,Apply,Apply,적용,Применить,应用
 Studio.Common.Action.Back,,,Back,Back,뒤로,Назад,返回
 Studio.Common.Action.Cancel,,,Cancel,Cancel,취소,Отмена,取消

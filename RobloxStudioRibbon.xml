@@ -185,7 +185,7 @@
         <addspinbox type="spinbox" keyboardTracking="true" tooltip="Studio.App.RobloxRibbonMainWindow.TheRotateGrid" name="setRotateIncrementAction" decimals="3" text="" minimum="0" maximum="9999" minumumWidth="100" step="5" suffix=" °"/>
         <addspinbox type="spinbox" keyboardTracking="true" tooltip="Studio.App.RobloxRibbonMainWindow.TheSnapGrid" name="setDragGridIncrementAction" decimals="3" text="" minimum="0" maximum="1024" minumumWidth="100" step="0.2" suffix="Studio.App.MainWindow.StudsSuffix"/>
       </Group>
-      <Group name="Pivot" text="Studio.App.RobloxRibbonMainWindow.PivotGroup" fflag="ModelPivotVisual">
+      <Group name="Pivot" text="Studio.App.RobloxRibbonMainWindow.PivotGroup" fflag="ModelPivotVisual2">
         <addaction name="editPivotAction" style="textundericon" text="Studio.App.RobloxRibbonMainWindow.EditPivot" tooltip="Studio.App.RobloxRibbonMainWindow.EditPivotTooltip" icon=":/RibbonBar/images/RibbonIcons/Home/PivotEditor.png" width="32" height="32" />
         <addcheckbox name="togglePivotSnapAction" text="Studio.App.RobloxRibbonMainWindow.TogglePivotSnap" tooltip="Studio.App.RobloxRibbonMainWindow.TogglePivotSnapTooltip" />
         <addaction name="clearPivotAction" style="textbesideicon" text="Studio.App.RobloxRibbonMainWindow.ClearPivot" tooltip="Studio.App.RobloxRibbonMainWindow.ClearPivotTooltip" icon=":/RibbonBar/images/RibbonIcons/Home/ClearPivot.png" width="16" height="16" />
