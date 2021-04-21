@@ -3,6 +3,8 @@
 ]]
 local Plugin = script.Parent.Parent.Parent
 
+local StudioService = game:GetService("StudioService")
+
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 local UILibrary = require(Plugin.Packages.UILibrary)
@@ -21,6 +23,8 @@ local BUTTON_WIDTH = 150
 local BUTTON_HEIGHT = 30
 
 local ScreenPublishSuccessful = Roact.PureComponent:extend("ScreenPublishSuccessful")
+
+local FFlagStudioAllowRemoteSaveBeforePublish = game:GetFastFlag("StudioAllowRemoteSaveBeforePublish")
 
 function ScreenPublishSuccessful:init()
 	self.state = {
@@ -54,6 +58,9 @@ end
 
 function ScreenPublishSuccessful:willUnmount()
 	self.isMounted = false
+	if FFlagStudioAllowRemoteSaveBeforePublish and self.props.CloseAfterSave then
+		StudioService:requestCloseStudio()
+	end
 end
 
 function ScreenPublishSuccessful:render()
@@ -67,6 +74,12 @@ function ScreenPublishSuccessful:render()
 			local parentGameName = props.ParentGameName
 
 			local findText = localization:getText("PublishSuccess", "FindInGame", parentGameName)
+
+			local successText = localization:getText("PublishSuccess", "Success")
+			if FFlagStudioAllowRemoteSaveBeforePublish and props.IsPublish == false then
+				-- Save uses a different success message than publish
+				successText = localization:getText("PublishSuccess", "SaveSuccess")
+			end
 
 			return Roact.createElement("Frame", {
 				Size = UDim2.new(1, 0, 1, 0),
@@ -93,7 +106,7 @@ function ScreenPublishSuccessful:render()
 				}),
 
 				Success = Roact.createElement("TextLabel", {
-					Text = localization:getText("PublishSuccess", "Success"),
+					Text = successText,
 					Position = UDim2.new(0.5, 0, 0.4, 0),
 					TextSize = 24,
 					BackgroundTransparency = 1,

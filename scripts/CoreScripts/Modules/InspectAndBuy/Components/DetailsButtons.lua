@@ -14,6 +14,8 @@ local BuyButton = require(InspectAndBuyFolder.Components.BuyButton)
 
 local GetFFlagLuaPremiumCatalogIGIAB
 	= require(CoreGui.RobloxGui.Modules.Flags.GetFFlagLuaPremiumCatalogIGIAB)
+local FFlagAllowForBundleItemsSoldSeparately = require(InspectAndBuyFolder.Flags.FFlagAllowForBundleItemsSoldSeparately)
+
 
 local DetailsButtons = Roact.PureComponent:extend("DetailsButtons")
 
@@ -97,10 +99,14 @@ function DetailsButtons:render()
 	local isLimited = assetInfo.isLimited or false
 	local showRobuxIcon = false
 	local showTryOn = false
-	local buyText, forSale, partOfBundle, bundleId, itemType, itemId
+	local buyText, forSale, partOfBundle, bundleId, itemType, itemId, partOfBundleAndOffsale
 	if assetInfo then
 		partOfBundle = assetInfo.bundlesAssetIsIn and #assetInfo.bundlesAssetIsIn == 1
-		if partOfBundle then
+		partOfBundleAndOffsale = partOfBundle
+		if FFlagAllowForBundleItemsSoldSeparately then
+			partOfBundleAndOffsale = partOfBundle and not assetInfo.isForSale
+		end
+		if partOfBundleAndOffsale then
 			bundleId = UtilityFunctions.getBundleId(assetInfo)
 			itemType = Constants.ItemType.Bundle
 			itemId = bundleId
@@ -142,7 +148,7 @@ function DetailsButtons:render()
 		TryOnButton = Roact.createElement(TryOnButton, {
 			showTryOn = showTryOn,
 			assetInfo = assetInfo,
-			partOfBundle = partOfBundle,
+			partOfBundleAndOffsale = partOfBundleAndOffsale,
 			bundleId = bundleId,
 			tryOnButtonRef = self.tryOnButtonRef,
 		}),

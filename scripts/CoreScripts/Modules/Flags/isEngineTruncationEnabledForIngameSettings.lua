@@ -1,5 +1,5 @@
-game:DefineFastFlag("EngineTruncationEnabledForIngameSettings", false)
+game:DefineFastFlag("EngineTruncationEnabledForIngameSettingsV2", false)
 
 return function()
-	return game:GetFastFlag("EngineTruncationEnabledForIngameSettings")
+	return game:GetFastFlag("EngineTruncationEnabledForIngameSettingsV2")
 end

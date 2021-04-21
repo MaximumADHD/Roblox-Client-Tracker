@@ -9,6 +9,7 @@
 		integer LayoutOrder: The order this component will display in a UILayout.
 		boolean AutoSizeCanvas: When true, will automatically resize the canvas size of the scrolling frame.
 		Enum.ScrollingDirection ScrollingDirection: The direction to scroll in (default = XY)
+		Enum.AutomaticSize AutomaticSize: The automatic size of the scrolling frame.
 		Enum.AutomaticSize AutomaticCanvasSize: The automatic size of the scrolling frame canvas.
 		callback OnCanvasResize: Called when content size is updated. Only called when AutoSizeCanvas is true.
 			OnCanvasResize(absSize: Vector2)
@@ -79,12 +80,12 @@ function ScrollingFrame:init()
 	end
 
 	self.updateCanvasSize = function(rbx)
-		local hasAutomaticSize = FFlagEnableDevFrameworkAutomaticSize and self.props.AutomaticCanvasSize
+		local hasAutomaticCanvasSize = FFlagEnableDevFrameworkAutomaticSize and self.props.AutomaticCanvasSize
 		if self.scrollingRef.current and self.layoutRef.current then
 			local contentSize = self.layoutRef.current.AbsoluteContentSize
 			local contentSizeX = contentSize.X
 			local contentSizeY = contentSize.Y
-			if not hasAutomaticSize then
+			if not hasAutomaticCanvasSize then
 				if FlagsList:get("FFlagFixContentNotFullyShownAfterResize") then
 					local props = self.props
 					local style = getStyle(self)
@@ -129,7 +130,7 @@ function ScrollingFrame:init()
 		local scaleX = 1
 		local scaleY = 1
 		if FFlagEnableDevFrameworkAutomaticSize then
-			local automaticSize = props.AutomaticCanvasSize
+			local automaticSize = props.AutomaticSize
 			if automaticSize then
 				if automaticSize == Enum.AutomaticSize.X or automaticSize == Enum.AutomaticSize.XY then
 					scaleX = 0
@@ -172,8 +173,8 @@ function ScrollingFrame:render()
 	local autoSizeElement = prioritize(props.AutoSizeLayoutElement, style.AutoSizeLayoutElement, "UIListLayout")
 	local layoutOptions = prioritize(props.AutoSizeLayoutOptions, style.AutoSizeLayoutOptions, {})
 	
-	local automaticSize = props.AutomaticCanvasSize
-	if automaticSize then
+	local automaticCanvasSize = props.AutomaticCanvasSize
+	if automaticCanvasSize then
 		autoSizeCanvas = false
 	end
 

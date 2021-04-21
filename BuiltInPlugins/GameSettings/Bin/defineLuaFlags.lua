@@ -11,6 +11,7 @@ game:DefineFastFlag("StudioUXImprovementsLoosenTCPermissions", false)
 game:DefineFastFlag("UXImprovementsShowUserPermsWhenCollaborator2", false)
 game:DefineFastFlag("UXImprovementsNonTCPlacesAllowedPlay", false)
 game:DefineFastFlag("RemoveYoutubeFacebookTwitterForLuobu", false)
-game:DefineFastFlag("StudioDisablePrivateServersAndPaidAccessForLuobu", false)
+game:DefineFastFlag("GameSettingsUseKeyProvider", false)
+game:DefineFastFlag("GameSettingsMigrateToDevFrameworkSeparator", false)
 
 return nil

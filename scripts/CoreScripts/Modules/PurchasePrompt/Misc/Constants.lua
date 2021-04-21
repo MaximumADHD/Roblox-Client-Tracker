@@ -4,6 +4,7 @@ local strict = require(Root.strict)
 
 return strict({
 	ABTests = strict({
-		ADULT_CONFIRMATION = "AllUsers.Payments.U13PurchaseCombinedABTest",
+		PRODUCT_PURCHASE = "AllUsers.Payments.ProductPurchaseABTest",
+		PRODUCT_PURCHASE_UPSELL = "AllUsers.Payments.ProductPurchaseRobuxUpsellABTest"
 	}, "Constants.ABTests")
 }, "Constants")

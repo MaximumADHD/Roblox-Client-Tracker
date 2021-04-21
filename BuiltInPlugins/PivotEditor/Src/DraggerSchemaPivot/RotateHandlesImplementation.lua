@@ -8,6 +8,7 @@ local setWorldPivot = require(Plugin.Src.Utility.setWorldPivot)
 local computeSnapPointsForInstance = require(Plugin.Src.Utility.computeSnapPointsForInstance)
 local SnapPoints = require(Plugin.Src.Components.SnapPoints)
 local DraggedPivot = require(Plugin.Src.Components.DraggedPivot)
+local classifyInstancePivot = require(Plugin.Src.Utility.classifyInstancePivot)
 
 local MoveHandlesForDisplay = {
 	MinusZ = {
@@ -39,9 +40,10 @@ local MoveHandlesForDisplay = {
 local RotateHandlesImplementation = {}
 RotateHandlesImplementation.__index = RotateHandlesImplementation
 
-function RotateHandlesImplementation.new(draggerContext)
+function RotateHandlesImplementation.new(draggerContext, analyticsName)
 	return setmetatable({
 		_draggerContext = draggerContext,
+		_analyticsName = analyticsName,
 	}, RotateHandlesImplementation)
 end
 
@@ -117,7 +119,13 @@ function RotateHandlesImplementation:updateDrag(globalTransform)
 end
 
 function RotateHandlesImplementation:endDrag()
-
+	self._draggerContext:getAnalytics():sendEvent("setPivot", {
+		gridSize = self._draggerContext:getGridSize(),
+		rotateIncrement = self._draggerContext:getRotateIncrement(),
+		toolName = self._analyticsName,
+		handleId = "Rotate",
+		pivotType = classifyInstancePivot(self._primaryObject),
+	})
 end
 
 function RotateHandlesImplementation:getSnapPoints()

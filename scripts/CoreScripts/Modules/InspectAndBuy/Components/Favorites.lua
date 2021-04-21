@@ -8,6 +8,8 @@ local GetBundleFavoriteCount = require(InspectAndBuyFolder.Thunks.GetBundleFavor
 local GotCurrentFavoriteCount = require(InspectAndBuyFolder.Selectors.GotCurrentFavoriteCount)
 local getSelectionImageObjectRegular = require(InspectAndBuyFolder.getSelectionImageObjectRegular)
 
+local FFlagAllowForBundleItemsSoldSeparately = require(InspectAndBuyFolder.Flags.FFlagAllowForBundleItemsSoldSeparately)
+
 local FAVORITES_SIZE = 16
 local FAVORITE_IMAGE_FILLED = "rbxasset://textures/ui/InspectMenu/ico_favorite.png"
 
@@ -20,9 +22,13 @@ local Favorites = Roact.PureComponent:extend("Favorites")
 function Favorites:setText()
 	local assetInfo = self.props.assetInfo or {}
 	local partOfBundle = assetInfo.bundlesAssetIsIn and #assetInfo.bundlesAssetIsIn > 0
+	local partOfBundleAndOffsale = partOfBundle
+	if FFlagAllowForBundleItemsSoldSeparately then
+		partOfBundleAndOffsale = partOfBundle and not assetInfo.isForSale
+	end
 	local bundleInfo = self.props.bundleInfo
 
-	if partOfBundle then
+	if partOfBundleAndOffsale then
 		local bundleId = UtilityFunctions.getBundleId(assetInfo)
 		if bundleInfo[bundleId] then
 			self.numFavorites = bundleInfo[bundleId].numFavorites
@@ -46,11 +52,15 @@ function Favorites:willUpdate(nextProps)
 	if nextProps.assetInfo and nextProps.assetInfo.bundlesAssetIsIn then
 		local assetInfo = nextProps.assetInfo
 		local partOfBundle = #assetInfo.bundlesAssetIsIn > 0
+		local partOfBundleAndOffsale = partOfBundle
+		if FFlagAllowForBundleItemsSoldSeparately then
+			partOfBundleAndOffsale = partOfBundle and not assetInfo.isForSale
+		end
 		local gotCurrentFavoriteCount = nextProps.gotCurrentFavoriteCount
 
 		if not gotCurrentFavoriteCount then
 			coroutine.wrap(function()
-				if not partOfBundle then
+				if not partOfBundleAndOffsale then
 					getAssetFavoriteCount(assetInfo.assetId)
 				else
 					local bundleId = UtilityFunctions.getBundleId(assetInfo)

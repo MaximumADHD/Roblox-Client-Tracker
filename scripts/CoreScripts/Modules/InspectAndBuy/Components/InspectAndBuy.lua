@@ -36,6 +36,7 @@ local GetCharacterModelFromUserId = require(InspectAndBuyFolder.Thunks.GetCharac
 local GetPlayerName = require(InspectAndBuyFolder.Thunks.GetPlayerName)
 
 local FFlagFixInspectAndBuyPerformFetch = require(InspectAndBuyFolder.Flags.FFlagFixInspectAndBuyPerformFetch)
+local FFlagInspectAndBuyBundlePromptListener = game:DefineFastFlag("InspectAndBuyBundlePromptListener", false)
 
 local COMPACT_VIEW_MAX_WIDTH = 600
 local CURSOR_OVERRIDE_KEY = Symbol.named("OverrideCursorInspectMenu")
@@ -120,6 +121,18 @@ function InspectAndBuy:init()
 	if self.humanoidDescription then
 		self.state.store:dispatch(GetAssetsFromHumanoidDescription(self.humanoidDescription, false))
 	end
+
+	if FFlagInspectAndBuyBundlePromptListener then
+		self.onPromptPurchaseFinished = function(_, itemId, isPurchased)
+			local purchasedInformation = self.state.store:getState().itemBeingPurchased
+
+			if isPurchased and tostring(itemId) == purchasedInformation.itemId then
+				self.analytics.reportPurchaseSuccess(purchasedInformation.itemType, purchasedInformation.itemId)
+				self.state.store:dispatch(UpdateOwnedStatus(purchasedInformation.itemId, purchasedInformation.itemType))
+			end
+			self.state.store:dispatch(SetItemBeingPurchased(nil, nil))
+		end
+	end
 end
 
 function InspectAndBuy:didMount()
@@ -151,18 +164,30 @@ function InspectAndBuy:didMount()
 		self:pushMouseIconOverride()
 	end)
 
-	-- Update the owned status of an item if a user purchases it.
-	local marketplaceServicePurchaseFinishedListener =
-		MarketplaceService.PromptPurchaseFinished:Connect(function(player, itemId, isPurchased)
+	-- Update the owned status of an asset if a user purchases it.
+	local marketplaceServicePurchaseFinishedListener
+	if FFlagInspectAndBuyBundlePromptListener then
+		marketplaceServicePurchaseFinishedListener =
+			MarketplaceService.PromptPurchaseFinished:Connect(self.onPromptPurchaseFinished)
+	else
+		marketplaceServicePurchaseFinishedListener =
+			MarketplaceService.PromptPurchaseFinished:Connect(function(player, itemId, isPurchased)
+			local purchasedInformation = self.state.store:getState().itemBeingPurchased
 
-		local purchasedInformation = self.state.store:getState().itemBeingPurchased
+			if isPurchased and tostring(itemId) == purchasedInformation.itemId then
+				self.analytics.reportPurchaseSuccess(purchasedInformation.itemType, purchasedInformation.itemId)
+				self.state.store:dispatch(UpdateOwnedStatus(purchasedInformation.itemId, purchasedInformation.itemType))
+			end
+			self.state.store:dispatch(SetItemBeingPurchased(nil, nil))
+		end)
+	end
 
-		if isPurchased and tostring(itemId) == purchasedInformation.itemId then
-			self.analytics.reportPurchaseSuccess(purchasedInformation.itemType, purchasedInformation.itemId)
-			self.state.store:dispatch(UpdateOwnedStatus(purchasedInformation.itemId, purchasedInformation.itemType))
-		end
-		self.state.store:dispatch(SetItemBeingPurchased(nil, nil))
-	end)
+	-- Update the owned status of a bundle if a user purchases it.
+	local marketplaceServiceBundlePurchaseFinishedListener
+	if FFlagInspectAndBuyBundlePromptListener then
+	marketplaceServiceBundlePurchaseFinishedListener =
+		MarketplaceService.PromptBundlePurchaseFinished:Connect(self.onPromptPurchaseFinished)
+	end
 
 	local storeChangedConnection = self.state.store.changed:connect(function(state, oldState)
 		self:update(state, oldState)
@@ -174,6 +199,9 @@ function InspectAndBuy:didMount()
 	table.insert(self.connections, menuClosedConnection)
 	table.insert(self.connections, inputTypeChangedListener)
 	table.insert(self.connections, marketplaceServicePurchaseFinishedListener)
+	if FFlagInspectAndBuyBundlePromptListener then
+		table.insert(self.connections, marketplaceServiceBundlePurchaseFinishedListener)
+	end
 	table.insert(self.connections, storeChangedConnection)
 
 	local localUserId = Players.LocalPlayer.UserId

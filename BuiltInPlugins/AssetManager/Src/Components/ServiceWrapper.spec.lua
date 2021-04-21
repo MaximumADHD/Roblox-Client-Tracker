@@ -5,7 +5,7 @@ local Roact = require(Plugin.Packages.Roact)
 local Rodux = require(Plugin.Packages.Rodux)
 
 local ContextServices = Plugin.Packages.Framework.ContextServices
-local UILibraryWrapper = require(ContextServices.UILibraryWrapper)
+local UILibraryWrapper = require(ContextServices.UILibraryWrapper :: any)
 local Analytics = require(ContextServices).Analytics
 local Localization = require(ContextServices).Localization
 

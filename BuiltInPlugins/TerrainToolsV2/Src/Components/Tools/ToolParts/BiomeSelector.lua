@@ -1,5 +1,3 @@
-local FFlagTerrainEditorUpdateFontToSourceSans = game:GetFastFlag("TerrainEditorUpdateFontToSourceSans")
-
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
 local Roact = require(Plugin.Packages.Roact)
@@ -68,8 +66,8 @@ function BiomeSelector:render()
 	}, {
 		Label = Roact.createElement("TextLabel", {
 			Text = localization:getText("MaterialSettings", "ChooseBiome"),
-			Font = FFlagTerrainEditorUpdateFontToSourceSans and theme.font or nil,
-			TextSize = FFlagTerrainEditorUpdateFontToSourceSans and theme.textSize or nil,
+			Font = theme.font,
+			TextSize = theme.textSize,
 			TextColor3 = theme.textColor,
 			Size = UDim2.new(1, 0, 0, 16),
 			TextXAlignment = Enum.TextXAlignment.Left,

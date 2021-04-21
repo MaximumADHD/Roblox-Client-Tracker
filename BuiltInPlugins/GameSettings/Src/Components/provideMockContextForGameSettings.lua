@@ -10,7 +10,7 @@ local Dialog = require(Plugin.Src.ContextServices.Dialog)
 local MainReducer = require(Plugin.Src.Reducers.MainReducer)
 
 local Framework = Plugin.Framework
-local UILibraryWrapper = require(Framework.ContextServices.UILibraryWrapper)
+local UILibraryWrapper = require(Framework.ContextServices.UILibraryWrapper :: any)
 local provideMockContext = require(Framework.TestHelpers.provideMockContext)
 
 local Theme = require(Plugin.Src.Util.Theme)

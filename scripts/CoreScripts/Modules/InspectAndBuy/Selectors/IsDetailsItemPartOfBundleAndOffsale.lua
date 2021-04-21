@@ -1,0 +1,19 @@
+--[[
+	Checks if an asset is part of a bundle.
+]]
+local InspectAndBuyFolder = script.Parent.Parent
+local FFlagAllowForBundleItemsSoldSeparately = require(InspectAndBuyFolder.Flags.FFlagAllowForBundleItemsSoldSeparately)
+
+return function(state)
+	local assetId = state.detailsInformation.assetId
+	if assetId == nil then
+		return nil
+	end
+	local assetInfo = state.assets[assetId]
+
+	if FFlagAllowForBundleItemsSoldSeparately and assetInfo and assetInfo.isForSale then
+		return false
+	else
+		return assetInfo and assetInfo.bundlesAssetIsIn and #assetInfo.bundlesAssetIsIn > 0
+	end
+end

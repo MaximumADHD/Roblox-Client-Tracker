@@ -20,10 +20,16 @@
 		Text: TextLabel Displayed between LeftIcon and RightIcon
 		TextXAlignment: Passed to TextLabel; defaults to left.
 		TextYAlignment: Passed to TextLabel; defaults to center.
+		TextColor: Passed to TextLabel; defaults to MainText
+		DisabledTextColor: Passed to TextLabled; defaults to DimmedText
 
 	Styles:
 		Default: The pane has no background
 ]]
+
+game:DefineFastFlag("FrameworkFixDisabledIconButton", false)
+local FFlagFrameworkFixDisabledIconButton = game:GetFastFlag("FrameworkFixDisabledIconButton")
+
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
 local ContextServices = require(Framework.ContextServices)
@@ -85,6 +91,10 @@ function IconButton:render()
 	background = props.Disabled and style.Disabled.Background or background
 	local size = prioritize(props.Size, style.Size)
 
+	local enabledTextColor = prioritize(props.TextColor, style.TextColor)
+	local disabledTextColor = prioritize(props.DisabledTextColor, style.Disabled.TextColor)
+	local textColor = (props.Disabled or not props.OnClick) and disabledTextColor or enabledTextColor
+
 	local iconSize = props.IconSize
 	local textBoxPadding = 2 * iconSize
 	local textSize = UDim2.new(1, -textBoxPadding, 1, 0)
@@ -116,6 +126,7 @@ function IconButton:render()
 			}),
 			Text = props.Text and Roact.createElement(TextLabel, {
 				Text = props.Text,
+				TextColor = FFlagFrameworkFixDisabledIconButton and textColor or nil,
 				Size = textSize,
 				LayoutOrder = 2,
 				TextXAlignment = props.TextXAlignment,

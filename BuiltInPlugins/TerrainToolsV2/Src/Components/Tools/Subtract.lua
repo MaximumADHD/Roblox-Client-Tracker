@@ -21,15 +21,11 @@ local SetSnapToGrid = require(Actions.SetSnapToGrid)
 
 local TerrainEnums = require(Plugin.Src.Util.TerrainEnums)
 
-local FFlagTerrainToolsAddHasPlaneLock = game:GetFastFlag("TerrainToolsAddHasPlaneLock")
-
 local REDUCER_KEY = "SubtractTool"
 
 local function mapStateToProps(state, props)
 	local planeLock = nil
-	if FFlagTerrainToolsAddHasPlaneLock then
-		planeLock = state[REDUCER_KEY].planeLock
-	end
+	planeLock = state[REDUCER_KEY].planeLock
 	return {
 		toolName = TerrainEnums.ToolId.Subtract,
 
@@ -68,9 +64,9 @@ local function mapDispatchToProps (dispatch)
 		dispatchSetIgnoreWater = function (ignoreWater)
 			dispatchToSubtract(SetIgnoreWater(ignoreWater))
 		end,
-		dispatchSetPlaneLock = FFlagTerrainToolsAddHasPlaneLock and function(planeLock)
+		dispatchSetPlaneLock = function(planeLock)
 			dispatchToSubtract(SetPlaneLock(planeLock))
-		end or nil,
+		end,
 		dispatchSetSnapToGrid = function (snapToGrid)
 			dispatchToSubtract(SetSnapToGrid(snapToGrid))
 		end,

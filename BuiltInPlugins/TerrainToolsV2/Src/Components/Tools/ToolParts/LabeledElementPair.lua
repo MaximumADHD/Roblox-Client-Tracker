@@ -12,7 +12,6 @@
 ]]
 
 local FFlagTerrainToolsLabeledElementPairIcons2 = game:GetFastFlag("TerrainToolsLabeledElementPairIcons2")
-local FFlagTerrainEditorUpdateFontToSourceSans = game:GetFastFlag("TerrainEditorUpdateFontToSourceSans")
 local FFlagTerrainToolsFixLabeledElementPair = game:GetFastFlag("TerrainToolsFixLabeledElementPair")
 local FFlagTerrainToolsColormapCallout = game:GetFastFlag("TerrainToolsColormapCallout")
 
@@ -112,8 +111,8 @@ function LabeledElementPair:render()
 	if FFlagTerrainToolsLabeledElementPairIcons2 then
 		local showStatusIcon = self.props.ErrorMessage or self.props.WarningMessage or self.props.InfoMessage
 
-		local textSize = FFlagTerrainEditorUpdateFontToSourceSans and theme.textSize or 8
-		local font = FFlagTerrainEditorUpdateFontToSourceSans and theme.font or Enum.Font.Legacy
+		local textSize = theme.textSize
+		local font = theme.font
 
 		local labelSection = {}
 
@@ -282,8 +281,8 @@ function LabeledElementPair:render()
 		}, {
 			Label = Roact.createElement("TextLabel", {
 				Text = text,
-				Font = FFlagTerrainEditorUpdateFontToSourceSans and theme.font or nil,
-				TextSize = FFlagTerrainEditorUpdateFontToSourceSans and theme.textSize or nil,
+				Font = theme.font,
+				TextSize = theme.textSize,
 				TextColor3 = theme.textColor,
 				TextXAlignment = Enum.TextXAlignment.Left,
 				TextYAlignment = Enum.TextYAlignment.Bottom,

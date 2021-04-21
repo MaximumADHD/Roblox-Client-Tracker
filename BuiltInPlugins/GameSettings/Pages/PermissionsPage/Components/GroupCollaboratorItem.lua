@@ -1,3 +1,5 @@
+local FFlagGameSettingsMigrateToDevFrameworkSeparator = game:GetFastFlag("GameSettingsMigrateToDevFrameworkSeparator")
+
 local Page = script.Parent.Parent
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
@@ -14,7 +16,7 @@ local Spritesheet = UILibrary.Util.Spritesheet
 local PermissionsConstants = require(Page.Util.PermissionsConstants)
 local CollaboratorItem = require(Page.Components.CollaboratorItem)
 local RolesetCollaboratorItem = require(Page.Components.RolesetCollaboratorItem)
-local Separator = require(Plugin.Src.Components.Separator)
+local Separator = FFlagGameSettingsMigrateToDevFrameworkSeparator and require(Plugin.Framework).UI.Separator or require(Plugin.Src.Components.Separator)
 local GroupIconThumbnail = require(Plugin.Src.Components.AutoThumbnails.GroupIconThumbnail)
 
 local IsGroupOwner = require(Page.Selectors.IsGroupOwner)

@@ -21,7 +21,6 @@ local GroupIconThumbnail = require(Plugin.Src.Components.AutoThumbnails.GroupIco
 local Searchbar = require(Page.Components.SearchBar)
 
 local createFitToContent = UILibrary.Component.createFitToContent
-local Hyperlink = UILibrary.Studio.Hyperlink
 
 local GetUserCollaborators = require(Page.Selectors.GetUserCollaborators)
 local GetGroupCollaborators = require(Page.Selectors.GetGroupCollaborators)
@@ -32,7 +31,6 @@ local SearchCollaborators = require(Page.Thunks.SearchCollaborators)
 local IsGroupGame = require(Page.Selectors.IsGroupGame)
 
 local FFlagStudioUXImprovementsLoosenTCPermissions = game:GetFastFlag("StudioUXImprovementsLoosenTCPermissions")
-local FFlagLocalizeGameSettingsPermissionsLearnMore = game:DefineFastFlag("LocalizeGameSettingsPermissionsLearnMore", false)
 
 local FitToContent = createFitToContent("Frame", "UIListLayout", {
 	SortOrder = Enum.SortOrder.LayoutOrder,
@@ -253,10 +251,8 @@ function CollaboratorSearchWidget:render()
 
 	local WarningTextSize = TextService:GetTextSize(localization:getText("AccessPermissions", "PermissionsUpdateMessage"),
 		theme.fontStyle.Smaller.TextSize, theme.fontStyle.Smaller.Font, Vector2.new(math.huge, math.huge))
-	-- TODO: jbousellam 2/16/20 - Remove with FFlagLocalizeGameSettingsPermissionsLearnMore
-	local HyperlinkTextSize = TextService:GetTextSize(localization:getText("AccessPermissions", "UpdateHyperlinkText"),
-		theme.fontStyle.Smaller.TextSize, theme.fontStyle.Smaller.Font, Vector2.new(math.huge, math.huge))
-	local titleWidth = FFlagLocalizeGameSettingsPermissionsLearnMore and UDim2.new(1, -WarningTextSize.X - PADDING, 0, theme.fontStyle.Subtitle.TextSize) or UDim2.new(1, -WarningTextSize.X - HyperlinkTextSize.X - PADDING, 0, theme.fontStyle.Subtitle.TextSize)
+
+	local titleWidth = UDim2.new(1, -WarningTextSize.X - PADDING, 0, theme.fontStyle.Subtitle.TextSize)
 
 	return Roact.createElement(FitToContent, {
 		BackgroundTransparency = 1,
@@ -287,19 +283,6 @@ function CollaboratorSearchWidget:render()
 
 				BackgroundTransparency = 1,
 			})),
-
-			Hyperlink = not FFlagLocalizeGameSettingsPermissionsLearnMore and Roact.createElement(Hyperlink, {
-				LayoutOrder = 2,
-				Enabled = true,
-
-				Text = localization:getText("AccessPermissions", "UpdateHyperlinkText"),
-				TextSize = theme.fontStyle.Smaller.TextSize,
-
-				OnClick = function()
-                    GuiService:OpenBrowserWindow("https://devforum.roblox.com/t/introducing-game-permissions/428956")
-				end,
-				Mouse = mouse:get(),
-			}) or nil,
 		}),
 
 		Searchbar = Roact.createElement(Searchbar, {

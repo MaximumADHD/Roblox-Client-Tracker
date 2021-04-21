@@ -9,8 +9,10 @@ local SelectionDot = require(DraggerFramework.Components.SelectionDot)
 local Math = require(DraggerFramework.Utility.Math)
 local SelectionWrapper = require(DraggerFramework.Utility.SelectionWrapper)
 local SelectionHelper = require(DraggerFramework.Utility.SelectionHelper)
+local classifyPivot = require(DraggerFramework.Utility.classifyPivot)
 
 local getFFlagFoldersOverFragments = require(DraggerFramework.Flags.getFFlagFoldersOverFragments)
+local getFFlagPivotAnalytics = require(DraggerFramework.Flags.getFFlagPivotAnalytics)
 
 local DraggerToolModel = {}
 DraggerToolModel.__index = DraggerToolModel
@@ -219,6 +221,25 @@ function DraggerToolModel:selectNextSelectables(dragInfo, isDoubleClick)
 		self._selectionWrapper:set(newSelection)
 	end
 	self:_updateSelectionInfo()
+end
+
+--[[
+Tries to boil what the pivot for the current selection is set to down to a
+single descriptive analytics value as a string. Possible return values:
+	- None: There is no selection
+	- Default: The pivot is at the center of the bounds
+	- Inside: The pivot is within (but not exactly on) the bounds
+	- Surface: The pivot is exactly on the surface of the bounds
+	- Outside: The pivot is outside of the bounds
+	- Far: The pivot is very far outside the bounds (more than one size away)
+]]
+function DraggerToolModel:classifySelectionPivot()
+	if not self._selectionInfo then
+		return "None"
+	end
+
+	local cframe, offset, size = self._selectionInfo:getBoundingBox()
+	return classifyPivot(cframe, offset, size)
 end
 
 function DraggerToolModel:_processSelected()
@@ -455,7 +476,7 @@ function DraggerToolModel:_analyticsRecordFreeformDragBegin(timeToStartDrag)
 	self._draggerContext:getAnalytics():reportStats(dragStartTimeName, timeToStartDrag)
 end
 
-function DraggerToolModel:_analyticsSendHandleDragged()
+function DraggerToolModel:_analyticsSendHandleDragged(handleId)
 	self._draggerContext:getAnalytics():sendEvent("handleDragged", {
 		toolName = self._modelProps.AnalyticsName,
 		wasAutoSelected = false, -- For consistency with other events
@@ -465,6 +486,8 @@ function DraggerToolModel:_analyticsSendHandleDragged()
 		joinSurfaces = self._draggerContext:shouldJoinSurfaces(),
 		useConstraints = self._draggerContext:areConstraintsEnabled(),
 		haveCollisions = self._draggerContext:areCollisionsEnabled(),
+		pivotType = getFFlagPivotAnalytics() and self:classifySelectionPivot() or nil,
+		handleId = getFFlagPivotAnalytics() and handleId or nil,
 	})
 end
 

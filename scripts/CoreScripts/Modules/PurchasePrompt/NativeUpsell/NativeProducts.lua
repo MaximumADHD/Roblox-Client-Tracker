@@ -205,6 +205,44 @@ local NativeProducts = {
 			productId = "com.tencent.roblox.robloxmobile.luobu1648robux",
 			robuxValue = 1648,
 		}
+	},
+	Desktop = {
+		PremiumSubscribed = {
+			{
+				robuxValue = 440,
+				productId = "",
+			}, {
+				robuxValue = 880,
+				productId = "",
+			}, {
+				robuxValue = 1870,
+				productId = "",
+			}, {
+				robuxValue = 4950,
+				productId = "",
+			}, {
+				robuxValue = 11000,
+				productId = "",
+			},
+		},
+		PremiumNotSubscribed = {
+			{
+				robuxValue = 400,
+				productId = "",
+			}, {
+				robuxValue = 800,
+				productId = "",
+			}, {
+				robuxValue = 1700,
+				productId = "",
+			}, {
+				robuxValue = 4500,
+				productId = "",
+			}, {
+				robuxValue = 10000,
+				productId = "",
+			},
+		},
 	}
 }
 

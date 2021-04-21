@@ -10,6 +10,7 @@ local PartMover = require(DraggerFramework.Utility.PartMover)
 local AttachmentMover = require(DraggerFramework.Utility.AttachmentMover)
 
 local getFFlagEnablePhysicalFreeFormDragger = require(DraggerFramework.Flags.getFFlagEnablePhysicalFreeFormDragger)
+local getFFlagPivotAnalytics = require(DraggerFramework.Flags.getFFlagPivotAnalytics)
 
 local FreeformDragger = {}
 FreeformDragger.__index = FreeformDragger
@@ -287,6 +288,9 @@ function FreeformDragger:_analyticsSendFreeformDragged()
 	self._dragAnalytics.useConstraints = self._draggerContext:areConstraintsEnabled()
 	if getFFlagEnablePhysicalFreeFormDragger() then
 		self._dragAnalytics.haveCollisions = self._draggerContext:areCollisionsEnabled()
+	end
+	if getFFlagPivotAnalytics() then
+		self._dragAnalytics.pivotType = self._draggerToolModel:classifySelectionPivot()
 	end
 	self._draggerToolModel._draggerContext:getAnalytics():sendEvent(
 		"freeformDragged", self._dragAnalytics)

@@ -1,6 +1,7 @@
 local StudioService = game:GetService("StudioService")
 
 local FFlagStudioCreatePluginPolicyService = game:GetFastFlag("StudioCreatePluginPolicyService")
+local FFlagGameSettingsMigrateToDevFrameworkSeparator = game:GetFastFlag("GameSettingsMigrateToDevFrameworkSeparator")
 
 --[[
 	Settings page for Localization settings.
@@ -41,7 +42,7 @@ local FitToContent = createFitToContent("Frame", "UIListLayout", {
 })
 
 local Dropdown = require(Plugin.Src.Components.Dropdown)
-local Separator = require(Plugin.Src.Components.Separator)
+local Separator = FFlagGameSettingsMigrateToDevFrameworkSeparator and require(Plugin.Framework).UI.Separator or require(Plugin.Src.Components.Separator)
 local SettingsPage = require(Plugin.Src.Components.SettingsPages.SettingsPage)
 
 local AddChange = require(Plugin.Src.Actions.AddChange)

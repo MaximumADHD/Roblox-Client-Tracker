@@ -1,6 +1,6 @@
 local Root = script.Parent.Parent
-local CorePackages = game:GetService("CorePackages")
 
+local LocalizationService = game:GetService("LocalizationService")
 local CorePackages = game:GetService("CorePackages")
 local PurchasePromptDeps = require(CorePackages.PurchasePromptDeps)
 local Roact = PurchasePromptDeps.Roact
@@ -8,6 +8,8 @@ local Rodux = PurchasePromptDeps.Rodux
 local RoactRodux = PurchasePromptDeps.RoactRodux
 local UIBlox = PurchasePromptDeps.UIBlox
 local StyleProvider = UIBlox.Style.Provider
+local IAPExperience = require(CorePackages.IAPExperience)
+local LocaleProvider =  IAPExperience.Locale.LocaleProvider
 
 local Reducer = require(Root.Reducers.Reducer)
 local Network = require(Root.Services.Network)
@@ -16,14 +18,21 @@ local PlatformInterface = require(Root.Services.PlatformInterface)
 local ExternalSettings = require(Root.Services.ExternalSettings)
 local Thunk = require(Root.Thunk)
 
-local PremiumPrompt = require(script.Parent.PremiumPrompt.PremiumPrompt)
 local PurchasePrompt = require(script.Parent.PurchasePrompt.PurchasePrompt)
+local PremiumPrompt = require(script.Parent.PremiumPrompt.PremiumPrompt)
 local EventConnections = require(script.Parent.Connection.EventConnections)
 local LayoutValuesProvider = require(script.Parent.Connection.LayoutValuesProvider)
 local provideRobloxLocale = require(script.Parent.Connection.provideRobloxLocale)
 
+local PurchasePromptABTestContainer = require(script.Parent.PurchasePromptABTestContainer)
+
 local DarkTheme = require(CorePackages.AppTempCommon.LuaApp.Style.Themes.DarkTheme)
 local Gotham = require(CorePackages.AppTempCommon.LuaApp.Style.Fonts.Gotham)
+
+local GetFFlagProductPurchaseUpsell = require(Root.Flags.GetFFlagProductPurchaseUpsell)
+local GetFFlagProductPurchaseUpsellABTest = require(Root.Flags.GetFFlagProductPurchaseUpsellABTest)
+local GetFFlagProductPurchase = require(Root.Flags.GetFFlagProductPurchase)
+local GetFFlagProductPurchaseABTest = require(Root.Flags.GetFFlagProductPurchaseABTest)
 
 local PurchasePromptApp = Roact.Component:extend("PurchasePromptApp")
 
@@ -49,6 +58,8 @@ function PurchasePromptApp:init()
 end
 
 function PurchasePromptApp:render()
+	local useUISelector = GetFFlagProductPurchaseUpsell() or GetFFlagProductPurchase()
+		or GetFFlagProductPurchaseUpsellABTest() or GetFFlagProductPurchaseABTest()
 	return provideRobloxLocale(function()
 		return Roact.createElement(RoactRodux.StoreProvider, {
 			store = self.state.store,
@@ -67,7 +78,11 @@ function PurchasePromptApp:render()
 							IgnoreGuiInset = true,
 						}, {
 							PremiumPromptUI = Roact.createElement(PremiumPrompt),
-							PurchasePromptUI = Roact.createElement(PurchasePrompt),
+							ProductPurchase = useUISelector and Roact.createElement(LocaleProvider, {
+								locale = LocalizationService.RobloxLocaleId
+							}, {
+								ProductPurchaseContainer = Roact.createElement(PurchasePromptABTestContainer)
+							}) or Roact.createElement(PurchasePrompt),
 							EventConnections = Roact.createElement(EventConnections),
 						})
 					end

@@ -18,7 +18,6 @@
 
 		function SetValue(value) = Callback to tell parent that value has changed.
 ]]
-local FFlagTerrainEditorUpdateFontToSourceSans = game:GetFastFlag("TerrainEditorUpdateFontToSourceSans")
 
 --TODO: FIX THE THEME
 local BACKGROUND_BAR_IMAGE_LIGHT = "rbxasset://textures/RoactStudioWidgets/slider_bar_background_light.png"
@@ -183,8 +182,6 @@ function Slider:render()
 	local min = self.props.Min or MIN_VAL
 	local max = self.props.Max or MAX_VAL
 	local enabled = self.isEnabled()
-	-- no sliders use showRange anymore, so this will be removed along with fonts being updated
-	local showRange = not FFlagTerrainEditorUpdateFontToSourceSans and self.props.ShowRange or false
 	local showInput = self.props.ShowInput
 	if showInput == nil then
 		showInput = true
@@ -272,34 +269,6 @@ function Slider:render()
 			OnFocusLost = self.onInputFocusLost,
 			ValidateText = self.validateInputText,
 		}),
-		
-		LowerLabel = (not FFlagTerrainEditorUpdateFontToSourceSans and showRange) and Roact.createElement("TextLabel", {
-			BackgroundTransparency = 0,
-			BorderSizePixel = 0,
-			Size = UDim2.new(0, 0, 0, textLabelHeight),
-
-			TextColor3 = textColor,
-			Font = Enum.Font.SourceSans,
-			TextSize = textSize,
-			TextXAlignment = Enum.TextXAlignment.Left,
-			TextYAlignment = Enum.TextYAlignment.Bottom,
-			Position = UDim2.new(0, 0, 0, labelOffset),
-			Text = tostring(min),
-		}) or nil,
-
-		UpperLabel = (not FFlagTerrainEditorUpdateFontToSourceSans and showRange) and Roact.createElement("TextLabel", {
-			BackgroundTransparency = 1,
-			BorderSizePixel = 0,
-			Size = UDim2.new(0, 0, 0, textLabelHeight),
-
-			TextColor3 = textColor,
-			Font = Enum.Font.SourceSans,
-			TextSize = textSize,
-			TextXAlignment = Enum.TextXAlignment.Right,
-			TextYAlignment = Enum.TextYAlignment.Bottom,
-			Position = UDim2.new(0, sliderSize.Width.Offset, 0, labelOffset),
-			Text = tostring(max),
-		}) or nil,
 	})
 end
 

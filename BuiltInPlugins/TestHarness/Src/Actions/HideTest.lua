@@ -4,7 +4,7 @@ local Util = Framework.Util
 local Action = Util.Action
 
 return Action(script.Name, function(token)
-	assert(token, ("token required in"):format(token))
+	assert(token, ("token required in %s"):format(token))
 	return {
 		token = token
 	}

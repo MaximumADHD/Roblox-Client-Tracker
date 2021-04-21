@@ -21,8 +21,6 @@
 			Callback to clear the current selection
 ]]
 
-local FFlagTerrainEditorUpdateFontToSourceSans = game:GetFastFlag("TerrainEditorUpdateFontToSourceSans")
-
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
@@ -435,8 +433,8 @@ function PromptSelectorWithPreview:render()
 			Size = UDim2.new(1, 0, 0, TEXT_HEIGHT),
 			TextXAlignment = Enum.TextXAlignment.Left,
 			TextColor3 = theme.textColor,
-			Font = FFlagTerrainEditorUpdateFontToSourceSans and theme.font or nil,
-			TextSize = FFlagTerrainEditorUpdateFontToSourceSans and theme.textSize or nil,
+			Font = theme.font,
+			TextSize = theme.textSize,
 			-- Note that the text isn't set here, it's controlled by updateSelectionNameText as we need to handle truncation
 			[Roact.Ref] = self.selectionNameRef,
 			[Roact.Change.AbsoluteSize] = self.updateSelectionNameText,

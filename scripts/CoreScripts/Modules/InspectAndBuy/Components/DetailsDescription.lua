@@ -6,6 +6,8 @@ local InspectAndBuyFolder = script.Parent.Parent
 local Colors = require(InspectAndBuyFolder.Colors)
 local UtilityFunctions = require(InspectAndBuyFolder.UtilityFunctions)
 
+local FFlagAllowForBundleItemsSoldSeparately = require(InspectAndBuyFolder.Flags.FFlagAllowForBundleItemsSoldSeparately)
+
 local TEXT_SIZE_SMALL = 16
 local DETAILS_SIZES = 451
 
@@ -18,9 +20,13 @@ local DetailsDescription = Roact.PureComponent:extend("DetailsDescription")
 function DetailsDescription:setText()
 	local assetInfo = self.props.assetInfo or {}
 	local partOfBundle = assetInfo.bundlesAssetIsIn and #assetInfo.bundlesAssetIsIn == 1
+	local partOfBundleAndOffsale = partOfBundle
+	if FFlagAllowForBundleItemsSoldSeparately then
+		partOfBundleAndOffsale = partOfBundle and not assetInfo.isForSale
+	end
 	local bundleInfo = self.props.bundleInfo or {}
 
-	if partOfBundle then
+	if partOfBundleAndOffsale then
 		local bundleId = UtilityFunctions.getBundleId(assetInfo)
 		if bundleInfo[bundleId] then
 			self.description = bundleInfo[bundleId].description or ""

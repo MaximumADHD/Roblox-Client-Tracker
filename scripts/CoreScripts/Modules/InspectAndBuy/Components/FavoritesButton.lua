@@ -10,10 +10,12 @@ local DeleteFavoriteForBundle = require(InspectAndBuyFolder.Thunks.DeleteFavorit
 local GetFavoriteForAsset = require(InspectAndBuyFolder.Thunks.GetFavoriteForAsset)
 local GetFavoriteForBundle = require(InspectAndBuyFolder.Thunks.GetFavoriteForBundle)
 local GotFavoriteForDetailsItem = require(InspectAndBuyFolder.Selectors.GotFavoriteForDetailsItem)
-local IsDetailsItemPartOfBundle = require(InspectAndBuyFolder.Selectors.IsDetailsItemPartOfBundle)
+local IsDetailsItemPartOfBundleAndOffsale = require(InspectAndBuyFolder.Selectors.IsDetailsItemPartOfBundleAndOffsale)
 local GetIsFavorite = require(InspectAndBuyFolder.Selectors.GetIsFavorite)
 local UtilityFunctions = require(InspectAndBuyFolder.UtilityFunctions)
 local getSelectionImageObjectRounded = require(InspectAndBuyFolder.getSelectionImageObjectRounded)
+
+local FFlagAllowForBundleItemsSoldSeparately = require(InspectAndBuyFolder.Flags.FFlagAllowForBundleItemsSoldSeparately)
 
 local FAVORITE_IMAGE_FILLED = "rbxasset://textures/ui/InspectMenu/ico_favorite.png"
 local FAVORITE_IMAGE_NOT_FILLED = "rbxasset://textures/ui/InspectMenu/ico_favorite_off.png"
@@ -33,9 +35,13 @@ function FavoritesButton:willUpdate(nextProps)
 	if nextProps.assetInfo and nextProps.assetInfo.bundlesAssetIsIn and not gotFavoriteForDetailsItem then
 		local assetInfo = nextProps.assetInfo
 		local partOfBundle = #assetInfo.bundlesAssetIsIn > 0
+		local partOfBundleAndOffsale = partOfBundle
+		if FFlagAllowForBundleItemsSoldSeparately then
+			partOfBundleAndOffsale = partOfBundle and not assetInfo.isForSale
+		end
 
 		coroutine.wrap(function()
-			if not partOfBundle then
+			if not partOfBundleAndOffsale then
 				getFavoriteForAsset(assetInfo.assetId)
 			else
 				local bundleId = UtilityFunctions.getBundleId(assetInfo)
@@ -51,7 +57,7 @@ function FavoritesButton:render()
 	local deleteFavoriteForAsset = self.props.deleteFavoriteForAsset
 	local createFavoriteForBundle = self.props.createFavoriteForBundle
 	local deleteFavoriteForBundle = self.props.deleteFavoriteForBundle
-	local isDetailsItemPartOfBundle = self.props.isDetailsItemPartOfBundle
+	local isDetailsItemPartOfBundleAndOffsale = self.props.IsDetailsItemPartOfBundleAndOffsale
 	local favoriteButtonRef = self.props.favoriteButtonRef
 	local assetInfo = self.props.assetInfo
 	local creatorId = assetInfo and assetInfo.creatorId or 0
@@ -71,14 +77,14 @@ function FavoritesButton:render()
 		[Roact.Ref] = favoriteButtonRef,
 		[Roact.Event.Activated] = function()
 			if isFavorited then
-				if isDetailsItemPartOfBundle then
+				if isDetailsItemPartOfBundleAndOffsale then
 					local bundleId = UtilityFunctions.getBundleId(assetInfo)
 					deleteFavoriteForBundle(bundleId)
 				else
 					deleteFavoriteForAsset(assetInfo.assetId)
 				end
 			else
-				if isDetailsItemPartOfBundle then
+				if isDetailsItemPartOfBundleAndOffsale then
 					local bundleId = UtilityFunctions.getBundleId(assetInfo)
 					createFavoriteForBundle(bundleId)
 				else
@@ -108,7 +114,7 @@ return RoactRodux.UNSTABLE_connect2(
 			bundleInfo = state.bundles,
 			gotFavoriteForDetailsItem = GotFavoriteForDetailsItem(state),
 			isFavorited = GetIsFavorite(state),
-			isDetailsItemPartOfBundle = IsDetailsItemPartOfBundle(state),
+			IsDetailsItemPartOfBundleAndOffsale = IsDetailsItemPartOfBundleAndOffsale(state),
 		}
 	end,
 	function(dispatch)

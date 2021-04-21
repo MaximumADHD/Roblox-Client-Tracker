@@ -9,8 +9,6 @@ local Cryo = require(Plugin.Packages.Cryo)
 local Constants = require(Plugin.Src.Util.Constants)
 local TerrainEnums = require(Plugin.Src.Util.TerrainEnums)
 
-local FFlagTerrainToolsAddHasPlaneLock = game:GetFastFlag("TerrainToolsAddHasPlaneLock")
-
 local BrushShape = TerrainEnums.BrushShape
 local PivotType = TerrainEnums.PivotType
 
@@ -54,13 +52,13 @@ local AddTool = Rodux.createReducer({
 			pivot = pivot,
 		})
 	end,
-	SetPlaneLock = FFlagTerrainToolsAddHasPlaneLock and function(state, action)
+	SetPlaneLock = function(state, action)
 		local planeLock = action.planeLock
 
 		return Cryo.Dictionary.join(state, {
 			planeLock = planeLock,
 		})
-	end or nil,
+	end,
 	SetSnapToGrid = function(state, action)
 		local snapToGrid = action.snapToGrid
 

@@ -6,21 +6,26 @@ local Url = require(CorePackages.AppTempCommon.LuaApp.Http.Url)
 local UtilityFunctions = require(InspectAndBuyFolder.UtilityFunctions)
 
 local GetFFlagUseThumbnailUrl = require(game:GetService("CoreGui").RobloxGui.Modules.Common.Flags.GetFFlagUseThumbnailUrl)
+local FFlagAllowForBundleItemsSoldSeparately = require(InspectAndBuyFolder.Flags.FFlagAllowForBundleItemsSoldSeparately)
 
 local DetailsThumbnail = Roact.PureComponent:extend("DetailsThumbnail")
 
-local function isPartOfBundle(assetInfo)
-	return assetInfo and assetInfo.bundlesAssetIsIn and #assetInfo.bundlesAssetIsIn == 1
+local function isPartOfBundleAndOffsale(assetInfo)
+	if FFlagAllowForBundleItemsSoldSeparately and assetInfo and assetInfo.isForSale then
+		return false
+	else
+		return assetInfo and assetInfo.bundlesAssetIsIn and #assetInfo.bundlesAssetIsIn == 1
+	end
 end
 
 function DetailsThumbnail:getUrl()
 	local assetInfo = self.props.assetInfo
 	local detailsInformation = self.props.detailsInformation
 	local bundles = self.props.bundles
-	local partOfBundle = isPartOfBundle(assetInfo)
+	local partOfBundleAndOffsale = isPartOfBundleAndOffsale(assetInfo)
 	local url = ""
 
-	if partOfBundle then
+	if partOfBundleAndOffsale then
 		local bundleId = UtilityFunctions.getBundleId(assetInfo)
 		if bundles[bundleId] then
 			url = GetFFlagUseThumbnailUrl() and "rbxthumb://type=Outfit&id=" .. bundles[bundleId].costumeId .. "&w=420&h=420" or Url.BASE_URL_SECURE .."outfit-thumbnail/image?userOutfitId=" ..bundles[bundleId].costumeId

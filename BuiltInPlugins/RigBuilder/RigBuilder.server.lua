@@ -73,27 +73,27 @@ local function insertRig(name)
 
 	local rig
 	if mode == "R6" then
-		if name == RigBuilderLocalized and localization:getText("RigOption", "BlockRig") or "Block Rig" then
+		if RigBuilderLocalized and name == localization:getText("RigOption", "BlockRig") or name == "Block Rig" then
 			rig = rigModule.CreateR6Rig()
-		elseif name == RigBuilderLocalized and localization:getText("RigOption", "MeshRig") or "Mesh Rig" then
+		elseif RigBuilderLocalized and name == localization:getText("RigOption", "MeshRig") or name == "Mesh Rig" then
 			rig = rigModule.CreateR6MeshRig()
-		elseif name == RigBuilderLocalized and localization:getText("RigOption", "ManRig") or "Man Rig" then
+		elseif RigBuilderLocalized and name == localization:getText("RigOption", "ManRig") or name == "Man Rig" then
 			rig = rigModule.CreateR6MeshBoyRig()
-		elseif name == RigBuilderLocalized and localization:getText("RigOption", "WomanRig") or "Woman Rig" then
+		elseif RigBuilderLocalized and name == localization:getText("RigOption", "WomanRig") or name == "Woman Rig" then
 			rig = rigModule.CreateR6MeshGirlRig()
 		end
 	elseif mode == "R15" then
-		if name == RigBuilderLocalized and localization:getText("RigOption", "BlockRig") or "Block Rig" then
+		if RigBuilderLocalized and name == localization:getText("RigOption", "BlockRig") or name == "Block Rig" then
 			rig = rigModule.BuildR15Rig()
-		elseif name == RigBuilderLocalized and localization:getText("RigOption", "ManRig") or "Man Rig" then
+		elseif RigBuilderLocalized and name ==  localization:getText("RigOption", "ManRig") or name == "Man Rig" then
 			rig = rigModule.BuildR15Rig(86500185)
-		elseif name == RigBuilderLocalized and localization:getText("RigOption", "WomanRig") or "Woman Rig" then
+		elseif RigBuilderLocalized and name == localization:getText("RigOption", "WomanRig") or name == "Woman Rig" then
 			rig = rigModule.BuildR15Rig(86499905)
-		elseif name == RigBuilderLocalized and localization:getText("RigOption", "MeshRig") or "Mesh Rig" then
+		elseif RigBuilderLocalized and name == localization:getText("RigOption", "MeshRig") or name == "Mesh Rig" then
 			rig = rigModule.BuildR15Rig(27112438)
-		elseif name == RigBuilderLocalized and localization:getText("R15RigOption", "RthroNormal") or "Rthro Normal" then
+		elseif RigBuilderLocalized and name == localization:getText("R15RigOption", "RthroNormal") or name == "Rthro Normal" then
 			rig = rigModule.BuildAnthroRig("AnthroNormal")
-		elseif name == RigBuilderLocalized and localization:getText("R15RigOption", "RthroSlender") or "Rthro Slender" then
+		elseif RigBuilderLocalized and name == localization:getText("R15RigOption", "RthroSlender") or name == "Rthro Slender" then
 			rig = rigModule.BuildAnthroRig("AnthroSlender")
 		end
 	end

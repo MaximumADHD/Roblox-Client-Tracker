@@ -2,8 +2,6 @@
 	used to select images for file import in the terrain editor
 ]]
 
-local FFlagTerrainEditorUpdateFontToSourceSans = game:GetFastFlag("TerrainEditorUpdateFontToSourceSans")
-
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
@@ -132,7 +130,7 @@ end
 function ImageAsset:render()
 	local id = self.props.AssetId
 	local name = self.props.AssetName
-	local theme = FFlagTerrainEditorUpdateFontToSourceSans and self.props.Theme:get() or nil
+	local theme = self.props.Theme:get()
 
 	return Roact.createElement("TextButton", {
 		Size = DROPDOWN_ELEMENT_SIZE,
@@ -151,8 +149,8 @@ function ImageAsset:render()
 			Position = DROPDOWN_ELEMENT_LABEL_POS,
 			Size = DROPDOWN_ELEMENT_LABEL_SIZE,
 			Text = name,
-			TextSize = FFlagTerrainEditorUpdateFontToSourceSans and theme.textSize or nil,
-			Font = FFlagTerrainEditorUpdateFontToSourceSans and theme.font or nil,
+			TextSize = theme.textSize,
+			Font = theme.font,
 			TextXAlignment = Enum.TextXAlignment.Left,
 			BorderSizePixel = 0,
 			BackgroundTransparency = 1,
@@ -160,11 +158,9 @@ function ImageAsset:render()
 	})
 end
 
-if FFlagTerrainEditorUpdateFontToSourceSans then
-	ContextServices.mapToProps(ImageAsset, {
-		Theme = ContextItems.UILibraryTheme,
-	})
-end
+ContextServices.mapToProps(ImageAsset, {
+	Theme = ContextItems.UILibraryTheme,
+})
 
 local AssetIdSelector = Roact.PureComponent:extend(script.Name)
 

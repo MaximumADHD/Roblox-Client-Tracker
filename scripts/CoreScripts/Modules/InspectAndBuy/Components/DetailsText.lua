@@ -17,6 +17,8 @@ local getSelectionImageObjectRegular = require(InspectAndBuyFolder.getSelectionI
 
 local GetFFlagLuaPremiumCatalogIGIAB
 	= require(CoreGui.RobloxGui.Modules.Flags.GetFFlagLuaPremiumCatalogIGIAB)
+local FFlagAllowForBundleItemsSoldSeparately = require(InspectAndBuyFolder.Flags.FFlagAllowForBundleItemsSoldSeparately)
+
 
 local PremiumIcon = UIBloxImages["icons/status/premium"]
 local BY_KEY = "InGame.InspectMenu.Label.By"
@@ -43,9 +45,13 @@ end
 function DetailsText:setText()
 	local assetInfo = self.props.assetInfo or {}
 	local partOfBundle = assetInfo.bundlesAssetIsIn and #assetInfo.bundlesAssetIsIn == 1
+	local partOfBundleAndOffsale = partOfBundle
+	if FFlagAllowForBundleItemsSoldSeparately then
+		partOfBundleAndOffsale = partOfBundle and not assetInfo.isForSale
+	end
 	local bundleInfo = self.props.bundleInfo or {}
 
-	if partOfBundle then
+	if partOfBundleAndOffsale then
 		local bundleId = UtilityFunctions.getBundleId(assetInfo)
 		if bundleInfo[bundleId] then
 			self.name = bundleInfo[bundleId].name or ""

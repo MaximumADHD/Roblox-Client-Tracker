@@ -29,7 +29,7 @@ function TryOnButton:render()
 	local locale = self.props.locale
 	local assetInfo = self.props.assetInfo
 	local creatorId = assetInfo and assetInfo.creatorId or 0
-	local partOfBundle = self.props.partOfBundle
+	local partOfBundleAndOffsale = self.props.partOfBundleAndOffsale
 	local bundleId = self.props.bundleId
 	local tryOnButtonRef = self.props.tryOnButtonRef
 	local sizeXAdjustment = creatorId == ROBLOX_CREATOR_ID and -32 or -BUTTON_PADDING / 2
@@ -80,7 +80,7 @@ function TryOnButton:render()
 				if tryingOn then
 					takeOffItem()
 				else
-					tryOnItem(true, assetInfo.assetId, assetInfo.assetTypeId, partOfBundle, bundleId)
+					tryOnItem(true, assetInfo.assetId, assetInfo.assetTypeId, partOfBundleAndOffsale, bundleId)
 				end
 			end,
 		})
@@ -101,8 +101,8 @@ return RoactRodux.UNSTABLE_connect2(
 	end,
 	function(dispatch)
 		return {
-			tryOnItem = function(tryingOn, assetId, assetTypeId, partOfBundle, bundleId)
-				dispatch(TryOnItem(tryingOn, assetId, assetTypeId, partOfBundle, bundleId))
+			tryOnItem = function(tryingOn, assetId, assetTypeId, partOfBundleAndOffsale, bundleId)
+				dispatch(TryOnItem(tryingOn, assetId, assetTypeId, partOfBundleAndOffsale, bundleId))
 			end,
 			takeOffItem = function()
 				dispatch(SetTryingOnInfo(false, nil, nil))

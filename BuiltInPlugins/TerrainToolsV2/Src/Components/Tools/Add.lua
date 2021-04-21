@@ -23,15 +23,11 @@ local SetSnapToGrid = require(Actions.SetSnapToGrid)
 
 local TerrainEnums = require(Plugin.Src.Util.TerrainEnums)
 
-local FFlagTerrainToolsAddHasPlaneLock = game:GetFastFlag("TerrainToolsAddHasPlaneLock")
-
 local REDUCER_KEY = "AddTool"
 
 local function mapStateToProps(state, props)
 	local planeLock = nil
-	if FFlagTerrainToolsAddHasPlaneLock then
-		planeLock = state[REDUCER_KEY].planeLock
-	end
+	planeLock = state[REDUCER_KEY].planeLock
 	return {
 		toolName = TerrainEnums.ToolId.Add,
 
@@ -77,9 +73,9 @@ local function mapDispatchToProps(dispatch)
 		dispatchChangePivot = function (pivot)
 			dispatchToAdd(ChangePivot(pivot))
 		end,
-		dispatchSetPlaneLock = FFlagTerrainToolsAddHasPlaneLock and function(planeLock)
+		dispatchSetPlaneLock = function(planeLock)
 			dispatchToAdd(SetPlaneLock(planeLock))
-		end or nil,
+		end,
 		dispatchSetSnapToGrid = function (snapToGrid)
 			dispatchToAdd(SetSnapToGrid(snapToGrid))
 		end,

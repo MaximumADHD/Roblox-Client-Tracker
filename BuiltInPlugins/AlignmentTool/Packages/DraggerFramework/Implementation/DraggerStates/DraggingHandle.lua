@@ -93,7 +93,7 @@ function DraggingHandle:_endHandleDrag()
 		self._draggerToolModel._draggerContext,
 		self._draggerToolModel._selectionInfo)
 
-	self._draggerToolModel:_analyticsSendHandleDragged()
+	self._draggerToolModel:_analyticsSendHandleDragged(self._draggingHandleId)
 end
 
 return DraggingHandle

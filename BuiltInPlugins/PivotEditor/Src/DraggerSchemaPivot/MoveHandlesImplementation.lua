@@ -9,15 +9,17 @@ local setWorldPivot = require(Plugin.Src.Utility.setWorldPivot)
 local computeSnapPointsForInstance = require(Plugin.Src.Utility.computeSnapPointsForInstance)
 local SnapPoints = require(Plugin.Src.Components.SnapPoints)
 local DraggedPivot = require(Plugin.Src.Components.DraggedPivot)
+local classifyInstancePivot = require(Plugin.Src.Utility.classifyInstancePivot)
 
 local SMALL_REGION_RADIUS = Vector3.new(0.1, 0.1, 0.1)
 
 local MoveHandlesImplementation = {}
 MoveHandlesImplementation.__index = MoveHandlesImplementation
 
-function MoveHandlesImplementation.new(draggerContext)
+function MoveHandlesImplementation.new(draggerContext, analyticsName)
 	return setmetatable({
 		_draggerContext = draggerContext,
+		_analyticsName = analyticsName,
 	}, MoveHandlesImplementation)
 end
 
@@ -72,7 +74,13 @@ function MoveHandlesImplementation:updateDrag(globalTransform)
 end
 
 function MoveHandlesImplementation:endDrag()
-
+	self._draggerContext:getAnalytics():sendEvent("setPivot", {
+		gridSize = self._draggerContext:getGridSize(),
+		rotateIncrement = self._draggerContext:getRotateIncrement(),
+		toolName = self._analyticsName,
+		handleId = "Move",
+		pivotType = classifyInstancePivot(self._primaryObject),
+	})
 end
 
 function MoveHandlesImplementation:getSnapPoints()

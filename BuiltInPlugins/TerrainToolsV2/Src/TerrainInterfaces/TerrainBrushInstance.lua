@@ -1,9 +1,10 @@
 game:DefineFastFlag("TerrainToolsBrushUseIsKeyDown", false)
 game:DefineFastFlag("TerrainToolsFixBrushNearCamera", false)
+game:DefineFastFlag("TerrainToolsAlignToPlane", false)
 
 local FFlagTerrainToolsBrushUseIsKeyDown = game:GetFastFlag("TerrainToolsBrushUseIsKeyDown")
-local FFlagTerrainToolsBrushInteractOnlyWithTerrain = game:GetFastFlag("TerrainToolsBrushInteractOnlyWithTerrain")
 local FFlagTerrainToolsFixBrushNearCamera = game:GetFastFlag("TerrainToolsFixBrushNearCamera")
+local FFlagTerrainToolsAlignToPlane = game:GetFastFlag("TerrainToolsAlignToPlane")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -171,11 +172,7 @@ function TerrainBrush.new(options)
 		"TerrainBrush needs a tool passed to constructor")
 
 	self._raycastParams = RaycastParams.new()
-	if FFlagTerrainToolsBrushInteractOnlyWithTerrain then
-		self._raycastParams.FilterType = Enum.RaycastFilterType.Whitelist
-	else
-		self._raycastParams.FilterType = Enum.RaycastFilterType.Blacklist
-	end
+	self._raycastParams.FilterType = Enum.RaycastFilterType.Whitelist
 
 	return self
 end
@@ -419,22 +416,14 @@ function TerrainBrush:_run()
 
 		-- Why is mouse used for camera?
 		local cameraPos = self._mouse.Origin.p
-		if FFlagTerrainToolsBrushInteractOnlyWithTerrain then
-			local acceptList = {self._terrain}
-			if Workspace:FindFirstChild("Baseplate") then
-				table.insert(acceptList, Workspace:FindFirstChild("Baseplate"))
-			end
-			self._raycastParams.FilterDescendantsInstances = acceptList
-		else
-			local ignoreList = {self._cursor:getCursorPart()}
-			if Players.LocalPlayer and Players.LocalPlayer.Character then
-				table.insert(ignoreList, Players.LocalPlayer.Character)
-			end
-			self._raycastParams.FilterDescendantsInstances = ignoreList
+		local acceptList = {self._terrain}
+		if Workspace:FindFirstChild("Baseplate") then
+			table.insert(acceptList, Workspace:FindFirstChild("Baseplate"))
 		end
+		self._raycastParams.FilterDescendantsInstances = acceptList
 
 		local unitRay = self._mouse.UnitRay.Direction
-		local rayHit, mainPoint, hitMaterial
+		local rayHit, mainPoint, hitMaterial, hitNormal
 
 		self._raycastParams.IgnoreWater = ignoreWater
 
@@ -444,28 +433,27 @@ function TerrainBrush:_run()
 			rayHit = raycastResult.Instance
 			mainPoint = raycastResult.Position
 			hitMaterial = raycastResult.Material
+			hitNormal = raycastResult.Normal
 		else
 			rayHit, hitMaterial = nil, nil
+			if FFlagTerrainToolsAlignToPlane then
+				hitNormal = getCameraLookSnappedForPlane()
+			end
 
-			if FFlagTerrainToolsBrushInteractOnlyWithTerrain then
-				local hit, distance = lineToPlaneIntersection(cameraPos, unitRay, Vector3.new(0, 0, 0), Vector3.new(0, 1, 0))
-				-- Set the default Y axis for brush to be intersection of the ray and XZplane with Y = 0
+			local hit, distance = lineToPlaneIntersection(cameraPos, unitRay, Vector3.new(0, 0, 0), Vector3.new(0, 1, 0))
+			-- Set the default Y axis for brush to be intersection of the ray and XZplane with Y = 0
 
-				local useHitPoint
-				if FFlagTerrainToolsFixBrushNearCamera then
-					-- Check we hit the plane, and that it's in front of us
-					useHitPoint = hit and distance and distance >= 0
-				else
-					useHitPoint = hit ~= cameraPos
-				end
-
-				if useHitPoint then
-					mainPoint = hit
-				else
-					mainPoint = cameraPos + unitRay * 10000
-				end
+			local useHitPoint
+			if FFlagTerrainToolsFixBrushNearCamera then
+				-- Check we hit the plane, and that it's in front of us
+				useHitPoint = hit and distance and distance >= 0
 			else
-				-- Raycast returns nil if it does not encounter anything, this will essentially cap the ray and prevent breaking
+				useHitPoint = hit ~= cameraPos
+			end
+
+			if useHitPoint then
+				mainPoint = hit
+			else
 				mainPoint = cameraPos + unitRay * 10000
 			end
 		end
@@ -508,9 +496,12 @@ function TerrainBrush:_run()
 		if updatePlane then
 			lastPlanePoint = usePlanePositionY and self:putPlanePositionYIntoVector(mainPoint)
 				or mainPoint
-			lastNormal = currentTool == ToolId.Flatten and Vector3.new(0, 1, 0)
-				or getCameraLookSnappedForPlane()
-
+			if (FFlagTerrainToolsAlignToPlane and currentTool ~= ToolId.Flatten) and not planeLock then
+				lastNormal = hitNormal
+			else
+				lastNormal = currentTool == ToolId.Flatten and Vector3.new(0, 1, 0)
+					or getCameraLookSnappedForPlane()
+			end
 			reportClick = true
 		end
 
@@ -533,7 +524,7 @@ function TerrainBrush:_run()
 			mainPointOnPlane = self:putPlanePositionYIntoVector(mainPointOnPlane)
 		end
 
-		if planeLock then
+		if (FFlagTerrainToolsAlignToPlane and currentTool ~= ToolId.Flatten) or planeLock then
 			mainPoint = mainPointOnPlane
 		end
 

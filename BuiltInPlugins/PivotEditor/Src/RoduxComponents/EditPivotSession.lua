@@ -26,6 +26,8 @@ local ToastNotification = require(Plugin.Src.Utility.ToastNotification)
 
 local EditPivotSession = Roact.PureComponent:extend("EditPivotSession")
 
+local ANALYTICS_NAME = "EditPivot"
+
 -- Control which StatusMessages are user facing
 local function shouldShowNotification(statusMessage)
 	assert(getFFlagStudioToastNotificationsInLua())
@@ -42,10 +44,10 @@ function EditPivotSession:_getCurrentDraggerHandles()
 			MoveHandles.new(self._draggerContext, {
 				Outset = 0.5,
 				ShowBoundingBox = false,
-			}, DraggerSchema.MoveHandlesImplementation.new(self._draggerContext)),
+			}, DraggerSchema.MoveHandlesImplementation.new(self._draggerContext, ANALYTICS_NAME)),
 			RotateHandles.new(self._draggerContext, {
 				ShowBoundingBox = false,
-			}, DraggerSchema.RotateHandlesImplementation.new(self._draggerContext)),
+			}, DraggerSchema.RotateHandlesImplementation.new(self._draggerContext, ANALYTICS_NAME)),
 			PivotHandle.new(self._draggerContext),
 		}
 	else
@@ -72,7 +74,7 @@ function EditPivotSession:render()
 			DraggerContext = self._draggerContext,
 			DraggerSchema = DraggerSchema,
 			DraggerSettings = {
-				AnalyticsName = "EditPivot",
+				AnalyticsName = ANALYTICS_NAME,
 				AllowDragSelect = false,
 				AllowFreeformDrag = false,
 				ShowLocalSpaceIndicator = false,

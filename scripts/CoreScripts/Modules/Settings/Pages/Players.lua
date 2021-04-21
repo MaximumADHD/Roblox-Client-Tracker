@@ -41,7 +41,7 @@ local INSPECT_KEY = "InGame.InspectMenu.Action.View"
 
 local PLAYER_ROW_HEIGHT = 62
 local PLAYER_ROW_SPACING = 80
-
+local PLAYER_NAME_RIGHT_PADDING = 20
 ------------ Variables -------------------
 local platform = UserInputService:GetPlatform()
 local PageInstance = nil
@@ -554,6 +554,7 @@ local function Initialize()
 		return frame
 	end
 
+	--Clean up with EngineTruncationEnabledForIngameSettingsV2
 	-- Manage cutting off a players name if it is too long when switching into portrait mode.
 	local function managePlayerNameCutoff(frame, player)
 		local wasIsPortrait = nil
@@ -561,79 +562,112 @@ local function Initialize()
 		local function reportFlagChanged(reportFlag, prop)
 			if prop == "AbsolutePosition" and wasIsPortrait then
 				local maxPlayerNameSize = reportFlag.AbsolutePosition.X - 20 - frame.NameLabel.AbsolutePosition.X
-				if isEngineTruncationEnabledForIngameSettings() then
-					if UsePlayerDisplayName() then
-						frame.NameLabel.Size = UDim2.new(0, maxPlayerNameSize, 0, 0)
-						frame.DisplayNameLabel.Size = UDim2.new(0, maxPlayerNameSize, 0, 0)
-						frame.NameLabel.Text = "@" .. player.Name
-						frame.DisplayNameLabel.Text = player.DisplayName
-					else
-						frame.NameLabel.Size = UDim2.new(0, maxPlayerNameSize, 0, 0)
-						frame.NameLabel.Text = player.Name
-					end
-				else
-					if UsePlayerDisplayName() then
-						frame.NameLabel.Text = "@" .. player.Name
-						frame.DisplayNameLabel.Text = player.DisplayName
-					else
-						frame.NameLabel.Text = player.Name
-					end
-
-					if UsePlayerDisplayName() then
-						local newDisplayNameLength = utf8.len(player.DisplayName)
-						while frame.NameLabel.TextBounds.X > maxPlayerNameSize and newDisplayNameLength > 0 do
-							local offset = utf8.offset(player.DisplayName, newDisplayNameLength)
-							frame.NameLabel.Text = string.sub(player.DisplayName, 1, offset) .. "..."
-							newDisplayNameLength = newDisplayNameLength - 1
-						end
-					end
-
-					local playerNameText = UsePlayerDisplayName() and "@" .. player.Name or player.Name
-					local newNameLength = string.len(playerNameText)
-					while frame.NameLabel.TextBounds.X > maxPlayerNameSize and newNameLength > 0 do
-						frame.NameLabel.Text = string.sub(playerNameText, 1, newNameLength) .. "..."
-						newNameLength = newNameLength - 1
-					end
-				end
-			end
-		end
-		utility:OnResized(frame.NameLabel, function(newSize, isPortrait)
-			if wasIsPortrait ~= nil and wasIsPortrait == isPortrait then
-				return
-			end
-			wasIsPortrait = isPortrait
-			if isPortrait then
-				if reportFlagAddedConnection == nil then
-					reportFlagAddedConnection = frame.RightSideButtons.ChildAdded:connect(function(child)
-						if child.Name == "ReportPlayer" then
-							child.Changed:connect(function(prop) reportFlagChanged(child, prop) end)
-							reportFlagChanged(child, "AbsolutePosition")
-						end
-					end)
-				end
-				local reportFlag = frame.RightSideButtons:FindFirstChild("ReportPlayer")
-				if reportFlag then
-					reportFlag.Changed:connect(function(prop) reportFlagChanged(reportFlag, prop) end)
-					reportFlagChanged(reportFlag, "AbsolutePosition")
-				end
-			else
-				if isEngineTruncationEnabledForIngameSettings() then
-					local labelInset = frame.NameLabel.AbsolutePosition.X-frame.AbsolutePosition.X
-					frame.NameLabel.Size = UDim2.new(1, -labelInset-20, 0, 0)
-
-					if UsePlayerDisplayName() then
-						frame.DisplayNameLabel.Size = UDim2.new(1, -labelInset-20, 0, 0)
-					end
-				end
-
 				if UsePlayerDisplayName() then
 					frame.NameLabel.Text = "@" .. player.Name
 					frame.DisplayNameLabel.Text = player.DisplayName
 				else
 					frame.NameLabel.Text = player.Name
 				end
+
+				if UsePlayerDisplayName() then
+					local newDisplayNameLength = utf8.len(player.DisplayName)
+					while frame.NameLabel.TextBounds.X > maxPlayerNameSize and newDisplayNameLength > 0 do
+						local offset = utf8.offset(player.DisplayName, newDisplayNameLength)
+						frame.NameLabel.Text = string.sub(player.DisplayName, 1, offset) .. "..."
+						newDisplayNameLength = newDisplayNameLength - 1
+					end
+				end
+
+				local playerNameText = UsePlayerDisplayName() and "@" .. player.Name or player.Name
+				local newNameLength = string.len(playerNameText)
+				while frame.NameLabel.TextBounds.X > maxPlayerNameSize and newNameLength > 0 do
+					frame.NameLabel.Text = string.sub(playerNameText, 1, newNameLength) .. "..."
+					newNameLength = newNameLength - 1
+				end
 			end
-		end)
+		end
+
+		if not isEngineTruncationEnabledForIngameSettings() then
+			utility:OnResized(frame.NameLabel, function(newSize, isPortrait)
+				if wasIsPortrait ~= nil and wasIsPortrait == isPortrait then
+					return
+				end
+				wasIsPortrait = isPortrait
+				if isPortrait then
+					if reportFlagAddedConnection == nil then
+						reportFlagAddedConnection = frame.RightSideButtons.ChildAdded:connect(function(child)
+							if child.Name == "ReportPlayer" then
+								child.Changed:connect(function(prop) reportFlagChanged(child, prop) end)
+								reportFlagChanged(child, "AbsolutePosition")
+							end
+						end)
+					end
+					local reportFlag = frame.RightSideButtons:FindFirstChild("ReportPlayer")
+					if reportFlag then
+						reportFlag.Changed:connect(function(prop) reportFlagChanged(reportFlag, prop) end)
+						reportFlagChanged(reportFlag, "AbsolutePosition")
+					end
+				else
+					if UsePlayerDisplayName() then
+						frame.NameLabel.Text = "@" .. player.Name
+						frame.DisplayNameLabel.Text = player.DisplayName
+					else
+						frame.NameLabel.Text = player.Name
+					end
+				end
+			end)
+		end
+
+		local function getNearestRightSideButtonXPosition()
+			local furthestLeftPos = nil
+
+			for _, button in pairs(frame.RightSideButtons:GetChildren()) do
+				if button:IsA("ImageButton") and (not furthestLeftPos or button.AbsolutePosition.X < furthestLeftPos) then
+					furthestLeftPos = button.AbsolutePosition.X
+				end
+			end
+
+			return furthestLeftPos
+		end
+
+		local lastRightSideButtonXPosition = nil
+		local function rightSideButtonsChanged()
+			local rightSideButtonXPosition = getNearestRightSideButtonXPosition()
+
+			--We should only update if the absolute X position of the nearest "right-side-button" changes
+			if rightSideButtonXPosition == lastRightSideButtonXPosition then
+				return
+			end
+
+			lastRightSideButtonXPosition = rightSideButtonXPosition
+
+			local nameLabelSize
+
+			if rightSideButtonXPosition then
+				nameLabelSize = UDim2.new(0, rightSideButtonXPosition - frame.NameLabel.AbsolutePosition.X - PLAYER_NAME_RIGHT_PADDING, 0, 0)
+			else
+				nameLabelSize = UDim2.new(1, - PLAYER_NAME_RIGHT_PADDING, 0, 0)
+			end
+
+			if UsePlayerDisplayName() then
+				frame.NameLabel.Size = nameLabelSize
+				frame.DisplayNameLabel.Size = nameLabelSize
+				frame.NameLabel.Text = "@" .. player.Name
+				frame.DisplayNameLabel.Text = player.DisplayName
+			else
+				frame.NameLabel.Size = nameLabelSize
+				frame.NameLabel.Text = player.Name
+			end
+		end
+
+		if isEngineTruncationEnabledForIngameSettings() then
+			reportFlagAddedConnection = frame.RightSideButtons.ChildAdded:connect(function(child)
+				rightSideButtonsChanged()
+				child:GetPropertyChangedSignal("AbsolutePosition"):Connect(rightSideButtonsChanged)
+			end)
+
+			rightSideButtonsChanged()
+		end
 	end
 
 	local function canShareCurrentGame()

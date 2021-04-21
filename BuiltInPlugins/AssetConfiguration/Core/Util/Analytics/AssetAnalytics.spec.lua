@@ -2,8 +2,7 @@
 type Array<T> = {[number]: T};
 
 return function()
-
-    local AssetAnalytics = require(script.Parent.AssetAnalytics)
+    local AssetAnalytics = require(script.Parent.AssetAnalytics :: any)
 
     local function getStubPageInfo()
         return {

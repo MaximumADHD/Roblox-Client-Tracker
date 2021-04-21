@@ -36,6 +36,10 @@ local function selectRobuxProduct(platform, neededRobux, userIsSubscribed)
 		productOptions = userIsSubscribed
 			and NativeProducts.IOS.PremiumSubscribed
 			or NativeProducts.IOS.PremiumNotSubscribed
+	elseif platform == Enum.Platform.Windows or platform == Enum.Platform.OSX or platform == Enum.Platform.Linux then
+		productOptions = userIsSubscribed
+			and NativeProducts.Desktop.PremiumSubscribed
+			or NativeProducts.Desktop.PremiumNotSubscribed
 	else -- This product format is standard for other supported platforms (Android, Amazon, and UWP)
 		if platform == Enum.Platform.Android then
 			-- Using a flag for now, working on implementing platform call to get what payment options are available.

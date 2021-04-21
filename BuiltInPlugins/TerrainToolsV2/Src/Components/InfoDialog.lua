@@ -43,8 +43,6 @@ local InfoDialog = Roact.PureComponent:extend(script.Name)
 
 local TextService = game:GetService("TextService")
 
-local FFlagTerrainDialogPoorColormapImport = game:GetFastFlag("TerrainDialogPoorColormapImport")
-
 local MAX_LABEL_WIDTH = 400
 local ICON_WIDTH = 44
 
@@ -80,171 +78,103 @@ function InfoDialog:render()
 	local linkText = linkInfo and linkInfo.Text or ""
 	local image = self.props.Image
 
-	if FFlagTerrainDialogPoorColormapImport then
-		local padding = 8
-		local textSize = 20
-		local textFontMain = Enum.Font.SourceSansBold
-		local textFontSub = Enum.Font.SourceSans
+	local padding = 8
+	local textSize = 20
+	local textFontMain = Enum.Font.SourceSansBold
+	local textFontSub = Enum.Font.SourceSans
 
-		local mainTextSize = TextService:GetTextSize(
-			mainText,
-			textSize,
-			textFontMain,
-			Vector2.new(MAX_LABEL_WIDTH, math.huge)
-		)
+	local mainTextSize = TextService:GetTextSize(
+		mainText,
+		textSize,
+		textFontMain,
+		Vector2.new(MAX_LABEL_WIDTH, math.huge)
+	)
 
-		local subTextSize = TextService:GetTextSize(
-			subText,
-			textSize,
-			textFontSub,
-			Vector2.new(MAX_LABEL_WIDTH, math.huge)
-		)
+	local subTextSize = TextService:GetTextSize(
+		subText,
+		textSize,
+		textFontSub,
+		Vector2.new(MAX_LABEL_WIDTH, math.huge)
+	)
 
-		local linkTextSize = linkInfo and TextService:GetTextSize(
-			linkText,
-			textSize,
-			textFontSub,
-			Vector2.new(MAX_LABEL_WIDTH, math.huge)
-		) or Vector2.new(0, 0)
+	local linkTextSize = linkInfo and TextService:GetTextSize(
+		linkText,
+		textSize,
+		textFontSub,
+		Vector2.new(MAX_LABEL_WIDTH, math.huge)
+	) or Vector2.new(0, 0)
 
-		local labelWidth = math.max(mainTextSize.X, math.max(subTextSize.X, linkTextSize.X))
-		local dialogWidth = ICON_WIDTH + 20 + labelWidth
-		local dialogHeight = mainTextSize.Y + padding + subTextSize.Y + (linkInfo and (padding + linkTextSize.Y) or 0)
+	local labelWidth = math.max(mainTextSize.X, math.max(subTextSize.X, linkTextSize.X))
+	local dialogWidth = ICON_WIDTH + 20 + labelWidth
+	local dialogHeight = mainTextSize.Y + padding + subTextSize.Y + (linkInfo and (padding + linkTextSize.Y) or 0)
 
-		return self.state.showingDialog and Roact.createElement(StyledDialog, {
-			Enabled = true,
-			Modal = false,
-			Title = title,
-			OnClose = self.close,
-			OnButtonPressed = self.close,
-			Buttons = {
-				{ Key = "OK", Text = localization:getText("Action", "OK"), Style = "RoundPrimary" },
-			},
-			MinContentSize = Vector2.new(dialogWidth, dialogHeight),
+	return self.state.showingDialog and Roact.createElement(StyledDialog, {
+		Enabled = true,
+		Modal = false,
+		Title = title,
+		OnClose = self.close,
+		OnButtonPressed = self.close,
+		Buttons = {
+			{ Key = "OK", Text = localization:getText("Action", "OK"), Style = "RoundPrimary" },
+		},
+		MinContentSize = Vector2.new(dialogWidth, dialogHeight),
+	}, {
+		Icon = Roact.createElement(Container, {
+			Size = UDim2.new(0, ICON_WIDTH, 0, ICON_WIDTH),
 		}, {
-			Icon = Roact.createElement(Container, {
-				Size = UDim2.new(0, ICON_WIDTH, 0, ICON_WIDTH),
-			}, {
-				Decoration = Roact.createElement(Image, {
-					Style = {
-						Image = image,
-					},
-				})
-			}),
+			Decoration = Roact.createElement(Image, {
+				Style = {
+					Image = image,
+				},
+			})
+		}),
 
-			TextSection = Roact.createElement(Container, {
-				Position = UDim2.new(0, ICON_WIDTH + 20, 0, 0),
-				Size = UDim2.new(1, -(ICON_WIDTH + 20), 1, 0),
-			}, {
-				UIListLayout = Roact.createElement("UIListLayout", {
-					SortOrder = Enum.SortOrder.LayoutOrder,
-					Padding = UDim.new(0, padding),
-				}),
-
-				MainText = Roact.createElement(TextLabel, {
-					LayoutOrder = 1,
-					Size = UDim2.new(1, 0, 0, mainTextSize.Y),
-
-					Text = mainText,
-
-					Font = textFontMain,
-					TextSize = textSize,
-					TextXAlignment = Enum.TextXAlignment.Left,
-				}),
-
-				SubText = Roact.createElement(TextLabel, {
-					LayoutOrder = 2,
-					Size = UDim2.new(1, 0, 0, subTextSize.Y),
-
-					Text = subText,
-					TextWrapped = true,
-
-					Font = textFontSub,
-					TextSize = textSize,
-
-					TextXAlignment = Enum.TextXAlignment.Left,
-				}),
-				Link = linkInfo and Roact.createElement(LinkText, {
-					LayoutOrder = 3,
-					Size = UDim2.new(1, 0, 0, linkTextSize.Y),
-
-					Text = linkText,
-					TextWrapped = true,
-
-					TextSize = textSize,
-					TextXAlignment = Enum.TextXAlignment.Left,
-
-					OnClick = linkInfo.OnClick,
-				}),
-			}),
-		})
-	else
-		return self.state.showingDialog and Roact.createElement(StyledDialog, {
-			Enabled = true,
-			Modal = true,
-			Title = title,
-			OnClose = self.close,
-			OnButtonPressed = self.close,
-			Buttons = {
-				{ Key = "OK", Text = localization:getText("Action", "OK"), Style = "RoundPrimary" },
-			},
-			MinContentSize = Vector2.new(360, 68 + (linkInfo and 28 or 0)),
+		TextSection = Roact.createElement(Container, {
+			Position = UDim2.new(0, ICON_WIDTH + 20, 0, 0),
+			Size = UDim2.new(1, -(ICON_WIDTH + 20), 1, 0),
 		}, {
-			Icon = Roact.createElement(Container, {
-				Size = UDim2.new(0, 44, 0, 44),
-			}, {
-				Decoration = Roact.createElement(Image, {
-					Style = {
-						Image = image,
-					},
-				})
+			UIListLayout = Roact.createElement("UIListLayout", {
+				SortOrder = Enum.SortOrder.LayoutOrder,
+				Padding = UDim.new(0, padding),
 			}),
-	
-			TextSection = Roact.createElement(Container, {
-				Position = UDim2.new(0, 64, 0, 0),
-				Size = UDim2.new(1, -64, 1, 0),
-			}, {
-				UIListLayout = Roact.createElement("UIListLayout", {
-					SortOrder = Enum.SortOrder.LayoutOrder,
-					Padding = UDim.new(0, 8),
-				}),
-	
-				MainText = Roact.createElement(TextLabel, {
-					LayoutOrder = 1,
-					Size = UDim2.new(1, 0, 0, 20),
-	
-					Text = mainText,
-	
-					Font = Enum.Font.SourceSansBold,
-					TextSize = 20,
-					TextXAlignment = Enum.TextXAlignment.Left,
-				}),
-	
-				SubText = Roact.createElement(TextLabel, {
-					LayoutOrder = 2,
-					Size = UDim2.new(1, 0, 0, 40),
-	
-					Text = subText,
-					TextWrapped = true,
-	
-					TextSize = 20,
-					TextXAlignment = Enum.TextXAlignment.Left,
-				}),
-				Link = linkInfo and Roact.createElement(LinkText, {
-					LayoutOrder = 3,
-					Size = UDim2.new(1, 0, 0, 20),
-	
-					Text = linkInfo.Text,
-					TextWrapped = true,
-	
-					TextSize = 20,
-					TextXAlignment = Enum.TextXAlignment.Left,
-	
-					OnClick = linkInfo.OnClick,
-				}),
+
+			MainText = Roact.createElement(TextLabel, {
+				LayoutOrder = 1,
+				Size = UDim2.new(1, 0, 0, mainTextSize.Y),
+
+				Text = mainText,
+
+				Font = textFontMain,
+				TextSize = textSize,
+				TextXAlignment = Enum.TextXAlignment.Left,
 			}),
-		})
-	end
+
+			SubText = Roact.createElement(TextLabel, {
+				LayoutOrder = 2,
+				Size = UDim2.new(1, 0, 0, subTextSize.Y),
+
+				Text = subText,
+				TextWrapped = true,
+
+				Font = textFontSub,
+				TextSize = textSize,
+
+				TextXAlignment = Enum.TextXAlignment.Left,
+			}),
+			Link = linkInfo and Roact.createElement(LinkText, {
+				LayoutOrder = 3,
+				Size = UDim2.new(1, 0, 0, linkTextSize.Y),
+
+				Text = linkText,
+				TextWrapped = true,
+
+				TextSize = textSize,
+				TextXAlignment = Enum.TextXAlignment.Left,
+
+				OnClick = linkInfo.OnClick,
+			}),
+		}),
+	})
 end
 
 ContextServices.mapToProps(InfoDialog, {

@@ -22,22 +22,18 @@ return function(value, pageKey)
 			pageKey = Constants.defaultPageKey
 		end
 
-		if GetFFlagInGameFixMenuIconHoverEatKeyboard() then
-			-- Initial page should not eat keyboard input
-			if pageKey ~= Constants.InitalPageKey then
+		if not GetFFlagInGameMenuFixReportAbuseOpenSystemMenu() or not table.find(SHOW_MENU_PAGE_KEY_DENYLIST, pageKey) then
+			if GetFFlagInGameFixMenuIconHoverEatKeyboard() then
+				-- Initial page should not eat keyboard input
+				if pageKey ~= Constants.InitalPageKey then
+					GuiService:SetMenuIsOpen(true, "InGameMenu")
+				end
+			else
 				GuiService:SetMenuIsOpen(true, "InGameMenu")
 			end
-		else
-			GuiService:SetMenuIsOpen(true, "InGameMenu")
-		end
-		if GetFFlagInGameMenuFixReportAbuseOpenSystemMenu() then
-			if not table.find(SHOW_MENU_PAGE_KEY_DENYLIST, pageKey) then
-				store:dispatch(SetMenuOpenAction(true))
-			end
-		else
 			store:dispatch(SetMenuOpenAction(true))
+			store:dispatch(SetCurrentPage(pageKey))
 		end
-		store:dispatch(SetCurrentPage(pageKey))
 		SendAnalytics(Constants.AnalyticsMenuOpenName, Constants.AnalyticsMenuActionName, {
 			source = value,
 		})

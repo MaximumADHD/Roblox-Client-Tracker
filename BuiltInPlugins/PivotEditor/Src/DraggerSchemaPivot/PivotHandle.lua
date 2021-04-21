@@ -6,6 +6,8 @@ local Colors = require(Plugin.Packages.DraggerFramework.Utility.Colors)
 local Roact = require(Plugin.Packages.Roact)
 local FreeformDragger = require(script.Parent.FreeformDragger)
 
+local getFFlagPivotAnalytics = require(Plugin.Src.Flags.getFFlagPivotAnalytics)
+
 local ALWAYS_ON_TOP = true
 
 local PIVOT_HOVER_IMAGE_SIZE = 32
@@ -42,7 +44,11 @@ function PivotHandle:hitTest(mouseRay, ignoreExtraThreshold)
 		local screenLocation = Vector2.new(screenPoint.X, screenPoint.Y)
 		local distanceFromCursor = (screenLocation - mouseLocation).Magnitude
 		if distanceFromCursor < PIVOT_HITTEST_RADIUS then
-			return 0, 0, ALWAYS_ON_TOP
+			if getFFlagPivotAnalytics() then
+				return "Pivot", 0, ALWAYS_ON_TOP
+			else
+				return 0, 0, ALWAYS_ON_TOP
+			end
 		end
 	end
 	return nil
@@ -110,6 +116,7 @@ end
 function PivotHandle:mouseDown(mouseRay, handleId)
 	local dragInfo = {
 		ClickedSelectable = self._pivotOwner,
+		HandleId = "Pivot",
 	}
 	self._freeformDrag = FreeformDragger.new(
 		self._draggerContext, self._draggerToolModel, dragInfo)

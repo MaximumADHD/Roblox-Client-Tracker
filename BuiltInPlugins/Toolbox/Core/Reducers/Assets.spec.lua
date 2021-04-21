@@ -8,7 +8,7 @@ return function()
 	local GetAssets = require(Plugin.Core.Actions.GetAssets)
 	local SetLoading = require(Plugin.Core.Actions.SetLoading)
 	local SetCanManageAsset = require(Plugin.Core.Actions.SetCanManageAsset)
-	local AssetAnalytics = require(Plugin.Core.Util.Analytics.AssetAnalytics)
+	local AssetAnalytics = require(Plugin.Core.Util.Analytics.AssetAnalytics :: any)
 	local PagedRequestCursor = require(Plugin.Core.Util.PagedRequestCursor)
 
 	local Assets = require(Plugin.Core.Reducers.Assets)

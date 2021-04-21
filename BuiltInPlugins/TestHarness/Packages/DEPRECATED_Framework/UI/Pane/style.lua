@@ -13,7 +13,6 @@ local Style = Util.Style
 local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 
 if THEME_REFACTOR then
-
 	local box = {
 		Background = StyleKey.MainBackground,
 	}
@@ -21,16 +20,11 @@ if THEME_REFACTOR then
 		Image = "rbxasset://textures/StudioToolbox/RoundedBackground.png",
 		SliceCenter = Rect.new(3, 3, 13, 13),
 	})
-	local borderBox = join(box, {
+	local borderBox = join(roundBox, {
 		Border = {
 			Background = StyleKey.Border,
 			Image = "rbxasset://textures/StudioToolbox/RoundedBorder.png",
 			SliceCenter = Rect.new(3, 3, 13, 13),
-			Border = {
-				Background = StyleKey.Border,
-				Image = "rbxasset://textures/StudioToolbox/RoundedBorder.png",
-				SliceCenter = Rect.new(3, 3, 13, 13),
-			}
 		}
 	})
 	return {

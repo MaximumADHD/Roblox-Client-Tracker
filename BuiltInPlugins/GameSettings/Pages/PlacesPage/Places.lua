@@ -15,8 +15,14 @@
 		description: "TooLong"
 		devices: "NoDevices"
 ]]
-local Page = script.Parent
+local FFlagGameSettingsUseKeyProvider = game:GetFastFlag("GameSettingsUseKeyProvider")
 local Plugin = script.Parent.Parent.Parent
+
+local KeyProvider = FFlagGameSettingsUseKeyProvider and require(Plugin.Src.Util.KeyProvider) or nil
+local GetEditKeyName = FFlagGameSettingsUseKeyProvider and KeyProvider.getEditKeyName or nil
+local GetVersionHistoryKeyName = FFlagGameSettingsUseKeyProvider and KeyProvider.getVersionHistoryKeyName or nil
+
+local Page = script.Parent
 local Roact = require(Plugin.Roact)
 local RoactRodux = require(Plugin.RoactRodux)
 local Cryo = require(Plugin.Cryo)
@@ -358,13 +364,13 @@ local function displayPlaceListPage(props, localization)
 			Headers = placeTableHeaders,
 			Data = placesData,
 			MenuItems = {
-				{ Key = "EditKey", Text = localization:getText("General", "ButtonEdit") },
-				{ Key = "VerisonHistoryKey", Text = localization:getText("Places", "VersionHistory") },
+				{ Key = FFlagGameSettingsUseKeyProvider and GetEditKeyName() or "EditKey", Text = localization:getText("General", "ButtonEdit") },
+				{ Key = FFlagGameSettingsUseKeyProvider and GetVersionHistoryKeyName() or "VerisonHistoryKey", Text = localization:getText("Places", "VersionHistory") },
 			},
 			OnItemClicked = function(key, id)
-				if key == "EditKey" then
+				if key == (FFlagGameSettingsUseKeyProvider and GetEditKeyName() or "EditKey") then
 					props.dispatchSetEditPlaceId(id)
-				elseif key == "VerisonHistoryKey" then
+				elseif key == (FFlagGameSettingsUseKeyProvider and GetVersionHistoryKeyName() or "VerisonHistoryKey") then
 					StudioService:ShowPlaceVersionHistoryDialog(id)
 				end
 			end,

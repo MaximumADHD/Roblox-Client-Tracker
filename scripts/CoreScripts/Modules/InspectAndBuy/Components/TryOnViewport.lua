@@ -7,10 +7,17 @@ local Constants = require(InspectAndBuyFolder.Constants)
 local AvatarViewport = require(InspectAndBuyFolder.Components.AvatarViewport)
 local GetHumanoidDescriptionFromCostumeId = require(InspectAndBuyFolder.Thunks.GetHumanoidDescriptionFromCostumeId)
 
+local FFlagAllowForBundleItemsSoldSeparately = require(InspectAndBuyFolder.Flags.FFlagAllowForBundleItemsSoldSeparately)
+
 local TryOnViewport = Roact.PureComponent:extend("TryOnViewport")
 
-local function isPartOfBundle(assetInfo)
-	return assetInfo and assetInfo.bundlesAssetIsIn and #assetInfo.bundlesAssetIsIn == 1
+local function isPartOfBundleAndOffsale(assetInfo)
+	if FFlagAllowForBundleItemsSoldSeparately then
+		return assetInfo and assetInfo.bundlesAssetIsIn and #assetInfo.bundlesAssetIsIn == 1
+			and not assetInfo.isForSale
+	else
+		return assetInfo and assetInfo.bundlesAssetIsIn and #assetInfo.bundlesAssetIsIn == 1
+	end
 end
 
 function TryOnViewport:init()
@@ -33,7 +40,7 @@ function TryOnViewport:didUpdate(prevProps)
 	local tryingOnInfo = self.props.tryingOnInfo
 	local prevTryingOnInfo = prevProps.tryingOnInfo
 
-	if tryingOnInfo ~= prevTryingOnInfo and tryingOnInfo.tryingOn and isPartOfBundle(assetInfo) then
+	if tryingOnInfo ~= prevTryingOnInfo and tryingOnInfo.tryingOn and isPartOfBundleAndOffsale(assetInfo) then
 		local bundleId = assetInfo.bundlesAssetIsIn[1]
 		local costumeId = bundles[bundleId].costumeId
 
@@ -58,7 +65,7 @@ function TryOnViewport:render()
 	local setScrollingEnabled = self.props.setScrollingEnabled
 
 	if tryingOnInfo and tryingOnInfo.tryingOn then
-		if isPartOfBundle(assetInfo) then
+		if isPartOfBundleAndOffsale(assetInfo) then
 			local bundleId = assetInfo.bundlesAssetIsIn[1]
 			local costumeId = bundles[bundleId].costumeId
 			local costumeHumanoidDescription = self.humanoidDescriptions[costumeId]

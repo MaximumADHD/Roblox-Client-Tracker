@@ -18,6 +18,8 @@ local meetsPrerequisites = require(Root.Utils.meetsPrerequisites)
 local getPlayerProductInfoPrice = require(Root.Utils.getPlayerProductInfoPrice)
 local Thunk = require(Root.Thunk)
 
+local GetFFlagProductPurchaseUpsell = require(Root.Flags.GetFFlagProductPurchaseUpsell)
+local GetFFlagProductPurchaseUpsellABTest = require(Root.Flags.GetFFlagProductPurchaseUpsellABTest)
 local GetFFlagProductPurchaseAnalytics = require(Root.Flags.GetFFlagProductPurchaseAnalytics)
 
 local requiredServices = {
@@ -62,7 +64,8 @@ local function resolvePromptState(productInfo, accountInfo, alreadyOwned, isRobl
 				return store:dispatch(ErrorOccurred(PurchaseError.NotEnoughRobuxNoUpsell))
 			end
 
-			if upsellFlow == UpsellFlow.Web then
+			if upsellFlow == UpsellFlow.Web
+					and not GetFFlagProductPurchaseUpsell() and not GetFFlagProductPurchaseUpsellABTest() then
 				return store:dispatch(SetPromptState(PromptState.RobuxUpsell))
 			else
 				local neededRobux = price - accountInfo.RobuxBalance

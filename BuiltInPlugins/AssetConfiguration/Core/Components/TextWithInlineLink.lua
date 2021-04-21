@@ -23,7 +23,6 @@ local function TextWithInlineLink(props)
 		onLinkClicked = t.callback,
 		linkText = t.string,
 		linkPlaceholder = t.string,
-		maxWidth = t.positiveNumber,
 		textProps = t.interface({
 			TextSize = t.integer,
 			Font = t.enum(Enum.Font),

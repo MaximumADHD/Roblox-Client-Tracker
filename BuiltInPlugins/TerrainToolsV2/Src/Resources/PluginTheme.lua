@@ -5,8 +5,6 @@
 	New components should prefer to use makeTheme.lua where possible instead.
 ]]
 
-local FFlagTerrainEditorUpdateFontToSourceSans = game:GetFastFlag("TerrainEditorUpdateFontToSourceSans")
-
 local Plugin = script.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
@@ -141,7 +139,7 @@ function Theme.createValues(getColor, c, m)
 			BorderColor = UILibraryStylePalette.borderColor,
 		},
 
-		textSize = FFlagTerrainEditorUpdateFontToSourceSans and 16 or 14,
+		textSize = 16,
 		textBoxColor = UILibraryStylePalette.backgroundColor,
 	}, {
 		Dark = {
@@ -271,10 +269,6 @@ function Theme.createValues(getColor, c, m)
 		backgroundColor = Color3.fromRGB(182, 182, 182),
 		titleColor = getColor(c.MainText, m.Default),
 
-		-- remove font and textSize when FFlagTerrainEditorUpdateFontToSourceSans is flipped
-		font = Enum.Font.Legacy,
-		textSize = 8,
-
 		backgroundImage = "rbxasset://textures/GameSettings/UncheckedBox.png",
 		selectedImage = "rbxasset://textures/GameSettings/CheckedBoxLight.png",
 	})
@@ -324,7 +318,7 @@ function Theme.createValues(getColor, c, m)
 
 
 	local pluginTheme = deepJoin(UILibraryStylePalette, {
-		textSize = FFlagTerrainEditorUpdateFontToSourceSans and 16 or 14,
+		textSize = 16,
 		padding = 4,
 		font = Enum.Font.SourceSans,
 

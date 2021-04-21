@@ -5,7 +5,6 @@
 game:DefineFastFlag("TerrainToolsReplaceUseModeSelector", false)
 
 local FFlagTerrainToolsReplaceUseModeSelector = game:GetFastFlag("TerrainToolsReplaceUseModeSelector")
-local FFlagTerrainToolsReplaceBoxHotkey = game:GetFastFlag("TerrainToolsReplaceBoxHotkey")
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
@@ -190,7 +189,7 @@ function Replace:render()
 				disableIgnoreWater = self.props.Source == Enum.Material.Water,
 			}),
 
-			MouseListener = (FFlagTerrainToolsReplaceBoxHotkey and self.props.Mode == ReplaceMode.Box) and Roact.createElement(MouseListener, {
+			MouseListener = (self.props.Mode == ReplaceMode.Box) and Roact.createElement(MouseListener, {
 				dispatchSetSourceMaterial = self.props.dispatchSetSourceMaterial,
 				dispatchSetTargetMaterial = self.props.dispatchSetTargetMaterial,
 			}),

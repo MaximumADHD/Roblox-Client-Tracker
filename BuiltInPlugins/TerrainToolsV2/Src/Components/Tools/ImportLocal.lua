@@ -5,8 +5,6 @@
 local FFlagTerrainImportSupportDefaultMaterial = game:GetFastFlag("TerrainImportSupportDefaultMaterial")
 local FFlagTerrainImportGreyscale2 = game:GetFastFlag("TerrainImportGreyscale2")
 local FFlagTerrainToolsMapSettingsMaxVolume = game:GetFastFlag("TerrainToolsMapSettingsMaxVolume")
-local FFlagTerrainDialogPoorColormapImport = game:GetFastFlag("TerrainDialogPoorColormapImport")
-local FFlagTerrainImportUseDetailedProgressBar = game:GetFastFlag("TerrainImportUseDetailedProgressBar")
 local FFlagTerrainToolsColormapCallout = game:GetFastFlag("TerrainToolsColormapCallout")
 
 local Plugin = script.Parent.Parent.Parent.Parent
@@ -114,27 +112,18 @@ end
 local ImportLocal = Roact.PureComponent:extend(script.Name)
 
 function ImportLocal:init()
-	if FFlagTerrainDialogPoorColormapImport then
-		self.state = {
-			mapSettingsValid = true,
+	self.state = {
+		mapSettingsValid = true,
 
-			hasError = false,
-			errorMainText = "",
-			errorSubText = "",
+		hasError = false,
+		errorMainText = "",
+		errorSubText = "",
 
-			hasWarning = false,  -- state to show Warning message after finished terrain import
-			warningMainText = "",
-			warningSubText = "",
-			warningLinkText = "",
-		}
-	else
-		self.state = {
-			mapSettingsValid = true,
-			hasError = false,
-			errorMainText = "",
-			errorSubText = "",
-		}
-	end
+		hasWarning = false,  -- state to show Warning message after finished terrain import
+		warningMainText = "",
+		warningSubText = "",
+		warningLinkText = "",
+	}
 
 	self.onImportButtonClicked = function()
 		-- TODO MOD-46, MOD-49: Handle registering asset usage and uploading local files to get real asset ids
@@ -287,15 +276,13 @@ function ImportLocal:init()
 		self.setErrorMessage(nil)
 	end
 
-	if FFlagTerrainDialogPoorColormapImport then
-		self.clearWarningMessage = function()
-			self:setState({
-				hasWarning = false,
-				warningMainText = "",
-				warningSubText = "",
-				warningLinkText = "",
-			})
-		end
+	self.clearWarningMessage = function()
+		self:setState({
+			hasWarning = false,
+			warningMainText = "",
+			warningSubText = "",
+			warningLinkText = "",
+		})
 	end
 
 	self.onUserChangedSize = function(size)
@@ -336,21 +323,19 @@ function ImportLocal:didMount()
 
 	self._isMounted = true
 
-	if FFlagTerrainDialogPoorColormapImport then
-		self._onImportFinishConnection = self.props.TerrainImporter:subscribeToImportFinish(function()
-			local localization = self.props.Localization:get()
-			if self.props.TerrainImporter:getHasPixelWarning() and self._isMounted then
-				self:setState({
-					hasWarning = true,
-					warningMainText = localization:getText("ImportWarning", "MainTextColormapRGBOutOfRange"),
-					warningSubText = localization:getText("ImportWarning", "SubTextColormapRGBOutOfRange"),
-					warningLinkText = localization:getText("Action", "LearnMore"),
-				})
-				self.props.dispatchSetColormapWarningId(self.props.colormap.file and self.props.colormap.file:GetTemporaryId() or nil)
-				self.props.TerrainImporter:clearHasPixelWarning()
-			end
-		end)
-	end
+	self._onImportFinishConnection = self.props.TerrainImporter:subscribeToImportFinish(function()
+		local localization = self.props.Localization:get()
+		if self.props.TerrainImporter:getHasPixelWarning() and self._isMounted then
+			self:setState({
+				hasWarning = true,
+				warningMainText = localization:getText("ImportWarning", "MainTextColormapRGBOutOfRange"),
+				warningSubText = localization:getText("ImportWarning", "SubTextColormapRGBOutOfRange"),
+				warningLinkText = localization:getText("Action", "LearnMore"),
+			})
+			self.props.dispatchSetColormapWarningId(self.props.colormap.file and self.props.colormap.file:GetTemporaryId() or nil)
+			self.props.TerrainImporter:clearHasPixelWarning()
+		end
+	end)
 end
 
 function ImportLocal:didUpdate()
@@ -363,11 +348,9 @@ function ImportLocal:willUnmount()
 		self._onImportErrorConnection:Disconnect()
 		self._onImportErrorConnection = nil
 	end
-	if FFlagTerrainDialogPoorColormapImport then
-		if self._onImportFinishConnection then
-			self._onImportFinishConnection:Disconnect()
-			self._onImportFinishConnection = nil
-		end
+	if self._onImportFinishConnection then
+		self._onImportFinishConnection:Disconnect()
+		self._onImportFinishConnection = nil
 	end
 end
 
@@ -377,10 +360,7 @@ function ImportLocal:render()
 	local importPaused = self.props.TerrainImporter:isPaused()
 	local importInProgress = self.props.TerrainImporter:isImporting()
 	local importProgress = importInProgress and self.props.TerrainImporter:getImportProgress() or 0
-	local importOperation
-	if FFlagTerrainImportUseDetailedProgressBar then
-		importOperation = importInProgress and self.props.TerrainImporter:getImportOperation() or ""
-	end
+	local importOperation = importInProgress and self.props.TerrainImporter:getImportOperation() or ""
 
 	local canImport = not importInProgress
 		and self.state.mapSettingsValid
@@ -428,12 +408,8 @@ function ImportLocal:render()
 
 	local progressBarSubtext
 
-	if FFlagTerrainImportUseDetailedProgressBar then
-		-- The import operation string comes directly from hardcoded cpp, be sure that any changes get replicated to the localization keys
-		progressBarSubtext = localization:getText("Generate", importOperation)
-	else
-		progressBarSubtext = localization:getText("Generate", "GenerateVoxels")
-	end
+	-- The import operation string comes directly from hardcoded cpp, be sure that any changes get replicated to the localization keys
+	progressBarSubtext = localization:getText("Generate", importOperation)
 
 	local errorMainText = self.state.errorMainText
 	local errorSubText = self.state.errorSubText
@@ -442,11 +418,9 @@ function ImportLocal:render()
 	local warningSubText = ""
 	local warningLinkText = ""
 
-	if FFlagTerrainDialogPoorColormapImport then
-		warningMainText = self.state.warningMainText
-		warningSubText = self.state.warningSubText
-		warningLinkText = self.state.warningLinkText
-	end
+	warningMainText = self.state.warningMainText
+	warningSubText = self.state.warningSubText
+	warningLinkText = self.state.warningLinkText
 
 	return Roact.createFragment({
 		MapSettings = Roact.createElement(Panel, {
@@ -589,7 +563,7 @@ function ImportLocal:render()
 			OnClose = self.clearErrorMessage,
 		}),
 
-		WarningDialog = (FFlagTerrainDialogPoorColormapImport and self.state.hasWarning and not self.state.hasError) and Roact.createElement(InfoDialog, {
+		WarningDialog = (self.state.hasWarning and not self.state.hasError) and Roact.createElement(InfoDialog, {
 			Title = "Roblox Studio",
 			MainText = warningMainText,
 			SubText = warningSubText,

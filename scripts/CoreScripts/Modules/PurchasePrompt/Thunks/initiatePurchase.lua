@@ -18,6 +18,9 @@ local hasPendingRequest = require(Root.Utils.hasPendingRequest)
 local Promise = require(Root.Promise)
 local Thunk = require(Root.Thunk)
 
+local GetFFlagProductPurchaseUpsellABTest = require(Root.Flags.GetFFlagProductPurchaseUpsellABTest)
+local GetFFlagProductPurchaseABTest = require(Root.Flags.GetFFlagProductPurchaseABTest)
+
 local resolvePromptState = require(script.Parent.resolvePromptState)
 
 local requiredServices = {
@@ -32,6 +35,20 @@ local function initiatePurchase(id, infoType, equipIfPurchased, isRobloxPurchase
 
 		if hasPendingRequest(store:getState()) then
 			return nil
+		end
+		
+		if GetFFlagProductPurchaseABTest() then
+			pcall(function()
+				store:dispatch(SetABVariation(Constants.ABTests.PRODUCT_PURCHASE,
+					ABTestService:GetVariant(Constants.ABTests.PRODUCT_PURCHASE)))
+			end)
+		end
+
+		if GetFFlagProductPurchaseUpsellABTest() then
+			pcall(function()
+				store:dispatch(SetABVariation(Constants.ABTests.PRODUCT_PURCHASE_UPSELL,
+					ABTestService:GetVariant(Constants.ABTests.PRODUCT_PURCHASE_UPSELL)))
+			end)
 		end
 
 		if infoType == Enum.InfoType.Asset then

@@ -24,6 +24,8 @@
 		description: "TooLong"
 		devices: "NoDevices"
 ]]
+local FFlagGameSettingsMigrateToDevFrameworkSeparator = game:GetFastFlag("GameSettingsMigrateToDevFrameworkSeparator")
+
 local StudioService = game:GetService("StudioService")
 
 local LOCALIZATION_ID = "BasicInfo"
@@ -59,7 +61,7 @@ local TitledFrame = UILibrary.Component.TitledFrame
 local CheckBoxSet = require(Plugin.Src.Components.CheckBoxSet)
 local RoundTextBox = UILibrary.Component.RoundTextBox
 local Dropdown = require(Plugin.Src.Components.Dropdown)
-local Separator = require(Plugin.Src.Components.Separator)
+local Separator = FFlagGameSettingsMigrateToDevFrameworkSeparator and require(Plugin.Framework).UI.Separator or require(Plugin.Src.Components.Separator)
 local ThumbnailController = require(Page.Components.Thumbnails.ThumbnailController)
 local UploadableIconWidget = require(Plugin.Src.Components.UploadableIcon.UploadableIconWidget)
 local SettingsPage = require(Plugin.Src.Components.SettingsPages.SettingsPage)

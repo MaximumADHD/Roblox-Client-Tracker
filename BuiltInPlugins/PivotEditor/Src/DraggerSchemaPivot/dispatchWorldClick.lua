@@ -1,6 +1,7 @@
 local function buildFreeformDragInfo(draggerContext, draggerToolModel, event)
 	return {
 		ClickedSelectable = event.ClickedSelectable,
+		HandleId = "Part",
 	}
 end
 

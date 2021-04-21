@@ -5,6 +5,7 @@ return strict({
 	Colors = require(script.Colors),
 	ComponentSymbols = require(script.ComponentSymbols),
 	createDefaultTheme =  require(script.createDefaultTheme),
+	makeTheme = require(script.makeTheme),
 	getRawComponentStyle = require(script.getRawComponentStyle),
 	StyleKey = require(script.StyleKey),
 	Stylizer = require(script.Stylizer),

@@ -13,6 +13,8 @@ local Rodux = PurchasePromptDeps.Rodux
 local RoactRodux = PurchasePromptDeps.RoactRodux
 local UIBlox = PurchasePromptDeps.UIBlox
 local StyleProvider = UIBlox.Style.Provider
+local IAPExperience = require(CorePackages.IAPExperience)
+local LocaleProvider =  IAPExperience.Locale.LocaleProvider
 
 local LayoutValuesProvider = require(Root.Components.Connection.LayoutValuesProvider)
 local LocalizationContextProvider = require(Root.Components.Connection.LocalizationContextProvider)
@@ -40,25 +42,29 @@ function UnitTestContainer:render()
 	return Roact.createElement(RoactRodux.StoreProvider, {
 		store = self.store,
 	}, {
-		PurchasePrompt = Roact.createElement(StyleProvider, {
-			style = {
-				Theme = DarkTheme,
-				Font = Gotham,
-			},
+		LocaleProvider = Roact.createElement(LocaleProvider, {
+			locale = LocalizationService.RobloxLocaleId
 		}, {
-			Roact.createElement(LocalizationContextProvider, {
-				localizationContext = self.localizationContext,
-				render = function()
-					return Roact.createElement(LayoutValuesProvider, {
-						isTenFootInterface = false,
-						render = function()
-							return Roact.createElement("ScreenGui", {
-								AutoLocalize = false,
-								IgnoreGuiInset = true,
-							}, self.props[Roact.Children])
-						end,
-					})
-				end,
+			StyleProvider = Roact.createElement(StyleProvider, {
+				style = {
+					Theme = DarkTheme,
+					Font = Gotham,
+				},
+			}, {
+				Roact.createElement(LocalizationContextProvider, {
+					localizationContext = self.localizationContext,
+					render = function()
+						return Roact.createElement(LayoutValuesProvider, {
+							isTenFootInterface = false,
+							render = function()
+								return Roact.createElement("ScreenGui", {
+									AutoLocalize = false,
+									IgnoreGuiInset = true,
+								}, self.props[Roact.Children])
+							end,
+						})
+					end,
+				})
 			})
 		})
 	})

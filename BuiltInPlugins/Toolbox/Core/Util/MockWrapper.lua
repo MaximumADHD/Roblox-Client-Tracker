@@ -16,7 +16,7 @@ local AssetAnalytics = require(Plugin.Core.Util.Analytics.AssetAnalytics)
 local FlagsList = require(Plugin.Core.Util.FlagsList)
 
 local ExternalServicesWrapper = require(Plugin.Core.Components.ExternalServicesWrapper)
-local UILibraryWrapper = require(Libs.Framework.ContextServices.UILibraryWrapper)
+local UILibraryWrapper = require(Libs.Framework.ContextServices.UILibraryWrapper :: any)
 local makeTheme = require(Plugin.Core.Util.makeTheme)
 
 local Framework = require(Libs.Framework)

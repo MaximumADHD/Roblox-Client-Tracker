@@ -1,6 +1,5 @@
 local Plugin = script.Parent.Parent.Parent
 
-local FFlagTerrainToolsBrushInteractOnlyWithTerrain = game:GetFastFlag("TerrainToolsBrushInteractOnlyWithTerrain")
 
 local Constants = require(Plugin.Src.Util.Constants)
 local TerrainEnums = require(Plugin.Src.Util.TerrainEnums)
@@ -47,10 +46,6 @@ function TerrainBrushCursor.new(terrain)
 		_cursorPart = nil,
 		_cursorFolder = nil
 	}, TerrainBrushCursor)
-
-	if not FFlagTerrainToolsBrushInteractOnlyWithTerrain then
-		assert(self._terrain, "TerrainBrushCursor needs a terrain instance")
-	end
 
 	return self
 end
@@ -99,11 +94,7 @@ function TerrainBrushCursor:maybeCreate()
 		self._cursorPart = createCursorPart()
 	end
 
-	if not self._cursorPart.Parent then
-		self._cursorPart.Parent = FFlagTerrainToolsBrushInteractOnlyWithTerrain 
-			and self._cursorFolder
-			or self._terrain
-	end
+	self._cursorPart.Parent = self._cursorFolder
 end
 
 --[[

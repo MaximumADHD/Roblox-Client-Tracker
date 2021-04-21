@@ -7,7 +7,6 @@ local UserInputService = game:GetService("UserInputService")
 local RunService = game:GetService("RunService")
 
 local Plugin = script.Parent.Parent.Parent
-local getFFlagAlignShowingCorrectSelection = require(Plugin.Src.Flags.getFFlagAlignShowingCorrectSelection)
 
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
@@ -28,25 +27,21 @@ function HoverPreviewEnabler:init()
 end
 
 function HoverPreviewEnabler:didMount()
-	if getFFlagAlignShowingCorrectSelection() then
-		local mousePrevLocation = UserInputService:GetMouseLocation()
-		RunService:BindToRenderStep("getMouseLocation", 1, function()
-			local mouseLocation = UserInputService:GetMouseLocation()
-			if mousePrevLocation ~= mouseLocation then
-				if self.props.previewVisible then
-					self.props.setPreviewVisible(false)
-				end
+	local mousePrevLocation = UserInputService:GetMouseLocation()
+	RunService:BindToRenderStep("getMouseLocation", 1, function()
+		local mouseLocation = UserInputService:GetMouseLocation()
+		if mousePrevLocation ~= mouseLocation then
+			if self.props.previewVisible then
+				self.props.setPreviewVisible(false)
 			end
-			mousePrevLocation = mouseLocation
-		end)
-	end
+		end
+		mousePrevLocation = mouseLocation
+	end)
 end
 
 function HoverPreviewEnabler:willUnmount()
 	self.mouseLeave()
-	if getFFlagAlignShowingCorrectSelection() then
-		RunService:UnbindFromRenderStep("getMouseLocation")
-	end
+	RunService:UnbindFromRenderStep("getMouseLocation")
 end
 
 function HoverPreviewEnabler:render()
@@ -72,8 +67,4 @@ local function mapDispatchToProps(dispatch)
 	}
 end
 
-if getFFlagAlignShowingCorrectSelection() then
-	return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(HoverPreviewEnabler)
-else
-	return RoactRodux.connect(nil, mapDispatchToProps)(HoverPreviewEnabler)
-end
+return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(HoverPreviewEnabler)

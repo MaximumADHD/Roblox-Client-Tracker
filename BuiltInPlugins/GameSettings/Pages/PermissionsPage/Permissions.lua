@@ -1,3 +1,5 @@
+local FFlagGameSettingsMigrateToDevFrameworkSeparator = game:GetFastFlag("GameSettingsMigrateToDevFrameworkSeparator")
+
 local RunService = game:GetService("RunService")
 local StudioService = game:GetService("StudioService")
 
@@ -8,7 +10,7 @@ local RoactRodux = require(Plugin.RoactRodux)
 local Cryo = require(Plugin.Cryo)
 local ContextServices = require(Plugin.Framework.ContextServices)
 
-local Separator = require(Plugin.Src.Components.Separator)
+local Separator = FFlagGameSettingsMigrateToDevFrameworkSeparator and require(Plugin.Framework).UI.Separator or require(Plugin.Src.Components.Separator)
 local RadioButtonSet = require(Plugin.Src.Components.RadioButtonSet)
 local GameOwnerWidget = require(Page.Components.GameOwnerWidget)
 local CollaboratorsWidget = require(Page.Components.CollaboratorsWidget)

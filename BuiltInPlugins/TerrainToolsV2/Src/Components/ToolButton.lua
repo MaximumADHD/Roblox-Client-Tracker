@@ -7,8 +7,6 @@
 	|_________|
 ]]
 
-local FFlagTerrainEditorUpdateFontToSourceSans = game:GetFastFlag("TerrainEditorUpdateFontToSourceSans")
-
 local Plugin = script.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
@@ -87,8 +85,8 @@ function ToolButton:render()
 		Roact.createElement("TextLabel", {
 			BackgroundTransparency = 1,
 			Text = text,
-			Font = FFlagTerrainEditorUpdateFontToSourceSans and theme.font or nil,
-			TextSize = FFlagTerrainEditorUpdateFontToSourceSans and theme.textSize or nil,
+			Font = theme.font,
+			TextSize = theme.textSize,
 			TextXAlignment = Enum.TextXAlignment.Center,
 			TextColor3 = theme.textColor,
 			Size = UDim2.new(1, 0, 0, 15),

@@ -8,8 +8,6 @@ Props:
 	AllowAir : boolean = false - Whether to show Air in the materials grid
 ]]
 
-local FFlagTerrainEditorUpdateFontToSourceSans = game:GetFastFlag("TerrainEditorUpdateFontToSourceSans")
-
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
@@ -83,19 +81,13 @@ do
 		return Roact.createElement("TextLabel", {
 			BackgroundTransparency = 0,
 			BackgroundColor3 = theme.backgroundColor,
-			Size = 
-				FFlagTerrainEditorUpdateFontToSourceSans 
-				and UDim2.new(0, tooltipSize.x + theme.padding * 1.5, 0, theme.textSize * 1.3) 
-				or UDim2.new(0, tooltipSize.x + theme.padding * 2, 0, theme.textSize * 1.5),
+			Size = UDim2.new(0, tooltipSize.x + theme.padding * 1.5, 0, theme.textSize * 1.3),
 			AnchorPoint = Vector2.new(0.5, 0),
-			Position = 
-				FFlagTerrainEditorUpdateFontToSourceSans 
-				and UDim2.new(0.5, 0, 0, -theme.textSize + 3.5) 
-				or UDim2.new(0.5, 0, 0, -theme.textSize),
+			Position = UDim2.new(0.5, 0, 0, -theme.textSize + 3.5),
 			Text = materialName,
 			TextSize = theme.textSize,
 			TextColor3 = theme.textColor,
-			Font = FFlagTerrainEditorUpdateFontToSourceSans and theme.font or theme.textFont,
+			Font = theme.font,
 
 			[Roact.Ref] = self.ref,
 		})
@@ -237,8 +229,8 @@ function MaterialSelector:render()
 	}, {
 		Label = Roact.createElement("TextLabel", {
 			Text =  self.props.Label or localization:getText("MaterialSettings", "ChooseMaterial"),
-			TextSize = FFlagTerrainEditorUpdateFontToSourceSans and theme.textSize or nil,
-			Font = FFlagTerrainEditorUpdateFontToSourceSans and theme.font or nil,
+			TextSize = theme.textSize,
+			Font = theme.font,
 			TextColor3 = theme.textColor,
 			Size = UDim2.new(1, 0, 0, 16),
 			TextXAlignment = Enum.TextXAlignment.Left,

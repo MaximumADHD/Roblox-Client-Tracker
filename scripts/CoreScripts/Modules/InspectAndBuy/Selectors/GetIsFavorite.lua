@@ -1,5 +1,5 @@
 local InspectAndBuyFolder = script.Parent.Parent
-local IsDetailsItemPartOfBundle = require(InspectAndBuyFolder.Selectors.IsDetailsItemPartOfBundle)
+local IsDetailsItemPartOfBundleAndOffsale = require(InspectAndBuyFolder.Selectors.IsDetailsItemPartOfBundleAndOffsale)
 local UtilityFunctions = require(InspectAndBuyFolder.UtilityFunctions)
 
 --[[
@@ -10,8 +10,8 @@ return function(state)
 	if not assetId then
 		return false
 	end
-	local isBundle = IsDetailsItemPartOfBundle(state)
-	if isBundle == nil then
+	local isBundleAndOffsale = IsDetailsItemPartOfBundleAndOffsale(state)
+	if isBundleAndOffsale == nil then
 		return false
 	end
 	local assetInfo = state.assets[assetId]
@@ -19,7 +19,7 @@ return function(state)
 		return false
 	end
 
-	if isBundle then
+	if isBundleAndOffsale then
 		local bundleId = UtilityFunctions.getBundleId(assetInfo)
 		return state.favorites.bundles[bundleId]
 	else

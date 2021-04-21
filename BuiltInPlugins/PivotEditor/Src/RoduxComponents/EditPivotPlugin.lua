@@ -6,8 +6,11 @@ local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local StudioUI = require(Plugin.Packages.Framework.StudioUI)
 local ContextServices = require(Plugin.Packages.Framework.ContextServices)
+local Analytics = require(Plugin.Packages.DraggerFramework.Utility.Analytics)
 
 local EditPivotSession = require(Plugin.Src.RoduxComponents.EditPivotSession)
+
+local getFFlagPivotAnalytics = require(Plugin.Src.Flags.getFFlagPivotAnalytics)
 
 local EditPivotPlugin = Roact.PureComponent:extend("EditPivotPlugin")
 
@@ -44,13 +47,16 @@ end
 
 function EditPivotPlugin:_onClearPivot()
 	local didResetAnyPivot = false
+	local objectCount = 0
 	for _, object in ipairs(Selection:Get()) do
 		if object:IsA("BasePart") then
+			objectCount += 1
 			if object.PivotOffset ~= CFrame.new() then
 				object.PivotOffset = CFrame.new()
 				didResetAnyPivot = true
 			end
 		elseif object:IsA("Model") then
+			objectCount += 1
 			if object.PrimaryPart then
 				if object.PrimaryPart.PivotOffset ~= CFrame.new() then
 					object.PrimaryPart.PivotOffset = CFrame.new()
@@ -72,6 +78,11 @@ function EditPivotPlugin:_onClearPivot()
 	end
 	if didResetAnyPivot then
 		ChangeHistoryService:SetWaypoint("Clear Pivot")
+	end
+	if getFFlagPivotAnalytics() then
+		Analytics:sendEvent("clearPivot", {
+			objectCount = objectCount,
+		})
 	end
 end
 

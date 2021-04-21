@@ -46,11 +46,10 @@ local shouldDisablePrivateServersAndPaidAccess = require(Plugin.Src.Util.GameSet
 local PaidAccess = Roact.PureComponent:extend("PaidAccess")
 
 local FFlagVIPServersRebrandToPrivateServers = game:GetFastFlag("VIPServersRebrandToPrivateServers")
-local FFlagStudioDisablePrivateServersAndPaidAccessForLuobu = game:GetFastFlag("StudioDisablePrivateServersAndPaidAccessForLuobu")
 
 function PaidAccess:render()
     -- Remove this block once economy team enables the double wallets workflow (see STUDIOCORE-24488 & STUDIOCORE-24576)
-    if FFlagStudioDisablePrivateServersAndPaidAccessForLuobu and shouldDisablePrivateServersAndPaidAccess() then
+    if shouldDisablePrivateServersAndPaidAccess() then
         return nil
     end
 

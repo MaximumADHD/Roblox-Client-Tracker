@@ -15,6 +15,7 @@ local setWorldPivot = require(Plugin.Src.Utility.setWorldPivot)
 local computeSnapPointsForInstance = require(Plugin.Src.Utility.computeSnapPointsForInstance)
 local SnapPoints = require(Plugin.Src.Components.SnapPoints)
 local DraggedPivot = require(Plugin.Src.Components.DraggedPivot)
+local classifyInstancePivot = require(Plugin.Src.Utility.classifyInstancePivot)
 
 local getSelectableWithCache = require(Packages.DraggerSchemaCore.getSelectableWithCache)
 
@@ -209,6 +210,12 @@ function FreeformDragger:update()
 end
 
 function FreeformDragger:destroy()
+	self._draggerContext:getAnalytics():sendEvent("setPivot", {
+		gridSize = self._draggerContext:getGridSize(),
+		rotateIncrement = self._draggerContext:getRotateIncrement(),
+		handleId = self._dragInfo.HandleId,
+		pivotType = classifyInstancePivot(self._dragInfo.ClickedSelectable),
+	})
 end
 
 return FreeformDragger

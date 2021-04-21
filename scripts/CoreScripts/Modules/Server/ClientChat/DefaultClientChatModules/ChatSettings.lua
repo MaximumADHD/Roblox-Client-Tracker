@@ -74,6 +74,8 @@ module.EchoMessagesInGeneralChannel = true -- Should messages to channels other 
 -- 																						Setting this to false should be used with ShowChannelsBar
 module.ChannelsBarFullTabSize = 4 -- number of tabs in bar before it starts to scroll
 module.MaxChannelNameLength = 12
+-- To make sure whispering behavior remains consistent, this is currently set at 50 characters
+module.MaxChannelNameCheckLength = 50
 --// Although this feature is pretty much ready, it needs some UI design still.
 module.RightClickToLeaveChannelEnabled = false
 module.MessageHistoryLengthPerChannel = 50
