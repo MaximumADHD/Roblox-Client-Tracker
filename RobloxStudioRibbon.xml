@@ -21,10 +21,12 @@
       <addaction name="fileOpenRecentAction"/>
       <addaction name="fileCloseAction" style="textundericon"/>
       <addseparator />
-      <addaction name="fileSaveAction"/>
-      <addaction name="fileSaveAsAction"/>
-      <addaction name="savePlaceToRobloxAction"/>
-      <addaction name="savePlaceToRobloxAsAction"/>
+      <addaction name="fileSaveAction" fflag="!StudioUseNewSavePlaceWorkflow"/>
+      <addaction name="fileSaveAsAction" fflag="!StudioUseNewSavePlaceWorkflow"/>
+      <addaction name="savePlaceToRobloxAction" fflag="!StudioUseNewSavePlaceWorkflow"/>
+      <addaction name="savePlaceToRobloxAsAction" fflag="!StudioUseNewSavePlaceWorkflow"/>
+      <addaction name="savePlaceAction"  fflag="StudioUseNewSavePlaceWorkflow"/>
+      <addaction name="savePlaceAsAction"  fflag="StudioUseNewSavePlaceWorkflow"/>
       <addaction name="publishToRobloxAction"/>
       <addaction name="publishToRobloxAsAction"/>
       <addaction name="downloadPlaceCopyAction"/>
@@ -394,7 +396,7 @@
         <addaction name="toggleTaskSchedulerDockAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Task-Scheduler.png" tooltip="Studio.App.RobloxRibbonMainWindow.ViewTaskExecutionInformation" height="32" width="32"/>
         <addaction name="toggleScriptPerformanceDockAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Script-Performance.png" tooltip="Studio.App.RobloxRibbonMainWindow.ViewScriptPerformanceInformat" height="32" width="32"/>
         <addaction  fflag="!StudioFindReplaceOverhaul" name="toggleFindResultsWindowAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Find-Results.png" tooltip="Studio.App.RBXMainWindow.FindResultsWindow" height="32" width="32"/>
-        <addaction  fflag="StudioFindReplaceOverhaul" name="toggleFindReplaceWidgetAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Find-Results.png" tooltip="Studio.App.FindReplaceController.FindReplaceWindow" height="32" width="32"/>
+        <addaction  fflag="StudioFindReplaceOverhaul" name="toggleFindReplaceWidgetAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Find-Results.png" tooltip="Studio.App.RBXMainWindow.ViewFindReplaceWindow" height="32" width="32"/>
         <addaction name="toggleTeamCreateDockAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/TeamCreate.png" tooltip="Studio.App.RBXMainWindow.ViewTeamCreateWindow" height="32" width="32"/>
         <addaction name="toggleScriptRecoveryDockAction"
             style="textbesideicon"

@@ -284,7 +284,6 @@ Studio.GameSettings.AccessPermissions.TeamCreateWarning,"To add collaborators, t
 Studio.GameSettings.DraftGames.PublishRequiredToActivatePlayability, to activate Playability options, to activate Playability options
 Studio.GameSettings.AccessPermissions.DEPRECATED_CollaboratorSearchbarDefaultText,Search by user or group name,Search by user or group name
 Studio.GameSettings.AccessPermissions.PermissionsUpdateMessage, We've updated our permission system!, We've updated our permission system!
-Studio.GameSettings.AccessPermissions.UpdateHyperlinkText, Learn more, Learn more
 Studio.GameSettings.General.SourceLanguageTitle,Source Language,Source Language
 Studio.GameSettings.General.AutoTextCaptureDesc,Automatically capture text from game UI while players play.,Automatically capture text from game UI while players play.
 Studio.GameSettings.General.UseTranslatedContentDesc,Enable translated content in game.,Enable translated content in game.

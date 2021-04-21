@@ -1025,8 +1025,8 @@ Studio.App.StartPage.GotIt,,,Got it,Got it,확인,Ясно,明白
 Studio.App.StartPage.MyGames,,,My Games,My Games,내 게임,Мои игры,我的游戏
 Studio.App.StartPage.PublishYourGame,,,"Publish your game and make it public to share it
 Go to File > Publish to Roblox","Publish your game and make it public to share it
-Go to File > Publish to Roblox","게임을 게시해 공개하고 공유하기
-파일 > Roblox에 게시로 이동","Опубликуйте свою игру и сделайте ее общедоступной, чтобы поделиться с другими:
+Go to File > Publish to Roblox","게임을 게시하고 공개하면 서로 공유가 가능합니다.
+진행하려면 '파일 > Roblox에 게시'로 이동하세요.","Опубликуйте свою игру и сделайте ее общедоступной, чтобы поделиться с другими:
  Файл > Опубликовать в Roblox.","发布你的游戏，并将它设为公开即可分享
 请前往文件 > 发布至 Roblox"
 Studio.App.StartPage.Recent,,,Recent,Recent,최근 항목,Недавние,最近
@@ -2824,8 +2824,8 @@ Studio.App.Studio.App.OSVersionWarning.MacOS1010,,,Beginning in October 2020 we 
 Studio.App.WatchWidget.CopyEntry,,,Copy Entry,Copy Entry,항목 복사,,复制条目
 Studio.App.WatchWidget.CopyRow,,,Copy Row,Copy Row,행 복사,,复制行
 Studio.App.RobloxOutputRibbonDropdown.MessageTypes,,,Message Types,Message Types,메시지 유형,,消息类型
-Studio.App.RobloxRibbonMainWindow.ClearPivot,,,Reset,Reset,피벗 지우기,,清除枢轴
-Studio.App.RobloxRibbonMainWindow.ClearPivotTooltip,,,Reset the pivots of the selected objects,Reset the pivots of the selected objects,선택한 개체의 피벗을 지웁니다,,清除选择的对象的枢轴
+Studio.App.RobloxRibbonMainWindow.ClearPivot,,,Reset,Reset,재설정,,清除枢轴
+Studio.App.RobloxRibbonMainWindow.ClearPivotTooltip,,,Reset the pivots of the selected objects,Reset the pivots of the selected objects,선택한 개체의 피벗 재설정,,清除选择的对象的枢轴
 Studio.App.RobloxRibbonMainWindow.EditPivot,,,Edit Pivot,Edit Pivot,피벗 편집,,编辑枢轴
 Studio.App.RobloxRibbonMainWindow.EditPivotTooltip,,,Edit the point around which the selected object rotates and translates,Edit the point around which the selected object rotates and translates,선택한 개체가 회전하고 변환되는 지점을 편집합니다,,编辑选择的对象旋转与平移的枢轴点
 Studio.App.RobloxRibbonMainWindow.GeometryTab,,,Geometry,Geometry,지오메트리,,几何
@@ -3400,38 +3400,38 @@ Studio.App.StudioDeviceEmulatorService.CannotChangeEmulationDevice,,,Can't set e
 Studio.App.StudioDeviceEmulatorService.InvalidOrientation1,,,Can't set orientation to '%1'.,Can't set orientation to '%1'.,방향을 '%1'(으)로 설정할 수 없습니다.,,
 Studio.App.StudioDeviceEmulatorService.NonExistantDeviceId1,,,Device ID '%1' doesn't exist.,Device ID '%1' doesn't exist.,기기 ID '%1'이(가) 존재하지 않습니다.,,
 Studio.App.Theme.InvalidGetThemeApi,,,GetPath is not a valid member of Theme,GetPath is not a valid member of Theme,GetPath는 Theme의 유효한 구성원이 아닙니다.,,
-Studio.App.AddEmulationDeviceDialog.userAgentString,,,User Agent String,User Agent String,,,
-Studio.App.BetaFeatures.EnableCSGV3Description,,,Use the new and faster CSG Engine. ,Use the new and faster CSG Engine. ,,,
-Studio.App.BetaFeatures.EnableCSGV3Title,,,CSG Version 3,CSG Version 3,,,
-Studio.App.BetaFeatures.LSPGoToDeclDescription,,,"(! Works better with ""Scripts Are Non-Strict By Default"" Beta Feature ON !) Luau type inference now powers the Go To Declaration feature in Script Editor, enhancing performance and reliability.","(! Works better with ""Scripts Are Non-Strict By Default"" Beta Feature ON !) Luau type inference now powers the Go To Declaration feature in Script Editor, enhancing performance and reliability.",,,
-Studio.App.BetaFeatures.LSPGoToDeclTitle,,,Luau-Powered Go To Declaration,Luau-Powered Go To Declaration,,,
-Studio.App.BetaFeatures.LSPNewFunctionFilterDescription,,,"(! Works better with ""Scripts Are Non-Strict By Default"" Beta Feature ON !) Luau type inference now powers the Script Function Filter feature in Script Editor, adding type information to the widget while enhancing performance and reliability.","(! Works better with ""Scripts Are Non-Strict By Default"" Beta Feature ON !) Luau type inference now powers the Script Function Filter feature in Script Editor, adding type information to the widget while enhancing performance and reliability.",,,
-Studio.App.BetaFeatures.LSPNewFunctionFilterTitle,,,Luau-Powered Script Function Filter,Luau-Powered Script Function Filter,,,
-Studio.App.BetaFeatures.LayeredClothingBetaDescription,,,The WrapTarget and WrapLayer instances can be used to deform meshes without changing their topology using another Mesh (aka CageMesh).,The WrapTarget and WrapLayer instances can be used to deform meshes without changing their topology using another Mesh (aka CageMesh).,,,
-Studio.App.BetaFeatures.LayeredClothingBetaTitle,,,Cage Mesh Deformer,Cage Mesh Deformer,,,
-Studio.App.BetaFeatures.ScriptEditorHoverDescription,,,"(! Works better with ""Scripts Are Non-Strict By Default"" Beta Feature ON !) Displays Luau type information when hovering over code in the script editor.","(! Works better with ""Scripts Are Non-Strict By Default"" Beta Feature ON !) Displays Luau type information when hovering over code in the script editor.",,,
-Studio.App.BetaFeatures.ScriptEditorHoverTitle,,,Luau-Powered Type Hover,Luau-Powered Type Hover,,,
-Studio.App.BetaFeatures.ScriptEditorLintDescription,,,Script Analysis Widget and linting logic get an upgrade! No major changes but many bug fixes and more intuitive behavior.,Script Analysis Widget and linting logic get an upgrade! No major changes but many bug fixes and more intuitive behavior.,,,
-Studio.App.BetaFeatures.ScriptEditorLintTitle,,,Script Editor Linting,Script Editor Linting,,,
-Studio.App.PackageContextMenu.MassUpdatePackage,,,Update All,Update All,,,
-Studio.App.PackageContextMenu.PackageDetails,,,Package Details,Package Details,,,
-Studio.App.Property.ShowDeploymentWarnings,,,Show Deployment Warnings,Show Deployment Warnings,,,
-Studio.App.RBXMainWindow.FilterScriptFunctionsNoFunctions,,,No functions to filter,No functions to filter,,,
-Studio.App.ScriptingCmd.FINDCURRENTWORD,,,Find Current Word,Find Current Word,,,
-Studio.App.ScriptingCmd.FINDCURRENTWORDBACKWARDS,,,Find Current Word Backwards,Find Current Word Backwards,,,
-Studio.App.ScriptingCmd.FINDCURRENTWORDBACKWARDSTooltip,,,Find Current Word Backwards,Find Current Word Backwards,,,
-Studio.App.ScriptingCmd.FINDCURRENTWORDTooltip,,,Find Current Word,Find Current Word,,,
-Studio.App.ScriptingCmd.GOTOERR,,,Go to Script Error,Go to Script Error,,,
-Studio.App.ScriptingCmd.GOTOERRTooltip,,,Focus view on script error,Focus view on script error,,,
-Studio.App.AddEmulationDeviceDialog.NameAlreadyInUse1,,,"The name ""%1"" is already in use.","The name ""%1"" is already in use.",,,
-Studio.App.AddEmulationDeviceDialog.NameIsReserved1,,,"The name ""%1"" is reserved.","The name ""%1"" is reserved.",,,
-Studio.App.BetaFeatures.MaxWaterFogDistanceDescription,,,The maximum underwater fog distance is increased to permit larger underwater place designs with further visibility in the distance.,The maximum underwater fog distance is increased to permit larger underwater place designs with further visibility in the distance.,,,
-Studio.App.BetaFeatures.MaxWaterFogDistanceTitle,,,Max Water Fog Distance Increase,Max Water Fog Distance Increase,,,
-Studio.App.CalloutController.PivotEditorCalloutDescription,,,Change the pivot point around which an object rotates and translates.,Change the pivot point around which an object rotates and translates.,,,
-Studio.App.CalloutController.PivotEditorCalloutTitle,,,Pivot Editor,Pivot Editor,,,
-Studio.App.MainWindow.FailedToFetchConfigurationSettings,,,Studio failed to fetch configuration settings.,Studio failed to fetch configuration settings.,,,
-Studio.App.Property.OutputTextEffectsUnsupported,,,Text effects are currently unsupported in the Output window.,Text effects are currently unsupported in the Output window.,,,
-Studio.App.ToastNotificationService.NotAvailable,,,ToastNotificationService is not available when FFlagStudioToastNotificationsInLua is false,ToastNotificationService is not available when FFlagStudioToastNotificationsInLua is false,,,
+Studio.App.AddEmulationDeviceDialog.userAgentString,,,User Agent String,User Agent String,사용자 에이전트 문자열,,
+Studio.App.BetaFeatures.EnableCSGV3Description,,,Use the new and faster CSG Engine. ,Use the new and faster CSG Engine. ,더욱 새롭고 빨라진 CSG 엔진을 사용해 보세요.,,
+Studio.App.BetaFeatures.EnableCSGV3Title,,,CSG Version 3,CSG Version 3,CSG 버전 3,,
+Studio.App.BetaFeatures.LSPGoToDeclDescription,,,"(! Works better with ""Scripts Are Non-Strict By Default"" Beta Feature ON !) Luau type inference now powers the Go To Declaration feature in Script Editor, enhancing performance and reliability.","(! Works better with ""Scripts Are Non-Strict By Default"" Beta Feature ON !) Luau type inference now powers the Go To Declaration feature in Script Editor, enhancing performance and reliability.",(! '스크립트에 기본적으로 비엄격 모드 적용' 베타 기능이 켜져 있을 때 더 잘 작동합니다 !) 이제 Luau 형식 유추는 스크립트 편집기의 '선언으로 이동' 기능을 지원하여 성능과 안정성을 개선합니다.,,
+Studio.App.BetaFeatures.LSPGoToDeclTitle,,,Luau-Powered Go To Declaration,Luau-Powered Go To Declaration,Luau 기반 선언으로 이동,,
+Studio.App.BetaFeatures.LSPNewFunctionFilterDescription,,,"(! Works better with ""Scripts Are Non-Strict By Default"" Beta Feature ON !) Luau type inference now powers the Script Function Filter feature in Script Editor, adding type information to the widget while enhancing performance and reliability.","(! Works better with ""Scripts Are Non-Strict By Default"" Beta Feature ON !) Luau type inference now powers the Script Function Filter feature in Script Editor, adding type information to the widget while enhancing performance and reliability.",(! '스크립트에 기본적으로 비엄격 모드 적용' 베타 기능이 켜져 있을 때 더 잘 작동합니다 !) 이제 Luau 형식 유추는 스크립트 편집기의 '스크립트 함수 필터' 기능을 지원하여 위젯에 형식 정보를 추가하는 동시에 성능과 안정성도 개선합니다.,,
+Studio.App.BetaFeatures.LSPNewFunctionFilterTitle,,,Luau-Powered Script Function Filter,Luau-Powered Script Function Filter,Luau 기반 스크립트 함수 필터,,
+Studio.App.BetaFeatures.LayeredClothingBetaDescription,,,The WrapTarget and WrapLayer instances can be used to deform meshes without changing their topology using another Mesh (aka CageMesh).,The WrapTarget and WrapLayer instances can be used to deform meshes without changing their topology using another Mesh (aka CageMesh).,WrapTarget 및 WrapLayer 인스턴스는 다른 메시(일명 CageMesh)를 사용하여 토폴로지를 변경하지 않고 메시를 변형하는 데 사용할 수 있습니다.,,
+Studio.App.BetaFeatures.LayeredClothingBetaTitle,,,Cage Mesh Deformer,Cage Mesh Deformer,케이지 메시 디포머,,
+Studio.App.BetaFeatures.ScriptEditorHoverDescription,,,"(! Works better with ""Scripts Are Non-Strict By Default"" Beta Feature ON !) Displays Luau type information when hovering over code in the script editor.","(! Works better with ""Scripts Are Non-Strict By Default"" Beta Feature ON !) Displays Luau type information when hovering over code in the script editor.",(! '스크립트에 기본적으로 비엄격 모드 적용' 베타 기능이 켜져 있을 때 더 잘 작동합니다 !) 스크립트 편집기에서 코드 위로 마우스를 가져가면 Luau 형식 정보가 표시됩니다.,,
+Studio.App.BetaFeatures.ScriptEditorHoverTitle,,,Luau-Powered Type Hover,Luau-Powered Type Hover,Luau 기반 형식 커서 올리기,,
+Studio.App.BetaFeatures.ScriptEditorLintDescription,,,Script Analysis Widget and linting logic get an upgrade! No major changes but many bug fixes and more intuitive behavior.,Script Analysis Widget and linting logic get an upgrade! No major changes but many bug fixes and more intuitive behavior.,스크립트 분석 위젯 및 린팅 로직이 업그레이드되었습니다! 큰 변화는 없지만 많은 버그가 수정되었고 더욱 직관적으로 작동합니다.,,
+Studio.App.BetaFeatures.ScriptEditorLintTitle,,,Script Editor Linting,Script Editor Linting,스크립트 편집기 린팅,,
+Studio.App.PackageContextMenu.MassUpdatePackage,,,Update All,Update All,모두 업데이트,,
+Studio.App.PackageContextMenu.PackageDetails,,,Package Details,Package Details,패키지 세부 정보,,
+Studio.App.Property.ShowDeploymentWarnings,,,Show Deployment Warnings,Show Deployment Warnings,배포 경고 표시,,
+Studio.App.RBXMainWindow.FilterScriptFunctionsNoFunctions,,,No functions to filter,No functions to filter,필터링할 함수가 없습니다,,
+Studio.App.ScriptingCmd.FINDCURRENTWORD,,,Find Current Word,Find Current Word,현재 단어 찾기,,
+Studio.App.ScriptingCmd.FINDCURRENTWORDBACKWARDS,,,Find Current Word Backwards,Find Current Word Backwards,현재 단어를 뒤로 찾기,,
+Studio.App.ScriptingCmd.FINDCURRENTWORDBACKWARDSTooltip,,,Find Current Word Backwards,Find Current Word Backwards,현재 단어를 뒤로 찾기,,
+Studio.App.ScriptingCmd.FINDCURRENTWORDTooltip,,,Find Current Word,Find Current Word,현재 단어 찾기,,
+Studio.App.ScriptingCmd.GOTOERR,,,Go to Script Error,Go to Script Error,스크립트 오류로 이동,,
+Studio.App.ScriptingCmd.GOTOERRTooltip,,,Focus view on script error,Focus view on script error,스크립트 오류 포커스 보기,,
+Studio.App.AddEmulationDeviceDialog.NameAlreadyInUse1,,,"The name ""%1"" is already in use.","The name ""%1"" is already in use.",이름 '%1'은(는) 이미 사용 중입니다.,,
+Studio.App.AddEmulationDeviceDialog.NameIsReserved1,,,"The name ""%1"" is reserved.","The name ""%1"" is reserved.",이름 '%1'은(는) 예약되어 있습니다.,,
+Studio.App.BetaFeatures.MaxWaterFogDistanceDescription,,,The maximum underwater fog distance is increased to permit larger underwater place designs with further visibility in the distance.,The maximum underwater fog distance is increased to permit larger underwater place designs with further visibility in the distance.,"최대 수중 안개 거리가 증가하여, 원거리에서의 높은 가시성을 지닌 더 큰 수중 플레이스 설계가 가능해집니다.",,
+Studio.App.BetaFeatures.MaxWaterFogDistanceTitle,,,Max Water Fog Distance Increase,Max Water Fog Distance Increase,최대 물 안개 거리 증가,,
+Studio.App.CalloutController.PivotEditorCalloutDescription,,,Change the pivot point around which an object rotates and translates.,Change the pivot point around which an object rotates and translates.,개체가 회전하고 변환되는 피벗 점을 변경합니다.,,
+Studio.App.CalloutController.PivotEditorCalloutTitle,,,Pivot Editor,Pivot Editor,피벗 편집기,,
+Studio.App.MainWindow.FailedToFetchConfigurationSettings,,,Studio failed to fetch configuration settings.,Studio failed to fetch configuration settings.,Studio에서 구성 설정을 가져오지 못했습니다.,,
+Studio.App.Property.OutputTextEffectsUnsupported,,,Text effects are currently unsupported in the Output window.,Text effects are currently unsupported in the Output window.,텍스트 효과는 현재 출력 창에서 지원되지 않습니다.,,
+Studio.App.ToastNotificationService.NotAvailable,,,ToastNotificationService is not available when FFlagStudioToastNotificationsInLua is false,ToastNotificationService is not available when FFlagStudioToastNotificationsInLua is false,FFlagStudioToastNotificationsInLua가 false인 경우 ToastNotificationService를 사용할 수 없습니다.,,
 Studio.Common.Action.Apply,,,Apply,Apply,적용,Применить,应用
 Studio.Common.Action.Back,,,Back,Back,뒤로,Назад,返回
 Studio.Common.Action.Cancel,,,Cancel,Cancel,취소,Отмена,取消

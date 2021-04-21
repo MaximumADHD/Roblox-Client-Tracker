@@ -37,10 +37,8 @@ ClearFourChannelCS,Compute
 ClearOneChannelCS,Compute
 ClearThreeChannelCS,Compute
 ClearTwoChannelCS,Compute
-Clouds2dFastLoopFS,Fragment
 Clouds2dFS,Fragment
 CloudsCompFS,Fragment
-CloudsFastLoopFS,Fragment
 CloudsFS,Fragment
 CloudsVS,Vertex
 CopyGuiVS,Vertex

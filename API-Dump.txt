@@ -279,6 +279,9 @@ Class BaseWrap : Instance [NotCreatable]
 	Property CFrame BaseWrap.ImportOrigin {✏️PluginSecurity}
 	Property CFrame BaseWrap.CageOriginWorld [ReadOnly]
 	Property CFrame BaseWrap.ImportOriginWorld [ReadOnly]
+	Function Array BaseWrap:GetFaces(Enum<CageType> cageType) {RobloxScriptSecurity}
+	Function Array BaseWrap:GetVertices(Enum<CageType> cageType) {RobloxScriptSecurity}
+	Function void BaseWrap:ModifyVertices(Enum<CageType> cageType, Array vertices) {RobloxScriptSecurity}
 Class WrapLayer : BaseWrap
 	Property int WrapLayer.Order {✏️PluginSecurity}
 	Property float WrapLayer.Puffiness {✏️PluginSecurity}
@@ -1859,10 +1862,17 @@ Class MemStorageService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void MemStorageService:SetItem(string key, string value = "") {RobloxScriptSecurity}
 Class MemoryStoreQueue : Instance [NotCreatable] [NotReplicated]
 	Function void MemoryStoreQueue:AddAsync(Variant value, int priority = 0, int expiration = -1) [Yields]
-	Function Tuple MemoryStoreQueue:ReadAsync(int count, bool allOrNothing = false, int waitTimeout = -1) [Yields]
+	Function Tuple MemoryStoreQueue:ReadAsync(int count, bool allOrNothing = false, int waitTimeout = 0) [Yields]
 	Function void MemoryStoreQueue:RemoveAsync(string id) [Yields]
 Class MemoryStoreService : Instance [Service]
-	Function Instance MemoryStoreService:GetQueue(string name, int invisibilityTimeout = 30)
+	Function Instance MemoryStoreService:GetQueue(string name, int invisibilityTimeout = 30000)
+	Function Instance MemoryStoreService:GetSortedMap(string name)
+Class MemoryStoreSortedMap : Instance [NotCreatable] [NotReplicated]
+	Function Variant MemoryStoreSortedMap:GetAsync(string key) [Yields]
+	Function Array MemoryStoreSortedMap:GetRangeAsync(Enum<SortDirection> direction, int count, string exclusiveLowerBound = "", string exclusiveUpperBound = "") [Yields]
+	Function void MemoryStoreSortedMap:RemoveAsync(string key) [Yields]
+	Function bool MemoryStoreSortedMap:SetAsync(string key, Variant value, int expiration = -1) [Yields]
+	Function void MemoryStoreSortedMap:UpdateAsync(string key, Function transformFunction, int expiration = -1) [Yields]
 Class Message : Instance [Deprecated]
 	Property string Message.Text [Deprecated]
 Class Hint : Message [Deprecated]
@@ -1920,6 +1930,7 @@ Class NetworkSettings : Instance [NotCreatable] [Service] [NotBrowsable]
 	Property bool NetworkSettings.RandomizeJoinInstanceOrder
 	Property bool NetworkSettings.RenderStreamedRegions
 	Property bool NetworkSettings.ShowActiveAnimationAsset
+	Property int NetworkSettings.EmulatedTotalMemoryInMB {PluginSecurity} [Hidden] [NotReplicated]
 	Property int NetworkSettings.ExtraMemoryUsed {PluginSecurity} [Hidden] [NotReplicated]
 	Property float NetworkSettings.FreeMemoryMBytes {PluginSecurity} [Hidden] [ReadOnly]
 	Property double NetworkSettings.IncomingReplicationLag
@@ -2195,6 +2206,7 @@ Class WorldRoot : Model [NotCreatable]
 	Function void WorldRoot:SetInsertPoint(Vector3 point, bool ignoreGrid = false) {RobloxScriptSecurity}
 Class Workspace : WorldRoot [NotCreatable] [Service]
 	Property bool Workspace.AllowThirdPartySales [NotReplicated]
+	Property Enum<ClientAnimatorThrottlingMode> Workspace.ClientAnimatorThrottling
 	Property float Workspace.FallenPartsDestroyHeight {✏️PluginSecurity}
 	Property bool Workspace.FilteringEnabled {✏️PluginSecurity}
 	Property float Workspace.Gravity
@@ -2660,6 +2672,8 @@ Class ProximityPromptService : Instance [Service] [NotBrowsable]
 	Event ProximityPromptService.PromptShown(Instance prompt, Enum<ProximityPromptInputType> inputType)
 	Event ProximityPromptService.PromptTriggerEnded(Instance prompt, Instance playerWhoTriggered)
 	Event ProximityPromptService.PromptTriggered(Instance prompt, Instance playerWhoTriggered)
+Class PublishService : Instance [NotCreatable] [Service] [NotReplicated]
+	Function Content PublishService:PublishCageMeshAsync(Instance wrap, Enum<CageType> cageType) {RobloxScriptSecurity} [Yields]
 Class RbxAnalyticsService : Instance [NotCreatable] [Service]
 	Function string RbxAnalyticsService:GetClientId() {RobloxScriptSecurity}
 	Function string RbxAnalyticsService:GetSessionId() {RobloxScriptSecurity}
@@ -3020,6 +3034,7 @@ Class SoundService : Instance [NotCreatable] [Service]
 	Function void SoundService:SetListener(Enum<ListenerType> listenerType, Tuple listener)
 	Function void SoundService:SetOutputDevice(string name, string guid) {RobloxScriptSecurity}
 	Function bool SoundService:SetRecordingDevice(int deviceIndex) {RobloxScriptSecurity}
+	Event SoundService.DeviceListChanged(Tuple newDevices) {RobloxScriptSecurity}
 Class Sparkles : Instance
 	Property Color3 Sparkles.Color [<📁> LoadOnly] [Hidden] [NotReplicated]
 	Property bool Sparkles.Enabled
@@ -3273,6 +3288,7 @@ Class StudioService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function Instance StudioService:PromptImportLocalAsset(string prompt, Array fileTypeFilter = {}) {PluginSecurity} [Yields] [Deprecated]
 	Function Objects StudioService:PromptImportLocalAssets(string prompt, Array fileTypeFilter = {}) {PluginSecurity} [Yields] [Deprecated]
 	Function void StudioService:PublishAs(int64 universeId, int64 placeId, int64 groupId) {RobloxScriptSecurity}
+	Function void StudioService:RequestCloseStudio() {RobloxScriptSecurity}
 	Function string StudioService:SerializeInstances(Objects instances) {RobloxScriptSecurity}
 	Function void StudioService:SetDocumentDisplayName(string newName) {RobloxScriptSecurity}
 	Function void StudioService:SetPluginEnabled(int64 assetId, bool state) {RobloxScriptSecurity}
@@ -3293,7 +3309,7 @@ Class StudioService : Instance [NotCreatable] [Service] [NotReplicated]
 	Event StudioService.OnPluginInstalledFromWeb(string pluginId) {RobloxScriptSecurity}
 	Event StudioService.OnPublishAsPlugin(Objects instances) {RobloxScriptSecurity}
 	Event StudioService.OnPublishPlaceToRoblox(bool isOverwritePublish) {RobloxScriptSecurity}
-	Event StudioService.OnSaveOrPublishPlaceToRoblox(bool showGameSelect, bool isPublish) {RobloxScriptSecurity}
+	Event StudioService.OnSaveOrPublishPlaceToRoblox(bool showGameSelect, bool isPublish, bool closeAfterSave) {RobloxScriptSecurity}
 	Event StudioService.OnSaveToRoblox(Objects instances) {RobloxScriptSecurity}
 	Event StudioService.PromptTransformPluginCheckEnable() {RobloxScriptSecurity}
 Class StudioTheme : Instance [NotCreatable] [NotReplicated]
@@ -3894,6 +3910,15 @@ Enum AssetType
 	EnumItem AssetType.EyeAccessory : 58
 	EnumItem AssetType.EmoteAnimation : 61
 	EnumItem AssetType.Video : 62
+	EnumItem AssetType.TeeShirtAccessory : 63
+	EnumItem AssetType.ShirtAccessory : 64
+	EnumItem AssetType.PantsAccessory : 65
+	EnumItem AssetType.JacketAccessory : 66
+	EnumItem AssetType.SweaterAccessory : 67
+	EnumItem AssetType.ShortsAccessory : 68
+	EnumItem AssetType.LeftShoeAccessory : 69
+	EnumItem AssetType.RightShoeAccessory : 70
+	EnumItem AssetType.DressSkirtAccessory : 71
 Enum AssetTypeVerification
 	EnumItem AssetTypeVerification.Default : 1
 	EnumItem AssetTypeVerification.ClientOnly : 2
@@ -3935,6 +3960,15 @@ Enum AvatarAssetType
 	EnumItem AvatarAssetType.SwimAnimation : 54
 	EnumItem AvatarAssetType.WalkAnimation : 55
 	EnumItem AvatarAssetType.EmoteAnimation : 61
+	EnumItem AvatarAssetType.TeeShirtAccessory : 63
+	EnumItem AvatarAssetType.ShirtAccessory : 64
+	EnumItem AvatarAssetType.PantsAccessory : 65
+	EnumItem AvatarAssetType.JacketAccessory : 66
+	EnumItem AvatarAssetType.SweaterAccessory : 67
+	EnumItem AvatarAssetType.ShortsAccessory : 68
+	EnumItem AvatarAssetType.LeftShoeAccessory : 69
+	EnumItem AvatarAssetType.RightShoeAccessory : 70
+	EnumItem AvatarAssetType.DressSkirtAccessory : 71
 Enum AvatarContextMenuOption
 	EnumItem AvatarContextMenuOption.Friend : 0
 	EnumItem AvatarContextMenuOption.Chat : 1
@@ -4010,6 +4044,9 @@ Enum ButtonStyle
 	EnumItem ButtonStyle.RobloxRoundButton : 3
 	EnumItem ButtonStyle.RobloxRoundDefaultButton : 4
 	EnumItem ButtonStyle.RobloxRoundDropdownButton : 5
+Enum CageType
+	EnumItem CageType.Inner : 0
+	EnumItem CageType.Outer : 1
 Enum CameraMode
 	EnumItem CameraMode.Classic : 0
 	EnumItem CameraMode.LockFirstPerson : 1
@@ -4093,6 +4130,10 @@ Enum ChatStyle
 	EnumItem ChatStyle.Classic : 0
 	EnumItem ChatStyle.Bubble : 1
 	EnumItem ChatStyle.ClassicAndBubble : 2
+Enum ClientAnimatorThrottlingMode
+	EnumItem ClientAnimatorThrottlingMode.Default : 0
+	EnumItem ClientAnimatorThrottlingMode.Disabled : 1
+	EnumItem ClientAnimatorThrottlingMode.Enabled : 2
 Enum CollisionFidelity
 	EnumItem CollisionFidelity.Default : 0
 	EnumItem CollisionFidelity.Hull : 1

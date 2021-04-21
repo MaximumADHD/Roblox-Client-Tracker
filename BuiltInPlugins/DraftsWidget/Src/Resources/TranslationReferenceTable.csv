@@ -1,7 +1,7 @@
 Key,Source,en-us,ko,ru,zh-cn
 Studio.Drafts.Meta.PluginButtonTooltip,View Drafts,View Drafts,초안 보기,Просмотр черновиков,查看草稿
 Studio.Drafts.ContextMenu.OpenScript,Open Draft,Open Draft,초안 열기,Открыть черновик,打开草稿
-Studio.Drafts.Meta.PluginDescription,I'm a hover message,I'm a hover message,호버 메시지입니다,Это всплывающий текст,我是悬浮信息
+Studio.Drafts.Meta.PluginDescription,I'm a hover message,I'm a hover message,커서 올리기 메시지입니다,Это всплывающий текст,我是悬浮信息
 Studio.Drafts.Meta.PluginName,Drafts,Drafts,초안,Черновики,草稿
 Studio.Drafts.Tooltip.DraftCommitted,Draft successfully committed,Draft successfully committed,초안 제출 성공,Черновик успешно сохранен,草稿已成功提交
 Studio.Drafts.Example.ErrorAnUnexpectedThing,"An unexpected thing happened, try again","An unexpected thing happened, try again",예기치 못한 문제가 발생했습니다. 다시 시도하세요.,"Возникла непредвиденная ошибка, попробуйте снова.",发生意外，请重试

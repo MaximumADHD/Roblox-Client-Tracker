@@ -29,10 +29,8 @@ Blur3FS,Fragment
 Blur5FS,Fragment
 Blur7FS,Fragment
 CheckerboardDepthFS,Fragment
-Clouds2dFastLoopFS,Fragment
 Clouds2dFS,Fragment
 CloudsCompFS,Fragment
-CloudsFastLoopFS,Fragment
 CloudsFS,Fragment
 CloudsVS,Vertex
 CopyGuiVS,Vertex

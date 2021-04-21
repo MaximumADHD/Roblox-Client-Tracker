@@ -5505,6 +5505,70 @@
                         "Category": "DataType",
                         "Name": "CFrame"
                     }
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetFaces",
+                    "Parameters": [
+                        {
+                            "Name": "cageType",
+                            "Type": {
+                                "Category": "Enum",
+                                "Name": "CageType"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Array"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetVertices",
+                    "Parameters": [
+                        {
+                            "Name": "cageType",
+                            "Type": {
+                                "Category": "Enum",
+                                "Name": "CageType"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Array"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "ModifyVertices",
+                    "Parameters": [
+                        {
+                            "Name": "cageType",
+                            "Type": {
+                                "Category": "Enum",
+                                "Name": "CageType"
+                            }
+                        },
+                        {
+                            "Name": "vertices",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Array"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
                 }
             ],
             "MemoryCategory": "Instances",
@@ -34708,7 +34772,7 @@
                             }
                         },
                         {
-                            "Default": "-1",
+                            "Default": "0",
                             "Name": "waitTimeout",
                             "Type": {
                                 "Category": "Primitive",
@@ -34771,11 +34835,30 @@
                             }
                         },
                         {
-                            "Default": "30",
+                            "Default": "30000",
                             "Name": "invisibilityTimeout",
                             "Type": {
                                 "Category": "Primitive",
                                 "Name": "int"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Class",
+                        "Name": "Instance"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetSortedMap",
+                    "Parameters": [
+                        {
+                            "Name": "name",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
                             }
                         }
                     ],
@@ -34792,6 +34875,180 @@
             "Superclass": "Instance",
             "Tags": [
                 "Service"
+            ]
+        },
+        {
+            "Members": [
+                {
+                    "MemberType": "Function",
+                    "Name": "GetAsync",
+                    "Parameters": [
+                        {
+                            "Name": "key",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Variant"
+                    },
+                    "Security": "None",
+                    "Tags": [
+                        "Yields"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetRangeAsync",
+                    "Parameters": [
+                        {
+                            "Name": "direction",
+                            "Type": {
+                                "Category": "Enum",
+                                "Name": "SortDirection"
+                            }
+                        },
+                        {
+                            "Name": "count",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int"
+                            }
+                        },
+                        {
+                            "Default": "",
+                            "Name": "exclusiveLowerBound",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Default": "",
+                            "Name": "exclusiveUpperBound",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Array"
+                    },
+                    "Security": "None",
+                    "Tags": [
+                        "Yields"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "RemoveAsync",
+                    "Parameters": [
+                        {
+                            "Name": "key",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "None",
+                    "Tags": [
+                        "Yields"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "SetAsync",
+                    "Parameters": [
+                        {
+                            "Name": "key",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Name": "value",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Variant"
+                            }
+                        },
+                        {
+                            "Default": "-1",
+                            "Name": "expiration",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    },
+                    "Security": "None",
+                    "Tags": [
+                        "Yields"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "UpdateAsync",
+                    "Parameters": [
+                        {
+                            "Name": "key",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Name": "transformFunction",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "Function"
+                            }
+                        },
+                        {
+                            "Default": "-1",
+                            "Name": "expiration",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "None",
+                    "Tags": [
+                        "Yields"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "MemoryStoreSortedMap",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotCreatable",
+                "NotReplicated"
             ]
         },
         {
@@ -35701,6 +35958,28 @@
         },
         {
             "Members": [
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "EmulatedTotalMemoryInMB",
+                    "Security": {
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "Hidden",
+                        "NotReplicated"
+                    ],
+                    "ThreadSafety": "ReadOnly",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "int"
+                    }
+                },
                 {
                     "Category": "Data",
                     "MemberType": "Property",
@@ -41617,6 +41896,24 @@
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Behavior",
+                    "MemberType": "Property",
+                    "Name": "ClientAnimatorThrottling",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadOnly",
+                    "ValueType": {
+                        "Category": "Enum",
+                        "Name": "ClientAnimatorThrottlingMode"
                     }
                 },
                 {
@@ -50655,6 +50952,47 @@
             "Members": [
                 {
                     "MemberType": "Function",
+                    "Name": "PublishCageMeshAsync",
+                    "Parameters": [
+                        {
+                            "Name": "wrap",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "Instance"
+                            }
+                        },
+                        {
+                            "Name": "cageType",
+                            "Type": {
+                                "Category": "Enum",
+                                "Name": "CageType"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "DataType",
+                        "Name": "Content"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "Tags": [
+                        "Yields"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "PublishService",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotCreatable",
+                "Service",
+                "NotReplicated"
+            ]
+        },
+        {
+            "Members": [
+                {
+                    "MemberType": "Function",
                     "Name": "GetClientId",
                     "Parameters": [
                     ],
@@ -57125,6 +57463,21 @@
                         "Yields"
                     ],
                     "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "DeviceListChanged",
+                    "Parameters": [
+                        {
+                            "Name": "newDevices",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Tuple"
+                            }
+                        }
+                    ],
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
                 }
             ],
             "MemoryCategory": "Instances",
@@ -61744,6 +62097,18 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "RequestCloseStudio",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "SerializeInstances",
                     "Parameters": [
                         {
@@ -62216,6 +62581,13 @@
                         },
                         {
                             "Name": "isPublish",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "bool"
+                            }
+                        },
+                        {
+                            "Name": "closeAfterSave",
                             "Type": {
                                 "Category": "Primitive",
                                 "Name": "bool"
@@ -71843,6 +72215,42 @@
                 {
                     "Name": "Video",
                     "Value": 62
+                },
+                {
+                    "Name": "TeeShirtAccessory",
+                    "Value": 63
+                },
+                {
+                    "Name": "ShirtAccessory",
+                    "Value": 64
+                },
+                {
+                    "Name": "PantsAccessory",
+                    "Value": 65
+                },
+                {
+                    "Name": "JacketAccessory",
+                    "Value": 66
+                },
+                {
+                    "Name": "SweaterAccessory",
+                    "Value": 67
+                },
+                {
+                    "Name": "ShortsAccessory",
+                    "Value": 68
+                },
+                {
+                    "Name": "LeftShoeAccessory",
+                    "Value": 69
+                },
+                {
+                    "Name": "RightShoeAccessory",
+                    "Value": 70
+                },
+                {
+                    "Name": "DressSkirtAccessory",
+                    "Value": 71
                 }
             ],
             "Name": "AssetType"
@@ -72011,6 +72419,42 @@
                 {
                     "Name": "EmoteAnimation",
                     "Value": 61
+                },
+                {
+                    "Name": "TeeShirtAccessory",
+                    "Value": 63
+                },
+                {
+                    "Name": "ShirtAccessory",
+                    "Value": 64
+                },
+                {
+                    "Name": "PantsAccessory",
+                    "Value": 65
+                },
+                {
+                    "Name": "JacketAccessory",
+                    "Value": 66
+                },
+                {
+                    "Name": "SweaterAccessory",
+                    "Value": 67
+                },
+                {
+                    "Name": "ShortsAccessory",
+                    "Value": 68
+                },
+                {
+                    "Name": "LeftShoeAccessory",
+                    "Value": 69
+                },
+                {
+                    "Name": "RightShoeAccessory",
+                    "Value": 70
+                },
+                {
+                    "Name": "DressSkirtAccessory",
+                    "Value": 71
                 }
             ],
             "Name": "AvatarAssetType"
@@ -72328,6 +72772,19 @@
                 }
             ],
             "Name": "ButtonStyle"
+        },
+        {
+            "Items": [
+                {
+                    "Name": "Inner",
+                    "Value": 0
+                },
+                {
+                    "Name": "Outer",
+                    "Value": 1
+                }
+            ],
+            "Name": "CageType"
         },
         {
             "Items": [
@@ -72674,6 +73131,23 @@
                 }
             ],
             "Name": "ChatStyle"
+        },
+        {
+            "Items": [
+                {
+                    "Name": "Default",
+                    "Value": 0
+                },
+                {
+                    "Name": "Disabled",
+                    "Value": 1
+                },
+                {
+                    "Name": "Enabled",
+                    "Value": 2
+                }
+            ],
+            "Name": "ClientAnimatorThrottlingMode"
         },
         {
             "Items": [

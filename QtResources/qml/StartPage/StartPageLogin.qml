@@ -347,7 +347,7 @@ Rectangle {
             }
             PropertyChanges {
                 target: externalLoginLink
-                visible: !loginManager.externalLoginLinkCheck() && loginManager.showExternalLoginLink()
+                visible: false
             }
         },
         State {
@@ -418,7 +418,7 @@ Rectangle {
             }
             PropertyChanges {
                 target: externalLoginLink
-                visible: !loginManager.externalLoginLinkCheck() && loginManager.showExternalLoginLink()
+                visible: false
             }
         },
         State {
@@ -469,7 +469,7 @@ Rectangle {
             }
             PropertyChanges {
                 target: externalLoginLink
-                visible: !loginManager.externalLoginLinkCheck() && loginManager.showExternalLoginLink()
+                visible: false
             }
         },
         State {
@@ -525,7 +525,7 @@ Rectangle {
             }
             PropertyChanges {
                 target: externalLoginLink
-                visible: !loginManager.externalLoginLinkCheck() && loginManager.showExternalLoginLink()
+                visible: false
             }
         },
         State {
@@ -581,7 +581,7 @@ Rectangle {
             }
             PropertyChanges {
                 target: externalLoginLink
-                visible: !loginManager.externalLoginLinkCheck() && loginManager.showExternalLoginLink()
+                visible: false
             }
         },
         State {
@@ -621,7 +621,7 @@ Rectangle {
             }
             PropertyChanges {
                 target: externalLoginLink
-                visible: !loginManager.externalLoginLinkCheck() && loginManager.showExternalLoginLink()
+                visible: false
             }
         },
         State {
@@ -671,7 +671,7 @@ Rectangle {
             }
             PropertyChanges {
                 target: externalLoginLink
-                visible: !loginManager.externalLoginLinkCheck() && loginManager.showExternalLoginLink()
+                visible: false
             }
         }
     ]
@@ -749,12 +749,7 @@ Rectangle {
             }
         }
         onOpenRobloxLogin: {
-            if (loginManager.clearLoginFieldsCheck()) {
-                resetLoginData();
-            }
-            else {
-                loginPage.state = kDefaultState;
-            }
+           resetLoginData();
         }
     }
 }

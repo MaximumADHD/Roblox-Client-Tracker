@@ -219,7 +219,7 @@ Max: {maxDimensionsX} x {maxDimensionsY},Acceptable files: {formatString},Max: {
 모든 변경 사항을 제거할까요?,Отменить все изменения?,你要放弃所有更改吗?,Studio.Toolbox.General.Discard,Discard,Discard
 제거,Сбросить,放弃,Studio.Toolbox.General.Tags,Tags,Tags
 태그,Теги,标签,Studio.Toolbox.General.Genre,Genre,Genre
-장르,Жанр,类型,Studio.Toolbox.General.Comments,Allow Comments,Allow Comments
+장르,Жанр,主题,Studio.Toolbox.General.Comments,Allow Comments,Allow Comments
 코멘트 허용,Разрешить комментарии,允许评论,Studio.Toolbox.General.LearnMore,Learn more,Learn more
 더 알아보기,Подробнее,了解更多,Studio.Toolbox.General.Me,Me,Me
 나,Я,我,Studio.Toolbox.General.AssetType,Asset type,Asset type
