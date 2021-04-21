@@ -54,6 +54,9 @@ local tileInterface = t.strictInterface({
 	-- Whether the tile is selected or not
 	isSelected = t.optional(t.boolean),
 
+	-- Whether the tile is part of a grid where multiple tiles can be selected
+	multiSelect = t.optional(t.boolean),
+
 	-- Whether the tile is disabled or not
 	isDisabled = t.optional(t.boolean),
 
@@ -89,6 +92,7 @@ Tile.defaultProps = {
 	titleTextLineCount = 2,
 	innerPadding = 8,
 	isSelected = false,
+	multiSelect = false,
 	isDisabled = false,
 	hasRoundedCorners = true,
 }
@@ -122,6 +126,7 @@ function Tile:render()
 	local bannerText = self.props.bannerText
 	local hasRoundedCorners = self.props.hasRoundedCorners
 	local isSelected = self.props.isSelected
+	local multiSelect = self.props.multiSelect
 	local isDisabled = self.props.isDisabled
 	local titleIcon = self.props.titleIcon
 	local thumbnailOverlayComponents = self.props.thumbnailOverlayComponents
@@ -167,7 +172,7 @@ function Tile:render()
 					NextSelectionDown = self.props.NextSelectionDown,
 					[Roact.Ref] = self.props[Roact.Ref],
 					SelectionImageObject = getSelectionCursor(CursorKind.RoundedRectNoInset),
-					inputBindings = (UIBloxConfig.enableExperimentalGamepadSupport and not isDisabled) and {
+					inputBindings = (UIBloxConfig.enableExperimentalGamepadSupport and not isDisabled and onActivated) and {
 						Activate = RoactGamepad.Input.onBegin(Enum.KeyCode.ButtonA, onActivated)
 					} or nil,
 				}, {
@@ -175,6 +180,7 @@ function Tile:render()
 						Image = thumbnail,
 						hasRoundedCorners = hasRoundedCorners,
 						isSelected = isSelected,
+						multiSelect = multiSelect,
 						overlayComponents = thumbnailOverlayComponents,
 						imageSize = thumbnailSize,
 						imageTransparency = thumbnailTransparency,

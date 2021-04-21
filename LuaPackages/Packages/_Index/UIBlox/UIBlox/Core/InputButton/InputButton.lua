@@ -4,6 +4,8 @@ local TextService = game:GetService("TextService")
 local Roact = require(Packages.Roact)
 local t = require(Packages.t)
 local Cryo = require(Packages.Cryo)
+local RoactGamepad = require(Packages.RoactGamepad)
+local UIBloxConfig = require(Packages.UIBlox.UIBloxConfig)
 
 local withStyle = require(Packages.UIBlox.Core.Style.withStyle)
 local ImageSetComponent = require(Packages.UIBlox.Core.ImageSet.ImageSetComponent)
@@ -11,6 +13,7 @@ local Controllable = require(Packages.UIBlox.Core.Control.Controllable)
 local ControlState = require(Packages.UIBlox.Core.Control.Enum.ControlState)
 
 local FitTextLabel = require(Packages.FitFrame).FitTextLabel
+local FitFrameHorizontal = require(Packages.FitFrame).FitFrameHorizontal
 
 -- TODO AVBURST-3748: Remove this soon after TextBoundsRoundUp is turned on to make the UIBlox places display
 -- the same way as the App
@@ -37,6 +40,8 @@ local validateProps = t.strictInterface({
 	onActivated = t.callback,
 	isDisabled = t.optional(t.boolean),
 	layoutOrder = t.optional(t.number),
+	[Roact.Ref] = t.optional(t.table),
+	SelectionImageObject = t.optional(t.table),
 })
 
 InputButton.defaultProps = {
@@ -107,6 +112,8 @@ function InputButton:render()
 			TextTransparency = self.props.transparency,
 		}
 
+		local frameComponent = "Frame"
+		local useAutomaticSizing = false
 		if self.props.size then
 			local size = self.props.size
 			local frameSize = Vector2.new(size.X.Offset - SELECTION_BUTTON_SIZE - HORIZONTAL_PADDING, size.Y.Offset)
@@ -123,30 +130,48 @@ function InputButton:render()
 				[Roact.Event.Activated] = not self.props.isDisabled and self.props.onActivated or nil,
 			})
 		else
+			if UIBloxConfig.useUpdatedCheckbox then
+				useAutomaticSizing = true
+				frameComponent = FitFrameHorizontal
+			end
 			textComponent = FitTextLabel
 			textComponentProps = Cryo.Dictionary.join(textComponentProps, {
-				width = UDim.new(1, -SELECTION_BUTTON_SIZE - HORIZONTAL_PADDING),
+				width = UIBloxConfig.useUpdatedCheckbox and FitTextLabel.Width.FitToText
+					or UDim.new(1, -SELECTION_BUTTON_SIZE - HORIZONTAL_PADDING),
 				onActivated = self.props.onActivated,
 				[Roact.Change.AbsoluteSize] = self.textAbsoluteSizeChanged,
 			})
 		end
 
+		if UIBloxConfig.useUpdatedCheckbox then
+			frameComponent = RoactGamepad.Focusable[frameComponent]
+		end
+
 		local fillImage = self.props.fillImage
 
-		return Roact.createElement("Frame",	{
-				Size = self.props.size or self.sizeBinding,
+		return Roact.createElement(frameComponent, {
+				Size = not useAutomaticSizing and (self.props.size or self.sizeBinding) or nil,
+				height = useAutomaticSizing and UDim.new(0, SELECTION_BUTTON_SIZE) or nil,
 				BackgroundTransparency = 1,
 				LayoutOrder = self.props.layoutOrder,
+				[Roact.Ref] = UIBloxConfig.useUpdatedCheckbox and self.props[Roact.Ref] or nil,
+				SelectionImageObject = UIBloxConfig.useUpdatedCheckbox and self.props.SelectionImageObject or nil,
+				inputBindings = UIBloxConfig.useUpdatedCheckbox and {
+					Activated = RoactGamepad.Input.onBegin(Enum.KeyCode.ButtonA, self.props.onActivated),
+				} or nil,
+				FillDirection = useAutomaticSizing and Enum.FillDirection.Horizontal or nil,
+				VerticalAlignment = useAutomaticSizing and Enum.VerticalAlignment.Center or nil,
+				contentPadding = useAutomaticSizing and UDim.new(0, HORIZONTAL_PADDING) or nil,
 			}, {
-				HorizontalLayout = Roact.createElement("UIListLayout", {
+				HorizontalLayout = not useAutomaticSizing and Roact.createElement("UIListLayout", {
 					SortOrder = Enum.SortOrder.LayoutOrder,
 					FillDirection = Enum.FillDirection.Horizontal,
 					Padding = UDim.new(0, HORIZONTAL_PADDING),
 					VerticalAlignment = Enum.VerticalAlignment.Center
-				}),
-				Padding = Roact.createElement("UIPadding", {
+				}) or nil,
+				Padding = not useAutomaticSizing and Roact.createElement("UIPadding", {
 					PaddingLeft = UDim.new(0, HORIZONTAL_PADDING),
-				}),
+				}) or nil,
 				InputButtonImage = Roact.createElement(Controllable, {
 					controlComponent = {
 					component = ImageSetComponent.Button,

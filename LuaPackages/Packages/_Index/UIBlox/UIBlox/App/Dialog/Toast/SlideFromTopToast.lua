@@ -43,6 +43,7 @@ local function toastContentEqual(toastContent1, toastContent2)
 		or toastContent1.iconChildren ~= toastContent2.iconChildren
 		or toastContent1.onActivated ~= toastContent2.onActivated
 		or toastContent1.onDismissed ~= toastContent2.onDismissed
+		or toastContent1.sequenceNumber ~= toastContent2.sequenceNumber
 		or toastContent1.swipeUpDismiss ~= toastContent2.swipeUpDismiss
 		or toastContent1.toastSubtitle ~= toastContent2.toastSubtitle
 		or toastContent1.toastTitle ~= toastContent2.toastTitle then

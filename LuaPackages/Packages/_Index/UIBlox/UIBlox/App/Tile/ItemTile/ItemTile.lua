@@ -45,6 +45,9 @@ local itemTileInterface = t.strictInterface({
 	-- Whether the tile is selected or not
 	isSelected = t.optional(t.boolean),
 
+	-- Whether the tile is part of a grid where multiple tiles can be selected
+	multiSelect = t.optional(t.boolean),
+
 	-- Whether the tile is for a premium item or not
 	isPremium = t.optional(t.boolean),
 
@@ -85,6 +88,7 @@ ItemTile.defaultProps = {
 	titleTextLineCount = 2,
 	innerPadding = 8,
 	isSelected = false,
+	multiSelect = false,
 	isPremium = false,
 	hasRoundedCorners = true,
 }
@@ -98,6 +102,7 @@ function ItemTile:render()
 	local innerPadding = self.props.innerPadding
 	local isPremium = self.props.isPremium
 	local isSelected = self.props.isSelected
+	local multiSelect = self.props.multiSelect
 	local itemIconType = self.props.itemIconType
 	local name = self.props.name
 	local onActivated = self.props.onActivated
@@ -143,6 +148,7 @@ function ItemTile:render()
 		hasRoundedCorners = hasRoundedCorners,
 		innerPadding = innerPadding,
 		isSelected = isSelected,
+		multiSelect = multiSelect,
 		name = name,
 		onActivated = onActivated,
 		thumbnail = thumbnail,

@@ -112,7 +112,7 @@ function FocusNode:focus()
 	if Cryo.isEmpty(children) then
 		focusController:setSelection(self.ref:getValue())
 	else
-		if self.restorePreviousChildFocus and self.lastFocused ~= nil then
+		if self.restorePreviousChildFocus and self.lastFocused ~= nil and self.lastFocused:getValue() then
 			focusController:moveFocusTo(self.lastFocused)
 		elseif self.defaultChildRef ~= nil then
 			focusController:moveFocusTo(self.defaultChildRef)

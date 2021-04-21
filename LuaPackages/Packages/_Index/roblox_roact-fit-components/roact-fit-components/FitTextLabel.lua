@@ -43,7 +43,7 @@ FitTextLabel.defaultProps = {
 }
 
 function FitTextLabel:init()
-	self.frameRef = Roact.createRef()
+	self.frameRef = self.props[Roact.Ref] or Roact.createRef()
 
 	self.onResize = function()
 		if not self.frameRef.current then

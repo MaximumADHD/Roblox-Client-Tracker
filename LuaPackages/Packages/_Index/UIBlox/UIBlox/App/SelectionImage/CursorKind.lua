@@ -17,6 +17,7 @@ local BulletUpCursor = require(script.Parent.Components.BulletUp)
 local BulletDownCursor = require(script.Parent.Components.BulletDown)
 local SelectionCellCursor = require(script.Parent.Components.SelectionCell)
 local InvisibleCursor = require(script.Parent.Components.Invisible)
+local InputButton = require(script.Parent.Components.InputButton)
 
 return enumerate(script.Name, {
 	RoundedRect = RoundedRectCursor,
@@ -34,4 +35,5 @@ return enumerate(script.Name, {
 	BulletDown = BulletDownCursor,
 	SelectionCell = SelectionCellCursor,
 	Invisible = InvisibleCursor,
+	InputButton = InputButton,
 })

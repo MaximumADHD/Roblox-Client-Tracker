@@ -43,4 +43,8 @@ return {
 	-- tooltipWidthUsesHeaderToo: Turn on fix for tooltip which calculates the width of the tooltip container
 	-- based on the body and title text width.
 	tooltipWidthUsesHeaderToo = false,
+
+	-- useUpdatedCheckbox: Enables FitFrame for InputButton and gives Checkbox a gamepad
+	-- selection cursor.
+	useUpdatedCheckbox = false,
 }

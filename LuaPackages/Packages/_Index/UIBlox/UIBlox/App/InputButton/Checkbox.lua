@@ -5,6 +5,9 @@ local t = require(Packages.t)
 local withStyle = require(Packages.UIBlox.Core.Style.withStyle)
 local Images = require(Packages.UIBlox.App.ImageSet.Images)
 local InputButton = require(Packages.UIBlox.Core.InputButton.InputButton)
+local CursorKind = require(Packages.UIBlox.App.SelectionImage.CursorKind)
+local withSelectionCursorProvider = require(Packages.UIBlox.App.SelectionImage.withSelectionCursorProvider)
+local UIBloxConfig = require(Packages.UIBlox.UIBloxConfig)
 
 --TODO: This code is considered Control.Checkbox by design, consider moving this out of InputButton for consistency.
 
@@ -18,6 +21,10 @@ local validateProps = t.strictInterface({
 	size = t.optional(t.UDim2),
 	layoutOrder = t.optional(t.number),
 	[Roact.Ref] = t.optional(t.table),
+	NextSelectionDown = t.optional(t.table),
+	NextSelectionUp = t.optional(t.table),
+	NextSelectionLeft = t.optional(t.table),
+	NextSelectionRight = t.optional(t.table),
 })
 
 Checkbox.defaultProps = {
@@ -40,10 +47,23 @@ function Checkbox:init()
 end
 
 function Checkbox:render()
+	if UIBloxConfig.useUpdatedCheckbox then
+		return withSelectionCursorProvider(function(getSelectionCursor)
+			return withStyle(function(style)
+				return self:renderWithProviders(style, getSelectionCursor)
+			end)
+		end)
+	else
+		return self:renderWithProviders()
+	end
+end
+
+function Checkbox:renderWithProviders(style, getSelectionCursor)
 	assert(validateProps(self.props))
 
+	-- Remove this withStyle with UIBloxConfig useUpdatedCheckbox
 	return withStyle(function(stylePalette)
-		local theme = stylePalette.Theme
+		local theme = UIBloxConfig.useUpdatedCheckbox and style.Theme or stylePalette.Theme
 
 		local image
 		local imageColor
@@ -82,6 +102,9 @@ function Checkbox:render()
 			transparency = transparency,
 			layoutOrder = self.props.layoutOrder,
 			isDisabled = self.props.isDisabled,
+			[Roact.Ref] = UIBloxConfig.useUpdatedCheckbox and self.props[Roact.Ref] or nil,
+			SelectionImageObject = UIBloxConfig.useUpdatedCheckbox
+				and getSelectionCursor(CursorKind.InputButton) or nil,
 		})
 	end)
 end

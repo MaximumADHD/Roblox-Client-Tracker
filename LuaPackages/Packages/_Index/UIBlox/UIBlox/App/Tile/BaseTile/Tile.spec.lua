@@ -35,6 +35,20 @@ return function()
 		Roact.unmount(instance)
 	end)
 
+	it("should create and destroy without errors with only required props", function()
+		local element = mockStyleComponent({
+			Frame = Roact.createElement("Frame", {
+				Size = UDim2.new(0, 100, 0, 100),
+			}, {
+				Tile = Roact.createElement(Tile, {
+				})
+			})
+		})
+
+		local instance = Roact.mount(element)
+		Roact.unmount(instance)
+	end)
+
 	it("should not render name when no lines are allocated to name", function()
 		local testName = "test text"
 		local element = mockStyleComponent({

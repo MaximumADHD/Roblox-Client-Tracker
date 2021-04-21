@@ -23,14 +23,14 @@ return function()
 		local instance = Instance.new("Frame")
 		instance.Parent = parentNode.ref:getValue()
 
-		local childRef, _ = Roact.createBinding(instance)
+		local childRef, updateChildRef = Roact.createBinding(instance)
 		local childNode = FocusNode.new({
 			parentFocusNode = parentNode,
 			[Roact.Ref] = childRef,
 		})
 		childNode:attachToTree(parentNode, function() end)
 
-		return childNode, childRef
+		return childNode, childRef, updateChildRef
 	end
 
 	describe("basic selection behavior", function()
@@ -138,6 +138,33 @@ return function()
 			childNodeB:focus()
 			parentNode:focus()
 			expect(focusController:isNodeFocused(childNodeB)).to.equal(true)
+		end)
+
+		it("should defer to the default child ref when the previously focused child has been removed", function()
+			local rootRef, _ = Roact.createBinding(Instance.new("Frame"))
+			local _, engineInterface = MockEngine.new()
+
+			local parentNode = createRootNode(rootRef)
+			addChildNode(parentNode)
+			local childNodeB, _, updateChildRefB = addChildNode(parentNode)
+			local childNodeC, childRefC = addChildNode(parentNode)
+			parentNode.defaultChildRef = childRefC
+			parentNode.restorePreviousChildFocus = true
+
+			local focusController = parentNode.focusController[InternalApi]
+			focusController:initialize(engineInterface)
+
+			-- Focus parent node and more to childB
+			parentNode:focus()
+			childNodeB:focus()
+			expect(focusController:isNodeFocused(childNodeB)).to.equal(true)
+
+			-- Remove childB
+			updateChildRefB(nil)
+
+			parentNode:focus()
+			-- New focused child should be child C. Child B can't be focused as it is removed.
+			expect(focusController:isNodeFocused(childNodeC)).to.equal(true)
 		end)
 	end)
 

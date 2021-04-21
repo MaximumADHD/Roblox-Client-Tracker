@@ -18,5 +18,10 @@ return t.strictInterface({
 	onDismissed = t.optional(t.callback),
 	swipeUpDismiss = t.optional(t.boolean),
 	toastSubtitle = t.optional(t.string),
+	-- optional sequence number so you can, if you want to, display the same
+	-- toast message twice in a row (Without this SlideFromTopToast would 'eat'
+	-- the second, matching message without notifying the caller about it being
+	-- dismissed or activated or whatever)
+	sequenceNumber = t.optional(t.integer),
 	toastTitle = t.string,
 })

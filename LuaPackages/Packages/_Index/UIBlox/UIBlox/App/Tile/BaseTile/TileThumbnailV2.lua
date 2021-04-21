@@ -9,6 +9,7 @@ local withStyle = require(UIBlox.Core.Style.withStyle)
 local ImageSetComponent = require(UIBlox.Core.ImageSet.ImageSetComponent)
 local LoadableImage = require(UIBlox.App.Loading.LoadableImage)
 local TileSelectionOverlay = require(BaseTile.TileSelectionOverlay)
+local TileUnselectedOverlay = require(BaseTile.TileUnselectedOverlay)
 
 local TileThumbnail = Roact.PureComponent:extend("TileThumbnail")
 
@@ -27,6 +28,9 @@ local validateProps = t.strictInterface({
 
 	-- Optional whether the tile thumbnail is selected or not
 	isSelected = t.optional(t.boolean),
+
+	-- Optional whether the tile is part of a grid where multiple tiles can be selected
+	multiSelect = t.optional(t.boolean),
 
 	-- Optional overlay components on the tile thumbnail
 	overlayComponents = t.optional(t.table),
@@ -50,6 +54,7 @@ function TileThumbnail:render()
 	local imageSize = self.props.imageSize
 	local imageTransparency = self.props.imageTransparency
 	local isSelected = self.props.isSelected
+	local multiSelect = self.props.multiSelect
 	local overlayComponents = self.props.overlayComponents
 	local backgroundImage = self.props.backgroundImage
 
@@ -120,6 +125,10 @@ function TileThumbnail:render()
 			SelectionOverlay = isSelected and Roact.createElement(TileSelectionOverlay, {
 				ZIndex = 2,
 				cornerRadius = hasRoundedCorners and CORNER_RADIUS or nil,
+			}),
+
+			UnselectedOverlay = (multiSelect and not isSelected) and Roact.createElement(TileUnselectedOverlay, {
+				ZIndex = 2,
 			}),
 		})
 	end)

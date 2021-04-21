@@ -16,6 +16,7 @@ local Images = require(UIBlox.App.ImageSet.Images)
 local ImageSetComponent = require(UIBlox.Core.ImageSet.ImageSetComponent)
 local LoadableImage = require(UIBlox.App.Loading.LoadableImage)
 local TileSelectionOverlay = require(BaseTile.TileSelectionOverlay)
+local TileUnselectedOverlay = require(BaseTile.TileUnselectedOverlay)
 
 local TileThumbnail = Roact.PureComponent:extend("TileThumbnail")
 
@@ -32,6 +33,7 @@ function TileThumbnail:render()
 	local imageSize = self.props.imageSize
 	local imageTransparency = self.props.imageTransparency
 	local isSelected = self.props.isSelected
+	local multiSelect = self.props.multiSelect
 	local overlayComponents = self.props.overlayComponents
 
 	local isImageSetImage = typeof(image) == "table"
@@ -92,6 +94,10 @@ function TileThumbnail:render()
 			SelectionOverlay = isSelected and Roact.createElement(TileSelectionOverlay, {
 				ZIndex = 2,
 				cornerRadius = hasRoundedCorners and CORNER_RADIUS or nil,
+			}),
+
+			UnselectedOverlay = (multiSelect and not isSelected) and Roact.createElement(TileUnselectedOverlay, {
+				ZIndex = 2,
 			}),
 
 			RoundedCornersOverlay = not UIBloxConfig.useNewUICornerRoundedCorners and hasRoundedCorners
