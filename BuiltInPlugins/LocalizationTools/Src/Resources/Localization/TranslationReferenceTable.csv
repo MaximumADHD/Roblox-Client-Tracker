@@ -11,7 +11,7 @@ Studio.LocalizationTools.EmbeddedTableSection.TextCaptureButton,Text Capture,Tex
 Studio.LocalizationTools.MessageFrame.UploadingPatchMessage,Uploading patch...,Uploading patch...,패치를 업로드하는 중...,正在上传补丁...
 Studio.LocalizationTools.MessageFrame.BusyMessage,busy,busy,사용 중,系统繁忙
 Studio.LocalizationTools.Plugin.ToolbarLabel,Localization,Localization,로컬리제이션,本地化
-Studio.LocalizationTools.UploadTable.GetGameSourceLanguageFailed,Localization Tools failed to request game source langauge.,Localization Tools failed to request game source langauge.,로컬리제이션 도구가 게임의 소스 언어를 요청하지 못했습니다., 
+Studio.LocalizationTools.UploadTable.GetGameSourceLanguageFailed,Localization Tools failed to request game source langauge.,Localization Tools failed to request game source langauge.,로컬리제이션 도구가 게임의 소스 언어를 요청하지 못했습니다.,本地化工具请求源语言失败。
 Studio.LocalizationTools.Plugin.ToolTipMessage,Hide/show the Localization Tools View,Hide/show the Localization Tools View,로컬리제이션 도구 보기 숨기기/표시,隐藏/显示本地化工具视图
 Studio.LocalizationTools.EmbeddedTableSection.TextCaptureStartText,Start untranslated text capture,Start untranslated text capture,번역되지 않은 텍스트 캡처 시작,开始抓取未翻译的文本
 Studio.LocalizationTools.EmbeddedTableSection.ImportButton,Import,Import,가져오기,导入

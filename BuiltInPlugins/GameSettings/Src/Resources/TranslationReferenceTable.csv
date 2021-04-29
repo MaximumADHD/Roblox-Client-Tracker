@@ -96,12 +96,12 @@ Studio.GameSettings.Monetization.DEPRECATED_VIPServersHint,Paid Access must not 
 Studio.GameSettings.Monetization.VIPServersHint,Paid Access must not be enabled and the game must be public to enable VIP Servers.,Paid Access must not be enabled and the game must be public to enable VIP Servers.,VIP 서버를 활성화하려면 유료 액세스를 비활성화하고 게임을 공개해야 합니다., ,启用 VIP 服务器前，需要禁用付费访问并将游戏设为公开。
 Studio.GameSettings.General.GenreAdventure,Adventure,Adventure,어드벤처,Приключения,冒险
 Studio.GameSettings.General.GenreWestern,Western,Western,서부극,Вестерн,西部
-Studio.GameSettings.Monetization.BadgeImage,Badge Image,Badge Image,배지 이미지, , 
+Studio.GameSettings.Monetization.BadgeImage,Badge Image,Badge Image,배지 이미지, ,徽章图片
 Studio.GameSettings.General.GenreBuilding,Building,Building,건설,Постройки,建筑
 Studio.GameSettings.General.PublishIsRequiredHyperlink,Publishing the game to Roblox,Publishing the game to Roblox,Roblox에 게임 게시,Публикация игры в Roblox,正在将游戏发布到 Roblox
 Studio.GameSettings.General.PublishingHintLink,Publishing the game to Roblox,Publishing the game to Roblox,Roblox에 게임 게시,Публикация игры в Roblox,正在将游戏发布到 Roblox
 Studio.GameSettings.General.GenreComedy,Comedy,Comedy,코미디,Комедия,喜剧
-Studio.GameSettings.Monetization.NoBadges,Not seeing badges? Refresh to update,Not seeing badges? Refresh to update,배지가 보이지 않나요? 새로고침하여 업데이트하세요, , 
+Studio.GameSettings.Monetization.NoBadges,Not seeing badges? Refresh to update,Not seeing badges? Refresh to update,배지가 보이지 않나요? 새로고침하여 업데이트하세요, ,徽章没有显示？请尝试刷新页面
 Studio.GameSettings.General.GenreTownAndCity,Town and City,Town and City,마을 및 도시,Симулятор города,城市建设
 Studio.GameSettings.Errors.ErrorPriceBelowMin,Price must be greater than {1}.,Price must be greater than {1}.,가격은 {1}보다 높아야 합니다., ,价格必须大于 {1}。
 Studio.GameSettings.General.DeviceComputer,Computer,Computer,컴퓨터,Компьютер,计算机
@@ -324,13 +324,13 @@ Studio.GameSettings.Monetization.PrivateServersActive,There are currently {total
 Studio.GameSettings.Monetization.OverVIPServerSubscriptions,There are currently over {numOfSubscriptions:int} VIP Server Subscriptions active for this place.,There are currently over {numOfSubscriptions:int} VIP Server Subscriptions active for this place.,현재 이 플레이스에는 {numOfSubscriptions:int}건 이상의 활성화된 VIP 서버 구독이 있습니다., ,当前场景目前拥有超过 {numOfSubscriptions:int} 个以上的活跃 VIP 服务器订阅。
 Studio.GameSettings.Monetization.VIPServerSubscriptions,There are currently {numOfSubscriptions:int} VIP Server Subscriptions active for this place.,There are currently {numOfSubscriptions:int} VIP Server Subscriptions active for this place.,현재 이 플레이스에는 {numOfSubscriptions:int}건의 활성화된 VIP 서버 구독이 있습니다., ,当前场景目前拥有 {numOfSubscriptions:int} 个活跃 VIP 服务器订阅。
 Studio.GameSettings.Security.EnableThirdPartyPurchasesDescription,"By enabling, players can purchase items provided by third parties.","By enabling, players can purchase items provided by third parties.",이 옵션을 활성화하면 플레이어가 타사 판매 아이템을 구매할 수 있습니다., ,启用此选项后，玩家将可以购买第三方销售物品。
-Studio.GameSettings.Monetization.BadgeName,Badge Name,Badge Name,배지 이름, , 
+Studio.GameSettings.Monetization.BadgeName,Badge Name,Badge Name,배지 이름, ,徽章名称
 Studio.GameSettings.General.DevSubsPlanID,Plan ID,Plan ID,플랜 ID, ,计划 ID
 Studio.GameSettings.General.DevSubsPendingEarning,Pending Earning,Pending Earning,대기 중인 수익, ,预定收入
 Studio.GameSettings.General.DevSubsDeleteDescription,"You will lose pending payments for this subscription, including the current month.","You will lose pending payments for this subscription, including the current month.","이번 달을 포함해, 이 구독의 대기 중인 수익을 잃게 됩니다.", ,你将失去此订阅的预定收入，包括本月的。
 Studio.GameSettings.General.DevSubsDuration12Months,12 months,12 months,12개월, ,12 个月
 Studio.GameSettings.General.ThumbnailsLimitLuobu,You can set up to {maxThumbnails:int} screenshots for a game.,You can set up to {maxThumbnails:int} screenshots for a game.,게임에 대한 스크린숏은 최대 {maxThumbnails:int}장까지 설정할 수 있습니다., ,一个游戏最多可设置 {maxThumbnails:int} 张屏幕截图。
 Studio.GameSettings.General.CopyIDToClipboard,Copy ID to Clipboard,Copy ID to Clipboard,ID를 클립보드에 복사, ,复制 ID 到剪贴板
-Studio.GameSettings.Monetization.Badges,Badges,Badges,배지, , 
-Studio.GameSettings.Monetization.BadgeDescription,Badge Description,Badge Description,배지 설명, , 
-Studio.GameSettings.General.Configure,Configure,Configure,구성, , 
+Studio.GameSettings.Monetization.Badges,Badges,Badges,배지, ,徽章
+Studio.GameSettings.Monetization.BadgeDescription,Badge Description,Badge Description,배지 설명, ,徽章描述
+Studio.GameSettings.General.Configure,Configure,Configure,구성, ,配置

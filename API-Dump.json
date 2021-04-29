@@ -37264,7 +37264,7 @@
                     }
                 },
                 {
-                    "Category": "Part ",
+                    "Category": "Part",
                     "MemberType": "Property",
                     "Name": "CustomPhysicalProperties",
                     "Security": {
@@ -37282,7 +37282,7 @@
                     }
                 },
                 {
-                    "Category": "Part ",
+                    "Category": "Part",
                     "MemberType": "Property",
                     "Name": "Elasticity",
                     "Security": {
@@ -37305,7 +37305,7 @@
                     }
                 },
                 {
-                    "Category": "Part ",
+                    "Category": "Part",
                     "MemberType": "Property",
                     "Name": "Friction",
                     "Security": {
@@ -37630,7 +37630,7 @@
                     }
                 },
                 {
-                    "Category": "Part ",
+                    "Category": "Part",
                     "MemberType": "Property",
                     "Name": "ReceiveAge",
                     "Security": {
@@ -37787,7 +37787,7 @@
                     }
                 },
                 {
-                    "Category": "Part ",
+                    "Category": "Part",
                     "MemberType": "Property",
                     "Name": "RootPriority",
                     "Security": {
@@ -37848,7 +37848,7 @@
                     }
                 },
                 {
-                    "Category": "Part ",
+                    "Category": "Part",
                     "MemberType": "Property",
                     "Name": "Size",
                     "Security": {
@@ -38604,7 +38604,7 @@
         {
             "Members": [
                 {
-                    "Category": "Part ",
+                    "Category": "Part",
                     "MemberType": "Property",
                     "Name": "FormFactor",
                     "Security": {
@@ -38626,7 +38626,7 @@
                     }
                 },
                 {
-                    "Category": "Part ",
+                    "Category": "Part",
                     "MemberType": "Property",
                     "Name": "formFactor",
                     "Security": {
@@ -38659,7 +38659,7 @@
         {
             "Members": [
                 {
-                    "Category": "Part ",
+                    "Category": "Part",
                     "MemberType": "Property",
                     "Name": "Shape",
                     "Security": {
@@ -40596,7 +40596,7 @@
         {
             "Members": [
                 {
-                    "Category": "Part ",
+                    "Category": "Part",
                     "MemberType": "Property",
                     "Name": "Style",
                     "Security": {
@@ -46591,6 +46591,27 @@
                 {
                     "Category": "Behavior",
                     "MemberType": "Property",
+                    "Name": "DEPRECATED_SerializedEmulatedPolicyInfo",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "Hidden"
+                    ],
+                    "ThreadSafety": "ReadOnly",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "string"
+                    }
+                },
+                {
+                    "Category": "Behavior",
+                    "MemberType": "Property",
                     "Name": "EmulatedCountryCode",
                     "Security": {
                         "Read": "RobloxScriptSecurity",
@@ -46678,8 +46699,8 @@
                     "MemberType": "Property",
                     "Name": "SerializedEmulatedPolicyInfo",
                     "Security": {
-                        "Read": "RobloxScriptSecurity",
-                        "Write": "RobloxScriptSecurity"
+                        "Read": "RobloxSecurity",
+                        "Write": "RobloxSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
@@ -46690,8 +46711,8 @@
                     ],
                     "ThreadSafety": "ReadOnly",
                     "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "string"
+                        "Category": "DataType",
+                        "Name": "BinaryString"
                     }
                 },
                 {

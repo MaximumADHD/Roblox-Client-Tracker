@@ -4,7 +4,7 @@ Studio.PublishPlaceAs.General.PublishPlace,Publish Place,Publish Place,플레이
 Studio.PublishPlaceAs.General.UntitledGame,Untitled Game,Untitled Game,제목 없는 게임, ,未命名游戏
 Studio.PublishPlaceAs.Genre.Sports,Sports,Sports,스포츠,Спорт,体育
 Studio.PublishPlaceAs.Button.AddNewPlace,Add New,Add New,신규 추가,Добавить новое,新增
-Studio.PublishPlaceAs.General.PlayabilityPublicDesc,Anyone on Roblox,Anyone on Roblox,Roblox의 누구든 가능, , 
+Studio.PublishPlaceAs.General.PlayabilityPublicDesc,Anyone on Roblox,Anyone on Roblox,Roblox의 누구든 가능, ,Roblox 上的所有玩家
 Studio.PublishPlaceAs.General.ContentDialogItem2,Intense Violence,Intense Violence,심각한 폭력,Насилие,激烈暴力
 Studio.PublishPlaceAs.General.ContentDialogTitle,Content Agreement,Content Agreement,콘텐츠 동의,Соглашение на использование контента,内容协议
 Studio.PublishPlaceAs.Devices.Tablet,Tablet,Tablet,태블릿,Планшет,平板电脑
@@ -45,11 +45,11 @@ Studio.PublishPlaceAs.Genre.All,All,All,모두,Все,全部
 Studio.PublishPlaceAs.Genre.WildWest,Western,Western,서부극,Вестерн,西部
 Studio.PublishPlaceAs.Genre.Tutorial,Building,Building,건설,Постройки,建筑
 Studio.PublishPlaceAs.Genre.Ninja,Fighting,Fighting,대전,Файтинг,格斗
-Studio.PublishPlaceAs.General.PlayabilityFriendsDesc,Friends on Roblox,Friends on Roblox,내 Roblox 친구만 가능, , 
+Studio.PublishPlaceAs.General.PlayabilityFriendsDesc,Friends on Roblox,Friends on Roblox,내 Roblox 친구만 가능, ,Roblox 上的好友
 Studio.PublishPlaceAs.PageTitle.Creator,Creator,Creator,크리에이터, ,创建者
 Studio.PublishPlaceAs.Genre.FPS,FPS,FPS,FPS,Шутер от первого лица,FPS
 Studio.PublishPlaceAs.Genre.War,Military,Military,군사,Войнушка,军事
-Studio.PublishPlaceAs.General.TitlePlayability,Playability,Playability,플레이 가능 여부, , 
+Studio.PublishPlaceAs.General.TitlePlayability,Playability,Playability,플레이 가능 여부, ,游戏受众
 Studio.PublishPlaceAs.Genre.Pirate,Naval,Naval,해군,Морской флот,海军
 Studio.PublishPlaceAs.Genre.RPG,RPG,RPG,RPG,Ролевая игра,RPG
 Studio.PublishPlaceAs.Genre.SciFi,Sci-Fi,Sci-Fi,SF,Фантастика,科幻
@@ -61,10 +61,13 @@ Studio.PublishPlaceAs.PublishSuccess.Success,Successfully published!,Successfull
 Studio.PublishPlaceAs.PublishFail.Fail,Publish failed,Publish failed,게시 실패,Публикация не выполнена.,发布失败
 Studio.PublishPlaceAs.PublishSuccess.FindInGame,You may find this place in {1},You may find this place in {1},이 플레이스는 {1}에서 찾을 수 있습니다,Место находится в: {1},你可以在 {1} 中找到此场景
 Studio.PublishPlaceAs.PublishFail.FailConfiguration,Could not publish configuration settings.,Could not publish configuration settings.,구성 설정을 게시하지 못했습니다.,Не удалось опубликовать настройки конфигурации.,无法发布配置设置。
-Studio.PublishPlaceAs.General.PlayabilityPublic,Public,Public,공개, , 
+Studio.PublishPlaceAs.General.PlayabilityPublic,Public,Public,공개, ,公开
 Studio.PublishPlaceAs.PrivacyType.Public,Public,Public,공개, ,公开
-Studio.PublishPlaceAs.General.PlayabilityPrivate,Private,Private,비공개, , 
+Studio.PublishPlaceAs.General.PlayabilityPrivate,Private,Private,비공개, ,私人
 Studio.PublishPlaceAs.PrivacyType.Private,Private,Private,비공개, ,私人
-Studio.PublishPlaceAs.General.FetchFailed,Fetch failed,Fetch failed,가져오기 실패, , 
-Studio.PublishPlaceAs.General.PlayabilityFriends,Friends,Friends,친구, , 
+Studio.PublishPlaceAs.General.FetchFailed,Fetch failed,Fetch failed,가져오기 실패, ,获取失败
+Studio.PublishPlaceAs.General.PlayabilityFriends,Friends,Friends,친구, ,好友
 Studio.PublishPlaceAs.General.PlayabilityPrivateDesc,Only developers of this game,Only developers of this game,이 게임의 개발자만 가능, , 
+Studio.PublishPlaceAs.General.SavePlace,Save Place,Save Place, , , 
+Studio.PublishPlaceAs.FooterButton.SaveToFile,Save to file...,Save to file..., , , 
+Studio.PublishPlaceAs.PublishSuccess.SaveSuccess,Successfully saved!,Successfully saved!, , , 

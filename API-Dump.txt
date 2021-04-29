@@ -2441,11 +2441,12 @@ Class Player : Instance
 	Event Player.OnTeleport(Enum<TeleportState> teleportState, int64 placeId, string spawnName)
 	Event Player.SimulationRadiusChanged(float radius) {LocalUserSecurity}
 Class PlayerEmulatorService : Instance [NotCreatable] [Service]
+	Property string PlayerEmulatorService.DEPRECATED_SerializedEmulatedPolicyInfo {RobloxScriptSecurity} [Hidden]
 	Property string PlayerEmulatorService.EmulatedCountryCode {RobloxScriptSecurity} [Hidden]
 	Property string PlayerEmulatorService.EmulatedGameLocale {RobloxScriptSecurity} [Hidden]
 	Property bool PlayerEmulatorService.PlayerEmulationEnabled {RobloxScriptSecurity} [Hidden]
 	Property bool PlayerEmulatorService.PlayerEmulationEnabled_deprecated {RobloxScriptSecurity} [Hidden] [NotReplicated]
-	Property string PlayerEmulatorService.SerializedEmulatedPolicyInfo {RobloxScriptSecurity} [Hidden]
+	Property BinaryString PlayerEmulatorService.SerializedEmulatedPolicyInfo {RobloxSecurity} [Hidden]
 	Property string PlayerEmulatorService.StudioEmulatedCountryRegionCode {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Function Dictionary PlayerEmulatorService:GetEmulatedPolicyInfo() {RobloxScriptSecurity}
 	Function void PlayerEmulatorService:SetEmulatedPolicyInfo(Dictionary emulatedPolicyInfo) {RobloxScriptSecurity}

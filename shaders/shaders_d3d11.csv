@@ -319,6 +319,7 @@ GridVS_Level537,Vertex
 GridVS_Level538,Vertex
 GridVS_Level542,Vertex
 HbaoCompositFS,Fragment
+HbaoCompositOldFadeFS,Fragment
 HBAODepthDownFS,Fragment
 HbaoFS,Fragment
 IBLDebugFS,Fragment
