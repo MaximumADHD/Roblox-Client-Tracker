@@ -83,9 +83,9 @@ end
 
 function DraggingHandle:_endHandleDrag()
 	-- Commit the results of using the tool
-	self._draggingHandles:mouseUp(
+	local newSelectionInfoHint = self._draggingHandles:mouseUp(
 		self._draggerToolModel._draggerContext:getMouseRay())
-	self._draggerToolModel:_updateSelectionInfo() -- Since the selection has been edited by Implementation
+	self._draggerToolModel:_updateSelectionInfo(newSelectionInfoHint) -- Since the selection has been edited by Implementation
 
 	self._draggerToolModel._boundsChangedTracker:install()
 

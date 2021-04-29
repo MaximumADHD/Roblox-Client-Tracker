@@ -34,8 +34,6 @@ local SetScreen = require(Plugin.Src.Actions.SetScreen)
 
 local Screens = require(Plugin.Src.Util.Screens)
 
-local FFlagStudioAssetManagerEnableCopyGameId = game:GetFastFlag("StudioAssetManagerEnableCopyGameId")
-
 local NavBar = Roact.PureComponent:extend("NavBar")
 
 local NavBarPadding = 12
@@ -139,32 +137,19 @@ function NavBar:buildPathComponents(props, theme, localization, dispatch)
             local textExtents = GetTextSize(gameIDText, theme.FontSizeMedium, theme.Font)
             local textDimensions = UDim2.fromOffset(textExtents.X, textExtents.Y)
 
-            if FFlagStudioAssetManagerEnableCopyGameId then
-                pathComponents["UniverseId"] = Roact.createElement("TextBox", {
-                    Size = textDimensions,
-                    LayoutOrder = layoutIndex:getNextOrder(),
-                    BackgroundTransparency = 1,
+            pathComponents["UniverseId"] = Roact.createElement("TextBox", {
+                Size = textDimensions,
+                LayoutOrder = layoutIndex:getNextOrder(),
+                BackgroundTransparency = 1,
 
-                    Text = gameIDText,
-                    TextColor3 = theme.SubTextColor,
-                    TextSize = theme.FontSizeSmall,
-                    Font = theme.Font,
-                    TextXAlignment = Enum.TextXAlignment.Left,
-                    TextEditable = false,
-                    ClearTextOnFocus = false,
-                })
-            else
-                pathComponents["UniverseId"] = Roact.createElement("TextLabel", {
-                    Size = textDimensions,
-                    BackgroundTransparency = 1,
-                    Text = gameIDText,
-                    TextColor3 = theme.SubTextColor,
-                    TextSize = theme.FontSizeSmall,
-                    Font = theme.Font,
-                    LayoutOrder = layoutIndex:getNextOrder(),
-                    TextXAlignment = Enum.TextXAlignment.Left,
-                })
-            end
+                Text = gameIDText,
+                TextColor3 = theme.SubTextColor,
+                TextSize = theme.FontSizeSmall,
+                Font = theme.Font,
+                TextXAlignment = Enum.TextXAlignment.Left,
+                TextEditable = false,
+                ClearTextOnFocus = false,
+            })
         end
         count = count + 1
     end

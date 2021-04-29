@@ -43,7 +43,6 @@ local OnScreenChange = require(Plugin.Src.Thunks.OnScreenChange)
 local BulkImportService = game:GetService("BulkImportService")
 local StudioService = game:GetService("StudioService")
 
-local FFlagStudioAssetManagerAssetPreviewRequest = game:GetFastFlag("StudioAssetManagerAssetPreviewRequest")
 local FFlagEnableLuobuAudioImport = game:GetFastFlag("EnableLuobuAudioImport")
 local FFlagStudioCreatePluginPolicyService = game:GetFastFlag("StudioCreatePluginPolicyService")
 
@@ -261,18 +260,15 @@ function AssetGridContainer:render()
 
     local assetsTable = props.AssetsTable
     local assets = assetsTable.assets
-    local numberOfAssets = assetsTable.index
     local nextPageCursor = assetsTable.nextPageCursor
     local nextPageNumber = assetsTable.pageNumber
     local currentScreen = props.CurrentScreen
     local isFetchingAssets = props.IsFetchingAssets
     local searchTerm = props.SearchTerm
     local selectedAssets = props.SelectedAssets
-    local assetPreviewData = assetsTable.assetPreviewData
     local hasLinkedScripts = props.HasLinkedScripts
 
     local dispatchGetAssets = props.dispatchGetAssets
-    local dispatchGetAssetPreviewData = props.dispatchGetAssetPreviewData
     local dispatchLoadAllAliases = props.dispatchLoadAllAliases
 
     local view = props.View
@@ -291,24 +287,6 @@ function AssetGridContainer:render()
     end
 
     local hasAssetsToDisplay = currentScreen.Key == Screens.MAIN.Key or assetCount ~= 0
-
-    if not FFlagStudioAssetManagerAssetPreviewRequest then
-        if hasAssetsToDisplay then
-            if numberOfAssets ~= 0 then
-                local assetIds = {}
-                for assetId, asset in pairs(assets) do
-                    local isPlace = asset.assetType == Enum.AssetType.Place
-                    if not isPlace and assetPreviewData[assetId] == nil then
-                        table.insert(assetIds, assetId)
-                    end
-                end
-
-                if #assetIds ~= 0 then
-                    dispatchGetAssetPreviewData(apiImpl, assetIds)
-                end
-            end
-        end
-    end
 
     local hasMorePages = nextPageNumber ~= nil
 
@@ -430,9 +408,6 @@ local function mapDispatchToProps(dispatch)
         end,
         dispatchSetSelectedAssets = function(selectedAssets)
             dispatch(SetSelectedAssets(selectedAssets))
-        end,
-        dispatchGetAssetPreviewData = function(apiImpl, assetIds)
-            dispatch(GetAssetPreviewData(apiImpl, assetIds))
         end,
 	}
 end

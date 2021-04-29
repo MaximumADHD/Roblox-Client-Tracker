@@ -7,6 +7,8 @@ local getBoundingBoxScale = require(DraggerFramework.Utility.getBoundingBoxScale
 local PartMover = require(DraggerFramework.Utility.PartMover)
 local AttachmentMover = require(DraggerFramework.Utility.AttachmentMover)
 
+local getFFlagDraggerPerf = require(DraggerFramework.Flags.getFFlagDraggerPerf)
+
 local TransformHandlesImplementation = {}
 TransformHandlesImplementation.__index = TransformHandlesImplementation
 
@@ -33,7 +35,10 @@ function TransformHandlesImplementation:beginDrag(selection, initialSelectionInf
 	local partsToMove, attachmentsToMove, modelsToMove =
 		initialSelectionInfo:getObjectsToTransform()
 
+	self._initialSelectionInfo = initialSelectionInfo
+
 	self._lastGoodGeometricTransform = CFrame.new()
+	self._lastAppliedTransform = CFrame.new()
 	self._hasPartsToMove = #partsToMove > 0
 	local basisCFrame, offset
 	basisCFrame, offset, self._boundingBoxSize =
@@ -84,6 +89,15 @@ function TransformHandlesImplementation:endDrag()
 		self._temporaryTransparency:destroy()
 		self._temporaryTransparency = nil
 	end
+	
+	-- Return an updated SelectionInfo to prevent the DraggerFramework from
+	-- computing fresh one from scratch (it would do that by default if we
+	-- did not return anything).
+	-- The additional info we have lets us compute the new one more efficiently
+	-- by deriving it from the old one based on the operation we did.
+	if getFFlagDraggerPerf() then
+		return self._initialSelectionInfo:getTransformedCopy(self._lastAppliedTransform)
+	end
 end
 
 --[[
@@ -121,6 +135,7 @@ function TransformHandlesImplementation:_transformGeometric(globalTransform)
 	self._attachmentMover:transformTo(appliedTransform)
 
 	self._lastGoodGeometricTransform = appliedTransform
+	self._lastAppliedTransform = appliedTransform
 	return appliedTransform
 end
 
@@ -142,6 +157,7 @@ function TransformHandlesImplementation:_transformInverseKinematics(globalTransf
 
 	-- Attachments follow what the parts did
 	self._attachmentMover:transformTo(actualGlobalTransformUsed)
+	self._lastAppliedTransform = actualGlobalTransformUsed
 
 	return actualGlobalTransformUsed
 end

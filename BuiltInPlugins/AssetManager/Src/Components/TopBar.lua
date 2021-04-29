@@ -9,8 +9,8 @@
 
 local Plugin = script.Parent.Parent.Parent
 
-local FFlagStudioAssetManagerConvertToDevFrameworkTooltips = game:GetFastFlag("StudioAssetManagerConvertToDevFrameworkTooltips")
 local FFlagStudioAssetManagerShowBadgesTeachingCallout = game:GetFastFlag("StudioAssetManagerShowBadgesTeachingCallout")
+local FFlagStudioAssetManagerAddRecentlyImportedView = game:GetFastFlag("StudioAssetManagerAddRecentlyImportedView")
 
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
@@ -21,6 +21,7 @@ local UI = require(Framework.UI)
 local Button = UI.Button
 local HoverArea = UI.HoverArea
 local LinkText = UI.LinkText
+local Tooltip = UI.Tooltip
 
 local Util = require(Framework.Util)
 local StyleModifier = Util.StyleModifier
@@ -30,7 +31,6 @@ local SearchBar = UILibrary.Component.SearchBar
 local LayoutOrderIterator = UILibrary.Util.LayoutOrderIterator
 local StyledTooltip = UILibrary.Component.StyledTooltip
 local GetTextSize = UILibrary.Util.GetTextSize
-local Tooltip = FFlagStudioAssetManagerConvertToDevFrameworkTooltips and UI.Tooltip or UILibrary.Component.Tooltip
 
 local SetRecentViewToggled = require(Plugin.Src.Actions.SetRecentViewToggled)
 local SetSearchTerm = require(Plugin.Src.Actions.SetSearchTerm)
@@ -45,8 +45,8 @@ local View = require(Plugin.Src.Util.View)
 
 local BulkImportService = game:GetService("BulkImportService")
 
-local FFlagStudioAssetManagerAddRecentlyImportedView = game:GetFastFlag("StudioAssetManagerAddRecentlyImportedView")
-local TeachingCallout = FFlagStudioAssetManagerShowBadgesTeachingCallout and require(script.Parent.TeachingCallout) or nil
+local enableBadgesCallout = require(Plugin.Src.Util.AssetManagerUtilities).enableBadgesCallout
+local TeachingCallout = enableBadgesCallout() and require(script.Parent.TeachingCallout) or nil
 
 local TopBar = Roact.PureComponent:extend("TopBar")
 
@@ -337,7 +337,7 @@ function TopBar:render()
                 Enabled = true,
             }),
 
-            TeachingCallout = FFlagStudioAssetManagerShowBadgesTeachingCallout and Roact.createElement(TeachingCallout, {
+            TeachingCallout = enableBadgesCallout() and Roact.createElement(TeachingCallout, {
                 DefinitionId = "AssetManagerBadgesDevProductCallout",
                 LocationId = "GridListToggleButton",
             }),

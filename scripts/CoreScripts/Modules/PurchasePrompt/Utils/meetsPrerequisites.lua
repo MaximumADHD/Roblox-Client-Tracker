@@ -4,8 +4,6 @@ local Workspace = game:GetService("Workspace")
 
 local PurchaseError = require(Root.Enums.PurchaseError)
 
-local GetFFlagLuaPremiumCatalogIGPP = require(Root.Flags.GetFFlagLuaPremiumCatalogIGPP)
-
 local CONTENT_RATING_13_PLUS = 1
 local ROBLOX_CREATOR = 1
 local DEVELOPER_PRODUCT_TYPE = "Developer Product"
@@ -29,7 +27,7 @@ local function meetsPrerequisites(productInfo, alreadyOwned, restrictThirdParty,
 		end
 	end
 
-	if GetFFlagLuaPremiumCatalogIGPP() and productInfo.MinimumMembershipLevel == Enum.MembershipType.Premium.Value
+	if productInfo.MinimumMembershipLevel == Enum.MembershipType.Premium.Value
 			and Players.LocalPlayer.MembershipType ~= Enum.MembershipType.Premium then
 		return false, PurchaseError.PremiumOnly
 	end

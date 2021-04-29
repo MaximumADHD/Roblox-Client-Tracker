@@ -5,6 +5,13 @@ local installDirectory = game:GetService("Chat")
 local PlayersService = game:GetService("Players")
 local StarterPlayerScripts = game:GetService("StarterPlayer"):WaitForChild("StarterPlayerScripts")
 
+local RobloxGui = game:GetService("CoreGui"):WaitForChild("RobloxGui")
+local FFlagEnableForkedChatAnalytics = require(RobloxGui.Modules.Common.Flags.FFlagEnableForkedChatAnalytics)
+local SendChatAnalytics
+if FFlagEnableForkedChatAnalytics then
+	SendChatAnalytics = require(RobloxGui.Modules.Server.SendChatAnalytics)
+end
+
 local function LoadLocalScript(location, name, parent)
 	local originalModule = location:WaitForChild(name)
 	local script = Instance.new("LocalScript")
@@ -34,6 +41,8 @@ local function GetBoolValue(parent, name, defaultValue)
 end
 
 local function Install()
+	local eventTable = {}
+
 	local chatScriptArchivable = true
 	local ChatScript = installDirectory:FindFirstChild(runnerScriptName)
 	if not ChatScript then
@@ -52,6 +61,8 @@ local function Install()
 		LoadModule(script.Parent.Parent.Parent.Common, "ObjectPool", ChatMain)
 		LoadModule(script.Parent, "MessageSender", ChatMain)
 		LoadModule(script.Parent, "CurveUtil", ChatMain)
+	elseif FFlagEnableForkedChatAnalytics then
+		eventTable[runnerScriptName] = "True"
 	end
 
 	local bubbleChatScriptArchivable = true
@@ -59,6 +70,8 @@ local function Install()
 	if not BubbleChatScript then
 		bubbleChatScriptArchivable = false
 		BubbleChatScript = LoadLocalScript(script.Parent.BubbleChat, bubbleChatScriptName, installDirectory)
+	elseif FFlagEnableForkedChatAnalytics then
+		eventTable[bubbleChatScriptName] = "True"
 	end
 
 	local clientChatModules = installDirectory:FindFirstChild("ClientChatModules")
@@ -68,21 +81,29 @@ local function Install()
 		clientChatModules.Archivable = false
 
 		clientChatModules.Parent = installDirectory
+	elseif FFlagEnableForkedChatAnalytics then
+		eventTable["ClientChatModules"] = "True"
 	end
 
 	local chatSettings = clientChatModules:FindFirstChild("ChatSettings")
 	if not chatSettings then
 		LoadModule(script.Parent.DefaultClientChatModules, "ChatSettings", clientChatModules)
+	elseif FFlagEnableForkedChatAnalytics then
+		eventTable["ChatSettings"] = "True"
 	end
 
 	local chatConstants = clientChatModules:FindFirstChild("ChatConstants")
 	if not chatConstants then
 		LoadModule(script.Parent.DefaultClientChatModules, "ChatConstants", clientChatModules)
+	elseif FFlagEnableForkedChatAnalytics then
+		eventTable["ChatConstants"] = "True"
 	end
 
 	local ChatLocalization = clientChatModules:FindFirstChild("ChatLocalization")
 	if not ChatLocalization then
 		LoadModule(script.Parent.DefaultClientChatModules, "ChatLocalization", clientChatModules)
+	elseif FFlagEnableForkedChatAnalytics then
+		eventTable["ChatLocalization"] = "True"
 	end
 
 	local MessageCreatorModules = clientChatModules:FindFirstChild("MessageCreatorModules")
@@ -106,6 +127,8 @@ local function Install()
 		for i = 1, #creatorModules do
 			if not MessageCreatorModules:FindFirstChild(creatorModules[i].Name) then
 				LoadModule(script.Parent.DefaultClientChatModules.MessageCreatorModules, creatorModules[i].Name, MessageCreatorModules)
+			elseif FFlagEnableForkedChatAnalytics then
+				eventTable[creatorModules[i].Name] = "True"
 			end
 		end
 	end
@@ -131,6 +154,8 @@ local function Install()
 		for i = 1, #commandModules do
 			if not CommandModules:FindFirstChild(commandModules[i].Name) then
 				LoadModule(script.Parent.DefaultClientChatModules.CommandModules, commandModules[i].Name, CommandModules)
+			elseif FFlagEnableForkedChatAnalytics then
+				eventTable[commandModules[i].Name] = "True"
 			end
 		end
 	end
@@ -175,6 +200,10 @@ local function Install()
 	end
 
 	BubbleChatScript.Archivable = bubbleChatScriptArchivable
+
+	if FFlagEnableForkedChatAnalytics then
+		SendChatAnalytics("LoadClientDefaultChatForkedModules", eventTable)
+	end
 end
 
 return Install

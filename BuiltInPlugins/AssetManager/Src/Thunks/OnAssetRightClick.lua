@@ -20,11 +20,7 @@ local RunService = game:GetService("RunService")
 local StudioService = game:GetService("StudioService")
 
 local FFlagCleanupRightClickContextMenuFunctions = game:GetFastFlag("CleanupRightClickContextMenuFunctions")
-local FFlagAssetManagerRemoveAssetFixes = game:GetFastFlag("AssetManagerRemoveAssetFixes")
 local FFlagAssetManagerFixRightClickForAudio = game:GetFastFlag("AssetManagerFixRightClickForAudio")
-local FFlagStudioAssetManagerNewMultiselectMeshBehavior = game:getFastFlag("StudioAssetManagerNewMultiselectMeshBehavior")
-local FFlagStudioAssetManagerUseNewPackagesEndpoint = game:GetFastFlag("StudioAssetManagerUseNewPackagesEndpoint")
-local FFlagStudioAssetManagerFixMeshContextMenu = game:GetFastFlag("StudioAssetManagerFixMeshContextMenu")
 
 local EVENT_ID_OPENASSETCONFIG = "OpenAssetConfiguration"
 
@@ -55,9 +51,7 @@ end
 
 local function addRenameAliasContextItem(contextMenu, analytics, assetData, localization, onAssetPreviewClose, store)
     contextMenu:AddNewAction("RenameAlias", localization:getText("ContextMenu", "RenameAlias")).Triggered:connect(function()
-        if FFlagAssetManagerRemoveAssetFixes then
-            onAssetPreviewClose()
-        end
+        onAssetPreviewClose()
         local assetToEdit = {
             [assetData.id] = true,
         }
@@ -79,9 +73,7 @@ local function addRemoveFromGameContextItem(contextMenu, apiImpl, analytics, ass
     local selectedAssets = state.AssetManagerReducer.selectedAssets
     contextMenu:AddNewAction("RemoveFromGame", localization:getText("ContextMenu", "RemoveFromGame")).Triggered:connect(function()
         removeAssets(apiImpl, assetData, assets, selectedAssets, store)
-        if FFlagAssetManagerRemoveAssetFixes then
-            onAssetPreviewClose()
-        end
+        onAssetPreviewClose()
         analytics:report("clickContextMenuItem")
     end)
 end
@@ -139,9 +131,7 @@ local function createPlaceContextMenu(analytics, apiImpl, assetData, contextMenu
     local assets = state.AssetManagerReducer.assetsTable.assets
     local selectedAssets = state.AssetManagerReducer.selectedAssets
     contextMenu:AddNewAction("Rename", localization:getText("ContextMenu", "Rename")).Triggered:connect(function()
-        if FFlagAssetManagerRemoveAssetFixes then
-            onAssetPreviewClose()
-        end
+        onAssetPreviewClose()
         local assetToEdit = {
             [assetData.id] = true,
         }
@@ -170,18 +160,12 @@ end
 local function createPackageContextMenu(analytics, assetData, contextMenu, isAssetPreviewMenu, localization, onOpenAssetPreview, store)
     local state = store:getState()
     local view = state.AssetManagerReducer.view
-    local userHasPermission
-    local userCanUpdate
-    if FFlagStudioAssetManagerUseNewPackagesEndpoint then
-        userHasPermission = assetData.action == "Edit" or assetData.action == "Own"
-        userCanUpdate = assetData.upToVersion > 1
-    end
+    local userHasPermission = assetData.action == "Edit" or assetData.action == "Own"
+    local userCanUpdate = assetData.upToVersion > 1
     if view.Key == View.LIST.Key and not isAssetPreviewMenu then
         contextMenu:AddNewAction("AssetPreview", localization:getText("ContextMenu", "AssetPreview")).Triggered:connect(function()
-            if FFlagAssetManagerRemoveAssetFixes then
-                -- when opening asset preview, set selected assets to that asset only
-                store:dispatch(SetSelectedAssets({ [assetData.key] = true }))
-            end
+            -- when opening asset preview, set selected assets to that asset only
+            store:dispatch(SetSelectedAssets({ [assetData.key] = true }))
             onOpenAssetPreview(assetData)
         end)
     end
@@ -196,20 +180,11 @@ local function createPackageContextMenu(analytics, assetData, contextMenu, isAss
             end
         end)
     end
-    if FFlagStudioAssetManagerUseNewPackagesEndpoint then
-        if RunService:IsEdit() and userCanUpdate then
-            contextMenu:AddNewAction("UpdateAll", localization:getText("ContextMenu", "UpdateAll")).Triggered:connect(function()
-                AssetManagerService:UpdateAllPackages(assetData.id)
-                analytics:report("clickContextMenuItem")
-            end)
-        end
-    else
-        if RunService:IsEdit() then
-            contextMenu:AddNewAction("UpdateAll", localization:getText("ContextMenu", "UpdateAll")).Triggered:connect(function()
-                AssetManagerService:UpdateAllPackages(assetData.id)
-                analytics:report("clickContextMenuItem")
-            end)
-        end
+    if RunService:IsEdit() and userCanUpdate then
+        contextMenu:AddNewAction("UpdateAll", localization:getText("ContextMenu", "UpdateAll")).Triggered:connect(function()
+            AssetManagerService:UpdateAllPackages(assetData.id)
+            analytics:report("clickContextMenuItem")
+        end)
     end
     contextMenu:AddNewAction("ViewOnWebsite", localization:getText("ContextMenu", "ViewOnWebsite")).Triggered:connect(function()
         AssetManagerService:ViewPackageOnWebsite(assetData.id)
@@ -219,20 +194,11 @@ local function createPackageContextMenu(analytics, assetData, contextMenu, isAss
         StudioService:CopyToClipboard(assetData.id)
         analytics:report("clickContextMenuItem")
     end)
-    if FFlagStudioAssetManagerUseNewPackagesEndpoint then
-        if RunService:IsEdit() and userHasPermission then
-            contextMenu:AddNewAction("PackageDetails", localization:getText("ContextMenu", "PackageDetails")).Triggered:connect(function()
-                AssetManagerService:ShowPackageDetails(assetData.id)
-                analytics:report("clickContextMenuItem")
-            end)
-        end
-    else
-        if RunService:IsEdit() then
-            contextMenu:AddNewAction("PackageDetails", localization:getText("ContextMenu", "PackageDetails")).Triggered:connect(function()
-                AssetManagerService:ShowPackageDetails(assetData.id)
-                analytics:report("clickContextMenuItem")
-            end)
-        end
+    if RunService:IsEdit() and userHasPermission then
+        contextMenu:AddNewAction("PackageDetails", localization:getText("ContextMenu", "PackageDetails")).Triggered:connect(function()
+            AssetManagerService:ShowPackageDetails(assetData.id)
+            analytics:report("clickContextMenuItem")
+        end)
     end
 
     contextMenu:ShowAsync()
@@ -246,10 +212,8 @@ local function createImageContextMenu(analytics, apiImpl, assetData, contextMenu
     local view = state.AssetManagerReducer.view
     if view.Key == View.LIST.Key and not isAssetPreviewMenu then
         contextMenu:AddNewAction("AssetPreview", localization:getText("ContextMenu", "AssetPreview")).Triggered:connect(function()
-            if FFlagAssetManagerRemoveAssetFixes then
-                -- when opening asset preview, set selected assets to that asset only
-                store:dispatch(SetSelectedAssets({ [assetData.key] = true }))
-            end
+            -- when opening asset preview, set selected assets to that asset only
+            store:dispatch(SetSelectedAssets({ [assetData.key] = true }))
             onOpenAssetPreview(assetData)
         end)
     end
@@ -265,9 +229,7 @@ local function createImageContextMenu(analytics, apiImpl, assetData, contextMenu
             end)
         end
         contextMenu:AddNewAction("RenameAlias", localization:getText("ContextMenu", "RenameAlias")).Triggered:connect(function()
-            if FFlagAssetManagerRemoveAssetFixes then
-                onAssetPreviewClose()
-            end
+            onAssetPreviewClose()
             local assetToEdit = {
                 [assetData.id] = true,
             }
@@ -289,9 +251,7 @@ local function createImageContextMenu(analytics, apiImpl, assetData, contextMenu
     end)
     contextMenu:AddNewAction("RemoveFromGame", localization:getText("ContextMenu", "RemoveFromGame")).Triggered:connect(function()
         removeAssets(apiImpl, assetData, assets, selectedAssets, store)
-        if FFlagAssetManagerRemoveAssetFixes then
-            onAssetPreviewClose()
-        end
+        onAssetPreviewClose()
         analytics:report("clickContextMenuItem")
     end)
 
@@ -336,26 +296,12 @@ local function createMeshPartContextMenu(analytics, apiImpl, assetData, contextM
     end
     local textureId = AssetManagerService:GetTextureId("Meshes/".. assetData.name)
     local view = state.AssetManagerReducer.view
-    if FFlagStudioAssetManagerFixMeshContextMenu then
-        if view.Key == View.LIST.Key and not isAssetPreviewMenu then
-            contextMenu:AddNewAction("AssetPreview", localization:getText("ContextMenu", "AssetPreview")).Triggered:connect(function()
-                if FFlagAssetManagerRemoveAssetFixes then
-                    -- when opening asset preview, set selected assets to that asset only
-                    store:dispatch(SetSelectedAssets({ [assetData.key] = true }))
-                end
-                onOpenAssetPreview(assetData)
-            end)
-        end
-    else
-        if view.Key == View.LIST.Key then
-            contextMenu:AddNewAction("AssetPreview", localization:getText("ContextMenu", "AssetPreview")).Triggered:connect(function()
-                if FFlagAssetManagerRemoveAssetFixes then
-                    -- when opening asset preview, set selected assets to that asset only
-                    store:dispatch(SetSelectedAssets({ [assetData.key] = true }))
-                end
-                onOpenAssetPreview(assetData)
-            end)
-        end
+    if view.Key == View.LIST.Key and not isAssetPreviewMenu then
+        contextMenu:AddNewAction("AssetPreview", localization:getText("ContextMenu", "AssetPreview")).Triggered:connect(function()
+            -- when opening asset preview, set selected assets to that asset only
+            store:dispatch(SetSelectedAssets({ [assetData.key] = true }))
+            onOpenAssetPreview(assetData)
+        end)
     end
     if FFlagCleanupRightClickContextMenuFunctions then
         addEditAssetContextItem(contextMenu, analytics, assetData, localization, Enum.AssetType.MeshPart.Value)
@@ -369,9 +315,7 @@ local function createMeshPartContextMenu(analytics, apiImpl, assetData, contextM
             end)
         end
         contextMenu:AddNewAction("RenameAlias", localization:getText("ContextMenu", "RenameAlias")).Triggered:connect(function()
-            if FFlagAssetManagerRemoveAssetFixes then
-                onAssetPreviewClose()
-            end
+            onAssetPreviewClose()
             local assetToEdit = {
                 [assetData.id] = true,
             }
@@ -390,26 +334,17 @@ local function createMeshPartContextMenu(analytics, apiImpl, assetData, contextM
         end)
     end
     contextMenu:AddNewAction("InsertWithLocation", localization:getText("ContextMenu", "InsertWithLocation")).Triggered:connect(function()
-        if FFlagStudioAssetManagerNewMultiselectMeshBehavior then
-            if count == 1 then
-                AssetManagerService:InsertMesh("Meshes/".. assetData.name, false)
-            else
-                local selectedMeshes = {}
-                for _, asset in pairs(assets) do
-                    local layoutOrder = asset.layoutOrder
-                    if selectedAssets[layoutOrder] then
-                        table.insert(selectedMeshes, "Meshes/".. asset.name)
-                    end
-                end
-                AssetManagerService:InsertMeshesWithLocation(selectedMeshes)
-            end
+        if count == 1 then
+            AssetManagerService:InsertMesh("Meshes/".. assetData.name, false)
         else
+            local selectedMeshes = {}
             for _, asset in pairs(assets) do
                 local layoutOrder = asset.layoutOrder
                 if selectedAssets[layoutOrder] then
-                    AssetManagerService:InsertMesh("Meshes/".. asset.name, true)
+                    table.insert(selectedMeshes, "Meshes/".. asset.name)
                 end
             end
+            AssetManagerService:InsertMeshesWithLocation(selectedMeshes)
         end
         analytics:report("clickContextMenuItem")
         local searchTerm = state.AssetManagerReducer.searchTerm
@@ -432,9 +367,7 @@ local function createMeshPartContextMenu(analytics, apiImpl, assetData, contextM
     else
         contextMenu:AddNewAction("RemoveFromGame", localization:getText("ContextMenu", "RemoveFromGame")).Triggered:connect(function()
             removeAssets(apiImpl, assetData, assets, selectedAssets, store)
-            if FFlagAssetManagerRemoveAssetFixes then
-                onAssetPreviewClose()
-            end
+            onAssetPreviewClose()
             analytics:report("clickContextMenuItem")
         end)
     end
@@ -451,17 +384,13 @@ local function createLinkedScriptContextMenu(analytics, apiImpl, assetData, cont
     local view = state.AssetManagerReducer.view
     if view.Key == View.LIST.Key and not isAssetPreviewMenu then
         contextMenu:AddNewAction("AssetPreview", localization:getText("ContextMenu", "AssetPreview")).Triggered:connect(function()
-            if FFlagAssetManagerRemoveAssetFixes then
-                -- when opening asset preview, set selected assets to that asset only
-                store:dispatch(SetSelectedAssets({ [assetData.key] = true }))
-            end
+            -- when opening asset preview, set selected assets to that asset only
+            store:dispatch(SetSelectedAssets({ [assetData.key] = true }))
             onOpenAssetPreview(assetData)
         end)
     end
     contextMenu:AddNewAction("RenameAlias", localization:getText("ContextMenu", "RenameAlias")).Triggered:connect(function()
-        if FFlagAssetManagerRemoveAssetFixes then
-            onAssetPreviewClose()
-        end
+        onAssetPreviewClose()
         local assetToEdit = {
             [assetData.id] = true,
         }
@@ -510,9 +439,7 @@ local function createLinkedScriptContextMenu(analytics, apiImpl, assetData, cont
     end)
     contextMenu:AddNewAction("RemoveFromGame", localization:getText("ContextMenu", "RemoveFromGame")).Triggered:connect(function()
         removeAssets(apiImpl, assetData, assets, selectedAssets, store)
-        if FFlagAssetManagerRemoveAssetFixes then
-            onAssetPreviewClose()
-        end
+        onAssetPreviewClose()
         analytics:report("clickContextMenuItem")
     end)
 

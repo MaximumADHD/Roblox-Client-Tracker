@@ -8,6 +8,7 @@ local FFlagUIBloxSlidersFilterOldTouchInputs = require(CorePackages.UIBloxFlags.
 local FFlagUIBloxEmptyStateControllerSupport = require(CorePackages.UIBloxFlags.FFlagUIBloxEmptyStateControllerSupport)
 local GetFFlagUIBloxUseHeaderBarV2 = require(CorePackages.UIBloxFlags.GetFFlagUIBloxUseHeaderBarV2)
 local FFlagUIBloxUseTileThumbnailV2 = require(CorePackages.UIBloxFlags.FFlagUIBloxUseTileThumbnailV2)
+local FFlagUseUpdatedUIBloxCheckbox = require(CorePackages.UIBloxFlags.FFlagUseUpdatedUIBloxCheckbox)
 
 return {
 	useNewUICornerRoundedCorners = GetFFlagLuaAppUseNewUIBloxRoundedCorners(),
@@ -21,4 +22,5 @@ return {
 	useAnimatedXboxCursors = game:DefineFastFlag("GamepadAnimatedCursor", false),
 	enableAlertCustomTitleFooterConfig = game:DefineFastFlag("UIBloxEnableAlertCustomTitleFooterConfig", false),
 	hideHorizontalCarouselScrollButtonFix = GetFFlagUIBloxHideHorizontalCarouselScrollButtonFix(),
+	useUpdatedCheckbox = FFlagUseUpdatedUIBloxCheckbox,
 }

@@ -12,9 +12,6 @@ local connectToStore = require(Root.connectToStore)
 local TextLocalizer = require(script.Parent.Parent.Connection.TextLocalizer)
 local withLayoutValues = require(script.Parent.Parent.Connection.withLayoutValues)
 
-local GetFFlagPurchasePromptScaryModalV2 = require(Root.Flags.GetFFlagPurchasePromptScaryModalV2)
-local GetFFlagFixAcceptingCanceledPurchased = require(Root.Flags.GetFFlagFixAcceptingCanceledPurchased)
-
 local Button = Roact.PureComponent:extend("Button")
 
 function Button:init()
@@ -39,19 +36,15 @@ function Button:init()
 	end
 
 	self.activated = function()
-		if GetFFlagFixAcceptingCanceledPurchased() and self.props.windowState == WindowState.Hidden then
+		if self.props.windowState == WindowState.Hidden then
 			return
 		end
 
-		if GetFFlagPurchasePromptScaryModalV2() and self.props.buttonState ~= ButtonState.Enabled then
+		if self.props.buttonState ~= ButtonState.Enabled then
 			return
 		end
 
-		if GetFFlagPurchasePromptScaryModalV2() then
-			self.props.onClick()
-		else
-			onClick()
-		end
+		self.props.onClick()
 		self:setState({
 			currentImage = imageUp
 		})
@@ -75,11 +68,7 @@ function Button:didMount()
 				it's being canceled)
 			]]
 			if inputState == Enum.UserInputState.Begin then
-				if GetFFlagFixAcceptingCanceledPurchased() then
-					self.activated()
-				else
-					self.props.onClick()
-				end
+				self.activated()
 			end
 		end,
 		false,
@@ -108,7 +97,7 @@ function Button:render()
 
 		local imageData = values.Image[self.state.currentImage]
 
-		if GetFFlagPurchasePromptScaryModalV2() and buttonState ~= ButtonState.Enabled then
+		if buttonState ~= ButtonState.Enabled then
 			imageData = values.Image[self.props.imageDown]
 		end
 

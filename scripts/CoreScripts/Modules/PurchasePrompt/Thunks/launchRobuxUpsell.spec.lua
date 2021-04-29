@@ -17,10 +17,7 @@ return function()
 	local MockExternalSettings = require(Root.Test.MockExternalSettings)
 	local MockNetwork = require(Root.Test.MockNetwork)
 	local MockPlatformInterface = require(Root.Test.MockPlatformInterface)
-	local Constants = require(Root.Misc.Constants)
 	local Thunk = require(Root.Thunk)
-
-	local GetFFlagProductPurchaseAnalytics = require(Root.Flags.GetFFlagProductPurchaseAnalytics)
 
 	local launchRobuxUpsell = require(script.Parent.launchRobuxUpsell)
 
@@ -51,12 +48,8 @@ return function()
 
 		local state = store:getState()
 
-		if GetFFlagProductPurchaseAnalytics() then
-			expect(analytics.spies.signalProductPurchaseUpsellConfirmed.callCount).to.equal(1)
-			expect(analytics.spies.reportRobuxUpsellStarted.callCount).to.equal(0)
-		else
-			expect(analytics.spies.reportRobuxUpsellStarted.callCount).to.equal(1)
-		end
+		expect(analytics.spies.signalProductPurchaseUpsellConfirmed.callCount).to.equal(1)
+		expect(analytics.spies.reportRobuxUpsellStarted.callCount).to.equal(0)
 		expect(platformInterface.spies.startRobuxUpsellWeb.callCount).to.equal(1)
 		expect(state.promptState).to.equal(PromptState.UpsellInProgress)
 	end
@@ -84,12 +77,8 @@ return function()
 
 		local state = store:getState()
 
-		if GetFFlagProductPurchaseAnalytics() then
-			expect(analytics.spies.signalProductPurchaseUpsellConfirmed.callCount).to.equal(1)
-			expect(analytics.spies.reportNativeUpsellStarted.callCount).to.equal(0)
-		else
-			expect(analytics.spies.reportNativeUpsellStarted.callCount).to.equal(1)
-		end
+		expect(analytics.spies.signalProductPurchaseUpsellConfirmed.callCount).to.equal(1)
+		expect(analytics.spies.reportNativeUpsellStarted.callCount).to.equal(0)
 		expect(platformInterface.spies.promptNativePurchase.callCount).to.equal(1)
 		expect(state.promptState).to.equal(PromptState.UpsellInProgress)
 	end
@@ -121,12 +110,8 @@ return function()
 
 		local state = store:getState()
 
-		if GetFFlagProductPurchaseAnalytics() then
-			expect(analytics.spies.signalProductPurchaseUpsellConfirmed.callCount).to.equal(1)
-			expect(analytics.spies.reportNativeUpsellStarted.callCount).to.equal(0)
-		else
-			expect(analytics.spies.reportNativeUpsellStarted.callCount).to.equal(1)
-		end
+		expect(analytics.spies.signalProductPurchaseUpsellConfirmed.callCount).to.equal(1)
+		expect(analytics.spies.reportNativeUpsellStarted.callCount).to.equal(0)
 		-- Not working yet, TODO: get working :P
 		--expect(platformInterface.spies.beginPlatformStorePurchase.callCount).to.equal(1)
 		expect(state.promptState).to.equal(PromptState.UpsellInProgress)

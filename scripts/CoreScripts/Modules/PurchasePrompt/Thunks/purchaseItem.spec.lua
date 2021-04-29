@@ -13,7 +13,6 @@ return function()
 	local MockAnalytics = require(Root.Test.MockAnalytics)
 	local Thunk = require(Root.Thunk)
 
-	local GetFFlagProductPurchaseAnalytics = require(Root.Flags.GetFFlagProductPurchaseAnalytics)
 
 	local purchaseItem = require(script.Parent.purchaseItem)
 
@@ -31,9 +30,7 @@ return function()
 
 		local state = store:getState()
 
-		if GetFFlagProductPurchaseAnalytics() then
-			expect(analytics.spies.signalProductPurchaseConfirmed.callCount).to.equal(1)
-		end
+		expect(analytics.spies.signalProductPurchaseConfirmed.callCount).to.equal(1)
 		expect(analytics.spies.signalPurchaseSuccess.callCount).to.equal(1)
 		expect(state.promptState).to.equal(PromptState.PurchaseInProgress)
 	end)

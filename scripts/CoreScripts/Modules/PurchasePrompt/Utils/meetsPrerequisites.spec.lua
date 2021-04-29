@@ -4,7 +4,6 @@ return function()
 
 	local PurchaseError = require(Root.Enums.PurchaseError)
 
-	local GetFFlagLuaPremiumCatalogIGPP = require(Root.Flags.GetFFlagLuaPremiumCatalogIGPP)
 	local MockExternalSettings = require(Root.Test.MockExternalSettings)
 
 	local meetsPrerequisites = require(script.Parent.meetsPrerequisites)
@@ -126,15 +125,13 @@ return function()
 		expect(errorReason).to.equal(PurchaseError.ThirdPartyDisabled)
 	end)
 
-	if GetFFlagLuaPremiumCatalogIGPP() then
-		it("should return false if premium purchase", function()
-			local productInfo = getValidProductInfo()
-			productInfo.MinimumMembershipLevel = 4
+	it("should return false if premium purchase", function()
+		local productInfo = getValidProductInfo()
+		productInfo.MinimumMembershipLevel = 4
 
-			local met, errorReason = meetsPrerequisites(productInfo, false, true, defaultExternalSettings)
+		local met, errorReason = meetsPrerequisites(productInfo, false, true, defaultExternalSettings)
 
-			expect(met).to.equal(false)
-			expect(errorReason).to.equal(PurchaseError.PremiumOnly)
-		end)
-	end
+		expect(met).to.equal(false)
+		expect(errorReason).to.equal(PurchaseError.PremiumOnly)
+	end)
 end

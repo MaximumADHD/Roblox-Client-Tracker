@@ -10,6 +10,7 @@ local PartMover = require(DraggerFramework.Utility.PartMover)
 local AttachmentMover = require(DraggerFramework.Utility.AttachmentMover)
 
 local getFFlagEnablePhysicalFreeFormDragger = require(DraggerFramework.Flags.getFFlagEnablePhysicalFreeFormDragger)
+local getFFlagDraggerPerf = require(DraggerFramework.Flags.getFFlagDraggerPerf)
 local getFFlagPivotAnalytics = require(DraggerFramework.Flags.getFFlagPivotAnalytics)
 
 local FreeformDragger = {}
@@ -25,6 +26,7 @@ function FreeformDragger.new(draggerContext, draggerToolModel, dragInfo)
 		_partMover = PartMover.new(),
 		_attachmentMover = AttachmentMover.new(),
 		_tiltRotate = CFrame.new(),
+		_lastAppliedTransform = CFrame.new(),
 	}, FreeformDragger)
 	self:_init()
 	local timeToStartDrag = tick() - t
@@ -135,6 +137,7 @@ function FreeformDragger:_updateGeometric()
 		local globalTransform = newCFrame * originalCFrame:Inverse()
 		self._partMover:transformTo(globalTransform)
 		self._attachmentMover:transformTo(globalTransform)
+		self._lastAppliedTransform = globalTransform
 		if self._draggerToolModel._draggerContext:shouldJoinSurfaces() then
 			self._jointPairs = self._partMover:computeJointPairs(globalTransform)
 		end
@@ -166,6 +169,7 @@ function FreeformDragger:_updatePhysical()
 		local actualGlobalTransformUsed =
 			self._partMover:moveToWithIk(dragTarget.mainCFrame, collisionsMode)
 		self._attachmentMover:transformTo(actualGlobalTransformUsed)
+		self._lastAppliedTransform = actualGlobalTransformUsed
 	end
 end
 
@@ -210,6 +214,7 @@ function FreeformDragger:update()
 			local globalTransform = newCFrame * originalCFrame:Inverse()
 			self._partMover:transformTo(globalTransform)
 			self._attachmentMover:transformTo(globalTransform)
+			self._lastAppliedTransform = globalTransform
 			if self._draggerToolModel._draggerContext:shouldJoinSurfaces() then
 				self._jointPairs = self._partMover:computeJointPairs(globalTransform)
 			end
@@ -248,6 +253,15 @@ function FreeformDragger:destroy()
 	self._attachmentMover:commit()
 
 	self:_analyticsSendFreeformDragged()
+
+	-- Return an updated SelectionInfo to prevent the DraggerFramework from
+	-- computing fresh one from scratch (it would do that by default if we
+	-- did not return anything).
+	-- The additional info we have lets us compute the new one more efficiently
+	-- by deriving it from the old one based on the operation we did.
+	if getFFlagDraggerPerf() then
+		return self._draggerToolModel._selectionInfo:getTransformedCopy(self._lastAppliedTransform)
+	end
 end
 
 function FreeformDragger:_analyticsRecordFreeformDragBegin(timeToStartDrag)

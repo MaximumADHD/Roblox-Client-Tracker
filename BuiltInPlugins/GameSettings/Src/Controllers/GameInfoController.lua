@@ -8,8 +8,6 @@ local Symbol = Util.Symbol
 
 local StudioService = game:GetService("StudioService")
 
-local FFlagStudioAssetManagerUpdateGameName = game:GetFastFlag("StudioAssetManagerUpdateGameName")
-
 local GameInfoController = {}
 GameInfoController.__index = GameInfoController
 
@@ -105,9 +103,7 @@ function GameInfoController:setName(gameId, name)
 	if returnError then
 		error(returnError)
 	else
-		if FFlagStudioAssetManagerUpdateGameName then
-			StudioService:SetUniverseDisplayName(name)
-		end
+		StudioService:SetUniverseDisplayName(name)
 	end
 end
 

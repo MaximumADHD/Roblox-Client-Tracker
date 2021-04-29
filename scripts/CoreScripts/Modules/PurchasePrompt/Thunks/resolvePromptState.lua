@@ -20,7 +20,6 @@ local Thunk = require(Root.Thunk)
 
 local GetFFlagProductPurchaseUpsell = require(Root.Flags.GetFFlagProductPurchaseUpsell)
 local GetFFlagProductPurchaseUpsellABTest = require(Root.Flags.GetFFlagProductPurchaseUpsellABTest)
-local GetFFlagProductPurchaseAnalytics = require(Root.Flags.GetFFlagProductPurchaseAnalytics)
 
 local requiredServices = {
 	Analytics,
@@ -73,9 +72,7 @@ local function resolvePromptState(productInfo, accountInfo, alreadyOwned, isRobl
 
 				return selectRobuxProduct(platform, neededRobux, hasMembership)
 					:andThen(function(product)
-						if GetFFlagProductPurchaseAnalytics() then
-							analytics.signalProductPurchaseUpsellShown(productInfo.productId, state.requestType, product.productId)
-						end
+						analytics.signalProductPurchaseUpsellShown(productInfo.productId, state.requestType, product.productId)
 						store:dispatch(PromptNativeUpsell(product.productId, product.robuxValue))
 					end, function()
 						-- No upsell item will provide sufficient funds to make this purchase
@@ -88,9 +85,7 @@ local function resolvePromptState(productInfo, accountInfo, alreadyOwned, isRobl
 			end
 		end
 
-		if GetFFlagProductPurchaseAnalytics() then
-			analytics.signalProductPurchaseShown(productInfo.productId, state.requestType)
-		end
+		analytics.signalProductPurchaseShown(productInfo.productId, state.requestType)
 
 		return store:dispatch(SetPromptState(PromptState.PromptPurchase))
 	end)

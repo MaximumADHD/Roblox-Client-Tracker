@@ -40,6 +40,7 @@ local VRService = game:GetService("VRService")
 
 local success, result = pcall(function() return settings():GetFFlag('UseNotificationsLocalization') end)
 local FFlagUseNotificationsLocalization = success and result
+local FFlagFixUsernamesAutoLocalizeIssue = require(RobloxGui.Modules.Flags.FFlagFixUsernamesAutoLocalizeIssue)
 
 ------------------ VARIABLES --------------------
 local tenFootInterfaceEnabled = require(RobloxGui.Modules:WaitForChild("TenFootInterface")):IsEnabled()
@@ -737,6 +738,11 @@ local function CreateDropDown(dropDownStringTable, startPosition, settingsHub)
 		dropDownButtonEnabled.Value = value and not active
 	end
 
+	if FFlagFixUsernamesAutoLocalizeIssue then
+		function this:SetAutoLocalize(autoLocalize)
+			DropDownFullscreenFrame.AutoLocalize = autoLocalize
+		end
+	end
 
 	function this:UpdateDropDownList(dropDownStringTable)
 		lastStringTable = dropDownStringTable
@@ -2195,6 +2201,16 @@ local function AddNewRow(pageToAddTo, rowDisplayName, selectionType, rowValues, 
 	end
 
 	ValueChangerInstance.Name = rowDisplayName .. "ValueChanger"
+
+	if FFlagFixUsernamesAutoLocalizeIssue then
+		local SetAutoLocalizeBase = ValueChangerInstance.SetAutoLocalize
+		ValueChangerInstance.SetAutoLocalize = function(self, autoLocalize)
+			RowFrame.AutoLocalize = autoLocalize
+			if SetAutoLocalizeBase then
+				SetAutoLocalizeBase(self, autoLocalize)
+			end
+		end
+	end
 
 	nextRowPositionY = nextRowPositionY + ROW_HEIGHT
 	if extraSpacing then

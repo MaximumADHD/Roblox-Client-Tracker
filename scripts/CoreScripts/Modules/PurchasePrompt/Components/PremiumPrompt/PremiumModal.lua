@@ -16,8 +16,6 @@ local launchPremiumUpsell = require(Root.Thunks.launchPremiumUpsell)
 local hideWindow = require(Root.Thunks.hideWindow)
 local connectToStore = require(Root.connectToStore)
 
-local GetFFlagPremiumUpsellDisclosurePurchasePrompt = require(Root.Flags.GetFFlagPremiumUpsellDisclosurePurchasePrompt)
-
 local MultiTextLocalizer = require(script.Parent.Parent.Connection.MultiTextLocalizer)
 
 local AutoSizedText = require(script.Parent.AutoSizedText)
@@ -128,9 +126,7 @@ function PremiumModal:render()
 							props = {
 								isDisabled = promptState ~= PromptState.PremiumUpsell,
 								onActivated = self.purchasePremium,
-								text = GetFFlagPremiumUpsellDisclosurePurchasePrompt()
-									and locTextMap.buttonText
-									or locTextMap.monthlyLocalizedText,
+								text = locTextMap.buttonText
 							},
 						},
 					},
@@ -151,8 +147,7 @@ function PremiumModal:render()
 						self.updateContentSizes()
 					end
 				}, {
-					Icon = (not GetFFlagPremiumUpsellDisclosurePurchasePrompt() or not self.isCondensed)
-							and Roact.createElement("ImageLabel", Cryo.Dictionary.join(Images[PREMIUM_ICON], {
+					Icon = not self.isCondensed and Roact.createElement("ImageLabel", Cryo.Dictionary.join(Images[PREMIUM_ICON], {
 						AnchorPoint = Vector2.new(0.5, 0.5),
 						Size = self.contentSizes:map(function(values)
 							return values.iconSize
@@ -190,7 +185,7 @@ function PremiumModal:render()
 							layoutOrder = 3,
 						})
 					}),
-					Disclosure = GetFFlagPremiumUpsellDisclosurePurchasePrompt() and Roact.createElement(AutoSizedText, {
+					Disclosure = Roact.createElement(AutoSizedText, {
 						layoutOrder = 4,
 						text = locTextMap.disclosure,
 						width = self.contentSize.X,

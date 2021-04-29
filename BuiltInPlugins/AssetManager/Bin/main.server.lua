@@ -10,8 +10,6 @@ local OverrideLocaleId = settings():GetFVariable("StudioForceLocale")
 local FFlagAssetManagerLuaPlugin = settings():GetFFlag("AssetManagerLuaPlugin")
 local FFlagStudioAssetManagerAddRecentlyImportedView = game:GetFastFlag("StudioAssetManagerAddRecentlyImportedView")
 local FFlagStudioShowHideABTestV2 = game:GetFastFlag("StudioShowHideABTestV2")
-local FFlagStudioAssetManagerUpdateGameName = game:GetFastFlag("StudioAssetManagerUpdateGameName")
-local FFlagStudioAssetManagerShowBadgesTeachingCallout = game:GetFastFlag("StudioAssetManagerShowBadgesTeachingCallout")
 
 if not FFlagAssetManagerLuaPlugin then
 	return
@@ -49,7 +47,10 @@ local TranslationDevelopmentTable = Plugin.Src.Resources.TranslationDevelopmentT
 local TranslationReferenceTable = Plugin.Src.Resources.TranslationReferenceTable
 
 local MainView = require(Plugin.Src.Components.MainView)
-local enableAudioImport = require(Plugin.Src.Util.AssetManagerUtilities).enableAudioImport
+
+local AssetManagerUtilities = require(Plugin.Src.Util.AssetManagerUtilities)
+local enableAudioImport = AssetManagerUtilities.enableAudioImport
+local enableBadgesCallout = AssetManagerUtilities.enableBadgesCallout
 
 local SetBulkImporterRunning = require(Plugin.Src.Actions.SetBulkImporterRunning)
 local SetRecentAssets = require(Plugin.Src.Actions.SetRecentAssets)
@@ -74,7 +75,7 @@ local localization = ContextServices.Localization.new({
 })
 
 local calloutController
-if FFlagStudioAssetManagerShowBadgesTeachingCallout then
+if enableBadgesCallout() then
 	local CalloutController = require(Plugin.Src.Util.CalloutController)
 	calloutController = CalloutController.new()
 
@@ -225,11 +226,9 @@ local function main()
 	plugin.Unloading:Connect(onPluginUnloading)
 	connectBulkImporterSignals()
 
-	if FFlagStudioAssetManagerUpdateGameName then
-		StudioService.GameNameUpdated:connect(function(name)
-			store:dispatch(SetUniverseName(name))
-		end)
-	end
+	StudioService.GameNameUpdated:connect(function(name)
+		store:dispatch(SetUniverseName(name))
+	end)
 end
 
 main()

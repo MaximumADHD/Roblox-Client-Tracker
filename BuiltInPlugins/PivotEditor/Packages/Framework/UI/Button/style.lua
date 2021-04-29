@@ -48,6 +48,13 @@ if THEME_REFACTOR then
 			},
 		},
 
+		["&RoundSubtle"] = {
+			Background = Decoration.RoundBox,
+			BackgroundStyle = {
+				Color = Decoration.SubBackground,
+			},
+		},
+
 		["&Round"] = {
 			Background = Decoration.RoundBox,
 		},

@@ -21,7 +21,6 @@ local MainView = require(Plugin.Src.Components.MainView)
 local HoverPreviewEnabler = require(Plugin.Src.Components.HoverPreviewEnabler)
 
 local getEngineFeatureActiveInstanceHighlight = require(Plugin.Src.Flags.getEngineFeatureActiveInstanceHighlight)
-local getFFlagAlignShowPreview = require(Plugin.Src.Flags.getFFlagAlignShowPreview)
 
 local INITIAL_WINDOW_SIZE = Vector2.new(300, 250)
 local MINIMUM_WINDOW_SIZE = Vector2.new(175, 250)
@@ -88,16 +87,12 @@ function AlignmentToolPlugin:init()
 end
 
 function AlignmentToolPlugin:_renderDockWidgetContents(enabled)
-	if getFFlagAlignShowPreview() then
-		if enabled then
-			return Roact.createElement(HoverPreviewEnabler, {}, {
-				MainView = Roact.createElement(MainView),
-			})
-		else
-			return nil
-		end
+	if enabled then
+		return Roact.createElement(HoverPreviewEnabler, {}, {
+			MainView = Roact.createElement(MainView),
+		})
 	else
-		return enabled and Roact.createElement(MainView)
+		return nil
 	end
 end
 

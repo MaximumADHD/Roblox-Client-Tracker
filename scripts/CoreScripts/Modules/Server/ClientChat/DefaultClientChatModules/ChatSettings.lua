@@ -8,6 +8,13 @@ local ChatService = game:GetService("Chat")
 local clientChatModules = script.Parent
 local ChatConstants = require(clientChatModules:WaitForChild("ChatConstants"))
 
+local ChatDisplayNamesEnabledByDefault do
+	local success, value = pcall(function()
+		return UserSettings():IsUserFeatureEnabled("UserChatDisplayNamesEnabledByDefault")
+	end)
+	ChatDisplayNamesEnabledByDefault = success and value
+end
+
 local module = {}
 
 ---[[ Chat Behaviour Settings ]]
@@ -95,9 +102,9 @@ module.WhisperCommandAutoCompletePlayerNames = true
 
 --[[ Display Names ]]
 --Uses DisplayNames instead of UserNames in chat messages
-module.PlayerDisplayNamesEnabled = false
+module.PlayerDisplayNamesEnabled = ChatDisplayNamesEnabledByDefault
 --Allows users to do /w displayName along with /w userName, only works if PlayerDisplayNamesEnabled is 'true'
-module.WhisperByDisplayName = false
+module.WhisperByDisplayName = ChatDisplayNamesEnabledByDefault
 
 local ChangedEvent = Instance.new("BindableEvent")
 

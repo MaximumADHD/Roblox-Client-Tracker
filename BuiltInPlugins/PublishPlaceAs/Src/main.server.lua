@@ -4,7 +4,6 @@ end
 
 -- Fast flags
 require(script.Parent.Parent.TestRunner.defineLuaFlags)
-local FFlagStudioLuaPublishFlowLocalizeUntitledGameText = game:DefineFastFlag("StudioLuaPublishFlowLocalizeUntitledGameText", false)
 local FFlagStudioAllowRemoteSaveBeforePublish = game:GetFastFlag("StudioAllowRemoteSaveBeforePublish")
 
 -- libraries
@@ -92,11 +91,7 @@ local function openPluginWindow(showGameSelect, isPublish, closeAfterSave)
 		})
 	})
 
-    if FFlagStudioLuaPublishFlowLocalizeUntitledGameText then
-        dataStore:dispatch(ResetInfo(localization:getText("General", "UntitledGame"), showGameSelect))
-    else
-        dataStore:dispatch(ResetInfo("", showGameSelect))
-    end
+    dataStore:dispatch(ResetInfo(localization:getText("General", "UntitledGame"), showGameSelect))
 
 	pluginHandle = Roact.mount(servicesProvider, pluginGui)
 	pluginGui.Enabled = true

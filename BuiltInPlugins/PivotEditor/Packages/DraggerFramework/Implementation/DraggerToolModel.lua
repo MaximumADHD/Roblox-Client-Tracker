@@ -12,6 +12,7 @@ local SelectionHelper = require(DraggerFramework.Utility.SelectionHelper)
 local classifyPivot = require(DraggerFramework.Utility.classifyPivot)
 
 local getFFlagFoldersOverFragments = require(DraggerFramework.Flags.getFFlagFoldersOverFragments)
+local getFFlagDraggerPerf = require(DraggerFramework.Flags.getFFlagDraggerPerf)
 local getFFlagPivotAnalytics = require(DraggerFramework.Flags.getFFlagPivotAnalytics)
 
 local DraggerToolModel = {}
@@ -219,8 +220,13 @@ function DraggerToolModel:selectNextSelectables(dragInfo, isDoubleClick)
 			SelectionHelper.updateSelectionWithMultipleSelectables(
 				nextSelectables, oldSelection, shouldXorSelection, shouldExtendSelection)
 		self._selectionWrapper:set(newSelection)
+		if getFFlagDraggerPerf() then
+			self:_updateSelectionInfo()
+		end
 	end
-	self:_updateSelectionInfo()
+	if not getFFlagDraggerPerf() then
+		self:_updateSelectionInfo()
+	end
 end
 
 --[[
@@ -366,9 +372,13 @@ function DraggerToolModel:_processPartBoundsChanged(part)
 	self:_processSelectionChanged()
 end
 
-function DraggerToolModel:_updateSelectionInfo()
-	self._selectionInfo = self._draggerSchema.SelectionInfo.new(
-		self._draggerContext, self._selectionWrapper:get())
+function DraggerToolModel:_updateSelectionInfo(newSelectionInfoHint)
+	if getFFlagDraggerPerf() and newSelectionInfoHint then
+		self._selectionInfo = newSelectionInfoHint
+	else
+		self._selectionInfo = self._draggerSchema.SelectionInfo.new(
+			self._draggerContext, self._selectionWrapper:get())
+	end
 	self._boundsChangedTracker:setSelection(self._selectionInfo)
 
 	self:_scheduleRender()

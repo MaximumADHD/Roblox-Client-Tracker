@@ -5,36 +5,20 @@ local enableAudioImport = require(Plugin.Src.Util.AssetManagerUtilities).enableA
 local AssetManagerService = game:GetService("AssetManagerService")
 local StudioService = game:GetService("StudioService")
 
-local FFlagStudioAssetManagerNewMultiselectMeshBehavior = game:getFastFlag("StudioAssetManagerNewMultiselectMeshBehavior")
-local FFlagStudioAssetManagerFixRecentAssetInsert = game:getFastFlag("StudioAssetManagerFixRecentAssetInsert")
-
 local function createImageContextMenu(analytics, apiImpl, assetData, contextMenu, localization, store)
     contextMenu:AddNewAction("Insert", localization:getText("ContextMenu", "Insert")).Triggered:connect(function()
         local state = store:getState()
         local recentAssets = state.AssetManagerReducer.recentAssets
         local selectedAssets = state.AssetManagerReducer.selectedAssets
-        if FFlagStudioAssetManagerNewMultiselectMeshBehavior then
-            local selectedMeshes = {}
-            for _, asset in pairs(recentAssets) do
-                local key = asset.key
-                if selectedAssets[key] and asset.assetType == Enum.AssetType.MeshPart then
-                    table.insert(selectedMeshes, "Meshes/".. asset.name)
-                end
+        local selectedMeshes = {}
+        for _, asset in pairs(recentAssets) do
+            local key = asset.key
+            if selectedAssets[key] and asset.assetType == Enum.AssetType.MeshPart then
+                table.insert(selectedMeshes, "Meshes/".. asset.name)
             end
-            if FFlagStudioAssetManagerFixRecentAssetInsert then
-                if next(selectedMeshes) ~= nil then
-                    AssetManagerService:InsertMeshesWithLocation(selectedMeshes)
-                end
-            else
-                AssetManagerService:InsertMeshesWithLocation(selectedMeshes)
-            end
-        else
-            for _, asset in pairs(recentAssets) do
-                local key = asset.key
-                if selectedAssets[key] and asset.assetType == Enum.AssetType.MeshPart then
-                    AssetManagerService:InsertMesh("Meshes/".. asset.name, true)
-                end
-            end
+        end
+        if next(selectedMeshes) ~= nil then
+            AssetManagerService:InsertMeshesWithLocation(selectedMeshes)
         end
         AssetManagerService:InsertImage(assetData.id)
         analytics:report("clickContextMenuItem")
@@ -55,19 +39,17 @@ end
 local function createAudioContextMenu(analytics, assetData, contextMenu, localization, store)
     contextMenu:AddNewAction("Insert", localization:getText("ContextMenu", "Insert")).Triggered:connect(function()
         local state = store:getState()
-        if FFlagStudioAssetManagerFixRecentAssetInsert then
-            local recentAssets = state.AssetManagerReducer.recentAssets
-            local selectedAssets = state.AssetManagerReducer.selectedAssets
-            local selectedMeshes = {}
-            for _, asset in pairs(recentAssets) do
-                local key = asset.key
-                if selectedAssets[key] and asset.assetType == Enum.AssetType.MeshPart then
-                    table.insert(selectedMeshes, "Meshes/".. asset.name)
-                end
+        local recentAssets = state.AssetManagerReducer.recentAssets
+        local selectedAssets = state.AssetManagerReducer.selectedAssets
+        local selectedMeshes = {}
+        for _, asset in pairs(recentAssets) do
+            local key = asset.key
+            if selectedAssets[key] and asset.assetType == Enum.AssetType.MeshPart then
+                table.insert(selectedMeshes, "Meshes/".. asset.name)
             end
-            if next(selectedMeshes) ~= nil then
-                AssetManagerService:InsertMeshesWithLocation(selectedMeshes)
-            end
+        end
+        if next(selectedMeshes) ~= nil then
+            AssetManagerService:InsertMeshesWithLocation(selectedMeshes)
         end
         AssetManagerService:InsertAudio(assetData.id, assetData.name)
         analytics:report("clickContextMenuItem")
@@ -91,28 +73,15 @@ local function createMeshPartContextMenu(analytics, apiImpl, assetData, contextM
     local selectedAssets = state.AssetManagerReducer.selectedAssets
     local textureId = AssetManagerService:GetTextureId("Meshes/".. assetData.name)
     contextMenu:AddNewAction("Insert", localization:getText("ContextMenu", "Insert")).Triggered:connect(function()
-        if FFlagStudioAssetManagerNewMultiselectMeshBehavior then
-            local selectedMeshes = {}
-            for _, asset in pairs(recentAssets) do
-                local key = asset.key
-                if selectedAssets[key] and asset.assetType == Enum.AssetType.MeshPart then
-                    table.insert(selectedMeshes, "Meshes/".. asset.name)
-                end
+        local selectedMeshes = {}
+        for _, asset in pairs(recentAssets) do
+            local key = asset.key
+            if selectedAssets[key] and asset.assetType == Enum.AssetType.MeshPart then
+                table.insert(selectedMeshes, "Meshes/".. asset.name)
             end
-            if FFlagStudioAssetManagerFixRecentAssetInsert then
-                if next(selectedMeshes) ~= nil then
-                    AssetManagerService:InsertMeshesWithLocation(selectedMeshes)
-                end
-            else
-                AssetManagerService:InsertMeshesWithLocation(selectedMeshes)
-            end
-        else
-            for _, asset in pairs(recentAssets) do
-                local key = asset.key
-                if selectedAssets[key] and asset.assetType == Enum.AssetType.MeshPart then
-                    AssetManagerService:InsertMesh("Meshes/".. asset.name, true)
-                end
-            end
+        end
+        if next(selectedMeshes) ~= nil then
+            AssetManagerService:InsertMeshesWithLocation(selectedMeshes)
         end
         analytics:report("clickContextMenuItem")
         local searchTerm = state.AssetManagerReducer.searchTerm
@@ -121,28 +90,15 @@ local function createMeshPartContextMenu(analytics, apiImpl, assetData, contextM
         end
     end)
     contextMenu:AddNewAction("InsertWithLocation", localization:getText("ContextMenu", "InsertWithLocation")).Triggered:connect(function()      
-        if FFlagStudioAssetManagerNewMultiselectMeshBehavior then
-            local selectedMeshes = {}
-            for _, asset in pairs(recentAssets) do
-                local key = asset.key
-                if selectedAssets[key] and asset.assetType == Enum.AssetType.MeshPart then
-                    table.insert(selectedMeshes, "Meshes/".. asset.name)
-                end
+        local selectedMeshes = {}
+        for _, asset in pairs(recentAssets) do
+            local key = asset.key
+            if selectedAssets[key] and asset.assetType == Enum.AssetType.MeshPart then
+                table.insert(selectedMeshes, "Meshes/".. asset.name)
             end
-            if FFlagStudioAssetManagerFixRecentAssetInsert then
-                if next(selectedMeshes) ~= nil then
-                    AssetManagerService:InsertMeshesWithLocation(selectedMeshes)
-                end
-            else
-                AssetManagerService:InsertMeshesWithLocation(selectedMeshes)
-            end
-        else
-            for _, asset in pairs(recentAssets) do
-                local key = asset.key
-                if selectedAssets[key] and asset.assetType == Enum.AssetType.MeshPart then
-                    AssetManagerService:InsertMesh("Meshes/".. asset.name, true)
-                end
-            end
+        end
+        if next(selectedMeshes) ~= nil then
+            AssetManagerService:InsertMeshesWithLocation(selectedMeshes)
         end
         analytics:report("clickContextMenuItem")
         local searchTerm = state.AssetManagerReducer.searchTerm

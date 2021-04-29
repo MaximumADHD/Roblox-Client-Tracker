@@ -6,8 +6,6 @@ local Symbol = require(Root.Symbols.Symbol)
 
 local KeyMappings = require(script.Parent.KeyMappings)
 
-local GetFFlagProductPercentLocFix = require(Root.Flags.GetFFlagProductPercentLocFix)
-
 local DEBUG_LOCALIZATION = false
 
 --[[
@@ -169,11 +167,7 @@ function LocalizationService.getString(localizationContext, key, params)
 				replacement = value.format(localizationContext)
 			end
 
-			if GetFFlagProductPercentLocFix() then
-				localizedString = string.gsub(localizedString, paramPlaceholder, function() return replacement end)
-			else
-				localizedString = string.gsub(localizedString, paramPlaceholder, replacement)
-			end
+			localizedString = string.gsub(localizedString, paramPlaceholder, function() return replacement end)
 		end
 	end
 

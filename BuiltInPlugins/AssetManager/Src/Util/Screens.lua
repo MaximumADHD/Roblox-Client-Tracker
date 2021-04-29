@@ -4,7 +4,6 @@ local StudioService = game:GetService("StudioService")
 
 local shouldEnableAudioImport = require(Plugin.Src.Util.AssetManagerUtilities).shouldEnableAudioImport
 
-local FFlagStudioAssetManagerNewFolderIcons = game:GetFastFlag("StudioAssetManagerNewFolderIcons")
 local FFlagEnableLuobuAudioImport = game:GetFastFlag("EnableLuobuAudioImport")
 local FFlagStudioCreatePluginPolicyService = game:GetFastFlag("StudioCreatePluginPolicyService")
 
@@ -37,9 +36,7 @@ if not FFlagStudioCreatePluginPolicyService and not FFlagEnableLuobuAudioImport 
 		Screens.AUDIO.Parent = Screens.MAIN.Key
 		Screens.AUDIO.AssetType = Enum.AssetType.Audio
 		Screens.AUDIO.LayoutOrder = 6
-		if FFlagStudioAssetManagerNewFolderIcons then
-			Screens.AUDIO.Image = "rbxasset://textures/StudioSharedUI/audio.png"
-		end
+		Screens.AUDIO.Image = "rbxasset://textures/StudioSharedUI/audio.png"
 	end
 elseif (FFlagStudioCreatePluginPolicyService and shouldEnableAudioImport()) 
 or (not FFlagStudioCreatePluginPolicyService and FFlagEnableLuobuAudioImport) then
@@ -49,9 +46,7 @@ or (not FFlagStudioCreatePluginPolicyService and FFlagEnableLuobuAudioImport) th
 	Screens.AUDIO.Parent = Screens.MAIN.Key
 	Screens.AUDIO.AssetType = Enum.AssetType.Audio
 	Screens.AUDIO.LayoutOrder = 6
-	if FFlagStudioAssetManagerNewFolderIcons then
-		Screens.AUDIO.Image = "rbxasset://textures/StudioSharedUI/audio.png"
-	end
+	Screens.AUDIO.Image = "rbxasset://textures/StudioSharedUI/audio.png"
 end
 
 Screens.MESHES.Parent = Screens.MAIN.Key
@@ -72,12 +67,10 @@ Screens.MESHES.LayoutOrder = 3
 Screens.PACKAGES.LayoutOrder = 4
 Screens.SCRIPTS.LayoutOrder = 5
 
-if FFlagStudioAssetManagerNewFolderIcons then
-	Screens.PLACES.Image = "rbxasset://textures/StudioSharedUI/places.png"
-	Screens.IMAGES.Image = "rbxasset://textures/StudioSharedUI/images.png"
-	Screens.MESHES.Image = "rbxasset://textures/StudioSharedUI/meshes.png"
-	Screens.PACKAGES.Image = "rbxasset://textures/StudioSharedUI/packages.png"
-	Screens.SCRIPTS.Image = "rbxasset://textures/StudioSharedUI/scripts.png"
-end
+Screens.PLACES.Image = "rbxasset://textures/StudioSharedUI/places.png"
+Screens.IMAGES.Image = "rbxasset://textures/StudioSharedUI/images.png"
+Screens.MESHES.Image = "rbxasset://textures/StudioSharedUI/meshes.png"
+Screens.PACKAGES.Image = "rbxasset://textures/StudioSharedUI/packages.png"
+Screens.SCRIPTS.Image = "rbxasset://textures/StudioSharedUI/scripts.png"
 
 return Screens

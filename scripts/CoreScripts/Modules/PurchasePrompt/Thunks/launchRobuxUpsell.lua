@@ -18,10 +18,6 @@ local Promise = require(Root.Promise)
 
 local retryAfterUpsell = require(script.Parent.retryAfterUpsell)
 
-local GetFFlagProductPurchaseAnalytics = require(Root.Flags.GetFFlagProductPurchaseAnalytics)
-local GetFFlagDisableRobuxUpsell = require(Root.Flags.GetFFlagDisableRobuxUpsell)
-
-
 local requiredServices = {
 	Analytics,
 	ExternalSettings,
@@ -53,41 +49,29 @@ local function launchRobuxUpsell()
 		local upsellFlow = getUpsellFlow(externalSettings.getPlatform())
 
 		if upsellFlow == UpsellFlow.Web then
-			if GetFFlagProductPurchaseAnalytics() then
-				local productId = state.productInfo.productId
-				local requestType = state.requestType
+			local productId = state.productInfo.productId
+			local requestType = state.requestType
 
-				analytics.signalProductPurchaseUpsellConfirmed(productId, requestType, "UNKNOWN")
-			else
-				analytics.reportRobuxUpsellStarted()
-			end
+			analytics.signalProductPurchaseUpsellConfirmed(productId, requestType, "UNKNOWN")
 			platformInterface.startRobuxUpsellWeb()
 			store:dispatch(SetPromptState(PromptState.UpsellInProgress))
 
 		elseif upsellFlow == UpsellFlow.Mobile then
 			local nativeProductId = state.nativeUpsell.robuxProductId
 
-			if GetFFlagProductPurchaseAnalytics() then
-				local productId = state.productInfo.productId
-				local requestType = state.requestType
+			local productId = state.productInfo.productId
+			local requestType = state.requestType
 
-				analytics.signalProductPurchaseUpsellConfirmed(productId, requestType, nativeProductId)
-			else
-				analytics.reportNativeUpsellStarted(nativeProductId)
-			end
+			analytics.signalProductPurchaseUpsellConfirmed(productId, requestType, nativeProductId)
 			platformInterface.promptNativePurchase(Players.LocalPlayer, nativeProductId)
 			store:dispatch(SetPromptState(PromptState.UpsellInProgress))
 
 		elseif upsellFlow == UpsellFlow.Xbox then
 			local nativeProductId = store:getState().nativeUpsell.robuxProductId
-			if GetFFlagProductPurchaseAnalytics() then
-				local productId = state.productInfo.productId
-				local requestType = state.requestType
-				
-				analytics.signalProductPurchaseUpsellConfirmed(productId, requestType, nativeProductId)
-			else
-				analytics.reportNativeUpsellStarted(nativeProductId)
-			end
+			local productId = state.productInfo.productId
+			local requestType = state.requestType
+			
+			analytics.signalProductPurchaseUpsellConfirmed(productId, requestType, nativeProductId)
 			store:dispatch(SetPromptState(PromptState.UpsellInProgress))
 			return Promise.new(function(resolve, reject)
 				local platformPurchaseResult = platformInterface.beginPlatformStorePurchase(nativeProductId)

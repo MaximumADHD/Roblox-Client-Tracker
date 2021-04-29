@@ -382,8 +382,9 @@ end
 
 function MoveHandles:mouseUp(mouseRay)
 	self._draggingHandleId = nil
-	self._implementation:endDrag()
+	local newSelectionInfoHint = self._implementation:endDrag()
 	self._schema.addUndoWaypoint(self._draggerContext, "Axis Move Selection")
+	return newSelectionInfoHint
 end
 
 function MoveHandles:_updateHandles()

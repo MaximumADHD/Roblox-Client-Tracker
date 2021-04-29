@@ -16,7 +16,7 @@ if THEME_REFACTOR then
 		},
 		Disabled = {
 			Background = StyleKey.ButtonDisabled,
-			TextColor = StyleKey.ButtonDisabled,
+			TextColor = StyleKey.DimmedText,
 		},
 	}
 else

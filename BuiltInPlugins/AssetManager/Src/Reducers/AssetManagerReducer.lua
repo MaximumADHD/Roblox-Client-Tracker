@@ -9,8 +9,6 @@ local Framework = Plugin.Packages.Framework
 local Util = require(Framework.Util)
 local deepJoin = Util.deepJoin
 
-local FFlagStudioAssetManagerFixAssetPreviewRequest = game:GetFastFlag("StudioAssetManagerFixAssetPreviewRequest")
-
 return Rodux.createReducer({
 	-- Contains table of assets, associated preview data, and next page/cursor
 	assetsTable = {
@@ -108,54 +106,31 @@ return Rodux.createReducer({
 	end,
 
 	SetAssetOwnerName = function(state, action)
-		if FFlagStudioAssetManagerFixAssetPreviewRequest then
-			local newState = deepJoin(state, {
-				assetsTable = {
-					assetPreviewData = {
-						[action.assetId] = {
-							Creator = {
-								Name = action.username,
-							}
+		local newState = deepJoin(state, {
+			assetsTable = {
+				assetPreviewData = {
+					[action.assetId] = {
+						Creator = {
+							Name = action.username,
 						}
 					}
 				}
-			})
-			return newState
-		else
-			local newState = state
-			if newState.assetsTable.assetPreviewData[action.assetId] == nil then
-				newState.assetsTable.assetPreviewData[action.assetId] = {
-					Creator = {}
-				}
-			end
-			newState.assetsTable.assetPreviewData[action.assetId].Creator.Name = action.username
-			return newState
-		end
+			}
+		})
+		return newState
 	end,
 
 	SetRootTreeViewInstance = function(state, action)
-		if FFlagStudioAssetManagerFixAssetPreviewRequest then
-			local newState = deepJoin(state, {
-				assetsTable = {
-					assetPreviewData = {
-						[action.assetId] = {
-							rootTreeViewInstance = action.rootTreeViewInstance,
-						}
+		local newState = deepJoin(state, {
+			assetsTable = {
+				assetPreviewData = {
+					[action.assetId] = {
+						rootTreeViewInstance = action.rootTreeViewInstance,
 					}
 				}
-			})
-			return newState
-		else
-			return Cryo.Dictionary.join(state,{
-				assetsTable = Cryo.Dictionary.join(state.assetsTable, {
-					assetPreviewData = Cryo.Dictionary.join(state.assetsTable.assetPreviewData, {
-						[action.assetId] = Cryo.Dictionary.join(state.assetsTable.assetPreviewData[action.assetId], {
-							rootTreeViewInstance = action.rootTreeViewInstance,
-						})
-					})
-				})
-			})
-		end
+			}
+		})
+		return newState
 	end,
 
 	SetHasLinkedScripts = function(state, action)
@@ -165,53 +140,29 @@ return Rodux.createReducer({
 	end,
 
 	SetAssetFavorited = function(state, action)
-		if FFlagStudioAssetManagerFixAssetPreviewRequest then
-			local newState = deepJoin(state, {
-				assetsTable = {
-					assetPreviewData = {
-						[action.assetId] = {
-							favorited = action.isAssetFavorited,
-						}
+		local newState = deepJoin(state, {
+			assetsTable = {
+				assetPreviewData = {
+					[action.assetId] = {
+						favorited = action.isAssetFavorited,
 					}
 				}
-			})
-			return newState
-		else
-			return Cryo.Dictionary.join(state,{
-				assetsTable = Cryo.Dictionary.join(state.assetsTable, {
-					assetPreviewData = Cryo.Dictionary.join(state.assetsTable.assetPreviewData, {
-						[action.assetId] = Cryo.Dictionary.join(state.assetsTable.assetPreviewData[action.assetId], {
-							favorited = action.isAssetFavorited,
-						})
-					})
-				})
-			})
-		end
+			}
+		})
+		return newState
 	end,
 
 	SetAssetFavoriteCount = function(state, action)
-		if FFlagStudioAssetManagerFixAssetPreviewRequest then
-			local newState = deepJoin(state, {
-				assetsTable = {
-					assetPreviewData = {
-						[action.assetId] = {
-							favoriteCount = action.favoriteCount,
-						}
+		local newState = deepJoin(state, {
+			assetsTable = {
+				assetPreviewData = {
+					[action.assetId] = {
+						favoriteCount = action.favoriteCount,
 					}
 				}
-			})
-			return newState
-		else
-			return Cryo.Dictionary.join(state,{
-				assetsTable = Cryo.Dictionary.join(state.assetsTable, {
-					assetPreviewData = Cryo.Dictionary.join(state.assetsTable.assetPreviewData, {
-						[action.assetId] = Cryo.Dictionary.join(state.assetsTable.assetPreviewData[action.assetId], {
-							favoriteCount = action.favoriteCount,
-						})
-					})
-				})
-			})
-		end
+			}
+		})
+		return newState
 	end,
 
 	IncrementAssetFavoriteCount = function(state, action)
@@ -230,19 +181,11 @@ return Rodux.createReducer({
 				}
 			}
 		end
-		if FFlagStudioAssetManagerFixAssetPreviewRequest then
-			local newState = deepJoin(state, {
-				assetsTable = {
-					assetPreviewData = newAssetPreviewData
-				}
-			})
-			return newState
-		else
-			return Cryo.Dictionary.join(state,{
-				assetsTable = Cryo.Dictionary.join(state.assetsTable, {
-					assetPreviewData = Cryo.Dictionary.join(state.assetsTable.assetPreviewData, newAssetPreviewData)
-				})
-			})
-		end
+		local newState = deepJoin(state, {
+			assetsTable = {
+				assetPreviewData = newAssetPreviewData
+			}
+		})
+		return newState
 	end,
 })

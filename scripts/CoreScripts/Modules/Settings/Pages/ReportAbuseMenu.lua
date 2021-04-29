@@ -15,6 +15,8 @@ local AnalyticsService = game:GetService("RbxAnalyticsService")
 local utility = require(RobloxGui.Modules.Settings.Utility)
 local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 
+local FFlagFixUsernamesAutoLocalizeIssue = require(RobloxGui.Modules.Flags.FFlagFixUsernamesAutoLocalizeIssue)
+
 local ABUSE_TYPES_PLAYER = {
 	"Swearing",
 	"Inappropriate Username",
@@ -172,10 +174,12 @@ local function Initialize()
 		end
 		this.GameOrPlayerMode.Selection.LayoutOrder = 1
 
-		this.WhichPlayerFrame,
-		this.WhichPlayerLabel,
-		this.WhichPlayerMode = utility:AddNewRow(this, "Which Player?", "DropDown", {"update me"})
+		this.WhichPlayerFrame, this.WhichPlayerLabel, this.WhichPlayerMode =
+			utility:AddNewRow(this, "Which Player?", "DropDown", {"update me"})
 		this.WhichPlayerMode:SetInteractable(false)
+		if FFlagFixUsernamesAutoLocalizeIssue then
+			this.WhichPlayerMode:SetAutoLocalize(false)
+		end
 		this.WhichPlayerLabel.ZIndex = 1
 		this.WhichPlayerFrame.LayoutOrder = 2
 

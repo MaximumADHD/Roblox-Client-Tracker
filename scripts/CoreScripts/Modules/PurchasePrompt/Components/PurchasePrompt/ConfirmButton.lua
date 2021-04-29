@@ -9,8 +9,6 @@ local ClickScamDetector = require(Root.Utils.ClickScamDetector)
 local Button = require(script.Parent.Button)
 local withLayoutValues = require(script.Parent.Parent.Connection.withLayoutValues)
 
-local GetFFlagPurchasePromptScaryModalV2 = require(Root.Flags.GetFFlagPurchasePromptScaryModalV2)
-
 local CONFIRM_BUTTON = Enum.KeyCode.ButtonA
 
 local ConfirmButton = Roact.Component:extend("ConfirmButton")
@@ -20,11 +18,7 @@ function ConfirmButton:init()
 
 	self.activated = function()
 		if self.clickScamDetector:isClickValid() then
-			if GetFFlagPurchasePromptScaryModalV2() then
-				self.props.onClick()
-			else
-				onClick()
-			end
+			self.props.onClick()
 		end
 	end
 

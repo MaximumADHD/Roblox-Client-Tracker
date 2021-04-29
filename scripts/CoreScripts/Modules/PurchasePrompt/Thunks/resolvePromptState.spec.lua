@@ -18,10 +18,9 @@ return function()
 	local resolvePromptState = require(script.Parent.resolvePromptState)
 	local RequestType = require(Root.Enums.RequestType)
 
+	local GetFFlagProductPurchaseUpsell = require(Root.Flags.GetFFlagProductPurchaseUpsell)
+	local GetFFlagProductPurchaseUpsellABTest = require(Root.Flags.GetFFlagProductPurchaseUpsellABTest)
 	local GetFFlagDisableRobuxUpsell = require(Root.Flags.GetFFlagDisableRobuxUpsell)
-	local GetFFlagProductPurchaseAnalytics = require(Root.Flags.GetFFlagProductPurchaseAnalytics)
-
-	local shouldCheckAnalytics = not RunService:IsStudio()
 
 	local function getTestProductInfo()
 		return {
@@ -63,9 +62,7 @@ return function()
 
 		expect(state.productInfo.name).to.be.ok()
 		expect(state.accountInfo.balance).to.be.ok()
-		if GetFFlagProductPurchaseAnalytics() and shouldCheckAnalytics then
-			expect(mockAnalytics.spies.signalProductPurchaseShown.callCount).to.equal(1)
-		end
+		expect(mockAnalytics.spies.signalProductPurchaseShown.callCount).to.equal(1)
 	end)
 
 	it("should resolve state to None if hiding 3rd party purchase failure", function()
@@ -141,7 +138,7 @@ return function()
 
 			local state = store:getState()
 			expect(state.promptState).to.equal(PromptState.RobuxUpsell)
-			if GetFFlagProductPurchaseAnalytics() and shouldCheckAnalytics then
+			if GetFFlagProductPurchaseUpsell() or GetFFlagProductPurchaseUpsellABTest() then
 				expect(mockAnalytics.spies.signalProductPurchaseUpsellShown.callCount).to.equal(1)
 			end
 		end)

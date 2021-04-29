@@ -15,7 +15,6 @@ local Thunk = require(Root.Thunk)
 local Promise = require(Root.Promise)
 
 local GetFFlagPromptRobloxPurchaseEnabled = require(Root.Flags.GetFFlagPromptRobloxPurchaseEnabled)
-local GetFFlagProductPurchaseAnalytics = require(Root.Flags.GetFFlagProductPurchaseAnalytics)
 
 local completePurchase = require(script.Parent.completePurchase)
 
@@ -50,9 +49,7 @@ local function purchaseItem()
 
 		local itemType = state.productInfo.itemType
 
-		if GetFFlagProductPurchaseAnalytics() then
-			analytics.signalProductPurchaseConfirmed(productId, state.requestType)
-		end
+		analytics.signalProductPurchaseConfirmed(productId, state.requestType)
 
 		return performPurchase(network, infoType, productId, salePrice, requestId, isRobloxPurchase)
 			:andThen(function(result)

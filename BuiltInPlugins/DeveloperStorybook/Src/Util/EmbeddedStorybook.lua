@@ -16,7 +16,7 @@ local Localization = ContextServices.Localization
 local Plugin = ContextServices.Plugin
 local Store = ContextServices.Store
 
-local Src = Packages.Storybook.Src
+local Src = Packages.DeveloperStorybook.Src
 local MainReducer = require(Src.Reducers.MainReducer)
 local InfoPanel = require(Src.Components.InfoPanel)
 local StoryTree = require(Src.Components.StoryTree)

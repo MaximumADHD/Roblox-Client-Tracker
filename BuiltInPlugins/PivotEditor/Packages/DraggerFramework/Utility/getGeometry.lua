@@ -1,3 +1,6 @@
+local getFFlagDraggerPerf = require(script.Parent.Parent.Flags.getFFlagDraggerPerf)
+local FFlagDraggerPerf = getFFlagDraggerPerf()
+
 local UniformScale = Vector3.new(1, 1, 1)
 
 local function getShape(part)
@@ -27,8 +30,13 @@ local function getShape(part)
 	end
 end
 
-return function(part, hit)
-	local cf = part.CFrame
+return function(part, hit, assumedCFrame)
+	local cf
+	if FFlagDraggerPerf then
+		cf = assumedCFrame or part.CFrame
+	else
+		cf = part.CFrame
+	end
 	local pos = cf.p
 
 	local sx = part.Size.x/2

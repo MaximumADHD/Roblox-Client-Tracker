@@ -35,6 +35,7 @@ local TopBar = require(Plugin.Src.Components.TopBar)
 local Screens = require(Plugin.Src.Util.Screens)
 
 local GetAssets = require(Plugin.Src.Thunks.GetAssets)
+local LoadAllAliases = require(Plugin.Src.Thunks.LoadAllAliases)
 local GetUniverseConfiguration = require(Plugin.Src.Thunks.GetUniverseConfiguration)
 local OnScreenChange = require(Plugin.Src.Thunks.OnScreenChange)
 
@@ -43,6 +44,7 @@ local StudioService = game:GetService("StudioService")
 local MainView = Roact.PureComponent:extend("MainView")
 
 local FFlagStudioAssetManagerAddRecentlyImportedView = game:GetFastFlag("StudioAssetManagerAddRecentlyImportedView")
+local FFlagStudioAssetManagerLoadLinkedScriptsOnInit = game:GetFastFlag("StudioAssetManagerLoadLinkedScriptsOnInit")
 
 local universeNameSet = false
 local initialHasLinkedScriptValue = false
@@ -115,9 +117,13 @@ function MainView:init()
     self.getScripts = function()
         local props = self.props
         local apiImpl = props.API:get()
-
-        local dispatchGetAssets = props.dispatchGetAssets
-        dispatchGetAssets(apiImpl, Screens.SCRIPTS.AssetType, nil, nil, false)
+        if FFlagStudioAssetManagerLoadLinkedScriptsOnInit then
+            local dispatchLoadAllAliases = props.dispatchLoadAllAliases
+            dispatchLoadAllAliases(apiImpl, Enum.AssetType.Lua)
+        else
+            local dispatchGetAssets = props.dispatchGetAssets
+            dispatchGetAssets(apiImpl, Screens.SCRIPTS.AssetType, nil, nil, false)
+        end
     end
 end
 
@@ -315,14 +321,15 @@ end
 
 local function mapDispatchToProps(dispatch)
     return {
-        dispatchGetAssets = function(apiImpl, assetType, pageCursor, pageNumber, showLoadingIndicator)
+        dispatchGetAssets = not FFlagStudioAssetManagerLoadLinkedScriptsOnInit and function(apiImpl, assetType, pageCursor, pageNumber, showLoadingIndicator)
             dispatch(GetAssets(apiImpl, assetType, pageCursor, pageNumber, showLoadingIndicator))
         end,
-
+        dispatchLoadAllAliases = FFlagStudioAssetManagerLoadLinkedScriptsOnInit and function(apiImpl, assetType)
+            dispatch(LoadAllAliases(apiImpl, assetType))
+        end,
         dispatchGetUniverseConfiguration = function(apiImpl)
             dispatch(GetUniverseConfiguration(apiImpl))
         end,
-
         dispatchOnScreenChange = function(apiImpl, screen)
             dispatch(OnScreenChange(apiImpl, screen))
         end,

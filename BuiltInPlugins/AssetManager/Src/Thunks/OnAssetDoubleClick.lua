@@ -6,8 +6,6 @@ local enableAudioImport = require(Plugin.Src.Util.AssetManagerUtilities).enableA
 
 local AssetManagerService = game:GetService("AssetManagerService")
 
-local FFlagStudioAssetManagerFixLinkedScripts = game:GetFastFlag("StudioAssetManagerFixLinkedScripts")
-
 return function(analytics, assetData, isAssetPreviewInsertButton)
     return function(store)
         local isFolder = assetData.ClassName == "Folder"
@@ -25,12 +23,8 @@ return function(analytics, assetData, isAssetPreviewInsertButton)
             elseif assetType == Enum.AssetType.MeshPart then
                 AssetManagerService:InsertMesh("Meshes/".. assetData.name, false)
             elseif assetType == Enum.AssetType.Lua then
-                if FFlagStudioAssetManagerFixLinkedScripts then
-                    if isAssetPreviewInsertButton then
-                        AssetManagerService:InsertLinkedSourceAsScript("Scripts/".. assetData.name)
-                    else
-                        AssetManagerService:OpenLinkedSource("Scripts/" .. assetData.name)
-                    end
+                if isAssetPreviewInsertButton then
+                    AssetManagerService:InsertLinkedSourceAsScript("Scripts/".. assetData.name)
                 else
                     AssetManagerService:OpenLinkedSource("Scripts/" .. assetData.name)
                 end

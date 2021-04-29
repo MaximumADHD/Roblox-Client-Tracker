@@ -12,10 +12,12 @@ local UI = Framework.UI
 local Decoration = UI.Decoration
 local Button = UI.Button
 local Pane = UI.Pane
-local TextInput = UI.TextInput
 local Tooltip = UI.Tooltip
 local SelectInput = UI.SelectInput
 local TextLabel = UI.Decoration.TextLabel
+
+local StudioUI = Framework.StudioUI
+local SearchBar = StudioUI.SearchBar
 
 local ThemeSwitcher = Framework.Style.ThemeSwitcher
 
@@ -51,10 +53,11 @@ function TopBar:render()
 			Size = UDim2.new(0, sizes.SearchBar, 1, 0),
 			LayoutOrder = 1,
 		}, {
-			Search = Roact.createElement(TextInput, {
-				Style = "RoundedBorder",
+			Search = Roact.createElement(SearchBar, {
 				PlaceholderText = "Search...",
-				Size = UDim2.new(0, sizes.SearchBar, 1, 0),
+				Width = sizes.SearchBar,
+				ShowSearchButton = false,
+				ShowSearchIcon = true,
 				OnTextChanged = props.setSearch,
 			})
 		}),

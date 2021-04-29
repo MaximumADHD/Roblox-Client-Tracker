@@ -8,7 +8,6 @@
 		SettingsImpl_mock, can be provided to allow testing.
 ]]
 
-local FFlagStudioAssetManagerUpdateGameName = game:GetFastFlag("StudioAssetManagerUpdateGameName")
 local FFlagStudioAllowRemoteSaveBeforePublish = game:GetFastFlag("StudioAllowRemoteSaveBeforePublish")
 
 local StudioService = game:GetService("StudioService")
@@ -57,9 +56,7 @@ local function saveAll(state, localization)
 			end
 			Promise.all(setRequests):andThen(function()
 				StudioService:SetUniverseDisplayName(configuration.name)
-				if FFlagStudioAssetManagerUpdateGameName then
-					StudioService:SetDocumentDisplayName(configuration.name)
-				end
+				StudioService:SetDocumentDisplayName(configuration.name)
 				StudioService:EmitPlacePublishedSignal()
 			end):catch(function(err)
 				warn(tostring(localization:getText("PublishFail", "FailConfiguration")))

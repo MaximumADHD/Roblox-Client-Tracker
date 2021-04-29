@@ -8,12 +8,11 @@ local SetHasLinkedScripts = require(Plugin.Src.Actions.SetHasLinkedScripts)
 
 local enableAudioImport = require(Plugin.Src.Util.AssetManagerUtilities).enableAudioImport
 
-local FFlagStudioAssetManagerFetchMoreAssets = game:GetFastFlag("StudioAssetManagerFetchMoreAssets")
-local FFlagStudioAssetManagerUseNewPackagesEndpoint = game:GetFastFlag("StudioAssetManagerUseNewPackagesEndpoint")
-
 local FIntStudioAssetManagerAssetFetchNumber = game:GetFastInt("StudioAssetManagerAssetFetchNumber")
 
-local numberOfAssetsToFetch = FFlagStudioAssetManagerFetchMoreAssets and FIntStudioAssetManagerAssetFetchNumber or 10
+local FFlagStudioAssetManagerLoadLinkedScriptsOnInit = game:GetFastFlag("StudioAssetManagerLoadLinkedScriptsOnInit")
+
+local numberOfAssetsToFetch = FIntStudioAssetManagerAssetFetchNumber
 
 return function(apiImpl, assetType, pageCursor, pageNumber, showLoadingIndicator)
     return function(store)
@@ -48,23 +47,13 @@ return function(apiImpl, assetType, pageCursor, pageNumber, showLoadingIndicator
                 error("Failed to load places")
             end)
         elseif assetType == Enum.AssetType.Package then
-            if FFlagStudioAssetManagerUseNewPackagesEndpoint then
-                requestPromise = apiImpl.Develop.V1.Universes.packages(game.GameId, pageCursor, numberOfAssetsToFetch):makeRequest()
-                :andThen(function(response)
-                    return response
-                end, function()
-                    store:dispatch(SetIsFetchingAssets(false))
-                    error("Failed to load packages")
-                end)
-            else
-                requestPromise = apiImpl.Develop.V2.Universes.symbolicLinks(game.GameId, pageCursor, numberOfAssetsToFetch):makeRequest()
-                :andThen(function(response)
-                    return response
-                end, function()
-                    store:dispatch(SetIsFetchingAssets(false))
-                    error("Failed to load packages")
-                end)
-            end
+            requestPromise = apiImpl.Develop.V1.Universes.packages(game.GameId, pageCursor, numberOfAssetsToFetch):makeRequest()
+            :andThen(function(response)
+                return response
+            end, function()
+                store:dispatch(SetIsFetchingAssets(false))
+                error("Failed to load packages")
+            end)
         elseif assetType == Enum.AssetType.Image
         or assetType == Enum.AssetType.MeshPart
         or assetType == Enum.AssetType.Lua
@@ -110,7 +99,9 @@ return function(apiImpl, assetType, pageCursor, pageNumber, showLoadingIndicator
                             hasLinkedScripts = true
                             assetAlias.name = string.gsub(alias.Name, "Scripts/", "")
                         elseif (enableAudioImport() and assetType == Enum.AssetType.Audio and string.find(alias.Name, "Audio/")) then
-                            hasLinkedScripts = true
+                            if not FFlagStudioAssetManagerLoadLinkedScriptsOnInit then
+                                hasLinkedScripts = true
+                            end
                             assetAlias.name = string.gsub(alias.Name, "Audio/", "")
                         end
                         assetAlias.layoutOrder = index
@@ -140,27 +131,14 @@ return function(apiImpl, assetType, pageCursor, pageNumber, showLoadingIndicator
                 for _, asset in pairs(body.data) do
                     local newAsset = asset
                     newAsset.assetType = assetType
-                    if not FFlagStudioAssetManagerUseNewPackagesEndpoint and assetType == Enum.AssetType.Package then
-                        -- make sure packages have similar keys in table    
-                        local sAssetId = tostring(asset.assetId)
-                            newAsset.name = asset.assetName
-                            newAsset.id = asset.assetId
-                            newAsset.assetName = nil
-                            newAsset.assetId = nil
-                            newAsset.layoutOrder = index
-                            newAssets.assets = Cryo.Dictionary.join(newAssets.assets, {
-                                [sAssetId] = newAsset,
-                            })
-                            index = index + 1
-                    else
-                        local sAssetId = tostring(newAsset.id)
-                        newAsset.layoutOrder = index
-                        newAssets.assets = Cryo.Dictionary.join(newAssets.assets, {
-                            [sAssetId] = newAsset,
-                        })
-                        index = index + 1
-                    end
+                    local sAssetId = tostring(newAsset.id)
+                    newAsset.layoutOrder = index
+                    newAssets.assets = Cryo.Dictionary.join(newAssets.assets, {
+                        [sAssetId] = newAsset,
+                    })
+                    index = index + 1
                 end
+
                 store:dispatch(SetIsFetchingAssets(false))
                 store:dispatch(SetAssets(newAssets, index))
             end)

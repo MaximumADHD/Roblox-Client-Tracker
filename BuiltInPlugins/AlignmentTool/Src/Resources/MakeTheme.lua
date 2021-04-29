@@ -7,8 +7,6 @@
 
 local Plugin = script.Parent.Parent.Parent
 
-local getFFlagAlignToolFixHelpIconTheming = require(Plugin.Src.Flags.getFFlagAlignToolFixHelpIconTheming)
-
 local Framework = Plugin.Packages.Framework
 local ContextServices = require(Framework.ContextServices)
 local Theme = ContextServices.Theme
@@ -74,24 +72,14 @@ local function makeTheme()
 				}
 			end)
 
-			local helpIconImage -- remove with FFlagAlignToolFixHelpIconTheming
-			if not getFFlagAlignToolFixHelpIconTheming() then
-				-- remove Client\content\textures\Help_Light.png with FFlagAlignToolFixHelpIconTheming
-				-- remove Client\content\textures\Help_Dark.png with FFlagAlignToolFixHelpIconTheming
-				helpIconImage = StyleValue.new("HelpIconImage", {
-					Light = "rbxasset://textures/AlignTool/Help_Light.png",
-					Dark = "rbxasset://textures/AlignTool/Help_Dark.png",
-				})
-			end
-
 			local helpIconColor = StyleValue.new("HelpIconColor", {
 				Light = Color3.fromRGB(184, 184, 184),
 				Dark = Color3.fromRGB(204, 204, 204),
 			})
 			local image = StyleTable.new("Image", function()
 				local helpIcon = Style.new({
-					Image = getFFlagAlignToolFixHelpIconTheming() and "rbxasset://textures/AlignTool/Help.png" or helpIconImage:get(theme.Name),
-					Color = getFFlagAlignToolFixHelpIconTheming() and helpIconColor:get(theme.Name) or Color3.new(1, 1, 1),
+					Image = "rbxasset://textures/AlignTool/Help.png",
+					Color = helpIconColor:get(theme.Name),
 					AnchorPoint = Vector2.new(0.5, 0.5),
 					Position = UDim2.new(0.5, 0, 0.5, 0),
 					Size = UDim2.fromOffset(14, 14),

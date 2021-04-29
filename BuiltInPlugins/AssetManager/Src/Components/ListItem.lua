@@ -1,7 +1,5 @@
 local Plugin = script.Parent.Parent.Parent
 
-local FFlagStudioAssetManagerConvertToDevFrameworkTooltips = game:GetFastFlag("StudioAssetManagerConvertToDevFrameworkTooltips")
-
 local Cryo = require(Plugin.Packages.Cryo)
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
@@ -10,6 +8,7 @@ local Framework = Plugin.Packages.Framework
 local ContextServices = require(Framework.ContextServices)
 
 local UI = require(Framework.UI)
+local Tooltip = UI.Tooltip
 
 local Util = require(Framework.Util)
 local StyleModifier = Util.StyleModifier
@@ -17,7 +16,6 @@ local FitFrameOnAxis = Util.FitFrame.FitFrameOnAxis
 
 local UILibrary = require(Plugin.Packages.UILibrary)
 local GetTextSize = UILibrary.Util.GetTextSize
-local Tooltip = FFlagStudioAssetManagerConvertToDevFrameworkTooltips and UI.Tooltip or UILibrary.Component.Tooltip
 local LayoutOrderIterator = UILibrary.Util.LayoutOrderIterator
 
 local SetEditingAssets = require(Plugin.Src.Actions.SetEditingAssets)
@@ -28,18 +26,13 @@ local OnAssetRightClick = require(Plugin.Src.Thunks.OnAssetRightClick)
 local OnAssetSingleClick = require(Plugin.Src.Thunks.OnAssetSingleClick)
 local OnRecentAssetRightClick = require(Plugin.Src.Thunks.OnRecentAssetRightClick)
 
+local FFlagStudioAssetManagerDisableHoverOnOverlay = game:GetFastFlag("StudioAssetManagerDisableHoverOnOverlay")
+
 local AssetManagerService = game:GetService("AssetManagerService")
 local ContentProvider = game:GetService("ContentProvider")
 local StudioService = game:GetService("StudioService")
 
 local ListItem = Roact.PureComponent:extend("ListItem")
-
-local FFlagStudioAssetManagerAssetPreviewRequest = game:GetFastFlag("StudioAssetManagerAssetPreviewRequest")
-local FFlagStudioAssetManagerLinkedScriptIcon = game:GetFastFlag("StudioAssetManagerLinkedScriptIcon")
-local FFlagStudioAssetManagerShowRootPlaceListView = game:GetFastFlag("StudioAssetManagerShowRootPlaceListView")
-local FFlagStudioAssetManagerFixLinkedScripts = game:GetFastFlag("StudioAssetManagerFixLinkedScripts")
-local FFlagStudioAssetManagerFixAssetPreviewRequest = game:GetFastFlag("StudioAssetManagerFixAssetPreviewRequest")
-local FFlagStudioAssetManagerNewFolderIcons = game:GetFastFlag("StudioAssetManagerNewFolderIcons")
 
 local enableAudioImport = require(Plugin.Src.Util.AssetManagerUtilities).enableAudioImport
 
@@ -69,11 +62,7 @@ local function getClassIcon(assetData)
     elseif enableAudioImport() and assetType == Enum.AssetType.Audio then
         return StudioService:GetClassIcon("Sound")
     elseif assetType == Enum.AssetType.Lua then
-        if FFlagStudioAssetManagerLinkedScriptIcon then
-            return StudioService:GetClassIcon("Script")
-        else
-            return StudioService:GetClassIcon("LinkedScript")
-        end
+        return StudioService:GetClassIcon("Script")
     end
 end
 
@@ -90,22 +79,32 @@ function ListItem:init()
     self.textBoxRef = Roact.createRef()
 
     self.onMouseEnter = function()
+        if FFlagStudioAssetManagerDisableHoverOnOverlay then
+            local props = self.props
+            if not props.Enabled then
+                return
+            end
+        end
         if self.state.StyleModifier == nil then
             self:setState({
                 StyleModifier = StyleModifier.Hover,
             })
         end
-        if FFlagStudioAssetManagerFixAssetPreviewRequest then
-            local assetData = self.props.AssetData
-            local isFolder = assetData.ClassName == "Folder"
-            local isPlace = assetData.assetType == Enum.AssetType.Place
-            if not isFolder and not isPlace then
-                self.props.dispatchGetAssetPreviewData(self.props.API:get(), {assetData.id})
-            end
+        local assetData = self.props.AssetData
+        local isFolder = assetData.ClassName == "Folder"
+        local isPlace = assetData.assetType == Enum.AssetType.Place
+        if not isFolder and not isPlace then
+            self.props.dispatchGetAssetPreviewData(self.props.API:get(), {assetData.id})
         end
     end
 
     self.onMouseLeave = function()
+        if FFlagStudioAssetManagerDisableHoverOnOverlay then
+            local props = self.props
+            if not props.Enabled then
+                return
+            end
+        end
         if self.state.StyleModifier == StyleModifier.Hover then
             self:setState({
                 StyleModifier = Roact.None,
@@ -145,13 +144,6 @@ function ListItem:init()
         if props.RecentListItem then
             props.dispatchOnRecentAssetRightClick(props)
         else
-            if not FFlagStudioAssetManagerFixAssetPreviewRequest then
-                if FFlagStudioAssetManagerAssetPreviewRequest then
-                    if assetData.assetType ~= Enum.AssetType.Place and not isFolder then
-                        self.props.dispatchGetAssetPreviewData(props.API:get(), {assetData.id})
-                    end
-                end
-            end
             props.dispatchOnAssetRightClick(props)
         end
     end
@@ -174,7 +166,7 @@ function ListItem:init()
                 AssetManagerService:RenamePlace(assetData.id, newName)
             elseif assetData.assetType == Enum.AssetType.Image
             or assetData.assetType == Enum.AssetType.MeshPart
-            or (FFlagStudioAssetManagerFixLinkedScripts and assetData.assetType == Enum.AssetType.Lua)
+            or assetData.assetType == Enum.AssetType.Lua
             or (enableAudioImport() and assetData.assetType == Enum.AssetType.Audio)
             then
                 local prefix
@@ -266,19 +258,11 @@ function ListItem:render()
     local imageInfo = {}
     local isFolder = assetData.ClassName == "Folder"
     if isFolder then
-        if FFlagStudioAssetManagerNewFolderIcons then
-            imageInfo.Image = assetData.Screen.Image
-        else
-            imageInfo.Image = listItemStyle.Image.Folder
-        end
+        imageInfo.Image = assetData.Screen.Image
     else
         if self.state.assetFetchStatus == Enum.AssetFetchStatus.Success then
-            if FFlagStudioAssetManagerShowRootPlaceListView then
-                if assetData.assetType == Enum.AssetType.Place and assetData.isRootPlace then
-                    imageInfo = getClassIcon(assetData)
-                else
-                    imageInfo.Image = self.thumbnailUrl
-                end
+            if assetData.assetType == Enum.AssetType.Place and assetData.isRootPlace then
+                imageInfo = getClassIcon(assetData)
             else
                 imageInfo.Image = self.thumbnailUrl
             end

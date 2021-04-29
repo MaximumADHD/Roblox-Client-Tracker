@@ -4,9 +4,7 @@ local Constants = require(Plugin.Src.Resources.Constants)
 
 local Action = require(script.Parent.Action)
 
-local FFlagStudioLuaPublishFlowLocalizeUntitledGameText = game:GetFastFlag("StudioLuaPublishFlowLocalizeUntitledGameText")
-
-return Action(script.Name, function(localizedDefaultname, isOverwritePublish)
+return Action(script.Name, function(localizedDefaultName, isOverwritePublish)
     local CHOSEN_SCREEN = Constants.SCREENS.CHOOSE_GAME
 	return {
 		placeInfo = { places = {}, parentGame = {}, },
@@ -14,7 +12,7 @@ return Action(script.Name, function(localizedDefaultname, isOverwritePublish)
         groupInfo = { groups = {} },
         current = {},
         changed = {
-            name = FFlagStudioLuaPublishFlowLocalizeUntitledGameText and localizedDefaultname or "Untitled Game",
+            name = localizedDefaultName,
             description = "",
             genre = Constants.GENRE_IDS[1],
             playableDevices = {Computer = true, Phone = true, Tablet = true,},

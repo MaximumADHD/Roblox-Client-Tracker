@@ -1,7 +1,5 @@
 local Plugin = script.Parent.Parent.Parent
 
-local FFlagStudioAssetManagerConvertToDevFrameworkTooltips = game:GetFastFlag("StudioAssetManagerConvertToDevFrameworkTooltips")
-
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 
@@ -11,10 +9,10 @@ local Util = require(Framework.Util)
 local StyleModifier = Util.StyleModifier
 
 local UI = require(Framework.UI)
+local Tooltip = UI.Tooltip
 
 local UILibrary = require(Plugin.Packages.UILibrary)
 local GetTextSize = UILibrary.Util.GetTextSize
-local Tooltip = FFlagStudioAssetManagerConvertToDevFrameworkTooltips and UI.Tooltip or UILibrary.Component.Tooltip
 
 local PopUpButton = require(Plugin.Src.Components.PopUpButton)
 local enableAudioImport = require(Plugin.Src.Util.AssetManagerUtilities).enableAudioImport
@@ -27,14 +25,10 @@ local OnAssetDoubleClick = require(Plugin.Src.Thunks.OnAssetDoubleClick)
 local OnAssetRightClick = require(Plugin.Src.Thunks.OnAssetRightClick)
 local OnAssetSingleClick = require(Plugin.Src.Thunks.OnAssetSingleClick)
 
+local FFlagStudioAssetManagerDisableHoverOnOverlay = game:GetFastFlag("StudioAssetManagerDisableHoverOnOverlay")
+
 local AssetManagerService = game:GetService("AssetManagerService")
 local ContentProvider = game:GetService("ContentProvider")
-
-local FFlagAssetManagerRemoveAssetFixes = game:GetFastFlag("AssetManagerRemoveAssetFixes")
-local FFlagStudioAssetManagerAssetPreviewRequest = game:GetFastFlag("StudioAssetManagerAssetPreviewRequest")
-local FFlagStudioAssetManagerFixLinkedScripts = game:GetFastFlag("StudioAssetManagerFixLinkedScripts")
-local FFlagStudioAssetManagerFixAssetPreviewRequest = game:GetFastFlag("StudioAssetManagerFixAssetPreviewRequest")
-local FFlagStudioAssetManagerNewFolderIcons = game:GetFastFlag("StudioAssetManagerNewFolderIcons")
 
 local Tile = Roact.PureComponent:extend("Tile")
 
@@ -61,6 +55,12 @@ function Tile:init()
     self.textBoxRef = Roact.createRef()
 
     self.onMouseEnter = function()
+        if FFlagStudioAssetManagerDisableHoverOnOverlay then
+            local props = self.props
+            if not props.Enabled then
+                return
+            end
+        end
         if self.state.StyleModifier == nil then
             self:setState({
                 StyleModifier = StyleModifier.Hover,
@@ -69,17 +69,21 @@ function Tile:init()
         self:setState({
             assetPreviewButtonHovered = true,
         })
-        if FFlagStudioAssetManagerFixAssetPreviewRequest then
-            local assetData = self.props.AssetData
-            local isFolder = assetData.ClassName == "Folder"
-            local isPlace = assetData.assetType == Enum.AssetType.Place
-            if not isFolder and not isPlace then
-                self.props.dispatchGetAssetPreviewData(self.props.API:get(), {assetData.id})
-            end
+        local assetData = self.props.AssetData
+        local isFolder = assetData.ClassName == "Folder"
+        local isPlace = assetData.assetType == Enum.AssetType.Place
+        if not isFolder and not isPlace then
+            self.props.dispatchGetAssetPreviewData(self.props.API:get(), {assetData.id})
         end
     end
 
     self.onMouseLeave = function()
+        if FFlagStudioAssetManagerDisableHoverOnOverlay then
+            local props = self.props
+            if not props.Enabled then
+                return
+            end
+        end
         if self.state.StyleModifier == StyleModifier.Hover then
             self:setState({
                 StyleModifier = Roact.None,
@@ -124,15 +128,8 @@ function Tile:init()
 
     self.openAssetPreview = function()
         local assetData = self.props.AssetData
-        if not FFlagStudioAssetManagerFixAssetPreviewRequest then
-            if FFlagStudioAssetManagerAssetPreviewRequest then
-                self.props.dispatchGetAssetPreviewData(self.props.API:get(), {assetData.id})
-            end
-        end
-        if FFlagAssetManagerRemoveAssetFixes then
-            -- when opening asset preview, set selected assets to that asset only
-            self.props.dispatchSetSelectedAssets({ [assetData.key] = true })
-        end
+        -- when opening asset preview, set selected assets to that asset only
+        self.props.dispatchSetSelectedAssets({ [assetData.key] = true })
         self.props.OnOpenAssetPreview(assetData)
     end
 
@@ -154,7 +151,7 @@ function Tile:init()
                 AssetManagerService:RenamePlace(assetData.id, newName)
             elseif assetData.assetType == Enum.AssetType.Image
             or assetData.assetType == Enum.AssetType.MeshPart
-            or (FFlagStudioAssetManagerFixLinkedScripts and assetData.assetType == Enum.AssetType.Lua)
+            or assetData.assetType == Enum.AssetType.Lua
             or (enableAudioImport() and assetData.assetType == Enum.AssetType.Audio)
             then
                 local prefix
@@ -285,11 +282,7 @@ function Tile:render()
 
     local image
     if isFolder then
-        if FFlagStudioAssetManagerNewFolderIcons then
-            image = assetData.Screen.Image
-        else
-            image = tileStyle.Image.Folder
-        end
+        image = assetData.Screen.Image
     else
         image = self.state.assetFetchStatus == Enum.AssetFetchStatus.Success and self.thumbnailUrl
             or tileStyle.Image.PlaceHolder

@@ -145,6 +145,14 @@ local function waitForFirst(...)
 	return shunt.Event:Wait()
 end
 
+local function findFirstChildByNameAndClass(instance, name, class)
+	for _, child in ipairs(instance:GetChildren()) do
+		if child.Name == name and child:IsA(class) then
+			return child
+		end
+	end
+end
+
 -- Fires when the adornee character respawns. Updates the state adornee to the new character once it has respawned.
 function BubbleChatBillboard:onCharacterAdded(player, character)
 	-- This part is inspired from HumanoidReadyUtil.lua
@@ -176,8 +184,9 @@ function BubbleChatBillboard:onCharacterAdded(player, character)
 	end
 
 	if rootPart and character:IsDescendantOf(game) and player.Character == character and self.isMounted then
+		local head = findFirstChildByNameAndClass(character, "Head", "BasePart")
 		self:setState({
-			adornee = humanoid.Health == 0 and character:FindFirstChild("Head") or character
+			adornee = humanoid.Health == 0 and head or character
 		})
 
 		if self.humanoidDiedConn then
@@ -186,7 +195,7 @@ function BubbleChatBillboard:onCharacterAdded(player, character)
 		end
 		self.humanoidDiedConn = humanoid.Died:Connect(function()
 			self:setState({
-				adornee = character:FindFirstChild("Head") or character
+				adornee = findFirstChildByNameAndClass(character, "Head", "BasePart") or character
 			})
 		end)
 	end
@@ -195,9 +204,7 @@ end
 -- Offsets the billboard so it will align properly with the top of the
 -- character, regardless of what assets they're wearing.
 function BubbleChatBillboard:getVerticalOffset(adornee)
-	if not adornee or adornee:IsA("Attachment") then
-		return 0
-	elseif adornee:IsA("Model") then
+	if adornee and adornee:IsA("Model") then
 		-- Billboard is adornee'd to a child part -> need to calculate the distance between it and the top of the
 		-- bounding box
 		local orientation, size = adornee:GetBoundingBox()
@@ -209,8 +216,10 @@ function BubbleChatBillboard:getVerticalOffset(adornee)
 			return size.Y / 2 - relative.Y
 		end
 		return 0
-	elseif adornee:IsA("BasePart") then
+	elseif adornee and adornee:IsA("BasePart") then
 		return adornee.Size.Y / 2
+	else
+		return 0
 	end
 end
 

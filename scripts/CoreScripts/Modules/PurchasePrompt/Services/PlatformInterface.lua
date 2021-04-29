@@ -7,8 +7,6 @@ pcall(function()
 	PlatformService = game:GetService("PlatformService")
 end)
 
-local GetFFlagUpsellDirectToPackage = require(Root.Flags.GetFFlagUpsellDirectToPackage)
-
 local BASE_URL = string.gsub(ContentProvider.BaseUrl:lower(), "/m.", "/www.")
 
 local PlatformInterface = {}
@@ -27,12 +25,7 @@ function PlatformInterface.new()
 	end
 
 	function service.startPremiumUpsell(productId)
-		local url = nil
-		if GetFFlagUpsellDirectToPackage() then
-			url = ("%supgrades/paymentmethods?ap=%d"):format(BASE_URL, productId)
-		else
-			url = ("%spremium/membership"):format(BASE_URL)
-		end
+		local url = ("%supgrades/paymentmethods?ap=%d"):format(BASE_URL, productId)
 
 		GuiService:OpenBrowserWindow(url)
 	end

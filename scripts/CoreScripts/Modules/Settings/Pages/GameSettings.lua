@@ -128,6 +128,8 @@ local UseMicroProfiler = (isMobileClient or isDesktopClient) and canUseMicroProf
 local GetFFlagEnableVoiceChatOptions = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceChatOptions)
 local GetFFlagEnableVoiceChatOptionsDualServiceOutputs = require(RobloxGui.Modules.Flags.getFFlagEnableVoiceChatOptionsDualServiceOutputs)
 
+local GetDeviceChangedHookEnabled = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceChatOptionsDeviceChangedHook)
+
 local function reportSettingsForAnalytics()
 	if not FFlagCollectAnalyticsForSystemMenu then return end
 
@@ -1781,9 +1783,27 @@ local function Initialize()
 		end
 	end
 
+	local deviceChangedConnection = nil
+
 	local function updateVoiceChatOptions()
 		updateVoiceChatDevices(VOICE_CHAT_DEVICE_TYPE.Input)
 		updateVoiceChatDevices(VOICE_CHAT_DEVICE_TYPE.Output)
+	end
+
+	local function setupDeviceChangedListener()
+		if SoundService.DeviceListChanged then
+			deviceChangedConnection = SoundService.DeviceListChanged:Connect(function()
+				if this.PageOpen then
+					updateVoiceChatOptions()
+				end
+			end)
+		end
+	end
+
+	local function teardownDeviceChangedListener()
+		if SoundService.DeviceListChanged and deviceChangedConnection then
+			deviceChangedConnection:Disconnect()
+		end
 	end
 
 	-- Check if voice chat is enabled
@@ -1945,6 +1965,9 @@ local function Initialize()
 				-- Update device info each time user opens the menu
 				-- TODO: This should be simplified by new API
 				updateVoiceChatOptions()
+				if GetDeviceChangedHookEnabled() then
+					setupDeviceChangedListener()
+				end
 			end
 		end
 	end
@@ -1952,6 +1975,9 @@ local function Initialize()
 	this.CloseSettingsPage = function()
 		if GetFFlagEnableVoiceChatOptions() then
 			this.PageOpen = false
+			if GetDeviceChangedHookEnabled() then
+				teardownDeviceChangedListener()
+			end
 		end
 	end
 

@@ -16,8 +16,6 @@ local CancelButton = require(script.Parent.CancelButton)
 local OkButton = require(script.Parent.OkButton)
 local withLayoutValues = require(script.Parent.Parent.Connection.withLayoutValues)
 
-local GetFFlagPurchasePromptScaryModalV2 = require(Root.Flags.GetFFlagPurchasePromptScaryModalV2)
-
 local CONFIRM_PURCHASE_KEY = "CoreScripts.PurchasePrompt.ConfirmPurchase.%s"
 
 local PromptButtons = Roact.PureComponent:extend("PromptButtons")
@@ -99,11 +97,7 @@ local function mapDispatchToProps(dispatch)
 			dispatch(launchRobuxUpsell())
 		end,
 		onRobuxUpsell = function()
-			if (GetFFlagPurchasePromptScaryModalV2()) then
-				dispatch(initiatePurchasePrecheck())
-			else
-				dispatch(launchRobuxUpsell())
-			end
+			dispatch(initiatePurchasePrecheck())
 		end,
 	}
 end

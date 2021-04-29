@@ -32,6 +32,12 @@ ScriptContext:AddCoreScriptLocal("ServerCoreScripts/PlayerRagdollRigCreator", sc
 -- FFlag for admin freecam (for easy disabling in case of security breach)
 game:DefineFastFlag("DebugFreeCameraForAdmins", true)
 
+local SendChatAnalytics
+local FFlagEnableForkedChatAnalytics = require(RobloxGui.Modules.Common.Flags.FFlagEnableForkedChatAnalytics)
+if FFlagEnableForkedChatAnalytics then
+	SendChatAnalytics = require(RobloxGui.Modules.Server.SendChatAnalytics)
+end
+
 local FFlagFixDialogServerWait = require(RobloxGui.Modules.Common.Flags.GetFFlagFixDialogServerWait)()
 
 if FFlagFixDialogServerWait then
@@ -106,6 +112,8 @@ RemoteFunction_GetServerVersion.OnServerInvoke = getServerVersion
 if game:GetService("Chat").LoadDefaultChat then
 	require(game:GetService("CoreGui").RobloxGui.Modules.Server.ClientChat.ChatWindowInstaller)()
 	require(game:GetService("CoreGui").RobloxGui.Modules.Server.ServerChat.ChatServiceInstaller)()
+elseif FFlagEnableForkedChatAnalytics then
+	SendChatAnalytics("NoLoadDefaultChat")
 end
 
 if game:GetFastFlag("DebugFreeCameraForAdmins") then
@@ -113,4 +121,3 @@ if game:GetFastFlag("DebugFreeCameraForAdmins") then
 end
 
 require(game:GetService("CoreGui").RobloxGui.Modules.Server.ServerSound.SoundDispatcherInstaller)()
-

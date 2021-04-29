@@ -1,8 +1,4 @@
 return function()
-	local Root = script.Parent.Parent
-
-	local GetFFlagIGPPPremiumPrice = require(Root.Flags.GetFFlagIGPPPremiumPrice)
-
 	local getPlayerProductInfoPrice = require(script.Parent.getPlayerProductInfoPrice)
 
 	it("should return correct sale price when not premium", function()
@@ -24,10 +20,6 @@ return function()
 
 		local price = getPlayerProductInfoPrice(productInfo, true)
 
-		if GetFFlagIGPPPremiumPrice() then
-			expect(price).to.equal(10)
-		else
-			expect(price).to.equal(5)
-		end
+		expect(price).to.equal(10)
 	end)
 end
