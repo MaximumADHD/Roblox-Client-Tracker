@@ -1,5 +1,0 @@
-{
-	"lint": {
-		"ImplicitReturn": "fatal"
-	}
-}
