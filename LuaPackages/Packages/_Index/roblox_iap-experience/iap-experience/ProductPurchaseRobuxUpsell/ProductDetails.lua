@@ -10,18 +10,10 @@ local FitFrameVertical = RoactFitComponents.FitFrameVertical
 local FitTextLabel = RoactFitComponents.FitTextLabel
 
 local UIBlox = require(Packages.UIBlox)
-local InteractiveAlert = UIBlox.App.Dialog.Alert.InteractiveAlert
-local ButtonType = UIBlox.App.Button.Enum.ButtonType
 local Images = UIBlox.App.ImageSet.Images
 local ImageSetLabel = UIBlox.Core.ImageSet.Label
-local UIBloxIconSize = UIBlox.App.Constant.IconSize
 local withStyle = UIBlox.Core.Style.withStyle
 
-local MultiTextLocalizer = require(IAPExperienceRoot.Locale.MultiTextLocalizer)
-
-local LOC_KEY = "IAPExperience.RobuxUpsell.%s"
-
-local ROBUX_ICON_SMALL = Images["icons/common/robux"]
 local ROBUX_ICON = Images["icons/common/robux"]
 
 local ProductDetails = Roact.Component:extend(script.Name)

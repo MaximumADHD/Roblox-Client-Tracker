@@ -205,7 +205,7 @@ function ProductPurchasePrompt:renderAlert(locMap)
                         width = FitTextLabel.Width.FitToText,
 
                         Font = fonts.Footer.Font,
-                        Text = tostring(self.props.currentBalance),
+                        Text = tostring(self.props.currentBalance - self.props.itemRobuxCost),
                         TextSize = fonts.BaseSize * fonts.Footer.RelativeSize,
                         TextColor3 = theme.TextDefault.Color,
                     })

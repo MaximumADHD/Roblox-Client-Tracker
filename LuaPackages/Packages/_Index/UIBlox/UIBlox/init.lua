@@ -126,7 +126,13 @@ local function initializeLibrary(configs)
 
 		Container = strict({
 			Carousel = strict({
-				FreeFlowCarousel = require(script.App.Container.Carousel.FreeFlowCarousel)
+				FreeFlowCarousel = require(script.App.Container.Carousel.FreeFlowCarousel),
+				--[[
+					TODO: Remove ScrollButton when we switch the new carouels without infinite scroller
+					We need this temporarily for the old carousels only, see https://jira.rbx.com/browse/APPFDN-230
+					Only to be used in ScrollingAppCarousel
+				]]
+				ScrollButton = require(script.App.Container.Carousel.ScrollButton),
 			}),
 			VerticalScrollView = require(script.App.Container.VerticalScrollView),
 			getPageMargin = require(script.App.Container.getPageMargin),

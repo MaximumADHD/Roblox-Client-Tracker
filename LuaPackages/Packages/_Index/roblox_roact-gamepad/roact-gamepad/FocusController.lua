@@ -108,7 +108,7 @@ function FocusControllerInternal:descendantRemovedRefocus()
 		-- exists; if we do find one, focus it
 		local ancestorNode = self.focusedLeaf.parent
 		while ancestorNode ~= nil and self.allNodes[ancestorNode.ref] == nil do
-			ancestorNode = ancestorNode.Parent
+			ancestorNode = ancestorNode.parent
 		end
 
 		if ancestorNode ~= nil then

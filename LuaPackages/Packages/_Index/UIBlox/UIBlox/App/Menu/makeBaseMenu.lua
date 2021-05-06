@@ -71,6 +71,7 @@ local function makeBaseMenu(cellComponent, backgroundThemeKey)
 				hasRoundBottom = self.props.bottomElementRounded and index == #self.props.buttonProps and not needsScrollbar,
 				hasDivider = index < #self.props.buttonProps,
 				layoutOrder = index,
+				inputBindingKey = Cryo.None,
 			})
 
 			if UIBloxConfig.enableExperimentalGamepadSupport then
@@ -94,7 +95,9 @@ local function makeBaseMenu(cellComponent, backgroundThemeKey)
 						NextSelectionUp = index > 1 and self.gamepadRefs[index - 1] or nil,
 						NextSelectionDown = index < #self.props.buttonProps and self.gamepadRefs[index + 1] or nil,
 						inputBindings = {
-							Activated = RoactGamepad.Input.onBegin(Enum.KeyCode.ButtonA, cellProps.onActivated),
+							Activated = RoactGamepad.Input.onBegin(Enum.KeyCode.ButtonA, cellProps.onActivated, {
+								key = cellProps.inputBindingKey,
+							}),
 						},
 						SelectionImageObject = getSelectionCursor(cursorKind)
 					}, {

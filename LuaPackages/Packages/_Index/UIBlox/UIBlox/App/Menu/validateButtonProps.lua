@@ -12,6 +12,9 @@ return t.array(t.strictInterface({
 	onActivated = t.callback,
 	disabled = t.optional(t.boolean),
 
+	-- Input binding key for gamepad support
+	inputBindingKey = t.optional(t.string),
+
 	-- A KeyCode to display a keycode hint for, the display string based on the users keyboard is displayed.
 	keyCodeLabel = t.optional(t.enum(Enum.KeyCode)),
 	selected = t.optional(t.boolean),

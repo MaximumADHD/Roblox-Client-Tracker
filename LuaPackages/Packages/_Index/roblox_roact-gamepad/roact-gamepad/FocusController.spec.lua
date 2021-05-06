@@ -25,14 +25,14 @@ return function()
 		local instance = Instance.new("Frame")
 		instance.Parent = parentNode.ref:getValue()
 
-		local childRef, _ = Roact.createBinding(instance)
+		local childRef, updateChildRef = Roact.createBinding(instance)
 		local childNode = FocusNode.new({
 			parentFocusNode = parentNode,
 			[Roact.Ref] = childRef,
 		})
 		childNode:attachToTree(parentNode, function() end)
 
-		return childNode, childRef
+		return childNode, childRef, updateChildRef
 	end
 
 	describe("event management", function()
@@ -238,6 +238,31 @@ return function()
 
 			parentNode.focusController.releaseFocus()
 			expect(engineInterface.getSelection()).to.equal(nil)
+		end)
+
+		it("should change the focus to the ancestor when a descendant is removed", function()
+			local rootRef, _ = Roact.createBinding(Instance.new("Frame"))
+			local parentNode = createRootNode(rootRef)
+
+			local _, engineInterface = MockEngine.new()
+			local focusController = parentNode.focusController[InternalApi]
+			focusController:initialize(engineInterface)
+
+			local midChildNode, _, updateMidChildNodeRef = addChildNode(parentNode)
+			local bottomChildNode, bottomNodeRef, updateBottomChildNodeRef = addChildNode(midChildNode)
+
+			bottomChildNode:focus()
+			expect(engineInterface.getSelection()).to.equal(bottomNodeRef:getValue())
+
+			updateMidChildNodeRef(nil)
+			midChildNode:detachFromTree()
+			updateBottomChildNodeRef(nil)
+			bottomChildNode:detachFromTree()
+
+			focusController:descendantRemovedRefocus()
+
+			-- Should now be focused on the root
+			expect(engineInterface.getSelection()).to.equal(rootRef:getValue())
 		end)
 	end)
 

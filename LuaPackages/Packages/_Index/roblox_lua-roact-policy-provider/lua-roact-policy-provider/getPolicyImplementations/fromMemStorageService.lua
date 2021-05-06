@@ -2,6 +2,8 @@ local DefaultHttpService = game:GetService("HttpService")
 local DefaultMemStorageService = game:GetService("MemStorageService")
 local DefaultPlayersService = game:GetService("Players")
 
+local GetFFlagFixAppPolicyDefaultUserId = require(script.Parent.Parent.Flags.GetFFlagFixAppPolicyDefaultUserId)
+
 return function(dependencies)
 	dependencies = dependencies or {}
 	dependencies.HttpService = dependencies.HttpService or DefaultHttpService
@@ -21,8 +23,16 @@ return function(dependencies)
 
 		local function getStoreKey()
 			local userId = -1
-			if PlayersService.LocalPlayer then
-				userId = PlayersService.LocalPlayer.UserId
+			if GetFFlagFixAppPolicyDefaultUserId() then
+				-- AppConfiguration::generateStoreKey() uses -1 as the default userId
+				local player = PlayersService.LocalPlayer
+				if player and player.UserId > 0 then
+					userId = player.UserId
+				end
+			else
+				if PlayersService.LocalPlayer then
+					userId = PlayersService.LocalPlayer.UserId
+				end
 			end
 			return "GUAC:" .. userId .. ":" .. behavior
 		end

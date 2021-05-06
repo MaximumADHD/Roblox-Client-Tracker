@@ -70,7 +70,10 @@ function LocaleService.getString(localeContext, key, params)
                 replacement = value.format(localeContext)
             end
 
-            localizedString = string.gsub(localizedString, paramPlaceholder, function() return replacement end)
+            localizedString = string.gsub(localizedString, paramPlaceholder,
+                function()
+                    return replacement
+                end)
         end
     end
 
