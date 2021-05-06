@@ -47,6 +47,7 @@ Studio.GameSettings.Monetization.Subscriptions,Subscriptions: {numOfSubscription
 Studio.GameSettings.General.AvatarDialogBody,Changing the game's Avatar Type to this setting will shut down any running games.,Changing the game's Avatar Type to this setting will shut down any running games.
 Studio.GameSettings.AccessPermissions.EditLabel,Edit,Edit
 Studio.GameSettings.General.ButtonEdit,Edit,Edit
+Studio.GameSettings.Permissions.EditLabel,Edit,Edit
 Studio.GameSettings.General.ButtonView,View,View
 Studio.GameSettings.General.Configure,Configure,Configure
 Studio.GameSettings.General.ButtonShutdownAllServers,Shutdown,Shutdown
@@ -55,6 +56,7 @@ Studio.GameSettings.General.GameIconHint,Acceptable files: {fileTypes}{newline}R
 Studio.GameSettings.General.SettingsFailedToLoad,Failed to load settings for page,Failed to load settings for page
 Studio.GameSettings.General.CategoryBasicInfo,Basic Info,Basic Info
 Studio.GameSettings.General.CategoryAccessPermissions,Permissions,Permissions
+Studio.GameSettings.General.CategoryPermissions,Permissions,Permissions
 Studio.GameSettings.General.SettingsInsufficientPermission,Only the game owner can edit these settings,Only the game owner can edit these settings
 Studio.GameSettings.General.GenreAll,All,All
 Studio.GameSettings.General.CategoryAvatar,Avatar,Avatar
@@ -66,7 +68,6 @@ Studio.GameSettings.General.LocalizationSettingsPublishMessageLinkText,Publishin
 Studio.GameSettings.General.GenreMedieval,Medieval,Medieval
 Studio.GameSettings.General.DevSubsName,Name,Name
 Studio.GameSettings.General.TitleName,Name,Name
-Studio.GameSettings.General.GenreHorror,Horror,Horror
 Studio.GameSettings.General.SourceLanguageDesc,The source language represents the language that the game has been written in.,The source language represents the language that the game has been written in.
 Studio.GameSettings.General.DevSubsTitle,Title,Title
 Studio.GameSettings.General.DevSubsDescription,Description,Description
@@ -77,6 +78,8 @@ Studio.GameSettings.General.TitleThumbnails,Screenshots & Videos,Screenshots & V
 Studio.GameSettings.General.CategoryLocalization,Localization,Localization
 Studio.GameSettings.General.TitleGenre,Genre,Genre
 Studio.GameSettings.General.TitleHttp,Allow HTTP Requests,Allow HTTP Requests
+Studio.GameSettings.General.ClothingPants,Pants ID,Pants ID
+Studio.GameSettings.General.TitleOptInLocations,Opt-In Locations, Opt-In Locations
 Studio.GameSettings.General.TitleAllowCopying,Allow Copying,Allow Copying
 Studio.GameSettings.General.ThumbnailsLimit,You can set up to {maxThumbnails:int} screenshots and YouTube videos for a game.,You can set up to {maxThumbnails:int} screenshots and YouTube videos for a game.
 Studio.GameSettings.General.PlayabilityPublic,Public,Public
@@ -86,12 +89,14 @@ Studio.GameSettings.Monetization.PrivateServersShutdownWarning,Warning: Turning 
 Studio.GameSettings.General.AvatarOverridePrompt,Override Player Choice?,Override Player Choice?
 Studio.GameSettings.AccessPermissions.FriendsCollaboratorType,Friends,Friends
 Studio.GameSettings.General.PlayabilityFriends,Friends,Friends
+Studio.GameSettings.Permissions.FriendsCollaboratorType,Friends,Friends
 Studio.GameSettings.General.PlayabilityPublicDesc,Anyone on Roblox,Anyone on Roblox
 Studio.GameSettings.General.ImageReview,In Review,In Review
 Studio.GameSettings.General.PlayabilityGroupDesc,Members of {group},Members of {group}
 Studio.GameSettings.General.UseTranslatedContentTitle,Use Translated Content,Use Translated Content
 Studio.GameSettings.General.PublishIsRequiredSentence1, is required for {requiredForWhat}, is required for {requiredForWhat}
 Studio.GameSettings.AccessPermissions.PlayDescription,Can play this game,Can play this game
+Studio.GameSettings.Permissions.PlayDescription,Can play this game,Can play this game
 Studio.GameSettings.General.PlayabilityFriendsDesc,Friends on Roblox,Friends on Roblox
 Studio.GameSettings.General.GenreFighting,Fighting,Fighting
 Studio.GameSettings.General.ErrorDevSubFiltered,Filtered to {filteredText},Filtered to {filteredText}
@@ -114,6 +119,7 @@ Studio.GameSettings.General.GenreBuilding,Building,Building
 Studio.GameSettings.General.PublishIsRequiredHyperlink,Publishing the game to Roblox,Publishing the game to Roblox
 Studio.GameSettings.General.PublishingHintLink,Publishing the game to Roblox,Publishing the game to Roblox
 Studio.GameSettings.General.GenreComedy,Comedy,Comedy
+Studio.GameSettings.General.GenreHorror,Horror,Horror
 Studio.GameSettings.General.GenreMilitary,Military,Military
 Studio.GameSettings.General.WorldPresetsAction,Action,Action
 Studio.GameSettings.General.GenreNaval,Naval,Naval
@@ -127,6 +133,7 @@ Studio.GameSettings.General.DeviceComputer,Computer,Computer
 Studio.GameSettings.General.DevicePhone,Phone,Phone
 Studio.GameSettings.General.DeviceTablet,Tablet,Tablet
 Studio.GameSettings.General.DeviceConsole,Console,Console
+Studio.GameSettings.General.LocationChina,China,China
 Studio.GameSettings.General.HttpDesc,Allow game server to issue requests to remote servers.,Allow game server to issue requests to remote servers.
 Studio.GameSettings.Places.MaximumTitle,Maximum,Maximum
 Studio.GameSettings.General.ThumbnailPrompt,Add Thumbnails,Add Thumbnails
@@ -150,6 +157,7 @@ Studio.GameSettings.General.ContentDialogItem5,Drug Reference or Use,Drug Refere
 Studio.GameSettings.General.PreviewDialogBody,Studio doesn't currently support video playing,Studio doesn't currently support video playing
 Studio.GameSettings.General.PreviewDialogLink,Go to YouTube and play the video,Go to YouTube and play the video
 Studio.GameSettings.AccessPermissions.OwnerDescription,Owner of the game,Owner of the game
+Studio.GameSettings.Permissions.OwnerDescription,Owner of the game,Owner of the game
 Studio.GameSettings.General.PartLeftLeg,Left Leg,Left Leg
 Studio.GameSettings.General.CancelDialogHeader,Discard Changes,Discard Changes
 Studio.GameSettings.General.MultiImageDialogBody,The following file(s) exceed {maxThumbnailSize:int} MB:,The following file(s) exceed {maxThumbnailSize:int} MB:
@@ -161,6 +169,7 @@ Studio.GameSettings.General.DevSubsDuration6Months,6 months,6 months
 Studio.GameSettings.General.PrivateDialogHeader,Make Private,Make Private
 Studio.GameSettings.General.PrivateDialogPrompt,Are you sure you want to make this game private?,Are you sure you want to make this game private?
 Studio.GameSettings.AccessPermissions.CollaboratorSearchbarNoResultsText,There were no results,There were no results
+Studio.GameSettings.Permissions.CollaboratorSearchbarNoResultsText,There were no results,There were no results
 Studio.GameSettings.General.PrivateDialogBody,Making this game private will shut down any running games.,Making this game private will shut down any running games.
 Studio.GameSettings.General.PartRightArm,Right Arm,Right Arm
 Studio.GameSettings.General.AvatarDialogHeader,Warning,Warning
@@ -171,6 +180,7 @@ Studio.GameSettings.General.ImageDialogHeader,No Image Loaded,No Image Loaded
 Studio.GameSettings.General.SingleImageDialogHeader,No Image Loaded,No Image Loaded
 Studio.GameSettings.General.UnitsMetersPerSecondSquared,({number} meters/second^2),({number} meters/second^2)
 Studio.GameSettings.AccessPermissions.EditDescription,Can play and edit this game,Can play and edit this game
+Studio.GameSettings.Permissions.EditDescription,Can play and edit this game,Can play and edit this game
 Studio.GameSettings.General.ErrorsOnSaveHeader,Saving Errors,Saving Errors
 Studio.GameSettings.General.ErrorsOnSaveBody,Could not save game settings.,Could not save game settings.
 Studio.GameSettings.General.ErrorNameModerated,The name didn't go through our moderation. Please revise it and try again.,The name didn't go through our moderation. Please revise it and try again.
@@ -195,7 +205,6 @@ Studio.GameSettings.General.PartFace,Face,Face
 Studio.GameSettings.General.PartLeftArm,Left Arm,Left Arm
 Studio.GameSettings.General.AvatarTypeR6,R6,R6
 Studio.GameSettings.General.PartRightLeg,Right Leg,Right Leg
-Studio.GameSettings.General.ClothingPants,Pants ID,Pants ID
 Studio.GameSettings.General.PresetDefault,Default,Default
 Studio.GameSettings.General.PresetClassicScale,Classic Scale,Classic Scale
 Studio.GameSettings.General.AnimationPlayerChoice,Player Choice,Player Choice
@@ -209,6 +218,7 @@ Studio.GameSettings.Security.EnableThirdPartyTeleportsDescription,"By enabling, 
 Studio.GameSettings.General.CollisionInnerBox,Inner Box,Inner Box
 Studio.GameSettings.General.AvatarOverrideItem,Custom Item,Custom Item
 Studio.GameSettings.AccessPermissions.PublishRequiredForCollaborators,adding collaborators,adding collaborators
+Studio.GameSettings.Permissions.PublishRequiredForCollaborators,adding collaborators,adding collaborators
 Studio.GameSettings.General.AvatarOverrideId,ID Number,ID Number
 Studio.GameSettings.General.ErrorOverrideEmpty,ID Number cannot be empty,ID Number cannot be empty
 Studio.GameSettings.General.CategoryDeveloperSubscriptions,Subscriptions,Subscriptions
@@ -219,6 +229,7 @@ Studio.GameSettings.Monetization.BadgeName,Badge Name,Badge Name
 Studio.GameSettings.General.DevSubsPlanID,Plan ID,Plan ID
 Studio.GameSettings.Places.PlaceVersion,Place Version,Place Version
 Studio.GameSettings.AccessPermissions.NoAccessLabel,No Access,No Access
+Studio.GameSettings.Permissions.NoAccessLabel,No Access,No Access
 Studio.GameSettings.General.DevSubsCreationDate,Creation Date,Creation Date
 Studio.GameSettings.General.DevSubsPrice,Price,Price
 Studio.GameSettings.Monetization.PriceTitle,Price,Price
@@ -240,14 +251,20 @@ Studio.GameSettings.General.DevSubsDuration12Months,12 months,12 months
 Studio.GameSettings.General.CopyIDToClipboard,Copy ID to Clipboard,Copy ID to Clipboard
 Studio.GameSettings.Monetization.PrivateServerSubscriptions,There are currently {numOfSubscriptions:int} Private Server Subscriptions active for this place.,There are currently {numOfSubscriptions:int} Private Server Subscriptions active for this place.
 Studio.GameSettings.AccessPermissions.PlayLabel,Play,Play
+Studio.GameSettings.Permissions.PlayLabel,Play,Play
 Studio.GameSettings.General.JumpHeight,Jump Height:,Jump Height:
 Studio.GameSettings.General.GravityWorkspaceGravity,Workspace Gravity:,Workspace Gravity:
 Studio.GameSettings.AccessPermissions.AdminLabel,Manage,Manage
+Studio.GameSettings.Permissions.AdminLabel,Manage,Manage
 Studio.GameSettings.AccessPermissions.OwnerLabel,Owner,Owner
+Studio.GameSettings.Permissions.OwnerLabel,Owner,Owner
 Studio.GameSettings.AccessPermissions.MultipleLabel,(Multiple),(Multiple)
+Studio.GameSettings.Permissions.MultipleLabel,(Multiple),(Multiple)
 Studio.GameSettings.General.TitleGravity,Gravity,Gravity
 Studio.GameSettings.AccessPermissions.NoAccessDescription,Cannot play or edit this game,Cannot play or edit this game
+Studio.GameSettings.Permissions.NoAccessDescription,Cannot play or edit this game,Cannot play or edit this game
 Studio.GameSettings.AccessPermissions.AdminDescription,"Can play, edit, and manage this game","Can play, edit, and manage this game"
+Studio.GameSettings.Permissions.AdminDescription,"Can play, edit, and manage this game","Can play, edit, and manage this game"
 Studio.GameSettings.General.TitleScriptCollab,Enable Collaborative Editing,Enable Collaborative Editing
 Studio.GameSettings.General.TitleJump,Jump,Jump
 Studio.GameSettings.General.TitleCollaborators,Collaborators,Collaborators
@@ -273,17 +290,27 @@ Studio.GameSettings.General.WalkSpeed,Walk Speed:,Walk Speed:
 Studio.GameSettings.General.SlopeAngle,Max Slope Angle:,Max Slope Angle:
 Studio.GameSettings.General.UnitsMeters,({number} meters),({number} meters)
 Studio.GameSettings.AccessPermissions.CollaboratorSearchbarDefaultText,Search by username,Search by username
+Studio.GameSettings.Permissions.CollaboratorSearchbarDefaultText,Search by username,Search by username
 Studio.GameSettings.General.UnitsMetersPerSecond,({number} meters/second),({number} meters/second)
 Studio.GameSettings.General.UnitsMeters1,({1} meters),({1} meters)
 Studio.GameSettings.General.PublishText,Publish to access Game Settings.,Publish to access Game Settings. 
+Studio.GameSettings.Monetization.TitleVIPServers,VIP Servers,VIP Servers
+Studio.GameSettings.General.SaveText,Save to access Game Settings.,Save to access Game Settings. 
 Studio.GameSettings.AccessPermissions.UsersCollaboratorType,Users,Users
+Studio.GameSettings.Permissions.UsersCollaboratorType,Users,Users
 Studio.GameSettings.AccessPermissions.GroupsCollaboratorType,Groups,Groups
+Studio.GameSettings.Permissions.GroupsCollaboratorType,Groups,Groups
 Studio.GameSettings.AccessPermissions.MyFriendsCollaborator,My Friends,My Friends
+Studio.GameSettings.Permissions.MyFriendsCollaborator,My Friends,My Friends
 Studio.GameSettings.AccessPermissions.CollaboratorSearchbarTooManyText1,You cannot add more than {maxNumCollaborators:int} collaborators,You cannot add more than {maxNumCollaborators:int} collaborators
+Studio.GameSettings.Permissions.CollaboratorSearchbarTooManyText1,You cannot add more than {maxNumCollaborators:int} collaborators,You cannot add more than {maxNumCollaborators:int} collaborators
 Studio.GameSettings.AccessPermissions.TeamCreateWarning,"To add collaborators, turn on Team Create","To add collaborators, turn on Team Create"
+Studio.GameSettings.Permissions.TeamCreateWarning,"To add collaborators, turn on Team Create","To add collaborators, turn on Team Create"
 Studio.GameSettings.DraftGames.PublishRequiredToActivatePlayability, to activate Playability options, to activate Playability options
 Studio.GameSettings.AccessPermissions.DEPRECATED_CollaboratorSearchbarDefaultText,Search by user or group name,Search by user or group name
+Studio.GameSettings.Permissions.DEPRECATED_CollaboratorSearchbarDefaultText,Search by user or group name,Search by user or group name
 Studio.GameSettings.AccessPermissions.PermissionsUpdateMessage, We've updated our permission system!, We've updated our permission system!
+Studio.GameSettings.Permissions.PermissionsUpdateMessage, We've updated our permission system!, We've updated our permission system!
 Studio.GameSettings.General.SourceLanguageTitle,Source Language,Source Language
 Studio.GameSettings.General.AutoTextCaptureDesc,Automatically capture text from game UI while players play.,Automatically capture text from game UI while players play.
 Studio.GameSettings.General.UseTranslatedContentDesc,Enable translated content in game.,Enable translated content in game.
@@ -301,7 +328,6 @@ Studio.GameSettings.Places.CustomizeSlotsTitle,Customize Reserved Server Slots,C
 Studio.GameSettings.Places.CustomizeSlotsDescription,Friends are more likely to join players in your game if you reserve slots.,Friends are more likely to join players in your game if you reserve slots.
 Studio.GameSettings.Monetization.FeeLabel,{1}% Fee:,{1}% Fee:
 Studio.GameSettings.Monetization.TitlePaidAccess,Paid Access,Paid Access
-Studio.GameSettings.Monetization.TitleVIPServers,VIP Servers,VIP Servers
 Studio.GameSettings.Monetization.Price,Price:,Price:
 Studio.GameSettings.Monetization.PrivateServersPriceChangeWarning,Warning: Changing the price of Private Servers will cancel all existing subscriptions.,Warning: Changing the price of Private Servers will cancel all existing subscriptions.
 Studio.GameSettings.Monetization.EarnLabel,You Earn:,You Earn:

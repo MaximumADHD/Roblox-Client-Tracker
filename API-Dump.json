@@ -362,6 +362,25 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "FindFirstDescendant",
+                    "Parameters": [
+                        {
+                            "Name": "name",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Class",
+                        "Name": "Instance"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "ReadOnly"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "GetActor",
                     "Parameters": [
                     ],
@@ -28141,6 +28160,27 @@
                 {
                     "Category": "Accessories",
                     "MemberType": "Property",
+                    "Name": "AccessoryBlob",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "NotScriptable"
+                    ],
+                    "ThreadSafety": "ReadOnly",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "string"
+                    }
+                },
+                {
+                    "Category": "Accessories",
+                    "MemberType": "Property",
                     "Name": "BackAccessory",
                     "Security": {
                         "Read": "None",
@@ -28853,6 +28893,25 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "GetAccessories",
+                    "Parameters": [
+                        {
+                            "Name": "includeRigidAccessories",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "bool"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Array"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "GetEmotes",
                     "Parameters": [
                     ],
@@ -28884,6 +28943,32 @@
                             "Type": {
                                 "Category": "Primitive",
                                 "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "SetAccessories",
+                    "Parameters": [
+                        {
+                            "Name": "accessories",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Array"
+                            }
+                        },
+                        {
+                            "Name": "includeRigidAccessories",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "bool"
                             }
                         }
                     ],
@@ -34730,7 +34815,7 @@
                             "Name": "priority",
                             "Type": {
                                 "Category": "Primitive",
-                                "Name": "int"
+                                "Name": "double"
                             }
                         },
                         {
@@ -34738,7 +34823,7 @@
                             "Name": "expiration",
                             "Type": {
                                 "Category": "Primitive",
-                                "Name": "int"
+                                "Name": "int64"
                             }
                         }
                     ],
@@ -34776,7 +34861,7 @@
                             "Name": "waitTimeout",
                             "Type": {
                                 "Category": "Primitive",
-                                "Name": "int"
+                                "Name": "double"
                             }
                         }
                     ],
@@ -34835,7 +34920,7 @@
                             }
                         },
                         {
-                            "Default": "30000",
+                            "Default": "30",
                             "Name": "invisibilityTimeout",
                             "Type": {
                                 "Category": "Primitive",
@@ -34991,7 +35076,7 @@
                             "Name": "expiration",
                             "Type": {
                                 "Category": "Primitive",
-                                "Name": "int"
+                                "Name": "int64"
                             }
                         }
                     ],
@@ -35028,13 +35113,13 @@
                             "Name": "expiration",
                             "Type": {
                                 "Category": "Primitive",
-                                "Name": "int"
+                                "Name": "int64"
                             }
                         }
                     ],
                     "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "void"
+                        "Category": "Group",
+                        "Name": "Variant"
                     },
                     "Security": "None",
                     "Tags": [
@@ -58460,6 +58545,27 @@
                     }
                 },
                 {
+                    "Category": "Character",
+                    "MemberType": "Property",
+                    "Name": "LoadCharacterLayeredClothing",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "NotScriptable"
+                    ],
+                    "ThreadSafety": "ReadOnly",
+                    "ValueType": {
+                        "Category": "Enum",
+                        "Name": "LoadCharacterLayeredClothing"
+                    }
+                },
+                {
                     "Category": "Data",
                     "MemberType": "Property",
                     "Name": "NameDisplayDistance",
@@ -58848,6 +58954,29 @@
         },
         {
             "Members": [
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "DisplayName",
+                    "Security": {
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "Hidden",
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ThreadSafety": "ReadOnly",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "string"
+                    }
+                },
                 {
                     "MemberType": "Function",
                     "Name": "GetValue",
@@ -62085,6 +62214,18 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "PromptForLocalSave",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "PublishAs",
                     "Parameters": [
                         {
@@ -62408,6 +62549,28 @@
                     "Tags": [
                         "Yields"
                     ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "FirstPublishOfCloudPlace",
+                    "Parameters": [
+                        {
+                            "Name": "universeId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int64"
+                            }
+                        },
+                        {
+                            "Name": "placeId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int64"
+                            }
+                        }
+                    ],
+                    "Security": "RobloxScriptSecurity",
                     "ThreadSafety": "Unsafe"
                 },
                 {
@@ -71722,6 +71885,79 @@
         {
             "Items": [
                 {
+                    "Name": "Hat",
+                    "Value": 0
+                },
+                {
+                    "Name": "Hair",
+                    "Value": 1
+                },
+                {
+                    "Name": "Face",
+                    "Value": 2
+                },
+                {
+                    "Name": "Neck",
+                    "Value": 3
+                },
+                {
+                    "Name": "Shoulder",
+                    "Value": 4
+                },
+                {
+                    "Name": "Front",
+                    "Value": 5
+                },
+                {
+                    "Name": "Back",
+                    "Value": 6
+                },
+                {
+                    "Name": "Waist",
+                    "Value": 7
+                },
+                {
+                    "Name": "TeeShirt",
+                    "Value": 8
+                },
+                {
+                    "Name": "Shirt",
+                    "Value": 9
+                },
+                {
+                    "Name": "Pants",
+                    "Value": 10
+                },
+                {
+                    "Name": "Jacket",
+                    "Value": 11
+                },
+                {
+                    "Name": "Sweater",
+                    "Value": 12
+                },
+                {
+                    "Name": "Shorts",
+                    "Value": 13
+                },
+                {
+                    "Name": "LeftShoe",
+                    "Value": 14
+                },
+                {
+                    "Name": "RightShoe",
+                    "Value": 15
+                },
+                {
+                    "Name": "DressSkirt",
+                    "Value": 16
+                }
+            ],
+            "Name": "AccessoryType"
+        },
+        {
+            "Items": [
+                {
                     "Name": "Nothing",
                     "Value": 0
                 },
@@ -76342,6 +76578,23 @@
                 }
             ],
             "Name": "ListenerType"
+        },
+        {
+            "Items": [
+                {
+                    "Name": "Default",
+                    "Value": 0
+                },
+                {
+                    "Name": "Disabled",
+                    "Value": 1
+                },
+                {
+                    "Name": "Enabled",
+                    "Value": 2
+                }
+            ],
+            "Name": "LoadCharacterLayeredClothing"
         },
         {
             "Items": [

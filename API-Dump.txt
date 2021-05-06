@@ -15,6 +15,7 @@ Class Instance : <<<ROOT>>> [NotCreatable] [NotBrowsable]
 	Function Instance Instance:FindFirstChild(string name, bool recursive = false) {🧬Safe}
 	Function Instance Instance:FindFirstChildOfClass(string className) {🧬Safe}
 	Function Instance Instance:FindFirstChildWhichIsA(string className, bool recursive = false) {🧬Safe}
+	Function Instance Instance:FindFirstDescendant(string name) {🧬Safe}
 	Function Instance Instance:GetActor()
 	Function Variant Instance:GetAttribute(string attribute) {🧬Safe}
 	Function RBXScriptSignal Instance:GetAttributeChangedSignal(string attribute)
@@ -1515,6 +1516,7 @@ Class Humanoid : Instance
 	Event Humanoid.Swimming(float speed)
 	Event Humanoid.Touched(Instance touchingPart, Instance humanoidPart)
 Class HumanoidDescription : Instance
+	Property string HumanoidDescription.AccessoryBlob [NotScriptable]
 	Property string HumanoidDescription.BackAccessory
 	Property string HumanoidDescription.FaceAccessory
 	Property string HumanoidDescription.FrontAccessory
@@ -1554,9 +1556,11 @@ Class HumanoidDescription : Instance
 	Property float HumanoidDescription.ProportionScale
 	Property float HumanoidDescription.WidthScale
 	Function void HumanoidDescription:AddEmote(string name, int64 assetId)
+	Function Array HumanoidDescription:GetAccessories(bool includeRigidAccessories)
 	Function Dictionary HumanoidDescription:GetEmotes()
 	Function Array HumanoidDescription:GetEquippedEmotes()
 	Function void HumanoidDescription:RemoveEmote(string name)
+	Function void HumanoidDescription:SetAccessories(Array accessories, bool includeRigidAccessories)
 	Function void HumanoidDescription:SetEmotes(Dictionary emotes)
 	Function void HumanoidDescription:SetEquippedEmotes(Array equippedEmotes)
 	Event HumanoidDescription.EmotesChanged(Dictionary newEmotes)
@@ -1861,18 +1865,18 @@ Class MemStorageService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function bool MemStorageService:RemoveItem(string key) {RobloxScriptSecurity}
 	Function void MemStorageService:SetItem(string key, string value = "") {RobloxScriptSecurity}
 Class MemoryStoreQueue : Instance [NotCreatable] [NotReplicated]
-	Function void MemoryStoreQueue:AddAsync(Variant value, int priority = 0, int expiration = -1) [Yields]
-	Function Tuple MemoryStoreQueue:ReadAsync(int count, bool allOrNothing = false, int waitTimeout = 0) [Yields]
+	Function void MemoryStoreQueue:AddAsync(Variant value, double priority = 0, int64 expiration = -1) [Yields]
+	Function Tuple MemoryStoreQueue:ReadAsync(int count, bool allOrNothing = false, double waitTimeout = 0) [Yields]
 	Function void MemoryStoreQueue:RemoveAsync(string id) [Yields]
 Class MemoryStoreService : Instance [Service]
-	Function Instance MemoryStoreService:GetQueue(string name, int invisibilityTimeout = 30000)
+	Function Instance MemoryStoreService:GetQueue(string name, int invisibilityTimeout = 30)
 	Function Instance MemoryStoreService:GetSortedMap(string name)
 Class MemoryStoreSortedMap : Instance [NotCreatable] [NotReplicated]
 	Function Variant MemoryStoreSortedMap:GetAsync(string key) [Yields]
 	Function Array MemoryStoreSortedMap:GetRangeAsync(Enum<SortDirection> direction, int count, string exclusiveLowerBound = "", string exclusiveUpperBound = "") [Yields]
 	Function void MemoryStoreSortedMap:RemoveAsync(string key) [Yields]
-	Function bool MemoryStoreSortedMap:SetAsync(string key, Variant value, int expiration = -1) [Yields]
-	Function void MemoryStoreSortedMap:UpdateAsync(string key, Function transformFunction, int expiration = -1) [Yields]
+	Function bool MemoryStoreSortedMap:SetAsync(string key, Variant value, int64 expiration = -1) [Yields]
+	Function Variant MemoryStoreSortedMap:UpdateAsync(string key, Function transformFunction, int64 expiration = -1) [Yields]
 Class Message : Instance [Deprecated]
 	Property string Message.Text [Deprecated]
 Class Hint : Message [Deprecated]
@@ -3080,6 +3084,7 @@ Class StarterPlayer : Instance [NotCreatable] [Service]
 	Property NumberRange StarterPlayer.GameSettingsScaleRangeProportion {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property NumberRange StarterPlayer.GameSettingsScaleRangeWidth {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property bool StarterPlayer.LoadCharacterAppearance
+	Property Enum<LoadCharacterLayeredClothing> StarterPlayer.LoadCharacterLayeredClothing [NotScriptable]
 	Property bool StarterPlayer.UserEmotesEnabled
 	Property float StarterPlayer.CharacterJumpHeight
 	Property float StarterPlayer.CharacterJumpPower
@@ -3109,6 +3114,7 @@ Class Stats : Instance [NotCreatable] [Service]
 	Function Dictionary Stats:GetPaginatedMemoryByTexture(Enum<TextureQueryType> queryType, int pageIndex, int pageSize) {RobloxScriptSecurity} [Yields]
 	Function float Stats:GetTotalMemoryUsageMb()
 Class StatsItem : Instance [NotCreatable]
+	Property string StatsItem.DisplayName {PluginSecurity} [Hidden] [ReadOnly]
 	Function double StatsItem:GetValue() {PluginSecurity}
 	Function string StatsItem:GetValueString() {PluginSecurity}
 Class RunningAverageItemDouble : StatsItem [NotCreatable]
@@ -3284,6 +3290,7 @@ Class StudioService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function bool StudioService:IsPluginInstalled(int64 assetId) {RobloxScriptSecurity}
 	Function bool StudioService:IsPluginUpToDate(int64 assetId, int64 currentAssetVersion) {RobloxScriptSecurity}
 	Function void StudioService:OpenInBrowser_DONOTUSE(string url) {RobloxScriptSecurity}
+	Function void StudioService:PromptForLocalSave() {RobloxScriptSecurity}
 	Function Instance StudioService:PromptImportFile(Array fileTypeFilter = {}) {PluginSecurity} [Yields]
 	Function Objects StudioService:PromptImportFiles(Array fileTypeFilter = {}) {PluginSecurity} [Yields]
 	Function Instance StudioService:PromptImportLocalAsset(string prompt, Array fileTypeFilter = {}) {PluginSecurity} [Yields] [Deprecated]
@@ -3299,6 +3306,7 @@ Class StudioService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void StudioService:TryInstallPlugin(int64 assetId, int64 assetVersionId) {RobloxScriptSecurity} [Yields]
 	Function void StudioService:UninstallPlugin(int64 assetId) {RobloxScriptSecurity}
 	Function void StudioService:UpdatePluginManagement() {RobloxScriptSecurity}
+	Event StudioService.FirstPublishOfCloudPlace(int64 universeId, int64 placeId) {RobloxScriptSecurity}
 	Event StudioService.GameNameUpdated(string name) {RobloxScriptSecurity}
 	Event StudioService.GamePublishFinished(bool success, int64 gameId) {RobloxScriptSecurity}
 	Event StudioService.OnConvertToPackageResult(bool isSuccessful, string errorMessage) {RobloxScriptSecurity}
@@ -3785,6 +3793,24 @@ Enum ABTestLoadingStatus
 	EnumItem ABTestLoadingStatus.Error : 3
 	EnumItem ABTestLoadingStatus.TimedOut : 4
 	EnumItem ABTestLoadingStatus.ShutOff : 5
+Enum AccessoryType
+	EnumItem AccessoryType.Hat : 0
+	EnumItem AccessoryType.Hair : 1
+	EnumItem AccessoryType.Face : 2
+	EnumItem AccessoryType.Neck : 3
+	EnumItem AccessoryType.Shoulder : 4
+	EnumItem AccessoryType.Front : 5
+	EnumItem AccessoryType.Back : 6
+	EnumItem AccessoryType.Waist : 7
+	EnumItem AccessoryType.TeeShirt : 8
+	EnumItem AccessoryType.Shirt : 9
+	EnumItem AccessoryType.Pants : 10
+	EnumItem AccessoryType.Jacket : 11
+	EnumItem AccessoryType.Sweater : 12
+	EnumItem AccessoryType.Shorts : 13
+	EnumItem AccessoryType.LeftShoe : 14
+	EnumItem AccessoryType.RightShoe : 15
+	EnumItem AccessoryType.DressSkirt : 16
 Enum ActionType
 	EnumItem ActionType.Nothing : 0
 	EnumItem ActionType.Pause : 1
@@ -4899,6 +4925,10 @@ Enum ListenerType
 	EnumItem ListenerType.CFrame : 1
 	EnumItem ListenerType.ObjectPosition : 2
 	EnumItem ListenerType.ObjectCFrame : 3
+Enum LoadCharacterLayeredClothing
+	EnumItem LoadCharacterLayeredClothing.Default : 0
+	EnumItem LoadCharacterLayeredClothing.Disabled : 1
+	EnumItem LoadCharacterLayeredClothing.Enabled : 2
 Enum Material
 	EnumItem Material.Plastic : 256
 	EnumItem Material.SmoothPlastic : 272

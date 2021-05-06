@@ -17,6 +17,7 @@ Studio.PublishPlaceAs.FooterButton.Cancel, ,Cancel
 Studio.PublishPlaceAs.FooterButton.Create, ,Create
 Studio.PublishPlaceAs.FooterButton.CreateNewGame, ,Create new game...
 Studio.PublishPlaceAs.FooterButton.Overwrite, ,Overwrite
+Studio.PublishPlaceAs.FooterButton.Save, ,Save
 Studio.PublishPlaceAs.FooterButton.SaveToFile, ,Save to file...
 Studio.PublishPlaceAs.FooterButton.UpdateExistingGame, ,Update existing game...
 Studio.PublishPlaceAs.General.ContentDialogHeader, ,Do you agree that your game is controller compatible and contains NONE of the following?
@@ -33,7 +34,9 @@ Studio.PublishPlaceAs.General.PlayabilityPrivate, ,Private
 Studio.PublishPlaceAs.General.PlayabilityPrivateDesc, ,Only developers of this game
 Studio.PublishPlaceAs.General.PlayabilityPublic, ,Public
 Studio.PublishPlaceAs.General.PlayabilityPublicDesc, ,Anyone on Roblox
+Studio.PublishPlaceAs.General.PublishGame, ,Publish Game
 Studio.PublishPlaceAs.General.PublishPlace, ,Publish Place
+Studio.PublishPlaceAs.General.SaveGame, ,Save Game
 Studio.PublishPlaceAs.General.SavePlace, ,Save Place
 Studio.PublishPlaceAs.General.TitlePlayability, ,Playability
 Studio.PublishPlaceAs.General.UntitledGame, ,Untitled Game
@@ -64,6 +67,7 @@ Studio.PublishPlaceAs.PrivacyType.Private, ,Private
 Studio.PublishPlaceAs.PrivacyType.Public, ,Public
 Studio.PublishPlaceAs.PublishFail.Fail, ,Publish failed
 Studio.PublishPlaceAs.PublishFail.FailConfiguration, ,Could not publish configuration settings.
+Studio.PublishPlaceAs.PublishFail.SaveFail, ,Save failed
 Studio.PublishPlaceAs.PublishSuccess.SaveSuccess, ,Successfully saved!
 Studio.PublishPlaceAs.PublishSuccess.Success, ,Successfully published!
 Studio.PublishPlaceAs.ScreenHeader.ChooseGame, ,Choose an existing game to add this place

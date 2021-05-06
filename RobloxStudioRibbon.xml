@@ -65,15 +65,12 @@
         <addaction name="resizeAction" style="textundericon" text="Studio.App.RobloxRibbonMainWindow.Scale"  tooltip="Studio.App.RobloxRibbonMainWindow.ResizeAnObject" icon=":/RibbonBar/images/RibbonIcons/Home/Resize.png" width="32" height="32"/>
         <addaction name="advRotateAction" style="textundericon" text="Studio.App.RBXMainWindow.Rotate" tooltip="Studio.App.RobloxRibbonMainWindow.RotateAnObject" icon=":/RibbonBar/images/RibbonIcons/Home/Rotate.png" width="32" height="32"/>
         <addseparator visible="false"/>
-        <addcombobox name="draggerMode" fflag="EnableClarifiedDraggerBehaviorUI" text="Studio.App.RBXMainWindow.DraggerModeLabel">
+        <addcombobox name="draggerMode" text="Studio.App.RBXMainWindow.DraggerModeLabel">
           <comboboxitem text="Studio.App.RBXMainWindow.DraggerModeGeometric" value ="0" defaultvalue="true" />
           <comboboxitem text="Studio.App.RBXMainWindow.DraggerModePhysical" value="1" />
         </addcombobox>
-        <addcheckbox name="toggleCollisionCheckAction" text="Studio.App.RobloxRibbonMainWindow.Collisions" fflag="EnableClarifiedDraggerBehaviorUI" />
-        <addcheckbox name="toggleJointCreationAction" text="Studio.App.RobloxRibbonMainWindow.JoinSurfaces" fflag="EnableClarifiedDraggerBehaviorUI" />
-        <addaction name="toggleCollisionCheckAction"  fflag="!EnableClarifiedDraggerBehaviorUI" style="textbesideicon" text="Studio.App.RobloxRibbonMainWindow.Collisions" tooltip="Studio.App.RobloxRibbonMainWindow.CheckCollisionsDragging" icon=":/RibbonBar/images/RibbonIcons/Home/Collisions-Enabled-16x16.png" width="16" height="16"/>
-        <addaction name="toggleConstraintCheckAction"  fflag="!EnableClarifiedDraggerBehaviorUI" style="textbesideicon" text="Studio.App.RobloxRibbonMainWindow.Constraints" tooltip="Studio.App.RobloxRibbonMainWindow.SolveConstraintsWhileDragging" icon=":/RibbonBar/images/RibbonIcons/Physics/constraint-32x32.png" width="16" height="16"/>
-        <addaction name="toggleJointCreationAction"  fflag="!EnableClarifiedDraggerBehaviorUI" style="textbesideicon" text="Studio.App.RobloxRibbonMainWindow.JoinSurfaces" tooltip="Studio.App.RobloxRibbonMainWindow.JoinSurfacesTooltip"  icon=":/RibbonBar/images/RibbonIcons/Home/Join.png"  width="16" height="16" />
+        <addcheckbox name="toggleCollisionCheckAction" text="Studio.App.RobloxRibbonMainWindow.Collisions" />
+        <addcheckbox name="toggleJointCreationAction" text="Studio.App.RobloxRibbonMainWindow.JoinSurfaces" />
       </Group>
       <Group name="Terrain" text="Studio.App.RobloxRibbonMainWindow.Terrain">
           <addaction name="toggleTerrainToolsDockAction"
@@ -170,15 +167,12 @@
         <addaction name="advRotateAction" style="textundericon" text="Studio.App.RBXMainWindow.Rotate" tooltip="Studio.App.RobloxRibbonMainWindow.RotateAnObject" icon=":/RibbonBar/images/RibbonIcons/Home/Rotate.png" width="32" height="32" />
         <addaction name="Transform" instancename="Transform" style="textundericon" text="Studio.App.RobloxRibbonMainWindow.Transform" tooltip="Studio.App.RobloxRibbonMainWindow.PreciselyManipulateAnObject" type="plugin" icon=":/RibbonBar/images/RibbonIcons/Home/Plane.png" width="32" height="32" />
         <addseparator visible="false"/>
-        <addcombobox name="draggerMode" fflag="EnableClarifiedDraggerBehaviorUI" text="Studio.App.RBXMainWindow.DraggerModeLabel">
+        <addcombobox name="draggerMode" text="Studio.App.RBXMainWindow.DraggerModeLabel">
           <comboboxitem text="Studio.App.RBXMainWindow.DraggerModeGeometric" value ="0" defaultvalue="true" />
           <comboboxitem text="Studio.App.RBXMainWindow.DraggerModePhysical" value="1" />
         </addcombobox>
-        <addcheckbox name="toggleCollisionCheckAction" text="Studio.App.RobloxRibbonMainWindow.Collisions" fflag="EnableClarifiedDraggerBehaviorUI" />
-        <addcheckbox name="toggleJointCreationAction" text="Studio.App.RobloxRibbonMainWindow.JoinSurfaces" fflag="EnableClarifiedDraggerBehaviorUI" />
-        <addaction name="toggleCollisionCheckAction"  fflag="!EnableClarifiedDraggerBehaviorUI" style="textbesideicon" text="Studio.App.RobloxRibbonMainWindow.Collisions" tooltip="Studio.App.RobloxRibbonMainWindow.CheckCollisionsDragging" icon=":/RibbonBar/images/RibbonIcons/Home/Collisions-Enabled-16x16.png" width="16" height="16"/>
-        <addaction name="toggleConstraintCheckAction"  fflag="!EnableClarifiedDraggerBehaviorUI" style="textbesideicon" text="Studio.App.RobloxRibbonMainWindow.Constraints" tooltip="Studio.App.RobloxRibbonMainWindow.SolveConstraintsWhileDragging" icon=":/RibbonBar/images/RibbonIcons/Physics/constraint-32x32.png" width="16" height="16"/>
-        <addaction name="toggleJointCreationAction"  fflag="!EnableClarifiedDraggerBehaviorUI" style="textbesideicon" text="Studio.App.RobloxRibbonMainWindow.JoinSurfaces" tooltip="Studio.App.RobloxRibbonMainWindow.JoinSurfacesTooltip"  icon=":/RibbonBar/images/RibbonIcons/Home/Join.png"  width="16" height="16" />
+        <addcheckbox name="toggleCollisionCheckAction" text="Studio.App.RobloxRibbonMainWindow.Collisions" />
+        <addcheckbox name="toggleJointCreationAction" text="Studio.App.RobloxRibbonMainWindow.JoinSurfaces" />
       </Group>
       <Group name="Snap to Grid" text="Studio.App.RobloxRibbonMainWindow.SnapToGrid" controlsCentering="true">
         <addcheckbox tooltip="Studio.App.RobloxRibbonMainWindow.TogglesRotateSnap" name="disableRotateGridAction" text="Studio.App.RBXMainWindow.Rotate" checked="true"/>

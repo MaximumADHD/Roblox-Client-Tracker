@@ -41,6 +41,8 @@ Studio.AssetManager.Main.ToolbarButton,Asset Manager
 Studio.AssetManager.Main.Tooltip,"Add, remove, and modify assets"
 Studio.AssetManager.MainView.ButtonText,Publish
 Studio.AssetManager.MainView.PublishText,You need to publish the game to start using Asset Manager.
+Studio.AssetManager.MainView.SaveButtonText,Save
+Studio.AssetManager.MainView.SaveText,Save to start using Asset Manager.
 Studio.AssetManager.Meta.PluginName,AssetManager
 Studio.AssetManager.Meta.ToolbarName,Asset Manager
 Studio.AssetManager.NavBar.GamePlaceholderName,Game

@@ -369,6 +369,8 @@ Studio.App.DeclarationView.BackEnd,,<b>Back-end: </b>This item can only be used 
 Studio.App.DeclarationView.Deprecated,,<b>Deprecated: </b>This item is deprecated. Do not use it for new work.,<b>Deprecated: </b>This item is deprecated. Do not use it for new work.
 Studio.App.DeclarationView.MemberOf1,,"Member of <label style=""font-weight: bold"">%1</label>","Member of <label style=""font-weight: bold"">%1</label>"
 Studio.App.DeclarationView.Summary,,Summary:,Summary:
+Studio.App.Deployment.CSBFailure1,Internal feature. Text in output window.,Failed to initialize CoreScriptBuilder with: %1,Failed to initialize CoreScriptBuilder with: %1
+Studio.App.Deployment.PatchBuilderFailure1,Internal feature. Text in output window.,Failed to initialize patch builder with: %1,Failed to initialize patch builder with: %1
 Studio.App.DirtyPublishWarningDialog.CommitAllButton,,Commit All,Commit All
 Studio.App.DirtyPublishWarningDialog.CommittedStatus,,Committed,Committed
 Studio.App.DirtyPublishWarningDialog.FailedToGetOpenDrafts1,,Failed to load draft list: %1,Failed to load draft list: %1
@@ -1786,9 +1788,11 @@ Studio.App.RBXMainWindow.PlaySolo,,Play Solo,Play Solo
 Studio.App.RBXMainWindow.PlaySoloCameraSpawn,,"Start Solo Play, spawning the character from the Camera Position","Start Solo Play, spawning the character from the Camera Position"
 Studio.App.RBXMainWindow.Properties,,Properties,Properties
 Studio.App.RBXMainWindow.PropertyFilter,,Property Filter,Property Filter
+Studio.App.RBXMainWindow.Publish,,Publish,Publish
 Studio.App.RBXMainWindow.PublishActiveDocumentToRoblox,,Publish active document to Roblox,Publish active document to Roblox
 Studio.App.RBXMainWindow.PublishActiveDocumentToRobloxAs,,Publish active document to Roblox as,Publish active document to Roblox as
 Studio.App.RBXMainWindow.PublishAllToRoblox,,"Publish all places, developer products, and other parts of your game to Roblox","Publish all places, developer products, and other parts of your game to Roblox"
+Studio.App.RBXMainWindow.PublishAsElps,,Publish As...,Publish As...
 Studio.App.RBXMainWindow.PublishAsPluginElps,,Publish as Plugin...,Publish as Plugin...
 Studio.App.RBXMainWindow.PublishChangesToPackage,,Publish Changes to Package,Publish Changes to Package
 Studio.App.RBXMainWindow.PublishSelectionToRobloxAsPlugin,,Publish the selection to Roblox as a plugin,Publish the selection to Roblox as a plugin
@@ -2674,8 +2678,10 @@ Studio.App.ScriptingCmd.GOTOPOSTooltip,,Go to line...,Go to line...
 Studio.App.ScriptingCmd.INDENT,,Indent,Indent
 Studio.App.ScriptingCmd.INDENTTooltip,,Indent selected line(s),Indent selected line(s)
 Studio.App.ScriptingCmd.INSERT,,Insert text...,Insert text...
+Studio.App.ScriptingCmd.INVOKECOLOR3PICKER,,Invoke Color3 Picker,Invoke Color3 Picker
 Studio.App.ScriptingCmd.INVOKECOMPLETIONS,,Invoke Autocomplete,Invoke Autocomplete
 Studio.App.ScriptingCmd.INVOKEHOVER,,Invoke Hover,Invoke Hover
+Studio.App.ScriptingCmd.INVOKESIGNATUREHELP,,Invoke Signature Help,Invoke Signature Help
 Studio.App.ScriptingCmd.INVOKESYMBOLS,,Open Script Function Filter,Open Script Function Filter
 Studio.App.ScriptingCmd.INVOKESYMBOLSTooltip,,Open the Script Function Filter,Open the Script Function Filter
 Studio.App.ScriptingCmd.MOVELINESDOWN,,Move Lines Down,Move Lines Down
@@ -2881,6 +2887,7 @@ Studio.App.TeamCreate.PlaceLauncherRequestStatus1,,Request Status Code: %1,Reque
 Studio.App.TeamCreate.PublishAndEnableteamCreateToBuildTogether,,Publish and enable Team Create to build this place together with your friends.,Publish and enable Team Create to build this place together with your friends.
 Studio.App.TeamCreate.PublishingCurrentPlace,,Publishing current place...,Publishing current place...
 Studio.App.TeamCreate.RemovingThisUserWillPrevent,,Removing this user will prevent them from accessing this Team Create game. Are you sure you want to do this?,Removing this user will prevent them from accessing this Team Create game. Are you sure you want to do this?
+Studio.App.TeamCreate.SaveAndEnableteamCreateToBuildTogether,,Save and enable Team Create to build this place together with your friends.,Save and enable Team Create to build this place together with your friends.
 Studio.App.TeamCreate.SaveFailedConfirmation,,"Save failed. Turning off team create may result in loss of work.
 Are you sure?","Save failed. Turning off team create may result in loss of work.
 Are you sure?"
