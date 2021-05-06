@@ -46,15 +46,13 @@ game:DefineFastFlag("EnableToolboxStylizer", false)
 
 game:DefineFastFlag("ToolboxStopAudioFromPlayingOnCloseAndCategorySwitch", false)
 
-game:DefineFastFlag("ToolboxCreationsFreshChecks", false)
-
-game:DefineFastFlag("ToolboxNewResponseFreshChecks", false)
-
 game:DefineFastFlag("ToolboxMarkLoadingInitially", false)
 
 game:DefineFastFlag("AssetConfigNonCatalogOptionalDescription", false)
 game:DefineFastFlag("ToolboxFixCreatorSearchResults", false)
 
 game:DefineFastFlag("ToolboxAssetGridUseFirstOccurrence", false)
+
+game:DefineFastFlag("ToolboxDefaultBackgroundMatches", false)
 
 return nil

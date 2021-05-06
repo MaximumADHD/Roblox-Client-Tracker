@@ -42,6 +42,12 @@ local success, result = pcall(function() return settings():GetFFlag('UseNotifica
 local FFlagUseNotificationsLocalization = success and result
 local FFlagFixUsernamesAutoLocalizeIssue = require(RobloxGui.Modules.Flags.FFlagFixUsernamesAutoLocalizeIssue)
 
+------------------ Modules --------------------
+local RobloxTranslator
+if FFlagFixUsernamesAutoLocalizeIssue then
+	RobloxTranslator = require(CoreGui.RobloxGui.Modules:WaitForChild("RobloxTranslator"))
+end
+
 ------------------ VARIABLES --------------------
 local tenFootInterfaceEnabled = require(RobloxGui.Modules:WaitForChild("TenFootInterface")):IsEnabled()
 
@@ -464,6 +470,7 @@ end
 local function CreateDropDown(dropDownStringTable, startPosition, settingsHub)
 	-------------------- CONSTANTS ------------------------
 	local DEFAULT_DROPDOWN_TEXT = "Choose One"
+	local DROPDOWN_DEFAULT_TEXT_KEY = "Feature.SettingsHub.Label.ChooseOne"
 	local SCROLLING_FRAME_PIXEL_OFFSET = 25
 	local SELECTION_TEXT_COLOR_NORMAL = Color3.fromRGB(178,178,178)
 	local SELECTION_TEXT_COLOR_NORMAL_VR = Color3.fromRGB(229,229,229)
@@ -619,8 +626,14 @@ local function CreateDropDown(dropDownStringTable, startPosition, settingsHub)
 		dropDownButtonEnabled.Value = false
 	end
 
+	local dropDownDefaultText = DEFAULT_DROPDOWN_TEXT
+	if FFlagFixUsernamesAutoLocalizeIssue then
+		dropDownDefaultText = RobloxTranslator:FormatByKey(DROPDOWN_DEFAULT_TEXT_KEY)
+	end
+
 	local dropDownFrameSize = UDim2.new(0.6, 0, 0, 50)
-	this.DropDownFrame = MakeButton("DropDownFrame", DEFAULT_DROPDOWN_TEXT, dropDownFrameSize, DropDownFrameClicked, nil, settingsHub)
+	this.DropDownFrame = MakeButton("DropDownFrame", dropDownDefaultText,
+		dropDownFrameSize, DropDownFrameClicked, nil, settingsHub)
 	this.DropDownFrame.Position = UDim2.new(1, 0, 0.5, 0)
 	this.DropDownFrame.AnchorPoint = Vector2.new(1, 0.5)
 
@@ -704,7 +717,7 @@ local function CreateDropDown(dropDownStringTable, startPosition, settingsHub)
 
 	function this:ResetSelectionIndex()
 		this.CurrentIndex = nil
-		selectedTextLabel.Text = DEFAULT_DROPDOWN_TEXT
+		selectedTextLabel.Text = dropDownDefaultText
 		hideDropDownSelection()
 	end
 

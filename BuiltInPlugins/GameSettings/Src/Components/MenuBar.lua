@@ -5,6 +5,7 @@
 		table Entries: A table of entries to include in this MenuBar
 		function SelectionChanged: Callback when the selected menu entry changes
 ]]
+local FFlagGameSettingsStandardizeLocalizationId = game:GetFastFlag("GameSettingsStandardizeLocalizationId")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
@@ -17,33 +18,38 @@ local MenuEntry = require(Plugin.Src.Components.MenuEntry)
 
 local MenuBar = Roact.PureComponent:extend("MenuBar")
 
+local PERMISSIONS = FFlagGameSettingsStandardizeLocalizationId and "Permissions" or "AccessPermissions"
+local AVATAR = "Avatar"
+local BASIC_INFO = "BasicInfo"
+local MONETIZATION = "Monetization"
+
 local errorsFromPage = {
-	["BasicInfo"] = {
+	[BASIC_INFO] = {
 		name = true,
 		description = true,
 		playableDevices = true,
 	},
-	["Avatar"] = {
+	[AVATAR] = {
 		universeAvatarAssetOverrides = true,
 	},
 }
 
 local warningsFromPage = {
-	["AccessPermissions"] = {
+	[PERMISSIONS] = {
 		isActive = true,
 	},
-	["Avatar"] = {
+	[AVATAR] = {
 		universeAvatarType = true,
 	}
 }
 
 -- Fix errors not being assigned to a page
-errorsFromPage["BasicInfo"].thumbnails = true
-errorsFromPage["BasicInfo"].gameIcon = true
+errorsFromPage[BASIC_INFO].thumbnails = true
+errorsFromPage[BASIC_INFO].gameIcon = true
 
 
 if settings():GetFFlag("DeveloperSubscriptionsEnabled") then
-	errorsFromPage["Monetization"] = {
+	errorsFromPage[MONETIZATION] = {
 		DeveloperSubscriptions = true
 	}
 end

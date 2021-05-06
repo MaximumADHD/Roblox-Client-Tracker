@@ -10,8 +10,6 @@ local NoInventoryNotice = require(InspectAndBuyFolder.Components.NoInventoryNoti
 local Colors = require(InspectAndBuyFolder.Colors)
 local Constants = require(InspectAndBuyFolder.Constants)
 
-local FFlagInspectAndBuyResetSelectedCoreObject = game:DefineFastFlag("InspectAndBuyResetSelectedCoreObject", false)
-
 local Container = Roact.PureComponent:extend("Container")
 
 function Container:init()
@@ -55,10 +53,7 @@ end
 function Container:willUnmount()
 	self.selectedCoreObjectChangedSignal:disconnect()
 	GuiService:RemoveSelectionGroup("InspectMenu")
-
-	if FFlagInspectAndBuyResetSelectedCoreObject then
-		GuiService.SelectedCoreObject = nil
-	end
+	GuiService.SelectedCoreObject = nil
 end
 
 function Container:render()

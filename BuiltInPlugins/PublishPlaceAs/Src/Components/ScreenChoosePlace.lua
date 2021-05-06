@@ -218,7 +218,7 @@ function ScreenChoosePlace:render()
 
 				MainContentsSuccess = (FFlagFixPublishAsWhenQueryFails and props.PlacesQueryState == Constants.QUERY_STATE.QUERY_STATE_SUCCESS)
 					and Roact.createElement(InfiniteScrollingFrame, {
-						Size = UDim2.new(1, 0, 0.5, Constants.FOOTER_HEIGHT * 2),
+						Size = UDim2.new(1, 0, 0.5, theme.FOOTER_HEIGHT * 2),
 						Position = UDim2.new(0, 0, 0, 100),
 						BackgroundTransparency = 1,
 						-- TODO: replace manual calculation with self.layoutRef
@@ -276,7 +276,7 @@ function ScreenChoosePlace:render()
 				-- DEPRECATED, delete with FFlagFixPublishAsWhenQueryFails
 				ScrollingFrame = (not FFlagFixPublishAsWhenQueryFails)
 					and Roact.createElement(InfiniteScrollingFrame, {
-						Size = UDim2.new(1, 0, 0.5, Constants.FOOTER_HEIGHT * 2),
+						Size = UDim2.new(1, 0, 0.5, theme.FOOTER_HEIGHT * 2),
 						Position = UDim2.new(0, 0, 0, 100),
 						BackgroundTransparency = 1,
 						-- TODO: replace manual calculation with self.layoutRef

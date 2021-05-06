@@ -45,6 +45,8 @@ local MainView = Roact.PureComponent:extend("MainView")
 
 local FFlagStudioAssetManagerAddRecentlyImportedView = game:GetFastFlag("StudioAssetManagerAddRecentlyImportedView")
 local FFlagStudioAssetManagerLoadLinkedScriptsOnInit = game:GetFastFlag("StudioAssetManagerLoadLinkedScriptsOnInit")
+local FFlagStudioNewGamesInCloudUI = game:GetFastFlag("StudioNewGamesInCloudUI")
+local FFlagStudioAssetManagerFixRecentAssetDuplication = game:GetFastFlag("StudioAssetManagerFixRecentAssetDuplication")
 
 local universeNameSet = false
 local initialHasLinkedScriptValue = false
@@ -189,14 +191,21 @@ function MainView:render()
 
     local isPublishedGame = game.GameId ~= 0
     local publishText = localization:getText("MainView", "PublishText")
+    if FFlagStudioNewGamesInCloudUI then
+        publishText = localization:getText("MainView", "SaveText")
+    end
     local publishTextExtents = GetTextSize(publishText, theme.FontSizeLarge, theme.Font,
         Vector2.new(theme.MainView.PublishText.Width, math.huge))
     local buttonText = localization:getText("MainView", "ButtonText")
+    if FFlagStudioNewGamesInCloudUI then
+        buttonText = localization:getText("MainView", "SaveButtonText")
+    end
     local buttonTextExtents = GetTextSize(buttonText, theme.FontSizeLarge, theme.Font)
 
     local recentViewToggled = props.RecentViewToggled
     local recentAssets = props.RecentAssets
-    local hasRecentAssets = #recentAssets > 0
+    local hasRecentAssets = FFlagStudioAssetManagerFixRecentAssetDuplication and next(recentAssets) ~= nil or
+        #recentAssets > 0
 
     local assetGridViewOffset = theme.TopBar.Height + theme.NavBar.Height + (hasRecentAssets and theme.RecentView.Bar.Height or 0)
     local recentViewOffset = theme.TopBar.Height + theme.NavBar.Height

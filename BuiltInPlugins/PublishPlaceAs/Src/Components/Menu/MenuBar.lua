@@ -48,7 +48,7 @@ local function MenuBar(props)
 			end
 
 			return Roact.createElement("Frame", {
-				Size = UDim2.new(0, Constants.MENU_BAR_WIDTH, 1, 0),
+				Size = UDim2.new(0, theme.MENU_BAR_WIDTH, 1, 0),
 				BackgroundColor3 = theme.menuBar.backgroundColor,
 				BorderSizePixel = 0,
 			}, menuEntries)

@@ -3,11 +3,15 @@
 	When the user hovers the mouse over the component, the tooltip will appear
 	after a short delay.
 
+	If the component is rendered using AutomaticSize, add it as a child of the tooltip instead
+	and the tooltip will act as an automatically-sized container for the child.
+
 	Required Props:
 		Focus Focus: A Focus ContextItem, which is provided via mapToProps.
 		string Text: The text to display in the tooltip.
 
 	Optional Props:
+		table Child: An optional Roact element which should be displayed
 		Theme Theme: A Theme ContextItem, which is provided via mapToProps.
 		Stylizer Stylizer: A Stylizer ContextItem, which is provided via mapToProps.
 		boolean Enabled: Whether the tooltip will display on hover.
@@ -199,7 +203,9 @@ function Tooltip:render()
 
 	local mousePosition = self.mousePosition
 
-	local content = {}
+	local content = {
+		Child = props.Child or nil
+	}
 
 	local pluginGui = props.Focus.target
 
@@ -260,7 +266,8 @@ function Tooltip:render()
 	end
 
 	return Roact.createElement("Frame", {
-		Size = UDim2.new(1, 0, 1, 0),
+		Size = props.Child and UDim2.fromScale(0, 0) or UDim2.fromScale(1, 1),
+		AutomaticSize = props.Child and Enum.AutomaticSize.XY or nil,
 		BackgroundTransparency = 1,
 		[Roact.Event.MouseEnter] = self.mouseEnter,
 		[Roact.Event.MouseMoved] = self.mouseMoved,

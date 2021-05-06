@@ -1,3 +1,7 @@
+local FFlagStudioUXImprovementsLoosenTCPermissions = game:GetFastFlag("StudioUXImprovementsLoosenTCPermissions")
+local FFlagUXImprovementsShowUserPermsWhenCollaborator2 = game:GetFastFlag("UXImprovementsShowUserPermsWhenCollaborator2")
+local FFlagGameSettingsStandardizeLocalizationId = game:GetFastFlag("GameSettingsStandardizeLocalizationId")
+
 local ITEM_HEIGHT = 60
 local PADDING_Y = 20
 local PADDING_X = 12
@@ -19,9 +23,6 @@ local LoadingIndicator = UILibrary.Component.LoadingIndicator
 local Button = UILibrary.Component.Button
 
 local PermissionsConstants = require(Page.Util.PermissionsConstants)
-
-local FFlagStudioUXImprovementsLoosenTCPermissions = game:GetFastFlag("StudioUXImprovementsLoosenTCPermissions")
-local FFlagUXImprovementsShowUserPermsWhenCollaborator2 = game:GetFastFlag("UXImprovementsShowUserPermsWhenCollaborator2")
 
 local DeleteButton = Roact.PureComponent:extend("DeleteButton")
 
@@ -85,7 +86,8 @@ function CollaboratorItem:getCurrentPermissionLabel()
 	local localization = props.Localization
 
 	if currentPermission == PermissionsConstants.MultipleKey then
-		return localization:getText("AccessPermissions", "MultipleLabel")
+		return FFlagGameSettingsStandardizeLocalizationId and localization:getText("Permissions", "MultipleLabel") 
+			or localization:getText("AccessPermissions", "MultipleLabel")
 	end
 
 	for _,permission in ipairs(availablePermissions) do

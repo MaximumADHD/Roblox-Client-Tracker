@@ -7,20 +7,11 @@ local AssetInfo = require(InspectAndBuyFolder.Models.AssetInfo)
 local SetAssets = require(InspectAndBuyFolder.Actions.SetAssets)
 local createInspectAndBuyKeyMapper = require(InspectAndBuyFolder.createInspectAndBuyKeyMapper)
 
-local FFlagFixInspectAndBuyPerformFetch = require(InspectAndBuyFolder.Flags.FFlagFixInspectAndBuyPerformFetch)
-
 local requiredServices = {
 	Network,
 }
 
-local keyMapper
-if FFlagFixInspectAndBuyPerformFetch then
-	keyMapper = createInspectAndBuyKeyMapper("getProductInfo")
-else
-	keyMapper = function(assetId)
-		return "inspectAndBuy.getProductInfo." ..tostring(assetId)
-	end
-end
+local keyMapper = createInspectAndBuyKeyMapper("getProductInfo")
 
 --[[
 	Get the product info of a product given its product id. Will call MarketplaceService:GetProductInfo().
@@ -29,12 +20,7 @@ local function GetProductInfo(id)
 	return Thunk.new(script.Name, requiredServices, function(store, services)
 		local network = services[Network]
 
-		local key
-		if FFlagFixInspectAndBuyPerformFetch then
-			key = keyMapper(store:getState().storeId, id)
-		else
-			key = keyMapper(id)
-		end
+		local key = keyMapper(store:getState().storeId, id)
 
 		return PerformFetch.Single(key, function()
 			return network.getProductInfo(id):andThen(

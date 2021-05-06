@@ -3,13 +3,6 @@
 	2018 Camera Update - AllYourBlox
 --]]
 
-local FFlagUserCameraInputRefactor do
-	local success, result = pcall(function()
-		return UserSettings():IsUserFeatureEnabled("UserCameraInputRefactor3")
-	end)
-	FFlagUserCameraInputRefactor = success and result
-end
-
 local ZERO_VECTOR2 = Vector2.new()
 local PITCH_LIMIT = math.rad(80)
 
@@ -61,65 +54,23 @@ function LegacyCamera:Update(dt)
 	local subjectPosition = self:GetSubjectPosition()
 
 	if self.cameraType == Enum.CameraType.Fixed then
-		if self.lastUpdate and not FFlagUserCameraInputRefactor then
-			-- Cap out the delta to 0.1 so we don't get some crazy things when we re-resume from
-			local delta = math.min(0.1, now - self.lastUpdate)
-			local gamepadRotation = self:UpdateGamepad()
-			self.rotateInput = self.rotateInput + (gamepadRotation * delta)
-		end
-
 		if subjectPosition and player and camera then
 			local distanceToSubject = self:GetCameraToSubjectDistance()
-			local newLookVector
-			if FFlagUserCameraInputRefactor then
-				newLookVector = self:CalculateNewLookVectorFromArg(nil, CameraInput.getRotation())
-			else
-				newLookVector = self:CalculateNewLookVector()
-				self.rotateInput = ZERO_VECTOR2
-			end
+			local newLookVector = self:CalculateNewLookVectorFromArg(nil, CameraInput.getRotation())
 
 			newCameraFocus = camera.Focus -- Fixed camera does not change focus
 			newCameraCFrame = CFrame.new(camera.CFrame.p, camera.CFrame.p + (distanceToSubject * newLookVector))
 		end
 
 	elseif self.cameraType == Enum.CameraType.Attach then
-		if FFlagUserCameraInputRefactor then
-			local subjectCFrame = self:GetSubjectCFrame()
-			local cameraPitch = camera.CFrame:ToEulerAnglesYXZ()
-			local _, subjectYaw = subjectCFrame:ToEulerAnglesYXZ()
-			
-			cameraPitch = math.clamp(cameraPitch - CameraInput.getRotation().Y, -PITCH_LIMIT, PITCH_LIMIT)
-			
-			newCameraFocus = CFrame.new(subjectCFrame.p)*CFrame.fromEulerAnglesYXZ(cameraPitch, subjectYaw, 0)
-			newCameraCFrame = newCameraFocus*CFrame.new(0, 0, self:StepZoom())
-			
-		else
-			if subjectPosition and camera then
-				local distanceToSubject = self:GetCameraToSubjectDistance()
-				local humanoid = self:GetHumanoid()
-				if self.lastUpdate and humanoid and humanoid.RootPart then
-
-					-- Cap out the delta to 0.1 so we don't get some crazy things when we re-resume from
-					local delta = math.min(0.1, now - self.lastUpdate)
-					local gamepadRotation = self:UpdateGamepad()
-					self.rotateInput = self.rotateInput + (gamepadRotation * delta)
-
-					local forwardVector = humanoid.RootPart.CFrame.lookVector
-
-					local y = Util.GetAngleBetweenXZVectors(forwardVector, self:GetCameraLookVector())
-					if Util.IsFinite(y) then
-						-- Preserve vertical rotation from user input
-						self.rotateInput = Vector2.new(y, self.rotateInput.Y)
-					end
-				end
-
-				local newLookVector = self:CalculateNewLookVector()
-				self.rotateInput = ZERO_VECTOR2
-
-				newCameraFocus = CFrame.new(subjectPosition)
-				newCameraCFrame = CFrame.new(subjectPosition - (distanceToSubject * newLookVector), subjectPosition)
-			end
-		end
+		local subjectCFrame = self:GetSubjectCFrame()
+		local cameraPitch = camera.CFrame:ToEulerAnglesYXZ()
+		local _, subjectYaw = subjectCFrame:ToEulerAnglesYXZ()
+		
+		cameraPitch = math.clamp(cameraPitch - CameraInput.getRotation().Y, -PITCH_LIMIT, PITCH_LIMIT)
+		
+		newCameraFocus = CFrame.new(subjectCFrame.p)*CFrame.fromEulerAnglesYXZ(cameraPitch, subjectYaw, 0)
+		newCameraCFrame = newCameraFocus*CFrame.new(0, 0, self:StepZoom())
 
 	elseif self.cameraType == Enum.CameraType.Watch then
 		if subjectPosition and player and camera then
@@ -138,13 +89,7 @@ function LegacyCamera:Update(dt)
 			end
 
 			local distanceToSubject = self:GetCameraToSubjectDistance()
-			local newLookVector
-			if FFlagUserCameraInputRefactor then
-				newLookVector = self:CalculateNewLookVectorFromArg(cameraLook, CameraInput.getRotation())
-			else
-				newLookVector = self:CalculateNewLookVector(cameraLook)
-				self.rotateInput = ZERO_VECTOR2
-			end
+			local newLookVector = self:CalculateNewLookVectorFromArg(cameraLook, CameraInput.getRotation())
 
 			newCameraFocus = CFrame.new(subjectPosition)
 			newCameraCFrame = CFrame.new(subjectPosition - (distanceToSubject * newLookVector), subjectPosition)

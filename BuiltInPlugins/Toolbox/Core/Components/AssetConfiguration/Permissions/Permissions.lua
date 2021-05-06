@@ -9,6 +9,7 @@
     Optional Properties:
 
 ]]
+local FFlagToolboxReplaceUILibraryComponentsPt1 = game:GetFastFlag("ToolboxReplaceUILibraryComponentsPt1")
 
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
@@ -19,8 +20,15 @@ local RoactRodux = require(Libs.RoactRodux)
 
 local UILibrary = require(Libs.UILibrary)
 local StyledScrollingFrame = UILibrary.Component.StyledScrollingFrame
-local Separator = UILibrary.Component.Separator
 local LayoutOrderIterator = UILibrary.Util.LayoutOrderIterator
+
+local Separator
+if FFlagToolboxReplaceUILibraryComponentsPt1 then
+	Separator = require(Libs.Framework).UI.Separator
+else
+	local UILibrary = require(Libs.UILibrary)
+	Separator = UILibrary.Component.Separator
+end
 
 local PermissionsDirectory = Plugin.Core.Components.AssetConfiguration.Permissions
 local PackageOwnerWidget = require(PermissionsDirectory.PackageOwnerWidget)
@@ -30,8 +38,6 @@ local PermissionsConstants = require(PermissionsDirectory.PermissionsConstants)
 
 local Util = Plugin.Core.Util
 local Constants = require(Util.Constants)
-local getNetwork = require(Util.ContextGetter).getNetwork
-local getUserId = require(Util.getUserId)
 local ContextHelper = require(Util.ContextHelper)
 local withLocalization = ContextHelper.withLocalization
 local withTheme = ContextHelper.withTheme
@@ -41,8 +47,6 @@ local SearchCollaborators = require(Plugin.Core.Thunks.SearchCollaborators)
 local SetCollaborators = require(Plugin.Core.Actions.SetCollaborators)
 local SetGroupMetadata = require(Plugin.Core.Actions.SetGroupMetadata)
 local AddChange = require(Plugin.Core.Actions.AddChange)
-
-local TextService = game:GetService("TextService")
 
 local Permissions = Roact.PureComponent:extend("Permissions")
 
@@ -59,7 +63,7 @@ function Permissions:render()
     local canViewCollaborators = self.props.CurrentUserPackagePermission == PermissionsConstants.OwnKey or self.props.CurrentUserPackagePermission == PermissionsConstants.EditKey
     local canManagePermissions = self.props.CurrentUserPackagePermission == PermissionsConstants.OwnKey
     local isUserOwnedPackage = self.state.OwnerType == Enum.CreatorType.User
-    
+
     -- Text Label should only have 2 lines max
     local textLabelYSize = Constants.FONT_SIZE_MEDIUM * 2
 
@@ -67,7 +71,7 @@ function Permissions:render()
         return withLocalization(function(localization, localized)
             return Roact.createElement(StyledScrollingFrame, {
                 Size = self.props.Size,
-                
+
                 BackgroundTransparency = 1,
                 LayoutOrder = self.props.LayoutOrder,
                 BackgroundColor3 = theme.assetConfig.packagePermissions.backgroundColor,
@@ -80,7 +84,7 @@ function Permissions:render()
                     PaddingLeft = UDim.new(0, Constants.PERMISSIONS_UI_EDGE_PADDING),
                     PaddingRight = UDim.new(0, Constants.PERMISSIONS_UI_EDGE_PADDING),
                 }),
-                
+
                 UIListLayout = Roact.createElement("UIListLayout", {
                     Padding = UDim.new(0, Constants.PERMISSIONS_TAB_LIST_PADDING),
                     SortOrder = Enum.SortOrder.LayoutOrder,
@@ -88,22 +92,22 @@ function Permissions:render()
 
                 OwnerWidget = Roact.createElement(PackageOwnerWidget, {
                     LayoutOrder = orderIterator:getNextOrder(),
-                    
+
                     Enabled = true,
                     OwnerName = self.props.Owner.username,
                     OwnerId = self.props.Owner.targetId,
                     OwnerType = self.state.OwnerType,
-                    
+
                     CanManage = canManagePermissions,
-                    
+
                     GroupMetadata = self.props.GroupMetadata,
                     Permissions = self.props.Permissions,
                     PermissionsChanged = self.props.PermissionsChanged,
                 }),
-                
+
                 Separator = Roact.createElement(Separator, {
                     LayoutOrder = orderIterator:getNextOrder(),
-                    Size = UDim2.new(1, 0, 0, 0),
+                    Size = (not FFlagToolboxReplaceUILibraryComponentsPt1) and UDim2.new(1, 0, 0, 0) or nil,
                 }),
 
                 SearchbarWidget = canManagePermissions and isUserOwnedPackage and Roact.createElement(CollaboratorSearchWidget, {
@@ -121,27 +125,27 @@ function Permissions:render()
                 RevokedWarningMessage = Roact.createElement("TextLabel", {
                     LayoutOrder = orderIterator:getNextOrder(),
                     Size = UDim2.new(1, 0, 0, textLabelYSize),
-                    
+
                     Text = isUserOwnedPackage and localized.PackagePermissions.Warning.UserOwned or localized.PackagePermissions.Warning.GroupOwned,
                     TextXAlignment = Enum.TextXAlignment.Left,
-                    
+
                     Font = Constants.FONT,
                     TextSize = Constants.FONT_SIZE_MEDIUM,
                     TextColor3 = theme.assetConfig.packagePermissions.subTextColor,
                     TextWrapped = true,
-                    
+
                     BackgroundTransparency = 1,
                 }),
 
                 CollaboratorListWidget = canViewCollaborators and isUserOwnedPackage and Roact.createElement(CollaboratorsWidget, {
                     LayoutOrder = orderIterator:getNextOrder(),
                     Enabled = true,
-        
+
                     OwnerId = self.props.Owner.targetId,
                     OwnerType = self.state.OwnerType,
-                    
+
                     CanManage = canManagePermissions,
-        
+
                     GroupMetadata = self.props.GroupMetadata,
                     Permissions = self.props.Permissions,
                     PermissionsChanged = self.props.PermissionsChanged,
@@ -171,7 +175,7 @@ local function mapStateToProps(state, props)
 
     local owner = state.assetConfigData and state.assetConfigData.Creator or props.Owner
 
-    return { 
+    return {
         Owner = owner,
         GroupMetadata = groupMetadata,
         Permissions = permissions,
@@ -192,7 +196,6 @@ local function mapDispatchToProps(dispatch)
             dispatch(SetGroupMetadata(groupMetadata))
             dispatch(AddChange("groupMetadata", groupMetadata))
         end,
-        
     }
 end
 

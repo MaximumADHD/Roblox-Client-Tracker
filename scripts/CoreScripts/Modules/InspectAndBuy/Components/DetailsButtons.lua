@@ -12,8 +12,6 @@ local FavoritesButton = require(InspectAndBuyFolder.Components.FavoritesButton)
 local TryOnButton = require(InspectAndBuyFolder.Components.TryOnButton)
 local BuyButton = require(InspectAndBuyFolder.Components.BuyButton)
 
-local GetFFlagLuaPremiumCatalogIGIAB
-	= require(CoreGui.RobloxGui.Modules.Flags.GetFFlagLuaPremiumCatalogIGIAB)
 local FFlagAllowForBundleItemsSoldSeparately = require(InspectAndBuyFolder.Flags.FFlagAllowForBundleItemsSoldSeparately)
 
 
@@ -43,15 +41,11 @@ local function getBuyText(itemInfo, locale)
 	elseif not itemInfo.isForSale and not itemInfo.isLimited then
 		buyText = RobloxTranslator:FormatByKeyForLocale(OFFSALE_KEY, locale)
 	elseif itemInfo.isForSale then
-		if GetFFlagLuaPremiumCatalogIGIAB() then
-			if itemInfo.premiumPricing ~= nil then
-				if itemInfo.price == nil and Players.LocalPlayer.MembershipType ~= Enum.MembershipType.Premium then
-					buyText = RobloxTranslator:FormatByKeyForLocale(PREMIUM_ONLY_KEY, locale)
-				else
-					buyText = itemInfo.premiumPricing.premiumPriceInRobux
-				end
+		if itemInfo.premiumPricing ~= nil then
+			if itemInfo.price == nil and Players.LocalPlayer.MembershipType ~= Enum.MembershipType.Premium then
+				buyText = RobloxTranslator:FormatByKeyForLocale(PREMIUM_ONLY_KEY, locale)
 			else
-				buyText = itemInfo.price
+				buyText = itemInfo.premiumPricing.premiumPriceInRobux
 			end
 		else
 			buyText = itemInfo.price
@@ -119,7 +113,7 @@ function DetailsButtons:render()
 			itemType = Constants.ItemType.Asset
 			itemId = assetInfo.assetId
 			forSale = assetInfo.isForSale and not assetInfo.owned and not isLimited and assetInfo.owned ~= nil
-			if GetFFlagLuaPremiumCatalogIGIAB() and forSale and assetInfo.price == nil and assetInfo.premiumPricing ~= nil then
+			if forSale and assetInfo.price == nil and assetInfo.premiumPricing ~= nil then
 				forSale = Players.LocalPlayer.MembershipType == Enum.MembershipType.Premium
 			end
 			buyText = getBuyText(assetInfo, locale)

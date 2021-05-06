@@ -6,7 +6,19 @@ local Chat = game:GetService("Chat")
 local ReplicatedModules = Chat:WaitForChild("ClientChatModules")
 local ChatConstants = require(ReplicatedModules:WaitForChild("ChatConstants"))
 
+local FFlagAddChatThrottlingToAllChannels = false do
+	local ok, value = pcall(function()
+		return UserSettings():IsUserFeatureEnabled("UserAddChatThrottlingToAllChannels")
+	end)
+	if ok then
+		FFlagAddChatThrottlingToAllChannels = value
+	end
+end
+
 local doFloodCheckByChannel = true
+if FFlagAddChatThrottlingToAllChannels then
+	doFloodCheckByChannel = false
+end
 local informSpeakersOfWaitTimes = true
 local chatBotsBypassFloodCheck = true
 local numberMessagesAllowed = 7
@@ -62,7 +74,7 @@ local function Run(ChatService)
 		else
 
 			local timeDiff = math.ceil(t[1] - now)
-			
+
 			if (informSpeakersOfWaitTimes) then
 				local msg = ChatLocalization:FormatMessageToSend("GameChat_ChatFloodDetector_MessageDisplaySeconds",
 					string.format("You must wait %d %s before sending another message!", timeDiff, (timeDiff > 1) and "seconds" or "second"),

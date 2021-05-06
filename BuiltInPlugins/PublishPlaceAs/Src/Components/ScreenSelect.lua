@@ -27,6 +27,7 @@ local function ScreenSelect(props)
 	local onClose = props.OnClose
 	local isPublish = props.IsPublish
 	local closeAfterSave = props.CloseAfterSave
+	local firstPublishContext = props.FirstPublishContext
 
 	local screen = props.Screen
 
@@ -34,6 +35,7 @@ local function ScreenSelect(props)
 		OnClose = onClose,
 		IsPublish = isPublish,
 		CloseAfterSave = closeAfterSave,
+		FirstPublishContext = firstPublishContext,
 	})
 end
 

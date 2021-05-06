@@ -174,8 +174,12 @@ local function Initialize()
 		end
 		this.GameOrPlayerMode.Selection.LayoutOrder = 1
 
+		local whichPlayerText = "Which Player?"
+		if FFlagFixUsernamesAutoLocalizeIssue then
+			whichPlayerText = RobloxTranslator:FormatByKey("Feature.SettingsHub.Label.WhichPlayer")
+		end
 		this.WhichPlayerFrame, this.WhichPlayerLabel, this.WhichPlayerMode =
-			utility:AddNewRow(this, "Which Player?", "DropDown", {"update me"})
+			utility:AddNewRow(this, whichPlayerText, "DropDown", {"update me"})
 		this.WhichPlayerMode:SetInteractable(false)
 		if FFlagFixUsernamesAutoLocalizeIssue then
 			this.WhichPlayerMode:SetAutoLocalize(false)

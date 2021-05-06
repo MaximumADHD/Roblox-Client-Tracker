@@ -31,6 +31,7 @@ function PanelEntry:render()
 	local header = props.Header
 	local description = props.Description
 	local layoutOrder = props.LayoutOrder
+	local size = props.Size
 
 	local contentChildren = props[Roact.Children]
 	local hasChild = contentChildren and mapOne(contentChildren)
@@ -55,10 +56,13 @@ function PanelEntry:render()
 			TextWrapped = true,
 		}),
 		Content = hasChild and Roact.createElement(Pane, {
-			Size = UDim2.new(1, 0, 0, 0),
 			LayoutOrder = 3,
 			HorizontalAlignment = Enum.HorizontalAlignment.Left,
-			AutomaticSize = Enum.AutomaticSize.Y,
+			AutomaticSize = not size and Enum.AutomaticSize.Y or nil,
+			-- For a FixedSize panel, the content must fill the remaining space
+			-- AutomaticSize doesn't allow us to do this at time of writing,
+			-- so approximate the size.
+			Size = size and UDim2.new(1, 0, 1, -30),
 			Layout = Enum.FillDirection.Vertical,
 			Padding = {
 				Top = sizes.OuterPadding
@@ -73,7 +77,8 @@ function PanelEntry:render()
 		HorizontalAlignment = Enum.HorizontalAlignment.Left,
 		Layout = Enum.FillDirection.Vertical,
 		LayoutOrder = layoutOrder,
-		AutomaticSize = Enum.AutomaticSize.Y,
+		AutomaticSize = not size and Enum.AutomaticSize.Y or nil,
+		Size = size,
 	}, children)
 end
 

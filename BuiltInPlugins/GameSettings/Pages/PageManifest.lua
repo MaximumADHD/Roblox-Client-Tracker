@@ -8,7 +8,7 @@ local Options = require(script.Parent.OptionsPage.Options)
 local Places = require(script.Parent.PlacesPage.Places)
 local Security = require(script.Parent.SecurityPage.Security)
 local World = require(script.Parent.WorldPage.World)
-local LocalizationPage = require(script.Parent.LocalizationPage.LocalizationPage)
+local Localization = require(script.Parent.LocalizationPage.Localization)
 
 local pages = {
 	BasicInfo,
@@ -24,6 +24,6 @@ if FFlagQ220PermissionsSettings then
 	table.insert(pages, 4, Security)
 end
 
-table.insert(pages, 5, LocalizationPage)
+table.insert(pages, 5, Localization)
 
 return pages

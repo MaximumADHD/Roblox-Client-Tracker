@@ -33,9 +33,6 @@ return function()
 		local container = Instance.new("Folder")
 		local element = MockWrap(Roact.createElement(StoryHost, getProps()))
 		local instance = Roact.mount(element, container)
-		for _,v in pairs(container:GetChildren()) do
-			print("ooo", v.Name)
-		end
 		Roact.unmount(instance)
 	end)
 

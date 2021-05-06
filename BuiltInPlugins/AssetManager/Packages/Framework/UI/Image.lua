@@ -4,6 +4,7 @@
 	Optional Props:
 		string Image: The image asset itself.
 		UDim2 Size: size of the image
+		Color3 ImageColor3: The color tint of the image.
 		Vector2 AnchorPoint: The anchor point of the image.
 		UDim2 Position: position of the image
 		Theme Theme: A Theme ContextItem, which is provided via mapToProps.
@@ -47,7 +48,7 @@ function Image:render()
 		style = theme:getStyle("Framework", self)
 	end
 
-	local color = style.Color
+	local color = props.ImageColor3 or style.Color
 	local transparency = style.Transparency
 	local image = props.Image or style.Image
 	local imageRectSize = style.ImageRectSize

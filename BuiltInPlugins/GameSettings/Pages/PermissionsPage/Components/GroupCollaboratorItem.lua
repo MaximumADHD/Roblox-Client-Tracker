@@ -1,4 +1,6 @@
 local FFlagGameSettingsMigrateToDevFrameworkSeparator = game:GetFastFlag("GameSettingsMigrateToDevFrameworkSeparator")
+local FFlagGameSettingsStandardizeLocalizationId = game:GetFastFlag("GameSettingsStandardizeLocalizationId")
+local FFlagStudioUXImprovementsLoosenTCPermissions = game:GetFastFlag("StudioUXImprovementsLoosenTCPermissions")
 
 local Page = script.Parent.Parent
 local Plugin = script.Parent.Parent.Parent.Parent
@@ -27,8 +29,7 @@ local RemoveGroupCollaborator = require(Page.Thunks.RemoveGroupCollaborator)
 local SetGroupPermission = require(Page.Thunks.SetGroupPermission)
 
 local DEFAULT_ROLESET_VALUE = PermissionsConstants.NoAccessKey
-
-local FFlagStudioUXImprovementsLoosenTCPermissions = game:GetFastFlag("StudioUXImprovementsLoosenTCPermissions")
+local PERMISSIONS = FFlagGameSettingsStandardizeLocalizationId and "Permissions" or "AccessPermissions"
 
 local FitToContent = createFitToContent("Frame", "UIListLayout", {
 	SortOrder = Enum.SortOrder.LayoutOrder,
@@ -81,13 +82,13 @@ function GroupCollaboratorItem:getAvailablePermissions()
 		return {
 			{
 				Key = PermissionsConstants.NoAccessKey,
-				Display = localization:getText("AccessPermissions", "NoAccessLabel"),
-				Description = localization:getText("AccessPermissions", "NoAccessDescription"),
+				Display = localization:getText(PERMISSIONS, "NoAccessLabel"),
+				Description = localization:getText(PERMISSIONS, "NoAccessDescription"),
 			},
 			{
 				Key = PermissionsConstants.PlayKey,
-				Display = localization:getText("AccessPermissions", "PlayLabel"),
-				Description = localization:getText("AccessPermissions", "PlayDescription"),
+				Display = localization:getText(PERMISSIONS, "PlayLabel"),
+				Description = localization:getText(PERMISSIONS, "PlayDescription"),
 			}
 		}
 	end

@@ -524,7 +524,7 @@ function TerrainBrush:_run()
 			mainPointOnPlane = self:putPlanePositionYIntoVector(mainPointOnPlane)
 		end
 
-		if (FFlagTerrainToolsAlignToPlane and currentTool ~= ToolId.Flatten) or planeLock then
+		if planeLock then
 			mainPoint = mainPointOnPlane
 		end
 

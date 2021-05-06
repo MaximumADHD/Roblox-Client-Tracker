@@ -16,11 +16,7 @@
 		numFavorites = int,
 	}
 ]]
-local CoreGui = game:GetService("CoreGui")
 local MockId = require(script.Parent.Parent.MockId)
-
-local GetFFlagLuaPremiumCatalogIGIAB
-	= require(CoreGui.RobloxGui.Modules.Flags.GetFFlagLuaPremiumCatalogIGIAB)
 
 local AssetInfo = {}
 
@@ -101,9 +97,7 @@ function AssetInfo.fromGetEconomyProductInfo(asset, isOwned, price, isForSale, p
 		newAsset.price = price
 	end
 	newAsset.isForSale = isForSale
-	if GetFFlagLuaPremiumCatalogIGIAB() then
-		newAsset.premiumPricing = premiumPricing
-	end
+	newAsset.premiumPricing = premiumPricing
 
 	return newAsset
 end

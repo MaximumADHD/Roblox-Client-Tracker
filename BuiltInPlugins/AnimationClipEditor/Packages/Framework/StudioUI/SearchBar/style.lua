@@ -64,6 +64,11 @@ if THEME_REFACTOR then
 			Right = 10
 		},
 
+		SearchIcon = "rbxasset://textures/StudioSharedUI/search.png",
+		IconColor = Color3.fromRGB(184, 184, 184),
+		IconWidth = 12,
+		IconOffset = 5,
+
 		[StyleModifier.Hover] = {
 			BackgroundStyle = Cryo.Dictionary.join(roundBox, {
 				BorderColor = StyleKey.DialogMainButton,
@@ -93,6 +98,12 @@ else
 				Bottom = 5,
 				Right = 10
 			},
+
+			SearchIcon = "rbxasset://textures/StudioSharedUI/search.png",
+			IconColor = Color3.fromRGB(184, 184, 184),
+			IconWidth = 14,
+			IconOffset = 5,
+
 			[StyleModifier.Hover] = {
 				BackgroundStyle = Style.extend(roundBox.Default, common.BorderHover)
 			},

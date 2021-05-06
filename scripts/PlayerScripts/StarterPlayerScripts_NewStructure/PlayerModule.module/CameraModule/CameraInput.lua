@@ -1,10 +1,3 @@
-local FFlagUserCameraInputRefactor do
-	local success, result = pcall(function()
-		return UserSettings():IsUserFeatureEnabled("UserCameraInputRefactor3")
-	end)
-	FFlagUserCameraInputRefactor = success and result
-end
-
 local ContextActionService = game:GetService("ContextActionService")
 local UserInputService = game:GetService("UserInputService")
 local Players = game:GetService("Players")
@@ -118,11 +111,9 @@ local function isInDynamicThumbstickArea(pos)
 end
 
 local worldDt = 1/60
-if FFlagUserCameraInputRefactor then
-	RunService.Stepped:Connect(function(_, _worldDt)
-		worldDt = _worldDt
-	end)
-end
+RunService.Stepped:Connect(function(_, _worldDt)
+	worldDt = _worldDt
+end)
 
 local CameraInput = {}
 
@@ -375,8 +366,6 @@ do
 		local inputEnabled = false
 
 		function CameraInput.setInputEnabled(_inputEnabled)
-			assert(FFlagUserCameraInputRefactor)
-
 			if inputEnabled == _inputEnabled then
 				return
 			end

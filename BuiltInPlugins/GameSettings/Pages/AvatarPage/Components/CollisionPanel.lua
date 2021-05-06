@@ -12,6 +12,8 @@ local RadioButtonSetPanel = require(Page.Components.RadioButtonSetPanel)
 
 local CollisionPanel = Roact.Component:extend("ComponentCollisionPanel")
 
+local FFlagFixCollisionBoxLabels = game:DefineFastFlag("FixCollisionBoxLabels", false)
+
 function CollisionPanel:render()
 	local collisionTypeSetFunctions = {
 		[ConstantTemplate.OuterCollision] = StateModelTemplate.setCollisionOuterBox,
@@ -26,10 +28,10 @@ function CollisionPanel:render()
 		Title = localization:getText("General", "TitleCollision"),
 		Buttons = {{
 				Id = ConstantTemplate.OuterCollision,
-				Title = localization:getText("General", "CollisionInnerBox"),
+				Title = FFlagFixCollisionBoxLabels and localization:getText("General", "CollisionOuterBox") or localization:getText("General", "CollisionInnerBox"),
 			}, {
 				Id = ConstantTemplate.InnerCollision,
-				Title = localization:getText("General", "CollisionOuterBox"),
+				Title = FFlagFixCollisionBoxLabels and localization:getText("General", "CollisionInnerBox") or localization:getText("General", "CollisionOuterBox"),
 			},
 		},
 		Enabled = self.props.IsEnabled,

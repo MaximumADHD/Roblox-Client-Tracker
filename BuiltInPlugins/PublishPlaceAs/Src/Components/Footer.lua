@@ -16,6 +16,8 @@ local FOOTER_GRADIENT_TRANSPARENCY = 0.9
 local FOOTER_GRADIENT_IMAGE = "rbxasset://textures/gradient.png"
 local FOOTER_GRADIENT_RECT_SIZE = Vector2.new(512, 256)
 
+local StudioService = game:GetService("StudioService")
+
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
@@ -38,11 +40,12 @@ local function Footer(props)
 			local nextScreen = props.NextScreen
 			local nextScreenText = props.NextScreenText
 			local openNextScreen = props.OpenNextScreen
+			local isLocalSaveButton = props.IsLocalSaveButton
 
 			return Roact.createElement("Frame", {
 				BackgroundColor3 = theme.backgroundColor,
 				BorderSizePixel = 0,
-				Size = UDim2.new(1, 0, 0, Constants.FOOTER_HEIGHT),
+				Size = UDim2.new(1, 0, 0, theme.FOOTER_HEIGHT),
 				AnchorPoint = Vector2.new(0, 1),
 				Position = UDim2.new(0, 0, 1, 0),
 				ZIndex = 2,
@@ -88,7 +91,12 @@ local function Footer(props)
 					Text = localization:getText("FooterButton", nextScreenText),
 
 					[Roact.Event.Activated] = function()
-						openNextScreen(nextScreen)
+						-- When saving, the "existing game" button is repurposed into a "save locally" button
+						if isLocalSaveButton then
+							StudioService:PromptForLocalSave()
+						else
+							openNextScreen(nextScreen)
+						end
 					end,
 				}),
 			})

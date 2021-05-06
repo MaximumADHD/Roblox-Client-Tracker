@@ -15,8 +15,6 @@ local Constants = require(InspectAndBuyFolder.Constants)
 local RobloxTranslator = require(CoreGui.RobloxGui.Modules.RobloxTranslator)
 local getSelectionImageObjectRegular = require(InspectAndBuyFolder.getSelectionImageObjectRegular)
 
-local GetFFlagLuaPremiumCatalogIGIAB
-	= require(CoreGui.RobloxGui.Modules.Flags.GetFFlagLuaPremiumCatalogIGIAB)
 local FFlagAllowForBundleItemsSoldSeparately = require(InspectAndBuyFolder.Flags.FFlagAllowForBundleItemsSoldSeparately)
 
 
@@ -71,7 +69,7 @@ function DetailsText:render()
 	local assetInfo = self.props.assetInfo or {}
 	local partOfBundle = assetInfo.bundlesAssetIsIn and #assetInfo.bundlesAssetIsIn == 1
 	local multipleBundles = assetInfo.bundlesAssetIsIn and #assetInfo.bundlesAssetIsIn > 1
-	local showPremiumIcon = GetFFlagLuaPremiumCatalogIGIAB() and assetInfo.premiumPricing ~= nil
+	local showPremiumIcon = assetInfo.premiumPricing ~= nil
 	local premiumIconPadding = showPremiumIcon and (UIBloxIconSize.Regular + PREMIUM_ICON_PADDING) or 0
 	local noticeKey = nil
 	if multipleBundles then
@@ -97,7 +95,7 @@ function DetailsText:render()
 		Notification = noticeKey and Roact.createElement(Notification, {
 			noticeKey = noticeKey,
 		}),
-		AssetName = GetFFlagLuaPremiumCatalogIGIAB() and Roact.createElement("Frame", {
+		AssetName = Roact.createElement("Frame", {
 			BackgroundTransparency = 1,
 			Size = UDim2.new(1, -10, 0, ASSET_NAME_SIZE),
 			LayoutOrder = 1,

@@ -12,18 +12,16 @@ local PageInfoHelper = require(Util.PageInfoHelper)
 
 local AssetInfo = require(Plugin.Core.Models.AssetInfo)
 
-local FFlagToolboxNewResponseFreshChecks = game:GetFastFlag("ToolboxNewResponseFreshChecks")
-
 return function(networkInterface, items, totalResults, audioSearchInfo, targetPage, cursor, pageInfo)
     return function(store)
-        if FFlagToolboxNewResponseFreshChecks and PageInfoHelper.isPageInfoStale(pageInfo, store) then
+        if PageInfoHelper.isPageInfoStale(pageInfo, store) then
             return
         end
         store:dispatch(SetLoading(true))
 
         return networkInterface:getItemDetails(items):andThen(
             function(detailsResult)
-                if FFlagToolboxNewResponseFreshChecks and PageInfoHelper.isPageInfoStale(pageInfo, store) then
+                if PageInfoHelper.isPageInfoStale(pageInfo, store) then
                     return
                 end
                 local detailsData = detailsResult.responseBody
@@ -42,7 +40,7 @@ return function(networkInterface, items, totalResults, audioSearchInfo, targetPa
                 store:dispatch(SetLoading(false))
             end,
             function(err)
-                if FFlagToolboxNewResponseFreshChecks and PageInfoHelper.isPageInfoStale(pageInfo, store) then
+                if PageInfoHelper.isPageInfoStale(pageInfo, store) then
                     return
                 end
                 store:dispatch(SetLoading(false))

@@ -15,9 +15,22 @@ local ModuleLoader = {
 	errors = {},
 }
 
+-- TODO #luau: add debug.loadmodule
+local loadModule = (debug :: any).loadmodule
+-- Try using debug.loadmodule to check if it works
+local loadModuleOk = pcall(function()
+	loadModule(script)
+end)
+
+function ModuleLoader:usingLoadModule()
+	return loadModuleOk
+end
+
 function ModuleLoader:load(moduleScript: ModuleScript)
-	-- TODO #luau: add debug.loadmodule
-	local moduleFn, err = (debug :: any).loadmodule(moduleScript)
+	if not self:usingLoadModule() then
+		return require(moduleScript)
+	end
+	local moduleFn, err = loadModule(moduleScript)
 	assert(moduleFn, err)
 	getfenv(moduleFn).require = function(childScript: ModuleScript)
 		local requirers = getOrSet(self.requirers, childScript, function()

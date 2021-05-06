@@ -29,16 +29,6 @@ function UniverseActivate.Set(universeId, body)
 	assert(type(body) == "table", string.format(errmsg, type(body)))
 	assert(body.isActive ~= nil,  "UniverseActivate.Set body must have 'isActive'")
 
-	if body.playableDevices then
-		local toTable = {}
-		for key, value in pairs(body.playableDevices) do
-			if value then
-				table.insert(toTable, key)
-			end
-		end
-		body.playableDevices = toTable
-	end
-
     local requestUrl
     if body.isActive then
         requestUrl = ACTIVATE_URL

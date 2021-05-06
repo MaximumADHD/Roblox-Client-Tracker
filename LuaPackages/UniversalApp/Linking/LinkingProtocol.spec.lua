@@ -64,5 +64,14 @@ return function()
 			wait()
 			expect(updatedURL).to.equal(testUrl)
 		end)
+
+		it("should return the last URL detected that Lua can handle", function(context)
+			expect(context.LinkingProtocol:getLastLuaURL()).to.equal(nil)
+			MessageBus.publish(context.LinkingProtocol.HANDLE_LUA_URL_DESCRIPTOR, {
+				url = testUrl,
+				matchedUrl = testUrl,
+			})
+			expect(context.LinkingProtocol:getLastLuaURL()).to.equal(testUrl)
+		end)
 	end)
 end

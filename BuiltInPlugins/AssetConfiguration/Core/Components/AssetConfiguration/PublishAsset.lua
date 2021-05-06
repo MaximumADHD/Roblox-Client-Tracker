@@ -32,16 +32,26 @@
 	Optional Props:
 		LayoutOrder, number, used by the layouter to set the position of the component.
 ]]
+local FFlagToolboxReplaceUILibraryComponentsPt1 = game:GetFastFlag("ToolboxReplaceUILibraryComponentsPt1")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Libs = Plugin.Libs
 local Roact = require(Libs.Roact)
 local RoactRodux = require(Libs.RoactRodux)
-local UILibrary = require(Libs.UILibrary)
 
+local ContextServices = require(Libs.Framework).ContextServices
+local THEME_REFACTOR = require(Libs.Framework.Util.RefactorFlags).THEME_REFACTOR
+
+local UILibrary = require(Libs.UILibrary)
 local StyledScrollingFrame = UILibrary.Component.StyledScrollingFrame
-local TitledFrame = UILibrary.Component.TitledFrame
+
+local TitledFrame
+if FFlagToolboxReplaceUILibraryComponentsPt1 then
+	TitledFrame = require(Libs.Framework).StudioUI.TitledFrame
+else
+	TitledFrame = UILibrary.Component.TitledFrame
+end
 
 local Util = Plugin.Core.Util
 local ContextHelper = require(Util.ContextHelper)
@@ -96,7 +106,7 @@ local function createDivider(props)
 
 			BorderSizePixel = 0,
 			BackgroundTransparency = 0,
-			BackgroundColor3 = theme.divider.horizontalLineColor,
+			BackgroundColor3 = FFlagToolboxReplaceUILibraryComponentsPt1 and theme.horizontalLineColor or theme.divider.horizontalLineColor,
 		})
 	})
 end
@@ -161,206 +171,228 @@ function PublishAsset:bumpCanvas(top, bottom)
 end
 
 function PublishAsset:render()
-	return withTheme(function(theme)
+	if FFlagToolboxReplaceUILibraryComponentsPt1 then
 		return withLocalization(function(_, localizedContent)
-			local props = self.props
-
-			local Size = props.Size
-			local LayoutOrder = props.LayoutOrder
-
-			local name = props.name
-			local description = props.description
-			local tags = props.tags
-			local owner = props.owner
-			local genres = props.genres
-			local allowCopy = props.allowCopy
-			local copyOn = props.copyOn
-			local allowComment = props.allowComment
-			local commentOn = props.commentOn
-			local assetTypeEnum = props.assetTypeEnum
-
-			local onNameChange = props.onNameChange
-			local onDescChange = props.onDescChange
-			local onTagsChange = props.onTagsChange
-			local onOwnerSelected = props.onOwnerSelected
-			local onGenreSelected = props.onGenreSelected
-			local toggleCopy = props.toggleCopy
-			local toggleComment = props.toggleComment
-
-			local displayOwnership = props.displayOwnership
-			local displayGenre = props.displayGenre
-			local displayCopy = props.displayCopy
-			local displayComment = props.displayComment
-			local displayAssetType = props.displayAssetType
-			local displayTags = props.displayTags
-
-			local maximumItemTagsPerItem = props.maximumItemTagsPerItem
-
-			local orderIterator = LayoutOrderIterator.new()
-
-			local publishAssetTheme = theme.publishAsset
-			local publishAssetLocalized = localizedContent.AssetConfig.PublishAsset
-
-			local configCopyHeight = COPY_HEIGHT
-			if not allowCopy then
-				configCopyHeight = configCopyHeight + HEIGHT_FOR_ACCOUNT_SETTING_TEXT
-			end
-
-			return Roact.createElement(StyledScrollingFrame, {
-				Size = Size,
-
-				BackgroundTransparency = 0,
-				BackgroundColor3 = publishAssetTheme.backgroundColor,
-				BorderSizePixel = 0,
-
-				LayoutOrder = LayoutOrder,
-
-				[Roact.Ref] = self.baseFrameRef,
-			}, {
-				Padding = Roact.createElement("UIPadding", {
-					PaddingTop = UDim.new(0, PADDING),
-					PaddingBottom = UDim.new(0, PADDING),
-					PaddingLeft = UDim.new(0, PADDING),
-					PaddingRight = UDim.new(0, PADDING),
-				}),
-
-				UIListLayout = Roact.createElement("UIListLayout", {
-					FillDirection = Enum.FillDirection.Vertical,
-					HorizontalAlignment = Enum.HorizontalAlignment.Left,
-					VerticalAlignment = Enum.VerticalAlignment.Top,
-					SortOrder = Enum.SortOrder.LayoutOrder,
-					Padding = UDim.new(0, 5),
-
-					[Roact.Change.AbsoluteContentSize] = self.refreshCanvas or function(rbx)
-						self.baseFrameRef.current.CanvasSize = UDim2.new(Size.X.Scale, Size.X.Offset, 0, rbx.AbsoluteContentSize.y + PADDING*2)
-					end,
-
-					[Roact.Ref] = self.listLayoutRef,
-				}),
-
-				Title = Roact.createElement(ConfigTextField, {
-					Title = publishAssetLocalized.Title,
-					TotalHeight = NAME_HEIGHT,
-					MaxCount = AssetConfigConstants.NAME_CHARACTER_LIMIT,
-					TextChangeCallBack = onNameChange,
-					TextContent = name,
-
-					ErrorCallback = function(hasError)
-						self.props.setFieldError(AssetConfigConstants.FIELD_NAMES.Title, hasError)
-					end,
-
-					LayoutOrder = orderIterator:getNextOrder(),
-				}),
-
-				Description = Roact.createElement(ConfigTextField, {
-					Title = publishAssetLocalized.Description,
-					TotalHeight = DESC_HEIGHT,
-					MaxCount = AssetConfigConstants.DESCRIPTION_CHARACTER_LIMIT ,
-					TextChangeCallBack = onDescChange,
-					TextContent = description,
-
-					ErrorCallback = function(hasError)
-						self.props.setFieldError(AssetConfigConstants.FIELD_NAMES.Description, hasError)
-					end,
-
-					LayoutOrder = orderIterator:getNextOrder(),
-				}),
-
-				AssetType = displayAssetType and Roact.createElement(TitledFrame, {
-					Title = publishAssetLocalized.AssetType,
-					MaxHeight = ASSET_TYPE_HEIGHT,
-					TextSize = Constants.FONT_SIZE_TITLE,
-					LayoutOrder = orderIterator:getNextOrder(),
-				}, {
-					Label = Roact.createElement("TextLabel", {
-						BackgroundTransparency = 1,
-						TextColor3 = publishAssetTheme.textColor,
-
-						Font = Constants.FONT,
-						TextSize = Constants.FONT_SIZE_TITLE,
-
-						Text = publishAssetLocalized.AssetTextDisplay[assetTypeEnum],
-						TextXAlignment = Enum.TextXAlignment.Left,
-						TextYAlignment = Enum.TextYAlignment.Top,
-					})
-				}),
-
-				Tags = displayTags and Roact.createElement(TagsComponent, {
-					tags = tags,
-					onTagsChange = onTagsChange,
-					maximumItemTagsPerItem = maximumItemTagsPerItem,
-
-					Title = publishAssetLocalized.Tags,
-					AssetTypeEnum = assetTypeEnum,
-					LayoutOrder = orderIterator:getNextOrder(),
-
-					setDropdownHeight = function(dropdownHeight)
-						self.updateMaxDropdownPosition(self.tagsRef, dropdownHeight)
-					end,
-
-					[Roact.Ref] = self.tagsRef,
-				}),
-
-				Ownership = displayOwnership and Roact.createElement(ConfigAccess, {
-					Title = publishAssetLocalized.Ownership,
-					owner = owner,
-
-					TotalHeight = ACCESS_HEIGHT,
-
-					onDropDownSelect = onOwnerSelected,
-
-					LayoutOrder = orderIterator:getNextOrder(),
-				}),
-
-				Genre = displayGenre and Roact.createElement(ConfigGenre, {
-					Title = publishAssetLocalized.Genre,
-					genres = genres,
-
-					TotalHeight = GENRE_HEIGHT,
-
-					onDropDownSelect = onGenreSelected,
-
-					LayoutOrder = orderIterator:getNextOrder(),
-
-					setDropdownHeight = function(dropdownHeight)
-						self.updateMaxDropdownPosition(self.genreRef, dropdownHeight)
-					end,
-
-					[Roact.Ref] = self.genreRef,
-				}),
-
-				DividerBase = displayGenre and Roact.createElement(createDivider, {
-					size = UDim2.new(1, 0, 0, DIVIDER_BASE_HEIGHT),
-					order = orderIterator:getNextOrder(),
-					theme = theme,
-				}),
-
-				Copy = displayCopy and Roact.createElement(ConfigCopy, {
-					Title = publishAssetLocalized.Copy,
-
-					TotalHeight = configCopyHeight,
-					CopyEnabled = allowCopy,
-					CopyOn = copyOn,
-
-					ToggleCallback = toggleCopy,
-
-					LayoutOrder = orderIterator:getNextOrder(),
-				}),
-
-				Comment = displayComment and Roact.createElement(ConfigComment, {
-					Title = publishAssetLocalized.Comments,
-
-					TotalHeight = COMMENT_HEIGHT,
-					CommentEnabled = allowComment,
-					CommentOn = commentOn,
-
-					ToggleCallback = toggleComment,
-
-					LayoutOrder = orderIterator:getNextOrder(),
-				}),
-			})
+			return self:renderContent(nil, localizedContent)
 		end)
-	end)
+	else
+		return withTheme(function(theme)
+			return withLocalization(function(_, localizedContent)
+				return self:renderContent(theme, localizedContent)
+			end)
+		end)
+	end
+end
+
+function PublishAsset:renderContent(theme, localizedContent)
+	if FFlagToolboxReplaceUILibraryComponentsPt1 then
+		if THEME_REFACTOR then
+			theme = self.props.Stylizer
+		else
+			theme = self.props.Theme:get("Plugin")
+		end
+	end
+
+	local props = self.props
+
+	local Size = props.Size
+	local LayoutOrder = props.LayoutOrder
+
+	local name = props.name
+	local description = props.description
+	local tags = props.tags
+	local owner = props.owner
+	local genres = props.genres
+	local allowCopy = props.allowCopy
+	local copyOn = props.copyOn
+	local allowComment = props.allowComment
+	local commentOn = props.commentOn
+	local assetTypeEnum = props.assetTypeEnum
+
+	local onNameChange = props.onNameChange
+	local onDescChange = props.onDescChange
+	local onTagsChange = props.onTagsChange
+	local onOwnerSelected = props.onOwnerSelected
+	local onGenreSelected = props.onGenreSelected
+	local toggleCopy = props.toggleCopy
+	local toggleComment = props.toggleComment
+
+	local displayOwnership = props.displayOwnership
+	local displayGenre = props.displayGenre
+	local displayCopy = props.displayCopy
+	local displayComment = props.displayComment
+	local displayAssetType = props.displayAssetType
+	local displayTags = props.displayTags
+
+	local maximumItemTagsPerItem = props.maximumItemTagsPerItem
+
+	local orderIterator = LayoutOrderIterator.new()
+
+	local publishAssetTheme = theme.publishAsset
+	local publishAssetLocalized = localizedContent.AssetConfig.PublishAsset
+
+	local configCopyHeight = COPY_HEIGHT
+	if not allowCopy then
+		configCopyHeight = configCopyHeight + HEIGHT_FOR_ACCOUNT_SETTING_TEXT
+	end
+
+	return Roact.createElement(StyledScrollingFrame, {
+		Size = Size,
+
+		BackgroundTransparency = 0,
+		BackgroundColor3 = publishAssetTheme.backgroundColor,
+		BorderSizePixel = 0,
+
+		LayoutOrder = LayoutOrder,
+
+		[Roact.Ref] = self.baseFrameRef,
+	}, {
+		Padding = Roact.createElement("UIPadding", {
+			PaddingTop = UDim.new(0, PADDING),
+			PaddingBottom = UDim.new(0, PADDING),
+			PaddingLeft = UDim.new(0, PADDING),
+			PaddingRight = UDim.new(0, PADDING),
+		}),
+
+		UIListLayout = Roact.createElement("UIListLayout", {
+			FillDirection = Enum.FillDirection.Vertical,
+			HorizontalAlignment = Enum.HorizontalAlignment.Left,
+			VerticalAlignment = Enum.VerticalAlignment.Top,
+			SortOrder = Enum.SortOrder.LayoutOrder,
+			Padding = UDim.new(0, 5),
+
+			[Roact.Change.AbsoluteContentSize] = self.refreshCanvas or function(rbx)
+				self.baseFrameRef.current.CanvasSize = UDim2.new(Size.X.Scale, Size.X.Offset, 0, rbx.AbsoluteContentSize.y + PADDING*2)
+			end,
+
+			[Roact.Ref] = self.listLayoutRef,
+		}),
+
+		Title = Roact.createElement(ConfigTextField, {
+			Title = publishAssetLocalized.Title,
+			TotalHeight = NAME_HEIGHT,
+			MaxCount = AssetConfigConstants.NAME_CHARACTER_LIMIT,
+			TextChangeCallBack = onNameChange,
+			TextContent = name,
+
+			ErrorCallback = function(hasError)
+				self.props.setFieldError(AssetConfigConstants.FIELD_NAMES.Title, hasError)
+			end,
+
+			LayoutOrder = orderIterator:getNextOrder(),
+		}),
+
+		Description = Roact.createElement(ConfigTextField, {
+			Title = publishAssetLocalized.Description,
+			TotalHeight = DESC_HEIGHT,
+			MaxCount = AssetConfigConstants.DESCRIPTION_CHARACTER_LIMIT ,
+			TextChangeCallBack = onDescChange,
+			TextContent = description,
+
+			ErrorCallback = function(hasError)
+				self.props.setFieldError(AssetConfigConstants.FIELD_NAMES.Description, hasError)
+			end,
+
+			LayoutOrder = orderIterator:getNextOrder(),
+		}),
+
+		AssetType = displayAssetType and Roact.createElement(TitledFrame,
+		FFlagToolboxReplaceUILibraryComponentsPt1 and {
+			Title = publishAssetLocalized.AssetType,
+			LayoutOrder = orderIterator:getNextOrder(),
+		} or {
+			Title = publishAssetLocalized.AssetType,
+			MaxHeight = ASSET_TYPE_HEIGHT,
+			TextSize = Constants.FONT_SIZE_TITLE,
+			LayoutOrder = orderIterator:getNextOrder(),
+		}, {
+			Label = Roact.createElement("TextLabel", {
+				BackgroundTransparency = 1,
+				TextColor3 = publishAssetTheme.textColor,
+
+				Font = Constants.FONT,
+				TextSize = Constants.FONT_SIZE_TITLE,
+
+				Text = publishAssetLocalized.AssetTextDisplay[assetTypeEnum],
+				TextXAlignment = Enum.TextXAlignment.Left,
+				TextYAlignment = Enum.TextYAlignment.Top,
+			})
+		}),
+
+		Tags = displayTags and Roact.createElement(TagsComponent, {
+			tags = tags,
+			onTagsChange = onTagsChange,
+			maximumItemTagsPerItem = maximumItemTagsPerItem,
+
+			Title = publishAssetLocalized.Tags,
+			AssetTypeEnum = assetTypeEnum,
+			LayoutOrder = orderIterator:getNextOrder(),
+
+			setDropdownHeight = function(dropdownHeight)
+				self.updateMaxDropdownPosition(self.tagsRef, dropdownHeight)
+			end,
+
+			[Roact.Ref] = self.tagsRef,
+		}),
+
+		Ownership = displayOwnership and Roact.createElement(ConfigAccess, {
+			Title = publishAssetLocalized.Ownership,
+			owner = owner,
+
+			TotalHeight = ACCESS_HEIGHT,
+
+			onDropDownSelect = onOwnerSelected,
+
+			LayoutOrder = orderIterator:getNextOrder(),
+		}),
+
+		Genre = displayGenre and Roact.createElement(ConfigGenre, {
+			Title = publishAssetLocalized.Genre,
+			genres = genres,
+
+			TotalHeight = GENRE_HEIGHT,
+
+			onDropDownSelect = onGenreSelected,
+
+			LayoutOrder = orderIterator:getNextOrder(),
+
+			setDropdownHeight = function(dropdownHeight)
+				self.updateMaxDropdownPosition(self.genreRef, dropdownHeight)
+			end,
+
+			[Roact.Ref] = self.genreRef,
+		}),
+
+		DividerBase = displayGenre and Roact.createElement(createDivider, {
+			size = UDim2.new(1, 0, 0, DIVIDER_BASE_HEIGHT),
+			order = orderIterator:getNextOrder(),
+			theme = theme,
+		}),
+
+		Copy = displayCopy and Roact.createElement(ConfigCopy, {
+			Title = publishAssetLocalized.Copy,
+
+			TotalHeight = configCopyHeight,
+			CopyEnabled = allowCopy,
+			CopyOn = copyOn,
+
+			ToggleCallback = toggleCopy,
+
+			LayoutOrder = orderIterator:getNextOrder(),
+		}),
+
+		Comment = displayComment and Roact.createElement(ConfigComment, {
+			Title = publishAssetLocalized.Comments,
+
+			TotalHeight = COMMENT_HEIGHT,
+			CommentEnabled = allowComment,
+			CommentOn = commentOn,
+
+			ToggleCallback = toggleComment,
+
+			LayoutOrder = orderIterator:getNextOrder(),
+		}),
+	})
 end
 
 local function mapDispatchToProps(dispatch)
@@ -369,6 +401,13 @@ local function mapDispatchToProps(dispatch)
 			dispatch(SetFieldError(AssetConfigConstants.SIDE_TABS.General, fieldName, hasError))
 		end,
 	}
+end
+
+if FFlagToolboxReplaceUILibraryComponentsPt1 then
+	ContextServices.mapToProps(PublishAsset, {
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	})
 end
 
 return RoactRodux.connect(nil, mapDispatchToProps)(PublishAsset)

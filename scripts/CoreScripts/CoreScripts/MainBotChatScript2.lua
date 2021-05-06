@@ -85,6 +85,7 @@ local setDialogInUseEvent = RobloxReplicatedStorage:WaitForChild("SetDialogInUse
 
 local FFlagFixDialogServerWait = require(RobloxGui.Modules.Common.Flags.GetFFlagFixDialogServerWait)()
 local FFlagFixDialogScriptNilChecks = game:DefineFastFlag("FixDialogScriptNilChecks", false)
+local FFlagFixStuckDialogWhenUsingGamepad = game:DefineFastFlag("FixStuckDialogWhenUsingGamepad", false)
 
 local chatNotificationGui
 local messageDialog
@@ -300,6 +301,13 @@ function endDialog()
 
 	if touchControlGui then
 		touchControlGui.Visible = true
+	end
+
+	if FFlagFixStuckDialogWhenUsingGamepad then
+		if guiService.SelectedCoreObject and
+			guiService.SelectedCoreObject.Parent == mainFrame then
+			guiService.SelectedCoreObject = nil
+		end
 	end
 end
 

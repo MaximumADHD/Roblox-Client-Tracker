@@ -1,1 +1,1 @@
-return game:DefineFastFlag("FixUsernamesAutoLocalizeIssue", false)
+return game:DefineFastFlag("FixUsernamesAutoLocalizeIssue2", false)

@@ -21,9 +21,6 @@ local AddAnalyticsInfo = require(AvatarEditorPrompts.Actions.AddAnalyticsInfo)
 local EngineFeatureAvatarEditorServiceAnalytics = game:GetEngineFeature("AvatarEditorServiceAnalytics")
 local EngineFeatureAESConformToAvatarRules = game:GetEngineFeature("AESConformToAvatarRules")
 
-local Modules = AvatarEditorPrompts.Parent
-local FFlagAESPromptsSupportGamepad = require(Modules.Flags.FFlagAESPromptsSupportGamepad)
-
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 
@@ -57,11 +54,9 @@ function ItemsList:init()
 	self.topGradientVisibleBinding, self.updateTopGradientVisibleBinding = Roact.createBinding(false)
 	self.bottomGradientVisibleBinding, self.updateBottomGradientVisibleBinding = Roact.createBinding(false)
 
-	if FFlagAESPromptsSupportGamepad then
-		self.addedSectionRef = Roact.createRef()
-		self.removedSectionRef = Roact.createRef()
-		self.noChangedAssetsRef = Roact.createRef()
-	end
+	self.addedSectionRef = Roact.createRef()
+	self.removedSectionRef = Roact.createRef()
+	self.noChangedAssetsRef = Roact.createRef()
 
 	self.lastWasScrollable = nil
 	self.checkIsScrollable = function()
@@ -163,15 +158,15 @@ function ItemsList:createEntriesList()
 	if #self.state.addedAssetNames > 0 then
 		local addingHeaderText = RobloxTranslator:FormatByKey("CoreScripts.AvatarEditorPrompts.Adding")
 		table.insert(list, Roact.createElement(
-			FFlagAESPromptsSupportGamepad and RoactGamepad.Focusable[ListSection] or ListSection, {
+			RoactGamepad.Focusable[ListSection], {
 			headerText = addingHeaderText,
 			items = self.state.addedAssetNames,
 			layoutOrder = 1,
 			isFirstSection = true,
 			isLastSection = #self.state.removedAssetNames == 0,
 
-			NextSelectionDown = FFlagAESPromptsSupportGamepad and self.removedSectionRef or nil,
-			[Roact.Ref] = FFlagAESPromptsSupportGamepad and self.addedSectionRef or nil,
+			NextSelectionDown = self.removedSectionRef,
+			[Roact.Ref] = self.addedSectionRef,
 		}))
 
 		if #self.state.removedAssetNames > 0 then
@@ -186,31 +181,29 @@ function ItemsList:createEntriesList()
 
 	if #self.state.removedAssetNames > 0 then
 		local removingHeaderText = RobloxTranslator:FormatByKey("CoreScripts.AvatarEditorPrompts.Removing")
-		table.insert(list, Roact.createElement(
-			FFlagAESPromptsSupportGamepad and RoactGamepad.Focusable[ListSection] or ListSection, {
+		table.insert(list, Roact.createElement(RoactGamepad.Focusable[ListSection], {
 			headerText = removingHeaderText,
 			items = self.state.removedAssetNames,
 			layoutOrder = 3,
 			isFirstSection = #self.state.addedAssetNames == 0,
 			isLastSection = true,
 
-			NextSelectionUp = FFlagAESPromptsSupportGamepad and self.addedSectionRef or nil,
-			[Roact.Ref] = FFlagAESPromptsSupportGamepad and self.removedSectionRef or nil,
+			NextSelectionUp = self.addedSectionRef,
+			[Roact.Ref] = self.removedSectionRef,
 		}))
 	end
 
 	local noChangedAssets = #self.state.addedAssetNames == 0 and #self.state.removedAssetNames == 0
 	if noChangedAssets then
 		local noChangedAssetsText = RobloxTranslator:FormatByKey("CoreScripts.AvatarEditorPrompts.NoChangedAssets")
-		table.insert(list, Roact.createElement(
-			FFlagAESPromptsSupportGamepad and RoactGamepad.Focusable[ListSection] or ListSection, {
+		table.insert(list, Roact.createElement(RoactGamepad.Focusable[ListSection], {
 			headerText = noChangedAssetsText,
 			items = {},
 			layoutOrder = 1,
 			isFirstSection = true,
 			isLastSection = true,
 
-			[Roact.Ref] = FFlagAESPromptsSupportGamepad and self.noChangedAssetsRef or nil,
+			[Roact.Ref] = self.noChangedAssetsRef,
 		}))
 	end
 
@@ -231,9 +224,8 @@ function ItemsList:renderItemsList()
 			[Roact.Change.AbsoluteContentSize] = self.onContentSizeChanged,
 		})
 
-		return Roact.createElement(
-			FFlagAESPromptsSupportGamepad and RoactGamepad.Focusable.Frame or "Frame", {
-			defaultChild = FFlagAESPromptsSupportGamepad and self.addedSectionRef or nil,
+		return Roact.createElement(RoactGamepad.Focusable.Frame, {
+			defaultChild = self.addedSectionRef,
 
 			Size = UDim2.fromScale(1, 1),
 			BackgroundTransparency = 1,

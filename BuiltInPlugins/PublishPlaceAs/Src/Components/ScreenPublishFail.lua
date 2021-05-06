@@ -28,6 +28,7 @@ local BUTTON_WIDTH = 150
 local BUTTON_HEIGHT = 40
 
 local FFlagStudioPublishPlaceFixRetryPublish = game:DefineFastFlag("StudioPublishPlaceFixRetryPublish", false)
+local FFlagStudioNewGamesInCloudUI = game:GetFastFlag("StudioNewGamesInCloudUI")
 
 local ScreenPublishFail = Roact.PureComponent:extend("ScreenPublishFail")
 
@@ -84,6 +85,12 @@ function ScreenPublishFail:render()
 
 			local dispatchSetIsPublishing = props.dispatchSetIsPublishing
 
+			local failureMessage = localization:getText("PublishFail", "Fail")
+			if FFlagStudioNewGamesInCloudUI and isPublishing == false then
+				-- Use a different error message for save failures
+				failureMessage = localization:getText("PublishFail", "SaveFail")
+			end
+
 			return Roact.createElement("Frame", {
 				Size = UDim2.new(1, 0, 1, 0),
 				BackgroundColor3 = theme.backgroundColor,
@@ -108,7 +115,7 @@ function ScreenPublishFail:render()
 				}),
 
 				Fail = Roact.createElement("TextLabel", {
-					Text = localization:getText("PublishFail", "Fail"),
+					Text = failureMessage,
 					Position = UDim2.new(0.5, 0, 0.5, 0),
 					TextSize = 24,
 					BackgroundTransparency = 1,

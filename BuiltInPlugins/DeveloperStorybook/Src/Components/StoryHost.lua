@@ -209,6 +209,7 @@ function StoryHost:render()
 		Header = name or "Story",
 		Description = props.Summary or "",
 		LayoutOrder = layoutOrder,
+		Size = props.FixedSize and UDim2.new(1, 0, 1, -100) or nil,
 	}, {
 		Pane = Roact.createElement(Pane, {
 			-- Prevent outside borders of elements from getting clipped
@@ -216,8 +217,8 @@ function StoryHost:render()
 			LayoutOrder = 2,
 			ClipsDescendants = true,
 			Layout = Enum.FillDirection.Vertical,
-			AutomaticSize = Enum.AutomaticSize.Y,
-			[Roact.Ref] = self.paneRef
+			AutomaticSize = not props.FixedSize and Enum.AutomaticSize.Y or nil,
+			[Roact.Ref] = self.paneRef,
 		}, children)
 	})
 end

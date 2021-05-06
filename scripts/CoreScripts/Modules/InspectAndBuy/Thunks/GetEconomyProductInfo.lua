@@ -9,8 +9,6 @@ local SetAssets = require(InspectAndBuyFolder.Actions.SetAssets)
 local SetBundles = require(InspectAndBuyFolder.Actions.SetBundles)
 local createInspectAndBuyKeyMapper = require(InspectAndBuyFolder.createInspectAndBuyKeyMapper)
 
-local FFlagFixInspectAndBuyPerformFetch = require(InspectAndBuyFolder.Flags.FFlagFixInspectAndBuyPerformFetch)
-
 local requiredServices = {
 	Network,
 }
@@ -18,14 +16,7 @@ local requiredServices = {
 local ALREADY_OWNED = "AlreadyOwned"
 local INSUFFICIENT_FUNDS = "InsufficientFunds"
 
-local keyMapper
-if FFlagFixInspectAndBuyPerformFetch then
-	keyMapper = createInspectAndBuyKeyMapper("getEconomyProductInfo")
-else
-	keyMapper = function(productId)
-		return "inspectAndBuy.getEconomyProductInfo." ..tostring(productId)
-	end
-end
+local keyMapper = createInspectAndBuyKeyMapper("getEconomyProductInfo")
 
 --[[
 	Get information about a product. Specifically if it is purchasable or owned.
@@ -34,12 +25,7 @@ local function GetEconomyProductInfo(productId, isBundle, bundleId)
 	return Thunk.new(script.Name, requiredServices, function(store, services)
 		local network = services[Network]
 
-		local key
-		if FFlagFixInspectAndBuyPerformFetch then
-			key = keyMapper(store:getState().storeId, productId)
-		else
-			key = keyMapper(productId)
-		end
+		local key = keyMapper(store:getState().storeId, productId)
 
 		return PerformFetch.Single(key, function()
 			return network.getEconomyProductInfo(productId):andThen(

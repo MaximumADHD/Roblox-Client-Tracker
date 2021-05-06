@@ -105,6 +105,9 @@ local function createValues(getColor, c, m)
 		DROPDOWN_WIDTH = 330,
 		DROPDOWN_HEIGHT = 38,
 
+		MENU_BAR_WIDTH = 192,
+		FOOTER_HEIGHT = 65,
+
 		SCREEN_CHOOSE_GAME = {
 			ARROW_SIZE = 12,
 			PAGE_PADDING = 115,

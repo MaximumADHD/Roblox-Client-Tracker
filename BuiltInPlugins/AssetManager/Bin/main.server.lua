@@ -10,6 +10,7 @@ local OverrideLocaleId = settings():GetFVariable("StudioForceLocale")
 local FFlagAssetManagerLuaPlugin = settings():GetFFlag("AssetManagerLuaPlugin")
 local FFlagStudioAssetManagerAddRecentlyImportedView = game:GetFastFlag("StudioAssetManagerAddRecentlyImportedView")
 local FFlagStudioShowHideABTestV2 = game:GetFastFlag("StudioShowHideABTestV2")
+local FFlagStudioAssetManagerFixRecentAssetDuplication = game:GetFastFlag("StudioAssetManagerFixRecentAssetDuplication")
 
 if not FFlagAssetManagerLuaPlugin then
 	return
@@ -89,6 +90,9 @@ end
 local pluginHandle
 local pluginGui
 
+-- For recently imported view
+local assetIndex
+
 --Initializes and populates the plugin popup window
 local function openPluginWindow()
 	if pluginHandle then
@@ -136,13 +140,22 @@ local function connectBulkImporterSignals()
 		if FFlagStudioAssetManagerAddRecentlyImportedView then
 			store:dispatch(SetRecentAssets({}))
 		end
+		if FFlagStudioAssetManagerFixRecentAssetDuplication then
+			assetIndex = 1
+		end
 	end)
 	BulkImportService.BulkImportFinished:connect(function(state)
 		store:dispatch(SetBulkImporterRunning(false))
 		if FFlagStudioAssetManagerAddRecentlyImportedView then
 			local state = store:getState()
-			if #state.AssetManagerReducer.recentAssets > 0 then
-				store:dispatch(SetRecentViewToggled(true))
+			if FFlagStudioAssetManagerFixRecentAssetDuplication then
+				if next(state.AssetManagerReducer.recentAssets) ~= nil then
+					store:dispatch(SetRecentViewToggled(true))
+				end
+			else
+				if #state.AssetManagerReducer.recentAssets > 0 then
+					store:dispatch(SetRecentViewToggled(true))
+				end
 			end
 		end
 	end)
@@ -159,13 +172,27 @@ local function connectBulkImporterSignals()
 			elseif enableAudioImport() and assetType == Enum.AssetType.Audio and string.find(name, "Audio/") then
 				strippedName = string.gsub(name, "Audio/", "")
 			end
-			local recentAssets = Cryo.List.join(state.AssetManagerReducer.recentAssets, {
-				{
-					assetType = assetType,
-					name = strippedName,
-					id = id,
-				},
-			})
+			local recentAssets
+			if FFlagStudioAssetManagerFixRecentAssetDuplication then
+				local sAssetId = tostring(id)
+				recentAssets = Cryo.Dictionary.join(state.AssetManagerReducer.recentAssets, {
+					[sAssetId] = {
+						key = assetIndex,
+						assetType = assetType,
+						name = strippedName,
+						id = id,
+					},
+				})
+				assetIndex = assetIndex + 1
+			else
+				recentAssets = Cryo.List.join(state.AssetManagerReducer.recentAssets, {
+					{
+						assetType = assetType,
+						name = strippedName,
+						id = id,
+					},
+				})
+			end
 			store:dispatch(SetRecentAssets(recentAssets))
 		end)
 	end

@@ -35,7 +35,6 @@ local UpdateOwnedStatus = require(InspectAndBuyFolder.Thunks.UpdateOwnedStatus)
 local GetCharacterModelFromUserId = require(InspectAndBuyFolder.Thunks.GetCharacterModelFromUserId)
 local GetPlayerName = require(InspectAndBuyFolder.Thunks.GetPlayerName)
 
-local FFlagFixInspectAndBuyPerformFetch = require(InspectAndBuyFolder.Flags.FFlagFixInspectAndBuyPerformFetch)
 local FFlagInspectAndBuyBundlePromptListener = game:DefineFastFlag("InspectAndBuyBundlePromptListener", false)
 
 local COMPACT_VIEW_MAX_WIDTH = 600
@@ -103,9 +102,7 @@ function InspectAndBuy:init()
 		}),
 	}
 
-	if FFlagFixInspectAndBuyPerformFetch then
-		self.state.store:dispatch(UpdateStoreId())
-	end
+	self.state.store:dispatch(UpdateStoreId())
 
 	self._context[Constants.View.Compact] = CompactView
 	self._context[Constants.View.Wide] = WideView

@@ -9,6 +9,7 @@
 ]]
 
 local FFlagStudioAllowRemoteSaveBeforePublish = game:GetFastFlag("StudioAllowRemoteSaveBeforePublish")
+local FFlagStudioPromptOnFirstPublish = game:GetFastFlag("StudioPromptOnFirstPublish")
 
 local StudioService = game:GetService("StudioService")
 
@@ -23,7 +24,7 @@ local UniverseActivate = require(Plugin.Src.Network.Requests.UniverseActivate)
 	Used to save the chosen state of all game settings by saving to web
 	endpoints or setting properties in the datamodel.
 ]]
-local function saveAll(state, localization)
+local function saveAll(state, localization, existingUniverseId, existingPlaceId)
 	local configuration = {}
 	local rootPlaceInfo = {}
 	local universeActivate = {}
@@ -41,7 +42,11 @@ local function saveAll(state, localization)
 		end
 	end
 
-	StudioService:publishAs(0, 0, state.creatorId)
+	if FFlagStudioPromptOnFirstPublish and existingUniverseId and existingPlaceId then
+		StudioService:publishAs(existingUniverseId, existingPlaceId, state.creatorId)
+	else
+		StudioService:publishAs(0, 0, state.creatorId)
+	end
 
 	spawn(function()
 		-- Failure handled in ScreenCreateNewGame

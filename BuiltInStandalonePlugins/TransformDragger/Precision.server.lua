@@ -471,15 +471,13 @@ plugin:OnInvoke("buttonClicked", function(payload)
 	end
 end)
 
-if game:GetFastFlag("EnableClarifiedDraggerBehaviorUI") then
-	-- plugin:Deactivate() can't be called from main.server.lua where we connect to
-	-- StudioService.PromptTransformPluginCheckEnable, it doesnt have the correct
-	-- instance of plugin. This is why we have this intermediary event "Disable" that
-	-- gets caught by the correct instance and then calls deactivate properly
-	plugin:OnInvoke("Disable", function()
-		plugin:Deactivate()
-	end)
-end
+-- plugin:Deactivate() can't be called from main.server.lua where we connect to
+-- StudioService.PromptTransformPluginCheckEnable, it doesnt have the correct
+-- instance of plugin. This is why we have this intermediary event "Disable" that
+-- gets caught by the correct instance and then calls deactivate properly
+plugin:OnInvoke("Disable", function()
+	plugin:Deactivate()
+end)
 
 plugin.Deactivation:connect(function()
 	if on and Off then

@@ -2,6 +2,7 @@
 
 local FFlagStudioEnableBadgesInMonetizationPage = game:GetFastFlag("StudioEnableBadgesInMonetizationPage")
 local FFlagGameSettingsUseKeyProvider = game:GetFastFlag("GameSettingsUseKeyProvider")
+local FFlagLuobuDevPublishLua = game:GetFastFlag("LuobuDevPublishLua")
 
 local KeyProvider = {}
 
@@ -29,6 +30,12 @@ function KeyProvider.getVersionHistoryKeyName()
     assert(FFlagGameSettingsUseKeyProvider)
     
     return "VersionHistory"
+end
+
+function KeyProvider.getOptInLocationsKeyName()
+    assert(FFlagLuobuDevPublishLua)
+    
+    return "optInLocations"
 end
 
 return KeyProvider

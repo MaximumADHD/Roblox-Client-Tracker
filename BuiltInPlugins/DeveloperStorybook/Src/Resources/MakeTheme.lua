@@ -14,15 +14,6 @@ local style = {
 
 	ErrorColor = StyleKey.WarningText,
 
-	Scrollbar = {
-		Thickness = 5,
-		Transparency = 0.5,
-		Color = StyleKey.ScrollBar,
-		TopImage = "rbxasset://textures/StudioToolbox/ScrollBarTop.png",
-		MidImage = "rbxasset://textures/StudioToolbox/ScrollBarMiddle.png",
-		BottomImage = "rbxasset://textures/StudioToolbox/ScrollBarBottom.png",
-	},
-
 	Sizes = {
 		SelectTheme = 100,
 		SearchBar = 300,
@@ -55,4 +46,4 @@ local style = {
 	},
 }
 
-return makeTheme(Main.Src.Components, style, ThemeSwitcher)
+return makeTheme(Main.Src.Components, style, ThemeSwitcher.new())

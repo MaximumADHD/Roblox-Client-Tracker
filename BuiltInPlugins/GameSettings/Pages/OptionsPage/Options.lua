@@ -1,3 +1,5 @@
+local FFlagGameSettingsStandardizeLocalizationId = game:GetFastFlag("GameSettingsStandardizeLocalizationId")
+
 local Page = script.Parent
 local Plugin = script.Parent.Parent.Parent
 local Cryo = require(Plugin.Cryo)
@@ -23,7 +25,7 @@ local SettingsPage = require(Plugin.Src.Components.SettingsPages.SettingsPage)
 local AddChange = require(Plugin.Src.Actions.AddChange)
 local ShutdownAllServers = require(Page.Thunks.ShutdownAllServers)
 
-local LOCALIZATION_ID = "Options"
+local LOCALIZATION_ID = FFlagGameSettingsStandardizeLocalizationId and script.Name or "Options"
 
 local function loadSettings(store, contextItems)
 	local state = store:getState()
@@ -174,7 +176,7 @@ function Options:render()
 		SettingsLoadJobs = loadSettings,
 		SettingsSaveJobs = saveSettings,
 		Title = localization:getText("General", "Category"..LOCALIZATION_ID),
-		PageId = script.Name,
+		PageId = FFlagGameSettingsStandardizeLocalizationId and LOCALIZATION_ID or script.Name,
 		CreateChildren = createChildren,
 	})
 end

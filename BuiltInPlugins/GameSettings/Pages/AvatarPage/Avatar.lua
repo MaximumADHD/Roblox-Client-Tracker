@@ -10,6 +10,7 @@
 		string AvatarAnimation - Whether to allow user-equipped animation packs
 		string AvatarCollision - Whether to define collision based on avatar scale
 ]]
+local FFlagGameSettingsStandardizeLocalizationId = game:GetFastFlag("GameSettingsStandardizeLocalizationId")
 
 local StudioService = game:GetService("StudioService")
 
@@ -34,7 +35,7 @@ local RootPanelExternal = require(Page.Components.RootPanelExternal)
 local SettingsPage = require(Plugin.Src.Components.SettingsPages.SettingsPage)
 local InsufficientPermissionsPage = require(Plugin.Src.Components.SettingsPages.InsufficientPermissionsPage)
 
-local LOCALIZATION_ID = "Avatar"
+local LOCALIZATION_ID = FFlagGameSettingsStandardizeLocalizationId and script.Name or "Avatar"
 
 local function loadSettings(store, contextItems)
 	local state = store:getState()
@@ -380,7 +381,7 @@ function Avatar:render()
 		SettingsLoadJobs = loadSettings,
 		SettingsSaveJobs = saveSettings,
 		Title = localization:getText("General", "Category"..LOCALIZATION_ID),
-		PageId = script.Name,
+		PageId = FFlagGameSettingsStandardizeLocalizationId and LOCALIZATION_ID or script.Name,
 		CreateChildren = function() return self:createChildren() end,
 	})
 end

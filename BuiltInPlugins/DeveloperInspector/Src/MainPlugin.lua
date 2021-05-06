@@ -116,7 +116,7 @@ function MainPlugin:render()
 			Enabled = enabled,
 			Title = self.localization:getText("Plugin", "Name"),
 			ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
-			InitialDockState = Enum.InitialDockState.Float,
+			InitialDockState = Enum.InitialDockState.Bottom,
 			Size = Vector2.new(640, 480),
 			MinSize = Vector2.new(250, 200),
 			OnClose = self.onClose,

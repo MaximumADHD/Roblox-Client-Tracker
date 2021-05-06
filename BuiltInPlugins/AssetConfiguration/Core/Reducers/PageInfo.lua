@@ -19,6 +19,7 @@ local SetToolboxManageableGroups = require(Actions.SetToolboxManageableGroups)
 local UpdatePageInfo = require(Actions.UpdatePageInfo)
 local SetCurrentPage = require(Actions.SetCurrentPage)
 
+local FFlagToolboxDefaultBackgroundMatches = game:GetFastFlag("ToolboxDefaultBackgroundMatches")
 local FFlagToolboxDisableMarketplaceAndRecentsForLuobu = game:GetFastFlag("ToolboxDisableMarketplaceAndRecentsForLuobu")
 
 local disableMarketplaceAndRecents = require(Plugin.Core.Util.ToolboxUtilities).disableMarketplaceAndRecents
@@ -146,8 +147,10 @@ return Rodux.createReducer({
 			[key] = index,
 		})
 
-		if action.settings and action.selected then
-			action.settings:setSelectedBackgroundIndex(index)
+		if not FFlagToolboxDefaultBackgroundMatches then
+			if action.settings and action.selected then
+				action.settings:setSelectedBackgroundIndex(index)
+			end
 		end
 
 		return newState

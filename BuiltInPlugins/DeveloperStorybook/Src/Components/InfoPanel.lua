@@ -119,6 +119,7 @@ function InfoPanel:updateStory(storyItem: Types.StoryItem)
 			setControls = function(changes)
 				self:setControls(changes)
 			end,
+			storybook = storybook,
 			script = storyItem.Script,
 			definition = storyDefinition,
 			docs = storyItem.Docs,
@@ -336,6 +337,7 @@ function InfoPanel:render()
 			LayoutOrder = nextOrder(),
 			StoryProps = storyProps,
 			ThemeName = ThemeSwitcher.getThemeName(),
+			FixedSize = storyProps.storybook.fixedSize,
 		})
 	end
 
@@ -348,6 +350,7 @@ function InfoPanel:render()
 			-- Load one host per sub-story
 			local subStory = Roact.createElement(StoryHost, {
 				StoryRef = self.storyRef,
+				FixedSize = storyProps.storybook.fixedSize,
 				Name = subDefinition.name,
 				Summary = subDefinition.summary,
 				LayoutOrder = nextOrder(),
@@ -385,6 +388,32 @@ function InfoPanel:render()
 		}),
 	})
 
+	local main
+	
+	if storyProps.storybook.fixedSize then
+		main = Roact.createElement(Pane, {
+			Layout = Enum.FillDirection.Vertical,
+			Size = UDim2.new(1, 0, 1, -sizes.TopBar),
+			VerticalAlignment = Enum.VerticalAlignment.Top,
+			Spacing = sizes.InnerPadding,
+			[Roact.Ref] = self.storyRef,
+		}, children)
+	else 
+		main = Roact.createElement(ScrollingFrame, {
+			LayoutOrder = 1,
+			Size = UDim2.new(1, 0, 1, -sizes.TopBar),
+			CanvasSize = UDim2.fromScale(1, 0),
+			AutomaticCanvasSize = Enum.AutomaticSize.Y,
+		}, {
+			Content = Roact.createElement(Pane, {
+				Layout = Enum.FillDirection.Vertical,
+				AutomaticSize = Enum.AutomaticSize.Y,
+				Spacing = sizes.InnerPadding,
+				[Roact.Ref] = self.storyRef,
+			}, children),
+		})
+	end
+
 	return Roact.createElement(Pane, {
 		Style = "BorderBox",
 		Layout = Enum.FillDirection.Vertical,
@@ -398,19 +427,7 @@ function InfoPanel:render()
 			Right = sizes.InnerPadding,
 		},
 	}, {
-		ScrollingFrame = Roact.createElement(ScrollingFrame, {
-			LayoutOrder = 1,
-			Size = UDim2.new(1, 0, 1, -sizes.TopBar),
-			CanvasSize = UDim2.fromScale(1, 0),
-			AutomaticCanvasSize = Enum.AutomaticSize.Y,
-		}, {
-			Content = Roact.createElement(Pane, {
-				Layout = Enum.FillDirection.Vertical,
-				AutomaticSize = Enum.AutomaticSize.Y,
-				Spacing = sizes.InnerPadding,
-				[Roact.Ref] = self.storyRef,
-			}, children),
-		}),
+		Main = main,
 		Footer = isRunningAsPlugin and Roact.createElement(Pane, {
 			LayoutOrder = 2,
 			Size = UDim2.new(1, 0, 0, sizes.TopBar)

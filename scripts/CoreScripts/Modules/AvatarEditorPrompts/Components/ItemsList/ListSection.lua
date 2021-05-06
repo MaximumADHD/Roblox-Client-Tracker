@@ -9,11 +9,6 @@ local RoactFitComponents = AvatarExperienceDeps.RoactFitComponents
 
 local ListEntry = require(script.Parent.ListEntry)
 
-local AvatarEditorPrompts = script.Parent.Parent.Parent
-
-local Modules = AvatarEditorPrompts.Parent
-local FFlagAESPromptsSupportGamepad = require(Modules.Flags.FFlagAESPromptsSupportGamepad)
-
 local ListSection = Roact.PureComponent:extend("ListSection")
 
 ListSection.validateProps = t.strictInterface({
@@ -31,24 +26,20 @@ ListSection.validateProps = t.strictInterface({
 })
 
 function ListSection:init()
-	if FFlagAESPromptsSupportGamepad then
-		self.listRefCache = RoactGamepad.createRefCache()
-	end
+	self.listRefCache = RoactGamepad.createRefCache()
 end
 
 function ListSection:render()
 	local listSection = {}
 
-	listSection[0] = Roact.createElement(
-		FFlagAESPromptsSupportGamepad and RoactGamepad.Focusable[ListEntry] or ListEntry, {
+	listSection[0] = Roact.createElement(RoactGamepad.Focusable[ListEntry], {
 		text = self.props.headerText,
 		hasBullet = false,
 		layoutOrder = 0,
 		positionChangedCallback = self.props.isFirstSection and self.firstEntryPositionChanged or nil,
 
-		NextSelectionDown = FFlagAESPromptsSupportGamepad and
-			#self.props.items > 0 and self.listRefCache[1] or nil,
-		[Roact.Ref] = FFlagAESPromptsSupportGamepad and self.listRefCache[0] or nil,
+		NextSelectionDown = #self.props.items > 0 and self.listRefCache[1] or nil,
+		[Roact.Ref] = self.listRefCache[0],
 	})
 
 	for index, name in ipairs(self.props.items) do
@@ -57,23 +48,19 @@ function ListSection:render()
 			positionChangedCallback = self.lastEntryPositionChanged
 		end
 
-		listSection[index] = Roact.createElement(
-			FFlagAESPromptsSupportGamepad and RoactGamepad.Focusable[ListEntry] or ListEntry, {
+		listSection[index] = Roact.createElement(RoactGamepad.Focusable[ListEntry], {
 			text = name,
 			hasBullet = true,
 			layoutOrder = index,
 			positionChangedCallback = positionChangedCallback,
 
-			NextSelectionUp = FFlagAESPromptsSupportGamepad and self.listRefCache[index - 1] or nil,
-			NextSelectionDown = FFlagAESPromptsSupportGamepad and
-				index ~= #self.props.items and self.listRefCache[index + 1] or nil,
-			[Roact.Ref] = FFlagAESPromptsSupportGamepad and self.listRefCache[index] or nil,
+			NextSelectionUp = self.listRefCache[index - 1],
+			NextSelectionDown = index ~= #self.props.items and self.listRefCache[index + 1] or nil,
+			[Roact.Ref] = self.listRefCache[index],
 		})
 	end
 
-	return Roact.createElement(
-		FFlagAESPromptsSupportGamepad and RoactGamepad.Focusable[RoactFitComponents.FitFrameVertical]
-			or RoactFitComponents.FitFrameVertical, {
+	return Roact.createElement(RoactGamepad.Focusable[RoactFitComponents.FitFrameVertical], {
 		width = UDim.new(1, 0),
 
 		FillDirection = Enum.FillDirection.Vertical,
@@ -82,7 +69,7 @@ function ListSection:render()
 		BackgroundTransparency = 1,
 		LayoutOrder = self.props.layoutOrder,
 
-		defaultChild = FFlagAESPromptsSupportGamepad and self.listRefCache[0] or nil,
+		defaultChild = self.listRefCache[0],
 		NextSelectionLeft = self.props.NextSelectionLeft,
 		NextSelectionRight = self.props.NextSelectionRight,
 		NextSelectionUp = self.props.NextSelectionUp,

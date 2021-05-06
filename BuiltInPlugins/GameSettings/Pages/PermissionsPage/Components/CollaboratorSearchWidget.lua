@@ -1,3 +1,6 @@
+local FFlagGameSettingsStandardizeLocalizationId = game:GetFastFlag("GameSettingsStandardizeLocalizationId")
+local FFlagStudioUXImprovementsLoosenTCPermissions = game:GetFastFlag("StudioUXImprovementsLoosenTCPermissions")
+
 local Page = script.Parent.Parent
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
@@ -30,8 +33,6 @@ local SearchCollaborators = require(Page.Thunks.SearchCollaborators)
 
 local IsGroupGame = require(Page.Selectors.IsGroupGame)
 
-local FFlagStudioUXImprovementsLoosenTCPermissions = game:GetFastFlag("StudioUXImprovementsLoosenTCPermissions")
-
 local FitToContent = createFitToContent("Frame", "UIListLayout", {
 	SortOrder = Enum.SortOrder.LayoutOrder,
 	Padding = UDim.new(0, 32),
@@ -44,6 +45,7 @@ local TextFitToContent = createFitToContent("Frame", "UIListLayout", {
 })
 
 local PADDING = 16
+local PERMISSIONS_ID = FFlagGameSettingsStandardizeLocalizationId and "Permissions" or "AccessPermissions"
 
 local CollaboratorSearchWidget = Roact.PureComponent:extend("CollaboratorSearchWidget")
 
@@ -192,7 +194,7 @@ function CollaboratorSearchWidget:getResults()
 
 		userResults.LayoutOrder = 0
 
-		results[localization:getText("AccessPermissions", "UsersCollaboratorType")] = userResults
+		results[localization:getText(PERMISSIONS_ID, "UsersCollaboratorType")] = userResults
 	end
 
 	if FFlagStudioUXImprovementsLoosenTCPermissions and #matches.Groups > 0 and not isGroupGame then
@@ -217,7 +219,7 @@ function CollaboratorSearchWidget:getResults()
 
 		groupResults.LayoutOrder = 0
 
-		results[localization:getText("AccessPermissions", "GroupsCollaboratorType")] = groupResults
+		results[localization:getText(PERMISSIONS_ID, "GroupsCollaboratorType")] = groupResults
 	end
 
 	return results
@@ -245,11 +247,11 @@ function CollaboratorSearchWidget:render()
 	local maxCollaborators = game:GetFastInt("MaxAccessPermissionsCollaborators")
 	local tooManyCollaborators = numCollaborators >= maxCollaborators
 
-	local tooManyCollaboratorsText = localization:getText("AccessPermissions", "CollaboratorSearchbarTooManyText1",{
+	local tooManyCollaboratorsText = localization:getText(PERMISSIONS_ID, "CollaboratorSearchbarTooManyText1",{
 		maxNumCollaborators = maxCollaborators,
 	})
 
-	local WarningTextSize = TextService:GetTextSize(localization:getText("AccessPermissions", "PermissionsUpdateMessage"),
+	local WarningTextSize = TextService:GetTextSize(localization:getText(PERMISSIONS_ID, "PermissionsUpdateMessage"),
 		theme.fontStyle.Smaller.TextSize, theme.fontStyle.Smaller.Font, Vector2.new(math.huge, math.huge))
 
 	local titleWidth = UDim2.new(1, -WarningTextSize.X - PADDING, 0, theme.fontStyle.Subtitle.TextSize)
@@ -278,7 +280,7 @@ function CollaboratorSearchWidget:render()
 
 				Size = UDim2.new(0, WarningTextSize.X + PADDING, 0, theme.fontStyle.Smaller.TextSize),
 
-				Text = localization:getText("AccessPermissions", "PermissionsUpdateMessage"),
+				Text = localization:getText(PERMISSIONS_ID, "PermissionsUpdateMessage"),
 				TextXAlignment = Enum.TextXAlignment.Left,
 
 				BackgroundTransparency = 1,
@@ -293,8 +295,8 @@ function CollaboratorSearchWidget:render()
 			ItemHeight = 50,
 
 			ErrorText = tooManyCollaborators and tooManyCollaboratorsText or nil,
-			DefaultText = localization:getText("AccessPermissions", "CollaboratorSearchbarDefaultText"),
-			NoResultsText = localization:getText("AccessPermissions", "CollaboratorSearchbarNoResultsText"),
+			DefaultText = localization:getText(PERMISSIONS_ID, "CollaboratorSearchbarDefaultText"),
+			NoResultsText = localization:getText(PERMISSIONS_ID, "CollaboratorSearchbarNoResultsText"),
 			LoadingMore = isLoading,
 
 			onSearchRequested = function(text)

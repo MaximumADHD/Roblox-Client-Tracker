@@ -24,11 +24,14 @@
 		description: "TooLong"
 		devices: "NoDevices"
 ]]
+
 local FFlagGameSettingsMigrateToDevFrameworkSeparator = game:GetFastFlag("GameSettingsMigrateToDevFrameworkSeparator")
+local FFlagGameSettingsStandardizeLocalizationId = game:GetFastFlag("GameSettingsStandardizeLocalizationId")
+local FFlagLuobuDevPublishLua = game:GetFastFlag("LuobuDevPublishLua")
 
 local StudioService = game:GetService("StudioService")
 
-local LOCALIZATION_ID = "BasicInfo"
+local LOCALIZATION_ID = FFlagGameSettingsStandardizeLocalizationId and script.Name or "BasicInfo"
 
 local MAX_NAME_LENGTH = 50
 local MAX_DESCRIPTION_LENGTH = 1000
@@ -75,6 +78,12 @@ local SetCreatorType = require(Plugin.Src.Actions.SetCreatorType)
 
 local FileUtils = require(Plugin.Src.Util.FileUtils)
 local DEPRECATED_Constants = require(Plugin.Src.Util.DEPRECATED_Constants)
+
+local shouldShowDevPublishLocations = require(Plugin.Src.Util.GameSettingsUtilities).shouldShowDevPublishLocations
+local FFlagGameSettingsUseKeyProvider = game:GetFastFlag("GameSettingsUseKeyProvider")
+local KeyProvider = FFlagGameSettingsUseKeyProvider and require(Plugin.Src.Util.KeyProvider) or nil
+local GetOptInLocationsKeyName = FFlagGameSettingsUseKeyProvider and KeyProvider.getOptInLocationsKeyName or nil
+local optInLocationsKey = FFlagLuobuDevPublishLua and GetOptInLocationsKeyName and GetOptInLocationsKeyName() or "optInLocations" 
 
 local function loadSettings(store, contextItems)
 	local state = store:getState()
@@ -137,7 +146,13 @@ local function loadSettings(store, contextItems)
 			local ownerType = gameMetadataController:getCreatorType(gameId)
 
 			store:dispatch(SetCreatorType(ownerType))
-		end
+		end,
+		function(loadedSettings)
+			if FFlagLuobuDevPublishLua and shouldShowDevPublishLocations() then 
+				-- TODO: jbousellam - update to actually get the opt in locations and not manually set them
+				loadedSettings[optInLocationsKey] = {}
+			end
+		end,
 	}
 end
 
@@ -273,6 +288,23 @@ local function saveSettings(store, contextItems)
 				gameInfoController:setIcon(gameId, changed)
 			end
 		end,
+		function()
+			if FFlagLuobuDevPublishLua and shouldShowDevPublishLocations() then
+				local changed = state.Settings.Changed.optInLocations
+
+				if changed ~= nil then
+					local changedOptInLocations = {}
+					for k,v in pairs(changed) do
+						if v then
+							table.insert(changedOptInLocations, k)
+						end
+					end
+
+				--	TODO: jbousellam - update to actually set the opt in locations
+				-- gameInfoController:setOptInLocations(gameId, changedOptInLocations)
+				end
+			end
+		end,
 	}
 end
 
@@ -287,6 +319,7 @@ local function loadValuesToProps(getValue, state)
 		Thumbnails = getValue("thumbnails"),
 		ThumbnailOrder = getValue("thumbnailOrder"),
 		GameIcon = getValue("gameIcon"),
+		OptInLocations = FFlagLuobuDevPublishLua and shouldShowDevPublishLocations() and getValue(optInLocationsKey) or nil,
 
 		NameError = errors.name,
 		DescriptionError = errors.description,
@@ -334,6 +367,11 @@ local function dispatchChanges(setValue, dispatch)
 				end
 			end
 			dispatch(AddErrors({playableDevices = "NoDevices"}))
+		end,
+		OptInLocationsChanged = function(locations)
+			if FFlagLuobuDevPublishLua and shouldShowDevPublishLocations() then
+				dispatch(AddChange(optInLocationsKey, locations))
+			end
 		end,
 	}
 
@@ -413,6 +451,7 @@ function BasicInfo:render()
 		local devices = props.Devices
 		local dialog = props.Dialog
 		local localization = props.Localization
+		local optInLocations = FFlagLuobuDevPublishLua and shouldShowDevPublishLocations() and props.OptInLocations or nil
 
 		local localizedGenreList = {
 			{Id = "All", Title = localization:getText("General", "GenreAll")},
@@ -600,6 +639,30 @@ function BasicInfo:render()
 					props.DevicesChanged(newDevices)
 				end,
 			}),
+
+			Separator6 = FFlagLuobuDevPublishLua and shouldShowDevPublishLocations() and Roact.createElement(Separator, {
+				LayoutOrder = 130,
+			}) or nil,
+
+			OptInLocations = FFlagLuobuDevPublishLua and shouldShowDevPublishLocations() and Roact.createElement(CheckBoxSet, {
+				Title = localization:getText("General", "TitleOptInLocations"),
+				LayoutOrder = 140,
+				Boxes = {{
+						Id = "China",
+						Title = localization:getText("General", "LocationChina"),
+						Selected = optInLocations and optInLocations.China or false
+					},
+				},
+				Enabled = optInLocations ~= nil,
+				--Functionality
+				EntryClicked = function(box)
+					local newLocations = Cryo.Dictionary.join(optInLocations, {
+						[box.Id] = (box.Selected) and Cryo.None or not box.Selected,
+					})
+					props.OptInLocationsChanged(newLocations)
+				end,
+			}) or nil,
+
 		}
 	end
 
@@ -607,7 +670,7 @@ function BasicInfo:render()
 		SettingsLoadJobs = loadSettings,
 		SettingsSaveJobs = saveSettings,
 		Title = localization:getText("General", "Category"..LOCALIZATION_ID),
-		PageId = script.Name,
+		PageId = FFlagGameSettingsStandardizeLocalizationId and LOCALIZATION_ID or script.Name,
 		CreateChildren = createChildren,
 	})
 end

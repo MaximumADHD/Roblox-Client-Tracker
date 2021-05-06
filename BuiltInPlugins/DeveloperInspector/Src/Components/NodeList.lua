@@ -126,4 +126,3 @@ return RoactRodux.connect(
 		}
 	end
 )(NodeList)
-

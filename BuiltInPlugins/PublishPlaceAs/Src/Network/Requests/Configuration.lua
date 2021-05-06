@@ -54,4 +54,14 @@ function Configuration.Set(universeId, body)
 	return Http.Request(requestInfo)
 end
 
+function Configuration.Get(universeId)
+	local requestInfo = {
+		Url = Http.BuildRobloxUrl(REQUEST_TYPE, REQUEST_URL, universeId),
+		Method = "GET",
+	}
+	return Http.Request(requestInfo):andThen(function(jsonResult)
+		return HttpService:JSONDecode(jsonResult)
+	end)
+end
+
 return Configuration

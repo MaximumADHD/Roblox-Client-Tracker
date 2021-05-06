@@ -3,13 +3,6 @@
 -- Prevents your camera from clipping through walls.
 --------------------------------------------------------------------------------
 
-local FFlagUserPoppercamCapRaycasts do
-	local success, result = pcall(function()
-		return UserSettings():IsUserFeatureEnabled("UserPoppercamCapRaycasts")
-	end)
-	FFlagUserPoppercamCapRaycasts = success and result
-end
-
 local Players = game:GetService("Players")
 
 local camera = game.Workspace.CurrentCamera
@@ -195,7 +188,7 @@ local function queryPoint(origin, unitDir, dist, lastPos)
 
 		if entryPart then
 			-- forces the current iteration into a hard limit to cap the number of raycasts
-			local earlyAbort = FFlagUserPoppercamCapRaycasts and (numPierced >= QUERY_POINT_CAST_LIMIT) or false
+			local earlyAbort = numPierced >= QUERY_POINT_CAST_LIMIT
 			
 			if canOcclude(entryPart) or earlyAbort then
 				local wl = {entryPart}

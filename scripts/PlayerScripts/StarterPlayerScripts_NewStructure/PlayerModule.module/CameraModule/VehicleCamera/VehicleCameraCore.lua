@@ -1,10 +1,3 @@
-local FFlagUserCarCam do
-	local success, result = pcall(function()
-		return UserSettings():IsUserFeatureEnabled("UserCarCam")
-	end)
-	FFlagUserCarCam = success and result
-end
-
 local CameraUtils = require(script.Parent.Parent.CameraUtils)
 local VehicleCameraConfig = require(script.Parent.VehicleCameraConfig)
 
@@ -171,22 +164,16 @@ local VehicleCameraCore = {} do
 	VehicleCameraCore.__index = VehicleCameraCore
 
 	function VehicleCameraCore.new(transform)
-		assert(FFlagUserCarCam)
-		
 		return setmetatable({
 			vrs = YawPitchSpring.new(transform)
 		}, VehicleCameraCore)
 	end
 
 	function VehicleCameraCore:step(dt, pitchVel, yawVel, firstPerson)
-		assert(FFlagUserCarCam)
-		
 		return self.vrs:step(dt, pitchVel, yawVel, firstPerson)
 	end
 
 	function VehicleCameraCore:setTransform(transform)
-		assert(FFlagUserCarCam)
-		
 		self.vrs:setGoal(transform)
 	end
 end

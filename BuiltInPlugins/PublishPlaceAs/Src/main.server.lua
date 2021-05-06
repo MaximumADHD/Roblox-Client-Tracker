@@ -5,6 +5,8 @@ end
 -- Fast flags
 require(script.Parent.Parent.TestRunner.defineLuaFlags)
 local FFlagStudioAllowRemoteSaveBeforePublish = game:GetFastFlag("StudioAllowRemoteSaveBeforePublish")
+local FFlagStudioPromptOnFirstPublish = game:GetFastFlag("StudioPromptOnFirstPublish")
+local FFlagStudioNewGamesInCloudUI = game:GetFastFlag("StudioNewGamesInCloudUI")
 
 -- libraries
 local Plugin = script.Parent.Parent
@@ -76,7 +78,7 @@ local function makePluginGui()
 end
 
 --Initializes and populates the plugin popup window
-local function openPluginWindow(showGameSelect, isPublish, closeAfterSave)
+local function openPluginWindow(showGameSelect, isPublish, closeAfterSave, firstPublishContext)
 	local servicesProvider = Roact.createElement(ServiceWrapper, {
 		plugin = plugin,
 		localization = localization,
@@ -88,9 +90,11 @@ local function openPluginWindow(showGameSelect, isPublish, closeAfterSave)
 			OnClose = closePlugin,
 			IsPublish = isPublish,
 			CloseAfterSave = closeAfterSave,
+			FirstPublishContext = firstPublishContext,
 		})
 	})
 
+	local isFirstPublish = firstPublishContext ~= nil
     dataStore:dispatch(ResetInfo(localization:getText("General", "UntitledGame"), showGameSelect))
 
 	pluginHandle = Roact.mount(servicesProvider, pluginGui)
@@ -103,16 +107,34 @@ local function main()
 
 	if FFlagStudioAllowRemoteSaveBeforePublish then
 		StudioService.OnSaveOrPublishPlaceToRoblox:Connect(function(showGameSelect, isPublish, closeAfterSave)
-			if isPublish then
-				pluginGui.Title = localization:getText("General", "PublishPlace")
+			if FFlagStudioNewGamesInCloudUI then
+				if isPublish then
+					pluginGui.Title = localization:getText("General", "PublishGame")
+				else
+					pluginGui.Title = localization:getText("General", "SaveGame")
+				end
 			else
-				pluginGui.Title = localization:getText("General", "SavePlace")
+				if isPublish then
+					pluginGui.Title = localization:getText("General", "PublishPlace")
+				else
+					pluginGui.Title = localization:getText("General", "SavePlace")
+				end
 			end
 			openPluginWindow(showGameSelect, isPublish, closeAfterSave)
 		end)
 	else
 		StudioService.OnPublishPlaceToRoblox:Connect(function(isOverwritePublish)
 			openPluginWindow(isOverwritePublish)	
+		end)
+	end
+
+	if FFlagStudioPromptOnFirstPublish then
+		StudioService.FirstPublishOfCloudPlace:Connect(function(universeId, placeId)
+			local firstPublishContext = {
+				universeId = universeId,
+				placeId = placeId,
+			}
+			openPluginWindow(false, true, false, firstPublishContext)
 		end)
 	end
 

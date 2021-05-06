@@ -1,4 +1,8 @@
 local FFlagGameSettingsMigrateToDevFrameworkSeparator = game:GetFastFlag("GameSettingsMigrateToDevFrameworkSeparator")
+local FFlagUXImprovementsShowUserPermsWhenCollaborator2 = game:GetFastFlag("UXImprovementsShowUserPermsWhenCollaborator2")
+local FFlagStudioUXImprovementsLoosenTCPermissions = game:GetFastFlag("StudioUXImprovementsLoosenTCPermissions")
+local FFlagUXImprovementsNonTCPlacesAllowedPlay = game:GetFastFlag("UXImprovementsNonTCPlacesAllowedPlay")
+local FFlagGameSettingsStandardizeLocalizationId = game:GetFastFlag("GameSettingsStandardizeLocalizationId")
 
 local RunService = game:GetService("RunService")
 local StudioService = game:GetService("StudioService")
@@ -29,9 +33,7 @@ local SetGroupOwnerId = require(Page.Actions.SetGroupOwnerId)
 local SetGroupOwnerName = require(Page.Actions.SetGroupOwnerName)
 local SetCreatorFriends = require(Plugin.Src.Actions.SetCreatorFriends)
 
-local FFlagUXImprovementsShowUserPermsWhenCollaborator2 = game:GetFastFlag("UXImprovementsShowUserPermsWhenCollaborator2")
-local FFlagStudioUXImprovementsLoosenTCPermissions = game:GetFastFlag("StudioUXImprovementsLoosenTCPermissions")
-local FFlagUXImprovementsNonTCPlacesAllowedPlay = game:GetFastFlag("UXImprovementsNonTCPlacesAllowedPlay")
+local LOCALIZATION_ID = FFlagGameSettingsStandardizeLocalizationId and script.Name or "AccessPermissions"
 
 local function loadSettings(store, contextItems)
 	local state = store:getState()
@@ -129,7 +131,6 @@ local function saveSettings(store, contextItems)
 	}
 end
 
-local LOCALIZATION_ID = "AccessPermissions"
 
 --Loads settings values into props by key
 local function loadValuesToProps(getValue, state)
@@ -258,6 +259,11 @@ function Permissions:render()
 		else
 			teamCreateWarningVisible = (not canUserEditCollaborators) and (not self:isGroupGame())
 		end
+		
+		local teamCreateWarningSize = nil 
+		if not FFlagGameSettingsStandardizeLocalizationId then
+			teamCreateWarningSize = UDim2.new(1, 0, 0, 30)
+		end
 
 		return {
 			Playability = Roact.createElement(RadioButtonSet, {
@@ -300,12 +306,13 @@ function Permissions:render()
 			}),
 
 			TeamCreateWarning = teamCreateWarningVisible and Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Subtitle, {
-					Text = localization:getText("AccessPermissions", "TeamCreateWarning"),
-					TextXAlignment = Enum.TextXAlignment.Left,
-					TextColor3 = theme.warningColor,
-					BackgroundTransparency = 1,
-					Size = UDim2.new(1, 0, 0, 30),
-					LayoutOrder = 50,
+				Text = FFlagGameSettingsStandardizeLocalizationId and localization:getText(LOCALIZATION_ID, "TeamCreateWarning") 
+					or localization:getText("AccessPermissions", "TeamCreateWarning"),
+				TextXAlignment = Enum.TextXAlignment.Left,
+				TextColor3 = theme.warningColor,
+				BackgroundTransparency = 1,
+				Size = teamCreateWarningSize,
+				LayoutOrder = 50,
 			})),
 
 			SearchbarWidget = (FFlagUXImprovementsNonTCPlacesAllowedPlay or canUserEditCollaborators) and Roact.createElement(SearchbarWidget, {
@@ -331,7 +338,7 @@ function Permissions:render()
 		SettingsLoadJobs = loadSettings,
 		SettingsSaveJobs = saveSettings,
 		Title = localization:getText("General", "Category"..LOCALIZATION_ID),
-		PageId = script.Name,
+		PageId = FFlagGameSettingsStandardizeLocalizationId and LOCALIZATION_ID or script.Name,
 		CreateChildren = createChildren,
 	})
 end

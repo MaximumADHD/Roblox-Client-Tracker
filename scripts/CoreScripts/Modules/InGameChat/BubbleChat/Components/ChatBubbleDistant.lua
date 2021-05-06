@@ -35,7 +35,9 @@ ChatBubbleDistant.defaultProps = {
 function ChatBubbleDistant:init(props)
 	self.width, self.updateWidth = Roact.createBinding(0)
 	self.widthMotor = Otter.createSingleMotor(0)
-	self.widthMotor:onStep(self.updateWidth)
+	self.widthMotor:onStep(function(value)
+		self.updateWidth(math.round(value))
+	end)
 
 	self.frameSize = self.width:map(function(width)
 		return UDim2.fromOffset(width, self.props.height + self.props.chatSettings.Padding * 2)

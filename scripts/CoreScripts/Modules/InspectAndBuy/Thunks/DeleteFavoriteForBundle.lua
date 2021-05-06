@@ -10,21 +10,12 @@ local SetBundles = require(InspectAndBuyFolder.Actions.SetBundles)
 local BundleInfo = require(InspectAndBuyFolder.Models.BundleInfo)
 local createInspectAndBuyKeyMapper = require(InspectAndBuyFolder.createInspectAndBuyKeyMapper)
 
-local FFlagFixInspectAndBuyPerformFetch = require(InspectAndBuyFolder.Flags.FFlagFixInspectAndBuyPerformFetch)
-
 local requiredServices = {
 	Network,
 	Analytics,
 }
 
-local keyMapper
-if FFlagFixInspectAndBuyPerformFetch then
-	keyMapper = createInspectAndBuyKeyMapper("deleteFavoriteForBundle")
-else
-	keyMapper = function(bundleId)
-		return "inspectAndBuy.deleteFavoriteForBundle." ..tostring(bundleId)
-	end
-end
+local keyMapper = createInspectAndBuyKeyMapper("deleteFavoriteForBundle")
 
 --[[
 	Unfavorites a bundle.
@@ -34,12 +25,7 @@ local function DeleteFavoriteForBundle(bundleId)
 		local network = services[Network]
 		local analytics = services[Analytics]
 
-		local key
-		if FFlagFixInspectAndBuyPerformFetch then
-			key = keyMapper(store:getState().storeId, bundleId)
-		else
-			key = keyMapper(bundleId)
-		end
+		local key = keyMapper(store:getState().storeId, bundleId)
 
 		return PerformFetch.Single(key, function()
 			return network.deleteFavoriteForBundle(bundleId):andThen(

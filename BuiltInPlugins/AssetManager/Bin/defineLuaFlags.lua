@@ -8,4 +8,5 @@ game:DefineFastFlag("EnableAssetManagerStylizer", false)
 game:DefineFastInt("StudioAssetManagerAssetFetchNumber", 50)
 game:DefineFastFlag("StudioAssetManagerDisableHoverOnOverlay", false)
 game:DefineFastFlag("StudioAssetManagerLoadLinkedScriptsOnInit", false)
+game:DefineFastFlag("StudioAssetManagerFixRecentAssetDuplication", false)
 return nil

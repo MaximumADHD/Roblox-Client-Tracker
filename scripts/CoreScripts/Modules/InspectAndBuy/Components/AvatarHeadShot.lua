@@ -12,6 +12,7 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local CoreGuiModules = RobloxGui:WaitForChild("Modules")
 
 local GetFFlagUseThumbnailUrl = require(CoreGuiModules.Common.Flags.GetFFlagUseThumbnailUrl)
+local FFlagHideAvatarHeadShotInspectAndBuy = game:DefineFastFlag("HideAvatarHeadShotInspectAndBuy", false)
 
 local LegacyThumbnailUrls = require(CoreGuiModules.Common.LegacyThumbnailUrls)
 
@@ -27,6 +28,12 @@ function AvatarHeadShot:render()
 		if GetFFlagUseThumbnailUrl() then
 			headshotUrl = HEAD_SHOT_URL:format(playerId, HEADSHOT_THUMBNAIL_SIZE, HEADSHOT_THUMBNAIL_SIZE)
 		end
+	end
+
+	-- if headshot is nil, don't render the AvatarHeadShot. For example, this will be the case when
+	-- the menu is brought up by InspectPlayerFromHumanoidDescription since only a player name is expected
+	if FFlagHideAvatarHeadShotInspectAndBuy and (not headshotUrl) then
+		return nil
 	end
 
 	return Roact.createElement("ImageLabel", {

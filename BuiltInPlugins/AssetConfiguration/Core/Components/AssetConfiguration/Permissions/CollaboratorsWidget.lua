@@ -10,6 +10,7 @@
 		Enabled - bool, Whether the component is enabled or not
 		LayoutOrder - int, Where this component will be placed in hierarchy
 ]]
+local FFlagToolboxReplaceUILibraryComponentsPt1 = game:GetFastFlag("ToolboxReplaceUILibraryComponentsPt1")
 
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
@@ -29,9 +30,16 @@ local PermissionsConstants = require(PermissionsDirectory.PermissionsConstants)
 local CollaboratorItem = require(PermissionsDirectory.CollaboratorItem)
 
 local UILibrary = require(Libs.UILibrary)
-local Separator = UILibrary.Component.Separator
 local createFitToContent = UILibrary.Component.createFitToContent
 local deepJoin = UILibrary.Util.deepJoin
+
+local Separator
+if FFlagToolboxReplaceUILibraryComponentsPt1 then
+	Separator = require(Libs.Framework).UI.Separator
+else
+	local UILibrary = require(Libs.UILibrary)
+	Separator = UILibrary.Component.Separator
+end
 
 local FitToContentWidget = createFitToContent("Frame", "UIListLayout", {
 	SortOrder = Enum.SortOrder.LayoutOrder,
@@ -140,7 +148,7 @@ function CollaboratorsWidget:render()
 					LayoutOrder = i,
 				}, {
 					FirstSeparator = Roact.createElement(Separator, {
-						Size = UDim2.new(1, 0, 0, 1),
+						Size = (not FFlagToolboxReplaceUILibraryComponentsPt1) and UDim2.new(1, 0, 0, 1) or nil,
 						Position = UDim2.new(0.5, 0, 0, 0),
 					}),
 					CollaboratorItem = Roact.createElement(CollaboratorItem, {

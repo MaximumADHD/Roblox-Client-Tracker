@@ -1,10 +1,3 @@
-local FFlagUserCarCam do
-	local success, result = pcall(function()
-		return UserSettings():IsUserFeatureEnabled("UserCarCam")
-	end)
-	FFlagUserCarCam = success and result
-end
-
 local EPSILON = 1e-3
 local PITCH_LIMIT = math.rad(80)
 local YAW_DEFAULT = math.rad(0)
@@ -40,24 +33,20 @@ end
 
 -- track physics solver time delta separately from the render loop to correctly synchronize time delta
 local worldDt = 1/60
-if FFlagUserCarCam then
-	RunService.Stepped:Connect(function(_, _worldDt)
-		worldDt = _worldDt
-	end)
-end
+RunService.Stepped:Connect(function(_, _worldDt)
+	worldDt = _worldDt
+end)
 
 local VehicleCamera = setmetatable({}, BaseCamera)
 VehicleCamera.__index = VehicleCamera
 
 function VehicleCamera.new()
-	assert(FFlagUserCarCam)
 	local self = setmetatable(BaseCamera.new(), VehicleCamera)
 	self:Reset()
 	return self
 end
 
 function VehicleCamera:Reset()
-	assert(FFlagUserCarCam)
 	self.vehicleCameraCore = VehicleCameraCore.new(self:GetSubjectCFrame())
 	self.pitchSpring = Spring.new(0, -math.rad(VehicleCameraConfig.pitchBaseAngle))
 	self.yawSpring = Spring.new(0, YAW_DEFAULT)
@@ -82,7 +71,6 @@ function VehicleCamera:Reset()
 end
 
 function VehicleCamera:_StepInitialZoom()
-	assert(FFlagUserCarCam)
 	self:SetCameraToSubjectDistance(math.max(
 		ZoomController.GetZoomRadius(),
 		self.assemblyRadius*VehicleCameraConfig.initialZoomRadiusMul
@@ -171,7 +159,6 @@ function VehicleCamera:_GetFirstPersonLocalOffset(subjectCFrame)
 end
 
 function VehicleCamera:Update()
-	assert(FFlagUserCarCam)
 	local camera = workspace.CurrentCamera
 	local cameraSubject = camera and camera.CameraSubject
 	local vehicleCameraCore = self.vehicleCameraCore
@@ -217,18 +204,15 @@ function VehicleCamera:Update()
 end
 
 function VehicleCamera:ApplyVRTransform()
-	assert(FFlagUserCarCam)
 	-- no-op override; VR transform is not applied in vehicles
 end
 
 function VehicleCamera:EnterFirstPerson()
-	assert(FFlagUserCarCam)
 	self.inFirstPerson = true
 	self:UpdateMouseBehavior()
 end
 
 function VehicleCamera:LeaveFirstPerson()
-	assert(FFlagUserCarCam)
 	self.inFirstPerson = false
 	self:UpdateMouseBehavior()
 end

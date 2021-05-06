@@ -4,6 +4,8 @@
 	Props:
 		Backgrounds backgrounds
 ]]
+local FFlagToolboxDefaultBackgroundMatches = game:GetFastFlag("ToolboxDefaultBackgroundMatches")
+
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Libs = Plugin.Libs
@@ -12,6 +14,8 @@ local RoactRodux = require(Libs.RoactRodux)
 
 local Constants = require(Plugin.Core.Util.Constants)
 local ContextHelper = require(Plugin.Core.Util.ContextHelper)
+local isCli = require(Plugin.Core.Util.isCli)
+local Background = FFlagToolboxDefaultBackgroundMatches and require(Plugin.Core.Types.Background) or nil
 
 local withTheme = ContextHelper.withTheme
 local withLocalization = ContextHelper.withLocalization
@@ -26,28 +30,45 @@ local ChangeBackground = require(Plugin.Core.Actions.ChangeBackground)
 local Footer = Roact.PureComponent:extend("Footer")
 
 function Footer:init(props)
-	local settings
+	local toolboxSettings
 
 	self.inputEnded = function(rbx, input)
-		settings = self.props.Settings:get("Plugin")
+		toolboxSettings = self.props.Settings:get("Plugin")
 		if input.UserInputType == Enum.UserInputType.Focus then
-			props.onBackgroundSelectorHoverEnded(settings, 0)
+			props.onBackgroundSelectorHoverEnded(toolboxSettings, 0)
 		end
 	end
 
 	self.onHoverStarted = function(index)
-		settings = self.props.Settings:get("Plugin")
-		props.onBackgroundSelectorHovered(settings, index)
+		toolboxSettings = self.props.Settings:get("Plugin")
+		props.onBackgroundSelectorHovered(toolboxSettings, index)
 	end
 
 	self.onHoverEnded = function(index)
-		settings = self.props.Settings:get("Plugin")
-		props.onBackgroundSelectorHoverEnded(settings, index)
+		toolboxSettings = self.props.Settings:get("Plugin")
+		props.onBackgroundSelectorHoverEnded(toolboxSettings, index)
 	end
 
 	self.onClick = function(index)
-		settings = self.props.Settings:get("Plugin")
-		props.onBackgroundSelectorClicked(settings, index)
+		toolboxSettings = self.props.Settings:get("Plugin")
+		props.onBackgroundSelectorClicked(toolboxSettings, index)
+	end
+
+	if FFlagToolboxDefaultBackgroundMatches and not isCli() then
+		self.onThemeChange = function()
+			toolboxSettings = self.props.Settings:get("Plugin")
+			props.onBackgroundSelectorClicked(toolboxSettings, Background.getBackgroundForStudioTheme())
+		end
+		self._themeChangedConnection = settings().Studio.ThemeChanged:Connect(self.onThemeChange)
+	end
+end
+
+if FFlagToolboxDefaultBackgroundMatches then
+	function Footer:willUnmount()
+		if self._themeChangedConnection then
+			self._themeChangedConnection:Disconnect()
+			self._themeChangedConnection = nil
+		end
 	end
 end
 

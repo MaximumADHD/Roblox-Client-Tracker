@@ -4,8 +4,6 @@ local Url = require(Plugin.Libs.Http.Url)
 
 local wrapStrictTable = require(Plugin.Core.Util.wrapStrictTable)
 
-local getToolboxMicroserviceSearch = require(Plugin.Core.Rollouts.getToolboxMicroserviceSearch)
-
 local FFlagToolboxUseGetItemDetails = game:GetFastFlag("ToolboxUseGetItemDetails")
 local FFlagToolboxUseNewGroupsApi = game:DefineFastFlag("ToolboxUseNewGroupsApi", false)
 
@@ -90,12 +88,7 @@ local ADD_ASSET_TAG = Url.ITEM_CONFIGURATION_URL .. "v1/item-tags"
 local DELETE_ITEM_TAG = Url.ITEM_CONFIGURATION_URL .. "v1/item-tags/%s"
 
 local GET_TOOLBOX_ITEMS = Url.APIS_URL .. "toolbox-service/v1/%s?"
-local GET_ITEM_DETAILS
-if getToolboxMicroserviceSearch() then
-	GET_ITEM_DETAILS = Url.APIS_URL .. "toolbox-service/v1/items/details?"
-else
-	GET_ITEM_DETAILS = Url.APIS_URL .. "toolbox-service/v1/items/details"
-end
+local GET_ITEM_DETAILS = Url.APIS_URL .. "toolbox-service/v1/items/details?"
 
 local AVATAR_ASSETS_GET_UPLOAD_FEE = Url.ITEM_CONFIGURATION_URL .. "v1/avatar-assets/%s/get-upload-fee"
 local AVATAR_ASSETS_UPLOAD = Url.ITEM_CONFIGURATION_URL .. "v1/avatar-assets/%s/upload"
@@ -128,32 +121,17 @@ end
 function Urls.constructGetToolboxItemsUrl(category, sortType, creatorType, minDuration, maxDuration, creatorTargetId,
 keyword, cursor, limit, useCreatorWhitelist)
 	local targetUrl = string.format(GET_TOOLBOX_ITEMS, category)
-	local query
-	if getToolboxMicroserviceSearch() then
-		query = {
-			creatorType = creatorType,
-			minDuration = minDuration,
-			maxDuration = maxDuration,
-			creatorTargetId = creatorTargetId,
-			keyword = keyword,
-			sortType = sortType,
-			cursor = cursor,
-			limit = limit,
-			useCreatorWhitelist = useCreatorWhitelist,
-		}
-	else
-		query = {
-			sortType = sortType,
-			creatorType = creatorType,
-			minDuration = minDuration,
-			maxDuration = maxDuration,
-			creatorTargetId = creatorTargetId,
-			keyword = keyword,
-			cursor = cursor,
-			limit = limit,
-			useCreatorWhitelist = true,
-		}
-	end
+	local query = {
+		creatorType = creatorType,
+		minDuration = minDuration,
+		maxDuration = maxDuration,
+		creatorTargetId = creatorTargetId,
+		keyword = keyword,
+		sortType = sortType,
+		cursor = cursor,
+		limit = limit,
+		useCreatorWhitelist = useCreatorWhitelist,
+	}
 
 	return targetUrl .. Url.makeQueryString(query)
 end

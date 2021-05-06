@@ -26,9 +26,6 @@ local PerformCreateOutfit = require(AvatarEditorPrompts.Thunks.PerformCreateOutf
 
 local ExternalEventConnection = require(CorePackages.RoactUtilities.ExternalEventConnection)
 
-local Modules = AvatarEditorPrompts.Parent
-local FFlagAESPromptsSupportGamepad = require(Modules.Flags.FFlagAESPromptsSupportGamepad)
-
 local NAME_TEXTBOX_HEIGHT = 35
 
 local TOP_SCREEN_PADDING = 20
@@ -87,8 +84,7 @@ function EnterOutfitNamePrompt:init()
 					AnchorPoint = Vector2.new(0, 1),
 					SliceCenter = STROKE_SLICE_CENTER,
 				}, {
-					Textbox = Roact.createElement(FFlagAESPromptsSupportGamepad and
-						RoactGamepad.Focusable.TextBox or "TextBox", {
+					Textbox = Roact.createElement(RoactGamepad.Focusable.TextBox, {
 						BackgroundTransparency = 1,
 						ClearTextOnFocus = false,
 						Font = font.Header2.Font,
@@ -176,7 +172,7 @@ function EnterOutfitNamePrompt:render()
 			position = self.state.alertPosition,
 			screenSize = self.props.screenSize,
 			middleContent = self.renderAlertMiddleContent,
-			isMiddleContentFocusable = FFlagAESPromptsSupportGamepad,
+			isMiddleContentFocusable = true,
 			onAbsoluteSizeChanged = self.alertSizeChanged,
 			onMounted = self.alertMounted,
 		}),

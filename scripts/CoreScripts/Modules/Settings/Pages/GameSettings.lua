@@ -23,9 +23,6 @@ local Settings = UserSettings()
 local GameSettings = Settings.GameSettings
 
 local VoiceChatService = nil
-pcall(function()
-	VoiceChatService = game:GetService("VoiceChatService")
-end)
 
 -------------- CONSTANTS --------------
 -- DEPRECATED Remove with FixGraphicsQuality
@@ -1693,6 +1690,7 @@ local function Initialize()
 	local function createDeviceOptions(deviceType)
 		local selectedIndex = this[deviceType.."DeviceIndex"] or 0
 		local options = this[deviceType.."DeviceNames"] or {}
+		local guids = this[deviceType.."DeviceGuids"] or {}
 
 		this[deviceType.."DeviceFrame"], _, this[deviceType.."DeviceSelector"] =
 			utility:AddNewRow(this, deviceType.." Device", "Selector", options, selectedIndex)
@@ -1700,7 +1698,7 @@ local function Initialize()
 
 		this[deviceType.."DeviceInfo"] = {
 			Name = selectedIndex > 0 and options[selectedIndex] or nil,
-			Guid = selectedIndex > 0 and options[selectedIndex] or nil,
+			Guid = selectedIndex > 0 and guids[selectedIndex] or nil,
 		}
 
 		this[deviceType.."DeviceSelector"].IndexChanged:connect(
@@ -1836,8 +1834,11 @@ local function Initialize()
 	end
 
 	this.VoiceChatOptionsEnabled = false
-
-	if GetFFlagEnableVoiceChatOptions() then
+	if GetFFlagEnableVoiceChatOptions() and game:GetEngineFeature("VoiceChatSupported") then
+		pcall(function()
+			-- This is the first place that we use VCS, so initialize it now
+			VoiceChatService = game:GetService("VoiceChatService")
+		end)
 		spawn(function()
 			checkVoiceChatOptions()
 		end)

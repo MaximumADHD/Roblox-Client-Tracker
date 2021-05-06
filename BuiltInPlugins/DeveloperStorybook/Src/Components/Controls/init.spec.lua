@@ -7,6 +7,9 @@ return function()
 	it("should create and destroy without errors", function()
 		local element = MockWrap(Roact.createElement(Controls, {
 			LayoutOrder = 1,
+			Controls = {
+				simpleToggle = true
+			},
 			ControlState = {},
 			SetControls = function()
 			end
@@ -19,6 +22,9 @@ return function()
 		local container = Instance.new("Folder")
 		local element = MockWrap(Roact.createElement(Controls, {
 			LayoutOrder = 1,
+			Controls = {
+				simpleToggle = true
+			},
 			ControlState = {
 				simpleToggle = true
 			},

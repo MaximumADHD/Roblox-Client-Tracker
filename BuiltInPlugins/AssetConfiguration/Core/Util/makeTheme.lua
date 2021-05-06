@@ -1,4 +1,5 @@
 local FFlagToolboxUseDevFrameworkDialogs = game:GetFastFlag("ToolboxUseDevFrameworkDialogs")
+local FFlagToolboxReplaceUILibraryComponentsPt1 = game:GetFastFlag("ToolboxReplaceUILibraryComponentsPt1")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -21,10 +22,15 @@ local Colors = require(Util.Colors)
 local isCli = require(Util.isCli)
 local TestHelpers = require(Util.Test.TestHelpers)
 local THEME_REFACTOR = Framework.Util.RefactorFlags.THEME_REFACTOR
+local StyleValue = require(Libs.Framework).Util.StyleValue
 
 local FrameworkStyle = Framework.Style
 local StudioTheme = FrameworkStyle.Themes.StudioTheme
 local StyleKey = FrameworkStyle.StyleKey
+local DarkTheme = require(Libs.Framework).Style.Themes.DarkTheme
+local LightTheme = require(Libs.Framework).Style.Themes.LightTheme
+
+local Cryo = require(Plugin.Libs.Cryo)
 
 local makeTheme
 
@@ -44,20 +50,49 @@ if THEME_REFACTOR then
 
 	makeTheme = function(uiLibraryDeprecatedTheme)
 		local styleRoot
-		if isCli() then
-			styleRoot = StudioTheme.mock()
+		if FFlagToolboxReplaceUILibraryComponentsPt1 then
+			local overridedDarkTheme = Cryo.Dictionary.join(DarkTheme, {
+				[StyleKey.HorizontalLineColor] = Color3.fromRGB(34, 34, 34),
+				[StyleKey.TipsTextColor] = Color3.fromRGB(102, 102, 102),
+			})
+			local overridedLightTheme = Cryo.Dictionary.join(LightTheme, {
+				[StyleKey.HorizontalLineColor] = Color3.fromRGB(227, 227, 227),
+				[StyleKey.TipsTextColor] = Colors.GRAY_3,
+			})
+
+			if isCli() then
+				styleRoot = StudioTheme.mock(overridedDarkTheme, overridedLightTheme)
+			else
+				styleRoot = StudioTheme.new(overridedDarkTheme, overridedLightTheme)
+			end
 		else
-			styleRoot = StudioTheme.new()
+			if isCli() then
+				styleRoot = StudioTheme.mock()
+			else
+				styleRoot = StudioTheme.new()
+			end
 		end
 
 		styleRoot:extend({
 			-- TODO: Move colors from ToolboxTheme to here
 			backgroundColor = StyleKey.InputFieldBackground,
 			progressBarColor = Colors.BLUE_PRIMARY,
+			horizontalLineColor = FFlagToolboxReplaceUILibraryComponentsPt1 and StyleKey.HorizontalLineColor or nil,
+			link = FFlagToolboxReplaceUILibraryComponentsPt1 and StyleKey.LinkText or nil,
 
 			purchaseDialog = FFlagToolboxUseDevFrameworkDialogs and {
 				promptText = StyleKey.MainText,
 				balanceText = StyleKey.DimmedText,
+			} or nil,
+
+			assetConfig = FFlagToolboxReplaceUILibraryComponentsPt1 and {
+				labelTextColor = StyleKey.DimmedText,
+			} or nil,
+
+			publishAsset = FFlagToolboxReplaceUILibraryComponentsPt1 and {
+				titleTextColor = StyleKey.SubText,
+				textColor = StyleKey.MainText,
+				tipsTextColor = not isCli() and StyleKey.TipsTextColor or nil,
 			} or nil,
 		})
 
@@ -70,7 +105,7 @@ if THEME_REFACTOR then
 					TestHelpers.createMockStudioStyleGuideColor(), 
 					TestHelpers.createMockStudioStyleGuideModifier()
 				)
-		
+
 				return createTheme(styleGuide, {})
 			end
 		else
@@ -99,13 +134,38 @@ else
 	local function createValues(theme, getColor)
 		local c = Enum.StudioStyleGuideColor
 
+		local HorizontalLineColor
+		if FFlagToolboxUseDevFrameworkDialogs then
+			HorizontalLineColor = StyleValue.new("HorizontalLineColor", {
+				Light = Color3.fromRGB(227, 227, 227),
+				Dark = Color3.fromRGB(34, 34, 34),
+			})
+		end
+		local TipTextColor = StyleValue.new("TipTextColor", {
+			Light = Colors.GRAY_3,
+			Dark = Color3.fromRGB(102, 102, 102),
+		})
+
 		return {
 			Plugin = {
 				backgroundColor = theme:GetColor(c.InputFieldBackground),
 				progressBarColor = Colors.BLUE_PRIMARY,
+				horizontalLineColor = FFlagToolboxUseDevFrameworkDialogs and HorizontalLineColor:get(theme.Name),
+				link = FFlagToolboxUseDevFrameworkDialogs and theme:GetColor(c.LinkText),
+
 				purchaseDialog = FFlagToolboxUseDevFrameworkDialogs and {
 					promptText = theme:GetColor(c.MainText),
 					balanceText = theme:GetColor(c.DimmedText),
+				} or nil,
+
+				assetConfig = FFlagToolboxReplaceUILibraryComponentsPt1 and {
+					labelTextColor = theme:GetColor(c.DimmedText),
+				} or nil,
+
+				publishAsset = FFlagToolboxReplaceUILibraryComponentsPt1 and {
+					titleTextColor = theme:GetColor(c.SubText),
+					textColor = theme:GetColor(c.MainText),
+					tipsTextColor = TipTextColor:get(theme.Name),
 				} or nil,
 			},
 			Framework = StudioFrameworkStyles.new(theme, getColor),

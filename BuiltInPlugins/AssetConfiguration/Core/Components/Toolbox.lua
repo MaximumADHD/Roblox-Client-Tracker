@@ -68,7 +68,10 @@ local FFlagDebugToolboxGetRolesRequest = game:GetFastFlag("DebugToolboxGetRolesR
 local FFlagToolboxDisableMarketplaceAndRecentsForLuobu = game:GetFastFlag("ToolboxDisableMarketplaceAndRecentsForLuobu")
 local FFlagToolboxShowRobloxCreatedAssetsForLuobu = game:GetFastFlag("ToolboxShowRobloxCreatedAssetsForLuobu")
 local FFlagPluginManagementDirectlyOpenToolbox = game:GetFastFlag("PluginManagementDirectlyOpenToolbox")
+local FFlagToolboxDefaultBackgroundMatches = game:GetFastFlag("ToolboxDefaultBackgroundMatches")
 local THEME_REFACTOR = Framework.Util.RefactorFlags.THEME_REFACTOR
+
+local Background = FFlagToolboxDefaultBackgroundMatches and require(Plugin.Core.Types.Background) or nil
 
 local Toolbox = Roact.PureComponent:extend("Toolbox")
 
@@ -86,7 +89,12 @@ function Toolbox:handleInitialSettings()
 	-- We should reset the categoryName and sortIndex since release of tabs.
 	initialSelectedSortIndex = 1
 	initialSearchTerm = ""
-	initialSelectedBackgroundIndex = initialSettings.backgroundIndex or 1
+
+	if FFlagToolboxDefaultBackgroundMatches then
+		initialSelectedBackgroundIndex = Background.getBackgroundForStudioTheme()
+	else
+		initialSelectedBackgroundIndex = initialSettings.backgroundIndex or 1
+	end
 
 	local pageInfoCategories = Category.getTabForCategoryName(initialSettings.categoryName)
 

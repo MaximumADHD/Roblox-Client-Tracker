@@ -1,3 +1,6 @@
+local FFlagGameSettingsStandardizeLocalizationId = game:GetFastFlag("GameSettingsStandardizeLocalizationId")
+local FFlagStudioUXImprovementsLoosenTCPermissions = game:GetFastFlag("StudioUXImprovementsLoosenTCPermissions")
+
 local Page = script.Parent.Parent
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
@@ -14,9 +17,9 @@ local GetRolesetName = require(Page.Selectors.GetRolesetName)
 local GetRolesetPermission = require(Page.Selectors.GetRolesetPermission)
 local SetRolesetPermission = require(Page.Thunks.SetRolesetPermission)
 
-local RolesetCollaboratorItem = Roact.PureComponent:extend("RolesetCollaboratorItem")
+local PERMISSIONS = FFlagGameSettingsStandardizeLocalizationId and "Permissions" or "AccessPermissions"
 
-local FFlagStudioUXImprovementsLoosenTCPermissions = game:GetFastFlag("StudioUXImprovementsLoosenTCPermissions")
+local RolesetCollaboratorItem = Roact.PureComponent:extend("RolesetCollaboratorItem")
 
 function RolesetCollaboratorItem:getAvailablePermissions()
 	local props = self.props
@@ -31,8 +34,8 @@ function RolesetCollaboratorItem:getAvailablePermissions()
 			return {
 				{
 					Key = PermissionsConstants.OwnerKey,
-					Display = localization:getText("AccessPermissions", "OwnerLabel"),
-					Description = localization:getText("AccessPermissions", "OwnerDescription"),
+					Display = localization:getText(PERMISSIONS, "OwnerLabel"),
+					Description = localization:getText(PERMISSIONS, "OwnerDescription"),
 				},
 			}
 		else
@@ -40,31 +43,31 @@ function RolesetCollaboratorItem:getAvailablePermissions()
 				return {
 					{
 						Key = PermissionsConstants.NoAccessKey,
-						Display = localization:getText("AccessPermissions", "NoAccessLabel"),
-						Description = localization:getText("AccessPermissions", "NoAccessDescription"),
+						Display = localization:getText(PERMISSIONS, "NoAccessLabel"),
+						Description = localization:getText(PERMISSIONS, "NoAccessDescription"),
 					},
 					{
 						Key = PermissionsConstants.PlayKey,
-						Display = localization:getText("AccessPermissions", "PlayLabel"),
-						Description = localization:getText("AccessPermissions", "PlayDescription"),
+						Display = localization:getText(PERMISSIONS, "PlayLabel"),
+						Description = localization:getText(PERMISSIONS, "PlayDescription"),
 					},
 					{
 						Key = PermissionsConstants.EditKey,
-						Display = localization:getText("AccessPermissions", "EditLabel"),
-						Description = localization:getText("AccessPermissions", "EditDescription"),
+						Display = localization:getText(PERMISSIONS, "EditLabel"),
+						Description = localization:getText(PERMISSIONS, "EditDescription"),
 					},
 				}
 			else
 				return {
 					{
 						Key = PermissionsConstants.NoAccessKey,
-						Display = localization:getText("AccessPermissions", "NoAccessLabel"),
-						Description = localization:getText("AccessPermissions", "NoAccessDescription"),
+						Display = localization:getText(PERMISSIONS, "NoAccessLabel"),
+						Description = localization:getText(PERMISSIONS, "NoAccessDescription"),
 					},
 					{
 						Key = PermissionsConstants.PlayKey,
-						Display = localization:getText("AccessPermissions", "PlayLabel"),
-						Description = localization:getText("AccessPermissions", "PlayDescription"),
+						Display = localization:getText(PERMISSIONS, "PlayLabel"),
+						Description = localization:getText(PERMISSIONS, "PlayDescription"),
 					},
 				}
 			end
@@ -74,26 +77,26 @@ function RolesetCollaboratorItem:getAvailablePermissions()
 			return {
 				{
 					Key = PermissionsConstants.OwnerKey,
-					Display = localization:getText("AccessPermissions", "OwnerLabel"),
-					Description = localization:getText("AccessPermissions", "OwnerDescription"),
+					Display = localization:getText(PERMISSIONS, "OwnerLabel"),
+					Description = localization:getText(PERMISSIONS, "OwnerDescription"),
 				},
 			}
 		else
 			return {
 				{
 					Key = PermissionsConstants.NoAccessKey,
-					Display = localization:getText("AccessPermissions", "NoAccessLabel"),
-					Description = localization:getText("AccessPermissions", "NoAccessDescription"),
+					Display = localization:getText(PERMISSIONS, "NoAccessLabel"),
+					Description = localization:getText(PERMISSIONS, "NoAccessDescription"),
 				},
 				{
 					Key = PermissionsConstants.PlayKey,
-					Display = localization:getText("AccessPermissions", "PlayLabel"),
-					Description = localization:getText("AccessPermissions", "PlayDescription"),
+					Display = localization:getText(PERMISSIONS, "PlayLabel"),
+					Description = localization:getText(PERMISSIONS, "PlayDescription"),
 				},
 				{
 					Key = PermissionsConstants.EditKey,
-					Display = localization:getText("AccessPermissions", "EditLabel"),
-					Description = localization:getText("AccessPermissions", "EditDescription"),
+					Display = localization:getText(PERMISSIONS, "EditLabel"),
+					Description = localization:getText(PERMISSIONS, "EditDescription"),
 				},
 			}
 		end

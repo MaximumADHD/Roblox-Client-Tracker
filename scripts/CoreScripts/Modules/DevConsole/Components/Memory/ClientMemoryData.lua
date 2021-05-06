@@ -13,6 +13,7 @@ local HEADER_NAMES = Constants.MemoryFormatting.ChartHeaderNames
 local MAX_DATASET_COUNT = tonumber(settings():GetFVariable("NewDevConsoleMaxGraphCount"))
 
 local NewScriptMemoryCategories = game:DefineFastFlag("NewScriptMemoryCategories", false)
+local StatsItemDisplayNameApiEnabled = game:GetEngineFeature("StatsItemDisplayNameApiEnabled")
 
 local CLIENT_POLLING_INTERVAL = 3 -- seconds
 local BYTE_IN_MB = 1048576
@@ -243,7 +244,7 @@ function ClientMemoryData:getAdditionalMemoryFunc(name)
 end
 
 function ClientMemoryData:recursiveUpdateEntry(entryList, sortedList, statsItem)
-	local name = StatsUtils.GetMemoryAnalyzerStatName(statsItem.Name)
+	local name = StatsUtils.GetMemoryAnalyzerStatName(StatsItemDisplayNameApiEnabled and statsItem.DisplayName or statsItem.Name)
 	local data = statsItem:GetValue()
 
 	local children = statsItem:GetChildren()
@@ -330,7 +331,7 @@ function ClientMemoryData:recursiveUpdateEntry(entryList, sortedList, statsItem)
 		local availableChildren = {}
 
 		for _, childStatItem in ipairs(children) do
-			availableChildren[childStatItem.Name] = true
+			availableChildren[StatsItemDisplayNameApiEnabled and childStatItem.DisplayName or childStatItem.Name] = true
 
 			self:recursiveUpdateEntry(
 				entry.children,

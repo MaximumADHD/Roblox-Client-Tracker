@@ -5,13 +5,6 @@
 
 local CameraUtils = {}
 
-local FFlagUserCameraToggle do
-	local success, result = pcall(function()
-		return UserSettings():IsUserFeatureEnabled("UserCameraToggle")
-	end)
-	FFlagUserCameraToggle = success and result
-end
-
 local function round(num)
 	return math.floor(num + 0.5)
 end
@@ -221,11 +214,9 @@ function CameraUtils.ConvertCameraModeEnumToStandard(enumValue)
 		return Enum.ComputerCameraMovementMode.Orbital
 	end
 
-	if FFlagUserCameraToggle then
-		if enumValue == Enum.ComputerCameraMovementMode.CameraToggle or
-			enumValue == Enum.DevComputerCameraMovementMode.CameraToggle then
-			return Enum.ComputerCameraMovementMode.CameraToggle
-		end
+	if enumValue == Enum.ComputerCameraMovementMode.CameraToggle or
+		enumValue == Enum.DevComputerCameraMovementMode.CameraToggle then
+		return Enum.ComputerCameraMovementMode.CameraToggle
 	end
 
 	-- Note: Only the Dev versions of the Enums have UserChoice as an option

@@ -7,20 +7,11 @@ local SetBundles = require(InspectAndBuyFolder.Actions.SetBundles)
 local BundleInfo = require(InspectAndBuyFolder.Models.BundleInfo)
 local createInspectAndBuyKeyMapper = require(InspectAndBuyFolder.createInspectAndBuyKeyMapper)
 
-local FFlagFixInspectAndBuyPerformFetch = require(InspectAndBuyFolder.Flags.FFlagFixInspectAndBuyPerformFetch)
-
 local requiredServices = {
 	Network,
 }
 
-local keyMapper
-if FFlagFixInspectAndBuyPerformFetch then
-	keyMapper = createInspectAndBuyKeyMapper("getBundleFavoriteCount")
-else
-	keyMapper = function(bundleId)
-		return "inspectAndBuy.getBundleFavoriteCount." ..tostring(bundleId)
-	end
-end
+local keyMapper = createInspectAndBuyKeyMapper("getBundleFavoriteCount")
 
 --[[
 	Gets the favorite count of a bundle.
@@ -29,12 +20,7 @@ local function GetAssetFavoriteCount(bundleId)
 	return Thunk.new(script.Name, requiredServices, function(store, services)
 		local network = services[Network]
 
-		local key
-		if FFlagFixInspectAndBuyPerformFetch then
-			key = keyMapper(store:getState().storeId, bundleId)
-		else
-			key = keyMapper(bundleId)
-		end
+		local key = keyMapper(store:getState().storeId, bundleId)
 
 		return PerformFetch.Single(key, function(fetchSingleStore)
 			return network.getBundleFavoriteCount(bundleId):andThen(

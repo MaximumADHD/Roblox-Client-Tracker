@@ -1,5 +1,3 @@
-local FFlagFixPromptSaveAvatarTooManyEmotes = game:DefineFastFlag("FixPromptSaveAvatarTooManyEmotes", false)
-
 local HumanoidDescriptionAssetProperties = {
 	"BackAccessory",
 	"ClimbAnimation",
@@ -42,21 +40,12 @@ return function(humanoidDescription)
 		end
 	end
 
-	if FFlagFixPromptSaveAvatarTooManyEmotes then
-		local emotesIds = humanoidDescription:GetEmotes()
-		local equippedEmotes = humanoidDescription:GetEquippedEmotes()
+	local emotesIds = humanoidDescription:GetEmotes()
+	local equippedEmotes = humanoidDescription:GetEquippedEmotes()
 
-		for _, emoteInfo in ipairs(equippedEmotes) do
-			local idList = emotesIds[emoteInfo.Name]
-			if idList then
-				for _, emoteId in ipairs(idList) do
-					table.insert(assetIdList, emoteId)
-				end
-			end
-		end
-	else
-		local emotesIds = humanoidDescription:GetEmotes()
-		for _, idList in pairs(emotesIds) do
+	for _, emoteInfo in ipairs(equippedEmotes) do
+		local idList = emotesIds[emoteInfo.Name]
+		if idList then
 			for _, emoteId in ipairs(idList) do
 				table.insert(assetIdList, emoteId)
 			end

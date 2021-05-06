@@ -1,4 +1,6 @@
 local FFlagGameSettingsMigrateToDevFrameworkSeparator = game:GetFastFlag("GameSettingsMigrateToDevFrameworkSeparator")
+local FFlagGameSettingsStandardizeLocalizationId = game:GetFastFlag("GameSettingsStandardizeLocalizationId")
+local FFlagStudioUXImprovementsLoosenTCPermissions = game:GetFastFlag("StudioUXImprovementsLoosenTCPermissions")
 
 local Page = script.Parent.Parent
 local Plugin = script.Parent.Parent.Parent.Parent
@@ -19,7 +21,6 @@ local Separator = FFlagGameSettingsMigrateToDevFrameworkSeparator and require(Pl
 local GetUserCollaborators = require(Page.Selectors.GetUserCollaborators)
 local GetGroupCollaborators = require(Page.Selectors.GetGroupCollaborators)
 
-local FFlagStudioUXImprovementsLoosenTCPermissions = game:GetFastFlag("StudioUXImprovementsLoosenTCPermissions")
 
 local FitToContentWidget = createFitToContent("Frame", "UIListLayout", {
 	SortOrder = Enum.SortOrder.LayoutOrder,
@@ -33,6 +34,8 @@ local FitToContentList = createFitToContent("Frame", "UIListLayout", {
 
 local CollaboratorsWidget = Roact.PureComponent:extend("CollaboratorsWidget")
 local PermissionsConstants = require(Page.Util.PermissionsConstants)
+
+local PERMISSIONS_ID = FFlagGameSettingsStandardizeLocalizationId and "Permissions" or "AccessPermissions"
 
 function CollaboratorsWidget:render()
 	local props = self.props
@@ -101,7 +104,7 @@ function CollaboratorsWidget:render()
 			UsersTitle = #userCollaborators > 0 and Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Subtitle, {
 				LayoutOrder = 0,
 
-				Text = localization:getText("AccessPermissions", "UsersCollaboratorType"),
+				Text = localization:getText(PERMISSIONS_ID, "UsersCollaboratorType"),
 				TextXAlignment = Enum.TextXAlignment.Left,
 
 				Visible = #userCollaborators > 0,
@@ -116,7 +119,7 @@ function CollaboratorsWidget:render()
 			GroupsTitle = #groupCollaborators > 0 and Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Subtitle, {
 				LayoutOrder = groupLabelSpot,
 
-				Text = localization:getText("AccessPermissions", "GroupsCollaboratorType"),
+				Text = localization:getText(PERMISSIONS_ID, "GroupsCollaboratorType"),
 				TextXAlignment = Enum.TextXAlignment.Left,
 
 				Visible = #groupCollaborators > 0,
@@ -136,7 +139,7 @@ function CollaboratorsWidget:render()
 			UsersTitle = #userCollaborators > 0 and Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Subtitle, {
 				LayoutOrder = 0,
 	
-				Text = localization:getText("AccessPermissions", "UsersCollaboratorType"),
+				Text = localization:getText(PERMISSIONS_ID, "UsersCollaboratorType"),
 				TextXAlignment = Enum.TextXAlignment.Left,
 	
 				Visible = #userCollaborators > 0,

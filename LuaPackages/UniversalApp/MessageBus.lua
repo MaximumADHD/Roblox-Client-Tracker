@@ -40,6 +40,16 @@ function MessageBus.publish(desc: MessageDescriptor, params: Table): ()
 	MemStorageService:SetItem(desc.mid, MessageBus.serializeMessageParams(params))
 end
 
+function MessageBus.getLast(desc: MessageDescriptor): Table?
+	if not MemStorageService:HasItem(desc.mid) then
+		return nil
+	end
+	local message = MemStorageService:GetItem(desc.mid)
+	local params = MessageBus.deserializeMessageParams(message)
+	assert(desc.validateParams(params))
+	return params
+end
+
 function MessageBus.getMessageId(domainName: string, messageName: string): string
 	return domainName .. "." .. messageName
 end
@@ -75,19 +85,29 @@ function Subscriber:getSubscriptionCount(): number
 	return count
 end
 
-function Subscriber:subscribe(desc: MessageDescriptor, callback: (Table) -> ())
+function Subscriber:subscribe(desc: MessageDescriptor, callback: (Table) -> (), sticky: boolean?)
+	-- subscriptions are sticky by default
+	sticky = sticky == nil and true or sticky
 	local mid = desc.mid
 	local existingConnection = self.connections[mid]
 	if existingConnection ~= nil then
 		self:unsubscribe(desc)
 	end
-	self.connections[mid] = MemStorageService:BindAndFire(mid, function(message)
+
+	local bindCallback = function(message)
 		-- Consume message
 		MemStorageService:RemoveItem(mid)
 		local params = MessageBus.deserializeMessageParams(message)
 		assert(desc.validateParams(params))
 		callback(params)
-	end)
+	end
+
+	if sticky then
+		self.connections[mid] = MemStorageService:BindAndFire(mid, bindCallback)
+	else
+		self.connections[mid] = MemStorageService:Bind(mid, bindCallback)
+	end
+	
 end
 
 function Subscriber:unsubscribe(desc: MessageDescriptor): ()

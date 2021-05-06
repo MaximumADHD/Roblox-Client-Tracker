@@ -1,11 +1,15 @@
 local CorePackages = game:GetService("CorePackages")
 local TextService = game:GetService("TextService")
+local GuiService = game:GetService("GuiService")
+local MarketplaceService = game:GetService("MarketplaceService")
 local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
 local InspectAndBuyFolder = script.Parent.Parent
 local Colors = require(InspectAndBuyFolder.Colors)
 local PromptPurchase = require(InspectAndBuyFolder.Thunks.PromptPurchase)
 local getSelectionImageObjectRounded = require(InspectAndBuyFolder.getSelectionImageObjectRounded)
+
+local FFlagInspectAndBuyGamepadPromptFix = game:DefineFastFlag("InspectAndBuyGamepadPromptFix", false)
 
 local TEXT_SIZE = 16
 local MIN_SIZE = 32
@@ -17,6 +21,15 @@ local BuyButton = Roact.PureComponent:extend("BuyButton")
 
 function BuyButton:init()
 	self.selectedImage = getSelectionImageObjectRounded()
+	self.connections = {}
+	self.lastGamepadFocus = nil
+
+	self.onPromptPurchaseFinished = function()
+		if self.props.gamepadEnabled and self.props.visible then
+			-- when the prompt closes and we expect gamepad support, restore focus
+			GuiService.SelectedCoreObject = self.lastGamepadFocus
+		end
+	end
 end
 
 function BuyButton:render()
@@ -49,6 +62,11 @@ function BuyButton:render()
 		[Roact.Ref] = buyButtonRef,
 		[Roact.Event.Activated] = function()
 			if forSale then
+				if FFlagInspectAndBuyGamepadPromptFix and self.props.gamepadEnabled and self.props.visible then
+					-- remove focus when the prompt opens so we can properly interact with the prompt using gamepad
+					self.lastGamepadFocus = GuiService.SelectedCoreObject
+					GuiService.SelectedCoreObject = nil
+				end
 				promptPurchase(itemId, itemType)
 			end
 		end,
@@ -82,6 +100,23 @@ function BuyButton:render()
 	})
 end
 
+if FFlagInspectAndBuyGamepadPromptFix then
+	function BuyButton:didMount()
+		local purchaseFinishedListener =
+				MarketplaceService.PromptPurchaseFinished:Connect(self.onPromptPurchaseFinished)
+		local bundlePurchaseFinishedListener =
+			MarketplaceService.PromptBundlePurchaseFinished:Connect(self.onPromptPurchaseFinished)
+		table.insert(self.connections, purchaseFinishedListener)
+		table.insert(self.connections, bundlePurchaseFinishedListener)
+	end
+
+	function BuyButton:willUnmount()
+		for _, connection in pairs(self.connections) do
+			connection:Disconnect()
+		end
+	end
+end
+
 function BuyButton:getBuyButtonTextSize(buyText)
 	if self.props.buyButtonRef.current then
 		local buyButtonTextSize = TextService:GetTextSize(buyText,
@@ -101,6 +136,8 @@ return RoactRodux.UNSTABLE_connect2(
 			locale = state.locale,
 			view = state.view,
 			assetInfo = state.assets[assetId],
+			gamepadEnabled = state.gamepadEnabled,
+			visible = state.visible,
 		}
 	end,
 	function(dispatch)

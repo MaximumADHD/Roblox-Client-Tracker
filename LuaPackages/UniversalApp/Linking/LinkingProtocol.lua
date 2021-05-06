@@ -85,18 +85,32 @@ function LinkingProtocol:detectURL(url: string): ()
 end
 
 --[[
+	Returns the last URL detected that Lua can handle.
+
+	@return url: the last URL detected that Lua can handle.
+]]--
+function LinkingProtocol:getLastLuaURL(url: string): string?
+	local params = MessageBus.getLast(self.HANDLE_LUA_URL_DESCRIPTOR)
+	if params == nil then
+		return nil
+	end
+	return params.url
+end
+
+--[[
 	Begins listening for registered URLs. The listener function is called when a registered URL is detected.
-	If a URL was detected while not listening, the listener will be invoked immediately with this pending URL.
+	If a URL was detected while not listening, the listener will be invoked immediately with this pending URL unless sticky is set to false.
 
 	@param listener<string>: the function to call when a URL registered by Lua is detected
+	@param sticky: pass false if the listener should not be invoked immediately with any pending URL
 ]]--
-function LinkingProtocol:listenForLuaURLs(listener: (string) -> ()): ()
+function LinkingProtocol:listenForLuaURLs(listener: (string) -> (), sticky: boolean?): ()
 	if self.isListeningForURLs then
 		self:stopListeningForLuaURLs()
 	end
 	self.subscriber:subscribe(self.HANDLE_LUA_URL_DESCRIPTOR, function(params: Table)
 		listener(params.url)
-	end)
+	end, sticky)
 	self.isListeningForURLs = true
 end
 

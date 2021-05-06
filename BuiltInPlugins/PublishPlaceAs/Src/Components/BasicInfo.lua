@@ -52,6 +52,7 @@ local Theming = require(Plugin.Src.ContextServices.Theming)
 local createMenuPage = require(Plugin.Src.Components.createMenuPage)
 
 local FFlagStudioAllowRemoteSaveBeforePublish = game:GetFastFlag("StudioAllowRemoteSaveBeforePublish")
+local FFlagStudioPromptOnFirstPublish = game:GetFastFlag("StudioPromptOnFirstPublish")
 
 local groupsLoaded = false
 --Uses props to display current settings values
@@ -278,6 +279,12 @@ local function displayContents(props, localization)
 			displayResult.Separator3 = nil
 			displayResult.Devices = nil
 		end
+
+		-- Creator has already been set and can not be changed in "first publish" mode, hide the control
+		if FFlagStudioPromptOnFirstPublish and props.IsFirstPublish then
+			displayResult.Creator = nil
+			displayResult.Separator2 = nil
+		end
 	end
 
 	return displayResult
@@ -354,6 +361,7 @@ local function BasicInfo(props)
 		Content = displayContents,
 		AddLayout = true,
 		IsPublish = props.IsPublish,
+		IsFirstPublish = props.IsFirstPublish,
 	})
 end
 

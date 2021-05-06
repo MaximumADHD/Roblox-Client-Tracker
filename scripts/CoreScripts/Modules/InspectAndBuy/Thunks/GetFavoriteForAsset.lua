@@ -6,20 +6,11 @@ local Network = require(InspectAndBuyFolder.Services.Network)
 local SetFavoriteAsset = require(InspectAndBuyFolder.Actions.SetFavoriteAsset)
 local createInspectAndBuyKeyMapper = require(InspectAndBuyFolder.createInspectAndBuyKeyMapper)
 
-local FFlagFixInspectAndBuyPerformFetch = require(InspectAndBuyFolder.Flags.FFlagFixInspectAndBuyPerformFetch)
-
 local requiredServices = {
 	Network,
 }
 
-local keyMapper
-if FFlagFixInspectAndBuyPerformFetch then
-	keyMapper = createInspectAndBuyKeyMapper("getFavoriteForAsset")
-else
-	keyMapper = function(assetId)
-		return "inspectAndBuy.getFavoriteForAsset." ..tostring(assetId)
-	end
-end
+local keyMapper = createInspectAndBuyKeyMapper("getFavoriteForAsset")
 
 --[[
 	Gets whether the user has favorited an asset or not.
@@ -28,12 +19,7 @@ local function GetFavoriteForAsset(assetId)
 	return Thunk.new(script.Name, requiredServices, function(store, services)
 		local network = services[Network]
 
-		local key
-		if FFlagFixInspectAndBuyPerformFetch then
-			key = keyMapper(store:getState().storeId, assetId)
-		else
-			key = keyMapper(assetId)
-		end
+		local key = keyMapper(store:getState().storeId, assetId)
 
 		return PerformFetch.Single(key, function(fetchSingleStore)
 			return network.getFavoriteForAsset(assetId):andThen(

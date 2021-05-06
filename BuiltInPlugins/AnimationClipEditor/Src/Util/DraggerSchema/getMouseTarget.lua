@@ -2,8 +2,6 @@ local Workspace = game:GetService("Workspace")
 local Plugin = script.Parent.Parent.Parent.Parent
 local DraggerFramework = Plugin.Packages.DraggerFramework
 
-local getFFlagEnablePhysicalFreeFormDragger = require(DraggerFramework.Flags.getFFlagEnablePhysicalFreeFormDragger)
-
 local isValidJoint = function(rootInstance, joint)
 	return joint:IsDescendantOf(rootInstance) and joint:IsA("BasePart")
 end

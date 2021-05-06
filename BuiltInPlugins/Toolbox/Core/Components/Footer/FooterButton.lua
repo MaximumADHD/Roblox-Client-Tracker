@@ -1,3 +1,5 @@
+local FFlagToolboxDefaultBackgroundMatches = game:GetFastFlag("ToolboxDefaultBackgroundMatches")
+
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Libs = Plugin.Libs
@@ -50,6 +52,23 @@ function FooterButton:render()
 
 		local width = externalPadding + iconSize + internalPadding + textWidth + externalPadding
 
+		local icon = Roact.createElement(BackgroundIcon, {
+			backgroundIndex = index,
+			AnchorPoint = Vector2.new(0, 0.5),
+			Position = UDim2.new(0, 0, 0.5, 0),
+			Size = UDim2.new(0, iconSize, 0, iconSize),
+			LayoutOrder = 1,
+		})
+
+		if not FFlagToolboxDefaultBackgroundMatches then
+			icon = icon or Background.DEPRECATED_renderIcon(index, {
+				AnchorPoint = Vector2.new(0, 0.5),
+				Position = UDim2.new(0, 0, 0.5, 0),
+				Size = UDim2.new(0, iconSize, 0, iconSize),
+				LayoutOrder = 1,
+			})
+		end
+
 		return Roact.createElement(RoundButton, {
 			AnchorPoint = Vector2.new(0, 0.5),
 			LayoutOrder = index,
@@ -77,18 +96,7 @@ function FooterButton:render()
 				SortOrder = Enum.SortOrder.LayoutOrder,
 			}),
 
-			Icon = Roact.createElement(BackgroundIcon, {
-				backgroundIndex = index,
-				AnchorPoint = Vector2.new(0, 0.5),
-				Position = UDim2.new(0, 0, 0.5, 0),
-				Size = UDim2.new(0, iconSize, 0, iconSize),
-				LayoutOrder = 1,
-			}) or Background.DEPRECATED_renderIcon(index, {
-				AnchorPoint = Vector2.new(0, 0.5),
-				Position = UDim2.new(0, 0, 0.5, 0),
-				Size = UDim2.new(0, iconSize, 0, iconSize),
-				LayoutOrder = 1,
-			}),
+			Icon = icon,
 
 			TextLabel = Roact.createElement("TextLabel", {
 				BackgroundTransparency = 1,

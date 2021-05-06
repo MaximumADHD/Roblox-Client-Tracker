@@ -13,7 +13,6 @@ local ClosePlayerDropDown = require(PlayerList.Actions.ClosePlayerDropDown)
 local SetPlayerListVisibility = require(PlayerList.Actions.SetPlayerListVisibility)
 
 local isNewInGameMenuEnabled = require(CoreGui.RobloxGui.Modules.isNewInGameMenuEnabled)
-local FFlagXboxReportPlayerLocFix = require(CoreGui.RobloxGui.Modules.Flags.FFlagXboxReportPlayerLocFix)
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
@@ -85,9 +84,7 @@ function TenFootSideBar:openSidebar(player)
 
 	--We can't report guests/localplayer
 	if addReportItem then
-        local loc_text = FFlagXboxReportPlayerLocFix
-          and Strings:LocalizedString("ReportPlayer")
-          or Strings:LocalizedString("Report Player")
+        local loc_text = Strings:LocalizedString("ReportPlayer")
 		self.sideBar:AddItem(loc_text, function()
 			--Force closing player list before open the report tab
 			self.props.closePlayerList()

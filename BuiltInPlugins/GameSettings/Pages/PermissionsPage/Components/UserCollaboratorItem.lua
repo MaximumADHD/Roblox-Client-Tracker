@@ -1,3 +1,6 @@
+local FFlagGameSettingsStandardizeLocalizationId = game:GetFastFlag("GameSettingsStandardizeLocalizationId")
+local FFlagUXImprovementsNonTCPlacesAllowedPlay = game:GetFastFlag("UXImprovementsNonTCPlacesAllowedPlay")
+
 local Page = script.Parent.Parent
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
@@ -20,8 +23,6 @@ local RemoveUserCollaborator = require(Page.Thunks.RemoveUserCollaborator)
 
 local UserCollaboratorItem = Roact.PureComponent:extend("UserCollaboratorItem")
 
-local FFlagUXImprovementsNonTCPlacesAllowedPlay = game:GetFastFlag("UXImprovementsNonTCPlacesAllowedPlay")
-
 local permShortName = {
 	[PermissionsConstants.OwnerKey] = "Owner",
 	[PermissionsConstants.PlayKey] = "Play",
@@ -29,6 +30,8 @@ local permShortName = {
 	[PermissionsConstants.NoAccessKey] = "NoAccess",
 	[PermissionsConstants.AdminKey] = "Admin"
 }
+
+local PERMISSIONS = FFlagGameSettingsStandardizeLocalizationId and "Permissions" or "AccessPermissions"
 
 function UserCollaboratorItem:getPermissionForKey(key)
 	local props = self.props
@@ -41,8 +44,8 @@ function UserCollaboratorItem:getPermissionForKey(key)
 
 	return {
 		Key = key,
-		Display = localization:getText("AccessPermissions", permShortName[key] .. "Label"),
-		Description = localization:getText("AccessPermissions", permShortName[key] .. "Description"),
+		Display = localization:getText(PERMISSIONS, permShortName[key] .. "Label"),
+		Description = localization:getText(PERMISSIONS, permShortName[key] .. "Description"),
 	}
 end
 

@@ -64,6 +64,55 @@ return function()
 			expect(subscriber:getSubscriptionCount()).to.equal(0)
 		end)
 
+		it("should receive the last message when sticky is true or not specified", function(context)
+			local subscriber = MessageBus.Subscriber.new()
+
+			local params = HttpService:JSONDecode(kTestJSON)
+			local received = false;
+			MessageBus.publish(kTestMessageMetadata, params)
+			subscriber:subscribe(kTestMessageMetadata, function(params)
+				received = true
+			end, true)
+			wait()
+			expect(received).to.equal(true)
+			subscriber:unsubscribe(kTestMessageMetadata)
+
+			received = false;
+			MessageBus.publish(kTestMessageMetadata, params)
+			subscriber:subscribe(kTestMessageMetadata, function(params)
+				received = true
+			end)
+			wait()
+			expect(received).to.equal(true)
+			subscriber:unsubscribe(kTestMessageMetadata)
+		end)
+
+		it("should only receive new messages when sticky is false", function(context)
+			local subscriber = MessageBus.Subscriber.new()
+
+			local params = HttpService:JSONDecode(kTestJSON)
+			local received = false;
+			MessageBus.publish(kTestMessageMetadata, params)
+			subscriber:subscribe(kTestMessageMetadata, function(params)
+				received = true
+				expect(tutils.deepEqual(params, params)).to.equal(true)
+			end, false)
+
+			wait()
+			expect(received).to.equal(false)
+			MessageBus.publish(kTestMessageMetadata, params)
+			wait()
+			expect(received).to.equal(true)
+			subscriber:unsubscribe(kTestMessageMetadata)
+		end)
+
+		it("should return the last message published", function(context)
+			expect(MessageBus.getLast(kTestMessageMetadata)).to.equal(nil)
+			local params = HttpService:JSONDecode(kTestJSON)
+			MessageBus.publish(kTestMessageMetadata, params)
+			expect(tutils.deepEqual(MessageBus.getLast(kTestMessageMetadata), params)).to.equal(true)
+		end)
+
 		it("should only be able to subscribe to a message once", function(context)
 			local subscriber = MessageBus.Subscriber.new()
 

@@ -68,7 +68,7 @@ function StyledDialog:init()
 			size = Vector2.new(math.max(minContentWidth, totalButtonWidth), minContentHeight)
 		end
 
-		return size
+		return size or Vector2.new(0,0)
 	end
 
 	self.getButtons = function(styleTable)

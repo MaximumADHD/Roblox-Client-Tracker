@@ -13,14 +13,12 @@ plugin:OnInvoke("setActive", function(payloadString)
 	toolbarbutton:SetActive(payloadString == "true")
 end)
 
-if game:GetFastFlag("EnableClarifiedDraggerBehaviorUI") then
-	-- Transform tool does not respect physical constraints, it should be disabled
-	-- when the dragger mode is set to physical
+-- Transform tool does not respect physical constraints, it should be disabled
+-- when the dragger mode is set to physical
+toolbarbutton.Enabled = not StudioService.DraggerSolveConstraints
+StudioService.PromptTransformPluginCheckEnable:Connect(function()
+	if StudioService.DraggerSolveConstraints then
+		plugin:Invoke("Disable")
+	end
 	toolbarbutton.Enabled = not StudioService.DraggerSolveConstraints
-	StudioService.PromptTransformPluginCheckEnable:Connect(function()
-		if StudioService.DraggerSolveConstraints then
-			plugin:Invoke("Disable")
-		end
-		toolbarbutton.Enabled = not StudioService.DraggerSolveConstraints
-	end)
-end
+end)

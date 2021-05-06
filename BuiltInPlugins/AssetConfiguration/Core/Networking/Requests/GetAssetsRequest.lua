@@ -1,5 +1,4 @@
 local FFlagImproveAssetCreationsPageFetching2 = game:GetFastFlag("ImproveAssetCreationsPageFetching2")
-local FFlagToolboxCreationsFreshChecks = game:GetFastFlag("ToolboxCreationsFreshChecks")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -56,7 +55,7 @@ local function dispatchCreatorInfo(store, id, name, type)
 end
 
 local function dispatchGetAssets(store, pageInfo, creationDetailsTable, creatorName, nextCursor, creatorType)
-	if FFlagToolboxCreationsFreshChecks and PageInfoHelper.isPageInfoStale(pageInfo, store) then
+	if PageInfoHelper.isPageInfoStale(pageInfo, store) then
 		return
 	end
 	local assetType = PageInfoHelper.getEngineAssetTypeForPageInfoCategory(pageInfo)

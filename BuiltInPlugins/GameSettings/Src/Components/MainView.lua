@@ -34,6 +34,8 @@ local TextService = game:GetService("TextService")
 
 local MainView = Roact.PureComponent:extend("MainView")
 
+local FFlagStudioNewGamesInCloudUI = game:GetFastFlag("StudioNewGamesInCloudUI");
+
 function MainView:init()
 	local selectedPage
 
@@ -107,6 +109,10 @@ function MainView:render()
 
 	local publishText = localization:getText("General", "PublishText")
     local buttonText = localization:getText("General", "ButtonPublish")
+	if FFlagStudioNewGamesInCloudUI then
+		publishText = localization:getText("General", "SaveText")
+		buttonText = localization:getText("General", "ButtonSave")
+	end
 	local buttonTextExtents = TextService:GetTextSize(buttonText, theme.fontStyle.Normal.TextSize,
 		theme.fontStyle.Normal.Font, Vector2.new(math.huge, math.huge))
 
@@ -134,8 +140,8 @@ function MainView:render()
             AnchorPoint = Vector2.new(0.5, 0.5),
 
             OnClick = function()
-				StudioService:ShowPublishToRoblox()
-				self.props.OnClose(false)
+                StudioService:ShowPublishToRoblox()
+                self.props.OnClose(false)
             end,
         }, {
             Roact.createElement(HoverArea, {Cursor = "PointingHand"}),

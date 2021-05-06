@@ -15,32 +15,11 @@
 local CameraModule = {}
 CameraModule.__index = CameraModule
 
-local FFlagUserCameraToggle do
-	local success, result = pcall(function()
-		return UserSettings():IsUserFeatureEnabled("UserCameraToggle")
-	end)
-	FFlagUserCameraToggle = success and result
-end
-
 local FFlagUserRemoveTheCameraApi do
 	local success, result = pcall(function()
 		return UserSettings():IsUserFeatureEnabled("UserRemoveTheCameraApi")
 	end)
 	FFlagUserRemoveTheCameraApi = success and result
-end
-
-local FFlagUserCameraInputRefactor do
-	local success, result = pcall(function()
-		return UserSettings():IsUserFeatureEnabled("UserCameraInputRefactor3")
-	end)
-	FFlagUserCameraInputRefactor = success and result
-end
-
-local FFlagUserCarCam do
-	local success, result = pcall(function()
-		return UserSettings():IsUserFeatureEnabled("UserCarCam")
-	end)
-	FFlagUserCarCam = success and result
 end
 
 -- NOTICE: Player property names do not all match their StarterPlayer equivalents,
@@ -111,9 +90,7 @@ do
 	PlayerScripts:RegisterComputerCameraMovementMode(Enum.ComputerCameraMovementMode.Default)
 	PlayerScripts:RegisterComputerCameraMovementMode(Enum.ComputerCameraMovementMode.Follow)
 	PlayerScripts:RegisterComputerCameraMovementMode(Enum.ComputerCameraMovementMode.Classic)
-	if FFlagUserCameraToggle then
-		PlayerScripts:RegisterComputerCameraMovementMode(Enum.ComputerCameraMovementMode.CameraToggle)
-	end
+	PlayerScripts:RegisterComputerCameraMovementMode(Enum.ComputerCameraMovementMode.CameraToggle)
 end
 
 
@@ -220,9 +197,7 @@ function CameraModule:ActivateOcclusionModule( occlusionMode )
 		return
 	end
 
-	if FFlagUserCarCam then
-		self.occlusionMode = occlusionMode
-	end
+	self.occlusionMode = occlusionMode
 
 	-- First check to see if there is actually a change. If the module being requested is already
 	-- the currently-active solution then just make sure it's enabled and exit early
@@ -291,8 +266,6 @@ function CameraModule:ActivateOcclusionModule( occlusionMode )
 end
 
 function CameraModule:ShouldUseVehicleCamera()
-	assert(FFlagUserCarCam)
-	
 	local camera = workspace.CurrentCamera
 	if not camera then
 		return false
@@ -354,7 +327,7 @@ function CameraModule:ActivateCameraController(cameraMovementMode, legacyCameraT
 		if cameraMovementMode == Enum.ComputerCameraMovementMode.Classic or
 			cameraMovementMode == Enum.ComputerCameraMovementMode.Follow or
 			cameraMovementMode == Enum.ComputerCameraMovementMode.Default or
-			(FFlagUserCameraToggle and cameraMovementMode == Enum.ComputerCameraMovementMode.CameraToggle) then
+			cameraMovementMode == Enum.ComputerCameraMovementMode.CameraToggle then
 			newCameraCreator = ClassicCamera
 		elseif cameraMovementMode == Enum.ComputerCameraMovementMode.Orbital then
 			newCameraCreator = OrbitalCamera
@@ -364,7 +337,7 @@ function CameraModule:ActivateCameraController(cameraMovementMode, legacyCameraT
 		end
 	end
 
-	local isVehicleCamera = FFlagUserCarCam and self:ShouldUseVehicleCamera()
+	local isVehicleCamera = self:ShouldUseVehicleCamera()
 	if isVehicleCamera then
 		newCameraCreator = VehicleCamera
 	end
@@ -376,7 +349,7 @@ function CameraModule:ActivateCameraController(cameraMovementMode, legacyCameraT
 		instantiatedCameraControllers[newCameraCreator] = newCameraController
 	else
 		newCameraController = instantiatedCameraControllers[newCameraCreator]
-		if FFlagUserCarCam and newCameraController.Reset then
+		if newCameraController.Reset then
 			newCameraController:Reset()
 		end
 	end
@@ -420,9 +393,7 @@ function CameraModule:OnCameraSubjectChanged()
 		self.activeOcclusionModule:OnCameraSubjectChanged(cameraSubject)
 	end
 
-	if FFlagUserCarCam then
-		self:ActivateCameraController(nil, camera.CameraType)
-	end
+	self:ActivateCameraController(nil, camera.CameraType)
 end
 
 function CameraModule:OnCameraTypeChanged(newCameraType)
@@ -520,9 +491,7 @@ end
 --]]
 function CameraModule:Update(dt)
 	if self.activeCameraController then
-		if FFlagUserCameraToggle then
-			self.activeCameraController:UpdateMouseBehavior()
-		end
+		self.activeCameraController:UpdateMouseBehavior()
 
 		local newCameraCFrame, newCameraFocus = self.activeCameraController:Update(dt)
 		self.activeCameraController:ApplyVRTransform()
@@ -539,7 +508,7 @@ function CameraModule:Update(dt)
 			self.activeTransparencyController:Update()
 		end
 
-		if FFlagUserCameraInputRefactor and CameraInput.getInputEnabled() then
+		if CameraInput.getInputEnabled() then
 			CameraInput.resetInputForFrameEnd()
 		end
 	end

@@ -36,11 +36,15 @@ ChatBubble.defaultProps = {
 function ChatBubble:init()
 	self.width, self.updateWidth = Roact.createBinding(0)
 	self.widthMotor = Otter.createSingleMotor(0)
-	self.widthMotor:onStep(self.updateWidth)
+	self.widthMotor:onStep(function(value)
+		self.updateWidth(math.round(value))
+	end)
 
 	self.height, self.updateHeight = Roact.createBinding(0)
 	self.heightMotor = Otter.createSingleMotor(0)
-	self.heightMotor:onStep(self.updateHeight)
+	self.heightMotor:onStep(function(value)
+		self.updateHeight(math.round(value))
+	end)
 
 	self.transparency, self.updateTransparency = Roact.createBinding(1)
 	self.transparencyMotor = Otter.createSingleMotor(1)

@@ -117,16 +117,16 @@ function MainPlugin:render()
 			Enabled = enabled,
 			Title = plugin.Name,
 			ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
-			InitialDockState = Enum.InitialDockState.Float,
+			InitialDockState = Enum.InitialDockState.Bottom,
 			Size = Vector2.new(640, 480),
 			MinSize = Vector2.new(250, 200),
 			OnClose = self.onClose,
 			ShouldRestore = true,
 			OnWidgetRestored = self.onRestore,
 		}, {
-			TopBar = Roact.createElement(TopBar),
-			StoryTree = Roact.createElement(StoryTree),
-			InfoPanel = Roact.createElement(InfoPanel),
+			TopBar = enabled and Roact.createElement(TopBar),
+			StoryTree = enabled and Roact.createElement(StoryTree),
+			InfoPanel = enabled and Roact.createElement(InfoPanel),
 		}),
 	})
 end

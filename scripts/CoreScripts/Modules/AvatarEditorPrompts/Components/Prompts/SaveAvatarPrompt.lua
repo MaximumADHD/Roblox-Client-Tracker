@@ -23,9 +23,6 @@ local PerformSaveAvatar = require(AvatarEditorPrompts.Thunks.PerformSaveAvatar)
 
 local GetConformedHumanoidDescription = require(AvatarEditorPrompts.GetConformedHumanoidDescription)
 
-local Modules = AvatarEditorPrompts.Parent
-local FFlagAESPromptsSupportGamepad = require(Modules.Flags.FFlagAESPromptsSupportGamepad)
-
 local EngineFeatureAESConformToAvatarRules = game:GetEngineFeature("AESConformToAvatarRules")
 
 local SCREEN_SIZE_PADDING = 30
@@ -186,7 +183,7 @@ function SaveAvatarPrompt:render()
 		screenSize = self.props.screenSize,
 		middleContent = self.renderAlertMiddleContent,
 		onAbsoluteSizeChanged = self.onAlertSizeChanged,
-		isMiddleContentFocusable = FFlagAESPromptsSupportGamepad and self.state.itemListScrollable,
+		isMiddleContentFocusable = self.state.itemListScrollable,
 	})
 end
 
