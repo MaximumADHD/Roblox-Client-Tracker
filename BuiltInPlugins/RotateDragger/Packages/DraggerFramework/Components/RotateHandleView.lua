@@ -13,6 +13,8 @@ local Math = require(DraggerFramework.Utility.Math)
 
 local CULLING_MODE = Enum.AdornCullingMode.Never
 
+local getFFlagFoldersOverFragments = require(DraggerFramework.Flags.getFFlagFoldersOverFragments)
+
 local RotateHandleView = Roact.PureComponent:extend("RotateHandleView")
 
 local HANDLE_SEGMENTS = 32
@@ -185,7 +187,11 @@ function RotateHandleView:render()
 		children.EndAngleElement = createAngleDisplay(self.props.EndAngle)
 	end
 
-	return Roact.createFragment(children)
+	if getFFlagFoldersOverFragments() then
+		return Roact.createElement("Folder", {}, children)
+	else
+		return Roact.createFragment(children)
+	end
 end
 
 --[[

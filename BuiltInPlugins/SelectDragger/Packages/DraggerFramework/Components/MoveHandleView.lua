@@ -7,7 +7,9 @@ local Plugin = DraggerFramework.Parent.Parent
 local Math = require(DraggerFramework.Utility.Math)
 local Roact = require(Plugin.Packages.Roact)
 
-local getEngineFeatureEditPivot = require(DraggerFramework.Flags.getEngineFeatureEditPivot)
+local getEngineFeatureModelPivotVisual = require(DraggerFramework.Flags.getEngineFeatureModelPivotVisual)
+
+local getFFlagFoldersOverFragments = require(DraggerFramework.Flags.getFFlagFoldersOverFragments)
 
 local CULLING_MODE = Enum.AdornCullingMode.Never
 
@@ -34,7 +36,7 @@ function MoveHandleView:render()
 	local length = scale * BASE_HANDLE_LENGTH
 	local radius = scale * BASE_HANDLE_RADIUS
 	local offset = scale * BASE_HANDLE_OFFSET
-	if getEngineFeatureEditPivot() then
+	if getEngineFeatureModelPivotVisual() then
 		offset = offset + length * (self.props.Outset or 0)
 	end
 	local tipOffset = scale * BASE_TIP_OFFSET
@@ -119,7 +121,11 @@ function MoveHandleView:render()
 			})
 		})
 	end
-	return Roact.createFragment(children)
+	if getFFlagFoldersOverFragments() then
+		return Roact.createElement("Folder", {}, children)
+	else
+		return Roact.createFragment(children)
+	end
 end
 
 function MoveHandleView.hitTest(props, mouseRay)
@@ -129,7 +135,7 @@ function MoveHandleView.hitTest(props, mouseRay)
 	local radius = scale * BASE_HANDLE_HITTEST_RADIUS
 	local tipRadius = radius * TIP_RADIUS_MULTIPLIER
 	local offset = scale * BASE_HANDLE_OFFSET
-	if getEngineFeatureEditPivot() then
+	if getEngineFeatureModelPivotVisual() then
 		offset = offset + length * (props.Outset or 0)
 	end
 	local tipOffset = scale * BASE_TIP_OFFSET
@@ -187,7 +193,7 @@ end
 function MoveHandleView.getHandleDimensionForScale(scale, outset)
 	local length = scale * BASE_HANDLE_LENGTH
 	local offset = scale * BASE_HANDLE_OFFSET
-	if getEngineFeatureEditPivot() then
+	if getEngineFeatureModelPivotVisual() then
 		offset = offset + length * (outset or 0)
 	end
 	local tipLength = length * BASE_TIP_LENGTH

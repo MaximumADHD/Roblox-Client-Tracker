@@ -9,6 +9,8 @@
 		integer LayoutOrder: The order this component will display in a UILayout.
 		boolean AutoSizeCanvas: When true, will automatically resize the canvas size of the scrolling frame.
 		Enum.ScrollingDirection ScrollingDirection: The direction to scroll in (default = XY)
+		Enum.AutomaticSize AutomaticSize: The automatic size of the scrolling frame.
+		Enum.AutomaticSize AutomaticCanvasSize: The automatic size of the scrolling frame canvas.
 		callback OnCanvasResize: Called when content size is updated. Only called when AutoSizeCanvas is true.
 			OnCanvasResize(absSize: Vector2)
 		table AutoSizeLayoutOptions: The options of the UILayout instance if auto-sizing.
@@ -45,11 +47,12 @@ else
 	Cryo = require(Packages.Cryo)
 end
 
+local FFlagEnableDevFrameworkAutomaticSize = ("EnableDevFrameworkAutomaticSize")
+
 local ContextServices = require(Framework.ContextServices)
 local Container = require(script.Parent.Container)
 local prioritize = Util.prioritize
 local Typecheck = Util.Typecheck
-
 
 local ScrollingFrame = Roact.PureComponent:extend("ScrollingFrame")
 Typecheck.wrap(ScrollingFrame, script)
@@ -77,21 +80,24 @@ function ScrollingFrame:init()
 	end
 
 	self.updateCanvasSize = function(rbx)
+		local hasAutomaticCanvasSize = FFlagEnableDevFrameworkAutomaticSize and self.props.AutomaticCanvasSize
 		if self.scrollingRef.current and self.layoutRef.current then
 			local contentSize = self.layoutRef.current.AbsoluteContentSize
 			local contentSizeX = contentSize.X
 			local contentSizeY = contentSize.Y
-			if FlagsList:get("FFlagFixContentNotFullyShownAfterResize") then
-				local props = self.props
-				local style = getStyle(self)
-				local scrollingFrameProps = self.getScrollingFrameProps(props, style)
-				-- for vertical scroll, canvas size on x axis should not update when content size changes
-				-- for horizon one, y axis should not change
-				-- for both scrolling, canvas size can be fully controlled by content
-				if scrollingFrameProps.ScrollingDirection == Enum.ScrollingDirection.Y then
-					contentSizeX = 0
-				elseif scrollingFrameProps.ScrollingDirection == Enum.ScrollingDirection.X then
-					contentSizeY = 0
+			if not hasAutomaticCanvasSize then
+				if FlagsList:get("FFlagFixContentNotFullyShownAfterResize") then
+					local props = self.props
+					local style = getStyle(self)
+					local scrollingFrameProps = self.getScrollingFrameProps(props, style)
+					-- for vertical scroll, canvas size on x axis should not update when content size changes
+					-- for horizon one, y axis should not change
+					-- for both scrolling, canvas size can be fully controlled by content
+					if scrollingFrameProps.ScrollingDirection == Enum.ScrollingDirection.Y then
+						contentSizeX = 0
+					elseif scrollingFrameProps.ScrollingDirection == Enum.ScrollingDirection.X then
+						contentSizeY = 0
+					end
 				end
 			end
 
@@ -120,6 +126,21 @@ function ScrollingFrame:init()
 	}
 
 	self.getScrollingFrameProps = function(props, style)
+		
+		local scaleX = 1
+		local scaleY = 1
+		if FFlagEnableDevFrameworkAutomaticSize then
+			local automaticSize = props.AutomaticSize
+			if automaticSize then
+				if automaticSize == Enum.AutomaticSize.X or automaticSize == Enum.AutomaticSize.XY then
+					scaleX = 0
+				end
+				if automaticSize == Enum.AutomaticSize.Y or automaticSize == Enum.AutomaticSize.XY then
+					scaleY = 0
+				end
+			end
+		end
+
 		-- after filtering out parent's props and other component specific props,
 		-- what is left should be ScrollingFrame specific props
 		return Cryo.Dictionary.join(
@@ -127,7 +148,7 @@ function ScrollingFrame:init()
 			props,
 			self.propFilters.parentContainerProps,
 			{
-				Size = UDim2.new(1, 0, 1, 0),
+				Size = UDim2.fromScale(scaleX, scaleY),
 				[Roact.Children] = Cryo.None,
 				[Roact.Change.CanvasPosition] = self.onScroll,
 				[Roact.Change.AbsoluteSize] = FlagsList:get("FFlagFixContentNotFullyShownAfterResize") and self.updateCanvasSize or nil,
@@ -147,10 +168,15 @@ function ScrollingFrame:render()
 	local position = props.Position
 	local size = props.Size
 	local layoutOrder = props.LayoutOrder
-
+	
 	local autoSizeCanvas = prioritize(props.AutoSizeCanvas, style.AutoSizeCanvas, false)
 	local autoSizeElement = prioritize(props.AutoSizeLayoutElement, style.AutoSizeLayoutElement, "UIListLayout")
 	local layoutOptions = prioritize(props.AutoSizeLayoutOptions, style.AutoSizeLayoutOptions, {})
+	
+	local automaticCanvasSize = props.AutomaticCanvasSize
+	if automaticCanvasSize then
+		autoSizeCanvas = false
+	end
 
 	local children = self.props[Roact.Children]
 	local scrollingFrameProps = self.getScrollingFrameProps(self.props, style)

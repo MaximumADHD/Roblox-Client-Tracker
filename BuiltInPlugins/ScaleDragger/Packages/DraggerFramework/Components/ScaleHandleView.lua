@@ -11,6 +11,8 @@ local Roact = require(Packages.Roact)
 -- Dragger Framework
 local Math = require(DraggerFramework.Utility.Math)
 
+local getFFlagFoldersOverFragments = require(DraggerFramework.Flags.getFFlagFoldersOverFragments)
+
 local CULLING_MODE = Enum.AdornCullingMode.Never
 
 local ScaleHandleView = Roact.PureComponent:extend("ScaleHandleView")
@@ -79,7 +81,11 @@ function ScaleHandleView:render()
 		AdornCullingMode = CULLING_MODE,
 	})
 
-	return Roact.createFragment(children)
+	if getFFlagFoldersOverFragments() then
+		return Roact.createElement("Folder", {}, children)
+	else
+		return Roact.createFragment(children)
+	end
 end
 
 --[[

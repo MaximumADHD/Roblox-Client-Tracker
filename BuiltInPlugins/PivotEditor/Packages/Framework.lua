@@ -14,4 +14,5 @@ return strict({
 	UI = require(script.UI),
 	Util = require(script.Util),
 	UIData = require(script.UI.UIFolderData),
+	Wrappers = require(script.Wrappers),
 })

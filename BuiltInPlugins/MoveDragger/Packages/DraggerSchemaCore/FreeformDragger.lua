@@ -9,7 +9,8 @@ local DragHelper = require(DraggerFramework.Utility.DragHelper)
 local PartMover = require(DraggerFramework.Utility.PartMover)
 local AttachmentMover = require(DraggerFramework.Utility.AttachmentMover)
 
-local getFFlagEnablePhysicalFreeFormDragger = require(DraggerFramework.Flags.getFFlagEnablePhysicalFreeFormDragger)
+local getFFlagDraggerPerf = require(DraggerFramework.Flags.getFFlagDraggerPerf)
+local getFFlagPivotAnalytics = require(DraggerFramework.Flags.getFFlagPivotAnalytics)
 
 local FreeformDragger = {}
 FreeformDragger.__index = FreeformDragger
@@ -24,6 +25,7 @@ function FreeformDragger.new(draggerContext, draggerToolModel, dragInfo)
 		_partMover = PartMover.new(),
 		_attachmentMover = AttachmentMover.new(),
 		_tiltRotate = CFrame.new(),
+		_lastAppliedTransform = CFrame.new(),
 	}, FreeformDragger)
 	self:_init()
 	local timeToStartDrag = tick() - t
@@ -37,10 +39,7 @@ function FreeformDragger:_init()
 end
 
 function FreeformDragger:_initMovers()
-	local breakJointsToOutsiders = true -- TODO: Remove this line with FFlagEnablePhysicalFreeFormDragger
-	if getFFlagEnablePhysicalFreeFormDragger() then
-		breakJointsToOutsiders = not self._draggerToolModel._draggerContext:areConstraintsEnabled()
-	end
+	local breakJointsToOutsiders = not self._draggerToolModel._draggerContext:areConstraintsEnabled()
 
 	local partsToMove, attachmentsToMove, modelsToMove =
 		self._draggerToolModel._selectionInfo:getObjectsToTransform()
@@ -73,10 +72,8 @@ function FreeformDragger:render()
 end
 
 function FreeformDragger:rotate(axis)
-	if getFFlagEnablePhysicalFreeFormDragger() then
-		if self._draggerToolModel._draggerContext:areConstraintsEnabled() then
-			return
-		end
+	if self._draggerToolModel._draggerContext:areConstraintsEnabled() then
+		return
 	end
 
 	if axis == Vector3.new(0, 1, 0) then
@@ -99,8 +96,6 @@ function FreeformDragger:rotate(axis)
 end
 
 function FreeformDragger:_updateGeometric()
-	assert(getFFlagEnablePhysicalFreeFormDragger())
-
 	local lastTargetMatrix = nil
 	if self._lastDragTarget then
 		lastTargetMatrix = self._lastDragTarget.targetMatrix
@@ -134,6 +129,7 @@ function FreeformDragger:_updateGeometric()
 		local globalTransform = newCFrame * originalCFrame:Inverse()
 		self._partMover:transformTo(globalTransform)
 		self._attachmentMover:transformTo(globalTransform)
+		self._lastAppliedTransform = globalTransform
 		if self._draggerToolModel._draggerContext:shouldJoinSurfaces() then
 			self._jointPairs = self._partMover:computeJointPairs(globalTransform)
 		end
@@ -141,8 +137,6 @@ function FreeformDragger:_updateGeometric()
 end
 
 function FreeformDragger:_updatePhysical()
-	assert(getFFlagEnablePhysicalFreeFormDragger())
-
 	local localBoundingBoxCFrame, localBoundingBoxOffset, localBoundingBoxSize =
 		self._draggerToolModel._selectionInfo:getLocalBoundingBox()
 
@@ -165,54 +159,15 @@ function FreeformDragger:_updatePhysical()
 		local actualGlobalTransformUsed =
 			self._partMover:moveToWithIk(dragTarget.mainCFrame, collisionsMode)
 		self._attachmentMover:transformTo(actualGlobalTransformUsed)
+		self._lastAppliedTransform = actualGlobalTransformUsed
 	end
 end
 
 function FreeformDragger:update()
-	if getFFlagEnablePhysicalFreeFormDragger() then
-		if self._draggerToolModel._draggerContext:areConstraintsEnabled() then
-			self:_updatePhysical()
-		else
-			self:_updateGeometric()
-		end
+	if self._draggerToolModel._draggerContext:areConstraintsEnabled() then
+		self:_updatePhysical()
 	else
-		local lastTargetMatrix = nil
-		if self._lastDragTarget then
-			lastTargetMatrix = self._lastDragTarget.targetMatrix
-		end
-
-		local function snapFunction(distance)
-			return self._draggerContext:snapToGridSize(distance)
-		end
-
-		local localBoundingBoxCFrame, localBoundingBoxOffset, localBoundingBoxSize =
-			self._draggerToolModel._selectionInfo:getLocalBoundingBox()
-		local dragTarget = DragHelper.getDragTarget(
-			self._draggerToolModel._draggerContext:getMouseRay(),
-			snapFunction,
-			self._dragInfo.clickPoint,
-			self._raycastFilter,
-			localBoundingBoxCFrame,
-			self._dragInfo.basisPoint,
-			localBoundingBoxSize,
-			localBoundingBoxOffset,
-			self._tiltRotate,
-			lastTargetMatrix,
-			self._draggerToolModel:shouldAlignDraggedObjects())
-
-		self:_analyticsRecordFreeformDragUpdate(dragTarget)
-
-		if dragTarget then
-			self._lastDragTarget = dragTarget
-			local originalCFrame = localBoundingBoxCFrame
-			local newCFrame = dragTarget.mainCFrame
-			local globalTransform = newCFrame * originalCFrame:Inverse()
-			self._partMover:transformTo(globalTransform)
-			self._attachmentMover:transformTo(globalTransform)
-			if self._draggerToolModel._draggerContext:shouldJoinSurfaces() then
-				self._jointPairs = self._partMover:computeJointPairs(globalTransform)
-			end
-		end
+		self:_updateGeometric()
 	end
 end
 
@@ -247,6 +202,15 @@ function FreeformDragger:destroy()
 	self._attachmentMover:commit()
 
 	self:_analyticsSendFreeformDragged()
+
+	-- Return an updated SelectionInfo to prevent the DraggerFramework from
+	-- computing fresh one from scratch (it would do that by default if we
+	-- did not return anything).
+	-- The additional info we have lets us compute the new one more efficiently
+	-- by deriving it from the old one based on the operation we did.
+	if getFFlagDraggerPerf() then
+		return self._draggerToolModel._selectionInfo:getTransformedCopy(self._lastAppliedTransform)
+	end
 end
 
 function FreeformDragger:_analyticsRecordFreeformDragBegin(timeToStartDrag)
@@ -285,8 +249,9 @@ function FreeformDragger:_analyticsSendFreeformDragged()
 	self._dragAnalytics.wasAutoSelected = self._draggerToolModel:wasAutoSelected()
 	self._dragAnalytics.joinSurfaces = self._draggerContext:shouldJoinSurfaces()
 	self._dragAnalytics.useConstraints = self._draggerContext:areConstraintsEnabled()
-	if getFFlagEnablePhysicalFreeFormDragger() then
-		self._dragAnalytics.haveCollisions = self._draggerContext:areCollisionsEnabled()
+	self._dragAnalytics.haveCollisions = self._draggerContext:areCollisionsEnabled()
+	if getFFlagPivotAnalytics() then
+		self._dragAnalytics.pivotType = self._draggerToolModel:classifySelectionPivot()
 	end
 	self._draggerToolModel._draggerContext:getAnalytics():sendEvent(
 		"freeformDragged", self._dragAnalytics)

@@ -7,6 +7,8 @@ local DraggerStateType = require(DraggerFramework.Implementation.DraggerStateTyp
 local DragSelector = require(DraggerFramework.Utility.DragSelector)
 local StandardCursor = require(DraggerFramework.Utility.StandardCursor)
 
+local getFFlagDraggerPerf = require(DraggerFramework.Flags.getFFlagDraggerPerf)
+
 local DragSelecting = {}
 DragSelecting.__index = DragSelecting
 
@@ -70,9 +72,14 @@ end
 function DragSelecting:processMouseUp()
 	if self._hasMovedMouse then
 		self._dragSelector:commitDrag(self._draggerToolModel._draggerContext)
+		if getFFlagDraggerPerf() then
+			self._draggerToolModel:_updateSelectionInfo()
+		end
 		self._hasMovedMouse = false
 	end
-	self._draggerToolModel:_updateSelectionInfo()
+	if not getFFlagDraggerPerf() then
+		self._draggerToolModel:_updateSelectionInfo()
+	end
 	self._draggerToolModel:_analyticsSendBoxSelect()
 	self._draggerToolModel:transitionToState(DraggerStateType.Ready)
 end

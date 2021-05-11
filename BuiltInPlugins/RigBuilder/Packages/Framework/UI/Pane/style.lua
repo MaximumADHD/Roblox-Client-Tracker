@@ -16,6 +16,9 @@ if THEME_REFACTOR then
 	local box = {
 		Background = StyleKey.MainBackground,
 	}
+	local subtleBox = join(box, {
+		Background = StyleKey.SubBackground,
+	})
 	local roundBox = join(box, {
 		Image = "rbxasset://textures/StudioToolbox/RoundedBackground.png",
 		SliceCenter = Rect.new(3, 3, 13, 13),
@@ -29,6 +32,7 @@ if THEME_REFACTOR then
 	})
 	return {
 		["&Box"] = box,
+		["&SubtleBox"] = subtleBox,
 		["&RoundBox"] = roundBox,
 		["&BorderBox"] = borderBox,
 	}

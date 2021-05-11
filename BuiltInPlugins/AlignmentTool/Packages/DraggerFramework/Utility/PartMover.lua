@@ -10,7 +10,6 @@ local getGeometry = require(DraggerFramework.Utility.getGeometry)
 local JointPairs = require(DraggerFramework.Utility.JointPairs)
 local JointUtil = require(DraggerFramework.Utility.JointUtil)
 
-local getFFlagEnablePhysicalFreeFormDragger = require(DraggerFramework.Flags.getFFlagEnablePhysicalFreeFormDragger)
 local getFFlagDraggerPerf = require(DraggerFramework.Flags.getFFlagDraggerPerf)
 local FFlagDraggerPerf = getFFlagDraggerPerf()
 
@@ -277,17 +276,7 @@ function PartMover:_prepareJoints(parts, breakJoints)
 				local other = JointUtil.getWeldConstraintCounterpart(joint, part)
 				self._alreadyConnectedToSets[part][other] = true
 
-				if getFFlagEnablePhysicalFreeFormDragger() then
-					if breakJoints then
-						-- Weld constraints to non-dragged parts need to be disabled,
-						-- and then re-enabled after the move. Note: To show up in
-						-- GetJoints, this weld must have been enabled.
-						if not self._partSet[other] then
-							joint.Enabled = false
-							self._reenableWeldConstraints[joint] = true
-						end
-					end
-				else
+				if breakJoints then
 					-- Weld constraints to non-dragged parts need to be disabled,
 					-- and then re-enabled after the move. Note: To show up in
 					-- GetJoints, this weld must have been enabled.

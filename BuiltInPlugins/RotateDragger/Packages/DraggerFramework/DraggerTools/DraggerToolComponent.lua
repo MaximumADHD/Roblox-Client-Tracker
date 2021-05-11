@@ -13,10 +13,6 @@ local DraggerFramework = script.Parent.Parent
 local Library = DraggerFramework.Parent.Parent
 local Roact = require(Library.Packages.Roact)
 
--- Flags
-local getFFlagDragFaceInstances = require(DraggerFramework.Flags.getFFlagDragFaceInstances)
-local getFFlagDraggerUseUniqueBindNames = require(DraggerFramework.Flags.getFFlagDraggerUseUniqueBindNames)
-
 -- Utilities
 local DraggerToolModel = require(DraggerFramework.Implementation.DraggerToolModel)
 local ViewChangeDetector = require(DraggerFramework.Utility.ViewChangeDetector)
@@ -58,10 +54,8 @@ function DraggerToolComponent:setup(props)
 	self._viewBoundsAreDirty = false
 
 	self._bindName = DRAGGER_UPDATE_BIND_NAME
-	if getFFlagDraggerUseUniqueBindNames() then
-		local guid = HttpService:GenerateGUID(false)
-		self._bindName = self._bindName ..guid
-	end
+	local guid = HttpService:GenerateGUID(false)
+	self._bindName = self._bindName .. guid
 
 	local function requestRender()
 		if self._isMounted then
@@ -96,7 +90,7 @@ function DraggerToolComponent:setup(props)
 
 	self._dragEnterConnection = mouse.DragEnter:Connect(function(instances)
 		if #instances > 0 then
-			if getFFlagDragFaceInstances() and #instances == 1 and shouldDragAsFace(instances[1]) then
+			if #instances == 1 and shouldDragAsFace(instances[1]) then
 				self._draggerToolModel:_processToolboxInitiatedFaceDrag(instances)
 			else
 				self._draggerToolModel:_processToolboxInitiatedFreeformSelectionDrag()

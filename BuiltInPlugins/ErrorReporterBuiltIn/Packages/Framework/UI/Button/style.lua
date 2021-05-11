@@ -40,11 +40,18 @@ if THEME_REFACTOR then
 			BackgroundStyle = {
 				Color = StyleKey.ButtonDisabled,
 			},
-			TextColor = StyleKey.ButtonDisabled,
+			TextColor = StyleKey.ButtonTextDisabled,
 		},
 		[StyleModifier.Pressed] = {
 			BackgroundStyle = {
 				Color = StyleKey.ButtonHover,
+			},
+		},
+
+		["&RoundSubtle"] = {
+			Background = Decoration.RoundBox,
+			BackgroundStyle = {
+				Color = Decoration.SubBackground,
 			},
 		},
 

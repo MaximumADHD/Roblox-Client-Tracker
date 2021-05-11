@@ -11,7 +11,9 @@ local roundRotation = require(DraggerFramework.Utility.roundRotation)
 
 local RotateHandleView = require(DraggerFramework.Components.RotateHandleView)
 
-local getEngineFeatureEditPivot = require(DraggerFramework.Flags.getEngineFeatureEditPivot)
+local getEngineFeatureModelPivotVisual = require(DraggerFramework.Flags.getEngineFeatureModelPivotVisual)
+
+local getFFlagFoldersOverFragments = require(DraggerFramework.Flags.getFFlagFoldersOverFragments)
 
 -- The minimum rotate increment to display snapping increments for (below this
 -- increment there are so many points that they become visual noise)
@@ -134,7 +136,11 @@ function RotateHandles:update(draggerToolModel, selectionInfo)
 		self._selectionInfo = selectionInfo
 		self._selectionWrapper = draggerToolModel:getSelectionWrapper()
 		self._schema = draggerToolModel:getSchema()
-		self._scale = self._draggerContext:getHandleScale(self._boundingBox.CFrame.Position)
+		if getEngineFeatureModelPivotVisual() then
+			self._scale = self._draggerContext:getHandleScale(cframe.Position)
+		else
+			self._scale = self._draggerContext:getHandleScale(self._boundingBox.CFrame.Position)
+		end
 	end
 	self:_updateHandles()
 end
@@ -226,7 +232,11 @@ function RotateHandles:render(hoveredHandleId)
 		})
 	end
 
-	return Roact.createFragment(children)
+	if getFFlagFoldersOverFragments() then
+		return Roact.createElement("Folder", {}, children)
+	else
+		return Roact.createFragment(children)
+	end
 end
 
 function RotateHandles:mouseDown(mouseRay, handleId)
@@ -239,7 +249,7 @@ function RotateHandles:mouseDown(mouseRay, handleId)
 
 	-- Check if we can find a starting angle
 	local handleCFrame
-	if getEngineFeatureEditPivot() then
+	if getEngineFeatureModelPivotVisual() then
 		handleCFrame = self._handles[handleId].HandleCFrame
 	else
 		local offset = RotateHandleDefinitions[handleId].Offset
@@ -276,7 +286,7 @@ function RotateHandles:mouseDrag(mouseRay)
 
 	local snappedDelta = snappedAngle - self._startAngle
 	local candidateGlobalTransform = getRotationTransform(
-		getEngineFeatureEditPivot() and self._handleCFrame or self._originalBoundingBoxCFrame,
+		getEngineFeatureModelPivotVisual() and self._handleCFrame or self._originalBoundingBoxCFrame,
 		self._handleCFrame.RightVector,
 		snappedDelta,
 		self._draggerContext:getRotateIncrement())
@@ -302,8 +312,9 @@ function RotateHandles:mouseUp(mouseRay)
 	end
 
 	self._draggingHandleId = nil
-	self._implementation:endDrag()
+	local newSelectionInfoHint = self._implementation:endDrag()
 	self._schema.addUndoWaypoint(self._draggerContext, "Axis Rotate Selection")
+	return newSelectionInfoHint
 end
 
 function RotateHandles:_updateHandles()
@@ -312,7 +323,7 @@ function RotateHandles:_updateHandles()
 	else
 		for handleId, handleDefinition in pairs(RotateHandleDefinitions) do
 			self._handles[handleId] = {
-				HandleCFrame = getEngineFeatureEditPivot() and
+				HandleCFrame = getEngineFeatureModelPivotVisual() and
 					(self._boundingBox.CFrame * self._basisOffset * handleDefinition.Offset) or
 					(self._boundingBox.CFrame * handleDefinition.Offset),
 				Color = handleDefinition.Color,

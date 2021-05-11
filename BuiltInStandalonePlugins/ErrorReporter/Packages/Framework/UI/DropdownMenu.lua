@@ -11,6 +11,7 @@
 		Focus Focus: a Focus object supplied by mapToProps()
 
 	Optional Props:
+		number Width: The width of the dropdown
 		Theme Theme: a Theme object supplied by mapToProps()
 		string PlaceholderText: A placeholder to display if there is no item selected.
 		callback OnRenderItem: A function used to render a dropdown menu item.
@@ -199,7 +200,7 @@ function DropdownMenu:renderMenu()
 		end
 	end
 	local backgroundColor = style.BackgroundColor
-	local width = style.Width
+	local width = props.Width or style.Width
 	local offset = prioritize(style.Offset, Vector2.new(0, 0))
 
 	local pluginGui = FlagsList:get("FFlagRefactorDevFrameworkContextItems") and props.Focus:get() or props.Focus:getTarget()

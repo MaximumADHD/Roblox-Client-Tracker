@@ -11,6 +11,8 @@ local Common = require(StudioFrameworkStyles.Common)
 
 if THEME_REFACTOR then
 	return {
+		Font = Enum.Font.SourceSans,
+		TextSize = 18,
 		TextColor = StyleKey.LinkText,
 	}
 else

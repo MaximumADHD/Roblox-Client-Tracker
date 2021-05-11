@@ -9,7 +9,6 @@ local DragHelper = require(DraggerFramework.Utility.DragHelper)
 local PartMover = require(DraggerFramework.Utility.PartMover)
 local AttachmentMover = require(DraggerFramework.Utility.AttachmentMover)
 
-local getFFlagEnablePhysicalFreeFormDragger = require(DraggerFramework.Flags.getFFlagEnablePhysicalFreeFormDragger)
 local getFFlagDraggerPerf = require(DraggerFramework.Flags.getFFlagDraggerPerf)
 local getFFlagPivotAnalytics = require(DraggerFramework.Flags.getFFlagPivotAnalytics)
 
@@ -40,10 +39,7 @@ function FreeformDragger:_init()
 end
 
 function FreeformDragger:_initMovers()
-	local breakJointsToOutsiders = true -- TODO: Remove this line with FFlagEnablePhysicalFreeFormDragger
-	if getFFlagEnablePhysicalFreeFormDragger() then
-		breakJointsToOutsiders = not self._draggerToolModel._draggerContext:areConstraintsEnabled()
-	end
+	local breakJointsToOutsiders = not self._draggerToolModel._draggerContext:areConstraintsEnabled()
 
 	local partsToMove, attachmentsToMove, modelsToMove =
 		self._draggerToolModel._selectionInfo:getObjectsToTransform()
@@ -76,10 +72,8 @@ function FreeformDragger:render()
 end
 
 function FreeformDragger:rotate(axis)
-	if getFFlagEnablePhysicalFreeFormDragger() then
-		if self._draggerToolModel._draggerContext:areConstraintsEnabled() then
-			return
-		end
+	if self._draggerToolModel._draggerContext:areConstraintsEnabled() then
+		return
 	end
 
 	if axis == Vector3.new(0, 1, 0) then
@@ -102,8 +96,6 @@ function FreeformDragger:rotate(axis)
 end
 
 function FreeformDragger:_updateGeometric()
-	assert(getFFlagEnablePhysicalFreeFormDragger())
-
 	local lastTargetMatrix = nil
 	if self._lastDragTarget then
 		lastTargetMatrix = self._lastDragTarget.targetMatrix
@@ -145,8 +137,6 @@ function FreeformDragger:_updateGeometric()
 end
 
 function FreeformDragger:_updatePhysical()
-	assert(getFFlagEnablePhysicalFreeFormDragger())
-
 	local localBoundingBoxCFrame, localBoundingBoxOffset, localBoundingBoxSize =
 		self._draggerToolModel._selectionInfo:getLocalBoundingBox()
 
@@ -174,51 +164,10 @@ function FreeformDragger:_updatePhysical()
 end
 
 function FreeformDragger:update()
-	if getFFlagEnablePhysicalFreeFormDragger() then
-		if self._draggerToolModel._draggerContext:areConstraintsEnabled() then
-			self:_updatePhysical()
-		else
-			self:_updateGeometric()
-		end
+	if self._draggerToolModel._draggerContext:areConstraintsEnabled() then
+		self:_updatePhysical()
 	else
-		local lastTargetMatrix = nil
-		if self._lastDragTarget then
-			lastTargetMatrix = self._lastDragTarget.targetMatrix
-		end
-
-		local function snapFunction(distance)
-			return self._draggerContext:snapToGridSize(distance)
-		end
-
-		local localBoundingBoxCFrame, localBoundingBoxOffset, localBoundingBoxSize =
-			self._draggerToolModel._selectionInfo:getLocalBoundingBox()
-		local dragTarget = DragHelper.getDragTarget(
-			self._draggerToolModel._draggerContext:getMouseRay(),
-			snapFunction,
-			self._dragInfo.clickPoint,
-			self._raycastFilter,
-			localBoundingBoxCFrame,
-			self._dragInfo.basisPoint,
-			localBoundingBoxSize,
-			localBoundingBoxOffset,
-			self._tiltRotate,
-			lastTargetMatrix,
-			self._draggerToolModel:shouldAlignDraggedObjects())
-
-		self:_analyticsRecordFreeformDragUpdate(dragTarget)
-
-		if dragTarget then
-			self._lastDragTarget = dragTarget
-			local originalCFrame = localBoundingBoxCFrame
-			local newCFrame = dragTarget.mainCFrame
-			local globalTransform = newCFrame * originalCFrame:Inverse()
-			self._partMover:transformTo(globalTransform)
-			self._attachmentMover:transformTo(globalTransform)
-			self._lastAppliedTransform = globalTransform
-			if self._draggerToolModel._draggerContext:shouldJoinSurfaces() then
-				self._jointPairs = self._partMover:computeJointPairs(globalTransform)
-			end
-		end
+		self:_updateGeometric()
 	end
 end
 
@@ -300,9 +249,7 @@ function FreeformDragger:_analyticsSendFreeformDragged()
 	self._dragAnalytics.wasAutoSelected = self._draggerToolModel:wasAutoSelected()
 	self._dragAnalytics.joinSurfaces = self._draggerContext:shouldJoinSurfaces()
 	self._dragAnalytics.useConstraints = self._draggerContext:areConstraintsEnabled()
-	if getFFlagEnablePhysicalFreeFormDragger() then
-		self._dragAnalytics.haveCollisions = self._draggerContext:areCollisionsEnabled()
-	end
+	self._dragAnalytics.haveCollisions = self._draggerContext:areCollisionsEnabled()
 	if getFFlagPivotAnalytics() then
 		self._dragAnalytics.pivotType = self._draggerToolModel:classifySelectionPivot()
 	end

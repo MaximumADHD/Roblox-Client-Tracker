@@ -15,6 +15,7 @@ return function()
 		["example"] = true,
 		["stories"] = true,
 		["style"] = true,
+		["types"] = true,
 	}
 
 	local function shouldHaveTests(targetScript)

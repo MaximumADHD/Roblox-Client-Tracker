@@ -12,6 +12,7 @@
 		string PlaceholderText: Placeholder text to show when there is no search term entered.
 		string SearchTerm: Search term to populate the text input with.
 		boolean ShowSearchButton: Whether to show the search button at the right of the bar (default true).
+		boolean ShowSearchIcon: Whether to show an in-line search icon at the left of the Search text (default false).
 		Style Style: The style with which to render this component.
 		StyleModifier StyleModifier: The StyleModifier index into Style.
 		Stylizer Stylizer: A Stylizer ContextItem, which is provided via mapToProps.
@@ -24,6 +25,10 @@
 		number TextSize: The font size of the text in this link.
 		Color3 TextColor: The color of the search term text.
 ]]
+game:DefineFastFlag("DevFrameworkShowSearchIcon", false)
+
+local FFlagDevFrameworkShowSearchIcon = game:GetFastFlag("DevFrameworkShowSearchIcon")
+
 local FFlagDevFrameworkFixSearchBarLayoutOrder = game:GetFastFlag("DevFrameworkFixSearchBarLayoutOrder")
 local FFlagDevFrameworkBasicMobileSupport = game:GetFastFlag("DevFrameworkBasicMobileSupport")
 
@@ -55,6 +60,7 @@ SearchBar.defaultProps = FFlagDevFrameworkFixSearchBarLayoutOrder and {
 	LayoutOrder = 0,
 	PlaceholderText = "Search",
 	ShowSearchButton = true,
+	ShowSearchIcon = false,
 } or {}
 
 function SearchBar:init()
@@ -211,13 +217,14 @@ function SearchBar:render()
 	local props = self.props
 	local state = self.state
 
-	local containerWidth,buttonWidth, layoutOrder, placeholderText, showSearchButton
+	local containerWidth,buttonWidth, layoutOrder, placeholderText, showSearchButton, showSearchIcon
 	if FFlagDevFrameworkFixSearchBarLayoutOrder then
 		containerWidth = props.Width
 		buttonWidth = props.ButtonWidth
 		layoutOrder = props.LayoutOrder
 		placeholderText = props.PlaceholderText
 		showSearchButton = props.ShowSearchButton
+		showSearchIcon = FFlagDevFrameworkShowSearchIcon and props.ShowSearchIcon
 	else
 		containerWidth = props.Width or 200
 		buttonWidth = props.ButtonWidth or 24
@@ -228,6 +235,8 @@ function SearchBar:render()
 		if showSearchButton == nil then
 			showSearchButton = true
 		end
+
+		showSearchIcon = FFlagDevFrameworkShowSearchIcon and props.ShowSearchIcon
 	end
 
 	local shouldFocus = state.shouldFocus
@@ -247,6 +256,9 @@ function SearchBar:render()
 	local padding = style.Padding
 	local backgroundStyle = style.BackgroundStyle
 	local borderColor = (isFocused or isHovered) and style.Hover.BorderColor or nil
+	local iconWidth = style.IconWidth
+	local iconColor = style.IconColor
+	local iconOffset = style.IconOffset
 
 	local leftPadding = type(padding) == "table" and padding.Left or padding
 	local topPadding = type(padding) == "table" and padding.Top or padding
@@ -255,16 +267,34 @@ function SearchBar:render()
 	local buttonSize = UDim2.new(0, buttonWidth, 1, 0)
 
 	local children = {
-		TextInput = Roact.createElement(TextInput, {
-			Position = UDim2.new(0, leftPadding, 0.5, 0),
-			Size = UDim2.new(1, -(buttonsWidth + (leftPadding * 2)), 1, -2*topPadding),
-			AnchorPoint = Vector2.new(0, 0.5),
-			PlaceholderText = placeholderText,
-			Text = text,
-			OnTextChanged = self.onTextChanged,
-			OnFocusGained = self.onTextBoxFocusGained,
-			OnFocusLost = self.onTextBoxFocusLost,
-			ShouldFocus = shouldFocus
+		Input = Roact.createElement(Pane, {
+			Layout = Enum.FillDirection.Horizontal,
+			HorizontalAlignment = Enum.HorizontalAlignment.Left,
+			Spacing = iconOffset,
+			Padding = iconOffset,
+		}, {
+			SearchIcon = showSearchIcon and Roact.createElement(Pane, {
+				Size = UDim2.fromOffset(iconWidth, iconWidth),
+				ScaleType = Enum.ScaleType.Fit,
+				LayoutOrder = 1,
+				Style = {
+					Image = style.SearchIcon,
+					Background = iconColor,
+				}
+			}),
+
+			TextInput = Roact.createElement(TextInput, {
+				Position = UDim2.new(0, leftPadding, 0.5, 0),
+				Size = UDim2.new(1, -(buttonsWidth + (leftPadding * 2)), 1, -2*topPadding),
+				AnchorPoint = Vector2.new(0, 0.5),
+				LayoutOrder = 2,
+				PlaceholderText = placeholderText,
+				Text = text,
+				OnTextChanged = self.onTextChanged,
+				OnFocusGained = self.onTextBoxFocusGained,
+				OnFocusLost = self.onTextBoxFocusLost,
+				ShouldFocus = shouldFocus
+			}),
 		}),
 
 		Buttons = Roact.createElement(Pane, {

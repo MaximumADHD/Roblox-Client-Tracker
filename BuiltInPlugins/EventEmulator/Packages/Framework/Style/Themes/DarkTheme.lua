@@ -9,6 +9,7 @@ return {
 	[StyleKey.ButtonText] = Colors.Gray_Light,
 	[StyleKey.ButtonHover] = Colors.lighter(Colors.Gray, 0.26),
 	[StyleKey.ButtonDisabled] = Colors.lighter(Colors.Black, 0.26),
+	[StyleKey.ButtonTextDisabled] = Color3.fromRGB(102, 102, 102),
 	[StyleKey.ButtonPressed] = Colors.lighter(Colors.Black, 0.16),
 	[StyleKey.ImageButtonBackground] = Colors.Gray_Mid,
 	[StyleKey.ImageButtonHover] = Colors.lighter(Colors.Gray_Mid, 0.26),

@@ -21,7 +21,7 @@ local ComponentSymbols = require(Style.ComponentSymbols)
 ]]
 local function makeTheme(componentsFolder: Folder, style: any?, baseTheme: any?)
 	return function(mock: boolean)
-		local theme = mock and StudioTheme.mock() or StudioTheme.new()
+		local theme = mock and StudioTheme.mock() or baseTheme or StudioTheme.new()
 		local componentStyles = collect(componentsFolder:GetChildren(), function(_, folder: Folder)
 			local style = folder:FindFirstChild("style")
 			if style then

@@ -12,6 +12,8 @@ local MoveHandleView = require(DraggerFramework.Components.MoveHandleView)
 
 local getEngineFeatureModelPivotVisual = require(DraggerFramework.Flags.getEngineFeatureModelPivotVisual)
 
+local getFFlagFoldersOverFragments = require(DraggerFramework.Flags.getFFlagFoldersOverFragments)
+
 local ALWAYS_ON_TOP = true
 
 local MoveHandles = {}
@@ -148,7 +150,11 @@ function MoveHandles:render(hoveredHandleId)
 		})
 	end
 
-	return Roact.createFragment(children)
+	if getFFlagFoldersOverFragments() then
+		return Roact.createElement("Folder", {}, children)
+	else
+		return Roact.createFragment(children)
+	end
 end
 
 function MoveHandles:mouseDown(mouseRay, handleId)
@@ -160,19 +166,17 @@ function MoveHandles:mouseDown(mouseRay, handleId)
 		self:_setupMoveAtCurrentBoundingBox(mouseRay)
 
 		local handleProps = self._handles[handleId]
-		local handleOffset, handleLength
-		local offsetDueToBoundingBox
 		if getEngineFeatureModelPivotVisual() then
-			handleOffset, handleLength =
+			local handleOffset, handleLength =
 				MoveHandleView.getHandleDimensionForScale(handleProps.Scale, self._props.Outset)
-			offsetDueToBoundingBox = -handleProps.OffsetInHandleSpace.Z
+			self._draggingHandleFrac = (self._startDistance - handleOffset) / handleLength
 		else
-			handleOffset, handleLength =
+			local handleOffset, handleLength =
 				MoveHandleView.getHandleDimensionForScale(handleProps.Scale)
-			offsetDueToBoundingBox = handleProps.AxisOffset
+			local offsetDueToBoundingBox = handleProps.AxisOffset
+			self._draggingHandleFrac =
+				(self._startDistance - handleOffset - offsetDueToBoundingBox) / handleLength
 		end
-		self._draggingHandleFrac =
-			(self._startDistance - handleOffset - offsetDueToBoundingBox) / handleLength
 	end
 
 	self._implementation:beginDrag(self._selectionWrapper:get(), self._selectionInfo)
@@ -239,24 +243,23 @@ function MoveHandles:_solveForAdjustedDistance(unadjustedDistance)
 		local baseCFrameAtDistance =
 			EngineFeatureModelPivotVisual and
 			(boundingBoxAtDistance * handleRotation * offsetInHandleSpace) or
-			(boundingBoxAtDistance * handleRotation *
-			CFrame.new(0, 0, -offsetDueToBoundingBox))
+			(boundingBoxAtDistance * handleRotation * CFrame.new(0, 0, -offsetDueToBoundingBox))
 		return self._draggerContext:getHandleScale(baseCFrameAtDistance.Position)
 	end
 
 	local function getHandleFracForDistance(distance)
 		local scale = getScaleForDistance(distance)
-		local handleOffset, handleLength
 		if EngineFeatureModelPivotVisual then
-			handleOffset, handleLength =
+			local handleOffset, handleLength =
 				MoveHandleView.getHandleDimensionForScale(scale, self._props.Outset)
+
+			local movementAmount = distance - self._startDistance
+			local handleTailInAxis = movementAmount + handleOffset
+
+			return (unadjustedDistance - handleTailInAxis) / handleLength
 		else
-			handleOffset, handleLength = MoveHandleView.getHandleDimensionForScale(scale)
-		end
-		local intoDist = unadjustedDistance - distance + self._startDistance
-		if EngineFeatureModelPivotVisual then
-			return (intoDist - handleOffset + offsetInHandleSpace.Z) / handleLength
-		else
+			local handleOffset, handleLength = MoveHandleView.getHandleDimensionForScale(scale)
+			local intoDist = unadjustedDistance - distance + self._startDistance
 			return (intoDist - handleOffset - offsetDueToBoundingBox) / handleLength
 		end
 	end
@@ -304,6 +307,49 @@ function MoveHandles:_solveForAdjustedDistance(unadjustedDistance)
 	return minPossibleDistance
 end
 
+function MoveHandles:_getSnappedDelta(delta)
+	local snapPoints
+	if self._implementation.getSnapPoints then
+		snapPoints = self._implementation:getSnapPoints()
+	end
+	if snapPoints then
+		local basePoint = (self._draggingOriginalBoundingBoxCFrame * self._basisOffset).Position
+		local axis = self._axis
+		local maxDistanceAlongAxis = -math.huge
+		local minDistanceAlongAxis = math.huge
+		local closenessToDelta = math.huge
+		local bestDistanceAlongAxis = math.huge
+		for _, point in ipairs(snapPoints) do
+			local dist = (point.Position - basePoint):Dot(axis)
+			maxDistanceAlongAxis = math.max(maxDistanceAlongAxis, dist)
+			minDistanceAlongAxis = math.min(minDistanceAlongAxis, dist)
+
+			local absDist = math.abs(dist - delta)
+			if absDist < closenessToDelta then
+				closenessToDelta = absDist
+				bestDistanceAlongAxis = dist
+			end
+		end
+		if delta > maxDistanceAlongAxis or delta < minDistanceAlongAxis then
+			-- Point is outside of the bounds of the snap points, use the grid
+			-- snap instead if it is closer than the snap point.
+			local gridSnappedDelta = self._draggerContext:snapToGridSize(delta)
+			local closenessToGrid = math.abs(gridSnappedDelta - delta)
+			if closenessToDelta < closenessToGrid then
+				return bestDistanceAlongAxis
+			else
+				return gridSnappedDelta
+			end
+		else
+			-- Point is within the bounds of the snap points, use the distance
+			-- to the closest snap point.
+			return bestDistanceAlongAxis
+		end
+	else
+		return self._draggerContext:snapToGridSize(delta)
+	end
+end
+
 function MoveHandles:mouseDrag(mouseRay)
 	local hasDistance, distance = self:_getDistanceAlongAxis(mouseRay)
 	if not hasDistance then
@@ -315,8 +361,13 @@ function MoveHandles:mouseDrag(mouseRay)
 	end
 
 	local delta = self:_solveForAdjustedDistance(distance) - self._startDistance
+	local snappedDelta
+	if getEngineFeatureModelPivotVisual() then
+		snappedDelta = self:_getSnappedDelta(delta)
+	else
+		snappedDelta = self._draggerContext:snapToGridSize(delta)
+	end
 
-	local snappedDelta = self._draggerContext:snapToGridSize(delta)
 
 	-- Let the implementation figure out what global transform can actually be
 	-- applied (because there may be collisions / constraints involved)
@@ -331,8 +382,9 @@ end
 
 function MoveHandles:mouseUp(mouseRay)
 	self._draggingHandleId = nil
-	self._implementation:endDrag()
+	local newSelectionInfoHint = self._implementation:endDrag()
 	self._schema.addUndoWaypoint(self._draggerContext, "Axis Move Selection")
+	return newSelectionInfoHint
 end
 
 function MoveHandles:_updateHandles()

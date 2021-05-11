@@ -8,8 +8,12 @@ local Roact = require(Library.Packages.Roact)
 local SelectionDot = require(DraggerFramework.Components.SelectionDot)
 local Math = require(DraggerFramework.Utility.Math)
 local SelectionWrapper = require(DraggerFramework.Utility.SelectionWrapper)
-local DerivedWorldState = require(DraggerFramework.Implementation.DerivedWorldState)
 local SelectionHelper = require(DraggerFramework.Utility.SelectionHelper)
+local classifyPivot = require(DraggerFramework.Utility.classifyPivot)
+
+local getFFlagFoldersOverFragments = require(DraggerFramework.Flags.getFFlagFoldersOverFragments)
+local getFFlagDraggerPerf = require(DraggerFramework.Flags.getFFlagDraggerPerf)
+local getFFlagPivotAnalytics = require(DraggerFramework.Flags.getFFlagPivotAnalytics)
 
 local DraggerToolModel = {}
 DraggerToolModel.__index = DraggerToolModel
@@ -118,14 +122,23 @@ end
 function DraggerToolModel:render()
 	local selection = self._selectionWrapper:get()
 
-	local coreGuiContent = {}
+	
+	if getFFlagFoldersOverFragments() then
+		return Roact.createElement(Roact.Portal, {
+			target = self._draggerContext:getGuiParent(),
+		}, {
+			DraggerUI = Roact.createElement("Folder", {}, self._stateObject:render()),
+		})
+	else
+		local coreGuiContent = {}
 
-	-- State specific rendering code
-	coreGuiContent.StateSpecificUI = self._stateObject:render()
-
-	return Roact.createElement(Roact.Portal, {
-		target = self._draggerContext:getGuiParent(),
-	}, coreGuiContent)
+		-- State specific rendering code
+		coreGuiContent.StateSpecificUI = self._stateObject:render()
+		
+		return Roact.createElement(Roact.Portal, {
+			target = self._draggerContext:getGuiParent(),
+		}, coreGuiContent)
+	end
 end
 
 -- Called every frame on render step
@@ -207,8 +220,32 @@ function DraggerToolModel:selectNextSelectables(dragInfo, isDoubleClick)
 			SelectionHelper.updateSelectionWithMultipleSelectables(
 				nextSelectables, oldSelection, shouldXorSelection, shouldExtendSelection)
 		self._selectionWrapper:set(newSelection)
+		if getFFlagDraggerPerf() then
+			self:_updateSelectionInfo()
+		end
 	end
-	self:_updateSelectionInfo()
+	if not getFFlagDraggerPerf() then
+		self:_updateSelectionInfo()
+	end
+end
+
+--[[
+Tries to boil what the pivot for the current selection is set to down to a
+single descriptive analytics value as a string. Possible return values:
+	- None: There is no selection
+	- Default: The pivot is at the center of the bounds
+	- Inside: The pivot is within (but not exactly on) the bounds
+	- Surface: The pivot is exactly on the surface of the bounds
+	- Outside: The pivot is outside of the bounds
+	- Far: The pivot is very far outside the bounds (more than one size away)
+]]
+function DraggerToolModel:classifySelectionPivot()
+	if not self._selectionInfo then
+		return "None"
+	end
+
+	local cframe, offset, size = self._selectionInfo:getBoundingBox()
+	return classifyPivot(cframe, offset, size)
 end
 
 function DraggerToolModel:_processSelected()
@@ -335,9 +372,13 @@ function DraggerToolModel:_processPartBoundsChanged(part)
 	self:_processSelectionChanged()
 end
 
-function DraggerToolModel:_updateSelectionInfo()
-	self._selectionInfo = self._draggerSchema.SelectionInfo.new(
-		self._draggerContext, self._selectionWrapper:get())
+function DraggerToolModel:_updateSelectionInfo(newSelectionInfoHint)
+	if getFFlagDraggerPerf() and newSelectionInfoHint then
+		self._selectionInfo = newSelectionInfoHint
+	else
+		self._selectionInfo = self._draggerSchema.SelectionInfo.new(
+			self._draggerContext, self._selectionWrapper:get())
+	end
 	self._boundsChangedTracker:setSelection(self._selectionInfo)
 
 	self:_scheduleRender()
@@ -445,7 +486,7 @@ function DraggerToolModel:_analyticsRecordFreeformDragBegin(timeToStartDrag)
 	self._draggerContext:getAnalytics():reportStats(dragStartTimeName, timeToStartDrag)
 end
 
-function DraggerToolModel:_analyticsSendHandleDragged()
+function DraggerToolModel:_analyticsSendHandleDragged(handleId)
 	self._draggerContext:getAnalytics():sendEvent("handleDragged", {
 		toolName = self._modelProps.AnalyticsName,
 		wasAutoSelected = false, -- For consistency with other events
@@ -455,6 +496,8 @@ function DraggerToolModel:_analyticsSendHandleDragged()
 		joinSurfaces = self._draggerContext:shouldJoinSurfaces(),
 		useConstraints = self._draggerContext:areConstraintsEnabled(),
 		haveCollisions = self._draggerContext:areCollisionsEnabled(),
+		pivotType = getFFlagPivotAnalytics() and self:classifySelectionPivot() or nil,
+		handleId = getFFlagPivotAnalytics() and handleId or nil,
 	})
 end
 

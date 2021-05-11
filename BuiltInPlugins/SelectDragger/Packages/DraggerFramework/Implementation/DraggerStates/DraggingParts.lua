@@ -94,11 +94,11 @@ end
 	and return to the Ready state.
 ]]
 function DraggingParts:_endFreeformSelectionDrag()
-	self._freeformDragger:destroy()
+	local newSelectionInfoHint = self._freeformDragger:destroy()
 
 	self._draggerToolModel._boundsChangedTracker:install()
 
-	self._draggerToolModel:_updateSelectionInfo()
+	self._draggerToolModel:_updateSelectionInfo(newSelectionInfoHint)
 
 	self._draggerToolModel:transitionToState(DraggerStateType.Ready)
 

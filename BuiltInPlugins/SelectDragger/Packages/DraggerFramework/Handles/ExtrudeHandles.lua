@@ -13,8 +13,8 @@ local Math = require(DraggerFramework.Utility.Math)
 local StandaloneSelectionBox = require(DraggerFramework.Components.StandaloneSelectionBox)
 local ScaleHandleView = require(DraggerFramework.Components.ScaleHandleView)
 
-local EngineFeatureEditPivot = require(DraggerFramework.Flags.getEngineFeatureEditPivot)()
-local getFFlagNoSnapLimit = require(DraggerFramework.Flags.getFFlagNoSnapLimit)
+local getEngineFeatureModelPivotVisual = require(DraggerFramework.Flags.getEngineFeatureModelPivotVisual)
+local getFFlagFoldersOverFragments = require(DraggerFramework.Flags.getFFlagFoldersOverFragments)
 
 local ExtrudeHandle = {}
 ExtrudeHandle.__index = ExtrudeHandle
@@ -58,11 +58,6 @@ local ScaleHandleDefinitions = {
 	},
 }
 
-local function snapToGrid(distance, gridSize)
-	assert(not getFFlagNoSnapLimit())
-	return math.floor(distance / gridSize + 0.5) * gridSize
-end
-
 local function nextNormalId(normalId)
 	return normalId % 3 + 1
 end
@@ -88,7 +83,7 @@ function ExtrudeHandle:update(draggerToolModel, selectionInfo)
 
 		local cframe, offset, size = self._implementation:getBoundingBox(
 			self._selectionWrapper:get(), self._selectionInfo)
-		if EngineFeatureEditPivot then
+		if getEngineFeatureModelPivotVisual() then
 			self._basisOffset = CFrame.new(-offset) -- negative since relative to bounding box
 		end
 		self._boundingBox = {
@@ -103,14 +98,28 @@ function ExtrudeHandle:shouldBiasTowardsObjects()
 	return true
 end
 
+function ExtrudeHandle:_rememberCurrentBoundsAsOriginal()
+	self._originalBoundingBoxSize = self._boundingBox.Size
+	self._originalBoundingBoxCFrame = self._boundingBox.CFrame
+	self._originalBasisOffset = self._basisOffset.Position
+	local axis = self._handles[self._draggingHandleId].Axis
+	local perpendicularMovement = self._originalBasisOffset
+	perpendicularMovement = perpendicularMovement - axis * perpendicularMovement:Dot(axis)
+	self._perpendicularMovement = perpendicularMovement
+end
+
 -- Called when the settings we're using to drag change (when we press/release
 -- the key(s) for resize from center / maintain aspect ratio)
 function ExtrudeHandle:_refreshDrag()
 	self._committedDeltaSize = self._lastDeltaSize
 	self._committedOffset = self._lastOffset
 
-	self._originalBoundingBoxSize = self._boundingBox.Size
-	self._originalBoundingBoxCFrame = self._boundingBox.CFrame
+	if getEngineFeatureModelPivotVisual() then
+		self:_rememberCurrentBoundsAsOriginal()
+	else
+		self._originalBoundingBoxSize = self._boundingBox.Size
+		self._originalBoundingBoxCFrame = self._boundingBox.CFrame
+	end
 
 	-- The edge case where you rotate your camera exactly into alignment with
 	-- the axis you started the drag on and then press Ctrl will act a bit weird
@@ -237,7 +246,11 @@ function ExtrudeHandle:render(hoveredHandleId)
 		})
 	end
 
-	return Roact.createFragment(children)
+	if getFFlagFoldersOverFragments() then
+		return Roact.createElement("Folder", {}, children)
+	else
+		return Roact.createFragment(children)
+	end
 end
 
 function ExtrudeHandle:mouseDown(mouseRay, handleId)
@@ -246,14 +259,11 @@ function ExtrudeHandle:mouseDown(mouseRay, handleId)
 	if self._handles[handleId] then
 		self._normalId = self._handles[handleId].NormalId
 		self._handleCFrame = self._handles[handleId].HandleCFrame
-		self._originalBoundingBoxCFrame = self._boundingBox.CFrame
-		self._originalBoundingBoxSize = self._boundingBox.Size
-		if EngineFeatureEditPivot then
-			self._originalBasisOffset = self._basisOffset.Position
-			local axis = self._handles[handleId].Axis
-			local perpendicularMovement = self._originalBasisOffset
-			perpendicularMovement = perpendicularMovement - axis * perpendicularMovement:Dot(axis)
-			self._perpendicularMovement = perpendicularMovement
+		if getEngineFeatureModelPivotVisual() then
+			self:_rememberCurrentBoundsAsOriginal()
+		else
+			self._originalBoundingBoxCFrame = self._boundingBox.CFrame
+			self._originalBoundingBoxSize = self._boundingBox.Size
 		end
 
 		self._lastKeepAspectRatio, self._lastResizeFromCenter = self:_getExtrudeMode()
@@ -314,12 +324,7 @@ function ExtrudeHandle:mouseDrag(mouseRay)
 		return
 	end
 
-	local delta
-	if getFFlagNoSnapLimit() then
-		delta = self._draggerContext:snapToGridSize(distance - self._startDistance)
-	else
-		delta = snapToGrid(distance - self._startDistance, self._draggerContext:getGridSize())
-	end
+	local delta = self._draggerContext:snapToGridSize(distance - self._startDistance)
 	local handleProps = self._handles[self._draggingHandleId]
 	local normalId = handleProps.NormalId
 	local axis = handleProps.Axis
@@ -333,7 +338,7 @@ function ExtrudeHandle:mouseDrag(mouseRay)
 	end
 
 	-- Add the movement thanks to an offset center
-	if EngineFeatureEditPivot then
+	if getEngineFeatureModelPivotVisual() then
 		local sizeComponents = {self._originalBoundingBoxSize.X, self._originalBoundingBoxSize.Y, self._originalBoundingBoxSize.Z}
 		local ratio = delta / sizeComponents[normalId]
 		localOffset = localOffset - self._perpendicularMovement * ratio
@@ -375,7 +380,7 @@ function ExtrudeHandle:mouseDrag(mouseRay)
 		self._implementation:updateScale(deltaSizeToApply, localOffsetToApply)
 	self._boundingBox.CFrame = self._originalBoundingBoxCFrame * CFrame.new(self._lastOffset - self._committedOffset)
 	self._boundingBox.Size = originalSize + (self._lastDeltaSize - self._committedDeltaSize)
-	if EngineFeatureEditPivot then
+	if getEngineFeatureModelPivotVisual() then
 		self._basisOffset =
 			CFrame.new(self._originalBasisOffset / self._originalBoundingBoxSize * self._boundingBox.Size)
 	end
@@ -393,7 +398,7 @@ end
 
 function ExtrudeHandle:_getDistanceAlongAxis(mouseRay)
 	local axis = self._handleCFrame.LookVector
-	if EngineFeatureEditPivot then
+	if getEngineFeatureModelPivotVisual() then
 		return Math.intersectRayRay(
 			(self._originalBoundingBoxCFrame * CFrame.new(self._originalBasisOffset)).Position, axis,
 			mouseRay.Origin, mouseRay.Direction.Unit)
@@ -411,7 +416,7 @@ function ExtrudeHandle:_updateHandles()
 			-- Offset the handle's base position by the size of the bounding
 			-- box on that handle's axis.
 			local offset = handleDefinition.Offset
-			if EngineFeatureEditPivot then
+			if getEngineFeatureModelPivotVisual() then
 				local inverseHandleCFrame = offset:Inverse()
 				local localSize = inverseHandleCFrame:VectorToWorldSpace(self._boundingBox.Size)
 				local offsetDueToBoundingBox = 0.5 * math.abs(localSize.Z)

@@ -7,7 +7,6 @@ local DraggerFramework = Packages.DraggerFramework
 local shouldDragAsFace = require(DraggerFramework.Utility.shouldDragAsFace)
 
 local getEngineFeatureModelPivotApi = require(DraggerFramework.Flags.getEngineFeatureModelPivotApi)
-local getEngineFeatureModelPivotVisual = require(DraggerFramework.Flags.getEngineFeatureModelPivotVisual)
 
 local function computeBoundingBox(basisCFrame, allParts, allAttachments)
 	local inverseBasis = basisCFrame:Inverse()
@@ -262,7 +261,7 @@ local function computeInfo(draggerContext, selectedObjects)
 	end
 
 	-- Look for a pivot
-	if getEngineFeatureModelPivotVisual() and basisObject then
+	if EngineFeatureModelPivotApi and basisObject then
 		local specialIgnore =
 			draggerContext.ScaleToolSpecialCaseIgnorePivotWithSinglePartSelected and
 			#selectedObjects == 1 and
@@ -279,9 +278,17 @@ local function computeInfo(draggerContext, selectedObjects)
 	-- be used as a basis if there aren't any parts to go off of.
 	if not basisCFrame then
 		if #allAttachments > 0 then
-			basisCFrame = allAttachments[1].WorldCFrame
+			if EngineFeatureModelPivotApi then
+				basisCFrame = allAttachments[#allAttachments].WorldCFrame
+			else
+				basisCFrame = allAttachments[1].WorldCFrame
+			end
 		elseif #allBones > 0 then
-			basisCFrame = allBones[1].WorldCFrame
+			if EngineFeatureModelPivotApi then
+				basisCFrame = allBones[#allBones].WorldCFrame
+			else
+				basisCFrame = allBones[1].WorldCFrame
+			end
 		else
 			basisCFrame = CFrame.new()
 		end
@@ -429,6 +436,26 @@ SelectionInfo.__index = SelectionInfo
 
 function SelectionInfo.new(draggerContext, selection)
 	return setmetatable(computeInfo(draggerContext, selection), SelectionInfo)
+end
+
+--[[
+	Core schema specific
+	Used to optimize dragger performance, returns a new SelectionInfo which
+	is the same as this SelectionInfo, but transformed by a world transform.
+]]
+function SelectionInfo:getTransformedCopy(globalTransform)
+	local copy = {}
+	for k, v in pairs(self) do
+		copy[k] = v
+	end
+	copy.basisCFrame = globalTransform * copy.basisCFrame
+	copy.localBasisCFrame = globalTransform * copy.localBasisCFrame
+	local transformedOriginalCFrames = {}
+	for k, cframe in pairs(copy.originalCFrameMap) do
+		transformedOriginalCFrames[k] = globalTransform * cframe
+	end
+	copy.originalCFrameMap = transformedOriginalCFrames
+	return setmetatable(copy, SelectionInfo)
 end
 
 function SelectionInfo:isEmpty()

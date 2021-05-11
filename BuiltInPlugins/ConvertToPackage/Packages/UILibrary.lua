@@ -2,8 +2,6 @@
 	Public interface for UILibrary
 ]]
 
-local FFlagEnableToolboxVideos = game:GetFastFlag("EnableToolboxVideos")
-
 local Src = script._internal
 local Components = Src.Components
 local Utils = Src.Utils
@@ -23,7 +21,6 @@ local ExpandableList = require(Components.ExpandableList)
 local Favorites = require(Components.Preview.Favorites)
 local ImagePreview = require(Components.Preview.ImagePreview)
 local AudioPreview = require(Components.Preview.AudioPreview)
-local AudioControl = FFlagEnableToolboxVideos and nil or require(Components.Preview.AudioControl)
 local InfiniteScrollingFrame = require(Components.InfiniteScrollingFrame)
 local LoadingBar = require(Components.LoadingBar)
 local LoadingIndicator = require(Components.LoadingIndicator)
@@ -113,7 +110,6 @@ local UILibrary = createStrictTable({
 		Favorites = Favorites,
 		ImagePreview = ImagePreview,
 		AudioPreview = AudioPreview,
-		AudioControl = AudioControl,
 		ModelPreview = ModelPreview,
 		PreviewController = PreviewController,
 		ThumbnailIconPreview = ThumbnailIconPreview,

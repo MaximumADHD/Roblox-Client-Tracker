@@ -3,8 +3,6 @@ local Workspace = game:GetService("Workspace")
 local getSelectableWithCache = require(script.Parent.getSelectableWithCache)
 local shouldSelectSubPart = require(script.Parent.shouldSelectSubPart)
 
-local getFFlagEnablePhysicalFreeFormDragger = require(script.Parent.Parent.DraggerFramework.Flags.getFFlagEnablePhysicalFreeFormDragger)
-
 return function(draggerContext, mouseRay, currentSelection)
 	local shouldDrillSelection = shouldSelectSubPart(draggerContext)
 

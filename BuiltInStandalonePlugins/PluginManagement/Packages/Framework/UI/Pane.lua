@@ -10,6 +10,7 @@
 		Spacing: An optional number or UDim to space elements out by.
 		HorizontalAlignment: Property on UIListLayout
 		VerticalAlignment: Property on UIListLayout
+		callback OnPress: Triggered when the user clicks or taps on this component.
 	Styles:
 		Default: The pane has no background
 		Box: The pane has the current theme's main background.
@@ -19,6 +20,7 @@
 local Framework = script.Parent.Parent
 local ContextServices = require(Framework.ContextServices)
 local Roact = require(Framework.Parent.Roact)
+local isInputMainPress = require(Framework.Util.isInputMainPress)
 
 local Dash = require(Framework.packages.Dash)
 local assign = Dash.assign
@@ -31,6 +33,14 @@ Pane.defaultProps = {
 	HorizontalAlignment = Enum.HorizontalAlignment.Center,
 	VerticalAlignment = Enum.VerticalAlignment.Center,
 }
+
+function Pane:init()
+	self.onPress = function(_, input)
+		if isInputMainPress(input) then
+			self.props.OnPress(input)
+		end
+	end
+end
 
 function Pane:render()
 	local props = self.props
@@ -63,6 +73,10 @@ function Pane:render()
 			VerticalAlignment = props.VerticalAlignment,
 			Padding = spacing,
 		})
+	end
+
+	if props.OnPress then
+		props[Roact.Event.InputBegan] = self.onPress
 	end
 
 	local automaticSize = props.AutomaticSize
@@ -123,6 +137,7 @@ function Pane:render()
 		"Stylizer",
 		"HorizontalAlignment",
 		"VerticalAlignment",
+		"OnPress",
 	})
 
 	return Roact.createElement(className, componentProps, children)

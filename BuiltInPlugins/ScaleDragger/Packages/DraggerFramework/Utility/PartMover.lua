@@ -10,7 +10,8 @@ local getGeometry = require(DraggerFramework.Utility.getGeometry)
 local JointPairs = require(DraggerFramework.Utility.JointPairs)
 local JointUtil = require(DraggerFramework.Utility.JointUtil)
 
-local getFFlagEnablePhysicalFreeFormDragger = require(DraggerFramework.Flags.getFFlagEnablePhysicalFreeFormDragger)
+local getFFlagDraggerPerf = require(DraggerFramework.Flags.getFFlagDraggerPerf)
+local FFlagDraggerPerf = getFFlagDraggerPerf()
 
 local getEngineFeatureModelPivotApi = require(DraggerFramework.Flags.getEngineFeatureModelPivotApi)
 
@@ -84,11 +85,15 @@ function PartMover:setDragged(parts, originalCFrameMap, breakJoints, customCente
 	self:_initPartSet(parts)
 	self._customCenter = customCenter or Vector3.new()
 	self:_prepareJoints(parts, breakJoints)
-	-- setupGeometryTracking has to come after prepareJoints, because the
-	-- RootPart tracking it does should take into account the
-	-- modifications to joints which prepareJoints did. Same thing with
-	-- setupBulkMove (it cares about assemblies)
-	self:_setupGeometryTracking(self._workspaceParts)
+	if FFlagDraggerPerf then
+		self._hasSetupGeometryTracking = false
+	else
+		-- setupGeometryTracking has to come after prepareJoints, because the
+		-- RootPart tracking it does should take into account the
+		-- modifications to joints which prepareJoints did. Same thing with
+		-- setupBulkMove (it cares about assemblies)
+		self:_setupGeometryTracking(self._workspaceParts)
+	end
 	self:_setupBulkMove(parts, getSelectedInstanceSet(selection))
 
 	if getEngineFeatureModelPivotApi() then
@@ -193,7 +198,9 @@ function PartMover:_setupGeometryTracking(parts)
 		-- We have to track the roots separately, because some of the root parts
 		-- of the dragged parts may not be in the set of dragged parts.
 		self._rootPartSet[part:GetRootPart()] = true
-		self:_getGeometry(part)
+		if not FFlagDraggerPerf then
+			self:_getGeometry(part)
+		end
 	end
 end
 
@@ -239,18 +246,13 @@ end
 function PartMover:_prepareJoints(parts, breakJoints)
 	self._reenableWeldConstraints = {}
 	self._alreadyConnectedToSets = {}
-	local debugTotalDestroyed = 0
-	local debugTotalFoundJoints = 0
 	for _, part in ipairs(parts) do
 		self._alreadyConnectedToSets[part] = {}
 		for _, joint in ipairs(part:GetJoints()) do
 			if joint:IsA("JointInstance") then
 				local other = JointUtil.getJointInstanceCounterpart(joint, part)
 				if breakJoints then
-					debugTotalFoundJoints = debugTotalFoundJoints + 1
 					if not self._partSet[other] then
-						debugTotalDestroyed = debugTotalDestroyed + 1
-
 						-- We can't destroy these, otherwise Undo behavior
 						-- won't be able to put them back in the workspace.
 						joint.Parent = nil
@@ -274,17 +276,7 @@ function PartMover:_prepareJoints(parts, breakJoints)
 				local other = JointUtil.getWeldConstraintCounterpart(joint, part)
 				self._alreadyConnectedToSets[part][other] = true
 
-				if getFFlagEnablePhysicalFreeFormDragger() then
-					if breakJoints then
-						-- Weld constraints to non-dragged parts need to be disabled,
-						-- and then re-enabled after the move. Note: To show up in
-						-- GetJoints, this weld must have been enabled.
-						if not self._partSet[other] then
-							joint.Enabled = false
-							self._reenableWeldConstraints[joint] = true
-						end
-					end
-				else
+				if breakJoints then
 					-- Weld constraints to non-dragged parts need to be disabled,
 					-- and then re-enabled after the move. Note: To show up in
 					-- GetJoints, this weld must have been enabled.
@@ -328,10 +320,20 @@ end
 function PartMover:computeJointPairs(globalTransform)
 	assert(self._moving)
 
+	if FFlagDraggerPerf and not self._hasSetupGeometryTracking then
+		self:_setupGeometryTracking(self._workspaceParts)
+	end
+
 	local jointPairs = JointPairs.new(self._parts, self._partSet, self._rootPartSet,
 		globalTransform,
 		self._alreadyConnectedToSets, function(part)
-			return self:_getGeometry(part)
+			-- Note, the part may not be in originalCFrameMap, in which case
+			-- assumedCFrame = nil, which is the correct value for that case.
+			local assumedCFrame
+			if FFlagDraggerPerf then
+				assumedCFrame = self._originalCFrameMap[part]
+			end
+			return self:_getGeometry(part, assumedCFrame)
 		end)
 
 	if RunService:IsRunning() then
@@ -342,8 +344,10 @@ function PartMover:computeJointPairs(globalTransform)
 end
 
 function PartMover:_transformModelPivots(globalTransform)
-	for model, originalPivot in pairs(self._originalModelPivotMap) do
-		model.WorldPivot = globalTransform * originalPivot
+	if self._originalModelPivotMap then
+		for model, originalPivot in pairs(self._originalModelPivotMap) do
+			model.WorldPivot = globalTransform * originalPivot
+		end
 	end
 end
 
@@ -483,10 +487,10 @@ local function augmentGeometry(geometry)
 	-- optimizations we will probably want to precompute some things in here.
 end
 
-function PartMover:_getGeometry(part)
+function PartMover:_getGeometry(part, assumedCFrame)
 	local geometry = self._nearbyGeometry[part]
 	if not geometry then
-		geometry = getGeometry(part, Vector3.new())
+		geometry = getGeometry(part, Vector3.new(), assumedCFrame)
 		self._nearbyGeometry[part] = geometry
 		augmentGeometry(geometry)
 	end

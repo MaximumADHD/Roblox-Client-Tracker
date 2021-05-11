@@ -5,8 +5,6 @@ local Math = require(DraggerFramework.Utility.Math)
 local getGeometry = require(DraggerFramework.Utility.getGeometry)
 local roundRotation = require(DraggerFramework.Utility.roundRotation)
 
-local getFFlagDragDecalOntoTerrain = require(DraggerFramework.Flags.getFFlagDragDecalOntoTerrain)
-
 local PrimaryDirections = {
 	Vector3.new(1, 0, 0),
 	Vector3.new(-1, 0, 0),
@@ -143,7 +141,7 @@ function DragHelper.getPartAndSurface(mouseRay)
 	
 	local closestFace, _
 	if part then
-		if getFFlagDragDecalOntoTerrain() and part:IsA("Terrain") then
+		if part:IsA("Terrain") then
 			-- Terrain doesn't have Primary Axis based surfaces to return
 			return part, nil
 		end

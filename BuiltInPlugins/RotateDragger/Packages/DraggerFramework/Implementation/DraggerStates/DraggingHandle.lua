@@ -2,6 +2,8 @@ local DraggerFramework = script.Parent.Parent.Parent
 local DraggerStateType = require(DraggerFramework.Implementation.DraggerStateType)
 local StandardCursor = require(DraggerFramework.Utility.StandardCursor)
 
+local getEngineFeatureModelPivotVisual = require(DraggerFramework.Flags.getEngineFeatureModelPivotVisual)
+
 local DraggingHandle = {}
 DraggingHandle.__index = DraggingHandle
 
@@ -60,6 +62,9 @@ function DraggingHandle:processKeyDown(keyCode)
 		if self._draggingHandles:keyDown(keyCode) then
 			-- Update the drag
 			self:processViewChanged()
+			if getEngineFeatureModelPivotVisual() then
+				self._draggerToolModel:_scheduleRender()
+			end
 		end
 	end
 end
@@ -69,15 +74,18 @@ function DraggingHandle:processKeyUp(keyCode)
 		if self._draggingHandles:keyUp(keyCode) then
 			-- Update the drag
 			self:processViewChanged()
+			if getEngineFeatureModelPivotVisual() then
+				self._draggerToolModel:_scheduleRender()
+			end
 		end
 	end
 end
 
 function DraggingHandle:_endHandleDrag()
 	-- Commit the results of using the tool
-	self._draggingHandles:mouseUp(
+	local newSelectionInfoHint = self._draggingHandles:mouseUp(
 		self._draggerToolModel._draggerContext:getMouseRay())
-	self._draggerToolModel:_updateSelectionInfo() -- Since the selection has been edited by Implementation
+	self._draggerToolModel:_updateSelectionInfo(newSelectionInfoHint) -- Since the selection has been edited by Implementation
 
 	self._draggerToolModel._boundsChangedTracker:install()
 
@@ -85,7 +93,7 @@ function DraggingHandle:_endHandleDrag()
 		self._draggerToolModel._draggerContext,
 		self._draggerToolModel._selectionInfo)
 
-	self._draggerToolModel:_analyticsSendHandleDragged()
+	self._draggerToolModel:_analyticsSendHandleDragged(self._draggingHandleId)
 end
 
 return DraggingHandle

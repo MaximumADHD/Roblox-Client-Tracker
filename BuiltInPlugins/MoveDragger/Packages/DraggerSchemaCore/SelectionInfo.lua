@@ -438,6 +438,26 @@ function SelectionInfo.new(draggerContext, selection)
 	return setmetatable(computeInfo(draggerContext, selection), SelectionInfo)
 end
 
+--[[
+	Core schema specific
+	Used to optimize dragger performance, returns a new SelectionInfo which
+	is the same as this SelectionInfo, but transformed by a world transform.
+]]
+function SelectionInfo:getTransformedCopy(globalTransform)
+	local copy = {}
+	for k, v in pairs(self) do
+		copy[k] = v
+	end
+	copy.basisCFrame = globalTransform * copy.basisCFrame
+	copy.localBasisCFrame = globalTransform * copy.localBasisCFrame
+	local transformedOriginalCFrames = {}
+	for k, cframe in pairs(copy.originalCFrameMap) do
+		transformedOriginalCFrames[k] = globalTransform * cframe
+	end
+	copy.originalCFrameMap = transformedOriginalCFrames
+	return setmetatable(copy, SelectionInfo)
+end
+
 function SelectionInfo:isEmpty()
 	return #self.parts == 0 and #self.attachments == 0
 end

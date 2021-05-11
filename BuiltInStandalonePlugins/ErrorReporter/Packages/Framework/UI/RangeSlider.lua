@@ -47,7 +47,11 @@ RangeSlider.defaultProps = {
 	VerticalDragTolerance = 300,
 }
 
-local function isUserInputTypeClick(inputType)
+local FFlagDevFrameworkBasicMobileSupport = game:GetFastFlag("DevFrameworkBasicMobileSupport")
+local isInputMainPress = Util.isInputMainPress
+
+-- TODO FFlagDevFrameworkBasicMobileSupport: Remove this helper on retire
+local function DEPRECATED_isUserInputTypeClick(inputType)
 	return (inputType == Enum.UserInputType.Touch) or (inputType == Enum.UserInputType.MouseButton1)
 end
 
@@ -129,10 +133,14 @@ function RangeSlider:init()
 	end
 
 	self.onInputBegan = function(rbx, input)
+		local isMainPress = DEPRECATED_isUserInputTypeClick(input.UserInputType)
+		if FFlagDevFrameworkBasicMobileSupport then
+			isMainPress = isInputMainPress(input)
+		end
 		if self.props.Disabled then
 			return
 
-		elseif isUserInputTypeClick(input.UserInputType) then
+		elseif isMainPress then
 			self:setState({
 				pressed = true,
 			})
@@ -150,7 +158,11 @@ function RangeSlider:init()
 	end
 
 	self.onInputEnded = function(rbx, input)
-		if not self.props.Disabled and isUserInputTypeClick(input.UserInputType) then
+		local isMainPress = DEPRECATED_isUserInputTypeClick(input.UserInputType)
+		if FFlagDevFrameworkBasicMobileSupport then
+			isMainPress = isInputMainPress(input)
+		end
+		if not self.props.Disabled and isMainPress then
 			self:setState({
 				pressed = false,
 			})
