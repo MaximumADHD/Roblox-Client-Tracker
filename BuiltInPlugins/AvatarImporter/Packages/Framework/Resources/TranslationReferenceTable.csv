@@ -1,0 +1,9 @@
+Key,Source,en-us
+Studio.Framework.AssetPreview.Resolution,Resolution,Resolution
+Studio.Framework.AssetPreview.Creator,Creator,Creator
+Studio.Framework.Favorites.FlooredCountInThousands,{count:int}k+,{count:int}k+
+Studio.Framework.AssetPreview.Created,Created,Created
+Studio.Framework.AssetPreview.LastUpdated,Last Updated,Last Updated
+Studio.Framework.VoteBar.VoteCount,{count:int} VOTES,{count:int} VOTES
+Studio.Framework.AssetPreview.AllGenre,All,All
+Studio.Framework.AssetPreview.Genre,Genre,Genre
