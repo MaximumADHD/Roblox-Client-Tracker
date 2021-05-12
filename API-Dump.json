@@ -14234,36 +14234,6 @@
                 },
                 {
                     "MemberType": "Function",
-                    "Name": "GetDataFromEmptyScopeDataStoreAsyncTemporary",
-                    "Parameters": [
-                        {
-                            "Name": "name",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "string"
-                            }
-                        },
-                        {
-                            "Name": "key",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "string"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "Group",
-                        "Name": "Variant"
-                    },
-                    "Security": "None",
-                    "Tags": [
-                        "Yields",
-                        "Deprecated"
-                    ],
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Function",
                     "Name": "ListDataStoresAsync",
                     "Parameters": [
                         {
@@ -37062,6 +37032,10 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
+                    "Tags": [
+                        "Hidden",
+                        "Deprecated"
+                    ],
                     "ThreadSafety": "ReadOnly",
                     "ValueType": {
                         "Category": "Primitive",
@@ -37080,6 +37054,10 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
+                    "Tags": [
+                        "Hidden",
+                        "Deprecated"
+                    ],
                     "ThreadSafety": "ReadOnly",
                     "ValueType": {
                         "Category": "Primitive",
@@ -37116,6 +37094,10 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
+                    "Tags": [
+                        "Hidden",
+                        "Deprecated"
+                    ],
                     "ThreadSafety": "ReadOnly",
                     "ValueType": {
                         "Category": "Enum",
@@ -37134,6 +37116,10 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
+                    "Tags": [
+                        "Hidden",
+                        "Deprecated"
+                    ],
                     "ThreadSafety": "ReadOnly",
                     "ValueType": {
                         "Category": "Primitive",
@@ -37152,6 +37138,10 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
+                    "Tags": [
+                        "Hidden",
+                        "Deprecated"
+                    ],
                     "ThreadSafety": "ReadOnly",
                     "ValueType": {
                         "Category": "Primitive",
@@ -37188,6 +37178,10 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
+                    "Tags": [
+                        "Hidden",
+                        "Deprecated"
+                    ],
                     "ThreadSafety": "ReadOnly",
                     "ValueType": {
                         "Category": "Enum",
@@ -37424,6 +37418,10 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
+                    "Tags": [
+                        "Hidden",
+                        "Deprecated"
+                    ],
                     "ThreadSafety": "ReadOnly",
                     "ValueType": {
                         "Category": "Primitive",
@@ -37442,6 +37440,10 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
+                    "Tags": [
+                        "Hidden",
+                        "Deprecated"
+                    ],
                     "ThreadSafety": "ReadOnly",
                     "ValueType": {
                         "Category": "Primitive",
@@ -37478,6 +37480,10 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
+                    "Tags": [
+                        "Hidden",
+                        "Deprecated"
+                    ],
                     "ThreadSafety": "ReadOnly",
                     "ValueType": {
                         "Category": "Enum",
@@ -37496,6 +37502,10 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
+                    "Tags": [
+                        "Hidden",
+                        "Deprecated"
+                    ],
                     "ThreadSafety": "ReadOnly",
                     "ValueType": {
                         "Category": "Primitive",
@@ -37514,6 +37524,10 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
+                    "Tags": [
+                        "Hidden",
+                        "Deprecated"
+                    ],
                     "ThreadSafety": "ReadOnly",
                     "ValueType": {
                         "Category": "Primitive",
@@ -37550,6 +37564,10 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
+                    "Tags": [
+                        "Hidden",
+                        "Deprecated"
+                    ],
                     "ThreadSafety": "ReadOnly",
                     "ValueType": {
                         "Category": "Enum",
@@ -37811,6 +37829,10 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
+                    "Tags": [
+                        "Hidden",
+                        "Deprecated"
+                    ],
                     "ThreadSafety": "ReadOnly",
                     "ValueType": {
                         "Category": "Primitive",
@@ -37829,6 +37851,10 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
+                    "Tags": [
+                        "Hidden",
+                        "Deprecated"
+                    ],
                     "ThreadSafety": "ReadOnly",
                     "ValueType": {
                         "Category": "Primitive",
@@ -37865,6 +37891,10 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
+                    "Tags": [
+                        "Hidden",
+                        "Deprecated"
+                    ],
                     "ThreadSafety": "ReadOnly",
                     "ValueType": {
                         "Category": "Enum",
@@ -37988,6 +38018,10 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
+                    "Tags": [
+                        "Hidden",
+                        "Deprecated"
+                    ],
                     "ThreadSafety": "ReadOnly",
                     "ValueType": {
                         "Category": "Primitive",
@@ -38006,6 +38040,10 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
+                    "Tags": [
+                        "Hidden",
+                        "Deprecated"
+                    ],
                     "ThreadSafety": "ReadOnly",
                     "ValueType": {
                         "Category": "Primitive",
@@ -38042,6 +38080,10 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
+                    "Tags": [
+                        "Hidden",
+                        "Deprecated"
+                    ],
                     "ThreadSafety": "ReadOnly",
                     "ValueType": {
                         "Category": "Enum",
@@ -41986,6 +42028,27 @@
                 {
                     "Category": "Behavior",
                     "MemberType": "Property",
+                    "Name": "AnimationWeightedBlendFix",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "NotScriptable"
+                    ],
+                    "ThreadSafety": "ReadOnly",
+                    "ValueType": {
+                        "Category": "Enum",
+                        "Name": "NewAnimationRuntimeSetting"
+                    }
+                },
+                {
+                    "Category": "Behavior",
+                    "MemberType": "Property",
                     "Name": "ClientAnimatorThrottling",
                     "Security": {
                         "Read": "None",
@@ -42073,6 +42136,9 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
+                    "Tags": [
+                        "Deprecated"
+                    ],
                     "ThreadSafety": "ReadOnly",
                     "ValueType": {
                         "Category": "Primitive",
@@ -61290,30 +61356,6 @@
                     }
                 },
                 {
-                    "Category": "General",
-                    "MemberType": "Property",
-                    "Name": "UI Theme",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": false,
-                        "CanSave": true
-                    },
-                    "Tags": [
-                        "Hidden",
-                        "ReadOnly",
-                        "NotReplicated",
-                        "Deprecated"
-                    ],
-                    "ThreadSafety": "ReadOnly",
-                    "ValueType": {
-                        "Category": "Enum",
-                        "Name": "UITheme"
-                    }
-                },
-                {
                     "Category": "Script Editor Colors",
                     "MemberType": "Property",
                     "Name": "Warning Color",
@@ -62385,6 +62427,39 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "ShowSaveOrPublishPlaceToRoblox",
+                    "Parameters": [
+                        {
+                            "Name": "showGameSelect",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "bool"
+                            }
+                        },
+                        {
+                            "Name": "isPublish",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "bool"
+                            }
+                        },
+                        {
+                            "Name": "closeAfterSave",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "bool"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "UninstallPlugin",
                     "Parameters": [
                         {
@@ -62800,6 +62875,21 @@
                     "MemberType": "Event",
                     "Name": "PromptTransformPluginCheckEnable",
                     "Parameters": [
+                    ],
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "SaveLocallyAsComplete",
+                    "Parameters": [
+                        {
+                            "Name": "success",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "bool"
+                            }
+                        }
                     ],
                     "Security": "RobloxScriptSecurity",
                     "ThreadSafety": "Unsafe"
@@ -77067,6 +77157,23 @@
         {
             "Items": [
                 {
+                    "Name": "Default",
+                    "Value": 0
+                },
+                {
+                    "Name": "Disabled",
+                    "Value": 1
+                },
+                {
+                    "Name": "Enabled",
+                    "Value": 2
+                }
+            ],
+            "Name": "NewAnimationRuntimeSetting"
+        },
+        {
+            "Items": [
+                {
                     "Name": "Top",
                     "Value": 1
                 },
@@ -79784,25 +79891,6 @@
                 }
             ],
             "Name": "TweenStatus"
-        },
-        {
-            "Items": [
-                {
-                    "Name": "Light",
-                    "Tags": [
-                        "Deprecated"
-                    ],
-                    "Value": 0
-                },
-                {
-                    "Name": "Dark",
-                    "Tags": [
-                        "Deprecated"
-                    ],
-                    "Value": 1
-                }
-            ],
-            "Name": "UITheme"
         },
         {
             "Items": [

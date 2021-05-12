@@ -9,6 +9,7 @@ Studio.Toolbox.General.CategoryCreationsHats,Hats,Hats,모자,Головные �
 Studio.Toolbox.General.SearchResults,Search Results,Search Results,검색 결과,Результаты поиска,搜索结果
 Studio.Common.Action.Ignore,Ignore,Ignore,무시,Пропустить,忽略
 Studio.Common.Action.Close,Close,Close,닫기,Закрыть,关闭
+Studio.Toolbox.Common.Close,Close,Close, , , 
 Studio.Common.Action.LabelWithColon1,%1:,%1:,%1:,%1:,%1
 Studio.Toolbox.Purchase.FailedDetails,Purchase of "{name}" failed.,Purchase of "{name}" failed.,"{name}" 구매에 실패했습니다.,"{name}": покупка не совершена.,购买 "{name}" 失败。
 Studio.Common.Action.Apply,Apply,Apply,적용,Применить,应用
@@ -49,6 +50,7 @@ Studio.Toolbox.General.AssetTypeModel,Model,Model,모델,Модель,模型
 Studio.Common.Action.Help,Help,Help,도움말,Справка,帮助
 Studio.Common.Action.Home,Home,Home,홈,Главная,首页
 Studio.Common.Action.Insert,Insert,Insert,삽입,Вставить,插入
+Studio.Toolbox.Common.Insert,Insert,Insert, , , 
 Studio.Common.Action.Next,Next,Next,다음,Далее,下一个
 Studio.Common.Action.Paste,Paste,Paste,붙여넣기,Вставить,粘贴
 Studio.Common.Action.Save,Save,Save,저장,Сохранить,保存
@@ -57,6 +59,7 @@ Studio.Common.Action.Warning,Warning,Warning,경고,Предупреждение
 Studio.Toolbox.Purchase.BuyPrompt,Would you like to buy "{name}" from {creator} for {robux:int} Robux?,Would you like to buy "{name}" from {creator} for {robux:int} Robux?,{creator}에게 "{name}"을(를) {robux:int} Robux에 구매할까요?,"\"{name}\", автор {creator}: купить для {robux:int} Robux?",你要以 {robux:int} Robux 从 {creator} 处购买 "{name}" 吗?
 Studio.Toolbox.General.SuggestionsLight,Light,Light,조명,Свет,光
 Studio.Common.Action.OK,OK,OK,확인,ОК,确认
+Studio.Toolbox.Common.OK,OK,OK, , , 
 Studio.Common.Action.Open,Open,Open,열기,Открыть,打开
 Studio.Common.Action.Search,Search,Search,검색,Поиск,搜索
 Studio.Toolbox.General.SearchBarDefaultText,Search,Search,검색,Поиск,搜索
@@ -84,6 +87,7 @@ Studio.Common.Action.Retry,Retry,Retry,다시 시도,Повтор,重试
 Studio.Toolbox.Purchase.Retry,Retry,Retry,다시 시도,Повтор,重试
 Studio.Common.Action.Share,Share,Share,공유,Поделиться,分享
 Studio.Common.Action.Submit,Submit,Submit,제출,Завершить,提交
+Studio.Toolbox.Common.Submit,Submit,Submit, , , 
 Studio.Common.Action.Stop,Stop,Stop,중지,Остановить,停止
 Studio.Toolbox.General.SortByUpdated,Updated,Updated,업데이트,Обновление выполнено,已更新
 Studio.Common.Action.Yes,Yes,Yes,예,Да,是
@@ -92,6 +96,7 @@ Studio.Common.Action.Undo,Undo,Undo,실행 취소,Отменить,撤消
 Studio.Common.Action.Confirm,Confirm,Confirm,확인, ,确认
 Studio.Toolbox.General.CategoryRecentDecals,Recent Images,Recent Images,최근 이미지,Недавние изображения,最近使用的图片
 Studio.Common.Action.Update,Update,Update,업데이트,Обновить,更新
+Studio.Toolbox.Common.Update,Update,Update, , , 
 Studio.Common.Action.Reset,Reset,Reset,재설정,Сброс,重置
 Studio.Toolbox.General.CategoryGroupDecals,Group Images,Group Images,그룹 이미지,Изображения группы,群组图片
 Studio.Common.Action.Name,Name,Name,이름,Имя,名称
@@ -103,7 +108,9 @@ Studio.Common.Action.Value,Value,Value,값,Значение,值
 Studio.Toolbox.General.PreviewAreaStatus,Status: {assetStatus},Status: {assetStatus},상태: {assetStatus},Статус: {assetStatus},状态: {assetStatus}
 Studio.Common.Action.Width,Width,Width,넓이,Ширина,宽度
 Studio.Common.Action.Install,Install,Install,설치,Установить,安装
+Studio.Toolbox.Common.Install,Install,Install, , , 
 Studio.Common.Action.Installed,Installed,Installed,설치됨,Установлено,已安装
+Studio.Toolbox.Common.Installed,Installed,Installed, , , 
 Studio.Toolbox.General.TabInventory,Inventory,Inventory,인벤토리,Снаряжение,背包
 Studio.Common.Action.HideDetails,Hide Details,Hide Details,세부 정보 숨기기, ,隐藏详情
 Studio.Toolbox.General.NoPluginsFound.TextLine2,"For more plugins, try searching in the {link} on our website.","For more plugins, try searching in the {link} on our website.",더 많은 플러그인을 보려면 웹사이트의 {link}에서 검색하세요., ,若想获取更多插件，请在网站{link}中进行搜索。
@@ -286,4 +293,5 @@ Robux가 부족함,Недостаточно Robux,Robux 不足,Studio.Toolbox.Pu
 비디오, ,视频,Studio.Toolbox.AssetUploadResult.Failure,Submission failed,Submission failed
 제출 실패, ,提交失败,Studio.Toolbox.General.NoPluginsFound.LinkText,Library,Library
 라이브러리, ,资料库,Studio.Toolbox.AssetConfigAnimation.InvalidAnimationID,Invalid Animation ID,Invalid Animation ID
-유효하지 않은 애니메이션 ID, ,无效的动画 ID
+유효하지 않은 애니메이션 ID, ,无效的动画 ID,Studio.Toolbox.Common.Loading,Loading,Loading
+ , , 

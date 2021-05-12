@@ -75,6 +75,9 @@ Studio.AnimationClipEditor.Plugin.Description, ,"Create, preview, and publish An
 Studio.AnimationClipEditor.Plugin.Name, ,Animation Editor
 Studio.AnimationClipEditor.Plugin.Toolbar, ,Animations
 Studio.AnimationClipEditor.RigErrors.CircularRig, ,This rig contains a cycle between the connections of certain parts.
+Studio.AnimationClipEditor.RigErrors.MissingPart0_Migrated, ,The following Motor6Ds do not have a Part0 set: {entries}
+Studio.AnimationClipEditor.RigErrors.MissingPart1_Migrated, ,The following Motor6Ds do not have a Part1 set: {entries}
+Studio.AnimationClipEditor.RigErrors.MultipleParents_Migrated, ,The following parts are affected by multiple Motor6Ds: {entries}
 Studio.AnimationClipEditor.RigErrors.NameCollision, ,This rig contains multiple parts which share the same name. Please give unique names to all parts.
 Studio.AnimationClipEditor.RigErrors.NoAnimationController, ,This rig does not have an animation controller or humanoid. Please create one.
 Studio.AnimationClipEditor.RigErrors.NoMotors, ,A model needs to have its parts joined together by Motor6Ds to properly animate.

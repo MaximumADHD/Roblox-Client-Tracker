@@ -120,6 +120,8 @@ Studio.App.BetaFeatures.EnableLuauTypeCheckingDescription,,Enables new script an
 Studio.App.BetaFeatures.EnableLuauTypeCheckingTitle,,Enable New Lua Script Analysis,Enable New Lua Script Analysis
 Studio.App.BetaFeatures.FindReplaceViewDescription,,"Overhaul of find and replace functionality to make working with large codebases easier. Streamlined interface, addition of search filters and Replace All functionality, and improved performance.","Overhaul of find and replace functionality to make working with large codebases easier. Streamlined interface, addition of search filters and Replace All functionality, and improved performance."
 Studio.App.BetaFeatures.FindReplaceViewTitle,,Find All / Replace All,Find All / Replace All
+Studio.App.BetaFeatures.ImprovedInnerBoxDescription,,Enable a different algorithm for avatar Inner Box collision box sizing and positioning using margins around RigAttachment extents.,Enable a different algorithm for avatar Inner Box collision box sizing and positioning using margins around RigAttachment extents.
+Studio.App.BetaFeatures.ImprovedInnerBoxTitle,,Improved Inner Box Avatar Collisions,Improved Inner Box Avatar Collisions
 Studio.App.BetaFeatures.InsertObjectStreamliningDescription,,Enables a new unified workflow for inserting objects.,Enables a new unified workflow for inserting objects.
 Studio.App.BetaFeatures.InsertObjectStreamliningTitle,,Insert Object Streamlining,Insert Object Streamlining
 Studio.App.BetaFeatures.LSPGoToDeclDescription,,"(! Works better with ""Scripts Are Non-Strict By Default"" Beta Feature ON !) Luau type inference now powers the Go To Declaration feature in Script Editor, enhancing performance and reliability.","(! Works better with ""Scripts Are Non-Strict By Default"" Beta Feature ON !) Luau type inference now powers the Go To Declaration feature in Script Editor, enhancing performance and reliability."
@@ -136,6 +138,8 @@ Studio.App.BetaFeatures.LuauNonStrictByDefaultTitle,,Scripts Are Non-Strict By D
 Studio.App.BetaFeatures.MaxWaterFogDistanceDescription,,The maximum underwater fog distance is increased to permit larger underwater place designs with further visibility in the distance.,The maximum underwater fog distance is increased to permit larger underwater place designs with further visibility in the distance.
 Studio.App.BetaFeatures.MaxWaterFogDistanceTitle,,Max Water Fog Distance Increase,Max Water Fog Distance Increase
 Studio.App.BetaFeatures.NewFeaturesForChannelUserWarning1,,"New beta features have been automatically enabled above as you are enrolled in Beta Channel. You must restart Studio for them to be activated. <a href=""%1"">Restart Now</a>","New beta features have been automatically enabled above as you are enrolled in Beta Channel. You must restart Studio for them to be activated. <a href=""%1"">Restart Now</a>"
+Studio.App.BetaFeatures.NewGamesInCloudDescription,,Allows saving games to the cloud without publishing.,Allows saving games to the cloud without publishing.
+Studio.App.BetaFeatures.NewGamesInCloudTitle,,New Games in the Cloud,New Games in the Cloud
 Studio.App.BetaFeatures.NewScriptFoldStateDescription,,Enables new improved behavior for code folding in the Script Editor.,Enables new improved behavior for code folding in the Script Editor.
 Studio.App.BetaFeatures.NewScriptFoldStateTitle,,Script Editor Folds Behavior Beta,Script Editor Folds Behavior Beta
 Studio.App.BetaFeatures.NonTeamCreateScriptVersionHistoryDescription,,Can right click on a script to view its history.  Will show past published versions of the script and their corresponding place version numbers.,Can right click on a script to view its history.  Will show past published versions of the script and their corresponding place version numbers.
@@ -621,6 +625,7 @@ This will shutdown all running servers."
 Studio.App.GamesPageController.RemoveTeamCreateGame,,Remove Team Create Game,Remove Team Create Game
 Studio.App.GamesPageController.RestoreGameFail,,Failed to restore game,Failed to restore game
 Studio.App.GamesPageController.Restored,,Restored,Restored
+Studio.App.GeneralCmd.HELP,,List all commands with optional filtering,List all commands with optional filtering
 Studio.App.GeneralCmd.REPEAT,,Repeat command...,Repeat command...
 Studio.App.GenericResourceController.RemovingGameAsset,,Removing game asset(s),Removing game asset(s)
 Studio.App.GoToLineDialog.LineNumber,,Line number:,Line number:
@@ -738,15 +743,16 @@ Studio.App.ImagePickerWidget.AddImageElps,,Add Image...,Add Image...
 Studio.App.ImageResourceController.ImagesReferencedByName,,"Images are referenced by name, so any references to this image will fail to load. Are you sure you want to remove it?","Images are referenced by name, so any references to this image will fail to load. Are you sure you want to remove it?"
 Studio.App.ImportCostVerificationDialog.AudioUpload,,Audio Upload,Audio Upload
 Studio.App.ImportCostVerificationDialog.BalanceAfterImport,,Balance after import:,Balance after import:
-Studio.App.ImportCostVerificationDialog.CostVerificationDescription,,You will not be charged for imports that fail due to not meeting import requirements.,You will not be charged for imports that fail due to not meeting import requirements.
-Studio.App.ImportCostVerificationDialog.CostVerificationMainText1,,Would you like to import the selected files for %1 Robux? Click 'Show Details' to view the files to be imported.,Would you like to import the selected files for %1 Robux? Click 'Show Details' to view the files to be imported.
+Studio.App.ImportCostVerificationDialog.CostVerificationDescription,,Click 'Show Details' to view the files to be imported. You will not be charged for imports that fail due to not meeting import requirements.,Click 'Show Details' to view the files to be imported. You will not be charged for imports that fail due to not meeting import requirements.
+Studio.App.ImportCostVerificationDialog.CostVerificationMainText1,,Would you like to import the selected files for %1 Robux?,Would you like to import the selected files for %1 Robux?
 Studio.App.ImportCostVerificationDialog.CostVerificationTitle,,File Import Cost,File Import Cost
 Studio.App.ImportCostVerificationDialog.CurrentBalance,,Your current balance:,Your current balance:
 Studio.App.ImportCostVerificationDialog.DetailsCostTitle,,Cost,Cost
 Studio.App.ImportCostVerificationDialog.DetailsErrorTitle,,Error,Error
 Studio.App.ImportCostVerificationDialog.DetailsNameTitle,,Name,Name
 Studio.App.ImportCostVerificationDialog.LoadingFileData,,Loading file data...,Loading file data...
-Studio.App.ImportCostVerificationDialog.LuobuVerificationMainText,,Would you like to import the selected files? Click 'Show Details' to view the files to be imported.,Would you like to import the selected files? Click 'Show Details' to view the files to be imported.
+Studio.App.ImportCostVerificationDialog.LuobuVerificationDescription,,Click 'Show Details' to view the files to be imported.,Click 'Show Details' to view the files to be imported.
+Studio.App.ImportCostVerificationDialog.LuobuVerificationMainText,,Would you like to import the selected files?,Would you like to import the selected files?
 Studio.App.ImportCostVerificationDialog.LuobuVerificationTitle,,File Import,File Import
 Studio.App.ImportCostVerificationDialog.PurchaseRobux,,Purchase more Robux.,Purchase more Robux.
 Studio.App.ImportCostVerificationErrorDialog.EstimateLuobuErrorDescription,,"Click 'Show Details' to view the files that could not be imported. Try importing a new selection, or resolve conflicts and reattempt.","Click 'Show Details' to view the files that could not be imported. Try importing a new selection, or resolve conflicts and reattempt."
@@ -1887,7 +1893,6 @@ Studio.App.RBXMainWindow.ShowsHidesGridMaterial,,Shows/Hides Grid Material,Shows
 Studio.App.RBXMainWindow.SmoothSurface,,Smooth surface,Smooth surface
 Studio.App.RBXMainWindow.SmoothSurfaceWithoutOutlines,,Smooth Surface without Outlines,Smooth Surface without Outlines
 Studio.App.RBXMainWindow.StartPlayer,,Start Player,Start Player
-Studio.App.RBXMainWindow.StartRemoteDebug,,Start Remote Debug,Start Remote Debug
 Studio.App.RBXMainWindow.StartServer,,Start Server,Start Server
 Studio.App.RBXMainWindow.Stats,,Stats,Stats
 Studio.App.RBXMainWindow.StepInto,,Step Into,Step Into
@@ -2941,6 +2946,7 @@ Studio.App.Updates.BetaFeatureDescription,,"Instead of blocking the opening of n
 Studio.App.Updates.BetaFeatureName,,Safe Studio Updates,Safe Studio Updates
 Studio.App.Updates.ShutdownConfirmationText,,There is a new Studio update available. Shutdown to update?,There is a new Studio update available. Shutdown to update?
 Studio.App.Updates.ShutdownPromptButton,Button name in 'Are you sure you want to shut down Studio for update? [Shutdown] [Cancel]',Shutdown,Shutdown
+Studio.App.Updates.UpdateAvailableButton,,Update Available,Update Available
 Studio.App.Updates.UpdateAvailableToast,,A new version of Studio is available,A new version of Studio is available
 Studio.App.UploadImageRequest.CouldNotOpenFile1,,Could not open file %1,Could not open file %1
 Studio.App.UploadImageRequest.UploadingQuickly1,,Uploading too quickly. Try again in %1 minute(s),Uploading too quickly. Try again in %1 minute(s)

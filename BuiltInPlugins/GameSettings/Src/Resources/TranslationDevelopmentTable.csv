@@ -352,3 +352,6 @@ Studio.GameSettings.Monetization.VIPServerSubscriptions,There are currently {num
 Studio.GameSettings.Security.EnableThirdPartyPurchasesDescription,"By enabling, players can purchase items provided by third parties.","By enabling, players can purchase items provided by third parties."
 Studio.GameSettings.Monetization.Badges,Badges,Badges
 Studio.GameSettings.Monetization.BadgeDescription,Badge Description,Badge Description
+Studio.GameSettings.OptInLocations.Tooltip,Your creation will be published globally in addition to all the selected opt-in locations. See each location for specific requirements.,Your creation will be published globally in addition to all the selected opt-in locations. See each location for specific requirements.
+Studio.GameSettings.OptInLocations.ChinaRequirements, to publish to China, to publish to China
+Studio.GameSettings.OptInLocations.RequirementsLinkText,Requirements,Requirements

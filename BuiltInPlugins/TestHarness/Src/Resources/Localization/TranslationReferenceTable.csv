@@ -1,5 +1,5 @@
-Key,Source,en-us
-Studio.TestHarness.Plugin.Name,Test Harness,Test Harness
-Studio.TestHarness.Plugin.Toolbar,Test Harness,Test Harness
-Studio.TestHarness.Plugin.Button,Toggle,Toggle
-Studio.TestHarness.Plugin.Description,Toggles the Test Harness plugin window.,Toggles the Test Harness plugin window.
+Key,Source,en-us,ko,zh-cn
+Studio.TestHarness.Plugin.Name,Test Harness,Test Harness,테스트 도구,测试工具
+Studio.TestHarness.Plugin.Toolbar,Test Harness,Test Harness,테스트 도구,测试工具
+Studio.TestHarness.Plugin.Button,Toggle,Toggle,토글,切换
+Studio.TestHarness.Plugin.Description,Toggles the Test Harness plugin window.,Toggles the Test Harness plugin window.,테스트 도구 플러그인 창을 토글합니다.,切换测试工具插件窗口

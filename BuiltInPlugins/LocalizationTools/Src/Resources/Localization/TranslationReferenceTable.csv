@@ -3,8 +3,8 @@ Studio.LocalizationTools.Plugin.RibbonBarButton,Tools,Tools,도구,工具
 Studio.LocalizationTools.EmbeddedTableSection.SectionLabel,Embedded Localization Table,Embedded Localization Table,임베디드 로컬리제이션 테이블,嵌入本地化表格
 Studio.LocalizationTools.EmbeddedTableSection.ExportButton,Export,Export,내보내기,导出
 Studio.LocalizationTools.UploadDialogContent.ConfirmUploadDialogTitle,Comfirm Upload,Comfirm Upload,업로드 확인,确认上传
-Studio.LocalizationTools.UploadDialogContent.PatchInvalidLanguagesLabel,Invalid columns:,Invalid columns:,유효하지 않은 열:,无效的列：
 Studio.LocalizationTools.CloudTableSection.ReplaceButton,Replace,Replace,바꾸기,替换
+Studio.LocalizationTools.UploadDialogContent.PatchInvalidLanguagesLabel,Invalid columns:,Invalid columns:,유효하지 않은 열:,无效的列：
 Studio.LocalizationTools.EmbeddedTableSection.TextCaptureStopText,Stop untranslated text capture,Stop untranslated text capture,번역되지 않은 텍스트 캡처 중지,停止抓取未翻译的文本
 Studio.LocalizationTools.Plugin.WindowTitle,Localization Tools,Localization Tools,로컬리제이션 도구,本地化工具
 Studio.LocalizationTools.EmbeddedTableSection.TextCaptureButton,Text Capture,Text Capture,텍스트 캡처,文本抓取
@@ -20,10 +20,10 @@ Studio.LocalizationTools.CloudTableSection.ReplaceTableLabel,Replace entire clou
 Studio.LocalizationTools.EmbeddedTableSection.ExportTextLabel,Export LocalizationTables under LocalizationService to CSV files,Export LocalizationTables under LocalizationService to CSV files,LocalizationService 아래의 LocalizationTables를 CSV 파일로 내보내기,在 LocalizationService 下导出 LocalizationTables 至 CSV 文件
 Studio.LocalizationTools.UploadDialogContent.AddEntriesPreText,Add entries:,Add entries:,항목 추가:,添加条目：
 Studio.LocalizationTools.EmbeddedTableSection.ImportTextLabel,Import CSV files to LocalizationTables under LocalizationService,Import CSV files to LocalizationTables under LocalizationService,CSV 파일을 LocalizationService 아래의 LocalizationTables로 가져오기,在 LocalizationService 下导入 LocalizationTables 至 CSV 文件
+Studio.LocalizationTools.CloudTableSection.CloudTablePageLinkText,Click here to configure your cloud localization table,Click here to configure your cloud localization table,클라우드 로컬리제이션 테이블을 구성하려면 여기를 클릭하세요.,点击这里来配置你的云本地化表格
 Studio.LocalizationTools.UploadDialogContent.PatchTotalTranslationsLabel,Total translations:,Total translations:,전체 번역:,总翻译数：
 Studio.LocalizationTools.UploadDialogContent.ChangeTranslationsPretext,Change translations:,Change translations:,번역 변경:,更改翻译：
 Studio.LocalizationTools.UploadDialogContent.UploadPatchMessage,Upload patch?,Upload patch?,패치를 업로드할까요?,上传补丁？
-Studio.LocalizationTools.CloudTableSection.CloudTablePageLinkText,Click here to configure your cloud localization table,Click here to configure your cloud localization table,클라우드 로컬리제이션 테이블을 구성하려면 여기를 클릭하세요.,点击这里来配置你的云本地化表格
 Studio.LocalizationTools.CloudTableSection.DownloadButton,Download,Download,다운로드,下载
 Studio.LocalizationTools.CloudTableSection.DownloadTableLabel,Download table as CSV,Download table as CSV,테이블을 CSV로 다운로드,下载表格并保存至 CSV 格式
 Studio.LocalizationTools.CloudTableSection.UpdateButton,Update,Update,업데이트,更新
@@ -43,15 +43,15 @@ Studio.LocalizationTools.DownloadTable.SetEntriesFailed,Internal error.,Internal
 Studio.LocalizationTools.UploadDialogContent.PatchTotalRowsLabel,Total rows:,Total rows:,전체 행:,总条数：
 Studio.LocalizationTools.PluginMetadata.GetPermissionFailedMessage,Localization Tools failed to get permission info.,Localization Tools failed to get permission info.,로컬리제이션 도구가 권한 정보를 가져오지 못했습니다.,本地化工具获取权限信息失败。
 Studio.LocalizationTools.UploadDialogContent.PatchLanguagesLabel,Languages:,Languages:,언어:,语言：
-Studio.LocalizationTools.MessageFrame.OpenCSVFileMessage,Open CSV file...,Open CSV file...,CSV 파일 열기...,打开 CSV 文件...
 Studio.LocalizationTools.UploadDialogContent.PatchWillLabel,This patch will:,This patch will:,이 패치는 다음 항목을 확인합니다.,此补丁将：
+Studio.LocalizationTools.MessageFrame.OpenCSVFileMessage,Open CSV file...,Open CSV file...,CSV 파일 열기...,打开 CSV 文件...
 Studio.LocalizationTools.MessageFrame.DownloadFailedMessage,Download cloud table failed,Download cloud table failed,클라우드 테이블 다운로드 실패,下载云表格失败
 Studio.LocalizationTools.MessageFrame.SelectCSVFileMessage,Select CSV file...,Select CSV file...,CSV 파일 선택...,选择 CSV 文件...
 Studio.LocalizationTools.MessageFrame.UploadFailedMessage,Upload cloud table failed,Upload cloud table failed,클라우드 테이블 업로드 실패,上传云表格失败
 Studio.LocalizationTools.MessageFrame.UploadCompletedMessage,Upload cloud table complete,Upload cloud table complete,클라우드 테이블 업로드 완료,上传云表格完成
 Studio.LocalizationTools.UploadTable.PatchSupportedLangugesFailed,Localization Tools failed to add supported langauges.,Localization Tools failed to add supported langauges.,로컬리제이션 도구가 지원 언어를 추가하지 못했습니다.,本地化工具添加支持语言失败。
-Studio.LocalizationTools.MessageFrame.UploadCanceledMessage,Upload canceled,Upload canceled,업로드 취소됨,上传已取消
 Studio.LocalizationTools.MessageFrame.ComputingPatchMessage,Computing patch...,Computing patch...,패치를 컴퓨팅하는 중...,正在计算补丁...
+Studio.LocalizationTools.MessageFrame.UploadCanceledMessage,Upload canceled,Upload canceled,업로드 취소됨,上传已取消
 Studio.LocalizationTools.MessageFrame.ConfirmUploadMessage,Confirm upload...,Confirm upload...,업로드 확인...,确定上传...
 Studio.LocalizationTools.DownloadTable.GetCloudTableFailed,Localization Tools failed to request cloud table.,Localization Tools failed to request cloud table.,로컬리제이션 도구가 클라우드 테이블을 요청하지 못했습니다.,本地化工具请求云表格失败。
 Studio.LocalizationTools.MessageFrame.TableWrittenToFileMessage,Table written to file,Table written to file,파일에 기록된 테이블,表格已写入文件
@@ -62,4 +62,5 @@ Studio.LocalizationTools.PluginMetadata.GetAllLocalesFailed,Localization Tools f
 Studio.LocalizationTools.UploadDialogContent.UploadCompleteWithInvalidEntries,Upload complete with invalid entries: ,Upload complete with invalid entries: ,업로드가 완료되었으며 다음의 일부 항목이 유효하지 않습니다: ,上传已完成，部分条目无效： 
 Studio.LocalizationTools.UploadDialogContent.InvalidIdentifier,Entries with invalid identifier:,Entries with invalid identifier:,유효하지 않은 식별자가 있는 항목:,带有无效标识符的条目：
 Studio.LocalizationTools.UploadDialogContent.InvalidTranslation,Invalid translations:,Invalid translations:,유효하지 않은 번역:,无效翻译：
-Studio.LocalizationTools.UploadDialogContent.ParentLangaugeTranslationMissing,"{locale} translation requires {language} translation for entry with key: {key},  source: {source},  context: {context}","{locale} translation requires {language} translation for entry with key: {key},  source: {source},  context: {context}","{locale} 번역에는 키: {key}, 소스: {source}, 컨텍스트: {context} 항목의  {language} 번역이 필요합니다.", 
+Studio.LocalizationTools.UploadDialogContent.ParentLangaugeTranslationMissing,"{locale} translation requires {language} translation for entry with key: {key},  source: {source},  context: {context}","{locale} translation requires {language} translation for entry with key: {key},  source: {source},  context: {context}","{locale} 번역에는 키: {key}, 소스: {source}, 컨텍스트: {context} 항목의  {language} 번역이 필요합니다.",{locale}需要将条目翻译为{language}，元素为键值：{key}、源语言：{source}、语境：{context}
+Studio.LocalizationTools.DownloadTable.SetEntriesFailedWithErrorMessage,Cloud table contains invalid entries.,Cloud table contains invalid entries., , 

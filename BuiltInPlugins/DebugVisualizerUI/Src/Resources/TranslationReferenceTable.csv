@@ -1,2 +1,2 @@
-Key,Source,en-us
-Studio.DebugVisualizerUI.AdaptiveTimesteppingLegend.LegendLabel,Stepping Frequency,Stepping Frequency
+Key,Source,en-us,ko,zh-cn
+Studio.DebugVisualizerUI.AdaptiveTimesteppingLegend.LegendLabel,Stepping Frequency,Stepping Frequency,스테핑 주파수,步进频率

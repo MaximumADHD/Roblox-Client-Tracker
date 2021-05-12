@@ -9,6 +9,7 @@ Studio.Toolbox.General.CategoryCreationsHats,Hats,Hats
 Studio.Toolbox.General.SearchResults,Search Results,Search Results
 Studio.Common.Action.Ignore,Ignore,Ignore
 Studio.Common.Action.Close,Close,Close
+Studio.Toolbox.Common.Close,Close,Close
 Studio.Common.Action.LabelWithColon1,%1:,%1:
 Studio.Toolbox.Purchase.FailedDetails,Purchase of "{name}" failed.,Purchase of "{name}" failed.
 Studio.Common.Action.Apply,Apply,Apply
@@ -47,6 +48,7 @@ Studio.Toolbox.General.AssetTypeModel,Model,Model
 Studio.Common.Action.Help,Help,Help
 Studio.Common.Action.Home,Home,Home
 Studio.Common.Action.Insert,Insert,Insert
+Studio.Toolbox.Common.Insert,Insert,Insert
 Studio.Common.Action.Next,Next,Next
 Studio.Common.Action.Paste,Paste,Paste
 Studio.Common.Action.Save,Save,Save
@@ -55,6 +57,7 @@ Studio.Common.Action.Warning,Warning,Warning
 Studio.Toolbox.Purchase.BuyPrompt,Would you like to buy "{name}" from {creator} for {robux:int} Robux?,Would you like to buy "{name}" from {creator} for {robux:int} Robux?
 Studio.Toolbox.General.SuggestionsLight,Light,Light
 Studio.Common.Action.OK,OK,OK
+Studio.Toolbox.Common.OK,OK,OK
 Studio.Common.Action.Open,Open,Open
 Studio.Common.Action.Search,Search,Search
 Studio.Toolbox.General.SearchBarDefaultText,Search,Search
@@ -78,15 +81,13 @@ Studio.Toolbox.General.PreviewAreaAssetID,Asset ID: {assetId},Asset ID: {assetId
 Studio.Common.Action.Rename,Rename,Rename
 Studio.Toolbox.General.RightClickMenuCopyAssetID,Copy Asset ID,Copy Asset ID
 Studio.Common.Action.Resize,Resize,Resize
-Studio.Toolbox.General.AssetTypeAudio,Audio,Audio
-Studio.Toolbox.General.CategoryAudio,Audio,Audio
-Studio.Toolbox.General.CategoryCreationsAudio,Audio,Audio
 Studio.Common.Action.Retry,Retry,Retry
 Studio.Toolbox.Purchase.Retry,Retry,Retry
 Studio.Toolbox.General.CategoryCreationsMeshes,Meshes,Meshes
 Studio.Toolbox.General.CategoryMeshes,Meshes,Meshes
 Studio.Common.Action.Share,Share,Share
 Studio.Common.Action.Submit,Submit,Submit
+Studio.Toolbox.Common.Submit,Submit,Submit
 Studio.Common.Action.Stop,Stop,Stop
 Studio.Toolbox.General.SortByUpdated,Updated,Updated
 Studio.Common.Action.Yes,Yes,Yes
@@ -94,6 +95,7 @@ Studio.Toolbox.General.SuggestionsVehicle,Vehicle,Vehicle
 Studio.Common.Action.Undo,Undo,Undo
 Studio.Toolbox.General.CategoryRecentDecals,Recent Images,Recent Images
 Studio.Common.Action.Update,Update,Update
+Studio.Toolbox.Common.Update,Update,Update
 Studio.Common.Action.Reset,Reset,Reset
 Studio.Toolbox.General.CategoryGroupDecals,Group Images,Group Images
 Studio.Common.Action.Name,Name,Name
@@ -105,12 +107,18 @@ Studio.Common.Action.Value,Value,Value
 Studio.Toolbox.General.PreviewAreaStatus,Status: {assetStatus},Status: {assetStatus}
 Studio.Common.Action.Width,Width,Width
 Studio.Common.Action.Install,Install,Install
+Studio.Toolbox.Common.Install,Install,Install
 Studio.Common.Action.Installed,Installed,Installed
+Studio.Toolbox.Common.Installed,Installed,Installed
+Studio.Toolbox.Common.Loading,Loading,Loading
 Studio.Toolbox.General.ToolboxToolbarName,Toolbox,Toolbox
 Studio.Toolbox.General.CategoryCreationsModels,Models,Models
 Studio.Toolbox.General.CategoryModels,Models,Models
 Studio.Toolbox.General.CategoryCreationsDecals,Images,Images
 Studio.Toolbox.General.CategoryDecals,Images,Images
+Studio.Toolbox.General.AssetTypeAudio,Audio,Audio
+Studio.Toolbox.General.CategoryAudio,Audio,Audio
+Studio.Toolbox.General.CategoryCreationsAudio,Audio,Audio
 Studio.Toolbox.General.CategoryMyModels,My Models,My Models
 Studio.Toolbox.General.CategoryMyDecals,My Images,My Images
 Studio.Toolbox.General.CategoryMyMeshes,My Meshes,My Meshes

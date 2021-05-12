@@ -11,6 +11,7 @@ Studio.LocalizationTools.CloudTableSection.UpdateButton,Update
 Studio.LocalizationTools.CloudTableSection.UpdateTableLabel,Update with new content from CSV
 Studio.LocalizationTools.DownloadTable.GetCloudTableFailed,Localization Tools failed to request cloud table.
 Studio.LocalizationTools.DownloadTable.SetEntriesFailed,Internal error.
+Studio.LocalizationTools.DownloadTable.SetEntriesFailedWithErrorMessage,Cloud table contains invalid entries.
 Studio.LocalizationTools.EmbeddedTableSection.ExportButton,Export
 Studio.LocalizationTools.EmbeddedTableSection.ExportTextLabel,Export LocalizationTables under LocalizationService to CSV files
 Studio.LocalizationTools.EmbeddedTableSection.ImportButton,Import

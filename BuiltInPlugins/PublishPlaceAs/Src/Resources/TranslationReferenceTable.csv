@@ -67,7 +67,11 @@ Studio.PublishPlaceAs.General.PlayabilityPrivate,Private,Private,비공개, ,私
 Studio.PublishPlaceAs.PrivacyType.Private,Private,Private,비공개, ,私人
 Studio.PublishPlaceAs.General.FetchFailed,Fetch failed,Fetch failed,가져오기 실패, ,获取失败
 Studio.PublishPlaceAs.General.PlayabilityFriends,Friends,Friends,친구, ,好友
-Studio.PublishPlaceAs.General.PlayabilityPrivateDesc,Only developers of this game,Only developers of this game,이 게임의 개발자만 가능, , 
-Studio.PublishPlaceAs.General.SavePlace,Save Place,Save Place, , , 
-Studio.PublishPlaceAs.FooterButton.SaveToFile,Save to file...,Save to file..., , , 
-Studio.PublishPlaceAs.PublishSuccess.SaveSuccess,Successfully saved!,Successfully saved!, , , 
+Studio.PublishPlaceAs.General.PlayabilityPrivateDesc,Only developers of this game,Only developers of this game,이 게임의 개발자만 가능, ,仅开放给此游戏的开发人员
+Studio.PublishPlaceAs.General.SavePlace,Save Place,Save Place,플레이스 저장, ,保存场景
+Studio.PublishPlaceAs.FooterButton.SaveToFile,Save to file...,Save to file...,파일에 저장..., ,保存到文件...
+Studio.PublishPlaceAs.PublishSuccess.SaveSuccess,Successfully saved!,Successfully saved!,저장 완료!, ,保存成功！
+Studio.PublishPlaceAs.General.PublishGame,Publish Game,Publish Game,게임 게시, , 
+Studio.PublishPlaceAs.General.SaveGame,Save Game,Save Game,게임 저장, , 
+Studio.PublishPlaceAs.FooterButton.Save,Save,Save,저장, , 
+Studio.PublishPlaceAs.PublishFail.SaveFail,Save failed,Save failed,저장 실패, , 

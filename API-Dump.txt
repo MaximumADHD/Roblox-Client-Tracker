@@ -756,7 +756,6 @@ Class DataStoreKeyVersionInfo : Instance [NotCreatable] [NotReplicated]
 Class DataStoreService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property bool DataStoreService.AutomaticRetry {LocalUserSecurity} [NotReplicated]
 	Property bool DataStoreService.LegacyNamingScheme {LocalUserSecurity} [Hidden] [Deprecated]
-	Function Variant DataStoreService:GetDataFromEmptyScopeDataStoreAsyncTemporary(string name, string key) [Yields] [Deprecated]
 	Function Instance DataStoreService:GetDataStore(string name, string scope = "global", Instance options = nil)
 	Function Instance DataStoreService:GetGlobalDataStore()
 	Function Instance DataStoreService:GetOrderedDataStore(string name, string scope = "global")
@@ -2017,24 +2016,24 @@ Class BasePart : PVInstance [NotCreatable] [NotBrowsable]
 	Property Enum<SurfaceType> BasePart.LeftSurface
 	Property Enum<SurfaceType> BasePart.RightSurface
 	Property Enum<SurfaceType> BasePart.TopSurface
-	Property float BasePart.BackParamA
-	Property float BasePart.BackParamB
-	Property Enum<InputType> BasePart.BackSurfaceInput
-	Property float BasePart.BottomParamA
-	Property float BasePart.BottomParamB
-	Property Enum<InputType> BasePart.BottomSurfaceInput
-	Property float BasePart.FrontParamA
-	Property float BasePart.FrontParamB
-	Property Enum<InputType> BasePart.FrontSurfaceInput
-	Property float BasePart.LeftParamA
-	Property float BasePart.LeftParamB
-	Property Enum<InputType> BasePart.LeftSurfaceInput
-	Property float BasePart.RightParamA
-	Property float BasePart.RightParamB
-	Property Enum<InputType> BasePart.RightSurfaceInput
-	Property float BasePart.TopParamA
-	Property float BasePart.TopParamB
-	Property Enum<InputType> BasePart.TopSurfaceInput
+	Property float BasePart.BackParamA [Hidden] [Deprecated]
+	Property float BasePart.BackParamB [Hidden] [Deprecated]
+	Property Enum<InputType> BasePart.BackSurfaceInput [Hidden] [Deprecated]
+	Property float BasePart.BottomParamA [Hidden] [Deprecated]
+	Property float BasePart.BottomParamB [Hidden] [Deprecated]
+	Property Enum<InputType> BasePart.BottomSurfaceInput [Hidden] [Deprecated]
+	Property float BasePart.FrontParamA [Hidden] [Deprecated]
+	Property float BasePart.FrontParamB [Hidden] [Deprecated]
+	Property Enum<InputType> BasePart.FrontSurfaceInput [Hidden] [Deprecated]
+	Property float BasePart.LeftParamA [Hidden] [Deprecated]
+	Property float BasePart.LeftParamB [Hidden] [Deprecated]
+	Property Enum<InputType> BasePart.LeftSurfaceInput [Hidden] [Deprecated]
+	Property float BasePart.RightParamA [Hidden] [Deprecated]
+	Property float BasePart.RightParamB [Hidden] [Deprecated]
+	Property Enum<InputType> BasePart.RightSurfaceInput [Hidden] [Deprecated]
+	Property float BasePart.TopParamA [Hidden] [Deprecated]
+	Property float BasePart.TopParamB [Hidden] [Deprecated]
+	Property Enum<InputType> BasePart.TopSurfaceInput [Hidden] [Deprecated]
 	Property CFrame BasePart.PivotOffset
 	Function void BasePart:ApplyAngularImpulse(Vector3 impulse)
 	Function void BasePart:ApplyImpulse(Vector3 impulse)
@@ -2210,9 +2209,10 @@ Class WorldRoot : Model [NotCreatable]
 	Function void WorldRoot:SetInsertPoint(Vector3 point, bool ignoreGrid = false) {RobloxScriptSecurity}
 Class Workspace : WorldRoot [NotCreatable] [Service]
 	Property bool Workspace.AllowThirdPartySales [NotReplicated]
+	Property Enum<NewAnimationRuntimeSetting> Workspace.AnimationWeightedBlendFix [NotScriptable]
 	Property Enum<ClientAnimatorThrottlingMode> Workspace.ClientAnimatorThrottling
 	Property float Workspace.FallenPartsDestroyHeight {✏️PluginSecurity}
-	Property bool Workspace.FilteringEnabled {✏️PluginSecurity}
+	Property bool Workspace.FilteringEnabled {✏️PluginSecurity} [Deprecated]
 	Property float Workspace.Gravity
 	Property Enum<InterpolationThrottlingMode> Workspace.InterpolationThrottling {✏️PluginSecurity}
 	Property Enum<MeshPartHeadsAndAccessories> Workspace.MeshPartHeadsAndAccessories [NotScriptable]
@@ -3164,7 +3164,6 @@ Class Studio : Instance [NotCreatable] [Service] [NotReplicated]
 	Property string Studio.DisplayLanguage {RobloxScriptSecurity}
 	Property int Studio.Render Throttle Percentage
 	Property Instance Studio.Theme
-	Property Enum<UITheme> Studio.UI Theme [Hidden] [ReadOnly] [Deprecated]
 	Property bool Studio.CommandBarLocalState
 	Property bool Studio.LuaDebuggerEnabled
 	Property bool Studio.LuaDebuggerEnabledAtStartup [Hidden] [ReadOnly]
@@ -3303,6 +3302,7 @@ Class StudioService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void StudioService:SetUniverseDisplayName(string newName) {RobloxScriptSecurity}
 	Function void StudioService:ShowPlaceVersionHistoryDialog(int64 placeId) {RobloxScriptSecurity}
 	Function void StudioService:ShowPublishToRoblox() {RobloxScriptSecurity}
+	Function void StudioService:ShowSaveOrPublishPlaceToRoblox(bool showGameSelect, bool isPublish, bool closeAfterSave) {RobloxScriptSecurity}
 	Function void StudioService:TryInstallPlugin(int64 assetId, int64 assetVersionId) {RobloxScriptSecurity} [Yields]
 	Function void StudioService:UninstallPlugin(int64 assetId) {RobloxScriptSecurity}
 	Function void StudioService:UpdatePluginManagement() {RobloxScriptSecurity}
@@ -3321,6 +3321,7 @@ Class StudioService : Instance [NotCreatable] [Service] [NotReplicated]
 	Event StudioService.OnSaveOrPublishPlaceToRoblox(bool showGameSelect, bool isPublish, bool closeAfterSave) {RobloxScriptSecurity}
 	Event StudioService.OnSaveToRoblox(Objects instances) {RobloxScriptSecurity}
 	Event StudioService.PromptTransformPluginCheckEnable() {RobloxScriptSecurity}
+	Event StudioService.SaveLocallyAsComplete(bool success) {RobloxScriptSecurity}
 Class StudioTheme : Instance [NotCreatable] [NotReplicated]
 	Function Color3 StudioTheme:GetColor(Enum<StudioStyleGuideColor> styleguideitem, Enum<StudioStyleGuideModifier> modifier = "Default") {PluginSecurity}
 Class SurfaceAppearance : Instance
@@ -5028,6 +5029,10 @@ Enum NetworkOwnership
 	EnumItem NetworkOwnership.Automatic : 0
 	EnumItem NetworkOwnership.Manual : 1
 	EnumItem NetworkOwnership.OnContact : 2
+Enum NewAnimationRuntimeSetting
+	EnumItem NewAnimationRuntimeSetting.Default : 0
+	EnumItem NewAnimationRuntimeSetting.Disabled : 1
+	EnumItem NewAnimationRuntimeSetting.Enabled : 2
 Enum NormalId
 	EnumItem NormalId.Right : 0
 	EnumItem NormalId.Top : 1
@@ -5678,9 +5683,6 @@ Enum TriStateBoolean
 Enum TweenStatus
 	EnumItem TweenStatus.Canceled : 0
 	EnumItem TweenStatus.Completed : 1
-Enum UITheme [Deprecated]
-	EnumItem UITheme.Light : 0 [Deprecated]
-	EnumItem UITheme.Dark : 1 [Deprecated]
 Enum UiMessageType
 	EnumItem UiMessageType.UiMessageError : 0
 	EnumItem UiMessageType.UiMessageInfo : 1
