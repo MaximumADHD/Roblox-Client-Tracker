@@ -83,6 +83,7 @@ local _baseGameSearchUITreatments = string.format("https://gamesearchuitreatment
 local _baseEconomyCreatorStats = FFlagLuaFixEconomyCreatorStatsUrl
 	and string.format("https://economycreatorstats.%s", _baseDomain)
 	or string.format("https://economycreatorstats.api.%s", _baseDomain)
+local _baseUserModerationUrl = string.format("https://usermoderation.%s", _baseDomain)
 local _baseUrlSecure = string.gsub(_baseUrl, "http://", "https://")
 
 -- public api
@@ -127,6 +128,7 @@ local Url = {
 	BLOG_URL = "https://blog.roblox.com/",
 	CORP_URL = "https://corp.roblox.com/",
 	ECNOMY_CREATOR_STATS = _baseEconomyCreatorStats,
+	USER_MODERATION_URL = _baseUserModerationUrl,
 }
 
 function Url:getUserProfileUrl(userId)

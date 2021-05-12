@@ -52,11 +52,15 @@ local Theming = require(Plugin.Src.ContextServices.Theming)
 local createMenuPage = require(Plugin.Src.Components.createMenuPage)
 
 local FFlagStudioAllowRemoteSaveBeforePublish = game:GetFastFlag("StudioAllowRemoteSaveBeforePublish")
+local FFlagUpdatePublishPlacePluginToDevFrameworkContext = game:GetFastFlag("UpdatePublishPlacePluginToDevFrameworkContext")
 local FFlagStudioPromptOnFirstPublish = game:GetFastFlag("StudioPromptOnFirstPublish")
 
 local groupsLoaded = false
+-- remove DEPRECATED_localization parameter with FFlagUpdatePublishPlacePluginToDevFrameworkContext
 --Uses props to display current settings values
-local function displayContents(props, localization)
+local function displayContents(props, DEPRECATED_localization)
+	local theme = FFlagUpdatePublishPlacePluginToDevFrameworkContext and props.Theme:get("Plugin") or nil
+	local localization = FFlagUpdatePublishPlacePluginToDevFrameworkContext and props.Localization or DEPRECATED_localization
 	local description = props.Description
 	local descriptionChanged = props.DescriptionChanged
 	local descriptionError = props.DescriptionError
@@ -156,7 +160,21 @@ local function displayContents(props, localization)
 			ZIndex = 2,
 			LayoutOrder = 4,
 		}, {
-			Selector = Theming.withTheme(function(theme)
+			Selector = FFlagUpdatePublishPlacePluginToDevFrameworkContext and
+				Roact.createElement(StyledDropDown, {
+					Size = UDim2.new(0, theme.DROPDOWN_WIDTH, 0, theme.DROPDOWN_HEIGHT),
+					Position = UDim2.new(0, 0, 0, 0),
+					ItemHeight = 38,
+					ButtonText = creatorItem.Text,
+					Items = dropdownItems,
+					MaxItems = 4,
+					TextSize = Constants.TEXT_SIZE,
+					SelectedItem = creatorItem.Key,
+					ShowRibbon = not theme.isDarkerTheme,
+					OnItemClicked = function(item) creatorChanged(item.Key) end,
+					ListWidth = 330,
+				}) or 
+				Theming.withTheme(function(theme)
 				return Roact.createElement(StyledDropDown, {
 					Size = UDim2.new(0, theme.DROPDOWN_WIDTH, 0, theme.DROPDOWN_HEIGHT),
 					Position = UDim2.new(0, 0, 0, 0),
@@ -184,7 +202,21 @@ local function displayContents(props, localization)
 			ZIndex = 2,
 			LayoutOrder = 6,
 		}, {
-			Selector = Theming.withTheme(function(theme)
+			Selector = FFlagUpdatePublishPlacePluginToDevFrameworkContext and
+				Roact.createElement(StyledDropDown, {
+					Size = UDim2.new(0, 220, 0, 38),
+					Position = UDim2.new(0, 0, 0, 0),
+					ItemHeight = 38,
+					ButtonText = localization:getText("Genre", genre),
+					Items = genres,
+					MaxItems = 4,
+					TextSize = Constants.TEXT_SIZE,
+					SelectedItem = genre,
+					ShowRibbon = not theme.isDarkerTheme,
+					OnItemClicked = function(item) genreChanged(item.Key) end,
+					ListWidth = 210,
+				}) or 
+				Theming.withTheme(function(theme)
 				return Roact.createElement(StyledDropDown, {
 					Size = UDim2.new(0, 220, 0, 38),
 					Position = UDim2.new(0, 0, 0, 0),
@@ -231,13 +263,13 @@ local function displayContents(props, localization)
 					Title = localization:getText("General", "PlayabilityPublic"),
 					Description = localization:getText("General", "PlayabilityPublicDesc"),
 				}, {
-					Id = "Private",
-					Title = localization:getText("General", "PlayabilityPrivate"),
-					Description = localization:getText("General", "PlayabilityPrivateDesc"),
-				}, {
 					Id = "Friends",
 					Title = localization:getText("General", "PlayabilityFriends"),
 					Description = localization:getText("General", "PlayabilityFriendsDesc"),
+				}, {
+					Id = "Private",
+					Title = localization:getText("General", "PlayabilityPrivate"),
+					Description = localization:getText("General", "PlayabilityPrivateDesc"),
 				},
 			}
 
@@ -248,7 +280,27 @@ local function displayContents(props, localization)
 				selectedButton = "Public"
 			end
 
-			displayResult.Playability = Theming.withTheme(function(theme)
+			displayResult.Playability = FFlagUpdatePublishPlacePluginToDevFrameworkContext and
+				Roact.createElement(RadioButtonSet, {
+					Title = localization:getText("General", "TitlePlayability"),
+					Description = localization:getText("General", "PlayabilityHeader"),
+					LayoutOrder = 8,
+					Buttons = playabilityButtons,
+					Enabled = true,
+					Selected = selectedButton,
+					SelectionChanged = function(button)
+						if button.Id == "Friends" then
+							isFriendsOnlyChanged(true)
+							isActiveChanged(true)
+						elseif button.Id == "Public" then
+							isFriendsOnlyChanged(false)
+							isActiveChanged(true)
+						elseif button.Id == "Private" then
+							isFriendsOnlyChanged(false)
+							isActiveChanged(false)
+						end
+					end,
+				}) or Theming.withTheme(function(theme)
 				return Roact.createElement(RadioButtonSet, {
 					Title = localization:getText("General", "TitlePlayability"),
 					Description = localization:getText("General", "PlayabilityHeader"),
@@ -273,11 +325,13 @@ local function displayContents(props, localization)
 		else
 			-- Dialog is in save mode, not publish mode
 			-- Hide the controls that are only used on publish
+			displayResult.Separator1 = nil
 			displayResult.Description = nil
 			displayResult.Separator2 = nil
 			displayResult.Genre = nil
 			displayResult.Separator3 = nil
 			displayResult.Devices = nil
+			displayResult.Separator4 = nil
 		end
 
 		-- Creator has already been set and can not be changed in "first publish" mode, hide the control

@@ -84,7 +84,7 @@ return function()
 				return {}
 			end
 			local getTheme = function()
-				return Enum.UITheme.Light
+				return "Light"
 			end
 			local theme = Theme.mock(createStyles, getTheme)
 			theme:destroy()
@@ -95,7 +95,7 @@ return function()
 				return {}
 			end
 			local getTheme = function()
-				return Enum.UITheme.Light
+				return "Light"
 			end
 			local themeChanged = Signal.new()
 			local theme = Theme.mock(createStyles, getTheme, themeChanged)

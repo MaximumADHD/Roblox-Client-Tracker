@@ -15,6 +15,8 @@
 		float Number = The number to display in the text box when it is not
 			being edited by the user.
 		int LayoutOrder = The order in which the box displays in a UIListLayout.
+		bool ReadOnly = Value cannot be modified, neither by typing a new value, nor
+			dragging the label button.
 
 		function SetNumber(float number) = A callback for when the user enters
 			a number and then presses the Enter key to confirm their entry.
@@ -38,6 +40,8 @@ local UILibraryCompat = Plugin.Src.UILibraryCompat
 local RoundFrame = require(UILibraryCompat.RoundFrame)
 
 local TextBox = require(Plugin.Src.Components.TextBox)
+
+local GetFFlagNoValueChangeDuringPlayback = require(Plugin.LuaFlags.GetFFlagNoValueChangeDuringPlayback)
 
 local NumberBox = Roact.PureComponent:extend("NumberBox")
 
@@ -101,6 +105,8 @@ function NumberBox:render()
 		local size = props.Size
 		local number = props.Number
 		local layoutOrder = props.LayoutOrder
+		local readOnly = props.ReadOnly
+
 		local focused = state.focused
 
 		local borderColor = focused and textBoxTheme.focusedBorder or textBoxTheme.defaultBorder
@@ -151,18 +157,19 @@ function NumberBox:render()
 					BorderSizePixel = 0,
 				}),
 
-				DragArea = Roact.createElement(DragListenerArea, {
+				DragArea = (not GetFFlagNoValueChangeDuringPlayback() or not readOnly) and Roact.createElement(DragListenerArea, {
 					Size = UDim2.new(1, 0, 1, 0),
 					Cursor = "SizeEW",
 					OnDragMoved = self.onDragMoved,
 					OnDragBegan = self.onDragBegan,
-				}),
+				}) or nil,
 			}),
 
 			TextBox = Roact.createElement(TextBox, {
 				Size = UDim2.new(1, -nameWidth, 1, 0),
 				Text = self:formatNumber(number),
 				TextXAlignment = Enum.TextXAlignment.Left,
+				ReadOnly = readOnly,
 				LayoutOrder = 2,
 				ClearTextOnFocus = false,
 				FocusChanged = self.focusChanged,

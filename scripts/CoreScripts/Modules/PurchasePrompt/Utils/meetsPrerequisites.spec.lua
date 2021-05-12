@@ -12,6 +12,7 @@ return function()
 	local function getValidProductInfo()
 		return {
 			IsForSale = true,
+			CanBeSoldInThisGame = true,
 			IsPublicDomain = true,
 			IsLimited = false,
 			ContentRatingTypeId = 0,
@@ -61,6 +62,33 @@ return function()
 
 		expect(met).to.equal(false)
 		expect(errorReason).to.equal(PurchaseError.NotForSale)
+	end)
+
+	it("should return false if the product is not for sale in the given game", function()
+		local productInfo = getValidProductInfo()
+		productInfo.CanBeSoldInThisGame = false
+
+		local externalSettings = MockExternalSettings.new(false, false, {
+			EnableRestrictedAssetSaleLocationPurchasePrompt = true,
+		})
+
+		local met, errorReason = meetsPrerequisites(productInfo, false, false, externalSettings)
+
+		expect(met).to.equal(false)
+		expect(errorReason).to.equal(PurchaseError.NotForSaleHere)
+	end)
+
+	it("should return true if prerequisites are all met (EnableRestrictedAssetSaleLocationPurchasePrompt flag check)", function()
+		local productInfo = getValidProductInfo()
+		productInfo.CanBeSoldInThisGame = false
+
+		local externalSettings = MockExternalSettings.new(false, false, {
+			EnableRestrictedAssetSaleLocationPurchasePrompt = false,
+		})
+
+		local met, _ = meetsPrerequisites(productInfo, false, false, externalSettings)
+
+		expect(met).to.equal(true)
 	end)
 
 	it("should return false if no copies are available", function()

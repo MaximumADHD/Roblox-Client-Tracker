@@ -145,25 +145,6 @@ local function round(n)
 end
 
 function FirstTimeSetup()
-	do
-		local runService = game:GetService('RunService').RenderStepped
-		function quickWait(waitTime)
-			if not waitTime then
-				runService:wait()
-			elseif waitTime < .033333 then
-				local startTick = tick()
-				runService:wait()
-				local delta = tick() - startTick
-				if delta <= waitTime * .5 then
-					quickWait(waitTime - delta)
-				end
-			else
-				wait(waitTime)
-			end
-		end
-	end
-
-
 
 	local function positionWorldToVoxel(pos)
 		return Vector3.new(ceil(pos.x / resolution), ceil(pos.y / resolution), ceil(pos.z / resolution))
@@ -566,7 +547,7 @@ function FirstTimeSetup()
 				selectionStart = Vector3.new(math.min(clickStart.x, voxelCurrent.x), math.min(clickStart.y, voxelCurrent.y), math.min(clickStart.z, voxelCurrent.z))
 				selectionEnd = Vector3.new(math.max(clickStart.x, voxelCurrent.x), math.max(clickStart.y, voxelCurrent.y), math.max(clickStart.z, voxelCurrent.z))
 				renderSelection()
-				quickWait()
+				game:GetService('RunService').RenderStepped:wait()
 			end
 		end
 	end)

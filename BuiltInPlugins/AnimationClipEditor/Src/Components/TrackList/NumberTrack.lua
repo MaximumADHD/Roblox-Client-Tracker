@@ -32,6 +32,8 @@
 				Name is the human-readable text used to display the item to the user.
 				Key is used to reference the item in code.
 				Value is the value that is displayed in the field.
+		bool ReadOnly = Items cannot be modified, neither by typing a new value, nor by dragging
+			the label button.
 
 		function OnItemChanged(key, value) = A function that is called when the user
 			interacts with an Item field and changes its value. The key passed in this
@@ -117,6 +119,8 @@ function NumberTrack:render()
 		local indent = props.Indent or 0
 		local name = props.Name
 		local items = props.Items
+		local readOnly = props.ReadOnly
+
 		local values = state.values
 
 		local trackTheme = theme.trackTheme
@@ -158,6 +162,8 @@ function NumberTrack:render()
 				LayoutOrder = layout:getNextOrder(),
 				Number = values and values[index] or item.Value,
 				Name = item.Name,
+				ReadOnly = readOnly,
+
 				SetNumber = function(number)
 					props.OnChangeBegan()
 					self.onSetNumber(index, number)

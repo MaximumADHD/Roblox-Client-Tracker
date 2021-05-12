@@ -35,7 +35,7 @@ end
 function KeyProvider.getOptInLocationsKeyName()
     assert(FFlagLuobuDevPublishLua)
     
-    return "optInLocations"
+    return "OptInLocations"
 end
 
 return KeyProvider

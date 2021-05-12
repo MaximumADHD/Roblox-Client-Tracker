@@ -69,7 +69,9 @@ function JointSelector:init()
 	self.Bones = RigUtils.getBoneMap(rootInstance)
 
 	self.onManipulateJoints = function(values)
-		self.props.OnManipulateJoints("Root", values)
+		if self.props.OnManipulateJoints then
+			self.props.OnManipulateJoints("Root", values)
+		end
 	end
 end
 

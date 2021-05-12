@@ -110,7 +110,7 @@ function StoryHost:_mountInspector(currentHost: Instance)
 			rootPrefix = reverse(reversePrefix),
 			pickerParent = currentHost:FindFirstAncestor("InfoPanel")
 		})
-		self.inspector:addRoactTree(name, self.handle)
+		self.inspector:addRoactTree(name, self.handle, Roact)
 	end)
 end
 

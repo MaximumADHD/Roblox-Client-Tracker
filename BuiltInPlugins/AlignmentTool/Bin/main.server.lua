@@ -5,10 +5,14 @@ local RefactorFlags = require(Plugin.Packages.Framework.Util.RefactorFlags)
 RefactorFlags.THEME_REFACTOR = getFFlagEnableAlignToolStylizer()
 
 local getFFlagAlignToolTeachingCallout = require(Plugin.Src.Flags.getFFlagAlignToolTeachingCallout)
+local getFFlagAlignToolRoactInspector = require(Plugin.Src.Flags.getFFlagAlignToolRoactInspector)
 
 local Roact = require(Plugin.Packages.Roact)
 local Rodux = require(Plugin.Packages.Rodux)
-local ContextServices = require(Plugin.Packages.Framework.ContextServices)
+
+local Framework = require(Plugin.Packages.Framework)
+
+local ContextServices = Framework.ContextServices
 local Analytics = ContextServices.Analytics
 local Localization = ContextServices.Localization
 local Mouse = ContextServices.Mouse
@@ -45,10 +49,26 @@ if getFFlagAlignToolTeachingCallout() then
 	calloutController:defineCallout(definitionId, title, description, learnMoreUrl)
 end
 
+local inspector = nil
+if getFFlagAlignToolRoactInspector() then
+	if game:GetService("StudioService"):HasInternalPermission() then
+		inspector = Framework.DeveloperTools.forPlugin(Plugin.Name, plugin)
+
+		Roact.setGlobalConfig({
+			elementTracing = true,
+		})
+	end
+end
+
 local function main()
 	local pluginHandle = nil
 
 	local function onPluginUnloading()
+		if inspector then
+			inspector:destroy()
+			inspector = nil
+		end
+
 		if pluginHandle then
 			Roact.unmount(pluginHandle)
 			pluginHandle = nil
@@ -68,6 +88,10 @@ local function main()
 	})
 
 	pluginHandle = Roact.mount(pluginGui)
+
+	if inspector then
+		inspector:addRoactTree("Roact tree", pluginHandle)
+	end
 
 	plugin.Unloading:Connect(onPluginUnloading)
 end

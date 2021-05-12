@@ -25,11 +25,16 @@
 				a table of Roact elements, created using this component's props.
 			bool AddLayout = Whether or not to add a default UIListLayout to the page contents.
 ]]
+local FFlagUpdatePublishPlacePluginToDevFrameworkContext = game:GetFastFlag("UpdatePublishPlacePluginToDevFrameworkContext")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 local Cryo = require(Plugin.Packages.Cryo)
+
+local Framework = Plugin.Packages.Framework
+local ContextServices = require(Framework.ContextServices)
+
 local UILibrary = require(Plugin.Packages.UILibrary)
 local Localizing = UILibrary.Localizing
 local AddChange = require(Plugin.Src.Actions.AddChange)
@@ -37,10 +42,15 @@ local AddChange = require(Plugin.Src.Actions.AddChange)
 local ELEMENT_PADDING = 15
 
 return function(loadValuesToProps, dispatchForProps)
+	if FFlagUpdatePublishPlacePluginToDevFrameworkContext then
+		local Page = Roact.PureComponent:extend("Page")
+		
+		function Page:render()
+			local props = self.props
+			local theme = props.Theme:get("Plugin")
+			local localization = props.Localization
 
-	local function Page(props)
-		return Localizing.withLocalization(function(localization)
-			local children = props.Content and props.Content(props, localization) or {}
+			local children = props.Content and props.Content(props) or {}
 			local layoutOrder = props.LayoutOrder
 			local addLayout = props.AddLayout
 			local contentHeightChanged = props.ContentHeightChanged
@@ -64,34 +74,96 @@ return function(loadValuesToProps, dispatchForProps)
 					end,
 				})
 			}))
-		end)
-	end
-
-	local function mapStateToProps(state, props)
-		if not loadValuesToProps then
-			return
 		end
-		local getValue = function(propName)
-			if state.NewGameSettings.changed[propName] ~= nil then
-				return state.NewGameSettings.changed[propName]
-			else
-				return state.NewGameSettings.current[propName]
+
+		ContextServices.mapToProps(Page, {
+			Theme = ContextServices.Theme,
+			Localization = ContextServices.Localization,
+		})
+
+		local function mapStateToProps(state, props)
+			if not loadValuesToProps then
+				return
 			end
-		end
-		return loadValuesToProps(getValue, state)
-	end
-
-	local function useDispatchForProps(dispatch)
-		if not dispatchForProps then
-			return
-		end
-		local setValue = function(propName)
-			return function(value)
-				dispatch(AddChange(propName, value))
+			local getValue = function(propName)
+				if state.NewGameSettings.changed[propName] ~= nil then
+					return state.NewGameSettings.changed[propName]
+				else
+					return state.NewGameSettings.current[propName]
+				end
 			end
+			return loadValuesToProps(getValue, state)
 		end
-		return dispatchForProps(setValue, dispatch)
-	end
 
-	return RoactRodux.connect(mapStateToProps, useDispatchForProps)(Page)
+		local function useDispatchForProps(dispatch)
+			if not dispatchForProps then
+				return
+			end
+			local setValue = function(propName)
+				return function(value)
+					dispatch(AddChange(propName, value))
+				end
+			end
+			return dispatchForProps(setValue, dispatch)
+		end
+
+		return RoactRodux.connect(mapStateToProps, useDispatchForProps)(Page)
+	else
+		local function Page(props)
+			return Localizing.withLocalization(function(localization)
+				local children = props.Content and props.Content(props, localization) or {}
+				local layoutOrder = props.LayoutOrder
+				local addLayout = props.AddLayout
+				local contentHeightChanged = props.ContentHeightChanged
+
+				return Roact.createElement("Frame", {
+					BackgroundTransparency = 1,
+					Size = UDim2.new(1, 0, 1, 0),
+					LayoutOrder = layoutOrder,
+				}, Cryo.Dictionary.join(children, {
+					Padding = Roact.createElement("UIPadding", {
+						PaddingLeft = UDim.new(0, 20),
+						PaddingRight = UDim.new(0, 20),
+					}),
+					Layout = addLayout and Roact.createElement("UIListLayout", {
+						Padding = UDim.new(0, ELEMENT_PADDING),
+						SortOrder = Enum.SortOrder.LayoutOrder,
+						[Roact.Change.AbsoluteContentSize] = function(rbx)
+							if contentHeightChanged then
+								contentHeightChanged(rbx.AbsoluteContentSize.y)
+							end
+						end,
+					})
+				}))
+			end)
+		end
+
+		local function mapStateToProps(state, props)
+			if not loadValuesToProps then
+				return
+			end
+			local getValue = function(propName)
+				if state.NewGameSettings.changed[propName] ~= nil then
+					return state.NewGameSettings.changed[propName]
+				else
+					return state.NewGameSettings.current[propName]
+				end
+			end
+			return loadValuesToProps(getValue, state)
+		end
+
+		local function useDispatchForProps(dispatch)
+			if not dispatchForProps then
+				return
+			end
+			local setValue = function(propName)
+				return function(value)
+					dispatch(AddChange(propName, value))
+				end
+			end
+			return dispatchForProps(setValue, dispatch)
+		end
+
+		return RoactRodux.connect(mapStateToProps, useDispatchForProps)(Page)
+	end
 end

@@ -10,6 +10,7 @@ local StudioFrameworkStyles = StudioUI.StudioFrameworkStyles
 local Util = require(Framework.Util)
 local StyleTable = Util.StyleTable
 local Style = Util.Style
+local FrameworkStyleModifier = Util.StyleModifier
 
 local UIFolderData = require(Framework.UI.UIFolderData)
 local Button = require(UIFolderData.Button.style)
@@ -19,6 +20,8 @@ local UILibrary = require(Plugin.UILibrary)
 local StudioTheme = UILibrary.Studio.Theme
 local createTheme = UILibrary.createTheme
 local StudioStyle = UILibrary.Studio.Style
+
+local FFlagLuobuDevPublishLua = game:GetFastFlag("LuobuDevPublishLua")
 
 local Theme = {}
 
@@ -105,6 +108,19 @@ function Theme.createValues(theme, getColor)
 			GameSettingsPrimaryButton = GameSettingsPrimaryButton,
 		}
 	end)
+
+	local tooltipOptIn = FFlagLuobuDevPublishLua and StyleTable.new("Image", function()
+		local TooltipStyle = Style.new({
+			Image = "rbxasset://textures/GameSettings/MoreDetails.png",
+			Color = theme:getColor(StyleColor.SubText),
+			[FrameworkStyleModifier.Hover] = {
+				Color = theme:getColor(StyleColor.LinkText),
+			},
+		})
+		return {
+			TooltipStyle = TooltipStyle,
+		}
+	end) or nil
 
 	return {
 		Plugin = Style.extend({
@@ -417,11 +433,25 @@ function Theme.createValues(theme, getColor)
 				textBox = {
 					length = 100,
 				}
-			}
+			},
+
+			requirementsLink = FFlagLuobuDevPublishLua and {
+				height = 22,
+				length = 250,
+				paddingY = 25
+			} or nil,
+
+			tooltipIcon = FFlagLuobuDevPublishLua and {
+				paddingX = 5,
+				paddingY = 30,
+				size = 14,
+			} or nil,
+
 		}),
 
 		Framework = Style.extend(studioStyles, {
 			Button = Style.extend(studioStyles.Button, gameSettingsButtons),
+			Image = FFlagLuobuDevPublishLua and Style.extend(studioStyles.Image, tooltipOptIn) or nil
 		}),
 	}
 end

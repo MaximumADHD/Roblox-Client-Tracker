@@ -53,6 +53,11 @@ if THEME_REFACTOR then
 			BackgroundStyle = {
 				Color = Decoration.SubBackground,
 			},
+			[StyleModifier.Hover] = {
+				BackgroundStyle = Cryo.Dictionary.join(roundBox, {
+					Color = StyleKey.ButtonHover,
+				}),
+			},
 		},
 
 		["&Round"] = {

@@ -386,7 +386,7 @@ local function main()
 	})
 	toolboxHandle = Roact.mount(toolboxWithServices)
 	if inspector then
-		inspector:addRoactTree("Roact tree", toolboxHandle)
+		inspector:addRoactTree("Roact tree", toolboxHandle, Roact)
 	end
 
 	-- Create publish new asset page.

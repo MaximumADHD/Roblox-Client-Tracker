@@ -115,7 +115,7 @@ local function handleDMSessionDebounced(dmSession)
 			)	
 		end
 		if inspector then
-			inspector:addRoactTree("Roact tree", RoactHandle)
+			inspector:addRoactTree("Roact tree", RoactHandle, Roact)
 		end
 	end
 

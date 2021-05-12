@@ -15,6 +15,7 @@ local KeyframeUtils = require(Plugin.Src.Util.KeyframeUtils)
 local AnimationData = require(Plugin.Src.Util.AnimationData)
 
 local GetFFlagFixScaleKeyframeClobbering = require(Plugin.LuaFlags.GetFFlagFixScaleKeyframeClobbering)
+local GetFFlagNoValueChangeDuringPlayback = require(Plugin.LuaFlags.GetFFlagNoValueChangeDuringPlayback)
 
 local Preview = {}
 Preview.__index = Preview
@@ -39,6 +40,10 @@ local function buildPreview(animationData, selectedKeyframes)
 end
 
 function Preview.getFrameBounds(animationData, selectedKeyframes)
+	if GetFFlagNoValueChangeDuringPlayback() then
+		return AnimationData.getSelectionBounds(animationData, selectedKeyframes)
+	end
+
 	local earliest = AnimationData.getMaximumLength(animationData.Metadata.FrameRate)
 	local latest = 0
 	for _, instance in pairs(selectedKeyframes) do

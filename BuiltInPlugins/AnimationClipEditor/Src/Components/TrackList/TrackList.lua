@@ -29,6 +29,7 @@
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
+local RoactRodux = require(Plugin.Packages.RoactRodux)
 local TrackUtils = require(Plugin.Src.Util.TrackUtils)
 local StringUtils = require(Plugin.Src.Util.StringUtils)
 local SignalsContext = require(Plugin.Src.Context.Signals)
@@ -37,11 +38,14 @@ local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
 
 local Constants = require(Plugin.Src.Util.Constants)
+
 local ExpandableTrack = require(Plugin.Src.Components.TrackList.ExpandableTrack)
 local SummaryTrack = require(Plugin.Src.Components.TrackList.SummaryTrack)
 local TrackListEntry = require(Plugin.Src.Components.TrackList.TrackListEntry)
 local NumberTrack = require(Plugin.Src.Components.TrackList.NumberTrack)
 local WideScrollingFrame = require(Plugin.Src.Components.TrackList.WideScrollingFrame)
+
+local GetFFlagNoValueChangeDuringPlayback = require(Plugin.LuaFlags.GetFFlagNoValueChangeDuringPlayback)
 
 local TrackList = Roact.PureComponent:extend("TrackList")
 
@@ -138,6 +142,8 @@ function TrackList:renderExpandedCFrameTrack(track, children, theme)
 	local properties = Constants.PROPERTY_KEYS
 	local animationData = props.AnimationData
 	local playhead = props.Playhead
+	local isPlaying = self.props.IsPlaying
+	local readOnly = GetFFlagNoValueChangeDuringPlayback() and isPlaying
 
 	local nameWidth = math.max(self.getTextWidth(properties.Position, theme),
 		self.getTextWidth(properties.Rotation, theme))
@@ -158,6 +164,7 @@ function TrackList:renderExpandedCFrameTrack(track, children, theme)
 			Items = items[targetProperty],
 			Height = Constants.TRACK_HEIGHT,
 			Indent = indent,
+			ReadOnly = readOnly,
 			OnItemChanged = function(key, value)
 				for _, item in ipairs(items[targetProperty]) do
 					if item.Key == key then
@@ -312,4 +319,15 @@ ContextServices.mapToProps(TrackList, {
 	Signals = SignalsContext,
 })
 
-return TrackList
+local function mapStateToProps(state, props)
+	local status = state.Status
+	return {
+		IsPlaying = status.IsPlaying,
+	}
+end
+
+local function mapDispatchToProps(dispatch)
+	return {}
+end
+
+return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(TrackList)

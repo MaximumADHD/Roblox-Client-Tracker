@@ -15,8 +15,6 @@
 
 ]]
 
-local FFlagAssetConfigFixRoactTypeChecks = game:GetFastFlag("AssetConfigFixRoactTypeChecks")
-
 local PREVIEW_TITLE_PADDING = 12
 local PREVIEW_TITLE_HEIGHT = 24
 
@@ -62,7 +60,6 @@ function DefaultThumbnailPreview:render()
 		local layoutOrder = props.LayoutOrder or 1
 
 		return Roact.createElement("Frame", {
-			Name = (not FFlagAssetConfigFixRoactTypeChecks) and "DefaultThumbnailPreview" or nil,
 			BackgroundTransparency = 1,
 			Size = props.Size,
 			Position = position,

@@ -41,7 +41,8 @@ local function init()
 			-- TODO FFlagAnimationClipEditorRoactInspector - move these imports to top of file when flag is retired
 			local Framework = require(Plugin.Packages.Framework)
 			inspector = Framework.DeveloperTools.forPlugin("AnimationClipEditor", plugin)
-			inspector:addRoactTree("Roact tree", handle)
+			local currentRoact = GetFFlagUseDeveloperFrameworkMigratedSrc() and Roact or RoactDeprecated
+			inspector:addRoactTree("Roact tree", handle, currentRoact)
 		end
 	end
 end

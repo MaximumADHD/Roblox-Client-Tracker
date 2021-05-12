@@ -6,7 +6,6 @@ game:DefineFastFlag("AssetConfigOverrideFromAnyScreen", false)
 game:DefineFastFlag("FixAssetConfigManageableGroups", false)
 game:DefineFastFlag("ShowAssetConfigReasons2", false)
 game:DefineFastFlag("DebugAssetConfigNetworkError", false)
-game:DefineFastFlag("AssetConfigFixRoactTypeChecks", false)
 
 game:DefineFastFlag("DebugToolboxGetRolesRequest", false)
 

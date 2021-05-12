@@ -21,7 +21,6 @@
 ]]
 
 local FFlagRemoveAudioEndorsedIcon = game:GetFastFlag("RemoveAudioEndorsedIcon")
-local FFlagToolboxFixShowNilCreationStatus2 = game:DefineFastFlag("ToolboxFixShowNilCreationStatus2", false)
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -185,15 +184,10 @@ function Asset:render()
 				showVotes = false
 			end
 
-			local showStatus
-			if FFlagToolboxFixShowNilCreationStatus2 then
-				showStatus = isCurrentlyCreationsTab
+			local showStatus = isCurrentlyCreationsTab
 
-				if showStatus and status == nil then
-					showStatus = false
-				end
-			else
-				showStatus = isCurrentlyCreationsTab
+			if showStatus and status == nil then
+				showStatus = false
 			end
 
 			local layoutOrder = props.LayoutOrder

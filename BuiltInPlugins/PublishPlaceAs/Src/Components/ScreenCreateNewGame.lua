@@ -8,15 +8,18 @@
 		table FirstPublishContext - set only when doing "first publish after save"
 			This table contain 2 elements, universeId and placeId
 ]]
-
+local FFlagUpdatePublishPlacePluginToDevFrameworkContext = game:GetFastFlag("UpdatePublishPlacePluginToDevFrameworkContext")
 local StudioService = game:GetService("StudioService")
 
 local Plugin = script.Parent.Parent.Parent
 
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
-local UILibrary = require(Plugin.Packages.UILibrary)
 
+local Framework = Plugin.Packages.Framework
+local ContextServices = require(Framework.ContextServices)
+
+local UILibrary = require(Plugin.Packages.UILibrary)
 local StyledScrollingFrame = UILibrary.Component.StyledScrollingFrame
 
 local Configuration = require(Plugin.Src.Network.Requests.Configuration)
@@ -43,6 +46,7 @@ local LoadGroups = require(Plugin.Src.Thunks.LoadGroups)
 local FFlagStudioAllowRemoteSaveBeforePublish = game:GetFastFlag("StudioAllowRemoteSaveBeforePublish")
 local FFlagStudioPromptOnFirstPublish = game:GetFastFlag("StudioPromptOnFirstPublish")
 local FFlagStudioNewGamesInCloudUI = game:GetFastFlag("StudioNewGamesInCloudUI")
+local FFlagStudioClosePromptOnLocalSave = game:GetFastFlag("StudioClosePromptOnLocalSave")
 
 local MENU_ENTRIES = {
 	"BasicInfo",
@@ -73,6 +77,15 @@ function ScreenCreateNewGame:init()
 	else
 		self.props.DispatchLoadGroups()
 	end
+
+	if FFlagStudioClosePromptOnLocalSave then
+		StudioService.SaveLocallyAsComplete:connect(function(success)
+			if success then
+				-- Close out the publish window after a local save
+				self.props.OnClose()
+			end
+		end)
+	end
 end
 
 function ScreenCreateNewGame:didMount()
@@ -93,44 +106,92 @@ function ScreenCreateNewGame:willUnmount()
 	end
 end
 
-function ScreenCreateNewGame:render(props)
-	return Theming.withTheme(function(theme)
-		return Localizing.withLocalization(function(localization)
-			local props = self.props
+function ScreenCreateNewGame:render()
+	if FFlagUpdatePublishPlacePluginToDevFrameworkContext then
+		local props = self.props
+		local theme = props.Theme:get("Plugin")
+		local localization = props.Localization
 
-			local onClose = props.OnClose
-			local readyToSave = props.ReadyToSave
-			local isPublishing = props.IsPublishing
-			local changed = props.Changed
-			local isPublish = props.IsPublish
-			local firstPublishContext = props.FirstPublishContext
+		local onClose = props.OnClose
+		local readyToSave = props.ReadyToSave
+		local isPublishing = props.IsPublishing
+		local changed = props.Changed
+		local isPublish = props.IsPublish
+		local firstPublishContext = props.FirstPublishContext
 
-			local dispatchSetIsPublishing = props.dispatchSetIsPublishing
+		local dispatchSetIsPublishing = props.dispatchSetIsPublishing
 
-			local selected = self.state.selected
+		local selected = self.state.selected
 
-			local actionButtonLabel = "Create"
-			if FFlagStudioNewGamesInCloudUI then
-				actionButtonLabel = "Save"
-			end
+		-- This is the vertical size of all publish page elements added together
+		-- There isn't a way to automatically calculate this based on contents
+		local publishCanvasHeight = 780
 
-			local replaceUpdateWithLocalSave = FFlagStudioAllowRemoteSaveBeforePublish and (isPublish == false)
-			local nextScreenText = "UpdateExistingGame"
-			if replaceUpdateWithLocalSave then
-				nextScreenText = "SaveToFile"
-			end
+		local actionButtonLabel = "Create"
+		if FFlagStudioNewGamesInCloudUI and (isPublish == false) then
+			actionButtonLabel = "Save"
+		end
 
-			local children = {
-				MenuBar = Roact.createElement(MenuBar, {
-					Entries = MENU_ENTRIES,
-					Selected = selected,
-					SelectionChanged = self.changeSelection,
+		local replaceUpdateWithLocalSave = FFlagStudioAllowRemoteSaveBeforePublish and (isPublish == false)
+		local nextScreenText = "UpdateExistingGame"
+		if replaceUpdateWithLocalSave then
+			nextScreenText = "SaveToFile"
+		end
+
+		local children = {
+			MenuBar = Roact.createElement(MenuBar, {
+				Entries = MENU_ENTRIES,
+				Selected = selected,
+				SelectionChanged = self.changeSelection,
+			}),
+
+			Separator = Roact.createElement(Separator, {
+				Weight = 3,
+				Position = UDim2.new(0, theme.MENU_BAR_WIDTH, 0.5, 0),
+				DominantAxis = Enum.DominantAxis.Height,
+			}),
+
+			Page = Roact.createElement("Frame", {
+				BackgroundTransparency = 1,
+				Position = UDim2.new(0, theme.MENU_BAR_WIDTH, 0, 0),
+				Size = UDim2.new(1, -theme.MENU_BAR_WIDTH, 1, -theme.FOOTER_HEIGHT)
+			}, {
+				Roact.createElement(BasicInfo, {
+					IsPublish = isPublish,
 				}),
+			}),
 
-				Separator = Roact.createElement(Separator, {
-					Weight = 3,
-					Position = UDim2.new(0, theme.MENU_BAR_WIDTH, 0.5, 0),
-					DominantAxis = Enum.DominantAxis.Height,
+			-- Footer = Roact.createElement(Footer, {
+			-- 	MainButton = {
+			-- 		Name = "Create",
+			-- 		Active = readyToSave and not isPublishing,
+			-- 		OnActivated = function()
+			-- 			if FFlagStudioPromptOnFirstPublish and firstPublishContext then
+			-- 				SettingsImpl.saveAll(changed, localization, firstPublishContext.universeId, firstPublishContext.placeId)
+			-- 			else
+			-- 				SettingsImpl.saveAll(changed, localization)
+			-- 			end
+			-- 			dispatchSetIsPublishing(true)
+			-- 		end,
+			-- 	},
+			-- 	OnClose = onClose,
+			-- 	NextScreen = Constants.SCREENS.CHOOSE_GAME,
+			-- 	NextScreenText = nextScreenText,
+			-- 	IsLocalSaveButton = replaceUpdateWithLocalSave,
+			-- }),
+		}
+
+		if FFlagStudioAllowRemoteSaveBeforePublish and isPublish then
+			children.Page = Roact.createElement(StyledScrollingFrame, {
+				BackgroundTransparency = 1,
+				Position = UDim2.new(0, theme.MENU_BAR_WIDTH, 0, 0),
+				Size = UDim2.new(1, -theme.MENU_BAR_WIDTH, 1, -theme.FOOTER_HEIGHT),
+				CanvasSize = UDim2.new(1, -theme.MENU_BAR_WIDTH, 0, publishCanvasHeight),
+				[Roact.Ref] = self.scrollingFrameRef,
+			}, {
+				Roact.createElement(BasicInfo, {
+					IsPublish = isPublish,
+					IsFirstPublish = firstPublishContext ~= nil,
 				}),
 
 				Page = Roact.createElement("Frame", {
@@ -161,28 +222,117 @@ function ScreenCreateNewGame:render(props)
 					NextScreenText = nextScreenText,
 					IsLocalSaveButton = replaceUpdateWithLocalSave,
 				}),
-			}
+			})
+		end
 
-			if FFlagStudioAllowRemoteSaveBeforePublish then
-				children.Page = Roact.createElement(StyledScrollingFrame, {
-					BackgroundTransparency = 1,
-					Position = UDim2.new(0, theme.MENU_BAR_WIDTH, 0, 0),
-					Size = UDim2.new(1, -theme.MENU_BAR_WIDTH, 1, -theme.FOOTER_HEIGHT),
-					[Roact.Ref] = self.scrollingFrameRef,
-				}, {
-					Roact.createElement(BasicInfo, {
-						IsPublish = isPublish,
-						IsFirstPublish = firstPublishContext ~= nil,
+		return Roact.createElement("Frame", {
+			Size = UDim2.new(1, 0, 1, 0),
+			BackgroundColor3 = theme.backgroundColor,
+		}, children)
+	else
+		return Theming.withTheme(function(theme)
+			return Localizing.withLocalization(function(localization)
+				local props = self.props
+
+				local onClose = props.OnClose
+				local readyToSave = props.ReadyToSave
+				local isPublishing = props.IsPublishing
+				local changed = props.Changed
+				local isPublish = props.IsPublish
+				local firstPublishContext = props.FirstPublishContext
+
+				local dispatchSetIsPublishing = props.dispatchSetIsPublishing
+
+				local selected = self.state.selected
+
+				-- This is the vertical size of all publish page elements added together
+				-- There isn't a way to automatically calculate this based on contents
+				local publishCanvasHeight = 780
+
+				local actionButtonLabel = "Create"
+				if FFlagStudioNewGamesInCloudUI and (isPublish == false) then
+					actionButtonLabel = "Save"
+				end
+	
+				local replaceUpdateWithLocalSave = FFlagStudioAllowRemoteSaveBeforePublish and (isPublish == false)
+				local nextScreenText = "UpdateExistingGame"
+				if replaceUpdateWithLocalSave then
+					nextScreenText = "SaveToFile"
+				end
+
+				local children = {
+					MenuBar = Roact.createElement(MenuBar, {
+						Entries = MENU_ENTRIES,
+						Selected = selected,
+						SelectionChanged = self.changeSelection,
 					}),
-				})
-			end
 
-			return Roact.createElement("Frame", {
-				Size = UDim2.new(1, 0, 1, 0),
-				BackgroundColor3 = theme.backgroundColor,
-			}, children)
+					Separator = Roact.createElement(Separator, {
+						Weight = 3,
+						Position = UDim2.new(0, theme.MENU_BAR_WIDTH, 0.5, 0),
+						DominantAxis = Enum.DominantAxis.Height,
+					}),
+
+					Page = Roact.createElement("Frame", {
+						BackgroundTransparency = 1,
+						Position = UDim2.new(0, theme.MENU_BAR_WIDTH, 0, 0),
+						Size = UDim2.new(1, -theme.MENU_BAR_WIDTH, 1, -theme.FOOTER_HEIGHT)
+					}, {
+						Roact.createElement(BasicInfo, {
+							IsPublish = isPublish,
+						}),
+					}),
+	
+					Footer = Roact.createElement(Footer, {
+						MainButton = {
+							Name = actionButtonLabel,
+							Active = readyToSave and not isPublishing,
+							OnActivated = function()
+								if FFlagStudioPromptOnFirstPublish and firstPublishContext then
+									SettingsImpl.saveAll(changed, localization, firstPublishContext.universeId, firstPublishContext.placeId)
+								else
+									SettingsImpl.saveAll(changed, localization)
+								end
+								dispatchSetIsPublishing(true)
+							end,
+						},
+						OnClose = onClose,
+						NextScreen = Constants.SCREENS.CHOOSE_GAME,
+						NextScreenText = nextScreenText,
+						IsLocalSaveButton = replaceUpdateWithLocalSave,
+					}),
+				}
+
+				if FFlagStudioAllowRemoteSaveBeforePublish and isPublish then
+
+					children.Page = Roact.createElement(StyledScrollingFrame, {
+						BackgroundTransparency = 1,
+						Position = UDim2.new(0, theme.MENU_BAR_WIDTH, 0, 0),
+						Size = UDim2.new(1, -theme.MENU_BAR_WIDTH, 1, -theme.FOOTER_HEIGHT),
+						CanvasSize = UDim2.new(1, -theme.MENU_BAR_WIDTH, 0, publishCanvasHeight),
+						[Roact.Ref] = self.scrollingFrameRef,
+					}, {
+						Roact.createElement(BasicInfo, {
+							IsPublish = isPublish,
+							IsFirstPublish = firstPublishContext ~= nil,
+						}),
+					})
+				end
+
+				return Roact.createElement("Frame", {
+					Size = UDim2.new(1, 0, 1, 0),
+					BackgroundColor3 = theme.backgroundColor,
+				}, children)
+			end)
 		end)
-	end)
+	end
+end
+
+if FFlagUpdatePublishPlacePluginToDevFrameworkContext then
+	ContextServices.mapToProps(ScreenCreateNewGame,{
+		Theme = ContextServices.Theme,
+		Localization = ContextServices.Localization,
+	})
 end
 
 local function mapStateToProps(state, props)

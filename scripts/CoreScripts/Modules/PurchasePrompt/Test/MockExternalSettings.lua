@@ -78,6 +78,10 @@ function MockExternalSettings.new(isStudio, isTenFoot, flags, platform)
 		return flags.DisableRobuxUpsell
 	end
 
+	function service.GetFFlagEnableRestrictedAssetSaleLocationPurchasePrompt()
+		return flags.EnableRestrictedAssetSaleLocationPurchasePrompt
+	end
+
 	return service
 end
 

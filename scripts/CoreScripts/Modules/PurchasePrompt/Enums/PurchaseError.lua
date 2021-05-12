@@ -15,6 +15,7 @@ local PurchaseError = createEnum("PurchaseError", {
 
 	-- Item unvailable
 	"NotForSale",
+	"NotForSaleHere",
 	"AlreadyOwn",
 	"PremiumOnly",
 	"Under13",

@@ -1014,7 +1014,6 @@ local function OnTap(tapPositions, goToPoint)
 				local currentWeapon = GetEquippedTool(character)
 				if currentWeapon then
 					currentWeapon:Activate()
-					LastFired = tick()
 				end
 			elseif hitPt and character and not CurrentSeatPart then
 				local thisPather = Pather(character, hitPt)
@@ -1058,7 +1057,6 @@ local function OnTap(tapPositions, goToPoint)
 							local currentWeapon = GetEquippedTool(character)
 							if currentWeapon then
 								currentWeapon:Activate()
-								LastFired = tick()
 							end
 							if humanoid then
 								humanoid:MoveTo(hitPt)
@@ -1144,7 +1142,6 @@ local function OnTap(tapPositions, goToPoint)
 			local currentWeapon = GetEquippedTool(character)
 			if currentWeapon then
 				currentWeapon:Activate()
-				LastFired = tick()
 			end
 		end
 	end

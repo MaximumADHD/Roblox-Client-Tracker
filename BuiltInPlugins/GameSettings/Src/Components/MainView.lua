@@ -140,7 +140,11 @@ function MainView:render()
             AnchorPoint = Vector2.new(0.5, 0.5),
 
             OnClick = function()
-                StudioService:ShowPublishToRoblox()
+                if FFlagStudioNewGamesInCloudUI then
+                    StudioService:ShowSaveOrPublishPlaceToRoblox(false, false, false)
+                else
+                    StudioService:ShowPublishToRoblox()
+                end
                 self.props.OnClose(false)
             end,
         }, {

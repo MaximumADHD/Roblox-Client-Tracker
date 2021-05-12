@@ -190,7 +190,7 @@ local function main()
 
 		if ok and hasInternalPermission then
 			local inspector = Framework.DeveloperTools.forPlugin("Terrain Editor", plugin)
-			inspector:addRoactTree("Roact tree", roactHandle)
+			inspector:addRoactTree("Roact tree", roactHandle, Roact)
 		end
 	end
 

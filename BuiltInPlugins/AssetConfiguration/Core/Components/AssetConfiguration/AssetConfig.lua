@@ -11,7 +11,6 @@ local FFlagCanPublishDefaultAsset = game:DefineFastFlag("CanPublishDefaultAsset"
 local FFlagShowAssetConfigReasons2 = game:GetFastFlag("ShowAssetConfigReasons2")
 local FFlagAssetConfigEnforceNonEmptyDescription = game:DefineFastFlag("AssetConfigEnforceNonEmptyDescription", false)
 local FFlagCMSUploadFees = game:GetFastFlag("CMSUploadFees")
-local FFlagAssetConfigFixRoactTypeChecks = game:GetFastFlag("AssetConfigFixRoactTypeChecks")
 local FFlagAssetConfigNonCatalogOptionalDescription = game:GetFastFlag("AssetConfigNonCatalogOptionalDescription")
 
 local StudioService = game:GetService("StudioService")
@@ -665,7 +664,6 @@ end
 -- And replace the MessageBox's props based on the networkError.
 local function getMessageBoxProps(getAssetFailed, localizedContent, cancelFunc, closeFunc)
 	local messageProps = {
-		Name = (not FFlagAssetConfigFixRoactTypeChecks) and "AssetConfigMessageBox" or nil,
 		TextSize = Constants.FONT_SIZE_MEDIUM,
 		Font = Constants.FONT,
 		Icon = Images.INFO_ICON,

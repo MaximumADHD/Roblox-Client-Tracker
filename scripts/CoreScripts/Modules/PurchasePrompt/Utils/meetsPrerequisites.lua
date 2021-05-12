@@ -21,6 +21,11 @@ local function meetsPrerequisites(productInfo, alreadyOwned, restrictThirdParty,
 		return false, PurchaseError.NotForSale
 	end
 
+	if externalSettings.GetFFlagEnableRestrictedAssetSaleLocationPurchasePrompt()
+			and not productInfo.CanBeSoldInThisGame then
+		return false, PurchaseError.NotForSaleHere
+	end
+
 	if productInfo.IsLimited or productInfo.IsLimitedUnique then
 		if productInfo.Remaining == nil or productInfo.Remaining == 0 then
 			return false, PurchaseError.Limited

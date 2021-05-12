@@ -298,7 +298,7 @@ local function openGameSettings(gameId, dataModel, firstSelectedId)
 	if FFlagGameSettingsRoactInspector then
 		if game:GetService("StudioService"):HasInternalPermission() then
 			inspector = Framework.DeveloperTools.forPlugin("Game Settings", plugin)
-			inspector:addRoactTree("Roact tree", gameSettingsHandle)
+			inspector:addRoactTree("Roact tree", gameSettingsHandle, Roact)
 		end
 	end
 

@@ -16,7 +16,12 @@
 		numFavorites = int,
 	}
 ]]
+local CoreGui = game:GetService("CoreGui")
+
 local MockId = require(script.Parent.Parent.MockId)
+
+local FFlagEnableRestrictedAssetSaleLocationInspectAndBuy
+	= require(CoreGui.RobloxGui.Modules.Flags.FFlagEnableRestrictedAssetSaleLocationInspectAndBuy)
 
 local AssetInfo = {}
 
@@ -58,7 +63,11 @@ function AssetInfo.fromGetProductInfo(assetInfo)
 	newAsset.assetId = tostring(assetInfo.AssetId)
 	newAsset.assetTypeId = tostring(assetInfo.AssetTypeId)
 	newAsset.productId = tostring(assetInfo.ProductId)
-	newAsset.isForSale = assetInfo.IsForSale
+	if FFlagEnableRestrictedAssetSaleLocationInspectAndBuy then
+		newAsset.isForSale = assetInfo.isForSale and assetInfo.CanBeSoldInThisGame
+	else
+		newAsset.isForSale = assetInfo.IsForSale
+	end
 	newAsset.isLimited = assetInfo.IsLimited or assetInfo.IsLimitedUnique
 
 	return newAsset

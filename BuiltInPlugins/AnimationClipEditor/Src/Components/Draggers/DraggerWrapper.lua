@@ -19,6 +19,8 @@ local SetSelectedTrackInstances = require(Plugin.Src.Actions.SetSelectedTrackIns
 local SetSelectedTracks = require(Plugin.Src.Actions.SetSelectedTracks)
 local AddWaypoint = require(Plugin.Src.Thunks.History.AddWaypoint)
 
+local GetFFlagNoValueChangeDuringPlayback = require(Plugin.LuaFlags.GetFFlagNoValueChangeDuringPlayback)
+
 local DraggerWrapper = Roact.PureComponent:extend("DraggerWrapper")
 
 function DraggerWrapper:init()
@@ -29,7 +31,7 @@ end
 
 function DraggerWrapper:willUpdate(nextProps)
 	local props = self.props
-	if self.selection and props.SelectedTrackInstances ~= nextProps.SelectedTrackInstances then 
+	if self.selection and props.SelectedTrackInstances ~= nextProps.SelectedTrackInstances then
 		Selection:Set(nextProps.SelectedTrackInstances)
 		local selectionSignal = self.props.Signals:get(Constants.SIGNAL_KEYS.SelectionChanged)
 		selectionSignal:Fire()
@@ -44,6 +46,10 @@ local function mapDraggerContextToProps(draggerContext, props)
 	draggerContext.IKEnabled = props.IKEnabled
 	draggerContext.Tool = props.Tool
 	draggerContext.OnManipulateJoints = function(instanceName, values)
+		if (GetFFlagNoValueChangeDuringPlayback() and props.IsPlaying) then
+			return
+		end
+
 		for trackName, value in pairs(values) do
 			props.ValueChanged(instanceName, trackName, props.Playhead, value, props.Analytics)
 		end
@@ -63,7 +69,6 @@ local function setUpDraggerContext(props)
 	return selection, draggerContext
 end
 
-
 function DraggerWrapper:render()
 	local props = self.props
 
@@ -71,7 +76,7 @@ function DraggerWrapper:render()
 	local mouse = props.Mouse:get()
 
 	if not self.draggerContext then
-		if props.AnimationData ~= nil then 
+		if props.AnimationData ~= nil then
 			self.selection, self.draggerContext = setUpDraggerContext(props)
 			self:setState({
 				selection = self.selection,
@@ -92,6 +97,8 @@ function DraggerWrapper:render()
 end
 
 local function mapStateToProps(state, props)
+	local status = state.Status
+
 	return {
 		Tool = state.Status.Tool,
 		SelectedTrackInstances = state.Status.SelectedTrackInstances,
@@ -101,6 +108,7 @@ local function mapStateToProps(state, props)
 		PinnedParts = state.Status.PinnedParts,
 		IKEnabled = state.Status.IKEnabled,
 		Playhead = state.Status.Playhead,
+		IsPlaying = status.IsPlaying,
 		AnimationData = state.AnimationData,
 	}
 end

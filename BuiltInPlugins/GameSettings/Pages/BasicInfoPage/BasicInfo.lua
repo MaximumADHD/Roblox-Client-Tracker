@@ -30,6 +30,7 @@ local FFlagGameSettingsStandardizeLocalizationId = game:GetFastFlag("GameSetting
 local FFlagLuobuDevPublishLua = game:GetFastFlag("LuobuDevPublishLua")
 
 local StudioService = game:GetService("StudioService")
+local GuiService = game:GetService("GuiService")
 
 local LOCALIZATION_ID = FFlagGameSettingsStandardizeLocalizationId and script.Name or "BasicInfo"
 
@@ -80,10 +81,19 @@ local FileUtils = require(Plugin.Src.Util.FileUtils)
 local DEPRECATED_Constants = require(Plugin.Src.Util.DEPRECATED_Constants)
 
 local shouldShowDevPublishLocations = require(Plugin.Src.Util.GameSettingsUtilities).shouldShowDevPublishLocations
+local getOptInLocationsRequirementsLink = require(Plugin.Src.Util.GameSettingsUtilities).getOptInLocationsRequirementsLink
 local FFlagGameSettingsUseKeyProvider = game:GetFastFlag("GameSettingsUseKeyProvider")
 local KeyProvider = FFlagGameSettingsUseKeyProvider and require(Plugin.Src.Util.KeyProvider) or nil
 local GetOptInLocationsKeyName = FFlagGameSettingsUseKeyProvider and KeyProvider.getOptInLocationsKeyName or nil
-local optInLocationsKey = FFlagLuobuDevPublishLua and GetOptInLocationsKeyName and GetOptInLocationsKeyName() or "optInLocations" 
+local optInLocationsKey = FFlagLuobuDevPublishLua and GetOptInLocationsKeyName and GetOptInLocationsKeyName() or "OptInLocations"
+local Framework = require(Plugin.Framework)
+local Tooltip = Framework.UI.Tooltip
+local Image = Framework.UI.Decoration.Image
+local HoverArea = Framework.UI.HoverArea
+
+local Util = Framework.Util
+local StyleModifier = Util.StyleModifier
+local PartialHyperlink = UILibrary.Studio.PartialHyperlink
 
 local function loadSettings(store, contextItems)
 	local state = store:getState()
@@ -417,6 +427,11 @@ function BasicInfo:hasPermissionToEdit()
 end
 
 function BasicInfo:init()
+	self.state = FFlagLuobuDevPublishLua and {
+		-- StyleModifier must be upper case first character because of how Theme in ContextServices uses it.
+		StyleModifier = nil,
+	} or nil
+
 	self.addIcons = function()
 		local props = self.props
 		local icon = FileUtils.PromptForGameIcon(self, props.Localization)
@@ -434,10 +449,28 @@ function BasicInfo:init()
 			self.props.AddThumbnails(newThumbnails, props.Thumbnails, props.ThumbnailOrder)
 		end
 	end
+
+	self.onMouseEnter = FFlagLuobuDevPublishLua and function()
+		if self.state.StyleModifier == nil then
+			self:setState({
+				StyleModifier = StyleModifier.Hover,
+			})
+		end
+	end or nil
+
+	self.onMouseLeave = FFlagLuobuDevPublishLua and function()
+		if self.state.StyleModifier == StyleModifier.Hover then
+			self:setState({
+				StyleModifier = Roact.None,
+			})
+		end
+	end or nil
+
 end
 
 function BasicInfo:render()
 	local localization = self.props.Localization
+	local theme = FFlagLuobuDevPublishLua and self.props.Theme:get("Plugin") or nil
 
 	local function createChildren()
 		if not self:hasPermissionToEdit() then
@@ -650,7 +683,27 @@ function BasicInfo:render()
 				Boxes = {{
 						Id = "China",
 						Title = localization:getText("General", "LocationChina"),
-						Selected = optInLocations and optInLocations.China or false
+						Selected = optInLocations and optInLocations.China or false,
+						LinkTextFrame = Roact.createElement("Frame", {
+							BackgroundTransparency = 1,
+							LayoutOrder = 150,
+							Size = UDim2.new(1, theme.requirementsLink.length, 0, theme.requirementsLink.height),
+							Position = UDim2.new(0, 0, 0, theme.requirementsLink.paddingY),
+						}, {
+							-- TODO: Implement PartialHyperlink changes into DevFramework since we want to deprecate UILibrary eventually.
+							-- Look at the changes in FFlagLubouDevPublishLua that use this.
+							LinkText = Roact.createElement(PartialHyperlink, {
+								HyperLinkText = localization:getText(optInLocationsKey, "RequirementsLinkText"),
+								NonHyperLinkText = localization:getText(optInLocationsKey, "ChinaRequirements"),
+								Theme = theme,
+								Mouse = props.Mouse:get(),
+								OnClick = function()
+									local url = getOptInLocationsRequirementsLink("China")
+									GuiService:OpenBrowserWindow(url)
+								end,
+								TextSize = theme.fontStyle.Subtext.TextSize,
+							})
+						}),
 					},
 				},
 				Enabled = optInLocations ~= nil,
@@ -661,6 +714,21 @@ function BasicInfo:render()
 					})
 					props.OptInLocationsChanged(newLocations)
 				end,
+				Tooltip = Roact.createElement(Image, {
+					Size = UDim2.fromOffset(theme.tooltipIcon.size, theme.tooltipIcon.size),
+					Position = UDim2.new(0, theme.tooltipIcon.paddingX, 0, theme.tooltipIcon.paddingY),
+					Style = "TooltipStyle",
+					StyleModifier = self.state.StyleModifier,
+				}, {
+					Roact.createElement(Tooltip, {
+						Text = localization:getText(optInLocationsKey, "Tooltip"),
+					}),
+					Roact.createElement(HoverArea, {
+						Cursor = "PointingHand",
+						MouseEnter = self.onMouseEnter,
+						MouseLeave = self.onMouseLeave,
+					}),
+				}),
 			}) or nil,
 
 		}
@@ -678,6 +746,7 @@ end
 ContextServices.mapToProps(BasicInfo, {
 	Localization = ContextServices.Localization,
 	Theme = ContextServices.Theme,
+	Mouse = FFlagLuobuDevPublishLua and ContextServices.Mouse or nil,
 	Dialog = Dialog,
 })
 

@@ -35,8 +35,9 @@ return function(parentGame, pageCursor)
 			end, function(err)
 				if FFlagFixPublishAsWhenQueryFails then
 					store:dispatch(SetChoosePlaceQueryState(Constants.QUERY_STATE.QUERY_STATE_FAILED))
+				else
+					error("Failed to fetch places under parent game" .. parentGame.name)
 				end
-				error("Failed to fetch places under parent game" .. parentGame.name)
 			end)
 		end
 	end

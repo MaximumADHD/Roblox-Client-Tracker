@@ -65,6 +65,7 @@ local TrackColors = require(Plugin.Src.Components.TrackList.TrackColors)
 local UseCustomFPS = require(Plugin.LuaFlags.GetFFlagAnimEditorUseCustomFPS)
 local GetFFlagDebugExtendAnimationLimit = require(Plugin.LuaFlags.GetFFlagDebugExtendAnimationLimit)
 local GetFFlagExtendAnimationLimit = require(Plugin.LuaFlags.GetFFlagExtendAnimationLimit)
+local GetFFlagNoValueChangeDuringPlayback = require(Plugin.LuaFlags.GetFFlagNoValueChangeDuringPlayback)
 
 local EditorController = Roact.PureComponent:extend("EditorController")
 
@@ -184,8 +185,8 @@ function EditorController:init()
 
 	self.findCurrentParts = function(selectedTracks, rootInstance)
 		local currentParts = {}
-		if rootInstance == nil then 
-			return 
+		if rootInstance == nil then
+			return
 		end
 		self.KinematicParts, self.PartsToMotors = RigUtils.getRigInfo(rootInstance)
 		if selectedTracks and rootInstance and self.KinematicParts and #self.KinematicParts > 0 then
@@ -200,7 +201,7 @@ function EditorController:init()
 		end
 		local props = self.props
 		local setSelectedTrackInstances = props.SetSelectedTrackInstances
-		if (#currentParts > 0) and currentParts then 
+		if (#currentParts > 0) and currentParts then
 			setSelectedTrackInstances(currentParts)
 		end
 	end
@@ -239,13 +240,13 @@ function EditorController:init()
 	end
 
 	self.addTrackWrapper = function(instanceName, trackName)
-		if self.props.Analytics then 
+		if self.props.Analytics then
 			self.props.AddTrack(instanceName, trackName, self.props.Analytics)
 		end
 	end
 
 	self.createAnimationWrapper = function(name)
-		if self.props.Analytics then 
+		if self.props.Analytics then
 			self.props.CreateAnimation(name, self.props.Analytics)
 		end
 	end
@@ -257,9 +258,9 @@ function EditorController:init()
 	end
 end
 
-if UseLuaDraggers() then 
+if UseLuaDraggers() then
 	function EditorController:willUpdate(nextProps)
-		if nextProps.RootInstance ~= self.props.RootInstance and nextProps.RootInstance ~= nil then 
+		if nextProps.RootInstance ~= self.props.RootInstance and nextProps.RootInstance ~= nil then
 			self.KinematicParts, self.PartsToMotors = RigUtils.getRigInfo(nextProps.RootInstance)
 			for _, part in ipairs(self.KinematicParts) do
 				self.nameToPart[part.Name] = part
@@ -281,6 +282,7 @@ function EditorController:render()
 	local lastFrame = 0
 	local active = props.Active
 	local playhead = props.Playhead
+	local isPlaying = props.IsPlaying
 	local showAsSeconds = props.ShowAsSeconds
 	local editingLength = props.EditingLength
 	local topTrackIndex = state.TopTrackIndex
@@ -494,15 +496,15 @@ function EditorController:render()
 			SetMotorData = props.SetMotorData,
 			SelectedTracks = selectedTracks,
 			OnSelectPart = self.onPartSelected,
-			OnDragStart = props.AddWaypoint,
-			OnManipulateJoint = function(instanceName, trackName, value)
+			OnDragStart = not (GetFFlagNoValueChangeDuringPlayback() and isPlaying) and props.AddWaypoint or nil,
+			OnManipulateJoint = not (GetFFlagNoValueChangeDuringPlayback() and isPlaying) and function(instanceName, trackName, value)
 				props.ValueChanged(instanceName, trackName, playhead, value, props.Analytics)
-			end,
-			OnManipulateJoints = function(instanceName, values)
+			end or nil,
+			OnManipulateJoints = not (GetFFlagNoValueChangeDuringPlayback() and isPlaying) and function(instanceName, values)
 				for trackName, value in pairs(values) do
 					props.ValueChanged(instanceName, trackName, playhead, value, props.Analytics)
 				end
-			end,
+			end or nil,
 		}),
 
 		FloorGrid = active and showEditor and Roact.createElement(FloorGrid, {
@@ -571,6 +573,7 @@ local function mapStateToProps(state, props)
 		MotorData = status.MotorData,
 		PinnedParts = status.PinnedParts,
 		SelectedTracks = status.SelectedTracks,
+		IsPlaying = status.IsPlaying,
 
 		Analytics = state.Analytics,
 	}

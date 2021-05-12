@@ -24,6 +24,13 @@ local animateScriptEmoteHookFlagExists, animateScriptEmoteHookFlagEnabled = pcal
 end)
 local FFlagAnimateScriptEmoteHook = animateScriptEmoteHookFlagExists and animateScriptEmoteHookFlagEnabled
 
+local FFlagUserFixLoadAnimationError do
+	local success, result = pcall(function()
+		return UserSettings():IsUserFeatureEnabled("UserFixLoadAnimationError")
+	end)
+	FFlagUserFixLoadAnimationError = success and result
+end
+
 local AnimationSpeedDampeningObject = script:FindFirstChild("ScaleDampeningPercent")
 local HumanoidHipHeight = 2
 
@@ -787,9 +794,11 @@ if FFlagAnimateScriptEmoteHook then
 	end
 end
 
--- initialize to idle
-playAnimation("idle", 0.1, Humanoid)
-pose = "Standing"
+if (not FFlagUserFixLoadAnimationError) or Character.Parent ~= nil then
+	-- initialize to idle
+	playAnimation("idle", 0.1, Humanoid)
+	pose = "Standing"
+end
 
 -- loop to handle timed state transitions and tool animations
 while Character.Parent ~= nil do

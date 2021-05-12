@@ -648,7 +648,6 @@ local function OnTap(tapPositions, goToPoint)
 				local currentWeapon = GetEquippedTool(character)
 				if currentWeapon then
 					currentWeapon:Activate()
-					LastFired = tick()
 				end
 			elseif hitPt and character and not CurrentSeatPart then
 				local thisPather = Pather(character, hitPt, hitNormal)
@@ -688,7 +687,6 @@ local function OnTap(tapPositions, goToPoint)
 							local currentWeapon = GetEquippedTool(character)
 							if currentWeapon then
 								currentWeapon:Activate()
-								LastFired = tick()
 							end
 							if humanoid then
 	
@@ -782,7 +780,6 @@ local function OnTap(tapPositions, goToPoint)
 			local currentWeapon = GetEquippedTool(character)
 			if currentWeapon then
 				currentWeapon:Activate()
-				LastFired = tick()
 			end
 		end
 	end
@@ -854,7 +851,7 @@ local function CreateClickToMoveModule()
 	end
 	
 	-- Setup the camera
-	CameraModule = OrbitalCamModule()
+	local CameraModule = OrbitalCamModule()
 
 	local function OnTouchBegan(input, processed)
 		if FingerTouches[input] == nil and not processed then

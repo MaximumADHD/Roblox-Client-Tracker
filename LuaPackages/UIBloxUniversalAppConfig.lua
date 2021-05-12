@@ -9,8 +9,12 @@ local FFlagUIBloxEmptyStateControllerSupport = require(CorePackages.UIBloxFlags.
 local GetFFlagUIBloxUseHeaderBarV2 = require(CorePackages.UIBloxFlags.GetFFlagUIBloxUseHeaderBarV2)
 local FFlagUIBloxUseTileThumbnailV2 = require(CorePackages.UIBloxFlags.FFlagUIBloxUseTileThumbnailV2)
 local FFlagUseUpdatedUIBloxCheckbox = require(CorePackages.UIBloxFlags.FFlagUseUpdatedUIBloxCheckbox)
+local FFlagUIBloxGridViewIsMountedCleanup = require(CorePackages.UIBloxFlags.FFlagUIBloxGridViewIsMountedCleanup)
+local FFlagNoSpawnInGridViewHandler = require(CorePackages.UIBloxFlags.FFlagNoSpawnInGridViewHandler)
 
 return {
+	noSpawnInGridViewHandler = FFlagNoSpawnInGridViewHandler,
+	gridViewIsMountedCleanup = FFlagUIBloxGridViewIsMountedCleanup,
 	useNewUICornerRoundedCorners = GetFFlagLuaAppUseNewUIBloxRoundedCorners(),
 	enableExperimentalGamepadSupport = true,
 	genericSliderFilterOldTouchInputs = FFlagUIBloxSlidersFilterOldTouchInputs,

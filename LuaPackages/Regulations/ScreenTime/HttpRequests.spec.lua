@@ -43,7 +43,7 @@ return function()
 		it("should correctly callback when succeeded", function()
 			local httpRequests = HttpRequests:new(createMockHttpService(true, 200, 0, testInstructions))
 			local called = false
-			function callback(success, unauthorized, instructions)
+			local function callback(success, unauthorized, instructions)
 				expect(success).to.equal(true)
 				expect(unauthorized).to.equal(false)
 				expect(instructions).to.equal(testInstructions)
@@ -55,18 +55,18 @@ return function()
 
 		it("should throw when callback is nil", function()
 			local httpRequests = HttpRequests:new(createMockHttpService(false))
-			success, err = pcall(function()
+			local success, err = pcall(function()
 				httpRequests:getInstructions()
 			end)
 			expect(success).to.equal(false)
 		end)
 		
 		it("should throw when not get from new", function()
-			called = false
-			function callback(success, unauthorized, instructions)
+			local called = false
+			local function callback(success, unauthorized, instructions)
 				called = true;
 			end
-			success, err = pcall(function()
+			local success, err = pcall(function()
 				HttpRequests:getInstructions(callback)
 			end)
 			expect(success).to.equal(false)
@@ -76,7 +76,7 @@ return function()
 		it("should correctly callback when connection error", function()
 			local httpRequests = HttpRequests:new(createMockHttpService(false))
 			local called = false
-			function callback(success, unauthorized, instructions)
+			local function callback(success, unauthorized, instructions)
 				expect(success).to.equal(false)
 				called = true;
 			end
@@ -87,7 +87,7 @@ return function()
 		it("should correctly callback when 401", function()
 			local httpRequests = HttpRequests:new(createMockHttpService(true, 401))
 			local called = false
-			function callback(success, unauthorized, instructions)
+			local function callback(success, unauthorized, instructions)
 				expect(success).to.equal(false)
 				expect(unauthorized).to.equal(true)
 				called = true;
@@ -99,7 +99,7 @@ return function()
 		it("should correctly callback when 412", function()
 			local httpRequests = HttpRequests:new(createMockHttpService(true, 412))
 			local called = false
-			function callback(success, unauthorized, instructions)
+			local function callback(success, unauthorized, instructions)
 				expect(success).to.equal(false)
 				expect(unauthorized).to.equal(false)
 				called = true;
@@ -111,7 +111,7 @@ return function()
 		it("should correctly callback when errorCode", function()
 			local httpRequests = HttpRequests:new(createMockHttpService(true, 200, 1))
 			local called = false
-			function callback(success, unauthorized, instructions)
+			local function callback(success, unauthorized, instructions)
 				expect(success).to.equal(false)
 				expect(unauthorized).to.equal(false)
 				called = true;
@@ -127,7 +127,7 @@ return function()
 			end
 			local httpRequests = HttpRequests:new(httpService)
 			local called = false
-			function callback(success, unauthorized, instructions)
+			local function callback(success, unauthorized, instructions)
 				expect(success).to.equal(false)
 				expect(unauthorized).to.equal(false)
 				called = true;
@@ -145,7 +145,7 @@ return function()
 			end
 			local httpRequests = HttpRequests:new(httpService)
 			local called = false
-			function callback(success, unauthorized, instructions)
+			local function callback(success, unauthorized, instructions)
 				expect(success).to.equal(false)
 				expect(unauthorized).to.equal(false)
 				called = true;
@@ -159,7 +159,7 @@ return function()
 		it("should correctly callback when succeeded", function()
 			local httpRequests = HttpRequests:new(createMockHttpService(true, 200, 0))
 			local called = false
-			function callback(success)
+			local function callback(success)
 				expect(success).to.equal(true)
 				called = true;
 			end
@@ -168,11 +168,11 @@ return function()
 		end)
 
 		it("should throw when not get from new", function()
-			called = false
-			function callback(success)
+			local called = false
+			local function callback(success)
 				called = true;
 			end
-			success, err = pcall(function()
+			local success, err = pcall(function()
 				HttpRequests:reportExecution("a", "b", callback)
 			end)
 			expect(success).to.equal(false)
@@ -187,7 +187,7 @@ return function()
 		it("should correctly callback when connection error", function()
 			local httpRequests = HttpRequests:new(createMockHttpService(false))
 			local called = false
-			function callback(success)
+			local function callback(success)
 				expect(success).to.equal(false)
 				called = true;
 			end
@@ -198,7 +198,7 @@ return function()
 		it("should correctly callback when 401", function()
 			local httpRequests = HttpRequests:new(createMockHttpService(true, 401))
 			local called = false
-			function callback(success)
+			local function callback(success)
 				expect(success).to.equal(false)
 				called = true;
 			end
@@ -209,7 +209,7 @@ return function()
 		it("should correctly callback when errorCode", function()
 			local httpRequests = HttpRequests:new(createMockHttpService(true, 200, 1))
 			local called = false
-			function callback(success)
+			local function callback(success)
 				expect(success).to.equal(false)
 				called = true;
 			end
@@ -224,7 +224,7 @@ return function()
 			end
 			local httpRequests = HttpRequests:new(httpService)
 			local called = false
-			function callback(success)
+			local function callback(success)
 				expect(success).to.equal(false)
 				called = true;
 			end
@@ -239,7 +239,7 @@ return function()
 			end
 			local httpRequests = HttpRequests:new(httpService)
 			local called = false
-			function callback(success)
+			local function callback(success)
 				expect(success).to.equal(false)
 				called = true;
 			end

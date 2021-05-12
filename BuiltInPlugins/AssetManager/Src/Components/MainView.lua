@@ -245,7 +245,11 @@ function MainView:render()
             LayoutOrder = layoutIndex:getNextOrder(),
 
             OnClick = function()
-                StudioService:ShowPublishToRoblox()
+                if FFlagStudioNewGamesInCloudUI then
+                    StudioService:ShowSaveOrPublishPlaceToRoblox(false, false, false)
+                else
+                    StudioService:ShowPublishToRoblox()
+                end
             end,
         }, {
             Roact.createElement(HoverArea, {Cursor = "PointingHand"}),

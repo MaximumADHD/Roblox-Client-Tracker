@@ -6,9 +6,13 @@
 		number Selected: Index of Entries that is selected
 		function selectionChanged: Callback when the selected menu entry changes
 ]]
+local FFlagUpdatePublishPlacePluginToDevFrameworkContext = game:GetFastFlag("UpdatePublishPlacePluginToDevFrameworkContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
+
+local Framework = Plugin.Packages.Framework
+local ContextServices = require(Framework.ContextServices)
 
 local Theming = require(Plugin.Src.ContextServices.Theming)
 local UILibrary = require(Plugin.Packages.UILibrary)
@@ -17,43 +21,93 @@ local Localizing = UILibrary.Localizing
 local MenuEntry = require(Plugin.Src.Components.Menu.MenuEntry)
 local Constants = require(Plugin.Src.Resources.Constants)
 
-local function MenuBar(props)
-	local selected = props.Selected
-	local selectionChanged = props.SelectionChanged
-	local entries = props.Entries
+if FFlagUpdatePublishPlacePluginToDevFrameworkContext then
+	local MenuBar = Roact.PureComponent:extend("MenuBar")
 
-	assert(type(entries) == "table", "MenuBar.Entries must be a table")
+	function MenuBar:render()
+		local props = self.props
+		local theme = props.Theme:get("Plugin")
+		local localization = props.Localization
 
-	return Theming.withTheme(function(theme)
-		return Localizing.withLocalization(function(localization)
-			local menuEntries = {
-				Layout = Roact.createElement("UIListLayout", {
-					Padding = UDim.new(0, 1),
-				})
-			}
+		local selected = props.Selected
+		local selectionChanged = props.SelectionChanged
+		local entries = props.Entries
 
-			for i, entry in ipairs(entries) do
-				table.insert(menuEntries, Roact.createElement(MenuEntry, {
-					Title = localization:getText("MenuItem", entry),
-					Selected = (selected == i),
+		assert(type(entries) == "table", "MenuBar.Entries must be a table")
 
-					-- TODO (kstephan) 2019/08/01 Change error/warning status depending on Rodux state
-					ShowError = false,
-					ShowWarning = false,
+		local menuEntries = {
+			Layout = Roact.createElement("UIListLayout", {
+				Padding = UDim.new(0, 1),
+			})
+		}
 
-					OnClicked = function()
-						selectionChanged(i)
-					end,
-				}))
-			end
+		for i, entry in ipairs(entries) do
+			table.insert(menuEntries, Roact.createElement(MenuEntry, {
+				Title = localization:getText("MenuItem", entry),
+				Selected = (selected == i),
 
-			return Roact.createElement("Frame", {
-				Size = UDim2.new(0, theme.MENU_BAR_WIDTH, 1, 0),
-				BackgroundColor3 = theme.menuBar.backgroundColor,
-				BorderSizePixel = 0,
-			}, menuEntries)
+				-- TODO (kstephan) 2019/08/01 Change error/warning status depending on Rodux state
+				ShowError = false,
+				ShowWarning = false,
+
+				OnClicked = function()
+					selectionChanged(i)
+				end,
+			}))
+		end
+
+		return Roact.createElement("Frame", {
+			Size = UDim2.new(0, theme.MENU_BAR_WIDTH, 1, 0),
+			BackgroundColor3 = theme.menuBar.backgroundColor,
+			BorderSizePixel = 0,
+		}, menuEntries)
+	end
+
+	ContextServices.mapToProps(MenuBar, {
+		Theme = ContextServices.Theme,
+		Localization = ContextServices.Localization,
+	})
+
+	return MenuBar
+else
+	local function MenuBar(props)
+		local selected = props.Selected
+		local selectionChanged = props.SelectionChanged
+		local entries = props.Entries
+
+		assert(type(entries) == "table", "MenuBar.Entries must be a table")
+
+		return Theming.withTheme(function(theme)
+			return Localizing.withLocalization(function(localization)
+				local menuEntries = {
+					Layout = Roact.createElement("UIListLayout", {
+						Padding = UDim.new(0, 1),
+					})
+				}
+
+				for i, entry in ipairs(entries) do
+					table.insert(menuEntries, Roact.createElement(MenuEntry, {
+						Title = localization:getText("MenuItem", entry),
+						Selected = (selected == i),
+
+						-- TODO (kstephan) 2019/08/01 Change error/warning status depending on Rodux state
+						ShowError = false,
+						ShowWarning = false,
+
+						OnClicked = function()
+							selectionChanged(i)
+						end,
+					}))
+				end
+
+				return Roact.createElement("Frame", {
+					Size = UDim2.new(0, theme.MENU_BAR_WIDTH, 1, 0),
+					BackgroundColor3 = theme.menuBar.backgroundColor,
+					BorderSizePixel = 0,
+				}, menuEntries)
+			end)
 		end)
-	end)
-end
+	end
 
-return MenuBar
+	return MenuBar
+end

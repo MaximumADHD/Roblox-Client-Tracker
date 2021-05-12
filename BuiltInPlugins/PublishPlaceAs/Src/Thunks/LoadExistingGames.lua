@@ -40,8 +40,9 @@ return function(type, id, pageCursor)
 			end, function(err)
 				if FFlagFixPublishAsWhenQueryFails then
 					store:dispatch(SetChooseGameQueryState(Constants.QUERY_STATE.QUERY_STATE_FAILED))
+				else
+					error("Failed to load games")
 				end
-				error("Failed to load games")
 			end)
 		end
 	end

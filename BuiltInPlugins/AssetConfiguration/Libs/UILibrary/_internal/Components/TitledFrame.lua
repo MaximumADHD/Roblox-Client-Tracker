@@ -7,12 +7,15 @@
 		int MaxHeight = The maximum height of this TitledFrame in pixels. Defaults to 100.
 		int LayoutOrder = The order which this TitledFrame will sort to in a UIListLayout.
 		int TextSize = The size of text
+	Optional:
+		Image Tooltip = a tooltip to describe the title
 ]]
 
 local Library = script.Parent.Parent
 local Roact = require(Library.Parent.Parent.Roact)
 local Theming = require(Library.Theming)
 local withTheme = Theming.withTheme
+local FFlagLuobuDevPublishLua = game:GetFastFlag("LuobuDevPublishLua")
 
 local CENTER_GUTTER = 180
 
@@ -20,6 +23,7 @@ local function TitledFrame(props)
 	return withTheme(function(theme)
 		local textSize = props.TextSize
 		local centerGutter = props.CenterGutter or CENTER_GUTTER
+		local tooltip = FFlagLuobuDevPublishLua and props.Tooltip or nil
 
 		return Roact.createElement("Frame", {
 			BackgroundTransparency = 1,
@@ -40,6 +44,8 @@ local function TitledFrame(props)
 				TextYAlignment = Enum.TextYAlignment.Top,
 				Text = props.Title,
 				TextWrapped = true,
+			}, {
+				Tooltip = FFlagLuobuDevPublishLua and tooltip or nil,
 			}),
 
 			Content = Roact.createElement("Frame", {

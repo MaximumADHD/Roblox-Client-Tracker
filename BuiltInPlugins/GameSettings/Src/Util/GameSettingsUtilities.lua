@@ -53,4 +53,11 @@ function GameSettingsUtilities.shouldShowDevPublishLocations()
         or (FFlagStudioCreatePluginPolicyService and GameSettingsPolicy["ShowOptInLocations"])
 end
 
+function GameSettingsUtilities.getOptInLocationsRequirementsLink(location)
+    assert(FFlagLuobuDevPublishLua)
+
+    return (checkIfPolicyDoesNotExistAndBaseUrlChineseHost() and "https://www.roblox.qq.com")
+        or (FFlagStudioCreatePluginPolicyService and GameSettingsPolicy["OptInLocationsRequirements"][location])
+end
+
 return GameSettingsUtilities

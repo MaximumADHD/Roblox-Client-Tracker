@@ -78,6 +78,21 @@ return {
 				})
 			})
 		end,
+		-- Subtle button
+		RoundSubtle = function(props)
+			return ContextServices.provide({theme}, {
+				Child = Roact.createElement(Button, {
+					Style = "RoundSubtle",
+					Text = "Save",
+					StyleModifier = props.controls.isDisabled and StyleModifier.Disabled or nil,
+					Size = UDim2.fromOffset(120, 32),
+					LayoutOrder = 3,
+					OnClick = printClicked,
+				}, {
+					Roact.createElement(HoverArea, {Cursor = "PointingHand"}),
+				})
+			})
+		end,
 		-- The default Studio primary button
 		RoundPrimary = function(props)
 			return ContextServices.provide({theme}, {

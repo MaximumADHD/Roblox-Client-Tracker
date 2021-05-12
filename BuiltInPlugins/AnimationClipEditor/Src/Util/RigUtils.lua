@@ -323,21 +323,21 @@ local function addRigErrors(errorData)
 
 	if #partsWithMultipleParents > 0 then
 		table.insert(errorList, {
-			ID = Constants.RIG_ERRORS.MultipleParents,
+			ID = Constants.RIG_ERRORS.MultipleParents_Migrated,
 			Data = partsWithMultipleParents,
 		})
 	end
 
 	if #motorsWithMissingPart0 > 0 then
 		table.insert(errorList, {
-			ID = Constants.RIG_ERRORS.MissingPart0,
+			ID = Constants.RIG_ERRORS.MissingPart0_Migrated,
 			Data = motorsWithMissingPart0,
 		})
 	end
 
 	if #motorsWithMissingPart1 > 0 then
 		table.insert(errorList, {
-			ID = Constants.RIG_ERRORS.MissingPart1,
+			ID = Constants.RIG_ERRORS.MissingPart1_Migrated,
 			Data = motorsWithMissingPart1,
 		})
 	end
@@ -521,21 +521,21 @@ function rigHasErrors(rig)
 
 	if #partsWithMultipleParents > 0 then
 		table.insert(errorList, {
-			ID = Constants.RIG_ERRORS.MultipleParents,
+			ID = Constants.RIG_ERRORS.MultipleParents_Migrated,
 			Data = partsWithMultipleParents,
 		})
 	end
 
 	if #motorsWithMissingPart0 > 0 then
 		table.insert(errorList, {
-			ID = Constants.RIG_ERRORS.MissingPart0,
+			ID = Constants.RIG_ERRORS.MissingPart0_Migrated,
 			Data = motorsWithMissingPart0,
 		})
 	end
 
 	if #motorsWithMissingPart1 > 0 then
 		table.insert(errorList, {
-			ID = Constants.RIG_ERRORS.MissingPart1,
+			ID = Constants.RIG_ERRORS.MissingPart1_Migrated,
 			Data = motorsWithMissingPart1,
 		})
 	end

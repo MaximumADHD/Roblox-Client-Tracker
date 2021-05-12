@@ -11,7 +11,6 @@ local getFFlagAlignToolDisabledFix = require(Plugin.Src.Flags.getFFlagAlignToolD
 local getFFlagAlignToolTeachingCallout = require(Plugin.Src.Flags.getFFlagAlignToolTeachingCallout)
 
 local DraggerFramework = Plugin.Packages.DraggerFramework
-local BoundingBox = require(DraggerFramework.Utility.BoundingBox)
 
 local DraggerSchemaCore = Plugin.Packages.DraggerSchemaCore
 local BoundsChangedTracker = require(DraggerSchemaCore.BoundsChangedTracker)
@@ -35,7 +34,6 @@ local StyleModifier = Util.StyleModifier
 
 local SetAlignableObjects = require(Plugin.Src.Actions.SetAlignableObjects)
 local AlignmentSettings = require(Plugin.Src.Components.AlignmentSettings)
-local DebugView = require(Plugin.Src.Components.DebugView)
 local InfoLabel = require(Plugin.Src.Components.InfoLabel)
 local AlignObjectsPreview = require(Plugin.Src.Components.AlignObjectsPreview)
 local UpdateAlignEnabled = require(Plugin.Src.Thunks.UpdateAlignEnabled)
@@ -44,15 +42,10 @@ local TeachingCallout = require(script.Parent.TeachingCallout)
 
 local AlignToolError = require(Plugin.Src.Utility.AlignToolError)
 local getAlignableObjects = require(Plugin.Src.Utility.getAlignableObjects)
-local getDebugSettingValue = require(Plugin.Src.Utility.getDebugSettingValue)
 
 local SelectionWrapper = Selection.new()
 
 local MainView = Roact.PureComponent:extend("MainView")
-
-local function shouldShowDebugView()
-	return getDebugSettingValue("ShowDebugView", false)
-end
 
 function MainView:init()
 	-- BoundsChangedTrackers take a context, but the Core schema does not use it
@@ -68,7 +61,6 @@ end
 function MainView:render()
 	local props = self.props
 	local state = self.state
-	local debugState = state.debug or {}
 
 	local enabled = props.alignEnabled
 	local updateAlignment = props.updateAlignment
@@ -160,12 +152,6 @@ function MainView:render()
 		}),
 
 		AlignObjectsPreview = shouldRenderPreview and Roact.createElement(AlignObjectsPreview) or nil,
-
-		DebugView = shouldShowDebugView() and Roact.createElement(DebugView, {
-			BoundingBoxOffset = debugState.boundingBoxOffset,
-			BoundingBoxSize = debugState.boundingBoxSize,
-			ObjectBoundingBoxMap = debugState.objectBoundingBoxMap,
-		}),
 	})
 end
 
@@ -176,18 +162,6 @@ function MainView:_updateSelectionInfo()
 	self.props.setAlignableObjects(alignableObjects)
 
 	self._boundsChangedTracker:setParts(allParts)
-
-	if shouldShowDebugView() then
-		local offset, size, boundingBoxMap = BoundingBox.fromObjectsComputeAll(alignableObjects)
-
-		self:setState({
-			debug = {
-				boundingBoxOffset = offset,
-				boundingBoxSize = size,
-				objectBoundingBoxMap = boundingBoxMap,
-			}
-		})
-	end
 end
 
 function MainView:didMount()

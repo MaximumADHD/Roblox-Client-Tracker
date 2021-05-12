@@ -12,6 +12,7 @@ local SetMessage = require(Plugin.Src.Actions.SetMessage)
 local isEmpty = require(Plugin.Src.Util.isEmpty)
 
 local FFlagLocalizationToolsAllowUploadZhCjv = game:GetFastFlag("LocalizationToolsAllowUploadZhCjv")
+local FFlagLocalizationToolsPrintErrorMessageOnDownload = game:DefineFastFlag("LocalizationToolsPrintErrorMessageOnDownload", false)
 
 local function makeDispatchErrorMessageFunc(store, localization)
 	return function()
@@ -73,11 +74,15 @@ local function download(api, localization, tableId)
 	end
 
 	local localizationTable = Instance.new("LocalizationTable")
-	local success, _ = pcall(function()
+	local success, errorMsg = pcall(function()
 		localizationTable:SetEntries(webEntries)
 	end)
 	if not success then
-		warn(localization:getText("DownloadTable", "SetEntriesFailed"))
+		if FFlagLocalizationToolsPrintErrorMessageOnDownload then
+			warn(localization:getText("DownloadTable", "SetEntriesFailedWithErrorMessage") .. " " .. errorMsg)
+		else
+			warn(localization:getText("DownloadTable", "SetEntriesFailed"))
+		end
 		return
 	else
 		return localizationTable

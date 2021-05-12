@@ -1,4 +1,5 @@
 --!nocheck
+--!nolint GlobalUsedAsLocal
 
 --[[
 				Filename: SettingsHub.lua

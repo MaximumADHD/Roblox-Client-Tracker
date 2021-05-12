@@ -162,7 +162,7 @@ function PlayerListMaster.new()
 				rootInstance = RobloxGui:FindFirstChild("PlayerListMaster"),
 				pickerParent = "RobloxGui",
 			})
-			self.inspector:addRoactTree("Roact tree", self.element)
+			self.inspector:addRoactTree("Roact tree", self.element, Roact)
 		end
 	end
 

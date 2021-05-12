@@ -5,6 +5,7 @@ end
 -- Fast flags
 require(script.Parent.Parent.TestRunner.defineLuaFlags)
 local FFlagStudioAllowRemoteSaveBeforePublish = game:GetFastFlag("StudioAllowRemoteSaveBeforePublish")
+local FFlagUpdatePublishPlacePluginToDevFrameworkContext = game:GetFastFlag("UpdatePublishPlacePluginToDevFrameworkContext")
 local FFlagStudioPromptOnFirstPublish = game:GetFastFlag("StudioPromptOnFirstPublish")
 local FFlagStudioNewGamesInCloudUI = game:GetFastFlag("StudioNewGamesInCloudUI")
 
@@ -13,9 +14,14 @@ local Plugin = script.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local Rodux = require(Plugin.Packages.Rodux)
 local UILibrary = require(Plugin.Packages.UILibrary)
+local Framework = require(Plugin.Packages.Framework)
+
+-- context services
+local ContextServices = Framework.ContextServices
+local ServiceWrapper = require(Plugin.Src.Components.ServiceWrapper)
+local UILibraryWrapper = ContextServices.UILibraryWrapper
 
 -- components
-local ServiceWrapper = require(Plugin.Src.Components.ServiceWrapper)
 local ScreenSelect = require(Plugin.Src.Components.ScreenSelect)
 
 -- data
@@ -35,7 +41,13 @@ local Localization = UILibrary.Studio.Localization
 local StudioService = game:GetService("StudioService")
 local dataStore = Rodux.Store.new(MainReducer, {}, MainMiddleware)
 local theme = PluginTheme.new()
-local localization = Localization.new({
+local localization = FFlagUpdatePublishPlacePluginToDevFrameworkContext and
+	ContextServices.Localization.new({
+		pluginName = "PublishPlaceAs",
+		stringResourceTable = TranslationDevelopmentTable,
+		translationResourceTable = TranslationReferenceTable,
+	})
+or Localization.new({
 	stringResourceTable = TranslationDevelopmentTable,
 	translationResourceTable = TranslationReferenceTable,
 	pluginName = "PublishPlaceAs",
@@ -83,6 +95,7 @@ local function openPluginWindow(showGameSelect, isPublish, closeAfterSave, first
 		plugin = plugin,
 		localization = localization,
 		theme = theme,
+		uiLibraryWrapper = FFlagUpdatePublishPlacePluginToDevFrameworkContext and UILibraryWrapper.new() or nil,
 		focusGui = pluginGui,
 		store = dataStore,
 	}, {

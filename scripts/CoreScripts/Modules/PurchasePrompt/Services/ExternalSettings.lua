@@ -7,6 +7,8 @@ local FFlagBypassThirdPartySettingForRobloxPurchase = require(Root.Flags.FFlagBy
 local GetFFlagLuaUseThirdPartyPermissions = require(Root.Flags.GetFFlagLuaUseThirdPartyPermissions)
 local GetFFlagHideThirdPartyPurchaseFailure = require(Root.Flags.GetFFlagHideThirdPartyPurchaseFailure)
 local GetFFlagDisableRobuxUpsell = require(Root.Flags.GetFFlagDisableRobuxUpsell)
+local GetFFlagEnableRestrictedAssetSaleLocationPurchasePrompt
+	= require(Root.Flags.GetFFlagEnableRestrictedAssetSaleLocationPurchasePrompt)
 
 local ExternalSettings = {}
 
@@ -63,6 +65,10 @@ function ExternalSettings.new()
 
 	function service.getFFlagDisableRobuxUpsell()
 		return GetFFlagDisableRobuxUpsell()
+	end
+
+	function service.GetFFlagEnableRestrictedAssetSaleLocationPurchasePrompt()
+		return GetFFlagEnableRestrictedAssetSaleLocationPurchasePrompt()
 	end
 
 	return service

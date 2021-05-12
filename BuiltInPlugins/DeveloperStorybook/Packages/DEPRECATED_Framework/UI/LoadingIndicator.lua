@@ -16,6 +16,8 @@
 		Color3 StartColor: The starting color of the blocks.
 		Color3 EndColor: The color of the blocks as they are at their maximum height.
 ]]
+local FFlagDevFrameworkFixLoadingIndicatorSize = game:GetFastFlag("DevFrameworkFixLoadingIndicatorSize")
+
 local RunService = game:GetService("RunService")
 
 local Framework = script.Parent.Parent
@@ -91,7 +93,6 @@ function LoadingIndicator:render()
 
 	local anchorPoint = props.AnchorPoint
 	local position = props.Position
-	local size = props.Size or UDim2.new(1, 0, 1, 0)
 	local zIndex = props.ZIndex
 	local layoutOrder = props.LayoutOrder
 
@@ -102,6 +103,8 @@ function LoadingIndicator:render()
 	else
 		style = theme:getStyle("Framework", self)
 	end
+	local styleSize = FFlagDevFrameworkFixLoadingIndicatorSize and style.Size or UDim2.new(1, 0, 1, 0)
+	local size = props.Size or styleSize
 
 	local startColor = style.StartColor
 	local endColor = style.EndColor

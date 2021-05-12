@@ -80,7 +80,7 @@ function ErrorDialogContents:render()
 			TextYAlignment = Enum.TextYAlignment.Top,
 			TextWrapped = true,
 			TextTruncate = Enum.TextTruncate.AtEnd,
-			Text = localization:getText(errorKey, errorType, entryList),
+			Text = localization:getText(errorKey, errorType, {entries = entryList}),
 		}),
 	})
 end

@@ -23,12 +23,12 @@ return function(requestImpl, userId, thumbnailRequest, checkPoints)
 		local fetchedUserIds = {}
 		return UsersGetFriends(requestImpl, userId):andThen(function(response)
 			local responseBody = response.responseBody
-
 			local newUsers = {}
-			for _, userData in pairs(responseBody.data) do
+			for rank, userData in pairs(responseBody.data) do
 				local id = tostring(userData.id)
 
 				userData.isFriend = true
+				userData.friendRank = rank
 				local newUser = UserModel.fromDataTable(userData)
 
 				table.insert(fetchedUserIds, id)

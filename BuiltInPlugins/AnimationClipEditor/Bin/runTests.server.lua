@@ -1,7 +1,6 @@
 local Plugin = script.Parent.Parent
 local DebugFlags = require(Plugin.Src.Util.DebugFlags)
 local GetFFlagUseDeveloperFrameworkMigratedSrc = require(Plugin.LuaFlags.GetFFlagUseDeveloperFrameworkMigratedSrc)
-local TestEZDeprecated = require(Plugin.TestEZ)
 
 -- Set THEME_REFACTOR in the DevFramework to false
 local RefactorFlags = require(Plugin.Packages.Framework.Util.RefactorFlags)

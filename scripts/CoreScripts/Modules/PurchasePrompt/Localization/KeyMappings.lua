@@ -66,6 +66,7 @@ KeyMappings.PurchaseErrorKey = {
 	[PurchaseError.CannotGetBalance] = PURCHASE_FAILED_KEY:format("CannotGetBalance"),
 	[PurchaseError.CannotGetItemPrice] = PURCHASE_FAILED_KEY:format("CannotGetItemPrice"),
 	[PurchaseError.NotForSale] = PURCHASE_FAILED_KEY:format("NotForSale"),
+	[PurchaseError.NotForSaleHere] = PURCHASE_FAILED_KEY:format("NotForSaleHere"),
 	[PurchaseError.AlreadyOwn] = PURCHASE_FAILED_KEY:format("AlreadyOwn"),
 	[PurchaseError.Under13] = PURCHASE_FAILED_KEY:format("Under13"),
 	[PurchaseError.Limited] = PURCHASE_FAILED_KEY:format("Limited"),

@@ -26,6 +26,7 @@ function User.mock()
 
 	self.isFetching = false
 	self.isFriend = false
+	self.friendRank = 0
 	self.lastLocation = nil
 	self.name = "USER NAME"
 	self.universeId = nil
@@ -43,13 +44,14 @@ end
 
 -- Note: Going forward, leverage User.fromDataTable() instead.
 -- It accepts a more flexible parameter than User.fromData() and constructs the same User model
-function User.fromData(id, name, isFriend)
+function User.fromData(id, name, isFriend, friendRank)
 	local self = User.new()
 
 	self.id = tostring(id)
 
 	self.isFetching = false
 	self.isFriend = isFriend
+	self.friendRank = friendRank or 0
 	self.lastLocation = nil
 	self.name = name
 	if FFlagAddDisplayNameToUserModel then
@@ -73,6 +75,7 @@ function User.fromDataTable(data)
 
 	self.id = tostring(data.id)
 	self.isFriend = data.isFriend
+	self.friendRank = data.friendRank
 	self.presence = (Players.LocalPlayer
 		and self.id == tostring(Players.LocalPlayer.UserId)) and User.PresenceType.ONLINE or nil
 	self.isFetching = false
