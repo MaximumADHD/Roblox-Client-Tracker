@@ -14,6 +14,8 @@ local withStyle = require(UIBlox.Core.Style.withStyle)
 local BaseMenu = require(script.Parent.BaseMenu)
 local validateButtonProps = require(script.Parent.validateButtonProps)
 
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
+
 local dropdownMenuListComponent = Roact.PureComponent:extend("DropdownMenuList")
 
 dropdownMenuListComponent.validateProps = t.strictInterface({
@@ -37,16 +39,9 @@ dropdownMenuListComponent.defaultProps = {
 
 function dropdownMenuListComponent:init()
 	self:setState({
-		absoluteSize = Vector2.new(0, 0),
 		absolutePosition = Vector2.new(0, 0),
 		visible = false
 	})
-
-	self.setAbsoluteSize = function(rbx)
-		self:setState({
-			absoluteSize = rbx.AbsoluteSize,
-		})
-	end
 
 	self.setAbsolutePosition = function(rbx)
 		self:setState({
@@ -66,7 +61,7 @@ end
 
 function dropdownMenuListComponent:render()
 	return withStyle(function(stylePalette)
-		local topCornerInset, _ = GuiService:GetGuiInset()
+		local topCornerInset, bottomCornerInset = GuiService:GetGuiInset()
 		local absolutePosition = self.state.absolutePosition + topCornerInset
 
 		local anchorPointY = 0
@@ -77,7 +72,7 @@ function dropdownMenuListComponent:render()
 		if self.state.absolutePosition.Y > self.props.screenSize.Y / 2 then
 			anchorPointY = 1
 			menuYScale = -1
-			menuYOffset = UDim.new(0,0)
+			menuYOffset = UDim.new(0, 0)
 		end
 
 		local menuPositionY
@@ -86,7 +81,7 @@ function dropdownMenuListComponent:render()
 		else
 			menuPositionY = menuYOffset - self.props.openPositionY
 		end
-		local menuPosition = UDim2.new(0,0,menuPositionY.Scale,menuPositionY.Offset)
+		local menuPosition = UDim2.new(0, 0, menuPositionY.Scale, menuPositionY.Offset)
 
 		if self.props.screenSize.X < 640 then
 			anchorPointY = 1
@@ -94,7 +89,9 @@ function dropdownMenuListComponent:render()
 				-self.props.buttonSize.X.Scale / 2,
 				-absolutePosition.X + self.props.screenSize.X / 2 - self.props.buttonSize.X.Offset / 2,
 				0,
-				self.props.screenSize.Y - absolutePosition.Y -24
+				UIBloxConfig.fixDropdownMenuListPositionAndSize
+					and (self.props.screenSize.Y - absolutePosition.Y - bottomCornerInset.Y - 24)
+					or (self.props.screenSize.Y - absolutePosition.Y - 24)
 			)
 		end
 
@@ -103,15 +100,12 @@ function dropdownMenuListComponent:render()
 			backgroundTransparency = 1
 		end
 
-
-
 		return Roact.createElement("Frame", {
-			Size = UDim2.fromOffset(self.props.screenSize.X, self.props.screenSize.Y),
+			Size = UIBloxConfig.fixDropdownMenuListPositionAndSize and UDim2.fromScale(1, 1)
+				or UDim2.fromOffset(self.props.screenSize.X, self.props.screenSize.Y),
 			BackgroundTransparency = 1,
 			Visible = self.state.visible,
 			ZIndex = self.props.zIndex,
-
-			[Roact.Change.AbsoluteSize] = self.setAbsoluteSize,
 
 			[Roact.Change.AbsolutePosition] = self.setAbsolutePosition,
 		}, {
@@ -128,7 +122,6 @@ function dropdownMenuListComponent:render()
 
 				[Roact.Event.Activated] = self.dismissMenu,
 			}),
-
 			PositionFrame = Roact.createElement("Frame", {
 				BackgroundTransparency = 1,
 				Size = UDim2.fromScale(1, 1),

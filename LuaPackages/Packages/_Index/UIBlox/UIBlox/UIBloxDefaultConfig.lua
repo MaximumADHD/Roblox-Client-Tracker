@@ -1,4 +1,17 @@
 return {
+	-- gridViewIsMountedCleanup: Fixes a bug in grid view logic where unmounted
+	-- grid sends sizing updates.
+	gridViewIsMountedCleanup = false,
+
+	-- noSpawnInGridViewHandlers: turning this on means we don't call 'spawn' in GridView's
+	-- handler for Roact.Change.AbsoluteSize or Roact.Change.AbsolutePosition.
+	-- This fixes some issues with layout logic.
+	noSpawnInGridViewHandler = false,
+
+	-- tempFixEmptyGridView: This is a temp/hacky fix to a problem in UI layout code.  Real/better
+	-- fix is coming on C++ side, this is a stopgap measure to fix the problem ASAP in prod.
+	tempFixEmptyGridView = false,
+
 	-- enableAlertTitleIconConfig: turning this on allows the Alert component to take
 	-- in an optional titleIcon prop, which displays an icon above the Alert's title.
 	enableAlertTitleIconConfig = false,
@@ -47,4 +60,8 @@ return {
 	-- useUpdatedCheckbox: Enables FitFrame for InputButton and gives Checkbox a gamepad
 	-- selection cursor.
 	useUpdatedCheckbox = false,
+
+	-- fixDropdownMenuListPositionAndSize: Uses the bottom inset for positioning the dropdown menu list for
+	-- mobile view, allows sizing relative to parent container size, and limits dropdown width for wide view.
+	fixDropdownMenuListPositionAndSize = false,
 }

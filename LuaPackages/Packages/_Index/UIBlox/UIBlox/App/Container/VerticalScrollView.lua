@@ -9,8 +9,13 @@ local Cryo = require(Packages.Cryo)
 local Otter = require(Packages.Otter)
 local Roact = require(Packages.Roact)
 local t = require(Packages.t)
+local RoactGamepad = require(Packages.RoactGamepad)
+
+local Focusable = RoactGamepad.Focusable
 
 local withStyle = require(Packages.UIBlox.Core.Style.withStyle)
+local CursorKind = require(App.SelectionImage.CursorKind)
+local withSelectionCursorProvider = require(App.SelectionImage.withSelectionCursorProvider)
 
 local PADDING_HORIZONTAL = 24
 local SCROLL_BAR_RIGHT_PADDING = 4
@@ -31,6 +36,7 @@ VerticalScrollView.defaultProps = {
 	-- ScrollingFrame Props
 	canvasSizeY = UDim.new(2, 0),
 	paddingHorizontal = PADDING_HORIZONTAL,
+	isGamepadFocusable = false,
 }
 
 VerticalScrollView.validateProps = t.strictInterface({
@@ -42,11 +48,18 @@ VerticalScrollView.validateProps = t.strictInterface({
 	-- ScrollingFrame Props
 	canvasSizeY = t.optional(t.UDim),
 	paddingHorizontal = t.optional(t.numberMin(PADDING_HORIZONTAL/2)),
+	isGamepadFocusable = t.optional(t.boolean),
 
 	-- Optional passthrough props for the scrolling frame
 	[Roact.Change.CanvasPosition] = t.optional(t.callback),
 	[Roact.Change.CanvasSize] = t.optional(t.callback),
 	[Roact.Ref] = t.optional(t.table),
+
+	-- Optional gamepad props
+	NextSelectionLeft = t.optional(t.table),
+	NextSelectionRight = t.optional(t.table),
+	NextSelectionUp = t.optional(t.table),
+	NextSelectionDown = t.optional(t.table),
 
 	-- Children
 	[Roact.Children] = t.optional(t.table)
@@ -110,62 +123,89 @@ function VerticalScrollView:init()
 			self.props[Roact.Change.CanvasPosition](rbx)
 		end
 	end
+
+	self.onGamepadFocused = function()
+		self.scrollBarImageTransparencyMotor:setGoal(Otter.instant(0))
+		self:setState({
+			scrollBarThickness = TOUCH_OR_CONTROLLER_SCROLL_BAR_THICKNESS,
+		})
+	end
+
+	self.onGamepadFocusLost = function()
+		self.scrollBarImageTransparencyMotor:setGoal(Otter.instant(1))
+	end
+end
+
+function VerticalScrollView:renderWithProviders(stylePalette, getSelectionCursor)
+	local theme = stylePalette.Theme
+
+	local canvasSizeY = self.props.canvasSizeY
+	local children = self.props[Roact.Children] or {}
+	local position = self.props.position
+	local size = self.props.size
+	local paddingHorizontal = self.props.paddingHorizontal
+	local isGamepadFocusable = self.props.isGamepadFocusable
+
+	local scrollBarThickness = self.state.scrollBarThickness
+
+	local scrollingFrameChildren = Cryo.Dictionary.join({
+		scrollingFrameInnerMargin = Roact.createElement("UIPadding", {
+			PaddingLeft = UDim.new(0,paddingHorizontal),
+			PaddingRight = UDim.new(0, paddingHorizontal - SCROLL_BAR_RIGHT_PADDING), }),
+		},
+		children
+	)
+
+	return Roact.createElement("Frame", {
+		BackgroundTransparency = 1,
+		Position = position,
+		Size = size,
+	}, {
+		scrollingFrameOuterMargins = Roact.createElement("UIPadding", {
+			PaddingRight = UDim.new(0, SCROLL_BAR_RIGHT_PADDING),
+		}),
+		scrollingFrame = Roact.createElement(isGamepadFocusable and Focusable.ScrollingFrame or "ScrollingFrame", {
+			Active = true,
+			BackgroundTransparency = 1,
+			BorderSizePixel = 0,
+			Size = UDim2.fromScale(1, 1),
+			ElasticBehavior = self.props.elasticBehavior,
+			-- ScrollingFrame Specific
+			CanvasSize = UDim2.new(CANVAS_SIZE_X, canvasSizeY),
+			ScrollBarImageColor3 = theme.UIEmphasis.Color,
+			ScrollBarImageTransparency = self.scrollBarImageTransparency,
+			ScrollBarThickness = scrollBarThickness,
+			ScrollingDirection = Enum.ScrollingDirection.Y,
+
+			SelectionImageObject = getSelectionCursor(CursorKind.RoundedRect),
+			onFocusGained = isGamepadFocusable and self.onGamepadFocused or nil,
+			onFocusLost = isGamepadFocusable and self.onGamepadFocusLost or nil,
+
+			NextSelectionLeft = self.props.NextSelectionLeft,
+			NextSelectionRight = self.props.NextSelectionRight,
+			NextSelectionUp = self.props.NextSelectionUp,
+			NextSelectionDown = self.props.NextSelectionDown,
+
+			-- https://jira.rbx.com/browse/MOBLUAPP-2451
+			-- TODO: 1.) Currently code assumes that Mouse is on desktop and touch is on mobile
+			--		On a mac touch pad is reported as mouse not as touch
+			--		No sure how many users use mouse on a phone
+			-- TODO: 2.) how to handle controller actions - when we do this,
+			--		we should make this part of the code platform specific
+			[Roact.Event.InputBegan] = self.inputBegan,
+			[Roact.Event.InputEnded] = self.inputEnded,
+			[Roact.Change.CanvasPosition] = self.canvasPosition,
+			[Roact.Change.CanvasSize] = self.props[Roact.Change.CanvasSize],
+			[Roact.Ref] = self.props[Roact.Ref],
+		}, scrollingFrameChildren)
+	})
 end
 
 function VerticalScrollView:render()
 	return withStyle(function(stylePalette)
-		local theme = stylePalette.Theme
-
-		local canvasSizeY = self.props.canvasSizeY
-		local children = self.props[Roact.Children] or {}
-		local position = self.props.position
-		local size = self.props.size
-		local paddingHorizontal = self.props.paddingHorizontal
-
-		local scrollBarThickness = self.state.scrollBarThickness
-
-		local scrollingFrameChildren = Cryo.Dictionary.join({
-			scrollingFrameInnerMargin = Roact.createElement("UIPadding", {
-				PaddingLeft = UDim.new(0,paddingHorizontal),
-				PaddingRight = UDim.new(0, paddingHorizontal - SCROLL_BAR_RIGHT_PADDING), }),
-			},
-			children
-		)
-
-		return Roact.createElement("Frame", {
-			BackgroundTransparency = 1,
-			Position = position,
-			Size = size,
-		}, {
-			scrollingFrameOuterMargins = Roact.createElement("UIPadding", {
-				PaddingRight = UDim.new(0, SCROLL_BAR_RIGHT_PADDING),
-			}),
-			scrollingFrame = Roact.createElement("ScrollingFrame", {
-				Active = true,
-				BackgroundTransparency = 1,
-				BorderSizePixel = 0,
-				Size = UDim2.fromScale(1, 1),
-				ElasticBehavior = self.props.elasticBehavior,
-				-- ScrollingFrame Specific
-				CanvasSize = UDim2.new(CANVAS_SIZE_X, canvasSizeY),
-				ScrollBarImageColor3 = theme.UIEmphasis.Color,
-				ScrollBarImageTransparency = self.scrollBarImageTransparency,
-				ScrollBarThickness = scrollBarThickness,
-				ScrollingDirection = Enum.ScrollingDirection.Y,
-
-				-- https://jira.rbx.com/browse/MOBLUAPP-2451
-				-- TODO: 1.) Currently code assumes that Mouse is on desktop and touch is on mobile
-				--		On a mac touch pad is reported as mouse not as touch
-				--		No sure how many users use mouse on a phone
-				-- TODO: 2.) how to handle controller actions - when we do this,
-				--		we should make this part of the code platform specific
-				[Roact.Event.InputBegan] = self.inputBegan,
-				[Roact.Event.InputEnded] = self.inputEnded,
-				[Roact.Change.CanvasPosition] = self.canvasPosition,
-				[Roact.Change.CanvasSize] = self.props[Roact.Change.CanvasSize],
-				[Roact.Ref] = self.props[Roact.Ref],
-			}, scrollingFrameChildren)
-		})
+		return withSelectionCursorProvider(function(getSelectionCursor)
+			return self:renderWithProviders(stylePalette, getSelectionCursor)
+		end)
 	end)
 end
 

@@ -177,8 +177,7 @@ local function initializeLibrary(configs)
 
 		Dialog = strict({
 			Modal = strict({
-				-- TEMPORARY WORK! This should not be available yet. Please contact Eric Sauer for more info
-				--FullPageModal = require(script.App.Dialog.Modal.FullPageModal),
+				FullPageModal = require(script.App.Dialog.Modal.FullPageModal),
 				PartialPageModal = require(script.App.Dialog.Modal.PartialPageModal),
 				EducationalModal = require(script.App.Dialog.Modal.EducationalModal),
 			}),

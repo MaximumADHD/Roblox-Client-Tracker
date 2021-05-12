@@ -19,7 +19,7 @@ local FullPageModal = Roact.PureComponent:extend("FullPageModal")
 
 local MARGIN = 24
 
-local validateProps = t.strictInterface({
+FullPageModal.validateProps = t.strictInterface({
 	screenSize = t.Vector2,
 	[Roact.Children] = t.table,
 
@@ -47,8 +47,6 @@ end
 
 
 function FullPageModal:render()
-	assert(validateProps(self.props))
-
 	return Roact.createElement(ModalWindow, {
 		isFullHeight = true,
 		screenSize = self.props.screenSize,

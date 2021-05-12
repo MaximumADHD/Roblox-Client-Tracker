@@ -429,6 +429,47 @@ return function()
 			expect(#sink.seen).to.equal(1)
 			expect(sink.seen[1].message).to.equal("foo {notFound} bar")
 		end)
+
+		it("should convert arguments with tostring by default", function()
+			local log = Logger.new()
+
+			local sink = newSink(Logger.Levels.Info)
+			log:addSink(sink)
+
+			log:info("Hello {}{}", "abc", 123)
+
+			expect(#sink.seen).to.equal(1)
+			expect(sink.seen[1].message).to.equal("Hello abc123")
+		end)
+
+		it("should convert arguments using custom tostring in context", function()
+			local a = Logger.new()
+			local b = a:new()
+			local c = b:new()
+
+			local sink = newSink(Logger.Levels.Info)
+			a:addSink(sink)
+
+			local toStringB = function(arg)
+				return "B:" .. tostring(arg)
+			end
+
+			local toStringC = function(arg)
+				return "C:" .. tostring(arg)
+			end
+
+			b:setContext({ tostring = toStringB })
+			c:setContext({ tostring = toStringC })
+
+			a:info("Hello {}{}", "abc", 123)
+			b:info("Hello {}{}", "abc", 123)
+			c:info("Hello {}{}", "abc", 123)
+
+			expect(#sink.seen).to.equal(3)
+			expect(sink.seen[1].message).to.equal("Hello abc123")
+			expect(sink.seen[2].message).to.equal("Hello B:abcB:123")
+			expect(sink.seen[3].message).to.equal("Hello C:abcC:123")
+		end)
 	end)
 
 	describe("When passing in context", function()
@@ -457,6 +498,20 @@ return function()
 
 				expect(#sink.seen).to.equal(1)
 				expect(sink.seen[1].context.bar).to.equal(1)
+			end)
+
+			it("should not replace tostring in context", function()
+				local log = Logger.new()
+				local sink = newSink(Logger.Levels.Info)
+				log:addSink(sink)
+				log:setContext({tostring = function()
+					return "All args are the same"
+				end})
+
+				log:info("foo")
+
+				expect(#sink.seen).to.equal(1)
+				expect(sink.seen[1].context.tostring).to.be.a("function")
 			end)
 		end)
 

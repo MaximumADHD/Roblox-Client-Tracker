@@ -161,14 +161,17 @@ local function log(level, node, args)
 		loggerName = node.name,
 	}
 
-	-- Call any functions in the context.
+	-- Call any functions in the context (except tostring).
 	for k, v in pairs(node.cache.context) do
-		if type(v) == "function" then
+		if type(v) == "function" and k ~= "tostring" then
 			fullContext[k] = v()
 		else
 			fullContext[k] = v
 		end
 	end
+
+	-- The function used to convert args to strings can be overridden via context
+	local argToString = fullContext.tostring or tostring
 
 	-- Interpolate the log message.
 	local interpMsg
@@ -187,10 +190,10 @@ local function log(level, node, args)
 			-- Treat {} as a positional arg.
 			if w == "" then
 				i = i + 1
-				return tostring(args[i])
+				return argToString(args[i])
 			end
 			local c = fullContext[w]
-			return c and tostring(c)
+			return c and argToString(c)
 		end))
 		if i < args.n then
 			interpMsg = interpMsg .. "\nLUMBERYAK INTERNAL: Too many arguments given for format string"

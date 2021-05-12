@@ -175,26 +175,62 @@ function GridView:render()
 		LayoutOrder = self.props.LayoutOrder,
 		Size = UDim2.new(1, 0, 0, containerHeight),
 		[Roact.Change.AbsolutePosition] = self.props.windowHeight ~= nil and function(rbx)
-			spawn(function()
+			if UIBloxConfig.noSpawnInGridViewHandler then
 				if self.isMounted then
 					self:setState({
 						containerYPosition = -math.min(0, rbx.AbsolutePosition.Y),
 					})
 				end
-			end)
+			else
+				spawn(function()
+					if self.isMounted then
+						self:setState({
+							containerYPosition = -math.min(0, rbx.AbsolutePosition.Y),
+						})
+					end
+				end)
+			end
 		end or nil,
 		[Roact.Change.AbsoluteSize] = function(rbx)
-			spawn(function()
+			if UIBloxConfig.noSpawnInGridViewHandler then
 				if self.isMounted then
 					self:setState({
 						containerWidth = rbx.AbsoluteSize.X,
 					})
+
+					if UIBloxConfig.gridViewIsMountedCleanup then
+						if self.props.onWidthChanged ~= nil then
+							self.props.onWidthChanged(rbx.AbsoluteSize.X)
+						end
+					end
 				end
 
-				if self.props.onWidthChanged ~= nil then
-					self.props.onWidthChanged(rbx.AbsoluteSize.X)
+				if not UIBloxConfig.gridViewIsMountedCleanup then
+					if self.props.onWidthChanged ~= nil then
+						self.props.onWidthChanged(rbx.AbsoluteSize.X)
+					end
 				end
-			end)
+			else
+				spawn(function()
+					if self.isMounted then
+						self:setState({
+							containerWidth = rbx.AbsoluteSize.X,
+						})
+
+						if UIBloxConfig.gridViewIsMountedCleanup then
+							if self.props.onWidthChanged ~= nil then
+								self.props.onWidthChanged(rbx.AbsoluteSize.X)
+							end
+						end
+					end
+
+					if not UIBloxConfig.gridViewIsMountedCleanup then
+						if self.props.onWidthChanged ~= nil then
+							self.props.onWidthChanged(rbx.AbsoluteSize.X)
+						end
+					end
+				end)
+			end
 		end,
 
 		NextSelectionLeft = self.props.NextSelectionLeft,

@@ -15,14 +15,14 @@ local GenericTextLabel = require(CoreRoot.Text.GenericTextLabel.GenericTextLabel
 local withStyle = require(UIBlox.Core.Style.withStyle)
 
 local X_BUTTON_SIZE = 36
-local X_LEFT_PADDING = 6
+local X_LEFT_PADDING = 8
 local X_IMAGE = "icons/navigation/close"
 local TITLE_HEIGHT = 48
 local TITLE_MAX_HEIGHT_WITH_IMAGE = 261
 
 local ModalTitle = Roact.PureComponent:extend("ModalTitle")
 
-local validateProps = t.strictInterface({
+ModalTitle.validateProps = t.strictInterface({
 	title = t.string,
 	position = t.optional(t.UDim2),
 	anchor = t.optional(t.Vector2),
@@ -44,7 +44,6 @@ function ModalTitle:GetHeight()
 end
 
 function ModalTitle:render()
-	assert(validateProps(self.props))
 	local titleBackground = self.props.titleBackgroundImageProps
 
 	return withStyle(function(stylePalette)
@@ -57,7 +56,7 @@ function ModalTitle:render()
 			Size = UDim2.new(1, 0, 0, TITLE_HEIGHT),
 			BackgroundTransparency = 1,
 		}, {
-			CloseButton = Roact.createElement(Controllable, {
+			CloseButton = self.props.onCloseClicked and Roact.createElement(Controllable, {
 				controlComponent = {
 					component = ImageSetComponent.Button,
 					props = {
@@ -80,7 +79,7 @@ function ModalTitle:render()
 					}
 				},
 				onStateChanged = function(...) end,
-			}),
+			}) or nil,
 			Title = Roact.createElement(GenericTextLabel, {
 				AnchorPoint = Vector2.new(0.5, 0.5),
 				Position = UDim2.new(0.5, 0, 0.5, 0),

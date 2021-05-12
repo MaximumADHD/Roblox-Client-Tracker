@@ -5,7 +5,7 @@ commit = "3586ef2395984373b82c235f5d5c4d346f6358fd"
 source = "git+https://github.com/roblox/lua-roact-policy-provider#master"
 dependencies = [
     "Cryo roblox/cryo 1.0.0 url+https://github.com/roblox/cryo",
-    "Lumberyak roblox/lumberyak 76fee23f git+https://github.com/roblox/lumberyak#master",
+    "Lumberyak roblox/lumberyak e6abd03f git+https://github.com/roblox/lumberyak#master",
     "Mock jtaylor/mock d2c4005c git+https://github.com/roblox/mock#master",
     "Promise lua-promise 1bb842c3 git+https://github.com/roblox/lua-promise#master",
     "Roact roblox/roact 1.3.1 url+https://github.com/roblox/roact",

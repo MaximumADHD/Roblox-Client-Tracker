@@ -2,6 +2,7 @@ local GridRoot = script.Parent
 local AppRoot = GridRoot.Parent
 local UIBloxRoot = AppRoot.Parent
 local Packages = UIBloxRoot.Parent
+local UIBloxConfig = require(UIBloxRoot.UIBloxConfig)
 
 local Roact = require(Packages.Roact)
 local t = require(Packages.t)
@@ -74,7 +75,7 @@ function DefaultMetricsGridView:init()
 	}
 
 	self.checkSetInitialContainerWidth = function(rbx)
-		if self.isMounted and rbx:IsDescendantOf(game) then
+		if rbx and self.isMounted and rbx:IsDescendantOf(game) then
 			self:setState({
 				containerWidth = rbx.AbsoluteSize.X,
 			})
@@ -94,9 +95,23 @@ function DefaultMetricsGridView:render()
 	)
 
 	if self.state.containerWidth == 0 then
+		local frameSize
+		if UIBloxConfig.tempFixEmptyGridView then
+			-- There is a bug in the C++ code around resizing/notification that causes a
+			-- pretty serious issue in prod (you can get stuck in a state where all catalog
+			-- pages are empty).
+			-- In the short term we can fix the user-facing issue with this hack, making
+			-- this frame non-empty.
+			-- Over the long haul we expect the C++ code will be fixed and we can remove this
+			-- hack.
+			frameSize = UDim2.new(1, 0, 0, 1)
+		else
+			frameSize = UDim2.new(1, 0, 0, 0)
+		end
+
 		return Roact.createElement("Frame", {
 			Transparency = 1,
-			Size = UDim2.new(1, 0, 0, 0),
+			Size = frameSize,
 
 			[Roact.Change.AbsoluteSize] = self.checkSetInitialContainerWidth,
 			[Roact.Event.AncestryChanged] = self.checkSetInitialContainerWidth,

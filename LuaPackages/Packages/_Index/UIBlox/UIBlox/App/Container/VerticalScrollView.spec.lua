@@ -36,6 +36,26 @@ return function()
 			Roact.unmount(handle)
 		end)
 
+		it("should mount and unmount when gamepad focusable", function()
+			local verticalScrollViewWithStyle = mockStyleComponent({
+				verticalScrollView = Roact.createElement(VerticalScrollView, {
+					position = UDim2.new(0, 50, 0,100),
+					size = UDim2.new(1, 30, 1, 50),
+					canvasSizeY = UDim.new(2, 0),
+					paddingHorizontal = 12,
+					elasticBehavior = Enum.ElasticBehavior.Always,
+					isGamepadFocusable = true,
+
+					[Roact.Change.CanvasPosition] = function()end,
+					[Roact.Change.CanvasSize] = function()end,
+					[Roact.Ref] = Roact.createRef(),
+				})
+			})
+			local handle = Roact.mount(verticalScrollViewWithStyle)
+			expect(handle).to.be.ok()
+			Roact.unmount(handle)
+		end)
+
 		-- skipping this until https://jira.rbx.com/browse/MOBLUAPP-2424 is merged to CI
 		itSKIP("mount should throw when created with invalid properties", function()
 			local function expectToThrowForInvalidProps(props)
