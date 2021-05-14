@@ -166,15 +166,15 @@ local function Initialize()
 		if utility:IsSmallTouchScreen() then
 			this.GameOrPlayerFrame,
 			this.GameOrPlayerLabel,
-			this.GameOrPlayerMode = utility:AddNewRow(this, "Game or Player?", "Selector", {"Game", "Player"}, 2)
+			this.GameOrPlayerMode = utility:AddNewRow(this, "Experience or Person?", "Selector", {"Experience", "Person"}, 2)
 		else
 			this.GameOrPlayerFrame,
 			this.GameOrPlayerLabel,
-			this.GameOrPlayerMode = utility:AddNewRow(this, "Game or Player?", "Selector", {"Game", "Player"}, 2, 3)
+			this.GameOrPlayerMode = utility:AddNewRow(this, "Experience or Person?", "Selector", {"Experience", "Person"}, 2, 3)
 		end
 		this.GameOrPlayerMode.Selection.LayoutOrder = 1
 
-		local whichPlayerText = "Which Player?"
+		local whichPlayerText = "Which Person?"
 		if FFlagFixUsernamesAutoLocalizeIssue then
 			whichPlayerText = RobloxTranslator:FormatByKey("Feature.SettingsHub.Label.WhichPlayer")
 		end

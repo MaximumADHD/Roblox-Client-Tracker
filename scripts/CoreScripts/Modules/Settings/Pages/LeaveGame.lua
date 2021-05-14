@@ -91,7 +91,7 @@ local function Initialize()
 	this.ShouldShowBottomBar = false
 	this.ShouldShowHubBar = false
 
-	local leaveGameConfirmationText = "Are you sure you want to leave the game?"
+	local leaveGameConfirmationText = "Are you sure you want to leave the experience?"
 	if FFlagUpdateSettingsHubGameText then
 		leaveGameConfirmationText = RobloxTranslator:FormatByKey("InGame.HelpMenu.ConfirmLeaveGame")
 	end

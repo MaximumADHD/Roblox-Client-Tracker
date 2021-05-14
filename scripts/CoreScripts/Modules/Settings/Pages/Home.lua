@@ -52,7 +52,7 @@ local function Initialize()
 		this.HubRef:SetVisibility(false)
 	end
 
-	local resumeGameText = "Resume Game"
+	local resumeGameText = "Resume"
 	if FFlagUpdateSettingsHubGameText then
 		resumeGameText = RobloxTranslator:FormatByKey("InGame.HelpMenu.Resume")
 	end
@@ -73,7 +73,7 @@ local function Initialize()
 		this.HubRef:SwitchToPage(this.HubRef.LeaveGamePage, false, 1)
 	end
 
-	local leaveGameText = "Leave Game"
+	local leaveGameText = "Leave"
 	if FFlagUpdateSettingsHubGameText then
 		leaveGameText = RobloxTranslator:FormatByKey("InGame.HelpMenu.Leave")
 	end

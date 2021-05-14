@@ -751,7 +751,7 @@ local function createGamepadMenuGui()
 			end
 		end
 	end
-	local playerListRadial = createRadialButton("PlayerList", "Playerlist", 2, 2, not StarterGui:GetCoreGuiEnabled(Enum.CoreGuiType.PlayerList), Enum.CoreGuiType.PlayerList, playerListFunc)
+	local playerListRadial = createRadialButton("PlayerList", "Leaderboard", 2, 2, not StarterGui:GetCoreGuiEnabled(Enum.CoreGuiType.PlayerList), Enum.CoreGuiType.PlayerList, playerListFunc)
 	playerListRadial.Parent = gamepadSettingsFrame
 
 	---------------------------------
@@ -797,7 +797,7 @@ local function createGamepadMenuGui()
 		MenuModule:SetVisibility(true, false, MenuModule.Instance.LeaveGamePage, true, InGameMenuConstants.AnalyticsMenuOpenTypes.LeaveGame)
 	end
 
-	local leaveGameText = "Leave Game"
+	local leaveGameText = "Leave Experience"
 	if FFlagUpdateSettingsHubGameText then
 		leaveGameText = RobloxTranslator:FormatByKey("InGame.HelpMenu.Leave")
 	end

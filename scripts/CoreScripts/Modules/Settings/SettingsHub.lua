@@ -842,7 +842,7 @@ local function CreateSettingsHub()
 			buttonImageAppend = "@2x"
 		end
 
-		local leaveGameText = "Leave Game"
+		local leaveGameText = "Leave"
 		if FFlagUpdateSettingsHubGameText then
 			leaveGameText = RobloxTranslator:FormatByKey("InGame.HelpMenu.Leave")
 		end
@@ -866,7 +866,7 @@ local function CreateSettingsHub()
 			resetCharFunc, {Enum.KeyCode.R, Enum.KeyCode.ButtonY}
 		)
 
-		local resumeGameText = "Resume Game"
+		local resumeGameText = "Resume"
 		if FFlagUpdateSettingsHubGameText then
 			resumeGameText = RobloxTranslator:FormatByKey("InGame.HelpMenu.Resume")
 		end

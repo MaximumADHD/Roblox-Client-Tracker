@@ -248,7 +248,7 @@ function DoPromptUnfriendPlayer(playerToUnfriend)
 				end
 
 				PromptCreator:CreatePrompt({
-					WindowTitle = "Error Unfriending Player",
+					WindowTitle = "Error Unfriending Person",
 					MainText = mainText,
 					ConfirmationText = "Okay",
 					CancelActive = false,
@@ -268,7 +268,7 @@ function DoPromptUnfriendPlayer(playerToUnfriend)
 	end
 
 	PromptCreator:CreatePrompt({
-		WindowTitle = "Unfriend Player?",
+		WindowTitle = "Unfriend Person?",
 		MainText = mainText,
 		ConfirmationText = "Unfriend",
 		CancelText = "Cancel",

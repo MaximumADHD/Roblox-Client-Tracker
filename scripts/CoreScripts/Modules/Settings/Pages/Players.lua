@@ -75,9 +75,9 @@ local function Initialize()
 	this.TabHeader.Icon.Image = isTenFootInterface and "rbxasset://textures/ui/Settings/MenuBarIcons/PlayersTabIcon@2x.png" or "rbxasset://textures/ui/Settings/MenuBarIcons/PlayersTabIcon.png"
 
 	if FFlagUseNotificationsLocalization then
-		this.TabHeader.Title.Text = "Players"
+		this.TabHeader.Title.Text = "People"
 	else
-		this.TabHeader.Icon.Title.Text = "Players"
+		this.TabHeader.Icon.Title.Text = "People"
 	end
 
 	----- FRIENDSHIP FUNCTIONS ------
@@ -274,7 +274,7 @@ local function Initialize()
 		this.HubRef:SwitchToPage(this.HubRef.LeaveGamePage, false, 1)
 	end
 
-	local leaveGameText = "Leave Game"
+	local leaveGameText = "Leave"
 	if FFlagUpdateSettingsHubGameText then
 		leaveGameText = RobloxTranslator:FormatByKey("InGame.HelpMenu.Leave")
 	end
@@ -298,7 +298,7 @@ local function Initialize()
 		this.HubRef:SetVisibility(false)
 	end
 
-	local resumeGameText = "Resume Game"
+	local resumeGameText = "Resume"
 	if FFlagUpdateSettingsHubGameText then
 		resumeGameText = RobloxTranslator:FormatByKey("InGame.HelpMenu.Resume")
 	end

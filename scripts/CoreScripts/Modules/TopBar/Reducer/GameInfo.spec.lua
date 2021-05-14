@@ -8,7 +8,7 @@ return function()
 	it("should have the correct default values", function()
 		local defaultState = GameInfo(nil, {})
 		expect(type(defaultState)).to.equal("table")
-		expect(defaultState.name).to.equal("Game")
+		expect(defaultState.name).to.equal("Experience")
 	end)
 
 	describe("SetGameName", function()

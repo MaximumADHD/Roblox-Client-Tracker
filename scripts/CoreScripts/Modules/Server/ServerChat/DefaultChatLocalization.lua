@@ -193,7 +193,7 @@ return {
         Key = "GameChat_GetVersion_Message",
         Values = {
             ["de"] = "Die Chatversion dieses Spiels ist [{RBX_NUMBER}.{RBX_NUMBER}].",
-            ["en-us"] = "This game is running chat version [{RBX_NUMBER}.{RBX_NUMBER}].",
+            ["en-us"] = "This experience is running chat version [{RBX_NUMBER}.{RBX_NUMBER}].",
             ["es"] = "Este juego utiliza la versión del chat [{RBX_NUMBER} {RBX_NUMBER}].",
             ["es-es"] = "Este juego utiliza la versión del chat [{RBX_NUMBER} {RBX_NUMBER}].",
             ["fr"] = "Le jeu utilise la version de chat [{RBX_NUMBER} {RBX_NUMBER}].",
@@ -326,7 +326,7 @@ return {
         Key = "GameChat_ChatCommandsTeller_TeamCommand",
         Values = {
             ["de"] = "/team <Nachricht> oder /t <Nachricht> : Sendet eine Teamnachricht an Spieler:innen deines Teams.",
-            ["en-us"] = "/team <message> or /t <message> : send a team chat to players on your team.",
+            ["en-us"] = "/team <message> or /t <message> : send a team chat to people on your team.",
             ["es"] = "/team <message> o /t <message>: enviar un mensaje de chat de equipo a los jugadores de tu equipo.",
             ["es-es"] = "/team <message> o /t <message>: enviar un mensaje de chat de equipo a los jugadores de tu equipo.",
             ["fr"] = "/team <message> ou /t <message> : envoyer un message aux joueurs de votre équipe.",
@@ -478,7 +478,7 @@ return {
         Key = "GameChat_PrivateMessaging_CannotChat",
         Values = {
             ["de"] = "Du kannst mit diesem Spieler bzw. dieser Spielerin nicht chatten.",
-            ["en-us"] = "You are not able to chat with this player.",
+            ["en-us"] = "You are not able to chat with this person.",
             ["es"] = "No puedes chatear con este jugador.",
             ["es-es"] = "No puedes chatear con este jugador.",
             ["fr"] = "Vous ne pouvez pas discuter avec ce joueur.",
@@ -744,7 +744,7 @@ return {
         Key = "GameChat_ChatServiceRunner_SystemChannelWelcomeMessage",
         Values = {
             ["de"] = "Dieser Kanal ist für System- und Spielbenachrichtigungen.",
-            ["en-us"] = "This channel is for system and game notifications.",
+            ["en-us"] = "This channel is for system and experience notifications.",
             ["es"] = "Este canal es para notificaciones del sistema y del juego.",
             ["es-es"] = "Este canal es para notificaciones del sistema y del juego.",
             ["fr"] = "Ce canal est réservé aux notifications système et de jeu.",
@@ -763,7 +763,7 @@ return {
         Key = "GameChat_FriendChatNotifier_JoinMessage",
         Values = {
             ["de"] = "Dein:e Freund:in {RBX_NAME} ist dem Spiel beigetreten.",
-            ["en-us"] = "Your friend {RBX_NAME} has joined the game.",
+            ["en-us"] = "Your friend {RBX_NAME} has joined the experience.",
             ["es"] = "Tu amigo {RBX_NAME} se ha unido al juego.",
             ["es-es"] = "Tu amigo {RBX_NAME} se ha unido al juego.",
             ["fr"] = "Votre ami {RBX_NAME} a rejoint le jeu.",
