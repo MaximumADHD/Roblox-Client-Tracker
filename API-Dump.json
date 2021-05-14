@@ -61356,6 +61356,30 @@
                     }
                 },
                 {
+                    "Category": "General",
+                    "MemberType": "Property",
+                    "Name": "UI Theme",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "Hidden",
+                        "ReadOnly",
+                        "NotReplicated",
+                        "Deprecated"
+                    ],
+                    "ThreadSafety": "ReadOnly",
+                    "ValueType": {
+                        "Category": "Enum",
+                        "Name": "UITheme"
+                    }
+                },
+                {
                     "Category": "Script Editor Colors",
                     "MemberType": "Property",
                     "Name": "Warning Color",
@@ -79891,6 +79915,25 @@
                 }
             ],
             "Name": "TweenStatus"
+        },
+        {
+            "Items": [
+                {
+                    "Name": "Light",
+                    "Tags": [
+                        "Deprecated"
+                    ],
+                    "Value": 0
+                },
+                {
+                    "Name": "Dark",
+                    "Tags": [
+                        "Deprecated"
+                    ],
+                    "Value": 1
+                }
+            ],
+            "Name": "UITheme"
         },
         {
             "Items": [

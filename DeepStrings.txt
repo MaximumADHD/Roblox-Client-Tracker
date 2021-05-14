@@ -516,6 +516,7 @@ AHPEAU_iobuf
 AHPEAX1PEAPEAX
 AHW4DataStoreRequestType
 AHW4UserInputType
+AiLzvic6IrjirI
 Algorithms
 AliasRequestResult
 ALIGN_TYPE
@@ -1147,6 +1148,7 @@ AstStatFor
 AstStatFunction
 AstTypePackAnnotation
 AStudioCrashOnInvalidColor3Cast
+ASVGqqSTk9yiCgCD2cywKAQfdRKKsnRxL2A9e55Cli455
 ASYNC_init_thread
 Async_Mesh
 ASYNC_pause_job
@@ -4544,6 +4546,7 @@ AW4TouchMovementMode
 AW4TriStateBoolean
 AW4TweenEasingDirection
 AW4TweenEasingStyle
+AW4UITheme
 AW4UserCFrame
 AW4UserInputState
 AW4UserInputType
@@ -4815,7 +4818,6 @@ BCIDistributionTBS
 BCryptGenRandom
 BD67FE0E20681192B0EC12CE5A0D3C
 BDefaultBalanceP
-BdSY1KllZnpy1flZxKolSOhbk1xcapHePjSu9mKnUqx4TroE26cbnPh7ebjaX
 BE20681180838E23F0DC6224
 BE42889BE20681180838E23F0DC6224
 BEA91211E2B410EF351327957B
@@ -4873,11 +4875,13 @@ BFPivotEditorRoleSet
 BFPivotEditorRolloutPercent
 BFSupportPluginDebuggingRoleSet
 BFSupportPluginDebuggingRolloutPercent
+BG6qVMPaCox9H8bmskZYkTFy
 BgUpdateRedirectsDisable
 BgUpdateRedirectsHttpErrInfluxHundredthsPercentage
 BgUpdateRedirectsRejectInfluxHundredthsPercentage
 BHHHHHHHHHHHHHHHHHHHHHHHHHH
 BhHlLjJTiIfdnczsxX
+BhvN7xf8Upzwx6u8MxHst29C2bMIm8K4lfmsmA
 BillboardGui
 BillboardGuiDistanceStepping2
 BinaryData
@@ -5318,7 +5322,7 @@ BytesReceived
 BytesReceivedAndIgnoredPerSec
 BytesReceivedPerSec
 BytesRecvAndIgnored
-ByVersion_0.478.0.422112
+ByVersion_0.478.1.422443
 ByVersionForPlatform_
 C_specific_handler
 CA_NPEAVQObject
@@ -5895,7 +5899,6 @@ Circle.png
 CircularList
 Circumflexsmall
 CityBackground.png
-CkTWPzsftbNfS8xvd
 ClampColor
 ClampOVLengthAtFirstParsingError2
 ClarifiedDraggerBehaviorLearnMoreUrl
@@ -7220,6 +7223,7 @@ CountTimeout
 CountWidth
 CoverageRef
 CpuArchitecture
+CQiNKUzFNFdXXgJA7MEguj
 CrackedLava
 CrashDumpFileName
 CrashEvent
@@ -8028,7 +8032,6 @@ DE8FD5272E11E489A6CDE46C99CA59
 DE8FD6272E11E489A6CDE46C99CA59
 DE8FD7272E11E489A6CDE46C99CA59
 DE8FD8272E11E489A6CDE46C99CA59
-DE9qF6QBEkv
 Deactivate
 Deactivated
 Deactivation
@@ -8920,9 +8923,6 @@ DigestedData_do_final
 DigiCertAssuredIDRootCA.crl0
 DigiCertAssuredIDRootCA.crl0P
 DigiCertAssuredIDRootCA.crt0
-DigiCertEVCodeSigningCA
-DigiCertHighAssuranceEVRootCA.crl0
-DigiCertHighAssuranceEVRootCA.crt0
 DigiCertSHA2AssuredIDTimestampingCA.crt0
 DigitalSignature
 DilateTemporalFS
@@ -9388,6 +9388,7 @@ DynamicReloaderFileFailureInfluxHundrethsPercentage
 DynamicRotate
 DynamicTaskSchedulerThreadNames
 DynamicThumbstick
+DYNmoxL3q5TfBXu4w2FlEBZOphIguSb1R1N4O0NYXecBozLiAiDm9LSYagnaoN
 E\HTH\HfHrH
 E_disc_bottom_link.png
 E_modified.png
@@ -10128,7 +10129,6 @@ EulerAnglesXYZ
 EulerAnglesYXZ
 EvaluatedKey
 EvaluateGlobalTransform
-EVCodeSigningSHA2
 Event.button
 Event.clientX
 Event.clientY
@@ -10452,7 +10452,6 @@ FastLogValueChanged]
 FastVarType
 FastVarValueType
 FastVisuallyMovingCounters4
-FAUxZoFpC1eQMb4jFlUMAe5rKQI
 FavoritesCategory
 FB642AAED11E38B9D871882A8E559
 FB645AAED11E38B9D871882A8E559
@@ -11095,6 +11094,7 @@ FoundItems
 FoundThread
 FpFramebuffer
 FpsVariance
+FQEsNwHE8XNneRZk0iED770ex0yZEvwb
 Fractional
 FRAGMENT_SCRIPT
 FragmentScript
@@ -11266,7 +11266,7 @@ FrontSurfaceInput
 FrustumEnvMap
 FrustumOrdered
 FrustumRenderQueue
-FU0atqqteMHT3oVwDgDUt
+FrW9geXjYmpnjfqmOPM1oM5Rnn3MpHbAk30CUTz1yYZ3NwwnRjtW
 FullCycleDurationMs
 FullRenderObjects
 Fullscreen
@@ -12348,7 +12348,6 @@ GoToScriptLocation
 GoToSourceCodeTB
 GoToVersionFailed
 GpuVariance
-GQDswQsx92eKq63b4gVWaSfcyIBDigJ
 GrabCursor.png
 GrabRotateCursor
 GrabRotateCursor.png
@@ -12541,10 +12540,10 @@ GunCursor.png
 GunWaitCursor.png
 GvEphfEUiHHoD6hYFI4xWGpAnIHcklKQCxrf46kAhDGeZnqIgeGszlGdWafunGE8
 GVKUTS[BXIWH\KbHi
-GX0mTgfil33SvLCnxQ6Gzau
 GXGfGkGpGuG
 GxI9Gpu2E2
 GyroscopeEnabled
+Gzn71kR8ZxRiSYsT7VZypAb12li
 H_Key_dn.png
 H_NAEBVQString
 H`CeIkHq7v4
@@ -12831,7 +12830,6 @@ HPEAVQWidget
 HPEBDPEBDV
 HPEBVQMimeData
 HQEAPEAVQGraphicsItem
-HSErxJFlh9K6h87fA09PyahVy8VofEN
 HtmlEscaped
 Http_Failed
 HTTP424FailuresTimeBucket
@@ -13841,7 +13839,6 @@ INVOKESYMBOLS
 InWithTheNew
 IObjectWithSiteImpl
 Ios.Authentication.EmailUpsellLogout
-IOuCbh9j9KjPrwIYzKNYuPGrpauw
 IPAddrBlocks
 IPAddressChoice
 IPAddressFamily
@@ -14029,6 +14026,7 @@ ItemViewItem
 ItemWasSet
 ItemWidget
 Iterations
+ITqm1sU9zBGcbe6
 ITRedirect
 IUniverseController
 IUpdateUIManager
@@ -14079,7 +14077,6 @@ JHJRJ\JfJpJxJ
 JHW4MembershipType
 JIIIIIIIKI
 JIRA_RIDE_711_V2
-JjHGdgqxk3ANnNW6oT5ZpeCts8HjLQolN
 JJJBBB\\\xx
 JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJ
 JKLMNOPQRSTU
@@ -14254,6 +14251,7 @@ KPEAVICHull
 KPEIBX_K_KPEIAU_iobuf
 KVScriptContext
 KYULPhCBFoD3mw5mygYqAeFlHdSL2k3MnDG
+KyyZqORCgdzGCqtkaq
 LABEL_LITERAL
 LabelArray
 LabelArray.push
@@ -15035,7 +15033,6 @@ LuobuModerationStatusAvailable
 LuobuWhitelisted
 LuobuWhitelistedAllow
 LuobuWhitelistedField
-Lv2dV9yqZBaJWQ5qdn
 LVvuOx39]O
 M_NVWeakObjectRef
 MacGamepadUseGCController
@@ -15242,7 +15239,6 @@ MaxWaterFogDistanceBetaRolloutPercent
 MaxWaterFogDistanceBetaUrl
 MaybeCutout
 MayBeLinkedSourceModified
-McNKAQ6We3NFERQQQzh0N5AYT
 MdiControls
 MDIManagerHost
 MEAA_JPEA_W_J
@@ -15770,7 +15766,7 @@ MigrateTriangleMeshData3
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAsI9zRp2OSccqdFx2
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAupANB3EbN9hFHHUj0eA
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAzjPRQo9jc
-MIICCgKCAgEAo50FuoCA8ekHyAXEpbUAhcqyE8K4A0
+MIICCgKCAgEA1hebNi8dAlE4874KXhHKDHhK0s
 Millisecond
 MillisecondsBeforeHandlingReconnect
 MimeDataFromSelection
@@ -16286,6 +16282,7 @@ NETSCAPE_SPKI
 NETSCAPE_SPKI_b64_decode
 NETSCAPE_SPKI_b64_encode
 NETSCAPE2.0
+Network1B0
 NetworkAssignGlobalIdPrepOnly
 NetworkAudit
 NetworkBandwdithManager
@@ -16467,6 +16464,7 @@ NfTeamCreateOnlyWhenTeamCreate
 NfXf`fhfzf
 NHVVariant
 NinjaMask.mesh
+NMKmRJOvXDXn
 NNNNNNNNNNNNNNNNNNNNNN
 NNNNNNNSSSSSSSSSSSSSSSSSSSSSS
 NNW4SizeMode
@@ -16634,7 +16632,6 @@ NVWorkspace
 NW4FileSystemDir
 NW4PenStyle
 NW4UserInputType
-Nw8IW8JCTew3Vi9
 Oacutesmall
 OAEPEncryptionSET
 OAUTHBEARER
@@ -16767,7 +16764,6 @@ OfTruthFindItemFound
 OfUnsplitMessages
 OfVisibleResultsInScripts
 OfVisibleScripts
-OGhS3jzLrQaVau55kVDoW4wcs2qE1GWnjIohWis42107fZ5KR8dQXO3K4FkuTC
 Ogoneksmall
 Ogravesmall
 OGRE_VIEW_UPDATE
@@ -18178,7 +18174,6 @@ PGWYcapabilities
 PgYlhgtIfaRB
 PGZKl8y6RXadfJMffKMAgK
 PhaseBroadPhase
-PHEliZyxLGp90a7P96Vk
 PhysicalConfigData
 PhysicalProperties
 PhysicalProperties.new
@@ -19938,6 +19933,7 @@ QValidator
 QVariantAnimation
 QVBoxLayout
 QVersionNumber
+Qvow7O3WV0t3b66wJ1a4CQfbFTKBWCVXm2WzCuEDgh
 QWheelEvent
 QWidgetAction
 QWidgetPluginGui
@@ -21219,6 +21215,7 @@ RewriteOutfitThumbnailUrlRollout2
 RewriteThumbnailUrlDefaultRollout
 RewriteThumbsAssetUrlRollout
 RewriteThumbsAvatarUrlRollout
+RfoYTPfp4l8kFSk9UjiFfAaC0FI2v4l1JWGSyEEMHLOIsZ89f7k
 RibbonButton
 RibbonButtonControl
 RibbonGallery
@@ -21521,7 +21518,6 @@ RSA_verify_ASN1_OCTET_STRING
 RSA_verify_PKCS1_PSS_mgf1
 RSAPrivateKey
 RSAPublicKey
-RtbSorohnzNe1cEmvOUcy9rXk41Q4ull5Wcv7WR3vgr4ZmKB5OrfALjMM4A
 RTDynamicCast
 RtlCaptureContext
 RtlCaptureStackBackTrace
@@ -21977,6 +21973,7 @@ SDL_TIMER_RESOLUTION
 SDL_XINPUT_ENABLED
 SDL_XINPUT_USE_OLD_JOYSTICK_MAPPING
 SDLXInputDev
+SDZIFvGYeq58C9gezZZW2VpChLqi6XC9K3SacQ
 SealedTables
 SEARCH_GAMES
 SearchAction
@@ -25995,6 +25992,7 @@ StudioRefreshOnShowDecompositeGeometrySettingChange
 StudioRegenTemplateGuid
 StudioRemoveDuplicationInsertAction
 StudioRemoveObjectBrowserUI
+StudioRemoveUIThemeProperty
 StudioRemoveWidgetFromSessionInfo
 StudioReplaceAll
 StudioReplaceAllSquish
@@ -26355,6 +26353,7 @@ SXNET_add_id_INTEGER
 SXNET_add_id_ulong
 SXNET_get_id_asc
 SXNET_get_id_ulong
+SymantecPKI
 SymbolicLinkAlreadyExist
 SymbolValue
 SymFunctionTableAccess64
@@ -27382,6 +27381,7 @@ TlsSetValue
 TlsVerificationFail
 Tmap_traits
 TMxQPxAA13
+TnquLlkNf3
 ToArtistIntentAssetMigratorEnabled
 ToastNotification
 ToastNotification.qml
@@ -27777,7 +27777,6 @@ TS_TST_INFO_set_time
 TS_TST_INFO_set_tsa
 TS_VERIFY_CTX_new
 TSMk2ThrottleStreamJob
-TTPhvSBTXSUemvL
 TTTTTTTTTT
 TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
 TTUUEDDsss
@@ -28790,7 +28789,6 @@ UWindowInputState
 UWindowShowMessageNotification
 UWindowShowMessageRequest
 UWindowShowMessageResponse
-UWzpsmcpve2lOD
 UXImprovementAddSearchBar
 V_http_request
 V_http_response
@@ -29796,7 +29794,6 @@ VPublishService
 VPVAdornment
 VPVInstance
 VQByteArray
-VQfa00MvBfpDwjWFDEkPMyZotCwm73AVsGZLPj21i
 VQFileInfo
 VQGenericArgument
 VQGenericReturnArgument
@@ -30517,7 +30514,6 @@ WorldToViewportPoint
 WorldTrackJointInsertSplit
 WP1Lk7UmX3No0NAVVrlNv8vM1TKYodC60fXpXkwOnxGMHelMkfu58xsxIB9tXB4U
 WPACKET_start_sub_packet_len__
-Wpu6d7J9PT
 WrapDeformer
 WrapDeformerDispatcher
 WrapDeformerInternal
@@ -30612,6 +30608,7 @@ XboxPlayNextGame
 XboxPresencePolling
 XboxSaleAvatarPackageIds
 XboxUseNewValidUsernameCheck2
+XFbAsk1udcrh
 XFbxAMatrix
 XFREE86_GLYPH_RANGES
 XGetLastError
@@ -30816,7 +30813,6 @@ ZP6AX1PEAX
 ZPEAVRBXMessageBox
 ZRZZZbZt[.[
 ZVLocalTouchedSignal
-ZvNNAGUTglAsBQbbPOL6OeUCAwEAAQ
 ZVspecial_equipped_signal
 ZVTouchedSignal
 ZZZZZZZZZZZZZZZ

@@ -3164,6 +3164,7 @@ Class Studio : Instance [NotCreatable] [Service] [NotReplicated]
 	Property string Studio.DisplayLanguage {RobloxScriptSecurity}
 	Property int Studio.Render Throttle Percentage
 	Property Instance Studio.Theme
+	Property Enum<UITheme> Studio.UI Theme [Hidden] [ReadOnly] [Deprecated]
 	Property bool Studio.CommandBarLocalState
 	Property bool Studio.LuaDebuggerEnabled
 	Property bool Studio.LuaDebuggerEnabledAtStartup [Hidden] [ReadOnly]
@@ -5683,6 +5684,9 @@ Enum TriStateBoolean
 Enum TweenStatus
 	EnumItem TweenStatus.Canceled : 0
 	EnumItem TweenStatus.Completed : 1
+Enum UITheme [Deprecated]
+	EnumItem UITheme.Light : 0 [Deprecated]
+	EnumItem UITheme.Dark : 1 [Deprecated]
 Enum UiMessageType
 	EnumItem UiMessageType.UiMessageError : 0
 	EnumItem UiMessageType.UiMessageInfo : 1
