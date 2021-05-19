@@ -1,4 +1,7 @@
 local Workspace = game:GetService("Workspace")
+local StudioService = game:GetService("StudioService")
+
+local FFlagToolboxEnableWarningsForInternalUsers = game:DefineFastFlag("ToolboxEnableWarningsForInternalUsers", false)
 
 local debugFlagsFolderName = "ToolboxDebugFlags"
 
@@ -19,13 +22,22 @@ end
 local function getDebugFlagValue(flagName)
 	local debugFlagsFolder = findDebugFlagsFolder()
 	if not debugFlagsFolder then
-		return false
+		if FFlagToolboxEnableWarningsForInternalUsers then
+			return nil
+		else
+			return false
+		end
 	end
 	local val = debugFlagsFolder:FindFirstChild(flagName)
 	if val then
 		return val.Value
 	end
-	return false
+
+	if FFlagToolboxEnableWarningsForInternalUsers then
+		return nil
+	else
+		return false
+	end
 end
 
 local DebugFlags = {}
@@ -55,7 +67,17 @@ function DebugFlags.shouldLogAnalytics()
 end
 
 function DebugFlags.shouldDebugWarnings()
-	return getDebugFlagValue("ToolboxDebugWarnings")
+	if FFlagToolboxEnableWarningsForInternalUsers then
+		local userSetting = getDebugFlagValue("ToolboxDebugWarnings")
+
+		if userSetting ~= nil then
+			return userSetting
+		else
+			return StudioService:HasInternalPermission()
+		end
+	else
+		return getDebugFlagValue("ToolboxDebugWarnings")
+	end
 end
 
 function DebugFlags.shouldLogSettings()

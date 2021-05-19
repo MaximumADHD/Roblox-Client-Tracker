@@ -4,7 +4,7 @@ return function()
 	describe("isPreviewAvailable()", function()
 		it("should make sure the assetPreviewType is nil.", function()
 			expect(function()
-				AssetType.isPreviewAvailable(nil)
+				AssetType:isPreviewAvailable(nil)
 			end).to.throw()
 		end)
 

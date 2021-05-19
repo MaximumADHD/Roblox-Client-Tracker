@@ -1,3 +1,5 @@
+--!nocheck
+-- TODO STM-615: Remove nocheck when circular dependency issues are fixed
 local Plugin = script.Parent.Parent.Parent
 
 local Url = require(Plugin.Libs.Http.Url)
@@ -5,7 +7,7 @@ local Url = require(Plugin.Libs.Http.Url)
 local wrapStrictTable = require(Plugin.Core.Util.wrapStrictTable)
 
 local FFlagToolboxUseGetItemDetails = game:GetFastFlag("ToolboxUseGetItemDetails")
-local FFlagToolboxUseNewGroupsApi = game:DefineFastFlag("ToolboxUseNewGroupsApi", false)
+local Rollouts = require(Plugin.Core.Rollouts)
 
 local Urls = {}
 
@@ -14,12 +16,7 @@ local GET_ASSETS_DEVELOPER = Url.DEVELOP_URL .. "v1/toolbox/items?"
 local GET_ASSETS_CREATIONS = Url.ITEM_CONFIGURATION_URL .. "v1/creations/get-assets?"
 local GET_ASSETS_CREATION_DETAILS = Url.ITEM_CONFIGURATION_URL .. "v1/creations/get-asset-details"
 local GET_USER = Url.API_URL .. "users/%d"
-local GET_GROUP
-if FFlagToolboxUseNewGroupsApi then
-	GET_GROUP = Url.GROUP_URL .. "v0/groups/%d"
-else
-	GET_GROUP = Url.API_URL .. "groups/%d"
-end
+local GET_GROUP = Url.GROUP_URL .. "v0/groups/%d"
 local GET_METADATA = Url.ITEM_CONFIGURATION_URL .. "v1/metadata"
 local GET_UPLOAD_CATALOG_ITEM = Url.PUBLISH_URL .. "v1/assets/upload"
 local POST_UPLOAD_ASSET_THUMBNAIL =  Url.PUBLISH_URL .. "v1/assets/%d/thumbnail"
@@ -87,6 +84,7 @@ local GET_ITEM_TAGS = Url.ITEM_CONFIGURATION_URL .. "v1/item-tags?"
 local ADD_ASSET_TAG = Url.ITEM_CONFIGURATION_URL .. "v1/item-tags"
 local DELETE_ITEM_TAG = Url.ITEM_CONFIGURATION_URL .. "v1/item-tags/%s"
 
+local TOOLBOX_SERVICE_URL = Url.APIS_URL .. "toolbox-service/v1"
 local GET_TOOLBOX_ITEMS = Url.APIS_URL .. "toolbox-service/v1/%s?"
 local GET_ITEM_DETAILS = Url.APIS_URL .. "toolbox-service/v1/items/details?"
 
@@ -118,9 +116,7 @@ function Urls.constructGetAssetsUrl(category, searchTerm, pageSize, page, sortTy
 	})
 end
 
-function Urls.constructGetToolboxItemsUrl(category, sortType, creatorType, minDuration, maxDuration, creatorTargetId,
-keyword, cursor, limit, useCreatorWhitelist)
-	local targetUrl = string.format(GET_TOOLBOX_ITEMS, category)
+function Urls.constructGetToolboxItemsUrl(category, sortType, creatorType, minDuration, maxDuration, creatorTargetId, keyword, cursor, limit, useCreatorWhitelist)
 	local query = {
 		creatorType = creatorType,
 		minDuration = minDuration,
@@ -133,8 +129,60 @@ keyword, cursor, limit, useCreatorWhitelist)
 		useCreatorWhitelist = useCreatorWhitelist,
 	}
 
+	local targetUrl = string.format(GET_TOOLBOX_ITEMS, category)
+
 	return targetUrl .. Url.makeQueryString(query)
 end
+
+function Urls.ToolboxEndpointMigration_constructGetToolboxItemsUrl(category, sortType, creatorType, minDuration, maxDuration, creatorTargetId, ownerId, keyword, cursor, limit, useCreatorWhitelist)
+	local query = {
+		creatorType = creatorType,
+		minDuration = minDuration,
+		maxDuration = maxDuration,
+		creatorTargetId = creatorTargetId,
+		keyword = keyword,
+		sortType = sortType,
+		cursor = cursor,
+		limit = limit,
+		useCreatorWhitelist = useCreatorWhitelist,
+	}
+
+	-- Category is required here as there is a circular dependency between Category and Urls
+	-- TODO STM-615: Move to file scope when circular dependency issues are fixed
+	local Category = require(Plugin.Core.Types.Category)
+	local categoryData = Category.getCategoryByName(category)
+
+	if not categoryData then
+		error(string.format("Could not find categoryData for %s", category))
+	end
+
+	local apiName = Category.API_NAMES[category]
+
+	if not apiName then
+		error(string.format("Could not find API_NAME for %s", category))
+	end
+
+	local targetUrl
+	if categoryData.ownershipType == Category.OwnershipType.MY then	
+		targetUrl = string.format("%s/inventory/user/%d/%s?", TOOLBOX_SERVICE_URL, ownerId, apiName)
+	elseif categoryData.ownershipType == Category.OwnershipType.GROUP then
+		targetUrl = string.format("%s/inventory/group/%d/%s?", TOOLBOX_SERVICE_URL, ownerId, apiName)
+	elseif categoryData.ownershipType == Category.OwnershipType.RECENT then
+		targetUrl = string.format("%s/recent/user/%d/%s?", TOOLBOX_SERVICE_URL, ownerId, apiName)
+	else
+		targetUrl = string.format("%s/%s?", TOOLBOX_SERVICE_URL, apiName)
+	end
+
+	return targetUrl .. Url.makeQueryString(query)
+end
+
+if Rollouts:getToolboxEndpointMigration() then
+	-- We do not hide the definition of the function because this makes it untestable in unit tests
+	-- (because rollout ID cannot be stubbed before requiring Urls.lua)
+	-- When the rollout is complete, replace Urls.constructGetToolboxItemsUrl
+	Urls.constructGetToolboxItemsUrl = Urls.ToolboxEndpointMigration_constructGetToolboxItemsUrl
+end
+
 -- category, string, neccesary parameter.
 -- keyword, string, used for searching.
 -- sort, string, default to relevence.
@@ -221,9 +269,13 @@ function Urls.constructPostVoteUrl()
 end
 
 function Urls.constructInsertAssetUrl(assetId)
-	return INSERT_ASSET .. Url.makeQueryString({
-		assetId = assetId
-	})
+	if Rollouts:getToolboxEndpointMigration() then
+		return string.format("%s/insert/asset/%d", TOOLBOX_SERVICE_URL, assetId)
+	else
+		return INSERT_ASSET .. Url.makeQueryString({
+			assetId = assetId
+		})
+	end
 end
 
 function Urls.constructGetPluginInfoUrl(assetId)

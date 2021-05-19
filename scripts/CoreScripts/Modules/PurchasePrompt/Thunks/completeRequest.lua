@@ -3,17 +3,39 @@ local Players = game:GetService("Players")
 local MarketplaceService = game:GetService("MarketplaceService")
 
 local CompleteRequest = require(Root.Actions.CompleteRequest)
+local PromptState = require(Root.Enums.PromptState)
 local RequestType = require(Root.Enums.RequestType)
 local PurchaseError = require(Root.Enums.PurchaseError)
+local Analytics = require(Root.Services.Analytics)
 local Thunk = require(Root.Thunk)
 
+local GetFFlagEnableScaryModalAnalytics = require(Root.Flags.GetFFlagEnableScaryModalAnalytics)
+
+local requiredServices = {
+	Analytics,
+}
+
 local function completeRequest()
-	return Thunk.new(script.Name, {}, function(store, services)
+	return Thunk.new(script.Name, requiredServices, function(store, services)
+		local analytics = services[Analytics]
 		local state = store:getState()
 		local requestType = state.promptRequest.requestType
 		local purchaseError = state.purchaseError
 		local id = state.promptRequest.id
 		local didPurchase = state.hasCompletedPurchase
+
+		if GetFFlagEnableScaryModalAnalytics() then
+			local nativeProductId = state.nativeUpsell and state.nativeUpsell.robuxProductId
+			local productId = state.productInfo and state.productInfo.productId
+			-- Being in this state when the request is completed == Cancelled purchase
+			if state.promptState == PromptState.U13PaymentModal then
+				analytics.signalScaryModalCanceled(productId, "U13PaymentModal", nativeProductId)
+			elseif state.promptState == PromptState.U13MonthlyThreshold1Modal then
+				analytics.signalScaryModalCanceled(productId, "U13MonthlyThreshold1Modal", nativeProductId)
+			elseif state.promptState == PromptState.U13MonthlyThreshold2Modal then
+				analytics.signalScaryModalCanceled(productId, "U13MonthlyThreshold2Modal", nativeProductId)
+			end
+		end
 
 		if requestType == RequestType.Product then
 			local playerId = Players.LocalPlayer.UserId

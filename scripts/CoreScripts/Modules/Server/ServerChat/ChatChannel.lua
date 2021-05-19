@@ -395,7 +395,8 @@ function methods:InternalPostMessage(fromSpeaker, message, extraData)
 				-- Send unfiltered message to speaker who sent the message.
 				local cMessageObj = ShallowCopy(messageObj)
 				if userShouldMuteUnfilteredMessage then
-					cMessageObj.Message = string.rep("_", messageObj.MessageLength)
+					local messageLength = messageObj.MessageLengthUtf8 or messageObj.MessageLength
+					cMessageObj.Message = string.rep("_", messageLength)
 				else
 					cMessageObj.Message = message
 				end
@@ -541,6 +542,7 @@ function methods:InternalCreateMessageObject(message, fromSpeaker, isFiltered, e
 		SpeakerUserId = speakerUserId,
 		OriginalChannel = self.Name,
 		MessageLength = string.len(message),
+		MessageLengthUtf8 = utf8.len(utf8.nfcnormalize(message)),
 		MessageType = messageType,
 		IsFiltered = isFiltered,
 		Message = isFiltered and message or nil,

@@ -3,14 +3,18 @@ return function()
 	local MarketplaceService = game:GetService("MarketplaceService")
 
 	local CorePackages = game:GetService("CorePackages")
-local PurchasePromptDeps = require(CorePackages.PurchasePromptDeps)
+	local PurchasePromptDeps = require(CorePackages.PurchasePromptDeps)
 	local Rodux = PurchasePromptDeps.Rodux
 
 	local RequestType = require(Root.Enums.RequestType)
 	local PromptState = require(Root.Enums.PromptState)
+	local Analytics = require(Root.Services.Analytics)
 	local Reducer = require(Root.Reducers.Reducer)
 	local createSpy = require(Root.Test.createSpy)
+	local MockAnalytics = require(Root.Test.MockAnalytics)
 	local Thunk = require(Root.Thunk)
+
+	local GetFFlagEnableScaryModalAnalytics = require(Root.Flags.GetFFlagEnableScaryModalAnalytics)
 
 	local completeRequest = require(script.Parent.completeRequest)
 
@@ -25,12 +29,16 @@ local PurchasePromptDeps = require(CorePackages.PurchasePromptDeps)
 				},
 			})
 
+			local analytics = MockAnalytics.new()
+
 			local thunk = completeRequest()
 
 			local finishedSignalSpy = createSpy()
 			local connection = MarketplaceService.PromptProductPurchaseFinished:Connect(finishedSignalSpy.value)
 
-			Thunk.test(thunk, store)
+			Thunk.test(thunk, store, {
+				[Analytics] = analytics.mockService,
+			})
 
 			local state = store:getState()
 			expect(state.promptState).to.equal(PromptState.None)
@@ -55,12 +63,16 @@ local PurchasePromptDeps = require(CorePackages.PurchasePromptDeps)
 				},
 			})
 
+			local analytics = MockAnalytics.new()
+
 			local thunk = completeRequest()
 
 			local finishedSignalSpy = createSpy()
 			local connection = MarketplaceService.PromptGamePassPurchaseFinished:Connect(finishedSignalSpy.value)
 
-			Thunk.test(thunk, store)
+			Thunk.test(thunk, store, {
+				[Analytics] = analytics.mockService,
+			})
 
 			local state = store:getState()
 			expect(state.promptState).to.equal(PromptState.None)
@@ -85,12 +97,16 @@ local PurchasePromptDeps = require(CorePackages.PurchasePromptDeps)
 				},
 			})
 
+			local analytics = MockAnalytics.new()
+
 			local thunk = completeRequest()
 
 			local finishedSignalSpy = createSpy()
 			local connection = MarketplaceService.PromptPurchaseFinished:Connect(finishedSignalSpy.value)
 
-			Thunk.test(thunk, store)
+			Thunk.test(thunk, store, {
+				[Analytics] = analytics.mockService,
+			})
 
 			local state = store:getState()
 			expect(state.promptState).to.equal(PromptState.None)
@@ -118,12 +134,16 @@ local PurchasePromptDeps = require(CorePackages.PurchasePromptDeps)
 				hasCompletedPurchase = true,
 			})
 
+			local analytics = MockAnalytics.new()
+
 			local thunk = completeRequest()
 
 			local finishedSignalSpy = createSpy()
 			local connection = MarketplaceService.PromptProductPurchaseFinished:Connect(finishedSignalSpy.value)
 
-			Thunk.test(thunk, store)
+			Thunk.test(thunk, store, {
+				[Analytics] = analytics.mockService,
+			})
 
 			local state = store:getState()
 			expect(state.promptState).to.equal(PromptState.None)
@@ -149,12 +169,16 @@ local PurchasePromptDeps = require(CorePackages.PurchasePromptDeps)
 				hasCompletedPurchase = true,
 			})
 
+			local analytics = MockAnalytics.new()
+
 			local thunk = completeRequest()
 
 			local finishedSignalSpy = createSpy()
 			local connection = MarketplaceService.PromptGamePassPurchaseFinished:Connect(finishedSignalSpy.value)
 
-			Thunk.test(thunk, store)
+			Thunk.test(thunk, store, {
+				[Analytics] = analytics.mockService,
+			})
 
 			local state = store:getState()
 			expect(state.promptState).to.equal(PromptState.None)
@@ -180,12 +204,16 @@ local PurchasePromptDeps = require(CorePackages.PurchasePromptDeps)
 				hasCompletedPurchase = true,
 			})
 
+			local analytics = MockAnalytics.new()
+
 			local thunk = completeRequest()
 
 			local finishedSignalSpy = createSpy()
 			local connection = MarketplaceService.PromptPurchaseFinished:Connect(finishedSignalSpy.value)
 
-			Thunk.test(thunk, store)
+			Thunk.test(thunk, store, {
+				[Analytics] = analytics.mockService,
+			})
 
 			local state = store:getState()
 			expect(state.promptState).to.equal(PromptState.None)
@@ -198,6 +226,57 @@ local PurchasePromptDeps = require(CorePackages.PurchasePromptDeps)
 			expect(values.didPurchase).to.equal(true)
 
 			connection:Disconnect()
+		end)
+	end)
+
+	describe("should signal ScaryModalCanceled when canceling the prompt", function()
+		local function checkScaryModalCanceled(promptState)
+			local store = Rodux.Store.new(Reducer, {
+				promptState = promptState,
+				promptRequest = {
+					id = 123,
+					requestType = RequestType.Product,
+					infoType = Enum.InfoType.Product
+				},
+				hasCompletedPurchase = true,
+			})
+
+			local analytics = MockAnalytics.new()
+
+			local thunk = completeRequest()
+
+			local finishedSignalSpy = createSpy()
+			local connection = MarketplaceService.PromptProductPurchaseFinished:Connect(finishedSignalSpy.value)
+
+			Thunk.test(thunk, store, {
+				[Analytics] = analytics.mockService,
+			})
+
+			if GetFFlagEnableScaryModalAnalytics() then
+				expect(analytics.spies.signalScaryModalCanceled.callCount).to.equal(1)
+			else
+				expect(analytics.spies.signalScaryModalCanceled.callCount).to.equal(0)
+			end
+
+			expect(finishedSignalSpy.callCount).to.equal(1)
+
+			local values = finishedSignalSpy:captureValues("userId", "productId", "didPurchase")
+			expect(values.productId).to.equal(123)
+			expect(values.didPurchase).to.equal(true)
+
+			connection:Disconnect()
+		end
+
+		it("should signal for U13PaymentModal", function()
+			checkScaryModalCanceled(PromptState.U13PaymentModal)
+		end)
+
+		it("should signal for U13MonthlyThreshold1Modal", function()
+			checkScaryModalCanceled(PromptState.U13MonthlyThreshold1Modal)
+		end)
+
+		it("should signal for U13MonthlyThreshold2Modal", function()
+			checkScaryModalCanceled(PromptState.U13MonthlyThreshold2Modal)
 		end)
 	end)
 end

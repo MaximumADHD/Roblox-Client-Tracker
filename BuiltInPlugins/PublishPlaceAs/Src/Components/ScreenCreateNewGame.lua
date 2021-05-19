@@ -43,10 +43,15 @@ local SetPublishInfo = require(Plugin.Src.Actions.SetPublishInfo)
 
 local LoadGroups = require(Plugin.Src.Thunks.LoadGroups)
 
+local Analytics = require(Plugin.Src.Util.Analytics)
+
 local FFlagStudioAllowRemoteSaveBeforePublish = game:GetFastFlag("StudioAllowRemoteSaveBeforePublish")
+local FFlagStudioUseNewSavePlaceWorkflow = game:GetFastFlag("StudioUseNewSavePlaceWorkflow")
 local FFlagStudioPromptOnFirstPublish = game:GetFastFlag("StudioPromptOnFirstPublish")
 local FFlagStudioNewGamesInCloudUI = game:GetFastFlag("StudioNewGamesInCloudUI")
 local FFlagStudioClosePromptOnLocalSave = game:GetFastFlag("StudioClosePromptOnLocalSave")
+
+local FFlagStudioEnableNewGamesInTheCloudMetrics = game:GetFastFlag("StudioEnableNewGamesInTheCloudMetrics")
 
 local MENU_ENTRIES = {
 	"BasicInfo",
@@ -81,8 +86,12 @@ function ScreenCreateNewGame:init()
 	if FFlagStudioClosePromptOnLocalSave then
 		StudioService.SaveLocallyAsComplete:connect(function(success)
 			if success then
+				if FFlagStudioEnableNewGamesInTheCloudMetrics then
+					Analytics.reportLocalSaveSuccess()
+				end
 				-- Close out the publish window after a local save
 				self.props.OnClose()
+				StudioService:requestClose(self.props.CloseMode)
 			end
 		end)
 	end
@@ -161,24 +170,28 @@ function ScreenCreateNewGame:render()
 				}),
 			}),
 
-			-- Footer = Roact.createElement(Footer, {
-			-- 	MainButton = {
-			-- 		Name = "Create",
-			-- 		Active = readyToSave and not isPublishing,
-			-- 		OnActivated = function()
-			-- 			if FFlagStudioPromptOnFirstPublish and firstPublishContext then
-			-- 				SettingsImpl.saveAll(changed, localization, firstPublishContext.universeId, firstPublishContext.placeId)
-			-- 			else
-			-- 				SettingsImpl.saveAll(changed, localization)
-			-- 			end
-			-- 			dispatchSetIsPublishing(true)
-			-- 		end,
-			-- 	},
-			-- 	OnClose = onClose,
-			-- 	NextScreen = Constants.SCREENS.CHOOSE_GAME,
-			-- 	NextScreenText = nextScreenText,
-			-- 	IsLocalSaveButton = replaceUpdateWithLocalSave,
-			-- }),
+			Footer = Roact.createElement(Footer, {
+				MainButton = {
+					Name = "Create",
+					Active = readyToSave and not isPublishing,
+					OnActivated = function()
+						if FFlagStudioPromptOnFirstPublish and firstPublishContext then
+							SettingsImpl.saveAll(changed, localization, firstPublishContext.universeId, firstPublishContext.placeId)
+						else
+							SettingsImpl.saveAll(changed, localization)
+						end
+						if FFlagStudioUseNewSavePlaceWorkflow and FFlagStudioEnableNewGamesInTheCloudMetrics and isPublish then
+							Analytics.reportInitialPerms(changed.isActive, changed.isFriendsOnly)
+						end
+						dispatchSetIsPublishing(true)
+					end,
+				},
+				OnClose = onClose,
+				NextScreen = Constants.SCREENS.CHOOSE_GAME,
+				NextScreenText = nextScreenText,
+				IsLocalSaveButton = replaceUpdateWithLocalSave,
+				IsPublish = isPublish,
+			}),
 		}
 
 		if FFlagStudioAllowRemoteSaveBeforePublish and isPublish then
@@ -192,35 +205,6 @@ function ScreenCreateNewGame:render()
 				Roact.createElement(BasicInfo, {
 					IsPublish = isPublish,
 					IsFirstPublish = firstPublishContext ~= nil,
-				}),
-
-				Page = Roact.createElement("Frame", {
-					BackgroundTransparency = 1,
-					Position = UDim2.new(0, theme.MENU_BAR_WIDTH, 0, 0),
-					Size = UDim2.new(1, -theme.MENU_BAR_WIDTH, 1, -theme.FOOTER_HEIGHT)
-				}, {
-					Roact.createElement(BasicInfo, {
-						IsPublish = isPublish,
-					}),
-				}),
-
-				Footer = Roact.createElement(Footer, {
-					MainButton = {
-						Name = actionButtonLabel,
-						Active = readyToSave and not isPublishing,
-						OnActivated = function()
-							if FFlagStudioPromptOnFirstPublish and firstPublishContext then
-								SettingsImpl.saveAll(changed, localization, firstPublishContext.universeId, firstPublishContext.placeId)
-							else
-								SettingsImpl.saveAll(changed, localization)
-							end
-							dispatchSetIsPublishing(true)
-						end,
-					},
-					OnClose = onClose,
-					NextScreen = Constants.SCREENS.CHOOSE_GAME,
-					NextScreenText = nextScreenText,
-					IsLocalSaveButton = replaceUpdateWithLocalSave,
 				}),
 			})
 		end
@@ -293,6 +277,9 @@ function ScreenCreateNewGame:render()
 								else
 									SettingsImpl.saveAll(changed, localization)
 								end
+								if FFlagStudioUseNewSavePlaceWorkflow and FFlagStudioEnableNewGamesInTheCloudMetrics and isPublish then
+									Analytics.reportInitialPerms(changed.isActive, changed.isFriendsOnly)
+								end
 								dispatchSetIsPublishing(true)
 							end,
 						},
@@ -300,6 +287,7 @@ function ScreenCreateNewGame:render()
 						NextScreen = Constants.SCREENS.CHOOSE_GAME,
 						NextScreenText = nextScreenText,
 						IsLocalSaveButton = replaceUpdateWithLocalSave,
+						IsPublish = isPublish,
 					}),
 				}
 

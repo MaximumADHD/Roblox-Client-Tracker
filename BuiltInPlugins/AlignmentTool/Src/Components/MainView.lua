@@ -16,19 +16,23 @@ local DraggerSchemaCore = Plugin.Packages.DraggerSchemaCore
 local BoundsChangedTracker = require(DraggerSchemaCore.BoundsChangedTracker)
 local Selection = require(DraggerSchemaCore.Selection)
 
+local FitFrameVertical = require(Plugin.Packages.FitFrame).FitFrameVertical
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
-local ContextServices = require(Plugin.Packages.Framework.ContextServices)
 
-local FitFrameVertical = require(Plugin.Packages.FitFrame).FitFrameVertical
+local Framework = require(Plugin.Packages.Framework)
 
-local UI = require(Plugin.Packages.Framework.UI)
+local THEME_REFACTOR = Framework.Util.RefactorFlags.THEME_REFACTOR
+
+local ContextServices = Framework.ContextServices
+local UI = Framework.UI
 local Button = UI.Button
 local Container = UI.Container
 local Decoration = UI.Decoration
 local ScrollingFrame = UI.ScrollingFrame
+local ToggleButton = UI.ToggleButton
 
-local Util = require(Plugin.Packages.Framework.Util)
+local Util = Framework.Util
 local LayoutOrderIterator = Util.LayoutOrderIterator
 local StyleModifier = Util.StyleModifier
 
@@ -66,7 +70,13 @@ function MainView:render()
 	local updateAlignment = props.updateAlignment
 	local analytics = props.Analytics
 	local localization = props.Localization
-	local theme = props.Theme:get("Plugin")
+	local theme
+	if THEME_REFACTOR then
+		theme = props.Stylizer
+	else
+		theme = props.Theme:get("Plugin")
+	end
+
 	local layoutOrderIterator = LayoutOrderIterator.new()
 
 	local errorText
@@ -182,7 +192,8 @@ end
 ContextServices.mapToProps(MainView, {
 	Localization = ContextServices.Localization,
 	Plugin = ContextServices.Plugin,
-	Theme = ContextServices.Theme,
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
 	Analytics = ContextServices.Analytics,
 })
 

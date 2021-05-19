@@ -21,16 +21,22 @@ return function()
 		rotrieve install being ran locally and creating a gitignored symlink.
 	]]
 	local function devFrameworkLoadingPatch()
-		local existingPackage = Plugin.Packages._Index.DeveloperFramework:FindFirstChild("DeveloperFramework")
-		if existingPackage then
-			existingPackage:Destroy()
-		end
-		local frameworkFolder = Plugin.Packages.DEPRECATED_Framework
-		frameworkFolder.Name = "DeveloperFramework"
-		frameworkFolder.Parent = Plugin.Packages._Index.DeveloperFramework
+		if Plugin.Packages:FindFirstChild("DEPRECATED_Framework") then
+			local existingPackage = Plugin.Packages._Index.DeveloperFramework:FindFirstChild("DeveloperFramework")
+			if existingPackage then
+				existingPackage:Destroy()
+			end
+			local frameworkFolder = Plugin.Packages.DEPRECATED_Framework
+			frameworkFolder.Name = "DeveloperFramework"
+			frameworkFolder.Parent = Plugin.Packages._Index.DeveloperFramework
 
-		local RefactorFlags = require(frameworkFolder.Util.RefactorFlags)
-		RefactorFlags.THEME_REFACTOR = true
+			local RefactorFlags = require(frameworkFolder.Util.RefactorFlags)
+			RefactorFlags.THEME_REFACTOR = true
+
+		else
+			local RefactorFlags = require(Plugin.Packages._Index.DeveloperFramework.DeveloperFramework.Util.RefactorFlags)
+			RefactorFlags.THEME_REFACTOR = true
+		end
 	end
 
 	-- TODO DEVTOOLS-4458: Replace this with Rotriever & Rojo sub-project linking solution

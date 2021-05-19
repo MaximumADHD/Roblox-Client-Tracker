@@ -47,7 +47,7 @@ else
 	Cryo = require(Packages.Cryo)
 end
 
-local FFlagEnableDevFrameworkAutomaticSize = ("EnableDevFrameworkAutomaticSize")
+local FFlagEnableDevFrameworkAutomaticSize = game:GetFastFlag("EnableDevFrameworkAutomaticSize")
 
 local ContextServices = require(Framework.ContextServices)
 local Container = require(script.Parent.Container)

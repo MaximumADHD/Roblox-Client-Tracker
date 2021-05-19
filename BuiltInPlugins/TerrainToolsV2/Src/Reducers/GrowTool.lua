@@ -1,7 +1,6 @@
 --[[
 
 ]]
-
 local Plugin = script.Parent.Parent.Parent
 local Rodux = require(Plugin.Packages.Rodux)
 local Cryo = require(Plugin.Packages.Cryo)
@@ -21,6 +20,7 @@ local GrowTool = Rodux.createReducer({
 	planeLock = false,
 	snapToGrid = false,
 	ignoreWater = true,
+	ignoreParts = true,
 	autoMaterial = false,
 	material = Enum.Material.Grass,
 }, {
@@ -77,6 +77,13 @@ local GrowTool = Rodux.createReducer({
 
 		return Cryo.Dictionary.join(state, {
 			ignoreWater = ignoreWater,
+		})
+	end,
+	SetIgnoreParts = function(state, action)
+		local ignoreParts = action.ignoreParts
+
+		return Cryo.Dictionary.join(state, {
+			ignoreParts = ignoreParts,
 		})
 	end,
 	SetAutoMaterial = function(state, action)

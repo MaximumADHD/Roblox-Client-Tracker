@@ -22,7 +22,7 @@ local function meetsPrerequisites(productInfo, alreadyOwned, restrictThirdParty,
 	end
 
 	if externalSettings.GetFFlagEnableRestrictedAssetSaleLocationPurchasePrompt()
-			and not productInfo.CanBeSoldInThisGame then
+			and productInfo.CanBeSoldInThisGame == false then
 		return false, PurchaseError.NotForSaleHere
 	end
 

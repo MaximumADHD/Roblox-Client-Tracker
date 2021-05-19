@@ -2,6 +2,8 @@
 	Split a line of text with zero or more {link} placeholders into a Frame containing TextLabels and LinkButtons.
 ]]
 
+-- 2021/05/07 This file is deprecated. Please Use TextWithInlineLink in Developer Framework Instead.
+
 local TextService = game:GetService("TextService")
 
 local Plugin = script.Parent.Parent.Parent

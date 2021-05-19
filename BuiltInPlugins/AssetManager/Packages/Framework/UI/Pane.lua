@@ -128,6 +128,7 @@ function Pane:render()
 	end
 	local componentProps = omit(join(defaultProps, props), {
 		Roact.Children,
+		"StyleModifier",
 		"BackgroundColor",
 		"BorderColor",
 		"Padding",

@@ -1,7 +1,6 @@
 --[[
 	Displays panels associated with the Subtract tool
 ]]
-
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local RoactRodux = require(Plugin.Packages.RoactRodux)
@@ -16,6 +15,7 @@ local ChangePivot = require(Actions.ChangePivot)
 local ChooseBrushShape = require(Actions.ChooseBrushShape)
 local SetBaseSizeHeightLocked = require(Actions.SetBaseSizeHeightLocked)
 local SetIgnoreWater = require(Actions.SetIgnoreWater)
+local SetIgnoreParts = require(Actions.SetIgnoreParts)
 local SetPlaneLock = require(Actions.SetPlaneLock)
 local SetSnapToGrid = require(Actions.SetSnapToGrid)
 
@@ -34,6 +34,7 @@ local function mapStateToProps(state, props)
 		brushShape = state[REDUCER_KEY].brushShape,
 		height = state[REDUCER_KEY].height,
 		ignoreWater = state[REDUCER_KEY].ignoreWater,
+		ignoreParts = state[REDUCER_KEY].ignoreParts,
 		pivot = state[REDUCER_KEY].pivot,
 		planeLock = planeLock,
 		snapToGrid = state[REDUCER_KEY].snapToGrid,
@@ -63,6 +64,9 @@ local function mapDispatchToProps (dispatch)
 		end,
 		dispatchSetIgnoreWater = function (ignoreWater)
 			dispatchToSubtract(SetIgnoreWater(ignoreWater))
+		end,
+		dispatchSetIgnoreParts = function(ignoreParts)
+			dispatchToSubtract(SetIgnoreParts(ignoreParts))
 		end,
 		dispatchSetPlaneLock = function(planeLock)
 			dispatchToSubtract(SetPlaneLock(planeLock))

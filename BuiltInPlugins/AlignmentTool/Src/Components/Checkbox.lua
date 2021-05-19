@@ -17,14 +17,18 @@ local TextService = game:GetService("TextService")
 local Plugin = script.Parent.Parent.Parent
 
 local Roact = require(Plugin.Packages.Roact)
-local ContextServices = require(Plugin.Packages.Framework.ContextServices)
 
-local UI = require(Plugin.Packages.Framework.UI)
+local Framework = require(Plugin.Packages.Framework)
+
+local THEME_REFACTOR = Framework.Util.RefactorFlags.THEME_REFACTOR
+
+local ContextServices = Framework.ContextServices
+local UI = Framework.UI
 local Container = UI.Container
 local TextLabel = UI.Decoration.TextLabel
 local ToggleButton = UI.ToggleButton
 
-local Util = require(Plugin.Packages.Framework.Util)
+local Util = Framework.Util
 local StyleModifier = Util.StyleModifier
 
 local Checkbox = Roact.PureComponent:extend("Checkbox")
@@ -56,13 +60,19 @@ function Checkbox:render()
 	local layoutOrder = props.LayoutOrder
 	local size = props.Size
 	local text = props.Text
-	local theme = props.Theme
+	local theme
+	local style
+	if THEME_REFACTOR then
+		theme = props.Stylizer
+	else
+		theme = props.Theme
+		style = theme:getStyle("Plugin", self)
+	end
 
-	local style = theme:getStyle("Plugin", self)
-	local font = style.Font
-	local textSize = style.TextSize
-	local imageSize = style.ImageSize
-	local padding = style.Padding or 0
+	local font = THEME_REFACTOR and theme.Font or style.Font
+	local textSize = THEME_REFACTOR and theme.TextSize or style.TextSize
+	local imageSize = THEME_REFACTOR and theme.CheckboxImageSize or style.ImageSize
+	local padding = THEME_REFACTOR and theme.CheckboxLabelSpacing or style.Padding or 0
 
 	local textDimensions
 	if font then
@@ -119,7 +129,8 @@ function Checkbox:render()
 end
 
 ContextServices.mapToProps(Checkbox, {
-	Theme = ContextServices.Theme,
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
 })
 
 return Checkbox

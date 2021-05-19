@@ -37,6 +37,7 @@ function methods:SendSystemMessageToSelf(message, channelObj, extraData)
 		OriginalChannel = channelObj.Name,
 		IsFiltered = true,
 		MessageLength = string.len(message),
+		MessageLengthUtf8 = utf8.len(utf8.nfcnormalize(message)),
 		Message = message,
 		MessageType = ChatConstants.MessageTypeSystem,
 		Time = os.time(),

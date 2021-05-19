@@ -18,6 +18,8 @@ Localization.__index = Localization
 -- TODO (awarwick) Remove ALL Studio.Common strings from TranslationDevelopmentTable.csv with this flag
 local FFlagFixToolboxTranslations = game:DefineFastFlag("FixToolboxTranslations", false)
 
+local FFlagToolboxFixCommonWarnings = game:GetFastFlag("ToolboxFixCommonWarnings")
+
 --[[
 	options:
 		getLocaleId : function void -> LocaleId
@@ -519,7 +521,7 @@ function Localization:_recalculateContent()
 			ItemCannotBeSold = self:_safeLocalize("Studio.Toolbox.General.SalesItemCannotBeSold"),
 			Price = self:_safeLocalize("Studio.Toolbox.General.SalesPrice"),
 			ServiceFee = self:_safeLocalize("Studio.Toolbox.General.SalesServiceFee"),
-			Fee = self:_safeLocalize("Studio.Toolbox.General.Fee"),
+			Fee = not FFlagToolboxFixCommonWarnings and self:_safeLocalize("Studio.Toolbox.General.Fee") or nil,
 			Earn = self:_safeLocalize("Studio.Toolbox.General.Earn"),
 			PremiumBenefits = self:_safeLocalize("Studio.Toolbox.General.PremiumBenefits"),
 		},
@@ -600,7 +602,7 @@ function Localization:_recalculateContent()
 			PreviewArea ={
 				PreviewLabel = self:_safeLocalize("Studio.Toolbox.AssetConfigPreview.Preview"),
 				Change = self:_safeLocalize("Studio.Toolbox.AssetConfigPreview.Change"),
-				Format = self:_safeLocalize("Studio.Toolbox.AssetConfigPreview.Format"),
+				Format = not FFlagToolboxFixCommonWarnings and self:_safeLocalize("Studio.Toolbox.AssetConfigPreview.Format") or nil,
 				Process = self:_safeLocalize("Studio.Toolbox.AssetConfigPreview.Process"),
 			},
 
@@ -674,11 +676,11 @@ function Localization:_recalculateContent()
 			Retry = self:_safeLocalize("Studio.Toolbox.Purchase.Retry"),
 			Buy = self:_safeLocalize("Studio.Toolbox.Purchase.Buy"),
 			BuyRobux = self:_safeLocalize("Studio.Toolbox.Purchase.BuyRobux"),
-			BuyPrompt = self:_safeLocalize("Studio.Toolbox.Purchase.BuyPrompt"),
+			BuyPrompt = not FFlagToolboxFixCommonWarnings and self:_safeLocalize("Studio.Toolbox.Purchase.BuyPrompt") or nil,
 			FreeTitle = self:_safeLocalize("Studio.Toolbox.Purchase.FreeTitle"),
 			BuyTitle = self:_safeLocalize("Studio.Toolbox.Purchase.BuyTitle"),
 			InsufficientFundsTitle = self:_safeLocalize("Studio.Toolbox.Purchase.InsufficientTitle"),
-			InsufficientPrompt = self:_safeLocalize("Studio.Toolbox.Purchase.InsufficientPrompt"),
+			InsufficientPrompt = not FFlagToolboxFixCommonWarnings and self:_safeLocalize("Studio.Toolbox.Purchase.InsufficientPrompt") or nil,
 			CurrentBalance = self:_safeLocalize("Studio.Toolbox.Purchase.RobuxBalance"),
 			FailedHeader = self:_safeLocalize("Studio.Toolbox.Purchase.FailedHeader"),
 			FreeSuccessHeader = self:_safeLocalize("Studio.Toolbox.Purchase.FreeSuccessHeader"),

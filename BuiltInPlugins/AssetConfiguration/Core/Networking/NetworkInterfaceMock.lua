@@ -20,9 +20,13 @@ local function getFakeAsset(fakeId)
 	return {
 		Asset = {
 			Id = fakeId,
-			Name = "Observation Tower",
+			Name = "Observation Tower Mock",
+			Duration = 0,
 			TypeId = 10,
 			IsEndorsed = true,
+			Description = "mocked asset item",
+			CreatedUtc = "2019-05-01T00:37:18.59Z",
+			UpdatedUtc = "2021-05-06T19:56:54.437Z",
 		},
 		Creator = {
 			Id = fakeId,
@@ -45,6 +49,13 @@ local function getFakeAsset(fakeId)
 			HasVoted = true,
 			ReasonForNotVoteable = "",
 		},
+	}
+end
+
+local function getFakeToolboxItems(fakeId)
+	return {
+		id = fakeId,
+		itemType = "Asset"
 	}
 end
 
@@ -74,7 +85,7 @@ function NetworkInterfaceMock:getToolboxItems()
 	}
 	local data = {}
 	for i = 1, 100, 1 do
-		data[i] = getFakeAsset(i)
+		data[i] = getFakeToolboxItems(i)
 	end
 	fakeItemListContent.responseBody.data = data
 
@@ -112,19 +123,34 @@ function NetworkInterfaceMock:resolveAssets(assets, totalResults, nextPageCursor
 	})
 end
 
---para bool, vote up or not
-function NetworkInterfaceMock:postVote(assetId, bool)
-	return 	{
+function NetworkInterfaceMock:postVote(assetId)
+	return 	Promise.resolve({
+		model = {
+			HasVoted = true,
+			CanVote = true,
+			upVotes = 11,
+			UserVote = true,
+			DownVote = 5,
+			ShowVotes = true,
+		},
 		success = true,
 		message = "This is a test message"
-	}
+	})
 end
 
 function NetworkInterfaceMock:postUnvote(assetId)
-	return 	{
+	return 	Promise.resolve({
+		model = {
+			HasVoted = false,
+			CanVote = true,
+			upVotes = 10,
+			UserVote = false,
+			DownVote = 5,
+			ShowVotes = true,
+		},
 		success = true,
 		message = "This is a test message"
-	}
+	})
 end
 
 function NetworkInterfaceMock:postInsertAsset(assetId)
@@ -148,7 +174,7 @@ end
 function NetworkInterfaceMock:getRobuxBalance(myUserId)
 	return Promise.resolve({
 		responseBody = {
-			robux = '0'
+			robux = '16'
 		}
 	})
 end
@@ -157,7 +183,7 @@ function NetworkInterfaceMock:getFavoriteCounts(assetId)
 	return Promise.resolve({
 		responseBody = {
 			assetId = assetId,
-			favoriteCounts = 0
+			favoriteCounts = 15
 		}
 	})
 end

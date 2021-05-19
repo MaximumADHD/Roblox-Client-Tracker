@@ -3,6 +3,15 @@
 	2018 Camera Update - AllYourBlox
 --]]
 
+
+local FFlagUserCameraPositionCheckWarning
+do
+    local success, result = pcall(function()
+        return UserSettings():IsUserFeatureEnabled("UserCameraPositionCheckWarning")
+    end)
+    FFlagUserCameraPositionCheckWarning = success and result
+end
+
 local ZERO_VECTOR2 = Vector2.new()
 local PITCH_LIMIT = math.rad(80)
 
@@ -75,6 +84,13 @@ function LegacyCamera:Update(dt)
 	elseif self.cameraType == Enum.CameraType.Watch then
 		if subjectPosition and player and camera then
 			local cameraLook = nil
+
+			if FFlagUserCameraPositionCheckWarning then
+				if subjectPosition == camera.CFrame.p then
+					warn("Camera cannot watch subject in same position as itself")
+					return camera.CFrame, camera.Focus
+				end
+			end
 
 			local humanoid = self:GetHumanoid()
 			if humanoid and humanoid.RootPart then

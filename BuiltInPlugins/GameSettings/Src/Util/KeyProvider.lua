@@ -20,6 +20,22 @@ function KeyProvider.getConfigureKeyName()
     return "Configure"
 end
 
+function KeyProvider.getIsFriendOnlyKeyName()
+    return "isFriendsOnly"
+end
+
+function KeyProvider.getIsActiveKeyName()
+    return "isActive"
+end
+
+function KeyProvider.getIsForSaleKeyName()
+    return "isForSale"
+end
+
+function KeyProvider.getVipServersIsEnabledKeyName()
+    return "vipServersIsEnabled"
+end
+
 function KeyProvider.getEditKeyName()
     assert(FFlagGameSettingsUseKeyProvider)
 
@@ -36,6 +52,12 @@ function KeyProvider.getOptInLocationsKeyName()
     assert(FFlagLuobuDevPublishLua)
     
     return "OptInLocations"
+end
+
+function KeyProvider.getChinaKeyName()
+    assert(FFlagLuobuDevPublishLua)
+    
+    return "China"
 end
 
 return KeyProvider

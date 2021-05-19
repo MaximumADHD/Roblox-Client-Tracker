@@ -240,6 +240,24 @@ function Theme.createValues(theme, getColor)
 				size = 20,
 				padding = 5,
 				descriptionWidth = 500,
+				image = {
+					background = "rbxasset://textures/GameSettings/RadioButton.png",
+					selected = isDark and "rbxasset://textures/StudioSharedUI/radio_selected_enabled_dark.png" or "rbxasset://textures/ui/LuaApp/icons/ic-blue-dot.png",
+					selectedDisabled = isDark and "rbxasset://textures/StudioSharedUI/radio_selected_disabled_dot_dark.png" or "rbxasset://textures/StudioSharedUI/radio_selected_disabled_dot.png"
+				}
+			},
+
+			radioButtonSet = {
+				warningLabel = {
+					color = theme:getColor(StyleColor.WarningText),
+					height = 30,
+				},
+
+				description = {
+					height = 25 
+				},
+
+				padding = 5,
 			},
 
 			checkBox = {
@@ -438,7 +456,8 @@ function Theme.createValues(theme, getColor)
 			requirementsLink = FFlagLuobuDevPublishLua and {
 				height = 22,
 				length = 250,
-				paddingY = 25
+				paddingY = 25,
+				paddingX = 5,
 			} or nil,
 
 			tooltipIcon = FFlagLuobuDevPublishLua and {

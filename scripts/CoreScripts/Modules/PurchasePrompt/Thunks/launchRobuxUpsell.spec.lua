@@ -19,6 +19,8 @@ return function()
 	local MockPlatformInterface = require(Root.Test.MockPlatformInterface)
 	local Thunk = require(Root.Thunk)
 
+	local GetFFlagEnableScaryModalAnalytics = require(Root.Flags.GetFFlagEnableScaryModalAnalytics)
+
 	local launchRobuxUpsell = require(script.Parent.launchRobuxUpsell)
 
 	local function getDefaultState()
@@ -139,5 +141,45 @@ return function()
 		local state = store:getState()
 		expect(state.promptState).to.equal(PromptState.Error)
 		expect(state.purchaseError).to.equal(PurchaseError.NotEnoughRobuxNoUpsell)
+	end)
+
+	describe("should signal signalScaryModalConfirmed when starting ScaryModal has been confirmed and native purchase starts", function()
+		local function checkScaryModalConfirmed(promptState)
+			local defaultState = getDefaultState()
+			defaultState.promptState = promptState
+			local store = Rodux.Store.new(Reducer, defaultState)
+	
+			local analytics = MockAnalytics.new()
+			local platformInterface = MockPlatformInterface.new()
+	
+			Thunk.test(launchRobuxUpsell(), store, {
+				[Analytics] = analytics.mockService,
+				[Network] = MockNetwork.new(),
+				[PlatformInterface] = platformInterface.mockService,
+				[ExternalSettings] = MockExternalSettings.new(false, false, {}, Enum.Platform.Windows)
+			})
+	
+			local state = store:getState()
+	
+			if GetFFlagEnableScaryModalAnalytics() then
+				expect(analytics.spies.signalScaryModalConfirmed.callCount).to.equal(1)
+			else
+				expect(analytics.spies.signalScaryModalConfirmed.callCount).to.equal(0)
+			end
+			expect(state.promptState).to.equal(PromptState.UpsellInProgress)
+		end
+	
+
+		it("should signal for U13PaymentModal", function()
+			checkScaryModalConfirmed(PromptState.U13PaymentModal)
+		end)
+
+		it("should signal for U13MonthlyThreshold1Modal", function()
+			checkScaryModalConfirmed(PromptState.U13MonthlyThreshold1Modal)
+		end)
+
+		it("should signal for U13MonthlyThreshold2Modal", function()
+			checkScaryModalConfirmed(PromptState.U13MonthlyThreshold2Modal)
+		end)
 	end)
 end

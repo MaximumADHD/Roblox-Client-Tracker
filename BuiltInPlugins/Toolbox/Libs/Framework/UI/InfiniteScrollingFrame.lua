@@ -1,5 +1,5 @@
 --[[
-	A InfiniteScrollingFrame with callbacks to load more items.
+	An InfiniteScrollingFrame with callbacks to load more items.
 	A thin wrapper around the infinite-scroller library with DeveloperFramework theming and naming conventions.
 
 	Required Props:
@@ -120,7 +120,7 @@ function InfiniteScrollingFrame:init()
 				identifier = props.ItemIdentifier,
 				loadingBuffer = props.LoadingBuffer,
 				focusIndex = self.state.focusLockToken,
-				anchorLocation = props.AnchorLocation,
+				anchorLocation = props.AnchorLocation or UDim.new(1, 0),
 				onScrollUpdate = props.OnScrollUpdate
 			})
 	end

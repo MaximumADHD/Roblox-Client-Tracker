@@ -1,3 +1,5 @@
+--!nocheck
+-- TODO STM-615: Remove nocheck when circular dependency issues are fixed
 local Plugin = script.Parent.Parent.Parent
 local Util = Plugin.Core.Util
 local AssetConfigConstants = require(Util.AssetConfigConstants)

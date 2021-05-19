@@ -14,7 +14,7 @@ local Urls = require(Plugin.Src.Util.Urls)
 local NetworkInterface = {}
 NetworkInterface.__index = NetworkInterface
 
-function NetworkInterface:new()
+function NetworkInterface.new()
 	local networkImp = {
 		_networkImp = Networking.new()
 

@@ -26,7 +26,7 @@ end
 local function ScreenSelect(props)
 	local onClose = props.OnClose
 	local isPublish = props.IsPublish
-	local closeAfterSave = props.CloseAfterSave
+	local closeMode = props.CloseMode
 	local firstPublishContext = props.FirstPublishContext
 
 	local screen = props.Screen
@@ -34,7 +34,7 @@ local function ScreenSelect(props)
 	return Roact.createElement(screenMap[screen], {
 		OnClose = onClose,
 		IsPublish = isPublish,
-		CloseAfterSave = closeAfterSave,
+		CloseMode = closeMode,
 		FirstPublishContext = firstPublishContext,
 	})
 end

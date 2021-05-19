@@ -12,6 +12,7 @@
 		table{RoactComponents} Children, a table of Roact components that will be shown with this radio button.
 			e.g. think of more things under the radio button like description.
 ]]
+local FFlagStudioRestrictGameMonetizationToPublicGameOnly = game:GetFastFlag("StudioRestrictGameMonetizationToPublicGameOnly")
 
 local BACKGROUND_IMAGE = "rbxasset://textures/GameSettings/RadioButton.png"
 local SELECTED_IMAGE = "rbxasset://textures/ui/LuaApp/icons/ic-blue-dot.png"
@@ -87,7 +88,7 @@ function RadioButton:render()
 			Size = UDim2.new(0, DEPRECATED_Constants.RADIO_BUTTON_SIZE, 0, DEPRECATED_Constants.RADIO_BUTTON_SIZE),
 			BackgroundTransparency = 1,
 			ImageTransparency = self.props.Enabled and 0 or 0.4,
-			Image = BACKGROUND_IMAGE,
+			Image = FFlagStudioRestrictGameMonetizationToPublicGameOnly and theme.radioButton.image.background or BACKGROUND_IMAGE,
 			ImageColor3 = theme.radioButton.background,
 			LayoutOrder = 1,
 
@@ -106,8 +107,8 @@ function RadioButton:render()
 				Size = theme.isDarkerTheme and UDim2.new(0.4, 0, 0.4, 0) or UDim2.new(0.5, 0, 0.5, 0),
 				Position = UDim2.new(0.5, 0, 0.5, 0),
 				AnchorPoint = Vector2.new(0.5, 0.5),
-				Visible = self.props.Enabled and self.props.Selected,
-				Image = SELECTED_IMAGE,
+				Visible = FFlagStudioRestrictGameMonetizationToPublicGameOnly and self.props.Selected or (self.props.Enabled and self.props.Selected),
+				Image = FFlagStudioRestrictGameMonetizationToPublicGameOnly and (self.props.Enabled and theme.radioButton.image.selected or theme.radioButton.image.selectedDisabled) or SELECTED_IMAGE,
 			}),
 		}),
 

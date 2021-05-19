@@ -1,7 +1,6 @@
 --[[
 
 ]]
-
 local Plugin = script.Parent.Parent.Parent
 local Rodux = require(Plugin.Packages.Rodux)
 local Cryo = require(Plugin.Packages.Cryo)
@@ -21,6 +20,7 @@ local SmoothTool = Rodux.createReducer({
 	planeLock = false,
 	snapToGrid = false,
 	ignoreWater = false,
+	ignoreParts = true,
 }, {
 	ChooseBrushShape = function(state, action)
 		local brushShape = action.brushShape
@@ -82,6 +82,13 @@ local SmoothTool = Rodux.createReducer({
 
 		return Cryo.Dictionary.join(state, {
 			ignoreWater = ignoreWater,
+		})
+	end,
+	SetIgnoreParts = function(state, action)
+		local ignoreParts = action.ignoreParts
+
+		return Cryo.Dictionary.join(state, {
+			ignoreParts = ignoreParts,
 		})
 	end,
 })

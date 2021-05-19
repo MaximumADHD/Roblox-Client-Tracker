@@ -7,6 +7,8 @@ local GetCurrentHumanoidDescription = require(script.Parent.GetCurrentHumanoidDe
 local GetAssetIdsFromDescription = require(script.Parent.GetAssetIdsFromDescription)
 local GetAssetNamesForIds = require(script.Parent.GetAssetNamesForIds)
 
+local FFlagAESUseBatchFetchForAssetNames = require(script.Parent.Flags.FFlagAESUseBatchFetchForAssetNames)
+
 return function(humanoidDescription)
 	local function getAddedAndRemovedIds(currentAssetIds, newAssetIds)
 		local currentAssetsSet = Cryo.List.toSet(currentAssetIds)
@@ -29,19 +31,42 @@ return function(humanoidDescription)
 
 		local addedAssetIds, removedAssetIds = getAddedAndRemovedIds(currentAssetIds, newAssetIds)
 
-		return Promise.all({
-			GetAssetNamesForIds(addedAssetIds),
-			GetAssetNamesForIds(removedAssetIds),
-		}):andThen(function(results)
-			local addedNames = results[1]
-			local removedNames = results[2]
+		if FFlagAESUseBatchFetchForAssetNames then
+			local allChangedIds = Cryo.List.join(addedAssetIds, removedAssetIds)
 
-			return {
-				addedNames = addedNames,
-				removedNames = removedNames,
-				addedAssetIds = addedAssetIds,
-				removedAssetIds = removedAssetIds
-			}
-		end)
+			return GetAssetNamesForIds(allChangedIds):andThen(function(assetIdNameMap)
+				local addedNames = {}
+				for _, assetId in ipairs(addedAssetIds) do
+					table.insert(addedNames, assetIdNameMap[assetId])
+				end
+
+				local removedNames = {}
+				for _, assetId in ipairs(removedAssetIds) do
+					table.insert(removedNames, assetIdNameMap[assetId])
+				end
+
+				return {
+					addedNames = addedNames,
+					removedNames = removedNames,
+					addedAssetIds = addedAssetIds,
+					removedAssetIds = removedAssetIds
+				}
+			end)
+		else
+			return Promise.all({
+				GetAssetNamesForIds(addedAssetIds),
+				GetAssetNamesForIds(removedAssetIds),
+			}):andThen(function(results)
+				local addedNames = results[1]
+				local removedNames = results[2]
+
+				return {
+					addedNames = addedNames,
+					removedNames = removedNames,
+					addedAssetIds = addedAssetIds,
+					removedAssetIds = removedAssetIds
+				}
+			end)
+		end
 	end)
 end

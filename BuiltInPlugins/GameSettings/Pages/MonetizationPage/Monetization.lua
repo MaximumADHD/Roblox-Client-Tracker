@@ -13,6 +13,7 @@ local FFlagStudioEnableBadgesInMonetizationPage = game:GetFastFlag("StudioEnable
 local FFlagGameSettingsStandardizeLocalizationId = game:GetFastFlag("GameSettingsStandardizeLocalizationId")
 local FFlagStudioFixMissingMonetizationHeader = game:DefineFastFlag("StudioFixMissingMonetizationHeader", false)
 local FVariableMaxRobuxPrice = game:DefineFastInt("DeveloperSubscriptionsMaxRobuxPrice", 2000)
+local FFlagStudioRestrictGameMonetizationToPublicGameOnly = game:GetFastFlag("StudioRestrictGameMonetizationToPublicGameOnly")
 
 local Page = script.Parent
 local Plugin = script.Parent.Parent.Parent
@@ -93,11 +94,18 @@ local nameErrors = {
 
 local nextDevProductName = ""
 
+local KeyProvider = require(Plugin.Src.Util.KeyProvider)
+local GetIsFriendsOnlyKeyName = KeyProvider.getIsFriendOnlyKeyName
+local GetIsActiveKeyName = KeyProvider.getIsActiveKeyName
+local GetIsForSaleKeyName = KeyProvider.getIsForSaleKeyName
+local GetVipServersIsEnabledKeyName = KeyProvider.getVipServersIsEnabledKeyName
+
 local function loadSettings(store, contextItems)
     local state = store:getState()
     local gameId = state.Metadata.gameId
     local monetizationController = contextItems.monetizationController
     local devSubsController = contextItems.devSubsController
+    local gamePermissionsController = contextItems.gamePermissionsController
 
     local settingsLoadJobs = {
         function(loadedSettings)
@@ -113,7 +121,7 @@ local function loadSettings(store, contextItems)
 
         function(loadedSettings)
             local isForSale = monetizationController:getPaidAccessEnabled(gameId)
-            loadedSettings["isForSale"] = isForSale
+            loadedSettings[FFlagStudioRestrictGameMonetizationToPublicGameOnly and GetIsForSaleKeyName() or "isForSale"] = isForSale
         end,
 
         function(loadedSettings)
@@ -123,7 +131,7 @@ local function loadSettings(store, contextItems)
 
         function(loadedSettings)
             local vipServersIsEnabled = monetizationController:getVIPServersEnabled(gameId)
-            loadedSettings["vipServersIsEnabled"] = vipServersIsEnabled
+            loadedSettings[FFlagStudioRestrictGameMonetizationToPublicGameOnly and GetVipServersIsEnabledKeyName() or "vipServersIsEnabled"] = vipServersIsEnabled
         end,
 
         function(loadedSettings)
@@ -156,6 +164,28 @@ local function loadSettings(store, contextItems)
             local openDevSubs = devSubsController:getDevSubs(gameId, true)
 
             loadedSettings["DeveloperSubscriptions"] = openDevSubs
+        end,
+
+        function(loadedSettings)
+            if not FFlagStudioRestrictGameMonetizationToPublicGameOnly then
+                return
+            end
+
+            if state.Settings.Current[GetIsActiveKeyName()] == nil then 
+                local isActive = gamePermissionsController:isActive(gameId)
+                loadedSettings[GetIsActiveKeyName()] = isActive
+            end
+        end,
+
+        function(loadedSettings)
+            if not FFlagStudioRestrictGameMonetizationToPublicGameOnly then
+                return
+            end
+
+            if state.Settings.Current[GetIsFriendsOnlyKeyName()] == nil then 
+                local isFriendsOnly = gamePermissionsController:isFriendsOnly(gameId)
+                loadedSettings[GetIsFriendsOnlyKeyName()] = isFriendsOnly
+            end
         end,
     }
     
@@ -277,12 +307,12 @@ local function loadValuesToProps(getValue, state)
         MinimumFee = getValue("minimumFee"),
 
         PaidAccess = {
-            enabled = getValue("isForSale"),
+            enabled = getValue(FFlagStudioRestrictGameMonetizationToPublicGameOnly and GetIsForSaleKeyName() or "isForSale"),
             price = getValue("price"),
             initialPrice = state.Settings.Current.price and state.Settings.Current.price or 0,
         },
         VIPServers = {
-            isEnabled = getValue("vipServersIsEnabled"),
+            isEnabled = getValue(FFlagStudioRestrictGameMonetizationToPublicGameOnly and GetVipServersIsEnabledKeyName() or "vipServersIsEnabled"),
             price = getValue("vipServersPrice"),
             initialPrice = state.Settings.Current.vipServersPrice and state.Settings.Current.vipServersPrice or 0,
             activeServersCount = getValue("vipServersActiveServersCount"),
@@ -305,7 +335,15 @@ local function loadValuesToProps(getValue, state)
         editedSubscriptionKey = getValue("editedSubscriptionKey"),
 
         Badges = FFlagStudioEnableBadgesInMonetizationPage and state.Settings.Current.badges or nil,
-        BadgeLoadState = FFlagStudioEnableBadgesInMonetizationPage and state.ComponentLoadState.Badges or nil
+
+        BadgeLoadState = FFlagStudioEnableBadgesInMonetizationPage and state.ComponentLoadState.Badges or nil,
+        
+        isPublic = FFlagStudioRestrictGameMonetizationToPublicGameOnly and getValue(GetIsActiveKeyName()) and not getValue(GetIsFriendsOnlyKeyName()),
+
+        -- To allow players with games already saved in this error state (notPublic and isMonetized) have the ability to change the setting. Once allowed states are saved the error state will not be selectable.
+        isInitiallyEnabled = FFlagStudioRestrictGameMonetizationToPublicGameOnly 
+                            and (not state.Settings.Current[GetIsActiveKeyName()] or state.Settings.Current[GetIsFriendsOnlyKeyName()]) 
+                            and (state.Settings.Current[GetIsForSaleKeyName()] or state.Settings.Current[GetVipServersIsEnabledKeyName()])
     }
 
     return loadedProps
@@ -341,7 +379,7 @@ local function dispatchChanges(setValue, dispatch)
             -- on toggle on for the first time, this will set the price to 25 (lowest valid price) as default.
             dispatch(AddChange("price", initialPrice))
             dispatch(DiscardError("monetizationPrice"))
-            dispatch(AddChange("isForSale", value))
+            dispatch(AddChange(FFlagStudioRestrictGameMonetizationToPublicGameOnly and GetIsForSaleKeyName() or "isForSale", value))
         end,
 
         PaidAccessPriceChanged = function(text)
@@ -365,7 +403,7 @@ local function dispatchChanges(setValue, dispatch)
             -- on toggle on for the first time, this will set the price to 10 (lowest valid price) as default.
             dispatch(AddChange("vipServersPrice", initialPrice))
             dispatch(DiscardError("monetizationPrice"))
-            dispatch(AddChange("vipServersIsEnabled", value))
+            dispatch(AddChange(FFlagStudioRestrictGameMonetizationToPublicGameOnly and GetVipServersIsEnabledKeyName() or "vipServersIsEnabled", value))
         end,
 
         VIPServersPriceChanged = function(text)
@@ -653,6 +691,9 @@ local function displayMonetizationPage(props)
     local setEditDevProductId = props.SetEditDevProductId
     local loadMoreDevProducts = props.LoadMoreDevProducts
 
+    local isPublic = not FFlagStudioRestrictGameMonetizationToPublicGameOnly or props.isPublic
+    local isInitiallyEnabled = not FFlagStudioRestrictGameMonetizationToPublicGameOnly or props.isInitiallyEnabled
+
     local badgesForTable, numberOfBadges, loadMoreBadges, refreshBadges, badgeLoadState
     local showBadges = FFlagStudioEnableBadgesInMonetizationPage and ShouldAllowBadges()
 
@@ -704,7 +745,8 @@ local function displayMonetizationPage(props)
             PriceError = paidAccessEnabled and priceError or nil,
 
             LayoutOrder = layoutIndex:getNextOrder(),
-            Enabled = vipServers.isEnabled == false,
+            -- Need to enable it if user already has it on nonpublic + monetized
+            Enabled = vipServers.isEnabled == false and (paidAccessEnabled and isInitiallyEnabled or isPublic),
             Selected = paidAccessEnabled,
 
             OnPaidAccessToggle = function(button)
@@ -722,7 +764,8 @@ local function displayMonetizationPage(props)
             PriceError = vipServers.isEnabled and priceError or nil,
 
             LayoutOrder = layoutIndex:getNextOrder(),
-            Enabled = paidAccessEnabled == false,
+            -- Need to enable it if user already has it on nonpublic + monetized
+            Enabled = paidAccessEnabled == false and (vipServers.isEnabled and isInitiallyEnabled or isPublic),
 
             OnVipServersToggled = function(button)
                 local initialPrice = math.max(props.VIPServers.initialPrice, FIntPrivateServersMinPrice)

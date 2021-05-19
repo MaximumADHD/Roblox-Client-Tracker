@@ -15,12 +15,14 @@ local PageInfoHelper = require(Plugin.Core.Util.PageInfoHelper)
 local Urls = require(Plugin.Core.Util.Urls)
 local Constants = require(Plugin.Core.Util.Constants)
 
+local Rollouts = require(Plugin.Core.Rollouts)
+
 local Category = require(Plugin.Core.Types.Category)
 
 local NetworkInterface = {}
 NetworkInterface.__index = NetworkInterface
 
-function NetworkInterface:new()
+function NetworkInterface.new()
 	local networkImp = {
 		_networkImp = Networking.new()
 
@@ -83,31 +85,54 @@ function NetworkInterface:getAssets(pageInfo)
 	end)
 end
 
-function NetworkInterface:getToolboxItems(category, sortType, creatorType, minDuration, maxDuration, creatorTargetId,
-keyword, cursor, limit)
+if Rollouts:getToolboxEndpointMigration() then
+	function NetworkInterface:getToolboxItems(category, sortType, creatorType, minDuration, maxDuration, creatorTargetId, ownerId, keyword, cursor, limit)
+		local useCreatorWhitelist = nil
 
-	local useCreatorWhitelist = nil
+		if category == Category.WHITELISTED_PLUGINS.name then
+			useCreatorWhitelist = true
+		end
+		local targetUrl = Urls.constructGetToolboxItemsUrl(
+			category,
+			sortType,
+			creatorType,
+			minDuration,
+			maxDuration,
+			creatorTargetId,
+			ownerId,
+			keyword,
+			cursor,
+			limit,
+			useCreatorWhitelist)
 
-	if category == Category.API_NAMES[Category.WHITELISTED_PLUGINS.name] then
-		useCreatorWhitelist = true
+		return sendRequestAndRetry(function()
+			printUrl("getToolboxItems", "GET", targetUrl)
+			return self._networkImp:httpGetJson(targetUrl)
+		end)
 	end
+else
+	function NetworkInterface:getToolboxItems(category, sortType, creatorType, minDuration, maxDuration, creatorTargetId, keyword, cursor, limit)
+		local useCreatorWhitelist = nil
+		if category == Category.API_NAMES[Category.WHITELISTED_PLUGINS.name] then
+			useCreatorWhitelist = true
+		end
+		local targetUrl = Urls.constructGetToolboxItemsUrl(
+			category,
+			sortType,
+			creatorType,
+			minDuration,
+			maxDuration,
+			creatorTargetId,
+			keyword,
+			cursor,
+			limit,
+			useCreatorWhitelist)
 
-	local targetUrl = Urls.constructGetToolboxItemsUrl(
-		category,
-		sortType,
-		creatorType,
-		minDuration,
-		maxDuration,
-		creatorTargetId,
-		keyword,
-		cursor,
-		limit,
-		useCreatorWhitelist)
-
-	return sendRequestAndRetry(function()
-		printUrl("getToolboxItems", "GET", targetUrl)
-		return self._networkImp:httpGetJson(targetUrl)
-	end)
+		return sendRequestAndRetry(function()
+			printUrl("getToolboxItems", "GET", targetUrl)
+			return self._networkImp:httpGetJson(targetUrl)
+		end)
+	end
 end
 
 function NetworkInterface:getItemDetails(data)
@@ -274,10 +299,13 @@ end
 
 function NetworkInterface:postInsertAsset(assetId)
 	local targetUrl = Urls.constructInsertAssetUrl(assetId)
+	local payload = {}
 
-	local payload = self._networkImp:jsonEncode({
-		assetId = assetId,
-	})
+	if not Rollouts:getToolboxEndpointMigration() then
+		payload = self._networkImp:jsonEncode({
+			assetId = assetId,
+		})
+	end
 
 	return sendRequestAndRetry(function()
 		printUrl("postInsertAsset", "POST", targetUrl, payload)

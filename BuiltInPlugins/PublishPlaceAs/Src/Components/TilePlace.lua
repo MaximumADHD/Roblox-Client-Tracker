@@ -1,5 +1,10 @@
+local FFlagUpdatePublishPlacePluginToDevFrameworkContext = game:GetFastFlag("UpdatePublishPlacePluginToDevFrameworkContext")
+
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
+
+local Framework = Plugin.Packages.Framework
+local ContextServices = require(Framework.ContextServices)
 
 local Theming = require(Plugin.Src.ContextServices.Theming)
 local UILibrary = require(Plugin.Packages.UILibrary)
@@ -46,81 +51,164 @@ function TilePlace:willUnmount()
 end
 
 function TilePlace:render()
-	return Theming.withTheme(function(theme)
-		return Localizing.withLocalization(function(localizing)
-			local props = self.props
+	if FFlagUpdatePublishPlacePluginToDevFrameworkContext then
+		local props = self.props
+		local theme = props.Theme:get("Plugin")
+		local localization = props.Localization
 
-			local name = props.Name
-			local selected = props.Selected
-			local lastItem = props.LastItem
-			local onActivated = props.OnActivated
-			local layoutOrder = props.LayoutOrder or 0
+		local name = props.Name
+		local selected = props.Selected
+		local lastItem = props.LastItem
+		local onActivated = props.OnActivated
+		local layoutOrder = props.LayoutOrder or 0
 
-			local image = theme.icons.thumbnailPlaceHolder
-			local isThumbnail = false
-			if props.Id and self.state.assetFetchStatus == Enum.AssetFetchStatus.Success then
-				isThumbnail = true
-				image = self.thumbnailUrl
-			elseif props.Id == nil then
-				image = theme.icons.newPlace
-			end
+		local image = theme.icons.thumbnailPlaceHolder
+		local isThumbnail = false
+		if props.Id and self.state.assetFetchStatus == Enum.AssetFetchStatus.Success then
+			isThumbnail = true
+			image = self.thumbnailUrl
+		elseif props.Id == nil then
+			image = theme.icons.newPlace
+		end
 
-			return Roact.createElement("ImageButton", {
-				Size = UDim2.new(1, -40, 0, 80),
-				LayoutOrder = layoutOrder,
+		return Roact.createElement("ImageButton", {
+			Size = UDim2.new(1, -40, 0, 80),
+			LayoutOrder = layoutOrder,
+			BackgroundTransparency = 1,
+			[Roact.Event.Activated] = onActivated,
+		}, {
+
+			Icon = Roact.createElement("ImageLabel", {
+				Position = UDim2.new(0, 10, 0, 10),
+				Size = UDim2.new(0, 60, 0, 60),
+				Image = image,
+				ImageColor3 = isThumbnail and Color3.new(1, 1, 1) or theme.icons.imageColor,
+				BackgroundColor3 = theme.icons.backgroundColor,
+				BorderSizePixel = 0,
+			}),
+
+			Tile = Roact.createElement("Frame", {
+				Position = UDim2.new(0, 80, 0, 0),
+				Size = UDim2.new(1, -80, 1, 0),
 				BackgroundTransparency = 1,
-				[Roact.Event.Activated] = onActivated,
 			}, {
+				Pad = Roact.createElement("UIPadding", {
+					PaddingLeft =  UDim.new(0, 10),
+					PaddingRight =  UDim.new(0, 10),
+					PaddingBottom = UDim.new(0, 10),
+				}),
 
-				Icon = Roact.createElement("ImageLabel", {
-					Position = UDim2.new(0, 10, 0, 10),
-					Size = UDim2.new(0, 60, 0, 60),
-					Image = image,
-					ImageColor3 = isThumbnail and Color3.new(1, 1, 1) or theme.icons.imageColor,
-					BackgroundColor3 = theme.icons.backgroundColor,
+				Name = Roact.createElement("TextLabel", {
+					Text = name,
+					Size = UDim2.new(1, 0, 1, 0),
+					TextXAlignment = 0,
+
+					TextWrapped = true,
+					TextSize = 11,
+					BorderSizePixel = 0,
+					BackgroundTransparency = 1,
+					TextColor3 = theme.textColor,
+				}),
+
+				Selected = selected and Roact.createElement("ImageLabel", {
+					Image = theme.icons.checkmark,
+					Size = UDim2.new(0, 30, 0, 30),
+					AnchorPoint = Vector2.new(1, 0.5),
+					Position = UDim2.new(1, -30, 0.5, 0),
+					BackgroundTransparency = 1,
 					BorderSizePixel = 0,
 				}),
 
-				Tile = Roact.createElement("Frame", {
-					Position = UDim2.new(0, 80, 0, 0),
-					Size = UDim2.new(1, -80, 1, 0),
-					BackgroundTransparency = 1,
-				}, {
-					Pad = Roact.createElement("UIPadding", {
-						PaddingLeft =  UDim.new(0, 10),
-						PaddingRight =  UDim.new(0, 10),
-						PaddingBottom = UDim.new(0, 10),
-					}),
-
-					Name = Roact.createElement("TextLabel", {
-						Text = name,
-						Size = UDim2.new(1, 0, 1, 0),
-						TextXAlignment = 0,
-
-						TextWrapped = true,
-						TextSize = 11,
-						BorderSizePixel = 0,
-						BackgroundTransparency = 1,
-						TextColor3 = theme.textColor,
-					}),
-
-					Selected = selected and Roact.createElement("ImageLabel", {
-						Image = theme.icons.checkmark,
-						Size = UDim2.new(0, 30, 0, 30),
-						AnchorPoint = Vector2.new(1, 0.5),
-						Position = UDim2.new(1, -30, 0.5, 0),
-						BackgroundTransparency = 1,
-						BorderSizePixel = 0,
-					}),
-
-					Seperator = not lastItem and Roact.createElement(Separator, {
-						Weight = 1,
-						Position = UDim2.new(0.5, 0, 1, 10),
-					}),
+				Seperator = not lastItem and Roact.createElement(Separator, {
+					Weight = 1,
+					Position = UDim2.new(0.5, 0, 1, 10),
 				}),
-			})
+			}),
+		})
+	else
+		return Theming.withTheme(function(theme)
+			return Localizing.withLocalization(function(localizing)
+				local props = self.props
+
+				local name = props.Name
+				local selected = props.Selected
+				local lastItem = props.LastItem
+				local onActivated = props.OnActivated
+				local layoutOrder = props.LayoutOrder or 0
+
+				local image = theme.icons.thumbnailPlaceHolder
+				local isThumbnail = false
+				if props.Id and self.state.assetFetchStatus == Enum.AssetFetchStatus.Success then
+					isThumbnail = true
+					image = self.thumbnailUrl
+				elseif props.Id == nil then
+					image = theme.icons.newPlace
+				end
+
+				return Roact.createElement("ImageButton", {
+					Size = UDim2.new(1, -40, 0, 80),
+					LayoutOrder = layoutOrder,
+					BackgroundTransparency = 1,
+					[Roact.Event.Activated] = onActivated,
+				}, {
+
+					Icon = Roact.createElement("ImageLabel", {
+						Position = UDim2.new(0, 10, 0, 10),
+						Size = UDim2.new(0, 60, 0, 60),
+						Image = image,
+						ImageColor3 = isThumbnail and Color3.new(1, 1, 1) or theme.icons.imageColor,
+						BackgroundColor3 = theme.icons.backgroundColor,
+						BorderSizePixel = 0,
+					}),
+
+					Tile = Roact.createElement("Frame", {
+						Position = UDim2.new(0, 80, 0, 0),
+						Size = UDim2.new(1, -80, 1, 0),
+						BackgroundTransparency = 1,
+					}, {
+						Pad = Roact.createElement("UIPadding", {
+							PaddingLeft =  UDim.new(0, 10),
+							PaddingRight =  UDim.new(0, 10),
+							PaddingBottom = UDim.new(0, 10),
+						}),
+
+						Name = Roact.createElement("TextLabel", {
+							Text = name,
+							Size = UDim2.new(1, 0, 1, 0),
+							TextXAlignment = 0,
+
+							TextWrapped = true,
+							TextSize = 11,
+							BorderSizePixel = 0,
+							BackgroundTransparency = 1,
+							TextColor3 = theme.textColor,
+						}),
+
+						Selected = selected and Roact.createElement("ImageLabel", {
+							Image = theme.icons.checkmark,
+							Size = UDim2.new(0, 30, 0, 30),
+							AnchorPoint = Vector2.new(1, 0.5),
+							Position = UDim2.new(1, -30, 0.5, 0),
+							BackgroundTransparency = 1,
+							BorderSizePixel = 0,
+						}),
+
+						Seperator = not lastItem and Roact.createElement(Separator, {
+							Weight = 1,
+							Position = UDim2.new(0.5, 0, 1, 10),
+						}),
+					}),
+				})
+			end)
 		end)
-	end)
+	end
+end
+
+if FFlagUpdatePublishPlacePluginToDevFrameworkContext then
+	ContextServices.mapToProps(TilePlace, {
+		Theme = ContextServices.Theme,
+		Localization = ContextServices.Localization,
+	})
 end
 
 return TilePlace

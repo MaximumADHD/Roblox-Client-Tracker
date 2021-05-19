@@ -65,7 +65,8 @@ function CreateMessageLabel(messageData, channelName)
 		if messageData.IsFiltered then
 			BaseMessage.Text = string.rep(" ", numNeededSpaces) .. messageObject.Message
 		else
-			BaseMessage.Text = string.rep(" ", numNeededSpaces) .. string.rep("_", messageObject.MessageLength)
+			local messageLength = messageObject.MessageLengthUtf8 or messageObject.MessageLength
+			BaseMessage.Text = string.rep(" ", numNeededSpaces) .. string.rep("_", messageLength)
 		end
 	end
 

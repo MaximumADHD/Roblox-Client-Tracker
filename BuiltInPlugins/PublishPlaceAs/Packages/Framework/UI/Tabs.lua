@@ -30,10 +30,13 @@ local SimpleTab = require(Framework.UI.SimpleTab)
 local Tabs = Roact.PureComponent:extend("Tabs")
 Typecheck.wrap(Tabs, script)
 
+function Tabs:init()
+	assert(THEME_REFACTOR, "Tabs not supported in Theme1, please upgrade your plugin to Theme2")
+end
+
 function Tabs:render()
 	local props: TabsTypes.ConnectedProps = self.props
 	local tabComponent = props.TabComponent or SimpleTab
-	assert(THEME_REFACTOR, "Tabs not supported in Theme1, please upgrade your plugin to Theme2")
 	local tabs = map(props.Tabs, function(tab: TabsTypes.Tab, index: number)
 		return Roact.createElement(tabComponent, {
 			Tab = tab,

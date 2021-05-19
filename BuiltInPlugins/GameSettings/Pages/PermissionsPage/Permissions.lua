@@ -1,3 +1,4 @@
+local FFlagStudioRestrictGameMonetizationToPublicGameOnly = game:GetFastFlag("StudioRestrictGameMonetizationToPublicGameOnly")
 local FFlagGameSettingsMigrateToDevFrameworkSeparator = game:GetFastFlag("GameSettingsMigrateToDevFrameworkSeparator")
 local FFlagUXImprovementsShowUserPermsWhenCollaborator2 = game:GetFastFlag("UXImprovementsShowUserPermsWhenCollaborator2")
 local FFlagStudioUXImprovementsLoosenTCPermissions = game:GetFastFlag("StudioUXImprovementsLoosenTCPermissions")
@@ -33,6 +34,11 @@ local SetGroupOwnerId = require(Page.Actions.SetGroupOwnerId)
 local SetGroupOwnerName = require(Page.Actions.SetGroupOwnerName)
 local SetCreatorFriends = require(Plugin.Src.Actions.SetCreatorFriends)
 
+local KeyProvider = require(Plugin.Src.Util.KeyProvider)
+local GetIsFriendsOnlyKeyName = KeyProvider.getIsFriendOnlyKeyName
+local GetIsActiveKeyName = KeyProvider.getIsActiveKeyName
+local GetIsForSaleKeyName = KeyProvider.getIsForSaleKeyName
+local GetVipServersIsEnabledKeyName = KeyProvider.getVipServersIsEnabledKeyName
 local LOCALIZATION_ID = FFlagGameSettingsStandardizeLocalizationId and script.Name or "AccessPermissions"
 
 local function loadSettings(store, contextItems)
@@ -42,17 +48,18 @@ local function loadSettings(store, contextItems)
 	local groupMetadataController = contextItems.groupMetadataController
 	local gamePermissionsController = contextItems.gamePermissionsController
 	local socialController = contextItems.socialController
+	local monetizationController = contextItems.monetizationController
 
 	return {
 		function(loadedSettings)
 			local isActive = gamePermissionsController:isActive(gameId)
 
-			loadedSettings["isActive"] = isActive
+			loadedSettings[FFlagStudioRestrictGameMonetizationToPublicGameOnly and GetIsActiveKeyName() or "isActive"] = isActive
 		end,
 		function(loadedSettings)
 			local isFriendsOnly = gamePermissionsController:isFriendsOnly(gameId)
 
-			loadedSettings["isFriendsOnly"] = isFriendsOnly
+			loadedSettings[FFlagStudioRestrictGameMonetizationToPublicGameOnly and GetIsFriendsOnlyKeyName() or "isFriendsOnly"] = isFriendsOnly
 		end,
 		function(loadedSettings)
 			local ownerName = gameMetadataController:getCreatorName(gameId)
@@ -91,6 +98,28 @@ local function loadSettings(store, contextItems)
 			local permissions, groupMetadata = gamePermissionsController:getPermissions(gameId, ownerName, ownerId, ownerType)
 			loadedSettings["permissions"] = permissions
 			loadedSettings["groupMetadata"] = groupMetadata
+		end,
+
+		function(loadedSettings)
+			if not FFlagStudioRestrictGameMonetizationToPublicGameOnly then
+				return
+			end
+
+			if state.Settings.Current[GetIsForSaleKeyName()] == nil then 
+				local isForSale = monetizationController:getPaidAccessEnabled(gameId)
+				loadedSettings[GetIsForSaleKeyName()] = isForSale
+			end
+		end,
+
+		function(loadedSettings)
+			if not FFlagStudioRestrictGameMonetizationToPublicGameOnly then
+				return
+			end
+
+			if state.Settings.Current[GetVipServersIsEnabledKeyName()] == nil then
+				local vipServersIsEnabled = monetizationController:getVIPServersEnabled(gameId)
+				loadedSettings[GetVipServersIsEnabledKeyName()] = vipServersIsEnabled
+			end
 		end,
 	}
 end
@@ -136,9 +165,17 @@ end
 local function loadValuesToProps(getValue, state)
 	local loadedProps = {
 		-- Playability widget
-		IsActive = getValue("isActive"),
-		IsFriendsOnly = getValue("isFriendsOnly"),
+		IsActive = getValue(FFlagStudioRestrictGameMonetizationToPublicGameOnly and GetIsActiveKeyName() or "isActive"),
+		IsFriendsOnly = getValue(FFlagStudioRestrictGameMonetizationToPublicGameOnly and GetIsFriendsOnlyKeyName() or "isFriendsOnly"),
 		IsCurrentlyActive = state.Settings.Current.isActive,
+
+		-- Monetization setting
+		IsMonetized = FFlagStudioRestrictGameMonetizationToPublicGameOnly and getValue(GetIsForSaleKeyName()) or getValue(GetVipServersIsEnabledKeyName()),
+
+		-- To allow players with games already saved in this error state (notPublic and isMonetized) have the ability to change the setting. Once allowed states are saved the error state will not be selectable.
+		IsInitiallyEnabled = FFlagStudioRestrictGameMonetizationToPublicGameOnly 
+							and (not state.Settings.Current[GetIsActiveKeyName()] or state.Settings.Current[GetIsFriendsOnlyKeyName()]) 
+							and (state.Settings.Current[GetIsForSaleKeyName()] or state.Settings.Current[GetVipServersIsEnabledKeyName()]),
 
 		-- Metadata
 		OwnerId = state.GameOwnerMetadata.creatorId,
@@ -153,14 +190,14 @@ end
 local function dispatchChanges(setValue, dispatch)
 	local dispatchFuncs = {
 		-- Playability widget
-		IsFriendsOnlyChanged = setValue("isFriendsOnly"),
+		IsFriendsOnlyChanged = setValue(FFlagStudioRestrictGameMonetizationToPublicGameOnly and GetIsFriendsOnlyKeyName() or "isFriendsOnly"),
 		IsActiveChanged = function(isActive, willShutdown)
 			if willShutdown then
-				dispatch(AddWarning("isActive"))
+				dispatch(AddWarning(FFlagStudioRestrictGameMonetizationToPublicGameOnly and GetIsActiveKeyName() or "isActive"))
 			else
-				dispatch(DiscardWarning("isActive"))
+				dispatch(DiscardWarning(FFlagStudioRestrictGameMonetizationToPublicGameOnly and GetIsActiveKeyName() or "isActive"))
 			end
-			dispatch(AddChange("isActive", isActive))
+			dispatch(AddChange(FFlagStudioRestrictGameMonetizationToPublicGameOnly and GetIsActiveKeyName() or "isActive", isActive))
 		end,
 	}
 
@@ -208,7 +245,11 @@ function Permissions:render()
 		local isCurrentlyActive = props.IsCurrentlyActive
 		local isActiveChanged = props.IsActiveChanged
 		local isFriendsOnlyChanged = props.IsFriendsOnlyChanged
+		local isPublic = isActive and not isFriendsOnly
 
+		local isMonetized = FFlagStudioRestrictGameMonetizationToPublicGameOnly and props.IsMonetized
+		local isInitiallyEnabled = FFlagStudioRestrictGameMonetizationToPublicGameOnly and props.IsInitiallyEnabled
+		
 		local localization = props.Localization
 		local theme = props.Theme:get("Plugin")
 
@@ -259,11 +300,14 @@ function Permissions:render()
 		else
 			teamCreateWarningVisible = (not canUserEditCollaborators) and (not self:isGroupGame())
 		end
-		
+
 		local teamCreateWarningSize = nil 
 		if not FFlagGameSettingsStandardizeLocalizationId then
 			teamCreateWarningSize = UDim2.new(1, 0, 0, 30)
 		end
+		-- once user change to public and have the monetize enabled the plability button will be disabled
+		local playabilityEnabled = (self:isLoggedInUserGameOwner() or self:isGroupGame()) and (not isPublic and isInitiallyEnabled or not isMonetized)
+		local playabilityWarningVisible = FFlagStudioRestrictGameMonetizationToPublicGameOnly and not playabilityEnabled or false
 
 		return {
 			Playability = Roact.createElement(RadioButtonSet, {
@@ -271,7 +315,7 @@ function Permissions:render()
 				Description = localization:getText("General", "PlayabilityHeader"),
 				LayoutOrder = 10,
 				Buttons = playabilityButtons,
-				Enabled = self:isLoggedInUserGameOwner() or self:isGroupGame(),
+				Enabled = playabilityEnabled,
 
 				--Functionality
 				Selected = isFriendsOnly and "Friends" or isActive,
@@ -287,6 +331,8 @@ function Permissions:render()
 						isActiveChanged(button.Id, willShutdown)
 					end
 				end,
+
+				Warning = playabilityWarningVisible and localization:getText("AccessPermissions", "PlayabilityWarning"),
 			}),
 
 			Separator1 = Roact.createElement(Separator, {

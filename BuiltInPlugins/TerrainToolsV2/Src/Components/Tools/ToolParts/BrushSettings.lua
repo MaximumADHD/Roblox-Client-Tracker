@@ -1,6 +1,7 @@
 --[[
 	BrushSettings.lua
 ]]
+local FFlagTerrainToolsPartInteractToggle = game:GetFastFlag("TerrainToolsPartInteractToggle")
 
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
@@ -38,6 +39,7 @@ function BrushSettings:render()
 	local showStrength = self.props.strength ~= nil
 	local showSnapToGrid = self.props.snapToGrid ~= nil
 	local showIgnoreWater = self.props.ignoreWater ~= nil
+	local showIgnoreParts = self.props.ignoreParts ~= nil
 	local showPlaneLockToggle = self.props.planeLock ~= nil
 	local disablePlaneLockToggle = self.props.disablePlaneLock
 	local disableIgnoreWaterToggle = self.props.disableIgnoreWater
@@ -138,6 +140,13 @@ function BrushSettings:render()
 			SetIsOn = self.props.setIgnoreWater,
 			Disabled = disableIgnoreWaterToggle,
 		}),
+
+		IgnorePartsToggle = (FFlagTerrainToolsPartInteractToggle and showIgnoreParts) and Roact.createElement(LabeledToggle, {
+			LayoutOrder = 12,
+			Text = localization:getText("BrushSettings", "IgnoreParts"),
+			IsOn = self.props.ignoreParts,
+			SetIsOn = self.props.setIgnoreParts,
+		}) or nil,
 	})
 end
 

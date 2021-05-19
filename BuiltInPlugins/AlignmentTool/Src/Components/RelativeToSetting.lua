@@ -18,15 +18,19 @@ local getEngineFeatureActiveInstanceHighlight = require(Plugin.Src.Flags.getEngi
 
 local FitFrameOnAxis = require(Plugin.Packages.FitFrame).FitFrameOnAxis
 local Roact = require(Plugin.Packages.Roact)
-local ContextServices = require(Plugin.Packages.Framework.ContextServices)
 
-local UI = require(Plugin.Packages.Framework.UI)
+local Framework = require(Plugin.Packages.Framework)
+
+local THEME_REFACTOR = Framework.Util.RefactorFlags.THEME_REFACTOR
+
+local ContextServices = Framework.ContextServices
+local UI = Framework.UI
 local Container = UI.Container
 local Image = UI.Decoration.Image
 local RadioButton = UI.RadioButton
 local Tooltip = UI.Tooltip
 
-local Util = require(Plugin.Packages.Framework.Util)
+local Util = Framework.Util
 local LayoutOrderIterator = Util.LayoutOrderIterator
 local StyleModifier = Util.StyleModifier
 
@@ -50,7 +54,12 @@ function RelativeToSetting:render()
 
 	local layoutOrder = props.LayoutOrder
 	local localization = props.Localization
-	local theme = props.Theme:get("Plugin")
+	local theme
+	if THEME_REFACTOR then
+		theme = props.Stylizer
+	else
+		theme = props.Theme:get("Plugin")
+	end
 	local supportsActiveInstanceHighlight = getEngineFeatureActiveInstanceHighlight()
 
 	local layoutOrderIterator = LayoutOrderIterator.new()
@@ -110,7 +119,8 @@ end
 
 ContextServices.mapToProps(RelativeToSetting, {
 	Localization = ContextServices.Localization,
-	Theme = ContextServices.Theme,
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
 })
 
 return RelativeToSetting

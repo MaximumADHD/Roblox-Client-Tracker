@@ -86,6 +86,8 @@ local FFlagGameSettingsUseKeyProvider = game:GetFastFlag("GameSettingsUseKeyProv
 local KeyProvider = FFlagGameSettingsUseKeyProvider and require(Plugin.Src.Util.KeyProvider) or nil
 local GetOptInLocationsKeyName = FFlagGameSettingsUseKeyProvider and KeyProvider.getOptInLocationsKeyName or nil
 local optInLocationsKey = FFlagLuobuDevPublishLua and GetOptInLocationsKeyName and GetOptInLocationsKeyName() or "OptInLocations"
+local GetChinaKeyName = FFlagGameSettingsUseKeyProvider and KeyProvider.getChinaKeyName or nil
+local chinaKey = FFlagLuobuDevPublishLua and GetChinaKeyName and GetChinaKeyName() or "China"
 local Framework = require(Plugin.Framework)
 local Tooltip = Framework.UI.Tooltip
 local Image = Framework.UI.Decoration.Image
@@ -427,6 +429,7 @@ function BasicInfo:hasPermissionToEdit()
 end
 
 function BasicInfo:init()
+	local localization = self.props.Localization
 	self.state = FFlagLuobuDevPublishLua and {
 		-- StyleModifier must be upper case first character because of how Theme in ContextServices uses it.
 		StyleModifier = nil,
@@ -450,6 +453,35 @@ function BasicInfo:init()
 		end
 	end
 
+	self.getModerationStatus = FFlagLuobuDevPublishLua and function(location)
+		local props = self.props
+		local theme = self.props.Theme:get("Plugin")
+		local localization = self.props.Localization
+		-- TODO: jbousellam - 5/5/21 - get moderation status from API
+		local status = "Rejected"
+		local statusText = localization:getText(optInLocationsKey, "Status")
+		local textColor = theme.fontStyle.Subtext.TextColor3
+		local show = true
+		if status == "Approved" then
+			local value = status .. location
+			statusText = statusText .. localization:getText(optInLocationsKey, value)
+		elseif status == "In review" then
+			statusText = statusText .. localization:getText(optInLocationsKey, "InReview")
+		elseif status == "Rejected" then
+			textColor = theme.fontStyle.Error.TextColor3
+			statusText = statusText .. localization:getText(optInLocationsKey, status)
+		else
+			show = false
+		end
+
+		return {
+			status = status,
+			statusText = statusText,
+			textColor = textColor,
+			show = show,
+		}
+	end or nil
+
 	self.onMouseEnter = FFlagLuobuDevPublishLua and function()
 		if self.state.StyleModifier == nil then
 			self:setState({
@@ -468,9 +500,15 @@ function BasicInfo:init()
 
 end
 
+local function calculateTextSize(text, textSize, font)
+	local hugeFrameSizeNoTextWrapping = Vector2.new(5000, 5000)
+	return game:GetService('TextService'):GetTextSize(text, textSize, font, hugeFrameSizeNoTextWrapping)
+end
+
 function BasicInfo:render()
 	local localization = self.props.Localization
 	local theme = FFlagLuobuDevPublishLua and self.props.Theme:get("Plugin") or nil
+	local chinaModerationStatus = FFlagLuobuDevPublishLua and self.getModerationStatus(chinaKey) or nil
 
 	local function createChildren()
 		if not self:hasPermissionToEdit() then
@@ -681,7 +719,7 @@ function BasicInfo:render()
 				Title = localization:getText("General", "TitleOptInLocations"),
 				LayoutOrder = 140,
 				Boxes = {{
-						Id = "China",
+						Id = chinaKey,
 						Title = localization:getText("General", "LocationChina"),
 						Selected = optInLocations and optInLocations.China or false,
 						LinkTextFrame = Roact.createElement("Frame", {
@@ -690,6 +728,24 @@ function BasicInfo:render()
 							Size = UDim2.new(1, theme.requirementsLink.length, 0, theme.requirementsLink.height),
 							Position = UDim2.new(0, 0, 0, theme.requirementsLink.paddingY),
 						}, {
+							UILayout = Roact.createElement("UIListLayout", {
+								SortOrder = Enum.SortOrder.LayoutOrder,
+								FillDirection = Enum.FillDirection.Horizontal,
+								VerticalAlignment = Enum.VerticalAlignment.Top,
+								Padding = UDim.new(0, theme.requirementsLink.paddingX),
+							}),
+
+							ModerationStatus = chinaModerationStatus.show and Roact.createElement("TextLabel", {
+								Size = UDim2.new(0, calculateTextSize(chinaModerationStatus.statusText, theme.fontStyle.Subtext.TextSize, theme.fontStyle.Subtext.Font).X, 0, theme.fontStyle.Subtext.TextSize),
+								BackgroundTransparency = 1,
+								Text = chinaModerationStatus.statusText,
+								TextColor3 = chinaModerationStatus.textColor,
+								TextXAlignment = Enum.TextXAlignment.Left,
+								TextSize = theme.fontStyle.Subtext.TextSize,
+								Font = theme.fontStyle.Subtext.Font,
+								LayoutOrder = -1,
+							}) or nil,
+
 							-- TODO: Implement PartialHyperlink changes into DevFramework since we want to deprecate UILibrary eventually.
 							-- Look at the changes in FFlagLubouDevPublishLua that use this.
 							LinkText = Roact.createElement(PartialHyperlink, {
@@ -698,11 +754,11 @@ function BasicInfo:render()
 								Theme = theme,
 								Mouse = props.Mouse:get(),
 								OnClick = function()
-									local url = getOptInLocationsRequirementsLink("China")
+									local url = getOptInLocationsRequirementsLink(chinaKey)
 									GuiService:OpenBrowserWindow(url)
 								end,
 								TextSize = theme.fontStyle.Subtext.TextSize,
-							})
+							}),
 						}),
 					},
 				},

@@ -1,6 +1,5 @@
 local Root = script.Parent.Parent
 local Players = game:GetService("Players")
-local UserInputService = game:GetService("UserInputService")
 
 local ErrorOccurred = require(Root.Actions.ErrorOccurred)
 local SetPromptState = require(Root.Actions.SetPromptState)
@@ -15,6 +14,8 @@ local Network = require(Root.Services.Network)
 local PlatformInterface = require(Root.Services.PlatformInterface)
 local Thunk = require(Root.Thunk)
 local Promise = require(Root.Promise)
+
+local GetFFlagEnableScaryModalAnalytics = require(Root.Flags.GetFFlagEnableScaryModalAnalytics)
 
 local retryAfterUpsell = require(script.Parent.retryAfterUpsell)
 
@@ -33,6 +34,20 @@ local function launchRobuxUpsell()
 		local platformInterface = services[PlatformInterface]
 		local state = store:getState()
 
+		local upsellFlow = getUpsellFlow(externalSettings.getPlatform())
+
+		if GetFFlagEnableScaryModalAnalytics() then
+			local nativeProductId = upsellFlow ~= UpsellFlow.Web and state.nativeUpsell.robuxProductId
+			local productId = state.productInfo.productId
+			if state.promptState == PromptState.U13PaymentModal then
+				analytics.signalScaryModalConfirmed(productId, "U13PaymentModal", nativeProductId)
+			elseif state.promptState == PromptState.U13MonthlyThreshold1Modal then
+				analytics.signalScaryModalConfirmed(productId, "U13MonthlyThreshold1Modal", nativeProductId)
+			elseif state.promptState == PromptState.U13MonthlyThreshold2Modal then
+				analytics.signalScaryModalConfirmed(productId, "U13MonthlyThreshold2Modal", nativeProductId)
+			end
+		end
+
 		if state.promptState == PromptState.U13PaymentModal then
 			postPurchaseWarningAcknowledge(network, "ConfirmedU13PaymentModal")
 		elseif state.promptState == PromptState.U13MonthlyThreshold1Modal then
@@ -46,8 +61,6 @@ local function launchRobuxUpsell()
 			return
 		end
 
-		local upsellFlow = getUpsellFlow(externalSettings.getPlatform())
-
 		if upsellFlow == UpsellFlow.Web then
 			local productId = state.productInfo.productId
 			local requestType = state.requestType
@@ -58,7 +71,6 @@ local function launchRobuxUpsell()
 
 		elseif upsellFlow == UpsellFlow.Mobile then
 			local nativeProductId = state.nativeUpsell.robuxProductId
-
 			local productId = state.productInfo.productId
 			local requestType = state.requestType
 
@@ -67,7 +79,7 @@ local function launchRobuxUpsell()
 			store:dispatch(SetPromptState(PromptState.UpsellInProgress))
 
 		elseif upsellFlow == UpsellFlow.Xbox then
-			local nativeProductId = store:getState().nativeUpsell.robuxProductId
+			local nativeProductId = state.nativeUpsell.robuxProductId
 			local productId = state.productInfo.productId
 			local requestType = state.requestType
 			

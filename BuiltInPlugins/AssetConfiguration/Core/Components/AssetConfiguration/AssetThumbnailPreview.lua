@@ -33,8 +33,6 @@ local withTheme = ContextHelper.withTheme
 local Components = Plugin.Core.Components
 local RoundFrame = require(Components.RoundFrame)
 
-local FFlagAssetConfigThumbnailCamera = game:DefineFastFlag("AssetConfigThumbnailCamera", false)
-
 local function removeAllScripts(object)
 	for _, descendant in pairs(object:GetDescendants()) do
 		if descendant:IsA("LuaSourceContainer") then
@@ -107,10 +105,7 @@ function AssetThumbnailPreview:didMount()
 			and self.props.instances[1]
 			or model
 		local thumbnailConfiguration = instance:FindFirstChild("ThumbnailConfiguration")
-		local thumbnailCamera
-		if FFlagAssetConfigThumbnailCamera then
-			thumbnailCamera = instance:FindFirstChild("ThumbnailCamera")
-		end
+		local thumbnailCamera = instance:FindFirstChild("ThumbnailCamera")
 		if thumbnailConfiguration and thumbnailConfiguration:IsA("Configuration") then
 			local thumbnailCameraTarget = thumbnailConfiguration:FindFirstChild("ThumbnailCameraTarget")
 			local thumbnailCameraValue = thumbnailConfiguration:FindFirstChild("ThumbnailCameraValue")
@@ -123,7 +118,7 @@ function AssetThumbnailPreview:didMount()
 					camera.CFrame = target.CFrame:toWorldSpace(thumbnailCameraValue.Value)
 				end
 			end
-		elseif FFlagAssetConfigThumbnailCamera and thumbnailCamera and thumbnailCamera:IsA("Camera") then
+		elseif thumbnailCamera and thumbnailCamera:IsA("Camera") then
 			viewportFrame.CurrentCamera = thumbnailCamera
 		else
 			setDefaultCameraView(camera, model)

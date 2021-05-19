@@ -21,7 +21,6 @@ local PolicyService = require(RobloxGui.Modules.Common:WaitForChild("PolicyServi
 --FFlags
 local FFlagLoadTheLoadingScreenFasterSuccess, FFlagLoadTheLoadingScreenFasterValue = pcall(function() return settings():GetFFlag("LoadTheLoadingScreenFaster") end)
 local FFlagLoadTheLoadingScreenFaster = FFlagLoadTheLoadingScreenFasterSuccess and FFlagLoadTheLoadingScreenFasterValue
-local FFlagLoadTheLoadingScreenEvenFaster = game:DefineFastFlag("LoadTheLoadingScreenEvenFaster", false)
 local FFlagLoadingScreenDontBlockOnPolicyService = game:DefineFastFlag("LoadingScreenDontBlockOnPolicyService", false)
 local FFlagBackButtonWhileLoadingGoesBackToApp = game:DefineFastFlag("BackButtonWhileLoadingGoesBackToApp", false)
 local FFlagLoadingScreenShowBlankUntilPolicyServiceReturns = game:DefineFastFlag("LoadingScreenShowBlankUntilPolicyServiceReturns", false)
@@ -354,64 +353,32 @@ local function GenerateGui()
 		Image = "",
 
 		create("UIAspectRatioConstraint") {
-			AspectRatio = FFlagLoadTheLoadingScreenEvenFaster and ICON_ASPECT_RATIO or 576 / 324,
+			AspectRatio = ICON_ASPECT_RATIO,
 			AspectType = Enum.AspectType.ScaleWithParentSize,
 			DominantAxis = Enum.DominantAxis.Width
 		},
 		create("UISizeConstraint") {
-			MaxSize = FFlagLoadTheLoadingScreenEvenFaster and MAX_ICON_SIZE or Vector2.new(400, 400)
+			MaxSize = MAX_ICON_SIZE
 		}
 	}
 
-	if FFlagLoadTheLoadingScreenEvenFaster then
-		local function onGameId()
-			local gameId = game.GameId
-			local imageUrl = GAME_THUMBNAIL_URL:format(gameId)
-			placeIcon.Image = imageUrl
-			ContentProvider:PreloadAsync({ placeIcon })
-			if not backgroundFadeStarted then
-				placeIcon.ImageTransparency = 0
-			end
+	local function onGameId()
+		local gameId = game.GameId
+		local imageUrl = GAME_THUMBNAIL_URL:format(gameId)
+		placeIcon.Image = imageUrl
+		ContentProvider:PreloadAsync({ placeIcon })
+		if not backgroundFadeStarted then
+			placeIcon.ImageTransparency = 0
 		end
-		if game.GameId > 0 then
-			coroutine.wrap(onGameId)()
-		else
-			waitForGameIdConnection = game:GetPropertyChangedSignal("GameId"):Connect(function ()
-				waitForGameIdConnection:Disconnect()
-				onGameId()
-			end)
-		end
+	end
+	
+	if game.GameId > 0 then
+		coroutine.wrap(onGameId)()
 	else
-		--Start trying to load the place icon image
-		--Web might not have this icon size generated, so we can poll asset-thumbnail/json and check
-		--the JSON result for thumbnailFinal/Final to see when it's done being generated so we never
-		--show a N/A image. This is how the console AppShell does it!
-		coroutine.wrap(function()
-			local placeId = WaitForPlaceId()
-
-			local function tryGetFinalAsync()
-				local imageUrl = nil
-				local isGenerated = false
-				local success, msg = pcall(function()
-					imageUrl, isGenerated = AssetService:GetAssetThumbnailAsync(placeId, Vector2.new(576, 324), 1)
-				end)
-
-				if success and isGenerated == true and imageUrl then
-					ContentProvider:PreloadAsync { imageUrl }
-					placeIcon.Image = imageUrl
-
-					if not backgroundFadeStarted then
-						placeIcon.ImageTransparency = 0
-					end
-
-					return true
-				end
-
-				return false
-			end
-
-			while not tryGetFinalAsync() do end
-		end)()
+		waitForGameIdConnection = game:GetPropertyChangedSignal("GameId"):Connect(function ()
+			waitForGameIdConnection:Disconnect()
+			onGameId()
+		end)
 	end
 
 	placeLabel = create 'TextLabel' {

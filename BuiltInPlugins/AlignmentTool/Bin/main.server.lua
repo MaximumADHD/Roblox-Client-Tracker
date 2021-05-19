@@ -1,14 +1,14 @@
 local Plugin = script.Parent.Parent
 
 local getFFlagEnableAlignToolStylizer = require(Plugin.Src.Flags.getFFlagEnableAlignToolStylizer)
-local RefactorFlags = require(Plugin.Packages.Framework.Util.RefactorFlags)
-RefactorFlags.THEME_REFACTOR = getFFlagEnableAlignToolStylizer()
-
 local getFFlagAlignToolTeachingCallout = require(Plugin.Src.Flags.getFFlagAlignToolTeachingCallout)
 local getFFlagAlignToolRoactInspector = require(Plugin.Src.Flags.getFFlagAlignToolRoactInspector)
 
 local Roact = require(Plugin.Packages.Roact)
 local Rodux = require(Plugin.Packages.Rodux)
+
+local RefactorFlags = require(Plugin.Packages.Framework.Util.RefactorFlags)
+RefactorFlags.THEME_REFACTOR = getFFlagEnableAlignToolStylizer()
 
 local Framework = require(Plugin.Packages.Framework)
 

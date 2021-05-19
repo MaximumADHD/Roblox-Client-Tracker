@@ -2,17 +2,12 @@ local CorePackages = game:GetService("CorePackages")
 local CoreGui = game:GetService("CoreGui")
 
 local Roact = require(CorePackages.Roact)
-local RoactRodux = require(CorePackages.RoactRodux)
 local t = require(CorePackages.Packages.t)
 
 local Components = script.Parent.Parent
 local Connection = Components.Connection
 local LayoutValues = require(Connection.LayoutValues)
 local WithLayoutValues = LayoutValues.WithLayoutValues
-
-local PlayerList = Components.Parent
-
-local isDisplayNameEnabled = require(PlayerList.isDisplayNameEnabled)
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local FFlagPlayerListFormattingUpdates = require(RobloxGui.Modules.Flags.FFlagPlayerListFormattingUpdates)
@@ -36,8 +31,6 @@ PlayerNameTag.validateProps = t.strictInterface({
 		MinSize = t.number,
 		Font = t.enum(Enum.Font),
 	}),
-
-	subjectToChinaPolicies = t.boolean,
 })
 
 function PlayerNameTag:render()
@@ -114,13 +107,6 @@ function PlayerNameTag:render()
 				})
 			})
 		else
-			local playerName
-			if isDisplayNameEnabled(self.props.subjectToChinaPolicies) then
-				playerName = self.props.player.DisplayName
-			else
-				playerName = self.props.player.Name
-			end
-
 			playerNameChildren["PlayerName"] = Roact.createElement("TextLabel", {
 				Position = FFlagPlayerListFormattingUpdates
 					and UDim2.new(0, 0, 0.28, 0)
@@ -136,7 +122,7 @@ function PlayerNameTag:render()
 				TextStrokeColor3 = self.props.textStyle.StrokeColor,
 				TextStrokeTransparency = self.props.textStyle.StrokeTransparency,
 				BackgroundTransparency = 1,
-				Text = playerName,
+				Text = self.props.player.DisplayName,
 				TextTruncate = Enum.TextTruncate.AtEnd,
 				TextScaled = FFlagPlayerListFormattingUpdates or nil,
 			}, {
@@ -155,10 +141,4 @@ function PlayerNameTag:render()
 	end)
 end
 
-local function mapStateToProps(state)
-	return {
-		subjectToChinaPolicies = state.displayOptions.subjectToChinaPolicies,
-	}
-end
-
-return RoactRodux.UNSTABLE_connect2(mapStateToProps, nil)(PlayerNameTag)
+return PlayerNameTag

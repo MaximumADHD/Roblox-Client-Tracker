@@ -246,7 +246,7 @@ function MainView:render()
 
             OnClick = function()
                 if FFlagStudioNewGamesInCloudUI then
-                    StudioService:ShowSaveOrPublishPlaceToRoblox(false, false, false)
+                    StudioService:ShowSaveOrPublishPlaceToRoblox(false, false, Enum.StudioCloseMode.None)
                 else
                     StudioService:ShowPublishToRoblox()
                 end

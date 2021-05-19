@@ -12,7 +12,6 @@ return function()
 	local function getValidProductInfo()
 		return {
 			IsForSale = true,
-			CanBeSoldInThisGame = true,
 			IsPublicDomain = true,
 			IsLimited = false,
 			ContentRatingTypeId = 0,
@@ -28,6 +27,14 @@ return function()
 
 	it("should return true if prerequisites are all met", function()
 		local productInfo = getValidProductInfo()
+		local met, _ = meetsPrerequisites(productInfo, false, false, defaultExternalSettings)
+
+		expect(met).to.equal(true)
+	end)
+
+	it("should return true if prerequisites are all met for assets with sale restriction", function()
+		local productInfo = getValidProductInfo()
+		productInfo.CanBeSoldInThisGame = true
 		local met, _ = meetsPrerequisites(productInfo, false, false, defaultExternalSettings)
 
 		expect(met).to.equal(true)

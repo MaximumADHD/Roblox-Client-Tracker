@@ -44,11 +44,9 @@ local ELEMENT_PADDING = 15
 return function(loadValuesToProps, dispatchForProps)
 	if FFlagUpdatePublishPlacePluginToDevFrameworkContext then
 		local Page = Roact.PureComponent:extend("Page")
-		
+
 		function Page:render()
 			local props = self.props
-			local theme = props.Theme:get("Plugin")
-			local localization = props.Localization
 
 			local children = props.Content and props.Content(props) or {}
 			local layoutOrder = props.LayoutOrder

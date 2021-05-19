@@ -27,6 +27,7 @@ local ChangePivot = require(Actions.ChangePivot)
 local ChooseBrushShape = require(Actions.ChooseBrushShape)
 local SetBaseSizeHeightLocked = require(Actions.SetBaseSizeHeightLocked)
 local SetIgnoreWater = require(Actions.SetIgnoreWater)
+local SetIgnoreParts = require(Actions.SetIgnoreParts)
 local SetPlaneLock = require(Actions.SetPlaneLock)
 local SetSnapToGrid = require(Actions.SetSnapToGrid)
 
@@ -110,6 +111,7 @@ function Replace:render()
 	local brushShape = self.props.brushShape
 	local height = self.props.height
 	local ignoreWater = self.props.ignoreWater
+	local ignoreParts = self.props.ignoreParts
 	local pivot = self.props.pivot
 	local planeLock = self.props.planeLock
 	local snapToGrid = self.props.snapToGrid
@@ -168,6 +170,7 @@ function Replace:render()
 				brushShape = brushShape,
 				height = height,
 				ignoreWater = ignoreWater,
+				ignoreParts = ignoreParts,
 				pivot = pivot,
 				planeLock = planeLock,
 				snapToGrid = snapToGrid,
@@ -180,6 +183,7 @@ function Replace:render()
 				dispatchChooseBrushShape = self.props.dispatchChooseBrushShape,
 				dispatchChangeHeight = self.props.dispatchChangeHeight,
 				dispatchSetIgnoreWater = self.setIgnoreWater,
+				dispatchSetIgnoreParts = self.props.dispatchSetIgnoreParts,
 				dispatchChangePivot = self.props.dispatchChangePivot,
 				dispatchSetPlaneLock = self.setPlaneLock,
 				dispatchSetSnapToGrid = self.props.dispatchSetSnapToGrid,
@@ -275,6 +279,7 @@ local function mapStateToProps(state, props)
 		brushShape = state[REDUCER_KEY].brushShape,
 		height = state[REDUCER_KEY].height,
 		ignoreWater = state[REDUCER_KEY].ignoreWater,
+		ignoreParts = state[REDUCER_KEY].ignoreParts,
 		pivot = state[REDUCER_KEY].pivot,
 		planeLock = state[REDUCER_KEY].planeLock,
 		snapToGrid = state[REDUCER_KEY].snapToGrid,
@@ -316,6 +321,9 @@ local function mapDispatchToProps(dispatch)
 		end,
 		dispatchSetIgnoreWater = function(ignoreWater)
 			dispatchToReplace(SetIgnoreWater(ignoreWater))
+		end,
+		dispatchSetIgnoreParts = function(ignoreParts)
+			dispatchToReplace(SetIgnoreParts(ignoreParts))
 		end,
 		dispatchChangePivot = function(pivot)
 			dispatchToReplace(ChangePivot(pivot))

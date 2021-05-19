@@ -6,6 +6,7 @@
 		string Title = The title to place to the left of this RadioButtonSet.
 		string Description = An optional secondary title to place above this RadioButtonSet.
 		table Buttons = A collection of props for all RadioButtons to add.
+		string Warning = An optional warning message to place below this RadioButtonSet.
 		e.g.
 		{
 			{
@@ -38,6 +39,7 @@ local RadioButton = require(Plugin.Src.Components.RadioButton)
 local TitledFrame = UILibrary.Component.TitledFrame
 
 local FFlagFixRadioButtonSeAndTableHeadertForTesting = game:GetFastFlag("FixRadioButtonSeAndTableHeadertForTesting")
+local FFlagStudioRestrictGameMonetizationToPublicGameOnly = game:GetFastFlag("StudioRestrictGameMonetizationToPublicGameOnly")
 
 local LayoutOrderIterator = require(Framework.Util.LayoutOrderIterator)
 
@@ -65,7 +67,8 @@ end
 function RadioButtonSet:render()
 	local props = self.props
 	local theme = props.Theme:get("Plugin")
-
+	local radioButtonTheme = theme.radioButton
+	local radioButtonSetTheme = theme.radioButtonSet
 	local layoutIndex = LayoutOrderIterator.new()
 
 	local selected
@@ -80,7 +83,7 @@ function RadioButtonSet:render()
 
 	local children = {
 		Layout = Roact.createElement("UIListLayout", {
-			Padding = UDim.new(0, DEPRECATED_Constants.RADIO_BUTTON_PADDING),
+			Padding = UDim.new(0, FFlagStudioRestrictGameMonetizationToPublicGameOnly and radioButtonTheme.padding or DEPRECATED_Constants.RADIO_BUTTON_PADDING),
 			SortOrder = Enum.SortOrder.LayoutOrder,
 
 			[Roact.Change.AbsoluteContentSize] = self.onResize,
@@ -92,7 +95,7 @@ function RadioButtonSet:render()
 		table.insert(children, Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Normal, {
 			BackgroundTransparency = 1,
 			BorderSizePixel = 0,
-			Size = UDim2.new(1, 0, 0, DEPRECATED_Constants.RADIO_BUTTON_SIZE + 5),
+			Size = UDim2.new(1, 0, 0, FFlagStudioRestrictGameMonetizationToPublicGameOnly and radioButtonSetTheme.description.height or DEPRECATED_Constants.RADIO_BUTTON_SIZE + 5),
 			TextTransparency = props.Enabled and 0 or 0.5,
 			TextXAlignment = Enum.TextXAlignment.Left,
 			TextYAlignment = Enum.TextYAlignment.Top,
@@ -145,19 +148,58 @@ function RadioButtonSet:render()
 			end
 		end
 	end
+	
 
 	local maxHeight = numButtons * DEPRECATED_Constants.RADIO_BUTTON_SIZE * 2
 		+ numButtons * DEPRECATED_Constants.RADIO_BUTTON_PADDING
 		+ (props.Description and DEPRECATED_Constants.RADIO_BUTTON_SIZE + 5 + DEPRECATED_Constants.RADIO_BUTTON_PADDING or 0)
 
+	if FFlagStudioRestrictGameMonetizationToPublicGameOnly then 
+		-- Still need to define a maxHeight instead of using AutomaticSize for the TitledFrame until it is refactored.
+		maxHeight = numButtons * radioButtonTheme.size * 2
+		+ numButtons * radioButtonTheme.padding
+		+ (props.Description and radioButtonSetTheme.description.height or 0)
+	end
+	
 	maxHeight = math.max(self.state.maxHeight, maxHeight)
 
-	return Roact.createElement(TitledFrame, {
-		Title = props.Title,
-		MaxHeight = maxHeight,
-		LayoutOrder = props.LayoutOrder or 1,
-		TextSize = theme.fontStyle.Title.TextSize,
-	}, children)
+	if FFlagStudioRestrictGameMonetizationToPublicGameOnly then 
+		local topFrameLayoutIndex = LayoutOrderIterator.new()
+		return Roact.createElement("Frame", {
+			LayoutOrder = props.LayoutOrder or 1,
+			AutomaticSize = Enum.AutomaticSize.XY,
+			BackgroundTransparency = 1,
+			BorderSizePixel = 0,
+		},{
+			ListLayout = Roact.createElement("UIListLayout", {
+				Padding = UDim.new(0, radioButtonSetTheme.padding),
+				SortOrder = Enum.SortOrder.LayoutOrder,
+			}),
+
+			ButtonSet = Roact.createElement(TitledFrame, {
+					Title = props.Title,
+					MaxHeight = maxHeight,
+					TextSize = theme.fontStyle.Title.TextSize,
+					LayoutOrder = topFrameLayoutIndex:getNextOrder(),
+				}, children),
+		
+			Warning = props.Warning and Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Subtitle, {
+				Text = props.Warning,
+				BackgroundTransparency = 1,
+				TextXAlignment = Enum.TextXAlignment.Left,
+				TextColor3 = radioButtonSetTheme.warningLabel.color,
+				Size = UDim2.new(1, 0, 0, radioButtonSetTheme.warningLabel.height),
+				LayoutOrder = topFrameLayoutIndex:getNextOrder(),
+			})),
+		})
+	else
+		return Roact.createElement(TitledFrame, {
+			Title = props.Title,
+			MaxHeight = maxHeight,
+			LayoutOrder = props.LayoutOrder or 1,
+			TextSize = theme.fontStyle.Title.TextSize,
+		}, children)
+	end
 end
 
 ContextServices.mapToProps(RadioButtonSet, {

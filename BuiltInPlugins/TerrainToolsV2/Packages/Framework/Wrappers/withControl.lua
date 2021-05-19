@@ -39,12 +39,18 @@ function Controllable:init()
 		self:setState({
 			isHovering = false,
 		})
+		if self.props.ComponentProps.OnHoverEnd then
+			self.props.ComponentProps.OnHoverEnd(self.props.ComponentProps)
+		end
 	end
 	self.onInputBegan = function(rbx, input)
 		if isInputMainPress(input) then
 			self:setState({
 				isPressed = true,
 			})
+			if self.props.ComponentProps.OnPress then
+				self.props.ComponentProps.OnPress(self.props.ComponentProps)
+			end
 		end
 	end
 	self.onInputEnded = function(rbx, input)
@@ -53,6 +59,14 @@ function Controllable:init()
 				isPressed = false,
 			})
 		end
+	end
+end
+
+function Controllable:didUpdate(_prevProps, prevState)
+	local state = self.state
+	local componentProps = self.props.ComponentProps
+	if componentProps.OnHover and state.isHovering and not prevState.isHovering then
+		componentProps.OnHover(self.props.ComponentProps)
 	end
 end
 

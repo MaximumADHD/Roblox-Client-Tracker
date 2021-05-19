@@ -216,15 +216,15 @@ function SaveAvatarPrompt:didMount()
 	end
 end
 
-function SaveAvatarPrompt:willUpdate(nextProps, nextState)
+function SaveAvatarPrompt:didUpdate(prevProps, prevState)
 	if EngineFeatureAESConformToAvatarRules then
-		if nextProps.humanoidDescription ~= self.props.humanoidDescription then
+		if self.props.humanoidDescription ~= prevProps.humanoidDescription then
 			self:setState({
 				conformedHumanoidDescription = Roact.None,
 				getConformedDescriptionFailed = false,
 			})
 
-			self:getConformedHumanoidDescription(nextProps.humanoidDescription)
+			self:getConformedHumanoidDescription(self.props.humanoidDescription)
 		end
 	end
 end

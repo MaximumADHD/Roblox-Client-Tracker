@@ -1,7 +1,6 @@
 --[[
 	Keeps ReplaceTool data
 ]]
-
 local Plugin = script.Parent.Parent.Parent
 local Rodux = require(Plugin.Packages.Rodux)
 local Cryo = require(Plugin.Packages.Cryo)
@@ -34,6 +33,7 @@ local ReplaceTool = Rodux.createReducer({
 	planeLock = false,
 	snapToGrid = false,
 	ignoreWater = true,
+	ignoreParts = true,
 }, {
 	ChangePosition = function(state, action)
 		local position = action.position
@@ -128,6 +128,14 @@ local ReplaceTool = Rodux.createReducer({
 
 		return Cryo.Dictionary.join(state, {
 			ignoreWater = ignoreWater,
+		})
+	end,
+
+	SetIgnoreParts = function(state, action)
+		local ignoreParts = action.ignoreParts
+
+		return Cryo.Dictionary.join(state, {
+			ignoreParts = ignoreParts,
 		})
 	end,
 

@@ -54,4 +54,6 @@ game:DefineFastFlag("ToolboxAssetGridUseFirstOccurrence", false)
 
 game:DefineFastFlag("ToolboxDefaultBackgroundMatches", false)
 
+game:DefineFastFlag("ToolboxFixCommonWarnings", false)
+
 return nil

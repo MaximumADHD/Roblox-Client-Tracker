@@ -2,7 +2,7 @@ return function()
 	local Root = script.Parent.Parent
 
 	local CorePackages = game:GetService("CorePackages")
-local PurchasePromptDeps = require(CorePackages.PurchasePromptDeps)
+	local PurchasePromptDeps = require(CorePackages.PurchasePromptDeps)
 	local Rodux = PurchasePromptDeps.Rodux
 
 	local PromptState = require(Root.Enums.PromptState)

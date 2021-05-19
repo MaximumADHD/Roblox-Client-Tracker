@@ -1,6 +1,7 @@
 --[[
 	Displays panels associated with the BaseBrush tool
 ]]
+local FFlagTerrainToolsPartInteractToggle = game:GetFastFlag("TerrainToolsPartInteractToggle")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -85,6 +86,7 @@ function BaseBrush:init()
 		local planeLockState = true
 		local autoMaterial = false
 		local ignoreWater = false
+		local ignoreParts = true
 		local snapToGrid = false
 		local fixedPlane = false
 		local heightPicker = false
@@ -99,6 +101,9 @@ function BaseBrush:init()
 		end
 		if self.props.dispatchSetIgnoreWater then
 			ignoreWater = self.props.ignoreWater
+		end
+		if self.props.dispatchSetIgnoreParts then
+			ignoreParts = self.props.ignoreParts
 		end
 		if self.props.dispatchSetSnapToGrid then
 			snapToGrid = self.props.snapToGrid
@@ -120,6 +125,7 @@ function BaseBrush:init()
 			flattenMode = self.props.flattenMode,
 			heightPicker = heightPicker,
 			ignoreWater = ignoreWater,
+			ignoreParts = ignoreParts,
 			material = self.props.material,
 			source = self.props.source,
 			target = self.props.target,
@@ -244,6 +250,10 @@ function BaseBrush:render()
 	local height = self.props.height
 	local heightPicker = self.props.heightPicker
 	local ignoreWater = self.props.ignoreWater
+	local ignoreParts = nil
+	if FFlagTerrainToolsPartInteractToggle then
+		ignoreParts = self.props.ignoreParts
+	end
 	local material = self.props.material
 	local pivot = self.props.pivot
 	local planeLock = self.props.planeLock
@@ -268,6 +278,7 @@ function BaseBrush:render()
 			height = height,
 			heightPicker = heightPicker,
 			ignoreWater = ignoreWater,
+			ignoreParts = ignoreParts,
 			pivot = pivot,
 			planeLock = planeLock,
 			disablePlaneLock = disablePlaneLock,
@@ -283,6 +294,7 @@ function BaseBrush:render()
 			setHeight = self.setHeight,
 			setHeightPicker = self.props.dispatchSetHeightPicker,
 			setIgnoreWater = self.props.dispatchSetIgnoreWater,
+			setIgnoreParts = FFlagTerrainToolsPartInteractToggle and self.props.dispatchSetIgnoreParts or nil,
 			setPivot = self.props.dispatchChangePivot,
 			setPlaneLock = self.props.dispatchSetPlaneLock,
 			setPlanePositionY = self.props.dispatchChangePlanePositionY,

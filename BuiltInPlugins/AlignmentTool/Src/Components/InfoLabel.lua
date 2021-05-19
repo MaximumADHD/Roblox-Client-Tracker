@@ -6,7 +6,12 @@
 local Plugin = script.Parent.Parent.Parent
 
 local Roact = require(Plugin.Packages.Roact)
-local ContextServices = require(Plugin.Packages.Framework.ContextServices)
+
+local Framework = require(Plugin.Packages.Framework)
+
+local THEME_REFACTOR = Framework.Util.RefactorFlags.THEME_REFACTOR
+
+local ContextServices = Framework.ContextServices
 
 local TextService = game:GetService("TextService")
 
@@ -50,7 +55,12 @@ function InfoLabel:render()
 
 	local layoutOrder = props.LayoutOrder or 1
 	local text = props.Text or ""
-	local theme = props.Theme:get("Plugin")
+	local theme
+	if THEME_REFACTOR then
+		theme = props.Stylizer
+	else
+		theme = props.Theme:get("Plugin")
+	end
 
 	local infoType = props.Type
 	local textColor
@@ -61,7 +71,12 @@ function InfoLabel:render()
 	elseif infoType == InfoLabel.Info then
 		textColor = theme.InfoTextColor
 	else
-		local style = theme:getStyle("Plugin", self)
+		local style
+		if THEME_REFACTOR then
+			style = theme.InfoLabel
+		else
+			style = theme:getStyle("Plugin", self)
+		end
 		textColor = style.TextColor
 	end
 
@@ -88,7 +103,8 @@ function InfoLabel:render()
 end
 
 ContextServices.mapToProps(InfoLabel, {
-	Theme = ContextServices.Theme,
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
 })
 
 return InfoLabel

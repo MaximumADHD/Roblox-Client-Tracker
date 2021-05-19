@@ -56,6 +56,7 @@ local function disableVirtualCursor()
 
 	menuOpenedEventConnection:Disconnect()
 	menuOpenedEventConnection = nil
+	VirtualCursorSingleton.PreviouslySelectedObject = nil
 
 	interface:DisableUI()
 	input:DisableInput()
@@ -85,6 +86,7 @@ function VirtualCursor.new()
 		CursorPosition = Vector2.new(),
 		SelectedObject = nil,
 		CursorAccelerationDV = 1,
+		PreviouslySelectedObject = nil,
 	}
 
 	self.OnRenderStep = function(delta)

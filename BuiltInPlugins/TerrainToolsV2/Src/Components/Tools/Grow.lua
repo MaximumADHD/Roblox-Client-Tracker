@@ -1,7 +1,6 @@
 --[[
 	Displays panels associated with the Grow tool
 ]]
-
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local RoactRodux = require(Plugin.Packages.RoactRodux)
@@ -18,6 +17,7 @@ local ChooseBrushShape = require(Actions.ChooseBrushShape)
 local SetAutoMaterial = require(Actions.SetAutoMaterial)
 local SetBaseSizeHeightLocked = require(Actions.SetBaseSizeHeightLocked)
 local SetIgnoreWater = require(Actions.SetIgnoreWater)
+local SetIgnoreParts = require(Actions.SetIgnoreParts)
 local SetMaterial = require(Actions.SetMaterial)
 local SetPlaneLock = require(Actions.SetPlaneLock)
 local SetSnapToGrid = require(Actions.SetSnapToGrid)
@@ -36,6 +36,7 @@ local function mapStateToProps(state, props)
 		brushShape = state[REDUCER_KEY].brushShape,
 		height = state[REDUCER_KEY].height,
 		ignoreWater = state[REDUCER_KEY].ignoreWater,
+		ignoreParts = state[REDUCER_KEY].ignoreParts,
 		material = state[REDUCER_KEY].material,
 		pivot = state[REDUCER_KEY].pivot,
 		planeLock = state[REDUCER_KEY].planeLock,
@@ -73,6 +74,9 @@ local function mapDispatchToProps(dispatch)
 		end,
 		dispatchSetIgnoreWater = function (ignoreWater)
 			dispatchToGrow(SetIgnoreWater(ignoreWater))
+		end,
+		dispatchSetIgnoreParts = function(ignoreParts)
+			dispatchToGrow(SetIgnoreParts(ignoreParts))
 		end,
 		dispatchSetMaterial = function (material)
 			dispatchToGrow(SetMaterial(material))

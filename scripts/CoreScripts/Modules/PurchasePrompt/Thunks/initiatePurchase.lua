@@ -19,6 +19,9 @@ local Promise = require(Root.Promise)
 local Thunk = require(Root.Thunk)
 
 local GetFFlagProductPurchaseUpsellABTest = require(Root.Flags.GetFFlagProductPurchaseUpsellABTest)
+local GetFFlagProductPurchaseUpsellABTestUWP = require(Root.Flags.GetFFlagProductPurchaseUpsellABTestUWP)
+local GetFFlagProductPurchaseUpsellABTestAmazon = require(Root.Flags.GetFFlagProductPurchaseUpsellABTestAmazon)
+local GetFFlagProductPurchaseUpsellABTestXbox = require(Root.Flags.GetFFlagProductPurchaseUpsellABTestXbox)
 local GetFFlagProductPurchaseABTest = require(Root.Flags.GetFFlagProductPurchaseABTest)
 
 local resolvePromptState = require(script.Parent.resolvePromptState)
@@ -48,6 +51,27 @@ local function initiatePurchase(id, infoType, equipIfPurchased, isRobloxPurchase
 			pcall(function()
 				store:dispatch(SetABVariation(Constants.ABTests.PRODUCT_PURCHASE_UPSELL,
 					ABTestService:GetVariant(Constants.ABTests.PRODUCT_PURCHASE_UPSELL)))
+			end)
+		end
+
+		if GetFFlagProductPurchaseUpsellABTestUWP() then
+			pcall(function()
+				store:dispatch(SetABVariation(Constants.ABTests.PRODUCT_PURCHASE_UPSELL_UWP,
+					ABTestService:GetVariant(Constants.ABTests.PRODUCT_PURCHASE_UPSELL_UWP)))
+			end)
+		end
+
+		if GetFFlagProductPurchaseUpsellABTestAmazon() then
+			pcall(function()
+				store:dispatch(SetABVariation(Constants.ABTests.PRODUCT_PURCHASE_UPSELL_AMAZON,
+					ABTestService:GetVariant(Constants.ABTests.PRODUCT_PURCHASE_UPSELL_AMAZON)))
+			end)
+		end
+
+		if GetFFlagProductPurchaseUpsellABTestXbox() then
+			pcall(function()
+				store:dispatch(SetABVariation(Constants.ABTests.PRODUCT_PURCHASE_UPSELL_XBOX,
+					ABTestService:GetVariant(Constants.ABTests.PRODUCT_PURCHASE_UPSELL_XBOX)))
 			end)
 		end
 

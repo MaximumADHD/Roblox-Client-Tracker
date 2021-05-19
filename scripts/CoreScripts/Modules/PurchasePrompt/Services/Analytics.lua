@@ -116,6 +116,36 @@ function Analytics.new()
 		ReportPlatformCounter("ProductPurchaseUpsellConfirmed")
 	end
 
+	function service.signalScaryModalShown(productId, requestType, iapProductId)
+		ReportEvent("ScaryModalShown", {
+			gameID = game.GameId,
+			productId = productId,
+			requestType = requestType,
+			iapProductId = iapProductId or "",
+		}) 
+		ReportPlatformCounter("ScaryModalShown"..requestType)
+	end
+
+	function service.signalScaryModalConfirmed(productId, requestType, iapProductId)
+		ReportEvent("ScaryModalConfirmed", {
+			gameID = game.GameId,
+			productId = productId,
+			requestType = requestType,
+			iapProductId = iapProductId or "",
+		}) 
+		ReportPlatformCounter("ScaryModalConfirmed"..requestType)
+	end
+
+	function service.signalScaryModalCanceled(productId, requestType, iapProductId)
+		ReportEvent("ScaryModalCanceled", {
+			gameID = game.GameId,
+			productId = productId,
+			requestType = requestType,
+			iapProductId = iapProductId or "",
+		}) 
+		ReportPlatformCounter("ScaryModalCanceled"..requestType)
+	end
+
 	return service
 end
 

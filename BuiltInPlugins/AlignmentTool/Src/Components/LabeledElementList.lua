@@ -19,13 +19,18 @@
 local TextService = game:GetService("TextService")
 
 local Plugin = script.Parent.Parent.Parent
+
 local FitFrame = require(Plugin.Packages.FitFrame)
 local FitFrameOnAxis = FitFrame.FitFrameOnAxis
 local FitFrameVertical = FitFrame.FitFrameVertical
 local Roact = require(Plugin.Packages.Roact)
-local ContextServices = require(Plugin.Packages.Framework.ContextServices)
 
-local UI = require(Plugin.Packages.Framework.UI)
+local Framework = require(Plugin.Packages.Framework)
+
+local THEME_REFACTOR = Framework.Util.RefactorFlags.THEME_REFACTOR
+
+local ContextServices = Framework.ContextServices
+local UI = Framework.UI
 local TextLabel = UI.Decoration.TextLabel
 
 -- LabeledElementListItem is a helper compoment internal to this module.
@@ -129,8 +134,15 @@ function LabeledElementList:init()
 	end
 
 	self.onSizeChanged = function()
-		local theme = self.props.Theme
-		local style = theme:getStyle("Plugin", self)
+		local theme
+		local style
+		if THEME_REFACTOR then
+			theme = self.props.Stylizer
+			style = theme.LabeledElementList
+		else
+			theme = self.props.Theme
+			style = theme:getStyle("Plugin", self)
+		end
 
 		local frame = self._frameRef.current
 		local padding = style.ItemPaddingHorizontal.Offset
@@ -162,8 +174,15 @@ function LabeledElementList:render()
 	local state = self.state
 
 	local items = props.Items
-	local theme = props.Theme
-	local style = theme:getStyle("Plugin", self)
+	local theme
+	local style
+	if THEME_REFACTOR then
+		theme = props.Stylizer
+		style = theme.LabeledElementList
+	else
+		theme = props.Theme
+		style = theme:getStyle("Plugin", self)
+	end
 
 	self._labelColumnWidth = 0
 
@@ -204,7 +223,8 @@ function LabeledElementList:render()
 end
 
 ContextServices.mapToProps(LabeledElementList, {
-	Theme = ContextServices.Theme,
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
 })
 
 return LabeledElementList

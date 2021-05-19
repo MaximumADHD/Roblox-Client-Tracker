@@ -8,6 +8,7 @@ local t = require(Libs.Framework.Util.Typecheck.t)
 local Constants = require(Plugin.Core.Util.Constants)
 local ContextHelper = require(Plugin.Core.Util.ContextHelper)
 
+-- 2021/05/07 The following file is deprecated. Please Use TextWithInlineLink in Developer Framework Instead.
 local TextWithInlineLink = require(Plugin.Core.Components.TextWithInlineLink)
 
 local withTheme = ContextHelper.withTheme

@@ -14,6 +14,8 @@ return {
 	[StyleKey.ImageButtonBackground] = Color3.fromRGB(182, 182, 182),
 	[StyleKey.ImageButtonHover] = Colors.lighter(Color3.fromRGB(182, 182, 182), 0.26),
 
+	[StyleKey.Icon] = Color3.fromRGB(128, 128, 128),
+
 	[StyleKey.CategoryItem] = Color3.fromRGB(233, 233, 233),
 
 	[StyleKey.DialogMainButton] = Colors.Blue,
@@ -30,12 +32,14 @@ return {
 
 	[StyleKey.LinkText] = Colors.Blue_Light,
 
+	[StyleKey.ItemHovered] = Colors.Gray,
 	[StyleKey.MainBackground] = Colors.White,
 	[StyleKey.MainButton] = Color3.fromRGB(228, 238, 254),
 	[StyleKey.MainText] = Colors.Black,
 	[StyleKey.MainTextDisabled] = Color3.fromRGB(120, 120, 120),
 	[StyleKey.Mid] = Color3.fromRGB(238, 238, 238),
 	[StyleKey.SubBackground] = Colors.Gray_Lighter,
+	[StyleKey.SubBackground2] = Colors.Gray_Lightest,
 
 	[StyleKey.RibbonTab] = Color3.fromRGB(243, 243, 243),
 

@@ -14,14 +14,18 @@ local Plugin = script.Parent.Parent.Parent
 
 local FitFrameOnAxis = require(Plugin.Packages.FitFrame).FitFrameOnAxis
 local Roact = require(Plugin.Packages.Roact)
-local ContextServices = require(Plugin.Packages.Framework.ContextServices)
 
-local UI = require(Plugin.Packages.Framework.UI)
+local Framework = require(Plugin.Packages.Framework)
+
+local THEME_REFACTOR = Framework.Util.RefactorFlags.THEME_REFACTOR
+
+local ContextServices = Framework.ContextServices
+local UI = Framework.UI
 local Button = UI.Button
 local Image = UI.Decoration.Image
 local Tooltip = UI.Tooltip
 
-local Util = require(Plugin.Packages.Framework.Util)
+local Util = Framework.Util
 local StyleModifier = Util.StyleModifier
 local LayoutOrderIterator = Util.LayoutOrderIterator
 
@@ -59,7 +63,12 @@ function ModeSetting:render()
 	local props = self.props
 
 	local localization = props.Localization
-	local theme = props.Theme:get("Plugin")
+	local theme
+	if THEME_REFACTOR then
+		theme = props.Stylizer
+	else
+		theme = props.Theme:get("Plugin")
+	end
 
 	local layoutOrderIterator = LayoutOrderIterator.new()
 
@@ -106,7 +115,8 @@ end
 
 ContextServices.mapToProps(ModeSetting, {
 	Localization = ContextServices.Localization,
-	Theme = ContextServices.Theme,
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
 })
 
 return ModeSetting

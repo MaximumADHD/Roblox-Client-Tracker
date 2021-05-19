@@ -3,6 +3,7 @@ game:DefineFastFlag("TerrainToolsFixBrushNearCamera", false)
 game:DefineFastFlag("TerrainToolsAlignToPlane", false)
 game:DefineFastFlag("TerrainToolsAddOnMouseHold", false)
 
+local FFlagTerrainToolsPartInteractToggle = game:GetFastFlag("TerrainToolsPartInteractToggle")
 local FFlagTerrainToolsBrushUseIsKeyDown = game:GetFastFlag("TerrainToolsBrushUseIsKeyDown")
 local FFlagTerrainToolsFixBrushNearCamera = game:GetFastFlag("TerrainToolsFixBrushNearCamera")
 local FFlagTerrainToolsAlignToPlane = game:GetFastFlag("TerrainToolsAlignToPlane")
@@ -128,6 +129,7 @@ function TerrainBrush.new(options)
 			pivot = PivotType.Center,
 
 			ignoreWater = true,
+			ignoreParts = true,
 			planeLock = false,
 			fixedPlane = false,
 			snapToGrid = false,
@@ -174,7 +176,9 @@ function TerrainBrush.new(options)
 		"TerrainBrush needs a tool passed to constructor")
 
 	self._raycastParams = RaycastParams.new()
-	self._raycastParams.FilterType = Enum.RaycastFilterType.Whitelist
+	if (not FFlagTerrainToolsPartInteractToggle) then
+		self._raycastParams.FilterType = Enum.RaycastFilterType.Whitelist
+	end
 
 	return self
 end
@@ -412,17 +416,36 @@ function TerrainBrush:_run()
 		local fixedPlane = self._operationSettings.fixedPlane
 		local snapToGrid = self._operationSettings.snapToGrid
 		local ignoreWater = self._operationSettings.ignoreWater
+		local ignoreParts = FFlagTerrainToolsPartInteractToggle and self._operationSettings.ignoreParts or nil
 
 		local currentTick = tick()
 		local radius = self._operationSettings.cursorSize * 0.5 * Constants.VOXEL_RESOLUTION
 
 		-- Why is mouse used for camera?
 		local cameraPos = self._mouse.Origin.p
-		local acceptList = {self._terrain}
-		if Workspace:FindFirstChild("Baseplate") then
-			table.insert(acceptList, Workspace:FindFirstChild("Baseplate"))
+		if FFlagTerrainToolsPartInteractToggle then
+			if ignoreParts then
+				local acceptList = {self._terrain}
+				if Workspace:FindFirstChild("Baseplate") then
+					table.insert(acceptList, Workspace:FindFirstChild("Baseplate"))
+				end
+				self._raycastParams.FilterType = Enum.RaycastFilterType.Whitelist
+				self._raycastParams.FilterDescendantsInstances = acceptList
+			else
+				local ignoreList = {self._cursor:getCursorPart()}
+				if Players.LocalPlayer and Players.LocalPlayer.Character then
+					table.insert(ignoreList, Players.LocalPlayer.Character)
+				end
+				self._raycastParams.FilterType = Enum.RaycastFilterType.Blacklist
+				self._raycastParams.FilterDescendantsInstances = ignoreList
+			end
+		else
+			local acceptList = {self._terrain}
+			if Workspace:FindFirstChild("Baseplate") then
+				table.insert(acceptList, Workspace:FindFirstChild("Baseplate"))
+			end
+			self._raycastParams.FilterDescendantsInstances = acceptList
 		end
-		self._raycastParams.FilterDescendantsInstances = acceptList
 
 		local unitRay = self._mouse.UnitRay.Direction
 		local rayHit, mainPoint, hitMaterial, hitNormal

@@ -1,3 +1,5 @@
+--!nocheck
+-- TODO STM-615: Remove nocheck when circular dependency issues are fixed
 local FFlagFixToolboxPluginScaling = game:DefineFastFlag("FixToolboxPluginScaling", false)
 local FFlagToolboxDisableMarketplaceAndRecentsForLuobu = game:GetFastFlag("ToolboxDisableMarketplaceAndRecentsForLuobu")
 local FFlagToolboxShowRobloxCreatedAssetsForLuobu = game:GetFastFlag("ToolboxShowRobloxCreatedAssetsForLuobu")
@@ -10,6 +12,8 @@ local DebugFlags = require(Plugin.Core.Util.DebugFlags)
 local AssetConfigUtil = require(Plugin.Core.Util.AssetConfigUtil)
 local Cryo = require(Plugin.Libs.Cryo)
 local StudioService = game:GetService("StudioService")
+
+local Rollouts = require(Plugin.Core.Rollouts)
 
 local showRobloxCreatedAssets = require(Plugin.Core.Util.ToolboxUtilities).showRobloxCreatedAssets
 local disableMarketplaceAndRecents = require(Plugin.Core.Util.ToolboxUtilities).disableMarketplaceAndRecents
@@ -274,8 +278,13 @@ Category.INVENTORY_KEY = "Inventory"
 Category.RECENT_KEY = "Recent"
 Category.CREATIONS_KEY = "Creations"
 
-local insertIndex = Cryo.List.find(Category.INVENTORY_WITH_GROUPS, Category.MY_PACKAGES) + 1
-table.insert(Category.INVENTORY_WITH_GROUPS, insertIndex, Category.MY_PLUGINS)
+if Rollouts:getToolboxEndpointMigration() then
+	local insertIndex = Cryo.List.find(Category.INVENTORY_WITH_GROUPS, Category.MY_VIDEOS) + 1
+	table.insert(Category.INVENTORY_WITH_GROUPS, insertIndex, Category.MY_PLUGINS)
+else
+	local insertIndex = Cryo.List.find(Category.INVENTORY_WITH_GROUPS, Category.MY_PACKAGES) + 1
+	table.insert(Category.INVENTORY_WITH_GROUPS, insertIndex, Category.MY_PLUGINS)
+end
 local insertIndex2 = Cryo.List.find(Category.INVENTORY_WITH_GROUPS, Category.GROUP_AUDIO) + 1
 table.insert(Category.INVENTORY_WITH_GROUPS, insertIndex2, Category.GROUP_PLUGINS)
 
@@ -310,6 +319,35 @@ for _, category in pairs(Category) do
 	if category.name then
 		categoryByName[category.name] = category
 	end
+end
+
+-- This is to facilitate testability - in the unit test we cannot set the rollout as true until after Category has been required
+function Category.updateForToolboxEndpointMigrationRollout()
+	Category.API_NAMES = Cryo.Dictionary.join(Category.API_NAMES, {
+		[Category.MY_AUDIO.name] = "audio",
+		[Category.MY_PLUGINS.name] = "plugin",
+		[Category.MY_MODELS.name] = "model",
+		[Category.MY_MESHES.name] = "meshpart",
+		[Category.MY_DECALS.name] = "decal",
+		[Category.MY_VIDEOS.name] = "video",
+		[Category.MY_PACKAGES.name] = "package",
+
+		[Category.RECENT_AUDIO.name] = "audio",
+		[Category.RECENT_MODELS.name] = "model",
+		[Category.RECENT_MESHES.name] = "meshpart",
+		[Category.RECENT_DECALS.name] = "decal",
+		[Category.RECENT_VIDEO.name] = "video",
+	})
+
+	-- Fix broken Category ownership definitions
+	-- TODO: When the rollout (ToolboxEndpointMigrationRolloutPercentage) is complete, merge these into the category definitions
+	Category.MY_PLUGINS.ownershipType = Category.OwnershipType.MY
+	Category.MY_VIDEOS.ownershipType = Category.OwnershipType.MY
+	Category.RECENT_VIDEO.ownershipType = Category.OwnershipType.RECENT
+end
+
+if Rollouts:getToolboxEndpointMigration() then
+	Category.updateForToolboxEndpointMigrationRollout()
 end
 
 Category.CREATIONS = getCreationCategories()

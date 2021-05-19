@@ -1,7 +1,6 @@
 --[[
 	Displays panels associated with the Flatten tool
 ]]
-
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local RoactRodux = require(Plugin.Packages.RoactRodux)
@@ -21,6 +20,7 @@ local SetBaseSizeHeightLocked = require(Actions.SetBaseSizeHeightLocked)
 local SetFixedPlane = require(Actions.SetFixedPlane)
 local SetHeightPicker = require(Actions.SetHeightPicker)
 local SetIgnoreWater = require(Actions.SetIgnoreWater)
+local SetIgnoreParts = require(Actions.SetIgnoreParts)
 local SetSnapToGrid = require(Actions.SetSnapToGrid)
 
 local TerrainEnums = require(Plugin.Src.Util.TerrainEnums)
@@ -40,6 +40,7 @@ local function mapStateToProps(state, props)
 		height = state[REDUCER_KEY].height,
 		heightPicker = state[REDUCER_KEY].heightPicker,
 		ignoreWater = state[REDUCER_KEY].ignoreWater,
+		ignoreParts = state[REDUCER_KEY].ignoreParts,
 		pivot = state[REDUCER_KEY].pivot,
 		planePositionY = state[REDUCER_KEY].planePositionY,
 		snapToGrid = state[REDUCER_KEY].snapToGrid,
@@ -85,6 +86,9 @@ local function mapDispatchToProps(dispatch)
 		end,
 		dispatchSetIgnoreWater = function (ignoreWater)
 			dispatchToFlatten(SetIgnoreWater(ignoreWater))
+		end,
+		dispatchSetIgnoreParts = function(ignoreParts)
+			dispatchToFlatten(SetIgnoreParts(ignoreParts))
 		end,
 		dispatchSetSnapToGrid = function (snapToGrid)
 			dispatchToFlatten(SetSnapToGrid(snapToGrid))

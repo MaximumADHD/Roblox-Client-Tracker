@@ -53,7 +53,10 @@ function PurchasePromptABTestContainer:didUpdate(prevProps, prevState)
                         isNewUI = true,
                     })
                 elseif GetFFlagProductPurchaseUpsellABTest() then
-                    if self.props.abVars[Constants.ABTests.PRODUCT_PURCHASE_UPSELL] == "Variation1" then
+                    if self.props.abVars[Constants.ABTests.PRODUCT_PURCHASE_UPSELL] == "Variation1"
+                            or self.props.abVars[Constants.ABTests.PRODUCT_PURCHASE_UPSELL_UWP] == "Variation1"
+                            or self.props.abVars[Constants.ABTests.PRODUCT_PURCHASE_UPSELL_AMAZON] == "Variation1"
+                            or self.props.abVars[Constants.ABTests.PRODUCT_PURCHASE_UPSELL_XBOX] == "Variation1" then
                         self:setState({
                             isNewUI = true,
                         })

@@ -15,6 +15,8 @@
 		Theme Theme: A Theme ContextItem, which is provided via mapToProps.
 		Stylizer Stylizer: A Stylizer ContextItem, which is provided via mapToProps.
 		boolean Enabled: Whether the tooltip will display on hover.
+		number MaxWidth: The maximum width of this tooltip
+		Enum.TextXAlignment TextXAlignment: The text X alignment of this tooltip.
 		integer Priority: The display order of this element, compared to other focused
 			elements or elements that show on top.
 
@@ -195,7 +197,7 @@ function Tooltip:render()
 	local padding = style.Padding
 	local dropShadowPadding = style.DropShadow and style.DropShadow.Radius or 0
 	local offset = style.Offset
-	local maxWidth = style.MaxWidth
+	local maxWidth = props.MaxWidth or style.MaxWidth
 
 	local text = props.Text
 	local enabled = props.Enabled
@@ -258,6 +260,7 @@ function Tooltip:render()
 							Size = UDim2.new(1, 0, 1, 0),
 							Text = text,
 							TextWrapped = true,
+							TextXAlignment = props.TextXAlignment,
 						})
 					}),
 				})

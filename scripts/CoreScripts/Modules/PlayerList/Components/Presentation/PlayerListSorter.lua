@@ -11,8 +11,6 @@ local PlayerListDisplay = require(Presentation.PlayerListDisplay)
 local PlayerList = Presentation.Parent.Parent
 local FAKE_NEUTRAL_TEAM = require(PlayerList.GetFakeNeutralTeam)
 
-local isDisplayNameEnabled = require(PlayerList.isDisplayNameEnabled)
-
 local PlayerListSorter = Roact.PureComponent:extend("PlayerListSorter")
 
 local function playerInTeam(player, team)
@@ -95,28 +93,18 @@ local function buildSortedTeams(teamScores, primaryStat, teams, showNeutralTeam)
 	return sortedTeams
 end
 
-local function buildSortedPlayers(primaryStat, players, playerStats, subjectToChinaPolicies)
+local function buildSortedPlayers(primaryStat, players, playerStats)
 	local sortedPlayers = {unpack(players)}
-
-	local displayNameEnabled = isDisplayNameEnabled(subjectToChinaPolicies)
 
 	table.sort(sortedPlayers, function(playerA, playerB)
 		if not primaryStat then
-			if displayNameEnabled then
-				return playerA.DisplayName:upper() < playerB.DisplayName:upper()
-			else
-				return playerA.Name:upper() < playerB.Name:upper()
-			end
+			return playerA.DisplayName:upper() < playerB.DisplayName:upper()
 		end
 
 		local statA = playerStats[playerA.UserId][primaryStat]
 		local statB = playerStats[playerB.UserId][primaryStat]
 		if statA == statB then
-			if displayNameEnabled then
-				return playerA.DisplayName:upper() < playerB.DisplayName:upper()
-			else
-				return playerA.Name:upper() < playerB.Name:upper()
-			end
+			return playerA.DisplayName:upper() < playerB.DisplayName:upper()
 		elseif statA == nil then
 			return false
 		elseif statB == nil then
@@ -150,14 +138,12 @@ PlayerListSorter.validateProps = t.strictInterface({
 		isPrimary = t.boolean,
 		priority = t.number,
 	})),
-
-	subjectToChinaPolicies = t.boolean,
 })
 
 function PlayerListSorter:render()
 	local primaryStat = self.props.gameStats[1] and self.props.gameStats[1].name or nil
 	local sortedPlayers = buildSortedPlayers(
-		primaryStat, self.props.players, self.props.playerStats, self.props.subjectToChinaPolicies)
+		primaryStat, self.props.players, self.props.playerStats)
 
 	if not Cryo.isEmpty(self.props.teams) then
 		local teamScores = buildTeamScores(
@@ -210,8 +196,6 @@ local function mapStateToProps(state)
 
 		playerStats = state.playerStats,
 		playerTeam = state.playerTeam,
-
-		subjectToChinaPolicies = state.displayOptions.subjectToChinaPolicies,
 	}
 end
 

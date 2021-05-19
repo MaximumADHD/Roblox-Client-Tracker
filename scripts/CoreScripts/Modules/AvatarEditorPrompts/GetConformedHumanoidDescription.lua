@@ -13,13 +13,13 @@ local lastConformedDescription = nil
 local function removeDefaultClothing(humanoidDescription, resolve, reject)
 	local avatarRules = AvatarEditorService:GetAvatarRules()
 
-	if not avatarRules.defaultClothingAssetLists then
+	if not avatarRules.DefaultClothingAssetLists then
 		reject("No default clothing in avatar rules")
 		return
 	end
 
-	local defaultShirtIds = avatarRules.defaultClothingAssetLists.defaultShirtAssetIds
-	local defaultPantsIds = avatarRules.defaultClothingAssetLists.defaultPantAssetIds
+	local defaultShirtIds = avatarRules.DefaultClothingAssetLists.DefaultShirtAssetIds
+	local defaultPantsIds = avatarRules.DefaultClothingAssetLists.DefaultPantAssetIds
 
 	if (not defaultShirtIds) or (not defaultPantsIds) then
 		reject("No default clothing ids in avatar rules")

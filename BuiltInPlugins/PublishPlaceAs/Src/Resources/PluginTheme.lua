@@ -221,11 +221,20 @@ local function createStyles(theme, getColor)
 	local m = Enum.StudioStyleGuideModifier
 
 	local isDark = settings().Studio.Theme.Name == "Dark"
-	local DefaultStudioStyle = StudioFrameworkStyles.new(theme, getColor)
 
 	-- define all the colors used in the plugin
 	return {
 		Plugin = {
+			backgroundColor = theme:getColor(c.MainBackground),
+			textColor = theme:getColor(c.MainText),
+			subTextColor = theme:getColor(c.SubText),
+			dimmerTextColor = theme:getColor(c.DimmedText),
+			disabledColor = theme:getColor(c.Tab),
+			borderColor = theme:getColor(c.Border),
+			hoverColor = isDark and theme:getColor(c.MainButton) or theme:getColor(c.CurrentMarker),
+			errorColor = theme:getColor(c.ErrorText),
+			font = Enum.Font.SourceSans,
+
 			icons = {
 				newPlace = "rbxasset://textures/PublishPlaceAs/WhiteNew.png",
 				backArrow = "rbxasset://textures/PublishPlaceAs/navigation_pushBack.png",

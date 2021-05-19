@@ -15,6 +15,7 @@ local pages = {
 	Permissions,
 	Monetization,
 	Places,
+	Localization,
 	Avatar,
 	World,
 	Options,
@@ -23,7 +24,5 @@ local pages = {
 if FFlagQ220PermissionsSettings then
 	table.insert(pages, 4, Security)
 end
-
-table.insert(pages, 5, Localization)
 
 return pages

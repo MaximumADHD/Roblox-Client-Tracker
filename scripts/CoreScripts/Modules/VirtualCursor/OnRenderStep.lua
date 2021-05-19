@@ -13,6 +13,8 @@ local Interface = require(VirtualCursorFolder.Interface)
 local Properties = require(VirtualCursorFolder.Properties)
 local VirtualCursorEnums = require(VirtualCursorFolder.Enums)
 
+local FFlagVirtualCursorResetLastSelectedObject = game:DefineFastFlag("VirtualCursorResetLastSelectedObject", false)
+
 local velocityTarget = 1
 local lastSelectedObject = nil
 
@@ -135,8 +137,13 @@ return function(VirtualCursorMain, dt)
 
 	local newObject = getNearestButtonInCircle(cursorPosition, Properties.SelectionRadius)
 
-	if newObject ~= lastSelectedObject then
-		lastSelectedObject = newObject
+	if FFlagVirtualCursorResetLastSelectedObject and newObject ~= VirtualCursorMain.PreviouslySelectedObject or newObject ~= lastSelectedObject then
+		if FFlagVirtualCursorResetLastSelectedObject then
+			VirtualCursorMain.PreviouslySelectedObject = newObject
+		else
+			lastSelectedObject = newObject
+		end
+
 		Interface:SetCursorHighlight(newObject ~= nil)
 		if newObject then
 			if newObject ~= VirtualCursorMain.SelectedObject then

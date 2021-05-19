@@ -36,7 +36,7 @@ local TouchThumbstick = FFlagUserMakeThumbstickDynamic and DynamicThumbstick or 
 
 local FFlagUserFixExternalJumpRequest do
 	local success, result = pcall(function()
-		return UserSettings():IsUserFeatureEnabled("UserFixExternalJumpRequest")
+		return UserSettings():IsUserFeatureEnabled("UserFixExternalJumpRequest2")
 	end)
 	FFlagUserFixExternalJumpRequest = success and result
 end

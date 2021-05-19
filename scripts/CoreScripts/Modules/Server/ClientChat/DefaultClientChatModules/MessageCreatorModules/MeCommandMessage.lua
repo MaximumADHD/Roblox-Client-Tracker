@@ -29,8 +29,9 @@ function CreateMeCommandMessageLabel(messageData, channelName)
 		if messageData.IsFiltered then
 			BaseMessage.Text = string.rep(" ", numNeededSpaces) .. messageObject.FromSpeaker .. " " .. string.sub(messageObject.Message, 5)
 		else
-			local messageLength = string.len(messageObject.FromSpeaker) + messageObject.MessageLength - 4
-			BaseMessage.Text = string.rep(" ", numNeededSpaces) .. string.rep("_", messageLength)
+			local messageLength = messageObject.MessageLengthUtf8 or messageObject.MessageLength
+			local formattedMessageLength = utf8.len(utf8.nfcnormalize(messageObject.FromSpeaker)) + messageLength - 4
+			BaseMessage.Text = string.rep(" ", numNeededSpaces) .. string.rep("_", formattedMessageLength)
 		end
 	end
 

@@ -23,6 +23,7 @@
 		function SelectionChanged(index, title) = A callback for when the selected option changes.
 		int LayoutOrder = The order this RadioButtonSet will sort to when placed in a UIListLayout.
 ]]
+local FFlagUpdatePublishPlacePluginToDevFrameworkContext = game:GetFastFlag("UpdatePublishPlacePluginToDevFrameworkContext")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -65,6 +66,7 @@ end
 
 function RadioButtonSet:render()
 	local props = self.props
+	local theme = FFlagUpdatePublishPlacePluginToDevFrameworkContext and props.Theme:get("Plugin") or nil
 
 	local layoutIndex = LayoutOrderIterator.new()
 
@@ -104,7 +106,22 @@ function RadioButtonSet:render()
 
 	for i, button in ipairs(buttons) do
 		children = Cryo.Dictionary.join(children, {
-			[button.Id] = Theming.withTheme(function(theme)
+			[button.Id] = FFlagUpdatePublishPlacePluginToDevFrameworkContext and Roact.createElement(RadioButton, {
+				Title = button.Title,
+				Id = button.Id,
+				Description = button.Description,
+				Selected = (button.Id == selected) or (i == selected),
+				Index = i,
+				Enabled = props.Enabled,
+				RadioButtonStyle = theme.radioButton,
+				LayoutOrder = layoutIndex:getNextOrder(),
+				OnClicked = function()
+					props.SelectionChanged(button)
+				end,
+
+				Children = button.Children,
+			})
+			or Theming.withTheme(function(theme)
 				return Roact.createElement(RadioButton, {
 					Title = button.Title,
 					Id = button.Id,
@@ -136,5 +153,9 @@ function RadioButtonSet:render()
 			TextSize = Constants.TEXT_SIZE,
 		}, children)
 end
+
+ContextServices.mapToProps(RadioButtonSet, {
+	Theme = ContextServices.Theme,
+})
 
 return RadioButtonSet

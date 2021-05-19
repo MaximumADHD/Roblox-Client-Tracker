@@ -1,7 +1,6 @@
 --[[
 
 ]]
-
 local Plugin = script.Parent.Parent.Parent
 local Rodux = require(Plugin.Packages.Rodux)
 local Cryo = require(Plugin.Packages.Cryo)
@@ -20,6 +19,7 @@ local PaintTool = Rodux.createReducer({
 	planeLock = false,
 	snapToGrid = false,
 	ignoreWater = true,
+	ignoreParts = true,
 	material = Enum.Material.Grass,
 }, {
 	ChooseBrushShape = function(state, action)
@@ -69,6 +69,13 @@ local PaintTool = Rodux.createReducer({
 
 		return Cryo.Dictionary.join(state, {
 			ignoreWater = ignoreWater,
+		})
+	end,
+	SetIgnoreParts = function(state, action)
+		local ignoreParts = action.ignoreParts
+
+		return Cryo.Dictionary.join(state, {
+			ignoreParts = ignoreParts,
 		})
 	end,
 	SetMaterial = function(state, action)

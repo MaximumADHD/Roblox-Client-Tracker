@@ -30,7 +30,7 @@ function InfiniteDataProvider:render()
 	end
 
 	return Roact.createElement(InfiniteScrollingFrame, {
-		Size = UDim2.fromOffset(300, 100),
+		Size = UDim2.new(1, 0, 0, 200),
 		Items = items,
 		ItemIdentifier = function(item)
 			return item.id
@@ -69,4 +69,12 @@ function InfiniteDataProvider:render()
 	})
 end
 
-return InfiniteDataProvider
+return {
+	stories = {
+		{
+			name = "Deferred loading",
+			summary = "In this story, the scroller starts at element 10, and scrolling up or down loads more elements.",
+			story = InfiniteDataProvider,
+		}
+	}
+}

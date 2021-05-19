@@ -21,6 +21,7 @@ local SetCurrentPage = require(Actions.SetCurrentPage)
 
 local FFlagToolboxDefaultBackgroundMatches = game:GetFastFlag("ToolboxDefaultBackgroundMatches")
 local FFlagToolboxDisableMarketplaceAndRecentsForLuobu = game:GetFastFlag("ToolboxDisableMarketplaceAndRecentsForLuobu")
+local FFlagToolboxFixCommonWarnings = game:GetFastFlag("ToolboxFixCommonWarnings")
 
 local disableMarketplaceAndRecents = require(Plugin.Core.Util.ToolboxUtilities).disableMarketplaceAndRecents
 
@@ -33,7 +34,7 @@ else
 end
 
 local function warnIfUpdatePageInfoChangesInvalid(state, changes)
-	if changes.categories then
+	if not FFlagToolboxFixCommonWarnings and changes.categories then
 		warn("Lua Toolbox: Cannot change categories array through UpdatePageInfo")
 	end
 
@@ -49,18 +50,32 @@ local function warnIfUpdatePageInfoChangesInvalid(state, changes)
 		warn("Lua Toolbox: sortIndex out of range in UpdatePageInfo")
 	end
 
-	-- For groupIndex, allow it to be 0 if #state.groups == 0
-	-- Else it has to be >= 1 like the other indices
-	if changes.groupIndex and (changes.groupIndex < (#state.groups > 0 and 1 or 0)
-		or changes.groupIndex > #state.groups) then
-		warn("Lua Toolbox: groupIndex out of range in UpdatePageInfo")
+	if FFlagToolboxFixCommonWarnings then
+		if changes.groupIndex ~= nil and changes.groupIndex > 0 and (changes.groupIndex < (#state.groups > 0 and 1 or 0)
+			or changes.groupIndex > #state.groups) then
+			warn("Lua Toolbox: groupIndex out of range in UpdatePageInfo")
+		end
+	else
+		-- For groupIndex, allow it to be 0 if #state.groups == 0
+		-- Else it has to be >= 1 like the other indices
+		if changes.groupIndex and (changes.groupIndex < (#state.groups > 0 and 1 or 0)
+			or changes.groupIndex > #state.groups) then
+			warn("Lua Toolbox: groupIndex out of range in UpdatePageInfo")
+		end
 	end
 
 	if changes.sortIndex and not state.sorts[changes.sortIndex] then
 		warn("Lua Toolbox: Changing sortIndex but sortType is not valid in UpdatePageInfo")
 	end
 
-	if changes.groupIndex then
+	local hasValidGroupIndex
+	if FFlagToolboxFixCommonWarnings then
+		hasValidGroupIndex = changes.groupIndex and changes.groupIndex > 0
+	else
+		hasValidGroupIndex = changes.groupIndex
+	end
+
+	if hasValidGroupIndex then
 		if #state.groups == 0 then
 			if changes.groupIndex ~= 0 then
 				warn("Lua Toolbox: Changing groupIndex but groupId is not valid in UpdatePageInfo")

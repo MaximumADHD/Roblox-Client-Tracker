@@ -32,10 +32,15 @@ local function Run(ChatService)
 	local function SendFriendJoinNotification(player, joinedFriend)
 		local speakerObj = ChatService:GetSpeaker(player.Name)
 		if speakerObj then
+			local joinedFriendName = joinedFriend.Name
+			if ChatSettings.PlayerDisplayNamesEnabled then
+				joinedFriendName = joinedFriend.DisplayName
+			end
+
 			local msg = ChatLocalization:FormatMessageToSend("GameChat_FriendChatNotifier_JoinMessage",
-				string.format("Your friend %s has joined the game.", joinedFriend.Name),
+				string.format("Your friend %s has joined the game.", joinedFriendName),
 				"RBX_NAME",
-				joinedFriend.Name)
+				joinedFriendName)
 			speakerObj:SendSystemMessage(msg, "System", FriendMessageExtraData)
 		end
 	end

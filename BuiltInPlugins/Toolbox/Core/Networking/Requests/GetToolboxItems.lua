@@ -7,11 +7,17 @@ local SetLoading = require(Actions.SetLoading)
 local GetItemDetails = require(Plugin.Core.Networking.Requests.GetItemDetails)
 local GetCreatorName = require(Plugin.Core.Networking.Requests.GetCreatorName)
 
+local Rollouts = require(Plugin.Core.Rollouts)
+local Category = require(Plugin.Core.Types.Category)
+
 local Util = Plugin.Core.Util
+local getUserId = require(Util.getUserId)
 local PagedRequestCursor = require(Util.PagedRequestCursor)
 local Constants = require(Util.Constants)
 local CreatorInfoHelper = require(Util.CreatorInfoHelper)
 local PageInfoHelper = require(Util.PageInfoHelper)
+
+local FFlagToolboxFixSearchForMissingCreator = game:DefineFastFlag("ToolboxFixSearchForMissingCreator", false)
 
 return function(networkInterface, category, audioSearchInfo, pageInfo, settings, nextPageCursor)
 	return function(store)
@@ -24,8 +30,22 @@ return function(networkInterface, category, audioSearchInfo, pageInfo, settings,
 		local assetStore = store:getState().assets
 		local currentCursor = assetStore.currentCursor
 
-		if creator and (not CreatorInfoHelper.isCached(store, creatorTargetId, creator.Type)) then
-			store:dispatch(GetCreatorName(networkInterface, creatorTargetId, creator.Type))
+		if FFlagToolboxFixSearchForMissingCreator then
+			if creator ~= nil then
+				-- Creator filter was requested, but no creator with that name was found
+				if creator.Name ~= nil and creator.Name ~= "" and creatorTargetId == nil then
+					store:dispatch(SetLoading(false))
+					return
+				end
+
+				if creatorTargetId ~= nil and (not CreatorInfoHelper.isCached(store, creatorTargetId, creator.Type)) then
+					store:dispatch(GetCreatorName(networkInterface, creatorTargetId, creator.Type))
+				end
+			end
+		else
+			if creator and (not CreatorInfoHelper.isCached(store, creatorTargetId, creator.Type)) then
+				store:dispatch(GetCreatorName(networkInterface, creatorTargetId, creator.Type))
+			end
 		end
 
 		-- Get from API
@@ -38,17 +58,51 @@ return function(networkInterface, category, audioSearchInfo, pageInfo, settings,
 			else
 				sortName = sort
 			end
-			return networkInterface:getToolboxItems(
-				category,
-				sortName,
-				pageInfo.creatorType,
-				audioSearchInfo and audioSearchInfo.minDuration or nil,
-				audioSearchInfo and audioSearchInfo.maxDuration or nil,
-				creatorTargetId,
-				pageInfo.searchTerm or "",
-				nextPageCursor,
-				Constants.TOOLBOX_ITEM_SEARCH_LIMIT
-			):andThen(
+
+			local getRequest
+
+			if Rollouts:getToolboxEndpointMigration() then
+				local ownerId = nil
+
+				local categoryData = Category.getCategoryByName(category)
+
+				if not categoryData then
+					error(string.format("Could not find categoryData for %s", category))
+				end
+
+				if categoryData.ownershipType == Category.OwnershipType.MY or categoryData.ownershipType == Category.OwnershipType.RECENT then
+					ownerId = getUserId()
+				elseif categoryData.ownershipType == Category.OwnershipType.GROUP then
+					ownerId = PageInfoHelper.getGroupIdForPageInfo(pageInfo)
+				end
+
+				getRequest = networkInterface:getToolboxItems(
+					category,
+					sortName,
+					pageInfo.creatorType,
+					audioSearchInfo and audioSearchInfo.minDuration or nil,
+					audioSearchInfo and audioSearchInfo.maxDuration or nil,
+					creatorTargetId,
+					ownerId,
+					pageInfo.searchTerm or "",
+					nextPageCursor,
+					Constants.TOOLBOX_ITEM_SEARCH_LIMIT
+				)
+			else
+				getRequest = networkInterface:getToolboxItems(
+					category,
+					sortName,
+					pageInfo.creatorType,
+					audioSearchInfo and audioSearchInfo.minDuration or nil,
+					audioSearchInfo and audioSearchInfo.maxDuration or nil,
+					creatorTargetId,
+					pageInfo.searchTerm or "",
+					nextPageCursor,
+					Constants.TOOLBOX_ITEM_SEARCH_LIMIT
+				)
+			end
+
+			return getRequest:andThen(
 				function(result)
 					if PageInfoHelper.isPageInfoStale(pageInfo, store) then
 						return

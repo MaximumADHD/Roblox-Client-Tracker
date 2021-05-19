@@ -1,6 +1,5 @@
 local Plugin = script.Parent.Parent.Parent
 
-
 local Constants = require(Plugin.Src.Util.Constants)
 local TerrainEnums = require(Plugin.Src.Util.TerrainEnums)
 local BrushShape = TerrainEnums.BrushShape

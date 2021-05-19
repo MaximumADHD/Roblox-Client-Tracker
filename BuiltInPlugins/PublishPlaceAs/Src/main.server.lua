@@ -90,7 +90,7 @@ local function makePluginGui()
 end
 
 --Initializes and populates the plugin popup window
-local function openPluginWindow(showGameSelect, isPublish, closeAfterSave, firstPublishContext)
+local function openPluginWindow(showGameSelect, isPublish, closeMode, firstPublishContext)
 	local servicesProvider = Roact.createElement(ServiceWrapper, {
 		plugin = plugin,
 		localization = localization,
@@ -102,8 +102,9 @@ local function openPluginWindow(showGameSelect, isPublish, closeAfterSave, first
 		Roact.createElement(ScreenSelect, {
 			OnClose = closePlugin,
 			IsPublish = isPublish,
-			CloseAfterSave = closeAfterSave,
+			CloseMode = closeMode,
 			FirstPublishContext = firstPublishContext,
+			IsSaveOrPublishAs = showGameSelect,
 		})
 	})
 
@@ -119,7 +120,7 @@ local function main()
 	makePluginGui()
 
 	if FFlagStudioAllowRemoteSaveBeforePublish then
-		StudioService.OnSaveOrPublishPlaceToRoblox:Connect(function(showGameSelect, isPublish, closeAfterSave)
+		StudioService.OnSaveOrPublishPlaceToRoblox:Connect(function(showGameSelect, isPublish, closeMode)
 			if FFlagStudioNewGamesInCloudUI then
 				if isPublish then
 					pluginGui.Title = localization:getText("General", "PublishGame")
@@ -133,7 +134,7 @@ local function main()
 					pluginGui.Title = localization:getText("General", "SavePlace")
 				end
 			end
-			openPluginWindow(showGameSelect, isPublish, closeAfterSave)
+			openPluginWindow(showGameSelect, isPublish, closeMode)
 		end)
 	else
 		StudioService.OnPublishPlaceToRoblox:Connect(function(isOverwritePublish)
