@@ -64,4 +64,8 @@ return {
 	-- fixDropdownMenuListPositionAndSize: Uses the bottom inset for positioning the dropdown menu list for
 	-- mobile view, allows sizing relative to parent container size, and limits dropdown width for wide view.
 	fixDropdownMenuListPositionAndSize = false,
+
+	-- enabledAutomaticCanvasSizePropForVerticalScrollView: Enables the use of AutomaticCanvasSize as a
+	-- prop for VerticalScrollView.
+	enabledAutomaticCanvasSizePropForVerticalScrollView = false,
 }

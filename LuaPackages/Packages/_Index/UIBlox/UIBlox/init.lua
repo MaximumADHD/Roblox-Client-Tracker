@@ -103,6 +103,7 @@ local function initializeLibrary(configs)
 
 		Text = strict({
 			ExpandableTextArea = require(script.App.Text.ExpandableTextArea.ExpandableTextArea),
+			StyledTextLabel = require(script.App.Text.StyledTextLabel),
 		}),
 
 		Loading = strict({

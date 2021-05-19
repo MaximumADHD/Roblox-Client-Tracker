@@ -55,7 +55,7 @@ local isGridViewProps = t.intersection(
 		restorePreviousChildFocus = t.optional(t.boolean),
 		onFocusGained = t.optional(t.callback),
 
-		-- which selection will initally be selected (if using roact-gamepad)
+		-- which selection will initially be selected (if using roact-gamepad)
 		defaultChildIndex = t.optional(t.numberMin(1)),
 	}),
 	validateWindowHeight
@@ -73,6 +73,8 @@ function DefaultMetricsGridView:init()
 	self.state = {
 		containerWidth = 0,
 	}
+
+	self.initialSizeCheckerRef = Roact.createRef()
 
 	self.checkSetInitialContainerWidth = function(rbx)
 		if rbx and self.isMounted and rbx:IsDescendantOf(game) then
@@ -95,26 +97,13 @@ function DefaultMetricsGridView:render()
 	)
 
 	if self.state.containerWidth == 0 then
-		local frameSize
-		if UIBloxConfig.tempFixEmptyGridView then
-			-- There is a bug in the C++ code around resizing/notification that causes a
-			-- pretty serious issue in prod (you can get stuck in a state where all catalog
-			-- pages are empty).
-			-- In the short term we can fix the user-facing issue with this hack, making
-			-- this frame non-empty.
-			-- Over the long haul we expect the C++ code will be fixed and we can remove this
-			-- hack.
-			frameSize = UDim2.new(1, 0, 0, 1)
-		else
-			frameSize = UDim2.new(1, 0, 0, 0)
-		end
-
 		return Roact.createElement("Frame", {
 			Transparency = 1,
-			Size = frameSize,
+			Size = UDim2.new(1, 0, 0, 0),
 
 			[Roact.Change.AbsoluteSize] = self.checkSetInitialContainerWidth,
 			[Roact.Event.AncestryChanged] = self.checkSetInitialContainerWidth,
+			[Roact.Ref] = UIBloxConfig.tempFixEmptyGridView and self.initialSizeCheckerRef or nil,
 		})
 	end
 
@@ -148,8 +137,36 @@ function DefaultMetricsGridView:render()
 	})
 end
 
+function DefaultMetricsGridView:checkInitialSize()
+	if not UIBloxConfig.tempFixEmptyGridView then
+		return
+	end
+
+	local initialSizeFrame = self.initialSizeCheckerRef:getValue()
+	if initialSizeFrame then
+		-- There is a bug in the C++ code around resizing/notification that causes a
+		-- pretty serious issue in prod (you can get stuck in a state where all catalog
+		-- pages are empty).
+		-- In the short term we can fix the user-facing issue with this hack.
+		-- Reading the AbsolutePosition property here forces a relayout.
+		-- Over the long haul we expect the C++ code will be fixed and we can remove this
+		-- hack.
+		local _ = initialSizeFrame.AbsolutePosition
+
+		if initialSizeFrame.AbsoluteSize.X > 0 then
+			self.checkSetInitialContainerWidth(initialSizeFrame)
+		end
+	end
+end
+
 function DefaultMetricsGridView:didMount()
 	self.isMounted = true
+
+	self:checkInitialSize()
+end
+
+function DefaultMetricsGridView:didUpdate()
+	self:checkInitialSize()
 end
 
 function DefaultMetricsGridView:willUnmount()

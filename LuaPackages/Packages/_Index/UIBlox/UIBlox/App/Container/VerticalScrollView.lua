@@ -17,6 +17,8 @@ local withStyle = require(Packages.UIBlox.Core.Style.withStyle)
 local CursorKind = require(App.SelectionImage.CursorKind)
 local withSelectionCursorProvider = require(App.SelectionImage.withSelectionCursorProvider)
 
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
+
 local PADDING_HORIZONTAL = 24
 local SCROLL_BAR_RIGHT_PADDING = 4
 local MOUSE_SCROLL_BAR_THICKNESS = 8
@@ -35,6 +37,8 @@ VerticalScrollView.defaultProps = {
 	size = UDim2.new(1, 0, 1, 0),
 	-- ScrollingFrame Props
 	canvasSizeY = UDim.new(2, 0),
+	useAutomaticCanvasSize = UIBloxConfig.enabledAutomaticCanvasSizePropForVerticalScrollView and
+		false or nil,
 	paddingHorizontal = PADDING_HORIZONTAL,
 	isGamepadFocusable = false,
 }
@@ -47,6 +51,8 @@ VerticalScrollView.validateProps = t.strictInterface({
 
 	-- ScrollingFrame Props
 	canvasSizeY = t.optional(t.UDim),
+	useAutomaticCanvasSize = UIBloxConfig.enabledAutomaticCanvasSizePropForVerticalScrollView and
+		t.optional(t.boolean) or nil,
 	paddingHorizontal = t.optional(t.numberMin(PADDING_HORIZONTAL/2)),
 	isGamepadFocusable = t.optional(t.boolean),
 
@@ -172,6 +178,8 @@ function VerticalScrollView:renderWithProviders(stylePalette, getSelectionCursor
 			ElasticBehavior = self.props.elasticBehavior,
 			-- ScrollingFrame Specific
 			CanvasSize = UDim2.new(CANVAS_SIZE_X, canvasSizeY),
+			AutomaticCanvasSize = UIBloxConfig.enabledAutomaticCanvasSizePropForVerticalScrollView and
+				self.props.useAutomaticCanvasSize and Enum.AutomaticSize.Y or nil,
 			ScrollBarImageColor3 = theme.UIEmphasis.Color,
 			ScrollBarImageTransparency = self.scrollBarImageTransparency,
 			ScrollBarThickness = scrollBarThickness,
