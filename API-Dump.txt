@@ -264,6 +264,7 @@ Class PlayerGui : BasePlayerGui [NotCreatable] [PlayerReplicated]
 	Event PlayerGui.TopbarTransparencyChangedSignal(float transparency) [Deprecated]
 Class StarterGui : BasePlayerGui [NotCreatable] [Service]
 	Property bool StarterGui.ProcessUserInput {PluginSecurity} [Hidden] [NotReplicated]
+	Property Enum<VirtualCursorMode> StarterGui.VirtualCursorMode [NotScriptable]
 	Property bool StarterGui.ResetPlayerGuiOnSpawn [Deprecated]
 	Property Enum<ScreenOrientation> StarterGui.ScreenOrientation
 	Property bool StarterGui.ShowDevelopmentGui
@@ -1934,7 +1935,6 @@ Class NetworkSettings : Instance [NotCreatable] [Service] [NotBrowsable]
 	Property bool NetworkSettings.RenderStreamedRegions
 	Property bool NetworkSettings.ShowActiveAnimationAsset
 	Property int NetworkSettings.EmulatedTotalMemoryInMB {PluginSecurity} [Hidden] [NotReplicated]
-	Property int NetworkSettings.ExtraMemoryUsed {PluginSecurity} [Hidden] [NotReplicated]
 	Property float NetworkSettings.FreeMemoryMBytes {PluginSecurity} [Hidden] [ReadOnly]
 	Property double NetworkSettings.IncomingReplicationLag
 	Property bool NetworkSettings.PrintJoinSizeBreakdown
@@ -2431,6 +2431,7 @@ Class Player : Instance
 	Function void Player:SaveNumber(string key, double value) [Deprecated]
 	Function void Player:SaveString(string key, string value) [Deprecated]
 	Function void Player:SetAccountAge(int accountAge) {PluginSecurity}
+	Function void Player:SetCharacterAppearanceJson(string jsonBlob) {RobloxScriptSecurity}
 	Function void Player:SetMembershipType(Enum<MembershipType> membershipType) {RobloxScriptSecurity}
 	Function void Player:SetSuperSafeChat(bool value) {PluginSecurity}
 	Function void Player:SetUnder13(bool value) {RobloxSecurity} [Deprecated]
@@ -3296,14 +3297,14 @@ Class StudioService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function Instance StudioService:PromptImportLocalAsset(string prompt, Array fileTypeFilter = {}) {PluginSecurity} [Yields] [Deprecated]
 	Function Objects StudioService:PromptImportLocalAssets(string prompt, Array fileTypeFilter = {}) {PluginSecurity} [Yields] [Deprecated]
 	Function void StudioService:PublishAs(int64 universeId, int64 placeId, int64 groupId) {RobloxScriptSecurity}
-	Function void StudioService:RequestCloseStudio() {RobloxScriptSecurity}
+	Function void StudioService:RequestClose(Enum<StudioCloseMode> closeMode) {RobloxScriptSecurity}
 	Function string StudioService:SerializeInstances(Objects instances) {RobloxScriptSecurity}
 	Function void StudioService:SetDocumentDisplayName(string newName) {RobloxScriptSecurity}
 	Function void StudioService:SetPluginEnabled(int64 assetId, bool state) {RobloxScriptSecurity}
 	Function void StudioService:SetUniverseDisplayName(string newName) {RobloxScriptSecurity}
 	Function void StudioService:ShowPlaceVersionHistoryDialog(int64 placeId) {RobloxScriptSecurity}
 	Function void StudioService:ShowPublishToRoblox() {RobloxScriptSecurity}
-	Function void StudioService:ShowSaveOrPublishPlaceToRoblox(bool showGameSelect, bool isPublish, bool closeAfterSave) {RobloxScriptSecurity}
+	Function void StudioService:ShowSaveOrPublishPlaceToRoblox(bool showGameSelect, bool isPublish, Enum<StudioCloseMode> closeMode) {RobloxScriptSecurity}
 	Function void StudioService:TryInstallPlugin(int64 assetId, int64 assetVersionId) {RobloxScriptSecurity} [Yields]
 	Function void StudioService:UninstallPlugin(int64 assetId) {RobloxScriptSecurity}
 	Function void StudioService:UpdatePluginManagement() {RobloxScriptSecurity}
@@ -3319,7 +3320,7 @@ Class StudioService : Instance [NotCreatable] [Service] [NotReplicated]
 	Event StudioService.OnPluginInstalledFromWeb(string pluginId) {RobloxScriptSecurity}
 	Event StudioService.OnPublishAsPlugin(Objects instances) {RobloxScriptSecurity}
 	Event StudioService.OnPublishPlaceToRoblox(bool isOverwritePublish) {RobloxScriptSecurity}
-	Event StudioService.OnSaveOrPublishPlaceToRoblox(bool showGameSelect, bool isPublish, bool closeAfterSave) {RobloxScriptSecurity}
+	Event StudioService.OnSaveOrPublishPlaceToRoblox(bool showGameSelect, bool isPublish, Enum<StudioCloseMode> closeMode) {RobloxScriptSecurity}
 	Event StudioService.OnSaveToRoblox(Objects instances) {RobloxScriptSecurity}
 	Event StudioService.PromptTransformPluginCheckEnable() {RobloxScriptSecurity}
 	Event StudioService.SaveLocallyAsComplete(bool success) {RobloxScriptSecurity}
@@ -3761,8 +3762,12 @@ Class VirtualInputManager : Instance [Service]
 	Function void VirtualInputManager:SendMouseWheelEvent(float x, float y, bool isForwardScroll, Instance layerCollector) {RobloxScriptSecurity}
 	Function void VirtualInputManager:SendTextInputCharacterEvent(string str, Instance layerCollector) {RobloxScriptSecurity}
 	Function void VirtualInputManager:SendTouchEvent(int64 touchId, int state, float x, float y) {RobloxScriptSecurity}
+	Function void VirtualInputManager:SetInputTypesToIgnore(Variant inputTypesToIgnore) {RobloxScriptSecurity}
+	Function void VirtualInputManager:SetViewportSize(Vector2 sizePx) {RobloxScriptSecurity}
 	Function void VirtualInputManager:StartPlaying(string fileName) {RobloxScriptSecurity}
+	Function void VirtualInputManager:StartPlayingJSON(string string) {RobloxScriptSecurity}
 	Function void VirtualInputManager:StartRecording() {RobloxScriptSecurity}
+	Function void VirtualInputManager:StopPlaying() {RobloxScriptSecurity}
 	Function void VirtualInputManager:StopRecording() {RobloxScriptSecurity}
 	Function void VirtualInputManager:sendRobloxEvent(string namespace, string detail, string detailType) {RobloxScriptSecurity}
 	Function void VirtualInputManager:sendThemeChangeEvent(string themeName) {RobloxScriptSecurity}
@@ -3783,6 +3788,8 @@ Class VirtualUser : Instance [NotCreatable] [Service] [NotReplicated]
 	Function string VirtualUser:StopRecording() {LocalUserSecurity}
 	Function void VirtualUser:TypeKey(string key) {LocalUserSecurity}
 Class Visit : Instance [NotCreatable] [Service] [NotReplicated]
+Class VoiceSource : Instance [NotCreatable] [Deprecated]
+	Property int64 VoiceSource.UserId [ReadOnly] [Deprecated]
 Class WeldConstraint : Instance
 	Property bool WeldConstraint.Active [ReadOnly]
 	Property bool WeldConstraint.Enabled [<📁> LoadOnly] [NotReplicated]
@@ -5147,6 +5154,10 @@ Enum PrivilegeType [Deprecated]
 	EnumItem PrivilegeType.Member : 128 [Deprecated]
 	EnumItem PrivilegeType.Admin : 240 [Deprecated]
 	EnumItem PrivilegeType.Owner : 255 [Deprecated]
+Enum ProductLocationRestriction
+	EnumItem ProductLocationRestriction.AvatarShop : 0
+	EnumItem ProductLocationRestriction.AllowedGames : 1
+	EnumItem ProductLocationRestriction.AllGames : 2
 Enum ProductPurchaseDecision
 	EnumItem ProductPurchaseDecision.NotProcessedYet : 0
 	EnumItem ProductPurchaseDecision.PurchaseGranted : 1
@@ -5348,6 +5359,10 @@ Enum StreamingPauseMode
 	EnumItem StreamingPauseMode.Default : 0
 	EnumItem StreamingPauseMode.Disabled : 1
 	EnumItem StreamingPauseMode.ClientPhysicsPause : 2
+Enum StudioCloseMode
+	EnumItem StudioCloseMode.None : 0
+	EnumItem StudioCloseMode.CloseStudio : 1
+	EnumItem StudioCloseMode.CloseDoc : 2
 Enum StudioDataModelType
 	EnumItem StudioDataModelType.Edit : 0
 	EnumItem StudioDataModelType.PlayClient : 2
@@ -5743,6 +5758,10 @@ Enum VibrationMotor
 	EnumItem VibrationMotor.RightTrigger : 3
 	EnumItem VibrationMotor.LeftHand : 4
 	EnumItem VibrationMotor.RightHand : 5
+Enum VirtualCursorMode
+	EnumItem VirtualCursorMode.Default : 0
+	EnumItem VirtualCursorMode.Disabled : 1
+	EnumItem VirtualCursorMode.Enabled : 2
 Enum VirtualInputMode
 	EnumItem VirtualInputMode.None : 0
 	EnumItem VirtualInputMode.Recording : 1

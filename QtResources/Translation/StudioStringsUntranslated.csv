@@ -37,6 +37,7 @@ Studio.App.AddImageDialog.ImageFileRequired,,Image file is required,Image file i
 Studio.App.AssetManagerService.AliasNameInvalid,,Alias name is invalid,Alias name is invalid
 Studio.App.AssetManagerService.AssetIdInvalid,,AssetId is invalid,AssetId is invalid
 Studio.App.AssetManagerService.DataModelInvalid,,DataModel is invalid,DataModel is invalid
+Studio.App.AssetManagerService.DataModelNotInEditMode,,Datamodel is not in edit mode,Datamodel is not in edit mode
 Studio.App.AssetManagerService.InsertInstanceExceptionArg1,,Exception while inserting instance into datamodel: %1,Exception while inserting instance into datamodel: %1
 Studio.App.AssetManagerService.InvalidArgumentExceptionArg1,,Exception while converting string to id: %1,Exception while converting string to id: %1
 Studio.App.AssetManagerService.MessageFieldNotFound,,"'success' is false, 'message' field not found","'success' is false, 'message' field not found"
@@ -118,6 +119,8 @@ Studio.App.BetaFeatures.EnableCSGV3Description,,Use the new and faster CSG Engin
 Studio.App.BetaFeatures.EnableCSGV3Title,,CSG Version 3,CSG Version 3
 Studio.App.BetaFeatures.EnableLuauTypeCheckingDescription,,Enables new script analysis features,Enables new script analysis features
 Studio.App.BetaFeatures.EnableLuauTypeCheckingTitle,,Enable New Lua Script Analysis,Enable New Lua Script Analysis
+Studio.App.BetaFeatures.FasterRaycastsDescription,,Enables optimizations for faster raycasts.,Enables optimizations for faster raycasts.
+Studio.App.BetaFeatures.FasterRaycastsTitle,,Optimized Raycasts,Optimized Raycasts
 Studio.App.BetaFeatures.FindReplaceViewDescription,,"Overhaul of find and replace functionality to make working with large codebases easier. Streamlined interface, addition of search filters and Replace All functionality, and improved performance.","Overhaul of find and replace functionality to make working with large codebases easier. Streamlined interface, addition of search filters and Replace All functionality, and improved performance."
 Studio.App.BetaFeatures.FindReplaceViewTitle,,Find All / Replace All,Find All / Replace All
 Studio.App.BetaFeatures.ImprovedInnerBoxDescription,,Enable a different algorithm for avatar Inner Box collision box sizing and positioning using margins around RigAttachment extents.,Enable a different algorithm for avatar Inner Box collision box sizing and positioning using margins around RigAttachment extents.
@@ -178,6 +181,8 @@ Studio.App.BetaFeatures.SurfaceJoinChangesDescription,,"Remove the 'Surface' Joi
 Studio.App.BetaFeatures.SurfaceJoinChangesTitle,,Surface Join Behavior Change,Surface Join Behavior Change
 Studio.App.BetaFeatures.TerrainHeightmapImporterDescription,,Instantly generate heightmaps from high-res (up to 4k) and high-bit-depth (16-bit) PNGs,Instantly generate heightmaps from high-res (up to 4k) and high-bit-depth (16-bit) PNGs
 Studio.App.BetaFeatures.TerrainHeightmapImporterTitle,,Heightmaps 2,Heightmaps 2
+Studio.App.BetaFeatures.TerrainQolDescription,,Enable various small improvements to Terrain Tools.,Enable various small improvements to Terrain Tools.
+Studio.App.BetaFeatures.TerrainQolTitle,,Terrain Quality of Life Changes,Terrain Quality of Life Changes
 Studio.App.BetaFeatures.TexturePacksDescription,,Unlocks PBR texture properties on SurfaceAppearance Instances.,Unlocks PBR texture properties on SurfaceAppearance Instances.
 Studio.App.BetaFeatures.TexturePacksTitle,,Advanced SurfaceAppearance Textures,Advanced SurfaceAppearance Textures
 Studio.App.BetaFeatures.TryCoolFeatures,,Try out cool new Studio features! Your feedback is invaluable to us as we move forward towards building a powerful imagination platform.,Try out cool new Studio features! Your feedback is invaluable to us as we move forward towards building a powerful imagination platform.
@@ -1309,6 +1314,8 @@ Studio.App.Property.NetworkOwnerRate,,Network Owner Rate,Network Owner Rate
 Studio.App.Property.NilColor,,"""nil"" Color","""nil"" Color"
 Studio.App.Property.NumberColor,,Number Color,Number Color
 Studio.App.Property.OnlyPlayAudioFromWindowInFocus,,Only Play Audio from Window in Focus,Only Play Audio from Window in Focus
+Studio.App.Property.OpenCertManagerDialog,,Trusted Certs,Trusted Certs
+Studio.App.Property.OpenCertManagerDialogButton,,Manage,Manage
 Studio.App.Property.OperatorColor,,Operator Color,Operator Color
 Studio.App.Property.OsIs64Bit,,Os Is 64 Bit,Os Is 64 Bit
 Studio.App.Property.OsPlatform,,Os Platform,Os Platform

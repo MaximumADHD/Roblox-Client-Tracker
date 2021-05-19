@@ -9,7 +9,7 @@ Studio.Toolbox.General.CategoryCreationsHats,Hats,Hats,모자,Головные �
 Studio.Toolbox.General.SearchResults,Search Results,Search Results,검색 결과,Результаты поиска,搜索结果
 Studio.Common.Action.Ignore,Ignore,Ignore,무시,Пропустить,忽略
 Studio.Common.Action.Close,Close,Close,닫기,Закрыть,关闭
-Studio.Toolbox.Common.Close,Close,Close, , , 
+Studio.Toolbox.Common.Close,Close,Close,닫기, ,关闭
 Studio.Common.Action.LabelWithColon1,%1:,%1:,%1:,%1:,%1
 Studio.Toolbox.Purchase.FailedDetails,Purchase of "{name}" failed.,Purchase of "{name}" failed.,"{name}" 구매에 실패했습니다.,"{name}": покупка не совершена.,购买 "{name}" 失败。
 Studio.Common.Action.Apply,Apply,Apply,적용,Применить,应用
@@ -25,7 +25,7 @@ Studio.Common.Action.Height,Height,Height,높이,Высота,高度
 Studio.Common.Action.Clear,Clear,Clear,지우기,Очистить,清除
 Studio.Toolbox.General.SearchResultsClearAll,Clear,Clear,지우기,Очистить,清除
 Studio.Toolbox.General.StatusReviewPending,In Review,In Review,검토 중,На рассмотрении,审阅中
-Studio.Toolbox.ThumbnailStatus.InReview,In Review,In Review,검토 중,На рассмотрении,审阅中
+Studio.Toolbox.ThumbnailStatus.InReview,In Review,In Review,검토 중,На рассмотрении,审核中
 Studio.Common.Action.Back,Back,Back,뒤로,Назад,返回
 Studio.Common.Action.Continue,Continue,Continue,계속,Продолжить,继续
 Studio.Common.Action.Copy,Copy,Copy,복사,Копировать,复制
@@ -50,7 +50,7 @@ Studio.Toolbox.General.AssetTypeModel,Model,Model,모델,Модель,模型
 Studio.Common.Action.Help,Help,Help,도움말,Справка,帮助
 Studio.Common.Action.Home,Home,Home,홈,Главная,首页
 Studio.Common.Action.Insert,Insert,Insert,삽입,Вставить,插入
-Studio.Toolbox.Common.Insert,Insert,Insert, , , 
+Studio.Toolbox.Common.Insert,Insert,Insert,삽입, ,插入
 Studio.Common.Action.Next,Next,Next,다음,Далее,下一个
 Studio.Common.Action.Paste,Paste,Paste,붙여넣기,Вставить,粘贴
 Studio.Common.Action.Save,Save,Save,저장,Сохранить,保存
@@ -59,7 +59,7 @@ Studio.Common.Action.Warning,Warning,Warning,경고,Предупреждение
 Studio.Toolbox.Purchase.BuyPrompt,Would you like to buy "{name}" from {creator} for {robux:int} Robux?,Would you like to buy "{name}" from {creator} for {robux:int} Robux?,{creator}에게 "{name}"을(를) {robux:int} Robux에 구매할까요?,"\"{name}\", автор {creator}: купить для {robux:int} Robux?",你要以 {robux:int} Robux 从 {creator} 处购买 "{name}" 吗?
 Studio.Toolbox.General.SuggestionsLight,Light,Light,조명,Свет,光
 Studio.Common.Action.OK,OK,OK,확인,ОК,确认
-Studio.Toolbox.Common.OK,OK,OK, , , 
+Studio.Toolbox.Common.OK,OK,OK,확인, ,确认
 Studio.Common.Action.Open,Open,Open,열기,Открыть,打开
 Studio.Common.Action.Search,Search,Search,검색,Поиск,搜索
 Studio.Toolbox.General.SearchBarDefaultText,Search,Search,검색,Поиск,搜索
@@ -87,7 +87,7 @@ Studio.Common.Action.Retry,Retry,Retry,다시 시도,Повтор,重试
 Studio.Toolbox.Purchase.Retry,Retry,Retry,다시 시도,Повтор,重试
 Studio.Common.Action.Share,Share,Share,공유,Поделиться,分享
 Studio.Common.Action.Submit,Submit,Submit,제출,Завершить,提交
-Studio.Toolbox.Common.Submit,Submit,Submit, , , 
+Studio.Toolbox.Common.Submit,Submit,Submit,제출, ,提交
 Studio.Common.Action.Stop,Stop,Stop,중지,Остановить,停止
 Studio.Toolbox.General.SortByUpdated,Updated,Updated,업데이트,Обновление выполнено,已更新
 Studio.Common.Action.Yes,Yes,Yes,예,Да,是
@@ -96,7 +96,7 @@ Studio.Common.Action.Undo,Undo,Undo,실행 취소,Отменить,撤消
 Studio.Common.Action.Confirm,Confirm,Confirm,확인, ,确认
 Studio.Toolbox.General.CategoryRecentDecals,Recent Images,Recent Images,최근 이미지,Недавние изображения,最近使用的图片
 Studio.Common.Action.Update,Update,Update,업데이트,Обновить,更新
-Studio.Toolbox.Common.Update,Update,Update, , , 
+Studio.Toolbox.Common.Update,Update,Update,업데이트, ,更新
 Studio.Common.Action.Reset,Reset,Reset,재설정,Сброс,重置
 Studio.Toolbox.General.CategoryGroupDecals,Group Images,Group Images,그룹 이미지,Изображения группы,群组图片
 Studio.Common.Action.Name,Name,Name,이름,Имя,名称
@@ -108,9 +108,9 @@ Studio.Common.Action.Value,Value,Value,값,Значение,值
 Studio.Toolbox.General.PreviewAreaStatus,Status: {assetStatus},Status: {assetStatus},상태: {assetStatus},Статус: {assetStatus},状态: {assetStatus}
 Studio.Common.Action.Width,Width,Width,넓이,Ширина,宽度
 Studio.Common.Action.Install,Install,Install,설치,Установить,安装
-Studio.Toolbox.Common.Install,Install,Install, , , 
+Studio.Toolbox.Common.Install,Install,Install,설치, ,安装
 Studio.Common.Action.Installed,Installed,Installed,설치됨,Установлено,已安装
-Studio.Toolbox.Common.Installed,Installed,Installed, , , 
+Studio.Toolbox.Common.Installed,Installed,Installed,설치됨, ,已安装
 Studio.Toolbox.General.TabInventory,Inventory,Inventory,인벤토리,Снаряжение,背包
 Studio.Common.Action.HideDetails,Hide Details,Hide Details,세부 정보 숨기기, ,隐藏详情
 Studio.Toolbox.General.NoPluginsFound.TextLine2,"For more plugins, try searching in the {link} on our website.","For more plugins, try searching in the {link} on our website.",더 많은 플러그인을 보려면 웹사이트의 {link}에서 검색하세요., ,若想获取更多插件，请在网站{link}中进行搜索。
@@ -177,7 +177,7 @@ No results found,결과 없음,Результатов не найдено,未找
 "In order to share content in Marketplace, you must add & verify an email address to your account. This can be done in Account Settings.",마켓플레이스에서 콘텐츠를 공유하려면 계정에 이메일 주소를 추가하고 확인해야 합니다. 이 작업은 계정 설정에서 수행할 수 있습니다., you must add & verify an email address to your account. This can be done in Account Settings.,为了在商店中分享内容，你必须向你的帐户添加电子邮件地址并进行验证。可在“帐户设置”中完成此操作。,Studio.Toolbox.General.CategoryEndorsedPlugins,EndorsedPlugins
 EndorsedPlugins,추천 플러그인,Одобренные плагины,官方认可的插件,Studio.Toolbox.General.SearchResultsKeyword,Search Results for
 Search Results for,다음에 대한 검색 결과,Результаты поиска для:,搜索结果:,Studio.Toolbox.General.Ownership,Creator
-Creator,제작자,Автор,创建者,Studio.Toolbox.General.SearchOptionCreator,Creator
+Creator,크리에이터,Автор,创建者,Studio.Toolbox.General.SearchOptionCreator,Creator
 Creator,크리에이터,Автор,创建者,Studio.Toolbox.General.SearchOptionSort,Sort By
 Sort By,정렬 기준,Сортировка:,排序方式,Studio.Toolbox.General.TabMarketplace,Marketplace
 Marketplace,마켓플레이스,Магазин,商店,Studio.Toolbox.General.TabRecent,Recent
@@ -274,7 +274,7 @@ Robux가 부족함,Недостаточно Robux,Robux 不足,Studio.Toolbox.Pu
 {percent}% 수수료 적용 후 금액:,Со сбором {percent}%:,在支付 {percent}% 的手续费后:,Studio.Toolbox.General.Earn,You earn:,You earn:
 획득 금액:,Вы получите:,你赚取:,Studio.Toolbox.AssetConfigSales.Target,"By enabling it, this asset will be put in {market} and available for any Roblox {user}.","By enabling it, this asset will be put in {market} and available for any Roblox {user}."
 활성화하면 이 애셋이 {market}에 포함되어 모든 Roblox {user}이(가) 사용할 수 있게 됩니다.,"После вашего разрешения этот ресурс появится в магазине ({market}), и любой {user} Roblox сможет им воспользоваться.",启用之后，此项素材就会投放到 {market} 并可供所有 Roblox {user} 使用。,Studio.Toolbox.General.CategoryGroupPlugins,Group Plugins,Group Plugins
-그룹 플러그인,Плагины групп,组插件,Studio.Toolbox.General.Free,Free,Free
+그룹 플러그인,Плагины групп,群组插件,Studio.Toolbox.General.Free,Free,Free
 무료,Бесплатно,免费,Studio.Toolbox.General.Installing,Installing,Installing
 설치,Устанавливается,正在安装,Studio.Toolbox.AssetConfigPackagePermissions.SearchbarDefault,Search for Friends,Search for Friends
 친구 검색,Поиск друзей,搜索好友,Studio.Toolbox.AssetConfigPackagePermissions.GroupOwnedWarning,No Access takes effect from new versions of this package. Users assigned to rolesets with "Edit" permissions will always have access to current and previous versions of this package.,No Access takes effect from new versions of this package. Users assigned to rolesets with "Edit" permissions will always have access to current and previous versions of this package.
@@ -294,4 +294,4 @@ Robux가 부족함,Недостаточно Robux,Robux 不足,Studio.Toolbox.Pu
 제출 실패, ,提交失败,Studio.Toolbox.General.NoPluginsFound.LinkText,Library,Library
 라이브러리, ,资料库,Studio.Toolbox.AssetConfigAnimation.InvalidAnimationID,Invalid Animation ID,Invalid Animation ID
 유효하지 않은 애니메이션 ID, ,无效的动画 ID,Studio.Toolbox.Common.Loading,Loading,Loading
- , , 
+불러오는 중, ,正在加载

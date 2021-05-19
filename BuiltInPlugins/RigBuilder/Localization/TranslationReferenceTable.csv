@@ -1,11 +1,11 @@
-Key,Source,en-us
-Studio.RigBuilder.RigOption.MeshRig,Mesh Rig,Mesh Rig
-Studio.RigBuilder.Plugin.Title,Rig Builder,Rig Builder
-Studio.RigBuilder.Plugin.Toolbar,Rig Builder,Rig Builder
-Studio.RigBuilder.R15RigOption.RthroNormal,Rthro Normal,Rthro Normal
-Studio.RigBuilder.Plugin.Button,Build Rig,Build Rig
-Studio.RigBuilder.Plugin.Description,Insert rigs to animate,Insert rigs to animate
-Studio.RigBuilder.RigOption.BlockRig,Block Rig,Block Rig
-Studio.RigBuilder.R15RigOption.RthroSlender,Rthro Slender,Rthro Slender
-Studio.RigBuilder.RigOption.ManRig,Man Rig,Man Rig
-Studio.RigBuilder.RigOption.WomanRig,Woman Rig,Woman Rig
+Key,Source,en-us,ko,zh-cn
+Studio.RigBuilder.RigOption.MeshRig,Mesh Rig,Mesh Rig,메시 리그, 
+Studio.RigBuilder.Plugin.Title,Rig Builder,Rig Builder,리그 빌더,骨架建造器
+Studio.RigBuilder.Plugin.Toolbar,Rig Builder,Rig Builder,리그 빌더,骨架建造器
+Studio.RigBuilder.R15RigOption.RthroNormal,Rthro Normal,Rthro Normal,일반 Rthro, 
+Studio.RigBuilder.Plugin.Button,Build Rig,Build Rig,리드 빌드, 
+Studio.RigBuilder.Plugin.Description,Insert rigs to animate,Insert rigs to animate,애니메이션화할 리그 삽입, 
+Studio.RigBuilder.RigOption.BlockRig,Block Rig,Block Rig,블록 리그, 
+Studio.RigBuilder.R15RigOption.RthroSlender,Rthro Slender,Rthro Slender,슬렌더 Rthro, 
+Studio.RigBuilder.RigOption.ManRig,Man Rig,Man Rig,맨 리그, 
+Studio.RigBuilder.RigOption.WomanRig,Woman Rig,Woman Rig,우먼 리그, 

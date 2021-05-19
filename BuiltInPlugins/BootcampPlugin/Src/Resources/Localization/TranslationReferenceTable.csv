@@ -1,6 +1,6 @@
-Key,Source,en-us
-Studio.BootcampPlugin.Plugin.Name,Plugin Bootcamp,Plugin Bootcamp
-Studio.BootcampPlugin.Plugin.Toolbar,Plugin Bootcamp,Plugin Bootcamp
-Studio.BootcampPlugin.Plugin.Button,Bootcamp,Bootcamp
-Studio.BootcampPlugin.Plugin.Description,An example plugin to practice plugin development.,An example plugin to practice plugin development.
-Studio.BootcampPlugin.TutorialComponents.MyJiraTicket,My Button,My Button
+Key,Source,en-us,ko
+Studio.BootcampPlugin.Plugin.Name,Plugin Bootcamp,Plugin Bootcamp,플러그인 부트캠프
+Studio.BootcampPlugin.Plugin.Toolbar,Plugin Bootcamp,Plugin Bootcamp,플러그인 부트캠프
+Studio.BootcampPlugin.Plugin.Button,Bootcamp,Bootcamp,부트캠프
+Studio.BootcampPlugin.Plugin.Description,An example plugin to practice plugin development.,An example plugin to practice plugin development.,플러그인 개발을 연습하기 위한 예제 플러그인입니다.
+Studio.BootcampPlugin.TutorialComponents.MyJiraTicket,My Button,My Button,내 버튼

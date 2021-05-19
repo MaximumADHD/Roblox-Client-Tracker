@@ -71,7 +71,7 @@ Studio.PublishPlaceAs.General.PlayabilityPrivateDesc,Only developers of this gam
 Studio.PublishPlaceAs.General.SavePlace,Save Place,Save Place,플레이스 저장, ,保存场景
 Studio.PublishPlaceAs.FooterButton.SaveToFile,Save to file...,Save to file...,파일에 저장..., ,保存到文件...
 Studio.PublishPlaceAs.PublishSuccess.SaveSuccess,Successfully saved!,Successfully saved!,저장 완료!, ,保存成功！
-Studio.PublishPlaceAs.General.PublishGame,Publish Game,Publish Game,게임 게시, , 
-Studio.PublishPlaceAs.General.SaveGame,Save Game,Save Game,게임 저장, , 
-Studio.PublishPlaceAs.FooterButton.Save,Save,Save,저장, , 
-Studio.PublishPlaceAs.PublishFail.SaveFail,Save failed,Save failed,저장 실패, , 
+Studio.PublishPlaceAs.General.PublishGame,Publish Game,Publish Game,게임 게시, ,发布游戏
+Studio.PublishPlaceAs.General.SaveGame,Save Game,Save Game,게임 저장, ,保存游戏
+Studio.PublishPlaceAs.FooterButton.Save,Save,Save,저장, ,保存
+Studio.PublishPlaceAs.PublishFail.SaveFail,Save failed,Save failed,저장 실패, ,保存失败

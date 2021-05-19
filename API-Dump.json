@@ -5250,6 +5250,27 @@
                     }
                 },
                 {
+                    "Category": "Behavior",
+                    "MemberType": "Property",
+                    "Name": "VirtualCursorMode",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "NotScriptable"
+                    ],
+                    "ThreadSafety": "ReadOnly",
+                    "ValueType": {
+                        "Category": "Enum",
+                        "Name": "VirtualCursorMode"
+                    }
+                },
+                {
                     "MemberType": "Function",
                     "Name": "GetCoreGuiEnabled",
                     "Parameters": [
@@ -36038,28 +36059,6 @@
                 {
                     "Category": "Data",
                     "MemberType": "Property",
-                    "Name": "ExtraMemoryUsed",
-                    "Security": {
-                        "Read": "PluginSecurity",
-                        "Write": "PluginSecurity"
-                    },
-                    "Serialization": {
-                        "CanLoad": false,
-                        "CanSave": false
-                    },
-                    "Tags": [
-                        "Hidden",
-                        "NotReplicated"
-                    ],
-                    "ThreadSafety": "ReadOnly",
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "int"
-                    }
-                },
-                {
-                    "Category": "Data",
-                    "MemberType": "Property",
                     "Name": "FreeMemoryMBytes",
                     "Security": {
                         "Read": "PluginSecurity",
@@ -46021,6 +46020,25 @@
                         "Name": "void"
                     },
                     "Security": "PluginSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "SetCharacterAppearanceJson",
+                    "Parameters": [
+                        {
+                            "Name": "jsonBlob",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity",
                     "ThreadSafety": "Unsafe"
                 },
                 {
@@ -62325,8 +62343,15 @@
                 },
                 {
                     "MemberType": "Function",
-                    "Name": "RequestCloseStudio",
+                    "Name": "RequestClose",
                     "Parameters": [
+                        {
+                            "Name": "closeMode",
+                            "Type": {
+                                "Category": "Enum",
+                                "Name": "StudioCloseMode"
+                            }
+                        }
                     ],
                     "ReturnType": {
                         "Category": "Primitive",
@@ -62468,10 +62493,10 @@
                             }
                         },
                         {
-                            "Name": "closeAfterSave",
+                            "Name": "closeMode",
                             "Type": {
-                                "Category": "Primitive",
-                                "Name": "bool"
+                                "Category": "Enum",
+                                "Name": "StudioCloseMode"
                             }
                         }
                     ],
@@ -62870,10 +62895,10 @@
                             }
                         },
                         {
-                            "Name": "closeAfterSave",
+                            "Name": "closeMode",
                             "Type": {
-                                "Category": "Primitive",
-                                "Name": "bool"
+                                "Category": "Enum",
+                                "Name": "StudioCloseMode"
                             }
                         }
                     ],
@@ -71436,6 +71461,44 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "SetInputTypesToIgnore",
+                    "Parameters": [
+                        {
+                            "Name": "inputTypesToIgnore",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Variant"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "SetViewportSize",
+                    "Parameters": [
+                        {
+                            "Name": "sizePx",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "Vector2"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "StartPlaying",
                     "Parameters": [
                         {
@@ -71455,7 +71518,38 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "StartPlayingJSON",
+                    "Parameters": [
+                        {
+                            "Name": "string",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "StartRecording",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "StopPlaying",
                     "Parameters": [
                     ],
                     "ReturnType": {
@@ -71871,6 +71965,39 @@
                 "NotCreatable",
                 "Service",
                 "NotReplicated"
+            ]
+        },
+        {
+            "Members": [
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "UserId",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ThreadSafety": "ReadOnly",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "int64"
+                    }
+                }
+            ],
+            "MemoryCategory": "Internal",
+            "Name": "VoiceSource",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotCreatable",
+                "Deprecated"
             ]
         },
         {
@@ -77684,6 +77811,23 @@
         {
             "Items": [
                 {
+                    "Name": "AvatarShop",
+                    "Value": 0
+                },
+                {
+                    "Name": "AllowedGames",
+                    "Value": 1
+                },
+                {
+                    "Name": "AllGames",
+                    "Value": 2
+                }
+            ],
+            "Name": "ProductLocationRestriction"
+        },
+        {
+            "Items": [
+                {
                     "Name": "NotProcessedYet",
                     "Value": 0
                 },
@@ -78531,6 +78675,23 @@
                 }
             ],
             "Name": "StreamingPauseMode"
+        },
+        {
+            "Items": [
+                {
+                    "Name": "None",
+                    "Value": 0
+                },
+                {
+                    "Name": "CloseStudio",
+                    "Value": 1
+                },
+                {
+                    "Name": "CloseDoc",
+                    "Value": 2
+                }
+            ],
+            "Name": "StudioCloseMode"
         },
         {
             "Items": [
@@ -80167,6 +80328,23 @@
                 }
             ],
             "Name": "VibrationMotor"
+        },
+        {
+            "Items": [
+                {
+                    "Name": "Default",
+                    "Value": 0
+                },
+                {
+                    "Name": "Disabled",
+                    "Value": 1
+                },
+                {
+                    "Name": "Enabled",
+                    "Value": 2
+                }
+            ],
+            "Name": "VirtualCursorMode"
         },
         {
             "Items": [

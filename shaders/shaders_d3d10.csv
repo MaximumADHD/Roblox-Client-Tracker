@@ -249,7 +249,6 @@ DownSampleGlowTemporalLinear8x8FS,Fragment
 EnvGlassFS,Fragment
 FastConvDownsamplePS,Fragment
 FastConvolutionPS,Fragment
-FastConvolutionPSDep,Fragment
 FXCompositingFS,Fragment
 FXCompositingLinearFS,Fragment
 GlassTintFS,Fragment

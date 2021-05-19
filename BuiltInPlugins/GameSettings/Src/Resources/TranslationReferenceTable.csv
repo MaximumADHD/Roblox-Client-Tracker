@@ -14,7 +14,7 @@ Studio.GameSettings.General.PluginName,Game Settings,Game Settings,게임 설정
 Studio.GameSettings.General.GenreFPS,FPS,FPS,FPS,Шутер от первого лица,FPS
 Studio.GameSettings.General.ThumbnailsModeration,Items will be reviewed by moderators before being made visible to other users.,Items will be reviewed by moderators before being made visible to other users.,아이템은 검열팀의 검토가 끝난 후에 다른 사용자들에게 공개됩니다.,"Элементы будут рассмотрены модераторами, прежде чем их увидят другие пользователи.",项目会在协调员审查后，再对其他用户开放。
 Studio.GameSettings.General.PlayabilityPrivate,Private,Private,비공개,Закрытая игра,私人
-Studio.GameSettings.General.TitleOptInLocations, Opt-In Locations, Opt-In Locations, 위치 정보 옵트인, , 
+Studio.GameSettings.General.TitleOptInLocations, Opt-In Locations, Opt-In Locations, 옵트인 위치, , 选择的位置
 Studio.GameSettings.General.DevSubsDeleteHeader,Are you sure you want to delete this subscription?,Are you sure you want to delete this subscription?,이 구독을 정말 삭제할까요?, ,确定要删除此订阅吗？
 Studio.GameSettings.General.PluginDescription,Update settings related to current game,Update settings related to current game,현재 게임과 관련된 설정 업데이트,Обновить настройки текущей игры,更新当前游戏的相关设置
 Studio.GameSettings.General.DevSubsIsNotActive,No,No,아니요,Нет,否
@@ -66,14 +66,14 @@ Studio.GameSettings.Monetization.PrivateServersShutdownWarning,Warning: Turning 
 Studio.GameSettings.General.AvatarOverridePrompt,Override Player Choice?,Override Player Choice?,플레이어의 선택을 재정의할까요?,Переопределить выбор игрока?,要覆盖玩家选择吗?
 Studio.GameSettings.AccessPermissions.FriendsCollaboratorType,Friends,Friends,친구,Друзья,好友
 Studio.GameSettings.General.PlayabilityFriends,Friends,Friends,친구,Друзья,好友
-Studio.GameSettings.Permissions.FriendsCollaboratorType,Friends,Friends,친구, , 
+Studio.GameSettings.Permissions.FriendsCollaboratorType,Friends,Friends,친구, ,好友
 Studio.GameSettings.General.PlayabilityPublicDesc,Anyone on Roblox,Anyone on Roblox,Roblox의 누구든 가능,Пользователи Roblox,Roblox 上的所有玩家
 Studio.GameSettings.General.ImageReview,In Review,In Review,검토 중,На рассмотрении,审阅中
 Studio.GameSettings.General.PlayabilityGroupDesc,Members of {group},Members of {group},{group} 그룹 멤버,Участники группы {group},{group}的成员
 Studio.GameSettings.General.UseTranslatedContentTitle,Use Translated Content,Use Translated Content,번역된 콘텐츠 사용, ,使用已翻译的内容
 Studio.GameSettings.General.PublishIsRequiredSentence1, is required for {requiredForWhat}, is required for {requiredForWhat},은(는) {requiredForWhat}에 필요합니다,требуется для: {requiredForWhat},是 {requiredForWhat} 所必需的
 Studio.GameSettings.AccessPermissions.PlayDescription,Can play this game,Can play this game,이 게임을 플레이할 수 있음,Вы можете играть в эту игру,可以玩此游戏
-Studio.GameSettings.Permissions.PlayDescription,Can play this game,Can play this game,이 게임을 플레이할 수 있습니다, , 
+Studio.GameSettings.Permissions.PlayDescription,Can play this game,Can play this game,이 게임을 플레이할 수 있습니다, ,可以玩此游戏
 Studio.GameSettings.General.PlayabilityFriendsDesc,Friends on Roblox,Friends on Roblox,내 Roblox 친구만 가능,Друзья-пользователи Roblox,Roblox 上的好友
 Studio.GameSettings.General.GenreFighting,Fighting,Fighting,격투,Файтинг,格斗
 Studio.GameSettings.General.ErrorDevSubFiltered,Filtered to {filteredText},Filtered to {filteredText},다음과 같이 검열됨: {filteredText},Фильтр: {filteredText},过滤为 {filteredText}
@@ -131,7 +131,7 @@ Studio.GameSettings.General.ContentDialogItem5,Drug Reference or Use,Drug Refere
 Studio.GameSettings.General.PreviewDialogBody,Studio doesn't currently support video playing,Studio doesn't currently support video playing,Studio는 현재 비디오 재생을 지원하지 않습니다,В настоящее время воспроизведение видео не поддерживается,Studio 当前不支持视频播放
 Studio.GameSettings.General.PreviewDialogLink,Go to YouTube and play the video,Go to YouTube and play the video,YouTube로 이동해 비디오 재생,Для воспроизведения видео перейдите на YouTube,前往 YouTube 并播放视频
 Studio.GameSettings.AccessPermissions.OwnerDescription,Owner of the game,Owner of the game,게임 소유자, ,游戏的所有者
-Studio.GameSettings.Permissions.OwnerDescription,Owner of the game,Owner of the game,게임 소유자, , 
+Studio.GameSettings.Permissions.OwnerDescription,Owner of the game,Owner of the game,게임 소유자, ,游戏的所有者
 Studio.GameSettings.General.PartLeftLeg,Left Leg,Left Leg,왼 다리,Левая нога,左腿
 Studio.GameSettings.General.CancelDialogHeader,Discard Changes,Discard Changes,변경 사항 제거,Отменить изменения,放弃更改
 Studio.GameSettings.General.MultiImageDialogBody,The following file(s) exceed {maxThumbnailSize:int} MB:,The following file(s) exceed {maxThumbnailSize:int} MB:,다음 파일이 {maxThumbnailSize:int} MB를 초과합니다:,Следующие файлы превышают {maxThumbnailSize:int} МБ:,下列文件超过 {maxThumbnailSize:int} MB:
@@ -141,7 +141,7 @@ Studio.GameSettings.General.PrivateDialogHeader,Make Private,Make Private,비공
 Studio.GameSettings.General.DevSubsDiscontinueTitle,Discontinue Subscription,Discontinue Subscription,구독 해지,Прекратить подписку,取消订阅
 Studio.GameSettings.General.PrivateDialogPrompt,Are you sure you want to make this game private?,Are you sure you want to make this game private?,이 게임을 비공개로 설정할까요?,Вы действительно хотите сделать эту игру закрытой?,确定要将此游戏设为私人吗?
 Studio.GameSettings.AccessPermissions.CollaboratorSearchbarNoResultsText,There were no results,There were no results,결과가 없습니다,Результатов нет,没有结果
-Studio.GameSettings.Permissions.CollaboratorSearchbarNoResultsText,There were no results,There were no results,결과가 없습니다, , 
+Studio.GameSettings.Permissions.CollaboratorSearchbarNoResultsText,There were no results,There were no results,결과가 없습니다, ,没有结果
 Studio.GameSettings.General.PrivateDialogBody,Making this game private will shut down any running games.,Making this game private will shut down any running games.,이 게임을 비공개로 설정하면 실행 중인 게임이 종료됩니다.,"Если сделать эту игру закрытой, все запущенные игры завершат работу.",将此游戏设为私人将会关闭所有进行中的游戏。
 Studio.GameSettings.General.PartRightArm,Right Arm,Right Arm,오른팔,Правая рука,右臂
 Studio.GameSettings.General.AvatarDialogHeader,Warning,Warning,경고,Предупреждение,警告
@@ -149,7 +149,7 @@ Studio.GameSettings.General.AvatarDialogPrompt,Would you like to proceed?,Would 
 Studio.GameSettings.Monetization.Subscriptions,Subscriptions: {numOfSubscriptions:int},Subscriptions: {numOfSubscriptions:int},구독 수: {numOfSubscriptions:int}, ,订阅数：{numOfSubscriptions:int}
 Studio.GameSettings.AccessPermissions.EditLabel,Edit,Edit,편집,Изменить,编辑
 Studio.GameSettings.General.ButtonEdit,Edit,Edit,편집, ,编辑
-Studio.GameSettings.Permissions.EditLabel,Edit,Edit,편집, , 
+Studio.GameSettings.Permissions.EditLabel,Edit,Edit,편집, ,编辑
 Studio.GameSettings.General.AvatarDialogBody,Changing the game's Avatar Type to this setting will shut down any running games.,Changing the game's Avatar Type to this setting will shut down any running games.,게임의 아바타 유형을 이 설정으로 변경하면 실행 중인 게임이 종료됩니다.,При изменение типа аватара все запущенные игры завершат работу.,将游戏的虚拟形象类型更改为此设定将会关闭所有运行中的游戏。
 Studio.GameSettings.General.DeleteDialogHeader,Delete Thumbnail,Delete Thumbnail,섬네일 삭제,Удалить эскиз,删除缩略图
 Studio.GameSettings.General.DeleteDialogBody,Would you like to delete this thumbnail?,Would you like to delete this thumbnail?,이 섬네일을 삭제할까요?,Вы действительно хотите удалить этот эскиз?,你要删除此缩略图吗?
@@ -157,7 +157,7 @@ Studio.GameSettings.General.ImageDialogHeader,No Image Loaded,No Image Loaded,�
 Studio.GameSettings.General.SingleImageDialogHeader,No Image Loaded,No Image Loaded,불러온 이미지 없음,Изображение не загружено,未加载图片
 Studio.GameSettings.General.UnitsMetersPerSecondSquared,({number} meters/second^2),({number} meters/second^2),({number}미터/초^2),({number} м/сек^2),（{number} 米/秒^2）
 Studio.GameSettings.AccessPermissions.EditDescription,Can play and edit this game,Can play and edit this game,이 게임을 플레이하거나 편집할 수 있음,Вы можете играть и редактировать эту игру,可以玩此游戏，或对其进行编辑
-Studio.GameSettings.Permissions.EditDescription,Can play and edit this game,Can play and edit this game,이 게임을 플레이하고 편집할 수 있습니다, , 
+Studio.GameSettings.Permissions.EditDescription,Can play and edit this game,Can play and edit this game,이 게임을 플레이하고 편집할 수 있습니다, ,可以玩此游戏，或对其进行编辑
 Studio.GameSettings.General.ErrorsOnSaveHeader,Saving Errors,Saving Errors,저장 오류,Сохранение ошибок,保存错误
 Studio.GameSettings.General.ErrorsOnSaveBody,Could not save game settings.,Could not save game settings.,게임 설정을 저장하지 못했습니다.,Не удалось сохранить настройки игры.,无法保存游戏设置。
 Studio.GameSettings.General.ErrorNameModerated,The name didn't go through our moderation. Please revise it and try again.,The name didn't go through our moderation. Please revise it and try again.,이름이 검열을 통과하지 못했어요. 수정한 후 다시 시도하세요.,"Имя не прошло модерацию. Пожалуйста, измените его и попробуйте еще раз.",此名称没有通过审核。请修改后再试一次。
@@ -200,14 +200,14 @@ Studio.GameSettings.Security.EnableThirdPartyTeleportsDescription,"By enabling, 
 Studio.GameSettings.General.CollisionInnerBox,Inner Box,Inner Box,안쪽 상자,Внутренний ящик,内范围
 Studio.GameSettings.General.AvatarOverrideItem,Custom Item,Custom Item,사용자 정의 아이템,Пользовательский элемент,自定义项目
 Studio.GameSettings.AccessPermissions.PublishRequiredForCollaborators,adding collaborators,adding collaborators,공동 작업자 추가,добавление участников совместной работы,正在添加协作者
-Studio.GameSettings.Permissions.PublishRequiredForCollaborators,adding collaborators,adding collaborators,공동 작업자 추가, , 
+Studio.GameSettings.Permissions.PublishRequiredForCollaborators,adding collaborators,adding collaborators,공동 작업자 추가, ,正在添加协作者
 Studio.GameSettings.General.AvatarOverrideId,ID Number,ID Number,ID 번호,Идентификационный номер,ID码
 Studio.GameSettings.General.ErrorOverrideEmpty,ID Number cannot be empty,ID Number cannot be empty,ID 번호는 비워두면 안 돼요,Номер не может быть пустым,ID码不能为空
 Studio.GameSettings.General.CategoryDeveloperSubscriptions,Subscriptions,Subscriptions,구독,Подписки,订阅
 Studio.GameSettings.General.DevSubsListHeader,Subscriptions,Subscriptions,구독,Подписки разработчика,订阅
 Studio.GameSettings.General.SettingsInsufficientPermission,Only the game owner can edit these settings,Only the game owner can edit these settings,게임 소유자만 이 설정을 편집할 수 있습니다, ,只有游戏所有者才能对这些设置进行编辑
 Studio.GameSettings.General.CategoryAccessPermissions,Permissions,Permissions,권한,Разрешения,权限
-Studio.GameSettings.General.CategoryPermissions,Permissions,Permissions,권한, , 
+Studio.GameSettings.General.CategoryPermissions,Permissions,Permissions,권한, ,权限
 Studio.GameSettings.General.TitleGameOwner,Game Owner,Game Owner,게임 소유자,Владелец игры,游戏所有者
 Studio.GameSettings.General.DevSubsEditHeader,Edit Subscription,Edit Subscription,구독 편집,Изменить подписку разработчика,编辑订阅
 Studio.GameSettings.General.DevSubsPrice,Price,Price,가격,Цена,价格
@@ -227,23 +227,23 @@ Studio.GameSettings.General.DevSubsDiscontinueDescription,This will cancel all r
 Studio.GameSettings.General.DevSubsCreationDate,Creation Date,Creation Date,생성일, ,创建时间
 Studio.GameSettings.Places.PlaceVersion,Place Version,Place Version,플레이스 버전, ,场景版本
 Studio.GameSettings.AccessPermissions.NoAccessLabel,No Access,No Access,접근 불가,Нет доступа,无法访问
-Studio.GameSettings.Permissions.NoAccessLabel,No Access,No Access,액세스 권한 없음, , 
+Studio.GameSettings.Permissions.NoAccessLabel,No Access,No Access,액세스 권한 없음, ,无法访问
 Studio.GameSettings.Monetization.PrivateServerSubscriptions,There are currently {numOfSubscriptions:int} Private Server Subscriptions active for this place.,There are currently {numOfSubscriptions:int} Private Server Subscriptions active for this place.,현재 이 플레이스에는 {numOfSubscriptions:int}건의 활성화된 비공개 서버 구독이 있습니다., ,当前场景目前拥有 {numOfSubscriptions:int} 个活跃私人服务器订阅。
 Studio.GameSettings.AccessPermissions.PlayLabel,Play,Play,플레이,Воспроизвести,开始游戏
-Studio.GameSettings.Permissions.PlayLabel,Play,Play,플레이, , 
+Studio.GameSettings.Permissions.PlayLabel,Play,Play,플레이, ,开始游戏
 Studio.GameSettings.General.JumpHeight,Jump Height:,Jump Height:,점프 높이:,Высота прыжка:,跳跃高度：
 Studio.GameSettings.General.GravityWorkspaceGravity,Workspace Gravity:,Workspace Gravity:,작업 공간 중력:,Гравитация рабочей области:,工作空间重力：
 Studio.GameSettings.AccessPermissions.AdminLabel,Manage,Manage,관리,Управление,管理
-Studio.GameSettings.Permissions.AdminLabel,Manage,Manage,관리, , 
+Studio.GameSettings.Permissions.AdminLabel,Manage,Manage,관리, ,管理
 Studio.GameSettings.AccessPermissions.OwnerLabel,Owner,Owner,소유자,Владелец,所有者
-Studio.GameSettings.Permissions.OwnerLabel,Owner,Owner,소유자, , 
+Studio.GameSettings.Permissions.OwnerLabel,Owner,Owner,소유자, ,所有者
 Studio.GameSettings.AccessPermissions.MultipleLabel,(Multiple),(Multiple),（여러 항목）,(Множество),(多项)
-Studio.GameSettings.Permissions.MultipleLabel,(Multiple),(Multiple),(다중), , 
+Studio.GameSettings.Permissions.MultipleLabel,(Multiple),(Multiple),(다중), ,（多项）
 Studio.GameSettings.General.TitleGravity,Gravity,Gravity,중력,Гравитация,重力
 Studio.GameSettings.AccessPermissions.NoAccessDescription,Cannot play or edit this game,Cannot play or edit this game,이 게임을 플레이하거나 편집할 수 없음,Вы не можете воспроизводить или редактировать эту игру,无法玩此游戏，或对其进行编辑
-Studio.GameSettings.Permissions.NoAccessDescription,Cannot play or edit this game,Cannot play or edit this game,이 게임을 플레이하거나 편집할 수 없습니다, , 
+Studio.GameSettings.Permissions.NoAccessDescription,Cannot play or edit this game,Cannot play or edit this game,이 게임을 플레이하거나 편집할 수 없습니다, ,无法玩此游戏，或对其进行编辑
 Studio.GameSettings.AccessPermissions.AdminDescription,"Can play, edit, and manage this game","Can play, edit, and manage this game","이 게임을 플레이, 편집, 관리할 수 있음","Вы можете играть, редактировать и управлять этой игрой",可以玩此游戏，或对其进行编辑与管理
-Studio.GameSettings.Permissions.AdminDescription,"Can play, edit, and manage this game","Can play, edit, and manage this game","이 게임을 플레이, 편집, 관리할 수 있습니다", , 
+Studio.GameSettings.Permissions.AdminDescription,"Can play, edit, and manage this game","Can play, edit, and manage this game","이 게임을 플레이, 편집, 관리할 수 있습니다", ,可以玩此游戏，或对其进行编辑与管理
 Studio.GameSettings.General.ButtonRetry,Retry,Retry,다시 시도, ,重试
 Studio.GameSettings.General.ErrorNameDescModerated,Filtered to %s,Filtered to %s,다음과 같이 검열됨: %s,Фильтр: %s,过滤为 %s
 Studio.GameSettings.General.TitleScriptCollab,Enable Collaborative Editing,Enable Collaborative Editing,공동 편집 활성화,Включить совместное редактирование,启用协作编辑
@@ -277,23 +277,23 @@ Studio.GameSettings.General.WalkSpeed,Walk Speed:,Walk Speed:,걷기 속도:,С�
 Studio.GameSettings.General.SlopeAngle,Max Slope Angle:,Max Slope Angle:,최대 경사각:,Макс. угол уклона:,最大斜坡角度：
 Studio.GameSettings.General.UnitsMeters,({number} meters),({number} meters),({number}미터),({number} м),（{number} 米）
 Studio.GameSettings.AccessPermissions.CollaboratorSearchbarDefaultText,Search by username,Search by username,사용자 이름으로 검색,Искать по имени пользователя или названию группы,按用户名搜索
-Studio.GameSettings.Permissions.CollaboratorSearchbarDefaultText,Search by username,Search by username,사용자 이름으로 검색, , 
+Studio.GameSettings.Permissions.CollaboratorSearchbarDefaultText,Search by username,Search by username,사용자 이름으로 검색, ,按用户名搜索
 Studio.GameSettings.General.UnitsMetersPerSecond,({number} meters/second),({number} meters/second),({number}미터/초),({number} м/сек),（{number} 米/秒）
 Studio.GameSettings.AccessPermissions.UsersCollaboratorType,Users,Users,사용자,Пользователи,用户
-Studio.GameSettings.Permissions.UsersCollaboratorType,Users,Users,사용자, , 
+Studio.GameSettings.Permissions.UsersCollaboratorType,Users,Users,사용자, ,用户
 Studio.GameSettings.AccessPermissions.GroupsCollaboratorType,Groups,Groups,그룹,Группы,群组
-Studio.GameSettings.Permissions.GroupsCollaboratorType,Groups,Groups,그룹, , 
+Studio.GameSettings.Permissions.GroupsCollaboratorType,Groups,Groups,그룹, ,群组
 Studio.GameSettings.AccessPermissions.MyFriendsCollaborator,My Friends,My Friends,내 친구,Мои друзья,我的好友
-Studio.GameSettings.Permissions.MyFriendsCollaborator,My Friends,My Friends,내 친구, , 
+Studio.GameSettings.Permissions.MyFriendsCollaborator,My Friends,My Friends,내 친구, ,我的好友
 Studio.GameSettings.AccessPermissions.CollaboratorSearchbarTooManyText1,You cannot add more than {maxNumCollaborators:int} collaborators,You cannot add more than {maxNumCollaborators:int} collaborators,공동 작업자는 최대 {maxNumCollaborators:int}명까지만 추가할 수 있습니다.,Можно добавить не более {maxNumCollaborators:int} участников,无法添加 {maxNumCollaborators:int} 位以上的协作者
-Studio.GameSettings.Permissions.CollaboratorSearchbarTooManyText1,You cannot add more than {maxNumCollaborators:int} collaborators,You cannot add more than {maxNumCollaborators:int} collaborators,공동 작업자는 최대 {maxNumCollaborators:int}명까지만 추가할 수 있습니다., , 
+Studio.GameSettings.Permissions.CollaboratorSearchbarTooManyText1,You cannot add more than {maxNumCollaborators:int} collaborators,You cannot add more than {maxNumCollaborators:int} collaborators,공동 작업자는 최대 {maxNumCollaborators:int}명까지만 추가할 수 있습니다., ,无法添加 {maxNumCollaborators:int} 位以上的协作者
 Studio.GameSettings.AccessPermissions.TeamCreateWarning,"To add collaborators, turn on Team Create","To add collaborators, turn on Team Create",공동 작업자를 추가하려면 팀 제작을 활성화하세요,Для добавления включите совместную разработку,要添加协作者，请打开“组队创作”
-Studio.GameSettings.Permissions.TeamCreateWarning,"To add collaborators, turn on Team Create","To add collaborators, turn on Team Create",공동 작업자를 추가하려면 팀 제작을 활성화하세요, , 
+Studio.GameSettings.Permissions.TeamCreateWarning,"To add collaborators, turn on Team Create","To add collaborators, turn on Team Create",공동 작업자를 추가하려면 팀 제작을 활성화하세요, ,要添加协作者，请打开“组队创作”
 Studio.GameSettings.DraftGames.PublishRequiredToActivatePlayability, to activate Playability options, to activate Playability options, 플레이 가능 옵션 활성화,для активации параметров играемости, 以激活“游戏受众”选项
 Studio.GameSettings.AccessPermissions.DEPRECATED_CollaboratorSearchbarDefaultText,Search by user or group name,Search by user or group name,사용자 또는 그룹 이름으로 검색, ,按用户或群组名称搜索
-Studio.GameSettings.Permissions.DEPRECATED_CollaboratorSearchbarDefaultText,Search by user or group name,Search by user or group name,사용자 또는 그룹 이름으로 검색, , 
+Studio.GameSettings.Permissions.DEPRECATED_CollaboratorSearchbarDefaultText,Search by user or group name,Search by user or group name,사용자 또는 그룹 이름으로 검색, ,按用户或群组名称搜索
 Studio.GameSettings.AccessPermissions.PermissionsUpdateMessage, We've updated our permission system!, We've updated our permission system!,권한 시스템을 업데이트했습니다!, , 我们对权限系统进行了更新！
-Studio.GameSettings.Permissions.PermissionsUpdateMessage, We've updated our permission system!, We've updated our permission system!, 권한 시스템을 업데이트했습니다!, , 
+Studio.GameSettings.Permissions.PermissionsUpdateMessage, We've updated our permission system!, We've updated our permission system!, 권한 시스템을 업데이트했습니다!, , 我们对权限系统进行了更新！
 Studio.GameSettings.AccessPermissions.UpdateHyperlinkText, Learn more, Learn more, 더 알아보기, , 了解更多
 Studio.GameSettings.General.SourceLanguageTitle,Source Language,Source Language,소스 언어, ,源语言
 Studio.GameSettings.General.AutoTextCaptureDesc,Automatically capture text from game UI while players play.,Automatically capture text from game UI while players play.,플레이어가 플레이하는 동안 게임 UI에서 텍스트를 자동으로 캡처합니다., ,当玩家进行游戏时自动从游戏界面抓取文本。
@@ -351,7 +351,7 @@ Studio.GameSettings.Security.EnableThirdPartyPurchasesDescription,"By enabling, 
 Studio.GameSettings.Monetization.BadgeName,Badge Name,Badge Name,배지 이름, ,徽章名称
 Studio.GameSettings.General.DevSubsPlanID,Plan ID,Plan ID,플랜 ID, ,计划 ID
 Studio.GameSettings.General.DevSubsPendingEarning,Pending Earning,Pending Earning,대기 중인 수익, ,预定收入
-Studio.GameSettings.General.SaveText,Save to access Game Settings. ,Save to access Game Settings. ,저장 후 게임 설정 기능을 이용할 수 있습니다. , , 
+Studio.GameSettings.General.SaveText,Save to access Game Settings. ,Save to access Game Settings. ,저장 후 게임 설정 기능을 이용할 수 있습니다. , ,保存后即可使用游戏设置功能。 
 Studio.GameSettings.General.DevSubsDeleteDescription,"You will lose pending payments for this subscription, including the current month.","You will lose pending payments for this subscription, including the current month.","이번 달을 포함해, 이 구독의 대기 중인 수익을 잃게 됩니다.", ,你将失去此订阅的预定收入，包括本月的。
 Studio.GameSettings.General.DevSubsDuration12Months,12 months,12 months,12개월, ,12 个月
 Studio.GameSettings.General.ThumbnailsLimitLuobu,You can set up to {maxThumbnails:int} screenshots for a game.,You can set up to {maxThumbnails:int} screenshots for a game.,게임에 대한 스크린숏은 최대 {maxThumbnails:int}장까지 설정할 수 있습니다., ,一个游戏最多可设置 {maxThumbnails:int} 张屏幕截图。
@@ -359,5 +359,5 @@ Studio.GameSettings.General.CopyIDToClipboard,Copy ID to Clipboard,Copy ID to Cl
 Studio.GameSettings.Monetization.Badges,Badges,Badges,배지, ,徽章
 Studio.GameSettings.Monetization.BadgeDescription,Badge Description,Badge Description,배지 설명, ,徽章描述
 Studio.GameSettings.General.Configure,Configure,Configure,구성, ,配置
-Studio.GameSettings.General.LocationChina,China,China,중국, , 
-Studio.GameSettings.OptInLocations.Tooltip,Your creation will be published globally in addition to all the selected opt-in locations. See each location for specific requirements.,Your creation will be published globally in addition to all the selected opt-in locations. See each location for specific requirements., , , 
+Studio.GameSettings.General.LocationChina,China,China,중국, ,中国
+Studio.GameSettings.OptInLocations.Tooltip,Your creation will be published globally in addition to all the selected opt-in locations. See each location for specific requirements.,Your creation will be published globally in addition to all the selected opt-in locations. See each location for specific requirements.,선택한 모든 옵트인 위치를 포함해 전 세계에 본인의 작품이 게시됩니다. 각 위치별로 특정 요구 사항 여부를 확인하세요., ,你的作品将会发布到全球及所有选择的位置，请查看每个位置了解其需求。

@@ -19,7 +19,7 @@ Studio.AnimationClipEditor.ContextMenu.PasteKeyframes,Paste Keyframes,Paste Keyf
 Studio.AnimationClipEditor.ContextMenu.CopyEvents,Copy Selected,Copy Selected,선택 항목 복사,Копировать выбранное,复制选定项
 Studio.AnimationClipEditor.ContextMenu.CopySelected,Copy Selected,Copy Selected,선택 항목 복사,Копировать выбранное,复制选定项
 Studio.AnimationClipEditor.Menu.CreateNew,Create New,Create New,새로 만들기,Создать,新建
-Studio.AnimationClipEditor.Dialog.SaveLocation,Animation will be saved to Rig > AnimSaves in Explorer,Animation will be saved to Rig > AnimSaves in Explorer,애니메이션은 탐색기의 리그 > AnimSaves에 저장됩니다,Путь сохранения анимации: Скелетная анимация > AnimSaves в проводнике,动画将保存到“骨架” > 项目管理器中的“AnimSaves”
+Studio.AnimationClipEditor.Dialog.SaveLocation,Animation will be saved to Rig > AnimSaves in Explorer,Animation will be saved to Rig > AnimSaves in Explorer,애니메이션은 탐색기의 리그 > AnimSaves에 저장됩니다,Путь сохранения анимации: Скелетная анимация > AnimSaves в проводнике,动画将保存到项目管理器中的骨架 > AnimSaves
 Studio.AnimationClipEditor.ContextMenu.DeleteEvents,Delete Selected,Delete Selected,선택 항목 삭제,Удалить выбранное,删除选定项
 Studio.AnimationClipEditor.ContextMenu.DeleteSelected,Delete Selected,Delete Selected,선택 항목 삭제,Удалить выбранное,删除选定项
 Studio.AnimationClipEditor.ContextMenu.ResetSelected,Reset Selected,Reset Selected,선택 항목 재설정,Сбросить выбранное,重置选定项

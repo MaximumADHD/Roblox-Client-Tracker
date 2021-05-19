@@ -36,7 +36,7 @@ Studio.AssetManager.ContextMenu.NewPlaceAdded,New Place Added,New Place Added,�
 Studio.AssetManager.ContextMenu.CopyTextureIdToClipboard,Copy Texture ID to Clipboard,Copy Texture ID to Clipboard,텍스처 ID를 클립보드에 복사,将纹理 ID 复制到剪贴板
 Studio.AssetManager.ContextMenu.Rename,Rename,Rename,이름 변경,重命名
 Studio.AssetManager.ContextMenu.CopyIdToClipboard,Copy ID to Clipboard,Copy ID to Clipboard,ID를 클립보드에 복사,将 ID 复制到剪贴板
-Studio.AssetManager.MainView.SaveButtonText,Save,Save,저장, 
+Studio.AssetManager.MainView.SaveButtonText,Save,Save,저장,保存
 Studio.AssetManager.MainView.ButtonText,Publish,Publish,게시,发布
 Studio.AssetManager.AssetPreview.Insert,Insert,Insert,삽입,插入
 Studio.AssetManager.ContextMenu.Insert,Insert,Insert,삽입,插入
@@ -54,4 +54,4 @@ Studio.AssetManager.RecentlyImportedView.Title,Recently Added,Recently Added,최
 Studio.AssetManager.TopBar.BackButton,Back,Back,뒤로,返回
 Studio.AssetManager.TopBar.BulkImportButton,Bulk import,Bulk import,일괄 가져오기,批量导入
 Studio.AssetManager.Callout.BadgesDevProductsDescription,Badges and Developer Products have moved to Monetization Page in Game Settings,Badges and Developer Products have moved to Monetization Page in Game Settings,배지 및 개발자 제품이 '게임 설정'의 '수익 창출' 페이지로 이동했습니다.,徽章和开发者产品已经转移到游戏设置的盈利页面
-Studio.AssetManager.MainView.SaveText,Save to start using Asset Manager.,Save to start using Asset Manager.,저장 후 애셋 관리자 사용을 시작할 수 있습니다., 
+Studio.AssetManager.MainView.SaveText,Save to start using Asset Manager.,Save to start using Asset Manager.,저장 후 애셋 관리자 사용을 시작할 수 있습니다.,保存后即可开始使用素材管理器

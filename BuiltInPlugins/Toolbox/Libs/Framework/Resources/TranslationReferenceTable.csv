@@ -1,9 +1,9 @@
-Key,Source,en-us
-Studio.Framework.AssetPreview.Resolution,Resolution,Resolution
-Studio.Framework.AssetPreview.Creator,Creator,Creator
-Studio.Framework.Favorites.FlooredCountInThousands,{count:int}k+,{count:int}k+
-Studio.Framework.AssetPreview.Created,Created,Created
-Studio.Framework.AssetPreview.LastUpdated,Last Updated,Last Updated
-Studio.Framework.VoteBar.VoteCount,{count:int} VOTES,{count:int} VOTES
-Studio.Framework.AssetPreview.AllGenre,All,All
-Studio.Framework.AssetPreview.Genre,Genre,Genre
+Key,Source,en-us,ko
+Studio.Framework.AssetPreview.Resolution,Resolution,Resolution,해상도
+Studio.Framework.AssetPreview.Creator,Creator,Creator,크리에이터
+Studio.Framework.Favorites.FlooredCountInThousands,{count:int}k+,{count:int}k+,{count:int}000+
+Studio.Framework.AssetPreview.Created,Created,Created,만든 날짜
+Studio.Framework.AssetPreview.LastUpdated,Last Updated,Last Updated,마지막 업데이트 날짜
+Studio.Framework.VoteBar.VoteCount,{count:int} VOTES,{count:int} VOTES,{count:int} 표
+Studio.Framework.AssetPreview.AllGenre,All,All,전체
+Studio.Framework.AssetPreview.Genre,Genre,Genre,장르
