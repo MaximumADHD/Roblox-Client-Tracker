@@ -16,7 +16,7 @@ local RobloxTranslator = require(CoreGui.RobloxGui.Modules.RobloxTranslator)
 local getSelectionImageObjectRegular = require(InspectAndBuyFolder.getSelectionImageObjectRegular)
 
 local FFlagAllowForBundleItemsSoldSeparately = require(InspectAndBuyFolder.Flags.FFlagAllowForBundleItemsSoldSeparately)
-
+local FFlagInspectMenuShowFavoritesPolicy = require(InspectAndBuyFolder.Flags.FFlagInspectMenuShowFavoritesPolicy)
 
 local PremiumIcon = UIBloxImages["icons/status/premium"]
 local BY_KEY = "InGame.InspectMenu.Label.By"
@@ -66,6 +66,7 @@ function DetailsText:render()
 	local view = self.props.view
 	local viewMapping = self._context[view]
 	local locale = self.props.locale
+	local showFavoritesCount = self.props.showFavoritesCount
 	local assetInfo = self.props.assetInfo or {}
 	local partOfBundle = assetInfo.bundlesAssetIsIn and #assetInfo.bundlesAssetIsIn == 1
 	local multipleBundles = assetInfo.bundlesAssetIsIn and #assetInfo.bundlesAssetIsIn > 1
@@ -152,7 +153,7 @@ function DetailsText:render()
 			TextXAlignment = Enum.TextXAlignment.Left,
 			TextYAlignment = Enum.TextYAlignment.Center,
 		}),
-		FavoriteContainer = Roact.createElement(Favorites),
+		FavoriteContainer = (not FFlagInspectMenuShowFavoritesPolicy or showFavoritesCount) and Roact.createElement(Favorites),
 	})
 end
 
@@ -165,6 +166,7 @@ return RoactRodux.UNSTABLE_connect2(
 			locale = state.locale,
 			assetInfo = state.assets[assetId],
 			bundleInfo = state.bundles,
+			showFavoritesCount = not state.isSubjectToChinaPolicies,
 		}
 	end
 )(DetailsText)

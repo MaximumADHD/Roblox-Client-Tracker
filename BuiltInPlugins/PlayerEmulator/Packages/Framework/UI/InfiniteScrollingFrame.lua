@@ -1,5 +1,5 @@
 --[[
-	A InfiniteScrollingFrame with callbacks to load more items.
+	An InfiniteScrollingFrame with callbacks to load more items.
 	A thin wrapper around the infinite-scroller library with DeveloperFramework theming and naming conventions.
 
 	Required Props:
@@ -50,9 +50,9 @@ local isUsedAsPackage = require(Framework.Util.isUsedAsPackage)
 local InfiniteScroller
 local InfiniteScrollerIsInstalledInParent = Framework.Parent:FindFirstChild("InfiniteScroller")
 if FlagsList:get("FFlagStudioDevFrameworkPackage") and isUsedAsPackage() and InfiniteScrollerIsInstalledInParent then
-	InfiniteScroller = require(Framework.Parent.InfiniteScroller)
+	InfiniteScroller = require(Framework.Parent.InfiniteScroller :: any)
 else
-	InfiniteScroller = require(Framework.packages.InfiniteScroller)
+	InfiniteScroller = require(Framework.packages.InfiniteScroller :: any)
 end
 
 local Cryo = require(Framework.Parent.Cryo)
@@ -120,7 +120,7 @@ function InfiniteScrollingFrame:init()
 				identifier = props.ItemIdentifier,
 				loadingBuffer = props.LoadingBuffer,
 				focusIndex = self.state.focusLockToken,
-				anchorLocation = props.AnchorLocation,
+				anchorLocation = props.AnchorLocation or UDim.new(1, 0),
 				onScrollUpdate = props.OnScrollUpdate
 			})
 	end

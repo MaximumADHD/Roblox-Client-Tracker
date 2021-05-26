@@ -9,7 +9,6 @@ local VirtualCursorFolder = script.Parent
 local GuiService = game:GetService("GuiService")
 local RunService = game:GetService("RunService")
 local UserInputService = game:GetService("UserInputService")
-local UserSettings = UserSettings():GetService("UserGameSettings")
 local GamepadService = game:GetService("GamepadService")
 
 -- Submodules
@@ -34,8 +33,6 @@ local function enableVirtualCursor(position)
 
 	interface:EnableUI(position)
 	input:EnableInput()
-
-	input:SetCurrentSensitivity(UserSettings.GamepadCameraSensitivity)
 
 	RunService:BindToRenderStep(bindToRenderStepName, Enum.RenderPriority.Input.Value + 1, VirtualCursorSingleton.OnRenderStep)
 
@@ -85,7 +82,6 @@ function VirtualCursor.new()
 		Enabled = false,
 		CursorPosition = Vector2.new(),
 		SelectedObject = nil,
-		CursorAccelerationDV = 1,
 		PreviouslySelectedObject = nil,
 	}
 
@@ -109,21 +105,6 @@ GamepadService:GetPropertyChangedSignal("GamepadCursorEnabled"):Connect(function
 		else
 			disableVirtualCursor()
 		end
-	end
-end)
-
-UserSettings.Changed:Connect(function(prop)
-	if prop == "GamepadNavigationMode" then
-		if VirtualCursorSingleton and VirtualCursorSingleton.Enabled then
-			disableVirtualCursor()
-		else
-			-- turn off ui navigation selection as well
-			GuiService.SelectedObject = nil
-			GuiService.SelectedCoreObject = nil
-			VirtualCursorSingleton.SelectedObject = nil
-		end
-	elseif prop == "GamepadCameraSensitivity" then
-		input:SetCurrentSensitivity(UserSettings[prop])
 	end
 end)
 

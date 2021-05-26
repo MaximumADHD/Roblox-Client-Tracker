@@ -25,10 +25,12 @@ local RoactRodux = require(root.lib.RoactRodux)
 local Assets = require(root.src.Assets)
 local themeConfig = require(root.src.utils.themeConfig)
 local getTextWidth = require(root.src.utils.getTextWidth)
+local FastFlags = require(root.src.FastFlags)
 
 local Tooltip = require(root.src.components.Tooltip)
 
 local Import = require(root.src.thunks.Import)
+local DetectType = require(root.src.thunks.DetectType)
 
 local Constants = require(root.src.Constants)
 
@@ -106,6 +108,15 @@ function AvatarButton:render()
 	local topText = fields[2]
 	local bottomText = fields[3]
 
+	local function detectRigTypeOrImport(avatarType)
+		local importedAsR15 = avatarType ~= Constants.AVATAR_TYPE.CUSTOM
+		if importedAsR15 then 
+			self.props.doImport(self.props.avatarType)
+		else
+			self.props.detectType()
+		end
+	end
+
 	return Roact.createElement("ImageButton", {
 		BackgroundTransparency = 1,
 		Image = Assets.BUTTON_AVATAR_TYPE,
@@ -145,7 +156,11 @@ function AvatarButton:render()
 		end,
 
 		[Roact.Event.Activated] = function()
-			self.props.doImport(self.props.avatarType)
+			if FastFlags:shouldDetectRigTypeInCustomImport() then 
+				detectRigTypeOrImport(self.props.avatarType)
+			else
+				self.props.doImport(self.props.avatarType)
+			end
 		end,
 
 	}, {
@@ -247,6 +262,9 @@ local function mapDispatchToProps(dispatch)
 	return {
 		doImport = function(avatarType)
 			dispatch(Import(avatarType))
+		end,
+		detectType = function()
+			dispatch(DetectType())
 		end
 	}
 end

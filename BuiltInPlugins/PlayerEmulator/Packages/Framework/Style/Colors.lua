@@ -1,4 +1,5 @@
 return {
+	Gray_Lightest = Color3.fromRGB(244, 244, 244),
 	Gray_Lighter = Color3.fromRGB(234, 234, 234),
 	Gray_Light = Color3.fromRGB(204, 204, 204),
 	Gray_Mid = Color3.fromRGB(107, 107, 107),

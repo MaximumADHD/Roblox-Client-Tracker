@@ -1,16 +1,3 @@
-local CoreGui = game:GetService("CoreGui")
-local RobloxGui = CoreGui:WaitForChild("RobloxGui")
-
-local GetFFlagInGameMenuOpenOnHover = require(RobloxGui.Modules.Flags.GetFFlagInGameMenuOpenOnHover)
-
-local defaultPageKey
-if GetFFlagInGameMenuOpenOnHover() then
-	defaultPageKey = "InitalPage"
-else
-	defaultPageKey = "MainPage"
-end
-
-
 return {
 	InviteStatus = {
 		Success = "Success",
@@ -27,7 +14,7 @@ return {
 
 	FallbackLocaleId = "UNKNOWN_FALLBACK",
 
-	defaultPageKey = defaultPageKey,
+	defaultPageKey = "InitalPage",
 	advancedSettingsPageKey = "AdvancedGameSettings",
 	LeaveToAppPromptPageKey = "LeaveToAppPrompt",
 	LeaveGamePromptPageKey = "LeaveGamePrompt",

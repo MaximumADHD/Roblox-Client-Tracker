@@ -1,6 +1,7 @@
 local CoreGui = game:GetService("CoreGui")
 local RunService = game:GetService("RunService")
 local CorePackages = game:GetService("CorePackages")
+local ContextActionService = game:GetService("ContextActionService")
 
 local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 local Roact = InGameMenuDependencies.Roact
@@ -9,6 +10,11 @@ local UIBlox = InGameMenuDependencies.UIBlox
 
 local EducationalModal = UIBlox.App.Dialog.Modal.EducationalModal
 local withStyle = UIBlox.Core.Style.withStyle
+
+local InGameMenu = script.Parent.Parent
+local GetFFlagInGameFixEducationalPopupInput = require(InGameMenu.Flags.GetFFlagInGameFixEducationalPopupInput)
+
+local EDU_POPUP_CONFIRM_ACTION = "EducationalPopupConfirm"
 
 local EducationalPopupDialog = Roact.PureComponent:extend("EducationalPopupDialog")
 
@@ -75,6 +81,21 @@ function EducationalPopupDialog:render()
 	end)
 end
 
+function EducationalPopupDialog:bindActions()
+	local function dismissFunc(actionName, inputState, input)
+		if inputState == Enum.UserInputState.Begin then
+			self.props.onConfirm()
+		end
+	end
+
+	ContextActionService:BindCoreAction(
+		EDU_POPUP_CONFIRM_ACTION, dismissFunc, false, Enum.KeyCode.Escape)
+end
+
+function EducationalPopupDialog:unbindActions()
+	ContextActionService:UnbindCoreAction(EDU_POPUP_CONFIRM_ACTION)
+end
+
 function EducationalPopupDialog:updateBlur()
 	local shouldBlur = self.props.blurBackground and self.props.visible
 	RunService:SetRobloxGuiFocused(shouldBlur)
@@ -82,15 +103,32 @@ end
 
 function EducationalPopupDialog:didMount()
 	self:updateBlur()
+
+	if GetFFlagInGameFixEducationalPopupInput() then
+		if self.props.visible then
+			self:bindActions()
+		end
+	end
 end
 
 function EducationalPopupDialog:didUpdate()
 	self:updateBlur()
+
+	if GetFFlagInGameFixEducationalPopupInput() then
+		if self.props.visible then
+			self:bindActions()
+		else
+			self:unbindActions()
+		end
+	end
 end
 
 function EducationalPopupDialog:willUnmount()
 	if self.props.blurBackground then
 		RunService:SetRobloxGuiFocused(false)
+	end
+	if GetFFlagInGameFixEducationalPopupInput() then
+		self:unbindActions()
 	end
 end
 

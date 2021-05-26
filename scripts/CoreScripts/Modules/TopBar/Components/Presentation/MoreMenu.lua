@@ -172,6 +172,7 @@ function MoreMenu:render()
 		table.insert(menuOptions, {
 			icon = Images["icons/controls/screenshot"],
 			text = RobloxTranslator:FormatByKey("CoreScripts.TopBar.Screenshot"),
+			keyCodeLabel = nil,
 			onActivated = function()
 				self.props.setMoreMenuOpen(false)
 				CaptureMaster:Capture()

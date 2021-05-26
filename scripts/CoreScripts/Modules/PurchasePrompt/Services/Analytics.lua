@@ -146,6 +146,42 @@ function Analytics.new()
 		ReportPlatformCounter("ScaryModalCanceled"..requestType)
 	end
 
+	function service.signalXboxInGamePurchaseCanceled(productId, requestType, iapProductId)
+		ReportEvent("XboxPaymentsInGamePurchaseCanceled", {
+			gameID = game.GameId,
+			productId = productId,
+			requestType = requestType,
+			iapProductId = iapProductId or "",
+		})
+		if not RunService:IsStudio() then
+			AnalyticsService:ReportCounter("XboxPaymentsInGamePurchaseCanceled")
+		end
+	end
+
+	function service.signalXboxInGamePurchaseSuccess(productId, requestType, iapProductId)
+		ReportEvent("XboxPaymentsInGamePurchaseSuccess", {
+			gameID = game.GameId,
+			productId = productId,
+			requestType = requestType,
+			iapProductId = iapProductId or "",
+		})
+		if not RunService:IsStudio() then
+			AnalyticsService:ReportCounter("XboxPaymentsInGamePurchaseSuccess")
+		end
+	end
+
+	function service.signalXboxInGamePurchaseFailure(productId, requestType, iapProductId)
+		ReportEvent("XboxPaymentsInGamePurchaseFailure", {
+			gameID = game.GameId,
+			productId = productId,
+			requestType = requestType,
+			iapProductId = iapProductId or "",
+		})
+		if not RunService:IsStudio() then
+			AnalyticsService:ReportCounter("XboxPaymentsInGamePurchaseFailure")
+		end
+	end
+
 	return service
 end
 

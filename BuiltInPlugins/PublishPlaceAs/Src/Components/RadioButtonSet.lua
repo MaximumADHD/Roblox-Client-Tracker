@@ -90,20 +90,6 @@ function RadioButtonSet:render()
 		})
 	}
 
-	if false then
-		if (props.Description) then
-			table.insert(children, Roact.createElement("TextLabel", {
-				BackgroundTransparency = 1,
-				BorderSizePixel = 0,
-				Size = UDim2.new(1, 0, 0, Constants.RADIO_BUTTON_SIZE + 5),
-				TextTransparency = props.Enabled and 0 or 0.5,
-				TextXAlignment = Enum.TextXAlignment.Left,
-				TextYAlignment = Enum.TextYAlignment.Top,
-				Text = props.Description,
-			}))
-		end
-	end
-
 	for i, button in ipairs(buttons) do
 		children = Cryo.Dictionary.join(children, {
 			[button.Id] = FFlagUpdatePublishPlacePluginToDevFrameworkContext and Roact.createElement(RadioButton, {
@@ -153,9 +139,10 @@ function RadioButtonSet:render()
 			TextSize = Constants.TEXT_SIZE,
 		}, children)
 end
-
-ContextServices.mapToProps(RadioButtonSet, {
-	Theme = ContextServices.Theme,
-})
+if FFlagUpdatePublishPlacePluginToDevFrameworkContext then
+	ContextServices.mapToProps(RadioButtonSet, {
+		Theme = ContextServices.Theme,
+	})
+end
 
 return RadioButtonSet

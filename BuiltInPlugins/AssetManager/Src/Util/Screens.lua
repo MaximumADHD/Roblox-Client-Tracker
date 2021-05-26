@@ -4,7 +4,6 @@ local StudioService = game:GetService("StudioService")
 
 local shouldEnableAudioImport = require(Plugin.Src.Util.AssetManagerUtilities).shouldEnableAudioImport
 
-local FFlagEnableLuobuAudioImport = game:GetFastFlag("EnableLuobuAudioImport")
 local FFlagStudioCreatePluginPolicyService = game:GetFastFlag("StudioCreatePluginPolicyService")
 
 local Screens = {
@@ -28,18 +27,7 @@ local Screens = {
 	},
 }
 
-if not FFlagStudioCreatePluginPolicyService and not FFlagEnableLuobuAudioImport then
-	if not StudioService:BaseURLHasChineseHost() then
-		Screens["AUDIO"] = {
-			Key = "AUDIO",
-		}
-		Screens.AUDIO.Parent = Screens.MAIN.Key
-		Screens.AUDIO.AssetType = Enum.AssetType.Audio
-		Screens.AUDIO.LayoutOrder = 6
-		Screens.AUDIO.Image = "rbxasset://textures/StudioSharedUI/audio.png"
-	end
-elseif (FFlagStudioCreatePluginPolicyService and shouldEnableAudioImport()) 
-or (not FFlagStudioCreatePluginPolicyService and FFlagEnableLuobuAudioImport) then
+if not FFlagStudioCreatePluginPolicyService or (FFlagStudioCreatePluginPolicyService and shouldEnableAudioImport()) then
 	Screens["AUDIO"] = {
 		Key = "AUDIO",
 	}

@@ -12,6 +12,7 @@ local Constants = require(root.src.Constants)
 local AvatarPrompt = require(root.src.components.AvatarPrompt)
 local LoadingPrompt = require(root.src.components.LoadingPrompt)
 local ErrorPrompt = require(root.src.components.ErrorPrompt)
+local RedirectRigPrompt = require(root.src.components.RedirectRigPrompt)
 
 local function showAvatarPrompt(currentScreen)
 	return currentScreen == Constants.SCREENS.AVATAR
@@ -23,6 +24,10 @@ end
 
 local function showErrorPrompt(currentScreen)
 	return currentScreen == Constants.SCREENS.ERROR
+end
+
+local function showRedirectRigPrompt(currentScreen)
+	return currentScreen == Constants.SCREENS.REDIRECT_RIG
 end
 
 -- component
@@ -38,6 +43,7 @@ function AvatarImporter:render()
 		AvatarPrompt = showAvatarPrompt(screen) and Roact.createElement(AvatarPrompt),
 		LoadingPrompt = showLoadingPrompt(screen) and Roact.createElement(LoadingPrompt),
 		ErrorPrompt = showErrorPrompt(screen) and Roact.createElement(ErrorPrompt),
+		RedirectRigPrompt = showRedirectRigPrompt(screen) and Roact.createElement(RedirectRigPrompt),
 	})
 end
 

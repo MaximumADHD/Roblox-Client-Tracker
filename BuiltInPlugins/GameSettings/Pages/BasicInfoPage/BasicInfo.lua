@@ -70,6 +70,7 @@ local ThumbnailController = require(Page.Components.Thumbnails.ThumbnailControll
 local UploadableIconWidget = require(Plugin.Src.Components.UploadableIcon.UploadableIconWidget)
 local SettingsPage = require(Plugin.Src.Components.SettingsPages.SettingsPage)
 local ListDialog = require(Plugin.Src.Components.Dialog.ListDialog)
+local SimpleDialog = require(Plugin.Src.Components.Dialog.SimpleDialog)
 local InsufficientPermissionsPage = require(Plugin.Src.Components.SettingsPages.InsufficientPermissionsPage)
 
 local AddChange = require(Plugin.Src.Actions.AddChange)
@@ -81,6 +82,7 @@ local FileUtils = require(Plugin.Src.Util.FileUtils)
 local DEPRECATED_Constants = require(Plugin.Src.Util.DEPRECATED_Constants)
 
 local shouldShowDevPublishLocations = require(Plugin.Src.Util.GameSettingsUtilities).shouldShowDevPublishLocations
+local getPlayerAppDownloadLink = require(Plugin.Src.Util.GameSettingsUtilities).getPlayerAppDownloadLink
 local getOptInLocationsRequirementsLink = require(Plugin.Src.Util.GameSettingsUtilities).getOptInLocationsRequirementsLink
 local FFlagGameSettingsUseKeyProvider = game:GetFastFlag("GameSettingsUseKeyProvider")
 local KeyProvider = FFlagGameSettingsUseKeyProvider and require(Plugin.Src.Util.KeyProvider) or nil
@@ -88,10 +90,12 @@ local GetOptInLocationsKeyName = FFlagGameSettingsUseKeyProvider and KeyProvider
 local optInLocationsKey = FFlagLuobuDevPublishLua and GetOptInLocationsKeyName and GetOptInLocationsKeyName() or "OptInLocations"
 local GetChinaKeyName = FFlagGameSettingsUseKeyProvider and KeyProvider.getChinaKeyName or nil
 local chinaKey = FFlagLuobuDevPublishLua and GetChinaKeyName and GetChinaKeyName() or "China"
+
 local Framework = require(Plugin.Framework)
 local Tooltip = Framework.UI.Tooltip
 local Image = Framework.UI.Decoration.Image
 local HoverArea = Framework.UI.HoverArea
+local TextWithInlineLink = Framework.UI.TextWithInlineLink
 
 local Util = Framework.Util
 local StyleModifier = Util.StyleModifier
@@ -521,7 +525,6 @@ function BasicInfo:render()
 
 		local devices = props.Devices
 		local dialog = props.Dialog
-		local localization = props.Localization
 		local optInLocations = FFlagLuobuDevPublishLua and shouldShowDevPublishLocations() and props.OptInLocations or nil
 
 		local localizedGenreList = {
@@ -747,17 +750,16 @@ function BasicInfo:render()
 							}) or nil,
 
 							-- TODO: Implement PartialHyperlink changes into DevFramework since we want to deprecate UILibrary eventually.
-							-- Look at the changes in FFlagLubouDevPublishLua that use this.
+							-- Look at the changes in FFlagLuobuDevPublishLua that use this.
 							LinkText = Roact.createElement(PartialHyperlink, {
 								HyperLinkText = localization:getText(optInLocationsKey, "RequirementsLinkText"),
 								NonHyperLinkText = localization:getText(optInLocationsKey, "ChinaRequirements"),
-								Theme = theme,
 								Mouse = props.Mouse:get(),
 								OnClick = function()
 									local url = getOptInLocationsRequirementsLink(chinaKey)
 									GuiService:OpenBrowserWindow(url)
 								end,
-								TextSize = theme.fontStyle.Subtext.TextSize,
+								Style = "RequirementsLink",
 							}),
 						}),
 					},
@@ -765,6 +767,32 @@ function BasicInfo:render()
 				Enabled = optInLocations ~= nil,
 				--Functionality
 				EntryClicked = function(box)
+					local dialogProps = {
+						Size = Vector2.new(theme.dialog.size.width, theme.dialog.size.height),
+						Title = "",
+						Header = localization:getText("General", "TermsDialogHeader"),
+						Buttons = {
+							localization:getText("General", "ReplyOK"),
+						},
+						Body = Roact.createElement(TextWithInlineLink, {
+							OnLinkClicked = function()
+								local url = getPlayerAppDownloadLink("China")
+								GuiService:OpenBrowserWindow(url)
+							end,
+							Text = localization:getText("General", "TermsDialogBody"),
+							LinkText = localization:getText("General", "TermsDialogBodyLink"),
+							LinkPlaceholder = "[link]",
+							MaxWidth = theme.textWithInlineLink.maxWidth,
+							TextProps = Cryo.Dictionary.join(theme.fontStyle.Normal, {
+								BackgroundTransparency = 1,
+							}),
+						})
+					}
+
+					if not dialog.showDialog(SimpleDialog, dialogProps):await() then
+						return
+					end
+
 					local newLocations = Cryo.Dictionary.join(optInLocations, {
 						[box.Id] = (box.Selected) and Cryo.None or not box.Selected,
 					})
@@ -802,8 +830,8 @@ end
 ContextServices.mapToProps(BasicInfo, {
 	Localization = ContextServices.Localization,
 	Theme = ContextServices.Theme,
-	Mouse = FFlagLuobuDevPublishLua and ContextServices.Mouse or nil,
 	Dialog = Dialog,
+	Mouse = ContextServices.Mouse,
 })
 
 local settingFromState = require(Plugin.Src.Networking.settingFromState)

@@ -1,7 +1,3 @@
-game:DefineFastFlag("TerrainToolsFixPluginActivationOnWidgetOpen", false)
-
-local FFlagTerrainToolsFixPluginActivationOnWidgetOpen = game:GetFastFlag("TerrainToolsFixPluginActivationOnWidgetOpen")
-
 local Plugin = script.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
@@ -115,17 +111,10 @@ function TerrainTools:setEnabled(newEnabled, initiatedByUser)
 end
 
 function TerrainTools:didUpdate(prevProps, prevState)
-	if FFlagTerrainToolsFixPluginActivationOnWidgetOpen then
-		if prevState.enabled ~= self.state.enabled then
-			if self.state.enabled then
-				self.props.pluginActivationController:restoreSelectedTool()
-			else
-				self.props.pluginActivationController:pauseActivatedTool()
-			end
-		end
-	else
-		-- Pause the tool when hiding the dock widget
-		if prevState.enabled ~= self.state.enabled and not self.state.enabled then
+	if prevState.enabled ~= self.state.enabled then
+		if self.state.enabled then
+			self.props.pluginActivationController:restoreSelectedTool()
+		else
 			self.props.pluginActivationController:pauseActivatedTool()
 		end
 	end

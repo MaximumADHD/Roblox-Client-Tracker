@@ -12,10 +12,12 @@ local UI = Framework.UI
 local Decoration = UI.Decoration
 local Button = UI.Button
 local Pane = UI.Pane
-local Tooltip = UI.Tooltip
 local SelectInput = UI.SelectInput
+local ToggleButton = UI.ToggleButton
+local Tooltip = UI.Tooltip
 local TextLabel = UI.Decoration.TextLabel
 
+local StyleModifier = Framework.Util.StyleModifier
 local StudioUI = Framework.StudioUI
 local SearchBar = StudioUI.SearchBar
 
@@ -25,6 +27,7 @@ local Actions = Main.Src.Actions
 local Thunks = Main.Src.Thunks
 local SelectTheme = require(Actions.SelectTheme)
 local SetSearch = require(Actions.SetSearch)
+local SetLive = require(Actions.SetLive)
 local EmbedStorybook = require(Thunks.EmbedStorybook)
 local GetStories = require(Thunks.GetStories)
 
@@ -36,10 +39,24 @@ local THEMES = {
 	"Dark",
 }
 
+function TopBar:init()
+	self.onToggleLive = function()
+		self.props.setLive(not self.props.Live)
+	end
+	self.onEmbedStorybook = function()
+		local isEmbedded = script:FindFirstAncestor("RunStorybook")
+		if not isEmbedded then
+			self.props.embedStorybook()
+		end
+	end
+end
+
 function TopBar:render()
 	local props = self.props
 	local style = props.Stylizer
 	local sizes = style.Sizes
+
+	local isEmbedded = script:FindFirstAncestor("RunStorybook")
 
 	return Roact.createElement(Pane, {
 		Size = UDim2.new(1, 0, 0, sizes.TopBar),
@@ -79,11 +96,12 @@ function TopBar:render()
 			})
 		}),
 		Embed = Roact.createElement(Button, {
+			StyleModifier = isEmbedded and StyleModifier.Disabled or nil,
 			Style = props.Embedded and "RoundPrimary" or "Round",
 			Size = UDim2.fromOffset(32, 32),
 			AnchorPoint = Vector2.new(1, 0),
 			LayoutOrder = 4,
-			OnClick = props.embedStorybook,
+			OnClick = self.onEmbedStorybook,
 		}, {
 			Tooltip = Roact.createElement(Tooltip, {
 				Text = "Embed Storybook in the place"
@@ -95,16 +113,28 @@ function TopBar:render()
 				Image = "rbxasset://textures/DeveloperStorybook/Embed.png"
 			})
 		}),
+		Live = Roact.createElement(ToggleButton, {
+			LayoutOrder = 5,
+			Selected = props.Live,
+			Size = UDim2.fromOffset(20, 20),
+			Style = "Checkbox",
+			OnClick = self.onToggleLive,
+		}),
+		LiveLabel = Roact.createElement(TextLabel, {
+			Text = "Live",
+			AutomaticSize = Enum.AutomaticSize.XY,
+			LayoutOrder = 6,
+		}),
 		ThemeLabel = Roact.createElement(TextLabel, {
 			Text = "Theme:",
 			AutomaticSize = Enum.AutomaticSize.XY,
 			AnchorPoint = Vector2.new(1, 0),
-			LayoutOrder = 5,
+			LayoutOrder = 7,
 		}),
 		SelectTheme = Roact.createElement(Pane, {
 			AnchorPoint = Vector2.new(1, 0),
 			Size = UDim2.new(0, sizes.SelectTheme, 1, 0),
-			LayoutOrder = 6,
+			LayoutOrder = 8,
 		}, {
 			Input = Roact.createElement(SelectInput, {
 				Width = sizes.SelectTheme,
@@ -127,6 +157,7 @@ return RoactRodux.connect(
 		return {
 			Embedded = state.Stories.embedded,
 			CurrentTheme = state.Stories.theme,
+			Live = state.Stories.live,
 		}
 	end,
 	function(dispatch)
@@ -135,8 +166,11 @@ return RoactRodux.connect(
 				ThemeSwitcher.setTheme(theme)
 				dispatch(SelectTheme(theme))
 			end,
-			setSearch = function(text)
+			setSearch = function(text: string)
 				dispatch(SetSearch(text))
+			end,
+			setLive = function(live: boolean)
+				dispatch(SetLive(live))
 			end,
 			embedStorybook = function()
 				dispatch(EmbedStorybook())

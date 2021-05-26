@@ -13,6 +13,7 @@ local ModuleLoader = {
 	connections = {},
 	cache = {},
 	errors = {},
+	listeners = {},
 }
 
 -- TODO #luau: add debug.loadmodule
@@ -24,6 +25,16 @@ end)
 
 function ModuleLoader:usingLoadModule()
 	return loadModuleOk
+end
+
+-- Connect an listener called when any of the loaded scripts change
+function ModuleLoader:connect(listener: (ModuleScript) -> ())
+	self.listeners[listener] = true
+end
+
+-- Remove the listener
+function ModuleLoader:disconnect(listener: (ModuleScript) -> ())
+	self.listeners[listener] = nil
 end
 
 function ModuleLoader:load(moduleScript: ModuleScript)
@@ -42,8 +53,11 @@ function ModuleLoader:load(moduleScript: ModuleScript)
 	-- We can't access Source in a running place
 	pcall(function()
 		getOrSet(self.connections, moduleScript, function()
-			return moduleScript:GetPropertyChangedSignal("Source"):Connect(function()
+			return moduleScript:GetPropertyChangedSignal("Source"):Connect(function()	
 				self:clear(moduleScript)
+				forEach(self.listeners, function(_true, listener)
+					listener(moduleScript)
+				end)
 			end)
 		end)
 	end)

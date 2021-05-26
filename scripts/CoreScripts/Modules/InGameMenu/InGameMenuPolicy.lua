@@ -7,13 +7,12 @@ local InGameMenuPolicy = PolicyProvider.withGetPolicyImplementation(implementati
 
 local GetFIntEducationalPopupDisplayMaxCount = require(
 	script.Parent.Parent.Flags.GetFIntEducationalPopupDisplayMaxCount)
-local GetFFlagInGameHomeIcon = require(script.Parent.Flags.GetFFlagInGameHomeIcon)
 
 InGameMenuPolicy.Mapper = function(policy)
 	local UniversalAppOnWindows = game:GetEngineFeature("UniversalAppOnWindows")
 	return {
 		enableInGameHomeIcon = function()
-			return GetFFlagInGameHomeIcon() and UniversalAppOnWindows
+			return UniversalAppOnWindows
 		end,
 
 		enableEducationalPopup = function()

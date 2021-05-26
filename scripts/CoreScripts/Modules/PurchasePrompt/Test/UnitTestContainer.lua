@@ -28,7 +28,7 @@ local Gotham = require(CorePackages.AppTempCommon.LuaApp.Style.Fonts.Gotham)
 local UnitTestContainer = Roact.Component:extend("UnitTestContainer")
 
 function UnitTestContainer:init()
-	self.layoutValues = LayoutValues.new(false, false).layout
+	self.layoutValues = LayoutValues.new(false).layout
 	self.store = self.props.overrideStore or Rodux.Store.new(Reducer, {})
 
 	local locale = self.props.overrideLocale or LocalizationService.RobloxLocaleId

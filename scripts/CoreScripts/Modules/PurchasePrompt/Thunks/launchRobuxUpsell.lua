@@ -7,6 +7,7 @@ local UpsellFlow = require(Root.Enums.UpsellFlow)
 local PromptState = require(Root.Enums.PromptState)
 local PurchaseError = require(Root.Enums.PurchaseError)
 local getUpsellFlow = require(Root.NativeUpsell.getUpsellFlow)
+local Constants = require(Root.Misc.Constants)
 local postPurchaseWarningAcknowledge = require(Root.Network.postPurchaseWarningAcknowledge)
 local Analytics = require(Root.Services.Analytics)
 local ExternalSettings = require(Root.Services.ExternalSettings)
@@ -16,6 +17,7 @@ local Thunk = require(Root.Thunk)
 local Promise = require(Root.Promise)
 
 local GetFFlagEnableScaryModalAnalytics = require(Root.Flags.GetFFlagEnableScaryModalAnalytics)
+local GetFFlagEnableXboxIAPAnalytics = require(Root.Flags.GetFFlagEnableXboxIAPAnalytics)
 
 local retryAfterUpsell = require(script.Parent.retryAfterUpsell)
 
@@ -87,6 +89,14 @@ local function launchRobuxUpsell()
 			store:dispatch(SetPromptState(PromptState.UpsellInProgress))
 			return Promise.new(function(resolve, reject)
 				local platformPurchaseResult = platformInterface.beginPlatformStorePurchase(nativeProductId)
+
+				if GetFFlagEnableXboxIAPAnalytics() then
+					if platformPurchaseResult == Constants.PlatformPurchaseResult.PurchaseResult_UserCancelled then
+						analytics.signalXboxInGamePurchaseCanceled(productId, requestType, nativeProductId)
+					else
+						analytics.signalXboxInGamePurchaseFailure(productId, requestType, nativeProductId)
+					end
+				end
 
 				Promise.resolve(platformPurchaseResult)
 			end)

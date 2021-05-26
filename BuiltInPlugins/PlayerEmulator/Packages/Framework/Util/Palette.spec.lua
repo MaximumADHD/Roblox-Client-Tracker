@@ -16,7 +16,7 @@ return function()
 
 	it("should have an entry for every color for every theme", function()
 		for _, color in pairs(Palette) do
-			for _, theme in ipairs(Enum.UITheme:GetEnumItems()) do
+			for _, theme in ipairs(settings().Studio:GetAvailableThemes()) do
 				expect(color:get(theme.Name)).to.be.ok()
 			end
 		end
@@ -24,9 +24,10 @@ return function()
 
 	it("should only contain colors", function()
 		for _, color in pairs(Palette) do
-			for _, theme in ipairs(Enum.UITheme:GetEnumItems()) do
+			for _, theme in ipairs(settings().Studio:GetAvailableThemes()) do
 				expect(typeof(color:get(theme.Name))).to.equal("Color3")
 			end
 		end
 	end)
+	
 end

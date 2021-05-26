@@ -15,6 +15,8 @@
 		Theme Theme: A Theme ContextItem, which is provided via mapToProps.
 		Stylizer Stylizer: A Stylizer ContextItem, which is provided via mapToProps.
 		boolean Enabled: Whether the tooltip will display on hover.
+		number MaxWidth: The maximum width of this tooltip
+		Enum.TextXAlignment TextXAlignment: The text X alignment of this tooltip.
 		integer Priority: The display order of this element, compared to other focused
 			elements or elements that show on top.
 
@@ -25,8 +27,6 @@
 		number ShowDelay: The time in seconds before the tooltip appears
 			after the user stops moving the mouse over the element.
 ]]
-
-game:DefineFastFlag("FixDevFrameworkTooltip", false)
 
 local RunService = game:GetService("RunService")
 local TextService = game:GetService("TextService")
@@ -43,9 +43,6 @@ local TextLabel = require(Framework.UI.TextLabel)
 local Util = require(Framework.Util)
 local Typecheck = Util.Typecheck
 local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
-local FlagsList = Util.Flags.new({
-	FFlagFixDevFrameworkTooltip = {"FixDevFrameworkTooltip"},
-})
 
 local Tooltip = Roact.PureComponent:extend("Tooltip")
 Typecheck.wrap(Tooltip, script)
@@ -62,121 +59,61 @@ function Tooltip:init(props)
 	self.hoverConnection = nil
 	self.mousePosition = nil
 
-	if FlagsList:get("FFlagFixDevFrameworkTooltip") then
-		self.mouseEnter = function(rbx, xpos, ypos)
-			self.targetTime = tick() + self:getShowDelay()
-			self.mousePosition = Vector2.new(xpos, ypos)
-			self:connectHover()
-		end
+	self.mouseEnter = function(rbx, xpos, ypos)
+		self.targetTime = tick() + self:getShowDelay()
+		self.mousePosition = Vector2.new(xpos, ypos)
+		self:connectHover()
+	end
 
-		self.mouseMoved = function(rbx, xpos, ypos)
-			self.mousePosition = Vector2.new(xpos, ypos)
-			self.targetTime = tick() + self:getShowDelay()
-		end
+	self.mouseMoved = function(rbx, xpos, ypos)
+		self.mousePosition = Vector2.new(xpos, ypos)
+		self.targetTime = tick() + self:getShowDelay()
+	end
 
-		self.mouseLeave = function()
-			self.targetTime = 0
-			self.mousePosition = nil
-			self:disconnectHover()
-			self:setState({
-				showTooltip = false,
-			})
-		end
+	self.mouseLeave = function()
+		self.targetTime = 0
+		self.mousePosition = nil
+		self:disconnectHover()
+		self:setState({
+			showTooltip = false,
+		})
 	end
 end
 
-if FlagsList:get("FFlagFixDevFrameworkTooltip") then
-	function Tooltip:getShowDelay()
-		local theme = self.props.Theme
+function Tooltip:getShowDelay()
+	local theme = self.props.Theme
 
-		local style
-		if THEME_REFACTOR then
-			style = self.props.Stylizer
-		else
-			style = theme:getStyle("Framework", self)
-		end
-
-		return style.ShowDelay
+	local style
+	if THEME_REFACTOR then
+		style = self.props.Stylizer
+	else
+		style = theme:getStyle("Framework", self)
 	end
 
-	function Tooltip:connectHover()
-		self:disconnectHover()
-		self.hoverConnection = RunService.Heartbeat:Connect(function()
-			if tick() >= self.targetTime then
-				self:disconnectHover()
-				self:setState({
-					showTooltip = true,
-				})
-			end
-		end)
-	end
+	return style.ShowDelay
+end
 
-	function Tooltip:disconnectHover()
-		if self.hoverConnection then
-			self.hoverConnection:Disconnect()
-			self.hoverConnection = nil
-		end
-	end
-else
-	function Tooltip:didMount()
-		local theme = self.props.Theme
-
-		local style
-		if THEME_REFACTOR then
-			style = self.props.Stylizer
-		else
-			style = theme:getStyle("Framework", self)
-		end
-		local showDelay = style.ShowDelay
-
-		self.connectHover = function()
-			self.disconnectHover()
-			self.hoverConnection = RunService.Heartbeat:Connect(function()
-				if tick() >= self.targetTime then
-					self.disconnectHover()
-					self:setState({
-						showTooltip = true,
-					})
-				end
-			end)
-		end
-
-		self.disconnectHover = function()
-			if self.hoverConnection then
-				self.hoverConnection:Disconnect()
-				self.hoverConnection = nil
-			end
-		end
-
-		self.mouseEnter = function(rbx, xpos, ypos)
-			self.targetTime = tick() + showDelay
-			self.mousePosition = Vector2.new(xpos, ypos)
-			self.connectHover()
-		end
-
-		self.mouseMoved = function(rbx, xpos, ypos)
-			self.mousePosition = Vector2.new(xpos, ypos)
-			self.targetTime = tick() + showDelay
-		end
-
-		self.mouseLeave = function()
-			self.targetTime = 0
-			self.mousePosition = nil
-			self.disconnectHover()
+function Tooltip:connectHover()
+	self:disconnectHover()
+	self.hoverConnection = RunService.Heartbeat:Connect(function()
+		if tick() >= self.targetTime then
+			self:disconnectHover()
 			self:setState({
-				showTooltip = false,
+				showTooltip = true,
 			})
 		end
+	end)
+end
 
+function Tooltip:disconnectHover()
+	if self.hoverConnection then
+		self.hoverConnection:Disconnect()
+		self.hoverConnection = nil
 	end
 end
 
 function Tooltip:willUnmount()
-	if FlagsList:get("FFlagFixDevFrameworkTooltip") then
-		self:disconnectHover()
-	else
-		self.disconnectHover()
-	end
+	self:disconnectHover()
 end
 
 function Tooltip:render()
@@ -195,7 +132,7 @@ function Tooltip:render()
 	local padding = style.Padding
 	local dropShadowPadding = style.DropShadow and style.DropShadow.Radius or 0
 	local offset = style.Offset
-	local maxWidth = style.MaxWidth
+	local maxWidth = props.MaxWidth or style.MaxWidth
 
 	local text = props.Text
 	local enabled = props.Enabled
@@ -258,6 +195,7 @@ function Tooltip:render()
 							Size = UDim2.new(1, 0, 1, 0),
 							Text = text,
 							TextWrapped = true,
+							TextXAlignment = props.TextXAlignment,
 						})
 					}),
 				})

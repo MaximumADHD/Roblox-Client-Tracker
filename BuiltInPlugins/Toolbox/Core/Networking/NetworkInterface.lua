@@ -186,7 +186,7 @@ function NetworkInterface:getAssetCreations(pageInfo, cursor, assetTypeOverride,
 		assetTypeName = PageInfoHelper.getBackendNameForPageInfoCategory(pageInfo)
 
 		local categoryIsGroup = Category.categoryIsGroupAsset(pageInfo.categoryName)
-		
+
 		groupId = categoryIsGroup
 			and PageInfoHelper.getGroupIdForPageInfo(pageInfo)
 			or nil
@@ -596,13 +596,6 @@ function NetworkInterface:postOverrideAnimation(assetid, instanceData)
 	:catch(function(err)
 		return Promise.reject(err)
 	end)
-end
-
-function NetworkInterface:getMyGroups(userId)
-	local targetUrl = Urls.constructGetMyGroupUrl(userId)
-
-	printUrl("getMyGroups", "GET", targetUrl)
-	return self._networkImp:httpGetJson(targetUrl)
 end
 
 -- TODO DEVTOOLS-4290: Only used in AssetConfiguration

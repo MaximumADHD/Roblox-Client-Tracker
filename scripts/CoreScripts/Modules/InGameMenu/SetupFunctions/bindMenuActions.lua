@@ -12,13 +12,11 @@ local InGameMenu = script.Parent.Parent
 local OpenSystemMenu = require(InGameMenu.Thunks.OpenSystemMenu)
 local CloseMenu = require(InGameMenu.Thunks.CloseMenu)
 local SetRespawning = require(InGameMenu.Actions.SetRespawning)
-local StartLeavingGame = require(InGameMenu.Actions.StartLeavingGame)
 local SetCurrentPage = require(InGameMenu.Actions.SetCurrentPage)
 
 local Pages = require(InGameMenu.Components.Pages)
 local Constants = require(InGameMenu.Resources.Constants)
 
-local GetFFlagUseNewLeaveGamePrompt = require(InGameMenu.Flags.GetFFlagUseNewLeaveGamePrompt)
 local GetFFlagInGameFixMenuIconHoverEatKeyboard =
 	require(RobloxGui.Modules.Flags.GetFFlagInGameFixMenuIconHoverEatKeyboard)
 
@@ -101,11 +99,7 @@ local function bindMenuActions(store)
 			return Enum.ContextActionResult.Pass
 		end
 
-		if GetFFlagUseNewLeaveGamePrompt() then
-			store:dispatch(SetCurrentPage(Constants.LeaveGamePromptPageKey))
-		else
-			store:dispatch(StartLeavingGame())
-		end
+		store:dispatch(SetCurrentPage(Constants.LeaveGamePromptPageKey))
 
 		return Enum.ContextActionResult.Sink
 	end

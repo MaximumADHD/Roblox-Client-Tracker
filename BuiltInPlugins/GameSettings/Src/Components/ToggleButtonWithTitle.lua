@@ -10,7 +10,10 @@
 		boolean Disabled: Whether or not this button can be clicked.
 		number LayoutOrder: The layout order of this component.
 		boolean Selected: whether the button should be on or off.
+		boolean ShowWarning: whether the description text is shown as warning text
 ]]
+
+local FFlagGameSettingsDisplayCollaborativeEditingWarning = game:GetFastFlag("GameSettingsDisplayCollaborativeEditingWarning")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
@@ -55,6 +58,7 @@ function ToggleButtonWithTitle:render()
 	local selected = props.Selected
 	local title = props.Title
 	local onClick = props.OnClick
+	local showWarning = FFlagGameSettingsDisplayCollaborativeEditingWarning and props.ShowWarning or nil
 
 	return Roact.createElement(TitledFrame, {
 		Title = title,
@@ -68,16 +72,17 @@ function ToggleButtonWithTitle:render()
 			Size = theme.settingsPage.toggleButtonSize,
 		}),
 
-		Description = props.Description and Roact.createElement(FitTextLabel, Cryo.Dictionary.join(theme.fontStyle.Subtext, {
-			BackgroundTransparency = 1,
-			LayoutOrder = 2,
-			TextTransparency = props.Disabled and 0.5 or 0,
-			TextXAlignment = Enum.TextXAlignment.Left,
-			TextYAlignment = Enum.TextYAlignment.Top,
-			Text = description,
-			TextWrapped = true,
-			width = UDim.new(0, descriptionWidth),
-		})),
+		Description = props.Description and 
+			Roact.createElement(FitTextLabel, Cryo.Dictionary.join(showWarning and theme.fontStyle.SmallError or theme.fontStyle.Subtext, {
+				BackgroundTransparency = 1,
+				LayoutOrder = 2,
+				TextTransparency = props.Disabled and 0.5 or 0,
+				TextXAlignment = Enum.TextXAlignment.Left,
+				TextYAlignment = Enum.TextYAlignment.Top,
+				Text = description,
+				TextWrapped = true,
+				width = UDim.new(0, descriptionWidth),
+			})),
 
 		DescriptionWidth = Roact.createElement("Frame", {
 			BackgroundTransparency = 1,

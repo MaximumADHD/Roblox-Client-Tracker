@@ -156,25 +156,13 @@ function AssetConfigUtil.getOwnerDropDownContent(manageableGroups, localizedCont
 		{name = localizedContent.AssetConfig.PublishAsset.Me, creatorType = "User", creatorId = getUserId()}
 	}
 
-	if game:GetFastFlag("FixAssetConfigManageableGroups") then
-		for _, group in ipairs(manageableGroups) do
-			table.insert(result, {
-				name = group.name,
-				creatorId = group.id,
-				creatorType = "Group",
-				item = group,
-			})
-		end
-	else
-		for _, groupData in pairs(manageableGroups) do
-			local newDropDownitem = {
-				name = groupData.group.name,
-				creatorType = "Group",
-				creatorId = groupData.group.id,
-				item = groupData
-			}
-			table.insert(result, newDropDownitem)
-		end
+	for _, group in ipairs(manageableGroups) do
+		table.insert(result, {
+			name = group.name,
+			creatorId = group.id,
+			creatorType = "Group",
+			item = group,
+		})
 	end
 
 	return result
@@ -214,7 +202,7 @@ function AssetConfigUtil.getPreviewType(assetTypeEnum, instances)
 	if assetTypeEnum and AssetConfigUtil.isBuyableMarketplaceAsset(assetTypeEnum) then
 		previewType = AssetConfigConstants.PreviewTypes.ImagePicker
 	end
-	if FFlagUseDefaultThumbnailForAnimation and assetTypeEnum == Enum.AssetType.Animation then 
+	if FFlagUseDefaultThumbnailForAnimation and assetTypeEnum == Enum.AssetType.Animation then
 		previewType = AssetConfigConstants.PreviewTypes.Thumbnail
 	end
 	return previewType

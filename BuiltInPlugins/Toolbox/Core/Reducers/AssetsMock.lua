@@ -1,4 +1,3 @@
-local FFlagToolboxMarkLoadingInitially = game:GetFastFlag("ToolboxMarkLoadingInitially")
 local Plugin = script.Parent.Parent.Parent
 
 local PagedRequestCursor = require(Plugin.Core.Util.PagedRequestCursor)
@@ -7,7 +6,7 @@ return function(state, action)
 	return {
 		idToAssetMap = {},
 		idsToRender = {},
-		isLoading = FFlagToolboxMarkLoadingInitially,
+		isLoading = true,
 		currentCursor = PagedRequestCursor.createDefaultCursor(),
 
 		totalAssets = 0,

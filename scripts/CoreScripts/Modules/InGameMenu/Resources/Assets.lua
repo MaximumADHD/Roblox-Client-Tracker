@@ -111,5 +111,7 @@ return {
 			ScaleType = Enum.ScaleType.Slice,
 		},
 		SliderButton = Images["InGameMenu/Graphic/SliderButton"],
+
+		PlaceholderGameIcon = UIBloxImages["icons/imageUnavailable"],
 	}
 }

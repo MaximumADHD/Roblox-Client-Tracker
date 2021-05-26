@@ -1,11 +1,9 @@
 game:DefineFastFlag("TerrainToolsBrushUseIsKeyDown", false)
-game:DefineFastFlag("TerrainToolsFixBrushNearCamera", false)
 game:DefineFastFlag("TerrainToolsAlignToPlane", false)
 game:DefineFastFlag("TerrainToolsAddOnMouseHold", false)
 
 local FFlagTerrainToolsPartInteractToggle = game:GetFastFlag("TerrainToolsPartInteractToggle")
 local FFlagTerrainToolsBrushUseIsKeyDown = game:GetFastFlag("TerrainToolsBrushUseIsKeyDown")
-local FFlagTerrainToolsFixBrushNearCamera = game:GetFastFlag("TerrainToolsFixBrushNearCamera")
 local FFlagTerrainToolsAlignToPlane = game:GetFastFlag("TerrainToolsAlignToPlane")
 local FFlagTerrainToolsAddOnMouseHold = game:GetFastFlag("TerrainToolsAddOnMouseHold")
 
@@ -46,11 +44,7 @@ Returns:
 local function lineToPlaneIntersection(linePoint, lineDirection, planePoint, planeNormal)
 	local denominator = lineDirection:Dot(planeNormal)
 	if denominator == 0 then
-		if FFlagTerrainToolsFixBrushNearCamera then
-			return nil, nil
-		else
-			return linePoint, nil
-		end
+		return nil, nil
 	end
 	local distance = (planePoint - linePoint):Dot(planeNormal) / denominator
 	return linePoint + lineDirection * distance, distance
@@ -468,15 +462,8 @@ function TerrainBrush:_run()
 			local hit, distance = lineToPlaneIntersection(cameraPos, unitRay, Vector3.new(0, 0, 0), Vector3.new(0, 1, 0))
 			-- Set the default Y axis for brush to be intersection of the ray and XZplane with Y = 0
 
-			local useHitPoint
-			if FFlagTerrainToolsFixBrushNearCamera then
-				-- Check we hit the plane, and that it's in front of us
-				useHitPoint = hit and distance and distance >= 0
-			else
-				useHitPoint = hit ~= cameraPos
-			end
-
-			if useHitPoint then
+			-- Check we hit the plane, and that it's in front of us
+			if hit and distance and distance >= 0 then
 				mainPoint = hit
 			else
 				mainPoint = cameraPos + unitRay * 10000
@@ -491,12 +478,6 @@ function TerrainBrush:_run()
 
 		if heightPicker or (currentTool == ToolId.Flatten and self._mouseClick and not fixedPlane and not planeLock) then
 			self._planePositionYChanged:Fire(snapToGrid and snapToVoxelGrid(mainPoint, radius).y or (mainPoint.y - 1))
-		end
-
-		if not FFlagTerrainToolsFixBrushNearCamera then
-			if not self._mouse.Target then
-				mainPoint = cameraPos + unitRay * lastCursorDistance
-			end
 		end
 
 		local shiftDown
@@ -531,11 +512,9 @@ function TerrainBrush:_run()
 		end
 
 		local mainPointOnPlane = lineToPlaneIntersection(cameraPos, unitRay, lastPlanePoint, lastNormal)
-		if FFlagTerrainToolsFixBrushNearCamera then
-			if not mainPointOnPlane then
-				-- lineToPlaneIntersection can return nil, so just fallback to camera
-				mainPointOnPlane = cameraPos
-			end
+		if not mainPointOnPlane then
+			-- lineToPlaneIntersection can return nil, so just fallback to camera
+			mainPointOnPlane = cameraPos
 		end
 
 		if snapToGrid then
@@ -653,11 +632,6 @@ function TerrainBrush:_run()
 		end
 
 		self:_updateCursor()
-
-		if not FFlagTerrainToolsFixBrushNearCamera then
-			lastCursorDistance = math.max(20 + (self._operationSettings.cursorSize * Constants.VOXEL_RESOLUTION * 1.5),
-				(mainPoint - cameraPos).magnitude)
-		end
 
 		quickWait()
 	end

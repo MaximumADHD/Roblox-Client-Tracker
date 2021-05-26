@@ -290,6 +290,12 @@ return function(style, overrides)
 		font = style.font,
 	}
 
+	local partialHyperlink = {
+		textColor = style.textColor,
+		font = style.font,
+		textSize = 22,
+	}
+
 	local assetPreview = {
 		font = style.font,
 		textSize = 14,
@@ -571,6 +577,7 @@ return function(style, overrides)
 		radioButton = radioButton,
 		treeView = treeView,
 		hyperlink = hyperlink,
+		partialHyperlink = partialHyperlink,
 		instanceTreeView = instanceTreeView,
 		searchBar = searchBar,
 		styledTooltip = styledTooltip,

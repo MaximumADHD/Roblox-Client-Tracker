@@ -9,6 +9,7 @@
 		string ErrorMessage = An error message to display on this CheckBoxSet.
 ]]
 local FFlagUpdatePublishPlacePluginToDevFrameworkContext = game:GetFastFlag("UpdatePublishPlacePluginToDevFrameworkContext")
+local FFlagLuobuDevPublishLua = game:GetFastFlag("LuobuDevPublishLua")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -25,6 +26,8 @@ local ContextServices = require(Framework.ContextServices)
 
 local CheckBox = UILibrary.Component.CheckBox
 local TitledFrame = UILibrary.Component.TitledFrame
+
+local FFlagLuobuDevPublishLua = game:GetFastFlag("LuobuDevPublishLua")
 
 local CHECKBOX_SIZE = 20
 local CHECKBOX_PADDING = 8
@@ -56,6 +59,7 @@ function CheckBoxSet:render()
 		for i, box in ipairs(boxes) do
 			table.insert(children, Roact.createElement(CheckBox, {
 				Title = box.Title,
+				Id = FFlagLuobuDevPublishLua and box.Id or nil,
 				Height = CHECKBOX_SIZE,
 				TextSize = Constants.TEXT_SIZE,
 				Selected = box.Selected ~= nil and box.Selected,
@@ -67,7 +71,13 @@ function CheckBoxSet:render()
 			}))
 		end
 
-		children = Cryo.Dictionary.join(props[Roact.Children], children)
+		if FFlagLuobuDevPublishLua then
+			if props[Roact.Children] then
+				children = Cryo.Dictionary.join(props[Roact.Children], children)
+			end
+		else
+			children = Cryo.Dictionary.join(props[Roact.Children], children)
+		end
 
 		if errorMessage then
 			children.Error = Roact.createElement("TextLabel", {
@@ -84,12 +94,18 @@ function CheckBoxSet:render()
 		end
 
 		local maxHeight = #boxes * (CHECKBOX_SIZE + CHECKBOX_PADDING)
+		if FFlagLuobuDevPublishLua then
+			if props.MaxHeight then
+				maxHeight += props.MaxHeight
+			end
+		end
 
 		return Roact.createElement(TitledFrame, {
 			Title = title,
 			MaxHeight = maxHeight,
 			LayoutOrder = layoutOrder,
 			TextSize = Constants.TEXT_SIZE,
+			Tooltip = FFlagLuobuDevPublishLua and props.Tooltip or nil,
 		}, children)
 	else
 		return Theming.withTheme(function(theme)

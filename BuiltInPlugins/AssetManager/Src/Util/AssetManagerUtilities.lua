@@ -1,4 +1,3 @@
-local FFlagEnableLuobuAudioImport = game:GetFastFlag("EnableLuobuAudioImport")
 local FFlagStudioCreatePluginPolicyService = game:GetFastFlag("StudioCreatePluginPolicyService")
 local FFlagStudioAssetManagerShowBadgesTeachingCallout = game:GetFastFlag("StudioAssetManagerShowBadgesTeachingCallout")
 
@@ -23,9 +22,7 @@ function AssetManagerUtilities.shouldEnableAudioImport()
 end
 
 function AssetManagerUtilities.enableAudioImport()
-    return ((not FFlagEnableLuobuAudioImport and (not StudioService:BaseURLHasChineseHost()))
-        or (not FFlagStudioCreatePluginPolicyService and FFlagEnableLuobuAudioImport)
-        or (FFlagStudioCreatePluginPolicyService and AssetManagerUtilities.shouldEnableAudioImport()))
+    return not FFlagStudioCreatePluginPolicyService or (FFlagStudioCreatePluginPolicyService and AssetManagerUtilities.shouldEnableAudioImport())
 end
 
 --[[

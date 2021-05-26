@@ -169,7 +169,6 @@ function PlayerEntry:render()
 				SortOrder = Enum.SortOrder.LayoutOrder,
 				FillDirection = Enum.FillDirection.Horizontal,
 				VerticalAlignment = Enum.VerticalAlignment.Center,
-				Padding = padding,
 			})
 
 			children.NameFrame = Roact.createElement("Frame", {
@@ -210,7 +209,7 @@ function PlayerEntry:render()
 			local bottomDiv = self.props.bottomDiv or false
 
 			return Roact.createElement("ImageButton", {
-				Position = UDim2.fromOffset(0, canvasSizeY),
+				Position = UDim2.fromOffset(0, 0),
 				Size = UDim2.new(1, layoutValues.EntryXOffset, 0, layoutValues.PlayerEntrySizeY),
 				AutoButtonColor = false,
 				BackgroundColor3 = self:getBackgroundColor(layoutValues),

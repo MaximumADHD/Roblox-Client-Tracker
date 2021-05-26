@@ -1,13 +1,18 @@
 local Plugin = script.Parent.Parent.Parent
 
+local FFlagStudioAssetManagerHideAssetPreviewCreatorSearch = game:GetFastFlag("StudioAssetManagerHideAssetPreviewCreatorSearch")
+local FFlagRefactorDevFrameworkContextItems = game:GetFastFlag("RefactorDevFrameworkContextItems")
+
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 
 local UILibrary = require(Plugin.Packages.UILibrary)
-local AssetPreview = UILibrary.Component.AssetPreview
 
-local Framework = Plugin.Packages.Framework
-local ContextServices = require(Framework.ContextServices)
+local Framework = require(Plugin.Packages.Framework)
+local ContextServices = Framework.ContextServices
+
+local StudioUI = Framework.StudioUI
+local AssetPreview = FFlagStudioAssetManagerHideAssetPreviewCreatorSearch and StudioUI.AssetPreview or UILibrary.Component.AssetPreview
 
 local OnAssetDoubleClick = require(Plugin.Src.Thunks.OnAssetDoubleClick)
 local OnAssetRightClick = require(Plugin.Src.Thunks.OnAssetRightClick)
@@ -103,7 +108,7 @@ function AssetPreviewWrapper:render()
     local props = self.props
     local state = self.state
 
-    local target = props.Focus:getTarget()
+    local target = FFlagRefactorDevFrameworkContextItems and props.Focus:get() or props.Focus:getTarget()
     local localization = props.Localization
     local theme = props.Theme:get("Plugin")
 
@@ -140,7 +145,32 @@ function AssetPreviewWrapper:render()
                 [Roact.Change.AbsoluteSize] = self.onDetectorABSSizeChange,
             }),
 
-            Contents = Roact.createElement(AssetPreview, {
+            Contents = FFlagStudioAssetManagerHideAssetPreviewCreatorSearch and Roact.createElement(AssetPreview, {
+                Position = UDim2.new(0.5, 0, 0.5, 0),
+                AnchorPoint = Vector2.new(0.5, 0.5),
+                Size = UDim2.fromOffset(maxPreviewWidth, maxPreviewHeight),
+
+                AssetData = assetData,
+                PreviewModel = rootTreeViewInstance,
+                CurrentPreview = selectedInstance,
+
+                OnClickContext = self.tryCreateContextMenu,
+
+                ActionText = localization:getText("AssetPreview", "Insert"),
+                OnClickAction = self.tryInsert,
+
+                Favorites = {
+                    OnClick = self.onFavoritedActivated,
+                    Count = props.FavoriteCount and props.FavoriteCount or 0,
+                    IsFavorited = props.Favorited and props.Favorite or false,
+                },
+
+                HideCreatorSearch = true,
+
+                ZIndex = 2,
+            }),
+
+            DEPRECATED_Contents = not FFlagStudioAssetManagerHideAssetPreviewCreatorSearch and Roact.createElement(AssetPreview, {
                 Position = UDim2.new(0.5, 0, 0.5, 0),
                 AnchorPoint = Vector2.new(0.5, 0.5),
                 MaxPreviewWidth = maxPreviewWidth,
@@ -161,7 +191,6 @@ function AssetPreviewWrapper:render()
                 OnTreeItemClicked = self.onTreeItemClicked,
 
                 SearchByCreator = self.searchByCreator,
-
                 ZIndex = 2,
             })
         })

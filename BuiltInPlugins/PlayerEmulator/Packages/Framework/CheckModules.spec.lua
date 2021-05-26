@@ -74,8 +74,8 @@ return function()
 			else
 				tests = targetScript.Parent:FindFirstChild(targetScript.Name .. ".spec")
 			end
-			assert(tests, string.format("Module `%s.lua` in %s has no tests!",
-				targetScript.Name, directory.Name))
+			assert(tests, string.format("Module `%s.lua` in %s.%s has no tests!",
+				targetScript.Name, directory.Name, targetScript.Parent.Name))
 			expect(tests).to.be.ok()
 		end
 	end

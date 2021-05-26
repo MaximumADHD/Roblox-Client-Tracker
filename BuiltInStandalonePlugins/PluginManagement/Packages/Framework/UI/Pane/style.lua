@@ -9,12 +9,19 @@ local StudioFrameworkStyles = Framework.StudioUI.StudioFrameworkStyles
 local Common = require(StudioFrameworkStyles.Common)
 
 local Util = require(Framework.Util)
+local StyleModifier = Util.StyleModifier
 local Style = Util.Style
 local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 
 if THEME_REFACTOR then
 	local box = {
 		Background = StyleKey.MainBackground,
+		[StyleModifier.Hover] = {
+			Background = StyleKey.ButtonHover,
+		},
+		[StyleModifier.Selected] = {
+			Background = StyleKey.DialogMainButton,
+		}
 	}
 	local subtleBox = join(box, {
 		Background = StyleKey.SubBackground,

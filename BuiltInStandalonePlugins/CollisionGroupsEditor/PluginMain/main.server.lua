@@ -12,7 +12,6 @@ local Opened = false
 
 local AnalyticsService = game:GetService("RbxAnalyticsService")
 
-local FFlagSupportPluginDebugging = settings():GetFFlag("SupportPluginDebugging")
 local FFlagEnableRoactInspector = settings():GetFFlag("EnableRoactInspector")
 
 local hasInternalPermission = game:GetService("StudioService"):HasInternalPermission()
@@ -153,16 +152,14 @@ plugin.MultipleDocumentInterfaceInstance.DataModelSessionStarted:connect(functio
 	handleDMSession(dmSession)
 end)
 
-if (FFlagSupportPluginDebugging) then 	
-	-- Usually standalone plugin scripts are loaded before we've created any place session, 
-	-- so listening for "new place session" from MultipleDocumentInterfaceInstance is sufficient.
-	-- With the advent of plugin debugging, we load standalone plugins again each time we open 
-	-- a place.  So we have a situation where MultipleDocumentInterfaceInstance already has a 
-	-- place session before plugin is loaded -> DataModelSessionStarted will never hit.
-	-- So we have to explicitly check if we already have a DM session.
-	if (plugin.MultipleDocumentInterfaceInstance.FocusedDataModelSession) then 
-		handleDMSession(plugin.MultipleDocumentInterfaceInstance.FocusedDataModelSession)
-	end
+-- Usually standalone plugin scripts are loaded before we've created any place session, 
+-- so listening for "new place session" from MultipleDocumentInterfaceInstance is sufficient.
+-- With the advent of plugin debugging, we load standalone plugins again each time we open 
+-- a place.  So we have a situation where MultipleDocumentInterfaceInstance already has a 
+-- place session before plugin is loaded -> DataModelSessionStarted will never hit.
+-- So we have to explicitly check if we already have a DM session.
+if (plugin.MultipleDocumentInterfaceInstance.FocusedDataModelSession) then 
+	handleDMSession(plugin.MultipleDocumentInterfaceInstance.FocusedDataModelSession)
 end
 
 local function destroyWindow()

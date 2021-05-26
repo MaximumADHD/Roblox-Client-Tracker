@@ -34,27 +34,11 @@ local function getCursorSize(state)
 	return UDim2.fromOffset(cursorSize, cursorSize)
 end
 
-local function getCursorImage()
-	return imageStateDict.Default
-end
-
-local function playCursorTweenActivate()
-	activeSelectionTweenIn:Play()
-end
-
-local function playCursorTweenDefault()
-	activeSelectionTweenOut:Play()
-end
-
 local function setCursorHighlight(highlighted)
 	if highlighted then
-		cursorIndicator.ImageColor3 = properties.HighlightColor
 		cursorIndicator.Image = imageStateDict.Hover
 	else
-		-- set color to default, and tween out
-		cursorIndicator.ImageColor3 = properties.DefaultColor
 		cursorIndicator.Image = imageStateDict.Default
-		playCursorTweenDefault()
 	end
 end
 
@@ -75,7 +59,7 @@ local function getOrCreateVirtualCursorContainer()
 		cursorIndicator.Active = false
 		cursorIndicator.AnchorPoint = Vector2.new(0.5,0.5)
 		cursorIndicator.Size = getCursorSize("Default")
-		cursorIndicator.Image = getCursorImage()
+		cursorIndicator.Image = imageStateDict.Default
 		cursorIndicator.Visible = false
 		cursorIndicator.BackgroundTransparency = 1
 
@@ -95,10 +79,11 @@ function Interface:GetCursorSize(state)
 end
 
 function Interface:PlayCursorTweenActivate()
-	playCursorTweenActivate()
+	activeSelectionTweenIn:Play()
 end
+
 function Interface:PlayCursorTweenDefault()
-	playCursorTweenDefault()
+	activeSelectionTweenOut:Play()
 end
 
 function Interface:SetCursorHighlight(state)
