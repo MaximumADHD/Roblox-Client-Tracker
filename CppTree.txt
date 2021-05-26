@@ -301,7 +301,6 @@ boost::_bi::bind_t<void,void (cdecl*)(class RBX::DataModel * ptr64,class boost::
 boost::_bi::bind_t<void,void (cdecl*)(class RBX::DataModel * ptr64,class QPointer<class StudioScriptEditor>,class std::string,class std::weak_ptr<class RBX::Instance>),class boost::_bi::list4<struct boost::arg<1>,class boost::_bi::value<class QPointer<class StudioScriptEditor> >,class boost::_bi::value<class std::string >,class boost::_bi::value<class std::shared_ptr<class RBX::LuaSourceContainer> > > >
 boost::_bi::bind_t<void,void (cdecl*)(class RBX::DataModel * ptr64,class RBX::Verb * ptr64),class boost::_bi::list2<class boost::_bi::value<class RBX::DataModel * ptr64>,class boost::_bi::value<class RBX::Verb * ptr64> > >
 boost::_bi::bind_t<void,void (cdecl*)(class RBX::DataModel * ptr64,class std::shared_ptr<class RBX::Instance>,class std::shared_ptr<class RBX::Instance>,class std::shared_ptr<class boost::promise<void> >,class boost::function<void cdecl(class std::shared_ptr<class RBX::Instance>)>),class boost::_bi::list5<class boost::_bi::value<class RBX::DataModel * ptr64>,class boost::_bi::value<class std::shared_ptr<class RBX::Instance> >,struct boost::arg<1>,class boost::_bi::value<class std::shared_ptr<class boost::promise<void> > >,class boost::_bi::value<class boost::function<void cdecl(class std::shared_ptr<class RBX::Instance>)> > > >
-boost::_bi::bind_t<void,void (cdecl*)(class RBX::DataModel * ptr64,class std::shared_ptr<class RBX::IPluginInstancesSource>),class boost::_bi::list2<class boost::_bi::value<class RBX::DataModel * ptr64>,class boost::_bi::value<class std::shared_ptr<class RBX::IPluginInstancesSource> > > >
 boost::_bi::bind_t<void,void (cdecl*)(class RBX::DataModel * ptr64,class std::shared_ptr<struct RBX::LuaSourceContainer::LinkedScriptLoadData>),class boost::_bi::list2<struct boost::arg<1>,class boost::_bi::value<class std::shared_ptr<struct RBX::LuaSourceContainer::LinkedScriptLoadData> > > >
 boost::_bi::bind_t<void,void (cdecl*)(class RBX::DataModel * ptr64,class std::vector<class RBX::Reflection::Variant,class std::allocator<class RBX::Reflection::Variant> >,class RBX::SystemAddress,bool),class boost::_bi::list4<struct boost::arg<1>,class boost::_bi::value<class std::vector<class RBX::Reflection::Variant,class std::allocator<class RBX::Reflection::Variant> > >,class boost::_bi::value<class RBX::SystemAddress>,class boost::_bi::value<bool> > >
 boost::_bi::bind_t<void,void (cdecl*)(class RBX::DataModel * ptr64,class std::vector<class std::shared_ptr<class RBX::Instance>,class std::allocator<class std::shared_ptr<class RBX::Instance> > >,class std::shared_ptr<class RBX::Instance>,class std::shared_ptr<class boost::promise<void> >,class boost::function<void cdecl(class std::shared_ptr<class RBX::Instance>)>),class boost::_bi::list5<class boost::_bi::value<class RBX::DataModel * ptr64>,class boost::_bi::value<class std::vector<class std::shared_ptr<class RBX::Instance>,class std::allocator<class std::shared_ptr<class RBX::Instance> > > >,struct boost::arg<1>,class boost::_bi::value<class std::shared_ptr<class boost::promise<void> > >,class boost::_bi::value<class boost::function<void cdecl(class std::shared_ptr<class RBX::Instance>)> > > >
@@ -310,7 +309,6 @@ boost::_bi::bind_t<void,void (cdecl*)(class RBX::function_ref<void cdecl(class s
 boost::_bi::bind_t<void,void (cdecl*)(class RBX::Lua::WeakObjectRef,class std::shared_ptr<struct RBX::Reflection::Tuple const >,class boost::function<void cdecl(class std::shared_ptr<struct RBX::Reflection::Tuple const >)>,class boost::function<void cdecl(class std::string)>,class boost::intrusive_ptr<class RBX::Lua::WeakThreadRef>),class boost::_bi::list5<class boost::_bi::value<class RBX::Lua::WeakObjectRef>,struct boost::arg<1>,struct boost::arg<2>,struct boost::arg<3>,class boost::_bi::value<class boost::intrusive_ptr<class RBX::Lua::WeakThreadRef> > > >
 boost::_bi::bind_t<void,void (cdecl*)(class RBX::MegaClusterInstance * ptr64),class boost::_bi::list1<class boost::_bi::value<class RBX::MegaClusterInstance * ptr64> > >
 boost::_bi::bind_t<void,void (cdecl*)(class RBX::Reflection::Variant,class boost::function<void cdecl(class std::shared_ptr<struct RBX::Reflection::Tuple const >)>,class boost::function<void cdecl(class std::string)>),class boost::_bi::list3<struct boost::arg<1>,struct boost::arg<2>,struct boost::arg<3> > >
-boost::_bi::bind_t<void,void (cdecl*)(class std::function<void cdecl(__int64,class std::string const & ptr64)>,class std::function<void cdecl(__int64,class std::string const & ptr64)>,__int64,class std::string * ptr64,class std::exception * ptr64),class boost::_bi::list5<class boost::_bi::value<class std::function<void cdecl(__int64,class std::string const & ptr64)> >,class boost::_bi::value<class std::function<void cdecl(__int64,class std::string const & ptr64)> >,class boost::_bi::value<__int64>,struct boost::arg<1>,struct boost::arg<2> > >
 boost::_bi::bind_t<void,void (cdecl*)(class std::function<void cdecl(class std::string const & ptr64)>,class std::function<void cdecl(class std::string const & ptr64)>,class std::string * ptr64,class std::exception * ptr64),class boost::_bi::list4<class boost::_bi::value<class std::function<void cdecl(class std::string const & ptr64)> >,class boost::_bi::value<class std::function<void cdecl(class std::string const & ptr64)> >,struct boost::arg<1>,struct boost::arg<2> > >
 boost::_bi::bind_t<void,void (cdecl*)(class std::function<void cdecl(class std::vector<struct InstanceChangesFetcher::ChangedInstance,class std::allocator<struct InstanceChangesFetcher::ChangedInstance> > const & ptr64,class std::shared_ptr<class boost::unordered::unordered_map<class std::string,class RBX::Reflection::Variant,struct boost::hash<class std::string >,struct std::equal_to<class std::string >,class std::allocator<struct std::pair<class std::string const ,class RBX::Reflection::Variant> > > const >)>,class std::function<void cdecl(class std::string const & ptr64)>,class std::string * ptr64,class std::exception * ptr64),class boost::_bi::list4<class boost::_bi::value<class std::function<void cdecl(class std::vector<struct InstanceChangesFetcher::ChangedInstance,class std::allocator<struct InstanceChangesFetcher::ChangedInstance> > const & ptr64,class std::shared_ptr<class boost::unordered::unordered_map<class std::string,class RBX::Reflection::Variant,struct boost::hash<class std::string >,struct std::equal_to<class std::string >,class std::allocator<struct std::pair<class std::string const ,class RBX::Reflection::Variant> > > const >)> >,class boost::_bi::value<class std::function<void cdecl(class std::string const & ptr64)> >,struct boost::arg<1>,struct boost::arg<2> > >
 boost::_bi::bind_t<void,void (cdecl*)(class std::function<void cdecl(class std::vector<struct VersionHistoryDetailsFetcher::VersionHistoryItem,class std::allocator<struct VersionHistoryDetailsFetcher::VersionHistoryItem> > const & ptr64,class std::shared_ptr<class boost::unordered::unordered_map<class std::string,class RBX::Reflection::Variant,struct boost::hash<class std::string >,struct std::equal_to<class std::string >,class std::allocator<struct std::pair<class std::string const ,class RBX::Reflection::Variant> > > const >)>,class std::function<void cdecl(class std::string const & ptr64)>,class std::string * ptr64,class std::exception * ptr64),class boost::_bi::list4<class boost::_bi::value<class std::function<void cdecl(class std::vector<struct VersionHistoryDetailsFetcher::VersionHistoryItem,class std::allocator<struct VersionHistoryDetailsFetcher::VersionHistoryItem> > const & ptr64,class std::shared_ptr<class boost::unordered::unordered_map<class std::string,class RBX::Reflection::Variant,struct boost::hash<class std::string >,struct std::equal_to<class std::string >,class std::allocator<struct std::pair<class std::string const ,class RBX::Reflection::Variant> > > const >)> >,class boost::_bi::value<class std::function<void cdecl(class std::string const & ptr64)> >,struct boost::arg<1>,struct boost::arg<2> > >
@@ -490,11 +488,9 @@ boost::detail::sp_counted_impl_p<class boost::program_options::option_descriptio
 boost::detail::sp_counted_impl_p<class boost::program_options::value_semantic const >
 boost::detail::sp_counted_impl_p<struct boost::detail::future_async_continuation_shared_state<class boost::shared_future<class std::string >,void,class boost::_bi::bind_t<void,class boost::_mfi::mf1<void,class RobloxTeamCreateWidget,class boost::shared_future<class std::string > >,class boost::_bi::list2<class boost::_bi::value<class RobloxTeamCreateWidget * ptr64>,struct boost::arg<1> > > > >
 boost::detail::sp_counted_impl_p<struct boost::detail::future_async_continuation_shared_state<class boost::shared_future<class std::string >,void,class boost::_bi::bind_t<void,void (cdecl*)(class QPointer<class AvatarLoader>,__int64,class boost::shared_future<class std::string >),class boost::_bi::list3<class boost::_bi::value<class QPointer<class AvatarLoader> >,class boost::_bi::value<__int64>,struct boost::arg<1> > > > >
-boost::detail::sp_counted_impl_p<struct boost::detail::future_async_continuation_shared_state<class boost::shared_future<class std::string >,void,class boost::_bi::bind_t<void,void (cdecl*)(class QPointer<class PlayersDataManager>,class boost::shared_future<class std::string >),class boost::_bi::list2<class boost::_bi::value<class QPointer<class PlayersDataManager> >,struct boost::arg<1> > > > >
 boost::detail::sp_counted_impl_p<struct boost::detail::future_async_continuation_shared_state<class boost::shared_future<class std::string >,void,class boost::_bi::bind_t<void,void (cdecl*)(class ScriptAnalysisWidget * ptr64,class QString const & ptr64,class boost::shared_future<class std::string >),class boost::_bi::list3<class boost::_bi::value<class ScriptAnalysisWidget * ptr64>,class boost::_bi::value<class QString>,struct boost::arg<1> > > > >
 boost::detail::sp_counted_impl_p<struct boost::detail::future_deferred_continuation_shared_state<class boost::shared_future<class std::string >,void,class boost::_bi::bind_t<void,class boost::_mfi::mf1<void,class RobloxTeamCreateWidget,class boost::shared_future<class std::string > >,class boost::_bi::list2<class boost::_bi::value<class RobloxTeamCreateWidget * ptr64>,struct boost::arg<1> > > > >
 boost::detail::sp_counted_impl_p<struct boost::detail::future_deferred_continuation_shared_state<class boost::shared_future<class std::string >,void,class boost::_bi::bind_t<void,void (cdecl*)(class QPointer<class AvatarLoader>,__int64,class boost::shared_future<class std::string >),class boost::_bi::list3<class boost::_bi::value<class QPointer<class AvatarLoader> >,class boost::_bi::value<__int64>,struct boost::arg<1> > > > >
-boost::detail::sp_counted_impl_p<struct boost::detail::future_deferred_continuation_shared_state<class boost::shared_future<class std::string >,void,class boost::_bi::bind_t<void,void (cdecl*)(class QPointer<class PlayersDataManager>,class boost::shared_future<class std::string >),class boost::_bi::list2<class boost::_bi::value<class QPointer<class PlayersDataManager> >,struct boost::arg<1> > > > >
 boost::detail::sp_counted_impl_p<struct boost::detail::future_deferred_continuation_shared_state<class boost::shared_future<class std::string >,void,class boost::_bi::bind_t<void,void (cdecl*)(class ScriptAnalysisWidget * ptr64,class QString const & ptr64,class boost::shared_future<class std::string >),class boost::_bi::list3<class boost::_bi::value<class ScriptAnalysisWidget * ptr64>,class boost::_bi::value<class QString>,struct boost::arg<1> > > > >
 boost::detail::sp_counted_impl_p<struct boost::detail::shared_state<__int64> >
 boost::detail::sp_counted_impl_p<struct boost::detail::shared_state<class std::shared_ptr<class RBX::HttpResponse> > >
@@ -532,7 +528,6 @@ boost::detail::thread_data<class boost::_bi::bind_t<void,void (cdecl*)(class std
 boost::detail::thread_data<class boost::_bi::bind_t<void,void (cdecl*)(class std::weak_ptr<class RBX::DataModel>,class std::weak_ptr<class RBX::Network::ServerReplicator>,int,enum PacketPriority,int),class boost::_bi::list5<class boost::_bi::value<class std::weak_ptr<class RBX::DataModel> >,class boost::_bi::value<class std::weak_ptr<class RBX::Network::ServerReplicator> >,class boost::_bi::value<int>,class boost::_bi::value<enum PacketPriority>,class boost::_bi::value<int> > > >
 boost::detail::thread_data<class boost::_bi::bind_t<void,void (cdecl*)(struct boost::detail::future_async_continuation_shared_state<class boost::shared_future<class std::string >,void,class boost::_bi::bind_t<void,class boost::_mfi::mf1<void,class RobloxTeamCreateWidget,class boost::shared_future<class std::string > >,class boost::_bi::list2<class boost::_bi::value<class RobloxTeamCreateWidget * ptr64>,struct boost::arg<1> > > > * ptr64),class boost::_bi::list1<class boost::_bi::value<struct boost::detail::future_async_continuation_shared_state<class boost::shared_future<class std::string >,void,class boost::_bi::bind_t<void,class boost::_mfi::mf1<void,class RobloxTeamCreateWidget,class boost::shared_future<class std::string > >,class boost::_bi::list2<class boost::_bi::value<class RobloxTeamCreateWidget * ptr64>,struct boost::arg<1> > > > * ptr64> > > >
 boost::detail::thread_data<class boost::_bi::bind_t<void,void (cdecl*)(struct boost::detail::future_async_continuation_shared_state<class boost::shared_future<class std::string >,void,class boost::_bi::bind_t<void,void (cdecl*)(class QPointer<class AvatarLoader>,__int64,class boost::shared_future<class std::string >),class boost::_bi::list3<class boost::_bi::value<class QPointer<class AvatarLoader> >,class boost::_bi::value<__int64>,struct boost::arg<1> > > > * ptr64),class boost::_bi::list1<class boost::_bi::value<struct boost::detail::future_async_continuation_shared_state<class boost::shared_future<class std::string >,void,class boost::_bi::bind_t<void,void (cdecl*)(class QPointer<class AvatarLoader>,__int64,class boost::shared_future<class std::string >),class boost::_bi::list3<class boost::_bi::value<class QPointer<class AvatarLoader> >,class boost::_bi::value<__int64>,struct boost::arg<1> > > > * ptr64> > > >
-boost::detail::thread_data<class boost::_bi::bind_t<void,void (cdecl*)(struct boost::detail::future_async_continuation_shared_state<class boost::shared_future<class std::string >,void,class boost::_bi::bind_t<void,void (cdecl*)(class QPointer<class PlayersDataManager>,class boost::shared_future<class std::string >),class boost::_bi::list2<class boost::_bi::value<class QPointer<class PlayersDataManager> >,struct boost::arg<1> > > > * ptr64),class boost::_bi::list1<class boost::_bi::value<struct boost::detail::future_async_continuation_shared_state<class boost::shared_future<class std::string >,void,class boost::_bi::bind_t<void,void (cdecl*)(class QPointer<class PlayersDataManager>,class boost::shared_future<class std::string >),class boost::_bi::list2<class boost::_bi::value<class QPointer<class PlayersDataManager> >,struct boost::arg<1> > > > * ptr64> > > >
 boost::detail::thread_data<class boost::_bi::bind_t<void,void (cdecl*)(struct boost::detail::future_async_continuation_shared_state<class boost::shared_future<class std::string >,void,class boost::_bi::bind_t<void,void (cdecl*)(class ScriptAnalysisWidget * ptr64,class QString const & ptr64,class boost::shared_future<class std::string >),class boost::_bi::list3<class boost::_bi::value<class ScriptAnalysisWidget * ptr64>,class boost::_bi::value<class QString>,struct boost::arg<1> > > > * ptr64),class boost::_bi::list1<class boost::_bi::value<struct boost::detail::future_async_continuation_shared_state<class boost::shared_future<class std::string >,void,class boost::_bi::bind_t<void,void (cdecl*)(class ScriptAnalysisWidget * ptr64,class QString const & ptr64,class boost::shared_future<class std::string >),class boost::_bi::list3<class boost::_bi::value<class ScriptAnalysisWidget * ptr64>,class boost::_bi::value<class QString>,struct boost::arg<1> > > > * ptr64> > > >
 boost::detail::thread_data<class boost::function<void cdecl(void)> >
 boost::detail::thread_data<void (cdecl*)(void)>
@@ -839,7 +834,6 @@ CreateBaseGuiObjectVerb
 CreateConstraintBaseVerb
 CreateCylindricalConstraintVerb
 CreateFrameVerb
-CreateGameRequest
 CreateHingeConstraintVerb
 CreateImageButtonVerb
 CreateImageVerb
@@ -887,7 +881,11 @@ DebuggerUtils::LazyTreeWidgetItem
 DebuggerViewsManager
 DeclarationView
 DeploymentManager
+DEPRECATED_CreateGameRequest
+DEPRECATED_GetDevForumPageRequest
 DEPRECATED_InsertAdvancedObjectViewVerb
+DEPRECATED_PatchTeamCreateToggleRequest
+DEPRECATED_PersistentFifoComboBox
 DetailsTableComponent
 DeveloperProductWebFactory
 DeviceListModel
@@ -1043,7 +1041,6 @@ GEDetail::XQColorDialog
 GeneralBrowserDialog
 GenericTask
 GetAssetVersionNumberRequest
-GetDevForumPageRequest
 GetIsCurrentVersionTask
 GIM_ShapeRetriever::ChildShapeRetriever
 GIM_ShapeRetriever::TetraShapeRetriever
@@ -1329,10 +1326,8 @@ ParallelOperationsNamespace::SearchResult
 ParallelOperationsNamespace::ThreadPool
 ParallelOperationsStudioDependence
 PasteVerb
-PatchTeamCreateToggleRequest
 PathFilterWidget
 PBRSynth::MitchellFilter
-PersistentFifoComboBox
 PlaceLauncherImpl
 PlaceSessionBoundDialog
 PlaceSessionConfiguration
@@ -1594,7 +1589,6 @@ RakNet::BitStream
 RakNet::CCRakNetBase
 RakNet::CCRakNetSlidingWindow
 RakNet::CCRakNetSlidingWindow2
-RakNet::PluginInterface2
 RakNet::RakPeer
 RakNet::RakPeerInterface
 RBX::ABTestController::ChangedListener
@@ -2155,8 +2149,10 @@ RBX::CylinderMesh
 RBX::DataModel
 RBX::DataModel::GenericJob
 RBX::DataModel::SerializationException
+RBX::DataModelEmptySerialize
 RBX::DataModelJob
 RBX::DataModelMesh
+RBX::DataModelSerialize
 RBX::DataModelSession
 RBX::DataStore
 RBX::DataStore2
@@ -2353,6 +2349,7 @@ RBX::Described<class RBX::WorldRoot,class RBX::ModelInstance>
 RBX::Described<class RunningAverageItemDouble,class RunningAverageItem<double> >
 RBX::Described<class RunningAverageItemInt,class RunningAverageItem<int> >
 RBX::Described<class Studio::AssetManagerService,class RBX::ServiceInstance>
+RBX::Described<class Studio::AvatarImportService,class RBX::ServiceInstance>
 RBX::Described<class Studio::BulkImportService,class RBX::ServiceInstance>
 RBX::Described<class Studio::CalloutService,class RBX::ServiceInstance>
 RBX::Described<class Studio::PluginPolicyService,class RBX::ServiceInstance>
@@ -3038,6 +3035,7 @@ RBX::ICameraOwner
 RBX::ICancelableTool
 RBX::ICharacterSubject
 RBX::ICreator
+RBX::IDataModelSerialize
 RBX::IDataState
 RBX::IDraftsServiceHost
 RBX::IGuiText
@@ -3886,8 +3884,8 @@ RBX::Reflection::BoundFuncDesc<class RBX::PlayerEmulatorService,void cdecl(class
 RBX::Reflection::BoundFuncDesc<class RBX::PlayerGui,float cdecl(void),0>
 RBX::Reflection::BoundFuncDesc<class RBX::PlayerGui,void cdecl(float),1>
 RBX::Reflection::BoundFuncDesc<class RBX::Players,class std::shared_ptr<class RBX::Instance> cdecl(__int64),1>
-RBX::Reflection::BoundFuncDesc<class RBX::Players,class std::shared_ptr<class RBX::Instance> cdecl(class std::shared_ptr<class RBX::Instance>),1>
 RBX::Reflection::BoundFuncDesc<class RBX::Players,class std::shared_ptr<class RBX::Instance> cdecl(void),0>
+RBX::Reflection::BoundFuncDesc<class RBX::Players,class std::shared_ptr<class RBX::Player> cdecl(class std::shared_ptr<class RBX::ModelInstance>),1>
 RBX::Reflection::BoundFuncDesc<class RBX::Players,class std::shared_ptr<class std::vector<class std::shared_ptr<class RBX::Instance>,class std::allocator<class std::shared_ptr<class RBX::Instance> > > const > cdecl(void),0>
 RBX::Reflection::BoundFuncDesc<class RBX::Players,void cdecl(__int64,class std::string,class std::string,enum RBX::MembershipType,bool),5>
 RBX::Reflection::BoundFuncDesc<class RBX::Players,void cdecl(class std::shared_ptr<class RBX::Instance>,class std::string,class std::string),3>
@@ -4442,6 +4440,8 @@ RBX::Reflection::BoundYieldFuncDesc<class Studio::AssetManagerService,void cdecl
 RBX::Reflection::BoundYieldFuncDesc<class Studio::AssetManagerService,void cdecl(__int64,class std::string),2>
 RBX::Reflection::BoundYieldFuncDesc<class Studio::AssetManagerService,void cdecl(class std::string),1>
 RBX::Reflection::BoundYieldFuncDesc<class Studio::AssetManagerService,void cdecl(int,__int64,class std::string,class std::string),4>
+RBX::Reflection::BoundYieldFuncDesc<class Studio::AvatarImportService,class std::shared_ptr<class RBX::Instance> cdecl(bool),1>
+RBX::Reflection::BoundYieldFuncDesc<class Studio::AvatarImportService,class std::shared_ptr<class RBX::Instance> cdecl(class RBX::Lua::WeakObjectRef),1>
 RBX::Reflection::CallbackDescriptor
 RBX::Reflection::ClassDescriptor
 RBX::Reflection::CustomBoundFuncDesc<class RBX::Instance,bool cdecl(class std::string const & ptr64),1>
@@ -5043,8 +5043,8 @@ RBX::Reflection::EventDesc<class RBX::NumericValue<__int64>,void cdecl(__int64),
 RBX::Reflection::EventDesc<class RBX::NumericValue<double>,void cdecl(double),class rbx::signal<void cdecl(double)>,class rbx::signal<void cdecl(double)> RBX::NumericValue<double>::* ptr64>
 RBX::Reflection::EventDesc<class RBX::ObjectValue,void cdecl(class std::shared_ptr<class RBX::Instance>),class rbx::signal<void cdecl(class std::shared_ptr<class RBX::Instance>)>,class rbx::signal<void cdecl(class std::shared_ptr<class RBX::Instance>)> RBX::ObjectValue::* ptr64>
 RBX::Reflection::EventDesc<class RBX::PartInstance,void cdecl(class RBX::SystemAddress),class rbx::remote_signal<void cdecl(class RBX::SystemAddress)>,class rbx::remote_signal<void cdecl(class RBX::SystemAddress)> * ptr64 (cdecl RBX::PartInstance::*)(bool) ptr64>
-RBX::Reflection::EventDesc<class RBX::PartInstance,void cdecl(class std::shared_ptr<class RBX::Instance>),class RBX::PartInstance::LocalTouchedSignal,class RBX::PartInstance::LocalTouchedSignal * ptr64 (cdecl RBX::PartInstance::*)(bool) ptr64>
-RBX::Reflection::EventDesc<class RBX::PartInstance,void cdecl(class std::shared_ptr<class RBX::Instance>),class RBX::PartInstance::TouchedSignal,class RBX::PartInstance::TouchedSignal * ptr64 (cdecl RBX::PartInstance::*)(bool) ptr64>
+RBX::Reflection::EventDesc<class RBX::PartInstance,void cdecl(class std::shared_ptr<class RBX::PartInstance>),class RBX::PartInstance::LocalTouchedSignal,class RBX::PartInstance::LocalTouchedSignal * ptr64 (cdecl RBX::PartInstance::*)(bool) ptr64>
+RBX::Reflection::EventDesc<class RBX::PartInstance,void cdecl(class std::shared_ptr<class RBX::PartInstance>),class RBX::PartInstance::TouchedSignal,class RBX::PartInstance::TouchedSignal * ptr64 (cdecl RBX::PartInstance::*)(bool) ptr64>
 RBX::Reflection::EventDesc<class RBX::PartInstance,void cdecl(void),class rbx::signal<void cdecl(void)>,class rbx::signal<void cdecl(void)> * ptr64 (cdecl RBX::PartInstance::*)(bool) ptr64>
 RBX::Reflection::EventDesc<class RBX::Path,void cdecl(int),class rbx::signal<void cdecl(int)>,class rbx::signal<void cdecl(int)> * ptr64 (cdecl RBX::Path::*)(bool) ptr64>
 RBX::Reflection::EventDesc<class RBX::Platform,void cdecl(class std::shared_ptr<class RBX::Instance>),class rbx::remote_signal<void cdecl(class std::shared_ptr<class RBX::Instance>)>,class rbx::remote_signal<void cdecl(class std::shared_ptr<class RBX::Instance>)> RBX::Platform::* ptr64>
@@ -5355,8 +5355,8 @@ RBX::Reflection::EventDescBase<class RBX::NumericValue<__int64>,void cdecl(__int
 RBX::Reflection::EventDescBase<class RBX::NumericValue<double>,void cdecl(double),class rbx::signal<void cdecl(double)>,class rbx::signal<void cdecl(double)> RBX::NumericValue<double>::* ptr64>
 RBX::Reflection::EventDescBase<class RBX::ObjectValue,void cdecl(class std::shared_ptr<class RBX::Instance>),class rbx::signal<void cdecl(class std::shared_ptr<class RBX::Instance>)>,class rbx::signal<void cdecl(class std::shared_ptr<class RBX::Instance>)> RBX::ObjectValue::* ptr64>
 RBX::Reflection::EventDescBase<class RBX::PartInstance,void cdecl(class RBX::SystemAddress),class rbx::remote_signal<void cdecl(class RBX::SystemAddress)>,class rbx::remote_signal<void cdecl(class RBX::SystemAddress)> * ptr64 (cdecl RBX::PartInstance::*)(bool) ptr64>
-RBX::Reflection::EventDescBase<class RBX::PartInstance,void cdecl(class std::shared_ptr<class RBX::Instance>),class RBX::PartInstance::LocalTouchedSignal,class RBX::PartInstance::LocalTouchedSignal * ptr64 (cdecl RBX::PartInstance::*)(bool) ptr64>
-RBX::Reflection::EventDescBase<class RBX::PartInstance,void cdecl(class std::shared_ptr<class RBX::Instance>),class RBX::PartInstance::TouchedSignal,class RBX::PartInstance::TouchedSignal * ptr64 (cdecl RBX::PartInstance::*)(bool) ptr64>
+RBX::Reflection::EventDescBase<class RBX::PartInstance,void cdecl(class std::shared_ptr<class RBX::PartInstance>),class RBX::PartInstance::LocalTouchedSignal,class RBX::PartInstance::LocalTouchedSignal * ptr64 (cdecl RBX::PartInstance::*)(bool) ptr64>
+RBX::Reflection::EventDescBase<class RBX::PartInstance,void cdecl(class std::shared_ptr<class RBX::PartInstance>),class RBX::PartInstance::TouchedSignal,class RBX::PartInstance::TouchedSignal * ptr64 (cdecl RBX::PartInstance::*)(bool) ptr64>
 RBX::Reflection::EventDescBase<class RBX::PartInstance,void cdecl(void),class rbx::signal<void cdecl(void)>,class rbx::signal<void cdecl(void)> * ptr64 (cdecl RBX::PartInstance::*)(bool) ptr64>
 RBX::Reflection::EventDescBase<class RBX::Path,void cdecl(int),class rbx::signal<void cdecl(int)>,class rbx::signal<void cdecl(int)> * ptr64 (cdecl RBX::Path::*)(bool) ptr64>
 RBX::Reflection::EventDescBase<class RBX::Platform,void cdecl(class std::shared_ptr<class RBX::Instance>),class rbx::remote_signal<void cdecl(class std::shared_ptr<class RBX::Instance>)>,class rbx::remote_signal<void cdecl(class std::shared_ptr<class RBX::Instance>)> RBX::Platform::* ptr64>
@@ -5749,6 +5749,8 @@ RBX::Reflection::PropDescriptor<class RBX::BaseScript,bool>
 RBX::Reflection::PropDescriptor<class RBX::BaseScript,bool>::GetSetImpl<bool (cdecl RBX::BaseScript::*)(void)const ptr64,void (cdecl RBX::BaseScript::*)(bool) ptr64>
 RBX::Reflection::PropDescriptor<class RBX::BaseScript,class RBX::ContentId>
 RBX::Reflection::PropDescriptor<class RBX::BaseScript,class RBX::ContentId>::GetSetImpl<class RBX::ContentId const & ptr64 (cdecl RBX::LuaSourceContainer::*)(void)const ptr64,void (cdecl RBX::LuaSourceContainer::*)(class RBX::ContentId const & ptr64) ptr64>
+RBX::Reflection::PropDescriptor<class RBX::BaseWrap,class RBX::BinaryString>
+RBX::Reflection::PropDescriptor<class RBX::BaseWrap,class RBX::BinaryString>::GetSetImpl<class RBX::BinaryString const & ptr64 (cdecl RBX::BaseWrap::*)(void)const ptr64,void (cdecl RBX::BaseWrap::*)(class RBX::BinaryString const & ptr64) ptr64>
 RBX::Reflection::PropDescriptor<class RBX::BaseWrap,class RBX::CoordinateFrame>
 RBX::Reflection::PropDescriptor<class RBX::BaseWrap,class RBX::CoordinateFrame>::GetImpl<class RBX::CoordinateFrame (cdecl RBX::BaseWrap::*)(void)const ptr64>
 RBX::Reflection::PropDescriptor<class RBX::BaseWrap,class RBX::CoordinateFrame>::GetSetImpl<class RBX::CoordinateFrame const & ptr64 (cdecl RBX::BaseWrap::*)(void)const ptr64,void (cdecl RBX::BaseWrap::*)(class RBX::CoordinateFrame const & ptr64) ptr64>
@@ -7681,6 +7683,7 @@ RBX::Reflection::YieldFuncDesc<class RBX::ThirdPartyUserService>
 RBX::Reflection::YieldFuncDesc<class RBX::UGCValidationService>
 RBX::Reflection::YieldFuncDesc<class RBX::UserService>
 RBX::Reflection::YieldFuncDesc<class Studio::AssetManagerService>
+RBX::Reflection::YieldFuncDesc<class Studio::AvatarImportService>
 RBX::Reflection::YieldFunctionDescriptor
 RBX::RelativePanel
 rbx::remote_signal<void cdecl(class std::shared_ptr<class RBX::Instance>,class std::shared_ptr<struct RBX::Reflection::Tuple const >)>
@@ -8168,6 +8171,10 @@ RBX::WrapLayeredDeformer
 RBX::WrapLayeredDeformerImpl
 RBX::WrapTarget
 RbxContent
+RbxQt::DialogButton
+RbxQt::HistoryDropdown
+RbxQt::StyledObject<class RbxQt::DialogButton,class QPushButton>
+RbxQt::StyledObject<class RbxQt::HistoryDropdown,class QComboBox>
 RbxQt::StyledObject<class RbxQt::ToggleSwitch,class QPushButton>
 RbxQt::Theme
 RbxQt::ToggleSwitch
@@ -8576,6 +8583,7 @@ std::_Func_base<void,class RBX::FileSyncItem * ptr64>
 std::_Func_base<void,class RBX::HttpClient & ptr64,class RBX::HttpRequest & ptr64>
 std::_Func_base<void,class RBX::HttpIncomingMessage & ptr64,class RBX::HttpServerResponse & ptr64>
 std::_Func_base<void,class RBX::Instance const * ptr64,class std::shared_ptr<class DebuggerClient> >
+std::_Func_base<void,class RBX::json::Document const & ptr64,struct HttpResponseProxy const & ptr64>
 std::_Func_base<void,class RBX::LSP::ILanguageClient * ptr64>
 std::_Func_base<void,class RBX::Primitive * ptr64>
 std::_Func_base<void,class RBX::ScriptEditor::ExtraSelectionStore::FormatUpdater & ptr64>
@@ -9144,6 +9152,7 @@ std::_Ref_count_obj<class StudioProfiler::ScopedToken>
 std::_Ref_count_obj<class StudioProfiler::TaskSchedulerTickerJob>
 std::_Ref_count_obj<class UploadMeshComponentRequestResult>
 std::_Ref_count_obj<class UploadRequestResult>
+std::_Ref_count_obj<class UserPluginsModel>
 std::_Ref_count_obj<class VariablesItem>
 std::_Ref_count_obj<class VariantRowData>
 std::_Ref_count_obj<class web::http::client::details::http_network_handler>
@@ -9796,6 +9805,7 @@ std::_Ref_count_resource<class RenderStatsItem * ptr64,class RBX::Creatable<clas
 std::_Ref_count_resource<class RunningAverageItemDouble * ptr64,class RBX::Creatable<class RBX::Instance>::Deleter>
 std::_Ref_count_resource<class RunningAverageItemInt * ptr64,class RBX::Creatable<class RBX::Instance>::Deleter>
 std::_Ref_count_resource<class Studio::AssetManagerService * ptr64,class RBX::Creatable<class RBX::Instance>::Deleter>
+std::_Ref_count_resource<class Studio::AvatarImportService * ptr64,class RBX::Creatable<class RBX::Instance>::Deleter>
 std::_Ref_count_resource<class Studio::BulkImportService * ptr64,class RBX::Creatable<class RBX::Instance>::Deleter>
 std::_Ref_count_resource<class Studio::CalloutService * ptr64,class RBX::Creatable<class RBX::Instance>::Deleter>
 std::_Ref_count_resource<class Studio::PluginPolicyService * ptr64,class RBX::Creatable<class RBX::Instance>::Deleter>
@@ -9826,11 +9836,13 @@ std::_Ref_count<class boost::unordered::unordered_map<class std::string,class RB
 std::_Ref_count<class CloudEditUserData>
 std::_Ref_count<class Concurrency::streams::details::basic_container_buffer<class std::string > >
 std::_Ref_count<class Concurrency::streams::details::basic_container_buffer<class std::vector<unsigned char,class std::allocator<unsigned char> > > >
-std::_Ref_count<class CreateGameRequest>
 std::_Ref_count<class CreatePlaceInGameRequest>
 std::_Ref_count<class DebuggerController>
 std::_Ref_count<class DebuggerSessionManager>
+std::_Ref_count<class DEPRECATED_CreateGameRequest>
 std::_Ref_count<class DEPRECATED_DataModelPackageManager>
+std::_Ref_count<class DEPRECATED_GetDevForumPageRequest>
+std::_Ref_count<class DEPRECATED_PatchTeamCreateToggleRequest>
 std::_Ref_count<class DuplicateRowData>
 std::_Ref_count<class EntityProperties>
 std::_Ref_count<class FFlagSetting>
@@ -9847,7 +9859,6 @@ std::_Ref_count<class GameExplorer::PackageResourceController>
 std::_Ref_count<class GameExplorer::PlaceResourceController>
 std::_Ref_count<class GameExplorer::ScriptResourceController>
 std::_Ref_count<class GetAssetVersionNumberRequest>
-std::_Ref_count<class GetDevForumPageRequest>
 std::_Ref_count<class HttpRequestWithQtContext>
 std::_Ref_count<class InternalPermissionController>
 std::_Ref_count<class LinkedSourceInstance>
@@ -9859,7 +9870,6 @@ std::_Ref_count<class MockGestureGenerator>
 std::_Ref_count<class OnPublishDialogController>
 std::_Ref_count<class PackageListener>
 std::_Ref_count<class ParallelOperationsNamespace::ThreadPool>
-std::_Ref_count<class PatchTeamCreateToggleRequest>
 std::_Ref_count<class PlaceSessionConfiguration>
 std::_Ref_count<class PlayersDataManager>
 std::_Ref_count<class PluginActionRelay>
@@ -10112,6 +10122,7 @@ std::_Ref_count<struct RobloxExtraSpace::Shared>
 std::_Ref_count<struct RobloxInput::WindowInputState>
 std::_Ref_count<struct ScriptPerformanceViewData>
 std::_Ref_count<struct SearchResult::ResultDetail>
+std::_Ref_count<struct std::atomic<int> >
 std::_Ref_count<struct Studio::AutocompleteLibraryMetadata>
 std::_Ref_count<unsigned __int64>
 std::_Root_node
@@ -10230,6 +10241,7 @@ Studio::AssetManagerService
 Studio::AutocompleteMenu
 Studio::AutocompleteTooltip
 Studio::AutocompleteUserController
+Studio::AvatarImportService
 Studio::BrowserTrackerUtilities
 Studio::BulkImportService
 Studio::CalloutService

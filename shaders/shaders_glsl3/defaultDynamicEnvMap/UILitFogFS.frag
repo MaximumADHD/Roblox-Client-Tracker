@@ -42,7 +42,7 @@ void main()
     float f15 = clamp(exp2((CB0[13].z * length(VARYING5)) + CB0[13].x) - CB0[13].w, 0.0, 1.0);
     vec3 f16 = textureLod(PrefilteredEnvTexture, vec4(-VARYING5, 0.0).xyz, max(CB0[13].y, f15) * 5.0).xyz;
     bvec3 f17 = bvec3(CB0[13].w != 0.0);
-    vec3 f18 = sqrt(clamp(mix(vec3(f17.x ? CB0[14].xyz.x : f16.x, f17.y ? CB0[14].xyz.y : f16.y, f17.z ? CB0[14].xyz.z : f16.z), mix(f14, (min((f11.xyz * (f11.w * 120.0)).xyz + (CB0[8].xyz + (CB0[9].xyz * f12.x)), vec3(CB0[16].w)) + (VARYING2 * ((1.0 - ((step(f13.x, VARYING4.z) * clamp(CB0[24].z + (CB0[24].w * abs(VARYING4.z - 0.5)), 0.0, 1.0)) * f13.y)) * f12.y))) * f14, vec3(CB2[0].z)).xyz, vec3(f15)).xyz * CB0[15].y, vec3(0.0), vec3(1.0)));
+    vec3 f18 = sqrt(clamp(mix(vec3(f17.x ? CB0[14].xyz.x : f16.x, f17.y ? CB0[14].xyz.y : f16.y, f17.z ? CB0[14].xyz.z : f16.z), mix(f14 * CB2[0].w, (min((f11.xyz * (f11.w * 120.0)).xyz + (CB0[8].xyz + (CB0[9].xyz * f12.x)), vec3(CB0[16].w)) + (VARYING2 * ((1.0 - ((step(f13.x, VARYING4.z) * clamp(CB0[24].z + (CB0[24].w * abs(VARYING4.z - 0.5)), 0.0, 1.0)) * f13.y)) * f12.y))) * f14, vec3(CB2[0].z)).xyz, vec3(f15)).xyz * CB0[15].y, vec3(0.0), vec3(1.0)));
     _entryPointOutput = vec4(f18.x, f18.y, f18.z, f7.w);
 }
 
