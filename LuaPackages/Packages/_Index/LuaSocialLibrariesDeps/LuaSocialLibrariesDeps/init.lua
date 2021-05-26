@@ -6,6 +6,7 @@ return {
 	Mock = require(LuaSocialLibrariesDeps.Mock),
 	RoduxNetworking = require(LuaSocialLibrariesDeps.RoduxNetworking),
 	llama = require(LuaSocialLibrariesDeps.llama),
+	RoduxAliases = require(LuaSocialLibrariesDeps.RoduxAliases),
 	RoduxUsers = require(LuaSocialLibrariesDeps.RoduxUsers),
 	RoduxFriends = require(LuaSocialLibrariesDeps.RoduxFriends),
 	RoduxPresence = require(LuaSocialLibrariesDeps.RoduxPresence),
