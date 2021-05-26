@@ -3,7 +3,6 @@
 ]]
 
 local FFlagUpdatePublishPlacePluginToDevFrameworkContext = game:GetFastFlag("UpdatePublishPlacePluginToDevFrameworkContext")
-local FFlagLuobuDevPublishLua = game:GetFastFlag("LuobuDevPublishLua")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -32,9 +31,6 @@ function ServiceWrapper:init()
 	if FFlagUpdatePublishPlacePluginToDevFrameworkContext then
 		assert(self.props.uiLibraryWrapper ~= nil, "Expected a UiLibraryWrapper object")
 	end
-	if FFlagLuobuDevPublishLua then
-		assert(self.props.mouse ~= nil, "Expected a Mouse object")
-	end
 end
 
 local function addProvider(provider, props, rootElement)
@@ -49,7 +45,6 @@ function ServiceWrapper:render()
 	local focusGui = self.props.focusGui
 	local store = self.props.store
 	local theme = self.props.theme
-	local mouse = self.props.mouse
 
 	-- the order of these providers should be read as bottom up,
 	-- things most likely to change or trigger updates should be near the top of the list
@@ -62,7 +57,6 @@ function ServiceWrapper:render()
 			uiLibraryWrapper,
 			ContextServices.Store.new(store),
 			ContextServices.API.new(),
-			FFlagLuobuDevPublishLua and ContextServices.Mouse.new(mouse) or nil,
 		}, children)
 	else
 		local root = Roact.oneChild(children)

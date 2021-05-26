@@ -3,7 +3,6 @@
 
 	Props
 		boolean isMain - handles theming for if this is the primary button or not
-		boolean isLarge = handles creating a slightly larger button
 		number layoutOrder - sets LayoutOrder property
 		string labelText - text to display on the button
 ]]
@@ -100,7 +99,7 @@ function CustomTextButton:render()
 		BackgroundTransparency = 1,
 		Image = Assets.BUTTON_AVATAR_TYPE,
 		ScaleType = Enum.ScaleType.Slice,
-		Size = self.props.isLarge and UDim2.new(0, 162, 0, 34) or UDim2.new(0, 102, 0, 34),
+		Size = UDim2.new(0, 102, 0, 34),
 		SliceCenter = Rect.new(4, 4, 5, 5),
 		ImageColor3 = self:getButtonThemeConfig(),
 		LayoutOrder = self.props.layoutOrder,

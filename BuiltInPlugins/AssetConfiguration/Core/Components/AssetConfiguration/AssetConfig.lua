@@ -12,7 +12,6 @@ local FFlagShowAssetConfigReasons2 = game:GetFastFlag("ShowAssetConfigReasons2")
 local FFlagAssetConfigEnforceNonEmptyDescription = game:DefineFastFlag("AssetConfigEnforceNonEmptyDescription", false)
 local FFlagCMSUploadFees = game:GetFastFlag("CMSUploadFees")
 local FFlagAssetConfigNonCatalogOptionalDescription = game:GetFastFlag("AssetConfigNonCatalogOptionalDescription")
-local FFlagRefactorDevFrameworkContextItems = game:GetFastFlag("RefactorDevFrameworkContextItems")
 
 local StudioService = game:GetService("StudioService")
 
@@ -350,7 +349,7 @@ function AssetConfig:init(props)
 	self.tryCloseAssetConfig = function(index, action)
 		if action == "yes" then
 			-- Close the assetConfig
-			local pluginGui = FFlagRefactorDevFrameworkContextItems and self.props.Focus:get() or self.props.Focus:getTarget()
+			local pluginGui = self.props.Focus:getTarget()
 
 			-- And we will let AssetConfigWrapper to handle the onClose and unMount.
 			pluginGui.Enabled = false

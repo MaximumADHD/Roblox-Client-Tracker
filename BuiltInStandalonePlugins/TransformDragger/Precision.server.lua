@@ -1978,14 +1978,14 @@ function movePart(delta, collision)
 	local dragHalf = dragPart.Size / 2
 	--Snap bounding box verts
 
-	verts[1] = workplaneFrame:pointToObjectSpace(dragPart.CFrame:pointToWorldSpace(dragHalf * Vector3.new(-1,-1,-1)))
-	verts[2] = workplaneFrame:pointToObjectSpace(dragPart.CFrame:pointToWorldSpace(dragHalf * Vector3.new(-1,-1, 1)))
-	verts[3] = workplaneFrame:pointToObjectSpace(dragPart.CFrame:pointToWorldSpace(dragHalf * Vector3.new(-1, 1,-1)))
-	verts[4] = workplaneFrame:pointToObjectSpace(dragPart.CFrame:pointToWorldSpace(dragHalf * Vector3.new(-1, 1, 1)))
-	verts[5] = workplaneFrame:pointToObjectSpace(dragPart.CFrame:pointToWorldSpace(dragHalf * Vector3.new( 1,-1,-1)))
-	verts[6] = workplaneFrame:pointToObjectSpace(dragPart.CFrame:pointToWorldSpace(dragHalf * Vector3.new( 1,-1, 1)))
-	verts[7] = workplaneFrame:pointToObjectSpace(dragPart.CFrame:pointToWorldSpace(dragHalf * Vector3.new( 1, 1,-1)))
-	verts[8] = workplaneFrame:pointToObjectSpace(dragPart.CFrame:pointToWorldSpace(dragHalf * Vector3.new( 1, 1, 1)))
+	verts[0] = workplaneFrame:pointToObjectSpace(dragPart.CFrame:pointToWorldSpace(dragHalf * Vector3.new(-1,-1,-1)))
+	verts[1] = workplaneFrame:pointToObjectSpace(dragPart.CFrame:pointToWorldSpace(dragHalf * Vector3.new(-1,-1, 1)))
+	verts[2] = workplaneFrame:pointToObjectSpace(dragPart.CFrame:pointToWorldSpace(dragHalf * Vector3.new(-1, 1,-1)))
+	verts[3] = workplaneFrame:pointToObjectSpace(dragPart.CFrame:pointToWorldSpace(dragHalf * Vector3.new(-1, 1, 1)))
+	verts[4] = workplaneFrame:pointToObjectSpace(dragPart.CFrame:pointToWorldSpace(dragHalf * Vector3.new( 1,-1,-1)))
+	verts[5] = workplaneFrame:pointToObjectSpace(dragPart.CFrame:pointToWorldSpace(dragHalf * Vector3.new( 1,-1, 1)))
+	verts[6] = workplaneFrame:pointToObjectSpace(dragPart.CFrame:pointToWorldSpace(dragHalf * Vector3.new( 1, 1,-1)))
+	verts[7] = workplaneFrame:pointToObjectSpace(dragPart.CFrame:pointToWorldSpace(dragHalf * Vector3.new( 1, 1, 1)))
 
 	local minXDist = 100
 	local minYDist = 100
@@ -1995,7 +1995,7 @@ function movePart(delta, collision)
 	local minSnapMovementY = 0
 	local minSnapMovementZ = 0
 
-	for i = 1, #verts do
+	for i = 0, #verts do
 		local xDist = verts[i].x - roundToNearestGrid(verts[i].x)
 		local yDist = verts[i].y - roundToNearestGrid(verts[i].y)
 		local zDist = verts[i].z - roundToNearestGrid(verts[i].z)

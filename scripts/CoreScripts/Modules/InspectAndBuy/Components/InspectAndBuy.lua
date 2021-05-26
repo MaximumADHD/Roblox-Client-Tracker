@@ -1,4 +1,3 @@
-local CoreGui = game:GetService("CoreGui")
 local CorePackages = game:GetService("CorePackages")
 local LocalizationService = game:GetService("LocalizationService")
 local UserInputService = game:GetService("UserInputService")
@@ -30,17 +29,13 @@ local SetPlayerId = require(InspectAndBuyFolder.Actions.SetPlayerId)
 local SetPlayerName = require(InspectAndBuyFolder.Actions.SetPlayerName)
 local SetLocale = require(InspectAndBuyFolder.Actions.SetLocale)
 local SetItemBeingPurchased = require(InspectAndBuyFolder.Actions.SetItemBeingPurchased)
-local SetIsSubjectToChinaPolicies = require(InspectAndBuyFolder.Actions.SetIsSubjectToChinaPolicies)
 local UpdateStoreId = require(InspectAndBuyFolder.Actions.UpdateStoreId)
 local GetAssetsFromHumanoidDescription = require(InspectAndBuyFolder.Thunks.GetAssetsFromHumanoidDescription)
 local UpdateOwnedStatus = require(InspectAndBuyFolder.Thunks.UpdateOwnedStatus)
 local GetCharacterModelFromUserId = require(InspectAndBuyFolder.Thunks.GetCharacterModelFromUserId)
 local GetPlayerName = require(InspectAndBuyFolder.Thunks.GetPlayerName)
 
-local PolicyService = require(CoreGui.RobloxGui.Modules.Common.PolicyService)
-
 local FFlagInspectAndBuyBundlePromptListener = game:DefineFastFlag("InspectAndBuyBundlePromptListener", false)
-local FFlagInspectMenuShowFavoritesPolicy = require(InspectAndBuyFolder.Flags.FFlagInspectMenuShowFavoritesPolicy)
 
 local COMPACT_VIEW_MAX_WIDTH = 600
 local CURSOR_OVERRIDE_KEY = Symbol.named("OverrideCursorInspectMenu")
@@ -165,13 +160,6 @@ function InspectAndBuy:didMount()
 	local menuClosedConnection = GuiService.MenuClosed:Connect(function()
 		self:pushMouseIconOverride()
 	end)
-
-	if FFlagInspectMenuShowFavoritesPolicy then
-		coroutine.wrap(function()
-			local subjectToChinaPolicies = PolicyService:IsSubjectToChinaPolicies()
-			self.state.store:dispatch(SetIsSubjectToChinaPolicies(subjectToChinaPolicies))
-		end)()
-	end
 
 	-- Update the owned status of an asset if a user purchases it.
 	local marketplaceServicePurchaseFinishedListener

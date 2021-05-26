@@ -11,9 +11,9 @@ local PlayerGui = Player:WaitForChild("PlayerGui")
 local Input = require(VirtualCursorFolder.Input)
 local Interface = require(VirtualCursorFolder.Interface)
 local Properties = require(VirtualCursorFolder.Properties)
+local VirtualCursorEnums = require(VirtualCursorFolder.Enums)
 
 local FFlagVirtualCursorResetLastSelectedObject = game:DefineFastFlag("VirtualCursorResetLastSelectedObject", false)
-local FFlagVirtualCursorOnlySelectOneGuiObject = game:DefineFastFlag("VirtualCursorOnlySelectOneGuiObject", false)
 
 local velocityTarget = 1
 local lastSelectedObject = nil
@@ -61,15 +61,36 @@ local function getNearestButtonInCircle(pos, rad)
 	return closest
 end
 
-local function getMaxSpeed()
-	local viewportRadius = GuiService:GetScreenResolution().Magnitude
-	return viewportRadius * Properties.MaxSpeedRelative
+local function getBaseSpeed()
+	if Properties.MovementMode == VirtualCursorEnums.MovementMode.Standard then
+		return 0
+	else
+		local sensitivityMult = Input:GetSensitivityEffect() * (Input:GetCursorFastModeEnabled() and Properties.FastModeMultiplier or 1)
+		if Properties.SpeedRelativity == VirtualCursorEnums.SpeedRelativity.Pixel then
+			return Properties.AccelBaseSpeedPixels * sensitivityMult
+		elseif Properties.SpeedRelativity == VirtualCursorEnums.SpeedRelativity.Viewport then
+			local viewportRadius = GuiService:GetScreenResolution().Magnitude
+			return viewportRadius * Properties.AccelBaseSpeedRelative * sensitivityMult
+		end
+	end
 end
+
+local function getMaxSpeed()
+	local sensitivityMult = Input:GetSensitivityEffect() * (Input:GetCursorFastModeEnabled() and Properties.FastModeMultiplier or 1)
+	if Properties.SpeedRelativity == VirtualCursorEnums.SpeedRelativity.Pixel then
+		return Properties.MaxSpeedPixels * sensitivityMult
+	elseif Properties.SpeedRelativity == VirtualCursorEnums.SpeedRelativity.Viewport then
+		local viewportRadius = GuiService:GetScreenResolution().Magnitude
+		return viewportRadius * Properties.MaxSpeedRelative * sensitivityMult
+	end
+end
+
 
 return function(VirtualCursorMain, dt)
 	local viewportSize = GuiService:GetScreenResolution()
 	local thumbstickVector = Input:GetThumbstickVector()
 	local cursorPosition = VirtualCursorMain.CursorPosition
+	local cursorAccelerationDV = VirtualCursorMain.CursorAccelerationDV
 	local cursorVelocity
 
 	-- process inputs and rendering of position of cursor
@@ -79,8 +100,25 @@ return function(VirtualCursorMain, dt)
 		velocityTarget = 1
 	end
 
-	velocityFromInput = thumbstickVector * getMaxSpeed()
-	cursorVelocity = velocityFromInput * velocityTarget
+	if Properties.MovementMode == VirtualCursorEnums.MovementMode.Standard then
+		velocityFromInput = thumbstickVector*getMaxSpeed()
+	elseif Properties.MovementMode == VirtualCursorEnums.MovementMode.Acceleration then
+		-- velocity still weighted by other factors, but we start at a base, and if a threshold is reached, we accelerate.
+		local isAccelerating = thumbstickVector.Magnitude >= Properties.AccelToggleThreshold
+		local maxDeltaV = getMaxSpeed()-getBaseSpeed()
+
+		local acceleration = maxDeltaV/Properties.AccelTime
+		local deltaV = acceleration * dt * (isAccelerating and 1 or -1)
+
+		-- velocity from acceleration should be decreased proportionately to thumbstick position
+		-- this allows quick opposite direction corrections to slow down the cursor.
+		local maxSpeed = maxDeltaV * math.min((thumbstickVector.Magnitude * Properties.AccelToggleThreshold) + (1 - Properties.AccelToggleThreshold), 1)
+		cursorAccelerationDV = math.clamp(cursorAccelerationDV + deltaV, 0, maxSpeed)
+		velocityFromInput = thumbstickVector*(getBaseSpeed()+cursorAccelerationDV)
+
+		VirtualCursorMain.CursorAccelerationDV = cursorAccelerationDV
+	end
+	cursorVelocity = velocityFromInput*velocityTarget
 
 	-- step the position
 	local velocityChanged = cursorVelocity.Magnitude > 0
@@ -117,27 +155,14 @@ return function(VirtualCursorMain, dt)
 			velocityTarget = 1
 		end
 
-		if FFlagVirtualCursorOnlySelectOneGuiObject then 
-			if VirtualCursorMain.SelectedObject == nil then 
-				GuiService.SelectedObject = nil
-				GuiService.SelectedCoreObject = nil
-			elseif VirtualCursorMain.SelectedObject:IsDescendantOf(CoreGui) then
-				GuiService.SelectedCoreObject = VirtualCursorMain.SelectedObject
-				GuiService.SelectedObject = nil
-			else
-				GuiService.SelectedObject = VirtualCursorMain.SelectedObject
-				GuiService.SelectedCoreObject = nil
-			end
-		else
-			if VirtualCursorMain.SelectedObject == nil then 
-				GuiService.SelectedObject = nil
-				GuiService.SelectedCoreObject = nil
-			elseif VirtualCursorMain.SelectedObject:IsDescendantOf(CoreGui) and
-					GuiService.SelectedCoreObject ~= VirtualCursorMain.SelectedObject then
-				GuiService.SelectedCoreObject = VirtualCursorMain.SelectedObject
-			elseif GuiService.SelectedObject ~= VirtualCursorMain.SelectedObject then
-				GuiService.SelectedObject = VirtualCursorMain.SelectedObject
-			end
+		if VirtualCursorMain.SelectedObject == nil then 
+			GuiService.SelectedObject = nil
+			GuiService.SelectedCoreObject = nil
+		elseif VirtualCursorMain.SelectedObject:IsDescendantOf(CoreGui) and
+				GuiService.SelectedCoreObject ~= VirtualCursorMain.SelectedObject then
+			GuiService.SelectedCoreObject = VirtualCursorMain.SelectedObject
+		elseif GuiService.SelectedObject ~= VirtualCursorMain.SelectedObject then
+			GuiService.SelectedObject = VirtualCursorMain.SelectedObject
 		end
 	end
 end

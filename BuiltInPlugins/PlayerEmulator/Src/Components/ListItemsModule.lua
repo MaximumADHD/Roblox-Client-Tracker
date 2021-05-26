@@ -29,6 +29,7 @@ local THEME_REFACTOR = Framework.Util.RefactorFlags.THEME_REFACTOR
 local getSocialMediaReferencesAllowed = require(Plugin.Src.Util.PlayerEmulatorUtilities).getSocialMediaReferencesAllowed
 
 local ListItemsModule = Roact.PureComponent:extend("ListItemsModule")
+local FFlagRemoveYoutubeFacebookTwitterForLuobu = game:GetFastFlag("RemoveYoutubeFacebookTwitterForLuobu")
 
 function ListItemsModule:init(props)
 	self.state = {
@@ -76,7 +77,8 @@ function ListItemsModule:render()
 
 	local arrowImageProps = expanded and theme.Arrow.downArrowImage or theme.Arrow.rightArrowImage
 
-	return getSocialMediaReferencesAllowed() and Roact.createElement(ExpandableList, {
+	return (not FFlagRemoveYoutubeFacebookTwitterForLuobu or getSocialMediaReferencesAllowed())
+	and Roact.createElement(ExpandableList, {
 		TopLevelItem = {
 			Frame = Roact.createElement("Frame", {
 				Size = UDim2.new(1, 0, 0, 25),

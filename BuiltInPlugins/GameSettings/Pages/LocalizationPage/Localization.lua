@@ -16,7 +16,7 @@
 local FFlagStudioCreatePluginPolicyService = game:GetFastFlag("StudioCreatePluginPolicyService")
 local FFlagGameSettingsMigrateToDevFrameworkSeparator = game:GetFastFlag("GameSettingsMigrateToDevFrameworkSeparator")
 local FFlagGameSettingsStandardizeLocalizationId = game:GetFastFlag("GameSettingsStandardizeLocalizationId")
-local FFlagLuobuDevPublishLua = game:GetFastFlag("LuobuDevPublishLua")
+
 
 local StudioService = game:GetService("StudioService")
 
@@ -342,7 +342,7 @@ local function displayLocalizationSettingsPage(props, localization, theme)
 				LinkText = Roact.createElement(StudioWidgetPartialHyperlink, {
 					HyperLinkText = localization:getText("General", "LocalizationSettingsLinkText"),
 					NonHyperLinkText = localization:getText("General", "LocalizationSettingsNonLinkText"),
-					Theme = not FFlagLuobuDevPublishLua and theme or nil,
+					Theme = theme,
 					Mouse = props.Mouse:get(),
 					OnClick = OpenLocalizationSettings(gameId),
 				})

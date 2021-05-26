@@ -29,11 +29,9 @@
 		number LayoutOrder: LayoutOrder of the component.
 		table PurchaseFlow: PurchaseFlow dialog to show.
 		table SuccessDialog: SuccessDialog dialog to show.
-		boolean HideCreatorSearch: Whether to show creator search link
 ]]
 
 local FFlagDevFrameworkDestroyAssetPreviewVideo = game:DefineFastFlag("DevFrameworkDestroyAssetPreviewVideo", false)
-local FFlagStudioAssetManagerHideAssetPreviewCreatorSearch = game:GetFastFlag("StudioAssetManagerHideAssetPreviewCreatorSearch")
 
 local TextService = game:GetService("TextService")
 
@@ -279,8 +277,7 @@ function AssetPreview:render()
 		{
 			Label = localization:getProjectText(LOCALIZATION_PROJECT_NAME, COMPONENT_NAME, "Creator"),
 			Content = assetData.Creator.Name,
-			LinkAction = FFlagStudioAssetManagerHideAssetPreviewCreatorSearch and not props.HideCreatorSearch
-				and self.onClickCreatorLink or nil,
+			LinkAction = self.onClickCreatorLink
 		},
 		{
 			Label = localization:getProjectText(LOCALIZATION_PROJECT_NAME, COMPONENT_NAME, "Genre"),

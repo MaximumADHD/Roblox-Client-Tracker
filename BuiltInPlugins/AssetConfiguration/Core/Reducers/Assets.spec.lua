@@ -1,5 +1,6 @@
 return function()
 	local FFlagImproveAssetCreationsPageFetching2 = game:GetFastFlag("ImproveAssetCreationsPageFetching2")
+	local FFlagToolboxMarkLoadingInitially = game:GetFastFlag("ToolboxMarkLoadingInitially")
 
 	local Plugin = script.Parent.Parent.Parent
 	local Cryo = require(Plugin.Libs.Cryo)
@@ -258,7 +259,7 @@ return function()
 	describe("SetLoading action", function()
 		it("should set loading", function()
 			local state = Assets(nil, {})
-			expect(state.isLoading).to.equal(true)
+			expect(state.isLoading).to.equal(FFlagToolboxMarkLoadingInitially)
 
 			state = Assets(state, SetLoading(false))
 			expect(state.isLoading).to.equal(false)

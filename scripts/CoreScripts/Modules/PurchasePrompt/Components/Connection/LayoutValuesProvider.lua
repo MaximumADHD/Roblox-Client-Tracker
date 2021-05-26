@@ -20,7 +20,7 @@ function LayoutValuesProvider:init(props)
 	assert(type(props.isTenFootInterface) == "boolean", "Expected required prop 'isTenFootInterface' to be a boolean")
 	assert(type(props.render) == "function", "Expected prop 'render' to be a function")
 
-	self.layoutValues = LayoutValues.new(self.props.isTenFootInterface)
+	self.layoutValues = LayoutValues.new(self.props.isTenFootInterface, false)
 	self._context[LayoutValuesKey] = self.layoutValues
 end
 

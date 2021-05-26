@@ -17,9 +17,9 @@ local enumerate
 local isUsedAsPackage = require(Util.isUsedAsPackage)
 local enumerateIsInstalledInParent = Framework.Parent:FindFirstChild("enumerate")
 if FlagsList:get("FFlagStudioDevFrameworkPackage") and isUsedAsPackage() and enumerateIsInstalledInParent then
-	enumerate = require(Framework.Parent.enumerate :: any)
+	enumerate = require(Framework.Parent.enumerate)
 else
-	enumerate = require(Framework.packages.enumerate :: any)
+	enumerate = require(Framework.packages.enumerate)
 end
 
 return enumerate

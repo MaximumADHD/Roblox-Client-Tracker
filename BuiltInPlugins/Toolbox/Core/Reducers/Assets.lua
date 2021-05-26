@@ -18,6 +18,9 @@ local ClearPreview = require(Actions.ClearPreview)
 local SetCanManageAsset = require(Actions.SetCanManageAsset)
 local SetPluginData = require(Actions.SetPluginData)
 
+local FFlagToolboxMarkLoadingInitially = game:GetFastFlag("ToolboxMarkLoadingInitially")
+local FFlagToolboxAssetGridUseFirstOccurrence = game:GetFastFlag("ToolboxAssetGridUseFirstOccurrence")
+
 local function handleAssetsAddedToState(state, assets, totalAssets, newCursor)
 	if not assets then
 		if DebugFlags.shouldDebugWarnings() then
@@ -37,7 +40,7 @@ local function handleAssetsAddedToState(state, assets, totalAssets, newCursor)
 		local id = asset.Asset.Id
 		local index = #newIdsToRender + 1
 
-		if newIdToAssetMap[id] ~= nil then
+		if FFlagToolboxAssetGridUseFirstOccurrence and newIdToAssetMap[id] ~= nil then
 			continue
 		end
 
@@ -76,7 +79,7 @@ end
 return Rodux.createReducer({
 	idToAssetMap = {},
 	idsToRender = {},
-	isLoading = true,
+	isLoading = FFlagToolboxMarkLoadingInitially,
 
 	totalAssets = 0,
 	assetsReceived = 0,

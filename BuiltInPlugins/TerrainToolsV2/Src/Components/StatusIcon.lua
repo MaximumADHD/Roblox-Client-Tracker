@@ -45,13 +45,13 @@ local function StatusIcon(props)
 	local icon
 	local message
 	if errorMessage and #errorMessage > 0 then
-		icon = "rbxasset://textures/StudioSharedUI/alert_error@2x.png"
+		icon = "rbxasset://textures/StudioSharedUI/alert_error_2x.png"
 		message = errorMessage
 	elseif warningMessage and #warningMessage > 0 then
-		icon = "rbxasset://textures/StudioSharedUI/alert_warning@2x.png"
+		icon = "rbxasset://textures/StudioSharedUI/alert_warning_2x.png"
 		message = warningMessage
 	elseif infoMessage and #infoMessage > 0 then
-		icon = "rbxasset://textures/StudioSharedUI/alert_info@2x.png"
+		icon = "rbxasset://textures/StudioSharedUI/alert_info_2x.png"
 		message = infoMessage
 	end
 

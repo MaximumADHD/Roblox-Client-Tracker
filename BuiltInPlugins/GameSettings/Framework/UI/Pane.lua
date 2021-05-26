@@ -17,14 +17,10 @@
 		RoundBox: The pane has the current theme's main background with the standard rounded border.
 		BorderBox: The pane has the current theme's main background with square border.
 ]]
-local FFlagDevFrameworkPaneSupportTheme1 = game:GetFastFlag("DevFrameworkPaneSupportTheme1")
-
 local Framework = script.Parent.Parent
 local ContextServices = require(Framework.ContextServices)
 local Roact = require(Framework.Parent.Roact)
 local isInputMainPress = require(Framework.Util.isInputMainPress)
-
-local THEME_REFACTOR = require(Framework.Util).RefactorFlags.THEME_REFACTOR
 
 local Dash = require(Framework.packages.Dash)
 local assign = Dash.assign
@@ -48,18 +44,7 @@ end
 
 function Pane:render()
 	local props = self.props
-
-	local style
-	if FFlagDevFrameworkPaneSupportTheme1 then
-		local theme = props.Theme
-		if THEME_REFACTOR then
-			style = props.Stylizer
-		else
-			style = theme:getStyle("Framework", self)
-		end
-	else
-		style = props.Stylizer
-	end
+	local style = props.Stylizer
 	local children = props[Roact.Children] or {}
 
 	local padding = props.Padding
@@ -141,22 +126,7 @@ function Pane:render()
 			}, children)
 		}
 	end
-	local componentProps = omit(join(defaultProps, props), FFlagDevFrameworkPaneSupportTheme1 and {
-		Roact.Children,
-		"StyleModifier",
-		"BackgroundColor",
-		"BorderColor",
-		"Padding",
-		"Layout",
-		"Spacing",
-		"Style",
-		"Stylizer",
-		"Theme",
-		"HorizontalAlignment",
-		"VerticalAlignment",
-		"OnPress",
-	}
-	or {
+	local componentProps = omit(join(defaultProps, props), {
 		Roact.Children,
 		"StyleModifier",
 		"BackgroundColor",
@@ -174,15 +144,8 @@ function Pane:render()
 	return Roact.createElement(className, componentProps, children)
 end
 
-if FFlagDevFrameworkPaneSupportTheme1 then
-	ContextServices.mapToProps(Pane, {
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	})
-else
-	ContextServices.mapToProps(Pane, {
-		Stylizer = ContextServices.Stylizer,
-	})
-end
+ContextServices.mapToProps(Pane, {
+	Stylizer = ContextServices.Stylizer
+})
 
 return Pane

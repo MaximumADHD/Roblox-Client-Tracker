@@ -30,8 +30,8 @@ return function(type, id, pageCursor)
 			local query = ApiFetchGames({type = type, id = id, cursor = pageCursor, limit = limit})
 
 			query:andThen(function(resp)
-				-- Concatenating gamesTable and resp.games
-				for i = 1, #resp.games do
+
+				for i = 0, #resp.games do
 					gamesTable[#gamesTable + 1] = resp.games[i]
 				end
 				gamesTable = Cryo.Dictionary.join(gamesTable)

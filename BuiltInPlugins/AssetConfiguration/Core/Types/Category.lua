@@ -5,7 +5,6 @@ local FFlagToolboxDisableMarketplaceAndRecentsForLuobu = game:GetFastFlag("Toolb
 local FFlagToolboxShowRobloxCreatedAssetsForLuobu = game:GetFastFlag("ToolboxShowRobloxCreatedAssetsForLuobu")
 local FFlagFixAudioAssetsForLuoBu = game:DefineFastFlag("FixAudioAssetsForLuoBu", false)
 local FFlagStudioCreatePluginPolicyService = game:GetFastFlag("StudioCreatePluginPolicyService")
-local FFlagToolboxRemoveGroupInventory = game:GetFastFlag("ToolboxRemoveGroupInventory")
 
 local Plugin = script.Parent.Parent.Parent
 local CreatorInfoHelper = require(Plugin.Core.Util.CreatorInfoHelper)
@@ -194,21 +193,19 @@ Category.INVENTORY = {
 	Category.MY_PLUGINS,
 }
 
-if not FFlagToolboxRemoveGroupInventory then
-	Category.INVENTORY_WITH_GROUPS = {
-		Category.MY_MODELS,
-		Category.MY_DECALS,
-		Category.MY_MESHES,
-		Category.MY_AUDIO,
-		Category.MY_PACKAGES,
-		Category.MY_VIDEOS,
-		Category.GROUP_MODELS,
-		Category.GROUP_DECALS,
-		Category.GROUP_MESHES,
-		Category.GROUP_AUDIO,
-		Category.GROUP_PACKAGES,
-	}
-end
+Category.INVENTORY_WITH_GROUPS = {
+	Category.MY_MODELS,
+	Category.MY_DECALS,
+	Category.MY_MESHES,
+	Category.MY_AUDIO,
+	Category.MY_PACKAGES,
+	Category.MY_VIDEOS,
+	Category.GROUP_MODELS,
+	Category.GROUP_DECALS,
+	Category.GROUP_MESHES,
+	Category.GROUP_AUDIO,
+	Category.GROUP_PACKAGES,
+}
 
 Category.RECENT = {
 	Category.RECENT_MODELS,
@@ -281,18 +278,15 @@ Category.INVENTORY_KEY = "Inventory"
 Category.RECENT_KEY = "Recent"
 Category.CREATIONS_KEY = "Creations"
 
-if not FFlagToolboxRemoveGroupInventory then
-	if Rollouts:getToolboxEndpointMigration() then
-		local insertIndex = Cryo.List.find(Category.INVENTORY_WITH_GROUPS, Category.MY_VIDEOS) + 1
-		table.insert(Category.INVENTORY_WITH_GROUPS, insertIndex, Category.MY_PLUGINS)
-	else
-		local insertIndex = Cryo.List.find(Category.INVENTORY_WITH_GROUPS, Category.MY_PACKAGES) + 1
-		table.insert(Category.INVENTORY_WITH_GROUPS, insertIndex, Category.MY_PLUGINS)
-	end
-
-	local insertIndex2 = Cryo.List.find(Category.INVENTORY_WITH_GROUPS, Category.GROUP_AUDIO) + 1
-	table.insert(Category.INVENTORY_WITH_GROUPS, insertIndex2, Category.GROUP_PLUGINS)
+if Rollouts:getToolboxEndpointMigration() then
+	local insertIndex = Cryo.List.find(Category.INVENTORY_WITH_GROUPS, Category.MY_VIDEOS) + 1
+	table.insert(Category.INVENTORY_WITH_GROUPS, insertIndex, Category.MY_PLUGINS)
+else
+	local insertIndex = Cryo.List.find(Category.INVENTORY_WITH_GROUPS, Category.MY_PACKAGES) + 1
+	table.insert(Category.INVENTORY_WITH_GROUPS, insertIndex, Category.MY_PLUGINS)
 end
+local insertIndex2 = Cryo.List.find(Category.INVENTORY_WITH_GROUPS, Category.GROUP_AUDIO) + 1
+table.insert(Category.INVENTORY_WITH_GROUPS, insertIndex2, Category.GROUP_PLUGINS)
 
 local disabledCategories = {}
 
@@ -362,7 +356,7 @@ local tabs
 local tabKeys
 if FFlagToolboxDisableMarketplaceAndRecentsForLuobu and disableMarketplaceAndRecents() then
 	tabs = {
-		FFlagToolboxRemoveGroupInventory and Category.INVENTORY or Category.INVENTORY_WITH_GROUPS,
+		Category.INVENTORY_WITH_GROUPS,
 		Category.CREATIONS,
 	}
 	tabKeys = {
@@ -372,7 +366,7 @@ if FFlagToolboxDisableMarketplaceAndRecentsForLuobu and disableMarketplaceAndRec
 elseif FFlagToolboxShowRobloxCreatedAssetsForLuobu and showRobloxCreatedAssets() then
 	tabs = {
 		Category.MARKETPLACE,
-		FFlagToolboxRemoveGroupInventory and Category.INVENTORY or Category.INVENTORY_WITH_GROUPS,
+		Category.INVENTORY_WITH_GROUPS,
 		Category.CREATIONS,
 	}
 	tabKeys = {
@@ -383,7 +377,7 @@ elseif FFlagToolboxShowRobloxCreatedAssetsForLuobu and showRobloxCreatedAssets()
 else
 	tabs = {
 		Category.MARKETPLACE,
-		FFlagToolboxRemoveGroupInventory and Category.INVENTORY or Category.INVENTORY_WITH_GROUPS,
+		Category.INVENTORY_WITH_GROUPS,
 		Category.RECENT,
 		Category.CREATIONS,
 	}
@@ -507,7 +501,7 @@ function Category.getCategories(tabName, roles)
 	elseif Category.MARKETPLACE_KEY == tabName then
 		return Category.MARKETPLACE
 	elseif Category.INVENTORY_KEY == tabName then
-		return FFlagToolboxRemoveGroupInventory and Category.INVENTORY or Category.INVENTORY_WITH_GROUPS
+		return Category.INVENTORY_WITH_GROUPS
 	elseif Category.RECENT_KEY == tabName then
 		return Category.RECENT
 	end

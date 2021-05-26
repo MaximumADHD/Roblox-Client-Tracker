@@ -21,6 +21,7 @@ local InGameMenu = script.Parent.Parent
 local withLocalization = require(InGameMenu.Localization.withLocalization)
 
 local SetRespawning = require(InGameMenu.Actions.SetRespawning)
+local StartLeavingGame = require(InGameMenu.Actions.StartLeavingGame)
 local CloseMenu = require(InGameMenu.Thunks.CloseMenu)
 local Assets = require(InGameMenu.Resources.Assets)
 local SetCurrentPage = require(InGameMenu.Actions.SetCurrentPage)
@@ -34,6 +35,7 @@ local GameIconHeader = require(script.Parent.GameIconHeader)
 local FFlagRecordRecording = require(InGameMenu.Flags.FFlagRecordRecording)
 local FFlagTakeAScreenshotOfThis = game:DefineFastFlag("TakeAScreenshotOfThis", false)
 local FFlagShowContextMenuWhenButtonsArePresent = game:DefineFastFlag("ShowContextMenuWhenButtonsArePresent", false)
+local GetFFlagUseNewLeaveGamePrompt = require(InGameMenu.Flags.GetFFlagUseNewLeaveGamePrompt)
 local GetFFlagFixInGameMenuRecordingTime = require(InGameMenu.Flags.GetFFlagFixInGameMenuRecordingTime)
 
 local Images = UIBlox.App.ImageSet.Images
@@ -293,7 +295,11 @@ return RoactRodux.UNSTABLE_connect2(function(state, props)
 end, function(dispatch)
 	return {
 		startLeavingGame = function()
-			dispatch(SetCurrentPage(Constants.LeaveGamePromptPageKey))
+			if GetFFlagUseNewLeaveGamePrompt() then
+				dispatch(SetCurrentPage(Constants.LeaveGamePromptPageKey))
+			else
+				dispatch(StartLeavingGame())
+			end
 		end,
 		startRespawning = function()
 			dispatch(SetRespawning(true))

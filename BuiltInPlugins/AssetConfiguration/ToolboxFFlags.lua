@@ -3,6 +3,7 @@
 -- And then error when trying to use flags that aren't yet defined
 
 game:DefineFastFlag("AssetConfigOverrideFromAnyScreen", false)
+game:DefineFastFlag("FixAssetConfigManageableGroups", false)
 game:DefineFastFlag("ShowAssetConfigReasons2", false)
 game:DefineFastFlag("DebugAssetConfigNetworkError", false)
 
@@ -44,13 +45,15 @@ game:DefineFastFlag("EnableToolboxStylizer", false)
 
 game:DefineFastFlag("ToolboxStopAudioFromPlayingOnCloseAndCategorySwitch", false)
 
+game:DefineFastFlag("ToolboxMarkLoadingInitially", false)
+
 game:DefineFastFlag("AssetConfigNonCatalogOptionalDescription", false)
 game:DefineFastFlag("ToolboxFixCreatorSearchResults", false)
+
+game:DefineFastFlag("ToolboxAssetGridUseFirstOccurrence", false)
 
 game:DefineFastFlag("ToolboxDefaultBackgroundMatches", false)
 
 game:DefineFastFlag("ToolboxFixCommonWarnings", false)
-
-game:DefineFastFlag("ToolboxRemoveGroupInventory", false)
 
 return nil

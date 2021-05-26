@@ -6,7 +6,6 @@
 		string Header = The header text to display at the top of this Dialog.
 		table Buttons = {string cancelButtonName, string confirmButtonName}
 ]]
-local FFlagLuobuDevPublishLua = game:GetFastFlag("LuobuDevPublishLua")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
@@ -24,7 +23,6 @@ function SimpleDialog:render()
 	local theme = props.Theme:get("Plugin")
 
 	local header = props.Header
-	local body = props.Body
 	local buttons = props.Buttons
 
 	return Roact.createElement(BaseDialog, {
@@ -32,15 +30,13 @@ function SimpleDialog:render()
 		OnResult = props.OnResult,
 	}, {
 		Header = Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Title, {
-			Position = not FFlagLuobuDevPublishLua and UDim2.new(0.5, 0, 0, 45) or nil,
-			AnchorPoint = not FFlagLuobuDevPublishLua and Vector2.new(0.5, 0.5) or nil,
+			Position = UDim2.new(0.5, 0, 0, 45),
+			AnchorPoint = Vector2.new(0.5, 0.5),
 			Size = UDim2.new(1, 0, 0, 60),
 			BackgroundTransparency = 1,
 			Text = header,
 			TextWrapped = true,
 		})),
-
-		Body = FFlagLuobuDevPublishLua and body or nil
 	})
 end
 

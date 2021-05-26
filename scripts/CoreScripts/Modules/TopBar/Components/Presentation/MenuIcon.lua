@@ -16,6 +16,7 @@ end
 
 local IconButton = require(script.Parent.IconButton)
 
+local GetFFlagInGameMenuOpenOnHover = require(RobloxGui.Modules.Flags.GetFFlagInGameMenuOpenOnHover)
 local GetFFlagInGameFixMenuIconHoverEatKeyboard =
 	require(RobloxGui.Modules.Flags.GetFFlagInGameFixMenuIconHoverEatKeyboard)
 
@@ -66,7 +67,7 @@ function MenuIcon:render()
 			iconSize = ICON_SIZE,
 
 			onActivated = self.menuIconActivated,
-			onHover = self.menuIconOnHover,
+			onHover = GetFFlagInGameMenuOpenOnHover() and self.menuIconOnHover or nil,
 		})
 	})
 end

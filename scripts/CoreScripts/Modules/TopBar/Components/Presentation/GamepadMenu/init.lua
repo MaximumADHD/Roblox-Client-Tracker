@@ -440,7 +440,7 @@ function GamepadMenu:didMount()
 	ContextActionService:BindCoreAction(
 		TOGGLE_GAMEPAD_MENU_ACTION, self.toggleMenuVisibleAction, false, Enum.KeyCode.ButtonStart)
 
-	debug.profileend() -- matching profilebegin in :init()
+	debug.profileend(GAMEPAD_MENU_MOUNT_TAG)
 end
 
 function GamepadMenu:bindMenuOpenActions()
@@ -522,7 +522,7 @@ function GamepadMenu:didUpdate(prevProps, prevState)
 		end
 	end
 
-	debug.profileend() -- matching profilebegin in willUpdate()
+	debug.profileend(GAMEPAD_MENU_UPDATE_TAG)
 end
 
 function GamepadMenu:willUnmount()

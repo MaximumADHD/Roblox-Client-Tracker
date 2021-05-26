@@ -9,6 +9,8 @@ local StartedFetchingSupportedLanaguages = false
 local FetchedSupportedLanguagesEvent = Instance.new("BindableEvent")
 local CachedSupportedLanguages = nil
 
+local FFlagFixGetGameNameAndDescription = game:DefineFastFlag("FixGetGameNameAndDescription", false)
+
 local FALLBACK_LANGUAGE_CONSTANT = "FALLBACK"
 
 local FALLBACK_SOURCE_LOCALE = "en-us"
@@ -30,7 +32,9 @@ local function GetSupportedLanguagesPromise(networkImpl)
 	StartedFetchingSupportedLanaguages = true
 
 	return GameRequests.GetSupportedLanguages(networkImpl):andThen(function(result)
-		SupportedLanguagesFetched = true
+		if FFlagFixGetGameNameAndDescription then
+			SupportedLanguagesFetched = true
+		end
 		CachedSupportedLanguages = result
 		FetchedSupportedLanguagesEvent:Fire(true)
 		return Promise.resolve(result)

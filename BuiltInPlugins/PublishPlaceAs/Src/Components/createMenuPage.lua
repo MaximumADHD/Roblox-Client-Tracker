@@ -26,7 +26,6 @@
 			bool AddLayout = Whether or not to add a default UIListLayout to the page contents.
 ]]
 local FFlagUpdatePublishPlacePluginToDevFrameworkContext = game:GetFastFlag("UpdatePublishPlacePluginToDevFrameworkContext")
-local FFlagLuobuDevPublishLua = game:GetFastFlag("LuobuDevPublishLua")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -35,8 +34,6 @@ local Cryo = require(Plugin.Packages.Cryo)
 
 local Framework = Plugin.Packages.Framework
 local ContextServices = require(Framework.ContextServices)
-local Util = require(Framework.Util)
-local StyleModifier = Util.StyleModifier
 
 local UILibrary = require(Plugin.Packages.UILibrary)
 local Localizing = UILibrary.Localizing
@@ -48,40 +45,10 @@ return function(loadValuesToProps, dispatchForProps)
 	if FFlagUpdatePublishPlacePluginToDevFrameworkContext then
 		local Page = Roact.PureComponent:extend("Page")
 
-		function Page:init()
-			if FFlagLuobuDevPublishLua then
-				self.state = {
-					StyleModifier = nil,
-				}
-
-				self.onMouseEnter = function()
-					if self.state.StyleModifier == nil then
-						self:setState({
-							StyleModifier = StyleModifier.Hover,
-						})
-					end
-				end
-
-				self.onMouseLeave = function()
-					if self.state.StyleModifier == StyleModifier.Hover then
-						self:setState({
-							StyleModifier = Roact.None,
-						})
-					end
-				end
-			end
-		end
-
 		function Page:render()
 			local props = self.props
 
-			local children
-			if FFlagLuobuDevPublishLua then
-				children = props.Content and props.Content(self) or {}
-			else
-				children = props.Content and props.Content(props) or {}
-			end
-
+			local children = props.Content and props.Content(props) or {}
 			local layoutOrder = props.LayoutOrder
 			local addLayout = props.AddLayout
 			local contentHeightChanged = props.ContentHeightChanged
@@ -110,7 +77,6 @@ return function(loadValuesToProps, dispatchForProps)
 		ContextServices.mapToProps(Page, {
 			Theme = ContextServices.Theme,
 			Localization = ContextServices.Localization,
-			Mouse = FFlagLuobuDevPublishLua and ContextServices.Mouse or nil,
 		})
 
 		local function mapStateToProps(state, props)

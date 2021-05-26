@@ -30,8 +30,6 @@ local insert = table.insert
 
 local PanelEntry = require(Main.Src.Components.PanelEntry)
 
-local FFlagRefactorDevFrameworkContextItems = game:GetFastFlag("RefactorDevFrameworkContextItems")
-
 local StoryHost = Roact.PureComponent:extend("StoryHost")
 
 type Props = {
@@ -182,7 +180,7 @@ function StoryHost:getStoryProps(): Types.StoryProps
 	return join(storyProps, {
 		plugin = props.Plugin:get(),
 		host = self.paneRef.current,
-		focus = FFlagRefactorDevFrameworkContextItems and props.Focus:get() or props.Focus:getTarget(),
+		focus = props.Focus:getTarget(),
 		theme = props.ThemeName,
 	})
 end

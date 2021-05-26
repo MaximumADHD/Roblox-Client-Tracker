@@ -43,7 +43,6 @@ local RadioButtonSet = require(Plugin.Src.Components.RadioButtonSet)
 
 local Header = require(Plugin.Src.Components.Header)
 local PlatformSelect = require(Plugin.Src.Components.PlatformSelect)
-local CheckBoxSet = require(Plugin.Src.Components.CheckBoxSet)
 
 local AddChange = require(Plugin.Src.Actions.AddChange)
 local AddErrors = require(Plugin.Src.Actions.AddErrors)
@@ -55,24 +54,11 @@ local createMenuPage = require(Plugin.Src.Components.createMenuPage)
 local FFlagStudioAllowRemoteSaveBeforePublish = game:GetFastFlag("StudioAllowRemoteSaveBeforePublish")
 local FFlagUpdatePublishPlacePluginToDevFrameworkContext = game:GetFastFlag("UpdatePublishPlacePluginToDevFrameworkContext")
 local FFlagStudioPromptOnFirstPublish = game:GetFastFlag("StudioPromptOnFirstPublish")
-local FFlagLuobuDevPublishLua = game:GetFastFlag("LuobuDevPublishLua")
-
-local shouldShowDevPublishLocations = require(Plugin.Src.Util.PublishPlaceAsUtilities).shouldShowDevPublishLocations
-local KeyProvider = FFlagLuobuDevPublishLua and require(Plugin.Src.Util.KeyProvider) or nil
-local optInLocationsKey = FFlagLuobuDevPublishLua and KeyProvider.getOptInLocationsKeyName() or nil
-local chinaKey = FFlagLuobuDevPublishLua and KeyProvider.getChinaKeyName() or nil
-
-local Framework = require(Plugin.Packages.Framework)
-local Tooltip = Framework.UI.Tooltip
-local Image = Framework.UI.Decoration.Image
-local HoverArea = Framework.UI.HoverArea
 
 local groupsLoaded = false
 -- remove DEPRECATED_localization parameter with FFlagUpdatePublishPlacePluginToDevFrameworkContext
 --Uses props to display current settings values
-local function displayContents(parent, DEPRECATED_localization)
-	local props = FFlagLuobuDevPublishLua and parent.props or parent
-
+local function displayContents(props, DEPRECATED_localization)
 	local theme = FFlagUpdatePublishPlacePluginToDevFrameworkContext and props.Theme:get("Plugin") or nil
 	local localization = FFlagUpdatePublishPlacePluginToDevFrameworkContext and props.Localization or DEPRECATED_localization
 	local description = props.Description
@@ -91,8 +77,6 @@ local function displayContents(parent, DEPRECATED_localization)
 	local creatorChanged = props.CreatorChanged
 	local isFriendsOnlyChanged = props.IsFriendsOnlyChanged
 	local isActiveChanged = props.IsActiveChanged
-	local optInLocations = FFlagLuobuDevPublishLua and props.OptInLocations or nil
-	local optInLocationsChanged = FFlagLuobuDevPublishLua and props.OptInLocationsChanged or nil
 
 	local genres = Cryo.List.map(Constants.GENRE_IDS, function(name)
 		return {Key = name, Text = localization:getText("Genre", name)}
@@ -139,7 +123,7 @@ local function displayContents(parent, DEPRECATED_localization)
 		}, {
 			TextBox = Roact.createElement(RoundTextBox, {
 				Active = true,
-				ErrorMessage = nameError and localization:getText("Error", nameError, { tostring(nameLength), tostring(MAX_NAME_LENGTH) }),
+				ErrorMessage = nameError and localization:getText("Error", nameError, tostring(nameLength), tostring(MAX_NAME_LENGTH)),
 				MaxLength = MAX_NAME_LENGTH,
 				Text = name,
 				TextSize = Constants.TEXT_SIZE,
@@ -161,7 +145,7 @@ local function displayContents(parent, DEPRECATED_localization)
 				Text = description,
 				TextSize = Constants.TEXT_SIZE,
 				SetText = descriptionChanged,
-				ErrorMessage = descriptionError and localization:getText("Error", descriptionError, { tostring(descriptionLength), tostring(MAX_DESCRIPTION_LENGTH) }),
+				ErrorMessage = descriptionError and localization:getText("Error", descriptionError, tostring(descriptionLength), tostring(MAX_DESCRIPTION_LENGTH)),
 			}),
 		}),
 
@@ -231,7 +215,7 @@ local function displayContents(parent, DEPRECATED_localization)
 					ShowRibbon = not theme.isDarkerTheme,
 					OnItemClicked = function(item) genreChanged(item.Key) end,
 					ListWidth = 210,
-				}) or
+				}) or 
 				Theming.withTheme(function(theme)
 				return Roact.createElement(StyledDropDown, {
 					Size = UDim2.new(0, 220, 0, 38),
@@ -338,47 +322,6 @@ local function displayContents(parent, DEPRECATED_localization)
 					end,
 				})
 			end)
-
-			displayResult.Separator5 = FFlagLuobuDevPublishLua and shouldShowDevPublishLocations()
-			and Roact.createElement(Separator, {
-				LayoutOrder = 11,
-			}) or nil
-
-			displayResult.OptInLocations = FFlagLuobuDevPublishLua and shouldShowDevPublishLocations()
-			and Roact.createElement(CheckBoxSet, {
-				Title = localization:getText(optInLocationsKey, "TitleOptInLocations"),
-				LayoutOrder = 12,
-				MaxHeight = theme.optInLocations.height,
-				Boxes = {{
-						Id = chinaKey,
-						Title = localization:getText(optInLocationsKey, chinaKey),
-						Selected = optInLocations and optInLocations.China or false
-					},
-				},
-				Enabled = optInLocations ~= nil,
-				--Functionality
-				EntryClicked = function(box)
-					local newLocations = Cryo.Dictionary.join(optInLocations, {
-						[box.Id] = (box.Selected) and Cryo.None or not box.Selected,
-					})
-					optInLocationsChanged(newLocations)
-				end,
-				Tooltip = Roact.createElement(Image, {
-					Size = UDim2.fromOffset(theme.tooltipIcon.size, theme.tooltipIcon.size),
-					Position = UDim2.new(0, 0, 0, theme.tooltipIcon.paddingY),
-					Style = "TooltipStyle",
-					StyleModifier = parent.state.StyleModifier,
-				}, {
-					Roact.createElement(Tooltip, {
-						Text = localization:getText(optInLocationsKey, "Tooltip"),
-					}),
-					Roact.createElement(HoverArea, {
-						Cursor = "PointingHand",
-						MouseEnter = parent.onMouseEnter,
-						MouseLeave = parent.onMouseLeave,
-					}),
-				}),
-			}) or nil
 		else
 			-- Dialog is in save mode, not publish mode
 			-- Hide the controls that are only used on publish
@@ -421,7 +364,6 @@ local function loadValuesToProps(getValue, state)
 		IsActive = getValue("isActive"),
 		IsFriendsOnly = getValue("isFriendsOnly"),
 		CreatorId = getValue("creatorId"),
-		OptInLocations = FFlagUpdatePublishPlacePluginToDevFrameworkContext and FFlagLuobuDevPublishLua and shouldShowDevPublishLocations() and getValue(optInLocationsKey) or {},
 	}
 end
 
@@ -459,12 +401,6 @@ local function dispatchForProps(setValue, dispatch)
 				end
 			end
 			dispatch(AddErrors({playableDevices = "NoDevices"}))
-		end,
-
-		OptInLocationsChanged = function(locations)
-			if FFlagUpdatePublishPlacePluginToDevFrameworkContext and FFlagLuobuDevPublishLua and shouldShowDevPublishLocations() then
-				dispatch(AddChange(optInLocationsKey, locations))
-			end
 		end,
 
 		IsFriendsOnlyChanged = setValue("isFriendsOnly"),

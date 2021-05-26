@@ -158,9 +158,8 @@ function PlayerListMaster.new()
 			and game:GetService("StudioService"):HasInternalPermission()
 		if hasInternalPermission then
 			local DeveloperTools = require(CorePackages.DeveloperTools)
-			local parent = FFlagMobilePlayerList and layerCollector or RobloxGui
 			self.inspector = DeveloperTools.forCoreGui("PlayerList", {
-				rootInstance = parent:FindFirstChild("PlayerListMaster"),
+				rootInstance = RobloxGui:FindFirstChild("PlayerListMaster"),
 				pickerParent = "RobloxGui",
 			})
 			self.inspector:addRoactTree("Roact tree", self.element, Roact)

@@ -36,7 +36,7 @@ if shouldGetUILibraryFromParent then
 	-- We assume plugins will completely move away from the UILibrary
 	-- to the Framework in the future, so we don't want to depend on it.
 	if not Framework.Parent:FindFirstChild("UILibrary") then
-		return nil :: any -- temporary Luau typechecker workaround wrt multiple returns from a module
+		return nil
 	end
 
 	UILibraryFromParent = require(Framework.Parent.UILibrary)

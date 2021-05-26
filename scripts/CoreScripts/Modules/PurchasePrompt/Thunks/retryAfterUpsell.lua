@@ -3,11 +3,9 @@ local Root = script.Parent.Parent
 local AccountInfoReceived = require(Root.Actions.AccountInfoReceived)
 local PurchaseCompleteRecieved = require(Root.Actions.PurchaseCompleteRecieved)
 local ErrorOccurred = require(Root.Actions.ErrorOccurred)
-local UpsellFlow = require(Root.Enums.UpsellFlow)
 local PurchaseError = require(Root.Enums.PurchaseError)
 local PromptState = require(Root.Enums.PromptState)
 local RequestType = require(Root.Enums.RequestType)
-local getUpsellFlow = require(Root.NativeUpsell.getUpsellFlow)
 local getAccountInfo = require(Root.Network.getAccountInfo)
 local Network = require(Root.Services.Network)
 local Analytics = require(Root.Services.Analytics)
@@ -15,8 +13,6 @@ local ExternalSettings = require(Root.Services.ExternalSettings)
 local completeRequest = require(Root.Thunks.completeRequest)
 local getPlayerPrice = require(Root.Utils.getPlayerPrice)
 local Thunk = require(Root.Thunk)
-
-local GetFFlagEnableXboxIAPAnalytics = require(Root.Flags.GetFFlagEnableXboxIAPAnalytics)
 
 local purchaseItem = require(script.Parent.purchaseItem)
 
@@ -39,7 +35,6 @@ local function retryAfterUpsell(retriesRemaining)
 		local state = store:getState()
 		local requestType = state.promptRequest.requestType
 		local promptState = state.promptState
-
 
 		if requestType == RequestType.Premium then
 			if promptState == PromptState.UpsellInProgress then
@@ -70,15 +65,6 @@ local function retryAfterUpsell(retriesRemaining)
 							store:dispatch(ErrorOccurred(PurchaseError.InvalidFunds))
 						end
 					else
-						if GetFFlagEnableXboxIAPAnalytics() then
-							local upsellFlow = getUpsellFlow(externalSettings.getPlatform())
-							if upsellFlow == UpsellFlow.Xbox then
-								local nativeProductId = state.nativeUpsell.robuxProductId
-								local productId = state.productInfo.productId
-								local requestType = state.requestType
-								analytics.signalXboxInGamePurchaseSuccess(productId, requestType, nativeProductId)
-							end
-						end
 						-- Upsell was successful and purchase can now be completed
 						store:dispatch(purchaseItem())
 					end

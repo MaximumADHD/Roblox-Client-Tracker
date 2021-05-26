@@ -7,7 +7,6 @@
 -- TODO #luau: support these internally
 export type Array<T> = {[number]: T}
 export type Record<K, V> = {[K]: V}
-export type AnyRecord = Record<any, any>
 
 -- TODO #lua-foundation: types for Roact & Rodux
 export type Roact = any
@@ -45,7 +44,7 @@ export type StoryDefinition = {
 
 -- Stories in Horsecat are currently provided as a constructor function which returns a destructor function, taking a host argument.
 -- This is deprecated, but supported to ease migration.
-export type DeprecatedLifecycleFunction = (Instance) -> (() -> ())
+type DeprecatedLifecycleFunction = (Instance) -> (() -> ())
 
 -- A story translates to a single instance/example displayed on screen.
 export type Story = Instance | RoactComponent | RoactElement | DeprecatedLifecycleFunction
@@ -74,6 +73,7 @@ export type StoryProps = {
 	setControls: (StoryControls) -> (),
 	theme: string,
 	definition: StoryDefinition,
+
 }
 
 export type ValueArray = Array<string | number>

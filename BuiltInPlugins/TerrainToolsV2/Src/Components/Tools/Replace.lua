@@ -2,6 +2,9 @@
 	Displays panels associated with The Replace tool
 ]]
 
+game:DefineFastFlag("TerrainToolsReplaceUseModeSelector", false)
+
+local FFlagTerrainToolsReplaceUseModeSelector = game:GetFastFlag("TerrainToolsReplaceUseModeSelector")
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
@@ -29,6 +32,7 @@ local SetPlaneLock = require(Actions.SetPlaneLock)
 local SetSnapToGrid = require(Actions.SetSnapToGrid)
 
 local ToolParts = script.Parent.ToolParts
+local ToggleButtonGroup = require(ToolParts.ToggleButtonGroup)
 local ButtonGroup = require(ToolParts.ButtonGroup)
 local Panel = require(ToolParts.Panel)
 local MapSettingsWithPreview = require(ToolParts.MapSettingsWithPreview)
@@ -120,7 +124,8 @@ function Replace:render()
 			Title = localization:getText("Replace", "ReplaceMaterial"),
 			LayoutOrder = 1,
 		}, {
-			ModeButtonsWithBoxToggled = Roact.createElement(ModeSelector, {
+			ModeButtonsWithBoxToggled = FFlagTerrainToolsReplaceUseModeSelector
+			and Roact.createElement(ModeSelector, {
 				Selected = self.props.Mode,
 				Select = self.props.dispatchSetReplaceMode,
 
@@ -132,6 +137,24 @@ function Replace:render()
 					{
 						Data = ReplaceMode.Brush,
 						Text = localization:getText("ReplaceMode", "Brush"),
+					},
+				},
+			})
+			or Roact.createElement(ToggleButtonGroup, {
+				Selected = self.props.Mode,
+
+				Buttons = {
+					{
+						Key = ReplaceMode.Box,
+						Name = localization:getText("ReplaceMode", "Box"),
+						Active = not isReplacing,
+						OnClicked = self.props.dispatchSetReplaceMode,
+					},
+					{
+						Key = ReplaceMode.Brush,
+						Name = localization:getText("ReplaceMode", "Brush"),
+						Active = not isReplacing,
+						OnClicked = self.props.dispatchSetReplaceMode,
 					},
 				},
 			}),

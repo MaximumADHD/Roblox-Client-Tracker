@@ -50,9 +50,9 @@ local isUsedAsPackage = require(Framework.Util.isUsedAsPackage)
 local InfiniteScroller
 local InfiniteScrollerIsInstalledInParent = Framework.Parent:FindFirstChild("InfiniteScroller")
 if FlagsList:get("FFlagStudioDevFrameworkPackage") and isUsedAsPackage() and InfiniteScrollerIsInstalledInParent then
-	InfiniteScroller = require(Framework.Parent.InfiniteScroller :: any)
+	InfiniteScroller = require(Framework.Parent.InfiniteScroller)
 else
-	InfiniteScroller = require(Framework.packages.InfiniteScroller :: any)
+	InfiniteScroller = require(Framework.packages.InfiniteScroller)
 end
 
 local Cryo = require(Framework.Parent.Cryo)

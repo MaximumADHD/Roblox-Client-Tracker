@@ -177,7 +177,7 @@ function LogOutput:render()
 						image = Constants.Image.Warning
 					elseif message.Type == Enum.MessageType.MessageError.Value then
 						color = Constants.Color.ErrorRed
-						image = Constants.Image.Error
+						image = Constants.Image.Errors
 					end
 
 					elements[messageCount] = Roact.createElement("Frame", {

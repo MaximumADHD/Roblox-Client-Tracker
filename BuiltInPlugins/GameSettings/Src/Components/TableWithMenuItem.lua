@@ -45,7 +45,7 @@ local function createRowLabelsWithIcon(theme, rowData, icon)
 
 	local rowLabels = {}
 	local width = 1 / (#rowData + 1) -- +1 because the icon takes a column and is not included in #rowData
-	for col = (0), #rowData do -- iteration 0 adds column with icon
+	for col = 0, #rowData do
 		local cellData = rowData[col]
 		local cell
 		if col == 0 then

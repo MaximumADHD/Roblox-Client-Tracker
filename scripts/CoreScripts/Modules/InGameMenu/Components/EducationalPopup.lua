@@ -13,8 +13,6 @@ local withLocalization = require(InGameMenu.Localization.withLocalization)
 local CloseNativeClosePrompt = require(InGameMenu.Actions.CloseNativeClosePrompt)
 local SetMenuIconTooltipOpen = require(InGameMenu.Actions.SetMenuIconTooltipOpen)
 
-local GetFFlagInGameFixEducationalPopupInput = require(InGameMenu.Flags.GetFFlagInGameFixEducationalPopupInput)
-
 local EducationalPopupDialog = require(script.Parent.EducationalPopupDialog)
 
 local SendAnalytics = require(InGameMenu.Utility.SendAnalytics)
@@ -91,34 +89,24 @@ function EducationalPopup:render()
 	end)
 end
 
-if GetFFlagInGameFixEducationalPopupInput() then
-	function EducationalPopup:didUpdate()
-		local isMenuOpen = self.props.isClosingApp
-		GuiService:SetMenuIsOpen(isMenuOpen, "EducationalPopup")
-	end
-end
+return RoactRodux.UNSTABLE_connect2(function(state, props)
+	return {
+		isClosingApp = state.nativeClosePrompt.closingApp,
+		screenSize = state.screenSize,
+	}
+end, function(dispatch)
+	return {
+		onDismiss = function()
+			dispatch(CloseNativeClosePrompt())
+			RbxAnalyticsService:ReportCounter("EducationalPopup_Dismiss", 1)
+			SendAnalytics(EducationalAnalytics.EventContext, EducationalAnalytics.DismissName, {})
+		end,
+		onConfirm = function()
+			dispatch(CloseNativeClosePrompt())
+			dispatch(SetMenuIconTooltipOpen(true))
 
-return RoactRodux.UNSTABLE_connect2(
-	function(state, props)
-		return {
-			isClosingApp = state.nativeClosePrompt.closingApp,
-			screenSize = state.screenSize,
-		}
-	end,
-	function(dispatch)
-		return {
-			onDismiss = function()
-				dispatch(CloseNativeClosePrompt())
-				RbxAnalyticsService:ReportCounter("EducationalPopup_Dismiss", 1)
-				SendAnalytics(EducationalAnalytics.EventContext, EducationalAnalytics.DismissName, {})
-			end,
-			onConfirm = function()
-				dispatch(CloseNativeClosePrompt())
-				dispatch(SetMenuIconTooltipOpen(true))
-
-				RbxAnalyticsService:ReportCounter("EducationalPopup_Confirm", 1)
-				SendAnalytics(EducationalAnalytics.EventContext, EducationalAnalytics.ConfirmName, {})
-			end,
-		}
-	end
-)(EducationalPopup)
+			RbxAnalyticsService:ReportCounter("EducationalPopup_Confirm", 1)
+			SendAnalytics(EducationalAnalytics.EventContext, EducationalAnalytics.ConfirmName, {})
+		end,
+	}
+end)(EducationalPopup)

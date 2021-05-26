@@ -36,7 +36,7 @@ end
 
 function SimpleTab:render()
 	local props: TabsTypes.ConnectedTabProps = self.props
-	local style = self.props.Stylizer
+	local style = props.Stylizer
 	local icon = props.Tab.Icon
 	local label = props.Tab.Label
 	local tooltip = props.Tab.Tooltip

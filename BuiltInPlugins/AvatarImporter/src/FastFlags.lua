@@ -20,8 +20,4 @@ function FastFlags:isBundleConfigurationEnabled()
 	return isFlagOn("DebugAvatarImporterBundleConfiguration")
 end
 
-function FastFlags:shouldDetectRigTypeInCustomImport()
-	return isFlagOn("DetectRigTypeInCustomImport")
-end
-
 return FastFlags

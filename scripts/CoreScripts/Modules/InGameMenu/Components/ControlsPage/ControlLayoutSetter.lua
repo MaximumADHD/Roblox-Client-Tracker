@@ -27,8 +27,7 @@ function ControlLayoutSetter:didMount()
 		end
 	end)
 
-	-- TOUCH doesn't have a ControlLayout
-	-- self.props.dispatchSetControlLayout(Controls.ControlLayouts.TOUCH)
+	self.props.dispatchSetControlLayout(Controls.ControlLayouts.TOUCH)
 end
 
 function ControlLayoutSetter:willUnmount()

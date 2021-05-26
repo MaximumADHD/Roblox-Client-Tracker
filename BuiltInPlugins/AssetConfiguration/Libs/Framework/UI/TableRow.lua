@@ -44,7 +44,7 @@ function TableRow:render()
 	local dataIndex = props.DataIndex
 	local CellComponent = props.CellComponent or TableCell
 	local columns = props.Columns
-	local cells = map(columns, function(column, index: number)
+	local cells = map(columns, function(column: Column, index: number)
 		local key = column.Key or column.Name
 		local value: any = row[key] or ""
 		local tooltip: string = row[column.TooltipKey]

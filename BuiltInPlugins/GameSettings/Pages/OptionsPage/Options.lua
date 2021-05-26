@@ -1,5 +1,4 @@
 local FFlagGameSettingsStandardizeLocalizationId = game:GetFastFlag("GameSettingsStandardizeLocalizationId")
-local FFlagGameSettingsDisplayCollaborativeEditingWarning = game:GetFastFlag("GameSettingsDisplayCollaborativeEditingWarning")
 
 local Page = script.Parent
 local Plugin = script.Parent.Parent.Parent
@@ -10,7 +9,6 @@ local RoactRodux = require(Plugin.RoactRodux)
 local FrameworkUI = require(Plugin.Framework.UI)
 local Button = FrameworkUI.Button
 local HoverArea = FrameworkUI.HoverArea
-local ToggleButtonWithTitle = require(Plugin.Src.Components.ToggleButtonWithTitle)
 
 local Dialog = require(Plugin.Src.ContextServices.Dialog)
 
@@ -26,8 +24,6 @@ local SettingsPage = require(Plugin.Src.Components.SettingsPages.SettingsPage)
 
 local AddChange = require(Plugin.Src.Actions.AddChange)
 local ShutdownAllServers = require(Page.Thunks.ShutdownAllServers)
-
-local LayoutOrderIterator = FFlagGameSettingsDisplayCollaborativeEditingWarning and require(Plugin.Framework.Util).LayoutOrderIterator or nil
 
 local LOCALIZATION_ID = FFlagGameSettingsStandardizeLocalizationId and script.Name or "Options"
 
@@ -62,10 +58,9 @@ local function saveSettings(store, contextItems)
 end
 
 --Loads settings values into props by key
-local function loadValuesToProps(getValue, state)
+local function loadValuesToProps(getValue)
 	local loadedProps = {
 		ScriptCollabEnabled = getValue("ScriptCollabEnabled"),
-		CurrentScriptCollabEnabled = FFlagGameSettingsDisplayCollaborativeEditingWarning and state.Settings.Current.ScriptCollabEnabled or nil
 	}
 	return loadedProps
 end
@@ -100,14 +95,6 @@ function Options:render()
 		0, shutdownButtonTextExtents.Y + shutdownButtonPaddingY)
 
 	local dispatchShutdownAllServers = props.dispatchShutdownAllServers
-	
-	local shouldDisplayWarning
-	local layoutIndex
-	if FFlagGameSettingsDisplayCollaborativeEditingWarning then
-		-- Display warning to user if they are switching Collab off when it is currently saved as on
-		shouldDisplayWarning = props.CurrentScriptCollabEnabled and (props.ScriptCollabEnabled == false)
-		layoutIndex = LayoutOrderIterator.new()
-	end
 
 	local function createChildren()
 		local props = self.props
@@ -115,20 +102,7 @@ function Options:render()
 		local localization = props.Localization
 
 		return {
-			EnableScriptCollab = FFlagGameSettingsDisplayCollaborativeEditingWarning and 
-				Roact.createElement(ToggleButtonWithTitle, {
-					Title = localization:getText("General", "TitleScriptCollab"),
-					Description = shouldDisplayWarning and localization:getText("General", "ScriptCollabWarning") 
-						or localization:getText("General", "ScriptCollabDesc"),
-					LayoutOrder = layoutIndex:getNextOrder(),
-					Disabled = false,
-					Selected = props.ScriptCollabEnabled,
-					ShowWarning = shouldDisplayWarning,
-					OnClick = function()
-						props.ScriptCollabEnabledChanged(not props.ScriptCollabEnabled)
-					end,
-				})
-				or Roact.createElement(RadioButtonSet, {
+			EnableScriptCollab = Roact.createElement(RadioButtonSet, {
 				LayoutOrder = 1,
 				Title = localization:getText("General", "TitleScriptCollab"),
 				Enabled = props.ScriptCollabEnabled ~= nil,
@@ -152,7 +126,7 @@ function Options:render()
 			ShutdownAllServers = Roact.createElement(TitledFrame, {
 				Title = localization:getText("General", "TitleShutdownAllServers"),
 				MaxHeight = 60,
-				LayoutOrder = FFlagGameSettingsDisplayCollaborativeEditingWarning and layoutIndex:getNextOrder() or 7,
+				LayoutOrder = 7,
 				TextSize = theme.fontStyle.Normal.TextSize,
 				}, {
 					VerticalLayout = Roact.createElement("UIListLayout", {
@@ -222,7 +196,7 @@ Options = RoactRodux.connect(
 			return settingFromState(state.Settings, propName)
 		end
 
-		return loadValuesToProps(getValue, state)
+		return loadValuesToProps(getValue)
 	end,
 
 	function(dispatch)
