@@ -26,10 +26,6 @@
 		Color3 BackgroundColor3: Background color of the dialog.
 ]]
 
-game:DefineFastFlag("DevFrameworkStyledDialogRightJustifyButtons", false)
-
-local FFlagDevFrameworkStyledDialogRightJustifyButtons = game:GetFastFlag("DevFrameworkStyledDialogRightJustifyButtons")
-
 local Framework = script.Parent.Parent
 local ContextServices = require(Framework.ContextServices)
 local Roact = require(Framework.Parent.Roact)
@@ -80,9 +76,7 @@ function StyledDialog:init()
 		if buttons then
 			buttonsElements["Layout"] = Roact.createElement("UIListLayout", {
 				FillDirection = Enum.FillDirection.Horizontal,
-				HorizontalAlignment = FFlagDevFrameworkStyledDialogRightJustifyButtons
-					and Enum.HorizontalAlignment.Right
-					or Enum.HorizontalAlignment.Center,
+				HorizontalAlignment = Enum.HorizontalAlignment.Right,
 				Padding = UDim.new(0, BUTTON_PADDING),
 				SortOrder = Enum.SortOrder.LayoutOrder,
 			})
@@ -126,18 +120,10 @@ function StyledDialog:render()
 	local title = self.props.Title
 	local zIndexBehavior = self.props.ZIndexBehavior
 
-	local buttonContainer
-	if FFlagDevFrameworkStyledDialogRightJustifyButtons then
-		buttonContainer = Roact.createElement(Container, {
-			Position = UDim2.new(0, CONTENT_PADDING, 1, -(BUTTON_HEIGHT + CONTENT_PADDING)),
-			Size = UDim2.new(1, -(CONTENT_PADDING * 2), 0, BUTTON_HEIGHT),
-		}, self.getButtons(style))
-	else
-		buttonContainer = Roact.createElement(Container, {
-			Position = UDim2.new(0, 0, 1, -(BUTTON_HEIGHT + CONTENT_PADDING)),
-			Size = UDim2.new(1, 0, 0, BUTTON_HEIGHT),
-		}, self.getButtons(style))
-	end
+	local buttonContainer = Roact.createElement(Container, {
+		Position = UDim2.new(0, CONTENT_PADDING, 1, -(BUTTON_HEIGHT + CONTENT_PADDING)),
+		Size = UDim2.new(1, -(CONTENT_PADDING * 2), 0, BUTTON_HEIGHT),
+	}, self.getButtons(style))
 
 	return Roact.createElement(Dialog, {
 		Enabled = isEnabled,

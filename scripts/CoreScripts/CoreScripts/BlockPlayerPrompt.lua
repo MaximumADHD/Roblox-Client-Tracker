@@ -73,7 +73,7 @@ function DoPromptBlockPlayer(playerToBlock)
 				end
 
 				PromptCreator:CreatePrompt({
-					WindowTitle = "Error Blocking Player",
+					WindowTitle = "Error Blocking User",
 					MainText = string.format("An error occurred while blocking %s. Please try again later.", playerToBlock.Name),
 					ConfirmationText = "Okay",
 					CancelActive = false,
@@ -138,7 +138,7 @@ function DoPromptUnblockPlayer(playerToUnblock)
 					wait()
 				end
 				PromptCreator:CreatePrompt({
-					WindowTitle = "Error Unblocking Player",
+					WindowTitle = "Error Unblocking User",
 					MainText = string.format("An error occurred while unblocking %s. Please try again later.", playerToUnblock.Name),
 					ConfirmationText = "Okay",
 					Image = thumbnailUrl,

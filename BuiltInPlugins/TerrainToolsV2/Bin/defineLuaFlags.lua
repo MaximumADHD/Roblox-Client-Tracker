@@ -3,10 +3,8 @@
 -- And then error when trying to use flags that aren't yet defined
 
 game:DefineFastFlag("TerrainOpenCloseMetrics", false)
-game:DefineFastFlag("TerrainEnableErrorReporting", false)
 game:DefineFastFlag("TerrainToolsImportUploadAssets", false)
 game:DefineFastFlag("EnableTerrainToolsStylizer", false)
-game:DefineFastFlag("TerrainToolsFixLabeledElementPair", false)
 game:DefineFastFlag("TerrainToolsColormapCallout", false)
 
 local function handleFlagDependencies(flag, requiredFlags)
@@ -19,10 +17,6 @@ local function handleFlagDependencies(flag, requiredFlags)
 			("FFlag%s requires FFlag%s to be on"):format(flag, requiredFlag))
 	end
 end
-
-handleFlagDependencies("TerrainToolsMapSettingsMaxVolume", {
-	"TerrainToolsLabeledElementPairIcons2",
-})
 
 -- Need to explicitly return something from a module
 -- Else you get an error "Module code did not return exactly one value"

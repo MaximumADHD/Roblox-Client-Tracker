@@ -68,6 +68,7 @@ Constants.SCREENS = convertArrayToTable({
 	"AVATAR",
 	"LOADING",
 	"ERROR",
+	"REDIRECT_RIG",
 })
 
 Constants.SCALE_VALUES_DEFAULTS = {

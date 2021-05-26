@@ -26,8 +26,8 @@ return function(parentGame, pageCursor)
 
 			query:andThen(function(resp)
 				resp.parentGame = parentGame
-				--Concatenating placesTable and resp.places
-				for i=1, #resp.places do
+				-- Concatenating placesTable and resp.places
+				for i = 1, #resp.places do
 					placesTable[#placesTable + 1] = resp.places[i]
 				end
 				resp.places = placesTable

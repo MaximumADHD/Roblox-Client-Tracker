@@ -13,11 +13,8 @@
 			Title to use on the expanded preview window
 ]]
 
-game:DefineFastFlag("TerrainToolsSupportJpg", false)
-
 local FFlagTerrainImportGreyscale2 = game:GetFastFlag("TerrainImportGreyscale2")
 local FFlagTerrainToolsHeightmapUseLoadingImage = game:GetFastFlag("TerrainToolsHeightmapUseLoadingImage")
-local FFlagTerrainToolsSupportJpg = game:GetFastFlag("TerrainToolsSupportJpg")
 
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
@@ -39,12 +36,7 @@ local LocalImageSelector = Roact.PureComponent:extend(script.Name)
 
 function LocalImageSelector:init()
 	self.promptSelection = function()
-		local formats
-		if FFlagTerrainToolsSupportJpg then
-			formats = {"png", "jpg", "jpeg"}
-		else
-			formats = {"png"}
-		end
+		local formats = {"png", "jpg", "jpeg"}
 		local file
 		local success, err = pcall(function()
 			file = StudioService:PromptImportFile(formats)

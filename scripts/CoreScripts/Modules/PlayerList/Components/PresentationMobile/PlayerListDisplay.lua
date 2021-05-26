@@ -142,7 +142,7 @@ function PlayerListDisplay:render()
 					})
 
 					local teamPlayers
-					if sortedTeam.team == FAKE_NEUTRAL_TEAM then
+					if sortedTeam.team == nil then
 						teamPlayers = {}
 						for _, player in ipairs(self.props.sortedPlayers) do
 							if self.props.playerTeam[player.UserId] == nil then

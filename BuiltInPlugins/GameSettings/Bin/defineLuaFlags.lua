@@ -10,11 +10,11 @@ game:DefineFastFlag("StudioFixGameManagementIndexNil", false)
 game:DefineFastFlag("StudioUXImprovementsLoosenTCPermissions", false)
 game:DefineFastFlag("UXImprovementsShowUserPermsWhenCollaborator2", false)
 game:DefineFastFlag("UXImprovementsNonTCPlacesAllowedPlay", false)
-game:DefineFastFlag("RemoveYoutubeFacebookTwitterForLuobu", false)
 game:DefineFastFlag("StudioRestrictGameMonetizationToPublicGameOnly", false)
 game:DefineFastFlag("GameSettingsUseKeyProvider", false)
 game:DefineFastFlag("GameSettingsMigrateToDevFrameworkSeparator", false)
 -- todo(rtanna): with removal of this flag, remove the "AccessPermissions" entries from TranslationDevelopmentTable
 game:DefineFastFlag("GameSettingsStandardizeLocalizationId", false)
+game:DefineFastFlag("GameSettingsDisplayCollaborativeEditingWarning", false)
 
 return nil

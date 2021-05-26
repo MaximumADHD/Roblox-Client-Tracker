@@ -8,6 +8,7 @@ local FFlagStudioAllowRemoteSaveBeforePublish = game:GetFastFlag("StudioAllowRem
 local FFlagUpdatePublishPlacePluginToDevFrameworkContext = game:GetFastFlag("UpdatePublishPlacePluginToDevFrameworkContext")
 local FFlagStudioPromptOnFirstPublish = game:GetFastFlag("StudioPromptOnFirstPublish")
 local FFlagStudioNewGamesInCloudUI = game:GetFastFlag("StudioNewGamesInCloudUI")
+local FFlagLuobuDevPublishLua = game:GetFastFlag("LuobuDevPublishLua")
 
 -- libraries
 local Plugin = script.Parent.Parent
@@ -98,6 +99,7 @@ local function openPluginWindow(showGameSelect, isPublish, closeMode, firstPubli
 		uiLibraryWrapper = FFlagUpdatePublishPlacePluginToDevFrameworkContext and UILibraryWrapper.new() or nil,
 		focusGui = pluginGui,
 		store = dataStore,
+		mouse = FFlagLuobuDevPublishLua and plugin:getMouse() or nil,
 	}, {
 		Roact.createElement(ScreenSelect, {
 			OnClose = closePlugin,

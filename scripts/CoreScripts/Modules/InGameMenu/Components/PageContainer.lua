@@ -13,8 +13,6 @@ local Pages = require(script.Parent.Pages)
 
 local FFlagFixMakeFriendsNavCrash = require(InGameMenu.Flags.FFlagFixMakeFriendsNavCrash)
 
-local FFlagFixInGameNavTreeCrash = require(InGameMenu.Flags.FFlagFixInGameNavTreeCrash)
-
 local GetFFlagFixInGameMenuAnimationDirection = require(InGameMenu.Flags.GetFFlagFixInGameMenuAnimationDirection)
 
 local pageComponents = {}
@@ -128,16 +126,9 @@ function PageContainer:didUpdate(oldProps, oldState)
 			-- parent-child pages, it will move all parent pages of lastPage until it reaches currentPage
 			local pagesToSlideRight = {}
 			local pageOnNavPath = lastPage
-			if FFlagFixInGameNavTreeCrash then
-				while pageOnNavPath ~= nil and pageOnNavPath ~= currentPage do
-					pagesToSlideRight[pageOnNavPath] = Otter.spring(0, {frequency = 3.5})
-					pageOnNavPath = Pages.pagesByKey[pageOnNavPath].parentPage
-				end
-			else
-				while pageOnNavPath ~= currentPage do
-					pagesToSlideRight[pageOnNavPath] = Otter.spring(0, {frequency = 3.5})
-					pageOnNavPath = Pages.pagesByKey[pageOnNavPath].parentPage
-				end
+			while pageOnNavPath ~= nil and pageOnNavPath ~= currentPage do
+				pagesToSlideRight[pageOnNavPath] = Otter.spring(0, {frequency = 3.5})
+				pageOnNavPath = Pages.pagesByKey[pageOnNavPath].parentPage
 			end
 
 			self.pageMotor:setGoal(pagesToSlideRight)

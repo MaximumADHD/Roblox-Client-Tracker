@@ -4,11 +4,13 @@
 	Props:
 		table Buttons = {string cancelButtonName, string confirmButtonName}
 ]]
+local FFlagLuobuDevPublishLua = game:GetFastFlag("LuobuDevPublishLua")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
 local Cryo = require(Plugin.Cryo)
 
+local Pane = require(Plugin.Framework).UI.Pane
 local ContextServices = require(Plugin.Framework.ContextServices)
 
 local ButtonBar = require(Plugin.Src.Components.ButtonBar)
@@ -35,19 +37,37 @@ function BaseDialog:render()
 
 	local buttons = props.Buttons
 
-	return Roact.createElement("Frame", {
-		Size = UDim2.new(1, 0, 1, 0),
-		BorderSizePixel = 0,
-		BackgroundColor3 = theme.dialog.background,
-	}, Cryo.Dictionary.join(props[Roact.Children], {
-		Buttons = Roact.createElement(ButtonBar, {
-			Position = UDim2.new(0, 0, 1, -29),
-			AnchorPoint = Vector2.new(0, 1),
-			Buttons = makeButtons(buttons),
-			HorizontalAlignment = Enum.HorizontalAlignment.Center,
-			ButtonClicked = props.OnResult
-		})
-	}))
+	if FFlagLuobuDevPublishLua then
+		return Roact.createElement(Pane, {
+			Size = UDim2.new(1, 0, 1, 0),
+			Layout = Enum.FillDirection.Vertical,
+			AutomaticSize = Enum.AutomaticSize.Y,
+			BackgroundColor3 = theme.dialog.background,
+			Spacing = theme.dialog.spacing,
+		}, Cryo.Dictionary.join(props[Roact.Children], {
+			Buttons = Roact.createElement(ButtonBar, {
+				Position = UDim2.new(0, 0, 1, theme.buttonBar.offset),
+				AnchorPoint = Vector2.new(0, 1),
+				Buttons = makeButtons(buttons),
+				HorizontalAlignment = Enum.HorizontalAlignment.Center,
+				ButtonClicked = props.OnResult
+			})
+		}))
+	else
+		return Roact.createElement("Frame", {
+			Size = UDim2.new(1, 0, 1, 0),
+			BorderSizePixel = 0,
+			BackgroundColor3 = theme.dialog.background,
+		}, Cryo.Dictionary.join(props[Roact.Children], {
+			Buttons = Roact.createElement(ButtonBar, {
+				Position = UDim2.new(0, 0, 1, -29),
+				AnchorPoint = Vector2.new(0, 1),
+				Buttons = makeButtons(buttons),
+				HorizontalAlignment = Enum.HorizontalAlignment.Center,
+				ButtonClicked = props.OnResult
+			})
+		}))
+	end
 end
 
 ContextServices.mapToProps(BaseDialog, {

@@ -1,6 +1,3 @@
-local FFlagTerrainToolsLabeledElementPairIcons2 = game:GetFastFlag("TerrainToolsLabeledElementPairIcons2")
-local FFlagTerrainToolsFixLabeledElementPair = game:GetFastFlag("TerrainToolsFixLabeledElementPair")
-
 local Plugin = script.Parent.Parent.Parent
 
 local TerrainEnums = require(Plugin.Src.Util.TerrainEnums)
@@ -88,41 +85,20 @@ Constants.BiomeToLocalizationKey = {
 	[Biome.Arctic] = "BiomeArctic",
 }
 
-if FFlagTerrainToolsFixLabeledElementPair then
-	Constants.FIRST_COLUMN_WIDTH = 90
-	Constants.MIDDLE_PADDING = 8
-	Constants.SIDE_PADDING = 20
-	Constants.SECOND_COLUMN_START = Constants.SIDE_PADDING + Constants.FIRST_COLUMN_WIDTH + Constants.MIDDLE_PADDING
-	Constants.SECOND_COLUMN_WIDTH = 136
+Constants.FIRST_COLUMN_WIDTH = 90
+Constants.MIDDLE_PADDING = 8
+Constants.SIDE_PADDING = 20
+Constants.SECOND_COLUMN_START = Constants.SIDE_PADDING + Constants.FIRST_COLUMN_WIDTH + Constants.MIDDLE_PADDING
+Constants.SECOND_COLUMN_WIDTH = 136
 
-	-- The smallest size of the dock widget
-	Constants.MIN_WIDGET_SIZE = Vector2.new(
-		Constants.SIDE_PADDING
-		+ Constants.FIRST_COLUMN_WIDTH
-		+ Constants.MIDDLE_PADDING
-		+ Constants.SECOND_COLUMN_WIDTH
-		+ Constants.SIDE_PADDING
-		, 256)
-
-elseif FFlagTerrainToolsLabeledElementPairIcons2 then
-	Constants.FIRST_COLUMN_WIDTH = 82
-	Constants.MIDDLE_PADDING = 8
-	Constants.SIDE_PADDING = 20
-	Constants.SECOND_COLUMN_START = Constants.SIDE_PADDING + Constants.FIRST_COLUMN_WIDTH + Constants.MIDDLE_PADDING
-	Constants.SECOND_COLUMN_WIDTH = 136
-
-	-- The smallest size of the dock widget
-	Constants.MIN_WIDGET_SIZE = Vector2.new(270, 256)
-
-else
-	Constants.FIRST_COLUMN_WIDTH = 90
-	Constants.SIDE_PADDING = 20
-	Constants.SECOND_COLUMN_START = Constants.SIDE_PADDING + Constants.FIRST_COLUMN_WIDTH
-	Constants.SECOND_COLUMN_WIDTH = 136
-
-	-- The smallest size of the dock widget
-	Constants.MIN_WIDGET_SIZE = Vector2.new(270, 256)
-end
+-- The smallest size of the dock widget
+Constants.MIN_WIDGET_SIZE = Vector2.new(
+	Constants.SIDE_PADDING
+	+ Constants.FIRST_COLUMN_WIDTH
+	+ Constants.MIDDLE_PADDING
+	+ Constants.SECOND_COLUMN_WIDTH
+	+ Constants.SIDE_PADDING
+	, 256)
 
 Constants.FILENAME_ELLIPSIZE_MIDDLE_SUFFIX_LENGTH = 7
 

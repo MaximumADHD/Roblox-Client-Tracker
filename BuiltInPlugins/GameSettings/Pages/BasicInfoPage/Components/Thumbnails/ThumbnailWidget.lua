@@ -39,8 +39,6 @@ local createFitToContent = UILibrary.Component.createFitToContent
 
 local getSocialMediaReferencesAllowed = require(Plugin.Src.Util.GameSettingsUtilities).getSocialMediaReferencesAllowed
 
-local FFlagRemoveYoutubeFacebookTwitterForLuobu = game:GetFastFlag("RemoveYoutubeFacebookTwitterForLuobu")
-
 local ThumbnailWidget = Roact.PureComponent:extend("ThumbnailWidget")
 
 local FitToContent = createFitToContent("Frame", "UIListLayout", {
@@ -192,9 +190,8 @@ function ThumbnailWidget:render()
 			}),
 			LimitHint = Roact.createElement(BulletPoint, {
 				LayoutOrder = 1,
-				Text = (not FFlagRemoveYoutubeFacebookTwitterForLuobu or getSocialMediaReferencesAllowed())
-					and localization:getText("General", "ThumbnailsLimit", {
-						maxThumbnails = DEPRECATED_Constants.MAX_THUMBNAILS,
+				Text = getSocialMediaReferencesAllowed() and localization:getText("General", "ThumbnailsLimit", {
+					maxThumbnails = DEPRECATED_Constants.MAX_THUMBNAILS,
 				})
 				or localization:getText("General", "ThumbnailsLimitLuobu", {
 					maxThumbnails = DEPRECATED_Constants.MAX_THUMBNAILS,

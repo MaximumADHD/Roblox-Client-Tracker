@@ -43,6 +43,7 @@ local SetPublishInfo = require(Plugin.Src.Actions.SetPublishInfo)
 
 local LoadGroups = require(Plugin.Src.Thunks.LoadGroups)
 
+local shouldShowDevPublishLocations = require(Plugin.Src.Util.PublishPlaceAsUtilities).shouldShowDevPublishLocations
 local Analytics = require(Plugin.Src.Util.Analytics)
 
 local FFlagStudioAllowRemoteSaveBeforePublish = game:GetFastFlag("StudioAllowRemoteSaveBeforePublish")
@@ -50,6 +51,7 @@ local FFlagStudioUseNewSavePlaceWorkflow = game:GetFastFlag("StudioUseNewSavePla
 local FFlagStudioPromptOnFirstPublish = game:GetFastFlag("StudioPromptOnFirstPublish")
 local FFlagStudioNewGamesInCloudUI = game:GetFastFlag("StudioNewGamesInCloudUI")
 local FFlagStudioClosePromptOnLocalSave = game:GetFastFlag("StudioClosePromptOnLocalSave")
+local FFlagLuobuDevPublishLua = game:GetFastFlag("LuobuDevPublishLua")
 
 local FFlagStudioEnableNewGamesInTheCloudMetrics = game:GetFastFlag("StudioEnableNewGamesInTheCloudMetrics")
 
@@ -136,6 +138,8 @@ function ScreenCreateNewGame:render()
 		-- There isn't a way to automatically calculate this based on contents
 		local publishCanvasHeight = 780
 
+		local canScroll = not FFlagStudioAllowRemoteSaveBeforePublish and FFlagLuobuDevPublishLua and shouldShowDevPublishLocations()
+
 		local actionButtonLabel = "Create"
 		if FFlagStudioNewGamesInCloudUI and (isPublish == false) then
 			actionButtonLabel = "Save"
@@ -160,10 +164,21 @@ function ScreenCreateNewGame:render()
 				DominantAxis = Enum.DominantAxis.Height,
 			}),
 
-			Page = Roact.createElement("Frame", {
+			Page = not canScroll and Roact.createElement("Frame", {
 				BackgroundTransparency = 1,
 				Position = UDim2.new(0, theme.MENU_BAR_WIDTH, 0, 0),
 				Size = UDim2.new(1, -theme.MENU_BAR_WIDTH, 1, -theme.FOOTER_HEIGHT)
+			}, {
+				Roact.createElement(BasicInfo, {
+					IsPublish = isPublish,
+				}),
+			}) or Roact.createElement(StyledScrollingFrame, {
+				BackgroundTransparency = 1,
+				Position = UDim2.new(0, theme.MENU_BAR_WIDTH, 0, 0),
+				Size = UDim2.new(1, -theme.MENU_BAR_WIDTH, 1, -theme.FOOTER_HEIGHT),
+				CanvasSize = UDim2.new(1, -theme.MENU_BAR_WIDTH, 1, 0),
+				AutomaticCanvasSize = Enum.AutomaticSize.Y,
+				[Roact.Ref] = self.scrollingFrameRef,
 			}, {
 				Roact.createElement(BasicInfo, {
 					IsPublish = isPublish,
@@ -172,7 +187,7 @@ function ScreenCreateNewGame:render()
 
 			Footer = Roact.createElement(Footer, {
 				MainButton = {
-					Name = "Create",
+					Name = actionButtonLabel,
 					Active = readyToSave and not isPublishing,
 					OnActivated = function()
 						if FFlagStudioPromptOnFirstPublish and firstPublishContext then
@@ -199,7 +214,8 @@ function ScreenCreateNewGame:render()
 				BackgroundTransparency = 1,
 				Position = UDim2.new(0, theme.MENU_BAR_WIDTH, 0, 0),
 				Size = UDim2.new(1, -theme.MENU_BAR_WIDTH, 1, -theme.FOOTER_HEIGHT),
-				CanvasSize = UDim2.new(1, -theme.MENU_BAR_WIDTH, 0, publishCanvasHeight),
+				CanvasSize = FFlagLuobuDevPublishLua and UDim2.new(1, -theme.MENU_BAR_WIDTH, 1, 0) or UDim2.new(1, -theme.MENU_BAR_WIDTH, 0, publishCanvasHeight),
+				AutomaticCanvasSize = FFlagLuobuDevPublishLua and Enum.AutomaticSize.Y or nil,
 				[Roact.Ref] = self.scrollingFrameRef,
 			}, {
 				Roact.createElement(BasicInfo, {
@@ -237,7 +253,7 @@ function ScreenCreateNewGame:render()
 				if FFlagStudioNewGamesInCloudUI and (isPublish == false) then
 					actionButtonLabel = "Save"
 				end
-	
+
 				local replaceUpdateWithLocalSave = FFlagStudioAllowRemoteSaveBeforePublish and (isPublish == false)
 				local nextScreenText = "UpdateExistingGame"
 				if replaceUpdateWithLocalSave then
@@ -266,7 +282,7 @@ function ScreenCreateNewGame:render()
 							IsPublish = isPublish,
 						}),
 					}),
-	
+
 					Footer = Roact.createElement(Footer, {
 						MainButton = {
 							Name = actionButtonLabel,

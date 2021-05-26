@@ -13,8 +13,6 @@ local DebugFlags = require(Plugin.Core.Util.DebugFlags)
 local Analytics = require(script.Parent.Analytics)
 local Senders = require(script.Parent.Senders)
 
-local FFlagToolboxMarkLoadingInitially = game:GetFastFlag("ToolboxMarkLoadingInitially")
-
 type Array<T> = {[number]: T};
 type Object<T> = {[string]: T};
 
@@ -96,7 +94,7 @@ function AssetAnalytics.addContextToAssetResults(assetResults: Array<Object<any>
 end
 
 function AssetAnalytics.pageInfoToContext(pageInfo: PageInfo) : AssetContext
-    if FFlagToolboxMarkLoadingInitially and DebugFlags.shouldDebugWarnings() and not pageInfo.searchId then
+    if DebugFlags.shouldDebugWarnings() and not pageInfo.searchId then
         warn("no searchId in pageInfo, analytics won't be tracked for asset")
     end
 

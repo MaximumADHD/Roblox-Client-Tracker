@@ -1,6 +1,7 @@
 local Plugin = script.parent.parent.parent
 
 local FFlagUpdatePublishPlacePluginToDevFrameworkContext = game:GetFastFlag("UpdatePublishPlacePluginToDevFrameworkContext")
+local FFlagLuobuDevPublishLua = game:GetFastFlag("LuobuDevPublishLua")
 
 local Framework = Plugin.Packages.Framework
 local ContextServices = require(Framework.ContextServices)
@@ -11,6 +12,8 @@ local StudioFrameworkStyles = StudioUI.StudioFrameworkStyles
 
 local Util = require(Framework.Util)
 local Style = Util.Style
+local StyleTable = Util.StyleTable
+local FrameworkStyleModifier = Util.StyleModifier
 
 local UILibrary = require(Plugin.Packages.UILibrary)
 local createTheme = UILibrary.createTheme
@@ -220,7 +223,22 @@ local function createStyles(theme, getColor)
 	local c = Enum.StudioStyleGuideColor
 	local m = Enum.StudioStyleGuideModifier
 
+	local studioStyles = StudioFrameworkStyles.new(theme, getColor)
+
 	local isDark = settings().Studio.Theme.Name == "Dark"
+
+	local tooltipOptIn = FFlagLuobuDevPublishLua and StyleTable.new("Image", function()
+		local TooltipStyle = Style.new({
+			Image = "rbxasset://textures/PublishPlaceAs/MoreDetails.png",
+			Color = theme:getColor(c.SubText),
+			[FrameworkStyleModifier.Hover] = {
+				Color = theme:getColor(c.MainText, m.Hover),
+			},
+		})
+		return {
+			TooltipStyle = TooltipStyle,
+		}
+	end) or nil
 
 	-- define all the colors used in the plugin
 	return {
@@ -259,12 +277,12 @@ local function createStyles(theme, getColor)
 				TextColor_Disabled = theme:getColor(c.DimmedText),
 				BorderColor = theme:getColor(c.Border),
 			},
-	
+
 			pageButton = {
 				ButtonColor = theme:getColor(c.Button),
 				ImageColor = theme:getColor(c.MainText),
 				BorderColor = theme:getColor(c.Border),
-	
+
 				hovered = {
 					ButtonColor = theme:getColor(c.Button, m.Hover),
 				},
@@ -273,11 +291,11 @@ local function createStyles(theme, getColor)
 					ImageColor = theme:getColor(c.DimmedText),
 				},
 			},
-	
+
 			menuBar = {
 				backgroundColor = isDark and theme:getColor(c.ScrollBarBackground) or theme:getColor(c.MainBackground),
 			},
-	
+
 			menuEntry = {
 				hover = isDark and theme:getColor(c.CurrentMarker) or theme:getColor(c.RibbonTab),
 				highlight = isDark and theme:getColor(c.TableItem, m.Selected) or theme:getColor(c.CurrentMarker),
@@ -321,14 +339,21 @@ local function createStyles(theme, getColor)
 				textColor = theme:getColor(c.MainText),
 				dimTextColor = theme:getColor(c.DimmedText),
 			},
-	
+			tooltipIcon = FFlagLuobuDevPublishLua and {
+				paddingY = 30,
+				size = 14,
+			} or nil,
+			optInLocations = FFlagLuobuDevPublishLua and {
+				height = 52,
+			} or nil,
+
 			--Constants used for UI
 			DROPDOWN_WIDTH = 330,
 			DROPDOWN_HEIGHT = 38,
 
 			MENU_BAR_WIDTH = 192,
 			FOOTER_HEIGHT = 65,
-	
+
 			SCREEN_CHOOSE_GAME = {
 				ARROW_SIZE = 12,
 				PAGE_PADDING = 115,
@@ -338,9 +363,13 @@ local function createStyles(theme, getColor)
 				CELL_PADDING_X = 30,
 				CELL_PADDING_Y = 40
 			},
-	
+
 			isDarkerTheme = isDark,
-		}
+		},
+
+		Framework = Style.extend(studioStyles, {
+			Image = FFlagLuobuDevPublishLua and Style.extend(studioStyles.Image, tooltipOptIn) or nil
+		}),
 	}
 end
 

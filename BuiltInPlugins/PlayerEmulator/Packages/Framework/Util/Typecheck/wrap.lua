@@ -25,6 +25,8 @@ local Util = script.Parent.Parent
 local THEME_REFACTOR = require(Util.RefactorFlags).THEME_REFACTOR
 local DocParser = require(script.Parent.DocParser)
 
+local FFlagShipBuiltinPluginAsByteCode = settings():GetFFlag("ShipBuiltinPluginAsByteCode")
+
 local propsTraceback = [[%s
 	Found in the props table of the Component %q.]]
 
@@ -87,10 +89,21 @@ local function validate(component, propsInterface, styleInterface)
 end
 
 local function wrap(component, script)
-	local docParser = DocParser.new(component, script)
-	local docs = docParser:parse()
-	local propsInterface, styleInterface = DocParser.toInterface(docs)
-	validate(component, propsInterface, styleInterface)
+	local isSourceAvailable = true
+	if FFlagShipBuiltinPluginAsByteCode then
+		-- script.Source is a Plugin-security API, and needs to be gated
+		-- by pcall as DeveloperFramework also runs embedded in a place
+		isSourceAvailable = false
+		pcall(function()
+			isSourceAvailable = script.Source ~= ""
+		end)
+	end
+	if isSourceAvailable then
+		local docParser = DocParser.new(component, script)
+		local docs = docParser:parse()
+		local propsInterface, styleInterface = DocParser.toInterface(docs)
+		validate(component, propsInterface, styleInterface)
+	end
 end
 
 return wrap

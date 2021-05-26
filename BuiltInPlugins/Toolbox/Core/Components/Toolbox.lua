@@ -70,6 +70,7 @@ local FFlagToolboxShowRobloxCreatedAssetsForLuobu = game:GetFastFlag("ToolboxSho
 local FFlagPluginManagementDirectlyOpenToolbox = game:GetFastFlag("PluginManagementDirectlyOpenToolbox")
 local FFlagToolboxDefaultBackgroundMatches = game:GetFastFlag("ToolboxDefaultBackgroundMatches")
 local FFlagToolboxFixCommonWarnings = game:GetFastFlag("ToolboxFixCommonWarnings")
+local FFlagToolboxRemoveGroupInventory = game:GetFastFlag("ToolboxRemoveGroupInventory")
 local THEME_REFACTOR = Framework.Util.RefactorFlags.THEME_REFACTOR
 
 local Background = FFlagToolboxDefaultBackgroundMatches and require(Plugin.Core.Types.Background) or nil
@@ -113,7 +114,12 @@ function Toolbox:handleInitialSettings()
 	}
 
 	if FFlagToolboxDisableMarketplaceAndRecentsForLuobu then
-		local shouldGetGroups = pageInfoCategories == Category.INVENTORY_WITH_GROUPS or pageInfoCategories == Category.INVENTORY or pageInfoCategories == Category.CREATIONS
+		local shouldGetGroups
+		if FFlagToolboxRemoveGroupInventory then
+			shouldGetGroups = pageInfoCategories == Category.INVENTORY or pageInfoCategories == Category.CREATIONS
+		else
+			shouldGetGroups = pageInfoCategories == Category.INVENTORY_WITH_GROUPS or pageInfoCategories == Category.INVENTORY or pageInfoCategories == Category.CREATIONS
+		end
 		if shouldGetGroups then
 			self.props.getToolboxManageableGroups(networkInterface, settings, newPageInfo)
 		end

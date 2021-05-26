@@ -239,7 +239,7 @@ function Theme.createValues(getColor, c, m)
 	local promptSelectorWithPreviewTheme = defineTheme({
 		expandIcon = "rbxasset://textures/StudioSharedUI/preview_expand.png",
 		clearIcon = "rbxasset://textures/StudioSharedUI/preview_clear.png",
-		importIcon = "rbxasset://textures/StudioSharedUI/import_2x.png",
+		importIcon = "rbxasset://textures/StudioSharedUI/import@2x.png",
 
 		previewBackgroundColor = getColor(c.RibbonButton),
 		previewHoveredBackgroundColor = getColor(c.RibbonButton, m.Hover),

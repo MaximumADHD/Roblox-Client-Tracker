@@ -27,6 +27,11 @@ local Decoration = UI.Decoration
 local Pane = UI.Pane
 local TextLabel = Decoration.TextLabel
 
+local StudioUI = Framework.StudioUI
+local StyledDialog = StudioUI.StyledDialog
+
+local SetLive = require(Main.Src.Actions.SetLive)
+
 local PanelEntry = require(Main.Src.Components.PanelEntry)
 local PropsList = require(Main.Src.Components.PropsList)
 local Footer = require(Main.Src.Components.Footer)
@@ -49,6 +54,8 @@ type State = {
 	storyProps: Types.StoryProps?
 }
 
+local FFlagEnableLoadModule = game:GetFastFlag("EnableLoadModule")
+
 local InfoPanel = Roact.PureComponent:extend("InfoPanel")
 
 function InfoPanel:init()
@@ -57,6 +64,19 @@ function InfoPanel:init()
 		storyProps = nil,
 	} :: State
 	self.storyRef = Roact.createRef()
+	self.onScriptChange = function()
+		if self.props.Live then
+			self:updateStory(self.props.SelectedStory)
+		end
+	end
+end
+
+function InfoPanel:didMount()
+	ModuleLoader:connect(self.onScriptChange)
+end
+
+function InfoPanel:willUnmount()
+	ModuleLoader:disconnect(self.onScriptChange)
 end
 
 function InfoPanel:didUpdate(prevProps: Props)
@@ -99,7 +119,7 @@ function InfoPanel:updateStory(storyItem: Types.StoryItem)
 	-- Try loading the story with the module loader
 	local ok, err = xpcall(function()
 		local storybook = storyItem.Storybook
-		local construct = ModuleLoader:load(storyItem.Script)
+		local construct = ModuleLoader:load(storyItem.Script :: ModuleScript)
 		-- Construct the story definition
 		local storyDefinition = self:getStoryDefinition(storyItem, construct, storybook)
 		local controls = {}
@@ -122,7 +142,6 @@ function InfoPanel:updateStory(storyItem: Types.StoryItem)
 			storybook = storybook,
 			script = storyItem.Script,
 			definition = storyDefinition,
-			docs = storyItem.Docs,
 			story = storyDefinition.story,
 		}
 		if storyDefinition.create then
@@ -162,18 +181,20 @@ function InfoPanel:getStoryDefinition(storyItem: Types.StoryItem, construct: Typ
 	} :: Types.StoryDefinition
 	local isFnStory = typeof(construct) == "function"
 	if isFnStory then
+		-- TODO CLI-42229: Luau typeof "function" type guard
+		local constructFn = construct :: Types.DeprecatedLifecycleFunction
 		local host = Instance.new("Frame")
 		host.Size = UDim2.fromScale(1, 1)
 		host.BackgroundTransparency = 1
 		local ok, result = pcall(function()
-			return construct(host)
+			return constructFn(host)
 		end)
 		local isDeprecatedLifecycleFunction = ok and typeof(result) == "function"
 		if isDeprecatedLifecycleFunction then
 			definition.story = self:getRoactComponent(host, definition.roact)
 			definition.destroy = result
 		else
-			definition.story = construct
+			definition.story = constructFn
 		end
 	elseif typeof(construct) == "table" then
 		local component = self:getRoactComponent(construct, definition.roact)
@@ -207,16 +228,20 @@ function InfoPanel:getStoryDefinition(storyItem: Types.StoryItem, construct: Typ
 		assign(definition, storybook.definition)
 	end
 	if storybook.mapDefinition then
-		definition = storybook.mapDefinition(definition)
+		-- TODO CLI-42230: Narrow type of property to truthy
+		local mapDefinition = storybook.mapDefinition :: Types.MapStoryDefinition
+		definition = mapDefinition(definition)
 		assert(typeof(definition) == "table", "Storybook mapDefinition should return the definition")
 	end
 	if storybook.mapStory then
+		-- TODO CLI-42230: Narrow type of property to truthy
+		local mapStory = storybook.mapStory :: Types.MapStory
 		if definition.story then
-			definition.story = storybook.mapStory(definition.story)
+			definition.story = mapStory(definition.story)
 		end
 		if definition.stories then
 			for _, subDefinition in pairs(definition.stories) do
-				subDefinition.story = storybook.mapStory(subDefinition.story)
+				subDefinition.story = mapStory(subDefinition.story)
 			end
 		end
 	end
@@ -225,8 +250,10 @@ end
 
 function InfoPanel:getRoactComponent(input: Types.Story, roact: Types.Roact): Types.RoactComponent?
 	local isInstance = typeof(input) == "Instance"
-	local isRoactElement = typeof(input) == "table" and input.component ~= nil
-	local isRoactComponent = typeof(input) == "table" and input.__componentName ~= nil
+	-- TODO CLI-42232: Luau typeof "table" should narrow type in right-hand side of and clause to only union elements that are tables
+	local isRoactElement = typeof(input) == "table" and (input :: Types.AnyRecord).component ~= nil
+	-- TODO CLI-42232: Luau typeof "table" should narrow type in right-hand side of and clause to only union elements that are tables
+	local isRoactComponent = typeof(input) == "table" and (input :: Types.AnyRecord).__componentName ~= nil
 	local isRoactFn = typeof(input) == "function"
 	if isInstance then
 		return function()
@@ -280,7 +307,7 @@ function InfoPanel:render()
 		})
 	end
 
-	local storyProps: Types.StoryProps = state.storyProps
+	local storyProps: Types.StoryProps? = state.storyProps
 	
 	if not storyProps then
 		return Roact.createElement(Pane, {
@@ -307,7 +334,10 @@ function InfoPanel:render()
 		})
 	end
 
-	local definition = storyProps.definition
+	-- TODO CLI-42235: Luau If you return from inside a narrowing statement, the code below it should exclude narrowed type
+	local definitelyStoryProps = storyProps:: Types.StoryProps
+
+	local definition = definitelyStoryProps.definition
 	local docs = definition.docs
 
 	local isRunningAsPlugin = typeof(props.Plugin:get().OpenScript) == "function"
@@ -320,10 +350,10 @@ function InfoPanel:render()
 		})
 	}
 
-	if mapOne(storyProps.controls) ~= nil then
+	if mapOne(definitelyStoryProps.controls) ~= nil then
 		children.Controls = Roact.createElement(Controls, {
-			Controls = storyProps.definition.controls or {},
-			ControlState = storyProps.controls,
+			Controls = definitelyStoryProps.definition.controls or {},
+			ControlState = definitelyStoryProps.controls,
 			LayoutOrder = nextOrder(),
 			SetControls = function(changes)
 				self:setControls(changes)
@@ -335,9 +365,9 @@ function InfoPanel:render()
 		children.Story = Roact.createElement(StoryHost, {
 			StoryRef = self.storyRef,
 			LayoutOrder = nextOrder(),
-			StoryProps = storyProps,
+			StoryProps = definitelyStoryProps,
 			ThemeName = ThemeSwitcher.getThemeName(),
-			FixedSize = storyProps.storybook.fixedSize,
+			FixedSize = definitelyStoryProps.storybook.fixedSize,
 		})
 	end
 
@@ -350,11 +380,11 @@ function InfoPanel:render()
 			-- Load one host per sub-story
 			local subStory = Roact.createElement(StoryHost, {
 				StoryRef = self.storyRef,
-				FixedSize = storyProps.storybook.fixedSize,
+				FixedSize = definitelyStoryProps.storybook.fixedSize,
 				Name = subDefinition.name,
 				Summary = subDefinition.summary,
 				LayoutOrder = nextOrder(),
-				StoryProps = join(storyProps, {
+				StoryProps = join(definitelyStoryProps, {
 					story = self:getRoactComponent(subDefinition.story),
 					key = key
 				}),
@@ -390,7 +420,7 @@ function InfoPanel:render()
 
 	local main
 	
-	if storyProps.storybook.fixedSize then
+	if definitelyStoryProps.storybook.fixedSize then
 		main = Roact.createElement(Pane, {
 			Layout = Enum.FillDirection.Vertical,
 			Size = UDim2.new(1, 0, 1, -sizes.TopBar),
@@ -435,7 +465,26 @@ function InfoPanel:render()
 			Content = Roact.createElement(Footer, {
 				StoryRef = self.storyRef
 			})
-		})
+		}),
+		Dialog = Roact.createElement(StyledDialog, {
+			Style = "Alert",
+			Enabled = props.Live and not FFlagEnableLoadModule,
+			Title = "Live Not Available",
+			MinContentSize = Vector2.new(400, 120),
+			Buttons = {
+				{ Key = "ok", Text = "OK" },
+			},
+			OnButtonPressed = self.props.disableLive,
+			OnClose = self.props.disableLive,
+		}, {
+			Contents = Roact.createElement(TextLabel, {
+				TextSize = 17,
+				TextXAlignment = Enum.TextXAlignment.Left,
+				Text = "To use Live mode, please set FFlagEnableLoadModule to True in your local build.\n\nWhen Live mode is enabled, any changes you make to scripts in Studio are immediately reflected in Storybook without having to reload.",
+				Size = UDim2.fromScale(1, 1),
+				TextWrapped = true
+			}),
+		}),
 	})
 end
 
@@ -445,10 +494,18 @@ ContextServices.mapToProps(InfoPanel, {
 })
 
 InfoPanel = RoactRodux.connect(
-	function(state, props)
+	function(state)
 		return {
 			CurrentTheme = state.Stories.theme,
 			SelectedStory = state.Stories.selectedStory,
+			Live = state.Stories.live,
+		}
+	end,
+	function(dispatch) 
+		return {
+			disableLive = function()
+				dispatch(SetLive(false))
+			end
 		}
 	end
 )(InfoPanel)

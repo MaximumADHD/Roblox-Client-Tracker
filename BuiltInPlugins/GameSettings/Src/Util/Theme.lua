@@ -114,7 +114,7 @@ function Theme.createValues(theme, getColor)
 			Image = "rbxasset://textures/GameSettings/MoreDetails.png",
 			Color = theme:getColor(StyleColor.SubText),
 			[FrameworkStyleModifier.Hover] = {
-				Color = theme:getColor(StyleColor.LinkText),
+				Color = theme:getColor(StyleColor.MainText, StyleModifier.Hover),
 			},
 		})
 		return {
@@ -141,6 +141,10 @@ function Theme.createValues(theme, getColor)
 			button = {
 				width = 125,
 				height = 35,
+			},
+
+			buttonBar = {
+				offset = -29,
 			},
 
 			header = {
@@ -233,6 +237,10 @@ function Theme.createValues(theme, getColor)
 				height = 42,
 			},
 
+			textWithInlineLink = {
+				maxWidth = 380,
+			},
+
 			radioButton = {
 				background = theme:getColor(StyleColor.InputFieldBackground),
 				title = theme:getColor(StyleColor.BrightText),
@@ -303,6 +311,11 @@ function Theme.createValues(theme, getColor)
 			dialog = {
 				background = theme:getColor(StyleColor.MainBackground),
 				text = theme:getColor(StyleColor.MainText),
+				size = {
+					width = 480,
+					height = 308,
+				},
+				spacing = 20,
 			},
 
 			subjectThumbnail = {
@@ -316,7 +329,7 @@ function Theme.createValues(theme, getColor)
 				loadingImage = "rbxasset://textures/StudioSharedUI/default_group.png",
 				loadFailureImage = "rbxasset://textures/GameSettings/ModeratedAsset.jpg",
             },
-            
+
             badgeIconThumbnail = {
                 loadingImage = "rbxasset://textures/StudioSharedUI/default_badge.png",
                 loadFailureImage = "rbxasset://textures/GameSettings/ModeratedAsset.jpg",
@@ -826,7 +839,15 @@ local function getUILibraryTheme()
 		tooltip = {
 			textSize = 16,
 			font = Enum.Font.SourceSans,
-		}
+		},
+
+		partialHyperlink = {
+			RequirementsLink = {
+				textSize = 16,
+				textColor = theme:GetColor(c.SubText),
+				font = Enum.Font.SourceSans,
+			},
+		},
 	}
 
 	return createTheme(styleGuide, UILibraryOverrides)

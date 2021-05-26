@@ -19,6 +19,7 @@ return function()
 			itemBeingPurchased = true,
 			gamepadEnabled = true,
 			isLoaded = true,
+			isSubjectToChinaPolicies = true,
 			FetchingStatus = true,
 			storeId = true,
 		}

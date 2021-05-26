@@ -17,7 +17,6 @@
 local StudioService = game:GetService("StudioService")
 
 local FFlagFixToolboxInCli = game:GetFastFlag("FixToolboxInCli")
-local FFlagToolboxAssetGridUseFirstOccurrence = game:GetFastFlag("ToolboxAssetGridUseFirstOccurrence")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -487,7 +486,7 @@ function AssetGridContainer:render()
 				-- if the category is not group packages, then we always want to show.
 				local showAsset = (isGroupPackageAsset and canEditPackage) or not isGroupPackageAsset
 
-				if FFlagToolboxAssetGridUseFirstOccurrence and assetElements[tostring(assetId)] then
+				if assetElements[tostring(assetId)] then
 					-- If the asset is in the grid multiple times, show it in the position of the first occurrence
 					continue
 				end

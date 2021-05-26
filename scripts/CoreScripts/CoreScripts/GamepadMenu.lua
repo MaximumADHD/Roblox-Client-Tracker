@@ -797,7 +797,7 @@ local function createGamepadMenuGui()
 		MenuModule:SetVisibility(true, false, MenuModule.Instance.LeaveGamePage, true, InGameMenuConstants.AnalyticsMenuOpenTypes.LeaveGame)
 	end
 
-	local leaveGameText = "Leave Experience"
+	local leaveGameText = "Leave"
 	if FFlagUpdateSettingsHubGameText then
 		leaveGameText = RobloxTranslator:FormatByKey("InGame.HelpMenu.Leave")
 	end

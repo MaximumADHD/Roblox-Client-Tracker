@@ -8,14 +8,6 @@
 	Documentation on props can be found in Dialog and DockWidget.
 ]]
 
-game:DefineFastFlag("FixDevFrameworkDockWidgetRestore", false)
-game:DefineFastFlag("DevFrameworkPluginWidgetEnabledEvent2", false)
-game:DefineFastFlag("DevFrameworkPluginWidgetUseSiblingZIndex", false)
-
-local FFlagFixDevFrameworkDockWidgetRestore = game:GetFastFlag("FixDevFrameworkDockWidgetRestore")
-local FFlagDevFrameworkPluginWidgetEnabledEvent2 = game:GetFastFlag("DevFrameworkPluginWidgetEnabledEvent2")
-local FFlagDevFrameworkPluginWidgetUseSiblingZIndex = game:GetFastFlag("DevFrameworkPluginWidgetUseSiblingZIndex")
-
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
 local ContextServices = require(Framework.ContextServices)
@@ -44,11 +36,7 @@ local function createPluginWidget(componentName, createWidgetFunc)
 		end
 
 		widget.Name = title or ""
-		if FFlagDevFrameworkPluginWidgetUseSiblingZIndex then
-			widget.ZIndexBehavior = props.ZIndexBehavior or Enum.ZIndexBehavior.Sibling
-		else
-			widget.ZIndexBehavior = props.ZIndexBehavior or Enum.ZIndexBehavior.Global
-		end
+		widget.ZIndexBehavior = props.ZIndexBehavior or Enum.ZIndexBehavior.Sibling
 
 		if widget:IsA("PluginGui") then
 			widget:BindToClose(onClose)
@@ -65,35 +53,21 @@ local function createPluginWidget(componentName, createWidgetFunc)
 				end)
 			end
 
-			if FFlagFixDevFrameworkDockWidgetRestore then
-				-- plugin:CreateDockWidgetPluginGui() blocks until after restore logic has ran
-				-- By the time Lua thread resumes, HostWidgetWasRestored has been set and is safe to use
-				if widget:IsA("DockWidgetPluginGui") and widget.HostWidgetWasRestored and props.OnWidgetRestored then
-					props.OnWidgetRestored(widget.Enabled)
-				end
-			else
-				if widget:IsA("DockWidgetPluginGui") and props.OnWidgetRestored then
-					widget:GetPropertyChangedSignal("HostWidgetWasRestored"):Connect(function()
-						-- The widget restore logic does not correctly set the Enabled state
-						-- until one frame after setting the HostWidgetWasRestored property.
-						-- Because of this, we have to wait.
-						wait()
-						props.OnWidgetRestored(widget.Enabled)
-					end)
-				end
+			-- plugin:CreateDockWidgetPluginGui() blocks until after restore logic has ran
+			-- By the time Lua thread resumes, HostWidgetWasRestored has been set and is safe to use
+			if widget:IsA("DockWidgetPluginGui") and widget.HostWidgetWasRestored and props.OnWidgetRestored then
+				props.OnWidgetRestored(widget.Enabled)
 			end
 		end
 
-		if FFlagDevFrameworkPluginWidgetEnabledEvent2 then
-			-- Connect to enabled changing *after* restore
-			-- Otherwise users of this will get 2 enabled changes: one from the onRestore, and the same from Roact.Change.Enabled
-			self.widgetEnabledChangedConnection = widget:GetPropertyChangedSignal("Enabled"):Connect(function()
-				local callback = self.props[Roact.Change.Enabled]
-				if callback and self.widget and self.widget.Enabled ~= self.props.Enabled then
-					callback(self.widget)
-				end
-			end)
-		end
+		-- Connect to enabled changing *after* restore
+		-- Otherwise users of this will get 2 enabled changes: one from the onRestore, and the same from Roact.Change.Enabled
+		self.widgetEnabledChangedConnection = widget:GetPropertyChangedSignal("Enabled"):Connect(function()
+			local callback = self.props[Roact.Change.Enabled]
+			if callback and self.widget and self.widget.Enabled ~= self.props.Enabled then
+				callback(self.widget)
+			end
+		end)
 
 		self.focus = Focus.new(widget)
 		self.widget = widget

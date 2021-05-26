@@ -103,7 +103,6 @@ function OverrideAsset:init(props)
 end
 
 function OverrideAsset:didMount()
-	local userId = getUserId()
 	-- Initial request
 	local defaultSelect = self.dropdownContent[1]
 	self.props.getOverrideAssets(
@@ -113,11 +112,7 @@ function OverrideAsset:didMount()
 		defaultSelect.creatorId,
 		1
 	)
-	if game:GetFastFlag("FixAssetConfigManageableGroups") then
-		self.props.getManageableGroups(getNetwork(self))
-	else
-		self.props.getManageableGroups(getNetwork(self), userId)
-	end
+	self.props.getManageableGroups(getNetwork(self))
 end
 
 

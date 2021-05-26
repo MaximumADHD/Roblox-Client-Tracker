@@ -44,12 +44,7 @@ end
 
 function ConfigAccess:didMount()
 	-- Initial request
-	if game:GetFastFlag("FixAssetConfigManageableGroups") then
-		self.props.getManageableGroups(getNetwork(self))
-	else
-		local userId = getUserId()
-		self.props.getManageableGroups(getNetwork(self), userId)
-	end
+	self.props.getManageableGroups(getNetwork(self))
 end
 
 function ConfigAccess:render()

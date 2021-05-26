@@ -3,9 +3,17 @@ local RetrievalStatus = require(CorePackages.AppTempCommon.LuaApp.Enum.Retrieval
 local InspectAndBuyFolder = script.Parent.Parent
 local IsDetailsItemPartOfBundleAndOffsale = require(InspectAndBuyFolder.Selectors.IsDetailsItemPartOfBundleAndOffsale)
 local UtilityFunctions = require(InspectAndBuyFolder.UtilityFunctions)
+local createInspectAndBuyKeyMapper = require(InspectAndBuyFolder.createInspectAndBuyKeyMapper)
 
-local ASSET_KEY = "inspectAndBuy.getFavoriteForAsset."
-local BUNDLE_KEY = "inspectAndBuy.getFavoriteForBundle."
+local FFlagInspectAndBuyFetchingStatusKeyFix = require(InspectAndBuyFolder.Flags.FFlagInspectAndBuyFetchingStatusKeyFix)
+
+local ASSET_KEY = not FFlagInspectAndBuyFetchingStatusKeyFix and "inspectAndBuy.getFavoriteForAsset." or nil
+local BUNDLE_KEY = not FFlagInspectAndBuyFetchingStatusKeyFix and "inspectAndBuy.getFavoriteForBundle." or nil
+
+local ASSET_KEY_MAPPER = FFlagInspectAndBuyFetchingStatusKeyFix
+	and createInspectAndBuyKeyMapper("getFavoriteForAsset") or nil
+local BUNDLE_KEY_MAPPER = FFlagInspectAndBuyFetchingStatusKeyFix
+	and createInspectAndBuyKeyMapper("getFavoriteForBundle") or nil
 
 --[[
 	Gets the current favorite status of the asset/bundle being viewed.
@@ -26,10 +34,24 @@ return function(state)
 
 	if isBundleAndOffsale then
 		local bundleId = UtilityFunctions.getBundleId(assetInfo)
-		return state.FetchingStatus[BUNDLE_KEY ..tostring(bundleId)] == RetrievalStatus.Fetching
-			or state.FetchingStatus[BUNDLE_KEY ..tostring(bundleId)] == RetrievalStatus.Done
+		local key
+		if FFlagInspectAndBuyFetchingStatusKeyFix then
+			-- Generate key with createInspectAndBuyKeyMapper for consistency with GetFavoriteForBundle thunk
+			key = BUNDLE_KEY_MAPPER(state.storeId, bundleId)
+		else
+			key = BUNDLE_KEY ..tostring(bundleId)
+		end
+		return state.FetchingStatus[key] == RetrievalStatus.Fetching
+			or state.FetchingStatus[key] == RetrievalStatus.Done
 	else
-		return state.FetchingStatus[ASSET_KEY ..tostring(assetId)] == RetrievalStatus.Fetching
-			or state.FetchingStatus[ASSET_KEY ..tostring(assetId)] == RetrievalStatus.Done
+		local key
+		if FFlagInspectAndBuyFetchingStatusKeyFix then
+			-- Generate key with createInspectAndBuyKeyMapper for consistency with GetFavoriteForAsset thunk
+			key = ASSET_KEY_MAPPER(state.storeId, assetId)
+		else
+			key = ASSET_KEY ..tostring(assetId)
+		end
+		return state.FetchingStatus[key] == RetrievalStatus.Fetching
+			or state.FetchingStatus[key] == RetrievalStatus.Done
 	end
 end
