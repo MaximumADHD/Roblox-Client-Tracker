@@ -1,7 +1,7 @@
 -- Find the new indicies of the trailing, anchor and leading elements.
 -- props is expected to contain itemList, the identifier function and the maximum search distance.
 -- state is expected to contain the old top, anchor and bottom indices and ids.
-return function(props, state)
+return function(props, state): (number?, number?, number?)
 	local topIndex = state.trail.index
 	local topID = state.trail.id
 	local anchorIndex = state.anchor.index
@@ -24,7 +24,7 @@ return function(props, state)
 	end
 
 	-- No access to self:getID
-	local getID = function(index)
+	local getID = function(index): string
 		return props.identifier(props.itemList[index])
 	end
 	local topStill = getID(topIndex) == topID
@@ -43,7 +43,7 @@ return function(props, state)
 	-- Scan outward from the old anchor index until we find the top and bottom or hit the max distance
 	local deltas = {top=-1, bottom=1}
 	repeat
-		for _, delta in pairs(deltas) do
+		for _, delta: number in pairs(deltas) do
 			local pos = anchorIndex + delta * step
 
 			if pos >= 1 and pos <= listSize then
