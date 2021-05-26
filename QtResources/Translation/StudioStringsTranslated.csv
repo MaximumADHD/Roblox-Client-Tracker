@@ -93,7 +93,7 @@ Studio.App.FindAllDialog.LookIn,,,Look in: ,Look in: ,다음에서 찾기: ,См
 Studio.App.FindAllDialog.MatchCase,,,Match case,Match case,대소문자 일치,Учитывать регистр,大小写匹配
 Studio.App.FindAllDialog.MatchWholeWordOnly,,,Match whole word only,Match whole word only,전체 단어가 일치하는 항목만,Только слово целиком,全字匹配
 Studio.App.FindAllDialog.RegularExpression,,,Regular expression,Regular expression,정규식,Регулярное выражение,正则表达式
-Studio.App.FlagEditor.OfferRestart,,,You must restart Studio for fast flag changes to take effect.,You must restart Studio for fast flag changes to take effect.,고속 플래그 변경 사항을 적용하려면 Studio를 다시 시작해야 해요.,Для вступления в силу изменений быстрых флагов необходимо перезапустить программу.,你必须重新启动 Studio，对 fast flag 的更改才能生效。
+Studio.App.FlagEditor.OfferRestart,,,You must restart Studio for fast flag changes to take effect.,You must restart Studio for fast flag changes to take effect.,고속 플래그 변경 사항을 적용하려면 Studio를 다시 시작해야 해요.,Для вступления в силу изменений быстрых флагов необходимо перезапустить программу.,你必须重新启动 Studio，对快速旗帜的更改才能生效。
 Studio.App.FlagEditor.OfferRestartTitle,,,Overrides Saved,Overrides Saved,재정의 저장됨,Переопределения сохранены,覆盖保存
 Studio.App.GameExplorer.AddAssets,,,Add Assets,Add Assets,애셋 추가,Добавить ресурсы,添加素材
 Studio.App.GameExplorer.AddNewPlace,,,Add New Place,Add New Place,새 플레이스 추가,Добавить новое место,添加新场景
@@ -534,7 +534,7 @@ Studio.App.RBXMainWindow.OnlineHelpElps,,,Online Help...,Online Help...,온라�
 Studio.App.RBXMainWindow.OpenARecentDocument,,,Open a recent document,Open a recent document,최근 문서 열기,Открыть недавний документ,打开最近文档
 Studio.App.RBXMainWindow.OpenAnExistingDocument,,,Open an existing document,Open an existing document,기존 문서 열기,Открыть существующий документ,打开现有文档
 Studio.App.RBXMainWindow.OpenElps,,,Open...,Open...,열기...,Открыть...,打开...
-Studio.App.RBXMainWindow.OpenFlagEditor,,,Open Flag Editor,Open Flag Editor,플래그 편집기 열기,Открыть редактор флагов,打开 Flag 编辑器
+Studio.App.RBXMainWindow.OpenFlagEditor,,,Open Flag Editor,Open Flag Editor,플래그 편집기 열기,Открыть редактор флагов,打开旗帜编辑器
 Studio.App.RBXMainWindow.OpenPluginsFolder,,,Open Plugins Folder,Open Plugins Folder,플러그인 폴더 열기,Открыть папку плагинов,打开插件文件夹
 Studio.App.RBXMainWindow.OpenPreviousTab,,,Open Previous Tab,Open Previous Tab,이전 탭 열기,Открыть предыдущую вкладку,打开上一个标签
 Studio.App.RBXMainWindow.OpenRecentElps,,,Open Recent...,Open Recent...,최근 항목 열기...,Открыть недавние...,打开最近...
@@ -756,7 +756,7 @@ Studio.App.RobloxRibbonMainWindow.CheckCollisionsDragging,,,Check for collisions
 Studio.App.RobloxRibbonMainWindow.ChooseHowPartsJoin,,,Choose how parts are joined together,Choose how parts are joined together,파트 연결 방식 선택,Выберите способ соединения деталей друг с другом,选择部件如何结合到一起
 Studio.App.RobloxRibbonMainWindow.Cleanup,,,Cleanup,Cleanup,정리,Очистка,清除
 Studio.App.RobloxRibbonMainWindow.ClickOnPartsToLockUnlock,,,Click on parts to lock/unlock,Click on parts to lock/unlock,파트를 클릭해 잠금/잠금 해제,"Нажмите на детали, чтобы заблокировать / разблокировать",点击部件以锁定/解锁
-Studio.App.RobloxRibbonMainWindow.ClientsAndServers,,,Clients and Servers,Clients and Servers,클라이언트 및 서버,Клиенты и серверы,客户端和服务器
+Studio.App.RobloxRibbonMainWindow.ClientsAndServers,,,Clients and Servers,Clients and Servers,클라이언트와 서버,Клиенты и серверы,客户端和服务器
 Studio.App.RobloxRibbonMainWindow.Clipboard,,,Clipboard,Clipboard,클립보드,Буфер обмена,剪贴板
 Studio.App.RobloxRibbonMainWindow.Cobblestone,,,Cobblestone,Cobblestone,자갈,Брусчатка,鹅卵石
 Studio.App.RobloxRibbonMainWindow.CollapseAllCollapsableSection,,,Collapse all collapsable sections of scripts,Collapse all collapsable sections of scripts,스크립트의 축소 가능한 모든 섹션 축소,Свернуть все сворачиваемые разделы скриптов,收起脚本的所有可折叠部分
@@ -1276,7 +1276,7 @@ Studio.App.Property.AreAnchorsShown,,,Are Anchors Shown,Are Anchors Shown,앵커
 Studio.App.Property.AreAssembliesShown,,,Are Assemblies Shown,Are Assemblies Shown,어셈블리 표시됨,Показаны ли сборки,是否显示程序集
 Studio.App.Property.AreAwakePartsHighlighted,,,Are Awake Parts Highlighted,Are Awake Parts Highlighted,활성 파트 하이라이트됨,Выделять ли активные части,是否高亮显示唤醒部件
 Studio.App.Property.AreBodyTypesShown,,,Are Body Types Shown,Are Body Types Shown,신체 유형 표시됨,Показаны ли типы тел,是否显示主体类型
-Studio.App.Property.AreContactIslandsShown,,,Are Contact Islands Shown,Are Contact Islands Shown,Contact Islands 표시됨,Показаны ли контактные острова,是否显示接触组
+Studio.App.Property.AreContactIslandsShown,,,Are Contact Islands Shown,Are Contact Islands Shown,Contact Islands 표시됨,Показаны ли контактные острова,是否显示接触岛
 Studio.App.Property.AreContactPointsShown,,,Are Contact Points Shown,Are Contact Points Shown,접점 표시됨,Показаны ли контактные точки,是否显示接触点
 Studio.App.Property.AreJointCoordinatesShown,,,Are Joint Coordinates Shown,Are Joint Coordinates Shown,이음 좌표 표시됨,Показаны ли координаты соединения,是否显示关节坐标
 Studio.App.Property.AreMechanismsShown,,,Are Mechanisms Shown,Are Mechanisms Shown,메커니즘 표시됨,Показаны ли механизмы,是否显示机制
@@ -1803,7 +1803,7 @@ Studio.App.StudioFlagEditor.ExportAsJson,,,Export as JSON,Export as JSON,JSON으
 Studio.App.StudioFlagEditor.ExportSuccess,,,Export Success,Export Success,내보내기 성공,Экспорт завершен,导出成功
 Studio.App.StudioFlagEditor.ExportSuccess1,,,Success! Overrides exported to %1.,Success! Overrides exported to %1.,성공! 재정의를 %1(으)로 내보냈습니다.,Переопределения успешно экспортированы в %1!,成功！覆盖已导出至 %1。
 Studio.App.StudioFlagEditor.ExportsAllOverrides,,,Exports all current overrides to a portable ClientAppSettings.json file.,Exports all current overrides to a portable ClientAppSettings.json file.,현재 모든 재정의를 이동식 ClientAppSettings.json 파일로 내보냅니다.,Экспортирует все текущие переопределения в переносимый файл ClientAppSettings.json.,将所有当前覆盖导出至可移动的 ClientAppSettings.json 文件。
-Studio.App.StudioFlagEditor.FlagEditor,,,Flag Editor,Flag Editor,플래그 편집기,Редактор флагов,Flag 编辑器
+Studio.App.StudioFlagEditor.FlagEditor,,,Flag Editor,Flag Editor,플래그 편집기,Редактор флагов,旗帜编辑器
 Studio.App.StudioFlagEditor.JsonFile,,,JSON file (*.json),JSON file (*.json),JSON 파일 (*.json),JSON-файл (*.json),JSON 文件 (*.json)
 Studio.App.StudioFlagEditor.NoLocalOverrides,,,No local overrides were found on load. All values shown match the server values.,No local overrides were found on load. All values shown match the server values.,불러올 때 로컬 재정의를 찾을 수 없습니다. 표시된 모든 값은 서버 값과 일치합니다.,"При загрузке локальных переопределений не обнаружено, все значения соответствуют значениям сервера.",没有在加载中找到本地覆盖。所有显示的值与服务器的值匹配。
 Studio.App.StudioFlagEditor.SaveChangesCurrentBuild,,,Save changes to the current Studio build.,Save changes to the current Studio build.,현재 Studio 버전에 변경 사항을 저장하세요.,Сохраните изменения в текущей сборке Studio.,保存更改至当前 Studio 版本。
@@ -2443,8 +2443,8 @@ Studio.App.LocalPlacePublishRequestMediator.PublishInProgress,,,A Place Publish 
 Studio.App.RobloxStudioVerbs.SyncInstanceToFs,,,Sync Instance,Sync Instance,인스턴스 동기화,,同步实例
 Studio.App.RobloxTextOutputWidget.MaxTableDepthReached,,,Max table depth reached,Max table depth reached,최대 표 깊이에 도달함,,已到达最大表格深度
 Studio.App.StudioFlagEditor.AppliesOverridesImmediately,,,Saves and immediately applies overrides to running studio instance (unsafe).,Saves and immediately applies overrides to running studio instance (unsafe).,실행 중인 Studio 인스턴스에 재정의를 저장하고 즉시 적용합니다(안전하지 않음).,,进行保存，立即对正在运行的 Studio 实例进行覆盖（不安全）。
-Studio.App.StudioFlagEditor.FlagsApplied,,,Flag Overrides Applied,Flag Overrides Applied,플래그 재정의 적용됨,,Flag 覆盖已应用
-Studio.App.StudioFlagEditor.FlagsHaveBeenApplied,,,"Flag overrides changes have been applied dynamically, studio behavior may be unstable until the next restart.","Flag overrides changes have been applied dynamically, studio behavior may be unstable until the next restart.","플래그 재정의 변경 사항이 동적으로 적용되었으므로, 다음에 다시 시작할 때까지 Studio 동작이 불안정할 수 있습니다.",,Flag 覆盖改动已进行动态应用。直到下次重启为止， Studio 行为可能会不稳定。
+Studio.App.StudioFlagEditor.FlagsApplied,,,Flag Overrides Applied,Flag Overrides Applied,플래그 재정의 적용됨,,旗帜覆盖已应用
+Studio.App.StudioFlagEditor.FlagsHaveBeenApplied,,,"Flag overrides changes have been applied dynamically, studio behavior may be unstable until the next restart.","Flag overrides changes have been applied dynamically, studio behavior may be unstable until the next restart.","플래그 재정의 변경 사항이 동적으로 적용되었으므로, 다음에 다시 시작할 때까지 Studio 동작이 불안정할 수 있습니다.",,旗帜覆盖改动已进行动态应用。直到下次重启为止， Studio 行为可能会不稳定。
 Studio.App.VersionHistoryController.ReadOnlyScriptDocMessageFmt4,,,This version is read-only. <a href='%1://%2_%3_%4'>Click here to edit.</a>,This version is read-only. <a href='%1://%2_%3_%4'>Click here to edit.</a>,이 버전은 읽기 전용입니다. <a href='%1://%2_%3_%4'>편집하려면 여기를 클릭하세요.</a>,,该版本为只读版本。<a href='%1://%2_%3_%4'>点击此处进行编辑。</a>
 Studio.App.VersionHistoryDialog.FailedToCompareScriptErrorMessage,,,Failed to compare selected script(s). Please try again.,Failed to compare selected script(s). Please try again.,선택한 스크립트를 비교하지 못했습니다. 다시 시도하세요.,,无法对选中脚本进行比较。请再次尝试。
 Studio.App.VersionHistoryDialog.FailedToEditBatchErrorMessage,,,Failed to edit scripts from the selected batch. Please try again.,Failed to edit scripts from the selected batch. Please try again.,선택한 배치에서 스크립트를 편집하지 못했습니다. 다시 시도하세요.,,无法编辑选中批量中的脚本。请再次尝试。
@@ -2707,7 +2707,7 @@ Studio.App.FBXMeshImporter.MeshHasTooManyTriangles2,,,Your mesh has too many tri
 Studio.App.FBXMeshImporter.MultipleMeshes,,,"Multiple meshes detected! The meshes were joined together, and textures may now be incorrect.","Multiple meshes detected! The meshes were joined together, and textures may now be incorrect.",여러 개의 메시가 감지되었습니다! 메시가 서로 병합되었기 때문에 텍스처가 올바르게 보이지 않을 수 있습니다.,,发现多个网格！由于网格在导入时已进行合并处理，可能会导致纹理显示不正确。
 Studio.App.FBXMeshImporter.MultipleTextures,,,Multiple textures detected! We only allow one texture per MeshPart which may now result in the mesh texture not looking correct.,Multiple textures detected! We only allow one texture per MeshPart which may now result in the mesh texture not looking correct.,"여러 개의 메시가 감지되었습니다! 각 MeshPart에는 하나의 텍스처만 있어야 하므로, 이로 인해 메시 텍스처가 올바르게 보이지 않을 수 있습니다.",,发现多个网格！Studio 中每个 MeshPart 只能拥有一个纹理，此操作可能会导致纹理显示不正确。
 Studio.App.FBXRigBuilder.FileIsEmpty,,,The selected file is empty!,The selected file is empty!,선택한 파일이 비어 있습니다!,,选中文件为空！
-Studio.App.FBXRigBuilder.RigHasTooManyTriangles2,,,Your rig has too many triangles! Limit is %1. Your rig has %2.,Your rig has too many triangles! Limit is %1. Your rig has %2.,"리그에 삼각형이 너무 많습니다! 최대한도는 %1개이며, 리그에는 %2개가 있습니다.",,该骨架拥有过多三角形！三角形上限为 %1，该骨架有 %2 个。
+Studio.App.FBXRigBuilder.RigHasTooManyTriangles2,,,Your rig has too many triangles! Limit is %1. Your rig has %2.,Your rig has too many triangles! Limit is %1. Your rig has %2.,"리그에 삼각형이 너무 많습니다! 최대한도는 %1개이며, 리그에는 %2개가 있습니다.",,该人形模型拥有三角形过多！Roblox 支持人形模型中最多含有 %1 个三角形，该模型拥有 %2 个。
 Studio.App.FBXRigBuilder.RigMeshHasTooManyTriangles3,,,%1 has too many triangles! Limit is %2. Your mesh has %3.,%1 has too many triangles! Limit is %2. Your mesh has %3.,"%1에 삼각형이 너무 많습니다! 최대한도는 %2개이며, 메시에는 %3개가 있습니다.",,%1 拥有三角形过多！Roblox 支持最多 %2 个三角形，该网格拥有 %3 个。
 Studio.App.FileType.AllFiles,,,All Files,All Files,모든 파일,,所有文件
 Studio.App.FileType.AnimationFiles,,,Animation Files,Animation Files,애니메이션 파일,,动画文件
@@ -3119,7 +3119,7 @@ Studio.App.LockedScriptsVersionHistory.AutoGeneratedCommitFmt1,,,Applied edits t
 Studio.App.MainWindow.UploadingPlaceQuitCommitAuto,,,Applying script changes. Studio will close automatically when complete.,Applying script changes. Studio will close automatically when complete.,스크립트 변경 사항을 적용 중입니다. 완료되면 Studio가 자동으로 닫힙니다.,,正在应用脚本变更，完成后将会自动关闭 Studio。
 Studio.App.PackageUtilities.PermissionEdit,,,Edit,Edit,편집,,编辑
 Studio.App.PackageUtilities.PermissionNoAccess,,,No Access,No Access,액세스 권한 없음,,无法访问
-Studio.App.PackageUtilities.PermissionOwn,,,Own,Own,소유자,,所有者
+Studio.App.PackageUtilities.PermissionOwn,,,Owner,Owner,소유자,,所有者
 Studio.App.PackageUtilities.PermissionUseView,,,Use & View,Use & View,사용 및 보기,,使用和查看
 Studio.App.PackagesBlockingPublishDialog.CannotCheck,,,ERROR: Cannot check package for modification,ERROR: Cannot check package for modification,오류: 패키지 수정 사항을 확인할 수 없습니다,,错误：无法检查包的修改
 Studio.App.PackagesBlockingPublishDialog.CheckInProgress,,,Modification check is in progress,Modification check is in progress,수정 사항 확인 중,,正在进行修改检查
@@ -3257,8 +3257,8 @@ Studio.App.RemoteDebugger.Title,,,Remote Debugging,Remote Debugging,원격 디�
 Studio.App.QuickOpenDialog.TypeLineNumber2,,,Type a line number between %1 and %2 to navigate.,Type a line number between %1 and %2 to navigate.,탐색할 %1에서 %2 사이의 줄 번호를 입력하세요.,,输入 %1 到 %2 之间的行数以导航。
 Studio.App.Properties.UnknownAttribute,,,Unknown attributes runtime error.,Unknown attributes runtime error.,알 수 없는 속성 런타임 오류입니다.,,未知特性运行时错误。
 Studio.App.Property.BracketColor,,,Script Bracket Color,Script Bracket Color,스크립트 괄호 색,,脚本括号颜色
-Studio.App.Property.EnableTemporaryTabs,,,Enable Temporary Script Tabs,Enable Temporary Script Tabs,임시 스크립트 탭 활성화,,启用临时脚本标签页
-Studio.App.Property.EnableTemporaryTabsInExplorer,,,Enable Temporary Script Tabs In Explorer,Enable Temporary Script Tabs In Explorer,탐색기에서 임시 스크립트 탭 활성화,,在项目管理器中启用临时脚本标签页
+Studio.App.Property.EnableTemporaryTabs,,,Enable Temporary Script Tabs,Enable Temporary Script Tabs,임시 스크립트 탭 활성화,,启用临时脚本选项卡
+Studio.App.Property.EnableTemporaryTabsInExplorer,,,Enable Temporary Script Tabs In Explorer,Enable Temporary Script Tabs In Explorer,탐색기에서 임시 스크립트 탭 활성화,,在项目管理器中启用临时脚本选项卡
 Studio.App.QuickOpenDialog.EmptyScript,,,This is an empty Script,This is an empty Script,빈 스크립트입니다,,这是一个空脚本
 Studio.App.QuickOpenDialog.GotoLine,,,GotoLine,GotoLine,GotoLine,,GotoLine
 Studio.App.QuickOpenDialog.GotoLine1,,,Goto line %1,Goto line %1,%1줄로 이동,,前往行 %1
@@ -3459,16 +3459,15 @@ Studio.App.BetaFeatures.NewGamesInCloudDescription,,,Allows saving games to the 
 Studio.App.BetaFeatures.NewGamesInCloudTitle,,,New Games in the Cloud,New Games in the Cloud,클라우드의 새로운 게임,,云端上的新游戏
 Studio.App.ImportCostVerificationDialog.LuobuVerificationDescription,,,Click 'Show Details' to view the files to be imported.,Click 'Show Details' to view the files to be imported.,가져올 파일을 보려면 '세부 정보 표시'를 클릭하세요.,,按下“显示详情”以查看要导入的文件。
 Studio.App.Updates.UpdateAvailableButton,,,Update Available,Update Available,업데이트 가능,,有可用更新
-Studio.App.BetaFeatures.FasterRaycastsDescription,,,Enables optimizations for faster raycasts.,Enables optimizations for faster raycasts.,더 빠른 레이캐스팅을 위해 최적화를 활성화합니다.,,
-Studio.App.BetaFeatures.FasterRaycastsTitle,,,Optimized Raycasts,Optimized Raycasts,레이캐스팅 최적화,,
-Studio.App.BetaFeatures.ImprovedInnerBoxDescription,,,Enable a different algorithm for avatar Inner Box collision box sizing and positioning using margins around RigAttachment extents.,Enable a different algorithm for avatar Inner Box collision box sizing and positioning using margins around RigAttachment extents.,RigAttachment 범위 주변의 여백을 사용하여 아바타 안쪽 상자 충돌 상자의 크기 및 위치 지정에 대해 서로 다른 알고리즘을 활성화합니다.,,
-Studio.App.BetaFeatures.ImprovedInnerBoxTitle,,,Improved Inner Box Avatar Collisions,Improved Inner Box Avatar Collisions,안쪽 상자 아바타 충돌 개선,,
-Studio.App.BetaFeatures.TerrainQolDescription,,,Enable various small improvements to Terrain Tools.,Enable various small improvements to Terrain Tools.,지형 도구에 대한 소소한 개선 사항들을 활성화합니다.,,
-Studio.App.BetaFeatures.TerrainQolTitle,,,Terrain Quality of Life Changes,Terrain Quality of Life Changes,지형 관련 편의성 업데이트,,
-Studio.App.GeneralCmd.HELP,,,List all commands with optional filtering,List all commands with optional filtering,필터링 옵션 포함 모든 명령 나열,,
-Studio.App.Property.OpenCertManagerDialog,,,Trusted Certs,Trusted Certs,신뢰할 수 있는 인증서,,
-Studio.App.Property.OpenCertManagerDialogButton,,,Manage,Manage,관리,,
-Studio.App.AssetManagerService.DataModelNotInEditMode,,,Datamodel is not in edit mode,Datamodel is not in edit mode,,,
+Studio.App.BetaFeatures.FasterRaycastsDescription,,,Enables optimizations for faster raycasts.,Enables optimizations for faster raycasts.,,,
+Studio.App.BetaFeatures.FasterRaycastsTitle,,,Optimized Raycasts,Optimized Raycasts,,,
+Studio.App.BetaFeatures.ImprovedInnerBoxDescription,,,Enable a different algorithm for avatar Inner Box collision box sizing and positioning using margins around RigAttachment extents.,Enable a different algorithm for avatar Inner Box collision box sizing and positioning using margins around RigAttachment extents.,,,
+Studio.App.BetaFeatures.ImprovedInnerBoxTitle,,,Improved Inner Box Avatar Collisions,Improved Inner Box Avatar Collisions,,,
+Studio.App.BetaFeatures.TerrainQolDescription,,,Enable various small improvements to Terrain Tools.,Enable various small improvements to Terrain Tools.,,,
+Studio.App.BetaFeatures.TerrainQolTitle,,,Terrain Quality of Life Changes,Terrain Quality of Life Changes,,,
+Studio.App.GeneralCmd.HELP,,,List all commands with optional filtering,List all commands with optional filtering,,,
+Studio.App.Property.OpenCertManagerDialog,,,Trusted Certs,Trusted Certs,,,
+Studio.App.Property.OpenCertManagerDialogButton,,,Manage,Manage,,,
 Studio.Common.Action.Apply,,,Apply,Apply,적용,Применить,应用
 Studio.Common.Action.Back,,,Back,Back,뒤로,Назад,返回
 Studio.Common.Action.Cancel,,,Cancel,Cancel,취소,Отмена,取消

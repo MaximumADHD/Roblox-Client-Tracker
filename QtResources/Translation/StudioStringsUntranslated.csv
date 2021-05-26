@@ -78,7 +78,6 @@ Studio.App.AutoSaveDialog.Title,,Auto-Recovery,Auto-Recovery
 Studio.App.AutoSaveDialog.WantToLoad,,Do you want to load the auto-recovered file?,Do you want to load the auto-recovered file?
 Studio.App.AutocompleteMenu.MoreChildrenItemTextFmt1,,%1 more children...,%1 more children...
 Studio.App.AutocompleteTooltip.FunctionNumberLabelTextFmt2,,%1 of %2,%1 of %2
-Studio.App.AvatarImportService.OpenRigFBXFile,,Open Rig FBX File,Open Rig FBX File
 Studio.App.BetaFeatures.AcceleratedCollisionPipelineDescription,,Enable Accelerated Collision Detection which improves collision performance for large assemblies.,Enable Accelerated Collision Detection which improves collision performance for large assemblies.
 Studio.App.BetaFeatures.AcceleratedCollisionPipelineTitle,,Accelerated Collision Pipeline,Accelerated Collision Pipeline
 Studio.App.BetaFeatures.AdaptiveTimesteppingDescription,,Adaptively take larger timesteps for individual solver islands when possible.,Adaptively take larger timesteps for individual solver islands when possible.
@@ -100,6 +99,8 @@ Studio.App.BetaFeatures.AutomaticSizeTitle,,Automatic Size Beta,Automatic Size B
 Studio.App.BetaFeatures.AvatarLoadingBetaDescription,,Improves the ordering of events fired when avatars are loaded to be more consistent and easier for developers to use,Improves the ordering of events fired when avatars are loaded to be more consistent and easier for developers to use
 Studio.App.BetaFeatures.AvatarLoadingBetaTitle,,New Avatar Loading Signal Ordering,New Avatar Loading Signal Ordering
 Studio.App.BetaFeatures.BetaFeatures,title for Beta Features feature,Beta Features,Beta Features
+Studio.App.BetaFeatures.BreakpointPropagationDescription,,Breakpoints now work across DataModels.  Users no longer need to worry about what instance of a script they have open when using breakpoints.,Breakpoints now work across DataModels.  Users no longer need to worry about what instance of a script they have open when using breakpoints.
+Studio.App.BetaFeatures.BreakpointPropagationTitle,,Breakpoint Replication Beta,Breakpoint Replication Beta
 Studio.App.BetaFeatures.CSGv2SmoothingDescription,,Use the SmoothAngle property on CSG part to define threshold angle and smooth normals.,Use the SmoothAngle property on CSG part to define threshold angle and smooth normals.
 Studio.App.BetaFeatures.CSGv2SmoothingTitle,,Normal smoothing Beta,Normal smoothing Beta
 Studio.App.BetaFeatures.ClarifiedIKDraggersDescription,,Enables a new clarified UI for IK/Constraint/Physical draggers and adds a new behavior to the select dragger when in Physical mode,Enables a new clarified UI for IK/Constraint/Physical draggers and adds a new behavior to the select dragger when in Physical mode
@@ -174,6 +175,8 @@ Studio.App.BetaFeatures.SetInstanceDefaultsWindowTitle,,Set Instance as Default,
 Studio.App.BetaFeatures.SkinnedMeshDescription,,"Enables import, display and animation of skinned meshes.","Enables import, display and animation of skinned meshes."
 Studio.App.BetaFeatures.SkinnedMeshTitle,,Skinned Meshes,Skinned Meshes
 Studio.App.BetaFeatures.SomethingChangedPrompt,,Would you like to restart Studio now?,Would you like to restart Studio now?
+Studio.App.BetaFeatures.SupportPluginDebuggingDescription,,Set `Plugin Debugging Enabled` to true and you can debug local plugins under the PluginDebugService in Explorer,Set `Plugin Debugging Enabled` to true and you can debug local plugins under the PluginDebugService in Explorer
+Studio.App.BetaFeatures.SupportPluginDebuggingTitle,,Plugin Debugging,Plugin Debugging
 Studio.App.BetaFeatures.SurfaceJoinChangesDescription,,"Remove the 'Surface' Join Mode, all surfaces create ManualWelds.","Remove the 'Surface' Join Mode, all surfaces create ManualWelds."
 Studio.App.BetaFeatures.SurfaceJoinChangesTitle,,Surface Join Behavior Change,Surface Join Behavior Change
 Studio.App.BetaFeatures.TerrainHeightmapImporterDescription,,Instantly generate heightmaps from high-res (up to 4k) and high-bit-depth (16-bit) PNGs,Instantly generate heightmaps from high-res (up to 4k) and high-bit-depth (16-bit) PNGs
@@ -560,8 +563,8 @@ Studio.App.FindReplaceOpenAndLockScriptsDialog.LockingScriptsElps,,Locking Scrip
 Studio.App.FindReplaceOpenLockedScriptsDialog.Editor,,Editor,Editor
 Studio.App.FindReplaceOpenLockedScriptsDialog.Script,,Script,Script
 Studio.App.FindReplaceOpenLockedScriptsDialog.StringCouldNotBeReplacedInAllScripts,,String could not be replaced in all scripts.,String could not be replaced in all scripts.
-Studio.App.FindReplaceOpenLockedScriptsDialog.UnableToReplaceWhileScriptsBlocked,,"Unable to replace while one or more Scripts are being blocked by other users. 
-Try again when all scripts are unlocked.","Unable to replace while one or more Scripts are being blocked by other users. 
+Studio.App.FindReplaceOpenLockedScriptsDialog.UnableToReplaceAll,,"Unable to replace all while one or more Scripts are being blocked by other users. 
+Try again when all scripts are unlocked.","Unable to replace all while one or more Scripts are being blocked by other users. 
 Try again when all scripts are unlocked."
 Studio.App.FindReplaceWindow.AllScripts,,All Scripts,All Scripts
 Studio.App.FindReplaceWindow.NoResults,,No Results Found,No Results Found
@@ -760,12 +763,12 @@ Studio.App.ImportCostVerificationDialog.PurchaseRobux,,Purchase more Robux.,Purc
 Studio.App.ImportCostVerificationErrorDialog.EstimateLuobuErrorDescription,,"Click 'Show Details' to view the files that could not be imported. Try importing a new selection, or resolve conflicts and reattempt.","Click 'Show Details' to view the files that could not be imported. Try importing a new selection, or resolve conflicts and reattempt."
 Studio.App.ImportCostVerificationErrorDialog.EstimateLuobuErrorMainText,,Failed to import the selected files.,Failed to import the selected files.
 Studio.App.ImportCostVerificationErrorDialog.EstimateLuobuErrorTitle,,Import Error,Import Error
-Studio.App.ImportCostVerificationErrorDialog.EstimatedCostErrorDescription,,"Click 'Show Details' to view the files that could not be estimated and the import cost of files that were successfully estimated. Try importing a new selection, or resolve conflicts and reattempt.","Click 'Show Details' to view the files that could not be estimated and the import cost of files that were successfully estimated. Try importing a new selection, or resolve conflicts and reattempt."
+Studio.App.ImportCostVerificationErrorDialog.EstimatedCostErrorDescription,,"Click ‘Show Details’ to view the files that could not be estimated and the import cost of files that were successfully estimated. Try importing a new selection, or resolve conflicts and reattempt.","Click ‘Show Details’ to view the files that could not be estimated and the import cost of files that were successfully estimated. Try importing a new selection, or resolve conflicts and reattempt."
 Studio.App.ImportCostVerificationErrorDialog.EstimatedCostErrorMainText,,Failed to estimate import cost of the selected files.,Failed to estimate import cost of the selected files.
 Studio.App.ImportCostVerificationErrorDialog.EstimatedCostErrorTitle,,Estimated Cost Error,Estimated Cost Error
 Studio.App.ImportCostVerificationErrorDialog.Failed,,Failed,Failed
 Studio.App.ImportCostVerificationErrorDialog.FundsRequired,,Funds Required:,Funds Required:
-Studio.App.ImportCostVerificationErrorDialog.InsufficientFundsErrorDescription1,,Click 'Show Details' to view the cost of each file and the files that cannot be imported. Try importing a new selection or %1,Click 'Show Details' to view the cost of each file and the files that cannot be imported. Try importing a new selection or %1
+Studio.App.ImportCostVerificationErrorDialog.InsufficientFundsErrorDescription1,,Click ‘Show Details’ to view the cost of each file and the files that cannot be imported. Try importing a new selection or %1,Click ‘Show Details’ to view the cost of each file and the files that cannot be imported. Try importing a new selection or %1
 Studio.App.ImportCostVerificationErrorDialog.InsufficientFundsErrorMainText,,You do not have enough Robux to import selected files.,You do not have enough Robux to import selected files.
 Studio.App.ImportCostVerificationErrorDialog.InsufficientFundsErrorTitle,,Insufficient Funds,Insufficient Funds
 Studio.App.ImportCostVerificationErrorDialog.TotalImportCost,,Total import cost:,Total import cost:
@@ -916,7 +919,7 @@ Studio.App.MainWindow.AmongRegisteredTrademarks2,Replacement of Studio.App.MainW
 Studio.App.MainWindow.ArgumentsBreak,Main Window,Arguments:<br>,Arguments:<br>
 Studio.App.MainWindow.BreakPathSpace,Main Window,<br>Path: ,<br>Path: 
 Studio.App.MainWindow.BuildTypeSpace1,Main Window,Build Type: %1,Build Type: %1
-Studio.App.MainWindow.ClearTerrain,Main Window,The Terrain object persists in your workspace and can't be removed. Deleting it will clear existing terrain.,The Terrain object persists in your workspace and can't be removed. Deleting it will clear existing terrain.
+Studio.App.MainWindow.ClearTerrain,Main Window,The Terrain object persists in your workspace and can’t be removed. Deleting it will clear existing terrain.,The Terrain object persists in your workspace and can’t be removed. Deleting it will clear existing terrain.
 Studio.App.MainWindow.CloseFile,Main Window,Close File,Close File
 Studio.App.MainWindow.CloseFileStatusTip,Main Window,Close the open file,Close the open file
 Studio.App.MainWindow.CloseStudio,Main Window,Close Studio,Close Studio
@@ -1135,7 +1138,7 @@ Studio.App.PackageUtilities.ModifiedPackagesInDMError,,Error: Cannot publish pla
 Studio.App.PackageUtilities.PendingPackagesInDMError,,Unable to publish this place as there may be modified packages. Please try again later.,Unable to publish this place as there may be modified packages. Please try again later.
 Studio.App.PackageUtilities.PermissionEdit,,Edit,Edit
 Studio.App.PackageUtilities.PermissionNoAccess,,No Access,No Access
-Studio.App.PackageUtilities.PermissionOwn,,Own,Own
+Studio.App.PackageUtilities.PermissionOwn,,Owner,Owner
 Studio.App.PackageUtilities.PermissionUseView,,Use & View,Use & View
 Studio.App.PackageUtilities.SelectInExplorer,Button text. The button allows user to select some packages in Explorer,Select in Explorer,Select in Explorer
 Studio.App.PackageUtilities.UndoChangesError1,,Package undo changes error: %1,Package undo changes error: %1
@@ -2392,7 +2395,7 @@ Studio.App.RobloxRibbonMainWindow.InsertObjectToolTip,,View list of insertable o
 Studio.App.RobloxRibbonMainWindow.InsertScriptsAndOtherAdvance,,Insert scripts and other advanced objects into the game,Insert scripts and other advanced objects into the game
 Studio.App.RobloxRibbonMainWindow.InsertSpherePart,,Insert sphere part,Insert sphere part
 Studio.App.RobloxRibbonMainWindow.InsertWedgePart,,Insert wedge part,Insert wedge part
-Studio.App.RobloxRibbonMainWindow.InternalBetaFeatures,,Roblox Internal - Beta,Roblox Internal - Beta
+Studio.App.RobloxRibbonMainWindow.InternalBetaFeatures,,Roblox Internal – Beta,Roblox Internal – Beta
 Studio.App.RobloxRibbonMainWindow.InternalFeatures,,Roblox Internal,Roblox Internal
 Studio.App.RobloxRibbonMainWindow.InternalFeaturesAreEnabled,,Internal Features are enabled,Internal Features are enabled
 Studio.App.RobloxRibbonMainWindow.InternalFeaturesMessageBoxContent,,"Your account is associated with an @roblox.com email address or has Soothsayer permissions. You also have internal-only features turned on.
