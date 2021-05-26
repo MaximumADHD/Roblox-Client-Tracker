@@ -4573,28 +4573,28 @@
         <Item class="ReflectionMetadataMember">
           <Properties>
             <string name="Name">Origin Orientation</string>
-            <string name="summary">Rotate the object around its pivot.</string>
+            <string name="summary">Rotate the object around its pivot. Call object:PivotTo(...) to move the object in this way via scripts.</string>
             <string name="PropertyOrder">400</string>
           </Properties>
         </Item>
         <Item class="ReflectionMetadataMember">
           <Properties>
             <string name="Name">Origin Position</string>
-            <string name="summary">Translate the object by its pivot.</string>
+            <string name="summary">Translate the object by its pivot. Call object:PivotTo(...) to move the object in this way via scripts.</string>
             <string name="PropertyOrder">300</string>
           </Properties>
         </Item>
         <Item class="ReflectionMetadataMember">
             <Properties>
                 <string name="Name">Pivot Offset Position</string>
-                <string name="summary">Where the pivot is relative to the object.</string>
+                <string name="summary">Where the pivot is relative to the object. Set this via scripts using the part.PivotOffset property.</string>
                 <string name="PropertyOrder">300</string>
             </Properties>
         </Item>
         <Item class="ReflectionMetadataMember">
             <Properties>
                 <string name="Name">Pivot Offset Orientation</string>
-                <string name="summary">How the pivot is oriented relative to the object.</string>
+                <string name="summary">How the pivot is oriented relative to the object. Set this via scripts using the part.PivotOffset property.</string>
                 <string name="PropertyOrder">400</string>
             </Properties>
         </Item>
@@ -5357,14 +5357,14 @@
         <Item class="ReflectionMetadataMember">
             <Properties>
                 <string name="Name">World Pivot Position</string>
-                <string name="summary">Where the pivot is in world space.</string>
+                <string name="summary">Where the pivot is in world space. Set this via scripts using the model.WorldPivot property.</string>
                 <string name="PropertyOrder">300</string>
             </Properties>
         </Item>
         <Item class="ReflectionMetadataMember">
             <Properties>
                 <string name="Name">World Pivot Orientation</string>
-                <string name="summary">How the pivot is oriented in world space.</string>
+                <string name="summary">How the pivot is oriented in world space. Set this via scripts using the model.WorldPivot property.</string>
                 <string name="PropertyOrder">400</string>
             </Properties>
         </Item>
@@ -6788,6 +6788,16 @@
             <string name="summary">Specifies the amount of influence lighting has on the surface gui. A value of 0 is unlit, 1 is fully lit. Fractional values blend from unlit to lit.</string>
             <double name="UIMinimum">0</double>
             <double name="UIMaximum">1</double>
+            <double name="UINumTicks">2000</double>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Brightness</string>
+            <string name="summary">Specifies the amount of light this gui emits when LightInfluence is 0.</string>
+            <double name="UIMinimum">0</double>
+            <double name="UIMaximum">10</double>
+            <double name="UINumTicks">2000</double>
           </Properties>
         </Item>
       </Item>

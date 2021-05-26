@@ -208,6 +208,9 @@ Class AvatarEditorService : Instance [NotCreatable] [Service] [NotReplicated]
 	Event AvatarEditorService.PromptCreateOutfitCompleted(Enum<AvatarPromptResult> result)
 	Event AvatarEditorService.PromptSaveAvatarCompleted(Enum<AvatarPromptResult> result)
 	Event AvatarEditorService.PromptSetFavoriteCompleted(Enum<AvatarPromptResult> result)
+Class AvatarImportService : Instance [NotCreatable] [Service] [NotReplicated]
+	Function Instance AvatarImportService:ImportFbxRigWithoutSceneLoad(bool isR15 = true) {RobloxScriptSecurity} [Yields]
+	Function Instance AvatarImportService:LoadRigAndDetectType(Function promptR15Callback) {RobloxScriptSecurity} [Yields]
 Class Backpack : Instance
 Class BackpackItem : Instance [NotCreatable]
 	Property Content BackpackItem.TextureId
@@ -1177,6 +1180,7 @@ Class LayerCollector : GuiBase2d [NotCreatable] [NotBrowsable]
 	Property Enum<ZIndexBehavior> LayerCollector.ZIndexBehavior
 	Function Dictionary LayerCollector:GetLayoutNodeTree() [Deprecated]
 Class BillboardGui : LayerCollector
+	Property float BillboardGui.Brightness
 	Property bool BillboardGui.ClipsDescendants
 	Property bool BillboardGui.Active
 	Property Instance BillboardGui.Adornee
@@ -1213,6 +1217,7 @@ Class ScreenGui : LayerCollector
 	Property bool ScreenGui.IgnoreGuiInset
 Class GuiMain : ScreenGui [Deprecated]
 Class SurfaceGui : LayerCollector
+	Property float SurfaceGui.Brightness
 	Property float SurfaceGui.ZOffset
 	Property bool SurfaceGui.ClipsDescendants
 	Property bool SurfaceGui.Active
