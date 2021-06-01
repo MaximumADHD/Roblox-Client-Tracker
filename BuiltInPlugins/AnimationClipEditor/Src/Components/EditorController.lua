@@ -367,6 +367,9 @@ function EditorController:render()
 
 				[Roact.Event.Activated] = function()
 					props.SetSelectedTracks()
+					if UseLuaDraggers() then
+						props.SetSelectedTrackInstances({})
+					end
 				end,
 			}, {
 				Layout = Roact.createElement("UIListLayout", {

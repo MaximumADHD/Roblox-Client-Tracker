@@ -17,6 +17,8 @@ local AnimationData = require(Plugin.Src.Util.AnimationData)
 local SetSelectedKeyframes = require(Plugin.Src.Actions.SetSelectedKeyframes)
 local UpdateAnimationData = require(Plugin.Src.Thunks.UpdateAnimationData)
 
+local GetFFlagReduceDeepcopyCalls = require(Plugin.LuaFlags.GetFFlagReduceDeepcopyCalls)
+
 return function(pivotFrame, newFrame)
 	return function(store)
 		local state = store:getState()
@@ -30,7 +32,12 @@ return function(pivotFrame, newFrame)
 			and AnimationData.getMaximumLength(animationData.Metadata.FrameRate)
 			or AnimationData.getMaximumLength(30)
 
-		local newData = deepCopy(animationData)
+		local newData = GetFFlagReduceDeepcopyCalls() and Cryo.Dictionary.join({}, animationData) or deepCopy(animationData)
+
+		if GetFFlagReduceDeepcopyCalls() then
+			newData.Instances = Cryo.Dictionary.join({}, newData.Instances)
+			newData.Events = deepCopy(newData.Events)
+		end
 
 		-- To prevent clobbering keyframes that should be moved,
 		-- we have to move the keyframes from last to first if
@@ -41,9 +48,18 @@ return function(pivotFrame, newFrame)
 		local newSelectedKeyframes = deepCopy(selectedKeyframes)
 
 		for instanceName, instance in pairs(selectedKeyframes) do
+			if GetFFlagReduceDeepcopyCalls() then
+				newData.Instances[instanceName] = Cryo.Dictionary.join({}, newData.Instances[instanceName])
+				newData.Instances[instanceName].Tracks = Cryo.Dictionary.join({}, newData.Instances[instanceName].Tracks)
+			end
+
 			local dataInstance = newData.Instances[instanceName]
 
 			for trackName, _ in pairs(instance) do
+				if GetFFlagReduceDeepcopyCalls() then
+					dataInstance.Tracks[trackName] = deepCopy(dataInstance.Tracks[trackName])
+				end
+
 				local keyframes = Cryo.Dictionary.keys(instance[trackName])
 				table.sort(keyframes)
 

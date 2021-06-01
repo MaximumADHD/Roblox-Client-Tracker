@@ -14,6 +14,7 @@
 		any Footer: A Roact fragment or element to be displayed in the footer.
 		boolean ShowFooter: Whether to display the footer. (default = true if the Footer prop is non-nil)
 		boolean ShowHeader: Whether to display the header. (defalt = true)
+		number SortIndex: The index of the current column that is being sorted.
 		Enum.SortDirection SortOrder: The order that the column is being sorted in.
 		callback OnHoverRow: An optional callback called when a row is hovered over. (rowIndex: number) -> ()
 		callback OnMouseLeave: An optional callback called when the mouse leaves the table bounds. () -> ()

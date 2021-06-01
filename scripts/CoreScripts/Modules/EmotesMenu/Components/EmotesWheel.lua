@@ -1,6 +1,7 @@
 local ContextActionService = game:GetService("ContextActionService")
 local CorePackages = game:GetService("CorePackages")
 local UserInputService = game:GetService("UserInputService")
+local GamepadService = game:GetService("GamepadService")
 
 local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
@@ -27,6 +28,9 @@ local HideMenu = require(Actions.HideMenu)
 local PlayEmote = require(Thunks.PlayEmote)
 
 local KEYBINDS_PRIORITY = Enum.ContextActionPriority.High.Value
+
+local FFlagEmotesMenuHideVirtualCursor = game:DefineFastFlag("EmotesMenuHideVirtualCursor", false)
+local EngineFeatureVirtualCursor = game:GetEngineFeature("VirtualCursorEnabled")
 
 local EmotesWheel = Roact.PureComponent:extend("EmotesWheel")
 
@@ -170,6 +174,11 @@ function EmotesWheel:addCursorOverride()
     if self.isUsingGamepad and not self.isCursorHidden then
         MouseIconOverrideService.push(Constants.CursorOverrideName, Enum.OverrideMouseIconBehavior.ForceHide)
 
+        if FFlagEmotesMenuHideVirtualCursor and EngineFeatureVirtualCursor then
+            self.gamepadCursorWasEnabled = GamepadService.GamepadCursorEnabled
+            GamepadService.GamepadCursorEnabled = false
+        end
+
         self.isCursorHidden = true
     end
 end
@@ -177,6 +186,10 @@ end
 function EmotesWheel:removeCursorOverride()
     if self.isCursorHidden then
         MouseIconOverrideService.pop(Constants.CursorOverrideName)
+
+        if FFlagEmotesMenuHideVirtualCursor and EngineFeatureVirtualCursor and self.gamepadCursorWasEnabled then
+            GamepadService.GamepadCursorEnabled = true
+        end
 
         self.isCursorHidden = false
     end

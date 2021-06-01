@@ -1,6 +1,7 @@
 local RunService = game:GetService("RunService")
 
 local FFlagOnlyRemoveMotorsForRiggedRagdolls = game:DefineFastFlag("OnlyRemoveMotorsForRiggedRagdolls", false)
+local FFlagMPHAFixRagdollCollision = game:DefineFastFlag("MPHAFixRagdollHeadCollision", false)
 
 local Rigging = {}
 
@@ -470,6 +471,14 @@ function Rigging.disableMotors(model, rigType)
 	local rootPart = model.PrimaryPart or model:FindFirstChild("HumanoidRootPart")
 	if rootPart and rootPart:IsA("BasePart") then
 		rootPart.CanCollide = false
+	end
+
+	if FFlagMPHAFixRagdollCollision then
+		-- Set the Head part to collide
+		local head = model:FindFirstChild("Head")
+		if head and head:IsA("BasePart") then
+			head.CanCollide = true
+		end
 	end
 
 	return motors

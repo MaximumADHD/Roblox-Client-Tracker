@@ -111,8 +111,9 @@ if THEME_REFACTOR then
 					Image = "rbxasset://textures/ui/common/robux_small.png",
 					Position = UDim2.new(0.05, 0, 0.5, 0),
 					Size = UDim2.new(0, 16, 0.6, 0),
-					ScaleType = Enum.ScaleType.Fit
+					ScaleType = Enum.ScaleType.Fit,
 				},
+				TextSize = common.MainText.TextSize,
 			})
 		},
 	}

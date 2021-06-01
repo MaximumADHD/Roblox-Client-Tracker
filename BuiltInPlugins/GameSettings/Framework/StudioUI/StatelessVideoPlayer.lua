@@ -44,13 +44,7 @@ local MediaPlayerSignal = require(Framework.StudioUI.MediaPlayerWrapper.MediaPla
 
 local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 
-local FFlagDevFrameworkBasicMobileSupport = game:GetFastFlag("DevFrameworkBasicMobileSupport")
 local isInputMainPress = Util.isInputMainPress
-
--- TODO FFlagDevFrameworkBasicMobileSupport: Remove this helper on retire
-local function isUserInputTypeClick(inputType)
-	return (inputType == Enum.UserInputType.Touch) or (inputType == Enum.UserInputType.MouseButton1)
-end
 
 local StatelessVideoPlayer = Roact.PureComponent:extend("StatelessVideoPlayer")
 Typecheck.wrap(StatelessVideoPlayer, script)
@@ -128,10 +122,7 @@ function StatelessVideoPlayer:init()
 	end
 
 	self.onInputBegan = function(_, input)
-		local isMainPress = isUserInputTypeClick(input.UserInputType)
-		if FFlagDevFrameworkBasicMobileSupport then
-			isMainPress = isInputMainPress(input)
-		end
+		local isMainPress = isInputMainPress(input)
 		if isMainPress and self.props.IsLoaded then
 			self.togglePlay()
 		end

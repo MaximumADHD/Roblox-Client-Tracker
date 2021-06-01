@@ -6,7 +6,7 @@ local InspectorContext = require(main.Src.Util.InspectorContext)
 
 local RoactElementRow = require(script.RoactElementRow)
 
-local DeveloperTools = require(main.Packages.DeveloperTools)
+local DeveloperTools = Framework.DeveloperTools
 local RoactInspectorApi = DeveloperTools.RoactInspectorApi
 
 local Dash = require(main.Packages.Dash)
@@ -31,12 +31,12 @@ function RoactElementTree:init()
 
 	self.onToggleInstance = function(row)
 		local item = row.item
-		local isExpanded = not self.props.Expansion[item]
+		local shouldExpand = not self.props.Expansion[item]
 		self.props.toggleInstance({
-			[item] = isExpanded
+			[item] = shouldExpand
 		})
 		-- Get the latest children for the toggled node
-		if isExpanded then
+		if shouldExpand then
 			local inspector = self.props.Inspector:get()
 			local api = inspector:getTargetApi()
 			if RoactInspectorApi.isInstance(api) then
@@ -46,6 +46,10 @@ function RoactElementTree:init()
 	end
 	self.onSelectInstance = function(row)
 		local item = row.item
+		local shouldExpand = not self.props.Expansion[item]
+		if shouldExpand then
+			self.onToggleInstance(row)
+		end
 		self.props.selectInstance({
 			[item] = true
 		})

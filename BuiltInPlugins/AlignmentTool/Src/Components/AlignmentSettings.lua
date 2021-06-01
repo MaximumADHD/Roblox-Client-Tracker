@@ -1,6 +1,5 @@
 local Plugin = script.Parent.Parent.Parent
 
-local getEngineFeatureActiveInstanceHighlight = require(Plugin.Src.Flags.getEngineFeatureActiveInstanceHighlight)
 local getFFlagAlignToolDisabledFix = require(Plugin.Src.Flags.getFFlagAlignToolDisabledFix)
 
 local Roact = require(Plugin.Packages.Roact)
@@ -106,9 +105,7 @@ local function mapDispatchToProps(dispatch)
 		setRelativeTo = function(target)
 			dispatch(SetRelativeTo(target))
 			dispatch(UpdateAlignEnabled())
-			if getEngineFeatureActiveInstanceHighlight() then
-				dispatch(UpdateActiveInstanceHighlight())
-			end
+			dispatch(UpdateActiveInstanceHighlight())
 		end,
 	}
 end

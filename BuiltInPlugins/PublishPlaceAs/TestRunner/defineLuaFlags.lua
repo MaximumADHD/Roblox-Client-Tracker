@@ -3,5 +3,6 @@
 -- And then error when trying to use flags that aren't yet defined
 
 game:DefineFastFlag("FixPublishAsWhenQueryFails", false)
+game:DefineFastFlag("StudioPublishFailPageFix", false)
 
 return nil

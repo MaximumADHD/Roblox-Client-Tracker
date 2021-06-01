@@ -16,7 +16,6 @@ local FFlagStudioCreatePluginPolicyService = game:GetFastFlag("StudioCreatePlugi
 
 local StudioService = game:GetService("StudioService")
 local hasInternalPermission = StudioService:HasInternalPermission()
-local FFlagEnableToolboxStylizer = game:GetFastFlag("EnableToolboxStylizer")
 
 local Plugin = script.Parent.Parent
 local Libs = Plugin.Libs
@@ -27,7 +26,7 @@ local Roact = require(Libs.Roact)
 	is required (so that any files that Framework's init requires get the correct values).
 ]]
 local RefactorFlags = require(Libs.Framework.Util.RefactorFlags)
-RefactorFlags.THEME_REFACTOR = FFlagEnableToolboxStylizer
+RefactorFlags.THEME_REFACTOR = true
 
 local Framework = require(Libs.Framework)
 

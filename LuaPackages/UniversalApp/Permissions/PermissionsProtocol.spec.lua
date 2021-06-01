@@ -3,9 +3,10 @@ return function()
 
 	local MessageBus = require(CorePackages.UniversalApp.MessageBus)
 	local PermissionsProtocol = require(CorePackages.UniversalApp.Permissions.PermissionsProtocol)
-	
+
 	local TestPermissions = {
-		PermissionsProtocol.Permissions.CAMERA_ACCESS
+		PermissionsProtocol.Permissions.CAMERA_ACCESS,
+		PermissionsProtocol.Permissions.MICROPHONE_ACCESS
 	}
 
 	local InvalidPermissions = {
@@ -41,7 +42,7 @@ return function()
 			wait()
 			expect(status).to.equal(PermissionsProtocol.Status.AUTHORIZED)
 		end)
-		
+
 		it("should process requests to check current permissions", function(context)
 			local status = ""
 			context.PermissionsProtocol:hasPermissions(TestPermissions):andThen(function(result)
@@ -63,8 +64,9 @@ return function()
 			local didSucceed = false
 			context.PermissionsProtocol:getSupportedPermissionsList():andThen(function(result)
 				didSucceed = result.permissions and
-					#result.permissions == 1 and
-				 	result.permissions[1] == TestPermissions[1]
+					#result.permissions == 2 and
+					result.permissions[1] == TestPermissions[1] and
+					result.permissions[2] == TestPermissions[2]
 				expect(didSucceed).to.equal(true)
 			end)
 
@@ -117,7 +119,7 @@ return function()
 			expect(function()
 				context.PermissionsProtocol:requestPermissions(InvalidPermissions)
 			end).to.throw()
-			
+
 			expect(function()
 				context.PermissionsProtocol:supportsPermissions(InvalidPermissions)
 			end).to.throw()

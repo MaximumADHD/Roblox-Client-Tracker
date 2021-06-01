@@ -30,7 +30,6 @@
 		Color3 TextColor: The color of the text in this button.
 ]]
 local FFlagStudioFixTreeViewForSquish = settings():GetFFlag("StudioFixTreeViewForSquish")
-local FFlagWrappedDevFrameworkLinkText = game:GetFastFlag("WrappedDevFrameworkLinkText")
 
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
@@ -119,7 +118,7 @@ function Button:render()
 			TextSize = style.TextSize,
 			TextColor3 = style.TextColor,
 			TextTruncate = style.TextTruncate,
-			TextWrapped = FFlagWrappedDevFrameworkLinkText and style.TextWrapped or nil,
+			TextWrapped = style.TextWrapped,
 			TextXAlignment = FFlagStudioFixTreeViewForSquish and style.TextXAlignment or nil,
 			TextYAlignment = FFlagStudioFixTreeViewForSquish and style.TextYAlignment or nil,
 			Text = text,

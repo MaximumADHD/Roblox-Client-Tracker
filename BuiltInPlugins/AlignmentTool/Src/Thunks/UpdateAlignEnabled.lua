@@ -8,8 +8,6 @@ local Workspace = game:GetService("Workspace")
 
 local Plugin = script.Parent.Parent.Parent
 
-local getEngineFeatureActiveInstanceHighlight = require(Plugin.Src.Flags.getEngineFeatureActiveInstanceHighlight)
-
 local SetAlignEnabled = require(Plugin.Src.Actions.SetAlignEnabled)
 local AlignToolError = require(Plugin.Src.Utility.AlignToolError)
 local RelativeTo = require(Plugin.Src.Utility.RelativeTo)
@@ -40,18 +38,16 @@ return function()
 		local alignEnabled = #objects > 1 and hasEnabledAxis(axes)
 		local reason
 
-		if getEngineFeatureActiveInstanceHighlight() then
-			if alignEnabled and state.relativeTo == RelativeTo.Active then
-				local target = Selection.ActiveInstance
-				if not isAlignable(target) then
-					alignEnabled = false
-					reason = {
-						errorCode = AlignToolError.InvalidActiveObject,
-						formatParameters = {
-							name = target.Name
-						},
-					}
-				end
+		if alignEnabled and state.relativeTo == RelativeTo.Active then
+			local target = Selection.ActiveInstance
+			if not isAlignable(target) then
+				alignEnabled = false
+				reason = {
+					errorCode = AlignToolError.InvalidActiveObject,
+					formatParameters = {
+						name = target.Name
+					},
+				}
 			end
 		end
 

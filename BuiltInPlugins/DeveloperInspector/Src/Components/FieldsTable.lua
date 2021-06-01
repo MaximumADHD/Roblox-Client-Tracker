@@ -6,7 +6,7 @@ local InspectorContext = require(main.Src.Util.InspectorContext)
 
 local FieldTreeRow = require(script.FieldTreeRow)
 
-local DeveloperTools = require(main.Packages.DeveloperTools)
+local DeveloperTools = Framework.DeveloperTools
 local RoactInspectorApi = DeveloperTools.RoactInspectorApi
 
 local Dash = require(main.Packages.Dash)

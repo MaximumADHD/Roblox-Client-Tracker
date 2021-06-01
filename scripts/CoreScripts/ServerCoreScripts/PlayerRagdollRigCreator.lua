@@ -9,6 +9,7 @@ local CommonModules = CoreGuiModules:FindFirstChild("Common")
 local Rigging = require(CommonModules:FindFirstChild("RagdollRigging"))
 local HumanoidReadyUtil = require(CommonModules:FindFirstChild("HumanoidReadyUtil"))
 
+local FFlagRagdollUsesCharacterRemoving = game:DefineFastFlag("RagdollUsesCharacterRemoving", false)
 local deathType = game:DefineFastString("DeathTypeValue", "Classic")
 
 -- Replicate this to clients so all clients make the same choice
@@ -44,7 +45,7 @@ end)
 remote.Parent = RobloxReplicatedStorage
 
 HumanoidReadyUtil.registerHumanoidReady(function(player, character, humanoid)
-	local ancestryChangedConn
+	local ancestryChangedConn -- rename to characterRemovingConn on removal of FFlagRagdollUsesCharacterRemoving
 	local function disconnect()
 		ancestryChangedConn:Disconnect()
 		if riggedPlayerHumanoids[player] == humanoid then
@@ -53,11 +54,19 @@ HumanoidReadyUtil.registerHumanoidReady(function(player, character, humanoid)
 	end
 
 	-- Handle connection cleanup on remove
-	ancestryChangedConn = humanoid.AncestryChanged:Connect(function(_child, parent)
-		if not game:IsAncestorOf(parent) then
-			disconnect()
-		end
-	end)
+	if FFlagRagdollUsesCharacterRemoving then
+		ancestryChangedConn = player.CharacterRemoving:Connect(function(removedCharacter)
+			if removedCharacter == character then
+				disconnect()
+			end
+		end)
+	else
+		ancestryChangedConn = humanoid.AncestryChanged:Connect(function(_child, parent)
+			if not game:IsAncestorOf(parent) then
+				disconnect()
+			end
+		end)
+	end
 
 	-- We will only disable specific joints
 	humanoid.BreakJointsOnDeath = false

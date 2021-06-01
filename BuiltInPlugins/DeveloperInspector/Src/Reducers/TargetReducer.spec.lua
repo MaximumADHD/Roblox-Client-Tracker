@@ -13,6 +13,7 @@ local ClearTargets = require(Actions.ClearTargets)
 local function getUniversalAppTargets()
 	return {
 		sourceId = 5,
+		sourceName = "UniversalApp",
 		sourceKind = "CoreGui",
 		targets = {
 			UniversalAppRoact = {
@@ -34,6 +35,7 @@ end
 local function getToolboxTargets()
 	return {
 		sourceId = 2,
+		sourceName = "Toolbox",
 		sourceKind = "Plugin",
 		targets = {
 			ToolboxRoact = {
@@ -64,61 +66,29 @@ return function()
 			state = TargetReducer(state, AddTargets(getToolboxTargets()))
 			local serialized = pretty(state.targets, {depth = 100, multiline = true, omit = {"GetChildren", "GetDebugId"}})
 			expect(serialized).to.equal([[{
-	{
-		Children = {
-			2 = {
-				Children = {
-					ToolboxRoact = {
-						Children = {},
-						ClassName = "Frame",
-						Id = "ToolboxRoact",
-						Name = "Toolbox roact tree"
-					},
-					ToolboxRodux = {
-						Children = {},
-						ClassName = "Frame",
-						Id = "ToolboxRodux",
-						Name = "Toolbox rodux store"
-					}
-				},
-				ClassName = "Plugin"
-			}
-		},
-		ClassName = "Folder",
-		Name = "BuiltInPlugins"
+	ToolboxRoact = {
+		Children = {},
+		ClassName = "Plugin",
+		Id = "ToolboxRoact",
+		Name = "Toolbox - Toolbox roact tree"
 	},
-	{
-		Children = {
-			5 = {
-				Children = {
-					UniversalAppRoact = {
-						Children = {},
-						ClassName = "Frame",
-						Id = "UniversalAppRoact",
-						Name = "UniversalApp roact tree"
-					},
-					UniversalAppRodux = {
-						Children = {},
-						ClassName = "Frame",
-						Id = "UniversalAppRodux",
-						Name = "UniversalApp rodux store"
-					}
-				},
-				ClassName = "Plugin"
-			}
-		},
+	ToolboxRodux = {
+		Children = {},
+		ClassName = "Plugin",
+		Id = "ToolboxRodux",
+		Name = "Toolbox - Toolbox rodux store"
+	},
+	UniversalAppRoact = {
+		Children = {},
 		ClassName = "CoreGui",
-		Name = "CoreGui"
+		Id = "UniversalAppRoact",
+		Name = "UniversalApp - UniversalApp roact tree"
 	},
-	{
+	UniversalAppRodux = {
 		Children = {},
-		ClassName = "ReplicatedStorage",
-		Name = "Libraries"
-	},
-	{
-		Children = {},
-		ClassName = "CorePackages",
-		Name = "StandaloneBuiltInPlugins"
+		ClassName = "CoreGui",
+		Id = "UniversalAppRodux",
+		Name = "UniversalApp - UniversalApp rodux store"
 	}
 }]])
 		end)
@@ -130,28 +100,7 @@ return function()
 				state = TargetReducer(state, AddTargets(getToolboxTargets()))
 				state = TargetReducer(state, ClearTargets())
 				local serialized = pretty(state.targets, {depth = 100, multiline = true, omit = {"GetChildren", "GetDebugId"}})
-				expect(serialized).to.equal([[{
-	{
-		Children = {},
-		ClassName = "Folder",
-		Name = "BuiltInPlugins"
-	},
-	{
-		Children = {},
-		ClassName = "CoreGui",
-		Name = "CoreGui"
-	},
-	{
-		Children = {},
-		ClassName = "ReplicatedStorage",
-		Name = "Libraries"
-	},
-	{
-		Children = {},
-		ClassName = "CorePackages",
-		Name = "StandaloneBuiltInPlugins"
-	}
-}]])
+				expect(serialized).to.equal([[{}]])
 			end)
 		end)
 	end)

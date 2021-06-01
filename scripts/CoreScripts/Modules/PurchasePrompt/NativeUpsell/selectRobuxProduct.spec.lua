@@ -15,20 +15,34 @@ return function()
 		expect(product.robuxValue).to.equal(expectedRobux)
 	end
 
-	describe("IOS", function()
-		it("should select the appropriate premium product when user IS NOT premium", function()
-			verifyRobuxUpsellProduct(Enum.Platform.IOS, 80, false, 80, "com.roblox.robloxmobile.Premium80Robux")
-			verifyRobuxUpsellProduct(Enum.Platform.IOS, 1700, false, 1700, "com.roblox.robloxmobile.Premium1700Robux")
-		end)
+	if GetFFlagEnableLuobuInGameUpsell() then
+		describe("IOS-LUOBU", function()
+			it("should select the appropriate premium product when user IS NOT premium", function()
+				verifyRobuxUpsellProduct(Enum.Platform.IOS, 10, false, 10, "com.tencent.roblox.robloxmobile.luobu10robux")
+				verifyRobuxUpsellProduct(Enum.Platform.IOS, 1500, false, 1648, "com.tencent.roblox.robloxmobile.luobu1648robux")
+			end)
 
-		it("should select the appropriate premium product when user IS premium", function()
-			verifyRobuxUpsellProduct(Enum.Platform.IOS, 80, true, 88, "com.roblox.robloxmobile.Premium88Subscribed")
-			verifyRobuxUpsellProduct(Enum.Platform.IOS, 1870, true, 1870, "com.roblox.robloxmobile.Premium1870Subscribed")
+			it("should select the appropriate premium product when user IS premium", function()
+				verifyRobuxUpsellProduct(Enum.Platform.IOS, 10, true, 10, "com.tencent.roblox.robloxmobile.luobu10robux")
+				verifyRobuxUpsellProduct(Enum.Platform.IOS, 1648, true, 1648, "com.tencent.roblox.robloxmobile.luobu1648robux")
+			end)
 		end)
-	end)
+	else
+		describe("IOS", function()
+			it("should select the appropriate premium product when user IS NOT premium", function()
+				verifyRobuxUpsellProduct(Enum.Platform.IOS, 80, false, 80, "com.roblox.robloxmobile.Premium80Robux")
+				verifyRobuxUpsellProduct(Enum.Platform.IOS, 1700, false, 1700, "com.roblox.robloxmobile.Premium1700Robux")
+			end)
+
+			it("should select the appropriate premium product when user IS premium", function()
+				verifyRobuxUpsellProduct(Enum.Platform.IOS, 80, true, 88, "com.roblox.robloxmobile.Premium88Subscribed")
+				verifyRobuxUpsellProduct(Enum.Platform.IOS, 1870, true, 1870, "com.roblox.robloxmobile.Premium1870Subscribed")
+			end)
+		end)
+	end
 
 	if GetFFlagEnableLuobuInGameUpsell() then
-		describe("Android-CJV", function()
+		describe("Android-LUOBU", function()
 			it("should select the appropriate premium product when user IS NOT premium", function()
 				verifyRobuxUpsellProduct(Enum.Platform.Android, 10, false, 10, "com.tencent.roblox.robloxmobile.luobu10robux")
 				verifyRobuxUpsellProduct(Enum.Platform.Android, 1500, false, 1648, "com.tencent.roblox.robloxmobile.luobu1648robux")

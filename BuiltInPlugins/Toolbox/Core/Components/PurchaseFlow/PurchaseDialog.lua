@@ -20,7 +20,6 @@ local Libs = Plugin.Libs
 local Roact = require(Libs.Roact)
 
 local ContextServices = require(Libs.Framework).ContextServices
-local THEME_REFACTOR = require(Libs.Framework.Util.RefactorFlags).THEME_REFACTOR
 
 local StyledDialog
 if FFlagToolboxUseDevFrameworkDialogs then
@@ -64,11 +63,7 @@ function PurchaseDialog:renderContent(theme, localizedContent)
 		local balance = props.Balance
 
 		if FFlagToolboxUseDevFrameworkDialogs then
-			if THEME_REFACTOR then
-				theme = self.props.Stylizer
-			else
-				theme = self.props.Theme:get("Plugin")
-			end
+			theme = self.props.Stylizer
 		end
 
 		local textWidth = Constants.getTextSize(localizedContent.PurchaseFlow.CurrentBalance,
@@ -168,11 +163,8 @@ function PurchaseDialog:renderContent(theme, localizedContent)
 		})
 end
 
-if FFlagToolboxUseDevFrameworkDialogs then
 	ContextServices.mapToProps(PurchaseDialog, {
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+		Stylizer = ContextServices.Stylizer,
 	})
-end
 
 return PurchaseDialog

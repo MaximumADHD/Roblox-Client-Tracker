@@ -8,8 +8,8 @@ require(script.Parent.defineLuaFlags)
 
 -- Fast flags
 local FFlagDeveloperSubscriptionsEnabled = game:GetFastFlag("DeveloperSubscriptionsEnabled")
-
 local FFlagGameSettingsRoactInspector = game:DefineFastFlag("GameSettingsRoactInspector", false)
+local FFlagLuobuDevPublishLua = game:GetFastFlag("LuobuDevPublishLua")
 
 --Turn this on when debugging the store and actions
 local LOG_STORE_STATE_AND_EVENTS = false
@@ -42,6 +42,7 @@ local GameOptionsController = require(Plugin.Pages.OptionsPage.Controllers.GameO
 local MonetizationController = require(Plugin.Pages.MonetizationPage.Controllers.MonetizationController)
 local DevSubsController = require(Plugin.Pages.MonetizationPage.Controllers.DevSubsController)
 local PlacesController = require(Plugin.Pages.PlacesPage.Controllers.PlacesController)
+local PolicyInfoController = require(Plugin.Src.Controllers.PolicyInfoController)
 local SecurityController = require(Plugin.Pages.SecurityPage.Controllers.SecurityController)
 local SocialController = require(Plugin.Pages.PermissionsPage.Controllers.SocialController)
 local UniverseAvatarController = require(Plugin.Pages.AvatarPage.Controllers.UniverseAvatarController)
@@ -80,6 +81,7 @@ local socialController = SocialController.new(networking:get())
 local universeAvatarController = UniverseAvatarController.new(networking:get())
 local placesController = PlacesController.new(networking:get())
 local localizationPageController = LocalizationPageController.new(networking:get())
+local policyInfoController = FFlagLuobuDevPublishLua and PolicyInfoController.new(networking:get()) or nil
 
 thunkContextItems.networking = networking:get()
 thunkContextItems.worldRootPhysicsController = worldRootPhysics:get()
@@ -95,6 +97,7 @@ thunkContextItems.socialController = socialController
 thunkContextItems.universeAvatarController = universeAvatarController
 thunkContextItems.placesController = placesController
 thunkContextItems.localizationPageController = localizationPageController
+thunkContextItems.policyInfoController = policyInfoController
 
 local thunkWithArgsMiddleware = FrameworkUtil.ThunkWithArgsMiddleware(thunkContextItems)
 local middlewares = {thunkWithArgsMiddleware}

@@ -6,6 +6,8 @@
 		bool SaveActive = Whether or not saving is currently allowed.
 			This will enable the Save button if true.
 ]]
+local FFlagLuobuDevPublishLua = game:GetFastFlag("LuobuDevPublishLua")
+local FFlagGameSettingsUseKeyProvider = game:GetFastFlag("GameSettingsUseKeyProvider")
 
 local FOOTER_GRADIENT_SIZE = 3
 local FOOTER_GRADIENT_TRANSPARENCY = 0.9
@@ -26,13 +28,57 @@ local ButtonBar = require(Plugin.Src.Components.ButtonBar)
 local ConfirmAndSaveChanges = require(Plugin.Src.Thunks.ConfirmAndSaveChanges)
 local CurrentStatus = require(Plugin.Src.Util.CurrentStatus)
 
+local TextInputDialog = FFlagLuobuDevPublishLua and require(Plugin.Src.Components.Dialog.TextInputDialog) or nil
+local shouldShowDevPublishLocations = require(Plugin.Src.Util.GameSettingsUtilities).shouldShowDevPublishLocations
+
+local KeyProvider = FFlagGameSettingsUseKeyProvider and require(Plugin.Src.Util.KeyProvider) or nil
+local GetOptInLocationsKeyName = FFlagGameSettingsUseKeyProvider and KeyProvider.getOptInLocationsKeyName or nil
+local optInLocationsKey = FFlagLuobuDevPublishLua and GetOptInLocationsKeyName and GetOptInLocationsKeyName() or "OptInLocations"
+local GetChinaKeyName = FFlagGameSettingsUseKeyProvider and KeyProvider.getChinaKeyName or nil
+local chinaKey = FFlagLuobuDevPublishLua and GetChinaKeyName and GetChinaKeyName() or "China"
+
 local Footer = Roact.PureComponent:extend("Footer")
+
+function Footer:saveAllSettings(userPressedSave)
+	local props = self.props
+	local localization = props.Localization
+	local dialog = props.Dialog
+
+	local resolved = self.props.SaveAllSettings(userPressedSave, localization, dialog):await()
+	if resolved then
+		self.props.OnClose(userPressedSave)
+	end
+end
+
+function Footer:init()
+	self.shouldShowEmailDialog = FFlagLuobuDevPublishLua and function()
+		local props = self.props
+		-- 5/25/21 - CurrentOptInLocations and ChangedOptInLocations are only set in Luobu Studio
+		local currentOptInLocations = props.CurrentOptInLocations
+		local changedOptInLocations = props.ChangedOptInLocations
+
+		if not changedOptInLocations and not currentOptInLocations then
+			return false
+		elseif not changedOptInLocations then
+			if currentOptInLocations[chinaKey] then
+				return true
+			end
+		elseif changedOptInLocations[chinaKey] then
+			return true
+		end
+		return false
+	end or nil
+
+	self.state = FFlagLuobuDevPublishLua and {
+		showEmailDialog = false,
+		userPressedSave = false,
+	} or nil
+end
 
 function Footer:render()
 	local props = self.props
 	local theme = props.Theme:get("Plugin")
 	local localization = props.Localization
-	local dialog = props.Dialog
 
 	local saveActive = props.SaveActive
 	local cancelActive = props.CancelActive
@@ -63,11 +109,47 @@ function Footer:render()
 			},
 			HorizontalAlignment = Enum.HorizontalAlignment.Right,
 			ButtonClicked = function(userPressedSave)
-				local resolved = self.props.SaveAllSettings(userPressedSave, localization, dialog):await()
-				if resolved then
-					self.props.OnClose(userPressedSave)
+				-- Make changes here before save happens to show dialog
+				if FFlagLuobuDevPublishLua then
+					self:setState({
+						showEmailDialog = false,
+						userPressedSave = false,
+					})
+					if userPressedSave and shouldShowDevPublishLocations and self.shouldShowEmailDialog() then
+						self:setState({
+							showEmailDialog = true,
+							userPressedSave = userPressedSave,
+						})
+					else
+						self:saveAllSettings(userPressedSave)
+					end
+				else
+					self:saveAllSettings(userPressedSave)
 				end
 			end,
+		}, {
+			EmailDialog = FFlagLuobuDevPublishLua and self.state.showEmailDialog and Roact.createElement(TextInputDialog,
+			{
+				Size = Vector2.new(theme.textInputDialog.size.width, theme.textInputDialog.size.height),
+				Title = localization:getText(optInLocationsKey, "EmailDialogHeader"),
+				Header = localization:getText(optInLocationsKey, "EmailDialogHeader"),
+				Buttons = {
+					{Key = "Submit", Text = localization:getText("General", "ButtonSubmit")},
+					{Key = "Cancel", Text = localization:getText("General", "ButtonCancel")},
+				},
+				Body = localization:getText(optInLocationsKey, "EmailDialogBody"),
+				Description = localization:getText(optInLocationsKey, "EmailDialogDescription"),
+				TextBox = localization:getText(optInLocationsKey, "EmailAddress"),
+				OnClose = function(email)
+					-- TODO: jbousellam - STUDIOCORE-24599 - save email locally.
+				end,
+				OnButtonPressed = function(email)
+					-- TODO: jbousellam - STUDIOCORE-24599 - save email locally.
+				end,
+				SaveSettings = function()
+					self:saveAllSettings(self.state.userPressedSave)
+				end
+			}) or nil
 		}),
 	})
 end
@@ -85,7 +167,9 @@ Footer = RoactRodux.connect(
 			SaveActive = not isEmpty(state.Settings.Changed)
 				and state.Status == CurrentStatus.Open
 				and isEmpty(state.Settings.Errors),
-			CancelActive = state.Status == CurrentStatus.Open
+			CancelActive = state.Status == CurrentStatus.Open,
+			CurrentOptInLocations = FFlagLuobuDevPublishLua and state.Settings.Current.OptInLocations or nil,
+			ChangedOptInLocations = FFlagLuobuDevPublishLua and state.Settings.Changed.OptInLocations or nil,
 		}
 	end,
 	function(dispatch)

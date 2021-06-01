@@ -14,8 +14,6 @@
 
 local Plugin = script.Parent.Parent.Parent
 
-local getEngineFeatureActiveInstanceHighlight = require(Plugin.Src.Flags.getEngineFeatureActiveInstanceHighlight)
-
 local FitFrameOnAxis = require(Plugin.Packages.FitFrame).FitFrameOnAxis
 local Roact = require(Plugin.Packages.Roact)
 
@@ -60,12 +58,11 @@ function RelativeToSetting:render()
 	else
 		theme = props.Theme:get("Plugin")
 	end
-	local supportsActiveInstanceHighlight = getEngineFeatureActiveInstanceHighlight()
 
 	local layoutOrderIterator = LayoutOrderIterator.new()
 
 	local function renderRadioButton(target, layoutOrder)
-		local disabled = target == RelativeTo.Active and not supportsActiveInstanceHighlight
+		local disabled = false
 		local isSelected = target == props.Value
 
 		return Roact.createElement(RadioButton, {
@@ -76,11 +73,6 @@ function RelativeToSetting:render()
 			Text = localization:getText("RelativeToSection", target),
 			OnClick = props.OnValueChanged,
 		})
-	end
-
-	local helpIconStyleModifier = nil
-	if not supportsActiveInstanceHighlight then
-		helpIconStyleModifier = StyleModifier.Disabled
 	end
 
 	return Roact.createElement(FitFrameOnAxis, {
@@ -106,10 +98,9 @@ function RelativeToSetting:render()
 			}, {
 				Icon = Roact.createElement(Image, {
 					Style = "HelpIcon",
-					StyleModifier = helpIconStyleModifier,
 				}),
 
-				Tooltip = supportsActiveInstanceHighlight and Roact.createElement(Tooltip, {
+				Tooltip = Roact.createElement(Tooltip, {
 					Text = localization:getText("RelativeToSection", "ActiveObjectTooltip"),
 				})
 			})

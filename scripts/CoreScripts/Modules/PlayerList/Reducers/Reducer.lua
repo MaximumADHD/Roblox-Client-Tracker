@@ -16,6 +16,8 @@ local PlayerIconInfo = require(script.Parent.PlayerIconInfo)
 local PlayerRelationship = require(script.Parent.PlayerRelationship)
 
 local PlayerDropDown = require(script.Parent.PlayerDropDown)
+local PlayerKeys = require(script.Parent.PlayerKeys)
+local FFlagImprovePlayerListSorterPerf = require(script.Parent.Parent.Flags.FFlagImprovePlayerListSorterPerf)
 
 local Reducer = Rodux.combineReducers({
 	displayOptions = DisplayOptions,
@@ -35,4 +37,17 @@ local Reducer = Rodux.combineReducers({
 	playerDropDown = PlayerDropDown,
 })
 
-return Reducer
+if FFlagImprovePlayerListSorterPerf then
+	local DerivedReducer = function(state, action)
+		local newState = Reducer(state, action)
+
+		-- PlayerKeys is derived from other aspects of the store's state.
+		newState.playerKeys = PlayerKeys(state and state.playerKeys or nil, action, newState)
+
+		return newState
+	end
+
+	return DerivedReducer
+else
+	return Reducer
+end

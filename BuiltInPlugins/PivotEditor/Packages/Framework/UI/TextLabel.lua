@@ -48,8 +48,6 @@ local prioritize = Util.prioritize
 local FitTextLabel = Util.FitFrame.FitTextLabel
 local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 
-local FFlagEnableDevFrameworkAutomaticSize = game:GetFastFlag("EnableDevFrameworkAutomaticSize")
-
 local TextLabel = Roact.PureComponent:extend("TextLabel")
 Typecheck.wrap(TextLabel, script)
 
@@ -83,7 +81,7 @@ function TextLabel:render()
 
 	local textLabelProps = {
 		AnchorPoint = anchorPoint,
-		AutomaticSize = FFlagEnableDevFrameworkAutomaticSize and automaticSize or nil,
+		AutomaticSize = automaticSize,
 		Position = position,
 		BackgroundTransparency = backgroundTransparency,
 		Font = font,

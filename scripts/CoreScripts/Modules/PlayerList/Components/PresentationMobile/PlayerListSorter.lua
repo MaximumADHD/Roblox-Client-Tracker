@@ -10,8 +10,19 @@ local PlayerListDisplay = require(Presentation.PlayerListDisplay)
 
 local PlayerList = Presentation.Parent.Parent
 local FAKE_NEUTRAL_TEAM = require(PlayerList.GetFakeNeutralTeam)
+local PlayerSorting = require(PlayerList.PlayerSorting)
+local FFlagImprovePlayerListSorterPerf = require(PlayerList.Flags.FFlagImprovePlayerListSorterPerf)
 
 local PlayerListSorter = Roact.PureComponent:extend("PlayerListSorter")
+
+if FFlagImprovePlayerListSorterPerf then
+	function PlayerListSorter:init()
+		self.state = {
+			sortedPlayers = {},
+			playerKeys = {},
+		}
+	end
+end
 
 local function playerInTeam(player, team)
 	if team == nil then
@@ -93,6 +104,7 @@ local function buildSortedTeams(teamScores, primaryStat, teams, showNeutralTeam)
 	return sortedTeams
 end
 
+-- Remove with FFlagImprovePlayerListSorterPerf
 local function buildSortedPlayers(primaryStat, players, playerStats)
 	local sortedPlayers = {unpack(players)}
 
@@ -142,8 +154,13 @@ PlayerListSorter.validateProps = t.strictInterface({
 
 function PlayerListSorter:render()
 	local primaryStat = self.props.gameStats[1] and self.props.gameStats[1].name or nil
-	local sortedPlayers = buildSortedPlayers(
-		primaryStat, self.props.players, self.props.playerStats)
+	local sortedPlayers
+	if FFlagImprovePlayerListSorterPerf then
+		sortedPlayers = self.state.sortedPlayers
+	else
+		sortedPlayers = buildSortedPlayers(
+			primaryStat, self.props.players, self.props.playerStats)
+	end
 
 	if not Cryo.isEmpty(self.props.teams) then
 		local teamScores = buildTeamScores(
@@ -187,12 +204,17 @@ function PlayerListSorter:render()
 	})
 end
 
+if FFlagImprovePlayerListSorterPerf then
+	PlayerListSorter.getDerivedStateFromProps = PlayerSorting.getDerivedStateFromProps
+end
+
 local function mapStateToProps(state)
 	return {
 		gameStats = state.gameStats,
 
 		teams = state.teams,
 		players = state.players,
+		playerKeys = FFlagImprovePlayerListSorterPerf and state.playerKeys or nil,
 
 		playerStats = state.playerStats,
 		playerTeam = state.playerTeam,

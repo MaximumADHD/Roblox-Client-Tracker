@@ -10,6 +10,9 @@ local FFlagStudioPromptOnFirstPublish = game:GetFastFlag("StudioPromptOnFirstPub
 local FFlagStudioNewGamesInCloudUI = game:GetFastFlag("StudioNewGamesInCloudUI")
 local FFlagLuobuDevPublishLua = game:GetFastFlag("LuobuDevPublishLua")
 
+--Turn this on when debugging the store and actions
+local LOG_STORE_STATE_AND_EVENTS = false
+
 -- libraries
 local Plugin = script.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -29,6 +32,10 @@ local ScreenSelect = require(Plugin.Src.Components.ScreenSelect)
 local MainReducer = require(Plugin.Src.Reducers.MainReducer)
 local MainMiddleware = require(Plugin.Src.Middleware.MainMiddleware)
 local ResetInfo = require(Plugin.Src.Actions.ResetInfo)
+
+if LOG_STORE_STATE_AND_EVENTS then
+	table.insert(MainMiddleware, Rodux.loggerMiddleware)
+end
 
 -- theme
 local PluginTheme = require(Plugin.Src.Resources.PluginTheme)

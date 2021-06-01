@@ -22,6 +22,8 @@ local DEPRECATED_Constants = require(Plugin.Src.Util.DEPRECATED_Constants)
 
 local RoundTextButton = UILibrary.Component.RoundTextButton
 
+local FFlagLuobuDevPublishLua = game:GetFastFlag("LuobuDevPublishLua")
+
 local ButtonBar = Roact.PureComponent:extend("ButtonBar")
 
 function ButtonBar:render()
@@ -30,6 +32,7 @@ function ButtonBar:render()
 
 	local horizontalAlignment = props.HorizontalAlignment
 	local buttons = props.Buttons
+	local children = FFlagLuobuDevPublishLua and props[Roact.Children] or nil
 
 	local components = {
 		Layout = Roact.createElement("UIListLayout", {
@@ -37,7 +40,7 @@ function ButtonBar:render()
 			HorizontalAlignment = horizontalAlignment,
 			SortOrder = Enum.SortOrder.LayoutOrder,
 			FillDirection = Enum.FillDirection.Horizontal,
-		})
+		}, children)
 	}
 
 	if horizontalAlignment ~= Enum.HorizontalAlignment.Center then

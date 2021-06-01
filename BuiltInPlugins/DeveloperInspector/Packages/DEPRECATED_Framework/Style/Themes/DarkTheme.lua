@@ -2,6 +2,8 @@ local Framework = script.Parent.Parent.Parent
 local Colors = require(Framework.Style.Colors)
 local StyleKey = require(Framework.Style.StyleKey)
 
+local FFlagDevFrameworkFixButtonStyles = game:GetFastFlag("DevFrameworkFixButtonStyles")
+
 return {
 	[StyleKey.Border] = Colors.Carbon,
 	[StyleKey.BrightText] = Colors.White,
@@ -14,11 +16,13 @@ return {
 	[StyleKey.ImageButtonBackground] = Colors.Gray_Mid,
 	[StyleKey.ImageButtonHover] = Colors.lighter(Colors.Gray_Mid, 0.26),
 
+	[StyleKey.Icon] = Color3.fromRGB(128, 128, 128),
+
 	[StyleKey.CategoryItem] = Color3.fromRGB(53, 53, 53),
 
 	[StyleKey.DialogMainButton] = Colors.Blue,
-	[StyleKey.DialogMainButtonDisabled] = Colors.Blue,
-	[StyleKey.DialogMainButtonHover] = Colors.Blue,
+	[StyleKey.DialogMainButtonDisabled] = FFlagDevFrameworkFixButtonStyles and Colors.Gray or Colors.Blue,
+	[StyleKey.DialogMainButtonHover] = FFlagDevFrameworkFixButtonStyles and Colors.Blue_Light or Colors.Blue,
 	[StyleKey.DialogMainButtonSelected] = Colors.Blue_Dark,
 	[StyleKey.DialogMainButtonText] = Colors.White,
 	[StyleKey.DialogMainButtonTextDisabled] = Color3.fromRGB(102, 102, 102),
@@ -30,12 +34,14 @@ return {
 
 	[StyleKey.LinkText] = Color3.fromRGB(60, 180, 255),
 
+	[StyleKey.ItemHovered] = Colors.Gray,
 	[StyleKey.MainBackground] = Colors.Slate,
 	[StyleKey.MainButton] = Colors.Blue,
 	[StyleKey.MainText] = Colors.Gray_Light,
 	[StyleKey.MainTextDisabled] = Color3.fromRGB(85, 85, 85),
 	[StyleKey.Mid] = Color3.fromRGB(34, 34, 34),
 	[StyleKey.SubBackground] = Colors.Gray,
+	[StyleKey.SubBackground2] = Colors.Carbon,
 
 	[StyleKey.RibbonTab] = Color3.fromRGB(37, 37, 37),
 

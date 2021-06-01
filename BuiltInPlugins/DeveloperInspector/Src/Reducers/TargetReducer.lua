@@ -8,13 +8,16 @@ local Dash = require(Plugin.Packages.Dash)
 local None = Dash.None
 local join = Dash.join
 local joinDeep = Dash.joinDeep
-local pretty = Dash.pretty
-local map = Dash.map
+local collect = Dash.collect
 local values = Dash.values
 
 local sort = table.sort
 
+local Util = Plugin.Src.Util
+local TabIds = require(Util.TabIds)
+
 local Actions = Plugin.Src.Actions
+local SetTab = require(Actions.SetTab)
 local AddTargets = require(Actions.AddTargets)
 local ClearTargets = require(Actions.ClearTargets)
 local CloseTarget = require(Actions.CloseTarget)
@@ -43,24 +46,33 @@ local function createItem(name, className, children)
 	}
 end
 
-local function createTargetFolders()
-	return {
-		createItem("BuiltInPlugins", "Folder"),
-		createItem("CoreGui", "CoreGui"),
-		createItem("Libraries", "ReplicatedStorage"),
-		createItem("StandaloneBuiltInPlugins", "CorePackages"),
-	}
-end
+local tabs = {
+	{
+		Id = TabIds.ELEMENTS,
+		Label = "Elements",
+	},
+	{
+		Id = TabIds.PROFILE,
+		Label = "Profile",
+	},
+}
 
 return Rodux.createReducer({
-	targets = createTargetFolders(),
+	tabs = tabs,
+	selectedTab = tabs[1],
+	targets = {},
 	selectedTargetName = nil,
 	selectedTarget = nil,
 	expandedTargets = {},
 }, {
+	[SetTab.name] = function(state, action)
+		return join(state, {
+			selectedTab = action.tab
+		})
+	end,
 	[ClearTargets.name] = function(state, action)
 		return join(state, {
-			targets = createTargetFolders(),
+			targets = {},
 			expandedTargets = {},
 			selectedTarget = None
 		})
@@ -81,35 +93,24 @@ return Rodux.createReducer({
 		})
 	end,
 	[AddTargets.name] = function(state, action)
-		local kindToIndex = {
-			Plugin = 1,
-			CoreGui = 2,
-			Library = 3,
-			StandalonePlugin = 4,
+		local icons = {
+			Plugin = "Plugin",
+			CoreGui = "CoreGui",
+			Library = "Frame",
+			StandalonePlugin = "Plugin",
 		}
 
-		local kindIndex = kindToIndex[action.sourceKind]
-		if not kindIndex then
-			warn("[DeveloperInspector] Unrecognized source kind " .. pretty(action))
-			return state
-		end
-
-		local targetItems = map(action.targets, function(target)
-			local item = createItem(target.name, "Frame")
+		local icon = icons[action.sourceKind] or "Frame"
+		local targets = collect(action.targets, function(_index, target)
+			local item = createItem(target.name, icon)
+			local suffix = target.name == "Roact tree" and "" or " - " .. target.name
 			item.Id = target.id
-			item.Name = target.name
+			item.Name = action.sourceName .. suffix
 			item.BridgeId = action.fromBridgeId
-			item.SourceName = action.sourceName
-			return item
+			return target.id, item
 		end)
 		local newState = joinDeep(state, {
-			targets = {
-				[kindIndex] = {
-					Children = {
-						[action.sourceId] = createItem(action.sourceName, "Plugin", targetItems)
-					}
-				}
-			}
+			targets = targets
 		})
 		return newState
 	end,

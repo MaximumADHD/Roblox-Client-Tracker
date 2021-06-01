@@ -40,8 +40,6 @@ game:DefineFastFlag("ImproveAssetCreationsPageFetching2", false)
 
 game:DefineFastFlag("ToolboxUseGetItemDetails", false)
 
-game:DefineFastFlag("EnableToolboxStylizer", false)
-
 game:DefineFastFlag("ToolboxStopAudioFromPlayingOnCloseAndCategorySwitch", false)
 
 game:DefineFastFlag("AssetConfigNonCatalogOptionalDescription", false)

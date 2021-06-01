@@ -275,12 +275,16 @@ function AssetPreview:render()
 
 	local infoRowStyle = style.ScrollingFrame.InfoRow
 
+	local creatorLinkAction = self.onClickCreatorLink
+	if FFlagStudioAssetManagerHideAssetPreviewCreatorSearch and props.HideCreatorSearch then
+		creatorLinkAction = nil
+	end
+
 	local infoRows = Cryo.List.join({
 		{
 			Label = localization:getProjectText(LOCALIZATION_PROJECT_NAME, COMPONENT_NAME, "Creator"),
 			Content = assetData.Creator.Name,
-			LinkAction = FFlagStudioAssetManagerHideAssetPreviewCreatorSearch and not props.HideCreatorSearch
-				and self.onClickCreatorLink or nil,
+			LinkAction = creatorLinkAction,
 		},
 		{
 			Label = localization:getProjectText(LOCALIZATION_PROJECT_NAME, COMPONENT_NAME, "Genre"),

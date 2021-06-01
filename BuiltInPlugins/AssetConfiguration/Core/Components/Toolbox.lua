@@ -71,7 +71,6 @@ local FFlagPluginManagementDirectlyOpenToolbox = game:GetFastFlag("PluginManagem
 local FFlagToolboxDefaultBackgroundMatches = game:GetFastFlag("ToolboxDefaultBackgroundMatches")
 local FFlagToolboxFixCommonWarnings = game:GetFastFlag("ToolboxFixCommonWarnings")
 local FFlagToolboxRemoveGroupInventory = game:GetFastFlag("ToolboxRemoveGroupInventory")
-local THEME_REFACTOR = Framework.Util.RefactorFlags.THEME_REFACTOR
 
 local Background = FFlagToolboxDefaultBackgroundMatches and require(Plugin.Core.Types.Background) or nil
 
@@ -265,12 +264,7 @@ function Toolbox:render()
 	local tryOpenAssetConfig = props.tryOpenAssetConfig
 	local pluginGui = props.pluginGui
 
-	local toolboxTheme
-	if THEME_REFACTOR then
-		toolboxTheme = self.props.Stylizer
-	else
-		toolboxTheme = self.props.Theme:get("Plugin")
-	end
+	local toolboxTheme = self.props.Stylizer
 	local localizedContent = props.Localization
 
 	local onAbsoluteSizeChange = self.onAbsoluteSizeChange
@@ -326,8 +320,7 @@ function Toolbox:render()
 end
 
 ContextServices.mapToProps(Toolbox, {
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	Stylizer = ContextServices.Stylizer,
 	Localization = ContextServices.Localization,
 	Settings = Settings,
 })

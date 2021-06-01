@@ -6,13 +6,14 @@ local Main = script.Parent.Parent
 
 require(script.Parent.defineLuaFlags)
 local FFlagEnableDeveloperStorybook = game:GetFastFlag("EnableDeveloperStorybook")
+local FFlagEnableRoactInspector = game:GetFastFlag("EnableRoactInspector")
 
 local DebugFlags = require(Main.Src.Util.DebugFlags)
 if DebugFlags.RunningUnderCLI() then
 	return
 end
 
-if not game:GetService("StudioService"):HasInternalPermission() then
+if not game:GetService("StudioService"):HasInternalPermission() then	
 	return
 end
 if not FFlagEnableDeveloperStorybook then
@@ -26,21 +27,32 @@ local Roact = require(Main.Packages.Roact)
 local MainPlugin = require(Main.Src.MainPlugin)
 local handle
 
+local inspector
+
 local function init()
 	plugin.Name = "Developer Storybook"
 	
-
 	local mainPlugin = Roact.createElement(MainPlugin, {
 		Plugin = plugin,
 	})
 
 	handle = Roact.mount(mainPlugin)
+
+	if FFlagEnableRoactInspector then
+		local Framework = require(Main.Packages.Framework)
+		inspector = Framework.DeveloperTools.forPlugin("DeveloperStorybook", plugin)
+		inspector:addRoactTree("Roact tree", handle)
+	end
+
 end
 
 plugin.Unloading:Connect(function()
 	if handle then
 		Roact.unmount(handle)
 		handle = nil
+	end
+	if inspector then
+		inspector:destroy()
 	end
 end)
 

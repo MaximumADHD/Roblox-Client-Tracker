@@ -36,7 +36,6 @@ local Util = require(Framework.Util)
 local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local FlagsList = Util.Flags.new({
 	FFlagStudioDevFrameworkPackage = {"StudioDevFrameworkPackage"},
-	FFlagFixContentNotFullyShownAfterResize = {"FixContentNotFullyShownAfterResize"},
 })
 local Cryo
 local isUsedAsPackage = require(Framework.Util.isUsedAsPackage)
@@ -46,8 +45,6 @@ else
 	local Packages = Framework.packages
 	Cryo = require(Packages.Cryo)
 end
-
-local FFlagEnableDevFrameworkAutomaticSize = game:GetFastFlag("EnableDevFrameworkAutomaticSize")
 
 local ContextServices = require(Framework.ContextServices)
 local Container = require(script.Parent.Container)
@@ -80,24 +77,22 @@ function ScrollingFrame:init()
 	end
 
 	self.updateCanvasSize = function(rbx)
-		local hasAutomaticCanvasSize = FFlagEnableDevFrameworkAutomaticSize and self.props.AutomaticCanvasSize
+		local hasAutomaticCanvasSize = self.props.AutomaticCanvasSize
 		if self.scrollingRef.current and self.layoutRef.current then
 			local contentSize = self.layoutRef.current.AbsoluteContentSize
 			local contentSizeX = contentSize.X
 			local contentSizeY = contentSize.Y
 			if not hasAutomaticCanvasSize then
-				if FlagsList:get("FFlagFixContentNotFullyShownAfterResize") then
-					local props = self.props
-					local style = getStyle(self)
-					local scrollingFrameProps = self.getScrollingFrameProps(props, style)
-					-- for vertical scroll, canvas size on x axis should not update when content size changes
-					-- for horizon one, y axis should not change
-					-- for both scrolling, canvas size can be fully controlled by content
-					if scrollingFrameProps.ScrollingDirection == Enum.ScrollingDirection.Y then
-						contentSizeX = 0
-					elseif scrollingFrameProps.ScrollingDirection == Enum.ScrollingDirection.X then
-						contentSizeY = 0
-					end
+				local props = self.props
+				local style = getStyle(self)
+				local scrollingFrameProps = self.getScrollingFrameProps(props, style)
+				-- for vertical scroll, canvas size on x axis should not update when content size changes
+				-- for horizon one, y axis should not change
+				-- for both scrolling, canvas size can be fully controlled by content
+				if scrollingFrameProps.ScrollingDirection == Enum.ScrollingDirection.Y then
+					contentSizeX = 0
+				elseif scrollingFrameProps.ScrollingDirection == Enum.ScrollingDirection.X then
+					contentSizeY = 0
 				end
 			end
 
@@ -129,15 +124,13 @@ function ScrollingFrame:init()
 		
 		local scaleX = 1
 		local scaleY = 1
-		if FFlagEnableDevFrameworkAutomaticSize then
-			local automaticSize = props.AutomaticSize
-			if automaticSize then
-				if automaticSize == Enum.AutomaticSize.X or automaticSize == Enum.AutomaticSize.XY then
-					scaleX = 0
-				end
-				if automaticSize == Enum.AutomaticSize.Y or automaticSize == Enum.AutomaticSize.XY then
-					scaleY = 0
-				end
+		local automaticSize = props.AutomaticSize
+		if automaticSize then
+			if automaticSize == Enum.AutomaticSize.X or automaticSize == Enum.AutomaticSize.XY then
+				scaleX = 0
+			end
+			if automaticSize == Enum.AutomaticSize.Y or automaticSize == Enum.AutomaticSize.XY then
+				scaleY = 0
 			end
 		end
 
@@ -151,7 +144,7 @@ function ScrollingFrame:init()
 				Size = UDim2.fromScale(scaleX, scaleY),
 				[Roact.Children] = Cryo.None,
 				[Roact.Change.CanvasPosition] = self.onScroll,
-				[Roact.Change.AbsoluteSize] = FlagsList:get("FFlagFixContentNotFullyShownAfterResize") and self.updateCanvasSize or nil,
+				[Roact.Change.AbsoluteSize] = self.updateCanvasSize,
 				[Roact.Ref] = self.scrollingRef,
 			})
 	end

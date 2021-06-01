@@ -25,8 +25,8 @@ local PlayerList = Components.Parent
 local FAKE_NEUTRAL_TEAM = require(PlayerList.GetFakeNeutralTeam)
 
 local MOTOR_OPTIONS = {
-    dampingRatio = 1,
-    frequency = 4,
+	dampingRatio = 1,
+	frequency = 4,
 }
 
 local RENDER_OUTSIDE_WINDOW_ELEMENTS = 3
@@ -175,7 +175,7 @@ function PlayerListDisplay:render()
 				local firstPlayer = true
 				for i, sortedTeam in ipairs(self.props.sortedTeams) do
 					if self:inVerticalScrollWindow(canvasSizeY, teamEntrySizeY) then
-						childElements["t_" .. tostring(i)] =  Roact.createElement("Frame", {
+						childElements["t_" .. tostring(i)] = Roact.createElement("Frame", {
 							Position = UDim2.fromOffset(0, canvasSizeY),
 							Size = UDim2.new(1, layoutValues.EntryXOffset, 0, layoutValues.TeamEntrySizeY),
 							BackgroundTransparency = 1,
@@ -205,9 +205,9 @@ function PlayerListDisplay:render()
 					end
 
 					for j, player in ipairs(teamPlayers) do
-						local userId = player.UserId
 						if firstPlayer or self:inVerticalScrollWindow(canvasSizeY, playerEntrySizeY) then
-							childElements["p_" .. tostring(player.UserId)] = Roact.createElement("Frame", {
+							local userId = player.UserId
+							childElements["p_" .. tostring(userId)] = Roact.createElement("Frame", {
 								Position = UDim2.fromOffset(0, canvasSizeY),
 								Size = UDim2.new(1, layoutValues.EntryXOffset, 0, layoutValues.PlayerEntrySizeY),
 								BackgroundTransparency = 1,
@@ -239,16 +239,17 @@ function PlayerListDisplay:render()
 			else
 				for i, player in ipairs(self.props.sortedPlayers) do
 					if i == 1 or self:inVerticalScrollWindow(canvasSizeY, playerEntrySizeY) then
-						childElements["p_" .. tostring(player.UserId)] = Roact.createElement("Frame", {
+						local userId = player.UserId
+						childElements["p_" .. tostring(userId)] = Roact.createElement("Frame", {
 							Position = UDim2.fromOffset(0, canvasSizeY),
 							Size = UDim2.new(1, layoutValues.EntryXOffset, 0, layoutValues.PlayerEntrySizeY),
 							BackgroundTransparency = 1,
 						}, {
 							Roact.createElement(PlayerEntry, {
 								player = player,
-								playerStats = self.props.playerStats[player.UserId],
-								playerIconInfo = self.props.playerIconInfo[player.UserId],
-								playerRelationship = self.props.playerRelationship[player.UserId],
+								playerStats = self.props.playerStats[userId],
+								playerIconInfo = self.props.playerIconInfo[userId],
+								playerRelationship = self.props.playerRelationship[userId],
 								titlePlayerEntry = false,
 								gameStats = self.props.gameStats,
 								hasDivider = i ~= #self.props.sortedPlayers,

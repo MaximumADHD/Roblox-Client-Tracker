@@ -14,11 +14,15 @@ local UserInputService = game:GetService("UserInputService")
 local AnalyticsService = game:GetService("RbxAnalyticsService")
 local RunService = game:GetService("RunService")
 
+local VoiceChatServiceManager = require(script.Parent.Parent.Models.VoiceChatServiceManager)
+
 ----------- UTILITIES --------------
-RobloxGui:WaitForChild("Modules"):WaitForChild("TenFootInterface")
+local CoreGuiModules = RobloxGui:WaitForChild("Modules")
+CoreGuiModules:WaitForChild("TenFootInterface")
 local ShareGameDirectory = CoreGui.RobloxGui.Modules.Settings.Pages.ShareGame
 
 local utility = require(RobloxGui.Modules.Settings.Utility)
+
 local reportAbuseMenu = require(RobloxGui.Modules.Settings.Pages.ReportAbuseMenu)
 local SocialUtil = require(RobloxGui.Modules:WaitForChild("SocialUtil"))
 local Diag = require(CorePackages.AppTempCommon.AnalyticsReporters.Diag)
@@ -39,6 +43,13 @@ local FRIEND_IMAGE = isTenFootInterface and "rbxasset://textures/ui/Settings/Pla
 local INSPECT_IMAGE = "rbxasset://textures/ui/InspectMenu/ico_inspect.png"
 local INSPECT_KEY = "InGame.InspectMenu.Action.View"
 
+local MuteStatusIcons = {
+	MicOn = "rbxasset://textures/ui/Settings/Players/Unmute@2x.png",
+	MicOff = "rbxasset://textures/ui/Settings/Players/Muted@2x.png",
+	MicDisabled = "rbxasset://textures/ui/Settings/Players/Blocked@2x.png",
+	Loading = "rbxasset://textures/ui/Settings/Players/Unmuted-White@2x.png",
+}
+
 local PLAYER_ROW_HEIGHT = 62
 local PLAYER_ROW_SPACING = 80
 local PLAYER_NAME_RIGHT_PADDING = 20
@@ -57,6 +68,7 @@ local FFlagUseNotificationsLocalization = success and result
 local FFlagUpdateSettingsHubGameText = require(RobloxGui.Modules.Flags.FFlagUpdateSettingsHubGameText)
 
 local FFlagShowInGameReportingLuobu = require(RobloxGui.Modules.Flags.FFlagShowInGameReportingLuobu)
+local getFFlagEnableVoiceChatPlayersList = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceChatPlayersList)
 local FFlagInspectMenuSubjectToPolicy = require(RobloxGui.Modules.Flags.FFlagInspectMenuSubjectToPolicy)
 
 local isEngineTruncationEnabledForIngameSettings = require(RobloxGui.Modules.Flags.isEngineTruncationEnabledForIngameSettings)
@@ -260,6 +272,50 @@ local function Initialize()
 			end
 		end
 	end)
+
+	local function muteButtonUpdate(playerLabel, playerStatus)
+		local buttonParent = nil
+		if playerLabel then
+			buttonParent = playerLabel:FindFirstChild("RightSideButtons")
+		end
+
+		if buttonParent then
+			-- Get rid of the old button
+			local oldButton = buttonParent:FindFirstChild("MuteStatusButton")
+			if oldButton then
+				oldButton:Destroy()
+			end
+
+			-- We don't exit until this point because we still need to destroy any old buttons
+			if playerStatus == nil then
+				return
+			end
+
+			local image = playerStatus.isMuted
+				and MuteStatusIcons.MicOff
+				or MuteStatusIcons.MicOn
+			if playerStatus.isMutedLocally then
+				image = MuteStatusIcons.MicDisabled
+			elseif not playerStatus.subscriptionCompleted then
+				image = MuteStatusIcons.Loading
+			end
+
+			local muteLabel, muteLabelText = utility:MakeStyledImageButton(
+				"MuteStatus",
+				image,
+				UDim2.new(0, 46, 0, 46),
+				UDim2.new(0, 20, 0, 26),
+				function ()
+					VoiceChatServiceManager:ToggleMutePlayer(
+						playerStatus.userId
+					)
+				end
+			)
+			muteLabelText.ZIndex = 3
+			muteLabelText.Position = muteLabelText.Position + UDim2.new(0,0,0,1)
+			muteLabel.Parent = buttonParent
+		end
+	end
 
 	local buttonsContainer = utility:Create("Frame") {
 		Name = "ButtonsContainer",
@@ -678,7 +734,18 @@ local function Initialize()
 	local existingPlayerLabels = {}
 	local livePlayers = {}
 
-	this.Displayed.Event:connect(function(switchedFromGamepadInput)
+	local voiceChatServiceConnected = false
+	if getFFlagEnableVoiceChatPlayersList()
+		and game:GetEngineFeature("VoiceChatSupported")
+		and not voiceChatServiceConnected
+	then
+		voiceChatServiceConnected = true
+		VoiceChatServiceManager:init()
+		VoiceChatServiceManager:SetupParticipantListeners()
+		-- TODO: call GetParticipants so that we start off with a consistent list
+	end
+
+	local rebuildPlayerList = function(switchedFromGamepadInput)
 		sortedPlayers = PlayersService:GetPlayers()
 		table.sort(sortedPlayers, function(item1,item2)
 			return item1.Name:lower() < item2.Name:lower()
@@ -730,6 +797,11 @@ local function Initialize()
 					existingPlayerLabels[player.Name] = frame
 				end
 				frame.Name = "PlayerLabel" ..player.Name
+
+				if voiceChatServiceConnected then
+					local status = VoiceChatServiceManager.participants[tostring(player.UserId)]
+					muteButtonUpdate(frame, status)
+				end
 
 				if GetFFlagUseThumbnailUrl() then
 					local imageUrl = SocialUtil.GetPlayerImage(
@@ -811,7 +883,19 @@ local function Initialize()
 
 			this.Page.Size = UDim2.new(1,0,0, extraOffset + PLAYER_ROW_SPACING * playerListRowsCount - 5)
 		end)
-	end)
+	end
+
+	this.Displayed.Event:connect(rebuildPlayerList)
+
+	if voiceChatServiceConnected then
+		-- Rerender when the participants state changes
+		VoiceChatServiceManager.participantsUpdate.Event:Connect(function()
+			rebuildPlayerList()
+		end)
+		VoiceChatServiceManager.participantJoined.Event:Connect(function()
+			rebuildPlayerList()
+		end)
+	end
 
 	PlayersService.PlayerRemoving:Connect(function (player)
 		livePlayers[player.Name] = nil

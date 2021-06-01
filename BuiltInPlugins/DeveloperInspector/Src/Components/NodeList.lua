@@ -7,7 +7,7 @@ local Roact = require(main.Packages.Roact)
 local RoactRodux = require(main.Packages.RoactRodux)
 local ContextServices = Framework.ContextServices
 local InspectorContext = require(main.Src.Util.InspectorContext)
-local DeveloperTools = require(main.Packages.DeveloperTools)
+local DeveloperTools = Framework.DeveloperTools
 local RoactInspectorApi = DeveloperTools.RoactInspectorApi
 
 local UI = Framework.UI

@@ -33,9 +33,13 @@ local function selectRobuxProduct(platform, neededRobux, userIsSubscribed)
 
 	local productOptions
 	if platform == Enum.Platform.IOS then
-		productOptions = userIsSubscribed
-			and NativeProducts.IOS.PremiumSubscribed
-			or NativeProducts.IOS.PremiumNotSubscribed
+		if GetFFlagEnableLuobuInGameUpsell() then
+			productOptions = NativeProducts.Midas
+		else
+			productOptions = userIsSubscribed
+				and NativeProducts.IOS.PremiumSubscribed
+				or NativeProducts.IOS.PremiumNotSubscribed
+		end
 	elseif platform == Enum.Platform.Windows or platform == Enum.Platform.OSX or platform == Enum.Platform.Linux then
 		productOptions = userIsSubscribed
 			and NativeProducts.Desktop.PremiumSubscribed

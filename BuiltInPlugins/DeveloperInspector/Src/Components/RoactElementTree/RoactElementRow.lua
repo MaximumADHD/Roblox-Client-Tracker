@@ -15,6 +15,7 @@ local mapOne = Dash.mapOne
 local RoactElementRow = Roact.PureComponent:extend("RoactElementRow")
 
 local UI = Framework.UI
+local Pane = UI.Pane
 local TextLabel = UI.Decoration.TextLabel
 
 local FLASH_DURATION_SECONDS = 1
@@ -110,11 +111,9 @@ function RoactElementRow:render()
 	local labelOffset = indent + arrowSize + 2 * padding
 	local textOffset = iconSize.X + 3 * padding
 
-	return Roact.createElement("Frame", {
+	return Roact.createElement(Pane, {
 		Size = UDim2.new(1, 0, 0, style.RowHeight),
 		LayoutOrder = row.index,
-		BackgroundColor3 = style.BackgroundColor,
-		BorderSizePixel = 0,
 		[Roact.Ref] = self.containerRef,
 	}, {
 		Toggle = hasChildren and Roact.createElement("ImageButton", {

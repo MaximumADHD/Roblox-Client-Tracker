@@ -52,6 +52,7 @@ local FFlagStudioPromptOnFirstPublish = game:GetFastFlag("StudioPromptOnFirstPub
 local FFlagStudioNewGamesInCloudUI = game:GetFastFlag("StudioNewGamesInCloudUI")
 local FFlagStudioClosePromptOnLocalSave = game:GetFastFlag("StudioClosePromptOnLocalSave")
 local FFlagLuobuDevPublishLua = game:GetFastFlag("LuobuDevPublishLua")
+local FFLagStudioPublishFailPageFix = game:GetFastFlag("StudioPublishFailPageFix")
 
 local FFlagStudioEnableNewGamesInTheCloudMetrics = game:GetFastFlag("StudioEnableNewGamesInTheCloudMetrics")
 
@@ -101,13 +102,21 @@ end
 
 function ScreenCreateNewGame:didMount()
 	self.finishedConnection = StudioService.GamePublishFinished:connect(function(success, gameId)
-        if gameId ~= 0 then
-            if success then
-                self.props.OpenPublishSuccessfulPage(self.props.Changed)
-            else
-                self.props.OpenPublishFailPage(self.props.Changed)
-            end
-        end
+		if FFLagStudioPublishFailPageFix then
+			if success and gameId ~=0 then
+				self.props.OpenPublishSuccessfulPage(self.props.Changed)
+			else
+				self.props.OpenPublishFailPage(self.props.Changed)
+			end
+		else
+			if gameId ~= 0 then
+				if success then
+					self.props.OpenPublishSuccessfulPage(self.props.Changed)
+				else
+					self.props.OpenPublishFailPage(self.props.Changed)
+				end
+			end
+		end
 	end)
 end
 
@@ -356,7 +365,11 @@ local function useDispatchForProps(dispatch)
 			dispatch(SetScreen(Constants.SCREENS.PUBLISH_SUCCESSFUL))
 		end,
 		OpenPublishFailPage = function(settings)
-			dispatch(SetPublishInfo({ id = game.GameId, name = settings.name, parentGameName = settings.name, parentGameId = 0, settings = settings }))
+			if FFLagStudioPublishFailPageFix then
+				dispatch(SetPublishInfo({ id = game.GameId, name = settings.name, parentGameName = settings.name, parentGameId = 0, settings = settings, failed = true }))
+			else
+				dispatch(SetPublishInfo({ id = game.GameId, name = settings.name, parentGameName = settings.name, parentGameId = 0, settings = settings}))
+			end
 			dispatch(SetScreen(Constants.SCREENS.PUBLISH_FAIL))
 		end,
 		DispatchLoadGroups = function()

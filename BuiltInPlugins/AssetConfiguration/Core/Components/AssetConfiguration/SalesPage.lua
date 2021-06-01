@@ -26,7 +26,6 @@ local Roact = require(Libs.Roact)
 local RoactRodux = require(Libs.RoactRodux)
 
 local ContextServices = require(Libs.Framework).ContextServices
-local THEME_REFACTOR = require(Libs.Framework.Util.RefactorFlags).THEME_REFACTOR
 
 local AssetConfiguration = Plugin.Core.Components.AssetConfiguration
 local SalesComponent = require(AssetConfiguration.SalesComponent)
@@ -76,11 +75,7 @@ end
 
 function SalesPage:renderContent(theme, localization, localizedContent)
 	if FFlagToolboxReplaceUILibraryComponentsPt1 then
-		if THEME_REFACTOR then
-			theme = self.props.Stylizer
-		else
-			theme = self.props.Theme:get("Plugin")
-		end
+		theme = self.props.Stylizer
 	end
 
 	local props = self.props
@@ -230,8 +225,7 @@ end
 
 if FFlagToolboxReplaceUILibraryComponentsPt1 then
 	ContextServices.mapToProps(SalesPage, {
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+		Stylizer = ContextServices.Stylizer,
 	})
 end
 

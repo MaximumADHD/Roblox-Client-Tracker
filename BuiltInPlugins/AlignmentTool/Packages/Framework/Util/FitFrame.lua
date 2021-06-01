@@ -7,9 +7,9 @@ local FlagsList = require(script.Parent.Flags).new({
 local FitFrame
 local isUsedAsPackage = require(Framework.Util.isUsedAsPackage)
 if FlagsList:get("FFlagStudioDevFrameworkPackage") and isUsedAsPackage() then
-	FitFrame = require(Framework.Parent.FitFrame)
+	FitFrame = require(Framework.Parent.FitFrame :: any)
 else
-	FitFrame = require(Framework.packages.FitFrame)
+	FitFrame = require(Framework.packages.FitFrame :: any)
 end
 
 return FitFrame

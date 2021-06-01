@@ -4,12 +4,6 @@ return function()
 	local TargetTree = require(script.Parent)
 	local MockWrap = require(Plugin.Src.MockWrap)
 
-	it("should create and destroy without errors", function()
-		local element = MockWrap(TargetTree)
-		local instance = Roact.mount(element)
-		Roact.unmount(instance)
-	end)
-
 	it("should render correctly", function()
 		local container = Instance.new("Folder")
 		local element = MockWrap(TargetTree)

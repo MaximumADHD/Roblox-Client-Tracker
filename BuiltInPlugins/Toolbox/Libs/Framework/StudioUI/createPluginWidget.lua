@@ -13,6 +13,8 @@ local Roact = require(Framework.Parent.Roact)
 local ContextServices = require(Framework.ContextServices)
 local Focus = ContextServices.Focus
 
+local FFlagDevFrameworkUseCreateContext = game:GetFastFlag("DevFrameworkUseCreateContext")
+
 local function createPluginWidget(componentName, createWidgetFunc)
 	local PluginWidget = Roact.PureComponent:extend(componentName)
 
@@ -117,9 +119,19 @@ local function createPluginWidget(componentName, createWidgetFunc)
 			return nil
 		end
 
-		return self.focus:createProvider(Roact.createElement(Roact.Portal, {
-			target = self.widget,
-		}, self.props[Roact.Children]))
+		if FFlagDevFrameworkUseCreateContext then
+			return ContextServices.provide({
+				self.focus
+			}, {
+				Child = Roact.createElement(Roact.Portal, {
+					target = self.widget,
+				}, self.props[Roact.Children])
+			})
+		else
+			return self.focus:createProvider(Roact.createElement(Roact.Portal, {
+				target = self.widget,
+			}, self.props[Roact.Children]))
+		end
 	end
 
 	function PluginWidget:willUnmount()

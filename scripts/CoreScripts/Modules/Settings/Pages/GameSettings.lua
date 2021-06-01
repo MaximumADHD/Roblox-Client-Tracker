@@ -54,13 +54,6 @@ local TOUCH_CHANGED_PROPS = {
 }
 local CAMERA_MODE_DEFAULT_STRING = UserInputService.TouchEnabled and "Default (Follow)" or "Default (Classic)"
 
-local VOICE_CHAT_AVAILABILITY = {
-	PlaceNotAvailable = -1,
-	UserNotAvailable = 0,
-	Checking = 1,
-	Available = 2,
-}
-local MIN_VOICE_CHAT_API_VERSION = 3
 local VOICE_CHAT_DEVICE_TYPE = {
 	Input = "Input",
 	Output = "Output",
@@ -95,7 +88,7 @@ local PageInstance = nil
 local LocalPlayer = Players.LocalPlayer
 local platform = UserInputService:GetPlatform()
 local PolicyService = require(RobloxGui.Modules.Common.PolicyService)
-
+local VoiceChatServiceManager = require(script.Parent.Parent.Models.VoiceChatServiceManager)
 local GetFixGraphicsQuality = require(RobloxGui.Modules.Flags.GetFixGraphicsQuality)
 local RenderSettings
 local SendNotification
@@ -287,7 +280,7 @@ local function Initialize()
 					utility:AddNewRow(this, "Graphics Quality", "Slider", numGraphicsQualityLevels, 1)
 		else
 			this.GraphicsQualityFrame, this.GraphicsQualityLabel, this.GraphicsQualitySlider =
-                utility:AddNewRow(this, "Graphics Quality", "Slider", GRAPHICS_QUALITY_LEVELS, 1)
+				utility:AddNewRow(this, "Graphics Quality", "Slider", GRAPHICS_QUALITY_LEVELS, 1)
 		end
 
 		this.GraphicsQualityFrame.LayoutOrder = 10
@@ -1720,6 +1713,12 @@ local function Initialize()
 				if deviceType == VOICE_CHAT_DEVICE_TYPE.Input then
 					VoiceChatService:SetMicDevice(deviceName, deviceGuid)
 					-- TODO: This will be removed when set device API refactoring is done
+					print(
+						"[OutputDeviceSelection] Setting VCS Mic Device To ",
+						deviceName,
+						deviceGuid
+					)
+					print("[OutputDeviceSelection] Rejoining Voice Chat")
 					leaveAndRejoinVoiceChatChannel()
 				else
 					SoundService:SetOutputDevice(deviceName, deviceGuid)
@@ -1807,23 +1806,7 @@ local function Initialize()
 
 	-- Check if voice chat is enabled
 	local function checkVoiceChatOptions()
-		local voiceChatAvailable = nil
-		local voiceChatApiVersion = nil
-		pcall(function()
-			if VoiceChatService then
-				voiceChatApiVersion = VoiceChatService:GetVoiceChatApiVersion()
-				if voiceChatApiVersion >= MIN_VOICE_CHAT_API_VERSION then
-					voiceChatAvailable = VoiceChatService:GetVoiceChatAvailable()
-					while voiceChatAvailable == VOICE_CHAT_AVAILABILITY.Checking do
-						wait(1)
-						voiceChatAvailable = VoiceChatService:GetVoiceChatAvailable()
-					end
-				end
-			end
-		end)
-
-		if VoiceChatService and voiceChatApiVersion >= MIN_VOICE_CHAT_API_VERSION and
-			voiceChatAvailable == VOICE_CHAT_AVAILABILITY.Available then
+		if VoiceChatServiceManager:VoiceChatAvailable() then
 			this.VoiceChatOptionsEnabled = true
 			if GetFFlagEnableVoiceChatOptionsDualServiceOutputs() then
 				syncSoundOutputs()
@@ -1836,10 +1819,9 @@ local function Initialize()
 
 	this.VoiceChatOptionsEnabled = false
 	if GetFFlagEnableVoiceChatOptions() and game:GetEngineFeature("VoiceChatSupported") then
-		pcall(function()
-			-- This is the first place that we use VCS, so initialize it now
-			VoiceChatService = game:GetService("VoiceChatService")
-		end)
+		VoiceChatServiceManager:init()
+		-- TODO: Encapsulate device selection logic inside voiceChatManager
+		VoiceChatService = VoiceChatServiceManager:getService()
 		spawn(function()
 			checkVoiceChatOptions()
 		end)

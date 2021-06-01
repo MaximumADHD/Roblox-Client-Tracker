@@ -8,7 +8,6 @@ return {
 	HoverColor = StyleKey.ButtonHover,
 	SelectedColor = StyleKey.DialogMainButton,
 	SelectedTextColor = StyleKey.DialogMainButtonText,
-	BackgroundColor = StyleKey.MainBackground,
 	HeadingColor = StyleKey.CategoryItem,
 	BorderColor = StyleKey.Border,
 	Indent = 20,

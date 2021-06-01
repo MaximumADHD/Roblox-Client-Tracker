@@ -57,6 +57,7 @@ function ChatIcon:render()
 			BackgroundTransparency = 1,
 			Size = UDim2.new(0, CHAT_ICON_AREA_WIDTH, 1, 0),
 			LayoutOrder = self.props.layoutOrder,
+			Selectable = false,
 		}, {
 			Background = Roact.createElement(IconButton, {
 				icon = chatIcon,

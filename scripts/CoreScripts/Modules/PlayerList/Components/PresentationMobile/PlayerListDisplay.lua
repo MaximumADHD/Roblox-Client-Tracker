@@ -174,11 +174,12 @@ function PlayerListDisplay:render()
 				end
 			else
 				for i, player in ipairs(self.props.sortedPlayers) do
-					childElements["Player_" .. tostring(player.UserId)] = Roact.createElement(PlayerEntry, {
+					local userId = player.UserId
+					childElements["Player_" .. tostring(userId)] = Roact.createElement(PlayerEntry, {
 						player = player,
-						playerStats = self.props.playerStats[player.UserId],
-						playerIconInfo = self.props.playerIconInfo[player.UserId],
-						playerRelationship = self.props.playerRelationship[player.UserId],
+						playerStats = self.props.playerStats[userId],
+						playerIconInfo = self.props.playerIconInfo[userId],
+						playerRelationship = self.props.playerRelationship[userId],
 						titlePlayerEntry = false,
 						gameStats = self.props.gameStats,
 						entrySize = self.props.entrySize,

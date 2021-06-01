@@ -20,8 +20,6 @@ local UpdateActiveInstanceHighlight = require(Plugin.Src.Thunks.UpdateActiveInst
 local MainView = require(Plugin.Src.Components.MainView)
 local HoverPreviewEnabler = require(Plugin.Src.Components.HoverPreviewEnabler)
 
-local getEngineFeatureActiveInstanceHighlight = require(Plugin.Src.Flags.getEngineFeatureActiveInstanceHighlight)
-
 local INITIAL_WINDOW_SIZE = Vector2.new(300, 250)
 local MINIMUM_WINDOW_SIZE = Vector2.new(175, 250)
 
@@ -139,9 +137,7 @@ local function mapDispatchToProps(dispatch)
 	return {
 		setToolEnabled = function(enabled)
 			dispatch(SetToolEnabled(enabled))
-			if getEngineFeatureActiveInstanceHighlight() then
-				dispatch(UpdateActiveInstanceHighlight())
-			end
+			dispatch(UpdateActiveInstanceHighlight())
 		end,
 	}
 end

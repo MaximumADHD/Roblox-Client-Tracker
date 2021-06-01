@@ -2,6 +2,8 @@ local Framework = script.Parent.Parent.Parent
 local Colors = require(Framework.Style.Colors)
 local StyleKey = require(Framework.Style.StyleKey)
 
+local FFlagDevFrameworkFixButtonStyles = game:GetFastFlag("DevFrameworkFixButtonStyles")
+
 return {
 	[StyleKey.Border] = Colors.Carbon,
 	[StyleKey.BrightText] = Colors.White,
@@ -19,8 +21,8 @@ return {
 	[StyleKey.CategoryItem] = Color3.fromRGB(53, 53, 53),
 
 	[StyleKey.DialogMainButton] = Colors.Blue,
-	[StyleKey.DialogMainButtonDisabled] = Colors.Blue,
-	[StyleKey.DialogMainButtonHover] = Colors.Blue,
+	[StyleKey.DialogMainButtonDisabled] = FFlagDevFrameworkFixButtonStyles and Colors.Gray or Colors.Blue,
+	[StyleKey.DialogMainButtonHover] = FFlagDevFrameworkFixButtonStyles and Colors.Blue_Light or Colors.Blue,
 	[StyleKey.DialogMainButtonSelected] = Colors.Blue_Dark,
 	[StyleKey.DialogMainButtonText] = Colors.White,
 	[StyleKey.DialogMainButtonTextDisabled] = Color3.fromRGB(102, 102, 102),

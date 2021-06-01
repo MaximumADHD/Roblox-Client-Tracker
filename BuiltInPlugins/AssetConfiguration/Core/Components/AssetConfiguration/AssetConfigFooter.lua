@@ -53,7 +53,6 @@ local LinkButton = require(AssetConfiguration.LinkButton)
 
 local AssetConfigFooter = Roact.PureComponent:extend("AssetConfigFooter")
 
-local FFlagSupportAnimImportByID = game:DefineFastFlag("SupportAnimImportByID", false)
 local FFlagAssetConfigFixBadIdVerifyState = game:GetFastFlag("AssetConfigFixBadIdVerifyState")
 
 local BUTTON_HEIGHT = FFlagCMSUploadFees and 40 or 32
@@ -65,9 +64,7 @@ local MAX_COUNT = 32
 local PADDING = 24
 
 function AssetConfigFooter:init(props)
-	if FFlagAssetConfigFixBadIdVerifyState then
-		self.hideInvalidAnimationID = true
-	end
+	self.hideInvalidAnimationID = true
 
 	self.onFlowButtonActivated = function()
 		props.toggleOverride(self.props.currentTab)
@@ -135,10 +132,7 @@ function AssetConfigFooter:render()
 			local screenFlowType = props.screenFlowType
 			local assetTypeEnum = props.assetTypeEnum
 			local currentTab = props.currentTab
-			local validateAnimationSucceeded = false
-			if FFlagSupportAnimImportByID then
-				validateAnimationSucceeded = props.validateAnimationSucceeded
-			end
+			local validateAnimationSucceeded = props.validateAnimationSucceeded
 
 			local hideInvalidAnimationID = validateAnimationSucceeded or state.animationId == ""
 			if FFlagAssetConfigFixBadIdVerifyState then
@@ -153,7 +147,7 @@ function AssetConfigFooter:render()
 				overrideText = localizedContent.AssetConfig.Footer.Override
 			end
 
-			local useNewAnimFlow = FFlagSupportAnimImportByID and assetTypeEnum == Enum.AssetType.Animation and ConfigTypes:isOverride(currentTab)
+			local useNewAnimFlow = assetTypeEnum == Enum.AssetType.Animation
 			local isDownloadFlow = useNewAnimFlow and AssetConfigConstants.FLOW_TYPE.DOWNLOAD_FLOW == props.screenFlowType
 
 			local publishActive = canSave
@@ -259,7 +253,7 @@ function AssetConfigFooter:render()
 					Name = publishText,
 					TextSize = Constants.FONT_SIZE_MEDIUM,
 
-					OnClicked = FFlagSupportAnimImportByID and function() tryPublish(self.state.animationId) end or tryPublish,
+					OnClicked = function() tryPublish(self.state.animationId) end,
 
 					LayoutOrder = 5,
 				}),
@@ -291,9 +285,7 @@ local function mapStateToProps(state, props)
 		canAffordUploadFee = state.canAffordUploadFee,
 	}
 
-	if FFlagSupportAnimImportByID then
-		stateToProps["validateAnimationSucceeded"] = state.validateAnimationSucceeded
-	end
+	stateToProps["validateAnimationSucceeded"] = state.validateAnimationSucceeded
 
 	return stateToProps
 end
@@ -306,10 +298,8 @@ local function mapDispatchToProps(dispatch)
 		end,
 	}
 
-	if FFlagSupportAnimImportByID then
-		dispatchToProps["validateAnimation"] = function(assetId)
-			dispatch(ValidateAnimationRequest(assetId))
-		end
+	dispatchToProps["validateAnimation"] = function(assetId)
+		dispatch(ValidateAnimationRequest(assetId))
 	end
 
 	return dispatchToProps

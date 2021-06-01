@@ -26,7 +26,7 @@ local SetSelectedKeyframes = require(Plugin.Src.Actions.SetSelectedKeyframes)
 local UpdateAnimationData = require(Plugin.Src.Thunks.UpdateAnimationData)
 
 local GetFFlagFixScaleKeyframeClobbering = require(Plugin.LuaFlags.GetFFlagFixScaleKeyframeClobbering)
-
+local GetFFlagReduceDeepcopyCalls = require(Plugin.LuaFlags.GetFFlagReduceDeepcopyCalls)
 
 -- Helper function which allows us to snap keyframes
 -- to exact frames, preventing keyframes between frames.
@@ -46,7 +46,12 @@ return function(pivotFrame, scale)
 			return
 		end
 
-		local newData = deepCopy(animationData)
+		local newData = GetFFlagReduceDeepcopyCalls() and Cryo.Dictionary.join({}, animationData) or deepCopy(animationData)
+
+		if GetFFlagReduceDeepcopyCalls() then
+			newData.Instances = Cryo.Dictionary.join({}, newData.Instances)
+			newData.Events = deepCopy(newData.Events)
+		end
 
 		local startFrame = 0
 		if not GetFFlagFixScaleKeyframeClobbering() then
@@ -61,10 +66,19 @@ return function(pivotFrame, scale)
 		local newSelectedKeyframes = deepCopy(selectedKeyframes)
 
 		for instanceName, instance in pairs(selectedKeyframes) do
+			if GetFFlagReduceDeepcopyCalls() then
+				newData.Instances[instanceName] = Cryo.Dictionary.join({}, newData.Instances[instanceName])
+				newData.Instances[instanceName].Tracks = Cryo.Dictionary.join({}, newData.Instances[instanceName].Tracks)
+			end
+
 			local dataInstance = newData.Instances[instanceName]
 
 			if scale > 1 then
 				for trackName, _ in pairs(instance) do
+					if GetFFlagReduceDeepcopyCalls() then
+						dataInstance.Tracks[trackName] = deepCopy(dataInstance.Tracks[trackName])
+					end
+
 					local keyframes = Cryo.Dictionary.keys(instance[trackName])
 					table.sort(keyframes)
 					local track = dataInstance.Tracks[trackName]
@@ -103,6 +117,10 @@ return function(pivotFrame, scale)
 				end
 			else
 				for trackName, _ in pairs(instance) do
+					if GetFFlagReduceDeepcopyCalls() then
+						dataInstance.Tracks[trackName] = deepCopy(dataInstance.Tracks[trackName])
+					end
+
 					local keyframes = Cryo.Dictionary.keys(instance[trackName])
 					table.sort(keyframes)
 					local track = dataInstance.Tracks[trackName]

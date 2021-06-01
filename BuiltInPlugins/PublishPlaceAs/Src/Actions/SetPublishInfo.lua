@@ -4,6 +4,8 @@ local AssertType = require(Plugin.Src.Util.AssertType)
 
 local Action = require(script.Parent.Action)
 
+local FFLagStudioPublishFailPageFix = game:GetFastFlag("StudioPublishFailPageFix")
+
 return Action(script.Name, function(publishInfoArg)
 	AssertType.assertNullableType(publishInfoArg, "table", "SetPublishInfo arg")
 	local publishInfo = publishInfoArg or {}
@@ -13,9 +15,10 @@ return Action(script.Name, function(publishInfoArg)
 	local parentGameId = publishInfo.parentGameId
 	local parentGameName = publishInfo.parentGameName
 	local settings = publishInfo.settings
+	local publishFailed = publishInfo.failed
 
 	AssertType.assertType(id, "number", "SetPublishInfo.id")
-	assert(game.GameId ~= 0, "Game ID should not be 0")
+	assert(FFLagStudioPublishFailPageFix and publishFailed or game.GameId ~= 0, "Game ID should not be 0 if studio did not fail to publish a new game")
 	AssertType.assertType(name, "string", "SetPublishInfo.name")
 	AssertType.assertType(parentGameName, "string", "SetPublishInfo.parentGameName")
 	AssertType.assertNullableType(parentGameId, "number", "SetPublishInfo.parentGameId")

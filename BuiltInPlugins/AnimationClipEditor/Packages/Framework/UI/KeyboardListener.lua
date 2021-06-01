@@ -20,6 +20,8 @@ local FlagsList = Util.Flags.new({
 	FFlagRefactorDevFrameworkContextItems = {"RefactorDevFrameworkContextItems"},
 })
 
+local FFlagACEFix1606474 = game:DefineFastFlag("ACEFix1606474", false)
+
 local KeyboardListener = Roact.PureComponent:extend("KeyboardListener")
 Typecheck.wrap(KeyboardListener, script)
 
@@ -50,11 +52,13 @@ function KeyboardListener:didMount()
 
 	if self.target:IsA("PluginGui") then
 		self.focusConnection = self.target.WindowFocusReleased:Connect(function()
-			for key, _ in pairs(self.keysHeld) do
-				props.OnKeyReleased({
-					KeyCode = key,
-					UserInputType = Enum.UserInputType.Keyboard,
-				})
+			if not FFlagACEFix1606474 or self.props.OnKeyReleased then
+				for key, _ in pairs(self.keysHeld) do
+					props.OnKeyReleased({
+						KeyCode = key,
+						UserInputType = Enum.UserInputType.Keyboard,
+					})
+				end
 			end
 			self.keysHeld = {}
 		end)

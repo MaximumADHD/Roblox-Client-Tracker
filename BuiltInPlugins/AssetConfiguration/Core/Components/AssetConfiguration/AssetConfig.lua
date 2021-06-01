@@ -90,8 +90,6 @@ local Framework = require(Libs.Framework)
 local LoadingIndicator = Framework.UI.LoadingIndicator
 local Container = Framework.UI.Container
 
-local FFlagSupportAnimImportByID = game:GetFastFlag("SupportAnimImportByID")
-
 local AssetConfig = Roact.PureComponent:extend("AssetConfig")
 
 local FOOTER_HEIGHT = 62
@@ -157,11 +155,8 @@ function AssetConfig:init(props)
 
 			if AssetConfigConstants.FLOW_TYPE.DOWNLOAD_FLOW == props.screenFlowType then
 				-- download flow should only be for animations currently
-				if FFlagSupportAnimImportByID then
-					StudioService:AnimationIdSelected(directImportId ~= "" and directImportId or state.overrideAssetId)
-				else
-					StudioService:AnimationIdSelected(state.overrideAssetId)
-				end
+				StudioService:AnimationIdSelected(directImportId ~= "" and directImportId or state.overrideAssetId)
+
 				props.onClose()
 			elseif AssetConfigConstants.FLOW_TYPE.EDIT_FLOW == props.screenFlowType then
 				if AssetConfigUtil.isCatalogAsset(props.assetTypeEnum) then

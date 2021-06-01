@@ -1,4 +1,4 @@
-if not game:GetEngineFeature("ModelPivotApi") then
+if not game:GetEngineFeature("ModelPivotVisual") then
 	return
 end
 

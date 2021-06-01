@@ -6,7 +6,7 @@ local ContextServices = Framework.ContextServices
 
 local InspectorContext = require(main.Src.Util.InspectorContext)
 
-local DeveloperTools = require(main.Packages.DeveloperTools)
+local DeveloperTools = Framework.DeveloperTools
 
 local Actions = main.Src.Actions
 local AddTargets = require(Actions.AddTargets)
@@ -15,6 +15,8 @@ local PickInstance = require(Actions.RoactInspector.PickInstance)
 local UpdateInstances = require(Actions.RoactInspector.UpdateInstances)
 local UpdateBranch = require(Actions.RoactInspector.UpdateBranch)
 local UpdateFields = require(Actions.RoactInspector.UpdateFields)
+local SetTab = require(Actions.SetTab)
+local UpdateProfileData = require(Actions.RoactInspector.UpdateProfileData)
 
 local InspectorProvider = Roact.PureComponent:extend("InspectorProvider")
 
@@ -25,7 +27,10 @@ function InspectorProvider:init()
 			onUpdateInstances = self.props.updateInstances,
 			onUpdateBranch = self.props.updateBranch,
 			onUpdateFields = self.props.updateFields,
-			onPickInstance = self.props.pickInstance
+			onPickInstance = function(instance)
+				self.props.pickInstance(self.props.Tabs[1], instance)
+			end,
+			onUpdateProfileData = self.props.updateProfileData,
 		}
 	})
 	self.inspectorContext = InspectorContext.new(self.inspector)
@@ -58,8 +63,10 @@ function InspectorProvider:render()
 end
 
 return RoactRodux.connect(
-	function(state, props)
-		return {}
+	function(state)
+		return {
+			Tabs = state.Targets.tabs
+		}
 	end,
 	function(dispatch)
 		return {
@@ -78,9 +85,13 @@ return RoactRodux.connect(
 			updateFields = function(path, nodeIndex, fieldPath, fields)
 				dispatch(UpdateFields(path, nodeIndex, fieldPath, fields))
 			end,
-			pickInstance = function(instancePath)
+			pickInstance = function(tab, instancePath)
+				dispatch(SetTab(tab))
 				dispatch(PickInstance(instancePath))
 			end,
+			updateProfileData = function(data)
+				dispatch(UpdateProfileData(data))
+			end
 		}
 	end
 )(InspectorProvider)

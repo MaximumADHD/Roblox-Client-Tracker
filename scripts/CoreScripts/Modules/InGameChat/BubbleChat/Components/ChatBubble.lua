@@ -153,9 +153,17 @@ function ChatBubble:fadeOut()
 	end
 end
 
-function ChatBubble:didUpdate()
+function ChatBubble:didUpdate(previousProps)
 	if self.props.fadingOut then
 		self:fadeOut()
+	end
+	-- Update the size of the bubble to accommodate changes to the text's size (for instance: when the text changes due
+	-- to filtering, or when new customization settings are applied)
+	if previousProps.text ~= self.props.text or previousProps.chatSettings ~= self.props.chatSettings then
+		local bounds = self:getTextBounds()
+		local sizeSpring = getSizeSpringFromSettings(self.props.chatSettings)
+		self.heightMotor:setGoal(sizeSpring(bounds.Y))
+		self.widthMotor:setGoal(sizeSpring(bounds.X))
 	end
 end
 
@@ -169,8 +177,8 @@ function ChatBubble:didMount()
 
 	if self.props.isMostRecent then
 		-- Chat bubble spawned for the first time
-		self.updateWidth(bounds.X)
 		self.heightMotor:setGoal(sizeSpring(bounds.Y))
+		self.widthMotor:setGoal(Otter.instant(bounds.X))
 	else
 		-- Transition between distant bubble and chat bubble
 		self.heightMotor:setGoal(sizeSpring(bounds.Y))

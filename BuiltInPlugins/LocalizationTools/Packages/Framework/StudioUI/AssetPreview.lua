@@ -29,9 +29,11 @@
 		number LayoutOrder: LayoutOrder of the component.
 		table PurchaseFlow: PurchaseFlow dialog to show.
 		table SuccessDialog: SuccessDialog dialog to show.
+		boolean HideCreatorSearch: Whether to show creator search link
 ]]
 
 local FFlagDevFrameworkDestroyAssetPreviewVideo = game:DefineFastFlag("DevFrameworkDestroyAssetPreviewVideo", false)
+local FFlagStudioAssetManagerHideAssetPreviewCreatorSearch = game:GetFastFlag("StudioAssetManagerHideAssetPreviewCreatorSearch")
 
 local TextService = game:GetService("TextService")
 
@@ -273,11 +275,16 @@ function AssetPreview:render()
 
 	local infoRowStyle = style.ScrollingFrame.InfoRow
 
+	local creatorLinkAction = self.onClickCreatorLink
+	if FFlagStudioAssetManagerHideAssetPreviewCreatorSearch and props.HideCreatorSearch then
+		creatorLinkAction = nil
+	end
+
 	local infoRows = Cryo.List.join({
 		{
 			Label = localization:getProjectText(LOCALIZATION_PROJECT_NAME, COMPONENT_NAME, "Creator"),
 			Content = assetData.Creator.Name,
-			LinkAction = self.onClickCreatorLink
+			LinkAction = creatorLinkAction,
 		},
 		{
 			Label = localization:getProjectText(LOCALIZATION_PROJECT_NAME, COMPONENT_NAME, "Genre"),

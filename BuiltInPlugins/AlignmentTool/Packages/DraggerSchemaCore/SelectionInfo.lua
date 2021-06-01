@@ -333,7 +333,7 @@ local function computeInfo(draggerContext, selectedObjects)
 	-- Use attachment CFrame as a backup if there weren't any parts in the
 	-- selection to set the basisCFrame with. Attachment CFrames should ONLY
 	-- be used as a basis if there aren't any parts to go off of.
-	if not FFlagMultiSelectionPivot and not basisCFrame then
+	if not (EngineFeatureModelPivotApi and FFlagMultiSelectionPivot) and not basisCFrame then
 		if #allAttachments > 0 then
 			if EngineFeatureModelPivotApi then
 				basisCFrame = allAttachments[#allAttachments].WorldCFrame

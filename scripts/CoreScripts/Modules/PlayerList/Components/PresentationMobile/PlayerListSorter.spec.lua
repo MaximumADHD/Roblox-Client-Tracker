@@ -10,6 +10,7 @@ return function()
 
 	local Components = script.Parent.Parent
 	local PlayerList = Components.Parent
+	local AddPlayer = require(PlayerList.Actions.AddPlayer)
 	local Reducers = PlayerList.Reducers
 	local Reducer = require(Reducers.Reducer)
 
@@ -63,6 +64,48 @@ return function()
 	it("should create and destroy without errors tenfoot", function()
 		local element = Roact.createElement(RoactRodux.StoreProvider, {
 			store = Rodux.Store.new(Reducer)
+		}, {
+			LayoutValuesProvider = Roact.createElement(LayoutValuesProvider, {
+				layoutValues = CreateLayoutValues(true)
+			}, {
+				ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {
+					style = appStyle,
+				}, {
+					PlayerListSorter = Roact.createElement(PlayerListSorter, {
+						screenSizeY = 1000,
+						entrySize = 200,
+					}),
+				})
+			})
+		})
+
+		local instance = Roact.mount(element)
+		Roact.unmount(instance)
+	end)
+
+	it("should create and destroy with fake players without error", function()
+		local store = Rodux.Store.new(Reducer)
+
+		local nextUserId = 1200
+		local function createFakePlayer(name)
+			local userId = nextUserId
+			nextUserId += 1
+			return {
+				Name = name,
+				DisplayName = name .. "+DN",
+				UserId = userId
+			}
+		end
+
+		for _,name in pairs({"Apple", "Banana", "Clementine"}) do
+			local player = createFakePlayer(name)
+			store:dispatch(AddPlayer(player))
+		end
+
+		store:flush()
+
+		local element = Roact.createElement(RoactRodux.StoreProvider, {
+			store = store
 		}, {
 			LayoutValuesProvider = Roact.createElement(LayoutValuesProvider, {
 				layoutValues = CreateLayoutValues(true)

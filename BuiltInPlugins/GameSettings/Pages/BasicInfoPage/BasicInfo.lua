@@ -84,12 +84,18 @@ local DEPRECATED_Constants = require(Plugin.Src.Util.DEPRECATED_Constants)
 local shouldShowDevPublishLocations = require(Plugin.Src.Util.GameSettingsUtilities).shouldShowDevPublishLocations
 local getPlayerAppDownloadLink = require(Plugin.Src.Util.GameSettingsUtilities).getPlayerAppDownloadLink
 local getOptInLocationsRequirementsLink = require(Plugin.Src.Util.GameSettingsUtilities).getOptInLocationsRequirementsLink
+
 local FFlagGameSettingsUseKeyProvider = game:GetFastFlag("GameSettingsUseKeyProvider")
 local KeyProvider = FFlagGameSettingsUseKeyProvider and require(Plugin.Src.Util.KeyProvider) or nil
+
 local GetOptInLocationsKeyName = FFlagGameSettingsUseKeyProvider and KeyProvider.getOptInLocationsKeyName or nil
 local optInLocationsKey = FFlagLuobuDevPublishLua and GetOptInLocationsKeyName and GetOptInLocationsKeyName() or "OptInLocations"
+
 local GetChinaKeyName = FFlagGameSettingsUseKeyProvider and KeyProvider.getChinaKeyName or nil
 local chinaKey = FFlagLuobuDevPublishLua and GetChinaKeyName and GetChinaKeyName() or "China"
+
+local GetPlayerAcceptanceKeyName = FFlagGameSettingsUseKeyProvider and KeyProvider.getPlayerAcceptanceKeyName or nil
+local playerAcceptanceKey = FFlagLuobuDevPublishLua and GetPlayerAcceptanceKeyName and GetPlayerAcceptanceKeyName() or "PlayerAcceptance"
 
 local Framework = require(Plugin.Framework)
 local Tooltip = Framework.UI.Tooltip
@@ -106,6 +112,7 @@ local function loadSettings(store, contextItems)
 	local gameId = state.Metadata.gameId
 	local gameInfoController = contextItems.gameInfoController
 	local gameMetadataController = contextItems.gameMetadataController
+	local policyInfoController = contextItems.policyInfoController
 
 	return {
 		function(loadedSettings)
@@ -164,10 +171,17 @@ local function loadSettings(store, contextItems)
 			store:dispatch(SetCreatorType(ownerType))
 		end,
 		function(loadedSettings)
-			if FFlagLuobuDevPublishLua and shouldShowDevPublishLocations() then 
+			if FFlagLuobuDevPublishLua and shouldShowDevPublishLocations() then
 				-- TODO: jbousellam - update to actually get the opt in locations and not manually set them
 				loadedSettings[optInLocationsKey] = {}
 			end
+		end,
+		function(loadedSettings)
+			if not FFlagLuobuDevPublishLua then
+				return
+			end
+
+			loadedSettings[playerAcceptanceKey] = policyInfoController:getPlayerAcceptances()
 		end,
 	}
 end
@@ -336,6 +350,8 @@ local function loadValuesToProps(getValue, state)
 		ThumbnailOrder = getValue("thumbnailOrder"),
 		GameIcon = getValue("gameIcon"),
 		OptInLocations = FFlagLuobuDevPublishLua and shouldShowDevPublishLocations() and getValue(optInLocationsKey) or nil,
+
+		PlayerAcceptance = FFlagLuobuDevPublishLua and shouldShowDevPublishLocations() and getValue(playerAcceptanceKey) or nil,
 
 		NameError = errors.name,
 		DescriptionError = errors.description,
@@ -526,6 +542,7 @@ function BasicInfo:render()
 		local devices = props.Devices
 		local dialog = props.Dialog
 		local optInLocations = FFlagLuobuDevPublishLua and shouldShowDevPublishLocations() and props.OptInLocations or nil
+		local playerAcceptance = FFlagLuobuDevPublishLua and shouldShowDevPublishLocations() and props.PlayerAcceptance or nil
 
 		local localizedGenreList = {
 			{Id = "All", Title = localization:getText("General", "GenreAll")},
@@ -776,7 +793,7 @@ function BasicInfo:render()
 						},
 						Body = Roact.createElement(TextWithInlineLink, {
 							OnLinkClicked = function()
-								local url = getPlayerAppDownloadLink("China")
+								local url = getPlayerAppDownloadLink(chinaKey)
 								GuiService:OpenBrowserWindow(url)
 							end,
 							Text = localization:getText("General", "TermsDialogBody"),
@@ -788,15 +805,14 @@ function BasicInfo:render()
 							}),
 						})
 					}
-
-					if not dialog.showDialog(SimpleDialog, dialogProps):await() then
-						return
+					if not playerAcceptance then
+						dialog.showDialog(SimpleDialog, dialogProps):await()
+					else
+						local newLocations = Cryo.Dictionary.join(optInLocations, {
+							[box.Id] = (box.Selected) and Cryo.None or not box.Selected,
+						})
+						props.OptInLocationsChanged(newLocations)
 					end
-
-					local newLocations = Cryo.Dictionary.join(optInLocations, {
-						[box.Id] = (box.Selected) and Cryo.None or not box.Selected,
-					})
-					props.OptInLocationsChanged(newLocations)
 				end,
 				Tooltip = Roact.createElement(Image, {
 					Size = UDim2.fromOffset(theme.tooltipIcon.size, theme.tooltipIcon.size),

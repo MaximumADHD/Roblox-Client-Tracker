@@ -180,14 +180,14 @@ function AssetPreviewWrapper:createPurchaseFlow(localizedContent)
 			Cancel = self.purchaseCancelled,
 			Continue = self.purchaseSucceeded,
 			AssetData = assetData,
-		}),
+		}) or nil,
 
 		SuccessDialog = showSuccessDialog and Roact.createElement(PurchaseSuccessDialog, {
 			OnClose = self.closeSuccessDialog,
 			Name = assetData.Asset.Name,
 			Balance = props.Balance,
 			IsFree = price == nil or price == 0,
-		}),
+		}) or nil,
 	}
 end
 
@@ -483,7 +483,7 @@ function AssetPreviewWrapper:render()
 						-- TODO DEVTOOLS-4896: refactor the action bar out of AssetPreview and clean up the logic in this component, bring back loading bar for installs in a sensible place
 						ActionEnabled = not purchaseFlow.InstallDisabled,
 						ShowRobuxIcon = purchaseFlow.ShowRobuxIcon,
-						ActionText = purchaseFlow.ActionBarText,
+						ActionText = tostring(purchaseFlow.ActionBarText),
 						OnClickAction = purchaseFlow.TryInsert,
 						PurchaseFlow = purchaseFlow.PurchaseFlow,
 						SuccessDialog = purchaseFlow.SuccessDialog,

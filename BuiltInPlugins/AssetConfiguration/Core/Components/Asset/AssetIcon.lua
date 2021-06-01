@@ -22,7 +22,6 @@ local Roact = require(Libs.Roact)
 local RoactRodux = require(Libs.RoactRodux)
 local UILibrary = require(Libs.UILibrary)
 local Framework = require(Libs.Framework)
-local THEME_REFACTOR = Framework.Util.RefactorFlags.THEME_REFACTOR
 
 local Util = Plugin.Core.Util
 local Constants = require(Util.Constants)
@@ -191,8 +190,7 @@ function AssetIcon:render()
 end
 
 ContextServices.mapToProps(AssetIcon, {
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	Stylizer = ContextServices.Stylizer,
 })
 
 local function mapStateToProps(state, props)

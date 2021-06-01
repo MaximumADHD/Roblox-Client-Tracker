@@ -3,7 +3,7 @@
 ]]
 local PackageIndex = script.Parent._Index
 
-local package = PackageIndex["roblox_developer-tools"]["developer-tools"]
+local package = PackageIndex["roblox_developer-tools-b11a5947-0.1.8"]["developer-tools"]
 
 if package.ClassName == "ModuleScript" then
 	return require(package)

@@ -38,6 +38,7 @@ local LoadAnimationData = require(Plugin.Src.Thunks.LoadAnimationData)
 local SetIsPlaying = require(Plugin.Src.Actions.SetIsPlaying)
 local SetIsDirty = require(Plugin.Src.Actions.SetIsDirty)
 
+local FFlagFix989de35 = game:DefineFastFlag("ACEFix989de35", false)
 local AnimationClipDropdown = Roact.PureComponent:extend("AnimationClipDropdown")
 
 function AnimationClipDropdown:init()
@@ -163,7 +164,7 @@ function AnimationClipDropdown:init()
 			self.showCreateNewPrompt()
 		elseif loadingName == IMPORT_KEY then
 			self.hideLoadNewPrompt()
-			props.ImportKeyframeSequence(plugin)
+			props.ImportKeyframeSequence(plugin, FFlagFix989de35 and props.Analytics or nil)
 		elseif loadingName == IMPORT_FBX_KEY then
 			self.hideLoadNewPrompt()
 			props.ImportFBXAnimation(plugin, props.Analytics)

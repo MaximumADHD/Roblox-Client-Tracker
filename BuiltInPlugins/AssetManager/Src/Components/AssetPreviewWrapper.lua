@@ -161,8 +161,8 @@ function AssetPreviewWrapper:render()
 
                 Favorites = {
                     OnClick = self.onFavoritedActivated,
-                    Count = props.FavoriteCount and props.FavoriteCount or 0,
-                    IsFavorited = props.Favorited and props.Favorite or false,
+                    Count = assetData.favoriteCount and assetData.favoriteCount or 0,
+                    IsFavorited = assetData.favorited and assetData.favorited or false,
                 },
 
                 HideCreatorSearch = true,
@@ -198,12 +198,14 @@ function AssetPreviewWrapper:render()
 end
 
 local function mapStateToProps(state, props)
-    local assetPreviewData = props.AssetPreviewData
+    if not FFlagStudioAssetManagerHideAssetPreviewCreatorSearch then
+        local assetPreviewData = props.AssetPreviewData
 
-	return {
-        Favorited = assetPreviewData.favorited,
-        FavoriteCount = assetPreviewData.favoriteCount
-	}
+        return {
+            Favorited = assetPreviewData.favorited,
+            FavoriteCount = assetPreviewData.favoriteCount
+        }
+    end
 end
 
 ContextServices.mapToProps(AssetPreviewWrapper, {

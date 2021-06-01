@@ -58,9 +58,9 @@ if THEME_REFACTOR then
 		BackgroundColor = StyleKey.MainBackground,
 		BackgroundStyle = roundBox,
 		Padding = {
-			Top = 5,
+			Top = 3,
 			Left = 10,
-			Bottom = 5,
+			Bottom = 3,
 			Right = 10
 		},
 
@@ -93,9 +93,9 @@ else
 			BackgroundColor = common.Background.Color,
 			BackgroundStyle = roundBox.Default,
 			Padding = {
-				Top = 5,
+				Top = 3,
 				Left = 10,
-				Bottom = 5,
+				Bottom = 3,
 				Right = 10
 			},
 
@@ -105,7 +105,7 @@ else
 			IconOffset = 5,
 
 			[StyleModifier.Hover] = {
-				BackgroundStyle = Style.extend(roundBox.Default, common.BorderHover)
+				BackgroundStyle = Style.extend(roundBox.Default, common.BorderHover),
 			},
 			Buttons = {
 				Clear = buttonStyle("rbxasset://textures/StudioSharedUI/clear.png", "rbxasset://textures/StudioSharedUI/clear-hover.png", theme),

@@ -15,6 +15,7 @@ local join = Dash.join
 local NodeListRow = Roact.PureComponent:extend("NodeListRow")
 
 local UI = Framework.UI
+local Pane = UI.Pane
 local LinkText = UI.LinkText
 local TextLabel = UI.Decoration.TextLabel
 
@@ -99,13 +100,12 @@ function NodeListRow:render()
 		TextColor = textColor
 	})
 
-	return Roact.createElement("Frame", {
+	return Roact.createElement(Pane, {
 		[Roact.Event.MouseEnter] = self.onMouseEnter,
 		[Roact.Event.MouseLeave] = self.onMouseLeave,
 		[Roact.Event.InputBegan] = self.onInputBegan,
 		[Roact.Ref] = self.containerRef,
 		LayoutOrder = props.Index,
-		BorderSizePixel = 0,
 		BackgroundColor3 = backgroundColor,
 		Size = UDim2.new(1, 0, 0, style.RowHeight),
 	}, {
@@ -122,8 +122,8 @@ function NodeListRow:render()
 			Style = style.Text,
 			Text = props.Name,
 			TextColor = textColor,
-			Size = UDim2.new(1, -textOffset, 1, 0),
-			Position = UDim2.new(0, textOffset, 0, 0),
+			Size = UDim2.new(1, 0, 0, style.RowHeight),
+			Position = UDim2.fromOffset(textOffset, 0),
 			TextXAlignment = Enum.TextXAlignment.Left,
 			TextYAlignment = Enum.TextYAlignment.Center
 		}),
@@ -131,8 +131,9 @@ function NodeListRow:render()
 			OnClick = self.onClick,
 			Style = linkStyle,
 			AnchorPoint = Vector2.new(1, 0),
-			Position = UDim2.new(1, -5, 0, 0),
+			Position = UDim2.new(1, -10, 0, 0),
 			Text = self.props.LinkText,
+			Size = UDim2.new(1, 0, 0, style.RowHeight),
 			TextXAlignment = Enum.TextXAlignment.Right,
 			TextYAlignment = Enum.TextYAlignment.Center
 		})

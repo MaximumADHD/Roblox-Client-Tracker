@@ -8,6 +8,7 @@ local PartMover = require(DraggerFramework.Utility.PartMover)
 local AttachmentMover = require(DraggerFramework.Utility.AttachmentMover)
 
 local getFFlagDraggerPerf = require(DraggerFramework.Flags.getFFlagDraggerPerf)
+local getFFlagFixDraggerHang = require(DraggerFramework.Flags.getFFlagFixDraggerHang)
 
 local TransformHandlesImplementation = {}
 TransformHandlesImplementation.__index = TransformHandlesImplementation
@@ -198,6 +199,8 @@ function TransformHandlesImplementation:_safelyTransformParts(fromTransform, goa
 	local start = self:_toLocalTransform(fromTransform)
 	local goal = self:_toLocalTransform(goalTransform)
 	local isIntersecting = true
+	local iterations = 0
+	local fixDraggerHang = getFFlagFixDraggerHang()
 
 	while not cframesAreWithinThreshold(start, goal, TRANSFORM_COLLISION_THRESHOLD) do
 		local mid = start:Lerp(goal, 0.5)
@@ -207,6 +210,18 @@ function TransformHandlesImplementation:_safelyTransformParts(fromTransform, goa
 			goal = mid
 		else
 			start = mid
+		end
+
+		if fixDraggerHang then
+			iterations += 1
+			-- We should never need more than 32 iterations
+			-- if we do it probably means there was a floating point error
+			-- The safest thing to do in this case is to reset to the
+			-- original position
+			if iterations > 32 then
+				start = self:_toLocalTransform(fromTransform)
+				break
+			end
 		end
 	end
 

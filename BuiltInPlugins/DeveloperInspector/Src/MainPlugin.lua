@@ -16,6 +16,7 @@ local ContextServices = Framework.ContextServices
 local Plugin = ContextServices.Plugin
 local Mouse = ContextServices.Mouse
 local Store = ContextServices.Store
+local PluginActions = ContextServices.PluginActions
 
 local MainReducer = require(main.Src.Reducers.MainReducer)
 local MakeTheme = require(main.Src.Resources.MakeTheme)
@@ -28,6 +29,7 @@ local InspectorProvider = require(Components.InspectorProvider)
 local MainView = require(Components.MainView)
 
 local MainPlugin = Roact.PureComponent:extend("MainPlugin")
+
 
 function MainPlugin:init()
 	self.state = {
@@ -68,14 +70,22 @@ function MainPlugin:init()
 		stringResourceTable = TranslationDevelopmentTable,
 		translationResourceTable = TranslationReferenceTable,
 		pluginName = "DeveloperInspector",
+		libraries = {
+			[Framework.Resources.LOCALIZATION_PROJECT_NAME] = {
+				stringResourceTable = Framework.Resources.TranslationDevelopmentTable,
+				translationResourceTable = Framework.Resources.TranslationReferenceTable,
+			},
+		},
 	})
-
-end
-
-function MainView:willUnmount()
-	if self.inspector then
-		self.inspector:destroy()
-	end
+	local plugin = self.props.Plugin
+	self.pluginActions = PluginActions.new(plugin, {
+		ToggleProfileRoact = {
+			id = "ToggleProfileRoact",
+			text = "Toggle Roact Profiler",
+			defaultShortcut = "Ctrl+Shift+R",
+			allowBinding = false,
+		},
+	})
 end
 
 function MainPlugin:renderButtons(toolbar)
@@ -103,7 +113,9 @@ function MainPlugin:render()
 		Plugin.new(plugin),
 		Store.new(self.store),
 		Mouse.new(plugin:getMouse()),
-		MakeTheme()
+		MakeTheme(),
+		self.pluginActions,
+		self.localization,
 	}, {
 		Toolbar = Roact.createElement(PluginToolbar, {
 			Title = self.localization:getText("Plugin", "Toolbar"),
@@ -126,7 +138,9 @@ function MainPlugin:render()
 			InspectorProvider = Roact.createElement(InspectorProvider, {
 				Active = enabled
 			}, {
-				MainView = Roact.createElement(MainView)
+				MainView = Roact.createElement(MainView, {
+					Active = enabled
+				})
 			})
 		}),
 	})

@@ -7,6 +7,7 @@ local NAME = "Permissions"
 
 local permissions = {
 	CAMERA_ACCESS = "CAMERA_ACCESS",
+	MICROPHONE_ACCESS = "MICROPHONE_ACCESS"
 }
 
 local status = {

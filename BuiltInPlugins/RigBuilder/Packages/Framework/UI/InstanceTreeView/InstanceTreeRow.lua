@@ -18,7 +18,6 @@ local Roact = require(Framework.Parent.Roact)
 local Util = require(Framework.Util)
 local Typecheck = Util.Typecheck
 
-local FFlagDevFrameworkBasicMobileSupport = game:GetFastFlag("DevFrameworkBasicMobileSupport")
 local isInputMainPress = Util.isInputMainPress
 
 local InstanceTreeRow = Roact.PureComponent:extend("InstanceTreeRow")
@@ -71,10 +70,7 @@ function InstanceTreeRow:init()
 	end
 
 	self.onInputBegan = function(frame, input)
-		local isMainPress = input.UserInputType == Enum.UserInputType.MouseButton1
-		if FFlagDevFrameworkBasicMobileSupport then
-			isMainPress = isInputMainPress(input)
-		end
+		local isMainPress = isInputMainPress(input)
 		if isMainPress then
 			self.props.onSelected(self.props.row)
 		end

@@ -8,7 +8,7 @@ local Plugin = script.Parent.Parent
 	is required (so that any files that Framework's init requires get the correct values).
 ]]
 local RefactorFlags = require(Plugin.Libs.Framework.Util.RefactorFlags)
-RefactorFlags.THEME_REFACTOR = game:GetFastFlag("EnableToolboxStylizer")
+RefactorFlags.THEME_REFACTOR = true
 
 local DebugFlags = require(Plugin.Core.Util.DebugFlags)
 

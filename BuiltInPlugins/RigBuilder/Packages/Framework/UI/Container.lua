@@ -29,8 +29,6 @@ local Util = require(Framework.Util)
 local Immutable = Util.Immutable
 local Typecheck = Util.Typecheck
 
-local FFlagDevFrameworkTextInputClipsDescendants = game:GetFastFlag("DevFrameworkTextInputClipsDescendants")
-
 local Container = Roact.PureComponent:extend("Container")
 Typecheck.wrap(Container, script)
 
@@ -52,10 +50,7 @@ function Container:render()
 	local visible = props.Visible
 	local elementOverride = props.ElementOverride
 	local ref = props[Roact.Ref]
-	local clipsDescendants = nil
-	if FFlagDevFrameworkTextInputClipsDescendants then
-		clipsDescendants = props.ClipsDescendants or false
-	end
+	local clipsDescendants = props.ClipsDescendants or false
 
 	local children = props[Roact.Children] or {}
 	if type(padding) == "number" then

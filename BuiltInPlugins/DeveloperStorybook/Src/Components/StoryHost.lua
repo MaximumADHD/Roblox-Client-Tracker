@@ -107,7 +107,7 @@ function StoryHost:_mountInspector(currentHost: Instance)
 	end
 	-- The inspector can fail to attach in certain weak security contexts
 	pcall(function()
-		self.inspector = Framework.DeveloperTools.forLibrary("Stories", {
+		self.inspector = Framework.DeveloperTools.forLibrary("DeveloperStorybook", {
 			rootInstance = pluginGui,
 			rootPrefix = reverse(reversePrefix),
 			pickerParent = currentHost:FindFirstAncestor("InfoPanel")
@@ -220,7 +220,7 @@ function StoryHost:render()
 			ClipsDescendants = true,
 			Layout = Enum.FillDirection.Vertical,
 			AutomaticSize = not props.FixedSize and Enum.AutomaticSize.Y or nil,
-			[Roact.Ref] = self.paneRef,
+			[Roact.Ref] = self.paneRef
 		}, children)
 	})
 end

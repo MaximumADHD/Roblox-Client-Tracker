@@ -47,7 +47,6 @@ local GetAssetConfigManageableGroupsRequest = require(Requests.GetAssetConfigMan
 
 local UpdateAssetConfigStore = require(Plugin.Core.Actions.UpdateAssetConfigStore)
 
-local FFlagSupportAnimImportByID = game:GetFastFlag("SupportAnimImportByID")
 local FFlagAssetConifgOverrideAssetScrollingFrame = game:GetFastFlag("AssetConifgOverrideAssetScrollingFrame")
 local FFlagImproveAssetCreationsPageFetching2 = game:GetFastFlag("ImproveAssetCreationsPageFetching2")
 
@@ -208,7 +207,7 @@ function OverrideAsset:render()
 						LayoutOrder = 1,
 					}),
 
-					AnimationIdFilter = (not FFlagSupportAnimImportByID or not isDownloadFlow) and Roact.createElement("Frame", {
+					AnimationIdFilter = (not isDownloadFlow) and Roact.createElement("Frame", {
 						Size = UDim2.new(1, -DROPDOWN_WIDTH, 0, FILTER_HEIGHT),
 						BackgroundTransparency = 1,
 						BorderSizePixel = 0,

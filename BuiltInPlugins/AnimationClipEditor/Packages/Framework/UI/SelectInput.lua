@@ -39,7 +39,6 @@ local StyleModifier = Util.StyleModifier
 local SelectInput = Roact.PureComponent:extend("SelectInput")
 Typecheck.wrap(SelectInput, script)
 
-local FFlagDevFrameworkBasicMobileSupport = game:GetFastFlag("DevFrameworkBasicMobileSupport")
 local isInputMainPress = Util.isInputMainPress
 
 local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
@@ -64,12 +63,7 @@ function SelectInput:init()
 	end
 
 	self.onInputBegan = function(rbx, input)
-		local isMainPress
-		if FFlagDevFrameworkBasicMobileSupport then
-			isMainPress = isInputMainPress(input)
-		else
-			isMainPress = input.UserInputType == Enum.UserInputType.MouseButton1
-		end
+		local isMainPress = isInputMainPress(input)
 		if isMainPress then
 			self:setState({
 				isOpen = true

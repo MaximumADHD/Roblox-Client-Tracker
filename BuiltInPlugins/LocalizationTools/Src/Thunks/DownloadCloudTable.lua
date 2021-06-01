@@ -13,6 +13,7 @@ local isEmpty = require(Plugin.Src.Util.isEmpty)
 
 local FFlagLocalizationToolsAllowUploadZhCjv = game:GetFastFlag("LocalizationToolsAllowUploadZhCjv")
 local FFlagLocalizationToolsPrintErrorMessageOnDownload = game:DefineFastFlag("LocalizationToolsPrintErrorMessageOnDownload", false)
+local FFlagLocalizationToolsFixExampleNotDownloaded = game:GetFastFlag("LocalizationToolsFixExampleNotDownloaded")
 
 local function makeDispatchErrorMessageFunc(store, localization)
 	return function()
@@ -33,7 +34,13 @@ local function updateWebEntries(data, webEntries)
 		entry.Key = item.identifier.key or ""
 		entry.Source = item.identifier.source or ""
 		entry.Context = item.identifier.context or ""
-		entry.Exmple = item.metadata and item.metadata.example or ""
+		
+		if FFlagLocalizationToolsFixExampleNotDownloaded then
+			entry.Example = item.metadata and item.metadata.example or ""
+		else
+			entry.Exmple = item.metadata and item.metadata.example or ""
+		end
+		
 		if not isEmpty(item.translations) then
 			for _, translation in ipairs(item.translations) do
 				if type(translation.locale) ~= "string" then

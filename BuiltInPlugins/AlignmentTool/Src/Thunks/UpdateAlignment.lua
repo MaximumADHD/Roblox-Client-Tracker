@@ -7,8 +7,6 @@ local Selection = game:GetService("Selection")
 
 local Plugin = script.Parent.Parent.Parent
 
-local getEngineFeatureActiveInstanceHighlight = require(Plugin.Src.Flags.getEngineFeatureActiveInstanceHighlight)
-
 local SetAlignEnabled = require(Plugin.Src.Actions.SetAlignEnabled)
 local RelativeTo = require(Plugin.Src.Utility.RelativeTo)
 local alignObjects = require(Plugin.Src.Utility.alignObjects)
@@ -24,7 +22,7 @@ return function(analytics)
 		local relativeTo = state.relativeTo
 
 		local target
-		if getEngineFeatureActiveInstanceHighlight() and relativeTo == RelativeTo.Active then
+		if relativeTo == RelativeTo.Active then
 			target = Selection.ActiveInstance
 		end
 		alignObjects(objects, space, axes, mode, target)
