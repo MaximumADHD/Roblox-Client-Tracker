@@ -6,4 +6,9 @@ Studio.Framework.AssetPreview.Created,Created,Created,만든 날짜
 Studio.Framework.AssetPreview.LastUpdated,Last Updated,Last Updated,마지막 업데이트 날짜
 Studio.Framework.VoteBar.VoteCount,{count:int} VOTES,{count:int} VOTES,{count:int} 표
 Studio.Framework.AssetPreview.AllGenre,All,All,전체
+Studio.Framework.PageNavigation.FirstPage,First page,First page,첫 페이지
 Studio.Framework.AssetPreview.Genre,Genre,Genre,장르
+Studio.Framework.PageNavigation.LastPage,Last page,Last page,마지막 페이지
+Studio.Framework.PageNavigation.NextPage,Next page,Next page,다음 페이지
+Studio.Framework.PageNavigation.PreviousPage,Previous page,Previous page,이전 페이지
+Studio.Framework.PageNavigation.PageCount,of {count:int},of {count:int},{count:int} 중

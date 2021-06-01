@@ -179,9 +179,11 @@ Class AvatarEditorService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function bool AvatarEditorService:GetFavorite(int64 itemId, Enum<AvatarItemType> itemType) [Yields]
 	Function Instance AvatarEditorService:GetInventory(Array assetTypes) [Yields]
 	Function Dictionary AvatarEditorService:GetItemDetails(int64 itemId, Enum<AvatarItemType> itemType) [Yields]
-	Function Instance AvatarEditorService:GetOutfits() [Yields]
+	Function Instance AvatarEditorService:GetOutfits(Enum<OutfitSource> outfitSource = "All") [Yields]
 	Function Array AvatarEditorService:GetRecommendedAssets(Enum<AvatarAssetType> assetType, int64 contextAssetId = 0) [Yields]
 	Function Array AvatarEditorService:GetRecommendedBundles(int64 bundleId) [Yields]
+	Function bool AvatarEditorService:NoPromptCreateOutfit(Instance humanoidDescription, Enum<HumanoidRigType> rigType, string name) {RobloxScriptSecurity}
+	Function bool AvatarEditorService:NoPromptSetFavorite(int64 itemId, Enum<AvatarItemType> itemType, bool shouldFavorite) {RobloxScriptSecurity}
 	Function void AvatarEditorService:PerformCreateOutfit(string name) {RobloxScriptSecurity}
 	Function void AvatarEditorService:PerformCreateOutfitWithDescription(Instance humanoidDescription, string name) {RobloxScriptSecurity}
 	Function void AvatarEditorService:PerformSaveAvatar() {RobloxScriptSecurity}
@@ -840,6 +842,23 @@ Class Dragger : Instance
 	Function void Dragger:MouseDown(Instance mousePart, Vector3 pointOnMousePart, Objects parts)
 	Function void Dragger:MouseMove(Ray mouseRay)
 	Function void Dragger:MouseUp()
+Class DraggerService : Instance [NotCreatable] [Service] [NotReplicated]
+	Property bool DraggerService.AlignDraggedObjects [ReadOnly]
+	Property bool DraggerService.AngleSnapEnabled [ReadOnly]
+	Property float DraggerService.AngleSnapIncrement [ReadOnly]
+	Property bool DraggerService.AnimateHover [ReadOnly]
+	Property bool DraggerService.CollisionsEnabled [ReadOnly]
+	Property Enum<DraggerCoordinateSpace> DraggerService.DraggerCoordinateSpace [ReadOnly]
+	Property Enum<DraggerMovementMode> DraggerService.DraggerMovementMode [ReadOnly]
+	Property Color3 DraggerService.GeometrySnapColor [ReadOnly]
+	Property float DraggerService.HoverAnimateFrequency [ReadOnly]
+	Property float DraggerService.HoverThickness [ReadOnly]
+	Property bool DraggerService.JointsEnabled [ReadOnly]
+	Property bool DraggerService.LinearSnapEnabled [ReadOnly]
+	Property float DraggerService.LinearSnapIncrement [ReadOnly]
+	Property bool DraggerService.PivotSnapToGeometry {RobloxScriptSecurity} [ReadOnly]
+	Property bool DraggerService.ShowHover [ReadOnly]
+	Property bool DraggerService.ShowPivotIndicator [NotReplicated]
 Class EventIngestService : Instance [NotCreatable] [Service]
 	Function void EventIngestService:SendEventDeferred(string target, string eventContext, string eventName, Dictionary additionalArgs) {RobloxScriptSecurity}
 	Function void EventIngestService:SendEventImmediately(string target, string eventContext, string eventName, Dictionary additionalArgs) {RobloxScriptSecurity}
@@ -1180,11 +1199,11 @@ Class LayerCollector : GuiBase2d [NotCreatable] [NotBrowsable]
 	Property Enum<ZIndexBehavior> LayerCollector.ZIndexBehavior
 	Function Dictionary LayerCollector:GetLayoutNodeTree() [Deprecated]
 Class BillboardGui : LayerCollector
-	Property float BillboardGui.Brightness
 	Property bool BillboardGui.ClipsDescendants
 	Property bool BillboardGui.Active
 	Property Instance BillboardGui.Adornee
 	Property bool BillboardGui.AlwaysOnTop
+	Property float BillboardGui.Brightness
 	Property float BillboardGui.CurrentDistance [ReadOnly]
 	Property float BillboardGui.DistanceLowerLimit
 	Property float BillboardGui.DistanceStep
@@ -1217,12 +1236,12 @@ Class ScreenGui : LayerCollector
 	Property bool ScreenGui.IgnoreGuiInset
 Class GuiMain : ScreenGui [Deprecated]
 Class SurfaceGui : LayerCollector
-	Property float SurfaceGui.Brightness
 	Property float SurfaceGui.ZOffset
 	Property bool SurfaceGui.ClipsDescendants
 	Property bool SurfaceGui.Active
 	Property Instance SurfaceGui.Adornee
 	Property bool SurfaceGui.AlwaysOnTop
+	Property float SurfaceGui.Brightness
 	Property Enum<NormalId> SurfaceGui.Face
 	Property float SurfaceGui.LightInfluence
 	Property float SurfaceGui.ToolPunchThroughDistance
@@ -1871,7 +1890,7 @@ Class MemStorageService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void MemStorageService:SetItem(string key, string value = "") {RobloxScriptSecurity}
 Class MemoryStoreQueue : Instance [NotCreatable] [NotReplicated]
 	Function void MemoryStoreQueue:AddAsync(Variant value, double priority = 0, int64 expiration = -1) [Yields]
-	Function Tuple MemoryStoreQueue:ReadAsync(int count, bool allOrNothing = false, double waitTimeout = 0) [Yields]
+	Function Tuple MemoryStoreQueue:ReadAsync(int count, bool allOrNothing = false, double waitTimeout = -1) [Yields]
 	Function void MemoryStoreQueue:RemoveAsync(string id) [Yields]
 Class MemoryStoreService : Instance [Service]
 	Function Instance MemoryStoreService:GetQueue(string name, int invisibilityTimeout = 30)
@@ -2407,6 +2426,7 @@ Class Player : Instance
 	Function string Player:GetGameSessionID() {RobloxSecurity}
 	Function Dictionary Player:GetJoinData()
 	Function Instance Player:GetMouse()
+	Function int Player:GetNetworkPing()
 	Function int Player:GetRankInGroup(int64 groupId) [Yields]
 	Function string Player:GetRoleInGroup(int64 groupId) [Yields]
 	Function bool Player:GetUnder13() {RobloxScriptSecurity}
@@ -2492,7 +2512,7 @@ Class Players : Instance [NotCreatable] [Service]
 	Function Instance Players:CreateHumanoidModelFromDescription(Instance description, Enum<HumanoidRigType> rigType, Enum<AssetTypeVerification> assetTypeVerification = "Default") [Yields]
 	Function Instance Players:CreateHumanoidModelFromUserId(int64 userId) [Yields]
 	Function Instance Players:CreateLocalPlayer() {LocalUserSecurity}
-	Function Instance Players:GetCharacterAppearanceAsync(int64 userId) [Yields]
+	Function Instance Players:GetCharacterAppearanceAsync(int64 userId) [Yields] [Deprecated]
 	Function Dictionary Players:GetCharacterAppearanceInfoAsync(int64 userId) [Yields]
 	Function Instance Players:GetFriendsAsync(int64 userId) [Yields]
 	Function Instance Players:GetHumanoidDescriptionFromOutfitId(int64 outfitId) [Yields]
@@ -3196,6 +3216,7 @@ Class Studio : Instance [NotCreatable] [Service] [NotReplicated]
 	Property bool Studio.Highlight Occurances
 	Property bool Studio.Indent Using Spaces
 	Property string Studio.Rulers
+	Property bool Studio.ScriptEditorShouldShowPluginMethods {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property bool Studio.Scroll Past Last Line
 	Property bool Studio.Show Whitespace
 	Property bool Studio.Skip Closing Brackets and Quotes
@@ -3243,8 +3264,10 @@ Class Studio : Instance [NotCreatable] [Service] [NotReplicated]
 	Property Color3 Studio.Active Hover Over Color
 	Property bool Studio.Animate Hover Over
 	Property Enum<HoverAnimateSpeed> Studio.Hover Animate Speed
+	Property float Studio.Hover Box Thickness {RobloxSecurity}
 	Property Color3 Studio.Hover Over Color
 	Property bool Studio.Physical Draggers Select Scope By Default {RobloxScriptSecurity}
+	Property Color3 Studio.Pivot Snap To Geometry Color {RobloxSecurity}
 	Property Color3 Studio.Select Color
 	Property bool Studio.Show Hover Over
 	Property Enum<RuntimeUndoBehavior> Studio.RuntimeUndoBehavior
@@ -4109,6 +4132,7 @@ Enum CatalogCategoryFilter
 	EnumItem CatalogCategoryFilter.Collectibles : 3
 	EnumItem CatalogCategoryFilter.CommunityCreations : 4
 	EnumItem CatalogCategoryFilter.Premium : 5
+	EnumItem CatalogCategoryFilter.Recommended : 6
 Enum CatalogSortType
 	EnumItem CatalogSortType.Relevance : 1
 	EnumItem CatalogSortType.PriceHighToLow : 2
@@ -4355,6 +4379,12 @@ Enum DraftStatusCode
 	EnumItem DraftStatusCode.DraftOutdated : 1
 	EnumItem DraftStatusCode.ScriptRemoved : 2
 	EnumItem DraftStatusCode.DraftCommitted : 3
+Enum DraggerCoordinateSpace
+	EnumItem DraggerCoordinateSpace.Object : 0
+	EnumItem DraggerCoordinateSpace.Constant : 1
+Enum DraggerMovementMode
+	EnumItem DraggerMovementMode.Geometric : 0
+	EnumItem DraggerMovementMode.Physical : 1
 Enum EasingDirection
 	EnumItem EasingDirection.In : 0
 	EnumItem EasingDirection.Out : 1
@@ -5053,6 +5083,10 @@ Enum NormalId
 	EnumItem NormalId.Left : 3
 	EnumItem NormalId.Bottom : 4
 	EnumItem NormalId.Front : 5
+Enum OutfitSource
+	EnumItem OutfitSource.All : 1
+	EnumItem OutfitSource.Created : 2
+	EnumItem OutfitSource.Purchased : 3
 Enum OutputLayoutMode
 	EnumItem OutputLayoutMode.Horizontal : 0
 	EnumItem OutputLayoutMode.Vertical : 1

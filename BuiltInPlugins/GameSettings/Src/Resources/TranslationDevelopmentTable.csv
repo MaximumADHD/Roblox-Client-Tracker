@@ -11,8 +11,8 @@ Studio.GameSettings.General.WorldPresetsActionToolTip,"Slightly heavier gravity,
 Studio.GameSettings.General.MultiImageDialogHeader,Images Failed, ,Images Failed
 Studio.GameSettings.General.SettingOn,On, ,On
 Studio.GameSettings.General.AnimationStandard,Standard, ,Standard
-Studio.GameSettings.General.PluginName,Game Settings, ,Game Settings
 Studio.GameSettings.General.GenreFPS,FPS, ,FPS
+Studio.GameSettings.General.PluginName,Game Settings, ,Game Settings
 Studio.GameSettings.General.ThumbnailsModeration,Items will be reviewed by moderators before being made visible to other users., ,Items will be reviewed by moderators before being made visible to other users.
 Studio.GameSettings.General.PlayabilityPrivate,Private, ,Private
 Studio.GameSettings.General.DevSubsDeleteHeader,Are you sure you want to delete this subscription?, ,Are you sure you want to delete this subscription?
@@ -37,6 +37,12 @@ Studio.GameSettings.General.ButtonPublish,Publish, ,Publish
 Studio.GameSettings.Monetization.EditDeveloperProduct,Edit Developer Product, ,Edit Developer Product
 Studio.GameSettings.General.ButtonSave,Save, ,Save
 Studio.GameSettings.General.ButtonCancel,Cancel, ,Cancel
+Studio.GameSettings.General.CategoryOptions,Options, ,Options
+Studio.GameSettings.General.TitleGravity,Gravity, ,Gravity
+Studio.GameSettings.General.ScriptCollabWarning,Warning: The Team Create server needs to restart before this feature is disabled. The server will automatically restart once all editors have left the session. Any unsaved drafts will no longer be accessible until Collaborative Editing is re-enabled., ,Warning: The Team Create server needs to restart before this feature is disabled. The server will automatically restart once all editors have left the session. Any unsaved drafts will no longer be accessible until Collaborative Editing is re-enabled.
+Studio.GameSettings.AccessPermissions.NoAccessDescription,Cannot play or edit this game, ,Cannot play or edit this game
+Studio.GameSettings.Permissions.NoAccessDescription,Cannot play or edit this game, ,Cannot play or edit this game
+Studio.GameSettings.General.ButtonSubmit,Submit, ,Submit
 Studio.GameSettings.General.TitleStudioApiServices,Enable Studio Access to API Services, ,Enable Studio Access to API Services
 Studio.GameSettings.General.ButtonDiscard,Discard, ,Discard
 Studio.GameSettings.General.GameIconChange,Change, ,Change
@@ -65,7 +71,6 @@ Studio.GameSettings.General.CategoryAvatar,Avatar, ,Avatar
 Studio.GameSettings.General.CategorySecurity,Security, ,Security
 Studio.GameSettings.General.ThumbnailsLimitLuobu,You can set up to {maxThumbnails:int} screenshots for a game., ,You can set up to {maxThumbnails:int} screenshots for a game.
 Studio.GameSettings.General.CategoryWorld,World, ,World
-Studio.GameSettings.General.CategoryOptions,Options, ,Options
 Studio.GameSettings.General.LocalizationSettingsPublishMessageLinkText,Publishing a game is required, ,Publishing a game is required
 Studio.GameSettings.General.GenreMedieval,Medieval, ,Medieval
 Studio.GameSettings.General.DevSubsName,Name, ,Name
@@ -263,10 +268,6 @@ Studio.GameSettings.AccessPermissions.OwnerLabel,Owner, ,Owner
 Studio.GameSettings.Permissions.OwnerLabel,Owner, ,Owner
 Studio.GameSettings.AccessPermissions.MultipleLabel,(Multiple), ,(Multiple)
 Studio.GameSettings.Permissions.MultipleLabel,(Multiple), ,(Multiple)
-Studio.GameSettings.General.TitleGravity,Gravity, ,Gravity
-Studio.GameSettings.General.ScriptCollabWarning,Warning: The Team Create server needs to restart before this feature is disabled. The server will automatically restart once all editors have left the session. Any unsaved drafts will no longer be accessible until Collaborative Editing is re-enabled., ,Warning: The Team Create server needs to restart before this feature is disabled. The server will automatically restart once all editors have left the session. Any unsaved drafts will no longer be accessible until Collaborative Editing is re-enabled.
-Studio.GameSettings.AccessPermissions.NoAccessDescription,Cannot play or edit this game, ,Cannot play or edit this game
-Studio.GameSettings.Permissions.NoAccessDescription,Cannot play or edit this game, ,Cannot play or edit this game
 Studio.GameSettings.AccessPermissions.AdminDescription,"Can play, edit, and manage this game", ,"Can play, edit, and manage this game"
 Studio.GameSettings.Permissions.AdminDescription,"Can play, edit, and manage this game", ,"Can play, edit, and manage this game"
 Studio.GameSettings.General.TitleScriptCollab,Enable Collaborative Editing, ,Enable Collaborative Editing
@@ -282,6 +283,7 @@ Studio.GameSettings.General.ScaleSliderUnits,%, ,%
 Studio.GameSettings.General.PublishingHintLinkExplanation, is required for changing Avatar game settings, , is required for changing Avatar game settings
 Studio.GameSettings.General.DevSubsNewHeader,New Subscription, ,New Subscription
 Studio.GameSettings.General.DevSubsDiscontinuedHeader,Discontinued Developer Subscription, ,Discontinued Developer Subscription
+Studio.GameSettings.OptInLocations.EmailAddress,Email address, ,Email address
 Studio.GameSettings.General.WorldPresetsClassic,Classic, ,Classic
 Studio.GameSettings.Security.EnableThirdPartyTeleports,Allow Third Party Teleports, ,Allow Third Party Teleports
 Studio.GameSettings.General.WorldPresetsRealistic,Realistic, ,Realistic
@@ -359,6 +361,10 @@ Studio.GameSettings.Security.EnableThirdPartyPurchasesDescription,"By enabling, 
 Studio.GameSettings.Monetization.Badges,Badges, ,Badges
 Studio.GameSettings.Monetization.BadgeDescription,Badge Description, ,Badge Description
 Studio.GameSettings.OptInLocations.Tooltip,Your creation will be published globally in addition to all the selected opt-in locations. See each location for specific requirements., ,Your creation will be published globally in addition to all the selected opt-in locations. See each location for specific requirements.
+Studio.GameSettings.OptInLocations.EmailDialogHeader,Email for Review Feedback, ,Email for Review Feedback
+Studio.GameSettings.OptInLocations.EmailDialogBody,"Your game will be reviewed by moderators to ensure that your game is compliant with Chinese content regulations. After your game is reviewed, we will send you review feedback. The review will take 3-5 days.", ,"Your game will be reviewed by moderators to ensure that your game is compliant with Chinese content regulations. After your game is reviewed, we will send you review feedback. The review will take 3-5 days."
+Studio.GameSettings.OptInLocations.EmailDialogDescription,Please enter the email where you would like to receive review feedback:, ,Please enter the email where you would like to receive review feedback:
+Studio.GameSettings.OptInLocations.ErrorInvalidEmail,You entered an invalid email address., ,You entered an invalid email address.
 Studio.GameSettings.General.TermsDialogHeader,Terms of Use and Privacy Policy, ,Terms of Use and Privacy Policy
 Studio.GameSettings.General.TermsDialogBody,"In order to publish on the LuoBuLeSi app published and operated by Tencent, you need to register an account with Tencent, and accept Tencent’s Terms of Use and Privacy Policy. [link]", ,"In order to publish on the LuoBuLeSi app published and operated by Tencent, you need to register an account with Tencent, and accept Tencent’s Terms of Use and Privacy Policy. [link]"
 Studio.GameSettings.OptInLocations.ChinaRequirements, to publish to China, , to publish to China

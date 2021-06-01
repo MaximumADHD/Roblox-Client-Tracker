@@ -38,7 +38,7 @@ Studio.AnimationClipEditor.ContextMenu.DeleteTrack,Delete Track,Delete Track,트
 Studio.AnimationClipEditor.ContextMenu.Undo,Undo,Undo,실행 취소,Отменить,撤消
 Studio.AnimationClipEditor.Dialog.Confirm,Confirm,Confirm,확인,Подтвердить,确认
 Studio.AnimationClipEditor.Settings.Frames,Frames,Frames,프레임,Кадры,帧
-Studio.AnimationClipEditor.Title.SelectARig,Select a rig to animate or create a new rig by selecting Build Rig under the Plugins tab,Select a rig to animate or create a new rig by selecting Build Rig under the Plugins tab,애니메이션화할 리그를 선택하거나 플러그인 탭에서 리그 빌드를 선택해 새 리그를 만듭니다.,Выберите скелетную анимацию,选择一个要制作动画的模型，或选择插件选项卡下的 Build Rig（构建模型）来新建一个模型
+Studio.AnimationClipEditor.Title.SelectARig,Select a rig to animate or create a new rig by selecting Build Rig under the Plugins tab,Select a rig to animate or create a new rig by selecting Build Rig under the Plugins tab,애니메이션화할 리그를 선택하거나 플러그인 탭에서 리그 빌드를 선택해 새 리그를 만듭니다.,Выберите скелетную анимацию,选择一个要制作动画的骨架，或选择插件选项卡下的“建造骨架”来新建骨架。
 Studio.AnimationClipEditor.ContextMenu.SelectAll,Select All,Select All,모두 선택,Выбрать все,全选
 Studio.AnimationClipEditor.ContextMenu.ToggleBoneVis,Toggle Microbone Visibility,Toggle Microbone Visibility,Microbone 표시 여부 토글, ,切换 Microbone 可视性
 Studio.AnimationClipEditor.ContextMenu.DeselectAll,Deselect All,Deselect All,모두 선택 취소,Отменить выбор всех объектов,取消全选
@@ -60,6 +60,7 @@ Studio.AnimationClipEditor.Title.CreateNew,Create New Animation,Create New Anima
 Studio.AnimationClipEditor.IKMenu.ShowTreeview,Show Treeview,Show Treeview,트리뷰 표시,Показать Дерево выбора,显示树状图
 Studio.AnimationClipEditor.IKMenu.Prompt,Enable IK to start animating with IK constraints,Enable IK to start animating with IK constraints,IK를 활성화하여 IK 제약으로 애니메이션화 시작,"Включить обратную кинематику, чтобы начать анимацию с ограничениями ОК",启用 IK 以开始创建使用 IK 约束的动画
 Studio.AnimationClipEditor.DropdownMenu.CreateNewClip,Create New Clip,Create New Clip,새 클립 만들기,Создать новый клип,创建新片段
+Studio.AnimationClipEditor.RigErrors.MultipleParents_Migrated,The following parts are affected by multiple Motor6Ds: {entries},The following parts are affected by multiple Motor6Ds: {entries},다음 파트가 여러 Motor6D의 영향을 받습니다: {entries}, , 
 Studio.AnimationClipEditor.Title.AnimationEvents,Animation Events,Animation Events,애니메이션 이벤트,События анимации,动画事件
 Studio.AnimationClipEditor.Menu.Movement,Movement,Movement,이동, ,移动
 Studio.AnimationClipEditor.Title.EditEvents,Edit Animation Events,Edit Animation Events,애니메이션 이벤트 편집,Изменить события анимации,编辑动画事件
@@ -139,3 +140,5 @@ Studio.AnimationClipEditor.Dialog.DeleteAllPrompt_Migrated,Do you want to delete
 Studio.AnimationClipEditor.Dialog.RenameAllPrompt_Migrated,Do you want to change all {name} to {newName}?,Do you want to change all {name} to {newName}?,모든 {name}을(를) {newName}(으)로 변경할까요?, ,确定将所有 {name} 更改为 {newName} 吗？
 Studio.AnimationClipEditor.Toast.Saved_Migrated,Saved animation {savedAnimName},Saved animation {savedAnimName},저장된 애니메이션 {savedAnimName}, ,已保存动画 {savedAnimName}
 Studio.AnimationClipEditor.Toast.Loaded_Migrated,Loaded animation {loadedAnimName},Loaded animation {loadedAnimName},불러온 애니메이션 {loadedAnimName}, ,已加载动画 {loadedAnimName}
+Studio.AnimationClipEditor.RigErrors.MissingPart0_Migrated,The following Motor6Ds do not have a Part0 set: {entries},The following Motor6Ds do not have a Part0 set: {entries},다음 Motor6D에 Part0 세트가 없습니다: {entries}, , 
+Studio.AnimationClipEditor.RigErrors.MissingPart1_Migrated,The following Motor6Ds do not have a Part1 set: {entries},The following Motor6Ds do not have a Part1 set: {entries},다음 Motor6D에 Part1 세트가 없습니다: {entries}, , 

@@ -25,6 +25,7 @@ Studio.App.AddEmulationDeviceDialog.Platform,,Platform,Platform
 Studio.App.AddEmulationDeviceDialog.PortraitKeyboardHeight,,Keyboard Height (Portrait),Keyboard Height (Portrait)
 Studio.App.AddEmulationDeviceDialog.PortraitSafeZoneOffsets,,SafeZoneOffsets (Portrait),SafeZoneOffsets (Portrait)
 Studio.App.AddEmulationDeviceDialog.ResolutionDpi,,Resolution (DPI),Resolution (DPI)
+Studio.App.AddEmulationDeviceDialog.ResolutionScale,,Resolution Scaling,Resolution Scaling
 Studio.App.AddEmulationDeviceDialog.RightSafeZoneOffset,,Right,Right
 Studio.App.AddEmulationDeviceDialog.TopSafeZoneOffset,,Top,Top
 Studio.App.AddEmulationDeviceDialog.userAgentString,,User Agent String,User Agent String
@@ -137,8 +138,6 @@ Studio.App.BetaFeatures.LuauNativeVector3Description,,Enable Luau VM built-in su
 Studio.App.BetaFeatures.LuauNativeVector3Title,,Native Vector3 Type,Native Vector3 Type
 Studio.App.BetaFeatures.LuauNonStrictByDefaultDescription,,"Script analysis uses non-strict mode for all scripts by default. Use --!strict, --!nonstrict or --!nocheck to override mode on a per script basis.","Script analysis uses non-strict mode for all scripts by default. Use --!strict, --!nonstrict or --!nocheck to override mode on a per script basis."
 Studio.App.BetaFeatures.LuauNonStrictByDefaultTitle,,Scripts Are Non-Strict By Default,Scripts Are Non-Strict By Default
-Studio.App.BetaFeatures.MaxWaterFogDistanceDescription,,The maximum underwater fog distance is increased to permit larger underwater place designs with further visibility in the distance.,The maximum underwater fog distance is increased to permit larger underwater place designs with further visibility in the distance.
-Studio.App.BetaFeatures.MaxWaterFogDistanceTitle,,Max Water Fog Distance Increase,Max Water Fog Distance Increase
 Studio.App.BetaFeatures.NewFeaturesForChannelUserWarning1,,"New beta features have been automatically enabled above as you are enrolled in Beta Channel. You must restart Studio for them to be activated. <a href=""%1"">Restart Now</a>","New beta features have been automatically enabled above as you are enrolled in Beta Channel. You must restart Studio for them to be activated. <a href=""%1"">Restart Now</a>"
 Studio.App.BetaFeatures.NewGamesInCloudDescription,,Allows saving games to the cloud without publishing.,Allows saving games to the cloud without publishing.
 Studio.App.BetaFeatures.NewGamesInCloudTitle,,New Games in the Cloud,New Games in the Cloud
@@ -1280,6 +1279,7 @@ Studio.App.Property.GraphicsMode,,Graphics Mode,Graphics Mode
 Studio.App.Property.HighlightCurrentLine,Should we highlight the line we are currently editing in script editor,Highlight Current Line,Highlight Current Line
 Studio.App.Property.HighlightOccurances,Should we highlight other occurances of the word under the cursor in script editor,Highlight Current Word,Highlight Current Word
 Studio.App.Property.HoverAnimateSpeed,,Hover Animate Speed,Hover Animate Speed
+Studio.App.Property.HoverBoxThickness,,Hover Box Thickness,Hover Box Thickness
 Studio.App.Property.HoverOverColor,,Hover Over Color,Hover Over Color
 Studio.App.Property.HttpProxyEnabled,,Proxy Enabled,Proxy Enabled
 Studio.App.Property.HttpProxyURL,,Proxy URL,Proxy URL
@@ -1329,6 +1329,7 @@ Studio.App.Property.PhysicalDraggersSelectScopeByDefault,,Physical Draggers Sele
 Studio.App.Property.PhysicsEnvironmentalThrottle,,Physics Environmental Throttle,Physics Environmental Throttle
 Studio.App.Property.PhysicsMtuAdjust,,Physics Mtu Adjust,Physics Mtu Adjust
 Studio.App.Property.PhysicsSendRate,,Physics Send Rate,Physics Send Rate
+Studio.App.Property.PivotSnapToGeometryColor,,Pivot Snap To Geometry Color,Pivot Snap To Geometry Color
 Studio.App.Property.PlayerCount,,Player Count,Player Count
 Studio.App.Property.PluginDebuggingEnabled,,Plugin Debugging Enabled,Plugin Debugging Enabled
 Studio.App.Property.PluginsDir,,Plugins Dir,Plugins Dir
@@ -1364,6 +1365,7 @@ Studio.App.Property.SchedulerRate,,Scheduler Rate,Scheduler Rate
 Studio.App.Property.ScriptEditorColorPreset,The set of colors used in syntax highlighting in script editor,Script Editor Color Preset,Script Editor Color Preset
 Studio.App.Property.ScriptEditorScrollbarBackgroundColor,,Script Editor Scrollbar Background,Script Editor Scrollbar Background
 Studio.App.Property.ScriptEditorScrollbarHandleColor,,Script Editor Scrollbar Handle,Script Editor Scrollbar Handle
+Studio.App.Property.ScriptEditorShouldShowPluginMethods,Autocomplete should show Plugin security level methods in Script Editor,Autocomplete Plugin-security methods,Autocomplete Plugin-security methods
 Studio.App.Property.ScriptTimeoutLength,,Script Timeout Length,Script Timeout Length
 Studio.App.Property.ScrollPastLastLine,,Scroll Past Last Line,Scroll Past Last Line
 Studio.App.Property.SearchContentForCoreScripts,,Search Content For Core Scripts,Search Content For Core Scripts
@@ -1543,8 +1545,10 @@ Studio.App.PropertyTooltip.EnableAutocomplete,,Enable code suggestions to show u
 Studio.App.PropertyTooltip.Font,,"Change the text font family, typeface, and size.","Change the text font family, typeface, and size."
 Studio.App.PropertyTooltip.FormatOnPaste,,Automatically format the code after pasting.,Automatically format the code after pasting.
 Studio.App.PropertyTooltip.FormatOnType,,Automatically format the code after typing.,Automatically format the code after typing.
+Studio.App.PropertyTooltip.HoverThickness,,How thick is the box shown around the item your mouse is hovering over?,How thick is the box shown around the item your mouse is hovering over?
 Studio.App.PropertyTooltip.IndentUsingSpaces,,Prefer indent with spaces over tabs. This will affect Auto Indent and pressing Tab behavior.,Prefer indent with spaces over tabs. This will affect Auto Indent and pressing Tab behavior.
 Studio.App.PropertyTooltip.PhysicalDraggersSelectScopeByDefault,,"When using the Physical draggers, toggle if a single click selects the Model or a scope by default.  Alt-click to toggle behavior.","When using the Physical draggers, toggle if a single click selects the Model or a scope by default.  Alt-click to toggle behavior."
+Studio.App.PropertyTooltip.PivotSnapToGeometryColor,,"When snapping the pivot to geometry in the Pivot Editor, what color should the interesting points be highlighted with?","When snapping the pivot to geometry in the Pivot Editor, what color should the interesting points be highlighted with?"
 Studio.App.PropertyTooltip.RandomizeJoinInstanceOrder,,"Randomize instance order during join for test clients. This helps uncover bugs by approximating the behavior of real clients & servers, where the order of instances will change over time as more players join. Randomization may slightly increase join time bandwidth usage compared to real client-server joins.","Randomize instance order during join for test clients. This helps uncover bugs by approximating the behavior of real clients & servers, where the order of instances will change over time as more players join. Randomization may slightly increase join time bandwidth usage compared to real client-server joins."
 Studio.App.PropertyTooltip.Rulers,,Vertical lines drawn at the specified column numbers. These can be used as a guide to code length limits.,Vertical lines drawn at the specified column numbers. These can be used as a guide to code length limits.
 Studio.App.PropertyTooltip.ScrollPastLastLine,,Allow script editor to scroll past the last line.,Allow script editor to scroll past the last line.
@@ -2950,8 +2954,12 @@ Studio.App.Updates.BetaFeatureDescription,,"Instead of blocking the opening of n
 Studio.App.Updates.BetaFeatureName,,Safe Studio Updates,Safe Studio Updates
 Studio.App.Updates.ShutdownConfirmationText,,There is a new Studio update available. Shutdown to update?,There is a new Studio update available. Shutdown to update?
 Studio.App.Updates.ShutdownPromptButton,Button name in 'Are you sure you want to shut down Studio for update? [Shutdown] [Cancel]',Shutdown,Shutdown
+Studio.App.Updates.SnoozeButton,,Snooze,Snooze
 Studio.App.Updates.UpdateAvailableButton,,Update Available,Update Available
+Studio.App.Updates.UpdateAvailableMessage,,Do you want to restart Studio and update now or later?,Do you want to restart Studio and update now or later?
+Studio.App.Updates.UpdateAvailableTitle,,Update Available,Update Available
 Studio.App.Updates.UpdateAvailableToast,,A new version of Studio is available,A new version of Studio is available
+Studio.App.Updates.UpdateNowButton,,Update Now,Update Now
 Studio.App.UploadImageRequest.CouldNotOpenFile1,,Could not open file %1,Could not open file %1
 Studio.App.UploadImageRequest.UploadingQuickly1,,Uploading too quickly. Try again in %1 minute(s),Uploading too quickly. Try again in %1 minute(s)
 Studio.App.UploadImageRequest.UploadingQuicklyHour1,,Uploading too quickly. Try again in %1 hour(s),Uploading too quickly. Try again in %1 hour(s)
