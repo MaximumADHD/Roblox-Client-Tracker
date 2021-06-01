@@ -166,6 +166,27 @@ return function()
 			-- New focused child should be child C. Child B can't be focused as it is removed.
 			expect(focusController:isNodeFocused(childNodeC)).to.equal(true)
 		end)
+
+		it("should focus a different element if the default child has been removed", function()
+			local rootRef, _ = Roact.createBinding(Instance.new("Frame"))
+			local _, engineInterface = MockEngine.new()
+
+			local parentNode = createRootNode(rootRef)
+			addChildNode(parentNode)
+			local childNodeA, childRefA, updateChildRefA = addChildNode(parentNode)
+			local childNodeB, _ = addChildNode(parentNode)
+			parentNode.defaultChildRef = childRefA
+
+			childRefA:getValue().Parent = nil
+			childNodeA:detachFromTree()
+			updateChildRefA(nil)
+
+			local focusController = parentNode.focusController[InternalApi]
+			focusController:initialize(engineInterface)
+
+			parentNode:focus()
+			expect(focusController:isNodeFocused(childNodeB)).to.equal(true)
+		end)
 	end)
 
 	describe("initial selection logic when nothing is specified", function()

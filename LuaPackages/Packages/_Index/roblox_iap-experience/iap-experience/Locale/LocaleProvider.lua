@@ -11,21 +11,21 @@ local getLocaleContext = require(LocalziationRoot.getLocaleContext)
 local LocaleProvider = Roact.Component:extend("LocaleProvider")
 
 LocaleProvider.validateProps = t.interface({
-    locale = t.string,
+	locale = t.string,
 })
 
 function LocaleProvider:init()
-    self._context[LocaleContextKey] = getLocaleContext(self.props.locale)
+	self._context[LocaleContextKey] = getLocaleContext(self.props.locale)
 end
 
 function LocaleProvider:render()
-    return Roact.oneChild(self.props[Roact.Children])
+	return Roact.oneChild(self.props[Roact.Children])
 end
 
 function LocaleProvider:didUpdate(previousProps)
-    if self.props.locale ~= previousProps.locale then
-        self._context[LocaleContextKey] = getLocaleContext(self.props.locale)
-    end
+	if self.props.locale ~= previousProps.locale then
+		self._context[LocaleContextKey] = getLocaleContext(self.props.locale)
+	end
 end
 
 return LocaleProvider

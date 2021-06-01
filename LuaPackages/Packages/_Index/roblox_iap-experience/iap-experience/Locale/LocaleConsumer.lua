@@ -10,12 +10,12 @@ local LocaleContextKey = require(IAPExperienceRoot.Symbols.LocaleContextKey)
 local LocaleConsumer = Roact.Component:extend("LocaleConsumer")
 
 LocaleConsumer.validateProps = t.strictInterface({
-    render = t.callback,
+	render = t.callback,
 })
 
 function LocaleConsumer:render()
-    local localeContext = self._context[LocaleContextKey]
-    return self.props.render(localeContext)
+	local localeContext = self._context[LocaleContextKey]
+	return self.props.render(localeContext)
 end
 
 return LocaleConsumer

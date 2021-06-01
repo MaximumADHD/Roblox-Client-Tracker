@@ -114,7 +114,7 @@ function FocusNode:focus()
 	else
 		if self.restorePreviousChildFocus and self.lastFocused ~= nil and self.lastFocused:getValue() then
 			focusController:moveFocusTo(self.lastFocused)
-		elseif self.defaultChildRef ~= nil then
+		elseif self.defaultChildRef ~= nil and self.defaultChildRef:getValue() ~= nil then
 			focusController:moveFocusTo(self.defaultChildRef)
 		else
 			local defaultChild = self:__findDefaultChildNode()

@@ -13,26 +13,26 @@ local mockStyleAndLocalizationComponent = require(IAPExperienceRoot.Utility.mock
 local ProductPurchasePrompt = require(ProductPurchaseRoot.ProductPurchasePrompt)
 
 return function()
-    describe("lifecycle", function()
-        it("should mount and unmount informative alerts without issue", function()
-            local element = mockStyleAndLocalizationComponent({
-                Item = Roact.createElement(ProductPurchasePrompt, {
-                    position = UDim2.new(0.5, 0, 0.5, 0),
-                    anchorPoint = Vector2.new(0.5, 0.5),
-                    screenSize = Vector2.new(100, 100),
-    
-                    itemIcon = PREMIUM_ICON_LARGE,
-                    itemName = "Premium Coins",
-                    itemRobuxCost = 50,
-                    currentBalance = 100,
-    
-                    buyItemActivated = function()  end,
-                    cancelPurchaseActivated = function() end,
-                })
-            })
+	describe("lifecycle", function()
+		it("should mount and unmount informative alerts without issue", function()
+			local element = mockStyleAndLocalizationComponent({
+				Item = Roact.createElement(ProductPurchasePrompt, {
+					position = UDim2.new(0.5, 0, 0.5, 0),
+					anchorPoint = Vector2.new(0.5, 0.5),
+					screenSize = Vector2.new(100, 100),
+	
+					itemIcon = PREMIUM_ICON_LARGE,
+					itemName = "Premium Coins",
+					itemRobuxCost = 50,
+					currentBalance = 100,
+	
+					buyItemActivated = function()  end,
+					cancelPurchaseActivated = function() end,
+				})
+			})
 
-            local instance = Roact.mount(element)
-            Roact.unmount(instance)
-        end)
-    end)
+			local instance = Roact.mount(element)
+			Roact.unmount(instance)
+		end)
+	end)
 end

@@ -13,4 +13,5 @@ return {
 	httpRequest = require(LuaSocialLibrariesDeps.httpRequest),
 	NetworkingPresence = require(LuaSocialLibrariesDeps.NetworkingPresence),
 	CollisionMatchers = require(LuaSocialLibrariesDeps.CollisionMatchers),
+	SocialLibraries = require(LuaSocialLibrariesDeps.SocialLibraries),
 }
