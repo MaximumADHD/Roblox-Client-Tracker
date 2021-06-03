@@ -91,6 +91,7 @@ AbdmDefaultCleanupThreshold
 AbdmDefaultMaxBackoffTimeMs
 ABFF44EA887B11E18561866242201959
 ABFF44EB887B11E18561866242201959
+ABgI1O6y0FcoXJtmLf2nmP86zFPXvIIDZYLxaxLxPsRPTCeU5mQ5
 ABNewStudioUsers
 ABNewUsers
 AbortableLineEdit
@@ -4698,7 +4699,6 @@ AXW4UiMessageType
 AXW4UserCFrame
 AXW4UserInputType
 AXW4VRTouchpad
-AYLd4obikwjyc
 BA447F42A91111E2B410EF351327957B
 BA886F11E18561866242201959
 BAA3C620681180838E23F0DC6224
@@ -4848,7 +4848,6 @@ BBBBBBBBBBBBBBBBBBBBBBBBBBBB
 BBCA91111E2B410EF351327957B
 BbEcJYG[I[NYVP\B]
 BBFA91111E2B410EF351327957B
-BBO0fQq5ulLbs0rvAieBvc7mw
 BBxZ55ZxBBx[5D
 BC0A91111E2B410EF351327957B
 BC0DAEAAF011E38B9D871882A8E559
@@ -5004,6 +5003,7 @@ BIO_sock_init
 BIO_socket
 BIO_socket_nbio
 BIO_write_ex
+BIqQKZN1q9awcvpXrqp
 BitArrayToObject
 BitstreamList
 Bkg_round.png
@@ -5369,6 +5369,7 @@ BVTextureId
 BW4AlphaMode
 BW4ModelLevelOfDetail
 BWGradient.png
+BX4n8CAwEAAQ
 ByCongestionControl
 ByContacts
 ByDatacenter_
@@ -7847,6 +7848,7 @@ CustomPhysics
 CustomSort
 CustomStatusAdded
 CustomStatusRemoved
+CvU5odGuGYNIfgTD38TFqXg0
 CWindowImpl
 CWindowImplBaseT
 CWindowImplRoot
@@ -9010,13 +9012,6 @@ DiffView.png
 DigestAlgorithm_find_ctx
 DigestAlgorithm_init_bio
 DigestedData_do_final
-DigiCertAssuredIDRootCA.crl0
-DigiCertAssuredIDRootCA.crl0P
-DigiCertAssuredIDRootCA.crt0
-DigiCertEVCodeSigningCA
-DigiCertHighAssuranceEVRootCA.crl0
-DigiCertHighAssuranceEVRootCA.crt0
-DigiCertSHA2AssuredIDTimestampingCA.crt0
 DigitalSignature
 DilateTemporalFS
 DilleniaUPC
@@ -9169,7 +9164,6 @@ Distribution_
 DistributionPoint
 DistributionPoints
 DistToShowBufferCountSqr
-DJ6odaZmkqWe7LPKNOFCRpzHUp4J9cCB2J86poUPkEdP0uMa
 DKECCAK1600_ASM
 DlcVersion
 DListenerAttributes
@@ -9478,6 +9472,7 @@ DynamicReloaderFileFailureInfluxHundrethsPercentage
 DynamicRotate
 DynamicTaskSchedulerThreadNames
 DynamicThumbstick
+DzF09Y2zPb
 E\HTH\HfHrH
 E_disc_bottom_link.png
 E_modified.png
@@ -10105,6 +10100,8 @@ Enterprises
 EntireSession
 EntityProperties
 EntriesFromJson
+Entrust.net
+Entrust.net1
 EntryInformation
 EntryReplaced
 Enum.AvatarAssetType
@@ -10224,7 +10221,6 @@ EulerAnglesXYZ
 EulerAnglesYXZ
 EvaluatedKey
 EvaluateGlobalTransform
-EVCodeSigningSHA2
 Event.button
 Event.clientX
 Event.clientY
@@ -11366,7 +11362,6 @@ FrontSurfaceInput
 FrustumEnvMap
 FrustumOrdered
 FrustumRenderQueue
-FU4eEPLrkwl6r7bpTnqxeYZDpde
 FullRenderObjects
 Fullscreen
 FullScreen
@@ -12381,6 +12376,7 @@ GImpactCompound
 GImpactCompoundShape
 GiveFocusBackAfterClickingTextbox
 GizmoRaycast
+GJE3xI8DXSwx
 GL_ARB_copy_image
 GL_ARB_pixel_buffer_object
 GL_ARB_texture_storage
@@ -12425,7 +12421,6 @@ GLSL.std.450
 Glsles3Mediump1
 GlslesMediump1
 GlueCursor
-GlVoJz2OiXtBvJq
 GoldenHashes
 GoodbyeChoiceActive
 GoodbyeChoiceActiveProperty
@@ -12659,7 +12654,6 @@ GvEphfEUiHHoD6hYFI4xWGpAnIHcklKQCxrf46kAhDGeZnqIgeGszlGdWafunGE8
 GVKUTS[BXIWH\KbHi
 GXGfGkGpGuG
 GyroscopeEnabled
-GyWxIMyRuuCocQqtpVOuZ
 H_Key_dn.png
 H_NAEBVQString
 H`CeIkHq7v4
@@ -13337,7 +13331,6 @@ HwngSmldAskhBcraMegsOgnaTaweNmnoGuhsNoyoSbnaZrgoDgnoGghoRakaMfdeMogoSdgoSmylEdna
 HWYGOTH.ttf
 HybridEvent
 HyIyPyVy]y^yey
-HZrDKqdS9N7iE93DZEHWj94TogoDZAQ6bPd5HdN
 Iacutesmall
 IAEBVInstanceIdentifier
 IAutocompleter
@@ -13390,7 +13383,6 @@ Idotaccent
 Idotaccent.a
 IDraftsServiceHost
 IdsOrRanges
-IDuCdd5zMode1FXpA9vk0wvTRN3ufHDXAY4EvnejAv
 IEAA_NPEBXAEBW4EFbxType
 IEAA_NW4Format
 IEAAPEA_WXZ
@@ -14022,7 +14014,6 @@ IRobloxDoc
 IRobloxDocManager
 IRobloxIDEDoc
 IRobloxMainWindow
-Iroi3gYVZTM1mAa3Ht7qj
 IrradianceConvFS
 IrradianceConvVS
 IrradianceIndoor
@@ -14244,12 +14235,10 @@ JavaScriptCallback
 Jba5qWkYU5nARYZm1gQVP
 Jcircumflex
 JDJNJXJbJlJvJ
-Jha7SCYcjUQi07IJ60fGR
 JHJRJ\JfJpJxJ
 JHW4MembershipType
 JIIIIIIIKI
 JIRA_RIDE_711_V2
-JIZ5eLbtzngEsCSz
 JJJBBB\\\xx
 JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJ
 JKLMNOPQRSTU
@@ -14324,7 +14313,6 @@ JointToolHelpDialogVerb
 JointWakeAssemblies
 JosefinSans
 JPEBUSG_INDEX_TRIANGLE
-JSKJlrdQaMsVu47qbzUS2pItaSLLA5Rig22yXi5SFK2A1e
 JSON.parse
 JSON.stringify
 JSON_Parser
@@ -14356,7 +14344,6 @@ JW4ThumbnailType
 K\7IxU..UxI7\K
 K_Key_dn.png
 KaiTi_GB2312
-KB46qQy6NisA9pCs9drnmvuF0P12IkTodIkcvzeUl0Ll3v0tC792ZOwrPFft
 KBytesPerSec
 KeepAliveTimeout
 KeepChildLayoutState2
@@ -14425,7 +14412,6 @@ KnownPublishRequest
 KodchiangUPC
 KPEAVICHull
 KPEIBX_K_KPEIAU_iobuf
-KqFuh488LdCY
 KVScriptContext
 KYULPhCBFoD3mw5mygYqAeFlHdSL2k3MnDG
 LABEL_LITERAL
@@ -14630,6 +14616,7 @@ LightUserdata
 LimitAngle0
 LimitAngle1
 LimitDPIScale2
+Limited1301
 LimitedByCongestionControl
 LimitedByOutgoingBandwidthLimit
 LimitEnabled
@@ -15143,6 +15130,7 @@ LuauFixAssertTypeDef
 LuauFixClassDefinitionFunctionTypeProps
 LuauFixFindBindingInsideLocal
 LuauFixMemoryCategoryStatsName
+LuauFixNodePathIgnoresNodeClassName
 LuauFixOperatorEquality
 LuauFixRbxpDirectoryTraversal
 LuauFixRbxpFastFlagFileParsing
@@ -15213,6 +15201,7 @@ LuobuModerationStatusAvailable
 LuobuWhitelisted
 LuobuWhitelistedAllow
 LuobuWhitelistedField
+LUShmrO7hejsnkEizsGRZZgCC2mj4erWeQpc7eEljHgiIDjataGZcNhgYcdNvmbA
 LVvuOx39]O
 M_NVWeakObjectRef
 MacGamepadUseGCController
@@ -15953,7 +15942,7 @@ MigrateTriangleMeshData3
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAsI9zRp2OSccqdFx2
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAupANB3EbN9hFHHUj0eA
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAzjPRQo9jc
-MIICCgKCAgEA1CW9ZZ
+MIICCgKCAgEAqvojsCczfZueYtwQBBvIuEVU5mTxGrKjqth8OK81sIBzM4d4AzSR
 Millisecond
 MillisecondsBeforeHandlingReconnect
 MimeDataFromSelection
@@ -16000,7 +15989,6 @@ MissingAppCoreScriptsInStudio
 MissingCoreScript
 MissingDumpFile
 MissingGroupPermissions
-MkdvslFHL1S4
 MMW4IkDragCollisionsMode
 MMW4PartMaterial
 MMW4UserInputState
@@ -16463,7 +16451,6 @@ NegateSelection
 NegativePart
 Negotiates
 NeighborSleepThresholdMult
-NEMghLTRc6A
 NestedPackages
 Net_PacketReceive
 Net_Peer_Send
@@ -16473,6 +16460,7 @@ NETSCAPE_SPKI
 NETSCAPE_SPKI_b64_decode
 NETSCAPE_SPKI_b64_encode
 NETSCAPE2.0
+Network100.
 NetworkAssignGlobalIdPrepOnly
 NetworkAudit
 NetworkBandwdithManager
@@ -16668,6 +16656,7 @@ NfTeamCreateOnlyWhenTeamCreate
 NfXf`fhfzf
 NHVVariant
 NinjaMask.mesh
+NMbVBHLYRssrSjxfUetBZiDGVij7kLfCiphK2BjeWu2L99t
 NNNNNNNNNNNNNNNNNNNNNN
 NNNNNNNSSSSSSSSSSSSSSSSSSSSSS
 NNW4SizeMode
@@ -16935,7 +16924,6 @@ OCSPResponse
 OCSPSigning
 OCTETSTRING
 Odieresissmall
-OdjjnJgZMg0h6RIFq2qzdjiB
 OfA9HPuHfA9H`uAfA9Hpu
 OfAdmissions
 OfApproval
@@ -17176,7 +17164,6 @@ OrderFunction
 OrderFunctionMenu
 OrFirstTier
 Organization
-Organization1
 OrganizationDomain
 OrganizationName
 Organizations
@@ -17646,7 +17633,6 @@ PCDesktopClient
 PCDeviceWithResolution
 PCertReqData
 PCertResTBS
-PclkCAwEAAQ
 PCStudioApp
 PCStudioAppCJV
 PE_MAX_NB_SUBFR
@@ -18394,6 +18380,7 @@ PGWYcapabilities
 PgYlhgtIfaRB
 PGZKl8y6RXadfJMffKMAgK
 PhaseBroadPhase
+PhM2UxzyIW0lSwDXn5t2svWAY97JdVx9WJCUZO
 PhysicalConfigData
 PhysicalProperties
 PhysicalProperties.new
@@ -19430,6 +19417,7 @@ PVInstance
 PVK_header
 PxnhPiraCmahCilaKcpeLicyLidyLkclOgnjRruaSdnuSiiaVtsvAumaBpygEimrAilhPitrPavaJihtKusiLietMbraShkrOrmaSanaLtvaTktaBharBdnaMmkaCcreMoreMdrlPdrhSaroSrkaTssaBbhgAlpuDablEnarGjohKdniSaniLjhaMinaMdneMidoMoorMtabNbraNmrePgnmHmlaPcuaPplhPddiShriTaraWmohAwulHrtaHtluMgn
 PyJlf7IHZQpFHohBe
+PyKfLl4PEeFGwj
 QAbstractAnimation
 QAbstractButton
 QAbstractItemDelegate
@@ -20074,7 +20062,6 @@ QTStudioWinCrashHangRecorded
 QTStudioWinOtherCrashRecorded
 QTStudioWinRegistryErrorCrashRecorded
 QtUtilities
-Qty7OGJK4sZ0cJjfnVCruJuaRR66vsgpHxA4KYvrrw3KNPeh
 QTypedArrayData
 QUAD_WIDTH
 QualityLevel
@@ -20123,6 +20110,7 @@ QueuesLeftoverLength
 QueueSubmit
 QueueUserAPC
 QueueWaitIdle
+QUF7iHu8d88LInqUAMfS74PAVQqPv7MXFkrmzEhbCmotibyaBEZuQx3Ey5Vi
 Quick_Access_Button
 QuickAccess
 QuickAccess_
@@ -20182,7 +20170,6 @@ RagdollNoCollisionConstraint
 RagdollSlowEnoughToNotTenth
 RaiseCompleteness
 RaiseException
-RaKFOzfvivBYQFAtZ
 RakIngress
 RakIngressProcessed
 RAKNET_ALREADY_STARTED
@@ -21586,7 +21573,6 @@ RigidityEnabled
 RigImporterErrorChecking
 RiseVelocity
 Rj0isQcnqX
-Rkyk9APtlmD5bHyRI
 ROBLOSECURITY
 Roblox.Hybrid
 Roblox.Hybrid.Bridge.emitEvent
@@ -21802,7 +21788,6 @@ RSA_verify_ASN1_OCTET_STRING
 RSA_verify_PKCS1_PSS_mgf1
 RSAPrivateKey
 RSAPublicKey
-RSy1dHiB0sCuj
 RTDynamicCast
 RtlCaptureContext
 RtlCaptureStackBackTrace
@@ -26685,6 +26670,7 @@ SXNET_add_id_INTEGER
 SXNET_add_id_ulong
 SXNET_get_id_asc
 SXNET_get_id_ulong
+SymantecPKI
 SymbolicLinkAlreadyExist
 SymbolValue
 SymFunctionTableAccess64
@@ -26749,6 +26735,7 @@ TabToolTip
 TabWidgets
 TaintingModule
 TaintingModuleDirectory
+TAJbpT7VKko
 TakeDamage
 TakenSignal
 TakeScreenshot
@@ -27088,6 +27075,7 @@ TerrainWater
 TerrainWeldsFixed
 TerrainWorkerNullptr
 TerrainWriteNullptr
+TEs6xQi5cFQ4DrPdNiD1MnjOdmvI34cb5cv2
 Tessellation
 TEST_ENG_OPENSSL_PKEY
 TEST_ENG_OPENSSL_RC4
@@ -28128,10 +28116,12 @@ TS_TST_INFO_set_serial
 TS_TST_INFO_set_time
 TS_TST_INFO_set_tsa
 TS_VERIFY_CTX_new
+TseSGwwyapVERreHYEsZAY0IBzjsWF7KoQrsqIDCAn5
 TSMk2ThrottleStreamJob
 TTTTTTTTTT
 TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
 TTUUEDDsss
+TudzyZwaLcts7GuGag8yi3rnNBAFHxHknq1cTxV
 TurboBuildersClub
 TurnOffAction
 TurnOffScreenshotsForLuobu
@@ -31190,6 +31180,7 @@ YffYZefYDNNDCOO
 YieldEvent
 YieldFuncDesc
 YieldFunction
+Yo13Pampj1M8JljOmPCEcrdFd308MWpxUw6OLH4N0NAEQOS
 YQByteArray
 YResolution
 YwBBvY55YvBBwY5
@@ -31201,6 +31192,7 @@ Zdotaccent
 ZgnhKhWhci
 ZhniZzzzZbarAnmrAgneBlryCaveDroeGkerGrjuGuruGgnaHinaHrbeHariHadnKanaKooaLntaLmylMayrOlmaTuleTiahTtbiTopoBiarBsnaCrehCihtErmhKgnoMrmyMmagOrnuRhniScrySaahTiiiYtrsDhtoGlatIdhuBonaHglgTbgaTtrpCbmiLbniLamsOwahSelaTragUiguBtpoCgalGrahKulaToepXolySgnfTilaBxusXookNga
 ZIndexBehavior
+ZKxmj80j8kNpY
 ZLcJhLcGhM
 ZNjlXiODrHUcaGRYt
 ZntaLkerGlryCnmrArbeHbarAcrySaahTaveDgneBuruGrjuGayrOlmaTuleTadnKmylMhniSiahTooaLtbiTrmyMroeGgnaHihtErehCsnaCmagOrnuRrmhKgnoMariHanaKopoBinaHiiiYlatIhtoGtrsDhniZglgTonaHdhuBbgaTbmiLelaTbniLragUwahSamsOtrpCiarBiguBtpoCulaTgalGgnfTolySoepXrahKilaBxusXxnhPgahPoo
