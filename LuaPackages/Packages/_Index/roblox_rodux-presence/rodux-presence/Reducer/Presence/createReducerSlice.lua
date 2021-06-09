@@ -15,7 +15,7 @@ return function(reducerName, presenceField, options)
 		local userId = tostring(presenceModel.userId)
 
 		local previousValue = getDeepValue(state, string.format("byUserId.%s.%s", userId, presenceField))
-		if previousValue then
+		if previousValue and slicedState[previousValue] then
 			-- remove old entry
 			previousValue = tostring(previousValue)
 			slicedState = Cryo.Dictionary.join(slicedState, {

@@ -12,6 +12,8 @@ return {
 	RoduxPresence = require(LuaSocialLibrariesDeps.RoduxPresence),
 	httpRequest = require(LuaSocialLibrariesDeps.httpRequest),
 	NetworkingPresence = require(LuaSocialLibrariesDeps.NetworkingPresence),
+	NetworkingAliases = require(LuaSocialLibrariesDeps.NetworkingAliases),
+	NetworkingChat = require(LuaSocialLibrariesDeps.NetworkingChat),
 	CollisionMatchers = require(LuaSocialLibrariesDeps.CollisionMatchers),
 	SocialLibraries = require(LuaSocialLibrariesDeps.SocialLibraries),
 }
