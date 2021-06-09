@@ -12,19 +12,25 @@
 	Optional Props:
 	LayoutOrder = number, will automatic be overrode Position property by UILayouter.
 ]]
+local FFlagToolboxReplaceUILibraryComponentsPt2 = game:GetFastFlag("ToolboxReplaceUILibraryComponentsPt2")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Libs = Plugin.Libs
 local Roact = require(Libs.Roact)
 local UILibrary = require(Libs.UILibrary)
+local ContextServices = require(Libs.Framework).ContextServices
 
 local Util = Plugin.Core.Util
 local ContextHelper = require(Util.ContextHelper)
 local Constants = require(Util.Constants)
 local AssetConfigConstants = require(Util.AssetConfigConstants)
 
-local RoundTextBox = UILibrary.Component.RoundTextBox
+local TextInputWithBottomText
+if FFlagToolboxReplaceUILibraryComponentsPt2 then
+	TextInputWithBottomText = require(Libs.Framework).StudioUI.TextInputWithBottomText
+end
+local RoundTextBox = UILibrary.Component.RoundTextBox -- TODO: Make Multilined Textbox for UILibrary removal
 
 local withTheme = ContextHelper.withTheme
 local withLocalization = ContextHelper.withLocalization
@@ -51,85 +57,127 @@ function ConfigTextField:init(props)
 end
 
 function ConfigTextField:render()
-	return withTheme(function(theme)
-		return withLocalization(function(_, localizedContent)
-			local props = self.props
-			local state = self.state
-
-			local Title = props.Title
-			local TotalHeight = props.TotalHeight
-			local LayoutOrder = props.LayoutOrder
-			local MaxCount = props.MaxCount
-
-			local TextContent = props.TextContent or ""
-			local currentContent = state.currentContent or TextContent
-
-			if self.props.ErrorCallback then
-				if #currentContent > self.props.MaxCount then
-					if not self.hasError then
-						self.hasError = true
-						self.props.ErrorCallback(self.hasError)
-					end
-				else
-					if self.hasError then
-						self.hasError = false
-						self.props.ErrorCallback(self.hasError)
-					end
-				end
-			end
-
-			local publishAssetTheme = theme.publishAsset
-
-			return Roact.createElement("Frame", {
-				Size = UDim2.new(1, 0, 0, TotalHeight),
-
-				BackgroundTransparency = 1,
-				BorderSizePixel = 0,
-
-				LayoutOrder = LayoutOrder,
-			}, {
-				UIListLayout = Roact.createElement("UIListLayout", {
-					FillDirection = Enum.FillDirection.Horizontal,
-					HorizontalAlignment = Enum.HorizontalAlignment.Left,
-					VerticalAlignment = Enum.VerticalAlignment.Top,
-					SortOrder = Enum.SortOrder.LayoutOrder,
-					Padding = UDim.new(0, 0),
-				}),
-
-				Title = Roact.createElement("TextLabel", {
-					Size = UDim2.new(0, AssetConfigConstants.TITLE_GUTTER_WIDTH, 1, 0),
-
-					BackgroundTransparency = 1,
-					BorderSizePixel = 0,
-
-					Text = Title,
-					TextXAlignment = Enum.TextXAlignment.Left,
-					TextYAlignment = Enum.TextYAlignment.Top,
-					TextSize = Constants.FONT_SIZE_TITLE,
-					TextColor3 = publishAssetTheme.titleTextColor,
-					Font = Constants.FONT,
-
-					LayoutOrder = 1,
-				}),
-
-				TextField = Roact.createElement(RoundTextBox, {
-					Active = true,
-					ErrorMessage = nil,
-					MaxLength = MaxCount,
-					Text = currentContent,
-					Font = Constants.FONT,
-					TextSize = Constants.FONT_SIZE_LARGE,
-					Height = TotalHeight - TITLE_HEIGHT - TOOL_TIP_HEIGHT,
-					WidthOffset = -AssetConfigConstants.TITLE_GUTTER_WIDTH,
-					Multiline = MaxCount > 50,
-
-					SetText = self.onTextChanged,
-
-					LayoutOrder = 2,
-				})
-			})
+	if FFlagToolboxReplaceUILibraryComponentsPt2 then
+		return withLocalization(function(localization, localizedContent)
+			return self:renderContent(nil, localization, localizedContent)
 		end)
-	end)
+	else
+		return withTheme(function(theme)
+			return withLocalization(function(localization, localizedContent)
+				return self:renderContent(theme, localization, localizedContent)
+			end)
+		end)
+	end
+end
+
+function ConfigTextField:renderContent(theme, _, localizedContent)
+	if FFlagToolboxReplaceUILibraryComponentsPt2 then
+		theme = self.props.Stylizer
+	end
+
+	local props = self.props
+	local state = self.state
+
+	local Title = props.Title
+	local TotalHeight = props.TotalHeight
+	local LayoutOrder = props.LayoutOrder
+	local MaxCount = props.MaxCount
+
+	local TextContent = props.TextContent or ""
+	local currentContent = state.currentContent or TextContent
+
+	if self.props.ErrorCallback then
+		if #currentContent > self.props.MaxCount then
+			if not self.hasError then
+				self.hasError = true
+				self.props.ErrorCallback(self.hasError)
+			end
+		else
+			if self.hasError then
+				self.hasError = false
+				self.props.ErrorCallback(self.hasError)
+			end
+		end
+	end
+
+	local publishAssetTheme = theme.publishAsset
+
+	local textLength
+	local textOverMaxCount
+	local countText
+	local isMultiLine = false -- TODO: Make Multiline texbox for full removal of UILibrary.
+	if FFlagToolboxReplaceUILibraryComponentsPt2 then
+		textLength = utf8.len(currentContent)
+		textOverMaxCount = MaxCount and textLength > MaxCount
+		countText = MaxCount and (textLength .. "/" .. MaxCount) or ""
+		isMultiLine = MaxCount and MaxCount > 50
+	end
+
+	return Roact.createElement("Frame", {
+		Size = UDim2.new(1, 0, 0, TotalHeight),
+
+		BackgroundTransparency = 1,
+		BorderSizePixel = 0,
+
+		LayoutOrder = LayoutOrder,
+	}, {
+		UIListLayout = Roact.createElement("UIListLayout", {
+			FillDirection = Enum.FillDirection.Horizontal,
+			HorizontalAlignment = Enum.HorizontalAlignment.Left,
+			VerticalAlignment = Enum.VerticalAlignment.Top,
+			SortOrder = Enum.SortOrder.LayoutOrder,
+			Padding = UDim.new(0, 0),
+		}),
+
+		Title = Roact.createElement("TextLabel", {
+			Size = UDim2.new(0, AssetConfigConstants.TITLE_GUTTER_WIDTH, 1, 0),
+
+			BackgroundTransparency = 1,
+			BorderSizePixel = 0,
+
+			Text = Title,
+			TextXAlignment = Enum.TextXAlignment.Left,
+			TextYAlignment = Enum.TextYAlignment.Top,
+			TextSize = Constants.FONT_SIZE_TITLE,
+			TextColor3 = publishAssetTheme.titleTextColor,
+			Font = Constants.FONT,
+
+			LayoutOrder = 1,
+		}),
+
+		TextField = ((not isMultiLine) and FFlagToolboxReplaceUILibraryComponentsPt2) and Roact.createElement(TextInputWithBottomText, {
+			LayoutOrder = 2,
+			BottomText = countText,
+			Size = UDim2.new(1, -AssetConfigConstants.TITLE_GUTTER_WIDTH, 0, TotalHeight - TITLE_HEIGHT - TOOL_TIP_HEIGHT),
+			Style = textOverMaxCount and "Error" or nil,
+			TextInputProps = {
+				Enabled = true,
+				OnTextChanged = self.onTextChanged,
+				Text = currentContent,
+			},
+		})
+		or Roact.createElement(RoundTextBox, {
+			Active = true,
+			ErrorMessage = nil,
+			MaxLength = MaxCount,
+			Text = currentContent,
+			Font = Constants.FONT,
+			TextSize = Constants.FONT_SIZE_LARGE,
+			Height = TotalHeight - TITLE_HEIGHT - TOOL_TIP_HEIGHT,
+			WidthOffset = -AssetConfigConstants.TITLE_GUTTER_WIDTH,
+			Multiline = MaxCount > 50,
+
+			SetText = self.onTextChanged,
+
+			LayoutOrder = 2,
+		})
+	})
+end
+
+if FFlagToolboxReplaceUILibraryComponentsPt2 then
+	ContextServices.mapToProps(ConfigTextField, {
+		Stylizer = ContextServices.Stylizer,
+	})
 end
 
 return ConfigTextField

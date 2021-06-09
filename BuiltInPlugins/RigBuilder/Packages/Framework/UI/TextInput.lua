@@ -46,8 +46,34 @@ local StyleModifier = require(Framework.Util.StyleModifier)
 local TextInput = Roact.PureComponent:extend("TextInput")
 Typecheck.wrap(TextInput, script)
 
+local FlagsList = Util.Flags.new({
+	FFlagToolboxReplaceUILibraryComponentsPt2 = {"ToolboxReplaceUILibraryComponentsPt2"},
+})
+
 function TextInput:init()
-	self.textBoxRef = Roact.createRef()
+	if FlagsList:get("FFlagToolboxReplaceUILibraryComponentsPt2") then
+		self.textBoxRef = self.props[Roact.Ref] or Roact.createRef()
+		self.isHover = false
+		self.isFocused = false
+	else
+		self.textBoxRef = Roact.createRef()
+	end
+
+	self.setStyleModifier = function()
+		local modifier
+		if self.isFocused then
+			modifier = StyleModifier.Selected
+		elseif self.isHover then
+			modifier = StyleModifier.Hover
+		else
+			modifier = Roact.None
+		end
+
+		self:setState({
+			StyleModifier = modifier
+		})
+	end
+
 	self.onTextChanged = function(rbx)
 		-- workaround because we do not disconnect events before we start unmounting host components.
 		-- see https://github.com/Roblox/roact/issues/235 for more info
@@ -66,15 +92,43 @@ function TextInput:init()
 		end
 	end
 
+	if FlagsList:get("FFlagToolboxReplaceUILibraryComponentsPt2") then
+		self.onFocusGained = function(rbx, pressed)
+			self.isFocused = true
+			self.setStyleModifier()
+
+			if self.props.OnFocusGained then
+				self.props.OnFocusGained(rbx, pressed)
+			end
+		end
+	end
+
 	self.onFocusLost = function(rbx, enterPressed)
 		-- workaround because we do not disconnect events before we start unmounting host components.
 		-- see https://github.com/Roblox/roact/issues/235 for more info
 		if not self.textBoxRef.current then return end
 
+		if FlagsList:get("FFlagToolboxReplaceUILibraryComponentsPt2") then
+			self.isFocused = false
+			self.setStyleModifier()
+		end
+
 		local textBox = self.textBoxRef.current
 		textBox.TextXAlignment = Enum.TextXAlignment.Left
 		if self.props.OnFocusLost then
 			self.props.OnFocusLost(enterPressed)
+		end
+	end
+
+	if FlagsList:get("FFlagToolboxReplaceUILibraryComponentsPt2") then
+		self.mouseEnter = function()
+			self.isHover = true
+			self.setStyleModifier()
+		end
+
+		self.mouseLeave = function()
+			self.isHover = false
+			self.setStyleModifier()
 		end
 	end
 end
@@ -110,16 +164,18 @@ function TextInput:render()
 	local textColor = style.TextColor
 	local placeholderTextColor = style.PlaceholderTextColor
 
-	self.mouseEnter = function()
-		self:setState({
-			StyleModifier = StyleModifier.Hover
-		})
-	end
+	if not FlagsList:get("FFlagToolboxReplaceUILibraryComponentsPt2") then
+		self.mouseEnter = function()
+			self:setState({
+				StyleModifier = StyleModifier.Hover
+			})
+		end
 
-	self.mouseLeave = function()
-		self:setState({
-			StyleModifier = Roact.None
-		})
+		self.mouseLeave = function()
+			self:setState({
+				StyleModifier = Roact.None
+			})
+		end
 	end
 
 	local textBox = Roact.createElement("TextBox", {
@@ -141,7 +197,7 @@ function TextInput:render()
 
 		[Roact.Ref] = self.textBoxRef,
 
-		[Roact.Event.Focused] = self.props.OnFocusGained,
+		[Roact.Event.Focused] = FlagsList:get("FFlagToolboxReplaceUILibraryComponentsPt2") and self.onFocusGained or self.props.OnFocusGained,
 		[Roact.Event.FocusLost] = self.onFocusLost,
 		[Roact.Change.Text] = self.onTextChanged,
 		[Roact.Event.MouseEnter] = self.mouseEnter,
@@ -151,13 +207,20 @@ function TextInput:render()
 	local backgroundStyle = style.BackgroundStyle
 	local padding = style.Padding
 
+	local background
+	if FlagsList:get("FFlagToolboxReplaceUILibraryComponentsPt2") then
+		background = (not THEME_REFACTOR or style.useRoundBox) and RoundBox or nil
+	else
+		background = (not THEME_REFACTOR or props.Style == "RoundedBorder") and RoundBox or nil
+	end
+
 	return Roact.createElement(Container, {
 		AnchorPoint = props.AnchorPoint,
 		ClipsDescendants = true,
 		Position = position,
 		Padding = padding,
 		Size = size,
-		Background = (not THEME_REFACTOR or props.Style == "RoundedBorder") and RoundBox or nil,
+		Background = background,
 		BackgroundStyle = backgroundStyle,
 		LayoutOrder = layoutOrder,
 	}, {

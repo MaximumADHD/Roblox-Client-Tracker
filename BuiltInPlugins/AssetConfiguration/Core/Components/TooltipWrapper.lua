@@ -8,6 +8,7 @@
 ]]
 
 local FFlagFixMarketplaceTooltips = game:DefineFastFlag("FixMarketplaceTooltips", false)
+local FFlagToolboxReplaceUILibraryComponentsPt2 = game:GetFastFlag("ToolboxReplaceUILibraryComponentsPt2")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -15,7 +16,12 @@ local Libs = Plugin.Libs
 local Roact = require(Libs.Roact)
 local Constants = require(Plugin.Core.Util.Constants)
 
-local Tooltip = require(Libs.UILibrary).Component.Tooltip
+local Tooltip
+if FFlagToolboxReplaceUILibraryComponentsPt2 then
+	Tooltip = require(Libs.Framework).UI.Tooltip
+else
+	Tooltip = require(Libs.UILibrary).Component.Tooltip
+end
 
 local TooltipWrapper = Roact.PureComponent:extend("TooltipWrapper")
 
@@ -40,7 +46,7 @@ function TooltipWrapper:render()
 		Tooltip = Roact.createElement(Tooltip, {
 			Enabled = canShowCurrentTooltip and isHovered,
 			Text = text,
-			ShowDelay = Constants.TOOLTIP_SHOW_UP_DELAY,
+			ShowDelay = (not FFlagToolboxReplaceUILibraryComponentsPt2) and Constants.TOOLTIP_SHOW_UP_DELAY or nil,
 		})
 	})
 end

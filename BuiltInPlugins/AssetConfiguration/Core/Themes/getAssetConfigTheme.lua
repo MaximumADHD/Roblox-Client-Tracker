@@ -1,0 +1,69 @@
+--[[
+	Gets the new Stylizer-compatible AssetConfigTheme
+	This should replace AssetConfigTheme once UILibrary and withTheme are completely removed.
+]]
+local FFlagToolboxReplaceUILibraryComponentsPt2 = game:GetFastFlag("ToolboxReplaceUILibraryComponentsPt2")
+
+local Plugin = script.Parent.Parent.Parent
+
+local Libs = Plugin.Libs
+
+local Framework = require(Libs.Framework)
+
+local FrameworkStyle = Framework.Style
+local StyleKey = FrameworkStyle.StyleKey
+local ui = FrameworkStyle.ComponentSymbols
+local getRawComponentStyle = FrameworkStyle.getRawComponentStyle
+local StyleModifier = require(Libs.Framework.Util.StyleModifier)
+
+local Cryo = require(Plugin.Libs.Cryo)
+
+return function()
+	if not FFlagToolboxReplaceUILibraryComponentsPt2 then
+		return
+	end
+
+	local roundBox = getRawComponentStyle("RoundBox")
+
+	return {
+		assetConfig = {
+			labelTextColor = StyleKey.DimmedText,
+		},
+
+		footer = {
+			backgroundColor = StyleKey.MainBackground,
+			borderColor = StyleKey.Border,
+		},
+
+		inputFields = {
+			backgroundColor = StyleKey.InputFieldBackground,
+			toolTip = StyleKey.DimmedText,
+			error = StyleKey.ErrorText,
+		},
+
+		[ui.RoundBox] = Cryo.Dictionary.join(roundBox, {
+			["&CatalogTag"] = {
+				Color = StyleKey.MainBackground,
+				BorderColor = StyleKey.Border,
+			},
+			["&TagsComponent"] = {
+				Color = StyleKey.InputFieldBackground,
+				BorderColor = StyleKey.Border,
+
+				[StyleModifier.Selected] = {
+					BorderColor = StyleKey.InputFieldBorderSelected,
+				},
+				[StyleModifier.Disabled] = {
+					Color = StyleKey.InputFieldBackgroundDisabled,
+				},
+			},
+			["&TagsComponentError"] = {
+				BorderColor = StyleKey.ErrorText,
+			},
+		}),
+
+		tags = {
+			textColor = StyleKey.MainText,
+		}
+	}
+end

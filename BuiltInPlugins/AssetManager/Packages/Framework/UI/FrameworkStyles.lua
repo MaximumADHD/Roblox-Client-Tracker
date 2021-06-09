@@ -47,6 +47,7 @@ function FrameworkStyles.new()
 		Table = newDefaults(),
 		Tabs = newDefaults(),
 		TextInput = newDefaults(),
+		TextInputWithBottomText = newDefaults(),
 		TextLabel = newDefaults(),
 		TextWithInlineLink = newDefaults(),
 		ToggleButton = newDefaults(),

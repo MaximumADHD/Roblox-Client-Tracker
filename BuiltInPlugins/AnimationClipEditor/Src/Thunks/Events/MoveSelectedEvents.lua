@@ -12,19 +12,32 @@ local AnimationData = require(Plugin.Src.Util.AnimationData)
 local SetSelectedEvents = require(Plugin.Src.Actions.SetSelectedEvents)
 local UpdateAnimationData = require(Plugin.Src.Thunks.UpdateAnimationData)
 
-return function(pivot, newFrame)
+local GetFFlagRealtimeChanges = require(Plugin.LuaFlags.GetFFlagRealtimeChanges)
+
+return function(pivot, newFrame, dragContext)
 	return function(store)
-		local animationData = store:getState().AnimationData
-		local selectedEvents = store:getState().Status.SelectedEvents
-		if not animationData then
+		local animationData = (GetFFlagRealtimeChanges() and dragContext) and dragContext.animationData or store:getState().AnimationData
+		local selectedEvents = (GetFFlagRealtimeChanges() and dragContext) and dragContext.selectedEvents or store:getState().Status.SelectedEvents
+		if not animationData or (GetFFlagRealtimeChanges() and not animationData.Events) then
 			return
 		end
 
-		local newData = deepCopy(animationData)
+		local maxLength = animationData.Metadata and animationData.Metadata.FrameRate
+			and AnimationData.getMaximumLength(animationData.Metadata.FrameRate)
+			or AnimationData.getMaximumLength(30)
+
+		-- Avoid a deepCopy of the entire animationData
+		local newData = GetFFlagRealtimeChanges() and Cryo.Dictionary.join({}, animationData) or deepCopy(animationData)
+
+		if GetFFlagRealtimeChanges() then
+			newData.Events = deepCopy(newData.Events)
+		end
 
 		local events = newData.Events
-		if events == nil then
-			return
+		if not GetFFlagRealtimeChanges() then  -- If flag is on, we bailed out before the copy
+			if events == nil then
+				return
+			end
 		end
 
 		local selectedFrames = Cryo.Dictionary.keys(selectedEvents)
@@ -33,10 +46,18 @@ return function(pivot, newFrame)
 
 		local newSelectedEvents = deepCopy(selectedEvents)
 
+		local earliestFrame, latestFrame
+		if GetFFlagRealtimeChanges() then
+			earliestFrame, latestFrame = AnimationData.getEventBounds(newData, selectedEvents)
+		end
+
 		if delta < 0 then
 			-- Moving backwards, iterate through selection left to right to avoid overwriting
 			for _, frame in ipairs(selectedFrames) do
 				local insertFrame = frame + delta
+				if GetFFlagRealtimeChanges() then
+					insertFrame = math.clamp(insertFrame, frame - earliestFrame, maxLength - (latestFrame - frame))
+				end
 				AnimationData.moveEvents(events, frame, insertFrame)
 
 				newSelectedEvents[frame] = nil
@@ -47,6 +68,9 @@ return function(pivot, newFrame)
 			for index = #selectedFrames, 1, -1 do
 				local frame = selectedFrames[index]
 				local insertFrame = frame + delta
+				if GetFFlagRealtimeChanges() then
+					insertFrame = math.clamp(insertFrame, frame - earliestFrame, maxLength - (latestFrame - frame))
+				end
 				AnimationData.moveEvents(events, frame, insertFrame)
 
 				newSelectedEvents[frame] = nil

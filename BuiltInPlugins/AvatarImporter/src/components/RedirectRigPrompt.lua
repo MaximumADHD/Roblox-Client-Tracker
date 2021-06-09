@@ -40,7 +40,7 @@ function RedirectRigPrompt:render()
 			Font = Constants.FONT_BOLD,
 			Position = UDim2.new(0, 0, 0, 123),
 			Size = UDim2.new(1, 0, 0, 18),
-			Text = "You are trying to import a R15 rig as Custom:",
+			Text = (self.props.avatarType == Constants.AVATAR_TYPE.CUSTOM or self.props.avatarType == nil) and "You are trying to import a R15 rig as Custom:" or "You are trying to import a custom rig as R15:",
 			TextSize = Constants.FONT_SIZE_MEDIUM,
 			TextXAlignment = Enum.TextXAlignment.Center,
 			TextYAlignment = Enum.TextYAlignment.Center,
@@ -78,6 +78,14 @@ function RedirectRigPrompt:render()
 	})
 end
 
+local function mapStateToProps(state)
+	state = state or {}
+
+	return {
+		avatarType = state.plugin.avatarType
+	}
+end
+
 local function mapDispatchToProps(dispatch)
 	return {
 		doImportWithoutSceneLoad = function(avatarType)
@@ -86,4 +94,4 @@ local function mapDispatchToProps(dispatch)
 	}
 end
 
-return RoactRodux.connect(nil, mapDispatchToProps)(RedirectRigPrompt)
+return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(RedirectRigPrompt)

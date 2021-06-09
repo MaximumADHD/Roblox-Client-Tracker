@@ -11,14 +11,14 @@ local Common = require(StudioFrameworkStyles.Common)
 
 if THEME_REFACTOR then
 	return {
-		TextColor = StyleKey.MainButton,
+		TextColor = StyleKey.LinkText,
 	}
 else
 	return function(theme, getColor)
 		local common = Common(theme, getColor)
 
 		local Default = Style.extend(common.MainText, {
-			TextColor = theme:GetColor("MainButton"),
+			TextColor = theme:GetColor("LinkText"),
 		})
 
 		return {

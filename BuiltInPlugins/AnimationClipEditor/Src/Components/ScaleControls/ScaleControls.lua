@@ -37,6 +37,8 @@ local StringUtils = require(Plugin.Src.Util.StringUtils)
 local ScaleHandle = require(Plugin.Src.Components.ScaleControls.ScaleHandle)
 local TimeTag = require(Plugin.Src.Components.ScaleControls.TimeTag)
 
+local GetFFlagRealtimeChanges = require(Plugin.LuaFlags.GetFFlagRealtimeChanges)
+
 local ScaleControls = Roact.PureComponent:extend("PureComponent")
 
 local PADDING = 24
@@ -84,14 +86,21 @@ function ScaleControls:init()
 		local trackIndices = {}
 		local earliestKeyframe = self.props.EndFrame + 1
 		local latestKeyframe = 0
-		local hasPreview = self.props.PreviewKeyframes ~= nil
-		local selectionData = hasPreview and self.props.PreviewKeyframes or self.props.SelectedKeyframes
+		local hasPreview
+		local selectionData
+		if GetFFlagRealtimeChanges() then
+			selectionData = self.props.SelectedKeyframes
+		else
+			hasPreview = self.props.PreviewKeyframes ~= nil
+			selectionData = hasPreview and self.props.PreviewKeyframes or self.props.SelectedKeyframes
+		end
+
 		for _, instance in pairs(selectionData) do
 			for trackName, keyframes in pairs(instance) do
 				local trackIndex = TrackUtils.getTrackIndex(self.props.Tracks, trackName)
 				table.insert(trackIndices, trackIndex)
 				for key, value in pairs(keyframes) do
-					if hasPreview then
+					if not GetFFlagRealtimeChanges() and hasPreview then
 						earliestKeyframe = math.min(earliestKeyframe, value)
 						latestKeyframe = math.max(latestKeyframe, value)
 					else

@@ -16,5 +16,6 @@ game:DefineFastFlag("GameSettingsMigrateToDevFrameworkSeparator", false)
 -- todo(rtanna): with removal of this flag, remove the "AccessPermissions" entries from TranslationDevelopmentTable
 game:DefineFastFlag("GameSettingsStandardizeLocalizationId", false)
 game:DefineFastFlag("GameSettingsDisplayCollaborativeEditingWarning", false)
+game:DefineFastFlag("UseLayoutIteratorGameSettingsPublishPlace", false)
 
 return nil

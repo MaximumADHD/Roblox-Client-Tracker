@@ -2,6 +2,8 @@ local Framework = script.Parent.Parent.Parent
 local Colors = require(Framework.Style.Colors)
 local StyleKey = require(Framework.Style.StyleKey)
 
+local FFlagDevFrameworkFixButtonStyles = game:GetFastFlag("DevFrameworkFixButtonStyles")
+
 return {
 	[StyleKey.Border] = Colors.Carbon,
 	[StyleKey.BrightText] = Colors.White,
@@ -19,8 +21,8 @@ return {
 	[StyleKey.CategoryItem] = Color3.fromRGB(53, 53, 53),
 
 	[StyleKey.DialogMainButton] = Colors.Blue,
-	[StyleKey.DialogMainButtonDisabled] = Colors.Blue,
-	[StyleKey.DialogMainButtonHover] = Colors.Blue,
+	[StyleKey.DialogMainButtonDisabled] = FFlagDevFrameworkFixButtonStyles and Colors.Gray or Colors.Blue,
+	[StyleKey.DialogMainButtonHover] = FFlagDevFrameworkFixButtonStyles and Colors.Blue_Light or Colors.Blue,
 	[StyleKey.DialogMainButtonSelected] = Colors.Blue_Dark,
 	[StyleKey.DialogMainButtonText] = Colors.White,
 	[StyleKey.DialogMainButtonTextDisabled] = Color3.fromRGB(102, 102, 102),
@@ -29,10 +31,14 @@ return {
 	[StyleKey.ErrorText] = Color3.fromRGB(255, 68, 68),
 
 	[StyleKey.InputFieldBackground] = Color3.fromRGB(37, 37, 37),
+	[StyleKey.InputFieldBackgroundDisabled] = Color3.fromRGB(53, 53, 53),
+	[StyleKey.InputFieldBorder] = Color3.fromRGB(161, 161, 161),
+	[StyleKey.InputFieldBorderDisabled] = Color3.fromRGB(66, 66, 66),
+	[StyleKey.InputFieldBorderSelected] = Color3.fromRGB(53, 181, 255),
+	[StyleKey.ItemHovered] = Colors.Gray,
 
 	[StyleKey.LinkText] = Color3.fromRGB(60, 180, 255),
 
-	[StyleKey.ItemHovered] = Colors.Gray,
 	[StyleKey.MainBackground] = Colors.Slate,
 	[StyleKey.MainButton] = Colors.Blue,
 	[StyleKey.MainText] = Colors.Gray_Light,

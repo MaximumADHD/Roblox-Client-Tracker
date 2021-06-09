@@ -74,6 +74,7 @@ function MainView:renderTarget(props)
 	end
 	return Roact.createElement(Pane, {
 		Layout = Enum.FillDirection.Vertical,
+		Style = "Box",
 	}, {
 		TopBar = Roact.createElement(TopBar, {
 			Active = props.Active,

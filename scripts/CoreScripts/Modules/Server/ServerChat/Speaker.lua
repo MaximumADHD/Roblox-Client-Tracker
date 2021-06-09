@@ -11,6 +11,13 @@ local ChatSettings = require(ReplicatedModules:WaitForChild("ChatSettings"))
 
 local modulesFolder = script.Parent
 
+local UserFlagRemoveMessageOnTextFilterFailures do
+	local success, value = pcall(function()
+		return UserSettings():IsUserFeatureEnabled("UserRemoveMessageOnTextFilterFailures")
+	end)
+	UserFlagRemoveMessageOnTextFilterFailures = success and value
+end
+
 --////////////////////////////// Methods
 --//////////////////////////////////////
 local function ShallowCopy(table)
@@ -315,10 +322,17 @@ function methods:InternalSendFilteredMessageWithFilterResult(inMessageObj, chann
 	--// Messages of 0 length are the result of two users not being allowed
 	--// to chat, or GetChatForUserAsync() failing. In both of these situations,
 	--// messages with length of 0 should not be sent.
-	if (#msg > 0) then
+
+	if UserFlagRemoveMessageOnTextFilterFailures then
 		messageObj.Message = msg
 		messageObj.FilterResult = nil
 		self:InternalSendFilteredMessage(messageObj, channelName)
+	else
+		if (#msg > 0) then
+			messageObj.Message = msg
+			messageObj.FilterResult = nil
+			self:InternalSendFilteredMessage(messageObj, channelName)
+		end
 	end
 end
 

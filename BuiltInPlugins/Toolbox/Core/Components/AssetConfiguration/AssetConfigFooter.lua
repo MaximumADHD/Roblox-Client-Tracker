@@ -16,6 +16,7 @@
 ]]
 
 local FFlagCMSUploadFees = game:GetFastFlag("CMSUploadFees")
+local FFlagToolboxReplaceUILibraryComponentsPt2 = game:GetFastFlag("ToolboxReplaceUILibraryComponentsPt2")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -23,6 +24,7 @@ local Libs = Plugin.Libs
 local Roact = require(Libs.Roact)
 local RoactRodux = require(Libs.RoactRodux)
 local UILibrary = require(Libs.UILibrary)
+local ContextServices = require(Libs.Framework).ContextServices
 
 local Util = Plugin.Core.Util
 local ContextHelper = require(Util.ContextHelper)
@@ -32,12 +34,23 @@ local AssetConfigConstants = require(Util.AssetConfigConstants)
 local AssetConfigUtil = require(Util.AssetConfigUtil)
 
 local FrameworkUtil = require(Libs.Framework.Util)
+local StyleModifier = require(Libs.Framework.Util.StyleModifier)
 
 local ContextGetter = require(Util.ContextGetter)
 local getNetwork = ContextGetter.getNetwork
 
-local RoundTextButton = UILibrary.Component.RoundTextButton
-local RoundTextBox = UILibrary.Component.RoundTextBox
+local Button
+local RoundTextButton
+local RoundTextBox
+local TextInput
+if FFlagToolboxReplaceUILibraryComponentsPt2 then
+	local Framework = require(Libs.Framework)
+	Button = Framework.UI.Button
+	TextInput = Framework.UI.TextInput
+else
+	RoundTextButton = UILibrary.Component.RoundTextButton
+	RoundTextBox = UILibrary.Component.RoundTextBox
+end
 
 local ConfigTypes = require(Plugin.Core.Types.ConfigTypes)
 
@@ -115,161 +128,210 @@ function AssetConfigFooter:shouldUpdate(nextProps, nextState)
 end
 
 function AssetConfigFooter:render()
-	return withTheme(function(theme)
+	if FFlagToolboxReplaceUILibraryComponentsPt2 then
 		return withLocalization(function(localization, localizedContent)
-			local props = self.props
-			local state = self.state
-
-			local size = props.Size
-			local layoutOrder = props.LayoutOrder
-
-			local tryPublish = props.TryPublish
-			local tryCancel = props.TryCancel
-
-			local footerTheme = theme.footer
-
-			local canSave = props.CanSave
-			local screenFlowType = props.screenFlowType
-			local assetTypeEnum = props.assetTypeEnum
-			local currentTab = props.currentTab
-			local validateAnimationSucceeded = props.validateAnimationSucceeded
-
-			local hideInvalidAnimationID = validateAnimationSucceeded or state.animationId == ""
-			if FFlagAssetConfigFixBadIdVerifyState then
-				hideInvalidAnimationID = self.hideInvalidAnimationID
-			end
-
-			local showOverride = ScreenSetup.queryParam(screenFlowType, assetTypeEnum, ScreenSetup.keys.SHOW_OVERRIDE_BUTTON)
-			local overrideText
-			if ConfigTypes:isOverride(currentTab) then
-				overrideText = localizedContent.AssetConfig.Footer.NewAsset
-			else
-				overrideText = localizedContent.AssetConfig.Footer.Override
-			end
-
-			local useNewAnimFlow = assetTypeEnum == Enum.AssetType.Animation
-			local isDownloadFlow = useNewAnimFlow and AssetConfigConstants.FLOW_TYPE.DOWNLOAD_FLOW == props.screenFlowType
-
-			local publishActive = canSave
-			if isDownloadFlow then
-				-- no thumbnail selected, active is based on valid id in text box
-				if not canSave then
-					publishActive = validateAnimationSucceeded
-				-- thumbnail selected but id in box is invalid
-				elseif not validateAnimationSucceeded then
-					publishActive = false
-				end
-			end
-
-			local publishText = localizedContent.AssetConfig.Apply
-			if FFlagCMSUploadFees and screenFlowType == AssetConfigConstants.FLOW_TYPE.UPLOAD_FLOW and AssetConfigUtil.isCatalogAsset(assetTypeEnum) then
-				if props.isUploadFeeEnabled then
-					publishText = localization:getUploadWithFee(props.uploadFee)
-					if not props.canAffordUploadFee then
-						publishActive = false
-					end
-				elseif props.isUploadFeeEnabled == nil then
-					-- upload fee info hasn't loaded yet (not true/false)
-					publishActive = false
-				end
-			end
-
-			return Roact.createElement("Frame", {
-				Size = size,
-
-				BackgroundTransparency = 0,
-				BackgroundColor3 = footerTheme.backgroundColor,
-				BorderSizePixel = 1,
-				BorderColor3 = footerTheme.borderColor,
-
-				LayoutOrder = layoutOrder,
-			}, {
-				UIPadding = Roact.createElement("UIPadding", {
-					PaddingBottom = UDim.new(0, 0),
-					PaddingLeft = UDim.new(0, PADDING),
-					PaddingRight = UDim.new(0, PADDING),
-					PaddingTop = UDim.new(0, 0),
-				}),
-
-				UIListLayout = Roact.createElement("UIListLayout", {
-					FillDirection = Enum.FillDirection.Horizontal,
-					HorizontalAlignment = Enum.HorizontalAlignment.Right,
-					VerticalAlignment = Enum.VerticalAlignment.Center,
-					SortOrder = Enum.SortOrder.LayoutOrder,
-					Padding = UDim.new(0, PADDING),
-				}),
-
-				AnimationIdBox = isDownloadFlow and Roact.createElement("Frame", {
-					Size = UDim2.new(0, IMPORT_BOX_WIDTH, 0, BUTTON_HEIGHT),
-					BackgroundTransparency = 1,
-					BorderSizePixel = 0,
-					LayoutOrder = 3,
-				}, {
-					TextField = Roact.createElement(RoundTextBox, {
-						Active = true,
-						ErrorMessage = nil,
-						MaxLength = MAX_COUNT,
-						Text = props.AssetId or state.animationId,
-						PlaceholderText = localizedContent.AssetConfig.Override.AnimationID,
-						Font = Constants.FONT,
-						TextSize = Constants.FONT_SIZE_LARGE,
-						Height = BUTTON_HEIGHT,
-						WidthOffset = 0,
-						SetText = self.onAnimationIDChanged,
-						ShowToolTip = false,
-					})
-				}),
-
-				InvalidAnimationLabel = isDownloadFlow and not hideInvalidAnimationID and Roact.createElement("TextLabel", {
-					BackgroundTransparency = 1,
-					Font = Constants.FONT,
-					Text =  localizedContent.AssetConfig.Override.InvalidAnimationID,
-					TextColor3 = theme.uploadResult.redText,
-					TextSize = Constants.FONT_SIZE_MEDIUM,
-					Size = UDim2.new(0, INVALID_ID_SIZE, 1, 0),
-					TextYAlignment = Enum.TextYAlignment.Center,
-					TextXAlignment = Enum.TextXAlignment.Center,
-					LayoutOrder = 2
-				}),
-
-				CancelButton = Roact.createElement(RoundTextButton, {
-					Style = theme.cancelButton,
-					BorderMatchesBackground = false,
-					Size = UDim2.new(0, BUTTON_WIDTH, 0, BUTTON_HEIGHT),
-					Active = true,
-					Name = localizedContent.AssetConfig.Cancel,
-					TextSize = Constants.FONT_SIZE_MEDIUM,
-
-					OnClicked = tryCancel,
-
-					LayoutOrder = 4,
-				}),
-
-				PublishButton = Roact.createElement(RoundTextButton, {
-					Style = theme.defaultButton,
-					BorderMatchesBackground = true,
-					Size = UDim2.new(0, BUTTON_WIDTH, 0, BUTTON_HEIGHT),
-					Active = publishActive,
-					Name = publishText,
-					TextSize = Constants.FONT_SIZE_MEDIUM,
-
-					OnClicked = function() tryPublish(self.state.animationId) end,
-
-					LayoutOrder = 5,
-				}),
-
-				ToggleOverrideButton = showOverride and Roact.createElement(LinkButton, {
-					Size = UDim2.new(1, - BUTTON_WIDTH  * 2 - PADDING * 2, 0, LINK_BUTTON_HEIGHT),
-					Text = overrideText,
-					TextSize = Constants.FONT_SIZE_MEDIUM,
-					Font = Constants.FONT,
-					onActivated = self.onFlowButtonActivated,
-
-					LayoutOrder = 1,
-				})
-			})
+			return self:renderContent(nil, localization, localizedContent)
 		end)
-	end)
+	else
+		return withTheme(function(theme)
+			return withLocalization(function(localization, localizedContent)
+				return self:renderContent(theme, localization, localizedContent)
+			end)
+		end)
+	end
+end
+
+function AssetConfigFooter:renderContent(theme, localization, localizedContent)
+	local props = self.props
+	local state = self.state
+
+	if FFlagToolboxReplaceUILibraryComponentsPt2 then
+		theme = self.props.Stylizer
+	end
+
+	local size = props.Size
+	local layoutOrder = props.LayoutOrder
+
+	local tryPublish = props.TryPublish
+	local tryCancel = props.TryCancel
+
+	local footerTheme = theme.footer
+
+	local canSave = props.CanSave
+	local screenFlowType = props.screenFlowType
+	local assetTypeEnum = props.assetTypeEnum
+	local currentTab = props.currentTab
+	local validateAnimationSucceeded = props.validateAnimationSucceeded
+
+	local hideInvalidAnimationID = validateAnimationSucceeded or state.animationId == ""
+	if FFlagAssetConfigFixBadIdVerifyState then
+		hideInvalidAnimationID = self.hideInvalidAnimationID
+	end
+
+	local showOverride = ScreenSetup.queryParam(screenFlowType, assetTypeEnum, ScreenSetup.keys.SHOW_OVERRIDE_BUTTON)
+	local overrideText
+	if ConfigTypes:isOverride(currentTab) then
+		overrideText = localizedContent.AssetConfig.Footer.NewAsset
+	else
+		overrideText = localizedContent.AssetConfig.Footer.Override
+	end
+
+	local useNewAnimFlow = assetTypeEnum == Enum.AssetType.Animation and ConfigTypes:isOverride(currentTab)
+	local isDownloadFlow = useNewAnimFlow and AssetConfigConstants.FLOW_TYPE.DOWNLOAD_FLOW == props.screenFlowType
+
+	local animationText = props.AssetId or state.animationID
+	local animationTextOverMaxCount = false
+	local publishActive = canSave
+	if isDownloadFlow then
+		-- no thumbnail selected, active is based on valid id in text box
+		if not canSave then
+			publishActive = validateAnimationSucceeded
+		-- thumbnail selected but id in box is invalid
+		elseif not validateAnimationSucceeded then
+			publishActive = false
+		end
+
+		if FFlagToolboxReplaceUILibraryComponentsPt2 and animationText then
+			local textLength = utf8.len(animationText)
+			animationTextOverMaxCount = textLength > MAX_COUNT
+		end
+	end
+
+	local publishText = localizedContent.AssetConfig.Apply
+	if FFlagCMSUploadFees and screenFlowType == AssetConfigConstants.FLOW_TYPE.UPLOAD_FLOW and AssetConfigUtil.isCatalogAsset(assetTypeEnum) then
+		if props.isUploadFeeEnabled then
+			publishText = localization:getUploadWithFee(props.uploadFee)
+			if not props.canAffordUploadFee then
+				publishActive = false
+			end
+		elseif props.isUploadFeeEnabled == nil then
+			-- upload fee info hasn't loaded yet (not true/false)
+			publishActive = false
+		end
+	end
+
+	return Roact.createElement("Frame", {
+		Size = size,
+
+		BackgroundTransparency = 0,
+		BackgroundColor3 = footerTheme.backgroundColor,
+		BorderColor3 = footerTheme.borderColor,
+		BorderSizePixel = 1,
+
+		LayoutOrder = layoutOrder,
+	}, {
+		UIPadding = Roact.createElement("UIPadding", {
+			PaddingBottom = UDim.new(0, 0),
+			PaddingLeft = UDim.new(0, PADDING),
+			PaddingRight = UDim.new(0, PADDING),
+			PaddingTop = UDim.new(0, 0),
+		}),
+
+		UIListLayout = Roact.createElement("UIListLayout", {
+			FillDirection = Enum.FillDirection.Horizontal,
+			HorizontalAlignment = Enum.HorizontalAlignment.Right,
+			VerticalAlignment = Enum.VerticalAlignment.Center,
+			SortOrder = Enum.SortOrder.LayoutOrder,
+			Padding = UDim.new(0, PADDING),
+		}),
+
+		AnimationIdBox = isDownloadFlow and Roact.createElement("Frame", {
+			Size = UDim2.new(0, IMPORT_BOX_WIDTH, 0, BUTTON_HEIGHT),
+			BackgroundTransparency = 1,
+			BorderSizePixel = 0,
+			LayoutOrder = 3,
+		}, {
+			TextField = FFlagToolboxReplaceUILibraryComponentsPt2 and Roact.createElement(TextInput, {
+				OnTextChanged = self.onAnimationIDChanged,
+				PlaceholderText = localizedContent.AssetConfig.Override.AnimationID,
+				Size = UDim2.new(1, 0, 1, 0),
+				Style = animationTextOverMaxCount and "FilledRoundedRedBorder" or "FilledRoundedBorder",
+				Text = animationText,
+			})
+			or Roact.createElement(RoundTextBox, {
+				Active = true,
+				ErrorMessage = nil,
+				MaxLength = MAX_COUNT,
+				Text = props.AssetId or state.animationId,
+				PlaceholderText = localizedContent.AssetConfig.Override.AnimationID,
+				Font = Constants.FONT,
+				TextSize = Constants.FONT_SIZE_LARGE,
+				Height = BUTTON_HEIGHT,
+				WidthOffset = 0,
+				SetText = self.onAnimationIDChanged,
+				ShowToolTip = false,
+			}),
+		}),
+
+		InvalidAnimationLabel = isDownloadFlow and not hideInvalidAnimationID and Roact.createElement("TextLabel", {
+			BackgroundTransparency = 1,
+			Font = Constants.FONT,
+			Text =  localizedContent.AssetConfig.Override.InvalidAnimationID,
+			TextColor3 = FFlagToolboxReplaceUILibraryComponentsPt2 and theme.redText or theme.uploadResult.redText,
+			TextSize = Constants.FONT_SIZE_MEDIUM,
+			Size = UDim2.new(0, INVALID_ID_SIZE, 1, 0),
+			TextYAlignment = Enum.TextYAlignment.Center,
+			TextXAlignment = Enum.TextXAlignment.Center,
+			LayoutOrder = 2
+		}),
+
+		CancelButton = FFlagToolboxReplaceUILibraryComponentsPt2 and
+		Roact.createElement(Button, {
+			LayoutOrder = 4,
+			OnClick = tryCancel,
+			Style = "Round",
+			Size = UDim2.new(0, BUTTON_WIDTH, 0, BUTTON_HEIGHT),
+			Text = localizedContent.AssetConfig.Cancel,
+		})
+		or Roact.createElement(RoundTextButton, {
+			Style = theme.cancelButton,
+			BorderMatchesBackground = false,
+			Size = UDim2.new(0, BUTTON_WIDTH, 0, BUTTON_HEIGHT),
+			Active = true,
+			Name = localizedContent.AssetConfig.Cancel,
+			TextSize = Constants.FONT_SIZE_MEDIUM,
+
+			OnClicked = tryCancel,
+
+			LayoutOrder = 4,
+		}),
+
+		PublishButton = FFlagToolboxReplaceUILibraryComponentsPt2 and
+		Roact.createElement(Button, {
+			LayoutOrder = 5,
+			OnClick = function()
+				if publishActive then
+					tryPublish(self.state.animationId)
+				end
+			end,
+			Style = "RoundPrimary",
+			StyleModifier = (not publishActive) and StyleModifier.Disabled or nil,
+			Size = UDim2.new(0, BUTTON_WIDTH, 0, BUTTON_HEIGHT),
+			Text = publishText,
+		})
+		or Roact.createElement(RoundTextButton, {
+			Style = theme.defaultButton,
+			BorderMatchesBackground = true,
+			Size = UDim2.new(0, BUTTON_WIDTH, 0, BUTTON_HEIGHT),
+			Active = publishActive,
+			Name = publishText,
+			TextSize = Constants.FONT_SIZE_MEDIUM,
+
+			OnClicked = function() tryPublish(self.state.animationId) end,
+
+			LayoutOrder = 5,
+		}),
+
+		ToggleOverrideButton = showOverride and Roact.createElement(LinkButton, {
+			Size = UDim2.new(1, - BUTTON_WIDTH  * 2 - PADDING * 2, 0, LINK_BUTTON_HEIGHT),
+			Text = overrideText,
+			TextSize = Constants.FONT_SIZE_MEDIUM,
+			Font = Constants.FONT,
+			onActivated = self.onFlowButtonActivated,
+
+			LayoutOrder = 1,
+		})
+	})
 end
 
 local function mapStateToProps(state, props)
@@ -303,6 +365,12 @@ local function mapDispatchToProps(dispatch)
 	end
 
 	return dispatchToProps
+end
+
+if FFlagToolboxReplaceUILibraryComponentsPt2 then
+	ContextServices.mapToProps(AssetConfigFooter, {
+		Stylizer = ContextServices.Stylizer,
+	})
 end
 
 return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(AssetConfigFooter)

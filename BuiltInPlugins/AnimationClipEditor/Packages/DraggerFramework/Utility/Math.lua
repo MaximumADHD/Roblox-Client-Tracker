@@ -1,13 +1,19 @@
 local Math = {}
 
--- Insersect Ray(a + t*b) with plane (origin: o, normal: n)
+-- Insersect Ray(a + t*b) with plane (origin: o, normal: n), return t of the interesection
 function Math.intersectRayPlane(a, b, o, n)
 	return (o - a):Dot(n) / b:Dot(n)
 end
 
+-- Intersect Ray(a + t*b) with plane (origin: o, normal :n), and return the intersection as Vector3
+function Math.intersectRayPlanePoint(a, b, o, n)
+	local t = Math.intersectRayPlane(a, b, o, n)
+    return a + t * b;
+end
+
 --[[
 	The return value `t` is a number such that `r1o + t * r1d` is the point of
-	closest approach on the first ray between the two rays sepecified by the
+	closest approach on the first ray between the two rays specified by the
 	arguments.
 ]]
 function Math.intersectRayRay(r1o, r1d, r2o, r2d)
@@ -22,6 +28,17 @@ function Math.intersectRayRay(r1o, r1d, r2o, r2d)
 	else
 		return true, n / d
 	end
+end
+
+--[[
+	Returns the point of closest approach on the first ray between the two rays 
+	specified by the arguments.
+]]
+function Math.intersectRayRayPoint(r1o, r1d, r2o, r2d)
+	local r1du = r1d.Unit
+	local r2du = r2d.Unit
+	local b, t = Math.intersectRayRay(r1o, r1du, r2o, r2du)
+	return r1o + t * r1du
 end
 
 --[[

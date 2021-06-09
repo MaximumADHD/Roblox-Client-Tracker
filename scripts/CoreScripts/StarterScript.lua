@@ -42,6 +42,8 @@ local GetFFlagScreenTime = require(CorePackages.Regulations.ScreenTime.GetFFlagS
 
 local GetFFlagEnableCaptureMode = require(RobloxGui.Modules.Flags.GetFFlagEnableCaptureMode)
 
+local GetFFlagEnableVoiceDefaultChannel = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceDefaultChannel)
+
 -- The Rotriever index, as well as the in-game menu code itself, relies on
 -- the init.lua convention, so we have to run initify over the module.
 -- We do this explicitly because the LocalPlayer hasn't been created at this
@@ -212,4 +214,8 @@ ScriptContext:AddCoreScriptLocal("CoreScripts/NetworkPause", RobloxGui)
 
 if GetFFlagEnableCaptureMode() and not PolicyService:IsSubjectToChinaPolicies() then
 	ScriptContext:AddCoreScriptLocal("CoreScripts/CaptureHud", RobloxGui)
+end
+
+if game:GetEngineFeature("VoiceChatSupported") and GetFFlagEnableVoiceDefaultChannel() then
+	ScriptContext:AddCoreScriptLocal("CoreScripts/VoiceDefaultChannel", RobloxGui)
 end

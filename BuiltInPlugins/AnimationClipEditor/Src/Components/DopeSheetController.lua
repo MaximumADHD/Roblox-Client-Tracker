@@ -25,6 +25,8 @@ local KeyboardListener = Framework.UI.KeyboardListener
 local Localization = ContextServices.Localization
 
 local Preview = require(Plugin.Src.Util.Preview)
+local DragContext = require(Plugin.Src.Util.DragContext)
+
 local Input = require(Plugin.Src.Util.Input)
 local TrackUtils = require(Plugin.Src.Util.TrackUtils)
 local isEmpty = require(Plugin.Src.Util.isEmpty)
@@ -62,6 +64,7 @@ local GetFFlagEnforceMaxAnimLength = require(Plugin.LuaFlags.GetFFlagEnforceMaxA
 local UseCustomFPS = require(Plugin.LuaFlags.GetFFlagAnimEditorUseCustomFPS)
 local GetFFlagAddImportFailureToast = require(Plugin.LuaFlags.GetFFlagAddImportFailureToast)
 local GetFFlagHideLoadToastIfAnimationClipped = require(Plugin.LuaFlags.GetFFlagHideLoadToastIfAnimationClipped)
+local GetFFlagRealtimeChanges = require(Plugin.LuaFlags.GetFFlagRealtimeChanges)
 
 local DopeSheetController = Roact.Component:extend("DopeSheetController")
 
@@ -76,9 +79,16 @@ function DopeSheetController:init()
 		showContextMenu = false,
 		renamingKeyframe = nil,
 		changingDuration = nil,
+		hasDragWaypoint = false,	-- True if a waypoint has already been created for
+									-- the current drag operation (move/scale)
 	}
 
-	self.Preview = nil
+	if GetFFlagRealtimeChanges() then
+		self.DragContext = nil
+	else
+		self.Preview = nil
+	end
+
 	self.isMultiSelecting = false
 	self.mouseDownOnKeyframe = false
 	self.mouseDownInTimeline = false
@@ -108,34 +118,64 @@ function DopeSheetController:init()
 		return TrackUtils.getTrackFromPosition(self.tracks, topTrackIndex, yPos)
 	end
 
+	self.addDragWaypoint = function()
+		if not self.state.hasDragWaypoint then
+			self.props.AddWaypoint()
+			self:setState({
+				hasDragWaypoint = true
+			})
+		end
+	end
+
 	self.onScaleHandleDragStarted = function(frame)
 		local selectedKeyframes = self.props.SelectedKeyframes
 		local animationData = self.props.AnimationData
-		self.Preview = Preview.new(animationData, selectedKeyframes, frame)
+		if GetFFlagRealtimeChanges() then
+			self.DragContext = DragContext.new(animationData, selectedKeyframes, frame)
+		else
+			self.Preview = Preview.new(animationData, selectedKeyframes, frame)
+		end
 		self:setState({
 			draggingScale = true,
 			dragFrame = frame,
+			hasDragWaypoint = false
 		})
 	end
 
 	self.onKeyframeDragStarted = function(frame)
 		local selectedKeyframes = self.props.SelectedKeyframes
 		local animationData = self.props.AnimationData
-		self.Preview = Preview.new(animationData, selectedKeyframes, frame)
+		if GetFFlagRealtimeChanges() then
+			self.DragContext = DragContext.new(animationData, selectedKeyframes, frame)
+		else
+			self.Preview = Preview.new(animationData, selectedKeyframes, frame)
+		end
 		self:setState({
 			dragging = true,
 			dragFrame = frame,
+			hasDragWaypoint = false,
 		})
 	end
 
 	self.onScaleHandleDragMoved = function(input)
 		local frame = self.getFrameFromPosition(input.Position)
 		if self.state.dragFrame ~= frame then
-			if self.Preview then
-				self.Preview:scaleKeyframes(self.props.AnimationData, self.props.SelectedKeyframes, frame, self.props.StartFrame)
-				self:setState({
-					dragFrame = frame
-				})
+			if GetFFlagRealtimeChanges() then
+				if self.DragContext then
+					self.addDragWaypoint()
+					self.DragContext:scaleKeyframes(frame, self.props.StartFrame)
+					self.props.ScaleSelectedKeyframes(self.DragContext.pivotFrame, self.DragContext.scale, self.DragContext)
+					self:setState({
+						dragFrame = frame
+					})
+				end
+			else
+				if self.Preview then
+					self.Preview:scaleKeyframes(self.props.AnimationData, self.props.SelectedKeyframes, frame, self.props.StartFrame)
+					self:setState({
+						dragFrame = frame
+					})
+				end
 			end
 		end
 	end
@@ -143,35 +183,60 @@ function DopeSheetController:init()
 	self.onKeyframeDragMoved = function(input)
 		local frame = self.getFrameFromPosition(input.Position)
 		if self.state.dragFrame ~= frame then
-			if self.Preview then
-				self.Preview:moveKeyframes(self.props.AnimationData, self.props.SelectedKeyframes, frame)
-				self:setState({
-					dragFrame = frame
-				})
+			if GetFFlagRealtimeChanges() then
+				if self.DragContext then
+					self.addDragWaypoint()
+					self.DragContext:moveKeyframes(frame)
+					self.props.MoveSelectedKeyframes(self.DragContext.pivotFrame, self.DragContext.newFrame, self.DragContext)
+					self:setState({
+						dragFrame = frame
+					})
+				end
+			else
+				if self.Preview then
+					self.Preview:moveKeyframes(self.props.AnimationData, self.props.SelectedKeyframes, frame)
+					self:setState({
+						dragFrame = frame
+					})
+				end
 			end
 		end
 	end
 
 	self.onKeyframeDragEnded = function()
-		local pivotFrame = self.Preview.pivotFrame
-		local newFrame = self.Preview.newFrame
-		self.props.MoveSelectedKeyframes(pivotFrame, newFrame)
+		if not GetFFlagRealtimeChanges() then
+			local pivotFrame = self.Preview.pivotFrame
+			local newFrame = self.Preview.newFrame
+			self.props.MoveSelectedKeyframes(pivotFrame, newFrame)
+		end
 		self:setState({
 			dragging = false,
 			dragFrame = Roact.None,
+			hasDragWaypoint = false,
 		})
-		self.Preview = nil
+		if GetFFlagRealtimeChanges() then
+			self.DragContext = nil
+		else
+			self.Preview = nil
+		end
 	end
 
 	self.onScaleHandleDragEnded = function()
-		local pivotFrame = self.Preview.pivotFrame
-		local scale = self.Preview.scale
-		self.props.ScaleSelectedKeyframes(pivotFrame, scale)
+		if not GetFFlagRealtimeChanges() then
+			local pivotFrame = self.Preview.pivotFrame
+			local scale = self.Preview.scale
+			self.props.ScaleSelectedKeyframes(pivotFrame, scale)
+		end
 		self:setState({
 			draggingScale = false,
 			dragFrame = Roact.None,
+			hasDragWaypoint = false,
 		})
-		self.Preview = nil
+		if GetFFlagRealtimeChanges() then
+			self.DragContext = nil
+		else
+			self.Preview = nil
+		end
 	end
 
 	self.onSelectDragStarted = function(input)
@@ -305,17 +370,36 @@ function DopeSheetController:init()
 end
 
 function DopeSheetController:hasSelectedKeyframes()
-	return self.props.SelectedKeyframes ~= nil and not isEmpty(self.props.SelectedKeyframes)
+	if GetFFlagRealtimeChanges() then
+		-- TODO: doesn't matter if we use selectedKeyframes or DragContext selectedKeyframes
+		local selection = self.DragContext and self.DragContext.selectedKeyframe or self.props.SelectedKeyframes
+		return selection ~= nil and not isEmpty(selection)
+	else
+		return self.props.SelectedKeyframes ~= nil and not isEmpty(self.props.SelectedKeyframes)
+	end
 end
 
 function DopeSheetController:multipleFramesSelected()
-	local earliest, latest = Preview.getFrameBounds(self.props.AnimationData, self.props.SelectedKeyframes)
-	return self.props.SelectedKeyframes and earliest ~= latest
+	if GetFFlagRealtimeChanges() then
+		-- Use Preview reference data and selection, if available
+		local data = self.DragContext and self.DragContext.animationData or self.props.AnimationData
+		local selection = self.DragContext and self.DragContext.selectedKeyframes or self.props.SelectedKeyframes
+
+		local earliest, latest = AnimationData.getSelectionBounds(data, selection)
+		return selection and earliest ~= latest
+	else
+		local earliest, latest = Preview.getFrameBounds(self.props.AnimationData, self.props.SelectedKeyframes)
+		return self.props.SelectedKeyframes and earliest ~= latest
+	end
 end
 
 function DopeSheetController:getSelectedKeyframesExtents()
-	local earliest, latest = Preview.getFrameBounds(self.props.AnimationData, self.props.SelectedKeyframes)
-	return earliest, latest
+	if GetFFlagRealtimeChanges() then
+		return AnimationData.getSelectionBounds(self.props.AnimationData, self.props.SelectedKeyframes)
+	else
+		local earliest, latest = Preview.getFrameBounds(self.props.AnimationData, self.props.SelectedKeyframes)
+		return earliest, latest
+	end
 end
 
 function DopeSheetController:handleTimelineInputBegan(input, keysHeld)
@@ -562,11 +646,14 @@ function DopeSheetController:render()
 						TopTrackIndex = topTrackIndex,
 						SelectedKeyframes = props.SelectedKeyframes,
 						SelectedEvents = props.SelectedEvents,
-						OnKeyframeSelected = self.selectKeyframe,
-						OnKeyframeDragStarted = self.onDragStarted,
+						-- These two are undefined
+						OnKeyframeSelected = not GetFFlagRealtimeChanges() and self.selectKeyframe or nil,
+						OnKeyframeDragStarted = not GetFFlagRealtimeChanges() and self.onDragStarted or nil,
+						--
 						Tracks = self.tracks,
-						PreviewKeyframes = self.Preview and self.Preview.previewKeyframes,
-						PreviewData = self.Preview and self.Preview.previewData,
+						-- Not needed anymore, since the store is updated in real time
+						PreviewKeyframes = not GetFFlagRealtimeChanges() and self.Preview and self.Preview.previewKeyframes or nil,
+						PreviewData = not GetFFlagRealtimeChanges() and self.Preview and self.Preview.previewData or nil,
 						NamedKeyframes = namedKeyframes,
 						ShowLegacyKeyframes = showQuantizeWarning,
 						DragFrame = dragFrame,
@@ -620,7 +707,7 @@ function DopeSheetController:render()
 
 					ScaleControls = multipleSelected and not draggingSelection and Roact.createElement(ScaleControls, {
 						SelectedKeyframes = selectedKeyframes,
-						PreviewKeyframes = self.Preview and self.Preview.previewKeyframes,
+						PreviewKeyframes = not GetFFlagRealtimeChanges() and (self.Preview and self.Preview.previewKeyframes) or nil,
 						StartFrame = startFrame,
 						EndFrame = endFrame,
 						TopTrackIndex = topTrackIndex,
@@ -751,14 +838,22 @@ end
 
 local function mapDispatchToProps(dispatch)
 	local dispatchToProps = {
-		MoveSelectedKeyframes = function(pivotFrame, newFrame)
+		AddWaypoint = function()
 			dispatch(AddWaypoint())
-			dispatch(MoveSelectedKeyframes(pivotFrame, newFrame))
 		end,
 
-		ScaleSelectedKeyframes = function(pivotFrame, scale)
-			dispatch(AddWaypoint())
-			dispatch(ScaleSelectedKeyframes(pivotFrame, scale))
+		MoveSelectedKeyframes = function(pivotFrame, newFrame, dragContext)
+			if not GetFFlagRealtimeChanges() then
+				dispatch(AddWaypoint())
+			end
+			dispatch(MoveSelectedKeyframes(pivotFrame, newFrame, dragContext))
+		end,
+
+		ScaleSelectedKeyframes = function(pivotFrame, scale, dragContext)
+			if not GetFFlagRealtimeChanges() then
+				dispatch(AddWaypoint())
+			end
+			dispatch(ScaleSelectedKeyframes(pivotFrame, scale, dragContext))
 		end,
 
 		DeselectKeyframe = function(instanceName, trackName, frame)
