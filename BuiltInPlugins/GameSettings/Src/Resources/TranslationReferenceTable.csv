@@ -36,9 +36,9 @@ Studio.GameSettings.General.ButtonCancel,Cancel,Cancel,취소,Отмена,取�
 Studio.GameSettings.General.TitleStudioApiServices,Enable Studio Access to API Services,Enable Studio Access to API Services,Studio의 API 서비스 접근 활성화,Включить доступ к API-службам,允许 Studio 访问 API 服务
 Studio.GameSettings.General.ButtonDiscard,Discard,Discard,제거,Сбросить,丢弃
 Studio.GameSettings.General.CategoryBasicInfo,Basic Info,Basic Info,기본 정보,Основные сведения,基础信息
-Studio.GameSettings.General.TermsDialogBodyLink,You can download the LuoBuLeSi app here.,You can download the LuoBuLeSi app here.,여기에서 LuoBuLeSi 앱을 다운로드할 수 있습니다., , 
+Studio.GameSettings.General.TermsDialogBodyLink,You can download the LuoBuLeSi app here.,You can download the LuoBuLeSi app here.,여기에서 LuoBuLeSi 앱을 다운로드할 수 있습니다., ,你可以在此下载罗布乐思 App。
 Studio.GameSettings.General.GenreAll,All,All,전체,Все,所有
-Studio.GameSettings.OptInLocations.InReview,In review.,In review.,검토 중입니다., , 
+Studio.GameSettings.OptInLocations.InReview,In review.,In review.,검토 중입니다., ,审核中。
 Studio.GameSettings.General.CategoryAvatar,Avatar,Avatar,아바타,Аватар,虚拟形象
 Studio.GameSettings.General.CategoryWorld,World,World,월드,Мир,世界
 Studio.GameSettings.General.CategoryOptions,Options,Options,옵션,Параметры,选项
@@ -69,7 +69,7 @@ Studio.GameSettings.AccessPermissions.FriendsCollaboratorType,Friends,Friends,�
 Studio.GameSettings.General.PlayabilityFriends,Friends,Friends,친구,Друзья,好友
 Studio.GameSettings.Permissions.FriendsCollaboratorType,Friends,Friends,친구, ,好友
 Studio.GameSettings.General.PlayabilityPublicDesc,Anyone on Roblox,Anyone on Roblox,Roblox의 누구든 가능,Пользователи Roblox,Roblox 上的所有玩家
-Studio.GameSettings.General.ImageReview,In Review,In Review,검토 중,На рассмотрении,审阅中
+Studio.GameSettings.General.ImageReview,In Review,In Review,검토 중,На рассмотрении,审核中
 Studio.GameSettings.General.PlayabilityGroupDesc,Members of {group},Members of {group},{group} 그룹 멤버,Участники группы {group},{group}的成员
 Studio.GameSettings.General.UseTranslatedContentTitle,Use Translated Content,Use Translated Content,번역된 콘텐츠 사용, ,使用已翻译的内容
 Studio.GameSettings.General.PublishIsRequiredSentence1, is required for {requiredForWhat}, is required for {requiredForWhat},은(는) {requiredForWhat}에 필요합니다,требуется для: {requiredForWhat},是 {requiredForWhat} 所必需的
@@ -146,7 +146,7 @@ Studio.GameSettings.Permissions.CollaboratorSearchbarNoResultsText,There were no
 Studio.GameSettings.General.PrivateDialogBody,Making this game private will shut down any running games.,Making this game private will shut down any running games.,이 게임을 비공개로 설정하면 실행 중인 게임이 종료됩니다.,"Если сделать эту игру закрытой, все запущенные игры завершат работу.",将此游戏设为私人将会关闭所有进行中的游戏。
 Studio.GameSettings.General.PartRightArm,Right Arm,Right Arm,오른팔,Правая рука,右臂
 Studio.GameSettings.General.AvatarDialogHeader,Warning,Warning,경고,Предупреждение,警告
-Studio.GameSettings.OptInLocations.Rejected,Rejected. Please check your email.,Rejected. Please check your email.,거부되었습니다. 이메일을 확인하세요., , 
+Studio.GameSettings.OptInLocations.Rejected,Rejected. Please check your email.,Rejected. Please check your email.,거부되었습니다. 이메일을 확인하세요., ,已拒绝。请检查电子邮件。
 Studio.GameSettings.General.AvatarDialogPrompt,Would you like to proceed?,Would you like to proceed?,진행할까요?,Продолжить?,你要继续吗?
 Studio.GameSettings.Monetization.Subscriptions,Subscriptions: {numOfSubscriptions:int},Subscriptions: {numOfSubscriptions:int},구독 수: {numOfSubscriptions:int}, ,订阅数：{numOfSubscriptions:int}
 Studio.GameSettings.AccessPermissions.EditLabel,Edit,Edit,편집,Изменить,编辑
@@ -188,7 +188,7 @@ Studio.GameSettings.General.PartTorso,Torso,Torso,몸통,Торс,躯干
 Studio.GameSettings.General.PartLeftArm,Left Arm,Left Arm,왼팔,Левая рука,左臂
 Studio.GameSettings.General.AvatarTypeR6,R6,R6,R6,R6,R6
 Studio.GameSettings.General.PartRightLeg,Right Leg,Right Leg,오른 다리,Правая нога,右腿
-Studio.GameSettings.General.TitleOptInLocations,Opt-In Locations,Opt-In Locations,옵트인 위치, , 选择的位置
+Studio.GameSettings.General.TitleOptInLocations,Opt-In Locations,Opt-In Locations,옵트인 위치, ,选择的位置
 Studio.GameSettings.General.ClothingPants,Pants ID,Pants ID,바지 ID,ID штанов,裤子ID
 Studio.GameSettings.General.PresetDefault,Default,Default,기본값,По умолчанию,默认
 Studio.GameSettings.General.PresetClassicScale,Classic Scale,Classic Scale,클래식 비율,Классическая шкала,经典比例
@@ -242,7 +242,8 @@ Studio.GameSettings.AccessPermissions.OwnerLabel,Owner,Owner,소유자,Влад�
 Studio.GameSettings.Permissions.OwnerLabel,Owner,Owner,소유자, ,所有者
 Studio.GameSettings.AccessPermissions.MultipleLabel,(Multiple),(Multiple),（여러 항목）,(Множество),(多项)
 Studio.GameSettings.Permissions.MultipleLabel,(Multiple),(Multiple),(다중), ,（多项）
-Studio.GameSettings.General.ScriptCollabWarning,Warning: The Team Create server needs to restart before this feature is disabled. The server will automatically restart once all editors have left the session. Any unsaved drafts will no longer be accessible until Collaborative Editing is re-enabled.,Warning: The Team Create server needs to restart before this feature is disabled. The server will automatically restart once all editors have left the session. Any unsaved drafts will no longer be accessible until Collaborative Editing is re-enabled.,"경고: 이 기능을 비활성화하기 전에 팀 제작 서버를 다시 시작해야 합니다. 모든 편집자가 세션을 종료하면 서버가 자동으로 다시 시작됩니다. 공동 편집이 다시 활성화될 때까지, 저장되지 않은 초안에는 더 이상 액세스할 수 없습니다.", , 
+Studio.GameSettings.General.ButtonSubmit,Submit,Submit, , , 
+Studio.GameSettings.General.ScriptCollabWarning,Warning: The Team Create server needs to restart before this feature is disabled. The server will automatically restart once all editors have left the session. Any unsaved drafts will no longer be accessible until Collaborative Editing is re-enabled.,Warning: The Team Create server needs to restart before this feature is disabled. The server will automatically restart once all editors have left the session. Any unsaved drafts will no longer be accessible until Collaborative Editing is re-enabled.,"경고: 이 기능을 비활성화하기 전에 팀 제작 서버를 다시 시작해야 합니다. 모든 편집자가 세션을 종료하면 서버가 자동으로 다시 시작됩니다. 공동 편집이 다시 활성화될 때까지, 저장되지 않은 초안에는 더 이상 액세스할 수 없습니다.", ,警告：停用此功能必须重启组队创作服务器。所有编辑者退出创作后，服务器会自动重启。共同编辑重新启用前将无法读取未保存的草稿。
 Studio.GameSettings.General.TitleGravity,Gravity,Gravity,중력,Гравитация,重力
 Studio.GameSettings.AccessPermissions.NoAccessDescription,Cannot play or edit this game,Cannot play or edit this game,이 게임을 플레이하거나 편집할 수 없음,Вы не можете воспроизводить или редактировать эту игру,无法玩此游戏，或对其进行编辑
 Studio.GameSettings.Permissions.NoAccessDescription,Cannot play or edit this game,Cannot play or edit this game,이 게임을 플레이하거나 편집할 수 없습니다, ,无法玩此游戏，或对其进行编辑
@@ -269,6 +270,7 @@ Studio.GameSettings.General.DevSubsNewHeader,New Subscription,New Subscription,�
 Studio.GameSettings.General.DevSubsDiscontinuedHeader,Discontinued Developer Subscription,Discontinued Developer Subscription,중단된 개발자 구독,Не продленная подписка разработчика,取消的开发者订阅
 Studio.GameSettings.General.DevSubsDeleteAction,Delete,Delete,삭제,Удалить,删除
 Studio.GameSettings.General.DevSubsDeleteConfirm,Delete,Delete,삭제, ,删除
+Studio.GameSettings.OptInLocations.EmailAddress,Email address,Email address, , , 
 Studio.GameSettings.General.WorldPresetsClassic,Classic,Classic,클래식,Классический,经典
 Studio.GameSettings.Security.EnableThirdPartyTeleports,Allow Third Party Teleports,Allow Third Party Teleports,타사 텔레포트 허용, ,允许第三方传送
 Studio.GameSettings.General.WorldPresetsRealistic,Realistic,Realistic,현실적,Реалистичный,现实
@@ -279,7 +281,7 @@ Studio.GameSettings.General.JumpPower,Jump Power:,Jump Power:,점프력:,Сил�
 Studio.GameSettings.General.JumpDistance,Max Jump Distance:,Max Jump Distance:,최대 점프 거리:,Макс. длина прыжка:,最大跳跃距离：
 Studio.GameSettings.General.WalkSpeed,Walk Speed:,Walk Speed:,걷기 속도:,Скорость ходьбы:,行走速度：
 Studio.GameSettings.General.SlopeAngle,Max Slope Angle:,Max Slope Angle:,최대 경사각:,Макс. угол уклона:,最大斜坡角度：
-Studio.GameSettings.OptInLocations.ApprovedChina,Live in China.,Live in China.,중국에서 서비스 중입니다., , 
+Studio.GameSettings.OptInLocations.ApprovedChina,Live in China.,Live in China.,이미 중국에서 사용 중입니다., ,在中国使用。
 Studio.GameSettings.General.UnitsMeters,({number} meters),({number} meters),({number}미터),({number} м),（{number} 米）
 Studio.GameSettings.AccessPermissions.CollaboratorSearchbarDefaultText,Search by username,Search by username,사용자 이름으로 검색,Искать по имени пользователя или названию группы,按用户名搜索
 Studio.GameSettings.Permissions.CollaboratorSearchbarDefaultText,Search by username,Search by username,사용자 이름으로 검색, ,按用户名搜索
@@ -366,9 +368,13 @@ Studio.GameSettings.Monetization.BadgeDescription,Badge Description,Badge Descri
 Studio.GameSettings.General.Configure,Configure,Configure,구성, ,配置
 Studio.GameSettings.General.LocationChina,China,China,중국, ,中国
 Studio.GameSettings.OptInLocations.Tooltip,Your creation will be published globally in addition to all the selected opt-in locations. See each location for specific requirements.,Your creation will be published globally in addition to all the selected opt-in locations. See each location for specific requirements.,선택한 모든 옵트인 위치를 포함해 전 세계에 본인의 작품이 게시됩니다. 각 위치별로 특정 요구 사항 여부를 확인하세요., ,你的作品将会发布到全球及所有选择的位置，请查看每个位置了解其需求。
-Studio.GameSettings.AccessPermissions.PlayabilityWarning,"To change Playability settings, turn off Paid Access or Private Servers","To change Playability settings, turn off Paid Access or Private Servers",플레이 가능 여부 설정을 변경하려면 유료 액세스 또는 비공개 서버를 끄세요, , 
-Studio.GameSettings.OptInLocations.ChinaRequirements, to publish to China, to publish to China, 중국에 게시, , 
-Studio.GameSettings.OptInLocations.RequirementsLinkText,Requirements,Requirements,요구 사항, , 
-Studio.GameSettings.OptInLocations.Status,Status: ,Status: ,상태: , , 
-Studio.GameSettings.General.TermsDialogHeader,Terms of Use and Privacy Policy,Terms of Use and Privacy Policy,이용 약관 및 개인정보 처리방침, , 
-Studio.GameSettings.General.TermsDialogBody,"In order to publish on the LuoBuLeSi app published and operated by Tencent, you need to register an account with Tencent, and accept Tencent’s Terms of Use and Privacy Policy. [link]","In order to publish on the LuoBuLeSi app published and operated by Tencent, you need to register an account with Tencent, and accept Tencent’s Terms of Use and Privacy Policy. [link]","Tencent에서 게시하고 운영하는 LuoBuLeSi 앱에 게시하려면, Tencent 계정을 생성하고, Tencent의 이용 약관 및 개인정보 처리방침에 동의해야 합니다. [link]", , 
+Studio.GameSettings.AccessPermissions.PlayabilityWarning,"To change Playability settings, turn off Paid Access or Private Servers","To change Playability settings, turn off Paid Access or Private Servers",플레이 가능 여부 설정을 변경하려면 유료 액세스 또는 비공개 서버를 끄세요, ,要更改权限设置，请关闭付费访问或私人服务器
+Studio.GameSettings.OptInLocations.ChinaRequirements, to publish to China, to publish to China, 중국에 게시, , 在中国发布
+Studio.GameSettings.OptInLocations.RequirementsLinkText,Requirements,Requirements,요구 사항, ,要求
+Studio.GameSettings.OptInLocations.Status,Status: ,Status: ,상태: , ,状态: 
+Studio.GameSettings.General.TermsDialogHeader,Terms of Use and Privacy Policy,Terms of Use and Privacy Policy,이용 약관 및 개인정보 처리방침, ,使用条款与隐私政策
+Studio.GameSettings.General.TermsDialogBody,"In order to publish on the LuoBuLeSi app published and operated by Tencent, you need to register an account with Tencent, and accept Tencent’s Terms of Use and Privacy Policy. [link]","In order to publish on the LuoBuLeSi app published and operated by Tencent, you need to register an account with Tencent, and accept Tencent’s Terms of Use and Privacy Policy. [link]","Tencent에서 게시하고 운영하는 LuoBuLeSi 앱에 게시하려면, Tencent 계정을 생성하고, Tencent의 이용 약관 및 개인정보 처리방침에 동의해야 합니다. [link]", ,如要在腾讯发布与运营的罗布乐思 App 发布作品，你需要注册腾讯账号并接受腾讯使用条款与隐私政策。[link]
+Studio.GameSettings.OptInLocations.EmailDialogHeader,Email for Review Feedback,Email for Review Feedback, , , 
+Studio.GameSettings.OptInLocations.EmailDialogBody,"Your game will be reviewed by moderators to ensure that your game is compliant with Chinese content regulations. After your game is reviewed, we will send you review feedback. The review will take 3-5 days.","Your game will be reviewed by moderators to ensure that your game is compliant with Chinese content regulations. After your game is reviewed, we will send you review feedback. The review will take 3-5 days.", , , 
+Studio.GameSettings.OptInLocations.EmailDialogDescription,Please enter the email where you would like to receive review feedback:,Please enter the email where you would like to receive review feedback:, , , 
+Studio.GameSettings.OptInLocations.ErrorInvalidEmail,You entered an invalid email address.,You entered an invalid email address., , , 

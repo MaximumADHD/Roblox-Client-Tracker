@@ -207,7 +207,7 @@ Class AvatarEditorService : Instance [NotCreatable] [Service] [NotReplicated]
 	Event AvatarEditorService.OpenPromptSaveAvatar(Instance humanoidDescription, Enum<HumanoidRigType> rigType) {RobloxScriptSecurity}
 	Event AvatarEditorService.OpenPromptSetFavorite(int64 itemId, Enum<AvatarItemType> itemType, bool shouldFavorite) {RobloxScriptSecurity}
 	Event AvatarEditorService.PromptAllowInventoryReadAccessCompleted(Enum<AvatarPromptResult> result)
-	Event AvatarEditorService.PromptCreateOutfitCompleted(Enum<AvatarPromptResult> result)
+	Event AvatarEditorService.PromptCreateOutfitCompleted(Enum<AvatarPromptResult> result, Variant failureType)
 	Event AvatarEditorService.PromptSaveAvatarCompleted(Enum<AvatarPromptResult> result)
 	Event AvatarEditorService.PromptSetFavoriteCompleted(Enum<AvatarPromptResult> result)
 Class AvatarImportService : Instance [NotCreatable] [Service] [NotReplicated]
@@ -4287,6 +4287,10 @@ Enum CoreGuiType
 	EnumItem CoreGuiType.Chat : 3
 	EnumItem CoreGuiType.All : 4
 	EnumItem CoreGuiType.EmotesMenu : 5
+Enum CreateOutfitFailure
+	EnumItem CreateOutfitFailure.InvalidName : 1
+	EnumItem CreateOutfitFailure.OutfitLimitReached : 2
+	EnumItem CreateOutfitFailure.Other : 3
 Enum CreatorType
 	EnumItem CreatorType.User : 0
 	EnumItem CreatorType.Group : 1
@@ -4381,7 +4385,7 @@ Enum DraftStatusCode
 	EnumItem DraftStatusCode.DraftCommitted : 3
 Enum DraggerCoordinateSpace
 	EnumItem DraggerCoordinateSpace.Object : 0
-	EnumItem DraggerCoordinateSpace.Constant : 1
+	EnumItem DraggerCoordinateSpace.World : 1
 Enum DraggerMovementMode
 	EnumItem DraggerMovementMode.Geometric : 0
 	EnumItem DraggerMovementMode.Physical : 1

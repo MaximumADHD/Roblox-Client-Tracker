@@ -4259,6 +4259,13 @@
                                 "Category": "Enum",
                                 "Name": "AvatarPromptResult"
                             }
+                        },
+                        {
+                            "Name": "failureType",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Variant"
+                            }
                         }
                     ],
                     "Security": "None",
@@ -74576,6 +74583,23 @@
         {
             "Items": [
                 {
+                    "Name": "InvalidName",
+                    "Value": 1
+                },
+                {
+                    "Name": "OutfitLimitReached",
+                    "Value": 2
+                },
+                {
+                    "Name": "Other",
+                    "Value": 3
+                }
+            ],
+            "Name": "CreateOutfitFailure"
+        },
+        {
+            "Items": [
+                {
                     "Name": "User",
                     "Value": 0
                 },
@@ -74964,7 +74988,7 @@
                     "Value": 0
                 },
                 {
-                    "Name": "Constant",
+                    "Name": "World",
                     "Value": 1
                 }
             ],
