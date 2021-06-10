@@ -3,7 +3,7 @@
 ]]
 local PackageIndex = script.Parent.Parent
 
-local package = PackageIndex["roblox_networking-aliases-19b1a309-30e7008e"]["networking-aliases"]
+local package = PackageIndex["roblox_networking-aliases"]["networking-aliases"]
 
 if package.ClassName == "ModuleScript" then
 	return require(package)

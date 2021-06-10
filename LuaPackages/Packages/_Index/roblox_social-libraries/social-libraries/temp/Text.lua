@@ -1,5 +1,3 @@
-local EngineFeatureTextBoundsRoundUp = game:GetEngineFeature("TextBoundsRoundUp")
-
 local TextService = game:GetService("TextService")
 
 local Text = {}
@@ -9,10 +7,6 @@ local MAX_BOUND = 10000
 
 -- Remove with EngineFeatureTextBoundsRoundUp
 Text._TEMP_PATCHED_PADDING = Vector2.new(0, 0)
-
-if not EngineFeatureTextBoundsRoundUp then
-	Text._TEMP_PATCHED_PADDING = Vector2.new(2, 2)
-end
 
 -- Wrapper function for GetTextSize
 function Text.GetTextBounds(text, font, fontSize, bounds)
