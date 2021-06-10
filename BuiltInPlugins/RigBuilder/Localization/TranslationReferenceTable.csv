@@ -2,10 +2,10 @@ Key,Source,en-us,ko,zh-cn
 Studio.RigBuilder.RigOption.MeshRig,Mesh Rig,Mesh Rig,메시 리그,网格骨架
 Studio.RigBuilder.Plugin.Title,Rig Builder,Rig Builder,리그 빌더,骨架建造器
 Studio.RigBuilder.Plugin.Toolbar,Rig Builder,Rig Builder,리그 빌더,骨架建造器
-Studio.RigBuilder.R15RigOption.RthroNormal,Rthro Normal,Rthro Normal,일반 Rthro,标准 Rthro
+Studio.RigBuilder.R15RigOption.RthroNormal,Rthro Normal,Rthro Normal,일반 Rthro, 
 Studio.RigBuilder.Plugin.Button,Build Rig,Build Rig,리드 빌드,建造骨架
 Studio.RigBuilder.Plugin.Description,Insert rigs to animate,Insert rigs to animate,애니메이션화할 리그 삽입,插入骨架以制作动画
 Studio.RigBuilder.RigOption.BlockRig,Block Rig,Block Rig,블록 리그,方块骨架
-Studio.RigBuilder.R15RigOption.RthroSlender,Rthro Slender,Rthro Slender,슬렌더 Rthro,偏瘦 Rthro
+Studio.RigBuilder.R15RigOption.RthroSlender,Rthro Slender,Rthro Slender,슬렌더 Rthro, 
 Studio.RigBuilder.RigOption.ManRig,Man Rig,Man Rig,맨 리그,男性骨架
 Studio.RigBuilder.RigOption.WomanRig,Woman Rig,Woman Rig,우먼 리그,女性骨架

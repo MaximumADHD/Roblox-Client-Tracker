@@ -669,23 +669,11 @@ Studio.ReflectionMetadata.ReflectionMetadata.TerrainGetCell,,,"Returns CellMater
 Studio.ReflectionMetadata.ReflectionMetadata.TerrainGetWaterCell,,,"Returns hasAnyWater, WaterForce, WaterDirection","Returns hasAnyWater, WaterForce, WaterDirection"
 Studio.ReflectionMetadata.ReflectionMetadata.TerrainRegion,,,Object representing a snapshot of the region of terrain,Object representing a snapshot of the region of terrain
 Studio.ReflectionMetadata.ReflectionMetadata.TextBox,,,A text entry box,A text entry box
-Studio.ReflectionMetadata.ReflectionMetadata.TextBoxLineHeight,,,A ratio of TextSize for how far lines should be placed apart.,A ratio of TextSize for how far lines should be placed apart.
 Studio.ReflectionMetadata.ReflectionMetadata.TextBoxTextColor,,,Deprecated. Use TextColor3 instead,Deprecated. Use TextColor3 instead
-Studio.ReflectionMetadata.ReflectionMetadata.TextBoxTextSize,,,The height of a line of text in pixels.,The height of a line of text in pixels.
-Studio.ReflectionMetadata.ReflectionMetadata.TextBoxTextStrokeTransparency,,,Controls the transparency of the outline around the text. Multiplied with TextTransparency.,Controls the transparency of the outline around the text. Multiplied with TextTransparency.
-Studio.ReflectionMetadata.ReflectionMetadata.TextBoxTextTransparency,,,Controls the transparency of the text.,Controls the transparency of the text.
 Studio.ReflectionMetadata.ReflectionMetadata.TextButton,,,A GUI button containing text,A GUI button containing text
-Studio.ReflectionMetadata.ReflectionMetadata.TextButtonLineHeight,,,A ratio of TextSize for how far lines should be placed apart.,A ratio of TextSize for how far lines should be placed apart.
 Studio.ReflectionMetadata.ReflectionMetadata.TextButtonTextColor,,,Deprecated. Use TextColor3 instead,Deprecated. Use TextColor3 instead
-Studio.ReflectionMetadata.ReflectionMetadata.TextButtonTextSize,,,The height of a line of text in pixels.,The height of a line of text in pixels.
-Studio.ReflectionMetadata.ReflectionMetadata.TextButtonTextStrokeTransparency,,,Controls the transparency of the outline around the text. Multiplied with TextTransparency.,Controls the transparency of the outline around the text. Multiplied with TextTransparency.
-Studio.ReflectionMetadata.ReflectionMetadata.TextButtonTextTransparency,,,Controls the transparency of the text.,Controls the transparency of the text.
 Studio.ReflectionMetadata.ReflectionMetadata.TextLabel,,,A GUI object containing text,A GUI object containing text
-Studio.ReflectionMetadata.ReflectionMetadata.TextLabelLineHeight,,,A ratio of TextSize for how far lines should be placed apart.,A ratio of TextSize for how far lines should be placed apart.
 Studio.ReflectionMetadata.ReflectionMetadata.TextLabelTextColor,,,Deprecated. Use TextColor3 instead,Deprecated. Use TextColor3 instead
-Studio.ReflectionMetadata.ReflectionMetadata.TextLabelTextSize,,,The height of a line of text in pixels.,The height of a line of text in pixels.
-Studio.ReflectionMetadata.ReflectionMetadata.TextLabelTextStrokeTransparency,,,Controls the transparency of the outline around the text. Multiplied with TextTransparency.,Controls the transparency of the outline around the text. Multiplied with TextTransparency.
-Studio.ReflectionMetadata.ReflectionMetadata.TextLabelTextTransparency,,,Controls the transparency of the text.,Controls the transparency of the text.
 Studio.ReflectionMetadata.ReflectionMetadata.TorsionSpringConstraintCoils,,,"The number of coils in the in-game visual. Value in [0, 8].","The number of coils in the in-game visual. Value in [0, 8]."
 Studio.ReflectionMetadata.ReflectionMetadata.TorsionSpringConstraintCurrentAngle,,,"Current angle between the attachments' secondary axes. Value in [0, inf).","Current angle between the attachments' secondary axes. Value in [0, inf)."
 Studio.ReflectionMetadata.ReflectionMetadata.TorsionSpringConstraintDamping,,,"The damping parameter of the spring. The force is scaled based on relative angular velocity. The units of this property are torque / angular velocity. Value in [0, inf).","The damping parameter of the spring. The force is scaled based on relative angular velocity. The units of this property are torque / angular velocity. Value in [0, inf)."

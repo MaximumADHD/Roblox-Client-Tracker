@@ -207,7 +207,7 @@ Class AvatarEditorService : Instance [NotCreatable] [Service] [NotReplicated]
 	Event AvatarEditorService.OpenPromptSaveAvatar(Instance humanoidDescription, Enum<HumanoidRigType> rigType) {RobloxScriptSecurity}
 	Event AvatarEditorService.OpenPromptSetFavorite(int64 itemId, Enum<AvatarItemType> itemType, bool shouldFavorite) {RobloxScriptSecurity}
 	Event AvatarEditorService.PromptAllowInventoryReadAccessCompleted(Enum<AvatarPromptResult> result)
-	Event AvatarEditorService.PromptCreateOutfitCompleted(Enum<AvatarPromptResult> result, Variant failureType)
+	Event AvatarEditorService.PromptCreateOutfitCompleted(Enum<AvatarPromptResult> result)
 	Event AvatarEditorService.PromptSaveAvatarCompleted(Enum<AvatarPromptResult> result)
 	Event AvatarEditorService.PromptSetFavoriteCompleted(Enum<AvatarPromptResult> result)
 Class AvatarImportService : Instance [NotCreatable] [Service] [NotReplicated]
@@ -238,7 +238,7 @@ Class Tool : BackpackItem
 	Function void Tool:Deactivate()
 	Event Tool.Activated()
 	Event Tool.Deactivated()
-	Event Tool.Equipped(Instance mouse)
+	Event Tool.Equipped(Class<Mouse> mouse)
 	Event Tool.Unequipped()
 Class Flag : Tool [Deprecated]
 	Property BrickColor Flag.TeamColor [Deprecated]
@@ -762,7 +762,7 @@ Class DataStoreKeyVersionInfo : Instance [NotCreatable] [NotReplicated]
 Class DataStoreService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property bool DataStoreService.AutomaticRetry {LocalUserSecurity} [NotReplicated]
 	Property bool DataStoreService.LegacyNamingScheme {LocalUserSecurity} [Hidden] [Deprecated]
-	Function Instance DataStoreService:GetDataStore(string name, string scope = "global", Instance options = nil)
+	Function Class<GlobalDataStore> DataStoreService:GetDataStore(string name, string scope = "global", Instance options = nil)
 	Function Instance DataStoreService:GetGlobalDataStore()
 	Function Instance DataStoreService:GetOrderedDataStore(string name, string scope = "global")
 	Function int DataStoreService:GetRequestBudgetForRequestType(Enum<DataStoreRequestType> requestType)
@@ -955,8 +955,8 @@ Class OrderedDataStore : GlobalDataStore [NotCreatable] [NotReplicated]
 	Function Instance OrderedDataStore:GetSortedAsync(bool ascending, int pagesize, Variant minValue, Variant maxValue) [Yields]
 Class GoogleAnalyticsConfiguration : Instance [NotCreatable] [Service]
 Class GroupService : Instance [NotCreatable] [Service] [NotReplicated]
-	Function Instance GroupService:GetAlliesAsync(int64 groupId) [Yields]
-	Function Instance GroupService:GetEnemiesAsync(int64 groupId) [Yields]
+	Function Class<StandardPages> GroupService:GetAlliesAsync(int64 groupId) [Yields]
+	Function Class<StandardPages> GroupService:GetEnemiesAsync(int64 groupId) [Yields]
 	Function Variant GroupService:GetGroupInfoAsync(int64 groupId) [Yields]
 	Function Array GroupService:GetGroupsAsync(int64 userId) [Yields]
 Class GuiBase : Instance [NotCreatable]
@@ -2081,11 +2081,11 @@ Class BasePart : PVInstance [NotCreatable] [NotBrowsable]
 	Function void BasePart:SetNetworkOwnershipAuto()
 	Function Instance BasePart:SubtractAsync(Objects parts, Enum<CollisionFidelity> collisionfidelity = "Default", Enum<RenderFidelity> renderFidelity = "Automatic") [Yields]
 	Function Instance BasePart:UnionAsync(Objects parts, Enum<CollisionFidelity> collisionfidelity = "Default", Enum<RenderFidelity> renderFidelity = "Automatic") [Yields]
-	Event BasePart.LocalSimulationTouched(Instance part) [Deprecated]
+	Event BasePart.LocalSimulationTouched(Class<BasePart> part) [Deprecated]
 	Event BasePart.OutfitChanged() [Deprecated]
-	Event BasePart.StoppedTouching(Instance otherPart) [Deprecated]
-	Event BasePart.TouchEnded(Instance otherPart)
-	Event BasePart.Touched(Instance otherPart)
+	Event BasePart.StoppedTouching(Class<BasePart> otherPart) [Deprecated]
+	Event BasePart.TouchEnded(Class<BasePart> otherPart)
+	Event BasePart.Touched(Class<BasePart> otherPart)
 Class CornerWedgePart : BasePart
 Class FormFactorPart : BasePart [NotCreatable] [Deprecated]
 	Property Enum<FormFactor> FormFactorPart.FormFactor [<📁> LoadOnly] [NotReplicated] [Deprecated]
@@ -2421,7 +2421,7 @@ Class Player : Instance
 	Function void Player:AddToBlockList(Array userIds) {RobloxScriptSecurity}
 	Function void Player:ClearCharacterAppearance()
 	Function float Player:DistanceFromCharacter(Vector3 point)
-	Function Enum<FriendStatus> Player:GetFriendStatus(Instance player) {RobloxScriptSecurity}
+	Function Enum<FriendStatus> Player:GetFriendStatus(Class<Player> player) {RobloxScriptSecurity}
 	Function Array Player:GetFriendsOnline(int maxFriends = 200) [Yields]
 	Function string Player:GetGameSessionID() {RobloxSecurity}
 	Function Dictionary Player:GetJoinData()
@@ -2440,16 +2440,16 @@ Class Player : Instance
 	Function void Player:LoadCharacter() [Yields]
 	Function void Player:LoadCharacterAppearance(Instance assetInstance) [Deprecated]
 	Function void Player:LoadCharacterBlocking() {LocalUserSecurity} [Yields]
-	Function void Player:LoadCharacterWithHumanoidDescription(Instance humanoidDescription) [Yields]
+	Function void Player:LoadCharacterWithHumanoidDescription(Class<HumanoidDescription> humanoidDescription) [Yields]
 	Function void Player:LoadData() {LocalUserSecurity} [Deprecated]
 	Function Instance Player:LoadInstance(string key) [Deprecated]
 	Function double Player:LoadNumber(string key) [Deprecated]
 	Function string Player:LoadString(string key) [Deprecated]
 	Function void Player:Move(Vector3 walkDirection, bool relativeToCamera = false)
 	Function void Player:RemoveCharacter() {LocalUserSecurity}
-	Function void Player:RequestFriendship(Instance player) {RobloxScriptSecurity}
+	Function void Player:RequestFriendship(Class<Player> player) {RobloxScriptSecurity}
 	Function void Player:RequestStreamAroundAsync(Vector3 position, double timeOut = 0) [Yields]
-	Function void Player:RevokeFriendship(Instance player) {RobloxScriptSecurity}
+	Function void Player:RevokeFriendship(Class<Player> player) {RobloxScriptSecurity}
 	Function void Player:SaveBoolean(string key, bool value) [Deprecated]
 	Function void Player:SaveData() {LocalUserSecurity} [Deprecated]
 	Function void Player:SaveInstance(string key, Instance value) [Deprecated]
@@ -2462,11 +2462,11 @@ Class Player : Instance
 	Function void Player:SetUnder13(bool value) {RobloxSecurity} [Deprecated]
 	Function void Player:UpdatePlayerBlocked(int64 userId, bool blocked) {RobloxScriptSecurity}
 	Function bool Player:WaitForDataReady() [Yields] [Deprecated]
-	Event Player.CharacterAdded(Instance character)
-	Event Player.CharacterAppearanceLoaded(Instance character)
-	Event Player.CharacterRemoving(Instance character)
-	Event Player.Chatted(string message, Instance recipient)
-	Event Player.FriendStatusChanged(Instance player, Enum<FriendStatus> friendStatus) {RobloxScriptSecurity}
+	Event Player.CharacterAdded(Class<Model> character)
+	Event Player.CharacterAppearanceLoaded(Class<Model> character)
+	Event Player.CharacterRemoving(Class<Model> character)
+	Event Player.Chatted(string message, Class<Player> recipient)
+	Event Player.FriendStatusChanged(Class<Player> player, Enum<FriendStatus> friendStatus) {RobloxScriptSecurity}
 	Event Player.Idled(double time)
 	Event Player.OnTeleport(Enum<TeleportState> teleportState, int64 placeId, string spawnName)
 	Event Player.SimulationRadiusChanged(float radius) {LocalUserSecurity}
@@ -2519,7 +2519,7 @@ Class Players : Instance [NotCreatable] [Service]
 	Function Instance Players:GetHumanoidDescriptionFromUserId(int64 userId) [Yields]
 	Function string Players:GetNameFromUserIdAsync(int64 userId) [Yields]
 	Function Instance Players:GetPlayerByUserId(int64 userId)
-	Function Instance Players:GetPlayerFromCharacter(Instance character)
+	Function Class<Player> Players:GetPlayerFromCharacter(Class<Model> character)
 	Function Objects Players:GetPlayers()
 	Function int64 Players:GetUserIdFromNameAsync(string userName) [Yields]
 	Function Tuple Players:GetUserThumbnailAsync(int64 userId, Enum<ThumbnailType> thumbnailType, Enum<ThumbnailSize> thumbnailSize) [Yields]
@@ -2528,17 +2528,17 @@ Class Players : Instance [NotCreatable] [Service]
 	Function void Players:SetLocalPlayerInfo(int64 userId, string userName, string displayName, Enum<MembershipType> membershipType, bool isUnder13) {RobloxScriptSecurity}
 	Function void Players:TeamChat(string message) {PluginSecurity}
 	Function void Players:WhisperChat(string message, Instance player) {LocalUserSecurity}
-	Function Instance Players:playerFromCharacter(Instance character) [Deprecated]
+	Function Class<Player> Players:playerFromCharacter(Class<Model> character) [Deprecated]
 	Function Objects Players:players() [Deprecated]
 	Event Players.FriendRequestEvent(Instance player, Instance player, Enum<FriendRequestEvent> friendRequestEvent) {RobloxScriptSecurity}
 	Event Players.GameAnnounce(string message) {RobloxScriptSecurity}
-	Event Players.PlayerAdded(Instance player)
+	Event Players.PlayerAdded(Class<Player> player)
 	Event Players.PlayerChatted(Enum<PlayerChatType> chatType, Instance player, string message, Instance targetPlayer) {LocalUserSecurity}
 	Event Players.PlayerConnecting(Instance player) {LocalUserSecurity}
 	Event Players.PlayerDisconnecting(Instance player) {LocalUserSecurity}
 	Event Players.PlayerMembershipChanged(Instance player)
 	Event Players.PlayerRejoining(Instance player) {LocalUserSecurity}
-	Event Players.PlayerRemoving(Instance player)
+	Event Players.PlayerRemoving(Class<Player> player)
 Class Plugin : Instance [NotCreatable]
 	Property bool Plugin.UsesAssetInsertionDrag {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property bool Plugin.CollisionEnabled [ReadOnly]
@@ -2555,7 +2555,7 @@ Class Plugin : Instance [NotCreatable]
 	Function void Plugin:Deactivate() {PluginSecurity}
 	Function Variant Plugin:GetItem(string key, Variant defaultValue) {RobloxScriptSecurity}
 	Function Enum<JointCreationMode> Plugin:GetJoinMode() {PluginSecurity}
-	Function Instance Plugin:GetMouse() {PluginSecurity}
+	Function Class<PluginMouse> Plugin:GetMouse() {PluginSecurity}
 	Function Enum<RibbonTool> Plugin:GetSelectedRibbonTool() {PluginSecurity}
 	Function Variant Plugin:GetSetting(string key) {PluginSecurity}
 	Function int64 Plugin:GetStudioUserId() {PluginSecurity} [Deprecated]
@@ -2753,12 +2753,12 @@ Class ReflectionMetadataProperties : Instance
 Class ReflectionMetadataYieldFunctions : Instance
 Class RemoteEvent : Instance
 	Function void RemoteEvent:FireAllClients(Tuple arguments)
-	Function void RemoteEvent:FireClient(Instance player, Tuple arguments)
+	Function void RemoteEvent:FireClient(Class<Player> player, Tuple arguments)
 	Function void RemoteEvent:FireServer(Tuple arguments)
 	Event RemoteEvent.OnClientEvent(Tuple arguments)
-	Event RemoteEvent.OnServerEvent(Instance player, Tuple arguments)
+	Event RemoteEvent.OnServerEvent(Class<Player> player, Tuple arguments)
 Class RemoteFunction : Instance
-	Function Tuple RemoteFunction:InvokeClient(Instance player, Tuple arguments) [Yields]
+	Function Tuple RemoteFunction:InvokeClient(Class<Player> player, Tuple arguments) [Yields]
 	Function Tuple RemoteFunction:InvokeServer(Tuple arguments) [Yields]
 	Callback Tuple RemoteFunction.OnClientInvoke(Tuple arguments)
 	Callback Tuple RemoteFunction.OnServerInvoke(Instance player, Tuple arguments)
@@ -4287,10 +4287,6 @@ Enum CoreGuiType
 	EnumItem CoreGuiType.Chat : 3
 	EnumItem CoreGuiType.All : 4
 	EnumItem CoreGuiType.EmotesMenu : 5
-Enum CreateOutfitFailure
-	EnumItem CreateOutfitFailure.InvalidName : 1
-	EnumItem CreateOutfitFailure.OutfitLimitReached : 2
-	EnumItem CreateOutfitFailure.Other : 3
 Enum CreatorType
 	EnumItem CreatorType.User : 0
 	EnumItem CreatorType.Group : 1
@@ -4385,7 +4381,7 @@ Enum DraftStatusCode
 	EnumItem DraftStatusCode.DraftCommitted : 3
 Enum DraggerCoordinateSpace
 	EnumItem DraggerCoordinateSpace.Object : 0
-	EnumItem DraggerCoordinateSpace.World : 1
+	EnumItem DraggerCoordinateSpace.Constant : 1
 Enum DraggerMovementMode
 	EnumItem DraggerMovementMode.Geometric : 0
 	EnumItem DraggerMovementMode.Physical : 1

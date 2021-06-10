@@ -1,94 +1,181 @@
 Key,Source,en-us
-Studio.Toolbox.General.FooterBGText,Background:,Background:
-Studio.Toolbox.Common.Submit,Submit,Submit
+Studio.Common.Action.Play,Play,Play
+Studio.Common.Action.File,File,File
+Studio.Toolbox.AssetConfigPackagePermissions.UseViewLabel,Use & View,Use & View
+Studio.Common.Action.Cut,Cut,Cut
+Studio.Toolbox.General.AssetTypeShirt,Shirt,Shirt
+Studio.Common.Action.Replace,Replace,Replace
 Studio.Toolbox.General.CategoryCreationsHats,Hats,Hats
 Studio.Toolbox.General.SearchResults,Search Results,Search Results
-Studio.Toolbox.AssetConfigCopy.AccountSetting,"In order to share content in Marketplace, you must add & verify an email address to your account. This can be done in Account Settings.","In order to share content in Marketplace, you must add & verify an email address to your account. This can be done in Account Settings."
-Studio.Toolbox.General.CategoryEndorsedPlugins,EndorsedPlugins,EndorsedPlugins
+Studio.Common.Action.Ignore,Ignore,Ignore
+Studio.Common.Action.Close,Close,Close
 Studio.Toolbox.Common.Close,Close,Close
-Studio.Toolbox.AssetConfigPackagePermissions.NoResults,No results found,No results found
-Studio.Toolbox.General.InfoBannerText,No results found,No results found
-Studio.Toolbox.General.ToolboxToolbarName,Toolbox,Toolbox
-Studio.Toolbox.Common.Install,Install,Install
+Studio.Common.Action.LabelWithColon1,%1:,%1:
+Studio.Toolbox.Purchase.FailedDetails,Purchase of "{name}" failed.,Purchase of "{name}" failed.
+Studio.Common.Action.Apply,Apply,Apply
+Studio.Toolbox.General.SearchOptionsApply,Apply,Apply
+Studio.Common.Action.Cancel,Cancel,Cancel
+Studio.Toolbox.General.SearchOptionsCancel,Cancel,Cancel
+Studio.Toolbox.Purchase.Cancel,Cancel,Cancel
+Studio.Toolbox.General.SearchTagCreator,by:,by:
+Studio.Common.Action.Rotate,Rotate,Rotate
+Studio.Common.Action.Delete,Delete,Delete
+Studio.Common.Action.Height,Height,Height
+Studio.Common.Action.Clear,Clear,Clear
+Studio.Toolbox.General.SearchResultsClearAll,Clear,Clear
+Studio.Toolbox.General.StatusReviewPending,In Review,In Review
+Studio.Toolbox.ThumbnailStatus.InReview,In Review,In Review
+Studio.Common.Action.Back,Back,Back
+Studio.Common.Action.Continue,Continue,Continue
+Studio.Common.Action.Copy,Copy,Copy
+Studio.Toolbox.AssetConfigPreview.Change,Change,Change
+Studio.Common.Action.Remove,Remove,Remove
+Studio.Toolbox.AssetConfigError.NetworkError,We encountered some problems:,We encountered some problems:
+Studio.Common.Action.Create,Create,Create
+Studio.Toolbox.AssetConfigPackagePermissions.UserOwnedWarning, Users you share with will always have access to the current and previous versions of this package. Removing collaborators will discontinue their access to newer versions of the package., Users you share with will always have access to the current and previous versions of this package. Removing collaborators will discontinue their access to newer versions of the package.
+Studio.Common.Action.New,New,New
+Studio.Common.Action.Error,Error,Error
+Studio.Toolbox.AssetConfig.Error,Error,Error
+Studio.Toolbox.ThumbnailStatus.Error,Error,Error
+Studio.Toolbox.NoTagFound,Word(s) not found in the tag library,Word(s) not found in the tag library
+Studio.Common.Action.Edit,Edit,Edit
+Studio.Toolbox.AssetConfigPackagePermissions.EditLabel,Edit,Edit
+Studio.Common.Action.Exit,Exit,Exit
+Studio.Common.Action.Find,Find,Find
+Studio.Toolbox.General.AssetTypeFrontAccessory,Front Accessory,Front Accessory
+Studio.Common.Action.No,No,No
+Studio.Toolbox.General.AssetTypeModel,Model,Model
+Studio.Common.Action.Help,Help,Help
+Studio.Common.Action.Home,Home,Home
+Studio.Common.Action.Insert,Insert,Insert
 Studio.Toolbox.Common.Insert,Insert,Insert
+Studio.Common.Action.Next,Next,Next
+Studio.Common.Action.Paste,Paste,Paste
+Studio.Common.Action.Save,Save,Save
+Studio.Toolbox.General.SalesOffsaleApplyToSave,Offsale (apply to save changes),Offsale (apply to save changes)
+Studio.Common.Action.Warning,Warning,Warning
 Studio.Toolbox.Purchase.BuyPrompt,Would you like to buy "{name}" from {creator} for {robux:int} Robux?,Would you like to buy "{name}" from {creator} for {robux:int} Robux?
-Studio.Toolbox.Common.OK,OK,OK
 Studio.Toolbox.General.SuggestionsLight,Light,Light
-Studio.Toolbox.General.Ownership,Creator,Creator
-Studio.Toolbox.General.SearchOptionCreator,Creator,Creator
-Studio.Toolbox.General.CategoryMyModels,My Models,My Models
-Studio.Toolbox.Common.Loading,Loading,Loading
-Studio.Toolbox.General.CategoryRecentAudio,Recent Audio,Recent Audio
-Studio.Toolbox.Common.Update,Update,Update
-Studio.Toolbox.General.CategoryRecentDecals,Recent Images,Recent Images
-Studio.Toolbox.General.SuggestionsWeapon,Weapon,Weapon
-Studio.Toolbox.Common.Installed,Installed,Installed
-Studio.Toolbox.General.CategoryCreationsPlugins,Plugins,Plugins
-Studio.Toolbox.General.CategoryPaidPlugins,Plugins,Plugins
-Studio.Toolbox.General.StatusOnSale,On Sale,On Sale
-Studio.Toolbox.General.AssetCreatorIntroText,by {name:username},by {name:username}
-Studio.Toolbox.General.CategoryCreationsModels,Models,Models
-Studio.Toolbox.General.CategoryModels,Models,Models
-Studio.Toolbox.General.CategoryCreationsDevelopmentSectionDivider,Game development assets,Game development assets
-Studio.Toolbox.General.SalesOnsale,Onsale,Onsale
-Studio.Toolbox.General.EndorseBadgeTooltipText,Marked as a high-quality item,Marked as a high-quality item
-Studio.Toolbox.General.CategoryCreationsDecals,Images,Images
-Studio.Toolbox.General.CategoryDecals,Images,Images
+Studio.Common.Action.OK,OK,OK
+Studio.Toolbox.Common.OK,OK,OK
+Studio.Common.Action.Open,Open,Open
+Studio.Common.Action.Search,Search,Search
+Studio.Toolbox.General.SearchBarDefaultText,Search,Search
+Studio.Common.Action.Redo,Redo,Redo
+Studio.Toolbox.General.NoPluginsFound.TextLine1,Can’t find what you’re looking for?,Can’t find what you’re looking for?
+Studio.Toolbox.General.Description,Description,Description
+Studio.Toolbox.General.Title,Title,Title
+Studio.Common.Action.Okay,Okay,Okay
+Studio.Common.Action.Select,Select,Select
+Studio.Toolbox.General.Copy,Allow Copying,Allow Copying
+Studio.Common.Action.Pause,Pause,Pause
+Studio.Toolbox.AssetUploadResult.Success,Successfully submitted!,Successfully submitted!
+Studio.Toolbox.AssetConfigPackagePermissions.PackageOwner,Package Owner,Package Owner
+Studio.Common.Action.Fill,Fill,Fill
+Studio.Toolbox.AssetConfigPackagePermissions.UseViewDescription,Can use and view this package,Can use and view this package
+Studio.Common.Action.Previous,Previous,Previous
+Studio.Common.Action.Reload,Reload,Reload
+Studio.Toolbox.AssetConfigPreview.Process,Image will be reviewed by moderators before being made visible to other users,Image will be reviewed by moderators before being made visible to other users
+Studio.Common.Action.Loading,Loading...,Loading...
+Studio.Toolbox.General.PreviewAreaAssetID,Asset ID: {assetId},Asset ID: {assetId}
+Studio.Common.Action.Rename,Rename,Rename
+Studio.Toolbox.General.RightClickMenuCopyAssetID,Copy Asset ID,Copy Asset ID
+Studio.Common.Action.Resize,Resize,Resize
+Studio.Common.Action.Retry,Retry,Retry
+Studio.Toolbox.Purchase.Retry,Retry,Retry
 Studio.Toolbox.General.CategoryCreationsMeshes,Meshes,Meshes
 Studio.Toolbox.General.CategoryMeshes,Meshes,Meshes
+Studio.Common.Action.Share,Share,Share
+Studio.Common.Action.Submit,Submit,Submit
+Studio.Toolbox.Common.Submit,Submit,Submit
+Studio.Common.Action.Stop,Stop,Stop
+Studio.Toolbox.General.SortByUpdated,Updated,Updated
+Studio.Common.Action.Yes,Yes,Yes
+Studio.Toolbox.General.SuggestionsVehicle,Vehicle,Vehicle
+Studio.Common.Action.Undo,Undo,Undo
+Studio.Toolbox.General.CategoryRecentDecals,Recent Images,Recent Images
+Studio.Common.Action.Update,Update,Update
+Studio.Toolbox.Common.Update,Update,Update
+Studio.Common.Action.Reset,Reset,Reset
+Studio.Toolbox.General.CategoryGroupDecals,Group Images,Group Images
+Studio.Common.Action.Name,Name,Name
+Studio.Toolbox.General.AssetTypeTeeShirt,T-Shirt,T-Shirt
+Studio.Common.Action.Goto,Goto,Goto
+Studio.Common.Action.Move,Move,Move
+Studio.Common.Action.Resume,Resume,Resume
+Studio.Common.Action.Value,Value,Value
+Studio.Toolbox.General.PreviewAreaStatus,Status: {assetStatus},Status: {assetStatus}
+Studio.Common.Action.Width,Width,Width
+Studio.Common.Action.Install,Install,Install
+Studio.Toolbox.Common.Install,Install,Install
+Studio.Common.Action.Installed,Installed,Installed
+Studio.Toolbox.Common.Installed,Installed,Installed
+Studio.Toolbox.Common.Loading,Loading,Loading
+Studio.Toolbox.General.ToolboxToolbarName,Toolbox,Toolbox
+Studio.Toolbox.General.CategoryCreationsModels,Models,Models
+Studio.Toolbox.General.CategoryModels,Models,Models
+Studio.Toolbox.General.CategoryCreationsDecals,Images,Images
+Studio.Toolbox.General.CategoryDecals,Images,Images
 Studio.Toolbox.General.AssetTypeAudio,Audio,Audio
 Studio.Toolbox.General.CategoryAudio,Audio,Audio
 Studio.Toolbox.General.CategoryCreationsAudio,Audio,Audio
+Studio.Toolbox.General.CategoryMyModels,My Models,My Models
 Studio.Toolbox.General.CategoryMyDecals,My Images,My Images
 Studio.Toolbox.General.CategoryMyMeshes,My Meshes,My Meshes
-Studio.Toolbox.General.CategoryGroupPackages,Group Packages,Group Packages
 Studio.Toolbox.General.SearchTagLength,length:,length:
 Studio.Toolbox.General.CategoryMyAudio,My Audio,My Audio
 Studio.Toolbox.General.CategoryMyPackages,My Packages,My Packages
 Studio.Toolbox.General.SideTabSales,Sales,Sales
 Studio.Toolbox.General.CategoryMyPlugins,My Plugins,My Plugins
-Studio.Toolbox.General.SortByText,Sort by:,Sort by:
 Studio.Toolbox.General.CategoryRecentModels,Recent Models,Recent Models
 Studio.Toolbox.General.CategoryRecentMeshes,Recent Meshes,Recent Meshes
+Studio.Toolbox.General.CategoryRecentAudio,Recent Audio,Recent Audio
 Studio.Toolbox.AssetConfigPackagePermissions.SearchByUser,Search by username,Search by username
 Studio.Toolbox.General.CategoryCreationsFaceAccessory,Face Accessories,Face Accessories
 Studio.Toolbox.General.CategoryGroupModels,Group Models,Group Models
+Studio.Toolbox.General.CategoryGroupMeshes,Group Meshes,Group Meshes
+Studio.Toolbox.General.CategoryGroupAudio,Group Audio,Group Audio
+Studio.Toolbox.General.CategoryGroupPackages,Group Packages,Group Packages
+Studio.Toolbox.General.SearchBarCreatorText,Search for users,Search for users
+Studio.Toolbox.General.SuggestionsIntroText,Try searching for:,Try searching for:
+Studio.Toolbox.General.SuggestionsNPC,NPC,NPC
+Studio.Toolbox.General.SuggestionsWeapon,Weapon,Weapon
+Studio.Toolbox.General.SuggestionsBuilding,Building,Building
+Studio.Toolbox.General.SortByText,Sort by:,Sort by:
+Studio.Toolbox.General.SortByRelevance,Relevance,Relevance
+Studio.Toolbox.AssetConfigFooter.ImportTitle,Choose an asset to import.,Choose an asset to import.
+Studio.Toolbox.General.SortByMostTaken,Most Taken,Most Taken
+Studio.Toolbox.General.AssetTypePlugin,Plugin,Plugin
+Studio.Toolbox.General.SortByFavorites,Favorites,Favorites
+Studio.Toolbox.General.CategoryCreationsWaistAccessory,Waist Accessories,Waist Accessories
+Studio.Toolbox.General.SortByRatings,Ratings,Ratings
+Studio.Toolbox.General.StatusOnSale,On Sale,On Sale
+Studio.Toolbox.General.AssetCreatorIntroText,by {name:username},by {name:username}
+Studio.Toolbox.General.VotingVoteText,vote,vote
+Studio.Toolbox.General.VotingVotesText,votes,votes
+Studio.Toolbox.General.FooterBGText,Background:,Background:
 Studio.Toolbox.General.CategoryRecentVideos,Recent Videos,Recent Videos
 Studio.Toolbox.AssetConfigFooter.UploadWithFee,Submit for,{price:int} Robux
 Submit for,{price:int} Robux,Studio.Toolbox.General.FooterButtonWhiteName
-White,White,Studio.Toolbox.General.CategoryGroupDecals
-Group Images,Group Images,Studio.Toolbox.General.SuggestionsBuilding
-Building,Building,Studio.Toolbox.General.CategoryGroupMeshes
-Group Meshes,Group Meshes,Studio.Toolbox.General.TabRecent
-Recent,Recent,Studio.Toolbox.General.SearchOptionSort
-Sort By,Sort By,Studio.Toolbox.General.CategoryGroupAudio
-Group Audio,Group Audio,Studio.Toolbox.AssetConfigFooter.ImportTitle
-Choose an asset to import.,Choose an asset to import.,Studio.Toolbox.General.SortByMostTaken
-Most Taken,Most Taken,Studio.Toolbox.General.SearchBarDefaultText
-Search,Search,Studio.Toolbox.General.AssetTypePlugin
-Plugin,Plugin,Studio.Toolbox.General.SortByFavorites
-Favorites,Favorites,Studio.Toolbox.General.SearchBarCreatorText
-Search for users,Search for users,Studio.Toolbox.General.SuggestionsIntroText
-Try searching for:,Try searching for:,Studio.Toolbox.General.SuggestionsNPC
-NPC,NPC,Studio.Toolbox.General.SuggestionsVehicle
-Vehicle,Vehicle,Studio.Toolbox.General.SortByRelevance
-Relevance,Relevance,Studio.Toolbox.General.SortByUpdated
-Updated,Updated,Studio.Toolbox.General.CategoryCreationsWaistAccessory
-Waist Accessories,Waist Accessories,Studio.Toolbox.General.SortByRatings
-Ratings,Ratings,Studio.Toolbox.General.VotingVoteText
-vote,vote,Studio.Toolbox.General.VotingVotesText
-votes,votes,Studio.Toolbox.General.FooterButtonBlackName
-Black,Black,Studio.Toolbox.General.SearchOptionsCancel
-Cancel,Cancel,Studio.Toolbox.Purchase.Cancel
-Cancel,Cancel,Studio.Toolbox.Purchase.FailedDetails
-Purchase of "{name}" failed.,Purchase of "{name}" failed.,Studio.Toolbox.General.SearchOptionsApply
-Apply,Apply,Studio.Toolbox.General.FooterButtonNoneName
-None,None,Studio.Toolbox.General.SearchResultsKeyword
-Search Results for,Search Results for,Studio.Toolbox.General.SearchResultsClearAll
-Clear,Clear,Studio.Toolbox.General.SearchTagCreator
-by:,by:,Studio.Toolbox.General.TabMarketplace
+White,White,Studio.Toolbox.General.FooterButtonBlackName
+Black,Black,Studio.Toolbox.General.FooterButtonNoneName
+None,None,Studio.Toolbox.General.SalesOnsale
+Onsale,Onsale,Studio.Toolbox.General.EndorseBadgeTooltipText
+Marked as a high-quality item,Marked as a high-quality item,Studio.Toolbox.AssetConfigPackagePermissions.NoResults
+No results found,No results found,Studio.Toolbox.General.InfoBannerText
+No results found,No results found,Studio.Toolbox.AssetConfigCopy.AccountSetting
+"In order to share content in Marketplace, you must add & verify an email address to your account. This can be done in Account Settings.","In order to share content in Marketplace, you must add & verify an email address to your account. This can be done in Account Settings.",Studio.Toolbox.General.CategoryEndorsedPlugins
+EndorsedPlugins,EndorsedPlugins,Studio.Toolbox.General.SearchResultsKeyword
+Search Results for,Search Results for,Studio.Toolbox.General.Ownership
+Creator,Creator,Studio.Toolbox.General.SearchOptionCreator
+Creator,Creator,Studio.Toolbox.General.SearchOptionSort
+Sort By,Sort By,Studio.Toolbox.General.TabMarketplace
 Marketplace,Marketplace,Studio.Toolbox.General.TabInventory
-Inventory,Inventory,Studio.Toolbox.Purchase.BuyRobux
+Inventory,Inventory,Studio.Toolbox.General.TabRecent
+Recent,Recent,Studio.Toolbox.General.CategoryCreationsPlugins
+Plugins,Plugins,Studio.Toolbox.General.CategoryPaidPlugins
+Plugins,Plugins,Studio.Toolbox.General.CategoryCreationsDevelopmentSectionDivider
+Game development assets,Game development assets,Studio.Toolbox.Purchase.BuyRobux
 Buy Robux,Buy Robux,Studio.Toolbox.AssetConfigFooter.NewAsset
 Save as a new asset...,Save as a new asset...,Studio.Toolbox.General.SalesServiceFee
 Service fee will be collected upon sale,Service fee will be collected upon sale,Studio.Toolbox.General.CategoryCreationsCatalogSectionDivider
@@ -105,8 +192,7 @@ ID Copied!,ID Copied!,Studio.Toolbox.General.CategoryCreationsShoulderAccessory
 Shoulder Accessories,Shoulder Accessories,Studio.Toolbox.General.CategoryCreationsFrontAccessory
 Front Accessories,Front Accessories,Studio.Toolbox.General.CategoryCreationsBackAccessory
 Back Accessories,Back Accessories,Studio.Toolbox.General.TabCreations
-Creations,Creations,Studio.Toolbox.General.RightClickMenuCopyAssetID
-Copy Asset ID,Copy Asset ID,Studio.Toolbox.General.RightClickMenuCopyAssetURI
+Creations,Creations,Studio.Toolbox.General.RightClickMenuCopyAssetURI
 Copy Asset URI,Copy Asset URI,Studio.Toolbox.General.RightClickMenuViewInBrowser
 View In Browser,View In Browser,Studio.Toolbox.Purchase.FreeSuccessHeader
 Installation Complete!,Installation Complete!,Studio.Toolbox.AssetConfigPreview.Format
@@ -114,43 +200,32 @@ Acceptable files: {formatString},Max: {maxDimensionsX} x {maxDimensionsY},Accept
 Max: {maxDimensionsX} x {maxDimensionsY},Studio.Toolbox.General.RightClickMenuConfigureAsset,Configure asset
 Configure asset,Studio.Toolbox.General.RightClickMenuEditAsset,Edit Asset
 Edit Asset,Studio.Toolbox.General.RightClickMenuReport,Report
-Report,Studio.Toolbox.General.StatusReviewPending,In Review
-In Review,Studio.Toolbox.ThumbnailStatus.InReview,In Review
-In Review,Studio.Toolbox.General.StatusModerated,Rejected
+Report,Studio.Toolbox.General.StatusModerated,Rejected
 Rejected,Studio.Toolbox.General.StatusDelayedRelease,Ready For Sale
 Ready For Sale,Studio.Toolbox.General.StatusReviewApproved,Ready For Sale
 Ready For Sale,Studio.Toolbox.General.StatusOffSale,Off Sale
 Off Sale,Studio.Toolbox.General.SalesOffsale,Offsale
 Offsale,Studio.Toolbox.General.StatusUnknown,Unknown
-Unknown,Studio.Toolbox.General.AssetTypeModel,Model
-Model,Studio.Toolbox.General.AssetTypeDecal,Decal
+Unknown,Studio.Toolbox.General.AssetTypeDecal,Decal
 Decal,Studio.Toolbox.ThumbnailStatus.Pending,Pending
 Pending,Studio.Toolbox.General.AssetTypeMesh,Mesh
 Mesh,Studio.Toolbox.General.AssetTypeHat,Hat
-Hat,Studio.Toolbox.General.AssetTypeTeeShirt,T-Shirt
-T-Shirt,Studio.Toolbox.General.AssetTypeShirt,Shirt
-Shirt,Studio.Toolbox.General.AssetTypeFaceAccessory,Face Accessory
+Hat,Studio.Toolbox.General.AssetTypeFaceAccessory,Face Accessory
 Face Accessory,Studio.Toolbox.General.AssetTypeNeckAccessory,Neck Accessory
 Neck Accessory,Studio.Toolbox.General.AssetTypeShoulderAccessory,Shoulder Accessory
-Shoulder Accessory,Studio.Toolbox.General.AssetTypeFrontAccessory,Front Accessory
-Front Accessory,Studio.Toolbox.General.AssetTypeBackAccessory,Back Accessory
+Shoulder Accessory,Studio.Toolbox.General.AssetTypeBackAccessory,Back Accessory
 Back Accessory,Studio.Toolbox.General.AssetTypeWaistAccessory,Waist Accessory
 Waist Accessory,Studio.Toolbox.General.DiscardMessage,Would you like to discard all changes?
 Would you like to discard all changes?,Studio.Toolbox.General.Discard,Discard
-Discard,Studio.Toolbox.General.NoPluginsFound.TextLine1,Can’t find what you’re looking for?
-Can’t find what you’re looking for?,Studio.Toolbox.General.Description,Description
-Description,Studio.Toolbox.General.Title,Title
-Title,Studio.Toolbox.General.Tags,Tags
+Discard,Studio.Toolbox.General.Tags,Tags
 Tags,Studio.Toolbox.General.Genre,Genre
-Genre,Studio.Toolbox.General.Copy,Allow Copying
-Allow Copying,Studio.Toolbox.General.Comments,Allow Comments
+Genre,Studio.Toolbox.General.Comments,Allow Comments
 Allow Comments,Studio.Toolbox.General.LearnMore,Learn more
 Learn more,Studio.Toolbox.General.Me,Me
 Me,Studio.Toolbox.General.AssetType,Asset type
 Asset type,Studio.Toolbox.General.SalesSale,Sale
 Sale,Studio.Toolbox.General.SalesOnsaleApplyToSave,Onsale (apply to save changes)
-Onsale (apply to save changes),Studio.Toolbox.General.SalesOffsaleApplyToSave,Offsale (apply to save changes)
-Offsale (apply to save changes),Studio.Toolbox.General.SalesItemCannotBeSold,This item cannot be sold right now
+Onsale (apply to save changes),Studio.Toolbox.General.SalesItemCannotBeSold,This item cannot be sold right now
 This item cannot be sold right now,Studio.Toolbox.General.SalesPrice,Price
 Price,Studio.Toolbox.General.SalesPriceRange,Price range: {minPrice} - {maxPrice}
 Price range: {minPrice} - {maxPrice},Studio.Toolbox.General.SalesEarning,You earn: {earning}
@@ -158,46 +233,32 @@ You earn: {earning},Studio.Toolbox.AssetConfigFooter.Override,Overwrite an exist
 Overwrite an existing asset...,Studio.Toolbox.General.SideTabVersions,Versions
 Versions,Studio.Toolbox.General.SideTabGeneral,General
 General,Studio.Toolbox.General.SideTabPermissions,Permissions
-Permissions,Studio.Toolbox.General.PreviewAreaAssetID,Asset ID: {assetId}
-Asset ID: {assetId},Studio.Toolbox.General.PreviewAreaStatus,Status: {assetStatus}
-Status: {assetStatus},Studio.Toolbox.General.InstallSuccess,Success!
+Permissions,Studio.Toolbox.General.InstallSuccess,Success!
 Success!,Studio.Toolbox.General.InstallFailure,Failure
 Failure,Studio.Toolbox.AssetConfigFooter.OverrideTitle,Choose an existing model to overwrite.
 Choose an existing model to overwrite.,Studio.Toolbox.AssetConfigAnimation.AnimationID,Animation ID
 Animation ID,Studio.Toolbox.AssetConfigCopy.Terms,"By switching on, you are granting every other user of Roblox the right to use (in various ways) the content you are now sharing. If you do not want to grant this right, please do not check this box. For more information about sharing content, please review the Roblox Terms of Use."
 "By switching on, you are granting every other user of Roblox the right to use (in various ways) the content you are now sharing. If you do not want to grant this right, please do not check this box. For more information about sharing content, please review the Roblox Terms of Use.",Studio.Toolbox.AssetConfigPreview.Preview,Preview
-Preview,Studio.Toolbox.AssetConfigPreview.Change,Change
-Change,Studio.Toolbox.AssetConfigVersions.Current,Current published version
+Preview,Studio.Toolbox.AssetConfigVersions.Current,Current published version
 Current published version,Studio.Toolbox.AssetConfigVersions.Restore,Restore previous version
 Restore previous version,Studio.Toolbox.AssetConfig.GetAssetFailed,There was an problem fetching asset data. We will be closing AssetConfig page.
-There was an problem fetching asset data. We will be closing AssetConfig page.,Studio.Toolbox.AssetConfigPackagePermissions.UserOwnedWarning, Users you share with will always have access to the current and previous versions of this package. Removing collaborators will discontinue their access to newer versions of the package.
- Users you share with will always have access to the current and previous versions of this package. Removing collaborators will discontinue their access to newer versions of the package.,Studio.Toolbox.AssetConfig.Error,Error
-Error,Studio.Toolbox.ThumbnailStatus.Error,Error
-Error,Studio.Toolbox.AssetUploadResult.Success,Successfully submitted!
-Successfully submitted!,Studio.Toolbox.AssetConfigPackagePermissions.PackageOwner,Package Owner
-Package Owner,Studio.Toolbox.AssetConfigPackagePermissions.Owner,Owner
+There was an problem fetching asset data. We will be closing AssetConfig page.,Studio.Toolbox.AssetConfigPackagePermissions.Owner,Owner
 Owner,Studio.Toolbox.AssetConfigPackagePermissions.OwnerLabel,Owner
 Owner,Studio.Toolbox.AssetConfigPackagePermissions.ShareWith,Share with
 Share with,Studio.Toolbox.AssetConfigPackagePermissions.NoAccessLabel,No Access
-No Access,Studio.Toolbox.AssetConfigPackagePermissions.UseViewLabel,Use & View
-Use & View,Studio.Toolbox.NoTagFound,Word(s) not found in the tag library
-Word(s) not found in the tag library,Studio.Toolbox.AssetConfigPackagePermissions.EditLabel,Edit
-Edit,Studio.Toolbox.AssetConfigPackagePermissions.MultipleLabel,(Multiple)
+No Access,Studio.Toolbox.AssetConfigPackagePermissions.MultipleLabel,(Multiple)
 (Multiple),Studio.Toolbox.AssetConfigPackagePermissions.NoAccessDescription,"Cannot use, view or edit this package"
-"Cannot use, view or edit this package",Studio.Toolbox.AssetConfigPackagePermissions.UseViewDescription,Can use and view this package
-Can use and view this package,Studio.Toolbox.AssetConfigPackagePermissions.EditDescription,"Can use, view and edit this package"
+"Cannot use, view or edit this package",Studio.Toolbox.AssetConfigPackagePermissions.EditDescription,"Can use, view and edit this package"
 "Can use, view and edit this package",Studio.Toolbox.AssetConfigPackagePermissions.FriendsCollaboratorType,Friends
 Friends,Studio.Toolbox.ThumbnailStatus.Blocked,Blocked
 Blocked,Studio.Toolbox.AssetConfigPackagePermissions.PackageCreator,Package Creator
 Package Creator,Studio.Toolbox.AssetConfigPackagePermissions.UsersCollaboratorType,Users
 Users,Studio.Toolbox.AssetConfigPackagePermissions.GroupsCollaboratorType,Groups
 Groups,Studio.Toolbox.AssetConfigPackagePermissions.MyFriendsCollaborator,My Friends
-My Friends,Studio.Toolbox.AssetConfigPreview.Process,Image will be reviewed by moderators before being made visible to other users
-Image will be reviewed by moderators before being made visible to other users,Studio.Toolbox.AssetConfigPackagePermissions.TooManyCollaboratorsText,You cannot add more than {maxNumCollaborators:int} collaborators
+My Friends,Studio.Toolbox.AssetConfigPackagePermissions.TooManyCollaboratorsText,You cannot add more than {maxNumCollaborators:int} collaborators
 You cannot add more than {maxNumCollaborators:int} collaborators,Studio.Toolbox.Purchase.RobuxBalance,Your current balance:
 Your current balance:,Studio.Toolbox.Purchase.InsufficientPrompt,You need {robux:int} more Robux to buy "{name}" from {creator}.
-You need {robux:int} more Robux to buy "{name}" from {creator}.,Studio.Toolbox.Purchase.Retry,Retry
-Retry,Studio.Toolbox.Purchase.Buy,Buy
+You need {robux:int} more Robux to buy "{name}" from {creator}.,Studio.Toolbox.Purchase.Buy,Buy
 Buy,Studio.Toolbox.Purchase.BuyTitle,Buy & Install Plugin
 Buy & Install Plugin,Studio.Toolbox.Purchase.InsufficientTitle,Insufficient Robux
 Insufficient Robux,Studio.Toolbox.Purchase.FailedHeader,Purchase failed
@@ -208,8 +269,7 @@ You earn:,Studio.Toolbox.AssetConfigSales.Target,"By enabling it, this asset wil
 "By enabling it, this asset will be put in {market} and available for any Roblox {user}.",Studio.Toolbox.General.CategoryGroupPlugins,Group Plugins
 Group Plugins,Studio.Toolbox.General.Free,Free
 Free,Studio.Toolbox.General.Installing,Installing
-Installing,Studio.Toolbox.AssetConfigError.NetworkError,We encountered some problems:
-We encountered some problems:,Studio.Toolbox.AssetConfigPackagePermissions.SearchbarDefault,Search for Friends
+Installing,Studio.Toolbox.AssetConfigPackagePermissions.SearchbarDefault,Search for Friends
 Search for Friends,Studio.Toolbox.AssetConfigPackagePermissions.GroupOwnedWarning,No Access takes effect from new versions of this package. Users assigned to rolesets with "Edit" permissions will always have access to current and previous versions of this package.
 No Access takes effect from new versions of this package. Users assigned to rolesets with "Edit" permissions will always have access to current and previous versions of this package.,Studio.Toolbox.AssetConfigPackagePermissions.PackageDetails,Package Details
 Package Details,Studio.Toolbox.Purchase.FreeTitle,Install Plugin

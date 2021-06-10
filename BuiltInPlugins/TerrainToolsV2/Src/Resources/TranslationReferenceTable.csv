@@ -267,4 +267,4 @@ Studio.TerrainToolsV2.Generate.AssigningColormap,Assigning Colormap...,Assigning
 Studio.TerrainToolsV2.Generate.Sampling,Sampling...,Sampling...,샘플링 중..., ,正在采样……
 Studio.TerrainToolsV2.ImportWarning.MainTextColormapRGBOutOfRange,Colormap RGB values are out of range.,Colormap RGB values are out of range.,Colormap RGB 값이 범위를 벗어났습니다., ,Colormap RGB 值超出范围。
 Studio.TerrainToolsV2.ImportWarning.SubTextColormapRGBOutOfRange,The imported colormap contains RGB values that do not match the Colormap Index. The generated materials might not be correct. Please ensure you’re using the sRGB colorspace for best results.,The imported colormap contains RGB values that do not match the Colormap Index. The generated materials might not be correct. Please ensure you’re using the sRGB colorspace for best results.,가져온 Colormap에 Colormap 인덱스와 일치하지 않는 RGB 값이 포함되어 있습니다. 생성된 재질이 올바르지 않을 수 있습니다. 최상의 결과를 얻으려면 sRGB 색 공간을 사용하고 있는지 확인하세요., ,导入的 colormap 包含不符合 Colormap 索引的 RGB 值。生成的材质可能不正确。请确保你使用的是 sRGB 色域以获得最佳效果。
-Studio.TerrainToolsV2.BrushSettings.IgnoreParts,Ignore Parts,Ignore Parts,파트 무시, ,忽略部件
+Studio.TerrainToolsV2.BrushSettings.IgnoreParts,Ignore Parts,Ignore Parts,파트 무시, , 

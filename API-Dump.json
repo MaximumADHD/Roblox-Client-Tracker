@@ -4259,13 +4259,6 @@
                                 "Category": "Enum",
                                 "Name": "AvatarPromptResult"
                             }
-                        },
-                        {
-                            "Name": "failureType",
-                            "Type": {
-                                "Category": "Group",
-                                "Name": "Variant"
-                            }
                         }
                     ],
                     "Security": "None",
@@ -4738,7 +4731,7 @@
                             "Name": "mouse",
                             "Type": {
                                 "Category": "Class",
-                                "Name": "Instance"
+                                "Name": "Mouse"
                             }
                         }
                     ],
@@ -14328,7 +14321,7 @@
                     ],
                     "ReturnType": {
                         "Category": "Class",
-                        "Name": "Instance"
+                        "Name": "GlobalDataStore"
                     },
                     "Security": "None",
                     "ThreadSafety": "Unsafe"
@@ -17955,7 +17948,7 @@
                     ],
                     "ReturnType": {
                         "Category": "Class",
-                        "Name": "Instance"
+                        "Name": "StandardPages"
                     },
                     "Security": "None",
                     "Tags": [
@@ -17977,7 +17970,7 @@
                     ],
                     "ReturnType": {
                         "Category": "Class",
-                        "Name": "Instance"
+                        "Name": "StandardPages"
                     },
                     "Security": "None",
                     "Tags": [
@@ -39161,7 +39154,7 @@
                             "Name": "part",
                             "Type": {
                                 "Category": "Class",
-                                "Name": "Instance"
+                                "Name": "BasePart"
                             }
                         }
                     ],
@@ -39190,7 +39183,7 @@
                             "Name": "otherPart",
                             "Type": {
                                 "Category": "Class",
-                                "Name": "Instance"
+                                "Name": "BasePart"
                             }
                         }
                     ],
@@ -39208,7 +39201,7 @@
                             "Name": "otherPart",
                             "Type": {
                                 "Category": "Class",
-                                "Name": "Instance"
+                                "Name": "BasePart"
                             }
                         }
                     ],
@@ -39223,7 +39216,7 @@
                             "Name": "otherPart",
                             "Type": {
                                 "Category": "Class",
-                                "Name": "Instance"
+                                "Name": "BasePart"
                             }
                         }
                     ],
@@ -46083,7 +46076,7 @@
                             "Name": "player",
                             "Type": {
                                 "Category": "Class",
-                                "Name": "Instance"
+                                "Name": "Player"
                             }
                         }
                     ],
@@ -46373,7 +46366,7 @@
                             "Name": "player",
                             "Type": {
                                 "Category": "Class",
-                                "Name": "Instance"
+                                "Name": "Player"
                             }
                         }
                     ],
@@ -46392,7 +46385,7 @@
                             "Name": "player",
                             "Type": {
                                 "Category": "Class",
-                                "Name": "Instance"
+                                "Name": "Player"
                             }
                         }
                     ],
@@ -47034,7 +47027,7 @@
                             "Name": "humanoidDescription",
                             "Type": {
                                 "Category": "Class",
-                                "Name": "Instance"
+                                "Name": "HumanoidDescription"
                             }
                         }
                     ],
@@ -47141,7 +47134,7 @@
                             "Name": "character",
                             "Type": {
                                 "Category": "Class",
-                                "Name": "Instance"
+                                "Name": "Model"
                             }
                         }
                     ],
@@ -47156,7 +47149,7 @@
                             "Name": "character",
                             "Type": {
                                 "Category": "Class",
-                                "Name": "Instance"
+                                "Name": "Model"
                             }
                         }
                     ],
@@ -47171,7 +47164,7 @@
                             "Name": "character",
                             "Type": {
                                 "Category": "Class",
-                                "Name": "Instance"
+                                "Name": "Model"
                             }
                         }
                     ],
@@ -47193,7 +47186,7 @@
                             "Name": "recipient",
                             "Type": {
                                 "Category": "Class",
-                                "Name": "Instance"
+                                "Name": "Player"
                             }
                         }
                     ],
@@ -47208,7 +47201,7 @@
                             "Name": "player",
                             "Type": {
                                 "Category": "Class",
-                                "Name": "Instance"
+                                "Name": "Player"
                             }
                         },
                         {
@@ -48014,13 +48007,13 @@
                             "Name": "character",
                             "Type": {
                                 "Category": "Class",
-                                "Name": "Instance"
+                                "Name": "Model"
                             }
                         }
                     ],
                     "ReturnType": {
                         "Category": "Class",
-                        "Name": "Instance"
+                        "Name": "Player"
                     },
                     "Security": "None",
                     "ThreadSafety": "Unsafe"
@@ -48205,13 +48198,13 @@
                             "Name": "character",
                             "Type": {
                                 "Category": "Class",
-                                "Name": "Instance"
+                                "Name": "Model"
                             }
                         }
                     ],
                     "ReturnType": {
                         "Category": "Class",
-                        "Name": "Instance"
+                        "Name": "Player"
                     },
                     "Security": "None",
                     "Tags": [
@@ -48536,7 +48529,7 @@
                             "Name": "player",
                             "Type": {
                                 "Category": "Class",
-                                "Name": "Instance"
+                                "Name": "Player"
                             }
                         }
                     ],
@@ -48647,7 +48640,7 @@
                             "Name": "player",
                             "Type": {
                                 "Category": "Class",
-                                "Name": "Instance"
+                                "Name": "Player"
                             }
                         }
                     ],
@@ -48979,7 +48972,7 @@
                     ],
                     "ReturnType": {
                         "Category": "Class",
-                        "Name": "Instance"
+                        "Name": "PluginMouse"
                     },
                     "Security": "PluginSecurity",
                     "ThreadSafety": "Unsafe"
@@ -52577,7 +52570,7 @@
                             "Name": "player",
                             "Type": {
                                 "Category": "Class",
-                                "Name": "Instance"
+                                "Name": "Player"
                             }
                         },
                         {
@@ -52637,7 +52630,7 @@
                             "Name": "player",
                             "Type": {
                                 "Category": "Class",
-                                "Name": "Instance"
+                                "Name": "Player"
                             }
                         },
                         {
@@ -52666,7 +52659,7 @@
                             "Name": "player",
                             "Type": {
                                 "Category": "Class",
-                                "Name": "Instance"
+                                "Name": "Player"
                             }
                         },
                         {
@@ -74583,23 +74576,6 @@
         {
             "Items": [
                 {
-                    "Name": "InvalidName",
-                    "Value": 1
-                },
-                {
-                    "Name": "OutfitLimitReached",
-                    "Value": 2
-                },
-                {
-                    "Name": "Other",
-                    "Value": 3
-                }
-            ],
-            "Name": "CreateOutfitFailure"
-        },
-        {
-            "Items": [
-                {
                     "Name": "User",
                     "Value": 0
                 },
@@ -74988,7 +74964,7 @@
                     "Value": 0
                 },
                 {
-                    "Name": "World",
+                    "Name": "Constant",
                     "Value": 1
                 }
             ],

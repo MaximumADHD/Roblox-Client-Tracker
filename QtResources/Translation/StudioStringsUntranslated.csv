@@ -1915,6 +1915,7 @@ Studio.App.RBXMainWindow.SwitchBothAttachments,,Swap both attachments on the con
 Studio.App.RBXMainWindow.TakeScreenshot,,Take Screenshot,Take Screenshot
 Studio.App.RBXMainWindow.TaskScheduler,,Task Scheduler,Task Scheduler
 Studio.App.RBXMainWindow.TeamCreate,,Team Create,Team Create
+Studio.App.RBXMainWindow.TeamCreateBeta,,Team Create - Beta,Team Create - Beta
 Studio.App.RBXMainWindow.TerrainEditor,,Terrain Editor,Terrain Editor
 Studio.App.RBXMainWindow.TestNetworkErrorsAndIssues,,Test network errors and issues,Test network errors and issues
 Studio.App.RBXMainWindow.TestPlay,,Test - play,Test - play
