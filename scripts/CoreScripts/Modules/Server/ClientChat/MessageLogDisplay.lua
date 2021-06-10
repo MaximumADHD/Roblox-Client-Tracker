@@ -2,6 +2,13 @@
 --	// Written by: Xsitsu, TheGamer101
 --	// Description: ChatChannel window for displaying messages.
 
+local UserFlagRemoveMessageOnTextFilterFailures do
+	local success, value = pcall(function()
+		return UserSettings():IsUserFeatureEnabled("UserRemoveMessageOnTextFilterFailures")
+	end)
+	UserFlagRemoveMessageOnTextFilterFailures = success and value
+end
+
 local module = {}
 module.ScrollBarThickness = 4
 
@@ -21,6 +28,7 @@ local MessageLabelCreator = moduleMessageLabelCreator.new()
 --//////////////////////////////////////
 local methods = {}
 methods.__index = methods
+
 
 local function CreateGuiObjects()
 	local BaseFrame = Instance.new("Frame")
@@ -73,8 +81,17 @@ function methods:UpdateMessageFiltered(messageData)
 	end
 
 	if messageObject then
-		messageObject.UpdateTextFunction(messageData)
-		self:PositionMessageLabelInWindow(messageObject, searchIndex)
+		if UserFlagRemoveMessageOnTextFilterFailures then
+			if messageData.Message == "" then
+				self:RemoveMessageAtIndex(searchIndex)
+			else
+				messageObject.UpdateTextFunction(messageData)
+				self:PositionMessageLabelInWindow(messageObject, searchIndex)
+			end
+		else
+			messageObject.UpdateTextFunction(messageData)
+			self:PositionMessageLabelInWindow(messageObject, searchIndex)
+		end
 	end
 end
 
@@ -88,6 +105,17 @@ function methods:AddMessage(messageData)
 
 	table.insert(self.MessageObjectLog, messageObject)
 	self:PositionMessageLabelInWindow(messageObject, #self.MessageObjectLog)
+end
+
+function methods:RemoveMessageAtIndex(index)
+	self:WaitUntilParentedCorrectly()
+
+	local removeThis = self.MessageObjectLog[index]
+
+	if removeThis then
+		removeThis:Destroy()
+		table.remove(self.MessageObjectLog, index)
+	end
 end
 
 function methods:AddMessageAtIndex(messageData, index)

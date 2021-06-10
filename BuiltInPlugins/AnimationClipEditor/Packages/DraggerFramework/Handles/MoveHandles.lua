@@ -14,6 +14,8 @@ local getEngineFeatureModelPivotVisual = require(DraggerFramework.Flags.getEngin
 
 local getFFlagFoldersOverFragments = require(DraggerFramework.Flags.getFFlagFoldersOverFragments)
 
+local getFFlagFixDraggerMovingInWrongDirection = require(DraggerFramework.Flags.getFFlagFixDraggerMovingInWrongDirection)
+
 local ALWAYS_ON_TOP = true
 
 local MoveHandles = {}
@@ -198,17 +200,56 @@ function MoveHandles:_setMidMoveBoundingBox(newBoundingBoxCFrame)
 	self._boundingBox.CFrame = newBoundingBoxCFrame
 end
 
+--[[
+	Returns the distance the mouse cursor was dragged along handle axis
+
+	This is non-trivial when the cursor gets away from the axis on the screen.
+	Let p be the start of the handle, u be the direction of the handle, and eye
+	be the origin of the mouse ray (eye of the camera).
+
+	Let v be the unit vector from p pointing to the eye, and let w = v x u.
+
+	Then v is normal to plane defined by points eye, p and the vector u.
+	|v| = 0 if and only if the handle projects to a dot on the screen.
+
+	Let cur be where the mouse ray intersects the plane at p spanned by u, v.
+	Find the normal projection of cur onto the handle ray, and use that to
+	compute the dragged distance.
+]]
 function MoveHandles:_getDistanceAlongAxis(mouseRay)
-	if getEngineFeatureModelPivotVisual() then
-		return Math.intersectRayRay(
-			(self._draggingOriginalBoundingBoxCFrame * self._basisOffset).Position, self._axis,
-			mouseRay.Origin, mouseRay.Direction.Unit)
+	-- this flag fixes issue MOD-602
+	if getFFlagFixDraggerMovingInWrongDirection() then
+		local eye = mouseRay.Origin
+		local ray = mouseRay.Direction.Unit
+		local draggedFrame = self._draggingOriginalBoundingBoxCFrame
+		if getEngineFeatureModelPivotVisual() then
+			draggedFrame = draggedFrame * self._basisOffset
+		end
+		local dragStartPosition = draggedFrame.Position
+		local dragDirection = self._axis.Unit
+		local handleToEyeDirection = (eye - dragStartPosition).Unit
+		local eyePlaneNormal = handleToEyeDirection:Cross(dragDirection)
+		-- the handle axis projects to a point, can't compute drag distance
+		if eyePlaneNormal:Dot(eyePlaneNormal) < 0.0001 then
+			return false
+		end
+		local dragPlaneNormal = (dragDirection:Cross(eyePlaneNormal)).Unit
+		local cursorPosition = Math.intersectRayPlanePoint(eye, ray, dragStartPosition, dragPlaneNormal)
+		local draggedDistance = (cursorPosition - dragStartPosition):Dot(dragDirection)
+		return true, draggedDistance
 	else
-		return Math.intersectRayRay(
-			self._draggingOriginalBoundingBoxCFrame.Position, self._axis,
-			mouseRay.Origin, mouseRay.Direction.Unit)
+		if getEngineFeatureModelPivotVisual() then
+			return Math.intersectRayRay(
+				(self._draggingOriginalBoundingBoxCFrame * self._basisOffset).Position, self._axis,
+				mouseRay.Origin, mouseRay.Direction.Unit)
+		else
+			return Math.intersectRayRay(
+				self._draggingOriginalBoundingBoxCFrame.Position, self._axis,
+				mouseRay.Origin, mouseRay.Direction.Unit)
+		end
 	end
 end
+
 
 --[[
 	We want to keep the mouse cursor snapped to a point a constant fraction of

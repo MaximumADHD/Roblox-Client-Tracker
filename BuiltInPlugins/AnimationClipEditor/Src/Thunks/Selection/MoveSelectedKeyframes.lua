@@ -6,6 +6,9 @@
 
 	Other keyframes will be moved based on their
 	offset from the pivot keyframe.
+
+	If realtime changes are enabled and changes are made, this thunk
+	also relies on "reference data" coming from the dragContext.
 ]]
 
 local Plugin = script.Parent.Parent.Parent.Parent
@@ -17,13 +20,14 @@ local AnimationData = require(Plugin.Src.Util.AnimationData)
 local SetSelectedKeyframes = require(Plugin.Src.Actions.SetSelectedKeyframes)
 local UpdateAnimationData = require(Plugin.Src.Thunks.UpdateAnimationData)
 
+local GetFFlagRealtimeChanges = require(Plugin.LuaFlags.GetFFlagRealtimeChanges)
 local GetFFlagReduceDeepcopyCalls = require(Plugin.LuaFlags.GetFFlagReduceDeepcopyCalls)
 
-return function(pivotFrame, newFrame)
+return function(pivotFrame, newFrame, dragContext)
 	return function(store)
 		local state = store:getState()
-		local selectedKeyframes = state.Status.SelectedKeyframes
-		local animationData = state.AnimationData
+		local selectedKeyframes = (GetFFlagRealtimeChanges() and dragContext) and dragContext.selectedKeyframes or state.Status.SelectedKeyframes
+		local animationData = (GetFFlagRealtimeChanges() and dragContext) and dragContext.animationData or state.AnimationData
 		if not (animationData and selectedKeyframes) then
 			return
 		end
@@ -44,7 +48,13 @@ return function(pivotFrame, newFrame)
 		-- moving the keyframes forward in the timeline.
 		local moveLastToFirst = newFrame > pivotFrame
 
-		local earliestFrame, latestFrame = Preview.getFrameBounds(newData, selectedKeyframes)
+		local earliestFrame, latestFrame
+		if GetFFlagRealtimeChanges() then
+			earliestFrame, latestFrame = AnimationData.getSelectionBounds(newData, selectedKeyframes)
+		else
+			earliestFrame, latestFrame = Preview.getFrameBounds(newData, selectedKeyframes)
+		end
+
 		local newSelectedKeyframes = deepCopy(selectedKeyframes)
 
 		for instanceName, instance in pairs(selectedKeyframes) do

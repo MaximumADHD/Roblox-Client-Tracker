@@ -24,4 +24,8 @@ function FastFlags:shouldDetectRigTypeInCustomImport()
 	return isFlagOn("DetectRigTypeInCustomImport")
 end
 
+function FastFlags:shouldDetectRigTypeInR15Import()
+	return isFlagOn("DetectRigTypeInR15Import")
+end
+
 return FastFlags

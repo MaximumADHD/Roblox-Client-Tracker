@@ -16,6 +16,7 @@
 		numberLayoutOrder
 		callback setDropdownHeight(number height)
 ]]
+local FFlagToolboxReplaceUILibraryComponentsPt2 = game:GetFastFlag("ToolboxReplaceUILibraryComponentsPt2")
 
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
@@ -33,7 +34,19 @@ local AssetConfigConstants = require(Util.AssetConfigConstants)
 local trimString = require(Util.trimString)
 local TagsUtil = require(Util.TagsUtil)
 
-local RoundFrame = UILibrary.Component.RoundFrame
+local Framework = require(Libs.Framework)
+local ContextServices = Framework.ContextServices
+local StyleModifier = require(Libs.Framework.Util.StyleModifier)
+
+local Container
+local RoundBox
+local RoundFrame
+if FFlagToolboxReplaceUILibraryComponentsPt2 then
+	RoundBox = Framework.UI.Decoration.RoundBox
+	Container = Framework.UI.Container
+else
+	RoundFrame = UILibrary.Component.RoundFrame
+end
 
 local Components = Plugin.Core.Components
 local DropdownItemsList = require(Components.DropdownItemsList)
@@ -206,204 +219,230 @@ function TagsComponent:didMount()
 end
 
 function TagsComponent:render()
-	return withTheme(function(theme)
+	if FFlagToolboxReplaceUILibraryComponentsPt2 then
 		return withLocalization(function(localization, localizedContent)
-			local props = self.props
-			local state = self.state
-
-			local title = props.Title
-			local layoutOrder = props.LayoutOrder
-
-			local publishAssetTheme = theme.publishAsset
-
-			local tagElements = {}
-
-			local LINE_HEIGHT = TAG_PADDING + Constants.FONT_SIZE_TITLE + TAG_PADDING
-
-			local line = 0
-			local lineLength = PADDING
-			local function getNextPosition(length)
-				local nextLength = lineLength
-				if lineLength + length > state.textFieldSize.X - PADDING then
-					line = line + 1
-					lineLength = PADDING
-					nextLength = lineLength
-				end
-				lineLength = lineLength + length + TAG_PADDING
-				return nextLength, PADDING + line * (PADDING + LINE_HEIGHT)
-			end
-
-			for i = 1, #props.tags do
-				local tag = props.tags[i]
-
-				local textSize = Constants.getTextSize(
-					tag.localizedDisplayName,
-					Constants.FONT_SIZE_TITLE,
-					Constants.FONT
-				)
-
-				local sizeX = TAG_PADDING + textSize.X + TAG_PADDING + CLOSE_BUTTON_SIZE + TAG_PADDING
-				local sizeY = TAG_PADDING + textSize.Y + TAG_PADDING
-				local posX, posY = getNextPosition(sizeX)
-
-				tagElements["Tag" .. i] = Roact.createElement(CatalogTag, {
-					Text = tag.localizedDisplayName,
-					Position = UDim2.new(0, posX, 0, posY),
-					Size = UDim2.new(0, sizeX, 0, sizeY),
-					textSize = textSize,
-					onClose = function()
-						self:removeTag(tag.tagId)
-					end,
-				})
-			end
-
-			local textBoxPosX, textBoxPosY = getNextPosition(MINIMUM_TEXTBOX_LENGTH)
-			tagElements.TextBox = Roact.createElement("TextBox", {
-				BackgroundTransparency = 1,
-				ClearTextOnFocus = false,
-				ClipsDescendants = true,
-				Font = Constants.FONT,
-				Position = UDim2.new(0, textBoxPosX, 0, textBoxPosY),
-				Size = UDim2.new(0, state.textFieldSize.X - textBoxPosX, 0, LINE_HEIGHT),
-				TextColor3 = theme.tags.textColor,
-				TextSize = Constants.FONT_SIZE_TITLE,
-				TextXAlignment = Enum.TextXAlignment.Left,
-				TextYAlignment = Enum.TextYAlignment.Center,
-
-				Text = self.lastText,
-
-				[Roact.Event.Focused] = self.onTextBoxFocused,
-				[Roact.Event.FocusLost] = self.onTextBoxFocusLost,
-				[Roact.Change.Text] = self.onTextBoxTextChanged,
-				[Roact.Change.CursorPosition] = self.onTextBoxCursorPositionChanged,
-
-				[Roact.Ref] = self.textBoxRef,
-			})
-
-			local prefix = trimString(self.lastText)
-			local noTagFound = #prefix > 0
-				and #props.suggestions == 0
-				and prefix == props.latestTagSearchQuery
-
-			local descriptionColor
-			local descriptionText
-			if noTagFound then
-				descriptionColor = theme.inputFields.error
-				descriptionText = localizedContent.AssetConfig.NoTagFound
-			else
-				descriptionColor = theme.inputFields.toolTip
-				descriptionText = localization:getMaxTags(props.maximumItemTagsPerItem)
-			end
-
-			local textFieldBorderColor3
-			if noTagFound then
-				textFieldBorderColor3 = theme.inputFields.error
-			elseif state.active then
-				textFieldBorderColor3 = theme.inputFields.borderColorActive
-			else
-				textFieldBorderColor3 = theme.inputFields.borderColor
-			end
-
-			local contentHeight = PADDING + LINE_HEIGHT + line*(PADDING + LINE_HEIGHT) + PADDING + DESCRIPTION_HEIGHT
-
-			return Roact.createElement("Frame", {
-				Active = true,
-				BackgroundTransparency = 1,
-				BorderSizePixel = 0,
-				LayoutOrder = layoutOrder,
-				Size = UDim2.new(1, 0, 0, contentHeight + PADDING),
-				[Roact.Ref] = props[Roact.Ref],
-			}, {
-				UIListLayout = Roact.createElement("UIListLayout", {
-					FillDirection = Enum.FillDirection.Horizontal,
-					HorizontalAlignment = Enum.HorizontalAlignment.Left,
-					Padding = UDim.new(0, 0),
-					SortOrder = Enum.SortOrder.LayoutOrder,
-					VerticalAlignment = Enum.VerticalAlignment.Top,
-				}),
-
-				Title = Roact.createElement("TextLabel", {
-					BackgroundTransparency = 1,
-					BorderSizePixel = 0,
-					Font = Constants.FONT,
-					Size = UDim2.new(0, AssetConfigConstants.TITLE_GUTTER_WIDTH, 1, 0),
-					Text = title,
-					TextColor3 = publishAssetTheme.titleTextColor,
-					TextSize = Constants.FONT_SIZE_TITLE,
-					TextXAlignment = Enum.TextXAlignment.Left,
-					TextYAlignment = Enum.TextYAlignment.Top,
-
-					LayoutOrder = 1,
-				}),
-
-				Content = Roact.createElement("Frame", {
-					LayoutOrder = 2,
-					BackgroundTransparency = 1,
-					Size = UDim2.new(1, -AssetConfigConstants.TITLE_GUTTER_WIDTH, 0, contentHeight),
-				}, {
-					TextField = Roact.createElement(RoundFrame, {
-						BackgroundColor3 = not self:canAddTags() and theme.inputFields.backgroundColorDisabled or theme.inputFields.backgroundColor,
-						BorderColor3 = textFieldBorderColor3,
-
-						Size = UDim2.new(1, 0, 1, -DESCRIPTION_HEIGHT),
-
-						LayoutOrder = 1,
-
-						[Roact.Ref] = self.textFieldRef,
-
-						[Roact.Change.AbsoluteSize] = self.onTextFieldAbsoluteSizeChanged,
-						[Roact.Change.AbsolutePosition] = self.onTextFieldAbsolutePositionChanged,
-
-
-						OnActivated = function()
-							if not state.active and self.textBoxRef and self.textBoxRef.current then
-								self.textBoxRef.current:CaptureFocus()
-							end
-						end,
-					}, tagElements),
-
-					Description = Roact.createElement("TextLabel", {
-						BackgroundTransparency = 1,
-						Size = UDim2.new(1, 0, 0, DESCRIPTION_HEIGHT),
-						Position = UDim2.new(0, 0, 1, -DESCRIPTION_HEIGHT),
-						LayoutOrder = 2,
-						Text = descriptionText,
-						TextColor3 = descriptionColor,
-						TextXAlignment = Enum.TextXAlignment.Left,
-					}),
-				}),
-
-				Suggestions = state.active and self:canAddTags() and #props.suggestions > 0 and Roact.createElement(DropdownItemsList, {
-					items = self:getDropdownItems(),
-
-					onItemClicked = function(index)
-						self.lastText = TEXT_FIELD_BUFFER
-						self:addTag(props.suggestions[index])
-						self.props.clearSuggestions()
-						if self.textBoxRef and self.textBoxRef.current then
-							self.textBoxRef.current:CaptureFocus()
-						end
-					end,
-
-					closeDropdown = function()
-						self:setState({ active = false })
-						if self.textBoxRef and self.textBoxRef.current then
-							self.textBoxRef.current:ReleaseFocus()
-						end
-					end,
-
-					dropDownWidth = state.textFieldSize.X,
-					top = state.textFieldPosition.Y + state.textFieldSize.Y,
-					left = state.textFieldPosition.X,
-
-					windowPosition = state.textFieldPosition,
-					windowSize = state.textFieldSize,
-
-					setDropdownHeight = props.setDropdownHeight,
-				}),
-			})
+			return self:renderContents(nil, localization, localizedContent)
 		end)
-	end)
+	else
+		return withTheme(function(theme)
+			return withLocalization(function(localization, localizedContent)
+				return self:renderContents(theme, localization, localizedContent)
+			end)
+		end)
+	end
+end
+function TagsComponent:renderContents(theme, localization, localizedContent)
+	local props = self.props
+	local state = self.state
+
+	if FFlagToolboxReplaceUILibraryComponentsPt2 then
+		theme = props.Stylizer
+	end
+
+	local title = props.Title
+	local layoutOrder = props.LayoutOrder
+
+	local publishAssetTheme = theme.publishAsset
+
+	local tagElements = {}
+
+	local LINE_HEIGHT = TAG_PADDING + Constants.FONT_SIZE_TITLE + TAG_PADDING
+
+	local line = 0
+	local lineLength = PADDING
+	local function getNextPosition(length)
+		local nextLength = lineLength
+		if lineLength + length > state.textFieldSize.X - PADDING then
+			line = line + 1
+			lineLength = PADDING
+			nextLength = lineLength
+		end
+		lineLength = lineLength + length + TAG_PADDING
+		return nextLength, PADDING + line * (PADDING + LINE_HEIGHT)
+	end
+
+	for i = 1, #props.tags do
+		local tag = props.tags[i]
+
+		local textSize = Constants.getTextSize(
+			tag.localizedDisplayName,
+			Constants.FONT_SIZE_TITLE,
+			Constants.FONT
+		)
+
+		local sizeX = TAG_PADDING + textSize.X + TAG_PADDING + CLOSE_BUTTON_SIZE + TAG_PADDING
+		local sizeY = TAG_PADDING + textSize.Y + TAG_PADDING
+		local posX, posY = getNextPosition(sizeX)
+
+		tagElements["Tag" .. i] = Roact.createElement(CatalogTag, {
+			Text = tag.localizedDisplayName,
+			Position = UDim2.new(0, posX, 0, posY),
+			Size = UDim2.new(0, sizeX, 0, sizeY),
+			textSize = textSize,
+			onClose = function()
+				self:removeTag(tag.tagId)
+			end,
+		})
+	end
+
+	local textBoxPosX, textBoxPosY = getNextPosition(MINIMUM_TEXTBOX_LENGTH)
+	tagElements.TextBox = Roact.createElement("TextBox", {
+		BackgroundTransparency = 1,
+		ClearTextOnFocus = false,
+		ClipsDescendants = true,
+		Font = Constants.FONT,
+		Position = UDim2.new(0, textBoxPosX, 0, textBoxPosY),
+		Size = UDim2.new(0, state.textFieldSize.X - textBoxPosX, 0, LINE_HEIGHT),
+		TextColor3 = theme.tags.textColor,
+		TextSize = Constants.FONT_SIZE_TITLE,
+		TextXAlignment = Enum.TextXAlignment.Left,
+		TextYAlignment = Enum.TextYAlignment.Center,
+
+		Text = self.lastText,
+
+		[Roact.Event.Focused] = self.onTextBoxFocused,
+		[Roact.Event.FocusLost] = self.onTextBoxFocusLost,
+		[Roact.Change.Text] = self.onTextBoxTextChanged,
+		[Roact.Change.CursorPosition] = self.onTextBoxCursorPositionChanged,
+
+		[Roact.Ref] = self.textBoxRef,
+	})
+
+	local prefix = trimString(self.lastText)
+	local noTagFound = #prefix > 0
+		and #props.suggestions == 0
+		and prefix == props.latestTagSearchQuery
+
+	local descriptionColor
+	local descriptionText
+	if noTagFound then
+		descriptionColor = theme.inputFields.error
+		descriptionText = localizedContent.AssetConfig.NoTagFound
+	else
+		descriptionColor = theme.inputFields.toolTip
+		descriptionText = localization:getMaxTags(props.maximumItemTagsPerItem)
+	end
+
+	local textFieldBorderColor3
+	if not FFlagToolboxReplaceUILibraryComponentsPt2 then
+		if noTagFound then
+			textFieldBorderColor3 = theme.inputFields.error
+		elseif state.active then
+			textFieldBorderColor3 = theme.inputFields.borderColorActive
+		else
+			textFieldBorderColor3 = theme.inputFields.borderColor
+		end
+	end
+
+	local contentHeight = PADDING + LINE_HEIGHT + line*(PADDING + LINE_HEIGHT) + PADDING + DESCRIPTION_HEIGHT
+
+	return Roact.createElement("Frame", {
+		Active = true,
+		BackgroundTransparency = 1,
+		BorderSizePixel = 0,
+		LayoutOrder = layoutOrder,
+		Size = UDim2.new(1, 0, 0, contentHeight + PADDING),
+		[Roact.Ref] = props[Roact.Ref],
+	}, {
+		UIListLayout = Roact.createElement("UIListLayout", {
+			FillDirection = Enum.FillDirection.Horizontal,
+			HorizontalAlignment = Enum.HorizontalAlignment.Left,
+			Padding = UDim.new(0, 0),
+			SortOrder = Enum.SortOrder.LayoutOrder,
+			VerticalAlignment = Enum.VerticalAlignment.Top,
+		}),
+
+		Title = Roact.createElement("TextLabel", {
+			BackgroundTransparency = 1,
+			BorderSizePixel = 0,
+			Font = Constants.FONT,
+			Size = UDim2.new(0, AssetConfigConstants.TITLE_GUTTER_WIDTH, 1, 0),
+			Text = title,
+			TextColor3 = publishAssetTheme.titleTextColor,
+			TextSize = Constants.FONT_SIZE_TITLE,
+			TextXAlignment = Enum.TextXAlignment.Left,
+			TextYAlignment = Enum.TextYAlignment.Top,
+
+			LayoutOrder = 1,
+		}),
+
+		Content = Roact.createElement("Frame", {
+			LayoutOrder = 2,
+			BackgroundTransparency = 1,
+			Size = UDim2.new(1, -AssetConfigConstants.TITLE_GUTTER_WIDTH, 0, contentHeight),
+		}, {
+			Textfield = FFlagToolboxReplaceUILibraryComponentsPt2 and Roact.createElement(Container, {
+				Background = RoundBox,
+				BackgroundStyle = noTagFound and "TagsComponentError" or "TagsComponent",
+				BackgroundStyleModifier = (not self:canAddTags() and StyleModifier.Disabled) or (state.active and StyleModifier.Selected) or nil,
+				LayoutOrder = 1,
+				Size = UDim2.new(1, 0, 1, -DESCRIPTION_HEIGHT),
+
+				[Roact.Change.AbsoluteSize] = self.onTextFieldAbsoluteSizeChanged,
+				[Roact.Change.AbsolutePosition] = self.onTextFieldAbsolutePositionChanged,
+				[Roact.Ref] = self.textFieldRef,
+			}, tagElements)
+			or Roact.createElement(RoundFrame, {
+				BackgroundColor3 = not self:canAddTags() and theme.inputFields.backgroundColorDisabled or theme.inputFields.backgroundColor,
+				BorderColor3 = textFieldBorderColor3,
+
+				Size = UDim2.new(1, 0, 1, -DESCRIPTION_HEIGHT),
+
+				LayoutOrder = 1,
+
+				[Roact.Ref] = self.textFieldRef,
+
+				[Roact.Change.AbsoluteSize] = self.onTextFieldAbsoluteSizeChanged,
+				[Roact.Change.AbsolutePosition] = self.onTextFieldAbsolutePositionChanged,
+
+
+				OnActivated = function()
+					if not state.active and self.textBoxRef and self.textBoxRef.current then
+						self.textBoxRef.current:CaptureFocus()
+					end
+				end,
+			}, tagElements),
+
+			Description = Roact.createElement("TextLabel", {
+				BackgroundTransparency = 1,
+				Size = UDim2.new(1, 0, 0, DESCRIPTION_HEIGHT),
+				Position = UDim2.new(0, 0, 1, -DESCRIPTION_HEIGHT),
+				LayoutOrder = 2,
+				Text = descriptionText,
+				TextColor3 = descriptionColor,
+				TextXAlignment = Enum.TextXAlignment.Left,
+			}),
+		}),
+
+		Suggestions = state.active and self:canAddTags() and #props.suggestions > 0 and Roact.createElement(DropdownItemsList, {
+			items = self:getDropdownItems(),
+
+			onItemClicked = function(index)
+				self.lastText = TEXT_FIELD_BUFFER
+				self:addTag(props.suggestions[index])
+				self.props.clearSuggestions()
+				if self.textBoxRef and self.textBoxRef.current then
+					self.textBoxRef.current:CaptureFocus()
+				end
+			end,
+
+			closeDropdown = function()
+				self:setState({ active = false })
+				if self.textBoxRef and self.textBoxRef.current then
+					self.textBoxRef.current:ReleaseFocus()
+				end
+			end,
+
+			dropDownWidth = state.textFieldSize.X,
+			top = state.textFieldPosition.Y + state.textFieldSize.Y,
+			left = state.textFieldPosition.X,
+
+			windowPosition = state.textFieldPosition,
+			windowSize = state.textFieldSize,
+
+			setDropdownHeight = props.setDropdownHeight,
+		}),
+	})
 end
 
 local function mapStateToProps(state, props)
@@ -425,6 +464,12 @@ local function mapDispatchToProps(dispatch)
 			dispatch(SetTagSuggestions({}, tick(), ""))
 		end,
 	}
+end
+
+if FFlagToolboxReplaceUILibraryComponentsPt2 then
+	ContextServices.mapToProps(TagsComponent, {
+		Stylizer = ContextServices.Stylizer,
+	})
 end
 
 return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(TagsComponent)
