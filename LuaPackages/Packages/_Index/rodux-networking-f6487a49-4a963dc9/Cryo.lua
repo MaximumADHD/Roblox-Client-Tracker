@@ -3,7 +3,7 @@
 ]]
 local PackageIndex = script.Parent.Parent
 
-local package = PackageIndex["rodux-networking-f6487a49-4a963dc9"]["rodux-networking"]
+local package = PackageIndex["roblox_cryo"]["cryo"]
 
 if package.ClassName == "ModuleScript" then
 	return require(package)
