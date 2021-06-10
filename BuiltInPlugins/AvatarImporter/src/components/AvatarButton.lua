@@ -31,7 +31,6 @@ local Tooltip = require(root.src.components.Tooltip)
 
 local Import = require(root.src.thunks.Import)
 local DetectType = require(root.src.thunks.DetectType)
-local DetectTypeWithOrigAvatarType = require(root.src.thunks.DetectTypeWithOrigAvatarType)
 
 local Constants = require(root.src.Constants)
 
@@ -114,12 +113,7 @@ function AvatarButton:render()
 		if importedAsR15 then 
 			self.props.doImport(self.props.avatarType)
 		else
-			-- if we are detecting rig type in r15 import, the original rig type must be set through detectTypeWithOrigAvatarType
-			if(FastFlags:shouldDetectRigTypeInR15Import()) then
-				self.props.detectTypeWithOrigAvatarType(avatarType)
-			else
-				self.props.detectType()
-			end
+			self.props.detectType()
 		end
 	end
 
@@ -162,10 +156,8 @@ function AvatarButton:render()
 		end,
 
 		[Roact.Event.Activated] = function()
-			if (FastFlags:shouldDetectRigTypeInCustomImport() and self.props.avatarType == Constants.AVATAR_TYPE.CUSTOM) then 
+			if FastFlags:shouldDetectRigTypeInCustomImport() then 
 				detectRigTypeOrImport(self.props.avatarType)
-			elseif (FastFlags:shouldDetectRigTypeInR15Import() and self.props.avatarType ~= Constants.AVATAR_TYPE.CUSTOM) then 
-				self.props.detectTypeWithOrigAvatarType(self.props.avatarType)
 			else
 				self.props.doImport(self.props.avatarType)
 			end
@@ -273,9 +265,6 @@ local function mapDispatchToProps(dispatch)
 		end,
 		detectType = function()
 			dispatch(DetectType())
-		end,
-		detectTypeWithOrigAvatarType = function(avatarType)
-			dispatch(DetectTypeWithOrigAvatarType(avatarType))
 		end
 	}
 end

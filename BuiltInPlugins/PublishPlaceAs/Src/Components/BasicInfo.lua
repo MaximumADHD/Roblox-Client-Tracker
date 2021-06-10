@@ -56,7 +56,6 @@ local FFlagStudioAllowRemoteSaveBeforePublish = game:GetFastFlag("StudioAllowRem
 local FFlagUpdatePublishPlacePluginToDevFrameworkContext = game:GetFastFlag("UpdatePublishPlacePluginToDevFrameworkContext")
 local FFlagStudioPromptOnFirstPublish = game:GetFastFlag("StudioPromptOnFirstPublish")
 local FFlagLuobuDevPublishLua = game:GetFastFlag("LuobuDevPublishLua")
-local FFlagUseLayoutIteratorGameSettingsPublishPlace = game:GetFastFlag("UseLayoutIteratorGameSettingsPublishPlace")
 
 local shouldShowDevPublishLocations = require(Plugin.Src.Util.PublishPlaceAsUtilities).shouldShowDevPublishLocations
 local KeyProvider = FFlagLuobuDevPublishLua and require(Plugin.Src.Util.KeyProvider) or nil
@@ -67,7 +66,6 @@ local Framework = require(Plugin.Packages.Framework)
 local Tooltip = Framework.UI.Tooltip
 local Image = Framework.UI.Decoration.Image
 local HoverArea = Framework.UI.HoverArea
-local LayoutOrderIterator = Framework.Util.LayoutOrderIterator
 
 local groupsLoaded = false
 -- remove DEPRECATED_localization parameter with FFlagUpdatePublishPlacePluginToDevFrameworkContext
@@ -127,18 +125,16 @@ local function displayContents(parent, DEPRECATED_localization)
 	local nameLength = utf8.len(name)
 	local descriptionLength = utf8.len(description)
 
-	local layoutOrder = FFlagUseLayoutIteratorGameSettingsPublishPlace and LayoutOrderIterator.new() or nil
-
 	local displayResult = {
 		Header = Roact.createElement(Header, {
 			Title = localization:getText("MenuItem", "BasicInfo"),
-			LayoutOrder = FFlagUseLayoutIteratorGameSettingsPublishPlace and layoutOrder:getNextOrder() or 0,
+			LayoutOrder = 0,
 		}),
 
 		Name = Roact.createElement(TitledFrame, {
 			Title = localization:getText("PageTitle", "Name"),
 			MaxHeight = 60,
-			LayoutOrder = FFlagUseLayoutIteratorGameSettingsPublishPlace and layoutOrder:getNextOrder() or 1,
+			LayoutOrder = 1,
 			TextSize = Constants.TEXT_SIZE,
 		}, {
 			TextBox = Roact.createElement(RoundTextBox, {
@@ -154,7 +150,7 @@ local function displayContents(parent, DEPRECATED_localization)
 		Description = Roact.createElement(TitledFrame, {
 			Title = localization:getText("PageTitle", "Description"),
 			MaxHeight = 150,
-			LayoutOrder = FFlagUseLayoutIteratorGameSettingsPublishPlace and layoutOrder:getNextOrder() or 2,
+			LayoutOrder = 2,
 			TextSize = Constants.TEXT_SIZE,
 		}, {
 			TextBox = Roact.createElement(RoundTextBox, {
@@ -170,7 +166,7 @@ local function displayContents(parent, DEPRECATED_localization)
 		}),
 
 		Separator1 = Roact.createElement(Separator, {
-			LayoutOrder = FFlagUseLayoutIteratorGameSettingsPublishPlace and layoutOrder:getNextOrder() or 3,
+			LayoutOrder = 3,
 		}),
 
 		Creator = Roact.createElement(TitledFrame, {
@@ -178,7 +174,7 @@ local function displayContents(parent, DEPRECATED_localization)
 			MaxHeight = 38,
 			TextSize = Constants.TEXT_SIZE,
 			ZIndex = 2,
-			LayoutOrder = FFlagUseLayoutIteratorGameSettingsPublishPlace and layoutOrder:getNextOrder() or 4,
+			LayoutOrder = 4,
 		}, {
 			Selector = FFlagUpdatePublishPlacePluginToDevFrameworkContext and
 				Roact.createElement(StyledDropDown, {
@@ -193,7 +189,7 @@ local function displayContents(parent, DEPRECATED_localization)
 					ShowRibbon = not theme.isDarkerTheme,
 					OnItemClicked = function(item) creatorChanged(item.Key) end,
 					ListWidth = 330,
-				}) or
+				}) or 
 				Theming.withTheme(function(theme)
 				return Roact.createElement(StyledDropDown, {
 					Size = UDim2.new(0, theme.DROPDOWN_WIDTH, 0, theme.DROPDOWN_HEIGHT),
@@ -212,7 +208,7 @@ local function displayContents(parent, DEPRECATED_localization)
 		}),
 
 		Separator2 = Roact.createElement(Separator, {
-			LayoutOrder = FFlagUseLayoutIteratorGameSettingsPublishPlace and layoutOrder:getNextOrder() or 5,
+			LayoutOrder = 5,
 		}),
 
 		Genre = Roact.createElement(TitledFrame, {
@@ -220,7 +216,7 @@ local function displayContents(parent, DEPRECATED_localization)
 			MaxHeight = 38,
 			TextSize = Constants.TEXT_SIZE,
 			ZIndex = 2,
-			LayoutOrder = FFlagUseLayoutIteratorGameSettingsPublishPlace and layoutOrder:getNextOrder() or 6,
+			LayoutOrder = 6,
 		}, {
 			Selector = FFlagUpdatePublishPlacePluginToDevFrameworkContext and
 				Roact.createElement(StyledDropDown, {
@@ -254,11 +250,11 @@ local function displayContents(parent, DEPRECATED_localization)
 		}),
 
 		Separator4 = Roact.createElement(Separator, {
-			LayoutOrder = FFlagUseLayoutIteratorGameSettingsPublishPlace and layoutOrder:getNextOrder() or 9,
+			LayoutOrder = 9,
 		}),
 
 		Devices = Roact.createElement(PlatformSelect, {
-			LayoutOrder = FFlagUseLayoutIteratorGameSettingsPublishPlace and layoutOrder:getNextOrder() or 10,
+			LayoutOrder = 10,
 			Devices = devices,
 			DevicesError = devicesError,
 			DeviceSelected = function(id, selected)
@@ -274,7 +270,7 @@ local function displayContents(parent, DEPRECATED_localization)
 		if props.IsPublish then
 			-- Add playability controls
 			displayResult.Separator3 = Roact.createElement(Separator, {
-				LayoutOrder = FFlagUseLayoutIteratorGameSettingsPublishPlace and layoutOrder:getNextOrder() or 7,
+				LayoutOrder = 7,
 			})
 
 			local playabilityButtons = {
@@ -304,7 +300,7 @@ local function displayContents(parent, DEPRECATED_localization)
 				Roact.createElement(RadioButtonSet, {
 					Title = localization:getText("General", "TitlePlayability"),
 					Description = localization:getText("General", "PlayabilityHeader"),
-					LayoutOrder = FFlagUseLayoutIteratorGameSettingsPublishPlace and layoutOrder:getNextOrder() or 8,
+					LayoutOrder = 8,
 					Buttons = playabilityButtons,
 					Enabled = true,
 					Selected = selectedButton,
@@ -324,7 +320,7 @@ local function displayContents(parent, DEPRECATED_localization)
 				return Roact.createElement(RadioButtonSet, {
 					Title = localization:getText("General", "TitlePlayability"),
 					Description = localization:getText("General", "PlayabilityHeader"),
-					LayoutOrder = FFlagUseLayoutIteratorGameSettingsPublishPlace and layoutOrder:getNextOrder() or 8,
+					LayoutOrder = 8,
 					Buttons = playabilityButtons,
 					Enabled = true,
 					Selected = selectedButton,
@@ -345,13 +341,13 @@ local function displayContents(parent, DEPRECATED_localization)
 
 			displayResult.Separator5 = FFlagLuobuDevPublishLua and shouldShowDevPublishLocations()
 			and Roact.createElement(Separator, {
-				LayoutOrder = FFlagUseLayoutIteratorGameSettingsPublishPlace and layoutOrder:getNextOrder() or 11,
+				LayoutOrder = 11,
 			}) or nil
 
 			displayResult.OptInLocations = FFlagLuobuDevPublishLua and shouldShowDevPublishLocations()
 			and Roact.createElement(CheckBoxSet, {
 				Title = localization:getText(optInLocationsKey, "TitleOptInLocations"),
-				LayoutOrder = FFlagUseLayoutIteratorGameSettingsPublishPlace and layoutOrder:getNextOrder() or 12,
+				LayoutOrder = 12,
 				MaxHeight = theme.optInLocations.height,
 				Boxes = {{
 						Id = chinaKey,

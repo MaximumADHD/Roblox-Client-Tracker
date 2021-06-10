@@ -15,6 +15,9 @@ local isCli = require(Plugin.Core.Util.isCli)
 local Localization = {}
 Localization.__index = Localization
 
+-- TODO (awarwick) Remove ALL Studio.Common strings from TranslationDevelopmentTable.csv with this flag
+local FFlagFixToolboxTranslations = game:DefineFastFlag("FixToolboxTranslations", false)
+
 local FFlagToolboxFixCommonWarnings = game:GetFastFlag("ToolboxFixCommonWarnings")
 
 --[[
@@ -278,8 +281,14 @@ function Localization:_getTranslator(localeId)
 end
 
 function Localization:_getFallbackTranslator()
-	if self._externalFallbackTranslatorGetter then
-		return self._externalFallbackTranslatorGetter(self:_getDefaultLocaleId())
+	if FFlagFixToolboxTranslations then
+		if self._externalFallbackTranslatorGetter then
+			return self._externalFallbackTranslatorGetter(self:_getDefaultLocaleId())
+		end
+	else
+		if self._externalTranslatorGetter then
+			return self._externalTranslatorGetter(self:_getDefaultLocaleId())
+		end
 	end
 
 	return nil
@@ -638,7 +647,7 @@ function Localization:_recalculateContent()
 			Accounts = self:_safeLocalize("Studio.Toolbox.AssetConfigCopy.AccountSetting"),
 
 			-- Confirm if I need to change apply to save, back to cancel.
-			Apply = self:_safeLocalize("Studio.Toolbox.Common.Submit"),
+			Apply = FFlagFixToolboxTranslations and self:_safeLocalize("Studio.Toolbox.Common.Submit") or self:_safeLocalize("Studio.Common.Action.Submit"),
 			Cancel = self:_safeLocalize("Studio.Toolbox.General.SearchOptionsCancel"),
 
 			Error = self:_safeLocalize("Studio.Toolbox.AssetConfig.Error"),
@@ -646,14 +655,14 @@ function Localization:_recalculateContent()
 			GetAssetFailed = self:_safeLocalize("Studio.Toolbox.AssetConfig.GetAssetFailed"),
 
 			Discard = self:_safeLocalize("Studio.Toolbox.General.Discard"),
-			Close = self:_safeLocalize("Studio.Toolbox.Common.Close"),
+			Close = FFlagFixToolboxTranslations and self:_safeLocalize("Studio.Toolbox.Common.Close")  or self:_safeLocalize("Studio.Common.Action.Close"),
 			DiscardMessage = self:_safeLocalize("Studio.Toolbox.General.DiscardMessage"),
 
-			Insert = self:_safeLocalize("Studio.Toolbox.Common.Insert"),
-			Install = self:_safeLocalize("Studio.Toolbox.Common.Install"),
-			Loading = self:_safeLocalize("Studio.Toolbox.Common.Loading"),
-			Update = self:_safeLocalize("Studio.Toolbox.Common.Update"),
-			Installed = self:_safeLocalize("Studio.Toolbox.Common.Installed"),
+			Insert = FFlagFixToolboxTranslations and self:_safeLocalize("Studio.Toolbox.Common.Insert")  or self:_safeLocalize("Studio.Common.Action.Insert"),
+			Install = FFlagFixToolboxTranslations and self:_safeLocalize("Studio.Toolbox.Common.Install")  or self:_safeLocalize("Studio.Common.Action.Install"),
+			Loading = FFlagFixToolboxTranslations and self:_safeLocalize("Studio.Toolbox.Common.Loading")  or self:_safeLocalize("Studio.Common.Action.Loading"),
+			Update = FFlagFixToolboxTranslations and self:_safeLocalize("Studio.Toolbox.Common.Update")  or self:_safeLocalize("Studio.Common.Action.Update"),
+			Installed = FFlagFixToolboxTranslations and self:_safeLocalize("Studio.Toolbox.Common.Installed")  or self:_safeLocalize("Studio.Common.Action.Installed"),
 
 			InstallSuccess = self:_safeLocalize("Studio.Toolbox.General.InstallSuccess"),
 			InstallFailure = self:_safeLocalize("Studio.Toolbox.General.InstallFailure"),
@@ -677,7 +686,7 @@ function Localization:_recalculateContent()
 			FreeSuccessHeader = self:_safeLocalize("Studio.Toolbox.Purchase.FreeSuccessHeader"),
 			SuccessHeader = self:_safeLocalize("Studio.Toolbox.Purchase.SuccessHeader"),
 			Free = self:_safeLocalize("Studio.Toolbox.Purchase.Free"),
-			OK = self:_safeLocalize("Studio.Toolbox.Common.OK"),
+			OK = self:_safeLocalize("Studio.Common.Action.OK"),
 		},
 	})
 end

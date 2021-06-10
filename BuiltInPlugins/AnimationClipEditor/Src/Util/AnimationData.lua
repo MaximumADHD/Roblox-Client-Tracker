@@ -371,6 +371,7 @@ function AnimationData.removeExtraKeyframes(data)
 	return removed
 end
 
+-- Initially part of Preview, but this is used in other contexts
 function AnimationData.getSelectionBounds(data, selectedKeyframes)
 	if not selectedKeyframes or isEmpty(selectedKeyframes) then
 		return nil, nil
@@ -390,22 +391,6 @@ function AnimationData.getSelectionBounds(data, selectedKeyframes)
 					latest = keyframes[#keyframes]
 				end
 			end
-		end
-	end
-	return earliest, latest
-end
-
-function AnimationData.getEventBounds(animationData, selectedEvents)
-	local earliest = AnimationData.getMaximumLength(animationData.Metadata.FrameRate)
-	local latest = 0
-	local eventFrames = Cryo.Dictionary.keys(selectedEvents)
-	table.sort(eventFrames)
-	if eventFrames then
-		if eventFrames[1] <= earliest then
-			earliest = eventFrames[1]
-		end
-		if eventFrames[#eventFrames] >= latest then
-			latest = eventFrames[#eventFrames]
 		end
 	end
 	return earliest, latest

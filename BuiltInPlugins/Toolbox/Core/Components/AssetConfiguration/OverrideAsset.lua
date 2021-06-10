@@ -13,7 +13,6 @@
 	Optional Props:
 	LayoutOrder, number, will used by the layouter to override the position.
 ]]
-local FFlagToolboxReplaceUILibraryComponentsPt2 = game:GetFastFlag("ToolboxReplaceUILibraryComponentsPt2")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -35,14 +34,7 @@ local getUserId = require(Util.getUserId)
 local PagedRequestCursor = require(Util.PagedRequestCursor)
 local AssetConfigConstants = require(Util.AssetConfigConstants)
 
-local TextInput
-local RoundTextBox
-if FFlagToolboxReplaceUILibraryComponentsPt2 then
-	local Framework = require(Libs.Framework)
-	TextInput = Framework.UI.TextInput
-else
-	RoundTextBox = UILibrary.Component.RoundTextBox
-end
+local RoundTextBox = UILibrary.Component.RoundTextBox
 
 local withTheme = ContextHelper.withTheme
 local withLocalization = ContextHelper.withLocalization
@@ -151,13 +143,6 @@ function OverrideAsset:render()
 			local useNewAnimFlow = assetTypeEnum == Enum.AssetType.Animation
 			local isDownloadFlow = FFlagAssetConifgOverrideAssetScrollingFrame and useNewAnimFlow and AssetConfigConstants.FLOW_TYPE.DOWNLOAD_FLOW == props.screenFlowType
 
-			local textboxText = state.filterID
-			local textOverMaxCount = false
-			if FFlagToolboxReplaceUILibraryComponentsPt2 and textboxText then
-				local textLength = utf8.len(textboxText)
-				textOverMaxCount = textLength > MAX_COUNT
-			end
-
 			return Roact.createElement("Frame", {
 				Size = Size,
 
@@ -228,14 +213,7 @@ function OverrideAsset:render()
 						BorderSizePixel = 0,
 						LayoutOrder = 2,
 					}, {
-						TextField = FFlagToolboxReplaceUILibraryComponentsPt2 and Roact.createElement(TextInput, {
-							OnTextChanged = self.onFilterIDChanged,
-							PlaceholderText = localizedContent.AssetConfig.Override.FilterID,
-							Size = UDim2.new(1, -AssetConfigConstants.TITLE_GUTTER_WIDTH, 0, FILTER_HEIGHT - TITLE_HEIGHT - TOOL_TIP_HEIGHT),
-							Style = textOverMaxCount and "FilledRoundedRedBorder" or "FilledRoundedBorder",
-							Text = textboxText,
-						})
-						or Roact.createElement(RoundTextBox, {
+						TextField = Roact.createElement(RoundTextBox, {
 							Active = true,
 							ErrorMessage = nil,
 							MaxLength = MAX_COUNT,

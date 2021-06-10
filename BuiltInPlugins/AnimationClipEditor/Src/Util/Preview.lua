@@ -9,8 +9,6 @@
 	actual AnimationData is updated using the appropriate thunks.
 ]]
 
--- TODO: This file will become obsolete when GetFFlagRealtimeChanges is retired
-
 local Plugin = script.Parent.Parent.Parent
 local Cryo = require(Plugin.Packages.Cryo)
 local KeyframeUtils = require(Plugin.Src.Util.KeyframeUtils)
@@ -114,11 +112,11 @@ function Preview:scaleKeyframes(animationData, selectedKeyframes, newFrame, star
 		for trackName, _ in pairs(instance) do
 			local keyframes = Cryo.Dictionary.keys(instance[trackName])
 			previewKeyframes[instanceName][trackName] = Cryo.List.map(keyframes, function(frame)
-				local nearestFrame = KeyframeUtils.getNearestFrame(pivotFrame + ((frame - pivotFrame) * self.scale))
+				local newFrame = KeyframeUtils.getNearestFrame(pivotFrame + ((frame - pivotFrame) * self.scale))
 				if GetFFlagFixScaleKeyframeClobbering() then
-					return math.clamp(nearestFrame, 0, maxLength)
+					return math.clamp(newFrame, 0, maxLength)
 				else
-					return math.clamp(nearestFrame, startFrame, maxLength)
+					return math.clamp(newFrame, startFrame, maxLength)
 				end
 			end)
 		end

@@ -28,7 +28,6 @@
 local FFlagGameSettingsMigrateToDevFrameworkSeparator = game:GetFastFlag("GameSettingsMigrateToDevFrameworkSeparator")
 local FFlagGameSettingsStandardizeLocalizationId = game:GetFastFlag("GameSettingsStandardizeLocalizationId")
 local FFlagLuobuDevPublishLua = game:GetFastFlag("LuobuDevPublishLua")
-local FFlagUseLayoutIteratorGameSettingsPublishPlace = game:GetFastFlag("UseLayoutIteratorGameSettingsPublishPlace")
 
 local StudioService = game:GetService("StudioService")
 local GuiService = game:GetService("GuiService")
@@ -106,7 +105,6 @@ local TextWithInlineLink = Framework.UI.TextWithInlineLink
 
 local Util = Framework.Util
 local StyleModifier = Util.StyleModifier
-local LayoutOrderIterator = Util.LayoutOrderIterator
 local PartialHyperlink = UILibrary.Studio.PartialHyperlink
 
 local function loadSettings(store, contextItems)
@@ -451,6 +449,7 @@ function BasicInfo:hasPermissionToEdit()
 end
 
 function BasicInfo:init()
+	local localization = self.props.Localization
 	self.state = FFlagLuobuDevPublishLua and {
 		-- StyleModifier must be upper case first character because of how Theme in ContextServices uses it.
 		StyleModifier = nil,
@@ -475,6 +474,7 @@ function BasicInfo:init()
 	end
 
 	self.getModerationStatus = FFlagLuobuDevPublishLua and function(location)
+		local props = self.props
 		local theme = self.props.Theme:get("Plugin")
 		local localization = self.props.Localization
 		-- TODO: jbousellam - 5/5/21 - get moderation status from API
@@ -529,7 +529,6 @@ function BasicInfo:render()
 	local localization = self.props.Localization
 	local theme = FFlagLuobuDevPublishLua and self.props.Theme:get("Plugin") or nil
 	local chinaModerationStatus = FFlagLuobuDevPublishLua and self.getModerationStatus(chinaKey) or nil
-	local layoutOrder = FFlagUseLayoutIteratorGameSettingsPublishPlace and LayoutOrderIterator.new() or nil
 
 	local function createChildren()
 		if not self:hasPermissionToEdit() then
@@ -592,7 +591,7 @@ function BasicInfo:render()
 			Name = Roact.createElement(TitledFrame, {
 				Title = localization:getText("General", "TitleName"),
 				MaxHeight = 60,
-				LayoutOrder = FFlagUseLayoutIteratorGameSettingsPublishPlace and layoutOrder:getNextOrder() or 10,
+				LayoutOrder = 10,
 				TextSize = DEPRECATED_Constants.TEXT_SIZE,
 			}, {
 				TextBox = Roact.createElement(RoundTextBox, {
@@ -609,7 +608,7 @@ function BasicInfo:render()
 			Description = Roact.createElement(TitledFrame, {
 				Title = localization:getText("General", "TitleDescription"),
 				MaxHeight = 150,
-				LayoutOrder = FFlagUseLayoutIteratorGameSettingsPublishPlace and layoutOrder:getNextOrder() or 20,
+				LayoutOrder = 20,
 				TextSize = DEPRECATED_Constants.TEXT_SIZE,
 			}, {
 				TextBox = Roact.createElement(RoundTextBox, {
@@ -627,12 +626,12 @@ function BasicInfo:render()
 			}),
 
 			Separator = Roact.createElement(Separator, {
-				LayoutOrder = FFlagUseLayoutIteratorGameSettingsPublishPlace and layoutOrder:getNextOrder() or 30,
+				LayoutOrder = 30,
 			}),
 
 			Icon = Roact.createElement(UploadableIconWidget, {
 				Title = localization:getText("General", "TitleGameIcon"),
-				LayoutOrder = FFlagUseLayoutIteratorGameSettingsPublishPlace and layoutOrder:getNextOrder() or 60,
+				LayoutOrder = 60,
 				Enabled = props.GameIcon ~= nil,
 				Icon = props.GameIcon,
 				TutorialEnabled = true,
@@ -641,11 +640,11 @@ function BasicInfo:render()
 			}),
 
 			Separator3 = Roact.createElement(Separator, {
-				LayoutOrder = FFlagUseLayoutIteratorGameSettingsPublishPlace and layoutOrder:getNextOrder() or 70,
+				LayoutOrder = 70,
 			}),
 
 			Thumbnails = Roact.createElement(ThumbnailController, {
-				LayoutOrder = FFlagUseLayoutIteratorGameSettingsPublishPlace and layoutOrder:getNextOrder() or 80,
+				LayoutOrder = 80,
 				Enabled = props.Thumbnails ~= nil,
 				Thumbnails = props.Thumbnails,
 				Order = props.ThumbnailOrder,
@@ -656,13 +655,13 @@ function BasicInfo:render()
 			}),
 
 			Separator4 = Roact.createElement(Separator, {
-				LayoutOrder = FFlagUseLayoutIteratorGameSettingsPublishPlace and layoutOrder:getNextOrder() or 90,
+				LayoutOrder = 90,
 			}),
 
 			Genre = Roact.createElement(TitledFrame, {
 				Title = localization:getText("General", "TitleGenre"),
 				MaxHeight = 38,
-				LayoutOrder = FFlagUseLayoutIteratorGameSettingsPublishPlace and layoutOrder:getNextOrder() or 100,
+				LayoutOrder = 100,
 				TextSize = DEPRECATED_Constants.TEXT_SIZE,
 				ZIndex = 3,
 			}, {
@@ -675,12 +674,12 @@ function BasicInfo:render()
 			}),
 
 			Separator5 = Roact.createElement(Separator, {
-				LayoutOrder = FFlagUseLayoutIteratorGameSettingsPublishPlace and layoutOrder:getNextOrder() or 110,
+				LayoutOrder = 110,
 			}),
 
 			Devices = Roact.createElement(CheckBoxSet, {
 				Title = localization:getText("General", "TitleDevices"),
-				LayoutOrder = FFlagUseLayoutIteratorGameSettingsPublishPlace and layoutOrder:getNextOrder() or 120,
+				LayoutOrder = 120,
 				Boxes = {{
 						Id = "Computer",
 						Title = localization:getText("General", "DeviceComputer"),
@@ -733,19 +732,19 @@ function BasicInfo:render()
 			}),
 
 			Separator6 = FFlagLuobuDevPublishLua and shouldShowDevPublishLocations() and Roact.createElement(Separator, {
-				LayoutOrder = FFlagUseLayoutIteratorGameSettingsPublishPlace and layoutOrder:getNextOrder() or 130,
+				LayoutOrder = 130,
 			}) or nil,
 
 			OptInLocations = FFlagLuobuDevPublishLua and shouldShowDevPublishLocations() and Roact.createElement(CheckBoxSet, {
 				Title = localization:getText("General", "TitleOptInLocations"),
-				LayoutOrder = FFlagUseLayoutIteratorGameSettingsPublishPlace and layoutOrder:getNextOrder() or 140,
+				LayoutOrder = 140,
 				Boxes = {{
 						Id = chinaKey,
 						Title = localization:getText("General", "LocationChina"),
 						Selected = optInLocations and optInLocations.China or false,
 						LinkTextFrame = Roact.createElement("Frame", {
 							BackgroundTransparency = 1,
-							LayoutOrder = FFlagUseLayoutIteratorGameSettingsPublishPlace and layoutOrder:getNextOrder() or 150,
+							LayoutOrder = 150,
 							Size = UDim2.new(1, theme.requirementsLink.length, 0, theme.requirementsLink.height),
 							Position = UDim2.new(0, 0, 0, theme.requirementsLink.paddingY),
 						}, {

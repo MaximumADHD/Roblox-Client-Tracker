@@ -7,7 +7,6 @@ local getMaxAudioLength = require(Plugin.Core.Util.ToolboxUtilities).getMaxAudio
 local TextService = game:GetService("TextService")
 local StudioService = game:GetService("StudioService")
 
-local FFlagToolboxReplaceUILibraryComponentsPt2 = game:GetFastFlag("ToolboxReplaceUILibraryComponentsPt2")
 local FFlagSmallerToolboxMinWidth = game:DefineFastFlag("SmallerToolboxMinWidth", false)
 local FFlagToolboxShowRobloxCreatedAssetsForLuobu = game:GetFastFlag("ToolboxShowRobloxCreatedAssetsForLuobu")
 local FFlagToolboxUseDevFrameworkDialogs = game:GetFastFlag("ToolboxUseDevFrameworkDialogs")
@@ -21,9 +20,7 @@ local Constants = {}
 Constants.TOOLTIP_LINE_HEIGHT = 1.3
 Constants.TOOLTIP_PADDING = 3
 Constants.TOOLTIP_TEXT_SIZE = 12
-if not FFlagToolboxReplaceUILibraryComponentsPt2 then
-	Constants.TOOLTIP_SHOW_UP_DELAY = 0.3
-end
+Constants.TOOLTIP_SHOW_UP_DELAY = 0.3
 
 Constants.FONT = Enum.Font.SourceSans
 Constants.FONT_BOLD = Enum.Font.SourceSansBold

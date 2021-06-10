@@ -26,8 +26,6 @@ local Input = require(Plugin.Src.Util.Input)
 local DoubleClickDetector = require(Plugin.Src.Util.DoubleClickDetector)
 
 local Preview = require(Plugin.Src.Util.Preview)
-local DragContext = require(Plugin.Src.Util.DragContext)
-
 local EventTrack = require(Plugin.Src.Components.EventTrack)
 local SelectionBox = require(Plugin.Src.Components.SelectionBox)
 local EventActions = require(Plugin.Src.Components.EventActions)
@@ -48,7 +46,6 @@ local SetIsPlaying = require(Plugin.Src.Actions.SetIsPlaying)
 local EditEventsDialog = require(Plugin.Src.Components.EditEventsDialog.EditEventsDialog)
 
 local FFlagAnimEditorFixBackspaceOnMac = require(Plugin.LuaFlags.GetFFlagAnimEditorFixBackspaceOnMac)
-local GetFFlagRealtimeChanges = require(Plugin.LuaFlags.GetFFlagRealtimeChanges)
 
 local EventsController = Roact.PureComponent:extend("EventsController")
 
@@ -60,32 +57,16 @@ function EventsController:init()
 
 		showContextMenu = false,
 		eventEditingFrame = nil,
-		hasDragWaypoint = false,	-- True if a waypoint has already been created for
-									-- the current drag operation (move)
 	}
 
 	self.selectDragStart, self.updateSelectDragStart = Roact.createBinding(nil)
 	self.selectDragEnd, self.updateSelectDragEnd = Roact.createBinding(nil)
 
-	if GetFFlagRealtimeChanges() then
-		self.DragContext = nil
-	else
-		self.Preview = nil
-	end
-
+	self.Preview = nil
 	self.isMultiSelecting = false
 	self.mouseDownOnEvent = false
 	self.mouseDownInTimeline = false
 	self.doubleClickDetector = DoubleClickDetector.new()
-
-	self.addDragWaypoint = function()
-		if not self.state.hasDragWaypoint then
-			self.props.AddWaypoint()
-			self:setState({
-				hasDragWaypoint = true
-			})
-		end
-	end
 
 	self.getFrameFromPosition = function(position)
 		return TrackUtils.getKeyframeFromPosition(
@@ -100,57 +81,34 @@ function EventsController:init()
 	self.onEventDragStarted = function(frame)
 		local selectedEvents = self.props.SelectedEvents
 		local animationData = self.props.AnimationData
-		if GetFFlagRealtimeChanges() then
-			self.DragContext = DragContext.newEvents(animationData, selectedEvents, frame)
-		else
-			self.Preview = Preview.newEvents(animationData, selectedEvents, frame)
-		end
+		self.Preview = Preview.newEvents(animationData, selectedEvents, frame)
 		self:setState({
 			dragging = true,
 			dragFrame = frame,
-			hasDragWaypoint = false,
 		})
 	end
 
 	self.onEventDragMoved = function(input)
 		local frame = self.getFrameFromPosition(input.Position)
 		if self.state.dragFrame ~= frame then
-			if GetFFlagRealtimeChanges() then
-				if self.DragContext then
-					self.addDragWaypoint()
-					self.DragContext:moveEvents(frame)
-					self.props.MoveSelectedEvents(self.DragContext.pivotFrame, self.DragContext.newFrame, self.DragContext)
-					self:setState({
-						dragFrame = frame
-					})
-				end
-			else
-				if self.Preview then
-					self.Preview:moveEvents(self.props.AnimationData, self.props.SelectedEvents, frame)
-					self:setState({
-						dragFrame = frame
-					})
-				end
+			if self.Preview then
+				self.Preview:moveEvents(self.props.AnimationData, self.props.SelectedEvents, frame)
+				self:setState({
+					dragFrame = frame
+				})
 			end
 		end
 	end
 
 	self.onEventDragEnded = function()
-		if not GetFFlagRealtimeChanges() then
-			local pivotFrame = self.Preview.pivotFrame
-			local newFrame = self.Preview.newFrame
-			self.props.MoveSelectedEvents(pivotFrame, newFrame)
-		end
+		local pivotFrame = self.Preview.pivotFrame
+		local newFrame = self.Preview.newFrame
+		self.props.MoveSelectedEvents(pivotFrame, newFrame)
 		self:setState({
 			dragging = false,
 			dragFrame = Roact.None,
-			hasDragWaypoint = false,
 		})
-		if GetFFlagRealtimeChanges() then
-			self.DragContext = nil
-		else
-			self.Preview = nil
-		end
+		self.Preview = nil
 	end
 
 	self.onSelectDragStarted = function(input)
@@ -360,7 +318,7 @@ function EventsController:render()
 		Track = Roact.createElement(EventTrack, {
 			Events = animationData.Events,
 			SelectedEvents = props.SelectedEvents,
-			PreviewEvents = not GetFFlagRealtimeChanges() and self.Preview and self.Preview.previewEvents or nil,
+			PreviewEvents = self.Preview and self.Preview.previewEvents,
 			EditingFrame = editingFrame,
 			Size = UDim2.new(1, 0, 0, Constants.TRACK_HEIGHT),
 			Width = absoluteSize.X - self.props.TrackPadding,
@@ -429,10 +387,6 @@ end
 
 local function mapDispatchToProps(dispatch)
 	return {
-		AddWaypoint = function()
-			dispatch(AddWaypoint())
-		end,
-
 		SetEvents = function(newEvents, analytics)
 			dispatch(AddWaypoint())
 			dispatch(SetEvents(newEvents, analytics))
@@ -453,11 +407,9 @@ local function mapDispatchToProps(dispatch)
 			dispatch(SetRightClickContextInfo({}))
 		end,
 
-		MoveSelectedEvents = function(pivot, newFrame, dragContext)
-			if not GetFFlagRealtimeChanges() then
-				dispatch(AddWaypoint())
-			end
-			dispatch(MoveSelectedEvents(pivot, newFrame, dragContext))
+		MoveSelectedEvents = function(pivot, newFrame)
+			dispatch(AddWaypoint())
+			dispatch(MoveSelectedEvents(pivot, newFrame))
 		end,
 
 		DeselectAllEvents = function()

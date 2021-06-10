@@ -40,8 +40,6 @@ local BaseTrack = require(Plugin.Src.Components.BaseTrack)
 local TrackUtils = require(Plugin.Src.Util.TrackUtils)
 local Constants = require(Plugin.Src.Util.Constants)
 
-local GetFFlagRealtimeChanges = require(Plugin.LuaFlags.GetFFlagRealtimeChanges)
-
 local DopeSheet = Roact.PureComponent:extend("DopeSheet")
 
 function DopeSheet:renderSummaryTrack(components, startIndex, endIndex, showClusters)
@@ -67,7 +65,7 @@ function DopeSheet:renderSummaryTrack(components, startIndex, endIndex, showClus
 	components.SummaryTrack = Roact.createElement(SummaryTrack, {
 		Tracks = tracks,
 		SelectedKeyframes = selectedKeyframes,
-		PreviewKeyframes = not GetFFlagRealtimeChanges() and previewKeyframes or nil,
+		PreviewKeyframes = previewKeyframes,
 		NamedKeyframes = namedKeyframes,
 		ShowLegacyKeyframes = showLegacyKeyframes,
 		LayoutOrder = 0,
@@ -115,8 +113,8 @@ function DopeSheet:renderTracks(components, startIndex, endIndex, showClusters)
 			components["Track_" .. track.Name] = Roact.createElement(DopeSheetTrack, {
 				Track = track,
 				SelectedKeyframes = selectedKeyframes,
-				PreviewKeyframes = not GetFFlagRealtimeChanges() and previewKeyframes or nil,
-				PreviewData = not GetFFlagRealtimeChanges() and previewData or nil,
+				PreviewKeyframes = previewKeyframes,
+				PreviewData = previewData,
 				ShowLegacyKeyframes = showLegacyKeyframes,
 				LayoutOrder = trackCount,
 				Size = UDim2.new(1, 0, 0, trackHeight),

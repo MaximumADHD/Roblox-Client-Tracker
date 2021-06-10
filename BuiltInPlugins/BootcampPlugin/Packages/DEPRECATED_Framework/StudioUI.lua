@@ -22,11 +22,10 @@ local StudioUI = strict({
 	VoteBar = require(script.VoteBar),
 	Votes = require(script.Votes),
 
-	-- PluginButton
+	--PluginButton
 	PluginToolbar = require(script.PluginToolbar),
 	PluginButton = require(script.PluginButton),
 
-	TextInputWithBottomText = require(script.TextInputWithBottomText),
 	TitledFrame = require(script.TitledFrame),
 })
 

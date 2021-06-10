@@ -29,10 +29,6 @@ local Util = require(Framework.Util)
 local Immutable = Util.Immutable
 local Typecheck = Util.Typecheck
 
-local FlagsList = Util.Flags.new({
-	FFlagToolboxReplaceUILibraryComponentsPt2 = {"ToolboxReplaceUILibraryComponentsPt2"},
-})
-
 local Container = Roact.PureComponent:extend("Container")
 Typecheck.wrap(Container, script)
 
@@ -108,7 +104,6 @@ function Container:render()
 		Visible = visible,
 		[Roact.Ref] = ref,
 		[Roact.Change.AbsoluteSize] = props[Roact.Change.AbsoluteSize],
-		[Roact.Change.AbsolutePosition] = FlagsList:get("FFlagToolboxReplaceUILibraryComponentsPt2") and props[Roact.Change.AbsolutePosition] or nil,
 	}, {
 		Margin = marginComponent,
 

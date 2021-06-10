@@ -8,7 +8,6 @@ local PluginRoot = script.Parent.Parent
 require(PluginRoot.ToolboxFFlags)
 local FFlagStudioAssetConfigurationPlugin = game:GetFastFlag("StudioAssetConfigurationPlugin")
 local FFlagDebugAssetConfigurationEnableRoactChecks = game:DefineFastFlag("DebugAssetConfigurationEnableRoactChecks", false)
-local FFlagToolboxReplaceUILibraryComponentsPt2 = game:GetFastFlag("ToolboxReplaceUILibraryComponentsPt2")
 
 if not FFlagStudioAssetConfigurationPlugin then
 	return
@@ -26,13 +25,6 @@ if FFlagDebugAssetConfigurationEnableRoactChecks then
 		typeChecks = true
 	})
 end
-
---[[
-	RefactorFlags needs to be required and updated directly; before Framework's init
-	is required (so that any files that Framework's init requires get the correct values).
-]]
-local RefactorFlags = require(Libs.Framework.Util.RefactorFlags)
-RefactorFlags.THEME_REFACTOR = FFlagToolboxReplaceUILibraryComponentsPt2
 
 local Util = PluginRoot.Core.Util
 local DebugFlags = require(Util.DebugFlags)

@@ -17,8 +17,6 @@
 		LayoutOrder, number, used to override position of the whole component by the layouter.
 ]]
 local FFlagToolboxReplaceUILibraryComponentsPt1 = game:GetFastFlag("ToolboxReplaceUILibraryComponentsPt1")
-local FFlagToolboxReplaceUILibraryComponentsPt2 = game:GetFastFlag("ToolboxReplaceUILibraryComponentsPt2")
-local FIntToolboxPriceTextBoxMaxCount = game:DefineFastInt("ToolboxPriceTextBoxMaxCount", 1000)
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -27,14 +25,7 @@ local Roact = require(Libs.Roact)
 local UILibrary = require(Libs.UILibrary)
 local ContextServices = require(Libs.Framework).ContextServices
 
-local RoundTextBox
-local TextInput
-if FFlagToolboxReplaceUILibraryComponentsPt2 then
-	local Framework = require(Libs.Framework)
-	TextInput = Framework.UI.TextInput
-else
-	RoundTextBox = UILibrary.Component.RoundTextBox
-end
+local RoundTextBox = UILibrary.Component.RoundTextBox
 
 local TitledFrame
 if FFlagToolboxReplaceUILibraryComponentsPt1 then
@@ -121,13 +112,6 @@ function PriceComponent:renderContent(theme, localization, localizedContent)
 	local feeVector = Constants.getTextSize(fee, Constants.FONT_SIZE_MEDIUM, Constants.FONT, inputBoxSize)
 	local earnVector = Constants.getTextSize(finalPrice, Constants.FONT_SIZE_MEDIUM, Constants.FONT, inputBoxSize)
 
-	local textOverMaxCount = false
-	local textboxText = price or ""
-	if FFlagToolboxReplaceUILibraryComponentsPt2 then
-		local textLength = utf8.len(textboxText)
-		textOverMaxCount = textLength > FIntToolboxPriceTextBoxMaxCount
-	end
-
 	return Roact.createElement(TitledFrame, FFlagToolboxReplaceUILibraryComponentsPt1 and {
 		Title = localizedContent.Sales.Price,
 		LayoutOrder = order
@@ -181,14 +165,7 @@ function PriceComponent:renderContent(theme, localization, localizedContent)
 					BackgroundTransparency = 1,
 				}),
 
-				RoundTextBox = FFlagToolboxReplaceUILibraryComponentsPt2 and Roact.createElement(TextInput, {
-					Enabled = AssetConfigUtil.isOnSale(assetStatus),
-					OnTextChanged = self.onPriceChange,
-					Size = UDim2.new(0.9, 0 ,1, 0),
-					Style = (textOverMaxCount or not isPriceValid) and "FilledRoundedRedBorder" or "FilledRoundedBorder",
-					Text = textboxText,
-				})
-				or Roact.createElement(RoundTextBox, {
+				RoundTextBox = Roact.createElement(RoundTextBox, {
 					Active = AssetConfigUtil.isOnSale(assetStatus),
 					Position = UDim2.new(0.1, 0, 0, 0),
 					Size = UDim2.new(0.9, 0 ,1, 0),

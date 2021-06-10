@@ -1,6 +1,5 @@
 local FFlagToolboxUseDevFrameworkDialogs = game:GetFastFlag("ToolboxUseDevFrameworkDialogs")
 local FFlagToolboxReplaceUILibraryComponentsPt1 = game:GetFastFlag("ToolboxReplaceUILibraryComponentsPt1")
-local FFlagToolboxReplaceUILibraryComponentsPt2 = game:GetFastFlag("ToolboxReplaceUILibraryComponentsPt2")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -41,7 +40,7 @@ local function getUILibraryTheme(styleRoot, overrides)
 	return createTheme(styleGuide, overrides)
 end
 
-local makeTheme = function(uiLibraryDeprecatedTheme, themeExtension)
+local makeTheme = function(uiLibraryDeprecatedTheme)
 	local styleRoot
 	if FFlagToolboxReplaceUILibraryComponentsPt1 then
 		local overridedDarkTheme = Cryo.Dictionary.join(DarkTheme, {
@@ -72,7 +71,6 @@ local makeTheme = function(uiLibraryDeprecatedTheme, themeExtension)
 		progressBarColor = Colors.BLUE_PRIMARY,
 		horizontalLineColor = FFlagToolboxReplaceUILibraryComponentsPt1 and StyleKey.HorizontalLineColor or nil,
 		link = FFlagToolboxReplaceUILibraryComponentsPt1 and StyleKey.LinkText or nil,
-		redText = Color3.fromRGB(255, 68, 68),
 
 		purchaseDialog = FFlagToolboxUseDevFrameworkDialogs and {
 			promptText = StyleKey.MainText,
@@ -89,10 +87,6 @@ local makeTheme = function(uiLibraryDeprecatedTheme, themeExtension)
 			tipsTextColor = not isCli() and StyleKey.TipsTextColor or nil,
 		} or nil,
 	})
-
-	if FFlagToolboxReplaceUILibraryComponentsPt2 and themeExtension then
-		styleRoot:extend(themeExtension)
-	end
 
 	if isCli() then
 		function styleRoot:getUILibraryTheme()

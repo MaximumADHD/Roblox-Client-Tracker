@@ -40,7 +40,7 @@ return function(analyticsService)
                 keyframeSnap = keyframeSnap,
             })
             if game:GetFastFlag("AddStatCounters") then
-                reportCounter(makeStatName("EditorOpened"))
+                reportCounter("EditorOpened")
                 sendEvent("EditorOpened")
             end
         end,
@@ -61,7 +61,7 @@ return function(analyticsService)
         onImportFbxAnimation = function()
             sendEvent("importFbxAnimation", {})
             if game:GetFastFlag("AddStatCounters") then
-                reportCounter(makeStatName("FBXAnimationImported"))
+                reportCounter("FBXAnimationImported")
                 sendEvent("FBXAnimationImported")
             end
         end,
@@ -126,7 +126,7 @@ return function(analyticsService)
         onIkEnabled = function()
             sendEvent("ikEnabled", {})
             if game:GetFastFlag("AddStatCounters") then
-                reportCounter(makeStatName("IKEnabled"))
+                reportCounter("IKEnabled")
                 sendEvent("IKEnabled")
             end
         end,
@@ -175,7 +175,7 @@ return function(analyticsService)
                 parameter = parameter,
             })
             if game:GetFastFlag("AddStatCounters") then
-                reportCounter(makeStatName("EventAdded"))
+                reportCounter("EventAdded")
                 sendEvent("EventAdded")
             end
         end,
@@ -186,7 +186,7 @@ return function(analyticsService)
                 frame = frame,
             })
             if game:GetFastFlag("AddStatCounters") then
-                reportCounter(makeStatName("KeyframeAdded"))
+                reportCounter("KeyframeAdded")
                 sendEvent("KeyframeAdded")
             end
         end,

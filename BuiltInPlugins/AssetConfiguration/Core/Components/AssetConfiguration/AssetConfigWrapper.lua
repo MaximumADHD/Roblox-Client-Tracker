@@ -14,7 +14,6 @@
 	plugin = A plugin object to be used by a PluginProvider.
 ]]
 local FFlagStudioAssetConfigurationPlugin = game:GetFastFlag("StudioAssetConfigurationPlugin")
-local FFlagToolboxReplaceUILibraryComponentsPt2 = game:GetFastFlag("ToolboxReplaceUILibraryComponentsPt2")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -30,9 +29,6 @@ local ModalProvider = require(Providers.ModalProvider)
 local NetworkProvider = require(Providers.NetworkProvider)
 local ThemeProvider = require(Providers.ThemeProvider)
 local LocalizationProvider = require(Providers.LocalizationProvider)
-local getAssetConfigTheme = require(Plugin.Core.Themes.getAssetConfigTheme)
-
-local makeTheme = require(Plugin.Core.Util.makeTheme)
 
 local UILibraryWrapper = require(Libs.Framework.ContextServices.UILibraryWrapper)
 
@@ -108,7 +104,6 @@ function AssetConfigWrapper:render()
 	}, {
 		ContextServices = state.popUpGui and ContextServices.provide({
 			ContextServices.Focus.new(state.popUpGui),
-			FFlagToolboxReplaceUILibraryComponentsPt2 and makeTheme(theme:getUILibraryTheme(), getAssetConfigTheme()) or nil,
 			UILibraryWrapper.new(),
 		}, {
 			ThemeProvider = Roact.createElement(ThemeProvider, {

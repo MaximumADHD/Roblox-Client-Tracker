@@ -12,9 +12,6 @@
 	will be deleted and replaced by the other overlapping keyframe.
 	The outer keyframes have precedence over the inner keyframes
 	when this situation has to occur.
-
-	If realtime changes are enabled and changes are made, this thunk
-	also relies on "reference data" coming from the dragContext.
 ]]
 
 local Plugin = script.Parent.Parent.Parent.Parent
@@ -30,7 +27,6 @@ local UpdateAnimationData = require(Plugin.Src.Thunks.UpdateAnimationData)
 
 local GetFFlagFixScaleKeyframeClobbering = require(Plugin.LuaFlags.GetFFlagFixScaleKeyframeClobbering)
 local GetFFlagReduceDeepcopyCalls = require(Plugin.LuaFlags.GetFFlagReduceDeepcopyCalls)
-local GetFFlagRealtimeChanges = require(Plugin.LuaFlags.GetFFlagRealtimeChanges)
 
 -- Helper function which allows us to snap keyframes
 -- to exact frames, preventing keyframes between frames.
@@ -38,14 +34,14 @@ local function roundToInt(num)
 	return math.floor(num + 0.5)
 end
 
-return function(pivotFrame, scale, dragContext)
+return function(pivotFrame, scale)
 	return function(store)
 		local state = store:getState()
 		local scroll = state.Status.Scroll
 		local zoom = state.Status.Zoom
 		local editingLength = state.Status.EditingLength
-		local selectedKeyframes = (GetFFlagRealtimeChanges() and dragContext) and dragContext.selectedKeyframes or state.Status.SelectedKeyframes
-		local animationData = (GetFFlagRealtimeChanges() and dragContext) and dragContext.animationData or state.AnimationData
+		local selectedKeyframes = state.Status.SelectedKeyframes
+		local animationData = state.AnimationData
 		if not (animationData and selectedKeyframes) then
 			return
 		end

@@ -24,7 +24,6 @@ local Networking = Framework.Http.Networking
 local ContextServices = Framework.ContextServices
 local Mouse = ContextServices.Mouse
 local SettingsContext = require(Plugin.Core.ContextServices.Settings)
-local getAssetConfigTheme = require(Plugin.Core.Themes.getAssetConfigTheme)
 
 local function MockWrapper(props)
 	local store = props.store or Rodux.Store.new(ToolboxReducerMock, nil, {
@@ -44,7 +43,7 @@ local function MockWrapper(props)
 	local focus = ContextServices.Focus.new(Instance.new("ScreenGui"))
 	local pluginContext = ContextServices.Plugin.new(plugin)
 	local settingsContext = SettingsContext.new(settings)
-	local themeContext = makeTheme(theme:getUILibraryTheme(), getAssetConfigTheme())
+	local themeContext = makeTheme(theme:getUILibraryTheme())
 	local uiLibraryWrapper = UILibraryWrapper.new()
 	local storeContext = ContextServices.Store.new(store)
 	local api = ContextServices.API.new({

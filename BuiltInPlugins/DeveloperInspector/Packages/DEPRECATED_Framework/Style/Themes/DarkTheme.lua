@@ -31,14 +31,10 @@ return {
 	[StyleKey.ErrorText] = Color3.fromRGB(255, 68, 68),
 
 	[StyleKey.InputFieldBackground] = Color3.fromRGB(37, 37, 37),
-	[StyleKey.InputFieldBackgroundDisabled] = Color3.fromRGB(53, 53, 53),
-	[StyleKey.InputFieldBorder] = Color3.fromRGB(161, 161, 161),
-	[StyleKey.InputFieldBorderDisabled] = Color3.fromRGB(66, 66, 66),
-	[StyleKey.InputFieldBorderSelected] = Color3.fromRGB(53, 181, 255),
-	[StyleKey.ItemHovered] = Colors.Gray,
 
 	[StyleKey.LinkText] = Color3.fromRGB(60, 180, 255),
 
+	[StyleKey.ItemHovered] = Colors.Gray,
 	[StyleKey.MainBackground] = Colors.Slate,
 	[StyleKey.MainButton] = Colors.Blue,
 	[StyleKey.MainText] = Colors.Gray_Light,

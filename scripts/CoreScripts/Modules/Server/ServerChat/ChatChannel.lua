@@ -8,13 +8,6 @@ do
 	userShouldMuteUnfilteredMessage = success and enabled
 end
 
-local UserFlagRemoveMessageOnTextFilterFailures do
-	local success, value = pcall(function()
-		return UserSettings():IsUserFeatureEnabled("UserRemoveMessageOnTextFilterFailures")
-	end)
-	UserFlagRemoveMessageOnTextFilterFailures = success and value
-end
-
 local module = {}
 
 local modulesFolder = script.Parent
@@ -431,13 +424,7 @@ function methods:InternalPostMessage(fromSpeaker, message, extraData)
 		messageObj.FilterResult = filteredMessage
 		messageObj.IsFilterResult = isFilterResult
 	else
-		if UserFlagRemoveMessageOnTextFilterFailures then
-			messageObj.IsFilterResult = false
-			messageObj.FilterResult = ""
-			messageObj.MessageLength = 0
-		else
-			return false
-		end
+		return false
 	end
 	messageObj.IsFiltered = true
 	self:InternalAddMessageToHistoryLog(messageObj)
