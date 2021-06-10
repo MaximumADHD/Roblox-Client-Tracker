@@ -386,7 +386,7 @@
                     ],
                     "ReturnType": {
                         "Category": "Class",
-                        "Name": "Instance"
+                        "Name": "Actor"
                     },
                     "Security": "None",
                     "ThreadSafety": "Unsafe"
@@ -4258,6 +4258,13 @@
                             "Type": {
                                 "Category": "Enum",
                                 "Name": "AvatarPromptResult"
+                            }
+                        },
+                        {
+                            "Name": "failureType",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Variant"
                             }
                         }
                     ],
@@ -9560,7 +9567,7 @@
                             "Name": "playerWhoClicked",
                             "Type": {
                                 "Category": "Class",
-                                "Name": "Instance"
+                                "Name": "Player"
                             }
                         }
                     ],
@@ -9575,7 +9582,7 @@
                             "Name": "playerWhoHovered",
                             "Type": {
                                 "Category": "Class",
-                                "Name": "Instance"
+                                "Name": "Player"
                             }
                         }
                     ],
@@ -9590,7 +9597,7 @@
                             "Name": "playerWhoHovered",
                             "Type": {
                                 "Category": "Class",
-                                "Name": "Instance"
+                                "Name": "Player"
                             }
                         }
                     ],
@@ -9605,7 +9612,7 @@
                             "Name": "playerWhoClicked",
                             "Type": {
                                 "Category": "Class",
-                                "Name": "Instance"
+                                "Name": "Player"
                             }
                         }
                     ],
@@ -9620,7 +9627,7 @@
                             "Name": "playerWhoClicked",
                             "Type": {
                                 "Category": "Class",
-                                "Name": "Instance"
+                                "Name": "Player"
                             }
                         }
                     ],
@@ -42265,7 +42272,7 @@
                             "Name": "part",
                             "Type": {
                                 "Category": "Class",
-                                "Name": "Instance"
+                                "Name": "BasePart"
                             }
                         },
                         {
@@ -44540,7 +44547,7 @@
                             "Name": "part",
                             "Type": {
                                 "Category": "Class",
-                                "Name": "Instance"
+                                "Name": "BasePart"
                             }
                         },
                         {
@@ -44580,7 +44587,7 @@
                             "Name": "part",
                             "Type": {
                                 "Category": "Class",
-                                "Name": "Instance"
+                                "Name": "BasePart"
                             }
                         },
                         {
@@ -46118,7 +46125,7 @@
                     ],
                     "ReturnType": {
                         "Category": "Class",
-                        "Name": "Instance"
+                        "Name": "Mouse"
                     },
                     "Security": "None",
                     "ThreadSafety": "Unsafe"
@@ -51389,7 +51396,7 @@
                             "Name": "playerWhoTriggered",
                             "Type": {
                                 "Category": "Class",
-                                "Name": "Instance"
+                                "Name": "Player"
                             }
                         }
                     ],
@@ -51404,7 +51411,7 @@
                             "Name": "playerWhoTriggered",
                             "Type": {
                                 "Category": "Class",
-                                "Name": "Instance"
+                                "Name": "Player"
                             }
                         }
                     ],
@@ -51442,7 +51449,7 @@
                             "Name": "playerWhoTriggered",
                             "Type": {
                                 "Category": "Class",
-                                "Name": "Instance"
+                                "Name": "Player"
                             }
                         }
                     ],
@@ -51457,7 +51464,7 @@
                             "Name": "playerWhoTriggered",
                             "Type": {
                                 "Category": "Class",
-                                "Name": "Instance"
+                                "Name": "Player"
                             }
                         }
                     ],
@@ -51515,14 +51522,14 @@
                             "Name": "prompt",
                             "Type": {
                                 "Category": "Class",
-                                "Name": "Instance"
+                                "Name": "ProximityPrompt"
                             }
                         },
                         {
                             "Name": "playerWhoTriggered",
                             "Type": {
                                 "Category": "Class",
-                                "Name": "Instance"
+                                "Name": "Player"
                             }
                         }
                     ],
@@ -51537,14 +51544,14 @@
                             "Name": "prompt",
                             "Type": {
                                 "Category": "Class",
-                                "Name": "Instance"
+                                "Name": "ProximityPrompt"
                             }
                         },
                         {
                             "Name": "playerWhoTriggered",
                             "Type": {
                                 "Category": "Class",
-                                "Name": "Instance"
+                                "Name": "Player"
                             }
                         }
                     ],
@@ -51559,7 +51566,7 @@
                             "Name": "prompt",
                             "Type": {
                                 "Category": "Class",
-                                "Name": "Instance"
+                                "Name": "ProximityPrompt"
                             }
                         }
                     ],
@@ -51574,7 +51581,7 @@
                             "Name": "prompt",
                             "Type": {
                                 "Category": "Class",
-                                "Name": "Instance"
+                                "Name": "ProximityPrompt"
                             }
                         },
                         {
@@ -51596,14 +51603,14 @@
                             "Name": "prompt",
                             "Type": {
                                 "Category": "Class",
-                                "Name": "Instance"
+                                "Name": "ProximityPrompt"
                             }
                         },
                         {
                             "Name": "playerWhoTriggered",
                             "Type": {
                                 "Category": "Class",
-                                "Name": "Instance"
+                                "Name": "Player"
                             }
                         }
                     ],
@@ -51618,14 +51625,14 @@
                             "Name": "prompt",
                             "Type": {
                                 "Category": "Class",
-                                "Name": "Instance"
+                                "Name": "ProximityPrompt"
                             }
                         },
                         {
                             "Name": "playerWhoTriggered",
                             "Type": {
                                 "Category": "Class",
-                                "Name": "Instance"
+                                "Name": "Player"
                             }
                         }
                     ],
@@ -74576,6 +74583,23 @@
         {
             "Items": [
                 {
+                    "Name": "InvalidName",
+                    "Value": 1
+                },
+                {
+                    "Name": "OutfitLimitReached",
+                    "Value": 2
+                },
+                {
+                    "Name": "Other",
+                    "Value": 3
+                }
+            ],
+            "Name": "CreateOutfitFailure"
+        },
+        {
+            "Items": [
+                {
                     "Name": "User",
                     "Value": 0
                 },
@@ -74964,7 +74988,7 @@
                     "Value": 0
                 },
                 {
-                    "Name": "Constant",
+                    "Name": "World",
                     "Value": 1
                 }
             ],

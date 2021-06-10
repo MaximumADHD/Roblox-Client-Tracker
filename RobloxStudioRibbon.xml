@@ -230,15 +230,6 @@
           <addaction name="ms_ForceField" style="textbesideicon"  text="Studio.App.Materials.ForceField" value="ForceField" icon=":/RibbonBar/images/Studio Ribbon Icons/forcefield.png" width="32" height="32"/>
         </MenuPopupButton>
         <ColorPicker name="actionColorSelector" style="textundericon" ischeckable="true" type="color" text="Studio.App.RobloxRibbonMainWindow.Color" icon=":/RibbonBar/images/RibbonIcons/Home/Color.png" tooltip="Studio.App.RobloxRibbonMainWindow.SelectColorAndApplyToParts" width="32" height="32"/>
-        <MenuButton fflag="!RemoveLegacySurfaceTools" name="actionSurface" style="textundericon" iconvisibleinmenu="false" tooltip="Studio.App.Parts.SurfaceTooltip" text="Studio.App.Parts.Surface" ischeckable="true" icon=":/RibbonBar/images/RibbonIcons/Home/Surfaces.png" width="32" height="32">
-          <addaction fflag="!RemoveLegacySurfaceTools" name="glueSurfaceAction" text="Studio.App.RobloxRibbonMainWindow.Glue"/>
-          <addaction fflag="!RemoveLegacySurfaceTools" name="smoothSurfaceAction" text="Studio.App.RobloxRibbonMainWindow.Smooth"/>
-          <addaction fflag="!RemoveLegacySurfaceTools" name="smoothNoOutlinesAction" text="Studio.App.RobloxRibbonMainWindow.SmoothNoOutline"/>
-          <addaction fflag="!RemoveLegacySurfaceTools" name="studsAction" text="Studio.App.RobloxRibbonMainWindow.Studs"/>
-          <addaction fflag="!RemoveLegacySurfaceTools" name="inletAction" text="Studio.App.RobloxRibbonMainWindow.Inlets"/>
-          <addaction fflag="!RemoveLegacySurfaceTools" name="universalsAction" text="Studio.App.RobloxRibbonMainWindow.Universal"/>
-          <addaction fflag="!RemoveLegacySurfaceTools" name="weldSurfaceAction" text="Studio.App.RobloxRibbonMainWindow.AddWeld"/>
-        </MenuButton>
         <addseparator visible="false"/>
         <MenuPopupButton name="groupSelectionAction" style="textbesideicon" text="Studio.App.RBXMainWindow.Group" popupStyle="menubutton" icon=":/RibbonBar/images/RibbonIcons/Home/Group.png" tooltip="Studio.App.RobloxRibbonMainWindow.GroupsPartsIntoModel" width="16" height="16">
           <addaction name="groupSelectionAction"  icon=":/RibbonBar/images/RibbonIcons/Home/Group.png" style="textbesideicon" tooltip="Studio.App.RobloxRibbonMainWindow.GroupsPartsIntoModel" width="16" height="16" />

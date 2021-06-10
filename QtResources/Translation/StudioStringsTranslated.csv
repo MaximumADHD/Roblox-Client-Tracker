@@ -1341,7 +1341,7 @@ Studio.App.Property.IncommingReplicationLag,,,Incomming Replication Lag,Incommin
 Studio.App.Property.InstanceCount,,,Instance Count,Instance Count,인스턴스 수,Количество экземпляров,实例计数
 Studio.App.Property.IsFmodProfilingEnabled,,,Is Fmod Profiling Enabled,Is Fmod Profiling Enabled,Fmod 프로파일링 활성화됨,Включено ли профилирование Fmod,启用 Fmod 分析
 Studio.App.Property.IsQueueErrorComputed,,,Is Queue Error Computed,Is Queue Error Computed,대기열 오류 계산됨,Вычислена ли ошибка очереди,计算队列错误
-Studio.App.Property.IsReceiveAgeShown,,,Is Receive Age Shown,Is Receive Age Shown,수신 기간 표시됨,Показан ли возраст получения,显示接收时效
+Studio.App.Property.IsReceiveAgeShown,,,Is Receive Age Shown,Is Receive Age Shown,수신 기간 표시됨,Показан ли возраст получения,是否显示接收时效
 Studio.App.Property.IsScriptStackTracingEnabled,,,Is Script Stack Tracing Enabled,Is Script Stack Tracing Enabled,스크립트 스택 추적 활성화됨,Включено ли отслеживание стека скриптов,启用脚本堆栈跟踪
 Studio.App.Property.IsTreeShown,,,Is Tree Shown,Is Tree Shown,트리 표시됨,Показано ли дерево,是否显示树结构
 Studio.App.Property.JobCount,,,Job Count,Job Count,작업 개수,Количество заданий,作业计数
@@ -1738,7 +1738,7 @@ Do you want to keep your changes?","설정을 변경했습니다.
 변경 사항을 유지할까요?","Настройки были изменены.
 Сохранить изменения?","你已更改你的设置。
 要保留你的更改吗？"
-Studio.App.RobloxQuickAccessConfig.QuickAccessBarActions,,,Quick Access Bar Actions,Quick Access Bar Actions,바로가기 표시줄 작업,Действия панели быстрого доступа,快速访问栏动作
+Studio.App.RobloxQuickAccessConfig.QuickAccessBarActions,,,Quick Access Bar Actions,Quick Access Bar Actions,바로가기 표시줄 작업,Действия панели быстрого доступа,快速访问栏操作
 Studio.App.RobloxQuickAccessConfig.Remove,,,Remove,Remove,제거,Удалить,移除
 Studio.App.RobloxRibbonMainWindow.ConnectionIsLost,,,Server connection lost. Functionality is limited. Attempting to reconnect...,Server connection lost. Functionality is limited. Attempting to reconnect...,서버와의 연결이 끊어졌습니다. 기능 제한이 발생됩니다. 다시 연결을 시도 중입니다...,Потеряно соединение с сервером. Функциональность ограничена. Попытка переподключения...,失去与服务器的连接。功能已有所限制。正在尝试重新连接...
 Studio.App.RobloxRibbonMainWindow.ConnectionIsUnstable,,,Connection is unstable. Changes may not be saved.,Connection is unstable. Changes may not be saved.,연결이 불안정합니다. 변경 사항이 저장되지 않을 수 있습니다.,Соединение нестабильно. Изменения могут не сохраниться.,连接不稳定。更改可能未保存。
@@ -2153,7 +2153,7 @@ Studio.App.RbxWorkspace.PluginModerationCheckFailed,,,Plugin moderation check fa
 Studio.App.RobloxRibbonMainWindow.InsertObjectToolTip,,,View list of insertable objects,View list of insertable objects,삽입 가능한 개체 목록 보기,Просмотреть список объектов для вставки,查看可插入对象列表
 Studio.App.BetaFeatures.UIGradientDescription,,,Add gradient to parent gui object,Add gradient to parent gui object,부모 GUI 개체에 그레디언트 추가,Добавить градиент в родительский объект графического интерфейса,为父 GUI 对象添加渐变
 Studio.App.BetaFeatures.UIGradientTitle,,,UI Gradient Beta,UI Gradient Beta,UI 그레디언트 (베타),"Градиент графического интерфейса, бета",UI 渐变 Beta 测试版
-Studio.App.GameExplorerUtils.FailedToCreateImage1,,,Failed to create image: %1,Failed to create image: %1,이미지를 만들지 못했습니다. %1,Не удалось создать изображение: %1,创建图像失败： %1
+Studio.App.GameExplorerUtils.FailedToCreateImage1,,,Failed to create image: %1,Failed to create image: %1,이미지를 만들지 못했습니다. %1,Не удалось создать изображение: %1,创建图片失败： %1
 Studio.App.GameExplorerUtils.NameInappropriate,,,The name or description contains inappropriate text.,The name or description contains inappropriate text.,이름이나 설명에 부적절한 텍스트가 포함되어 있습니다.,Имя или описание содержат недопустимый текст.,名称或说明中存在不适宜的内容。
 Studio.App.GameExplorerUtils.TryAgainLater,,,Try again later.,Try again later.,나중에 다시 시도하세요.,Повторите попытку позже.,请稍后重试。
 Studio.App.ImagePickerWidget.AddImageElps,,,Add Image...,Add Image...,이미지 추가...,Добавить изображение...,添加图片…
@@ -2184,7 +2184,7 @@ Studio.App.RobloxViewStudio.UseWorldSpace,,,Use World Space,Use World Space,월�
 Studio.App.UserPlaceCreatorsListWidget.Offline,,,Offline,Offline,오프라인,Не в сети,离线
 Studio.App.UserPlaceCreatorsListWidget.PlaceOwner,,,Place Owner,Place Owner,플레이스 소유자,Владелец места,场景所有者
 Studio.App.UserPlaceCreatorsListWidget.PlaceOwnerOffline,,,Place Owner (Offline),Place Owner (Offline),플레이스 소유자(오프라인),Владелец места (не в сети),场景所有者 (离线)
-Studio.App.BulkImportController.ImagesSupportedTypes1,,,Images (%1),Images (%1),이미지(%1),Изображения (%1),图像（%1）
+Studio.App.BulkImportController.ImagesSupportedTypes1,,,Images (%1),Images (%1),이미지(%1),Изображения (%1),图片（%1）
 Studio.App.BulkImportController.MeshesSupportedTypes1,,,Meshes (%1),Meshes (%1),메시(%1),Сетки (%1),网格 (%1)
 Studio.App.BulkImport.ClearWindow,,,Clear Window,Clear Window,창 치우기,Очистить окно,清除窗口
 Studio.App.DraftsServiceHost.ConfirmScriptDeleteButton,,,Delete,Delete,삭제,Удалить,删除
@@ -2711,7 +2711,7 @@ Studio.App.FBXRigBuilder.RigHasTooManyTriangles2,,,Your rig has too many triangl
 Studio.App.FBXRigBuilder.RigMeshHasTooManyTriangles3,,,%1 has too many triangles! Limit is %2. Your mesh has %3.,%1 has too many triangles! Limit is %2. Your mesh has %3.,"%1에 삼각형이 너무 많습니다! 최대한도는 %2개이며, 메시에는 %3개가 있습니다.",,%1 拥有三角形过多！Roblox 支持最多 %2 个三角形，该网格拥有 %3 个。
 Studio.App.FileType.AllFiles,,,All Files,All Files,모든 파일,,所有文件
 Studio.App.FileType.AnimationFiles,,,Animation Files,Animation Files,애니메이션 파일,,动画文件
-Studio.App.FileType.Images,,,Images,Images,이미지,,图像
+Studio.App.FileType.Images,,,Images,Images,이미지,,图片
 Studio.App.FileType.JSONFiles,,,JSON Files,JSON Files,JSON 파일,,JSON 文件
 Studio.App.FileType.LocalizationTableCSV,,,LocalizationTable CSV,LocalizationTable CSV,LocalizationTable CSV,,LocalizationTable CSV
 Studio.App.FileType.MeshFiles,,,Mesh Files,Mesh Files,메시 파일,,网格文件
@@ -2882,7 +2882,7 @@ Studio.App.MyWatchTreeWidget.DeleteAll,,,Delete All,Delete All,모두 삭제,,�
 Studio.App.MyWatchTreeWidget.DeleteWatch,,,Delete Watch,Delete Watch,조사식 삭제,,删除监视
 Studio.App.OSVersionWarning.MacOS1010,,,Beginning in November 2020 we will be discontinuing support for MacOS 10.10. Please upgrade to MacOS 10.11+ to continue to use Roblox Studio.,Beginning in November 2020 we will be discontinuing support for MacOS 10.10. Please upgrade to MacOS 10.11+ to continue to use Roblox Studio.,2020년 11월부터 MacOS 10.10에 대한 지원이 중단됩니다. Roblox Studio를 계속 사용하려면 MacOS 10.11 이상으로 업그레이드하세요.,,从 2020 年 11 月开始，我们将停止对 MacOS 10.10 的支持。请升级到 MacOS 10.11+ 以继续使用 Roblox Studio。
 Studio.App.OSVersionWarning.LearnMore,,,Learn More,Learn More,더 알아보기,,了解更多
-Studio.App.PropertyItems.PackageGoToRevisionConfirmation1,,,Are you sure you want to change this Package to Version %1?,Are you sure you want to change this Package to Version %1?,이 패키지를 정말 버전 %1(으)로 변경할까요?,,您确定要将该包回退至 %1 版本吗？
+Studio.App.PropertyItems.PackageGoToRevisionConfirmation1,,,Are you sure you want to change this Package to Version %1?,Are you sure you want to change this Package to Version %1?,이 패키지를 정말 버전 %1(으)로 변경할까요?,,您确定要将该包更改为 %1 版本吗？
 Studio.App.Property.EnableHttpSandboxing,,,Enable Http Sandboxing,Enable Http Sandboxing,Http 샌드박싱 활성화,,启用 Http 沙盒
 Studio.App.Property.EnableInternalBetaFeatures,,,Enable Internal Beta Features,Enable Internal Beta Features,내부 베타 기능 활성화,,启用内部 Beta 测试版功能
 Studio.App.RBXMainWindow.ReloadPlugin,,,Reload Plugin,Reload Plugin,플러그인 다시 불러오기,,重新载入插件
@@ -2958,12 +2958,12 @@ Please try again later","Server rejected apply edits due to internal error.
 Please try again later","내부 오류로 인해 서버에서 편집 적용을 거부했습니다.
 나중에 다시 시도하세요.",,"服务器因内部错误拒绝应用编辑。
 请稍后再试"
-Studio.App.Properties.AddAttribute,,,Add Attribute,Add Attribute,속성 추가,,添加特征
-Studio.App.Properties.AttributeAlreadyExists,,,Attribute already exists.,Attribute already exists.,속성이 이미 존재합니다.,,特征已存在。
+Studio.App.Properties.AddAttribute,,,Add Attribute,Add Attribute,속성 추가,,添加特性
+Studio.App.Properties.AttributeAlreadyExists,,,Attribute already exists.,Attribute already exists.,속성이 이미 존재합니다.,,特性已存在。
 Studio.App.Properites.AttributeCantStartWithRBX,,,Can't start with 'RBX'.,Can't start with 'RBX'.,'RBX'로 시작할 수 없습니다.,,无法以 'RBX' 开头。
 Studio.App.Properties.AttributeName,,,Name,Name,이름,,名称
 Studio.App.Properties.AttributeType,,,Type,Type,유형,,类型
-Studio.App.Properties.NoAttributeAdded,,,No Attribute has been added yet,No Attribute has been added yet,아직 추가된 속성이 없습니다,,尚未添加特征
+Studio.App.Properties.NoAttributeAdded,,,No Attribute has been added yet,No Attribute has been added yet,아직 추가된 속성이 없습니다,,尚未添加特性
 Studio.App.PropertyEnum.Custom,,,Custom,Custom,사용자 정의,,自定义
 Studio.App.PropertyEnum.Extra1,,,Extra 1,Extra 1,추가 1,,额外 1
 Studio.App.PropertyEnum.Extra2,,,Extra 2,Extra 2,추가 2,,额外 2
@@ -3015,7 +3015,7 @@ Studio.App.ScriptEditorCmdBase.UNINDENT,,,Unindent,Unindent,내어쓰기,,取消
 Studio.App.ScriptEditorCmdBase.UNINDENTToolTip,,,Unindent selected line(s),Unindent selected line(s),선택한 줄 내어쓰기,,所选行取消缩进
 Studio.App.LoginManager.CaptchaInvalid,,,Captcha response not recognized. Please try again.,Captcha response not recognized. Please try again.,캡차 응답을 인식할 수 없습니다. 다시 시도하세요.,,验证码识别未通过。请重试。
 Studio.App.Properties.AttributeCantStartWithRBX,,,Can't start with 'RBX'.,Can't start with 'RBX'.,'RBX'로 시작할 수 없습니다.,,无法以 ‘RBX’ 开头。
-Studio.App.Properites.AttributeNameCantStartWithRBX,,,Attribute name can't start with 'RBX'.,Attribute name can't start with 'RBX'.,속성 이름은 'RBX'로 시작할 수 없습니다.,,特征名称无法以 ‘RBX’ 开头。
+Studio.App.Properites.AttributeNameCantStartWithRBX,,,Attribute name can't start with 'RBX'.,Attribute name can't start with 'RBX'.,속성 이름은 'RBX'로 시작할 수 없습니다.,,特性名称无法以 ‘RBX’ 开头。
 Studio.App.Properties.AttributeTryDifferentName,,,Try to use a different name.,Try to use a different name.,다른 이름을 사용해 보세요.,,请尝试换一个名字。
 Studio.App.PropertyTooltip.AutoCleanEmptyLine,,,Automatically clean tabs and spaces from the line has no content.,Automatically clean tabs and spaces from the line has no content.,내용이 없는 줄의 탭과 공백을 자동으로 정리합니다.,,自动从无内容的空行中清除制表符和空格。
 Studio.App.Property.AutoCleanEmptyLine,,,Auto Clean Empty Line,Auto Clean Empty Line,빈 줄 자동 정리,,自动清除空行
@@ -3119,7 +3119,7 @@ Studio.App.LockedScriptsVersionHistory.AutoGeneratedCommitFmt1,,,Applied edits t
 Studio.App.MainWindow.UploadingPlaceQuitCommitAuto,,,Applying script changes. Studio will close automatically when complete.,Applying script changes. Studio will close automatically when complete.,스크립트 변경 사항을 적용 중입니다. 완료되면 Studio가 자동으로 닫힙니다.,,正在应用脚本变更，完成后将会自动关闭 Studio。
 Studio.App.PackageUtilities.PermissionEdit,,,Edit,Edit,편집,,编辑
 Studio.App.PackageUtilities.PermissionNoAccess,,,No Access,No Access,액세스 권한 없음,,无法访问
-Studio.App.PackageUtilities.PermissionOwn,,,Own,Own,자신의 항목만,,所有者
+Studio.App.PackageUtilities.PermissionOwn,,,Own,Own,소유,,拥有
 Studio.App.PackageUtilities.PermissionUseView,,,Use & View,Use & View,사용 및 보기,,使用和查看
 Studio.App.PackagesBlockingPublishDialog.CannotCheck,,,ERROR: Cannot check package for modification,ERROR: Cannot check package for modification,오류: 패키지 수정 사항을 확인할 수 없습니다,,错误：无法检查包的修改
 Studio.App.PackagesBlockingPublishDialog.CheckInProgress,,,Modification check is in progress,Modification check is in progress,수정 사항 확인 중,,正在进行修改检查
@@ -3221,7 +3221,7 @@ Studio.App.BetaFeatures.AlignToolImprovementsDescription,,,"Show the Align Tool 
 Studio.App.BetaFeatures.AlignToolImprovementsTitle,,,Align Tool Improvements,Align Tool Improvements,정렬 도구 개선,,对齐工具改进
 Studio.App.BetaFeatures.TerrainHeightmapImporterDescription,,,Instantly generate heightmaps from high-res (up to 4k) and high-bit-depth (16-bit) PNGs,Instantly generate heightmaps from high-res (up to 4k) and high-bit-depth (16-bit) PNGs,고해상도(최대 4k) 및 고비트 심도(16비트) PNG 파일에서 Heightmap을 즉시 생성합니다,,立即从高分辨率（最高 4k）和高比特深度（16 位）PNG 文件生成 heightmap
 Studio.App.BetaFeatures.TerrainHeightmapImporterTitle,,,Heightmaps 2,Heightmaps 2,Heightmaps 2,,Heightmaps 2
-Studio.App.DocTabManager.CloseTab,,,Close Tab,Close Tab,탭 닫기,,关闭选项卡
+Studio.App.DocTabManager.CloseTab,,,Close Tab,Close Tab,탭 닫기,,关闭标签页
 Studio.App.DocTabManager.CloseTabsOther,,,Close Other Tabs,Close Other Tabs,다른 탭 닫기,,关闭其他标签页
 Studio.App.DocTabManager.CloseTabsRight,,,Close Tabs to the Right,Close Tabs to the Right,오른쪽의 탭 닫기,,关闭右侧所有标签页
 Studio.App.FindReplaceWindow.AllScripts,,,All Scripts,All Scripts,모든 스크립트,,所有脚本
@@ -3427,6 +3427,8 @@ Studio.App.ScriptingCmd.GOTOERR,,,Go to Script Error,Go to Script Error,스크�
 Studio.App.ScriptingCmd.GOTOERRTooltip,,,Focus view on script error,Focus view on script error,스크립트 오류 포커스 보기,,聚焦脚本错误
 Studio.App.AddEmulationDeviceDialog.NameAlreadyInUse1,,,"The name ""%1"" is already in use.","The name ""%1"" is already in use.",이름 '%1'은(는) 이미 사용 중입니다.,,名称“%1”已被使用。
 Studio.App.AddEmulationDeviceDialog.NameIsReserved1,,,"The name ""%1"" is reserved.","The name ""%1"" is reserved.",이름 '%1'은(는) 예약되어 있습니다.,,名称“%1“已被保留。
+Studio.App.BetaFeatures.MaxWaterFogDistanceDescription,,,The maximum underwater fog distance is increased to permit larger underwater place designs with further visibility in the distance.,The maximum underwater fog distance is increased to permit larger underwater place designs with further visibility in the distance.,"최대 수중 안개 거리의 증가로, 원거리에서의 높은 가시성 및 더 큰 수중 플레이스 설계가 가능해집니다.",,最大水下迷雾距离增加，可以设计更大的水中地点，增加了远距离能见度。
+Studio.App.BetaFeatures.MaxWaterFogDistanceTitle,,,Max Water Fog Distance Increase,Max Water Fog Distance Increase,최대 물 안개 거리 증가,,最大水中迷雾距离增加
 Studio.App.CalloutController.PivotEditorCalloutDescription,,,Change the pivot point around which an object rotates and translates.,Change the pivot point around which an object rotates and translates.,개체가 회전하고 변환되는 피벗 점을 변경합니다.,,更改对象旋转和平移的枢轴点。
 Studio.App.CalloutController.PivotEditorCalloutTitle,,,Pivot Editor,Pivot Editor,피벗 편집기,,枢轴编辑器
 Studio.App.MainWindow.FailedToFetchConfigurationSettings,,,Studio failed to fetch configuration settings.,Studio failed to fetch configuration settings.,Studio에서 구성 설정을 가져오지 못했습니다.,,Studio 无法获取配置设置。
@@ -3457,21 +3459,22 @@ Studio.App.BetaFeatures.NewGamesInCloudDescription,,,Allows saving games to the 
 Studio.App.BetaFeatures.NewGamesInCloudTitle,,,New Games in the Cloud,New Games in the Cloud,클라우드의 새로운 게임,,云端上的新游戏
 Studio.App.ImportCostVerificationDialog.LuobuVerificationDescription,,,Click 'Show Details' to view the files to be imported.,Click 'Show Details' to view the files to be imported.,가져올 파일을 보려면 '세부 정보 표시'를 클릭하세요.,,按下“显示详情”以查看要导入的文件。
 Studio.App.Updates.UpdateAvailableButton,,,Update Available,Update Available,업데이트 가능,,有可用更新
-Studio.App.BetaFeatures.FasterRaycastsDescription,,,Enables optimizations for faster raycasts.,Enables optimizations for faster raycasts.,더 빠른 레이캐스팅을 위해 최적화를 활성화합니다.,,
-Studio.App.BetaFeatures.FasterRaycastsTitle,,,Optimized Raycasts,Optimized Raycasts,레이캐스팅 최적화,,
-Studio.App.BetaFeatures.ImprovedInnerBoxDescription,,,Enable a different algorithm for avatar Inner Box collision box sizing and positioning using margins around RigAttachment extents.,Enable a different algorithm for avatar Inner Box collision box sizing and positioning using margins around RigAttachment extents.,RigAttachment 범위 주변의 여백을 사용하여 아바타 안쪽 상자 충돌 상자의 크기 및 위치 지정에 대해 서로 다른 알고리즘을 활성화합니다.,,
-Studio.App.BetaFeatures.ImprovedInnerBoxTitle,,,Improved Inner Box Avatar Collisions,Improved Inner Box Avatar Collisions,안쪽 상자 아바타 충돌 개선,,
-Studio.App.BetaFeatures.TerrainQolDescription,,,Enable various small improvements to Terrain Tools.,Enable various small improvements to Terrain Tools.,지형 도구에 대한 소소한 개선 사항들을 활성화합니다.,,
-Studio.App.BetaFeatures.TerrainQolTitle,,,Terrain Quality of Life Changes,Terrain Quality of Life Changes,지형 관련 편의성 업데이트,,
-Studio.App.GeneralCmd.HELP,,,List all commands with optional filtering,List all commands with optional filtering,필터링 옵션 포함 모든 명령 나열,,
-Studio.App.Property.OpenCertManagerDialog,,,Trusted Certs,Trusted Certs,신뢰할 수 있는 인증서,,
-Studio.App.Property.OpenCertManagerDialogButton,,,Manage,Manage,관리,,
-Studio.App.AssetManagerService.DataModelNotInEditMode,,,Datamodel is not in edit mode,Datamodel is not in edit mode,Datamodel이 편집 모드가 아닙니다,,
-Studio.App.AddEmulationDeviceDialog.ResolutionScale,,,Resolution Scaling,Resolution Scaling,,,
-Studio.App.AvatarImportService.OpenRigFBXFile,,,Open Rig FBX File,Open Rig FBX File,,,
+Studio.App.BetaFeatures.FasterRaycastsDescription,,,Enables optimizations for faster raycasts.,Enables optimizations for faster raycasts.,레이 캐스팅 속도 최적화를 활성화합니다.,,启用光线投射速度优化。
+Studio.App.BetaFeatures.FasterRaycastsTitle,,,Optimized Raycasts,Optimized Raycasts,레이캐스팅 최적화,,光线投射优化
+Studio.App.BetaFeatures.ImprovedInnerBoxDescription,,,Enable a different algorithm for avatar Inner Box collision box sizing and positioning using margins around RigAttachment extents.,Enable a different algorithm for avatar Inner Box collision box sizing and positioning using margins around RigAttachment extents.,RigAttachment 범위 주변의 여백을 사용하여 아바타 안쪽 상자 충돌 상자의 크기 및 위치 지정에 대해 서로 다른 알고리즘을 활성화합니다.,,使用 RigAttachment 范围的边距启用不同的算法来调整虚拟形象内范围碰撞范围的大小和位置。
+Studio.App.BetaFeatures.ImprovedInnerBoxTitle,,,Improved Inner Box Avatar Collisions,Improved Inner Box Avatar Collisions,안쪽 상자 아바타 충돌 개선,,提升内范围虚拟形象碰撞
+Studio.App.BetaFeatures.TerrainQolDescription,,,Enable various small improvements to Terrain Tools.,Enable various small improvements to Terrain Tools.,지형 도구에 대한 소소한 개선 사항들을 활성화합니다.,,启用地形工具的多种微幅改进
+Studio.App.BetaFeatures.TerrainQolTitle,,,Terrain Quality of Life Changes,Terrain Quality of Life Changes,지형 관련 편의성 업데이트,,地形品质变化
+Studio.App.GeneralCmd.HELP,,,List all commands with optional filtering,List all commands with optional filtering,필터링 옵션 포함 모든 명령 나열,,列出所有包含过滤选项的命令
+Studio.App.Property.OpenCertManagerDialog,,,Trusted Certs,Trusted Certs,신뢰할 수 있는 인증서,,信用凭证
+Studio.App.Property.OpenCertManagerDialogButton,,,Manage,Manage,관리,,管理
+Studio.App.AssetManagerService.DataModelNotInEditMode,,,Datamodel is not in edit mode,Datamodel is not in edit mode,Datamodel이 편집 모드가 아닙니다,,Datamodel 不在编辑模式中
+Studio.App.AddEmulationDeviceDialog.ResolutionScale,,,Resolution Scaling,Resolution Scaling,해상도 스케일링,,
+Studio.App.AvatarImportService.OpenRigFBXFile,,,Open Rig FBX File,Open Rig FBX File,리그 FBX 파일 열기,,
 Studio.App.FindReplaceOpenLockedScriptsDialog.UnableToReplaceWhileScriptsBlocked,,,"Unable to replace while one or more Scripts are being blocked by other users. 
 Try again when all scripts are unlocked.","Unable to replace while one or more Scripts are being blocked by other users. 
-Try again when all scripts are unlocked.",,,
+Try again when all scripts are unlocked.","다른 사용자가 하나 이상의 스크립트를 잠근 경우 바꾸기가 불가능합니다.
+모든 스크립트를 잠금 해제한 후 다시 시도하세요.",,
 Studio.Common.Action.Apply,,,Apply,Apply,적용,Применить,应用
 Studio.Common.Action.Back,,,Back,Back,뒤로,Назад,返回
 Studio.Common.Action.Cancel,,,Cancel,Cancel,취소,Отмена,取消

@@ -75,6 +75,6 @@ Studio.PublishPlaceAs.General.PublishGame,Publish Game,Publish Game,게임 게�
 Studio.PublishPlaceAs.General.SaveGame,Save Game,Save Game,게임 저장, ,保存游戏
 Studio.PublishPlaceAs.FooterButton.Save,Save,Save,저장, ,保存
 Studio.PublishPlaceAs.PublishFail.SaveFail,Save failed,Save failed,저장 실패, ,保存失败
-Studio.PublishPlaceAs.OptInLocations.China,China,China,중국, , 
-Studio.PublishPlaceAs.OptInLocations.TitleOptInLocations,Opt-In Locations,Opt-In Locations,옵트인 위치, , 
-Studio.PublishPlaceAs.OptInLocations.Tooltip,Your creation will be published globally in addition to all the selected opt-in locations. See each location for specific requirements.,Your creation will be published globally in addition to all the selected opt-in locations. See each location for specific requirements., , , 
+Studio.PublishPlaceAs.OptInLocations.China,China,China,중국, ,中国
+Studio.PublishPlaceAs.OptInLocations.TitleOptInLocations,Opt-In Locations,Opt-In Locations,옵트인 위치, ,选择的位置
+Studio.PublishPlaceAs.OptInLocations.Tooltip,Your creation will be published globally in addition to all the selected opt-in locations. See each location for specific requirements.,Your creation will be published globally in addition to all the selected opt-in locations. See each location for specific requirements.,선택한 모든 옵트인 위치를 포함해 전 세계에 본인의 작품이 게시됩니다. 각 위치별로 특정 요구 사항 여부를 확인하세요., , 

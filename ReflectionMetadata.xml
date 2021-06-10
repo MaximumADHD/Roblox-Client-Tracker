@@ -7214,6 +7214,42 @@
             <string name="summary">Deprecated. Use TextColor3 instead</string>
           </Properties>
         </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">LineHeight</string>
+            <string name="summary">A ratio of TextSize for how far lines should be placed apart.</string>
+            <double name="UIMinimum">0</double>
+            <double name="UIMaximum">3</double>
+            <double name="UINumTicks">300</double>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">TextSize</string>
+            <string name="summary">The height of a line of text in pixels.</string>
+            <double name="UIMinimum">1</double>
+            <double name="UIMaximum">100</double>
+            <double name="UINumTicks">99</double>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">TextTransparency</string>
+            <string name="summary">Controls the transparency of the text.</string>
+            <double name="UIMinimum">0</double>
+            <double name="UIMaximum">1</double>
+            <double name="UINumTicks">100</double>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">TextStrokeTransparency</string>
+            <string name="summary">Controls the transparency of the outline around the text. Multiplied with TextTransparency.</string>
+            <double name="UIMinimum">0</double>
+            <double name="UIMaximum">1</double>
+            <double name="UINumTicks">100</double>
+          </Properties>
+        </Item>
       </Item>
     </Item>
     <Item class="ReflectionMetadataClass">
@@ -7233,6 +7269,42 @@
             <string name="summary">Deprecated. Use TextColor3 instead</string>
           </Properties>
         </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">LineHeight</string>
+            <string name="summary">A ratio of TextSize for how far lines should be placed apart.</string>
+            <double name="UIMinimum">0</double>
+            <double name="UIMaximum">3</double>
+            <double name="UINumTicks">300</double>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">TextSize</string>
+            <string name="summary">The height of a line of text in pixels.</string>
+            <double name="UIMinimum">1</double>
+            <double name="UIMaximum">100</double>
+            <double name="UINumTicks">99</double>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">TextTransparency</string>
+            <string name="summary">Controls the transparency of the text.</string>
+            <double name="UIMinimum">0</double>
+            <double name="UIMaximum">1</double>
+            <double name="UINumTicks">100</double>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">TextStrokeTransparency</string>
+            <string name="summary">Controls the transparency of the outline around the text. Multiplied with TextTransparency.</string>
+            <double name="UIMinimum">0</double>
+            <double name="UIMaximum">1</double>
+            <double name="UINumTicks">100</double>
+          </Properties>
+        </Item>
       </Item>
     </Item>
     <Item class="ReflectionMetadataClass">
@@ -7250,6 +7322,42 @@
             <string name="Name">TextColor</string>
             <bool name="Deprecated">true</bool>
             <string name="summary">Deprecated. Use TextColor3 instead</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">LineHeight</string>
+            <string name="summary">A ratio of TextSize for how far lines should be placed apart.</string>
+            <double name="UIMinimum">0</double>
+            <double name="UIMaximum">3</double>
+            <double name="UINumTicks">300</double>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">TextSize</string>
+            <string name="summary">The height of a line of text in pixels.</string>
+            <double name="UIMinimum">1</double>
+            <double name="UIMaximum">100</double>
+            <double name="UINumTicks">99</double>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">TextTransparency</string>
+            <string name="summary">Controls the transparency of the text.</string>
+            <double name="UIMinimum">0</double>
+            <double name="UIMaximum">1</double>
+            <double name="UINumTicks">100</double>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">TextStrokeTransparency</string>
+            <string name="summary">Controls the transparency of the outline around the text. Multiplied with TextTransparency.</string>
+            <double name="UIMinimum">0</double>
+            <double name="UIMaximum">1</double>
+            <double name="UINumTicks">100</double>
           </Properties>
         </Item>
       </Item>

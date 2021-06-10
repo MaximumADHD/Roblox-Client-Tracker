@@ -16,7 +16,7 @@ Class Instance : <<<ROOT>>> [NotCreatable] [NotBrowsable]
 	Function Instance Instance:FindFirstChildOfClass(string className) {🧬Safe}
 	Function Instance Instance:FindFirstChildWhichIsA(string className, bool recursive = false) {🧬Safe}
 	Function Instance Instance:FindFirstDescendant(string name) {🧬Safe}
-	Function Instance Instance:GetActor()
+	Function Class<Actor> Instance:GetActor()
 	Function Variant Instance:GetAttribute(string attribute) {🧬Safe}
 	Function RBXScriptSignal Instance:GetAttributeChangedSignal(string attribute)
 	Function Dictionary Instance:GetAttributes() {🧬Safe}
@@ -207,7 +207,7 @@ Class AvatarEditorService : Instance [NotCreatable] [Service] [NotReplicated]
 	Event AvatarEditorService.OpenPromptSaveAvatar(Instance humanoidDescription, Enum<HumanoidRigType> rigType) {RobloxScriptSecurity}
 	Event AvatarEditorService.OpenPromptSetFavorite(int64 itemId, Enum<AvatarItemType> itemType, bool shouldFavorite) {RobloxScriptSecurity}
 	Event AvatarEditorService.PromptAllowInventoryReadAccessCompleted(Enum<AvatarPromptResult> result)
-	Event AvatarEditorService.PromptCreateOutfitCompleted(Enum<AvatarPromptResult> result)
+	Event AvatarEditorService.PromptCreateOutfitCompleted(Enum<AvatarPromptResult> result, Variant failureType)
 	Event AvatarEditorService.PromptSaveAvatarCompleted(Enum<AvatarPromptResult> result)
 	Event AvatarEditorService.PromptSetFavoriteCompleted(Enum<AvatarPromptResult> result)
 Class AvatarImportService : Instance [NotCreatable] [Service] [NotReplicated]
@@ -496,10 +496,10 @@ Class Chat : Instance [NotCreatable] [Service] [NotReplicated]
 Class ClickDetector : Instance
 	Property float ClickDetector.MaxActivationDistance
 	Property Content ClickDetector.CursorIcon
-	Event ClickDetector.MouseClick(Instance playerWhoClicked)
-	Event ClickDetector.MouseHoverEnter(Instance playerWhoHovered)
-	Event ClickDetector.MouseHoverLeave(Instance playerWhoHovered)
-	Event ClickDetector.RightMouseClick(Instance playerWhoClicked)
+	Event ClickDetector.MouseClick(Class<Player> playerWhoClicked)
+	Event ClickDetector.MouseHoverEnter(Class<Player> playerWhoHovered)
+	Event ClickDetector.MouseHoverLeave(Class<Player> playerWhoHovered)
+	Event ClickDetector.RightMouseClick(Class<Player> playerWhoClicked)
 Class Clouds : Instance
 	Property float Clouds.Cover
 	Property float Clouds.Density
@@ -2226,7 +2226,7 @@ Class WorldRoot : Model [NotCreatable]
 	Function Objects WorldRoot:GetPartBoundsInBox(CFrame cframe, Vector3 size, OverlapParams overlapParams = OverlapParams.new())
 	Function Objects WorldRoot:GetPartBoundsInRadius(Vector3 position, float radius, OverlapParams overlapParams = OverlapParams.new())
 	Function Objects WorldRoot:GetPartsInPart(Instance part, OverlapParams overlapParams = OverlapParams.new())
-	Function void WorldRoot:IKMoveTo(Instance part, CFrame target, float translateStiffness = 0.5, float rotateStiffness = 0.5, Enum<IKCollisionsMode> collisionsMode = "OtherMechanismsAnchored") {PluginSecurity}
+	Function void WorldRoot:IKMoveTo(Class<BasePart> part, CFrame target, float translateStiffness = 0.5, float rotateStiffness = 0.5, Enum<IKCollisionsMode> collisionsMode = "OtherMechanismsAnchored") {PluginSecurity}
 	Function bool WorldRoot:IsRegion3Empty(Region3 region, Instance ignoreDescendentsInstance = nil)
 	Function bool WorldRoot:IsRegion3EmptyWithIgnoreList(Region3 region, Objects ignoreDescendentsTable)
 	Function RaycastResult WorldRoot:Raycast(Vector3 origin, Vector3 direction, RaycastParams raycastParams = RaycastParams.new()) {🧬Safe}
@@ -2344,8 +2344,8 @@ Class PhysicsService : Instance [NotCreatable] [Service]
 	Function string PhysicsService:GetCollisionGroupName(int name)
 	Function Array PhysicsService:GetCollisionGroups()
 	Function int PhysicsService:GetMaxCollisionGroups()
-	Function void PhysicsService:IkSolve(Instance part, CFrame target, float translateStiffness, float rotateStiffness) {RobloxScriptSecurity}
-	Function void PhysicsService:LocalIkSolve(Instance part, CFrame target, float translateStiffness, float rotateStiffness) {LocalUserSecurity}
+	Function void PhysicsService:IkSolve(Class<BasePart> part, CFrame target, float translateStiffness, float rotateStiffness) {RobloxScriptSecurity}
+	Function void PhysicsService:LocalIkSolve(Class<BasePart> part, CFrame target, float translateStiffness, float rotateStiffness) {LocalUserSecurity}
 	Function void PhysicsService:RemoveCollisionGroup(string name)
 	Function void PhysicsService:RenameCollisionGroup(string from, string to)
 	Function void PhysicsService:SetPartCollisionGroup(Instance part, string name)
@@ -2425,7 +2425,7 @@ Class Player : Instance
 	Function Array Player:GetFriendsOnline(int maxFriends = 200) [Yields]
 	Function string Player:GetGameSessionID() {RobloxSecurity}
 	Function Dictionary Player:GetJoinData()
-	Function Instance Player:GetMouse()
+	Function Class<Mouse> Player:GetMouse()
 	Function int Player:GetNetworkPing()
 	Function int Player:GetRankInGroup(int64 groupId) [Yields]
 	Function string Player:GetRoleInGroup(int64 groupId) [Yields]
@@ -2688,21 +2688,21 @@ Class ProximityPrompt : Instance
 	Property Class<LocalizationTable> ProximityPrompt.RootLocalizationTable
 	Function void ProximityPrompt:InputHoldBegin()
 	Function void ProximityPrompt:InputHoldEnd()
-	Event ProximityPrompt.PromptButtonHoldBegan(Instance playerWhoTriggered)
-	Event ProximityPrompt.PromptButtonHoldEnded(Instance playerWhoTriggered)
+	Event ProximityPrompt.PromptButtonHoldBegan(Class<Player> playerWhoTriggered)
+	Event ProximityPrompt.PromptButtonHoldEnded(Class<Player> playerWhoTriggered)
 	Event ProximityPrompt.PromptHidden()
 	Event ProximityPrompt.PromptShown(Enum<ProximityPromptInputType> inputType)
-	Event ProximityPrompt.TriggerEnded(Instance playerWhoTriggered)
-	Event ProximityPrompt.Triggered(Instance playerWhoTriggered)
+	Event ProximityPrompt.TriggerEnded(Class<Player> playerWhoTriggered)
+	Event ProximityPrompt.Triggered(Class<Player> playerWhoTriggered)
 Class ProximityPromptService : Instance [Service] [NotBrowsable]
 	Property bool ProximityPromptService.Enabled
 	Property int ProximityPromptService.MaxPromptsVisible
-	Event ProximityPromptService.PromptButtonHoldBegan(Instance prompt, Instance playerWhoTriggered)
-	Event ProximityPromptService.PromptButtonHoldEnded(Instance prompt, Instance playerWhoTriggered)
-	Event ProximityPromptService.PromptHidden(Instance prompt)
-	Event ProximityPromptService.PromptShown(Instance prompt, Enum<ProximityPromptInputType> inputType)
-	Event ProximityPromptService.PromptTriggerEnded(Instance prompt, Instance playerWhoTriggered)
-	Event ProximityPromptService.PromptTriggered(Instance prompt, Instance playerWhoTriggered)
+	Event ProximityPromptService.PromptButtonHoldBegan(Class<ProximityPrompt> prompt, Class<Player> playerWhoTriggered)
+	Event ProximityPromptService.PromptButtonHoldEnded(Class<ProximityPrompt> prompt, Class<Player> playerWhoTriggered)
+	Event ProximityPromptService.PromptHidden(Class<ProximityPrompt> prompt)
+	Event ProximityPromptService.PromptShown(Class<ProximityPrompt> prompt, Enum<ProximityPromptInputType> inputType)
+	Event ProximityPromptService.PromptTriggerEnded(Class<ProximityPrompt> prompt, Class<Player> playerWhoTriggered)
+	Event ProximityPromptService.PromptTriggered(Class<ProximityPrompt> prompt, Class<Player> playerWhoTriggered)
 Class PublishService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function Content PublishService:PublishCageMeshAsync(Instance wrap, Enum<CageType> cageType) {RobloxScriptSecurity} [Yields]
 Class RbxAnalyticsService : Instance [NotCreatable] [Service]
@@ -4287,6 +4287,10 @@ Enum CoreGuiType
 	EnumItem CoreGuiType.Chat : 3
 	EnumItem CoreGuiType.All : 4
 	EnumItem CoreGuiType.EmotesMenu : 5
+Enum CreateOutfitFailure
+	EnumItem CreateOutfitFailure.InvalidName : 1
+	EnumItem CreateOutfitFailure.OutfitLimitReached : 2
+	EnumItem CreateOutfitFailure.Other : 3
 Enum CreatorType
 	EnumItem CreatorType.User : 0
 	EnumItem CreatorType.Group : 1
@@ -4381,7 +4385,7 @@ Enum DraftStatusCode
 	EnumItem DraftStatusCode.DraftCommitted : 3
 Enum DraggerCoordinateSpace
 	EnumItem DraggerCoordinateSpace.Object : 0
-	EnumItem DraggerCoordinateSpace.Constant : 1
+	EnumItem DraggerCoordinateSpace.World : 1
 Enum DraggerMovementMode
 	EnumItem DraggerMovementMode.Geometric : 0
 	EnumItem DraggerMovementMode.Physical : 1
