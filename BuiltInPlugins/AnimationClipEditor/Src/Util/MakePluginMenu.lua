@@ -8,119 +8,66 @@ local function newId()
 	return HttpService:GenerateGUID()
 end
 
-local function connectAction(connections, action, entry, item)
+local function disconnectAll(connections)
+	for _, connection in ipairs(connections) do
+		connection:Disconnect()
+	end
+end
+
+-- Callbacks can either be defined on each item (called with the value), or on the
+-- parent menu (called with the item table).
+local function connectAction(connections, action, parent, item)
 	table.insert(connections, action.Triggered:Connect(function()
-		for _, connection in ipairs(connections) do
-			connection:Disconnect()
-		end
-		if entry.ItemSelected then
-			entry.ItemSelected(item)
-		-- AnimationClipMenu has selection function for items in the dropdown menus
+		disconnectAll(connections)
+
+		if parent.ItemSelected then
+			parent.ItemSelected(item)
 		elseif item.ItemSelected then
-			item.ItemSelected(item.Value)
+			item.ItemSelected(item.Value ~= nil and item.Value or item.Name)
 		end
 	end))
 end
 
---[[
-	Creates a SubMenu for a PluginMenu used for selecting between items.
-	Parameters:
-		PluginMenu menu: The menu to add this SubMenu to.
-		string name: The name of this SubMenu.
-		table Items: A list of Items formatted like so:
-		{
-			Name = "Human readable text",
-			Value = 0, -- Any variant for determining equality
-		}
-		item CurrentItem = The current item variant that is selected, if any.
-			Used to show a check mark for the item that is selected.
-		callback itemSelected(item) = A callback for when an item is selected by the user.
-]]
-local function makeSelectionSubMenu(plugin, connections, entry)
-	local subMenu = plugin:CreatePluginMenu(newId(), entry.Name)
+local function makePluginMenuInternal(plugin, parent, connections)
+	local items = parent.Items
+	local label = parent.Name
+	local currentValue = parent.CurrentValue
 
-	for _, item in ipairs(entry.Items) do
-		if item == Constants.MENU_SEPARATOR then
-			subMenu:AddSeparator()
-		else
-			local isCurrent = entry.CurrentItem == item.Value
-			local icon = Constants.MENU_ICONS[item]
-			local selectAction = subMenu:AddNewAction(newId(), item.Name, icon)
-			selectAction.Checked = isCurrent
-			connectAction(connections, selectAction, entry, item)
-		end
-	end
-
-	return subMenu
-end
-
-local function makeSubMenu(plugin, entry)
-	local subMenu = plugin:CreatePluginMenu(newId(), entry.Name)
-
-	for _, action in ipairs(entry.Actions) do
-		subMenu:AddAction(action)
-	end
-
-	return subMenu
-end
-
---[[
-	Creates a PluginMenu made up of PluginActions, or SubMenus of
-	PluginActions.
-
-	Parameters:
-		plugin = The Roblox plugin instance that this menu belongs to
-		name = unique name for this PluginMenu
-		actions = an array of PluginActions and/or SubMenus in the following expected format:
-		{
-			[pluginAction],
-			...,
-			[SubMenu Name] = {
-				[pluginAction],
-				...,
-			}
-			...,
-			[pluginAction],
-		}
-]]
-local function makePluginMenu(plugin, name, entries)
-	local menu = plugin:CreatePluginMenu(name)
-	local subMenus = {}
-	local connections = {}
-
-	for _, entry in ipairs(entries) do
-		if type(entry) == "table" then
-			local subMenu
-			if entry.SubActions then
-				subMenu = makeSubMenu(plugin, entry)
-			elseif entry.Items then
-				subMenu = makeSelectionSubMenu(plugin, connections, entry)
-			else
-				local action = menu:AddNewAction(newId(), entry.Name)
-				action.Checked = entry.IsEnabled
-				-- Confusing naming. Checked means its the selected option. Enabled means the user can click on it. 
-				if entry.IsAvailable ~= nil then 
-					action.Enabled = entry.IsAvailable
-				end
-				connectAction(connections, action, entry, entry.Name)
-			end
-
-			if subMenu then
-				table.insert(subMenus, subMenu)
+	local menu = plugin:CreatePluginMenu(newId(), label)
+	for _, item in ipairs(items) do
+		if typeof(item) == "table" then
+			if item.Items then	-- item has items of its own, it's a submenu
+				local subMenu = makePluginMenuInternal(plugin, item, connections)
 				menu:AddMenu(subMenu)
+			else
+				local action = menu:AddNewAction(newId(), item.Name)
+				action.Checked = currentValue ~= nil and item.Value == currentValue
+				action.Enabled = (item.Enabled ~= false)
+
+				connectAction(connections, action, parent, item)
 			end
-		elseif typeof(entry) == "Instance" and entry.ClassName == "PluginAction" then
-			menu:AddAction(entry)
-		else
+		elseif typeof(item) == "EnumItem" then
+			local action = menu:AddNewAction(newId(), item)
+			action.Checked = currentValue ~= nil and item.Value == currentValue
+			connectAction(connections, action, parent, item)
+		elseif typeof(item) == "Instance" and item.ClassName == "PluginAction" then
+			menu:AddAction(item)
+		elseif item == Constants.MENU_SEPARATOR then
 			menu:AddSeparator()
 		end
 	end
 
+	return menu
+end
+
+local function makePluginMenu(plugin, items)
+	local rootItem = {Items = items}
+	local connections = {}
+
+	local menu = makePluginMenuInternal(plugin, rootItem, connections)
 	menu:ShowAsync()
-	for _, subMenu in ipairs(subMenus) do
-		subMenu:Destroy()
-	end
-	menu:Destroy()
+
+	disconnectAll(connections)
 end
 
 return makePluginMenu

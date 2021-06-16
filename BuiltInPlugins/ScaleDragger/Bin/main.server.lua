@@ -44,9 +44,11 @@ local function openPlugin()
 			AllowDragSelect = true,
 			AllowFreeformDrag = true,
 			ShowLocalSpaceIndicator = true,
+			ShowPivotIndicator = true,
 			HandlesList = {
 				ExtrudeHandles.new(draggerContext, {
 					ShowBoundingBox = true,
+					Summonable = true,
 				}, DraggerSchema.ExtrudeHandlesImplementation.new(draggerContext)),
 			},
 		},

@@ -4,6 +4,9 @@ local DraggerFramework = script.Parent.Parent
 local Math = require(DraggerFramework.Utility.Math)
 local getGeometry = require(DraggerFramework.Utility.getGeometry)
 local roundRotation = require(DraggerFramework.Utility.roundRotation)
+local snapRotationToPrimaryDirection = require(DraggerFramework.Utility.snapRotationToPrimaryDirection)
+
+local getFFlagSummonPivot = require(DraggerFramework.Flags.getFFlagSummonPivot)
 
 local PrimaryDirections = {
 	Vector3.new(1, 0, 0),
@@ -54,10 +57,12 @@ local function findClosestBasis(normal)
 	return closestNormal, mostPerpendicularNormal1, mostPerpendicularNormal2
 end
 
+-- Remove with FFlag::SummonPivot
 local function largestComponent(vector)
 	return math.max(math.abs(vector.X), math.abs(vector.Y), math.abs(vector.Z))
 end
 
+-- Remove with FFlag::SummonPivot
 function DragHelper.snapVectorToPrimaryDirection(direction)
 	local largestDot = -math.huge
 	local closestDirection
@@ -71,7 +76,9 @@ function DragHelper.snapVectorToPrimaryDirection(direction)
 	return closestDirection
 end
 
+-- Remove with FFlag::SummonPivot
 function DragHelper.snapRotationToPrimaryDirection(cframe)
+	assert(not getFFlagSummonPivot())
 	local right = cframe.RightVector
 	local top = cframe.UpVector
 	local front = -cframe.LookVector
@@ -261,7 +268,11 @@ function DragHelper.updateTiltRotate(cameraCFrame, mouseRay, selection, mainCFra
 	end
 	local dragInTargetSpace = targetMatrix:Inverse() * mainCFrame
 	if alignRotation then
-		dragInTargetSpace = DragHelper.snapRotationToPrimaryDirection(dragInTargetSpace)
+		if getFFlagSummonPivot() then
+			dragInTargetSpace = snapRotationToPrimaryDirection(dragInTargetSpace)
+		else
+			dragInTargetSpace = DragHelper.snapRotationToPrimaryDirection(dragInTargetSpace)
+		end
 	else
 		dragInTargetSpace = dragInTargetSpace - dragInTargetSpace.Position
 	end
@@ -322,7 +333,11 @@ function DragHelper.getDragTarget(mouseRay, snapFunction, dragInMainSpace, selec
 		-- Now we want to "snap" the rotation of this transformation to 90 degree
 		-- increments, such that the dragInTargetSpace is only some combination of
 		-- the primary direction vectors.
-		dragInTargetSpace = DragHelper.snapRotationToPrimaryDirection(dragInTargetSpace)
+		if getFFlagSummonPivot() then
+			dragInTargetSpace = snapRotationToPrimaryDirection(dragInTargetSpace)
+		else
+			dragInTargetSpace = DragHelper.snapRotationToPrimaryDirection(dragInTargetSpace)
+		end
 	else
 		-- Just reduce dragInTargetSpace to a rotation
 		dragInTargetSpace = dragInTargetSpace - dragInTargetSpace.Position

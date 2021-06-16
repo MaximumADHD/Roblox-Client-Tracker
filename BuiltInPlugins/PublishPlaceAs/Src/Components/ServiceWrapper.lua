@@ -4,6 +4,7 @@
 
 local FFlagUpdatePublishPlacePluginToDevFrameworkContext = game:GetFastFlag("UpdatePublishPlacePluginToDevFrameworkContext")
 local FFlagLuobuDevPublishLua = game:GetFastFlag("LuobuDevPublishLua")
+local FFlagLuobuDevPublishLuaTempOptIn = game:GetFastFlag("LuobuDevPublishLuaTempOptIn")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -32,7 +33,7 @@ function ServiceWrapper:init()
 	if FFlagUpdatePublishPlacePluginToDevFrameworkContext then
 		assert(self.props.uiLibraryWrapper ~= nil, "Expected a UiLibraryWrapper object")
 	end
-	if FFlagLuobuDevPublishLua then
+	if FFlagLuobuDevPublishLua or FFlagLuobuDevPublishLuaTempOptIn then
 		assert(self.props.mouse ~= nil, "Expected a Mouse object")
 	end
 end
@@ -62,7 +63,7 @@ function ServiceWrapper:render()
 			uiLibraryWrapper,
 			ContextServices.Store.new(store),
 			ContextServices.API.new(),
-			FFlagLuobuDevPublishLua and ContextServices.Mouse.new(mouse) or nil,
+			(FFlagLuobuDevPublishLua or FFlagLuobuDevPublishLuaTempOptIn) and ContextServices.Mouse.new(mouse) or nil,
 		}, children)
 	else
 		local root = Roact.oneChild(children)

@@ -6,6 +6,8 @@ game:DefineFastFlag("TerrainOpenCloseMetrics", false)
 game:DefineFastFlag("TerrainToolsImportUploadAssets", false)
 game:DefineFastFlag("EnableTerrainToolsStylizer", false)
 game:DefineFastFlag("TerrainToolsColormapCallout", false)
+game:DefineFastFlag("TerrainToolsOutputIssue", false)
+game:DefineFastFlag("TerrainToolsMoreOutputIssue", false)
 
 local function handleFlagDependencies(flag, requiredFlags)
 	if not game:GetFastFlag(flag) then

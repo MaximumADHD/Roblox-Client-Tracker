@@ -5,6 +5,7 @@ local isCJV = require(Plugin.Src.Util.isCJV)
 local FFlagStudioCreatePluginPolicyService = game:GetFastFlag("StudioCreatePluginPolicyService")
 local FFlagStudioEnableBadgesInMonetizationPage = game:GetFastFlag("StudioEnableBadgesInMonetizationPage")
 local FFlagLuobuDevPublishLua = game:GetFastFlag("LuobuDevPublishLua")
+local FFlagLuobuDevPublishLuaTempOptIn = game:GetFastFlag("LuobuDevPublishLuaTempOptIn")
 
 local StudioService = game:GetService("StudioService")
 
@@ -18,7 +19,7 @@ end
 
 local function checkIfPolicyDoesNotExistAndBaseUrlNotChineseHost()
     return not FFlagStudioCreatePluginPolicyService and not StudioService:BaseURLHasChineseHost()
-end 
+end
 
 function GameSettingsUtilities.getAutoTranslationAllowed()
     return (not FFlagStudioCreatePluginPolicyService and isCJV())
@@ -47,7 +48,7 @@ function GameSettingsUtilities.shouldAllowBadges()
 end
 
 function GameSettingsUtilities.shouldShowDevPublishLocations()
-    assert(FFlagLuobuDevPublishLua)
+    assert(FFlagLuobuDevPublishLua or FFlagLuobuDevPublishLuaTempOptIn)
 
     return checkIfPolicyDoesNotExistAndBaseUrlChineseHost()
         or (FFlagStudioCreatePluginPolicyService and GameSettingsPolicy["ShowOptInLocations"])

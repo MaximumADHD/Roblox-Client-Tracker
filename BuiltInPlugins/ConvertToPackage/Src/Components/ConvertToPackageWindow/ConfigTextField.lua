@@ -26,8 +26,6 @@ local RoundTextBox = UILibrary.Component.RoundTextBox
 local withTheme = require(Plugin.Src.ContextServices.Theming).withTheme
 local ConfigTextField = Roact.PureComponent:extend("ConfigTextField")
 
-local FFlagPackageProductUXImprovementsMatchTextSizeWithGS = game:DefineFastFlag("PackageProductUXImprovementsMatchTextSizeWithGS", false)
-
 local TITLE_HEIGHT = 40
 local TOOL_TIP_HEIGHT = 20
 
@@ -97,7 +95,7 @@ function ConfigTextField:render()
 				MaxLength = MaxCount,
 				Text = currentContent,
 				Font = Constants.FONT,
-				TextSize = FFlagPackageProductUXImprovementsMatchTextSizeWithGS and Constants.FONT_SIZE_TITLE or Constants.FONT_SIZE_MEDIUM,
+				TextSize = Constants.FONT_SIZE_TITLE,
 				Height = TotalHeight - TITLE_HEIGHT - TOOL_TIP_HEIGHT,
 				WidthOffset = -Constants.TITLE_GUTTER_WIDTH,
 				Multiline = MaxCount > 50,

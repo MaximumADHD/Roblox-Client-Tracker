@@ -32,9 +32,7 @@ local withContext = require(Plugin.Src.ContextServices.withContext)
 
 local AssetConfig = Roact.PureComponent:extend("AssetConfig")
 
-local FFlagPackageProductUXImprovementsMatchTextSizeWithGS = game:GetFastFlag("PackageProductUXImprovementsMatchTextSizeWithGS")
-
-local FOOTER_HEIGHT = FFlagPackageProductUXImprovementsMatchTextSizeWithGS and 65 or 80
+local FOOTER_HEIGHT = 65
 local PREVIEW_WIDTH = 240
 local DEFAULT_GENRE = "All"
 

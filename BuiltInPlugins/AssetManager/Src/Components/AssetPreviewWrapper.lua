@@ -1,6 +1,6 @@
 local Plugin = script.Parent.Parent.Parent
 
-local FFlagStudioAssetManagerHideAssetPreviewCreatorSearch = game:GetFastFlag("StudioAssetManagerHideAssetPreviewCreatorSearch")
+local FFlagStudioAssetManagerRefactorAssetPreview = game:GetFastFlag("StudioAssetManagerRefactorAssetPreview")
 local FFlagRefactorDevFrameworkContextItems = game:GetFastFlag("RefactorDevFrameworkContextItems")
 
 local Roact = require(Plugin.Packages.Roact)
@@ -12,7 +12,7 @@ local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
 
 local StudioUI = Framework.StudioUI
-local AssetPreview = FFlagStudioAssetManagerHideAssetPreviewCreatorSearch and StudioUI.AssetPreview or UILibrary.Component.AssetPreview
+local AssetPreview = FFlagStudioAssetManagerRefactorAssetPreview and StudioUI.AssetPreview or UILibrary.Component.AssetPreview
 
 local OnAssetDoubleClick = require(Plugin.Src.Thunks.OnAssetDoubleClick)
 local OnAssetRightClick = require(Plugin.Src.Thunks.OnAssetRightClick)
@@ -145,14 +145,13 @@ function AssetPreviewWrapper:render()
                 [Roact.Change.AbsoluteSize] = self.onDetectorABSSizeChange,
             }),
 
-            Contents = FFlagStudioAssetManagerHideAssetPreviewCreatorSearch and Roact.createElement(AssetPreview, {
+            Contents = FFlagStudioAssetManagerRefactorAssetPreview and Roact.createElement(AssetPreview, {
                 Position = UDim2.new(0.5, 0, 0.5, 0),
                 AnchorPoint = Vector2.new(0.5, 0.5),
                 Size = UDim2.fromOffset(maxPreviewWidth, maxPreviewHeight),
 
                 AssetData = assetData,
-                PreviewModel = rootTreeViewInstance,
-                CurrentPreview = selectedInstance,
+                AssetInstance = selectedInstance,
 
                 OnClickContext = self.tryCreateContextMenu,
 
@@ -170,7 +169,7 @@ function AssetPreviewWrapper:render()
                 ZIndex = 2,
             }),
 
-            DEPRECATED_Contents = not FFlagStudioAssetManagerHideAssetPreviewCreatorSearch and Roact.createElement(AssetPreview, {
+            DEPRECATED_Contents = not FFlagStudioAssetManagerRefactorAssetPreview and Roact.createElement(AssetPreview, {
                 Position = UDim2.new(0.5, 0, 0.5, 0),
                 AnchorPoint = Vector2.new(0.5, 0.5),
                 MaxPreviewWidth = maxPreviewWidth,
@@ -198,7 +197,7 @@ function AssetPreviewWrapper:render()
 end
 
 local function mapStateToProps(state, props)
-    if not FFlagStudioAssetManagerHideAssetPreviewCreatorSearch then
+    if not FFlagStudioAssetManagerRefactorAssetPreview then
         local assetPreviewData = props.AssetPreviewData
 
         return {

@@ -1,4 +1,5 @@
 local FFlagTerrainTrackAcquisitionMethod = game:GetFastFlag("TerrainTrackAcquisitionMethod")
+local FFlagTerrainToolsMoreOutputIssue = game:GetFastFlag("TerrainToolsMoreOutputIssue")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -75,9 +76,11 @@ function TerrainSeaLevel:localizedWarn(...)
 	end
 end
 
-function TerrainSeaLevel:localizedPrint(...)
-	if self._localization then
-		print(self._localization:getText(...))
+if not FFlagTerrainToolsMoreOutputIssue then
+	function TerrainSeaLevel:localizedPrint(...)
+		if self._localization then
+			print(self._localization:getText(...))
+		end
 	end
 end
 
@@ -114,7 +117,9 @@ function TerrainSeaLevel:replaceMaterial(position, size, sourceMaterial, targetM
 	self._updateReplaceProgress(0)
 	self._setReplacing(true)
 
-	self:localizedPrint("SeaLevel", "Start")
+	if not FFlagTerrainToolsMoreOutputIssue then
+		self:localizedPrint("SeaLevel", "Start")
+	end
 
 	local startTime = tick()
 	local terrain = self._terrain
@@ -172,7 +177,7 @@ function TerrainSeaLevel:replaceMaterial(position, size, sourceMaterial, targetM
 			terrain.LastUsedModificationMethod = Enum.TerrainAcquisitionMethod.EditReplaceTool
 		end
 	end
-	
+
 	while minSliceExtent.x <= (maxSliceX) and self._replacing do
 		-- output progress metric
 		self._updateReplaceProgress(1 - ((maxSliceX - minSliceExtent.X) / (maxSliceX-minSliceX)))
@@ -222,7 +227,9 @@ function TerrainSeaLevel:replaceMaterial(position, size, sourceMaterial, targetM
 	-- provides that as an actual option
 	self._updateReplaceProgress(1)
 	local endTime = tick()
-	self:localizedPrint("SeaLevel", "End", endTime - startTime)
+	if not FFlagTerrainToolsMoreOutputIssue then
+		self:localizedPrint("SeaLevel", "End", endTime - startTime)
+	end
 	self._setReplacing(false)
 end
 

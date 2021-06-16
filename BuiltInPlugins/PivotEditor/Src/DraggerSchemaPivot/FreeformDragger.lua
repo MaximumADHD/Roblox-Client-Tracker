@@ -14,10 +14,12 @@ local MoveHandleView = require(DraggerFramework.Components.MoveHandleView)
 local setWorldPivot = require(Plugin.Src.Utility.setWorldPivot)
 local computeSnapPointsForInstance = require(Plugin.Src.Utility.computeSnapPointsForInstance)
 local SnapPoints = require(Plugin.Src.Components.SnapPoints)
-local DraggedPivot = require(Plugin.Src.Components.DraggedPivot)
+local DraggedPivot = require(DraggerFramework.Components.DraggedPivot)
 local classifyInstancePivot = require(Plugin.Src.Utility.classifyInstancePivot)
 
 local getSelectableWithCache = require(Packages.DraggerSchemaCore.getSelectableWithCache)
+
+local getFFlagSummonPivot = require(DraggerFramework.Flags.getFFlagSummonPivot)
 
 local ZERO_VECTOR = Vector3.new()
 
@@ -65,6 +67,7 @@ function FreeformDragger.new(draggerContext, draggerToolModel, dragInfo)
 	-- is not actually hovering over any of the geometry of the selectable,
 	-- we will still get to snap to its bounds.
 	self._snapPoints = computeSnapPointsForInstance(dragInfo.ClickedSelectable)
+	self._pivotOwner = dragInfo.ClickedSelectable
 	self._originalPivotSnapPoints = self._snapPoints
 	self:update()
 	return self
@@ -102,10 +105,18 @@ function FreeformDragger:render()
 	})
 
 	if self._draggerContext:shouldSnapPivotToGeometry() then
-		adornments.SnapPoints = Roact.createElement(SnapPoints, {
-			SnapPoints = self._snapPoints,
-			DraggerContext = self._draggerContext,
-		})
+		if getFFlagSummonPivot() then
+			adornments.SnapPoints = Roact.createElement(SnapPoints, {
+				Focus = self._lastDragTarget.mainCFrame.Position,
+				SnapPoints = self._snapPoints,
+				DraggerContext = self._draggerContext,
+			})
+		else
+			adornments.SnapPoints = Roact.createElement(SnapPoints, {
+				SnapPoints = self._snapPoints,
+				DraggerContext = self._draggerContext,
+			})
+		end
 	end
 
 	return Roact.createFragment(adornments)

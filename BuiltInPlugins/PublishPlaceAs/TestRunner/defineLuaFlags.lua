@@ -4,5 +4,6 @@
 
 game:DefineFastFlag("FixPublishAsWhenQueryFails", false)
 game:DefineFastFlag("StudioPublishFailPageFix", false)
+game:DefineFastFlag("UseLocalizedUntitledGameTextForAddNewPlace", false)
 
 return nil
