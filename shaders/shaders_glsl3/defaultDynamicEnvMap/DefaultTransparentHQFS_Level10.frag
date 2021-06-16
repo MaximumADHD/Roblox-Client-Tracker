@@ -12,8 +12,8 @@ uniform samplerCube PrefilteredEnvTexture;
 uniform samplerCube PrefilteredEnvIndoorTexture;
 uniform samplerCube PrefilteredEnvBlendTargetTexture;
 uniform sampler2D PrecomputedBRDFTexture;
-uniform sampler2D DiffuseMapTexture;
 uniform sampler2D Tc2DiffuseMapTexture;
+uniform sampler2D DiffuseMapTexture;
 
 in vec2 VARYING0;
 in vec2 VARYING1;
@@ -28,9 +28,9 @@ void main()
 {
     float f0 = length(VARYING4.xyz);
     vec3 f1 = VARYING4.xyz / vec3(f0);
-    vec4 f2 = texture(DiffuseMapTexture, VARYING0);
-    vec4 f3 = texture(Tc2DiffuseMapTexture, VARYING1);
-    vec4 f4 = mix(f2, f3, vec4(f3.w)) * VARYING2;
+    vec4 f2 = texture(Tc2DiffuseMapTexture, VARYING1);
+    vec4 f3 = texture(DiffuseMapTexture, VARYING0);
+    vec4 f4 = mix(f3, f2, vec4(f2.w)) * VARYING2;
     vec3 f5 = normalize(VARYING5.xyz) * (gl_FrontFacing ? 1.0 : (-1.0));
     vec3 f6 = -CB0[11].xyz;
     float f7 = dot(f5, f6);
@@ -131,5 +131,5 @@ void main()
 //$$PrefilteredEnvIndoorTexture=s14
 //$$PrefilteredEnvBlendTargetTexture=s2
 //$$PrecomputedBRDFTexture=s11
-//$$DiffuseMapTexture=s3
 //$$Tc2DiffuseMapTexture=s0
+//$$DiffuseMapTexture=s3

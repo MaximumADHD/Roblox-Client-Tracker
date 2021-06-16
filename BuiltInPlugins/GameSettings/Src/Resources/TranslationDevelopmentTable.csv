@@ -25,7 +25,6 @@ Studio.GameSettings.General.ContentDialogHeader,Content Agreement, ,Content Agre
 Studio.GameSettings.General.SettingOff,Off, ,Off
 Studio.GameSettings.General.GameIconPrompt,Add Game Icon, ,Add Game Icon
 Studio.GameSettings.General.ReplyOK,OK, ,OK
-Studio.GameSettings.OptInLocations.TempLinkDescription,"China: to submit your game to the LuoBu app, visit ", ,"China: to submit your game to the LuoBu app, visit "
 Studio.GameSettings.General.PartHead,Head, ,Head
 Studio.GameSettings.General.ScaleHead,Head, ,Head
 Studio.GameSettings.General.ReplyAgree,Agree, ,Agree

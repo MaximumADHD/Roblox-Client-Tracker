@@ -11,8 +11,8 @@ uniform sampler3D LightGridSkylightTexture;
 uniform samplerCube PrefilteredEnvTexture;
 uniform samplerCube PrefilteredEnvIndoorTexture;
 uniform sampler2D PrecomputedBRDFTexture;
-uniform sampler2D DiffuseMapTexture;
 uniform sampler2D Tc2DiffuseMapTexture;
+uniform sampler2D DiffuseMapTexture;
 
 in vec2 VARYING0;
 in vec2 VARYING1;
@@ -119,5 +119,5 @@ void main()
 //$$PrefilteredEnvTexture=s15
 //$$PrefilteredEnvIndoorTexture=s14
 //$$PrecomputedBRDFTexture=s11
-//$$DiffuseMapTexture=s3
 //$$Tc2DiffuseMapTexture=s0
+//$$DiffuseMapTexture=s3

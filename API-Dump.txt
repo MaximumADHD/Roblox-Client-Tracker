@@ -172,29 +172,29 @@ Class Bone : Attachment
 	Property CFrame Bone.TransformedCFrame [ReadOnly]
 	Property CFrame Bone.TransformedWorldCFrame [ReadOnly]
 Class AvatarEditorService : Instance [NotCreatable] [Service] [NotReplicated]
-	Function HumanoidDescription AvatarEditorService:CheckApplyDefaultClothing(HumanoidDescription humanoidDescription) [Yields]
-	Function HumanoidDescription AvatarEditorService:ConformToAvatarRules(HumanoidDescription humanoidDescription) {RobloxScriptSecurity} [Yields]
+	Function Instance AvatarEditorService:CheckApplyDefaultClothing(Instance humanoidDescription) [Yields]
+	Function Instance AvatarEditorService:ConformToAvatarRules(Instance humanoidDescription) {RobloxScriptSecurity} [Yields]
 	Function Dictionary AvatarEditorService:GetAvatarRules() [Yields]
 	Function Array AvatarEditorService:GetBatchItemDetails(Array itemIds, Enum.AvatarItemType itemType) [Yields]
 	Function bool AvatarEditorService:GetFavorite(int64 itemId, Enum.AvatarItemType itemType) [Yields]
-	Function InventoryPages AvatarEditorService:GetInventory(Array assetTypes) [Yields]
+	Function Instance AvatarEditorService:GetInventory(Array assetTypes) [Yields]
 	Function Dictionary AvatarEditorService:GetItemDetails(int64 itemId, Enum.AvatarItemType itemType) [Yields]
-	Function OutfitPages AvatarEditorService:GetOutfits(Enum.OutfitSource outfitSource = "All") [Yields]
+	Function Instance AvatarEditorService:GetOutfits(Enum.OutfitSource outfitSource = "All") [Yields]
 	Function Array AvatarEditorService:GetRecommendedAssets(Enum.AvatarAssetType assetType, int64 contextAssetId = 0) [Yields]
 	Function Array AvatarEditorService:GetRecommendedBundles(int64 bundleId) [Yields]
-	Function bool AvatarEditorService:NoPromptCreateOutfit(HumanoidDescription humanoidDescription, Enum.HumanoidRigType rigType, string name) {RobloxScriptSecurity}
+	Function bool AvatarEditorService:NoPromptCreateOutfit(Instance humanoidDescription, Enum.HumanoidRigType rigType, string name) {RobloxScriptSecurity}
 	Function bool AvatarEditorService:NoPromptSetFavorite(int64 itemId, Enum.AvatarItemType itemType, bool shouldFavorite) {RobloxScriptSecurity}
 	Function void AvatarEditorService:PerformCreateOutfit(string name) {RobloxScriptSecurity}
-	Function void AvatarEditorService:PerformCreateOutfitWithDescription(HumanoidDescription humanoidDescription, string name) {RobloxScriptSecurity}
+	Function void AvatarEditorService:PerformCreateOutfitWithDescription(Instance humanoidDescription, string name) {RobloxScriptSecurity}
 	Function void AvatarEditorService:PerformSaveAvatar() {RobloxScriptSecurity}
 	Function void AvatarEditorService:PerformSaveAvatarNew(Array addedAssets, Array removedAssets) {RobloxScriptSecurity}
-	Function void AvatarEditorService:PerformSaveAvatarWithDescription(HumanoidDescription humanoidDescription, Array addedAssets, Array removedAssets) {RobloxScriptSecurity}
+	Function void AvatarEditorService:PerformSaveAvatarWithDescription(Instance humanoidDescription, Array addedAssets, Array removedAssets) {RobloxScriptSecurity}
 	Function void AvatarEditorService:PerformSetFavorite() {RobloxScriptSecurity}
 	Function void AvatarEditorService:PromptAllowInventoryReadAccess()
-	Function void AvatarEditorService:PromptCreateOutfit(HumanoidDescription outfit, Enum.HumanoidRigType rigType)
-	Function void AvatarEditorService:PromptSaveAvatar(HumanoidDescription humanoidDescription, Enum.HumanoidRigType rigType)
+	Function void AvatarEditorService:PromptCreateOutfit(Instance outfit, Enum.HumanoidRigType rigType)
+	Function void AvatarEditorService:PromptSaveAvatar(Instance humanoidDescription, Enum.HumanoidRigType rigType)
 	Function void AvatarEditorService:PromptSetFavorite(int64 itemId, Enum.AvatarItemType itemType, bool shouldFavorite)
-	Function CatalogPages AvatarEditorService:SearchCatalog(CatalogSearchParams searchParameters) [Yields]
+	Function Instance AvatarEditorService:SearchCatalog(CatalogSearchParams searchParameters) [Yields]
 	Function void AvatarEditorService:SetAllowInventoryReadAccess(bool inventoryReadAccessGranted) {RobloxScriptSecurity}
 	Function void AvatarEditorService:SignalCreateOutfitFailed() {RobloxScriptSecurity}
 	Function void AvatarEditorService:SignalCreateOutfitPermissionDenied() {RobloxScriptSecurity}
@@ -203,8 +203,8 @@ Class AvatarEditorService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void AvatarEditorService:SignalSetFavoriteFailed() {RobloxScriptSecurity}
 	Function void AvatarEditorService:SignalSetFavoritePermissionDenied() {RobloxScriptSecurity}
 	Event AvatarEditorService.OpenAllowInventoryReadAccess() {RobloxScriptSecurity}
-	Event AvatarEditorService.OpenPromptCreateOufit(HumanoidDescription humanoidDescription, Enum.HumanoidRigType rigType) {RobloxScriptSecurity}
-	Event AvatarEditorService.OpenPromptSaveAvatar(HumanoidDescription humanoidDescription, Enum.HumanoidRigType rigType) {RobloxScriptSecurity}
+	Event AvatarEditorService.OpenPromptCreateOufit(Instance humanoidDescription, Enum.HumanoidRigType rigType) {RobloxScriptSecurity}
+	Event AvatarEditorService.OpenPromptSaveAvatar(Instance humanoidDescription, Enum.HumanoidRigType rigType) {RobloxScriptSecurity}
 	Event AvatarEditorService.OpenPromptSetFavorite(int64 itemId, Enum.AvatarItemType itemType, bool shouldFavorite) {RobloxScriptSecurity}
 	Event AvatarEditorService.PromptAllowInventoryReadAccessCompleted(Enum.AvatarPromptResult result)
 	Event AvatarEditorService.PromptCreateOutfitCompleted(Enum.AvatarPromptResult result, Variant failureType)
@@ -325,7 +325,7 @@ Class Beam : Instance
 	Property float Beam.Width1
 	Function void Beam:SetTextureOffset(float offset = 0)
 Class BindableEvent : Instance
-	Function void BindableEvent:Fire(Tuple arguments) {🧬Safe}
+	Function void BindableEvent:Fire(Tuple arguments)
 	Event BindableEvent.Event(Tuple arguments)
 Class BindableFunction : Instance
 	Function Tuple BindableFunction:Invoke(Tuple arguments) [Yields]
@@ -763,10 +763,10 @@ Class DataStoreService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property bool DataStoreService.AutomaticRetry {LocalUserSecurity} [NotReplicated]
 	Property bool DataStoreService.LegacyNamingScheme {LocalUserSecurity} [Hidden] [Deprecated]
 	Function GlobalDataStore DataStoreService:GetDataStore(string name, string scope = "global", Instance options = nil)
-	Function GlobalDataStore DataStoreService:GetGlobalDataStore()
-	Function OrderedDataStore DataStoreService:GetOrderedDataStore(string name, string scope = "global")
+	Function Instance DataStoreService:GetGlobalDataStore()
+	Function Instance DataStoreService:GetOrderedDataStore(string name, string scope = "global")
 	Function int DataStoreService:GetRequestBudgetForRequestType(Enum.DataStoreRequestType requestType)
-	Function DataStoreEnumerationPages DataStoreService:ListDataStoresAsync(string prefix = "", int pageSize = 0) [Yields]
+	Function Instance DataStoreService:ListDataStoresAsync(string prefix = "", int pageSize = 0) [Yields]
 Class DataStoreSetOptions : Instance [NotReplicated]
 	Function Dictionary DataStoreSetOptions:GetMetadata()
 	Function void DataStoreSetOptions:SetMetadata(Dictionary attributes)
@@ -881,7 +881,6 @@ Class Decal : FaceInstance
 	Property float Decal.Specular [<📁> LoadOnly] [NotReplicated] [Deprecated]
 	Property Content Decal.Texture
 	Property float Decal.Transparency
-	Property int Decal.ZIndex
 Class Texture : Decal
 	Property float Texture.OffsetStudsU
 	Property float Texture.OffsetStudsV
@@ -942,15 +941,15 @@ Class GetDataStoreOptions : Instance [NotReplicated]
 	Function void GetDataStoreOptions:SetExperimentalFeatures(Dictionary experimentalFeatures)
 Class GlobalDataStore : Instance [NotCreatable] [NotReplicated]
 	Function Tuple GlobalDataStore:GetAsync(string key) [Yields]
-	Function Variant GlobalDataStore:IncrementAsync(string key, int delta = 1, Array userIds = {}, DataStoreIncrementOptions options = nil) [Yields]
+	Function Variant GlobalDataStore:IncrementAsync(string key, int delta = 1, Array userIds = {}, Instance options = nil) [Yields]
 	Function RBXScriptConnection GlobalDataStore:OnUpdate(string key, Function callback) [Deprecated]
 	Function Tuple GlobalDataStore:RemoveAsync(string key) [Yields]
-	Function Variant GlobalDataStore:SetAsync(string key, Variant value, Array userIds = {}, DataStoreSetOptions options = nil) [Yields]
+	Function Variant GlobalDataStore:SetAsync(string key, Variant value, Array userIds = {}, Instance options = nil) [Yields]
 	Function Tuple GlobalDataStore:UpdateAsync(string key, Function transformFunction) [Yields]
 Class DataStore : GlobalDataStore [NotCreatable] [NotReplicated]
 	Function Tuple DataStore:GetVersionAsync(string key, string version) [Yields]
-	Function DataStoreKeyPages DataStore:ListKeysAsync(string prefix = "", int pageSize = 0) [Yields]
-	Function DataStoreVersionPages DataStore:ListVersionsAsync(string key, Enum.SortDirection sortDirection = "Ascending", int64 minDate = 0, int64 maxDate = 0, int pageSize = 0) [Yields]
+	Function Instance DataStore:ListKeysAsync(string prefix = "", int pageSize = 0) [Yields]
+	Function Instance DataStore:ListVersionsAsync(string key, Enum.SortDirection sortDirection = "Ascending", int64 minDate = 0, int64 maxDate = 0, int pageSize = 0) [Yields]
 	Function void DataStore:RemoveVersionAsync(string key, string version) [Yields]
 Class OrderedDataStore : GlobalDataStore [NotCreatable] [NotReplicated]
 	Function Instance OrderedDataStore:GetSortedAsync(bool ascending, int pagesize, Variant minValue, Variant maxValue) [Yields]
@@ -1004,9 +1003,9 @@ Class GuiObject : GuiBase2d [NotCreatable] [NotBrowsable]
 	Function bool GuiObject:TweenSizeAndPosition(UDim2 endSize, UDim2 endPosition, Enum.EasingDirection easingDirection = "Out", Enum.EasingStyle easingStyle = "Quad", float time = 1, bool override = false, Function callback = nil)
 	Event GuiObject.DragBegin(UDim2 initialPosition) [Deprecated]
 	Event GuiObject.DragStopped(int x, int y) [Deprecated]
-	Event GuiObject.InputBegan(InputObject input)
-	Event GuiObject.InputChanged(InputObject input)
-	Event GuiObject.InputEnded(InputObject input)
+	Event GuiObject.InputBegan(Instance input)
+	Event GuiObject.InputChanged(Instance input)
+	Event GuiObject.InputEnded(Instance input)
 	Event GuiObject.MouseEnter(int x, int y)
 	Event GuiObject.MouseLeave(int x, int y)
 	Event GuiObject.MouseMoved(int x, int y)
@@ -1027,7 +1026,7 @@ Class GuiButton : GuiObject [NotCreatable] [NotBrowsable]
 	Property bool GuiButton.Modal
 	Property bool GuiButton.Selected
 	Property Enum.ButtonStyle GuiButton.Style
-	Event GuiButton.Activated(InputObject inputObject, int clickCount)
+	Event GuiButton.Activated(Instance inputObject, int clickCount)
 	Event GuiButton.MouseButton1Click()
 	Event GuiButton.MouseButton1Down(int x, int y)
 	Event GuiButton.MouseButton1Up(int x, int y)
@@ -1168,7 +1167,7 @@ Class TextBox : GuiObject
 	Function void TextBox:ReleaseFocus(bool submitted = false)
 	Function void TextBox:ResetKeyboardMode() {RobloxScriptSecurity}
 	Function void TextBox:SetTextFromInput(string text) {RobloxScriptSecurity}
-	Event TextBox.FocusLost(bool enterPressed, InputObject inputThatCausedFocusLoss)
+	Event TextBox.FocusLost(bool enterPressed, Instance inputThatCausedFocusLoss)
 	Event TextBox.Focused()
 	Event TextBox.ReturnPressedFromOnScreenKeyboard()
 Class VideoFrame : GuiObject
@@ -1881,8 +1880,8 @@ Class MarketplaceService : Instance [NotCreatable] [Service]
 Class MemStorageConnection : Instance [NotCreatable] [NotReplicated]
 	Function void MemStorageConnection:Disconnect() {PluginSecurity}
 Class MemStorageService : Instance [NotCreatable] [Service] [NotReplicated]
-	Function MemStorageConnection MemStorageService:Bind(string key, Function callback) {RobloxScriptSecurity}
-	Function MemStorageConnection MemStorageService:BindAndFire(string key, Function callback) {RobloxScriptSecurity}
+	Function Instance MemStorageService:Bind(string key, Function callback) {RobloxScriptSecurity}
+	Function Instance MemStorageService:BindAndFire(string key, Function callback) {RobloxScriptSecurity}
 	Function Variant MemStorageService:Call(string key, Variant input) {RobloxScriptSecurity}
 	Function void MemStorageService:Fire(string key, string value = "") {RobloxScriptSecurity}
 	Function string MemStorageService:GetItem(string key, string defaultValue = "") {RobloxScriptSecurity}
@@ -1894,8 +1893,8 @@ Class MemoryStoreQueue : Instance [NotCreatable] [NotReplicated]
 	Function Tuple MemoryStoreQueue:ReadAsync(int count, bool allOrNothing = false, double waitTimeout = -1) [Yields]
 	Function void MemoryStoreQueue:RemoveAsync(string id) [Yields]
 Class MemoryStoreService : Instance [Service]
-	Function MemoryStoreQueue MemoryStoreService:GetQueue(string name, int invisibilityTimeout = 30)
-	Function MemoryStoreSortedMap MemoryStoreService:GetSortedMap(string name)
+	Function Instance MemoryStoreService:GetQueue(string name, int invisibilityTimeout = 30)
+	Function Instance MemoryStoreService:GetSortedMap(string name)
 Class MemoryStoreSortedMap : Instance [NotCreatable] [NotReplicated]
 	Function Variant MemoryStoreSortedMap:GetAsync(string key) [Yields]
 	Function Array MemoryStoreSortedMap:GetRangeAsync(Enum.SortDirection direction, int count, string exclusiveLowerBound = "", string exclusiveUpperBound = "") [Yields]
@@ -2237,7 +2236,7 @@ Class Workspace : WorldRoot [NotCreatable] [Service]
 	Property Enum.NewAnimationRuntimeSetting Workspace.AnimationWeightedBlendFix [NotScriptable]
 	Property Enum.ClientAnimatorThrottlingMode Workspace.ClientAnimatorThrottling
 	Property float Workspace.FallenPartsDestroyHeight {✏️PluginSecurity}
-	Property bool Workspace.FilteringEnabled {✏️PluginSecurity} [Hidden] [NotReplicated] [Deprecated]
+	Property bool Workspace.FilteringEnabled {✏️PluginSecurity} [Deprecated]
 	Property float Workspace.Gravity
 	Property Enum.InterpolationThrottlingMode Workspace.InterpolationThrottling {✏️PluginSecurity}
 	Property Enum.MeshPartHeadsAndAccessories Workspace.MeshPartHeadsAndAccessories [NotScriptable]
@@ -2248,7 +2247,7 @@ Class Workspace : WorldRoot [NotCreatable] [Service]
 	Property int Workspace.StreamingMinRadius [NotScriptable]
 	Property Enum.StreamingPauseMode Workspace.StreamingPauseMode [NotScriptable]
 	Property int Workspace.StreamingTargetRadius [NotScriptable]
-	Property Terrain Workspace.Terrain [ReadOnly]
+	Property Instance Workspace.Terrain [ReadOnly]
 	Property bool Workspace.TouchesUseCollisionGroups [NotScriptable]
 	Property Camera Workspace.CurrentCamera [NotReplicated]
 	Property double Workspace.DistributedGameTime [NotReplicated]
@@ -2519,7 +2518,7 @@ Class Players : Instance [NotCreatable] [Service]
 	Function Instance Players:GetHumanoidDescriptionFromOutfitId(int64 outfitId) [Yields]
 	Function Instance Players:GetHumanoidDescriptionFromUserId(int64 userId) [Yields]
 	Function string Players:GetNameFromUserIdAsync(int64 userId) [Yields]
-	Function Player Players:GetPlayerByUserId(int64 userId)
+	Function Instance Players:GetPlayerByUserId(int64 userId)
 	Function Player Players:GetPlayerFromCharacter(Model character)
 	Function Objects Players:GetPlayers()
 	Function int64 Players:GetUserIdFromNameAsync(string userName) [Yields]
@@ -2531,7 +2530,7 @@ Class Players : Instance [NotCreatable] [Service]
 	Function void Players:WhisperChat(string message, Instance player) {LocalUserSecurity}
 	Function Player Players:playerFromCharacter(Model character) [Deprecated]
 	Function Objects Players:players() [Deprecated]
-	Event Players.FriendRequestEvent(Player player, Player player, Enum.FriendRequestEvent friendRequestEvent) {RobloxScriptSecurity}
+	Event Players.FriendRequestEvent(Instance player, Instance player, Enum.FriendRequestEvent friendRequestEvent) {RobloxScriptSecurity}
 	Event Players.GameAnnounce(string message) {RobloxScriptSecurity}
 	Event Players.PlayerAdded(Player player)
 	Event Players.PlayerChatted(Enum.PlayerChatType chatType, Instance player, string message, Instance targetPlayer) {LocalUserSecurity}
@@ -2548,11 +2547,11 @@ Class Plugin : Instance [NotCreatable]
 	Property bool Plugin.HostDataModelTypeIsCurrent {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property MultipleDocumentInterfaceInstance Plugin.MultipleDocumentInterfaceInstance {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Function void Plugin:Activate(bool exclusiveMouse) {PluginSecurity}
-	Function DockWidgetPluginGui Plugin:CreateDockWidgetPluginGui(string pluginGuiId, DockWidgetPluginGuiInfo dockWidgetPluginGuiInfo) {PluginSecurity} [Yields]
-	Function PluginAction Plugin:CreatePluginAction(string actionId, string text, string statusTip, string iconName = "", bool allowBinding = true) {PluginSecurity}
-	Function PluginMenu Plugin:CreatePluginMenu(string id, string title = "", string icon = "") {PluginSecurity}
-	Function QWidgetPluginGui Plugin:CreateQWidgetPluginGui(string pluginGuiId, Dictionary pluginGuiOptions) {RobloxScriptSecurity} [Yields]
-	Function PluginToolbar Plugin:CreateToolbar(string name) {PluginSecurity}
+	Function Instance Plugin:CreateDockWidgetPluginGui(string pluginGuiId, DockWidgetPluginGuiInfo dockWidgetPluginGuiInfo) {PluginSecurity} [Yields]
+	Function Instance Plugin:CreatePluginAction(string actionId, string text, string statusTip, string iconName = "", bool allowBinding = true) {PluginSecurity}
+	Function Instance Plugin:CreatePluginMenu(string id, string title = "", string icon = "") {PluginSecurity}
+	Function Instance Plugin:CreateQWidgetPluginGui(string pluginGuiId, Dictionary pluginGuiOptions) {RobloxScriptSecurity} [Yields]
+	Function Instance Plugin:CreateToolbar(string name) {PluginSecurity}
 	Function void Plugin:Deactivate() {PluginSecurity}
 	Function Variant Plugin:GetItem(string key, Variant defaultValue) {RobloxScriptSecurity}
 	Function Enum.JointCreationMode Plugin:GetJoinMode() {PluginSecurity}
@@ -2734,7 +2733,6 @@ Class ReflectionMetadataItem : Instance [NotCreatable]
 	Property string ReflectionMetadataItem.Constraint
 	Property bool ReflectionMetadataItem.Deprecated
 	Property bool ReflectionMetadataItem.EditingDisabled
-	Property string ReflectionMetadataItem.FFlag
 	Property bool ReflectionMetadataItem.IsBackend
 	Property int ReflectionMetadataItem.PropertyOrder
 	Property string ReflectionMetadataItem.ScriptContext
@@ -2805,7 +2803,6 @@ Class ReplicatedStorage : Instance [NotCreatable] [Service]
 Class RobloxPluginGuiService : Instance [NotCreatable] [Service] [NotReplicated]
 Class RobloxReplicatedStorage : Instance [NotCreatable] [Service] [NotBrowsable]
 Class RunService : Instance [NotCreatable] [Service] [NotReplicated]
-	Property string RunService.ClientGitHash {RobloxScriptSecurity} [ReadOnly]
 	Function void RunService:BindToRenderStep(string name, int priority, Function function)
 	Function string RunService:GetCoreScriptVersion() {RobloxScriptSecurity}
 	Function string RunService:GetRobloxVersion() {RobloxScriptSecurity}
@@ -3183,11 +3180,11 @@ Class Studio : Instance [NotCreatable] [Service] [NotReplicated]
 	Property QDir Studio.OverrideCoreScriptsDir {✏️RobloxScriptSecurity}
 	Property QDir Studio.PluginsDir
 	Property bool Studio.Show Core GUI in Explorer while Playing
+	Property bool Studio.Show CorePackages
 	Property bool Studio.Show FileSyncService
 	Property bool Studio.Show Hidden Objects in Explorer
 	Property bool Studio.Show Plugin GUI Service in Explorer
 	Property bool Studio.Show plus button on hover in Explorer
-	Property bool Studio.ShowCorePackagesInExplorer {RobloxScriptSecurity}
 	Property bool Studio.Always Save Script Changes
 	Property Enum.ListDisplayMode Studio.Basic Objects Display Mode
 	Property string Studio.DisplayLanguage {RobloxScriptSecurity}
@@ -3664,11 +3661,11 @@ Class UserInputService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property bool UserInputService.VREnabled [ReadOnly]
 	Function bool UserInputService:GamepadSupports(Enum.UserInputType gamepadNum, Enum.KeyCode gamepadKeyCode)
 	Function Array UserInputService:GetConnectedGamepads()
-	Function InputObject UserInputService:GetDeviceAcceleration()
-	Function InputObject UserInputService:GetDeviceGravity()
+	Function Instance UserInputService:GetDeviceAcceleration()
+	Function Instance UserInputService:GetDeviceGravity()
 	Function Tuple UserInputService:GetDeviceRotation()
 	Function Enum.DeviceType UserInputService:GetDeviceType() {RobloxScriptSecurity}
-	Function TextBox UserInputService:GetFocusedTextBox()
+	Function Instance UserInputService:GetFocusedTextBox()
 	Function bool UserInputService:GetGamepadConnected(Enum.UserInputType gamepadNum)
 	Function Array UserInputService:GetGamepadState(Enum.UserInputType gamepadNum)
 	Function Array UserInputService:GetKeysPressed()
@@ -3688,27 +3685,27 @@ Class UserInputService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void UserInputService:RecenterUserHeadCFrame()
 	Function void UserInputService:SendAppUISizes(Vector2 statusBarSize, Vector2 navBarSize, Vector2 bottomBarSize, Vector2 rightBarSize) {RobloxScriptSecurity}
 	Function void UserInputService:SetNavigationGamepad(Enum.UserInputType gamepadEnum, bool enabled)
-	Event UserInputService.DeviceAccelerationChanged(InputObject acceleration)
-	Event UserInputService.DeviceGravityChanged(InputObject gravity)
-	Event UserInputService.DeviceRotationChanged(InputObject rotation, CFrame cframe)
+	Event UserInputService.DeviceAccelerationChanged(Instance acceleration)
+	Event UserInputService.DeviceGravityChanged(Instance gravity)
+	Event UserInputService.DeviceRotationChanged(Instance rotation, CFrame cframe)
 	Event UserInputService.GamepadConnected(Enum.UserInputType gamepadNum)
 	Event UserInputService.GamepadDisconnected(Enum.UserInputType gamepadNum)
-	Event UserInputService.InputBegan(InputObject input, bool gameProcessedEvent)
-	Event UserInputService.InputChanged(InputObject input, bool gameProcessedEvent)
-	Event UserInputService.InputEnded(InputObject input, bool gameProcessedEvent)
+	Event UserInputService.InputBegan(Instance input, bool gameProcessedEvent)
+	Event UserInputService.InputChanged(Instance input, bool gameProcessedEvent)
+	Event UserInputService.InputEnded(Instance input, bool gameProcessedEvent)
 	Event UserInputService.JumpRequest()
 	Event UserInputService.LastInputTypeChanged(Enum.UserInputType lastInputType)
 	Event UserInputService.PointerAction(float wheel, Vector2 pan, float pinch, bool gameProcessedEvent)
 	Event UserInputService.StatusBarTapped(Vector2 position) {RobloxScriptSecurity}
-	Event UserInputService.TextBoxFocusReleased(TextBox textboxReleased)
-	Event UserInputService.TextBoxFocused(TextBox textboxFocused)
-	Event UserInputService.TouchEnded(InputObject touch, bool gameProcessedEvent)
+	Event UserInputService.TextBoxFocusReleased(Instance textboxReleased)
+	Event UserInputService.TextBoxFocused(Instance textboxFocused)
+	Event UserInputService.TouchEnded(Instance touch, bool gameProcessedEvent)
 	Event UserInputService.TouchLongPress(Array touchPositions, Enum.UserInputState state, bool gameProcessedEvent)
-	Event UserInputService.TouchMoved(InputObject touch, bool gameProcessedEvent)
+	Event UserInputService.TouchMoved(Instance touch, bool gameProcessedEvent)
 	Event UserInputService.TouchPan(Array touchPositions, Vector2 totalTranslation, Vector2 velocity, Enum.UserInputState state, bool gameProcessedEvent)
 	Event UserInputService.TouchPinch(Array touchPositions, float scale, float velocity, Enum.UserInputState state, bool gameProcessedEvent)
 	Event UserInputService.TouchRotate(Array touchPositions, float rotation, float velocity, Enum.UserInputState state, bool gameProcessedEvent)
-	Event UserInputService.TouchStarted(InputObject touch, bool gameProcessedEvent)
+	Event UserInputService.TouchStarted(Instance touch, bool gameProcessedEvent)
 	Event UserInputService.TouchSwipe(Enum.SwipeDirection swipeDirection, int numberOfTouches, bool gameProcessedEvent)
 	Event UserInputService.TouchTap(Array touchPositions, bool gameProcessedEvent)
 	Event UserInputService.TouchTapInWorld(Vector2 position, bool processedByUI)
@@ -3977,15 +3974,15 @@ Enum AssetType
 	EnumItem AssetType.EyeAccessory : 58
 	EnumItem AssetType.EmoteAnimation : 61
 	EnumItem AssetType.Video : 62
-	EnumItem AssetType.TeeShirtAccessory : 64
-	EnumItem AssetType.ShirtAccessory : 65
-	EnumItem AssetType.PantsAccessory : 66
-	EnumItem AssetType.JacketAccessory : 67
-	EnumItem AssetType.SweaterAccessory : 68
-	EnumItem AssetType.ShortsAccessory : 69
-	EnumItem AssetType.LeftShoeAccessory : 70
-	EnumItem AssetType.RightShoeAccessory : 71
-	EnumItem AssetType.DressSkirtAccessory : 72
+	EnumItem AssetType.TeeShirtAccessory : 63
+	EnumItem AssetType.ShirtAccessory : 64
+	EnumItem AssetType.PantsAccessory : 65
+	EnumItem AssetType.JacketAccessory : 66
+	EnumItem AssetType.SweaterAccessory : 67
+	EnumItem AssetType.ShortsAccessory : 68
+	EnumItem AssetType.LeftShoeAccessory : 69
+	EnumItem AssetType.RightShoeAccessory : 70
+	EnumItem AssetType.DressSkirtAccessory : 71
 Enum AssetTypeVerification
 	EnumItem AssetTypeVerification.Default : 1
 	EnumItem AssetTypeVerification.ClientOnly : 2
@@ -4027,15 +4024,15 @@ Enum AvatarAssetType
 	EnumItem AvatarAssetType.SwimAnimation : 54
 	EnumItem AvatarAssetType.WalkAnimation : 55
 	EnumItem AvatarAssetType.EmoteAnimation : 61
-	EnumItem AvatarAssetType.TeeShirtAccessory : 64
-	EnumItem AvatarAssetType.ShirtAccessory : 65
-	EnumItem AvatarAssetType.PantsAccessory : 66
-	EnumItem AvatarAssetType.JacketAccessory : 67
-	EnumItem AvatarAssetType.SweaterAccessory : 68
-	EnumItem AvatarAssetType.ShortsAccessory : 69
-	EnumItem AvatarAssetType.LeftShoeAccessory : 70
-	EnumItem AvatarAssetType.RightShoeAccessory : 71
-	EnumItem AvatarAssetType.DressSkirtAccessory : 72
+	EnumItem AvatarAssetType.TeeShirtAccessory : 63
+	EnumItem AvatarAssetType.ShirtAccessory : 64
+	EnumItem AvatarAssetType.PantsAccessory : 65
+	EnumItem AvatarAssetType.JacketAccessory : 66
+	EnumItem AvatarAssetType.SweaterAccessory : 67
+	EnumItem AvatarAssetType.ShortsAccessory : 68
+	EnumItem AvatarAssetType.LeftShoeAccessory : 69
+	EnumItem AvatarAssetType.RightShoeAccessory : 70
+	EnumItem AvatarAssetType.DressSkirtAccessory : 71
 Enum AvatarContextMenuOption
 	EnumItem AvatarContextMenuOption.Friend : 0
 	EnumItem AvatarContextMenuOption.Chat : 1

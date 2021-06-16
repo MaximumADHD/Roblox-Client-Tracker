@@ -24,7 +24,6 @@ Studio.GameSettings.General.ContentDialogHeader,Content Agreement,Content Agreem
 Studio.GameSettings.General.SettingOff,Off,Off,끄기,Выкл.,关闭
 Studio.GameSettings.General.GameIconPrompt,Add Game Icon,Add Game Icon,게임 아이콘 추가,Добавить значок игры,添加游戏图标
 Studio.GameSettings.General.ReplyOK,OK,OK,확인,ОК,确认
-Studio.GameSettings.OptInLocations.TempLinkDescription,"China: to submit your game to the LuoBu app, visit ","China: to submit your game to the LuoBu app, visit ", , , 
 Studio.GameSettings.General.PartHead,Head,Head,머리,Голова,头部
 Studio.GameSettings.General.ScaleHead,Head,Head,머리,Голова,头部
 Studio.GameSettings.General.ReplyAgree,Agree,Agree,동의,Принять,同意
@@ -243,7 +242,7 @@ Studio.GameSettings.AccessPermissions.OwnerLabel,Owner,Owner,소유자,Влад�
 Studio.GameSettings.Permissions.OwnerLabel,Owner,Owner,소유자, ,所有者
 Studio.GameSettings.AccessPermissions.MultipleLabel,(Multiple),(Multiple),（여러 항목）,(Множество),(多项)
 Studio.GameSettings.Permissions.MultipleLabel,(Multiple),(Multiple),(다중), ,（多项）
-Studio.GameSettings.General.ButtonSubmit,Submit,Submit, , ,提交
+Studio.GameSettings.General.ButtonSubmit,Submit,Submit, , , 
 Studio.GameSettings.General.ScriptCollabWarning,Warning: The Team Create server needs to restart before this feature is disabled. The server will automatically restart once all editors have left the session. Any unsaved drafts will no longer be accessible until Collaborative Editing is re-enabled.,Warning: The Team Create server needs to restart before this feature is disabled. The server will automatically restart once all editors have left the session. Any unsaved drafts will no longer be accessible until Collaborative Editing is re-enabled.,"경고: 이 기능을 비활성화하기 전에 팀 제작 서버를 다시 시작해야 합니다. 모든 편집자가 세션을 종료하면 서버가 자동으로 다시 시작됩니다. 공동 편집이 다시 활성화될 때까지, 저장되지 않은 초안에는 더 이상 액세스할 수 없습니다.", ,警告：停用此功能必须重启组队创作服务器。所有编辑者退出创作后，服务器会自动重启。共同编辑重新启用前将无法读取未保存的草稿。
 Studio.GameSettings.General.TitleGravity,Gravity,Gravity,중력,Гравитация,重力
 Studio.GameSettings.AccessPermissions.NoAccessDescription,Cannot play or edit this game,Cannot play or edit this game,이 게임을 플레이하거나 편집할 수 없음,Вы не можете воспроизводить или редактировать эту игру,无法玩此游戏，或对其进行编辑
@@ -271,7 +270,7 @@ Studio.GameSettings.General.DevSubsNewHeader,New Subscription,New Subscription,�
 Studio.GameSettings.General.DevSubsDiscontinuedHeader,Discontinued Developer Subscription,Discontinued Developer Subscription,중단된 개발자 구독,Не продленная подписка разработчика,取消的开发者订阅
 Studio.GameSettings.General.DevSubsDeleteAction,Delete,Delete,삭제,Удалить,删除
 Studio.GameSettings.General.DevSubsDeleteConfirm,Delete,Delete,삭제, ,删除
-Studio.GameSettings.OptInLocations.EmailAddress,Email address,Email address, , ,电子邮件地址
+Studio.GameSettings.OptInLocations.EmailAddress,Email address,Email address, , , 
 Studio.GameSettings.General.WorldPresetsClassic,Classic,Classic,클래식,Классический,经典
 Studio.GameSettings.Security.EnableThirdPartyTeleports,Allow Third Party Teleports,Allow Third Party Teleports,타사 텔레포트 허용, ,允许第三方传送
 Studio.GameSettings.General.WorldPresetsRealistic,Realistic,Realistic,현실적,Реалистичный,现实
@@ -375,7 +374,7 @@ Studio.GameSettings.OptInLocations.RequirementsLinkText,Requirements,Requirement
 Studio.GameSettings.OptInLocations.Status,Status: ,Status: ,상태: , ,状态: 
 Studio.GameSettings.General.TermsDialogHeader,Terms of Use and Privacy Policy,Terms of Use and Privacy Policy,이용 약관 및 개인정보 처리방침, ,使用条款与隐私政策
 Studio.GameSettings.General.TermsDialogBody,"In order to publish on the LuoBuLeSi app published and operated by Tencent, you need to register an account with Tencent, and accept Tencent’s Terms of Use and Privacy Policy. [link]","In order to publish on the LuoBuLeSi app published and operated by Tencent, you need to register an account with Tencent, and accept Tencent’s Terms of Use and Privacy Policy. [link]","Tencent에서 게시하고 운영하는 LuoBuLeSi 앱에 게시하려면, Tencent 계정을 생성하고, Tencent의 이용 약관 및 개인정보 처리방침에 동의해야 합니다. [link]", ,如要在腾讯发布与运营的罗布乐思 App 发布作品，你需要注册腾讯账号并接受腾讯使用条款与隐私政策。[link]
-Studio.GameSettings.OptInLocations.EmailDialogHeader,Email for Review Feedback,Email for Review Feedback, , ,审核反馈的电子邮件
-Studio.GameSettings.OptInLocations.EmailDialogBody,"Your game will be reviewed by moderators to ensure that your game is compliant with Chinese content regulations. After your game is reviewed, we will send you review feedback. The review will take 3-5 days.","Your game will be reviewed by moderators to ensure that your game is compliant with Chinese content regulations. After your game is reviewed, we will send you review feedback. The review will take 3-5 days.", , ,你的游戏将由审核员进行审核，以确保游戏符合中国的内容规定。在游戏被审核后，我们将向你发送审核反馈。审核需要 3-5 天。
-Studio.GameSettings.OptInLocations.EmailDialogDescription,Please enter the email where you would like to receive review feedback:,Please enter the email where you would like to receive review feedback:, , ,请输入接收审核反馈的电子邮件地址：
-Studio.GameSettings.OptInLocations.ErrorInvalidEmail,You entered an invalid email address.,You entered an invalid email address., , ,你输入的电子邮件地址无效。
+Studio.GameSettings.OptInLocations.EmailDialogHeader,Email for Review Feedback,Email for Review Feedback, , , 
+Studio.GameSettings.OptInLocations.EmailDialogBody,"Your game will be reviewed by moderators to ensure that your game is compliant with Chinese content regulations. After your game is reviewed, we will send you review feedback. The review will take 3-5 days.","Your game will be reviewed by moderators to ensure that your game is compliant with Chinese content regulations. After your game is reviewed, we will send you review feedback. The review will take 3-5 days.", , , 
+Studio.GameSettings.OptInLocations.EmailDialogDescription,Please enter the email where you would like to receive review feedback:,Please enter the email where you would like to receive review feedback:, , , 
+Studio.GameSettings.OptInLocations.ErrorInvalidEmail,You entered an invalid email address.,You entered an invalid email address., , , 

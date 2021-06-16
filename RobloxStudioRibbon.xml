@@ -294,7 +294,8 @@
         </ActionGroup>
       </Group>
       <Group name="Advanced" text="Studio.App.RobloxRibbonMainWindow.Advanced">
-        <addaction name="toggleBasicObjectsDockAction" iscommonslot="true" text="Studio.App.RBXMainWindow.InsertObject" tooltip="Studio.App.RobloxRibbonMainWindow.InsertObjectToolTip" ischeckable="true" icon=":/RibbonBar/images/RibbonIcons/Insert/Advanced-Objects.png" style="textundericon" width="32" height="32"/>
+        <addaction fflag ="StudioRemoveDuplicationInsertAction" name="toggleBasicObjectsDockAction" iscommonslot="true" text="Studio.App.RBXMainWindow.InsertObject" tooltip="Studio.App.RobloxRibbonMainWindow.InsertObjectToolTip" ischeckable="true" icon=":/RibbonBar/images/RibbonIcons/Insert/Advanced-Objects.png" style="textundericon" width="32" height="32"/>
+        <addaction fflag ="!StudioRemoveDuplicationInsertAction" name="DEPRECATED_actionInsertAdvancedObject" iscommonslot="true" text="Studio.App.RBXMainWindow.InsertObject" tooltip="Studio.App.RobloxRibbonMainWindow.InsertObjectToolTip" ischeckable="true" icon=":/RibbonBar/images/RibbonIcons/Insert/Advanced-Objects.png" style="textundericon" width="32" height="32"/>
         <addaction name="insertModelAction" style="textundericon" text="Studio.App.RobloxRibbonMainWindow.Model" tooltip="Studio.App.RobloxRibbonMainWindow.InsertAModelFromLocalFiles" icon=":/RibbonBar/images/RibbonIcons/Insert/Import-Model.png" width="32" height="32"/>
         <addaction name="insertServiceAction" style="textundericon" text="Studio.App.RobloxRibbonMainWindow.Service" tooltip="Studio.App.RobloxRibbonMainWindow.InsertFromServiceSelection" icon=":/RibbonBar/images/RibbonIcons/Insert/Service.png" width="32" height="32"/>
         <addaction name="collisionGroupsEditorAction" type="plugin" style="textundericon" text="Studio.App.RobloxRibbonMainWindow.CollisionGroups" tooltip="Studio.App.RobloxRibbonMainWindow.EditCollisionGroups"/>
@@ -369,7 +370,7 @@
         <addaction fflag="AssetManagerLuaPlugin" name="toggleAssetManagerDockAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Explorer.png" tooltip="Studio.App.RobloxRibbonMainWindow.ViewAssetManager" height="32" width="32"/>
         <addaction fflag="!AssetManagerLuaPlugin" name="toggleGameExplorerDockAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Explorer.png" tooltip="Studio.App.RobloxRibbonMainWindow.ViewGameExplorer" height="32" width="32"/>
         <addaction name="luaToolboxAction" style="textbesideicon" icon=":/images/ToolboxIcon.png" height="32" width="32"/>
-        <addaction name="objectBrowserAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Object-Browser.png"  tooltip="Studio.App.RobloxRibbonMainWindow.ViewLuaAPIObjects" height="32" width="32"/>
+        <addaction fflag="!StudioRemoveObjectBrowserUI" name="objectBrowserAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Object-Browser.png"  tooltip="Studio.App.RobloxRibbonMainWindow.ViewLuaAPIObjects" height="32" width="32"/>
         <addaction name="toggleOutputWindowDockAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Output.png" tooltip="Studio.App.RobloxRibbonMainWindow.OutputFeedOfScripts" text="Studio.App.RBXMainWindow.Output" height="32" width="32"/>
         <addaction name="toggleScriptAnalysisDockAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Output.png" tooltip="Studio.App.RobloxRibbonMainWindow.ViewScriptAnalysis" height="32" width="32"/>
         <addaction name="viewCommandBarAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Output.png" tooltip="Studio.App.RBXMainWindow.ViewCommandBar" text="Studio.App.RBXMainWindow.CommandBar" height="32" width="32"/>
@@ -447,7 +448,6 @@
         <addaction name="createImageLabelAction" text="Studio.App.RobloxRibbonMainWindow.ImageLabel" style="textundericon" iscommonslot="true" tooltip="Studio.App.RobloxRibbonMainWindow.AssetIdOfTexture" type="plugin"  icon=":/RibbonBar/images/RibbonIcons/UI/icon_imageLabel.png"  width="32" height="32"/>
       </Group>
     </TabPage>
-    <!-- TODO: Replace Studio.App.RobloxRibbonMainWindow.ScriptMenu with Studio.App.RobloxRibbonMainWindow.Script once the latter is translated -->
     <TabPage name="scriptMenu" text="Studio.App.RobloxRibbonMainWindow.ScriptMenu" contextcolor="4" contexttitle="Script tools" visible="false">
       <Group name="Clipboard" text="Studio.App.RobloxRibbonMainWindow.Clipboard">
         <addaction name="pasteAction" style="textundericon" tooltip="Studio.App.RobloxRibbonMainWindow.PasteItemInClipboard" icon=":/RibbonBar/images/RibbonIcons/Home/Paste.png" width="32" height="32" />

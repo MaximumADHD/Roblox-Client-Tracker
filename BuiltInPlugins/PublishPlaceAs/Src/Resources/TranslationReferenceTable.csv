@@ -23,7 +23,6 @@ Studio.PublishPlaceAs.PageTitle.Devices,Devices,Devices,기기,Устройст�
 Studio.PublishPlaceAs.PageTitle.Genre,Genre,Genre,장르,Жанр,主题
 Studio.PublishPlaceAs.General.ContentDialogItem4,Robux Gambling,Robux Gambling,Robux 도박,Азартные игры,以 Robux 进行赌博
 Studio.PublishPlaceAs.FooterButton.CreateNewGame,Create new game...,Create new game...,새 게임 만들기...,Создать новую игру...,创建新游戏…
-Studio.PublishPlaceAs.OptInLocations.TempLinkDescription,"China: to submit your game to the LuoBu app, visit ","China: to submit your game to the LuoBu app, visit ", , , 
 Studio.PublishPlaceAs.Button.ReplyAgree,Agree,Agree,동의,Принять,同意
 Studio.PublishPlaceAs.Button.Close,Close,Close,닫기,Закрыть,关闭
 Studio.PublishPlaceAs.Error.NoDevices,You must select at least one playable device.,You must select at least one playable device.,플레이 가능한 기기를 최소 1개 선택해야 합니다.,Выберите устройство для воспроизведения.,你必须选择至少一种可玩设备。
@@ -75,9 +74,7 @@ Studio.PublishPlaceAs.PublishSuccess.SaveSuccess,Successfully saved!,Successfull
 Studio.PublishPlaceAs.General.PublishGame,Publish Game,Publish Game,게임 게시, ,发布游戏
 Studio.PublishPlaceAs.General.SaveGame,Save Game,Save Game,게임 저장, ,保存游戏
 Studio.PublishPlaceAs.FooterButton.Save,Save,Save,저장, ,保存
-Studio.PublishPlaceAs.OptInLocations.ChinaRequirements, to publish to China, to publish to China, , , 
 Studio.PublishPlaceAs.PublishFail.SaveFail,Save failed,Save failed,저장 실패, ,保存失败
 Studio.PublishPlaceAs.OptInLocations.China,China,China,중국, ,中国
 Studio.PublishPlaceAs.OptInLocations.TitleOptInLocations,Opt-In Locations,Opt-In Locations,옵트인 위치, ,选择的位置
-Studio.PublishPlaceAs.OptInLocations.Tooltip,Your creation will be published globally in addition to all the selected opt-in locations. See each location for specific requirements.,Your creation will be published globally in addition to all the selected opt-in locations. See each location for specific requirements.,선택한 모든 옵트인 위치를 포함해 전 세계에 본인의 작품이 게시됩니다. 각 위치별로 특정 요구 사항 여부를 확인하세요., ,你的作品将会发布到全球及所有选择的位置，请查看每个位置了解其需求。
-Studio.PublishPlaceAs.OptInLocations.RequirementsLinkText,Requirements,Requirements, , , 
+Studio.PublishPlaceAs.OptInLocations.Tooltip,Your creation will be published globally in addition to all the selected opt-in locations. See each location for specific requirements.,Your creation will be published globally in addition to all the selected opt-in locations. See each location for specific requirements.,선택한 모든 옵트인 위치를 포함해 전 세계에 본인의 작품이 게시됩니다. 각 위치별로 특정 요구 사항 여부를 확인하세요., , 

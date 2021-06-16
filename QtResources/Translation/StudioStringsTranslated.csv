@@ -2689,7 +2689,7 @@ Studio.App.BetaFeatures.AutoEnrollmentToggle,,,Enroll in Beta Channel,Enroll in 
 Studio.App.BetaFeatures.AutoEnrollmentToggleTooltip,,,New Beta Features Will Automatically Be Activated,New Beta Features Will Automatically Be Activated,새로운 베타 기능이 자동으로 활성화됩니다,,全新 Beta 测试版功能将自动激活
 Studio.App.BetaFeatures.BreakpointPropagationDescription,,,Breakpoints now work across DataModels.  Users no longer need to worry about what instance of a script they have open when using breakpoints.,Breakpoints now work across DataModels.  Users no longer need to worry about what instance of a script they have open when using breakpoints.,이제 중단점을 여러 DataModel에 동시에 적용할 수 있습니다. 사용자는 중단점을 사용할 때 열려 있는 다른 스크립트 인스턴스를 염두에 두지 않아도 됩니다.,,断点将可以同时适用多个 DataModel。在使用断点时，用户将无需为目前处于哪个脚本实例而分心。
 Studio.App.BetaFeatures.BreakpointPropagationTitle,,,Breakpoint Replication Beta,Breakpoint Replication Beta,중단점 복제 (베타),,断点复制（Beta 测试版）
-Studio.App.BetaFeatures.GameManagementDescription,,,Enable game management features in Game Settings. Find Game Settings on the “Home” tab.,Enable game management features in Game Settings. Find Game Settings on the “Home” tab.,게임 설정에서 게임 관리 기능을 활성화하세요. 게임 설정 메뉴는 '홈' 탭에 있습니다.,,在游戏设置中启用游戏管理功能。游戏设置选项位于“首页”标签页中。
+Studio.App.BetaFeatures.GameManagementDescription,,,Enable game management features in Game Settings. Find Game Settings on the “Home” tab.,Enable game management features in Game Settings. Find Game Settings on the “Home” tab.,게임 설정에서 게임 관리 기능을 활성화하세요. 게임 설정 메뉴는 '홈' 탭에 있습니다.,,在游戏设置中启用游戏管理功能。游戏设置选项位于“首页”选项卡中。
 Studio.App.BetaFeatures.GameManagementTitle,,,Game Management,Game Management,게임 관리,,游戏管理
 Studio.App.BetaFeatures.ModelMeshComputerBetaDescription,,,Automatically generate Impostor meshes to be rendered outside of streaming radius. Use LevelOfDetail property on Model to enable it.,Automatically generate Impostor meshes to be rendered outside of streaming radius. Use LevelOfDetail property on Model to enable it.,스트리밍 반경 외부에서 렌더링하기 위한 임포스터 메시를 자동으로 생성합니다.모델의 LevelofDetail 속성을 통해 활성화할 수 있습니다.,,为超出串流范围的模型部分自动生成渲染用替代网格。通过模型的 LevelOfDetail 属性可以对此功能进行启用。
 Studio.App.BetaFeatures.ModelMeshComputerBetaTitle,,,Automatic Impostors for Models,Automatic Impostors for Models,자동 모델 임포스터,,自动模型网格化
@@ -2761,7 +2761,7 @@ Studio.App.PropertyTooltip.Font,,,"Change the text font family, typeface, and si
 Studio.App.PropertyTooltip.FormatOnType,,,Automatically format the code after typing.,Automatically format the code after typing.,코드를 입력하고 나면 자동으로 서식을 지정합니다.,,在输入代码后对其进行自动格式化。
 Studio.App.PropertyTooltip.IndentUsingSpaces,,,Prefer indent with spaces over tabs. This will affect Auto Indent and pressing Tab behavior.,Prefer indent with spaces over tabs. This will affect Auto Indent and pressing Tab behavior.,Tab 키보다는 스페이스바를 이용한 들여쓰기를 선호합니다. 이 속성은 자동 들여쓰기 및 Tab 키 누르기 동작에 영향을 줍니다.,,在空格与 Tab 缩进中更倾向空格键缩进。此属性将会影响自动缩进及按下 Tab 键后的行为表示。
 Studio.App.PropertyTooltip.SkipClosingBracketsAndQuotes,,,Skip over a closing bracket/quote instead of inserting another.,Skip over a closing bracket/quote instead of inserting another.,닫는 괄호나 따옴표는 삽입하지 않고 건너뜁니다.,,跳过右括号或右引号，不对其进行插入。
-Studio.App.PropertyTooltip.TabWidth,,,"The width of a tab, measured in number of spaces. Value can only be between 1 and 8.","The width of a tab, measured in number of spaces. Value can only be between 1 and 8.",공백 수로 측정한 탭의 너비입니다. 값은 1에서 8 사이여야 합니다.,,制表符的宽度，以空格数量为单位。值必须介于 1 至 8 之间。
+Studio.App.PropertyTooltip.TabWidth,,,"The width of a tab, measured in number of spaces. Value can only be between 1 and 8.","The width of a tab, measured in number of spaces. Value can only be between 1 and 8.",공백 수로 측정한 탭의 너비입니다. 값은 1에서 8 사이여야 합니다.,,一个选项卡的宽度，以空格数量为单位。值必须介于 1 至 8 之间。
 Studio.App.PropertyTooltip.TextWrapping,,,Wrap the line of text below when the line character limit has been reached.,Wrap the line of text below when the line character limit has been reached.,"각 줄의 최대 문자 수에 도달할 경우, 줄바꿈해 아랫줄에 텍스트를 입력합니다.",,到达每行最大字数后，将超出的文本放入下一行中显示。
 Studio.App.Property.ActiveColor,,,Active Color,Active Color,활성 색,,激活颜色
 Studio.App.Property.ActiveHoverOverColor,,,Active Hover Over Color,Active Hover Over Color,활성 커서 올리기 색,,悬停激活颜色
@@ -3062,7 +3062,7 @@ Studio.App.AudioResourceController.AudioReferencedByName,,,"Audio files are refe
 Studio.App.BetaFeatures.AttributesUIDescription,,,Customize instances with your own data,Customize instances with your own data,자체 데이터로 인스턴스 사용자 지정,,用你自己的数据自定义实例
 Studio.App.BetaFeatures.AttributesUITitle,,,Attributes Beta,Attributes Beta,속성 (베타),,特性 Beta 测试版
 Studio.App.BetaFeatures.LuauNonStrictByDefaultDescription,,,"Script analysis uses non-strict mode for all scripts by default. Use --!strict, --!nonstrict or --!nocheck to override mode on a per script basis.","Script analysis uses non-strict mode for all scripts by default. Use --!strict, --!nonstrict or --!nocheck to override mode on a per script basis.","스크립트 분석은 기본적으로 모든 스크립트에 대해 비엄격 모드를 적용합니다. 스크립트별로 모드를 재정의하려면 --!strict, --!nonstrict 또는 --!nocheck를 사용하세요.",,脚本分析默认对所有脚本使用非严格模式。请使用 --!strict、--!nonstrict 或 --!nocheck 改写单个脚本的模式。
-Studio.App.BetaFeatures.LuauNonStrictByDefaultTitle,,,Scripts Are Non-Strict By Default,Scripts Are Non-Strict By Default,스크립트에 기본적으로 비엄격 모드 적용,,脚本默认为非严格模式
+Studio.App.BetaFeatures.LuauNonStrictByDefaultTitle,,,Scripts Are Non-Strict By Default,Scripts Are Non-Strict By Default,스크립트에 기본적으로 비엄격 모드 적용,,脚本默认使用非严格模式
 Studio.App.BetaFeatures.ProximityPromptDescription,,,ProximityPrompt is a new instance type used to prompt the user for input so they can interact with an object in the 3D world.,ProximityPrompt is a new instance type used to prompt the user for input so they can interact with an object in the 3D world.,ProximityPrompt(근접 프롬프트)는 3D 세계에서 개체와 상호 작용할 수 있도록 사용자에게 입력을 요청하는 데 사용되는 새로운 인스턴스 유형입니다.,,ProximityPrompt 是一个新的实例类型，用于提醒玩家输入以便在 3D 世界中与对象互动。
 Studio.App.BetaFeatures.ProximityPromptTitle,,,Proximity Prompt Beta,Proximity Prompt Beta,근접 프롬프트 (베타),,范围提醒 Beta 测试版
 Studio.App.BetaFeatures.ScriptEditorDescription,,,Customizable Semantic Highlighting and Temporary tabs that open Scripts in preview mode by default.,Customizable Semantic Highlighting and Temporary tabs that open Scripts in preview mode by default.,"사용자 정의 가능한 의미 강조 표시 및 임시 탭으로, 기본적으로 미리보기 모드에서 스크립트를 엽니다.",,可自定义语义高亮显示，以及默认在预览模式下用临时标签页打开脚本。
@@ -3099,12 +3099,12 @@ Studio.App.ImportCostVerificationDialog.DetailsCostTitle,,,Cost,Cost,비용,,花
 Studio.App.ImportCostVerificationDialog.DetailsNameTitle,,,Name,Name,이름,,名称
 Studio.App.ImportCostVerificationDialog.LoadingFileData,,,Loading file data...,Loading file data...,파일 데이터 불러오기 중...,,正在加载文件数据……
 Studio.App.ImportCostVerificationDialog.PurchaseRobux,,,Purchase more Robux.,Purchase more Robux.,Robux를 더 구매하세요.,,购买更多罗宝。
-Studio.App.ImportCostVerificationErrorDialog.EstimatedCostErrorDescription,,,"Click 'Show Details' to view the files that could not be estimated and the import cost of files that were successfully estimated. Try importing a new selection, or resolve conflicts and reattempt.","Click 'Show Details' to view the files that could not be estimated and the import cost of files that were successfully estimated. Try importing a new selection, or resolve conflicts and reattempt.","예상할 수 없는 파일과 성공적으로 예상된 파일 가져오기 비용을 보려면 '세부 정보 표시'를 클릭하세요. 새 파일을 선택해 가져오기를 시도하거나, 충돌을 해결한 후 다시 시도하세요.",,点击 “显示详情” 查看无法估算的文件，以及成功估算的文件的导入花费。请试着导入另一批文件，或解决现有问题并重试。
+Studio.App.ImportCostVerificationErrorDialog.EstimatedCostErrorDescription,,,"Click 'Show Details' to view the files that could not be estimated and the import cost of files that were successfully estimated. Try importing a new selection, or resolve conflicts and reattempt.","Click 'Show Details' to view the files that could not be estimated and the import cost of files that were successfully estimated. Try importing a new selection, or resolve conflicts and reattempt.","예상할 수 없는 파일과 성공적으로 예상된 파일 가져오기 비용을 보려면 '세부 정보 표시'를 클릭하세요. 새 파일을 선택해 가져오기를 시도하거나, 충돌을 해결한 후 다시 시도하세요.",,点击 “显示详情” 查看文件无法估算的文件，以及成功估算的文件的导入花费。请试着导入另一批文件，或解决现有问题并重试。
 Studio.App.ImportCostVerificationErrorDialog.EstimatedCostErrorMainText,,,Failed to estimate import cost of the selected files.,Failed to estimate import cost of the selected files.,선택한 파일의 가져오기 비용을 예상하지 못했습니다.,,选择的文件导入花费估算失败。
 Studio.App.ImportCostVerificationErrorDialog.EstimatedCostErrorTitle,,,Estimated Cost Error,Estimated Cost Error,예상 비용 오류,,估算花费错误
 Studio.App.ImportCostVerificationErrorDialog.Failed,,,Failed,Failed,실패함,,失败
 Studio.App.ImportCostVerificationErrorDialog.FundsRequired,,,Funds Required:,Funds Required:,펀드 필요:,,需要资金：
-Studio.App.ImportCostVerificationErrorDialog.InsufficientFundsErrorDescription1,,,Click 'Show Details' to view the cost of each file and the files that cannot be imported. Try importing a new selection or %1,Click 'Show Details' to view the cost of each file and the files that cannot be imported. Try importing a new selection or %1,각 파일의 비용과 가져올 수 없는 파일을 보려면 '세부 정보 표시'를 클릭하세요. 새 파일을 선택해 가져오거나 %1을(를) 가져오세요,,点击“显示详情”查看每个文件的费用，以及无法导入的文件。请试着导入另一批文件或 %1
+Studio.App.ImportCostVerificationErrorDialog.InsufficientFundsErrorDescription1,,,Click 'Show Details' to view the cost of each file and the files that cannot be imported. Try importing a new selection or %1,Click 'Show Details' to view the cost of each file and the files that cannot be imported. Try importing a new selection or %1,각 파일의 비용과 가져올 수 없는 파일을 보려면 '세부 정보 표시'를 클릭하세요. 새 파일을 선택해 가져오거나 %1을(를) 가져오세요,,点击“显示详情”查看每个文件的花费，以及无法导入的文件。请试着导入另一批文件或 %1
 Studio.App.ImportCostVerificationErrorDialog.InsufficientFundsErrorMainText,,,You do not have enough Robux to import selected files.,You do not have enough Robux to import selected files.,Robux가 충분하지 않아 선택한 파일을 가져올 수 없습니다.,,你没有足够的罗宝来导入选择的文件。
 Studio.App.ImportCostVerificationErrorDialog.InsufficientFundsErrorTitle,,,Insufficient Funds,Insufficient Funds,펀드 부족,,罗宝不足
 Studio.App.ImportCostVerificationErrorDialog.TotalImportCost,,,Total import cost:,Total import cost:,총 가져오기 비용:,,总导入花费：
@@ -3217,7 +3217,7 @@ Studio.App.AttributeRenameDialog.AttributeNameCantBeEmpty,,,Attribute name canno
 Studio.App.AttributeRenameDialog.AttributeNameCantStartWithRBX,,,Attribute name can't start with 'RBX'.,Attribute name can't start with 'RBX'.,속성 이름은 'RBX'로 시작할 수 없습니다.,,特性名称无法以 ‘RBX’ 开头。
 Studio.App.AttributeRenameDialog.AttributeNameExceeds1,,,Attribute name exceeds %1 characters.,Attribute name exceeds %1 characters.,속성 이름이 %1자를 초과합니다.,,特性名称超过 %1 个字符。
 Studio.App.AttributeRenameDialog.AttributeTryDifferentName,,,Try to use a different name.,Try to use a different name.,다른 이름을 입력하세요.,,请尝试换一个名字。
-Studio.App.BetaFeatures.AlignToolImprovementsDescription,,,"Show the Align Tool in the “Model” tab, and enable UI improvements so all controls are usable at narrow widths.","Show the Align Tool in the “Model” tab, and enable UI improvements so all controls are usable at narrow widths.","'모델' 탭에 정렬 도구를 표시하고, 너비가 좁아도 모든 제어가 가능하도록 UI 개선을 활성화합니다.",,在“Model（模型）”标签页中显示对齐工具，并启用 UI 改进以便在狭窄宽度时仍能使用所有控制。
+Studio.App.BetaFeatures.AlignToolImprovementsDescription,,,"Show the Align Tool in the “Model” tab, and enable UI improvements so all controls are usable at narrow widths.","Show the Align Tool in the “Model” tab, and enable UI improvements so all controls are usable at narrow widths.","'모델' 탭에 정렬 도구를 표시하고, 너비가 좁아도 모든 제어가 가능하도록 UI 개선을 활성화합니다.",,在“Model（模型）”选项卡中显示对齐工具，并启用 UI 改进以便在狭窄宽度时仍能使用所有控制。
 Studio.App.BetaFeatures.AlignToolImprovementsTitle,,,Align Tool Improvements,Align Tool Improvements,정렬 도구 개선,,对齐工具改进
 Studio.App.BetaFeatures.TerrainHeightmapImporterDescription,,,Instantly generate heightmaps from high-res (up to 4k) and high-bit-depth (16-bit) PNGs,Instantly generate heightmaps from high-res (up to 4k) and high-bit-depth (16-bit) PNGs,고해상도(최대 4k) 및 고비트 심도(16비트) PNG 파일에서 Heightmap을 즉시 생성합니다,,立即从高分辨率（最高 4k）和高比特深度（16 位）PNG 文件生成 heightmap
 Studio.App.BetaFeatures.TerrainHeightmapImporterTitle,,,Heightmaps 2,Heightmaps 2,Heightmaps 2,,Heightmaps 2
@@ -3295,8 +3295,8 @@ Studio.App.RobloxMainWindow.ChooseAPlaceInGameExplorer1,,,"Choose an instance as
 ","Choose an instance as parent in game explorer to save %1 
 ",%1을(를) 저장하려면 게임 탐색기에서 인스턴스를 부모로 선택하세요 ,,"请在游戏管理器中选择一个实例作为父项来保存 %1 
 "
-Studio.App.RobloxRibbonMainWindow.DocHistoryBackwards,,,Step backwards through tab history,Step backwards through tab history,탭 기록 뒤로,,后退浏览标签页历史记录
-Studio.App.RobloxRibbonMainWindow.DocHistoryForwards,,,Step forwards through tab history,Step forwards through tab history,탭 기록 앞으로,,前进浏览标签页历史记录
+Studio.App.RobloxRibbonMainWindow.DocHistoryBackwards,,,Step backwards through tab history,Step backwards through tab history,탭 기록 뒤로,,后退选项卡历史记录
+Studio.App.RobloxRibbonMainWindow.DocHistoryForwards,,,Step forwards through tab history,Step forwards through tab history,탭 기록 앞으로,,前进选项卡历史记录
 Studio.App.RobloxRibbonMainWindow.InternalFeaturesMessageBoxContent,,,"Your account is associated with an @roblox.com email address or has Soothsayer permissions. You also have internal-only features turned on.
 Do you want to disable Internal Features? This will make your Studio experience identical to developers.
 You can go to Settings > Studio > Advanced to re-enable Internal Features.","Your account is associated with an @roblox.com email address or has Soothsayer permissions. You also have internal-only features turned on.
@@ -3308,15 +3308,15 @@ You can go to Settings > Studio > Advanced to re-enable Internal Features.","계
 你可以前往 Settings（设置） > Studio > Advanced（高级）来重新启用内部功能。"
 Studio.App.RobloxRibbonMainWindow.InternalFeaturesRestart,,,Restart Roblox Studio,Restart Roblox Studio,Roblox Studio 다시 시작,,重启 Roblox Studio
 Studio.App.RobloxRibbonMainWindow.InternalFeaturesRestartDetails,,,Roblox Studio need to restart to disable Internal Features,Roblox Studio need to restart to disable Internal Features,내부 기능을 비활성화하려면 Roblox Studio를 다시 시작해야 합니다,,禁用 Roblox Studio 内部功能需要重启
-Studio.App.RobloxMainWindow.NewScriptTab,,,New Script Tab,New Script Tab,새 스크립트 탭,,新脚本标签页
+Studio.App.RobloxMainWindow.NewScriptTab,,,New Script Tab,New Script Tab,새 스크립트 탭,,新脚本选项卡
 Studio.App.RobloxMainWindow.OnlySaveToEditDM,,,Can only save in Edit Mode,Can only save in Edit Mode,저장은 편집 모드에서만 가능합니다,,只能在编辑模式中保存
-Studio.App.RobloxMainWindow.SaveCurrentScriptTab,,,Save Current Script Tab,Save Current Script Tab,현재 스크립트 탭 저장,,保存当前脚本标签页
+Studio.App.RobloxMainWindow.SaveCurrentScriptTab,,,Save Current Script Tab,Save Current Script Tab,현재 스크립트 탭 저장,,保存当前脚本选项卡
 Studio.App.RobloxMainWindow.SaveScript,,,Save Script,Save Script,스크립트 저장,,保存脚本
 Studio.App.RobloxMainWindow.SaveScript1,,,Save Script %1 ?,Save Script %1 ?,%1 스크립트를 저장할까요?,,保存脚本 %1？
 Studio.App.RobloxMainWindow.SelectOneInstance,,,Please select only one instance,Please select only one instance,인스턴스를 하나만 선택하세요,,请仅选择一个实例
 Studio.App.RobloxMainWindow.UnableToSave,,,Unable To Save,Unable To Save,저장할 수 없습니다,,无法保存
 Studio.App.RobloxMainWindow.UnsavedScripts,,,Unsaved Scripts,Unsaved Scripts,저장되지 않은 스크립트,,未保存的脚本
-Studio.App.RobloxRibbonMainWindow.InternalBetaFeatures,,,Roblox Internal - Beta,Roblox Internal - Beta,Roblox 내부 기능 - 베타,,Roblox 内部功能 – Beta
+Studio.App.RobloxRibbonMainWindow.InternalBetaFeatures,,,Roblox Internal - Beta,Roblox Internal - Beta,Roblox 내부 기능 - 베타,,Roblox 内部功能 – Beta 测试版
 Studio.App.RobloxRibbonMainWindow.InternalFeatures,,,Roblox Internal,Roblox Internal,Roblox 내부 기능,,Roblox 内部功能
 Studio.App.RobloxRibbonMainWindow.InternalFeaturesAreEnabled,,,Internal Features are enabled,Internal Features are enabled,내부 기능 활성화,,内部功能已启用
 Studio.App.SettingsCategory.NetworkAdvanced,,,Advanced,Advanced,고급,,高级
@@ -3413,7 +3413,7 @@ Studio.App.BetaFeatures.LayeredClothingBetaDescription,,,The WrapTarget and Wrap
 Studio.App.BetaFeatures.LayeredClothingBetaTitle,,,Cage Mesh Deformer,Cage Mesh Deformer,케이지 메시 디포머,,笼形网格变形器
 Studio.App.BetaFeatures.ScriptEditorHoverDescription,,,"(! Works better with ""Scripts Are Non-Strict By Default"" Beta Feature ON !) Displays Luau type information when hovering over code in the script editor.","(! Works better with ""Scripts Are Non-Strict By Default"" Beta Feature ON !) Displays Luau type information when hovering over code in the script editor.",(! '스크립트에 기본적으로 비엄격 모드 적용' 베타 기능이 켜져 있을 때 더 잘 작동합니다 !) 스크립트 편집기에서 코드 위로 마우스를 가져가면 Luau 형식 정보가 표시됩니다.,,(！使用“脚本默认为非严格模式” Beta 测试版功能效果更佳！）在脚本编辑器中将鼠标悬停在代码上时会显示 Luau 类型信息。
 Studio.App.BetaFeatures.ScriptEditorHoverTitle,,,Luau-Powered Type Hover,Luau-Powered Type Hover,Luau 기반 형식 커서 올리기,,Luau 驱动悬停类型显示
-Studio.App.BetaFeatures.ScriptEditorLintDescription,,,Script Analysis Widget and linting logic get an upgrade! No major changes but many bug fixes and more intuitive behavior.,Script Analysis Widget and linting logic get an upgrade! No major changes but many bug fixes and more intuitive behavior.,스크립트 분석 위젯 및 린팅 로직이 업그레이드되었습니다! 큰 변화는 없지만 많은 버그가 수정되었고 더욱 직관적으로 작동합니다.,,脚本分析控件和 Lint 逻辑得到升级！此次升级并没有大规模变化，我们修复了许多错误，并使得一些操作更为直观。
+Studio.App.BetaFeatures.ScriptEditorLintDescription,,,Script Analysis Widget and linting logic get an upgrade! No major changes but many bug fixes and more intuitive behavior.,Script Analysis Widget and linting logic get an upgrade! No major changes but many bug fixes and more intuitive behavior.,스크립트 분석 위젯 및 린팅 로직이 업그레이드되었습니다! 큰 변화는 없지만 많은 버그가 수정되었고 더욱 직관적으로 작동합니다.,,脚本分析部件和 Lint 逻辑得到升级！此次升级并没有大规模变化，我们修复了许多错误，并使得一些操作更为直观。
 Studio.App.BetaFeatures.ScriptEditorLintTitle,,,Script Editor Linting,Script Editor Linting,스크립트 편집기 린팅,,脚本编辑器 Lint 检查
 Studio.App.PackageContextMenu.MassUpdatePackage,,,Update All,Update All,모두 업데이트,,全部更新
 Studio.App.PackageContextMenu.PackageDetails,,,Package Details,Package Details,패키지 세부 정보,,包详情
@@ -3438,7 +3438,7 @@ Studio.App.BetaFeatures.AcceleratedCollisionPipelineDescription,,,Enable Acceler
 Studio.App.BetaFeatures.AcceleratedCollisionPipelineTitle,,,Accelerated Collision Pipeline,Accelerated Collision Pipeline,가속 충돌 파이프라인,,加速碰撞管线
 Studio.App.BetaFeatures.LuauNativeVector3Description,,,Enable Luau VM built-in support for Vector3 type to improve script performance.,Enable Luau VM built-in support for Vector3 type to improve script performance.,Vector3 유형에 대한 Luau VM 기본 제공 지원을 활성화해 스크립트 성능을 향상시킵니다.,,启用 Luau 虚拟机对 Vector3 类型的内置支持以提高脚本性能。
 Studio.App.BetaFeatures.LuauNativeVector3Title,,,Native Vector3 Type,Native Vector3 Type,네이티브 Vector3 유형,,内置 Vector3 类型
-Studio.App.BetaFeatures.PivotEditorDescription,,,"Enable the Edit Pivot tool in the Model tab, which allows the origin that defines how parts and models are transformed to be modified.","Enable the Edit Pivot tool in the Model tab, which allows the origin that defines how parts and models are transformed to be modified.","'모델' 탭에서 '피벗 편집' 도구를 활성화하여, 파트 및 모델이 변형되는 방식을 정의하는 원점의 수정을 허용합니다.",,在“模型”标签页中启用“编辑枢轴”工具，该工具允许修改定义部件和模型转换方式的原点。
+Studio.App.BetaFeatures.PivotEditorDescription,,,"Enable the Edit Pivot tool in the Model tab, which allows the origin that defines how parts and models are transformed to be modified.","Enable the Edit Pivot tool in the Model tab, which allows the origin that defines how parts and models are transformed to be modified.","'모델' 탭에서 '피벗 편집' 도구를 활성화하여, 파트 및 모델이 변형되는 방식을 정의하는 원점의 수정을 허용합니다.",,在“模型”选项卡中启用“编辑枢轴”工具，该工具允许修改定义部件和模型转换方式的原点。
 Studio.App.BetaFeatures.PivotEditorTitle,,,Pivot Editor,Pivot Editor,피벗 편집기,,枢轴编辑器
 Studio.App.EmulatorMainWidget.CustomDevicesSectionName,,,Custom Devices,Custom Devices,사용자 정의 기기,,自定义设备
 Studio.App.EmulatorMainWidget.StandardDevicesSectionName,,,Standard Devices,Standard Devices,표준 기기,,标准设备
@@ -3469,31 +3469,12 @@ Studio.App.GeneralCmd.HELP,,,List all commands with optional filtering,List all 
 Studio.App.Property.OpenCertManagerDialog,,,Trusted Certs,Trusted Certs,신뢰할 수 있는 인증서,,信用凭证
 Studio.App.Property.OpenCertManagerDialogButton,,,Manage,Manage,관리,,管理
 Studio.App.AssetManagerService.DataModelNotInEditMode,,,Datamodel is not in edit mode,Datamodel is not in edit mode,Datamodel이 편집 모드가 아닙니다,,Datamodel 不在编辑模式中
-Studio.App.AddEmulationDeviceDialog.ResolutionScale,,,Resolution Scaling,Resolution Scaling,해상도 스케일링,,分辨率缩放
-Studio.App.AvatarImportService.OpenRigFBXFile,,,Open Rig FBX File,Open Rig FBX File,리그 FBX 파일 열기,,打开骨架 FBX 文件
+Studio.App.AddEmulationDeviceDialog.ResolutionScale,,,Resolution Scaling,Resolution Scaling,해상도 스케일링,,
+Studio.App.AvatarImportService.OpenRigFBXFile,,,Open Rig FBX File,Open Rig FBX File,리그 FBX 파일 열기,,
 Studio.App.FindReplaceOpenLockedScriptsDialog.UnableToReplaceWhileScriptsBlocked,,,"Unable to replace while one or more Scripts are being blocked by other users. 
 Try again when all scripts are unlocked.","Unable to replace while one or more Scripts are being blocked by other users. 
 Try again when all scripts are unlocked.","다른 사용자가 하나 이상의 스크립트를 잠근 경우 바꾸기가 불가능합니다.
-모든 스크립트를 잠금 해제한 후 다시 시도하세요.",,"当一个或多个脚本被其他用户阻止时，将无法替换。 
-请解锁所有脚本后重试。"
-Studio.App.PropertyTooltip.HoverThickness,,,How thick is the box shown around the item your mouse is hovering over?,How thick is the box shown around the item your mouse is hovering over?,,,鼠标悬停的项目周围所显示的框有多厚？
-Studio.App.PropertyTooltip.PivotSnapToGeometryColor,,,"When snapping the pivot to geometry in the Pivot Editor, what color should the interesting points be highlighted with?","When snapping the pivot to geometry in the Pivot Editor, what color should the interesting points be highlighted with?",,,在枢轴编辑器中将枢轴对齐到几何体时，应该用什么颜色突出显示有趣的点？
-Studio.App.Property.HoverBoxThickness,,,Hover Box Thickness,Hover Box Thickness,,,悬停框厚度
-Studio.App.Property.PivotSnapToGeometryColor,,,Pivot Snap To Geometry Color,Pivot Snap To Geometry Color,,,枢轴对齐几何颜色
-Studio.App.Property.ScriptEditorShouldShowPluginMethods,,,Autocomplete Plugin-security methods,Autocomplete Plugin-security methods,,,自动完成插件安全方法
-Studio.App.Updates.SnoozeButton,,,Snooze,Snooze,,,延后处理
-Studio.App.Updates.UpdateAvailableMessage,,,Do you want to restart Studio and update now or later?,Do you want to restart Studio and update now or later?,,,您想现在还是稍后重新启动 Studio 进行更新？
-Studio.App.Updates.UpdateAvailableTitle,,,Update Available,Update Available,,,有可用更新
-Studio.App.Updates.UpdateNowButton,,,Update Now,Update Now,,,现在更新
-Studio.App.MainWindow.ClearTerrainTitle,,,No terrain to clear.,No terrain to clear.,,,
-Studio.App.Property.ShowCorePackagesInExplorer,,,Show CorePackages In Explorer,Show CorePackages In Explorer,,,
-Studio.App.RBXMainWindow.ChooseReferenceObject,,,Choose Reference Object,Choose Reference Object,,,
-Studio.App.RBXMainWindow.GoToReferenceObject,,,Go To Reference Object,Go To Reference Object,,,
-Studio.App.RobloxRibbonMainWindow.Script,,,Script,Script,,,
-Studio.App.ScriptAnalysisWidget.ErrorDisplayToggle,,,Toggle lint error display,Toggle lint error display,,,
-Studio.App.ScriptAnalysisWidget.WarningDisplayToggle,,,Toggle lint warning display,Toggle lint warning display,,,
-Studio.App.BetaFeatures.LSPLuauAutocompleteDescription,,,"(! Works better with ""Scripts Are Non-Strict By Default"" Beta Feature ON !) Luau type inference now powers Autocomplete in Script Editor, allowing Autocomplete to offer suggestions based on the type of a variable, while enhancing performance and reliability.","(! Works better with ""Scripts Are Non-Strict By Default"" Beta Feature ON !) Luau type inference now powers Autocomplete in Script Editor, allowing Autocomplete to offer suggestions based on the type of a variable, while enhancing performance and reliability.",,,
-Studio.App.BetaFeatures.LSPLuauAutocompleteTitle,,,Luau-Powered Autocomplete,Luau-Powered Autocomplete,,,
+모든 스크립트를 잠금 해제한 후 다시 시도하세요.",,
 Studio.Common.Action.Apply,,,Apply,Apply,적용,Применить,应用
 Studio.Common.Action.Back,,,Back,Back,뒤로,Назад,返回
 Studio.Common.Action.Cancel,,,Cancel,Cancel,취소,Отмена,取消
@@ -3570,8 +3551,8 @@ Studio.Internal.RobloxMainWindow.ChooseAPlaceInGameExplorer1,,,"Choose an instan
 ","Choose an instance as parent in game explorer to save %1 
 ",%1을(를) 저장하려면 게임 탐색기에서 인스턴스를 부모로 선택하세요,,"请在游戏管理器中选择一个实例作为父项来保存 %1 
 "
-Studio.Internal.RobloxRibbonMainWindow.DocHistoryBackwards,,,Step backwards through tab history,Step backwards through tab history,탭 기록 뒤로,,后退浏览标签页历史记录
-Studio.Internal.RobloxRibbonMainWindow.DocHistoryForwards,,,Step forwards through tab history,Step forwards through tab history,탭 기록 앞으로,,前进浏览标签页历史记录
+Studio.Internal.RobloxRibbonMainWindow.DocHistoryBackwards,,,Step backwards through tab history,Step backwards through tab history,탭 기록 뒤로,,后退选项卡历史记录
+Studio.Internal.RobloxRibbonMainWindow.DocHistoryForwards,,,Step forwards through tab history,Step forwards through tab history,탭 기록 앞으로,,前进选项卡历史记录
 Studio.Internal.RobloxRibbonMainWindow.InternalFeaturesMessageBoxContent,,,"Your account is associated with an @roblox.com email address or has Soothsayer permissions. You also have internal-only features turned on.
 Do you want to disable Internal Features? This will make your Studio experience identical to developers.
 You can go to Settings > Studio > Advanced to re-enable Internal Features.","Your account is associated with an @roblox.com email address or has Soothsayer permissions. You also have internal-only features turned on.
@@ -3583,9 +3564,9 @@ You can go to Settings > Studio > Advanced to re-enable Internal Features.","계
 您可以前往 Settings（设置） > Studio > Advanced（高级）来重新启用内部功能。"
 Studio.Internal.RobloxRibbonMainWindow.InternalFeaturesRestart,,,Restart Roblox Studio,Restart Roblox Studio,Roblox Studio 다시 시작,,重启 Roblox Studio
 Studio.Internal.RobloxRibbonMainWindow.InternalFeaturesRestartDetails,,,Roblox Studio need to restart to disable Internal Features,Roblox Studio need to restart to disable Internal Features,내부 기능을 비활성화하려면 Roblox Studio를 다시 시작해야 합니다,,禁用 Roblox Studio 内部功能需要重启
-Studio.Internal.RobloxMainWindow.NewScriptTab,,,New Script Tab,New Script Tab,새 스크립트 탭,,新脚本标签页
+Studio.Internal.RobloxMainWindow.NewScriptTab,,,New Script Tab,New Script Tab,새 스크립트 탭,,新脚本选项卡
 Studio.Internal.RobloxMainWindow.OnlySaveToEditDM,,,Can only save in Edit Mode,Can only save in Edit Mode,저장은 편집 모드에서만 가능합니다,,只能在编辑模式中保存
-Studio.Internal.RobloxMainWindow.SaveCurrentScriptTab,,,Save Current Script Tab,Save Current Script Tab,현재 스크립트 탭 저장,,保存当前脚本标签页
+Studio.Internal.RobloxMainWindow.SaveCurrentScriptTab,,,Save Current Script Tab,Save Current Script Tab,현재 스크립트 탭 저장,,保存当前脚本选项卡
 Studio.Internal.RobloxMainWindow.SaveScript,,,Save Script,Save Script,스크립트 저장,,保存脚本
 Studio.Internal.RobloxMainWindow.SaveScript1,,,Save Script %1 ?,Save Script %1 ?,%1 스크립트를 저장할까요?,,保存脚本 %1？
 Studio.Internal.RobloxMainWindow.SelectOneInstance,,,Please select only one instance,Please select only one instance,인스턴스를 하나만 선택하세요,,请仅选择一个实例

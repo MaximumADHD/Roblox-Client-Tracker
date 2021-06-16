@@ -3822,6 +3822,10 @@
         <string name="ExplorerOrder">510</string>
         <string name="ExplorerImageIndex">33</string>
       </Properties>
+      <Item class="ReflectionMetadataYieldFunctions">
+        <Item class="ReflectionMetadataMember">
+        </Item>
+      </Item>
     </Item>
 
     <Item class="ReflectionMetadataClass">
@@ -5037,36 +5041,26 @@
       </Properties>
       <Item class="ReflectionMetadataProperties">
         <Item class="ReflectionMetadataMember">
-          <Properties>
-            <string name="Name">MaxTorque</string>
-            <string name="summary">The maximum torque that will be exerted on the Part in each axis</string>
-          </Properties>
+          <string name="Name">MaxTorque</string>
+          <string name="summary">The maximum torque that will be exerted on the Part in each axis</string>
         </Item>
         <Item class="ReflectionMetadataMember">
-          <Properties>
-            <string name="Name">maxTorque</string>
-            <bool name="Deprecated">true</bool>
-            <string name="summary">Use MaxTorque instead</string>
-          </Properties>
+          <string name="Name">maxTorque</string>
+          <bool name="Deprecated">true</bool>
+          <string name="summary">Use MaxTorque instead</string>
         </Item>
         <Item class="ReflectionMetadataMember">
-          <Properties>
-            <string name="Name">P</string>
-            <string name="summary">The amount of power we add to the system.  The higher the power, the quicker the force will achieve its goal.</string>
-          </Properties>
+          <string name="Name">P</string>
+          <string name="summary">The amount of power we add to the system.  The higher the power, the quicker the force will achieve its goal.</string>
         </Item>
         <Item class="ReflectionMetadataMember">
-          <Properties>
-            <string name="Name">AngularVelocity</string>
-            <string name="summary">The rotational velocity this system tries to achieve.  How quickly the system reaches this velocity is defined by P.</string>
-          </Properties>
+          <string name="Name">AngularVelocity</string>
+          <string name="summary">The rotational velocity this system tries to achieve.  How quickly the system reaches this velocity is defined by P.</string>
         </Item>
         <Item class="ReflectionMetadataMember">
-          <Properties>
-            <string name="Name">angularVelocity</string>
-            <bool name="Deprecated">true</bool>
-            <string name="summary">Use AngularVelocity instead</string>
-          </Properties>
+          <string name="Name">angularVelocity</string>
+          <bool name="Deprecated">true</bool>
+          <string name="summary">Use AngularVelocity instead</string>
         </Item>
       </Item>
     </Item>
@@ -5081,17 +5075,13 @@
       </Properties>
       <Item class="ReflectionMetadataProperties">
         <Item class="ReflectionMetadataMember">
-         <Properties>
-            <string name="Name">Force</string>
-            <string name="summary">The continual force exerted on an object, defined in each axis.</string>
-          </Properties>
+          <string name="Name">Force</string>
+          <string name="summary">The continual force exerted on an object, defined in each axis.</string>
         </Item>
         <Item class="ReflectionMetadataMember">
-          <Properties>
-            <string name="Name">force</string>
-            <bool name="Deprecated">true</bool>
-            <string name="summary">Use Force instead</string>
-          </Properties>
+          <string name="Name">force</string>
+          <bool name="Deprecated">true</bool>
+          <string name="summary">Use Force instead</string>
         </Item>
       </Item>
     </Item>
@@ -5251,10 +5241,10 @@
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">RenderingTest</string>
-        <string name="Insertable">true</string>
+        <string name="Insertable">false</string>
         <string name="ClassCategory">Scripting</string>
         <string name="ExplorerOrder">40</string>
-        <string name="summary">A utility for enacting performance and regression tests on the rendering pipeline</string>
+        <string name="summary">dummy summary</string>
         <string name="ExplorerImageIndex">5</string>
       </Properties>
     </Item>
@@ -6647,16 +6637,12 @@
       </Properties>
       <Item class="ReflectionMetadataProperties">
         <Item class="ReflectionMetadataMember">
-          <Properties>
-            <string name="Name">Enabled</string>
-            <string name="summary">Whether or not this should be displayed.</string>
-          </Properties>
+          <string name="Name">Enabled</string>
+          <string name="summary">Whether or not this should be displayed.</string>
         </Item>
         <Item class="ReflectionMetadataMember">
-          <Properties>
-            <string name="Name">ZIndexBehavior</string>
-            <string name="summary">Controls the behavior of the ZIndex property for descendants of this object. It can be set to Global (Default) or Sibling.</string>
-          </Properties>
+          <string name="Name">ZIndexBehavior</string>
+          <string name="summary">Controls the behavior of the ZIndex property for descendants of this object. It can be set to Global (Default) or Sibling.</string>
         </Item>
       </Item>
     </Item>
@@ -7108,6 +7094,7 @@
       <Properties>
         <string name="Name">ScrollingFrame</string>
         <string name="ClassCategory">GUI</string>
+        <string name="summary">Studio.App.RobloxRibbonMainWindow.ScrollingFrameTooltip</string>
         <string name="ExplorerOrder">150</string>
         <string name="ExplorerImageIndex">48</string>
         <string name="PreferredParent">GuiBase2d</string>
