@@ -15,9 +15,6 @@ local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
 
 local MakePluginMenu = require(Plugin.Src.Util.MakePluginMenu)
-local MakePluginMenuDeprecated = require(Plugin.Src.Util.MakePluginMenu_deprecated)
-
-local GetFFlagRefactorMenus = require(Plugin.LuaFlags.GetFFlagRefactorMenus)
 
 local ContextMenu = Roact.PureComponent:extend("ContextMenu")
 
@@ -27,11 +24,7 @@ function ContextMenu:showMenu()
 	local plugin = props.Plugin:get()
 
 	props.OnMenuOpened()
-	if GetFFlagRefactorMenus() then
-		MakePluginMenu(plugin, actions)
-	else
-		MakePluginMenuDeprecated(plugin, HttpService:GenerateGUID(), actions)
-	end
+	MakePluginMenu(plugin, HttpService:GenerateGUID(), actions)
 end
 
 function ContextMenu:didMount()

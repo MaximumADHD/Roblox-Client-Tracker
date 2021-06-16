@@ -52,7 +52,6 @@ local FFlagStudioPromptOnFirstPublish = game:GetFastFlag("StudioPromptOnFirstPub
 local FFlagStudioNewGamesInCloudUI = game:GetFastFlag("StudioNewGamesInCloudUI")
 local FFlagStudioClosePromptOnLocalSave = game:GetFastFlag("StudioClosePromptOnLocalSave")
 local FFlagLuobuDevPublishLua = game:GetFastFlag("LuobuDevPublishLua")
-local FFlagLuobuDevPublishLuaTempOptIn = game:GetFastFlag("LuobuDevPublishLuaTempOptIn")
 local FFLagStudioPublishFailPageFix = game:GetFastFlag("StudioPublishFailPageFix")
 
 local FFlagStudioEnableNewGamesInTheCloudMetrics = game:GetFastFlag("StudioEnableNewGamesInTheCloudMetrics")
@@ -148,7 +147,7 @@ function ScreenCreateNewGame:render()
 		-- There isn't a way to automatically calculate this based on contents
 		local publishCanvasHeight = 780
 
-		local canScroll = not FFlagStudioAllowRemoteSaveBeforePublish and (FFlagLuobuDevPublishLua or FFlagLuobuDevPublishLuaTempOptIn) and shouldShowDevPublishLocations()
+		local canScroll = not FFlagStudioAllowRemoteSaveBeforePublish and FFlagLuobuDevPublishLua and shouldShowDevPublishLocations()
 
 		local actionButtonLabel = "Create"
 		if FFlagStudioNewGamesInCloudUI and (isPublish == false) then
@@ -224,8 +223,8 @@ function ScreenCreateNewGame:render()
 				BackgroundTransparency = 1,
 				Position = UDim2.new(0, theme.MENU_BAR_WIDTH, 0, 0),
 				Size = UDim2.new(1, -theme.MENU_BAR_WIDTH, 1, -theme.FOOTER_HEIGHT),
-				CanvasSize = (FFlagLuobuDevPublishLua or FFlagLuobuDevPublishLuaTempOptIn) and UDim2.new(1, -theme.MENU_BAR_WIDTH, 1, 0) or UDim2.new(1, -theme.MENU_BAR_WIDTH, 0, publishCanvasHeight),
-				AutomaticCanvasSize = (FFlagLuobuDevPublishLua or FFlagLuobuDevPublishLuaTempOptIn) and Enum.AutomaticSize.Y or nil,
+				CanvasSize = FFlagLuobuDevPublishLua and UDim2.new(1, -theme.MENU_BAR_WIDTH, 1, 0) or UDim2.new(1, -theme.MENU_BAR_WIDTH, 0, publishCanvasHeight),
+				AutomaticCanvasSize = FFlagLuobuDevPublishLua and Enum.AutomaticSize.Y or nil,
 				[Roact.Ref] = self.scrollingFrameRef,
 			}, {
 				Roact.createElement(BasicInfo, {

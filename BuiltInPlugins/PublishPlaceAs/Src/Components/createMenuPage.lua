@@ -27,7 +27,6 @@
 ]]
 local FFlagUpdatePublishPlacePluginToDevFrameworkContext = game:GetFastFlag("UpdatePublishPlacePluginToDevFrameworkContext")
 local FFlagLuobuDevPublishLua = game:GetFastFlag("LuobuDevPublishLua")
-local FFlagLuobuDevPublishLuaTempOptIn = game:GetFastFlag("LuobuDevPublishLuaTempOptIn")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -50,7 +49,7 @@ return function(loadValuesToProps, dispatchForProps)
 		local Page = Roact.PureComponent:extend("Page")
 
 		function Page:init()
-			if FFlagLuobuDevPublishLua or FFlagLuobuDevPublishLuaTempOptIn then
+			if FFlagLuobuDevPublishLua then
 				self.state = {
 					StyleModifier = nil,
 				}
@@ -111,7 +110,7 @@ return function(loadValuesToProps, dispatchForProps)
 		ContextServices.mapToProps(Page, {
 			Theme = ContextServices.Theme,
 			Localization = ContextServices.Localization,
-			Mouse = (FFlagLuobuDevPublishLua or FFlagLuobuDevPublishLuaTempOptIn) and ContextServices.Mouse or nil,
+			Mouse = FFlagLuobuDevPublishLua and ContextServices.Mouse or nil,
 		})
 
 		local function mapStateToProps(state, props)

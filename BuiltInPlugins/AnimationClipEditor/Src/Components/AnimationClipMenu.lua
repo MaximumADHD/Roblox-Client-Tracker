@@ -41,7 +41,6 @@ local SaveKeyframeSequence = require(Plugin.Src.Thunks.Exporting.SaveKeyframeSeq
 local ExportKeyframeSequence = require(Plugin.Src.Thunks.Exporting.ExportKeyframeSequence)
 local AddWaypoint = require(Plugin.Src.Thunks.History.AddWaypoint)
 local UpdateMetadata = require(Plugin.Src.Thunks.UpdateMetadata)
-local GetFFlagRefactorMenus = require(Plugin.LuaFlags.GetFFlagRefactorMenus)
 
 local AnimationClipMenu = Roact.PureComponent:extend("AnimationClipMenu")
 
@@ -56,28 +55,27 @@ function AnimationClipMenu:makeLoadMenu(localization, current)
 		for _, save in ipairs(saves) do
 			table.insert(items, {
 				Name = save.Name,
-				Value = not GetFFlagRefactorMenus() and save.Name or nil,
-				Key = not GetFFlagRefactorMenus() and save.Name or nil,
-				ItemSelected = GetFFlagRefactorMenus() and onLoadRequested or function()
+				Value = save.Name,
+				Key = save.Name,
+				ItemSelected = function()
 					onLoadRequested(save.Name)
 				end,
 			})
 		end
 		return {
 			Name = localization:getText("Menu", "Load"),
-			Value = not GetFFlagRefactorMenus() and localization:getText("Menu", "Load") or nil,
-			CurrentKey = not GetFFlagRefactorMenus() and current or nil,
+			Value = localization:getText("Menu", "Load"),
+			CurrentKey = current,
 			Items = items,
-			IsAvailable = not GetFFlagRefactorMenus() and true or nil,
+			IsAvailable = true,
 		}
 	end
 
 	return {
 		Name = localization:getText("Menu", "Load"),
-		Value = not GetFFlagRefactorMenus() and localization:getText("Menu", "Load") or nil,
-		CurrentKey = not GetFFlagRefactorMenus() and current or nil,
-		IsAvailable = false,  -- Remove when retiring GetFFlagRefactorMenus
-		Enabled = false
+		Value = localization:getText("Menu", "Load"),
+		CurrentKey = current,
+		IsAvailable = false,
 	}
 end
 
@@ -89,7 +87,7 @@ function AnimationClipMenu:makeSaveAsMenu(localization, current)
 	local items = {
 		{
 			Name = localization:getText("Menu", "New"),
-			Value = not GetFFlagRefactorMenus() and localization:getText("Menu", "New") or nil,
+			Value = localization:getText("Menu", "New"),
 			ItemSelected = onSaveAsRequested,
 		},
 	}
@@ -101,9 +99,9 @@ function AnimationClipMenu:makeSaveAsMenu(localization, current)
 	for _, save in ipairs(saves) do
 		table.insert(items, {
 			Name = save.Name,
-			Value = not GetFFlagRefactorMenus() and save.Name or nil,
-			Key = not GetFFlagRefactorMenus() and save.Name or nil,
-			ItemSelected = GetFFlagRefactorMenus() and onOverwriteRequested or function()
+			Value = save.Name,
+			Key = save.Name,
+			ItemSelected = function()
 				onOverwriteRequested(save.Name)
 			end,
 		})
@@ -111,9 +109,8 @@ function AnimationClipMenu:makeSaveAsMenu(localization, current)
 
 	return {
 		Name = localization:getText("Menu", "SaveAs"),
-		Value = not GetFFlagRefactorMenus() and localization:getText("Menu", "SaveAs") or nil,
-		CurrentKey = not GetFFlagRefactorMenus() and current or nil,
-		CurrentValue = GetFFlagRefactorMenus() and current or nil,
+		Value = localization:getText("Menu", "SaveAs"),
+		CurrentKey = current,
 		Items = items,
 	}
 end
@@ -126,14 +123,13 @@ function AnimationClipMenu:makePrioritySubMenu(localization, current)
 
 	return {
 		Name = localization:getText("Menu", "SetPriority"),
-		Value = not GetFFlagRefactorMenus() and localization:getText("Menu", "SetPriority") or nil,
-		CurrentItem = not GetFFlagRefactorMenus() and current or nil,
-		CurrentValue = GetFFlagRefactorMenus() and current or nil,
+		Value = localization:getText("Menu", "SetPriority"),
+		CurrentItem = current,
 		Items = {
-			{Name = localization:getText("Menu", priority.Core.Name), Key = not GetFFlagRefactorMenus() and priority.Core or nil, Value = priority.Core, ItemSelected = setPriority},
-			{Name = localization:getText("Menu", priority.Idle.Name), Key = not GetFFlagRefactorMenus() and priority.Idle or nil, Value = priority.Idle, ItemSelected = setPriority},
-			{Name = localization:getText("Menu", priority.Movement.Name), Key = not GetFFlagRefactorMenus() and priority.Movement or nil, Value = priority.Movement, ItemSelected = setPriority},
-			{Name = localization:getText("Menu", priority.Action.Name), Key = not GetFFlagRefactorMenus() and priority.Action or nil, Value = priority.Action, ItemSelected = setPriority},
+			{Name = localization:getText("Menu", priority.Core.Name), Key = priority.Core, Value = priority.Core, ItemSelected = setPriority},
+			{Name = localization:getText("Menu", priority.Idle.Name), Key = priority.Idle, Value = priority.Idle, ItemSelected = setPriority},
+			{Name = localization:getText("Menu", priority.Movement.Name), Key = priority.Movement, Value = priority.Movement, ItemSelected = setPriority},
+			{Name = localization:getText("Menu", priority.Action.Name), Key = priority.Action, Value = priority.Action, ItemSelected = setPriority},
 		}
 	}
 end
@@ -152,7 +148,7 @@ function AnimationClipMenu:makeMenuActions(localization)
 	table.insert(actions, self:makeLoadMenu(localization, current))
 	table.insert(actions, {
 		Name = localization:getText("Menu", "Save"),
-		Value = not GetFFlagRefactorMenus() and localization:getText("Menu", "Save") or nil,
+		Value = localization:getText("Menu", "Save"),
 		ItemSelected = function()
 			props.SaveKeyframeSequence(current, props.Analytics)
 		end,
@@ -161,23 +157,23 @@ function AnimationClipMenu:makeMenuActions(localization)
 	table.insert(actions, Separator)
 	table.insert(actions, {
 		Name = localization:getText("Menu", "Import"),
-		Value = not GetFFlagRefactorMenus() and localization:getText("Menu", "Import") or nil,
+		Value = localization:getText("Menu", "Import"),
 		Items = {
 			{
 				Name = localization:getText("Menu", "FromRoblox"),
-				Value = not GetFFlagRefactorMenus() and localization:getText("Menu", "FromRoblox") or nil,
+				Value = localization:getText("Menu", "FromRoblox"),
 				ItemSelected = props.OnImportRequested,
 			},
 			{
 				Name = localization:getText("Menu", "FromFBX"),
-				Value = not GetFFlagRefactorMenus() and localization:getText("Menu", "FromFBX") or nil,
+				Value = localization:getText("Menu", "FromFBX"),
 				ItemSelected = props.OnImportFbxRequested,
 			},
 		}
 	})
 	table.insert(actions, {
 		Name = localization:getText("Menu", "Export"),
-		Value = not GetFFlagRefactorMenus() and localization:getText("Menu", "Export") or nil,
+		Value = localization:getText("Menu", "Export"),
 		ItemSelected = function()
 			props.ExportKeyframeSequence(plugin, props.Analytics)
 		end,
@@ -185,8 +181,8 @@ function AnimationClipMenu:makeMenuActions(localization)
 	table.insert(actions, Separator)
 	table.insert(actions, {
 		Name = localization:getText("Menu", "CreateNew"),
-		Value = not GetFFlagRefactorMenus() and localization:getText("Menu", "CreateNew") or nil,
-		ItemSelected = GetFFlagRefactorMenus() and onCreateNewRequested or function()
+		Value = localization:getText("Menu", "CreateNew"),
+		ItemSelected = function()
 			onCreateNewRequested()
 		end,
 	})

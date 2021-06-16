@@ -20,7 +20,6 @@
 ]]
 local FFlagStudioEnableBadgesInMonetizationPage = game:GetFastFlag("StudioEnableBadgesInMonetizationPage")
 local FFlagLuobuDevPublishLua = game:GetFastFlag("LuobuDevPublishLua")
-local FFlagLuobuDevPublishLuaTempOptIn = game:GetFastFlag("LuobuDevPublishLuaTempOptIn")
 
 local DEFAULT_SCROLLBAR_THICKNESS = 8
 local DEFAULT_SCROLLBAR_PADDING = 2
@@ -49,7 +48,7 @@ function StyledScrollingFrame:render()
 		local position = props.Position
 		local size = props.Size
 		local canvasSize = props.CanvasSize
-		local autoCanvasSize = (FFlagLuobuDevPublishLua or FFlagLuobuDevPublishLuaTempOptIn) and props.AutomaticCanvasSize or nil
+		local autoCanvasSize = FFlagLuobuDevPublishLua and props.AutomaticCanvasSize or nil
 		local layoutOrder = props.LayoutOrder
 		local zindex = props.ZIndex
 		local scrollingEnabled = props.ScrollingEnabled

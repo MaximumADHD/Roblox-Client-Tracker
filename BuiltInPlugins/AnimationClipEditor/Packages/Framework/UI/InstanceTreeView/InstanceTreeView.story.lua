@@ -10,8 +10,7 @@ function Example:init()
 	self.state = {
 		Expansion = {},
 		Selection = {},
-		Instances = {game.Workspace, game.ReplicatedStorage, game.StarterPlayer},
-		OnExpansionChange = function() end
+		Instances = {game.Workspace, game.ReplicatedStorage, game.StarterPlayer}
 	}
 end
 

@@ -1,5 +1,3 @@
-local Workspace = game:GetService("Workspace")
-
 -- Libraries
 local DraggerFramework = script.Parent.Parent
 local Plugin = DraggerFramework.Parent.Parent
@@ -10,17 +8,12 @@ local Colors = require(DraggerFramework.Utility.Colors)
 local Math = require(DraggerFramework.Utility.Math)
 local StandaloneSelectionBox = require(DraggerFramework.Components.StandaloneSelectionBox)
 local roundRotation = require(DraggerFramework.Utility.roundRotation)
-local snapRotationToPrimaryDirection = require(DraggerFramework.Utility.snapRotationToPrimaryDirection)
 
 local RotateHandleView = require(DraggerFramework.Components.RotateHandleView)
-local SummonHandlesNote = require(DraggerFramework.Components.SummonHandlesNote)
-local SummonHandlesHider = require(DraggerFramework.Components.SummonHandlesHider)
-local DraggedPivot = require(DraggerFramework.Components.DraggedPivot)
 
 local getEngineFeatureModelPivotVisual = require(DraggerFramework.Flags.getEngineFeatureModelPivotVisual)
 
 local getFFlagFoldersOverFragments = require(DraggerFramework.Flags.getFFlagFoldersOverFragments)
-local getFFlagSummonPivot = require(DraggerFramework.Flags.getFFlagSummonPivot)
 
 -- The minimum rotate increment to display snapping increments for (below this
 -- increment there are so many points that they become visual noise)
@@ -127,58 +120,13 @@ function RotateHandles.new(draggerContext, props, implementation)
 	local self = {}
 	self._draggerContext = draggerContext
 	self._handles = {}
-	self._props = props or {
-		Summonable = true,
-	}
+	self._props = props or {}
 	self._implementation = implementation
-	self._tabKeyDown = false
 	return setmetatable(self, RotateHandles)
-end
-
--- Summon handles to the current mouse hover location
-function RotateHandles:_summonHandles()
-	if not self._props.Summonable then
-		return false
-	end
-
-	local mouseRay = self._draggerContext:getMouseRay()
-	local hitSelectable, hitItem, distance = self._schema.getMouseTarget(self._draggerContext, mouseRay, {})
-	if hitItem then
-		local hitPoint = mouseRay.Origin + mouseRay.Direction.Unit * distance
-		self._summonBasisOffset = CFrame.new(self._boundingBox.CFrame:PointToObjectSpace(hitPoint))
-
-		if self._implementation.findSummonSnap then
-			local snappedHitCFrame, isOnSurface = self._implementation:findSummonSnap(hitPoint, hitItem)
-			if snappedHitCFrame then
-				local snappedBasisOffset = self._boundingBox.CFrame:ToObjectSpace(snappedHitCFrame)
-				local toOldBasisOffset = snappedBasisOffset:Inverse() * self._summonBasisOffset
-
-				self._summonBasisOffset = snappedBasisOffset * snapRotationToPrimaryDirection(toOldBasisOffset)
-				self._summonWasSnapped = true
-				self._summonWasSnappedToSurface = isOnSurface
-			end
-		end
-	end
-end
-
-function RotateHandles:_endSummon()
-	if self._summonBasisOffset then
-		self._summonBasisOffset = nil
-		self._summonWasSnapped = false
-		self._summonWasSnappedToSurface = false
-	end
-end
-
-function RotateHandles:_getBasisOffset()
-	return self._summonBasisOffset or self._basisOffset
 end
 
 function RotateHandles:update(draggerToolModel, selectionInfo)
 	if not self._draggingHandleId then
-		if getFFlagSummonPivot() and not self._tabKeyDown then
-			self:_endSummon()
-		end
-
 		local cframe, offset, size = selectionInfo:getBoundingBox()
 		self._boundingBox = {
 			Size = size,
@@ -189,11 +137,7 @@ function RotateHandles:update(draggerToolModel, selectionInfo)
 		self._selectionWrapper = draggerToolModel:getSelectionWrapper()
 		self._schema = draggerToolModel:getSchema()
 		if getEngineFeatureModelPivotVisual() then
-			if getFFlagSummonPivot() then
-				self._scale = self._draggerContext:getHandleScale((self._boundingBox.CFrame * self:_getBasisOffset()).Position)
-			else
-				self._scale = self._draggerContext:getHandleScale(cframe.Position)
-			end
+			self._scale = self._draggerContext:getHandleScale(cframe.Position)
 		else
 			self._scale = self._draggerContext:getHandleScale(self._boundingBox.CFrame.Position)
 		end
@@ -255,13 +199,8 @@ function RotateHandles:render(hoveredHandleId)
 			end
 		end
 
-		if getFFlagSummonPivot() then
-			children.ImplementationRendered =
-				self._implementation:render(self._lastGlobalTransformForRender)
-		else
-			children.ImplementationRendered =
-				self._implementation:render(self._boundingBox.CFrame * self._basisOffset)
-		end
+		children.ImplementationRendered =
+			self._implementation:render(self._boundingBox.CFrame * self._basisOffset)
 	else
 		for handleId, handleProps in pairs(self._handles) do
 			local color = handleProps.Color
@@ -291,47 +230,6 @@ function RotateHandles:render(hoveredHandleId)
 			LineThickness = self._draggerContext:getHoverLineThickness(),
 			Container = self._draggerContext:getGuiParent(),
 		})
-	end
-
-	if getFFlagSummonPivot() and self._props.Summonable then
-		if self._summonBasisOffset then
-			if self._summonWasSnapped then
-				children.SummonSnap = Roact.createElement("BoxHandleAdornment", {
-					Adornee = Workspace.Terrain,
-					Color3 = self._draggerContext:getGeometrySnapColor(),
-					CFrame = self._boundingBox.CFrame * self._summonBasisOffset,
-					Size = Vector3.new(0.5, 0.5, 0.5) * self._scale,
-					AlwaysOnTop = not self._summonWasSnappedToSurface,
-					Transparency = self._summonWasSnappedToSurface and 0.0 or 0.5,
-					ZIndex = 0,
-				})
-			else
-				children.SummonedPivot = Roact.createElement(DraggedPivot, {
-					DraggerContext = self._draggerContext,
-					CFrame = self._boundingBox.CFrame * self:_getBasisOffset(),
-					IsActive = self._draggerContext:shouldShowActiveInstanceHighlight() and (#self._selectionWrapper:get() == 1),
-				})
-			end
-		end
-
-		if not self._draggingHandleId then
-			-- Show / hide the summon handles note
-			if self._summonBasisOffset then
-				children.SummonHandlesHider = Roact.createElement(SummonHandlesHider, {
-					DraggerContext = self._draggerContext,
-				})
-			elseif not SummonHandlesHider.hasSeenEnough(self._draggerContext) then
-				local worldPosition = (self._boundingBox.CFrame * self._basisOffset).Position
-				local screenPosition, inView = self._draggerContext:worldToViewportPoint(worldPosition)
-				if screenPosition.Z > 0 then
-					children.SummonHandlesNote = Roact.createElement(SummonHandlesNote, {
-						Position = Vector2.new(screenPosition.X, screenPosition.Y),
-						InView = inView,
-						DraggerContext = self._draggerContext,
-					})
-				end
-			end
-		end
 	end
 
 	if getFFlagFoldersOverFragments() then
@@ -365,7 +263,6 @@ function RotateHandles:mouseDown(mouseRay, handleId)
 	-- We can start a drag as a result of this mouse down
 	self._draggingHandleId = handleId
 	self._handleCFrame = handleCFrame
-	self._lastGlobalTransformForRender = CFrame.new()
 	self._draggingLastGoodDelta = 0
 	self._originalBoundingBoxCFrame = self._boundingBox.CFrame
 	self._startAngle = snapToRotateIncrementIfNeeded(
@@ -399,7 +296,6 @@ function RotateHandles:mouseDrag(mouseRay)
 
 	-- Adjust the bounding box
 	self._boundingBox.CFrame = appliedGlobalTransform * self._originalBoundingBoxCFrame
-	self._lastGlobalTransformForRender = appliedGlobalTransform
 
 	-- Derive the applied rotation angle (we need to display this in the
 	-- user interface)
@@ -413,9 +309,6 @@ function RotateHandles:mouseUp(mouseRay)
 	-- We never started this drag in the first place
 	if not self._draggingHandleId then
 		return
-	end
-	if getFFlagSummonPivot() and not self._tabKeyDown then
-		self:_endSummon()
 	end
 
 	self._draggingHandleId = nil
@@ -431,37 +324,13 @@ function RotateHandles:_updateHandles()
 		for handleId, handleDefinition in pairs(RotateHandleDefinitions) do
 			self._handles[handleId] = {
 				HandleCFrame = getEngineFeatureModelPivotVisual() and
-					(self._boundingBox.CFrame * self:_getBasisOffset() * handleDefinition.Offset) or
+					(self._boundingBox.CFrame * self._basisOffset * handleDefinition.Offset) or
 					(self._boundingBox.CFrame * handleDefinition.Offset),
 				Color = handleDefinition.Color,
 				RadiusOffset = handleDefinition.RadiusOffset,
 				Scale = self._scale,
 			}
 		end
-	end
-end
-
-if getEngineFeatureModelPivotVisual() and getFFlagSummonPivot() then
-	function RotateHandles:keyDown(keyCode)
-		if keyCode == Enum.KeyCode.Tab then
-			self._tabKeyDown = true
-			if not self._draggingHandleId then
-				self:_summonHandles()
-				return true
-			end
-		end
-		return false
-	end
-
-	function RotateHandles:keyUp(keyCode)
-		if keyCode == Enum.KeyCode.Tab then
-			self._tabKeyDown = false
-			if not self._draggingHandleId then
-				self:_endSummon()
-				return true
-			end
-		end
-		return false
 	end
 end
 

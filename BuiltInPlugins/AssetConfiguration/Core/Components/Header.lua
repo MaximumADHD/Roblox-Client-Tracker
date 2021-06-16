@@ -17,6 +17,7 @@
 ]]
 
 local FFlagToolboxHideSearchForMyPlugins = game:DefineFastFlag("ToolboxHideSearchForMyPlugins", false)
+local FFlagToolboxHideInventorySearchWhenEmpty = game:DefineFastFlag("ToolboxHideInventorySearchWhenEmpty", false)
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -34,6 +35,7 @@ local PageInfoHelper = require(Plugin.Core.Util.PageInfoHelper)
 local Category = require(Plugin.Core.Types.Category)
 
 local getNetwork = ContextGetter.getNetwork
+local getSettings = ContextGetter.getSettings
 local withTheme = ContextHelper.withTheme
 local withLocalization = ContextHelper.withLocalization
 
@@ -97,8 +99,7 @@ function Header:init()
 		-- Set up a delayed callback to check if an asset was inserted
 		self.mostRecentSearchRequestTime = tick()
 		local mySearchRequestTime = self.mostRecentSearchRequestTime
-		local StudioSearchWithoutInsertionTimeSeconds =
-			globalSettings():GetFVariable("StudioSearchWithoutInsertionTimeSeconds")
+		local StudioSearchWithoutInsertionTimeSeconds = globalSettings():GetFVariable("StudioSearchWithoutInsertionTimeSeconds")
 		delay(StudioSearchWithoutInsertionTimeSeconds, function()
 			-- Only use the callback for the most recent search
 			if (mySearchRequestTime == self.mostRecentSearchRequestTime) then
@@ -129,6 +130,7 @@ function Header:render()
 
 			local searchTerm = props.searchTerm
 			local onSearchRequested = self.onSearchRequested
+			local hasAssetsInCategory = props.hasAssetsInCategory
 
 			local groups = props.groups
 			local groupIndex = props.groupIndex
@@ -136,7 +138,7 @@ function Header:render()
 
 
 			local showSearchOptions = Category.getTabForCategoryName(props.categoryName) == Category.MARKETPLACE
-
+			
 			local dropdownWidth = showSearchOptions and Constants.HEADER_DROPDOWN_MIN_WIDTH
 				or Constants.HEADER_DROPDOWN_MAX_WIDTH
 			local optionsButtonWidth = showSearchOptions
@@ -156,7 +158,7 @@ function Header:render()
 
 			local isCreationsTab = Category.getTabForCategoryName(categoryName) == Category.CREATIONS
 			local isInventoryTab = Category.getTabForCategoryName(categoryName) == Category.INVENTORY
-
+			
 			local fullWidthDropdown = isCreationsTab and not isGroupCategory
 
 			local showSearchBar
@@ -166,6 +168,10 @@ function Header:render()
 					and not (isInventoryTab and isPlugins)
 			else
 				showSearchBar = not isGroupCategory and not isCreationsTab
+			end
+
+			if FFlagToolboxHideInventorySearchWhenEmpty and isInventoryTab and not hasAssetsInCategory then
+				showSearchBar = false
 			end
 
 			local isRecentsTab = Category.getTabForCategoryName(categoryName) == Category.RECENT
@@ -280,7 +286,7 @@ function Header:addTabRefreshCallback()
 		self.tabRefreshConnection = theEvent.Event:connect(function()
 
 			local categoryName = self.props.categoryName
-
+			
 			local settings = self.props.Settings:get("Plugin")
 			self.props.selectCategory(getNetwork(self), settings, categoryName)
 		end)
@@ -313,9 +319,18 @@ local function mapStateToProps(state, props)
 
 	local pageInfo = state.pageInfo or {}
 
+	local hasAssetsInCategory
+	if FFlagToolboxHideInventorySearchWhenEmpty then
+		local assets = state.assets or {}
+		local idsToRender = assets.idsToRender or {}
+		local isLoading = assets.isLoading or false
+		hasAssetsInCategory = not isLoading and #idsToRender > 0
+	end
+
 	return {
 		categories = pageInfo.categories or {},
 		categoryName = pageInfo.categoryName or Category.DEFAULT.name,
+		hasAssetsInCategory = hasAssetsInCategory,
 		searchTerm = pageInfo.searchTerm or "",
 		roles = state.roles,
 		groups = pageInfo.groups or {},

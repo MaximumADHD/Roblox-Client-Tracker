@@ -46,11 +46,9 @@ local function openPlugin()
 			AllowDragSelect = true,
 			AllowFreeformDrag = true,
 			ShowLocalSpaceIndicator = true,
-			ShowPivotIndicator = true,
 			HandlesList = {
 				RotateHandles.new(draggerContext, {
 					ShowBoundingBox = true,
-					Summonable = true,
 				}, DraggerSchema.TransformHandlesImplementation.new(
 					draggerContext, ikTransformRotateHandler)),
 			}

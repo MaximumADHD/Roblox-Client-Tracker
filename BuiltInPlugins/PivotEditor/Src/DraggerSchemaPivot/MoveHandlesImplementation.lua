@@ -1,8 +1,6 @@
 local Workspace = game:GetService("Workspace")
 local Plugin = script.Parent.Parent.Parent
 
-local DraggerFramework = Plugin.Packages.DraggerFramework
-
 local Roact = require(Plugin.Packages.Roact)
 
 local getSelectableWithCache = require(Plugin.Packages.DraggerSchemaCore.getSelectableWithCache)
@@ -10,10 +8,8 @@ local getSelectableWithCache = require(Plugin.Packages.DraggerSchemaCore.getSele
 local setWorldPivot = require(Plugin.Src.Utility.setWorldPivot)
 local computeSnapPointsForInstance = require(Plugin.Src.Utility.computeSnapPointsForInstance)
 local SnapPoints = require(Plugin.Src.Components.SnapPoints)
-local DraggedPivot = require(DraggerFramework.Components.DraggedPivot)
+local DraggedPivot = require(Plugin.Src.Components.DraggedPivot)
 local classifyInstancePivot = require(Plugin.Src.Utility.classifyInstancePivot)
-
-local getFFlagSummonPivot = require(DraggerFramework.Flags.getFFlagSummonPivot)
 
 local SMALL_REGION_RADIUS = Vector3.new(0.1, 0.1, 0.1)
 
@@ -95,31 +91,19 @@ function MoveHandlesImplementation:getSnapPoints()
 	end
 end
 
-function MoveHandlesImplementation:render(globalTransform)
-	local currentPivot = globalTransform
-	if getFFlagSummonPivot() then
-		currentPivot = globalTransform * self._initialPivot
-	end
+function MoveHandlesImplementation:render(currentBasisCFrame)
 	local contents = {
 		DraggedPivot = Roact.createElement(DraggedPivot, {
 			DraggerContext = self._draggerContext,
-			CFrame = currentPivot,
+			CFrame = currentBasisCFrame,
 			IsActive = self:_selectedIsActive(),
 		}),
 	}
 	if self._draggerContext:shouldSnapPivotToGeometry() then
-		if getFFlagSummonPivot() then
-			contents.SnapPoints = Roact.createElement(SnapPoints, {
-				Focus = currentPivot.Position,
-				SnapPoints = self._snapPoints,
-				DraggerContext = self._draggerContext,
-			})
-		else
-			contents.SnapPoints = Roact.createElement(SnapPoints, {
-				SnapPoints = self._snapPoints,
-				DraggerContext = self._draggerContext,
-			})
-		end
+		contents.SnapPoints = Roact.createElement(SnapPoints, {
+			SnapPoints = self._snapPoints,
+			DraggerContext = self._draggerContext,
+		})
 	end
 	return Roact.createFragment(contents)
 end

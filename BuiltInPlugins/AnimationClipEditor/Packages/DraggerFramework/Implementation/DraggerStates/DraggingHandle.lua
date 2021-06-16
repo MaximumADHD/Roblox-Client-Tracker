@@ -3,8 +3,6 @@ local DraggerStateType = require(DraggerFramework.Implementation.DraggerStateTyp
 local StandardCursor = require(DraggerFramework.Utility.StandardCursor)
 
 local getEngineFeatureModelPivotVisual = require(DraggerFramework.Flags.getEngineFeatureModelPivotVisual)
-local getFFlagSummonPivot = require(DraggerFramework.Flags.getFFlagSummonPivot)
-local getFFlagFixDuplicateDuringDrag = require(DraggerFramework.Flags.getFFlagFixDuplicateDuringDrag)
 
 local DraggingHandle = {}
 DraggingHandle.__index = DraggingHandle
@@ -41,8 +39,7 @@ end
 
 function DraggingHandle:processSelectionChanged()
 	-- Re-init the drag if the selection changes.
-	local invokedBySelectionChange = true
-	self:_endHandleDrag(invokedBySelectionChange)
+	self:_endHandleDrag()
 	self:_init(self._draggingHandles, self._draggingHandleId)
 end
 
@@ -56,71 +53,39 @@ function DraggingHandle:processViewChanged()
 end
 
 function DraggingHandle:processMouseUp()
-	local invokedBySelectionChange = false
-	self:_endHandleDrag(invokedBySelectionChange)
+	self:_endHandleDrag()
 	self._draggerToolModel:transitionToState(DraggerStateType.Ready)
 end
 
 function DraggingHandle:processKeyDown(keyCode)
-	if getFFlagSummonPivot() then
-		for _, handles in pairs(self._draggerToolModel:getHandlesList()) do
-			if handles.keyDown then
-				if handles:keyDown(keyCode) then
-					self:processViewChanged()
-					self._draggerToolModel:_scheduleRender()
-				end
-			end
-		end
-	else
-		if self._draggingHandles.keyDown then
-			if self._draggingHandles:keyDown(keyCode) then
-				-- Update the drag
-				self:processViewChanged()
-				if getEngineFeatureModelPivotVisual() then
-					self._draggerToolModel:_scheduleRender()
-				end
+	if self._draggingHandles.keyDown then
+		if self._draggingHandles:keyDown(keyCode) then
+			-- Update the drag
+			self:processViewChanged()
+			if getEngineFeatureModelPivotVisual() then
+				self._draggerToolModel:_scheduleRender()
 			end
 		end
 	end
 end
 
 function DraggingHandle:processKeyUp(keyCode)
-	if getFFlagSummonPivot() then
-		for _, handles in pairs(self._draggerToolModel:getHandlesList()) do
-			if handles.keyUp then
-				if handles:keyUp(keyCode) then
-					self:processViewChanged()
-					self._draggerToolModel:_scheduleRender()
-				end
-			end
-		end
-	else
-		if self._draggingHandles.keyUp then
-			if self._draggingHandles:keyUp(keyCode) then
-				-- Update the drag
-				self:processViewChanged()
-				if getEngineFeatureModelPivotVisual() then
-					self._draggerToolModel:_scheduleRender()
-				end
+	if self._draggingHandles.keyUp then
+		if self._draggingHandles:keyUp(keyCode) then
+			-- Update the drag
+			self:processViewChanged()
+			if getEngineFeatureModelPivotVisual() then
+				self._draggerToolModel:_scheduleRender()
 			end
 		end
 	end
 end
 
-function DraggingHandle:_endHandleDrag(invokedBySelectionChange: boolean)
+function DraggingHandle:_endHandleDrag()
 	-- Commit the results of using the tool
-	
 	local newSelectionInfoHint = self._draggingHandles:mouseUp(
 		self._draggerToolModel._draggerContext:getMouseRay())
-	if getFFlagFixDuplicateDuringDrag() and invokedBySelectionChange then
-		-- If the drag was ended by a selection change, then our computed
-		-- selection info hint will be stale, because it applies to the last
-		-- selection, rather than the new selection. So we don't use it.
-		self._draggerToolModel:_updateSelectionInfo(nil)
-	else
-		-- Use the Implementation's modification to the SelectionInfo hint
-		self._draggerToolModel:_updateSelectionInfo(newSelectionInfoHint)
-	end
+	self._draggerToolModel:_updateSelectionInfo(newSelectionInfoHint) -- Since the selection has been edited by Implementation
 
 	self._draggerToolModel._boundsChangedTracker:install()
 

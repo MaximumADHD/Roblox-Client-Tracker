@@ -56,8 +56,6 @@ function CheckBoxSet:render()
 			})
 		}
 
-		-- TODO: Implement CheckBox changes into DevFramework since we want to deprecate UILibrary eventually.
-		-- Look at the changes in FFlagLubouDevPublishLua that use this.
 		for i, box in ipairs(boxes) do
 			table.insert(children, Roact.createElement(CheckBox, {
 				Title = box.Title,
@@ -70,7 +68,6 @@ function CheckBoxSet:render()
 				OnActivated = function()
 					entryClicked(box)
 				end,
-				Link = FFlagLuobuDevPublishLua and box.LinkTextFrame or nil,
 			}))
 		end
 

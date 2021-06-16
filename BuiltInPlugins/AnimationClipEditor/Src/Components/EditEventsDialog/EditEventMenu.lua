@@ -12,9 +12,11 @@ local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local Framework = require(Plugin.Packages.Framework)
 local Constants = require(Plugin.Src.Util.Constants)
+
 local ContextServices = Framework.ContextServices
+local Localization = ContextServices.Localization
+
 local ContextMenu = require(Plugin.Src.Components.ContextMenu)
-local GetFFlagRefactorMenus = require(Plugin.LuaFlags.GetFFlagRefactorMenus)
 
 local EditEventMenu = Roact.PureComponent:extend("EditEventMenu")
 
@@ -24,15 +26,13 @@ function EditEventMenu:makeMenuActions(localization)
 
 	table.insert(actions, {
 		Name = localization:getText("ContextMenu", "EditEventName"),
-		Value = GetFFlagRefactorMenus() and Constants.ACTION_KEYS.Edit or nil,
-		ItemSelected = GetFFlagRefactorMenus() and props.OnMenuItemClicked or function()
+		ItemSelected = function()
 			props.OnMenuItemClicked(Constants.ACTION_KEYS.Edit)
 		end,
 	})
 	table.insert(actions, {
 		Name = localization:getText("ContextMenu", "DeleteAllSameEvents"),
-		Value = GetFFlagRefactorMenus() and Constants.ACTION_KEYS.Delete or nil,
-		ItemSelected = GetFFlagRefactorMenus() and props.OnMenuItemClicked or function()
+		ItemSelected = function()
 			props.OnMenuItemClicked(Constants.ACTION_KEYS.Delete)
 		end,
 	})
@@ -50,9 +50,5 @@ function EditEventMenu:render()
 		OnMenuOpened = props.OnMenuOpened,
 	}) or nil
 end
-
-ContextServices.mapToProps(EditEventMenu, {
-	Localization = ContextServices.Localization
-})
 
 return EditEventMenu

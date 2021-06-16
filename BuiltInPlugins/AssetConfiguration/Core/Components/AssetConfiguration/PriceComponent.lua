@@ -19,7 +19,6 @@
 local FFlagToolboxReplaceUILibraryComponentsPt1 = game:GetFastFlag("ToolboxReplaceUILibraryComponentsPt1")
 local FFlagToolboxReplaceUILibraryComponentsPt2 = game:GetFastFlag("ToolboxReplaceUILibraryComponentsPt2")
 local FIntToolboxPriceTextBoxMaxCount = game:DefineFastInt("ToolboxPriceTextBoxMaxCount", 1000)
-local FFlagDevFrameworkConvertTextProperties = game:GetFastFlag("DevFrameworkConvertTextProperties")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -117,26 +116,13 @@ function PriceComponent:renderContent(theme, localization, localizedContent)
 	fee = math.floor(math.min(fee or 0, feePercent * maxPrice))
 	finalPrice = math.floor(math.min(finalPrice, earnPercent * maxPrice))
 
-	local feeString = fee
-	local finalPriceString = finalPrice
-
-	if FFlagDevFrameworkConvertTextProperties then
-		feeString = tostring(fee)
-		finalPriceString = tostring(finalPrice)
-	end
-
 	local UntypedVector2 = Vector2
 	local inputBoxSize = FFlagPriceComponentTextSize and Vector2.new(INPUT_BOX_WIDTH, ROW_HEIGHT) or UntypedVector2.new(0, INPUT_BOX_WIDTH, 0, ROW_HEIGHT)
-	local feeVector = Constants.getTextSize(feeString, Constants.FONT_SIZE_MEDIUM, Constants.FONT, inputBoxSize)
-	local earnVector = Constants.getTextSize(finalPriceString, Constants.FONT_SIZE_MEDIUM, Constants.FONT, inputBoxSize)
+	local feeVector = Constants.getTextSize(fee, Constants.FONT_SIZE_MEDIUM, Constants.FONT, inputBoxSize)
+	local earnVector = Constants.getTextSize(finalPrice, Constants.FONT_SIZE_MEDIUM, Constants.FONT, inputBoxSize)
 
 	local textOverMaxCount = false
 	local textboxText = price or ""
-
-	if FFlagDevFrameworkConvertTextProperties then
-		textboxText = tostring(price or "")
-	end
-
 	if FFlagToolboxReplaceUILibraryComponentsPt2 then
 		local textLength = utf8.len(textboxText)
 		textOverMaxCount = textLength > FIntToolboxPriceTextBoxMaxCount
@@ -279,7 +265,7 @@ function PriceComponent:renderContent(theme, localization, localizedContent)
 					BackgroundTransparency = 1,
 					BorderSizePixel = 0,
 
-					Text = feeString,
+					Text = fee,
 					TextColor3 = assetConfigTheme.textColor,
 					Font = Constants.FONT,
 					TextSize = Constants.FONT_SIZE_LARGE,
@@ -352,7 +338,7 @@ function PriceComponent:renderContent(theme, localization, localizedContent)
 					BackgroundTransparency = 1,
 					BorderSizePixel = 0,
 
-					Text = finalPriceString,
+					Text = finalPrice,
 					TextColor3 = assetConfigTheme.textColor,
 					Font = Constants.FONT,
 					TextSize = Constants.FONT_SIZE_LARGE,

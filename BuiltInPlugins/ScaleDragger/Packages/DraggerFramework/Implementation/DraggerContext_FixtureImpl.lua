@@ -10,8 +10,6 @@ local ChangeHistoryService = game:GetService("ChangeHistoryService")
 
 local DraggerFramework = script.Parent.Parent
 
-local Colors = require(DraggerFramework.Utility.Colors)
-
 local MockAnalytics = require(DraggerFramework.Utility.MockAnalytics)
 
 local DraggerContext = {}
@@ -46,7 +44,6 @@ function DraggerContext.new(guiTarget, selection)
 		_isAltDown = false,
 		_isCtrlDown = false,
 		_isShiftDown = false,
-		_settingValues = {},
 	}, DraggerContext)
 end
 
@@ -141,10 +138,6 @@ function DraggerContext:getHoverLineThickness()
 end
 
 function DraggerContext:getSelectionBoxColor(isActive)
-	return Color3.new()
-end
-
-function DraggerContext:getGeometrySnapColor()
 	return Color3.new()
 end
 
@@ -326,34 +319,6 @@ function DraggerContext:expectAndUndo(waypointIdentifier)
 	if ChangeHistoryService then
 		ChangeHistoryService:Undo()
 	end
-end
-
-function DraggerContext:getText(scope, key, args)
-	if args then
-		return ("%s.%s (%s)").format(scope, key, table.concat(args, ","))
-	else
-		return ("%s.%s").format(scope, key)
-	end
-end
-
-function DraggerContext:getThemeColor(item)
-	if item == Enum.StudioStyleGuideColor.MainBackground then
-		return Colors.WHITE
-	else
-		return Colors.BLACK
-	end
-end
-
-function DraggerContext:getSetting(name)
-	return self._settingValues[name]
-end
-
-function DraggerContext:setSetting(name, value)
-	self._settingValues[name] = value
-end
-
-function DraggerContext:setPivotIndicator(state)
-	return false
 end
 
 return DraggerContext

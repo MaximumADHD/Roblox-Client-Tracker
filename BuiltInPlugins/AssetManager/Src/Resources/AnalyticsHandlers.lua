@@ -1,8 +1,6 @@
 local GA_CATEGORY_ACTION = "Action"
 local ASSET_MANAGER_CATEGORY = "Asset Manager"
 
-local FFlagNewPackageAnalyticsWithRefactor = game:GetFastFlag("NewPackageAnalyticsWithRefactor")
-
 return function(rbxAnalyticsService)
     return {
         openFolder = function(folderName)
@@ -13,11 +11,6 @@ return function(rbxAnalyticsService)
         clickContextMenuItem = function()
             rbxAnalyticsService:TrackEvent(GA_CATEGORY_ACTION, ASSET_MANAGER_CATEGORY, "Context Menu Item Click")
             rbxAnalyticsService:ReportCounter("AssetManagerContextMenuItemClick", 1)
-        end,
-
-        massUpdateFromAssetManager = function()
-            assert(FFlagNewPackageAnalyticsWithRefactor)
-            rbxAnalyticsService:ReportCounter("MassUpdateFromAssetManager", 1)
         end,
 
         clickBulkImportButton = function()

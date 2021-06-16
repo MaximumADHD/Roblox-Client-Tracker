@@ -1,7 +1,5 @@
 local Plugin = script.Parent.Parent.Parent
 
-local DraggerFramework = Plugin.Packages.DraggerFramework
-
 local Roact = require(Plugin.Packages.Roact)
 local Colors = require(Plugin.Packages.DraggerFramework.Utility.Colors)
 local MoveHandleView = require(Plugin.Packages.DraggerFramework.Components.MoveHandleView)
@@ -9,10 +7,8 @@ local MoveHandleView = require(Plugin.Packages.DraggerFramework.Components.MoveH
 local setWorldPivot = require(Plugin.Src.Utility.setWorldPivot)
 local computeSnapPointsForInstance = require(Plugin.Src.Utility.computeSnapPointsForInstance)
 local SnapPoints = require(Plugin.Src.Components.SnapPoints)
-local DraggedPivot = require(DraggerFramework.Components.DraggedPivot)
+local DraggedPivot = require(Plugin.Src.Components.DraggedPivot)
 local classifyInstancePivot = require(Plugin.Src.Utility.classifyInstancePivot)
-
-local getFFlagSummonPivot = require(DraggerFramework.Flags.getFFlagSummonPivot)
 
 local MoveHandlesForDisplay = {
 	MinusZ = {
@@ -140,18 +136,13 @@ function RotateHandlesImplementation:getSnapPoints()
 	end
 end
 
-function RotateHandlesImplementation:render(globalTransform)
+function RotateHandlesImplementation:render(currentBasisCFrame)
 	local elements = {}
 
-	local currentPivot = globalTransform
-	if getFFlagSummonPivot() then
-		currentPivot = self._lastPivot
-	end
-
-	local scale = self._draggerContext:getHandleScale(currentPivot.Position)
+	local scale = self._draggerContext:getHandleScale(currentBasisCFrame.Position)
 	for handleId, definition in pairs(MoveHandlesForDisplay) do
 		elements[handleId] = Roact.createElement(MoveHandleView, {
-			Axis = currentPivot * definition.Offset,
+			Axis = currentBasisCFrame * definition.Offset,
 			Color = definition.Color,
 			Outset = 0.5,
 			Thin = true,
@@ -161,18 +152,10 @@ function RotateHandlesImplementation:render(globalTransform)
 	end
 
 	if self._draggerContext:shouldSnapPivotToGeometry() then
-		if getFFlagSummonPivot() then
-			elements.SnapPoints = Roact.createElement(SnapPoints, {
-				Focus = currentPivot.Position,
-				SnapPoints = self._snapPoints,
-				DraggerContext = self._draggerContext,
-			})
-		else
-			elements.SnapPoints = Roact.createElement(SnapPoints, {
-				SnapPoints = self._snapPoints,
-				DraggerContext = self._draggerContext,
-			})
-		end
+		elements.SnapPoints = Roact.createElement(SnapPoints, {
+			SnapPoints = self._snapPoints,
+			DraggerContext = self._draggerContext,
+		})
 		elements.DraggedPivot = Roact.createElement(DraggedPivot, {
 			DraggerContext = self._draggerContext,
 			CFrame = self._lastPivot,

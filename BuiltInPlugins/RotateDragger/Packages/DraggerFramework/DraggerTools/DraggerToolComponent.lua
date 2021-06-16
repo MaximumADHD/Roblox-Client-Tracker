@@ -18,8 +18,6 @@ local DraggerToolModel = require(DraggerFramework.Implementation.DraggerToolMode
 local ViewChangeDetector = require(DraggerFramework.Utility.ViewChangeDetector)
 local shouldDragAsFace = require(DraggerFramework.Utility.shouldDragAsFace)
 
-local getFFlagSummonPivot = require(DraggerFramework.Flags.getFFlagSummonPivot)
-
 -- Constants
 local DRAGGER_UPDATE_BIND_NAME = "DraggerToolViewUpdate"
 
@@ -89,13 +87,6 @@ function DraggerToolComponent:setup(props)
 			self._draggerToolModel:_processKeyDown(input.KeyCode)
 		end
 	end)
-	if getFFlagSummonPivot() then
-		self._keyUpConnection = UserInputService.InputEnded:Connect(function(input, gameProcessedEvent)
-			if input.UserInputType == Enum.UserInputType.Keyboard then
-				self._draggerToolModel:_processKeyUp(input.KeyCode)
-			end
-		end)
-	end
 
 	self._dragEnterConnection = mouse.DragEnter:Connect(function(instances)
 		if #instances > 0 then
@@ -163,11 +154,6 @@ function DraggerToolComponent:teardown()
 
 	self._keyDownConnection:Disconnect()
 	self._keyDownConnection = nil
-
-	if getFFlagSummonPivot() then
-		self._keyUpConnection:Disconnect()
-		self._keyUpConnection = nil
-	end
 
 	self._dragEnterConnection:Disconnect()
 	self._dragEnterConnection = nil

@@ -28,7 +28,6 @@
 local FFlagGameSettingsMigrateToDevFrameworkSeparator = game:GetFastFlag("GameSettingsMigrateToDevFrameworkSeparator")
 local FFlagGameSettingsStandardizeLocalizationId = game:GetFastFlag("GameSettingsStandardizeLocalizationId")
 local FFlagLuobuDevPublishLua = game:GetFastFlag("LuobuDevPublishLua")
-local FFlagLuobuDevPublishLuaTempOptIn = game:GetFastFlag("LuobuDevPublishLuaTempOptIn")
 local FFlagUseLayoutIteratorGameSettingsPublishPlace = game:GetFastFlag("UseLayoutIteratorGameSettingsPublishPlace")
 
 local StudioService = game:GetService("StudioService")
@@ -91,7 +90,7 @@ local FFlagGameSettingsUseKeyProvider = game:GetFastFlag("GameSettingsUseKeyProv
 local KeyProvider = FFlagGameSettingsUseKeyProvider and require(Plugin.Src.Util.KeyProvider) or nil
 
 local GetOptInLocationsKeyName = FFlagGameSettingsUseKeyProvider and KeyProvider.getOptInLocationsKeyName or nil
-local optInLocationsKey = (FFlagLuobuDevPublishLua or FFlagLuobuDevPublishLuaTempOptIn) and GetOptInLocationsKeyName and GetOptInLocationsKeyName() or "OptInLocations"
+local optInLocationsKey = FFlagLuobuDevPublishLua and GetOptInLocationsKeyName and GetOptInLocationsKeyName() or "OptInLocations"
 
 local GetChinaKeyName = FFlagGameSettingsUseKeyProvider and KeyProvider.getChinaKeyName or nil
 local chinaKey = FFlagLuobuDevPublishLua and GetChinaKeyName and GetChinaKeyName() or "China"
@@ -104,7 +103,6 @@ local Tooltip = Framework.UI.Tooltip
 local Image = Framework.UI.Decoration.Image
 local HoverArea = Framework.UI.HoverArea
 local TextWithInlineLink = Framework.UI.TextWithInlineLink
-local LinkText = Framework.UI.LinkText
 
 local Util = Framework.Util
 local StyleModifier = Util.StyleModifier
@@ -529,10 +527,9 @@ end
 
 function BasicInfo:render()
 	local localization = self.props.Localization
-	local theme = (FFlagLuobuDevPublishLua or FFlagLuobuDevPublishLuaTempOptIn) and self.props.Theme:get("Plugin") or nil
+	local theme = FFlagLuobuDevPublishLua and self.props.Theme:get("Plugin") or nil
 	local chinaModerationStatus = FFlagLuobuDevPublishLua and self.getModerationStatus(chinaKey) or nil
 	local layoutOrder = FFlagUseLayoutIteratorGameSettingsPublishPlace and LayoutOrderIterator.new() or nil
-	local layoutOrder2 = (FFlagUseLayoutIteratorGameSettingsPublishPlace and FFlagLuobuDevPublishLuaTempOptIn and shouldShowDevPublishLocations()) and LayoutOrderIterator.new() or nil
 
 	local function createChildren()
 		if not self:hasPermissionToEdit() then
@@ -735,11 +732,11 @@ function BasicInfo:render()
 				end,
 			}),
 
-			Separator6 = not FFlagLuobuDevPublishLuaTempOptIn and FFlagLuobuDevPublishLua and shouldShowDevPublishLocations() and Roact.createElement(Separator, {
+			Separator6 = FFlagLuobuDevPublishLua and shouldShowDevPublishLocations() and Roact.createElement(Separator, {
 				LayoutOrder = FFlagUseLayoutIteratorGameSettingsPublishPlace and layoutOrder:getNextOrder() or 130,
 			}) or nil,
 
-			OptInLocations = not FFlagLuobuDevPublishLuaTempOptIn and FFlagLuobuDevPublishLua and shouldShowDevPublishLocations() and Roact.createElement(CheckBoxSet, {
+			OptInLocations = FFlagLuobuDevPublishLua and shouldShowDevPublishLocations() and Roact.createElement(CheckBoxSet, {
 				Title = localization:getText("General", "TitleOptInLocations"),
 				LayoutOrder = FFlagUseLayoutIteratorGameSettingsPublishPlace and layoutOrder:getNextOrder() or 140,
 				Boxes = {{
@@ -835,40 +832,6 @@ function BasicInfo:render()
 				}),
 			}) or nil,
 
-			Separator7 = FFlagLuobuDevPublishLuaTempOptIn and shouldShowDevPublishLocations() and Roact.createElement(Separator, {
-				LayoutOrder = FFlagUseLayoutIteratorGameSettingsPublishPlace and layoutOrder:getNextOrder() or 130,
-			}) or nil,
-
-			TempOptInLocations = FFlagLuobuDevPublishLuaTempOptIn and shouldShowDevPublishLocations() and Roact.createElement(TitledFrame, {
-				Title = localization:getText("General", "TitleOptInLocations"),
-				MaxHeight = 60,
-				LayoutOrder = FFlagUseLayoutIteratorGameSettingsPublishPlace and layoutOrder:getNextOrder() or 140,
-				TextSize = theme.fontStyle.Header.TextSize,
-			}, {
-				UILayout = Roact.createElement("UIListLayout", {
-					SortOrder = Enum.SortOrder.LayoutOrder,
-					FillDirection = Enum.FillDirection.Horizontal,
-					VerticalAlignment = Enum.VerticalAlignment.Top,
-				}),
-				Text = Roact.createElement("TextLabel", {
-					Size = UDim2.new(0, calculateTextSize(localization:getText(optInLocationsKey, "TempLinkDescription"), theme.fontStyle.Smaller.TextSize, theme.fontStyle.Smaller.Font).X, 0, theme.fontStyle.Smaller.TextSize),
-					BackgroundTransparency = 1,
-					TextColor3 = theme.fontStyle.Smaller.TextColor3,
-					TextXAlignment = Enum.TextXAlignment.Left,
-					TextSize = theme.fontStyle.Smaller.TextSize,
-					Font = theme.fontStyle.Smaller.Font,
-					Text = localization:getText(optInLocationsKey, "TempLinkDescription"),
-					LayoutOrder = layoutOrder2 and layoutOrder2:getNextOrder() or 1,
-				}),
-				LinkText = Roact.createElement(LinkText, {
-					Text = "roblox.cn",
-					Style = "LinkTextStyle",
-					OnClick = function()
-						GuiService:OpenBrowserWindow("https://roblox.cn/")
-					end,
-					LayoutOrder = layoutOrder2 and layoutOrder2:getNextOrder() or 2,
-				}),
-			}) or nil,
 		}
 	end
 

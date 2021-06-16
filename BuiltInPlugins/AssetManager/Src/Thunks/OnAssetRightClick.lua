@@ -20,7 +20,6 @@ local RunService = game:GetService("RunService")
 local StudioService = game:GetService("StudioService")
 
 local FFlagCleanupRightClickContextMenuFunctions2 = game:GetFastFlag("CleanupRightClickContextMenuFunctions2")
-local FFlagNewPackageAnalyticsWithRefactor = game:GetFastFlag("NewPackageAnalyticsWithRefactor")
 
 local EVENT_ID_OPENASSETCONFIG = "OpenAssetConfiguration"
 
@@ -180,9 +179,6 @@ local function createPackageContextMenu(analytics, assetData, contextMenu, isAss
         contextMenu:AddNewAction("UpdateAll", localization:getText("ContextMenu", "UpdateAll")).Triggered:connect(function()
             AssetManagerService:UpdateAllPackages(assetData.id)
             analytics:report("clickContextMenuItem")
-            if FFlagNewPackageAnalyticsWithRefactor then
-                analytics:report("massUpdateFromAssetManager")
-            end
         end)
     end
     contextMenu:AddNewAction("ViewOnWebsite", localization:getText("ContextMenu", "ViewOnWebsite")).Triggered:connect(function()

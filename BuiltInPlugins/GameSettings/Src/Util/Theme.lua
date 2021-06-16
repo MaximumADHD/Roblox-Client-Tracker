@@ -22,7 +22,6 @@ local createTheme = UILibrary.createTheme
 local StudioStyle = UILibrary.Studio.Style
 
 local FFlagLuobuDevPublishLua = game:GetFastFlag("LuobuDevPublishLua")
-local FFlagLuobuDevPublishLuaTempOptIn = game:GetFastFlag("LuobuDevPublishLuaTempOptIn")
 
 local Theme = {}
 
@@ -120,19 +119,6 @@ function Theme.createValues(theme, getColor)
 		})
 		return {
 			TooltipStyle = TooltipStyle,
-		}
-	end) or nil
-
-	local tempLinkText = FFlagLuobuDevPublishLuaTempOptIn and StyleTable.new("LinkText", function()
-		local LinkTextStyle = Style.new({
-			Font = fontStyle.Smaller.Font,
-			TextSize = fontStyle.Smaller.TextSize,
-			EnableHover = true,
-			TextColor = theme:getColor(StyleColor.LinkText),
-		})
-
-		return {
-			LinkTextStyle = LinkTextStyle,
 		}
 	end) or nil
 
@@ -525,8 +511,7 @@ function Theme.createValues(theme, getColor)
 
 		Framework = Style.extend(studioStyles, {
 			Button = Style.extend(studioStyles.Button, gameSettingsButtons),
-			Image = FFlagLuobuDevPublishLua and Style.extend(studioStyles.Image, tooltipOptIn) or nil,
-			LinkText = FFlagLuobuDevPublishLuaTempOptIn and Style.extend(studioStyles.LinkText, tempLinkText) or nil,
+			Image = FFlagLuobuDevPublishLua and Style.extend(studioStyles.Image, tooltipOptIn) or nil
 		}),
 	}
 end

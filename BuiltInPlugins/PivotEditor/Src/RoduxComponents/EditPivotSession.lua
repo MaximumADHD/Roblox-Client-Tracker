@@ -18,7 +18,6 @@ local BeginSelectingPivot = require(Plugin.Src.Actions.BeginSelectingPivot)
 local DoneSelectingPivot = require(Plugin.Src.Actions.DoneSelectingPivot)
 
 local getFFlagStudioToastNotificationsInLua = require(Plugin.Src.Flags.getFFlagStudioToastNotificationsInLua)
-local getFFlagSummonPivot = require(DraggerFramework.Flags.getFFlagSummonPivot)
 
 local EditingMode = require(Plugin.Src.Utility.EditingMode)
 local StatusMessage = require(Plugin.Src.Utility.StatusMessage)
@@ -39,23 +38,15 @@ local function shouldShowNotification(statusMessage)
 	end
 end
 
-if getFFlagSummonPivot() then
-	function EditPivotSession:didMount()
-		self._oldShowPivot = self._draggerContext:setPivotIndicator(true)
-	end
-end
-
 function EditPivotSession:_getCurrentDraggerHandles()
 	if self.props.editingMode == EditingMode.Transform then
 		return {
 			MoveHandles.new(self._draggerContext, {
 				Outset = 0.5,
 				ShowBoundingBox = false,
-				Summonable = false,
 			}, DraggerSchema.MoveHandlesImplementation.new(self._draggerContext, ANALYTICS_NAME)),
 			RotateHandles.new(self._draggerContext, {
 				ShowBoundingBox = false,
-				Summonable = false,
 			}, DraggerSchema.RotateHandlesImplementation.new(self._draggerContext, ANALYTICS_NAME)),
 			PivotHandle.new(self._draggerContext),
 		}
@@ -116,12 +107,6 @@ function EditPivotSession:willUpdate(nextProps, nextState)
 				self.props.ToastNotification:showNotification(message, nextStatusMessage)
 			end
 		end
-	end
-end
-
-if getFFlagSummonPivot() then
-	function EditPivotSession:willUnmount()
-		self._draggerContext:setPivotIndicator(self._oldShowPivot)
 	end
 end
 

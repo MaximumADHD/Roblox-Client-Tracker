@@ -20,7 +20,6 @@ local Constants = require(Plugin.Src.Util.Constants)
 local FindNestedParts = require(Plugin.LuaFlags.GetFFlagFindNestedParts)
 local FixDuplicateChildNames = require(Plugin.LuaFlags.GetFFlagFixDuplicateChildNames)
 local AllowDuplicateNamesOnNonAnimatedParts = require(Plugin.LuaFlags.GetFFlagAllowDuplicateNamesOnNonAnimatedParts)
-local GetFFlagPrecalculatePartPaths = require(Plugin.LuaFlags.GetFFlagPrecalculatePartPaths)
 
 local FFlagFixDuplicateNamedRoot = game:DefineFastFlag("FixDuplicateNamedRoot", false)
 
@@ -1020,8 +1019,7 @@ end
 -- constructs the chain, making use of existing poses along the way
 -- if they exist.
 
--- Unused when GetFFlagPrecalculatePartPaths is ON
-local function makePoseChain_deprecated(keyframe, trackName, rig, trackData, partsToMotors, boneMap)
+local function makePoseChain(keyframe, trackName, rig, trackData, partsToMotors, boneMap)
 	local poseInstance = keyframe:FindFirstChild(trackName, true)
 	if poseInstance == nil then
 		poseInstance = Instance.new("Pose")
@@ -1059,62 +1057,6 @@ local function makePoseChain_deprecated(keyframe, trackName, rig, trackData, par
 	poseChain.Parent = keyframe
 end
 
-local function makePoseChain(keyframe, trackName, trackData, pathMap)
-	local path = pathMap[trackName]
-
-	-- We haven't found a path to this trackName in the rig, bail out
-	if path == nil then
-		return
-	end
-
-	local currentInstance = keyframe
-
-	for i, poseName in ipairs(path) do
-		local poseInstance = currentInstance:FindFirstChild(poseName)
-		if poseInstance == nil then
-			-- The intermediate Pose does not exist, create it
-			poseInstance = Instance.new("Pose")
-			poseInstance.Name = poseName
-			poseInstance.Parent = currentInstance
-			poseInstance.Weight = 0
-		end
-
-		-- We reached the last part of the path, this is where we store the data
-		if i == #path then
-			poseInstance.Weight = 1
-			poseInstance.CFrame = trackData.Value
-			poseInstance.EasingStyle = trackData.EasingStyle.Name
-			poseInstance.EasingDirection = trackData.EasingDirection.Name
-		end
-
-		currentInstance = poseInstance
-	end
-end
-
--- For each track name (name of a part), find the parents leading to the root instance
--- and store the path in a table
-local function createPathMap(tracks, partsToMotors, boneMap)
-	local pathMap = {}
-	for trackName, _ in pairs(tracks) do
-		local path = {}
-		local current = trackName
-		while current ~= nil do
-			table.insert(path, 1, current)
-			local motor = partsToMotors[current]
-			local bone = boneMap[current]
-			if motor then
-				current = motor.Part0.Name
-			elseif bone then
-				current = bone.Parent.Name
-			else
-				current = nil
-			end
-		end
-		pathMap[trackName] = path
-	end
-	return pathMap
-end
-
 -- Exporting to KeyframeSequence animation requires a dummy rig so that we
 -- can determine which parts are connected to other parts to build a pose chain.
 function RigUtils.toRigAnimation(animationData, rig)
@@ -1140,12 +1082,6 @@ function RigUtils.toRigAnimation(animationData, rig)
 	local root = animationData.Instances.Root
 	assert(root.Type == Constants.INSTANCE_TYPES.Rig, "Can only export Rig animations to KeyframeSequence.")
 	local tracks = root.Tracks
-
-	local pathMap
-	if GetFFlagPrecalculatePartPaths() then
-		pathMap = createPathMap(tracks, partsToMotors, boneMap)
-	end
-
 	for trackName, track in pairs(tracks) do
 		for _, keyframe in pairs(track.Keyframes) do
 			local time = keyframe / frameRate
@@ -1155,12 +1091,7 @@ function RigUtils.toRigAnimation(animationData, rig)
 				kfsByFrame[keyframe] = keyframeInstance
 			end
 			local trackData = track.Data[keyframe]
-
-			if GetFFlagPrecalculatePartPaths() then
-				makePoseChain(keyframeInstance, trackName, trackData, pathMap)
-			else
-				makePoseChain_deprecated(keyframeInstance, trackName, rig, trackData, partsToMotors, boneMap)
-			end
+			makePoseChain(keyframeInstance, trackName, rig, trackData, partsToMotors, boneMap)
 
 			-- Set keyframe name, if one exists
 			if namedKeyframes[keyframe] then

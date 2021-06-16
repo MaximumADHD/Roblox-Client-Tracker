@@ -25,7 +25,6 @@
 		callBack _SetCurrentTime: Called if the currentTime has been changed, such as when moving a progressbar slider.
 ]]
 local FFlagHideOneChildTreeviewButton = game:GetFastFlag("HideOneChildTreeviewButton")
-local FFlagStudioStopUsingPluginSoundApis = game:GetFastFlag("StudioStopUsingPluginSoundApis")
 
 local wrapMedia = require(script.Parent.wrapMedia)
 
@@ -55,8 +54,7 @@ AudioPreview.defaultProps = {
 }
 
 function AudioPreview:init(props)
-	-- TODO: Remove with FFlagStudioStopUsingPluginSoundApis
-	local plugin = (not FFlagStudioStopUsingPluginSoundApis) and getPlugin(self) or nil
+	local plugin = getPlugin(self)
 	self.soundRef = Roact.createRef()
 
 	self.state = {
@@ -71,20 +69,12 @@ function AudioPreview:init(props)
 		end
 		if updateType == "PLAY" then
 			soundObj.SoundId = self.props.SoundId
-			if FFlagStudioStopUsingPluginSoundApis then
-				soundObj.Playing = true
-			else
-				plugin:ResumeSound(soundObj)
-			end
+			plugin:ResumeSound(soundObj)
 			if self.props.reportPlay then
 				self.props.ReportPlay()
 			end
 		elseif updateType == "PAUSE" then
-			if FFlagStudioStopUsingPluginSoundApis then
-				soundObj.Playing = false
-			else
-				plugin:PauseSound(soundObj)
-			end
+			plugin:PauseSound(soundObj)
 			if self.props.ReportPause then
 				self.props.ReportPause()
 			end

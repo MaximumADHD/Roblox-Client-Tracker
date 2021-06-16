@@ -84,9 +84,7 @@ function TransformHandlesImplementation:updateDrag(globalTransform)
 		for _, part in ipairs(self._partsToMove) do
 			for _, joint in ipairs(part:GetJoints()) do
 				appliedTransform = applyLocalTransform(self._jointsToOrigTransform[joint], localTransform)
-				if(joint.Part1.Name == part.name) then 
-					values[joint.Part1.Name] = appliedTransform
-				end
+				values[joint.Part1.Name] = appliedTransform
 			end
 		end
 
@@ -141,7 +139,7 @@ end
 	Renders any snapping, joint, etc widgets that should show up while dragging.
 	Returns: A Roact element.
 ]]
-function TransformHandlesImplementation:render(globalTransform)
+function TransformHandlesImplementation:render(currentBasisCFrame)
 	return nil
 end
 

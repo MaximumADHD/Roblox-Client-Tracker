@@ -2,8 +2,6 @@
 -- This script is responsible for fetching the assetInstance using an assetID.
 -- this script will return a model for preview with all scripts disabled.
 
-local FFlagStudioAssetManagerRefactorAssetPreview = game:GetFastFlag("StudioAssetManagerRefactorAssetPreview")
-
 local Plugin = script.Parent.Parent.Parent
 local Promise = require(Plugin.Packages.Framework.Util.Promise)
 
@@ -59,11 +57,6 @@ return function(assetId, assetTypeId)
 				local soundId = ASSET_ID_STRING:format(assetId)
 				soundInstance.SoundId = soundId
 				results = soundInstance
-			elseif FFlagStudioAssetManagerRefactorAssetPreview and assetTypeId == Enum.AssetType.Image.Value then
-				local decalInstance = Instance.new("Decal")
-				local textureId = ASSET_ID_STRING:format(assetId)
-				decalInstance.Texture = textureId
-				results = decalInstance
 			else
 				results = getPreviewModel(assetId)
 			end

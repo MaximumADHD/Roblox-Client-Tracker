@@ -14,7 +14,6 @@ local classifyPivot = require(DraggerFramework.Utility.classifyPivot)
 local getFFlagFoldersOverFragments = require(DraggerFramework.Flags.getFFlagFoldersOverFragments)
 local getFFlagDraggerPerf = require(DraggerFramework.Flags.getFFlagDraggerPerf)
 local getFFlagPivotAnalytics = require(DraggerFramework.Flags.getFFlagPivotAnalytics)
-local getFFlagSummonPivot = require(DraggerFramework.Flags.getFFlagSummonPivot)
 
 local DraggerToolModel = {}
 DraggerToolModel.__index = DraggerToolModel
@@ -44,7 +43,6 @@ local DEFAULT_DRAGGER_SETTINGS = {
 	ShowLocalSpaceIndicator = false,
 	WasAutoSelected = false,
 	HandlesList = {},
-	ShowPivotIndicator = false,
 }
 local REQUIRED_DRAGGER_SETTINGS = {
 	AnalyticsName = true,
@@ -254,10 +252,6 @@ function DraggerToolModel:_processSelected()
 	self._mainState = DraggerStateType.Ready
 	self._stateObject = DraggerState[DraggerStateType.Ready].new(self)
 
-	if getFFlagSummonPivot() and self._modelProps.ShowPivotIndicator then
-		self._oldShowPivot = self._draggerContext:setPivotIndicator(true)
-	end
-
 	self._mouseCursor = ""
 	self._draggerContext:setMouseIcon("")
 
@@ -291,10 +285,6 @@ end
 function DraggerToolModel:_processDeselected()
 	if self._isMouseDown then
 		self:_processMouseUp()
-	end
-
-	if getFFlagSummonPivot() and self._modelProps.ShowPivotIndicator then
-		self._draggerContext:setPivotIndicator(self._oldShowPivot)
 	end
 
 	-- Need to explicitly leave the last state now for correct behavior
@@ -371,6 +361,17 @@ function DraggerToolModel:_processViewChanged()
 	self:_scheduleRender()
 end
 
+--[[
+	Called when the user sets the size or position of one of the parts we have
+	selected, thus requiring an update to the bounding box.
+]]
+function DraggerToolModel:_processPartBoundsChanged(part)
+	-- Unfortunately there's no simple way to incrementally update the bounding
+	-- box selection, so we just recalculate it from scratch here by triggering
+	-- a selection changed.
+	self:_processSelectionChanged()
+end
+
 function DraggerToolModel:_updateSelectionInfo(newSelectionInfoHint)
 	if getFFlagDraggerPerf() and newSelectionInfoHint then
 		self._selectionInfo = newSelectionInfoHint
@@ -381,20 +382,6 @@ function DraggerToolModel:_updateSelectionInfo(newSelectionInfoHint)
 	self._boundsChangedTracker:setSelection(self._selectionInfo)
 
 	self:_scheduleRender()
-
-	if getFFlagSummonPivot() then
-		self:_updatePivotIndicatorVisibility()
-	end
-end
-
-function DraggerToolModel:_updatePivotIndicatorVisibility()
-	if self._modelProps.ShowPivotIndicator then
-		if #self._selectionWrapper:get() > 1 then
-			self._draggerContext:setPivotIndicator(self._oldShowPivot)
-		else
-			self._draggerContext:setPivotIndicator(true)
-		end
-	end
 end
 
 function DraggerToolModel:_processToolboxInitiatedFreeformSelectionDrag()

@@ -6,10 +6,9 @@
 		array[any] Columns: The columns of the table
 		any Row: The current row data 
 		number RowIndex: The index of the row to display relative to the current page
+		number DataIndex: The index of the row to display relative to the entire data set
 
 	Optional Props:
-		any CellComponent: An optional component passed to the row component which renders individual cells.
-		table CellProps: A table of props which are passed from the table's props to the CellComponent.
 		Stylizer Stylizer: A Stylizer ContextItem, which is provided via mapToProps.
 		boolean Selected: Whether the row is currently selected.
 ]]
@@ -42,6 +41,7 @@ function TableRow:render()
 	local style = props.Stylizer
 	local row = props.Row
 	local rowIndex = props.RowIndex
+	local dataIndex = props.DataIndex
 	local CellComponent = props.CellComponent or TableCell
 	local columns = props.Columns
 	local cells = map(columns, function(column, index: number)
@@ -49,7 +49,6 @@ function TableRow:render()
 		local value: any = row[key] or ""
 		local tooltip: string = row[column.TooltipKey]
 		return Roact.createElement(CellComponent, {
-			CellProps = props.CellProps,
 			Value = value,
 			Tooltip = tooltip,
 			Width = column.Width,
@@ -58,10 +57,11 @@ function TableRow:render()
 			Row = row,
 			ColumnIndex = index,
 			RowIndex = rowIndex,
+			DataIndex = dataIndex,
 		})
 	end)
 	return Roact.createElement(Pane, assign({
-		Size = UDim2.new(1, 0, 0, style.RowHeight),
+		Size = UDim2.new(1, 0, 0, 24),
 		Style = "Box",
 		Layout = Enum.FillDirection.Horizontal,
 	}, props.WrapperProps), cells)

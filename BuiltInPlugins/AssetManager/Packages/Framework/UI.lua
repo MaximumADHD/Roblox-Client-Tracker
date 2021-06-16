@@ -39,7 +39,6 @@ local Tabs = require(Src.Tabs)
 local TextLabel = require(Src.TextLabel)
 local TextWithInlineLink = require(Src.TextWithInlineLink)
 local TextInput = require(Src.TextInput)
-local TreeTable = require(Src.TreeTable)
 local TreeView = require(Src.TreeView)
 local InstanceTreeView = require(Src.InstanceTreeView)
 local BulletList = require(Src.BulletList)
@@ -91,7 +90,6 @@ local UI = strict({
 	TextWithInlineLink = TextWithInlineLink,
 	ToggleButton = ToggleButton,
 	Tooltip = Tooltip,
-	TreeTable = TreeTable,
 	TreeView = TreeView,
 
 	Decoration = {

@@ -4,7 +4,6 @@
 ]]
 local FFlagUpdatePublishPlacePluginToDevFrameworkContext = game:GetFastFlag("UpdatePublishPlacePluginToDevFrameworkContext")
 local FFlagFixPublishAsWhenQueryFails = game:GetFastFlag("FixPublishAsWhenQueryFails")
-local FFlagUseLocalizedUntitledGameTextForAddNewPlace = game:GetFastFlag("UseLocalizedUntitledGameTextForAddNewPlace")
 
 local StudioService = game:GetService("StudioService")
 
@@ -96,7 +95,6 @@ function ScreenChoosePlace:render()
 		local gameText = parentGame and parentGame.name or ""
 		local headerText = localization:getText("ScreenHeader", "ChoosePlace", { gameText })
 		local buttonText = localization:getText("General", "ButtonRetry")
-		local untitledGameText = localization:getText("General", "UntitledGame")
 
 		local components = {
 			Roact.createElement("UIListLayout", {
@@ -134,10 +132,7 @@ function ScreenChoosePlace:render()
 				Selected = newPlaceSelected,
 				OnActivated = function()
 					self:setState({
-						selectedPlace = {
-							placeId = 0,
-							name = FFlagUseLocalizedUntitledGameTextForAddNewPlace and untitledGameText or "Untitled Place"
-						}
+						selectedPlace = { placeId = 0 , name = "Untitled Place"}
 					})
 				end,
 			})
@@ -338,7 +333,6 @@ function ScreenChoosePlace:render()
 				local gameText = parentGame and parentGame.name or ""
 				local headerText = localization:getText("ScreenHeader", "ChoosePlace", gameText)
 				local buttonText = localization:getText("General", "ButtonRetry")
-				local untitledGameText = localization:getText("General", "UntitledGame")
 
 				local components = {
 					Roact.createElement("UIListLayout", {
@@ -376,10 +370,7 @@ function ScreenChoosePlace:render()
 						Selected = newPlaceSelected,
 						OnActivated = function()
 							self:setState({
-								selectedPlace = {
-									placeId = 0,
-									name = FFlagUseLocalizedUntitledGameTextForAddNewPlace and untitledGameText or "Untitled Place"
-								}
+								selectedPlace = { placeId = 0 , name = "Untitled Place"}
 							})
 						end,
 					})

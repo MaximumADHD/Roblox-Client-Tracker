@@ -67,7 +67,6 @@ local PurchaseStatus = require(Plugin.Core.Types.PurchaseStatus)
 
 local AssetPreviewWrapper = Roact.PureComponent:extend("AssetPreviewWrapper")
 
-local FFlagDevFrameworkAssetPreviewFixes = game:GetFastFlag("DevFrameworkAssetPreviewFixes")
 local FFlagStudioHideSuccessDialogWhenFree = game:GetFastFlag("StudioHideSuccessDialogWhenFree")
 
 local AssetType
@@ -326,11 +325,6 @@ function AssetPreviewWrapper:init(props)
 	end
 
 	self.tryInstall = function()
-		if FFlagDevFrameworkAssetPreviewFixes then
-			self:setState({
-				showInstallationBar = true
-			})
-		end
 		local assetData = self.props.assetData
 		local previewPluginData = self.props.previewPluginData
 		local assetVersionId = previewPluginData.versionId
@@ -375,13 +369,6 @@ function AssetPreviewWrapper:init(props)
 
 			StudioService:UpdatePluginManagement()
 		end
-
-		if FFlagDevFrameworkAssetPreviewFixes then
-			self:setState({
-				showInstallationBar = false
-			})
-		end
-
 		return success
 	end
 
@@ -484,12 +471,6 @@ function AssetPreviewWrapper:render()
 				local assetPreview
 
 				if FlagsList:get("FFlagToolboxUseDevFrameworkAssetPreview") then
-					local actionEnabled = not purchaseFlow.InstallDisabled
-
-					if FFlagDevFrameworkAssetPreviewFixes then
-						actionEnabled = actionEnabled and not self.state.showInstallationBar
-					end
-
 					assetPreview = Roact.createElement(AssetPreview, {
 						Position = UDim2.new(0.5, 0, 0.5, 0),
 						AnchorPoint = Vector2.new(0.5, 0.5),
@@ -500,7 +481,7 @@ function AssetPreviewWrapper:render()
 						AssetInstance = previewModel,
 
 						-- TODO DEVTOOLS-4896: refactor the action bar out of AssetPreview and clean up the logic in this component, bring back loading bar for installs in a sensible place
-						ActionEnabled = actionEnabled,
+						ActionEnabled = not purchaseFlow.InstallDisabled,
 						ShowRobuxIcon = purchaseFlow.ShowRobuxIcon,
 						ActionText = tostring(purchaseFlow.ActionBarText),
 						OnClickAction = purchaseFlow.TryInsert,
