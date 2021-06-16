@@ -9,8 +9,10 @@ uniform sampler2D ShadowMapTexture;
 uniform sampler3D LightMapTexture;
 uniform sampler3D LightGridSkylightTexture;
 uniform sampler2D DiffuseMapTexture;
+uniform sampler2D Tc2DiffuseMapTexture;
 
 varying vec2 VARYING0;
+varying vec2 VARYING1;
 varying vec4 VARYING2;
 varying vec4 VARYING3;
 varying vec4 VARYING4;
@@ -19,10 +21,10 @@ varying vec4 VARYING6;
 
 void main()
 {
-    vec4 f0 = texture2D(DiffuseMapTexture, VARYING0);
+    vec4 f0 = texture2D(Tc2DiffuseMapTexture, VARYING1);
     float f1 = f0.w;
-    vec4 f2 = vec4(mix(VARYING2.xyz, f0.xyz, vec3(f1)), VARYING2.w);
-    vec4 f3 = vec4(f0.xyz, VARYING2.w * f1);
+    vec4 f2 = vec4(mix(vec4(texture2D(DiffuseMapTexture, VARYING0).xyz * VARYING2.xyz, f1).xyz, f0.xyz, vec3(f1)), f1);
+    vec4 f3 = vec4(f0.xyz, f1 * f1);
     bvec4 f4 = bvec4(CB3[0].x != 0.0);
     vec4 f5 = vec4(f4.x ? f2.x : f3.x, f4.y ? f2.y : f3.y, f4.z ? f2.z : f3.z, f4.w ? f2.w : f3.w);
     vec3 f6 = f5.xyz;
@@ -50,3 +52,4 @@ void main()
 //$$LightMapTexture=s6
 //$$LightGridSkylightTexture=s7
 //$$DiffuseMapTexture=s3
+//$$Tc2DiffuseMapTexture=s0

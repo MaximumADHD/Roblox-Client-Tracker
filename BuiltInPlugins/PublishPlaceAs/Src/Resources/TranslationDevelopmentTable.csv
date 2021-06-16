@@ -1,4 +1,5 @@
 Key,Source,Context,en-us
+Studio.PublishPlaceAs.OptInLocations.ChinaRequirements, to publish to China, , to publish to China
 Studio.PublishPlaceAs.Button.AddNewPlace, , ,Add New
 Studio.PublishPlaceAs.Button.Close, , ,Close
 Studio.PublishPlaceAs.Button.ReplyAgree, , ,Agree
@@ -78,3 +79,5 @@ Studio.PublishPlaceAs.ScreenHeader.ChoosePlace, ,Substituted with game name to t
 Studio.PublishPlaceAs.OptInLocations.China,China, ,China
 Studio.PublishPlaceAs.OptInLocations.TitleOptInLocations,Opt-In Locations, ,Opt-In Locations
 Studio.PublishPlaceAs.OptInLocations.Tooltip,Your creation will be published globally in addition to all the selected opt-in locations. See each location for specific requirements., ,Your creation will be published globally in addition to all the selected opt-in locations. See each location for specific requirements.
+Studio.PublishPlaceAs.OptInLocations.TempLinkDescription,"China: to submit your game to the LuoBu app, visit ", ,"China: to submit your game to the LuoBu app, visit "
+Studio.PublishPlaceAs.OptInLocations.RequirementsLinkText,Requirements, ,Requirements
