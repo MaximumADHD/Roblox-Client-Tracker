@@ -119,8 +119,6 @@ Studio.App.BetaFeatures.EnableCSGV3Description,,Use the new and faster CSG Engin
 Studio.App.BetaFeatures.EnableCSGV3Title,,CSG Version 3,CSG Version 3
 Studio.App.BetaFeatures.EnableLuauTypeCheckingDescription,,Enables new script analysis features,Enables new script analysis features
 Studio.App.BetaFeatures.EnableLuauTypeCheckingTitle,,Enable New Lua Script Analysis,Enable New Lua Script Analysis
-Studio.App.BetaFeatures.FasterRaycastsDescription,,Enables optimizations for faster raycasts.,Enables optimizations for faster raycasts.
-Studio.App.BetaFeatures.FasterRaycastsTitle,,Optimized Raycasts,Optimized Raycasts
 Studio.App.BetaFeatures.FindReplaceViewDescription,,"Overhaul of find and replace functionality to make working with large codebases easier. Streamlined interface, addition of search filters and Replace All functionality, and improved performance.","Overhaul of find and replace functionality to make working with large codebases easier. Streamlined interface, addition of search filters and Replace All functionality, and improved performance."
 Studio.App.BetaFeatures.FindReplaceViewTitle,,Find All / Replace All,Find All / Replace All
 Studio.App.BetaFeatures.ImprovedInnerBoxDescription,,Enable a different algorithm for avatar Inner Box collision box sizing and positioning using margins around RigAttachment extents.,Enable a different algorithm for avatar Inner Box collision box sizing and positioning using margins around RigAttachment extents.
@@ -129,6 +127,8 @@ Studio.App.BetaFeatures.InsertObjectStreamliningDescription,,Enables a new unifi
 Studio.App.BetaFeatures.InsertObjectStreamliningTitle,,Insert Object Streamlining,Insert Object Streamlining
 Studio.App.BetaFeatures.LSPGoToDeclDescription,,"(! Works better with ""Scripts Are Non-Strict By Default"" Beta Feature ON !) Luau type inference now powers the Go To Declaration feature in Script Editor, enhancing performance and reliability.","(! Works better with ""Scripts Are Non-Strict By Default"" Beta Feature ON !) Luau type inference now powers the Go To Declaration feature in Script Editor, enhancing performance and reliability."
 Studio.App.BetaFeatures.LSPGoToDeclTitle,,Luau-Powered Go To Declaration,Luau-Powered Go To Declaration
+Studio.App.BetaFeatures.LSPLuauAutocompleteDescription,,"(! Works better with ""Scripts Are Non-Strict By Default"" Beta Feature ON !) Luau type inference now powers Autocomplete in Script Editor, allowing Autocomplete to offer suggestions based on the type of a variable, while enhancing performance and reliability.","(! Works better with ""Scripts Are Non-Strict By Default"" Beta Feature ON !) Luau type inference now powers Autocomplete in Script Editor, allowing Autocomplete to offer suggestions based on the type of a variable, while enhancing performance and reliability."
+Studio.App.BetaFeatures.LSPLuauAutocompleteTitle,,Luau-Powered Autocomplete,Luau-Powered Autocomplete
 Studio.App.BetaFeatures.LSPNewFunctionFilterDescription,,"(! Works better with ""Scripts Are Non-Strict By Default"" Beta Feature ON !) Luau type inference now powers the Script Function Filter feature in Script Editor, adding type information to the widget while enhancing performance and reliability.","(! Works better with ""Scripts Are Non-Strict By Default"" Beta Feature ON !) Luau type inference now powers the Script Function Filter feature in Script Editor, adding type information to the widget while enhancing performance and reliability."
 Studio.App.BetaFeatures.LSPNewFunctionFilterTitle,,Luau-Powered Script Function Filter,Luau-Powered Script Function Filter
 Studio.App.BetaFeatures.LayeredClothingBetaDescription,,The WrapTarget and WrapLayer instances can be used to deform meshes without changing their topology using another Mesh (aka CageMesh).,The WrapTarget and WrapLayer instances can be used to deform meshes without changing their topology using another Mesh (aka CageMesh).
@@ -181,8 +181,7 @@ Studio.App.BetaFeatures.TerrainQolDescription,,Enable various small improvements
 Studio.App.BetaFeatures.TerrainQolTitle,,Terrain Quality of Life Changes,Terrain Quality of Life Changes
 Studio.App.BetaFeatures.TexturePacksDescription,,Unlocks PBR texture properties on SurfaceAppearance Instances.,Unlocks PBR texture properties on SurfaceAppearance Instances.
 Studio.App.BetaFeatures.TexturePacksTitle,,Advanced SurfaceAppearance Textures,Advanced SurfaceAppearance Textures
-Studio.App.BetaFeatures.TryCoolFeatures,,Try out cool new Studio features! Your feedback is invaluable to us as we move forward towards building a powerful imagination platform.,Try out cool new Studio features! Your feedback is invaluable to us as we move forward towards building a powerful imagination platform.
-Studio.App.BetaFeatures.TryCoolFeaturesWithWarning,,Try out cool new Studio features before they are released to everyone! Please be aware that Beta features could be unstable. Your feedback is invaluable to us as we move towards building the imagination platform.,Try out cool new Studio features before they are released to everyone! Please be aware that Beta features could be unstable. Your feedback is invaluable to us as we move towards building the imagination platform.
+Studio.App.BetaFeatures.TryCoolFeaturesWithWarning,,Try out cool new features before they are released to everyone! Please be aware that Beta features could be unstable. Your feedback is invaluable to us as we move towards building the imagination platform.,Try out cool new features before they are released to everyone! Please be aware that Beta features could be unstable. Your feedback is invaluable to us as we move towards building the imagination platform.
 Studio.App.BetaFeatures.UIStrokeDescription,,"Enables the UIStroke instance, which adds highly customizable borders around the edges of text and UI objects.","Enables the UIStroke instance, which adds highly customizable borders around the edges of text and UI objects."
 Studio.App.BetaFeatures.UIStrokeTitle,,UIStroke Component,UIStroke Component
 Studio.App.BetaFeatures.VirtualCursorDescription,,Enables a mouse-emulation cursor for gamepad input for interaction with UIs not designed for gamepad. Press the view button on gamepad while playing a game to try it out.,Enables a mouse-emulation cursor for gamepad input for interaction with UIs not designed for gamepad. Press the view button on gamepad while playing a game to try it out.
@@ -916,6 +915,7 @@ Studio.App.MainWindow.ArgumentsBreak,Main Window,Arguments:<br>,Arguments:<br>
 Studio.App.MainWindow.BreakPathSpace,Main Window,<br>Path: ,<br>Path: 
 Studio.App.MainWindow.BuildTypeSpace1,Main Window,Build Type: %1,Build Type: %1
 Studio.App.MainWindow.ClearTerrain,Main Window,The Terrain object persists in your workspace and can't be removed. Deleting it will clear existing terrain.,The Terrain object persists in your workspace and can't be removed. Deleting it will clear existing terrain.
+Studio.App.MainWindow.ClearTerrainTitle,Main Window,No terrain to clear.,No terrain to clear.
 Studio.App.MainWindow.CloseFile,Main Window,Close File,Close File
 Studio.App.MainWindow.CloseFileStatusTip,Main Window,Close the open file,Close the open file
 Studio.App.MainWindow.CloseStudio,Main Window,Close Studio,Close Studio
@@ -1381,7 +1381,7 @@ Studio.App.Property.ServerAudioBehavior,,Server Audio Behavior,Server Audio Beha
 Studio.App.Property.ShowActiveAnimationAsset,,Show Active Animation Asset,Show Active Animation Asset
 Studio.App.Property.ShowBoundingBoxes,,Show Bounding Boxes,Show Bounding Boxes
 Studio.App.Property.ShowCoreGUIInExplorerWhilePlaying,,Show Core GUI in Explorer while Playing,Show Core GUI in Explorer while Playing
-Studio.App.Property.ShowCorePackages,,Show CorePackages,Show CorePackages
+Studio.App.Property.ShowCorePackagesInExplorer,,Show CorePackages In Explorer,Show CorePackages In Explorer
 Studio.App.Property.ShowDecompositionGeometry,,Show Decomposition Geometry,Show Decomposition Geometry
 Studio.App.Property.ShowDeploymentWarnings,,Show Deployment Warnings,Show Deployment Warnings
 Studio.App.Property.ShowDiagnosticsBar,,Show Diagnostics Bar,Show Diagnostics Bar
@@ -1612,6 +1612,7 @@ Studio.App.RBXMainWindow.CantSaveEmptyPluginTitle,,Cannot Save Empty Plugin,Cann
 Studio.App.RBXMainWindow.CheckNetworkAndUserAuthentication,,"Feature not available in offline mode.
 Please check internet connection and restart Roblox.","Feature not available in offline mode.
 Please check internet connection and restart Roblox."
+Studio.App.RBXMainWindow.ChooseReferenceObject,,Choose Reference Object,Choose Reference Object
 Studio.App.RBXMainWindow.CleansUpClientsAndServers,,Clean up all clients and servers,Clean up all clients and servers
 Studio.App.RBXMainWindow.ClearOutputWindow,,Clear Output Window,Clear Output Window
 Studio.App.RBXMainWindow.ClearSelection,,Clear selection,Clear selection
@@ -1704,6 +1705,7 @@ Studio.App.RBXMainWindow.GoToNextDiffHunk,,Go to next diff hunk,Go to next diff 
 Studio.App.RBXMainWindow.GoToNextScriptLocation,,Go to next script location,Go to next script location
 Studio.App.RBXMainWindow.GoToPreviousDiffHunk,,Go to previous diff hunk,Go to previous diff hunk
 Studio.App.RBXMainWindow.GoToPreviousScriptLocation,,Go to previous script location,Go to previous script location
+Studio.App.RBXMainWindow.GoToReferenceObject,,Go To Reference Object,Go To Reference Object
 Studio.App.RBXMainWindow.GoToScriptError,,Go to Script Error,Go to Script Error
 Studio.App.RBXMainWindow.GridMaterial,,Grid Material,Grid Material
 Studio.App.RBXMainWindow.GridOff,,Grid Off,Grid Off
@@ -2462,6 +2464,7 @@ Studio.App.RobloxRibbonMainWindow.RunScript,,Run Script,Run Script
 Studio.App.RobloxRibbonMainWindow.Scale,,Scale,Scale
 Studio.App.RobloxRibbonMainWindow.ScreenGUI,,ScreenGUI,ScreenGUI
 Studio.App.RobloxRibbonMainWindow.ScreenShot,,Screen Shot,Screen Shot
+Studio.App.RobloxRibbonMainWindow.Script,,Script,Script
 Studio.App.RobloxRibbonMainWindow.ScriptActions,,Script Actions,Script Actions
 Studio.App.RobloxRibbonMainWindow.ScriptMenu,,Script Menu,Script Menu
 Studio.App.RobloxRibbonMainWindow.ScrollingFrameTooltip,,"A container object used to layout other GUI objects, and allows for scrolling","A container object used to layout other GUI objects, and allows for scrolling"
@@ -2638,8 +2641,10 @@ Files are missing or corrupted:","Unable to restore some of the drafts.
 
 Files are missing or corrupted:"
 Studio.App.ScriptAnalysisWidget.DisplayOnlyCurrentScript,,Display only current script,Display only current script
+Studio.App.ScriptAnalysisWidget.ErrorDisplayToggle,,Toggle lint error display,Toggle lint error display
 Studio.App.ScriptAnalysisWidget.NumErrorsTextFmt2,,%1 of %2 Errors,%1 of %2 Errors
 Studio.App.ScriptAnalysisWidget.NumWarningsTextFmt2,,%1 of %2 Warnings,%1 of %2 Warnings
+Studio.App.ScriptAnalysisWidget.WarningDisplayToggle,,Toggle lint warning display,Toggle lint warning display
 Studio.App.ScriptComboBox.RunACommand,,Run a command,Run a command
 Studio.App.ScriptInjection.DeniedError,,"Plugin ""%1"" was denied script injection permission. You can grant this permission in the Plugin Manager.","Plugin ""%1"" was denied script injection permission. You can grant this permission in the Plugin Manager."
 Studio.App.ScriptInjection.FirstDeniedError,,"Plugin ""%1"" was denied script injection permission. The user has been prompted for future attempts.","Plugin ""%1"" was denied script injection permission. The user has been prompted for future attempts."
