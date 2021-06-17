@@ -28,12 +28,10 @@ local RoundTextButton = UILibrary.Component.RoundTextButton
 local withContext = require(Plugin.Src.ContextServices.withContext)
 local AssetConfigFooter = Roact.PureComponent:extend("AssetConfigFooter")
 
-local FFlagPackageProductUXImprovementsMatchTextSizeWithGS = game:GetFastFlag("PackageProductUXImprovementsMatchTextSizeWithGS")
-
-local BUTTON_HEIGHT = FFlagPackageProductUXImprovementsMatchTextSizeWithGS and 35 or 32
+local BUTTON_HEIGHT = 35
 local BUTTON_WIDTH = 120
 
-local EDGE_PADDING = FFlagPackageProductUXImprovementsMatchTextSizeWithGS and 35
+local EDGE_PADDING = 35
 local PADDING = 24
 
 function AssetConfigFooter:render()
@@ -58,8 +56,8 @@ function AssetConfigFooter:render()
 		}, {
 			UIPadding = Roact.createElement("UIPadding", {
 				PaddingBottom = UDim.new(0, 0),
-				PaddingLeft = FFlagPackageProductUXImprovementsMatchTextSizeWithGS and UDim.new(0, EDGE_PADDING) or UDim.new(0, PADDING),
-				PaddingRight = FFlagPackageProductUXImprovementsMatchTextSizeWithGS and UDim.new(0, EDGE_PADDING) or UDim.new(0, PADDING),
+				PaddingLeft = UDim.new(0, EDGE_PADDING),
+				PaddingRight = UDim.new(0, EDGE_PADDING),
 				PaddingTop = UDim.new(0, 0),
 			}),
 
@@ -77,7 +75,7 @@ function AssetConfigFooter:render()
 				Size = UDim2.new(0, BUTTON_WIDTH, 0, BUTTON_HEIGHT),
 				Active = true,
 				Name = localization:getText("Action", "Cancel"),
-				TextSize = FFlagPackageProductUXImprovementsMatchTextSizeWithGS and Constants.FONT_SIZE_TITLE or Constants.FONT_SIZE_MEDIUM,
+				TextSize = Constants.FONT_SIZE_TITLE,
 
 				OnClicked = tryCancel,
 
@@ -90,7 +88,7 @@ function AssetConfigFooter:render()
 				Size = UDim2.new(0, BUTTON_WIDTH, 0, BUTTON_HEIGHT),
 				Active = canSave,
 				Name = localization:getText("Action", "Submit"),
-				TextSize = FFlagPackageProductUXImprovementsMatchTextSizeWithGS and Constants.FONT_SIZE_TITLE or Constants.FONT_SIZE_MEDIUM,
+				TextSize = Constants.FONT_SIZE_TITLE,
 
 				OnClicked = tryPublish,
 

@@ -1,15 +1,21 @@
 -- Libraries
 local Plugin = script.Parent.Parent.Parent
 
-local Colors = require(Plugin.Packages.DraggerFramework.Utility.Colors)
+local DraggerFramework = Plugin.Packages.DraggerFramework
+
+local Colors = require(DraggerFramework.Utility.Colors)
 
 local Roact = require(Plugin.Packages.Roact)
 local FreeformDragger = require(script.Parent.FreeformDragger)
 
+local PivotRing = require(Plugin.Src.Components.PivotRing)
+
 local getFFlagPivotAnalytics = require(Plugin.Src.Flags.getFFlagPivotAnalytics)
+local getFFlagSummonPivot = require(DraggerFramework.Flags.getFFlagSummonPivot)
 
 local ALWAYS_ON_TOP = true
 
+-- Remove these two with FFlag::SummonPivot
 local PIVOT_HOVER_IMAGE_SIZE = 32
 local PIVOT_HITTEST_RADIUS = 15
 
@@ -43,11 +49,21 @@ function PivotHandle:hitTest(mouseRay, ignoreExtraThreshold)
 		local mouseLocation = self._draggerContext:getMouseLocation()
 		local screenLocation = Vector2.new(screenPoint.X, screenPoint.Y)
 		local distanceFromCursor = (screenLocation - mouseLocation).Magnitude
-		if distanceFromCursor < PIVOT_HITTEST_RADIUS then
-			if getFFlagPivotAnalytics() then
-				return "Pivot", 0, ALWAYS_ON_TOP
-			else
-				return 0, 0, ALWAYS_ON_TOP
+		if getFFlagSummonPivot() then
+			if distanceFromCursor < PivotRing.HitTestRadius then
+				if getFFlagPivotAnalytics() then
+					return "Pivot", 0, ALWAYS_ON_TOP
+				else
+					return 0, 0, ALWAYS_ON_TOP
+				end
+			end
+		else
+			if distanceFromCursor < PIVOT_HITTEST_RADIUS then
+				if getFFlagPivotAnalytics() then
+					return "Pivot", 0, ALWAYS_ON_TOP
+				else
+					return 0, 0, ALWAYS_ON_TOP
+				end
 			end
 		end
 	end
@@ -69,35 +85,44 @@ function PivotHandle:_renderPivotAdorn(hovered: boolean)
 		return
 	end
 
-	local image: string
-	local tint: Color3
-	if hovered then
-		image = "rbxasset://Textures/PivotEditor/HoveredPivot.png"
-		tint = self._draggerContext:getSelectionBoxColor(self:_selectedIsActive())
-	else
-		image = "rbxasset://Textures/PivotEditor/SelectedPivot.png"
-		tint = Colors.WHITE
-	end
-
-	local screenPosition, onScreen = 
-		self._draggerContext:worldToViewportPoint(self._originalPivot.Position)
-	if onScreen then
-		return Roact.createElement(Roact.Portal, {
-			target = self._draggerContext:getGuiParent(),
-		}, {
-			PivotHoverHighlight = Roact.createElement("ScreenGui", {}, {
-				PivotHoverImage = Roact.createElement("ImageLabel", {
-					Image = image,
-					ImageColor3 = tint,
-					Size = UDim2.new(0, PIVOT_HOVER_IMAGE_SIZE, 0, PIVOT_HOVER_IMAGE_SIZE),
-					AnchorPoint = Vector2.new(0.5, 0.5),
-					Position = UDim2.new(0, screenPosition.X + 0.5, 0, screenPosition.Y + 0.5),
-					BackgroundTransparency = 1,
-				})
-			})
+	if getFFlagSummonPivot() then
+		return Roact.createElement(PivotRing, {
+			DraggerContext = self._draggerContext,
+			Hovered = hovered,
+			Pivot = self._originalPivot,
+			IsActive = self:_selectedIsActive(),
 		})
 	else
-		return nil
+		local image: string
+		local tint: Color3
+		if hovered then
+			image = "rbxasset://Textures/PivotEditor/HoveredPivot.png"
+			tint = self._draggerContext:getSelectionBoxColor(self:_selectedIsActive())
+		else
+			image = "rbxasset://Textures/PivotEditor/SelectedPivot.png"
+			tint = Colors.WHITE
+		end
+	
+		local screenPosition, onScreen = 
+			self._draggerContext:worldToViewportPoint(self._originalPivot.Position)
+		if onScreen then
+			return Roact.createElement(Roact.Portal, {
+				target = self._draggerContext:getGuiParent(),
+			}, {
+				PivotHoverHighlight = Roact.createElement("ScreenGui", {}, {
+					PivotHoverImage = Roact.createElement("ImageLabel", {
+						Image = image,
+						ImageColor3 = tint,
+						Size = UDim2.new(0, PIVOT_HOVER_IMAGE_SIZE, 0, PIVOT_HOVER_IMAGE_SIZE),
+						AnchorPoint = Vector2.new(0.5, 0.5),
+						Position = UDim2.new(0, screenPosition.X + 0.5, 0, screenPosition.Y + 0.5),
+						BackgroundTransparency = 1,
+					})
+				})
+			})
+		else
+			return nil
+		end
 	end
 end
 

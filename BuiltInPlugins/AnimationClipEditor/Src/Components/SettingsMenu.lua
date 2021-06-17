@@ -11,7 +11,6 @@ local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
-local Localization = ContextServices.Localization
 
 local Constants = require(Plugin.Src.Util.Constants)
 
@@ -22,6 +21,7 @@ local SetFrameRate = require(Plugin.Src.Thunks.SetFrameRate)
 local SetShowEvents = require(Plugin.Src.Actions.SetShowEvents)
 
 local UseCustomFPS = require(Plugin.LuaFlags.GetFFlagAnimEditorUseCustomFPS)
+local GetFFlagRefactorMenus = require(Plugin.LuaFlags.GetFFlagRefactorMenus)
 
 local SettingsMenu = Roact.PureComponent:extend("SettingsMenu")
 
@@ -34,7 +34,8 @@ function SettingsMenu:makeTimelineUnitMenu(localization)
 			{Name = localization:getText("Settings", "Seconds"), Value = Constants.TIMELINE_UNITS.Seconds},
 			{Name = localization:getText("Settings", "Frames"), Value = Constants.TIMELINE_UNITS.Frames},
 		},
-		CurrentItem = props.ShowAsSeconds and Constants.TIMELINE_UNITS.Seconds or Constants.TIMELINE_UNITS.Frames,
+		CurrentItem = not GetFFlagRefactorMenus() and (props.ShowAsSeconds and Constants.TIMELINE_UNITS.Seconds or Constants.TIMELINE_UNITS.Frames) or nil,
+		CurrentValue = GetFFlagRefactorMenus() and (props.ShowAsSeconds and Constants.TIMELINE_UNITS.Seconds or Constants.TIMELINE_UNITS.Frames) or nil,
 		ItemSelected = function(item)
 			props.SetShowAsSeconds(item.Value == Constants.TIMELINE_UNITS.Seconds)
 			props.Analytics:report("onTimeUnitChanged", item.Value)
@@ -69,7 +70,8 @@ function SettingsMenu:makeFrameRateMenu(localization)
 			{Name = localization:getText("Settings", "CustomFPS") .."...", Value = Constants.FRAMERATES.CUSTOM},
 		},
 
-		CurrentItem = isPresetFrameRate and currentFPS or Constants.FRAMERATES.CUSTOM,
+		CurrentItem = not GetFFlagRefactorMenus() and (isPresetFrameRate and currentFPS or Constants.FRAMERATES.CUSTOM) or nil,
+		CurrentValue = GetFFlagRefactorMenus() and (isPresetFrameRate and currentFPS or Constants.FRAMERATES.CUSTOM) or nil,
 		ItemSelected = function(item)
 			if item.Value ~= Constants.FRAMERATES.CUSTOM then
 				props.SetFrameRate(item.Value)
@@ -96,14 +98,16 @@ function SettingsMenu:makeMenuActions(localization)
 
 	table.insert(actions, {
 		Name = localization:getText("Settings", "ShowEvents"),
-		IsEnabled = props.ShowEvents,
+		IsEnabled = not GetFFlagRefactorMenus() and props.ShowEvents or nil,
+		Checked = GetFFlagRefactorMenus() and props.ShowEvents or nil,
 		ItemSelected = function()
 			props.SetShowEvents(not props.ShowEvents)
 		end,
 	})
 	table.insert(actions, {
 		Name = localization:getText("Settings", "SnapToKeys"),
-		IsEnabled = props.SnapToKeys,
+		IsEnabled = not GetFFlagRefactorMenus() and props.SnapToKeys or nil,
+		Checked = GetFFlagRefactorMenus() and props.SnapToKeys or nil,
 		ItemSelected = function()
 			props.ToggleSnapToKeys()
 			props.Analytics:report("onKeyframeSnapChanged", not props.SnapToKeys)

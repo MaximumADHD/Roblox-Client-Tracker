@@ -6,9 +6,11 @@ local TemporaryTransparency = require(DraggerFramework.Utility.TemporaryTranspar
 local getBoundingBoxScale = require(DraggerFramework.Utility.getBoundingBoxScale)
 local PartMover = require(DraggerFramework.Utility.PartMover)
 local AttachmentMover = require(DraggerFramework.Utility.AttachmentMover)
+local getGeometry = require(DraggerFramework.Utility.getGeometry)
 
 local getFFlagDraggerPerf = require(DraggerFramework.Flags.getFFlagDraggerPerf)
 local getFFlagFixDraggerHang = require(DraggerFramework.Flags.getFFlagFixDraggerHang)
+local getFFlagSummonPivot = require(DraggerFramework.Flags.getFFlagSummonPivot)
 
 local TransformHandlesImplementation = {}
 TransformHandlesImplementation.__index = TransformHandlesImplementation
@@ -19,6 +21,14 @@ TransformHandlesImplementation.__index = TransformHandlesImplementation
 -- of points P1 on the first part and P2 on the second part should satisfy:
 -- (P1 - P2).Magnitude < TRANSFORM_COLLISION_THRESHOLD
 local TRANSFORM_COLLISION_THRESHOLD = 0.0005
+
+-- How far to snap the pivot when summoning the handles
+local SUMMON_SNAP_THRESHOLD_PIXELS = 16
+
+-- The center snap threshold is more generous since you can't easily tell where
+-- the center is trying to snap to it blind (you don't see it highlighted while
+-- attempting to snap to it)
+local SUMMON_SNAP_CENTER_THRESHOLD_PIXELS = 20
 
 function TransformHandlesImplementation.new(draggerContext, ikTransformFunction)
 	return setmetatable({
@@ -105,10 +115,14 @@ end
 	Renders any snapping, joint, etc widgets that should show up while dragging.
 	Returns: A Roact element.
 ]]
-function TransformHandlesImplementation:render(currentBasisCFrame)
+function TransformHandlesImplementation:render(globalTransform)
+	local newCenterPoint = globalTransform
+	if getFFlagSummonPivot() then
+		newCenterPoint = globalTransform * self._centerPoint
+	end
 	if self._draggerContext:shouldJoinSurfaces() and self._jointPairs then
 		local scale = getBoundingBoxScale(
-			self._draggerContext, currentBasisCFrame, self._boundingBoxSize)
+			self._draggerContext, newCenterPoint, self._boundingBoxSize)
 		return self._jointPairs:renderJoints(scale)
 	else
 		-- Don't render anything
@@ -264,6 +278,86 @@ end
 
 function TransformHandlesImplementation:_shouldSolveConstraints()
 	return self._draggerContext:areConstraintsEnabled() and self._hasPartsToMove
+end
+
+local function toVector2(vector3)
+	return Vector2.new(vector3.X, vector3.Y)
+end
+
+-- When summoning the rotate, find a point to snap the temporary pivot to given
+-- the hit geometry under the cursor.
+function TransformHandlesImplementation:findSummonSnap(hitPoint, hitItem)
+	if hitItem:IsA("Terrain") then
+		return nil
+	end
+
+	local geometry = getGeometry(hitItem)
+	if geometry.shape ~= "Mesh" then
+		return nil
+	end
+
+	-- Find the face we hit
+	local hitFace
+	local hitDistance = math.huge
+	for _, face in ipairs(geometry.faces) do
+		local projection = math.abs((hitPoint - face.vertices[1]).Unit:Dot(face.normal))
+		if projection < hitDistance then
+			hitDistance = projection
+			hitFace = face
+		end
+	end
+
+	-- Are we close to any of the verts? (in screen space)
+	local screenPoint = toVector2(self._draggerContext:worldToViewportPoint(hitPoint))
+	local closestVertexInThreshold
+	local closestVertexDist = SUMMON_SNAP_THRESHOLD_PIXELS
+	for _, vertex in ipairs(hitFace.vertices) do
+		local vertexOnScreen = toVector2(self._draggerContext:worldToViewportPoint(vertex))
+		local distance = (vertexOnScreen - screenPoint).Magnitude
+		if distance < closestVertexDist then
+			closestVertexDist = distance
+			closestVertexInThreshold = vertex
+		end
+	end
+	if closestVertexInThreshold then
+		return CFrame.fromMatrix(closestVertexInThreshold, hitFace.direction, hitFace.normal), true
+	end
+
+	-- Are we close to any of the edges? (in screen space)
+	local closestEdgeInThreshold
+	local closestEdgeDirection
+	local closestEdgeDist = SUMMON_SNAP_THRESHOLD_PIXELS
+	local vertexCount = #hitFace.vertices
+	for i = 1, vertexCount do
+		local v0 = hitFace.vertices[i]
+		local v1 = hitFace.vertices[i % vertexCount + 1]
+		local s0 = toVector2(self._draggerContext:worldToViewportPoint(v0))
+		local s1 = toVector2(self._draggerContext:worldToViewportPoint(v1))
+		local edgeDirection2D = (s1 - s0).Unit
+		local toHit2D = (screenPoint - s0)
+		local toPointOnEdge2D = edgeDirection2D * toHit2D:Dot(edgeDirection2D)
+		local distance2D = (toHit2D - toPointOnEdge2D).Magnitude
+		if distance2D < closestEdgeDist then
+			closestEdgeDist = distance2D
+			local edgeDirection = (v1 - v0).Unit
+			local toHit = hitPoint - v0
+			local toPointOnEdge = edgeDirection * toHit:Dot(edgeDirection)
+			closestEdgeInThreshold = v0 + toPointOnEdge
+			closestEdgeDirection = edgeDirection
+		end
+	end
+	if closestEdgeInThreshold then
+		return CFrame.fromMatrix(closestEdgeInThreshold, closestEdgeDirection, hitFace.normal), true
+	end
+
+	-- Are we close to the center?
+	local mouseAt = self._draggerContext:getMouseLocation()
+	local centerPoint = toVector2(self._draggerContext:worldToViewportPoint(hitItem.Position))
+	if (mouseAt - centerPoint).Magnitude < SUMMON_SNAP_CENTER_THRESHOLD_PIXELS then
+		return hitItem.CFrame, false
+	end
+
+	return nil
 end
 
 return TransformHandlesImplementation

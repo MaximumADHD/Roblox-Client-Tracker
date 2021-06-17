@@ -64,6 +64,7 @@ local TogglePlay = require(Plugin.Src.Thunks.Playback.TogglePlay)
 
 local FFlagAnimEditorFixBackspaceOnMac = require(Plugin.LuaFlags.GetFFlagAnimEditorFixBackspaceOnMac)
 local FFlagAddKeyframeAtScrubber = game:DefineFastFlag("AddKeyframeAtScrubber", false)
+local GetFFlagRefactorMenus = require(Plugin.LuaFlags.GetFFlagRefactorMenus)
 
 local TimelineActions = Roact.PureComponent:extend("TimelineActions")
 
@@ -102,7 +103,8 @@ function TimelineActions:makeSelectionSubMenu(enumKey, dataKey, displayText)
 	return {
 		Name = displayText,
 		Items = enumKey == "PoseEasingStyle" and EASING_STYLE_ORDER or Enum[enumKey]:GetEnumItems(),
-		CurrentItem = self:getSharedEasingValue(dataKey),
+		CurrentItem = not GetFFlagRefactorMenus() and self:getSharedEasingValue(dataKey) or nil,
+		CurrentValue = GetFFlagRefactorMenus() and self:getSharedEasingValue(dataKey) or nil,
 		ItemSelected = function(item)
 			props.OnItemSelected(dataKey, item)
 		end,
@@ -289,7 +291,7 @@ function TimelineActions:didMount()
 	local function undoWrapper()
 		return self.props.Undo(self.props.Signals)
 	end
-		
+
 
 	self:addAction(actions:get("CopySelected"), self.props.CopySelectedKeyframes)
 	self:addAction(actions:get("DeleteSelected"), deleteSelectedKeyframesWrapper)
@@ -306,7 +308,7 @@ function TimelineActions:didMount()
 
 	self:addAction(actions:get("TogglePlay"), togglePlayWrapper)
 	self:addAction(actions:get("ToggleBoneVis"), self.props.ToggleBoneVisibility)
-end	
+end
 
 function TimelineActions:render()
 	local props = self.props

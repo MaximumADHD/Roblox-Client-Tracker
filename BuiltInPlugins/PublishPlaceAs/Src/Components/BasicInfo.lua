@@ -38,6 +38,7 @@ local TitledFrame = UILibrary.Component.TitledFrame
 local RoundTextBox = UILibrary.Component.RoundTextBox
 local StyledDropDown = UILibrary.Component.StyledDropdown
 local Separator = UILibrary.Component.Separator
+local PartialHyperlink = UILibrary.Studio.PartialHyperlink
 
 local RadioButtonSet = require(Plugin.Src.Components.RadioButtonSet)
 
@@ -52,22 +53,33 @@ local Theming = require(Plugin.Src.ContextServices.Theming)
 
 local createMenuPage = require(Plugin.Src.Components.createMenuPage)
 
+local GuiService = game:GetService("GuiService")
+
 local FFlagStudioAllowRemoteSaveBeforePublish = game:GetFastFlag("StudioAllowRemoteSaveBeforePublish")
 local FFlagUpdatePublishPlacePluginToDevFrameworkContext = game:GetFastFlag("UpdatePublishPlacePluginToDevFrameworkContext")
 local FFlagStudioPromptOnFirstPublish = game:GetFastFlag("StudioPromptOnFirstPublish")
 local FFlagLuobuDevPublishLua = game:GetFastFlag("LuobuDevPublishLua")
+local FFlagLuobuDevPublishLuaTempOptIn = game:GetFastFlag("LuobuDevPublishLuaTempOptIn")
 local FFlagUseLayoutIteratorGameSettingsPublishPlace = game:GetFastFlag("UseLayoutIteratorGameSettingsPublishPlace")
 
 local shouldShowDevPublishLocations = require(Plugin.Src.Util.PublishPlaceAsUtilities).shouldShowDevPublishLocations
-local KeyProvider = FFlagLuobuDevPublishLua and require(Plugin.Src.Util.KeyProvider) or nil
-local optInLocationsKey = FFlagLuobuDevPublishLua and KeyProvider.getOptInLocationsKeyName() or nil
-local chinaKey = FFlagLuobuDevPublishLua and KeyProvider.getChinaKeyName() or nil
+local getOptInLocationsRequirementsLink = require(Plugin.Src.Util.PublishPlaceAsUtilities).getOptInLocationsRequirementsLink
+local KeyProvider = (FFlagLuobuDevPublishLua or FFlagLuobuDevPublishLuaTempOptIn) and require(Plugin.Src.Util.KeyProvider) or nil
+local optInLocationsKey = (FFlagLuobuDevPublishLua or FFlagLuobuDevPublishLuaTempOptIn) and KeyProvider.getOptInLocationsKeyName() or nil
+local chinaKey = (FFlagLuobuDevPublishLua or FFlagLuobuDevPublishLuaTempOptIn) and KeyProvider.getChinaKeyName() or nil
 
 local Framework = require(Plugin.Packages.Framework)
 local Tooltip = Framework.UI.Tooltip
 local Image = Framework.UI.Decoration.Image
 local HoverArea = Framework.UI.HoverArea
+local LinkText = Framework.UI.LinkText
 local LayoutOrderIterator = Framework.Util.LayoutOrderIterator
+
+-- TODO: jbousellam - remove with FFlagLuobuDevPublishLuaTempOptIn
+local function calculateTextSize(text, textSize, font)
+	local hugeFrameSizeNoTextWrapping = Vector2.new(5000, 5000)
+	return game:GetService('TextService'):GetTextSize(text, textSize, font, hugeFrameSizeNoTextWrapping)
+end
 
 local groupsLoaded = false
 -- remove DEPRECATED_localization parameter with FFlagUpdatePublishPlacePluginToDevFrameworkContext
@@ -343,12 +355,12 @@ local function displayContents(parent, DEPRECATED_localization)
 				})
 			end)
 
-			displayResult.Separator5 = FFlagLuobuDevPublishLua and shouldShowDevPublishLocations()
+			displayResult.Separator5 = (not FFlagLuobuDevPublishLuaTempOptIn and FFlagLuobuDevPublishLua) and shouldShowDevPublishLocations()
 			and Roact.createElement(Separator, {
 				LayoutOrder = FFlagUseLayoutIteratorGameSettingsPublishPlace and layoutOrder:getNextOrder() or 11,
 			}) or nil
 
-			displayResult.OptInLocations = FFlagLuobuDevPublishLua and shouldShowDevPublishLocations()
+			displayResult.OptInLocations = (not FFlagLuobuDevPublishLuaTempOptIn and FFlagLuobuDevPublishLua) and shouldShowDevPublishLocations()
 			and Roact.createElement(CheckBoxSet, {
 				Title = localization:getText(optInLocationsKey, "TitleOptInLocations"),
 				LayoutOrder = FFlagUseLayoutIteratorGameSettingsPublishPlace and layoutOrder:getNextOrder() or 12,
@@ -356,7 +368,25 @@ local function displayContents(parent, DEPRECATED_localization)
 				Boxes = {{
 						Id = chinaKey,
 						Title = localization:getText(optInLocationsKey, chinaKey),
-						Selected = optInLocations and optInLocations.China or false
+						Selected = optInLocations and optInLocations.China or false,
+						LinkTextFrame = Roact.createElement("Frame", {
+							BackgroundTransparency = 1,
+							Size = UDim2.new(0, theme.requirementsLink.length, 0, theme.requirementsLink.height),
+							Position = UDim2.new(0, 0, 0, theme.requirementsLink.paddingY),
+						}, {
+							-- TODO: Implement PartialHyperlink changes into DevFramework since we want to deprecate UILibrary eventually.
+							-- Look at the changes in FFlagLubouDevPublishLua that use this.
+							LinkText = Roact.createElement(PartialHyperlink, {
+								HyperLinkText = localization:getText(optInLocationsKey, "RequirementsLinkText"),
+								NonHyperLinkText = localization:getText(optInLocationsKey, "ChinaRequirements"),
+								Style = "RequirementsLink",
+								Mouse = props.Mouse:get(),
+								OnClick = function()
+									local url = getOptInLocationsRequirementsLink(chinaKey)
+									GuiService:OpenBrowserWindow(url)
+								end,
+							})
+						}),
 					},
 				},
 				Enabled = optInLocations ~= nil,
@@ -383,6 +413,44 @@ local function displayContents(parent, DEPRECATED_localization)
 					}),
 				}),
 			}) or nil
+
+			local layoutOrder2 = (FFlagUseLayoutIteratorGameSettingsPublishPlace and FFlagLuobuDevPublishLuaTempOptIn and shouldShowDevPublishLocations()) and LayoutOrderIterator.new() or nil
+
+			displayResult.Separator7 = (not FFlagLuobuDevPublishLua and FFlagLuobuDevPublishLuaTempOptIn) and shouldShowDevPublishLocations() and Roact.createElement(Separator, {
+				LayoutOrder = FFlagUseLayoutIteratorGameSettingsPublishPlace and layoutOrder:getNextOrder() or 11,
+			}) or nil
+
+			displayResult.TempOptInLocations = (not FFlagLuobuDevPublishLua and FFlagLuobuDevPublishLuaTempOptIn) and shouldShowDevPublishLocations() and Roact.createElement(TitledFrame, {
+				Title = localization:getText(optInLocationsKey, "TitleOptInLocations"),
+				MaxHeight = 60,
+				LayoutOrder = FFlagUseLayoutIteratorGameSettingsPublishPlace and layoutOrder:getNextOrder() or 12,
+				TextSize = theme.tempOptInLink.TextSize,
+			}, {
+				UILayout = Roact.createElement("UIListLayout", {
+					SortOrder = Enum.SortOrder.LayoutOrder,
+					FillDirection = Enum.FillDirection.Horizontal,
+					VerticalAlignment = Enum.VerticalAlignment.Top,
+				}),
+				Text = Roact.createElement("TextLabel", {
+					Size = UDim2.new(0, calculateTextSize(localization:getText(optInLocationsKey, "TempLinkDescription"), theme.tempOptInLink.TextSize, theme.tempOptInLink.Font).X, 0, theme.tempOptInLink.TextSize),
+					BackgroundTransparency = 1,
+					TextColor3 = theme.tempOptInLink.TextColor3,
+					TextXAlignment = Enum.TextXAlignment.Left,
+					TextSize = theme.tempOptInLink.TextSize,
+					Font = theme.tempOptInLink.Font,
+					Text = localization:getText(optInLocationsKey, "TempLinkDescription"),
+					LayoutOrder = layoutOrder2 and layoutOrder2:getNextOrder() or 1,
+				}),
+				LinkText = Roact.createElement(LinkText, {
+					Text = "roblox.cn",
+					Style = "LinkTextStyle",
+					OnClick = function()
+						GuiService:OpenBrowserWindow("https://roblox.cn/")
+					end,
+					LayoutOrder = layoutOrder2 and layoutOrder2:getNextOrder() or 2,
+				}),
+			}) or nil
+
 		else
 			-- Dialog is in save mode, not publish mode
 			-- Hide the controls that are only used on publish

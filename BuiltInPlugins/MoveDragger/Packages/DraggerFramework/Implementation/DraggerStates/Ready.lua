@@ -11,6 +11,8 @@ local getFaceInstance = require(DraggerFramework.Utility.getFaceInstance)
 local HoverTracker = require(DraggerFramework.Implementation.HoverTracker)
 local StandardCursor = require(DraggerFramework.Utility.StandardCursor)
 
+local getFFlagSummonPivot = require(DraggerFramework.Flags.getFFlagSummonPivot)
+
 local Ready = {}
 Ready.__index = Ready
 
@@ -142,11 +144,29 @@ function Ready:processMouseUp()
 end
 
 function Ready:processKeyDown(keyCode)
-	-- Nothing to do.
+	if getFFlagSummonPivot() then
+		for _, handles in pairs(self._draggerToolModel:getHandlesList()) do
+			if handles.keyDown then
+				if handles:keyDown(keyCode) then
+					self:processViewChanged()
+					self._draggerToolModel:_scheduleRender()
+				end
+			end
+		end
+	end
 end
 
 function Ready:processKeyUp(keyCode)
-	-- Nothing to do.
+	if getFFlagSummonPivot() then
+		for _, handles in pairs(self._draggerToolModel:getHandlesList()) do
+			if handles.keyUp then
+				if handles:keyUp(keyCode) then
+					self:processViewChanged()
+					self._draggerToolModel:_scheduleRender()
+				end
+			end
+		end
+	end
 end
 
 function Ready:_updateHoverTracker()

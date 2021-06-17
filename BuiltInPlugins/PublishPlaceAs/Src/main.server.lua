@@ -9,6 +9,7 @@ local FFlagUpdatePublishPlacePluginToDevFrameworkContext = game:GetFastFlag("Upd
 local FFlagStudioPromptOnFirstPublish = game:GetFastFlag("StudioPromptOnFirstPublish")
 local FFlagStudioNewGamesInCloudUI = game:GetFastFlag("StudioNewGamesInCloudUI")
 local FFlagLuobuDevPublishLua = game:GetFastFlag("LuobuDevPublishLua")
+local FFlagLuobuDevPublishLuaTempOptIn = game:GetFastFlag("LuobuDevPublishLuaTempOptIn")
 
 --Turn this on when debugging the store and actions
 local LOG_STORE_STATE_AND_EVENTS = false
@@ -106,7 +107,7 @@ local function openPluginWindow(showGameSelect, isPublish, closeMode, firstPubli
 		uiLibraryWrapper = FFlagUpdatePublishPlacePluginToDevFrameworkContext and UILibraryWrapper.new() or nil,
 		focusGui = pluginGui,
 		store = dataStore,
-		mouse = FFlagLuobuDevPublishLua and plugin:getMouse() or nil,
+		mouse = (FFlagLuobuDevPublishLua or FFlagLuobuDevPublishLuaTempOptIn) and plugin:getMouse() or nil,
 	}, {
 		Roact.createElement(ScreenSelect, {
 			OnClose = closePlugin,
@@ -147,7 +148,7 @@ local function main()
 		end)
 	else
 		StudioService.OnPublishPlaceToRoblox:Connect(function(isOverwritePublish)
-			openPluginWindow(isOverwritePublish)	
+			openPluginWindow(isOverwritePublish)
 		end)
 	end
 
@@ -157,7 +158,7 @@ local function main()
 				universeId = universeId,
 				placeId = placeId,
 			}
-			openPluginWindow(false, true, false, firstPublishContext)
+			openPluginWindow(false, true, Enum.StudioCloseMode.None, firstPublishContext)
 		end)
 	end
 

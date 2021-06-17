@@ -16,14 +16,27 @@ if THEME_REFACTOR then
 		[StyleModifier.Hover] = {
 			BackgroundOdd = StyleKey.ButtonHover,
 			BackgroundEven = StyleKey.ButtonHover,
+			-- BUG RIDE-4870: These should be inherited by Stylizer (and in fact are for Table, but for some reason not TreeTable)
+			Border = StyleKey.SubBackground,
+			Tooltip = {
+				MaxWidth = 1000
+			},
+			RowHeight = 24,
 		},
 		[StyleModifier.Selected] = {
 			BackgroundOdd = StyleKey.DialogMainButton,
 			BackgroundEven = StyleKey.DialogMainButton,
+			-- BUG RIDE-4870: These should be inherited by Stylizer (and in fact are for Table, but for some reason not TreeTable)
+			Border = StyleKey.SubBackground,
+			Tooltip = {
+				MaxWidth = 1000
+			},
+			RowHeight = 24,
 		},
 		Tooltip = {
 			MaxWidth = 1000
 		},
+		RowHeight = 24,
 	}
 else
 	return function(theme, getColor)

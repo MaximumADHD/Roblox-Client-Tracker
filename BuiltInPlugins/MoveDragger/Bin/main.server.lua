@@ -55,9 +55,11 @@ local function openPlugin()
 			AllowDragSelect = true,
 			AllowFreeformDrag = true,
 			ShowLocalSpaceIndicator = true,
+			ShowPivotIndicator = true,
 			HandlesList = {
 				MoveHandles.new(draggerContext, {
 					ShowBoundingBox = false,
+					Summonable = true,
 					Outset = getEngineFeatureModelPivotVisual() and 0.3 or nil,
 				}, DraggerSchema.TransformHandlesImplementation.new(
 					draggerContext, ikTransformMoveHandler)),

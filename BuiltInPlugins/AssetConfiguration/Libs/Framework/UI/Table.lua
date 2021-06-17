@@ -4,7 +4,7 @@
 
 	Required Props:
 		array[any] Rows: The rows of data the table should display
-		array[any] Columns: The columns of the table
+		array[any] Columns: The columns of the table.
 
 	Optional Props:
 		UDim2 Size: The size of the table
@@ -22,9 +22,10 @@
 		callback OnSizeChange: An optional callback called when the component size changes.
 		callback OnSortChange: An optional callback called when the user sorts a column.
 		callback RowComponent: An optional component to render each row.
-		callback CellComponent: An optional component passed to the row component which renders individual cells.
+		any CellComponent: An optional component passed to the row component which renders individual cells.
 		Stylizer Stylizer: A Stylizer ContextItem, which is provided via mapToProps.
 		Theme Theme: A Theme ContextItem, which is provided via mapToProps.
+		table CellProps: A table of props which are passed from the table's props to the CellComponent.
 ]]
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
@@ -77,6 +78,8 @@ function Table:init()
 		local props = self.props
 		local RowComponent = self.props.RowComponent or TableRow
 		return Roact.createElement(RowComponent, {
+			CellProps = self.props.CellProps,
+			CellComponent = self.props.CellComponent,
 			Columns = self.props.Columns,
 			Rows = self.props.Rows,
 			Row = row,

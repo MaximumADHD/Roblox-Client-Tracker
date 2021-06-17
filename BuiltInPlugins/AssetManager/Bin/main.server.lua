@@ -11,7 +11,7 @@ local FFlagAssetManagerLuaPlugin = settings():GetFFlag("AssetManagerLuaPlugin")
 local FFlagStudioAssetManagerAddRecentlyImportedView = game:GetFastFlag("StudioAssetManagerAddRecentlyImportedView")
 local FFlagStudioShowHideABTestV2 = game:GetFastFlag("StudioShowHideABTestV2")
 local FFlagStudioAssetManagerFixRecentAssetDuplication = game:GetFastFlag("StudioAssetManagerFixRecentAssetDuplication")
-local FFlagStudioAssetManagerHideAssetPreviewCreatorSearch = game:GetFastFlag("StudioAssetManagerHideAssetPreviewCreatorSearch")
+local FFlagStudioAssetManagerRefactorAssetPreview = game:GetFastFlag("StudioAssetManagerRefactorAssetPreview")
 
 if not FFlagAssetManagerLuaPlugin then
 	return
@@ -74,7 +74,7 @@ local localization = ContextServices.Localization.new({
 	pluginName = PLUGIN_NAME,
 	stringResourceTable = TranslationDevelopmentTable,
 	translationResourceTable = TranslationReferenceTable,
-	libraries = FFlagStudioAssetManagerHideAssetPreviewCreatorSearch and {
+	libraries = FFlagStudioAssetManagerRefactorAssetPreview and {
 		[Framework.Resources.LOCALIZATION_PROJECT_NAME] = {
 			stringResourceTable = Framework.Resources.TranslationDevelopmentTable,
 			translationResourceTable = Framework.Resources.TranslationReferenceTable,

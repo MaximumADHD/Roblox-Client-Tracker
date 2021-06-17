@@ -12,9 +12,11 @@ local Colors = require(DraggerFramework.Utility.Colors)
 local Math = require(DraggerFramework.Utility.Math)
 local StandaloneSelectionBox = require(DraggerFramework.Components.StandaloneSelectionBox)
 local ScaleHandleView = require(DraggerFramework.Components.ScaleHandleView)
+local DraggedPivot = require(DraggerFramework.Components.DraggedPivot)
 
 local getEngineFeatureModelPivotVisual = require(DraggerFramework.Flags.getEngineFeatureModelPivotVisual)
 local getFFlagFoldersOverFragments = require(DraggerFramework.Flags.getFFlagFoldersOverFragments)
+local getFFlagSummonPivot = require(DraggerFramework.Flags.getFFlagSummonPivot)
 
 local ExtrudeHandle = {}
 ExtrudeHandle.__index = ExtrudeHandle
@@ -58,6 +60,17 @@ local ScaleHandleDefinitions = {
 	},
 }
 
+local BOX_CORNERS = {
+	Vector3.new(0.5, 0.5, 0.5),
+	Vector3.new(0.5, 0.5, -0.5),
+	Vector3.new(0.5, -0.5, 0.5),
+	Vector3.new(0.5, -0.5, -0.5),
+	Vector3.new(-0.5, 0.5, 0.5),
+	Vector3.new(-0.5, 0.5, -0.5),
+	Vector3.new(-0.5, -0.5, 0.5),
+	Vector3.new(-0.5, -0.5, -0.5),
+}
+
 local function nextNormalId(normalId)
 	return normalId % 3 + 1
 end
@@ -69,6 +82,49 @@ function ExtrudeHandle.new(draggerContext, props, implementation)
 	self._draggerContext = draggerContext
 	self._implementation = implementation
 	return setmetatable(self, ExtrudeHandle)
+end
+
+-- Summon handles to the current mouse hover location
+function ExtrudeHandle:_summonHandles()
+	if not self._props.Summonable then
+		return false
+	end
+
+	local mouseRay = self._draggerContext:getMouseRay()
+	local _, hitItem, distance = self._schema.getMouseTarget(self._draggerContext, mouseRay, {})
+	if hitItem and self._selectionInfo:doesContainItem(hitItem) then
+		local hitPoint = mouseRay.Origin + mouseRay.Direction.Unit * distance
+		local point = self._boundingBox.CFrame:PointToObjectSpace(hitPoint)
+		local halfSize = self._boundingBox.Size / 2
+		self._summonBasisOffset = CFrame.new(point:Max(-halfSize):Min(halfSize))
+	else
+		-- Try to pick a point on the selection closest to the cursor
+		local cursorOnScreen = self._draggerContext:getMouseLocation()
+		local closestWorldPoint
+		local closestDistanceOnScreen = math.huge
+		for _, cornerOffset in ipairs(BOX_CORNERS) do
+			local cornerInWorld = self._boundingBox.CFrame * CFrame.new(self._boundingBox.Size * cornerOffset)
+			local cornerOnScreen, inView = self._draggerContext:worldToViewportPoint(cornerInWorld.Position)
+			local distance = (cursorOnScreen - Vector2.new(cornerOnScreen.X, cornerOnScreen.Y)).Magnitude
+			if inView and distance < closestDistanceOnScreen then
+				closestDistanceOnScreen = distance
+				closestWorldPoint = cornerInWorld
+			end
+		end
+		if closestWorldPoint then
+			self._summonBasisOffset = self._boundingBox.CFrame:ToObjectSpace(closestWorldPoint)
+		end
+	end
+end
+
+function ExtrudeHandle:_endSummon()
+	if self._summonBasisOffset then
+		self._summonBasisOffset = nil
+	end
+end
+
+function ExtrudeHandle:_getBasisOffset()
+	return self._summonBasisOffset or self._basisOffset
 end
 
 function ExtrudeHandle:update(draggerToolModel, selectionInfo)
@@ -101,7 +157,11 @@ end
 function ExtrudeHandle:_rememberCurrentBoundsAsOriginal()
 	self._originalBoundingBoxSize = self._boundingBox.Size
 	self._originalBoundingBoxCFrame = self._boundingBox.CFrame
-	self._originalBasisOffset = self._basisOffset.Position
+	if getFFlagSummonPivot() then
+		self._originalBasisOffset = self:_getBasisOffset().Position
+	else
+		self._originalBasisOffset = self._basisOffset.Position
+	end
 	local axis = self._handles[self._draggingHandleId].Axis
 	local perpendicularMovement = self._originalBasisOffset
 	perpendicularMovement = perpendicularMovement - axis * perpendicularMovement:Dot(axis)
@@ -246,6 +306,16 @@ function ExtrudeHandle:render(hoveredHandleId)
 		})
 	end
 
+	if getFFlagSummonPivot() and self._props.Summonable then
+		if self._summonBasisOffset then
+			children.SummonedPivot = Roact.createElement(DraggedPivot, {
+				DraggerContext = self._draggerContext,
+				CFrame = self._boundingBox.CFrame * self:_getBasisOffset(),
+				IsActive = self._draggerContext:shouldShowActiveInstanceHighlight() and (#self._selectionWrapper:get() == 1),
+			})
+		end
+	end
+
 	if getFFlagFoldersOverFragments() then
 		return Roact.createElement("Folder", {}, children)
 	else
@@ -341,7 +411,16 @@ function ExtrudeHandle:mouseDrag(mouseRay)
 	if getEngineFeatureModelPivotVisual() then
 		local sizeComponents = {self._originalBoundingBoxSize.X, self._originalBoundingBoxSize.Y, self._originalBoundingBoxSize.Z}
 		local ratio = delta / sizeComponents[normalId]
-		localOffset = localOffset - self._perpendicularMovement * ratio
+		
+		if getFFlagSummonPivot() then
+			-- The condition here is relevant in the case where you summon the
+			-- pivot while resizing a single part.
+			if self._lastKeepAspectRatio then
+				localOffset = localOffset - self._perpendicularMovement * ratio
+			end
+		else
+			localOffset = localOffset - self._perpendicularMovement * ratio
+		end
 	end
 
 	-- Determine the size change for the selection
@@ -381,8 +460,16 @@ function ExtrudeHandle:mouseDrag(mouseRay)
 	self._boundingBox.CFrame = self._originalBoundingBoxCFrame * CFrame.new(self._lastOffset - self._committedOffset)
 	self._boundingBox.Size = originalSize + (self._lastDeltaSize - self._committedDeltaSize)
 	if getEngineFeatureModelPivotVisual() then
-		self._basisOffset =
-			CFrame.new(self._originalBasisOffset / self._originalBoundingBoxSize * self._boundingBox.Size)
+		if getFFlagSummonPivot() and self._summonBasisOffset then
+			self._summonBasisOffset =
+				CFrame.new(self._originalBasisOffset / self._originalBoundingBoxSize * self._boundingBox.Size)
+			-- We can't stop summoning in the middle of a drag, so no need to
+			-- update _basisOffset in the case where we've summoned, it will not
+			-- be used.
+		else
+			self._basisOffset =
+				CFrame.new(self._originalBasisOffset / self._originalBoundingBoxSize * self._boundingBox.Size)
+		end
 	end
 end
 
@@ -393,6 +480,9 @@ function ExtrudeHandle:mouseUp(mouseRay)
 
 	self._draggingHandleId = nil
 
+	if getFFlagSummonPivot() and not self._tabKeyDown then
+		self:_endSummon()
+	end
 	self._schema.addUndoWaypoint(self._draggerContext, "Scale Selection")
 end
 
@@ -420,7 +510,12 @@ function ExtrudeHandle:_updateHandles()
 				local inverseHandleCFrame = offset:Inverse()
 				local localSize = inverseHandleCFrame:VectorToWorldSpace(self._boundingBox.Size)
 				local offsetDueToBoundingBox = 0.5 * math.abs(localSize.Z)
-				local offsetDueToBasisOffset = inverseHandleCFrame:VectorToWorldSpace(self._basisOffset.Position)
+				local offsetDueToBasisOffset
+				if getFFlagSummonPivot() then
+					offsetDueToBasisOffset = inverseHandleCFrame:VectorToWorldSpace(self:_getBasisOffset().Position)
+				else
+					offsetDueToBasisOffset = inverseHandleCFrame:VectorToWorldSpace(self._basisOffset.Position)
+				end
 				local handleBaseCFrame =
 					self._boundingBox.CFrame *
 					offset *
@@ -446,6 +541,30 @@ function ExtrudeHandle:_updateHandles()
 				}
 			end
 		end
+	end
+end
+
+if getEngineFeatureModelPivotVisual() and getFFlagSummonPivot() then
+	function ExtrudeHandle:keyDown(keyCode)
+		if keyCode == Enum.KeyCode.Tab then
+			self._tabKeyDown = true
+			if not self._draggingHandleId then
+				self:_summonHandles()
+				return true
+			end
+		end
+		return false
+	end
+
+	function ExtrudeHandle:keyUp(keyCode)
+		if keyCode == Enum.KeyCode.Tab then
+			self._tabKeyDown = false
+			if not self._draggingHandleId then
+				self:_endSummon()
+			end
+			return true
+		end
+		return false
 	end
 end
 

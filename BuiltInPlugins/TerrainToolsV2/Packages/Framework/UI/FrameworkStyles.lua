@@ -52,6 +52,7 @@ function FrameworkStyles.new()
 		TextWithInlineLink = newDefaults(),
 		ToggleButton = newDefaults(),
 		Tooltip = newDefaults(),
+		TreeTable = newDefaults(),
 		TreeView = newDefaults(),
 
 		-- StudioUI Styles

@@ -10,11 +10,17 @@ local DraggerFramework = script.Parent.Parent
 local Analytics = require(DraggerFramework.Utility.Analytics)
 local setInsertPoint = require(DraggerFramework.Utility.setInsertPoint)
 
+local FallbackLocalizationTable = DraggerFramework.Resources.TranslationDevelopmentTable
+local TranslatedLocalizationTable = DraggerFramework.Resources.TranslationReferenceTable
+
+local getFFlagSummonPivot = require(DraggerFramework.Flags.getFFlagSummonPivot)
+
 local DraggerContext = {}
 DraggerContext.__index = DraggerContext
 
 local RAYCAST_DIRECTION_SCALE = 10000
 local HANDLE_SCALE_FACTOR = 0.05
+local FALLBACK_LOCALE = "en_US"
 
 function DraggerContext.new(plugin, editDataModel, userSettings, selection)
 	return setmetatable({
@@ -22,6 +28,7 @@ function DraggerContext.new(plugin, editDataModel, userSettings, selection)
 		_plugin = plugin,
 		_userSettings = userSettings,
 		_studioService = editDataModel:GetService("StudioService"),
+		_draggerService = getFFlagSummonPivot() and editDataModel:GetService("DraggerService") or nil,
 		_runService = editDataModel:GetService("RunService"),
 		_studioSettings = userSettings.Studio,
 		_workspace = editDataModel:GetService("Workspace"),
@@ -29,6 +36,9 @@ function DraggerContext.new(plugin, editDataModel, userSettings, selection)
 		_changeHistoryService = editDataModel:GetService("ChangeHistoryService"),
 		_mouse = plugin:GetMouse(),
 		_selection = selection,
+		LocaleChangedSignal = editDataModel:GetService("StudioService"):GetPropertyChangedSignal("StudioLocaleId"),
+		_fallbackTranslators = {},
+		_translators = {},
 	}, DraggerContext)
 end
 
@@ -102,8 +112,11 @@ function DraggerContext:getHoverBoxColor(isActive)
 end
 
 function DraggerContext:getHoverLineThickness()
-	-- There should probably be a setting for this but there isn't right now
-	return 0.04
+	if getFFlagSummonPivot() then
+		return self._draggerService.HoverThickness
+	else
+		return 0.04
+	end
 end
 
 function DraggerContext:getSelectionBoxColor(isActive)
@@ -112,6 +125,10 @@ function DraggerContext:getSelectionBoxColor(isActive)
 	else
 		return self._studioSettings["Select Color"]
 	end
+end
+
+function DraggerContext:getGeometrySnapColor()
+	return self._draggerService.GeometrySnapColor
 end
 
 function DraggerContext:getCameraCFrame()
@@ -143,6 +160,10 @@ end
 
 function DraggerContext:worldToViewportPoint(worldPoint)
 	return self._workspace.CurrentCamera:WorldToViewportPoint(worldPoint)
+end
+
+function DraggerContext:getViewportSize()
+	return self._workspace.CurrentCamera.ViewportSize
 end
 
 function DraggerContext:setMouseIcon(icon)
@@ -225,6 +246,62 @@ function DraggerContext:addUndoWaypoint(waypointIdentifier, waypointText)
 	-- Nothing to do with waypoint text currently, but we will need to do
 	-- something with localizing undo waypoints eventually.
 	self._changeHistoryService:SetWaypoint(waypointIdentifier)
+end
+
+-- TODO mlangen: Share this code with DevFramework somehow. We don't want to
+-- include the entirety of DevFramework just to translate a couple of strings,
+-- but we do really want to share just the localization part of DevFramework.
+-- For now, this code does mostly the same thing as DevFramework's Localization
+-- class.
+function DraggerContext:getText(scope, key, args)
+	key = ("Studio.DraggerFramework.%s.%s"):format(scope, key)
+	local locale = self._studioService.StudioLocaleId
+	if locale == FALLBACK_LOCALE then
+		local fallbackTranslator = self._fallbackTranslators[locale]
+		if not fallbackTranslator then
+			fallbackTranslator = FallbackLocalizationTable:GetTranslator(locale)
+			self._fallbackTranslators[locale] = fallbackTranslator
+		end
+		return fallbackTranslator:FormatByKey(key, args)
+	else
+		local referenceTranslator = self._translators[locale]
+		if not referenceTranslator then
+			referenceTranslator = TranslatedLocalizationTable:GetTranslator(locale)
+			self._translators[locale] = referenceTranslator
+		end
+		local success, result = pcall(function()
+			return referenceTranslator:FormatByKey(key, args)
+		end)
+		if success then
+			return result
+		else
+			local fallbackTranslator = self._fallbackTranslators[locale]
+			if not fallbackTranslator then
+				fallbackTranslator = FallbackLocalizationTable:GetTranslator(locale)
+				self._fallbackTranslators[locale] = fallbackTranslator
+			end
+			return fallbackTranslator:FormatByKey(key, args)
+		end
+	end
+end
+
+-- Takes a StudioStyleGuideColor enum
+function DraggerContext:getThemeColor(item)
+	return self._studioSettings.Theme:GetColor(item)
+end
+
+function DraggerContext:getSetting(name)
+	return self._plugin:GetSetting(name)
+end
+
+function DraggerContext:setSetting(name, value)
+	self._plugin:SetSetting(name, value)
+end
+
+function DraggerContext:setPivotIndicator(state)
+	local oldValue = self._draggerService.ShowPivotIndicator
+	self._draggerService.ShowPivotIndicator = state
+	return oldValue
 end
 
 return DraggerContext

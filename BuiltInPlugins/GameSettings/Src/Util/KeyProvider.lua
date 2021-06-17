@@ -3,20 +3,19 @@
 local FFlagStudioEnableBadgesInMonetizationPage = game:GetFastFlag("StudioEnableBadgesInMonetizationPage")
 local FFlagGameSettingsUseKeyProvider = game:GetFastFlag("GameSettingsUseKeyProvider")
 local FFlagLuobuDevPublishLua = game:GetFastFlag("LuobuDevPublishLua")
+local FFlagLuobuDevPublishLuaTempOptIn = game:GetFastFlag("LuobuDevPublishLuaTempOptIn")
 
 local KeyProvider = {}
 
-local Plugin = script.Parent.Parent.Parent
-
 function KeyProvider.getCopyIdKeyName()
     assert(FFlagStudioEnableBadgesInMonetizationPage or FFlagGameSettingsUseKeyProvider)
-    
+
     return "CopyIDToClipboard"
 end
 
 function KeyProvider.getConfigureKeyName()
     assert(FFlagStudioEnableBadgesInMonetizationPage)
-    
+
     return "Configure"
 end
 
@@ -44,19 +43,19 @@ end
 
 function KeyProvider.getVersionHistoryKeyName()
     assert(FFlagGameSettingsUseKeyProvider)
-    
+
     return "VersionHistory"
 end
 
 function KeyProvider.getOptInLocationsKeyName()
-    assert(FFlagLuobuDevPublishLua)
-    
+    assert(FFlagLuobuDevPublishLua or FFlagLuobuDevPublishLuaTempOptIn)
+
     return "OptInLocations"
 end
 
 function KeyProvider.getChinaKeyName()
     assert(FFlagLuobuDevPublishLua)
-    
+
     return "China"
 end
 

@@ -9,6 +9,8 @@ local PostInsertAsset = require(Plugin.Core.Actions.PostInsertAsset)
 local PostUnvote = require(Plugin.Core.Actions.PostUnvote)
 local PostVote = require(Plugin.Core.Actions.PostVote)
 
+local FFlagDevFrameworkAssetPreviewFixes = game:GetFastFlag("DevFrameworkAssetPreviewFixes")
+
 local function handleVoting(state, assetId, voteDirection)
 	local currentVoting = state[assetId]
 	local newVoteUp = currentVoting.UpVotes
@@ -50,10 +52,15 @@ local function handleUnvoting(state, assetId)
 		end
 	end
 
+	local userVote = nil
+	if FFlagDevFrameworkAssetPreviewFixes then
+		userVote = Cryo.None
+	end
+
 	return Cryo.Dictionary.join(state, {
 		[assetId] = Cryo.Dictionary.join(state[assetId], {
 			HasVoted = false,
-			UserVote = nil,
+			UserVote = userVote,
 			UpVotes = newVoteUp,
 			DownVotes = newVoteDown,
 		}),
