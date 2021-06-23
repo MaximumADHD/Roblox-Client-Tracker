@@ -1104,6 +1104,26 @@
         Queues the calling script to be run during the parallel execution phase of the frame.
       </description>
     </Function>
+
+    <Function name="defer" static="true">
+      <returns>
+      </returns>
+      <parameters>
+      </parameters>
+      <description>
+        Defers the passed thread or function to be resumed at the end of the current resumption cycle
+      </description>
+    </Function>
+
+    <Function name="spawn" static="true">
+      <returns>
+      </returns>
+      <parameters>
+      </parameters>
+      <description>
+        Resumes the passed thread or function instantly using the engine's scheduler
+      </description>
+    </Function>
   </LuaLibrary>
 
   <ItemStruct name="Instance">

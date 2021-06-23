@@ -309,8 +309,6 @@ ImageProcessLQNeonBlurFS,Fragment
 ImageProcessLQNeonFS,Fragment
 ImGuiFS,Fragment
 ImGuiVS,Vertex
-IrradianceConvFS,Fragment
-IrradianceConvVS,Vertex
 LightGridDebugFS,Fragment
 LightGridPointSplatFS,Fragment
 LightGridPointSplatVS,Vertex

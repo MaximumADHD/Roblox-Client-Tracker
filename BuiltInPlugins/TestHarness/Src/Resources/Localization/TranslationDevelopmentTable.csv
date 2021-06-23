@@ -1,5 +1,5 @@
-Key,en-us
-Studio.TestHarness.Plugin.Button,Toggle
-Studio.TestHarness.Plugin.Description,Toggles the Test Harness plugin window.
-Studio.TestHarness.Plugin.Name,Test Harness
-Studio.TestHarness.Plugin.Toolbar,Test Harness
+Key,Source,en-us
+Studio.TestHarness.Plugin.Name,Test Harness,Test Harness
+Studio.TestHarness.Plugin.Toolbar,Test Harness,Test Harness
+Studio.TestHarness.Plugin.Button,Toggle,Toggle
+Studio.TestHarness.Plugin.Description,Toggles the Test Harness plugin window.,Toggles the Test Harness plugin window.

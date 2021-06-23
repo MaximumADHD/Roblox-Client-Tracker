@@ -103,6 +103,8 @@ Studio.App.BetaFeatures.AvatarLoadingBetaTitle,,New Avatar Loading Signal Orderi
 Studio.App.BetaFeatures.BetaFeatures,title for Beta Features feature,Beta Features,Beta Features
 Studio.App.BetaFeatures.CSGv2SmoothingDescription,,Use the SmoothAngle property on CSG part to define threshold angle and smooth normals.,Use the SmoothAngle property on CSG part to define threshold angle and smooth normals.
 Studio.App.BetaFeatures.CSGv2SmoothingTitle,,Normal smoothing Beta,Normal smoothing Beta
+Studio.App.BetaFeatures.CanQueryDescription,,Enables property for excluding BaseParts from spatial queries such as raycasts. Only accesible when CanCollide is disabled.,Enables property for excluding BaseParts from spatial queries such as raycasts. Only accesible when CanCollide is disabled.
+Studio.App.BetaFeatures.CanQueryTitle,,Part property: CanQuery,Part property: CanQuery
 Studio.App.BetaFeatures.ClarifiedIKDraggersDescription,,Enables a new clarified UI for IK/Constraint/Physical draggers and adds a new behavior to the select dragger when in Physical mode,Enables a new clarified UI for IK/Constraint/Physical draggers and adds a new behavior to the select dragger when in Physical mode
 Studio.App.BetaFeatures.ClarifiedIKDraggersTitle,,New Physical Draggers,New Physical Draggers
 Studio.App.BetaFeatures.CloudLoadFailedFmt1,error fetching BF from cloud,Failed to load beta features from cloud: %1,Failed to load beta features from cloud: %1
@@ -117,8 +119,6 @@ Studio.App.BetaFeatures.DynamicIndoorEnvMapDescription,,"Enables automatically u
 Studio.App.BetaFeatures.DynamicIndoorEnvMapTitle,,Dynamic Indoor Environment Map,Dynamic Indoor Environment Map
 Studio.App.BetaFeatures.EnableCSGV3Description,,Use the new and faster CSG Engine. ,Use the new and faster CSG Engine. 
 Studio.App.BetaFeatures.EnableCSGV3Title,,CSG Version 3,CSG Version 3
-Studio.App.BetaFeatures.EnableLuauTypeCheckingDescription,,Enables new script analysis features,Enables new script analysis features
-Studio.App.BetaFeatures.EnableLuauTypeCheckingTitle,,Enable New Lua Script Analysis,Enable New Lua Script Analysis
 Studio.App.BetaFeatures.FindReplaceViewDescription,,"Overhaul of find and replace functionality to make working with large codebases easier. Streamlined interface, addition of search filters and Replace All functionality, and improved performance.","Overhaul of find and replace functionality to make working with large codebases easier. Streamlined interface, addition of search filters and Replace All functionality, and improved performance."
 Studio.App.BetaFeatures.FindReplaceViewTitle,,Find All / Replace All,Find All / Replace All
 Studio.App.BetaFeatures.ImprovedInnerBoxDescription,,Enable a different algorithm for avatar Inner Box collision box sizing and positioning using margins around RigAttachment extents.,Enable a different algorithm for avatar Inner Box collision box sizing and positioning using margins around RigAttachment extents.
@@ -1262,8 +1262,11 @@ Studio.App.Property.EnableCoreScriptDebugger,,Enable CoreScript Debugger,Enable 
 Studio.App.Property.EnableHttpSandboxing,,Enable Http Sandboxing,Enable Http Sandboxing
 Studio.App.Property.EnableInternalBetaFeatures,,Enable Internal Beta Features,Enable Internal Beta Features
 Studio.App.Property.EnableInternalFeatures,,Enable Internal Features,Enable Internal Features
+Studio.App.Property.EnableLinting,,Enable Linting,Enable Linting
+Studio.App.Property.EnableSignatureHelp,,Enable Signature Help,Enable Signature Help
 Studio.App.Property.EnableTemporaryTabs,Enable script tab previews in Roblox Studio,Enable Temporary Script Tabs,Enable Temporary Script Tabs
 Studio.App.Property.EnableTemporaryTabsInExplorer,Enable script tab previews in Roblox Studio's explorer widget.,Enable Temporary Script Tabs In Explorer,Enable Temporary Script Tabs In Explorer
+Studio.App.Property.EnableTypeHover,,Enable Type Hover,Enable Type Hover
 Studio.App.Property.ErrorColor,,Error Color,Error Color
 Studio.App.Property.ErrorReporting,,Error Reporting,Error Reporting
 Studio.App.Property.ExportMergeByMaterial,,Export Merge By Material,Export Merge By Material
@@ -1542,6 +1545,9 @@ Studio.App.PropertyTooltip.AutoClosingBrackets,,Automatically insert a closing b
 Studio.App.PropertyTooltip.AutoClosingQuotes,,Automatically insert a closing quotation following an opening quotation.,Automatically insert a closing quotation following an opening quotation.
 Studio.App.PropertyTooltip.AutoIndentRule,,Off: No automatic indentation. Relative: Auto-indent relative to the current line. Absolute: Auto-indent globally.,Off: No automatic indentation. Relative: Auto-indent relative to the current line. Absolute: Auto-indent globally.
 Studio.App.PropertyTooltip.EnableAutocomplete,,Enable code suggestions to show up while typing.,Enable code suggestions to show up while typing.
+Studio.App.PropertyTooltip.EnableLinting,,Enable Script Editor error and warning detection,Enable Script Editor error and warning detection
+Studio.App.PropertyTooltip.EnableSignatureHelp,,Enable showing the types/names of function arguments when relevant,Enable showing the types/names of function arguments when relevant
+Studio.App.PropertyTooltip.EnableTypeHover,,Enable showing object type on cursor hover.,Enable showing object type on cursor hover.
 Studio.App.PropertyTooltip.Font,,"Change the text font family, typeface, and size.","Change the text font family, typeface, and size."
 Studio.App.PropertyTooltip.FormatOnPaste,,Automatically format the code after pasting.,Automatically format the code after pasting.
 Studio.App.PropertyTooltip.FormatOnType,,Automatically format the code after typing.,Automatically format the code after typing.

@@ -106,6 +106,9 @@ Class AppUpdateService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function bool AppUpdateService:PerformManagedUpdate() {RobloxScriptSecurity}
 Class AssetCounterService : Instance [NotCreatable] [Service] [NotReplicated]
 Class AssetDeliveryProxy : Instance [NotCreatable] [Service] [NotReplicated]
+Class AssetImportService : Instance [NotCreatable] [Service] [NotReplicated]
+	Function Dictionary AssetImportService:ImportMesh(string fileName) {RobloxScriptSecurity}
+	Function Dictionary AssetImportService:ImportMeshWithPrompt() {RobloxScriptSecurity} [Yields]
 Class AssetManagerService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function int64 AssetManagerService:AddNewPlace() {RobloxScriptSecurity} [Yields]
 	Function void AssetManagerService:DeleteAlias(string aliasName) {RobloxScriptSecurity} [Yields]
@@ -183,6 +186,7 @@ Class AvatarEditorService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function Array AvatarEditorService:GetRecommendedAssets(Enum.AvatarAssetType assetType, int64 contextAssetId = 0) [Yields]
 	Function Array AvatarEditorService:GetRecommendedBundles(int64 bundleId) [Yields]
 	Function bool AvatarEditorService:NoPromptCreateOutfit(HumanoidDescription humanoidDescription, Enum.HumanoidRigType rigType, string name) {RobloxScriptSecurity}
+	Function bool AvatarEditorService:NoPromptSaveAvatar(HumanoidDescription humanoidDescription, Enum.HumanoidRigType rigType, Dictionary saveDict, int64 gearAssetId = 0) {RobloxScriptSecurity}
 	Function bool AvatarEditorService:NoPromptSetFavorite(int64 itemId, Enum.AvatarItemType itemType, bool shouldFavorite) {RobloxScriptSecurity}
 	Function void AvatarEditorService:PerformCreateOutfit(string name) {RobloxScriptSecurity}
 	Function void AvatarEditorService:PerformCreateOutfitWithDescription(HumanoidDescription humanoidDescription, string name) {RobloxScriptSecurity}
@@ -208,7 +212,7 @@ Class AvatarEditorService : Instance [NotCreatable] [Service] [NotReplicated]
 	Event AvatarEditorService.OpenPromptSetFavorite(int64 itemId, Enum.AvatarItemType itemType, bool shouldFavorite) {RobloxScriptSecurity}
 	Event AvatarEditorService.PromptAllowInventoryReadAccessCompleted(Enum.AvatarPromptResult result)
 	Event AvatarEditorService.PromptCreateOutfitCompleted(Enum.AvatarPromptResult result, Variant failureType)
-	Event AvatarEditorService.PromptSaveAvatarCompleted(Enum.AvatarPromptResult result)
+	Event AvatarEditorService.PromptSaveAvatarCompleted(Enum.AvatarPromptResult result, HumanoidDescription humanoidDescription)
 	Event AvatarEditorService.PromptSetFavoriteCompleted(Enum.AvatarPromptResult result)
 Class AvatarImportService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function Instance AvatarImportService:ImportFbxRigWithoutSceneLoad(bool isR15 = true) {RobloxScriptSecurity} [Yields]
@@ -484,9 +488,9 @@ Class Chat : Instance [NotCreatable] [Service] [NotReplicated]
 	Function bool Chat:CanUsersChatAsync(int64 userIdFrom, int64 userIdTo) [Yields]
 	Function void Chat:Chat(Instance partOrCharacter, string message, Enum.ChatColor color = "Blue")
 	Function void Chat:ChatLocal(Instance partOrCharacter, string message, Enum.ChatColor color = "Blue") {RobloxScriptSecurity}
-	Function string Chat:FilterStringAsync(string stringToFilter, Instance playerFrom, Instance playerTo) [Yields]
-	Function string Chat:FilterStringForBroadcast(string stringToFilter, Instance playerFrom) [Yields]
-	Function string Chat:FilterStringForPlayerAsync(string stringToFilter, Instance playerToFilterFor) [Yields] [Deprecated]
+	Function string Chat:FilterStringAsync(string stringToFilter, Player playerFrom, Player playerTo) [Yields]
+	Function string Chat:FilterStringForBroadcast(string stringToFilter, Player playerFrom) [Yields]
+	Function string Chat:FilterStringForPlayerAsync(string stringToFilter, Player playerToFilterFor) [Yields] [Deprecated]
 	Function bool Chat:GetShouldUseLuaChat() {RobloxScriptSecurity}
 	Function Tuple Chat:InvokeChatCallback(Enum.ChatCallbackType callbackType, Tuple callbackArguments)
 	Function void Chat:RegisterChatCallback(Enum.ChatCallbackType callbackType, Function callbackFunction)
@@ -515,6 +519,21 @@ Class CollectionService : Instance [NotCreatable] [Service]
 	Function void CollectionService:RemoveTag(Instance instance, string tag)
 	Event CollectionService.ItemAdded(Instance instance) [Deprecated]
 	Event CollectionService.ItemRemoved(Instance instance) [Deprecated]
+Class CommandInstance : Instance [NotCreatable] [NotReplicated]
+	Property bool CommandInstance.AllowGUIAccessPoints [ReadOnly]
+	Property bool CommandInstance.Checked {RobloxScriptSecurity} [<📁> LoadOnly] [NotReplicated]
+	Property string CommandInstance.DefaultShortcut {RobloxScriptSecurity} [<📁> LoadOnly] [NotReplicated]
+	Property bool CommandInstance.Enabled {RobloxScriptSecurity} [<📁> LoadOnly] [NotReplicated]
+	Property string CommandInstance.Group [ReadOnly]
+	Property string CommandInstance.Icon {RobloxScriptSecurity} [<📁> LoadOnly] [NotReplicated]
+	Property string CommandInstance.Name [ReadOnly]
+	Property string CommandInstance.StatusTip {RobloxScriptSecurity} [<📁> LoadOnly] [NotReplicated]
+	Property string CommandInstance.Text [ReadOnly]
+	Function void CommandInstance:RegisterExecutionCallback(Function callbackFunction) {RobloxScriptSecurity}
+Class CommandService : Instance [NotCreatable] [Service] [NotReplicated]
+	Function Variant CommandService:Execute(string name, Variant params) {RobloxScriptSecurity} [Yields]
+	Function CommandInstance CommandService:RegisterCommand(string name, string description) {RobloxScriptSecurity} [Yields]
+	Event CommandService.CommandExecuting(string name, Variant params) {RobloxScriptSecurity}
 Class Configuration : Instance
 Class Constraint : Instance [NotCreatable]
 	Property BrickColor Constraint.Color
@@ -925,7 +944,7 @@ Class FunctionalTest : Instance [Deprecated]
 	Function void FunctionalTest:Passed(string message = "") [Deprecated]
 	Function void FunctionalTest:Warn(string message = "") [Deprecated]
 Class GamePassService : Instance [NotCreatable] [Service] [Deprecated]
-	Function bool GamePassService:PlayerHasPass(Instance player, int64 gamePassId) [Yields] [Deprecated]
+	Function bool GamePassService:PlayerHasPass(Player player, int64 gamePassId) [Yields] [Deprecated]
 Class GameSettings : Instance [NotCreatable] [Settings] [NotBrowsable]
 	Property string GameSettings.AdditionalCoreIncludeDirs {✏️RobloxScriptSecurity}
 	Property string GameSettings.OverrideStarterScript {✏️RobloxScriptSecurity}
@@ -1615,7 +1634,7 @@ Class InsertService : Instance [NotCreatable] [Service]
 	Property bool InsertService.AllowInsertFreeModels [NotReplicated] [NotBrowsable] [Deprecated]
 	Function void InsertService:ApproveAssetId(int64 assetId) [Deprecated]
 	Function void InsertService:ApproveAssetVersionId(int64 assetVersionId) [Deprecated]
-	Function Instance InsertService:CreateMeshPartAsync(Content meshId, Enum.CollisionFidelity collisionFidelity, Enum.RenderFidelity renderFidelity) {PluginSecurity} [Yields]
+	Function MeshPart InsertService:CreateMeshPartAsync(Content meshId, Enum.CollisionFidelity collisionFidelity, Enum.RenderFidelity renderFidelity) {PluginSecurity} [Yields]
 	Function Array InsertService:GetBaseCategories() [Yields] [Deprecated]
 	Function Array InsertService:GetBaseSets() [Yields]
 	Function Array InsertService:GetCollection(int64 categoryId) [Yields]
@@ -2019,6 +2038,7 @@ Class BasePart : PVInstance [NotCreatable] [NotBrowsable]
 	Property bool BasePart.Massless
 	Property int BasePart.ResizeIncrement [ReadOnly]
 	Property Faces BasePart.ResizeableFaces [ReadOnly]
+	Property bool BasePart.CanQuery
 	Property CFrame BasePart.CFrame
 	Property Vector3 BasePart.CenterOfMass [ReadOnly]
 	Property float BasePart.LocalTransparencyModifier [Hidden] [NotReplicated]
@@ -2130,7 +2150,6 @@ Class Terrain : BasePart [NotCreatable]
 	Property Region3int16 Terrain.MaxExtents [ReadOnly]
 	Function bool Terrain:AutowedgeCell(int x, int y, int z) [Deprecated]
 	Function void Terrain:AutowedgeCells(Region3int16 region) [Deprecated]
-	Function void Terrain:CancelImportHeightmap() {RobloxScriptSecurity}
 	Function Vector3 Terrain:CellCenterToWorld(int x, int y, int z)
 	Function Vector3 Terrain:CellCornerToWorld(int x, int y, int z)
 	Function void Terrain:Clear()
@@ -2145,20 +2164,17 @@ Class Terrain : BasePart [NotCreatable]
 	Function Tuple Terrain:GetCell(int x, int y, int z) [Deprecated]
 	Function Color3 Terrain:GetMaterialColor(Enum.Material material)
 	Function Tuple Terrain:GetWaterCell(int x, int y, int z) [Deprecated]
-	Function void Terrain:ImportHeightmap(Region3 region, Content heightmapAssetId, Content colormapAssetId, Enum.Material defaultMaterial) {RobloxScriptSecurity} [Yields]
 	Function void Terrain:PasteRegion(Instance region, Vector3int16 corner, bool pasteEmptyCells)
 	Function Tuple Terrain:ReadVoxels(Region3 region, float resolution) [CustomLuaState] {🧬Safe}
 	Function void Terrain:ReplaceMaterial(Region3 region, float resolution, Enum.Material sourceMaterial, Enum.Material targetMaterial)
 	Function void Terrain:SetCell(int x, int y, int z, Enum.CellMaterial material, Enum.CellBlock block, Enum.CellOrientation orientation) [Deprecated]
 	Function void Terrain:SetCells(Region3int16 region, Enum.CellMaterial material, Enum.CellBlock block, Enum.CellOrientation orientation) [Deprecated]
-	Function void Terrain:SetImportHeightmapPaused(bool paused) {RobloxScriptSecurity}
 	Function void Terrain:SetMaterialColor(Enum.Material material, Color3 value)
 	Function void Terrain:SetWaterCell(int x, int y, int z, Enum.WaterForce force, Enum.WaterDirection direction) [Deprecated]
 	Function Vector3 Terrain:WorldToCell(Vector3 position)
 	Function Vector3 Terrain:WorldToCellPreferEmpty(Vector3 position)
 	Function Vector3 Terrain:WorldToCellPreferSolid(Vector3 position)
 	Function void Terrain:WriteVoxels(Region3 region, float resolution, Array materials, Array occupancy) [CustomLuaState]
-	Event Terrain.TerrainProgressUpdate(float progressRatio) {RobloxScriptSecurity}
 Class TriangleMeshPart : BasePart [NotCreatable]
 	Property Enum.CollisionFidelity TriangleMeshPart.CollisionFidelity {✏️PluginSecurity} [<📁> LoadOnly] [NotReplicated]
 Class MeshPart : TriangleMeshPart
@@ -3210,8 +3226,11 @@ Class Studio : Instance [NotCreatable] [Service] [NotReplicated]
 	Property bool Studio.Auto Closing Quotes
 	Property Enum.AutoIndentRule Studio.Auto Indent Rule
 	Property bool Studio.Enable Autocomplete
+	Property bool Studio.Enable Linting {RobloxScriptSecurity}
+	Property bool Studio.Enable Signature Help {RobloxScriptSecurity}
 	Property bool Studio.Enable Temporary Tabs
 	Property bool Studio.Enable Temporary Tabs In Explorer
+	Property bool Studio.Enable Type Hover {RobloxScriptSecurity}
 	Property QFont Studio.Font
 	Property bool Studio.Format On Paste
 	Property bool Studio.Format On Type
@@ -5670,6 +5689,7 @@ Enum TextInputType
 	EnumItem TextInputType.Password : 5
 	EnumItem TextInputType.PasswordShown : 6
 	EnumItem TextInputType.Username : 7
+	EnumItem TextInputType.OneTimePassword : 8
 Enum TextTruncate
 	EnumItem TextTruncate.None : 0
 	EnumItem TextTruncate.AtEnd : 1

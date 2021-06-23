@@ -6282,7 +6282,22 @@
         <Item class="ReflectionMetadataMember">
           <Properties>
             <string name="Name">CanCollide</string>
+            <string name="PropertyOrder">1000</string>
             <string name="summary">Determines whether physical interactions with other Parts are respected.  If true, will collide and react with physics to other Parts.  If false, other parts will pass thru instead of colliding</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">CanQuery</string>
+            <string name="PropertyOrder">1001</string>
+            <string name="summary">Determines whether spatial queries such as raycasts can hit this part. If false, in addition to CanCollide, all spatial queries will ignore this part.</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">CanTouch</string>
+            <string name="PropertyOrder">1002</string>
+            <string name="summary">Determines whether this part will fire the touch events of other parts.  If false, it will not cause other touch events to fire, nor can it create its own touch listener.</string>
           </Properties>
         </Item>
         <Item class="ReflectionMetadataMember">
@@ -6371,6 +6386,12 @@
                 <string name="summary">How fast the Part is traveling in studs/second. This property is NOT recommended to be modified directly, unless there is good reason.  Otherwise, try using a BodyForce to move a Part.</string>
             </Properties>
         </Item>
+      <Item class="ReflectionMetadataMember">
+        <Properties>
+          <string name="Name">Size</string>
+          <string name="summary">The size of the part in studs.</string>
+        </Properties>
+      </Item>
         <Item class="ReflectionMetadataMember">
             <Properties>
                 <string name="Name">Position</string>

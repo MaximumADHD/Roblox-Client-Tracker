@@ -1,83 +1,94 @@
 Key,Source,Context,en-us
+Studio.PublishPlaceAs.Genre.Adventure,Adventure, ,Adventure
+Studio.PublishPlaceAs.General.PublishPlace,Publish Place, ,Publish Place
+Studio.PublishPlaceAs.General.SavePlace,Save Place, ,Save Place
+Studio.PublishPlaceAs.General.PlayabilityPublicDesc,Anyone on Roblox, ,Anyone on Roblox
+Studio.PublishPlaceAs.General.ContentDialogItem2,Intense Violence, ,Intense Violence
+Studio.PublishPlaceAs.General.PublishGame,Publish Game, ,Publish Game
+Studio.PublishPlaceAs.General.SaveGame,Save Game, ,Save Game
+Studio.PublishPlaceAs.General.ContentDialogTitle,Content Agreement, ,Content Agreement
+Studio.PublishPlaceAs.Devices.Tablet,Tablet, ,Tablet
+Studio.PublishPlaceAs.General.ContentDialogItem3,Strong Language (Swearing), ,Strong Language (Swearing)
+Studio.PublishPlaceAs.Button.Retry,Retry, ,Retry
+Studio.PublishPlaceAs.Button.ReplyDisagree,Disagree, ,Disagree
+Studio.PublishPlaceAs.General.ContentDialogHeader,Do you agree that your game is controller compatible and contains NONE of the following?, ,Do you agree that your game is controller compatible and contains NONE of the following?
+Studio.PublishPlaceAs.Genre.TownAndCity,Town and City, ,Town and City
+Studio.PublishPlaceAs.GroupDropdown.Me,Me, ,Me
+Studio.PublishPlaceAs.General.ContentDialogItem1,Blood or Gore, ,Blood or Gore
+Studio.PublishPlaceAs.Devices.Header,Devices, ,Devices
+Studio.PublishPlaceAs.PageTitle.Devices,Devices, ,Devices
+Studio.PublishPlaceAs.PageTitle.Genre,Genre, ,Genre
+Studio.PublishPlaceAs.General.ContentDialogItem4,Robux Gambling, ,Robux Gambling
+Studio.PublishPlaceAs.General.ContentDialogItem5,Drug Reference or Use, ,Drug Reference or Use
+Studio.PublishPlaceAs.Error.DescriptionModerated,The description didn't go through our moderation. Please revise it and try again., ,The description didn't go through our moderation. Please revise it and try again.
+Studio.PublishPlaceAs.Devices.Computer,Computer, ,Computer
+Studio.PublishPlaceAs.Genre.Sports,Sports, ,Sports
+Studio.PublishPlaceAs.Button.AddNewPlace,Add New, ,Add New
+Studio.PublishPlaceAs.General.UntitledGame,Untitled Game, ,Untitled Game
+Studio.PublishPlaceAs.General.FetchFailed,Fetch failed, ,Fetch failed
+Studio.PublishPlaceAs.Genre.Pirate,Naval, ,Naval
+Studio.PublishPlaceAs.General.TitlePlayability,Playability, ,Playability
+Studio.PublishPlaceAs.General.PlayabilityPublic,Public, ,Public
+Studio.PublishPlaceAs.PrivacyType.Public,Public, ,Public
+Studio.PublishPlaceAs.General.PlayabilityFriends,Friends, ,Friends
+Studio.PublishPlaceAs.General.PlayabilityPrivate,Private, ,Private
+Studio.PublishPlaceAs.PrivacyType.Private,Private, ,Private
+Studio.PublishPlaceAs.General.PlayabilityFriendsDesc,Friends on Roblox, ,Friends on Roblox
+Studio.PublishPlaceAs.Genre.Ninja,Fighting, ,Fighting
+Studio.PublishPlaceAs.PageTitle.Creator,Creator, ,Creator
+Studio.PublishPlaceAs.General.PlayabilityPrivateDesc,Only developers of this game, ,Only developers of this game
+Studio.PublishPlaceAs.Button.Cancel,Cancel, ,Cancel
+Studio.PublishPlaceAs.FooterButton.Cancel,Cancel, ,Cancel
+Studio.PublishPlaceAs.FooterButton.CreateNewGame,Create new game..., ,Create new game...
+Studio.PublishPlaceAs.OptInLocations.TempLinkDescription,"China: to submit your game to the LuoBu app, visit ", ,"China: to submit your game to the LuoBu app, visit "
+Studio.PublishPlaceAs.Button.ReplyAgree,Agree, ,Agree
+Studio.PublishPlaceAs.Button.Close,Close, ,Close
+Studio.PublishPlaceAs.Button.Submit,Submit, ,Submit
+Studio.PublishPlaceAs.FooterButton.SaveToFile,Save to file..., ,Save to file...
+Studio.PublishPlaceAs.Error.NoDevices,You must select at least one playable device., ,You must select at least one playable device.
+Studio.PublishPlaceAs.FooterButton.UpdateExistingGame,Update existing game..., ,Update existing game...
+Studio.PublishPlaceAs.Error.NameModerated,The name didn't go through our moderation. Please revise it and try again., ,The name didn't go through our moderation. Please revise it and try again.
+Studio.PublishPlaceAs.FooterButton.Create,Create, ,Create
+Studio.PublishPlaceAs.Genre.Funny,Comedy, ,Comedy
+Studio.PublishPlaceAs.FooterButton.Overwrite,Overwrite, ,Overwrite
+Studio.PublishPlaceAs.Genre.RPG,RPG, ,RPG
+Studio.PublishPlaceAs.FooterButton.Save,Save, ,Save
+Studio.PublishPlaceAs.GroupDropdown.MyGames,My Games, ,My Games
+Studio.PublishPlaceAs.MenuItem.BasicInfo,Basic Info, ,Basic Info
+Studio.PublishPlaceAs.Devices.Phone,Phone, ,Phone
+Studio.PublishPlaceAs.Devices.Console,Console, ,Console
+Studio.PublishPlaceAs.PageTitle.Name,Name, ,Name
+Studio.PublishPlaceAs.Genre.Fantasy,Medieval, ,Medieval
+Studio.PublishPlaceAs.Genre.Scary,Horror, ,Horror
+Studio.PublishPlaceAs.PageTitle.Description,Description, ,Description
+Studio.PublishPlaceAs.General.TermsDialogBodyLink,You can download the LuoBuLeSi app here., ,You can download the LuoBuLeSi app here.
+Studio.PublishPlaceAs.Genre.All,All, ,All
+Studio.PublishPlaceAs.Genre.WildWest,Western, ,Western
+Studio.PublishPlaceAs.Genre.Tutorial,Building, ,Building
+Studio.PublishPlaceAs.Genre.FPS,FPS, ,FPS
+Studio.PublishPlaceAs.Genre.War,Military, ,Military
+Studio.PublishPlaceAs.Genre.SciFi,Sci-Fi, ,Sci-Fi
+Studio.PublishPlaceAs.Error.NameEmpty,Name cannot be empty., ,Name cannot be empty.
+Studio.PublishPlaceAs.Error.DescriptionTooLong,{1}/{2},Substituted with current description length and max description length,{1}/{2}
+Studio.PublishPlaceAs.Error.NameTooLong,{1}/{2},Substituted with current name length and max name length,{1}/{2}
+Studio.PublishPlaceAs.ScreenHeader.ChooseGame,Choose an existing game to add this place, ,Choose an existing game to add this place
+Studio.PublishPlaceAs.ScreenHeader.ChoosePlace,Overwrite or add a new place to {1},Substituted with game name to tell user where their place will be added,Overwrite or add a new place to {1}
+Studio.PublishPlaceAs.PublishSuccess.Success,Successfully published!, ,Successfully published!
+Studio.PublishPlaceAs.PublishSuccess.SaveSuccess,Successfully saved!, ,Successfully saved!
+Studio.PublishPlaceAs.PublishSuccess.FindInGame,You may find this place in {1},Substituted with game name to tell user where their place has been published to,You may find this place in {1}
+Studio.PublishPlaceAs.PublishFail.Fail,Publish failed, ,Publish failed
 Studio.PublishPlaceAs.OptInLocations.ChinaRequirements, to publish to China, , to publish to China
-Studio.PublishPlaceAs.Button.AddNewPlace, , ,Add New
-Studio.PublishPlaceAs.Button.Close, , ,Close
-Studio.PublishPlaceAs.Button.ReplyAgree, , ,Agree
-Studio.PublishPlaceAs.Button.ReplyDisagree, , ,Disagree
-Studio.PublishPlaceAs.Button.Retry, , ,Retry
-Studio.PublishPlaceAs.Devices.Computer, , ,Computer
-Studio.PublishPlaceAs.Devices.Console, , ,Console
-Studio.PublishPlaceAs.Devices.Header, , ,Devices
-Studio.PublishPlaceAs.Devices.Phone, , ,Phone
-Studio.PublishPlaceAs.Devices.Tablet, , ,Tablet
-Studio.PublishPlaceAs.Error.DescriptionModerated, , ,The description didn't go through our moderation. Please revise it and try again.
-Studio.PublishPlaceAs.Error.NameEmpty, , ,Name cannot be empty.
-Studio.PublishPlaceAs.Error.NameModerated, , ,The name didn't go through our moderation. Please revise it and try again.
-Studio.PublishPlaceAs.Error.NoDevices, , ,You must select at least one playable device.
-Studio.PublishPlaceAs.FooterButton.Cancel, , ,Cancel
-Studio.PublishPlaceAs.FooterButton.Create, , ,Create
-Studio.PublishPlaceAs.FooterButton.CreateNewGame, , ,Create new game...
-Studio.PublishPlaceAs.FooterButton.Overwrite, , ,Overwrite
-Studio.PublishPlaceAs.FooterButton.Save, , ,Save
-Studio.PublishPlaceAs.FooterButton.SaveToFile, , ,Save to file...
-Studio.PublishPlaceAs.FooterButton.UpdateExistingGame, , ,Update existing game...
-Studio.PublishPlaceAs.General.ContentDialogHeader, , ,Do you agree that your game is controller compatible and contains NONE of the following?
-Studio.PublishPlaceAs.General.ContentDialogItem1, , ,Blood or Gore
-Studio.PublishPlaceAs.General.ContentDialogItem2, , ,Intense Violence
-Studio.PublishPlaceAs.General.ContentDialogItem3, , ,Strong Language (Swearing)
-Studio.PublishPlaceAs.General.ContentDialogItem4, , ,Robux Gambling
-Studio.PublishPlaceAs.General.ContentDialogItem5, , ,Drug Reference or Use
-Studio.PublishPlaceAs.General.ContentDialogTitle, , ,Content Agreement
-Studio.PublishPlaceAs.General.FetchFailed, , ,Fetch failed
-Studio.PublishPlaceAs.General.PlayabilityFriends, , ,Friends
-Studio.PublishPlaceAs.General.PlayabilityFriendsDesc, , ,Friends on Roblox
-Studio.PublishPlaceAs.General.PlayabilityPrivate, , ,Private
-Studio.PublishPlaceAs.General.PlayabilityPrivateDesc, , ,Only developers of this game
-Studio.PublishPlaceAs.General.PlayabilityPublic, , ,Public
-Studio.PublishPlaceAs.General.PlayabilityPublicDesc, , ,Anyone on Roblox
-Studio.PublishPlaceAs.General.PublishGame, , ,Publish Game
-Studio.PublishPlaceAs.General.PublishPlace, , ,Publish Place
-Studio.PublishPlaceAs.General.SaveGame, , ,Save Game
-Studio.PublishPlaceAs.General.SavePlace, , ,Save Place
-Studio.PublishPlaceAs.General.TitlePlayability, , ,Playability
-Studio.PublishPlaceAs.General.UntitledGame, , ,Untitled Game
-Studio.PublishPlaceAs.Genre.Adventure, , ,Adventure
-Studio.PublishPlaceAs.Genre.All, , ,All
-Studio.PublishPlaceAs.Genre.FPS, , ,FPS
-Studio.PublishPlaceAs.Genre.Fantasy, , ,Medieval
-Studio.PublishPlaceAs.Genre.Funny, , ,Comedy
-Studio.PublishPlaceAs.Genre.Ninja, , ,Fighting
-Studio.PublishPlaceAs.Genre.Pirate, , ,Naval
-Studio.PublishPlaceAs.Genre.RPG, , ,RPG
-Studio.PublishPlaceAs.Genre.Scary, , ,Horror
-Studio.PublishPlaceAs.Genre.SciFi, , ,Sci-Fi
-Studio.PublishPlaceAs.Genre.Sports, , ,Sports
-Studio.PublishPlaceAs.Genre.TownAndCity, , ,Town and City
-Studio.PublishPlaceAs.Genre.Tutorial, , ,Building
-Studio.PublishPlaceAs.Genre.War, , ,Military
-Studio.PublishPlaceAs.Genre.WildWest, , ,Western
-Studio.PublishPlaceAs.GroupDropdown.Me, , ,Me
-Studio.PublishPlaceAs.GroupDropdown.MyGames, , ,My Games
-Studio.PublishPlaceAs.MenuItem.BasicInfo, , ,Basic Info
-Studio.PublishPlaceAs.PageTitle.Creator, , ,Creator
-Studio.PublishPlaceAs.PageTitle.Description, , ,Description
-Studio.PublishPlaceAs.PageTitle.Devices, , ,Devices
-Studio.PublishPlaceAs.PageTitle.Genre, , ,Genre
-Studio.PublishPlaceAs.PageTitle.Name, , ,Name
-Studio.PublishPlaceAs.PrivacyType.Private, , ,Private
-Studio.PublishPlaceAs.PrivacyType.Public, , ,Public
-Studio.PublishPlaceAs.PublishFail.Fail, , ,Publish failed
-Studio.PublishPlaceAs.PublishFail.FailConfiguration, , ,Could not publish configuration settings.
-Studio.PublishPlaceAs.PublishFail.SaveFail, , ,Save failed
-Studio.PublishPlaceAs.PublishSuccess.SaveSuccess, , ,Successfully saved!
-Studio.PublishPlaceAs.PublishSuccess.Success, , ,Successfully published!
-Studio.PublishPlaceAs.ScreenHeader.ChooseGame, , ,Choose an existing game to add this place
-Studio.PublishPlaceAs.Error.DescriptionTooLong, ,Substituted with current description length and max description length,{1}/{2}
-Studio.PublishPlaceAs.Error.NameTooLong, ,Substituted with current name length and max name length,{1}/{2}
-Studio.PublishPlaceAs.PublishSuccess.FindInGame, ,Substituted with game name to tell user where their place has been published to,You may find this place in {1}
-Studio.PublishPlaceAs.ScreenHeader.ChoosePlace, ,Substituted with game name to tell user where their place will be added,Overwrite or add a new place to {1}
+Studio.PublishPlaceAs.PublishFail.SaveFail,Save failed, ,Save failed
+Studio.PublishPlaceAs.PublishFail.FailConfiguration,Could not publish configuration settings., ,Could not publish configuration settings.
 Studio.PublishPlaceAs.OptInLocations.China,China, ,China
 Studio.PublishPlaceAs.OptInLocations.TitleOptInLocations,Opt-In Locations, ,Opt-In Locations
 Studio.PublishPlaceAs.OptInLocations.Tooltip,Your creation will be published globally in addition to all the selected opt-in locations. See each location for specific requirements., ,Your creation will be published globally in addition to all the selected opt-in locations. See each location for specific requirements.
-Studio.PublishPlaceAs.OptInLocations.TempLinkDescription,"China: to submit your game to the LuoBu app, visit ", ,"China: to submit your game to the LuoBu app, visit "
+Studio.PublishPlaceAs.General.ReplyOK,OK, ,OK
+Studio.PublishPlaceAs.General.TermsDialogHeader,Terms of Use and Privacy Policy, ,Terms of Use and Privacy Policy
+Studio.PublishPlaceAs.General.TermsDialogBody,"In order to publish on the LuoBuLeSi app published and operated by Tencent, you need to register an account with Tencent, and accept Tencent’s Terms of Use and Privacy Policy. [link]", ,"In order to publish on the LuoBuLeSi app published and operated by Tencent, you need to register an account with Tencent, and accept Tencent’s Terms of Use and Privacy Policy. [link]"
 Studio.PublishPlaceAs.OptInLocations.RequirementsLinkText,Requirements, ,Requirements
+Studio.PublishPlaceAs.OptInLocations.EmailDialogHeader,Email for Review Feedback, ,Email for Review Feedback
+Studio.PublishPlaceAs.OptInLocations.EmailDialogBody,"Your game will be reviewed by moderators to ensure that your game is compliant with Chinese content regulations. After your game is reviewed, we will send you review feedback. The review will take 3-5 days.", ,"Your game will be reviewed by moderators to ensure that your game is compliant with Chinese content regulations. After your game is reviewed, we will send you review feedback. The review will take 3-5 days."
+Studio.PublishPlaceAs.OptInLocations.EmailDialogDescription,Please enter the email where you would like to receive review feedback:, ,Please enter the email where you would like to receive review feedback:
+Studio.PublishPlaceAs.OptInLocations.ErrorInvalidEmail,You entered an invalid email address., ,You entered an invalid email address.
+Studio.PublishPlaceAs.OptInLocations.EmailAddress,Email address, ,Email address
