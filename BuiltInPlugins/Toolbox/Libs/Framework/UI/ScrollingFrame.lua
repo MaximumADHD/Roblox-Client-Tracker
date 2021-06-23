@@ -9,6 +9,7 @@
 		integer LayoutOrder: The order this component will display in a UILayout.
 		boolean AutoSizeCanvas: When true, will automatically resize the canvas size of the scrolling frame.
 		Enum.ScrollingDirection ScrollingDirection: The direction to scroll in (default = XY)
+		Vector2 CanvasPosition: The canvas position of the scrolling frame
 		Enum.AutomaticSize AutomaticSize: The automatic size of the scrolling frame.
 		Enum.AutomaticSize AutomaticCanvasSize: The automatic size of the scrolling frame canvas.
 		callback OnCanvasResize: Called when content size is updated. Only called when AutoSizeCanvas is true.
@@ -36,6 +37,7 @@ local Util = require(Framework.Util)
 local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local FlagsList = Util.Flags.new({
 	FFlagStudioDevFrameworkPackage = {"StudioDevFrameworkPackage"},
+	FFlagToolboxReplaceUILibraryComponentsPt2 = {"ToolboxReplaceUILibraryComponentsPt2"},
 })
 local Cryo
 local isUsedAsPackage = require(Framework.Util.isUsedAsPackage)
@@ -67,7 +69,11 @@ local function getStyle(self)
 end
 
 function ScrollingFrame:init()
-	self.scrollingRef = Roact.createRef()
+	if FlagsList:get("FFlagToolboxReplaceUILibraryComponentsPt2") then
+		self.scrollingRef = self.props[Roact.Ref] or Roact.createRef()
+	else
+		self.scrollingRef = Roact.createRef()
+	end
 	self.layoutRef = Roact.createRef()
 
 	self.onScroll = function(rbx)
@@ -121,7 +127,6 @@ function ScrollingFrame:init()
 	}
 
 	self.getScrollingFrameProps = function(props, style)
-		
 		local scaleX = 1
 		local scaleY = 1
 		local automaticSize = props.AutomaticSize
@@ -161,11 +166,11 @@ function ScrollingFrame:render()
 	local position = props.Position
 	local size = props.Size
 	local layoutOrder = props.LayoutOrder
-	
+
 	local autoSizeCanvas = prioritize(props.AutoSizeCanvas, style.AutoSizeCanvas, false)
 	local autoSizeElement = prioritize(props.AutoSizeLayoutElement, style.AutoSizeLayoutElement, "UIListLayout")
 	local layoutOptions = prioritize(props.AutoSizeLayoutOptions, style.AutoSizeLayoutOptions, {})
-	
+
 	local automaticCanvasSize = props.AutomaticCanvasSize
 	if automaticCanvasSize then
 		autoSizeCanvas = false

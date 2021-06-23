@@ -30,7 +30,6 @@ local ContextServices = require(Framework.ContextServices)
 local Theming = require(Plugin.Src.ContextServices.Theming)
 local UILibrary = require(Plugin.Packages.UILibrary)
 local Localizing = UILibrary.Localizing
-local Constants = require(Plugin.Src.Resources.Constants)
 
 local SetScreen = require(Plugin.Src.Actions.SetScreen)
 
@@ -39,6 +38,7 @@ local ButtonBar = require(Plugin.Src.Components.ButtonBar)
 local Analytics = require(Plugin.Src.Util.Analytics)
 
 local FFlagStudioEnableNewGamesInTheCloudMetrics = game:GetFastFlag("StudioEnableNewGamesInTheCloudMetrics")
+local FFlagLuobuDevPublishLua = game:GetFastFlag("LuobuDevPublishLua")
 
 if FFlagUpdatePublishPlacePluginToDevFrameworkContext then
 	local Footer = Roact.PureComponent:extend("Footer")
@@ -56,6 +56,8 @@ if FFlagUpdatePublishPlacePluginToDevFrameworkContext then
 		local openNextScreen = props.OpenNextScreen
 		local isLocalSaveButton = props.IsLocalSaveButton
 		local isPublish = props.IsPublish
+
+		local children = FFlagLuobuDevPublishLua and props[Roact.Children] or nil
 
 		return Roact.createElement("Frame", {
 			BackgroundColor3 = theme.backgroundColor,
@@ -94,7 +96,7 @@ if FFlagUpdatePublishPlacePluginToDevFrameworkContext then
 						onClose()
 					end
 				end,
-			}),
+			}, children),
 
 			GotoNextScreen = nextScreen ~= nil and Roact.createElement("TextButton", {
 				Size = UDim2.new(0.15,0,0.5,0),
@@ -132,7 +134,7 @@ if FFlagUpdatePublishPlacePluginToDevFrameworkContext then
 			end,
 		}
 	end
-	
+
 	return RoactRodux.connect(nil, useDispatchForProps)(Footer)
 else
 	local function Footer(props)
@@ -140,13 +142,13 @@ else
 			return Theming.withTheme(function(theme)
 				local onClose = props.OnClose
 				local mainButton = props.MainButton
-	
+
 				local nextScreen = props.NextScreen
 				local nextScreenText = props.NextScreenText
 				local openNextScreen = props.OpenNextScreen
 				local isLocalSaveButton = props.IsLocalSaveButton
 				local isPublish = props.IsPublish
-	
+
 				return Roact.createElement("Frame", {
 					BackgroundColor3 = theme.backgroundColor,
 					BorderSizePixel = 0,
@@ -166,7 +168,7 @@ else
 						ImageTransparency = FOOTER_GRADIENT_TRANSPARENCY,
 						ZIndex = 1,
 					}),
-	
+
 					SaveSettings = Roact.createElement(ButtonBar, {
 						ZIndex = 2,
 						Buttons = {
@@ -185,7 +187,7 @@ else
 							end
 						end,
 					}),
-	
+
 					GotoNextScreen = nextScreen ~= nil and Roact.createElement("TextButton", {
 						Size = UDim2.new(0.15,0,0.5,0),
 						Position = UDim2.new(0.13, 0, 0.5, 0),
@@ -197,7 +199,7 @@ else
 						TextSize = 20,
 						Font = theme.footer.textbutton.font,
 						Text = localization:getText("FooterButton", nextScreenText),
-	
+
 						[Roact.Event.Activated] = function()
 							-- When saving, the "existing game" button is repurposed into a "save locally" button
 							if isLocalSaveButton then
@@ -211,7 +213,7 @@ else
 			end)
 		end)
 	end
-	
+
 	local function useDispatchForProps(dispatch)
 		return {
 			OpenNextScreen = function(screen)
@@ -219,6 +221,6 @@ else
 			end,
 		}
 	end
-	
+
 	return RoactRodux.connect(nil, useDispatchForProps)(Footer)
 end

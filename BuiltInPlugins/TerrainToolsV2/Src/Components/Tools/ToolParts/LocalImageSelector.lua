@@ -13,9 +13,6 @@
 			Title to use on the expanded preview window
 ]]
 
-local FFlagTerrainImportGreyscale2 = game:GetFastFlag("TerrainImportGreyscale2")
-local FFlagTerrainToolsHeightmapUseLoadingImage = game:GetFastFlag("TerrainToolsHeightmapUseLoadingImage")
-
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
@@ -51,43 +48,21 @@ function LocalImageSelector:init()
 	end
 
 	self.renderPreview = function()
-		if FFlagTerrainToolsHeightmapUseLoadingImage then
-			local f = self.props.CurrentFile
-			if not f or not f.file then
-				-- Nothing selected
-				return nil
-			end
-
-			local imageId
-			if FFlagTerrainImportGreyscale2 then
-				imageId = self.props.CurrentFile.preview
-			else
-				imageId = self.props.CurrentFile.file:GetTemporaryId()
-			end
-
-			return Roact.createElement(LoadingImage, {
-				BackgroundTransparency = 1,
-				Size = UDim2.new(1, 0, 1, 0),
-
-				Image = imageId,
-				ScaleType = Enum.ScaleType.Fit,
-			})
-		else
-			local imageId = ""
-			if self.props.CurrentFile and self.props.CurrentFile.file then
-				if FFlagTerrainImportGreyscale2 then
-					imageId = self.props.CurrentFile.preview
-				else
-					imageId = self.props.CurrentFile.file:GetTemporaryId()
-				end
-			end
-			return Roact.createElement("ImageLabel", {
-				BackgroundTransparency = 1,
-				Size = UDim2.new(1, 0, 1, 0),
-				Image = imageId,
-				ScaleType = Enum.ScaleType.Fit,
-			})
+		local f = self.props.CurrentFile
+		if not f or not f.file then
+			-- Nothing selected
+			return nil
 		end
+
+		local imageId = self.props.CurrentFile.preview
+
+		return Roact.createElement(LoadingImage, {
+			BackgroundTransparency = 1,
+			Size = UDim2.new(1, 0, 1, 0),
+
+			Image = imageId,
+			ScaleType = Enum.ScaleType.Fit,
+		})
 	end
 
 	self.getMetadata = function()

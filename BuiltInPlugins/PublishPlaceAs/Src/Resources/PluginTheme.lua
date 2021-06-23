@@ -266,6 +266,19 @@ local function createStyles(theme, getColor)
 			errorColor = theme:getColor(c.ErrorText),
 			font = Enum.Font.SourceSans,
 
+			fontStyle = {
+				Title = {
+					Font = Enum.Font.SourceSans,
+					TextSize = 24,
+					TextColor3 = theme:getColor(c.TitlebarText),
+				},
+				Normal = {
+					Font = Enum.Font.SourceSans,
+					TextSize = 22,
+					TextColor3 = theme:getColor(c.MainText),
+				},
+			},
+
 			icons = {
 				newPlace = "rbxasset://textures/PublishPlaceAs/WhiteNew.png",
 				backArrow = "rbxasset://textures/PublishPlaceAs/navigation_pushBack.png",
@@ -273,6 +286,13 @@ local function createStyles(theme, getColor)
 				thumbnailPlaceHolder = "rbxasset://textures/PublishPlaceAs/TransparentWhiteImagePlaceholder.png",
 				backgroundColor = isDark and Color3.fromRGB(37, 37, 37) or Color3.fromRGB(245, 245, 245),
 				imageColor = isDark and Color3.fromRGB(102, 102, 102) or Color3.fromRGB(151, 151, 151),
+			},
+			dialog = {
+				minSize = {
+					width = 400,
+					height = 204,
+				},
+				spacing = 20,
 			},
 			defaultButton = {
 				ButtonColor = isDark and theme:getColor(c.MainButton) or theme:getColor(c.CurrentMarker),
@@ -339,6 +359,9 @@ local function createStyles(theme, getColor)
 			successText = {
 				font = Enum.Font.SourceSans,
 				text = Color3.fromRGB(2, 183, 87),
+			},
+			textWithInlineLink = {
+				maxWidth = 380,
 			},
 			failText = {
 				font = Enum.Font.SourceSans,

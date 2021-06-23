@@ -1,5 +1,4 @@
 local FFlagGameSettingsMigrateToDevFrameworkSeparator = game:GetFastFlag("GameSettingsMigrateToDevFrameworkSeparator")
-local FFlagGameSettingsStandardizeLocalizationId = game:GetFastFlag("GameSettingsStandardizeLocalizationId")
 local FFlagStudioUXImprovementsLoosenTCPermissions = game:GetFastFlag("StudioUXImprovementsLoosenTCPermissions")
 
 local Page = script.Parent.Parent
@@ -29,7 +28,7 @@ local RemoveGroupCollaborator = require(Page.Thunks.RemoveGroupCollaborator)
 local SetGroupPermission = require(Page.Thunks.SetGroupPermission)
 
 local DEFAULT_ROLESET_VALUE = PermissionsConstants.NoAccessKey
-local PERMISSIONS = FFlagGameSettingsStandardizeLocalizationId and "Permissions" or "AccessPermissions"
+local PERMISSIONS = "Permissions"
 
 local FitToContent = createFitToContent("Frame", "UIListLayout", {
 	SortOrder = Enum.SortOrder.LayoutOrder,

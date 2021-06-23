@@ -32,8 +32,8 @@
 		boolean HideCreatorSearch: Whether to show creator search link
 ]]
 
-local FFlagDevFrameworkDestroyAssetPreviewVideo = game:DefineFastFlag("DevFrameworkDestroyAssetPreviewVideo", false)
-local FFlagStudioAssetManagerHideAssetPreviewCreatorSearch = game:GetFastFlag("StudioAssetManagerHideAssetPreviewCreatorSearch")
+local FFlagDevFrameworkAssetPreviewFixes = game:GetFastFlag("DevFrameworkAssetPreviewFixes")
+local FFlagStudioAssetManagerRefactorAssetPreview = game:GetFastFlag("StudioAssetManagerRefactorAssetPreview")
 
 local TextService = game:GetService("TextService")
 
@@ -177,6 +177,10 @@ function AssetPreview:formatLocalDateTimeForAsset(asset, key)
 		end
 	end
 
+	if FFlagDevFrameworkAssetPreviewFixes and field == nil then
+		return ""
+	end
+
 	return formatLocalDateTime(field, DATETIME_FORMAT_STRING, locale)
 end
 
@@ -196,24 +200,27 @@ function AssetPreview:updateAssetInfoRows()
 			
 			video.Loaded:Connect(function()
 				if not self._isMounted then
-					if FFlagDevFrameworkDestroyAssetPreviewVideo then
-						video:Destroy()
-					end
+					video:Destroy()
 					return
 				end
 
-				local localization = self.props.Localization
-				self:setState({
-					assetInfoRows = {
-						{
-							Label = localization:getProjectText(LOCALIZATION_PROJECT_NAME, COMPONENT_NAME, "Resolution"),
-							Content = string.format("%dx%d", video.Resolution.X, video.Resolution.Y),
+				local width = video.Resolution.X
+				local height = video.Resolution.Y
+
+				-- Resolution may be 0x0 due to https://jira.rbx.com/browse/CLI-42841 - avoid showing the resolution row if this is the case.
+				if not FFlagDevFrameworkAssetPreviewFixes or width ~= 0 or height ~= 0 then
+					local localization = self.props.Localization
+					self:setState({
+						assetInfoRows = {
+							{
+								Label = localization:getProjectText(LOCALIZATION_PROJECT_NAME, COMPONENT_NAME, "Resolution"),
+								Content = string.format("%dx%d", width, height),
+							}
 						}
-					}
-				})
-				if FFlagDevFrameworkDestroyAssetPreviewVideo then
-					video:Destroy()
-				end				
+					})
+				end
+
+				video:Destroy()
 			end)
 
 			video.Video = string.format("rbxassetid://%d", asset.Id)
@@ -275,12 +282,16 @@ function AssetPreview:render()
 
 	local infoRowStyle = style.ScrollingFrame.InfoRow
 
+	local creatorLinkAction = self.onClickCreatorLink
+	if FFlagStudioAssetManagerRefactorAssetPreview and props.HideCreatorSearch then
+		creatorLinkAction = nil
+	end
+
 	local infoRows = Cryo.List.join({
 		{
 			Label = localization:getProjectText(LOCALIZATION_PROJECT_NAME, COMPONENT_NAME, "Creator"),
 			Content = assetData.Creator.Name,
-			LinkAction = FFlagStudioAssetManagerHideAssetPreviewCreatorSearch and not props.HideCreatorSearch
-				and self.onClickCreatorLink or nil,
+			LinkAction = creatorLinkAction,
 		},
 		{
 			Label = localization:getProjectText(LOCALIZATION_PROJECT_NAME, COMPONENT_NAME, "Genre"),

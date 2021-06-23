@@ -26,7 +26,6 @@
 ]]
 
 local FFlagGameSettingsMigrateToDevFrameworkSeparator = game:GetFastFlag("GameSettingsMigrateToDevFrameworkSeparator")
-local FFlagGameSettingsStandardizeLocalizationId = game:GetFastFlag("GameSettingsStandardizeLocalizationId")
 local FFlagLuobuDevPublishLua = game:GetFastFlag("LuobuDevPublishLua")
 local FFlagLuobuDevPublishLuaTempOptIn = game:GetFastFlag("LuobuDevPublishLuaTempOptIn")
 local FFlagUseLayoutIteratorGameSettingsPublishPlace = game:GetFastFlag("UseLayoutIteratorGameSettingsPublishPlace")
@@ -34,7 +33,7 @@ local FFlagUseLayoutIteratorGameSettingsPublishPlace = game:GetFastFlag("UseLayo
 local StudioService = game:GetService("StudioService")
 local GuiService = game:GetService("GuiService")
 
-local LOCALIZATION_ID = FFlagGameSettingsStandardizeLocalizationId and script.Name or "BasicInfo"
+local LOCALIZATION_ID = script.Name
 
 local MAX_NAME_LENGTH = 50
 local MAX_DESCRIPTION_LENGTH = 1000
@@ -876,7 +875,7 @@ function BasicInfo:render()
 		SettingsLoadJobs = loadSettings,
 		SettingsSaveJobs = saveSettings,
 		Title = localization:getText("General", "Category"..LOCALIZATION_ID),
-		PageId = FFlagGameSettingsStandardizeLocalizationId and LOCALIZATION_ID or script.Name,
+		PageId = LOCALIZATION_ID,
 		CreateChildren = createChildren,
 	})
 end

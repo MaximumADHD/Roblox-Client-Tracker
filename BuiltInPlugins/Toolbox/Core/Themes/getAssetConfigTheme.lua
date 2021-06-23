@@ -28,6 +28,27 @@ return function()
 	return {
 		assetConfig = {
 			labelTextColor = StyleKey.DimmedText,
+			textColor = StyleKey.MainText,
+
+			packagePermissions = {
+				backgroundColor = StyleKey.MainBackground,
+				subTextColor = StyleKey.SubText,
+
+				searchBar = {
+					dropDown = {
+						backgroundColor = StyleKey.InputFieldBackground,
+						headerText = StyleKey.SubText,
+
+						hovered = {
+							backgroundColor = StyleKey.ItemHovered,
+						},
+
+						selected = {
+							backgroundColor = StyleKey.ButtonSelected,
+						},
+					},
+				}
+			}
 		},
 
 		footer = {

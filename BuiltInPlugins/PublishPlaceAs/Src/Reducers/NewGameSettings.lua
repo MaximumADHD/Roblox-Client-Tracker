@@ -19,6 +19,16 @@ local Rodux = require(Plugin.Packages.Rodux)
 local Cryo = require(Plugin.Packages.Cryo)
 
 local FFlagStudioAllowRemoteSaveBeforePublish = game:GetFastFlag("StudioAllowRemoteSaveBeforePublish")
+local FFlagLuobuDevPublishLua = game:GetFastFlag("LuobuDevPublishLua")
+local FFlagTextInputDialogDevFramework = game:GetFastFlag("TextInputDialogDevFramework")
+local FFlagUpdatePublishPlacePluginToDevFrameworkContext = game:GetFastFlag("UpdatePublishPlacePluginToDevFrameworkContext")
+
+local shouldShowDevPublishLocations = require(Plugin.Src.Util.PublishPlaceAsUtilities).shouldShowDevPublishLocations
+
+local optInLocations
+if FFlagLuobuDevPublishLua and FFlagUpdatePublishPlacePluginToDevFrameworkContext and FFlagTextInputDialogDevFramework and shouldShowDevPublishLocations() then
+    optInLocations = {China = false,}
+end
 
 local function isEqualCheck(left, right)
 	left = left or {}
@@ -47,6 +57,7 @@ local initial = {
 		description = "",
 		genre = Constants.GENRE_IDS[1],
 		playableDevices = {Computer = true, Phone = true, Tablet = true,},
+		OptInLocations = optInLocations,
 	},
 	errors = {},
 }

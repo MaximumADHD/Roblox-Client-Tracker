@@ -21,7 +21,7 @@ function FastFlags:isBundleConfigurationEnabled()
 end
 
 function FastFlags:shouldDetectRigTypeInCustomImport()
-	return isFlagOn("DetectRigTypeInCustomImport2")
+	return isFlagOn("DetectRigTypeInCustomImport3")
 end
 
 function FastFlags:shouldDetectRigTypeInR15Import()

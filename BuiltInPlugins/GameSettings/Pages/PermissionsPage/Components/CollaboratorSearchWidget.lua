@@ -1,4 +1,3 @@
-local FFlagGameSettingsStandardizeLocalizationId = game:GetFastFlag("GameSettingsStandardizeLocalizationId")
 local FFlagStudioUXImprovementsLoosenTCPermissions = game:GetFastFlag("StudioUXImprovementsLoosenTCPermissions")
 
 local Page = script.Parent.Parent
@@ -45,7 +44,7 @@ local TextFitToContent = createFitToContent("Frame", "UIListLayout", {
 })
 
 local PADDING = 16
-local PERMISSIONS_ID = FFlagGameSettingsStandardizeLocalizationId and "Permissions" or "AccessPermissions"
+local PERMISSIONS_ID = "Permissions"
 
 local CollaboratorSearchWidget = Roact.PureComponent:extend("CollaboratorSearchWidget")
 

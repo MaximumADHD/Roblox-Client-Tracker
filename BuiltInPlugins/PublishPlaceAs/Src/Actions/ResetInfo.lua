@@ -5,6 +5,16 @@ local Constants = require(Plugin.Src.Resources.Constants)
 local Action = require(script.Parent.Action)
 
 local FFlagStudioPromptOnFirstPublish = game:GetFastFlag("StudioPromptOnFirstPublish")
+local FFlagLuobuDevPublishLua = game:GetFastFlag("LuobuDevPublishLua")
+local FFlagTextInputDialogDevFramework = game:GetFastFlag("TextInputDialogDevFramework")
+local FFlagUpdatePublishPlacePluginToDevFrameworkContext = game:GetFastFlag("UpdatePublishPlacePluginToDevFrameworkContext")
+
+local shouldShowDevPublishLocations = require(Plugin.Src.Util.PublishPlaceAsUtilities).shouldShowDevPublishLocations
+
+local optInLocations
+if FFlagLuobuDevPublishLua and FFlagUpdatePublishPlacePluginToDevFrameworkContext and FFlagTextInputDialogDevFramework and shouldShowDevPublishLocations() then
+    optInLocations = {China = false,}
+end
 
 return Action(script.Name, function(localizedDefaultName, isOverwritePublish, isFirstPublish)
     local initialScreen = Constants.SCREENS.CREATE_NEW_GAME
@@ -24,6 +34,7 @@ return Action(script.Name, function(localizedDefaultName, isOverwritePublish, is
             description = "",
             genre = Constants.GENRE_IDS[1],
             playableDevices = {Computer = true, Phone = true, Tablet = true,},
+            OptInLocations = optInLocations,
         },
         errors = {},
         publishInfo = { id = 0, name = "", parentGameName = "", parentGameId = 0, settings = {}, },

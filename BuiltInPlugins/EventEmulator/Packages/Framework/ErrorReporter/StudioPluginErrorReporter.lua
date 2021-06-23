@@ -20,6 +20,8 @@
 	end
 ]]
 
+local FFlagDevFrameworkBacktraceReportUser = game:DefineFastFlag("DevFrameworkBacktraceReportUser", false)
+
 local AnalyticsService = game:GetService("RbxAnalyticsService")
 local ContentProvider = game:GetService("ContentProvider")
 local HttpService = game:GetService("HttpService")
@@ -34,6 +36,7 @@ local BacktraceReporter = require(script.Parent.Backtrace.BacktraceReporter)
 local FStringStudioPluginsBacktraceToken = settings():GetFVariable("StudioPluginsBacktraceToken")
 local STUDIO_DEVELOPMENT_VERSION = "0.0.0.1"
 local STUDIO_PLUGIN_ERRORS_DIAG_COLLECTOR = "StudioPluginErrors"
+local STUDIO_PLUGIN_ERRORS_BY_SESSION_DIAG_COLLECTOR = "StudioPluginErrorsBySession"
 
 local IStudioPluginErrorReporterArgs = t.strictInterface({
 	expectedSecurityLevel = t.integer,
@@ -58,8 +61,15 @@ local IStudioPluginErrorReporterArgs = t.strictInterface({
 	}))
 })
 
-local function createCollectorName(pluginName)
-	return string.format("%s.%s", STUDIO_PLUGIN_ERRORS_DIAG_COLLECTOR, pluginName)
+local createCollectorName
+if FFlagDevFrameworkBacktraceReportUser then
+	createCollectorName = function(namespace, pluginName)
+		return string.format("%s.%s", namespace, pluginName)
+	end
+else
+	createCollectorName = function(pluginName)
+		return string.format("%s.%s", STUDIO_PLUGIN_ERRORS_DIAG_COLLECTOR, pluginName)
+	end
 end
 
 local StudioPluginErrorReporter = {}
@@ -84,7 +94,9 @@ function StudioPluginErrorReporter.new(args)
 	local userAgent = httpService:GetUserAgent()
 	local baseUrl = contentProvider.BaseUrl
 
-	local self = setmetatable({}, StudioPluginErrorReporter)
+	local self = setmetatable({
+		_hasReported = FFlagDevFrameworkBacktraceReportUser and {} or nil,
+	}, StudioPluginErrorReporter)
 	
 	self.errorSignal = errorSignal
 	self.analyticsService = analyticsService
@@ -133,12 +145,28 @@ function StudioPluginErrorReporter.new(args)
 			})
 			self.reporter:reportErrorDeferred(errorMessage, errorStack, details)
 
-			-- keep track of the total errors
-			self.analyticsService:ReportCounter(createCollectorName(pluginName), 1)
+			if FFlagDevFrameworkBacktraceReportUser then
+				self:_reportCounts(pluginName)
+			else
+				-- keep track of the total errors
+				self.analyticsService:ReportCounter(createCollectorName(pluginName), 1)
+			end
 		end)
 	end
 
 	return self
+end
+
+if FFlagDevFrameworkBacktraceReportUser then
+	function StudioPluginErrorReporter:_reportCounts(pluginName)
+		self.analyticsService:ReportCounter(createCollectorName(STUDIO_PLUGIN_ERRORS_DIAG_COLLECTOR, pluginName), 1)
+		
+		if not self._hasReported[pluginName] then
+			self._hasReported[pluginName] = true
+			-- This counter is only reported once per (plugin, session) to allow us to determine how many sessions are being impacted
+			self.analyticsService:ReportCounter(createCollectorName(STUDIO_PLUGIN_ERRORS_BY_SESSION_DIAG_COLLECTOR, pluginName), 1)
+		end
+	end
 end
 
 function StudioPluginErrorReporter:report(pluginName, errorMessage)
@@ -148,7 +176,11 @@ function StudioPluginErrorReporter:report(pluginName, errorMessage)
 		PluginName = pluginName,
 	})
 	self.reporter:reportErrorDeferred(errorMessage, debug.traceback())
-	self.analyticsService:ReportCounter(createCollectorName(pluginName), 1)
+	if FFlagDevFrameworkBacktraceReportUser then
+		self:_reportCounts(pluginName)
+	else
+		self.analyticsService:ReportCounter(createCollectorName(pluginName), 1)
+	end
 end
 
 function StudioPluginErrorReporter:stop()

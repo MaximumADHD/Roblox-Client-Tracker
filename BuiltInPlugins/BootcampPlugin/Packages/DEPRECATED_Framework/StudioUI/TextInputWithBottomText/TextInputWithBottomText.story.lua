@@ -12,7 +12,17 @@ return {
 				Size = UDim2.new(0, 150, 0, 20),
 				TextInputProps = {
 					PlaceholderText = "hello world!",
-					Style = "Roundbox",
+				},
+			})
+		},
+		{
+			name = "MultiLined",
+			story = Roact.createElement(TextInputWithBottomText, {
+				BottomText = "Bottom text",
+				Size = UDim2.new(0, 150, 0, 100),
+				TextInputProps = {
+					MultiLine = true,
+					PlaceholderText = "hello world!",
 				},
 			})
 		},

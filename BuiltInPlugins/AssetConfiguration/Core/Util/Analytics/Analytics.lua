@@ -9,6 +9,10 @@ local getUserId = require(Plugin.Core.Util.getUserId)
 
 local FlagsList = require(Plugin.Core.Util.FlagsList)
 
+local FFlagToolboxTrackAllAssetTypeInsertions = game:GetFastFlag("ToolboxTrackAllAssetTypeInsertions")
+
+local FFlagToolboxTrackRunMode = game:GetFastFlag("ToolboxTrackRunMode")
+
 local FFlagPluginManagementDirectlyOpenToolbox = game:GetFastFlag("PluginManagementDirectlyOpenToolbox")
 
 -- TODO CLIDEVSRVS-1689: StudioSession + StudioID
@@ -47,6 +51,19 @@ end
 
 local Analytics = {}
 
+local getIsEditMode
+if FFlagToolboxTrackRunMode then
+	local isEditMode = game:GetService("RunService"):IsEdit()
+	getIsEditMode = function()
+		return isEditMode
+	end
+	Analytics.getIsEditMode = getIsEditMode
+else
+	getIsEditMode = function()
+		return nil
+	end
+end
+
 Analytics.getPlaceId = getPlaceId
 Analytics.getPlatformId = getPlatformId
 Analytics.getClientId = getClientId
@@ -71,6 +88,7 @@ function Analytics.onTermSearchedWithoutInsertion(categoryName, searchTerm)
 		studioSid = getStudioSessionId(),
 		clientId = getClientId(),
 		userId = getUserId(),
+		isEditMode = getIsEditMode(),
 	})
 end
 
@@ -81,6 +99,7 @@ function Analytics.onCreatorSearched(searchTerm, creatorId)
 		studioSid = getStudioSessionId(),
 		clientId = getClientId(),
 		userId = getUserId(),
+		isEditMode = getIsEditMode(),
 	})
 end
 
@@ -90,6 +109,7 @@ function Analytics.onTryAsset(assetId)
 		studioSid = getStudioSessionId(),
 		clientId = getClientId(),
 		userId = getUserId(),
+		isEditMode = getIsEditMode(),
 	})
 end
 
@@ -99,6 +119,7 @@ function Analytics.onTryAssetFailure(assetId)
 		studioSid = getStudioSessionId(),
 		clientId = getClientId(),
 		userId = getUserId(),
+		isEditMode = getIsEditMode(),
 	})
 end
 
@@ -107,6 +128,7 @@ function Analytics.onSearchOptionsOpened()
 		studioSid = getStudioSessionId(),
 		clientId = getClientId(),
 		userId = getUserId(),
+		isEditMode = getIsEditMode(),
 	})
 end
 
@@ -116,6 +138,7 @@ function Analytics.onCategorySelected(oldCategory, newCategory)
 		newCategory = newCategory,
 		studioSid = getStudioSessionId(),
 		clientId = getClientId(),
+		isEditMode = getIsEditMode(),
 	})
 end
 
@@ -132,6 +155,7 @@ function Analytics.onAssetInserted(assetId, searchTerm, assetIndex, currentCateg
 		clientId = getClientId(),
 		placeId = getPlaceId(),
 		userId = getUserId(),
+		isEditMode = getIsEditMode(),
 	})
 end
 
@@ -148,6 +172,7 @@ function Analytics.onAssetDragInserted(assetId, searchTerm, assetIndex, currentC
 		clientId = getClientId(),
 		placeId = getPlaceId(),
 		userId = getUserId(),
+		isEditMode = getIsEditMode(),
 	})
 end
 
@@ -161,6 +186,12 @@ end
 
 function Analytics.incrementToolboxInsertCounter(assetTypeId)
 	AnalyticsSenders.reportCounter(("Studio.ToolboxInsert.%s"):format(tostring(assetTypeId)))
+end
+
+if FFlagToolboxTrackAllAssetTypeInsertions then
+	function Analytics.incrementToolboxCategoryInsertCounter(categoryName)
+		AnalyticsSenders.reportCounter(("Studio.ToolboxCategoryInsert.%s"):format(tostring(categoryName)))
+	end
 end
 
 function Analytics.incrementWorkspaceInsertCounter()
@@ -202,6 +233,7 @@ function Analytics.onAssetPreviewSelected(assetId)
 		clientId = getClientId(),
 		userId = getUserId(),
 		platformId = getPlatformId(),
+		isEditMode = getIsEditMode(),		
 	})
 end
 
@@ -213,6 +245,7 @@ function Analytics.onAssetPreviewEnded(assetId, time)
 		clientId = getClientId(),
 		userId = getUserId(),
 		platformId = getPlatformId(),
+		isEditMode = getIsEditMode(),		
 	})
 end
 
@@ -222,6 +255,7 @@ function Analytics.onAssetInsertedFromAssetPreview(assetId)
 		clientId = getClientId(),
 		userId = getUserId(),
 		platformId = getPlatformId(),
+		isEditMode = getIsEditMode(),
 	})
 end
 
@@ -233,6 +267,7 @@ if not FlagsList:get("FFlagToolboxUseDevFrameworkAssetPreview") then
 			clientId = getClientId(),
 			userId = getUserId(),
 			platformId = getPlatformId(),
+			isEditMode = getIsEditMode(),
 		})
 	end
 end
@@ -241,6 +276,7 @@ function Analytics.onPluginButtonClickOpen()
 	AnalyticsSenders.sendEventDeferred("studio", "toolbox", "MarketplaceOpen", {
 		userId = getUserId(),
 		placeId = getPlaceId(),
+		isEditMode = getIsEditMode(),
 	})
 end
 
@@ -248,6 +284,7 @@ function Analytics.onPluginButtonClickClose()
 	AnalyticsSenders.sendEventDeferred("studio", "toolbox", "MarketplaceClosed", {
 		userId = getUserId(),
 		placeId = getPlaceId(),
+		isEditMode = getIsEditMode(),
 	})
 end
 
@@ -255,6 +292,7 @@ function Analytics.onToolboxDisplayed()
 	AnalyticsSenders.sendEventDeferred("studio", "toolbox", "MarketplaceImpression", {
 		userId = getUserId(),
 		placeId = getPlaceId(),
+		isEditMode = getIsEditMode(),
 	})
 end
 
@@ -263,6 +301,7 @@ if FFlagPluginManagementDirectlyOpenToolbox then
 		AnalyticsSenders.sendEventImmediately("studio", "Marketplace", "OpenedFromPluginManagement", {
 			studioSid = getStudioSessionId(),
 			clientId = getClientId(),
+			isEditMode = getIsEditMode(),
 		})
 	end
 end

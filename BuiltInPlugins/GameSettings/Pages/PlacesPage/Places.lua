@@ -16,7 +16,6 @@
 		devices: "NoDevices"
 ]]
 local FFlagGameSettingsUseKeyProvider = game:GetFastFlag("GameSettingsUseKeyProvider")
-local FFlagGameSettingsStandardizeLocalizationId = game:GetFastFlag("GameSettingsStandardizeLocalizationId")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -65,7 +64,7 @@ local ReloadPlaces = require(Page.Thunks.ReloadPlaces)
 
 local Places = Roact.PureComponent:extend(script.Name)
 
-local LOCALIZATION_ID = FFlagGameSettingsStandardizeLocalizationId and script.Name or "Places"
+local LOCALIZATION_ID = script.Name
 
 --[[
 	TODO 7/8/2020 Fetch this from BE since it can be different based on logged-in user's roleset
@@ -622,7 +621,7 @@ function Places:render()
 		SettingsLoadJobs = loadSettings,
 		SettingsSaveJobs = saveSettings,
 		Title = localization:getText("General", "Category"..LOCALIZATION_ID),
-		PageId = FFlagGameSettingsStandardizeLocalizationId and LOCALIZATION_ID or script.Name,
+		PageId = LOCALIZATION_ID,
 		CreateChildren = createChildren,
 		ShowHeader = editPlaceId == 0,
 	})

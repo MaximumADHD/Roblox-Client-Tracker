@@ -6,18 +6,9 @@ local Plugin = script.Parent.Parent.Parent
 local Rodux = require(Plugin.Packages.Rodux)
 local Cryo = require(Plugin.Packages.Cryo)
 
-local Constants = require(Plugin.Src.Util.Constants)
-
-
 local Actions = Plugin.Src.Actions
 local AddHistoryItem = require(Actions.AddHistoryItem)
 local RemoveHistoryItem = require(Actions.RemoveHistoryItem)
-
-local TemplateItem = {
-	Name = "",
-	View = "",
-	Data = {},
-}
 
 return Rodux.createReducer({
 	HistoryItems = {}

@@ -32,7 +32,6 @@
 		boolean HideCreatorSearch: Whether to show creator search link
 ]]
 
-local FFlagDevFrameworkDestroyAssetPreviewVideo = game:DefineFastFlag("DevFrameworkDestroyAssetPreviewVideo", false)
 local FFlagDevFrameworkAssetPreviewFixes = game:GetFastFlag("DevFrameworkAssetPreviewFixes")
 local FFlagStudioAssetManagerRefactorAssetPreview = game:GetFastFlag("StudioAssetManagerRefactorAssetPreview")
 
@@ -201,9 +200,7 @@ function AssetPreview:updateAssetInfoRows()
 			
 			video.Loaded:Connect(function()
 				if not self._isMounted then
-					if FFlagDevFrameworkDestroyAssetPreviewVideo then
-						video:Destroy()
-					end
+					video:Destroy()
 					return
 				end
 
@@ -223,9 +220,7 @@ function AssetPreview:updateAssetInfoRows()
 					})
 				end
 
-				if FFlagDevFrameworkDestroyAssetPreviewVideo then
-					video:Destroy()
-				end
+				video:Destroy()
 			end)
 
 			video.Video = string.format("rbxassetid://%d", asset.Id)

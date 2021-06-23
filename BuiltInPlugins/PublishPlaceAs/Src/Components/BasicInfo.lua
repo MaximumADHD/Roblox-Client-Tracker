@@ -24,8 +24,6 @@
 		description: "TooLong"
 		devices: "NoDevices"
 ]]
-
-
 local MAX_NAME_LENGTH = 50
 local MAX_DESCRIPTION_LENGTH = 1000
 
@@ -46,6 +44,8 @@ local Header = require(Plugin.Src.Components.Header)
 local PlatformSelect = require(Plugin.Src.Components.PlatformSelect)
 local CheckBoxSet = require(Plugin.Src.Components.CheckBoxSet)
 
+local GetPlayerAcceptances = require(Plugin.Src.Thunks.GetPlayerAcceptances)
+
 local AddChange = require(Plugin.Src.Actions.AddChange)
 local AddErrors = require(Plugin.Src.Actions.AddErrors)
 local Constants = require(Plugin.Src.Resources.Constants)
@@ -64,14 +64,17 @@ local FFlagUseLayoutIteratorGameSettingsPublishPlace = game:GetFastFlag("UseLayo
 
 local shouldShowDevPublishLocations = require(Plugin.Src.Util.PublishPlaceAsUtilities).shouldShowDevPublishLocations
 local getOptInLocationsRequirementsLink = require(Plugin.Src.Util.PublishPlaceAsUtilities).getOptInLocationsRequirementsLink
+local getPlayerAppDownloadLink = require(Plugin.Src.Util.PublishPlaceAsUtilities).getPlayerAppDownloadLink
 local KeyProvider = (FFlagLuobuDevPublishLua or FFlagLuobuDevPublishLuaTempOptIn) and require(Plugin.Src.Util.KeyProvider) or nil
 local optInLocationsKey = (FFlagLuobuDevPublishLua or FFlagLuobuDevPublishLuaTempOptIn) and KeyProvider.getOptInLocationsKeyName() or nil
 local chinaKey = (FFlagLuobuDevPublishLua or FFlagLuobuDevPublishLuaTempOptIn) and KeyProvider.getChinaKeyName() or nil
 
 local Framework = require(Plugin.Packages.Framework)
-local Tooltip = Framework.UI.Tooltip
 local Image = Framework.UI.Decoration.Image
 local HoverArea = Framework.UI.HoverArea
+local StyledDialog = Framework.StudioUI.StyledDialog
+local TextWithInlineLink = Framework.UI.TextWithInlineLink
+local Tooltip = Framework.UI.Tooltip
 local LinkText = Framework.UI.LinkText
 local LayoutOrderIterator = Framework.Util.LayoutOrderIterator
 
@@ -107,6 +110,7 @@ local function displayContents(parent, DEPRECATED_localization)
 	local isActiveChanged = props.IsActiveChanged
 	local optInLocations = FFlagLuobuDevPublishLua and props.OptInLocations or nil
 	local optInLocationsChanged = FFlagLuobuDevPublishLua and props.OptInLocationsChanged or nil
+	local playerAcceptance = FFlagLuobuDevPublishLua and props.PlayerAcceptance or nil
 
 	local genres = Cryo.List.map(Constants.GENRE_IDS, function(name)
 		return {Key = name, Text = localization:getText("Genre", name)}
@@ -354,18 +358,16 @@ local function displayContents(parent, DEPRECATED_localization)
 					end,
 				})
 			end)
+			if not FFlagLuobuDevPublishLuaTempOptIn and FFlagLuobuDevPublishLua and shouldShowDevPublishLocations() then
+				displayResult.Separator5 = Roact.createElement(Separator, {
+					LayoutOrder = FFlagUseLayoutIteratorGameSettingsPublishPlace and layoutOrder:getNextOrder() or 11,
+				})
 
-			displayResult.Separator5 = (not FFlagLuobuDevPublishLuaTempOptIn and FFlagLuobuDevPublishLua) and shouldShowDevPublishLocations()
-			and Roact.createElement(Separator, {
-				LayoutOrder = FFlagUseLayoutIteratorGameSettingsPublishPlace and layoutOrder:getNextOrder() or 11,
-			}) or nil
-
-			displayResult.OptInLocations = (not FFlagLuobuDevPublishLuaTempOptIn and FFlagLuobuDevPublishLua) and shouldShowDevPublishLocations()
-			and Roact.createElement(CheckBoxSet, {
-				Title = localization:getText(optInLocationsKey, "TitleOptInLocations"),
-				LayoutOrder = FFlagUseLayoutIteratorGameSettingsPublishPlace and layoutOrder:getNextOrder() or 12,
-				MaxHeight = theme.optInLocations.height,
-				Boxes = {{
+				displayResult.OptInLocations = Roact.createElement(CheckBoxSet, {
+					Title = localization:getText(optInLocationsKey, "TitleOptInLocations"),
+					LayoutOrder = FFlagUseLayoutIteratorGameSettingsPublishPlace and layoutOrder:getNextOrder() or 12,
+					MaxHeight = theme.optInLocations.height,
+					Boxes = {{
 						Id = chinaKey,
 						Title = localization:getText(optInLocationsKey, chinaKey),
 						Selected = optInLocations and optInLocations.China or false,
@@ -387,70 +389,125 @@ local function displayContents(parent, DEPRECATED_localization)
 								end,
 							})
 						}),
-					},
-				},
-				Enabled = optInLocations ~= nil,
-				--Functionality
-				EntryClicked = function(box)
-					local newLocations = Cryo.Dictionary.join(optInLocations, {
-						[box.Id] = (box.Selected) and Cryo.None or not box.Selected,
-					})
-					optInLocationsChanged(newLocations)
-				end,
-				Tooltip = Roact.createElement(Image, {
-					Size = UDim2.fromOffset(theme.tooltipIcon.size, theme.tooltipIcon.size),
-					Position = UDim2.new(0, 0, 0, theme.tooltipIcon.paddingY),
-					Style = "TooltipStyle",
-					StyleModifier = parent.state.StyleModifier,
-				}, {
-					Roact.createElement(Tooltip, {
-						Text = localization:getText(optInLocationsKey, "Tooltip"),
-					}),
-					Roact.createElement(HoverArea, {
-						Cursor = "PointingHand",
-						MouseEnter = parent.onMouseEnter,
-						MouseLeave = parent.onMouseLeave,
-					}),
-				}),
-			}) or nil
-
-			local layoutOrder2 = (FFlagUseLayoutIteratorGameSettingsPublishPlace and FFlagLuobuDevPublishLuaTempOptIn and shouldShowDevPublishLocations()) and LayoutOrderIterator.new() or nil
-
-			displayResult.Separator7 = (not FFlagLuobuDevPublishLua and FFlagLuobuDevPublishLuaTempOptIn) and shouldShowDevPublishLocations() and Roact.createElement(Separator, {
-				LayoutOrder = FFlagUseLayoutIteratorGameSettingsPublishPlace and layoutOrder:getNextOrder() or 11,
-			}) or nil
-
-			displayResult.TempOptInLocations = (not FFlagLuobuDevPublishLua and FFlagLuobuDevPublishLuaTempOptIn) and shouldShowDevPublishLocations() and Roact.createElement(TitledFrame, {
-				Title = localization:getText(optInLocationsKey, "TitleOptInLocations"),
-				MaxHeight = 60,
-				LayoutOrder = FFlagUseLayoutIteratorGameSettingsPublishPlace and layoutOrder:getNextOrder() or 12,
-				TextSize = theme.tempOptInLink.TextSize,
-			}, {
-				UILayout = Roact.createElement("UIListLayout", {
-					SortOrder = Enum.SortOrder.LayoutOrder,
-					FillDirection = Enum.FillDirection.Horizontal,
-					VerticalAlignment = Enum.VerticalAlignment.Top,
-				}),
-				Text = Roact.createElement("TextLabel", {
-					Size = UDim2.new(0, calculateTextSize(localization:getText(optInLocationsKey, "TempLinkDescription"), theme.tempOptInLink.TextSize, theme.tempOptInLink.Font).X, 0, theme.tempOptInLink.TextSize),
-					BackgroundTransparency = 1,
-					TextColor3 = theme.tempOptInLink.TextColor3,
-					TextXAlignment = Enum.TextXAlignment.Left,
-					TextSize = theme.tempOptInLink.TextSize,
-					Font = theme.tempOptInLink.Font,
-					Text = localization:getText(optInLocationsKey, "TempLinkDescription"),
-					LayoutOrder = layoutOrder2 and layoutOrder2:getNextOrder() or 1,
-				}),
-				LinkText = Roact.createElement(LinkText, {
-					Text = "roblox.cn",
-					Style = "LinkTextStyle",
-					OnClick = function()
-						GuiService:OpenBrowserWindow("https://roblox.cn/")
+					}},
+					Enabled = optInLocations ~= nil,
+					EntryClicked = function(box)
+						if not playerAcceptance then
+							parent:setState({
+								showDialog = true,
+							})
+						else
+							local newLocations = Cryo.Dictionary.join(optInLocations, {
+								[box.Id] = (box.Selected) and Cryo.None or not box.Selected,
+							})
+							optInLocationsChanged(newLocations)
+						end
 					end,
-					LayoutOrder = layoutOrder2 and layoutOrder2:getNextOrder() or 2,
-				}),
-			}) or nil
+					Tooltip = Roact.createElement(Image, {
+						Size = UDim2.fromOffset(theme.tooltipIcon.size, theme.tooltipIcon.size),
+						Position = UDim2.new(0, 0, 0, theme.tooltipIcon.paddingY),
+						Style = "TooltipStyle",
+						StyleModifier = parent.state.StyleModifier,
+					}, {
+						Roact.createElement(Tooltip, {
+							Text = localization:getText(optInLocationsKey, "Tooltip"),
+						}),
+						Roact.createElement(HoverArea, {
+							Cursor = "PointingHand",
+							MouseEnter = parent.onMouseEnter,
+							MouseLeave = parent.onMouseLeave,
+						}),
+					}),
+				})
 
+				displayResult.Dialog = Roact.createElement(StyledDialog, {
+					Enabled = parent.state.showDialog,
+					Modal = true,
+					Title = "",
+					MinContentSize = Vector2.new(theme.dialog.minSize.width, theme.dialog.minSize.height),
+					Buttons = {
+						{ Key = "OK", Text = localization:getText("General", "ReplyOK") }
+					},
+					OnButtonPressed = function()
+						parent:setState({
+							showDialog = false,
+						})
+					end,
+					OnClose = function()
+						parent:setState({
+							showDialog = false
+						})
+					end,
+					ButtonHorizontalAlignment = Enum.HorizontalAlignment.Center,
+				}, {
+					Layout = Roact.createElement("UIListLayout", {
+						FillDirection = Enum.FillDirection.Vertical,
+						VerticalAlignment = Enum.VerticalAlignment.Center,
+						HorizontalAlignment = Enum.HorizontalAlignment.Center,
+						SortOrder = Enum.SortOrder.LayoutOrder,
+					}),
+
+					Header = Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Title, {
+						Position = UDim2.new(0.5, 0, 0, 45),
+						AnchorPoint = Vector2.new(0.5, 0.5),
+						Size = UDim2.new(1, 0, 0, 60),
+						BackgroundTransparency = 1,
+						Text = localization:getText("General", "TermsDialogHeader"),
+						TextWrapped = true,
+					})),
+
+					Body = Roact.createElement(TextWithInlineLink, {
+						OnLinkClicked = function()
+							local url = getPlayerAppDownloadLink("China")
+							GuiService:OpenBrowserWindow(url)
+						end,
+						Text = localization:getText("General", "TermsDialogBody"),
+						LinkText = localization:getText("General", "TermsDialogBodyLink"),
+						LinkPlaceholder = "[link]",
+						MaxWidth = theme.textWithInlineLink.maxWidth,
+						TextProps = Cryo.Dictionary.join(theme.fontStyle.Normal,{
+							BackgroundTransparency = 1,
+						}),
+					})
+				})
+			elseif FFlagLuobuDevPublishLuaTempOptIn and not FFlagLuobuDevPublishLua and shouldShowDevPublishLocations() then
+				local layoutOrder2 = FFlagUseLayoutIteratorGameSettingsPublishPlace and LayoutOrderIterator.new() or nil
+
+				displayResult.Separator7 = Roact.createElement(Separator, {
+					LayoutOrder = FFlagUseLayoutIteratorGameSettingsPublishPlace and layoutOrder:getNextOrder() or 11,
+				})
+
+				displayResult.TempOptInLocations = Roact.createElement(TitledFrame, {
+					Title = localization:getText(optInLocationsKey, "TitleOptInLocations"),
+					MaxHeight = 60,
+					LayoutOrder = FFlagUseLayoutIteratorGameSettingsPublishPlace and layoutOrder:getNextOrder() or 12,
+					TextSize = theme.tempOptInLink.TextSize,
+				}, {
+					UILayout = Roact.createElement("UIListLayout", {
+						SortOrder = Enum.SortOrder.LayoutOrder,
+						FillDirection = Enum.FillDirection.Horizontal,
+						VerticalAlignment = Enum.VerticalAlignment.Top,
+					}),
+					Text = Roact.createElement("TextLabel", {
+						Size = UDim2.new(0, calculateTextSize(localization:getText(optInLocationsKey, "TempLinkDescription"), theme.tempOptInLink.TextSize, theme.tempOptInLink.Font).X, 0, theme.tempOptInLink.TextSize),
+						BackgroundTransparency = 1,
+						TextColor3 = theme.tempOptInLink.TextColor3,
+						TextXAlignment = Enum.TextXAlignment.Left,
+						TextSize = theme.tempOptInLink.TextSize,
+						Font = theme.tempOptInLink.Font,
+						Text = localization:getText(optInLocationsKey, "TempLinkDescription"),
+						LayoutOrder = layoutOrder2 and layoutOrder2:getNextOrder() or 1,
+					}),
+					LinkText = Roact.createElement(LinkText, {
+						Text = "roblox.cn",
+						Style = "LinkTextStyle",
+						OnClick = function()
+							GuiService:OpenBrowserWindow("https://roblox.cn/")
+						end,
+						LayoutOrder = layoutOrder2 and layoutOrder2:getNextOrder() or 2,
+					}),
+				})
+			end
 		else
 			-- Dialog is in save mode, not publish mode
 			-- Hide the controls that are only used on publish
@@ -541,6 +598,18 @@ local function dispatchForProps(setValue, dispatch)
 
 		IsFriendsOnlyChanged = setValue("isFriendsOnly"),
 		IsActiveChanged = setValue("isActive"),
+
+		GetPlayerAcceptances = function(apiImpl)
+			if not FFlagLuobuDevPublishLua then
+				return
+			end
+
+			if not shouldShowDevPublishLocations() then
+				return
+			end
+
+			dispatch(GetPlayerAcceptances(apiImpl))
+		end,
 	}
 end
 

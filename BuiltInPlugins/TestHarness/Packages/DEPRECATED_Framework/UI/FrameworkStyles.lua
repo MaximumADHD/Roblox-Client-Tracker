@@ -7,6 +7,8 @@
 	default values for Studio plugins.
 ]]
 
+local FFlagTextInputDialogDevFramework = game:GetFastFlag("TextInputDialogDevFramework")
+
 local function newDefaults()
 	return {
 		Default = {},
@@ -31,7 +33,10 @@ function FrameworkStyles.new()
 		LinkText = newDefaults(),
 		LoadingBar = newDefaults(),
 		LoadingIndicator = newDefaults(),
+		MultiLineTextInput = newDefaults(),
 		Pane = newDefaults(),
+		PageNavigation = newDefaults(),
+		PaginatedTable = newDefaults(),
 		RadioButton = newDefaults(),
 		RadioButtonList = newDefaults(),
 		RangeSlider = newDefaults(),
@@ -40,12 +45,18 @@ function FrameworkStyles.new()
 		SelectInput = newDefaults(),
 		Separator = newDefaults(),
 		SimpleTab = newDefaults(),
+		TableRow = newDefaults(),
 		Slider = newDefaults(),
+		Table = newDefaults(),
 		Tabs = newDefaults(),
 		TextInput = newDefaults(),
+		TextInputDialog = FFlagTextInputDialogDevFramework and newDefaults() or nil,
+		TextInputWithBottomText = newDefaults(),
 		TextLabel = newDefaults(),
+		TextWithInlineLink = newDefaults(),
 		ToggleButton = newDefaults(),
 		Tooltip = newDefaults(),
+		TreeTable = newDefaults(),
 		TreeView = newDefaults(),
 
 		-- StudioUI Styles

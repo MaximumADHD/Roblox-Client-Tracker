@@ -30,6 +30,7 @@ local ContextServices = require(Framework.ContextServices)
 local Util = require(Framework.Util)
 local Typecheck = Util.Typecheck
 local UI = Framework.UI
+local prioritize = Util.prioritize
 local Container = require(UI.Container)
 local RoundBox = require(UI.RoundBox)
 local DropdownMenu = require(UI.DropdownMenu)
@@ -39,7 +40,6 @@ local StyleModifier = Util.StyleModifier
 local SelectInput = Roact.PureComponent:extend("SelectInput")
 Typecheck.wrap(SelectInput, script)
 
-local FFlagDevFrameworkBasicMobileSupport = game:GetFastFlag("DevFrameworkBasicMobileSupport")
 local isInputMainPress = Util.isInputMainPress
 
 local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
@@ -64,12 +64,7 @@ function SelectInput:init()
 	end
 
 	self.onInputBegan = function(rbx, input)
-		local isMainPress
-		if FFlagDevFrameworkBasicMobileSupport then
-			isMainPress = isInputMainPress(input)
-		else
-			isMainPress = input.UserInputType == Enum.UserInputType.MouseButton1
-		end
+		local isMainPress = isInputMainPress(input)
 		if isMainPress then
 			self:setState({
 				isOpen = true
@@ -97,7 +92,7 @@ function SelectInput:render()
 	local items = props.Items
 
 	local isOpen = state.isOpen
-	local size = style.Size
+	local size = prioritize(props.Size, style.Size, UDim2.new(1, 0, 1, 0))
 	if props.Width then
 		size = UDim2.new(0, props.Width, size.Y.Scale, size.Y.Offset)
 	end

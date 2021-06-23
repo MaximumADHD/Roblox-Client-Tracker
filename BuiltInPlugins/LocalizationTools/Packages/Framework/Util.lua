@@ -41,6 +41,7 @@ return strict({
 	-- Style and Theming Utilities
 	Palette = require(script.Palette),
 	prioritize = require(script.prioritize),
+	Spritesheet = require(script.Spritesheet),
 	Style = require(script.Style),
 	StyleModifier = require(script.StyleModifier),
 	StyleTable = require(script.StyleTable),

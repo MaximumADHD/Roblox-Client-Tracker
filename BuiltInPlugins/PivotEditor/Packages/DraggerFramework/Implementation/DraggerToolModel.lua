@@ -11,7 +11,6 @@ local SelectionWrapper = require(DraggerFramework.Utility.SelectionWrapper)
 local SelectionHelper = require(DraggerFramework.Utility.SelectionHelper)
 local classifyPivot = require(DraggerFramework.Utility.classifyPivot)
 
-local getFFlagFoldersOverFragments = require(DraggerFramework.Flags.getFFlagFoldersOverFragments)
 local getFFlagDraggerPerf = require(DraggerFramework.Flags.getFFlagDraggerPerf)
 local getFFlagPivotAnalytics = require(DraggerFramework.Flags.getFFlagPivotAnalytics)
 local getFFlagSummonPivot = require(DraggerFramework.Flags.getFFlagSummonPivot)
@@ -125,22 +124,11 @@ function DraggerToolModel:render()
 	local selection = self._selectionWrapper:get()
 
 	
-	if getFFlagFoldersOverFragments() then
-		return Roact.createElement(Roact.Portal, {
-			target = self._draggerContext:getGuiParent(),
-		}, {
-			DraggerUI = Roact.createElement("Folder", {}, self._stateObject:render()),
-		})
-	else
-		local coreGuiContent = {}
-
-		-- State specific rendering code
-		coreGuiContent.StateSpecificUI = self._stateObject:render()
-		
-		return Roact.createElement(Roact.Portal, {
-			target = self._draggerContext:getGuiParent(),
-		}, coreGuiContent)
-	end
+	return Roact.createElement(Roact.Portal, {
+		target = self._draggerContext:getGuiParent(),
+	}, {
+		DraggerUI = Roact.createElement("Folder", {}, self._stateObject:render()),
+	})
 end
 
 -- Called every frame on render step

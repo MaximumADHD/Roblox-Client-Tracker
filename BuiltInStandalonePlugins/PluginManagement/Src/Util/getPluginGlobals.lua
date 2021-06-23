@@ -7,6 +7,8 @@
 	NOTE - because this object creates an object with global state, it is inherently untestable.
 ]]
 
+local FFlagPluginManagementAnalytics = game:GetFastFlag("PluginManagementAnalytics")
+
 local Plugin = script.Parent.Parent.Parent
 local Framework = Plugin.Packages.Framework
 local ContextServices = require(Framework.ContextServices)
@@ -47,6 +49,12 @@ local api = Http.API.new({
 	}),
 })
 
+local analytics
+if FFlagPluginManagementAnalytics then
+	local getAnalyticsContextItem = require(Plugin.Src.Util.getAnalyticsContextItem)
+	analytics = getAnalyticsContextItem()
+end
+
 local globals
 
 return function(plugin)
@@ -65,6 +73,7 @@ return function(plugin)
 		api = api,
 		mouse = plugin:GetMouse(),
 		focusGui = {},
+		analytics = analytics,
 	}
 
 	return globals

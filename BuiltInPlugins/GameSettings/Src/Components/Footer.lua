@@ -7,6 +7,7 @@
 			This will enable the Save button if true.
 ]]
 local FFlagLuobuDevPublishLua = game:GetFastFlag("LuobuDevPublishLua")
+local FFlagTextInputDialogDevFramework = game:GetFastFlag("TextInputDialogDevFramework")
 local FFlagGameSettingsUseKeyProvider = game:GetFastFlag("GameSettingsUseKeyProvider")
 
 local FOOTER_GRADIENT_SIZE = 3
@@ -16,6 +17,7 @@ local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
 local RoactRodux = require(Plugin.RoactRodux)
 local Promise = require(Plugin.Promise)
+local Framework = require(Plugin.Framework)
 
 local ContextServices = require(Plugin.Framework.ContextServices)
 local Dialog = require(Plugin.Src.ContextServices.Dialog)
@@ -28,7 +30,7 @@ local ButtonBar = require(Plugin.Src.Components.ButtonBar)
 local ConfirmAndSaveChanges = require(Plugin.Src.Thunks.ConfirmAndSaveChanges)
 local CurrentStatus = require(Plugin.Src.Util.CurrentStatus)
 
-local TextInputDialog = FFlagLuobuDevPublishLua and require(Plugin.Src.Components.Dialog.TextInputDialog) or nil
+local TextInputDialog = FFlagLuobuDevPublishLua and Framework.UI.TextInputDialog or nil
 local shouldShowDevPublishLocations = require(Plugin.Src.Util.GameSettingsUtilities).shouldShowDevPublishLocations
 
 local KeyProvider = FFlagGameSettingsUseKeyProvider and require(Plugin.Src.Util.KeyProvider) or nil
@@ -59,19 +61,15 @@ function Footer:init()
 
 		if not changedOptInLocations and not currentOptInLocations then
 			return false
-		elseif not changedOptInLocations then
-			if currentOptInLocations[chinaKey] then
-				return true
-			end
-		elseif changedOptInLocations[chinaKey] then
-			return true
 		end
-		return false
+
+		return (not changedOptInLocations and currentOptInLocations[chinaKey]) or changedOptInLocations[chinaKey]
 	end or nil
 
 	self.state = FFlagLuobuDevPublishLua and {
 		showEmailDialog = false,
 		userPressedSave = false,
+		bottomText = "",
 	} or nil
 end
 
@@ -110,11 +108,7 @@ function Footer:render()
 			HorizontalAlignment = Enum.HorizontalAlignment.Right,
 			ButtonClicked = function(userPressedSave)
 				-- Make changes here before save happens to show dialog
-				if FFlagLuobuDevPublishLua then
-					self:setState({
-						showEmailDialog = false,
-						userPressedSave = false,
-					})
+				if FFlagLuobuDevPublishLua and FFlagTextInputDialogDevFramework then
 					if userPressedSave and shouldShowDevPublishLocations and self.shouldShowEmailDialog() then
 						self:setState({
 							showEmailDialog = true,
@@ -128,9 +122,9 @@ function Footer:render()
 				end
 			end,
 		}, {
-			EmailDialog = FFlagLuobuDevPublishLua and self.state.showEmailDialog and Roact.createElement(TextInputDialog,
+			EmailDialog = FFlagLuobuDevPublishLua and FFlagTextInputDialogDevFramework and Roact.createElement(TextInputDialog,
 			{
-				Size = Vector2.new(theme.textInputDialog.size.width, theme.textInputDialog.size.height),
+				Enabled = self.state.showEmailDialog,
 				Title = localization:getText(optInLocationsKey, "EmailDialogHeader"),
 				Header = localization:getText(optInLocationsKey, "EmailDialogHeader"),
 				Buttons = {
@@ -139,16 +133,28 @@ function Footer:render()
 				},
 				Body = localization:getText(optInLocationsKey, "EmailDialogBody"),
 				Description = localization:getText(optInLocationsKey, "EmailDialogDescription"),
-				TextBox = localization:getText(optInLocationsKey, "EmailAddress"),
+				PlaceholderText = localization:getText(optInLocationsKey, "EmailAddress"),
+				BottomText = self.state.bottomText,
 				OnClose = function(email)
-					-- TODO: jbousellam - STUDIOCORE-24599 - save email locally.
+					self:setState({
+						showEmailDialog = false,
+						userPressedSave = false,
+					})
 				end,
-				OnButtonPressed = function(email)
+				OnButtonPressed = function(email, buttonKey)
 					-- TODO: jbousellam - STUDIOCORE-24599 - save email locally.
+					local submitButtonPressed = buttonKey == "Submit"
+					-- TODO: jbousellam - STUDIOCORE-25366 - email validation using regex, if user has an invalid email,
+					-- set bottom text state and continue to show dialog. Do not save settings, do not publish.
+					-- Might need to rearrange where the state is currently being set for showEmailDialog
+					if submitButtonPressed then
+						self:saveAllSettings(self.state.userPressedSave)
+					end
+					self:setState({
+						showEmailDialog = false,
+						userPressedSave = false,
+					})
 				end,
-				SaveSettings = function()
-					self:saveAllSettings(self.state.userPressedSave)
-				end
 			}) or nil
 		}),
 	})

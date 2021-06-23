@@ -1,4 +1,3 @@
-local FFlagGameSettingsStandardizeLocalizationId = game:GetFastFlag("GameSettingsStandardizeLocalizationId")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
@@ -11,7 +10,7 @@ local AddChange = require(Plugin.Src.Actions.AddChange)
 
 local SettingsPage = require(Plugin.Src.Components.SettingsPages.SettingsPage)
 
-local LOCALIZATION_ID = FFlagGameSettingsStandardizeLocalizationId and script.Name or "Security"
+local LOCALIZATION_ID = script.Name
 
 local function loadSettings(store, contextItems)
 	local state = store:getState()
@@ -154,7 +153,7 @@ function Security:render()
 		SettingsLoadJobs = loadSettings,
 		SettingsSaveJobs = saveSettings,
 		Title = localization:getText("General", "Category"..LOCALIZATION_ID),
-		PageId = FFlagGameSettingsStandardizeLocalizationId and LOCALIZATION_ID or script.Name,
+		PageId = LOCALIZATION_ID,
 		CreateChildren = createChildren,
 	})
 end

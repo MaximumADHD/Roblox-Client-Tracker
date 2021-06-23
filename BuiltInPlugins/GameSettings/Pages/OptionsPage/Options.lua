@@ -1,4 +1,3 @@
-local FFlagGameSettingsStandardizeLocalizationId = game:GetFastFlag("GameSettingsStandardizeLocalizationId")
 local FFlagGameSettingsDisplayCollaborativeEditingWarning = game:GetFastFlag("GameSettingsDisplayCollaborativeEditingWarning")
 
 local Page = script.Parent
@@ -29,7 +28,7 @@ local ShutdownAllServers = require(Page.Thunks.ShutdownAllServers)
 
 local LayoutOrderIterator = FFlagGameSettingsDisplayCollaborativeEditingWarning and require(Plugin.Framework.Util).LayoutOrderIterator or nil
 
-local LOCALIZATION_ID = FFlagGameSettingsStandardizeLocalizationId and script.Name or "Options"
+local LOCALIZATION_ID = script.Name
 
 local function loadSettings(store, contextItems)
 	local state = store:getState()
@@ -202,7 +201,7 @@ function Options:render()
 		SettingsLoadJobs = loadSettings,
 		SettingsSaveJobs = saveSettings,
 		Title = localization:getText("General", "Category"..LOCALIZATION_ID),
-		PageId = FFlagGameSettingsStandardizeLocalizationId and LOCALIZATION_ID or script.Name,
+		PageId = LOCALIZATION_ID,
 		CreateChildren = createChildren,
 	})
 end

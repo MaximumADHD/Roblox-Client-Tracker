@@ -13,9 +13,6 @@ Props:
 	SetMapSettingsValid : (bool) -> void
 ]]
 
-local FFlagTerrainToolsBetterImportTool = game:GetFastFlag("TerrainToolsBetterImportTool")
-local FFlagTerrainToolsMapSettingsMaxVolume = game:GetFastFlag("TerrainToolsMapSettingsMaxVolume")
-
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
@@ -78,25 +75,6 @@ function MapSettingsFragment:init(props)
 		}
 	}
 
-	-- Remove with FFlagTerrainToolsMapSettingsMaxVolume
-	local function DEPRECATED_verifyFields()
-		local result = true
-		for _, vectorState in pairs(self.validFieldState) do
-			for _, isValid in pairs(vectorState) do
-				if not isValid then
-					result = false
-					break
-				end
-			end
-		end
-
-		if self.props.SetMapSettingsValid then
-			self.props.SetMapSettingsValid(result)
-		end
-
-		return result
-	end
-
 	local function locallyApplyChangeAndVerify(vector, axis, text)
 		-- We want to check the most up-to-date version of position/size given what the user typed
 		-- But normally won't get that until the next render call
@@ -133,29 +111,15 @@ function MapSettingsFragment:init(props)
 	end
 
 	self.onVectorFocusLost = function(vector, axis, enterPressed, text, isValid)
-		if FFlagTerrainToolsMapSettingsMaxVolume then
-			if locallyApplyChangeAndVerify(vector, axis, text) then
-				dispatchVectorChanged(vector, axis, text, isValid)
-			end
-		else
-			if DEPRECATED_verifyFields() then
-				dispatchVectorChanged(vector, axis, text, isValid)
-			end
+		if locallyApplyChangeAndVerify(vector, axis, text) then
+			dispatchVectorChanged(vector, axis, text, isValid)
 		end
 	end
 
 	self.onVectorValueChanged = function(vector, axis, text, isValid)
-		if FFlagTerrainToolsMapSettingsMaxVolume then
-			self.validFieldState[vector][axis] = isValid
-			locallyApplyChangeAndVerify(vector, axis, text)
-			dispatchVectorChanged(vector, axis, text, isValid)
-		else
-			self.validFieldState[vector][axis] = isValid
-			if FFlagTerrainToolsBetterImportTool then
-				DEPRECATED_verifyFields()
-			end
-			dispatchVectorChanged(vector, axis, text, isValid)
-		end
+		self.validFieldState[vector][axis] = isValid
+		locallyApplyChangeAndVerify(vector, axis, text)
+		dispatchVectorChanged(vector, axis, text, isValid)
 	end
 end
 
@@ -172,8 +136,7 @@ function MapSettingsFragment:render()
 	local positionLayoutOrder = initialLayoutOrder
 	local sizeLayoutOrder = initialLayoutOrder + (showPositionSelector and 1 or 0)
 
-	local showVolumeError = FFlagTerrainToolsMapSettingsMaxVolume
-		and not checkVolume(size, self.props.MaxVolume)
+	local showVolumeError = not checkVolume(size, self.props.MaxVolume)
 
 	return Roact.createFragment({
 		PositionInput = showPositionSelector and Roact.createElement(VectorTextInput, {

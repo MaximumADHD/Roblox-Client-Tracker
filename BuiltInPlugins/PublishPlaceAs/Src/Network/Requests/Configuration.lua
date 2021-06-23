@@ -11,6 +11,8 @@ local Cryo = require(Plugin.Packages.Cryo)
 local Http = require(Plugin.Src.Network.Http)
 
 local FFlagStudioAllowRemoteSaveBeforePublish = game:GetFastFlag("StudioAllowRemoteSaveBeforePublish")
+local FFlagLuobuDevPublishLua = game:GetFastFlag("LuobuDevPublishLua")
+local shouldShowDevPublishLocations = require(Plugin.Src.Util.PublishPlaceAsUtilities).shouldShowDevPublishLocations
 
 local REQUEST_URL = "v2/universes/%d/configuration"
 local REQUEST_TYPE = "develop"
@@ -23,6 +25,10 @@ local ACCEPTED_KEYS = {
 
 if FFlagStudioAllowRemoteSaveBeforePublish then
 	ACCEPTED_KEYS.isFriendsOnly = true
+end
+
+if FFlagLuobuDevPublishLua and shouldShowDevPublishLocations() then
+	ACCEPTED_KEYS.OptInLocations = true
 end
 
 local Configuration = {}
@@ -44,6 +50,23 @@ function Configuration.Set(universeId, body)
 			end
 		end
 		body.playableDevices = toTable
+	end
+
+	if FFlagLuobuDevPublishLua and shouldShowDevPublishLocations() then
+		if body.OptInLocations then
+			local optInTable = {}
+			local optOutTable = {}
+			for key, value in pairs(body.OptInLocations) do
+				if value then
+					table.insert(optInTable, key)
+				else
+					table.insert(optOutTable, key)
+				end
+			end
+			body.optInRegions = optInTable
+			body.optOutRegions = optOutTable
+			body.OptInLocations = nil
+		end
 	end
 
 	local requestInfo = {

@@ -1,4 +1,5 @@
 local FFlagTerrainTrackAcquisitionMethod = game:GetFastFlag("TerrainTrackAcquisitionMethod")
+local FFlagTerrainFlattenColumnMethod = game:GetFastFlag("TerrainFlattenColumnMethod")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -12,6 +13,7 @@ local applyPivot = require(Plugin.Src.Util.applyPivot)
 
 local OperationHelper = require(script.Parent.OperationHelper)
 local smartLargeSculptBrush = require(script.Parent.smartLargeSculptBrush)
+local smartColumnSculptBrush = require(script.Parent.smartColumnSculptBrush)
 local SculptOperations = require(script.Parent.SculptOperations)
 
 -- Air and water materials are frequently referenced in terrain brush
@@ -121,7 +123,12 @@ local function performOperation(terrain, opSet)
 	-- And a writeable copy
 	local writeMaterials, writeOccupancies = terrain:ReadVoxels(region, Constants.VOXEL_RESOLUTION)
 
-	if selectionSize > USE_LARGE_BRUSH_MIN_SIZE
+	if FFlagTerrainFlattenColumnMethod and tool == ToolId.Flatten then
+		smartColumnSculptBrush(opSet, minBounds, maxBounds,
+			readMaterials, readOccupancies, writeMaterials, writeOccupancies)
+		terrain:WriteVoxels(region, Constants.VOXEL_RESOLUTION, writeMaterials, writeOccupancies)
+		return
+	elseif selectionSize > USE_LARGE_BRUSH_MIN_SIZE
 		and (tool == ToolId.Grow or tool == ToolId.Erode or tool == ToolId.Flatten or tool == ToolId.Smooth) then
 		smartLargeSculptBrush(opSet, minBounds, maxBounds,
 			readMaterials, readOccupancies, writeMaterials, writeOccupancies)

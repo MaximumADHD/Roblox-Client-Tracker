@@ -26,11 +26,14 @@ local ContextHelper = require(Util.ContextHelper)
 local Constants = require(Util.Constants)
 local AssetConfigConstants = require(Util.AssetConfigConstants)
 
+local RoundTextBox
 local TextInputWithBottomText
 if FFlagToolboxReplaceUILibraryComponentsPt2 then
-	TextInputWithBottomText = require(Libs.Framework).StudioUI.TextInputWithBottomText
+	local Framework = require(Libs.Framework)
+	TextInputWithBottomText = Framework.StudioUI.TextInputWithBottomText
+else
+	RoundTextBox = UILibrary.Component.RoundTextBox
 end
-local RoundTextBox = UILibrary.Component.RoundTextBox -- TODO: Make Multilined Textbox for UILibrary removal
 
 local withTheme = ContextHelper.withTheme
 local withLocalization = ContextHelper.withLocalization
@@ -105,7 +108,7 @@ function ConfigTextField:renderContent(theme, _, localizedContent)
 	local textLength
 	local textOverMaxCount
 	local countText
-	local isMultiLine = false -- TODO: Make Multiline texbox for full removal of UILibrary.
+	local isMultiLine = false
 	if FFlagToolboxReplaceUILibraryComponentsPt2 then
 		textLength = utf8.len(currentContent)
 		textOverMaxCount = MaxCount and textLength > MaxCount
@@ -145,13 +148,14 @@ function ConfigTextField:renderContent(theme, _, localizedContent)
 			LayoutOrder = 1,
 		}),
 
-		TextField = ((not isMultiLine) and FFlagToolboxReplaceUILibraryComponentsPt2) and Roact.createElement(TextInputWithBottomText, {
-			LayoutOrder = 2,
+		TextField = FFlagToolboxReplaceUILibraryComponentsPt2 and Roact.createElement(TextInputWithBottomText, {
 			BottomText = countText,
+			LayoutOrder = 2,
 			Size = UDim2.new(1, -AssetConfigConstants.TITLE_GUTTER_WIDTH, 0, TotalHeight - TITLE_HEIGHT - TOOL_TIP_HEIGHT),
 			Style = textOverMaxCount and "Error" or nil,
 			TextInputProps = {
 				Enabled = true,
+				MultiLine = isMultiLine,
 				OnTextChanged = self.onTextChanged,
 				Text = currentContent,
 			},
@@ -170,7 +174,7 @@ function ConfigTextField:renderContent(theme, _, localizedContent)
 			SetText = self.onTextChanged,
 
 			LayoutOrder = 2,
-		})
+		}),
 	})
 end
 

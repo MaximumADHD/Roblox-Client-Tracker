@@ -4,7 +4,7 @@
 
 	Required Props:
 		array[any] Rows: The rows of data the table should display
-		array[any] Columns: The columns of the table
+		array[any] Columns: The columns of the table.
 
 	Optional Props:
 		UDim2 Size: The size of the table
@@ -14,6 +14,7 @@
 		any Footer: A Roact fragment or element to be displayed in the footer.
 		boolean ShowFooter: Whether to display the footer. (default = true if the Footer prop is non-nil)
 		boolean ShowHeader: Whether to display the header. (defalt = true)
+		number SortIndex: The index of the current column that is being sorted.
 		Enum.SortDirection SortOrder: The order that the column is being sorted in.
 		callback OnHoverRow: An optional callback called when a row is hovered over. (rowIndex: number) -> ()
 		callback OnMouseLeave: An optional callback called when the mouse leaves the table bounds. () -> ()
@@ -21,9 +22,10 @@
 		callback OnSizeChange: An optional callback called when the component size changes.
 		callback OnSortChange: An optional callback called when the user sorts a column.
 		callback RowComponent: An optional component to render each row.
-		callback CellComponent: An optional component passed to the row component which renders individual cells.
+		any CellComponent: An optional component passed to the row component which renders individual cells.
 		Stylizer Stylizer: A Stylizer ContextItem, which is provided via mapToProps.
 		Theme Theme: A Theme ContextItem, which is provided via mapToProps.
+		table CellProps: A table of props which are passed from the table's props to the CellComponent.
 ]]
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
@@ -76,6 +78,8 @@ function Table:init()
 		local props = self.props
 		local RowComponent = self.props.RowComponent or TableRow
 		return Roact.createElement(RowComponent, {
+			CellProps = self.props.CellProps,
+			CellComponent = self.props.CellComponent,
 			Columns = self.props.Columns,
 			Rows = self.props.Rows,
 			Row = row,

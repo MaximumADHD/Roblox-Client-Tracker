@@ -11,7 +11,6 @@ local FillTool = require(Reducers.FillTool)
 local FlattenTool = require(Reducers.FlattenTool)
 local GenerateTool = require(Reducers.GenerateTool)
 local GrowTool = require(Reducers.GrowTool)
-local ImportTool = require(Reducers.ImportTool)
 local ImportLocalTool = require(Reducers.ImportLocalTool)
 local PaintTool = require(Reducers.PaintTool)
 local RegionTool = require(Reducers.RegionTool)
@@ -21,12 +20,10 @@ local SmoothTool = require(Reducers.SmoothTool)
 local SubtractTool = require(Reducers.SubtractTool)
 
 local FFlagTerrainToolsConvertPartTool = game:GetFastFlag("TerrainToolsConvertPartTool")
-local FFlagTerrainToolsBetterImportTool = game:GetFastFlag("TerrainToolsBetterImportTool")
 
 local toolReducerTable = {
 	GenerateTool = GenerateTool,
-	ImportTool = ImportTool,
-	ImportLocalTool = FFlagTerrainToolsBetterImportTool and ImportLocalTool or nil,
+	ImportLocalTool = ImportLocalTool,
 	ConvertPartTool = FFlagTerrainToolsConvertPartTool and ConvertPartTool or nil,
 	RegionTool = RegionTool,
 	FillTool = FillTool,
@@ -49,8 +46,7 @@ local MainReducer = function(state, action)
 		Tools = Tools(state, action),
 
 		GenerateTool = GenerateTool(state, action),
-		ImportTool = ImportTool(state, action),
-		ImportLocalTool = FFlagTerrainToolsBetterImportTool and ImportLocalTool(state, action) or nil,
+		ImportLocalTool = ImportLocalTool(state, action),
 
 		ConvertPartTool = FFlagTerrainToolsConvertPartTool and ConvertPartTool(state, action) or nil,
 

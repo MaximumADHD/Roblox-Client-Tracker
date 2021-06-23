@@ -25,6 +25,15 @@ function OperationHelper.clampUpToVoxel(p)
 	return math.ceil(p / Constants.VOXEL_RESOLUTION) * Constants.VOXEL_RESOLUTION
 end
 
+-- This function is to be modified at a later point in time to match more different planes
+function OperationHelper.getDesiredOccupancy(planePoint, planeNormal, worldVectorX, worldVectorZ, minBoundsY)
+	local voxelY = ((planePoint.y - minBoundsY) / Constants.VOXEL_RESOLUTION) + 0.5
+	local flooredVoxelY = math.floor(voxelY)
+	local desiredOccupancy = voxelY - flooredVoxelY
+
+	return flooredVoxelY, desiredOccupancy
+end
+
 function OperationHelper.getWaterHeightAndAirFillerMaterial(readMaterials)
 	local airFillerMaterial = materialAir
 	local waterHeight = 0

@@ -10,6 +10,8 @@
 		This constructor allows for an easy way to create reports based on the lua error object.
 ]]
 
+local FFlagDevFrameworkBacktraceReportUser = game:GetFastFlag("DevFrameworkBacktraceReportUser")
+
 local HttpService = game:GetService("HttpService")
 
 local Framework = script.Parent.Parent.Parent
@@ -27,6 +29,13 @@ local BacktraceReport = {
 }
 BacktraceReport.__index = BacktraceReport
 
+local isCli
+if FFlagDevFrameworkBacktraceReportUser then
+	isCli, _ = pcall(function()
+		return game:GetService("ProcessService")
+	end)
+end
+
 function BacktraceReport.new()
 	-- Return a basic report that has all the required fields
 
@@ -43,6 +52,8 @@ function BacktraceReport.new()
 		agentVersion = "0.1.0",
 		threads = {},
 		mainThread = DEFAULT_THREAD_NAME,
+		-- Use PlayerId for consistency with C++ CrashReporter
+		PlayerId = FFlagDevFrameworkBacktraceReportUser and not isCli and game:GetService("StudioService"):GetUserId() or nil,
 	}
 	setmetatable(self, BacktraceReport)
 

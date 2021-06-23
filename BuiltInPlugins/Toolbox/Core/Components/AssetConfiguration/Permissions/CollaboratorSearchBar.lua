@@ -40,49 +40,66 @@
 	Optional Properties:
 		LayoutOrder = num, default to 0, optional layout order for UI layouts
 ]]
+local FFlagToolboxReplaceUILibraryComponentsPt3 = game:GetFastFlag("ToolboxReplaceUILibraryComponentsPt3")
 
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
 local Libs = Plugin.Libs
-local Cryo = require(Libs.Cryo)
 local Roact = require(Libs.Roact)
 
 local UILibrary = require(Libs.UILibrary)
-local createFitToContent = UILibrary.Component.createFitToContent
-local DropdownMenu = UILibrary.Component.DropdownMenu
-local LoadingIndicator = UILibrary.Component.LoadingIndicator
-local LayoutOrderIterator = UILibrary.Util.LayoutOrderIterator
 
 local Util = Plugin.Core.Util
 local Constants = require(Util.Constants)
 local Images = require(Util.Images)
 local ContextHelper = require(Util.ContextHelper)
-local withLocalization = ContextHelper.withLocalization
 local withTheme = ContextHelper.withTheme
 
 local TextService = game:GetService("TextService")
 
-local ContentFit = createFitToContent("Frame", "UIListLayout", {
-	SortOrder = Enum.SortOrder.LayoutOrder,
-	Padding = UDim.new(0, 0),
-})
+local ContentFit
+local LayoutOrderIterator
+local HorizontalContentFit
+local SearchBarContentFit
+local LoadingIndicator
+local DropdownMenu
+local CollaboratorSearchItem
+if FFlagToolboxReplaceUILibraryComponentsPt3 then
 
-local HorizontalContentFit = createFitToContent("Frame", "UIListLayout", {
-	SortOrder = Enum.SortOrder.LayoutOrder,
-	Padding = UDim.new(0, 0),
-	FillDirection = Enum.FillDirection.Horizontal,
-})
+	local Framework =  require(Libs.Framework)
+	LayoutOrderIterator = Framework.Util.LayoutOrderIterator
+	DropdownMenu = Framework.UI.DropdownMenu
+	LoadingIndicator = Framework.UI.LoadingIndicator
+	local PermissionsDirectory = Plugin.Core.Components.AssetConfiguration.Permissions
+	CollaboratorSearchItem = require(PermissionsDirectory.CollaboratorSearchItem)
+else
+	DropdownMenu = UILibrary.Component.DropdownMenu
+	LoadingIndicator = UILibrary.Component.LoadingIndicator
+	LayoutOrderIterator = UILibrary.Util.LayoutOrderIterator
+	local createFitToContent = UILibrary.Component.createFitToContent
 
-local SearchBarContentFit = createFitToContent("ImageLabel", "UIListLayout", {
-	SortOrder = Enum.SortOrder.LayoutOrder,
-	Padding = UDim.new(0, 0),
-	FillDirection = Enum.FillDirection.Horizontal,
-})
+	ContentFit = createFitToContent("Frame", "UIListLayout", {
+		SortOrder = Enum.SortOrder.LayoutOrder,
+		Padding = UDim.new(0, 0),
+	})
 
+	HorizontalContentFit = createFitToContent("Frame", "UIListLayout", {
+		SortOrder = Enum.SortOrder.LayoutOrder,
+		Padding = UDim.new(0, 0),
+		FillDirection = Enum.FillDirection.Horizontal,
+	})
+
+	SearchBarContentFit = createFitToContent("ImageLabel", "UIListLayout", {
+		SortOrder = Enum.SortOrder.LayoutOrder,
+		Padding = UDim.new(0, 0),
+		FillDirection = Enum.FillDirection.Horizontal,
+	})
+end
+
+local COLLABORATOR_SEARCH_ITEM_HEIGHT = 50
 local THUMBNAIL_SIZE = 32
 local SEARCH_BAR_HEIGHT = 40
 local SEARCH_BAR_BUTTON_ICON_SIZE = 20
-local ENTER_ICON_SIZE = 16
 local CLEAR_BUTTON_ICON_SIZE = 24
 local TEXT_PADDING = 16
 local RIBBON_WIDTH = 5
@@ -286,12 +303,92 @@ function CollaboratorSearchBar:mergeResultsTable(results)
 			end
 		end
 	end
-	
+
 	if self.props.LoadingMore then
 		table.insert(mergedTable, "LoadingIndicator")
 	end
 
 	return mergedTable
+end
+
+function CollaboratorSearchBar:onRenderItem(item, index, activated, theme, searchBarExtents)
+	local props = self.props
+	local headerHeight = props.HeaderHeight
+	local itemHeight = FFlagToolboxReplaceUILibraryComponentsPt3 and COLLABORATOR_SEARCH_ITEM_HEIGHT or props.ItemHeight
+	local noResultsText = props.NoResultsText
+	local textPadding = props.TextPadding or TEXT_PADDING
+
+	local searchBarTheme = theme.assetConfig.packagePermissions.searchBar
+
+	local dropdownItem = self.state.dropdownItem
+
+	if typeof(item) == "string" and (item ~= "LoadingIndicator" and item ~= "NoResults") then
+		return Roact.createElement("TextLabel", {
+			BackgroundColor3 = searchBarTheme.dropDown.backgroundColor,
+			BorderSizePixel = 0,
+			LayoutOrder = index,
+			Font = Constants.FONT,
+			Size = UDim2.new(0, searchBarExtents.Width, 0, headerHeight),
+			Text = item,
+			TextXAlignment = Enum.TextXAlignment.Left,
+			TextWrapped = true,
+			TextSize = 16,
+			TextColor3 = searchBarTheme.placeholderText,
+		}, {
+			Padding = Roact.createElement("UIPadding", {
+				PaddingLeft = UDim.new(0, textPadding),
+			}),
+		})
+	elseif item == "NoResults" then
+		return Roact.createElement("TextLabel", {
+			BackgroundColor3 = searchBarTheme.dropDown.backgroundColor,
+			BorderSizePixel = 0,
+			Font = Constants.FONT,
+			LayoutOrder = index,
+			Text = noResultsText,
+			TextSize = Constants.FONT_SIZE_TITLE,
+			TextColor3 = theme.assetConfig.textColor,
+			TextWrapped = true,
+			TextXAlignment = Enum.TextXAlignment.Left,
+			Size = UDim2.new(0, searchBarExtents.Width, 0, itemHeight),
+		}, {
+			Padding = Roact.createElement("UIPadding", {
+				PaddingLeft = UDim.new(0, textPadding),
+			}),
+		})
+	elseif item == "LoadingIndicator" then
+		return Roact.createElement("Frame", {
+			BackgroundColor3 = searchBarTheme.dropDown.backgroundColor,
+			BorderSizePixel = 0,
+			LayoutOrder = index,
+			Size = UDim2.new(0, searchBarExtents.Width, 0, itemHeight),
+		}, {
+			LoadingIndicator = Roact.createElement(LoadingIndicator, {
+				AnchorPoint = Vector2.new(0.5, 0.5),
+				Position = UDim2.new(0.5, 0, 0.5, 0),
+				ZIndex = 3,
+			}),
+		})
+	-- user/group items
+	else
+		local key = item.Key
+
+		return Roact.createElement(CollaboratorSearchItem, {
+			Icon = item.Icon,
+			IsHovered = (dropdownItem == key),
+			LayoutOrder = index,
+			Name = item.Name,
+			OnActivated = activated,
+			OnMouseEnter = function()
+				self.onKeyMouseEnter(key)
+			end,
+			OnMouseLeave = function()
+				self.onKeyMouseLeave(key)
+			end,
+			Size = UDim2.new(0, searchBarExtents.Width, 0, itemHeight),
+			TextPadding = textPadding,
+		})
+	end
 end
 
 function CollaboratorSearchBar:render()
@@ -372,12 +469,18 @@ function CollaboratorSearchBar:render()
 			state.lastResults = results
 		end
 
-		return Roact.createElement(ContentFit, {
+		return Roact.createElement(FFlagToolboxReplaceUILibraryComponentsPt3 and "Frame" or ContentFit, {
+			AutomaticSize = FFlagToolboxReplaceUILibraryComponentsPt3 and Enum.AutomaticSize.XY or nil,
 			LayoutOrder = layoutOrder,
 			BackgroundColor3 = theme.inputFields.backgroundColor,
 			BorderSizePixel = 0,
 		}, {
-			Background =  Roact.createElement(SearchBarContentFit, {
+			UIListLayout = FFlagToolboxReplaceUILibraryComponentsPt3 and Roact.createElement("UIListLayout", {
+				SortOrder = Enum.SortOrder.LayoutOrder,
+			}),
+
+			Background = Roact.createElement(FFlagToolboxReplaceUILibraryComponentsPt3 and "ImageLabel" or SearchBarContentFit, {
+				AutomaticSize = FFlagToolboxReplaceUILibraryComponentsPt3 and Enum.AutomaticSize.XY or nil,
 				BackgroundTransparency = 1,
 				Image = Images.ROUNDED_BORDER_IMAGE,
 				ImageColor3 = borderColor,
@@ -388,6 +491,11 @@ function CollaboratorSearchBar:render()
 				[Roact.Event.MouseMoved] = self.onContainerHovered,
 				[Roact.Event.MouseLeave] = self.onContainerHoverEnded,
 			}, {
+				UIListLayout = FFlagToolboxReplaceUILibraryComponentsPt3 and Roact.createElement("UIListLayout", {
+					SortOrder = Enum.SortOrder.LayoutOrder,
+					FillDirection = Enum.FillDirection.Horizontal,
+				}),
+
 				TextBox = Roact.createElement("TextBox", {
 					Font = Constants.FONT,
 					TextSize = Constants.FONT_SIZE_TITLE,
@@ -415,9 +523,18 @@ function CollaboratorSearchBar:render()
 				} , {
 					TextPadding = Roact.createElement("UIPadding", {
 						PaddingLeft = UDim.new(0, textPadding),
-					})
+					}),
+
+					Dropdown = (FFlagToolboxReplaceUILibraryComponentsPt3 and showDropdown and searchBarRef) and Roact.createElement(DropdownMenu, {
+						OnFocusLost = self.hideDropdown,
+						OnItemActivated = self.onItemClicked,
+						Items = self.state.mergedItems,
+						OnRenderItem = function(item, index, activated)
+							return self:onRenderItem(item, index, activated, theme, searchBarExtents)
+						end,
+					}),
 				}),
-				
+
 				ClearButtonFrame = Roact.createElement("Frame", {
 					BackgroundTransparency = 1,
 					LayoutOrder = orderIterator:getNextOrder(),
@@ -432,7 +549,7 @@ function CollaboratorSearchBar:render()
 						Visible = text ~= "",
 						Image = isClearButtonHovered and Images.CLEAR_ICON_HOVER or Images.CLEAR_ICON,
 						ImageColor3 = searchBarTheme.clearButton.image,
-		
+
 						[Roact.Event.MouseEnter] = self.onClearButtonHovered,
 						[Roact.Event.MouseMoved] = self.onClearButtonHovered,
 						[Roact.Event.MouseLeave] = self.onClearButtonHoverEnded,
@@ -457,7 +574,7 @@ function CollaboratorSearchBar:render()
 					}),
 				}),
 
-				Dropdown = showDropdown and searchBarRef and Roact.createElement(DropdownMenu, {
+				Dropdown = ((not FFlagToolboxReplaceUILibraryComponentsPt3) and showDropdown and searchBarRef) and Roact.createElement(DropdownMenu, {
 					OnFocusLost = self.hideDropdown,
 					OnItemClicked = self.onItemClicked,
 					SourceExtents = searchBarExtents,
@@ -466,7 +583,7 @@ function CollaboratorSearchBar:render()
 					ShowBorder = true,
 					ScrollBarPadding = scrollBarPadding,
 					ScrollBarThickness = scrollBarThickness,
-	
+
 					Items = self.state.mergedItems,
 					RenderItem = function(item, index, activated)
 						if typeof(item) == "string" and (item ~= "LoadingIndicator"  and item ~= "NoResults") then
@@ -525,7 +642,7 @@ function CollaboratorSearchBar:render()
 							local ribbonSize = isHovered and showRibbon and RIBBON_WIDTH or 0
 							local iconOffset = isHovered and itemHeight * 2 or itemHeight
 							local textLabelOffset = -(ribbonSize + iconOffset)
-						
+
 							local backgroundColor = isHovered and searchBarTheme.dropDown.hovered.backgroundColor or searchBarTheme.dropDown.backgroundColor
 							return Roact.createElement("ImageButton", {
 									Size = UDim2.new(0, searchBarExtents.Width, 0, itemHeight),
@@ -545,13 +662,18 @@ function CollaboratorSearchBar:render()
 										LayoutOrder = index,
 										BackgroundTransparency = 1,
 									} , {
+										UIListLayout = FFlagToolboxReplaceUILibraryComponentsPt3 and Roact.createElement("UIListLayout", {
+											SortOrder = Enum.SortOrder.LayoutOrder,
+											FillDirection = Enum.FillDirection.Horizontal,
+										}),
+
 										Ribbon = isHovered and showRibbon and Roact.createElement("Frame", {
 											Size = UDim2.new(0, RIBBON_WIDTH, 1, 0),
 											BackgroundColor3 = searchBarTheme.dropDown.selected.backgroundColor,
 											BorderSizePixel = 0,
 											LayoutOrder = 0,
 										}),
-	
+
 										IconFrame = Roact.createElement("Frame", {
 											BackgroundTransparency = 1,
 											LayoutOrder = 1,
@@ -569,7 +691,7 @@ function CollaboratorSearchBar:render()
 												Icon = item.Icon,
 											}),
 										}),
-	
+
 										TextLabel = Roact.createElement("TextLabel", {
 											Font = Constants.FONT,
 											TextSize = Constants.FONT_SIZE_TITLE,

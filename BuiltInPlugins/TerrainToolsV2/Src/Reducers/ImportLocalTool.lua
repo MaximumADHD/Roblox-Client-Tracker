@@ -32,9 +32,6 @@ local ImportLocalTool = Rodux.createReducer({
 	colormap = {},
 	colormapWarningId = nil,
 
-	-- TODO: Remove useColorMap when removing FFlagTerrainImportSupportDefaultMaterial
-	useColorMap = false,
-
 	defaultMaterial = Enum.Material.Asphalt,
 	materialMode = ImportMaterialMode.DefaultMaterial,
 
@@ -59,13 +56,6 @@ local ImportLocalTool = Rodux.createReducer({
 	SetImportMaterialMode = function(state, action)
 		return Cryo.Dictionary.join(state, {
 			materialMode = action.materialMode,
-		})
-	end,
-
-	-- TODO: Remove SetUseColorMap when removing FFlagTerrainImportSupportDefaultMaterial
-	SetUseColorMap = function(state, action)
-		return Cryo.Dictionary.join(state, {
-			useColorMap = action.useColorMap,
 		})
 	end,
 

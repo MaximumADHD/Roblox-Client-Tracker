@@ -5,7 +5,6 @@ Constants.TESTING = true
 Constants.UNIMPLEMENTED_WARNING = "Unfortunately this feature is not active yet!"
 Constants.OPERATION_SUCCESSFUL = "This operation was successful!"
 
-
 Constants.INPUT_PANE_LAYOUT = {
     Navigation = 1,
     NameBox = 2,

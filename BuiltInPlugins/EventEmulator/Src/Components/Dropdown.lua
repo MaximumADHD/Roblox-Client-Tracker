@@ -16,7 +16,6 @@ local RoactRodux = require(Plugin.Packages.RoactRodux)
 
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
-local THEME_REFACTOR = Framework.Util.RefactorFlags.THEME_REFACTOR
 
 local Actions = Plugin.Src.Actions
 local SetView = require(Actions.SetView)
@@ -64,8 +63,7 @@ function Dropdown:render()
 end
 
 ContextServices.mapToProps(Dropdown, {
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	Stylizer = ContextServices.Stylizer,
 })
 
 return RoactRodux.connect(

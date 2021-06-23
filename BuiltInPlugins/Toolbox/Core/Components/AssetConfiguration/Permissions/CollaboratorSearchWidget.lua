@@ -11,6 +11,7 @@
 		Permissions = table, containing permission information (Revoked, UseView, Edit)
 		PermissionsChanged = function, callback function that is called when a new user is added.		
 ]]
+local FFlagToolboxReplaceUILibraryComponentsPt3 = game:GetFastFlag("ToolboxReplaceUILibraryComponentsPt3")
 
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
@@ -18,11 +19,6 @@ local Libs = Plugin.Libs
 local Cryo = require(Libs.Cryo)
 local Roact = require(Libs.Roact)
 local RoactRodux = require(Libs.RoactRodux)
-
-local UILibrary = require(Libs.UILibrary)
-local createFitToContent = UILibrary.Component.createFitToContent
-local withLocalization = UILibrary.Localizing.withLocalization
-local LayoutOrderIterator = UILibrary.Util.LayoutOrderIterator
 
 local Util = Plugin.Core.Util
 local LOADING = require(Util.Keys).LoadingInProgress
@@ -45,10 +41,16 @@ local ELEMENT_PADDING = 24
 -- TODO: enable friends option
 local MY_FRIENDS_KEY = nil
 
-local FitToContent = createFitToContent("Frame", "UIListLayout", {
-	SortOrder = Enum.SortOrder.LayoutOrder,
-	Padding = UDim.new(0, ELEMENT_PADDING),
-})
+local FitToContent
+if (not FFlagToolboxReplaceUILibraryComponentsPt3) then
+	local UILibrary = require(Libs.UILibrary)
+	local createFitToContent = UILibrary.Component.createFitToContent
+
+	FitToContent = createFitToContent("Frame", "UIListLayout", {
+		SortOrder = Enum.SortOrder.LayoutOrder,
+		Padding = UDim.new(0, ELEMENT_PADDING),
+	})
+end
 
 local function getMatchesFromTable(text, t)
 	local matches = {}
@@ -137,7 +139,7 @@ end
 
 local CollaboratorSearchWidget = Roact.PureComponent:extend("CollaboratorSearchWidget")
 
-function CollaboratorSearchWidget:render()	
+function CollaboratorSearchWidget:render()
 	local props = self.props
 	local searchData = props.SearchData
 
@@ -195,11 +197,18 @@ function CollaboratorSearchWidget:render()
 			local results = getResults(searchTerm, matches, localized)
 			local tooManyCollaboratorsText = localization:getLocalizedTooManyCollaborators(maxCollaborators)
 
-			return Roact.createElement(FitToContent, {
+			return Roact.createElement(FFlagToolboxReplaceUILibraryComponentsPt3 and "Frame" or FitToContent, {
+				AutomaticSize = FFlagToolboxReplaceUILibraryComponentsPt3 and Enum.AutomaticSize.XY or nil,
 				BackgroundTransparency = 1,
 				LayoutOrder = props.LayoutOrder,
 			}, {
+				UIListLayout = FFlagToolboxReplaceUILibraryComponentsPt3 and Roact.createElement("UIListLayout", {
+					SortOrder = Enum.SortOrder.LayoutOrder,
+					Padding = UDim.new(0, ELEMENT_PADDING),
+				}),
+
 				Title = Roact.createElement("TextLabel", {
+					AutomaticSize = FFlagToolboxReplaceUILibraryComponentsPt3 and Enum.AutomaticSize.XY or nil,
 					LayoutOrder = 0,
 
 					Text = localized.PackagePermissions.Title.ShareWith,
@@ -216,7 +225,7 @@ function CollaboratorSearchWidget:render()
 					Enabled = props.Enabled and not tooManyCollaborators,
 
 					HeaderHeight = 25,
-					ItemHeight = 50,
+					ItemHeight = (not FFlagToolboxReplaceUILibraryComponentsPt3) and 50 or nil,
 
 					ErrorText = tooManyCollaborators and tooManyCollaboratorsText or nil,
 					DefaultText = localized.PackagePermissions.Searchbar.Default,

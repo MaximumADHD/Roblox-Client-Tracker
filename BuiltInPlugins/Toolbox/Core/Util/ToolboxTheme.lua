@@ -1,6 +1,5 @@
 local FFlagToolboxUseDevFrameworkDialogs = game:GetFastFlag("ToolboxUseDevFrameworkDialogs")
 local FFlagEnableToolboxAssetNameColorChange = game:GetFastFlag("EnableToolboxAssetNameColorChange")
-local FFlagFixToolboxInCli = game:GetFastFlag("FixToolboxInCli")
 local Plugin = script.Parent.Parent.Parent
 
 local Libs = Plugin.Libs
@@ -47,8 +46,8 @@ function ToolboxTheme.new(options)
 		_isDarkThemeGetter = options.isDarkerTheme or false,
 		_externalThemeChangedSignal = options.themeChanged or nil,
 
-		_studioStyleGuideColor = FFlagFixToolboxInCli and (options.studioStyleGuideColor or Enum.StudioStyleGuideColor) or nil,
-		_studioStyleGuideModifier = FFlagFixToolboxInCli and (options.studioStyleGuideModifier or Enum.StudioStyleGuideModifier) or nil,
+		_studioStyleGuideColor = options.studioStyleGuideColor or Enum.StudioStyleGuideColor,
+		_studioStyleGuideModifier = options.studioStyleGuideModifier or Enum.StudioStyleGuideModifier,
 
 		_externalThemeChangedConnection = nil,
 
@@ -120,16 +119,8 @@ function ToolboxTheme:_recalculateTheme()
 	local isDark = self:_isDarkerTheme()
 
 	-- Shorthands for getting a color
-	local c
-	local m
-
-	if FFlagFixToolboxInCli then
-		c = self._studioStyleGuideColor
-		m = self._studioStyleGuideModifier
-	else
-		c = Enum.StudioStyleGuideColor
-		m = Enum.StudioStyleGuideModifier
-	end
+	local c = self._studioStyleGuideColor
+	local m = self._studioStyleGuideModifier
 
 	local function color(...)
 		return externalTheme:GetColor(...)

@@ -1,5 +1,4 @@
 local FFlagGameSettingsMigrateToDevFrameworkSeparator = game:GetFastFlag("GameSettingsMigrateToDevFrameworkSeparator")
-local FFlagGameSettingsStandardizeLocalizationId = game:GetFastFlag("GameSettingsStandardizeLocalizationId")
 local FFlagStudioUXImprovementsLoosenTCPermissions = game:GetFastFlag("StudioUXImprovementsLoosenTCPermissions")
 
 local Page = script.Parent.Parent
@@ -35,7 +34,7 @@ local FitToContentList = createFitToContent("Frame", "UIListLayout", {
 local CollaboratorsWidget = Roact.PureComponent:extend("CollaboratorsWidget")
 local PermissionsConstants = require(Page.Util.PermissionsConstants)
 
-local PERMISSIONS_ID = FFlagGameSettingsStandardizeLocalizationId and "Permissions" or "AccessPermissions"
+local PERMISSIONS_ID = "Permissions"
 
 function CollaboratorsWidget:render()
 	local props = self.props

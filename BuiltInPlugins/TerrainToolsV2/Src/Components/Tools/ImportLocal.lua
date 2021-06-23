@@ -2,9 +2,6 @@
 	Displays panels associated with the improved import tool
 ]]
 
-local FFlagTerrainImportSupportDefaultMaterial = game:GetFastFlag("TerrainImportSupportDefaultMaterial")
-local FFlagTerrainImportGreyscale2 = game:GetFastFlag("TerrainImportGreyscale2")
-local FFlagTerrainToolsMapSettingsMaxVolume = game:GetFastFlag("TerrainToolsMapSettingsMaxVolume")
 local FFlagTerrainToolsColormapCallout = game:GetFastFlag("TerrainToolsColormapCallout")
 
 local Plugin = script.Parent.Parent.Parent.Parent
@@ -23,7 +20,6 @@ local InfoDialog = require(Plugin.Src.Components.InfoDialog)
 local ToolParts = script.Parent.ToolParts
 local ButtonGroup = require(ToolParts.ButtonGroup)
 local LabeledElementPair = require(ToolParts.LabeledElementPair)
-local LabeledToggle = require(ToolParts.LabeledToggle)
 local LocalImageSelector = require(ToolParts.LocalImageSelector)
 local MapSettingsWithPreviewFragment = require(ToolParts.MapSettingsWithPreviewFragment)
 local Panel = require(ToolParts.Panel)
@@ -39,7 +35,6 @@ local ChangeSize = require(Actions.ChangeSize)
 local SelectColormap = require(Actions.SelectColormap)
 local SetColormapWarningId = require(Actions.SetColormapWarningId)
 local SelectHeightmap = require(Actions.SelectHeightmap)
-local SetUseColorMap = require(Actions.SetUseColorMap)
 local SetDefaultMaterial = require(Actions.SetDefaultMaterial)
 local SetImportMaterialMode = require(Actions.SetImportMaterialMode)
 local SetSizeChangedByUser = require(Actions.SetSizeChangedByUser)
@@ -158,35 +153,33 @@ function ImportLocal:init()
 		local success, status, width, height, channels, bytesPerChannel = HeightmapImporterService:IsValidHeightmap(id)
 
 		if success then
-			if FFlagTerrainImportGreyscale2 then
-				spawn(function()
-					local previewId, channelsWereDiscarded
-					local success, err = pcall(function()
-						previewId, channelsWereDiscarded = HeightmapImporterService:GetHeightmapPreviewAsync(id)
-					end)
-
-					-- If the user changed their selection whilst we were generating a preview, just ignore this
-					if not self.props.heightmap.file or id ~= self.props.heightmap.file:GetTemporaryId() then
-						return
-					end
-
-					if not success then
-						warn(("Failed to generate heightmap preview: %s"):format(tostring(err)))
-						self.props.dispatchSelectHeightmap(nil)
-						self.setErrorMessage("FailedToGenerateHeightmapPreviewTitle", "FailedToGenerateHeightmapPreview")
-						return
-					end
-
-					if channelsWereDiscarded then
-						warn("Only the red channel of imported heightmaps is used, the other channels were discarded.")
-					end
-
-					self.props.dispatchSelectHeightmap(Cryo.Dictionary.join(self.props.heightmap, {
-						preview = previewId,
-						channelsWereDiscarded = channelsWereDiscarded,
-					}))
+			spawn(function()
+				local previewId, channelsWereDiscarded
+				local success, err = pcall(function()
+					previewId, channelsWereDiscarded = HeightmapImporterService:GetHeightmapPreviewAsync(id)
 				end)
-			end
+
+				-- If the user changed their selection whilst we were generating a preview, just ignore this
+				if not self.props.heightmap.file or id ~= self.props.heightmap.file:GetTemporaryId() then
+					return
+				end
+
+				if not success then
+					warn(("Failed to generate heightmap preview: %s"):format(tostring(err)))
+					self.props.dispatchSelectHeightmap(nil)
+					self.setErrorMessage("FailedToGenerateHeightmapPreviewTitle", "FailedToGenerateHeightmapPreview")
+					return
+				end
+
+				if channelsWereDiscarded then
+					warn("Only the red channel of imported heightmaps is used, the other channels were discarded.")
+				end
+
+				self.props.dispatchSelectHeightmap(Cryo.Dictionary.join(self.props.heightmap, {
+					preview = previewId,
+					channelsWereDiscarded = channelsWereDiscarded,
+				}))
+			end)
 
 			self.props.dispatchSelectHeightmap({
 				preview = nil,
@@ -304,12 +297,8 @@ function ImportLocal:updateImportProps()
 		colormap = self.props.colormap or {},
 	}
 
-	if FFlagTerrainImportSupportDefaultMaterial then
-		newSettings.materialMode = self.props.materialMode
-		newSettings.defaultMaterial = self.props.defaultMaterial
-	else
-		newSettings.useColorMap = self.props.useColorMap
-	end
+	newSettings.materialMode = self.props.materialMode
+	newSettings.defaultMaterial = self.props.defaultMaterial
 
 	self.props.TerrainImporter:updateSettings(newSettings)
 end
@@ -365,34 +354,13 @@ function ImportLocal:render()
 	local canImport = not importInProgress
 		and self.state.mapSettingsValid
 		and self.props.heightmap.file
+		-- If we're using default material then we're fine, else we're using colormap so check we actually have a colormap
+		and (self.props.materialMode == ImportMaterialMode.DefaultMaterial or self.props.colormap.file)
 
-	if FFlagTerrainImportSupportDefaultMaterial then
-		canImport = canImport
-			-- If we're using default material then we're fine, else we're using colormap so check we actually have a colormap
-			and (self.props.materialMode == ImportMaterialMode.DefaultMaterial or self.props.colormap.file)
-	else
-		canImport = canImport
-			and (not self.props.useColorMap or self.props.colormap.file)
-	end
+	local showColormapMaterialToggle = true
 
-	local showColormapMaterialToggle
-	local showUseColormap
-	local showColormap
-	local showDefaultMaterial
-
-	if FFlagTerrainImportSupportDefaultMaterial then
-		showColormapMaterialToggle = true
-		showUseColormap = false
-
-		showColormap = self.props.materialMode == ImportMaterialMode.Colormap
-		showDefaultMaterial = self.props.materialMode == ImportMaterialMode.DefaultMaterial
-	else
-		showColormapMaterialToggle = false
-		showUseColormap = true
-
-		showColormap = self.props.useColorMap
-		showDefaultMaterial = false
-	end
+	local showColormap = self.props.materialMode == ImportMaterialMode.Colormap
+	local showDefaultMaterial = self.props.materialMode == ImportMaterialMode.DefaultMaterial
 
 	local heightmapMessages = getMessagesForImage(self.props.heightmap, self.props.size, localization)
 	local colormapMessages = getMessagesForImage(self.props.colormap, self.props.size, localization)
@@ -402,7 +370,7 @@ function ImportLocal:render()
 		colormapMessages.Warning = localization:getText("ImportWarning", "ColorMapOutOfRangeIconTooltip")
 	end
 
-	if FFlagTerrainImportGreyscale2 and canImport and self.props.heightmap.channelsWereDiscarded then
+	if canImport and self.props.heightmap.channelsWereDiscarded then
 		heightmapMessages.Info = localization:getText("ImportInfo", "ChannelsWereDiscarded")
 	end
 
@@ -452,7 +420,7 @@ function ImportLocal:render()
 
 				Position = self.props.position,
 				Size = self.props.size,
-				MaxVolume = FFlagTerrainToolsMapSettingsMaxVolume and MAX_VOLUME_STUDS or nil,
+				MaxVolume = MAX_VOLUME_STUDS,
 				PreviewOffset = Vector3.new(0, 0.5, 0),
 
 				OnPositionChanged = self.props.dispatchChangePosition,
@@ -465,13 +433,6 @@ function ImportLocal:render()
 			Title = localization:getText("MaterialSettings", "MaterialSettings"),
 			LayoutOrder = 2,
 		}, {
-			UseColorMapToggle = showUseColormap and Roact.createElement(LabeledToggle, {
-				LayoutOrder = 1,
-				Text = localization:getText("Import", "UseColormap"),
-				IsOn = self.props.useColorMap,
-				SetIsOn = self.props.dispatchSetUseColorMap,
-			}),
-
 			MaterialColorToggle = showColormapMaterialToggle and Roact.createElement(ModeSelector, {
 				LayoutOrder = 1,
 				Selected = self.props.materialMode,
@@ -500,9 +461,7 @@ function ImportLocal:render()
 			Colormap = showColormap and Roact.createElement(LabeledElementPair, {
 				LayoutOrder = 2,
 				-- When flag is off, use empty string so this looks like it's part of the toggle above
-				Text = FFlagTerrainImportSupportDefaultMaterial
-					and localization:getText("Import", "Colormap")
-					or "",
+				Text = localization:getText("Import", "Colormap"),
 				Size = UDim2.new(1, 0, 0, 60),
 				SizeToContent = true,
 
@@ -594,9 +553,6 @@ local function mapStateToProps(state, props)
 		colormap = state[REDUCER_KEY].colormap or {},
 		colormapWarningId = state[REDUCER_KEY].colormapWarningId or nil,
 
-		-- TODO: Remove useColorMap when removing FFlagTerrainImportSupportDefaultMaterial
-		useColorMap = state[REDUCER_KEY].useColorMap,
-
 		materialMode = state[REDUCER_KEY].materialMode,
 		defaultMaterial = state[REDUCER_KEY].defaultMaterial,
 
@@ -624,10 +580,6 @@ local function mapDispatchToProps(dispatch)
 		end,
 		dispatchSetColormapWarningId = function(colormapWarningId)
 			dispatchToImportLocal(SetColormapWarningId(colormapWarningId))
-		end,
-		-- TODO: Remove dispatchSetUseColorMap when removing FFlagTerrainImportSupportDefaultMaterial
-		dispatchSetUseColorMap = function(useColorMap)
-			dispatchToImportLocal(SetUseColorMap(useColorMap))
 		end,
 		dispatchSetImportMaterialMode = function(materialMode)
 			dispatchToImportLocal(SetImportMaterialMode(materialMode))

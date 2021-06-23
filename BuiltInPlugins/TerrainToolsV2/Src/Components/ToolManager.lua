@@ -3,7 +3,6 @@
 ]]
 
 local FFlagTerrainToolsConvertPartTool = game:GetFastFlag("TerrainToolsConvertPartTool")
-local FFlagTerrainToolsBetterImportTool = game:GetFastFlag("TerrainToolsBetterImportTool")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -24,7 +23,7 @@ local ToolManager = Roact.PureComponent:extend(script.Name)
 
 local tabLookup = {
 	[TabId.Create] = {
-		ToolId.Generate, FFlagTerrainToolsBetterImportTool and ToolId.ImportLocal or ToolId.Import, ToolId.Clear
+		ToolId.Generate, ToolId.ImportLocal, ToolId.Clear
 	},
 	[TabId.Region] = {
 		ToolId.Select, ToolId.Move, ToolId.Resize, ToolId.Rotate,

@@ -54,8 +54,14 @@ local FFlagStudioClosePromptOnLocalSave = game:GetFastFlag("StudioClosePromptOnL
 local FFlagLuobuDevPublishLua = game:GetFastFlag("LuobuDevPublishLua")
 local FFlagLuobuDevPublishLuaTempOptIn = game:GetFastFlag("LuobuDevPublishLuaTempOptIn")
 local FFLagStudioPublishFailPageFix = game:GetFastFlag("StudioPublishFailPageFix")
+local FFlagTextInputDialogDevFramework = game:GetFastFlag("TextInputDialogDevFramework")
 
 local FFlagStudioEnableNewGamesInTheCloudMetrics = game:GetFastFlag("StudioEnableNewGamesInTheCloudMetrics")
+
+local TextInputDialog = FFlagLuobuDevPublishLua and require(Framework.UI.TextInputDialog) or nil
+local KeyProvider = (FFlagLuobuDevPublishLua or FFlagLuobuDevPublishLuaTempOptIn) and require(Plugin.Src.Util.KeyProvider) or nil
+local optInLocationsKey = (FFlagLuobuDevPublishLua or FFlagLuobuDevPublishLuaTempOptIn) and KeyProvider.getOptInLocationsKeyName() or nil
+local chinaKey = (FFlagLuobuDevPublishLua or FFlagLuobuDevPublishLuaTempOptIn) and KeyProvider.getChinaKeyName() or nil
 
 local MENU_ENTRIES = {
 	"BasicInfo",
@@ -66,6 +72,8 @@ local ScreenCreateNewGame = Roact.PureComponent:extend("ScreenCreateNewGame")
 function ScreenCreateNewGame:init()
 	self.state = {
 		selected = 1,
+		showEmailDialog = false,
+		bottomText = "",
 	}
 
 	self.finishedConnection = nil
@@ -99,6 +107,19 @@ function ScreenCreateNewGame:init()
 			end
 		end)
 	end
+
+	self.shouldShowEmailDialog = FFlagLuobuDevPublishLua and function()
+		local props = self.props
+		-- 5/25/21 - CurrentOptInLocations and ChangedOptInLocations are only set in Luobu Studio
+		local currentOptInLocations = props.CurrentOptInLocations
+		local changedOptInLocations = props.ChangedOptInLocations
+
+		if not changedOptInLocations and not currentOptInLocations then
+			return false
+		end
+
+		return (not changedOptInLocations and currentOptInLocations[chinaKey]) or changedOptInLocations[chinaKey]
+	end or nil
 end
 
 function ScreenCreateNewGame:didMount()
@@ -201,14 +222,37 @@ function ScreenCreateNewGame:render()
 					Active = readyToSave and not isPublishing,
 					OnActivated = function()
 						if FFlagStudioPromptOnFirstPublish and firstPublishContext then
-							SettingsImpl.saveAll(changed, localization, firstPublishContext.universeId, firstPublishContext.placeId)
+							if FFlagLuobuDevPublishLua and FFlagTextInputDialogDevFramework then
+								if shouldShowDevPublishLocations() and self.shouldShowEmailDialog() then
+									self:setState({
+										showEmailDialog = true,
+									})
+								else
+									SettingsImpl.saveAll(changed, localization, firstPublishContext.universeId, firstPublishContext.placeId)
+								end
+							else
+								SettingsImpl.saveAll(changed, localization, firstPublishContext.universeId, firstPublishContext.placeId)
+							end
 						else
-							SettingsImpl.saveAll(changed, localization)
+							-- Make changes here before save happens to show dialog
+							if FFlagLuobuDevPublishLua and FFlagTextInputDialogDevFramework then
+								if shouldShowDevPublishLocations() and self.shouldShowEmailDialog() then
+									self:setState({
+										showEmailDialog = true,
+									})
+								else
+									SettingsImpl.saveAll(changed, localization)
+								end
+							else
+								SettingsImpl.saveAll(changed, localization)
+							end
 						end
 						if FFlagStudioUseNewSavePlaceWorkflow and FFlagStudioEnableNewGamesInTheCloudMetrics and isPublish then
 							Analytics.reportInitialPerms(changed.isActive, changed.isFriendsOnly)
 						end
-						dispatchSetIsPublishing(true)
+						if not (FFlagLuobuDevPublishLua and FFlagTextInputDialogDevFramework and shouldShowDevPublishLocations() and self.shouldShowEmailDialog()) then
+							dispatchSetIsPublishing(true)
+						end
 					end,
 				},
 				OnClose = onClose,
@@ -216,6 +260,44 @@ function ScreenCreateNewGame:render()
 				NextScreenText = nextScreenText,
 				IsLocalSaveButton = replaceUpdateWithLocalSave,
 				IsPublish = isPublish,
+			}, {
+				EmailDialog = FFlagLuobuDevPublishLua and FFlagTextInputDialogDevFramework and Roact.createElement(TextInputDialog,
+				{
+					Enabled = self.state.showEmailDialog,
+					Title = localization:getText(optInLocationsKey, "EmailDialogHeader"),
+					Header = localization:getText(optInLocationsKey, "EmailDialogHeader"),
+					Buttons = {
+						{Key = "Submit", Text = localization:getText("Button", "Submit")},
+						{Key = "Cancel", Text = localization:getText("Button", "Cancel")},
+					},
+					Body = localization:getText(optInLocationsKey, "EmailDialogBody"),
+					Description = localization:getText(optInLocationsKey, "EmailDialogDescription"),
+					PlaceholderText = localization:getText(optInLocationsKey, "EmailAddress"),
+					BottomText = self.state.bottomText,
+					OnClose = function(email)
+						self:setState({
+							showEmailDialog = false,
+						})
+					end,
+					OnButtonPressed = function(email, buttonKey)
+						-- TODO: jbousellam - STUDIOCORE-24599 - save email locally.
+						local submitButtonPressed = buttonKey == "Submit"
+						-- TODO: jbousellam - STUDIOCORE-25366 - email validation using regex, if user has an invalid email,
+						-- set bottom text state and continue to show dialog. Do not save settings, do not publish.
+						-- Might need to rearrange where the state is currently being set for showEmailDialog
+							if submitButtonPressed then
+								if firstPublishContext then
+									SettingsImpl.saveAll(changed, localization, firstPublishContext.universeId, firstPublishContext.placeId)
+								else
+									SettingsImpl.saveAll(changed, localization)
+								end
+								dispatchSetIsPublishing(true)
+							end
+						self:setState({
+							showEmailDialog = false,
+						})
+					end,
+				}) or nil
 			}),
 		}
 
@@ -355,6 +437,8 @@ local function mapStateToProps(state, props)
 		Changed = settings.changed,
 		ReadyToSave = next(settings.errors) == nil,
 		IsPublishing = state.PublishedPlace.isPublishing,
+		CurrentOptInLocations = FFlagLuobuDevPublishLua and settings.current.OptInLocations or nil,
+		ChangedOptInLocations = FFlagLuobuDevPublishLua and settings.changed.OptInLocations or nil,
 	}
 end
 

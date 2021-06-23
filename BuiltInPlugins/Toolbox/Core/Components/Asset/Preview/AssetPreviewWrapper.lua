@@ -345,8 +345,13 @@ function AssetPreviewWrapper:init(props)
 		local owned = self.props.Owned
 		if not owned then
 			-- Prompt user to purchase plugin
+			local showInstallationBar = nil
+			if FFlagDevFrameworkAssetPreviewFixes then
+				showInstallationBar = false
+			end
 			self:setState({
 				showPurchaseFlow = true,
+				showInstallationBar = showInstallationBar,
 			})
 			return false
 		else

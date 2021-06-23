@@ -19,8 +19,6 @@ local Roact = require(Plugin.Packages.Roact)
 
 local Framework = require(Plugin.Packages.Framework)
 
-local THEME_REFACTOR = Framework.Util.RefactorFlags.THEME_REFACTOR
-
 local ContextServices = Framework.ContextServices
 local UI = Framework.UI
 local Container = UI.Container
@@ -52,12 +50,7 @@ function RelativeToSetting:render()
 
 	local layoutOrder = props.LayoutOrder
 	local localization = props.Localization
-	local theme
-	if THEME_REFACTOR then
-		theme = props.Stylizer
-	else
-		theme = props.Theme:get("Plugin")
-	end
+	local theme = props.Stylizer
 
 	local layoutOrderIterator = LayoutOrderIterator.new()
 
@@ -110,8 +103,7 @@ end
 
 ContextServices.mapToProps(RelativeToSetting, {
 	Localization = ContextServices.Localization,
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	Stylizer = ContextServices.Stylizer,
 })
 
 return RelativeToSetting

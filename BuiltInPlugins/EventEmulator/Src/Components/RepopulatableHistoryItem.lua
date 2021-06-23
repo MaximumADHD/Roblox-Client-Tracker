@@ -3,7 +3,6 @@ local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 
 local Framework = require(Plugin.Packages.Framework)
-local THEME_REFACTOR = Framework.Util.RefactorFlags.THEME_REFACTOR
 local ContextServices = Framework.ContextServices
 
 local UI = Framework.UI
@@ -52,18 +51,10 @@ function RepopulatableHistoryItem:render()
 	local name = props.Name
 	local view = props.View
 
-	local theme, sizes, layout, textStyle
-	if THEME_REFACTOR then
-		theme = props.Stylizer
-		sizes = theme.Sizes
-		layout = theme.Layout
-		textStyle = theme.Text
-	else
-		theme = props.Theme
-		sizes = theme:get("Sizes")
-		layout = theme:get("Layout")
-		textStyle = theme:get("Text")
-	end
+	local theme = props.Stylizer
+	local sizes = theme.Sizes
+	local layout = theme.Layout
+	local textStyle = theme.Text
 
 	return Roact.createElement(Container, {
 		Background = Decoration.Box,
@@ -96,8 +87,7 @@ function RepopulatableHistoryItem:render()
 end
 
 ContextServices.mapToProps(RepopulatableHistoryItem,{
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	Stylizer = ContextServices.Stylizer,
 })
 
 return RoactRodux.connect(

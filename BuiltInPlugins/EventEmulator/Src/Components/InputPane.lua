@@ -7,7 +7,6 @@ local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 
 local Framework = require(Plugin.Packages.Framework)
-local THEME_REFACTOR = Framework.Util.RefactorFlags.THEME_REFACTOR
 local ContextServices = Framework.ContextServices
 
 local UI = Framework.UI
@@ -36,7 +35,7 @@ function InputPane:init()
 		if activeView == VIEW_ID.RBXEvent then
 			view = RBXEventView
 		end
-		if activeView == VIEW_ID.Theme then 
+		if activeView == VIEW_ID.Theme then
 			view = ThemeView
 		end
 		if activeView == VIEW_ID.MemStorage then
@@ -50,16 +49,9 @@ end
 function InputPane:render()
 	local props = self.props
 
-	local theme, sizes, layout
-	if THEME_REFACTOR then
-		theme = props.Stylizer
-		sizes = theme.Sizes
-		layout = theme.Layout.Vertical
-	else
-		theme = props.Theme
-		sizes = theme:get("Sizes")
-		layout = theme:get("Layout").Vertical
-	end
+	local theme = props.Stylizer
+	local sizes = theme.Sizes
+	local layout = theme.Layout.Vertical
 
 	return Roact.createElement(Container, {
 		Size = UDim2.new(1, 0, 0, sizes.InputPaneLength),
@@ -74,8 +66,7 @@ function InputPane:render()
 end
 
 ContextServices.mapToProps(InputPane, {
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	Stylizer = ContextServices.Stylizer,
 })
 
 return RoactRodux.connect(

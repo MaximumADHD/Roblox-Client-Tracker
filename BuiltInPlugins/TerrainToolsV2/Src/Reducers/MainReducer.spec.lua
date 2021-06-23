@@ -18,7 +18,7 @@ return function()
 			"Tools",
 
 			"GenerateTool",
-			"ImportTool",
+			"ImportLocalTool",
 
 			"RegionTool",
 			"FillTool",

@@ -1,5 +1,3 @@
-local FFlagTerrainToolsHeightmapUseLoadingImage = game:GetFastFlag("TerrainToolsHeightmapUseLoadingImage")
-
 local Plugin = script.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
@@ -32,7 +30,7 @@ local function makeTerrainToolsTheme()
 			MaxWidth = 1000,
 		}),
 
-		Spinner = FFlagTerrainToolsHeightmapUseLoadingImage and {
+		Spinner = {
 			TimeBetweenBlocks = 0.05,
 			Colors = {
 				Color3.fromRGB(172, 172, 172),
@@ -46,7 +44,7 @@ local function makeTerrainToolsTheme()
 			},
 			BlockWidth = 2,
 			InnerRadius = 7,
-		} or nil,
+		},
 	}
 end
 
@@ -73,7 +71,7 @@ local function DEPRECATED_makeTerrainToolsTheme(theme, getColor)
 		}
 	end)
 
-	local spinner = FFlagTerrainToolsHeightmapUseLoadingImage and StyleTable.new("Spinner", function()
+	local spinner = StyleTable.new("Spinner", function()
 		local Default = Style.new({
 			TimeBetweenBlocks = 0.05,
 			Colors = {
@@ -93,7 +91,7 @@ local function DEPRECATED_makeTerrainToolsTheme(theme, getColor)
 		return {
 			Default = Default,
 		}
-	end) or nil
+	end)
 
 	return {
 		Framework = StyleTable.extend(studioFrameworkStyles, {

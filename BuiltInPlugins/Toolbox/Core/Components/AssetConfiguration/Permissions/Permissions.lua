@@ -10,17 +10,24 @@
 
 ]]
 local FFlagToolboxReplaceUILibraryComponentsPt1 = game:GetFastFlag("ToolboxReplaceUILibraryComponentsPt1")
+local FFlagToolboxReplaceUILibraryComponentsPt3 = game:GetFastFlag("ToolboxReplaceUILibraryComponentsPt3")
 
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
 local Libs = Plugin.Libs
-local Cryo = require(Libs.Cryo)
 local Roact = require(Libs.Roact)
 local RoactRodux = require(Libs.RoactRodux)
 
 local UILibrary = require(Libs.UILibrary)
 local StyledScrollingFrame = UILibrary.Component.StyledScrollingFrame
-local LayoutOrderIterator = UILibrary.Util.LayoutOrderIterator
+
+local LayoutOrderIterator
+if FFlagToolboxReplaceUILibraryComponentsPt3 then
+    local FrameworkUtil = require(Libs.Framework).Util
+    LayoutOrderIterator = FrameworkUtil.LayoutOrderIterator
+else
+    LayoutOrderIterator = UILibrary.Util.LayoutOrderIterator
+end
 
 local Separator
 if FFlagToolboxReplaceUILibraryComponentsPt1 then

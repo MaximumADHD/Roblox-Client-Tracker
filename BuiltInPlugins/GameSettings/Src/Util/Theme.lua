@@ -493,34 +493,6 @@ function Theme.createValues(theme, getColor)
 				size = 14,
 			} or nil,
 
-			textInputDialog = FFlagLuobuDevPublishLua and {
-				header = {
-					offset = {
-						Y = -275,
-					}
-				},
-				textbox = {
-					height = 22,
-					offset = {
-						Y = -20,
-					}
-				},
-				body = {
-					offset = {
-						Y = -220,
-					}
-				},
-				description = {
-					offset = {
-						Y = -100,
-					}
-				},
-				size = {
-					width = 500,
-					height = 300,
-				},
-			} or nil,
-
 		}),
 
 		Framework = Style.extend(studioStyles, {

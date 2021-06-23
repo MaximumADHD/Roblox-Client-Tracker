@@ -1,3 +1,5 @@
+local FFlagDevFrameworkFixButtonStyles = game:GetFastFlag("DevFrameworkFixButtonStyles")
+
 local Framework = script.Parent.Parent.Parent
 
 local Util = require(Framework.Util)
@@ -21,6 +23,8 @@ local RoundBox = require(UIFolderData.RoundBox.style)
 
 if THEME_REFACTOR then
 	local roundBox = deepCopy(RoundBox)
+	-- TODO: RIDE-4702: Stylizer should merge table properties when applying StyleModifiers
+	-- Cleanup awkward BackgroundStyle code once issues with extending styles are fixed.
 	return {
 		Padding = 0,
 		TextXAlignment = Enum.TextXAlignment.Center,
@@ -37,13 +41,17 @@ if THEME_REFACTOR then
 			}),
 		},
 		[StyleModifier.Disabled] = {
-			BackgroundStyle = {
+			BackgroundStyle = FFlagDevFrameworkFixButtonStyles and Cryo.Dictionary.join(roundBox, {
+				Color = StyleKey.ButtonDisabled,
+			}) or {
 				Color = StyleKey.ButtonDisabled,
 			},
 			TextColor = StyleKey.ButtonTextDisabled,
 		},
 		[StyleModifier.Pressed] = {
-			BackgroundStyle = {
+			BackgroundStyle = FFlagDevFrameworkFixButtonStyles and Cryo.Dictionary.join(roundBox, {
+				Color = StyleKey.ButtonPressed,
+			}) or {
 				Color = StyleKey.ButtonHover,
 			},
 		},
@@ -53,11 +61,23 @@ if THEME_REFACTOR then
 			BackgroundStyle = {
 				Color = Decoration.SubBackground,
 			},
+			[StyleModifier.Disabled] = FFlagDevFrameworkFixButtonStyles and {
+				BackgroundStyle = {
+					Color = StyleKey.ButtonDisabled,
+				},
+				TextColor = StyleKey.ButtonTextDisabled,
+			} or nil,
 			[StyleModifier.Hover] = {
 				BackgroundStyle = Cryo.Dictionary.join(roundBox, {
 					Color = StyleKey.ButtonHover,
 				}),
 			},
+			[StyleModifier.Pressed] = FFlagDevFrameworkFixButtonStyles and {
+				BackgroundStyle = {
+					Color = StyleKey.ButtonPressed,
+				},
+				TextColor = StyleKey.ButtonTextDisabled,
+			} or nil,
 		},
 
 		["&Round"] = {
@@ -74,11 +94,15 @@ if THEME_REFACTOR then
 			TextColor = StyleKey.DialogMainButtonText,
 			[StyleModifier.Hover] = {
 				BackgroundStyle = Cryo.Dictionary.join(roundBox, {
+					BorderColor = StyleKey.MainBackground,
 					Color = StyleKey.DialogMainButtonHover,
 				}),
 			},
 			[StyleModifier.Disabled] = {
-				BackgroundStyle = {
+				BackgroundStyle = FFlagDevFrameworkFixButtonStyles and Cryo.Dictionary.join(roundBox, {
+					BorderColor = StyleKey.MainBackground,
+					Color = StyleKey.DialogMainButtonDisabled,
+				}) or {
 					Color = StyleKey.DialogMainButtonDisabled,
 				},
 				TextColor = StyleKey.DialogMainButtonTextDisabled,

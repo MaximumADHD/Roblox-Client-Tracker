@@ -21,6 +21,11 @@
 		UDim2 Position: The position of this component.
 		UDim2 Size: The size of this component.
 		Vector2 AnchorPoint: The anchor point of this component
+		boolean MultiLine: If the TextBox is Multilined.
+		boolean TextWrapped: If the Text should be wrapped to the next line.
+		Enum.Font Font: The font used to render the text.
+		Enum.TextYAlignment TextYAlignment: The Y Alignment of the text.
+		number TextSize: The font size of the text.
 
 	Style Values:
 		Enum.Font Font: The font used to render the text.
@@ -36,6 +41,7 @@ local Roact = require(Framework.Parent.Roact)
 local ContextServices = require(Framework.ContextServices)
 
 local Util = require(Framework.Util)
+local prioritize = Util.prioritize
 local Typecheck = Util.Typecheck
 local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 
@@ -46,22 +52,78 @@ local StyleModifier = require(Framework.Util.StyleModifier)
 local TextInput = Roact.PureComponent:extend("TextInput")
 Typecheck.wrap(TextInput, script)
 
+local FlagsList = Util.Flags.new({
+	FFlagToolboxReplaceUILibraryComponentsPt2 = {"ToolboxReplaceUILibraryComponentsPt2"},
+})
+
 function TextInput:init()
-	self.textBoxRef = Roact.createRef()
+	if FlagsList:get("FFlagToolboxReplaceUILibraryComponentsPt2") then
+		self.textBoxRef = self.props[Roact.Ref] or Roact.createRef()
+		self.isHover = false
+		self.isFocused = false
+	else
+		self.textBoxRef = Roact.createRef()
+	end
+
+	self.setStyleModifier = function()
+		local modifier
+		if self.isFocused then
+			modifier = StyleModifier.Selected
+		elseif self.isHover then
+			modifier = StyleModifier.Hover
+		else
+			modifier = Roact.None
+		end
+
+		self:setState({
+			StyleModifier = modifier
+		})
+	end
+
 	self.onTextChanged = function(rbx)
 		-- workaround because we do not disconnect events before we start unmounting host components.
 		-- see https://github.com/Roblox/roact/issues/235 for more info
 		if not self.textBoxRef.current then return end
 
-		if rbx.TextFits then
-			rbx.TextXAlignment = Enum.TextXAlignment.Left
+		if (not FlagsList:get("FFlagToolboxReplaceUILibraryComponentsPt2"))
+			or (FlagsList:get("FFlagToolboxReplaceUILibraryComponentsPt2") and not self.props.MultiLine)
+		then
+			if rbx.TextFits then
+				rbx.TextXAlignment = Enum.TextXAlignment.Left
+			else
+				rbx.TextXAlignment = Enum.TextXAlignment.Right
+			end
+			if rbx.Text ~= self.props.Text then
+				local processed = string.gsub(rbx.Text, "[\n\r]", " ")
+				if self.props.OnTextChanged then
+					self.props.OnTextChanged(processed)
+				end
+			end
 		else
-			rbx.TextXAlignment = Enum.TextXAlignment.Right
+			if rbx.Text ~= self.props.Text then
+				self.props.OnTextChanged(rbx.Text)
+			end
 		end
-		if rbx.Text ~= self.props.Text then
-			local processed = string.gsub(rbx.Text, "[\n\r]", " ")
-			if self.props.OnTextChanged then
-				self.props.OnTextChanged(processed)
+	end
+
+	if FlagsList:get("FFlagToolboxReplaceUILibraryComponentsPt2") then
+		self.onFocusGained = function(rbx, pressed)
+			self.isFocused = true
+			self.setStyleModifier()
+
+			if self.props.OnFocusGained then
+				self.props.OnFocusGained(rbx, pressed)
+			end
+		end
+	end
+
+	if FlagsList:get("FFlagToolboxReplaceUILibraryComponentsPt2") then
+		self.onFocusGained = function(rbx, pressed)
+			self.isFocused = true
+			self.setStyleModifier()
+
+			if self.props.OnFocusGained then
+				self.props.OnFocusGained(rbx, pressed)
 			end
 		end
 	end
@@ -71,10 +133,27 @@ function TextInput:init()
 		-- see https://github.com/Roblox/roact/issues/235 for more info
 		if not self.textBoxRef.current then return end
 
+		if FlagsList:get("FFlagToolboxReplaceUILibraryComponentsPt2") then
+			self.isFocused = false
+			self.setStyleModifier()
+		end
+
 		local textBox = self.textBoxRef.current
 		textBox.TextXAlignment = Enum.TextXAlignment.Left
 		if self.props.OnFocusLost then
 			self.props.OnFocusLost(enterPressed)
+		end
+	end
+
+	if FlagsList:get("FFlagToolboxReplaceUILibraryComponentsPt2") then
+		self.mouseEnter = function()
+			self.isHover = true
+			self.setStyleModifier()
+		end
+
+		self.mouseLeave = function()
+			self.isHover = false
+			self.setStyleModifier()
 		end
 	end
 end
@@ -92,34 +171,42 @@ function TextInput:render()
 
 	local enabled = props.Enabled == nil and true or props.Enabled
 	local layoutOrder = props.LayoutOrder or 0
+	local multiLine = props.MultiLine
 	local placeholderText = props.PlaceholderText
-	local text = props.Text or ""
-	local size = props.Size or UDim2.new(1, 0, 1, 0)
 	local position = props.Position
+	local size = props.Size or UDim2.new(1, 0, 1, 0)
+	local text = props.Text or ""
+	local textWrapped = props.TextWrapped
 
 	local theme = props.Theme
 	local style
+	local font
+	local textSize
 	if THEME_REFACTOR then
 		style = props.Stylizer
+		font = prioritize(props.Font, style.Font)
+		textSize = prioritize(props.TextSize, style.TextSize)
 	else
 		style = theme:getStyle("Framework", self)
+		font = style.Font
+		textSize = style.TextSize
 	end
 
-	local font = style.Font
-	local textSize = style.TextSize
 	local textColor = style.TextColor
 	local placeholderTextColor = style.PlaceholderTextColor
 
-	self.mouseEnter = function()
-		self:setState({
-			StyleModifier = StyleModifier.Hover
-		})
-	end
+	if not FlagsList:get("FFlagToolboxReplaceUILibraryComponentsPt2") then
+		self.mouseEnter = function()
+			self:setState({
+				StyleModifier = StyleModifier.Hover
+			})
+		end
 
-	self.mouseLeave = function()
-		self:setState({
-			StyleModifier = Roact.None
-		})
+		self.mouseLeave = function()
+			self:setState({
+				StyleModifier = Roact.None
+			})
+		end
 	end
 
 	local textBox = Roact.createElement("TextBox", {
@@ -128,20 +215,23 @@ function TextInput:render()
 		Size = UDim2.new(1, 0, 1, 0),
 		BackgroundTransparency = 1,
 		BorderSizePixel = 0,
+		ClearTextOnFocus = false,
 
 		PlaceholderText  = placeholderText,
 		PlaceholderColor3 = placeholderTextColor,
-		ClearTextOnFocus = false,
 		Font = font,
+		MultiLine = multiLine,
 		TextSize = textSize,
 		TextColor3 = textColor,
 		Text = text,
 		TextXAlignment = Enum.TextXAlignment.Left,
+		TextYAlignment = props.TextYAlignment or nil,
 		TextEditable = enabled,
+		TextWrapped = textWrapped,
 
 		[Roact.Ref] = self.textBoxRef,
 
-		[Roact.Event.Focused] = self.props.OnFocusGained,
+		[Roact.Event.Focused] = FlagsList:get("FFlagToolboxReplaceUILibraryComponentsPt2") and self.onFocusGained or self.props.OnFocusGained,
 		[Roact.Event.FocusLost] = self.onFocusLost,
 		[Roact.Change.Text] = self.onTextChanged,
 		[Roact.Event.MouseEnter] = self.mouseEnter,
@@ -151,13 +241,20 @@ function TextInput:render()
 	local backgroundStyle = style.BackgroundStyle
 	local padding = style.Padding
 
+	local background
+	if FlagsList:get("FFlagToolboxReplaceUILibraryComponentsPt2") then
+		background = (not THEME_REFACTOR or style.useRoundBox) and RoundBox or nil
+	else
+		background = (not THEME_REFACTOR or props.Style == "RoundedBorder") and RoundBox or nil
+	end
+
 	return Roact.createElement(Container, {
 		AnchorPoint = props.AnchorPoint,
 		ClipsDescendants = true,
 		Position = position,
 		Padding = padding,
 		Size = size,
-		Background = (not THEME_REFACTOR or props.Style == "RoundedBorder") and RoundBox or nil,
+		Background = background,
 		BackgroundStyle = backgroundStyle,
 		LayoutOrder = layoutOrder,
 	}, {

@@ -24,17 +24,7 @@ return function()
 		end).to.throw()
 	end)
 
-	if not game:GetFastFlag("TerrainImportUseService") then
-		it("should require a terrain instance", function()
-			expect(function()
-				TerrainImporter.new({
-					imageUploader = {},
-				})
-			end).to.throw()
-		end)
-	end
-
-	if game:GetFastFlag("TerrainToolsBetterImportTool") and game:GetFastFlag("TerrainToolsImportUploadAssets") then
+	if game:GetFastFlag("TerrainToolsImportUploadAssets") then
 		it("should require an ImageUploader instance", function()
 			expect(function()
 				TerrainImporter.new({

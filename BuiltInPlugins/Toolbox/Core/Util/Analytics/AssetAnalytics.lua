@@ -1,6 +1,8 @@
 --!nocheck
 -- TODO STM-151: Re-enable Luau Type Checks when Luau bugs are fixed
 
+local FFlagToolboxTrackRunMode = game:GetFastFlag("ToolboxTrackRunMode")
+
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Libs = Plugin.Libs
@@ -133,6 +135,7 @@ function AssetAnalytics.getTrackingAttributes(assetData: AssetData)
         clientID = Analytics.getClientId(),
         searchID = assetData.Context.searchId,
         studioSid = Analytics.getStudioSessionId(),
+        isEditMode = FFlagToolboxTrackRunMode and Analytics.getIsEditMode() or nil,
 
         -- Legacy fields kept for S&D (see STM-215)
         label = assetData.Asset.Id,

@@ -18,9 +18,7 @@ RefactorFlags.THEME_REFACTOR = FFlagEnableTerrainToolsStylizer
 
 game:DefineFastFlag("TerrainToolsRoactInspector", false)
 
-local FFlagTerrainToolsBetterImportTool = game:GetFastFlag("TerrainToolsBetterImportTool")
 local FFlagTerrainToolsImportUploadAssets = game:GetFastFlag("TerrainToolsImportUploadAssets")
-local FFlagTerrainToolsHeightmapUseLoadingImage = game:GetFastFlag("TerrainToolsHeightmapUseLoadingImage")
 local FFlagTerrainToolsRoactInspector = game:GetFastFlag("TerrainToolsRoactInspector")
 local FFlagTerrainToolsColormapCallout = game:GetFastFlag("TerrainToolsColormapCallout")
 
@@ -86,7 +84,7 @@ local function createTerrainContextItems()
 
 	local networking
 	local imageUploader
-	if FFlagTerrainToolsBetterImportTool and FFlagTerrainToolsImportUploadAssets then
+	if FFlagTerrainToolsImportUploadAssets then
 		networking = Http.Networking.new({
 			isInternal = true,
 		})
@@ -101,7 +99,6 @@ local function createTerrainContextItems()
 	local pluginActivationController = PluginActivationController.new(plugin)
 
 	local terrainImporter = TerrainImporter.new({
-		terrain = terrainInstance,
 		localization = localization,
 		analytics = analytics,
 		imageUploader = imageUploader,
@@ -129,10 +126,7 @@ local function createTerrainContextItems()
 
 	local devFrameworkThemeItem = makeTheme()
 
-	local imageLoader
-	if FFlagTerrainToolsHeightmapUseLoadingImage then
-		imageLoader = ImageLoader.new()
-	end
+	local imageLoader = ImageLoader.new()
 
 	local calloutController
 	if FFlagTerrainToolsColormapCallout then

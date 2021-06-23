@@ -50,5 +50,12 @@ game:DefineFastFlag("ToolboxDefaultBackgroundMatches", false)
 game:DefineFastFlag("ToolboxFixCommonWarnings", false)
 
 game:DefineFastFlag("ToolboxRemoveGroupInventory", false)
+game:DefineFastFlag("ToolboxReplaceUILibraryComponentsPt3", false)
+
+game:DefineFastFlag("ToolboxFixCategoryUrlsCircularDependency", false)
+
+game:DefineFastFlag("ToolboxTrackRunMode", false)
+
+game:DefineFastFlag("ToolboxTrackAllAssetTypeInsertions", false)
 
 return nil

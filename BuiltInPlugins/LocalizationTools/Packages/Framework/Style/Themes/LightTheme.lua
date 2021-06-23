@@ -13,6 +13,7 @@ return {
 	[StyleKey.ButtonDisabled] = Colors.White,
 	[StyleKey.ButtonTextDisabled] = Color3.fromRGB(102, 102, 102),
 	[StyleKey.ButtonPressed] = Color3.fromRGB(219, 219, 219),
+	[StyleKey.ButtonSelected] = Color3.fromRGB(228, 238, 254),
 	[StyleKey.ImageButtonBackground] = Color3.fromRGB(182, 182, 182),
 	[StyleKey.ImageButtonHover] = Colors.lighter(Color3.fromRGB(182, 182, 182), 0.26),
 
@@ -31,10 +32,14 @@ return {
 	[StyleKey.ErrorText] = Colors.Red,
 
 	[StyleKey.InputFieldBackground] = Colors.White,
+	[StyleKey.InputFieldBackgroundDisabled] = Color3.fromRGB(231, 231, 231),
+	[StyleKey.InputFieldBorder] = Color3.fromRGB(200, 200, 200),
+	[StyleKey.InputFieldBorderDisabled] = Color3.fromRGB(182, 182, 182),
+	[StyleKey.InputFieldBorderSelected] = Color3.fromRGB(102, 145, 220),
+	[StyleKey.ItemHovered] = Colors.Gray,
 
 	[StyleKey.LinkText] = Colors.Blue_Light,
 
-	[StyleKey.ItemHovered] = Colors.Gray,
 	[StyleKey.MainBackground] = Colors.White,
 	[StyleKey.MainButton] = Color3.fromRGB(228, 238, 254),
 	[StyleKey.MainText] = Colors.Black,

@@ -1,19 +1,29 @@
 --!nocheck
--- TODO STM-615: Remove nocheck when circular dependency issues are fixed
+-- TODO Remove nocheck with FFlagToolboxFixCategoryUrlsCircularDependency
 local Plugin = script.Parent.Parent.Parent
 local Util = Plugin.Core.Util
 local AssetConfigConstants = require(Util.AssetConfigConstants)
-local DebugFlags = require(Util.DebugFlags)
 local getUserId = require(Util.getUserId)
 local Urls = require(Util.Urls)
+local FFlagToolboxFixCategoryUrlsCircularDependency = game:GetFastFlag("ToolboxFixCategoryUrlsCircularDependency")
 
 local DFIntFileMaxSizeBytes = tonumber(settings():GetFVariable("FileMaxSizeBytes"))
 
+local FFlagToolboxReplaceUILibraryComponentsPt3 = game:GetFastFlag("ToolboxReplaceUILibraryComponentsPt3")
 local FFlagUseDefaultThumbnailForAnimation = game:GetFastFlag("UseDefaultThumbnailForAnimation")
 local StudioService = game:GetService("StudioService")
 
-local UILibrary = require(Plugin.Libs.UILibrary)
-local MathUtils = UILibrary.Util.MathUtils
+local MathUtils
+local round
+if FFlagToolboxReplaceUILibraryComponentsPt3 then
+	round = function(num, numDecimalPlaces)
+	  local mult = 10^(numDecimalPlaces or 0)
+	  return math.floor(num * mult + 0.5) / mult
+	end
+else
+	local UILibrary = require(Plugin.Libs.UILibrary)
+	MathUtils = UILibrary.Util.MathUtils
+end
 
 local AssetConfigUtil = {}
 
@@ -38,10 +48,20 @@ function AssetConfigUtil.calculatePotentialEarning(allowedAssetTypesForRelease, 
 	if not price then
 		return 0, 0
 	end
-	price = MathUtils:round(price)
+	if FFlagToolboxReplaceUILibraryComponentsPt3 then
+		price = round(price)
+	else
+		price = MathUtils:round(price)
+	end
 	local convertToZeroToOne = 0.01
 	local scaler = convertToZeroToOne * AssetConfigUtil.getMarketplaceFeesPercentage(allowedAssetTypesForRelease, assetTypeEnum)
-	local marketPlaceFee = math.max(minPrice, MathUtils:round(price * scaler))
+	local roundedPrice
+	if FFlagToolboxReplaceUILibraryComponentsPt3 then
+		roundedPrice = round(price * scaler)
+	else
+		roundedPrice = MathUtils:round(price * scaler)
+	end
+	local marketPlaceFee = math.max(minPrice, roundedPrice)
 
 	return math.max(0, price - marketPlaceFee), marketPlaceFee or 0
 end
@@ -168,18 +188,20 @@ function AssetConfigUtil.getOwnerDropDownContent(manageableGroups, localizedCont
 	return result
 end
 
-function AssetConfigUtil.getAllowedAssetTypeEnums(allowedAssetTypesForRelease)
-	local result = {}
-	if allowedAssetTypesForRelease then
-		for _, info in ipairs(AssetConfigConstants.ASSET_TYPE_INFO) do
-			if info.isCatalog and info.isUploadable then
-				if allowedAssetTypesForRelease[info.type.Name] ~= nil then
-					result[#result + 1] = info.type
+if not FFlagToolboxFixCategoryUrlsCircularDependency then
+	function AssetConfigUtil.getAllowedAssetTypeEnums(allowedAssetTypesForRelease)
+		local result = {}
+		if allowedAssetTypesForRelease then
+			for _, info in ipairs(AssetConfigConstants.ASSET_TYPE_INFO) do
+				if info.isCatalog and info.isUploadable then
+					if allowedAssetTypesForRelease[info.type.Name] ~= nil then
+						result[#result + 1] = info.type
+					end
 				end
 			end
 		end
+		return result
 	end
-	return result
 end
 
 function AssetConfigUtil.getClonedInstances(instances)

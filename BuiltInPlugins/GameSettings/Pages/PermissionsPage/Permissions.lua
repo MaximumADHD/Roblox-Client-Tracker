@@ -3,7 +3,6 @@ local FFlagGameSettingsMigrateToDevFrameworkSeparator = game:GetFastFlag("GameSe
 local FFlagUXImprovementsShowUserPermsWhenCollaborator2 = game:GetFastFlag("UXImprovementsShowUserPermsWhenCollaborator2")
 local FFlagStudioUXImprovementsLoosenTCPermissions = game:GetFastFlag("StudioUXImprovementsLoosenTCPermissions")
 local FFlagUXImprovementsNonTCPlacesAllowedPlay = game:GetFastFlag("UXImprovementsNonTCPlacesAllowedPlay")
-local FFlagGameSettingsStandardizeLocalizationId = game:GetFastFlag("GameSettingsStandardizeLocalizationId")
 
 local RunService = game:GetService("RunService")
 local StudioService = game:GetService("StudioService")
@@ -39,7 +38,7 @@ local GetIsFriendsOnlyKeyName = KeyProvider.getIsFriendOnlyKeyName
 local GetIsActiveKeyName = KeyProvider.getIsActiveKeyName
 local GetIsForSaleKeyName = KeyProvider.getIsForSaleKeyName
 local GetVipServersIsEnabledKeyName = KeyProvider.getVipServersIsEnabledKeyName
-local LOCALIZATION_ID = FFlagGameSettingsStandardizeLocalizationId and script.Name or "AccessPermissions"
+local LOCALIZATION_ID = script.Name
 
 local function loadSettings(store, contextItems)
 	local state = store:getState()
@@ -301,10 +300,6 @@ function Permissions:render()
 			teamCreateWarningVisible = (not canUserEditCollaborators) and (not self:isGroupGame())
 		end
 
-		local teamCreateWarningSize = nil 
-		if not FFlagGameSettingsStandardizeLocalizationId then
-			teamCreateWarningSize = UDim2.new(1, 0, 0, 30)
-		end
 		-- once user change to public and have the monetize enabled the plability button will be disabled
 		local playabilityEnabled = (self:isLoggedInUserGameOwner() or self:isGroupGame()) and (not isPublic and isInitiallyEnabled or not isMonetized)
 		local playabilityWarningVisible = FFlagStudioRestrictGameMonetizationToPublicGameOnly and not playabilityEnabled or false
@@ -352,12 +347,10 @@ function Permissions:render()
 			}),
 
 			TeamCreateWarning = teamCreateWarningVisible and Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Subtitle, {
-				Text = FFlagGameSettingsStandardizeLocalizationId and localization:getText(LOCALIZATION_ID, "TeamCreateWarning") 
-					or localization:getText("AccessPermissions", "TeamCreateWarning"),
+				Text = localization:getText(LOCALIZATION_ID, "TeamCreateWarning"), 
 				TextXAlignment = Enum.TextXAlignment.Left,
 				TextColor3 = theme.warningColor,
 				BackgroundTransparency = 1,
-				Size = teamCreateWarningSize,
 				LayoutOrder = 50,
 			})),
 
@@ -384,7 +377,7 @@ function Permissions:render()
 		SettingsLoadJobs = loadSettings,
 		SettingsSaveJobs = saveSettings,
 		Title = localization:getText("General", "Category"..LOCALIZATION_ID),
-		PageId = FFlagGameSettingsStandardizeLocalizationId and LOCALIZATION_ID or script.Name,
+		PageId = LOCALIZATION_ID,
 		CreateChildren = createChildren,
 	})
 end

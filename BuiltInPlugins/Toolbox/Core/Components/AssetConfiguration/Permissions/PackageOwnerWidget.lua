@@ -15,16 +15,12 @@
 	Optional Properties:
 	
 ]]
+local FFlagToolboxReplaceUILibraryComponentsPt3 = game:GetFastFlag("ToolboxReplaceUILibraryComponentsPt3")
 
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
 local Libs = Plugin.Libs
-local Cryo = require(Libs.Cryo)
 local Roact = require(Libs.Roact)
-
-local UILibrary = require(Libs.UILibrary)
-local createFitToContent = UILibrary.Component.createFitToContent
-local deepJoin = UILibrary.Util.deepJoin
 
 local Util = Plugin.Core.Util
 local Urls = require(Util.Urls)
@@ -40,10 +36,20 @@ local PermissionsConstants = require(PermissionsDirectory.PermissionsConstants)
 local CollaboratorItem = require(PermissionsDirectory.CollaboratorItem)
 local GroupCollaboratorItem = require(PermissionsDirectory.GroupCollaboratorItem)
 
-local FitToContent = createFitToContent("Frame", "UIListLayout", {
-	SortOrder = Enum.SortOrder.LayoutOrder,
-})
+local deepJoin
+local FitToContent
+if FFlagToolboxReplaceUILibraryComponentsPt3 then
+	local FrameworkUtil = require(Libs.Framework).Util
+	deepJoin = FrameworkUtil.deepJoin
+else
+	local UILibrary = require(Libs.UILibrary)
+	local createFitToContent = UILibrary.Component.createFitToContent
+	deepJoin = UILibrary.Util.deepJoin
 
+	FitToContent = createFitToContent("Frame", "UIListLayout", {
+		SortOrder = Enum.SortOrder.LayoutOrder,
+	})
+end
 local function getGroupOwnerPermissions(props, localized)
 	if not props.CanManage then return {} end
 
@@ -84,16 +90,16 @@ function PackageOwnerWidget:render()
 					Removable = false,
 
 					SubjectType = Enum.CreatorType.User,
-					
+
 					CollaboratorName = props.OwnerName,
 					CollaboratorId = props.OwnerId,
 					CollaboratorIcon = Urls.constructRBXThumbUrl(AssetConfigConstants.rbxThumbTypes["AvatarHeadShot"], props.OwnerId,
 						AssetConfigConstants.rbxThumbSizes.AvatarHeadshotImageSize),
 					UseMask = true,
-					
+
 					Action =  localized.PackagePermissions.ActionDropdown.OwnerLabel,
 					Enabled = props.Enabled,
-					
+
 					Items = getUserOwnerPermissions(),
 					RolePermissionChanged = nil, -- Owner permissions can't be changed
 				})
@@ -101,12 +107,12 @@ function PackageOwnerWidget:render()
 				collaboratorItem = Roact.createElement(GroupCollaboratorItem, {
 					LayoutOrder = 1,
 					Removable = false,
-					
+
 					GroupData = props.GroupMetadata,
 					Enabled = props.Enabled,
 
 					Items = getGroupOwnerPermissions(props, localized),
-					
+
 					RolePermissionChanged = rolePermissionChanged,
 					GroupPermissionChanged = nil, -- Cannot be bulk-changed because Owner is locked
 
@@ -114,10 +120,15 @@ function PackageOwnerWidget:render()
 				})
 			end
 
-			return Roact.createElement(FitToContent, {
-				LayoutOrder = props.LayoutOrder or 0,
+			return Roact.createElement(FFlagToolboxReplaceUILibraryComponentsPt3 and "Frame" or FitToContent, {
+				AutomaticSize = FFlagToolboxReplaceUILibraryComponentsPt3 and Enum.AutomaticSize.XY or nil,
 				BackgroundTransparency = 1,
+				LayoutOrder = props.LayoutOrder or 0,
 			}, {
+				UIListLayout = FFlagToolboxReplaceUILibraryComponentsPt3 and Roact.createElement("UIListLayout", {
+					SortOrder = Enum.SortOrder.LayoutOrder,
+				}),
+
 				Title = Roact.createElement("TextLabel", {
 					Font = Constants.FONT,
 					TextSize = Constants.FONT_SIZE_TITLE,
@@ -129,7 +140,7 @@ function PackageOwnerWidget:render()
 					-- Accounting for the CollaboratorItem under it.
 					Size = UDim2.new(1, 0, 0, 50),
 				}),
-				
+
 				Owner = collaboratorItem,
 			})
 		end)

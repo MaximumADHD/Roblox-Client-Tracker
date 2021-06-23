@@ -1,4 +1,5 @@
 local FFlagEnableStudioServiceOpenBrowser = game:GetFastFlag("EnableStudioServiceOpenBrowser")
+local FFlagPluginManagementAnalytics = game:GetFastFlag("PluginManagementAnalytics")
 
 local StudioService = game:getService("StudioService")
 local ContentProvider = game:getService("ContentProvider")
@@ -109,7 +110,12 @@ function PluginEntry:init()
 
 	self.updatePlugin = function()
 		local props = self.props
-		props.UpdatePlugin(props.data)
+		if FFlagPluginManagementAnalytics then
+			props.Analytics:report("TryUpdatePlugin", props.data.assetId)
+			props.UpdatePlugin(props.data, props.Analytics)
+		else
+			props.UpdatePlugin(props.data)
+		end
 	end
 
 	self.openCreatorProfile = function()
@@ -443,6 +449,7 @@ ContextServices.mapToProps(PluginEntry, {
 	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
 	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
 	API = PluginAPI2,
+	Analytics = FFlagPluginManagementAnalytics and ContextServices.Analytics or nil,
 })
 
 local mapStateToProps = function(state, props)
@@ -464,8 +471,8 @@ local function mapDispatchToProps(dispatch)
 			dispatch(SetPluginEnabledState(plugin, enabled))
 		end,
 
-		UpdatePlugin = function(plugin)
-			dispatch(UpdatePlugin(plugin))
+		UpdatePlugin = function(plugin, analytics)
+			dispatch(UpdatePlugin(plugin, analytics))
 		end,
 	}
 end

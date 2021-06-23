@@ -14,10 +14,6 @@
 		callback tryOpenAssetConfig, invoke assetConfig page with an assetId.
 ]]
 
-local StudioService = game:GetService("StudioService")
-
-local FFlagFixToolboxInCli = game:GetFastFlag("FixToolboxInCli")
-
 local Plugin = script.Parent.Parent.Parent
 
 local Libs = Plugin.Libs
@@ -297,12 +293,7 @@ function AssetGridContainer:init(props)
 end
 
 function AssetGridContainer:didMount()
-	local assetIdStr
-	if FFlagFixToolboxInCli then
-		assetIdStr = getStartupAssetId()
-	else
-		assetIdStr = StudioService:getStartupAssetId()
-	end
+	local assetIdStr = getStartupAssetId()
 	local assetId = tonumber(assetIdStr)
 
 	if assetId then

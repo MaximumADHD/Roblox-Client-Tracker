@@ -53,6 +53,7 @@ return function(loadValuesToProps, dispatchForProps)
 			if FFlagLuobuDevPublishLua or FFlagLuobuDevPublishLuaTempOptIn then
 				self.state = {
 					StyleModifier = nil,
+					showDialog = false,
 				}
 
 				self.onMouseEnter = function()
@@ -70,6 +71,13 @@ return function(loadValuesToProps, dispatchForProps)
 						})
 					end
 				end
+			end
+		end
+
+		function Page:didMount()
+			if FFlagLuobuDevPublishLua and self.props.GetPlayerAcceptances then
+				local apiImpl = self.props.API:get()
+				self.props.GetPlayerAcceptances(apiImpl)
 			end
 		end
 
@@ -112,6 +120,7 @@ return function(loadValuesToProps, dispatchForProps)
 			Theme = ContextServices.Theme,
 			Localization = ContextServices.Localization,
 			Mouse = (FFlagLuobuDevPublishLua or FFlagLuobuDevPublishLuaTempOptIn) and ContextServices.Mouse or nil,
+			API = FFlagLuobuDevPublishLua and ContextServices.API or nil,
 		})
 
 		local function mapStateToProps(state, props)

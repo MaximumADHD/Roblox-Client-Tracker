@@ -10,7 +10,6 @@ local FFlagEnableDevProductsInGameSettings = game:GetFastFlag("EnableDevProducts
 local FFlagDeveloperSubscriptionsEnabled = game:GetFastFlag("DeveloperSubscriptionsEnabled")
 local FFlagStudioFixGameManagementIndexNil = game:getFastFlag("StudioFixGameManagementIndexNil")
 local FFlagStudioEnableBadgesInMonetizationPage = game:GetFastFlag("StudioEnableBadgesInMonetizationPage")
-local FFlagGameSettingsStandardizeLocalizationId = game:GetFastFlag("GameSettingsStandardizeLocalizationId")
 local FFlagStudioFixMissingMonetizationHeader = game:DefineFastFlag("StudioFixMissingMonetizationHeader", false)
 local FVariableMaxRobuxPrice = game:DefineFastInt("DeveloperSubscriptionsMaxRobuxPrice", 2000)
 local FFlagStudioRestrictGameMonetizationToPublicGameOnly = game:GetFastFlag("StudioRestrictGameMonetizationToPublicGameOnly")
@@ -71,7 +70,7 @@ local HttpService = game:GetService("HttpService")
 
 local Monetization = Roact.PureComponent:extend(script.name)
 
-local LOCALIZATION_ID = FFlagGameSettingsStandardizeLocalizationId and script.Name or "Monetization"
+local LOCALIZATION_ID = script.Name
 local BADGES = "Badges"
 
 --[[
@@ -1082,7 +1081,7 @@ function Monetization:render()
         SettingsLoadJobs = loadSettings,
         SettingsSaveJobs = saveSettings,
         Title = localization:getText("General", "Category"..LOCALIZATION_ID),
-        PageId = FFlagGameSettingsStandardizeLocalizationId and LOCALIZATION_ID or script.Name,
+        PageId = LOCALIZATION_ID,
         CreateChildren = createChildren,
         ShowHeader = showHeader,
     })

@@ -29,7 +29,9 @@ local Util = require(Framework.Util)
 local Immutable = Util.Immutable
 local Typecheck = Util.Typecheck
 
-local FFlagDevFrameworkTextInputClipsDescendants = game:GetFastFlag("DevFrameworkTextInputClipsDescendants")
+local FlagsList = Util.Flags.new({
+	FFlagToolboxReplaceUILibraryComponentsPt2 = {"ToolboxReplaceUILibraryComponentsPt2"},
+})
 
 local Container = Roact.PureComponent:extend("Container")
 Typecheck.wrap(Container, script)
@@ -52,10 +54,7 @@ function Container:render()
 	local visible = props.Visible
 	local elementOverride = props.ElementOverride
 	local ref = props[Roact.Ref]
-	local clipsDescendants = nil
-	if FFlagDevFrameworkTextInputClipsDescendants then
-		clipsDescendants = props.ClipsDescendants or false
-	end
+	local clipsDescendants = props.ClipsDescendants or false
 
 	local children = props[Roact.Children] or {}
 	if type(padding) == "number" then
@@ -109,6 +108,7 @@ function Container:render()
 		Visible = visible,
 		[Roact.Ref] = ref,
 		[Roact.Change.AbsoluteSize] = props[Roact.Change.AbsoluteSize],
+		[Roact.Change.AbsolutePosition] = FlagsList:get("FFlagToolboxReplaceUILibraryComponentsPt2") and props[Roact.Change.AbsolutePosition] or nil,
 	}, {
 		Margin = marginComponent,
 

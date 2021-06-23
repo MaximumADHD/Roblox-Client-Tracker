@@ -14,7 +14,6 @@ local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 
 local Framework = require(Plugin.Packages.Framework)
-local THEME_REFACTOR = Framework.Util.RefactorFlags.THEME_REFACTOR
 local ContextServices = Framework.ContextServices
 
 local Components = Plugin.Src.Components
@@ -69,14 +68,9 @@ function ThemeView:render()
 	local props = self.props
 	local selectedKey = state.SelectedKey
 
-	local theme, layout
-	if THEME_REFACTOR then
-		theme = props.Stylizer
-		layout = theme.Layoutr
-	else
-		theme = props.Theme
-		layout = theme:get("Layout")
-	end
+
+	local theme = props.Stylizer
+	local layout = theme.Layout
 
 	return Roact.createElement("Frame", {
 		Size = UDim2.new(1, 0, 1, 0),
@@ -101,8 +95,7 @@ function ThemeView:render()
 end
 
 ContextServices.mapToProps(ThemeView, {
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	Stylizer = ContextServices.Stylizer,
 })
 
 return ThemeView

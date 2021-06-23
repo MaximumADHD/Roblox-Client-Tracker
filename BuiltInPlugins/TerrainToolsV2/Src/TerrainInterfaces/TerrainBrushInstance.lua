@@ -1,11 +1,11 @@
 game:DefineFastFlag("TerrainToolsBrushUseIsKeyDown", false)
-game:DefineFastFlag("TerrainToolsAlignToPlane", false)
 game:DefineFastFlag("TerrainToolsAddOnMouseHold", false)
+game:DefineFastFlag("TerrainToolsExtendedAnalytics", false)
 
 local FFlagTerrainToolsPartInteractToggle = game:GetFastFlag("TerrainToolsPartInteractToggle")
 local FFlagTerrainToolsBrushUseIsKeyDown = game:GetFastFlag("TerrainToolsBrushUseIsKeyDown")
-local FFlagTerrainToolsAlignToPlane = game:GetFastFlag("TerrainToolsAlignToPlane")
 local FFlagTerrainToolsAddOnMouseHold = game:GetFastFlag("TerrainToolsAddOnMouseHold")
+local FFlagTerrainToolsExtendedAnalytics = game:GetFastFlag("TerrainToolsExtendedAnalytics")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -28,6 +28,8 @@ local TerrainBrushCursor = require(Plugin.Src.TerrainWorldUI.TerrainBrushCursor)
 local TerrainBrushCursorGrid = require(Plugin.Src.TerrainWorldUI.TerrainBrushCursorGrid)
 
 local performTerrainBrushOperation = require(Plugin.Src.TerrainOperations.performTerrainBrushOperation)
+
+local createToolAnalytics = require(Plugin.Src.Util.createToolAnalytics)
 
 local ChangeHistoryService = game:GetService("ChangeHistoryService")
 local Players = game:GetService("Players")
@@ -455,9 +457,7 @@ function TerrainBrush:_run()
 			hitNormal = raycastResult.Normal
 		else
 			rayHit, hitMaterial = nil, nil
-			if FFlagTerrainToolsAlignToPlane then
-				hitNormal = getCameraLookSnappedForPlane()
-			end
+			hitNormal = getCameraLookSnappedForPlane()
 
 			local hit, distance = lineToPlaneIntersection(cameraPos, unitRay, Vector3.new(0, 0, 0), Vector3.new(0, 1, 0))
 			-- Set the default Y axis for brush to be intersection of the ray and XZplane with Y = 0
@@ -502,7 +502,7 @@ function TerrainBrush:_run()
 		if updatePlane then
 			lastPlanePoint = usePlanePositionY and self:putPlanePositionYIntoVector(mainPoint)
 				or mainPoint
-			if (FFlagTerrainToolsAlignToPlane and currentTool ~= ToolId.Flatten) and not planeLock then
+			if currentTool ~= ToolId.Flatten and not planeLock then
 				lastNormal = hitNormal
 			else
 				lastNormal = currentTool == ToolId.Flatten and Vector3.new(0, 1, 0)
@@ -546,7 +546,9 @@ function TerrainBrush:_run()
 				self._mouseClick = false
 
 				if reportClick then
-					if self._analytics then
+					if FFlagTerrainToolsExtendedAnalytics and self._analytics then
+						self._analytics:report("useBrushToolExtended", createToolAnalytics(self._operationSettings))
+					elseif self._analytics then
 						self._analytics:report("useBrushTool", currentTool)
 					end
 					reportClick = false

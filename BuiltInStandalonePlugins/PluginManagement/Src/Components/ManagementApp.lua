@@ -118,6 +118,7 @@ function ManagementApp:render()
 	local plugin = props.plugin
 	local store = props.store
 	local api = props.api
+	local analytics = props.analytics
 	local enabled = self.state.enabled
 
 	return ContextServices.provide({
@@ -147,6 +148,7 @@ function ManagementApp:render()
 				self.theme,
 				ContextServices.Store.new(store),
 				ContextServices.Mouse.new(plugin:GetMouse()),
+				analytics,
 			}, {
 				MainView = Roact.createElement(NavigationContainer)
 			}),

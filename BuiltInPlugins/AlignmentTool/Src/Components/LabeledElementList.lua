@@ -27,8 +27,6 @@ local Roact = require(Plugin.Packages.Roact)
 
 local Framework = require(Plugin.Packages.Framework)
 
-local THEME_REFACTOR = Framework.Util.RefactorFlags.THEME_REFACTOR
-
 local ContextServices = Framework.ContextServices
 local UI = Framework.UI
 local TextLabel = UI.Decoration.TextLabel
@@ -134,15 +132,8 @@ function LabeledElementList:init()
 	end
 
 	self.onSizeChanged = function()
-		local theme
-		local style
-		if THEME_REFACTOR then
-			theme = self.props.Stylizer
-			style = theme.LabeledElementList
-		else
-			theme = self.props.Theme
-			style = theme:getStyle("Plugin", self)
-		end
+		local theme = self.props.Stylizer
+		local style = theme.LabeledElementList
 
 		local frame = self._frameRef.current
 		local padding = style.ItemPaddingHorizontal.Offset
@@ -174,15 +165,8 @@ function LabeledElementList:render()
 	local state = self.state
 
 	local items = props.Items
-	local theme
-	local style
-	if THEME_REFACTOR then
-		theme = props.Stylizer
-		style = theme.LabeledElementList
-	else
-		theme = props.Theme
-		style = theme:getStyle("Plugin", self)
-	end
+	local theme = props.Stylizer
+	local style = theme.LabeledElementList
 
 	self._labelColumnWidth = 0
 
@@ -223,8 +207,7 @@ function LabeledElementList:render()
 end
 
 ContextServices.mapToProps(LabeledElementList, {
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	Stylizer = ContextServices.Stylizer,
 })
 
 return LabeledElementList

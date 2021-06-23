@@ -1,6 +1,5 @@
 local FFlagStudioUXImprovementsLoosenTCPermissions = game:GetFastFlag("StudioUXImprovementsLoosenTCPermissions")
 local FFlagUXImprovementsShowUserPermsWhenCollaborator2 = game:GetFastFlag("UXImprovementsShowUserPermsWhenCollaborator2")
-local FFlagGameSettingsStandardizeLocalizationId = game:GetFastFlag("GameSettingsStandardizeLocalizationId")
 
 local ITEM_HEIGHT = 60
 local PADDING_Y = 20
@@ -86,8 +85,7 @@ function CollaboratorItem:getCurrentPermissionLabel()
 	local localization = props.Localization
 
 	if currentPermission == PermissionsConstants.MultipleKey then
-		return FFlagGameSettingsStandardizeLocalizationId and localization:getText("Permissions", "MultipleLabel") 
-			or localization:getText("AccessPermissions", "MultipleLabel")
+		return localization:getText("Permissions", "MultipleLabel") 
 	end
 
 	for _,permission in ipairs(availablePermissions) do

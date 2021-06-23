@@ -15,7 +15,6 @@
 		float MaxSlopeAngle - maximum incline angle (in degrees) that the avatar can walk up
 ]]
 local FFlagGameSettingsMigrateToDevFrameworkSeparator = game:GetFastFlag("GameSettingsMigrateToDevFrameworkSeparator")
-local FFlagGameSettingsStandardizeLocalizationId = game:GetFastFlag("GameSettingsStandardizeLocalizationId")
 
 local Page = script.Parent
 local Plugin = script.Parent.Parent.Parent
@@ -41,7 +40,7 @@ local INPUT_BOX_OFFSET = 160
 local METRIC_LABEL_OFFSET = 170
 local ROW_HEIGHT = 35
 
-local LOCALIZATION_ID = FFlagGameSettingsStandardizeLocalizationId and script.Name or "World"
+local LOCALIZATION_ID = script.Name
 
 local function loadSettings(store, contextItems)
 	local state = store:getState()
@@ -320,7 +319,7 @@ function World:render()
 		SettingsLoadJobs = loadSettings,
 		SettingsSaveJobs = saveSettings,
 		Title = localization:getText("General", "Category"..LOCALIZATION_ID),
-		PageId = FFlagGameSettingsStandardizeLocalizationId and LOCALIZATION_ID or "World",
+		PageId = LOCALIZATION_ID,
 		CreateChildren = createChildren,
 	})
 end

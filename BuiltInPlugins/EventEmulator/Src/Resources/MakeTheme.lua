@@ -13,9 +13,6 @@ local Plugin = script.Parent.Parent.Parent
 local Framework = require(Plugin.Packages.Framework)
 local Cryo = require(Plugin.Packages.Cryo)
 
-local Util = Framework.Util
-local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
-
 local Style = Framework.Style
 local StyleKey = Style.StyleKey
 local BaseTheme = Style.Themes.BaseTheme
@@ -36,104 +33,96 @@ local sizes = {
 	TextBoxWidth = 180,
 }
 
-if THEME_REFACTOR then
+local PluginTheme = {
 
-	local PluginTheme = {
+	[StyleKey.BlueText] = Color3.fromRGB(0, 162, 255),
 
-		[StyleKey.BlueText] = Color3.fromRGB(0, 162, 255),
+	Text = {
+		BrightText = {
+			Size = 20,
+			Color = StyleKey.BrightText,
+		},
+		DimmedText = {
+			Size = 16,
+			Color = StyleKey.DimmedText,
+		},
+		Button = {
+			Size = 18,
+			Color = StyleKey.MainText,
+			PrimaryColor = StyleKey.DialogMainButtonText,
+		},
+		BlueText = {
+			Size = 18,
+			Color = StyleKey.BlueText,
+		},
+	},
 
-		Text = {
-			BrightText = {
-				Size = 20,
-				Color = StyleKey.BrightText,
-			},
-			DimmedText = {
-				Size = 16,
-				Color = StyleKey.DimmedText,
-			},
-			Button = {
-				Size = 18,
-				Color = StyleKey.MainText,
-				PrimaryColor = StyleKey.DialogMainButtonText,
-			},
-			BlueText = {
-				Size = 18,
-				Color = StyleKey.BlueText,
-			},
+	Scrollbar = {
+		Thickness = 5,
+		Transparency = 0.5,
+		Color = StyleKey.ScrollBar,
+		TopImage = "rbxasset://textures/StudioToolbox/ScrollBarTop.png",
+		MidImage = "rbxasset://textures/StudioToolbox/ScrollBarMiddle.png",
+		BottomImage = "rbxasset://textures/StudioToolbox/ScrollBarBottom.png",
+	},
+
+	Sizes = sizes,
+
+	Layout = {
+		Vertical = {
+			SortOrder = Enum.SortOrder.LayoutOrder,
+			FillDirection = Enum.FillDirection.Vertical,
+			HorizontalAlignment = Enum.HorizontalAlignment.Center,
+			Padding = UDim.new(0, sizes.SmallPadding),
+		},
+		Horizontal = {
+			SortOrder = Enum.SortOrder.LayoutOrder,
+			FillDirection = Enum.FillDirection.Horizontal,
+			VerticalAlignment = Enum.VerticalAlignment.Center,
+			HorizontalAlignment = Enum.HorizontalAlignment.Center,
+			Padding = UDim.new(0, sizes.HorizontalPadding),
+		},
+		HistoryItem = {
+			SortOrder = Enum.SortOrder.LayoutOrder,
+			FillDirection = Enum.FillDirection.Horizontal,
+			VerticalAlignment = Enum.VerticalAlignment.Center,
+			HorizontalAlignment = Enum.HorizontalAlignment.Center,
+			Padding = UDim.new(0, sizes.SmallPadding),
+		}
+	},
+
+	[ui.Box] = Cryo.Dictionary.join(BaseTheme[ui.Box], {
+		["&__Item"] = {
+			Color = StyleKey.CategoryItem,
+		},
+	}),
+
+	[ui.RoundBox] = Cryo.Dictionary.join(BaseTheme[ui.RoundBox], {
+		["&__Item"] = {
+			Color = StyleKey.CategoryItem,
+			BorderTransparency = 1,
 		},
 
-		Scrollbar = {
-			Thickness = 5,
-			Transparency = 0.5,
-			Color = StyleKey.ScrollBar,
-			TopImage = "rbxasset://textures/StudioToolbox/ScrollBarTop.png",
-			MidImage = "rbxasset://textures/StudioToolbox/ScrollBarMiddle.png",
-			BottomImage = "rbxasset://textures/StudioToolbox/ScrollBarBottom.png",
+		["&__Example"] = {
+			Color = StyleKey.Mid,
 		},
+	}),
 
-		Sizes = sizes,
+	[ui.Button] = Cryo.Dictionary.join(BaseTheme[ui.Button], {
+		["&__Item"] ={
+			Color = StyleKey.Button,
+			BorderSize = 1,
+		}
+	}),
+}
 
-		Layout = {
-			Vertical = {
-				SortOrder = Enum.SortOrder.LayoutOrder,
-				FillDirection = Enum.FillDirection.Vertical,
-				HorizontalAlignment = Enum.HorizontalAlignment.Center,
-				Padding = UDim.new(0, sizes.SmallPadding),
-			},
-			Horizontal = {
-				SortOrder = Enum.SortOrder.LayoutOrder,
-				FillDirection = Enum.FillDirection.Horizontal,
-				VerticalAlignment = Enum.VerticalAlignment.Center,
-				HorizontalAlignment = Enum.HorizontalAlignment.Center,
-				Padding = UDim.new(0, sizes.HorizontalPadding),
-			},
-			HistoryItem = {
-				SortOrder = Enum.SortOrder.LayoutOrder,
-				FillDirection = Enum.FillDirection.Horizontal,
-				VerticalAlignment = Enum.VerticalAlignment.Center,
-				HorizontalAlignment = Enum.HorizontalAlignment.Center,
-				Padding = UDim.new(0, sizes.SmallPadding),
-			}
-		},
-
-		[ui.Box] = Cryo.Dictionary.join(BaseTheme[ui.Box], {
-			["&__Item"] = {
-				Color = StyleKey.CategoryItem,
-			},
-		}),
-
-		[ui.RoundBox] = Cryo.Dictionary.join(BaseTheme[ui.RoundBox], {
-			["&__Item"] = {
-				Color = StyleKey.CategoryItem,
-				BorderTransparency = 1,
-			},
-
-			["&__Example"] = {
-				Color = StyleKey.Mid,
-			},
-		}),
-
-		[ui.Button] = Cryo.Dictionary.join(BaseTheme[ui.Button], {
-			["&__Item"] ={
-				Color = StyleKey.Button,
-				BorderSize = 1,
-			}
-		}),
-	}
-
-	return function(createMock)
-		local styleRoot
-		if createMock then
-			styleRoot = StudioTheme.mock()
-		else
-			styleRoot = StudioTheme.new()
-		end
-
-		return styleRoot:extend(PluginTheme)
+return function(createMock)
+	local styleRoot
+	if createMock then
+		styleRoot = StudioTheme.mock()
+	else
+		styleRoot = StudioTheme.new()
 	end
-else
-	-- TODO: DEVTOOLS-4731: Once THEME_REFACTOR is on, remove this
-	return require(script.Parent.DEPRECATED_MakeTheme)
+
+	return styleRoot:extend(PluginTheme)
 end
-
-

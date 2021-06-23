@@ -2,6 +2,7 @@ local Framework = script.Parent.Parent.Parent
 local Colors = require(Framework.Style.Colors)
 local StyleKey = require(Framework.Style.StyleKey)
 
+local FFlagToolboxReplaceUILibraryComponentsPt2 = game:GetFastFlag("ToolboxReplaceUILibraryComponentsPt2")
 local FFlagDevFrameworkFixButtonStyles = game:GetFastFlag("DevFrameworkFixButtonStyles")
 
 return {
@@ -13,6 +14,7 @@ return {
 	[StyleKey.ButtonDisabled] = Colors.lighter(Colors.Black, 0.26),
 	[StyleKey.ButtonTextDisabled] = Color3.fromRGB(102, 102, 102),
 	[StyleKey.ButtonPressed] = Colors.lighter(Colors.Black, 0.16),
+	[StyleKey.ButtonSelected] = Colors.Blue,
 	[StyleKey.ImageButtonBackground] = Colors.Gray_Mid,
 	[StyleKey.ImageButtonHover] = Colors.lighter(Colors.Gray_Mid, 0.26),
 
@@ -31,10 +33,14 @@ return {
 	[StyleKey.ErrorText] = Color3.fromRGB(255, 68, 68),
 
 	[StyleKey.InputFieldBackground] = Color3.fromRGB(37, 37, 37),
+	[StyleKey.InputFieldBackgroundDisabled] = Color3.fromRGB(53, 53, 53),
+	[StyleKey.InputFieldBorder] = Color3.fromRGB(161, 161, 161),
+	[StyleKey.InputFieldBorderDisabled] = Color3.fromRGB(66, 66, 66),
+	[StyleKey.InputFieldBorderSelected] = Color3.fromRGB(53, 181, 255),
+	[StyleKey.ItemHovered] = Colors.Gray,
 
 	[StyleKey.LinkText] = Color3.fromRGB(60, 180, 255),
 
-	[StyleKey.ItemHovered] = Colors.Gray,
 	[StyleKey.MainBackground] = Colors.Slate,
 	[StyleKey.MainButton] = Colors.Blue,
 	[StyleKey.MainText] = Colors.Gray_Light,
@@ -46,7 +52,7 @@ return {
 	[StyleKey.RibbonTab] = Color3.fromRGB(37, 37, 37),
 
 	[StyleKey.ScrollBarBackground] = Color3.fromRGB(41, 41, 41),
-	[StyleKey.ScrollBar] = Colors.lighter(Colors.Black, 0.22),
+	[StyleKey.ScrollBar] = FFlagToolboxReplaceUILibraryComponentsPt2 and Color3.fromRGB(56, 56, 56) or Colors.lighter(Colors.Black, 0.22),
 	[StyleKey.SliderKnobColor] = Color3.fromRGB(85, 85, 85),
 	[StyleKey.SliderKnobImage] = "rbxasset://textures/DeveloperFramework/slider_knob.png",
 	[StyleKey.SliderBackground] = Color3.fromRGB(37, 37, 37),

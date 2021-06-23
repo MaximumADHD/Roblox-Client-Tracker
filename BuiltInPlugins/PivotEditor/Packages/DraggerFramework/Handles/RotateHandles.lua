@@ -19,7 +19,6 @@ local DraggedPivot = require(DraggerFramework.Components.DraggedPivot)
 
 local getEngineFeatureModelPivotVisual = require(DraggerFramework.Flags.getEngineFeatureModelPivotVisual)
 
-local getFFlagFoldersOverFragments = require(DraggerFramework.Flags.getFFlagFoldersOverFragments)
 local getFFlagSummonPivot = require(DraggerFramework.Flags.getFFlagSummonPivot)
 
 -- The minimum rotate increment to display snapping increments for (below this
@@ -334,11 +333,7 @@ function RotateHandles:render(hoveredHandleId)
 		end
 	end
 
-	if getFFlagFoldersOverFragments() then
-		return Roact.createElement("Folder", {}, children)
-	else
-		return Roact.createFragment(children)
-	end
+	return Roact.createElement("Folder", {}, children)
 end
 
 function RotateHandles:mouseDown(mouseRay, handleId)

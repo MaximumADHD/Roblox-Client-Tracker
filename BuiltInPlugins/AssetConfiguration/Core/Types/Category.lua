@@ -1,16 +1,24 @@
 --!nocheck
--- TODO STM-615: Remove nocheck when circular dependency issues are fixed
+-- TODO Remove nocheck with FFlagToolboxFixCategoryUrlsCircularDependency
 local FFlagFixToolboxPluginScaling = game:DefineFastFlag("FixToolboxPluginScaling", false)
 local FFlagToolboxDisableMarketplaceAndRecentsForLuobu = game:GetFastFlag("ToolboxDisableMarketplaceAndRecentsForLuobu")
 local FFlagToolboxShowRobloxCreatedAssetsForLuobu = game:GetFastFlag("ToolboxShowRobloxCreatedAssetsForLuobu")
 local FFlagFixAudioAssetsForLuoBu = game:DefineFastFlag("FixAudioAssetsForLuoBu", false)
 local FFlagStudioCreatePluginPolicyService = game:GetFastFlag("StudioCreatePluginPolicyService")
 local FFlagToolboxRemoveGroupInventory = game:GetFastFlag("ToolboxRemoveGroupInventory")
+local FFlagToolboxFixCategoryUrlsCircularDependency = game:GetFastFlag("ToolboxFixCategoryUrlsCircularDependency")
 
 local Plugin = script.Parent.Parent.Parent
 local CreatorInfoHelper = require(Plugin.Core.Util.CreatorInfoHelper)
 local DebugFlags = require(Plugin.Core.Util.DebugFlags)
-local AssetConfigUtil = require(Plugin.Core.Util.AssetConfigUtil)
+local AssetConfigUtil
+local getAllowedAssetTypeEnums
+if FFlagToolboxFixCategoryUrlsCircularDependency then
+	getAllowedAssetTypeEnums = require(Plugin.Core.Util.getAllowedAssetTypeEnums)
+else
+	AssetConfigUtil = require(Plugin.Core.Util.AssetConfigUtil)
+end
+
 local Cryo = require(Plugin.Libs.Cryo)
 local StudioService = game:GetService("StudioService")
 
@@ -495,7 +503,12 @@ function Category.getCategories(tabName, roles)
 	if Category.CREATIONS_KEY == tabName then
 		local categories = getCreationCategories()
 		if roles then
-			local allowedAssetTypeEnums = AssetConfigUtil.getAllowedAssetTypeEnums(roles.allowedAssetTypesForRelease)
+			local allowedAssetTypeEnums
+			if FFlagToolboxFixCategoryUrlsCircularDependency then 
+				allowedAssetTypeEnums = getAllowedAssetTypeEnums(roles.allowedAssetTypesForRelease)
+			else
+				allowedAssetTypeEnums = AssetConfigUtil.getAllowedAssetTypeEnums(roles.allowedAssetTypesForRelease)
+			end
 			if #allowedAssetTypeEnums > 0 then
 				table.insert(categories, Category.CREATIONS_CATALOG_SECTION_DIVIDER)
 				for _, assetTypeEnum in pairs(allowedAssetTypeEnums) do

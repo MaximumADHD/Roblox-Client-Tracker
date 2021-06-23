@@ -3,7 +3,6 @@ local Roact = require(Plugin.Packages.Roact)
 
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
-local THEME_REFACTOR = Framework.Util.RefactorFlags.THEME_REFACTOR
 
 local Constants = require(Plugin.Src.Util.Constants)
 local INPUT_PANE_LAYOUT = Constants.INPUT_PANE_LAYOUT
@@ -24,17 +23,9 @@ function ButtonArray:render()
 	local onSaveClicked = props.OnSaveClicked or defaultBehaviour
 	local onSendClicked = props.OnSendClicked or defaultBehaviour
 
-	local theme, layout, sizes
-	if THEME_REFACTOR then
-		theme = props.Stylizer
-		layout = theme.Layout.Horizontal
-		sizes = theme.Sizes
-	else
-		theme = props.Theme
-		layout = theme:get("Layout").Horizontal
-		sizes = theme:get("Sizes")
-	end
-
+	local theme = props.Stylizer
+	local layout = theme.Layout.Horizontal
+	local sizes = theme.Sizes
 
 	return Roact.createElement("Frame", {
 		Size = UDim2.new(1, 0, 0, sizes.ShortHeight),
@@ -66,8 +57,7 @@ function ButtonArray:render()
 end
 
 ContextServices.mapToProps(ButtonArray, {
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	Stylizer = ContextServices.Stylizer,
 })
 
 return ButtonArray

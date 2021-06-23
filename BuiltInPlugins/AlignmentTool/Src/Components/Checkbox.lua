@@ -20,8 +20,6 @@ local Roact = require(Plugin.Packages.Roact)
 
 local Framework = require(Plugin.Packages.Framework)
 
-local THEME_REFACTOR = Framework.Util.RefactorFlags.THEME_REFACTOR
-
 local ContextServices = Framework.ContextServices
 local UI = Framework.UI
 local Container = UI.Container
@@ -60,19 +58,12 @@ function Checkbox:render()
 	local layoutOrder = props.LayoutOrder
 	local size = props.Size
 	local text = props.Text
-	local theme
-	local style
-	if THEME_REFACTOR then
-		theme = props.Stylizer
-	else
-		theme = props.Theme
-		style = theme:getStyle("Plugin", self)
-	end
+	local theme = props.Stylizer
 
-	local font = THEME_REFACTOR and theme.Font or style.Font
-	local textSize = THEME_REFACTOR and theme.TextSize or style.TextSize
-	local imageSize = THEME_REFACTOR and theme.CheckboxImageSize or style.ImageSize
-	local padding = THEME_REFACTOR and theme.CheckboxLabelSpacing or style.Padding or 0
+	local font = theme.Font
+	local textSize = theme.TextSize
+	local imageSize = theme.CheckboxImageSize
+	local padding = theme.CheckboxLabelSpacing
 
 	local textDimensions
 	if font then
@@ -129,8 +120,7 @@ function Checkbox:render()
 end
 
 ContextServices.mapToProps(Checkbox, {
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	Stylizer = ContextServices.Stylizer,
 })
 
 return Checkbox

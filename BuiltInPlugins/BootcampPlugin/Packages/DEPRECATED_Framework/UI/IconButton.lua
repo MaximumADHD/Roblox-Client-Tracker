@@ -3,6 +3,7 @@
 	an OnClick callback.
 
 	Optional Props:
+		AnchorPoint: The pivot point of this component's Position prop.
 		OnClick: Callback for when user clicks the button. Also enables hovering.
 		Disabled: Disables button onClick and hover; defaults to false.
 
@@ -15,6 +16,7 @@
 		HoverColor: Hover color override.
 
 		Padding: Creates UIPadding instance on underlying pane; defaults to 10.
+		Position: The position of this component.
 		Spacing: Defines space between icons and text; defaults to 10.
 
 		Text: TextLabel Displayed between LeftIcon and RightIcon
@@ -81,6 +83,8 @@ function IconButton:render()
 	else
 		style = props.Theme:getStyle("Framework", self)
 	end
+	local anchorPoint = props.AnchorPoint
+	local position = props.Position
 
 	local hovering = state.Hovering
 
@@ -100,9 +104,11 @@ function IconButton:render()
 	local textSize = UDim2.new(1, -textBoxPadding, 1, 0)
 
 	return Roact.createElement("TextButton", {
+		AnchorPoint = anchorPoint,
 		AutomaticSize = props.AutomaticSize,
 		BackgroundTransparency = 1,
 		LayoutOrder = props.LayoutOrder,
+		Position = position,
 		Size = size,
 		Text = "",
 

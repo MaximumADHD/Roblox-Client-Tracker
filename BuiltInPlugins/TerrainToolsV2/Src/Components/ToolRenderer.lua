@@ -21,7 +21,6 @@ local Fill = require(Tools.Fill)
 local Flatten = require(Tools.Flatten)
 local Generate = require(Tools.Generate)
 local Grow = require(Tools.Grow)
-local Import = require(Tools.Import)
 local ImportLocal = require(Tools.ImportLocal)
 local Paint = require(Tools.Paint)
 local Region = require(Tools.Region)
@@ -52,7 +51,6 @@ local toolToScript = {
 
 local toolComponent = {
 	[ToolId.Generate] = Generate,
-	[ToolId.Import] = Import,
 	[ToolId.ImportLocal] = ImportLocal,
 	[ToolId.ConvertPart] = ConvertPart,
 	[ToolId.Clear] = Clear,

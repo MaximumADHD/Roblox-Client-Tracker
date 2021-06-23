@@ -29,4 +29,11 @@ function PublishPlaceAsUtilities.getOptInLocationsRequirementsLink(location)
         or (FFlagStudioCreatePluginPolicyService and PublishPlaceAsPolicy["OptInLocationsRequirements"][location])
 end
 
+function PublishPlaceAsUtilities.getPlayerAppDownloadLink(location)
+    assert(FFlagUpdatePublishPlacePluginToDevFrameworkContext and FFlagLuobuDevPublishLua)
+
+    return (checkIfPolicyDoesNotExistAndBaseUrlChineseHost() and "https://www.roblox.qq.com")
+    or (FFlagStudioCreatePluginPolicyService and PublishPlaceAsPolicy["PlayerAppDownloadLink"][location])
+end
+
 return PublishPlaceAsUtilities

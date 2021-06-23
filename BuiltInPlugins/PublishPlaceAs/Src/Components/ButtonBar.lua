@@ -7,6 +7,7 @@
 		table Buttons = The buttons to add to this button bar.
 ]]
 local FFlagUpdatePublishPlacePluginToDevFrameworkContext = game:GetFastFlag("UpdatePublishPlacePluginToDevFrameworkContext")
+local FFlagLuobuDevPublishLua = game:GetFastFlag("LuobuDevPublishLua")
 
 local BUTTON_BAR_PADDING = 25
 local BUTTON_BAR_EDGE_PADDING = 35
@@ -42,6 +43,8 @@ if FFlagUpdatePublishPlacePluginToDevFrameworkContext then
 		local AnchorPoint = props.AnchorPoint or Vector2.new(0, 0.5)
 		local Position = props.Position or UDim2.new(0, 0, 0.5, 0)
 
+		local children = FFlagLuobuDevPublishLua and props[Roact.Children] or nil
+
 		assert(type(buttons) == "table", "ButtonBar.Buttons must be a table")
 
 		local components = {
@@ -50,7 +53,7 @@ if FFlagUpdatePublishPlacePluginToDevFrameworkContext then
 				HorizontalAlignment = horizontalAlignment,
 				SortOrder = Enum.SortOrder.LayoutOrder,
 				FillDirection = Enum.FillDirection.Horizontal,
-			})
+			}, children)
 		}
 
 		if horizontalAlignment ~= Enum.HorizontalAlignment.Center then

@@ -13,8 +13,7 @@
 
 	Style Values:
 		Enum.Font Font: The font used to render the text.
-		number Padding: The padding of the text input.
-		table Padding: Specific padding values for Top, Bottom, Left, and Right.
+		number Spacing: The spacing between the text input and bottom text.
 		Color3 PlaceholderTextColor: The color of the placeholder text.
 		number TextSize: The font size of the text.
 		Color3 TextColor: The color of the search term text.
@@ -29,10 +28,10 @@ local Typecheck = Util.Typecheck
 local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local prioritize = Util.prioritize
 
-local UI = require(Framework.UI)
-local Pane = UI.Pane
-local TextInput = UI.TextInput
-local TextLabel = UI.Decoration.TextLabel
+local MultiLineTextInput = require(Framework.UI.MultiLineTextInput)
+local Pane = require(Framework.UI.Pane)
+local TextInput = require(Framework.UI.TextInput)
+local TextLabel = require(Framework.UI.TextLabel)
 
 local TextInputWithBottomText = Roact.PureComponent:extend("TextInputWithBottomText")
 Typecheck.wrap(TextInputWithBottomText, script)
@@ -55,11 +54,12 @@ function TextInputWithBottomText:render()
 	local layoutOrder = props.LayoutOrder
 	local size = props.Size
 	local textInputProps = props.TextInputProps
+	local isMultiLine = textInputProps.MultiLine
 
 	local style = getStyle(self)
 
 	local textSize = prioritize(props.TextSize, style.TextSize, 0)
-	local padding = prioritize(props.Padding, style.Padding, 0)
+	local spacing = prioritize(props.Spacing, style.Spacing, 0)
 	local textColor = prioritize(props.TextColor, style.TextColor, nil)
 	local textInputStyle = prioritize(props.TextInputStyle, style.TextInputStyle, nil)
 
@@ -68,9 +68,17 @@ function TextInputWithBottomText:render()
 		HorizontalAlignment = Enum.HorizontalAlignment.Left,
 		LayoutOrder = layoutOrder,
 		Layout = Enum.FillDirection.Vertical,
-		Padding = padding,
+		Spacing = spacing,
 	}, {
-		TextInput = Roact.createElement(TextInput, Cryo.Dictionary.join(textInputProps, {
+		TextInput = isMultiLine and Roact.createElement(MultiLineTextInput, Cryo.Dictionary.join(textInputProps, {
+			LayoutOrder = 1,
+			Size = size,
+			Style = textInputStyle,
+			TextInputProps = Cryo.Dictionary.join(textInputProps,{
+				Style = Roact.None,
+			}),
+		}))
+		or Roact.createElement(TextInput, Cryo.Dictionary.join(textInputProps, {
 			LayoutOrder = 1,
 			Size = size,
 			Style = textInputStyle,

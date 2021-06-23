@@ -11,6 +11,7 @@ if THEME_REFACTOR then
 		Background = StyleKey.MainBackground,
 		Modal = false,
 		Resizable = false,
+		ButtonHorizontalAlignment = Enum.HorizontalAlignment.Right,
 
 		["&Alert"] = {
 			Buttons = {
@@ -33,6 +34,7 @@ else
 			Background = theme:GetColor("MainBackground"),
 			Modal = false,
 			Resizable = false,
+			ButtonHorizontalAlignment = Enum.HorizontalAlignment.Right,
 		})
 
 		local Alert = Style.extend(Default, {

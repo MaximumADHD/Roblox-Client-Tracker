@@ -25,7 +25,7 @@
 		callback OnPageChange: An optional callback called when the user changes the current page of the table. (pageindex: number) -> ()
 		callback OnSortChange: An optional callback called when the user sorts a column.
 		callback RowComponent: An optional component to render each row.
-		callback CellComponent: An optional component passed to the row component which renders individual cells.
+		any CellComponent: An optional component passed to the row component which renders individual cells.
 		Stylizer Stylizer: A Stylizer ContextItem, which is provided via mapToProps.
 		Theme Theme: A Theme ContextItem, which is provided via mapToProps.
 ]]

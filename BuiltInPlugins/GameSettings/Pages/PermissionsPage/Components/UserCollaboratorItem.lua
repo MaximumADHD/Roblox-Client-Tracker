@@ -1,4 +1,3 @@
-local FFlagGameSettingsStandardizeLocalizationId = game:GetFastFlag("GameSettingsStandardizeLocalizationId")
 local FFlagUXImprovementsNonTCPlacesAllowedPlay = game:GetFastFlag("UXImprovementsNonTCPlacesAllowedPlay")
 
 local Page = script.Parent.Parent
@@ -31,7 +30,7 @@ local permShortName = {
 	[PermissionsConstants.AdminKey] = "Admin"
 }
 
-local PERMISSIONS = FFlagGameSettingsStandardizeLocalizationId and "Permissions" or "AccessPermissions"
+local PERMISSIONS = "Permissions"
 
 function UserCollaboratorItem:getPermissionForKey(key)
 	local props = self.props

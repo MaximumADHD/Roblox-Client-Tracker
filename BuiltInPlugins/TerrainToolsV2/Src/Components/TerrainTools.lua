@@ -159,7 +159,6 @@ function TerrainTools:render()
 		seaLevel,
 		-- partConverter will be nil if FFlagTerrainToolsConvertPartTool is false
 		partConverter,
-		-- imageLoader will be nil if FFlagTerrainToolsHeightmapUseLoadingImage is false
 		imageLoader,
 		-- calloutController will be nil if FFlagTerrainToolsColormapCallout is false
 		calloutController,

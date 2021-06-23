@@ -12,7 +12,6 @@ local ChangePosition = require(Actions.ChangePosition)
 local ChangeSize = require(Actions.ChangeSize)
 local SelectColormap = require(Actions.SelectColormap)
 local SelectHeightmap = require(Actions.SelectHeightmap)
-local SetUseColorMap = require(Actions.SetUseColorMap)
 
 return function()
 	it("should return its expected default state", function()
@@ -29,7 +28,6 @@ return function()
 		expect(r:getState().size.Y).to.equal(512)
 		expect(r:getState().size.Z).to.equal(1024)
 
-		expect(r:getState().useColorMap).to.equal(false)
 		expect(type(r:getState().heightmap)).to.equal("table")
 		expect((next(r:getState().heightmap))).to.never.be.ok()
 		expect(type(r:getState().colormap)).to.equal("table")
@@ -82,21 +80,6 @@ return function()
 				Y = 456,
 				Z = 789,
 			}))
-			expect(immutabilityPreserved).to.equal(true)
-		end)
-	end)
-
-	describe("SetUseColorMap", function()
-		it("should set useColorMap", function()
-			local state = ImportLocalTool(nil, SetUseColorMap(false))
-
-			expect(state).to.be.ok()
-			expect(state.useColorMap).to.be.ok()
-			expect(state.useColorMap).to.equal(false)
-		end)
-
-		it("should preserve immutability", function()
-			local immutabilityPreserved = testImmutability(ImportLocalTool, SetUseColorMap(false))
 			expect(immutabilityPreserved).to.equal(true)
 		end)
 	end)

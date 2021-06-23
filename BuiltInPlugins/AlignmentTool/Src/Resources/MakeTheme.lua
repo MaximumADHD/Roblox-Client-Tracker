@@ -5,8 +5,7 @@
 	to components created within this plugin and constant values shared across components.
 
 	Params:
-		bool createMock: An optional param that should only be
-			set to true in testing.
+		bool createMock: An optional param that should only be set to true in testing.
 ]]
 
 local Plugin = script.Parent.Parent.Parent
@@ -121,5 +120,5 @@ if THEME_REFACTOR then
 		return styleRoot:extend(PluginTheme)
 	end
 else
-	return require(script.Parent.MakeTheme_DEPRECATED)
+	assert(false, "Align Tool requires Stylizer")
 end

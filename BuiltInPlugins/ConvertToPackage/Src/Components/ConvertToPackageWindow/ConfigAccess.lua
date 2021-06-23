@@ -27,6 +27,8 @@ local ConfigAccess = Roact.PureComponent:extend("ConfigAccess")
 local DROP_DOWN_WIDTH = 220
 local DROP_DOWN_HEIGHT = 38
 
+local CURRENT_USER_DROPDOWN_INDEX = 1
+
 function ConfigAccess:didMount()
 	-- Initial request
 	self.props.getMyGroups(getNetwork(self))
@@ -47,12 +49,40 @@ function ConfigAccess:render()
 		-- We have a bug, on here: https://developer.roblox.com/api-reference/enum/CreatorType
 		-- User is 0, however in source code, User is 1.
 		-- TODO: Notice UX to change the website.
-		local ownerIndex = (owner.typeId or 1)
-		if game.CreatorType == Enum.CreatorType.Group and ownerIndex == 1 then
-			for pos, group in pairs(self.dropdownContent) do
-				if group.creatorId == game.CreatorId then
-					ownerIndex = pos
-					onDropDownSelect(self.dropdownContent[ownerIndex])
+		local ownerIndex;
+		if game:GetFastFlag("FixPackageOwnerDefault") then
+			-- if owner is not set, default to type of game creator
+			local ownerType = owner.typeId or Constants.CREATOR_ENUM_TO_OWNER_TYPE[game.CreatorType]
+			if ownerType == Constants.OWNER_TYPES.User then
+				-- if the owner selected is a user, it must be the current user
+				ownerIndex = CURRENT_USER_DROPDOWN_INDEX
+			else
+				assert(ownerType == Constants.OWNER_TYPES.Group)
+				-- if owner id is not set, default to owner of game
+				local ownerGroupId = owner.groupId or game.CreatorId
+
+				-- find index of group in dropdown that corresponds to selected owner id
+				for index, creator in pairs(self.dropdownContent) do
+					if creator.creatorId == ownerGroupId then
+						ownerIndex = index
+						-- dropdown uses strings for creator types for some reason
+						assert(creator.creatorType == "Group")
+					end
+				end
+			end
+			assert(ownerIndex)
+			if next(owner) == nil then
+				-- owner has not been set, so select current ownerIndex
+				onDropDownSelect(self.dropdownContent[ownerIndex])
+			end
+		else
+			ownerIndex = (owner.typeId or 1)
+			if game.CreatorType == Enum.CreatorType.Group and ownerIndex == 1 then
+				for pos, group in pairs(self.dropdownContent) do
+					if group.creatorId == game.CreatorId then
+						ownerIndex = pos
+						onDropDownSelect(self.dropdownContent[ownerIndex])
+					end
 				end
 			end
 		end

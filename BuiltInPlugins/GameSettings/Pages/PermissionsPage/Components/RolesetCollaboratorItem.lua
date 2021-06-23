@@ -1,4 +1,3 @@
-local FFlagGameSettingsStandardizeLocalizationId = game:GetFastFlag("GameSettingsStandardizeLocalizationId")
 local FFlagStudioUXImprovementsLoosenTCPermissions = game:GetFastFlag("StudioUXImprovementsLoosenTCPermissions")
 
 local Page = script.Parent.Parent
@@ -17,7 +16,7 @@ local GetRolesetName = require(Page.Selectors.GetRolesetName)
 local GetRolesetPermission = require(Page.Selectors.GetRolesetPermission)
 local SetRolesetPermission = require(Page.Thunks.SetRolesetPermission)
 
-local PERMISSIONS = FFlagGameSettingsStandardizeLocalizationId and "Permissions" or "AccessPermissions"
+local PERMISSIONS = "Permissions"
 
 local RolesetCollaboratorItem = Roact.PureComponent:extend("RolesetCollaboratorItem")
 

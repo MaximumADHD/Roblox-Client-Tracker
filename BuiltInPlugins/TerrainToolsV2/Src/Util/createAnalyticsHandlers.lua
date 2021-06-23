@@ -83,6 +83,28 @@ return function(analyticsService)
 			})
 		end,
 
+		useBrushToolExtended = function(_, toolAnalytics)
+			sendEvent("UseTerrainTool", {
+				toolName = toolAnalytics.currentTool,
+				brushShape = toolAnalytics.brushShape,
+				cursorSize = toolAnalytics.cursorSize,
+				cursorHeight = toolAnalytics.cursorHeight,
+				strength = toolAnalytics.strength,
+				material = toolAnalytics.material,
+				autoMaterial = toolAnalytics.autoMaterial,
+				flattenMode = toolAnalytics.flattenMode,
+				pivot = toolAnalytics.pivot,
+				ignoreWater = toolAnalytics.ignoreWater,
+				ignoreParts = toolAnalytics.ignoreParts,
+				planeLock = toolAnalytics.planeLock,
+				fixedPlane = toolAnalytics.fixedPlane,
+				snapToGrid = toolAnalytics.snapToGrid,
+				planePositionY = toolAnalytics.planePositionY,
+				source = toolAnalytics.source,
+				target = toolAnalytics.target,
+			})
+		end,
+
 		importTerrain = function(_, region, heightmap, colormap)
 			sendEvent("ImportTerrain", {
 				regionDims = ("%d,%d,%d)"):format(region.Size.x, region.Size.y, region.Size.z),

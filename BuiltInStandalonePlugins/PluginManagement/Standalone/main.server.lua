@@ -3,6 +3,7 @@ local MarketplaceService = game:GetService("MarketplaceService")
 
 require(script.Parent.defineLuaFlags)
 local FFlagEnableRoactInspector = game:GetFastFlag("EnableRoactInspector")
+local FFlagPluginManagementAnalytics = game:GetFastFlag("PluginManagementAnalytics")
 
 local Plugin = script.Parent.Parent
 
@@ -20,7 +21,12 @@ local tokens = {}
 
 local function installPlugin(pluginId)
 	-- kick off the network requests
-	globals.store:dispatch(InstallPluginFromWeb(StudioService, globals.api, pluginId))
+
+	if FFlagPluginManagementAnalytics then
+		globals.store:dispatch(InstallPluginFromWeb(StudioService, globals.api, globals.analytics, pluginId))
+	else
+		globals.store:dispatch(InstallPluginFromWeb(StudioService, globals.api, pluginId))
+	end
 
 	-- open a dialog that shows installation progress
 	showDialog(pluginId)
@@ -55,6 +61,7 @@ local function main()
 		plugin = plugin,
 		store = globals.store,
 		api = globals.api,
+		analytics = globals.analytics,
 	})
 
 	mgmtHandle = Roact.mount(mgmtWindow)

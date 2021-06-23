@@ -21,9 +21,6 @@
 		}
 		print(targetUrl) -- https://www.roblox.com/games?SortFilter=default&TimeFilter=0
 ]]
-game:DefineFastFlag("FixDevFrameworkComposeUrl", false)
-
-local FFlagFixDevFrameworkComposeUrl = game:GetFastFlag("FixDevFrameworkComposeUrl")
 
 local ContentProvider = game:GetService("ContentProvider")
 local HttpService = game:GetService("HttpService")
@@ -122,19 +119,13 @@ function Url.composeUrl(base, path, args)
 				else
 					-- THIS IS NOT SUPPORTED ON ALL BACKEND SYSTEMS. BE VERY CAREFUL WHEN PASSING IN ARRAYS
 					local processedArgs = {}
-					if FFlagFixDevFrameworkComposeUrl then
-						for _, arg in ipairs(argument) do
-							table.insert(processedArgs, HttpService:UrlEncode(arg))
-						end
-					else
-						processedArgs = argument
+					for _, arg in ipairs(argument) do
+						table.insert(processedArgs, HttpService:UrlEncode(arg))
 					end
 					table.insert(argList, string.format("%s=%s", key, table.concat(processedArgs, ",")))
 				end
 			else
-				if FFlagFixDevFrameworkComposeUrl then
-					argument = HttpService:UrlEncode(argument)
-				end
+				argument = HttpService:UrlEncode(argument)
 				table.insert(argList, string.format("%s=%s", key, tostring(argument)))
 			end
 		end

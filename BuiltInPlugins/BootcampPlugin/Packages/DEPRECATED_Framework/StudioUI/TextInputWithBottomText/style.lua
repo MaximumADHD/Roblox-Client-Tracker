@@ -8,7 +8,7 @@ local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 
 if THEME_REFACTOR then
 	return {
-		Padding = 2,
+		Spacing = 2,
 		TextColor = StyleKey.DimmedText,
 		TextInputStyle = "FilledRoundedBorder",
 		TextSize = 16,

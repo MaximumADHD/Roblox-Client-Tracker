@@ -10,9 +10,12 @@
 		int TextSize = How big the CheckBox's text should be
 		func OnActivated = What happens when the CheckBox is clicked
 		int titlePadding = How many pixels to the right of the icon the title is put
+	Optional:
+		Frame link = a frame for a link to an external webpage
 ]]
 
 local TextService = game:GetService("TextService")
+local FFlagLuobuDevPublishLua = game:GetFastFlag("LuobuDevPublishLua")
 
 local Library = script.Parent.Parent
 local Roact = require(Library.Parent.Parent.Roact)
@@ -40,6 +43,7 @@ function CheckBox:render()
 		local selected = props.Selected
 		local textSize = props.TextSize
 		local titlePadding = props.TitlePadding or 5
+		local link = FFlagLuobuDevPublishLua and props.Link or nil
 
 		local titleSize = TextService:GetTextSize(
 			title,
@@ -88,6 +92,8 @@ function CheckBox:render()
 
 					[Roact.Event.Activated] = self.onActivated,
 				}),
+
+				Link = link,
 			}),
 		})
 	end)

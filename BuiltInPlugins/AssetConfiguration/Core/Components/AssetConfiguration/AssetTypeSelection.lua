@@ -7,6 +7,8 @@
 		callback onClose - called when the user presses the "cancel" button
 ]]
 
+local FFlagToolboxFixCategoryUrlsCircularDependency = game:GetFastFlag("ToolboxFixCategoryUrlsCircularDependency")
+
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Libs = Plugin.Libs
@@ -16,7 +18,14 @@ local RoactRodux = require(Libs.RoactRodux)
 local Util = Plugin.Core.Util
 local ContextHelper = require(Util.ContextHelper)
 local AssetConfigConstants = require(Util.AssetConfigConstants)
-local AssetConfigUtil = require(Util.AssetConfigUtil)
+local AssetConfigUtil
+local getAllowedAssetTypeEnums
+if FFlagToolboxFixCategoryUrlsCircularDependency then
+	getAllowedAssetTypeEnums = require(Util.getAllowedAssetTypeEnums)
+else
+	AssetConfigUtil = require(Util.AssetConfigUtil)
+end
+
 
 local Components = Plugin.Core.Components
 local NavButton = require(Components.NavButton)
@@ -63,7 +72,12 @@ function AssetTypeSelection:getSelectorItems(localizedContent)
 
 	-- only catalog item creators can upload hats
 
-	local allowedAssetTypes = AssetConfigUtil.getAllowedAssetTypeEnums(self.props.allowedAssetTypesForRelease)
+	local allowedAssetTypes
+	if FFlagToolboxFixCategoryUrlsCircularDependency then
+		allowedAssetTypes = getAllowedAssetTypeEnums(self.props.allowedAssetTypesForRelease)
+	else
+		allowedAssetTypes = AssetConfigUtil.getAllowedAssetTypeEnums(self.props.allowedAssetTypesForRelease)
+	end
 	if #allowedAssetTypes > 0 then
 		local dividerName = ""
 		if localizedContent then

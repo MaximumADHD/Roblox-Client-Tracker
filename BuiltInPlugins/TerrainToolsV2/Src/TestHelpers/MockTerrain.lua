@@ -1,5 +1,3 @@
-local FFlagTerrainImportUseService = game:GetFastFlag("TerrainImportUseService")
-
 local Plugin = script.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
@@ -12,9 +10,6 @@ MockTerrain.__index = MockTerrain
 
 function MockTerrain.new()
 	local self = {}
-	if not FFlagTerrainImportUseService then
-		self.TerrainProgressUpdate = Signal.new()
-	end
 	return setmetatable(self, MockTerrain)
 end
 
@@ -37,17 +32,6 @@ function MockTerrain:FillBlock(center, size, material)
 end
 
 function MockTerrain:FillCylinder(center, height, radius, material)
-end
-
-if not FFlagTerrainImportUseService then
-	function MockTerrain:ImportHeightmap(region, heightmapAssetId, colormapAssetId, defaultMaterial)
-	end
-
-	function MockTerrain:SetImportHeightmapPaused(paused)
-	end
-
-	function MockTerrain:CancelImportHeightmap()
-	end
 end
 
 function MockTerrain:Clear()

@@ -15,7 +15,6 @@
 
 local FFlagStudioCreatePluginPolicyService = game:GetFastFlag("StudioCreatePluginPolicyService")
 local FFlagGameSettingsMigrateToDevFrameworkSeparator = game:GetFastFlag("GameSettingsMigrateToDevFrameworkSeparator")
-local FFlagGameSettingsStandardizeLocalizationId = game:GetFastFlag("GameSettingsStandardizeLocalizationId")
 local FFlagLuobuDevPublishLua = game:GetFastFlag("LuobuDevPublishLua")
 
 local StudioService = game:GetService("StudioService")
@@ -60,7 +59,7 @@ local OpenLocalizationSettings = require(Plugin.Src.Util.BrowserUtils).OpenLocal
 local LocalizationPage = Roact.PureComponent:extend(script.Name)
 
 local CENTER_GUTTER = 200
-local LOCALIZATION_ID = FFlagGameSettingsStandardizeLocalizationId and script.Name or "Localization"
+local LOCALIZATION_ID = script.Name
 
 local function formatDropdownTable(input, translatedLanguageNames)
 	local output = {}
@@ -359,7 +358,7 @@ function LocalizationPage:render()
 		SettingsLoadJobs = loadSettings,
 		SettingsSaveJobs = saveSettings,
 		Title = localization:getText("General", "Category"..LOCALIZATION_ID),
-		PageId = FFlagGameSettingsStandardizeLocalizationId and script.Name or "LocalizationPage",
+		PageId = script.Name,
 		CreateChildren = function()
 			return displayLocalizationSettingsPage(props, localization, theme)
 		end,
