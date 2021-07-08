@@ -4166,7 +4166,19 @@
         <string name="ExplorerImageIndex">28</string>
         <string name="PreferredParent">Workspace</string>
       </Properties>
-      <Item class="ReflectionMetadataProperties">
+      <Item class="ReflectionMetadataProperties"> 
+	    <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Enabled</string>
+            <string name="summary">Toggles Cloud rendering.</string>
+          </Properties>
+        </Item>
+		<Item class="ReflectionMetadataMember">
+		  <Properties>
+			<string name="Name">Color</string>
+			<string name="summary">A value that controls the cloud's particle material color.</string>
+		  </Properties>
+		</Item>
         <Item class="ReflectionMetadataMember">
           <Properties>
             <string name="Name">Cover</string>

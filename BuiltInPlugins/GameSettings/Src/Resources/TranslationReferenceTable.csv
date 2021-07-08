@@ -24,7 +24,7 @@ Studio.GameSettings.General.ContentDialogHeader,Content Agreement,Content Agreem
 Studio.GameSettings.General.SettingOff,Off,Off,끄기,Выкл.,关闭
 Studio.GameSettings.General.GameIconPrompt,Add Game Icon,Add Game Icon,게임 아이콘 추가,Добавить значок игры,添加游戏图标
 Studio.GameSettings.General.ReplyOK,OK,OK,확인,ОК,确认
-Studio.GameSettings.OptInLocations.TempLinkDescription,"China: to submit your game to the LuoBu app, visit ","China: to submit your game to the LuoBu app, visit ", , , 
+Studio.GameSettings.OptInLocations.TempLinkDescription,"China: to submit your game to the LuoBu app, visit ","China: to submit your game to the LuoBu app, visit ",중국: LuoBu 앱에 게임을 제출하려면 다음을 방문하세요 , ,中国：要将游戏提交到罗布乐思 App，请访问 
 Studio.GameSettings.General.PartHead,Head,Head,머리,Голова,头部
 Studio.GameSettings.General.ScaleHead,Head,Head,머리,Голова,头部
 Studio.GameSettings.General.ReplyAgree,Agree,Agree,동의,Принять,同意
@@ -189,7 +189,7 @@ Studio.GameSettings.General.PartTorso,Torso,Torso,몸통,Торс,躯干
 Studio.GameSettings.General.PartLeftArm,Left Arm,Left Arm,왼팔,Левая рука,左臂
 Studio.GameSettings.General.AvatarTypeR6,R6,R6,R6,R6,R6
 Studio.GameSettings.General.PartRightLeg,Right Leg,Right Leg,오른 다리,Правая нога,右腿
-Studio.GameSettings.General.TitleOptInLocations,Opt-In Locations,Opt-In Locations,옵트인 위치, ,选择的位置
+Studio.GameSettings.General.TitleOptInLocations,Opt-In Locations,Opt-In Locations,옵트인 위치, ,选择加入的位置
 Studio.GameSettings.General.ClothingPants,Pants ID,Pants ID,바지 ID,ID штанов,裤子ID
 Studio.GameSettings.General.PresetDefault,Default,Default,기본값,По умолчанию,默认
 Studio.GameSettings.General.PresetClassicScale,Classic Scale,Classic Scale,클래식 비율,Классическая шкала,经典比例
@@ -243,7 +243,7 @@ Studio.GameSettings.AccessPermissions.OwnerLabel,Owner,Owner,소유자,Влад�
 Studio.GameSettings.Permissions.OwnerLabel,Owner,Owner,소유자, ,所有者
 Studio.GameSettings.AccessPermissions.MultipleLabel,(Multiple),(Multiple),（여러 항목）,(Множество),(多项)
 Studio.GameSettings.Permissions.MultipleLabel,(Multiple),(Multiple),(다중), ,（多项）
-Studio.GameSettings.General.ButtonSubmit,Submit,Submit, , ,提交
+Studio.GameSettings.General.ButtonSubmit,Submit,Submit,제출, ,提交
 Studio.GameSettings.General.ScriptCollabWarning,Warning: The Team Create server needs to restart before this feature is disabled. The server will automatically restart once all editors have left the session. Any unsaved drafts will no longer be accessible until Collaborative Editing is re-enabled.,Warning: The Team Create server needs to restart before this feature is disabled. The server will automatically restart once all editors have left the session. Any unsaved drafts will no longer be accessible until Collaborative Editing is re-enabled.,"경고: 이 기능을 비활성화하기 전에 팀 제작 서버를 다시 시작해야 합니다. 모든 편집자가 세션을 종료하면 서버가 자동으로 다시 시작됩니다. 공동 편집이 다시 활성화될 때까지, 저장되지 않은 초안에는 더 이상 액세스할 수 없습니다.", ,警告：停用此功能必须重启组队创作服务器。所有编辑者退出创作后，服务器会自动重启。共同编辑重新启用前将无法读取未保存的草稿。
 Studio.GameSettings.General.TitleGravity,Gravity,Gravity,중력,Гравитация,重力
 Studio.GameSettings.AccessPermissions.NoAccessDescription,Cannot play or edit this game,Cannot play or edit this game,이 게임을 플레이하거나 편집할 수 없음,Вы не можете воспроизводить или редактировать эту игру,无法玩此游戏，或对其进行编辑
@@ -264,6 +264,7 @@ Studio.GameSettings.Monetization.UnsavedDevProduct,(Not Saved),(Not Saved),(저�
 Studio.GameSettings.General.ErrorDevSubMaxPrice,Must be less than {maxRobuxAmount:int},Must be less than {maxRobuxAmount:int},{maxRobuxAmount:int} 이하여야 합니다.,Значение не должно превышать {maxRobuxAmount:int},必须少于 {maxRobuxAmount:int}
 Studio.GameSettings.Places.EditPlace,Edit Place,Edit Place,플레이스 편집, ,编辑场景
 Studio.GameSettings.General.ErrorImageRequired,You must provide an image,You must provide an image,이미지를 제공해야 합니다,Требуется изображение,必须提供一个图像
+Studio.GameSettings.OptInLocations.ErrorEmailNotEqual,The emails you have entered do not match. Please try again.,The emails you have entered do not match. Please try again., , , 
 Studio.GameSettings.General.ScaleSliderLabel,{number}%,{number}%,{number}%,{number}%,{number}%
 Studio.GameSettings.General.ScaleSliderUnits,%,%,%,%,%
 Studio.GameSettings.General.PublishingHintLinkExplanation, is required for changing Avatar game settings, is required for changing Avatar game settings,은(는) 아바타 게임 설정을 변경하는 데 필요합니다,требуется для изменения игровых настроек аватара,是更改虚拟形象游戏设置所必需的
@@ -271,7 +272,7 @@ Studio.GameSettings.General.DevSubsNewHeader,New Subscription,New Subscription,�
 Studio.GameSettings.General.DevSubsDiscontinuedHeader,Discontinued Developer Subscription,Discontinued Developer Subscription,중단된 개발자 구독,Не продленная подписка разработчика,取消的开发者订阅
 Studio.GameSettings.General.DevSubsDeleteAction,Delete,Delete,삭제,Удалить,删除
 Studio.GameSettings.General.DevSubsDeleteConfirm,Delete,Delete,삭제, ,删除
-Studio.GameSettings.OptInLocations.EmailAddress,Email address,Email address, , ,电子邮件地址
+Studio.GameSettings.OptInLocations.EmailAddress,Email address,Email address,이메일 주소, ,电子邮件地址
 Studio.GameSettings.General.WorldPresetsClassic,Classic,Classic,클래식,Классический,经典
 Studio.GameSettings.Security.EnableThirdPartyTeleports,Allow Third Party Teleports,Allow Third Party Teleports,타사 텔레포트 허용, ,允许第三方传送
 Studio.GameSettings.General.WorldPresetsRealistic,Realistic,Realistic,현실적,Реалистичный,现实
@@ -347,7 +348,9 @@ Studio.GameSettings.General.SettingsFailedToLoad,Failed to load settings for pag
 Studio.GameSettings.Monetization.DEPRECATED_PaidAccessHint,VIP Servers must not be enabled and the game must be public to enable Paid Access.,VIP Servers must not be enabled and the game must be public to enable Paid Access.,유료 액세스를 활성화하려면 VIP 서버를 비활성화하고 게임을 공개해야 합니다., ,启用付费访问前，需要禁用 VIP 服务器并将游戏设为公开。
 Studio.GameSettings.Monetization.Free,Free,Free,무료, ,免费
 Studio.GameSettings.Monetization.MarketplaceFee,Marketplace Fee:,Marketplace Fee:,마켓플레이스 수수료:, ,商店费用：
+Studio.GameSettings.Message.TitlePrivateServers,Private Servers,Private Servers,비공개 서버, ,私人服务器
 Studio.GameSettings.Monetization.PrivateServersTitle,Private Servers,Private Servers,비공개 서버, ,私人服务器
+Studio.GameSettings.Monetization.TitlePrivateServers,Private Servers,Private Servers,비공개 서버, ,私人服务器
 Studio.GameSettings.Monetization.VIPServersPriceChangeWarning,Warning: Changing the price of VIP Servers will cancel all existing subscriptions.,Warning: Changing the price of VIP Servers will cancel all existing subscriptions.,주의: VIP 서버 가격을 변경하면 기존 구독 사항이 모두 취소됩니다., ,警告：更改 VIP 服务器价格后将会取消所有当前订阅。
 Studio.GameSettings.Monetization.PrivateServersHint,"Paid Access must not be enabled, and the game must be public to enable Private Servers.","Paid Access must not be enabled, and the game must be public to enable Private Servers.",비공개 서버를 활성화하려면 유료 액세스를 비활성화하고 게임을 공개해야 합니다., ,启用私人服务器前，需要禁用付费访问并将游戏设为公开。
 Studio.GameSettings.General.CategorySecurity,Security,Security,보안, ,安全
@@ -368,14 +371,15 @@ Studio.GameSettings.Monetization.Badges,Badges,Badges,배지, ,徽章
 Studio.GameSettings.Monetization.BadgeDescription,Badge Description,Badge Description,배지 설명, ,徽章描述
 Studio.GameSettings.General.Configure,Configure,Configure,구성, ,配置
 Studio.GameSettings.General.LocationChina,China,China,중국, ,中国
-Studio.GameSettings.OptInLocations.Tooltip,Your creation will be published globally in addition to all the selected opt-in locations. See each location for specific requirements.,Your creation will be published globally in addition to all the selected opt-in locations. See each location for specific requirements.,선택한 모든 옵트인 위치를 포함해 전 세계에 본인의 작품이 게시됩니다. 각 위치별로 특정 요구 사항 여부를 확인하세요., ,你的作品将会发布到全球及所有选择的位置，请查看每个位置了解其需求。
+Studio.GameSettings.OptInLocations.Tooltip,Your creation will be published globally in addition to all the selected opt-in locations. See each location for specific requirements.,Your creation will be published globally in addition to all the selected opt-in locations. See each location for specific requirements.,선택한 모든 옵트인 위치를 포함해 전 세계에 본인의 작품이 게시됩니다. 각 위치별로 특정 요구 사항 여부를 확인하세요., ,你的作品将会发布到全球及所有选择加入的位置，请查看每个位置了解其需求。
 Studio.GameSettings.AccessPermissions.PlayabilityWarning,"To change Playability settings, turn off Paid Access or Private Servers","To change Playability settings, turn off Paid Access or Private Servers",플레이 가능 여부 설정을 변경하려면 유료 액세스 또는 비공개 서버를 끄세요, ,要更改权限设置，请关闭付费访问或私人服务器
 Studio.GameSettings.OptInLocations.ChinaRequirements, to publish to China, to publish to China, 중국에 게시, , 在中国发布
 Studio.GameSettings.OptInLocations.RequirementsLinkText,Requirements,Requirements,요구 사항, ,要求
 Studio.GameSettings.OptInLocations.Status,Status: ,Status: ,상태: , ,状态: 
 Studio.GameSettings.General.TermsDialogHeader,Terms of Use and Privacy Policy,Terms of Use and Privacy Policy,이용 약관 및 개인정보 처리방침, ,使用条款与隐私政策
 Studio.GameSettings.General.TermsDialogBody,"In order to publish on the LuoBuLeSi app published and operated by Tencent, you need to register an account with Tencent, and accept Tencent’s Terms of Use and Privacy Policy. [link]","In order to publish on the LuoBuLeSi app published and operated by Tencent, you need to register an account with Tencent, and accept Tencent’s Terms of Use and Privacy Policy. [link]","Tencent에서 게시하고 운영하는 LuoBuLeSi 앱에 게시하려면, Tencent 계정을 생성하고, Tencent의 이용 약관 및 개인정보 처리방침에 동의해야 합니다. [link]", ,如要在腾讯发布与运营的罗布乐思 App 发布作品，你需要注册腾讯账号并接受腾讯使用条款与隐私政策。[link]
-Studio.GameSettings.OptInLocations.EmailDialogHeader,Email for Review Feedback,Email for Review Feedback, , ,审核反馈的电子邮件
-Studio.GameSettings.OptInLocations.EmailDialogBody,"Your game will be reviewed by moderators to ensure that your game is compliant with Chinese content regulations. After your game is reviewed, we will send you review feedback. The review will take 3-5 days.","Your game will be reviewed by moderators to ensure that your game is compliant with Chinese content regulations. After your game is reviewed, we will send you review feedback. The review will take 3-5 days.", , ,你的游戏将由审核员进行审核，以确保游戏符合中国的内容规定。在游戏被审核后，我们将向你发送审核反馈。审核需要 3-5 天。
-Studio.GameSettings.OptInLocations.EmailDialogDescription,Please enter the email where you would like to receive review feedback:,Please enter the email where you would like to receive review feedback:, , ,请输入接收审核反馈的电子邮件地址：
-Studio.GameSettings.OptInLocations.ErrorInvalidEmail,You entered an invalid email address.,You entered an invalid email address., , ,你输入的电子邮件地址无效。
+Studio.GameSettings.OptInLocations.EmailDialogHeader,Email for Review Feedback,Email for Review Feedback,검토 피드백 수신 이메일, ,审核反馈的电子邮件
+Studio.GameSettings.OptInLocations.EmailDialogBody,"Your game will be reviewed by moderators to ensure that your game is compliant with Chinese content regulations. After your game is reviewed, we will send you review feedback. The review will take 3-5 days.","Your game will be reviewed by moderators to ensure that your game is compliant with Chinese content regulations. After your game is reviewed, we will send you review feedback. The review will take 3-5 days.",게임이 중국 콘텐츠 규정을 준수하는지 확인하기 위해 검열팀에서 게임을 검토합니다. 게임 검토가 완료되면 검토 피드백을 보내드립니다. 검토에는 3~5일이 소요됩니다., ,你的游戏将由审核员进行审核，以确保游戏符合中国的内容规定。在游戏被审核后，我们将向你发送审核反馈。审核需要 3-5 天。
+Studio.GameSettings.OptInLocations.EmailDialogDescription,Please enter the email where you would like to receive review feedback:,Please enter the email where you would like to receive review feedback:,검토 피드백을 받을 이메일 주소를 입력하세요:, ,请输入接收审核反馈的电子邮件地址：
+Studio.GameSettings.OptInLocations.ErrorInvalidEmail,You entered an invalid email address.,You entered an invalid email address.,입력하신 이메일 주소가 유효하지 않습니다., ,你输入的电子邮件地址无效。
+Studio.GameSettings.OptInLocations.ConfirmEmailAddress,Confirm email address,Confirm email address, , , 

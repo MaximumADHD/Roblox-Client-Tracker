@@ -23,7 +23,7 @@ Studio.PublishPlaceAs.PageTitle.Devices,Devices,Devices,기기,Устройст�
 Studio.PublishPlaceAs.PageTitle.Genre,Genre,Genre,장르,Жанр,主题
 Studio.PublishPlaceAs.General.ContentDialogItem4,Robux Gambling,Robux Gambling,Robux 도박,Азартные игры,以 Robux 进行赌博
 Studio.PublishPlaceAs.FooterButton.CreateNewGame,Create new game...,Create new game...,새 게임 만들기...,Создать новую игру...,创建新游戏…
-Studio.PublishPlaceAs.OptInLocations.TempLinkDescription,"China: to submit your game to the LuoBu app, visit ","China: to submit your game to the LuoBu app, visit ", , , 
+Studio.PublishPlaceAs.OptInLocations.TempLinkDescription,"China: to submit your game to the LuoBu app, visit ","China: to submit your game to the LuoBu app, visit ",중국: LuoBu 앱에 게임을 제출하려면 다음을 방문하세요 , ,中国：要将游戏提交到罗布乐思 App，请访问 
 Studio.PublishPlaceAs.Button.ReplyAgree,Agree,Agree,동의,Принять,同意
 Studio.PublishPlaceAs.Button.Close,Close,Close,닫기,Закрыть,关闭
 Studio.PublishPlaceAs.Error.NoDevices,You must select at least one playable device.,You must select at least one playable device.,플레이 가능한 기기를 최소 1개 선택해야 합니다.,Выберите устройство для воспроизведения.,你必须选择至少一种可玩设备。
@@ -32,6 +32,7 @@ Studio.PublishPlaceAs.Error.NameModerated,The name didn't go through our moderat
 Studio.PublishPlaceAs.FooterButton.Create,Create,Create,만들기,Создать,创建
 Studio.PublishPlaceAs.Genre.Funny,Comedy,Comedy,코미디,Комедия,幽默
 Studio.PublishPlaceAs.FooterButton.Overwrite,Overwrite,Overwrite,덮어쓰기,Записать поверх,覆盖
+Studio.PublishPlaceAs.Button.Cancel,Cancel,Cancel, , , 
 Studio.PublishPlaceAs.FooterButton.Cancel,Cancel,Cancel,취소,Отмена,取消
 Studio.PublishPlaceAs.GroupDropdown.MyGames,My Games,My Games,내 게임,Мои игры,我的游戏
 Studio.PublishPlaceAs.MenuItem.BasicInfo,Basic Info,Basic Info,기본 정보,Основные сведения,基本信息
@@ -42,6 +43,7 @@ Studio.PublishPlaceAs.Genre.Fantasy,Medieval,Medieval,중세,Средневек�
 Studio.PublishPlaceAs.Genre.Scary,Horror,Horror,공포,Хоррор,恐怖
 Studio.PublishPlaceAs.PageTitle.Description,Description,Description,설명,Описание,描述
 Studio.PublishPlaceAs.ScreenHeader.ChoosePlace,Overwrite or add a new place to {1},Overwrite or add a new place to {1},덮어쓰거나 새 플레이스를 {1}에 추가하세요,Перезаписать или добавить новое место в: {1},覆盖或向 {1} 添加一个新场景
+Studio.PublishPlaceAs.General.TermsDialogBodyLink,You can download the LuoBuLeSi app here.,You can download the LuoBuLeSi app here., , , 
 Studio.PublishPlaceAs.Genre.All,All,All,모두,Все,全部
 Studio.PublishPlaceAs.Genre.WildWest,Western,Western,서부극,Вестерн,西部
 Studio.PublishPlaceAs.Genre.Tutorial,Building,Building,건설,Постройки,建筑
@@ -75,9 +77,19 @@ Studio.PublishPlaceAs.PublishSuccess.SaveSuccess,Successfully saved!,Successfull
 Studio.PublishPlaceAs.General.PublishGame,Publish Game,Publish Game,게임 게시, ,发布游戏
 Studio.PublishPlaceAs.General.SaveGame,Save Game,Save Game,게임 저장, ,保存游戏
 Studio.PublishPlaceAs.FooterButton.Save,Save,Save,저장, ,保存
-Studio.PublishPlaceAs.OptInLocations.ChinaRequirements, to publish to China, to publish to China, , , 
+Studio.PublishPlaceAs.OptInLocations.ChinaRequirements, to publish to China, to publish to China, 중국에 게시, , 在中国发布
 Studio.PublishPlaceAs.PublishFail.SaveFail,Save failed,Save failed,저장 실패, ,保存失败
 Studio.PublishPlaceAs.OptInLocations.China,China,China,중국, ,中国
-Studio.PublishPlaceAs.OptInLocations.TitleOptInLocations,Opt-In Locations,Opt-In Locations,옵트인 위치, ,选择的位置
-Studio.PublishPlaceAs.OptInLocations.Tooltip,Your creation will be published globally in addition to all the selected opt-in locations. See each location for specific requirements.,Your creation will be published globally in addition to all the selected opt-in locations. See each location for specific requirements.,선택한 모든 옵트인 위치를 포함해 전 세계에 본인의 작품이 게시됩니다. 각 위치별로 특정 요구 사항 여부를 확인하세요., ,你的作品将会发布到全球及所有选择的位置，请查看每个位置了解其需求。
-Studio.PublishPlaceAs.OptInLocations.RequirementsLinkText,Requirements,Requirements, , , 
+Studio.PublishPlaceAs.OptInLocations.TitleOptInLocations,Opt-In Locations,Opt-In Locations,옵트인 위치, ,选择加入的位置
+Studio.PublishPlaceAs.OptInLocations.Tooltip,Your creation will be published globally in addition to all the selected opt-in locations. See each location for specific requirements.,Your creation will be published globally in addition to all the selected opt-in locations. See each location for specific requirements.,선택한 모든 옵트인 위치를 포함해 전 세계에 본인의 작품이 게시됩니다. 각 위치별로 특정 요구 사항 여부를 확인하세요., ,你的作品将会发布到全球及所有选择加入的位置，请查看每个位置了解其需求。
+Studio.PublishPlaceAs.OptInLocations.RequirementsLinkText,Requirements,Requirements,요구 사항, ,要求
+Studio.PublishPlaceAs.Button.Submit,Submit,Submit, , , 
+Studio.PublishPlaceAs.General.ReplyOK,OK,OK, , , 
+Studio.PublishPlaceAs.General.TermsDialogHeader,Terms of Use and Privacy Policy,Terms of Use and Privacy Policy, , , 
+Studio.PublishPlaceAs.General.TermsDialogBody,"In order to publish on the LuoBuLeSi app published and operated by Tencent, you need to register an account with Tencent, and accept Tencent’s Terms of Use and Privacy Policy. [link]","In order to publish on the LuoBuLeSi app published and operated by Tencent, you need to register an account with Tencent, and accept Tencent’s Terms of Use and Privacy Policy. [link]", , , 
+Studio.PublishPlaceAs.OptInLocations.EmailDialogHeader,Email for Review Feedback,Email for Review Feedback, , , 
+Studio.PublishPlaceAs.OptInLocations.EmailDialogBody,"Your game will be reviewed by moderators to ensure that your game is compliant with Chinese content regulations. After your game is reviewed, we will send you review feedback. The review will take 3-5 days.","Your game will be reviewed by moderators to ensure that your game is compliant with Chinese content regulations. After your game is reviewed, we will send you review feedback. The review will take 3-5 days.", , , 
+Studio.PublishPlaceAs.OptInLocations.EmailDialogDescription,Please enter the email where you would like to receive review feedback:,Please enter the email where you would like to receive review feedback:, , , 
+Studio.PublishPlaceAs.OptInLocations.ErrorEmailNotEqual,The emails you have entered do not match. Please try again.,The emails you have entered do not match. Please try again., , , 
+Studio.PublishPlaceAs.OptInLocations.EmailAddress,Email address,Email address, , , 
+Studio.PublishPlaceAs.OptInLocations.ConfirmEmailAddress,Confirm email address,Confirm email address, , , 

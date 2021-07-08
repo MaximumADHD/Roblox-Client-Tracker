@@ -1,6 +1,7 @@
-Key,Source,en-us
-Studio.BootcampPlugin.Plugin.Name,Plugin Bootcamp,Plugin Bootcamp
-Studio.BootcampPlugin.Plugin.Toolbar,Plugin Bootcamp,Plugin Bootcamp
-Studio.BootcampPlugin.Plugin.Button,Bootcamp,Bootcamp
-Studio.BootcampPlugin.Plugin.Description,An example plugin to practice plugin development.,An example plugin to practice plugin development.
-Studio.BootcampPlugin.TutorialComponents.MyJiraTicket,My Button,My Button
+Key,en-us
+Studio.BootcampPlugin.Plugin.Button,Bootcamp
+Studio.BootcampPlugin.Plugin.Description,An example plugin to practice plugin development.
+Studio.BootcampPlugin.Plugin.Name,Plugin Bootcamp
+Studio.BootcampPlugin.Plugin.Toolbar,Plugin Bootcamp
+Studio.BootcampPlugin.TutorialComponents.MyJiraTicket,My Button
+Studio.BootcampPlugin.TutorialComponents.STM643,My Button

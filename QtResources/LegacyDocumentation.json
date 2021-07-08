@@ -1392,6 +1392,12 @@
                 },
                 "Density": {
                     "summary": "A value that controls the clouds particulates density. The proportion of airborne water vapour particles within a cubic stud at full cloud cover."
+                },
+                "Color": {
+                    "summary": "A value that controls the cloud's particle material color."
+                },
+                "Enabled": {
+                    "summary": "Toggles Cloud rendering."
                 }
             }
         },

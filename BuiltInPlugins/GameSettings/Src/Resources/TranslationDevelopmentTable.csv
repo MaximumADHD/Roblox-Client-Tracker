@@ -279,6 +279,7 @@ Studio.GameSettings.Monetization.UnsavedDevProduct,(Not Saved), ,(Not Saved)
 Studio.GameSettings.General.ErrorDevSubMaxPrice,Must be less than {maxRobuxAmount:int}, ,Must be less than {maxRobuxAmount:int}
 Studio.GameSettings.Places.EditPlace,Edit Place, ,Edit Place
 Studio.GameSettings.General.ErrorImageRequired,You must provide an image, ,You must provide an image
+Studio.GameSettings.OptInLocations.ErrorEmailNotEqual,The emails you have entered do not match. Please try again., ,The emails you have entered do not match. Please try again.
 Studio.GameSettings.General.ScaleSliderLabel,{number}%, ,{number}%
 Studio.GameSettings.General.ScaleSliderUnits,%, ,%
 Studio.GameSettings.General.PublishingHintLinkExplanation, is required for changing Avatar game settings, , is required for changing Avatar game settings
@@ -365,7 +366,7 @@ Studio.GameSettings.OptInLocations.Tooltip,Your creation will be published globa
 Studio.GameSettings.OptInLocations.EmailDialogHeader,Email for Review Feedback, ,Email for Review Feedback
 Studio.GameSettings.OptInLocations.EmailDialogBody,"Your game will be reviewed by moderators to ensure that your game is compliant with Chinese content regulations. After your game is reviewed, we will send you review feedback. The review will take 3-5 days.", ,"Your game will be reviewed by moderators to ensure that your game is compliant with Chinese content regulations. After your game is reviewed, we will send you review feedback. The review will take 3-5 days."
 Studio.GameSettings.OptInLocations.EmailDialogDescription,Please enter the email where you would like to receive review feedback:, ,Please enter the email where you would like to receive review feedback:
-Studio.GameSettings.OptInLocations.ErrorInvalidEmail,You entered an invalid email address., ,You entered an invalid email address.
+Studio.GameSettings.OptInLocations.ConfirmEmailAddress,Confirm email address, ,Confirm email address
 Studio.GameSettings.General.TermsDialogHeader,Terms of Use and Privacy Policy, ,Terms of Use and Privacy Policy
 Studio.GameSettings.General.TermsDialogBody,"In order to publish on the LuoBuLeSi app published and operated by Tencent, you need to register an account with Tencent, and accept Tencent’s Terms of Use and Privacy Policy. [link]", ,"In order to publish on the LuoBuLeSi app published and operated by Tencent, you need to register an account with Tencent, and accept Tencent’s Terms of Use and Privacy Policy. [link]"
 Studio.GameSettings.OptInLocations.ChinaRequirements, to publish to China, , to publish to China

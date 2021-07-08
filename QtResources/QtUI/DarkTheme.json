@@ -345,6 +345,10 @@
                 "Default": "#222222"
             }
         }, {
+          "DropShadow": {
+            "Default": "#4C000000"
+          }
+        }, {
             "Shadow": {
                 "Default": "#404040"
             }

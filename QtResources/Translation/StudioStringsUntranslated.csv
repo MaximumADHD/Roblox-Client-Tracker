@@ -121,6 +121,7 @@ Studio.App.BetaFeatures.EnableCSGV3Description,,Use the new and faster CSG Engin
 Studio.App.BetaFeatures.EnableCSGV3Title,,CSG Version 3,CSG Version 3
 Studio.App.BetaFeatures.FindReplaceViewDescription,,"Overhaul of find and replace functionality to make working with large codebases easier. Streamlined interface, addition of search filters and Replace All functionality, and improved performance.","Overhaul of find and replace functionality to make working with large codebases easier. Streamlined interface, addition of search filters and Replace All functionality, and improved performance."
 Studio.App.BetaFeatures.FindReplaceViewTitle,,Find All / Replace All,Find All / Replace All
+Studio.App.BetaFeatures.ForumPostTitleEnding,,%1 is now enabled,%1 is now enabled
 Studio.App.BetaFeatures.ImprovedInnerBoxDescription,,Enable a different algorithm for avatar Inner Box collision box sizing and positioning using margins around RigAttachment extents.,Enable a different algorithm for avatar Inner Box collision box sizing and positioning using margins around RigAttachment extents.
 Studio.App.BetaFeatures.ImprovedInnerBoxTitle,,Improved Inner Box Avatar Collisions,Improved Inner Box Avatar Collisions
 Studio.App.BetaFeatures.InsertObjectStreamliningDescription,,Enables a new unified workflow for inserting objects.,Enables a new unified workflow for inserting objects.

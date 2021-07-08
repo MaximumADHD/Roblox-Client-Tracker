@@ -32,8 +32,16 @@ BokehFarCoCFS,Fragment
 BokehNearCoCFS,Fragment
 CheapBokehFS,Fragment
 Clouds2dFS,Fragment
+Clouds2dOldFS,Fragment
+CloudsBsmFS,Fragment
+CloudsClearToSkyColorFS,Fragment
 CloudsCompFS,Fragment
+CloudsCompOldFS,Fragment
+CloudsDist2dFS,Fragment
+CloudsDistFS,Fragment
 CloudsFS,Fragment
+CloudsOldFS,Fragment
+CloudsReprojectFilterFS,Fragment
 CloudsVS,Vertex
 CopyGuiVS,Vertex
 DefaultDepthFS,Fragment

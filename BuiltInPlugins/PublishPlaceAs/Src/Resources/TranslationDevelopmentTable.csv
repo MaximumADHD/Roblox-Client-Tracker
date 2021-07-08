@@ -90,5 +90,6 @@ Studio.PublishPlaceAs.OptInLocations.RequirementsLinkText,Requirements, ,Require
 Studio.PublishPlaceAs.OptInLocations.EmailDialogHeader,Email for Review Feedback, ,Email for Review Feedback
 Studio.PublishPlaceAs.OptInLocations.EmailDialogBody,"Your game will be reviewed by moderators to ensure that your game is compliant with Chinese content regulations. After your game is reviewed, we will send you review feedback. The review will take 3-5 days.", ,"Your game will be reviewed by moderators to ensure that your game is compliant with Chinese content regulations. After your game is reviewed, we will send you review feedback. The review will take 3-5 days."
 Studio.PublishPlaceAs.OptInLocations.EmailDialogDescription,Please enter the email where you would like to receive review feedback:, ,Please enter the email where you would like to receive review feedback:
-Studio.PublishPlaceAs.OptInLocations.ErrorInvalidEmail,You entered an invalid email address., ,You entered an invalid email address.
+Studio.PublishPlaceAs.OptInLocations.ErrorEmailNotEqual,The emails you have entered do not match. Please try again., ,The emails you have entered do not match. Please try again.
 Studio.PublishPlaceAs.OptInLocations.EmailAddress,Email address, ,Email address
+Studio.PublishPlaceAs.OptInLocations.ConfirmEmailAddress,Confirm email address, ,Confirm email address

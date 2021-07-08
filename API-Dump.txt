@@ -106,9 +106,16 @@ Class AppUpdateService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function bool AppUpdateService:PerformManagedUpdate() {RobloxScriptSecurity}
 Class AssetCounterService : Instance [NotCreatable] [Service] [NotReplicated]
 Class AssetDeliveryProxy : Instance [NotCreatable] [Service] [NotReplicated]
+Class AssetImportItemSettings : Instance [NotCreatable] [NotReplicated]
+	Property bool AssetImportItemSettings.ShouldImport
+Class AssetImportMeshSettings : AssetImportItemSettings [NotCreatable] [NotReplicated]
+Class AssetImportTextureSettings : AssetImportItemSettings [NotCreatable] [NotReplicated]
 Class AssetImportService : Instance [NotCreatable] [Service] [NotReplicated]
-	Function Dictionary AssetImportService:ImportMesh(string fileName) {RobloxScriptSecurity}
-	Function Dictionary AssetImportService:ImportMeshWithPrompt() {RobloxScriptSecurity} [Yields]
+	Function AssetImportSettings AssetImportService:ImportMesh(string fileName) {RobloxScriptSecurity}
+	Function AssetImportSettings AssetImportService:ImportMeshWithPrompt() {RobloxScriptSecurity} [Yields]
+Class AssetImportSettings : Instance [NotCreatable] [NotReplicated]
+	Property AssetImportItemSettings AssetImportSettings.Hierarchy [ReadOnly]
+	Function Instance AssetImportSettings:Import() {RobloxScriptSecurity}
 Class AssetManagerService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function int64 AssetManagerService:AddNewPlace() {RobloxScriptSecurity} [Yields]
 	Function void AssetManagerService:DeleteAlias(string aliasName) {RobloxScriptSecurity} [Yields]
@@ -380,6 +387,16 @@ Class RocketPropulsion : BodyMover
 	Function void RocketPropulsion:Abort()
 	Function void RocketPropulsion:Fire()
 	Event RocketPropulsion.ReachedTarget()
+Class Breakpoint : Instance [NotCreatable] [NotReplicated]
+	Property Expression Breakpoint.Condition {RobloxScriptSecurity} [Hidden] [ReadOnly]
+	Property int Breakpoint.Line {RobloxScriptSecurity} [Hidden] [ReadOnly]
+	Property ScriptRef Breakpoint.Script {RobloxScriptSecurity} [Hidden] [ReadOnly]
+	Property bool Breakpoint.Enabled {RobloxScriptSecurity} [Hidden] [ReadOnly]
+	Property bool Breakpoint.Valid {RobloxScriptSecurity} [Hidden] [ReadOnly]
+	Function int Breakpoint:Remove(Function status) {RobloxScriptSecurity}
+	Function int Breakpoint:SetCondition(Instance condition, Function status) {RobloxScriptSecurity}
+	Function int Breakpoint:SetEnabled(bool enabled, Function status) {RobloxScriptSecurity}
+	Function int Breakpoint:SetLine(int line, Function status) {RobloxScriptSecurity}
 Class BrowserService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void BrowserService:CloseBrowserWindow() {RobloxScriptSecurity}
 	Function void BrowserService:CopyAuthCookieFromBrowserToEngine() {RobloxScriptSecurity}
@@ -507,6 +524,8 @@ Class ClickDetector : Instance
 Class Clouds : Instance
 	Property float Clouds.Cover
 	Property float Clouds.Density
+	Property Color3 Clouds.Color
+	Property bool Clouds.Enabled
 Class ClusterPacketCache : Instance [NotCreatable] [Service] [NotReplicated]
 Class CollectionService : Instance [NotCreatable] [Service]
 	Function void CollectionService:AddTag(Instance instance, string tag)
@@ -527,6 +546,7 @@ Class CommandInstance : Instance [NotCreatable] [NotReplicated]
 	Property string CommandInstance.Group [ReadOnly]
 	Property string CommandInstance.Icon {RobloxScriptSecurity} [<📁> LoadOnly] [NotReplicated]
 	Property string CommandInstance.Name [ReadOnly]
+	Property Enum.CommandPermission CommandInstance.Permission {RobloxScriptSecurity} [ReadOnly]
 	Property string CommandInstance.StatusTip {RobloxScriptSecurity} [<📁> LoadOnly] [NotReplicated]
 	Property string CommandInstance.Text [ReadOnly]
 	Function void CommandInstance:RegisterExecutionCallback(Function callbackFunction) {RobloxScriptSecurity}
@@ -807,6 +827,26 @@ Class DebuggerBreakpoint : Instance [NotCreatable]
 	Property bool DebuggerBreakpoint.IsEnabled
 	Property int DebuggerBreakpoint.Line [ReadOnly]
 	Property bool DebuggerBreakpoint.isContextDependentBreakpoint
+Class DebuggerConnection : Instance [NotCreatable] [NotReplicated]
+	Property int DebuggerConnection.Id {RobloxScriptSecurity} [Hidden] [ReadOnly]
+	Property bool DebuggerConnection.IsPaused {RobloxScriptSecurity} [Hidden] [ReadOnly]
+	Function int DebuggerConnection:AddBreakpoint(Instance script, int line, Instance conditon, Function status) {RobloxScriptSecurity}
+	Function int DebuggerConnection:Pause(Function status) {RobloxScriptSecurity}
+	Function int DebuggerConnection:Resume(Function status) {RobloxScriptSecurity}
+	Function int DebuggerConnection:Terminate(Function status) {RobloxScriptSecurity}
+	Event DebuggerConnection.BreakpointAdded(Instance breakpoint) {RobloxScriptSecurity}
+	Event DebuggerConnection.BreakpointChanged(Instance breakpoint) {RobloxScriptSecurity}
+	Event DebuggerConnection.BreakpointRemoved(Instance breakpoint, Enum.BreakpointRemoveReason reason) {RobloxScriptSecurity}
+	Event DebuggerConnection.Paused(Instance pausedState, Enum.DebuggerPauseReason reason) {RobloxScriptSecurity}
+	Event DebuggerConnection.Resumed(Instance pausedState) {RobloxScriptSecurity}
+Class DebuggerConnectionManager : Instance [NotCreatable] [Service] [NotReplicated]
+	Property double DebuggerConnectionManager.Timeout {RobloxScriptSecurity} [Hidden] [NotReplicated]
+	Function int DebuggerConnectionManager:ConnectLocal(Instance dataModel) {RobloxScriptSecurity}
+	Function int DebuggerConnectionManager:ConnectRemote(string host, int port) {RobloxScriptSecurity}
+	Function void DebuggerConnectionManager:FocusConnection(Instance connection) {RobloxScriptSecurity}
+	Event DebuggerConnectionManager.ConnectionEnded(Instance connection, Enum.DebuggerEndReason reason) {RobloxScriptSecurity}
+	Event DebuggerConnectionManager.ConnectionStarted(Instance connection) {RobloxScriptSecurity}
+	Event DebuggerConnectionManager.FocusChanged(Instance connection) {RobloxScriptSecurity}
 Class DebuggerManager : Instance [NotCreatable] [Service] [NotReplicated]
 	Property bool DebuggerManager.DebuggingEnabled [ReadOnly]
 	Function Instance DebuggerManager:AddDebugger(Instance script)
@@ -891,6 +931,9 @@ Class Explosion : Instance
 	Property Vector3 Explosion.Position
 	Property bool Explosion.Visible
 	Event Explosion.Hit(Instance part, float distance)
+Class Expression : Instance [NotReplicated]
+	Property string Expression.Expression {RobloxScriptSecurity} [Hidden] [NotReplicated]
+	Function int Expression:Evaluate(Instance frame, Function status) {RobloxScriptSecurity}
 Class FaceInstance : Instance [NotCreatable] [NotBrowsable]
 	Property Enum.NormalId FaceInstance.Face
 Class Decal : FaceInstance
@@ -1539,6 +1582,7 @@ Class Humanoid : Instance
 	Function void Humanoid:UnequipTools()
 	Event Humanoid.AnimationPlayed(Instance animationTrack) [Deprecated]
 	Event Humanoid.Climbing(float speed)
+	Event Humanoid.ClusterCompositionFinished() {RobloxScriptSecurity}
 	Event Humanoid.CustomStatusAdded(string status) [Deprecated]
 	Event Humanoid.CustomStatusRemoved(string status) [Deprecated]
 	Event Humanoid.Died()
@@ -1747,6 +1791,7 @@ Class Lighting : Instance [NotCreatable] [Service]
 	Property Color3 Lighting.ShadowColor [<📁> LoadOnly] [NotReplicated] [Deprecated]
 	Property float Lighting.ShadowSoftness
 	Property Enum.Technology Lighting.Technology [NotScriptable]
+	Property bool Lighting.TempUseNewSkyRemovalBehaviour {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property float Lighting.ClockTime [<📁> LoadOnly] [NotReplicated]
 	Property float Lighting.GeographicLatitude
 	Property string Lighting.TimeOfDay
@@ -2098,7 +2143,7 @@ Class BasePart : PVInstance [NotCreatable] [NotBrowsable]
 	Function bool BasePart:IsGrounded() {🧬Safe}
 	Function void BasePart:MakeJoints()
 	Function bool BasePart:Resize(Enum.NormalId normalId, int deltaAmount)
-	Function void BasePart:SetNetworkOwner(Instance playerInstance = nil)
+	Function void BasePart:SetNetworkOwner(Player playerInstance = nil)
 	Function void BasePart:SetNetworkOwnershipAuto()
 	Function Instance BasePart:SubtractAsync(Objects parts, Enum.CollisionFidelity collisionfidelity = "Default", Enum.RenderFidelity renderFidelity = "Automatic") [Yields]
 	Function Instance BasePart:UnionAsync(Objects parts, Enum.CollisionFidelity collisionfidelity = "Default", Enum.RenderFidelity renderFidelity = "Automatic") [Yields]
@@ -2255,6 +2300,7 @@ Class Workspace : WorldRoot [NotCreatable] [Service]
 	Property float Workspace.FallenPartsDestroyHeight {✏️PluginSecurity}
 	Property bool Workspace.FilteringEnabled {✏️PluginSecurity} [Hidden] [NotReplicated] [Deprecated]
 	Property float Workspace.Gravity
+	Property Enum.HumanoidOnlySetCollisionsOnStateChange Workspace.HumanoidOnlySetCollisionsOnStateChange [NotScriptable]
 	Property Enum.InterpolationThrottlingMode Workspace.InterpolationThrottling {✏️PluginSecurity}
 	Property Enum.MeshPartHeadsAndAccessories Workspace.MeshPartHeadsAndAccessories [NotScriptable]
 	Property Enum.PhysicsSimulationRate Workspace.PhysicsSimulationRate [Hidden] [NotReplicated]
@@ -2346,6 +2392,17 @@ Class PathfindingService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function Instance PathfindingService:ComputeSmoothPathAsync(Vector3 start, Vector3 finish, float maxDistance) [Yields] [Deprecated]
 	Function Instance PathfindingService:CreatePath(Dictionary agentParameters = nil)
 	Function Instance PathfindingService:FindPathAsync(Vector3 start, Vector3 finish) [Yields]
+Class PausedState : Instance [NotCreatable] [NotReplicated]
+	Property bool PausedState.IsValid {RobloxScriptSecurity} [Hidden] [ReadOnly]
+	Property Enum.DebuggerPauseReason PausedState.Reason {RobloxScriptSecurity} [Hidden] [ReadOnly]
+	Property int PausedState.ThreadCount {RobloxScriptSecurity} [Hidden] [ReadOnly]
+	Function Instance PausedState:GetThread(int index) {RobloxScriptSecurity}
+Class PausedStateBreakpoint : PausedState [NotCreatable] [NotReplicated]
+	Property Breakpoint PausedStateBreakpoint.Breakpoint {RobloxScriptSecurity} [Hidden] [ReadOnly]
+	Property ThreadState PausedStateBreakpoint.BreakpointThread {RobloxScriptSecurity} [Hidden] [ReadOnly]
+Class PausedStateException : PausedState [NotCreatable] [NotReplicated]
+	Property string PausedStateException.ExceptionText {RobloxScriptSecurity} [Hidden] [ReadOnly]
+	Property ThreadState PausedStateException.ExceptionThread {RobloxScriptSecurity} [Hidden] [ReadOnly]
 Class PermissionsService : Instance [NotCreatable] [Service]
 	Function bool PermissionsService:GetIsThirdPartyAssetAllowed() {RobloxScriptSecurity}
 	Function bool PermissionsService:GetIsThirdPartyPurchaseAllowed() {RobloxScriptSecurity}
@@ -2769,6 +2826,7 @@ Class ReflectionMetadataEnumItem : ReflectionMetadataItem
 Class ReflectionMetadataMember : ReflectionMetadataItem
 Class ReflectionMetadataProperties : Instance
 Class ReflectionMetadataYieldFunctions : Instance
+Class RemoteDebuggerServer : Instance [NotCreatable] [Service] [NotReplicated]
 Class RemoteEvent : Instance
 	Function void RemoteEvent:FireAllClients(Tuple arguments)
 	Function void RemoteEvent:FireClient(Player player, Tuple arguments)
@@ -2877,6 +2935,9 @@ Class ScriptDebugger : Instance [NotCreatable]
 	Event ScriptDebugger.Resuming()
 	Event ScriptDebugger.WatchAdded(Instance watch)
 	Event ScriptDebugger.WatchRemoved(Instance watch)
+Class ScriptRef : Instance [NotCreatable] [NotReplicated]
+	Function Instance ScriptRef:Find(Instance dataModel) {RobloxScriptSecurity}
+	Function Objects ScriptRef:FindAll(Instance dataModel) {RobloxScriptSecurity}
 Class ScriptService : Instance [NotCreatable] [Service]
 Class Selection : Instance [NotCreatable] [Service]
 	Property Instance Selection.ActiveInstance {RobloxScriptSecurity} [Hidden] [ReadOnly]
@@ -3474,6 +3535,10 @@ Class ThirdPartyUserService : Instance [NotCreatable] [Service] [NotReplicated]
 	Event ThirdPartyUserService.ActiveGamepadAdded() {RobloxScriptSecurity}
 	Event ThirdPartyUserService.ActiveGamepadRemoved() {RobloxScriptSecurity}
 	Event ThirdPartyUserService.ActiveUserSignedOut(int signOutStatus) {RobloxScriptSecurity}
+Class ThreadState : Instance [NotCreatable] [NotReplicated]
+	Property int ThreadState.ThreadId {RobloxScriptSecurity} [Hidden] [ReadOnly]
+	Function Objects ThreadState:GetCallstack() {RobloxScriptSecurity}
+	Function int ThreadState:RequestCallstack(Function status) {RobloxScriptSecurity}
 Class TimerService : Instance [NotCreatable] [Service]
 Class ToastNotificationService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void ToastNotificationService:HideNotification(string notificationId) {RobloxScriptSecurity}
@@ -3861,7 +3926,7 @@ Enum AccessoryType
 	EnumItem AccessoryType.Front : 5
 	EnumItem AccessoryType.Back : 6
 	EnumItem AccessoryType.Waist : 7
-	EnumItem AccessoryType.TeeShirt : 8
+	EnumItem AccessoryType.TShirt : 8
 	EnumItem AccessoryType.Shirt : 9
 	EnumItem AccessoryType.Pants : 10
 	EnumItem AccessoryType.Jacket : 11
@@ -3952,7 +4017,7 @@ Enum AssetFetchStatus
 	EnumItem AssetFetchStatus.Failure : 1
 Enum AssetType
 	EnumItem AssetType.Image : 1
-	EnumItem AssetType.TeeShirt : 2
+	EnumItem AssetType.TShirt : 2
 	EnumItem AssetType.Audio : 3
 	EnumItem AssetType.Mesh : 4
 	EnumItem AssetType.Lua : 5
@@ -3996,7 +4061,7 @@ Enum AssetType
 	EnumItem AssetType.EyeAccessory : 58
 	EnumItem AssetType.EmoteAnimation : 61
 	EnumItem AssetType.Video : 62
-	EnumItem AssetType.TeeShirtAccessory : 64
+	EnumItem AssetType.TShirtAccessory : 64
 	EnumItem AssetType.ShirtAccessory : 65
 	EnumItem AssetType.PantsAccessory : 66
 	EnumItem AssetType.JacketAccessory : 67
@@ -4046,7 +4111,7 @@ Enum AvatarAssetType
 	EnumItem AvatarAssetType.SwimAnimation : 54
 	EnumItem AvatarAssetType.WalkAnimation : 55
 	EnumItem AvatarAssetType.EmoteAnimation : 61
-	EnumItem AvatarAssetType.TeeShirtAccessory : 64
+	EnumItem AvatarAssetType.TShirtAccessory : 64
 	EnumItem AvatarAssetType.ShirtAccessory : 65
 	EnumItem AvatarAssetType.PantsAccessory : 66
 	EnumItem AvatarAssetType.JacketAccessory : 67
@@ -4063,9 +4128,6 @@ Enum AvatarContextMenuOption
 Enum AvatarItemType
 	EnumItem AvatarItemType.Asset : 1
 	EnumItem AvatarItemType.Bundle : 2
-Enum AvatarJointPositionType
-	EnumItem AvatarJointPositionType.Fixed : 0
-	EnumItem AvatarJointPositionType.ArtistIntent : 1
 Enum AvatarPromptResult
 	EnumItem AvatarPromptResult.Success : 1
 	EnumItem AvatarPromptResult.PermissionDenied : 2
@@ -4114,6 +4176,10 @@ Enum BreakReason
 	EnumItem BreakReason.Error : 1
 	EnumItem BreakReason.SpecialBreakpoint : 2
 	EnumItem BreakReason.UserBreakpoint : 3
+Enum BreakpointRemoveReason
+	EnumItem BreakpointRemoveReason.Requested : 0
+	EnumItem BreakpointRemoveReason.ScriptChanged : 1
+	EnumItem BreakpointRemoveReason.ScriptRemoved : 2
 Enum BulkMoveMode
 	EnumItem BulkMoveMode.FireAllEvents : 0
 	EnumItem BulkMoveMode.FireCFrameChanged : 1
@@ -4226,6 +4292,9 @@ Enum CollisionFidelity
 	EnumItem CollisionFidelity.Hull : 1
 	EnumItem CollisionFidelity.Box : 2
 	EnumItem CollisionFidelity.PreciseConvexDecomposition : 3
+Enum CommandPermission
+	EnumItem CommandPermission.Plugin : 0
+	EnumItem CommandPermission.LocalUser : 1
 Enum ComputerCameraMovementMode
 	EnumItem ComputerCameraMovementMode.Default : 0
 	EnumItem ComputerCameraMovementMode.Classic : 1
@@ -4331,6 +4400,33 @@ Enum DataStoreRequestType
 	EnumItem DataStoreRequestType.GetSortedAsync : 3
 	EnumItem DataStoreRequestType.SetIncrementSortedAsync : 4
 	EnumItem DataStoreRequestType.OnUpdate : 5
+Enum DebuggerEndReason
+	EnumItem DebuggerEndReason.ClientRequest : 0
+	EnumItem DebuggerEndReason.Timeout : 1
+	EnumItem DebuggerEndReason.InvalidHost : 2
+	EnumItem DebuggerEndReason.Disconnected : 3
+	EnumItem DebuggerEndReason.ServerShutdown : 4
+	EnumItem DebuggerEndReason.ServerProtocolMismatch : 5
+	EnumItem DebuggerEndReason.ConfigurationFailed : 6
+	EnumItem DebuggerEndReason.RpcError : 7
+Enum DebuggerFrameType
+	EnumItem DebuggerFrameType.C : 0
+	EnumItem DebuggerFrameType.Lua : 1
+Enum DebuggerPauseReason
+	EnumItem DebuggerPauseReason.Unknown : 0
+	EnumItem DebuggerPauseReason.Requested : 1
+	EnumItem DebuggerPauseReason.Breakpoint : 2
+	EnumItem DebuggerPauseReason.Exception : 3
+	EnumItem DebuggerPauseReason.SingleStep : 4
+	EnumItem DebuggerPauseReason.Entrypoint : 5
+Enum DebuggerStatus
+	EnumItem DebuggerStatus.Success : 0
+	EnumItem DebuggerStatus.Timeout : 1
+	EnumItem DebuggerStatus.ConnectionLost : 2
+	EnumItem DebuggerStatus.InvalidResponse : 3
+	EnumItem DebuggerStatus.InternalError : 4
+	EnumItem DebuggerStatus.InvalidState : 5
+	EnumItem DebuggerStatus.RpcError : 6
 Enum DevCameraOcclusionMode
 	EnumItem DevCameraOcclusionMode.Zoom : 0
 	EnumItem DevCameraOcclusionMode.Invisicam : 1
@@ -4645,6 +4741,10 @@ Enum HumanoidHealthDisplayType
 	EnumItem HumanoidHealthDisplayType.DisplayWhenDamaged : 0
 	EnumItem HumanoidHealthDisplayType.AlwaysOn : 1
 	EnumItem HumanoidHealthDisplayType.AlwaysOff : 2
+Enum HumanoidOnlySetCollisionsOnStateChange
+	EnumItem HumanoidOnlySetCollisionsOnStateChange.Default : 0
+	EnumItem HumanoidOnlySetCollisionsOnStateChange.Disabled : 1
+	EnumItem HumanoidOnlySetCollisionsOnStateChange.Enabled : 2
 Enum HumanoidRigType
 	EnumItem HumanoidRigType.R6 : 0
 	EnumItem HumanoidRigType.R15 : 1
