@@ -47,10 +47,11 @@ game:DefineFastFlag("ToolboxFixCreatorSearchResults", false)
 
 game:DefineFastFlag("ToolboxDefaultBackgroundMatches", false)
 
-game:DefineFastFlag("ToolboxFixCommonWarnings", false)
+game:DefineFastFlag("ToolboxFixCommonWarnings2", false)
 
 game:DefineFastFlag("ToolboxRemoveGroupInventory", false)
 game:DefineFastFlag("ToolboxReplaceUILibraryComponentsPt3", false)
+game:DefineFastFlag("RemoveUILibraryFromToolbox", false)
 
 game:DefineFastFlag("ToolboxFixCategoryUrlsCircularDependency", false)
 

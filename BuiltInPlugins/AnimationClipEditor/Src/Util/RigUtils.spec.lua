@@ -427,7 +427,7 @@ return function()
 
 			local result, errorList = RigUtils.rigHasErrors(testRig)
 			expect(result).to.equal(true)
-			expect(errorList[1].ID).to.equal(Constants.RIG_ERRORS.MissingPart0)
+			expect(errorList[1].ID).to.equal(Constants.RIG_ERRORS.MissingPart0_Migrated)
 			expect(errorList[1].Data[1]).to.equal(testRig.UpperTorso.Motor6D)
 		end)
 
@@ -437,7 +437,7 @@ return function()
 
 			local result, errorList = RigUtils.rigHasErrors(testRig)
 			expect(result).to.equal(true)
-			expect(errorList[1].ID).to.equal(Constants.RIG_ERRORS.MissingPart1)
+			expect(errorList[1].ID).to.equal(Constants.RIG_ERRORS.MissingPart1_Migrated)
 			expect(errorList[1].Data[1]).to.equal(testRig.UpperTorso.Motor6D)
 		end)
 
@@ -448,7 +448,7 @@ return function()
 
 			local result, errorList = RigUtils.rigHasErrors(testRig)
 			expect(result).to.equal(true)
-			expect(errorList[1].ID).to.equal(Constants.RIG_ERRORS.MultipleParents)
+			expect(errorList[1].ID).to.equal(Constants.RIG_ERRORS.MultipleParents_Migrated)
 			expect(errorList[1].Data[1]).to.equal(testRig.Head)
 		end)
 

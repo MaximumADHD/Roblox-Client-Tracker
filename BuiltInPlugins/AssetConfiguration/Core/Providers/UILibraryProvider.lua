@@ -1,4 +1,5 @@
 local Plugin = script.Parent.Parent.Parent
+local FFlagRemoveUILibraryFromToolbox = require(Plugin.Core.Util.getFFlagRemoveUILibraryFromToolbox)()
 
 local Roact = require(Plugin.Libs.Roact)
 local UILibrary = require(Plugin.Libs.UILibrary)
@@ -6,6 +7,9 @@ local ContextHelper = require(Plugin.Core.Util.ContextHelper)
 
 local UILibraryProvider = Roact.PureComponent:extend("UILibraryProvider")
 
+if FFlagRemoveUILibraryFromToolbox then
+	return
+end
 function UILibraryProvider:render()
 	-- since the plugin is handling all the changed signals from Studio, ensure that values are updated
 	--  by wrapping UILibraryWrapper in a withTheme. This will ensure re-renders are passed down the chain.

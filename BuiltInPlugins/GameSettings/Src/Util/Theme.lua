@@ -493,6 +493,13 @@ function Theme.createValues(theme, getColor)
 				size = 14,
 			} or nil,
 
+			emailDialog = FFlagLuobuDevPublishLua and {
+				Size = {
+					X = 500,
+					Y = 350,
+				}
+			} or nil,
+
 		}),
 
 		Framework = Style.extend(studioStyles, {

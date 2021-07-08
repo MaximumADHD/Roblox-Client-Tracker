@@ -15,6 +15,7 @@
 ]]
 local FFlagStudioAssetConfigurationPlugin = game:GetFastFlag("StudioAssetConfigurationPlugin")
 local FFlagToolboxReplaceUILibraryComponentsPt2 = game:GetFastFlag("ToolboxReplaceUILibraryComponentsPt2")
+local FFlagToolboxReplaceUILibraryComponentsPt3 = game:GetFastFlag("ToolboxReplaceUILibraryComponentsPt3")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -38,12 +39,14 @@ local UILibraryWrapper = require(Libs.Framework.ContextServices.UILibraryWrapper
 
 local ContextServices = require(Libs.Framework.ContextServices)
 
-local AssetConfigWrapper = Roact.PureComponent:extend("AssetConfigWrapper")
+local FFlagRemoveUILibraryFromToolbox = require(Plugin.Core.Util.getFFlagRemoveUILibraryFromToolbox)()
 
 local ASSET_CONFIG_WIDTH = 960
 local ASSET_CONFIG_HEIGHT = 640
 local ASSET_CONFIG_MIN_WIDTH = 800
 local ASSET_CONFIG_MIN_HEIGHT = 500
+
+local AssetConfigWrapper = Roact.PureComponent:extend("AssetConfigWrapper")
 
 function AssetConfigWrapper:init(props)
 	self.state = {
@@ -91,6 +94,11 @@ function AssetConfigWrapper:render()
 	local localization = props.localization
 	local plugin = props.plugin
 
+	local uiLibraryTheme
+	if (not FFlagRemoveUILibraryFromToolbox) then
+		uiLibraryTheme = theme:getUILibraryTheme()
+	end
+
 	return Roact.createElement(Dialog, {
 		Title = "Asset Configuration",
 
@@ -108,8 +116,8 @@ function AssetConfigWrapper:render()
 	}, {
 		ContextServices = state.popUpGui and ContextServices.provide({
 			ContextServices.Focus.new(state.popUpGui),
-			FFlagToolboxReplaceUILibraryComponentsPt2 and makeTheme(theme:getUILibraryTheme(), getAssetConfigTheme()) or nil,
-			UILibraryWrapper.new(),
+			FFlagToolboxReplaceUILibraryComponentsPt2 and makeTheme(uiLibraryTheme, getAssetConfigTheme()) or nil,
+			(not FFlagRemoveUILibraryFromToolbox) and UILibraryWrapper.new() or nil,
 		}, {
 			ThemeProvider = Roact.createElement(ThemeProvider, {
 				theme = theme,

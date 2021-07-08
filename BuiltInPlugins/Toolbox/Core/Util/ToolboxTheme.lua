@@ -1,13 +1,18 @@
 local FFlagToolboxUseDevFrameworkDialogs = game:GetFastFlag("ToolboxUseDevFrameworkDialogs")
 local FFlagEnableToolboxAssetNameColorChange = game:GetFastFlag("EnableToolboxAssetNameColorChange")
 local Plugin = script.Parent.Parent.Parent
+local FFlagRemoveUILibraryFromToolbox = require(Plugin.Core.Util.getFFlagRemoveUILibraryFromToolbox)()
 
 local Libs = Plugin.Libs
 local Cryo = require(Libs.Cryo)
 
 local UILibrary = require(Libs.UILibrary)
-local createTheme = UILibrary.createTheme
-local StudioStyle = UILibrary.Studio.Style
+local createTheme
+local StudioStyle
+if (not FFlagRemoveUILibraryFromToolbox) then
+	createTheme = UILibrary.createTheme
+	StudioStyle = UILibrary.Studio.Style
+end
 
 local Util = Plugin.Core.Util
 local Colors = require(Util.Colors)
@@ -89,9 +94,11 @@ function ToolboxTheme:_update(changedValues)
 	self._signal:fire(self.values, self._UILibraryTheme)
 end
 
-function ToolboxTheme:_updateUILibrary(style, overrides)
-	self._UILibraryTheme = createTheme(style, overrides)
-	self._signal:fire(self.values, self._UILibraryTheme)
+if (not FFlagRemoveUILibraryFromToolbox) then
+	function ToolboxTheme:_updateUILibrary(style, overrides)
+		self._UILibraryTheme = createTheme(style, overrides)
+		self._signal:fire(self.values, self._UILibraryTheme)
+	end
 end
 
 function ToolboxTheme:_getExternalTheme()
@@ -460,183 +467,187 @@ function ToolboxTheme:_recalculateTheme()
 		}) or nil,
 	})
 
-	-- Need more color for the style
-	local styleGuide = Cryo.Dictionary.join(StudioStyle.new(color, c, m), {
-		font = Enum.Font.SourceSans,
+	if (not FFlagRemoveUILibraryFromToolbox) then
+		-- Need more color for the style
+		local styleGuide = Cryo.Dictionary.join(StudioStyle.new(color, c, m), {
+			font = Enum.Font.SourceSans,
 
-		backgroundColor = color(c.InputFieldBackground),
-		liveBackgroundColor = color(c.InputFieldBackground),
-		textColor = color(c.MainText),
-		subTextColor = color(c.SubText),
-		dimmerTextColor = color(c.DimmedText),
-		disabledColor = color(c.Tab),
-		borderColor = color(c.Border),
-		hoverColor = isDark and color(c.MainButton) or color(c.CurrentMarker),
+			backgroundColor = color(c.InputFieldBackground),
+			liveBackgroundColor = color(c.InputFieldBackground),
+			textColor = color(c.MainText),
+			subTextColor = color(c.SubText),
+			dimmerTextColor = color(c.DimmedText),
+			disabledColor = color(c.Tab),
+			borderColor = color(c.Border),
+			hoverColor = isDark and color(c.MainButton) or color(c.CurrentMarker),
 
-		-- Dropdown item
-		hoveredItemColor = color(c.Button, m.Hover),
-		hoveredTextColor = color(c.ButtonText, m.Hover),
+			-- Dropdown item
+			hoveredItemColor = color(c.Button, m.Hover),
+			hoveredTextColor = color(c.ButtonText, m.Hover),
 
-		-- Dropdown button
-		selectionColor = color(c.Button, m.Selected),
-		selectedTextColor = color(c.ButtonText, m.Selected),
-		selectionBorderColor = color(c.ButtonBorder, m.Selected),
+			-- Dropdown button
+			selectionColor = color(c.Button, m.Selected),
+			selectedTextColor = color(c.ButtonText, m.Selected),
+			selectionBorderColor = color(c.ButtonBorder, m.Selected),
 
-		errorColor = color(c.ErrorText),
-	})
+			errorColor = color(c.ErrorText),
+		})
 
-	local overrides = {
-		-- Remove with FFlagToolboxUseDevFrameworkAssetPreview
-		assetPreview = {
-			fontBold = Enum.Font.GothamBold,
-			textSizeMedium = 16,
-			textSizeLarge = 18,
-			backgroundColor = isDark and Color3.fromRGB(46, 46, 46) or Color3.fromRGB(255, 255, 255),
+		local overrides = {
+			-- Remove with FFlagToolboxUseDevFrameworkAssetPreview
+			assetPreview = {
+				fontBold = Enum.Font.GothamBold,
+				textSizeMedium = 16,
+				textSizeLarge = 18,
+				backgroundColor = isDark and Color3.fromRGB(46, 46, 46) or Color3.fromRGB(255, 255, 255),
 
-			modelPreview = {
-				background = isDark and Color3.fromRGB(37, 37, 37) or Color3.fromRGB(227, 227, 227)
-			},
-
-			imagePreview = {
-				background = isDark and Color3.fromRGB(37, 37, 37) or Color3.fromRGB(227, 227, 227),
-				textColor = color(c.MainText)
-			},
-
-			thumbnailIconPreview = {
-				background = isDark and Color3.fromRGB(37, 37, 37) or Color3.fromRGB(227, 227, 227),
-				textColor = color(c.MainText),
-			},
-
-			previewButtons = {
-				backgroundTrans = isDark and 0.25 or 0.25,
-				backgroundColor = isDark and Color3.fromRGB(102, 102, 102) or Color3.fromRGB(158, 158, 158),
-				backgroundDisabledColor = isDark and Color3.fromRGB(50, 50, 50) or Color3.fromRGB(100, 100, 100),
-			},
-
-			vote = {
-				background = isDark and Color3.fromRGB(255, 255, 255) or Color3.fromRGB(0, 0, 0),
-				boderColor = isDark and Color3.fromRGB(67, 67, 67) or Color3.fromRGB(229, 229, 229),
-
-				button = {
-					backgroundColor = isDark and Color3.fromRGB(255, 255, 255) or Color3.fromRGB(178, 178, 178),
-					backgroundTrans = isDark and 0.7 or 0,
+				modelPreview = {
+					background = isDark and Color3.fromRGB(37, 37, 37) or Color3.fromRGB(227, 227, 227)
 				},
 
-				voteUp = {
-					borderColor = isDark and Color3.fromRGB(124, 124, 124) or Color3.fromRGB(178, 178, 178),
+				imagePreview = {
+					background = isDark and Color3.fromRGB(37, 37, 37) or Color3.fromRGB(227, 227, 227),
+					textColor = color(c.MainText)
 				},
 
-				voteDown = {
-					borderColor = isDark and Color3.fromRGB(124, 124, 124) or Color3.fromRGB(178, 178, 178),
+				thumbnailIconPreview = {
+					background = isDark and Color3.fromRGB(37, 37, 37) or Color3.fromRGB(227, 227, 227),
+					textColor = color(c.MainText),
+				},
+
+				previewButtons = {
+					backgroundTrans = isDark and 0.25 or 0.25,
+					backgroundColor = isDark and Color3.fromRGB(102, 102, 102) or Color3.fromRGB(158, 158, 158),
+					backgroundDisabledColor = isDark and Color3.fromRGB(50, 50, 50) or Color3.fromRGB(100, 100, 100),
+				},
+
+				vote = {
+					background = isDark and Color3.fromRGB(255, 255, 255) or Color3.fromRGB(0, 0, 0),
+					boderColor = isDark and Color3.fromRGB(67, 67, 67) or Color3.fromRGB(229, 229, 229),
+
+					button = {
+						backgroundColor = isDark and Color3.fromRGB(255, 255, 255) or Color3.fromRGB(178, 178, 178),
+						backgroundTrans = isDark and 0.7 or 0,
+					},
+
+					voteUp = {
+						borderColor = isDark and Color3.fromRGB(124, 124, 124) or Color3.fromRGB(178, 178, 178),
+					},
+
+					voteDown = {
+						borderColor = isDark and Color3.fromRGB(124, 124, 124) or Color3.fromRGB(178, 178, 178),
+					},
+				},
+
+				treeViewButton = {
+					backgroundColor = isDark and Color3.fromRGB(102, 102, 102) or Color3.fromRGB(158, 158, 158),
+					backgroundDisabledColor = isDark and Color3.fromRGB(50, 50, 50) or Color3.fromRGB(100, 100, 100),
+				},
+
+				actionBar = {
+					background = isDark and Color3.fromRGB(46,46,46) or Color3.fromRGB(255,255,255),
+
+					button = {
+						backgroundColor = Colors.BLUE_PRIMARY,
+						backgroundDisabledColor = isDark and Colors.BUTTON_CTA_BG_DISABLED_DARK or Colors.BLUE_DISABLED,
+					},
+
+					showMore = {
+						backgroundColor = isDark and Color3.fromRGB(109, 109, 109) or Color3.fromRGB(168,168,168),
+						borderColor = isDark and Color3.fromRGB(109, 109, 109) or Color3.fromRGB(207, 207, 207),
+					},
+
+					text = {
+						color = Colors.WHITE,
+						colorDisabled = isDark and Colors.DARK_DIMMER_TEXT_COLOR or Colors.WHITE,
+					},
+
+					padding = 12,
+					centerPadding = 10,
+
+					robuxSize = UDim2.fromOffset(16,16),
+
+					images = {
+						showMore = "rbxasset://textures/StudioToolbox/AssetPreview/more.png",
+						robuxSmall = "rbxasset://textures/ui/common/robux_small.png",
+						colorWhite = Color3.fromRGB(255, 255, 255),
+					}
+				},
+
+				description = {
+					background = color(c.MainBackground),
+					leftTextColor = isDark and Color3.fromRGB(170, 170, 170) or Color3.fromRGB(117, 117, 117),
+					rightTextColor = isDark and Color3.fromRGB(204, 204, 204) or color(c.MainText),
+					lineColor = isDark and Color3.fromRGB(34, 34, 34) or Color3.fromRGB(227, 227, 227),
+				},
+
+				audioPreview = {
+					background = color(c.MainBackground),
+					textColor = styleGuide.textColor,
+					button_Color = isDark and Color3.fromRGB(204, 204, 204) or Color3.fromRGB(117, 117, 117),
+					audioPlay_BG_Color = isDark and Color3.fromRGB(102, 102, 102) or Color3.fromRGB(204, 204, 204),
+					progressBar_BG_Color = isDark and Color3.fromRGB(42, 42, 42) or Color3.fromRGB(219, 219, 219),
+					progressKnobColor = isDark and Color3.fromRGB(85, 85, 85) or Colors.BLUE_PRIMARY,
 				},
 			},
 
-			treeViewButton = {
-				backgroundColor = isDark and Color3.fromRGB(102, 102, 102) or Color3.fromRGB(158, 158, 158),
-				backgroundDisabledColor = isDark and Color3.fromRGB(50, 50, 50) or Color3.fromRGB(100, 100, 100),
+			loadingBar = {
+				text = color(c.MainText),
+				bar = {
+					foregroundColor = color(c.CurrentMarker),
+					backgroundColor = color(c.Midlight),
+				},
 			},
 
-			actionBar = {
-				background = isDark and Color3.fromRGB(46,46,46) or Color3.fromRGB(255,255,255),
-
-				button = {
-					backgroundColor = Colors.BLUE_PRIMARY,
-					backgroundDisabledColor = isDark and Colors.BUTTON_CTA_BG_DISABLED_DARK or Colors.BLUE_DISABLED,
-				},
-
-				showMore = {
-					backgroundColor = isDark and Color3.fromRGB(109, 109, 109) or Color3.fromRGB(168,168,168),
-					borderColor = isDark and Color3.fromRGB(109, 109, 109) or Color3.fromRGB(207, 207, 207),
-				},
-
-				text = {
-					color = Colors.WHITE,
-					colorDisabled = isDark and Colors.DARK_DIMMER_TEXT_COLOR or Colors.WHITE,
-				},
-
-				padding = 12,
-				centerPadding = 10,
-
-				robuxSize = UDim2.fromOffset(16,16),
-
-				images = {
-					showMore = "rbxasset://textures/StudioToolbox/AssetPreview/more.png",
-					robuxSmall = "rbxasset://textures/ui/common/robux_small.png",
-					colorWhite = Color3.fromRGB(255, 255, 255),
-				}
+			instanceTreeView = {
+				background = isDark and color(c.ScrollBarBackground) or color(c.TabBar),
+				arrowColor = Color3.fromRGB(140, 140, 140),
+				selectedText = Color3.fromRGB(255, 255, 255),
+				hover = color(c.Item, m.Hover),
+				selected = color(c.Item, m.Selected),
 			},
 
-			description = {
+			toggleButton = {
+				defaultWidth = 40,
+				defaultHeight = 24,
+
+				onImage = isDark and Images.TOGGLE_ON_DARK or Images.TOGGLE_ON_LIGHT,
+				offImage = isDark and Images.TOGGLE_OFF_DARK or Images.TOGGLE_OFF_LIGHT,
+				disabledImage = isDark and Images.TOGGLE_DISABLE_DARK or Images.TOGGLE_DISABLE_LIGHT,
+			},
+
+			dialog = {
 				background = color(c.MainBackground),
-				leftTextColor = isDark and Color3.fromRGB(170, 170, 170) or Color3.fromRGB(117, 117, 117),
-				rightTextColor = isDark and Color3.fromRGB(204, 204, 204) or color(c.MainText),
-				lineColor = isDark and Color3.fromRGB(34, 34, 34) or Color3.fromRGB(227, 227, 227),
 			},
 
-			audioPreview = {
-				background = color(c.MainBackground),
-				textColor = styleGuide.textColor,
-				button_Color = isDark and Color3.fromRGB(204, 204, 204) or Color3.fromRGB(117, 117, 117),
-				audioPlay_BG_Color = isDark and Color3.fromRGB(102, 102, 102) or Color3.fromRGB(204, 204, 204),
-				progressBar_BG_Color = isDark and Color3.fromRGB(42, 42, 42) or Color3.fromRGB(219, 219, 219),
-				progressKnobColor = isDark and Color3.fromRGB(85, 85, 85) or Colors.BLUE_PRIMARY,
-			},
-		},
-
-		loadingBar = {
-			text = color(c.MainText),
-			bar = {
-				foregroundColor = color(c.CurrentMarker),
-				backgroundColor = color(c.Midlight),
-			},
-		},
-
-		instanceTreeView = {
-			background = isDark and color(c.ScrollBarBackground) or color(c.TabBar),
-			arrowColor = Color3.fromRGB(140, 140, 140),
-			selectedText = Color3.fromRGB(255, 255, 255),
-			hover = color(c.Item, m.Hover),
-			selected = color(c.Item, m.Selected),
-		},
-
-		toggleButton = {
-			defaultWidth = 40,
-			defaultHeight = 24,
-
-			onImage = isDark and Images.TOGGLE_ON_DARK or Images.TOGGLE_ON_LIGHT,
-			offImage = isDark and Images.TOGGLE_OFF_DARK or Images.TOGGLE_OFF_LIGHT,
-			disabledImage = isDark and Images.TOGGLE_DISABLE_DARK or Images.TOGGLE_DISABLE_LIGHT,
-		},
-
-		dialog = {
-			background = color(c.MainBackground),
-		},
-
-		button = {
-			Default = {
-				backgroundColor = color(c.Button),
-			},
-		},
-
-		tooltip = {
-			textSize = Constants.FONT_SIZE_SMALL,
-		},
-
-		searchBar = {
-			backgroundColor = color(c.Dropdown),
-			border = {
-				selected = {
-					color = Colors.BLUE_PRIMARY,
+			button = {
+				Default = {
+					backgroundColor = color(c.Button),
 				},
 			},
+
+			tooltip = {
+				textSize = Constants.FONT_SIZE_SMALL,
+			},
+
+			searchBar = {
+				backgroundColor = color(c.Dropdown),
+				border = {
+					selected = {
+						color = Colors.BLUE_PRIMARY,
+					},
+				},
+			}
 		}
-	}
 
-	self:_updateUILibrary(styleGuide, overrides)
+		self:_updateUILibrary(styleGuide, overrides)
+	end
 end
 
-function ToolboxTheme:getUILibraryTheme()
-	return self._UILibraryTheme
+if (not FFlagRemoveUILibraryFromToolbox) then
+	function ToolboxTheme:getUILibraryTheme()
+		return self._UILibraryTheme
+	end
 end
 
 return ToolboxTheme

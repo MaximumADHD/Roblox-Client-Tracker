@@ -183,4 +183,16 @@ function GameInfoController:setIcon(gameId, icon)
 	self:iconV1POST(gameId, icon):await()
 end
 
+function GameInfoController:getOptInLocations(gameId)
+	local response = self:configurationV2GET(gameId):await()
+	return response.responseBody.optInRegions
+end
+
+function GameInfoController:setOptInLocations(gameId, optInRegions, optOutRegions)
+	self:configurationV2PATCH(gameId, {
+		optInRegions = optInRegions,
+		optOutRegions = optOutRegions,
+	})
+end
+
 return GameInfoController

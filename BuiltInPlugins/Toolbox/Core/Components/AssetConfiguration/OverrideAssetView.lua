@@ -14,7 +14,7 @@
 ]]
 
 local FFlagAssetConifgOverrideAssetScrollingFrame = game:DefineFastFlag("AssetConifgOverrideAssetScrollingFrame", false)
-local FFlagToolboxUseInfiniteScroller = game:DefineFastFlag("ToolboxUseInfiniteScroller", false)
+local FFlagToolboxReplaceUILibraryComponentsPt3 = game:GetFastFlag("ToolboxReplaceUILibraryComponentsPt3")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -36,8 +36,17 @@ local Colors = require(Util.Colors)
 local AssetConfigConstants = require(Util.AssetConfigConstants)
 
 local UILibrary = require(Libs.UILibrary)
-local InfiniteScrollingFrame = UILibrary.Component.InfiniteScrollingFrame
 local DEPRECATED_InfiniteScrollingFrame = require(Plugin.Core.Components.InfiniteScrollingFrame)
+
+local ContextServices = require(Libs.Framework).ContextServices
+
+local InfiniteScrollingFrame
+if FFlagToolboxReplaceUILibraryComponentsPt3 then
+    local Framework = require(Libs.Framework)
+    InfiniteScrollingFrame = Framework.UI.InfiniteScrollingFrame
+else
+	InfiniteScrollingFrame = UILibrary.Component.InfiniteScrollingFrame
+end
 
 local withTheme = ContextHelper.withTheme
 
@@ -123,7 +132,7 @@ function OverrideAssetView:createAssets(resultsArray, theme)
 			PaddingTop = UDim.new(0, PADDING),
 		}),
 
-		UIGridLayout = Roact.createElement("UIGridLayout", {
+		UIGridLayout = (not FFlagToolboxReplaceUILibraryComponentsPt3) and Roact.createElement("UIGridLayout", {
 			FillDirection = Enum.FillDirection.Horizontal,
 			HorizontalAlignment = Enum.HorizontalAlignment.Left,
 			VerticalAlignment = Enum.VerticalAlignment.Top,
@@ -231,40 +240,47 @@ function OverrideAssetView:createAssets(resultsArray, theme)
 end
 
 function OverrideAssetView:render()
-	return withTheme(function(theme)
-		local props = self.props
-		local state = self.state
+	if FFlagToolboxReplaceUILibraryComponentsPt3 then
+		return self:renderContent()
+	else
+		return withTheme(function(theme)
+			return self:renderContent(theme)
+		end)
+	end
+end
 
-		local Size = props.Size
+function OverrideAssetView:renderContent(theme)
+	local props = self.props
+	local state = self.state
+	if FFlagToolboxReplaceUILibraryComponentsPt3 then
+		theme = self.props.Stylizer
+	end
 
-		local itemList = self:createAssets(props.resultsArray or {}, theme)
-		local publishAssetTheme = theme.publishAsset
+	local Size = props.Size
 
-		local layouterRef = self.layouterRef
+	local itemList = self:createAssets(props.resultsArray or {}, theme)
+	local publishAssetTheme = theme.publishAsset
 
-		if FFlagToolboxUseInfiniteScroller then
-			return Roact.createElement(InfiniteScrollingFrame, {
-				Size = Size,
+	local layouterRef = self.layouterRef
 
-				LayoutRef = layouterRef,
+	if FFlagToolboxReplaceUILibraryComponentsPt3 then
+		return Roact.createElement(InfiniteScrollingFrame, {
+			LoadNext = self.requestOverrideAsset,
+			LayoutOrder = props.LayoutOrder,
+			Size = Size,
+		}, itemList)
+	else
+		return Roact.createElement(DEPRECATED_InfiniteScrollingFrame, {
+			Size = Size,
 
-				NextPageFunc = self.requestOverrideAsset,
+			BackgroundColor3 = publishAssetTheme.backgroundColor,
+			layouterRef = layouterRef,
 
-				LayoutOrder = props.LayoutOrder,
-			}, itemList)
-		else
-			return Roact.createElement(DEPRECATED_InfiniteScrollingFrame, {
-				Size = Size,
+			nextPageFunc = self.DEPRECATED_requestOverrideAsset,
 
-				BackgroundColor3 = publishAssetTheme.backgroundColor,
-				layouterRef = layouterRef,
-
-				nextPageFunc = self.DEPRECATED_requestOverrideAsset,
-
-				LayoutOrder = props.LayoutOrder,
-			}, itemList)
-		end
-	end)
+			LayoutOrder = props.LayoutOrder,
+		}, itemList)
+	end
 end
 
 local function mapDispatchToProps(dispatch)
@@ -273,6 +289,12 @@ local function mapDispatchToProps(dispatch)
 			dispatch(MakeChangeRequest(setting, currentValue, newValue))
 		end,
 	}
+end
+
+if FFlagToolboxReplaceUILibraryComponentsPt3 then
+	ContextServices.mapToProps(OverrideAssetView, {
+		Stylizer = ContextServices.Stylizer,
+	})
 end
 
 return RoactRodux.connect(nil, mapDispatchToProps)(OverrideAssetView)

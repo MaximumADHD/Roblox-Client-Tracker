@@ -21,6 +21,9 @@ local Cryo = require(Plugin.Packages.Cryo)
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
 
+local UI = Framework.UI
+local Pane = UI.Pane
+
 local Actions = Plugin.Src.Actions
 local SetRBXParameters = require(Actions.SetRBXParameters)
 local ClearRBXParameters = require(Actions.ClearRBXParameters)
@@ -124,11 +127,10 @@ function RBXEventView:init()
 end
 
 function RBXEventView:render()
-	return Roact.createElement("Frame", {
+	return Roact.createElement(Pane, {
 		Size = UDim2.new(1, 0, 1, 0),
 		BackgroundTransparency = 1,
 		LayoutOrder = INPUT_PANE_LAYOUT.View,
-		ZIndex = -5,
 	}, self.createChildren())
 end
 

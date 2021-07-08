@@ -7,8 +7,6 @@ local AddChange = require(Plugin.Src.Actions.AddChange)
 
 local deepJoin = UILibrary.Util.deepJoin
 
-local FFlagStudioUXImprovementsLoosenTCPermissions = game:GetFastFlag("StudioUXImprovementsLoosenTCPermissions")
-
 return function(groupId, newPermission)
 	return function(store, contextItems)
 		local state = store:getState()

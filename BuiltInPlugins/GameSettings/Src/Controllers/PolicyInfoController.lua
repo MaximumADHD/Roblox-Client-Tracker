@@ -9,16 +9,33 @@ function PolicyInfoController.new(networking)
     return setmetatable(self, PolicyInfoController)
 end
 
-function PolicyInfoController:appAgreementsResolutionV1GET()
-    local networking = self.__networking
-
+local function appAgreementsResolutionV1GET(networking)
     return networking:get("apis", "/user-agreements/v1/agreements-resolution/App")
 end
 
+local function studioModerationContactPOST(networking, universeId, contactEmail)
+    return networking:post("apis", "/studio-moderation/v1/" .. universeId .. "/contacts", {
+        Body = {
+            email = contactEmail
+        }
+    })
+end
+
 function PolicyInfoController:getPlayerAcceptances()
-    local response = self:appAgreementsResolutionV1GET():await()
+    local networking = self.__networking 
+    local response = appAgreementsResolutionV1GET(networking):await()
 
     return next(response.responseBody) == nil
+end
+
+function PolicyInfoController:postContactEmail(universeId, contactEmail)
+    assert(type(universeId) == "number",
+        string.format("universeId must be a number, received %s", type(universeId)))
+    assert(type(contactEmail) == "string",
+        string.format("contactemail must be a string, received %s", type(contactEmail)))
+
+    local networking = self.__networking
+    studioModerationContactPOST(networking, universeId, contactEmail):await()
 end
 
 return PolicyInfoController

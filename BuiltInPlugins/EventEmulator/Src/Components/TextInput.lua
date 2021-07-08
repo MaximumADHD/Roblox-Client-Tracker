@@ -6,10 +6,10 @@ local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
 
 local UI = Framework.UI
-local DF_TextInput = UI.TextInput
+local FrameworkTextInput = UI.TextInput
 
-local Components = Plugin.Src.Components
-local LabeledElementPair = require(Components.LabeledElementPair)
+local StudioUI = Framework.StudioUI
+local TitledFrame = StudioUI.TitledFrame
 
 local TextInput = Roact.PureComponent:extend("TextInput")
 
@@ -23,16 +23,12 @@ function TextInput:render()
 
 	local theme = props.Stylizer
 	local sizes = theme.Sizes
-	local textStyle = theme.Text
 
-	return Roact.createElement(LabeledElementPair, {
-		Size = UDim2.new(1, 0, 0, 60),
-		Text = label,
+	return Roact.createElement(TitledFrame, {
+		Title = label,
 		LayoutOrder = layoutOrder,
-		SizeToContent = true,
-		TextColor = textStyle.BrightText.Color,
 	}, {
-		TextBox = Roact.createElement(DF_TextInput, {
+		TextBox = Roact.createElement(FrameworkTextInput, {
 			Size = UDim2.fromOffset(sizes.TextBoxWidth, sizes.ShortHeight),
 			Position = UDim2.new(0.1, 0, 0, 0),
 			Text = text,
@@ -43,7 +39,6 @@ end
 
 ContextServices.mapToProps(TextInput,{
 	Stylizer = ContextServices.Stylizer,
-	Theme = ContextServices.Theme,
 })
 
 return TextInput

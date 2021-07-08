@@ -1,4 +1,5 @@
 local Plugin = script.Parent.Parent.Parent
+local FFlagRemoveUILibraryFromToolbox = require(Plugin.Core.Util.getFFlagRemoveUILibraryFromToolbox)()
 
 local Libs = Plugin.Libs
 local Roact = require(Libs.Roact)
@@ -9,7 +10,9 @@ local ThemeProvider = Roact.Component:extend("ThemeProvider")
 
 function ThemeProvider:init()
 	self._context[Keys.theme] = self.props.theme
-	self._context[Keys.UILibraryTheme] = self.props.theme:getUILibraryTheme()
+	if (not FFlagRemoveUILibraryFromToolbox) then
+		self._context[Keys.UILibraryTheme] = self.props.theme:getUILibraryTheme()
+	end
 end
 
 function ThemeProvider:render()

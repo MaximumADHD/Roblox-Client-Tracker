@@ -4,10 +4,10 @@
 -- And then error when trying to use flags that aren't yet defined
 -- In most circumstances flags should be initialized to false
 
-game:DefineFastFlag("DebugEnableBootcampPlugin", false)
-game:DefineFastFlag("BootcampPluginMyJiraTicket ", false)
+game:DefineFastFlag("BootcampPluginMyJiraTicket", false)
 game:DefineFastFlag("RIDE4799", false)
 
 game:DefineFastFlag("RIDE4798", false)
+game:DefineFastFlag("STM643", false)
 
 return nil

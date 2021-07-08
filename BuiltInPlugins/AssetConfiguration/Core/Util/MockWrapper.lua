@@ -1,4 +1,5 @@
 local Plugin = script.Parent.Parent.Parent
+local FFlagRemoveUILibraryFromToolbox = require(Plugin.Core.Util.getFFlagRemoveUILibraryFromToolbox)()
 
 local Libs = Plugin.Libs
 local Roact = require(Libs.Roact)
@@ -44,8 +45,11 @@ local function MockWrapper(props)
 	local focus = ContextServices.Focus.new(Instance.new("ScreenGui"))
 	local pluginContext = ContextServices.Plugin.new(plugin)
 	local settingsContext = SettingsContext.new(settings)
-	local themeContext = makeTheme(theme:getUILibraryTheme(), getAssetConfigTheme())
-	local uiLibraryWrapper = UILibraryWrapper.new()
+	local themeContext = makeTheme((not FFlagRemoveUILibraryFromToolbox) and theme:getUILibraryTheme() or nil, getAssetConfigTheme())
+	local uiLibraryWrapper
+	if (not FFlagRemoveUILibraryFromToolbox) then
+		uiLibraryWrapper = UILibraryWrapper.new()
+	end
 	local storeContext = ContextServices.Store.new(store)
 	local api = ContextServices.API.new({
 		networking = Networking.mock(),
@@ -58,16 +62,22 @@ local function MockWrapper(props)
 
 	local assetAnalytics = AssetAnalyticsContextItem.new(props.assetAnalytics or AssetAnalytics.mock())
 
-	return Roact.createElement(ExternalServicesWrapper, {
-		store = store,
-		plugin = plugin,
-		pluginGui = pluginGui,
-		settings = settings,
-		theme = theme,
-		networkInterface = networkInterface,
-		localization = localization,
-	}, {
-		provideMockContext({
+	local context
+
+	if FFlagRemoveUILibraryFromToolbox then
+		context = {
+			storeContext,
+			focus,
+			mouse,
+			pluginContext,
+			settingsContext,
+			themeContext,
+			api,
+			assetAnalytics,
+			analytics,
+		}
+	else
+		context = {
 			storeContext,
 			focus,
 			mouse,
@@ -78,7 +88,19 @@ local function MockWrapper(props)
 			api,
 			assetAnalytics,
 			analytics,
-		},
+		}
+	end
+
+	return Roact.createElement(ExternalServicesWrapper, {
+		store = store,
+		plugin = plugin,
+		pluginGui = pluginGui,
+		settings = settings,
+		theme = theme,
+		networkInterface = networkInterface,
+		localization = localization,
+	}, {
+		provideMockContext(context,
 			props[Roact.Children])
 	})
 end

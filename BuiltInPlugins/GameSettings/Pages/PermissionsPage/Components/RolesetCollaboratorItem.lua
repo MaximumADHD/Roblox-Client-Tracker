@@ -1,5 +1,3 @@
-local FFlagStudioUXImprovementsLoosenTCPermissions = game:GetFastFlag("StudioUXImprovementsLoosenTCPermissions")
-
 local Page = script.Parent.Parent
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
@@ -28,59 +26,16 @@ function RolesetCollaboratorItem:getAvailablePermissions()
 
 	local localization = props.Localization
 
-	if FFlagStudioUXImprovementsLoosenTCPermissions then
-		if isRolesetOwner then
-			return {
-				{
-					Key = PermissionsConstants.OwnerKey,
-					Display = localization:getText(PERMISSIONS, "OwnerLabel"),
-					Description = localization:getText(PERMISSIONS, "OwnerDescription"),
-				},
-			}
-		else
-			if isGroupOwner then
-				return {
-					{
-						Key = PermissionsConstants.NoAccessKey,
-						Display = localization:getText(PERMISSIONS, "NoAccessLabel"),
-						Description = localization:getText(PERMISSIONS, "NoAccessDescription"),
-					},
-					{
-						Key = PermissionsConstants.PlayKey,
-						Display = localization:getText(PERMISSIONS, "PlayLabel"),
-						Description = localization:getText(PERMISSIONS, "PlayDescription"),
-					},
-					{
-						Key = PermissionsConstants.EditKey,
-						Display = localization:getText(PERMISSIONS, "EditLabel"),
-						Description = localization:getText(PERMISSIONS, "EditDescription"),
-					},
-				}
-			else
-				return {
-					{
-						Key = PermissionsConstants.NoAccessKey,
-						Display = localization:getText(PERMISSIONS, "NoAccessLabel"),
-						Description = localization:getText(PERMISSIONS, "NoAccessDescription"),
-					},
-					{
-						Key = PermissionsConstants.PlayKey,
-						Display = localization:getText(PERMISSIONS, "PlayLabel"),
-						Description = localization:getText(PERMISSIONS, "PlayDescription"),
-					},
-				}
-			end
-		end
+	if isRolesetOwner then
+		return {
+			{
+				Key = PermissionsConstants.OwnerKey,
+				Display = localization:getText(PERMISSIONS, "OwnerLabel"),
+				Description = localization:getText(PERMISSIONS, "OwnerDescription"),
+			},
+		}
 	else
-		if isRolesetOwner then
-			return {
-				{
-					Key = PermissionsConstants.OwnerKey,
-					Display = localization:getText(PERMISSIONS, "OwnerLabel"),
-					Description = localization:getText(PERMISSIONS, "OwnerDescription"),
-				},
-			}
-		else
+		if isGroupOwner then
 			return {
 				{
 					Key = PermissionsConstants.NoAccessKey,
@@ -96,6 +51,19 @@ function RolesetCollaboratorItem:getAvailablePermissions()
 					Key = PermissionsConstants.EditKey,
 					Display = localization:getText(PERMISSIONS, "EditLabel"),
 					Description = localization:getText(PERMISSIONS, "EditDescription"),
+				},
+			}
+		else
+			return {
+				{
+					Key = PermissionsConstants.NoAccessKey,
+					Display = localization:getText(PERMISSIONS, "NoAccessLabel"),
+					Description = localization:getText(PERMISSIONS, "NoAccessDescription"),
+				},
+				{
+					Key = PermissionsConstants.PlayKey,
+					Display = localization:getText(PERMISSIONS, "PlayLabel"),
+					Description = localization:getText(PERMISSIONS, "PlayDescription"),
 				},
 			}
 		end

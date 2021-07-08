@@ -33,16 +33,20 @@ local Libs = Plugin.Libs
 local Roact = require(Libs.Roact)
 
 local UILibrary = require(Libs.UILibrary)
-local DetailedDropdown = UILibrary.Component.DetailedDropdown
 
 local Button
+local DropdownMenu
 local IconButton
+local DetailedDropdown
+local DetailedDropdownItem
 local LoadingIndicator
 if FFlagToolboxReplaceUILibraryComponentsPt3 then
 	local Framework = require(Libs.Framework)
-	LoadingIndicator = Framework.UI.LoadingIndicator
+	DropdownMenu = Framework.UI.DropdownMenu
+	DetailedDropdownItem = require(Plugin.Core.Components.AssetConfiguration.Permissions.DetailedDropdownItem)
 	IconButton = Framework.UI.IconButton
 else
+	DetailedDropdown = UILibrary.Component.DetailedDropdown
 	LoadingIndicator = UILibrary.Component.LoadingIndicator
 	Button = UILibrary.Component.Button
 end
@@ -98,15 +102,17 @@ local function DeleteButton(props)
 	end
 end
 
-local function LoadingDropdown(props)
-	return withTheme(function(theme)
-		return Roact.createElement(LoadingIndicator, {
-			LayoutOrder = props.LayoutOrder or 0,
-			Size = props.Size,
-			Position = props.Position,
-			AnchorPoint = props.AnchorPoint,
-		})
-	end)
+if (not FFlagToolboxReplaceUILibraryComponentsPt3) then
+	local function LoadingDropdown(props)
+		return withTheme(function(theme)
+			return Roact.createElement(LoadingIndicator, {
+				LayoutOrder = props.LayoutOrder or 0,
+				Size = props.Size,
+				Position = props.Position,
+				AnchorPoint = props.AnchorPoint,
+			})
+		end)
+	end
 end
 
 local function CollaboratorIcon(props)
@@ -147,9 +153,25 @@ end
 function CollaboratorItem:init()
 	self.state = {
 		assetFetchStatus = nil,
+		showDropdown = false,
 	}
 
 	self.isMounted = false
+
+	self.onRenderItem = function(item, index, activated)
+		return Roact.createElement(DetailedDropdownItem, {
+			Key = item.Key,
+			Title = item.Display,
+			Description = item.Description,
+			Selected = item.Key == self.props.SelectedItem,
+		})
+	end
+
+	self.toggleDropdown = function(isShow)
+		self:setState({
+			showDropdown = isShow,
+		})
+	end
 
 	self.onDelete = function()
 		local props = self.props
@@ -229,7 +251,39 @@ function CollaboratorItem:render()
 					CollaboratorName = props.CollaboratorName,
 					SecondaryText = props.SecondaryText,
 				}),
-				Dropdown = Roact.createElement(DetailedDropdown, {
+				DropdownFrame = FFlagToolboxReplaceUILibraryComponentsPt3 and Roact.createElement("Frame",{
+					AnchorPoint = Vector2.new(1, 0),
+					BackgroundTransparency = 1,
+					Position = UDim2.new(1, -(CONTENT_HEIGHT+LIST_PADDING), 0, 0),
+					Size = UDim2.new(0, DROPDOWN_WIDTH, 0, CONTENT_HEIGHT),
+				}, {
+					Dropdown = Roact.createElement(DropdownMenu, {
+						Hide = (not (props.Enabled and #props.Items > 0)) or (not self.state.showDropdown),
+						OnFocusLost = function() self.toggleDropdown(false) end,
+						Items = props.Items,
+						OnRenderItem = function(item, index, activated)
+							return self.onRenderItem(item, index, activated)
+						end,
+						OnItemActivated = function(item)
+							if props.Enabled and props.PermissionChanged then
+								props.PermissionChanged(item)
+							end
+						end,
+					}),
+				}),
+				Dropdown = FFlagToolboxReplaceUILibraryComponentsPt3 and Roact.createElement(IconButton, {
+					Disabled = not (props.Enabled and #props.Items > 0),
+					RightIcon = "rbxasset://textures/StudioToolbox/ArrowDownIconWhite.png",
+					Text = props.Action,
+					OnClick = function() self.toggleDropdown(true) end,
+					AnchorPoint = Vector2.new(1, 0),
+					Position = UDim2.new(1, -(CONTENT_HEIGHT+LIST_PADDING), 0, 0),
+					Size = UDim2.new(0, DROPDOWN_WIDTH, 0, CONTENT_HEIGHT),
+				}, {
+					TextPadding = Roact.createElement("UIPadding", {
+						PaddingLeft = UDim.new(0, 4),
+					}),
+				}) or Roact.createElement(DetailedDropdown, {
 					LayoutOrder = 2,
 					Enabled = props.Enabled and #props.Items > 0,
 

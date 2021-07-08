@@ -551,6 +551,7 @@ local function loadValuesToProps(getValue, state)
 		IsFriendsOnly = getValue("isFriendsOnly"),
 		CreatorId = getValue("creatorId"),
 		OptInLocations = FFlagUpdatePublishPlacePluginToDevFrameworkContext and FFlagLuobuDevPublishLua and shouldShowDevPublishLocations() and getValue(optInLocationsKey) or {},
+		PlayerAcceptance = FFlagLuobuDevPublishLua and state.Policy.PlayerAcceptance or nil,
 	}
 end
 

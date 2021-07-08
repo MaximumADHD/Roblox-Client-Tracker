@@ -13,6 +13,8 @@ local Util = Plugin.Core.Util
 local makeTheme = require(Util.makeTheme)
 local FlagsList = require(Util.FlagsList)
 
+local FFlagRemoveUILibraryFromToolbox = require(Plugin.Core.Util.getFFlagRemoveUILibraryFromToolbox)()
+
 local ToolboxServiceWrapper = Roact.PureComponent:extend("ToolboxServiceWrapper")
 
 -- TODO: Remove MOUSE with FFlagToolboxUseDevFrameworkAssetPreview
@@ -36,7 +38,7 @@ function ToolboxServiceWrapper:render()
 		ContextServices.API.new(),
 		ContextServices.Plugin.new(plugin),
 		localization,
-		makeTheme(theme:getUILibraryTheme()),
+		makeTheme((not FFlagRemoveUILibraryFromToolbox) and theme:getUILibraryTheme() or nil),
 		ContextServices.Store.new(store),
 		SettingsContext.new(settings),
 		ContextServices.Mouse.new(mouse),

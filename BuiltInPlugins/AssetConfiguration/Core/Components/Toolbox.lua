@@ -69,7 +69,7 @@ local FFlagToolboxDisableMarketplaceAndRecentsForLuobu = game:GetFastFlag("Toolb
 local FFlagToolboxShowRobloxCreatedAssetsForLuobu = game:GetFastFlag("ToolboxShowRobloxCreatedAssetsForLuobu")
 local FFlagPluginManagementDirectlyOpenToolbox = game:GetFastFlag("PluginManagementDirectlyOpenToolbox")
 local FFlagToolboxDefaultBackgroundMatches = game:GetFastFlag("ToolboxDefaultBackgroundMatches")
-local FFlagToolboxFixCommonWarnings = game:GetFastFlag("ToolboxFixCommonWarnings")
+local FFlagToolboxFixCommonWarnings2 = game:GetFastFlag("ToolboxFixCommonWarnings2")
 local FFlagToolboxRemoveGroupInventory = game:GetFastFlag("ToolboxRemoveGroupInventory")
 
 local Background = FFlagToolboxDefaultBackgroundMatches and require(Plugin.Core.Types.Background) or nil
@@ -100,13 +100,13 @@ function Toolbox:handleInitialSettings()
 	local pageInfoCategories = Category.getTabForCategoryName(initialSettings.categoryName)
 
 	local newPageInfo = {
-		categories = not FFlagToolboxFixCommonWarnings and pageInfoCategories or nil,
+		categories = pageInfoCategories,
 		categoryName = initialSettings.categoryName,
 		creator = initialSettings.creator,
 		searchTerm = initialSearchTerm,
-		sorts = not FFlagToolboxFixCommonWarnings and Sort.SORT_OPTIONS or nil,
+		sorts = not FFlagToolboxFixCommonWarnings2 and Sort.SORT_OPTIONS or nil,
 		sortIndex = initialSelectedSortIndex,
-		groupIndex = not FFlagToolboxFixCommonWarnings and 1 or nil,
+		groupIndex = not FFlagToolboxFixCommonWarnings2 and 1 or nil,
 		targetPage = 1,
 		selectedBackgroundIndex = initialSelectedBackgroundIndex,
 		requestReason = RequestReason.InitLoad,

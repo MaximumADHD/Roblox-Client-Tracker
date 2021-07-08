@@ -65,7 +65,6 @@ local LoadingIndicator
 local DropdownMenu
 local CollaboratorSearchItem
 if FFlagToolboxReplaceUILibraryComponentsPt3 then
-
 	local Framework =  require(Libs.Framework)
 	LayoutOrderIterator = Framework.Util.LayoutOrderIterator
 	DropdownMenu = Framework.UI.DropdownMenu
@@ -504,7 +503,7 @@ function CollaboratorSearchBar:render()
 					LayoutOrder = orderIterator:getNextOrder(),
 					Size = UDim2.new(1, textBoxOffset, 0, SEARCH_BAR_HEIGHT),
 					BackgroundTransparency = 1,
-					ClipsDescendants = true,
+					ClipsDescendants = (not FFlagToolboxReplaceUILibraryComponentsPt3) and true or nil,
 
 					ClearTextOnFocus = false,
 					TextXAlignment = Enum.TextXAlignment.Left,
@@ -525,7 +524,8 @@ function CollaboratorSearchBar:render()
 						PaddingLeft = UDim.new(0, textPadding),
 					}),
 
-					Dropdown = (FFlagToolboxReplaceUILibraryComponentsPt3 and showDropdown and searchBarRef) and Roact.createElement(DropdownMenu, {
+					Dropdown = (FFlagToolboxReplaceUILibraryComponentsPt3) and Roact.createElement(DropdownMenu, {
+						Hide = not (showDropdown and searchBarRef),
 						OnFocusLost = self.hideDropdown,
 						OnItemActivated = self.onItemClicked,
 						Items = self.state.mergedItems,

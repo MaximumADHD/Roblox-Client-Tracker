@@ -103,7 +103,7 @@ end
 AssetConfigConstants.ASSET_TYPE_INFO = {
 	-- catalog assets
 	catalogAssetInfo(Enum.AssetType.Hat, --[[ isUploadable = ]] true),
-	catalogAssetInfo(Enum.AssetType.TeeShirt),
+	catalogAssetInfo(Enum.AssetType.TShirt),
 	catalogAssetInfo(Enum.AssetType.Shirt),
 	catalogAssetInfo(Enum.AssetType.Pants),
 	catalogAssetInfo(Enum.AssetType.HairAccessory, true),

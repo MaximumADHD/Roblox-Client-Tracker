@@ -124,6 +124,7 @@ function PackageOwnerWidget:render()
 				AutomaticSize = FFlagToolboxReplaceUILibraryComponentsPt3 and Enum.AutomaticSize.XY or nil,
 				BackgroundTransparency = 1,
 				LayoutOrder = props.LayoutOrder or 0,
+				Size = FFlagToolboxReplaceUILibraryComponentsPt3 and UDim2.new(1, 0, 0, 0) or nil,
 			}, {
 				UIListLayout = FFlagToolboxReplaceUILibraryComponentsPt3 and Roact.createElement("UIListLayout", {
 					SortOrder = Enum.SortOrder.LayoutOrder,
@@ -138,7 +139,7 @@ function PackageOwnerWidget:render()
 					TextXAlignment = Enum.TextXAlignment.Left,
 					BackgroundTransparency = 1,
 					-- Accounting for the CollaboratorItem under it.
-					Size = UDim2.new(1, 0, 0, 50),
+					Size = FFlagToolboxReplaceUILibraryComponentsPt3 and UDim2.new(1, 50, 0, 50) or UDim2.new(1, 0, 0, 50),
 				}),
 
 				Owner = collaboratorItem,

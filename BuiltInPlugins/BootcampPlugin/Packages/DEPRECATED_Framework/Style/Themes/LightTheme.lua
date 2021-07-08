@@ -21,6 +21,7 @@ return {
 
 	[StyleKey.CategoryItem] = Color3.fromRGB(233, 233, 233),
 
+	[StyleKey.DialogButtonBorder] = Colors.Gray_Light,
 	[StyleKey.DialogMainButton] = Colors.Blue,
 	[StyleKey.DialogMainButtonDisabled] = Color3.fromRGB(153, 218, 255),
 	[StyleKey.DialogMainButtonHover] = Colors.Blue_Light,
@@ -37,6 +38,7 @@ return {
 	[StyleKey.InputFieldBorderDisabled] = Color3.fromRGB(182, 182, 182),
 	[StyleKey.InputFieldBorderSelected] = Color3.fromRGB(102, 145, 220),
 	[StyleKey.ItemHovered] = Colors.Gray,
+	[StyleKey.ItemSelected] = Colors.Blue_Dark,
 
 	[StyleKey.LinkText] = Colors.Blue_Light,
 
@@ -44,6 +46,8 @@ return {
 	[StyleKey.MainButton] = Color3.fromRGB(228, 238, 254),
 	[StyleKey.MainText] = Colors.Black,
 	[StyleKey.MainTextDisabled] = Color3.fromRGB(120, 120, 120),
+	[StyleKey.MainTextHover] = Colors.Black,
+	[StyleKey.MainTextSelected] = Colors.White,
 	[StyleKey.Mid] = Color3.fromRGB(238, 238, 238),
 	[StyleKey.SubBackground] = Colors.Gray_Lighter,
 	[StyleKey.SubBackground2] = Colors.Gray_Lightest,

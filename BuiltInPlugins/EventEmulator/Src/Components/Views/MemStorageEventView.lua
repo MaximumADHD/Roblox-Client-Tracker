@@ -36,6 +36,7 @@ local VIEW_ID = Constants.VIEW_ID.MemStorage
 
 local UI = Framework.UI
 local RadioButtonList = UI.RadioButtonList
+local Pane = UI.Pane
 
 local Operations = Plugin.Src.Operations
 local MemStorageEventRequest = require(Operations.MemStorageEventRequest)
@@ -115,10 +116,8 @@ function MemStorageEventView:render()
 	local theme = props.Stylizer
 	local layout = theme.Layout
 
-	return Roact.createElement("Frame", {
-		ZIndex = -5,
+	return Roact.createElement(Pane, {
 		Size = UDim2.new(1, 0, 1, 0),
-		BackgroundTransparency = 1,
 		LayoutOrder = INPUT_PANE_LAYOUT.View,
 	}, {
 		Layout = Roact.createElement("UIListLayout", layout.Vertical),

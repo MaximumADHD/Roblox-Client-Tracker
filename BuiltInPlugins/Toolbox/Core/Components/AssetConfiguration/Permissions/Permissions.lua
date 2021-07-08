@@ -19,13 +19,17 @@ local Roact = require(Libs.Roact)
 local RoactRodux = require(Libs.RoactRodux)
 
 local UILibrary = require(Libs.UILibrary)
-local StyledScrollingFrame = UILibrary.Component.StyledScrollingFrame
+local Framework = require(Libs.Framework)
+local ContextServices = Framework.ContextServices
 
 local LayoutOrderIterator
+local StyledScrollingFrame
+local ScrollingFrame
 if FFlagToolboxReplaceUILibraryComponentsPt3 then
-    local FrameworkUtil = require(Libs.Framework).Util
-    LayoutOrderIterator = FrameworkUtil.LayoutOrderIterator
+    LayoutOrderIterator = Framework.Util.LayoutOrderIterator
+    ScrollingFrame = Framework.UI.ScrollingFrame
 else
+    StyledScrollingFrame = UILibrary.Component.StyledScrollingFrame
     LayoutOrderIterator = UILibrary.Util.LayoutOrderIterator
 end
 
@@ -65,7 +69,25 @@ end
 
 --Uses props to display current settings values
 function Permissions:render()
-	local orderIterator = LayoutOrderIterator.new()
+    if FFlagToolboxReplaceUILibraryComponentsPt1 then
+        return withLocalization(function(localization, localized)
+            return self:renderContent(nil, localization, localized)
+        end)
+    else
+        return withTheme(function(theme)
+            return withLocalization(function(localization, localized)
+                return self:renderContent(theme, localization, localized)
+            end)
+        end)
+    end
+end
+
+function Permissions:renderContent(theme, localization, localized)
+    if FFlagToolboxReplaceUILibraryComponentsPt1 then
+        theme = self.props.Stylizer
+    end
+
+    local orderIterator = LayoutOrderIterator.new()
 
     local canViewCollaborators = self.props.CurrentUserPackagePermission == PermissionsConstants.OwnKey or self.props.CurrentUserPackagePermission == PermissionsConstants.EditKey
     local canManagePermissions = self.props.CurrentUserPackagePermission == PermissionsConstants.OwnKey
@@ -74,93 +96,100 @@ function Permissions:render()
     -- Text Label should only have 2 lines max
     local textLabelYSize = Constants.FONT_SIZE_MEDIUM * 2
 
-    return withTheme(function(theme)
-        return withLocalization(function(localization, localized)
-            return Roact.createElement(StyledScrollingFrame, {
-                Size = self.props.Size,
+    local scrollingFrameProps
+    if FFlagToolboxReplaceUILibraryComponentsPt3 then
+        scrollingFrameProps = {
+            AutomaticCanvasSize = Enum.AutomaticSize.Y,
+            Size = self.props.Size,
+            LayoutOrder = self.props.LayoutOrder,
+        }
+    else
+        scrollingFrameProps = {
+            Size = self.props.Size,
 
-                BackgroundTransparency = 1,
-                LayoutOrder = self.props.LayoutOrder,
-                BackgroundColor3 = theme.assetConfig.packagePermissions.backgroundColor,
+            BackgroundTransparency = 1,
+            LayoutOrder = self.props.LayoutOrder,
+            BackgroundColor3 = theme.assetConfig.packagePermissions.backgroundColor,
 
-                [Roact.Ref] = self.baseFrameRefs,
-            }, {
-                Padding = Roact.createElement("UIPadding", {
-                    PaddingTop = UDim.new(0, Constants.PERMISSIONS_UI_EDGE_PADDING),
-                    PaddingBottom = UDim.new(0, Constants.PERMISSIONS_UI_EDGE_PADDING),
-                    PaddingLeft = UDim.new(0, Constants.PERMISSIONS_UI_EDGE_PADDING),
-                    PaddingRight = UDim.new(0, Constants.PERMISSIONS_UI_EDGE_PADDING),
-                }),
+            [Roact.Ref] = self.baseFrameRefs,
+        }
+    end
 
-                UIListLayout = Roact.createElement("UIListLayout", {
-                    Padding = UDim.new(0, Constants.PERMISSIONS_TAB_LIST_PADDING),
-                    SortOrder = Enum.SortOrder.LayoutOrder,
-                }),
+    return Roact.createElement(ScrollingFrame or StyledScrollingFrame, scrollingFrameProps, {
+        Padding = Roact.createElement("UIPadding", {
+            PaddingTop = UDim.new(0, Constants.PERMISSIONS_UI_EDGE_PADDING),
+            PaddingBottom = UDim.new(0, Constants.PERMISSIONS_UI_EDGE_PADDING),
+            PaddingLeft = UDim.new(0, Constants.PERMISSIONS_UI_EDGE_PADDING),
+            PaddingRight = UDim.new(0, Constants.PERMISSIONS_UI_EDGE_PADDING),
+        }),
 
-                OwnerWidget = Roact.createElement(PackageOwnerWidget, {
-                    LayoutOrder = orderIterator:getNextOrder(),
+        UIListLayout = Roact.createElement("UIListLayout", {
+            Padding = UDim.new(0, Constants.PERMISSIONS_TAB_LIST_PADDING),
+            SortOrder = Enum.SortOrder.LayoutOrder,
+        }),
 
-                    Enabled = true,
-                    OwnerName = self.props.Owner.username,
-                    OwnerId = self.props.Owner.targetId,
-                    OwnerType = self.state.OwnerType,
+        OwnerWidget = Roact.createElement(PackageOwnerWidget, {
+            LayoutOrder = orderIterator:getNextOrder(),
 
-                    CanManage = canManagePermissions,
+            Enabled = true,
+            OwnerName = self.props.Owner.username,
+            OwnerId = self.props.Owner.targetId,
+            OwnerType = self.state.OwnerType,
 
-                    GroupMetadata = self.props.GroupMetadata,
-                    Permissions = self.props.Permissions,
-                    PermissionsChanged = self.props.PermissionsChanged,
-                }),
+            CanManage = canManagePermissions,
 
-                Separator = Roact.createElement(Separator, {
-                    LayoutOrder = orderIterator:getNextOrder(),
-                    Size = (not FFlagToolboxReplaceUILibraryComponentsPt1) and UDim2.new(1, 0, 0, 0) or nil,
-                }),
+            GroupMetadata = self.props.GroupMetadata,
+            Permissions = self.props.Permissions,
+            PermissionsChanged = self.props.PermissionsChanged,
+        }),
 
-                SearchbarWidget = canManagePermissions and isUserOwnedPackage and Roact.createElement(CollaboratorSearchWidget, {
-                    LayoutOrder = orderIterator:getNextOrder(),
-                    Enabled = true,
+        Separator = Roact.createElement(Separator, {
+            LayoutOrder = orderIterator:getNextOrder(),
+            Size = (not FFlagToolboxReplaceUILibraryComponentsPt1) and UDim2.new(1, 0, 0, 0) or nil,
+        }),
 
-                    GroupMetadata = self.props.GroupMetadata,
-                    SearchRequested = self.props.SearchRequested,
-                    SearchData = self.props.SearchData,
-                    Permissions = self.props.Permissions,
+        SearchbarWidget = canManagePermissions and isUserOwnedPackage and Roact.createElement(CollaboratorSearchWidget, {
+            LayoutOrder = orderIterator:getNextOrder(),
+            Enabled = true,
 
-                    PermissionsChanged = self.props.PermissionsChanged,
-                }),
+            GroupMetadata = self.props.GroupMetadata,
+            SearchRequested = self.props.SearchRequested,
+            SearchData = self.props.SearchData,
+            Permissions = self.props.Permissions,
 
-                RevokedWarningMessage = Roact.createElement("TextLabel", {
-                    LayoutOrder = orderIterator:getNextOrder(),
-                    Size = UDim2.new(1, 0, 0, textLabelYSize),
+            PermissionsChanged = self.props.PermissionsChanged,
+        }),
 
-                    Text = isUserOwnedPackage and localized.PackagePermissions.Warning.UserOwned or localized.PackagePermissions.Warning.GroupOwned,
-                    TextXAlignment = Enum.TextXAlignment.Left,
+        RevokedWarningMessage = Roact.createElement("TextLabel", {
+            LayoutOrder = orderIterator:getNextOrder(),
+            Size = UDim2.new(1, 0, 0, textLabelYSize),
 
-                    Font = Constants.FONT,
-                    TextSize = Constants.FONT_SIZE_MEDIUM,
-                    TextColor3 = theme.assetConfig.packagePermissions.subTextColor,
-                    TextWrapped = true,
+            Text = isUserOwnedPackage and localized.PackagePermissions.Warning.UserOwned or localized.PackagePermissions.Warning.GroupOwned,
+            TextXAlignment = Enum.TextXAlignment.Left,
 
-                    BackgroundTransparency = 1,
-                }),
+            Font = Constants.FONT,
+            TextSize = Constants.FONT_SIZE_MEDIUM,
+            TextColor3 = theme.assetConfig.packagePermissions.subTextColor,
+            TextWrapped = true,
 
-                CollaboratorListWidget = canViewCollaborators and isUserOwnedPackage and Roact.createElement(CollaboratorsWidget, {
-                    LayoutOrder = orderIterator:getNextOrder(),
-                    Enabled = true,
+            BackgroundTransparency = 1,
+        }),
 
-                    OwnerId = self.props.Owner.targetId,
-                    OwnerType = self.state.OwnerType,
+        CollaboratorListWidget = canViewCollaborators and isUserOwnedPackage and Roact.createElement(CollaboratorsWidget, {
+            LayoutOrder = orderIterator:getNextOrder(),
+            Enabled = true,
 
-                    CanManage = canManagePermissions,
+            OwnerId = self.props.Owner.targetId,
+            OwnerType = self.state.OwnerType,
 
-                    GroupMetadata = self.props.GroupMetadata,
-                    Permissions = self.props.Permissions,
-                    PermissionsChanged = self.props.PermissionsChanged,
-                    GroupMetadataChanged = self.props.GroupMetadataChanged,
-                }),
-            })
-        end)
-    end)
+            CanManage = canManagePermissions,
+
+            GroupMetadata = self.props.GroupMetadata,
+            Permissions = self.props.Permissions,
+            PermissionsChanged = self.props.PermissionsChanged,
+            GroupMetadataChanged = self.props.GroupMetadataChanged,
+        }),
+    })
 end
 
 local function mapStateToProps(state, props)
@@ -204,6 +233,12 @@ local function mapDispatchToProps(dispatch)
             dispatch(AddChange("groupMetadata", groupMetadata))
         end,
     }
+end
+
+if FFlagToolboxReplaceUILibraryComponentsPt3 then
+    ContextServices.mapToProps(Permissions, {
+        Stylizer = ContextServices.Stylizer,
+    })
 end
 
 return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(Permissions)

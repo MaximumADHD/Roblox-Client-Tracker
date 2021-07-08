@@ -23,8 +23,6 @@ local GroupRoles = require(Plugin.Src.Networking.Requests.Permissions.GroupRoles
 local PermissionsConstants = require(Page.Util.PermissionsConstants)
 local WebKeys = require(Page.Util.WebKeyConstants)
 
-local FFlagStudioUXImprovementsLoosenTCPermissions = game:GetFastFlag("StudioUXImprovementsLoosenTCPermissions")
-
 local GUEST_RANK = 0
 
 local function getSubjectType(webPermission)
@@ -124,11 +122,7 @@ function Deserialize._deserializeAll(webPermissions)
 			local subjectName = permission[PermissionsConstants.SubjectNameKey]
 			local action = permission[PermissionsConstants.ActionKey]
 
-			if FFlagStudioUXImprovementsLoosenTCPermissions then
-				groupMetadata[subjectId] = {Name = subjectName}
-			else
-				groupMetadata[subjectId] = {Name = subjectName, Action = action}
-			end
+			groupMetadata[subjectId] = {Name = subjectName}
 		end
 	end
 
@@ -142,15 +136,6 @@ function Deserialize._deserializeAll(webPermissions)
 			-- Don't display guest ranks, unless the user has somehow managed to assign it a permission, in which case allow them to reset it
 			if permission[PermissionsConstants.SubjectRankKey] ~= GUEST_RANK or permission[PermissionsConstants.ActionKey] ~= PermissionsConstants.NoAccessKey then
 				permissions[subjectType][subjectId] = permission
-
-				-- Permissions can be defined at the group level, so we want to use the group's permission when possible
-				-- The exception to this is if there was a bug in saving that resulted in both a top-level group permission and role permission
-				-- We preserve the role's permission in this case so the user can fix it
-				-- (9/24/2020) Since we have moved permissions out of groupMetadata, there is no reason to do this anymore
-				if not FFlagStudioUXImprovementsLoosenTCPermissions and subjectType == PermissionsConstants.RoleSubjectKey then
-					local groupId = permission[PermissionsConstants.GroupIdKey]
-					permission[PermissionsConstants.ActionKey] = webPermission[WebKeys.Action] == nil and groupMetadata[groupId].Action or permission[PermissionsConstants.ActionKey]
-				end
 			end
 		end
 	end

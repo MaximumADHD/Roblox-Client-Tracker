@@ -1,10 +1,14 @@
 local Plugin = script.Parent.Parent.Parent
+local FFlagRemoveUILibraryFromToolbox = require(Plugin.Core.Util.getFFlagRemoveUILibraryFromToolbox)()
 
 local Libs = Plugin.Libs
 local Cryo = require(Libs.Cryo)
 local UILibrary = require(Libs.UILibrary)
 
-local createTheme = UILibrary.createTheme
+local createTheme
+if (not FFlagRemoveUILibraryFromToolbox) then
+	createTheme = UILibrary.createTheme
+end
 
 local Util = Plugin.Core.Util
 local Colors = require(Util.Colors)
@@ -85,9 +89,11 @@ function AssetConfigTheme:_update(changedValues)
 	self._signal:fire(self.values, self._UILibraryTheme)
 end
 
-function AssetConfigTheme:_updateUILibrary(style, overrides)
-	self._UILibraryTheme = createTheme(style, overrides)
-	self._signal:fire(self.values, self._UILibraryTheme)
+if (not FFlagRemoveUILibraryFromToolbox) then
+	function AssetConfigTheme:_updateUILibrary(style, overrides)
+		self._UILibraryTheme = createTheme(style, overrides)
+		self._signal:fire(self.values, self._UILibraryTheme)
+	end
 end
 
 function AssetConfigTheme:_getExternalTheme()
@@ -369,65 +375,69 @@ function AssetConfigTheme:_recalculateTheme()
 		},
 	})
 
-	-- Need more color for the style
-	local styleGuide = {
-		backgroundColor = color(c.InputFieldBackground),
-		textColor = color(c.MainText),
-		subTextColor = color(c.SubText),
-		dimmerTextColor = color(c.DimmedText),
-		disabledColor = color(c.Tab),
-		borderColor = color(c.Border),
-		hoverColor = isDark and color(c.MainButton) or color(c.CurrentMarker),
-		itemColor = color(c.MainBackground),
+	if (not FFlagRemoveUILibraryFromToolbox) then
+		-- Need more color for the style
+		local styleGuide = {
+			backgroundColor = color(c.InputFieldBackground),
+			textColor = color(c.MainText),
+			subTextColor = color(c.SubText),
+			dimmerTextColor = color(c.DimmedText),
+			disabledColor = color(c.Tab),
+			borderColor = color(c.Border),
+			hoverColor = isDark and color(c.MainButton) or color(c.CurrentMarker),
+			itemColor = color(c.MainBackground),
 
-		-- Dropdown item
-		hoveredItemColor = color(c.Button, m.Hover),
-		hoveredTextColor = color(c.ButtonText, m.Hover),
+			-- Dropdown item
+			hoveredItemColor = color(c.Button, m.Hover),
+			hoveredTextColor = color(c.ButtonText, m.Hover),
 
-		-- Dropdown button
-		selectionColor = color(c.Button, m.Selected),
-		selectedTextColor = color(c.ButtonText, m.Selected),
-		selectionBorderColor = color(c.ButtonBorder, m.Selected),
+			-- Dropdown button
+			selectionColor = color(c.Button, m.Selected),
+			selectedTextColor = color(c.ButtonText, m.Selected),
+			selectionBorderColor = color(c.ButtonBorder, m.Selected),
 
-		errorColor = color(c.ErrorText),
-	}
+			errorColor = color(c.ErrorText),
+		}
 
-	local overrides = {
-		toggleButton = {
-			defaultWidth = 40,
-			defaultHeight = 24,
+		local overrides = {
+			toggleButton = {
+				defaultWidth = 40,
+				defaultHeight = 24,
 
-			onImage = isDark and Images.TOGGLE_ON_DARK or Images.TOGGLE_ON_LIGHT,
-			offImage = isDark and Images.TOGGLE_OFF_DARK or Images.TOGGLE_OFF_LIGHT,
-			disabledImage = isDark and Images.TOGGLE_DISABLE_DARK or Images.TOGGLE_DISABLE_LIGHT,
-		},
-
-		detailedDropdown = {
-			backgroundColor = color(c.MainBackground),
-			borderColor = color(c.DialogButtonBorder),
-
-			hovered = {
-				backgroundColor = color(c.Item, m.Hover),
-				displayText = color(c.MainText, m.Hover),
-				borderColor = color(c.DialogButtonBorder, m.Hover),
+				onImage = isDark and Images.TOGGLE_ON_DARK or Images.TOGGLE_ON_LIGHT,
+				offImage = isDark and Images.TOGGLE_OFF_DARK or Images.TOGGLE_OFF_LIGHT,
+				disabledImage = isDark and Images.TOGGLE_DISABLE_DARK or Images.TOGGLE_DISABLE_LIGHT,
 			},
 
-			selected = {
-				backgroundColor = color(c.Item, m.Selected),
-				displayText = color(c.MainText, m.Selected),
-			}
-		},
+			detailedDropdown = {
+				backgroundColor = color(c.MainBackground),
+				borderColor = color(c.DialogButtonBorder),
 
-		scrollingFrame = {
-			scrollbarColor = isDark and Color3.fromRGB(85, 85, 85) or Color3.fromRGB(245, 245, 245),
-		},
-	}
+				hovered = {
+					backgroundColor = color(c.Item, m.Hover),
+					displayText = color(c.MainText, m.Hover),
+					borderColor = color(c.DialogButtonBorder, m.Hover),
+				},
 
-	self:_updateUILibrary(styleGuide, overrides)
+				selected = {
+					backgroundColor = color(c.Item, m.Selected),
+					displayText = color(c.MainText, m.Selected),
+				}
+			},
+
+			scrollingFrame = {
+				scrollbarColor = isDark and Color3.fromRGB(85, 85, 85) or Color3.fromRGB(245, 245, 245),
+			},
+		}
+
+		self:_updateUILibrary(styleGuide, overrides)
+	end
 end
 
-function AssetConfigTheme:getUILibraryTheme()
-	return self._UILibraryTheme
+if (not FFlagRemoveUILibraryFromToolbox) then
+	function AssetConfigTheme:getUILibraryTheme()
+		return self._UILibraryTheme
+	end
 end
 
 return AssetConfigTheme

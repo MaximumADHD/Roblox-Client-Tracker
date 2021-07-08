@@ -1,5 +1,5 @@
 --[[
-	Wraps a UILibrary Tooltip so it is displayed when hovered.
+	Wraps a Tooltip so it is displayed when hovered.
 
 	Props:
 		string Text

@@ -254,9 +254,10 @@ function CollaboratorsWidget:renderContent(theme, localization, localized)
 	end
 
 	return Roact.createElement(FFlagToolboxReplaceUILibraryComponentsPt3 and "Frame" or FitToContentWidget, {
-		AutomaticSize = FFlagToolboxReplaceUILibraryComponentsPt3 and Enum.AutomaticSize.XY or nil,
+		AutomaticSize = FFlagToolboxReplaceUILibraryComponentsPt3 and Enum.AutomaticSize.Y or nil,
 		LayoutOrder = props.LayoutOrder or 0,
 		BackgroundTransparency = 1,
+		Size = FFlagToolboxReplaceUILibraryComponentsPt3 and UDim2.new(1, 0, 0, 0) or nil,
 	}, {
 		UIListLayout = FFlagToolboxReplaceUILibraryComponentsPt3 and Roact.createElement("UIListLayout", {
 			SortOrder = Enum.SortOrder.LayoutOrder,
@@ -286,6 +287,7 @@ function CollaboratorsWidget:renderContent(theme, localization, localized)
 			AutomaticSize = FFlagToolboxReplaceUILibraryComponentsPt3 and Enum.AutomaticSize.XY or nil,
 			LayoutOrder = 1,
 			BackgroundTransparency = 1,
+			Size = FFlagToolboxReplaceUILibraryComponentsPt3 and UDim2.new(1, 0, 0, 0) or nil,
 		}, userCollaborators),
 	})
 end

@@ -1,7 +1,6 @@
 local FFlagStudioRestrictGameMonetizationToPublicGameOnly = game:GetFastFlag("StudioRestrictGameMonetizationToPublicGameOnly")
 local FFlagGameSettingsMigrateToDevFrameworkSeparator = game:GetFastFlag("GameSettingsMigrateToDevFrameworkSeparator")
 local FFlagUXImprovementsShowUserPermsWhenCollaborator2 = game:GetFastFlag("UXImprovementsShowUserPermsWhenCollaborator2")
-local FFlagStudioUXImprovementsLoosenTCPermissions = game:GetFastFlag("StudioUXImprovementsLoosenTCPermissions")
 local FFlagUXImprovementsNonTCPlacesAllowedPlay = game:GetFastFlag("UXImprovementsNonTCPlacesAllowedPlay")
 
 local RunService = game:GetService("RunService")
@@ -148,12 +147,7 @@ local function saveSettings(store, contextItems)
 			local changed = state.Settings.Changed.permissions
 
 			if changed ~= nil then
-				if FFlagStudioUXImprovementsLoosenTCPermissions then
-					gamePermissionsController:setPermissions(gameId, current, changed)
-				else
-					local currentGroupMetadata = state.Settings.Current.groupMetadata
-					gamePermissionsController:setPermissions(gameId, current, changed, currentGroupMetadata)
-				end
+				gamePermissionsController:setPermissions(gameId, current, changed)
 			end
 		end,
 	}
@@ -256,14 +250,10 @@ function Permissions:render()
 		
 		-- here "Edit" refers to adding new collaborators, or changing the permission of collaborators
 		local canUserEditCollaborators = false
-		if FFlagStudioUXImprovementsLoosenTCPermissions then
-			if FFlagUXImprovementsNonTCPlacesAllowedPlay then
-				canUserEditCollaborators = self:isLoggedInUserGameOwner()
-			else
-				canUserEditCollaborators = self:isLoggedInUserGameOwner() and self:isTeamCreate()
-			end
+		if FFlagUXImprovementsNonTCPlacesAllowedPlay then
+			canUserEditCollaborators = self:isLoggedInUserGameOwner()
 		else
-			canUserEditCollaborators = self:isLoggedInUserGameOwner() and self:isTeamCreate() and not self:isGroupGame()
+			canUserEditCollaborators = self:isLoggedInUserGameOwner() and self:isTeamCreate()
 		end
 
 		local DEPRECATED_canUserSeeCollaborators = false

@@ -52,6 +52,8 @@ return function()
 
 	local SummaryTrack = require(script.Parent.SummaryTrack)
 
+	local GetFFlagRealtimeChanges = require(Plugin.LuaFlags.GetFFlagRealtimeChanges)
+
 	local function createTestSummaryTrack(previewKeyframes, showCluster)
 		return Roact.createElement(MockWrapper, {}, {
 			Track = Roact.createElement(SummaryTrack, {
@@ -109,14 +111,17 @@ return function()
 		Roact.unmount(instance)
 	end)
 
-	it("should render preview keyframes", function ()
-		local container = Instance.new("Folder")
-		local instance = Roact.mount(createTestSummaryTrack(testPreviewKeyframes), container)
-		local frame = container:FindFirstChildOfClass("Frame")
+	if not GetFFlagRealtimeChanges() then
+		-- Realtime changes have removed the PreviewKeyframes
+		it("should render preview keyframes", function ()
+			local container = Instance.new("Folder")
+			local instance = Roact.mount(createTestSummaryTrack(testPreviewKeyframes), container)
+			local frame = container:FindFirstChildOfClass("Frame")
 
-		-- 5 keyframes + 4 preview keyframes
-		expect(#frame.KeyframeDisplayArea:GetChildren()).to.be.equal(9)
+			-- 5 keyframes + 4 preview keyframes
+			expect(#frame.KeyframeDisplayArea:GetChildren()).to.be.equal(9)
 
-		Roact.unmount(instance)
-	end)
+			Roact.unmount(instance)
+		end)
+	end
 end

@@ -392,6 +392,12 @@ local function createStyles(theme, getColor)
 				length = 250,
 				paddingY = 25,
 			} or nil,
+			emailDialog = FFlagLuobuDevPublishLua and {
+				Size = {
+					X = 500,
+					Y = 350,
+				}
+			} or nil,
 
 			--Constants used for UI
 			DROPDOWN_WIDTH = 330,

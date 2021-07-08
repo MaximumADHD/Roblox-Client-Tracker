@@ -16,9 +16,8 @@ local SelectInput = UI.SelectInput
 local TextLabel = UI.Decoration.TextLabel
 local TreeTable = UI.TreeTable
 
-local main = script.Parent.Parent.Parent.Parent
-local Components = main.Src.Components
-local CallstackRow = require(Components.Callstack.CallstackRow)
+local Models = Plugin.Src.Models
+local CallstackRow = require(Models.CallstackRow)
 local CallstackComponent = Roact.PureComponent:extend("CallstackComponent")
 local SelectInputField = Roact.PureComponent:extend("SelectInputField")
 
@@ -27,26 +26,26 @@ local ICON_SIZE = UDim2.new(0, 14, 0, 14)
 local ICON_PATH = "rbxasset://textures/Debugger/debugger_arrow.png"
 local HEADER_HEIGHT = 40
 local TEST_ROW_NO_IMAGE = {
-	ArrowColumn = "",
-	FrameColumn = "a",
-	WhatColumn = "b",
-	FunctionNameColumn = "c",
-	LineNumberColumn = "d",
-	SourceColumn = "e",
+	arrowColumn = "",
+	frameColumn = "a",
+	whatColumn = "b",
+	functionNameColumn = "c",
+	lineNumberColumn = "d",
+	sourceColumn = "e",
 }
 local TEST_ROW_IMAGE = {
-	ArrowColumn = {
+	arrowColumn = {
 		Value = "",
 		LeftIcon = {
 			Image = ICON_PATH,
 			Size = ICON_SIZE
 		},
 	},
-	FrameColumn = "a",
-	WhatColumn = "b",
-	FunctionNameColumn = "c",
-	LineNumberColumn = "d",
-	SourceColumn = "e",
+	frameColumn = "a",
+	whatColumn = "b",
+	functionNameColumn = "c",
+	lineNumberColumn = "d",
+	sourceColumn = "e",
 }
 
 function SelectInputField:init()
@@ -113,23 +112,23 @@ function CallstackComponent:render()
 	local tableColumns = {
 		{
 			Name = "",
-			Key = "ArrowColumn",
+			Key = "arrowColumn",
 		},
 		{
 			Name = localization:getText("Callstack", "FrameColumn"),
-			Key = "FrameColumn",
+			Key = "frameColumn",
 		}, {
 			Name = localization:getText("Callstack", "WhatColumn"),
-			Key = "WhatColumn",
+			Key = "whatColumn",
 		}, {
 			Name = localization:getText("Callstack", "FunctionNameColumn"),
-			Key = "FunctionNameColumn",
+			Key = "functionNameColumn",
 		}, {
 			Name = localization:getText("Callstack", "LineNumberColumn"),
-			Key = "LineNumberColumn",
+			Key = "lineNumberColumn",
 		}, {
 			Name = localization:getText("Callstack", "SourceColumn"),
-			Key = "SourceColumn",
+			Key = "sourceColumn",
 		}
 	}
 	local tableRows = generateSampleTable(20)

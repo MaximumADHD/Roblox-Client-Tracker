@@ -28,6 +28,7 @@ local isEmpty = require(Plugin.Src.Util.isEmpty)
 local ButtonBar = require(Plugin.Src.Components.ButtonBar)
 
 local ConfirmAndSaveChanges = require(Plugin.Src.Thunks.ConfirmAndSaveChanges)
+local PostContactEmail = require(Plugin.Src.Thunks.PostContactEmail)
 local CurrentStatus = require(Plugin.Src.Util.CurrentStatus)
 
 local TextInputDialog = FFlagLuobuDevPublishLua and Framework.UI.TextInputDialog or nil
@@ -38,6 +39,8 @@ local GetOptInLocationsKeyName = FFlagGameSettingsUseKeyProvider and KeyProvider
 local optInLocationsKey = FFlagLuobuDevPublishLua and GetOptInLocationsKeyName and GetOptInLocationsKeyName() or "OptInLocations"
 local GetChinaKeyName = FFlagGameSettingsUseKeyProvider and KeyProvider.getChinaKeyName or nil
 local chinaKey = FFlagLuobuDevPublishLua and GetChinaKeyName and GetChinaKeyName() or "China"
+local GetSelectedKeyName = FFlagGameSettingsUseKeyProvider and KeyProvider.getSelectedKeyName or nil
+local selectedKey = FFlagLuobuDevPublishLua and GetSelectedKeyName and GetSelectedKeyName() or "selected"
 
 local Footer = Roact.PureComponent:extend("Footer")
 
@@ -59,11 +62,28 @@ function Footer:init()
 		local currentOptInLocations = props.CurrentOptInLocations
 		local changedOptInLocations = props.ChangedOptInLocations
 
-		if not changedOptInLocations and not currentOptInLocations then
-			return false
-		end
+		--[[
+			false - Option 1: current = {"China": {"selected": false, ... }}, changed = {"China": {"selected": false, ... }}
+			true - Option 2: current = {"China": {"selected": false, ... }}, changed = {"China": {"selected": true, ... }}
+			false - Option 3: current = {"China": {"selected": false, ... }}, changed = nil
+			true - Option 4: current = {"China": {"selected": true, ... }}, changed = {"China": {"selected": true, ... }}
+			false - Option 5: current = {"China": {"selected": true, ... }}, changed = {"China": {"selected": false, ... }}
+			true - Option 6: current = {"China": {"selected": true, ... }}, changed = nil
+		]]
 
-		return (not changedOptInLocations and currentOptInLocations[chinaKey]) or changedOptInLocations[chinaKey]
+		if currentOptInLocations[chinaKey][selectedKey] then
+			if not changedOptInLocations then
+				return true
+			end
+			return changedOptInLocations[chinaKey][selectedKey]
+		elseif not currentOptInLocations[chinaKey][selectedKey] then
+			if not changedOptInLocations then
+				return false
+			end
+			return changedOptInLocations[chinaKey][selectedKey]
+		end
+		return false
+
 	end or nil
 
 	self.state = FFlagLuobuDevPublishLua and {
@@ -80,6 +100,8 @@ function Footer:render()
 
 	local saveActive = props.SaveActive
 	local cancelActive = props.CancelActive
+
+	local postContactEmail = props.PostContactEmail
 
 	return Roact.createElement("Frame", {
 		BackgroundColor3 = theme.backgroundColor,
@@ -109,7 +131,7 @@ function Footer:render()
 			ButtonClicked = function(userPressedSave)
 				-- Make changes here before save happens to show dialog
 				if FFlagLuobuDevPublishLua and FFlagTextInputDialogDevFramework then
-					if userPressedSave and shouldShowDevPublishLocations and self.shouldShowEmailDialog() then
+					if userPressedSave and shouldShowDevPublishLocations() and self.shouldShowEmailDialog() then
 						self:setState({
 							showEmailDialog = true,
 							userPressedSave = userPressedSave,
@@ -125,6 +147,7 @@ function Footer:render()
 			EmailDialog = FFlagLuobuDevPublishLua and FFlagTextInputDialogDevFramework and Roact.createElement(TextInputDialog,
 			{
 				Enabled = self.state.showEmailDialog,
+				Size = Vector2.new(theme.emailDialog.Size.X, theme.emailDialog.Size.Y),
 				Title = localization:getText(optInLocationsKey, "EmailDialogHeader"),
 				Header = localization:getText(optInLocationsKey, "EmailDialogHeader"),
 				Buttons = {
@@ -133,27 +156,40 @@ function Footer:render()
 				},
 				Body = localization:getText(optInLocationsKey, "EmailDialogBody"),
 				Description = localization:getText(optInLocationsKey, "EmailDialogDescription"),
-				PlaceholderText = localization:getText(optInLocationsKey, "EmailAddress"),
-				BottomText = self.state.bottomText,
-				OnClose = function(email)
+				TextInput = {
+					{PlaceholderText = localization:getText(optInLocationsKey, "EmailAddress"),},
+					{PlaceholderText = localization:getText(optInLocationsKey, "ConfirmEmailAddress"), BottomText = self.state.bottomText,},
+				},
+				OnClose = function()
 					self:setState({
 						showEmailDialog = false,
 						userPressedSave = false,
+						bottomText = "",
 					})
 				end,
-				OnButtonPressed = function(email, buttonKey)
-					-- TODO: jbousellam - STUDIOCORE-24599 - save email locally.
+				OnButtonPressed = function(buttonKey, email1, email2)
 					local submitButtonPressed = buttonKey == "Submit"
-					-- TODO: jbousellam - STUDIOCORE-25366 - email validation using regex, if user has an invalid email,
-					-- set bottom text state and continue to show dialog. Do not save settings, do not publish.
-					-- Might need to rearrange where the state is currently being set for showEmailDialog
 					if submitButtonPressed then
-						self:saveAllSettings(self.state.userPressedSave)
+						if email1 == email2 then
+							postContactEmail(email1)
+							self:saveAllSettings(self.state.userPressedSave)
+							self:setState({
+								showEmailDialog = false,
+								userPressedSave = false,
+								bottomText = "",
+							})
+						else
+							self:setState({
+								bottomText = localization:getText(optInLocationsKey, "ErrorEmailNotEqual")
+							})
+						end
+					else
+						self:setState({
+							showEmailDialog = false,
+							userPressedSave = false,
+							bottomText = "",
+						})
 					end
-					self:setState({
-						showEmailDialog = false,
-						userPressedSave = false,
-					})
 				end,
 			}) or nil
 		}),
@@ -174,8 +210,8 @@ Footer = RoactRodux.connect(
 				and state.Status == CurrentStatus.Open
 				and isEmpty(state.Settings.Errors),
 			CancelActive = state.Status == CurrentStatus.Open,
-			CurrentOptInLocations = FFlagLuobuDevPublishLua and state.Settings.Current.OptInLocations or nil,
-			ChangedOptInLocations = FFlagLuobuDevPublishLua and state.Settings.Changed.OptInLocations or nil,
+			CurrentOptInLocations = FFlagLuobuDevPublishLua and state.Settings.Current[optInLocationsKey] or nil,
+			ChangedOptInLocations = FFlagLuobuDevPublishLua and state.Settings.Changed[optInLocationsKey] or nil,
 		}
 	end,
 	function(dispatch)
@@ -186,6 +222,10 @@ Footer = RoactRodux.connect(
 				else
 					return Promise.resolve()
 				end
+			end,
+
+			PostContactEmail = function(contactEmail)
+				return dispatch(PostContactEmail(contactEmail))
 			end,
 		}
 	end

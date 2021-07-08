@@ -33,6 +33,7 @@
 		LayoutOrder, number, used by the layouter to set the position of the component.
 ]]
 local FFlagToolboxReplaceUILibraryComponentsPt1 = game:GetFastFlag("ToolboxReplaceUILibraryComponentsPt1")
+local FFlagToolboxReplaceUILibraryComponentsPt3 = game:GetFastFlag("ToolboxReplaceUILibraryComponentsPt3")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -42,14 +43,16 @@ local RoactRodux = require(Libs.RoactRodux)
 
 local ContextServices = require(Libs.Framework).ContextServices
 
-local UILibrary = require(Libs.UILibrary)
-local StyledScrollingFrame = UILibrary.Component.StyledScrollingFrame
-
+local StyledScrollingFrame
 local TitledFrame
 if FFlagToolboxReplaceUILibraryComponentsPt1 then
-	TitledFrame = require(Libs.Framework).StudioUI.TitledFrame
+	local Framework = require(Libs.Framework)
+	TitledFrame = Framework.StudioUI.TitledFrame
+	StyledScrollingFrame = require(Plugin.Core.Components.StyledScrollingFrame)
 else
+	local UILibrary = require(Libs.UILibrary)
 	TitledFrame = UILibrary.Component.TitledFrame
+	StyledScrollingFrame = UILibrary.Component.StyledScrollingFrame
 end
 
 local Util = Plugin.Core.Util
@@ -231,17 +234,30 @@ function PublishAsset:renderContent(theme, localizedContent)
 		configCopyHeight = configCopyHeight + HEIGHT_FOR_ACCOUNT_SETTING_TEXT
 	end
 
-	return Roact.createElement(StyledScrollingFrame, {
-		Size = Size,
+	local scrollingFrameProps
+	if FFlagToolboxReplaceUILibraryComponentsPt3 then
+		scrollingFrameProps = {
+			Size = Size,
+			LayoutOrder = LayoutOrder,
+			[Roact.Ref] = self.baseFrameRef,
+		}
+	else
+		scrollingFrameProps = {
+			Size = Size,
 
-		BackgroundTransparency = 0,
-		BackgroundColor3 = publishAssetTheme.backgroundColor,
-		BorderSizePixel = 0,
+			BackgroundTransparency = 0,
+			BackgroundColor3 = publishAssetTheme.backgroundColor,
+			BorderSizePixel = 0,
 
-		LayoutOrder = LayoutOrder,
+			LayoutOrder = LayoutOrder,
 
-		[Roact.Ref] = self.baseFrameRef,
-	}, {
+			[Roact.Ref] = self.baseFrameRef,
+		}
+	end
+
+	return Roact.createElement(StyledScrollingFrame,
+		scrollingFrameProps,
+	{
 		Padding = Roact.createElement("UIPadding", {
 			PaddingTop = UDim.new(0, PADDING),
 			PaddingBottom = UDim.new(0, PADDING),
@@ -257,7 +273,9 @@ function PublishAsset:renderContent(theme, localizedContent)
 			Padding = UDim.new(0, 5),
 
 			[Roact.Change.AbsoluteContentSize] = self.refreshCanvas or function(rbx)
-				self.baseFrameRef.current.CanvasSize = UDim2.new(Size.X.Scale, Size.X.Offset, 0, rbx.AbsoluteContentSize.y + PADDING*2)
+				if self.baseFrameRef.current then
+					self.baseFrameRef.current.CanvasSize = UDim2.new(Size.X.Scale, Size.X.Offset, 0, rbx.AbsoluteContentSize.y + PADDING*2)
+				end
 			end,
 
 			[Roact.Ref] = self.listLayoutRef,

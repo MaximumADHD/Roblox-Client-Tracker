@@ -15,7 +15,6 @@ local DraggedPivot = require(DraggerFramework.Components.DraggedPivot)
 
 local getEngineFeatureModelPivotVisual = require(DraggerFramework.Flags.getEngineFeatureModelPivotVisual)
 
-local getFFlagFoldersOverFragments = require(DraggerFramework.Flags.getFFlagFoldersOverFragments)
 local getFFlagSummonPivot = require(DraggerFramework.Flags.getFFlagSummonPivot)
 
 local getFFlagFixDraggerMovingInWrongDirection = require(DraggerFramework.Flags.getFFlagFixDraggerMovingInWrongDirection)
@@ -221,11 +220,7 @@ function MoveHandles:render(hoveredHandleId)
 		end
 	end
 
-	if getFFlagFoldersOverFragments() then
-		return Roact.createElement("Folder", {}, children)
-	else
-		return Roact.createFragment(children)
-	end
+	return Roact.createElement("Folder", {}, children)
 end
 
 function MoveHandles:mouseDown(mouseRay, handleId)

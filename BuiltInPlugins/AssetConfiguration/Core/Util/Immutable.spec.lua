@@ -214,7 +214,7 @@ return function()
 			expect(b).never.to.equal(a)
 		end)
 
-		it("should remove elements properly from the list", function()
+		it("should remove elements properly from the list case 1", function()
 			local a = {1, 2, 3}
 			local b = Immutable.RemoveRangeFromList(a, 2, 1)
 
@@ -223,7 +223,7 @@ return function()
 			expect(b[3]).never.to.be.ok()
 		end)
 
-		it("should remove elements properly from the list", function()
+		it("should remove elements properly from the list case 2", function()
 			local a = {1, 2, 3, 4, 5, 6}
 			local b = Immutable.RemoveRangeFromList(a, 1, 4)
 
@@ -232,7 +232,7 @@ return function()
 			expect(b[3]).never.to.be.ok()
 		end)
 
-		it("should remove elements properly from the list", function()
+		it("should remove elements properly from the list case 3", function()
 			local a = {1, 2, 3, 4, 5, 6}
 			local b = Immutable.RemoveRangeFromList(a, 2, 4)
 
@@ -241,7 +241,7 @@ return function()
 			expect(b[3]).never.to.be.ok()
 		end)
 
-		it("should remove elements properly from the list", function()
+		it("should remove elements properly from the list case 4", function()
 			local a = {1, 2, 3, 4, 5, 6, 7}
 			local b = Immutable.RemoveRangeFromList(a, 4, 4)
 

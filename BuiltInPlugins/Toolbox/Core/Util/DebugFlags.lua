@@ -46,6 +46,10 @@ function DebugFlags.shouldRunTests()
 	return getDebugFlagValue("RunTests")
 end
 
+function DebugFlags.shouldRunRhodiumTests()
+	return getDebugFlagValue("RunRhodiumTests")
+end
+
 function DebugFlags.logTestsQuiet()
 	return getDebugFlagValue("LogTestsQuiet")
 end

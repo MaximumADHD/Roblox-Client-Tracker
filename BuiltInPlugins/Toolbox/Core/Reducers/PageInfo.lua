@@ -21,7 +21,7 @@ local SetCurrentPage = require(Actions.SetCurrentPage)
 
 local FFlagToolboxDefaultBackgroundMatches = game:GetFastFlag("ToolboxDefaultBackgroundMatches")
 local FFlagToolboxDisableMarketplaceAndRecentsForLuobu = game:GetFastFlag("ToolboxDisableMarketplaceAndRecentsForLuobu")
-local FFlagToolboxFixCommonWarnings = game:GetFastFlag("ToolboxFixCommonWarnings")
+local FFlagToolboxFixCommonWarnings2 = game:GetFastFlag("ToolboxFixCommonWarnings2")
 local FFlagToolboxRemoveGroupInventory = game:GetFastFlag("ToolboxRemoveGroupInventory")
 
 local disableMarketplaceAndRecents = require(Plugin.Core.Util.ToolboxUtilities).disableMarketplaceAndRecents
@@ -35,7 +35,7 @@ else
 end
 
 local function warnIfUpdatePageInfoChangesInvalid(state, changes)
-	if not FFlagToolboxFixCommonWarnings and changes.categories then
+	if not FFlagToolboxFixCommonWarnings2 and changes.categories then
 		warn("Lua Toolbox: Cannot change categories array through UpdatePageInfo")
 	end
 
@@ -51,7 +51,7 @@ local function warnIfUpdatePageInfoChangesInvalid(state, changes)
 		warn("Lua Toolbox: sortIndex out of range in UpdatePageInfo")
 	end
 
-	if FFlagToolboxFixCommonWarnings then
+	if FFlagToolboxFixCommonWarnings2 then
 		if changes.groupIndex ~= nil and changes.groupIndex > 0 and (changes.groupIndex < (#state.groups > 0 and 1 or 0)
 			or changes.groupIndex > #state.groups) then
 			warn("Lua Toolbox: groupIndex out of range in UpdatePageInfo")
@@ -70,7 +70,7 @@ local function warnIfUpdatePageInfoChangesInvalid(state, changes)
 	end
 
 	local hasValidGroupIndex
-	if FFlagToolboxFixCommonWarnings then
+	if FFlagToolboxFixCommonWarnings2 then
 		hasValidGroupIndex = changes.groupIndex and changes.groupIndex > 0
 	else
 		hasValidGroupIndex = changes.groupIndex

@@ -7,8 +7,6 @@ local Page = script.Parent.Parent
 local PermissionsConstants = require(Page.Util.PermissionsConstants)
 local WebKeys = require(Page.Util.WebKeyConstants)
 
-local FFlagStudioUXImprovementsLoosenTCPermissions = game:GetFastFlag("StudioUXImprovementsLoosenTCPermissions")
-
 local PERMISSION_HIERARCHY = {PermissionsConstants.NoAccessKey, PermissionsConstants.PlayKey, PermissionsConstants.EditKey}
 local PERMISSION_HIERARCHY_POSITION = {}
 for i,v in pairs(PERMISSION_HIERARCHY) do
@@ -60,10 +58,7 @@ function Serialize._getGroupsForRoles(current, changed)
 end
 
 -- Returns a diff of permissions in the form of {Current=___, Changed=____} for each subjectId, grouped by subjectType
--- TODO (smallick) 9/27/2019
--- Remove DEPRECATED_groupMetadata with flag FFlagStudioUXImprovementsLoosenTCPermissions
--- Groups no longer have permissions, so there is no need to serialize them
-function Serialize.diffPermissionChanges(current, changed, DEPRECATED_groupMetadata)
+function Serialize.diffPermissionChanges(current, changed)
 	local changes = {}
 
 	changes[PermissionsConstants.GroupSubjectKey] = {}
@@ -87,17 +82,6 @@ function Serialize.diffPermissionChanges(current, changed, DEPRECATED_groupMetad
 		end
 	end
 
-	if not FFlagStudioUXImprovementsLoosenTCPermissions then
-		for groupId,metadata in pairs(DEPRECATED_groupMetadata) do
-			changes[PermissionsConstants.GroupSubjectKey][groupId] = {Current=metadata.Action}
-		end
-	
-		for groupId,metadata in pairs(DEPRECATED_groupMetadata) do
-			changes[PermissionsConstants.GroupSubjectKey][groupId] = changes[PermissionsConstants.GroupSubjectKey][groupId] or {}
-			changes[PermissionsConstants.GroupSubjectKey][groupId].Changed = metadata.Action
-		end
-	end
-
 	return changes
 end
 
@@ -112,19 +96,6 @@ function Serialize._resolvePermissionChanges(changes, roleGroups)
 		for subjectId,change in pairs(subjectTypeChanges) do
 			local currentPosition = PERMISSION_HIERARCHY_POSITION[change.Current] or PERMISSION_HIERARCHY_POSITION[PermissionsConstants.NoAccessKey]
 			local changedPosition = PERMISSION_HIERARCHY_POSITION[change.Changed] or PERMISSION_HIERARCHY_POSITION[PermissionsConstants.NoAccessKey]
-
-			-- We need to add/remove role permissions if we are converting away from/to group-level permissions
-			if not FFlagStudioUXImprovementsLoosenTCPermissions then
-				if subjectType == PermissionsConstants.RoleSubjectKey then
-					local groupId = roleGroups[subjectId]
-					local groupChanges = changes[PermissionsConstants.GroupSubjectKey][groupId]
-
-					if groupChanges then
-						currentPosition = groupChanges.Current ~= PermissionsConstants.NoAccessKey and PERMISSION_HIERARCHY_POSITION[PermissionsConstants.NoAccessKey] or currentPosition
-						changedPosition = groupChanges.Changed ~= PermissionsConstants.NoAccessKey and PERMISSION_HIERARCHY_POSITION[PermissionsConstants.NoAccessKey] or changedPosition
-					end
-				end
-			end
 
 			if changedPosition > currentPosition then
 				-- From current permission (or lowest if there is none), add all permissions up to and including changed permission
@@ -151,8 +122,8 @@ function Serialize._resolvePermissionChanges(changes, roleGroups)
 	return adds, deletes
 end
 
-function Serialize.SerializePermissions(oldPermissions, newPermissions, DEPRECATED_groupMetadata)
-	local changes = Serialize.diffPermissionChanges(oldPermissions, newPermissions, DEPRECATED_groupMetadata)
+function Serialize.SerializePermissions(oldPermissions, newPermissions)
+	local changes = Serialize.diffPermissionChanges(oldPermissions, newPermissions)
 	local roleGroups = Serialize._getGroupsForRoles(oldPermissions, newPermissions)
 	local adds, deletes = Serialize._resolvePermissionChanges(changes, roleGroups)
 

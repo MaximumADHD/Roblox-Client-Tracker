@@ -3,6 +3,7 @@
 	This should replace AssetConfigTheme once UILibrary and withTheme are completely removed.
 ]]
 local FFlagToolboxReplaceUILibraryComponentsPt2 = game:GetFastFlag("ToolboxReplaceUILibraryComponentsPt2")
+local FFlagToolboxReplaceUILibraryComponentsPt3 = game:GetFastFlag("ToolboxReplaceUILibraryComponentsPt3")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -19,7 +20,7 @@ local StyleModifier = require(Libs.Framework.Util.StyleModifier)
 local Cryo = require(Plugin.Libs.Cryo)
 
 return function()
-	if not FFlagToolboxReplaceUILibraryComponentsPt2 then
+	if not FFlagToolboxReplaceUILibraryComponentsPt2 or not FFlagToolboxReplaceUILibraryComponentsPt3 then
 		return
 	end
 
@@ -48,6 +49,23 @@ return function()
 						},
 					},
 				}
+			}
+		},
+
+		detailedDropdown = {
+			displayText = StyleKey.MainText,
+			descriptionText = StyleKey.SubText,
+			backgroundColor = StyleKey.MainBackground,
+			borderColor = StyleKey.DialogButtonBorder,
+
+			hovered = {
+				backgroundColor = StyleKey.ItemHovered,
+				displayText = StyleKey.MainTextHover,
+			},
+
+			selected = {
+				backgroundColor = StyleKey.ItemSelected,
+				displayText = StyleKey.MainTextSelected,
 			}
 		},
 

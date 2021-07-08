@@ -13,7 +13,7 @@ local shouldShowDevPublishLocations = require(Plugin.Src.Util.PublishPlaceAsUtil
 
 local optInLocations
 if FFlagLuobuDevPublishLua and FFlagUpdatePublishPlacePluginToDevFrameworkContext and FFlagTextInputDialogDevFramework and shouldShowDevPublishLocations() then
-    optInLocations = {China = false,}
+    optInLocations = {}
 end
 
 return Action(script.Name, function(localizedDefaultName, isOverwritePublish, isFirstPublish)

@@ -4,11 +4,17 @@ local FFlagToolboxReplaceUILibraryComponentsPt2 = game:GetFastFlag("ToolboxRepla
 
 local Plugin = script.Parent.Parent.Parent
 
+local FFlagRemoveUILibraryFromToolbox = require(Plugin.Core.Util.getFFlagRemoveUILibraryFromToolbox)()
+
 local Libs = Plugin.Libs
 
 local UILibrary = require(Libs.UILibrary)
-local createTheme = UILibrary.createTheme
-local StudioStyle = UILibrary.Studio.Style
+local createTheme
+local StudioStyle
+if (not FFlagRemoveUILibraryFromToolbox) then
+	createTheme = UILibrary.createTheme
+	StudioStyle = UILibrary.Studio.Style
+end
 
 local Framework = require(Libs.Framework)
 local ContextServices = Framework.ContextServices
@@ -29,6 +35,9 @@ local LightTheme = require(Libs.Framework).Style.Themes.LightTheme
 local Cryo = require(Plugin.Libs.Cryo)
 
 local function getUILibraryTheme(styleRoot, overrides)
+	if FFlagRemoveUILibraryFromToolbox then
+		return
+	end
 	local theme = settings().Studio.Theme
 
 	local styleGuide = StudioStyle.new(function(...)
@@ -94,21 +103,23 @@ local makeTheme = function(uiLibraryDeprecatedTheme, themeExtension)
 		styleRoot:extend(themeExtension)
 	end
 
-	if isCli() then
-		function styleRoot:getUILibraryTheme()
-			local styleGuide = StudioStyle.new(
-				function(...)
-					return Color3.new()
-				end,
-				TestHelpers.createMockStudioStyleGuideColor(), 
-				TestHelpers.createMockStudioStyleGuideModifier()
-			)
+	if (not FFlagRemoveUILibraryFromToolbox) then
+		if isCli() then
+			function styleRoot:getUILibraryTheme()
+				local styleGuide = StudioStyle.new(
+					function(...)
+						return Color3.new()
+					end,
+					TestHelpers.createMockStudioStyleGuideColor(), 
+					TestHelpers.createMockStudioStyleGuideModifier()
+				)
 
-			return createTheme(styleGuide, {})
-		end
-	else
-		function styleRoot:getUILibraryTheme()
-			return getUILibraryTheme(styleRoot, uiLibraryDeprecatedTheme)
+				return createTheme(styleGuide, {})
+			end
+		else
+			function styleRoot:getUILibraryTheme()
+				return getUILibraryTheme(styleRoot, uiLibraryDeprecatedTheme)
+			end
 		end
 	end
 

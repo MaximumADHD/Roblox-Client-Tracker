@@ -5,6 +5,8 @@ local Constants = require(Plugin.Src.Util.Constants)
 local Framework = require(Plugin.Packages.Framework)
 local deepCopy = Framework.Util.deepCopy
 
+local GetFFlagRevertExplorerSelection = require(Plugin.LuaFlags.GetFFlagRevertExplorerSelection)
+
 local Selection = {}
 Selection.__index = Selection
 
@@ -23,17 +25,21 @@ function Selection:Set(objects)
 end
 
 function Selection:Get()
-	local currSelection = SelectionService:Get()
-	local containsNonParts = false
-	for _, selectedObject in pairs(currSelection) do
-		if selectedObject ~= nil and selectedObject:IsA("BasePart") == false then
-			containsNonParts = true
+	if GetFFlagRevertExplorerSelection() then
+		return self.selectedTrackInstances and deepCopy(self.selectedTrackInstances) or SelectionService:Get()
+	else
+		local currSelection = SelectionService:Get()
+		local containsNonParts = false
+		for _, selectedObject in pairs(currSelection) do
+			if selectedObject ~= nil and selectedObject:IsA("BasePart") == false then
+				containsNonParts = true
+			end
 		end
+		if containsNonParts then
+			currSelection = {}
+		end
+		return self.selectedTrackInstances and deepCopy(self.selectedTrackInstances) or currSelection
 	end
-	if containsNonParts then
-		currSelection = {}
-	end
-	return self.selectedTrackInstances and deepCopy(self.selectedTrackInstances) or currSelection
 end
 
 function Selection:GetActiveInstance()

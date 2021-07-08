@@ -20,6 +20,8 @@ local SetSelectedTracks = require(Plugin.Src.Actions.SetSelectedTracks)
 local AddWaypoint = require(Plugin.Src.Thunks.History.AddWaypoint)
 
 local GetFFlagNoValueChangeDuringPlayback = require(Plugin.LuaFlags.GetFFlagNoValueChangeDuringPlayback)
+local GetFFlagRevertExplorerSelection = require(Plugin.LuaFlags.GetFFlagRevertExplorerSelection)
+local GetFFlagCreateSelectionBox = require(Plugin.LuaFlags.GetFFlagCreateSelectionBox)
 
 local DraggerWrapper = Roact.PureComponent:extend("DraggerWrapper")
 
@@ -32,7 +34,12 @@ end
 function DraggerWrapper:willUpdate(nextProps)
 	local props = self.props
 	if self.selection and props.SelectedTrackInstances ~= nextProps.SelectedTrackInstances then
-		Selection:Set(nextProps.SelectedTrackInstances)
+		if GetFFlagRevertExplorerSelection() then
+			self.selection.selectedTrackInstances = nextProps.SelectedTrackInstances
+		end
+		if not GetFFlagCreateSelectionBox() then
+			Selection:Set(nextProps.SelectedTrackInstances)
+		end
 		local selectionSignal = self.props.Signals:get(Constants.SIGNAL_KEYS.SelectionChanged)
 		selectionSignal:Fire()
 	end
@@ -117,11 +124,15 @@ local function mapDispatchToProps(dispatch)
 	return {
 		SetSelectedTrackInstances = function(tracks)
 			local trackNames = {}
-			for index, track in pairs(tracks) do
-				trackNames[index] = track.Name
+			if not GetFFlagRevertExplorerSelection() then
+				for index, track in pairs(tracks) do
+					trackNames[index] = track.Name
+				end
 			end
 			dispatch(SetSelectedTrackInstances(tracks))
-			dispatch(SetSelectedTracks(trackNames))
+			if not GetFFlagRevertExplorerSelection() then
+				dispatch(SetSelectedTracks(trackNames))
+			end
 		end,
 		ValueChanged = function(instanceName, trackName, frame, value, analytics)
 			dispatch(ValueChanged(instanceName, trackName, frame, value, analytics))

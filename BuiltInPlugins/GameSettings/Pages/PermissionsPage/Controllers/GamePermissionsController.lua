@@ -141,10 +141,8 @@ function GamePermissionsController:getPermissions(gameId, ownerName, ownerId, ow
 	return DeserializeFromRequest.DeserializePermissions(permissions, ownerName, ownerId, ownerType)
 end
 
--- TODO (smallick) 10/1/2020
--- Remove DEPRECATED_groupMetadata with FFlagStudioUXImprovementsLoosenTCPermissions
-function GamePermissionsController:setPermissions(gameId, oldPermissions, newPermissions, DEPRECATED_groupMetadata)
-	local adds, deletes = SerializeForRequest.SerializePermissions(oldPermissions, newPermissions, DEPRECATED_groupMetadata)
+function GamePermissionsController:setPermissions(gameId, oldPermissions, newPermissions)
+	local adds, deletes = SerializeForRequest.SerializePermissions(oldPermissions, newPermissions)
 	local numChanges = #adds + #deletes
 
 	if (numChanges > MAX_CHANGES) then

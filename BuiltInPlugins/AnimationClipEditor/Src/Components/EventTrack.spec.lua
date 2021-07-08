@@ -6,6 +6,8 @@ return function()
 
 	local EventTrack = require(script.Parent.EventTrack)
 
+	local GetFFlagRealtimeChanges = require(Plugin.LuaFlags.GetFFlagRealtimeChanges)
+
 	local sampleEvents = {
 		Keyframes = {1, 2, 5, 6},
 		Data = {
@@ -74,13 +76,16 @@ return function()
 		Roact.unmount(instance)
 	end)
 
-	it("should render Preview events from this track", function()
-		local container = Instance.new("Folder")
-		local instance = Roact.mount(createTestEventTrack(testSelectedEvents, testPreviewEvents), container)
-		local frame = container:FindFirstChildOfClass("Frame")
+	if not GetFFlagRealtimeChanges() then
+		-- Realtime changes have removed the PreviewKeyframes
+		it("should render Preview events from this track", function()
+			local container = Instance.new("Folder")
+			local instance = Roact.mount(createTestEventTrack(testSelectedEvents, testPreviewEvents), container)
+			local frame = container:FindFirstChildOfClass("Frame")
 
-		expect(#frame.KeyframeDisplayArea:GetChildren()).to.equal(4)
+			expect(#frame.KeyframeDisplayArea:GetChildren()).to.equal(4)
 
-		Roact.unmount(instance)
-	end)
+			Roact.unmount(instance)
+		end)
+	end
 end

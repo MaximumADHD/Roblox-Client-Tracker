@@ -34,6 +34,7 @@ local FFlagToolboxShowHideABTest = game:GetFastFlag("ToolboxShowHideABTest")
 local FFlagStudioShowHideABTestV2 = game:GetFastFlag("StudioShowHideABTestV2")
 local FFlagPluginManagementDirectlyOpenToolbox = game:GetFastFlag("PluginManagementDirectlyOpenToolbox")
 local FFlagToolboxStopAudioFromPlayingOnCloseAndCategorySwitch = game:GetFastFlag("ToolboxStopAudioFromPlayingOnCloseAndCategorySwitch")
+local FFlagRemoveUILibraryFromToolbox = require(Plugin.Core.Util.getFFlagRemoveUILibraryFromToolbox)()
 
 local ShowHideABTestName = "AllUsers.RobloxStudio.ShowHideToolbox"
 local ABTEST_SHOWHIDEV2_NAME = "AllUsers.RobloxStudio.ShowHideV2"
@@ -205,7 +206,7 @@ function ToolboxPlugin:render()
 	}, {
 		Toolbox = pluginGuiLoaded and ContextServices.provide({
 			ContextServices.Focus.new(self.state.pluginGui),
-			UILibraryWrapper.new(),
+			(not FFlagRemoveUILibraryFromToolbox) and UILibraryWrapper.new() or nil,
 		}, {
 			Roact.createElement(ExternalServicesWrapper, {
 				plugin = plugin,

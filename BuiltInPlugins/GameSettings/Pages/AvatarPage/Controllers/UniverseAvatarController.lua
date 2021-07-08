@@ -364,7 +364,7 @@ local ASSETTYPE_PROPERTIES_MAPPING = {
 
 	[Enum.AssetType.Shirt] = "GameSettingsAssetIDShirt",
 	[Enum.AssetType.Pants] = "GameSettingsAssetIDPants",
-	[Enum.AssetType.TeeShirt] = "GameSettingsAssetIDTeeShirt",
+	[Enum.AssetType.TShirt] = "GameSettingsAssetIDTeeShirt",
 }
 
 local ASSET_TYPE_IDS = {}

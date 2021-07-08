@@ -49,6 +49,7 @@ return function()
 				DopeSheetWidth = 500,
 				ZIndex = 2,
 				ShowSelectionArea = false,
+				TrackPadding = Constants.TRACK_PADDING_SMALL,
 			})
 		})
 	end

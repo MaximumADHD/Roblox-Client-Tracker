@@ -28,7 +28,7 @@ function RepopulatableHistory:init()
 		}
 
 		for _, value in pairs(items) do
-			table.insert(children, 0, Roact.createElement(RepopulatableHistoryItem, {
+			table.insert(children, 1, Roact.createElement(RepopulatableHistoryItem, {
 				View = value.View,
 				Name = value.Name,
 				Data = value.Data

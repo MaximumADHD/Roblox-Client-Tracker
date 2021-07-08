@@ -108,6 +108,7 @@ local LinkText = Framework.UI.LinkText
 local Util = Framework.Util
 local StyleModifier = Util.StyleModifier
 local LayoutOrderIterator = Util.LayoutOrderIterator
+local deepJoin = Util.deepJoin
 local PartialHyperlink = UILibrary.Studio.PartialHyperlink
 
 local function loadSettings(store, contextItems)
@@ -175,16 +176,49 @@ local function loadSettings(store, contextItems)
 		end,
 		function(loadedSettings)
 			if FFlagLuobuDevPublishLua and shouldShowDevPublishLocations() then
-				-- TODO: jbousellam - update to actually get the opt in locations and not manually set them
-				loadedSettings[optInLocationsKey] = {}
+				--[[
+					Endpoint returns optInLocations in the following format:
+						[
+							{
+								"region": "China",
+								"status": "Approved"
+							},
+						]
+					This function transforms it into the following format so changes are applied properly to the store:
+						{
+							China = {
+								status = "Unknown",
+								selected = false,
+							}
+						}
+				]]
+
+				local optInLocations = gameInfoController:getOptInLocations(gameId)
+
+				local transformedOptInLocations = {}
+				if optInLocations == nil or next(optInLocations) == nil then
+					transformedOptInLocations = {
+						China = {
+							status = "Unknown",
+							selected = false,
+						}
+					}
+				else
+					for _,location in pairs(optInLocations) do
+						transformedOptInLocations[location.region] = {
+							status = location.status,
+							selected = location.status ~= "Removed" and location.status ~= "Unknown"
+						}
+					end
+
+				end
+				loadedSettings[optInLocationsKey] = transformedOptInLocations
 			end
 		end,
 		function(loadedSettings)
-			if not FFlagLuobuDevPublishLua then
-				return
+			if FFlagLuobuDevPublishLua and shouldShowDevPublishLocations() then
+				loadedSettings[playerAcceptanceKey] = policyInfoController:getPlayerAcceptances()
 			end
-
-			loadedSettings[playerAcceptanceKey] = policyInfoController:getPlayerAcceptances()
 		end,
 	}
 end
@@ -323,18 +357,20 @@ local function saveSettings(store, contextItems)
 		end,
 		function()
 			if FFlagLuobuDevPublishLua and shouldShowDevPublishLocations() then
-				local changed = state.Settings.Changed.optInLocations
+				local changed = state.Settings.Changed[optInLocationsKey]
 
 				if changed ~= nil then
-					local changedOptInLocations = {}
-					for k,v in pairs(changed) do
-						if v then
-							table.insert(changedOptInLocations, k)
+					local optInLocations = {}
+					local optOutLocations = {}
+					for region,values in pairs(changed) do
+						if values.selected then
+							table.insert(optInLocations, region)
+						else
+							table.insert(optOutLocations, region)
 						end
 					end
 
-				--	TODO: jbousellam - update to actually set the opt in locations
-				-- gameInfoController:setOptInLocations(gameId, changedOptInLocations)
+					gameInfoController:setOptInLocations(gameId, optInLocations, optOutLocations)
 				end
 			end
 		end,
@@ -451,6 +487,11 @@ function BasicInfo:hasPermissionToEdit()
 	return ownerType == Enum.CreatorType.Group or ownerId == StudioService:GetUserId()
 end
 
+local function calculateTextSize(text, textSize, font)
+	local hugeFrameSizeNoTextWrapping = Vector2.new(5000, 5000)
+	return game:GetService('TextService'):GetTextSize(text, textSize, font, hugeFrameSizeNoTextWrapping)
+end
+
 function BasicInfo:init()
 	self.state = FFlagLuobuDevPublishLua and {
 		-- StyleModifier must be upper case first character because of how Theme in ContextServices uses it.
@@ -475,14 +516,14 @@ function BasicInfo:init()
 		end
 	end
 
-	self.getModerationStatus = FFlagLuobuDevPublishLua and function(location)
+	self.getModerationStatus = FFlagLuobuDevPublishLua and function(self, location, status)
 		local theme = self.props.Theme:get("Plugin")
 		local localization = self.props.Localization
-		-- TODO: jbousellam - 5/5/21 - get moderation status from API
-		local status = "Rejected"
+
 		local statusText = localization:getText(optInLocationsKey, "Status")
 		local textColor = theme.fontStyle.Subtext.TextColor3
 		local show = true
+
 		if status == "Approved" then
 			local value = status .. location
 			statusText = statusText .. localization:getText(optInLocationsKey, value)
@@ -496,7 +537,6 @@ function BasicInfo:init()
 		end
 
 		return {
-			status = status,
 			statusText = statusText,
 			textColor = textColor,
 			show = show,
@@ -519,17 +559,72 @@ function BasicInfo:init()
 		end
 	end or nil
 
-end
 
-local function calculateTextSize(text, textSize, font)
-	local hugeFrameSizeNoTextWrapping = Vector2.new(5000, 5000)
-	return game:GetService('TextService'):GetTextSize(text, textSize, font, hugeFrameSizeNoTextWrapping)
+	self.createOptInLocationBoxes = FFlagLuobuDevPublishLua and function(self, layoutOrder)
+		local props = self.props
+		local localization = self.props.Localization
+		local theme = (FFlagLuobuDevPublishLua or FFlagLuobuDevPublishLuaTempOptIn) and self.props.Theme:get("Plugin") or nil
+
+		local optInLocations = props[optInLocationsKey]
+
+		local boxes = {}
+
+		for region,values in pairs(optInLocations) do
+			local status = values.status
+			local selected = values.selected
+
+			local moderationStatus = self:getModerationStatus(region, status)
+
+			table.insert(boxes, {
+				Id = region,
+				Title = localization:getText("General", "Location" .. region),
+				Selected = selected,
+				LinkTextFrame = Roact.createElement("Frame", {
+					BackgroundTransparency = 1,
+					LayoutOrder = FFlagUseLayoutIteratorGameSettingsPublishPlace and layoutOrder:getNextOrder() or 150,
+					Size = UDim2.new(1, theme.requirementsLink.length, 0, theme.requirementsLink.height),
+					Position = UDim2.new(0, 0, 0, theme.requirementsLink.paddingY),
+				}, {
+					UILayout = Roact.createElement("UIListLayout", {
+						SortOrder = Enum.SortOrder.LayoutOrder,
+						FillDirection = Enum.FillDirection.Horizontal,
+						VerticalAlignment = Enum.VerticalAlignment.Top,
+						Padding = UDim.new(0, theme.requirementsLink.paddingX),
+					}),
+
+					ModerationStatus = moderationStatus.show and Roact.createElement("TextLabel", {
+						Size = UDim2.new(0, calculateTextSize(moderationStatus.statusText, theme.fontStyle.Subtext.TextSize, theme.fontStyle.Subtext.Font).X, 0, theme.fontStyle.Subtext.TextSize),
+						BackgroundTransparency = 1,
+						Text = moderationStatus.statusText,
+						TextColor3 = moderationStatus.textColor,
+						TextXAlignment = Enum.TextXAlignment.Left,
+						TextSize = theme.fontStyle.Subtext.TextSize,
+						Font = theme.fontStyle.Subtext.Font,
+						LayoutOrder = -1,
+					}) or nil,
+
+					RequirementsText = Roact.createElement(PartialHyperlink, {
+						HyperLinkText = localization:getText(optInLocationsKey, "RequirementsLinkText"),
+						NonHyperLinkText = localization:getText(optInLocationsKey, "ChinaRequirements"),
+						Style = "RequirementsLink",
+						Mouse = props.Mouse:get(),
+						OnClick = function()
+							local url = getOptInLocationsRequirementsLink(chinaKey)
+							GuiService:OpenBrowserWindow(url)
+						end,
+					})
+				})
+			})
+		end
+
+		return boxes
+	end
 end
 
 function BasicInfo:render()
 	local localization = self.props.Localization
 	local theme = (FFlagLuobuDevPublishLua or FFlagLuobuDevPublishLuaTempOptIn) and self.props.Theme:get("Plugin") or nil
-	local chinaModerationStatus = FFlagLuobuDevPublishLua and self.getModerationStatus(chinaKey) or nil
+
 	local layoutOrder = FFlagUseLayoutIteratorGameSettingsPublishPlace and LayoutOrderIterator.new() or nil
 	local layoutOrder2 = (FFlagUseLayoutIteratorGameSettingsPublishPlace and FFlagLuobuDevPublishLuaTempOptIn and shouldShowDevPublishLocations()) and LayoutOrderIterator.new() or nil
 
@@ -544,8 +639,13 @@ function BasicInfo:render()
 
 		local devices = props.Devices
 		local dialog = props.Dialog
-		local optInLocations = FFlagLuobuDevPublishLua and shouldShowDevPublishLocations() and props.OptInLocations or nil
-		local playerAcceptance = FFlagLuobuDevPublishLua and shouldShowDevPublishLocations() and props.PlayerAcceptance or nil
+
+		local optInLocations
+		local playerAcceptance
+		if FFlagLuobuDevPublishLua and shouldShowDevPublishLocations() then
+			optInLocations = props[optInLocationsKey]
+			playerAcceptance = props.PlayerAcceptance and props.PlayerAcceptance or nil
+		end
 
 		local localizedGenreList = {
 			{Id = "All", Title = localization:getText("General", "GenreAll")},
@@ -741,49 +841,7 @@ function BasicInfo:render()
 			OptInLocations = not FFlagLuobuDevPublishLuaTempOptIn and FFlagLuobuDevPublishLua and shouldShowDevPublishLocations() and Roact.createElement(CheckBoxSet, {
 				Title = localization:getText("General", "TitleOptInLocations"),
 				LayoutOrder = FFlagUseLayoutIteratorGameSettingsPublishPlace and layoutOrder:getNextOrder() or 140,
-				Boxes = {{
-						Id = chinaKey,
-						Title = localization:getText("General", "LocationChina"),
-						Selected = optInLocations and optInLocations.China or false,
-						LinkTextFrame = Roact.createElement("Frame", {
-							BackgroundTransparency = 1,
-							LayoutOrder = FFlagUseLayoutIteratorGameSettingsPublishPlace and layoutOrder:getNextOrder() or 150,
-							Size = UDim2.new(1, theme.requirementsLink.length, 0, theme.requirementsLink.height),
-							Position = UDim2.new(0, 0, 0, theme.requirementsLink.paddingY),
-						}, {
-							UILayout = Roact.createElement("UIListLayout", {
-								SortOrder = Enum.SortOrder.LayoutOrder,
-								FillDirection = Enum.FillDirection.Horizontal,
-								VerticalAlignment = Enum.VerticalAlignment.Top,
-								Padding = UDim.new(0, theme.requirementsLink.paddingX),
-							}),
-
-							ModerationStatus = chinaModerationStatus.show and Roact.createElement("TextLabel", {
-								Size = UDim2.new(0, calculateTextSize(chinaModerationStatus.statusText, theme.fontStyle.Subtext.TextSize, theme.fontStyle.Subtext.Font).X, 0, theme.fontStyle.Subtext.TextSize),
-								BackgroundTransparency = 1,
-								Text = chinaModerationStatus.statusText,
-								TextColor3 = chinaModerationStatus.textColor,
-								TextXAlignment = Enum.TextXAlignment.Left,
-								TextSize = theme.fontStyle.Subtext.TextSize,
-								Font = theme.fontStyle.Subtext.Font,
-								LayoutOrder = -1,
-							}) or nil,
-
-							-- TODO: Implement PartialHyperlink changes into DevFramework since we want to deprecate UILibrary eventually.
-							-- Look at the changes in FFlagLuobuDevPublishLua that use this.
-							LinkText = Roact.createElement(PartialHyperlink, {
-								HyperLinkText = localization:getText(optInLocationsKey, "RequirementsLinkText"),
-								NonHyperLinkText = localization:getText(optInLocationsKey, "ChinaRequirements"),
-								Mouse = props.Mouse:get(),
-								OnClick = function()
-									local url = getOptInLocationsRequirementsLink(chinaKey)
-									GuiService:OpenBrowserWindow(url)
-								end,
-								Style = "RequirementsLink",
-							}),
-						}),
-					},
-				},
+				Boxes = self:createOptInLocationBoxes(layoutOrder),
 				Enabled = optInLocations ~= nil,
 				--Functionality
 				EntryClicked = function(box)
@@ -811,10 +869,12 @@ function BasicInfo:render()
 					if not playerAcceptance then
 						dialog.showDialog(SimpleDialog, dialogProps):await()
 					else
-						local newLocations = Cryo.Dictionary.join(optInLocations, {
-							[box.Id] = (box.Selected) and Cryo.None or not box.Selected,
+						local newOptInLocations = deepJoin(optInLocations, {
+							[box.Id] = {
+								selected = not box.Selected,
+							}
 						})
-						props.OptInLocationsChanged(newLocations)
+						props.OptInLocationsChanged(newOptInLocations)
 					end
 				end,
 				Tooltip = Roact.createElement(Image, {

@@ -27,6 +27,8 @@ local SetSelectedTrackInstances = require(Plugin.Src.Actions.SetSelectedTrackIns
 local SetSelectedTracks = require(Plugin.Src.Actions.SetSelectedTracks)
 local DeleteTrack = require(Plugin.Src.Thunks.DeleteTrack)
 
+local GetFFlagRevertExplorerSelection = require(Plugin.LuaFlags.GetFFlagRevertExplorerSelection)
+local GetFFlagCreateSelectionBox = require(Plugin.LuaFlags.GetFFlagCreateSelectionBox)
 
 local InstanceSelector = Roact.PureComponent:extend("InstanceSelector")
 
@@ -101,7 +103,9 @@ function InstanceSelector:init()
 
 	self.deselect = function()
 		Selection:Set({})
-		SetSelectedTrackInstances({})
+		if not GetFFlagRevertExplorerSelection() then
+			SetSelectedTrackInstances({})
+		end
 	end
 
 	self.highlightInstance = function(instance)
@@ -120,56 +124,64 @@ function InstanceSelector:init()
 		local selectedInstance = getSelectedInstance()
 		local rigInstance = getModel(selectedInstance)
 		local plugin = self.props.Plugin
-		local selectionSignal = self.props.Signals:get(Constants.SIGNAL_KEYS.SelectionChanged)
+		local selectionSignal
 
-		-- if the user clicks the selected rig again, do nothing
-		if selectedInstance == self.props.RootInstance then
-			return
+		if not GetFFlagRevertExplorerSelection() then
+			selectionSignal = self.props.Signals:get(Constants.SIGNAL_KEYS.SelectionChanged)
+
+			-- if the user clicks the selected rig again, do nothing
+			if selectedInstance == self.props.RootInstance then
+				return
+			end
 		end
 
 		if isValidRig(rigInstance) and not self:isCurrentRootInstance(rigInstance) then
 			local hasErrors, errorList = RigUtils.rigHasErrors(rigInstance)
 			if not hasErrors then
 				self.props.UpdateRootInstance(rigInstance, self.props.Analytics)
-				if self.descendantRemoving then
-					self.descendantRemoving:Disconnect()
-				end
-				if self.ancestryChanged then
-					self.ancestryChanged:Disconnect()
-				end
+				if not GetFFlagRevertExplorerSelection() then
+					if self.descendantRemoving then
+						self.descendantRemoving:Disconnect()
+					end
+					if self.ancestryChanged then
+						self.ancestryChanged:Disconnect()
+					end
 
-				self.descendantRemoving = rigInstance.DescendantRemoving:Connect(function(descendant)
-					-- if a part of the rig is deleted, delete the track and disable the draggers
-					if descendant:IsA("BasePart") then
-						self.props.DeleteTrack(descendant.Name, self.props.Analytics)
+					self.descendantRemoving = rigInstance.DescendantRemoving:Connect(function(descendant)
+						-- if a part of the rig is deleted, delete the track and disable the draggers
+						if descendant:IsA("BasePart") then
+							self.props.DeleteTrack(descendant.Name, self.props.Analytics)
+							SetSelectedTrackInstances({})
+							selectionSignal:Fire()
+						end
+						-- if a motor6d is deleted, delete the track and disable the draggers on the respective part
+						if descendant:IsA("Motor6D") then
+							local part = descendant.Parent
+							self.props.DeleteTrack(part.Name, self.props.Analytics)
+							SetSelectedTrackInstances({})
+							selectionSignal:Fire()
+						end
+					end)
+
+					-- if the selected rig is deleted, delete all tracks,  hide the draggers and deactivate the plugin
+					self.ancestryChanged = rigInstance.AncestryChanged:Connect(function(child, newParent)
 						SetSelectedTrackInstances({})
 						selectionSignal:Fire()
-					end
-					-- if a motor6d is deleted, delete the track and disable the draggers on the respective part
-					if descendant:IsA("Motor6D") then
-						local part = descendant.Parent
-						self.props.DeleteTrack(part.Name, self.props.Analytics)
-						SetSelectedTrackInstances({})
-						selectionSignal:Fire()
-					end
-				end)
-
-				-- if the selected rig is deleted, delete all tracks,  hide the draggers and deactivate the plugin
-				self.ancestryChanged = rigInstance.AncestryChanged:Connect(function(child, newParent)
-					SetSelectedTrackInstances({})
-					selectionSignal:Fire()
-					for _, track in ipairs(self.props.Tracks) do
-						self.props.DeleteTrack(track.Name, self.props.Analytics)
-					end
-					plugin:get():Deactivate()
-				end)
+						for _, track in ipairs(self.props.Tracks) do
+							self.props.DeleteTrack(track.Name, self.props.Analytics)
+						end
+						plugin:get():Deactivate()
+					end)
+				end
 				self.deselect()
 			else
 				plugin:get():Deactivate()
 				self:showErrorDialogs(plugin:get(), errorList)
 			end
+		elseif GetFFlagRevertExplorerSelection() and selectedInstance and plugin then
+			plugin:get():Deactivate()
 		-- if the user clicks on a part in the hierarchy, it gets selected and the draggers switch to it. otherwise we deselect the previously selected part
-		elseif Selection:Get() ~= self.props.SelectedTrackInstances and selectedInstance ~= nil then
+		elseif not GetFFlagRevertExplorerSelection() and Selection:Get() ~= self.props.SelectedTrackInstances and selectedInstance ~= nil then
 			if selectedInstance:IsA("BasePart") then
 				SetSelectedTrackInstances(selectedInstance)
 				selectionSignal:Fire()
@@ -192,7 +204,11 @@ function InstanceSelector:didMount()
 		plugin:get():Activate(true)
 
 		self.MouseButtonDown = self.props.Mouse:get().Button1Down:Connect(function()
-			self:selectValidInstance(self.selectInstance)
+			if GetFFlagRevertExplorerSelection() then
+				self:selectValidInstance(self.selectInstance, self.deselect)
+			else
+				self:selectValidInstance(self.selectInstance)
+			end
 		end)
 	end
 end
@@ -203,16 +219,28 @@ function InstanceSelector:render()
 
 	local hoverPart = state.HoverPart
 	local container = props.Container or CoreGui
+	local children = {}
+	if GetFFlagCreateSelectionBox() and props.SelectedTrackInstances then
+		for index, part in ipairs(props.SelectedTrackInstances) do
+			children["SelectionBox" ..index] = Roact.createElement("SelectionBox", {
+				Archivable = false,
+				Adornee = part,
+				LineThickness = 0.01,
+				Transparency = 0.5,
+				SurfaceTransparency = 0.8,
+			})
+		end
+	end
+
+	children["HoverBox"] =  hoverPart and Roact.createElement("SelectionBox", {
+		Archivable = false,
+		Adornee = hoverPart,
+		LineThickness = 0.1,
+	})
 
 	return Roact.createElement(Roact.Portal, {
 		target = container,
-	}, {
-		HoverBox = hoverPart and Roact.createElement("SelectionBox", {
-			Archivable = false,
-			Adornee = hoverPart,
-			LineThickness = 0.1,
-		}),
-	})
+	}, children)
 end
 
 function InstanceSelector:willUnmount()
@@ -232,12 +260,14 @@ function InstanceSelector:willUnmount()
 		self.props.Plugin:get():Deactivate()
 	end
 
-	if self.descendantRemoving then
-		self.descendantRemoving:Disconnect()
-	end
+	if not GetFFlagRevertExplorerSelection() then
+		if self.descendantRemoving then
+			self.descendantRemoving:Disconnect()
+		end
 
-	if self.ancestryChanged then
-		self.ancestryChanged:Disconnect()
+		if self.ancestryChanged then
+			self.ancestryChanged:Disconnect()
+		end
 	end
 end
 
@@ -245,19 +275,20 @@ ContextServices.mapToProps(InstanceSelector, {
 	Plugin = ContextServices.Plugin,
 	Mouse = ContextServices.Mouse,
 	Analytics = ContextServices.Analytics,
-	Signals = SignalsContext,
+	Signals = SignalsContext,  -- Unused if GetFFlagRevertExplorerSelection
 })
 
 local function mapStateToProps(state, props)
 	return {
 		RootInstance = state.Status.RootInstance,
-		SelectedTrackInstances = state.Status.SelectedTrackInstances,
-		Tracks = state.Status.Tracks,
+		SelectedTrackInstances = state.Status.SelectedTrackInstances,  -- Unused if GetFFlagRevertExplorerSelection
+		Tracks = state.Status.Tracks,  -- Unused if GetFFlagRevertExplorerSelection
 	}
 end
 
 local function mapDispatchToProps(dispatch)
 	return {
+		-- Unused if GetFFlagRevertExplorerSelection
 		SetSelectedTrackInstances = function(tracks)
 			local trackNames = {}
 			for index, track in pairs(tracks) do
@@ -266,6 +297,7 @@ local function mapDispatchToProps(dispatch)
 			dispatch(SetSelectedTrackInstances(tracks))
 			dispatch(SetSelectedTracks(trackNames))
 		end,
+		-- Unused if GetFFlagRevertExplorerSelection
 		DeleteTrack = function(trackName, analytics)
 			dispatch(AddWaypoint())
 			dispatch(DeleteTrack(trackName, analytics))

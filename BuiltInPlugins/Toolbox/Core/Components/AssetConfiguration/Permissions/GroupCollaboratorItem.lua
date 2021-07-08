@@ -25,7 +25,6 @@ local Libs = Plugin.Libs
 local Roact = require(Libs.Roact)
 local Cryo = require(Libs.Cryo)
 local UILibrary = require(Libs.UILibrary)
-local ExpandableList = UILibrary.Component.ExpandableList
 
 local Util = Plugin.Core.Util
 local Urls = require(Util.Urls)
@@ -39,11 +38,15 @@ local PermissionsDirectory = Plugin.Core.Components.AssetConfiguration.Permissio
 local CollaboratorItem = require(PermissionsDirectory.CollaboratorItem)
 local PermissionsConstants = require(PermissionsDirectory.PermissionsConstants)
 
+local ExpandableList
+local ExpandableWidget
 local FitToContent
 local Spritesheet
 if FFlagToolboxReplaceUILibraryComponentsPt3 then
+	ExpandableWidget = require(Libs.Framework).UI.ExpandableWidget
 	Spritesheet = require(Libs.Framework).Util.Spritesheet
 else
+	ExpandableList = UILibrary.Component.ExpandableList
 	Spritesheet = UILibrary.Util.Spritesheet
 	local createFitToContent = UILibrary.Component.createFitToContent
 	FitToContent = createFitToContent("Frame", "UIListLayout", {
@@ -52,11 +55,11 @@ else
 	})
 end
 
-local arrowSize = 12
-local arrowPadding = 4 -- padding between arrow and GroupCollaboratorItem icon
+local ARROW_SIZE = 12
+local ARROW_PADDING = 4 -- padding between arrow and GroupCollaboratorItem icon
 
 local arrowSpritesheet = Spritesheet(Images.ARROW_SPRITESHEET, {
-	SpriteSize = arrowSize,
+	SpriteSize = ARROW_SIZE,
 	NumSprites = 4,
 })
 
@@ -122,16 +125,25 @@ function GroupCollaboratorItem:init()
 		hovered = false,
 	}
 
-	self.onTopLevelHovered = function()
-		self:setState({
-			hovered = true,
-		})
-	end
+	if FFlagToolboxReplaceUILibraryComponentsPt3 then
+		self.onClick = function()
+			if not self.props.Enabled then return end
+			self:setState({
+				expanded = not self.state.expanded,
+			})
+		end
+	else
+		self.onTopLevelHovered = function()
+			self:setState({
+				hovered = true,
+			})
+		end
 
-	self.onTopLevelHoverEnded = function()
-		self:setState({
-			hovered = false,
-		})
+		self.onTopLevelHoverEnded = function()
+			self:setState({
+				hovered = false,
+			})
+		end
 	end
 end
 
@@ -151,6 +163,7 @@ end
 
 function GroupCollaboratorItem:renderContent(theme, localiztion, localized)
 	local props = self.props
+
 	local rolesetCollaboratorItems = {}
 	if FFlagToolboxReplaceUILibraryComponentsPt3 then
 		rolesetCollaboratorItems = {
@@ -162,11 +175,12 @@ function GroupCollaboratorItem:renderContent(theme, localiztion, localized)
 	local anyLocked = false
 	local sameAction = false
 
+	local layoutOrder = props.LayoutOrder
 	local rolesets = self.props.GroupData and self.props.GroupData.Roles or {}
 	table.sort(rolesets, function(a,b) return b.Rank < a.Rank end)
 
 	local rolesetItems = getRolesetItems(props, localized)
-	local collaboratorItemOffset = props.Enabled and arrowSize + arrowPadding or 0
+	local collaboratorItemOffset = props.Enabled and ARROW_SIZE + ARROW_PADDING or 0
 	for i,rolesetProps in pairs(rolesets) do
 		local action = getActionForRoleset(props, rolesetProps)
 		if i == 1 then
@@ -220,32 +234,33 @@ function GroupCollaboratorItem:renderContent(theme, localiztion, localized)
 
 	local arrowImageProps = self.state.expanded and downArrowProps or rightArrowProps
 
-	local expandableList = Roact.createElement(ExpandableList, {
-		TopLevelItem = {
-			Frame = Roact.createElement("Frame", {
-				BackgroundTransparency = 1,
-				LayoutOrder = 0,
-				-- TODO (awarwick) 5/29/2019. We're using hardcoded sizes now because this design is a WIP
-				-- and we don't want to spend the engineering resources on somethat that could drastically change
-				Size = UDim2.new(1, 0, 0, 60),
-
-				-- TODO: Consider moving this to expandable list when mouse handling is added into ui library
-				[Roact.Event.MouseEnter] = self.onTopLevelHovered,
-				[Roact.Event.MouseMoved] = self.onTopLevelHovered,
-				[Roact.Event.MouseLeave] = self.onTopLevelHoverEnded,
-			}, {
-
+	local expandableList
+	if FFlagToolboxReplaceUILibraryComponentsPt3 then
+		return Roact.createElement(ExpandableWidget, {
+			ExpandableContent = {
+				RoleCollaborators = Roact.createElement("Frame", {
+					AutomaticSize = Enum.AutomaticSize.Y,
+					BackgroundTransparency = 1,
+					LayoutOrder = 1,
+					Size = UDim2.new(1, 0, 0, 0),
+				}, rolesetCollaboratorItems)
+			},
+			IsExpanded = props.Enabled and self.state.expanded,
+			LayoutOrder = layoutOrder,
+			OnClick = self.onClick,
+			TopLevelContent = {
 				CollapseArrow = props.Enabled and Roact.createElement("ImageLabel", Cryo.Dictionary.join(arrowImageProps, {
-					Size = UDim2.new(0, arrowSize, 0, arrowSize),
+					Size = UDim2.new(0, ARROW_SIZE, 0, ARROW_SIZE),
 					AnchorPoint = Vector2.new(0, 0.5),
 					Position = UDim2.new(0, 0, 0.5, 0),
 					BackgroundTransparency = 1,
-					ImageColor3 = true and Color3.fromRGB(204, 204, 204) or Color3.fromRGB(25, 25, 25),
+					ImageColor3 = Color3.fromRGB(204, 204, 204),
 				})),
 
 				Frame = Roact.createElement("Frame", {
+					AutomaticSize = Enum.AutomaticSize.Y,
 					BackgroundTransparency = 1,
-					Size = UDim2.new(1, -collaboratorItemOffset, 1, 0),
+					Size = UDim2.new(1, -collaboratorItemOffset, 0, 60),
 					Position = UDim2.new(0, collaboratorItemOffset, 0, 0),
 				}, {
 					GroupCollaborator = props.GroupData and Roact.createElement(CollaboratorItem, {
@@ -255,7 +270,7 @@ function GroupCollaboratorItem:renderContent(theme, localiztion, localized)
 
 						CollaboratorName = props.GroupData.Name,
 						CollaboratorId = props.GroupData.Id,
-						CollaboratorIcon =  Urls.constructRBXThumbUrl(AssetConfigConstants.rbxThumbTypes["GroupIcon"], props.GroupData.Id, 
+						CollaboratorIcon = Urls.constructRBXThumbUrl(AssetConfigConstants.rbxThumbTypes["GroupIcon"], props.GroupData.Id,
 							AssetConfigConstants.rbxThumbSizes.GroupIconImageSize),
 						UseMask = false,
 
@@ -267,35 +282,89 @@ function GroupCollaboratorItem:renderContent(theme, localiztion, localized)
 						Removed = props.Removed,
 
 						IsLoading = #rolesets == 0,
-
 						-- mwang, 10/28/2019, commented out for the time being because it can be used later when adding group collaborators to a package.
 						-- PermissionChanged = function(newPermission)
 						-- 	props.GroupPermissionChanged(props.GroupId, newPermission)
 						-- end,
 					})
 				}),
-			}),
-		},
+			},
+		})
+	else
+		expandableList = Roact.createElement(ExpandableList, {
+			TopLevelItem = {
+				Frame = Roact.createElement("Frame", {
+					BackgroundTransparency = 1,
+					LayoutOrder = 0,
+					-- TODO (awarwick) 5/29/2019. We're using hardcoded sizes now because this design is a WIP
+					-- and we don't want to spend the engineering resources on somethat that could drastically change
+					Size = UDim2.new(1, 0, 0, 60),
 
-		Content = {
-			RoleCollaborators = Roact.createElement(FFlagToolboxReplaceUILibraryComponentsPt3 and "Frame" or FitToContent, {
-				AutomaticSize = FFlagToolboxReplaceUILibraryComponentsPt3 and Enum.AutomaticSize.XY or nil,
-				LayoutOrder = 1,
-				BackgroundTransparency = 1,
-				Size = FFlagToolboxReplaceUILibraryComponentsPt3 and UDim2.new(1, 0, 0, 0) or nil,
-			}, rolesetCollaboratorItems)
-		},
+					-- TODO: Consider moving this to expandable list when mouse handling is added into ui library
+					[Roact.Event.MouseEnter] = self.onTopLevelHovered,
+					[Roact.Event.MouseMoved] = self.onTopLevelHovered,
+					[Roact.Event.MouseLeave] = self.onTopLevelHoverEnded,
+				}, {
 
-		IsExpanded = props.Enabled and self.state.expanded,
-		OnExpandedStateChanged = function()
-			if not props.Enabled then return end
-			self:setState({
-				expanded = not self.state.expanded,
-			})
-		end,
-	})
+					CollapseArrow = props.Enabled and Roact.createElement("ImageLabel", Cryo.Dictionary.join(arrowImageProps, {
+						Size = UDim2.new(0, ARROW_SIZE, 0, ARROW_SIZE),
+						AnchorPoint = Vector2.new(0, 0.5),
+						Position = UDim2.new(0, 0, 0.5, 0),
+						BackgroundTransparency = 1,
+						ImageColor3 = true and Color3.fromRGB(204, 204, 204) or Color3.fromRGB(25, 25, 25),
+					})),
 
-	return expandableList
+					Frame = Roact.createElement("Frame", {
+						BackgroundTransparency = 1,
+						Size = UDim2.new(1, -collaboratorItemOffset, 1, 0),
+						Position = UDim2.new(0, collaboratorItemOffset, 0, 0),
+					}, {
+						GroupCollaborator = props.GroupData and Roact.createElement(CollaboratorItem, {
+							Enabled = false,
+
+							SubjectType = Enum.CreatorType.Group,
+
+							CollaboratorName = props.GroupData.Name,
+							CollaboratorId = props.GroupData.Id,
+							CollaboratorIcon =  Urls.constructRBXThumbUrl(AssetConfigConstants.rbxThumbTypes["GroupIcon"], props.GroupData.Id, 
+								AssetConfigConstants.rbxThumbSizes.GroupIconImageSize),
+							UseMask = false,
+
+							Action = sameAction and getLabelForAction(localized, sameAction) or localized.PackagePermissions.ActionDropdown.MultipleLabel,
+							Items = anyLocked and {} or props.Items,
+
+							SecondaryText = props.SecondaryText,
+							Removable = props.Removable or false,
+							Removed = props.Removed,
+
+							IsLoading = #rolesets == 0,
+
+							-- mwang, 10/28/2019, commented out for the time being because it can be used later when adding group collaborators to a package.
+							-- PermissionChanged = function(newPermission)
+							-- 	props.GroupPermissionChanged(props.GroupId, newPermission)
+							-- end,
+						})
+					}),
+				}),
+			},
+
+			Content = {
+				RoleCollaborators = Roact.createElement(FitToContent, {
+					LayoutOrder = 1,
+					BackgroundTransparency = 1,
+				}, rolesetCollaboratorItems)
+			},
+
+			IsExpanded = props.Enabled and self.state.expanded,
+			OnExpandedStateChanged = function()
+				if not props.Enabled then return end
+				self:setState({
+					expanded = not self.state.expanded,
+				})
+			end,
+		})
+		return expandableList
+	end
 end
 
 return GroupCollaboratorItem

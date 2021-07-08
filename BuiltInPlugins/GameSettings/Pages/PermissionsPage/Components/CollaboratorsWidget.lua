@@ -1,6 +1,4 @@
 local FFlagGameSettingsMigrateToDevFrameworkSeparator = game:GetFastFlag("GameSettingsMigrateToDevFrameworkSeparator")
-local FFlagStudioUXImprovementsLoosenTCPermissions = game:GetFastFlag("StudioUXImprovementsLoosenTCPermissions")
-
 local Page = script.Parent.Parent
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
@@ -72,85 +70,63 @@ function CollaboratorsWidget:render()
 		Size = UDim2.new(1, 0, 0, 1),
 	})
 
-	if FFlagStudioUXImprovementsLoosenTCPermissions then
-		local groupLabelSpot = #userCollaborators*2 + 2
+	local groupLabelSpot = #userCollaborators*2 + 2
 
-		local groupChildren = {}
-		for i, groupId in pairs(groupCollaborators) do
-			groupChildren["SeparatorGroup"..i] = Roact.createElement(Separator, {
-				LayoutOrder = groupLabelSpot + (i*2 - 1),
-				Size = UDim2.new(1, 0, 0, 1),
-			})
-
-			groupChildren["Group"..groupId] = Roact.createElement(GroupCollaboratorItem, {
-				LayoutOrder = groupLabelSpot + i*2,
-				Writable = writable,
-				Id = groupId,
-				isOwner = false,
-				CurrentPermission = PermissionsConstants.MultipleKey,
-			})
-		end
-
-		groupChildren.LastSeparator = Roact.createElement(Separator, {
-			LayoutOrder = groupLabelSpot + #groupCollaborators*2 + 1,
+	local groupChildren = {}
+	for i, groupId in pairs(groupCollaborators) do
+		groupChildren["SeparatorGroup"..i] = Roact.createElement(Separator, {
+			LayoutOrder = groupLabelSpot + (i*2 - 1),
 			Size = UDim2.new(1, 0, 0, 1),
 		})
 
-		return Roact.createElement(FitToContentWidget, {
-			LayoutOrder = layoutOrder,
-			BackgroundTransparency = 1,
-		}, {
-			UsersTitle = #userCollaborators > 0 and Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Subtitle, {
-				LayoutOrder = 0,
-
-				Text = localization:getText(PERMISSIONS_ID, "UsersCollaboratorType"),
-				TextXAlignment = Enum.TextXAlignment.Left,
-
-				Visible = #userCollaborators > 0,
-				BackgroundTransparency = 1,
-			})),
-
-			Users = #userCollaborators > 0 and Roact.createElement(FitToContentList, {
-				LayoutOrder = 1,
-				BackgroundTransparency = 1,
-			}, userChildren),
-
-			GroupsTitle = #groupCollaborators > 0 and Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Subtitle, {
-				LayoutOrder = groupLabelSpot,
-
-				Text = localization:getText(PERMISSIONS_ID, "GroupsCollaboratorType"),
-				TextXAlignment = Enum.TextXAlignment.Left,
-
-				Visible = #groupCollaborators > 0,
-				BackgroundTransparency = 1,
-			})),
-
-			Groups = #groupCollaborators > 0 and Roact.createElement(FitToContentList, {
-				LayoutOrder = groupLabelSpot + 1,
-				BackgroundTransparency = 1,
-			}, groupChildren),
-		})
-	else	
-		return Roact.createElement(FitToContentWidget, {
-			LayoutOrder = layoutOrder,
-			BackgroundTransparency = 1,
-		}, {
-			UsersTitle = #userCollaborators > 0 and Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Subtitle, {
-				LayoutOrder = 0,
-	
-				Text = localization:getText(PERMISSIONS_ID, "UsersCollaboratorType"),
-				TextXAlignment = Enum.TextXAlignment.Left,
-	
-				Visible = #userCollaborators > 0,
-				BackgroundTransparency = 1,
-			})),
-	
-			Users = #userCollaborators > 0 and Roact.createElement(FitToContentList, {
-				LayoutOrder = 1,
-				BackgroundTransparency = 1,
-			}, userChildren),
+		groupChildren["Group"..groupId] = Roact.createElement(GroupCollaboratorItem, {
+			LayoutOrder = groupLabelSpot + i*2,
+			Writable = writable,
+			Id = groupId,
+			isOwner = false,
+			CurrentPermission = PermissionsConstants.MultipleKey,
 		})
 	end
+
+	groupChildren.LastSeparator = Roact.createElement(Separator, {
+		LayoutOrder = groupLabelSpot + #groupCollaborators*2 + 1,
+		Size = UDim2.new(1, 0, 0, 1),
+	})
+
+	return Roact.createElement(FitToContentWidget, {
+		LayoutOrder = layoutOrder,
+		BackgroundTransparency = 1,
+	}, {
+		UsersTitle = #userCollaborators > 0 and Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Subtitle, {
+			LayoutOrder = 0,
+
+			Text = localization:getText(PERMISSIONS_ID, "UsersCollaboratorType"),
+			TextXAlignment = Enum.TextXAlignment.Left,
+
+			Visible = #userCollaborators > 0,
+			BackgroundTransparency = 1,
+		})),
+
+		Users = #userCollaborators > 0 and Roact.createElement(FitToContentList, {
+			LayoutOrder = 1,
+			BackgroundTransparency = 1,
+		}, userChildren),
+
+		GroupsTitle = #groupCollaborators > 0 and Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Subtitle, {
+			LayoutOrder = groupLabelSpot,
+
+			Text = localization:getText(PERMISSIONS_ID, "GroupsCollaboratorType"),
+			TextXAlignment = Enum.TextXAlignment.Left,
+
+			Visible = #groupCollaborators > 0,
+			BackgroundTransparency = 1,
+		})),
+
+		Groups = #groupCollaborators > 0 and Roact.createElement(FitToContentList, {
+			LayoutOrder = groupLabelSpot + 1,
+			BackgroundTransparency = 1,
+		}, groupChildren),
+	})
 end
 
 ContextServices.mapToProps(CollaboratorsWidget, {
@@ -160,16 +136,10 @@ ContextServices.mapToProps(CollaboratorsWidget, {
 
 CollaboratorsWidget = RoactRodux.connect(
 	function(state, props)
-		if FFlagStudioUXImprovementsLoosenTCPermissions then
-			return {
-				UserCollaborators = GetUserCollaborators(state),
-				GroupCollaborators = GetGroupCollaborators(state),
-			}
-		else
-			return {
-				UserCollaborators = GetUserCollaborators(state),
-			}
-		end
+		return {
+			UserCollaborators = GetUserCollaborators(state),
+			GroupCollaborators = GetGroupCollaborators(state),
+		}
 	end
 )(CollaboratorsWidget)
 

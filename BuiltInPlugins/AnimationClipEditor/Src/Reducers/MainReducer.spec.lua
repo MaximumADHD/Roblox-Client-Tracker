@@ -3,6 +3,7 @@ return function()
 	local Rodux = require(Plugin.Packages.Rodux)
 	local isEmpty = require(Plugin.Src.Util.isEmpty)
 	local Constants = require(Plugin.Src.Util.Constants)
+	local deepCopy = require(Plugin.Src.Util.deepCopy)
 
 	local MainReducer = require(script.Parent.MainReducer)
 	local Framework = require(Plugin.Packages.Framework)
@@ -112,7 +113,7 @@ return function()
 	local function createTestStore()
 		local middlewares = {Rodux.thunkMiddleware}
 		local store = Rodux.Store.new(MainReducer, nil, middlewares)
-		store:dispatch(SetAnimationData(testAnimationData))
+		store:dispatch(SetAnimationData(deepCopy(testAnimationData)))
 		store:dispatch(SetActive(true))
 		return store
 	end

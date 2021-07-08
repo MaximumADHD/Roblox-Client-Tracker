@@ -68,7 +68,22 @@ return function()
 		Roact.unmount(instance)
 	end)
 
-	if not FFlagToolboxReplaceUILibraryComponentsPt2 then
+	if FFlagToolboxReplaceUILibraryComponentsPt2 then
+		it("should render correctly when ready for sale", function()
+			local container = Instance.new("Folder")
+
+			local price = 200
+			local element = createSales(AssetConfigConstants.ASSET_STATUS.ReviewApproved, price)
+
+			local instance = Roact.mount(element, container)
+
+			local page = container:FindFirstChild("SalesPage", true)
+
+			expect(page.PriceComponent.Content.InputRow.TextInputBox.RoundTextBox.Contents.TextBox.Text).to.equal(tostring(price))
+
+			Roact.unmount(instance)
+		end)
+	else
 		it("should render correctly when ready for sale", function()
 			local container = Instance.new("Folder")
 

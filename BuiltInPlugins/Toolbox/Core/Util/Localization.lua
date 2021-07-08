@@ -15,7 +15,7 @@ local isCli = require(Plugin.Core.Util.isCli)
 local Localization = {}
 Localization.__index = Localization
 
-local FFlagToolboxFixCommonWarnings = game:GetFastFlag("ToolboxFixCommonWarnings")
+local FFlagToolboxFixCommonWarnings2 = game:GetFastFlag("ToolboxFixCommonWarnings2")
 
 --[[
 	options:
@@ -512,7 +512,7 @@ function Localization:_recalculateContent()
 			ItemCannotBeSold = self:_safeLocalize("Studio.Toolbox.General.SalesItemCannotBeSold"),
 			Price = self:_safeLocalize("Studio.Toolbox.General.SalesPrice"),
 			ServiceFee = self:_safeLocalize("Studio.Toolbox.General.SalesServiceFee"),
-			Fee = not FFlagToolboxFixCommonWarnings and self:_safeLocalize("Studio.Toolbox.General.Fee") or nil,
+			Fee = not FFlagToolboxFixCommonWarnings2 and self:_safeLocalize("Studio.Toolbox.General.Fee") or nil,
 			Earn = self:_safeLocalize("Studio.Toolbox.General.Earn"),
 			PremiumBenefits = self:_safeLocalize("Studio.Toolbox.General.PremiumBenefits"),
 		},
@@ -576,7 +576,7 @@ function Localization:_recalculateContent()
 					[Enum.AssetType.Mesh] = self:_safeLocalize("Studio.Toolbox.General.AssetTypeMesh"),
 					[Enum.AssetType.Audio] = self:_safeLocalize("Studio.Toolbox.General.AssetTypeAudio"),
 					[Enum.AssetType.Hat] = self:_safeLocalize("Studio.Toolbox.General.AssetTypeHat"),
-					[Enum.AssetType.TeeShirt] = self:_safeLocalize("Studio.Toolbox.General.AssetTypeTeeShirt"),
+					[Enum.AssetType.TShirt] = self:_safeLocalize("Studio.Toolbox.General.AssetTypeTeeShirt"),
 					[Enum.AssetType.Shirt] = self:_safeLocalize("Studio.Toolbox.General.AssetTypeShirt"),
 					[Enum.AssetType.Pants] = self:_safeLocalize("Studio.Toolbox.General.AssetTypePants"),
 					[Enum.AssetType.Plugin] = self:_safeLocalize("Studio.Toolbox.General.AssetTypePlugin"),
@@ -593,7 +593,7 @@ function Localization:_recalculateContent()
 			PreviewArea ={
 				PreviewLabel = self:_safeLocalize("Studio.Toolbox.AssetConfigPreview.Preview"),
 				Change = self:_safeLocalize("Studio.Toolbox.AssetConfigPreview.Change"),
-				Format = not FFlagToolboxFixCommonWarnings and self:_safeLocalize("Studio.Toolbox.AssetConfigPreview.Format") or nil,
+				Format = not FFlagToolboxFixCommonWarnings2 and self:_safeLocalize("Studio.Toolbox.AssetConfigPreview.Format") or nil,
 				Process = self:_safeLocalize("Studio.Toolbox.AssetConfigPreview.Process"),
 			},
 
@@ -667,11 +667,11 @@ function Localization:_recalculateContent()
 			Retry = self:_safeLocalize("Studio.Toolbox.Purchase.Retry"),
 			Buy = self:_safeLocalize("Studio.Toolbox.Purchase.Buy"),
 			BuyRobux = self:_safeLocalize("Studio.Toolbox.Purchase.BuyRobux"),
-			BuyPrompt = not FFlagToolboxFixCommonWarnings and self:_safeLocalize("Studio.Toolbox.Purchase.BuyPrompt") or nil,
+			BuyPrompt = not FFlagToolboxFixCommonWarnings2 and self:_safeLocalize("Studio.Toolbox.Purchase.BuyPrompt") or nil,
 			FreeTitle = self:_safeLocalize("Studio.Toolbox.Purchase.FreeTitle"),
 			BuyTitle = self:_safeLocalize("Studio.Toolbox.Purchase.BuyTitle"),
 			InsufficientFundsTitle = self:_safeLocalize("Studio.Toolbox.Purchase.InsufficientTitle"),
-			InsufficientPrompt = not FFlagToolboxFixCommonWarnings and self:_safeLocalize("Studio.Toolbox.Purchase.InsufficientPrompt") or nil,
+			InsufficientPrompt = not FFlagToolboxFixCommonWarnings2 and self:_safeLocalize("Studio.Toolbox.Purchase.InsufficientPrompt") or nil,
 			CurrentBalance = self:_safeLocalize("Studio.Toolbox.Purchase.RobuxBalance"),
 			FailedHeader = self:_safeLocalize("Studio.Toolbox.Purchase.FailedHeader"),
 			FreeSuccessHeader = self:_safeLocalize("Studio.Toolbox.Purchase.FreeSuccessHeader"),

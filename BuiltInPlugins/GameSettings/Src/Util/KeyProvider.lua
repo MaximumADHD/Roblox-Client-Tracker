@@ -59,4 +59,10 @@ function KeyProvider.getChinaKeyName()
     return "China"
 end
 
+function KeyProvider.getSelectedKeyName()
+    assert(FFlagLuobuDevPublishLua)
+
+    return "selected"
+end
+
 return KeyProvider

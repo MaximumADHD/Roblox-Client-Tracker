@@ -22,6 +22,7 @@ return {
 
 	[StyleKey.CategoryItem] = Color3.fromRGB(53, 53, 53),
 
+	[StyleKey.DialogButtonBorder] = Colors.Gray,
 	[StyleKey.DialogMainButton] = Colors.Blue,
 	[StyleKey.DialogMainButtonDisabled] = FFlagDevFrameworkFixButtonStyles and Colors.Gray or Colors.Blue,
 	[StyleKey.DialogMainButtonHover] = FFlagDevFrameworkFixButtonStyles and Colors.Blue_Light or Colors.Blue,
@@ -38,6 +39,7 @@ return {
 	[StyleKey.InputFieldBorderDisabled] = Color3.fromRGB(66, 66, 66),
 	[StyleKey.InputFieldBorderSelected] = Color3.fromRGB(53, 181, 255),
 	[StyleKey.ItemHovered] = Colors.Gray,
+	[StyleKey.ItemSelected] = Colors.Blue_Dark,
 
 	[StyleKey.LinkText] = Color3.fromRGB(60, 180, 255),
 
@@ -45,6 +47,8 @@ return {
 	[StyleKey.MainButton] = Colors.Blue,
 	[StyleKey.MainText] = Colors.Gray_Light,
 	[StyleKey.MainTextDisabled] = Color3.fromRGB(85, 85, 85),
+	[StyleKey.MainTextHover] = Color3.fromRGB(66, 66, 66),
+	[StyleKey.MainTextSelected] = Colors.White,
 	[StyleKey.Mid] = Color3.fromRGB(34, 34, 34),
 	[StyleKey.SubBackground] = Colors.Gray,
 	[StyleKey.SubBackground2] = Colors.Carbon,

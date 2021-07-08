@@ -32,11 +32,11 @@ return function()
 		local gui = container:FindFirstChildOfClass("ScreenGui")
 		expect(gui).to.be.ok()
 		local main = gui.TopLevelFrame
+
 		expect(main).to.be.ok()
 		expect(main.Container).to.be.ok()
-		expect(main.Container.Border).to.be.ok()
-		expect(main.Container.Border.Shadow).to.be.ok()
-		expect(main.Container.Border.Background).to.be.ok()
+		expect(main.Container.Background).to.be.ok()
+		expect(main.Container.Background.Shadow).to.be.ok()
 
 		Roact.unmount(instance)
 	end)
@@ -51,8 +51,10 @@ return function()
 		local instance = Roact.mount(element, container)
 		local gui = container:FindFirstChildOfClass("ScreenGui")
 		local frame = gui.TopLevelFrame.Container
-		expect(frame.Border).to.be.ok()
-		expect(frame.Border.Background.ChildFrame).to.be.ok()
+		expect(frame).to.be.ok()
+		expect(frame.Background).to.be.ok()
+		expect(frame.Background.Shadow).to.be.ok()
+		expect(frame.Background.Shadow.ChildFrame).to.be.ok()
 
 		Roact.unmount(instance)
 	end)

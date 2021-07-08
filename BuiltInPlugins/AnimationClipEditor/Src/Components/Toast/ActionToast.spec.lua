@@ -37,10 +37,10 @@ return function()
 		local main = gui.TopLevelFrame
 		expect(main).to.be.ok()
 		expect(main.Container).to.be.ok()
-		expect(main.Container.Border.Background).to.be.ok()
-		expect(main.Container.Border.Shadow).to.be.ok()
+		expect(main.Container.Background).to.be.ok()
+		expect(main.Container.Background.Shadow).to.be.ok()
 
-		local containerFrame = main.Container.Border.Background
+		local containerFrame = main.Container.Background.Shadow
 		expect(containerFrame.Padding).to.be.ok()
 		expect(containerFrame.Text).to.be.ok()
 		expect(containerFrame.Buttons).to.be.ok()

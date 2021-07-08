@@ -1,3 +1,5 @@
+local FFlagLuobuDevPublishLua = game:GetFastFlag("LuobuDevPublishLua")
+
 local Plugin = script.Parent.Parent.Parent
 local Rodux = require(Plugin.Packages.Rodux)
 local Cryo = require(Plugin.Packages.Cryo)
@@ -23,7 +25,8 @@ return Rodux.createReducer(initial, {
 
 	ResetInfo = function(state, action)
 		return Cryo.Dictionary.join(state, {
-			publishInfo = Cryo.Dictionary.join(state.publishInfo, action.publishInfo)
+			publishInfo = Cryo.Dictionary.join(state.publishInfo, action.publishInfo),
+			isPublishing = FFlagLuobuDevPublishLua and action.isPublishing or Cryo.None,
 		})
 	end,
 })

@@ -14,6 +14,7 @@ return function()
 				Size = UDim2.new(0, 1000, 0, 500),
 				StartFrame = 0,
 				EndFrame = 30,
+				LastFrame = 100,
 				Playhead = 0,
 			})
 		})

@@ -3,6 +3,7 @@ return function()
 	local Roact = require(Plugin.Packages.Roact)
 
 	local MockWrapper = require(Plugin.Src.Context.MockWrapper)
+	local Constants = require(Plugin.Src.Util.Constants)
 
 	local TimelineContainer = require(script.Parent.TimelineContainer)
 
@@ -14,6 +15,7 @@ return function()
 				StartFrame = 0,
 				EndFrame = 30,
 				Playhead = 0,
+				TrackPadding = Constants.TRACK_PADDING_SMALL,
 			})
 		})
 	end

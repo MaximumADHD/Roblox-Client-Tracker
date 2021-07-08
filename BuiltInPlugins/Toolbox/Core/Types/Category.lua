@@ -70,7 +70,7 @@ Category.ToolboxAssetTypeToEngine = {
 	[Category.AssetType.PACKAGE] = Enum.AssetType.Package,
 	[Category.AssetType.PLUGIN] = Enum.AssetType.Plugin,
 	[Category.AssetType.HAT] = Enum.AssetType.Hat,
-	[Category.AssetType.TEE_SHIRT] = Enum.AssetType.TeeShirt,
+	[Category.AssetType.TEE_SHIRT] = Enum.AssetType.TShirt,
 	[Category.AssetType.SHIRT] = Enum.AssetType.Shirt,
 	[Category.AssetType.PANTS] = Enum.AssetType.Pants,
 	[Category.AssetType.HAIR_ACCESSORY] = Enum.AssetType.HairAccessory,
@@ -504,7 +504,7 @@ function Category.getCategories(tabName, roles)
 		local categories = getCreationCategories()
 		if roles then
 			local allowedAssetTypeEnums
-			if FFlagToolboxFixCategoryUrlsCircularDependency then 
+			if FFlagToolboxFixCategoryUrlsCircularDependency then
 				allowedAssetTypeEnums = getAllowedAssetTypeEnums(roles.allowedAssetTypesForRelease)
 			else
 				allowedAssetTypeEnums = AssetConfigUtil.getAllowedAssetTypeEnums(roles.allowedAssetTypesForRelease)

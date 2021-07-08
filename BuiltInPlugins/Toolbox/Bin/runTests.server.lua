@@ -27,11 +27,11 @@ local function requireAllModuleScripts()
 end
 
 if DebugFlags.shouldRunTests() then
-	local isCli, processService = pcall(function()
+	local _isCli, _processService = pcall(function()
 		return game:GetService("ProcessService")
 	end)
 
-	local ok, err = pcall(function()
+	local _ok, _err = pcall(function()
 		requireAllModuleScripts()
 
 		local TestEZ = require(Plugin.Packages.Dev.TestEZ)
@@ -46,6 +46,28 @@ if DebugFlags.shouldRunTests() then
 
 		print("----- All " ..Plugin.Name.. " Tests ------")
 		TestBootstrap:run({TestsFolderPlugin}, reporter)
+		print("----------------------------------")
+	end)
+end
+
+if DebugFlags.shouldRunRhodiumTests() then
+	local isCli, processService = pcall(function()
+		return game:GetService("ProcessService")
+	end)
+
+	local ok, err = pcall(function()
+		local TestEZ = require(Plugin.Packages.Dev.TestEZ)
+		local TestBootstrap = TestEZ.TestBootstrap
+		local TeamCityReporter = TestEZ.Reporters.TeamCityReporter
+		local reporter = TestEZ.Reporters.TextReporter
+		if DebugFlags.logTestsQuiet() then
+			reporter = TestEZ.Reporters.TextReporterQuiet
+		end
+
+		reporter = _G["TEAMCITY"] and TeamCityReporter or reporter
+
+		print("----- All " ..Plugin.Name.. " Rhodium Tests ------")
+		TestBootstrap:run({Plugin.RhodiumTests}, reporter)
 		print("----------------------------------")
 	end)
 

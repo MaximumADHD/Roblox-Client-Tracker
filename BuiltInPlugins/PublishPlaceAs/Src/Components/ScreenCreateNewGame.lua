@@ -42,6 +42,7 @@ local SetScreen = require(Plugin.Src.Actions.SetScreen)
 local SetPublishInfo = require(Plugin.Src.Actions.SetPublishInfo)
 
 local LoadGroups = require(Plugin.Src.Thunks.LoadGroups)
+local PostContactEmail = require(Plugin.Src.Thunks.PostContactEmail)
 
 local shouldShowDevPublishLocations = require(Plugin.Src.Util.PublishPlaceAsUtilities).shouldShowDevPublishLocations
 local Analytics = require(Plugin.Src.Util.Analytics)
@@ -110,15 +111,14 @@ function ScreenCreateNewGame:init()
 
 	self.shouldShowEmailDialog = FFlagLuobuDevPublishLua and function()
 		local props = self.props
-		-- 5/25/21 - CurrentOptInLocations and ChangedOptInLocations are only set in Luobu Studio
-		local currentOptInLocations = props.CurrentOptInLocations
+		-- 5/25/21 - ChangedOptInLocations is only set in Luobu Studio
 		local changedOptInLocations = props.ChangedOptInLocations
-
-		if not changedOptInLocations and not currentOptInLocations then
-			return false
+		if changedOptInLocations then
+			if changedOptInLocations[chinaKey] ~= nil then
+				return changedOptInLocations[chinaKey]
+			end
 		end
-
-		return (not changedOptInLocations and currentOptInLocations[chinaKey]) or changedOptInLocations[chinaKey]
+		return false
 	end or nil
 end
 
@@ -153,6 +153,7 @@ function ScreenCreateNewGame:render()
 		local props = self.props
 		local theme = props.Theme:get("Plugin")
 		local localization = props.Localization
+		local apiImpl = FFlagLuobuDevPublishLua and props.API:get() or nil
 
 		local onClose = props.OnClose
 		local readyToSave = props.ReadyToSave
@@ -162,6 +163,7 @@ function ScreenCreateNewGame:render()
 		local firstPublishContext = props.FirstPublishContext
 
 		local dispatchSetIsPublishing = props.dispatchSetIsPublishing
+		local postContactEmail = props.PostContactEmail
 
 		local selected = self.state.selected
 
@@ -264,6 +266,7 @@ function ScreenCreateNewGame:render()
 				EmailDialog = FFlagLuobuDevPublishLua and FFlagTextInputDialogDevFramework and Roact.createElement(TextInputDialog,
 				{
 					Enabled = self.state.showEmailDialog,
+					Size = Vector2.new(theme.emailDialog.Size.X, theme.emailDialog.Size.Y),
 					Title = localization:getText(optInLocationsKey, "EmailDialogHeader"),
 					Header = localization:getText(optInLocationsKey, "EmailDialogHeader"),
 					Buttons = {
@@ -272,30 +275,46 @@ function ScreenCreateNewGame:render()
 					},
 					Body = localization:getText(optInLocationsKey, "EmailDialogBody"),
 					Description = localization:getText(optInLocationsKey, "EmailDialogDescription"),
-					PlaceholderText = localization:getText(optInLocationsKey, "EmailAddress"),
-					BottomText = self.state.bottomText,
-					OnClose = function(email)
+					TextInput = {
+						{PlaceholderText = localization:getText(optInLocationsKey, "EmailAddress"),},
+						{PlaceholderText = localization:getText(optInLocationsKey, "ConfirmEmailAddress"), BottomText = self.state.bottomText,},
+					},
+					OnClose = function()
 						self:setState({
 							showEmailDialog = false,
+							bottomText = "",
 						})
 					end,
-					OnButtonPressed = function(email, buttonKey)
-						-- TODO: jbousellam - STUDIOCORE-24599 - save email locally.
+					OnButtonPressed = function(buttonKey, email1, email2)
 						local submitButtonPressed = buttonKey == "Submit"
-						-- TODO: jbousellam - STUDIOCORE-25366 - email validation using regex, if user has an invalid email,
-						-- set bottom text state and continue to show dialog. Do not save settings, do not publish.
-						-- Might need to rearrange where the state is currently being set for showEmailDialog
-							if submitButtonPressed then
-								if firstPublishContext then
-									SettingsImpl.saveAll(changed, localization, firstPublishContext.universeId, firstPublishContext.placeId)
-								else
-									SettingsImpl.saveAll(changed, localization)
-								end
+						if submitButtonPressed then
+							if email1 == email2 then
 								dispatchSetIsPublishing(true)
+								local postSuccess = postContactEmail(apiImpl, email1)
+								if postSuccess then
+									if firstPublishContext then
+										SettingsImpl.saveAll(changed, localization, firstPublishContext.universeId, firstPublishContext.placeId)
+									else
+										SettingsImpl.saveAll(changed, localization)
+									end
+								else
+									self.props.OpenPublishFailPage(self.props.Changed)
+								end
+								self:setState({
+									showEmailDialog = false,
+									bottomText = "",
+								})
+							else
+								self:setState({
+									bottomText = localization:getText(optInLocationsKey, "ErrorEmailNotEqual")
+								})
 							end
-						self:setState({
-							showEmailDialog = false,
-						})
+						else
+							self:setState({
+								showEmailDialog = false,
+								bottomText = "",
+							})
+						end
 					end,
 				}) or nil
 			}),
@@ -428,6 +447,7 @@ if FFlagUpdatePublishPlacePluginToDevFrameworkContext then
 	ContextServices.mapToProps(ScreenCreateNewGame,{
 		Theme = ContextServices.Theme,
 		Localization = ContextServices.Localization,
+		API = FFlagLuobuDevPublishLua and ContextServices.API or nil,
 	})
 end
 
@@ -437,8 +457,7 @@ local function mapStateToProps(state, props)
 		Changed = settings.changed,
 		ReadyToSave = next(settings.errors) == nil,
 		IsPublishing = state.PublishedPlace.isPublishing,
-		CurrentOptInLocations = FFlagLuobuDevPublishLua and settings.current.OptInLocations or nil,
-		ChangedOptInLocations = FFlagLuobuDevPublishLua and settings.changed.OptInLocations or nil,
+		ChangedOptInLocations = FFlagLuobuDevPublishLua and settings.changed.OptInLocations or {},
 	}
 end
 
@@ -471,6 +490,21 @@ local function useDispatchForProps(dispatch)
 			if universeConfig.genre then
 				dispatch(AddChange("genre", universeConfig.genre))
 			end
+		end,
+		PostContactEmail = function(apiImpl, contactEmail)
+			if not FFlagLuobuDevPublishLua then
+				return
+			end
+
+			if not FFlagTextInputDialogDevFramework then
+				return
+			end
+
+			if not shouldShowDevPublishLocations() then
+				return
+			end
+
+			dispatch(PostContactEmail(apiImpl, contactEmail))
 		end,
 	}
 end
