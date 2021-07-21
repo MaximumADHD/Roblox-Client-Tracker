@@ -521,8 +521,8 @@ AESLayeredClothingSupport
 AESSaveRobloxSecurity
 AesSettingsCipherMode
 AF1224888D11E18561866242201959
+Af9rp3sTv33u8vRhgmGR7yloAcwUZu7nClS6e5HlAfHjgxs6tjpmAFN6VD2Djvhd
 Affiliation
-AfLhpzcHBq73CwarnUPso6APlRQw
 AfterBufferedHandling
 AfterDisconnectChecks
 AfterInsert
@@ -4820,6 +4820,7 @@ AxisAdornmentGrabSize
 AxisChanged
 AxisRotate
 AXMVVector2
+AxnX0A4jGsDvg
 AXPEAUCacheEntry
 AXPEAUNode
 AXPEAUrcCompactHeightfield
@@ -5209,7 +5210,6 @@ BIO_socket_nbio
 BIO_write_ex
 BitArrayToObject
 BitstreamList
-Bjx3Fj721WYep2Qb5HB8ODT
 Bkg_round.png
 Bkg_square.png
 BL17qL9koPpyChCHbWVgSXbfxynzBupojeOEiuqDuGX0BFl
@@ -5901,7 +5901,6 @@ CB27CB58AAF011E38B9D871882A8E559
 CB27CB59AAF011E38B9D871882A8E559
 CB27CB5CAAF011E38B9D871882A8E559
 CB583B11E29A3DBD856014A660
-CBFzRxTb47nIUJMjocwoWyvaYnenD
 CBufferPool
 CBUGroupRolesResult
 CBUHttpTarget
@@ -5936,7 +5935,6 @@ CComObjectRootEx
 CComPolyObject
 CCPPhotoshop
 CCx[66[xCCx[6L
-Cd4luIbtO5M2x5fZGA7kMaFeub5ET1wq
 CD583B11E29A3DBD856014A660
 CDA22142068118C14FDE5E01E7934
 CDAC09CD62068118083FFBB091BBC13
@@ -6008,7 +6006,6 @@ CFF056DD11E2898E9FB8E4A9E79B
 CFF156DD11E2898E9FB8E4A9E79B
 CFF456DD11E2898E9FB8E4A9E79B
 CFF556DD11E2898E9FB8E4A9E79B
-CfFR3SySD29NRWWf4kNKKHRmf
 CFrame.new
 CFrameOnly
 CFramePose
@@ -9621,6 +9618,7 @@ Distribution_
 DistributionPoint
 DistributionPoints
 DistToShowBufferCountSqr
+DJgy6xdz1xj7E2eJghREJx4
 DKECCAK1600_ASM
 DlcVersion
 DListenerAttributes
@@ -9696,7 +9694,6 @@ DontOverwriteSettingsWithPartialSerialization
 DontPrebufferVideoUntilPlaying
 DontWalkOnReparent
 DontWhitelistUserInputConnectionCounts
-DoOahAEVBaW6H
 DOPENSSL_BN_ASM_GF2m
 DOPENSSL_BN_ASM_MONT
 DOPENSSL_BN_ASM_MONT5
@@ -9917,7 +9914,6 @@ DVCSResponseData
 DVPAES_ASM
 DwmSetWindowAttribute
 DX25519_ASM
-Dx99aR0X9V3t7EuP9AIF2XD1MPEcKduGsG3
 DXCloseDeviceNV
 DXLockObjectsNV
 DXObjectAccessNV
@@ -11629,6 +11625,7 @@ FMODPlaybackDSP
 FMODReportDeviceInfo
 FmodResetDriverFix
 FMODSoundChannels
+FmraNJaoN6
 FocusChange
 FocusChanged
 FocusConnection
@@ -11956,11 +11953,11 @@ FutureIsBrightPhase3
 FutureIsBrightPhase3iOS
 FutureIsBrightPhase3Vulkan
 FuzzyWeightModel
+FVh7zmo4yH03HVwQ4D9cjfnYkJxLt1R
 FXCompositing
 FXCompositingFS
 FXCompositingLinearFS
 FXComposition
-Fzz2qd9r9ZmVhZoV0AQDHAERCCDUhIH
 GainMakeup
 GameAbsenceInWeb.
 GameAction
@@ -12165,7 +12162,6 @@ GCJobChecksSavedStreamInfos
 GCMinimumDeletionRateForNonZeroClientInstanceQuota
 GCReducesQuotaCriticalPercent
 GCReducesQuotaPercent
-GD1ANNoJVzzIX54
 Gdotaccent
 GearAction
 GearGenreSetting
@@ -13950,7 +13946,6 @@ Hungarumlautsmall
 HungScript
 HungScriptPermyriad
 HVChangeHistoryService
-Hvh35BjREmjiDlqQRgD8FFu4JW2DDYddUt2DdJ3jtsUhRY1PNSFG8lrkOaoAUir1
 HVQByteArray
 HVQRegularExpression
 HVQVariant
@@ -14021,7 +14016,6 @@ Idieresis.a
 Idieresissmall
 IDispatchImpl
 IdleAnimation
-IDo9ch9TcjyMPO8rvDh
 Idotaccent
 Idotaccent.a
 IDraftsServiceHost
@@ -14094,6 +14088,7 @@ IllegalTeleport
 ILoggedInUser
 ILoginManager
 ILuaCalloutTarget
+IM1Ith0pSzM9
 IMAEBVInstanceIdentifier
 ImageAssetPropertyItem
 ImageAtlas
@@ -14724,7 +14719,6 @@ IpTextEdited
 IPTypeAndDataCenter
 IPublishedGamesStore
 IPV6_V6ONLY
-Iq4uz9vWSiD
 IRestartController
 IRobloxDoc
 IRobloxDocManager
@@ -15052,7 +15046,6 @@ JumpScares
 JumpScaresP2
 JumpToIndex
 JustEndedBusy
-JVJrHj5RYZ
 JW4AppInstallType
 JW4AvatarItemType
 JW4FriendService_FriendStatus
@@ -15131,7 +15124,6 @@ KFKPKXK`KhK
 KickByDatacenter_
 KiDszBCYB0gyp03Pc
 KillPtClicked
-Kjh0BBIfCzli0CAwEAAQ
 KKKKKKKKKK
 KKKKKKKKKKKK
 KKKKKKKKKKKKKKKKKKKKKK
@@ -16803,7 +16795,7 @@ MigrateTriangleMeshData3
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAsI9zRp2OSccqdFx2
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAupANB3EbN9hFHHUj0eA
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAzjPRQo9jc
-MIICCgKCAgEAvjzwhxS
+MIICCgKCAgEAw9ghWG8Je1r3RZsGa
 Millisecond
 MillisecondsBeforeHandlingReconnect
 MimeDataFromSelection
@@ -16859,7 +16851,6 @@ Mitbearbeiter
 Mitglieder
 Mitteilungen
 Mitwirkender
-MiyqdvGKFb9fMreKdvaokbs7pSiFEMo6OB
 MMW4IkDragCollisionsMode
 MMW4PartMaterial
 MMW4UserInputState
@@ -19426,6 +19417,7 @@ PickerFrame
 PickerPopup
 PickerScriptButton
 PIDataUnsigned
+PidKCPfbE9pwXqonlYrTbQD3ohGMc01EGIT8oRM6MA8OX5qBGe0AB7kCAwEAAQ
 PIDualSignedTBE
 PIN_CATEGORY_ANALOGVIDEOIN
 PIN_CATEGORY_CAPTURE
@@ -19834,7 +19826,6 @@ PlaySoloStartTotalTime
 PlaySoloVerb
 PLC_PITCH_LAG_MAX
 PLC_PITCH_LAG_MIN
-PLlsJEWewwI0TyWUqJy
 Plugin.rbxm
 PluginAction
 PluginActivationFocusesViewport
@@ -21105,7 +21096,6 @@ QualityLevel8
 QualityLevel9
 Quantization
 Quantizing
-QuapQjAcmKSMVW6A5DTzkO
 Query_perf_counter
 Query_perf_frequency
 QueryControl
@@ -22579,6 +22569,7 @@ RevocationList
 RevocationRefs
 RevocationUrl
 RevokeFriendship
+RgdaZB43Nm
 RibbonBarGalleryDropdown
 RibbonButton
 RibbonButtonControl
@@ -22697,6 +22688,7 @@ RigidityEnabled
 RigImporterErrorChecking
 RiseVelocity
 Rj0isQcnqX
+RnWD1pE5r1Q8ZP
 ROBLOSECURITY
 Roblox.Hybrid
 Roblox.Hybrid.Bridge.emitEvent
@@ -22922,6 +22914,7 @@ RTT2000msPlus
 RTT500msTo1000ms
 RTT50msTo100ms
 RTTLessThan10ms
+RuBRSxEj1sP
 RuiCheckBoxHeader
 RuiDialogButtonBox
 RuiDialogButtonWatcher
@@ -23093,6 +23086,7 @@ SAXPEAUData
 SAXPEAVQObject
 SAXPEAVQStyle
 SAXPEBDP6AXAEAVQDataStream
+SBIox9LGNhELuuAsvNhlfUKE17zeLl0MpupSmfDXkLDJGezYnJ5piFRPuu8lw
 Scale_Green.png
 ScaleButton.png
 ScaleButton_dn.png
@@ -24356,6 +24350,7 @@ SIO_KEEPALIVE_VALS
 SISQSZSsSuS
 SiteMessageBanner
 SixteenCharValue
+SiYeck4gG00mrGY7WGB8Myov9RIAK4Nkte7uJfgn6AyoscvOI8T31
 Size100x100
 Size150x150
 Size180x180
@@ -24419,7 +24414,6 @@ SkylightRGBA
 SkyLinearFS
 SkyUseRawTexture
 SkyVertex2
-SKzqPsrR1W346BC5vT
 SleepConditionVariableCS
 SleepConditionVariableSRW
 SliceCenter
@@ -24442,6 +24436,7 @@ SlowDnsInfluxHundrethsPercentage
 SlowDnsPlatformRequestThresholdMs
 SlowHttpRequest
 SlowHttpRequest]
+SLUflSWLhpNOhhYPMsQ
 SM2_Ciphertext
 SMALL_CAP_SIZE
 Smartcardlogin
@@ -29063,6 +29058,7 @@ StudioShowDownloadForCloudPlace
 StudioShowHiddenInstancesForRbxp
 StudioShowHideABTestV2
 StudioShowUpdatedAboutDialog
+StudioStablePropertyCategoryOrder
 StudioStartPlaySolo
 StudioStartPlaySolo.End.Failure
 StudioStartPlaySolo.End.Success
@@ -30425,6 +30421,7 @@ TlsSetValue
 TlsVerificationFail
 Tmap_traits
 TMxQPxAA13
+Tn7g8pEs6mvqFGvCu7UmchGGWFWDvJ
 ToArtistIntentAssetMigratorEnabled
 ToastNotification
 ToastNotification.qml
@@ -30840,6 +30837,7 @@ TS_TST_INFO_set_tsa
 TS_VERIFY_CTX_new
 TShirtAccessory
 TSMk2ThrottleStreamJob
+TtMHQMkHDmwaU
 TTTTTTTTTT
 TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
 TTUUEDDsss
@@ -31063,6 +31061,7 @@ UEvaluateResponseBody
 UEventInstance
 UEventSlot
 UExtraSelection
+UfFDC7ya4UuH1AzdX3fHr2ZZhwujFy1zH6yctn
 UFileMeshData
 UFileMetadata
 UFmodSystemRelease
@@ -31187,7 +31186,6 @@ UITransformedLitFogVSShadowedFSM
 UITransformedVS
 UIViewportFrameCollectFrames
 UIViewportFrameWorkspace
-UjrsIdKaIGNY4xZqPmZF307EBb0rS3X4bQ3UbedcRqF3fI
 ULinkedScriptLoadData
 ULoadedImage
 ULuaCallbacks
@@ -32051,7 +32049,6 @@ VBillboardGui
 VBinaryString
 VBindableEvent
 VBindableFunction
-VbKkdSs42PKk5kdHyVg1yfpnpgr3nsg
 VBlockAdditionsParser
 VBlockGroupParser
 VBlockMesh
@@ -32334,6 +32331,7 @@ VelocityTool.png
 VelocityTool_dn.png
 VelocityTool_ds.png
 VelocityTool_ovr.png
+VELryDHxDgYvo
 VEmotesPages
 VEmptyDataModelLifeCycleListener
 VEmptyResourceController
@@ -33718,7 +33716,6 @@ Wiederherstellungsdateien
 Wiederholen
 Wiederholungslimit
 Wiederverbindung
-WIhd1Ealhb4HQKs
 WinchEnabled
 WinchForce
 WinchResponsiveness
@@ -33994,7 +33991,6 @@ XInputGetState
 XInputSetState
 Xinvalid_argument
 Xlength_error
-XOQSn8ioOTNpS0LK
 Xout_of_range
 XP6AXAEBUTextFilterResult
 XP6AXAEBVQString
@@ -34056,6 +34052,7 @@ XVFriendService
 XVFunctionMarshaller
 XVGameConfigurer
 XVGuiService
+XVH0NyuEWX5WPwZEQNxtFrGhaLZiaaN
 XVHttpClient
 XVHttpClientHandler
 XVHumanoid
@@ -34119,6 +34116,7 @@ XW4ResultCode
 XW4websocket_close_status
 XW4WebSocketEventType
 XwhvcEikuIaqb7nHhEJ
+XXByC9JMnJthQmJV8OBwcvgvtDTpwJya
 XXXXXXXXXXXXXXXXuuuuuuuuuuuuuuuuppppppppppppppppppppppp
 XZP8CoreGuiService
 XZP8CRenderSettingsItem
@@ -34167,6 +34165,7 @@ YieldFuncDesc
 YieldFunction
 YQByteArray
 YResolution
+YvCTtqZtuT3xpcmwNFd0n
 YwBBvY55YvBBwY5
 YYYYYYYYYYYYYYYYYYYYYYYYY
 Z_KPEIBX_K_KPEIAU1
