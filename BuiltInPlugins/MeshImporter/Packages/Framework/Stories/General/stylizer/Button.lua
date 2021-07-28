@@ -1,9 +1,11 @@
 --[[
 	Button
 ]]
+local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
 
 local Framework = script.Parent.Parent.Parent.Parent
 local ContextServices = require(Framework.ContextServices)
+local withContext = ContextServices.withContext
 local Roact = require(Framework.Parent.Roact)
 local Stylizer = require(Framework.Style).Stylizer
 
@@ -25,8 +27,15 @@ function Button:render()
 	})
 end
 
-ContextServices.mapToProps(Button, {
-	Stylizer = Stylizer
-})
+if FFlagDeveloperFrameworkWithContext then
+	Button = withContext({
+		Stylizer = Stylizer
+	})(Button)
+else
+	ContextServices.mapToProps(Button, {
+		Stylizer = Stylizer
+	})
+end
+
 
 return Button

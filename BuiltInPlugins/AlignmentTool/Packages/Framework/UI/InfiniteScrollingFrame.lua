@@ -8,9 +8,9 @@
 			The items should have LayoutOrder set.
 
 	Optional Props:
-		Theme Theme: the theme supplied from mapToProps()
+		Theme Theme: the theme supplied from withContext()
 		Style Style: a style table supplied from props and theme:getStyle()
-		Stylizer Stylizer: A Stylizer ContextItem, which is provided via mapToProps.
+		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
 		UDim2 Position: The position of the scrolling frame.
 		UDim2 Size: The size of the scrolling frame.
 		integer LayoutOrder: The order this component will display in a UILayout.
@@ -36,6 +36,7 @@
 		integer ScrollBarThickness: The horizontal width of the scrollbar.
 		boolean ScrollingEnabled: Whether scrolling in this frame will change the CanvasPosition.
 ]]
+local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
 local Framework = script.Parent.Parent
 local Util = require(Framework.Util)
 local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
@@ -58,6 +59,7 @@ end
 local Cryo = require(Framework.Parent.Cryo)
 
 local ContextServices = require(Framework.ContextServices)
+local withContext = ContextServices.withContext
 local Container = require(script.Parent.Container)
 local Typecheck = Util.Typecheck
 
@@ -161,9 +163,17 @@ function InfiniteScrollingFrame:render()
 	})
 end
 
-ContextServices.mapToProps(InfiniteScrollingFrame, {
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-})
+if FFlagDeveloperFrameworkWithContext then
+	InfiniteScrollingFrame = withContext({
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	})(InfiniteScrollingFrame)
+else
+	ContextServices.mapToProps(InfiniteScrollingFrame, {
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	})
+end
+
 
 return InfiniteScrollingFrame

@@ -23,14 +23,16 @@
 		callback OnSortChange: An optional callback called when the user sorts a column.
 		callback RowComponent: An optional component to render each row.
 		any CellComponent: An optional component passed to the row component which renders individual cells.
-		Stylizer Stylizer: A Stylizer ContextItem, which is provided via mapToProps.
-		Theme Theme: A Theme ContextItem, which is provided via mapToProps.
+		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
+		Theme Theme: A Theme ContextItem, which is provided via withContext.
 		table CellProps: A table of props which are passed from the table's props to the CellComponent.
 ]]
+local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
 local Typecheck = require(Framework.Util).Typecheck
 local ContextServices = require(Framework.ContextServices)
+local withContext = ContextServices.withContext
 
 local TableRow = require(Framework.UI.TableRow)
 
@@ -217,8 +219,15 @@ function Table:render()
 	})
 end
 
-ContextServices.mapToProps(Table, {
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-})
+if FFlagDeveloperFrameworkWithContext then
+	Table = withContext({
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	})(Table)
+else
+	ContextServices.mapToProps(Table, {
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	})
+end
+
 
 return Table

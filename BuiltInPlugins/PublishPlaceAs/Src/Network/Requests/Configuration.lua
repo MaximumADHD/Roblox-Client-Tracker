@@ -37,7 +37,7 @@ function Configuration.AcceptsValue(key)
 	return ACCEPTED_KEYS[key] ~= nil
 end
 
-function Configuration.Set(universeId, body)
+function Configuration.Set(universeId, body, includeOptInLocations)
 	local errmsg = "Configuration.Set body must be table, received %s"
 	assert(type(body) == "table", string.format(errmsg, type(body)))
 	assert(not Cryo.isEmpty(body),  "Configuration.Set body must have changes to set")
@@ -52,7 +52,7 @@ function Configuration.Set(universeId, body)
 		body.playableDevices = toTable
 	end
 
-	if FFlagLuobuDevPublishLua and shouldShowDevPublishLocations() then
+	if FFlagLuobuDevPublishLua and shouldShowDevPublishLocations() and includeOptInLocations then
 		if body.OptInLocations then
 			local optInTable = {}
 			local optOutTable = {}

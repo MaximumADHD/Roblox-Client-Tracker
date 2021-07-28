@@ -8,10 +8,17 @@ local testImmutability = TestHelpers.testImmutability
 local Actions = Plugin.Src.Actions
 local SetCurrentThreadAction = require(Actions.Callstack.SetCurrentThread)
 local ResumedAction = require(Actions.Common.Resumed)
+local BreakpointHit = require(Actions.Common.BreakpointHit)
+local Step = require(Actions.Common.Step)
 local CommonReducer = require(script.Parent.Common)
 local SetCurrentFrameNumberAction = require(Actions.Callstack.SetCurrentFrameNumber)
 
+local Models = Plugin.Src.Models
+local DebuggerStateToken = require(Models.DebuggerStateToken)
+
 local defaultNewNum = 1
+local defaultDebuggerToken = DebuggerStateToken.fromData({session = 1})
+local defaultDebuggerToken2 = DebuggerStateToken.fromData({session = 1})
 
 return function()
 	it("should return its expected default state", function()
@@ -62,6 +69,43 @@ return function()
 
 		it("should preserve immutability", function()
 			local immutabilityPreserved = testImmutability(CommonReducer, SetCurrentFrameNumberAction(2, 2))
+			expect(immutabilityPreserved).to.equal(true)
+		end)
+	end)
+
+	describe(BreakpointHit.name, function()
+		it("should set the CurrentFrameNumber", function()
+			local state = CommonReducer(nil, BreakpointHit(defaultDebuggerToken))
+
+			expect(state).to.be.ok()
+			expect(state.debuggerStateTokenHistory).to.be.ok()
+			expect(state.debuggerStateTokenHistory[1]).to.equal(defaultDebuggerToken)
+			expect(state.threadIdToCurrentFrameNumber).to.be.ok()
+			expect(state.currentThreadId).to.equal(-1)
+		end)
+
+		it("should preserve immutability", function()
+			local immutabilityPreserved = testImmutability(CommonReducer, BreakpointHit(defaultDebuggerToken))
+			expect(immutabilityPreserved).to.equal(true)
+		end)
+	end)
+
+	describe(Step.name, function()
+		it("should set the CurrentFrameNumber", function()
+			local prepState = CommonReducer(nil, BreakpointHit(defaultDebuggerToken))
+			local state = CommonReducer(prepState, Step(defaultDebuggerToken2))
+
+			expect(state).to.be.ok()
+			expect(state.debuggerStateTokenHistory).to.be.ok()
+			expect(state.debuggerStateTokenHistory[1]).to.equal(defaultDebuggerToken)
+			expect(state.debuggerStateTokenHistory[2]).to.equal(defaultDebuggerToken2)
+			expect(state.threadIdToCurrentFrameNumber).to.be.ok()
+			expect(state.currentThreadId).to.equal(-1)
+		end)
+
+		it("should preserve immutability", function()
+			local prepState = CommonReducer(nil, BreakpointHit(defaultDebuggerToken))
+			local immutabilityPreserved = testImmutability(CommonReducer, Step(defaultDebuggerToken2), prepState)
 			expect(immutabilityPreserved).to.equal(true)
 		end)
 	end)

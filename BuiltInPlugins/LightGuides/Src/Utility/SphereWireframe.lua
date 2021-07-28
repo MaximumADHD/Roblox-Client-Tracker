@@ -4,6 +4,7 @@ local Types = require(Plugin.Src.Types)
 
 local getFIntStudioLightGuideThickness = require(Plugin.Src.Flags.getFIntStudioLightGuideThickness)
 local getFIntStudioLightGuideTransparency = require(Plugin.Src.Flags.getFIntStudioLightGuideTransparency)
+local getFFlagStudioLightGuideFixReparent = require(Plugin.Src.Flags.getFFlagStudioLightGuideFixReparent)
 
 local THICKNESS: number = getFIntStudioLightGuideThickness()
 local TRANSPARENCY: number = getFIntStudioLightGuideTransparency()
@@ -15,6 +16,7 @@ type sphereWireframe = {
 	_handlesFolder: Folder,
 	_guidesFolder: Folder,
 	_handles: Types.Map<string, HandleAdornment>,
+	_handlesPresent: boolean,
 	_listener: RBXScriptConnection,
 	_attachmentListener: RBXScriptConnection,
 }
@@ -30,6 +32,7 @@ function SphereWireframe.new()
 		_handlesFolder = Instance.new("Folder"),
 		_guidesFolder = nil,
 		_handles = {},
+		_handlesPresent = false,
 		_listener = nil,
 		_attachmentListener = nil,
 	}
@@ -38,8 +41,15 @@ function SphereWireframe.new()
 end
 
 function SphereWireframe:render()
-	self:_setAncestry()
 	self:_setListeners()
+
+	if not self:_setAncestry() and getFFlagStudioLightGuideFixReparent() then
+		return
+	end
+
+	if not self._handlesPresent then
+		self:_setHandles()
+	end
 
 	local enabled: boolean = self._light.Enabled
 	local color: Vector3 = self._light.Color
@@ -120,12 +130,20 @@ function SphereWireframe:_setAncestry()
 		offset = self._light.parent.CFrame
 	end
 
+	if getFFlagStudioLightGuideFixReparent() and not self._light.Parent:IsA("Attachment") and not self._light.Parent:IsA("BasePart") then
+		self:_removeHandles()
+
+		return false
+	end
+
 	self._adornee = adornee
 	self._offset = offset
 	self._parent = self._light.Parent
+
+	return true
 end
 
-function SphereWireframe:setHandles()
+function SphereWireframe:_setHandles()
 	local axisAdornmentX = Instance.new("CylinderHandleAdornment")
 	axisAdornmentX.Height = THICKNESS
 	axisAdornmentX.Transparency = TRANSPARENCY
@@ -144,13 +162,17 @@ function SphereWireframe:setHandles()
 	self._handles.AxisAdornmentX = axisAdornmentX
 	self._handles.AxisAdornmentY = axisAdornmentY
 	self._handles.AxisAdornmentZ = axisAdornmentZ
+
+	self._handlesPresent = true
 end
 
 function SphereWireframe:_removeHandles()
-	if self._handles then
+	if self._handles and (not getFFlagStudioLightGuideFixReparent() or self._handlesPresent) then
 		self._handles.AxisAdornmentX:Destroy()
 		self._handles.AxisAdornmentY:Destroy()
 		self._handles.AxisAdornmentZ:Destroy()
+
+		self._handlesPresent = false
 	end
 end
 

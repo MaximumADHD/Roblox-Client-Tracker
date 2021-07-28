@@ -35,10 +35,13 @@ return function(editingItem, sourceItem)
 			ModelUtil:deformAvatar(clone, pointData, Enum.CageType.Outer)
 		end
 
+		local wrap = clone:FindFirstChildWhichIsA("WrapLayer")
 		if isClothes then
-			local wrap = clone:FindFirstChildWhichIsA("WrapLayer")
-			previousPosition = clone.CFrame.Position
-			editingItem.CFrame = (wrap.ImportOrigin * wrap.CageOrigin):inverse()
+			if wrap then
+				previousPosition = clone.CFrame.Position
+				editingItem.CFrame = (wrap.ImportOrigin * wrap.CageOrigin):inverse()
+			end
+
 			local weld = clone:FindFirstChildWhichIsA("WeldConstraint")
 			weld:Destroy()
 		end
@@ -67,7 +70,10 @@ return function(editingItem, sourceItem)
 
 		-- parent completed item to accessory instance
 		if isClothes then
-			clone.CFrame = CFrame.new(previousPosition)
+			if previousPosition then
+				clone.CFrame = CFrame.new(previousPosition)
+			end
+
 			local accessory = Instance.new("Accessory", Workspace)
 			clone.Parent = accessory
 			accessory.Name = tempModel.Name

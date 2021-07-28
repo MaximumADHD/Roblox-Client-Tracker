@@ -7,8 +7,8 @@
 
 	Optional Props:
 		Style Style: The style with which to render this component.
-		Theme Theme: A Theme ContextItem, which is provided via mapToProps.
-		Stylizer Stylizer: A Stylizer ContextItem, which is provided via mapToProps.
+		Theme Theme: A Theme ContextItem, which is provided via withContext.
+		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
 		Vector2 AnchorPoint: The pivot point of this component's Position prop.
 		boolean Disabled: Whether or not this button can be clicked.
 		number LayoutOrder: The layout order of this component.
@@ -19,9 +19,11 @@
 		string Text: A text to be displayed over the image if any.
 		number ZIndex: The render index of this component.
 ]]
+local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
 local ContextServices = require(Framework.ContextServices)
+local withContext = ContextServices.withContext
 
 local Util = require(Framework.Util)
 local Typecheck = Util.Typecheck
@@ -90,9 +92,17 @@ function ToggleButton:render()
 	})
 end
 
-ContextServices.mapToProps(ToggleButton, {
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-})
+if FFlagDeveloperFrameworkWithContext then
+	ToggleButton = withContext({
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	})(ToggleButton)
+else
+	ContextServices.mapToProps(ToggleButton, {
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	})
+end
+
 
 return ToggleButton

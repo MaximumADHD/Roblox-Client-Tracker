@@ -10,6 +10,7 @@
 
 local FFlagStudioAllowRemoteSaveBeforePublish = game:GetFastFlag("StudioAllowRemoteSaveBeforePublish")
 local FFlagStudioPromptOnFirstPublish = game:GetFastFlag("StudioPromptOnFirstPublish")
+local FFlagLuobuDevPublishLua = game:GetFastFlag("LuobuDevPublishLua")
 
 local StudioService = game:GetService("StudioService")
 
@@ -19,12 +20,16 @@ local Promise = require(Plugin.Packages.Promise)
 local Configuration = require(Plugin.Src.Network.Requests.Configuration)
 local RootPlaceInfo = require(Plugin.Src.Network.Requests.RootPlaceInfo)
 local UniverseActivate = require(Plugin.Src.Network.Requests.UniverseActivate)
+local PostContactEmail = require(Plugin.Src.Thunks.PostContactEmail)
+
+local KeyProvider = FFlagLuobuDevPublishLua and require(Plugin.Src.Util.KeyProvider) or nil
+local optInLocationsKey = FFlagLuobuDevPublishLua and KeyProvider.getOptInLocationsKeyName() or nil
 
 --[[
 	Used to save the chosen state of all game settings by saving to web
 	endpoints or setting properties in the datamodel.
 ]]
-local function saveAll(state, localization, existingUniverseId, existingPlaceId)
+local function saveAll(state, localization, existingUniverseId, existingPlaceId, apiImpl, email)
 	local configuration = {}
 	local rootPlaceInfo = {}
 	local universeActivate = {}
@@ -52,10 +57,27 @@ local function saveAll(state, localization, existingUniverseId, existingPlaceId)
 		-- Failure handled in ScreenCreateNewGame
 		local success, gameId = StudioService.GamePublishFinished:wait()
 		if success then
-			local setRequests = {
-				Configuration.Set(gameId, configuration),
-				RootPlaceInfo.Set(gameId, rootPlaceInfo),
-			}
+			local setRequests
+			if FFlagLuobuDevPublishLua and email ~= nil then
+				local includeOptInLocations
+				local responseCode = PostContactEmail(apiImpl, email, gameId)
+				if responseCode == 200 then
+					includeOptInLocations = true
+				else
+					warn(tostring(localization:getText(optInLocationsKey, "EmailSubmitFailure")))
+					includeOptInLocations = false
+				end
+				setRequests = {
+					Configuration.Set(gameId, configuration, includeOptInLocations),
+					RootPlaceInfo.Set(gameId, rootPlaceInfo),
+				}
+			else
+				setRequests = {
+					Configuration.Set(gameId, configuration),
+					RootPlaceInfo.Set(gameId, rootPlaceInfo),
+				}
+			end
+
 			if FFlagStudioAllowRemoteSaveBeforePublish then
 				table.insert(setRequests, UniverseActivate.Set(gameId, universeActivate))
 			end

@@ -12,13 +12,13 @@ local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 
 local SetAttachmentPoint = require(Plugin.Src.Actions.SetAttachmentPoint)
+local SetItemSize = require(Plugin.Src.Actions.SetItemSize)
+local VerifyBounds = require(Plugin.Src.Thunks.VerifyBounds)
 
 local EditingItemContext = require(Plugin.Src.Context.EditingItemContext)
 
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
-
-local ModelUtil = require(Plugin.Src.Util.ModelUtil)
 
 local MeshPartTool = Roact.PureComponent:extend("MeshPartTool")
 
@@ -51,6 +51,12 @@ function MeshPartTool:didMount()
 				AttachmentCFrame = attachment.CFrame,
 			})
 		end
+		self.props.VerifyBounds(editingItem)
+	end)
+
+	self.SizeChanged = editingItem:GetPropertyChangedSignal("Size"):Connect(function()
+		self.props.SetItemSize(editingItem.Size)
+		self.props.VerifyBounds(editingItem)
 	end)
 end
 
@@ -85,8 +91,7 @@ function MeshPartTool:render()
 	local offset = accessoryTypeInfo.Offset
 	local position = matchingAttachment.Position
 
-	local inBounds = ModelUtil:checkAccessoryBounds(matchingAttachment.WorldPosition + offset, bounds, editingItem.CFrame, editingItem.Size)
-	local color = inBounds and theme.InBoundsColor or theme.OutBoundsColor
+	local color = props.InBounds and theme.InBoundsColor or theme.OutBoundsColor
 
 	return Roact.createElement(Roact.Portal, {
 		target = CoreGui,
@@ -107,6 +112,11 @@ function MeshPartTool:willUnmount()
 		self.CFrameChanged:Disconnect()
 		self.CFrameChanged = nil
 	end
+
+	if self.SizeChanged then
+		self.SizeChanged:Disconnect()
+		self.SizeChanged = nil
+	end
 end
 
 ContextServices.mapToProps(MeshPartTool,{
@@ -119,7 +129,7 @@ local function mapStateToProps(state, props)
 
 	return {
 		AccessoryTypeInfo = selectItem.accessoryTypeInfo,
-		AttachmentPoint = selectItem.attachmentPoint,
+		InBounds = selectItem.inBounds,
 	}
 end
 
@@ -127,6 +137,14 @@ local function mapDispatchToProps(dispatch)
 	return {
 		SetAttachmentPoint = function(cframe)
 			dispatch(SetAttachmentPoint(cframe))
+		end,
+
+		SetItemSize = function(size)
+			dispatch(SetItemSize(size))
+		end,
+
+		VerifyBounds = function(editingItem)
+			dispatch(VerifyBounds(editingItem))
 		end,
 	}
 end

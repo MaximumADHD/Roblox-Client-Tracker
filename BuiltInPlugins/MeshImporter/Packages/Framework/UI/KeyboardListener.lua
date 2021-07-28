@@ -2,7 +2,7 @@
 	A Roact component that listens to keyboard events within the PluginGui.
 
 	Required Props:
-		Focus Focus: A Focus ContextItem, which is provided via mapToProps.
+		Focus Focus: A Focus ContextItem, which is provided via withContext.
 
 	Optional Props:
 		callback OnKeyPressed: A callback for when the user presses a key inside the plugin.
@@ -13,6 +13,7 @@
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
 local ContextServices = require(Framework.ContextServices)
+local withContext = ContextServices.withContext
 local Typecheck = require(Framework.Util).Typecheck
 local ShowOnTop = require(Framework.UI.ShowOnTop)
 local Util = require(Framework.Util)
@@ -21,6 +22,7 @@ local FlagsList = Util.Flags.new({
 })
 
 local FFlagACEFix1606474 = game:DefineFastFlag("ACEFix1606474", false)
+local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
 
 local KeyboardListener = Roact.PureComponent:extend("KeyboardListener")
 Typecheck.wrap(KeyboardListener, script)
@@ -82,8 +84,15 @@ function KeyboardListener:willUnmount()
 	end
 end
 
-ContextServices.mapToProps(KeyboardListener, {
-	Focus = ContextServices.Focus,
-})
+if FFlagDeveloperFrameworkWithContext then
+	KeyboardListener = withContext({
+		Focus = ContextServices.Focus,
+	})(KeyboardListener)
+else
+	ContextServices.mapToProps(KeyboardListener, {
+		Focus = ContextServices.Focus,
+	})
+end
+
 
 return KeyboardListener

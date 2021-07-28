@@ -6,7 +6,7 @@ if not plugin then
 	return
 end
 
-require(script.Parent.defineFlags)
+require(script.Parent.defineLuaFlags)
 
 if not settings():GetFFlag("EnableRoactInspector") or not game:GetService("StudioService"):HasInternalPermission() then
 	return

@@ -4,17 +4,19 @@
 
 	Required Props:
 		callback OnFocusLost: A callback for when the user clicks outside of the focused element.
-		Focus Focus: A Focus ContextItem, which is provided via mapToProps.
+		Focus Focus: A Focus ContextItem, which is provided via withContext.
 
 	Optional Props:
 		number Priority: The ZIndex of this component relative to other focused elements.
 ]]
+local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
 
 local FOCUSED_ZINDEX = 1000000
 
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
 local ContextServices = require(Framework.ContextServices)
+local withContext = ContextServices.withContext
 local Typecheck = require(Framework.Util).Typecheck
 local Util = require(Framework.Util)
 local FlagsList = Util.Flags.new({
@@ -52,8 +54,15 @@ function CaptureFocus:render()
 	})
 end
 
-ContextServices.mapToProps(CaptureFocus, {
-	Focus = ContextServices.Focus,
-})
+if FFlagDeveloperFrameworkWithContext then
+	CaptureFocus = withContext({
+		Focus = ContextServices.Focus,
+	})(CaptureFocus)
+else
+	ContextServices.mapToProps(CaptureFocus, {
+		Focus = ContextServices.Focus,
+	})
+end
+
 
 return CaptureFocus

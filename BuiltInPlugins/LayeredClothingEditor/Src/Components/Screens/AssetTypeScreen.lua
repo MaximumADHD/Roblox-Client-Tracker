@@ -30,7 +30,6 @@ local FlowScreenLayout = require(Plugin.Src.Components.Screens.FlowScreenLayout)
 local EditingItemContext = require(Plugin.Src.Context.EditingItemContext)
 
 local Constants = require(Plugin.Src.Util.Constants)
-local ItemCharacteristics = require(Plugin.Src.Util.ItemCharacteristics)
 
 local Util = Framework.Util
 local Typecheck = Util.Typecheck
@@ -224,7 +223,7 @@ local function mapDispatchToProps(dispatch)
 	return {
 		SetAccessoryTypeInfo = function(info)
 			dispatch(SetAccessoryTypeInfo(info))
-		end
+		end,
 	}
 end
 

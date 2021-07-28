@@ -103,7 +103,7 @@ function FlowScreenLayout:render()
 				Style = "Round",
 				StyleModifier = not backButtonEnabled and StyleModifier.Disabled or nil,
 				Size = UDim2.new(0, theme.ButtonWidth, 0, theme.ButtonHeight),
-				OnClick = goToPrevious or function() end,
+				OnClick = backButtonEnabled and goToPrevious or function() end,
 				LayoutOrder = orderIterator:getNextOrder(),
 			}),
 
@@ -112,7 +112,7 @@ function FlowScreenLayout:render()
 				Style = "Round",
 				StyleModifier = not nextButtonEnabled and StyleModifier.Disabled or nil,
 				Size = UDim2.new(0, theme.ButtonWidth, 0, theme.ButtonHeight),
-				OnClick = goToNext or function() end,
+				OnClick = nextButtonEnabled and goToNext or function() end,
 				LayoutOrder = orderIterator:getNextOrder(),
 			}),
 		})

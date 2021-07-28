@@ -10,11 +10,11 @@
 		callback OnSelectionChange: Called when a node is selected or not - (newSelection: Set<Item>) => void
 
 	Optional Props:
-		Theme Theme: The theme supplied from mapToProps()
+		Theme Theme: The theme supplied from withContext()
 		callback SortChildren: A comparator function to sort two items in the tree - SortChildren(left: Item, right: Item) => boolean
 		Style Style: a style table supplied from props and theme:getStyle()
 		number LayoutOrder: LayoutOrder of the component.
-		Stylizer Stylizer: A Stylizer ContextItem, which is provided via mapToProps.
+		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
 
 	Style Values:
 		table TreeView: Style values for the underlying tree view.
@@ -22,10 +22,12 @@
 		number RowHeight: The height of each row.
 		number IconPadding: The horizontal padding around the icon.
 ]]
+local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
 
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
 local ContextServices = require(Framework.ContextServices)
+local withContext = ContextServices.withContext
 local Typecheck = require(Framework.Util).Typecheck
 
 local UI = Framework.UI
@@ -108,9 +110,17 @@ function InstanceTreeView:render()
 	})
 end
 
-ContextServices.mapToProps(InstanceTreeView, {
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-})
+if FFlagDeveloperFrameworkWithContext then
+	InstanceTreeView = withContext({
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	})(InstanceTreeView)
+else
+	ContextServices.mapToProps(InstanceTreeView, {
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	})
+end
+
 
 return InstanceTreeView

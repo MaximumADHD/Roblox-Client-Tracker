@@ -2,6 +2,7 @@
 	A paginated table displaying the events for a specific component selected in the left-hand side
 	during the profiling session.
 ]]
+local FFlagDeveloperInspectorWithContext = game:GetFastFlag("DeveloperInspectorWithContext")
 local Main = script.Parent.Parent.Parent
 local Roact = require(Main.Packages.Roact)
 local RoactRodux = require(Main.Packages.RoactRodux)
@@ -18,6 +19,7 @@ local SetProfilePageIndex = require(Actions.RoactInspector.SetProfilePageIndex)
 local SortProfileData = require(Actions.RoactInspector.SortProfileData)
 
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 
 local UI = Framework.UI
 local PaginatedTable = UI.PaginatedTable
@@ -114,10 +116,18 @@ function RoactProfilerEventsTable:render()
 	})
 end
 
-ContextServices.mapToProps(RoactProfilerEventsTable, {
-	Inspector = InspectorContext,
-	Stylizer = ContextServices.Stylizer,
-})
+if FFlagDeveloperInspectorWithContext then
+	RoactProfilerEventsTable = withContext({
+		Inspector = InspectorContext,
+		Stylizer = ContextServices.Stylizer,
+	})(RoactProfilerEventsTable)
+else
+	ContextServices.mapToProps(RoactProfilerEventsTable, {
+		Inspector = InspectorContext,
+		Stylizer = ContextServices.Stylizer,
+	})
+end
+
 
 return RoactRodux.connect(
 	function(state)

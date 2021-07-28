@@ -4,6 +4,7 @@ local Roact = require(Plugin.Packages.Roact)
 local Framework = require(Plugin.Packages.Framework)
 
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 local Analytics = ContextServices.Analytics
 local Localization = ContextServices.Localization
 local TextService = game:GetService("TextService")
@@ -179,15 +180,16 @@ function CallstackComponent:render()
 				Stylizer = style,
 				Expansion = {},
 				GetChildren = self.getTreeChildren,
+				DisableTooltip = false,
 			})
 		}),
 	})
 end
 
-ContextServices.mapToProps(CallstackComponent, {
+CallstackComponent = withContext({
 	Analytics = Analytics,
 	Localization = Localization,
 	Stylizer = Stylizer,
-})
+})(CallstackComponent)
 
 return CallstackComponent

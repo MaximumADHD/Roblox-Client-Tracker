@@ -10,6 +10,7 @@ local Roact = require(Framework.Parent.Roact)
 local Cryo = require(Framework.Parent.Cryo)
 
 local ContextServices = require(Framework.ContextServices)
+local withContext = ContextServices.withContext
 
 local LinkText = require(Framework.UI.LinkText)
 local Pane = require(Framework.UI.Pane)
@@ -21,6 +22,7 @@ local THEME_REFACTOR = require(Framework.Util).RefactorFlags.THEME_REFACTOR
 local TextWithInlineLink = Roact.PureComponent:extend("TextWithInlineLink")
 
 local FFlagLuobuDevPublishLua = game:GetFastFlag("LuobuDevPublishLua")
+local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
 local FFlagGameSettingsEnableVoiceChat = game:GetFastFlag("GameSettingsEnableVoiceChat")
 
 function TextWithInlineLink:init()
@@ -173,9 +175,17 @@ function TextWithInlineLink:render()
 	}, lineElements)
 end
 
-ContextServices.mapToProps(TextWithInlineLink, {
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-})
+if FFlagDeveloperFrameworkWithContext then
+	TextWithInlineLink = withContext({
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	})(TextWithInlineLink)
+else
+	ContextServices.mapToProps(TextWithInlineLink, {
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	})
+end
+
 
 return TextWithInlineLink

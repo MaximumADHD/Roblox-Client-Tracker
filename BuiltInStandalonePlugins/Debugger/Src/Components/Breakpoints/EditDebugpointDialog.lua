@@ -7,6 +7,7 @@ local StudioUI = Framework.StudioUI
 local Dialog = StudioUI.Dialog
 
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 local Localization = ContextServices.Localization
 
 local EditBreakpoint = require(Plugin.Src.Components.Breakpoints.EditBreakpoint)
@@ -34,8 +35,8 @@ function EditDebugpointDialog:render()
 	})
 end
 
-ContextServices.mapToProps(EditDebugpointDialog, {
+EditDebugpointDialog = withContext({
 	Localization = Localization,
-})
+})(EditDebugpointDialog)
 
 return EditDebugpointDialog

@@ -3,17 +3,19 @@
 	on top of all other components.
 
 	Required Props:
-		Focus Focus: A Focus ContextItem, which is provided via mapToProps.
+		Focus Focus: A Focus ContextItem, which is provided via withContext.
 
 	Optional Props:
 		number Priority: The ZIndex of this component relative to other focused elements.
 ]]
+local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
 
 local FOCUSED_ZINDEX = 1000000
 
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
 local ContextServices = require(Framework.ContextServices)
+local withContext = ContextServices.withContext
 local Typecheck = require(Framework.Util).Typecheck
 local Util = require(Framework.Util)
 local FlagsList = Util.Flags.new({
@@ -38,8 +40,15 @@ function ShowOnTop:render()
 	})
 end
 
-ContextServices.mapToProps(ShowOnTop, {
-	Focus = ContextServices.Focus,
-})
+if FFlagDeveloperFrameworkWithContext then
+	ShowOnTop = withContext({
+		Focus = ContextServices.Focus,
+	})(ShowOnTop)
+else
+	ContextServices.mapToProps(ShowOnTop, {
+		Focus = ContextServices.Focus,
+	})
+end
+
 
 return ShowOnTop

@@ -3,8 +3,8 @@
 	The parent component handles fetching data. This is currently agnostic with regards to Rodux.
 
 	Required Props:
-		ContextItem Localization: A Localization ContextItem, which is provided via mapToProps.
-		ContextItem Analytics: An Analytics ContextItem, which is provided via mapToProps.
+		ContextItem Localization: A Localization ContextItem, which is provided via withContext.
+		ContextItem Analytics: An Analytics ContextItem, which is provided via withContext.
 		table AssetData: The asset to preview.
 		string ActionText: The action button text.
 		callback OnClickAction: what to do when clicking the action button.
@@ -15,8 +15,8 @@
 		UDim2 Size: The size of this component.
 
 	Optional Props:
-		Theme Theme: A Theme ContextItem, which is provided via mapToProps.
-		Stylizer Stylizer: A Stylizer ContextItem, which is provided via mapToProps.
+		Theme Theme: A Theme ContextItem, which is provided via withContext.
+		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
 		Voting Voting: Table of Voting info. Voting will be hidden if this is not shown.
 		callback OnVoteUp: called when the upvote button is clicked. Required if Voting is passed.
 		callback OnVoteDown: called when the downvote button is clicked. Required if Voting is passed.
@@ -33,6 +33,7 @@
 ]]
 
 local FFlagDevFrameworkAssetPreviewFixes = game:GetFastFlag("DevFrameworkAssetPreviewFixes")
+local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
 local FFlagStudioAssetManagerRefactorAssetPreview = game:GetFastFlag("StudioAssetManagerRefactorAssetPreview")
 
 local TextService = game:GetService("TextService")
@@ -41,6 +42,7 @@ local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
 
 local ContextServices = require(Framework.ContextServices)
+local withContext = ContextServices.withContext
 
 local Resources = require(Framework.Resources)
 local LOCALIZATION_PROJECT_NAME = Resources.LOCALIZATION_PROJECT_NAME
@@ -522,11 +524,21 @@ function AssetPreview:render()
 	})
 end
 
-ContextServices.mapToProps(AssetPreview, {
-	Analytics = ContextServices.Analytics,
-	Localization = ContextServices.Localization,
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-})
+if FFlagDeveloperFrameworkWithContext then
+	AssetPreview = withContext({
+		Analytics = ContextServices.Analytics,
+		Localization = ContextServices.Localization,
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	})(AssetPreview)
+else
+	ContextServices.mapToProps(AssetPreview, {
+		Analytics = ContextServices.Analytics,
+		Localization = ContextServices.Localization,
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	})
+end
+
 
 return AssetPreview

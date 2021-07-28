@@ -7,6 +7,7 @@ local StudioUI = Framework.StudioUI
 local DockWidget = StudioUI.DockWidget
 
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 local Localization = ContextServices.Localization
 
 local CallstackComponent = require(Plugin.Src.Components.Callstack.CallstackComponent)
@@ -35,8 +36,8 @@ function CallstackWindow:render()
 	})
 end
 
-ContextServices.mapToProps(CallstackWindow, {
+CallstackWindow = withContext({
 	Localization = Localization,
-})
+})(CallstackWindow)
 
 return CallstackWindow

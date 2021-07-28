@@ -20,7 +20,7 @@ local Common = script.Parent.Parent.Common
 
 -- TODO DEVTOOLS-4481: The DevFramework Flags util has a bug triggers the assert for missing
 -- flags in NoOpt/Debug. When that is fixed this template should be updated to use it.
-require(Common.defineFlags)
+require(Common.defineLuaFlags)
 
 -- New Plugin Setup: Uncomment this line and replace with your flag's name.
 -- If your plugin is internal-only, change if statement to:

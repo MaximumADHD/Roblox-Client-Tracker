@@ -10,8 +10,8 @@
 		number CurrentTime: How much time has elapsed (seconds).
 
 	Optional Props:
-		Theme Theme: A Theme ContextItem, which is provided via mapToProps.
-		Stylizer Stylizer: A Stylizer ContextItem, which is provided via mapToProps.
+		Theme Theme: A Theme ContextItem, which is provided via withContext.
+		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
 		Style Style: The style with which to render this component.
 		callback OnScrub: Called when scrubbing through the media by clicking or dragging the time bar.
 			If this is not defined, scrubbing will be disabled.
@@ -20,10 +20,12 @@
 		number LayoutOrder: The LayoutOrder of the component
 		UDim2 Position: The Position of the component
 ]]
+local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
 
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
 local ContextServices = require(Framework.ContextServices)
+local withContext = ContextServices.withContext
 
 local Util = require(Framework.Util)
 local StyleModifier = Util.StyleModifier
@@ -134,9 +136,17 @@ function MediaPlayerControls:render()
 	})
 end
 
-ContextServices.mapToProps(MediaPlayerControls, {
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-})
+if FFlagDeveloperFrameworkWithContext then
+	MediaPlayerControls = withContext({
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	})(MediaPlayerControls)
+else
+	ContextServices.mapToProps(MediaPlayerControls, {
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	})
+end
+
 
 return MediaPlayerControls

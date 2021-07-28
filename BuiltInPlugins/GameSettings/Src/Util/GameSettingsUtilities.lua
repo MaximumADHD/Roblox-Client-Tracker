@@ -61,7 +61,7 @@ end
 function GameSettingsUtilities.getOptInLocationsRequirementsLink(location)
     assert(FFlagLuobuDevPublishLua)
 
-    return (checkIfPolicyDoesNotExistAndBaseUrlChineseHost() and "https://www.roblox.qq.com")
+    return (checkIfPolicyDoesNotExistAndBaseUrlChineseHost() and "https://developer.roblox.com/articles/china-ugc-submission-checklist")
         or (FFlagStudioCreatePluginPolicyService and GameSettingsPolicy["OptInLocationsRequirements"][location])
 end
 

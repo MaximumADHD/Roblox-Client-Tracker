@@ -1,12 +1,14 @@
 --[[
 	Display a list of available targets
 ]]
+local FFlagDeveloperStorybookWithContext = game:GetFastFlag("DeveloperStorybookWithContext")
 local main = script.Parent.Parent.Parent
 local Roact = require(main.Packages.Roact)
 local RoactRodux = require(main.Packages.RoactRodux)
 
 local Framework = require(main.Packages.Framework)
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 
 local UI = Framework.UI
 local Container = UI.Container
@@ -83,9 +85,16 @@ function StoryTree:render()
 	})
 end
 
-ContextServices.mapToProps(StoryTree, {
-	Stylizer = ContextServices.Stylizer,
-})
+if FFlagDeveloperStorybookWithContext then
+	StoryTree = withContext({
+		Stylizer = ContextServices.Stylizer,
+	})(StoryTree)
+else
+	ContextServices.mapToProps(StoryTree, {
+		Stylizer = ContextServices.Stylizer,
+	})
+end
+
 
 return RoactRodux.connect(
 	function(state, props)

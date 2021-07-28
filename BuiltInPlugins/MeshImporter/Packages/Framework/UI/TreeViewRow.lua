@@ -12,11 +12,14 @@
 	Optional Props:
 		any BeforeToggle: An optional component to render before the toggle. Passed the Row props and the expected LayoutOrder.
 		any BeforeIcon: An optional component to render before the icon. Passed the Row props and the expected LayoutOrder.
+		any WrapperProps: Props inherited from withControl to be passed to the underlying Pane.
 ]]
+local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
 
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
 local ContextServices = require(Framework.ContextServices)
+local withContext = ContextServices.withContext
 
 local Util = require(Framework.Util)
 local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
@@ -104,8 +107,15 @@ function TreeViewRow:render()
 	})
 end
 
-ContextServices.mapToProps(TreeViewRow, {
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-})
+if FFlagDeveloperFrameworkWithContext then
+	TreeViewRow = withContext({
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	})(TreeViewRow)
+else
+	ContextServices.mapToProps(TreeViewRow, {
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	})
+end
+
 
 return withControl(TreeViewRow)

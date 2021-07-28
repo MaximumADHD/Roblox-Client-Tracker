@@ -6,6 +6,7 @@
 		table UserAddedAssets: the table of assets added by the user
 		table PointData: Rbf point data for the cages being edited, provided via mapStateToProps.
 		table AttachmentPoint: CFrame data for item attachment, provided via mapStateToProps.
+		Vector3 ItemSize: Size/Scale of the MeshPart for the editingItem.
 		table AccessoryTypeInfo: Info about accessory asset type and bounds, provided via mapStateToProps.
 		table EditingItemContext: An EditingItemContext, which is provided via mapToProps.
 		table PreviewContext: A PreviewContext item, which is provided via mapToProps.
@@ -26,6 +27,7 @@ local ContextServices = Framework.ContextServices
 local Util = Framework.Util
 local Typecheck = Util.Typecheck
 
+local Constants = require(Plugin.Src.Util.Constants)
 local ModelUtil = require(Plugin.Src.Util.ModelUtil)
 local PreviewConstants = require(Plugin.Src.Util.PreviewConstants)
 local ItemCharacteristics = require(Plugin.Src.Util.ItemCharacteristics)
@@ -186,6 +188,7 @@ local function updatePreviewAttachments(self)
 				continue
 			end
 			clone.CFrame = bodyAttachment.WorldCFrame * self.props.AttachmentPoint.ItemCFrame
+			clone.Size = self.props.ItemSize
 			ModelUtil:addAttachment(clone, clone.Parent, self.props.AccessoryTypeInfo, self.props.AttachmentPoint.AttachmentCFrane)
 			-- add weld back
 			ModelUtil:addWeld(nil, clone, part1, clone)
@@ -194,11 +197,17 @@ local function updatePreviewAttachments(self)
 end
 
 local function updatePreviewDeformations(self)
+	if self.props.EditingCage == Constants.EDIT_MODE.Mesh then
+		return
+	end
+
 	for _, item in ipairs(self.editingItemClones) do
 		ModelUtil:deformClothing(item, self.props.PointData, self.props.EditingCage)
 	end
-	for _, avatar in ipairs(self.props.PreviewContext:getAvatars()) do
-		ModelUtil:deformAvatar(avatar, self.props.PointData, self.props.EditingCage)
+	if ItemCharacteristics.isAvatar(self.props.EditingItemContext:getItem()) then
+		for _, avatar in ipairs(self.props.PreviewContext:getAvatars()) do
+			ModelUtil:deformAvatar(avatar, self.props.PointData, self.props.EditingCage)
+		end
 	end
 end
 
@@ -250,6 +259,7 @@ local function mapStateToProps(state, props)
 	return {
 		AttachmentPoint = selectItem.attachmentPoint,
 		AccessoryTypeInfo = selectItem.accessoryTypeInfo,
+		ItemSize = selectItem.size,
 		SelectedAssets = previewStatus.selectedAssets,
 		EditingCage = selectItem.editingCage,
 		PointData = cageData.pointData,

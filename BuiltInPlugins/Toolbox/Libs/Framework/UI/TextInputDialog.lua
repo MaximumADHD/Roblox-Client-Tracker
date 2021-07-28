@@ -9,8 +9,8 @@
 		callback OnButtonPressed: Callback for pressing buttons in the button bar on dialog - OnButtonPressed(buttonKey: string, text: string, additionalText: string (optional))
 
 	Optional Props:
-		Theme Theme: A Theme ContextItem, which is provided via mapToProps.
-		Stylizer Stylizer: A Stylizer ContextItem, which is provided via mapToProps.
+		Theme Theme: A Theme ContextItem, which is provided via withContext.
+		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
 		boolean Enabled: Whether the widget is currently visible
 		string Title: The text to display at the top of this dialog
 		string Header: The header text to display
@@ -30,12 +30,14 @@
 		number Spacing: Spacing between borders of dialog
 ]]
 local FFlagTextInputDialogDevFramework = game:GetFastFlag("TextInputDialogDevFramework")
+local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
 
 local Framework = script.Parent.Parent
 
 local Roact = require(Framework.Parent.Roact)
 local Util = require(Framework.Util)
 local ContextServices = require(Framework.ContextServices)
+local withContext = ContextServices.withContext
 
 local Pane = require(Framework.UI.Pane)
 local TextLabel = require(Framework.UI.TextLabel)
@@ -186,9 +188,17 @@ function TextInputDialog:render()
 	})
 end
 
-ContextServices.mapToProps(TextInputDialog, {
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-})
+if FFlagDeveloperFrameworkWithContext then
+	TextInputDialog = withContext({
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	})(TextInputDialog)
+else
+	ContextServices.mapToProps(TextInputDialog, {
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	})
+end
+
 
 return TextInputDialog

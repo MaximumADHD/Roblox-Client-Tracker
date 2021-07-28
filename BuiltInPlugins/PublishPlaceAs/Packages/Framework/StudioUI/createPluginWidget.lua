@@ -11,9 +11,11 @@
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
 local ContextServices = require(Framework.ContextServices)
+local withContext = ContextServices.withContext
 local Focus = ContextServices.Focus
 
 local FFlagDevFrameworkUseCreateContext = game:GetFastFlag("DevFrameworkUseCreateContext")
+local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
 
 local function createPluginWidget(componentName, createWidgetFunc)
 	local PluginWidget = Roact.PureComponent:extend(componentName)
@@ -158,9 +160,16 @@ local function createPluginWidget(componentName, createWidgetFunc)
 		end
 	end
 
-	ContextServices.mapToProps(PluginWidget, {
-		Plugin = ContextServices.Plugin,
-	})
+	if FFlagDeveloperFrameworkWithContext then
+		PluginWidget = withContext({
+			Plugin = ContextServices.Plugin,
+		})(PluginWidget)
+	else
+		ContextServices.mapToProps(PluginWidget, {
+			Plugin = ContextServices.Plugin,
+		})
+	end
+
 
 	return PluginWidget
 end

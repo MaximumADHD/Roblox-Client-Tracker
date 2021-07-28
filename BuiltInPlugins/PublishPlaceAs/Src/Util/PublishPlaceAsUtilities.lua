@@ -25,7 +25,7 @@ end
 function PublishPlaceAsUtilities.getOptInLocationsRequirementsLink(location)
     assert(FFlagUpdatePublishPlacePluginToDevFrameworkContext and FFlagLuobuDevPublishLua)
 
-    return (checkIfPolicyDoesNotExistAndBaseUrlChineseHost() and "https://www.roblox.qq.com")
+    return (checkIfPolicyDoesNotExistAndBaseUrlChineseHost() and "https://developer.roblox.com/articles/china-ugc-submission-checklist")
         or (FFlagStudioCreatePluginPolicyService and PublishPlaceAsPolicy["OptInLocationsRequirements"][location])
 end
 

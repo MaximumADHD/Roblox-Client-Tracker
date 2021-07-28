@@ -61,6 +61,7 @@ local FFlagStudioPromptOnFirstPublish = game:GetFastFlag("StudioPromptOnFirstPub
 local FFlagLuobuDevPublishLua = game:GetFastFlag("LuobuDevPublishLua")
 local FFlagLuobuDevPublishLuaTempOptIn = game:GetFastFlag("LuobuDevPublishLuaTempOptIn")
 local FFlagUseLayoutIteratorGameSettingsPublishPlace = game:GetFastFlag("UseLayoutIteratorGameSettingsPublishPlace")
+local FFlagLuobuDevPublishHideRequirementsLink = game:GetFastFlag("LuobuDevPublishHideRequirementsLink")
 
 local shouldShowDevPublishLocations = require(Plugin.Src.Util.PublishPlaceAsUtilities).shouldShowDevPublishLocations
 local getOptInLocationsRequirementsLink = require(Plugin.Src.Util.PublishPlaceAsUtilities).getOptInLocationsRequirementsLink
@@ -371,7 +372,7 @@ local function displayContents(parent, DEPRECATED_localization)
 						Id = chinaKey,
 						Title = localization:getText(optInLocationsKey, chinaKey),
 						Selected = optInLocations and optInLocations.China or false,
-						LinkTextFrame = Roact.createElement("Frame", {
+						LinkTextFrame = not FFlagLuobuDevPublishHideRequirementsLink and Roact.createElement("Frame", {
 							BackgroundTransparency = 1,
 							Size = UDim2.new(0, theme.requirementsLink.length, 0, theme.requirementsLink.height),
 							Position = UDim2.new(0, 0, 0, theme.requirementsLink.paddingY),
@@ -388,7 +389,7 @@ local function displayContents(parent, DEPRECATED_localization)
 									GuiService:OpenBrowserWindow(url)
 								end,
 							})
-						}),
+						}) or nil,
 					}},
 					Enabled = optInLocations ~= nil,
 					EntryClicked = function(box)

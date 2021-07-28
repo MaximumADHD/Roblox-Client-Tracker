@@ -42,7 +42,6 @@ local SetScreen = require(Plugin.Src.Actions.SetScreen)
 local SetPublishInfo = require(Plugin.Src.Actions.SetPublishInfo)
 
 local LoadGroups = require(Plugin.Src.Thunks.LoadGroups)
-local PostContactEmail = require(Plugin.Src.Thunks.PostContactEmail)
 
 local shouldShowDevPublishLocations = require(Plugin.Src.Util.PublishPlaceAsUtilities).shouldShowDevPublishLocations
 local Analytics = require(Plugin.Src.Util.Analytics)
@@ -163,7 +162,6 @@ function ScreenCreateNewGame:render()
 		local firstPublishContext = props.FirstPublishContext
 
 		local dispatchSetIsPublishing = props.dispatchSetIsPublishing
-		local postContactEmail = props.PostContactEmail
 
 		local selected = self.state.selected
 
@@ -289,17 +287,12 @@ function ScreenCreateNewGame:render()
 						local submitButtonPressed = buttonKey == "Submit"
 						if submitButtonPressed then
 							if email1 == email2 then
-								dispatchSetIsPublishing(true)
-								local postSuccess = postContactEmail(apiImpl, email1)
-								if postSuccess then
-									if firstPublishContext then
-										SettingsImpl.saveAll(changed, localization, firstPublishContext.universeId, firstPublishContext.placeId)
-									else
-										SettingsImpl.saveAll(changed, localization)
-									end
+								if firstPublishContext then
+									SettingsImpl.saveAll(changed, localization, firstPublishContext.universeId, firstPublishContext.placeId, apiImpl, email1)
 								else
-									self.props.OpenPublishFailPage(self.props.Changed)
+									SettingsImpl.saveAll(changed, localization, nil, nil, apiImpl, email1)
 								end
+								dispatchSetIsPublishing(true)
 								self:setState({
 									showEmailDialog = false,
 									bottomText = "",
@@ -490,21 +483,6 @@ local function useDispatchForProps(dispatch)
 			if universeConfig.genre then
 				dispatch(AddChange("genre", universeConfig.genre))
 			end
-		end,
-		PostContactEmail = function(apiImpl, contactEmail)
-			if not FFlagLuobuDevPublishLua then
-				return
-			end
-
-			if not FFlagTextInputDialogDevFramework then
-				return
-			end
-
-			if not shouldShowDevPublishLocations() then
-				return
-			end
-
-			dispatch(PostContactEmail(apiImpl, contactEmail))
 		end,
 	}
 end

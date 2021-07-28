@@ -5,18 +5,20 @@
 		Instance Model: The Instance to preview.
 
 	Optional Props:
-		Theme Theme: A Theme ContextItem, which is provided via mapToProps.
-		Stylizer Stylizer: A Stylizer ContextItem, which is provided via mapToProps.
+		Theme Theme: A Theme ContextItem, which is provided via withContext.
+		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
 		number LayoutOrder: LayoutOrder of the component.
 		UDim2 Position: The position of this component.
 		UDim2 Size: The size of this component.
 		callback OnMouseEnter: called on MouseEnter - useful to delegate mouse scroll input to this component.
 		callback OnMouseLeave: called on MouseLeave - useful to delegate mouse scroll input to this component.
 ]]
+local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
 
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
 local ContextServices = require(Framework.ContextServices)
+local withContext = ContextServices.withContext
 
 local Util = require(Framework.Util)
 local Typecheck = Util.Typecheck
@@ -210,9 +212,17 @@ function AssetRenderModel:render()
 	})
 end
 
-ContextServices.mapToProps(AssetRenderModel, {
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-})
+if FFlagDeveloperFrameworkWithContext then
+	AssetRenderModel = withContext({
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	})(AssetRenderModel)
+else
+	ContextServices.mapToProps(AssetRenderModel, {
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	})
+end
+
 
 return AssetRenderModel

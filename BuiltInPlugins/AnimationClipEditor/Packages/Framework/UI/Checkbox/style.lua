@@ -1,5 +1,3 @@
-local FFlagDevFrameworkCheckbox = game:GetFastFlag("DevFrameworkCheckbox")
-
 local Framework = script.Parent.Parent.Parent
 
 local StyleKey = require(Framework.Style.StyleKey)
@@ -16,13 +14,7 @@ local Decoration = UI.Decoration
 local StudioFrameworkStyles = Framework.StudioUI.StudioFrameworkStyles
 local Common = require(StudioFrameworkStyles.Common)
 
-if not FFlagDevFrameworkCheckbox then
-	if THEME_REFACTOR then
-		return {}
-	else
-		return function() end
-	end
-elseif THEME_REFACTOR then
+if THEME_REFACTOR then
 	return {
 		ImageSize = UDim2.new(0, 16, 0, 16),
 		Spacing = 6,

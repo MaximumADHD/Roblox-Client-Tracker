@@ -7,7 +7,7 @@
 			Cursor allows you to either directly specify an asset, such as
 			"rbxasset://textures/advDragIcon.png", or use the string of a SystemCursor,
 			such as "PointingHand".
-		Mouse Mouse: A Mouse ContextItem, which is provided via mapToProps.
+		Mouse Mouse: A Mouse ContextItem, which is provided via withContext.
 
 	Optional Props:
 		number Priority: The priority of this area in relation to other HoverAreas.
@@ -17,10 +17,12 @@
 		callback MouseEnter: A callback for when the mouse enters the area.
 		callback MouseLeave: A callback for when the mouse leaves the area.
 ]]
+local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
 
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
 local ContextServices = require(Framework.ContextServices)
+local withContext = ContextServices.withContext
 local Typecheck = require(Framework.Util).Typecheck
 
 local HoverArea = Roact.PureComponent:extend("HoverArea")
@@ -67,8 +69,15 @@ function HoverArea:render()
 	})
 end
 
-ContextServices.mapToProps(HoverArea, {
-	Mouse = ContextServices.Mouse,
-})
+if FFlagDeveloperFrameworkWithContext then
+	HoverArea = withContext({
+		Mouse = ContextServices.Mouse,
+	})(HoverArea)
+else
+	ContextServices.mapToProps(HoverArea, {
+		Mouse = ContextServices.Mouse,
+	})
+end
+
 
 return HoverArea

@@ -1,7 +1,9 @@
+local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
 local provideMockContext = require(script.Parent.provideMockContext)
 local ContextServices = require(Framework.ContextServices)
+local withContext = ContextServices.withContext
 local Provider = require(Framework.ContextServices.Provider)
 local ContextItem = require(Framework.ContextServices.ContextItem)
 local Util = require(Framework.Util)
@@ -55,14 +57,25 @@ return function()
 
 			return Roact.createElement("Frame")
 		end
-		ContextServices.mapToProps(testComponent,
-		{
-			Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-			Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-			Localization = ContextServices.Localization,
-			Mouse = ContextServices.Mouse,
-			Plugin = ContextServices.Plugin,
-		})
+		if FFlagDeveloperFrameworkWithContext then
+			testComponent = withContext({
+				Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+				Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+				Localization = ContextServices.Localization,
+				Mouse = ContextServices.Mouse,
+				Plugin = ContextServices.Plugin,
+			})(testComponent)
+		else
+			ContextServices.mapToProps(testComponent,
+			{
+				Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+				Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+				Localization = ContextServices.Localization,
+				Mouse = ContextServices.Mouse,
+				Plugin = ContextServices.Plugin,
+			})
+		end
+
 
 		local element = provideMockContext(nil, {
 			test = Roact.createElement(testComponent)
@@ -103,9 +116,16 @@ return function()
 
 			return Roact.createElement("Frame")
 		end
-		ContextServices.mapToProps(testComponent, {
-			Test = testContextItem,
-		})
+		if FFlagDeveloperFrameworkWithContext then
+			testComponent = withContext({
+				Test = testContextItem,
+			})(testComponent)
+		else
+			ContextServices.mapToProps(testComponent, {
+				Test = testContextItem,
+			})
+		end
+
 
 
 		local element = provideMockContext({
@@ -132,10 +152,17 @@ return function()
 				expect(icon).to.equal(cursorTexture)
 				return Roact.createElement("Frame")
 			end
-			ContextServices.mapToProps(testComponent, 
-			{
-				Mouse = ContextServices.Mouse
-			})
+			if FFlagDeveloperFrameworkWithContext then
+				testComponent = withContext({
+					Mouse = ContextServices.Mouse
+				})(testComponent)
+			else
+				ContextServices.mapToProps(testComponent, 
+				{
+					Mouse = ContextServices.Mouse
+				})
+			end
+
 
 			return Roact.createElement(testComponent)
 		end

@@ -1,5 +1,3 @@
-local FFlagDevFrameworkPaneOnClick = game:GetFastFlag("DevFrameworkPaneOnClick")
-
 local Framework = script.Parent.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
 local UI = require(Framework.UI)
@@ -109,7 +107,7 @@ function PaneStory:render()
 				AutomaticSize = Enum.AutomaticSize.XY,
 			})
 		}),
-		Clickable = FFlagDevFrameworkPaneOnClick and Roact.createElement(Pane, {
+		Clickable = Roact.createElement(Pane, {
 			Style = "BorderBox",
 			Padding = 10,
 			AutomaticSize = Enum.AutomaticSize.XY,
@@ -122,7 +120,7 @@ function PaneStory:render()
 				TextColor = isClicked and ActiveTextColor or nil,
 				AutomaticSize = Enum.AutomaticSize.XY,
 			})
-		}) or nil,
+		}),
 	})
 end
 

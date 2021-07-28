@@ -1,6 +1,4 @@
 return function()
-	local FFlagDevFrameworkCheckbox = game:GetFastFlag("DevFrameworkCheckbox")
-
 	local Main = script.Parent.Parent.Parent.Parent
 	local Roact = require(Main.Packages.Roact)
 	local Controls = require(script.Parent)
@@ -34,12 +32,7 @@ return function()
 			end
 		}))
 		local instance = Roact.mount(element, container)
-		if FFlagDevFrameworkCheckbox then
-			expect(container.Element.Contents.Content.Pane.simpleToggle).to.be.ok()
-		else
-			expect(container.Element.Contents.Content.Pane.simpleToggle.Button).to.be.ok()
-			expect(container.Element.Contents.Content.Pane.simpleToggle.Label).to.be.ok()
-		end
+		expect(container.Element.Contents.Content.Pane.simpleToggle).to.be.ok()
 		Roact.unmount(instance)
 	end)
 end

@@ -7,13 +7,15 @@
 		callback OnPageChange: Called when the user changes the page number
 
 	Optional Props:
-		Stylizer Stylizer: A Stylizer ContextItem, which is provided via mapToProps.
-		ContextItem Localization: A Localization ContextItem, which is provided via mapToProps.
+		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
+		ContextItem Localization: A Localization ContextItem, which is provided via withContext.
 
 ]]
+local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
 local ContextServices = require(Framework.ContextServices)
+local withContext = ContextServices.withContext
 
 local Resources = require(Framework.Resources)
 local LOCALIZATION_PROJECT_NAME = Resources.LOCALIZATION_PROJECT_NAME
@@ -170,9 +172,17 @@ function PageNavigation:render()
 	})
 end
 
-ContextServices.mapToProps(PageNavigation, {
-	Localization = ContextServices.Localization,
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-})
+if FFlagDeveloperFrameworkWithContext then
+	PageNavigation = withContext({
+		Localization = ContextServices.Localization,
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	})(PageNavigation)
+else
+	ContextServices.mapToProps(PageNavigation, {
+		Localization = ContextServices.Localization,
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	})
+end
+
 
 return PageNavigation

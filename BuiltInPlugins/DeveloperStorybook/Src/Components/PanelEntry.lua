@@ -8,6 +8,7 @@
 		string Description: A description which displays beneath the header.
 		number LayoutOrder: The sort order of this component.
 ]]
+local FFlagDeveloperStorybookWithContext = game:GetFastFlag("DeveloperStorybookWithContext")
 
 local Main = script.Parent.Parent.Parent
 local Roact = require(Main.Packages.Roact)
@@ -17,6 +18,7 @@ local Dash = Framework.Dash
 local mapOne = Dash.mapOne
 
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 local UI = Framework.UI
 local Pane = UI.Pane
 local TextLabel = UI.Decoration.TextLabel
@@ -82,8 +84,15 @@ function PanelEntry:render()
 	}, children)
 end
 
-ContextServices.mapToProps(PanelEntry, {
-	Stylizer = ContextServices.Stylizer
-})
+if FFlagDeveloperStorybookWithContext then
+	PanelEntry = withContext({
+		Stylizer = ContextServices.Stylizer
+	})(PanelEntry)
+else
+	ContextServices.mapToProps(PanelEntry, {
+		Stylizer = ContextServices.Stylizer
+	})
+end
+
 
 return PanelEntry

@@ -1,11 +1,13 @@
 --[[
 	A styled select list which can accept rows containing an icon, name and link
 ]]
+local FFlagDeveloperInspectorWithContext = game:GetFastFlag("DeveloperInspectorWithContext")
 local main = script.Parent.Parent.Parent
 local Framework = require(main.Packages.Framework)
 local Roact = require(main.Packages.Roact)
 local RoactRodux = require(main.Packages.RoactRodux)
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 local InspectorContext = require(main.Src.Util.InspectorContext)
 local DeveloperTools = Framework.DeveloperTools
 local RoactInspectorApi = DeveloperTools.RoactInspectorApi
@@ -103,11 +105,20 @@ function NodeList:render()
 	})
 end
 
-ContextServices.mapToProps(NodeList, {
-	Stylizer = ContextServices.Stylizer,
-	Plugin = ContextServices.Plugin,
-	Inspector = InspectorContext
-})
+if FFlagDeveloperInspectorWithContext then
+	NodeList = withContext({
+		Stylizer = ContextServices.Stylizer,
+		Plugin = ContextServices.Plugin,
+		Inspector = InspectorContext
+	})(NodeList)
+else
+	ContextServices.mapToProps(NodeList, {
+		Stylizer = ContextServices.Stylizer,
+		Plugin = ContextServices.Plugin,
+		Inspector = InspectorContext
+	})
+end
+
 
 return RoactRodux.connect(
 	function(state, props)

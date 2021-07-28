@@ -10,14 +10,15 @@
 		string Key: The key that will be sent back to the OnClick function.
 		number LayoutOrder: The layout order of this component.
 		Style Style: The style with which to render this component.
-		Stylizer Stylizer: A Stylizer ContextItem, which is provided via mapToProps.
+		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
 		string Text: The text to display after the check button.
 ]]
-local FFlagDevFrameworkPaneOnClick = game:GetFastFlag("DevFrameworkPaneOnClick")
+local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
 
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
 local ContextServices = require(Framework.ContextServices)
+local withContext = ContextServices.withContext
 
 local Button = require(Framework.UI.Button)
 local Pane = require(Framework.UI.Pane)
@@ -93,57 +94,36 @@ function Checkbox:render()
 			LayoutOrder = layoutOrder,
 		}), children)
 	else
-		if FFlagDevFrameworkPaneOnClick then
-			children.Button = Roact.createElement(Button, join(buttonProps, {
-				LayoutOrder = 1,
-			}))
-			children.Label = Roact.createElement(TextLabel, {
-				AutomaticSize = Enum.AutomaticSize.XY,
-				LayoutOrder = 2,
-				StyleModifier = styleModifier,
-				Text = text,
-			})
-			return Roact.createElement(Pane, {
-				AutomaticSize = Enum.AutomaticSize.XY,
-				Layout = Enum.FillDirection.Horizontal,
-				LayoutOrder = layoutOrder,
-				OnClick = self.onClick,
-				Spacing = style.Spacing,
-			}, children)
-		else
-			children.Container = Roact.createElement(Pane, {
-				Layout = Enum.FillDirection.Horizontal,
-				Spacing = style.Spacing,
-			}, {
-				Button = Roact.createElement(Button, {
-					LayoutOrder = 1,
-					OnClick = self.onClick,
-					Size = style.ImageSize,
-					Style = style.BackgroundStyle,
-					StyleModifier = styleModifier,
-				}),
-				Label = Roact.createElement(TextLabel, {
-					AutomaticSize = Enum.AutomaticSize.XY,
-					LayoutOrder = 2,
-					StyleModifier = styleModifier,
-					Text = text,
-				})
-			})
-
-			return Roact.createElement("TextButton", {
-				AutomaticSize = Enum.AutomaticSize.XY,
-				BackgroundTransparency = 1,
-				LayoutOrder = layoutOrder,
-				Text = "",
-				[Roact.Event.Activated] = self.onClick,
-			}, children)
-		end
+		children.Button = Roact.createElement(Button, join(buttonProps, {
+			LayoutOrder = 1,
+		}))
+		children.Label = Roact.createElement(TextLabel, {
+			AutomaticSize = Enum.AutomaticSize.XY,
+			LayoutOrder = 2,
+			StyleModifier = styleModifier,
+			Text = text,
+		})
+		return Roact.createElement(Pane, {
+			AutomaticSize = Enum.AutomaticSize.XY,
+			Layout = Enum.FillDirection.Horizontal,
+			LayoutOrder = layoutOrder,
+			OnClick = self.onClick,
+			Spacing = style.Spacing,
+		}, children)
 	end
 end
 
-ContextServices.mapToProps(Checkbox, {
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-})
+if FFlagDeveloperFrameworkWithContext then
+	Checkbox = withContext({
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	})(Checkbox)
+else
+	ContextServices.mapToProps(Checkbox, {
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	})
+end
+
 
 return Checkbox

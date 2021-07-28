@@ -20,18 +20,20 @@
 		boolean Resizable: Whether the widget can be resized.
 		Style Style: a predefined kind of dialog to use.
 		Enum.ZIndexBehavior ZIndexBehavior: The ZIndexBehavior of the widget.
-		Stylizer Stylizer: A Stylizer ContextItem, which is provided via mapToProps.
-		Theme Theme: A Theme ContextItem, which is provided via mapToProps.
+		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
+		Theme Theme: A Theme ContextItem, which is provided via withContext.
 		Enum.HorizontalAlignment ButtonHorizontalAlignment: Where to align the buttons horizontally (Left, Center, or Right)
 
 	Style Values:
 		Color3 BackgroundColor3: Background color of the dialog.
 ]]
 local FFlagAddButtonHorizontalAlignmentAsPropToStyledDialog = game:GetFastFlag("AddButtonHorizontalAlignmentAsPropToStyledDialog")
+local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
 local FFlagToolboxReplaceUILibraryComponentsPt2 = game:GetFastFlag("ToolboxReplaceUILibraryComponentsPt2")
 
 local Framework = script.Parent.Parent
 local ContextServices = require(Framework.ContextServices)
+local withContext = ContextServices.withContext
 local Roact = require(Framework.Parent.Roact)
 local Util = require(Framework.Util)
 local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
@@ -157,10 +159,18 @@ function StyledDialog:render()
 		}),
 	})
 end
-ContextServices.mapToProps(StyledDialog, {
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-})
+if FFlagDeveloperFrameworkWithContext then
+	StyledDialog = withContext({
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	})(StyledDialog)
+else
+	ContextServices.mapToProps(StyledDialog, {
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	})
+end
+
 
 Typecheck.wrap(StyledDialog, script)
 

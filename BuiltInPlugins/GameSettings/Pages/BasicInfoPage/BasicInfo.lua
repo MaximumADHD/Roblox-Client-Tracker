@@ -28,6 +28,7 @@
 local FFlagLuobuDevPublishLua = game:GetFastFlag("LuobuDevPublishLua")
 local FFlagLuobuDevPublishLuaTempOptIn = game:GetFastFlag("LuobuDevPublishLuaTempOptIn")
 local FFlagUseLayoutIteratorGameSettingsPublishPlace = game:GetFastFlag("UseLayoutIteratorGameSettingsPublishPlace")
+local FFlagLuobuDevPublishHideRequirementsLink = game:GetFastFlag("LuobuDevPublishHideRequirementsLink")
 
 local StudioService = game:GetService("StudioService")
 local GuiService = game:GetService("GuiService")
@@ -95,6 +96,15 @@ local chinaKey = FFlagLuobuDevPublishLua and GetChinaKeyName() or nil
 
 local GetPlayerAcceptanceKeyName = KeyProvider.getPlayerAcceptanceKeyName
 local playerAcceptanceKey = FFlagLuobuDevPublishLua and GetPlayerAcceptanceKeyName() or nil
+
+local GetApprovedKeyName = KeyProvider.getApprovedKeyName or nil
+local approvedKey = FFlagLuobuDevPublishLua and GetApprovedKeyName() or nil
+
+local GetInReviewKeyName = KeyProvider.getInReviewKeyName or nil
+local inReviewKey = FFlagLuobuDevPublishLua and GetInReviewKeyName() or nil
+
+local GetRejectedKeyName = KeyProvider.getRejectedKeyName or nil
+local rejectedKey = FFlagLuobuDevPublishLua and GetRejectedKeyName() or nil
 
 local Framework = require(Plugin.Framework)
 local Tooltip = Framework.UI.Tooltip
@@ -522,12 +532,12 @@ function BasicInfo:init()
 		local textColor = theme.fontStyle.Subtext.TextColor3
 		local show = true
 
-		if status == "Approved" then
+		if status == approvedKey then
 			local value = status .. location
 			statusText = statusText .. localization:getText(optInLocationsKey, value)
-		elseif status == "In review" then
-			statusText = statusText .. localization:getText(optInLocationsKey, "InReview")
-		elseif status == "Rejected" then
+		elseif status == inReviewKey then
+			statusText = statusText .. localization:getText(optInLocationsKey, inReviewKey)
+		elseif status == rejectedKey then
 			textColor = theme.fontStyle.Error.TextColor3
 			statusText = statusText .. localization:getText(optInLocationsKey, status)
 		else
@@ -601,7 +611,7 @@ function BasicInfo:init()
 						LayoutOrder = -1,
 					}) or nil,
 
-					RequirementsText = Roact.createElement(PartialHyperlink, {
+					RequirementsText = not FFlagLuobuDevPublishHideRequirementsLink and Roact.createElement(PartialHyperlink, {
 						HyperLinkText = localization:getText(optInLocationsKey, "RequirementsLinkText"),
 						NonHyperLinkText = localization:getText(optInLocationsKey, "ChinaRequirements"),
 						Style = "RequirementsLink",
@@ -610,7 +620,7 @@ function BasicInfo:init()
 							local url = getOptInLocationsRequirementsLink(chinaKey)
 							GuiService:OpenBrowserWindow(url)
 						end,
-					})
+					}) or nil,
 				})
 			})
 		end

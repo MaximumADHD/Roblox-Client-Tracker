@@ -61,9 +61,27 @@ function KeyProvider.getVoiceChatEnabledKeyName()
     return "VoiceChatEnabled"
 end
 
+function KeyProvider.getApprovedKeyName()
+    assert(FFlagLuobuDevPublishLua)
+
+    return "Approved"
+end
+
+function KeyProvider.getInReviewKeyName()
+    assert(FFlagLuobuDevPublishLua)
+
+    return "InReview"
+end
+
+function KeyProvider.getRejectedKeyName()
+    assert(FFlagLuobuDevPublishLua)
+
+    return "Rejected"
+end
+
 function KeyProvider.getPlayerAcceptanceKeyName()
     assert(FFlagLuobuDevPublishLua)
-    
+
     return "PlayerAcceptance"
 end
 

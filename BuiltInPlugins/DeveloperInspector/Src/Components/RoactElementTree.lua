@@ -1,3 +1,4 @@
+local FFlagDeveloperInspectorWithContext = game:GetFastFlag("DeveloperInspectorWithContext")
 local main = script.Parent.Parent.Parent
 local Roact = require(main.Packages.Roact)
 local RoactRodux = require(main.Packages.RoactRodux)
@@ -17,6 +18,7 @@ local values = Dash.values
 local sort = table.sort
 
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 
 local UI = Framework.UI
 local TreeView = UI.TreeView
@@ -125,10 +127,18 @@ function RoactElementTree:render()
 	})
 end
 
-ContextServices.mapToProps(RoactElementTree, {
-	Stylizer = ContextServices.Stylizer,
-	Inspector = InspectorContext
-})
+if FFlagDeveloperInspectorWithContext then
+	RoactElementTree = withContext({
+		Stylizer = ContextServices.Stylizer,
+		Inspector = InspectorContext
+	})(RoactElementTree)
+else
+	ContextServices.mapToProps(RoactElementTree, {
+		Stylizer = ContextServices.Stylizer,
+		Inspector = InspectorContext
+	})
+end
+
 
 return RoactRodux.connect(
 	function(state, props)

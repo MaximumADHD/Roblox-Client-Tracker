@@ -11,8 +11,8 @@
 		callback OnTextChanged: Callback to tell parent that text has changed
 		UDim2 Size: The size of the component.
 		Style Style: The style with which to render this component.
-		Theme Theme: A Theme ContextItem, which is provided via mapToProps.
-		Stylizer Stylizer: A Stylizer ContextItem, which is provided via mapToProps.
+		Theme Theme: A Theme ContextItem, which is provided via withContext.
+		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
 
 	Style Values:
 		Component Background: The Decoration to use as this component's background.
@@ -22,11 +22,13 @@
 		number ScrollBarOffset: The padding between the text input and scrollbar.
 		number TextSize: The font size of the text.
 ]]
+local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
 
 local TextService = game:GetService("TextService")
 
 local Framework = script.Parent.Parent
 local ContextServices = require(Framework.ContextServices)
+local withContext = ContextServices.withContext
 local Roact = require(Framework.Parent.Roact)
 local Util = require(Framework.Util)
 local Cryo = Util.Cryo
@@ -197,9 +199,17 @@ function MultiLineTextInput:render()
 	})
 end
 
-ContextServices.mapToProps(MultiLineTextInput, {
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-})
+if FFlagDeveloperFrameworkWithContext then
+	MultiLineTextInput = withContext({
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	})(MultiLineTextInput)
+else
+	ContextServices.mapToProps(MultiLineTextInput, {
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	})
+end
+
 
 return MultiLineTextInput

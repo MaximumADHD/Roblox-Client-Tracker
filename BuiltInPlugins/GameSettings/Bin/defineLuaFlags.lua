@@ -10,5 +10,6 @@ game:DefineFastFlag("StudioFixGameManagementIndexNil", false)
 game:DefineFastFlag("UXImprovementsShowUserPermsWhenCollaborator2", false)
 game:DefineFastFlag("UXImprovementsNonTCPlacesAllowedPlay", false)
 game:DefineFastFlag("GameSettingsDisplayCollaborativeEditingWarning", false)
+game:DefineFastFlag("LuobuDevPublishHideRequirementsLink", false)
 
 return nil

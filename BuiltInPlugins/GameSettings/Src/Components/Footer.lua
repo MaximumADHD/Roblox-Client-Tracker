@@ -61,25 +61,9 @@ function Footer:init()
 		local currentOptInLocations = props.CurrentOptInLocations
 		local changedOptInLocations = props.ChangedOptInLocations
 
-		--[[
-			false - Option 1: current = {"China": {"selected": false, ... }}, changed = {"China": {"selected": false, ... }}
-			true - Option 2: current = {"China": {"selected": false, ... }}, changed = {"China": {"selected": true, ... }}
-			false - Option 3: current = {"China": {"selected": false, ... }}, changed = nil
-			true - Option 4: current = {"China": {"selected": true, ... }}, changed = {"China": {"selected": true, ... }}
-			false - Option 5: current = {"China": {"selected": true, ... }}, changed = {"China": {"selected": false, ... }}
-			true - Option 6: current = {"China": {"selected": true, ... }}, changed = nil
-		]]
-
-		if currentOptInLocations[chinaKey][selectedKey] then
-			if not changedOptInLocations then
-				return true
-			end
-			return changedOptInLocations[chinaKey][selectedKey]
-		elseif not currentOptInLocations[chinaKey][selectedKey] then
-			if not changedOptInLocations then
-				return false
-			end
-			return changedOptInLocations[chinaKey][selectedKey]
+		if not currentOptInLocations[chinaKey][selectedKey] and changedOptInLocations then
+			assert(changedOptInLocations[chinaKey][selectedKey], "China should be selected in Changed")
+			return true
 		end
 		return false
 

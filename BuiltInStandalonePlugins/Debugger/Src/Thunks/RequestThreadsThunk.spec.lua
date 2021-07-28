@@ -18,7 +18,7 @@ local RequestThreadsThunk = require(script.Parent.RequestThreadsThunk)
 
 local Models = Plugin.Src.Models
 local DebuggerStateToken = require(Models.DebuggerStateToken)
-local defaultDebuggerToken = DebuggerStateToken.fromData({session = 1, stepNumber = 1})
+local defaultDebuggerToken = DebuggerStateToken.fromData({session = 1})
 
 return function()
 	it("should return its expected default state", function()

@@ -19,10 +19,11 @@
 		BorderBox: The pane has the current theme's main background with square border.
 ]]
 local FFlagDevFrameworkPaneSupportTheme1 = game:GetFastFlag("DevFrameworkPaneSupportTheme1")
-local FFlagDevFrameworkPaneOnClick = game:GetFastFlag("DevFrameworkPaneOnClick")
+local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
 
 local Framework = script.Parent.Parent
 local ContextServices = require(Framework.ContextServices)
+local withContext = ContextServices.withContext
 local Roact = require(Framework.Parent.Roact)
 local isInputMainPress = require(Framework.Util.isInputMainPress)
 
@@ -127,12 +128,7 @@ function Pane:render()
 		end
 	end
 
-	local className
-	if FFlagDevFrameworkPaneOnClick then
-		className = getClassName(props, style)
-	else
-		className = "Frame"
-	end
+	local className = getClassName(props, style)
 
 	local defaultProps = {
 		BackgroundTransparency = 1,
@@ -144,7 +140,7 @@ function Pane:render()
 		defaultProps.BackgroundTransparency = 0
 	end
 
-	if FFlagDevFrameworkPaneOnClick and props.OnClick then
+	if props.OnClick then
 		props[Roact.Event.Activated] = props.OnClick
 		if not style.Image then
 			props.Text = ""
@@ -152,9 +148,6 @@ function Pane:render()
 	end
 
 	if style.Image then
-		if not FFlagDevFrameworkPaneOnClick then
-			className = "ImageLabel"
-		end
 		assign(defaultProps, {
 			Image = style.Image,
 			ImageColor3 = color,
@@ -214,14 +207,29 @@ function Pane:render()
 end
 
 if FFlagDevFrameworkPaneSupportTheme1 then
-	ContextServices.mapToProps(Pane, {
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	})
+	if FFlagDeveloperFrameworkWithContext then
+		Pane = withContext({
+			Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+			Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+		})(Pane)
+	else
+		ContextServices.mapToProps(Pane, {
+			Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+			Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+		})
+	end
+
 else
-	ContextServices.mapToProps(Pane, {
-		Stylizer = ContextServices.Stylizer,
-	})
+	if FFlagDeveloperFrameworkWithContext then
+		Pane = withContext({
+			Stylizer = ContextServices.Stylizer,
+		})(Pane)
+	else
+		ContextServices.mapToProps(Pane, {
+			Stylizer = ContextServices.Stylizer,
+		})
+	end
+
 end
 
 return Pane

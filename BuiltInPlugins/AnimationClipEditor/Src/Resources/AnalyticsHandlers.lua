@@ -60,6 +60,16 @@ return function(analyticsService)
             sendEvent("FBXAnimationImported")
         end,
 
+        onUserChoseFBXModelForAnimImport = function()
+            reportCounter(makeStatName("UserChoseFBXModelForAnimImport"))
+            sendEvent("userChoseFBXModelForAnimImport")
+        end,
+
+        onUserChoseSelectedModelForAnimImport = function()
+            reportCounter(makeStatName("UserChoseSelectedModelForAnimImport"))
+            sendEvent("userChoseSelectedModelForAnimImport")
+        end,
+
         onExportAnimation = function()
             sendEvent("exportAnimation", {})
         end,

@@ -9,6 +9,7 @@ local getActivePreviewTabs = require(Plugin.Src.Util.getActivePreviewTabs)
 local PreviewConstantsInterface = require(Plugin.Src.Util.PreviewConstantsInterface)
 local PreviewConstants = require(Plugin.Src.Util.PreviewConstants)
 local SetEditingCage = require(Plugin.Src.Actions.SetEditingCage)
+local SetItemSize = require(Plugin.Src.Actions.SetItemSize)
 local GetRbfPoints = require(Plugin.Src.Thunks.GetRbfPoints)
 local MakeLattices = require(Plugin.Src.Thunks.MakeLattices)
 local SelectPreviewTab = require(Plugin.Src.Actions.SelectPreviewTab)
@@ -74,6 +75,10 @@ return function(item)
 		store:dispatch(ChangeTool(Constants.TOOL_MODE.None))
 		store:dispatch(SelectPreviewTab(getPreviewTab(item, state)))
 		store:dispatch(SetPreviewAssetsSelected({}))
+		if ItemCharacteristics.isClothes(item) then
+			store:dispatch(SetItemSize(item.Size))
+		end
+
 		selectCage(store, item)
 
 		local cagesTransparency = {

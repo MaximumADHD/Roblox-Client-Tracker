@@ -30,10 +30,13 @@ local AnimationClipMenu = require(Plugin.Src.Components.AnimationClipMenu)
 local ContextButton = require(Plugin.Src.Components.ContextButton)
 local FocusedPrompt = require(Plugin.Src.Components.EditEventsDialog.FocusedPrompt)
 local TextEntryPrompt = require(Plugin.Src.Components.TextEntryPrompt)
+local ActionToast = require(Plugin.Src.Components.Toast.ActionToast)
 local LoadKeyframeSequence = require(Plugin.Src.Thunks.Exporting.LoadKeyframeSequence)
 local SaveKeyframeSequence = require(Plugin.Src.Thunks.Exporting.SaveKeyframeSequence)
 local ImportKeyframeSequence = require(Plugin.Src.Thunks.Exporting.ImportKeyframeSequence)
 local ImportFBXAnimation = require(Plugin.Src.Thunks.Exporting.ImportFBXAnimation)
+local ImportFBXAnimationUserMayChooseModel = require(Plugin.Src.Thunks.Exporting.ImportFBXAnimationUserMayChooseModel)
+local ImportLoadedFBXAnimation = require(Plugin.Src.Thunks.Exporting.ImportLoadedFBXAnimation)
 local LoadAnimationData = require(Plugin.Src.Thunks.LoadAnimationData)
 local SetIsPlaying = require(Plugin.Src.Actions.SetIsPlaying)
 local SetIsDirty = require(Plugin.Src.Actions.SetIsDirty)
@@ -46,6 +49,7 @@ function AnimationClipDropdown:init()
 		showMenu = false,
 		showSaveAsPrompt = false,
 		showCreateNewPrompt = false,
+		showImportAnimModelChoicePrompt = false,
 		overwriteName = nil,
 		loadingName = nil,
 	}
@@ -84,6 +88,18 @@ function AnimationClipDropdown:init()
 	self.hideSaveAsPrompt = function()
 		self:setState({
 			showSaveAsPrompt = false,
+		})
+	end
+
+	self.showImportAnimModelChoicePrompt = function()
+		self:setState({
+			showImportAnimModelChoicePrompt = true,
+		})
+	end
+
+	self.hideImportAnimModelChoicePrompt = function()
+		self:setState({
+			showImportAnimModelChoicePrompt = false,
 		})
 	end
 
@@ -133,7 +149,11 @@ function AnimationClipDropdown:init()
 			self.showLoadNewPrompt(IMPORT_FBX_KEY)
 		else
 			local plugin = self.props.Plugin
-			self.props.ImportFBXAnimation(plugin, self.props.Analytics)
+			if game:GetFastFlag("UserMayChooseModelForFBXAnimImport") then
+				self.props.ImportFBXAnimationUserMayChooseModel(plugin, self, self.props.Analytics)
+			else
+				self.props.ImportFBXAnimation(plugin, self.props.Analytics)
+			end
 		end
 	end
 
@@ -167,7 +187,11 @@ function AnimationClipDropdown:init()
 			props.ImportKeyframeSequence(plugin, FFlagFix989de35 and props.Analytics or nil)
 		elseif loadingName == IMPORT_FBX_KEY then
 			self.hideLoadNewPrompt()
-			props.ImportFBXAnimation(plugin, props.Analytics)
+			if game:GetFastFlag("UserMayChooseModelForFBXAnimImport") then
+				props.ImportFBXAnimationUserMayChooseModel(plugin, self, props.Analytics)
+			else
+				props.ImportFBXAnimation(plugin, props.Analytics)
+			end
 		else
 			props.LoadKeyframeSequence(loadingName, props.Analytics)
 			self.hideLoadNewPrompt()
@@ -190,6 +214,7 @@ function AnimationClipDropdown:render()
 	local showMenu = state.showMenu
 	local showSaveAsPrompt = state.showSaveAsPrompt
 	local showCreateNewPrompt = state.showCreateNewPrompt
+	local showImportAnimModelChoicePrompt = state.showImportAnimModelChoicePrompt
 	local overwriteName = state.overwriteName
 	local loadingName = state.loadingName
 	local style = theme.button
@@ -272,6 +297,19 @@ function AnimationClipDropdown:render()
 			OnClose = self.hideSaveAsPrompt,
 		}),
 
+		ImportAnimModelChoicePrompt = showImportAnimModelChoicePrompt and Roact.createElement(ActionToast, {
+			Text = localization:getText("Toast", "AnimationImportModelsDiffer"),
+			ButtonWidth = Constants.PROMPT_BUTTON_SIZE.X * 1.5,
+			Buttons = {
+				{Key = true, Text = localization:getText("Toast", "AnimationImportUseFBX"), Style = "Round"},
+				{Key = false, Text = localization:getText("Toast", "AnimationImportUseSelected"), Style = "Round"},
+			},
+			OnButtonClicked = function(useFBXModel)
+				self.hideImportAnimModelChoicePrompt()
+				self.props.ImportLoadedFBXAnimation(plugin, useFBXModel, self.props.Analytics)
+			end,
+		}),
+
 		OverwritePrompt = overwriteName and Roact.createElement(FocusedPrompt, {
 			PromptText = localization:getText("Menu", "Overwrite_Migrated", {overwriteName = overwriteName}),
 			Buttons = {
@@ -350,6 +388,14 @@ local function mapDispatchToProps(dispatch)
 
 		ImportFBXAnimation = function(plugin, analytics)
 			dispatch(ImportFBXAnimation(plugin, analytics))
+		end,
+
+		ImportFBXAnimationUserMayChooseModel = function(plugin, animationClipDropdown, analytics)
+			dispatch(ImportFBXAnimationUserMayChooseModel(plugin, animationClipDropdown, analytics))
+		end,
+
+		ImportLoadedFBXAnimation = function(plugin, useFBXModel, analytics)
+			dispatch(ImportLoadedFBXAnimation(plugin, useFBXModel, analytics))
 		end,
 
 		SetIsDirty = function(isDirty)

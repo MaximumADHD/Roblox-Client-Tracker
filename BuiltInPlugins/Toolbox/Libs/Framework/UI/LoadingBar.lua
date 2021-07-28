@@ -7,8 +7,8 @@
 		number Progress: The progress of the load, between 0 and 1.
 
 	Optional Props:
-		Theme Theme: A Theme ContextItem, which is provided via mapToProps.
-		Stylizer Stylizer: A Stylizer ContextItem, which is provided via mapToProps.
+		Theme Theme: A Theme ContextItem, which is provided via withContext.
+		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
 		StyleModifier StyleModifier: The StyleModifier index into Style.
 		UDim2 Size: The size of this component.
 		Style Style: The style with which to render this component.
@@ -23,10 +23,12 @@
 		Component Foreground: The bar itself which fills the background.
 		Style ForegroundStyle: The style with which to render the foreground.
 ]]
+local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
 
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
 local ContextServices = require(Framework.ContextServices)
+local withContext = ContextServices.withContext
 local Container = require(Framework.UI.Container)
 
 local Util = require(Framework.Util)
@@ -81,9 +83,17 @@ function LoadingBar:render()
 	})
 end
 
-ContextServices.mapToProps(LoadingBar, {
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-})
+if FFlagDeveloperFrameworkWithContext then
+	LoadingBar = withContext({
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	})(LoadingBar)
+else
+	ContextServices.mapToProps(LoadingBar, {
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	})
+end
+
 
 return LoadingBar

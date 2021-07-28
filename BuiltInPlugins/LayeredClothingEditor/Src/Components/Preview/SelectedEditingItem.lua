@@ -4,9 +4,11 @@
 
 	Optional Props:
 		table AccessoryTypeInfo: Accessory type name, attachment point, and bounds
+		Vector3 ItemSize: Size/Scale of the MeshPart for the editingItem.
 		enum EditingCage: Cage type identifier, Inner/Outer, provided via mapStateToProps
 		table PointData: vertex data of item being edited, provided via mapStateToProps
 		callback SelectEditingItem: update store values when editing item is selected, provided via mapDispatchToProps
+		callback VerifyBounds: function to determine if item is within chosen accessory bounds.
 ]]
 
 local InsertService = game:GetService("InsertService")
@@ -16,6 +18,7 @@ local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 
+local VerifyBounds = require(Plugin.Src.Thunks.VerifyBounds)
 local SelectEditingItem = require(Plugin.Src.Thunks.SelectEditingItem)
 local EditingItemContext = require(Plugin.Src.Context.EditingItemContext)
 
@@ -90,6 +93,10 @@ local function setupEditingItem(self, regenerated)
 			ModelUtil:addAttachment(self.editingItem, self.mannequin, self.props.AccessoryTypeInfo)
 		end
 
+		if regenerated then
+			self.editingItem.Size = self.props.ItemSize
+		end
+
 		ModelUtil:positionAvatar(self.mannequin, self.editingItem, not regenerated)
 		ModelUtil:attachClothingItem(self.mannequin, self.editingItem)
 		setupConnections(self, self.mannequin)
@@ -98,6 +105,8 @@ local function setupEditingItem(self, regenerated)
 		ModelUtil:positionAvatar(self.editingItem, self.sourceItem, not regenerated)
 		setupConnections(self, self.editingItem)
 	end
+
+	self.props.VerifyBounds(self.editingItem)
 
 	if not regenerated then
 		self.props.SelectEditingItem(self.editingItem)
@@ -175,6 +184,7 @@ local function mapStateToProps(state, props)
 
 	return {
 		AccessoryTypeInfo = selectItem.accessoryTypeInfo,
+		ItemSize = selectItem.size,
 		EditingCage = selectItem.editingCage,
 		PointData = cageData.pointData,
 	}
@@ -184,6 +194,9 @@ local function mapDispatchToProps(dispatch)
 	return {
 		SelectEditingItem = function(item)
 			dispatch(SelectEditingItem(item))
+		end,
+		VerifyBounds = function(editingItem)
+			dispatch(VerifyBounds(editingItem))
 		end,
 	}
 end

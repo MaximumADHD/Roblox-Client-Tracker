@@ -41,7 +41,6 @@ local function createWireframeForLight(lightType, instance, target)
 	local wireframe = WIREFRAME_CONSTRUCTORS[lightType]()
 	wireframe:setGuidesFolder(target)
 	wireframe:adorn(instance)
-	wireframe:setHandles()
 	return wireframe
 end
 

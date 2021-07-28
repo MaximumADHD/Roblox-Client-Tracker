@@ -18,6 +18,7 @@ local Roact = require(Main.Packages.Roact)
 
 local Framework = require(Main.Packages.Framework)
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 local UI = Framework.UI
 local TextLabel = UI.Decoration.TextLabel
 local Pane = UI.Pane
@@ -31,6 +32,7 @@ local insert = table.insert
 local PanelEntry = require(Main.Src.Components.PanelEntry)
 
 local FFlagRefactorDevFrameworkContextItems = game:GetFastFlag("RefactorDevFrameworkContextItems")
+local FFlagDeveloperStorybookWithContext = game:GetFastFlag("DeveloperStorybookWithContext")
 
 local StoryHost = Roact.PureComponent:extend("StoryHost")
 
@@ -225,10 +227,19 @@ function StoryHost:render()
 	})
 end
 
-ContextServices.mapToProps(StoryHost, {
-	Focus = ContextServices.Focus or nil,
-	Plugin = ContextServices.Plugin or nil,
-	Stylizer = ContextServices.Stylizer or nil,
-})
+if FFlagDeveloperStorybookWithContext then
+	StoryHost = withContext({
+		Focus = ContextServices.Focus or nil,
+		Plugin = ContextServices.Plugin or nil,
+		Stylizer = ContextServices.Stylizer or nil,
+	})(StoryHost)
+else
+	ContextServices.mapToProps(StoryHost, {
+		Focus = ContextServices.Focus or nil,
+		Plugin = ContextServices.Plugin or nil,
+		Stylizer = ContextServices.Stylizer or nil,
+	})
+end
+
 
 return StoryHost

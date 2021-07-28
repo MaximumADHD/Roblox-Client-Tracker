@@ -10,8 +10,6 @@
 
 local Plugin = script.Parent.Parent.Parent
 
-local getFFlagDevFrameworkCheckbox = require(Plugin.Src.Flags.getFFlagDevFrameworkCheckbox)
-
 local Cryo = require(Plugin.Packages.Cryo)
 local FitFrameOnAxis = require(Plugin.Packages.FitFrame).FitFrameOnAxis
 local Roact = require(Plugin.Packages.Roact)
@@ -28,8 +26,6 @@ local TextLabel = UI.Decoration.TextLabel
 local Util = Framework.Util
 local LayoutOrderIterator = Util.LayoutOrderIterator
 
-
-local Checkbox_DEPRECATED = require(Plugin.Src.Components.Checkbox)
 local AlignmentSpace = require(Plugin.Src.Utility.AlignmentSpace)
 
 local AxesSettingsFragment = Roact.PureComponent:extend("AxesSettingsFragment")
@@ -74,25 +70,14 @@ function AxesSettingsFragment:render()
 		local isSelected = enabledAxes and enabledAxes[axisId] or false
 		local text = localization:getText("AxesSettingsFragment", axisId)
 
-		if getFFlagDevFrameworkCheckbox() then
-			axesCheckboxComponents[axisId] = Roact.createElement(Checkbox, {
-				Key = axisId,
-				Checked = isSelected,
-				Disabled = false,
-				LayoutOrder = layoutOrderIterator:getNextOrder(),
-				Text = text,
-				OnClick = self.toggleAxis,
-			})
-		else
-			axesCheckboxComponents[axisId] = Roact.createElement(Checkbox_DEPRECATED, {
-				Id = axisId,
-				Disabled = false,
-				LayoutOrder = layoutOrderIterator:getNextOrder(),
-				Selected = isSelected,
-				Text = text,
-				OnClick = self.toggleAxis,
-			})
-		end
+		axesCheckboxComponents[axisId] = Roact.createElement(Checkbox, {
+			Key = axisId,
+			Checked = isSelected,
+			Disabled = false,
+			LayoutOrder = layoutOrderIterator:getNextOrder(),
+			Text = text,
+			OnClick = self.toggleAxis,
+		})
 	end
 
 	local function renderRadioButton(key, layoutOrder)

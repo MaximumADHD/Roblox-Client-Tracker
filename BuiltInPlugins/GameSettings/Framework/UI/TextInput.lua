@@ -14,8 +14,8 @@
 		string PlaceholderText: Placeholder text to show when the input is empty.
 		string Text: Text to populate the input with.
 		Style Style: The style with which to render this component.
-		Stylizer Stylizer: A Stylizer ContextItem, which is provided via mapToProps.
-		Theme Theme: A Theme ContextItem, which is provided via mapToProps.
+		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
+		Theme Theme: A Theme ContextItem, which is provided via withContext.
 		StyleModifier StyleModifier: The StyleModifier index into Style.
 		boolean ShouldFocus: Set focus onto the box so that the user can start typing.
 		UDim2 Position: The position of this component.
@@ -24,6 +24,7 @@
 		boolean MultiLine: If the TextBox is Multilined.
 		boolean TextWrapped: If the Text should be wrapped to the next line.
 		Enum.Font Font: The font used to render the text.
+		Enum.TextXAlignment TextXAlignment: The X Alignment of the text.
 		Enum.TextYAlignment TextYAlignment: The Y Alignment of the text.
 		number TextSize: The font size of the text.
 
@@ -35,10 +36,12 @@
 		number TextSize: The font size of the text.
 		Color3 TextColor: The color of the search term text.
 ]]
+local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
 
 local ContextServices = require(Framework.ContextServices)
+local withContext = ContextServices.withContext
 
 local Util = require(Framework.Util)
 local prioritize = Util.prioritize
@@ -55,6 +58,11 @@ Typecheck.wrap(TextInput, script)
 local FlagsList = Util.Flags.new({
 	FFlagToolboxReplaceUILibraryComponentsPt2 = {"ToolboxReplaceUILibraryComponentsPt2"},
 })
+
+game:DefineFastFlag("AllowInputObjOnFocusLost", false)
+game:DefineFastFlag("AllowTextInputTextXAlignment", false)
+
+local FFlagAllowTextInputTextXAlignment = game:GetFastFlag("AllowTextInputTextXAlignment")
 
 function TextInput:init()
 	if FlagsList:get("FFlagToolboxReplaceUILibraryComponentsPt2") then
@@ -89,9 +97,17 @@ function TextInput:init()
 			or (FlagsList:get("FFlagToolboxReplaceUILibraryComponentsPt2") and not self.props.MultiLine)
 		then
 			if rbx.TextFits then
-				rbx.TextXAlignment = Enum.TextXAlignment.Left
+				if FFlagAllowTextInputTextXAlignment then 
+					rbx.TextXAlignment = self.props.TextXAlignment or Enum.TextXAlignment.Left
+				else
+					rbx.TextXAlignment = Enum.TextXAlignment.Left
+				end
 			else
-				rbx.TextXAlignment = Enum.TextXAlignment.Right
+				if FFlagAllowTextInputTextXAlignment then 
+					rbx.TextXAlignment = self.props.TextXAlignment or Enum.TextXAlignment.Right
+				else
+					rbx.TextXAlignment = Enum.TextXAlignment.Right
+				end
 			end
 			if rbx.Text ~= self.props.Text then
 				local processed = string.gsub(rbx.Text, "[\n\r]", " ")
@@ -139,9 +155,19 @@ function TextInput:init()
 		end
 
 		local textBox = self.textBoxRef.current
-		textBox.TextXAlignment = Enum.TextXAlignment.Left
+
+		if FFlagAllowTextInputTextXAlignment then
+			textBox.TextXAlignment = self.props.TextXAlignment or Enum.TextXAlignment.Left
+		else
+			textBox.TextXAlignment = Enum.TextXAlignment.Left
+		end
+
 		if self.props.OnFocusLost then
-			self.props.OnFocusLost(enterPressed)
+			if game:GetFastFlag("AllowInputObjOnFocusLost") then
+				self.props.OnFocusLost(enterPressed, rbx)
+			else 
+				self.props.OnFocusLost(enterPressed)
+			end
 		end
 	end
 
@@ -224,7 +250,7 @@ function TextInput:render()
 		TextSize = textSize,
 		TextColor3 = textColor,
 		Text = text,
-		TextXAlignment = Enum.TextXAlignment.Left,
+		TextXAlignment = FFlagAllowTextInputTextXAlignment and (props.TextXAlignment or Enum.TextXAlignment.Left) or Enum.TextXAlignment.Left,
 		TextYAlignment = props.TextYAlignment or nil,
 		TextEditable = enabled,
 		TextWrapped = textWrapped,
@@ -262,9 +288,17 @@ function TextInput:render()
 	})
 end
 
-ContextServices.mapToProps(TextInput, {
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-})
+if FFlagDeveloperFrameworkWithContext then
+	TextInput = withContext({
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	})(TextInput)
+else
+	ContextServices.mapToProps(TextInput, {
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	})
+end
+
 
 return TextInput

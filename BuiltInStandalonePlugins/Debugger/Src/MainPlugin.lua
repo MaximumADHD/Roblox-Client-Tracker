@@ -42,10 +42,12 @@ local TranslationReferenceTable = main.Src.Resources.Localization.TranslationRef
 local Components = main.Src.Components
 local EditDebugpointDialog = require(Components.Breakpoints.EditDebugpointDialog)
 local CallstackWindow = require(Components.Callstack.CallstackWindow)
+local BreakpointsWindow = require(Components.Breakpoints.BreakpointsWindow)
 local CallstackComponent = require(Components.Callstack.CallstackComponent)
 
 local FFlagDebuggerPluginEditBreakpoint = game:GetFastFlag("DebuggerPluginEditBreakpoint_alpha")
 local FFlagLuaUIDebuggerCallstack = game:GetFastFlag("LuaUIDebuggerCallstack")
+local FFlagDebuggerPluginBreakpointsWindow = game:GetFastFlag("DebuggerPluginBreakpointsWindow")
 
 local MainPlugin = Roact.PureComponent:extend("MainPlugin")
 
@@ -131,7 +133,7 @@ function MainPlugin:renderButtons(toolbar)
 			end,
 			ClickableWhenViewportHidden = true,
 		}),
-		ToggleBreakpointsWindow = FFlagLuaUIDebuggerCallstack and Roact.createElement(PluginButton, {
+		ToggleBreakpointsWindow = FFlagDebuggerPluginBreakpointsWindow and Roact.createElement(PluginButton, {
 			Name = "breakpointsDockWidgetActionV2",
 			Toolbar = toolbar,
 			Active = true,
@@ -180,7 +182,7 @@ function MainPlugin:render()
 	local plugin = props.Plugin
 	local editBreakpointEnabled = state.editBreakpoint and state.editBreakpoint.Enabled
 	local callstackWindowEnabled = state.callstackWindow and state.callstackWindow.Enabled
-
+	local breakpointsWindowEnabled = state.breakpointsWindow and state.breakpointsWindow.Enabled
 	return ContextServices.provide({
 		Plugin.new(plugin),
 		Store.new(self.store),
@@ -206,7 +208,7 @@ function MainPlugin:render()
 			OnClose = function()
 				self.onWidgetClose("editBreakpoint")
 			end,
-		}) or nil, 
+		}) or nil,
 		CallstackWindow = (FFlagLuaUIDebuggerCallstack and callstackWindowEnabled) and Roact.createElement(CallstackWindow, {
 			Enabled = callstackWindowEnabled,
 			OnClose = function()
@@ -214,6 +216,12 @@ function MainPlugin:render()
 			end,
 		}, {
 			Callstack = Roact.createElement(CallstackComponent),
+		}) or nil,
+		BreakpointsWindow = (FFlagDebuggerPluginBreakpointsWindow and breakpointsWindowEnabled) and Roact.createElement(BreakpointsWindow, {
+			Enabled = breakpointsWindowEnabled,
+			OnClose = function()
+				self.onWidgetClose("breakpointsWindow")
+			end,
 		}) or nil,
 	})
 end
