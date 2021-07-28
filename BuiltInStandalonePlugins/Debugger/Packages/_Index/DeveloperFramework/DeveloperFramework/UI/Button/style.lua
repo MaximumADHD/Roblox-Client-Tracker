@@ -1,5 +1,3 @@
-local FFlagDevFrameworkFixButtonStyles = game:GetFastFlag("DevFrameworkFixButtonStyles")
-
 local Framework = script.Parent.Parent.Parent
 
 local Util = require(Framework.Util)
@@ -41,19 +39,15 @@ if THEME_REFACTOR then
 			}),
 		},
 		[StyleModifier.Disabled] = {
-			BackgroundStyle = FFlagDevFrameworkFixButtonStyles and Cryo.Dictionary.join(roundBox, {
+			BackgroundStyle = Cryo.Dictionary.join(roundBox, {
 				Color = StyleKey.ButtonDisabled,
-			}) or {
-				Color = StyleKey.ButtonDisabled,
-			},
+			}),
 			TextColor = StyleKey.ButtonTextDisabled,
 		},
 		[StyleModifier.Pressed] = {
-			BackgroundStyle = FFlagDevFrameworkFixButtonStyles and Cryo.Dictionary.join(roundBox, {
+			BackgroundStyle = Cryo.Dictionary.join(roundBox, {
 				Color = StyleKey.ButtonPressed,
-			}) or {
-				Color = StyleKey.ButtonHover,
-			},
+			}),
 		},
 
 		["&RoundSubtle"] = {
@@ -61,23 +55,23 @@ if THEME_REFACTOR then
 			BackgroundStyle = {
 				Color = Decoration.SubBackground,
 			},
-			[StyleModifier.Disabled] = FFlagDevFrameworkFixButtonStyles and {
+			[StyleModifier.Disabled] = {
 				BackgroundStyle = {
 					Color = StyleKey.ButtonDisabled,
 				},
 				TextColor = StyleKey.ButtonTextDisabled,
-			} or nil,
+			},
 			[StyleModifier.Hover] = {
 				BackgroundStyle = Cryo.Dictionary.join(roundBox, {
 					Color = StyleKey.ButtonHover,
 				}),
 			},
-			[StyleModifier.Pressed] = FFlagDevFrameworkFixButtonStyles and {
+			[StyleModifier.Pressed] = {
 				BackgroundStyle = {
 					Color = StyleKey.ButtonPressed,
 				},
 				TextColor = StyleKey.ButtonTextDisabled,
-			} or nil,
+			},
 		},
 
 		["&Round"] = {
@@ -99,12 +93,10 @@ if THEME_REFACTOR then
 				}),
 			},
 			[StyleModifier.Disabled] = {
-				BackgroundStyle = FFlagDevFrameworkFixButtonStyles and Cryo.Dictionary.join(roundBox, {
+				BackgroundStyle = Cryo.Dictionary.join(roundBox, {
 					BorderColor = StyleKey.MainBackground,
 					Color = StyleKey.DialogMainButtonDisabled,
-				}) or {
-					Color = StyleKey.DialogMainButtonDisabled,
-				},
+				}),
 				TextColor = StyleKey.DialogMainButtonTextDisabled,
 			},
 		},

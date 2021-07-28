@@ -26,13 +26,15 @@
 		callback OnSortChange: An optional callback called when the user sorts a column.
 		callback RowComponent: An optional component to render each row.
 		any CellComponent: An optional component passed to the row component which renders individual cells.
-		Stylizer Stylizer: A Stylizer ContextItem, which is provided via mapToProps.
-		Theme Theme: A Theme ContextItem, which is provided via mapToProps.
+		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
+		Theme Theme: A Theme ContextItem, which is provided via withContext.
 ]]
+local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
 local Typecheck = require(Framework.Util).Typecheck
 local ContextServices = require(Framework.ContextServices)
+local withContext = ContextServices.withContext
 
 local Table = require(Framework.UI.Table)
 
@@ -105,8 +107,15 @@ function PaginatedTable:render()
 	})
 end
 
-ContextServices.mapToProps(PaginatedTable, {
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-})
+if FFlagDeveloperFrameworkWithContext then
+	PaginatedTable = withContext({
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	})(PaginatedTable)
+else
+	ContextServices.mapToProps(PaginatedTable, {
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	})
+end
+
 
 return PaginatedTable

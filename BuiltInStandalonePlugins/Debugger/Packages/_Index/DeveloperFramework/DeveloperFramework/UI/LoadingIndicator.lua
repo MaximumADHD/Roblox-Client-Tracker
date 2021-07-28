@@ -2,7 +2,7 @@
 	Loading Indicator of 3 rectangles which cyclically increase and then decrease in height while changing color.
 
 	Optional Props:
-		Theme Theme: A Theme ContextItem, which is provided via mapToProps.
+		Theme Theme: A Theme ContextItem, which is provided via withContext.
 		Vector2 AnchorPoint: an offset for positioning
 		number LayoutOrder: The layout order of this component in a UILayout.
 		UDim2 Position: The position of the component. Defaults to zero.
@@ -10,19 +10,21 @@
 		Style Style: The style with which to render this component.
 		StyleModifier StyleModifier: The StyleModifier index into Style.
 		number ZIndex: The render index of this component.
-		Stylizer Stylizer: A Stylizer ContextItem, which is provided via mapToProps.
+		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
 
 	Style Values:
 		Color3 StartColor: The starting color of the blocks.
 		Color3 EndColor: The color of the blocks as they are at their maximum height.
 ]]
 local FFlagDevFrameworkFixLoadingIndicatorSize = game:GetFastFlag("DevFrameworkFixLoadingIndicatorSize")
+local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
 
 local RunService = game:GetService("RunService")
 
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
 local ContextServices = require(Framework.ContextServices)
+local withContext = ContextServices.withContext
 
 local Util = require(Framework.Util)
 local Typecheck = Util.Typecheck
@@ -150,9 +152,17 @@ function LoadingIndicator:render()
 	}, children)
 end
 
-ContextServices.mapToProps(LoadingIndicator, {
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-})
+if FFlagDeveloperFrameworkWithContext then
+	LoadingIndicator = withContext({
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	})(LoadingIndicator)
+else
+	ContextServices.mapToProps(LoadingIndicator, {
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	})
+end
+
 
 return LoadingIndicator

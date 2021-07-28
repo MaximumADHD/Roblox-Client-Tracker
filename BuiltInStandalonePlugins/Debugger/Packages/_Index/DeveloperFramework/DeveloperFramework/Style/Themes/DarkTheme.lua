@@ -3,7 +3,6 @@ local Colors = require(Framework.Style.Colors)
 local StyleKey = require(Framework.Style.StyleKey)
 
 local FFlagDevFrameworkRefactorScrollbarColor = game:GetFastFlag("DevFrameworkRefactorScrollbarColor")
-local FFlagDevFrameworkFixButtonStyles = game:GetFastFlag("DevFrameworkFixButtonStyles")
 
 return {
 	[StyleKey.Border] = Colors.Carbon,
@@ -24,8 +23,8 @@ return {
 
 	[StyleKey.DialogButtonBorder] = Colors.Gray,
 	[StyleKey.DialogMainButton] = Colors.Blue,
-	[StyleKey.DialogMainButtonDisabled] = FFlagDevFrameworkFixButtonStyles and Colors.Gray or Colors.Blue,
-	[StyleKey.DialogMainButtonHover] = FFlagDevFrameworkFixButtonStyles and Colors.Blue_Light or Colors.Blue,
+	[StyleKey.DialogMainButtonDisabled] = Colors.Gray,
+	[StyleKey.DialogMainButtonHover] = Colors.Blue_Light,
 	[StyleKey.DialogMainButtonSelected] = Colors.Blue_Dark,
 	[StyleKey.DialogMainButtonText] = Colors.White,
 	[StyleKey.DialogMainButtonTextDisabled] = Color3.fromRGB(102, 102, 102),
@@ -66,10 +65,6 @@ return {
 	[StyleKey.ToggleOnImage] = "rbxasset://textures/RoactStudioWidgets/toggle_on_dark.png",
 	[StyleKey.ToggleOffImage] = "rbxasset://textures/RoactStudioWidgets/toggle_off_dark.png",
 	[StyleKey.ToggleDisabledImage] = "rbxasset://textures/RoactStudioWidgets/toggle_disable_dark.png",
-
-	-- Remove with FFlagDevFrameworkCheckbox
-	[StyleKey.CheckboxDefaultImage] = "rbxasset://textures/DeveloperFramework/checkbox_unchecked_dark.png",
-	[StyleKey.CheckboxSelectedImage] = "rbxasset://textures/DeveloperFramework/checkbox_checked_dark.png",
 
 	[StyleKey.CheckboxUncheckedImage] = "rbxasset://textures/DeveloperFramework/checkbox_unchecked_dark.png",
 	[StyleKey.CheckboxCheckedImage] = "rbxasset://textures/DeveloperFramework/checkbox_checked_dark.png",

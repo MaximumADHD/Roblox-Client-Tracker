@@ -4,7 +4,7 @@
 	Required Props:
 		table Items: An array of each item that should appear in the dropdown.
 		callback OnItemActivated: A callback for when the user selects a dropdown entry.
-		Focus Focus: a Focus object supplied by mapToProps()
+		Focus Focus: a Focus object supplied by withContext()
 
 	Optional Props:
 		number Width: The width of the select input
@@ -12,8 +12,8 @@
 		callback OnRenderItem: A function used to render a dropdown menu item.
 		number SelectedIndex: The currently selected item index.
 		Style Style: The style with which to render this component.
-		Stylizer Stylizer: A Stylizer ContextItem, which is provided via mapToProps.
-		Theme Theme: a Theme object supplied by mapToProps()
+		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
+		Theme Theme: a Theme object supplied by withContext()
 
 	Style Values:
 		Style BackgroundStyle: The style with which to render the background.
@@ -23,10 +23,12 @@
 		Color3 ArrowColor: The color of the dropdown arrow image.
 		Color3 PlaceholderTextColor: The color of the dropdown placeholder text.
 ]]
+local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
 
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
 local ContextServices = require(Framework.ContextServices)
+local withContext = ContextServices.withContext
 local Util = require(Framework.Util)
 local Typecheck = Util.Typecheck
 local UI = Framework.UI
@@ -143,10 +145,19 @@ function SelectInput:render()
 	})
 end
 
-ContextServices.mapToProps(SelectInput, {
-	Focus = ContextServices.Focus,
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-})
+if FFlagDeveloperFrameworkWithContext then
+	SelectInput = withContext({
+		Focus = ContextServices.Focus,
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	})(SelectInput)
+else
+	ContextServices.mapToProps(SelectInput, {
+		Focus = ContextServices.Focus,
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	})
+end
+
 
 return SelectInput

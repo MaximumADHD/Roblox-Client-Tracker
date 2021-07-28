@@ -7,13 +7,13 @@
 	and the tooltip will act as an automatically-sized container for the child.
 
 	Required Props:
-		Focus Focus: A Focus ContextItem, which is provided via mapToProps.
+		Focus Focus: A Focus ContextItem, which is provided via withContext.
 		string Text: The text to display in the tooltip.
 
 	Optional Props:
 		table Child: An optional Roact element which should be displayed
-		Theme Theme: A Theme ContextItem, which is provided via mapToProps.
-		Stylizer Stylizer: A Stylizer ContextItem, which is provided via mapToProps.
+		Theme Theme: A Theme ContextItem, which is provided via withContext.
+		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
 		boolean Enabled: Whether the tooltip will display on hover.
 		number MaxWidth: The maximum width of this tooltip
 		Enum.TextXAlignment TextXAlignment: The text X alignment of this tooltip.
@@ -27,6 +27,7 @@
 		number ShowDelay: The time in seconds before the tooltip appears
 			after the user stops moving the mouse over the element.
 ]]
+local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
 
 local RunService = game:GetService("RunService")
 local TextService = game:GetService("TextService")
@@ -34,6 +35,7 @@ local TextService = game:GetService("TextService")
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
 local ContextServices = require(Framework.ContextServices)
+local withContext = ContextServices.withContext
 
 local ShowOnTop = require(Framework.UI.ShowOnTop)
 local DropShadow = require(Framework.UI.DropShadow)
@@ -213,10 +215,19 @@ function Tooltip:render()
 	}, content)
 end
 
-ContextServices.mapToProps(Tooltip, {
-	Focus = ContextServices.Focus,
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-})
+if FFlagDeveloperFrameworkWithContext then
+	Tooltip = withContext({
+		Focus = ContextServices.Focus,
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	})(Tooltip)
+else
+	ContextServices.mapToProps(Tooltip, {
+		Focus = ContextServices.Focus,
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	})
+end
+
 
 return Tooltip

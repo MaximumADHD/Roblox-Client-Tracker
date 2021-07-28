@@ -9,9 +9,9 @@
 		number LayoutOrder: The layout order of this component in a UILayout.
 		UDim2 Position: The position of the center of the separator.
 		Style Style: The style with which to render this component.
-		Stylizer Stylizer: A Stylizer ContextItem, which is provided via mapToProps.
+		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
 		StyleModifier StyleModifier: The StyleModifier index into Style.
-		Theme Theme: A Theme ContextItem, which is provided via mapToProps.
+		Theme Theme: A Theme ContextItem, which is provided via withContext.
 		number ZIndex: The render index of this component.
 
 	Style Values:
@@ -19,9 +19,11 @@
 		number StretchMargin: The padding in pixels to subtract from either side of the separator's dominant axis.
 		number Weight: The thickness of the separator line.
 ]]
+local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
 local ContextServices = require(Framework.ContextServices)
+local withContext = ContextServices.withContext
 local t = require(Framework.Util.Typecheck.t)
 
 local Util = require(Framework.Util)
@@ -73,9 +75,17 @@ function Separator:render()
 	})
 end
 
-ContextServices.mapToProps(Separator, {
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-})
+if FFlagDeveloperFrameworkWithContext then
+	Separator = withContext({
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	})(Separator)
+else
+	ContextServices.mapToProps(Separator, {
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	})
+end
+
 
 return Separator

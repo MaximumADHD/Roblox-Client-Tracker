@@ -8,16 +8,16 @@
 		boolean Hide: Whether the menu is hidden
 		table Items: An array of each item that should appear in the dropdown.
 		callback OnItemActivated: A callback for when the user selects a dropdown entry.
-		Focus Focus: a Focus object supplied by mapToProps()
+		Focus Focus: a Focus object supplied by withContext()
 
 	Optional Props:
 		number Width: The width of the dropdown
-		Theme Theme: a Theme object supplied by mapToProps()
+		Theme Theme: a Theme object supplied by withContext()
 		string PlaceholderText: A placeholder to display if there is no item selected.
 		callback OnRenderItem: A function used to render a dropdown menu item.
 		callback OnFocusLost: A function called when the focus on the menu is lost.
 		number SelectedIndex: The currently selected item index.
-		Stylizer Stylizer: A Stylizer ContextItem, which is provided via mapToProps.
+		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
 		Style Style: The style with which to render this component.
 
 	Style Values:
@@ -27,9 +27,11 @@
 		number Width: The width of the menu area.
 		number MaxHeight: The maximum height of the menu area.
 ]]
+local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
 local ContextServices = require(Framework.ContextServices)
+local withContext = ContextServices.withContext
 
 local Util = require(Framework.Util)
 local prioritize = Util.prioritize
@@ -272,10 +274,19 @@ function DropdownMenu:render()
 	})
 end
 
-ContextServices.mapToProps(DropdownMenu, {
-	Focus = ContextServices.Focus,
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-})
+if FFlagDeveloperFrameworkWithContext then
+	DropdownMenu = withContext({
+		Focus = ContextServices.Focus,
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	})(DropdownMenu)
+else
+	ContextServices.mapToProps(DropdownMenu, {
+		Focus = ContextServices.Focus,
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	})
+end
+
 
 return DropdownMenu

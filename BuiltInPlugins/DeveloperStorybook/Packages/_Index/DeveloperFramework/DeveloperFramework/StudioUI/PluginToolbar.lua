@@ -7,12 +7,14 @@
 		callback RenderButtons: A function for rendering
 			the PluginButtons under this toolbar. Passes the toolbar itself
 			as a parameter to be used as the button parent.
-		Plugin Plugin: A Plugin ContextItem, which is provided via mapToProps.
+		Plugin Plugin: A Plugin ContextItem, which is provided via withContext.
 ]]
+local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
 
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
 local ContextServices = require(Framework.ContextServices)
+local withContext = ContextServices.withContext
 local Typecheck = require(Framework.Util).Typecheck
 
 local PluginToolbar = Roact.PureComponent:extend("PluginToolbar")
@@ -49,8 +51,15 @@ function PluginToolbar:willUnmount()
 	end
 end
 
-ContextServices.mapToProps(PluginToolbar, {
-	Plugin = ContextServices.Plugin,
-})
+if FFlagDeveloperFrameworkWithContext then
+	PluginToolbar = withContext({
+		Plugin = ContextServices.Plugin,
+	})(PluginToolbar)
+else
+	ContextServices.mapToProps(PluginToolbar, {
+		Plugin = ContextServices.Plugin,
+	})
+end
+
 
 return PluginToolbar

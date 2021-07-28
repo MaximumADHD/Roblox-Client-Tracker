@@ -6,8 +6,8 @@
 		Style Style: The style with which to render this component.
 		StyleModifier StyleModifier: The StyleModifier index into Style.
 		number ZIndex: The render index of the shadow - should be behind the element it shadows.
-		Stylizer Stylizer: A Stylizer ContextItem, which is provided via mapToProps.
-		Theme Theme: A Theme ContextItem, which is provided via mapToProps.
+		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
+		Theme Theme: A Theme ContextItem, which is provided via withContext.
 
 	Style Values:
 		Color3 Color: The color of the shadow.
@@ -18,9 +18,11 @@
 		number Radius: The radius of the shadow, in pixels.
 		number Transparency: The transparency of the shadow (ranges from 0 to 1).
 ]]
+local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
 local ContextServices = require(Framework.ContextServices)
+local withContext = ContextServices.withContext
 local Util = require(Framework.Util)
 local t = require(Framework.Util.Typecheck.t)
 local Typecheck = Util.Typecheck
@@ -85,9 +87,17 @@ function DropShadow:render()
 	})
 end
 
-ContextServices.mapToProps(DropShadow, {
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-})
+if FFlagDeveloperFrameworkWithContext then
+	DropShadow = withContext({
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	})(DropShadow)
+else
+	ContextServices.mapToProps(DropShadow, {
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	})
+end
+
 
 return DropShadow

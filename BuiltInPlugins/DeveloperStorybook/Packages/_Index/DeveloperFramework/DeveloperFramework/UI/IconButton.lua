@@ -31,10 +31,12 @@
 
 game:DefineFastFlag("FrameworkFixDisabledIconButton", false)
 local FFlagFrameworkFixDisabledIconButton = game:GetFastFlag("FrameworkFixDisabledIconButton")
+local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
 
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
 local ContextServices = require(Framework.ContextServices)
+local withContext = ContextServices.withContext
 
 local Util = require(Framework.Util)
 local prioritize = Util.prioritize
@@ -149,9 +151,17 @@ function IconButton:render()
 	})
 end
 
-ContextServices.mapToProps(IconButton, {
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-})
+if FFlagDeveloperFrameworkWithContext then
+	IconButton = withContext({
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	})(IconButton)
+else
+	ContextServices.mapToProps(IconButton, {
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	})
+end
+
 
 return IconButton

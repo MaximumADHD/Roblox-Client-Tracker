@@ -1,9 +1,11 @@
 --[[
 	Dialog
 ]]
+local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
 
 local Framework = script.Parent.Parent.Parent.Parent
 local ContextServices = require(Framework.ContextServices)
+local withContext = ContextServices.withContext
 local Roact = require(Framework.Parent.Roact)
 local Stylizer = require(Framework.Style).Stylizer
 local Box = require(script.Parent.Box)
@@ -40,8 +42,15 @@ function Dialog:render()
 	})
 end
 
-ContextServices.mapToProps(Dialog, {
-	Stylizer = Stylizer
-})
+if FFlagDeveloperFrameworkWithContext then
+	Dialog = withContext({
+		Stylizer = Stylizer
+	})(Dialog)
+else
+	ContextServices.mapToProps(Dialog, {
+		Stylizer = Stylizer
+	})
+end
+
 
 return Dialog
