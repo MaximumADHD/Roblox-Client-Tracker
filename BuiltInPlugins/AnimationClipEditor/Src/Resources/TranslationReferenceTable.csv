@@ -56,7 +56,7 @@ Studio.AnimationClipEditor.IKMenu.EnableIK,Enable IK,Enable IK,Activar cinemáti
 Studio.AnimationClipEditor.IKMenu.IKMode,IK Mode,IK Mode,Modo cinemática inversa (IK),Mode IK (cinématique inverse),IKモード,IK 모드,Modo cinemática inversa (IK),Режим обратной кинематики,IK 模式,IK 模式,IK 模式
 Studio.AnimationClipEditor.IKMenu.BodyPart,Body Part,Body Part,Parte del cuerpo,Partie du corps,体のパーツ,신체 부위,Parte do corpo,Часть тела,身体部件,身体部件,身體部位
 Studio.AnimationClipEditor.Title.IK,IK,IK,Cinemática inversa (IK),IK,IK,IK,Cinemática inversa (IK),Обратная кинематика,IK,IK,IK
-Studio.AnimationClipEditor.Menu.Tongue,Tongue,Tongue,Lengua, ,舌,혀,Língua, , , ,舌頭
+Studio.AnimationClipEditor.Menu.Tongue,Tongue,Tongue,Lengua, ,舌,혀,Língua, ,舌头,舌头,舌頭
 Studio.AnimationClipEditor.Title.CreateNew,Create New Animation,Create New Animation,Crear animación nueva,Créer une nouvelle animation,新しいアニメーションを作成,새 애니메이션 만들기,Criar nova animação,Создать новую анимацию,创建新动画,创建新动画,創作新動畫
 Studio.AnimationClipEditor.IKMenu.ShowTreeview,Show Treeview,Show Treeview,Mostrar Vista de árbol,Afficher l'arborescence,ツリービューを表示,트리뷰 표시,Mostra vista de árvore,Показать Дерево выбора,显示树状图,显示树状图,顯示樹狀檢視
 Studio.AnimationClipEditor.IKMenu.Prompt,Enable IK to start animating with IK constraints,Enable IK to start animating with IK constraints,Activar cinemática inversa (IK) para animar con restricciones de cinemática inversa (IK),Permettre à IK (cinématique inverse) de commencer à animer avec des contraintes IK (cinématique inverse),IK構文でアニメ化を開始するにはIKを有効化,IK를 활성화하여 IK 제약으로 애니메이션화 시작,Ativar cinemática inversa (IK) para animar com restrições de cinemática inversa (IK),"Включить обратную кинематику, чтобы начать анимацию с ограничениями ОК",启用 IK 以开始创建使用 IK 约束的动画,启用 IK 以开始创建使用 IK 约束的动画,若要使用 IK 限制創作動畫，請啟用 IK 模式
@@ -143,8 +143,8 @@ Studio.AnimationClipEditor.Toast.Saved_Migrated,Saved animation {savedAnimName},
 Studio.AnimationClipEditor.Toast.Loaded_Migrated,Loaded animation {loadedAnimName},Loaded animation {loadedAnimName},Animación {loadedAnimName} cargada,Animation chargée {loadedAnimName},読み込み済みアニメーション {loadedAnimName},불러온 애니메이션 {loadedAnimName},Animação carregada {loadedAnimName}, ,已加载动画 {loadedAnimName},已加载动画 {loadedAnimName},已載入動畫 {loadedAnimName}
 Studio.AnimationClipEditor.RigErrors.MissingPart0_Migrated,The following Motor6Ds do not have a Part0 set: {entries},The following Motor6Ds do not have a Part0 set: {entries},El siguiente Motor6Ds no tiene Part0 establecida: {entries},Le Motor6Ds suivant n'a pas un set Part0 : {entries},以下の Motor6Ds は設定済みの Part0 がありません: {entries},다음 Motor6D에 Part0 세트가 없습니다: {entries},O seguinte Motor6Ds não possui uma Part0 definida: {entries}, ,以下 Motor6D 没有设置 Part0 ：{entries},以下 Motor6D 没有设置 Part0 ：{entries},以下 Motor6D 沒有設定 Part0：{entries}
 Studio.AnimationClipEditor.RigErrors.MissingPart1_Migrated,The following Motor6Ds do not have a Part1 set: {entries},The following Motor6Ds do not have a Part1 set: {entries},El siguiente Motor6Ds no tiene Part1 establecida: {entries},Le Motor6Ds n'a pas un set Part1 : {entries},以下の Motor6Ds は設定済みの Part1 がありません: {entries},다음 Motor6D에 Part1 세트가 없습니다: {entries},O seguinte Motor6Ds não possui uma Part1 definida: {entries}, ,以下 Motor6D 没有设置 Part1 ：{entries},以下 Motor6D 没有设置 Part1 ：{entries},以下 Motor6D 沒有設定 Part1：{entries}
-Studio.AnimationClipEditor.Menu.Mouth,Mouth,Mouth,Boca, ,口,입,Boca, , , ,嘴巴
-Studio.AnimationClipEditor.Menu.Jaw,Jaw,Jaw,Mandíbula, , ,턱,Mandíbula, , , ,顎部
-Studio.AnimationClipEditor.Menu.Brows,Brows,Brows,Cejas, , ,눈썹,Sobrancelhas, , , ,眉毛
-Studio.AnimationClipEditor.Menu.Eyes,Eyes,Eyes,Ojos, ,目,눈,Olhos, , , ,眼睛
-Studio.AnimationClipEditor.Menu.AddAllFacs,Add All Facial Animation Controls,Add All Facial Animation Controls,Añadir todos los controles de animación facial, , ,모든 얼굴 애니메이션 제어 추가,Adicionar todos os controles de animação facial, , , ,新增所有臉部動畫控制選項
+Studio.AnimationClipEditor.Menu.Mouth,Mouth,Mouth,Boca, ,口,입,Boca, ,嘴,嘴,嘴巴
+Studio.AnimationClipEditor.Menu.Jaw,Jaw,Jaw,Mandíbula, ,あご,턱,Mandíbula, ,下巴,下巴,顎部
+Studio.AnimationClipEditor.Menu.Brows,Brows,Brows,Cejas, ,眉毛,눈썹,Sobrancelhas, ,眉毛,眉毛,眉毛
+Studio.AnimationClipEditor.Menu.Eyes,Eyes,Eyes,Ojos, ,目,눈,Olhos, ,眼睛,眼睛,眼睛
+Studio.AnimationClipEditor.Menu.AddAllFacs,Add All Facial Animation Controls,Add All Facial Animation Controls,Añadir todos los controles de animación facial, ,すべての顔のアニメーション操作を追加,모든 얼굴 애니메이션 제어 추가,Adicionar todos os controles de animação facial, ,添加所有面部动画控制,添加所有面部动画控制,新增所有臉部動畫控制選項

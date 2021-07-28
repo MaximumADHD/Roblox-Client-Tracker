@@ -112,11 +112,11 @@ Class AssetImportItemSettings : Instance [NotCreatable] [NotReplicated]
 Class AssetImportMeshSettings : AssetImportItemSettings [NotCreatable] [NotReplicated]
 Class AssetImportTextureSettings : AssetImportItemSettings [NotCreatable] [NotReplicated]
 Class AssetImportService : Instance [NotCreatable] [Service] [NotReplicated]
+	Function Dictionary AssetImportService:GetInstanceMap(string fileName) {RobloxScriptSecurity}
 	Function AssetImportSettings AssetImportService:ImportMesh(string fileName) {RobloxScriptSecurity}
 	Function AssetImportSettings AssetImportService:ImportMeshWithPrompt() {RobloxScriptSecurity} [Yields]
 Class AssetImportSettings : Instance [NotCreatable] [NotReplicated]
 	Property AssetImportItemSettings AssetImportSettings.Hierarchy [ReadOnly]
-	Function Instance AssetImportSettings:Import() {RobloxScriptSecurity}
 Class AssetManagerService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function int64 AssetManagerService:AddNewPlace() {RobloxScriptSecurity} [Yields]
 	Function void AssetManagerService:DeleteAlias(string aliasName) {RobloxScriptSecurity} [Yields]
@@ -179,6 +179,7 @@ Class Attachment : Instance
 	Function void Attachment:SetAxis(Vector3 axis) [Deprecated]
 	Function void Attachment:SetSecondaryAxis(Vector3 axis) [Deprecated]
 Class Bone : Attachment
+	Property bool Bone.IsCFrameDriven {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property CFrame Bone.Transform [<📁> LoadOnly] [NotReplicated]
 	Property CFrame Bone.TransformedCFrame [ReadOnly]
 	Property CFrame Bone.TransformedWorldCFrame [ReadOnly]
@@ -223,7 +224,9 @@ Class AvatarEditorService : Instance [NotCreatable] [Service] [NotReplicated]
 	Event AvatarEditorService.PromptSaveAvatarCompleted(Enum.AvatarPromptResult result, HumanoidDescription humanoidDescription)
 	Event AvatarEditorService.PromptSetFavoriteCompleted(Enum.AvatarPromptResult result)
 Class AvatarImportService : Instance [NotCreatable] [Service] [NotReplicated]
+	Function Instance AvatarImportService:ImportFBXAnimationUserMayChooseModel(Instance selectedRig, Function userChooseModelThenImportCB) {RobloxScriptSecurity} [Yields]
 	Function Instance AvatarImportService:ImportFbxRigWithoutSceneLoad(bool isR15 = true) {RobloxScriptSecurity} [Yields]
+	Function Instance AvatarImportService:ImportLoadedFBXAnimation(bool useFBXModel) {RobloxScriptSecurity} [Yields]
 	Function Instance AvatarImportService:LoadRigAndDetectType(Function promptR15Callback) {RobloxScriptSecurity} [Yields]
 Class Backpack : Instance
 Class BackpackItem : Instance [NotCreatable]
@@ -840,6 +843,7 @@ Class DebuggerConnection : Instance [NotCreatable] [NotReplicated]
 	Property int DebuggerConnection.Id {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property bool DebuggerConnection.IsPaused {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Function int DebuggerConnection:AddBreakpoint(Instance script, int line, Instance conditon, Function status) {RobloxScriptSecurity}
+	Function int DebuggerConnection:GetSource(Instance scriptRef, Function status) {RobloxScriptSecurity}
 	Function int DebuggerConnection:Pause(Function status) {RobloxScriptSecurity}
 	Function int DebuggerConnection:Resume(Function status) {RobloxScriptSecurity}
 	Function int DebuggerConnection:Terminate(Function status) {RobloxScriptSecurity}
@@ -1516,6 +1520,7 @@ Class GuiService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void GuiService:ToggleFullscreen() {RobloxScriptSecurity}
 	Event GuiService.BrowserWindowClosed() {RobloxScriptSecurity} [Deprecated]
 	Event GuiService.CloseInspectMenuRequest() {RobloxScriptSecurity}
+	Event GuiService.CoreGuiRenderOverflowed() {RobloxScriptSecurity}
 	Event GuiService.EmotesMenuOpenChanged(bool isOpen) {RobloxScriptSecurity}
 	Event GuiService.ErrorMessageChanged(string newErrorMessage) {RobloxScriptSecurity} [Deprecated]
 	Event GuiService.InspectMenuEnabledChangedSignal(bool enabled) {RobloxScriptSecurity}
@@ -2383,6 +2388,7 @@ Class Workspace : WorldRoot [NotCreatable] [Service]
 	Function int Workspace:GetNumAwakeParts()
 	Function int Workspace:GetPhysicsThrottling()
 	Function double Workspace:GetRealPhysicsFPS()
+	Function double Workspace:GetServerTimeNow()
 	Function void Workspace:JoinToOutsiders(Objects objects, Enum.JointCreationMode jointType)
 	Function void Workspace:MakeJoints(Objects objects) {PluginSecurity}
 	Function bool Workspace:PGSIsEnabled()
@@ -2561,7 +2567,7 @@ Class Player : Instance
 	Function string Player:GetGameSessionID() {RobloxSecurity}
 	Function Dictionary Player:GetJoinData()
 	Function Mouse Player:GetMouse()
-	Function int Player:GetNetworkPing()
+	Function float Player:GetNetworkPing()
 	Function int Player:GetRankInGroup(int64 groupId) [Yields]
 	Function string Player:GetRoleInGroup(int64 groupId) [Yields]
 	Function bool Player:GetUnder13() {RobloxScriptSecurity}
@@ -2999,10 +3005,11 @@ Class ScriptDebugger : Instance [NotCreatable]
 	Event ScriptDebugger.WatchAdded(Instance watch)
 	Event ScriptDebugger.WatchRemoved(Instance watch)
 Class ScriptRef : Instance [NotCreatable] [NotReplicated]
-	Function Instance ScriptRef:Find(Instance dataModel) {RobloxScriptSecurity}
-	Function Objects ScriptRef:FindAll(Instance dataModel) {RobloxScriptSecurity}
+Class ScriptRefId : ScriptRef [NotCreatable] [NotReplicated]
+Class ScriptRefPath : ScriptRef [NotCreatable] [NotReplicated]
 Class ScriptService : Instance [NotCreatable] [Service]
 Class Selection : Instance [NotCreatable] [Service]
+	Property float Selection.SelectionThickness [ReadOnly]
 	Property Instance Selection.ActiveInstance {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Function void Selection:Add(Objects instancesToAdd) {PluginSecurity}
 	Function Objects Selection:Get() {PluginSecurity}
@@ -3350,7 +3357,7 @@ Class Studio : Instance [NotCreatable] [Service] [NotReplicated]
 	Property bool Studio.Auto Closing Quotes
 	Property Enum.AutoIndentRule Studio.Auto Indent Rule
 	Property bool Studio.Enable Autocomplete
-	Property bool Studio.Enable Linting {RobloxScriptSecurity}
+	Property bool Studio.Enable Script Analysis {RobloxScriptSecurity}
 	Property bool Studio.Enable Signature Help {RobloxScriptSecurity}
 	Property bool Studio.Enable Temporary Tabs
 	Property bool Studio.Enable Temporary Tabs In Explorer
@@ -3397,6 +3404,7 @@ Class Studio : Instance [NotCreatable] [Service] [NotReplicated]
 	Property Enum.StudioScriptEditorColorPresets Studio.Script Editor Color Preset
 	Property Color3 Studio.Script Editor Scrollbar Background Color [NotReplicated]
 	Property Color3 Studio.Script Editor Scrollbar Handle Color [NotReplicated]
+	Property Color3 Studio.ScriptEditorMenuBorderColor {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property Color3 Studio.Secondary Text Color [NotReplicated]
 	Property Color3 Studio.Selected Menu Item Background Color [NotReplicated]
 	Property Color3 Studio.Selected Text Color [NotReplicated]
@@ -3415,6 +3423,7 @@ Class Studio : Instance [NotCreatable] [Service] [NotReplicated]
 	Property bool Studio.Physical Draggers Select Scope By Default {RobloxScriptSecurity}
 	Property Color3 Studio.Pivot Snap To Geometry Color {RobloxSecurity}
 	Property Color3 Studio.Select Color
+	Property float Studio.Selection Highlight Thickness {RobloxSecurity}
 	Property bool Studio.Show Hover Over
 	Property Enum.RuntimeUndoBehavior Studio.RuntimeUndoBehavior
 	Property bool Studio.Show Light Guides {RobloxScriptSecurity}
@@ -4401,6 +4410,7 @@ Enum ConnectionError
 	EnumItem ConnectionError.DisconnectWrongVersion : 280
 	EnumItem ConnectionError.DisconnectBySecurityPolicy : 281
 	EnumItem ConnectionError.DisconnectBlockedIP : 282
+	EnumItem ConnectionError.DisconnectClientFailure : 284
 	EnumItem ConnectionError.PlacelaunchErrors : 512
 	EnumItem ConnectionError.PlacelaunchDisabled : 515
 	EnumItem ConnectionError.PlacelaunchError : 516
@@ -4494,6 +4504,7 @@ Enum DebuggerStatus
 	EnumItem DebuggerStatus.InternalError : 4
 	EnumItem DebuggerStatus.InvalidState : 5
 	EnumItem DebuggerStatus.RpcError : 6
+	EnumItem DebuggerStatus.InvalidArgument : 7
 Enum DevCameraOcclusionMode
 	EnumItem DevCameraOcclusionMode.Zoom : 0
 	EnumItem DevCameraOcclusionMode.Invisicam : 1
@@ -5640,6 +5651,7 @@ Enum StudioScriptEditorColorCategories
 	EnumItem StudioScriptEditorColorCategories.MenuSelectedBackground : 34
 	EnumItem StudioScriptEditorColorCategories.MenuScrollbarBackground : 35
 	EnumItem StudioScriptEditorColorCategories.MenuScrollbarHandle : 36
+	EnumItem StudioScriptEditorColorCategories.MenuBorder : 37
 Enum StudioScriptEditorColorPresets
 	EnumItem StudioScriptEditorColorPresets.RobloxDefault : 0
 	EnumItem StudioScriptEditorColorPresets.Extra1 : 1
@@ -6019,6 +6031,7 @@ Enum WrapLayerDebugMode
 	EnumItem WrapLayerDebugMode.BoundCageAndLinks : 3
 	EnumItem WrapLayerDebugMode.Reference : 4
 	EnumItem WrapLayerDebugMode.Rbf : 5
+	EnumItem WrapLayerDebugMode.OuterCage : 6
 Enum WrapTargetDebugMode
 	EnumItem WrapTargetDebugMode.None : 0
 	EnumItem WrapTargetDebugMode.TargetCageOriginal : 1

@@ -123,6 +123,9 @@ Studio.AnimationClipEditor.Title.Parameter, ,Parameter
 Studio.AnimationClipEditor.Title.SaveAsNew, ,Save As New Animation
 Studio.AnimationClipEditor.Title.SelectARig, ,Select a rig to animate or create a new rig by selecting Build Rig under the Plugins tab
 Studio.AnimationClipEditor.Toast.AlignNow, ,Align all keys now
+Studio.AnimationClipEditor.Toast.AnimationImportModelsDiffer, ,Model in FBX file differs from model selected in Editor. Import animation based on FBX model (recommended)?
+Studio.AnimationClipEditor.Toast.AnimationImportUseFBX, ,FBX
+Studio.AnimationClipEditor.Toast.AnimationImportUseSelected, ,Selected
 Studio.AnimationClipEditor.Toast.ClippedWarning, ,Warning: An animation cannot exceed 30 seconds in length. Excess keyframes have been removed.
 Studio.AnimationClipEditor.Toast.IgnoreWarning, ,Ignore warning
 Studio.AnimationClipEditor.Toast.InvalidAnimation, ,Animation was not imported. You do not have ownership of animation with the selected ID.

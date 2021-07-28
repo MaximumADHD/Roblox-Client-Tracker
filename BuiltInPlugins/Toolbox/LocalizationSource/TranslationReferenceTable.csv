@@ -56,7 +56,7 @@ Plugin,Plugin,Plugin,プラグイン,플러그인,Plugin,Плагин,插件,插
 Favorites,Favoritos,Favoris,お気に入り,즐겨찾기,Favoritos,Избранное,收藏,收藏,最愛,Studio.Toolbox.General.SearchBarCreatorText,Search for users,Nach Benutzern suchen
 Search for users,Buscar usuarios,Rechercher des utilisateurs,ユーザーの検索,사용자 검색,Pesquisar usuários,Поиск пользователей,搜索用户,搜索用户,搜尋使用者,Studio.Toolbox.General.SuggestionsIntroText,Try searching for:,Suchen nach:
 Try searching for:,Intenta buscar:,Essayez de rechercher :,以下を検索してみてください:,다음으로 검색:,Tente pesquisar por:,Попробуйте найти:,尝试搜索:,尝试搜索:,正在嘗試搜尋：,Studio.Toolbox.General.CategoryCreationsGroupHair,Group Hair, 
-Group Hair,Pelo del grupo, ,グループの髪,그룹 헤어,Cabelos de grupo, , , ,群組髮型,Studio.Toolbox.General.SuggestionsNPC,NPC,NSC
+Group Hair,Pelo del grupo, ,グループの髪,그룹 헤어,Cabelos de grupo, ,群组发型,群组发型,群組髮型,Studio.Toolbox.General.SuggestionsNPC,NPC,NSC
 NPC,PNJ,PNJ,NPC,NPC,NPC,НИП,NPC,NPC,NPC,Studio.Toolbox.General.SuggestionsVehicle,Vehicle,Fahrzeug
 Vehicle,Vehículo,Véhicule,車,차량,Veículo,Транспорт,车辆,车辆,載具,Studio.Toolbox.General.AssetTypePants,Pants, 
 Pants,Pantalones,Pantalons,パンツ,바지,Calça,Брюки,裤子,裤子,褲子,Studio.Toolbox.General.CategoryCreationsPants,Pants,Hosen
@@ -131,7 +131,7 @@ Accesorio para el cuello,Accessoire cou,首用アクセサリ,목 장신구,Aces
 Accesorio para el hombro,Accessoire épaule,肩用アクセサリ,어깨 장신구,Acessório de ombro,Плечи: аксессуары,肩部配件,肩部配件,肩膀飾品,Studio.Toolbox.General.AssetTypeFrontAccessory,Front Accessory, ,Front Accessory
 Accesorio frontal,Accessoire devant,正面用アクセサリ,가슴 장신구,Acessório de frente,Перед: аксессуары,正面配件,正面配件,正面飾品,Studio.Toolbox.General.AssetTypeBackAccessory,Back Accessory, ,Back Accessory
 Accesorio trasero,Accessoire dos,背面用アクセサリ,등 장신구,Acessório das costas,Спина: аксессуары,背面配件,背面配件,背部飾品,Studio.Toolbox.General.CategoryCreationsGroupNeckAccessory,Group Neck Accessories, ,Group Neck Accessories
-Accesorios para el cuello del grupo, ,グループの首用アクセサリ,그룹 목 장신구,Acessórios de pescoço de grupo, , , ,群組頸部飾品,Studio.Toolbox.General.AssetTypeWaistAccessory,Waist Accessory, ,Waist Accessory
+Accesorios para el cuello del grupo, ,グループの首用アクセサリ,그룹 목 장신구,Acessórios de pescoço de grupo, ,群组颈部配件,群组颈部配件,群組頸部飾品,Studio.Toolbox.General.AssetTypeWaistAccessory,Waist Accessory, ,Waist Accessory
 Accesorio para la cintura,Accessoire taille,腰用アクセサリ,허리 장신구,Acessório de cintura,Пояс: аксессуары,腰部配件,腰部配件,腰部飾品,Studio.Toolbox.General.DiscardMessage,Would you like to discard all changes?, ,Would you like to discard all changes?
 ¿Quieres descartar todos los cambios?,Souhaites-tu renoncer à tous les changements ?,すべての変更を破棄しますか。,모든 변경 사항을 제거할까요?,Deseja descartar todas as alterações?,Отменить все изменения?,你要放弃所有更改吗?,你要放弃所有更改吗?,確定捨棄所有變更？,Studio.Toolbox.General.Discard,Discard, ,Discard
 Descartar,Renoncer,破棄,제거,Descartar,Сбросить,放弃,放弃,捨棄,Studio.Toolbox.General.NoPluginsFound.TextLine1,Can’t find what you’re looking for?, ,Can’t find what you’re looking for?
@@ -221,7 +221,7 @@ Duración del sonido,Longueur du son,サウンドの長さ,사운드 길이,Dura
 Filtro ID,Identifiant filtre,IDをフィルタする,필터 ID,Filtrar ID, ,过滤 ID,过滤 ID,過濾 ID,Studio.Toolbox.General.CategoryMyVideos,My Videos, ,My Videos
 Mis videos,Mes vidéos,マイビデオ,내 비디오,Meus vídeos, ,我的视频,我的视频,我的影片,Studio.Toolbox.General.CategoryVideos,Videos, ,Videos
 Videos,Vidéos,ビデオ,비디오,Vídeos, ,视频,视频,影片,Studio.Toolbox.General.CategoryCreationsGroupHats,Group Hats, ,Group Hats
-Sombreros del grupo, ,グループの帽子,그룹 모자,Chapéus de grupo, , , ,群組帽子,Studio.Toolbox.AssetUploadResult.Failure,Submission failed, ,Submission failed
+Sombreros del grupo, ,グループの帽子,그룹 모자,Chapéus de grupo, ,群组帽子,群组帽子,群組帽子,Studio.Toolbox.AssetUploadResult.Failure,Submission failed, ,Submission failed
 Error al enviar,Échec de la soumission,送信できませんでした,제출 실패,Falha no envio, ,提交失败,提交失败,提交失敗,Studio.Toolbox.General.NoPluginsFound.TextLine2,"For more plugins, try searching in the {link} on our website.", ,"For more plugins, try searching in the {link} on our website."
 "Para encontrar más plugins, intenta buscar en {link} en nuestro sitio web.","Pour obtenir plus de plugins, essaie de faire une recherche dans le {link} sur notre site web.",その他のプラグインは、当社のウェブサイト上の {link} で検索してみてください。,더 많은 플러그인을 보려면 웹사이트의 {link}에서 검색하세요.,"Para mais plugins, tente procurar no {link} em nossa página.", ,若想获取更多插件，请在网站{link}中进行搜索。,若想获取更多插件，请在网站{link}中进行搜索。,若要尋找更多外掛程式，請前往我們網站上的{link}搜尋。,Studio.Toolbox.General.NoPluginsFound.LinkText,Library, ,Library
 Biblioteca,Bibliothèque,ライブラリ,라이브러리,Biblioteca, ,资料库,资料库,資料庫,Studio.Toolbox.AssetConfigAnimation.InvalidAnimationID,Invalid Animation ID, ,Invalid Animation ID
@@ -232,8 +232,8 @@ Insertar,Insérer,挿入,삽입,Inserir, ,插入,插入,插入,Studio.Toolbox.Co
 Instalar,Installer,インストール,설치,Instalar, ,安装,安装,安裝,Studio.Toolbox.Common.Loading,Loading, ,Loading
 Cargando,Chargement,読み込み中,불러오는 중,Carregando, ,正在加载,正在加载,正在載入,Studio.Toolbox.Common.Installed,Installed, ,Installed
 Instalado,Installé,インストール済み,설치됨,Instalado, ,已安装,已安装,已安裝,Studio.Toolbox.General.CategoryCreationsGroupFaceAccessory,Group Face Accessories, ,Group Face Accessories
-Accesorios para la cara del grupo, ,グループの顔用アクセサリ,그룹 얼굴 장신구,Acessórios de rosto de grupo, , , ,群組臉部飾品,Studio.Toolbox.General.CategoryCreationsGroupShoulderAccessory,Group Shoulder Accessories, ,Group Shoulder Accessories
-Accesorios para el hombro del grupo, ,グループの肩用アクセサリ,그룹 어깨 장신구,Acessórios de ombro de grupo, , , ,群組肩膀飾品,Studio.Toolbox.General.CategoryCreationsGroupFrontAccessory,Group Front Accessories, ,Group Front Accessories
-Accesorios frontales del grupo, ,グループの正面用アクセサリ,그룹 가슴 장신구,Acessórios de frente de grupo, , , ,群組正面飾品,Studio.Toolbox.General.CategoryCreationsGroupBackAccessory,Group Back Accessories, ,Group Back Accessories
-Accesorios traseros del grupo, ,グループの背面用アクセサリ,그룹 등 장신구,Acessórios das costas de grupo, , , ,群組背面飾品,Studio.Toolbox.General.CategoryCreationsGroupWaistAccessory,Group Waist Accessories, ,Group Waist Accessories
-Accesorios para la cintura del grupo, ,グループの腰用アクセサリ,그룹 허리 장신구,Acessórios de cintura de grupo, , , ,群組腰部飾品
+Accesorios para la cara del grupo, ,グループの顔用アクセサリ,그룹 얼굴 장신구,Acessórios de rosto de grupo, ,群组脸部配件,群组脸部配件,群組臉部飾品,Studio.Toolbox.General.CategoryCreationsGroupShoulderAccessory,Group Shoulder Accessories, ,Group Shoulder Accessories
+Accesorios para el hombro del grupo, ,グループの肩用アクセサリ,그룹 어깨 장신구,Acessórios de ombro de grupo, ,群组肩部配件,群组肩部配件,群組肩膀飾品,Studio.Toolbox.General.CategoryCreationsGroupFrontAccessory,Group Front Accessories, ,Group Front Accessories
+Accesorios frontales del grupo, ,グループの正面用アクセサリ,그룹 가슴 장신구,Acessórios de frente de grupo, ,群组正面配件,群组正面配件,群組正面飾品,Studio.Toolbox.General.CategoryCreationsGroupBackAccessory,Group Back Accessories, ,Group Back Accessories
+Accesorios traseros del grupo, ,グループの背面用アクセサリ,그룹 등 장신구,Acessórios das costas de grupo, ,群组背面配件,群组背面配件,群組背面飾品,Studio.Toolbox.General.CategoryCreationsGroupWaistAccessory,Group Waist Accessories, ,Group Waist Accessories
+Accesorios para la cintura del grupo, ,グループの腰用アクセサリ,그룹 허리 장신구,Acessórios de cintura de grupo, ,群组腰部配件,群组腰部配件,群組腰部飾品

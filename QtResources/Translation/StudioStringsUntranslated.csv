@@ -657,8 +657,10 @@ Studio.App.IdeDoc.Break,Roblox IDE Doc,Break,Break
 Studio.App.IdeDoc.Cancel,Roblox IDE Doc,Cancel,Cancel
 Studio.App.IdeDoc.CannotFindMesh,Roblox IDE Doc,Cannot find mesh,Cannot find mesh
 Studio.App.IdeDoc.CannotLoadPublishedPlace,Roblox IDE Doc,Cannot load published place,Cannot load published place
+Studio.App.IdeDoc.CannotOpenFileForRead,Roblox IDE Doc,Cannot open place file for read.,Cannot open place file for read.
 Studio.App.IdeDoc.Cleanup,Roblox IDE Doc (Team Test Server),Cleanup,Cleanup
 Studio.App.IdeDoc.CloudTestFailed,Roblox IDE Doc,Request to connect to team test failed.,Request to connect to team test failed.
+Studio.App.IdeDoc.CloudTestFetchConfigFailed,Roblox IDE Doc,Cannot fetch team test launch config.,Cannot fetch team test launch config.
 Studio.App.IdeDoc.ConnectingtoServer,Roblox IDE Doc,Connecting to server...,Connecting to server...
 Studio.App.IdeDoc.ConstraintObjectsWillNotWorkPhysicsSolverOverrideTrue,Roblox IDE Doc,Constraint objects will not function correctly because Workspace.TemporaryLegacyPhysicsSolverOverride is true,Constraint objects will not function correctly because Workspace.TemporaryLegacyPhysicsSolverOverride is true
 Studio.App.IdeDoc.CouldNotLoadPlaceDueToPermissionError,Roblox IDE Doc,"<b>Sorry, we could not load this place due to a permission error</b>","<b>Sorry, we could not load this place due to a permission error</b>"
@@ -1279,7 +1281,7 @@ Studio.App.Property.EnableCoreScriptDebugger,,Enable CoreScript Debugger,Enable 
 Studio.App.Property.EnableHttpSandboxing,,Enable Http Sandboxing,Enable Http Sandboxing
 Studio.App.Property.EnableInternalBetaFeatures,,Enable Internal Beta Features,Enable Internal Beta Features
 Studio.App.Property.EnableInternalFeatures,,Enable Internal Features,Enable Internal Features
-Studio.App.Property.EnableLinting,,Enable Linting,Enable Linting
+Studio.App.Property.EnableScriptAnalysis,,Enable Script Analysis,Enable Script Analysis
 Studio.App.Property.EnableSignatureHelp,,Enable Signature Help,Enable Signature Help
 Studio.App.Property.EnableTemporaryTabs,Enable script tab previews in Roblox Studio,Enable Temporary Script Tabs,Enable Temporary Script Tabs
 Studio.App.Property.EnableTemporaryTabsInExplorer,Enable script tab previews in Roblox Studio's explorer widget.,Enable Temporary Script Tabs In Explorer,Enable Temporary Script Tabs In Explorer
@@ -1383,6 +1385,7 @@ Studio.App.Property.SIMD,,SIMD,SIMD
 Studio.App.Property.SchedulerDutyCycle,,Scheduler Duty Cycle,Scheduler Duty Cycle
 Studio.App.Property.SchedulerRate,,Scheduler Rate,Scheduler Rate
 Studio.App.Property.ScriptEditorColorPreset,The set of colors used in syntax highlighting in script editor,Script Editor Color Preset,Script Editor Color Preset
+Studio.App.Property.ScriptEditorMenuBorderColor,,Script Editor Menu Border,Script Editor Menu Border
 Studio.App.Property.ScriptEditorScrollbarBackgroundColor,,Script Editor Scrollbar Background,Script Editor Scrollbar Background
 Studio.App.Property.ScriptEditorScrollbarHandleColor,,Script Editor Scrollbar Handle,Script Editor Scrollbar Handle
 Studio.App.Property.ScriptEditorShouldShowPluginMethods,Autocomplete should show Plugin security level methods in Script Editor,Autocomplete Plugin-security methods,Autocomplete Plugin-security methods
@@ -1396,6 +1399,7 @@ Studio.App.Property.SelectedMenuItemBackgroundColor,,Selected Menu Item Backgrou
 Studio.App.Property.SelectedTextColor,,Menu Selected Text Color,Menu Selected Text Color
 Studio.App.Property.SelectionBackgroundColor,,Selection Background Color,Selection Background Color
 Studio.App.Property.SelectionColor,,Selection Color,Selection Color
+Studio.App.Property.SelectionThickness,,Selection Box Thickness,Selection Box Thickness
 Studio.App.Property.SelfColor,,"""self"" Color","""self"" Color"
 Studio.App.Property.ServerAudioBehavior,,Server Audio Behavior,Server Audio Behavior
 Studio.App.Property.ShowActiveAnimationAsset,,Show Active Animation Asset,Show Active Animation Asset
@@ -1558,7 +1562,7 @@ Studio.App.PropertyTooltip.AutoClosingBrackets,,Automatically insert a closing b
 Studio.App.PropertyTooltip.AutoClosingQuotes,,Automatically insert a closing quotation following an opening quotation.,Automatically insert a closing quotation following an opening quotation.
 Studio.App.PropertyTooltip.AutoIndentRule,,Off: No automatic indentation. Relative: Auto-indent relative to the current line. Absolute: Auto-indent globally.,Off: No automatic indentation. Relative: Auto-indent relative to the current line. Absolute: Auto-indent globally.
 Studio.App.PropertyTooltip.EnableAutocomplete,,Enable code suggestions to show up while typing.,Enable code suggestions to show up while typing.
-Studio.App.PropertyTooltip.EnableLinting,,Enable Script Editor error and warning detection,Enable Script Editor error and warning detection
+Studio.App.PropertyTooltip.EnableScriptAnalysis,,Enable Script Editor error and warning detection,Enable Script Editor error and warning detection
 Studio.App.PropertyTooltip.EnableSignatureHelp,,Enable showing the types/names of function arguments when relevant,Enable showing the types/names of function arguments when relevant
 Studio.App.PropertyTooltip.EnableTypeHover,,Enable showing object type on cursor hover.,Enable showing object type on cursor hover.
 Studio.App.PropertyTooltip.Font,,"Change the text font family, typeface, and size.","Change the text font family, typeface, and size."
@@ -1571,6 +1575,7 @@ Studio.App.PropertyTooltip.PivotSnapToGeometryColor,,"When snapping the pivot to
 Studio.App.PropertyTooltip.RandomizeJoinInstanceOrder,,"Randomize instance order during join for test clients. This helps uncover bugs by approximating the behavior of real clients & servers, where the order of instances will change over time as more players join. Randomization may slightly increase join time bandwidth usage compared to real client-server joins.","Randomize instance order during join for test clients. This helps uncover bugs by approximating the behavior of real clients & servers, where the order of instances will change over time as more players join. Randomization may slightly increase join time bandwidth usage compared to real client-server joins."
 Studio.App.PropertyTooltip.Rulers,,Vertical lines drawn at the specified column numbers. These can be used as a guide to code length limits.,Vertical lines drawn at the specified column numbers. These can be used as a guide to code length limits.
 Studio.App.PropertyTooltip.ScrollPastLastLine,,Allow script editor to scroll past the last line.,Allow script editor to scroll past the last line.
+Studio.App.PropertyTooltip.SelectionThickness,,How thick is the box shown around the selected Instances?,How thick is the box shown around the selected Instances?
 Studio.App.PropertyTooltip.ShowWhitespace,,Visibly display spaces and tabs.,Visibly display spaces and tabs.
 Studio.App.PropertyTooltip.SkipClosingBracketsAndQuotes,,Skip over a closing bracket/quote instead of inserting another.,Skip over a closing bracket/quote instead of inserting another.
 Studio.App.PropertyTooltip.TabWidth,,"The width of a tab, measured in number of spaces. Value can only be between 1 and 8.","The width of a tab, measured in number of spaces. Value can only be between 1 and 8."
@@ -2233,6 +2238,7 @@ Do you want to disable Internal Features? This will make your Studio experience 
 You can go to Settings > Studio > Advanced to re-enable Internal Features."
 Studio.App.RobloxMainWindow.InternalFeaturesRestart,,Restart Roblox Studio,Restart Roblox Studio
 Studio.App.RobloxMainWindow.InternalFeaturesRestartDetails,,Roblox Studio need to restart to disable Internal Features,Roblox Studio need to restart to disable Internal Features
+Studio.App.RobloxMainWindow.MemoryAllocationFailure,,Roblox Studio encountered an error and must close. Please try restarting Studio.,Roblox Studio encountered an error and must close. Please try restarting Studio.
 Studio.App.RobloxMainWindow.NewScriptTab,,New Script Tab,New Script Tab
 Studio.App.RobloxMainWindow.OnlySaveToEditDM,,Can only save in Edit Mode,Can only save in Edit Mode
 Studio.App.RobloxMainWindow.OpenAllFilesPattern,"NOTE TO LOCALIZERS: Do not translate the parentheses (), whatever is inside the parentheses, or any other special characters, use ASCII instead.",All Files (*.*),All Files (*.*)

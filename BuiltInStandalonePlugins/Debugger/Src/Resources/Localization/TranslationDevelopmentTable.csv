@@ -1,14 +1,31 @@
 Key,Source,en-us
-Studio.Debugger.Callstack.FrameColumn,Frame,Frame
+Studio.Debugger.BreakpointsWindow.EnabledColumn,Enabled,Enabled
 Studio.Debugger.Plugin.Name,Debugger,Debugger
 Studio.Debugger.Plugin.Toolbar,Debugger,Debugger
-Studio.Debugger.Callstack.WindowName,Call Stack,Call Stack
-Studio.Debugger.Plugin.Description,Toggles the Debugger plugin window.,Toggles the Debugger plugin window.
+Studio.Debugger.BreakpointsWindow.ConditionColumn,Condition,Condition
+Studio.Debugger.EditDebugpoint.ConditionLabel,Condition,Condition
 Studio.Debugger.Plugin.Button,Toggle,Toggle
+Studio.Debugger.EditDebugpoint.TitleLine,line {LineNumber:int},line {LineNumber:int}
+Studio.Debugger.EditDebugpoint.OptionsLabel,Options,Options
+Studio.Debugger.Plugin.Description,Toggles the Debugger plugin window.,Toggles the Debugger plugin window.
+Studio.Debugger.EditBreakpoint.DialogName,Edit Breakpoint,Edit Breakpoint
+Studio.Debugger.BreakpointsWindow.ScriptColumn,Script,Script
+Studio.Debugger.BreakpointsWindow.LogMessageColumn,Log Message,Log Message
+Studio.Debugger.EditDebugpoint.LogLabel,Log Message,Log Message
+Studio.Debugger.EditDebugpoint.Cancel,Cancel,Cancel
+Studio.Debugger.EditDebugpoint.Save,Save,Save
+Studio.Debugger.EditDebugpoint.EnabledLabel,isEnabled,isEnabled
+Studio.Debugger.EditDebugpoint.LogPlaceholder,Enter log message(s),Enter log message(s)
+Studio.Debugger.Callstack.SourceColumn,Source,Source
+Studio.Debugger.EditDebugpoint.ConditionPlaceholder,Enter condition(s),Enter condition(s)
+Studio.Debugger.EditDebugpoint.LogTooltip,Log message will be displayed in Output widget when a Logpoint is hit.,Log message will be displayed in Output widget when a Logpoint is hit.
+Studio.Debugger.Callstack.WindowName,Call Stack,Call Stack
+Studio.Debugger.Callstack.FrameColumn,Frame,Frame
+Studio.Debugger.Callstack.WhatColumn,What,What
 Studio.Debugger.Callstack.SelectInputPlaceholderText,Select Script,Select Script
 Studio.Debugger.Callstack.FunctionNameColumn,Function Name,Function Name
-Studio.Debugger.EditBreakpoint.DialogName,Edit Breakpoint,Edit Breakpoint
-Studio.Debugger.Callstack.WhatColumn,What,What
 Studio.Debugger.Callstack.LineNumberColumn,Line No.,Line No.
-Studio.Debugger.Callstack.SourceColumn,Source,Source
 Studio.Debugger.Callstack.CurrentScriptTitle,Current Script: ,Current Script: 
+Studio.Debugger.BreakpointsWindow.WindowName,Breakponts Window,Breakpoints Window
+Studio.Debugger.BreakpointsWindow.LineColumn,Line,Line
+Studio.Debugger.BreakpointsWindow.SourceLineColumn,Source Line,Source Line

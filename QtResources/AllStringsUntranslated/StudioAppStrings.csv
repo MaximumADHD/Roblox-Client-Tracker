@@ -164,6 +164,8 @@ Studio.App.IdeDoc.Publish,Roblox IDE Doc,Publish,Publish
 Studio.App.IdeDoc.RequestedAssetTypeNotSupported,Roblox IDE Doc,Requested asset type is not supported.,Requested asset type is not supported.
 Studio.App.IdeDoc.RequestingAccess,Roblox IDE Doc,Requesting access...,Requesting access...
 Studio.App.IdeDoc.CloudTestFailed,Roblox IDE Doc,Request to connect to team test failed.,Request to connect to team test failed.
+Studio.App.IdeDoc.CloudTestFetchConfigFailed,Roblox IDE Doc,Cannot fetch team test launch config.,Cannot fetch team test launch config.
+Studio.App.IdeDoc.CannotOpenFileForRead,Roblox IDE Doc,Cannot open place file for read.,Cannot open place file for read.
 Studio.App.IdeDoc.RobloxPlaceFilesAndXMLPlaceFiles,"Roblox IDE Doc. NOTE TO LOCALIZERS: Do not translate the parentheses (), whatever is inside the parentheses, or any other special characters, use ASCII instead.",Roblox Place Files (*.rbxl);;Roblox XML Place Files (*.rbxlx),Roblox Place Files (*.rbxl);;Roblox XML Place Files (*.rbxlx)
 Studio.App.IdeDoc.SaveFileFailure,Roblox IDE Doc,Save File Failure,Save File Failure
 Studio.App.IdeDoc.DoNotUseReservedAutoSavePath1,Roblox IDE Doc,"This file path ""%1"" is reserved for auto-recovery. Try again with a different name","This file path ""%1"" is reserved for auto-recovery. Try again with a different name"
@@ -1751,6 +1753,8 @@ Studio.App.Property.PivotSnapToGeometryColor,,Pivot Snap To Geometry Color,Pivot
 Studio.App.PropertyTooltip.PivotSnapToGeometryColor,,"When snapping the pivot to geometry in the Pivot Editor, what color should the interesting points be highlighted with?","When snapping the pivot to geometry in the Pivot Editor, what color should the interesting points be highlighted with?"
 Studio.App.Property.HoverBoxThickness,,Hover Box Thickness,Hover Box Thickness
 Studio.App.PropertyTooltip.HoverThickness,,How thick is the box shown around the item your mouse is hovering over?,How thick is the box shown around the item your mouse is hovering over?
+Studio.App.Property.SelectionThickness,,Selection Box Thickness,Selection Box Thickness
+Studio.App.PropertyTooltip.SelectionThickness,,How thick is the box shown around the selected Instances?,How thick is the box shown around the selected Instances?
 Studio.App.SettingsCategory.StudioScriptEditor,,Script Editor,Script Editor
 Studio.App.Property.Font,,Font,Font
 Studio.App.Property.TabWidth,,Tab Width,Tab Width
@@ -1767,7 +1771,7 @@ Studio.App.Property.AutoCleanEmptyLine,,Auto Clean Empty Line,Auto Clean Empty L
 Studio.App.Property.AutoClosingQuotes,,Auto Closing Quotes,Auto Closing Quotes
 Studio.App.Property.SkipClosingBracketsAndQuotes,,Skip Closing Brackets and Quotes,Skip Closing Brackets and Quotes
 Studio.App.Property.EnableAutocomplete,,Enable Autocomplete,Enable Autocomplete
-Studio.App.Property.EnableLinting,,Enable Linting,Enable Linting
+Studio.App.Property.EnableScriptAnalysis,,Enable Script Analysis,Enable Script Analysis
 Studio.App.Property.EnableTypeHover,,Enable Type Hover,Enable Type Hover
 Studio.App.Property.EnableSignatureHelp,,Enable Signature Help,Enable Signature Help
 Studio.App.Property.HighlightCurrentLine,Should we highlight the line we are currently editing in script editor,Highlight Current Line,Highlight Current Line
@@ -1819,6 +1823,7 @@ Studio.App.Property.MenuItemBackgroundColor,,Menu Item Background,Menu Item Back
 Studio.App.Property.SelectedMenuItemBackgroundColor,,Selected Menu Item Background,Selected Menu Item Background
 Studio.App.Property.ScriptEditorScrollbarBackgroundColor,,Script Editor Scrollbar Background,Script Editor Scrollbar Background
 Studio.App.Property.ScriptEditorScrollbarHandleColor,,Script Editor Scrollbar Handle,Script Editor Scrollbar Handle
+Studio.App.Property.ScriptEditorMenuBorderColor,,Script Editor Menu Border,Script Editor Menu Border
 Studio.App.SettingsCategory.StudioOutput,,Output,Output
 Studio.App.Property.OutputLayoutMode,,Output Layout Mode,Output Layout Mode
 Studio.App.Property.ClearOutputOnStart,,Clear Output On Start,Clear Output On Start
@@ -1957,7 +1962,7 @@ Studio.App.PropertyTooltip.AutoCleanEmptyLine,,Automatically clean tabs and spac
 Studio.App.PropertyTooltip.AutoClosingQuotes,,Automatically insert a closing quotation following an opening quotation.,Automatically insert a closing quotation following an opening quotation.
 Studio.App.PropertyTooltip.SkipClosingBracketsAndQuotes,,Skip over a closing bracket/quote instead of inserting another.,Skip over a closing bracket/quote instead of inserting another.
 Studio.App.PropertyTooltip.EnableAutocomplete,,Enable code suggestions to show up while typing.,Enable code suggestions to show up while typing.
-Studio.App.PropertyTooltip.EnableLinting,,Enable Script Editor error and warning detection,Enable Script Editor error and warning detection
+Studio.App.PropertyTooltip.EnableScriptAnalysis,,Enable Script Editor error and warning detection,Enable Script Editor error and warning detection
 Studio.App.PropertyTooltip.EnableTypeHover,,Enable showing object type on cursor hover.,Enable showing object type on cursor hover.
 Studio.App.PropertyTooltip.EnableSignatureHelp,,Enable showing the types/names of function arguments when relevant,Enable showing the types/names of function arguments when relevant
 Studio.App.PropertyTooltip.RandomizeJoinInstanceOrder,,"Randomize instance order during join for test clients. This helps uncover bugs by approximating the behavior of real clients & servers, where the order of instances will change over time as more players join. Randomization may slightly increase join time bandwidth usage compared to real client-server joins.","Randomize instance order during join for test clients. This helps uncover bugs by approximating the behavior of real clients & servers, where the order of instances will change over time as more players join. Randomization may slightly increase join time bandwidth usage compared to real client-server joins."
@@ -2422,6 +2427,7 @@ Studio.App.RobloxMainWindow.PluginInstallation,,Plugin Installation,Plugin Insta
 Studio.App.RobloxMainWindow.OpenScriptFile,,Open Script File,Open Script File
 Studio.App.RobloxMainWindow.OpenMeshFile,,Open Mesh File,Open Mesh File
 Studio.App.RobloxMainWindow.SaveAs,,Save As,Save As
+Studio.App.RobloxMainWindow.MemoryAllocationFailure,,Roblox Studio encountered an error and must close. Please try restarting Studio.,Roblox Studio encountered an error and must close. Please try restarting Studio.
 Studio.App.StudioSerializerHelper.ErrorSavingFile2,,Error saving file '%1' - %2,Error saving file '%1' - %2
 Studio.App.LocalSaveHelper.InvalidFilename,,Invalid filename for saving.,Invalid filename for saving.
 Studio.App.LocalSaveHelper.FailedToLock1,,"Failed to obtain a file lock on '%1'.

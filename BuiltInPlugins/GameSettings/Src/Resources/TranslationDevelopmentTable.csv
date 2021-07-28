@@ -85,7 +85,6 @@ Studio.GameSettings.General.TitlePlayability,Playability, ,Playability
 Studio.GameSettings.General.TitleThumbnails,Screenshots & Videos, ,Screenshots & Videos
 Studio.GameSettings.General.CategoryLocalization,Localization, ,Localization
 Studio.GameSettings.General.TitleGenre,Genre, ,Genre
-Studio.GameSettings.OptInLocations.EmailSubmitFailure,Error submitting email for review feedback. Error code: , ,Error submitting email for review feedback. Error code: 
 Studio.GameSettings.General.TitleHttp,Allow HTTP Requests, ,Allow HTTP Requests
 Studio.GameSettings.General.ClothingPants,Pants ID, ,Pants ID
 Studio.GameSettings.General.TitleOptInLocations,Opt-In Locations, ,Opt-In Locations
@@ -246,6 +245,7 @@ Studio.GameSettings.Monetization.PriceTitle,Price, ,Price
 Studio.GameSettings.General.DevSubsImage,Image, ,Image
 Studio.GameSettings.General.DevSubsDuration,Pre-paid, ,Pre-paid
 Studio.GameSettings.General.DevSubsPendingEarning,Pending Earning, ,Pending Earning
+Studio.GameSettings.OptInLocations.EmailDialogBody,"Your game will be reviewed by moderators to ensure that your game is compliant with Chinese content regulations. After your game is reviewed, we will send you review feedback.", ,"Your game will be reviewed by moderators to ensure that your game is compliant with Chinese content regulations. After your game is reviewed, we will send you review feedback."
 Studio.GameSettings.General.CategoryMonetization,Monetization, ,Monetization
 Studio.GameSettings.General.DevSubsId,Id, ,Id
 Studio.GameSettings.General.VoiceChatNonLinkText,Enables in-game voice chat. Voice chat will only work if your game meets the eligibility criteria outlined [link]., ,Enables in-game voice chat. Voice chat will only work if your game meets the eligibility criteria outlined [link].
@@ -366,7 +366,6 @@ Studio.GameSettings.Monetization.Badges,Badges, ,Badges
 Studio.GameSettings.Monetization.BadgeDescription,Badge Description, ,Badge Description
 Studio.GameSettings.OptInLocations.Tooltip,Your creation will be published globally in addition to all the selected opt-in locations. See each location for specific requirements., ,Your creation will be published globally in addition to all the selected opt-in locations. See each location for specific requirements.
 Studio.GameSettings.OptInLocations.EmailDialogHeader,Email for Review Feedback, ,Email for Review Feedback
-Studio.GameSettings.OptInLocations.EmailDialogBody,"Your game will be reviewed by moderators to ensure that your game is compliant with Chinese content regulations. After your game is reviewed, we will send you review feedback. The review will take 3-5 days.", ,"Your game will be reviewed by moderators to ensure that your game is compliant with Chinese content regulations. After your game is reviewed, we will send you review feedback. The review will take 3-5 days."
 Studio.GameSettings.OptInLocations.EmailDialogDescription,Please enter the email where you would like to receive review feedback:, ,Please enter the email where you would like to receive review feedback:
 Studio.GameSettings.OptInLocations.ConfirmEmailAddress,Confirm email address, ,Confirm email address
 Studio.GameSettings.General.TermsDialogHeader,Terms of Use and Privacy Policy, ,Terms of Use and Privacy Policy
@@ -374,6 +373,7 @@ Studio.GameSettings.General.TermsDialogBody,"In order to publish on the LuoBuLeS
 Studio.GameSettings.OptInLocations.ChinaRequirements, to publish to China, , to publish to China
 Studio.GameSettings.OptInLocations.RequirementsLinkText,Requirements, ,Requirements
 Studio.GameSettings.OptInLocations.Status,Status: , ,Status: 
+Studio.GameSettings.OptInLocations.EmailSubmitFailure,Failed to submit email for review feedback. Error code: , ,Failed to submit email for review feedback. Error code: 
 Studio.GameSettings.General.VoiceChatTitle,In-Game Voice Chat, ,In-Game Voice Chat
 Studio.GameSettings.General.VoiceChatText,Enables in-game voice chat. Voice chat will only work if players meet age eligibility criteria., ,Enables in-game voice chat. Voice chat will only work if players meet age eligibility criteria.
 Studio.GameSettings.General.VoiceChatLinkText,here, ,here

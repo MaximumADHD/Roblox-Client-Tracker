@@ -2249,6 +2249,25 @@
             "Members": [
                 {
                     "MemberType": "Function",
+                    "Name": "GetInstanceMap",
+                    "Parameters": [
+                        {
+                            "Name": "fileName",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Dictionary"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "ImportMesh",
                     "Parameters": [
                         {
@@ -2314,18 +2333,6 @@
                         "Category": "Class",
                         "Name": "AssetImportItemSettings"
                     }
-                },
-                {
-                    "MemberType": "Function",
-                    "Name": "Import",
-                    "Parameters": [
-                    ],
-                    "ReturnType": {
-                        "Category": "Class",
-                        "Name": "Instance"
-                    },
-                    "Security": "RobloxScriptSecurity",
-                    "ThreadSafety": "Unsafe"
                 }
             ],
             "MemoryCategory": "Instances",
@@ -3597,6 +3604,29 @@
                 {
                     "Category": "Data",
                     "MemberType": "Property",
+                    "Name": "IsCFrameDriven",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "Hidden",
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
                     "Name": "Transform",
                     "Security": {
                         "Read": "None",
@@ -4523,11 +4553,62 @@
             "Members": [
                 {
                     "MemberType": "Function",
+                    "Name": "ImportFBXAnimationUserMayChooseModel",
+                    "Parameters": [
+                        {
+                            "Name": "selectedRig",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "Instance"
+                            }
+                        },
+                        {
+                            "Name": "userChooseModelThenImportCB",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "Function"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Class",
+                        "Name": "Instance"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "Tags": [
+                        "Yields"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "ImportFbxRigWithoutSceneLoad",
                     "Parameters": [
                         {
                             "Default": "true",
                             "Name": "isR15",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "bool"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Class",
+                        "Name": "Instance"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "Tags": [
+                        "Yields"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "ImportLoadedFBXAnimation",
+                    "Parameters": [
+                        {
+                            "Name": "useFBXModel",
                             "Type": {
                                 "Category": "Primitive",
                                 "Name": "bool"
@@ -15863,6 +15944,32 @@
                         },
                         {
                             "Name": "conditon",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "Instance"
+                            }
+                        },
+                        {
+                            "Name": "status",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "Function"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "int"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetSource",
+                    "Parameters": [
+                        {
+                            "Name": "scriptRef",
                             "Type": {
                                 "Category": "Class",
                                 "Name": "Instance"
@@ -28268,6 +28375,14 @@
                 {
                     "MemberType": "Event",
                     "Name": "CloseInspectMenuRequest",
+                    "Parameters": [
+                    ],
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "CoreGuiRenderOverflowed",
                     "Parameters": [
                     ],
                     "Security": "RobloxScriptSecurity",
@@ -45584,6 +45699,18 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "GetServerTimeNow",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "double"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "JoinToOutsiders",
                     "Parameters": [
                         {
@@ -48872,7 +48999,7 @@
                     ],
                     "ReturnType": {
                         "Category": "Primitive",
-                        "Name": "int"
+                        "Name": "float"
                     },
                     "Security": "None",
                     "ThreadSafety": "Unsafe"
@@ -57210,48 +57337,32 @@
         },
         {
             "Members": [
-                {
-                    "MemberType": "Function",
-                    "Name": "Find",
-                    "Parameters": [
-                        {
-                            "Name": "dataModel",
-                            "Type": {
-                                "Category": "Class",
-                                "Name": "Instance"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "Class",
-                        "Name": "Instance"
-                    },
-                    "Security": "RobloxScriptSecurity",
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Function",
-                    "Name": "FindAll",
-                    "Parameters": [
-                        {
-                            "Name": "dataModel",
-                            "Type": {
-                                "Category": "Class",
-                                "Name": "Instance"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "DataType",
-                        "Name": "Objects"
-                    },
-                    "Security": "RobloxScriptSecurity",
-                    "ThreadSafety": "Unsafe"
-                }
             ],
             "MemoryCategory": "Instances",
             "Name": "ScriptRef",
             "Superclass": "Instance",
+            "Tags": [
+                "NotCreatable",
+                "NotReplicated"
+            ]
+        },
+        {
+            "Members": [
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "ScriptRefId",
+            "Superclass": "ScriptRef",
+            "Tags": [
+                "NotCreatable",
+                "NotReplicated"
+            ]
+        },
+        {
+            "Members": [
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "ScriptRefPath",
+            "Superclass": "ScriptRef",
             "Tags": [
                 "NotCreatable",
                 "NotReplicated"
@@ -57291,6 +57402,28 @@
                     "ValueType": {
                         "Category": "Class",
                         "Name": "Instance"
+                    }
+                },
+                {
+                    "Category": "Appearance",
+                    "MemberType": "Property",
+                    "Name": "SelectionThickness",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
                     }
                 },
                 {
@@ -63382,7 +63515,7 @@
                 {
                     "Category": "Script Editor",
                     "MemberType": "Property",
-                    "Name": "Enable Linting",
+                    "Name": "Enable Script Analysis",
                     "Security": {
                         "Read": "RobloxScriptSecurity",
                         "Write": "RobloxScriptSecurity"
@@ -64312,6 +64445,28 @@
                     }
                 },
                 {
+                    "Category": "Script Editor Colors",
+                    "MemberType": "Property",
+                    "Name": "ScriptEditorMenuBorderColor",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "Hidden",
+                        "NotReplicated"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "Color3"
+                    }
+                },
+                {
                     "Category": "Script Editor",
                     "MemberType": "Property",
                     "Name": "ScriptEditorShouldShowPluginMethods",
@@ -64526,6 +64681,24 @@
                     "ValueType": {
                         "Category": "DataType",
                         "Name": "Color3"
+                    }
+                },
+                {
+                    "Category": "Tools",
+                    "MemberType": "Property",
+                    "Name": "Selection Highlight Thickness",
+                    "Security": {
+                        "Read": "RobloxSecurity",
+                        "Write": "RobloxSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
                     }
                 },
                 {
@@ -77470,6 +77643,10 @@
                     "Value": 282
                 },
                 {
+                    "Name": "DisconnectClientFailure",
+                    "Value": 284
+                },
+                {
                     "Name": "PlacelaunchErrors",
                     "Value": 512
                 },
@@ -77854,6 +78031,10 @@
                 {
                     "Name": "RpcError",
                     "Value": 6
+                },
+                {
+                    "Name": "InvalidArgument",
+                    "Value": 7
                 }
             ],
             "Name": "DebuggerStatus"
@@ -82705,6 +82886,10 @@
                 {
                     "Name": "MenuScrollbarHandle",
                     "Value": 36
+                },
+                {
+                    "Name": "MenuBorder",
+                    "Value": 37
                 }
             ],
             "Name": "StudioScriptEditorColorCategories"
@@ -84280,6 +84465,10 @@
                 {
                     "Name": "Rbf",
                     "Value": 5
+                },
+                {
+                    "Name": "OuterCage",
+                    "Value": 6
                 }
             ],
             "Name": "WrapLayerDebugMode"
